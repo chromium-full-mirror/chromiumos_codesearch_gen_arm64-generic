@@ -91,30 +91,17 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasElapsedTime()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_elapsed_time_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_elapsed_time_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasPropertyName()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_property_name_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_property_name_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasPseudoElement()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_pseudo_element_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_pseudo_element_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

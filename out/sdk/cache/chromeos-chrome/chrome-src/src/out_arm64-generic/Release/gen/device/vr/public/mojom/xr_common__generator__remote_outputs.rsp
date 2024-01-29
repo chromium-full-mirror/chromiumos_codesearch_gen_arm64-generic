@@ -1,0 +1,15 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/openxr_interaction_profile_type.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/openxr_interaction_profile_type.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/openxr_interaction_profile_type.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/openxr_interaction_profile_type.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/openxr_interaction_profile_type.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_device.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_device.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_device.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_device.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_device.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_session.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_session.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_session.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_session.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/vr/public/mojom/xr_session.mojom.h

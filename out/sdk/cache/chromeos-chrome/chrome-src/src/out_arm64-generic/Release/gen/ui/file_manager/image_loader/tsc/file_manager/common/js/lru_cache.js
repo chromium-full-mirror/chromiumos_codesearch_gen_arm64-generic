@@ -5,22 +5,23 @@
  * A linked-list node which holds data for cache entry such as key, value, size.
  */
 class LruCacheNode {
+    key;
+    value;
+    size;
+    next = null;
+    prev = null;
     constructor(key, value, size) {
         this.key = key;
         this.value = value;
         this.size = size;
-        this.next = null;
-        this.prev = null;
     }
 }
 /**
  * Container of the list of cache nodes.
  */
 class LruCacheList {
-    constructor() {
-        this.tail_ = null;
-        this.head_ = null;
-    }
+    tail_ = null;
+    head_ = null;
     /**
      * Removes a node from this list.
      */
@@ -65,6 +66,10 @@ class LruCacheList {
  * Cache management class implementing LRU algorithm.
  */
 export class LruCache {
+    maxSize_;
+    totalSize_ = 0;
+    list_ = new LruCacheList();
+    nodes_ = {};
     /**
      * @param maxSize_ Maximum total size of items this cache can hold.
      *     When items are put without specifying their sizes, their sizes are
@@ -74,9 +79,6 @@ export class LruCache {
      */
     constructor(maxSize_) {
         this.maxSize_ = maxSize_;
-        this.totalSize_ = 0;
-        this.list_ = new LruCacheList();
-        this.nodes_ = {};
     }
     /**
      * Returns a cached item corresponding to the given key. The referenced item

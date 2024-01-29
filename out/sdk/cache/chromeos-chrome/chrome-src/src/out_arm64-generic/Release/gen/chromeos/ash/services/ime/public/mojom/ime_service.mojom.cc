@@ -345,6 +345,8 @@ bool InputEngineManager_ConnectToImeEngine_ForwardToCallback::Accept(
           internal::InputEngineManager_ConnectToImeEngine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputEngineManager.0
   bool success = true;
   bool p_success{};
   InputEngineManager_ConnectToImeEngine_ResponseParamsDataView input_data_view(params, message);
@@ -464,6 +466,8 @@ bool InputEngineManager_InitializeConnectionFactory_ForwardToCallback::Accept(
           internal::InputEngineManager_InitializeConnectionFactory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputEngineManager.1
   bool success = true;
   bool p_success{};
   InputEngineManager_InitializeConnectionFactory_ResponseParamsDataView input_data_view(params, message);
@@ -557,6 +561,8 @@ bool InputEngineManagerStubDispatch::AcceptWithResponder(
               internal::InputEngineManager_ConnectToImeEngine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputEngineManager.0
       bool success = true;
       std::string p_ime_spec{};
       ::mojo::PendingReceiver<::ash::ime::mojom::InputChannel> p_to_engine_request{};
@@ -588,11 +594,11 @@ bool InputEngineManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToImeEngine(
-std::move(p_ime_spec), 
-std::move(p_to_engine_request), 
-std::move(p_from_engine), 
-std::move(p_extra), std::move(callback));
+      impl->ConnectToImeEngine(        
+        std::move(p_ime_spec), 
+        std::move(p_to_engine_request), 
+        std::move(p_from_engine), 
+        std::move(p_extra), std::move(callback));
       return true;
     }
     case internal::kInputEngineManager_InitializeConnectionFactory_Name: {
@@ -602,6 +608,8 @@ std::move(p_extra), std::move(callback));
               internal::InputEngineManager_InitializeConnectionFactory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputEngineManager.1
       bool success = true;
       ::mojo::PendingReceiver<::ash::ime::mojom::ConnectionFactory> p_connection_factory{};
       InputEngineManager_InitializeConnectionFactory_ParamsDataView input_data_view(params, message);
@@ -622,8 +630,8 @@ std::move(p_extra), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeConnectionFactory(
-std::move(p_connection_factory), std::move(callback));
+      impl->InitializeConnectionFactory(        
+        std::move(p_connection_factory), std::move(callback));
       return true;
     }
   }
@@ -845,6 +853,8 @@ bool PlatformAccessProvider_DownloadImeFileTo_ForwardToCallback::Accept(
           internal::PlatformAccessProvider_DownloadImeFileTo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PlatformAccessProvider.0
   bool success = true;
   ::base::FilePath p_file_path{};
   PlatformAccessProvider_DownloadImeFileTo_ResponseParamsDataView input_data_view(params, message);
@@ -945,6 +955,8 @@ bool PlatformAccessProviderStubDispatch::AcceptWithResponder(
               internal::PlatformAccessProvider_DownloadImeFileTo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PlatformAccessProvider.0
       bool success = true;
       ::GURL p_url{};
       ::base::FilePath p_file_path{};
@@ -966,9 +978,9 @@ bool PlatformAccessProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadImeFileTo(
-std::move(p_url), 
-std::move(p_file_path), std::move(callback));
+      impl->DownloadImeFileTo(        
+        std::move(p_url), 
+        std::move(p_file_path), std::move(callback));
       return true;
     }
   }
@@ -1173,6 +1185,8 @@ bool ImeServiceStubDispatch::Accept(
           reinterpret_cast<internal::ImeService_SetPlatformAccessProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeService.0
       bool success = true;
       ::mojo::PendingRemote<PlatformAccessProvider> p_provider{};
       ImeService_SetPlatformAccessProvider_ParamsDataView input_data_view(params, message);
@@ -1190,8 +1204,8 @@ bool ImeServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPlatformAccessProvider(
-std::move(p_provider));
+      impl->SetPlatformAccessProvider(        
+        std::move(p_provider));
       return true;
     }
     case internal::kImeService_BindInputEngineManager_Name: {
@@ -1201,6 +1215,8 @@ std::move(p_provider));
           reinterpret_cast<internal::ImeService_BindInputEngineManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeService.1
       bool success = true;
       ::mojo::PendingReceiver<InputEngineManager> p_receiver{};
       ImeService_BindInputEngineManager_ParamsDataView input_data_view(params, message);
@@ -1218,8 +1234,8 @@ std::move(p_provider));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInputEngineManager(
-std::move(p_receiver));
+      impl->BindInputEngineManager(        
+        std::move(p_receiver));
       return true;
     }
   }

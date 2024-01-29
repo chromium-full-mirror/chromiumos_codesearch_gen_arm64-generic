@@ -30,6 +30,8 @@ class DriveErrorDataView;
 
 class DialogReasonDataView;
 
+class UserInfoDataView;
+
 class FileMetadataDataView;
 
 class ShortcutDetailsDataView;
@@ -132,6 +134,9 @@ using DriveErrorPtr = mojo::StructPtr<DriveError>;
 
 class DialogReason;
 using DialogReasonPtr = mojo::StructPtr<DialogReason>;
+
+class UserInfo;
+using UserInfoPtr = mojo::InlinedStructPtr<UserInfo>;
 
 class FileMetadata;
 using FileMetadataPtr = mojo::StructPtr<FileMetadata>;

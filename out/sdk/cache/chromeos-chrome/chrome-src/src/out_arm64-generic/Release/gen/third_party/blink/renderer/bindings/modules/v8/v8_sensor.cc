@@ -83,7 +83,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_ac
 BLINK_BINDINGS_TRACE_EVENT("Sensor.activated.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorActivated);
 
@@ -121,8 +122,7 @@ BLINK_BINDINGS_TRACE_EVENT("Sensor.timestamp.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 Sensor* blink_receiver = V8Sensor::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->timestamp(script_state);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
@@ -135,7 +135,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_on
 BLINK_BINDINGS_TRACE_EVENT("Sensor.onerror.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnError);
 
@@ -153,7 +154,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_on
 BLINK_BINDINGS_TRACE_EVENT("Sensor.onerror.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnError);
 
@@ -172,7 +174,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_on
 BLINK_BINDINGS_TRACE_EVENT("Sensor.onreading.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnChange);
 
@@ -190,7 +193,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_on
 BLINK_BINDINGS_TRACE_EVENT("Sensor.onreading.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnChange);
 
@@ -209,7 +213,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_on
 BLINK_BINDINGS_TRACE_EVENT("Sensor.onactivate.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnActivate);
 
@@ -227,7 +232,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Sensor_on
 BLINK_BINDINGS_TRACE_EVENT("Sensor.onactivate.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorOnActivate);
 
@@ -247,7 +253,8 @@ BLINK_BINDINGS_TRACE_EVENT("Sensor.start");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorStart);
 
@@ -269,7 +276,8 @@ BLINK_BINDINGS_TRACE_EVENT("Sensor.stop");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGenericSensorStop);
 

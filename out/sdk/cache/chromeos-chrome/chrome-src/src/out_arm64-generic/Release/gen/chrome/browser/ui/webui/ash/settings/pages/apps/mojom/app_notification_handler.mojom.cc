@@ -609,6 +609,8 @@ bool AppNotificationsHandler_GetApps_ForwardToCallback::Accept(
           internal::AppNotificationsHandler_GetApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppNotificationsHandler.3
   bool success = true;
   std::vector<AppPtr> p_apps{};
   AppNotificationsHandler_GetApps_ResponseParamsDataView input_data_view(params, message);
@@ -740,6 +742,8 @@ bool AppNotificationsHandler_GetQuietMode_ForwardToCallback::Accept(
           internal::AppNotificationsHandler_GetQuietMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppNotificationsHandler.4
   bool success = true;
   bool p_enabled{};
   AppNotificationsHandler_GetQuietMode_ResponseParamsDataView input_data_view(params, message);
@@ -814,6 +818,8 @@ bool AppNotificationsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::AppNotificationsHandler_SetQuietMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppNotificationsHandler.0
       bool success = true;
       bool p_enabled{};
       AppNotificationsHandler_SetQuietMode_ParamsDataView input_data_view(params, message);
@@ -829,8 +835,8 @@ bool AppNotificationsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetQuietMode(
-std::move(p_enabled));
+      impl->SetQuietMode(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kAppNotificationsHandler_AddObserver_Name: {
@@ -840,6 +846,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::AppNotificationsHandler_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppNotificationsHandler.1
       bool success = true;
       ::mojo::PendingRemote<AppNotificationsObserver> p_observer{};
       AppNotificationsHandler_AddObserver_ParamsDataView input_data_view(params, message);
@@ -857,8 +865,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAppNotificationsHandler_SetNotificationPermission_Name: {
@@ -868,6 +876,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AppNotificationsHandler_SetNotificationPermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppNotificationsHandler.2
       bool success = true;
       std::string p_app_id{};
       ::apps::PermissionPtr p_permission{};
@@ -886,9 +896,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNotificationPermission(
-std::move(p_app_id), 
-std::move(p_permission));
+      impl->SetNotificationPermission(        
+        std::move(p_app_id), 
+        std::move(p_permission));
       return true;
     }
     case internal::kAppNotificationsHandler_GetApps_Name: {
@@ -904,6 +914,8 @@ std::move(p_permission));
           reinterpret_cast<internal::AppNotificationsHandler_OpenBrowserNotificationSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppNotificationsHandler.5
       bool success = true;
       AppNotificationsHandler_OpenBrowserNotificationSettings_ParamsDataView input_data_view(params, message);
       
@@ -916,7 +928,7 @@ std::move(p_permission));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenBrowserNotificationSettings();
+      impl->OpenBrowserNotificationSettings(        );
       return true;
     }
   }
@@ -948,6 +960,8 @@ bool AppNotificationsHandlerStubDispatch::AcceptWithResponder(
               internal::AppNotificationsHandler_GetApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppNotificationsHandler.3
       bool success = true;
       AppNotificationsHandler_GetApps_ParamsDataView input_data_view(params, message);
       
@@ -973,6 +987,8 @@ bool AppNotificationsHandlerStubDispatch::AcceptWithResponder(
               internal::AppNotificationsHandler_GetQuietMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppNotificationsHandler.4
       bool success = true;
       AppNotificationsHandler_GetQuietMode_ParamsDataView input_data_view(params, message);
       
@@ -1206,6 +1222,8 @@ bool AppNotificationsObserverStubDispatch::Accept(
           reinterpret_cast<internal::AppNotificationsObserver_OnNotificationAppChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppNotificationsObserver.0
       bool success = true;
       AppPtr p_app{};
       AppNotificationsObserver_OnNotificationAppChanged_ParamsDataView input_data_view(params, message);
@@ -1221,8 +1239,8 @@ bool AppNotificationsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationAppChanged(
-std::move(p_app));
+      impl->OnNotificationAppChanged(        
+        std::move(p_app));
       return true;
     }
     case internal::kAppNotificationsObserver_OnQuietModeChanged_Name: {
@@ -1232,6 +1250,8 @@ std::move(p_app));
           reinterpret_cast<internal::AppNotificationsObserver_OnQuietModeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppNotificationsObserver.1
       bool success = true;
       bool p_enabled{};
       AppNotificationsObserver_OnQuietModeChanged_ParamsDataView input_data_view(params, message);
@@ -1247,8 +1267,8 @@ std::move(p_app));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnQuietModeChanged(
-std::move(p_enabled));
+      impl->OnQuietModeChanged(        
+        std::move(p_enabled));
       return true;
     }
   }

@@ -258,13 +258,14 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) UntrustworthyContextMen
   int32_t x;
   int32_t y;
   uint8_t has_image_contents : 1;
+  uint8_t is_image_media_plugin_document : 1;
   uint8_t spellcheck_enabled : 1;
   uint8_t is_editable : 1;
   uint8_t opened_from_highlight : 1;
   uint8_t form_control_type_$flag : 1;
   uint8_t is_content_editable_for_autofill : 1;
   uint8_t is_password_type_by_heuristics : 1;
-  uint8_t pad9_[3];
+  uint8_t pad10_[3];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> link_url;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> link_text;
   mojo::internal::Pointer<::blink::mojom::internal::Impression_Data> impression;
@@ -289,7 +290,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) UntrustworthyContextMen
   int32_t selection_start_offset;
   mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> selection_rect;
   int32_t form_control_type_$value;
-  uint8_t pad33_[4];
+  uint8_t pad34_[4];
   mojo::internal::Pointer<internal::FieldRendererId_Data> field_renderer_id;
   mojo::internal::Pointer<internal::FormRendererId_Data> form_renderer_id;
 

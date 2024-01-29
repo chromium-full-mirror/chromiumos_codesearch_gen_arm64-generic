@@ -106,6 +106,8 @@ NOINLINE static const char* RequestDestinationToStringHelper(RequestDestination 
       return "kDictionary";
     case RequestDestination::kSpeculationRules:
       return "kSpeculationRules";
+    case RequestDestination::kJson:
+      return "kJson";
     default:
       return nullptr;
   }

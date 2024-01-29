@@ -21,6 +21,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_element_creation_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_handler_non_null.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_get_html_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_get_inner_html_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_selection.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
@@ -243,6 +244,43 @@ bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
 
+void SerializableAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoot_serializable_Getter");
+BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.serializable.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->serializable();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+void SerializableAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoot_serializable_Setter");
+BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.serializable.set");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Value> v8_property_value = info[0];
+const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
+const char* const class_like_name = "ShadowRoot";
+const char* const property_name = "serializable";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+auto&& arg1_value = NativeValueTraits<IDLBoolean>::NativeValue(isolate, v8_property_value, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->setSerializable(arg1_value);
+
+}
+
 void ActiveElementAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoot_activeElement_Getter");
@@ -312,7 +350,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoo
 BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.adoptedStyleSheets.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 
@@ -330,7 +369,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoo
 BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.adoptedStyleSheets.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 
@@ -339,8 +379,7 @@ UseCounter::Count(current_execution_context, WebFeature::kAdoptedStyleSheets);
 v8::Local<v8::Object> v8_receiver = info.This();
 ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& observable_array = blink_receiver->adoptedStyleSheets();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
@@ -356,7 +395,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoo
 BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.pictureInPictureElement.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ShadowRoot_PictureInPictureElement_AttributeGetter);
 
@@ -687,7 +727,8 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.elementFromPoint");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ShadowRoot_ElementFromPoint_Method);
 
@@ -725,7 +766,8 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.elementsFromPoint");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ShadowRoot_ElementsFromPoint_Method);
 
@@ -742,10 +784,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -757,9 +797,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->elementsFromPoint(arg1_x, arg2_y);
-if (!ToV8Traits<IDLSequence<Element>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<Element>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -770,7 +808,8 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.getAnimations");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ShadowRoot_GetAnimations_Method);
 
@@ -779,17 +818,52 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ShadowRoot_GetAnimat
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getAnimations();
-if (!ToV8Traits<IDLSequence<Animation>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<Animation>>::ToV8(script_state, return_value);
+bindings::V8SetReturnValue(info, v8_return_value);
+}
+
+void GetHTMLOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoot_getHTML");
+BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.getHTML");
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kElementGetHTML);
+
+
+
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<GetHTMLOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "ShadowRoot";
+const char* const property_name = "getHTML";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (info[0]->IsUndefined()) {
+  arg1_options = GetHTMLOptions::Create();
+} else {
+  arg1_options = NativeValueTraits<GetHTMLOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-bindings::V8SetReturnValue(info, v8_return_value);
+}
+auto&& return_value = blink_receiver->getHTML(arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
 void GetInnerHTMLOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -799,7 +873,8 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.getInnerHTML");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kElementGetInnerHTML);
 
@@ -852,7 +927,8 @@ BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.setHTMLUnsafe");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSetHTMLUnsafe);
 
@@ -943,7 +1019,6 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {"elementFromPoint", ElementFromPointOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"elementsFromPoint", ElementsFromPointOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getAnimations", GetAnimationsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"getInnerHTML", GetInnerHTMLOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 {"getSelection", GetSelectionOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 };
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
@@ -964,6 +1039,14 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
+if (RuntimeEnabledFeatures::ElementGetHTMLEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"serializable", SerializableAttributeGetCallback, SerializableAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
 
 
 
@@ -973,6 +1056,22 @@ if (RuntimeEnabledFeatures::ScopedCustomElementRegistryEnabled()) {
 {"createElement", CreateElementOperationCallbackForMainWorld, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kMainWorld), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"createElement", CreateElementOperationCallbackForNonMainWorlds, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kNonMainWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"createElementNS", CreateElementNSOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+if (RuntimeEnabledFeatures::ElementGetHTMLEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"getHTML", GetHTMLOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+if (RuntimeEnabledFeatures::ElementGetInnerHTMLEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"getInnerHTML", GetInnerHTMLOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

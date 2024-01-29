@@ -75,6 +75,7 @@ class MediaMetricsProvider
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kInitializeMinVersion = 0,
+    kOnStartedMinVersion = 0,
     kOnErrorMinVersion = 0,
     kOnFallbackMinVersion = 0,
     kSetHasPlayedMinVersion = 0,
@@ -102,6 +103,9 @@ class MediaMetricsProvider
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct Initialize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnStarted_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnError_Sym {
@@ -172,6 +176,9 @@ class MediaMetricsProvider
 
   
   virtual void Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::MediaStreamType stream_type) = 0;
+
+  
+  virtual void OnStarted(const ::media::PipelineStatus& status) = 0;
 
   
   virtual void OnError(const ::media::PipelineStatus& status) = 0;
@@ -247,6 +254,8 @@ class  MediaMetricsProviderProxy
   explicit MediaMetricsProviderProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::MediaStreamType stream_type) final;
+  
+  void OnStarted(const ::media::PipelineStatus& status) final;
   
   void OnError(const ::media::PipelineStatus& status) final;
   

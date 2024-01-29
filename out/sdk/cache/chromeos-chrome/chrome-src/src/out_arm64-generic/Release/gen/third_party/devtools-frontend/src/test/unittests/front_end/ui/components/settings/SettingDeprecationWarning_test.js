@@ -5,11 +5,10 @@ import * as Common from '../../../../../../front_end/core/common/common.js';
 import { assertNotNullOrUndefined } from '../../../../../../front_end/core/platform/platform.js';
 import * as Root from '../../../../../../front_end/core/root/root.js';
 import * as SettingComponents from '../../../../../../front_end/ui/components/settings/settings.js';
-import { TestRevealer } from '../../../helpers/RevealerHelpers.js';
 function createWarningElement(deprecationNotice) {
     const registration = {
         settingName: 'boolean',
-        settingType: Common.Settings.SettingType.BOOLEAN,
+        settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
         defaultValue: false,
         deprecationNotice,
     };
@@ -48,12 +47,10 @@ describe('SettingDeprecationWarning', () => {
         const experiment = Root.Runtime.experiments.allConfigurableExperiments().find(e => e.name === EXPERIMENT_NAME);
         assertNotNullOrUndefined(experiment);
         const { element } = createWarningElement({ disabled: true, warning, experiment: EXPERIMENT_NAME });
-        const callback = sinon.fake((_object, _omitFocus) => Promise.resolve());
-        TestRevealer.install(callback);
+        const reveal = sinon.stub(Common.Revealer.RevealerRegistry.prototype, 'reveal').resolves();
         assertNotNullOrUndefined(element);
         element.click();
-        assert.isTrue(callback.calledOnceWithExactly(experiment), 'Revealer was either not called or was called with unexpected arguments');
-        TestRevealer.reset();
+        assert.isTrue(reveal.calledOnceWithExactly(experiment, false), 'Revealer was either not called or was called with unexpected arguments');
     });
 });
 //# sourceMappingURL=SettingDeprecationWarning_test.js.map

@@ -272,6 +272,7 @@ class  TestControllerInterceptorForTesting : public TestController {
   void CheckAtLeastOneAshBrowserWindowOpen(CheckAtLeastOneAshBrowserWindowOpenCallback callback) override;
   void GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) override;
   void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) override;
+  void IsToastShown(const std::string& toast_id, IsToastShownCallback callback) override;
 };
 class  TestControllerAsyncWaiter {
  public:
@@ -392,6 +393,9 @@ class  TestControllerAsyncWaiter {
   void SetAlmanacEndpointUrlForTesting(
       const std::optional<std::string>& override);
   
+  void IsToastShown(
+      const std::string& toast_id, bool* out_toast_shown);
+  bool IsToastShown(const std::string& toast_id);
 
  private:
   TestController* const proxy_;

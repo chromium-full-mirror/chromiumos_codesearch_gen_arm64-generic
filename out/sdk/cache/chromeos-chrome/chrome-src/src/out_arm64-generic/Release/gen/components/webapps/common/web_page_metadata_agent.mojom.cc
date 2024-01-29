@@ -210,6 +210,8 @@ bool WebPageMetadataAgent_GetWebPageMetadata_ForwardToCallback::Accept(
           internal::WebPageMetadataAgent_GetWebPageMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebPageMetadataAgent.0
   bool success = true;
   ::webapps::mojom::WebPageMetadataPtr p_web_page_metadata{};
   WebPageMetadataAgent_GetWebPageMetadata_ResponseParamsDataView input_data_view(params, message);
@@ -310,6 +312,8 @@ bool WebPageMetadataAgentStubDispatch::AcceptWithResponder(
               internal::WebPageMetadataAgent_GetWebPageMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebPageMetadataAgent.0
       bool success = true;
       WebPageMetadataAgent_GetWebPageMetadata_ParamsDataView input_data_view(params, message);
       

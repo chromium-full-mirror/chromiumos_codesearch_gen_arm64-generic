@@ -138,7 +138,7 @@ export async function testStoreActionsProducer(done) {
     store.init({ numVisitors: 2 });
     store.subscribe(subscriber);
     store.dispatch(actionsProducerSuccess('attempt 1'));
-    await waitUntil(() => dispatchedActions.length == 4);
+    await waitUntil(() => dispatchedActions.length === 4);
     done();
 }
 /**
@@ -151,7 +151,7 @@ export async function testStoreActionsProducerEmpty(done) {
     store.subscribe(subscriber);
     store.dispatch(producesEmpty('trying empty #1'));
     // The AP issues 2 non-empty actions and 1 empty between those.
-    await waitUntil(() => dispatchedActions.length == 2);
+    await waitUntil(() => dispatchedActions.length === 2);
     done();
 }
 /**
@@ -167,7 +167,7 @@ export async function testStoreActionsProducerError(done) {
     store.dispatch(producesError());
     store.dispatch(actionsProducerSuccess('attempt 2'));
     // 4 actions from each Success producer.
-    await waitUntil(() => dispatchedActions.length == 8);
+    await waitUntil(() => dispatchedActions.length === 8);
     done();
 }
 /**

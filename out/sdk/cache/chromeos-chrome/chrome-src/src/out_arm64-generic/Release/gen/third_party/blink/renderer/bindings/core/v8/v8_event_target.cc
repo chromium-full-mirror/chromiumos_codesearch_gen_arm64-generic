@@ -19,6 +19,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_listener.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_listener_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_observable.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_observable_event_listener_options.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_union_addeventlisteneroptions_boolean.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_union_boolean_eventlisteneroptions.h"
@@ -202,18 +203,19 @@ BLINK_BINDINGS_TRACE_EVENT("EventTarget.on");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kEventTargetOnObservable);
 
 
 
-if (UNLIKELY(info.Length() < 1)) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "EventTarget";
 const char* const property_name = "on";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
 return;
 }
 
@@ -221,20 +223,20 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 EventTarget* blink_receiver = V8EventTarget::ToWrappableUnsafe(isolate, v8_receiver);
-decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
-if (LIKELY(info[0]->IsString())) {
-  arg1_type.Init(isolate, info[0].As<v8::String>());
+auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+decltype(NativeValueTraits<ObservableEventListenerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+if (info[1]->IsUndefined()) {
+  arg2_options = ObservableEventListenerOptions::Create();
 } else {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "EventTarget";
-const char* const property_name = "on";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
+  arg2_options = NativeValueTraits<ObservableEventListenerOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-auto&& return_value = blink_receiver->on(arg1_type);
+auto&& return_value = blink_receiver->on(arg1_type, arg2_options);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 

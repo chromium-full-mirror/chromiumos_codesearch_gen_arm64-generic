@@ -11,6 +11,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_intersection_observer.h"
 
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "third_party/blink/renderer/bindings/core/v8/frozen_array.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
@@ -135,17 +136,13 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.thresholds.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->thresholds();
-if (!ToV8Traits<IDLArray<IDLDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<IDLDouble>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -199,7 +196,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kIntersectionObserver_Constructor);
 
@@ -208,7 +206,6 @@ if (UNLIKELY(info.Length() < 1)) {
 return;
 }
 
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& arg1_callback = NativeValueTraits<V8IntersectionObserverCallback>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -300,10 +297,8 @@ BLINK_BINDINGS_TRACE_EVENT("IntersectionObserver.takeRecords");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 IntersectionObserver* blink_receiver = V8IntersectionObserver::ToWrappableUnsafe(isolate, v8_receiver);
@@ -315,9 +310,7 @@ auto&& return_value = blink_receiver->takeRecords(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLSequence<IntersectionObserverEntry>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<IntersectionObserverEntry>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

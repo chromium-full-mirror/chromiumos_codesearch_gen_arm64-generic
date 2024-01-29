@@ -58,9 +58,13 @@ class AutocompleteParsingResultDataView;
 
 class FormFieldDataDataView;
 
+class FormFieldData_FillDataDataView;
+
 class ButtonTitleInfoDataView;
 
 class FormDataDataView;
+
+class FormData_FillDataDataView;
 
 class FormFieldDataPredictionsDataView;
 
@@ -155,6 +159,13 @@ struct MojomTypeTraits<::autofill::mojom::FormFieldDataDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::autofill::mojom::FormFieldData_FillDataDataView> {
+  using Data = ::autofill::mojom::internal::FormFieldData_FillData_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::autofill::mojom::ButtonTitleInfoDataView> {
   using Data = ::autofill::mojom::internal::ButtonTitleInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -164,6 +175,13 @@ struct MojomTypeTraits<::autofill::mojom::ButtonTitleInfoDataView> {
 template <>
 struct MojomTypeTraits<::autofill::mojom::FormDataDataView> {
   using Data = ::autofill::mojom::internal::FormData_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::autofill::mojom::FormData_FillDataDataView> {
+  using Data = ::autofill::mojom::internal::FormData_FillData_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -615,27 +633,31 @@ enum class AutofillSuggestionTriggerSource : int32_t {
   
   kFormControlElementClicked = 1,
   
-  kContentEditableClicked = 2,
+  kTextareaFocusedWithoutClick = 2,
   
-  kTextFieldDidChange = 3,
+  kContentEditableClicked = 3,
   
-  kTextFieldDidReceiveKeyDown = 4,
+  kTextFieldDidChange = 4,
   
-  kOpenTextDataListChooser = 5,
+  kTextFieldDidReceiveKeyDown = 5,
   
-  kShowCardsFromAccount = 6,
+  kOpenTextDataListChooser = 6,
   
-  kPasswordManager = 7,
+  kShowCardsFromAccount = 7,
   
-  kiOS = 8,
+  kPasswordManager = 8,
   
-  kManualFallbackAddress = 9,
+  kiOS = 9,
   
-  kManualFallbackPayments = 10,
+  kManualFallbackAddress = 10,
   
-  kShowPromptAfterDialogClosed = 11,
+  kManualFallbackPayments = 11,
+  
+  kManualFallbackPasswords = 12,
+  
+  kShowPromptAfterDialogClosed = 13,
   kMinValue = 0,
-  kMaxValue = 11,
+  kMaxValue = 13,
 };
 
  std::ostream& operator<<(std::ostream& os, AutofillSuggestionTriggerSource value);
@@ -1299,6 +1321,58 @@ static_assert(
 };
 
 
+class FormFieldData_FillDataDataView {
+ public:
+  FormFieldData_FillDataDataView() = default;
+
+  FormFieldData_FillDataDataView(
+      internal::FormFieldData_FillData_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetValueDataView(
+      ::mojo_base::mojom::String16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadValue(UserType* output) {
+    
+    auto* pointer = data_->value.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
+        pointer, output, message_);
+  }
+  inline void GetUniqueRendererIdDataView(
+      FieldRendererIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUniqueRendererId(UserType* output) {
+    
+    auto* pointer = data_->unique_renderer_id.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::FieldRendererIdDataView>(
+        pointer, output, message_);
+  }
+  bool is_autofilled() const {
+    return data_->is_autofilled;
+  }
+  inline void GetSectionDataView(
+      SectionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSection(UserType* output) {
+    
+    auto* pointer = data_->section.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::SectionDataView>(
+        pointer, output, message_);
+  }
+  bool force_override() const {
+    return data_->force_override;
+  }
+ private:
+  internal::FormFieldData_FillData_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class ButtonTitleInfoDataView {
  public:
   ButtonTitleInfoDataView() = default;
@@ -1460,6 +1534,42 @@ class FormDataDataView {
 };
 
 
+class FormData_FillDataDataView {
+ public:
+  FormData_FillDataDataView() = default;
+
+  FormData_FillDataDataView(
+      internal::FormData_FillData_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUniqueRendererIdDataView(
+      FormRendererIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUniqueRendererId(UserType* output) {
+    
+    auto* pointer = data_->unique_renderer_id.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::FormRendererIdDataView>(
+        pointer, output, message_);
+  }
+  inline void GetFieldsDataView(
+      mojo::ArrayDataView<FormFieldData_FillDataDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFields(UserType* output) {
+    
+    auto* pointer = data_->fields.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::autofill::mojom::FormFieldData_FillDataDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FormData_FillData_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class FormFieldDataPredictionsDataView {
  public:
   FormFieldDataPredictionsDataView() = default;
@@ -1506,6 +1616,16 @@ class FormFieldDataPredictionsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadServerType(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `server_type` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadServerType` instead "
+    "of `ReadServerType if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->server_type.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
@@ -3027,6 +3147,73 @@ struct Serializer<::autofill::mojom::FormFieldDataDataView, MaybeConstUserType> 
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::autofill::mojom::FormFieldData_FillDataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::autofill::mojom::FormFieldData_FillDataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::autofill::mojom::internal::FormFieldData_FillData_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::value(input)) in_value = Traits::value(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->value)::BaseType> value_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
+        in_value, value_fragment);
+    fragment->value.Set(
+        value_fragment.is_null() ? nullptr : value_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->value.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null value in FormFieldData_FillData struct");
+    decltype(Traits::unique_renderer_id(input)) in_unique_renderer_id = Traits::unique_renderer_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->unique_renderer_id)::BaseType> unique_renderer_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::autofill::mojom::FieldRendererIdDataView>(
+        in_unique_renderer_id, unique_renderer_id_fragment);
+    fragment->unique_renderer_id.Set(
+        unique_renderer_id_fragment.is_null() ? nullptr : unique_renderer_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->unique_renderer_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null unique_renderer_id in FormFieldData_FillData struct");
+    fragment->is_autofilled = Traits::is_autofilled(input);
+    decltype(Traits::section(input)) in_section = Traits::section(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->section)::BaseType> section_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::autofill::mojom::SectionDataView>(
+        in_section, section_fragment);
+    fragment->section.Set(
+        section_fragment.is_null() ? nullptr : section_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->section.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null section in FormFieldData_FillData struct");
+    fragment->force_override = Traits::force_override(input);
+  }
+
+  static bool Deserialize(::autofill::mojom::internal::FormFieldData_FillData_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::autofill::mojom::FormFieldData_FillDataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::autofill::mojom::ButtonTitleInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::autofill::mojom::ButtonTitleInfoDataView, UserType>;
@@ -3220,6 +3407,61 @@ struct Serializer<::autofill::mojom::FormDataDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::autofill::mojom::FormData_FillDataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::autofill::mojom::FormData_FillDataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::autofill::mojom::internal::FormData_FillData_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::unique_renderer_id(input)) in_unique_renderer_id = Traits::unique_renderer_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->unique_renderer_id)::BaseType> unique_renderer_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::autofill::mojom::FormRendererIdDataView>(
+        in_unique_renderer_id, unique_renderer_id_fragment);
+    fragment->unique_renderer_id.Set(
+        unique_renderer_id_fragment.is_null() ? nullptr : unique_renderer_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->unique_renderer_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null unique_renderer_id in FormData_FillData struct");
+    decltype(Traits::fields(input)) in_fields = Traits::fields(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->fields)::BaseType>
+        fields_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::autofill::mojom::FormFieldData_FillDataDataView>>(
+        in_fields, fields_fragment, &fields_validate_params);
+    fragment->fields.Set(
+        fields_fragment.is_null() ? nullptr : fields_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->fields.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null fields in FormData_FillData struct");
+  }
+
+  static bool Deserialize(::autofill::mojom::internal::FormData_FillData_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::autofill::mojom::FormData_FillDataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::autofill::mojom::FormFieldDataPredictionsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::autofill::mojom::FormFieldDataPredictionsDataView, UserType>;
@@ -3274,10 +3516,6 @@ struct Serializer<::autofill::mojom::FormFieldDataPredictionsDataView, MaybeCons
         in_server_type, server_type_fragment);
     fragment->server_type.Set(
         server_type_fragment.is_null() ? nullptr : server_type_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->server_type.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null server_type in FormFieldDataPredictions struct");
     decltype(Traits::html_type(input)) in_html_type = Traits::html_type(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->html_type)::BaseType> html_type_fragment(
@@ -4051,6 +4289,23 @@ inline void FormFieldDataDataView::GetDatalistOptionsDataView(
 }
 
 
+inline void FormFieldData_FillDataDataView::GetValueDataView(
+    ::mojo_base::mojom::String16DataView* output) {
+  auto pointer = data_->value.Get();
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
+inline void FormFieldData_FillDataDataView::GetUniqueRendererIdDataView(
+    FieldRendererIdDataView* output) {
+  auto pointer = data_->unique_renderer_id.Get();
+  *output = FieldRendererIdDataView(pointer, message_);
+}
+inline void FormFieldData_FillDataDataView::GetSectionDataView(
+    SectionDataView* output) {
+  auto pointer = data_->section.Get();
+  *output = SectionDataView(pointer, message_);
+}
+
+
 inline void ButtonTitleInfoDataView::GetTitleDataView(
     ::mojo_base::mojom::String16DataView* output) {
   auto pointer = data_->title.Get();
@@ -4102,6 +4357,18 @@ inline void FormDataDataView::GetUsernamePredictionsDataView(
     mojo::ArrayDataView<FieldRendererIdDataView>* output) {
   auto pointer = data_->username_predictions.Get();
   *output = mojo::ArrayDataView<FieldRendererIdDataView>(pointer, message_);
+}
+
+
+inline void FormData_FillDataDataView::GetUniqueRendererIdDataView(
+    FormRendererIdDataView* output) {
+  auto pointer = data_->unique_renderer_id.Get();
+  *output = FormRendererIdDataView(pointer, message_);
+}
+inline void FormData_FillDataDataView::GetFieldsDataView(
+    mojo::ArrayDataView<FormFieldData_FillDataDataView>* output) {
+  auto pointer = data_->fields.Get();
+  *output = mojo::ArrayDataView<FormFieldData_FillDataDataView>(pointer, message_);
 }
 
 

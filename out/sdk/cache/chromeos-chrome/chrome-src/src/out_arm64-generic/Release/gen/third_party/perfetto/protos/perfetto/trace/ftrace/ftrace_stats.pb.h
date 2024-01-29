@@ -79,6 +79,41 @@ inline const std::string& FtraceStats_Phase_Name(T enum_t_value) {
 }
 bool FtraceStats_Phase_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FtraceStats_Phase* value);
+enum FtraceParseStatus : int {
+  FTRACE_STATUS_UNSPECIFIED = 0,
+  FTRACE_STATUS_OK = 1,
+  FTRACE_STATUS_UNEXPECTED_READ_ERROR = 2,
+  FTRACE_STATUS_PARTIAL_PAGE_READ = 3,
+  FTRACE_STATUS_ABI_INVALID_PAGE_HEADER = 4,
+  FTRACE_STATUS_ABI_SHORT_EVENT_HEADER = 5,
+  FTRACE_STATUS_ABI_NULL_PADDING = 6,
+  FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH = 7,
+  FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH = 8,
+  FTRACE_STATUS_ABI_SHORT_TIME_EXTEND = 9,
+  FTRACE_STATUS_ABI_SHORT_TIME_STAMP = 10,
+  FTRACE_STATUS_ABI_SHORT_DATA_LENGTH = 11,
+  FTRACE_STATUS_ABI_ZERO_DATA_LENGTH = 12,
+  FTRACE_STATUS_ABI_INVALID_DATA_LENGTH = 13,
+  FTRACE_STATUS_ABI_SHORT_EVENT_ID = 14,
+  FTRACE_STATUS_ABI_END_OVERFLOW = 15,
+  FTRACE_STATUS_SHORT_COMPACT_EVENT = 16,
+  FTRACE_STATUS_INVALID_EVENT = 17
+};
+bool FtraceParseStatus_IsValid(int value);
+constexpr FtraceParseStatus FtraceParseStatus_MIN = FTRACE_STATUS_UNSPECIFIED;
+constexpr FtraceParseStatus FtraceParseStatus_MAX = FTRACE_STATUS_INVALID_EVENT;
+constexpr int FtraceParseStatus_ARRAYSIZE = FtraceParseStatus_MAX + 1;
+
+const std::string& FtraceParseStatus_Name(FtraceParseStatus value);
+template<typename T>
+inline const std::string& FtraceParseStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, FtraceParseStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function FtraceParseStatus_Name.");
+  return FtraceParseStatus_Name(static_cast<FtraceParseStatus>(enum_t_value));
+}
+bool FtraceParseStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FtraceParseStatus* value);
 // ===================================================================
 
 class FtraceCpuStats final :
@@ -481,6 +516,7 @@ class FtraceStats final :
     kCpuStatsFieldNumber = 2,
     kUnknownFtraceEventsFieldNumber = 6,
     kFailedFtraceEventsFieldNumber = 7,
+    kFtraceParseErrorsFieldNumber = 9,
     kAtraceErrorsFieldNumber = 5,
     kPhaseFieldNumber = 1,
     kKernelSymbolsParsedFieldNumber = 3,
@@ -552,6 +588,23 @@ class FtraceStats final :
   const std::string& _internal_failed_ftrace_events(int index) const;
   std::string* _internal_add_failed_ftrace_events();
   public:
+
+  // repeated .perfetto.protos.FtraceParseStatus ftrace_parse_errors = 9;
+  int ftrace_parse_errors_size() const;
+  private:
+  int _internal_ftrace_parse_errors_size() const;
+  public:
+  void clear_ftrace_parse_errors();
+  private:
+  ::perfetto::protos::FtraceParseStatus _internal_ftrace_parse_errors(int index) const;
+  void _internal_add_ftrace_parse_errors(::perfetto::protos::FtraceParseStatus value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_ftrace_parse_errors();
+  public:
+  ::perfetto::protos::FtraceParseStatus ftrace_parse_errors(int index) const;
+  void set_ftrace_parse_errors(int index, ::perfetto::protos::FtraceParseStatus value);
+  void add_ftrace_parse_errors(::perfetto::protos::FtraceParseStatus value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& ftrace_parse_errors() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_ftrace_parse_errors();
 
   // optional string atrace_errors = 5;
   bool has_atrace_errors() const;
@@ -635,6 +688,7 @@ class FtraceStats final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::FtraceCpuStats > cpu_stats_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> unknown_ftrace_events_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> failed_ftrace_events_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> ftrace_parse_errors_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr atrace_errors_;
   int phase_;
   uint32_t kernel_symbols_parsed_;
@@ -1280,6 +1334,51 @@ inline void FtraceStats::set_preserve_ftrace_buffer(bool value) {
   // @@protoc_insertion_point(field_set:perfetto.protos.FtraceStats.preserve_ftrace_buffer)
 }
 
+// repeated .perfetto.protos.FtraceParseStatus ftrace_parse_errors = 9;
+inline int FtraceStats::_internal_ftrace_parse_errors_size() const {
+  return ftrace_parse_errors_.size();
+}
+inline int FtraceStats::ftrace_parse_errors_size() const {
+  return _internal_ftrace_parse_errors_size();
+}
+inline void FtraceStats::clear_ftrace_parse_errors() {
+  ftrace_parse_errors_.Clear();
+}
+inline ::perfetto::protos::FtraceParseStatus FtraceStats::_internal_ftrace_parse_errors(int index) const {
+  return static_cast< ::perfetto::protos::FtraceParseStatus >(ftrace_parse_errors_.Get(index));
+}
+inline ::perfetto::protos::FtraceParseStatus FtraceStats::ftrace_parse_errors(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.FtraceStats.ftrace_parse_errors)
+  return _internal_ftrace_parse_errors(index);
+}
+inline void FtraceStats::set_ftrace_parse_errors(int index, ::perfetto::protos::FtraceParseStatus value) {
+  assert(::perfetto::protos::FtraceParseStatus_IsValid(value));
+  ftrace_parse_errors_.Set(index, value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.FtraceStats.ftrace_parse_errors)
+}
+inline void FtraceStats::_internal_add_ftrace_parse_errors(::perfetto::protos::FtraceParseStatus value) {
+  assert(::perfetto::protos::FtraceParseStatus_IsValid(value));
+  ftrace_parse_errors_.Add(value);
+}
+inline void FtraceStats::add_ftrace_parse_errors(::perfetto::protos::FtraceParseStatus value) {
+  _internal_add_ftrace_parse_errors(value);
+  // @@protoc_insertion_point(field_add:perfetto.protos.FtraceStats.ftrace_parse_errors)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+FtraceStats::ftrace_parse_errors() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.FtraceStats.ftrace_parse_errors)
+  return ftrace_parse_errors_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+FtraceStats::_internal_mutable_ftrace_parse_errors() {
+  return &ftrace_parse_errors_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+FtraceStats::mutable_ftrace_parse_errors() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.FtraceStats.ftrace_parse_errors)
+  return _internal_mutable_ftrace_parse_errors();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -1294,6 +1393,7 @@ inline void FtraceStats::set_preserve_ftrace_buffer(bool value) {
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::perfetto::protos::FtraceStats_Phase> : ::std::true_type {};
+template <> struct is_proto_enum< ::perfetto::protos::FtraceParseStatus> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

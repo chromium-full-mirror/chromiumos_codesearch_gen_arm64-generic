@@ -3191,6 +3191,8 @@ bool VRService_RequestSession_ForwardToCallback::Accept(
           internal::VRService_RequestSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VRService.1
   bool success = true;
   RequestSessionResultPtr p_result{};
   VRService_RequestSession_ResponseParamsDataView input_data_view(params, message);
@@ -3318,6 +3320,8 @@ bool VRService_SupportsSession_ForwardToCallback::Accept(
           internal::VRService_SupportsSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VRService.2
   bool success = true;
   bool p_supports_session{};
   VRService_SupportsSession_ResponseParamsDataView input_data_view(params, message);
@@ -3437,6 +3441,8 @@ bool VRService_ExitPresent_ForwardToCallback::Accept(
           internal::VRService_ExitPresent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VRService.3
   bool success = true;
   VRService_ExitPresent_ResponseParamsDataView input_data_view(params, message);
   
@@ -3544,6 +3550,8 @@ bool VRService_MakeXrCompatible_ForwardToCallback::Accept(
           internal::VRService_MakeXrCompatible_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VRService.5
   bool success = true;
   XrCompatibleResult p_xr_compatible_result{};
   VRService_MakeXrCompatible_ResponseParamsDataView input_data_view(params, message);
@@ -3614,6 +3622,8 @@ bool VRService_MakeXrCompatible_HandleSyncResponse::Accept(
       reinterpret_cast<internal::VRService_MakeXrCompatible_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for VRService.5
   bool success = true;
   XrCompatibleResult p_xr_compatible_result{};
   VRService_MakeXrCompatible_ResponseParamsDataView input_data_view(params, message);
@@ -3644,6 +3654,8 @@ bool VRServiceStubDispatch::Accept(
           reinterpret_cast<internal::VRService_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VRService.0
       bool success = true;
       ::mojo::PendingRemote<VRServiceClient> p_client{};
       VRService_SetClient_ParamsDataView input_data_view(params, message);
@@ -3661,8 +3673,8 @@ bool VRServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kVRService_RequestSession_Name: {
@@ -3681,6 +3693,8 @@ std::move(p_client));
           reinterpret_cast<internal::VRService_SetFramesThrottled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VRService.4
       bool success = true;
       bool p_throttled{};
       VRService_SetFramesThrottled_ParamsDataView input_data_view(params, message);
@@ -3696,8 +3710,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFramesThrottled(
-std::move(p_throttled));
+      impl->SetFramesThrottled(        
+        std::move(p_throttled));
       return true;
     }
     case internal::kVRService_MakeXrCompatible_Name: {
@@ -3726,6 +3740,8 @@ bool VRServiceStubDispatch::AcceptWithResponder(
               internal::VRService_RequestSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VRService.1
       bool success = true;
       ::device::mojom::XRSessionOptionsPtr p_options{};
       VRService_RequestSession_ParamsDataView input_data_view(params, message);
@@ -3744,8 +3760,8 @@ bool VRServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSession(
-std::move(p_options), std::move(callback));
+      impl->RequestSession(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kVRService_SupportsSession_Name: {
@@ -3755,6 +3771,8 @@ std::move(p_options), std::move(callback));
               internal::VRService_SupportsSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VRService.2
       bool success = true;
       ::device::mojom::XRSessionOptionsPtr p_options{};
       VRService_SupportsSession_ParamsDataView input_data_view(params, message);
@@ -3773,8 +3791,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SupportsSession(
-std::move(p_options), std::move(callback));
+      impl->SupportsSession(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kVRService_ExitPresent_Name: {
@@ -3784,6 +3802,8 @@ std::move(p_options), std::move(callback));
               internal::VRService_ExitPresent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VRService.3
       bool success = true;
       VRService_ExitPresent_ParamsDataView input_data_view(params, message);
       
@@ -3812,6 +3832,8 @@ std::move(p_options), std::move(callback));
               internal::VRService_MakeXrCompatible_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VRService.5
       bool success = true;
       VRService_MakeXrCompatible_ParamsDataView input_data_view(params, message);
       
@@ -3972,6 +3994,8 @@ bool XRSessionMetricsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::XRSessionMetricsRecorder_ReportFeatureUsed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRSessionMetricsRecorder.0
       bool success = true;
       ::device::mojom::XRSessionFeature p_feature{};
       XRSessionMetricsRecorder_ReportFeatureUsed_ParamsDataView input_data_view(params, message);
@@ -3987,8 +4011,8 @@ bool XRSessionMetricsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportFeatureUsed(
-std::move(p_feature));
+      impl->ReportFeatureUsed(        
+        std::move(p_feature));
       return true;
     }
   }
@@ -4126,6 +4150,8 @@ bool VRServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::VRServiceClient_OnDeviceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VRServiceClient.0
       bool success = true;
       VRServiceClient_OnDeviceChanged_ParamsDataView input_data_view(params, message);
       
@@ -4138,7 +4164,7 @@ bool VRServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceChanged();
+      impl->OnDeviceChanged(        );
       return true;
     }
   }
@@ -4828,6 +4854,8 @@ bool XREnvironmentIntegrationProvider_SubscribeToHitTest_ForwardToCallback::Acce
           internal::XREnvironmentIntegrationProvider_SubscribeToHitTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XREnvironmentIntegrationProvider.0
   bool success = true;
   SubscribeToHitTestResult p_result{};
   uint64_t p_subscription_id{};
@@ -4956,6 +4984,8 @@ bool XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Forwar
           internal::XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XREnvironmentIntegrationProvider.1
   bool success = true;
   SubscribeToHitTestResult p_result{};
   uint64_t p_subscription_id{};
@@ -5084,6 +5114,8 @@ bool XREnvironmentIntegrationProvider_CreateAnchor_ForwardToCallback::Accept(
           internal::XREnvironmentIntegrationProvider_CreateAnchor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XREnvironmentIntegrationProvider.3
   bool success = true;
   CreateAnchorResult p_result{};
   uint64_t p_anchor_id{};
@@ -5212,6 +5244,8 @@ bool XREnvironmentIntegrationProvider_CreatePlaneAnchor_ForwardToCallback::Accep
           internal::XREnvironmentIntegrationProvider_CreatePlaneAnchor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XREnvironmentIntegrationProvider.4
   bool success = true;
   CreateAnchorResult p_result{};
   uint64_t p_anchor_id{};
@@ -5301,6 +5335,8 @@ bool XREnvironmentIntegrationProviderStubDispatch::Accept(
           reinterpret_cast<internal::XREnvironmentIntegrationProvider_UnsubscribeFromHitTest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XREnvironmentIntegrationProvider.2
       bool success = true;
       uint64_t p_subscription_id{};
       XREnvironmentIntegrationProvider_UnsubscribeFromHitTest_ParamsDataView input_data_view(params, message);
@@ -5316,8 +5352,8 @@ bool XREnvironmentIntegrationProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnsubscribeFromHitTest(
-std::move(p_subscription_id));
+      impl->UnsubscribeFromHitTest(        
+        std::move(p_subscription_id));
       return true;
     }
     case internal::kXREnvironmentIntegrationProvider_CreateAnchor_Name: {
@@ -5333,6 +5369,8 @@ std::move(p_subscription_id));
           reinterpret_cast<internal::XREnvironmentIntegrationProvider_DetachAnchor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XREnvironmentIntegrationProvider.5
       bool success = true;
       uint64_t p_anchor_id{};
       XREnvironmentIntegrationProvider_DetachAnchor_ParamsDataView input_data_view(params, message);
@@ -5348,8 +5386,8 @@ std::move(p_subscription_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetachAnchor(
-std::move(p_anchor_id));
+      impl->DetachAnchor(        
+        std::move(p_anchor_id));
       return true;
     }
   }
@@ -5372,6 +5410,8 @@ bool XREnvironmentIntegrationProviderStubDispatch::AcceptWithResponder(
               internal::XREnvironmentIntegrationProvider_SubscribeToHitTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XREnvironmentIntegrationProvider.0
       bool success = true;
       XRNativeOriginInformationPtr p_native_origin_information{};
       std::vector<EntityTypeForHitTest> p_entity_types{};
@@ -5396,10 +5436,10 @@ bool XREnvironmentIntegrationProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubscribeToHitTest(
-std::move(p_native_origin_information), 
-std::move(p_entity_types), 
-std::move(p_ray), std::move(callback));
+      impl->SubscribeToHitTest(        
+        std::move(p_native_origin_information), 
+        std::move(p_entity_types), 
+        std::move(p_ray), std::move(callback));
       return true;
     }
     case internal::kXREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Name: {
@@ -5409,6 +5449,8 @@ std::move(p_ray), std::move(callback));
               internal::XREnvironmentIntegrationProvider_SubscribeToHitTestForTransientInput_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XREnvironmentIntegrationProvider.1
       bool success = true;
       std::string p_profile_name{};
       std::vector<EntityTypeForHitTest> p_entity_types{};
@@ -5433,10 +5475,10 @@ std::move(p_ray), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubscribeToHitTestForTransientInput(
-std::move(p_profile_name), 
-std::move(p_entity_types), 
-std::move(p_ray), std::move(callback));
+      impl->SubscribeToHitTestForTransientInput(        
+        std::move(p_profile_name), 
+        std::move(p_entity_types), 
+        std::move(p_ray), std::move(callback));
       return true;
     }
     case internal::kXREnvironmentIntegrationProvider_UnsubscribeFromHitTest_Name: {
@@ -5449,6 +5491,8 @@ std::move(p_ray), std::move(callback));
               internal::XREnvironmentIntegrationProvider_CreateAnchor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XREnvironmentIntegrationProvider.3
       bool success = true;
       XRNativeOriginInformationPtr p_native_origin_information{};
       ::device::Pose p_native_origin_from_anchor{};
@@ -5470,9 +5514,9 @@ std::move(p_ray), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAnchor(
-std::move(p_native_origin_information), 
-std::move(p_native_origin_from_anchor), std::move(callback));
+      impl->CreateAnchor(        
+        std::move(p_native_origin_information), 
+        std::move(p_native_origin_from_anchor), std::move(callback));
       return true;
     }
     case internal::kXREnvironmentIntegrationProvider_CreatePlaneAnchor_Name: {
@@ -5482,6 +5526,8 @@ std::move(p_native_origin_from_anchor), std::move(callback));
               internal::XREnvironmentIntegrationProvider_CreatePlaneAnchor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XREnvironmentIntegrationProvider.4
       bool success = true;
       XRNativeOriginInformationPtr p_native_origin_information{};
       ::device::Pose p_native_origin_from_anchor{};
@@ -5506,10 +5552,10 @@ std::move(p_native_origin_from_anchor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePlaneAnchor(
-std::move(p_native_origin_information), 
-std::move(p_native_origin_from_anchor), 
-std::move(p_plane_id), std::move(callback));
+      impl->CreatePlaneAnchor(        
+        std::move(p_native_origin_information), 
+        std::move(p_native_origin_from_anchor), 
+        std::move(p_plane_id), std::move(callback));
       return true;
     }
     case internal::kXREnvironmentIntegrationProvider_DetachAnchor_Name: {
@@ -5790,6 +5836,8 @@ bool XRFrameDataProvider_GetFrameData_ForwardToCallback::Accept(
           internal::XRFrameDataProvider_GetFrameData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRFrameDataProvider.0
   bool success = true;
   XRFrameDataPtr p_frame_data{};
   XRFrameDataProvider_GetFrameData_ResponseParamsDataView input_data_view(params, message);
@@ -5873,6 +5921,8 @@ bool XRFrameDataProviderStubDispatch::Accept(
           reinterpret_cast<internal::XRFrameDataProvider_GetEnvironmentIntegrationProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRFrameDataProvider.1
       bool success = true;
       ::mojo::PendingAssociatedReceiver<XREnvironmentIntegrationProvider> p_environment_provider{};
       XRFrameDataProvider_GetEnvironmentIntegrationProvider_ParamsDataView input_data_view(params, message);
@@ -5890,8 +5940,8 @@ bool XRFrameDataProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEnvironmentIntegrationProvider(
-std::move(p_environment_provider));
+      impl->GetEnvironmentIntegrationProvider(        
+        std::move(p_environment_provider));
       return true;
     }
   }
@@ -5914,6 +5964,8 @@ bool XRFrameDataProviderStubDispatch::AcceptWithResponder(
               internal::XRFrameDataProvider_GetFrameData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRFrameDataProvider.0
       bool success = true;
       XRFrameDataRequestOptionsPtr p_options{};
       XRFrameDataProvider_GetFrameData_ParamsDataView input_data_view(params, message);
@@ -5932,8 +5984,8 @@ bool XRFrameDataProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFrameData(
-std::move(p_options), std::move(callback));
+      impl->GetFrameData(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kXRFrameDataProvider_GetEnvironmentIntegrationProvider_Name: {
@@ -6367,6 +6419,8 @@ bool XRPresentationProviderStubDispatch::Accept(
           reinterpret_cast<internal::XRPresentationProvider_UpdateLayerBounds_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationProvider.0
       bool success = true;
       int16_t p_frame_id{};
       ::gfx::RectF p_left_bounds{};
@@ -6391,11 +6445,11 @@ bool XRPresentationProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLayerBounds(
-std::move(p_frame_id), 
-std::move(p_left_bounds), 
-std::move(p_right_bounds), 
-std::move(p_source_size));
+      impl->UpdateLayerBounds(        
+        std::move(p_frame_id), 
+        std::move(p_left_bounds), 
+        std::move(p_right_bounds), 
+        std::move(p_source_size));
       return true;
     }
     case internal::kXRPresentationProvider_SubmitFrameMissing_Name: {
@@ -6405,6 +6459,8 @@ std::move(p_source_size));
           reinterpret_cast<internal::XRPresentationProvider_SubmitFrameMissing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationProvider.1
       bool success = true;
       int16_t p_frame_id{};
       ::gpu::SyncToken p_sync_token{};
@@ -6423,9 +6479,9 @@ std::move(p_source_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitFrameMissing(
-std::move(p_frame_id), 
-std::move(p_sync_token));
+      impl->SubmitFrameMissing(        
+        std::move(p_frame_id), 
+        std::move(p_sync_token));
       return true;
     }
     case internal::kXRPresentationProvider_SubmitFrame_Name: {
@@ -6435,6 +6491,8 @@ std::move(p_sync_token));
           reinterpret_cast<internal::XRPresentationProvider_SubmitFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationProvider.2
       bool success = true;
       int16_t p_frame_id{};
       ::gpu::MailboxHolder p_mailbox_holder{};
@@ -6456,10 +6514,10 @@ std::move(p_sync_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitFrame(
-std::move(p_frame_id), 
-std::move(p_mailbox_holder), 
-std::move(p_time_waited));
+      impl->SubmitFrame(        
+        std::move(p_frame_id), 
+        std::move(p_mailbox_holder), 
+        std::move(p_time_waited));
       return true;
     }
     case internal::kXRPresentationProvider_SubmitFrameDrawnIntoTexture_Name: {
@@ -6469,6 +6527,8 @@ std::move(p_time_waited));
           reinterpret_cast<internal::XRPresentationProvider_SubmitFrameDrawnIntoTexture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationProvider.3
       bool success = true;
       int16_t p_frameId{};
       ::gpu::SyncToken p_sync_token{};
@@ -6490,10 +6550,10 @@ std::move(p_time_waited));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitFrameDrawnIntoTexture(
-std::move(p_frameId), 
-std::move(p_sync_token), 
-std::move(p_time_waited));
+      impl->SubmitFrameDrawnIntoTexture(        
+        std::move(p_frameId), 
+        std::move(p_sync_token), 
+        std::move(p_time_waited));
       return true;
     }
   }
@@ -6778,6 +6838,8 @@ bool XRPresentationClientStubDispatch::Accept(
           reinterpret_cast<internal::XRPresentationClient_OnSubmitFrameTransferred_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationClient.0
       bool success = true;
       bool p_success{};
       XRPresentationClient_OnSubmitFrameTransferred_ParamsDataView input_data_view(params, message);
@@ -6793,8 +6855,8 @@ bool XRPresentationClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubmitFrameTransferred(
-std::move(p_success));
+      impl->OnSubmitFrameTransferred(        
+        std::move(p_success));
       return true;
     }
     case internal::kXRPresentationClient_OnSubmitFrameRendered_Name: {
@@ -6804,6 +6866,8 @@ std::move(p_success));
           reinterpret_cast<internal::XRPresentationClient_OnSubmitFrameRendered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationClient.1
       bool success = true;
       XRPresentationClient_OnSubmitFrameRendered_ParamsDataView input_data_view(params, message);
       
@@ -6816,7 +6880,7 @@ std::move(p_success));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubmitFrameRendered();
+      impl->OnSubmitFrameRendered(        );
       return true;
     }
     case internal::kXRPresentationClient_OnSubmitFrameGpuFence_Name: {
@@ -6826,6 +6890,8 @@ std::move(p_success));
           reinterpret_cast<internal::XRPresentationClient_OnSubmitFrameGpuFence_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRPresentationClient.2
       bool success = true;
       ::gfx::GpuFenceHandle p_gpu_fence_handle{};
       XRPresentationClient_OnSubmitFrameGpuFence_ParamsDataView input_data_view(params, message);
@@ -6841,8 +6907,8 @@ std::move(p_success));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubmitFrameGpuFence(
-std::move(p_gpu_fence_handle));
+      impl->OnSubmitFrameGpuFence(        
+        std::move(p_gpu_fence_handle));
       return true;
     }
   }
@@ -7052,6 +7118,8 @@ bool XRSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::XRSessionClient_OnExitPresent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRSessionClient.0
       bool success = true;
       XRSessionClient_OnExitPresent_ParamsDataView input_data_view(params, message);
       
@@ -7064,7 +7132,7 @@ bool XRSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnExitPresent();
+      impl->OnExitPresent(        );
       return true;
     }
     case internal::kXRSessionClient_OnVisibilityStateChanged_Name: {
@@ -7074,6 +7142,8 @@ bool XRSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::XRSessionClient_OnVisibilityStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRSessionClient.1
       bool success = true;
       XRVisibilityState p_visibility_state{};
       XRSessionClient_OnVisibilityStateChanged_ParamsDataView input_data_view(params, message);
@@ -7089,8 +7159,8 @@ bool XRSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisibilityStateChanged(
-std::move(p_visibility_state));
+      impl->OnVisibilityStateChanged(        
+        std::move(p_visibility_state));
       return true;
     }
   }

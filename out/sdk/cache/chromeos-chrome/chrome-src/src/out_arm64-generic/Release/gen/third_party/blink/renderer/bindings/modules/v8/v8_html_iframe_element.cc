@@ -300,7 +300,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentDocument();
 if (!BindingSecurity::ShouldAllowAccessTo(ToLocalDOMWindow(current_context), return_value)) {
-  ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+  ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 UseCounter::Count(current_execution_context, WebFeature::kCrossOriginHTMLIFrameElementContentDocument);
 bindings::V8SetReturnValue(info, nullptr);
 return;
@@ -309,8 +310,7 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->contentWindow()->GetFrame();
 DCHECK(IsA<LocalFrame>(blink_frame));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
   // Don't wrap the return value if its frame is in the process of detaching and
@@ -319,10 +319,7 @@ if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowPr
 bindings::V8SetReturnValue(info, nullptr);
 return;
 }
-v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_value = ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value);
 bindings::V8SetReturnValue(info, v8_value);
 }
 }
@@ -504,7 +501,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLIFram
 BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.privateToken.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kTrustTokenIframe);
 
@@ -522,7 +520,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLIFram
 BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.privateToken.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kTrustTokenIframe);
 
@@ -872,7 +871,8 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 if (!BindingSecurity::ShouldAllowAccessTo(ToLocalDOMWindow(current_context), return_value)) {
-  ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+  ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 UseCounter::Count(current_execution_context, WebFeature::kCrossOriginHTMLIFrameElementGetSVGDocument);
 bindings::V8SetReturnValue(info, nullptr);
 return;
@@ -881,8 +881,7 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->contentWindow()->GetFrame();
 DCHECK(IsA<LocalFrame>(blink_frame));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
   // Don't wrap the return value if its frame is in the process of detaching and
@@ -891,10 +890,7 @@ if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowPr
 bindings::V8SetReturnValue(info, nullptr);
 return;
 }
-v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_value = ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value);
 bindings::V8SetReturnValue(info, v8_value);
 }
 }
@@ -1005,7 +1001,7 @@ void V8HTMLIFrameElement::Impl::InstallContextDependentProperties(v8::Local<v8::
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::DocumentPolicyNegotiationEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kDocumentPolicyNegotiation)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"policy", PolicyAttributeGetCallback, PolicyAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

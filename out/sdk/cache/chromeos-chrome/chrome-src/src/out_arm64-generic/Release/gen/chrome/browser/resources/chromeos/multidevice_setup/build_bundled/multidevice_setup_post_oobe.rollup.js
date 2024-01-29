@@ -1,4 +1,4 @@
-import { html, Polymer, dom, mixinBehaviors, PolymerElement, Base, useShadow, dashToCamelCase } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, dom, dedupingMixin, PolymerElement, Base, useShadow, dashToCamelCase } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
@@ -6,7 +6,7 @@ import { MultiDeviceSetup } from 'chrome://resources/mojo/chromeos/ash/services/
 import { sendWithPromise as sendWithPromise$1, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { LitElement, css, html as html$1 } from 'chrome://resources/mwc/lit/index.js';
 import { ConnectivityStatus } from 'chrome://resources/mojo/chromeos/ash/services/device_sync/public/mojom/device_sync.mojom-webui.js';
-import { loadTimeData as loadTimeData$1 } from 'chrome://resources/js/load_time_data.js';
+import 'chrome://resources/js/load_time_data.js';
 
 const styleMod$6 = document.createElement('dom-module');
 styleMod$6.appendChild(html `
@@ -1228,126 +1228,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$7() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
@@ -1379,7 +1379,7 @@ function getTemplate$7() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -1545,7 +1545,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -1563,7 +1563,7 @@ const styleMod$5 = document.createElement('dom-module');
 styleMod$5.appendChild(html `
   <template>
     <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
@@ -3534,6 +3534,7 @@ function getTemplate$5() {
 
   h1 {
     color: var(--cros-sys-on_surface);
+    font-family: var(--cros-font-family-google-sans);
     font-size: 28px;
     font-weight: normal;
     line-height: 36px;
@@ -3542,27 +3543,15 @@ function getTemplate$5() {
     text-align: var(--multidevice-setup-text-alignment);
   }
 
-  :host-context(body.jelly-enabled) h1 {
-    font-family: var(--cros-font-family-google-sans);
-  }
-
-  /* TODO(b/279667779): Remove once Jelly is launched */
-  :host-context(body:not(.jelly-enabled)) h1 {
-    font-family: 'Google Sans', Roboto, sans-serif;
-  }
-
   #message-container {
     color: var(--cros-sys-on_surface_variant);
+    font: var(--cros-body-1-font);
+    font-family: var(--cros-font-family-google-sans);
     line-height: 18px;
     min-height: 32px;
     overflow-wrap: break-word;
     padding-top: 16px;
     text-align: var(--multidevice-setup-text-alignment);
-  }
-
-  :host-context(body.jelly-enabled) #message-container {
-    font: var(--cros-body-1-font);
-    font-family: var(--cros-font-family-google-sans);
   }
 
   #main-container {
@@ -4439,33 +4428,22 @@ function getTemplate$2() {
     icon-name="google-g">
   <span slot="message" inner-h-t-m-l="[[getMessageHtml_()]]"></span>
   <div id="page-icon-container" slot="additional-content">
-    <!-- TODO(b/279667779): Remove iron-media-query and dark mode check when
-                            Jelly is fully launched. -->
-    <iron-media-query query="(prefers-color-scheme: dark)"
-        query-matches="{{isDarkModeActive_}}">
-    </iron-media-query>
-    <template is="dom-if" if="[[!isJellyEnabled_]]">
-      <img id="success-img" aria-hidden="true"
-          srcset="[[getImageSrcSet_(isDarkModeActive_)]]">
-    </template>
-    <template is="dom-if" if="[[isJellyEnabled_]]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="520" height="320" viewBox="0 0 520 320" fill="none">
-        <path d="M437.801 223.645H383.518C382.438 223.607 381.412 223.16 380.648 222.396C379.884 221.633 379.439 220.608 379.401 219.528V102.117C379.401 101.025 379.834 99.978 380.607 99.206C381.379 98.4338 382.426 98 383.518 98H437.801C438.881 98.038 439.907 98.4838 440.671 99.2479C441.435 100.012 441.88 101.037 441.918 102.117V219.376C441.918 220.481 441.49 221.546 440.723 222.342C439.954 223.138 438.907 223.606 437.801 223.645Z" fill="var(--cros-sys-illo-color1-2)" />
-        <path d="M437.801 223.645H383.518C382.438 223.607 381.412 223.16 380.648 222.396C379.884 221.633 379.439 220.608 379.401 219.528V102.117C379.401 101.025 379.834 99.978 380.607 99.206C381.379 98.4338 382.426 98 383.518 98H437.801C438.881 98.038 439.907 98.4838 440.671 99.2479C441.435 100.012 441.88 101.037 441.918 102.117V219.376C441.918 220.481 441.49 221.546 440.723 222.342C439.954 223.138 438.907 223.606 437.801 223.645Z" fill="var(--cros-sys-illo-color1-2)" />
-        <path d="M227.225 103.947L190.172 109.589C185.359 110.316 181.034 112.926 178.146 116.844C175.258 120.761 174.044 125.666 174.771 130.478C175.498 135.291 178.109 139.617 182.026 142.505C185.943 145.393 190.849 146.607 195.661 145.879L232.714 140.085C235.178 139.832 237.566 139.081 239.731 137.878C241.898 136.674 243.796 135.044 245.314 133.085C246.829 131.126 247.933 128.88 248.555 126.482C249.179 124.084 249.307 121.584 248.935 119.135C248.563 116.685 247.698 114.337 246.392 112.232C245.085 110.127 243.363 108.31 241.334 106.889C239.304 105.469 237.006 104.476 234.582 103.97C232.156 103.465 229.654 103.457 227.225 103.947ZM243.54 119.957C243.821 121.731 243.748 123.542 243.324 125.287C242.9 127.032 242.134 128.675 241.07 130.122C240.007 131.569 238.667 132.79 237.127 133.715C235.588 134.64 233.881 135.25 232.104 135.51L194.899 141.305C191.3 141.851 187.631 140.944 184.699 138.785C181.769 136.626 179.815 133.391 179.269 129.792C178.723 126.193 179.629 122.524 181.788 119.593C183.947 116.662 187.183 114.709 190.782 114.163L227.987 108.369C231.586 107.845 235.245 108.772 238.162 110.945C241.078 113.117 243.013 116.359 243.54 119.957Z" fill="var(--cros-sys-illo-color4)" />
-        <path d="M283.338 115.077C284.963 114.833 286.445 114.014 287.517 112.769C288.589 111.523 289.179 109.935 289.179 108.292C289.179 106.649 288.589 105.06 287.517 103.815C286.445 102.57 284.963 101.751 283.338 101.506C282.362 101.36 281.365 101.425 280.416 101.699C279.468 101.973 278.589 102.448 277.841 103.092C277.092 103.736 276.493 104.534 276.081 105.431C275.669 106.329 275.456 107.304 275.456 108.292C275.456 109.279 275.669 110.255 276.081 111.152C276.493 112.05 277.092 112.848 277.841 113.492C278.589 114.136 279.468 114.611 280.416 114.885C281.365 115.158 282.362 115.224 283.338 115.077Z" fill="var(--cros-sys-illo-color2)" />
-        <path d="M194.136 126.362L142.445 140.39C142.214 140.425 141.997 140.525 141.821 140.68C141.645 140.834 141.518 141.036 141.453 141.261C141.389 141.486 141.391 141.725 141.459 141.949C141.526 142.173 141.657 142.373 141.835 142.525L179.955 180.341C180.126 180.473 180.326 180.565 180.538 180.606C180.751 180.647 180.969 180.638 181.178 180.579C181.386 180.519 181.578 180.411 181.736 180.264C181.895 180.117 182.015 179.934 182.09 179.731L195.813 127.886C195.844 127.665 195.821 127.44 195.745 127.23C195.669 127.02 195.542 126.831 195.377 126.681C195.213 126.531 195.013 126.423 194.796 126.367C194.58 126.312 194.353 126.31 194.136 126.362Z" fill="var(--cros-sys-illo-color3)" />
-        <path d="M379.401 146.031C374.198 146.267 369.11 144.461 365.22 141L360.036 136.425L357.749 134.595L355.919 133.528C353.94 132.508 351.779 131.892 349.559 131.716C347.34 131.54 345.108 131.808 342.993 132.503C340.878 133.198 338.923 134.308 337.241 135.767C335.561 137.226 334.186 139.004 333.199 141C331.221 145.011 330.897 149.637 332.293 153.887C333.692 158.135 336.699 161.665 340.671 163.72L342.653 164.482H342.805L345.55 165.245L352.259 166.617C357.434 167.788 361.963 170.899 364.915 175.309L368.27 180.34C369.197 181.972 370.215 183.55 371.319 185.067C373.572 187.626 376.322 189.701 379.401 191.167" fill="var(--cros-sys-illo-color1-2)" />
-        <path d="M379.401 191.32L381.078 192.082C386.86 194.238 393.248 194.108 398.938 191.718C404.629 189.328 409.193 184.857 411.701 179.219C414.211 173.58 414.473 167.197 412.439 161.369C410.403 155.543 406.222 150.712 400.748 147.862C396.055 145.616 390.784 144.87 385.653 145.727L379.706 146.032H379.401" fill="var(--cros-sys-illo-color1)" />
-        <path d="M332.589 114.163C327.643 114.163 322.809 115.63 318.697 118.378C314.584 121.125 311.379 125.031 309.485 129.6C307.593 134.17 307.097 139.198 308.063 144.049C309.028 148.9 311.41 153.355 314.906 156.852C318.404 160.35 322.859 162.732 327.711 163.696C332.562 164.661 337.589 164.165 342.159 162.273C346.729 160.381 350.634 157.176 353.382 153.063C356.129 148.951 357.596 144.116 357.596 139.17C357.596 135.886 356.95 132.634 355.693 129.6C354.435 126.566 352.593 123.81 350.272 121.488C347.95 119.165 345.193 117.323 342.159 116.067C339.125 114.81 335.874 114.163 332.589 114.163ZM332.589 118.738C336.63 118.738 340.581 119.936 343.941 122.181C347.301 124.426 349.92 127.617 351.466 131.351C353.013 135.084 353.418 139.193 352.63 143.156C351.84 147.12 349.894 150.761 347.037 153.618C344.179 156.476 340.54 158.422 336.575 159.21C332.612 159.998 328.504 159.594 324.77 158.046C321.037 156.5 317.846 153.882 315.6 150.521C313.355 147.162 312.157 143.211 312.157 139.17C312.157 133.751 314.31 128.554 318.142 124.722C321.973 120.89 327.17 118.738 332.589 118.738Z" fill="var(--cros-sys-illo-color1)" />
-        <path d="M418.284 104.099C418.458 104.097 418.63 104.133 418.788 104.204C418.947 104.274 419.089 104.378 419.205 104.508C419.321 104.638 419.407 104.791 419.458 104.957C419.51 105.123 419.525 105.299 419.504 105.471C419.507 105.77 419.398 106.059 419.202 106.284C419.005 106.509 418.732 106.653 418.436 106.691H406.39C406.078 106.658 405.786 106.519 405.565 106.297C405.343 106.075 405.204 105.783 405.17 105.471C405.187 105.161 405.298 104.863 405.489 104.618C405.68 104.373 405.942 104.191 406.238 104.099H418.284Z" fill="var(--cros-sys-illo-color1)" />
-        <path d="M399.834 106.996C400.238 106.996 400.626 106.836 400.912 106.55C401.198 106.264 401.358 105.876 401.358 105.471C401.383 105.265 401.36 105.056 401.293 104.86C401.224 104.664 401.113 104.486 400.966 104.339C400.819 104.192 400.642 104.081 400.445 104.013C400.248 103.945 400.039 103.922 399.834 103.947C399.429 103.947 399.041 104.107 398.755 104.393C398.469 104.679 398.309 105.067 398.309 105.471C398.344 105.864 398.515 106.232 398.794 106.511C399.073 106.79 399.44 106.962 399.834 106.996Z" fill="var(--cros-sys-illo-color1)" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M351.649 132.003C353.144 132.282 354.586 132.797 355.919 133.528L356.986 134.138C357.415 135.781 357.619 137.473 357.596 139.17C357.592 144.548 355.855 149.782 352.64 154.094C349.426 158.406 344.908 161.569 339.756 163.11C338.088 162.145 336.593 160.909 335.334 159.451C340.225 158.755 344.704 156.323 347.95 152.6C351.198 148.877 352.997 144.11 353.022 139.17C353.023 136.716 352.557 134.284 351.649 132.003Z" fill="var(--cros-sys-illo-base)" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M179.041 130.479C179.65 133.555 181.274 136.338 183.652 138.383C186.027 140.428 189.022 141.618 192.154 141.763L191.087 145.575C187.319 145.205 183.766 143.647 180.943 141.125C178.12 138.603 176.172 135.248 175.381 131.546L179.041 130.479Z" fill="var(--cros-sys-illo-base)" />
-        <path d="M98.8354 161.432C104.866 159.311 111.478 159.564 117.328 162.143C123.178 164.721 127.827 169.428 130.331 175.311C132.835 181.192 133.007 187.807 130.81 193.81C128.614 199.813 124.214 204.757 118.506 207.634C116.916 208.535 115.227 209.252 113.474 209.769" fill="var(--cros-sys-illo-color5)" />
-        <path d="M87.0944 117.823L117.438 221.053L222.04 219.681V225.628L115.151 227C114.543 226.999 113.952 226.806 113.459 226.451C112.966 226.096 112.598 225.594 112.406 225.018L81.4526 119.5L87.0944 117.823Z" fill="var(--cros-sys-illo-color1)" />
-      </svg>
-    </template>
+    <svg xmlns="http://www.w3.org/2000/svg" width="520" height="320" viewBox="0 0 520 320" fill="none">
+      <path d="M437.801 223.645H383.518C382.438 223.607 381.412 223.16 380.648 222.396C379.884 221.633 379.439 220.608 379.401 219.528V102.117C379.401 101.025 379.834 99.978 380.607 99.206C381.379 98.4338 382.426 98 383.518 98H437.801C438.881 98.038 439.907 98.4838 440.671 99.2479C441.435 100.012 441.88 101.037 441.918 102.117V219.376C441.918 220.481 441.49 221.546 440.723 222.342C439.954 223.138 438.907 223.606 437.801 223.645Z" fill="var(--cros-sys-illo-color1-2)" />
+      <path d="M437.801 223.645H383.518C382.438 223.607 381.412 223.16 380.648 222.396C379.884 221.633 379.439 220.608 379.401 219.528V102.117C379.401 101.025 379.834 99.978 380.607 99.206C381.379 98.4338 382.426 98 383.518 98H437.801C438.881 98.038 439.907 98.4838 440.671 99.2479C441.435 100.012 441.88 101.037 441.918 102.117V219.376C441.918 220.481 441.49 221.546 440.723 222.342C439.954 223.138 438.907 223.606 437.801 223.645Z" fill="var(--cros-sys-illo-color1-2)" />
+      <path d="M227.225 103.947L190.172 109.589C185.359 110.316 181.034 112.926 178.146 116.844C175.258 120.761 174.044 125.666 174.771 130.478C175.498 135.291 178.109 139.617 182.026 142.505C185.943 145.393 190.849 146.607 195.661 145.879L232.714 140.085C235.178 139.832 237.566 139.081 239.731 137.878C241.898 136.674 243.796 135.044 245.314 133.085C246.829 131.126 247.933 128.88 248.555 126.482C249.179 124.084 249.307 121.584 248.935 119.135C248.563 116.685 247.698 114.337 246.392 112.232C245.085 110.127 243.363 108.31 241.334 106.889C239.304 105.469 237.006 104.476 234.582 103.97C232.156 103.465 229.654 103.457 227.225 103.947ZM243.54 119.957C243.821 121.731 243.748 123.542 243.324 125.287C242.9 127.032 242.134 128.675 241.07 130.122C240.007 131.569 238.667 132.79 237.127 133.715C235.588 134.64 233.881 135.25 232.104 135.51L194.899 141.305C191.3 141.851 187.631 140.944 184.699 138.785C181.769 136.626 179.815 133.391 179.269 129.792C178.723 126.193 179.629 122.524 181.788 119.593C183.947 116.662 187.183 114.709 190.782 114.163L227.987 108.369C231.586 107.845 235.245 108.772 238.162 110.945C241.078 113.117 243.013 116.359 243.54 119.957Z" fill="var(--cros-sys-illo-color4)" />
+      <path d="M283.338 115.077C284.963 114.833 286.445 114.014 287.517 112.769C288.589 111.523 289.179 109.935 289.179 108.292C289.179 106.649 288.589 105.06 287.517 103.815C286.445 102.57 284.963 101.751 283.338 101.506C282.362 101.36 281.365 101.425 280.416 101.699C279.468 101.973 278.589 102.448 277.841 103.092C277.092 103.736 276.493 104.534 276.081 105.431C275.669 106.329 275.456 107.304 275.456 108.292C275.456 109.279 275.669 110.255 276.081 111.152C276.493 112.05 277.092 112.848 277.841 113.492C278.589 114.136 279.468 114.611 280.416 114.885C281.365 115.158 282.362 115.224 283.338 115.077Z" fill="var(--cros-sys-illo-color2)" />
+      <path d="M194.136 126.362L142.445 140.39C142.214 140.425 141.997 140.525 141.821 140.68C141.645 140.834 141.518 141.036 141.453 141.261C141.389 141.486 141.391 141.725 141.459 141.949C141.526 142.173 141.657 142.373 141.835 142.525L179.955 180.341C180.126 180.473 180.326 180.565 180.538 180.606C180.751 180.647 180.969 180.638 181.178 180.579C181.386 180.519 181.578 180.411 181.736 180.264C181.895 180.117 182.015 179.934 182.09 179.731L195.813 127.886C195.844 127.665 195.821 127.44 195.745 127.23C195.669 127.02 195.542 126.831 195.377 126.681C195.213 126.531 195.013 126.423 194.796 126.367C194.58 126.312 194.353 126.31 194.136 126.362Z" fill="var(--cros-sys-illo-color3)" />
+      <path d="M379.401 146.031C374.198 146.267 369.11 144.461 365.22 141L360.036 136.425L357.749 134.595L355.919 133.528C353.94 132.508 351.779 131.892 349.559 131.716C347.34 131.54 345.108 131.808 342.993 132.503C340.878 133.198 338.923 134.308 337.241 135.767C335.561 137.226 334.186 139.004 333.199 141C331.221 145.011 330.897 149.637 332.293 153.887C333.692 158.135 336.699 161.665 340.671 163.72L342.653 164.482H342.805L345.55 165.245L352.259 166.617C357.434 167.788 361.963 170.899 364.915 175.309L368.27 180.34C369.197 181.972 370.215 183.55 371.319 185.067C373.572 187.626 376.322 189.701 379.401 191.167" fill="var(--cros-sys-illo-color1-2)" />
+      <path d="M379.401 191.32L381.078 192.082C386.86 194.238 393.248 194.108 398.938 191.718C404.629 189.328 409.193 184.857 411.701 179.219C414.211 173.58 414.473 167.197 412.439 161.369C410.403 155.543 406.222 150.712 400.748 147.862C396.055 145.616 390.784 144.87 385.653 145.727L379.706 146.032H379.401" fill="var(--cros-sys-illo-color1)" />
+      <path d="M332.589 114.163C327.643 114.163 322.809 115.63 318.697 118.378C314.584 121.125 311.379 125.031 309.485 129.6C307.593 134.17 307.097 139.198 308.063 144.049C309.028 148.9 311.41 153.355 314.906 156.852C318.404 160.35 322.859 162.732 327.711 163.696C332.562 164.661 337.589 164.165 342.159 162.273C346.729 160.381 350.634 157.176 353.382 153.063C356.129 148.951 357.596 144.116 357.596 139.17C357.596 135.886 356.95 132.634 355.693 129.6C354.435 126.566 352.593 123.81 350.272 121.488C347.95 119.165 345.193 117.323 342.159 116.067C339.125 114.81 335.874 114.163 332.589 114.163ZM332.589 118.738C336.63 118.738 340.581 119.936 343.941 122.181C347.301 124.426 349.92 127.617 351.466 131.351C353.013 135.084 353.418 139.193 352.63 143.156C351.84 147.12 349.894 150.761 347.037 153.618C344.179 156.476 340.54 158.422 336.575 159.21C332.612 159.998 328.504 159.594 324.77 158.046C321.037 156.5 317.846 153.882 315.6 150.521C313.355 147.162 312.157 143.211 312.157 139.17C312.157 133.751 314.31 128.554 318.142 124.722C321.973 120.89 327.17 118.738 332.589 118.738Z" fill="var(--cros-sys-illo-color1)" />
+      <path d="M418.284 104.099C418.458 104.097 418.63 104.133 418.788 104.204C418.947 104.274 419.089 104.378 419.205 104.508C419.321 104.638 419.407 104.791 419.458 104.957C419.51 105.123 419.525 105.299 419.504 105.471C419.507 105.77 419.398 106.059 419.202 106.284C419.005 106.509 418.732 106.653 418.436 106.691H406.39C406.078 106.658 405.786 106.519 405.565 106.297C405.343 106.075 405.204 105.783 405.17 105.471C405.187 105.161 405.298 104.863 405.489 104.618C405.68 104.373 405.942 104.191 406.238 104.099H418.284Z" fill="var(--cros-sys-illo-color1)" />
+      <path d="M399.834 106.996C400.238 106.996 400.626 106.836 400.912 106.55C401.198 106.264 401.358 105.876 401.358 105.471C401.383 105.265 401.36 105.056 401.293 104.86C401.224 104.664 401.113 104.486 400.966 104.339C400.819 104.192 400.642 104.081 400.445 104.013C400.248 103.945 400.039 103.922 399.834 103.947C399.429 103.947 399.041 104.107 398.755 104.393C398.469 104.679 398.309 105.067 398.309 105.471C398.344 105.864 398.515 106.232 398.794 106.511C399.073 106.79 399.44 106.962 399.834 106.996Z" fill="var(--cros-sys-illo-color1)" />
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M351.649 132.003C353.144 132.282 354.586 132.797 355.919 133.528L356.986 134.138C357.415 135.781 357.619 137.473 357.596 139.17C357.592 144.548 355.855 149.782 352.64 154.094C349.426 158.406 344.908 161.569 339.756 163.11C338.088 162.145 336.593 160.909 335.334 159.451C340.225 158.755 344.704 156.323 347.95 152.6C351.198 148.877 352.997 144.11 353.022 139.17C353.023 136.716 352.557 134.284 351.649 132.003Z" fill="var(--cros-sys-illo-base)" />
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M179.041 130.479C179.65 133.555 181.274 136.338 183.652 138.383C186.027 140.428 189.022 141.618 192.154 141.763L191.087 145.575C187.319 145.205 183.766 143.647 180.943 141.125C178.12 138.603 176.172 135.248 175.381 131.546L179.041 130.479Z" fill="var(--cros-sys-illo-base)" />
+      <path d="M98.8354 161.432C104.866 159.311 111.478 159.564 117.328 162.143C123.178 164.721 127.827 169.428 130.331 175.311C132.835 181.192 133.007 187.807 130.81 193.81C128.614 199.813 124.214 204.757 118.506 207.634C116.916 208.535 115.227 209.252 113.474 209.769" fill="var(--cros-sys-illo-color5)" />
+      <path d="M87.0944 117.823L117.438 221.053L222.04 219.681V225.628L115.151 227C114.543 226.999 113.952 226.806 113.459 226.451C112.966 226.096 112.598 225.594 112.406 225.018L81.4526 119.5L87.0944 117.823Z" fill="var(--cros-sys-illo-color1)" />
+    </svg>
   </div>
 </ui-page>
 <!--_html_template_end_-->`;
@@ -4476,34 +4454,6 @@ function getTemplate$2() {
 // found in the LICENSE file.
 
 
-/**
- * TODO(b/279667779): Remove when Jelly is fully launched.
- * @type {string}
- */
-const SRC_SET_URL_1_LIGHT =
-    'chrome://resources/ash/common/multidevice_setup/all_set_1x_light.svg';
-
-/**
- * TODO(b/279667779): Remove when Jelly is fully launched.
- * @type {string}
- */
-const SRC_SET_URL_2_LIGHT =
-    'chrome://resources/ash/common/multidevice_setup/all_set_2x_light.svg';
-
-/**
- * TODO(b/279667779): Remove when Jelly is fully launched.
- * @type {string}
- */
-const SRC_SET_URL_1_DARK =
-    'chrome://resources/ash/common/multidevice_setup/all_set_1x_dark.svg';
-
-/**
- * TODO(b/279667779): Remove when Jelly is fully launched.
- * @type {string}
- */
-const SRC_SET_URL_2_DARK =
-    'chrome://resources/ash/common/multidevice_setup/all_set_2x_dark.svg';
-
 Polymer({
   _template: getTemplate$2(),
   is: 'setup-succeeded-page',
@@ -4513,28 +4463,6 @@ Polymer({
     forwardButtonTextId: {
       type: String,
       value: 'done',
-    },
-
-    /**
-     * Whether the multidevice success page is being rendered in dark mode.
-     * TODO(b/279667779): Remove when Jelly is fully launched.
-     * @private {boolean}
-     */
-    isDarkModeActive_: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * Whether the multidevice setup page is being rendered with dynamic colors.
-     * @private {boolean}
-     */
-    isJellyEnabled_: {
-      type: Boolean,
-      value() {
-        return loadTimeData.valueExists('isJellyEnabled') &&
-            loadTimeData.getBoolean('isJellyEnabled');
-      },
     },
   },
 
@@ -4569,19 +4497,6 @@ Polymer({
     const linkElement = this.$$('#settings-link');
     linkElement.setAttribute('href', '#');
     linkElement.addEventListener('click', () => this.onSettingsLinkClicked_());
-  },
-
-  /**
-   * Returns source set for images based on if the page is rendered in dark
-   * mode.
-   * TODO(b/279667779): Remove when Jelly is fully launched.
-   * @return {string}
-   * @private
-   */
-  getImageSrcSet_() {
-    return this.isDarkModeActive_ ?
-        SRC_SET_URL_1_DARK + ' 1x, ' + SRC_SET_URL_2_DARK + ' 2x' :
-        SRC_SET_URL_1_LIGHT + ' 1x, ' + SRC_SET_URL_2_LIGHT + ' 2x';
   },
 });
 
@@ -4779,7 +4694,7 @@ const CROS_TOKENS = new Set([
     'cros.sys.illo.card.on_color1',
 ]);
 /** String variant of the name field used for comparison during parsing. */
-const LOTTIE_NAME_KEY = 'nm';
+const LOTTIE_GRADIENT_FILL_TYPE = 'gf';
 /** The CustomEvent names that LottieRenderer can fire. */
 var CrosLottieEvent;
 (function (CrosLottieEvent) {
@@ -4807,10 +4722,9 @@ var CrosLottieEvent;
 })(CrosLottieEvent || (CrosLottieEvent = {}));
 /**
  * Helper function for converting between the hexadecimal string we get from the
- * computed style to the format that lottie expects, which is an array of four
- * floats. Since these come directly from the computed style and color pipeline,
- * we can be confident that we are only going to be parsing 8 digit hexadecimal
- * strings.
+ * computed style to LottieRGBAArray type. Since these come directly
+ * from the computed style and color pipeline, we can be confident that we are
+ * only going to be parsing 8 digit hexadecimal strings.
  */
 function convertHexToLottieRGBA(hexString) {
     let r;
@@ -4838,27 +4752,48 @@ function convertHexToLottieRGBA(hexString) {
 function convertTokenToCssVariable(token) {
     return `--${(token).replaceAll('.', '-')}`;
 }
+function getOrCreateTokenColor(colors, tokenName) {
+    if (!colors.has(tokenName)) {
+        colors.set(tokenName, {
+            cssVar: convertTokenToCssVariable(tokenName),
+            shapes: [],
+            gradients: []
+        });
+    }
+    return colors.get(tokenName);
+}
 /**
  * Traverses through a jsonObject, looking for known keys and tokens, and
- * saving them in the `shapes` map.
+ * saving them in the `shapes` and `gradients` map.
  */
-function traverse(jsonObj, shapes) {
+function traverse(jsonObj, colors) {
     if (jsonObj === null || typeof jsonObj !== 'object')
         return;
-    for (const [key, value] of Object.entries(jsonObj)) {
-        // If we are looking at something that contains a "nm" field that is set to
-        // one of the known illustration tokens, this is a LottieShape that needs to
-        // have its color value set.
-        if (key === LOTTIE_NAME_KEY && CROS_TOKENS.has(value)) {
-            const tokenName = value;
-            if (!shapes.has(tokenName)) {
-                shapes.set(tokenName, { cssVar: convertTokenToCssVariable(tokenName), locations: [] });
+    for (const value of Object.values(jsonObj)) {
+        const tokenName = jsonObj.nm || null;
+        let tokenColor = null;
+        let gradient = null;
+        let shape = null;
+        if (tokenName && CROS_TOKENS.has(tokenName)) {
+            tokenColor = getOrCreateTokenColor(colors, tokenName);
+            const gradientObj = jsonObj;
+            // Attempt to parse the object as a gradient, otherwise we assume it is a
+            // regular shape. If more complex animation types get added, this logic
+            // will need to be updated along with the types.
+            if (gradientObj.ty === LOTTIE_GRADIENT_FILL_TYPE) {
+                gradient = gradientObj;
             }
-            const color = shapes.get(tokenName);
-            const shape = jsonObj;
-            color.locations.push(shape);
+            else {
+                shape = jsonObj;
+            }
         }
-        traverse(value, shapes);
+        traverse(value, colors);
+        if (tokenColor) {
+            if (gradient)
+                tokenColor.gradients.push(gradient);
+            if (shape)
+                tokenColor.shapes.push(shape);
+        }
     }
 }
 /**
@@ -5128,7 +5063,7 @@ class LottieRenderer extends LitElement {
         for (const color of this.colors.values()) {
             const computedColor = computedStyle.getPropertyValue(color.cssVar).trim();
             const colorArray = convertHexToLottieRGBA(computedColor);
-            for (const location of color.locations) {
+            for (const location of color.shapes) {
                 if (location.c) {
                     location.c.k = colorArray;
                 }
@@ -5137,6 +5072,15 @@ class LottieRenderer extends LitElement {
                 }
                 else {
                     console.info(`Unable to assign color to shape: ${JSON.stringify(location)}`);
+                }
+            }
+            for (const location of color.gradients) {
+                const numOfPoints = location.g.p;
+                for (let i = 0; i < numOfPoints; i++) {
+                    const gradientFillPoints = location.g.k.k;
+                    gradientFillPoints[(4 * i) + 1] = colorArray[0];
+                    gradientFillPoints[(4 * i) + 2] = colorArray[1];
+                    gradientFillPoints[(4 * i) + 3] = colorArray[2];
                 }
             }
         }
@@ -5286,14 +5230,12 @@ function getTemplate$1() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared">
   #singleDeviceName {
     color: var(--cros-sys-on_surface);
+    font: var(--cros-body-2-font);
+    font-family: var(--cros-font-family-google-sans);
   }
 
   .offline-device-name {
     color: var(--cros-sys-on_surface_variant);
-  }
-
-  :host-context(body.jelly-enabled) #singleDeviceName,
-                                    .offline-device-name {
     font: var(--cros-body-2-font);
     font-family: var(--cros-font-family-google-sans);
   }
@@ -5360,12 +5302,9 @@ function getTemplate$1() {
 
   #feature-details-container {
     color: var(--cros-sys-on_surface);
-    padding-top: 40px;
-  }
-
-  :host-context(body.jelly-enabled) #feature-details-container {
     font: var(--cros-body-1-font);
     font-family: var(--cros-font-family-google-sans);
+    padding-top: 40px;
   }
 
   .feature-detail:not(:last-of-type) {
@@ -5399,13 +5338,8 @@ function getTemplate$1() {
     icon-name="google-g">
   <span slot="message">
     <div id="animation-container">
-      <!-- TODO(b/279667779): Remove iron-media-query and dark mode check when
-                              Jelly is fully launched. -->
-      <iron-media-query query="(prefers-color-scheme: dark)"
-          query-matches="{{isDarkModeActive_}}">
-      </iron-media-query>
       <cros-lottie-renderer id="multideviceSetupAnimation"
-          asset-url="[[getAnimationUrl_(isDarkModeActive_, isJellyEnabled_)]]"
+          asset-url="[[getAnimationUrl_()]]"
           autoplay="true" dynamic="true" aria-hidden="true">
       </cros-lottie-renderer>
     </div>
@@ -5496,27 +5430,11 @@ function getTemplate$1() {
 
 
 /**
- * The multidevice setup animation for light mode.
- * TODO(b/279667779): Remove when Jelly is fully launched.
- * @type {string}
- */
-const MULTIDEVICE_ANIMATION_DARK_URL =
-    'chrome://resources/ash/common/multidevice_setup/multidevice_setup_dark.json';
-
-/**
- * The multidevice setup animation for dark mode.
- * TODO(b/279667779): Remove when Jelly is fully launched.
- * @type {string}
- */
-const MULTIDEVICE_ANIMATION_LIGHT_URL =
-    'chrome://resources/ash/common/multidevice_setup/multidevice_setup_light.json';
-
-/**
  * The multidevice setup animation for dynamic colors.
  * @type {string}
  */
 const MULTIDEVICE_ANIMATION_JELLY_URL =
-    'chrome://resources/ash/common/multidevice_setup/multidevice_setup_jelly.json';
+    'chrome://resources/ash/common/multidevice_setup/multidevice_setup_animation.json';
 
 Polymer({
   _template: getTemplate$1(),
@@ -5595,28 +5513,6 @@ Polymer({
       value() {
         return loadTimeData.valueExists('phoneHubEnabled') &&
             loadTimeData.getBoolean('phoneHubEnabled');
-      },
-    },
-
-    /**
-     * Whether the multidevice setup page is being rendered in dark mode.
-     * TODO(b/279667779): Remove when Jelly is fully launched.
-     * @private {boolean}
-     */
-    isDarkModeActive_: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * Whether the multidevice setup page is being rendered with dynamic colors.
-     * @private {boolean}
-     */
-    isJellyEnabled_: {
-      type: Boolean,
-      value() {
-        return loadTimeData.valueExists('isJellyEnabled') &&
-            loadTimeData.getBoolean('isJellyEnabled');
       },
     },
 
@@ -5840,13 +5736,7 @@ Polymer({
    * @private
    */
   getAnimationUrl_() {
-    if (this.isJellyEnabled_) {
-      return MULTIDEVICE_ANIMATION_JELLY_URL;
-    }
-
-    // TODO(b/279667779): Remove when Jelly is fully launched.
-    return this.isDarkModeActive_ ? MULTIDEVICE_ANIMATION_DARK_URL :
-                                    MULTIDEVICE_ANIMATION_LIGHT_URL;
+    return MULTIDEVICE_ANIMATION_JELLY_URL;
   },
 });
 
@@ -6704,14 +6594,11 @@ function getTemplate() {
     color: var(--cros-sys-on_surface_variant);
     display: flex;
     flex-direction: column;
+    font-family: var(--cros-font-family-google-sans);
     font-size: 13px;
     height: 100%;
     line-height: 16px;
     margin: auto;
-  }
-
-  :host-context(body.jelly-enabled) #container {
-    font-family: var(--cros-font-family-google-sans);
   }
 
   iron-pages {
@@ -6900,19 +6787,6 @@ Polymer({
     isScrolledToBottom_: {
       type: Boolean,
       value: false,
-    },
-
-    /**
-     * Return true if the Jelly feature flag is enabled.
-     * @private
-     */
-    isJellyEnabled: {
-      type: Boolean,
-      readOnly: true,
-      value() {
-        return loadTimeData$1.valueExists('isJellyEnabled') &&
-            loadTimeData$1.getBoolean('isJellyEnabled');
-      },
     },
   },
 

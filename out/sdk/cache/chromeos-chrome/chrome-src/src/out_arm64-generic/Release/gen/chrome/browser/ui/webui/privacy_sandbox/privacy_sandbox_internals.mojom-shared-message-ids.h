@@ -14,9 +14,14 @@ namespace privacy_sandbox_internals::mojom {
 namespace internal {
 
 
-constexpr uint32_t kPageHandler_GetCookieSettings_Name = 0;
-constexpr uint32_t kPageHandler_GetTpcdMetadataGrants_Name = 1;
-constexpr uint32_t kPageHandler_ContentSettingsPatternToString_Name = 2;
+constexpr uint32_t kPageHandler_ReadPref_Name = 0;
+constexpr uint32_t kPageHandler_GetCookieSettings_Name = 1;
+constexpr uint32_t kPageHandler_GetTpcdMetadataGrants_Name = 2;
+constexpr uint32_t kPageHandler_GetTpcdHeuristicsGrants_Name = 3;
+constexpr uint32_t kPageHandler_GetTpcdTrial_Name = 4;
+constexpr uint32_t kPageHandler_GetTopLevelTpcdTrial_Name = 5;
+constexpr uint32_t kPageHandler_ContentSettingsPatternToString_Name = 6;
+constexpr uint32_t kPageHandler_StringToContentSettingsPattern_Name = 7;
 
 }  // namespace internal
 

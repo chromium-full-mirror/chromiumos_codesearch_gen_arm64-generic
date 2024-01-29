@@ -148,6 +148,8 @@ bool GeolocationControlStubDispatch::Accept(
           reinterpret_cast<internal::GeolocationControl_UserDidOptIntoLocationServices_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationControl.0
       bool success = true;
       GeolocationControl_UserDidOptIntoLocationServices_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool GeolocationControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UserDidOptIntoLocationServices();
+      impl->UserDidOptIntoLocationServices(        );
       return true;
     }
   }

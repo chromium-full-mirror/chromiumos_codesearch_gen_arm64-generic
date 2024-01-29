@@ -121,70 +121,37 @@ bool CSSNumericType::FillV8ObjectWithMembers(ScriptState* script_state, v8::Loca
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAngle()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_angle_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_angle_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasFlex()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_flex_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_flex_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasFrequency()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_frequency_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_frequency_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasLength()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_length_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_length_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasPercent()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_percent_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_percent_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasPercentHint()) {
-  if (!ToV8Traits<V8CSSNumericBaseType>::ToV8(script_state, member_percent_hint_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8CSSNumericBaseType>::ToV8(script_state, member_percent_hint_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasResolution()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_resolution_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_resolution_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 if (hasTime()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_time_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_time_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

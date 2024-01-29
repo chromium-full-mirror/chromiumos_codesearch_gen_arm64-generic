@@ -77,32 +77,19 @@ bool GPURequestAdapterOptions::FillV8ObjectWithMembers(ScriptState* script_state
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
-if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+if (RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) {
   if (hasCompatibilityMode()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_compatibility_mode_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_compatibility_mode_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasForceFallbackAdapter()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_force_fallback_adapter_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_force_fallback_adapter_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasPowerPreference()) {
-  if (!ToV8Traits<V8GPUPowerPreference>::ToV8(script_state, member_power_preference_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUPowerPreference>::ToV8(script_state, member_power_preference_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -115,7 +102,7 @@ v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 bool fallback_presence_var;
 v8::TryCatch try_block(isolate);
-if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+if (RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("compatibilityMode");
 if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_compatibility_mode_, try_block, exception_state)) {
   return;

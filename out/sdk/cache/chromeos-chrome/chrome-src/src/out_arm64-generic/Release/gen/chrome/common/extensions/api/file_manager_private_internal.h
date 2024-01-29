@@ -1031,7 +1031,7 @@ struct Params {
   Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  extensions::api::file_manager_private::IOTaskType type;
+  extensions::api::file_manager_private::IoTaskType type;
 
   std::vector<std::string> urls;
 

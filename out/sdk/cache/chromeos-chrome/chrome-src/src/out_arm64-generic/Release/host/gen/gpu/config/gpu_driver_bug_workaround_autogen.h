@@ -63,6 +63,8 @@
          disable_d3d11)                                                     \
   GPU_OP(DISABLE_D3D11_VIDEO_DECODER,                                       \
          disable_d3d11_video_decoder)                                       \
+  GPU_OP(DISABLE_D3D11_VP9_KSVC_DECODING,                                   \
+         disable_d3d11_vp9_ksvc_decoding)                                   \
   GPU_OP(DISABLE_DECODE_SWAP_CHAIN,                                         \
          disable_decode_swap_chain)                                         \
   GPU_OP(DISABLE_DEPTH_TEXTURE,                                             \
@@ -97,6 +99,8 @@
          disable_imagebitmap_from_video_using_gpu)                          \
   GPU_OP(DISABLE_MEDIA_FOUNDATION_CLEAR_PLAYBACK,                           \
          disable_media_foundation_clear_playback)                           \
+  GPU_OP(DISABLE_MEDIA_FOUNDATION_FRAME_SIZE_CHANGE,                        \
+         disable_media_foundation_frame_size_change)                        \
   GPU_OP(DISABLE_MEDIA_FOUNDATION_HARDWARE_SECURITY,                        \
          disable_media_foundation_hardware_security)                        \
   GPU_OP(DISABLE_METAL,                                                     \

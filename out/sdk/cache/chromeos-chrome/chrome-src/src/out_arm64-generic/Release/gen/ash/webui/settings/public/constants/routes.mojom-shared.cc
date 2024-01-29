@@ -259,6 +259,10 @@ NOINLINE static const char* SubpageToStringHelper(Subpage value) {
       return "kSelectToSpeak";
     case Subpage::kChromeVox:
       return "kChromeVox";
+    case Subpage::kFaceGazeCursorSettings:
+      return "kFaceGazeCursorSettings";
+    case Subpage::kFaceGazeFacialExpressionsSettings:
+      return "kFaceGazeFacialExpressionsSettings";
     case Subpage::kDetailedBuildInfo:
       return "kDetailedBuildInfo";
     case Subpage::kKerberosAccountsV2:

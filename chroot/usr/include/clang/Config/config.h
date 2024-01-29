@@ -12,7 +12,7 @@
 #define CLANG_DEFAULT_PIE_ON_LINUX 1
 
 /* Default linker to use. */
-#define CLANG_DEFAULT_LINKER ""
+#define CLANG_DEFAULT_LINKER "lld"
 
 /* Default C++ stdlib to use. */
 #define CLANG_DEFAULT_CXX_STDLIB "libc++"

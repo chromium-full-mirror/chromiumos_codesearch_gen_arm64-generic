@@ -132,17 +132,13 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.canvas.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getHTMLOrOffscreenCanvas();
-if (!ToV8Traits<V8UnionHTMLCanvasElementOrOffscreenCanvas>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<V8UnionHTMLCanvasElementOrOffscreenCanvas>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -6488,8 +6484,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -6529,8 +6524,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -6568,10 +6562,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -6579,9 +6571,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->getAttachedShaders(arg1_program);
-if (!ToV8Traits<IDLNullable<IDLSequence<WebGLShader>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<IDLSequence<WebGLShader>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -6641,8 +6631,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -6719,17 +6708,13 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getContextAttributes");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getContextAttributes();
-if (!ToV8Traits<IDLNullable<WebGLContextAttributes>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<WebGLContextAttributes>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -6760,7 +6745,8 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getExtension");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.getExtension", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8WebGL2RenderingContext_GetExtension_Method);
 
@@ -6779,8 +6765,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
 if (LIKELY(info[0]->IsString())) {
@@ -6855,8 +6840,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -6896,8 +6880,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -6920,7 +6903,8 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getInternalformatParameter");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.getInternalformatParameter", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebGL2RenderingContextGetInternalFormatParameter);
 
@@ -6939,8 +6923,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -6967,7 +6950,8 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getParameter");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.getParameter", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebGLRenderingContextGetParameter);
 
@@ -6986,8 +6970,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_pname = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7049,8 +7032,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7086,8 +7068,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7123,8 +7104,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_query = NativeValueTraits<WebGLQuery>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7147,7 +7127,8 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getRenderbufferParameter");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.getRenderbufferParameter", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebGLRenderingContextGetRenderbufferParameter);
 
@@ -7166,8 +7147,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7203,8 +7183,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_sampler = NativeValueTraits<WebGLSampler>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7270,8 +7249,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_shader = NativeValueTraits<WebGLShader>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7294,7 +7272,8 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getShaderPrecisionFormat");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.getShaderPrecisionFormat", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebGLRenderingContextGetShaderPrecisionFormat);
 
@@ -7364,7 +7343,8 @@ BLINK_BINDINGS_TRACE_EVENT("WebGL2RenderingContext.getSupportedExtensions");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.getSupportedExtensions", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8WebGL2RenderingContext_GetSupportedExtensions_Method);
 
@@ -7373,16 +7353,12 @@ UseCounter::Count(current_execution_context, WebFeature::kV8WebGL2RenderingConte
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSupportedExtensions();
-if (!ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 // [HighEntropy=Direct]
 Dactyloscoper::RecordDirectSurface(current_execution_context, WebFeature::kV8WebGL2RenderingContext_GetSupportedExtensions_Method, return_value);
@@ -7410,8 +7386,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_sync = NativeValueTraits<WebGLSync>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7447,8 +7422,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7518,8 +7492,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -7587,10 +7560,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_program = NativeValueTraits<WebGLProgram>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -7602,9 +7573,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->getUniformIndices(arg1_program, arg2_uniform_names);
-if (!ToV8Traits<IDLNullable<IDLSequence<IDLUnsignedLong>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<IDLSequence<IDLUnsignedLong>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -7664,8 +7633,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -8289,7 +8257,8 @@ return;
 // [HighEntropy]
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WebGL2RenderingContext.makeXRCompatible", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebGLRenderingContextMakeXRCompatible);
 
@@ -8299,8 +8268,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebGLRenderingContextM
 
 
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->makeXRCompatible(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9324,8 +9292,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9377,8 +9344,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9430,8 +9396,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9483,8 +9448,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9586,8 +9550,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9757,8 +9720,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9822,8 +9784,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9887,8 +9848,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -9952,8 +9912,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -10017,8 +9976,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -10416,8 +10374,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -10485,8 +10442,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -10554,8 +10510,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -10623,8 +10578,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -10692,8 +10646,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11296,8 +11249,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11353,8 +11305,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11410,8 +11361,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11467,8 +11417,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11578,8 +11527,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11753,8 +11701,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11818,8 +11765,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11883,8 +11829,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -11948,8 +11893,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -12013,8 +11957,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -12420,8 +12363,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -12493,8 +12435,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -12566,8 +12507,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -12639,8 +12579,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -12712,8 +12651,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WebGL2RenderingContext* blink_receiver = V8WebGL2RenderingContext::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_target = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -27575,7 +27513,7 @@ void V8WebGL2RenderingContext::InstallContextDependentProperties(v8::Local<v8::C
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 const bool is_in_secure_context = execution_context->IsSecureContext();
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebXREnabled())) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {

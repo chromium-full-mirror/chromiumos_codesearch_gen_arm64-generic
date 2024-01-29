@@ -170,6 +170,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -192,9 +194,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -487,6 +489,8 @@ bool PageHandler_AddSink_ForwardToCallback::Accept(
           internal::PageHandler_AddSink_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   AddSinkResultCode p_result_code{};
   PageHandler_AddSink_ResponseParamsDataView input_data_view(params, message);
@@ -607,6 +611,8 @@ bool PageHandler_CastToSink_ForwardToCallback::Accept(
           internal::PageHandler_CastToSink_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   ::media_router::mojom::RouteRequestResultCode p_result_code{};
   PageHandler_CastToSink_ResponseParamsDataView input_data_view(params, message);
@@ -701,6 +707,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_AddSink_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       std::string p_access_code{};
       CastDiscoveryMethod p_discovery_method{};
@@ -722,9 +730,9 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSink(
-std::move(p_access_code), 
-std::move(p_discovery_method), std::move(callback));
+      impl->AddSink(        
+        std::move(p_access_code), 
+        std::move(p_discovery_method), std::move(callback));
       return true;
     }
     case internal::kPageHandler_CastToSink_Name: {
@@ -734,6 +742,8 @@ std::move(p_discovery_method), std::move(callback));
               internal::PageHandler_CastToSink_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_CastToSink_ParamsDataView input_data_view(params, message);
       

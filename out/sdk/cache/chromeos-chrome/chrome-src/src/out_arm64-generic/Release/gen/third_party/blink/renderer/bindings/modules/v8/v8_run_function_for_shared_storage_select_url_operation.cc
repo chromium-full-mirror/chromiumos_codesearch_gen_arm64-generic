@@ -57,14 +57,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_urls;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, arg1_urls).ToLocal(&v8_arg1_urls)) {
-  return v8::Nothing<ScriptPromise>();
-}
+v8_arg1_urls = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, arg1_urls);
 argv[0] = v8_arg1_urls;
 v8::Local<v8::Value> v8_arg2_data;
-if (!ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg2_data).ToLocal(&v8_arg2_data)) {
-  return v8::Nothing<ScriptPromise>();
-}
+v8_arg2_data = ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg2_data);
 argv[1] = v8_arg2_data;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptPromise>();
@@ -103,14 +99,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_urls;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, arg1_urls).ToLocal(&v8_arg1_urls)) {
-  return v8::Nothing<ScriptPromise>();
-}
+v8_arg1_urls = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, arg1_urls);
 argv[0] = v8_arg1_urls;
 v8::Local<v8::Value> v8_arg2_data;
-if (!ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg2_data).ToLocal(&v8_arg2_data)) {
-  return v8::Nothing<ScriptPromise>();
-}
+v8_arg2_data = ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg2_data);
 argv[1] = v8_arg2_data;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptPromise>();

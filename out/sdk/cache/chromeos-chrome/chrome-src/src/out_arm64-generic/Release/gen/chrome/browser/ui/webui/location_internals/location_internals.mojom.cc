@@ -161,6 +161,8 @@ bool LocationInternalsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::LocationInternalsHandler_BindInternalsInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocationInternalsHandler.0
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationInternals> p_receiver{};
       LocationInternalsHandler_BindInternalsInterface_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool LocationInternalsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInternalsInterface(
-std::move(p_receiver));
+      impl->BindInternalsInterface(        
+        std::move(p_receiver));
       return true;
     }
   }

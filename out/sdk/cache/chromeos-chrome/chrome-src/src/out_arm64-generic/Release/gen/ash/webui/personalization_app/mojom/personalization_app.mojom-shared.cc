@@ -2649,6 +2649,29 @@ ThemeObserver_OnStaticColorChanged_Params_Data::ThemeObserver_OnStaticColorChang
 
 
 // static
+bool ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* object =
+      static_cast<const ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data*>(data);
+
+  return true;
+}
+
+ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool ThemeProvider_SetThemeObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2781,6 +2804,29 @@ bool ThemeProvider_SetStaticColor_Params_Data::Validate(
 }
 
 ThemeProvider_SetStaticColor_Params_Data::ThemeProvider_SetStaticColor_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ThemeProvider_EnableGeolocationForSystemServices_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThemeProvider_EnableGeolocationForSystemServices_Params_Data* object =
+      static_cast<const ThemeProvider_EnableGeolocationForSystemServices_Params_Data*>(data);
+
+  return true;
+}
+
+ThemeProvider_EnableGeolocationForSystemServices_Params_Data::ThemeProvider_EnableGeolocationForSystemServices_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -3030,6 +3076,52 @@ bool ThemeProvider_IsDarkModeEnabled_ResponseParams_Data::Validate(
 }
 
 ThemeProvider_IsDarkModeEnabled_ResponseParams_Data::ThemeProvider_IsDarkModeEnabled_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data* object =
+      static_cast<const ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data*>(data);
+
+  return true;
+}
+
+ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* object =
+      static_cast<const ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -3630,6 +3722,29 @@ AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data::AmbientObserver_OnAmbi
 
 
 // static
+bool AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* object =
+      static_cast<const AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data*>(data);
+
+  return true;
+}
+
+AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AmbientProvider_IsAmbientModeEnabled_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -4011,6 +4126,75 @@ bool AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data::Validate(
 }
 
 AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data::AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data* object =
+      static_cast<const AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data*>(data);
+
+  return true;
+}
+
+AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* object =
+      static_cast<const AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AmbientProvider_EnableGeolocationForSystemServices_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AmbientProvider_EnableGeolocationForSystemServices_Params_Data* object =
+      static_cast<const AmbientProvider_EnableGeolocationForSystemServices_Params_Data*>(data);
+
+  return true;
+}
+
+AmbientProvider_EnableGeolocationForSystemServices_Params_Data::AmbientProvider_EnableGeolocationForSystemServices_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

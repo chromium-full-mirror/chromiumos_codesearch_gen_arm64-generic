@@ -115,13 +115,14 @@ class  URLResponseHeadDevToolsInfo_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> response_time;
   mojo::internal::Pointer<::network::mojom::internal::HttpResponseHeaders_Data> headers;
   mojo::internal::Pointer<mojo::internal::String_Data> mime_type;
+  mojo::internal::Pointer<mojo::internal::String_Data> charset;
   mojo::internal::Pointer<::network::mojom::internal::LoadTimingInfo_Data> load_timing;
   uint32_t cert_status;
   uint8_t was_in_prefetch_cache : 1;
   uint8_t was_fetched_via_service_worker : 1;
   uint8_t was_fetched_via_spdy : 1;
   uint8_t emitted_extra_info : 1;
-  uint8_t pad8_[3];
+  uint8_t pad9_[3];
   int64_t encoded_data_length;
   mojo::internal::Pointer<mojo::internal::String_Data> cache_storage_cache_name;
   mojo::internal::Pointer<mojo::internal::String_Data> alpn_negotiated_protocol;
@@ -137,7 +138,7 @@ class  URLResponseHeadDevToolsInfo_Data {
   URLResponseHeadDevToolsInfo_Data();
   ~URLResponseHeadDevToolsInfo_Data() = delete;
 };
-static_assert(sizeof(URLResponseHeadDevToolsInfo_Data) == 104,
+static_assert(sizeof(URLResponseHeadDevToolsInfo_Data) == 112,
               "Bad sizeof(URLResponseHeadDevToolsInfo_Data)");
 // Used by URLResponseHeadDevToolsInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

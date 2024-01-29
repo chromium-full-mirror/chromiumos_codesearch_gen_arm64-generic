@@ -98,8 +98,8 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -156,8 +156,8 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -192,8 +192,8 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 StylePropertyMap* blink_receiver = V8StylePropertyMap::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

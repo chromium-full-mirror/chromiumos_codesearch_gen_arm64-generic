@@ -95,6 +95,146 @@ std::ostream& operator<<(std::ostream& os, WebPrintColorMode value) {
   return os << WebPrintColorModeToString(value);
 }
 
+NOINLINE static const char* WebPrintingOrientationRequestedToStringHelper(WebPrintingOrientationRequested value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WebPrintingOrientationRequested::kPortrait:
+      return "kPortrait";
+    case WebPrintingOrientationRequested::kLandscape:
+      return "kLandscape";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WebPrintingOrientationRequestedToString(WebPrintingOrientationRequested value) {
+  const char *str = WebPrintingOrientationRequestedToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WebPrintingOrientationRequested value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WebPrintingOrientationRequested value) {
+  return os << WebPrintingOrientationRequestedToString(value);
+}
+
+NOINLINE static const char* WebPrinterStateToStringHelper(WebPrinterState value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WebPrinterState::kIdle:
+      return "kIdle";
+    case WebPrinterState::kProcessing:
+      return "kProcessing";
+    case WebPrinterState::kStopped:
+      return "kStopped";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WebPrinterStateToString(WebPrinterState value) {
+  const char *str = WebPrinterStateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WebPrinterState value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WebPrinterState value) {
+  return os << WebPrinterStateToString(value);
+}
+
+NOINLINE static const char* WebPrinterStateReasonToStringHelper(WebPrinterStateReason value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WebPrinterStateReason::kNone:
+      return "kNone";
+    case WebPrinterStateReason::kOther:
+      return "kOther";
+    case WebPrinterStateReason::kConnectingToDevice:
+      return "kConnectingToDevice";
+    case WebPrinterStateReason::kCoverOpen:
+      return "kCoverOpen";
+    case WebPrinterStateReason::kDeveloperEmpty:
+      return "kDeveloperEmpty";
+    case WebPrinterStateReason::kDeveloperLow:
+      return "kDeveloperLow";
+    case WebPrinterStateReason::kDoorOpen:
+      return "kDoorOpen";
+    case WebPrinterStateReason::kFuserOverTemp:
+      return "kFuserOverTemp";
+    case WebPrinterStateReason::kFuserUnderTemp:
+      return "kFuserUnderTemp";
+    case WebPrinterStateReason::kInputTrayMissing:
+      return "kInputTrayMissing";
+    case WebPrinterStateReason::kInterlockOpen:
+      return "kInterlockOpen";
+    case WebPrinterStateReason::kInterpreterResourceUnavailable:
+      return "kInterpreterResourceUnavailable";
+    case WebPrinterStateReason::kMarkerSupplyEmpty:
+      return "kMarkerSupplyEmpty";
+    case WebPrinterStateReason::kMarkerSupplyLow:
+      return "kMarkerSupplyLow";
+    case WebPrinterStateReason::kMarkerWasteAlmostFull:
+      return "kMarkerWasteAlmostFull";
+    case WebPrinterStateReason::kMarkerWasteFull:
+      return "kMarkerWasteFull";
+    case WebPrinterStateReason::kMediaEmpty:
+      return "kMediaEmpty";
+    case WebPrinterStateReason::kMediaJam:
+      return "kMediaJam";
+    case WebPrinterStateReason::kMediaLow:
+      return "kMediaLow";
+    case WebPrinterStateReason::kMediaNeeded:
+      return "kMediaNeeded";
+    case WebPrinterStateReason::kMovingToPaused:
+      return "kMovingToPaused";
+    case WebPrinterStateReason::kOpcLifeOver:
+      return "kOpcLifeOver";
+    case WebPrinterStateReason::kOpcNearEol:
+      return "kOpcNearEol";
+    case WebPrinterStateReason::kOutputAreaAlmostFull:
+      return "kOutputAreaAlmostFull";
+    case WebPrinterStateReason::kOutputAreaFull:
+      return "kOutputAreaFull";
+    case WebPrinterStateReason::kOutputTrayMissing:
+      return "kOutputTrayMissing";
+    case WebPrinterStateReason::kPaused:
+      return "kPaused";
+    case WebPrinterStateReason::kShutdown:
+      return "kShutdown";
+    case WebPrinterStateReason::kSpoolAreaFull:
+      return "kSpoolAreaFull";
+    case WebPrinterStateReason::kStoppedPartly:
+      return "kStoppedPartly";
+    case WebPrinterStateReason::kStopping:
+      return "kStopping";
+    case WebPrinterStateReason::kTimedOut:
+      return "kTimedOut";
+    case WebPrinterStateReason::kTonerEmpty:
+      return "kTonerEmpty";
+    case WebPrinterStateReason::kTonerLow:
+      return "kTonerLow";
+    case WebPrinterStateReason::kCupsPkiExpired:
+      return "kCupsPkiExpired";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WebPrinterStateReasonToString(WebPrinterStateReason value) {
+  const char *str = WebPrinterStateReasonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WebPrinterStateReason value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WebPrinterStateReason value) {
+  return os << WebPrinterStateReasonToString(value);
+}
+
 NOINLINE static const char* WebPrintJobStateToStringHelper(WebPrintJobState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -125,6 +265,52 @@ std::ostream& operator<<(std::ostream& os, WebPrintJobState value) {
   return os << WebPrintJobStateToString(value);
 }
 
+NOINLINE static const char* GetPrintersErrorToStringHelper(GetPrintersError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case GetPrintersError::kUserPermissionDenied:
+      return "kUserPermissionDenied";
+    default:
+      return nullptr;
+  }
+}
+
+std::string GetPrintersErrorToString(GetPrintersError value) {
+  const char *str = GetPrintersErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown GetPrintersError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, GetPrintersError value) {
+  return os << GetPrintersErrorToString(value);
+}
+
+NOINLINE static const char* WebPrinterFetchErrorToStringHelper(WebPrinterFetchError value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WebPrinterFetchError::kPrinterUnreachable:
+      return "kPrinterUnreachable";
+    case WebPrinterFetchError::kUserPermissionDenied:
+      return "kUserPermissionDenied";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WebPrinterFetchErrorToString(WebPrinterFetchError value) {
+  const char *str = WebPrinterFetchErrorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WebPrinterFetchError value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WebPrinterFetchError value) {
+  return os << WebPrinterFetchErrorToString(value);
+}
+
 NOINLINE static const char* WebPrintErrorToStringHelper(WebPrintError value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -134,6 +320,8 @@ NOINLINE static const char* WebPrintErrorToStringHelper(WebPrintError value) {
       return "kDocumentMalformed";
     case WebPrintError::kPrintJobTemplateAttributesMismatch:
       return "kPrintJobTemplateAttributesMismatch";
+    case WebPrintError::kUserPermissionDenied:
+      return "kUserPermissionDenied";
     default:
       return nullptr;
   }
@@ -152,6 +340,120 @@ std::ostream& operator<<(std::ostream& os, WebPrintError value) {
 }
 
 namespace internal {
+// static
+bool GetPrintersResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const GetPrintersResult_Data* object = static_cast<const GetPrintersResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case GetPrintersResult_Tag::kPrinters: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_printers, 1, validation_context)) {
+        return false;
+      }
+      constexpr const mojo::internal::ContainerValidateParams& printers_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
+      if (!mojo::internal::ValidateContainer(object->data.f_printers, validation_context,
+                                             &printers_validate_params)) {
+        return false;
+      }
+      return true;
+    }
+    case GetPrintersResult_Tag::kError: {
+
+
+      if (!::blink::mojom::internal::GetPrintersError_Data
+            ::Validate(object->data.f_error, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in GetPrintersResult");
+      return false;
+    }
+  }
+}
+// static
+bool WebPrinterFetchResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const WebPrinterFetchResult_Data* object = static_cast<const WebPrinterFetchResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case WebPrinterFetchResult_Tag::kPrinterAttributes: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_printer_attributes, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_printer_attributes, validation_context))
+        return false;
+      return true;
+    }
+    case WebPrinterFetchResult_Tag::kError: {
+
+
+      if (!::blink::mojom::internal::WebPrinterFetchError_Data
+            ::Validate(object->data.f_error, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in WebPrinterFetchResult");
+      return false;
+    }
+  }
+}
 // static
 bool WebPrintResult_Data::Validate(
     const void* data,
@@ -282,7 +584,7 @@ bool WebPrinterAttributes_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 80, validation_context)) {
+          data, 112, validation_context)) {
     return false;
   }
 
@@ -314,15 +616,31 @@ bool WebPrinterAttributes_Data::Validate(
     return false;
   }
 
+
+  if (!::blink::mojom::internal::WebPrintingOrientationRequested_Data
+        ::Validate(object->orientation_requested_default, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->printer_resolution_default, 5, validation_context)) {
+          object->orientation_requested_supported, 6, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& orientation_requested_supported_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::WebPrintingOrientationRequested_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->orientation_requested_supported, validation_context,
+                                         &orientation_requested_supported_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->printer_resolution_default, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->printer_resolution_default, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->printer_resolution_supported, 6, validation_context)) {
+          object->printer_resolution_supported, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& printer_resolution_supported_validate_params =
@@ -338,7 +656,7 @@ bool WebPrinterAttributes_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->print_color_mode_supported, 8, validation_context)) {
+          object->print_color_mode_supported, 10, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& print_color_mode_supported_validate_params =
@@ -349,12 +667,39 @@ bool WebPrinterAttributes_Data::Validate(
   }
 
 
+  if (!::blink::mojom::internal::WebPrinterState_Data
+        ::Validate(object->printer_state, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->printer_state_message, 12, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& printer_state_message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->printer_state_message, validation_context,
+                                         &printer_state_message_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->printer_state_reasons, 13, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& printer_state_reasons_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::WebPrinterStateReason_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->printer_state_reasons, validation_context,
+                                         &printer_state_reasons_validate_params)) {
+    return false;
+  }
+
+
   if (!::blink::mojom::internal::WebPrintingSides_Data
         ::Validate(object->sides_default_$value, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->sides_supported, 11, validation_context)) {
+          object->sides_supported, 16, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& sides_supported_validate_params =
@@ -403,6 +748,11 @@ bool WebPrintJobTemplateAttributes_Data::Validate(
         ::Validate(object->multiple_document_handling_$value, validation_context))
     return false;
 
+
+  if (!::blink::mojom::internal::WebPrintingOrientationRequested_Data
+        ::Validate(object->orientation_requested_$value, validation_context))
+    return false;
+
   if (!mojo::internal::ValidateStruct(object->printer_resolution, validation_context))
     return false;
 
@@ -420,6 +770,34 @@ bool WebPrintJobTemplateAttributes_Data::Validate(
 }
 
 WebPrintJobTemplateAttributes_Data::WebPrintJobTemplateAttributes_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebPrintJobUpdate_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebPrintJobUpdate_Data* object =
+      static_cast<const WebPrintJobUpdate_Data*>(data);
+
+
+  if (!::blink::mojom::internal::WebPrintJobState_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+WebPrintJobUpdate_Data::WebPrintJobUpdate_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -451,7 +829,7 @@ bool WebPrintJobInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->observer, 2, validation_context)) {
+          object->observer, 3, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->observer,
@@ -467,7 +845,7 @@ WebPrintJobInfo_Data::WebPrintJobInfo_Data()
 
 
 // static
-bool WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data::Validate(
+bool WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -479,18 +857,20 @@ bool WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data* object =
-      static_cast<const WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data*>(data);
+  [[maybe_unused]] const WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data* object =
+      static_cast<const WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data*>(data);
 
-
-  if (!::blink::mojom::internal::WebPrintJobState_Data
-        ::Validate(object->state, validation_context))
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->update, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->update, validation_context))
     return false;
 
   return true;
 }
 
-WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data()
+WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -524,7 +904,7 @@ bool WebPrinter_FetchAttributes_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -533,7 +913,11 @@ bool WebPrinter_FetchAttributes_ResponseParams_Data::Validate(
   [[maybe_unused]] const WebPrinter_FetchAttributes_ResponseParams_Data* object =
       static_cast<const WebPrinter_FetchAttributes_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->attributes, validation_context))
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
     return false;
 
   return true;
@@ -642,7 +1026,7 @@ bool WebPrintingService_GetPrinters_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -651,16 +1035,12 @@ bool WebPrintingService_GetPrinters_ResponseParams_Data::Validate(
   [[maybe_unused]] const WebPrintingService_GetPrinters_ResponseParams_Data* object =
       static_cast<const WebPrintingService_GetPrinters_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->printers, 1, validation_context)) {
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->result, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& printers_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->printers, validation_context,
-                                         &printers_validate_params)) {
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
     return false;
-  }
 
   return true;
 }
@@ -705,9 +1085,59 @@ void TraceFormatTraits<::blink::mojom::WebPrintColorMode>::WriteIntoTrace(
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::blink::mojom::WebPrintingOrientationRequested>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::WebPrintingOrientationRequested value) {
+  return std::move(context).WriteString(::blink::mojom::WebPrintingOrientationRequestedToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::WebPrinterState>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::WebPrinterState value) {
+  return std::move(context).WriteString(::blink::mojom::WebPrinterStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::WebPrinterStateReason>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::WebPrinterStateReason value) {
+  return std::move(context).WriteString(::blink::mojom::WebPrinterStateReasonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::blink::mojom::WebPrintJobState>::WriteIntoTrace(
    perfetto::TracedValue context, ::blink::mojom::WebPrintJobState value) {
   return std::move(context).WriteString(::blink::mojom::WebPrintJobStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::GetPrintersError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::GetPrintersError value) {
+  return std::move(context).WriteString(::blink::mojom::GetPrintersErrorToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::WebPrinterFetchError>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::WebPrinterFetchError value) {
+  return std::move(context).WriteString(::blink::mojom::WebPrinterFetchErrorToString(value));
 }
 
 } // namespace perfetto

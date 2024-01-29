@@ -662,10 +662,8 @@ class BLINK_PLATFORM_EXPORT ProxyInfo {
   ProxyInfo();
 
   explicit ProxyInfo(
-      WTF::Vector<::network::mojom::blink::ProxyChainPtr> proxy_chains);
+      WTF::Vector<::net::ProxyChain> proxy_chains);
 
-ProxyInfo(const ProxyInfo&) = delete;
-ProxyInfo& operator=(const ProxyInfo&) = delete;
 
   ~ProxyInfo();
 
@@ -742,7 +740,7 @@ ProxyInfo& operator=(const ProxyInfo&) = delete;
   }
 
   
-  WTF::Vector<::network::mojom::blink::ProxyChainPtr> proxy_chains;
+  WTF::Vector<::net::ProxyChain> proxy_chains;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

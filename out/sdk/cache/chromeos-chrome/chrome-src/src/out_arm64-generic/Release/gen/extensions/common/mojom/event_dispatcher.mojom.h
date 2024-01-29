@@ -26,6 +26,7 @@
 #include "extensions/common/mojom/event_dispatcher.mojom-features.h"
 #include "extensions/common/mojom/event_dispatcher.mojom-shared.h"
 #include "extensions/common/mojom/event_dispatcher.mojom-forward.h"
+#include "extensions/common/mojom/host_id.mojom.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
@@ -347,7 +348,7 @@ class  DispatchEventParams {
 
   DispatchEventParams(
       int32_t worker_thread_id,
-      const std::string& extension_id,
+      ::extensions::mojom::HostIDPtr host_id,
       const std::string& event_name,
       int32_t event_id,
       bool is_user_gesture,
@@ -433,7 +434,7 @@ DispatchEventParams& operator=(const DispatchEventParams&) = delete;
   
   int32_t worker_thread_id;
   
-  std::string extension_id;
+  ::extensions::mojom::HostIDPtr host_id;
   
   std::string event_name;
   
@@ -540,7 +541,7 @@ template <typename StructPtrType>
 DispatchEventParamsPtr DispatchEventParams::Clone() const {
   return New(
       mojo::Clone(worker_thread_id),
-      mojo::Clone(extension_id),
+      mojo::Clone(host_id),
       mojo::Clone(event_name),
       mojo::Clone(event_id),
       mojo::Clone(is_user_gesture),
@@ -552,7 +553,7 @@ template <typename T, DispatchEventParams::EnableIfSame<T>*>
 bool DispatchEventParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->worker_thread_id, other_struct.worker_thread_id))
     return false;
-  if (!mojo::Equals(this->extension_id, other_struct.extension_id))
+  if (!mojo::Equals(this->host_id, other_struct.host_id))
     return false;
   if (!mojo::Equals(this->event_name, other_struct.event_name))
     return false;
@@ -571,9 +572,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.worker_thread_id < lhs.worker_thread_id)
     return false;
-  if (lhs.extension_id < rhs.extension_id)
+  if (lhs.host_id < rhs.host_id)
     return true;
-  if (rhs.extension_id < lhs.extension_id)
+  if (rhs.host_id < lhs.host_id)
     return false;
   if (lhs.event_name < rhs.event_name)
     return true;
@@ -656,9 +657,9 @@ struct  StructTraits<::extensions::mojom::DispatchEventParams::DataView,
     return input->worker_thread_id;
   }
 
-  static const decltype(::extensions::mojom::DispatchEventParams::extension_id)& extension_id(
+  static const decltype(::extensions::mojom::DispatchEventParams::host_id)& host_id(
       const ::extensions::mojom::DispatchEventParamsPtr& input) {
-    return input->extension_id;
+    return input->host_id;
   }
 
   static const decltype(::extensions::mojom::DispatchEventParams::event_name)& event_name(

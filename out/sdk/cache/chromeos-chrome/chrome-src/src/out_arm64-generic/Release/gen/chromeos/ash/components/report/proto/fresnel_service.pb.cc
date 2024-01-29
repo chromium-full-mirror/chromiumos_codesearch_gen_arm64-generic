@@ -52,7 +52,9 @@ struct ChurnCohortMetadataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChurnCohortMetadataDefaultTypeInternal _ChurnCohortMetadata_default_instance_;
 PROTOBUF_CONSTEXPR ChurnObservationMetadata::ChurnObservationMetadata(
     ::_pbi::ConstantInitialized)
-  : monthly_active_status_(false)
+  : first_active_week_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , last_powerwash_week_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , monthly_active_status_(false)
   , yearly_active_status_(false)
   , first_active_during_cohort_(0)
 {}
@@ -970,13 +972,19 @@ class ChurnObservationMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<ChurnObservationMetadata>()._has_bits_);
   static void set_has_monthly_active_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_yearly_active_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_first_active_during_cohort(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_first_active_week(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_last_powerwash_week(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
@@ -990,6 +998,22 @@ ChurnObservationMetadata::ChurnObservationMetadata(const ChurnObservationMetadat
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  first_active_week_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    first_active_week_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_first_active_week()) {
+    first_active_week_.Set(from._internal_first_active_week(), 
+      GetArenaForAllocation());
+  }
+  last_powerwash_week_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    last_powerwash_week_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_last_powerwash_week()) {
+    last_powerwash_week_.Set(from._internal_last_powerwash_week(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&monthly_active_status_, &from.monthly_active_status_,
     static_cast<size_t>(reinterpret_cast<char*>(&first_active_during_cohort_) -
     reinterpret_cast<char*>(&monthly_active_status_)) + sizeof(first_active_during_cohort_));
@@ -997,6 +1021,14 @@ ChurnObservationMetadata::ChurnObservationMetadata(const ChurnObservationMetadat
 }
 
 inline void ChurnObservationMetadata::SharedCtor() {
+first_active_week_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  first_active_week_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+last_powerwash_week_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  last_powerwash_week_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&monthly_active_status_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&first_active_during_cohort_) -
@@ -1014,6 +1046,8 @@ ChurnObservationMetadata::~ChurnObservationMetadata() {
 
 inline void ChurnObservationMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  first_active_week_.Destroy();
+  last_powerwash_week_.Destroy();
 }
 
 void ChurnObservationMetadata::SetCachedSize(int size) const {
@@ -1027,7 +1061,15 @@ void ChurnObservationMetadata::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      first_active_week_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      last_powerwash_week_.ClearNonDefaultToEmpty();
+    }
+  }
+  if (cached_has_bits & 0x0000001cu) {
     ::memset(&monthly_active_status_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&first_active_during_cohort_) -
         reinterpret_cast<char*>(&monthly_active_status_)) + sizeof(first_active_during_cohort_));
@@ -1074,6 +1116,24 @@ const char* ChurnObservationMetadata::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
+      // optional string first_active_week = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_first_active_week();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string last_powerwash_week = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_last_powerwash_week();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1106,22 +1166,34 @@ uint8_t* ChurnObservationMetadata::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional bool monthly_active_status = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_monthly_active_status(), target);
   }
 
   // optional bool yearly_active_status = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_yearly_active_status(), target);
   }
 
   // optional .ash.report.ChurnObservationMetadata.FirstActiveDuringCohort first_active_during_cohort = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_first_active_during_cohort(), target);
+  }
+
+  // optional string first_active_week = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_first_active_week(), target);
+  }
+
+  // optional string last_powerwash_week = 5;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_last_powerwash_week(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1141,19 +1213,33 @@ size_t ChurnObservationMetadata::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional bool monthly_active_status = 1;
+  if (cached_has_bits & 0x0000001fu) {
+    // optional string first_active_week = 4;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_first_active_week());
+    }
+
+    // optional string last_powerwash_week = 5;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_last_powerwash_week());
+    }
+
+    // optional bool monthly_active_status = 1;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 1;
     }
 
     // optional bool yearly_active_status = 2;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 1;
     }
 
     // optional .ash.report.ChurnObservationMetadata.FirstActiveDuringCohort first_active_during_cohort = 3;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_first_active_during_cohort());
     }
@@ -1180,14 +1266,20 @@ void ChurnObservationMetadata::MergeFrom(const ChurnObservationMetadata& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      monthly_active_status_ = from.monthly_active_status_;
+      _internal_set_first_active_week(from._internal_first_active_week());
     }
     if (cached_has_bits & 0x00000002u) {
-      yearly_active_status_ = from.yearly_active_status_;
+      _internal_set_last_powerwash_week(from._internal_last_powerwash_week());
     }
     if (cached_has_bits & 0x00000004u) {
+      monthly_active_status_ = from.monthly_active_status_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      yearly_active_status_ = from.yearly_active_status_;
+    }
+    if (cached_has_bits & 0x00000010u) {
       first_active_during_cohort_ = from.first_active_during_cohort_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1208,8 +1300,18 @@ bool ChurnObservationMetadata::IsInitialized() const {
 
 void ChurnObservationMetadata::InternalSwap(ChurnObservationMetadata* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &first_active_week_, lhs_arena,
+      &other->first_active_week_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &last_powerwash_week_, lhs_arena,
+      &other->last_powerwash_week_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ChurnObservationMetadata, first_active_during_cohort_)
       + sizeof(ChurnObservationMetadata::first_active_during_cohort_)

@@ -10,6 +10,7 @@
 #endif
 #include "protos/perfetto/trace/ftrace/test_bundle_wrapper.gen.h"
 #include "protos/perfetto/trace/ftrace/ftrace_event_bundle.gen.h"
+#include "protos/perfetto/trace/ftrace/ftrace_stats.gen.h"
 #include "protos/perfetto/trace/ftrace/ftrace_event.gen.h"
 #include "protos/perfetto/trace/ftrace/generic.gen.h"
 #include "protos/perfetto/trace/ftrace/workqueue.gen.h"

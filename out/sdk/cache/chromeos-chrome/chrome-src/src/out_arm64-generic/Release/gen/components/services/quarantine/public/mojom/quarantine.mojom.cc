@@ -270,6 +270,8 @@ bool Quarantine_QuarantineFile_ForwardToCallback::Accept(
           internal::Quarantine_QuarantineFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Quarantine.0
   bool success = true;
   QuarantineFileResult p_result{};
   Quarantine_QuarantineFile_ResponseParamsDataView input_data_view(params, message);
@@ -361,6 +363,8 @@ bool QuarantineStubDispatch::AcceptWithResponder(
               internal::Quarantine_QuarantineFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Quarantine.0
       bool success = true;
       ::base::FilePath p_full_path{};
       ::GURL p_source_url{};
@@ -388,11 +392,11 @@ bool QuarantineStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QuarantineFile(
-std::move(p_full_path), 
-std::move(p_source_url), 
-std::move(p_referrer_url), 
-std::move(p_client_guid), std::move(callback));
+      impl->QuarantineFile(        
+        std::move(p_full_path), 
+        std::move(p_source_url), 
+        std::move(p_referrer_url), 
+        std::move(p_client_guid), std::move(callback));
       return true;
     }
   }

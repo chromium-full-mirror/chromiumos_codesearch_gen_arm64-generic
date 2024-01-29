@@ -9559,6 +9559,7 @@
     },
     {
       "caption": "Default search provider icon",
+      "deprecated": true,
       "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_ICON_URL_POLICY_NAME\">DefaultSearchProviderIconURL</ph> specifies the default search provider's favorite icon URL.\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_ICON_URL_POLICY_NAME\">DefaultSearchProviderIconURL</ph> unset means there's no icon for the search provider.",
       "example_value": "https://search.my.company/favicon.ico",
       "features": {
@@ -9579,17 +9580,17 @@
         "type": "string"
       },
       "supported_on": [
-        "chrome.*:8-",
-        "chrome_os:11-",
-        "android:30-",
-        "ios:88-"
+        "chrome.*:8-121",
+        "chrome_os:11-121",
+        "android:30-121",
+        "ios:88-121"
       ],
       "tags": [],
       "type": "string"
     },
     {
       "caption": "Parameter providing search-by-image feature for the default search provider",
-      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> specifies the URL of the search engine used for image search. (If <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> is set, then image search requests use the POST method instead.)\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> unset means no image search is used.",
+      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> specifies the URL of the search engine used for image search. (If <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> is set, then image search requests use the POST method instead.)\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> unset means no image search is used.\n\n      If image search uses the GET method, then the URL must specify image\n      parameters using a valid combination of the following placeholders:\n      <ph name=\"IMAGE_IMAGE_URL\">'{google:imageURL}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_HEIGHT\">'{google:imageOriginalHeight}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_WIDTH\">'{google:imageOriginalWidth}'</ph>,\n      <ph name=\"IMAGE_PROCESSED_IMAGE_DIMENSIONS\">'{google:processedImageDimensions}'</ph>,\n      <ph name=\"IMAGE_SEARCH_SOURCE\">'{google:imageSearchSource}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL\">'{google:imageThumbnail}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL_BASE64\">'{google:imageThumbnailBase64}'</ph>.",
       "example_value": "https://search.my.company/searchbyimage/upload",
       "features": {
         "can_be_recommended": true,
@@ -9619,8 +9620,8 @@
     },
     {
       "caption": "Parameters for image URL which uses POST",
-      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> specifies the parameters during image search with POST. It consists of comma-separated, name-value pairs. If a value is a template parameter, such as {imageThumbnail}, real image thumbnail data replaces it.\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> unset means image search request is sent using the GET method.",
-      "example_value": "content={imageThumbnail},url={imageURL},sbisrc={SearchSource}",
+      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> specifies the parameters during image search with POST. It consists of comma-separated, name-value pairs. If a value is a template parameter, such as {imageThumbnail}, real image thumbnail data replaces it.\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> unset means image search request is sent using the GET method.\n\n      The URL must specify the image parameter using a valid combination of\n      the following placeholders depending on what the search provider supports:\n      <ph name=\"IMAGE_IMAGE_URL\">'{google:imageURL}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_HEIGHT\">'{google:imageOriginalHeight}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_WIDTH\">'{google:imageOriginalWidth}'</ph>,\n      <ph name=\"IMAGE_PROCESSED_IMAGE_DIMENSIONS\">'{google:processedImageDimensions}'</ph>,\n      <ph name=\"IMAGE_SEARCH_SOURCE\">'{google:imageSearchSource}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL\">'{google:imageThumbnail}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL_BASE64\">'{google:imageThumbnailBase64}'</ph>.",
+      "example_value": "content={google:imageThumbnail},url={google:imageURL},sbisrc={google:imageSearchSource}",
       "features": {
         "can_be_recommended": true,
         "dynamic_refresh": true,
@@ -12210,6 +12211,7 @@
     {
       "caption": "Create themes with AI",
       "default": 0,
+      "default_for_enterprise_users": 2,
       "desc": "This policy allows you to control how your organization's data is handled with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>'s Create themes with AI. This policy will take precedence over any future blanket policy.\n\nSetting the policy to \"Allowed\" will allow feature use for organization.\n\nSetting the policy to \"Allow without data collection\" will opt-out of collecting enterprise data for model training. This setting also disables data sharing via the in-feature Feedback dialog, and sending data for human evaluation. As a result, Google does not use enterprise user content (including prompts, inputs, outputs, and source materials) for model training. This would ensure that Google does not use enterprise user data to train or improve its AI models. Google does not save enterprise user content including (prompts, sources, inputs or outputs). Note that these may be stored up to 24 hours to keep situational context. This would ensure that Google does not collect or store any data that is entered into or generated by an AI feature. This includes user inputs, generated outputs, and user feedback.\n\nSetting the policy to \"Disabled\" will fully disable feature.",
       "example_value": 1,
       "features": {
@@ -12257,6 +12259,7 @@
     {
       "caption": "Allow help me write",
       "default": 0,
+      "default_for_enterprise_users": 2,
       "desc": "This policy allows you to control how your organization's data is handled with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>\u2019s Help me write. This policy will take precedence over any future blanket policy.\n\nSetting the policy to \"Allowed\" will allow feature use for organization.\n\nSetting the policy to \"Allow without data collection\" will opt-out of collecting enterprise data for model training. This setting also disables data sharing via the in-feature Feedback dialog, and sending data for human evaluation. As a result, Google does not use enterprise user content (including prompts, inputs, outputs, and source materials) for model training. This would ensure that Google does not use enterprise user data to train or improve its AI models. Google does not save enterprise user content including (prompts, sources, inputs or outputs). Note that these may be stored up to 24 hours to keep situational context. This would ensure that Google does not collect or store any data that is entered into or generated by an AI feature. This includes user inputs, generated outputs, and user feedback.\n\nSetting the policy to \"Disabled\" will fully disable feature.",
       "example_value": 1,
       "features": {
@@ -12304,6 +12307,7 @@
     {
       "caption": "Allow tab organizer",
       "default": 0,
+      "default_for_enterprise_users": 2,
       "desc": "This policy allows you to control how your organization's data is handled with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>'s Tab organizer. This policy will take precedence over any future blanket policy.\n\nSetting the policy to \"Allowed\" will allow feature use for organization.\n\nSetting the policy to \"Allow without data collection\" will opt-out of collecting enterprise data for model training. This setting also disables data sharing via the in-feature Feedback dialog, and sending data for human evaluation. As a result, Google does not use enterprise user content (including prompts, inputs, outputs, and source materials) for model training. This would ensure that Google does not use enterprise user data to train or improve its AI models. Google does not save enterprise user content including (prompts, sources, inputs or outputs). Note that these may be stored up to 24 hours to keep situational context. This would ensure that Google does not collect or store any data that is entered into or generated by an AI feature. This includes user inputs, generated outputs, and user feedback.\n\nSetting the policy to \"Disabled\" will fully disable feature.",
       "example_value": 1,
       "features": {
@@ -15947,10 +15951,10 @@
         "type": "boolean"
       },
       "supported_on": [
-        "chrome.*:117-127",
-        "chrome_os:117-127",
-        "android:117-127",
-        "webview_android:117-127"
+        "chrome.*:117-",
+        "chrome_os:117-",
+        "android:117-",
+        "webview_android:117-"
       ],
       "tags": [],
       "type": "main"
@@ -16783,6 +16787,7 @@
     {
       "caption": "Extend support for Chrome Apps on <ph name=\"MS_WIN_NAME\">Microsoft\u00ae Windows\u00ae</ph>, <ph name=\"MAC_OS_NAME\">macOS</ph>, and <ph name=\"LINUX_OS_NAME\">Linux</ph>.",
       "default": false,
+      "deprecated": true,
       "desc": "Chrome Apps are deprecated on <ph name=\"MS_WIN_NAME\">Microsoft\u00ae Windows\u00ae</ph>, <ph name=\"MAC_OS_NAME\">macOS</ph>, and <ph name=\"LINUX_OS_NAME\">Linux</ph>.\n      If this policy is enabled, <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> will continue to allow Chrome Apps to be run on these platforms until the final date when Chrome Apps support is removed on all platforms, June 2022.\n      If this policy is disabled or unset, Chrome Apps may not be allowed to run, depending on the status of the deprecation rollout.\n      In either case, Chrome Apps that are force installed by policy will continue to be allowed.",
       "example_value": true,
       "features": {
@@ -28556,6 +28561,7 @@
     {
       "caption": "Allow <ph name=\"PEPPER_NAME\">Pepper</ph> to use shared images for video decoding.",
       "default": true,
+      "deprecated": true,
       "desc": "This policy controls the recent refactor for VideoDecoder APIs in PPAPI plugin.\n\nThe migration only affects internal implementation details and should not\nchange any behavior. However, this policy can be used in case any PPAPI\napplications do not work as expected.\n\nWhen the policy is left unset or set to Enabled, the browser will decide which\nimplementation is used.\nWhen the policy is set to Disabled, browser will use the old implementation\nuntil the policy is expired.\n\nNOTE: Only newly-started renderer processes will reflect changes to this\npolicy while the browser is running.",
       "device_only": false,
       "example_value": false,
@@ -28583,7 +28589,7 @@
         "type": "boolean"
       },
       "supported_on": [
-        "chrome_os:119-"
+        "chrome_os:119-121"
       ],
       "tags": [],
       "type": "main"
@@ -31328,7 +31334,8 @@
     {
       "caption": "Add restrictions on a managed account's usage as a secondary account on ChromeOS",
       "default": "all",
-      "desc": "If this policy is set to <ph name=\"POLICY_VALUE_ALL\">'all'</ph> or not set, all usages of managed accounts are allowed. This may result in a managed account being a secondary account, which would only receive policies when the account is signed-in as a primary account in a browser Profile.\n      Policies set to the account won't be enforced in the following scenarios:\n        -  Being a secondary account at the OS level (Account Settings)\n        -  Being a secondary account in a browser Profile\n\n      If this policy is set to <ph name=\"POLICY_VALUE_PRIMARY_ACCOUNT_SIGNIN\">'primary_account_signin'</ph> on an account, this account will be allowed to sign in as a primary account only. It won't be allowed to sign in as a secondary account.",
+      "deprecated": true,
+      "desc": "Removed in M122 - this is a server-side-only policy that never used the ChromeOS policy infrastructure for its propagation.\nIf this policy is set to <ph name=\"POLICY_VALUE_ALL\">'all'</ph> or not set, all usages of managed accounts are allowed. This may result in a managed account being a secondary account, which would only receive policies when the account is signed-in as a primary account in a browser Profile.\n      Policies set to the account won't be enforced in the following scenarios:\n        -  Being a secondary account at the OS level (Account Settings)\n        -  Being a secondary account in a browser Profile\n\n      If this policy is set to <ph name=\"POLICY_VALUE_PRIMARY_ACCOUNT_SIGNIN\">'primary_account_signin'</ph> on an account, this account will be allowed to sign in as a primary account only. It won't be allowed to sign in as a secondary account.",
       "example_value": "primary_account_signin",
       "features": {
         "dynamic_refresh": false,
@@ -31361,7 +31368,7 @@
         "type": "string"
       },
       "supported_on": [
-        "chrome_os:103-"
+        "chrome_os:103-121"
       ],
       "tags": [],
       "type": "string-enum"

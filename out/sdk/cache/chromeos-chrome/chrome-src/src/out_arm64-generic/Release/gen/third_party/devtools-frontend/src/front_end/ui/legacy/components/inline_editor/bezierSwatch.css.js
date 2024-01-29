@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`:host{white-space:nowrap}[is="ui-icon"].icon-mask.bezier-swatch-icon{position:relative;transform:scale(0.7);margin:-5px -2px -6px -4px;user-select:none;background-color:var(--icon-css);cursor:default}[is="ui-icon"].icon-mask.bezier-swatch-icon:hover{background-color:var(--icon-css-hover)}
+`:host{white-space:nowrap}devtools-icon.bezier-swatch-icon{position:relative;transform:scale(0.7);margin:-5px -2px -3px -4px;user-select:none;color:var(--icon-css);cursor:default}devtools-icon.bezier-swatch-icon:hover{color:var(--icon-css-hover)}
 /*# sourceURL=bezierSwatch.css */
 `);
 

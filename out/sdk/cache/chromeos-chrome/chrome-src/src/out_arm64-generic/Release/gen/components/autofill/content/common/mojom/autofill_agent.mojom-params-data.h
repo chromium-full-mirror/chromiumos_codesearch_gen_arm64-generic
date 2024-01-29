@@ -77,8 +77,7 @@ class  AutofillAgent_ApplyFormAction_Params_Data {
   mojo::internal::StructHeader header_;
   int32_t action_type;
   int32_t action_persistence;
-  mojo::internal::Pointer<::autofill::mojom::internal::FormRendererId_Data> form_renderer_id;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::autofill::mojom::internal::FormFieldData_Data>>> fields;
+  mojo::internal::Pointer<::autofill::mojom::internal::FormData_FillData_Data> form;
 
  private:
   friend class mojo::internal::MessageFragment<AutofillAgent_ApplyFormAction_Params_Data>;
@@ -86,7 +85,7 @@ class  AutofillAgent_ApplyFormAction_Params_Data {
   AutofillAgent_ApplyFormAction_Params_Data();
   ~AutofillAgent_ApplyFormAction_Params_Data() = delete;
 };
-static_assert(sizeof(AutofillAgent_ApplyFormAction_Params_Data) == 32,
+static_assert(sizeof(AutofillAgent_ApplyFormAction_Params_Data) == 24,
               "Bad sizeof(AutofillAgent_ApplyFormAction_Params_Data)");
 class  AutofillAgent_ApplyFieldAction_Params_Data {
  public:
@@ -354,22 +353,6 @@ class  AutofillAgent_EnableHeavyFormDataScraping_Params_Data {
 };
 static_assert(sizeof(AutofillAgent_EnableHeavyFormDataScraping_Params_Data) == 8,
               "Bad sizeof(AutofillAgent_EnableHeavyFormDataScraping_Params_Data)");
-class  AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::autofill::mojom::internal::FieldRendererId_Data>>> fields;
-
- private:
-  friend class mojo::internal::MessageFragment<AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data>;
-
-  AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data();
-  ~AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data() = delete;
-};
-static_assert(sizeof(AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data) == 16,
-              "Bad sizeof(AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data)");
 class  AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -662,24 +645,14 @@ class AutofillAgent_ApplyFormAction_ParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::autofill::mojom::ActionPersistence>(data_->action_persistence));
   }
-  inline void GetFormRendererIdDataView(
-      ::autofill::mojom::FormRendererIdDataView* output);
+  inline void GetFormDataView(
+      ::autofill::mojom::FormData_FillDataDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadFormRendererId(UserType* output) {
+  [[nodiscard]] bool ReadForm(UserType* output) {
     
-    auto* pointer = data_->form_renderer_id.Get();
-    return mojo::internal::Deserialize<::autofill::mojom::FormRendererIdDataView>(
-        pointer, output, message_);
-  }
-  inline void GetFieldsDataView(
-      mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFields(UserType* output) {
-    
-    auto* pointer = data_->fields.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>>(
+    auto* pointer = data_->form.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::FormData_FillDataDataView>(
         pointer, output, message_);
   }
  private:
@@ -1119,32 +1092,6 @@ class AutofillAgent_EnableHeavyFormDataScraping_ParamsDataView {
 };
 
 
-class AutofillAgent_SetFieldsEligibleForManualFilling_ParamsDataView {
- public:
-  AutofillAgent_SetFieldsEligibleForManualFilling_ParamsDataView() = default;
-
-  AutofillAgent_SetFieldsEligibleForManualFilling_ParamsDataView(
-      internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetFieldsDataView(
-      mojo::ArrayDataView<::autofill::mojom::FieldRendererIdDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFields(UserType* output) {
-    
-    auto* pointer = data_->fields.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::autofill::mojom::FieldRendererIdDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ParamsDataView {
  public:
   AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ParamsDataView() = default;
@@ -1462,15 +1409,10 @@ class PasswordGenerationAgent_FocusNextFieldAfterPasswords_ParamsDataView {
 
 
 
-inline void AutofillAgent_ApplyFormAction_ParamsDataView::GetFormRendererIdDataView(
-    ::autofill::mojom::FormRendererIdDataView* output) {
-  auto pointer = data_->form_renderer_id.Get();
-  *output = ::autofill::mojom::FormRendererIdDataView(pointer, message_);
-}
-inline void AutofillAgent_ApplyFormAction_ParamsDataView::GetFieldsDataView(
-    mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>* output) {
-  auto pointer = data_->fields.Get();
-  *output = mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>(pointer, message_);
+inline void AutofillAgent_ApplyFormAction_ParamsDataView::GetFormDataView(
+    ::autofill::mojom::FormData_FillDataDataView* output) {
+  auto pointer = data_->form.Get();
+  *output = ::autofill::mojom::FormData_FillDataDataView(pointer, message_);
 }
 
 
@@ -1564,13 +1506,6 @@ inline void AutofillAgent_PreviewPasswordGenerationSuggestion_ParamsDataView::Ge
 
 
 
-
-
-inline void AutofillAgent_SetFieldsEligibleForManualFilling_ParamsDataView::GetFieldsDataView(
-    mojo::ArrayDataView<::autofill::mojom::FieldRendererIdDataView>* output) {
-  auto pointer = data_->fields.Get();
-  *output = mojo::ArrayDataView<::autofill::mojom::FieldRendererIdDataView>(pointer, message_);
-}
 
 
 

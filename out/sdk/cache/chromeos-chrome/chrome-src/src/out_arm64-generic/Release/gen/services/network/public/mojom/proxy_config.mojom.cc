@@ -41,6 +41,7 @@
 
 #include "services/network/public/mojom/proxy_config.mojom-import-headers.h"
 #include "services/network/public/mojom/proxy_config.mojom-test-utils.h"
+#include "net/cert/cert_verify_result.h"
 
 
 namespace network::mojom {
@@ -76,7 +77,7 @@ ProxyList::ProxyList()
     : proxies() {}
 
 ProxyList::ProxyList(
-    std::vector<std::vector<std::string>> proxies_in)
+    std::vector<::net::ProxyChain> proxies_in)
     : proxies(std::move(proxies_in)) {}
 
 ProxyList::~ProxyList() = default;
@@ -88,7 +89,7 @@ void ProxyList::WriteIntoTrace(
     dict.AddItem(
       "proxies"), this->proxies,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::vector<std::string>>&>"
+      "<value of type const std::vector<::net::ProxyChain>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -103,7 +104,6 @@ bool ProxyList::Validate(
 ProxyRules::ProxyRules()
     : bypass_rules(),
       reverse_bypass(),
-      restrict_to_network_service_proxy_allow_list(),
       type(),
       single_proxies(),
       proxies_for_http(),
@@ -114,7 +114,6 @@ ProxyRules::ProxyRules()
 ProxyRules::ProxyRules(
     const ::net::ProxyBypassRules& bypass_rules_in,
     bool reverse_bypass_in,
-    bool restrict_to_network_service_proxy_allow_list_in,
     ::net::ProxyConfig::ProxyRules::Type type_in,
     const ::net::ProxyList& single_proxies_in,
     const ::net::ProxyList& proxies_for_http_in,
@@ -123,7 +122,6 @@ ProxyRules::ProxyRules(
     const ::net::ProxyList& fallback_proxies_in)
     : bypass_rules(std::move(bypass_rules_in)),
       reverse_bypass(std::move(reverse_bypass_in)),
-      restrict_to_network_service_proxy_allow_list(std::move(restrict_to_network_service_proxy_allow_list_in)),
       type(std::move(type_in)),
       single_proxies(std::move(single_proxies_in)),
       proxies_for_http(std::move(proxies_for_http_in)),
@@ -148,15 +146,6 @@ void ProxyRules::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reverse_bypass"), this->reverse_bypass,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "restrict_to_network_service_proxy_allow_list"), this->restrict_to_network_service_proxy_allow_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -347,8 +336,6 @@ bool StructTraits<::network::mojom::ProxyRules::DataView, ::network::mojom::Prox
         success = false;
       if (success)
         result->reverse_bypass = input.reverse_bypass();
-      if (success)
-        result->restrict_to_network_service_proxy_allow_list = input.restrict_to_network_service_proxy_allow_list();
       if (success && !input.ReadType(&result->type))
         success = false;
       if (success && !input.ReadSingleProxies(&result->single_proxies))

@@ -523,6 +523,8 @@ bool CodeCacheHost_FetchCachedCode_ForwardToCallback::Accept(
           internal::CodeCacheHost_FetchCachedCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CodeCacheHost.1
   bool success = true;
   ::base::Time p_response_time{};
   ::mojo_base::BigBuffer p_data{};
@@ -623,6 +625,8 @@ bool CodeCacheHostStubDispatch::Accept(
           reinterpret_cast<internal::CodeCacheHost_DidGenerateCacheableMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CodeCacheHost.0
       bool success = true;
       CodeCacheType p_cache_type{};
       ::blink::KURL p_url{};
@@ -647,11 +651,11 @@ bool CodeCacheHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidGenerateCacheableMetadata(
-std::move(p_cache_type), 
-std::move(p_url), 
-std::move(p_expected_response_time), 
-std::move(p_data));
+      impl->DidGenerateCacheableMetadata(        
+        std::move(p_cache_type), 
+        std::move(p_url), 
+        std::move(p_expected_response_time), 
+        std::move(p_data));
       return true;
     }
     case internal::kCodeCacheHost_FetchCachedCode_Name: {
@@ -664,6 +668,8 @@ std::move(p_data));
           reinterpret_cast<internal::CodeCacheHost_ClearCodeCacheEntry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CodeCacheHost.2
       bool success = true;
       CodeCacheType p_cache_type{};
       ::blink::KURL p_url{};
@@ -682,9 +688,9 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearCodeCacheEntry(
-std::move(p_cache_type), 
-std::move(p_url));
+      impl->ClearCodeCacheEntry(        
+        std::move(p_cache_type), 
+        std::move(p_url));
       return true;
     }
     case internal::kCodeCacheHost_DidGenerateCacheableMetadataInCacheStorage_Name: {
@@ -694,6 +700,8 @@ std::move(p_url));
           reinterpret_cast<internal::CodeCacheHost_DidGenerateCacheableMetadataInCacheStorage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CodeCacheHost.3
       bool success = true;
       ::blink::KURL p_url{};
       ::base::Time p_expected_response_time{};
@@ -718,11 +726,11 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidGenerateCacheableMetadataInCacheStorage(
-std::move(p_url), 
-std::move(p_expected_response_time), 
-std::move(p_data), 
-std::move(p_cache_storage_cache_name));
+      impl->DidGenerateCacheableMetadataInCacheStorage(        
+        std::move(p_url), 
+        std::move(p_expected_response_time), 
+        std::move(p_data), 
+        std::move(p_cache_storage_cache_name));
       return true;
     }
   }
@@ -748,6 +756,8 @@ bool CodeCacheHostStubDispatch::AcceptWithResponder(
               internal::CodeCacheHost_FetchCachedCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CodeCacheHost.1
       bool success = true;
       CodeCacheType p_cache_type{};
       ::blink::KURL p_url{};
@@ -769,9 +779,9 @@ bool CodeCacheHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchCachedCode(
-std::move(p_cache_type), 
-std::move(p_url), std::move(callback));
+      impl->FetchCachedCode(        
+        std::move(p_cache_type), 
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kCodeCacheHost_ClearCodeCacheEntry_Name: {

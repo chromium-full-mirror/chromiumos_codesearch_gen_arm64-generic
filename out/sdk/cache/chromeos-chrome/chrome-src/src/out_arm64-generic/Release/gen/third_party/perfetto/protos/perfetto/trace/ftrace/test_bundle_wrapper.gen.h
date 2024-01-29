@@ -17,6 +17,7 @@ namespace protos {
 namespace gen {
 class TestBundleWrapper;
 class FtraceEventBundle;
+class FtraceEventBundle_FtraceError;
 class FtraceEventBundle_CompactSched;
 class FtraceEvent;
 class GpuWorkPeriodFtraceEvent;
@@ -488,6 +489,7 @@ class CpuFrequencyFtraceEvent;
 class SchedSwitchFtraceEvent;
 class PrintFtraceEvent;
 enum FtraceClock : int;
+enum FtraceParseStatus : int;
 }  // namespace perfetto
 }  // namespace protos
 }  // namespace gen

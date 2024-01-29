@@ -338,6 +338,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  InputDeviceSettingsSixPackKeyPolicy {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<InputDeviceSettingsSixPackKeyPolicy, T>::value>;
+  using DataView = InputDeviceSettingsSixPackKeyPolicyDataView;
+  using Data_ = internal::InputDeviceSettingsSixPackKeyPolicy_Data;
+
+  template <typename... Args>
+  static InputDeviceSettingsSixPackKeyPolicyPtr New(Args&&... args) {
+    return InputDeviceSettingsSixPackKeyPolicyPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static InputDeviceSettingsSixPackKeyPolicyPtr From(const U& u) {
+    return mojo::TypeConverter<InputDeviceSettingsSixPackKeyPolicyPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, InputDeviceSettingsSixPackKeyPolicy>::Convert(*this);
+  }
+
+
+  InputDeviceSettingsSixPackKeyPolicy();
+
+  InputDeviceSettingsSixPackKeyPolicy(
+      PolicyStatus policy_status,
+      ::ui::mojom::SixPackShortcutModifier value);
+
+
+  ~InputDeviceSettingsSixPackKeyPolicy();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = InputDeviceSettingsSixPackKeyPolicyPtr>
+  InputDeviceSettingsSixPackKeyPolicyPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        InputDeviceSettingsSixPackKeyPolicy::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        InputDeviceSettingsSixPackKeyPolicy::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::InputDeviceSettingsSixPackKeyPolicy_UnserializedMessageContext<
+            UserType, InputDeviceSettingsSixPackKeyPolicy::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<InputDeviceSettingsSixPackKeyPolicy::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return InputDeviceSettingsSixPackKeyPolicy::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::InputDeviceSettingsSixPackKeyPolicy_UnserializedMessageContext<
+            UserType, InputDeviceSettingsSixPackKeyPolicy::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<InputDeviceSettingsSixPackKeyPolicy::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  PolicyStatus policy_status;
+  
+  ::ui::mojom::SixPackShortcutModifier value;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 
@@ -1071,6 +1215,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  KeyboardPolicies {
  public:
   template <typename T>
@@ -1100,7 +1245,12 @@ class  KeyboardPolicies {
   KeyboardPolicies(
       InputDeviceSettingsPolicyPtr top_row_are_fkeys_policy,
       InputDeviceSettingsPolicyPtr enable_meta_fkey_rewrites_policy,
-      InputDeviceSettingsFkeyPolicyPtr extended_fkeys_policy);
+      InputDeviceSettingsFkeyPolicyPtr f11_key_policy,
+      InputDeviceSettingsFkeyPolicyPtr f12_key_policy,
+      InputDeviceSettingsSixPackKeyPolicyPtr home_and_end_keys_policy,
+      InputDeviceSettingsSixPackKeyPolicyPtr page_up_and_page_down_keys_policy,
+      InputDeviceSettingsSixPackKeyPolicyPtr delete_key_policy,
+      InputDeviceSettingsSixPackKeyPolicyPtr insert_key_policy);
 
 KeyboardPolicies(const KeyboardPolicies&) = delete;
 KeyboardPolicies& operator=(const KeyboardPolicies&) = delete;
@@ -1184,7 +1334,17 @@ KeyboardPolicies& operator=(const KeyboardPolicies&) = delete;
   
   InputDeviceSettingsPolicyPtr enable_meta_fkey_rewrites_policy;
   
-  InputDeviceSettingsFkeyPolicyPtr extended_fkeys_policy;
+  InputDeviceSettingsFkeyPolicyPtr f11_key_policy;
+  
+  InputDeviceSettingsFkeyPolicyPtr f12_key_policy;
+  
+  InputDeviceSettingsSixPackKeyPolicyPtr home_and_end_keys_policy;
+  
+  InputDeviceSettingsSixPackKeyPolicyPtr page_up_and_page_down_keys_policy;
+  
+  InputDeviceSettingsSixPackKeyPolicyPtr delete_key_policy;
+  
+  InputDeviceSettingsSixPackKeyPolicyPtr insert_key_policy;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1713,6 +1873,7 @@ class  Mouse {
       uint32_t id,
       const std::string& device_key,
       CustomizationRestriction customization_restriction,
+      MouseButtonConfig mouse_button_config,
       MouseSettingsPtr settings);
 
 Mouse(const Mouse&) = delete;
@@ -1802,6 +1963,8 @@ Mouse& operator=(const Mouse&) = delete;
   std::string device_key;
   
   CustomizationRestriction customization_restriction;
+  
+  MouseButtonConfig mouse_button_config;
   
   MouseSettingsPtr settings;
 
@@ -3258,11 +3421,45 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+InputDeviceSettingsSixPackKeyPolicyPtr InputDeviceSettingsSixPackKeyPolicy::Clone() const {
+  return New(
+      mojo::Clone(policy_status),
+      mojo::Clone(value)
+  );
+}
+
+template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>*>
+bool InputDeviceSettingsSixPackKeyPolicy::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->policy_status, other_struct.policy_status))
+    return false;
+  if (!mojo::Equals(this->value, other_struct.value))
+    return false;
+  return true;
+}
+
+template <typename T, InputDeviceSettingsSixPackKeyPolicy::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.policy_status < rhs.policy_status)
+    return true;
+  if (rhs.policy_status < lhs.policy_status)
+    return false;
+  if (lhs.value < rhs.value)
+    return true;
+  if (rhs.value < lhs.value)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 KeyboardPoliciesPtr KeyboardPolicies::Clone() const {
   return New(
       mojo::Clone(top_row_are_fkeys_policy),
       mojo::Clone(enable_meta_fkey_rewrites_policy),
-      mojo::Clone(extended_fkeys_policy)
+      mojo::Clone(f11_key_policy),
+      mojo::Clone(f12_key_policy),
+      mojo::Clone(home_and_end_keys_policy),
+      mojo::Clone(page_up_and_page_down_keys_policy),
+      mojo::Clone(delete_key_policy),
+      mojo::Clone(insert_key_policy)
   );
 }
 
@@ -3272,7 +3469,17 @@ bool KeyboardPolicies::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->enable_meta_fkey_rewrites_policy, other_struct.enable_meta_fkey_rewrites_policy))
     return false;
-  if (!mojo::Equals(this->extended_fkeys_policy, other_struct.extended_fkeys_policy))
+  if (!mojo::Equals(this->f11_key_policy, other_struct.f11_key_policy))
+    return false;
+  if (!mojo::Equals(this->f12_key_policy, other_struct.f12_key_policy))
+    return false;
+  if (!mojo::Equals(this->home_and_end_keys_policy, other_struct.home_and_end_keys_policy))
+    return false;
+  if (!mojo::Equals(this->page_up_and_page_down_keys_policy, other_struct.page_up_and_page_down_keys_policy))
+    return false;
+  if (!mojo::Equals(this->delete_key_policy, other_struct.delete_key_policy))
+    return false;
+  if (!mojo::Equals(this->insert_key_policy, other_struct.insert_key_policy))
     return false;
   return true;
 }
@@ -3287,9 +3494,29 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.enable_meta_fkey_rewrites_policy < lhs.enable_meta_fkey_rewrites_policy)
     return false;
-  if (lhs.extended_fkeys_policy < rhs.extended_fkeys_policy)
+  if (lhs.f11_key_policy < rhs.f11_key_policy)
     return true;
-  if (rhs.extended_fkeys_policy < lhs.extended_fkeys_policy)
+  if (rhs.f11_key_policy < lhs.f11_key_policy)
+    return false;
+  if (lhs.f12_key_policy < rhs.f12_key_policy)
+    return true;
+  if (rhs.f12_key_policy < lhs.f12_key_policy)
+    return false;
+  if (lhs.home_and_end_keys_policy < rhs.home_and_end_keys_policy)
+    return true;
+  if (rhs.home_and_end_keys_policy < lhs.home_and_end_keys_policy)
+    return false;
+  if (lhs.page_up_and_page_down_keys_policy < rhs.page_up_and_page_down_keys_policy)
+    return true;
+  if (rhs.page_up_and_page_down_keys_policy < lhs.page_up_and_page_down_keys_policy)
+    return false;
+  if (lhs.delete_key_policy < rhs.delete_key_policy)
+    return true;
+  if (rhs.delete_key_policy < lhs.delete_key_policy)
+    return false;
+  if (lhs.insert_key_policy < rhs.insert_key_policy)
+    return true;
+  if (rhs.insert_key_policy < lhs.insert_key_policy)
     return false;
   return false;
 }
@@ -3451,6 +3678,7 @@ MousePtr Mouse::Clone() const {
       mojo::Clone(id),
       mojo::Clone(device_key),
       mojo::Clone(customization_restriction),
+      mojo::Clone(mouse_button_config),
       mojo::Clone(settings)
   );
 }
@@ -3466,6 +3694,8 @@ bool Mouse::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->device_key, other_struct.device_key))
     return false;
   if (!mojo::Equals(this->customization_restriction, other_struct.customization_restriction))
+    return false;
+  if (!mojo::Equals(this->mouse_button_config, other_struct.mouse_button_config))
     return false;
   if (!mojo::Equals(this->settings, other_struct.settings))
     return false;
@@ -3493,6 +3723,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.customization_restriction < rhs.customization_restriction)
     return true;
   if (rhs.customization_restriction < lhs.customization_restriction)
+    return false;
+  if (lhs.mouse_button_config < rhs.mouse_button_config)
+    return true;
+  if (rhs.mouse_button_config < lhs.mouse_button_config)
     return false;
   if (lhs.settings < rhs.settings)
     return true;
@@ -4067,6 +4301,26 @@ struct  StructTraits<::ash::mojom::InputDeviceSettingsFkeyPolicy::DataView,
 
 
 template <>
+struct  StructTraits<::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::DataView,
+                                         ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr> {
+  static bool IsNull(const ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr& input) { return !input; }
+  static void SetToNull(::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr* output) { output->reset(); }
+
+  static decltype(::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::policy_status) policy_status(
+      const ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr& input) {
+    return input->policy_status;
+  }
+
+  static decltype(::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::value) value(
+      const ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr& input) {
+    return input->value;
+  }
+
+  static bool Read(::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::DataView input, ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::mojom::KeyboardPolicies::DataView,
                                          ::ash::mojom::KeyboardPoliciesPtr> {
   static bool IsNull(const ::ash::mojom::KeyboardPoliciesPtr& input) { return !input; }
@@ -4082,9 +4336,34 @@ struct  StructTraits<::ash::mojom::KeyboardPolicies::DataView,
     return input->enable_meta_fkey_rewrites_policy;
   }
 
-  static const decltype(::ash::mojom::KeyboardPolicies::extended_fkeys_policy)& extended_fkeys_policy(
+  static const decltype(::ash::mojom::KeyboardPolicies::f11_key_policy)& f11_key_policy(
       const ::ash::mojom::KeyboardPoliciesPtr& input) {
-    return input->extended_fkeys_policy;
+    return input->f11_key_policy;
+  }
+
+  static const decltype(::ash::mojom::KeyboardPolicies::f12_key_policy)& f12_key_policy(
+      const ::ash::mojom::KeyboardPoliciesPtr& input) {
+    return input->f12_key_policy;
+  }
+
+  static const decltype(::ash::mojom::KeyboardPolicies::home_and_end_keys_policy)& home_and_end_keys_policy(
+      const ::ash::mojom::KeyboardPoliciesPtr& input) {
+    return input->home_and_end_keys_policy;
+  }
+
+  static const decltype(::ash::mojom::KeyboardPolicies::page_up_and_page_down_keys_policy)& page_up_and_page_down_keys_policy(
+      const ::ash::mojom::KeyboardPoliciesPtr& input) {
+    return input->page_up_and_page_down_keys_policy;
+  }
+
+  static const decltype(::ash::mojom::KeyboardPolicies::delete_key_policy)& delete_key_policy(
+      const ::ash::mojom::KeyboardPoliciesPtr& input) {
+    return input->delete_key_policy;
+  }
+
+  static const decltype(::ash::mojom::KeyboardPolicies::insert_key_policy)& insert_key_policy(
+      const ::ash::mojom::KeyboardPoliciesPtr& input) {
+    return input->insert_key_policy;
   }
 
   static bool Read(::ash::mojom::KeyboardPolicies::DataView input, ::ash::mojom::KeyboardPoliciesPtr* output);
@@ -4225,6 +4504,11 @@ struct  StructTraits<::ash::mojom::Mouse::DataView,
   static decltype(::ash::mojom::Mouse::customization_restriction) customization_restriction(
       const ::ash::mojom::MousePtr& input) {
     return input->customization_restriction;
+  }
+
+  static decltype(::ash::mojom::Mouse::mouse_button_config) mouse_button_config(
+      const ::ash::mojom::MousePtr& input) {
+    return input->mouse_button_config;
   }
 
   static const decltype(::ash::mojom::Mouse::settings)& settings(

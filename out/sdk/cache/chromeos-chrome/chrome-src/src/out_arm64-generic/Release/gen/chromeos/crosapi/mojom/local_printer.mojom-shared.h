@@ -54,6 +54,8 @@ class CapabilitiesResponseDataView;
 
 class PoliciesDataView;
 
+class PrintJobUpdateDataView;
+
 class OAuthNotNeededDataView;
 
 class OAuthErrorDataView;
@@ -120,6 +122,13 @@ struct MojomTypeTraits<::crosapi::mojom::CapabilitiesResponseDataView> {
 template <>
 struct MojomTypeTraits<::crosapi::mojom::PoliciesDataView> {
   using Data = ::crosapi::mojom::internal::Policies_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::PrintJobUpdateDataView> {
+  using Data = ::crosapi::mojom::internal::PrintJobUpdate_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1081,6 +1090,34 @@ static_assert(
 };
 
 
+class PrintJobUpdateDataView {
+ public:
+  PrintJobUpdateDataView() = default;
+
+  PrintJobUpdateDataView(
+      internal::PrintJobUpdate_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::crosapi::mojom::PrintJobStatus>(
+        data_value, output);
+  }
+  PrintJobStatus status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::PrintJobStatus>(data_->status));
+  }
+  uint32_t pages_printed() const {
+    return data_->pages_printed;
+  }
+ private:
+  internal::PrintJobUpdate_Data* data_ = nullptr;
+};
+
+
 class OAuthNotNeededDataView {
  public:
   OAuthNotNeededDataView() = default;
@@ -1934,6 +1971,38 @@ struct Serializer<::crosapi::mojom::PoliciesDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::PrintJobUpdateDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::PrintJobUpdateDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::PrintJobUpdate_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::crosapi::mojom::PrintJobStatus>(
+        Traits::status(input), &fragment->status);
+    fragment->pages_printed = Traits::pages_printed(input);
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::PrintJobUpdate_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::PrintJobUpdateDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::crosapi::mojom::OAuthNotNeededDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::crosapi::mojom::OAuthNotNeededDataView, UserType>;
@@ -2239,6 +2308,8 @@ inline void PoliciesDataView::GetPaperSizeDefaultDataView(
   auto pointer = data_->paper_size_default.Get();
   *output = ::gfx::mojom::SizeDataView(pointer, message_);
 }
+
+
 
 
 

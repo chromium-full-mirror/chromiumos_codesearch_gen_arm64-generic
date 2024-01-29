@@ -62,7 +62,7 @@ describe('SettingCheckbox', () => {
         const setting = createFakeSetting('setting', false);
         setting.setRegistration({
             settingName: 'setting',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
             deprecationNotice: {
                 warning: () => 'Setting deprecated',
@@ -79,7 +79,7 @@ describe('SettingCheckbox', () => {
         const setting = createFakeSetting('setting', false);
         setting.setRegistration({
             settingName: 'setting',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
             deprecationNotice: {
                 warning: () => 'Setting deprecated',
@@ -97,7 +97,7 @@ describe('SettingCheckbox', () => {
         const setting = createFakeSetting('setting', false);
         setting.setRegistration({
             settingName: 'setting',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
             deprecationNotice: {
                 warning: () => 'Setting deprecated',
@@ -112,7 +112,7 @@ describe('SettingCheckbox', () => {
         const setting = createFakeSetting('setting', false);
         setting.setRegistration({
             settingName: 'setting',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
             deprecationNotice: {
                 warning: () => 'Setting deprecated',

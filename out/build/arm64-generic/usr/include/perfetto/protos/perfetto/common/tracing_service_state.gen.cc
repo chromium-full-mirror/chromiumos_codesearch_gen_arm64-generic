@@ -158,7 +158,10 @@ bool TracingServiceState_TracingSession::operator==(const TracingServiceState_Tr
    && ::protozero::internal::gen_helpers::EqualsField(buffer_size_kb_, other.buffer_size_kb_)
    && ::protozero::internal::gen_helpers::EqualsField(duration_ms_, other.duration_ms_)
    && ::protozero::internal::gen_helpers::EqualsField(num_data_sources_, other.num_data_sources_)
-   && ::protozero::internal::gen_helpers::EqualsField(start_realtime_ns_, other.start_realtime_ns_);
+   && ::protozero::internal::gen_helpers::EqualsField(start_realtime_ns_, other.start_realtime_ns_)
+   && ::protozero::internal::gen_helpers::EqualsField(bugreport_score_, other.bugreport_score_)
+   && ::protozero::internal::gen_helpers::EqualsField(bugreport_filename_, other.bugreport_filename_)
+   && ::protozero::internal::gen_helpers::EqualsField(is_started_, other.is_started_);
 }
 
 bool TracingServiceState_TracingSession::ParseFromArray(const void* raw, size_t size) {
@@ -196,6 +199,15 @@ bool TracingServiceState_TracingSession::ParseFromArray(const void* raw, size_t 
         break;
       case 8 /* start_realtime_ns */:
         field.get(&start_realtime_ns_);
+        break;
+      case 9 /* bugreport_score */:
+        field.get(&bugreport_score_);
+        break;
+      case 10 /* bugreport_filename */:
+        ::protozero::internal::gen_helpers::DeserializeString(field, &bugreport_filename_);
+        break;
+      case 11 /* is_started */:
+        field.get(&is_started_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -256,6 +268,21 @@ void TracingServiceState_TracingSession::Serialize(::protozero::Message* msg) co
   // Field 8: start_realtime_ns
   if (_has_field_[8]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(8, start_realtime_ns_, msg);
+  }
+
+  // Field 9: bugreport_score
+  if (_has_field_[9]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(9, bugreport_score_, msg);
+  }
+
+  // Field 10: bugreport_filename
+  if (_has_field_[10]) {
+    ::protozero::internal::gen_helpers::SerializeString(10, bugreport_filename_, msg);
+  }
+
+  // Field 11: is_started
+  if (_has_field_[11]) {
+    ::protozero::internal::gen_helpers::SerializeTinyVarInt(11, is_started_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

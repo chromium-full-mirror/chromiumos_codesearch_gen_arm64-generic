@@ -8,5 +8,6 @@ export function emptyState() {
         darkModeEnabled: null,
         sampleColorSchemes: [],
         staticColorSelected: null,
+        geolocationPermissionEnabled: null,
     };
 }

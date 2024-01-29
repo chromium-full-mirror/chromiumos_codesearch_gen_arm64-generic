@@ -21,7 +21,7 @@ export function getTemplate() {
   </div>
 </div>
 
-<settings-toggle-button id="batterySaverToggle" class$="[[getClassForRow_(batteryStatus_.present, 'batterySaver')]]" hidden$="[[batterySaverHidden_]]" pref="{{prefs.power.cros_battery_saver_active}}" label="$i18n{powerBatterySaverLabel}" sub-label="$i18n{powerBatterySaverSubtext}" disabled="[[isExternalPowerAC_]]" deep-link-focus-id$="[[Setting.kBatterySaver]]">
+<settings-toggle-button id="batterySaverToggle" class$="[[getClassForRow_(batteryStatus_.present, 'batterySaver')]]" hidden$="[[batterySaverHidden_]]" pref="{{prefs.power.cros_battery_saver_active}}" label="$i18n{powerBatterySaverLabel}" sub-label="$i18n{powerBatterySaverSubtext}" learn-more-url="$i18n{powerBatterySaverLearnMoreUrl}" disabled="[[isExternalPowerAC_]]" deep-link-focus-id$="[[Setting.kBatterySaver]]">
 </settings-toggle-button>
 
 <settings-toggle-button id="adaptiveChargingToggle" class$="[[getClassForRow_(batteryStatus_.present, 'adaptiveCharging')]]" hidden$="[[!adaptiveChargingEnabled_]]" pref="[[adaptiveChargingPref_]]" label="$i18n{powerAdaptiveChargingLabel}" sub-label="$i18n{powerAdaptiveChargingSubtext}" learn-more-url="$i18n{powerAdaptiveChargingLearnMoreUrl}" on-settings-boolean-control-change="onAdaptiveChargingToggleChange_" deep-link-focus-id$="[[Setting.kAdaptiveCharging]]" no-set-pref>

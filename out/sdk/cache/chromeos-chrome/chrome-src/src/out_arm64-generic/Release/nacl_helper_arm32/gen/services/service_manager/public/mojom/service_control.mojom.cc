@@ -148,6 +148,8 @@ bool ServiceControlStubDispatch::Accept(
           reinterpret_cast<internal::ServiceControl_RequestQuit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceControl.0
       bool success = true;
       ServiceControl_RequestQuit_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool ServiceControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestQuit();
+      impl->RequestQuit(        );
       return true;
     }
   }

@@ -242,6 +242,8 @@ bool SafeBrowsingUrlChecker_CheckUrl_ForwardToCallback::Accept(
           internal::SafeBrowsingUrlChecker_CheckUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeBrowsingUrlChecker.0
   bool success = true;
   ::mojo::PendingReceiver<UrlCheckNotifier> p_slow_check_notifier{};
   bool p_proceed{};
@@ -351,6 +353,8 @@ bool SafeBrowsingUrlCheckerStubDispatch::AcceptWithResponder(
               internal::SafeBrowsingUrlChecker_CheckUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeBrowsingUrlChecker.0
       bool success = true;
       ::GURL p_url{};
       std::string p_method{};
@@ -372,9 +376,9 @@ bool SafeBrowsingUrlCheckerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckUrl(
-std::move(p_url), 
-std::move(p_method), std::move(callback));
+      impl->CheckUrl(        
+        std::move(p_url), 
+        std::move(p_method), std::move(callback));
       return true;
     }
   }
@@ -512,6 +516,8 @@ bool UrlCheckNotifierStubDispatch::Accept(
           reinterpret_cast<internal::UrlCheckNotifier_OnCompleteCheck_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UrlCheckNotifier.0
       bool success = true;
       bool p_proceed{};
       bool p_showed_interstitial{};
@@ -530,9 +536,9 @@ bool UrlCheckNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompleteCheck(
-std::move(p_proceed), 
-std::move(p_showed_interstitial));
+      impl->OnCompleteCheck(        
+        std::move(p_proceed), 
+        std::move(p_showed_interstitial));
       return true;
     }
   }

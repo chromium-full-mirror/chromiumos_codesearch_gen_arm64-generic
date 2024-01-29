@@ -343,6 +343,7 @@ CORE_EXPORT extern const char WebTransportSticky[];
 CORE_EXPORT extern const char WebSocketSticky[];
 CORE_EXPORT extern const char SmartCard[];
 CORE_EXPORT extern const char LiveMediaStreamTrack[];
+CORE_EXPORT extern const char UnloadHandler[];
 CORE_EXPORT extern const char ContentSecurityHandler[];
 CORE_EXPORT extern const char ContentWebAuthenticationAPI[];
 CORE_EXPORT extern const char ContentFileChooser[];

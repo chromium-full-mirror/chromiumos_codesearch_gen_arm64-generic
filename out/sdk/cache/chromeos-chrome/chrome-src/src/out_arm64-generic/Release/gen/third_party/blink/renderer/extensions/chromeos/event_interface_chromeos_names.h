@@ -17,10 +17,8 @@
 namespace blink {
 namespace event_interface_names {
 
-EXTENSIONS_CHROMEOS_EXPORT extern const WTF::AtomicString& kCrosAcceleratorEvent;
-EXTENSIONS_CHROMEOS_EXPORT extern const WTF::AtomicString& kCrosWindowEvent;
 
-constexpr unsigned kChromeOSNamesCount = 2;
+constexpr unsigned kChromeOSNamesCount = 0;
 
 EXTENSIONS_CHROMEOS_EXPORT void InitChromeOS();
 

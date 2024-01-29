@@ -34,19 +34,10 @@ function tokenToString(token) {
 function tokensEqual(a, b) {
     return a.high === b.high && a.low === b.low;
 }
-// TODO(TODO(b/279623883): Remove dark mode handling.
 /**
- * The pulse animation asset URL for light mode.
+ * The pulse animation asset URL.
  */
-const PULSE_ANIMATION_URL_LIGHT = 'nearby_share_pulse_animation_light.json';
-/**
- * The pulse animation asset URL for dark mode.
- */
-const PULSE_ANIMATION_URL_DARK = 'nearby_share_pulse_animation_dark.json';
-/**
- * The pulse animation asset URL for jelly mode.
- */
-const PULSE_ANIMATION_URL_JELLY = 'nearby_share_pulse_animation_jelly.json';
+const PULSE_ANIMATION_URL = 'nearby_share_pulse_animation.json';
 const NearbyDiscoveryPageElementBase = I18nMixin(PolymerElement);
 export class NearbyDiscoveryPageElement extends NearbyDiscoveryPageElementBase {
     constructor() {
@@ -136,24 +127,6 @@ export class NearbyDiscoveryPageElement extends NearbyDiscoveryPageElementBase {
             errorDescription_: {
                 type: String,
                 value: null,
-            },
-            /**
-             * Whether the discovery page is being rendered in dark mode.
-             */
-            isDarkModeActive_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * Return true if the Jelly feature flag is enabled.
-             */
-            isJellyEnabled_: {
-                type: Boolean,
-                readOnly: true,
-                value() {
-                    return loadTimeData.valueExists('isJellyEnabled') &&
-                        loadTimeData.getBoolean('isJellyEnabled');
-                },
             },
             /**
              * Return true if the Nearby Share Self Share feature flag is enabled.
@@ -539,13 +512,7 @@ export class NearbyDiscoveryPageElement extends NearbyDiscoveryPageElementBase {
      * pulsing background animation
      */
     getAnimationUrl_() {
-        if (this.isJellyEnabled_) {
-            return PULSE_ANIMATION_URL_JELLY;
-        }
-        // TODO(b/279623883): Clean up dark mode logic and duplicate assets after
-        // Jelly is launched.
-        return this.isDarkModeActive_ ? PULSE_ANIMATION_URL_DARK :
-            PULSE_ANIMATION_URL_LIGHT;
+        return PULSE_ANIMATION_URL;
     }
     /**
      * Returns a boolean indicating whether to show Self Share UI.

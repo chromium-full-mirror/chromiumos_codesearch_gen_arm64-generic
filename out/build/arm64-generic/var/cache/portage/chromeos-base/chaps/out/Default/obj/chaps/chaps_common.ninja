@@ -1,68 +1,68 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_TPM_INSECURE_FALLBACK=false -DUSE_FUZZER=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -pthread -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -DPROTOBUF_USE_DLLS
-cflags_cc = -std=gnu++20 -DVCSID=\"0.0.1-r4297-46620bd1d7f35a58bee208f65b2c7a0425b34010\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
+cflags_cc = -std=gnu++20 -DVCSID=\"0.0.1-r4314-01ca8c12d43f091ca9e4130b616e68f5e9496a16\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = chaps_common
 
-build obj/chaps/chaps_common.chaps_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/chaps_adaptor.cc
+build obj/chaps/chaps_common.chaps_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/chaps_adaptor.cc
   source_file_part = chaps_adaptor.cc
   source_name_part = chaps_adaptor
-build obj/chaps/chaps_common.chaps_factory_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/chaps_factory_impl.cc
+build obj/chaps/chaps_common.chaps_factory_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/chaps_factory_impl.cc
   source_file_part = chaps_factory_impl.cc
   source_name_part = chaps_factory_impl
-build obj/chaps/chaps_common.chaps_metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/chaps_metrics.cc
+build obj/chaps/chaps_common.chaps_metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/chaps_metrics.cc
   source_file_part = chaps_metrics.cc
   source_name_part = chaps_metrics
-build obj/chaps/chaps_common.chaps_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/chaps_service.cc
+build obj/chaps/chaps_common.chaps_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/chaps_service.cc
   source_file_part = chaps_service.cc
   source_name_part = chaps_service
-build obj/chaps/chaps_common.object_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_impl.cc
+build obj/chaps/chaps_common.object_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_impl.cc
   source_file_part = object_impl.cc
   source_name_part = object_impl
-build obj/chaps/chaps_common.object_policy_cert.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_cert.cc
+build obj/chaps/chaps_common.object_policy_cert.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_cert.cc
   source_file_part = object_policy_cert.cc
   source_name_part = object_policy_cert
-build obj/chaps/chaps_common.object_policy_common.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_common.cc
+build obj/chaps/chaps_common.object_policy_common.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_common.cc
   source_file_part = object_policy_common.cc
   source_name_part = object_policy_common
-build obj/chaps/chaps_common.object_policy_data.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_data.cc
+build obj/chaps/chaps_common.object_policy_data.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_data.cc
   source_file_part = object_policy_data.cc
   source_name_part = object_policy_data
-build obj/chaps/chaps_common.object_policy_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_key.cc
+build obj/chaps/chaps_common.object_policy_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_key.cc
   source_file_part = object_policy_key.cc
   source_name_part = object_policy_key
-build obj/chaps/chaps_common.object_policy_private_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_private_key.cc
+build obj/chaps/chaps_common.object_policy_private_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_private_key.cc
   source_file_part = object_policy_private_key.cc
   source_name_part = object_policy_private_key
-build obj/chaps/chaps_common.object_policy_public_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_public_key.cc
+build obj/chaps/chaps_common.object_policy_public_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_public_key.cc
   source_file_part = object_policy_public_key.cc
   source_name_part = object_policy_public_key
-build obj/chaps/chaps_common.object_policy_secret_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_policy_secret_key.cc
+build obj/chaps/chaps_common.object_policy_secret_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_policy_secret_key.cc
   source_file_part = object_policy_secret_key.cc
   source_name_part = object_policy_secret_key
-build obj/chaps/chaps_common.object_pool_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_pool_impl.cc
+build obj/chaps/chaps_common.object_pool_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_pool_impl.cc
   source_file_part = object_pool_impl.cc
   source_name_part = object_pool_impl
-build obj/chaps/chaps_common.object_store_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/object_store_impl.cc
+build obj/chaps/chaps_common.object_store_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/object_store_impl.cc
   source_file_part = object_store_impl.cc
   source_name_part = object_store_impl
-build obj/chaps/chaps_common.platform_globals_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/platform_globals_chromeos.cc
+build obj/chaps/chaps_common.platform_globals_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/platform_globals_chromeos.cc
   source_file_part = platform_globals_chromeos.cc
   source_name_part = platform_globals_chromeos
-build obj/chaps/chaps_common.session_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/session_impl.cc
+build obj/chaps/chaps_common.session_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/session_impl.cc
   source_file_part = session_impl.cc
   source_name_part = session_impl
-build obj/chaps/chaps_common.slot_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/slot_manager_impl.cc
+build obj/chaps/chaps_common.slot_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/slot_manager_impl.cc
   source_file_part = slot_manager_impl.cc
   source_name_part = slot_manager_impl
-build obj/chaps/chaps_common.slot_policy_default.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/slot_policy_default.cc
+build obj/chaps/chaps_common.slot_policy_default.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/slot_policy_default.cc
   source_file_part = slot_policy_default.cc
   source_name_part = slot_policy_default
-build obj/chaps/chaps_common.slot_policy_shared_slot.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/slot_policy_shared_slot.cc
+build obj/chaps/chaps_common.slot_policy_shared_slot.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/slot_policy_shared_slot.cc
   source_file_part = slot_policy_shared_slot.cc
   source_name_part = slot_policy_shared_slot
-build obj/chaps/chaps_common.system_shutdown_blocker.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4297/work/chaps-0.0.1/chaps/system_shutdown_blocker.cc
+build obj/chaps/chaps_common.system_shutdown_blocker.o: cxx ../../../../../../../tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1/chaps/system_shutdown_blocker.cc
   source_file_part = system_shutdown_blocker.cc
   source_name_part = system_shutdown_blocker
 

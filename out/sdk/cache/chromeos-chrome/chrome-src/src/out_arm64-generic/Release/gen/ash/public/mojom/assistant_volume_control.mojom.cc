@@ -287,6 +287,8 @@ bool AssistantVolumeControlStubDispatch::Accept(
           reinterpret_cast<internal::AssistantVolumeControl_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistantVolumeControl.0
       bool success = true;
       int32_t p_volume{};
       bool p_user_initiated{};
@@ -305,9 +307,9 @@ bool AssistantVolumeControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume), 
-std::move(p_user_initiated));
+      impl->SetVolume(        
+        std::move(p_volume), 
+        std::move(p_user_initiated));
       return true;
     }
     case internal::kAssistantVolumeControl_SetMuted_Name: {
@@ -317,6 +319,8 @@ std::move(p_user_initiated));
           reinterpret_cast<internal::AssistantVolumeControl_SetMuted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistantVolumeControl.1
       bool success = true;
       bool p_muted{};
       AssistantVolumeControl_SetMuted_ParamsDataView input_data_view(params, message);
@@ -332,8 +336,8 @@ std::move(p_user_initiated));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMuted(
-std::move(p_muted));
+      impl->SetMuted(        
+        std::move(p_muted));
       return true;
     }
     case internal::kAssistantVolumeControl_AddVolumeObserver_Name: {
@@ -343,6 +347,8 @@ std::move(p_muted));
           reinterpret_cast<internal::AssistantVolumeControl_AddVolumeObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistantVolumeControl.2
       bool success = true;
       ::mojo::PendingRemote<VolumeObserver> p_observer{};
       AssistantVolumeControl_AddVolumeObserver_ParamsDataView input_data_view(params, message);
@@ -360,8 +366,8 @@ std::move(p_muted));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVolumeObserver(
-std::move(p_observer));
+      impl->AddVolumeObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -578,6 +584,8 @@ bool VolumeObserverStubDispatch::Accept(
           reinterpret_cast<internal::VolumeObserver_OnVolumeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VolumeObserver.0
       bool success = true;
       int32_t p_volume{};
       VolumeObserver_OnVolumeChanged_ParamsDataView input_data_view(params, message);
@@ -593,8 +601,8 @@ bool VolumeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVolumeChanged(
-std::move(p_volume));
+      impl->OnVolumeChanged(        
+        std::move(p_volume));
       return true;
     }
     case internal::kVolumeObserver_OnMuteStateChanged_Name: {
@@ -604,6 +612,8 @@ std::move(p_volume));
           reinterpret_cast<internal::VolumeObserver_OnMuteStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VolumeObserver.1
       bool success = true;
       bool p_muted{};
       VolumeObserver_OnMuteStateChanged_ParamsDataView input_data_view(params, message);
@@ -619,8 +629,8 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMuteStateChanged(
-std::move(p_muted));
+      impl->OnMuteStateChanged(        
+        std::move(p_muted));
       return true;
     }
   }

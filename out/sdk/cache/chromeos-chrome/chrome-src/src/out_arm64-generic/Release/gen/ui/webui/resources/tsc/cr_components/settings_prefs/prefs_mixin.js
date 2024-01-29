@@ -70,6 +70,27 @@ export const PrefsMixin = dedupingMixin((superClass) => {
                 this.splice(`prefs.${key}.value`, index, 1);
             }
         }
+        /**
+         * Updates the entry in the pref dictionary to the new key value pair.
+         * Asserts if the pref itself is not found or is not a dictionary type.
+         */
+        setPrefDictEntry(prefPath, key, value) {
+            const pref = this.getPref(prefPath);
+            assert(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            pref.value[key] = value;
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
+        /**
+         * Deletes the given key from the pref dictionary if it is
+         * found. Asserts if the pref itself is not found or is not a dictionary
+         * type.
+         */
+        deletePrefDictEntry(prefPath, key) {
+            const pref = this.getPref(prefPath);
+            assert(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            delete pref.value[key];
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
     }
     return PrefsMixin;
 });

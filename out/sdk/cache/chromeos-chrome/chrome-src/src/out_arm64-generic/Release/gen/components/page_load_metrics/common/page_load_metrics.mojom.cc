@@ -2080,6 +2080,8 @@ bool PageLoadMetricsStubDispatch::Accept(
           reinterpret_cast<internal::PageLoadMetrics_UpdateTiming_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageLoadMetrics.0
       bool success = true;
       PageLoadTimingPtr p_page_load_timing{};
       FrameMetadataPtr p_frame_metadata{};
@@ -2119,16 +2121,16 @@ bool PageLoadMetricsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTiming(
-std::move(p_page_load_timing), 
-std::move(p_frame_metadata), 
-std::move(p_new_features), 
-std::move(p_resources), 
-std::move(p_render_data), 
-std::move(p_cpu_load_timing), 
-std::move(p_input_timing_delta), 
-std::move(p_subresource_load_metrics), 
-std::move(p_soft_navigation_metrics));
+      impl->UpdateTiming(        
+        std::move(p_page_load_timing), 
+        std::move(p_frame_metadata), 
+        std::move(p_new_features), 
+        std::move(p_resources), 
+        std::move(p_render_data), 
+        std::move(p_cpu_load_timing), 
+        std::move(p_input_timing_delta), 
+        std::move(p_subresource_load_metrics), 
+        std::move(p_soft_navigation_metrics));
       return true;
     }
     case internal::kPageLoadMetrics_SetUpSharedMemoryForSmoothness_Name: {
@@ -2138,6 +2140,8 @@ std::move(p_soft_navigation_metrics));
           reinterpret_cast<internal::PageLoadMetrics_SetUpSharedMemoryForSmoothness_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageLoadMetrics.1
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_shared_memory{};
       PageLoadMetrics_SetUpSharedMemoryForSmoothness_ParamsDataView input_data_view(params, message);
@@ -2153,8 +2157,8 @@ std::move(p_soft_navigation_metrics));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpSharedMemoryForSmoothness(
-std::move(p_shared_memory));
+      impl->SetUpSharedMemoryForSmoothness(        
+        std::move(p_shared_memory));
       return true;
     }
   }

@@ -44,6 +44,7 @@ PROTOBUF_CONSTEXPR FtraceStats::FtraceStats(
   : cpu_stats_()
   , unknown_ftrace_events_()
   , failed_ftrace_events_()
+  , ftrace_parse_errors_()
   , atrace_errors_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , phase_(0)
 
@@ -126,6 +127,121 @@ constexpr FtraceStats_Phase FtraceStats::Phase_MIN;
 constexpr FtraceStats_Phase FtraceStats::Phase_MAX;
 constexpr int FtraceStats::Phase_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool FtraceParseStatus_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FtraceParseStatus_strings[18] = {};
+
+static const char FtraceParseStatus_names[] =
+  "FTRACE_STATUS_ABI_END_OVERFLOW"
+  "FTRACE_STATUS_ABI_INVALID_DATA_LENGTH"
+  "FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH"
+  "FTRACE_STATUS_ABI_INVALID_PAGE_HEADER"
+  "FTRACE_STATUS_ABI_NULL_PADDING"
+  "FTRACE_STATUS_ABI_SHORT_DATA_LENGTH"
+  "FTRACE_STATUS_ABI_SHORT_EVENT_HEADER"
+  "FTRACE_STATUS_ABI_SHORT_EVENT_ID"
+  "FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH"
+  "FTRACE_STATUS_ABI_SHORT_TIME_EXTEND"
+  "FTRACE_STATUS_ABI_SHORT_TIME_STAMP"
+  "FTRACE_STATUS_ABI_ZERO_DATA_LENGTH"
+  "FTRACE_STATUS_INVALID_EVENT"
+  "FTRACE_STATUS_OK"
+  "FTRACE_STATUS_PARTIAL_PAGE_READ"
+  "FTRACE_STATUS_SHORT_COMPACT_EVENT"
+  "FTRACE_STATUS_UNEXPECTED_READ_ERROR"
+  "FTRACE_STATUS_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FtraceParseStatus_entries[] = {
+  { {FtraceParseStatus_names + 0, 30}, 15 },
+  { {FtraceParseStatus_names + 30, 37}, 13 },
+  { {FtraceParseStatus_names + 67, 40}, 8 },
+  { {FtraceParseStatus_names + 107, 37}, 4 },
+  { {FtraceParseStatus_names + 144, 30}, 6 },
+  { {FtraceParseStatus_names + 174, 35}, 11 },
+  { {FtraceParseStatus_names + 209, 36}, 5 },
+  { {FtraceParseStatus_names + 245, 32}, 14 },
+  { {FtraceParseStatus_names + 277, 38}, 7 },
+  { {FtraceParseStatus_names + 315, 35}, 9 },
+  { {FtraceParseStatus_names + 350, 34}, 10 },
+  { {FtraceParseStatus_names + 384, 34}, 12 },
+  { {FtraceParseStatus_names + 418, 27}, 17 },
+  { {FtraceParseStatus_names + 445, 16}, 1 },
+  { {FtraceParseStatus_names + 461, 31}, 3 },
+  { {FtraceParseStatus_names + 492, 33}, 16 },
+  { {FtraceParseStatus_names + 525, 35}, 2 },
+  { {FtraceParseStatus_names + 560, 25}, 0 },
+};
+
+static const int FtraceParseStatus_entries_by_number[] = {
+  17, // 0 -> FTRACE_STATUS_UNSPECIFIED
+  13, // 1 -> FTRACE_STATUS_OK
+  16, // 2 -> FTRACE_STATUS_UNEXPECTED_READ_ERROR
+  14, // 3 -> FTRACE_STATUS_PARTIAL_PAGE_READ
+  3, // 4 -> FTRACE_STATUS_ABI_INVALID_PAGE_HEADER
+  6, // 5 -> FTRACE_STATUS_ABI_SHORT_EVENT_HEADER
+  4, // 6 -> FTRACE_STATUS_ABI_NULL_PADDING
+  8, // 7 -> FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH
+  2, // 8 -> FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH
+  9, // 9 -> FTRACE_STATUS_ABI_SHORT_TIME_EXTEND
+  10, // 10 -> FTRACE_STATUS_ABI_SHORT_TIME_STAMP
+  5, // 11 -> FTRACE_STATUS_ABI_SHORT_DATA_LENGTH
+  11, // 12 -> FTRACE_STATUS_ABI_ZERO_DATA_LENGTH
+  1, // 13 -> FTRACE_STATUS_ABI_INVALID_DATA_LENGTH
+  7, // 14 -> FTRACE_STATUS_ABI_SHORT_EVENT_ID
+  0, // 15 -> FTRACE_STATUS_ABI_END_OVERFLOW
+  15, // 16 -> FTRACE_STATUS_SHORT_COMPACT_EVENT
+  12, // 17 -> FTRACE_STATUS_INVALID_EVENT
+};
+
+const std::string& FtraceParseStatus_Name(
+    FtraceParseStatus value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          FtraceParseStatus_entries,
+          FtraceParseStatus_entries_by_number,
+          18, FtraceParseStatus_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      FtraceParseStatus_entries,
+      FtraceParseStatus_entries_by_number,
+      18, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     FtraceParseStatus_strings[idx].get();
+}
+bool FtraceParseStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FtraceParseStatus* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      FtraceParseStatus_entries, 18, name, &int_value);
+  if (success) {
+    *value = static_cast<FtraceParseStatus>(int_value);
+  }
+  return success;
+}
 
 // ===================================================================
 
@@ -564,7 +680,8 @@ FtraceStats::FtraceStats(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   cpu_stats_(arena),
   unknown_ftrace_events_(arena),
-  failed_ftrace_events_(arena) {
+  failed_ftrace_events_(arena),
+  ftrace_parse_errors_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:perfetto.protos.FtraceStats)
 }
@@ -573,7 +690,8 @@ FtraceStats::FtraceStats(const FtraceStats& from)
       _has_bits_(from._has_bits_),
       cpu_stats_(from.cpu_stats_),
       unknown_ftrace_events_(from.unknown_ftrace_events_),
-      failed_ftrace_events_(from.failed_ftrace_events_) {
+      failed_ftrace_events_(from.failed_ftrace_events_),
+      ftrace_parse_errors_(from.ftrace_parse_errors_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   atrace_errors_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -627,6 +745,7 @@ void FtraceStats::Clear() {
   cpu_stats_.Clear();
   unknown_ftrace_events_.Clear();
   failed_ftrace_events_.Clear();
+  ftrace_parse_errors_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     atrace_errors_.ClearNonDefaultToEmpty();
@@ -737,6 +856,27 @@ const char* FtraceStats::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
+      // repeated .perfetto.protos.FtraceParseStatus ftrace_parse_errors = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::perfetto::protos::FtraceParseStatus_IsValid(val))) {
+              _internal_add_ftrace_parse_errors(static_cast<::perfetto::protos::FtraceParseStatus>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(9, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<72>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 74) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_ftrace_parse_errors(), ptr, ctx, ::perfetto::protos::FtraceParseStatus_IsValid, &_internal_metadata_, 9);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -819,6 +959,13 @@ uint8_t* FtraceStats::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_preserve_ftrace_buffer(), target);
   }
 
+  // repeated .perfetto.protos.FtraceParseStatus ftrace_parse_errors = 9;
+  for (int i = 0, n = this->_internal_ftrace_parse_errors_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        9, this->_internal_ftrace_parse_errors(i), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -856,6 +1003,16 @@ size_t FtraceStats::ByteSizeLong() const {
   for (int i = 0, n = failed_ftrace_events_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       failed_ftrace_events_.Get(i));
+  }
+
+  // repeated .perfetto.protos.FtraceParseStatus ftrace_parse_errors = 9;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_ftrace_parse_errors_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_ftrace_parse_errors(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
   }
 
   cached_has_bits = _has_bits_[0];
@@ -912,6 +1069,7 @@ void FtraceStats::MergeFrom(const FtraceStats& from) {
   cpu_stats_.MergeFrom(from.cpu_stats_);
   unknown_ftrace_events_.MergeFrom(from.unknown_ftrace_events_);
   failed_ftrace_events_.MergeFrom(from.failed_ftrace_events_);
+  ftrace_parse_errors_.MergeFrom(from.ftrace_parse_errors_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -954,6 +1112,7 @@ void FtraceStats::InternalSwap(FtraceStats* other) {
   cpu_stats_.InternalSwap(&other->cpu_stats_);
   unknown_ftrace_events_.InternalSwap(&other->unknown_ftrace_events_);
   failed_ftrace_events_.InternalSwap(&other->failed_ftrace_events_);
+  ftrace_parse_errors_.InternalSwap(&other->ftrace_parse_errors_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &atrace_errors_, lhs_arena,
       &other->atrace_errors_, rhs_arena

@@ -1169,6 +1169,8 @@ bool TelemetryEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::TelemetryEventObserver_OnEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TelemetryEventObserver.0
       bool success = true;
       TelemetryEventInfoPtr p_info{};
       TelemetryEventObserver_OnEvent_ParamsDataView input_data_view(params, message);
@@ -1184,8 +1186,8 @@ bool TelemetryEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEvent(
-std::move(p_info));
+      impl->OnEvent(        
+        std::move(p_info));
       return true;
     }
   }
@@ -1466,6 +1468,8 @@ bool TelemetryEventService_IsEventSupported_ForwardToCallback::Accept(
           internal::TelemetryEventService_IsEventSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TelemetryEventService.2
   bool success = true;
   ::crosapi::mojom::TelemetryExtensionSupportStatusPtr p_status{};
   TelemetryEventService_IsEventSupported_ResponseParamsDataView input_data_view(params, message);
@@ -1548,6 +1552,8 @@ bool TelemetryEventServiceStubDispatch::Accept(
           reinterpret_cast<internal::TelemetryEventService_AddEventObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TelemetryEventService.1
       bool success = true;
       TelemetryEventCategoryEnum p_category{};
       ::mojo::PendingRemote<TelemetryEventObserver> p_observer{};
@@ -1568,9 +1574,9 @@ bool TelemetryEventServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddEventObserver(
-std::move(p_category), 
-std::move(p_observer));
+      impl->AddEventObserver(        
+        std::move(p_category), 
+        std::move(p_observer));
       return true;
     }
     case internal::kTelemetryEventService_IsEventSupported_Name: {
@@ -1599,6 +1605,8 @@ bool TelemetryEventServiceStubDispatch::AcceptWithResponder(
               internal::TelemetryEventService_IsEventSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TelemetryEventService.2
       bool success = true;
       TelemetryEventCategoryEnum p_category{};
       TelemetryEventService_IsEventSupported_ParamsDataView input_data_view(params, message);
@@ -1617,8 +1625,8 @@ bool TelemetryEventServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsEventSupported(
-std::move(p_category), std::move(callback));
+      impl->IsEventSupported(        
+        std::move(p_category), std::move(callback));
       return true;
     }
   }

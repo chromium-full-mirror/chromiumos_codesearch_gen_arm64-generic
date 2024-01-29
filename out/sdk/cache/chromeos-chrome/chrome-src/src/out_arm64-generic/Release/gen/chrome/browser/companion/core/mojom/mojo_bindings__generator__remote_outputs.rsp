@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/companion/core/mojom/companion.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/companion/core/mojom/companion.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/companion/core/mojom/companion.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/companion/core/mojom/companion.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/companion/core/mojom/companion.mojom.h

@@ -96,7 +96,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle_CreateSyncAccessHandle_Method);
 
@@ -106,8 +107,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->createSyncAccessHandle(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -131,7 +131,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle_CreateSyncAccessHandle_Method);
 
@@ -145,8 +146,7 @@ return;
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_options = NativeValueTraits<FileSystemCreateSyncAccessHandleOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -167,8 +167,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 
 const int arg_count = std::min(info.Length(), 1);
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (execution_context->IsDedicatedWorkerGlobalScope() && RuntimeEnabledFeatures::FileSystemAccessLockingSchemeEnabled()) {
   if (arg_count == 1) {
@@ -207,7 +207,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle_CreateWritable_Method);
 
@@ -217,8 +218,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<FileSystemCreateWritableOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
@@ -254,7 +254,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle_GetFile_Method);
 
@@ -264,8 +265,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemFileHandle
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->getFile(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -289,7 +289,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kFileSystemAccessMoveRename);
 
@@ -303,8 +304,7 @@ return;
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_new_entry_name = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -332,7 +332,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kFileSystemAccessMoveReparent);
 
@@ -346,8 +347,7 @@ return;
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_destination_directory = NativeValueTraits<FileSystemDirectoryHandle>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -375,7 +375,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kFileSystemAccessMoveReparentAndRename);
 
@@ -389,8 +390,7 @@ return;
 
 
 FileSystemFileHandle* blink_receiver = V8FileSystemFileHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_destination_directory = NativeValueTraits<FileSystemDirectoryHandle>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -494,7 +494,7 @@ void V8FileSystemFileHandle::InstallContextDependentProperties(v8::Local<v8::Con
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((execution_context->IsDedicatedWorkerGlobalScope() && feature_selector.IsAll()) || (execution_context->IsDedicatedWorkerGlobalScope() && (feature_selector.IsAll() && RuntimeEnabledFeatures::FileSystemAccessLockingSchemeEnabled()))) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"createSyncAccessHandle", CreateSyncAccessHandleOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

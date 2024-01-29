@@ -157,6 +157,8 @@ bool FactorObserverStubDispatch::Accept(
           reinterpret_cast<internal::FactorObserver_OnFactorChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FactorObserver.0
       bool success = true;
       AuthFactor p_factor{};
       FactorObserver_OnFactorChanged_ParamsDataView input_data_view(params, message);
@@ -172,8 +174,8 @@ bool FactorObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFactorChanged(
-std::move(p_factor));
+      impl->OnFactorChanged(        
+        std::move(p_factor));
       return true;
     }
   }
@@ -741,6 +743,8 @@ bool AuthFactorConfig_IsSupported_ForwardToCallback::Accept(
           internal::AuthFactorConfig_IsSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthFactorConfig.1
   bool success = true;
   bool p_supported{};
   AuthFactorConfig_IsSupported_ResponseParamsDataView input_data_view(params, message);
@@ -860,6 +864,8 @@ bool AuthFactorConfig_IsConfigured_ForwardToCallback::Accept(
           internal::AuthFactorConfig_IsConfigured_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthFactorConfig.2
   bool success = true;
   bool p_configured{};
   AuthFactorConfig_IsConfigured_ResponseParamsDataView input_data_view(params, message);
@@ -979,6 +985,8 @@ bool AuthFactorConfig_GetManagementType_ForwardToCallback::Accept(
           internal::AuthFactorConfig_GetManagementType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthFactorConfig.3
   bool success = true;
   ManagementType p_management{};
   AuthFactorConfig_GetManagementType_ResponseParamsDataView input_data_view(params, message);
@@ -1099,6 +1107,8 @@ bool AuthFactorConfig_IsEditable_ForwardToCallback::Accept(
           internal::AuthFactorConfig_IsEditable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthFactorConfig.4
   bool success = true;
   bool p_editable{};
   AuthFactorConfig_IsEditable_ResponseParamsDataView input_data_view(params, message);
@@ -1173,6 +1183,8 @@ bool AuthFactorConfigStubDispatch::Accept(
           reinterpret_cast<internal::AuthFactorConfig_ObserveFactorChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthFactorConfig.0
       bool success = true;
       ::mojo::PendingRemote<FactorObserver> p_observer{};
       AuthFactorConfig_ObserveFactorChanges_ParamsDataView input_data_view(params, message);
@@ -1190,8 +1202,8 @@ bool AuthFactorConfigStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveFactorChanges(
-std::move(p_observer));
+      impl->ObserveFactorChanges(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAuthFactorConfig_IsSupported_Name: {
@@ -1229,6 +1241,8 @@ bool AuthFactorConfigStubDispatch::AcceptWithResponder(
               internal::AuthFactorConfig_IsSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthFactorConfig.1
       bool success = true;
       std::string p_auth_token{};
       AuthFactor p_factor{};
@@ -1250,9 +1264,9 @@ bool AuthFactorConfigStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsSupported(
-std::move(p_auth_token), 
-std::move(p_factor), std::move(callback));
+      impl->IsSupported(        
+        std::move(p_auth_token), 
+        std::move(p_factor), std::move(callback));
       return true;
     }
     case internal::kAuthFactorConfig_IsConfigured_Name: {
@@ -1262,6 +1276,8 @@ std::move(p_factor), std::move(callback));
               internal::AuthFactorConfig_IsConfigured_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthFactorConfig.2
       bool success = true;
       std::string p_auth_token{};
       AuthFactor p_factor{};
@@ -1283,9 +1299,9 @@ std::move(p_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsConfigured(
-std::move(p_auth_token), 
-std::move(p_factor), std::move(callback));
+      impl->IsConfigured(        
+        std::move(p_auth_token), 
+        std::move(p_factor), std::move(callback));
       return true;
     }
     case internal::kAuthFactorConfig_GetManagementType_Name: {
@@ -1295,6 +1311,8 @@ std::move(p_factor), std::move(callback));
               internal::AuthFactorConfig_GetManagementType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthFactorConfig.3
       bool success = true;
       std::string p_auth_token{};
       AuthFactor p_factor{};
@@ -1316,9 +1334,9 @@ std::move(p_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetManagementType(
-std::move(p_auth_token), 
-std::move(p_factor), std::move(callback));
+      impl->GetManagementType(        
+        std::move(p_auth_token), 
+        std::move(p_factor), std::move(callback));
       return true;
     }
     case internal::kAuthFactorConfig_IsEditable_Name: {
@@ -1328,6 +1346,8 @@ std::move(p_factor), std::move(callback));
               internal::AuthFactorConfig_IsEditable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthFactorConfig.4
       bool success = true;
       std::string p_auth_token{};
       AuthFactor p_factor{};
@@ -1349,9 +1369,9 @@ std::move(p_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsEditable(
-std::move(p_auth_token), 
-std::move(p_factor), std::move(callback));
+      impl->IsEditable(        
+        std::move(p_auth_token), 
+        std::move(p_factor), std::move(callback));
       return true;
     }
   }
@@ -1569,6 +1589,8 @@ bool RecoveryFactorEditor_Configure_ForwardToCallback::Accept(
           internal::RecoveryFactorEditor_Configure_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RecoveryFactorEditor.0
   bool success = true;
   ConfigureResult p_result{};
   RecoveryFactorEditor_Configure_ResponseParamsDataView input_data_view(params, message);
@@ -1660,6 +1682,8 @@ bool RecoveryFactorEditorStubDispatch::AcceptWithResponder(
               internal::RecoveryFactorEditor_Configure_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RecoveryFactorEditor.0
       bool success = true;
       std::string p_auth_token{};
       bool p_enabled{};
@@ -1681,9 +1705,9 @@ bool RecoveryFactorEditorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Configure(
-std::move(p_auth_token), 
-std::move(p_enabled), std::move(callback));
+      impl->Configure(        
+        std::move(p_auth_token), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
   }
@@ -1991,6 +2015,8 @@ bool PinFactorEditor_SetPin_ForwardToCallback::Accept(
           internal::PinFactorEditor_SetPin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PinFactorEditor.0
   bool success = true;
   ConfigureResult p_result{};
   PinFactorEditor_SetPin_ResponseParamsDataView input_data_view(params, message);
@@ -2111,6 +2137,8 @@ bool PinFactorEditor_RemovePin_ForwardToCallback::Accept(
           internal::PinFactorEditor_RemovePin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PinFactorEditor.1
   bool success = true;
   ConfigureResult p_result{};
   PinFactorEditor_RemovePin_ResponseParamsDataView input_data_view(params, message);
@@ -2205,6 +2233,8 @@ bool PinFactorEditorStubDispatch::AcceptWithResponder(
               internal::PinFactorEditor_SetPin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PinFactorEditor.0
       bool success = true;
       std::string p_auth_token{};
       std::string p_pin{};
@@ -2226,9 +2256,9 @@ bool PinFactorEditorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPin(
-std::move(p_auth_token), 
-std::move(p_pin), std::move(callback));
+      impl->SetPin(        
+        std::move(p_auth_token), 
+        std::move(p_pin), std::move(callback));
       return true;
     }
     case internal::kPinFactorEditor_RemovePin_Name: {
@@ -2238,6 +2268,8 @@ std::move(p_pin), std::move(callback));
               internal::PinFactorEditor_RemovePin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PinFactorEditor.1
       bool success = true;
       std::string p_auth_token{};
       PinFactorEditor_RemovePin_ParamsDataView input_data_view(params, message);
@@ -2256,8 +2288,8 @@ std::move(p_pin), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovePin(
-std::move(p_auth_token), std::move(callback));
+      impl->RemovePin(        
+        std::move(p_auth_token), std::move(callback));
       return true;
     }
   }
@@ -2873,6 +2905,8 @@ bool PasswordFactorEditor_UpdateLocalPassword_ForwardToCallback::Accept(
           internal::PasswordFactorEditor_UpdateLocalPassword_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasswordFactorEditor.0
   bool success = true;
   ConfigureResult p_result{};
   PasswordFactorEditor_UpdateLocalPassword_ResponseParamsDataView input_data_view(params, message);
@@ -2993,6 +3027,8 @@ bool PasswordFactorEditor_UpdateOnlinePassword_ForwardToCallback::Accept(
           internal::PasswordFactorEditor_UpdateOnlinePassword_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasswordFactorEditor.1
   bool success = true;
   ConfigureResult p_result{};
   PasswordFactorEditor_UpdateOnlinePassword_ResponseParamsDataView input_data_view(params, message);
@@ -3113,6 +3149,8 @@ bool PasswordFactorEditor_SetLocalPassword_ForwardToCallback::Accept(
           internal::PasswordFactorEditor_SetLocalPassword_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasswordFactorEditor.2
   bool success = true;
   ConfigureResult p_result{};
   PasswordFactorEditor_SetLocalPassword_ResponseParamsDataView input_data_view(params, message);
@@ -3233,6 +3271,8 @@ bool PasswordFactorEditor_SetOnlinePassword_ForwardToCallback::Accept(
           internal::PasswordFactorEditor_SetOnlinePassword_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasswordFactorEditor.3
   bool success = true;
   ConfigureResult p_result{};
   PasswordFactorEditor_SetOnlinePassword_ResponseParamsDataView input_data_view(params, message);
@@ -3353,6 +3393,8 @@ bool PasswordFactorEditor_CheckLocalPasswordComplexity_ForwardToCallback::Accept
           internal::PasswordFactorEditor_CheckLocalPasswordComplexity_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasswordFactorEditor.4
   bool success = true;
   PasswordComplexity p_complexity{};
   PasswordFactorEditor_CheckLocalPasswordComplexity_ResponseParamsDataView input_data_view(params, message);
@@ -3456,6 +3498,8 @@ bool PasswordFactorEditorStubDispatch::AcceptWithResponder(
               internal::PasswordFactorEditor_UpdateLocalPassword_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasswordFactorEditor.0
       bool success = true;
       std::string p_auth_token{};
       std::string p_new_password{};
@@ -3477,9 +3521,9 @@ bool PasswordFactorEditorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLocalPassword(
-std::move(p_auth_token), 
-std::move(p_new_password), std::move(callback));
+      impl->UpdateLocalPassword(        
+        std::move(p_auth_token), 
+        std::move(p_new_password), std::move(callback));
       return true;
     }
     case internal::kPasswordFactorEditor_UpdateOnlinePassword_Name: {
@@ -3489,6 +3533,8 @@ std::move(p_new_password), std::move(callback));
               internal::PasswordFactorEditor_UpdateOnlinePassword_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasswordFactorEditor.1
       bool success = true;
       std::string p_auth_token{};
       std::string p_new_password{};
@@ -3510,9 +3556,9 @@ std::move(p_new_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateOnlinePassword(
-std::move(p_auth_token), 
-std::move(p_new_password), std::move(callback));
+      impl->UpdateOnlinePassword(        
+        std::move(p_auth_token), 
+        std::move(p_new_password), std::move(callback));
       return true;
     }
     case internal::kPasswordFactorEditor_SetLocalPassword_Name: {
@@ -3522,6 +3568,8 @@ std::move(p_new_password), std::move(callback));
               internal::PasswordFactorEditor_SetLocalPassword_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasswordFactorEditor.2
       bool success = true;
       std::string p_auth_token{};
       std::string p_new_password{};
@@ -3543,9 +3591,9 @@ std::move(p_new_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLocalPassword(
-std::move(p_auth_token), 
-std::move(p_new_password), std::move(callback));
+      impl->SetLocalPassword(        
+        std::move(p_auth_token), 
+        std::move(p_new_password), std::move(callback));
       return true;
     }
     case internal::kPasswordFactorEditor_SetOnlinePassword_Name: {
@@ -3555,6 +3603,8 @@ std::move(p_new_password), std::move(callback));
               internal::PasswordFactorEditor_SetOnlinePassword_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasswordFactorEditor.3
       bool success = true;
       std::string p_auth_token{};
       std::string p_new_password{};
@@ -3576,9 +3626,9 @@ std::move(p_new_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOnlinePassword(
-std::move(p_auth_token), 
-std::move(p_new_password), std::move(callback));
+      impl->SetOnlinePassword(        
+        std::move(p_auth_token), 
+        std::move(p_new_password), std::move(callback));
       return true;
     }
     case internal::kPasswordFactorEditor_CheckLocalPasswordComplexity_Name: {
@@ -3588,6 +3638,8 @@ std::move(p_new_password), std::move(callback));
               internal::PasswordFactorEditor_CheckLocalPasswordComplexity_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasswordFactorEditor.4
       bool success = true;
       std::string p_password{};
       PasswordFactorEditor_CheckLocalPasswordComplexity_ParamsDataView input_data_view(params, message);
@@ -3606,8 +3658,8 @@ std::move(p_new_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckLocalPasswordComplexity(
-std::move(p_password), std::move(callback));
+      impl->CheckLocalPasswordComplexity(        
+        std::move(p_password), std::move(callback));
       return true;
     }
   }

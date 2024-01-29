@@ -95,10 +95,6 @@ struct Automation {
     // href='https://developer.chrome.com/extensions/declare_permissions#host-permissions'>host permission</a> or <a href='https://developer.chrome.com/extensions/declare_permissions#activeTab'>activeTab permission</a>).
     std::optional<std::vector<std::string>> matches;
 
-    // Whether the extension is allowed interactive access (true) or read-only
-    // access (false; default) to the automation tree.
-    std::optional<bool> interact;
-
   };
 
 

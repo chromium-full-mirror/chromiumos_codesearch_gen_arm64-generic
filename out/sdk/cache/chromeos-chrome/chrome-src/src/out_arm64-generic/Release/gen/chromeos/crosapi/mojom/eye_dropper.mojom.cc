@@ -220,6 +220,8 @@ bool EyeDropperListenerStubDispatch::Accept(
           reinterpret_cast<internal::EyeDropperListener_ColorSelected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EyeDropperListener.0
       bool success = true;
       ::SkColor p_color{};
       EyeDropperListener_ColorSelected_ParamsDataView input_data_view(params, message);
@@ -235,8 +237,8 @@ bool EyeDropperListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ColorSelected(
-std::move(p_color));
+      impl->ColorSelected(        
+        std::move(p_color));
       return true;
     }
     case internal::kEyeDropperListener_ColorSelectionCanceled_Name: {
@@ -246,6 +248,8 @@ std::move(p_color));
           reinterpret_cast<internal::EyeDropperListener_ColorSelectionCanceled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EyeDropperListener.1
       bool success = true;
       EyeDropperListener_ColorSelectionCanceled_ParamsDataView input_data_view(params, message);
       
@@ -258,7 +262,7 @@ std::move(p_color));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ColorSelectionCanceled();
+      impl->ColorSelectionCanceled(        );
       return true;
     }
   }
@@ -415,6 +419,8 @@ bool EyeDropperStubDispatch::Accept(
           reinterpret_cast<internal::EyeDropper_ShowEyeDropper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EyeDropper.0
       bool success = true;
       ::mojo::PendingRemote<EyeDropperListener> p_listener{};
       EyeDropper_ShowEyeDropper_ParamsDataView input_data_view(params, message);
@@ -432,8 +438,8 @@ bool EyeDropperStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowEyeDropper(
-std::move(p_listener));
+      impl->ShowEyeDropper(        
+        std::move(p_listener));
       return true;
     }
   }

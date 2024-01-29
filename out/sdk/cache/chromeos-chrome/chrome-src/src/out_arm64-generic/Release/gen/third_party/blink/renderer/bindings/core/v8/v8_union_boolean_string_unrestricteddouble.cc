@@ -70,7 +70,7 @@ content_type_ = ContentType::kString;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionBooleanOrStringOrUnrestrictedDouble::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionBooleanOrStringOrUnrestrictedDouble::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kBoolean: {
     return ToV8Traits<IDLBoolean>::ToV8(script_state, member_boolean_);
@@ -84,7 +84,7 @@ v8::MaybeLocal<v8::Value> V8UnionBooleanOrStringOrUnrestrictedDouble::ToV8Value(
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionBooleanOrStringOrUnrestrictedDouble::Trace(Visitor* visitor) const {

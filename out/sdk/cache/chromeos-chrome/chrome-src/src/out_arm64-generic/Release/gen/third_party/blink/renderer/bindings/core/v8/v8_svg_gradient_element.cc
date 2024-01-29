@@ -87,7 +87,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGradie
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.gradientUnits.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
@@ -106,7 +107,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGradie
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.gradientTransform.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
@@ -125,7 +127,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGradie
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.spreadMethod.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
@@ -144,7 +147,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGradie
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.href.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMUriReference);
 
@@ -162,7 +166,8 @@ void SVGSpreadmethodUnknownConstantCallback(v8::Local<v8::Name> v8_property_name
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.SVG_SPREADMETHOD_UNKNOWN");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
@@ -174,7 +179,8 @@ void SVGSpreadmethodPadConstantCallback(v8::Local<v8::Name> v8_property_name, co
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.SVG_SPREADMETHOD_PAD");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
@@ -186,7 +192,8 @@ void SVGSpreadmethodReflectConstantCallback(v8::Local<v8::Name> v8_property_name
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.SVG_SPREADMETHOD_REFLECT");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
@@ -198,7 +205,8 @@ void SVGSpreadmethodRepeatConstantCallback(v8::Local<v8::Name> v8_property_name,
 BLINK_BINDINGS_TRACE_EVENT("SVGGradientElement.SVG_SPREADMETHOD_REPEAT");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 

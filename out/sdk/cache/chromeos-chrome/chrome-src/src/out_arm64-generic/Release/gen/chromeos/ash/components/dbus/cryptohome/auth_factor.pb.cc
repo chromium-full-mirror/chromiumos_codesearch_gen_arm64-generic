@@ -197,7 +197,8 @@ PROTOBUF_CONSTEXPR KnowledgeFactorHashInfo::KnowledgeFactorHashInfo(
     ::_pbi::ConstantInitialized)
   : salt_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , algorithm_(0)
-{}
+
+  , should_generate_key_store_(false){}
 struct KnowledgeFactorHashInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR KnowledgeFactorHashInfoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3812,7 +3813,9 @@ KnowledgeFactorHashInfo::KnowledgeFactorHashInfo(const KnowledgeFactorHashInfo& 
     salt_.Set(from._internal_salt(), 
       GetArenaForAllocation());
   }
-  algorithm_ = from.algorithm_;
+  ::memcpy(&algorithm_, &from.algorithm_,
+    static_cast<size_t>(reinterpret_cast<char*>(&should_generate_key_store_) -
+    reinterpret_cast<char*>(&algorithm_)) + sizeof(should_generate_key_store_));
   // @@protoc_insertion_point(copy_constructor:user_data_auth.KnowledgeFactorHashInfo)
 }
 
@@ -3821,7 +3824,10 @@ salt_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   salt_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-algorithm_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&algorithm_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&should_generate_key_store_) -
+    reinterpret_cast<char*>(&algorithm_)) + sizeof(should_generate_key_store_));
 }
 
 KnowledgeFactorHashInfo::~KnowledgeFactorHashInfo() {
@@ -3849,7 +3855,9 @@ void KnowledgeFactorHashInfo::Clear() {
   (void) cached_has_bits;
 
   salt_.ClearToEmpty();
-  algorithm_ = 0;
+  ::memset(&algorithm_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&should_generate_key_store_) -
+      reinterpret_cast<char*>(&algorithm_)) + sizeof(should_generate_key_store_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3873,6 +3881,14 @@ const char* KnowledgeFactorHashInfo::_InternalParse(const char* ptr, ::_pbi::Par
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_salt();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool should_generate_key_store = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          should_generate_key_store_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3919,6 +3935,12 @@ uint8_t* KnowledgeFactorHashInfo::_InternalSerialize(
         2, this->_internal_salt(), target);
   }
 
+  // bool should_generate_key_store = 3;
+  if (this->_internal_should_generate_key_store() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_should_generate_key_store(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3948,6 +3970,11 @@ size_t KnowledgeFactorHashInfo::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_algorithm());
   }
 
+  // bool should_generate_key_store = 3;
+  if (this->_internal_should_generate_key_store() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3974,6 +4001,9 @@ void KnowledgeFactorHashInfo::MergeFrom(const KnowledgeFactorHashInfo& from) {
   if (from._internal_algorithm() != 0) {
     _internal_set_algorithm(from._internal_algorithm());
   }
+  if (from._internal_should_generate_key_store() != 0) {
+    _internal_set_should_generate_key_store(from._internal_should_generate_key_store());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -3997,7 +4027,12 @@ void KnowledgeFactorHashInfo::InternalSwap(KnowledgeFactorHashInfo* other) {
       &salt_, lhs_arena,
       &other->salt_, rhs_arena
   );
-  swap(algorithm_, other->algorithm_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(KnowledgeFactorHashInfo, should_generate_key_store_)
+      + sizeof(KnowledgeFactorHashInfo::should_generate_key_store_)
+      - PROTOBUF_FIELD_OFFSET(KnowledgeFactorHashInfo, algorithm_)>(
+          reinterpret_cast<char*>(&algorithm_),
+          reinterpret_cast<char*>(&other->algorithm_));
 }
 
 std::string KnowledgeFactorHashInfo::GetTypeName() const {

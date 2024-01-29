@@ -199,6 +199,46 @@ bool ShoppingListEligibleDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Subscription::Subscription()
+    : cluster_id(),
+      product_infos() {}
+
+Subscription::Subscription(
+    uint64_t cluster_id_in,
+    std::vector<::shopping_service::mojom::BookmarkProductInfoPtr> product_infos_in)
+    : cluster_id(std::move(cluster_id_in)),
+      product_infos(std::move(product_infos_in)) {}
+
+Subscription::~Subscription() = default;
+
+void Subscription::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "cluster_id"), this->cluster_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "product_infos"), this->product_infos,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<::shopping_service::mojom::BookmarkProductInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Subscription::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char CommerceInternalsHandlerFactory::Name_[] = "commerce.mojom.CommerceInternalsHandlerFactory";
 
 CommerceInternalsHandlerFactory::IPCStableHashFunction CommerceInternalsHandlerFactory::MessageToMethodInfo_(mojo::Message& message) {
@@ -325,6 +365,8 @@ bool CommerceInternalsHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceInternalsHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<CommerceInternalsPage> p_page{};
       ::mojo::PendingReceiver<CommerceInternalsHandler> p_handler{};
@@ -347,9 +389,9 @@ bool CommerceInternalsHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCommerceInternalsHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreateCommerceInternalsHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -397,6 +439,12 @@ CommerceInternalsHandler::IPCStableHashFunction CommerceInternalsHandler::Messag
     case internal::kCommerceInternalsHandler_ResetPriceTrackingEmailPref_Name: {
       return &CommerceInternalsHandler::ResetPriceTrackingEmailPref_Sym::IPCStableHash;
     }
+    case internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name: {
+      return &CommerceInternalsHandler::GetProductInfoForUrl_Sym::IPCStableHash;
+    }
+    case internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name: {
+      return &CommerceInternalsHandler::GetSubscriptionDetails_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -414,6 +462,10 @@ const char* CommerceInternalsHandler::MessageToMethodName_(mojo::Message& messag
             return "Receive commerce::mojom::CommerceInternalsHandler::GetShoppingListEligibleDetails";
       case internal::kCommerceInternalsHandler_ResetPriceTrackingEmailPref_Name:
             return "Receive commerce::mojom::CommerceInternalsHandler::ResetPriceTrackingEmailPref";
+      case internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name:
+            return "Receive commerce::mojom::CommerceInternalsHandler::GetProductInfoForUrl";
+      case internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name:
+            return "Receive commerce::mojom::CommerceInternalsHandler::GetSubscriptionDetails";
     }
   } else {
     switch (message.name()) {
@@ -423,6 +475,10 @@ const char* CommerceInternalsHandler::MessageToMethodName_(mojo::Message& messag
             return "Receive reply commerce::mojom::CommerceInternalsHandler::GetShoppingListEligibleDetails";
       case internal::kCommerceInternalsHandler_ResetPriceTrackingEmailPref_Name:
             return "Receive reply commerce::mojom::CommerceInternalsHandler::ResetPriceTrackingEmailPref";
+      case internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name:
+            return "Receive reply commerce::mojom::CommerceInternalsHandler::GetProductInfoForUrl";
+      case internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name:
+            return "Receive reply commerce::mojom::CommerceInternalsHandler::GetSubscriptionDetails";
     }
   }
   return "Receive unknown mojo message";
@@ -476,6 +532,32 @@ uint32_t CommerceInternalsHandler::ResetPriceTrackingEmailPref_Sym::IPCStableHas
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CommerceInternalsHandler::GetProductInfoForUrl_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)commerce::mojom::CommerceInternalsHandler::GetProductInfoForUrl");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CommerceInternalsHandler::GetSubscriptionDetails_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)commerce::mojom::CommerceInternalsHandler::GetSubscriptionDetails");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CommerceInternalsHandler_GetIsShoppingListEligible_ForwardToCallback
@@ -508,6 +590,38 @@ class CommerceInternalsHandler_GetShoppingListEligibleDetails_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CommerceInternalsHandler::GetShoppingListEligibleDetailsCallback callback_;
+};
+
+class CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback(
+      CommerceInternalsHandler::GetProductInfoForUrlCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback(const CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback&) = delete;
+  CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback& operator=(const CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CommerceInternalsHandler::GetProductInfoForUrlCallback callback_;
+};
+
+class CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback(
+      CommerceInternalsHandler::GetSubscriptionDetailsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback(const CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback&) = delete;
+  CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback& operator=(const CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CommerceInternalsHandler::GetSubscriptionDetailsCallback callback_;
 };
 
 CommerceInternalsHandlerProxy::CommerceInternalsHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -614,6 +728,92 @@ void CommerceInternalsHandlerProxy::ResetPriceTrackingEmailPref(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void CommerceInternalsHandlerProxy::GetProductInfoForUrl(
+    const ::GURL& in_url, GetProductInfoForUrlCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send commerce::mojom::CommerceInternalsHandler::GetProductInfoForUrl", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("url"), in_url,
+                        "<value of type const ::GURL&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::commerce::mojom::internal::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->url)::BaseType> url_fragment(
+          params.message());
+  mojo::internal::Serialize<::url::mojom::UrlDataView>(
+      in_url, url_fragment);
+  params->url.Set(
+      url_fragment.is_null() ? nullptr : url_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->url.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null url in CommerceInternalsHandler.GetProductInfoForUrl request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CommerceInternalsHandler::Name_);
+  message.set_method_name("GetProductInfoForUrl");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CommerceInternalsHandlerProxy::GetSubscriptionDetails(
+    GetSubscriptionDetailsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send commerce::mojom::CommerceInternalsHandler::GetSubscriptionDetails");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::commerce::mojom::internal::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CommerceInternalsHandler::Name_);
+  message.set_method_name("GetSubscriptionDetails");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class CommerceInternalsHandler_GetIsShoppingListEligible_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static CommerceInternalsHandler::GetIsShoppingListEligibleCallback CreateCallback(
@@ -672,6 +872,8 @@ bool CommerceInternalsHandler_GetIsShoppingListEligible_ForwardToCallback::Accep
           internal::CommerceInternalsHandler_GetIsShoppingListEligible_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommerceInternalsHandler.0
   bool success = true;
   bool p_eligible{};
   CommerceInternalsHandler_GetIsShoppingListEligible_ResponseParamsDataView input_data_view(params, message);
@@ -791,6 +993,8 @@ bool CommerceInternalsHandler_GetShoppingListEligibleDetails_ForwardToCallback::
           internal::CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommerceInternalsHandler.1
   bool success = true;
   ShoppingListEligibleDetailPtr p_detail{};
   CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponseParamsDataView input_data_view(params, message);
@@ -862,6 +1066,270 @@ void CommerceInternalsHandler_GetShoppingListEligibleDetails_ProxyToResponder::R
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CommerceInternalsHandler::GetProductInfoForUrlCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder> proxy(
+        new CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CommerceInternalsHandler::GetProductInfoForUrlCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::shopping_service::mojom::ProductInfoPtr in_info);
+};
+
+bool CommerceInternalsHandler_GetProductInfoForUrl_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for CommerceInternalsHandler.3
+  bool success = true;
+  ::shopping_service::mojom::ProductInfoPtr p_info{};
+  CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadInfo(&p_info))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CommerceInternalsHandler::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_info));
+  return true;
+}
+
+void CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder::Run(
+    ::shopping_service::mojom::ProductInfoPtr in_info) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply commerce::mojom::CommerceInternalsHandler::GetProductInfoForUrl", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("info"), in_info,
+                        "<value of type ::shopping_service::mojom::ProductInfoPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::commerce::mojom::internal::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->info)::BaseType> info_fragment(
+          params.message());
+  mojo::internal::Serialize<::shopping_service::mojom::ProductInfoDataView>(
+      in_info, info_fragment);
+  params->info.Set(
+      info_fragment.is_null() ? nullptr : info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null info in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CommerceInternalsHandler::Name_);
+  message.set_method_name("GetProductInfoForUrl");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CommerceInternalsHandler::GetSubscriptionDetailsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder> proxy(
+        new CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CommerceInternalsHandler::GetSubscriptionDetailsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<SubscriptionPtr> in_subscriptions);
+};
+
+bool CommerceInternalsHandler_GetSubscriptionDetails_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for CommerceInternalsHandler.4
+  bool success = true;
+  std::vector<SubscriptionPtr> p_subscriptions{};
+  CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadSubscriptions(&p_subscriptions))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CommerceInternalsHandler::Name_, 4, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_subscriptions));
+  return true;
+}
+
+void CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder::Run(
+    std::vector<SubscriptionPtr> in_subscriptions) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply commerce::mojom::CommerceInternalsHandler::GetSubscriptionDetails", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("subscriptions"), in_subscriptions,
+                        "<value of type std::vector<SubscriptionPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::commerce::mojom::internal::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->subscriptions)::BaseType>
+      subscriptions_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& subscriptions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::commerce::mojom::SubscriptionDataView>>(
+      in_subscriptions, subscriptions_fragment, &subscriptions_validate_params);
+  params->subscriptions.Set(
+      subscriptions_fragment.is_null() ? nullptr : subscriptions_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->subscriptions.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null subscriptions in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CommerceInternalsHandler::Name_);
+  message.set_method_name("GetSubscriptionDetails");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CommerceInternalsHandlerStubDispatch::Accept(
@@ -881,6 +1349,8 @@ bool CommerceInternalsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceInternalsHandler.2
       bool success = true;
       CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsDataView input_data_view(params, message);
       
@@ -893,8 +1363,14 @@ bool CommerceInternalsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetPriceTrackingEmailPref();
+      impl->ResetPriceTrackingEmailPref(        );
       return true;
+    }
+    case internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name: {
+      break;
+    }
+    case internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name: {
+      break;
     }
   }
   return false;
@@ -916,6 +1392,8 @@ bool CommerceInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::CommerceInternalsHandler_GetIsShoppingListEligible_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommerceInternalsHandler.0
       bool success = true;
       CommerceInternalsHandler_GetIsShoppingListEligible_ParamsDataView input_data_view(params, message);
       
@@ -941,6 +1419,8 @@ bool CommerceInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::CommerceInternalsHandler_GetShoppingListEligibleDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommerceInternalsHandler.1
       bool success = true;
       CommerceInternalsHandler_GetShoppingListEligibleDetails_ParamsDataView input_data_view(params, message);
       
@@ -962,6 +1442,64 @@ bool CommerceInternalsHandlerStubDispatch::AcceptWithResponder(
     case internal::kCommerceInternalsHandler_ResetPriceTrackingEmailPref_Name: {
       break;
     }
+    case internal::kCommerceInternalsHandler_GetProductInfoForUrl_Name: {
+
+      internal::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data* params =
+          reinterpret_cast<
+              internal::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for CommerceInternalsHandler.3
+      bool success = true;
+      ::GURL p_url{};
+      CommerceInternalsHandler_GetProductInfoForUrl_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadUrl(&p_url))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CommerceInternalsHandler::Name_, 3, false);
+        return false;
+      }
+      CommerceInternalsHandler::GetProductInfoForUrlCallback callback =
+          CommerceInternalsHandler_GetProductInfoForUrl_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetProductInfoForUrl(        
+        std::move(p_url), std::move(callback));
+      return true;
+    }
+    case internal::kCommerceInternalsHandler_GetSubscriptionDetails_Name: {
+
+      internal::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data* params =
+          reinterpret_cast<
+              internal::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for CommerceInternalsHandler.4
+      bool success = true;
+      CommerceInternalsHandler_GetSubscriptionDetails_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CommerceInternalsHandler::Name_, 4, false);
+        return false;
+      }
+      CommerceInternalsHandler::GetSubscriptionDetailsCallback callback =
+          CommerceInternalsHandler_GetSubscriptionDetails_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetSubscriptionDetails(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -974,6 +1512,10 @@ static const mojo::internal::GenericValidationInfo kCommerceInternalsHandlerVali
      &internal::CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponseParams_Data::Validate},
     { &internal::CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data::Validate,
+     &internal::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data::Validate},
+    { &internal::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data::Validate,
+     &internal::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data::Validate},
 };
 
 bool CommerceInternalsHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -1097,6 +1639,8 @@ bool CommerceInternalsPageStubDispatch::Accept(
           reinterpret_cast<internal::CommerceInternalsPage_OnShoppingListEligibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceInternalsPage.0
       bool success = true;
       bool p_eligible{};
       CommerceInternalsPage_OnShoppingListEligibilityChanged_ParamsDataView input_data_view(params, message);
@@ -1112,8 +1656,8 @@ bool CommerceInternalsPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShoppingListEligibilityChanged(
-std::move(p_eligible));
+      impl->OnShoppingListEligibilityChanged(        
+        std::move(p_eligible));
       return true;
     }
   }
@@ -1196,6 +1740,22 @@ bool StructTraits<::commerce::mojom::ShoppingListEligibleDetail::DataView, ::com
   return success;
 }
 
+
+// static
+bool StructTraits<::commerce::mojom::Subscription::DataView, ::commerce::mojom::SubscriptionPtr>::Read(
+    ::commerce::mojom::Subscription::DataView input,
+    ::commerce::mojom::SubscriptionPtr* output) {
+  bool success = true;
+  ::commerce::mojom::SubscriptionPtr result(::commerce::mojom::Subscription::New());
+  
+      if (success)
+        result->cluster_id = input.cluster_id();
+      if (success && !input.ReadProductInfos(&result->product_infos))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -1225,6 +1785,12 @@ void CommerceInternalsHandlerInterceptorForTesting::GetShoppingListEligibleDetai
 }
 void CommerceInternalsHandlerInterceptorForTesting::ResetPriceTrackingEmailPref() {
   GetForwardingInterface()->ResetPriceTrackingEmailPref();
+}
+void CommerceInternalsHandlerInterceptorForTesting::GetProductInfoForUrl(const ::GURL& url, GetProductInfoForUrlCallback callback) {
+  GetForwardingInterface()->GetProductInfoForUrl(std::move(url), std::move(callback));
+}
+void CommerceInternalsHandlerInterceptorForTesting::GetSubscriptionDetails(GetSubscriptionDetailsCallback callback) {
+  GetForwardingInterface()->GetSubscriptionDetails(std::move(callback));
 }
 CommerceInternalsHandlerAsyncWaiter::CommerceInternalsHandlerAsyncWaiter(
     CommerceInternalsHandler* proxy) : proxy_(proxy) {}
@@ -1274,6 +1840,52 @@ ShoppingListEligibleDetailPtr CommerceInternalsHandlerAsyncWaiter::GetShoppingLi
     ) {
   ShoppingListEligibleDetailPtr async_wait_result;
   GetShoppingListEligibleDetails(&async_wait_result);
+  return async_wait_result;
+}
+
+void CommerceInternalsHandlerAsyncWaiter::GetProductInfoForUrl(
+    const ::GURL& url, ::shopping_service::mojom::ProductInfoPtr* out_info) {
+  base::RunLoop loop;
+  proxy_->GetProductInfoForUrl(std::move(url),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::shopping_service::mojom::ProductInfoPtr* out_info
+,
+             ::shopping_service::mojom::ProductInfoPtr info) {*out_info = std::move(info);
+            loop->Quit();
+          },
+          &loop,
+          out_info));
+  loop.Run();
+}
+
+::shopping_service::mojom::ProductInfoPtr CommerceInternalsHandlerAsyncWaiter::GetProductInfoForUrl(
+    const ::GURL& url) {
+  ::shopping_service::mojom::ProductInfoPtr async_wait_result;
+  GetProductInfoForUrl(std::move(url),&async_wait_result);
+  return async_wait_result;
+}
+
+void CommerceInternalsHandlerAsyncWaiter::GetSubscriptionDetails(
+    std::vector<SubscriptionPtr>* out_subscriptions) {
+  base::RunLoop loop;
+  proxy_->GetSubscriptionDetails(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<SubscriptionPtr>* out_subscriptions
+,
+             std::vector<SubscriptionPtr> subscriptions) {*out_subscriptions = std::move(subscriptions);
+            loop->Quit();
+          },
+          &loop,
+          out_subscriptions));
+  loop.Run();
+}
+
+std::vector<SubscriptionPtr> CommerceInternalsHandlerAsyncWaiter::GetSubscriptionDetails(
+    ) {
+  std::vector<SubscriptionPtr> async_wait_result;
+  GetSubscriptionDetails(&async_wait_result);
   return async_wait_result;
 }
 

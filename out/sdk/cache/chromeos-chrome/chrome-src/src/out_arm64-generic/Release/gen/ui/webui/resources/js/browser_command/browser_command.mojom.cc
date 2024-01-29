@@ -245,6 +245,8 @@ bool CommandHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CommandHandlerFactory_CreateBrowserCommandHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<CommandHandler> p_handler{};
       CommandHandlerFactory_CreateBrowserCommandHandler_ParamsDataView input_data_view(params, message);
@@ -262,8 +264,8 @@ bool CommandHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBrowserCommandHandler(
-std::move(p_handler));
+      impl->CreateBrowserCommandHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -565,6 +567,8 @@ bool CommandHandler_CanExecuteCommand_ForwardToCallback::Accept(
           internal::CommandHandler_CanExecuteCommand_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommandHandler.0
   bool success = true;
   bool p_can_execute{};
   CommandHandler_CanExecuteCommand_ResponseParamsDataView input_data_view(params, message);
@@ -684,6 +688,8 @@ bool CommandHandler_ExecuteCommand_ForwardToCallback::Accept(
           internal::CommandHandler_ExecuteCommand_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommandHandler.1
   bool success = true;
   bool p_command_executed{};
   CommandHandler_ExecuteCommand_ResponseParamsDataView input_data_view(params, message);
@@ -777,6 +783,8 @@ bool CommandHandlerStubDispatch::AcceptWithResponder(
               internal::CommandHandler_CanExecuteCommand_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommandHandler.0
       bool success = true;
       Command p_command_id{};
       CommandHandler_CanExecuteCommand_ParamsDataView input_data_view(params, message);
@@ -795,8 +803,8 @@ bool CommandHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CanExecuteCommand(
-std::move(p_command_id), std::move(callback));
+      impl->CanExecuteCommand(        
+        std::move(p_command_id), std::move(callback));
       return true;
     }
     case internal::kCommandHandler_ExecuteCommand_Name: {
@@ -806,6 +814,8 @@ std::move(p_command_id), std::move(callback));
               internal::CommandHandler_ExecuteCommand_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommandHandler.1
       bool success = true;
       Command p_command_id{};
       ClickInfoPtr p_click_info{};
@@ -827,9 +837,9 @@ std::move(p_command_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteCommand(
-std::move(p_command_id), 
-std::move(p_click_info), std::move(callback));
+      impl->ExecuteCommand(        
+        std::move(p_command_id), 
+        std::move(p_click_info), std::move(callback));
       return true;
     }
   }

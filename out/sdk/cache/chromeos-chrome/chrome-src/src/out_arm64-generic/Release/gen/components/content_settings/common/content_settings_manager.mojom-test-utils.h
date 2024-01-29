@@ -17,7 +17,7 @@ class  ContentSettingsManagerInterceptorForTesting : public ContentSettingsManag
   virtual ContentSettingsManager* GetForwardingInterface() = 0;
   void Clone(::mojo::PendingReceiver<ContentSettingsManager> clone) override;
   void AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) override;
-  void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) override;
+  void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::content_settings::mojom::ContentSettingsType type) override;
 };
 class  ContentSettingsManagerAsyncWaiter {
  public:

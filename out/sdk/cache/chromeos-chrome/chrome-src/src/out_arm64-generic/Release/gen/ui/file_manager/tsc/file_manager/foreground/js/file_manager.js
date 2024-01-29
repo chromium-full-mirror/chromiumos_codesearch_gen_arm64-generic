@@ -16,7 +16,7 @@ import { ArrayDataModel } from '../../common/js/array_data_model.js';
 import { crInjectTypeAndInit } from '../../common/js/cr_ui.js';
 import { isFolderDialogType } from '../../common/js/dialog_type.js';
 import { getKeyModifiers, queryDecoratedElement, queryRequiredElement } from '../../common/js/dom_utils.js';
-import { EntryList, FakeEntryImpl } from '../../common/js/files_app_entry_types.js';
+import { EntryList, FakeEntry, FakeEntryImpl, FilesAppDirEntry, FilesAppEntry } from '../../common/js/files_app_entry_types.js';
 import { FilesAppState } from '../../common/js/files_app_state.js';
 import { FilteredVolumeManager } from '../../common/js/filtered_volume_manager.js';
 import { isDlpEnabled, isGuestOsEnabled, isNewDirectoryTreeEnabled } from '../../common/js/flags.js';
@@ -28,10 +28,6 @@ import { getLastVisitedURL, isInGuestMode, runningInBrowser } from '../../common
 import { AllowedPaths, ARCHIVE_OPENED_EVENT_TYPE, RootType, VolumeType } from '../../common/js/volume_manager_types.js';
 import { DirectoryTreeContainer } from '../../containers/directory_tree_container.js';
 import { NudgeType } from '../../containers/nudge_container.js';
-import { Crostini } from '../../externs/background/crostini.js';
-import { ProgressCenter } from '../../externs/background/progress_center.js';
-import { FakeEntry, FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
-import { DialogType, PropStatus, SearchLocation } from '../../externs/ts/state.js';
 import { getMyFiles } from '../../state/ducks/all_entries.js';
 import { updateBulkPinProgress } from '../../state/ducks/bulk_pinning.js';
 import { updateDeviceConnectionState } from '../../state/ducks/device.js';
@@ -41,6 +37,7 @@ import { updatePreferences } from '../../state/ducks/preferences.js';
 import { getDefaultSearchOptions, updateSearch } from '../../state/ducks/search.js';
 import { addUiEntry, removeUiEntry } from '../../state/ducks/ui_entries.js';
 import { driveRootEntryListKey, trashRootKey } from '../../state/ducks/volumes.js';
+import { DialogType, PropStatus, SearchLocation } from '../../state/state.js';
 import { getEmptyState, getEntry, getStore } from '../../state/store.js';
 import { isXfTree } from '../../widgets/xf_tree_util.js';
 import { ActionsController } from './actions_controller.js';
@@ -760,7 +757,7 @@ export class FileManager {
         const dom = this.dialogDom_;
         assert(dom);
         const table = queryRequiredElement('.detail-table', dom);
-        FileTable.decorate(table, this.metadataModel_, this.volumeManager_, this.ui, this.dialogType == DialogType.FULL_PAGE);
+        FileTable.decorate(table, this.metadataModel_, this.volumeManager_, this.ui, this.dialogType === DialogType.FULL_PAGE);
         const grid = queryRequiredElement('.thumbnail-grid', dom);
         FileGrid.decorate(grid, this.metadataModel_, this.volumeManager_, this.ui);
         assertInstanceof(table, FileTable);
@@ -783,10 +780,10 @@ export class FileManager {
      * Constructs table and grid (heavy operation).
      */
     async initFileList_() {
-        const singleSelection = this.dialogType == DialogType.SELECT_OPEN_FILE ||
-            this.dialogType == DialogType.SELECT_FOLDER ||
-            this.dialogType == DialogType.SELECT_UPLOAD_FOLDER ||
-            this.dialogType == DialogType.SELECT_SAVEAS_FILE;
+        const singleSelection = this.dialogType === DialogType.SELECT_OPEN_FILE ||
+            this.dialogType === DialogType.SELECT_FOLDER ||
+            this.dialogType === DialogType.SELECT_UPLOAD_FOLDER ||
+            this.dialogType === DialogType.SELECT_SAVEAS_FILE;
         assert(this.volumeManager_);
         assert(this.metadataModel_);
         assert(this.fileFilter_);
@@ -980,7 +977,7 @@ export class FileManager {
         // Resolve the selectionURL to selectionEntry or to currentDirectoryEntry in
         // case of being a display root or a default directory to open files.
         if (this.launchParams_.selectionURL) {
-            if (this.launchParams_.selectionURL == this.recentEntry_.toURL()) {
+            if (this.launchParams_.selectionURL === this.recentEntry_.toURL()) {
                 nextCurrentDirEntry = this.recentEntry_;
             }
             else {
@@ -1162,11 +1159,12 @@ export class FileManager {
             }
         }
         // Check directory change.
-        tracker.stop();
         if (!tracker.hasChanged) {
             // Finish setup current directory.
             await this.finishSetupCurrentDirectory_(nextCurrentDirEntry, selectionEntry, this.launchParams_.targetName);
         }
+        // Only stop the tracker after finishing the directory change.
+        tracker.stop();
     }
     /**
      * @param directoryEntry Directory to be opened.
@@ -1257,7 +1255,7 @@ export class FileManager {
         // loading unpacked extensions).
         if (allowedPaths === AllowedPaths.NATIVE_PATH &&
             !isFolderDialogType(this.launchParams_.type)) {
-            if (this.launchParams_.type == DialogType.SELECT_SAVEAS_FILE) {
+            if (this.launchParams_.type === DialogType.SELECT_SAVEAS_FILE) {
                 allowedPaths = AllowedPaths.NATIVE_PATH;
             }
             else {
@@ -1272,7 +1270,7 @@ export class FileManager {
      */
     getSourceRestriction_() {
         const allowedPaths = this.getAllowedPaths_();
-        if (allowedPaths == AllowedPaths.NATIVE_PATH) {
+        if (allowedPaths === AllowedPaths.NATIVE_PATH) {
             return chrome.fileManagerPrivate.SourceRestriction.NATIVE_SOURCE;
         }
         return chrome.fileManagerPrivate.SourceRestriction.ANY_SOURCE;
@@ -1400,15 +1398,15 @@ export class FileManager {
         if (!isXfTree(this.ui_.directoryTree)) {
             this.ui_.directoryTree.dataModel.fakeTrashItem = null;
         }
-        this.navigateAwayFromDisabledRoot_(this.fakeTrashItem_);
+        this.navigateAwayFromDisabledRoot_(this.fakeTrashItem_?.entry || null);
     }
     /**
      * Toggles the drive root visibility when the `driveEnabled` preference is
      * updated.
      */
     toggleDriveRootOnPreferencesUpdate_() {
+        let driveFakeRoot = getEntry(this.store_.getState(), driveRootEntryListKey);
         if (this.driveEnabled_) {
-            let driveFakeRoot = getEntry(this.store_.getState(), driveRootEntryListKey);
             if (!driveFakeRoot) {
                 driveFakeRoot = new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
                 this.store_.dispatch(addUiEntry(driveFakeRoot));
@@ -1430,25 +1428,28 @@ export class FileManager {
         assert(this.ui.directoryTree);
         if (!isXfTree(this.ui.directoryTree)) {
             this.ui.directoryTree.dataModel.fakeDriveItem = null;
+            this.navigateAwayFromDisabledRoot_(this.fakeDriveItem_?.entry || null);
         }
-        this.navigateAwayFromDisabledRoot_(this.fakeDriveItem_);
+        else {
+            this.navigateAwayFromDisabledRoot_(driveFakeRoot);
+        }
     }
     /**
      * If the root item has been disabled but it is the current visible entry,
      * navigate away from it to the default display root.
-     * @param rootItem The item to navigate away from.
+     * @param entry The entry to navigate away from.
      */
-    navigateAwayFromDisabledRoot_(rootItem) {
-        if (!rootItem) {
+    navigateAwayFromDisabledRoot_(entry) {
+        if (!entry) {
             return;
         }
         assert(this.directoryModel_);
         assert(this.volumeManager_);
         // The fake root item is being hidden so navigate away if it's the
         // current directory.
-        if (this.directoryModel_.getCurrentDirEntry() === rootItem.entry) {
+        if (this.directoryModel_.getCurrentDirEntry() === entry) {
             this.volumeManager_.getDefaultDisplayRoot((displayRoot) => {
-                if (this.directoryModel_.getCurrentDirEntry() === rootItem.entry &&
+                if (this.directoryModel_.getCurrentDirEntry() === entry &&
                     displayRoot) {
                     this.directoryModel_.changeDirectoryEntry(displayRoot);
                 }

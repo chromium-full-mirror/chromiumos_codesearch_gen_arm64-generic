@@ -2,20 +2,22 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ColorScheme } from '../../color_scheme.mojom-webui.js';
-import { setColorModeAutoScheduleEnabledAction, setColorSchemeAction, setDarkModeEnabledAction, setSampleColorSchemesAction, setStaticColorAction } from './theme_actions.js';
+import { setColorModeAutoScheduleEnabledAction, setColorSchemeAction, setDarkModeEnabledAction, setGeolocationPermissionEnabledAction, setSampleColorSchemesAction, setStaticColorAction } from './theme_actions.js';
 /**
  * @fileoverview contains all of the functions to interact with C++ side through
  * mojom calls. Handles setting |PersonalizationStore| state in response to
  * mojom data.
  */
 export async function initializeData(provider, store) {
-    const [{ enabled }, { darkModeEnabled }] = await Promise.all([
+    const [{ enabled }, { darkModeEnabled }, { geolocationEnabled }] = await Promise.all([
         provider.isColorModeAutoScheduleEnabled(),
         provider.isDarkModeEnabled(),
+        provider.isGeolocationEnabledForSystemServices(),
     ]);
     store.beginBatchUpdate();
     store.dispatch(setDarkModeEnabledAction(darkModeEnabled));
     store.dispatch(setColorModeAutoScheduleEnabledAction(enabled));
+    store.dispatch(setGeolocationPermissionEnabledAction(geolocationEnabled));
     store.endBatchUpdate();
 }
 export async function initializeDynamicColorData(provider, store) {
@@ -50,4 +52,8 @@ export function setStaticColorPref(staticColor, provider, store) {
     provider.setStaticColor(staticColor);
     store.dispatch(setStaticColorAction(staticColor));
     store.dispatch(setColorSchemeAction(ColorScheme.kStatic));
+}
+export function enableGeolocationForSystemServices(provider, store) {
+    provider.enableGeolocationForSystemServices();
+    store.dispatch(setGeolocationPermissionEnabledAction(true));
 }

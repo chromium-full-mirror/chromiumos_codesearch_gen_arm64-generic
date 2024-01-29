@@ -57,7 +57,7 @@ return MakeGarbageCollected<V8UnionConstrainLongRangeOrLong>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionConstrainLongRangeOrLong::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionConstrainLongRangeOrLong::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kConstrainLongRange: {
     return ToV8Traits<ConstrainLongRange>::ToV8(script_state, member_constrain_long_range_.Get());
@@ -68,7 +68,7 @@ v8::MaybeLocal<v8::Value> V8UnionConstrainLongRangeOrLong::ToV8Value(ScriptState
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionConstrainLongRangeOrLong::Trace(Visitor* visitor) const {

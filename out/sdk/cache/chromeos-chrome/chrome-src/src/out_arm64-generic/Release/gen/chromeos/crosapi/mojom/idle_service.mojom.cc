@@ -219,6 +219,8 @@ bool IdleInfoObserverStubDispatch::Accept(
           reinterpret_cast<internal::IdleInfoObserver_OnIdleInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IdleInfoObserver.0
       bool success = true;
       IdleInfoPtr p_idle_info{};
       IdleInfoObserver_OnIdleInfoChanged_ParamsDataView input_data_view(params, message);
@@ -234,8 +236,8 @@ bool IdleInfoObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIdleInfoChanged(
-std::move(p_idle_info));
+      impl->OnIdleInfoChanged(        
+        std::move(p_idle_info));
       return true;
     }
   }
@@ -387,6 +389,8 @@ bool IdleServiceStubDispatch::Accept(
           reinterpret_cast<internal::IdleService_AddIdleInfoObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IdleService.0
       bool success = true;
       ::mojo::PendingRemote<IdleInfoObserver> p_observer{};
       IdleService_AddIdleInfoObserver_ParamsDataView input_data_view(params, message);
@@ -404,8 +408,8 @@ bool IdleServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddIdleInfoObserver(
-std::move(p_observer));
+      impl->AddIdleInfoObserver(        
+        std::move(p_observer));
       return true;
     }
   }

@@ -178,8 +178,7 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceEntry.toJSON");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 PerformanceEntry* blink_receiver = V8PerformanceEntry::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->toJSONForBinding(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -245,7 +244,7 @@ void V8PerformanceEntry::InstallContextDependentProperties(v8::Local<v8::Context
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::NavigationIdEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kNavigationId)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"navigationId", NavigationIdAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

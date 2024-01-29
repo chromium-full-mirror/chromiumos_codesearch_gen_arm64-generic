@@ -210,6 +210,8 @@ bool TestInterfaceForDefer_Ping_ForwardToCallback::Accept(
           internal::TestInterfaceForDefer_Ping_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestInterfaceForDefer.0
   bool success = true;
   TestInterfaceForDefer_Ping_ResponseParamsDataView input_data_view(params, message);
   
@@ -288,6 +290,8 @@ bool TestInterfaceForDeferStubDispatch::AcceptWithResponder(
               internal::TestInterfaceForDefer_Ping_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestInterfaceForDefer.0
       bool success = true;
       TestInterfaceForDefer_Ping_ParamsDataView input_data_view(params, message);
       
@@ -582,6 +586,8 @@ bool MojoContextProviderStubDispatch::Accept(
           reinterpret_cast<internal::MojoContextProvider_GrantAll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MojoContextProvider.0
       bool success = true;
       MojoContextProvider_GrantAll_ParamsDataView input_data_view(params, message);
       
@@ -594,7 +600,7 @@ bool MojoContextProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GrantAll();
+      impl->GrantAll(        );
       return true;
     }
   }

@@ -27,7 +27,7 @@ const SecurityTokenPinBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBeh
 /**
  * @polymer
  */
-class SecurityTokenPin extends SecurityTokenPinBase {
+export class SecurityTokenPin extends SecurityTokenPinBase {
     static get is() {
         return 'security-token-pin';
     }

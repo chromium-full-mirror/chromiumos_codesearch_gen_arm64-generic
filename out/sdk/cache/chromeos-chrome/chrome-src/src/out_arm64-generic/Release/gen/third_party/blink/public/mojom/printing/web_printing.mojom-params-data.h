@@ -22,23 +22,22 @@ class ValidationContext;
 
 namespace blink::mojom {
 namespace internal {
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t state;
-  uint8_t padfinal_[4];
+  mojo::internal::Pointer<internal::WebPrintJobUpdate_Data> update;
 
  private:
-  friend class mojo::internal::MessageFragment<WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data>;
+  friend class mojo::internal::MessageFragment<WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data>;
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data();
-  ~WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data() = delete;
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data();
+  ~WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data() = delete;
 };
-static_assert(sizeof(WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data) == 16,
-              "Bad sizeof(WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data)");
+static_assert(sizeof(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data) == 16,
+              "Bad sizeof(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinter_FetchAttributes_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -60,7 +59,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinter_FetchAttribu
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::WebPrinterAttributes_Data> attributes;
+  internal::WebPrinterFetchResult_Data result;
 
  private:
   friend class mojo::internal::MessageFragment<WebPrinter_FetchAttributes_ResponseParams_Data>;
@@ -68,7 +67,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinter_FetchAttribu
   WebPrinter_FetchAttributes_ResponseParams_Data();
   ~WebPrinter_FetchAttributes_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(WebPrinter_FetchAttributes_ResponseParams_Data) == 16,
+static_assert(sizeof(WebPrinter_FetchAttributes_ResponseParams_Data) == 24,
               "Bad sizeof(WebPrinter_FetchAttributes_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinter_Print_Params_Data {
  public:
@@ -124,7 +123,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintingService_GetP
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::WebPrinterInfo_Data>>> printers;
+  internal::GetPrintersResult_Data result;
 
  private:
   friend class mojo::internal::MessageFragment<WebPrintingService_GetPrinters_ResponseParams_Data>;
@@ -132,34 +131,35 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintingService_GetP
   WebPrintingService_GetPrinters_ResponseParams_Data();
   ~WebPrintingService_GetPrinters_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(WebPrintingService_GetPrinters_ResponseParams_Data) == 16,
+static_assert(sizeof(WebPrintingService_GetPrinters_ResponseParams_Data) == 24,
               "Bad sizeof(WebPrintingService_GetPrinters_ResponseParams_Data)");
 
 }  // namespace internal
 
 
-class WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsDataView {
+class WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView {
  public:
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsDataView() = default;
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView() = default;
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsDataView(
-      internal::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data* data,
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView(
+      internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetUpdateDataView(
+      WebPrintJobUpdateDataView* output);
+
   template <typename UserType>
-  [[nodiscard]] bool ReadState(UserType* output) const {
-    auto data_value = data_->state;
-    return mojo::internal::Deserialize<::blink::mojom::WebPrintJobState>(
-        data_value, output);
-  }
-  WebPrintJobState state() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::WebPrintJobState>(data_->state));
+  [[nodiscard]] bool ReadUpdate(UserType* output) {
+    
+    auto* pointer = data_->update.Get();
+    return mojo::internal::Deserialize<::blink::mojom::WebPrintJobUpdateDataView>(
+        pointer, output, message_);
   }
  private:
-  internal::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data* data_ = nullptr;
+  internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -188,24 +188,14 @@ class WebPrinter_FetchAttributes_ResponseParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetAttributesDataView(
-      WebPrinterAttributesDataView* output);
+  inline void GetResultDataView(
+      WebPrinterFetchResultDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadAttributes(UserType* output) {
+  [[nodiscard]] bool ReadResult(UserType* output) {
     
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::WebPrinterAttributesDataView, UserType>(),
-    "Attempting to read the optional `attributes` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadAttributes` instead "
-    "of `ReadAttributes if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->attributes.Get();
-    return mojo::internal::Deserialize<::blink::mojom::WebPrinterAttributesDataView>(
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::blink::mojom::WebPrinterFetchResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -300,14 +290,14 @@ class WebPrintingService_GetPrinters_ResponseParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetPrintersDataView(
-      mojo::ArrayDataView<WebPrinterInfoDataView>* output);
+  inline void GetResultDataView(
+      GetPrintersResultDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadPrinters(UserType* output) {
+  [[nodiscard]] bool ReadResult(UserType* output) {
     
-    auto* pointer = data_->printers.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WebPrinterInfoDataView>>(
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::blink::mojom::GetPrintersResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -315,14 +305,19 @@ class WebPrintingService_GetPrinters_ResponseParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+inline void WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView::GetUpdateDataView(
+    WebPrintJobUpdateDataView* output) {
+  auto pointer = data_->update.Get();
+  *output = WebPrintJobUpdateDataView(pointer, message_);
+}
 
 
 
 
-inline void WebPrinter_FetchAttributes_ResponseParamsDataView::GetAttributesDataView(
-    WebPrinterAttributesDataView* output) {
-  auto pointer = data_->attributes.Get();
-  *output = WebPrinterAttributesDataView(pointer, message_);
+inline void WebPrinter_FetchAttributes_ResponseParamsDataView::GetResultDataView(
+    WebPrinterFetchResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = WebPrinterFetchResultDataView(pointer, message_);
 }
 
 
@@ -342,10 +337,10 @@ inline void WebPrinter_Print_ResponseParamsDataView::GetResultDataView(
 
 
 
-inline void WebPrintingService_GetPrinters_ResponseParamsDataView::GetPrintersDataView(
-    mojo::ArrayDataView<WebPrinterInfoDataView>* output) {
-  auto pointer = data_->printers.Get();
-  *output = mojo::ArrayDataView<WebPrinterInfoDataView>(pointer, message_);
+inline void WebPrintingService_GetPrinters_ResponseParamsDataView::GetResultDataView(
+    GetPrintersResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = GetPrintersResultDataView(pointer, message_);
 }
 
 

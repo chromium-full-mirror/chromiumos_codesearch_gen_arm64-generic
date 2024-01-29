@@ -514,27 +514,22 @@ export class PrefsManager {
     PrefsManager.DEFAULT_NETWORK_VOICE = 'default-wavenet';
     /**
      * Extension ID of the enhanced network TTS voices extension.
-     * @const {string}
      */
     PrefsManager.ENHANCED_TTS_EXTENSION_ID = 'jacnkoglebceckolkoapelihnglgaicd';
     /**
      * Extension ID of the Google TTS voices extension.
-     * @const {string}
      */
     PrefsManager.GOOGLE_TTS_EXTENSION_ID = 'gjjabgpgjpampikjhjpfhneeoapjbjaf';
     /**
      * Extension ID of the eSpeak TTS voices extension.
-     * @const {string}
      */
     PrefsManager.ESPEAK_EXTENSION_ID = 'dakbfdmgjiabojdgbiljlhgjbokobjpg';
     /**
      * Default speech rate for both Select-to-Speak and global prefs.
-     * @type {number}
      */
     PrefsManager.DEFAULT_RATE = 1.0;
     /**
      * Default speech pitch for both Select-to-Speak and global prefs.
-     * @type {number}
      */
     PrefsManager.DEFAULT_PITCH = 1.0;
     /**

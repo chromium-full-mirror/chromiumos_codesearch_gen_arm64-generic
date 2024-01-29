@@ -71,22 +71,13 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasTitlebarAreaRect()) {
-  if (!ToV8Traits<DOMRect>::ToV8(script_state, member_titlebar_area_rect_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<DOMRect>::ToV8(script_state, member_titlebar_area_rect_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasVisible()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_visible_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_visible_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

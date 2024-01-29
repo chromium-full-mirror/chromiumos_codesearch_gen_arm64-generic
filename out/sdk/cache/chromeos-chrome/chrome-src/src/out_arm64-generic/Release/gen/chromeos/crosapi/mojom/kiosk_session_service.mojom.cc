@@ -282,6 +282,8 @@ bool KioskSessionService_RestartDeviceDeprecated_ForwardToCallback::Accept(
           internal::KioskSessionService_RestartDeviceDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KioskSessionService.1
   bool success = true;
   bool p_status{};
   KioskSessionService_RestartDeviceDeprecated_ResponseParamsDataView input_data_view(params, message);
@@ -356,6 +358,8 @@ bool KioskSessionServiceStubDispatch::Accept(
           reinterpret_cast<internal::KioskSessionService_AttemptUserExit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KioskSessionService.0
       bool success = true;
       KioskSessionService_AttemptUserExit_ParamsDataView input_data_view(params, message);
       
@@ -368,7 +372,7 @@ bool KioskSessionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AttemptUserExit();
+      impl->AttemptUserExit(        );
       return true;
     }
     case internal::kKioskSessionService_RestartDeviceDeprecated_Name: {
@@ -397,6 +401,8 @@ bool KioskSessionServiceStubDispatch::AcceptWithResponder(
               internal::KioskSessionService_RestartDeviceDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KioskSessionService.1
       bool success = true;
       std::string p_description{};
       KioskSessionService_RestartDeviceDeprecated_ParamsDataView input_data_view(params, message);
@@ -415,8 +421,8 @@ bool KioskSessionServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestartDeviceDeprecated(
-std::move(p_description), std::move(callback));
+      impl->RestartDeviceDeprecated(        
+        std::move(p_description), std::move(callback));
       return true;
     }
   }

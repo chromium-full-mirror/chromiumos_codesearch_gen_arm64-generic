@@ -359,6 +359,8 @@ bool PrintingServiceStubDispatch::Accept(
           reinterpret_cast<internal::PrintingService_BindPdfNupConverter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintingService.0
       bool success = true;
       ::mojo::PendingReceiver<::printing::mojom::PdfNupConverter> p_receiver{};
       PrintingService_BindPdfNupConverter_ParamsDataView input_data_view(params, message);
@@ -376,8 +378,8 @@ bool PrintingServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPdfNupConverter(
-std::move(p_receiver));
+      impl->BindPdfNupConverter(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPrintingService_BindPdfToPwgRasterConverter_Name: {
@@ -387,6 +389,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PrintingService_BindPdfToPwgRasterConverter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintingService.1
       bool success = true;
       ::mojo::PendingReceiver<::printing::mojom::PdfToPwgRasterConverter> p_receiver{};
       PrintingService_BindPdfToPwgRasterConverter_ParamsDataView input_data_view(params, message);
@@ -404,8 +408,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPdfToPwgRasterConverter(
-std::move(p_receiver));
+      impl->BindPdfToPwgRasterConverter(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPrintingService_BindPdfFlattener_Name: {
@@ -415,6 +419,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PrintingService_BindPdfFlattener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintingService.2
       bool success = true;
       ::mojo::PendingReceiver<::printing::mojom::PdfFlattener> p_receiver{};
       PrintingService_BindPdfFlattener_ParamsDataView input_data_view(params, message);
@@ -432,8 +438,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPdfFlattener(
-std::move(p_receiver));
+      impl->BindPdfFlattener(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPrintingService_BindPdfThumbnailer_Name: {
@@ -443,6 +449,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PrintingService_BindPdfThumbnailer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintingService.3
       bool success = true;
       ::mojo::PendingReceiver<::printing::mojom::PdfThumbnailer> p_receiver{};
       PrintingService_BindPdfThumbnailer_ParamsDataView input_data_view(params, message);
@@ -460,8 +468,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPdfThumbnailer(
-std::move(p_receiver));
+      impl->BindPdfThumbnailer(        
+        std::move(p_receiver));
       return true;
     }
   }

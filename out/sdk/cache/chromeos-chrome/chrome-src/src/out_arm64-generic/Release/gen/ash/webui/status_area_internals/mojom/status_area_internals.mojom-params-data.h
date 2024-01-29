@@ -158,6 +158,23 @@ class  PageHandler_SetActiveDirectoryManaged_Params_Data {
 };
 static_assert(sizeof(PageHandler_SetActiveDirectoryManaged_Params_Data) == 16,
               "Bad sizeof(PageHandler_SetActiveDirectoryManaged_Params_Data)");
+class  PageHandler_SetIsInUserChildSession_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t in_child_session : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_SetIsInUserChildSession_Params_Data>;
+
+  PageHandler_SetIsInUserChildSession_Params_Data();
+  ~PageHandler_SetIsInUserChildSession_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_SetIsInUserChildSession_Params_Data) == 16,
+              "Bad sizeof(PageHandler_SetIsInUserChildSession_Params_Data)");
 class  PageHandler_TriggerPrivacyIndicators_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -326,6 +343,24 @@ class PageHandler_SetActiveDirectoryManaged_ParamsDataView {
 };
 
 
+class PageHandler_SetIsInUserChildSession_ParamsDataView {
+ public:
+  PageHandler_SetIsInUserChildSession_ParamsDataView() = default;
+
+  PageHandler_SetIsInUserChildSession_ParamsDataView(
+      internal::PageHandler_SetIsInUserChildSession_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool in_child_session() const {
+    return data_->in_child_session;
+  }
+ private:
+  internal::PageHandler_SetIsInUserChildSession_Params_Data* data_ = nullptr;
+};
+
+
 class PageHandler_TriggerPrivacyIndicators_ParamsDataView {
  public:
   PageHandler_TriggerPrivacyIndicators_ParamsDataView() = default;
@@ -366,6 +401,8 @@ class PageHandler_TriggerPrivacyIndicators_ParamsDataView {
   internal::PageHandler_TriggerPrivacyIndicators_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
 
 
 

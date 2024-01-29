@@ -391,6 +391,8 @@ bool LayerContextStubDispatch::Accept(
           reinterpret_cast<internal::LayerContext_SetTargetLocalSurfaceId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LayerContext.0
       bool success = true;
       ::viz::LocalSurfaceId p_id{};
       LayerContext_SetTargetLocalSurfaceId_ParamsDataView input_data_view(params, message);
@@ -406,8 +408,8 @@ bool LayerContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTargetLocalSurfaceId(
-std::move(p_id));
+      impl->SetTargetLocalSurfaceId(        
+        std::move(p_id));
       return true;
     }
     case internal::kLayerContext_SetVisible_Name: {
@@ -417,6 +419,8 @@ std::move(p_id));
           reinterpret_cast<internal::LayerContext_SetVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LayerContext.1
       bool success = true;
       bool p_visible{};
       LayerContext_SetVisible_ParamsDataView input_data_view(params, message);
@@ -432,8 +436,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVisible(
-std::move(p_visible));
+      impl->SetVisible(        
+        std::move(p_visible));
       return true;
     }
     case internal::kLayerContext_Commit_Name: {
@@ -443,6 +447,8 @@ std::move(p_visible));
           reinterpret_cast<internal::LayerContext_Commit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LayerContext.2
       bool success = true;
       LayerTreeUpdatePtr p_update{};
       LayerContext_Commit_ParamsDataView input_data_view(params, message);
@@ -458,8 +464,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Commit(
-std::move(p_update));
+      impl->Commit(        
+        std::move(p_update));
       return true;
     }
   }
@@ -625,6 +631,8 @@ bool LayerContextClientStubDispatch::Accept(
           reinterpret_cast<internal::LayerContextClient_OnRequestCommitForFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LayerContextClient.0
       bool success = true;
       ::viz::BeginFrameArgs p_args{};
       LayerContextClient_OnRequestCommitForFrame_ParamsDataView input_data_view(params, message);
@@ -640,8 +648,8 @@ bool LayerContextClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRequestCommitForFrame(
-std::move(p_args));
+      impl->OnRequestCommitForFrame(        
+        std::move(p_args));
       return true;
     }
   }

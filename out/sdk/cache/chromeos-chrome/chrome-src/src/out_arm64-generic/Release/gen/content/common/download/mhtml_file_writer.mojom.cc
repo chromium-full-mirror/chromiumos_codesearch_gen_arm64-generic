@@ -367,6 +367,8 @@ bool MhtmlFileWriter_SerializeAsMHTML_ForwardToCallback::Accept(
           internal::MhtmlFileWriter_SerializeAsMHTML_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MhtmlFileWriter.0
   bool success = true;
   MhtmlSaveStatus p_status{};
   std::vector<std::string> p_digests_of_uris_to_skip{};
@@ -478,6 +480,8 @@ bool MhtmlFileWriterStubDispatch::AcceptWithResponder(
               internal::MhtmlFileWriter_SerializeAsMHTML_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MhtmlFileWriter.0
       bool success = true;
       SerializeAsMHTMLParamsPtr p_params{};
       MhtmlFileWriter_SerializeAsMHTML_ParamsDataView input_data_view(params, message);
@@ -496,8 +500,8 @@ bool MhtmlFileWriterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SerializeAsMHTML(
-std::move(p_params), std::move(callback));
+      impl->SerializeAsMHTML(        
+        std::move(p_params), std::move(callback));
       return true;
     }
   }

@@ -37,7 +37,7 @@ export function getTemplate() {
 </cr-lazy-render>
 
 <template is="dom-if" if="[[showSelectLanguageDialog_]]" restamp>
-  <app-language-selection-dialog app="[[selectedApp_]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_">
+  <app-language-selection-dialog app="[[selectedApp_]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_" entry-point="[[getDialogEntryPoint_()]]">
   </app-language-selection-dialog>
 </template>
 <!--_html_template_end_-->`;

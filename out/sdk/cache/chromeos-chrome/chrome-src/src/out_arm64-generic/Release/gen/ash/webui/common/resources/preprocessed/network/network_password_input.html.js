@@ -37,6 +37,7 @@ export function getTemplate() {
       on-touchstart="onMousedown_"
       on-keydown="onKeydown_"
       invalid="[[invalid]]"
+      readonly="[[readonly]]"
       error-message="[[errorMessage]]">
     <template is="dom-if" if="[[!showPolicyIndicator_]]" restamp>
       <div slot="suffix">

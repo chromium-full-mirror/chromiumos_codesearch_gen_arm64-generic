@@ -897,6 +897,8 @@ bool MediaPlayerStubDispatch::Accept(
           reinterpret_cast<internal::MediaPlayer_RequestPlay_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.0
       bool success = true;
       MediaPlayer_RequestPlay_ParamsDataView input_data_view(params, message);
       
@@ -909,7 +911,7 @@ bool MediaPlayerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPlay();
+      impl->RequestPlay(        );
       return true;
     }
     case internal::kMediaPlayer_RequestPause_Name: {
@@ -919,6 +921,8 @@ bool MediaPlayerStubDispatch::Accept(
           reinterpret_cast<internal::MediaPlayer_RequestPause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.1
       bool success = true;
       bool p_triggered_by_user{};
       MediaPlayer_RequestPause_ParamsDataView input_data_view(params, message);
@@ -934,8 +938,8 @@ bool MediaPlayerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPause(
-std::move(p_triggered_by_user));
+      impl->RequestPause(        
+        std::move(p_triggered_by_user));
       return true;
     }
     case internal::kMediaPlayer_RequestSeekForward_Name: {
@@ -945,6 +949,8 @@ std::move(p_triggered_by_user));
           reinterpret_cast<internal::MediaPlayer_RequestSeekForward_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.2
       bool success = true;
       ::base::TimeDelta p_seek_time{};
       MediaPlayer_RequestSeekForward_ParamsDataView input_data_view(params, message);
@@ -960,8 +966,8 @@ std::move(p_triggered_by_user));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSeekForward(
-std::move(p_seek_time));
+      impl->RequestSeekForward(        
+        std::move(p_seek_time));
       return true;
     }
     case internal::kMediaPlayer_RequestSeekBackward_Name: {
@@ -971,6 +977,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaPlayer_RequestSeekBackward_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.3
       bool success = true;
       ::base::TimeDelta p_seek_time{};
       MediaPlayer_RequestSeekBackward_ParamsDataView input_data_view(params, message);
@@ -986,8 +994,8 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSeekBackward(
-std::move(p_seek_time));
+      impl->RequestSeekBackward(        
+        std::move(p_seek_time));
       return true;
     }
     case internal::kMediaPlayer_RequestSeekTo_Name: {
@@ -997,6 +1005,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaPlayer_RequestSeekTo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.4
       bool success = true;
       ::base::TimeDelta p_seek_time{};
       MediaPlayer_RequestSeekTo_ParamsDataView input_data_view(params, message);
@@ -1012,8 +1022,8 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSeekTo(
-std::move(p_seek_time));
+      impl->RequestSeekTo(        
+        std::move(p_seek_time));
       return true;
     }
     case internal::kMediaPlayer_RequestEnterPictureInPicture_Name: {
@@ -1023,6 +1033,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaPlayer_RequestEnterPictureInPicture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.5
       bool success = true;
       MediaPlayer_RequestEnterPictureInPicture_ParamsDataView input_data_view(params, message);
       
@@ -1035,7 +1047,7 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestEnterPictureInPicture();
+      impl->RequestEnterPictureInPicture(        );
       return true;
     }
     case internal::kMediaPlayer_RequestMute_Name: {
@@ -1045,6 +1057,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaPlayer_RequestMute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.6
       bool success = true;
       bool p_mute{};
       MediaPlayer_RequestMute_ParamsDataView input_data_view(params, message);
@@ -1060,8 +1074,8 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestMute(
-std::move(p_mute));
+      impl->RequestMute(        
+        std::move(p_mute));
       return true;
     }
     case internal::kMediaPlayer_SetVolumeMultiplier_Name: {
@@ -1071,6 +1085,8 @@ std::move(p_mute));
           reinterpret_cast<internal::MediaPlayer_SetVolumeMultiplier_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.7
       bool success = true;
       double p_multiplier{};
       MediaPlayer_SetVolumeMultiplier_ParamsDataView input_data_view(params, message);
@@ -1086,8 +1102,8 @@ std::move(p_mute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolumeMultiplier(
-std::move(p_multiplier));
+      impl->SetVolumeMultiplier(        
+        std::move(p_multiplier));
       return true;
     }
     case internal::kMediaPlayer_SetPersistentState_Name: {
@@ -1097,6 +1113,8 @@ std::move(p_multiplier));
           reinterpret_cast<internal::MediaPlayer_SetPersistentState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.8
       bool success = true;
       bool p_persistent{};
       MediaPlayer_SetPersistentState_ParamsDataView input_data_view(params, message);
@@ -1112,8 +1130,8 @@ std::move(p_multiplier));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPersistentState(
-std::move(p_persistent));
+      impl->SetPersistentState(        
+        std::move(p_persistent));
       return true;
     }
     case internal::kMediaPlayer_SetPowerExperimentState_Name: {
@@ -1123,6 +1141,8 @@ std::move(p_persistent));
           reinterpret_cast<internal::MediaPlayer_SetPowerExperimentState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.9
       bool success = true;
       bool p_enabled{};
       MediaPlayer_SetPowerExperimentState_ParamsDataView input_data_view(params, message);
@@ -1138,8 +1158,8 @@ std::move(p_persistent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPowerExperimentState(
-std::move(p_enabled));
+      impl->SetPowerExperimentState(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kMediaPlayer_SetAudioSinkId_Name: {
@@ -1149,6 +1169,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::MediaPlayer_SetAudioSinkId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.10
       bool success = true;
       WTF::String p_sink_id{};
       MediaPlayer_SetAudioSinkId_ParamsDataView input_data_view(params, message);
@@ -1164,8 +1186,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAudioSinkId(
-std::move(p_sink_id));
+      impl->SetAudioSinkId(        
+        std::move(p_sink_id));
       return true;
     }
     case internal::kMediaPlayer_SuspendForFrameClosed_Name: {
@@ -1175,6 +1197,8 @@ std::move(p_sink_id));
           reinterpret_cast<internal::MediaPlayer_SuspendForFrameClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.11
       bool success = true;
       MediaPlayer_SuspendForFrameClosed_ParamsDataView input_data_view(params, message);
       
@@ -1187,7 +1211,7 @@ std::move(p_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SuspendForFrameClosed();
+      impl->SuspendForFrameClosed(        );
       return true;
     }
     case internal::kMediaPlayer_RequestMediaRemoting_Name: {
@@ -1197,6 +1221,8 @@ std::move(p_sink_id));
           reinterpret_cast<internal::MediaPlayer_RequestMediaRemoting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayer.12
       bool success = true;
       MediaPlayer_RequestMediaRemoting_ParamsDataView input_data_view(params, message);
       
@@ -1209,7 +1235,7 @@ std::move(p_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestMediaRemoting();
+      impl->RequestMediaRemoting(        );
       return true;
     }
   }
@@ -1469,6 +1495,8 @@ bool MediaPlayerObserverClient_GetHasPlayedBefore_ForwardToCallback::Accept(
           internal::MediaPlayerObserverClient_GetHasPlayedBefore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaPlayerObserverClient.0
   bool success = true;
   bool p_has_played_before{};
   MediaPlayerObserverClient_GetHasPlayedBefore_ResponseParamsDataView input_data_view(params, message);
@@ -1559,6 +1587,8 @@ bool MediaPlayerObserverClientStubDispatch::AcceptWithResponder(
               internal::MediaPlayerObserverClient_GetHasPlayedBefore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserverClient.0
       bool success = true;
       MediaPlayerObserverClient_GetHasPlayedBefore_ParamsDataView input_data_view(params, message);
       
@@ -2413,6 +2443,8 @@ bool MediaPlayerObserverStubDispatch::Accept(
           reinterpret_cast<internal::MediaPlayerObserver_OnMediaPlaying_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.0
       bool success = true;
       MediaPlayerObserver_OnMediaPlaying_ParamsDataView input_data_view(params, message);
       
@@ -2425,7 +2457,7 @@ bool MediaPlayerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaPlaying();
+      impl->OnMediaPlaying(        );
       return true;
     }
     case internal::kMediaPlayerObserver_OnMediaPaused_Name: {
@@ -2435,6 +2467,8 @@ bool MediaPlayerObserverStubDispatch::Accept(
           reinterpret_cast<internal::MediaPlayerObserver_OnMediaPaused_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.1
       bool success = true;
       bool p_stream_ended{};
       MediaPlayerObserver_OnMediaPaused_ParamsDataView input_data_view(params, message);
@@ -2450,8 +2484,8 @@ bool MediaPlayerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaPaused(
-std::move(p_stream_ended));
+      impl->OnMediaPaused(        
+        std::move(p_stream_ended));
       return true;
     }
     case internal::kMediaPlayerObserver_OnMutedStatusChanged_Name: {
@@ -2461,6 +2495,8 @@ std::move(p_stream_ended));
           reinterpret_cast<internal::MediaPlayerObserver_OnMutedStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.2
       bool success = true;
       bool p_muted{};
       MediaPlayerObserver_OnMutedStatusChanged_ParamsDataView input_data_view(params, message);
@@ -2476,8 +2512,8 @@ std::move(p_stream_ended));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMutedStatusChanged(
-std::move(p_muted));
+      impl->OnMutedStatusChanged(        
+        std::move(p_muted));
       return true;
     }
     case internal::kMediaPlayerObserver_OnMediaMetadataChanged_Name: {
@@ -2487,6 +2523,8 @@ std::move(p_muted));
           reinterpret_cast<internal::MediaPlayerObserver_OnMediaMetadataChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.3
       bool success = true;
       bool p_has_audio{};
       bool p_has_video{};
@@ -2508,10 +2546,10 @@ std::move(p_muted));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaMetadataChanged(
-std::move(p_has_audio), 
-std::move(p_has_video), 
-std::move(p_content_type));
+      impl->OnMediaMetadataChanged(        
+        std::move(p_has_audio), 
+        std::move(p_has_video), 
+        std::move(p_content_type));
       return true;
     }
     case internal::kMediaPlayerObserver_OnMediaPositionStateChanged_Name: {
@@ -2521,6 +2559,8 @@ std::move(p_content_type));
           reinterpret_cast<internal::MediaPlayerObserver_OnMediaPositionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.4
       bool success = true;
       ::media_session::mojom::blink::MediaPositionPtr p_media_position{};
       MediaPlayerObserver_OnMediaPositionStateChanged_ParamsDataView input_data_view(params, message);
@@ -2536,8 +2576,8 @@ std::move(p_content_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaPositionStateChanged(
-std::move(p_media_position));
+      impl->OnMediaPositionStateChanged(        
+        std::move(p_media_position));
       return true;
     }
     case internal::kMediaPlayerObserver_OnMediaEffectivelyFullscreenChanged_Name: {
@@ -2547,6 +2587,8 @@ std::move(p_media_position));
           reinterpret_cast<internal::MediaPlayerObserver_OnMediaEffectivelyFullscreenChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.5
       bool success = true;
       ::blink::WebFullscreenVideoStatus p_status{};
       MediaPlayerObserver_OnMediaEffectivelyFullscreenChanged_ParamsDataView input_data_view(params, message);
@@ -2562,8 +2604,8 @@ std::move(p_media_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaEffectivelyFullscreenChanged(
-std::move(p_status));
+      impl->OnMediaEffectivelyFullscreenChanged(        
+        std::move(p_status));
       return true;
     }
     case internal::kMediaPlayerObserver_OnMediaSizeChanged_Name: {
@@ -2573,6 +2615,8 @@ std::move(p_status));
           reinterpret_cast<internal::MediaPlayerObserver_OnMediaSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.6
       bool success = true;
       ::gfx::Size p_size{};
       MediaPlayerObserver_OnMediaSizeChanged_ParamsDataView input_data_view(params, message);
@@ -2588,8 +2632,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaSizeChanged(
-std::move(p_size));
+      impl->OnMediaSizeChanged(        
+        std::move(p_size));
       return true;
     }
     case internal::kMediaPlayerObserver_OnPictureInPictureAvailabilityChanged_Name: {
@@ -2599,6 +2643,8 @@ std::move(p_size));
           reinterpret_cast<internal::MediaPlayerObserver_OnPictureInPictureAvailabilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.7
       bool success = true;
       bool p_available{};
       MediaPlayerObserver_OnPictureInPictureAvailabilityChanged_ParamsDataView input_data_view(params, message);
@@ -2614,8 +2660,8 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPictureInPictureAvailabilityChanged(
-std::move(p_available));
+      impl->OnPictureInPictureAvailabilityChanged(        
+        std::move(p_available));
       return true;
     }
     case internal::kMediaPlayerObserver_OnAudioOutputSinkChanged_Name: {
@@ -2625,6 +2671,8 @@ std::move(p_available));
           reinterpret_cast<internal::MediaPlayerObserver_OnAudioOutputSinkChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.8
       bool success = true;
       WTF::String p_hashed_device_id{};
       MediaPlayerObserver_OnAudioOutputSinkChanged_ParamsDataView input_data_view(params, message);
@@ -2640,8 +2688,8 @@ std::move(p_available));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAudioOutputSinkChanged(
-std::move(p_hashed_device_id));
+      impl->OnAudioOutputSinkChanged(        
+        std::move(p_hashed_device_id));
       return true;
     }
     case internal::kMediaPlayerObserver_OnUseAudioServiceChanged_Name: {
@@ -2651,6 +2699,8 @@ std::move(p_hashed_device_id));
           reinterpret_cast<internal::MediaPlayerObserver_OnUseAudioServiceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.9
       bool success = true;
       bool p_uses_audio_service{};
       MediaPlayerObserver_OnUseAudioServiceChanged_ParamsDataView input_data_view(params, message);
@@ -2666,8 +2716,8 @@ std::move(p_hashed_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUseAudioServiceChanged(
-std::move(p_uses_audio_service));
+      impl->OnUseAudioServiceChanged(        
+        std::move(p_uses_audio_service));
       return true;
     }
     case internal::kMediaPlayerObserver_OnAudioOutputSinkChangingDisabled_Name: {
@@ -2677,6 +2727,8 @@ std::move(p_uses_audio_service));
           reinterpret_cast<internal::MediaPlayerObserver_OnAudioOutputSinkChangingDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.10
       bool success = true;
       MediaPlayerObserver_OnAudioOutputSinkChangingDisabled_ParamsDataView input_data_view(params, message);
       
@@ -2689,7 +2741,7 @@ std::move(p_uses_audio_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAudioOutputSinkChangingDisabled();
+      impl->OnAudioOutputSinkChangingDisabled(        );
       return true;
     }
     case internal::kMediaPlayerObserver_OnRemotePlaybackMetadataChange_Name: {
@@ -2699,6 +2751,8 @@ std::move(p_uses_audio_service));
           reinterpret_cast<internal::MediaPlayerObserver_OnRemotePlaybackMetadataChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerObserver.11
       bool success = true;
       ::media_session::mojom::blink::RemotePlaybackMetadataPtr p_remote_playback_metadata{};
       MediaPlayerObserver_OnRemotePlaybackMetadataChange_ParamsDataView input_data_view(params, message);
@@ -2714,8 +2768,8 @@ std::move(p_uses_audio_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemotePlaybackMetadataChange(
-std::move(p_remote_playback_metadata));
+      impl->OnRemotePlaybackMetadataChange(        
+        std::move(p_remote_playback_metadata));
       return true;
     }
   }
@@ -2934,6 +2988,8 @@ bool MediaPlayerHostStubDispatch::Accept(
           reinterpret_cast<internal::MediaPlayerHost_OnMediaPlayerAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerHost.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<MediaPlayer> p_player_remote{};
       ::mojo::PendingAssociatedReceiver<MediaPlayerObserver> p_observer{};
@@ -2959,10 +3015,10 @@ bool MediaPlayerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaPlayerAdded(
-std::move(p_player_remote), 
-std::move(p_observer), 
-std::move(p_player_id));
+      impl->OnMediaPlayerAdded(        
+        std::move(p_player_remote), 
+        std::move(p_observer), 
+        std::move(p_player_id));
       return true;
     }
   }

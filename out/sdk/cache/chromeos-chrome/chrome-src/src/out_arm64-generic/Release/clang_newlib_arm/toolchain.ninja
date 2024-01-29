@@ -35,7 +35,7 @@ rule clang_newlib_arm_rust_rlib
   depfile = ${output_dir}/lib${target_output_name}${output_extension}.d
   deps = gcc
 rule clang_newlib_arm_cxx
-  command = /home/chrome-bot/goma/gomacc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/toolchain/linux_x86/pnacl_newlib/bin/arm-nacl-clang++ -MMD -MF ${out}.d -DNACL_TC_REV=84258fc0d4661791cdd5bde0bb74ed32dfa18b6c ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  command = ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient/rewrapper -cfg=../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient_cfgs/linux_chroot/nacl/rewrapper_linux.cfg -exec_root=/ ../../../../../../../home/chrome-bot/chrome_root/src/native_client/toolchain/linux_x86/pnacl_newlib/bin/arm-nacl-clang++ -MD -MF ${out}.d -DNACL_TC_REV=84258fc0d4661791cdd5bde0bb74ed32dfa18b6c ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
   description = CXX ${out}
   depfile = ${out}.d
   deps = gcc
@@ -69,12 +69,12 @@ rule clang_newlib_arm_alink
   rspfile = ${out}.rsp
   rspfile_content = ${in}
 rule clang_newlib_arm_cc
-  command = /home/chrome-bot/goma/gomacc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/toolchain/linux_x86/pnacl_newlib/bin/arm-nacl-clang -MMD -MF ${out}.d -DNACL_TC_REV=84258fc0d4661791cdd5bde0bb74ed32dfa18b6c ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  command = ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient/rewrapper -cfg=../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient_cfgs/linux_chroot/nacl/rewrapper_linux.cfg -exec_root=/ ../../../../../../../home/chrome-bot/chrome_root/src/native_client/toolchain/linux_x86/pnacl_newlib/bin/arm-nacl-clang -MD -MF ${out}.d -DNACL_TC_REV=84258fc0d4661791cdd5bde0bb74ed32dfa18b6c ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
   description = CC ${out}
   depfile = ${out}.d
   deps = gcc
 rule clang_newlib_arm_asm
-  command = ../../../../../../../home/chrome-bot/chrome_root/src/native_client/toolchain/linux_x86/pnacl_newlib/bin/arm-nacl-clang -MMD -MF ${out}.d -DNACL_TC_REV=84258fc0d4661791cdd5bde0bb74ed32dfa18b6c ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  command = ../../../../../../../home/chrome-bot/chrome_root/src/native_client/toolchain/linux_x86/pnacl_newlib/bin/arm-nacl-clang -MD -MF ${out}.d -DNACL_TC_REV=84258fc0d4661791cdd5bde0bb74ed32dfa18b6c ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
   description = ASM ${out}
   depfile = ${out}.d
   deps = gcc

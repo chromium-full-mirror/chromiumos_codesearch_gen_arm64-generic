@@ -177,7 +177,7 @@ RegisteredUserScript RegisteredUserScript::Clone() const {
 // static
 bool RegisteredUserScript::Populate(
     const base::Value::Dict& dict, RegisteredUserScript& out) {
-  out.run_at = extension_types::RunAt();
+  out.run_at = extensions::api::extension_types::RunAt();
   out.world = ExecutionWorld();
   const base::Value* all_frames_value = dict.Find("allFrames");
   if (all_frames_value) {
@@ -281,13 +281,13 @@ bool RegisteredUserScript::Populate(
       if (!run_at_as_string) {
         return false;
       }
-      out.run_at = extension_types::ParseRunAt(*run_at_as_string);
-      if (out.run_at == extension_types::RunAt()) {
+      out.run_at = extensions::api::extension_types::ParseRunAt(*run_at_as_string);
+      if (out.run_at == extensions::api::extension_types::RunAt()) {
         return false;
       }
     }
     } else {
-    out.run_at = extension_types::RunAt();
+    out.run_at = extensions::api::extension_types::RunAt();
   }
 
   const base::Value* world_value = dict.Find("world");
@@ -365,7 +365,7 @@ base::Value::Dict RegisteredUserScript::ToValue() const {
     to_value_result.Set("matches", json_schema_compiler::util::CreateValueFromArray(*this->matches));
 
   }
-  if (this->run_at != extension_types::RunAt()) {
+  if (this->run_at != extensions::api::extension_types::RunAt()) {
     to_value_result.Set("runAt", extension_types::ToString(this->run_at));
 
   }

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/verity-0.0.1-r501/work/verity-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/verity-0.0.1-r506/work/verity-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -23,6 +23,7 @@ build _verity-install_config: phony obj/verity/_verity-install_config.stamp
 build install_fls_header: phony obj/verity/install_fls_header.stamp
 build install_headers: phony obj/verity/install_headers.stamp
 build install_pkg_config: phony obj/verity/install_pkg_config.stamp
+build install_subtool: phony obj/verity/install_subtool.stamp
 build libdm-bht: phony ./lib/libdm-bht.so
 build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
@@ -32,6 +33,7 @@ build verity$:all: phony obj/verity/all.stamp
 build verity$:install_fls_header: phony obj/verity/install_fls_header.stamp
 build verity$:install_headers: phony obj/verity/install_headers.stamp
 build verity$:install_pkg_config: phony obj/verity/install_pkg_config.stamp
+build verity$:install_subtool: phony obj/verity/install_subtool.stamp
 build verity$:libdm-bht: phony ./lib/libdm-bht.so
 build verity$:verity: phony ./verity
 
@@ -43,6 +45,7 @@ build all: phony $
     obj/verity/install_fls_header.stamp $
     obj/verity/install_headers.stamp $
     obj/verity/install_pkg_config.stamp $
+    obj/verity/install_subtool.stamp $
     ./lib/libdm-bht.so $
     ./verity
 

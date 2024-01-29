@@ -859,6 +859,8 @@ bool TrustTokenQueryAnswerer_HasTrustTokens_ForwardToCallback::Accept(
           internal::TrustTokenQueryAnswerer_HasTrustTokens_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustTokenQueryAnswerer.0
   bool success = true;
   HasTrustTokensResultPtr p_result{};
   TrustTokenQueryAnswerer_HasTrustTokens_ResponseParamsDataView input_data_view(params, message);
@@ -988,6 +990,8 @@ bool TrustTokenQueryAnswerer_HasRedemptionRecord_ForwardToCallback::Accept(
           internal::TrustTokenQueryAnswerer_HasRedemptionRecord_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustTokenQueryAnswerer.1
   bool success = true;
   HasRedemptionRecordResultPtr p_result{};
   TrustTokenQueryAnswerer_HasRedemptionRecord_ResponseParamsDataView input_data_view(params, message);
@@ -1091,6 +1095,8 @@ bool TrustTokenQueryAnswererStubDispatch::AcceptWithResponder(
               internal::TrustTokenQueryAnswerer_HasTrustTokens_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustTokenQueryAnswerer.0
       bool success = true;
       ::url::Origin p_issuer{};
       TrustTokenQueryAnswerer_HasTrustTokens_ParamsDataView input_data_view(params, message);
@@ -1109,8 +1115,8 @@ bool TrustTokenQueryAnswererStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasTrustTokens(
-std::move(p_issuer), std::move(callback));
+      impl->HasTrustTokens(        
+        std::move(p_issuer), std::move(callback));
       return true;
     }
     case internal::kTrustTokenQueryAnswerer_HasRedemptionRecord_Name: {
@@ -1120,6 +1126,8 @@ std::move(p_issuer), std::move(callback));
               internal::TrustTokenQueryAnswerer_HasRedemptionRecord_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustTokenQueryAnswerer.1
       bool success = true;
       ::url::Origin p_issuer{};
       TrustTokenQueryAnswerer_HasRedemptionRecord_ParamsDataView input_data_view(params, message);
@@ -1138,8 +1146,8 @@ std::move(p_issuer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasRedemptionRecord(
-std::move(p_issuer), std::move(callback));
+      impl->HasRedemptionRecord(        
+        std::move(p_issuer), std::move(callback));
       return true;
     }
   }

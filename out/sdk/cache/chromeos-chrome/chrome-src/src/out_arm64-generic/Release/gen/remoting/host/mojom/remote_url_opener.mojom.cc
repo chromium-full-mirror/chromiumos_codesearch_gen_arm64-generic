@@ -228,6 +228,8 @@ bool RemoteUrlOpener_OpenUrl_ForwardToCallback::Accept(
           internal::RemoteUrlOpener_OpenUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteUrlOpener.0
   bool success = true;
   OpenUrlResult p_result{};
   RemoteUrlOpener_OpenUrl_ResponseParamsDataView input_data_view(params, message);
@@ -319,6 +321,8 @@ bool RemoteUrlOpenerStubDispatch::AcceptWithResponder(
               internal::RemoteUrlOpener_OpenUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteUrlOpener.0
       bool success = true;
       ::GURL p_url{};
       RemoteUrlOpener_OpenUrl_ParamsDataView input_data_view(params, message);
@@ -337,8 +341,8 @@ bool RemoteUrlOpenerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrl(
-std::move(p_url), std::move(callback));
+      impl->OpenUrl(        
+        std::move(p_url), std::move(callback));
       return true;
     }
   }

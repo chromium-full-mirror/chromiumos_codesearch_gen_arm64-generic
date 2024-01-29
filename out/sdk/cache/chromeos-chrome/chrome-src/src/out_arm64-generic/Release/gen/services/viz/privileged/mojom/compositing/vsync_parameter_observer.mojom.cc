@@ -180,6 +180,8 @@ bool VSyncParameterObserverStubDispatch::Accept(
           reinterpret_cast<internal::VSyncParameterObserver_OnUpdateVSyncParameters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VSyncParameterObserver.0
       bool success = true;
       ::base::TimeTicks p_timebase{};
       ::base::TimeDelta p_interval{};
@@ -198,9 +200,9 @@ bool VSyncParameterObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUpdateVSyncParameters(
-std::move(p_timebase), 
-std::move(p_interval));
+      impl->OnUpdateVSyncParameters(        
+        std::move(p_timebase), 
+        std::move(p_interval));
       return true;
     }
   }

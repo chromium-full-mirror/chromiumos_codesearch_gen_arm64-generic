@@ -127,10 +127,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_num_bytes = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -147,9 +145,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->discardData(arg1_num_bytes, arg2_options);
-if (!ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -164,10 +160,8 @@ BLINK_BINDINGS_TRACE_EVENT("MojoHandle.duplicateBufferHandle");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
@@ -185,9 +179,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->duplicateBufferHandle(arg1_options);
-if (!ToV8Traits<MojoCreateSharedBufferResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoCreateSharedBufferResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -211,10 +203,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offset = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -226,9 +216,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = blink_receiver->mapBuffer(arg1_offset, arg2_num_bytes);
-if (!ToV8Traits<MojoMapBufferResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoMapBufferResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -243,17 +231,13 @@ BLINK_BINDINGS_TRACE_EVENT("MojoHandle.queryData");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->queryData();
-if (!ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -277,10 +261,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferOrArrayBufferView>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -297,9 +279,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->readData(arg1_buffer, arg2_options);
-if (!ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -314,10 +294,8 @@ BLINK_BINDINGS_TRACE_EVENT("MojoHandle.readMessage");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
@@ -335,9 +313,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->readMessage(arg1_flags);
-if (!ToV8Traits<MojoReadMessageResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoReadMessageResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -363,8 +339,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_signals = NativeValueTraits<MojoHandleSignals>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -398,10 +373,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferOrArrayBufferView>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -418,9 +391,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->writeData(arg1_buffer, arg2_options);
-if (!ToV8Traits<MojoWriteDataResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoWriteDataResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

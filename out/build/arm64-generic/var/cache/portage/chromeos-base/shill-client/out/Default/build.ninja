@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/shill-client-0.0.1-r4243/work/shill-client-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/shill-client-0.0.1-r4295/work/shill-client-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -18,15 +18,27 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _libshill-client-test_pc-install_config: phony obj/shill/client/_libshill-client-test_pc-install_config.stamp
+build _libshill-client_pc-install_config: phony obj/shill/client/_libshill-client_pc-install_config.stamp
 build libshill-client-headers: phony obj/shill/client/libshill-client-headers.stamp
+build libshill-client-test_pc: phony obj/shill/client/libshill-client-test_pc.stamp
+build libshill-client_pc: phony obj/shill/client/libshill-client_pc.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build shill/client$:_libshill-client-test_pc-install_config: phony obj/shill/client/_libshill-client-test_pc-install_config.stamp
+build shill/client$:_libshill-client_pc-install_config: phony obj/shill/client/_libshill-client_pc-install_config.stamp
 build shill/client$:all: phony obj/shill/client/all.stamp
 build shill/client$:libshill-client-headers: phony obj/shill/client/libshill-client-headers.stamp
+build shill/client$:libshill-client-test_pc: phony obj/shill/client/libshill-client-test_pc.stamp
+build shill/client$:libshill-client_pc: phony obj/shill/client/libshill-client_pc.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
+    obj/shill/client/_libshill-client-test_pc-install_config.stamp $
+    obj/shill/client/_libshill-client_pc-install_config.stamp $
     obj/shill/client/all.stamp $
-    obj/shill/client/libshill-client-headers.stamp
+    obj/shill/client/libshill-client-headers.stamp $
+    obj/shill/client/libshill-client-test_pc.stamp $
+    obj/shill/client/libshill-client_pc.stamp
 
 default all

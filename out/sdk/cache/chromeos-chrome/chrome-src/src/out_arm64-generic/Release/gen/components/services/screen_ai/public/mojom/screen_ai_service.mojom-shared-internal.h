@@ -11,8 +11,10 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "skia/public/mojom/bitmap.mojom-shared-internal.h"
+#include "ui/accessibility/ax_features.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-shared-internal.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -30,6 +32,32 @@ namespace internal {
 class VisualAnnotation_Data;
 class LineBox_Data;
 class WordBox_Data;
+
+struct Direction_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
 class  VisualAnnotation_Data {
@@ -91,6 +119,10 @@ class  LineBox_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> language;
   int32_t block_id;
   int32_t order_within_block;
+  mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> bounding_box;
+  float bounding_box_angle;
+  float baseline_box_angle;
+  mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> baseline_box;
 
  private:
   friend class mojo::internal::MessageFragment<LineBox_Data>;
@@ -98,7 +130,7 @@ class  LineBox_Data {
   LineBox_Data();
   ~LineBox_Data() = delete;
 };
-static_assert(sizeof(LineBox_Data) == 40,
+static_assert(sizeof(LineBox_Data) == 64,
               "Bad sizeof(LineBox_Data)");
 // Used by LineBox::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -141,8 +173,12 @@ class  WordBox_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> word;
   uint8_t dictionary_word : 1;
   uint8_t has_space_after : 1;
-  uint8_t pad2_[7];
+  uint8_t pad2_[3];
+  float bounding_box_angle;
   mojo::internal::Pointer<mojo::internal::String_Data> language;
+  mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> bounding_box;
+  int32_t direction;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<WordBox_Data>;
@@ -150,7 +186,7 @@ class  WordBox_Data {
   WordBox_Data();
   ~WordBox_Data() = delete;
 };
-static_assert(sizeof(WordBox_Data) == 32,
+static_assert(sizeof(WordBox_Data) == 48,
               "Bad sizeof(WordBox_Data)");
 // Used by WordBox::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

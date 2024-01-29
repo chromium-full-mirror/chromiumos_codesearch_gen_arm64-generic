@@ -1261,6 +1261,8 @@ bool FastPairDataParser_GetHexModelIdFromServiceData_ForwardToCallback::Accept(
           internal::FastPairDataParser_GetHexModelIdFromServiceData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FastPairDataParser.0
   bool success = true;
   std::optional<std::string> p_model_id{};
   FastPairDataParser_GetHexModelIdFromServiceData_ResponseParamsDataView input_data_view(params, message);
@@ -1386,6 +1388,8 @@ bool FastPairDataParser_ParseDecryptedResponse_ForwardToCallback::Accept(
           internal::FastPairDataParser_ParseDecryptedResponse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FastPairDataParser.1
   bool success = true;
   std::optional<::ash::quick_pair::DecryptedResponse> p_response{};
   FastPairDataParser_ParseDecryptedResponse_ResponseParamsDataView input_data_view(params, message);
@@ -1511,6 +1515,8 @@ bool FastPairDataParser_ParseDecryptedPasskey_ForwardToCallback::Accept(
           internal::FastPairDataParser_ParseDecryptedPasskey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FastPairDataParser.2
   bool success = true;
   std::optional<::ash::quick_pair::DecryptedPasskey> p_passkey{};
   FastPairDataParser_ParseDecryptedPasskey_ResponseParamsDataView input_data_view(params, message);
@@ -1636,6 +1642,8 @@ bool FastPairDataParser_ParseNotDiscoverableAdvertisement_ForwardToCallback::Acc
           internal::FastPairDataParser_ParseNotDiscoverableAdvertisement_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FastPairDataParser.3
   bool success = true;
   std::optional<::ash::quick_pair::NotDiscoverableAdvertisement> p_advertisement{};
   FastPairDataParser_ParseNotDiscoverableAdvertisement_ResponseParamsDataView input_data_view(params, message);
@@ -1761,6 +1769,8 @@ bool FastPairDataParser_ParseMessageStreamMessages_ForwardToCallback::Accept(
           internal::FastPairDataParser_ParseMessageStreamMessages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FastPairDataParser.4
   bool success = true;
   std::vector<MessageStreamMessagePtr> p_messages{};
   FastPairDataParser_ParseMessageStreamMessages_ResponseParamsDataView input_data_view(params, message);
@@ -1875,6 +1885,8 @@ bool FastPairDataParserStubDispatch::AcceptWithResponder(
               internal::FastPairDataParser_GetHexModelIdFromServiceData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FastPairDataParser.0
       bool success = true;
       std::vector<uint8_t> p_service_data{};
       FastPairDataParser_GetHexModelIdFromServiceData_ParamsDataView input_data_view(params, message);
@@ -1893,8 +1905,8 @@ bool FastPairDataParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHexModelIdFromServiceData(
-std::move(p_service_data), std::move(callback));
+      impl->GetHexModelIdFromServiceData(        
+        std::move(p_service_data), std::move(callback));
       return true;
     }
     case internal::kFastPairDataParser_ParseDecryptedResponse_Name: {
@@ -1904,6 +1916,8 @@ std::move(p_service_data), std::move(callback));
               internal::FastPairDataParser_ParseDecryptedResponse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FastPairDataParser.1
       bool success = true;
       std::vector<uint8_t> p_aes_key{};
       std::vector<uint8_t> p_encrypted_response_bytes{};
@@ -1925,9 +1939,9 @@ std::move(p_service_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseDecryptedResponse(
-std::move(p_aes_key), 
-std::move(p_encrypted_response_bytes), std::move(callback));
+      impl->ParseDecryptedResponse(        
+        std::move(p_aes_key), 
+        std::move(p_encrypted_response_bytes), std::move(callback));
       return true;
     }
     case internal::kFastPairDataParser_ParseDecryptedPasskey_Name: {
@@ -1937,6 +1951,8 @@ std::move(p_encrypted_response_bytes), std::move(callback));
               internal::FastPairDataParser_ParseDecryptedPasskey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FastPairDataParser.2
       bool success = true;
       std::vector<uint8_t> p_aes_key{};
       std::vector<uint8_t> p_encrypted_passkey_bytes{};
@@ -1958,9 +1974,9 @@ std::move(p_encrypted_response_bytes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseDecryptedPasskey(
-std::move(p_aes_key), 
-std::move(p_encrypted_passkey_bytes), std::move(callback));
+      impl->ParseDecryptedPasskey(        
+        std::move(p_aes_key), 
+        std::move(p_encrypted_passkey_bytes), std::move(callback));
       return true;
     }
     case internal::kFastPairDataParser_ParseNotDiscoverableAdvertisement_Name: {
@@ -1970,6 +1986,8 @@ std::move(p_encrypted_passkey_bytes), std::move(callback));
               internal::FastPairDataParser_ParseNotDiscoverableAdvertisement_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FastPairDataParser.3
       bool success = true;
       std::vector<uint8_t> p_service_data{};
       std::string p_address{};
@@ -1991,9 +2009,9 @@ std::move(p_encrypted_passkey_bytes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseNotDiscoverableAdvertisement(
-std::move(p_service_data), 
-std::move(p_address), std::move(callback));
+      impl->ParseNotDiscoverableAdvertisement(        
+        std::move(p_service_data), 
+        std::move(p_address), std::move(callback));
       return true;
     }
     case internal::kFastPairDataParser_ParseMessageStreamMessages_Name: {
@@ -2003,6 +2021,8 @@ std::move(p_address), std::move(callback));
               internal::FastPairDataParser_ParseMessageStreamMessages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FastPairDataParser.4
       bool success = true;
       std::vector<uint8_t> p_message_bytes{};
       FastPairDataParser_ParseMessageStreamMessages_ParamsDataView input_data_view(params, message);
@@ -2021,8 +2041,8 @@ std::move(p_address), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseMessageStreamMessages(
-std::move(p_message_bytes), std::move(callback));
+      impl->ParseMessageStreamMessages(        
+        std::move(p_message_bytes), std::move(callback));
       return true;
     }
   }

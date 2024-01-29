@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/shared_image_format.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/shared_image_format.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/shared_image_format.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/shared_image_format.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/shared_image_format.mojom.h

@@ -123,6 +123,9 @@ class PERFETTO_EXPORT_COMPONENT TracingServiceState_TracingSession : public ::pr
     kDurationMsFieldNumber = 6,
     kNumDataSourcesFieldNumber = 7,
     kStartRealtimeNsFieldNumber = 8,
+    kBugreportScoreFieldNumber = 9,
+    kBugreportFilenameFieldNumber = 10,
+    kIsStartedFieldNumber = 11,
   };
 
   TracingServiceState_TracingSession();
@@ -174,6 +177,18 @@ class PERFETTO_EXPORT_COMPONENT TracingServiceState_TracingSession : public ::pr
   int64_t start_realtime_ns() const { return start_realtime_ns_; }
   void set_start_realtime_ns(int64_t value) { start_realtime_ns_ = value; _has_field_.set(8); }
 
+  bool has_bugreport_score() const { return _has_field_[9]; }
+  int32_t bugreport_score() const { return bugreport_score_; }
+  void set_bugreport_score(int32_t value) { bugreport_score_ = value; _has_field_.set(9); }
+
+  bool has_bugreport_filename() const { return _has_field_[10]; }
+  const std::string& bugreport_filename() const { return bugreport_filename_; }
+  void set_bugreport_filename(const std::string& value) { bugreport_filename_ = value; _has_field_.set(10); }
+
+  bool has_is_started() const { return _has_field_[11]; }
+  bool is_started() const { return is_started_; }
+  void set_is_started(bool value) { is_started_ = value; _has_field_.set(11); }
+
  private:
   uint64_t id_{};
   int32_t consumer_uid_{};
@@ -183,12 +198,15 @@ class PERFETTO_EXPORT_COMPONENT TracingServiceState_TracingSession : public ::pr
   uint32_t duration_ms_{};
   uint32_t num_data_sources_{};
   int64_t start_realtime_ns_{};
+  int32_t bugreport_score_{};
+  std::string bugreport_filename_{};
+  bool is_started_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<9> _has_field_{};
+  std::bitset<12> _has_field_{};
 };
 
 

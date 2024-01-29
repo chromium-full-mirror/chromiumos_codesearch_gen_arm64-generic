@@ -1,7 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { AcceleratorAction, CustomizableButton, CustomizationRestriction, ExtendedFkeysModifier, MetaKey, ModifierKey, SimulateRightClickModifier, SixPackShortcutModifier, StaticShortcutAction, TopRowActionKey, Vkey } from './input_device_settings_types.js';
+import { AcceleratorAction, CustomizableButton, CustomizationRestriction, ExtendedFkeysModifier, MetaKey, ModifierKey, MouseButtonConfig, SimulateRightClickModifier, SixPackShortcutModifier, StaticShortcutAction, TopRowActionKey, Vkey } from './input_device_settings_types.js';
 const defaultSixPackKeyRemappings = {
     pageDown: SixPackShortcutModifier.kSearch,
     pageUp: SixPackShortcutModifier.kSearch,
@@ -302,6 +302,7 @@ export const fakeMice = [
         name: 'Razer Basilisk V3',
         isExternal: true,
         customizationRestriction: CustomizationRestriction.kAllowCustomizations,
+        mouseButtonConfig: MouseButtonConfig.kNoConfig,
         settings: {
             swapRight: true,
             sensitivity: 5,
@@ -367,6 +368,7 @@ export const fakeMice = [
         name: 'MX Anywhere 2S',
         isExternal: false,
         customizationRestriction: CustomizationRestriction.kDisableKeyEventRewrites,
+        mouseButtonConfig: MouseButtonConfig.kNoConfig,
         settings: {
             swapRight: false,
             sensitivity: 1,
@@ -410,6 +412,7 @@ export const fakeMice2 = [
         name: 'Fake Razer Basilisk V3',
         isExternal: true,
         customizationRestriction: CustomizationRestriction.kDisallowCustomizations,
+        mouseButtonConfig: MouseButtonConfig.kNoConfig,
         settings: {
             swapRight: true,
             sensitivity: 5,

@@ -1,4 +1,4 @@
-import { html, Polymer, dom, mixinBehaviors, PolymerElement, Base, dedupingMixin, useShadow, Debouncer, timeOut, templatize, gestures, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, enqueueDebouncer, matches as matches$1, translate, calculateSplices, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, dom, dedupingMixin, PolymerElement, Base, useShadow, Debouncer, timeOut, templatize, gestures, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, enqueueDebouncer, matches as matches$1, translate, calculateSplices, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -1326,126 +1326,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
@@ -1477,7 +1477,7 @@ function getTemplate$G() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -1643,7 +1643,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -1710,7 +1710,7 @@ function getTemplate$F() {
  *  --cr-checkbox-size
  *  --cr-checkbox-unchecked-box-color
  */
-const CrCheckboxElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrCheckboxElementBase = PaperRippleMixin(PolymerElement);
 class CrCheckboxElement extends CrCheckboxElementBase {
     static get is() {
         return 'cr-checkbox';
@@ -1827,7 +1827,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         // :host shouldn't have a tabindex because it's set on #checkbox.
         this.removeAttribute('tabindex');
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.checkbox;
@@ -2293,7 +2293,7 @@ function getTemplate$E() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
@@ -3495,7 +3495,6 @@ function parseExtensionDestination(destinationInfo) {
 // 
 /**
  * Printer search statuses used by the destination store.
- * @enum {string}
  */
 var DestinationStorePrinterSearchStatus;
 (function (DestinationStorePrinterSearchStatus) {
@@ -6409,9 +6408,6 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 const DarkModeMixin = dedupingMixin((superClass) => {
     class DarkModeMixin extends superClass {
@@ -7526,9 +7522,6 @@ function updateHighlights(element, query, bubbles) {
     return highlights;
 }
 
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 const SettingsMixin = dedupingMixin((superClass) => {
     class SettingsMixin extends superClass {
         static get properties() {
@@ -9547,9 +9540,6 @@ function getTemplate$v() {
 <!--_html_template_end_-->`;
 }
 
-// Copyright 2018 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 const SelectMixin = dedupingMixin((superClass) => {
     class SelectMixin extends superClass {
         constructor() {
@@ -10968,6 +10958,9 @@ const template$2 = html `
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
       </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
+      </g>
       
         <g id="banner-warning">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
@@ -11258,7 +11251,8 @@ function getTemplate$k() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
+    </cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -11288,7 +11282,6 @@ class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -11310,13 +11303,12 @@ class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
-                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
-                observer: 'onIconChange_',
             },
+            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -11327,7 +11319,10 @@ class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
+        return [
+            'updateAriaExpanded_(disabled, expanded)',
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
     }
     ready() {
         super.ready();
@@ -11352,14 +11347,8 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
     updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this

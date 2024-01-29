@@ -33,7 +33,8 @@
     "preprocessed/browser_proxy.ts",
     "preprocessed/log_parser.ts",
     "preprocessed/app.html.ts",
-    "preprocessed/log_entry.html.ts"
+    "preprocessed/log_entry.html.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
   ],
   "references": [
     {

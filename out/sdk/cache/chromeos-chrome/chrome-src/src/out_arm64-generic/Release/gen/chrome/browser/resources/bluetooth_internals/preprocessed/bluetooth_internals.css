@@ -59,6 +59,12 @@ h1 {
   top: 0;
 }
 
+
+#restart-bluetooth-btn {
+  margin-inline-end: 6px;
+}
+
+
 /* Page header */
 .page-header {
   align-items: center;

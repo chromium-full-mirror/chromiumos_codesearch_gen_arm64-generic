@@ -1,8 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { AutomationUtil } from '../common/automation_util.js';
-import { ParagraphUtils } from '../common/paragraph_utils.js';
+import { AutomationUtil } from '/common/automation_util.js';
+import { ParagraphUtils } from '/common/paragraph_utils.js';
 const EventType = chrome.automation.EventType;
 const FocusRingStackingOrder = chrome.accessibilityPrivate.FocusRingStackingOrder;
 // This must match the name of view class that implements the SelectToSpeakTray:
@@ -212,7 +212,7 @@ export class UiManager {
      */
     updateHighlight_(node, 
     // TODO(b/314204374): Convert null to undefined.
-    currentWord) {
+    currentWord, paused) {
         if (!currentWord) {
             chrome.accessibilityPrivate.setHighlights([], this.prefsManager_.highlightColor());
             return;
@@ -225,6 +225,12 @@ export class UiManager {
         node.boundsForRange(currentWord.start - charIndexInParent, currentWord.end - charIndexInParent, bounds => {
             const highlights = bounds ? [bounds] : [];
             chrome.accessibilityPrivate.setHighlights(highlights, this.prefsManager_.highlightColor());
+            if (!paused) {
+                // If speech is ongoing, update the bounds. (If it was paused,
+                // reading focus hasn't actually changed, so there's no need for
+                // this notification).
+                chrome.accessibilityPrivate.setSelectToSpeakFocus(bounds ? bounds : node.location);
+            }
         });
     }
     /**
@@ -257,7 +263,7 @@ export class UiManager {
         else {
             focusRingRect = node.location;
         }
-        this.updateHighlight_(node, currentWord);
+        this.updateHighlight_(node, currentWord, paused);
         if (focusRingRect) {
             this.setFocusRings_([focusRingRect], true /* draw background */, showPanel);
             this.updatePanel_(showPanel, focusRingRect, paused, speechRateMultiplier);

@@ -517,6 +517,8 @@ bool AddSupervisionHandler_RequestClose_ForwardToCallback::Accept(
           internal::AddSupervisionHandler_RequestClose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AddSupervisionHandler.0
   bool success = true;
   bool p_closed{};
   AddSupervisionHandler_RequestClose_ResponseParamsDataView input_data_view(params, message);
@@ -636,6 +638,8 @@ bool AddSupervisionHandler_GetInstalledArcApps_ForwardToCallback::Accept(
           internal::AddSupervisionHandler_GetInstalledArcApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AddSupervisionHandler.1
   bool success = true;
   std::vector<std::string> p_package_names{};
   AddSupervisionHandler_GetInstalledArcApps_ResponseParamsDataView input_data_view(params, message);
@@ -767,6 +771,8 @@ bool AddSupervisionHandler_GetOAuthToken_ForwardToCallback::Accept(
           internal::AddSupervisionHandler_GetOAuthToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AddSupervisionHandler.2
   bool success = true;
   OAuthTokenFetchStatus p_status{};
   std::string p_oauth_token{};
@@ -869,6 +875,8 @@ bool AddSupervisionHandlerStubDispatch::Accept(
           reinterpret_cast<internal::AddSupervisionHandler_LogOut_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AddSupervisionHandler.3
       bool success = true;
       AddSupervisionHandler_LogOut_ParamsDataView input_data_view(params, message);
       
@@ -881,7 +889,7 @@ bool AddSupervisionHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogOut();
+      impl->LogOut(        );
       return true;
     }
     case internal::kAddSupervisionHandler_NotifySupervisionEnabled_Name: {
@@ -891,6 +899,8 @@ bool AddSupervisionHandlerStubDispatch::Accept(
           reinterpret_cast<internal::AddSupervisionHandler_NotifySupervisionEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AddSupervisionHandler.4
       bool success = true;
       AddSupervisionHandler_NotifySupervisionEnabled_ParamsDataView input_data_view(params, message);
       
@@ -903,7 +913,7 @@ bool AddSupervisionHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifySupervisionEnabled();
+      impl->NotifySupervisionEnabled(        );
       return true;
     }
     case internal::kAddSupervisionHandler_SetCloseOnEscape_Name: {
@@ -913,6 +923,8 @@ bool AddSupervisionHandlerStubDispatch::Accept(
           reinterpret_cast<internal::AddSupervisionHandler_SetCloseOnEscape_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AddSupervisionHandler.5
       bool success = true;
       bool p_enabled{};
       AddSupervisionHandler_SetCloseOnEscape_ParamsDataView input_data_view(params, message);
@@ -928,8 +940,8 @@ bool AddSupervisionHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCloseOnEscape(
-std::move(p_enabled));
+      impl->SetCloseOnEscape(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -952,6 +964,8 @@ bool AddSupervisionHandlerStubDispatch::AcceptWithResponder(
               internal::AddSupervisionHandler_RequestClose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AddSupervisionHandler.0
       bool success = true;
       AddSupervisionHandler_RequestClose_ParamsDataView input_data_view(params, message);
       
@@ -977,6 +991,8 @@ bool AddSupervisionHandlerStubDispatch::AcceptWithResponder(
               internal::AddSupervisionHandler_GetInstalledArcApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AddSupervisionHandler.1
       bool success = true;
       AddSupervisionHandler_GetInstalledArcApps_ParamsDataView input_data_view(params, message);
       
@@ -1002,6 +1018,8 @@ bool AddSupervisionHandlerStubDispatch::AcceptWithResponder(
               internal::AddSupervisionHandler_GetOAuthToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AddSupervisionHandler.2
       bool success = true;
       AddSupervisionHandler_GetOAuthToken_ParamsDataView input_data_view(params, message);
       

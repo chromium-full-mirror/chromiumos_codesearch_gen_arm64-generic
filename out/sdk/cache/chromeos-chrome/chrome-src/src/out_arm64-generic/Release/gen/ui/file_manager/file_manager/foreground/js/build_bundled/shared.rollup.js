@@ -1,6 +1,7 @@
 import { isServer, property, LitElement, css, customElement, state, query, html, classMap, svg, styleMap, queryAssignedElements, nothing } from 'chrome://resources/mwc/lit/index.js';
-import { html as html$1, Polymer, dom, mixinBehaviors, PolymerElement, Base, dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html as html$1, Polymer, dom, dedupingMixin, PolymerElement, Base } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
+import { sendWithPromise } from 'chrome://resources/js/cr.js';
 
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -303,8 +304,8 @@ function splitExtension(path) {
     if (dotPosition <= path.lastIndexOf('/')) {
         dotPosition = -1;
     }
-    const filename = dotPosition != -1 ? path.substr(0, dotPosition) : path;
-    const extension = dotPosition != -1 ? path.substr(dotPosition) : '';
+    const filename = dotPosition !== -1 ? path.substr(0, dotPosition) : path;
+    const extension = dotPosition !== -1 ? path.substr(dotPosition) : '';
     return [filename, extension];
 }
 /**
@@ -404,15 +405,6 @@ function canBulkPinningCloudPanelShow(stage, enabled) {
         return true;
     }
     return false;
-}
-/**
- * Check if the DEBUG_STORE is set or not. When it's set, action data will be
- * logged in the console for debugging purpose.
- *
- * Run `localStorage.setItem('DEBUG_STORE', '1')` in the console to enable it.
- */
-function isDebugStoreEnabled() {
-    return localStorage.getItem('DEBUG_STORE') === '1';
 }
 
 /******************************************************************************
@@ -1454,6 +1446,264 @@ function assertNotReached$1(message = 'Unreachable code hit') {
     assert$1(false, message);
 }
 
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'canPin',
+    'hosted',
+    'pinned',
+];
+/**
+ * These metadata is expected to be cached to accelerate computeAdditional.
+ * See: crbug.com/458915.
+ */
+const FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'availableOffline',
+    'contentMimeType',
+    'hosted',
+    'canPin',
+];
+/**
+ * Metadata property names used by FileTable and FileGrid.
+ * These metadata is expected to be cached.
+ * TODO(sashab): Store capabilities as a set of flags to save memory. See
+ * https://crbug.com/849997
+ *
+ */
+const LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'availableOffline',
+    'contentMimeType',
+    'customIconUrl',
+    'hosted',
+    'modificationTime',
+    'modificationByMeTime',
+    'pinned',
+    'shared',
+    'size',
+    'canCopy',
+    'canDelete',
+    'canRename',
+    'canAddChildren',
+    'canShare',
+    'canPin',
+    'isMachineRoot',
+    'isExternalMedia',
+    'isArbitrarySyncFolder',
+];
+/**
+ * Metadata properties used to inform the user about DLP (Data Leak Prevention)
+ * Files restrictions. These metadata is expected to be cached.
+ */
+const DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'isDlpRestricted',
+    'sourceUrl',
+    'isRestrictedForDestination',
+];
+/**
+ * Name of the default crostini VM: crostini::kCrostiniDefaultVmName
+ */
+const DEFAULT_CROSTINI_VM = 'termina';
+/**
+ * Name of the Plugin VM: plugin_vm::kPluginVmName.
+ */
+const PLUGIN_VM = 'PvmDefault';
+/**
+ * Name of the default bruschetta VM: bruschetta::kBruschettaVmName
+ */
+const DEFAULT_BRUSCHETTA_VM = 'bru';
+/**
+ * DOMError type for crostini connection failure.
+ */
+const CROSTINI_CONNECT_ERR = 'CrostiniConnectErr';
+/**
+ * ID of the fake fileSystemProvider custom action containing OneDrive document
+ * URLs.
+ */
+const FSP_ACTION_HIDDEN_ONEDRIVE_URL = 'HIDDEN_ONEDRIVE_URL';
+/**
+ * ID of the fake fileSystemProvider custom action containing OneDrive document
+ * User Emails.
+ */
+const FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL = 'HIDDEN_ONEDRIVE_USER_EMAIL';
+/**
+ * ID of the fake fileSystemProvider custom action containing OneDrive document
+ * Reauthentication Required state.
+ */
+const FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED = 'HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED';
+/**
+ * All icon types.
+ */
+const ICON_TYPES = {
+    ANDROID_FILES: 'android_files',
+    ARCHIVE: 'archive',
+    AUDIO: 'audio',
+    // Explicitly request the icon to be 0x0. Used to avoid the scenario where a
+    // `type` is not specifically supplied vs. actually wanting a blank icon.
+    BLANK: 'blank',
+    BRUSCHETTA: 'bruschetta',
+    BULK_PINNING_BATTERY_SAVER: 'bulk_pinning_battery_saver',
+    BULK_PINNING_DONE: 'bulk_pinning_done',
+    BULK_PINNING_OFFLINE: 'bulk_pinning_offline',
+    CAMERA_FOLDER: 'camera-folder',
+    CANT_PIN: 'cant-pin',
+    CHECK: 'check',
+    CLOUD_DONE: 'cloud_done',
+    CLOUD_ERROR: 'cloud_error',
+    CLOUD_OFFLINE: 'cloud_offline',
+    CLOUD_PAUSED: 'cloud_paused',
+    CLOUD_SYNC: 'cloud_sync',
+    CLOUD: 'cloud',
+    COMPUTER: 'computer',
+    COMPUTERS_GRAND_ROOT: 'computers_grand_root',
+    CROSTINI: 'crostini',
+    DOWNLOADS: 'downloads',
+    DRIVE_BULK_PINNING: 'drive_bulk_pinning',
+    DRIVE_LOGO: 'drive_logo',
+    DRIVE_OFFLINE: 'drive_offline',
+    DRIVE_RECENT: 'drive_recent',
+    DRIVE_SHARED_WITH_ME: 'drive_shared_with_me',
+    DRIVE: 'drive',
+    ERROR: 'error',
+    ERROR_BANNER: 'error_banner',
+    EXCEL: 'excel',
+    EXTERNAL_MEDIA: 'external_media',
+    FOLDER: 'folder',
+    GENERIC: 'generic',
+    GOOGLE_DOC: 'gdoc',
+    GOOGLE_DRAW: 'gdraw',
+    GOOGLE_FORM: 'gform',
+    GOOGLE_LINK: 'glink',
+    GOOGLE_MAP: 'gmap',
+    GOOGLE_SHEET: 'gsheet',
+    GOOGLE_SITE: 'gsite',
+    GOOGLE_SLIDES: 'gslides',
+    GOOGLE_TABLE: 'gtable',
+    IMAGE: 'image',
+    MTP: 'mtp',
+    MY_FILES: 'my_files',
+    OFFLINE: 'offline',
+    OPTICAL: 'optical',
+    PDF: 'pdf',
+    PLUGIN_VM: 'plugin_vm',
+    POWERPOINT: 'ppt',
+    RAW: 'raw',
+    RECENT: 'recent',
+    REMOVABLE: 'removable',
+    SCRIPT: 'script',
+    SD_CARD: 'sd',
+    SERVICE_DRIVE: 'service_drive',
+    SHARED_DRIVE: 'shared_drive',
+    SHARED_DRIVES_GRAND_ROOT: 'shared_drives_grand_root',
+    SHARED_FOLDER: 'shared_folder',
+    SHORTCUT: 'shortcut',
+    SITES: 'sites',
+    SMB: 'smb',
+    TEAM_DRIVE: 'team_drive',
+    THUMBNAIL_GENERIC: 'thumbnail_generic',
+    TINI: 'tini',
+    TRASH: 'trash',
+    UNKNOWN_REMOVABLE: 'unknown_removable',
+    USB: 'usb',
+    VIDEO: 'video',
+    WORD: 'word',
+};
+/**
+ * Extension ID for OneDrive FSP, also used as ProviderId.
+ */
+const ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function isFlagEnabled(flagName) {
+    return loadTimeData.isInitialized() && loadTimeData.valueExists(flagName) &&
+        loadTimeData.getBoolean(flagName);
+}
+/**
+ * Whether the Files app integration with DLP (Data Loss Prevention) is enabled.
+ */
+function isDlpEnabled() {
+    return isFlagEnabled('DLP_ENABLED');
+}
+/**
+ * Returns true if FuseBoxDebug flag is enabled.
+ */
+function isFuseBoxDebugEnabled() {
+    return isFlagEnabled('FUSEBOX_DEBUG');
+}
+/**
+ * Returns true if GuestOsFiles flag is enabled.
+ */
+function isGuestOsEnabled() {
+    return isFlagEnabled('GUEST_OS');
+}
+/**
+ * Returns true if the cros-components flag is enabled.
+ */
+function isCrosComponentsEnabled() {
+    return isFlagEnabled('CROS_COMPONENTS');
+}
+/**
+ * Returns true if DriveFsMirroring flag is enabled.
+ */
+function isMirrorSyncEnabled() {
+    return isFlagEnabled('DRIVEFS_MIRRORING');
+}
+function isGoogleOneOfferFilesBannerEligibleAndEnabled() {
+    return isFlagEnabled('ELIGIBLE_AND_ENABLED_GOOGLE_ONE_OFFER_FILES_BANNER');
+}
+/**
+ * Returns true if FilesSinglePartitionFormat flag is enabled.
+ */
+function isSinglePartitionFormatEnabled() {
+    return isFlagEnabled('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
+}
+/**
+ * Returns whether the DriveFsBulkPinning feature flag is enabled.
+ */
+function isDriveFsBulkPinningEnabled() {
+    return isFlagEnabled('DRIVE_FS_BULK_PINNING');
+}
+/**
+ * Whether the new directory tree flag is enabled.
+ */
+function isNewDirectoryTreeEnabled() {
+    return isFlagEnabled('NEW_DIRECTORY_TREE');
+}
+function isArcVmEnabled() {
+    return isFlagEnabled('ARC_VM_ENABLED');
+}
+function isPluginVmEnabled() {
+    return isFlagEnabled('PLUGIN_VM_ENABLED');
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A helper object used to get a pluralized string.
+ */
+// clang-format off
+class PluralStringProxyImpl {
+    getPluralString(messageName, itemCount) {
+        return sendWithPromise('getPluralString', messageName, itemCount);
+    }
+    getPluralStringTupleWithComma(messageName1, itemCount1, messageName2, itemCount2) {
+        return sendWithPromise('getPluralStringTupleWithComma', messageName1, itemCount1, messageName2, itemCount2);
+    }
+    getPluralStringTupleWithPeriods(messageName1, itemCount1, messageName2, itemCount2) {
+        return sendWithPromise('getPluralStringTupleWithPeriods', messageName1, itemCount1, messageName2, itemCount2);
+    }
+    static getInstance() {
+        return instance || (instance = new PluralStringProxyImpl());
+    }
+    static setInstance(obj) {
+        instance = obj;
+    }
+}
+let instance = null;
+
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -1778,1185 +2028,6 @@ function isRecentArcEntry(entry) {
         entry.filesystem.name.startsWith(MEDIA_DOCUMENTS_PROVIDER_ID);
 }
 
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Interfaces for the Files app Entry Types.
- */
-/**
- * FilesAppEntry represents a single Entry (file, folder or root) in the Files
- * app. Previously, we used the Entry type directly, but this limits the code to
- * only work with native Entry type which can't be instantiated in JS.
- * For now, Entry and FilesAppEntry should be used interchangeably.
- * See also FilesAppDirEntry for a folder-like interface.
- *
- * TODO(lucmult): Replace uses of Entry with FilesAppEntry implementations.
- */
-class FilesAppEntry {
-    constructor(rootType = null) {
-        this.rootType = rootType;
-    }
-    /**
-     * @returns the class name of this object. It's a workaround for the fact that
-     * an instance created in the foreground page and sent to the background page
-     * can't be checked with `instanceof`.
-     */
-    get typeName() {
-        return 'FilesAppEntry';
-    }
-    /**
-     * This attribute is defined on Entry.
-     * @return true if this entry represents a Directory-like entry, as
-     * in have sub-entries and implements {createReader} method.
-     */
-    get isDirectory() {
-        return false;
-    }
-    /**
-     * This attribute is defined on Entry.
-     * @return true if this entry represents a File-like entry.
-     * Implementations of FilesAppEntry are expected to have this as true.
-     * Whereas implementations of FilesAppDirEntry are expected to have this as
-     * false.
-     */
-    get isFile() {
-        return true;
-    }
-    get filesystem() {
-        return null;
-    }
-    /**
-     * This attribute is defined on Entry.
-     * @return absolute path from the file system's root to the entry. It can also
-     * be thought of as a path which is relative to the root directory, prepended
-     * with a "/" character.
-     */
-    get fullPath() {
-        return '';
-    }
-    /**
-     * This attribute is defined on Entry.
-     * @return the name of the entry (the final part of the path, after the last.
-     */
-    get name() {
-        return '';
-    }
-    /** This method is defined on Entry. */
-    getParent(_success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-    /** Gets metadata, such as "modificationTime" and "contentMimeType". */
-    getMetadata(_success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-    /**
-     * Returns true if this entry object has a native representation such as Entry
-     * or DirectoryEntry, this means it can interact with VolumeManager.
-     */
-    get isNativeType() {
-        return false;
-    }
-    /**
-     * Returns a FileSystemEntry if this instance has one, returns null if it
-     * doesn't have or the entry hasn't been resolved yet. It's used to unwrap a
-     * FilesAppEntry to be able to send to FileSystem API or fileManagerPrivate.
-     */
-    getNativeEntry() {
-        return null;
-    }
-    copyTo(_newParent, _newName, _success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-    moveTo(_newParent, _newName, _success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-    remove(_success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-}
-/**
- * Interface with minimal API shared among different types of FilesAppDirEntry
- * and native DirectoryEntry. UI components should be able to display any
- * implementation of FilesAppEntry.
- *
- * FilesAppDirEntry represents a DirectoryEntry-like (folder or root) in the
- * Files app. It's a specialization of FilesAppEntry extending the behavior for
- * folder, which is basically the method createReader.
- * As in FilesAppEntry, FilesAppDirEntry should be interchangeable with Entry
- * and DirectoryEntry.
- */
-class FilesAppDirEntry extends FilesAppEntry {
-    get typeName() {
-        return 'FilesAppDirEntry';
-    }
-    get isDirectory() {
-        return true;
-    }
-    get isFile() {
-        return false;
-    }
-    /**
-     * @return Returns a reader compatible with DirectoryEntry.createReader (from
-     * Web Standards) that reads the children of this instance.
-     *
-     * This method is defined on DirectoryEntry.
-     */
-    createReader() {
-        return {};
-    }
-    getFile(_path, _options, _success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-    getDirectory(_path, _options, _success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-    removeRecursively(_success, error) {
-        if (error) {
-            setTimeout(error, 0, new Error('Not implemented'));
-        }
-    }
-}
-/**
- * FakeEntry is used for entries that used only for UI, that weren't generated
- * by FileSystem API, like Drive, Downloads or Provided.
- */
-class FakeEntry extends FilesAppDirEntry {
-    /**
-     * @param label Translated text to be displayed to user.
-     * @param rootType Root type of this entry. Used on Recents to filter the
-     *    source of recent files/directories. Used on Recents to filter recent
-     *    files by their file types.
-     * @param sourceRestriction Used to communicate restrictions about sources to
-     *   chrome.fileManagerPrivate.getRecentFiles API.
-     * @param fileCategory Used to communicate category filter to
-     *   chrome.fileManagerPrivate.getRecentFiles API.
-     */
-    constructor(label, rootType, sourceRestriction, fileCategory) {
-        super(rootType);
-        this.label = label;
-        this.sourceRestriction = sourceRestriction;
-        this.fileCategory = fileCategory;
-        /**
-         * FakeEntry can be disabled if it represents the placeholder of the real
-         * volume.
-         */
-        this.disabled = false;
-    }
-    get typeName() {
-        return 'FakeEntry';
-    }
-    get isDirectory() {
-        return true;
-    }
-    get isFile() {
-        return false;
-    }
-    /** String used to determine the icon. */
-    get iconName() {
-        return '';
-    }
-    /**
-     * FakeEntry can be a placeholder for the real volume, if so
-     * this field will be the volume type of the volume it
-     * represents.
-     */
-    get volumeType() {
-        return null;
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- * @enum {string}
- */
-const DialogType = {
-    SELECT_FOLDER: 'folder',
-    SELECT_UPLOAD_FOLDER: 'upload-folder',
-    SELECT_SAVEAS_FILE: 'saveas-file',
-    SELECT_OPEN_FILE: 'open-file',
-    SELECT_OPEN_MULTI_FILE: 'open-multi-file',
-    FULL_PAGE: 'full-page',
-};
-/**
- * @enum {string}
- */
-const EntryType = {
-    // Entries from the FileSystem API.
-    FS_API: 'FS_API',
-    // The root of a volume is an Entry from the FileSystem API, but it aggregates
-    // more data from the volume.
-    VOLUME_ROOT: 'VOLUME_ROOT',
-    // A directory-like entry to aggregate other entries.
-    ENTRY_LIST: 'ENTRY_LIST',
-    // Placeholder that is replaced for another entry, for Crostini/GuestOS.
-    PLACEHOLDER: 'PLACEHOLDER',
-    // Root for the Trash.
-    TRASH: 'TRASH',
-    // Root for the Recent.
-    RECENT: 'RECENT',
-};
-/**
- * The status of a property, for properties that have their state updated via
- * asynchronous steps.
- * @enum {string}
- */
-const PropStatus = {
-    STARTED: 'STARTED',
-    // Finished:
-    SUCCESS: 'SUCCESS',
-    ERROR: 'ERROR',
-};
-/**
- * Enumeration of all supported search locations. If new location is added,
- * please update this enum.
- * @enum {string}
- */
-const SearchLocation = {
-    EVERYWHERE: 'everywhere',
-    ROOT_FOLDER: 'root_folder',
-    THIS_FOLDER: 'this_folder',
-};
-/**
- * Enumeration of all supported how-recent time spans.
- * @enum{string}
- */
-const SearchRecency = {
-    ANYTIME: 'anytime',
-    TODAY: 'today',
-    YESTERDAY: 'yesterday',
-    LAST_WEEK: 'last_week',
-    LAST_MONTH: 'last_month',
-    LAST_YEAR: 'last_year',
-};
-/**
- * Used to group volumes in the navigation tree.
- * Sections:
- *      - TOP: Recents, Shortcuts.
- *      - MY_FILES: My Files (which includes Downloads, Crostini and Arc++ as
- *                  its children).
- *      - TRASH: trash.
- *      - GOOGLE_DRIVE: Just Google Drive.
- *      - ODFS: Just ODFS.
- *      - CLOUD: All other cloud: SMBs, FSPs and Documents Providers.
- *      - ANDROID_APPS: ANDROID picker apps.
- *      - REMOVABLE: Archives, MTPs, Media Views and Removables.
- * @enum {string}
- */
-const NavigationSection = {
-    TOP: 'top',
-    MY_FILES: 'my_files',
-    GOOGLE_DRIVE: 'google_drive',
-    ODFS: 'odfs',
-    CLOUD: 'cloud',
-    TRASH: 'trash',
-    ANDROID_APPS: 'android_apps',
-    REMOVABLE: 'removable',
-};
-/**
- * @enum {string}
- */
-const NavigationType = {
-    SHORTCUT: 'shortcut',
-    VOLUME: 'volume',
-    RECENT: 'recent',
-    CROSTINI: 'crostini',
-    GUEST_OS: 'guest_os',
-    ENTRY_LIST: 'entry_list',
-    DRIVE: 'drive',
-    ANDROID_APPS: 'android_apps',
-    TRASH: 'trash',
-    // Materialized view is used for Recent and in the future for Search.
-    MATERIALIZED_VIEW: 'materialized_view',
-};
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'canPin',
-    'hosted',
-    'pinned',
-];
-/**
- * These metadata is expected to be cached to accelerate computeAdditional.
- * See: crbug.com/458915.
- */
-const FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'availableOffline',
-    'contentMimeType',
-    'hosted',
-    'canPin',
-];
-/**
- * Metadata property names used by FileTable and FileGrid.
- * These metadata is expected to be cached.
- * TODO(sashab): Store capabilities as a set of flags to save memory. See
- * https://crbug.com/849997
- *
- */
-const LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'availableOffline',
-    'contentMimeType',
-    'customIconUrl',
-    'hosted',
-    'modificationTime',
-    'modificationByMeTime',
-    'pinned',
-    'shared',
-    'size',
-    'canCopy',
-    'canDelete',
-    'canRename',
-    'canAddChildren',
-    'canShare',
-    'canPin',
-    'isMachineRoot',
-    'isExternalMedia',
-    'isArbitrarySyncFolder',
-];
-/**
- * Metadata properties used to inform the user about DLP (Data Leak Prevention)
- * Files restrictions. These metadata is expected to be cached.
- */
-const DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'isDlpRestricted',
-    'sourceUrl',
-    'isRestrictedForDestination',
-];
-/**
- * Name of the default crostini VM: crostini::kCrostiniDefaultVmName
- */
-const DEFAULT_CROSTINI_VM = 'termina';
-/**
- * Name of the Plugin VM: plugin_vm::kPluginVmName.
- */
-const PLUGIN_VM = 'PvmDefault';
-/**
- * Name of the default bruschetta VM: bruschetta::kBruschettaVmName
- */
-const DEFAULT_BRUSCHETTA_VM = 'bru';
-/**
- * DOMError type for crostini connection failure.
- */
-const CROSTINI_CONNECT_ERR = 'CrostiniConnectErr';
-/**
- * ID of the fake fileSystemProvider custom action containing OneDrive document
- * URLs.
- */
-const FSP_ACTION_HIDDEN_ONEDRIVE_URL = 'HIDDEN_ONEDRIVE_URL';
-/**
- * ID of the fake fileSystemProvider custom action containing OneDrive document
- * User Emails.
- */
-const FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL = 'HIDDEN_ONEDRIVE_USER_EMAIL';
-/**
- * ID of the fake fileSystemProvider custom action containing OneDrive document
- * Reauthentication Required state.
- */
-const FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED = 'HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED';
-/**
- * All icon types.
- */
-const ICON_TYPES = {
-    ANDROID_FILES: 'android_files',
-    ARCHIVE: 'archive',
-    AUDIO: 'audio',
-    // Explicitly request the icon to be 0x0. Used to avoid the scenario where a
-    // `type` is not specifically supplied vs. actually wanting a blank icon.
-    BLANK: 'blank',
-    BRUSCHETTA: 'bruschetta',
-    BULK_PINNING_BATTERY_SAVER: 'bulk_pinning_battery_saver',
-    BULK_PINNING_DONE: 'bulk_pinning_done',
-    BULK_PINNING_OFFLINE: 'bulk_pinning_offline',
-    CAMERA_FOLDER: 'camera-folder',
-    CANT_PIN: 'cant-pin',
-    CHECK: 'check',
-    CLOUD_DONE: 'cloud_done',
-    CLOUD_ERROR: 'cloud_error',
-    CLOUD_OFFLINE: 'cloud_offline',
-    CLOUD_PAUSED: 'cloud_paused',
-    CLOUD_SYNC: 'cloud_sync',
-    CLOUD: 'cloud',
-    COMPUTER: 'computer',
-    COMPUTERS_GRAND_ROOT: 'computers_grand_root',
-    CROSTINI: 'crostini',
-    DOWNLOADS: 'downloads',
-    DRIVE_BULK_PINNING: 'drive_bulk_pinning',
-    DRIVE_LOGO: 'drive_logo',
-    DRIVE_OFFLINE: 'drive_offline',
-    DRIVE_RECENT: 'drive_recent',
-    DRIVE_SHARED_WITH_ME: 'drive_shared_with_me',
-    DRIVE: 'drive',
-    ERROR: 'error',
-    ERROR_BANNER: 'error_banner',
-    EXCEL: 'excel',
-    EXTERNAL_MEDIA: 'external_media',
-    FOLDER: 'folder',
-    GENERIC: 'generic',
-    GOOGLE_DOC: 'gdoc',
-    GOOGLE_DRAW: 'gdraw',
-    GOOGLE_FORM: 'gform',
-    GOOGLE_LINK: 'glink',
-    GOOGLE_MAP: 'gmap',
-    GOOGLE_SHEET: 'gsheet',
-    GOOGLE_SITE: 'gsite',
-    GOOGLE_SLIDES: 'gslides',
-    GOOGLE_TABLE: 'gtable',
-    IMAGE: 'image',
-    MTP: 'mtp',
-    MY_FILES: 'my_files',
-    OFFLINE: 'offline',
-    OPTICAL: 'optical',
-    PDF: 'pdf',
-    PLUGIN_VM: 'plugin_vm',
-    POWERPOINT: 'ppt',
-    RAW: 'raw',
-    RECENT: 'recent',
-    REMOVABLE: 'removable',
-    SCRIPT: 'script',
-    SD_CARD: 'sd',
-    SERVICE_DRIVE: 'service_drive',
-    SHARED_DRIVE: 'shared_drive',
-    SHARED_DRIVES_GRAND_ROOT: 'shared_drives_grand_root',
-    SHARED_FOLDER: 'shared_folder',
-    SHORTCUT: 'shortcut',
-    SITES: 'sites',
-    SMB: 'smb',
-    TEAM_DRIVE: 'team_drive',
-    THUMBNAIL_GENERIC: 'thumbnail_generic',
-    TINI: 'tini',
-    TRASH: 'trash',
-    UNKNOWN_REMOVABLE: 'unknown_removable',
-    USB: 'usb',
-    VIDEO: 'video',
-    WORD: 'word',
-};
-/**
- * Extension ID for OneDrive FSP, also used as ProviderId.
- */
-const ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file contains utils for working with icons.
- */
-/** Return icon name for the VM type. */
-function vmTypeToIconName(vmType) {
-    if (vmType === undefined) {
-        console.error('vmType: is undefined');
-        return '';
-    }
-    switch (vmType) {
-        case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
-            return ICON_TYPES.BRUSCHETTA;
-        case chrome.fileManagerPrivate.VmType.ARCVM:
-            return ICON_TYPES.ANDROID_FILES;
-        case chrome.fileManagerPrivate.VmType.TERMINA:
-            return ICON_TYPES.CROSTINI;
-        default:
-            console.error('Unable to determine icon for vmType: ' + vmType);
-            return '';
-    }
-}
-
-// Copyright 2018 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Entry-like types for Files app UI.
- * This file defines the interface |FilesAppEntry| and some specialized
- * implementations of it.
- *
- * These entries are intended to behave like the browser native FileSystemEntry
- * (aka Entry) and FileSystemDirectoryEntry (aka DirectoryEntry), providing an
- * unified API for Files app UI components. UI components should be able to
- * display any implementation of FilesAppEntry.
- *
- * The main intention of those types is to be able to provide alternative
- * implementations and from other sources for "entries", as well as be able to
- * extend the native "entry" types.
- *
- * Native Entry:
- * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemEntry
- * Native DirectoryEntry:
- * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
- */
-/**
- * A reader compatible with DirectoryEntry.createReader (from Web Standards)
- * that reads a static list of entries, provided at construction time.
- * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
- * It can be used by DirectoryEntry-like such as EntryList to return its
- * entries.
- */
-class StaticReader {
-    /**
-     * @param entries_ Array of Entry-like instances that will be returned/read by
-     * this reader.
-     */
-    constructor(entries_) {
-        this.entries_ = entries_;
-    }
-    /**
-     * Reads array of entries via |success| callback.
-     *
-     * @param success A callback that will be called multiple times with the
-     * entries, last call will be called with an empty array indicating that no
-     * more entries available.
-     * @param _error A callback that's never called, it's here to match the
-     * signature from the Web Standards.
-     */
-    readEntries(success, _error) {
-        const entries = this.entries_;
-        // readEntries is suppose to return empty result when there are no more
-        // files to return, so we clear the entries_ attribute for next call.
-        this.entries_ = [];
-        // Triggers callback asynchronously.
-        setTimeout(() => success(entries), 0);
-    }
-}
-/**
- * A reader compatible with DirectoryEntry.createReader (from Web Standards),
- * It chains entries from one reader to another, creating a combined set of
- * entries from all readers.
- */
-class CombinedReaders {
-    /**
-     * @param readers_ Array of all readers that will have their entries combined.
-     */
-    constructor(readers_) {
-        this.readers_ = readers_;
-        // Reverse readers_ so the readEntries can just use pop() to get the next.
-        this.readers_.reverse();
-        this.currentReader_ = this.readers_.pop();
-    }
-    /**
-     * @param success returning entries of all readers, it's called with empty
-     * Array when there is no more entries to return.
-     * @param error called when error happens when reading from readers for this
-     * implementation.
-     */
-    readEntries(success, error) {
-        if (!this.currentReader_) {
-            // If there is no more reader to consume, just return an empty result
-            // which indicates that read has finished.
-            success([]);
-            return;
-        }
-        this.currentReader_.readEntries((results) => {
-            if (results.length) {
-                success(results);
-            }
-            else {
-                // If there isn't no more readers, finish by calling success with no
-                // results.
-                if (!this.readers_.length) {
-                    success([]);
-                    return;
-                }
-                // Move to next reader and start consuming it.
-                this.currentReader_ = this.readers_.pop();
-                this.readEntries(success, error);
-            }
-        }, error);
-    }
-}
-/**
- * EntryList, a DirectoryEntry-like object that contains entries. Initially used
- * to implement "My Files" containing VolumeEntry for "Downloads", "Linux
- * Files" and "Play Files".
- */
-class EntryList extends FilesAppDirEntry {
-    /**
-     * @param label: Label to be used when displaying to user, it should
-     *    already translated.
-     * @param rootType root type.
-     * @param devicePath Path belonging to the external media device. Partitions
-     * on the same external drive have the same device path.
-     */
-    constructor(label, rootType, devicePath = '') {
-        super(rootType);
-        this.label = label;
-        this.devicePath = devicePath;
-        /** Children entries of this EntryList instance. */
-        this.children_ = [];
-        /**
-         * EntryList can be a placeholder of a real volume (e.g. MyFiles or
-         * DriveFakeRootEntryList). It can be disabled if the corresponding volume
-         * type is disabled.
-         */
-        this.disabled = false;
-    }
-    get typeName() {
-        return 'EntryList';
-    }
-    get isDirectory() {
-        return true;
-    }
-    get isFile() {
-        return false;
-    }
-    get fullPath() {
-        return '/';
-    }
-    /**
-     * @return List of entries that are shown as
-     *     children of this Volume in the UI, but are not actually entries of the
-     *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.
-     */
-    getUiChildren() {
-        return this.children_;
-    }
-    get name() {
-        return this.label;
-    }
-    get isNativeType() {
-        return false;
-    }
-    getMetadata(success, _error) {
-        // Defaults modificationTime to current time just to have a valid value.
-        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
-    }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    toURL() {
-        let url = `entry-list://${this.rootType}`;
-        if (this.devicePath) {
-            url += `/${this.devicePath}`;
-        }
-        return url;
-    }
-    getParent(success, _error) {
-        if (success) {
-            setTimeout(() => success(this), 0);
-        }
-    }
-    /**
-     * @param entry that should be added as
-     * child of this EntryList.
-     * This method is specific to EntryList instance.
-     */
-    addEntry(entry) {
-        this.children_.push(entry);
-        // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
-        // which is then used on LocationInfo/PathComponent.
-        const volumeEntry = entry;
-        if (volumeEntry.typeName == 'VolumeEntry') {
-            volumeEntry.setPrefix(this);
-        }
-    }
-    /**
-     * @return Returns a reader compatible with
-     * DirectoryEntry.createReader (from Web Standards) that reads the children of
-     * this EntryList instance.
-     * This method is defined on DirectoryEntry.
-     */
-    createReader() {
-        return new StaticReader(this.children_);
-    }
-    /**
-     * This method is specific to VolumeEntry/EntryList instance.
-     * Note: we compare the volumeId instead of the whole volumeInfo reference
-     * because the same volume could be mounted multiple times and every time a
-     * new volumeInfo is created.
-     * @return index of entry on this EntryList or -1 if not found.
-     */
-    findIndexByVolumeInfo(volumeInfo) {
-        return this.children_.findIndex(childEntry => childEntry.volumeInfo ?
-            childEntry.volumeInfo.volumeId ===
-                volumeInfo.volumeId :
-            false);
-    }
-    /**
-     * Removes the first volume with the given type.
-     * @param volumeType desired type.
-     * This method is specific to VolumeEntry/EntryList instance.
-     * @return if entry was removed.
-     */
-    removeByVolumeType(volumeType) {
-        const childIndex = this.children_.findIndex(childEntry => {
-            const volumeInfo = childEntry.volumeInfo;
-            return volumeInfo && volumeInfo.volumeType === volumeType;
-        });
-        if (childIndex !== -1) {
-            this.children_.splice(childIndex, 1);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * Removes all entries that match the rootType.
-     * @param rootType to be removed.
-     * This method is specific to VolumeEntry/EntryList instance.
-     */
-    removeAllByRootType(rootType) {
-        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
-    }
-    /**
-     * Removes all entries that match the volumeType.
-     * @param volumeType to be removed.
-     * This method is specific to VolumeEntry/EntryList instance.
-     */
-    removeAllByVolumeType(volumeType) {
-        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
-    }
-    /**
-     * Removes the entry.
-     * @param entry to be removed.
-     * This method is specific to EntryList and VolumeEntry instance.
-     * @return true if entry was removed.
-     */
-    removeChildEntry(entry) {
-        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
-        if (childIndex !== -1) {
-            this.children_.splice(childIndex, 1);
-            return true;
-        }
-        return false;
-    }
-    getNativeEntry() {
-        return null;
-    }
-    /**
-     * EntryList can be a placeholder for the real volume (e.g. MyFiles or
-     * DriveFakeRootEntryList), if so this field will be the volume type of the
-     * volume it represents.
-     */
-    get volumeType() {
-        switch (this.rootType) {
-            case RootType.MY_FILES:
-                return VolumeType.DOWNLOADS;
-            case RootType.DRIVE_FAKE_ROOT:
-                return VolumeType.DRIVE;
-            default:
-                return null;
-        }
-    }
-}
-/**
- * A DirectoryEntry-like which represents a Volume, based on VolumeInfo.
- *
- * It uses composition to behave like a DirectoryEntry and proxies some calls
- * to its VolumeInfo instance.
- *
- * It's used to be able to add a volume as child of |EntryList| and make volume
- * displayable on file list.
- */
-class VolumeEntry extends FilesAppDirEntry {
-    /** @param volumeInfo VolumeInfo for this entry. */
-    constructor(volumeInfo) {
-        super();
-        this.volumeInfo = volumeInfo;
-        /**
-         * Additional entries that will be displayed together with this Volume's
-         * entries.
-         */
-        this.children_ = [];
-        this.disabled = false;
-        this.rootEntry_ = this.volumeInfo.displayRoot;
-        if (!this.rootEntry_) {
-            this.volumeInfo.resolveDisplayRoot((displayRoot) => {
-                this.rootEntry_ = displayRoot;
-            });
-        }
-    }
-    get typeName() {
-        return 'VolumeEntry';
-    }
-    get volumeType() {
-        return this.volumeInfo.volumeType;
-    }
-    get filesystem() {
-        return this.rootEntry_ ? this.rootEntry_.filesystem : null;
-    }
-    /**
-     * @return List of entries that are shown as
-     *     children of this Volume in the UI, but are not
-     * actually entries of the Volume.  E.g. 'Play files' is
-     * shown as a child of 'My files'.  Use createReader to find
-     * real child entries of the Volume's filesystem.
-     */
-    getUiChildren() {
-        return this.children_;
-    }
-    get fullPath() {
-        return this.rootEntry_ ? this.rootEntry_.fullPath : '';
-    }
-    get isDirectory() {
-        return this.rootEntry_ ? this.rootEntry_.isDirectory : true;
-    }
-    get isFile() {
-        return this.rootEntry_ ? this.rootEntry_.isFile : false;
-    }
-    /**
-     * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
-     * @param path Entry fullPath.
-     */
-    getDirectory(path, options, success, error) {
-        if (!this.rootEntry_) {
-            if (error) {
-                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
-            }
-            return;
-        }
-        this.rootEntry_.getDirectory(path, options, success, error);
-    }
-    /**
-     * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
-     */
-    getFile(path, options, success, error) {
-        if (!this.rootEntry_) {
-            if (error) {
-                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
-            }
-            return;
-        }
-        this.rootEntry_.getFile(path, options, success, error);
-    }
-    get name() {
-        return this.volumeInfo.label;
-    }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    toURL() {
-        return this.rootEntry_?.toURL() ?? '';
-    }
-    /** String used to determine the icon. */
-    get iconName() {
-        if (this.volumeInfo.volumeType == VolumeType.GUEST_OS) {
-            return vmTypeToIconName(this.volumeInfo.vmType);
-        }
-        if (this.volumeInfo.volumeType == VolumeType.DOWNLOADS) {
-            return VolumeType.MY_FILES;
-        }
-        return this.volumeInfo.volumeType;
-    }
-    /**
-     * callback, it returns itself since EntryList is intended to be used as
-     * root node and the Web Standard says to do so.
-     * @param _error callback, not used for this implementation.
-     */
-    getParent(success, _error) {
-        if (success) {
-            setTimeout(() => success(this), 0);
-        }
-    }
-    getMetadata(success, error) {
-        this.rootEntry_.getMetadata(success, error);
-    }
-    get isNativeType() {
-        return true;
-    }
-    getNativeEntry() {
-        return this.rootEntry_;
-    }
-    /**
-     * @return Returns a reader from root entry, which is compatible with
-     * DirectoryEntry.createReader (from Web Standards). This method is defined on
-     * DirectoryEntry.
-     */
-    createReader() {
-        const readers = [];
-        if (this.rootEntry_) {
-            readers.push(this.rootEntry_.createReader());
-        }
-        if (this.children_.length) {
-            readers.push(new StaticReader(this.children_));
-        }
-        return new CombinedReaders(readers);
-    }
-    /**
-     * @param entry An entry to be used as prefix of this instance on breadcrumbs
-     *     path, e.g. "My Files > Downloads", "My Files" is a prefixEntry on
-     *     "Downloads" VolumeInfo.
-     */
-    setPrefix(entry) {
-        this.volumeInfo.prefixEntry = entry;
-    }
-    /**
-     * @param entry that should be added as child of this VolumeEntry. This method
-     * is specific to VolumeEntry instance.
-     */
-    addEntry(entry) {
-        this.children_.push(entry);
-        // Only VolumeEntry can have prefix set because it sets on
-        // VolumeInfo, which is then used on
-        // LocationInfo/PathComponent.
-        const volumeEntry = entry;
-        if (volumeEntry.typeName == 'VolumeEntry') {
-            volumeEntry.setPrefix(this);
-        }
-    }
-    /**
-     *     that's desired to be removed.
-     * This method is specific to VolumeEntry/EntryList instance.
-     * Note: we compare the volumeId instead of the whole volumeInfo reference
-     * because the same volume could be mounted multiple times and every time a
-     * new volumeInfo is created.
-     * @return index of entry within VolumeEntry or -1 if not found.
-     */
-    findIndexByVolumeInfo(volumeInfo) {
-        return this.children_.findIndex(childEntry => childEntry.volumeInfo?.volumeId ===
-            volumeInfo.volumeId);
-    }
-    /**
-     * Removes the first volume with the given type.
-     * @param volumeType desired type.
-     * This method is specific to VolumeEntry/EntryList instance.
-     * @return if entry was removed.
-     */
-    removeByVolumeType(volumeType) {
-        const childIndex = this.children_.findIndex(childEntry => {
-            return childEntry.volumeInfo?.volumeType ===
-                volumeType;
-        });
-        if (childIndex !== -1) {
-            this.children_.splice(childIndex, 1);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * Removes all entries that match the rootType.
-     * @param rootType to be removed.
-     * This method is specific to VolumeEntry/EntryList instance.
-     */
-    removeAllByRootType(rootType) {
-        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
-    }
-    /**
-     * Removes all entries that match the volumeType.
-     * @param volumeType to be removed.
-     * This method is specific to VolumeEntry/EntryList instance.
-     */
-    removeAllByVolumeType(volumeType) {
-        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
-    }
-    /**
-     * Removes the entry.
-     * @param entry to be removed.
-     * This method is specific to EntryList and VolumeEntry instance.
-     * @return if entry was removed.
-     */
-    removeChildEntry(entry) {
-        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
-        if (childIndex !== -1) {
-            this.children_.splice(childIndex, 1);
-            return true;
-        }
-        return false;
-    }
-}
-/**
- * FakeEntry is used for entries that used only for UI, that weren't generated
- * by FileSystem API, like Drive, Downloads or Provided.
- */
-class FakeEntryImpl extends FakeEntry {
-    /**
-     * @param label Translated text to be displayed to user.
-     * @param rootType Root type of this entry. used on Recents to filter the
-     *    source of recent files/directories. used on Recents to filter recent
-     *    files by their file types.
-     * @param sourceRestriction Used to communicate restrictions about sources to
-     * chrome.fileManagerPrivate.getRecentFiles API.
-     * @param fileCategory Used to communicate file-type filter to
-     * chrome.fileManagerPrivate.getRecentFiles API.
-     */
-    constructor(label, rootType, sourceRestriction, fileCategory) {
-        super(label, rootType, sourceRestriction, fileCategory);
-    }
-    get name() {
-        return this.label;
-    }
-    get fullPath() {
-        return '/';
-    }
-    /**
-     * FakeEntry is used as root, so doesn't have a parent and should return
-     * itself. callback, it returns itself since EntryList is intended to be used
-     * as root node and the Web Standard says to do so.
-     * @param _error callback, not used for this implementation.
-     */
-    getParent(success, _error) {
-        if (success) {
-            setTimeout(() => success(this), 0);
-        }
-    }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    toURL() {
-        let url = `fake-entry://${this.rootType}`;
-        if (this.fileCategory) {
-            url += `/${this.fileCategory}`;
-        }
-        return url;
-    }
-    /**
-     * @return List of entries that are shown as children of this Volume in the
-     *     UI, but are not actually entries of the Volume.  E.g. 'Play files' is
-     *     shown as a child of 'My files'.
-     */
-    getUiChildren() {
-        return [];
-    }
-    /** String used to determine the icon. */
-    get iconName() {
-        // When Drive volume isn't available yet, the
-        // FakeEntry should show the "drive" icon.
-        if (this.rootType === RootType.DRIVE_FAKE_ROOT) {
-            return RootType.DRIVE;
-        }
-        return this.rootType ?? '';
-    }
-    getMetadata(success, _error) {
-        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
-    }
-    get isNativeType() {
-        return false;
-    }
-    getNativeEntry() {
-        return null;
-    }
-    /**
-     * @return Returns a reader compatible with DirectoryEntry.createReader (from
-     * Web Standards) that reads 0 entries.
-     */
-    createReader() {
-        return new StaticReader([]);
-    }
-    /**
-     * FakeEntry can be a placeholder for the real volume, if so this field will
-     * be the volume type of the volume it represents.
-     */
-    get volumeType() {
-        // Recent rootType has no corresponding volume
-        // type, and it will throw error in the below
-        // getVolumeTypeFromRootType() call, we need to
-        // return null here.
-        if (this.rootType === RootType.RECENT) {
-            return null;
-        }
-        return getVolumeTypeFromRootType(this.rootType);
-    }
-}
-/**
- * GuestOsPlaceholder is used for placeholder entries in the UI, representing
- * Guest OSs (e.g. Crostini) that could be mounted but aren't yet.
- */
-class GuestOsPlaceholder extends FakeEntryImpl {
-    /**
-     * @param label Translated text to be displayed to user.
-     * @param guest_id Id of the guest
-     * @param vm_type Type of the underlying VM
-     */
-    constructor(label, guest_id, vm_type) {
-        super(label, RootType.GUEST_OS);
-        this.guest_id = guest_id;
-        this.vm_type = vm_type;
-    }
-    get typeName() {
-        return 'GuestOsPlaceholder';
-    }
-    /** String used to determine the icon. */
-    get iconName() {
-        return vmTypeToIconName(this.vm_type);
-    }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    toURL() {
-        return `fake-entry://guest-os/${this.guest_id}`;
-    }
-    get volumeType() {
-        if (this.vm_type === chrome.fileManagerPrivate.VmType.ARCVM) {
-            return VolumeType.ANDROID_FILES;
-        }
-        return VolumeType.GUEST_OS;
-    }
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-function isFlagEnabled(flagName) {
-    return loadTimeData.isInitialized() && loadTimeData.valueExists(flagName) &&
-        loadTimeData.getBoolean(flagName);
-}
-/**
- * Whether the Files app integration with DLP (Data Loss Prevention) is enabled.
- */
-function isDlpEnabled() {
-    return isFlagEnabled('DLP_ENABLED');
-}
-/**
- * Returns true if FuseBoxDebug flag is enabled.
- */
-function isFuseBoxDebugEnabled() {
-    return isFlagEnabled('FUSEBOX_DEBUG');
-}
-/**
- * Returns true if GuestOsFiles flag is enabled.
- */
-function isGuestOsEnabled() {
-    return isFlagEnabled('GUEST_OS');
-}
-/**
- * Returns true if the cros-components flag is enabled.
- */
-function isCrosComponentsEnabled() {
-    return isFlagEnabled('CROS_COMPONENTS');
-}
-/**
- * Returns true if DriveFsMirroring flag is enabled.
- */
-function isMirrorSyncEnabled() {
-    return isFlagEnabled('DRIVEFS_MIRRORING');
-}
-function isGoogleOneOfferFilesBannerEligibleAndEnabled() {
-    return isFlagEnabled('ELIGIBLE_AND_ENABLED_GOOGLE_ONE_OFFER_FILES_BANNER');
-}
-/**
- * Returns true if FilesSinglePartitionFormat flag is enabled.
- */
-function isSinglePartitionFormatEnabled() {
-    return isFlagEnabled('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
-}
-/**
- * Returns whether the DriveFsBulkPinning feature flag is enabled.
- */
-function isDriveFsBulkPinningEnabled() {
-    return isFlagEnabled('DRIVE_FS_BULK_PINNING');
-}
-/**
- * Whether the new directory tree flag is enabled.
- */
-function isNewDirectoryTreeEnabled() {
-    return isFlagEnabled('NEW_DIRECTORY_TREE');
-}
-function isArcVmEnabled() {
-    return isFlagEnabled('ARC_VM_ENABLED');
-}
-function isPluginVmEnabled() {
-    return isFlagEnabled('PLUGIN_VM_ENABLED');
-}
-
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -3134,14 +2205,14 @@ function getEntryLabel(locationInfo, entry) {
         }
     }
     // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
-    if (locationInfo && locationInfo.rootType == RootType.DOWNLOADS) {
-        if (entry.fullPath == '/Downloads') {
+    if (locationInfo && locationInfo.rootType === RootType.DOWNLOADS) {
+        if (entry.fullPath === '/Downloads') {
             return str('DOWNLOADS_DIRECTORY_LABEL');
         }
-        if (entry.fullPath == '/PvmDefault') {
+        if (entry.fullPath === '/PvmDefault') {
             return str('PLUGIN_VM_DIRECTORY_LABEL');
         }
-        if (entry.fullPath == '/Camera') {
+        if (entry.fullPath === '/Camera') {
             return str('CAMERA_DIRECTORY_LABEL');
         }
     }
@@ -3168,13 +2239,13 @@ function secondsToRemainingTimeString(seconds) {
     }
     const minuteFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'minute', unitDisplay: 'long' });
     const hours = Math.floor(minutes / 60);
-    if (hours == 0) {
+    if (hours === 0) {
         // Less than one hour. Display remaining time in minutes.
         return strf('TIME_REMAINING_ESTIMATE', minuteFormatter.format(minutes));
     }
     minutes -= hours * 60;
     const hourFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'hour', unitDisplay: 'long' });
-    if (minutes == 0) {
+    if (minutes === 0) {
         // Hours but no minutes.
         return strf('TIME_REMAINING_ESTIMATE', hourFormatter.format(hours));
     }
@@ -3202,6 +2273,17 @@ function getFileErrorString(name) {
         FileErrorLocalizedName[name] :
         'FILE_ERROR_GENERIC';
     return loadTimeData.getString(error);
+}
+/**
+ * Get the plural string with a specified count.
+ * Note: the string id to get must be handled by `PluralStringHandler` in C++
+ * side.
+ *
+ * @param id The translation string resource id.
+ * @param count The number count to get the plural.
+ */
+async function getPluralString(id, count) {
+    return PluralStringProxyImpl.getInstance().getPluralString(id, count);
 }
 
 // Copyright 2022 The Chromium Authors
@@ -3271,10 +2353,14 @@ class SelectorNode {
      * @param name An optional human-readable name used for debugging purposes.
      *     Named selectors will log to the console when DEBUG_STORE is set,
      *     whenever they emit a new value.
+     * @param isEqual_ An optional comparison function which will be used
+     *     when compare the old value and the new value form the selector. By
+     *     default it will use triple equal.
      */
-    constructor(parents, select, name) {
+    constructor(parents, select, name, isEqual_ = strictlyEqual) {
         this.select = select;
         this.name = name;
+        this.isEqual_ = isEqual_;
         /** Last value emitted by the selector. */
         this.value_ = undefined;
         /** List of selector's current subscribers. */
@@ -3364,7 +2450,7 @@ class SelectorNode {
     emit() {
         const parentValues = this.parents.map(p => p.get());
         const newValue = this.select(...parentValues);
-        if (newValue === this.value_) {
+        if (this.isEqual_(this.value_, newValue)) {
             return false;
         }
         if (isDebugStoreEnabled() && this.name) {
@@ -3443,6 +2529,11 @@ class SelectorEmitter {
             }
         }
     }
+}
+// Comparison functions can be passed to selectors when initialized.
+/** strictlyEqual use triple equal to compare values. */
+function strictlyEqual(oldValue, newValue) {
+    return oldValue === newValue;
 }
 
 // Copyright 2023 The Chromium Authors
@@ -3653,6 +2744,18 @@ class BaseStore {
             this.dispatchInternal_(action);
         }
     }
+    /**
+     * Enable/Disable the debug mode for the store. More logs will be displayed in
+     * the console with debug mode on.
+     */
+    setDebug(isDebug) {
+        if (isDebug) {
+            localStorage.setItem('DEBUG_STORE', '1');
+        }
+        else {
+            localStorage.removeItem('DEBUG_STORE');
+        }
+    }
     /** Synchronously call apply the `action` by calling the reducer.  */
     dispatchInternal_(action) {
         this.reduce(action);
@@ -3739,6 +2842,145 @@ function isInvalidationError(error) {
     }
     return false;
 }
+/**
+ * Check if the store is in debug mode or not. When it's set, action data will
+ * be logged in the console for debugging purpose.
+ *
+ * Run `fileManager.store_.setDebug(true)` in the console to enable it.
+ */
+function isDebugStoreEnabled() {
+    return localStorage.getItem('DEBUG_STORE') === '1';
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ */
+var DialogType;
+(function (DialogType) {
+    DialogType["SELECT_FOLDER"] = "folder";
+    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
+    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
+    DialogType["SELECT_OPEN_FILE"] = "open-file";
+    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
+    DialogType["FULL_PAGE"] = "full-page";
+})(DialogType || (DialogType = {}));
+var EntryType;
+(function (EntryType) {
+    // Entries from the FileSystem API.
+    EntryType["FS_API"] = "FS_API";
+    // The root of a volume is an Entry from the FileSystem API, but it aggregates
+    // more data from the volume.
+    EntryType["VOLUME_ROOT"] = "VOLUME_ROOT";
+    // A directory-like entry to aggregate other entries.
+    EntryType["ENTRY_LIST"] = "ENTRY_LIST";
+    // Placeholder that is replaced for another entry, for Crostini/GuestOS.
+    EntryType["PLACEHOLDER"] = "PLACEHOLDER";
+    // Root for the Trash.
+    EntryType["TRASH"] = "TRASH";
+    // Root for the Recent.
+    EntryType["RECENT"] = "RECENT";
+})(EntryType || (EntryType = {}));
+/**
+ * The status of a property, for properties that have their state updated via
+ * asynchronous steps.
+ */
+var PropStatus;
+(function (PropStatus) {
+    PropStatus["STARTED"] = "STARTED";
+    // Finished:
+    PropStatus["SUCCESS"] = "SUCCESS";
+    PropStatus["ERROR"] = "ERROR";
+})(PropStatus || (PropStatus = {}));
+/**
+ * Task type is the source of the task, or what type of the app is this type
+ * from. It has to match the `taskType` returned in the FileManagerPrivate.
+ *
+ * For more details see //chrome/browser/ash/file_manager/file_tasks.h
+ */
+var FileTaskType;
+(function (FileTaskType) {
+    FileTaskType["UNKNOWN"] = "";
+    // The task is from a chrome app/extension that has File Browser Handler in
+    // its manifest.
+    FileTaskType["FILE"] = "file";
+    // The task is from a chrome app/extension that has File Handler in its
+    // manifest.
+    FileTaskType["APP"] = "app";
+    // The task is from an Android app.
+    FileTaskType["ARC"] = "arc";
+    // The task is from a Crostini app.
+    FileTaskType["CROSTINI"] = "crostini";
+    // The task is from a Parallels app.
+    FileTaskType["PLUGIN_VM"] = "pluginvm";
+    // The task is from a Web app/PWA/SWA.
+    FileTaskType["WEB"] = "web";
+})(FileTaskType || (FileTaskType = {}));
+/**
+ * Enumeration of all supported search locations. If new location is added,
+ * please update this enum.
+ */
+var SearchLocation;
+(function (SearchLocation) {
+    SearchLocation["EVERYWHERE"] = "everywhere";
+    SearchLocation["ROOT_FOLDER"] = "root_folder";
+    SearchLocation["THIS_FOLDER"] = "this_folder";
+})(SearchLocation || (SearchLocation = {}));
+/**
+ * Enumeration of all supported how-recent time spans.
+ */
+var SearchRecency;
+(function (SearchRecency) {
+    SearchRecency["ANYTIME"] = "anytime";
+    SearchRecency["TODAY"] = "today";
+    SearchRecency["YESTERDAY"] = "yesterday";
+    SearchRecency["LAST_WEEK"] = "last_week";
+    SearchRecency["LAST_MONTH"] = "last_month";
+    SearchRecency["LAST_YEAR"] = "last_year";
+})(SearchRecency || (SearchRecency = {}));
+/**
+ * Used to group volumes in the navigation tree.
+ * Sections:
+ *      - TOP: Recents, Shortcuts.
+ *      - MY_FILES: My Files (which includes Downloads, Crostini and Arc++ as
+ *                  its children).
+ *      - TRASH: trash.
+ *      - GOOGLE_DRIVE: Just Google Drive.
+ *      - ODFS: Just ODFS.
+ *      - CLOUD: All other cloud: SMBs, FSPs and Documents Providers.
+ *      - ANDROID_APPS: ANDROID picker apps.
+ *      - REMOVABLE: Archives, MTPs, Media Views and Removables.
+ */
+var NavigationSection;
+(function (NavigationSection) {
+    NavigationSection["TOP"] = "top";
+    NavigationSection["MY_FILES"] = "my_files";
+    NavigationSection["GOOGLE_DRIVE"] = "google_drive";
+    NavigationSection["ODFS"] = "odfs";
+    NavigationSection["CLOUD"] = "cloud";
+    NavigationSection["TRASH"] = "trash";
+    NavigationSection["ANDROID_APPS"] = "android_apps";
+    NavigationSection["REMOVABLE"] = "removable";
+})(NavigationSection || (NavigationSection = {}));
+var NavigationType;
+(function (NavigationType) {
+    NavigationType["SHORTCUT"] = "shortcut";
+    NavigationType["VOLUME"] = "volume";
+    NavigationType["RECENT"] = "recent";
+    NavigationType["CROSTINI"] = "crostini";
+    NavigationType["GUEST_OS"] = "guest_os";
+    NavigationType["ENTRY_LIST"] = "entry_list";
+    NavigationType["DRIVE"] = "drive";
+    NavigationType["ANDROID_APPS"] = "android_apps";
+    NavigationType["TRASH"] = "trash";
+    // Materialized view is used for Recent and in the future for Search.
+    NavigationType["MATERIALIZED_VIEW"] = "materialized_view";
+})(NavigationType || (NavigationType = {}));
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -4669,6 +3911,16 @@ const EXTENSION_TO_TYPE = new Map([
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
+    [".gmaillayout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
     [".pdf", {
             "extensions": [
                 ".pdf"
@@ -5457,6 +4709,16 @@ const MIME_TO_TYPE = new Map([
             "mime": "application/vnd.google-apps.site",
             "subtype": "site",
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
+    ["application/vnd.google-apps.mail-layout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
     ["application/pdf", {
@@ -6266,7 +5528,7 @@ class StorageChangeTracker {
     /** Processes storage event and notifies listeners. */
     onStorageEvent_(event) {
         const { key, newValue } = event;
-        if (key == null || newValue == null) {
+        if (key === null || newValue === null) {
             return;
         }
         const changedKeys = {};
@@ -6427,7 +5689,7 @@ class TaskHistory extends NativeEventTarget {
             return;
         }
         for (const key in changes) {
-            if (key == STORAGE_KEY_LAST_EXECUTED_TIME) {
+            if (key === STORAGE_KEY_LAST_EXECUTED_TIME) {
                 this.lastExecutedTime_ = changes[key]?.newValue;
                 dispatchSimpleEvent(this, EventType.UPDATE);
             }
@@ -6540,7 +5802,7 @@ function getDefaultTask(tasks, policyDefaultHandlerStatus, taskHistory) {
     }
     // 2. Most recently executed or sole non-generic task.
     const latest = nonGenericTasks[0];
-    if (nonGenericTasks.length == 1 ||
+    if (nonGenericTasks.length === 1 ||
         taskHistory.getLastExecutedTime(latest.descriptor)) {
         return latest;
     }
@@ -8854,6 +8116,12 @@ function addVolumeReducer(currentState, payload) {
             driveFakeRoot =
                 new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
             cacheEntries(currentState, [driveFakeRoot]);
+        }
+        // When Drive is disabled via pref change, the root key in `uiEntries` will
+        // be removed immediately but the corresponding entry in `allEntries` is
+        // removed asynchronously. When Drive is enabled again, it's possible the
+        // entry is still in `allEntries` but we don't have root key in `uiEntries`.
+        if (!currentState.uiEntries.includes(driveFakeRoot.toURL())) {
             currentState.uiEntries =
                 [...currentState.uiEntries, driveFakeRoot.toURL()];
         }
@@ -8920,7 +8188,7 @@ function addVolumeReducer(currentState, payload) {
             Object.values(currentState.volumes).some(v => {
                 return (v.volumeType === VolumeType.REMOVABLE &&
                     removableGroupKey(v) === groupingKey &&
-                    v.volumeId != volumeInfo.volumeId);
+                    v.volumeId !== volumeInfo.volumeId);
             });
         if (shouldGroup) {
             const parentKey = makeRemovableParentKey(volumeMetadata);
@@ -9582,7 +8850,7 @@ function isTeamDriveRoot(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree.length == 3 && isSharedDriveEntry(entry);
+    return tree.length === 3 && isSharedDriveEntry(entry);
 }
 /**
  * Obtains whether an entry is the grand root directory of Shared Drives.
@@ -9592,7 +8860,7 @@ function isTeamDrivesGrandRoot(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree.length == 2 && isSharedDriveEntry(entry);
+    return tree.length === 2 && isSharedDriveEntry(entry);
 }
 /**
  * Obtains whether an entry is descendant of the Shared Drives directory.
@@ -9602,7 +8870,7 @@ function isSharedDriveEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' && tree[1] == SHARED_DRIVES_DIRECTORY_NAME;
+    return tree[0] === '' && tree[1] === SHARED_DRIVES_DIRECTORY_NAME;
 }
 /**
  * Extracts Shared Drive name from entry path.
@@ -9623,7 +8891,7 @@ function getTeamDriveName(entry) {
  * Returns true if the given root type is for a container of recent files.
  */
 function isRecentRootType(rootType) {
-    return rootType == RootType.RECENT;
+    return rootType === RootType.RECENT;
 }
 /**
  * Returns true if the given entry is the root folder of recent files.
@@ -9642,7 +8910,7 @@ function isComputersRoot(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree.length == 3 && isComputersEntry(entry);
+    return tree.length === 3 && isComputersEntry(entry);
 }
 /**
  * Obtains whether an entry is descendant of the My Computers directory.
@@ -9652,13 +8920,13 @@ function isComputersEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' && tree[1] == COMPUTERS_DIRECTORY_NAME;
+    return tree[0] === '' && tree[1] === COMPUTERS_DIRECTORY_NAME;
 }
 /**
  * Returns true if the given root type is Trash.
  */
 function isTrashRootType(rootType) {
-    return rootType == RootType.TRASH;
+    return rootType === RootType.TRASH;
 }
 /**
  * Returns true if the given entry is the root folder of Trash.
@@ -9707,11 +8975,11 @@ function isSameFileSystem(fileSystem1, fileSystem2) {
 function isSiblingEntry(entry1, entry2) {
     const path1 = entry1.fullPath.split('/');
     const path2 = entry2.fullPath.split('/');
-    if (path1.length != path2.length) {
+    if (path1.length !== path2.length) {
         return false;
     }
     for (let i = 0; i < path1.length - 1; i++) {
-        if (path1[i] != path2[i]) {
+        if (path1[i] !== path2[i]) {
             return false;
         }
     }
@@ -10175,6 +9443,817 @@ function isEntryScannable(entry) {
     return true;
 }
 
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This file contains utils for working with icons.
+ */
+/** Return icon name for the VM type. */
+function vmTypeToIconName(vmType) {
+    if (vmType === undefined) {
+        console.error('vmType: is undefined');
+        return '';
+    }
+    switch (vmType) {
+        case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
+            return ICON_TYPES.BRUSCHETTA;
+        case chrome.fileManagerPrivate.VmType.ARCVM:
+            return ICON_TYPES.ANDROID_FILES;
+        case chrome.fileManagerPrivate.VmType.TERMINA:
+            return ICON_TYPES.CROSTINI;
+        default:
+            console.error('Unable to determine icon for vmType: ' + vmType);
+            return '';
+    }
+}
+
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * FilesAppEntry represents a single Entry (file, folder or root) in the Files
+ * app. Previously, we used the Entry type directly, but this limits the code to
+ * only work with native Entry type which can't be instantiated in JS.
+ * For now, Entry and FilesAppEntry should be used interchangeably.
+ * See also FilesAppDirEntry for a folder-like interface.
+ *
+ * TODO(lucmult): Replace uses of Entry with FilesAppEntry implementations.
+ */
+class FilesAppEntry {
+    constructor(rootType = null) {
+        this.rootType = rootType;
+    }
+    /**
+     * @returns the class name of this object. It's a workaround for the fact that
+     * an instance created in the foreground page and sent to the background page
+     * can't be checked with `instanceof`.
+     */
+    get typeName() {
+        return 'FilesAppEntry';
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a Directory-like entry, as
+     * in have sub-entries and implements {createReader} method.
+     */
+    get isDirectory() {
+        return false;
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a File-like entry.
+     * Implementations of FilesAppEntry are expected to have this as true.
+     * Whereas implementations of FilesAppDirEntry are expected to have this as
+     * false.
+     */
+    get isFile() {
+        return true;
+    }
+    get filesystem() {
+        return null;
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return absolute path from the file system's root to the entry. It can also
+     * be thought of as a path which is relative to the root directory, prepended
+     * with a "/" character.
+     */
+    get fullPath() {
+        return '';
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return the name of the entry (the final part of the path, after the last.
+     */
+    get name() {
+        return '';
+    }
+    /** This method is defined on Entry. */
+    getParent(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /** Gets metadata, such as "modificationTime" and "contentMimeType". */
+    getMetadata(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /**
+     * Returns true if this entry object has a native representation such as Entry
+     * or DirectoryEntry, this means it can interact with VolumeManager.
+     */
+    get isNativeType() {
+        return false;
+    }
+    /**
+     * Returns a FileSystemEntry if this instance has one, returns null if it
+     * doesn't have or the entry hasn't been resolved yet. It's used to unwrap a
+     * FilesAppEntry to be able to send to FileSystem API or fileManagerPrivate.
+     */
+    getNativeEntry() {
+        return null;
+    }
+    copyTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    moveTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    remove(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+}
+/**
+ * Interface with minimal API shared among different types of FilesAppDirEntry
+ * and native DirectoryEntry. UI components should be able to display any
+ * implementation of FilesAppEntry.
+ *
+ * FilesAppDirEntry represents a DirectoryEntry-like (folder or root) in the
+ * Files app. It's a specialization of FilesAppEntry extending the behavior for
+ * folder, which is basically the method createReader.
+ * As in FilesAppEntry, FilesAppDirEntry should be interchangeable with Entry
+ * and DirectoryEntry.
+ */
+class FilesAppDirEntry extends FilesAppEntry {
+    get typeName() {
+        return 'FilesAppDirEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    /**
+     * @return Returns a reader compatible with DirectoryEntry.createReader (from
+     * Web Standards) that reads the children of this instance.
+     *
+     * This method is defined on DirectoryEntry.
+     */
+    createReader() {
+        return {};
+    }
+    getFile(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    getDirectory(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    removeRecursively(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+}
+/**
+ * FakeEntry is used for entries that used only for UI, that weren't generated
+ * by FileSystem API, like Drive, Downloads or Provided.
+ */
+class FakeEntry extends FilesAppDirEntry {
+    /**
+     * @param label Translated text to be displayed to user.
+     * @param rootType Root type of this entry. Used on Recents to filter the
+     *    source of recent files/directories. Used on Recents to filter recent
+     *    files by their file types.
+     * @param sourceRestriction Used to communicate restrictions about sources to
+     *   chrome.fileManagerPrivate.getRecentFiles API.
+     * @param fileCategory Used to communicate category filter to
+     *   chrome.fileManagerPrivate.getRecentFiles API.
+     */
+    constructor(label, rootType, sourceRestriction, fileCategory) {
+        super(rootType);
+        this.label = label;
+        this.sourceRestriction = sourceRestriction;
+        this.fileCategory = fileCategory;
+        /**
+         * FakeEntry can be disabled if it represents the placeholder of the real
+         * volume.
+         */
+        this.disabled = false;
+    }
+    get typeName() {
+        return 'FakeEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    /** String used to determine the icon. */
+    get iconName() {
+        return '';
+    }
+    /**
+     * FakeEntry can be a placeholder for the real volume, if so
+     * this field will be the volume type of the volume it
+     * represents.
+     */
+    get volumeType() {
+        return null;
+    }
+}
+/**
+ * A reader compatible with DirectoryEntry.createReader (from Web Standards)
+ * that reads a static list of entries, provided at construction time.
+ * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
+ * It can be used by DirectoryEntry-like such as EntryList to return its
+ * entries.
+ */
+class StaticReader {
+    /**
+     * @param entries_ Array of Entry-like instances that will be returned/read by
+     * this reader.
+     */
+    constructor(entries_) {
+        this.entries_ = entries_;
+    }
+    /**
+     * Reads array of entries via |success| callback.
+     *
+     * @param success A callback that will be called multiple times with the
+     * entries, last call will be called with an empty array indicating that no
+     * more entries available.
+     * @param _error A callback that's never called, it's here to match the
+     * signature from the Web Standards.
+     */
+    readEntries(success, _error) {
+        const entries = this.entries_;
+        // readEntries is suppose to return empty result when there are no more
+        // files to return, so we clear the entries_ attribute for next call.
+        this.entries_ = [];
+        // Triggers callback asynchronously.
+        setTimeout(() => success(entries), 0);
+    }
+}
+/**
+ * A reader compatible with DirectoryEntry.createReader (from Web Standards),
+ * It chains entries from one reader to another, creating a combined set of
+ * entries from all readers.
+ */
+class CombinedReaders {
+    /**
+     * @param readers_ Array of all readers that will have their entries combined.
+     */
+    constructor(readers_) {
+        this.readers_ = readers_;
+        // Reverse readers_ so the readEntries can just use pop() to get the next.
+        this.readers_.reverse();
+        this.currentReader_ = this.readers_.pop();
+    }
+    /**
+     * @param success returning entries of all readers, it's called with empty
+     * Array when there is no more entries to return.
+     * @param error called when error happens when reading from readers for this
+     * implementation.
+     */
+    readEntries(success, error) {
+        if (!this.currentReader_) {
+            // If there is no more reader to consume, just return an empty result
+            // which indicates that read has finished.
+            success([]);
+            return;
+        }
+        this.currentReader_.readEntries((results) => {
+            if (results.length) {
+                success(results);
+            }
+            else {
+                // If there isn't no more readers, finish by calling success with no
+                // results.
+                if (!this.readers_.length) {
+                    success([]);
+                    return;
+                }
+                // Move to next reader and start consuming it.
+                this.currentReader_ = this.readers_.pop();
+                this.readEntries(success, error);
+            }
+        }, error);
+    }
+}
+/**
+ * EntryList, a DirectoryEntry-like object that contains entries. Initially used
+ * to implement "My Files" containing VolumeEntry for "Downloads", "Linux
+ * Files" and "Play Files".
+ */
+class EntryList extends FilesAppDirEntry {
+    /**
+     * @param label: Label to be used when displaying to user, it should
+     *    already translated.
+     * @param rootType root type.
+     * @param devicePath Path belonging to the external media device. Partitions
+     * on the same external drive have the same device path.
+     */
+    constructor(label, rootType, devicePath = '') {
+        super(rootType);
+        this.label = label;
+        this.devicePath = devicePath;
+        /** Children entries of this EntryList instance. */
+        this.children_ = [];
+        /**
+         * EntryList can be a placeholder of a real volume (e.g. MyFiles or
+         * DriveFakeRootEntryList). It can be disabled if the corresponding volume
+         * type is disabled.
+         */
+        this.disabled = false;
+    }
+    get typeName() {
+        return 'EntryList';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    get fullPath() {
+        return '/';
+    }
+    /**
+     * @return List of entries that are shown as
+     *     children of this Volume in the UI, but are not actually entries of the
+     *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.
+     */
+    getUiChildren() {
+        return this.children_;
+    }
+    get name() {
+        return this.label;
+    }
+    get isNativeType() {
+        return false;
+    }
+    getMetadata(success, _error) {
+        // Defaults modificationTime to current time just to have a valid value.
+        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
+    }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    toURL() {
+        let url = `entry-list://${this.rootType}`;
+        if (this.devicePath) {
+            url += `/${this.devicePath}`;
+        }
+        return url;
+    }
+    getParent(success, _error) {
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
+    }
+    /**
+     * @param entry that should be added as
+     * child of this EntryList.
+     * This method is specific to EntryList instance.
+     */
+    addEntry(entry) {
+        this.children_.push(entry);
+        // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
+        // which is then used on LocationInfo/PathComponent.
+        const volumeEntry = entry;
+        if (volumeEntry.typeName === 'VolumeEntry') {
+            volumeEntry.setPrefix(this);
+        }
+    }
+    /**
+     * @return Returns a reader compatible with
+     * DirectoryEntry.createReader (from Web Standards) that reads the children of
+     * this EntryList instance.
+     * This method is defined on DirectoryEntry.
+     */
+    createReader() {
+        return new StaticReader(this.children_);
+    }
+    /**
+     * This method is specific to VolumeEntry/EntryList instance.
+     * Note: we compare the volumeId instead of the whole volumeInfo reference
+     * because the same volume could be mounted multiple times and every time a
+     * new volumeInfo is created.
+     * @return index of entry on this EntryList or -1 if not found.
+     */
+    findIndexByVolumeInfo(volumeInfo) {
+        return this.children_.findIndex(childEntry => childEntry.volumeInfo ?
+            childEntry.volumeInfo.volumeId ===
+                volumeInfo.volumeId :
+            false);
+    }
+    /**
+     * Removes the first volume with the given type.
+     * @param volumeType desired type.
+     * This method is specific to VolumeEntry/EntryList instance.
+     * @return if entry was removed.
+     */
+    removeByVolumeType(volumeType) {
+        const childIndex = this.children_.findIndex(childEntry => {
+            const volumeInfo = childEntry.volumeInfo;
+            return volumeInfo && volumeInfo.volumeType === volumeType;
+        });
+        if (childIndex !== -1) {
+            this.children_.splice(childIndex, 1);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Removes all entries that match the rootType.
+     * @param rootType to be removed.
+     * This method is specific to VolumeEntry/EntryList instance.
+     */
+    removeAllByRootType(rootType) {
+        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
+    }
+    /**
+     * Removes all entries that match the volumeType.
+     * @param volumeType to be removed.
+     * This method is specific to VolumeEntry/EntryList instance.
+     */
+    removeAllByVolumeType(volumeType) {
+        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
+    }
+    /**
+     * Removes the entry.
+     * @param entry to be removed.
+     * This method is specific to EntryList and VolumeEntry instance.
+     * @return true if entry was removed.
+     */
+    removeChildEntry(entry) {
+        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
+        if (childIndex !== -1) {
+            this.children_.splice(childIndex, 1);
+            return true;
+        }
+        return false;
+    }
+    getNativeEntry() {
+        return null;
+    }
+    /**
+     * EntryList can be a placeholder for the real volume (e.g. MyFiles or
+     * DriveFakeRootEntryList), if so this field will be the volume type of the
+     * volume it represents.
+     */
+    get volumeType() {
+        switch (this.rootType) {
+            case RootType.MY_FILES:
+                return VolumeType.DOWNLOADS;
+            case RootType.DRIVE_FAKE_ROOT:
+                return VolumeType.DRIVE;
+            default:
+                return null;
+        }
+    }
+}
+/**
+ * A DirectoryEntry-like which represents a Volume, based on VolumeInfo.
+ *
+ * It uses composition to behave like a DirectoryEntry and proxies some calls
+ * to its VolumeInfo instance.
+ *
+ * It's used to be able to add a volume as child of |EntryList| and make volume
+ * displayable on file list.
+ */
+class VolumeEntry extends FilesAppDirEntry {
+    /** @param volumeInfo VolumeInfo for this entry. */
+    constructor(volumeInfo) {
+        super();
+        this.volumeInfo = volumeInfo;
+        /**
+         * Additional entries that will be displayed together with this Volume's
+         * entries.
+         */
+        this.children_ = [];
+        this.disabled = false;
+        this.rootEntry_ = this.volumeInfo.displayRoot;
+        if (!this.rootEntry_) {
+            this.volumeInfo.resolveDisplayRoot((displayRoot) => {
+                this.rootEntry_ = displayRoot;
+            });
+        }
+    }
+    get typeName() {
+        return 'VolumeEntry';
+    }
+    get volumeType() {
+        return this.volumeInfo.volumeType;
+    }
+    get filesystem() {
+        return this.rootEntry_ ? this.rootEntry_.filesystem : null;
+    }
+    /**
+     * @return List of entries that are shown as
+     *     children of this Volume in the UI, but are not
+     * actually entries of the Volume.  E.g. 'Play files' is
+     * shown as a child of 'My files'.  Use createReader to find
+     * real child entries of the Volume's filesystem.
+     */
+    getUiChildren() {
+        return this.children_;
+    }
+    get fullPath() {
+        return this.rootEntry_ ? this.rootEntry_.fullPath : '';
+    }
+    get isDirectory() {
+        return this.rootEntry_ ? this.rootEntry_.isDirectory : true;
+    }
+    get isFile() {
+        return this.rootEntry_ ? this.rootEntry_.isFile : false;
+    }
+    /**
+     * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
+     * @param path Entry fullPath.
+     */
+    getDirectory(path, options, success, error) {
+        if (!this.rootEntry_) {
+            if (error) {
+                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
+            }
+            return;
+        }
+        this.rootEntry_.getDirectory(path, options, success, error);
+    }
+    /**
+     * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
+     */
+    getFile(path, options, success, error) {
+        if (!this.rootEntry_) {
+            if (error) {
+                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
+            }
+            return;
+        }
+        this.rootEntry_.getFile(path, options, success, error);
+    }
+    get name() {
+        return this.volumeInfo.label;
+    }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    toURL() {
+        return this.rootEntry_?.toURL() ?? '';
+    }
+    /** String used to determine the icon. */
+    get iconName() {
+        if (this.volumeInfo.volumeType === VolumeType.GUEST_OS) {
+            return vmTypeToIconName(this.volumeInfo.vmType);
+        }
+        if (this.volumeInfo.volumeType === VolumeType.DOWNLOADS) {
+            return VolumeType.MY_FILES;
+        }
+        return this.volumeInfo.volumeType;
+    }
+    /**
+     * callback, it returns itself since EntryList is intended to be used as
+     * root node and the Web Standard says to do so.
+     * @param _error callback, not used for this implementation.
+     */
+    getParent(success, _error) {
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
+    }
+    getMetadata(success, error) {
+        this.rootEntry_.getMetadata(success, error);
+    }
+    get isNativeType() {
+        return true;
+    }
+    getNativeEntry() {
+        return this.rootEntry_;
+    }
+    /**
+     * @return Returns a reader from root entry, which is compatible with
+     * DirectoryEntry.createReader (from Web Standards). This method is defined on
+     * DirectoryEntry.
+     */
+    createReader() {
+        const readers = [];
+        if (this.rootEntry_) {
+            readers.push(this.rootEntry_.createReader());
+        }
+        if (this.children_.length) {
+            readers.push(new StaticReader(this.children_));
+        }
+        return new CombinedReaders(readers);
+    }
+    /**
+     * @param entry An entry to be used as prefix of this instance on breadcrumbs
+     *     path, e.g. "My Files > Downloads", "My Files" is a prefixEntry on
+     *     "Downloads" VolumeInfo.
+     */
+    setPrefix(entry) {
+        this.volumeInfo.prefixEntry = entry;
+    }
+    /**
+     * @param entry that should be added as child of this VolumeEntry. This method
+     * is specific to VolumeEntry instance.
+     */
+    addEntry(entry) {
+        this.children_.push(entry);
+        // Only VolumeEntry can have prefix set because it sets on
+        // VolumeInfo, which is then used on
+        // LocationInfo/PathComponent.
+        const volumeEntry = entry;
+        if (volumeEntry.typeName === 'VolumeEntry') {
+            volumeEntry.setPrefix(this);
+        }
+    }
+    /**
+     *     that's desired to be removed.
+     * This method is specific to VolumeEntry/EntryList instance.
+     * Note: we compare the volumeId instead of the whole volumeInfo reference
+     * because the same volume could be mounted multiple times and every time a
+     * new volumeInfo is created.
+     * @return index of entry within VolumeEntry or -1 if not found.
+     */
+    findIndexByVolumeInfo(volumeInfo) {
+        return this.children_.findIndex(childEntry => childEntry.volumeInfo?.volumeId ===
+            volumeInfo.volumeId);
+    }
+    /**
+     * Removes the first volume with the given type.
+     * @param volumeType desired type.
+     * This method is specific to VolumeEntry/EntryList instance.
+     * @return if entry was removed.
+     */
+    removeByVolumeType(volumeType) {
+        const childIndex = this.children_.findIndex(childEntry => {
+            return childEntry.volumeInfo?.volumeType ===
+                volumeType;
+        });
+        if (childIndex !== -1) {
+            this.children_.splice(childIndex, 1);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Removes all entries that match the rootType.
+     * @param rootType to be removed.
+     * This method is specific to VolumeEntry/EntryList instance.
+     */
+    removeAllByRootType(rootType) {
+        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
+    }
+    /**
+     * Removes all entries that match the volumeType.
+     * @param volumeType to be removed.
+     * This method is specific to VolumeEntry/EntryList instance.
+     */
+    removeAllByVolumeType(volumeType) {
+        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
+    }
+    /**
+     * Removes the entry.
+     * @param entry to be removed.
+     * This method is specific to EntryList and VolumeEntry instance.
+     * @return if entry was removed.
+     */
+    removeChildEntry(entry) {
+        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
+        if (childIndex !== -1) {
+            this.children_.splice(childIndex, 1);
+            return true;
+        }
+        return false;
+    }
+}
+/**
+ * FakeEntry is used for entries that used only for UI, that weren't generated
+ * by FileSystem API, like Drive, Downloads or Provided.
+ */
+class FakeEntryImpl extends FakeEntry {
+    /**
+     * @param label Translated text to be displayed to user.
+     * @param rootType Root type of this entry. used on Recents to filter the
+     *    source of recent files/directories. used on Recents to filter recent
+     *    files by their file types.
+     * @param sourceRestriction Used to communicate restrictions about sources to
+     * chrome.fileManagerPrivate.getRecentFiles API.
+     * @param fileCategory Used to communicate file-type filter to
+     * chrome.fileManagerPrivate.getRecentFiles API.
+     */
+    constructor(label, rootType, sourceRestriction, fileCategory) {
+        super(label, rootType, sourceRestriction, fileCategory);
+    }
+    get name() {
+        return this.label;
+    }
+    get fullPath() {
+        return '/';
+    }
+    /**
+     * FakeEntry is used as root, so doesn't have a parent and should return
+     * itself. callback, it returns itself since EntryList is intended to be used
+     * as root node and the Web Standard says to do so.
+     * @param _error callback, not used for this implementation.
+     */
+    getParent(success, _error) {
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
+    }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    toURL() {
+        let url = `fake-entry://${this.rootType}`;
+        if (this.fileCategory) {
+            url += `/${this.fileCategory}`;
+        }
+        return url;
+    }
+    /**
+     * @return List of entries that are shown as children of this Volume in the
+     *     UI, but are not actually entries of the Volume.  E.g. 'Play files' is
+     *     shown as a child of 'My files'.
+     */
+    getUiChildren() {
+        return [];
+    }
+    /** String used to determine the icon. */
+    get iconName() {
+        // When Drive volume isn't available yet, the
+        // FakeEntry should show the "drive" icon.
+        if (this.rootType === RootType.DRIVE_FAKE_ROOT) {
+            return RootType.DRIVE;
+        }
+        return this.rootType ?? '';
+    }
+    getMetadata(success, _error) {
+        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
+    }
+    get isNativeType() {
+        return false;
+    }
+    getNativeEntry() {
+        return null;
+    }
+    /**
+     * @return Returns a reader compatible with DirectoryEntry.createReader (from
+     * Web Standards) that reads 0 entries.
+     */
+    createReader() {
+        return new StaticReader([]);
+    }
+    /**
+     * FakeEntry can be a placeholder for the real volume, if so this field will
+     * be the volume type of the volume it represents.
+     */
+    get volumeType() {
+        // Recent rootType has no corresponding volume
+        // type, and it will throw error in the below
+        // getVolumeTypeFromRootType() call, we need to
+        // return null here.
+        if (this.rootType === RootType.RECENT) {
+            return null;
+        }
+        return getVolumeTypeFromRootType(this.rootType);
+    }
+}
+/**
+ * GuestOsPlaceholder is used for placeholder entries in the UI, representing
+ * Guest OSs (e.g. Crostini) that could be mounted but aren't yet.
+ */
+class GuestOsPlaceholder extends FakeEntryImpl {
+    /**
+     * @param label Translated text to be displayed to user.
+     * @param guest_id Id of the guest
+     * @param vm_type Type of the underlying VM
+     */
+    constructor(label, guest_id, vm_type) {
+        super(label, RootType.GUEST_OS);
+        this.guest_id = guest_id;
+        this.vm_type = vm_type;
+    }
+    get typeName() {
+        return 'GuestOsPlaceholder';
+    }
+    /** String used to determine the icon. */
+    get iconName() {
+        return vmTypeToIconName(this.vm_type);
+    }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    toURL() {
+        return `fake-entry://guest-os/${this.guest_id}`;
+    }
+    get volumeType() {
+        if (this.vm_type === chrome.fileManagerPrivate.VmType.ARCVM) {
+            return VolumeType.ANDROID_FILES;
+        }
+        return VolumeType.GUEST_OS;
+    }
+}
+
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -10544,7 +10623,7 @@ class Group {
     /** Runs enqueued pending tasks whose dependencies are completed. */
     continue_() {
         // If all of the added tasks have finished, then call completion callbacks.
-        if (Object.keys(this.addedTasks_).length ==
+        if (Object.keys(this.addedTasks_).length ===
             Object.keys(this.finishedTasks_).length) {
             for (const callback of this.completionCallbacks_) {
                 callback();
@@ -11923,126 +12002,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$c() {
     return html$1 `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
@@ -12074,7 +12153,7 @@ function getTemplate$c() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -12240,7 +12319,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -12545,6 +12624,10 @@ function getCSS$1() {
       -webkit-mask-image: url(../foreground/images/filetype/filetype_gsite.svg);
     }
 
+    :host([type="gmaillayout"]) span {
+      -webkit-mask-image: url(../foreground/images/filetype/filetype_gmaillayout.svg);
+    }
+
     :host([type="gslides"]) span {
       -webkit-mask-image: url(../foreground/images/filetype/filetype_gslides.svg);
     }
@@ -12676,7 +12759,8 @@ function getCSS$1() {
     :host([type='image']) span,
     :host([type='gmap']) span,
     :host([type='pdf']) span,
-    :host([type='video']) span {
+    :host([type='video']) span,
+    :host([type='gmaillayout']) span {
       background-color: var(--cros-sys-error);
     }
 
@@ -13977,7 +14061,7 @@ function getTemplate$a() {
  *  --cr-checkbox-size
  *  --cr-checkbox-unchecked-box-color
  */
-const CrCheckboxElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrCheckboxElementBase = PaperRippleMixin(PolymerElement);
 class CrCheckboxElement extends CrCheckboxElementBase {
     static get is() {
         return 'cr-checkbox';
@@ -14094,7 +14178,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         // :host shouldn't have a tabindex because it's set on #checkbox.
         this.removeAttribute('tabindex');
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.checkbox;
@@ -14353,7 +14437,7 @@ function getTemplate$9() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
@@ -15454,7 +15538,7 @@ class XfPasswordDialog extends HTMLElement {
                 this.success_ = false;
                 this.resolve_ = resolve;
                 this.reject_ = reject;
-                if (password != null) {
+                if (password !== null) {
                     this.input_.value = password;
                     // An invalid password has previously been entered for this file.
                     // Display an 'invalid password' error message.
@@ -16336,10 +16420,9 @@ const ICON_SIZE = css `20px`;
 const MIN_WIDTH = css `64px`;
 /**
  * A chromeOS compliant button.
- * See spec
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2116%3A4082&t=kbaCFk5KdayGTyuL-0
  */
 class Button extends LitElement {
+    /** @nocollapse */
     static { this.shadowRootOptions = { mode: 'open', delegatesFocus: true }; }
     // Note that theme colours have opacity defined in the colour, but default
     // colours have opacities set separately. As a consequence, styles are broken
@@ -16524,6 +16607,14 @@ class Button extends LitElement {
         this.ariaHasPopup = 'false';
         this.label = '';
         this.disabled = false;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // All aria properties on button just get proxied down to the real <button>
+        // element, as such we set role to presentation so screenreaders ignore
+        // this component and instead only read aria attributes off the inner
+        // interactive element.
+        this.setAttribute('role', 'presentation');
     }
     firstUpdated() {
         this.addEventListener('click', this.clickListener);
@@ -17542,7 +17633,7 @@ class PanelItem extends HTMLElement {
                     parent.appendChild(textNode);
                 }
                 // Remove the secondary text node if the text is empty
-                if (newValue == '') {
+                if (newValue === '') {
                     textNode.remove();
                 }
                 else {
@@ -17842,11 +17933,10 @@ class DisplayPanel extends HTMLElement {
     }
     /**
      * Update the summary panel item progress indicator.
-     * @public
      */
-    updateProgress() {
+    async updateProgress() {
         let total = 0;
-        if (this.items_.length == 0) {
+        if (this.items_.length === 0) {
             return;
         }
         let errors = 0;
@@ -17879,7 +17969,7 @@ class DisplayPanel extends HTMLElement {
         // error) if no operations are ongoing.
         if (progressCount > 0) {
             // Make sure we have a progress indicator on the summary panel.
-            if (summaryPanel.indicator != 'largeprogress') {
+            if (summaryPanel.indicator !== 'largeprogress') {
                 summaryPanel.indicator = 'largeprogress';
             }
             summaryPanel.primaryText = strf('PERCENT_COMPLETE', total.toFixed(0));
@@ -17888,7 +17978,7 @@ class DisplayPanel extends HTMLElement {
             summaryPanel.errorMarkerVisibility = (errors > 0) ? 'visible' : 'hidden';
             return;
         }
-        if (summaryPanel.indicator != 'status') {
+        if (summaryPanel.indicator !== 'status') {
             // Make sure we have a status indicator on the summary panel.
             summaryPanel.indicator = 'status';
         }
@@ -17896,24 +17986,21 @@ class DisplayPanel extends HTMLElement {
             // Both errors and warnings: show the error indicator, along with counts
             // of both.
             summaryPanel.status = 'failure';
-            summaryPanel.primaryText = this.generateErrorMessage_(errors) + ' ' +
-                this.generateWarningMessage_(warnings);
+            const errorMessage = await this.generateErrorMessage_(errors);
+            const warningMessage = await this.generateWarningMessage_(errors);
+            summaryPanel.primaryText = `${errorMessage} ${warningMessage}`;
             return;
         }
         if (errors > 0) {
             // Only errors, but no warnings.
             summaryPanel.status = 'failure';
-            summaryPanel.primaryText = this.generateErrorMessage_(errors);
-            if (warnings > 0) {
-                summaryPanel.primaryText +=
-                    ' ' + this.generateWarningMessage_(warnings);
-            }
+            summaryPanel.primaryText = await this.generateErrorMessage_(errors);
             return;
         }
         if (warnings > 0) {
             // Only warnings, but no errors.
             summaryPanel.status = 'warning';
-            summaryPanel.primaryText = this.generateWarningMessage_(warnings);
+            summaryPanel.primaryText = await this.generateWarningMessage_(warnings);
             return;
         }
         // No errors or warnings.
@@ -18072,201 +18159,30 @@ class DisplayPanel extends HTMLElement {
      * @param errors Number of error subpanels.
      * @return Title text.
      */
-    generateErrorMessage_(errors) {
+    async generateErrorMessage_(errors) {
         if (errors <= 0) {
             console.warn(`generateWarningMessage_ expected errors > 0, but got ${errors}.`);
             return '';
         }
-        return errors == 1 ? str('ERROR_PROGRESS_SUMMARY_SINGLE') :
-            strf('ERROR_PROGRESS_SUMMARY_PLURAL', errors);
+        return getPluralString('ERROR_PROGRESS_SUMMARY', errors);
     }
     /**
      * Generates the summary panel title message based on the number of warnings.
      * @param warnings Number of warning subpanels.
      * @return Title text.
      */
-    generateWarningMessage_(warnings) {
+    async generateWarningMessage_(warnings) {
         if (warnings <= 0) {
             console.warn(`generateWarningMessage_ expected warnings > 0, but got ${warnings}.`);
             return '';
         }
-        return warnings === 1 ? str('WARNING_PROGRESS_SUMMARY_SINGLE') :
-            strf('WARNING_PROGRESS_SUMMARY_PLURAL', warnings);
+        return getPluralString('WARNING_PROGRESS_SUMMARY', warnings);
     }
 }
 window.customElements.define(DisplayPanel.is, DisplayPanel);
 
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file should contain renaming utility functions used only
- * by the files app frontend.
- */
-/**
- * Verifies name for file, folder, or removable root to be created or renamed.
- * Names are restricted according to the target filesystem.
- *
- * @param entry The entry to be named.
- * @param name New file, folder, or removable root name.
- * @param areHiddenFilesVisible Whether to report hidden file name errors or
- *     not.
- * @param volumeInfo Volume information about the target entry.
- * @param isRemovableRoot Whether the target is a removable root.
- * @return Fulfills on success, throws error message otherwise.
- */
-async function validateEntryName(entry, name, areHiddenFilesVisible, volumeInfo, isRemovableRoot) {
-    if (isRemovableRoot) {
-        const diskFileSystemType = volumeInfo && volumeInfo.diskFileSystemType;
-        assert$1(diskFileSystemType);
-        validateExternalDriveName(name, diskFileSystemType);
-    }
-    else {
-        const parentEntry = await getParentEntry(entry);
-        await validateFileName(parentEntry, name, areHiddenFilesVisible);
-    }
-}
-/**
- * Verifies the user entered name for external drive to be
- * renamed to. Name restrictions must correspond to the target filesystem
- * restrictions.
- *
- * It also verifies that name length is in the limits of the filesystem.
- *
- * This function throws if the new label is invalid, else it completes.
- *
- * @param name New external drive name.
- */
-function validateExternalDriveName(name, fileSystem) {
-    // Verify if entered name for external drive respects restrictions
-    // provided by the target filesystem.
-    const nameLength = name.length;
-    const lengthLimit = FileSystemTypeVolumeNameLengthLimit;
-    // Verify length for the target file system type.
-    if (lengthLimit.hasOwnProperty(fileSystem) &&
-        nameLength > lengthLimit[fileSystem]) {
-        throw Error(strf('ERROR_EXTERNAL_DRIVE_LONG_NAME', lengthLimit[fileSystem]));
-    }
-    // Checks if the name contains only alphanumeric characters or allowed
-    // special characters. This needs to stay in sync with
-    // cros-disks/filesystem_label.cc on the ChromeOS side.
-    const validCharRegex = /[a-zA-Z0-9 \!\#\$\%\&\(\)\-\@\^\_\`\{\}\~]/;
-    for (const n of name) {
-        if (!validCharRegex.test(n)) {
-            throw Error(strf('ERROR_EXTERNAL_DRIVE_INVALID_CHARACTER', n));
-        }
-    }
-}
-/**
- * Verifies the user entered name for file or folder to be created or
- * renamed to. Name restrictions must correspond to File API restrictions
- * (see DOMFilePath::isValidPath). Curernt WebKit implementation is
- * out of date (spec is
- * http://dev.w3.org/2009/dap/file-system/file-dir-sys.html, 8.3) and going
- * to be fixed. Shows message box if the name is invalid.
- *
- * It also verifies if the name length is in the limit of the filesystem.
- *
- * @param parentEntry The entry of the parent directory.
- * @param name New file or folder name.
- * @param areHiddenFilesVisible Whether to report the hidden file name error or
- *     not.
- * @return Fulfills on success, throws error message otherwise.
- */
-async function validateFileName(parentEntry, name, areHiddenFilesVisible) {
-    const testResult = /[\/\\\<\>\:\?\*\"\|]/.exec(name);
-    if (testResult) {
-        throw Error(strf('ERROR_INVALID_CHARACTER', testResult[0]));
-    }
-    if (/^\s*$/i.test(name)) {
-        throw Error(str('ERROR_WHITESPACE_NAME'));
-    }
-    if (/^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$/i.test(name)) {
-        throw Error(str('ERROR_RESERVED_NAME'));
-    }
-    if (!areHiddenFilesVisible && /\.crdownload$/i.test(name)) {
-        throw Error(str('ERROR_RESERVED_NAME'));
-    }
-    if (!areHiddenFilesVisible && name[0] == '.') {
-        throw Error(str('ERROR_HIDDEN_NAME'));
-    }
-    const isValid = await validatePathNameLength(parentEntry, name);
-    if (!isValid) {
-        throw Error(str('ERROR_LONG_NAME'));
-    }
-}
-/**
- * Renames file, folder, or removable root with newName.
- * @param entry The entry to be renamed.
- * @param newName The new name.
- * @param volumeInfo Volume information about the target entry.
- * @param isRemovableRoot Whether the target is a removable root.
- * @return Resolves the renamed entry if successful, else throws error message.
- */
-async function renameEntry(entry, newName, volumeInfo, isRemovableRoot) {
-    if (isRemovableRoot) {
-        chrome.fileManagerPrivate.renameVolume(volumeInfo.volumeId, newName);
-        return entry;
-    }
-    return renameFile(entry, newName);
-}
-/**
- * Renames the entry to newName.
- * @param entry The entry to be renamed.
- * @param newName The new name.
- * @return Resolves the renamed entry if successful, else throws error message.
- */
-async function renameFile(entry, newName) {
-    try {
-        // Before moving, we need to check if there is an existing entry at
-        // parent/newName, since moveTo will overwrite it.
-        // Note that this way has a race condition. After existing check,
-        // a new entry may be created in the background. However, there is no way
-        // not to overwrite the existing file, unfortunately. The risk should be
-        // low, assuming the unsafe period is very short.
-        const parent = await getParentEntry(entry);
-        try {
-            await getEntry(parent, newName, entry.isFile, { create: false });
-        }
-        catch (error) {
-            if (error.name == FileErrorToDomError.NOT_FOUND_ERR) {
-                return moveEntryTo(entry, parent, newName);
-            }
-            // Unexpected error found.
-            throw error;
-        }
-        // The entry with the name already exists.
-        throw createDOMError(FileErrorToDomError.PATH_EXISTS_ERR);
-    }
-    catch (error) {
-        throw getRenameErrorMessage(error, entry, newName);
-    }
-}
-/**
- * Converts DOMError response from renameEntry() to error message.
- */
-function getRenameErrorMessage(error, entry, newName) {
-    if (error &&
-        (error.name == FileErrorToDomError.PATH_EXISTS_ERR ||
-            error.name == FileErrorToDomError.TYPE_MISMATCH_ERR)) {
-        // Check the existing entry is file or not.
-        // 1) If the entry is a file:
-        //   a) If we get PATH_EXISTS_ERR, a file exists.
-        //   b) If we get TYPE_MISMATCH_ERR, a directory exists.
-        // 2) If the entry is a directory:
-        //   a) If we get PATH_EXISTS_ERR, a directory exists.
-        //   b) If we get TYPE_MISMATCH_ERR, a file exists.
-        return Error(strf((entry.isFile && error.name == FileErrorToDomError.PATH_EXISTS_ERR) ||
-            (!entry.isFile &&
-                error.name == FileErrorToDomError.TYPE_MISMATCH_ERR) ?
-            'FILE_ALREADY_EXISTS' :
-            'DIRECTORY_ALREADY_EXISTS', newName));
-    }
-    return Error(strf('ERROR_RENAMING', entry.name, getFileErrorString(error.name)));
-}
-
 function getTemplate$1() {
-    return html$1 `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+    return html$1 `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
             var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
@@ -18463,5 +18379,174 @@ class FilesToast extends PolymerElement {
 }
 customElements.define(FilesToast.is, FilesToast);
 
-export { assertNotReached$1 as $, AsyncQueue as A, isSameFileSystem as B, COMPUTERS_DIRECTORY_NAME as C, isSameEntry as D, isFakeEntry as E, FakeEntryImpl as F, getRootType as G, SHARED_DRIVES_DIRECTORY_PATH as H, isTeamDriveRoot as I, COMPUTERS_DIRECTORY_PATH as J, isComputersRoot as K, getRootTypeFromVolumeType as L, getMediaViewRootTypeFromVolumeId as M, NativeEventTarget as N, MediaViewRootType as O, timeoutPromise as P, addVolume as Q, RootType as R, SHARED_DRIVES_DIRECTORY_NAME as S, recordInterval as T, VOLUME_ALREADY_MOUNTED as U, VolumeType as V, isInGuestMode as W, getDirectory as X, ARCHIVE_OPENED_EVENT_TYPE as Y, Source as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, convertToKebabCase as a$, descriptorEqual as a0, XfBase as a1, isCrosComponentsEnabled as a2, DialogType as a3, isFuseBoxDebugEnabled as a4, AllowedPaths as a5, isNative as a6, parseTrashInfoFiles as a7, recordMediumCount as a8, isFileEntry as a9, CROSTINI_CONNECT_ERR as aA, mountGuest as aB, LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES as aC, ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES as aD, FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES as aE, DLP_METADATA_PREFETCH_PROPERTY_NAMES as aF, ConcurrentQueue as aG, isType as aH, dispatchPropertyChange as aI, Aggregator as aJ, PropStatus as aK, recordUserAction as aL, FileSystemType as aM, getVolumeTypeFromRootType as aN, convertURLsToEntries as aO, isNativeEntry as aP, isOneDriveId as aQ, getFileData as aR, getVolume as aS, getMyFiles as aT, changeDirectory as aU, getEntryLabel as aV, clearSearch as aW, isGuestOs as aX, updateSearch as aY, crInjectTypeAndInit as aZ, boolAttrSetter as a_, isDirectoryEntry as aa, getLocaleBasedWeekStart as ab, SearchRecency as ac, getMediaType as ad, isImage as ae, isVideo as af, isRaw as ag, isPDF as ah, getType as ai, getContentMetadata as aj, testSendMessage as ak, getContentMimeType as al, isDlpEnabled as am, getDlpMetadata as an, entriesToURLs as ao, isTrashEntry as ap, compareName as aq, compareLabel as ar, collator as as, dispatchSimpleEvent as at, createDOMError as au, FileErrorToDomError as av, getDefaultSearchOptions as aw, readEntriesRecursively as ax, isDriveRootType as ay, SearchLocation as az, isActivationClick as b, mouseEnterMaybeShowTooltip as b$, domAttrSetter as b0, assertInstanceof$1 as b1, CrButtonElement as b2, isTreeItem as b3, isXfTree as b4, handleTreeSlotChange as b5, refreshNavigationRoots as b6, NavigationType as b7, isVolumeEntry as b8, isOneDrive as b9, recordBoolean as bA, updateSelection as bB, isEncrypted as bC, refreshFolderShortcut as bD, recordSmallCount as bE, getPreferences as bF, comparePath as bG, addFolderShortcut as bH, removeFolderShortcut as bI, Group as bJ, addAndroidApps as bK, assertNotReached as bL, EntryList as bM, isGuestOsEnabled as bN, isArcVmEnabled as bO, isSinglePartitionFormatEnabled as bP, getPropertyDescriptor as bQ, PropertyKind as bR, assertInstanceof as bS, isSharedDriveEntry as bT, isComputersEntry as bU, isDescendantEntry as bV, getIconOverrides as bW, compareLabelAndGroupBottomEntries as bX, iconSetToCSSBackgroundImageValue as bY, shouldProvideIcons as bZ, FocusOutlineManager as b_, isDriveRootEntryList as ba, ICON_TYPES as bb, shouldSupportDriveSpecificIcons as bc, vmTypeToIconName as bd, isMyFilesEntry as be, readSubDirectoriesToCheckDirectoryChildren as bf, updateFileData as bg, readSubDirectories as bh, shouldDelayLoadingChildren as bi, isEntryScannable as bj, RootTypesForUMA as bk, maybeShowTooltip as bl, convertEntryToFileData as bm, isEntryInsideDrive as bn, isGrandRootEntryInDrives as bo, getEntry$1 as bp, driveRootEntryListKey as bq, VolumeEntry as br, traverseAndExpandPathEntries as bs, getTrustedHTML as bt, isNewDirectoryTreeEnabled as bu, storage as bv, isSameVolume as bw, FSP_ACTION_HIDDEN_ONEDRIVE_URL as bx, FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL as by, FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED as bz, assert as c, TaskHistory as c$, getCrActionMenuTop as c0, SEARCH_RESULTS_KEY as c1, getVolumeType as c2, XfCloudPanel as c3, canBulkPinningCloudPanelShow as c4, CloudPanelType as c5, queryRequiredElement as c6, isSearchEmpty as c7, PathComponent as c8, bytesToString as c9, getDisallowedTransfers as cA, htmlEscape as cB, isDirectoryTreeItem as cC, isDirectoryTree as cD, isSiblingEntry as cE, isNonModifiable as cF, grantAccess as cG, getParentEntry as cH, getFile as cI, validateFileName as cJ, UserCanceledError as cK, getFileTasks as cL, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as cM, annotateTasks as cN, getDefaultTask as cO, getExtension as cP, recordTime as cQ, parseActionId as cR, isFilesAppId as cS, splitExtension as cT, LEGACY_FILES_EXTENSION_ID as cU, executeTask as cV, isTeleported as cW, makeTaskID as cX, extractFilePath as cY, USER_CANCELLED as cZ, updateMetadata as c_, recordValue as ca, PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID as cb, DEFAULT_CROSTINI_VM as cc, PLUGIN_VM as cd, isGoogleOneOfferFilesBannerEligibleAndEnabled as ce, getTeamDriveName as cf, getDriveQuotaMetadata as cg, getSizeStats as ch, isNullOrUndefined as ci, queryDecoratedElement as cj, getFilesAppModalDialogInstance as ck, jsSetter as cl, getFileTypeForName as cm, getKeyModifiers as cn, getCurrentLocaleOrDefault as co, isAudio as cp, getIcon as cq, secondsToRemainingTimeString as cr, PanelType as cs, getFocusedTreeItem as ct, getTreeItemEntry as cu, isRecentRoot as cv, validateEntryName as cw, renameEntry as cx, readSubDirectoriesForRenamedEntry as cy, isTrashRoot as cz, dispatchActivationClick as d, EventType as d0, getFilesData as d1, fetchFileTasks as d2, getMimeType as d3, recordDirectoryListLoadWithTolerance as d4, waitForState as d5, isInteractiveVolume as d6, isTeamDrivesGrandRoot as d7, isTrashRootType as d8, isRecentArcEntry as d9, updateDeviceConnectionState as dA, trashRootKey as dB, PaperRippleBehavior as dC, validateExternalDriveName as dD, getHoldingSpaceState as da, getDlpRestrictionDetails as db, isMirrorSyncEnabled as dc, DEFAULT_BRUSCHETTA_VM as dd, addUiEntry as de, removeUiEntry as df, crostiniPlaceHolderKey as dg, getODFSMetadataQueryEntry as dh, updateIsInteractiveVolume as di, createChild as dj, listMountableGuests as dk, GuestOsPlaceholder as dl, toSandboxedURL as dm, updateDirectoryContent as dn, getLastVisitedURL as dp, getBulkPinProgress as dq, updateBulkPinProgress as dr, getEmptyState as ds, setLaunchParameters as dt, runningInBrowser as du, getDialogCaller as dv, getDlpBlockedComponents as dw, updatePreferences as dx, getDriveConnectionState as dy, updateDriveConnectionStatus as dz, RateLimiter as e, urlToEntry as f, getStore as g, strf as h, internals as i, str as j, startIOTask as k, checkAPIError as l, mixinElementInternals as m, getFileErrorString as n, openWindow as o, isRecentRootType as p, isDriveFsBulkPinningEnabled as q, recordEnum as r, startInterval as s, toFilesAppURL as t, unwrapEntry as u, visitURL as v, assert$1 as w, promisify as x, VolumeError as y, removeVolume as z };
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This file should contain renaming utility functions used only
+ * by the files app frontend.
+ */
+/**
+ * Verifies name for file, folder, or removable root to be created or renamed.
+ * Names are restricted according to the target filesystem.
+ *
+ * @param entry The entry to be named.
+ * @param name New file, folder, or removable root name.
+ * @param areHiddenFilesVisible Whether to report hidden file name errors or
+ *     not.
+ * @param volumeInfo Volume information about the target entry.
+ * @param isRemovableRoot Whether the target is a removable root.
+ * @return Fulfills on success, throws error message otherwise.
+ */
+async function validateEntryName(entry, name, areHiddenFilesVisible, volumeInfo, isRemovableRoot) {
+    if (isRemovableRoot) {
+        const diskFileSystemType = volumeInfo && volumeInfo.diskFileSystemType;
+        assert$1(diskFileSystemType);
+        validateExternalDriveName(name, diskFileSystemType);
+    }
+    else {
+        const parentEntry = await getParentEntry(entry);
+        await validateFileName(parentEntry, name, areHiddenFilesVisible);
+    }
+}
+/**
+ * Verifies the user entered name for external drive to be
+ * renamed to. Name restrictions must correspond to the target filesystem
+ * restrictions.
+ *
+ * It also verifies that name length is in the limits of the filesystem.
+ *
+ * This function throws if the new label is invalid, else it completes.
+ *
+ * @param name New external drive name.
+ */
+function validateExternalDriveName(name, fileSystem) {
+    // Verify if entered name for external drive respects restrictions
+    // provided by the target filesystem.
+    const nameLength = name.length;
+    const lengthLimit = FileSystemTypeVolumeNameLengthLimit;
+    // Verify length for the target file system type.
+    if (lengthLimit.hasOwnProperty(fileSystem) &&
+        nameLength > lengthLimit[fileSystem]) {
+        throw Error(strf('ERROR_EXTERNAL_DRIVE_LONG_NAME', lengthLimit[fileSystem]));
+    }
+    // Checks if the name contains only alphanumeric characters or allowed
+    // special characters. This needs to stay in sync with
+    // cros-disks/filesystem_label.cc on the ChromeOS side.
+    const validCharRegex = /[a-zA-Z0-9 \!\#\$\%\&\(\)\-\@\^\_\`\{\}\~]/;
+    for (const n of name) {
+        if (!validCharRegex.test(n)) {
+            throw Error(strf('ERROR_EXTERNAL_DRIVE_INVALID_CHARACTER', n));
+        }
+    }
+}
+/**
+ * Verifies the user entered name for file or folder to be created or
+ * renamed to. Name restrictions must correspond to File API restrictions
+ * (see DOMFilePath::isValidPath). Curernt WebKit implementation is
+ * out of date (spec is
+ * http://dev.w3.org/2009/dap/file-system/file-dir-sys.html, 8.3) and going
+ * to be fixed. Shows message box if the name is invalid.
+ *
+ * It also verifies if the name length is in the limit of the filesystem.
+ *
+ * @param parentEntry The entry of the parent directory.
+ * @param name New file or folder name.
+ * @param areHiddenFilesVisible Whether to report the hidden file name error or
+ *     not.
+ * @return Fulfills on success, throws error message otherwise.
+ */
+async function validateFileName(parentEntry, name, areHiddenFilesVisible) {
+    const testResult = /[\/\\\<\>\:\?\*\"\|]/.exec(name);
+    if (testResult) {
+        throw Error(strf('ERROR_INVALID_CHARACTER', testResult[0]));
+    }
+    if (/^\s*$/i.test(name)) {
+        throw Error(str('ERROR_WHITESPACE_NAME'));
+    }
+    if (/^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$/i.test(name)) {
+        throw Error(str('ERROR_RESERVED_NAME'));
+    }
+    if (!areHiddenFilesVisible && /\.crdownload$/i.test(name)) {
+        throw Error(str('ERROR_RESERVED_NAME'));
+    }
+    if (!areHiddenFilesVisible && name[0] === '.') {
+        throw Error(str('ERROR_HIDDEN_NAME'));
+    }
+    const isValid = await validatePathNameLength(parentEntry, name);
+    if (!isValid) {
+        throw Error(str('ERROR_LONG_NAME'));
+    }
+}
+/**
+ * Renames file, folder, or removable root with newName.
+ * @param entry The entry to be renamed.
+ * @param newName The new name.
+ * @param volumeInfo Volume information about the target entry.
+ * @param isRemovableRoot Whether the target is a removable root.
+ * @return Resolves the renamed entry if successful, else throws error message.
+ */
+async function renameEntry(entry, newName, volumeInfo, isRemovableRoot) {
+    if (isRemovableRoot) {
+        chrome.fileManagerPrivate.renameVolume(volumeInfo.volumeId, newName);
+        return entry;
+    }
+    return renameFile(entry, newName);
+}
+/**
+ * Renames the entry to newName.
+ * @param entry The entry to be renamed.
+ * @param newName The new name.
+ * @return Resolves the renamed entry if successful, else throws error message.
+ */
+async function renameFile(entry, newName) {
+    try {
+        // Before moving, we need to check if there is an existing entry at
+        // parent/newName, since moveTo will overwrite it.
+        // Note that this way has a race condition. After existing check,
+        // a new entry may be created in the background. However, there is no way
+        // not to overwrite the existing file, unfortunately. The risk should be
+        // low, assuming the unsafe period is very short.
+        const parent = await getParentEntry(entry);
+        try {
+            await getEntry(parent, newName, entry.isFile, { create: false });
+        }
+        catch (error) {
+            if (error.name === FileErrorToDomError.NOT_FOUND_ERR) {
+                return moveEntryTo(entry, parent, newName);
+            }
+            // Unexpected error found.
+            throw error;
+        }
+        // The entry with the name already exists.
+        throw createDOMError(FileErrorToDomError.PATH_EXISTS_ERR);
+    }
+    catch (error) {
+        throw getRenameErrorMessage(error, entry, newName);
+    }
+}
+/**
+ * Converts DOMError response from renameEntry() to error message.
+ */
+function getRenameErrorMessage(error, entry, newName) {
+    if (error &&
+        (error.name === FileErrorToDomError.PATH_EXISTS_ERR ||
+            error.name === FileErrorToDomError.TYPE_MISMATCH_ERR)) {
+        // Check the existing entry is file or not.
+        // 1) If the entry is a file:
+        //   a) If we get PATH_EXISTS_ERR, a file exists.
+        //   b) If we get TYPE_MISMATCH_ERR, a directory exists.
+        // 2) If the entry is a directory:
+        //   a) If we get PATH_EXISTS_ERR, a directory exists.
+        //   b) If we get TYPE_MISMATCH_ERR, a file exists.
+        return Error(strf((entry.isFile && error.name === FileErrorToDomError.PATH_EXISTS_ERR) ||
+            (!entry.isFile &&
+                error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) ?
+            'FILE_ALREADY_EXISTS' :
+            'DIRECTORY_ALREADY_EXISTS', newName));
+    }
+    return Error(strf('ERROR_RENAMING', entry.name, getFileErrorString(error.name)));
+}
+
+export { assertNotReached$1 as $, AsyncQueue as A, isSameFileSystem as B, COMPUTERS_DIRECTORY_NAME as C, isSameEntry as D, isFakeEntry as E, FakeEntryImpl as F, getRootType as G, SHARED_DRIVES_DIRECTORY_PATH as H, isTeamDriveRoot as I, COMPUTERS_DIRECTORY_PATH as J, isComputersRoot as K, getRootTypeFromVolumeType as L, getMediaViewRootTypeFromVolumeId as M, NativeEventTarget as N, MediaViewRootType as O, timeoutPromise as P, addVolume as Q, RootType as R, SHARED_DRIVES_DIRECTORY_NAME as S, recordInterval as T, VOLUME_ALREADY_MOUNTED as U, VolumeType as V, isInGuestMode as W, getDirectory as X, ARCHIVE_OPENED_EVENT_TYPE as Y, Source as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, convertToKebabCase as a$, descriptorEqual as a0, XfBase as a1, isCrosComponentsEnabled as a2, DialogType as a3, isFuseBoxDebugEnabled as a4, AllowedPaths as a5, isNative as a6, parseTrashInfoFiles as a7, recordMediumCount as a8, isFileEntry as a9, CROSTINI_CONNECT_ERR as aA, mountGuest as aB, LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES as aC, ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES as aD, FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES as aE, DLP_METADATA_PREFETCH_PROPERTY_NAMES as aF, ConcurrentQueue as aG, isType as aH, dispatchPropertyChange as aI, Aggregator as aJ, PropStatus as aK, recordUserAction as aL, FileSystemType as aM, getVolumeTypeFromRootType as aN, convertURLsToEntries as aO, isNativeEntry as aP, isOneDriveId as aQ, getFileData as aR, getVolume as aS, getMyFiles as aT, changeDirectory as aU, getEntryLabel as aV, clearSearch as aW, isGuestOs as aX, updateSearch as aY, crInjectTypeAndInit as aZ, boolAttrSetter as a_, isDirectoryEntry as aa, getLocaleBasedWeekStart as ab, SearchRecency as ac, getMediaType as ad, isImage as ae, isVideo as af, isRaw as ag, isPDF as ah, getType as ai, getContentMetadata as aj, testSendMessage as ak, getContentMimeType as al, isDlpEnabled as am, getDlpMetadata as an, entriesToURLs as ao, isTrashEntry as ap, compareName as aq, compareLabel as ar, collator as as, dispatchSimpleEvent as at, createDOMError as au, FileErrorToDomError as av, getDefaultSearchOptions as aw, readEntriesRecursively as ax, isDriveRootType as ay, SearchLocation as az, isActivationClick as b, mouseEnterMaybeShowTooltip as b$, domAttrSetter as b0, assertInstanceof$1 as b1, CrButtonElement as b2, isTreeItem as b3, isXfTree as b4, handleTreeSlotChange as b5, refreshNavigationRoots as b6, NavigationType as b7, isVolumeEntry as b8, isOneDrive as b9, recordBoolean as bA, updateSelection as bB, isEncrypted as bC, refreshFolderShortcut as bD, recordSmallCount as bE, getPreferences as bF, comparePath as bG, addFolderShortcut as bH, removeFolderShortcut as bI, Group as bJ, addAndroidApps as bK, assertNotReached as bL, EntryList as bM, isGuestOsEnabled as bN, isArcVmEnabled as bO, isSinglePartitionFormatEnabled as bP, getPropertyDescriptor as bQ, PropertyKind as bR, assertInstanceof as bS, isSharedDriveEntry as bT, isComputersEntry as bU, isDescendantEntry as bV, getIconOverrides as bW, compareLabelAndGroupBottomEntries as bX, iconSetToCSSBackgroundImageValue as bY, shouldProvideIcons as bZ, FocusOutlineManager as b_, isDriveRootEntryList as ba, ICON_TYPES as bb, shouldSupportDriveSpecificIcons as bc, vmTypeToIconName as bd, isMyFilesEntry as be, readSubDirectoriesToCheckDirectoryChildren as bf, updateFileData as bg, readSubDirectories as bh, shouldDelayLoadingChildren as bi, isEntryScannable as bj, RootTypesForUMA as bk, maybeShowTooltip as bl, convertEntryToFileData as bm, isEntryInsideDrive as bn, isGrandRootEntryInDrives as bo, getEntry$1 as bp, driveRootEntryListKey as bq, VolumeEntry as br, traverseAndExpandPathEntries as bs, getTrustedHTML as bt, isNewDirectoryTreeEnabled as bu, storage as bv, isSameVolume as bw, FSP_ACTION_HIDDEN_ONEDRIVE_URL as bx, FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL as by, FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED as bz, assert as c, getFilesData as c$, getCrActionMenuTop as c0, SEARCH_RESULTS_KEY as c1, getVolumeType as c2, XfCloudPanel as c3, canBulkPinningCloudPanelShow as c4, CloudPanelType as c5, queryRequiredElement as c6, isSearchEmpty as c7, PathComponent as c8, bytesToString as c9, isDirectoryTreeItem as cA, isTrashRoot as cB, isNonModifiable as cC, isRecentArcEntry as cD, getHoldingSpaceState as cE, getDlpRestrictionDetails as cF, getExtension as cG, isMirrorSyncEnabled as cH, DEFAULT_BRUSCHETTA_VM as cI, addUiEntry as cJ, removeUiEntry as cK, crostiniPlaceHolderKey as cL, UserCanceledError as cM, validateEntryName as cN, renameEntry as cO, readSubDirectoriesForRenamedEntry as cP, getODFSMetadataQueryEntry as cQ, updateIsInteractiveVolume as cR, getDisallowedTransfers as cS, htmlEscape as cT, isSiblingEntry as cU, grantAccess as cV, getParentEntry as cW, getFile as cX, updateMetadata as cY, TaskHistory as cZ, EventType as c_, recordValue as ca, PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID as cb, DEFAULT_CROSTINI_VM as cc, PLUGIN_VM as cd, isGoogleOneOfferFilesBannerEligibleAndEnabled as ce, getTeamDriveName as cf, getDriveQuotaMetadata as cg, getSizeStats as ch, isNullOrUndefined as ci, queryDecoratedElement as cj, getFilesAppModalDialogInstance as ck, jsSetter as cl, getFileTypeForName as cm, getKeyModifiers as cn, getCurrentLocaleOrDefault as co, isAudio as cp, getIcon as cq, secondsToRemainingTimeString as cr, PanelType as cs, getFocusedTreeItem as ct, getTreeItemEntry as cu, isRecentRoot as cv, isInteractiveVolume as cw, isTeamDrivesGrandRoot as cx, isTrashRootType as cy, isDirectoryTree as cz, dispatchActivationClick as d, fetchFileTasks as d0, getMimeType as d1, recordDirectoryListLoadWithTolerance as d2, waitForState as d3, getDefaultTask as d4, getFileTasks as d5, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as d6, annotateTasks as d7, recordTime as d8, parseActionId as d9, updateDeviceConnectionState as dA, trashRootKey as dB, PaperRippleMixin as dC, validateExternalDriveName as dD, isFilesAppId as da, splitExtension as db, LEGACY_FILES_EXTENSION_ID as dc, executeTask as dd, isTeleported as de, makeTaskID as df, extractFilePath as dg, USER_CANCELLED as dh, createChild as di, listMountableGuests as dj, GuestOsPlaceholder as dk, toSandboxedURL as dl, validateFileName as dm, updateDirectoryContent as dn, getLastVisitedURL as dp, getBulkPinProgress as dq, updateBulkPinProgress as dr, getEmptyState as ds, setLaunchParameters as dt, runningInBrowser as du, getDialogCaller as dv, getDlpBlockedComponents as dw, updatePreferences as dx, getDriveConnectionState as dy, updateDriveConnectionStatus as dz, RateLimiter as e, urlToEntry as f, getStore as g, strf as h, internals as i, str as j, startIOTask as k, checkAPIError as l, mixinElementInternals as m, getFileErrorString as n, openWindow as o, isRecentRootType as p, isDriveFsBulkPinningEnabled as q, recordEnum as r, startInterval as s, toFilesAppURL as t, unwrapEntry as u, visitURL as v, assert$1 as w, promisify as x, VolumeError as y, removeVolume as z };
 //# sourceMappingURL=shared.rollup.js.map

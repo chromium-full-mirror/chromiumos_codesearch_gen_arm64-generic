@@ -627,6 +627,8 @@ bool NetworkSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::NetworkSettingsObserver_OnProxyChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsObserver.0
       bool success = true;
       ProxyConfigPtr p_proxy_config{};
       NetworkSettingsObserver_OnProxyChanged_ParamsDataView input_data_view(params, message);
@@ -642,8 +644,8 @@ bool NetworkSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProxyChanged(
-std::move(p_proxy_config));
+      impl->OnProxyChanged(        
+        std::move(p_proxy_config));
       return true;
     }
     case internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name: {
@@ -653,6 +655,8 @@ std::move(p_proxy_config));
           reinterpret_cast<internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsObserver.1
       bool success = true;
       bool p_enfoced{};
       NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_ParamsDataView input_data_view(params, message);
@@ -668,8 +672,8 @@ std::move(p_proxy_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(
-std::move(p_enfoced));
+      impl->OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(        
+        std::move(p_enfoced));
       return true;
     }
   }
@@ -1189,6 +1193,8 @@ bool NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardT
           internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkSettingsService.5
   bool success = true;
   bool p_enabled{};
   NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParamsDataView input_data_view(params, message);
@@ -1263,6 +1269,8 @@ bool NetworkSettingsServiceStubDispatch::Accept(
           reinterpret_cast<internal::NetworkSettingsService_AddNetworkSettingsObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsService.0
       bool success = true;
       ::mojo::PendingRemote<NetworkSettingsObserver> p_observer{};
       NetworkSettingsService_AddNetworkSettingsObserver_ParamsDataView input_data_view(params, message);
@@ -1280,8 +1288,8 @@ bool NetworkSettingsServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddNetworkSettingsObserver(
-std::move(p_observer));
+      impl->AddNetworkSettingsObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kNetworkSettingsService_SetExtensionProxy_Name: {
@@ -1291,6 +1299,8 @@ std::move(p_observer));
           reinterpret_cast<internal::NetworkSettingsService_SetExtensionProxy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsService.1
       bool success = true;
       ProxyConfigPtr p_proxy_config{};
       NetworkSettingsService_SetExtensionProxy_ParamsDataView input_data_view(params, message);
@@ -1306,8 +1316,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExtensionProxy(
-std::move(p_proxy_config));
+      impl->SetExtensionProxy(        
+        std::move(p_proxy_config));
       return true;
     }
     case internal::kNetworkSettingsService_ClearExtensionProxy_Name: {
@@ -1317,6 +1327,8 @@ std::move(p_proxy_config));
           reinterpret_cast<internal::NetworkSettingsService_ClearExtensionProxy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsService.2
       bool success = true;
       NetworkSettingsService_ClearExtensionProxy_ParamsDataView input_data_view(params, message);
       
@@ -1329,7 +1341,7 @@ std::move(p_proxy_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearExtensionProxy();
+      impl->ClearExtensionProxy(        );
       return true;
     }
     case internal::kNetworkSettingsService_SetExtensionControllingProxyMetadata_Name: {
@@ -1339,6 +1351,8 @@ std::move(p_proxy_config));
           reinterpret_cast<internal::NetworkSettingsService_SetExtensionControllingProxyMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsService.3
       bool success = true;
       ExtensionControllingProxyPtr p_extension{};
       NetworkSettingsService_SetExtensionControllingProxyMetadata_ParamsDataView input_data_view(params, message);
@@ -1354,8 +1368,8 @@ std::move(p_proxy_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExtensionControllingProxyMetadata(
-std::move(p_extension));
+      impl->SetExtensionControllingProxyMetadata(        
+        std::move(p_extension));
       return true;
     }
     case internal::kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name: {
@@ -1365,6 +1379,8 @@ std::move(p_extension));
           reinterpret_cast<internal::NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsService.4
       bool success = true;
       NetworkSettingsService_ClearExtensionControllingProxyMetadata_ParamsDataView input_data_view(params, message);
       
@@ -1377,7 +1393,7 @@ std::move(p_extension));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearExtensionControllingProxyMetadata();
+      impl->ClearExtensionControllingProxyMetadata(        );
       return true;
     }
     case internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name: {
@@ -1418,6 +1434,8 @@ bool NetworkSettingsServiceStubDispatch::AcceptWithResponder(
               internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkSettingsService.5
       bool success = true;
       NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ParamsDataView input_data_view(params, message);
       

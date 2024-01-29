@@ -125,7 +125,6 @@ describe.skipOnPlatforms = function (platforms, name, fn) {
         describe(name, fn);
     }
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function timeoutHook(done, err) {
     function* joinStacks() {
         const scopes = async_scope_js_1.AsyncScope.scopes;
@@ -226,7 +225,8 @@ function wrapMochaCall(call, name, callback) {
         hookTestTimeout(test);
         if (callback.length === 0) {
             async function onError(err) {
-                if (err && !(0, config_js_1.getEnvVar)('DEBUG_TEST') && !(err instanceof screenshot_error_js_1.ScreenshotError)) {
+                const isTimeoutError = err instanceof Error && err.message?.includes(helper_js_1.TIMEOUT_ERROR_MESSAGE);
+                if (err && !(0, config_js_1.getEnvVar)('DEBUG_TEST') && !(err instanceof screenshot_error_js_1.ScreenshotError) && !isTimeoutError) {
                     const { target, frontend } = await takeScreenshots(name);
                     err = screenshot_error_js_1.ScreenshotError.fromBase64Images(err, target, frontend);
                 }

@@ -26,6 +26,7 @@ enum class PermissionName : int32_t;
 
 enum class EmbeddedPermissionControlResult : int32_t;
 class PermissionObserverInterfaceBase;
+class EmbeddedPermissionControlClientInterfaceBase;
 class PermissionServiceInterfaceBase;
 
 
@@ -37,6 +38,7 @@ namespace blink::mojom::blink {
 using PermissionName = PermissionName;
 using EmbeddedPermissionControlResult = EmbeddedPermissionControlResult;
 using PermissionObserverInterfaceBase = PermissionObserverInterfaceBase;
+using EmbeddedPermissionControlClientInterfaceBase = EmbeddedPermissionControlClientInterfaceBase;
 using PermissionServiceInterfaceBase = PermissionServiceInterfaceBase;
 class MidiPermissionDescriptor;
 using MidiPermissionDescriptorPtr = mojo::InlinedStructPtr<MidiPermissionDescriptor>;
@@ -61,6 +63,8 @@ class PermissionDescriptorExtension;
 using PermissionDescriptorExtensionPtr = mojo::StructPtr<PermissionDescriptorExtension>;
 
 class PermissionObserver;
+
+class EmbeddedPermissionControlClient;
 
 class PermissionService;
 

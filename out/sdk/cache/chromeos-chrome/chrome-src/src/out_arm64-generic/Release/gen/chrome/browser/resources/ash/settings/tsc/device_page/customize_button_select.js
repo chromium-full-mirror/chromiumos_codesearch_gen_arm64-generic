@@ -13,6 +13,7 @@ import '../settings_shared.css.js';
 import { LWIN_KEY, META_KEY } from 'chrome://resources/ash/common/shortcut_input_ui/shortcut_input_key.js';
 import { KeyToIconNameMap } from 'chrome://resources/ash/common/shortcut_input_ui/shortcut_utils.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './customize_button_select.html.js';
 import { StaticShortcutAction } from './input_device_settings_types.js';
@@ -39,10 +40,10 @@ var Modifier;
  * contains the following four.
  */
 const modifierBitMaskToString = new Map([
-    [Modifier.CONTROL, 'Ctrl'],
-    [Modifier.SHIFT, 'Shift'],
-    [Modifier.ALT, 'Alt'],
-    [Modifier.META, 'Meta'],
+    [Modifier.CONTROL, 'ctrl'],
+    [Modifier.SHIFT, 'shift'],
+    [Modifier.ALT, 'alt'],
+    [Modifier.META, 'meta'],
 ]);
 /**
  * Converts a keyEvent to a string representing all the modifiers and the vkey.
@@ -50,16 +51,17 @@ const modifierBitMaskToString = new Map([
 function getInputKeys(keyEvent) {
     const inputKeysArray = [];
     modifierBitMaskToString.forEach((modifierName, bitValue) => {
-        // Now if pressing a single modifier key like "shift", it will show
-        // "shift + shift" instead of a single "shift".
-        // Temporarily add a condition to check modifierName duplicating with
-        // keyDisplay until it's fixed in the key combination logics.
-        if ((keyEvent.modifiers & bitValue) !== 0 &&
-            modifierName !== keyEvent.keyDisplay) {
+        if ((keyEvent.modifiers & bitValue) !== 0) {
             inputKeysArray.push(modifierName, '+');
         }
     });
-    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0) {
+    // Now if pressing a single modifier key like "shift", it will show
+    // "shift + shift" instead of a single "shift".
+    // Temporarily add a condition to check modifierName duplicating with
+    // keyDisplay until it's fixed in the key combination logics.
+    // TODO(yyhyyh@): Remove the condition when it's fixed in backend.
+    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0 &&
+        !inputKeysArray.includes(keyEvent.keyDisplay.toLowerCase())) {
         inputKeysArray.push(keyEvent.keyDisplay);
     }
     else {
@@ -114,6 +116,14 @@ export class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBa
                 type: Boolean,
                 value: false,
             },
+            highlightedValue_: {
+                type: String,
+                value: '',
+            },
+            focusTarget_: {
+                type: Object,
+                value: undefined,
+            },
         };
     }
     static get observers() {
@@ -150,10 +160,30 @@ export class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBa
         this.isInitialized_ = true;
     }
     showDropdownMenu_() {
+        if (!this.menu) {
+            this.shouldShowDropdownMenu_ = true;
+            return;
+        }
+        // Focus the selected Row.
+        assert(!!this.selectedValue, 'There should be a selected item already.');
+        this.highlightedValue_ =
+            this.selectedValue === KEY_COMBINATION_OPTION_VALUE ?
+                OPEN_DIALOG_OPTION_VALUE :
+                this.selectedValue;
+        const indexOfCurrentRow = this.menu.findIndex((action) => action.value === this.highlightedValue_);
+        const dropdownMenuOptions = this.$.menuContainer.querySelectorAll('customize-button-dropdown-item');
+        assert(!!dropdownMenuOptions[indexOfCurrentRow]);
+        this.set('focusTarget_', dropdownMenuOptions[indexOfCurrentRow]);
         this.shouldShowDropdownMenu_ = true;
     }
     onBlur_() {
+        this.highlightedValue_ = '';
         this.shouldShowDropdownMenu_ = false;
+    }
+    hideDropdownMenu_() {
+        this.highlightedValue_ = '';
+        this.shouldShowDropdownMenu_ = false;
+        this.focus();
     }
     onDropdownItemSelected_(e) {
         const optionValue = e.detail.value ?? NO_REMAPPING_OPTION_VALUE;
@@ -168,7 +198,7 @@ export class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBa
             this.set('selectedValue', optionValue);
         }
         // Close dropdown menu after selected.
-        this.shouldShowDropdownMenu_ = false;
+        this.hideDropdownMenu_();
     }
     getSelectedLabel_() {
         if (!this.selectedValue || !this.menu) {
@@ -333,10 +363,56 @@ export class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBa
     }
     onKeyDown_(e) {
         if (e.key === 'Enter') {
-            this.shouldShowDropdownMenu_ = !this.shouldShowDropdownMenu_;
+            if (this.shouldShowDropdownMenu_) {
+                this.updateDropdownSelection_();
+            }
+            else {
+                this.showDropdownMenu_();
+            }
             return;
         }
-        // TODO(yyhyyh@): Add case for ArrowUp and ArrowDown.
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            this.selectRowViaKeys(e.key);
+            return;
+        }
+        if (e.key === 'Escape') {
+            this.hideDropdownMenu_();
+        }
+    }
+    selectRowViaKeys(key) {
+        assert(key === 'ArrowDown' || key === 'ArrowUp', 'Only arrow keys.');
+        // Display the dropdown menu if it's not popped out.
+        if (!this.shouldShowDropdownMenu_) {
+            this.showDropdownMenu_();
+            return;
+        }
+        assert(!!this.highlightedValue_, 'There should be a highlighted item already.');
+        // Select the new item.
+        const indexOfCurrentRow = this.menu.findIndex((action) => action.value === this.highlightedValue_);
+        // Skipping the hidden option for key combination label display.
+        const numRows = this.menu.length - 1;
+        const delta = key === 'ArrowUp' ? -1 : 1;
+        const indexOfNewRow = (numRows + indexOfCurrentRow + delta) % numRows;
+        const dropdownMenuOptions = this.$.menuContainer.querySelectorAll('customize-button-dropdown-item');
+        assert(!!dropdownMenuOptions[indexOfNewRow]);
+        dropdownMenuOptions[indexOfNewRow]?.focus();
+        dropdownMenuOptions[indexOfNewRow]?.scrollIntoViewIfNeeded();
+        // Update the highlighted value.
+        this.highlightedValue_ = this.menu[indexOfNewRow].value;
+    }
+    updateDropdownSelection_() {
+        if (!!this.highlightedValue_ && this.highlightedValue_ !== '' &&
+            this.menu?.findIndex((action) => action.value === this.highlightedValue_) >= 0) {
+            this.dispatchEvent(new CustomEvent('customize-button-dropdown-selected', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    value: this.highlightedValue_,
+                },
+            }));
+        }
+        this.hideDropdownMenu_();
     }
 }
 customElements.define(CustomizeButtonSelectElement.is, CustomizeButtonSelectElement);

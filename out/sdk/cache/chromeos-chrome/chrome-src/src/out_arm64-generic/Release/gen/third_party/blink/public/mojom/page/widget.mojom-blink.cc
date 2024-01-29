@@ -1619,6 +1619,8 @@ bool FrameWidget_DragTargetDragEnter_ForwardToCallback::Accept(
           internal::FrameWidget_DragTargetDragEnter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidget.0
   bool success = true;
   ::ui::mojom::blink::DragOperation p_operation{};
   bool p_document_is_handling_drag{};
@@ -1747,6 +1749,8 @@ bool FrameWidget_DragTargetDragOver_ForwardToCallback::Accept(
           internal::FrameWidget_DragTargetDragOver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidget.1
   bool success = true;
   ::ui::mojom::blink::DragOperation p_operation{};
   bool p_document_is_handling_drag{};
@@ -1875,6 +1879,8 @@ bool FrameWidget_DragTargetDrop_ForwardToCallback::Accept(
           internal::FrameWidget_DragTargetDrop_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidget.3
   bool success = true;
   FrameWidget_DragTargetDrop_ResponseParamsDataView input_data_view(params, message);
   
@@ -1982,6 +1988,8 @@ bool FrameWidget_DragSourceEndedAt_ForwardToCallback::Accept(
           internal::FrameWidget_DragSourceEndedAt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidget.4
   bool success = true;
   FrameWidget_DragSourceEndedAt_ResponseParamsDataView input_data_view(params, message);
   
@@ -2089,6 +2097,8 @@ bool FrameWidget_OnStartStylusWriting_ForwardToCallback::Accept(
           internal::FrameWidget_OnStartStylusWriting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidget.6
   bool success = true;
   std::optional<::gfx::Rect> p_focused_edit_bounds{};
   std::optional<::gfx::Rect> p_caret_bounds{};
@@ -2189,6 +2199,8 @@ bool FrameWidgetStubDispatch::Accept(
           reinterpret_cast<internal::FrameWidget_DragTargetDragLeave_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.2
       bool success = true;
       ::gfx::PointF p_point_in_viewport{};
       ::gfx::PointF p_screen_point{};
@@ -2207,9 +2219,9 @@ bool FrameWidgetStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragTargetDragLeave(
-std::move(p_point_in_viewport), 
-std::move(p_screen_point));
+      impl->DragTargetDragLeave(        
+        std::move(p_point_in_viewport), 
+        std::move(p_screen_point));
       return true;
     }
     case internal::kFrameWidget_DragTargetDrop_Name: {
@@ -2225,6 +2237,8 @@ std::move(p_screen_point));
           reinterpret_cast<internal::FrameWidget_DragSourceSystemDragEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.5
       bool success = true;
       FrameWidget_DragSourceSystemDragEnded_ParamsDataView input_data_view(params, message);
       
@@ -2237,7 +2251,7 @@ std::move(p_screen_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragSourceSystemDragEnded();
+      impl->DragSourceSystemDragEnded(        );
       return true;
     }
     case internal::kFrameWidget_OnStartStylusWriting_Name: {
@@ -2250,6 +2264,8 @@ std::move(p_screen_point));
           reinterpret_cast<internal::FrameWidget_SetBackgroundOpaque_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.7
       bool success = true;
       bool p_opaque{};
       FrameWidget_SetBackgroundOpaque_ParamsDataView input_data_view(params, message);
@@ -2265,8 +2281,8 @@ std::move(p_screen_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBackgroundOpaque(
-std::move(p_opaque));
+      impl->SetBackgroundOpaque(        
+        std::move(p_opaque));
       return true;
     }
     case internal::kFrameWidget_SetTextDirection_Name: {
@@ -2276,6 +2292,8 @@ std::move(p_opaque));
           reinterpret_cast<internal::FrameWidget_SetTextDirection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.8
       bool success = true;
       ::base::i18n::TextDirection p_direction{};
       FrameWidget_SetTextDirection_ParamsDataView input_data_view(params, message);
@@ -2291,8 +2309,8 @@ std::move(p_opaque));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTextDirection(
-std::move(p_direction));
+      impl->SetTextDirection(        
+        std::move(p_direction));
       return true;
     }
     case internal::kFrameWidget_SetActive_Name: {
@@ -2302,6 +2320,8 @@ std::move(p_direction));
           reinterpret_cast<internal::FrameWidget_SetActive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.9
       bool success = true;
       bool p_active{};
       FrameWidget_SetActive_ParamsDataView input_data_view(params, message);
@@ -2317,8 +2337,8 @@ std::move(p_direction));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetActive(
-std::move(p_active));
+      impl->SetActive(        
+        std::move(p_active));
       return true;
     }
     case internal::kFrameWidget_SetInheritedEffectiveTouchActionForSubFrame_Name: {
@@ -2328,6 +2348,8 @@ std::move(p_active));
           reinterpret_cast<internal::FrameWidget_SetInheritedEffectiveTouchActionForSubFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.10
       bool success = true;
       ::cc::TouchAction p_touch_action{};
       FrameWidget_SetInheritedEffectiveTouchActionForSubFrame_ParamsDataView input_data_view(params, message);
@@ -2343,8 +2365,8 @@ std::move(p_active));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInheritedEffectiveTouchActionForSubFrame(
-std::move(p_touch_action));
+      impl->SetInheritedEffectiveTouchActionForSubFrame(        
+        std::move(p_touch_action));
       return true;
     }
     case internal::kFrameWidget_UpdateRenderThrottlingStatusForSubFrame_Name: {
@@ -2354,6 +2376,8 @@ std::move(p_touch_action));
           reinterpret_cast<internal::FrameWidget_UpdateRenderThrottlingStatusForSubFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.11
       bool success = true;
       bool p_is_throttled{};
       bool p_subtree_throttled{};
@@ -2375,10 +2399,10 @@ std::move(p_touch_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateRenderThrottlingStatusForSubFrame(
-std::move(p_is_throttled), 
-std::move(p_subtree_throttled), 
-std::move(p_display_locked));
+      impl->UpdateRenderThrottlingStatusForSubFrame(        
+        std::move(p_is_throttled), 
+        std::move(p_subtree_throttled), 
+        std::move(p_display_locked));
       return true;
     }
     case internal::kFrameWidget_SetIsInertForSubFrame_Name: {
@@ -2388,6 +2412,8 @@ std::move(p_display_locked));
           reinterpret_cast<internal::FrameWidget_SetIsInertForSubFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.12
       bool success = true;
       bool p_inert{};
       FrameWidget_SetIsInertForSubFrame_ParamsDataView input_data_view(params, message);
@@ -2403,8 +2429,8 @@ std::move(p_display_locked));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsInertForSubFrame(
-std::move(p_inert));
+      impl->SetIsInertForSubFrame(        
+        std::move(p_inert));
       return true;
     }
     case internal::kFrameWidget_ShowContextMenu_Name: {
@@ -2414,6 +2440,8 @@ std::move(p_inert));
           reinterpret_cast<internal::FrameWidget_ShowContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.13
       bool success = true;
       ::ui::mojom::blink::MenuSourceType p_source_type{};
       ::gfx::Point p_location{};
@@ -2432,9 +2460,9 @@ std::move(p_inert));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenu(
-std::move(p_source_type), 
-std::move(p_location));
+      impl->ShowContextMenu(        
+        std::move(p_source_type), 
+        std::move(p_location));
       return true;
     }
     case internal::kFrameWidget_EnableDeviceEmulation_Name: {
@@ -2444,6 +2472,8 @@ std::move(p_location));
           reinterpret_cast<internal::FrameWidget_EnableDeviceEmulation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.14
       bool success = true;
       ::blink::DeviceEmulationParams p_parameters{};
       FrameWidget_EnableDeviceEmulation_ParamsDataView input_data_view(params, message);
@@ -2459,8 +2489,8 @@ std::move(p_location));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableDeviceEmulation(
-std::move(p_parameters));
+      impl->EnableDeviceEmulation(        
+        std::move(p_parameters));
       return true;
     }
     case internal::kFrameWidget_DisableDeviceEmulation_Name: {
@@ -2470,6 +2500,8 @@ std::move(p_parameters));
           reinterpret_cast<internal::FrameWidget_DisableDeviceEmulation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.15
       bool success = true;
       FrameWidget_DisableDeviceEmulation_ParamsDataView input_data_view(params, message);
       
@@ -2482,7 +2514,7 @@ std::move(p_parameters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableDeviceEmulation();
+      impl->DisableDeviceEmulation(        );
       return true;
     }
     case internal::kFrameWidget_BindWidgetCompositor_Name: {
@@ -2492,6 +2524,8 @@ std::move(p_parameters));
           reinterpret_cast<internal::FrameWidget_BindWidgetCompositor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.16
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::WidgetCompositor> p_host{};
       FrameWidget_BindWidgetCompositor_ParamsDataView input_data_view(params, message);
@@ -2509,8 +2543,8 @@ std::move(p_parameters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWidgetCompositor(
-std::move(p_host));
+      impl->BindWidgetCompositor(        
+        std::move(p_host));
       return true;
     }
     case internal::kFrameWidget_BindInputTargetClient_Name: {
@@ -2520,6 +2554,8 @@ std::move(p_host));
           reinterpret_cast<internal::FrameWidget_BindInputTargetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.17
       bool success = true;
       ::mojo::PendingReceiver<::viz::mojom::blink::InputTargetClient> p_host{};
       FrameWidget_BindInputTargetClient_ParamsDataView input_data_view(params, message);
@@ -2537,8 +2573,8 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInputTargetClient(
-std::move(p_host));
+      impl->BindInputTargetClient(        
+        std::move(p_host));
       return true;
     }
     case internal::kFrameWidget_SetViewportIntersection_Name: {
@@ -2548,6 +2584,8 @@ std::move(p_host));
           reinterpret_cast<internal::FrameWidget_SetViewportIntersection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidget.18
       bool success = true;
       ::blink::mojom::blink::ViewportIntersectionStatePtr p_intersection_state{};
       std::optional<::blink::VisualProperties> p_visual_properties{};
@@ -2566,9 +2604,9 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetViewportIntersection(
-std::move(p_intersection_state), 
-std::move(p_visual_properties));
+      impl->SetViewportIntersection(        
+        std::move(p_intersection_state), 
+        std::move(p_visual_properties));
       return true;
     }
   }
@@ -2591,6 +2629,8 @@ bool FrameWidgetStubDispatch::AcceptWithResponder(
               internal::FrameWidget_DragTargetDragEnter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidget.0
       bool success = true;
       ::blink::WebDragData p_drag_data{};
       ::gfx::PointF p_point_in_viewport{};
@@ -2621,12 +2661,12 @@ bool FrameWidgetStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragTargetDragEnter(
-std::move(p_drag_data), 
-std::move(p_point_in_viewport), 
-std::move(p_screen_point), 
-std::move(p_operations_allowed), 
-std::move(p_key_modifiers), std::move(callback));
+      impl->DragTargetDragEnter(        
+        std::move(p_drag_data), 
+        std::move(p_point_in_viewport), 
+        std::move(p_screen_point), 
+        std::move(p_operations_allowed), 
+        std::move(p_key_modifiers), std::move(callback));
       return true;
     }
     case internal::kFrameWidget_DragTargetDragOver_Name: {
@@ -2636,6 +2676,8 @@ std::move(p_key_modifiers), std::move(callback));
               internal::FrameWidget_DragTargetDragOver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidget.1
       bool success = true;
       ::gfx::PointF p_point_in_viewport{};
       ::gfx::PointF p_screen_point{};
@@ -2663,11 +2705,11 @@ std::move(p_key_modifiers), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragTargetDragOver(
-std::move(p_point_in_viewport), 
-std::move(p_screen_point), 
-std::move(p_operations_allowed), 
-std::move(p_key_modifiers), std::move(callback));
+      impl->DragTargetDragOver(        
+        std::move(p_point_in_viewport), 
+        std::move(p_screen_point), 
+        std::move(p_operations_allowed), 
+        std::move(p_key_modifiers), std::move(callback));
       return true;
     }
     case internal::kFrameWidget_DragTargetDragLeave_Name: {
@@ -2680,6 +2722,8 @@ std::move(p_key_modifiers), std::move(callback));
               internal::FrameWidget_DragTargetDrop_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidget.3
       bool success = true;
       ::blink::WebDragData p_drag_data{};
       ::gfx::PointF p_point_in_viewport{};
@@ -2707,11 +2751,11 @@ std::move(p_key_modifiers), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragTargetDrop(
-std::move(p_drag_data), 
-std::move(p_point_in_viewport), 
-std::move(p_screen_point), 
-std::move(p_key_modifiers), std::move(callback));
+      impl->DragTargetDrop(        
+        std::move(p_drag_data), 
+        std::move(p_point_in_viewport), 
+        std::move(p_screen_point), 
+        std::move(p_key_modifiers), std::move(callback));
       return true;
     }
     case internal::kFrameWidget_DragSourceEndedAt_Name: {
@@ -2721,6 +2765,8 @@ std::move(p_key_modifiers), std::move(callback));
               internal::FrameWidget_DragSourceEndedAt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidget.4
       bool success = true;
       ::gfx::PointF p_point_in_viewport{};
       ::gfx::PointF p_screen_point{};
@@ -2745,10 +2791,10 @@ std::move(p_key_modifiers), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragSourceEndedAt(
-std::move(p_point_in_viewport), 
-std::move(p_screen_point), 
-std::move(p_drag_operation), std::move(callback));
+      impl->DragSourceEndedAt(        
+        std::move(p_point_in_viewport), 
+        std::move(p_screen_point), 
+        std::move(p_drag_operation), std::move(callback));
       return true;
     }
     case internal::kFrameWidget_DragSourceSystemDragEnded_Name: {
@@ -2761,6 +2807,8 @@ std::move(p_drag_operation), std::move(callback));
               internal::FrameWidget_OnStartStylusWriting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidget.6
       bool success = true;
       FrameWidget_OnStartStylusWriting_ParamsDataView input_data_view(params, message);
       
@@ -3414,6 +3462,8 @@ bool FrameWidgetHostStubDispatch::Accept(
           reinterpret_cast<internal::FrameWidgetHost_AnimateDoubleTapZoomInMainFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.0
       bool success = true;
       ::gfx::Point p_tap_point{};
       ::gfx::Rect p_rect_to_zoom{};
@@ -3432,9 +3482,9 @@ bool FrameWidgetHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnimateDoubleTapZoomInMainFrame(
-std::move(p_tap_point), 
-std::move(p_rect_to_zoom));
+      impl->AnimateDoubleTapZoomInMainFrame(        
+        std::move(p_tap_point), 
+        std::move(p_rect_to_zoom));
       return true;
     }
     case internal::kFrameWidgetHost_ZoomToFindInPageRectInMainFrame_Name: {
@@ -3444,6 +3494,8 @@ std::move(p_rect_to_zoom));
           reinterpret_cast<internal::FrameWidgetHost_ZoomToFindInPageRectInMainFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.1
       bool success = true;
       ::gfx::Rect p_rect_to_zoom{};
       FrameWidgetHost_ZoomToFindInPageRectInMainFrame_ParamsDataView input_data_view(params, message);
@@ -3459,8 +3511,8 @@ std::move(p_rect_to_zoom));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ZoomToFindInPageRectInMainFrame(
-std::move(p_rect_to_zoom));
+      impl->ZoomToFindInPageRectInMainFrame(        
+        std::move(p_rect_to_zoom));
       return true;
     }
     case internal::kFrameWidgetHost_SetHasTouchEventConsumers_Name: {
@@ -3470,6 +3522,8 @@ std::move(p_rect_to_zoom));
           reinterpret_cast<internal::FrameWidgetHost_SetHasTouchEventConsumers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.2
       bool success = true;
       ::blink::mojom::blink::TouchEventConsumersPtr p_touch_event_consumers{};
       FrameWidgetHost_SetHasTouchEventConsumers_ParamsDataView input_data_view(params, message);
@@ -3485,8 +3539,8 @@ std::move(p_rect_to_zoom));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHasTouchEventConsumers(
-std::move(p_touch_event_consumers));
+      impl->SetHasTouchEventConsumers(        
+        std::move(p_touch_event_consumers));
       return true;
     }
     case internal::kFrameWidgetHost_IntrinsicSizingInfoChanged_Name: {
@@ -3496,6 +3550,8 @@ std::move(p_touch_event_consumers));
           reinterpret_cast<internal::FrameWidgetHost_IntrinsicSizingInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.3
       bool success = true;
       ::blink::mojom::blink::IntrinsicSizingInfoPtr p_sizing_info{};
       FrameWidgetHost_IntrinsicSizingInfoChanged_ParamsDataView input_data_view(params, message);
@@ -3511,8 +3567,8 @@ std::move(p_touch_event_consumers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IntrinsicSizingInfoChanged(
-std::move(p_sizing_info));
+      impl->IntrinsicSizingInfoChanged(        
+        std::move(p_sizing_info));
       return true;
     }
     case internal::kFrameWidgetHost_AutoscrollStart_Name: {
@@ -3522,6 +3578,8 @@ std::move(p_sizing_info));
           reinterpret_cast<internal::FrameWidgetHost_AutoscrollStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.4
       bool success = true;
       ::gfx::PointF p_position{};
       FrameWidgetHost_AutoscrollStart_ParamsDataView input_data_view(params, message);
@@ -3537,8 +3595,8 @@ std::move(p_sizing_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AutoscrollStart(
-std::move(p_position));
+      impl->AutoscrollStart(        
+        std::move(p_position));
       return true;
     }
     case internal::kFrameWidgetHost_AutoscrollFling_Name: {
@@ -3548,6 +3606,8 @@ std::move(p_position));
           reinterpret_cast<internal::FrameWidgetHost_AutoscrollFling_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.5
       bool success = true;
       ::gfx::Vector2dF p_velocity{};
       FrameWidgetHost_AutoscrollFling_ParamsDataView input_data_view(params, message);
@@ -3563,8 +3623,8 @@ std::move(p_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AutoscrollFling(
-std::move(p_velocity));
+      impl->AutoscrollFling(        
+        std::move(p_velocity));
       return true;
     }
     case internal::kFrameWidgetHost_AutoscrollEnd_Name: {
@@ -3574,6 +3634,8 @@ std::move(p_velocity));
           reinterpret_cast<internal::FrameWidgetHost_AutoscrollEnd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetHost.6
       bool success = true;
       FrameWidgetHost_AutoscrollEnd_ParamsDataView input_data_view(params, message);
       
@@ -3586,7 +3648,7 @@ std::move(p_velocity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AutoscrollEnd();
+      impl->AutoscrollEnd(        );
       return true;
     }
   }
@@ -3989,6 +4051,8 @@ bool PopupWidgetHost_ShowPopup_ForwardToCallback::Accept(
           internal::PopupWidgetHost_ShowPopup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PopupWidgetHost.1
   bool success = true;
   PopupWidgetHost_ShowPopup_ResponseParamsDataView input_data_view(params, message);
   
@@ -4096,6 +4160,8 @@ bool PopupWidgetHost_SetPopupBounds_ForwardToCallback::Accept(
           internal::PopupWidgetHost_SetPopupBounds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PopupWidgetHost.2
   bool success = true;
   PopupWidgetHost_SetPopupBounds_ResponseParamsDataView input_data_view(params, message);
   
@@ -4158,6 +4224,8 @@ bool PopupWidgetHostStubDispatch::Accept(
           reinterpret_cast<internal::PopupWidgetHost_RequestClosePopup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PopupWidgetHost.0
       bool success = true;
       PopupWidgetHost_RequestClosePopup_ParamsDataView input_data_view(params, message);
       
@@ -4170,7 +4238,7 @@ bool PopupWidgetHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestClosePopup();
+      impl->RequestClosePopup(        );
       return true;
     }
     case internal::kPopupWidgetHost_ShowPopup_Name: {
@@ -4202,6 +4270,8 @@ bool PopupWidgetHostStubDispatch::AcceptWithResponder(
               internal::PopupWidgetHost_ShowPopup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PopupWidgetHost.1
       bool success = true;
       ::gfx::Rect p_initial_rect{};
       ::gfx::Rect p_anchor_rect{};
@@ -4223,9 +4293,9 @@ bool PopupWidgetHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowPopup(
-std::move(p_initial_rect), 
-std::move(p_anchor_rect), std::move(callback));
+      impl->ShowPopup(        
+        std::move(p_initial_rect), 
+        std::move(p_anchor_rect), std::move(callback));
       return true;
     }
     case internal::kPopupWidgetHost_SetPopupBounds_Name: {
@@ -4235,6 +4305,8 @@ std::move(p_anchor_rect), std::move(callback));
               internal::PopupWidgetHost_SetPopupBounds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PopupWidgetHost.2
       bool success = true;
       ::gfx::Rect p_bounds{};
       PopupWidgetHost_SetPopupBounds_ParamsDataView input_data_view(params, message);
@@ -4253,8 +4325,8 @@ std::move(p_anchor_rect), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPopupBounds(
-std::move(p_bounds), std::move(callback));
+      impl->SetPopupBounds(        
+        std::move(p_bounds), std::move(callback));
       return true;
     }
   }

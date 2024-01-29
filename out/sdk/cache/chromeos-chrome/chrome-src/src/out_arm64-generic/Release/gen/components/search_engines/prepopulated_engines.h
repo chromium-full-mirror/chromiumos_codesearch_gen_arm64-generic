@@ -17,8 +17,8 @@
 namespace TemplateURLPrepopulateData {
 
 struct PrepopulatedEngine {
-  const wchar_t* const name;
-  const wchar_t* const keyword;
+  const char16_t* const name;
+  const char16_t* const keyword;
   const char* const favicon_url;
   const char* const search_url;
   const char* const encoding;
@@ -36,7 +36,7 @@ struct PrepopulatedEngine {
   const char* const side_image_search_param;
   const char* const image_translate_source_language_param_key;
   const char* const image_translate_target_language_param_key;
-  const wchar_t* const image_search_branding_label;
+  const char16_t* const image_search_branding_label;
   const char* const * search_intent_params;
   const size_t search_intent_params_size;
   const char* const * alternate_urls;

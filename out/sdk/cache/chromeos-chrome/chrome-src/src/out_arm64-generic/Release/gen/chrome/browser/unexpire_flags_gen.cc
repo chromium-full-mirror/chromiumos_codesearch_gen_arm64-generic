@@ -10,19 +10,19 @@
 
 namespace flags {
 
-BASE_FEATURE(kUnexpireFlagsM120,
-             "UnexpireFlagsM120",
-             base::FEATURE_DISABLED_BY_DEFAULT);
-
 BASE_FEATURE(kUnexpireFlagsM121,
              "UnexpireFlagsM121",
+             base::FEATURE_DISABLED_BY_DEFAULT);
+
+BASE_FEATURE(kUnexpireFlagsM122,
+             "UnexpireFlagsM122",
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Returns the unexpire feature for the given mstone, if any.
 const base::Feature* GetUnexpireFeatureForMilestone(int milestone) {
   switch (milestone) {
-    case 120: return &kUnexpireFlagsM120;
     case 121: return &kUnexpireFlagsM121;
+    case 122: return &kUnexpireFlagsM122;
     default: return nullptr;
   }
 }

@@ -1138,7 +1138,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'loadTiming', 24,
+        'charset', 24,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'loadTiming', 32,
         0,
         network.mojom.LoadTimingInfoSpec.$,
         null,
@@ -1146,7 +1154,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'certStatus', 32,
+        'certStatus', 40,
         0,
         mojo.internal.Uint32,
         0,
@@ -1154,7 +1162,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'encodedDataLength', 40,
+        'encodedDataLength', 48,
         0,
         mojo.internal.Int64,
         BigInt(0),
@@ -1162,7 +1170,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'wasInPrefetchCache', 36,
+        'wasInPrefetchCache', 44,
         0,
         mojo.internal.Bool,
         false,
@@ -1170,7 +1178,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'wasFetchedViaServiceWorker', 36,
+        'wasFetchedViaServiceWorker', 44,
         1,
         mojo.internal.Bool,
         false,
@@ -1178,7 +1186,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'cacheStorageCacheName', 48,
+        'cacheStorageCacheName', 56,
         0,
         mojo.internal.String,
         null,
@@ -1186,7 +1194,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'alpnNegotiatedProtocol', 56,
+        'alpnNegotiatedProtocol', 64,
         0,
         mojo.internal.String,
         null,
@@ -1194,7 +1202,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'alternateProtocolUsage', 64,
+        'alternateProtocolUsage', 72,
         0,
         network.mojom.AlternateProtocolUsageSpec.$,
         0,
@@ -1202,7 +1210,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'wasFetchedViaSpdy', 36,
+        'wasFetchedViaSpdy', 44,
         2,
         mojo.internal.Bool,
         false,
@@ -1210,7 +1218,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'serviceWorkerResponseSource', 68,
+        'serviceWorkerResponseSource', 76,
         0,
         network.mojom.FetchResponseSourceSpec.$,
         0,
@@ -1218,7 +1226,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'serviceWorkerRouterInfo', 72,
+        'serviceWorkerRouterInfo', 80,
         0,
         network.mojom.ServiceWorkerRouterInfoSpec.$,
         null,
@@ -1226,7 +1234,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sslInfo', 80,
+        'sslInfo', 88,
         0,
         network.mojom.SSLInfoSpec.$,
         null,
@@ -1234,7 +1242,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'remoteEndpoint', 88,
+        'remoteEndpoint', 96,
         0,
         network.mojom.IPEndPointSpec.$,
         null,
@@ -1242,7 +1250,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'emittedExtraInfo', 36,
+        'emittedExtraInfo', 44,
         3,
         mojo.internal.Bool,
         false,
@@ -1250,7 +1258,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 104],]);
+    [[0, 112],]);
 
 
 
@@ -1265,6 +1273,8 @@ network.mojom.URLResponseHeadDevToolsInfo = class {
     this.headers;
     /** @export { !string } */
     this.mimeType;
+    /** @export { !string } */
+    this.charset;
     /** @export { !network.mojom.LoadTimingInfo } */
     this.loadTiming;
     /** @export { !number } */

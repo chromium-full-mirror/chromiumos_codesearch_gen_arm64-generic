@@ -93,7 +93,8 @@ return;
 
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -131,11 +132,10 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -149,9 +149,7 @@ auto&& return_value = CSSStyleValue::parseAll(execution_context, arg1_property, 
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLSequence<CSSStyleValue>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<CSSStyleValue>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -227,7 +225,7 @@ void V8CSSStyleValue::InstallContextDependentProperties(v8::Local<v8::Context> c
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if (execution_context->IsWindow() && feature_selector.IsAll()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"parse", ParseStaticOperationCallback, 2, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

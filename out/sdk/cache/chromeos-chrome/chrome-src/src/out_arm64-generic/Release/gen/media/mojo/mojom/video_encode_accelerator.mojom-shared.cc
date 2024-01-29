@@ -683,7 +683,7 @@ bool Vp9Metadata_Data::Validate(
       static_cast<const Vp9Metadata_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->spatial_layer_resolutions, 8, validation_context)) {
+          object->spatial_layer_resolutions, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
@@ -694,7 +694,7 @@ bool Vp9Metadata_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->p_diffs, 11, validation_context)) {
+          object->p_diffs, 10, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& p_diffs_validate_params =

@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/mojom/image_capture.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/mojom/image_capture.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/mojom/image_capture.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/mojom/image_capture.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/mojom/image_capture.mojom.h

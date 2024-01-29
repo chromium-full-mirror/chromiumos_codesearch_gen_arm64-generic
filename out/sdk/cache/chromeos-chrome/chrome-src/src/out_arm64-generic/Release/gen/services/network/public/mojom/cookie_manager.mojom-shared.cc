@@ -1874,6 +1874,36 @@ bool CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data::Validate(
 CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data* object =
+      static_cast<const CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->delay, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->delay, validation_context))
+    return false;
+
+  return true;
+}
+
+CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace network

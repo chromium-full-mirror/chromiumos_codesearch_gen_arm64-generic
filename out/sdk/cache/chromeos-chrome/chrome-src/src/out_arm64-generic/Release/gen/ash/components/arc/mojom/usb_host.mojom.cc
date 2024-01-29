@@ -432,6 +432,8 @@ bool UsbHostHost_OpenDevice_ForwardToCallback::Accept(
           internal::UsbHostHost_OpenDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbHostHost.3
   bool success = true;
   ::mojo::ScopedHandle p_usb_fd{};
   UsbHostHost_OpenDevice_ResponseParamsDataView input_data_view(params, message);
@@ -552,6 +554,8 @@ bool UsbHostHost_GetDeviceInfo_ForwardToCallback::Accept(
           internal::UsbHostHost_GetDeviceInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbHostHost.1
   bool success = true;
   std::string p_device_name{};
   ::device::mojom::UsbDeviceInfoPtr p_info{};
@@ -699,6 +703,8 @@ bool UsbHostHost_RequestPermission_ForwardToCallback::Accept(
           internal::UsbHostHost_RequestPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbHostHost.2
   bool success = true;
   bool p_authorized{};
   UsbHostHost_RequestPermission_ResponseParamsDataView input_data_view(params, message);
@@ -795,6 +801,8 @@ bool UsbHostHostStubDispatch::AcceptWithResponder(
               internal::UsbHostHost_OpenDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbHostHost.3
       bool success = true;
       std::string p_guid{};
       std::optional<std::string> p_pkg_name{};
@@ -816,9 +824,9 @@ bool UsbHostHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDevice(
-std::move(p_guid), 
-std::move(p_pkg_name), std::move(callback));
+      impl->OpenDevice(        
+        std::move(p_guid), 
+        std::move(p_pkg_name), std::move(callback));
       return true;
     }
     case internal::kUsbHostHost_GetDeviceInfo_Name: {
@@ -828,6 +836,8 @@ std::move(p_pkg_name), std::move(callback));
               internal::UsbHostHost_GetDeviceInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbHostHost.1
       bool success = true;
       std::string p_guid{};
       UsbHostHost_GetDeviceInfo_ParamsDataView input_data_view(params, message);
@@ -846,8 +856,8 @@ std::move(p_pkg_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeviceInfo(
-std::move(p_guid), std::move(callback));
+      impl->GetDeviceInfo(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kUsbHostHost_RequestPermission_Name: {
@@ -857,6 +867,8 @@ std::move(p_guid), std::move(callback));
               internal::UsbHostHost_RequestPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbHostHost.2
       bool success = true;
       std::string p_guid{};
       std::string p_pkg_name{};
@@ -881,10 +893,10 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPermission(
-std::move(p_guid), 
-std::move(p_pkg_name), 
-std::move(p_interactive), std::move(callback));
+      impl->RequestPermission(        
+        std::move(p_guid), 
+        std::move(p_pkg_name), 
+        std::move(p_interactive), std::move(callback));
       return true;
     }
   }
@@ -1256,6 +1268,8 @@ bool UsbHostInstance_Init_ForwardToCallback::Accept(
           internal::UsbHostInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbHostInstance.0
   bool success = true;
   UsbHostInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1321,6 +1335,8 @@ bool UsbHostInstanceStubDispatch::Accept(
           reinterpret_cast<internal::UsbHostInstance_OnDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbHostInstance.1
       bool success = true;
       std::string p_guid{};
       std::optional<std::vector<std::string>> p_event_receiver_packages{};
@@ -1339,9 +1355,9 @@ bool UsbHostInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceAdded(
-std::move(p_guid), 
-std::move(p_event_receiver_packages));
+      impl->OnDeviceAdded(        
+        std::move(p_guid), 
+        std::move(p_event_receiver_packages));
       return true;
     }
     case internal::kUsbHostInstance_OnDeviceRemoved_Name: {
@@ -1351,6 +1367,8 @@ std::move(p_event_receiver_packages));
           reinterpret_cast<internal::UsbHostInstance_OnDeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbHostInstance.2
       bool success = true;
       std::string p_guid{};
       std::optional<std::vector<std::string>> p_event_receiver_packages{};
@@ -1369,9 +1387,9 @@ std::move(p_event_receiver_packages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRemoved(
-std::move(p_guid), 
-std::move(p_event_receiver_packages));
+      impl->OnDeviceRemoved(        
+        std::move(p_guid), 
+        std::move(p_event_receiver_packages));
       return true;
     }
   }
@@ -1394,6 +1412,8 @@ bool UsbHostInstanceStubDispatch::AcceptWithResponder(
               internal::UsbHostInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbHostInstance.0
       bool success = true;
       ::mojo::PendingRemote<UsbHostHost> p_host_remote{};
       UsbHostInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1414,8 +1434,8 @@ bool UsbHostInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kUsbHostInstance_OnDeviceAdded_Name: {

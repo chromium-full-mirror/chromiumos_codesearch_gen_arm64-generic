@@ -210,6 +210,8 @@ bool VideoHost_OnBootstrapVideoAcceleratorFactory_ForwardToCallback::Accept(
           internal::VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoHost.1
   bool success = true;
   ::mojo::ScopedHandle p_channel_handle{};
   std::string p_token{};
@@ -323,6 +325,8 @@ bool VideoHostStubDispatch::AcceptWithResponder(
               internal::VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoHost.1
       bool success = true;
       VideoHost_OnBootstrapVideoAcceleratorFactory_ParamsDataView input_data_view(params, message);
       
@@ -540,6 +544,8 @@ bool VideoInstance_Init_ForwardToCallback::Accept(
           internal::VideoInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoInstance.1
   bool success = true;
   VideoInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -618,6 +624,8 @@ bool VideoInstanceStubDispatch::AcceptWithResponder(
               internal::VideoInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoInstance.1
       bool success = true;
       ::mojo::PendingRemote<VideoHost> p_host_remote{};
       VideoInstance_Init_ParamsDataView input_data_view(params, message);
@@ -638,8 +646,8 @@ bool VideoInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }
@@ -987,6 +995,8 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateEncodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoAcceleratorFactory.1
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator> p_video_encoder{};
       VideoAcceleratorFactory_CreateEncodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -1004,8 +1014,8 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateEncodeAccelerator(
-std::move(p_video_encoder));
+      impl->CreateEncodeAccelerator(        
+        std::move(p_video_encoder));
       return true;
     }
     case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name: {
@@ -1015,6 +1025,8 @@ std::move(p_video_encoder));
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoAcceleratorFactory.2
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator> p_video_decoder{};
       ::mojo::PendingRemote<::arc::mojom::ProtectedBufferManager> p_protected_buffer_manager{};
@@ -1042,10 +1054,10 @@ std::move(p_video_encoder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDecodeAccelerator(
-std::move(p_video_decoder), 
-std::move(p_protected_buffer_manager), 
-std::move(p_browser_cdm_factory));
+      impl->CreateDecodeAccelerator(        
+        std::move(p_video_decoder), 
+        std::move(p_protected_buffer_manager), 
+        std::move(p_browser_cdm_factory));
       return true;
     }
     case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name: {
@@ -1055,6 +1067,8 @@ std::move(p_browser_cdm_factory));
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateVideoDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoAcceleratorFactory.4
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoDecoder> p_video_decoder{};
       VideoAcceleratorFactory_CreateVideoDecoder_ParamsDataView input_data_view(params, message);
@@ -1072,8 +1086,8 @@ std::move(p_browser_cdm_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVideoDecoder(
-std::move(p_video_decoder));
+      impl->CreateVideoDecoder(        
+        std::move(p_video_decoder));
       return true;
     }
     case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name: {
@@ -1083,6 +1097,8 @@ std::move(p_video_decoder));
           reinterpret_cast<internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoAcceleratorFactory.3
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator> p_video_protected_buffer_allocator{};
       VideoAcceleratorFactory_CreateProtectedBufferAllocator_ParamsDataView input_data_view(params, message);
@@ -1100,8 +1116,8 @@ std::move(p_video_decoder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateProtectedBufferAllocator(
-std::move(p_video_protected_buffer_allocator));
+      impl->CreateProtectedBufferAllocator(        
+        std::move(p_video_protected_buffer_allocator));
       return true;
     }
   }

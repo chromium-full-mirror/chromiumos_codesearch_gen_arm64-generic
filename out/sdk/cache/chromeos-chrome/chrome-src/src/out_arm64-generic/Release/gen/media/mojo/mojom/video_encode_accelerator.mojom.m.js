@@ -2186,14 +2186,6 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'endOfPicture', 0,
-        4,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
         'temporalIdx', 1,
         0,
         mojo.internal.Uint8,
@@ -2259,8 +2251,6 @@ export class Vp9Metadata {
     this.referencedByUpperSpatialLayers;
     /** @type { !boolean } */
     this.referenceLowerSpatialLayers;
-    /** @type { !boolean } */
-    this.endOfPicture;
     /** @type { !number } */
     this.temporalIdx;
     /** @type { !number } */
@@ -2336,6 +2326,14 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
+        'endOfPicture', 4,
+        1,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
         'qp', 16,
         0,
         mojo.internal.Int32,
@@ -2383,6 +2381,8 @@ export class BitstreamBufferMetadata {
     this.keyFrame;
     /** @type { !mojoBase_mojom_TimeDelta } */
     this.timestamp;
+    /** @type { !boolean } */
+    this.endOfPicture;
     /** @type { !number } */
     this.qp;
     /** @type { (CodecMetadata|undefined) } */

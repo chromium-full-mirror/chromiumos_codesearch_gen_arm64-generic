@@ -926,9 +926,11 @@ class  AdditionalCertificates {
   AdditionalCertificates();
 
   AdditionalCertificates(
-      std::vector<::scoped_refptr<::net::X509Certificate>> all_certificates,
-      std::vector<::scoped_refptr<::net::X509Certificate>> trust_anchors,
-      std::vector<std::vector<uint8_t>> distrusted_spkis);
+      std::vector<std::vector<uint8_t>> all_certificates,
+      std::vector<std::vector<uint8_t>> trust_anchors,
+      std::vector<std::vector<uint8_t>> trust_anchors_with_enforced_constraints,
+      std::vector<std::vector<uint8_t>> distrusted_spkis,
+      bool include_system_trust_store);
 
 
   ~AdditionalCertificates();
@@ -1006,11 +1008,15 @@ class  AdditionalCertificates {
   }
 
   
-  std::vector<::scoped_refptr<::net::X509Certificate>> all_certificates;
+  std::vector<std::vector<uint8_t>> all_certificates;
   
-  std::vector<::scoped_refptr<::net::X509Certificate>> trust_anchors;
+  std::vector<std::vector<uint8_t>> trust_anchors;
+  
+  std::vector<std::vector<uint8_t>> trust_anchors_with_enforced_constraints;
   
   std::vector<std::vector<uint8_t>> distrusted_spkis;
+  
+  bool include_system_trust_store;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1139,7 +1145,9 @@ AdditionalCertificatesPtr AdditionalCertificates::Clone() const {
   return New(
       mojo::Clone(all_certificates),
       mojo::Clone(trust_anchors),
-      mojo::Clone(distrusted_spkis)
+      mojo::Clone(trust_anchors_with_enforced_constraints),
+      mojo::Clone(distrusted_spkis),
+      mojo::Clone(include_system_trust_store)
   );
 }
 
@@ -1149,7 +1157,11 @@ bool AdditionalCertificates::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->trust_anchors, other_struct.trust_anchors))
     return false;
+  if (!mojo::Equals(this->trust_anchors_with_enforced_constraints, other_struct.trust_anchors_with_enforced_constraints))
+    return false;
   if (!mojo::Equals(this->distrusted_spkis, other_struct.distrusted_spkis))
+    return false;
+  if (!mojo::Equals(this->include_system_trust_store, other_struct.include_system_trust_store))
     return false;
   return true;
 }
@@ -1164,9 +1176,17 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.trust_anchors < lhs.trust_anchors)
     return false;
+  if (lhs.trust_anchors_with_enforced_constraints < rhs.trust_anchors_with_enforced_constraints)
+    return true;
+  if (rhs.trust_anchors_with_enforced_constraints < lhs.trust_anchors_with_enforced_constraints)
+    return false;
   if (lhs.distrusted_spkis < rhs.distrusted_spkis)
     return true;
   if (rhs.distrusted_spkis < lhs.distrusted_spkis)
+    return false;
+  if (lhs.include_system_trust_store < rhs.include_system_trust_store)
+    return true;
+  if (rhs.include_system_trust_store < lhs.include_system_trust_store)
     return false;
   return false;
 }
@@ -1258,9 +1278,19 @@ struct  StructTraits<::cert_verifier::mojom::AdditionalCertificates::DataView,
     return input->trust_anchors;
   }
 
+  static const decltype(::cert_verifier::mojom::AdditionalCertificates::trust_anchors_with_enforced_constraints)& trust_anchors_with_enforced_constraints(
+      const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) {
+    return input->trust_anchors_with_enforced_constraints;
+  }
+
   static const decltype(::cert_verifier::mojom::AdditionalCertificates::distrusted_spkis)& distrusted_spkis(
       const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) {
     return input->distrusted_spkis;
+  }
+
+  static decltype(::cert_verifier::mojom::AdditionalCertificates::include_system_trust_store) include_system_trust_store(
+      const ::cert_verifier::mojom::AdditionalCertificatesPtr& input) {
+    return input->include_system_trust_store;
   }
 
   static bool Read(::cert_verifier::mojom::AdditionalCertificates::DataView input, ::cert_verifier::mojom::AdditionalCertificatesPtr* output);

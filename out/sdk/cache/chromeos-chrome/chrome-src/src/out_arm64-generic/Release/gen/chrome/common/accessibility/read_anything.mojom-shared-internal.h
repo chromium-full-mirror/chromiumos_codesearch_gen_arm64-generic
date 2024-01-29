@@ -144,11 +144,12 @@ class  ReadAnythingTheme_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> font_name;
   float font_size;
-  int32_t line_spacing;
+  uint8_t links_enabled : 1;
+  uint8_t pad2_[3];
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> foreground_color;
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> background_color;
+  int32_t line_spacing;
   int32_t letter_spacing;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<ReadAnythingTheme_Data>;

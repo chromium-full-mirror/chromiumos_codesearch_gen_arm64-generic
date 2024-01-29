@@ -1,0 +1,9 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/begin_frame_observer.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/display_private.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/external_begin_frame_controller.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/frame_sink_manager.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/layered_window_updater.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/overlay_strategy.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/renderer_settings.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/privileged/mojom/compositing/vsync_parameter_observer.mojom-module

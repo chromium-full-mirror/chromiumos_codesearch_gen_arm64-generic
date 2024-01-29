@@ -511,11 +511,9 @@ class AutofillProfileSpecifics final :
     kEmailAddressFieldNumber = 5,
     kPhoneHomeWholeNumberFieldNumber = 13,
     kNameFullFieldNumber = 21,
-    kNameHonorificFieldNumber = 26,
     kNameLastFirstFieldNumber = 27,
     kNameLastConjunctionFieldNumber = 28,
     kNameLastSecondFieldNumber = 29,
-    kNameHonorificStatusFieldNumber = 30,
     kNameFirstStatusFieldNumber = 31,
     kNameMiddleStatusFieldNumber = 32,
     kNameLastStatusFieldNumber = 33,
@@ -523,8 +521,6 @@ class AutofillProfileSpecifics final :
     kNameLastConjunctionStatusFieldNumber = 35,
     kNameLastSecondStatusFieldNumber = 36,
     kNameFullStatusFieldNumber = 37,
-    kNameFullWithHonorificFieldNumber = 60,
-    kNameFullWithHonorificStatusFieldNumber = 61,
     kDeprecatedLabelFieldNumber = 1,
     kCompanyNameFieldNumber = 6,
     kAddressHomeLine1FieldNumber = 7,
@@ -733,30 +729,6 @@ class AutofillProfileSpecifics final :
   std::string* _internal_add_name_full();
   public:
 
-  // repeated string name_honorific = 26;
-  int name_honorific_size() const;
-  private:
-  int _internal_name_honorific_size() const;
-  public:
-  void clear_name_honorific();
-  const std::string& name_honorific(int index) const;
-  std::string* mutable_name_honorific(int index);
-  void set_name_honorific(int index, const std::string& value);
-  void set_name_honorific(int index, std::string&& value);
-  void set_name_honorific(int index, const char* value);
-  void set_name_honorific(int index, const char* value, size_t size);
-  std::string* add_name_honorific();
-  void add_name_honorific(const std::string& value);
-  void add_name_honorific(std::string&& value);
-  void add_name_honorific(const char* value);
-  void add_name_honorific(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& name_honorific() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_name_honorific();
-  private:
-  const std::string& _internal_name_honorific(int index) const;
-  std::string* _internal_add_name_honorific();
-  public:
-
   // repeated string name_last_first = 27;
   int name_last_first_size() const;
   private:
@@ -828,23 +800,6 @@ class AutofillProfileSpecifics final :
   const std::string& _internal_name_last_second(int index) const;
   std::string* _internal_add_name_last_second();
   public:
-
-  // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_honorific_status = 30;
-  int name_honorific_status_size() const;
-  private:
-  int _internal_name_honorific_status_size() const;
-  public:
-  void clear_name_honorific_status();
-  private:
-  ::sync_pb::AutofillProfileSpecifics_VerificationStatus _internal_name_honorific_status(int index) const;
-  void _internal_add_name_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_name_honorific_status();
-  public:
-  ::sync_pb::AutofillProfileSpecifics_VerificationStatus name_honorific_status(int index) const;
-  void set_name_honorific_status(int index, ::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
-  void add_name_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& name_honorific_status() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_name_honorific_status();
 
   // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_first_status = 31;
   int name_first_status_size() const;
@@ -964,47 +919,6 @@ class AutofillProfileSpecifics final :
   void add_name_full_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& name_full_status() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_name_full_status();
-
-  // repeated string name_full_with_honorific = 60;
-  int name_full_with_honorific_size() const;
-  private:
-  int _internal_name_full_with_honorific_size() const;
-  public:
-  void clear_name_full_with_honorific();
-  const std::string& name_full_with_honorific(int index) const;
-  std::string* mutable_name_full_with_honorific(int index);
-  void set_name_full_with_honorific(int index, const std::string& value);
-  void set_name_full_with_honorific(int index, std::string&& value);
-  void set_name_full_with_honorific(int index, const char* value);
-  void set_name_full_with_honorific(int index, const char* value, size_t size);
-  std::string* add_name_full_with_honorific();
-  void add_name_full_with_honorific(const std::string& value);
-  void add_name_full_with_honorific(std::string&& value);
-  void add_name_full_with_honorific(const char* value);
-  void add_name_full_with_honorific(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& name_full_with_honorific() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_name_full_with_honorific();
-  private:
-  const std::string& _internal_name_full_with_honorific(int index) const;
-  std::string* _internal_add_name_full_with_honorific();
-  public:
-
-  // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_full_with_honorific_status = 61;
-  int name_full_with_honorific_status_size() const;
-  private:
-  int _internal_name_full_with_honorific_status_size() const;
-  public:
-  void clear_name_full_with_honorific_status();
-  private:
-  ::sync_pb::AutofillProfileSpecifics_VerificationStatus _internal_name_full_with_honorific_status(int index) const;
-  void _internal_add_name_full_with_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_name_full_with_honorific_status();
-  public:
-  ::sync_pb::AutofillProfileSpecifics_VerificationStatus name_full_with_honorific_status(int index) const;
-  void set_name_full_with_honorific_status(int index, ::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
-  void add_name_full_with_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& name_full_with_honorific_status() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_name_full_with_honorific_status();
 
   // optional string deprecated_label = 1 [deprecated = true];
   PROTOBUF_DEPRECATED bool has_deprecated_label() const;
@@ -2000,11 +1914,9 @@ class AutofillProfileSpecifics final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> email_address_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> phone_home_whole_number_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> name_full_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> name_honorific_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> name_last_first_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> name_last_conjunction_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> name_last_second_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_honorific_status_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_first_status_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_middle_status_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_last_status_;
@@ -2012,8 +1924,6 @@ class AutofillProfileSpecifics final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_last_conjunction_status_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_last_second_status_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_full_status_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> name_full_with_honorific_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> name_full_with_honorific_status_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr deprecated_label_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr company_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr address_home_line1_;
@@ -6292,81 +6202,6 @@ inline void AutofillProfileSpecifics::set_allocated_profile_label(std::string* p
   // @@protoc_insertion_point(field_set_allocated:sync_pb.AutofillProfileSpecifics.profile_label)
 }
 
-// repeated string name_honorific = 26;
-inline int AutofillProfileSpecifics::_internal_name_honorific_size() const {
-  return name_honorific_.size();
-}
-inline int AutofillProfileSpecifics::name_honorific_size() const {
-  return _internal_name_honorific_size();
-}
-inline void AutofillProfileSpecifics::clear_name_honorific() {
-  name_honorific_.Clear();
-}
-inline std::string* AutofillProfileSpecifics::add_name_honorific() {
-  std::string* _s = _internal_add_name_honorific();
-  // @@protoc_insertion_point(field_add_mutable:sync_pb.AutofillProfileSpecifics.name_honorific)
-  return _s;
-}
-inline const std::string& AutofillProfileSpecifics::_internal_name_honorific(int index) const {
-  return name_honorific_.Get(index);
-}
-inline const std::string& AutofillProfileSpecifics::name_honorific(int index) const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.name_honorific)
-  return _internal_name_honorific(index);
-}
-inline std::string* AutofillProfileSpecifics::mutable_name_honorific(int index) {
-  // @@protoc_insertion_point(field_mutable:sync_pb.AutofillProfileSpecifics.name_honorific)
-  return name_honorific_.Mutable(index);
-}
-inline void AutofillProfileSpecifics::set_name_honorific(int index, const std::string& value) {
-  name_honorific_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline void AutofillProfileSpecifics::set_name_honorific(int index, std::string&& value) {
-  name_honorific_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline void AutofillProfileSpecifics::set_name_honorific(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  name_honorific_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline void AutofillProfileSpecifics::set_name_honorific(int index, const char* value, size_t size) {
-  name_honorific_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline std::string* AutofillProfileSpecifics::_internal_add_name_honorific() {
-  return name_honorific_.Add();
-}
-inline void AutofillProfileSpecifics::add_name_honorific(const std::string& value) {
-  name_honorific_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline void AutofillProfileSpecifics::add_name_honorific(std::string&& value) {
-  name_honorific_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline void AutofillProfileSpecifics::add_name_honorific(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  name_honorific_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline void AutofillProfileSpecifics::add_name_honorific(const char* value, size_t size) {
-  name_honorific_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:sync_pb.AutofillProfileSpecifics.name_honorific)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-AutofillProfileSpecifics::name_honorific() const {
-  // @@protoc_insertion_point(field_list:sync_pb.AutofillProfileSpecifics.name_honorific)
-  return name_honorific_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-AutofillProfileSpecifics::mutable_name_honorific() {
-  // @@protoc_insertion_point(field_mutable_list:sync_pb.AutofillProfileSpecifics.name_honorific)
-  return &name_honorific_;
-}
-
 // repeated string name_first = 2;
 inline int AutofillProfileSpecifics::_internal_name_first_size() const {
   return name_first_.size();
@@ -6892,126 +6727,6 @@ AutofillProfileSpecifics::mutable_name_full() {
   return &name_full_;
 }
 
-// repeated string name_full_with_honorific = 60;
-inline int AutofillProfileSpecifics::_internal_name_full_with_honorific_size() const {
-  return name_full_with_honorific_.size();
-}
-inline int AutofillProfileSpecifics::name_full_with_honorific_size() const {
-  return _internal_name_full_with_honorific_size();
-}
-inline void AutofillProfileSpecifics::clear_name_full_with_honorific() {
-  name_full_with_honorific_.Clear();
-}
-inline std::string* AutofillProfileSpecifics::add_name_full_with_honorific() {
-  std::string* _s = _internal_add_name_full_with_honorific();
-  // @@protoc_insertion_point(field_add_mutable:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-  return _s;
-}
-inline const std::string& AutofillProfileSpecifics::_internal_name_full_with_honorific(int index) const {
-  return name_full_with_honorific_.Get(index);
-}
-inline const std::string& AutofillProfileSpecifics::name_full_with_honorific(int index) const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-  return _internal_name_full_with_honorific(index);
-}
-inline std::string* AutofillProfileSpecifics::mutable_name_full_with_honorific(int index) {
-  // @@protoc_insertion_point(field_mutable:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-  return name_full_with_honorific_.Mutable(index);
-}
-inline void AutofillProfileSpecifics::set_name_full_with_honorific(int index, const std::string& value) {
-  name_full_with_honorific_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline void AutofillProfileSpecifics::set_name_full_with_honorific(int index, std::string&& value) {
-  name_full_with_honorific_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline void AutofillProfileSpecifics::set_name_full_with_honorific(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  name_full_with_honorific_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline void AutofillProfileSpecifics::set_name_full_with_honorific(int index, const char* value, size_t size) {
-  name_full_with_honorific_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline std::string* AutofillProfileSpecifics::_internal_add_name_full_with_honorific() {
-  return name_full_with_honorific_.Add();
-}
-inline void AutofillProfileSpecifics::add_name_full_with_honorific(const std::string& value) {
-  name_full_with_honorific_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline void AutofillProfileSpecifics::add_name_full_with_honorific(std::string&& value) {
-  name_full_with_honorific_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline void AutofillProfileSpecifics::add_name_full_with_honorific(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  name_full_with_honorific_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline void AutofillProfileSpecifics::add_name_full_with_honorific(const char* value, size_t size) {
-  name_full_with_honorific_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-AutofillProfileSpecifics::name_full_with_honorific() const {
-  // @@protoc_insertion_point(field_list:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-  return name_full_with_honorific_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-AutofillProfileSpecifics::mutable_name_full_with_honorific() {
-  // @@protoc_insertion_point(field_mutable_list:sync_pb.AutofillProfileSpecifics.name_full_with_honorific)
-  return &name_full_with_honorific_;
-}
-
-// repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_honorific_status = 30;
-inline int AutofillProfileSpecifics::_internal_name_honorific_status_size() const {
-  return name_honorific_status_.size();
-}
-inline int AutofillProfileSpecifics::name_honorific_status_size() const {
-  return _internal_name_honorific_status_size();
-}
-inline void AutofillProfileSpecifics::clear_name_honorific_status() {
-  name_honorific_status_.Clear();
-}
-inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_name_honorific_status(int index) const {
-  return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(name_honorific_status_.Get(index));
-}
-inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::name_honorific_status(int index) const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.name_honorific_status)
-  return _internal_name_honorific_status(index);
-}
-inline void AutofillProfileSpecifics::set_name_honorific_status(int index, ::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
-  assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  name_honorific_status_.Set(index, value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.name_honorific_status)
-}
-inline void AutofillProfileSpecifics::_internal_add_name_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
-  assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  name_honorific_status_.Add(value);
-}
-inline void AutofillProfileSpecifics::add_name_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
-  _internal_add_name_honorific_status(value);
-  // @@protoc_insertion_point(field_add:sync_pb.AutofillProfileSpecifics.name_honorific_status)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-AutofillProfileSpecifics::name_honorific_status() const {
-  // @@protoc_insertion_point(field_list:sync_pb.AutofillProfileSpecifics.name_honorific_status)
-  return name_honorific_status_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-AutofillProfileSpecifics::_internal_mutable_name_honorific_status() {
-  return &name_honorific_status_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-AutofillProfileSpecifics::mutable_name_honorific_status() {
-  // @@protoc_insertion_point(field_mutable_list:sync_pb.AutofillProfileSpecifics.name_honorific_status)
-  return _internal_mutable_name_honorific_status();
-}
-
 // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_first_status = 31;
 inline int AutofillProfileSpecifics::_internal_name_first_status_size() const {
   return name_first_status_.size();
@@ -7325,51 +7040,6 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
 AutofillProfileSpecifics::mutable_name_full_status() {
   // @@protoc_insertion_point(field_mutable_list:sync_pb.AutofillProfileSpecifics.name_full_status)
   return _internal_mutable_name_full_status();
-}
-
-// repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_full_with_honorific_status = 61;
-inline int AutofillProfileSpecifics::_internal_name_full_with_honorific_status_size() const {
-  return name_full_with_honorific_status_.size();
-}
-inline int AutofillProfileSpecifics::name_full_with_honorific_status_size() const {
-  return _internal_name_full_with_honorific_status_size();
-}
-inline void AutofillProfileSpecifics::clear_name_full_with_honorific_status() {
-  name_full_with_honorific_status_.Clear();
-}
-inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_name_full_with_honorific_status(int index) const {
-  return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(name_full_with_honorific_status_.Get(index));
-}
-inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::name_full_with_honorific_status(int index) const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.name_full_with_honorific_status)
-  return _internal_name_full_with_honorific_status(index);
-}
-inline void AutofillProfileSpecifics::set_name_full_with_honorific_status(int index, ::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
-  assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  name_full_with_honorific_status_.Set(index, value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.name_full_with_honorific_status)
-}
-inline void AutofillProfileSpecifics::_internal_add_name_full_with_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
-  assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  name_full_with_honorific_status_.Add(value);
-}
-inline void AutofillProfileSpecifics::add_name_full_with_honorific_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
-  _internal_add_name_full_with_honorific_status(value);
-  // @@protoc_insertion_point(field_add:sync_pb.AutofillProfileSpecifics.name_full_with_honorific_status)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-AutofillProfileSpecifics::name_full_with_honorific_status() const {
-  // @@protoc_insertion_point(field_list:sync_pb.AutofillProfileSpecifics.name_full_with_honorific_status)
-  return name_full_with_honorific_status_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-AutofillProfileSpecifics::_internal_mutable_name_full_with_honorific_status() {
-  return &name_full_with_honorific_status_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-AutofillProfileSpecifics::mutable_name_full_with_honorific_status() {
-  // @@protoc_insertion_point(field_mutable_list:sync_pb.AutofillProfileSpecifics.name_full_with_honorific_status)
-  return _internal_mutable_name_full_with_honorific_status();
 }
 
 // repeated string email_address = 5;

@@ -54,11 +54,11 @@ found in the LICENSE file.
   </div>
   <div slot="back-navigation">
     <oobe-back-button id="cellular-permission-back" inverse
-        on-click="onBackClicked_"></oobe-back-button>
+        on-click="onBackClicked"></oobe-back-button>
   </div>
   <div slot="bottom-buttons">
     <oobe-next-button id="cellular-permission-next" inverse
-        on-click="onNextClicked_"></oobe-next-button>
+        on-click="onNextClicked"></oobe-next-button>
   </div>
 </oobe-adaptive-dialog>
 <oobe-adaptive-dialog footer-shrinkable id="checking-for-updates-dialog"
@@ -112,7 +112,7 @@ found in the LICENSE file.
   <div hidden="[[showLowBatteryWarning]]" id="carousel" class="slide-view"
       slot="content">
     <oobe-carousel
-        auto-transition="[[getAutoTransition_(uiStep, autoTransition)]]"
+        auto-transition="[[getAutoTransition(uiStep, autoTransition)]]"
         slide-label="slideLabel"
         selected-button-label="slideSelectedButtonLabel"
         unselected-button-label="slideUnselectedButtonLabel">
@@ -120,9 +120,9 @@ found in the LICENSE file.
         <iron-icon slot="slide-img" icon="oobe-illos:update-no-waiting-illo"
             class="illustration-jelly">
         </iron-icon>
-        <div slot="title">[[getUpdateSlideTitle_(locale, isOptOutEnabled)]]
+        <div slot="title">[[getUpdateSlideTitle(locale, isOptOutEnabled)]]
         </div>
-        <div slot="text">[[getUpdateSlideText_(locale, isOptOutEnabled)]]
+        <div slot="text">[[getUpdateSlideText(locale, isOptOutEnabled)]]
         </div>
       </oobe-slide>
       <oobe-slide slot="slides">
@@ -184,7 +184,7 @@ found in the LICENSE file.
   </div>
   <div slot="bottom-buttons">
     <oobe-next-button id="opt-out-info-next" class="focus-on-show" inverse
-        on-click="onOptOutInfoNext_"></oobe-next-button>
+        on-click="onOptOutInfoNext"></oobe-next-button>
   </div>
 </oobe-adaptive-dialog>
 <!--_html_template_end_-->`;

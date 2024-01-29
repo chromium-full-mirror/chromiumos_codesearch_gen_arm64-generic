@@ -580,6 +580,8 @@ bool GesturePropertiesService_ListDevices_ForwardToCallback::Accept(
           internal::GesturePropertiesService_ListDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GesturePropertiesService.0
   bool success = true;
   base::flat_map<int32_t, std::string> p_result{};
   GesturePropertiesService_ListDevices_ResponseParamsDataView input_data_view(params, message);
@@ -711,6 +713,8 @@ bool GesturePropertiesService_ListProperties_ForwardToCallback::Accept(
           internal::GesturePropertiesService_ListProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GesturePropertiesService.1
   bool success = true;
   std::vector<std::string> p_properties{};
   GesturePropertiesService_ListProperties_ResponseParamsDataView input_data_view(params, message);
@@ -842,6 +846,8 @@ bool GesturePropertiesService_GetProperty_ForwardToCallback::Accept(
           internal::GesturePropertiesService_GetProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GesturePropertiesService.2
   bool success = true;
   bool p_is_read_only{};
   GesturePropValuePtr p_value{};
@@ -973,6 +979,8 @@ bool GesturePropertiesService_SetProperty_ForwardToCallback::Accept(
           internal::GesturePropertiesService_SetProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GesturePropertiesService.3
   bool success = true;
   SetGesturePropErrorCode p_error{};
   GesturePropertiesService_SetProperty_ResponseParamsDataView input_data_view(params, message);
@@ -1073,6 +1081,8 @@ bool GesturePropertiesServiceStubDispatch::AcceptWithResponder(
               internal::GesturePropertiesService_ListDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GesturePropertiesService.0
       bool success = true;
       GesturePropertiesService_ListDevices_ParamsDataView input_data_view(params, message);
       
@@ -1098,6 +1108,8 @@ bool GesturePropertiesServiceStubDispatch::AcceptWithResponder(
               internal::GesturePropertiesService_ListProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GesturePropertiesService.1
       bool success = true;
       int32_t p_device_id{};
       GesturePropertiesService_ListProperties_ParamsDataView input_data_view(params, message);
@@ -1116,8 +1128,8 @@ bool GesturePropertiesServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListProperties(
-std::move(p_device_id), std::move(callback));
+      impl->ListProperties(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kGesturePropertiesService_GetProperty_Name: {
@@ -1127,6 +1139,8 @@ std::move(p_device_id), std::move(callback));
               internal::GesturePropertiesService_GetProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GesturePropertiesService.2
       bool success = true;
       int32_t p_device_id{};
       std::string p_name{};
@@ -1148,9 +1162,9 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetProperty(
-std::move(p_device_id), 
-std::move(p_name), std::move(callback));
+      impl->GetProperty(        
+        std::move(p_device_id), 
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kGesturePropertiesService_SetProperty_Name: {
@@ -1160,6 +1174,8 @@ std::move(p_name), std::move(callback));
               internal::GesturePropertiesService_SetProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GesturePropertiesService.3
       bool success = true;
       int32_t p_device_id{};
       std::string p_name{};
@@ -1184,10 +1200,10 @@ std::move(p_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProperty(
-std::move(p_device_id), 
-std::move(p_name), 
-std::move(p_value), std::move(callback));
+      impl->SetProperty(        
+        std::move(p_device_id), 
+        std::move(p_name), 
+        std::move(p_value), std::move(callback));
       return true;
     }
   }

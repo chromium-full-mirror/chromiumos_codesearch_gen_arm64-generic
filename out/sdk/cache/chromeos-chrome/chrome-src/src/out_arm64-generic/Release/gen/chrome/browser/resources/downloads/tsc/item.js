@@ -15,6 +15,7 @@ import './strings.m.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/paper-progress/paper-progress.js';
 import 'chrome://resources/polymer/v3_0/paper-styles/color.js';
+import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { getToastManager } from 'chrome://resources/cr_elements/cr_toast/cr_toast_manager.js';
 import { FocusRowMixin } from 'chrome://resources/cr_elements/focus_row_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
@@ -660,14 +661,18 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
     }
     onCancelClick_() {
         this.restoreFocusAfterCancel_ = true;
+        assert(!!this.mojoHandler_);
         this.mojoHandler_.cancel(this.data.id);
         if (this.improvedDownloadWarningsUx_) {
+            getAnnouncerInstance().announce(loadTimeData.getString('screenreaderCanceled'));
             this.getMoreActionsMenu().close();
         }
     }
-    onDiscardDangerousClick_() {
+    onDiscardDangerousClick_(e) {
+        assert(!!this.mojoHandler_);
         this.mojoHandler_.discardDangerous(this.data.id);
         if (this.improvedDownloadWarningsUx_) {
+            this.displayRemovedToast_(/*canUndo=*/ false, e);
             this.getMoreActionsMenu().close();
         }
     }
@@ -715,29 +720,52 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
         }
         chrome.send('metricsHandler:recordAction', ['Downloads_OpenUrlOfDownloadedItem']);
     }
+    doPause_() {
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.pause(this.data.id);
+        if (this.improvedDownloadWarningsUx_) {
+            getAnnouncerInstance().announce(loadTimeData.getString('screenreaderPaused'));
+        }
+    }
+    doResume_() {
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.resume(this.data.id);
+        if (this.improvedDownloadWarningsUx_) {
+            getAnnouncerInstance().announce(loadTimeData.getString('screenreaderResumed'));
+        }
+    }
     onPauseOrResumeClick_() {
         if (this.isInProgress_) {
-            this.mojoHandler_.pause(this.data.id);
+            this.doPause_();
         }
         else {
-            this.mojoHandler_.resume(this.data.id);
+            this.doResume_();
         }
         if (this.improvedDownloadWarningsUx_) {
             this.getMoreActionsMenu().close();
         }
     }
-    onRemoveClick_(e) {
-        this.mojoHandler_.remove(this.data.id);
-        const pieces = loadTimeData.getSubstitutedStringPieces(loadTimeData.getString('toastRemovedFromList'), this.data.fileName);
+    displayRemovedToast_(canUndo, e) {
+        const templateStringId = this.improvedDownloadWarningsUx_ ?
+            (this.displayType_ === DisplayType.NORMAL && this.completelyOnDisk_ ?
+                'toastDeletedFromHistoryStillOnDevice' :
+                'toastDeletedFromHistory') :
+            'toastRemovedFromList';
+        const pieces = loadTimeData.getSubstitutedStringPieces(loadTimeData.getString(templateStringId), this.data.fileName);
         pieces.forEach(p => {
             // Make the file name collapsible.
             p.collapsible = !!p.arg;
         });
-        const canUndo = !this.data.isDangerous && !this.data.isInsecure;
-        getToastManager().showForStringPieces(pieces, /* hideSlotted= */ !canUndo);
+        getToastManager().showForStringPieces(pieces, /*hideSlotted=*/ !canUndo);
         // Stop propagating a click to the document to remove toast.
         e.stopPropagation();
         e.preventDefault();
+    }
+    onRemoveClick_(e) {
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.remove(this.data.id);
+        const canUndo = !this.data.isDangerous && !this.data.isInsecure;
+        this.displayRemovedToast_(canUndo, e);
         if (this.improvedDownloadWarningsUx_) {
             this.getMoreActionsMenu().close();
         }
@@ -768,14 +796,18 @@ export class DownloadsItemElement extends DownloadsItemElementBase {
             return;
         }
         // "Suspicious" types which show up in grey can be validated directly.
-        const SAVED_FROM_PAGE_TYPES = [
-            DisplayType.SUSPICIOUS,
-            DisplayType.UNVERIFIED,
-            DisplayType.INSECURE,
-        ];
-        assert(SAVED_FROM_PAGE_TYPES.includes(this.displayType_));
+        // This maps each such display type to its applicable screenreader
+        // announcement string id.
+        const SAVED_FROM_PAGE_TYPES_ANNOUNCEMENTS = new Map([
+            [DisplayType.SUSPICIOUS, 'screenreaderSavedSuspicious'],
+            [DisplayType.UNVERIFIED, 'screenreaderSavedUnverified'],
+            [DisplayType.INSECURE, 'screenreaderSavedInsecure'],
+        ]);
+        assert(SAVED_FROM_PAGE_TYPES_ANNOUNCEMENTS.has(this.displayType_));
         assert(!!this.mojoHandler_);
         this.mojoHandler_.saveSuspiciousRequiringGesture(this.data.id);
+        const announcement = loadTimeData.getString(SAVED_FROM_PAGE_TYPES_ANNOUNCEMENTS.get(this.displayType_));
+        getAnnouncerInstance().announce(announcement);
     }
     onShowClick_() {
         this.mojoHandler_.show(this.data.id);

@@ -350,6 +350,8 @@ bool SpeechSynthesisVoiceListObserverStubDispatch::Accept(
           reinterpret_cast<internal::SpeechSynthesisVoiceListObserver_OnSetVoiceList_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisVoiceListObserver.0
       bool success = true;
       WTF::Vector<SpeechSynthesisVoicePtr> p_voice_list{};
       SpeechSynthesisVoiceListObserver_OnSetVoiceList_ParamsDataView input_data_view(params, message);
@@ -365,8 +367,8 @@ bool SpeechSynthesisVoiceListObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSetVoiceList(
-std::move(p_voice_list));
+      impl->OnSetVoiceList(        
+        std::move(p_voice_list));
       return true;
     }
   }
@@ -855,6 +857,8 @@ bool SpeechSynthesisClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechSynthesisClient_OnStartedSpeaking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.0
       bool success = true;
       SpeechSynthesisClient_OnStartedSpeaking_ParamsDataView input_data_view(params, message);
       
@@ -867,7 +871,7 @@ bool SpeechSynthesisClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStartedSpeaking();
+      impl->OnStartedSpeaking(        );
       return true;
     }
     case internal::kSpeechSynthesisClient_OnFinishedSpeaking_Name: {
@@ -877,6 +881,8 @@ bool SpeechSynthesisClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechSynthesisClient_OnFinishedSpeaking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.1
       bool success = true;
       SpeechSynthesisErrorCode p_error_code{};
       SpeechSynthesisClient_OnFinishedSpeaking_ParamsDataView input_data_view(params, message);
@@ -892,8 +898,8 @@ bool SpeechSynthesisClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFinishedSpeaking(
-std::move(p_error_code));
+      impl->OnFinishedSpeaking(        
+        std::move(p_error_code));
       return true;
     }
     case internal::kSpeechSynthesisClient_OnPausedSpeaking_Name: {
@@ -903,6 +909,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::SpeechSynthesisClient_OnPausedSpeaking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.2
       bool success = true;
       SpeechSynthesisClient_OnPausedSpeaking_ParamsDataView input_data_view(params, message);
       
@@ -915,7 +923,7 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPausedSpeaking();
+      impl->OnPausedSpeaking(        );
       return true;
     }
     case internal::kSpeechSynthesisClient_OnResumedSpeaking_Name: {
@@ -925,6 +933,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::SpeechSynthesisClient_OnResumedSpeaking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.3
       bool success = true;
       SpeechSynthesisClient_OnResumedSpeaking_ParamsDataView input_data_view(params, message);
       
@@ -937,7 +947,7 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResumedSpeaking();
+      impl->OnResumedSpeaking(        );
       return true;
     }
     case internal::kSpeechSynthesisClient_OnEncounteredWordBoundary_Name: {
@@ -947,6 +957,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::SpeechSynthesisClient_OnEncounteredWordBoundary_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.4
       bool success = true;
       uint32_t p_char_index{};
       uint32_t p_char_length{};
@@ -965,9 +977,9 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEncounteredWordBoundary(
-std::move(p_char_index), 
-std::move(p_char_length));
+      impl->OnEncounteredWordBoundary(        
+        std::move(p_char_index), 
+        std::move(p_char_length));
       return true;
     }
     case internal::kSpeechSynthesisClient_OnEncounteredSentenceBoundary_Name: {
@@ -977,6 +989,8 @@ std::move(p_char_length));
           reinterpret_cast<internal::SpeechSynthesisClient_OnEncounteredSentenceBoundary_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.5
       bool success = true;
       uint32_t p_char_index{};
       uint32_t p_char_length{};
@@ -995,9 +1009,9 @@ std::move(p_char_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEncounteredSentenceBoundary(
-std::move(p_char_index), 
-std::move(p_char_length));
+      impl->OnEncounteredSentenceBoundary(        
+        std::move(p_char_index), 
+        std::move(p_char_length));
       return true;
     }
     case internal::kSpeechSynthesisClient_OnEncounteredSpeakingError_Name: {
@@ -1007,6 +1021,8 @@ std::move(p_char_length));
           reinterpret_cast<internal::SpeechSynthesisClient_OnEncounteredSpeakingError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesisClient.6
       bool success = true;
       SpeechSynthesisClient_OnEncounteredSpeakingError_ParamsDataView input_data_view(params, message);
       
@@ -1019,7 +1035,7 @@ std::move(p_char_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEncounteredSpeakingError();
+      impl->OnEncounteredSpeakingError(        );
       return true;
     }
   }
@@ -1439,6 +1455,8 @@ bool SpeechSynthesisStubDispatch::Accept(
           reinterpret_cast<internal::SpeechSynthesis_AddVoiceListObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesis.0
       bool success = true;
       ::mojo::PendingRemote<SpeechSynthesisVoiceListObserver> p_observer{};
       SpeechSynthesis_AddVoiceListObserver_ParamsDataView input_data_view(params, message);
@@ -1456,8 +1474,8 @@ bool SpeechSynthesisStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVoiceListObserver(
-std::move(p_observer));
+      impl->AddVoiceListObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSpeechSynthesis_Speak_Name: {
@@ -1467,6 +1485,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SpeechSynthesis_Speak_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesis.1
       bool success = true;
       SpeechSynthesisUtterancePtr p_utterance{};
       ::mojo::PendingRemote<SpeechSynthesisClient> p_client{};
@@ -1487,9 +1507,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Speak(
-std::move(p_utterance), 
-std::move(p_client));
+      impl->Speak(        
+        std::move(p_utterance), 
+        std::move(p_client));
       return true;
     }
     case internal::kSpeechSynthesis_Pause_Name: {
@@ -1499,6 +1519,8 @@ std::move(p_client));
           reinterpret_cast<internal::SpeechSynthesis_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesis.2
       bool success = true;
       SpeechSynthesis_Pause_ParamsDataView input_data_view(params, message);
       
@@ -1511,7 +1533,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kSpeechSynthesis_Resume_Name: {
@@ -1521,6 +1543,8 @@ std::move(p_client));
           reinterpret_cast<internal::SpeechSynthesis_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesis.3
       bool success = true;
       SpeechSynthesis_Resume_ParamsDataView input_data_view(params, message);
       
@@ -1533,7 +1557,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kSpeechSynthesis_Cancel_Name: {
@@ -1543,6 +1567,8 @@ std::move(p_client));
           reinterpret_cast<internal::SpeechSynthesis_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechSynthesis.4
       bool success = true;
       SpeechSynthesis_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -1555,7 +1581,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel();
+      impl->Cancel(        );
       return true;
     }
   }

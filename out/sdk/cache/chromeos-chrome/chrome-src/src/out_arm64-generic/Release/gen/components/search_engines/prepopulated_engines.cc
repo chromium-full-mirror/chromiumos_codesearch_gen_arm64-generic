@@ -15,8 +15,8 @@ const int kMaxPrepopulatedEngineID = 111;
 const int kCurrentDataVersion = 145;
 
 const PrepopulatedEngine ask = {
-  L"Ask",
-  L"ask.com",
+  u"Ask",
+  u"ask.com",
   "https://www.ask.com/wp-content/uploads/sites/3/2021/10/ask-favicon.png",
   "https://www.ask.com/web?q={searchTerms}",
   "UTF-8",
@@ -51,8 +51,8 @@ const char* const array_baidu_alternate_urls[] = {
   "https://www.baidu.com/{google:pathWildcard}/s?ie={inputEncoding}&word={searchTerms}",
 };
 const PrepopulatedEngine baidu = {
-  L"\x767e" L"\x5ea6" L"",
-  L"baidu.com",
+  u"\x767e" u"\x5ea6" u"",
+  u"baidu.com",
   "https://www.baidu.com/favicon.ico",
   "https://www.baidu.com/#ie={inputEncoding}&wd={searchTerms}",
   "UTF-8",
@@ -82,8 +82,8 @@ const PrepopulatedEngine baidu = {
 };
 
 const PrepopulatedEngine bing = {
-  L"Bing",
-  L"bing.com",
+  u"Bing",
+  u"bing.com",
   "https://www.bing.com/sa/simg/bing_p_rr_teal_min.ico",
   "https://www.bing.com/search?q={searchTerms}&PC=U316&FORM=CHROMN",
   "UTF-8",
@@ -113,8 +113,8 @@ const PrepopulatedEngine bing = {
 };
 
 const PrepopulatedEngine brave = {
-  L"Brave Search",
-  L"search.brave.com",
+  u"Brave Search",
+  u"search.brave.com",
   "https://cdn.search.brave.com/serp/favicon.ico",
   "https://search.brave.com/search?q={searchTerms}",
   "UTF-8",
@@ -144,8 +144,8 @@ const PrepopulatedEngine brave = {
 };
 
 const PrepopulatedEngine coccoc = {
-  L"C\x1ed1" L"c C\x1ed1" L"c",
-  L"coccoc.com",
+  u"C\x1ed1" u"c C\x1ed1" u"c",
+  u"coccoc.com",
   "https://coccoc.com/favicon.ico",
   "https://coccoc.com/search#query={searchTerms}",
   "UTF-8",
@@ -175,8 +175,8 @@ const PrepopulatedEngine coccoc = {
 };
 
 const PrepopulatedEngine daum = {
-  L"Daum",
-  L"daum.net",
+  u"Daum",
+  u"daum.net",
   "https://search.daum.net/favicon.ico",
   "https://search.daum.net/search?w=tot&DA=JU5&q={searchTerms}",
   "UTF-8",
@@ -206,8 +206,8 @@ const PrepopulatedEngine daum = {
 };
 
 const PrepopulatedEngine duckduckgo = {
-  L"DuckDuckGo",
-  L"duckduckgo.com",
+  u"DuckDuckGo",
+  u"duckduckgo.com",
   "https://duckduckgo.com/favicon.ico",
   "https://duckduckgo.com/?q={searchTerms}",
   "UTF-8",
@@ -237,8 +237,8 @@ const PrepopulatedEngine duckduckgo = {
 };
 
 const PrepopulatedEngine ecosia = {
-  L"Ecosia",
-  L"ecosia.org",
+  u"Ecosia",
+  u"ecosia.org",
   "https://cdn.ecosia.org/assets/images/ico/favicon.ico",
   "https://www.ecosia.org/search?q={searchTerms}&addon=opensearch",
   "UTF-8",
@@ -279,8 +279,8 @@ const char* const array_google_search_intent_params[] = {
   "gs_ssp",
 };
 const PrepopulatedEngine google = {
-  L"Google",
-  L"google.com",
+  u"Google",
+  u"google.com",
   "https://www.google.com/images/branding/product/ico/googleg_alldp.ico",
   "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:iOSSearchLanguage}{google:prefetchSource}{google:searchClient}{google:sourceId}{google:contextualSearchVersion}ie={inputEncoding}",
   "UTF-8",
@@ -310,8 +310,8 @@ const PrepopulatedEngine google = {
 };
 
 const PrepopulatedEngine karma = {
-  L"Karma Search",
-  L"karmasearch.org",
+  u"Karma Search",
+  u"karmasearch.org",
   "https://karmasearch.org/favicon.ico",
   "https://karmasearch.org/search?q={searchTerms}",
   "UTF-8",
@@ -341,8 +341,8 @@ const PrepopulatedEngine karma = {
 };
 
 const PrepopulatedEngine lilo = {
-  L"Lilo",
-  L"lilo.org",
+  u"Lilo",
+  u"lilo.org",
   "https://www.lilo.org/wp-content/themes/jarvis_wp/ajans/assets/favicon.ico",
   "https://search.lilo.org/?q={searchTerms}",
   "UTF-8",
@@ -375,8 +375,8 @@ const char* const array_mail_ru_alternate_urls[] = {
   "https://go.mail.ru/msearch?q={searchTerms}&{mailru:referralID}",
 };
 const PrepopulatedEngine mail_ru = {
-  L"@MAIL.RU",
-  L"mail.ru",
+  u"@MAIL.RU",
+  u"mail.ru",
   "https://go.imgsmail.ru/favicon.ico",
   "https://go.mail.ru/search?q={searchTerms}&{mailru:referralID}&fr=ch_omnibox",
   "UTF-8",
@@ -406,8 +406,8 @@ const PrepopulatedEngine mail_ru = {
 };
 
 const PrepopulatedEngine mojeek = {
-  L"Mojeek",
-  L"mojeek.com",
+  u"Mojeek",
+  u"mojeek.com",
   "https://www.mojeek.com/favicon.ico",
   "https://www.mojeek.com/search?q={searchTerms}",
   "UTF-8",
@@ -437,8 +437,8 @@ const PrepopulatedEngine mojeek = {
 };
 
 const PrepopulatedEngine naver = {
-  L"\xb124" L"\xc774" L"\xbc84" L"",
-  L"naver.com",
+  u"\xb124" u"\xc774" u"\xbc84" u"",
+  u"naver.com",
   "https://ssl.pstatic.net/sstatic/search/favicon/favicon_140327.ico",
   "https://search.naver.com/search.naver?ie={inputEncoding}&query={searchTerms}&sm=chr_hty",
   "UTF-8",
@@ -468,8 +468,8 @@ const PrepopulatedEngine naver = {
 };
 
 const PrepopulatedEngine nona = {
-  L"Nona",
-  L"nona.de",
+  u"Nona",
+  u"nona.de",
   "https://www.nona.de/favicon.ico",
   "https://www.nona.de/?q={searchTerms}",
   "UTF-8",
@@ -499,8 +499,8 @@ const PrepopulatedEngine nona = {
 };
 
 const PrepopulatedEngine panda = {
-  L"Panda Search",
-  L"panda-search.org",
+  u"Panda Search",
+  u"panda-search.org",
   "https://panda-search.org/favicon.ico",
   "https://panda-search.org/search/?q={searchTerms}",
   "UTF-8",
@@ -530,8 +530,8 @@ const PrepopulatedEngine panda = {
 };
 
 const PrepopulatedEngine petal_search = {
-  L"Petal Search",
-  L"petalsearch.com",
+  u"Petal Search",
+  u"petalsearch.com",
   "https://search-static-dre.dbankcdn.com/pc/v1/favicon.ico",
   "https://petalsearch.com/search?query={searchTerms}",
   "UTF-8",
@@ -561,8 +561,8 @@ const PrepopulatedEngine petal_search = {
 };
 
 const PrepopulatedEngine presearch = {
-  L"Presearch",
-  L"presearch.com",
+  u"Presearch",
+  u"presearch.com",
   "https://presearch.com/favicon.ico",
   "https://presearch.com/search?q={searchTerms}&src=c",
   "UTF-8",
@@ -592,8 +592,8 @@ const PrepopulatedEngine presearch = {
 };
 
 const PrepopulatedEngine quendu = {
-  L"Quendu.com",
-  L"quendu.com",
+  u"Quendu.com",
+  u"quendu.com",
   "https://quendu.com/assets/favicon-48x48.png",
   "https://www.quendu.com/search?q={searchTerms}",
   "UTF-8",
@@ -623,8 +623,8 @@ const PrepopulatedEngine quendu = {
 };
 
 const PrepopulatedEngine qwant = {
-  L"Qwant",
-  L"qwant.com",
+  u"Qwant",
+  u"qwant.com",
   "https://www.qwant.com/favicon.ico",
   "https://www.qwant.com/?q={searchTerms}&client=opensearch",
   "UTF-8",
@@ -654,8 +654,8 @@ const PrepopulatedEngine qwant = {
 };
 
 const PrepopulatedEngine seznam_cz = {
-  L"Seznam",
-  L"seznam.cz",
+  u"Seznam",
+  u"seznam.cz",
   "https://search.seznam.cz/favicon.ico",
   "https://search.seznam.cz/?q={searchTerms}",
   "UTF-8",
@@ -685,8 +685,8 @@ const PrepopulatedEngine seznam_cz = {
 };
 
 const PrepopulatedEngine seznam_sk = {
-  L"Seznam",
-  L"seznam.sk",
+  u"Seznam",
+  u"seznam.sk",
   "https://search.seznam.sk/favicon.ico",
   "https://search.seznam.sk/?q={searchTerms}",
   "UTF-8",
@@ -720,8 +720,8 @@ const char* const array_so_360_alternate_urls[] = {
   "https://m.so.com/index.php?ie={inputEncoding}&q={searchTerms}",
 };
 const PrepopulatedEngine so_360 = {
-  L"360",
-  L"so.com",
+  u"360",
+  u"so.com",
   "https://www.so.com/favicon.ico",
   "https://www.so.com/s?ie={inputEncoding}&q={searchTerms}",
   "UTF-8",
@@ -754,8 +754,8 @@ const char* const array_sogou_alternate_urls[] = {
   "https://m.sogou.com/web/{google:pathWildcard}?ie={inputEncoding}&keyword={searchTerms}",
 };
 const PrepopulatedEngine sogou = {
-  L"\x641c" L"\x72d7" L"",
-  L"sogou.com",
+  u"\x641c" u"\x72d7" u"",
+  u"sogou.com",
   "https://www.sogou.com/images/logo/old/favicon.ico",
   "https://www.sogou.com/web?ie={inputEncoding}&query={searchTerms}",
   "UTF-8",
@@ -785,8 +785,8 @@ const PrepopulatedEngine sogou = {
 };
 
 const PrepopulatedEngine yahoo = {
-  L"Yahoo!",
-  L"yahoo.com",
+  u"Yahoo!",
+  u"yahoo.com",
   "https://search.yahoo.com/favicon.ico",
   "https://search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas_sfp&p={searchTerms}",
   "UTF-8",
@@ -816,8 +816,8 @@ const PrepopulatedEngine yahoo = {
 };
 
 const PrepopulatedEngine yahoo_ar = {
-  L"Yahoo! Argentina",
-  L"ar.yahoo.com",
+  u"Yahoo! Argentina",
+  u"ar.yahoo.com",
   "https://ar.search.yahoo.com/favicon.ico",
   "https://ar.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -847,8 +847,8 @@ const PrepopulatedEngine yahoo_ar = {
 };
 
 const PrepopulatedEngine yahoo_at = {
-  L"Yahoo! \x00d6" L"sterreich",
-  L"at.yahoo.com",
+  u"Yahoo! \x00d6" u"sterreich",
+  u"at.yahoo.com",
   "https://at.search.yahoo.com/favicon.ico",
   "https://at.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -878,8 +878,8 @@ const PrepopulatedEngine yahoo_at = {
 };
 
 const PrepopulatedEngine yahoo_au = {
-  L"Yahoo!7",
-  L"au.yahoo.com",
+  u"Yahoo!7",
+  u"au.yahoo.com",
   "https://au.search.yahoo.com/favicon.ico",
   "https://au.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -909,8 +909,8 @@ const PrepopulatedEngine yahoo_au = {
 };
 
 const PrepopulatedEngine yahoo_br = {
-  L"Yahoo! Brasil",
-  L"br.yahoo.com",
+  u"Yahoo! Brasil",
+  u"br.yahoo.com",
   "https://br.search.yahoo.com/favicon.ico",
   "https://br.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -940,8 +940,8 @@ const PrepopulatedEngine yahoo_br = {
 };
 
 const PrepopulatedEngine yahoo_ca = {
-  L"Yahoo! Canada",
-  L"ca.yahoo.com",
+  u"Yahoo! Canada",
+  u"ca.yahoo.com",
   "https://ca.search.yahoo.com/favicon.ico",
   "https://ca.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -971,8 +971,8 @@ const PrepopulatedEngine yahoo_ca = {
 };
 
 const PrepopulatedEngine yahoo_ch = {
-  L"Yahoo! Schweiz",
-  L"ch.yahoo.com",
+  u"Yahoo! Schweiz",
+  u"ch.yahoo.com",
   "https://ch.search.yahoo.com/favicon.ico",
   "https://ch.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1002,8 +1002,8 @@ const PrepopulatedEngine yahoo_ch = {
 };
 
 const PrepopulatedEngine yahoo_cl = {
-  L"Yahoo! Chile",
-  L"cl.yahoo.com",
+  u"Yahoo! Chile",
+  u"cl.yahoo.com",
   "https://cl.search.yahoo.com/favicon.ico",
   "https://cl.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1033,8 +1033,8 @@ const PrepopulatedEngine yahoo_cl = {
 };
 
 const PrepopulatedEngine yahoo_co = {
-  L"Yahoo! Colombia",
-  L"co.yahoo.com",
+  u"Yahoo! Colombia",
+  u"co.yahoo.com",
   "https://co.search.yahoo.com/favicon.ico",
   "https://co.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1064,8 +1064,8 @@ const PrepopulatedEngine yahoo_co = {
 };
 
 const PrepopulatedEngine yahoo_de = {
-  L"Yahoo! Deutschland",
-  L"de.yahoo.com",
+  u"Yahoo! Deutschland",
+  u"de.yahoo.com",
   "https://de.search.yahoo.com/favicon.ico",
   "https://de.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1095,8 +1095,8 @@ const PrepopulatedEngine yahoo_de = {
 };
 
 const PrepopulatedEngine yahoo_dk = {
-  L"Yahoo! Danmark",
-  L"dk.yahoo.com",
+  u"Yahoo! Danmark",
+  u"dk.yahoo.com",
   "https://dk.search.yahoo.com/favicon.ico",
   "https://dk.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1126,8 +1126,8 @@ const PrepopulatedEngine yahoo_dk = {
 };
 
 const PrepopulatedEngine yahoo_es = {
-  L"Yahoo! Espa\x00f1" L"a",
-  L"es.yahoo.com",
+  u"Yahoo! Espa\x00f1" u"a",
+  u"es.yahoo.com",
   "https://es.search.yahoo.com/favicon.ico",
   "https://es.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1157,8 +1157,8 @@ const PrepopulatedEngine yahoo_es = {
 };
 
 const PrepopulatedEngine yahoo_fi = {
-  L"Yahoo! Suomi",
-  L"fi.yahoo.com",
+  u"Yahoo! Suomi",
+  u"fi.yahoo.com",
   "https://fi.search.yahoo.com/favicon.ico",
   "https://fi.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1188,8 +1188,8 @@ const PrepopulatedEngine yahoo_fi = {
 };
 
 const PrepopulatedEngine yahoo_fr = {
-  L"Yahoo! France",
-  L"fr.yahoo.com",
+  u"Yahoo! France",
+  u"fr.yahoo.com",
   "https://fr.search.yahoo.com/favicon.ico",
   "https://fr.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1219,8 +1219,8 @@ const PrepopulatedEngine yahoo_fr = {
 };
 
 const PrepopulatedEngine yahoo_hk = {
-  L"Yahoo! Hong Kong",
-  L"hk.yahoo.com",
+  u"Yahoo! Hong Kong",
+  u"hk.yahoo.com",
   "https://hk.search.yahoo.com/favicon.ico",
   "https://hk.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1250,8 +1250,8 @@ const PrepopulatedEngine yahoo_hk = {
 };
 
 const PrepopulatedEngine yahoo_id = {
-  L"Yahoo! Indonesia",
-  L"id.yahoo.com",
+  u"Yahoo! Indonesia",
+  u"id.yahoo.com",
   "https://id.search.yahoo.com/favicon.ico",
   "https://id.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1281,8 +1281,8 @@ const PrepopulatedEngine yahoo_id = {
 };
 
 const PrepopulatedEngine yahoo_in = {
-  L"Yahoo! India",
-  L"in.yahoo.com",
+  u"Yahoo! India",
+  u"in.yahoo.com",
   "https://in.search.yahoo.com/favicon.ico",
   "https://in.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1312,8 +1312,8 @@ const PrepopulatedEngine yahoo_in = {
 };
 
 const PrepopulatedEngine yahoo_jp = {
-  L"Yahoo! JAPAN",
-  L"yahoo.co.jp",
+  u"Yahoo! JAPAN",
+  u"yahoo.co.jp",
   "https://search.yahoo.co.jp/favicon.ico",
   "https://search.yahoo.co.jp/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1343,8 +1343,8 @@ const PrepopulatedEngine yahoo_jp = {
 };
 
 const PrepopulatedEngine yahoo_mx = {
-  L"Yahoo! M\x00e9" L"xico",
-  L"mx.yahoo.com",
+  u"Yahoo! M\x00e9" u"xico",
+  u"mx.yahoo.com",
   "https://mx.search.yahoo.com/favicon.ico",
   "https://mx.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1374,8 +1374,8 @@ const PrepopulatedEngine yahoo_mx = {
 };
 
 const PrepopulatedEngine yahoo_my = {
-  L"Yahoo! Malaysia",
-  L"malaysia.yahoo.com",
+  u"Yahoo! Malaysia",
+  u"malaysia.yahoo.com",
   "https://malaysia.search.yahoo.com/favicon.ico",
   "https://malaysia.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1405,8 +1405,8 @@ const PrepopulatedEngine yahoo_my = {
 };
 
 const PrepopulatedEngine yahoo_nl = {
-  L"Yahoo! Nederland",
-  L"nl.yahoo.com",
+  u"Yahoo! Nederland",
+  u"nl.yahoo.com",
   "https://nl.search.yahoo.com/favicon.ico",
   "https://nl.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1436,8 +1436,8 @@ const PrepopulatedEngine yahoo_nl = {
 };
 
 const PrepopulatedEngine yahoo_nz = {
-  L"Yahoo! New Zealand",
-  L"nz.yahoo.com",
+  u"Yahoo! New Zealand",
+  u"nz.yahoo.com",
   "https://nz.search.yahoo.com/favicon.ico",
   "https://nz.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1467,8 +1467,8 @@ const PrepopulatedEngine yahoo_nz = {
 };
 
 const PrepopulatedEngine yahoo_pe = {
-  L"Yahoo! Per\x00fa" L"",
-  L"pe.yahoo.com",
+  u"Yahoo! Per\x00fa" u"",
+  u"pe.yahoo.com",
   "https://pe.search.yahoo.com/favicon.ico",
   "https://pe.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1498,8 +1498,8 @@ const PrepopulatedEngine yahoo_pe = {
 };
 
 const PrepopulatedEngine yahoo_ph = {
-  L"Yahoo! Philippines",
-  L"ph.yahoo.com",
+  u"Yahoo! Philippines",
+  u"ph.yahoo.com",
   "https://ph.search.yahoo.com/favicon.ico",
   "https://ph.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1529,8 +1529,8 @@ const PrepopulatedEngine yahoo_ph = {
 };
 
 const PrepopulatedEngine yahoo_se = {
-  L"Yahoo! Sverige",
-  L"se.yahoo.com",
+  u"Yahoo! Sverige",
+  u"se.yahoo.com",
   "https://se.search.yahoo.com/favicon.ico",
   "https://se.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1560,8 +1560,8 @@ const PrepopulatedEngine yahoo_se = {
 };
 
 const PrepopulatedEngine yahoo_sg = {
-  L"Yahoo! Singapore",
-  L"sg.yahoo.com",
+  u"Yahoo! Singapore",
+  u"sg.yahoo.com",
   "https://sg.search.yahoo.com/favicon.ico",
   "https://sg.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1591,8 +1591,8 @@ const PrepopulatedEngine yahoo_sg = {
 };
 
 const PrepopulatedEngine yahoo_th = {
-  L"Yahoo! \x0e1b" L"\x0e23" L"\x0e30" L"\x0e40" L"\x0e17" L"\x0e28" L"\x0e44" L"\x0e17" L"\x0e22" L"",
-  L"th.yahoo.com",
+  u"Yahoo! \x0e1b" u"\x0e23" u"\x0e30" u"\x0e40" u"\x0e17" u"\x0e28" u"\x0e44" u"\x0e17" u"\x0e22" u"",
+  u"th.yahoo.com",
   "https://th.search.yahoo.com/favicon.ico",
   "https://th.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1622,8 +1622,8 @@ const PrepopulatedEngine yahoo_th = {
 };
 
 const PrepopulatedEngine yahoo_tr = {
-  L"Yahoo! T\x00fc" L"rkiye",
-  L"tr.yahoo.com",
+  u"Yahoo! T\x00fc" u"rkiye",
+  u"tr.yahoo.com",
   "https://tr.search.yahoo.com/favicon.ico",
   "https://tr.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1653,8 +1653,8 @@ const PrepopulatedEngine yahoo_tr = {
 };
 
 const PrepopulatedEngine yahoo_tw = {
-  L"Yahoo!\x5947" L"\x6469" L"",
-  L"tw.yahoo.com",
+  u"Yahoo!\x5947" u"\x6469" u"",
+  u"tw.yahoo.com",
   "https://tw.search.yahoo.com/favicon.ico",
   "https://tw.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1684,8 +1684,8 @@ const PrepopulatedEngine yahoo_tw = {
 };
 
 const PrepopulatedEngine yahoo_uk = {
-  L"Yahoo! UK & Ireland",
-  L"uk.yahoo.com",
+  u"Yahoo! UK & Ireland",
+  u"uk.yahoo.com",
   "https://uk.search.yahoo.com/favicon.ico",
   "https://uk.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1715,8 +1715,8 @@ const PrepopulatedEngine yahoo_uk = {
 };
 
 const PrepopulatedEngine yahoo_ve = {
-  L"Yahoo! Venezuela",
-  L"ve.yahoo.com",
+  u"Yahoo! Venezuela",
+  u"ve.yahoo.com",
   "https://ve.search.yahoo.com/favicon.ico",
   "https://ve.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1746,8 +1746,8 @@ const PrepopulatedEngine yahoo_ve = {
 };
 
 const PrepopulatedEngine yahoo_vn = {
-  L"Yahoo! Vi\x1ec7" L"t Nam",
-  L"vn.yahoo.com",
+  u"Yahoo! Vi\x1ec7" u"t Nam",
+  u"vn.yahoo.com",
   "https://vn.search.yahoo.com/favicon.ico",
   "https://vn.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -1777,8 +1777,8 @@ const PrepopulatedEngine yahoo_vn = {
 };
 
 const PrepopulatedEngine yandex_by = {
-  L"\x042f" L"\x043d" L"\x0434" L"\x0435" L"\x043a" L"\x0441" L"",
-  L"yandex.by",
+  u"\x042f" u"\x043d" u"\x0434" u"\x0435" u"\x043a" u"\x0441" u"",
+  u"yandex.by",
   "https://yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico",
   "https://yandex.by/{yandex:searchPath}?text={searchTerms}",
   "UTF-8",
@@ -1808,8 +1808,8 @@ const PrepopulatedEngine yandex_by = {
 };
 
 const PrepopulatedEngine yandex_com = {
-  L"Yandex",
-  L"yandex.com",
+  u"Yandex",
+  u"yandex.com",
   "https://yastatic.net/lego/_/rBTjd6UOPk5913OSn5ZQVYMTQWQ.ico",
   "https://yandex.com/search/?text={searchTerms}&from=os&clid=1836588",
   "UTF-8",
@@ -1839,8 +1839,8 @@ const PrepopulatedEngine yandex_com = {
 };
 
 const PrepopulatedEngine yandex_kz = {
-  L"\x042f" L"\x043d" L"\x0434" L"\x0435" L"\x043a" L"\x0441" L"",
-  L"yandex.kz",
+  u"\x042f" u"\x043d" u"\x0434" u"\x0435" u"\x043a" u"\x0441" u"",
+  u"yandex.kz",
   "https://yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico",
   "https://yandex.kz/{yandex:searchPath}?text={searchTerms}",
   "UTF-8",
@@ -1870,8 +1870,8 @@ const PrepopulatedEngine yandex_kz = {
 };
 
 const PrepopulatedEngine yandex_ru = {
-  L"\x042f" L"\x043d" L"\x0434" L"\x0435" L"\x043a" L"\x0441" L"",
-  L"yandex.ru",
+  u"\x042f" u"\x043d" u"\x0434" u"\x0435" u"\x043a" u"\x0441" u"",
+  u"yandex.ru",
   "https://yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico",
   "https://yandex.ru/{yandex:searchPath}?text={searchTerms}&{yandex:referralID}",
   "UTF-8",
@@ -1901,8 +1901,8 @@ const PrepopulatedEngine yandex_ru = {
 };
 
 const PrepopulatedEngine yandex_tr = {
-  L"Yandex",
-  L"yandex.com.tr",
+  u"Yandex",
+  u"yandex.com.tr",
   "https://yastatic.net/lego/_/rBTjd6UOPk5913OSn5ZQVYMTQWQ.ico",
   "https://www.yandex.com.tr/{yandex:searchPath}?text={searchTerms}",
   "UTF-8",
@@ -1932,8 +1932,8 @@ const PrepopulatedEngine yandex_tr = {
 };
 
 const PrepopulatedEngine yandex_ua = {
-  L"\x042f" L"\x043d" L"\x0434" L"\x0435" L"\x043a" L"\x0441" L"",
-  L"yandex.ua",
+  u"\x042f" u"\x043d" u"\x0434" u"\x0435" u"\x043a" u"\x0441" u"",
+  u"yandex.ua",
   "https://yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico",
   "https://yandex.ua/{yandex:searchPath}?text={searchTerms}",
   "UTF-8",
@@ -1963,8 +1963,8 @@ const PrepopulatedEngine yandex_ua = {
 };
 
 const PrepopulatedEngine yep = {
-  L"Yep",
-  L"yep.com",
+  u"Yep",
+  u"yep.com",
   "https://cdn.yep.com/static/meta/favicon.ico",
   "https://yep.com/web?q={searchTerms}",
   "UTF-8",
@@ -1997,8 +1997,8 @@ const char* const array_atlas_cz_alternate_urls[] = {
   "http://searchatlas.centrum.cz/?q={searchTerms}",
 };
 const PrepopulatedEngine atlas_cz = {
-  L"Atlas.cz",
-  L"atlas.cz",
+  u"Atlas.cz",
+  u"atlas.cz",
   "https://searchatlas.centrum.cz/favicon.ico",
   "https://searchatlas.centrum.cz/?q={searchTerms}",
   "UTF-8",
@@ -2031,8 +2031,8 @@ const char* const array_atlas_sk_alternate_urls[] = {
   "http://hladaj.atlas.sk/fulltext/?phrase={searchTerms}",
 };
 const PrepopulatedEngine atlas_sk = {
-  L"ATLAS.SK",
-  L"atlas.sk",
+  u"ATLAS.SK",
+  u"atlas.sk",
   "http://static.mediacentrum.sk/katalog/atlas.sk/images/favicon.ico",
   "https://hladaj.atlas.sk/fulltext/?phrase={searchTerms}",
   "UTF-8",
@@ -2068,8 +2068,8 @@ const char* const array_avg_alternate_urls[] = {
   "https://search.avg.com/route/?q={searchTerms}&lng={language}",
 };
 const PrepopulatedEngine avg = {
-  L"AVG",
-  L"search.avg.com",
+  u"AVG",
+  u"search.avg.com",
   "http://search.avg.com/favicon.ico",
   "http://search.avg.com/search?q={searchTerms}",
   "UTF-8",
@@ -2102,8 +2102,8 @@ const char* const array_babylon_alternate_urls[] = {
   "http://search.babylon.com/?q={searchTerms}",
 };
 const PrepopulatedEngine babylon = {
-  L"Babylon",
-  L"search.babylon.com",
+  u"Babylon",
+  u"search.babylon.com",
   "http://search.babylon.com/favicon.ico",
   "http://search.babylon.com/home?q={searchTerms}",
   "UTF-8",
@@ -2136,8 +2136,8 @@ const char* const array_conduit_alternate_urls[] = {
   "http://search.conduit.com/Results.aspx?q={searchTerms}",
 };
 const PrepopulatedEngine conduit = {
-  L"Conduit",
-  L"conduit.com",
+  u"Conduit",
+  u"conduit.com",
   "http://www.conduit.com/favicon.ico",
   "http://www.conduit.com/search?q={searchTerms}&ie={inputEncoding}&cx=010301873083402539744%3Anxaq5wgrtuo&cof=forid%3A11",
   "UTF-8",
@@ -2170,8 +2170,8 @@ const char* const array_delfi_lt_alternate_urls[] = {
   "http://www.delfi.lt/paieska/?q={searchTerms}",
 };
 const PrepopulatedEngine delfi_lt = {
-  L"DELFI",
-  L"delfi.lt",
+  u"DELFI",
+  u"delfi.lt",
   "https://www.delfi.lt/favicon.ico",
   "https://www.delfi.lt/paieska/?q={searchTerms}",
   "UTF-8",
@@ -2201,8 +2201,8 @@ const PrepopulatedEngine delfi_lt = {
 };
 
 const PrepopulatedEngine delfi_lv = {
-  L"DELFI",
-  L"delfi.lv",
+  u"DELFI",
+  u"delfi.lv",
   "http://g1.delphi.lv/favicon.ico",
   "http://www.delfi.lv/search_all/?ie={inputEncoding}&q={searchTerms}&lang={language}&cx=partner-pub-7754285690273419%3A1507605038&cof=FORID%3A10",
   "UTF-8",
@@ -2247,8 +2247,8 @@ const char* const array_delta_alternate_urls[] = {
   "http://www.search.delta-search.com/?q={searchTerms}",
 };
 const PrepopulatedEngine delta = {
-  L"Delta",
-  L"delta-search.com",
+  u"Delta",
+  u"delta-search.com",
   "http://www.delta-search.com/favicon.ico",
   "http://www.delta-search.com/home?q={searchTerms}",
   "UTF-8",
@@ -2278,8 +2278,8 @@ const PrepopulatedEngine delta = {
 };
 
 const PrepopulatedEngine funmoods = {
-  L"Funmoods",
-  L"searchfunmoods.com",
+  u"Funmoods",
+  u"searchfunmoods.com",
   "http://searchfunmoods.com/favicon.ico",
   "http://searchfunmoods.com/results.php?q={searchTerms}",
   "UTF-8",
@@ -2309,8 +2309,8 @@ const PrepopulatedEngine funmoods = {
 };
 
 const PrepopulatedEngine givero = {
-  L"Givero",
-  L"givero.com",
+  u"Givero",
+  u"givero.com",
   "https://www.givero.com/favicon.ico",
   "https://www.givero.com/search?q={searchTerms}",
   "UTF-8",
@@ -2340,8 +2340,8 @@ const PrepopulatedEngine givero = {
 };
 
 const PrepopulatedEngine gmx = {
-  L"GMX Search",
-  L"search.gmx.com",
+  u"GMX Search",
+  u"search.gmx.com",
   "https://dl.gmx.com/apps/favicon.ico",
   "https://search.gmx.com/web/result?q={searchTerms}&sp=b",
   "UTF-8",
@@ -2371,8 +2371,8 @@ const PrepopulatedEngine gmx = {
 };
 
 const PrepopulatedEngine gmx_at = {
-  L"GMX Suche",
-  L"suche.gmx.at",
+  u"GMX Suche",
+  u"suche.gmx.at",
   "https://dl.gmx.com/apps/favicon.ico",
   "https://suche.gmx.at/web/result?q={searchTerms}&sp=b",
   "UTF-8",
@@ -2402,8 +2402,8 @@ const PrepopulatedEngine gmx_at = {
 };
 
 const PrepopulatedEngine gmx_de = {
-  L"GMX Suche",
-  L"suche.gmx.net",
+  u"GMX Suche",
+  u"suche.gmx.net",
   "https://dl.gmx.com/apps/favicon.ico",
   "https://suche.gmx.net/web/result?q={searchTerms}&sp=b",
   "UTF-8",
@@ -2433,8 +2433,8 @@ const PrepopulatedEngine gmx_de = {
 };
 
 const PrepopulatedEngine gmx_es = {
-  L"GMX Search",
-  L"search.gmx.es",
+  u"GMX Search",
+  u"search.gmx.es",
   "https://dl.gmx.com/apps/favicon.ico",
   "https://search.gmx.es/web/result?q={searchTerms}&sp=b",
   "UTF-8",
@@ -2464,8 +2464,8 @@ const PrepopulatedEngine gmx_es = {
 };
 
 const PrepopulatedEngine gmx_fr = {
-  L"GMX Search",
-  L"search.gmx.fr",
+  u"GMX Search",
+  u"search.gmx.fr",
   "https://dl.gmx.com/apps/favicon.ico",
   "https://search.gmx.fr/web/result?q={searchTerms}&sp=b",
   "UTF-8",
@@ -2495,8 +2495,8 @@ const PrepopulatedEngine gmx_fr = {
 };
 
 const PrepopulatedEngine gmx_gb = {
-  L"GMX Search",
-  L"search.gmx.co.uk",
+  u"GMX Search",
+  u"search.gmx.co.uk",
   "https://dl.gmx.com/apps/favicon.ico",
   "https://search.gmx.co.uk/web/result?q={searchTerms}&sp=b",
   "UTF-8",
@@ -2530,8 +2530,8 @@ const char* const array_goo_alternate_urls[] = {
   "http://search.goo.ne.jp/sgt.jsp?MT={searchTerms}&CL=plugin&FM=json&IE={inputEncoding}",
 };
 const PrepopulatedEngine goo = {
-  L"goo",
-  L"search.goo.ne.jp",
+  u"goo",
+  u"search.goo.ne.jp",
   "https://search.goo.ne.jp/cdn/common/img/favicon.ico",
   "https://search.goo.ne.jp/web.jsp?MT={searchTerms}&IE={inputEncoding}",
   "EUC-JP",
@@ -2561,8 +2561,8 @@ const PrepopulatedEngine goo = {
 };
 
 const PrepopulatedEngine imesh = {
-  L"IMesh",
-  L"search.imesh.net",
+  u"IMesh",
+  u"search.imesh.net",
   "http://search.imesh.net/favicon.ico",
   "http://search.imesh.net/music?hl={language}&si={searchTerms}",
   "UTF-8",
@@ -2598,8 +2598,8 @@ const char* const array_iminent_alternate_urls[] = {
   "http://start.iminent.com/StartWeb/1033/homepage/#q={searchTerms}",
 };
 const PrepopulatedEngine iminent = {
-  L"SearchTheWeb",
-  L"iminent.com",
+  u"SearchTheWeb",
+  u"iminent.com",
   "http://search.iminent.com/Shared/Images/favicon_gl.ico",
   "http://search.iminent.com/?q={searchTerms}",
   "UTF-8",
@@ -2629,8 +2629,8 @@ const PrepopulatedEngine iminent = {
 };
 
 const PrepopulatedEngine in = {
-  L"in.gr",
-  L"in.gr",
+  u"in.gr",
+  u"in.gr",
   "http://find.in.gr/Themes/1/Default/Media/Layout/icon_in.png",
   "http://find.in.gr/?q={searchTerms}&ie={inputEncoding}&cx=partner-pub-3451081775397713%3Aklnvxp4nycj&cof=FORID%3A9",
   "UTF-8",
@@ -2664,8 +2664,8 @@ const char* const array_incredibar_alternate_urls[] = {
   "http://mystart.incredibar.com/?search={searchTerms}",
 };
 const PrepopulatedEngine incredibar = {
-  L"MyStart",
-  L"mystart.incredibar.com",
+  u"MyStart",
+  u"mystart.incredibar.com",
   "http://search.incredibar.com/favicon.ico",
   "http://search.incredibar.com/search.php?q={searchTerms}",
   "UTF-8",
@@ -2695,8 +2695,8 @@ const PrepopulatedEngine incredibar = {
 };
 
 const PrepopulatedEngine info_com = {
-  L"Info.com",
-  L"info.com",
+  u"Info.com",
+  u"info.com",
   "https://www.info.com/static/www.info.com/favicon.ico",
   "https://www.info.com/serp?q={searchTerms}&segment=info.0472",
   "UTF-8",
@@ -2726,8 +2726,8 @@ const PrepopulatedEngine info_com = {
 };
 
 const PrepopulatedEngine libero = {
-  L"Libero",
-  L"libero.it",
+  u"Libero",
+  u"libero.it",
   "http://ms1.iol.it/graph_hf/v.8.3.04/themes/default/img/favicon.ico",
   "http://arianna.libero.it/search/abin/integrata.cgi?query={searchTerms}",
   "ISO-8859-1",
@@ -2757,8 +2757,8 @@ const PrepopulatedEngine libero = {
 };
 
 const PrepopulatedEngine metager_de = {
-  L"MetaGer",
-  L"metager.de",
+  u"MetaGer",
+  u"metager.de",
   "https://metager.de/favicon.ico",
   "https://metager.de/meta/meta.ger3?eingabe={searchTerms}",
   "UTF-8",
@@ -2788,8 +2788,8 @@ const PrepopulatedEngine metager_de = {
 };
 
 const PrepopulatedEngine metager_gb = {
-  L"MetaGer",
-  L"metager.org",
+  u"MetaGer",
+  u"metager.org",
   "https://metager.de/favicon.ico",
   "https://metager.org/meta/meta.ger3?eingabe={searchTerms}",
   "UTF-8",
@@ -2823,8 +2823,8 @@ const char* const array_neti_alternate_urls[] = {
   "https://www.neti.ee/api/suggestOS?suggestVersion=1&suggestQuery={searchTerms}",
 };
 const PrepopulatedEngine neti = {
-  L"NETI",
-  L"neti.ee",
+  u"NETI",
+  u"neti.ee",
   "http://www.neti.ee/favicon.ico",
   "http://www.neti.ee/cgi-bin/otsing?query={searchTerms}",
   "ISO-8859-1",
@@ -2854,8 +2854,8 @@ const PrepopulatedEngine neti = {
 };
 
 const PrepopulatedEngine nigma = {
-  L"\x041d" L"\x0438" L"\x0433" L"\x043c" L"\x0430" L"",
-  L"nigma.ru",
+  u"\x041d" u"\x0438" u"\x0433" u"\x043c" u"\x0430" u"",
+  u"nigma.ru",
   "http://nigma.ru/themes/nigma/img/favicon.ico",
   "http://nigma.ru/?s={searchTerms}",
   "UTF-8",
@@ -2885,8 +2885,8 @@ const PrepopulatedEngine nigma = {
 };
 
 const PrepopulatedEngine oceanhero = {
-  L"OceanHero",
-  L"oceanhero.today",
+  u"OceanHero",
+  u"oceanhero.today",
   "https://oceanhero.today/favicon.ico",
   "https://oceanhero.today/web?q={searchTerms}",
   "UTF-8",
@@ -2916,8 +2916,8 @@ const PrepopulatedEngine oceanhero = {
 };
 
 const PrepopulatedEngine ok = {
-  L"OK.hu",
-  L"ok.hu",
+  u"OK.hu",
+  u"ok.hu",
   "http://ok.hu/gfx/favicon.ico",
   "http://ok.hu/katalogus?q={searchTerms}",
   "ISO-8859-2",
@@ -2947,8 +2947,8 @@ const PrepopulatedEngine ok = {
 };
 
 const PrepopulatedEngine privacywall = {
-  L"PrivacyWall",
-  L"privacywall.org",
+  u"PrivacyWall",
+  u"privacywall.org",
   "https://www.privacywall.org/images/favicon_32x32.ico",
   "https://www.privacywall.org/search/secure/?q={searchTerms}",
   "UTF-8",
@@ -2982,8 +2982,8 @@ const char* const array_rambler_alternate_urls[] = {
   "https://nova.rambler.ru/suggest?v=3&query={searchTerms}",
 };
 const PrepopulatedEngine rambler = {
-  L"\x0420" L"\x0430" L"\x043c" L"\x0431" L"\x043b" L"\x0435" L"\x0440" L"",
-  L"rambler.ru",
+  u"\x0420" u"\x0430" u"\x043c" u"\x0431" u"\x043b" u"\x0435" u"\x0440" u"",
+  u"rambler.ru",
   "http://i.rl0.ru/2011/icons/rambler.ico",
   "http://nova.rambler.ru/search?query={searchTerms}",
   "UTF-8",
@@ -3013,8 +3013,8 @@ const PrepopulatedEngine rambler = {
 };
 
 const PrepopulatedEngine sapo = {
-  L"SAPO",
-  L"sapo.pt",
+  u"SAPO",
+  u"sapo.pt",
   "http://imgs.sapo.pt/images/sapo.ico",
   "http://pesquisa.sapo.pt/?q={searchTerms}",
   "UTF-8",
@@ -3044,8 +3044,8 @@ const PrepopulatedEngine sapo = {
 };
 
 const PrepopulatedEngine searchnu = {
-  L"searchnu",
-  L"searchnu.com",
+  u"searchnu",
+  u"searchnu.com",
   "http://www.searchnu.com/favicon.ico",
   "http://www.searchnu.com/web?hl={language}&si={searchTerms}",
   "UTF-8",
@@ -3078,8 +3078,8 @@ const char* const array_search_results_alternate_urls[] = {
   "http://www.search-results.com/web?q={searchTerms}",
 };
 const PrepopulatedEngine search_results = {
-  L"Search-results",
-  L"search-results.com",
+  u"Search-results",
+  u"search-results.com",
   "http://ak.apnstatic.com/media/images/favicon_search-results.ico",
   "http://dts.search-results.com/sr?lng={language}&src=hmp&q={searchTerms}",
   "UTF-8",
@@ -3114,8 +3114,8 @@ const char* const array_snapdo_alternate_urls[] = {
   "http://feed.snap.do/?q={searchTerms}",
 };
 const PrepopulatedEngine snapdo = {
-  L"SnapDo",
-  L"search.snapdo.com",
+  u"SnapDo",
+  u"search.snapdo.com",
   "http://linkurystoragenorthus.blob.core.windows.net/static/favicon.ico",
   "http://search.snapdo.com/?q={searchTerms}",
   "UTF-8",
@@ -3158,8 +3158,8 @@ const char* const array_softonic_alternate_urls[] = {
   "https://nl.softonic.com/s/{searchTerms}",
 };
 const PrepopulatedEngine softonic = {
-  L"softonic",
-  L"search.softonic.com",
+  u"softonic",
+  u"search.softonic.com",
   "http://search.softonic.com/img/favicon.ico",
   "http://search.softonic.com/?q={searchTerms}",
   "UTF-8",
@@ -3189,8 +3189,8 @@ const PrepopulatedEngine softonic = {
 };
 
 const PrepopulatedEngine sweetim = {
-  L"SweetIM",
-  L"home.sweetim.com",
+  u"SweetIM",
+  u"home.sweetim.com",
   "http://search.sweetim.com/favicon.ico",
   "http://search.sweetim.com/search.asp?q={searchTerms}&ln={language}",
   "UTF-8",
@@ -3224,8 +3224,8 @@ const char* const array_sweetpacks_alternate_urls[] = {
   "http://mysearch.sweetpacks.com/?q={searchTerms}",
 };
 const PrepopulatedEngine sweetpacks = {
-  L"Sweetpacks",
-  L"start.sweetpacks.com",
+  u"Sweetpacks",
+  u"start.sweetpacks.com",
   "http://start.sweetpacks.com/favicon.ico",
   "http://start.sweetpacks.com/search.asp?q={searchTerms}&ln={language}",
   "UTF-8",
@@ -3258,8 +3258,8 @@ const char* const array_terra_ar_alternate_urls[] = {
   "https://buscador.terra.com.ar/Default.aspx?source=Search&ca=s&query={searchTerms}",
 };
 const PrepopulatedEngine terra_ar = {
-  L"Terra Argentina",
-  L"terra.com.ar",
+  u"Terra Argentina",
+  u"terra.com.ar",
   "http://buscar.terra.com.ar/favicon.ico",
   "http://buscar.terra.com.ar/Default.aspx?source=Search&ca=s&query={searchTerms}",
   "ISO-8859-1",
@@ -3292,8 +3292,8 @@ const char* const array_terra_es_alternate_urls[] = {
   "https://buscador.terra.es/Default.aspx?source=Search&ca=s&query={searchTerms}",
 };
 const PrepopulatedEngine terra_es = {
-  L"Terra",
-  L"terra.es",
+  u"Terra",
+  u"terra.es",
   "http://buscador.terra.es/favicon.ico",
   "http://buscador.terra.es/Default.aspx?source=Search&ca=s&query={searchTerms}",
   "ISO-8859-1",
@@ -3323,8 +3323,8 @@ const PrepopulatedEngine terra_es = {
 };
 
 const PrepopulatedEngine tut = {
-  L"TUT.BY",
-  L"tut.by",
+  u"TUT.BY",
+  u"tut.by",
   "http://search.tut.by/favicon.ico",
   "http://search.tut.by/?ru=1&query={searchTerms}",
   "UTF-8",
@@ -3357,8 +3357,8 @@ const char* const array_walla_alternate_urls[] = {
   "https://search.walla.co.il/?q={searchTerms}",
 };
 const PrepopulatedEngine walla = {
-  L"\x05d5" L"\x05d5" L"\x05d0" L"\x05dc" L"\x05d4" L"!",
-  L"walla.co.il",
+  u"\x05d5" u"\x05d5" u"\x05d0" u"\x05dc" u"\x05d4" u"!",
+  u"walla.co.il",
   "http://www.walla.co.il/favicon.ico",
   "http://search.walla.co.il/?q={searchTerms}",
   "UTF-8",
@@ -3388,8 +3388,8 @@ const PrepopulatedEngine walla = {
 };
 
 const PrepopulatedEngine wp = {
-  L"Wirtualna Polska",
-  L"wp.pl",
+  u"Wirtualna Polska",
+  u"wp.pl",
   "http://i.wp.pl/a/i/stg/500/favicon.ico",
   "http://szukaj.wp.pl/szukaj.html?q={searchTerms}",
   "UTF-8",
@@ -3419,8 +3419,8 @@ const PrepopulatedEngine wp = {
 };
 
 const PrepopulatedEngine yahoo_qc = {
-  L"Yahoo! Qu\x00e9" L"bec",
-  L"qc.yahoo.com",
+  u"Yahoo! Qu\x00e9" u"bec",
+  u"qc.yahoo.com",
   "https://qc.search.yahoo.com/favicon.ico",
   "https://qc.search.yahoo.com/search{google:pathWildcard}?ei={inputEncoding}&fr=crmas&p={searchTerms}",
   "UTF-8",
@@ -3453,8 +3453,8 @@ const char* const array_zoznam_alternate_urls[] = {
   "http://www.zoznam.sk/hladaj.fcgi?s={searchTerms}",
 };
 const PrepopulatedEngine zoznam = {
-  L"Zoznam",
-  L"zoznam.sk",
+  u"Zoznam",
+  u"zoznam.sk",
   "https://www.zoznam.sk/favicon.ico",
   "https://www.zoznam.sk/hladaj.fcgi?s={searchTerms}",
   "windows-1250",

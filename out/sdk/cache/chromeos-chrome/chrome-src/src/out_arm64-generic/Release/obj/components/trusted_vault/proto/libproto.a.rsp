@@ -1,1 +1,1 @@
-obj/components/trusted_vault/proto/proto/local_trusted_vault.pb.o obj/components/trusted_vault/proto/proto/vault.pb.o
+obj/components/trusted_vault/proto/proto/local_trusted_vault.pb.o obj/components/trusted_vault/proto/proto/recovery_key_store.pb.o obj/components/trusted_vault/proto/proto/vault.pb.o

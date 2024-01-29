@@ -4,8 +4,8 @@
 /**
  * @fileoverview The element for displaying a list of albums.
  */
+import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
-import '../../css/common.css.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { TopicSource } from '../../personalization_app.mojom-webui.js';
 import { WithPersonalizationStore } from '../personalization_store.js';

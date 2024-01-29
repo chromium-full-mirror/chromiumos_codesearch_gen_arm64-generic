@@ -170,6 +170,60 @@ class  ConnectionDelegate_OnConnection_Params_Data {
 };
 static_assert(sizeof(ConnectionDelegate_OnConnection_Params_Data) == 24,
               "Bad sizeof(ConnectionDelegate_OnConnection_Params_Data)");
+class  SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t error_code_$flag : 1;
+  uint8_t pad1_[3];
+  int32_t error_code_$value;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data>;
+
+  SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data();
+  ~SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data() = delete;
+};
+static_assert(sizeof(SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data) == 24,
+              "Bad sizeof(SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data)");
+class  SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t step;
+  int32_t status;
+
+ private:
+  friend class mojo::internal::MessageFragment<SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data>;
+
+  SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data();
+  ~SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data() = delete;
+};
+static_assert(sizeof(SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data) == 16,
+              "Bad sizeof(SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data)");
+class  SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data>;
+
+  SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data();
+  ~SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data() = delete;
+};
+static_assert(sizeof(SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data) == 16,
+              "Bad sizeof(SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data)");
 class  SecureChannel_ListenForConnectionFromDevice_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -203,6 +257,7 @@ class  SecureChannel_InitiateConnectionToDevice_Params_Data {
   int32_t connection_medium;
   int32_t connection_priority;
   mojo::internal::Interface_Data delegate;
+  mojo::internal::Interface_Data secure_channel_structured_metrics_logger;
 
  private:
   friend class mojo::internal::MessageFragment<SecureChannel_InitiateConnectionToDevice_Params_Data>;
@@ -210,7 +265,7 @@ class  SecureChannel_InitiateConnectionToDevice_Params_Data {
   SecureChannel_InitiateConnectionToDevice_Params_Data();
   ~SecureChannel_InitiateConnectionToDevice_Params_Data() = delete;
 };
-static_assert(sizeof(SecureChannel_InitiateConnectionToDevice_Params_Data) == 48,
+static_assert(sizeof(SecureChannel_InitiateConnectionToDevice_Params_Data) == 56,
               "Bad sizeof(SecureChannel_InitiateConnectionToDevice_Params_Data)");
 class  SecureChannel_SetNearbyConnector_Params_Data {
  public:
@@ -487,6 +542,108 @@ class ConnectionDelegate_OnConnection_ParamsDataView {
 };
 
 
+class SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_ParamsDataView {
+ public:
+  SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_ParamsDataView() = default;
+
+  SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_ParamsDataView(
+      internal::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::DiscoveryResult>(
+        data_value, output);
+  }
+  DiscoveryResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::DiscoveryResult>(data_->result));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadErrorCode(UserType* output) const {
+    if (!data_->error_code_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::DiscoveryErrorCode>(
+        data_->error_code_$value, &output->emplace());
+  }
+  std::optional<DiscoveryErrorCode> error_code() const {
+    if (!data_->error_code_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::DiscoveryErrorCode>(data_->error_code_$value));
+  }
+ private:
+  internal::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data* data_ = nullptr;
+};
+
+
+class SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_ParamsDataView {
+ public:
+  SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_ParamsDataView() = default;
+
+  SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_ParamsDataView(
+      internal::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStep(UserType* output) const {
+    auto data_value = data_->step;
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::NearbyConnectionStep>(
+        data_value, output);
+  }
+  ::ash::secure_channel::mojom::NearbyConnectionStep step() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::NearbyConnectionStep>(data_->step));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::NearbyConnectionStepResult>(
+        data_value, output);
+  }
+  ::ash::secure_channel::mojom::NearbyConnectionStepResult status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::NearbyConnectionStepResult>(data_->status));
+  }
+ private:
+  internal::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data* data_ = nullptr;
+};
+
+
+class SecureChannelStructuredMetricsLogger_LogSecureChannelState_ParamsDataView {
+ public:
+  SecureChannelStructuredMetricsLogger_LogSecureChannelState_ParamsDataView() = default;
+
+  SecureChannelStructuredMetricsLogger_LogSecureChannelState_ParamsDataView(
+      internal::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::secure_channel::mojom::SecureChannelState>(
+        data_value, output);
+  }
+  SecureChannelState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::secure_channel::mojom::SecureChannelState>(data_->state));
+  }
+ private:
+  internal::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data* data_ = nullptr;
+};
+
+
 class SecureChannel_ListenForConnectionFromDevice_ParamsDataView {
  public:
   SecureChannel_ListenForConnectionFromDevice_ParamsDataView() = default;
@@ -631,6 +788,15 @@ class SecureChannel_InitiateConnectionToDevice_ParamsDataView {
     DCHECK(ret);
     return result;
   }
+  template <typename UserType>
+  UserType TakeSecureChannelStructuredMetricsLogger() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::secure_channel::mojom::SecureChannelStructuredMetricsLoggerInterfaceBase>>(
+            &data_->secure_channel_structured_metrics_logger, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
  private:
   internal::SecureChannel_InitiateConnectionToDevice_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -755,6 +921,12 @@ inline void MessageReceiver_OnMessageReceived_ParamsDataView::GetMessageDataView
   auto pointer = data_->message.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
+
+
 
 
 

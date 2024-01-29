@@ -80,8 +80,7 @@ BLINK_BINDINGS_TRACE_EVENT("UnderlyingSinkBase.type.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->type(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -116,8 +115,7 @@ return;
 
 
 UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_reason = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -154,8 +152,7 @@ return;
 
 
 UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->close(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -192,8 +189,7 @@ return;
 
 
 UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_controller = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -234,8 +230,7 @@ return;
 
 
 UnderlyingSinkBase* blink_receiver = V8UnderlyingSinkBase::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_chunk = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

@@ -1140,6 +1140,147 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) SearchQueryResponseValidator : public mojo
 
 
 
+class COMPONENT_EXPORT(DRIVEFS_MOJOM) UserInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<UserInfo, T>::value>;
+  using DataView = UserInfoDataView;
+  using Data_ = internal::UserInfo_Data;
+
+  template <typename... Args>
+  static UserInfoPtr New(Args&&... args) {
+    return UserInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static UserInfoPtr From(const U& u) {
+    return mojo::TypeConverter<UserInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, UserInfo>::Convert(*this);
+  }
+
+
+  UserInfo();
+
+  explicit UserInfo(
+      const std::string& display_name);
+
+
+  ~UserInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = UserInfoPtr>
+  UserInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        UserInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        UserInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::UserInfo_UnserializedMessageContext<
+            UserType, UserInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<UserInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return UserInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::UserInfo_UnserializedMessageContext<
+            UserType, UserInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<UserInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string display_name;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, UserInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 class COMPONENT_EXPORT(DRIVEFS_MOJOM) ImageMetadata {
@@ -2661,6 +2802,18 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsConfiguration {
       bool enable_cros_network,
       CSESupport cse_support);
 
+  DriveFsConfiguration(
+      const std::string& user_email,
+      const std::optional<std::string>& access_token,
+      bool enable_metrics,
+      const std::optional<std::string>& lost_and_found_directory_name,
+      bool enable_experimental_mirroring,
+      bool enable_verbose_logging,
+      bool enable_cros_network,
+      CSESupport cse_support,
+      bool fetch_modifying_user_metadata,
+      bool fetch_sharing_user_metadata);
+
 
   ~DriveFsConfiguration();
 
@@ -2752,6 +2905,10 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsConfiguration {
   bool enable_cros_network;
   
   CSESupport cse_support;
+  
+  bool fetch_modifying_user_metadata;
+  
+  bool fetch_sharing_user_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3232,6 +3389,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
  public:
   template <typename T>
@@ -3458,6 +3616,36 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
       ShortcutDetailsPtr shortcut_details,
       bool trashed);
 
+  FileMetadata(
+      FileMetadata::Type type,
+      int64_t size,
+      const std::string& content_mime_type,
+      const std::string& custom_icon_url,
+      const std::string& alternate_url,
+      const std::string& download_url,
+      ::base::Time modification_time,
+      ::base::Time last_viewed_by_me_time,
+      bool available_offline,
+      bool dirty,
+      bool pinned,
+      bool shared,
+      bool starred,
+      ImageMetadataPtr image_metadata,
+      std::optional<std::vector<uint8_t>> deprecated_thumbnail,
+      CapabilitiesPtr capabilities,
+      FolderFeaturePtr folder_feature,
+      QuickAccessPtr quick_access,
+      int64_t stable_id,
+      FileMetadata::CanPinStatus can_pin,
+      const std::optional<std::string>& item_id,
+      SharedDriveQuotaPtr shared_drive_quota,
+      ShortcutDetailsPtr shortcut_details,
+      bool trashed,
+      std::optional<::base::Time> modified_by_me_time,
+      UserInfoPtr last_modifying_user,
+      std::optional<::base::Time> shared_with_me_time,
+      UserInfoPtr sharing_user);
+
 FileMetadata(const FileMetadata&) = delete;
 FileMetadata& operator=(const FileMetadata&) = delete;
 
@@ -3583,6 +3771,14 @@ FileMetadata& operator=(const FileMetadata&) = delete;
   ShortcutDetailsPtr shortcut_details;
   
   bool trashed;
+  
+  std::optional<::base::Time> modified_by_me_time;
+  
+  UserInfoPtr last_modifying_user;
+  
+  std::optional<::base::Time> shared_with_me_time;
+  
+  UserInfoPtr sharing_user;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -4665,6 +4861,25 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
       std::optional<::base::Time> modified_time,
       int64_t parent_stable_id);
 
+  QueryParameters(
+      int32_t page_size,
+      QueryParameters::QuerySource query_source,
+      const std::optional<std::string>& title,
+      const std::optional<std::string>& text_content,
+      const std::optional<std::string>& mime_type,
+      bool shared_with_me,
+      bool available_offline,
+      QueryParameters::SortField sort_field,
+      QueryParameters::SortDirection sort_direction,
+      QueryKind query_kind,
+      std::optional<std::vector<std::string>> mime_types,
+      bool my_drive_results_only,
+      QueryParameters::DateComparisonOperator modified_time_operator,
+      std::optional<::base::Time> modified_time,
+      int64_t parent_stable_id,
+      QueryParameters::DateComparisonOperator viewed_time_operator,
+      std::optional<::base::Time> viewed_time);
+
 
   ~QueryParameters();
 
@@ -4770,6 +4985,10 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   std::optional<::base::Time> modified_time;
   
   int64_t parent_stable_id;
+  
+  QueryParameters::DateComparisonOperator viewed_time_operator;
+  
+  std::optional<::base::Time> viewed_time;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -5438,7 +5657,9 @@ DriveFsConfigurationPtr DriveFsConfiguration::Clone() const {
       mojo::Clone(enable_experimental_mirroring),
       mojo::Clone(enable_verbose_logging),
       mojo::Clone(enable_cros_network),
-      mojo::Clone(cse_support)
+      mojo::Clone(cse_support),
+      mojo::Clone(fetch_modifying_user_metadata),
+      mojo::Clone(fetch_sharing_user_metadata)
   );
 }
 
@@ -5459,6 +5680,10 @@ bool DriveFsConfiguration::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->enable_cros_network, other_struct.enable_cros_network))
     return false;
   if (!mojo::Equals(this->cse_support, other_struct.cse_support))
+    return false;
+  if (!mojo::Equals(this->fetch_modifying_user_metadata, other_struct.fetch_modifying_user_metadata))
+    return false;
+  if (!mojo::Equals(this->fetch_sharing_user_metadata, other_struct.fetch_sharing_user_metadata))
     return false;
   return true;
 }
@@ -5496,6 +5721,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.cse_support < rhs.cse_support)
     return true;
   if (rhs.cse_support < lhs.cse_support)
+    return false;
+  if (lhs.fetch_modifying_user_metadata < rhs.fetch_modifying_user_metadata)
+    return true;
+  if (rhs.fetch_modifying_user_metadata < lhs.fetch_modifying_user_metadata)
+    return false;
+  if (lhs.fetch_sharing_user_metadata < rhs.fetch_sharing_user_metadata)
+    return true;
+  if (rhs.fetch_sharing_user_metadata < lhs.fetch_sharing_user_metadata)
     return false;
   return false;
 }
@@ -5601,6 +5834,28 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+UserInfoPtr UserInfo::Clone() const {
+  return New(
+      mojo::Clone(display_name)
+  );
+}
+
+template <typename T, UserInfo::EnableIfSame<T>*>
+bool UserInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->display_name, other_struct.display_name))
+    return false;
+  return true;
+}
+
+template <typename T, UserInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.display_name < rhs.display_name)
+    return true;
+  if (rhs.display_name < lhs.display_name)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 FileMetadataPtr FileMetadata::Clone() const {
   return New(
       mojo::Clone(type),
@@ -5626,7 +5881,11 @@ FileMetadataPtr FileMetadata::Clone() const {
       mojo::Clone(item_id),
       mojo::Clone(shared_drive_quota),
       mojo::Clone(shortcut_details),
-      mojo::Clone(trashed)
+      mojo::Clone(trashed),
+      mojo::Clone(modified_by_me_time),
+      mojo::Clone(last_modifying_user),
+      mojo::Clone(shared_with_me_time),
+      mojo::Clone(sharing_user)
   );
 }
 
@@ -5679,6 +5938,14 @@ bool FileMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->shortcut_details, other_struct.shortcut_details))
     return false;
   if (!mojo::Equals(this->trashed, other_struct.trashed))
+    return false;
+  if (!mojo::Equals(this->modified_by_me_time, other_struct.modified_by_me_time))
+    return false;
+  if (!mojo::Equals(this->last_modifying_user, other_struct.last_modifying_user))
+    return false;
+  if (!mojo::Equals(this->shared_with_me_time, other_struct.shared_with_me_time))
+    return false;
+  if (!mojo::Equals(this->sharing_user, other_struct.sharing_user))
     return false;
   return true;
 }
@@ -5780,6 +6047,22 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.trashed < rhs.trashed)
     return true;
   if (rhs.trashed < lhs.trashed)
+    return false;
+  if (lhs.modified_by_me_time < rhs.modified_by_me_time)
+    return true;
+  if (rhs.modified_by_me_time < lhs.modified_by_me_time)
+    return false;
+  if (lhs.last_modifying_user < rhs.last_modifying_user)
+    return true;
+  if (rhs.last_modifying_user < lhs.last_modifying_user)
+    return false;
+  if (lhs.shared_with_me_time < rhs.shared_with_me_time)
+    return true;
+  if (rhs.shared_with_me_time < lhs.shared_with_me_time)
+    return false;
+  if (lhs.sharing_user < rhs.sharing_user)
+    return true;
+  if (rhs.sharing_user < lhs.sharing_user)
     return false;
   return false;
 }
@@ -6181,7 +6464,9 @@ QueryParametersPtr QueryParameters::Clone() const {
       mojo::Clone(my_drive_results_only),
       mojo::Clone(modified_time_operator),
       mojo::Clone(modified_time),
-      mojo::Clone(parent_stable_id)
+      mojo::Clone(parent_stable_id),
+      mojo::Clone(viewed_time_operator),
+      mojo::Clone(viewed_time)
   );
 }
 
@@ -6216,6 +6501,10 @@ bool QueryParameters::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->modified_time, other_struct.modified_time))
     return false;
   if (!mojo::Equals(this->parent_stable_id, other_struct.parent_stable_id))
+    return false;
+  if (!mojo::Equals(this->viewed_time_operator, other_struct.viewed_time_operator))
+    return false;
+  if (!mojo::Equals(this->viewed_time, other_struct.viewed_time))
     return false;
   return true;
 }
@@ -6281,6 +6570,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.parent_stable_id < rhs.parent_stable_id)
     return true;
   if (rhs.parent_stable_id < lhs.parent_stable_id)
+    return false;
+  if (lhs.viewed_time_operator < rhs.viewed_time_operator)
+    return true;
+  if (rhs.viewed_time_operator < lhs.viewed_time_operator)
+    return false;
+  if (lhs.viewed_time < rhs.viewed_time)
+    return true;
+  if (rhs.viewed_time < lhs.viewed_time)
     return false;
   return false;
 }
@@ -6633,6 +6930,16 @@ struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::DriveFsCon
     return input->cse_support;
   }
 
+  static decltype(::drivefs::mojom::DriveFsConfiguration::fetch_modifying_user_metadata) fetch_modifying_user_metadata(
+      const ::drivefs::mojom::DriveFsConfigurationPtr& input) {
+    return input->fetch_modifying_user_metadata;
+  }
+
+  static decltype(::drivefs::mojom::DriveFsConfiguration::fetch_sharing_user_metadata) fetch_sharing_user_metadata(
+      const ::drivefs::mojom::DriveFsConfigurationPtr& input) {
+    return input->fetch_sharing_user_metadata;
+  }
+
   static bool Read(::drivefs::mojom::DriveFsConfiguration::DataView input, ::drivefs::mojom::DriveFsConfigurationPtr* output);
 };
 
@@ -6704,6 +7011,21 @@ struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::DialogReas
   }
 
   static bool Read(::drivefs::mojom::DialogReason::DataView input, ::drivefs::mojom::DialogReasonPtr* output);
+};
+
+
+template <>
+struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::UserInfo::DataView,
+                                         ::drivefs::mojom::UserInfoPtr> {
+  static bool IsNull(const ::drivefs::mojom::UserInfoPtr& input) { return !input; }
+  static void SetToNull(::drivefs::mojom::UserInfoPtr* output) { output->reset(); }
+
+  static const decltype(::drivefs::mojom::UserInfo::display_name)& display_name(
+      const ::drivefs::mojom::UserInfoPtr& input) {
+    return input->display_name;
+  }
+
+  static bool Read(::drivefs::mojom::UserInfo::DataView input, ::drivefs::mojom::UserInfoPtr* output);
 };
 
 
@@ -6831,6 +7153,26 @@ struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::FileMetada
   static decltype(::drivefs::mojom::FileMetadata::trashed) trashed(
       const ::drivefs::mojom::FileMetadataPtr& input) {
     return input->trashed;
+  }
+
+  static const decltype(::drivefs::mojom::FileMetadata::modified_by_me_time)& modified_by_me_time(
+      const ::drivefs::mojom::FileMetadataPtr& input) {
+    return input->modified_by_me_time;
+  }
+
+  static const decltype(::drivefs::mojom::FileMetadata::last_modifying_user)& last_modifying_user(
+      const ::drivefs::mojom::FileMetadataPtr& input) {
+    return input->last_modifying_user;
+  }
+
+  static const decltype(::drivefs::mojom::FileMetadata::shared_with_me_time)& shared_with_me_time(
+      const ::drivefs::mojom::FileMetadataPtr& input) {
+    return input->shared_with_me_time;
+  }
+
+  static const decltype(::drivefs::mojom::FileMetadata::sharing_user)& sharing_user(
+      const ::drivefs::mojom::FileMetadataPtr& input) {
+    return input->sharing_user;
   }
 
   static bool Read(::drivefs::mojom::FileMetadata::DataView input, ::drivefs::mojom::FileMetadataPtr* output);
@@ -7181,6 +7523,16 @@ struct COMPONENT_EXPORT(DRIVEFS_MOJOM) StructTraits<::drivefs::mojom::QueryParam
   static decltype(::drivefs::mojom::QueryParameters::parent_stable_id) parent_stable_id(
       const ::drivefs::mojom::QueryParametersPtr& input) {
     return input->parent_stable_id;
+  }
+
+  static decltype(::drivefs::mojom::QueryParameters::viewed_time_operator) viewed_time_operator(
+      const ::drivefs::mojom::QueryParametersPtr& input) {
+    return input->viewed_time_operator;
+  }
+
+  static const decltype(::drivefs::mojom::QueryParameters::viewed_time)& viewed_time(
+      const ::drivefs::mojom::QueryParametersPtr& input) {
+    return input->viewed_time;
   }
 
   static bool Read(::drivefs::mojom::QueryParameters::DataView input, ::drivefs::mojom::QueryParametersPtr* output);

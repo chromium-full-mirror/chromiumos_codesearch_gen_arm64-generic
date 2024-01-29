@@ -22,6 +22,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactoryInterceptorForTestin
   void GetScreenResolutions(GetScreenResolutionsCallback callback) override;
   void GetAndroidHwKeyData(const std::vector<uint8_t>& key_id, const std::vector<uint8_t>& hw_identifier, GetAndroidHwKeyDataCallback callback) override;
   void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) override;
+  void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) override;
 };
 class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactoryAsyncWaiter {
  public:
@@ -46,6 +47,9 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactoryAsyncWaiter {
   void AllocateSecureBuffer(
       uint32_t size, ::mojo::PlatformHandle* out_fd);
   ::mojo::PlatformHandle AllocateSecureBuffer(uint32_t size);
+  void ParseEncryptedSliceHeader(
+      uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, bool* out_success, std::vector<uint8_t>* out_slice_header);
+  
 
  private:
   BrowserCdmFactory* const proxy_;

@@ -26,13 +26,24 @@ export class UserEducationInternalsPageHandlerRemote {
             tutorialId
         ]);
     }
+    getSessionData() {
+        return this.proxy.sendMessage(2, UserEducationInternalsPageHandler_GetSessionData_ParamsSpec.$, UserEducationInternalsPageHandler_GetSessionData_ResponseParamsSpec.$, []);
+    }
     getFeaturePromos() {
-        return this.proxy.sendMessage(2, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(3, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, []);
     }
     showFeaturePromo(featureName) {
-        return this.proxy.sendMessage(3, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, [
+        return this.proxy.sendMessage(4, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, [
             featureName
         ]);
+    }
+    clearFeaturePromoData(featureName) {
+        return this.proxy.sendMessage(5, UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsSpec.$, UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsSpec.$, [
+            featureName
+        ]);
+    }
+    clearSessionData() {
+        return this.proxy.sendMessage(6, UserEducationInternalsPageHandler_ClearSessionData_ParamsSpec.$, UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsSpec.$, []);
     }
 }
 ;
@@ -47,8 +58,11 @@ export class UserEducationInternalsPageHandlerReceiver {
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, UserEducationInternalsPageHandler_GetTutorials_ParamsSpec.$, UserEducationInternalsPageHandler_GetTutorials_ResponseParamsSpec.$, impl.getTutorials.bind(impl));
         this.helper_internal_.registerHandler(1, UserEducationInternalsPageHandler_StartTutorial_ParamsSpec.$, UserEducationInternalsPageHandler_StartTutorial_ResponseParamsSpec.$, impl.startTutorial.bind(impl));
-        this.helper_internal_.registerHandler(2, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, impl.getFeaturePromos.bind(impl));
-        this.helper_internal_.registerHandler(3, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, impl.showFeaturePromo.bind(impl));
+        this.helper_internal_.registerHandler(2, UserEducationInternalsPageHandler_GetSessionData_ParamsSpec.$, UserEducationInternalsPageHandler_GetSessionData_ResponseParamsSpec.$, impl.getSessionData.bind(impl));
+        this.helper_internal_.registerHandler(3, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, impl.getFeaturePromos.bind(impl));
+        this.helper_internal_.registerHandler(4, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, impl.showFeaturePromo.bind(impl));
+        this.helper_internal_.registerHandler(5, UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsSpec.$, UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsSpec.$, impl.clearFeaturePromoData.bind(impl));
+        this.helper_internal_.registerHandler(6, UserEducationInternalsPageHandler_ClearSessionData_ParamsSpec.$, UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsSpec.$, impl.clearSessionData.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -84,12 +98,21 @@ export class UserEducationInternalsPageHandlerCallbackRouter {
         this.startTutorial =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(1, UserEducationInternalsPageHandler_StartTutorial_ParamsSpec.$, UserEducationInternalsPageHandler_StartTutorial_ResponseParamsSpec.$, this.startTutorial.createReceiverHandler(true /* expectsResponse */));
+        this.getSessionData =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, UserEducationInternalsPageHandler_GetSessionData_ParamsSpec.$, UserEducationInternalsPageHandler_GetSessionData_ResponseParamsSpec.$, this.getSessionData.createReceiverHandler(true /* expectsResponse */));
         this.getFeaturePromos =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(2, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, this.getFeaturePromos.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(3, UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, this.getFeaturePromos.createReceiverHandler(true /* expectsResponse */));
         this.showFeaturePromo =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, this.showFeaturePromo.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(4, UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec.$, UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, this.showFeaturePromo.createReceiverHandler(true /* expectsResponse */));
+        this.clearFeaturePromoData =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsSpec.$, UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsSpec.$, this.clearFeaturePromoData.createReceiverHandler(true /* expectsResponse */));
+        this.clearSessionData =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(6, UserEducationInternalsPageHandler_ClearSessionData_ParamsSpec.$, UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsSpec.$, this.clearSessionData.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -100,15 +123,26 @@ export class UserEducationInternalsPageHandlerCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export const FeaturePromoDemoPageDataSpec = { $: {} };
 export const FeaturePromoDemoPageInfoSpec = { $: {} };
 export const UserEducationInternalsPageHandler_GetTutorials_ParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_GetTutorials_ResponseParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_StartTutorial_ParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_StartTutorial_ResponseParamsSpec = { $: {} };
+export const UserEducationInternalsPageHandler_GetSessionData_ParamsSpec = { $: {} };
+export const UserEducationInternalsPageHandler_GetSessionData_ResponseParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSpec = { $: {} };
 export const UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec = { $: {} };
+export const UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsSpec = { $: {} };
+export const UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsSpec = { $: {} };
+export const UserEducationInternalsPageHandler_ClearSessionData_ParamsSpec = { $: {} };
+export const UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsSpec = { $: {} };
+mojo.internal.Struct(FeaturePromoDemoPageDataSpec.$, 'FeaturePromoDemoPageData', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('value', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(FeaturePromoDemoPageInfoSpec.$, 'FeaturePromoDemoPageInfo', [
     mojo.internal.StructField('displayTitle', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('displayDescription', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
@@ -116,9 +150,11 @@ mojo.internal.Struct(FeaturePromoDemoPageInfoSpec.$, 'FeaturePromoDemoPageInfo',
     mojo.internal.StructField('type', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('addedMilestone', 32, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('supportedPlatforms', 40, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('instructions', 48, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('followedByInternalName', 56, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 72],]);
+    mojo.internal.StructField('requiredFeatures', 48, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('instructions', 56, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('followedByInternalName', 64, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('data', 72, 0, mojo.internal.Array(FeaturePromoDemoPageDataSpec.$, false), null, false /* nullable */, 0),
+], [[0, 88],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_GetTutorials_ParamsSpec.$, 'UserEducationInternalsPageHandler_GetTutorials_Params', [], [[0, 8],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_GetTutorials_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_GetTutorials_ResponseParams', [
     mojo.internal.StructField('tutorialInfos', 0, 0, mojo.internal.Array(FeaturePromoDemoPageInfoSpec.$, false), null, false /* nullable */, 0),
@@ -129,6 +165,10 @@ mojo.internal.Struct(UserEducationInternalsPageHandler_StartTutorial_ParamsSpec.
 mojo.internal.Struct(UserEducationInternalsPageHandler_StartTutorial_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_StartTutorial_ResponseParams', [
     mojo.internal.StructField('errorMessage', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(UserEducationInternalsPageHandler_GetSessionData_ParamsSpec.$, 'UserEducationInternalsPageHandler_GetSessionData_Params', [], [[0, 8],]);
+mojo.internal.Struct(UserEducationInternalsPageHandler_GetSessionData_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_GetSessionData_ResponseParams', [
+    mojo.internal.StructField('sessionData', 0, 0, mojo.internal.Array(FeaturePromoDemoPageDataSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_GetFeaturePromos_ParamsSpec.$, 'UserEducationInternalsPageHandler_GetFeaturePromos_Params', [], [[0, 8],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParams', [
     mojo.internal.StructField('featurePromos', 0, 0, mojo.internal.Array(FeaturePromoDemoPageInfoSpec.$, false), null, false /* nullable */, 0),
@@ -137,5 +177,15 @@ mojo.internal.Struct(UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsSp
     mojo.internal.StructField('featureName', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams', [
+    mojo.internal.StructField('errorMessage', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsSpec.$, 'UserEducationInternalsPageHandler_ClearFeaturePromoData_Params', [
+    mojo.internal.StructField('featureName', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams', [
+    mojo.internal.StructField('errorMessage', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(UserEducationInternalsPageHandler_ClearSessionData_ParamsSpec.$, 'UserEducationInternalsPageHandler_ClearSessionData_Params', [], [[0, 8],]);
+mojo.internal.Struct(UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsSpec.$, 'UserEducationInternalsPageHandler_ClearSessionData_ResponseParams', [
     mojo.internal.StructField('errorMessage', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);

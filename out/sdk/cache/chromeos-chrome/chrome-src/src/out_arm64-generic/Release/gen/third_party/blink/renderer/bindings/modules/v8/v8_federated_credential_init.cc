@@ -154,38 +154,21 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasIconURL()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_icon_url_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_icon_url_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasName()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_name_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_name_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasProtocol()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_protocol_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_protocol_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasProvider()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_provider_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_provider_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

@@ -11,12 +11,10 @@ import './viewer-download-controls.js';
 import './viewer-page-selector.js';
 import './pdf-shared.css.js';
 import './shared-vars.css.js';
-// 
 import { AnchorAlignment } from 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { FittingType } from '../constants.js';
 import { record, recordPdfOcrUserSelection, UserAction } from '../metrics.js';
-// 
 import { PdfViewerPrivateProxyImpl } from '../pdf_viewer_private_proxy.js';
 // 
 import { getTemplate } from './viewer-toolbar.html.js';

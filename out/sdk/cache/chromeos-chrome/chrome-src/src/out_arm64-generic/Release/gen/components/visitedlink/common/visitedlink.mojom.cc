@@ -300,6 +300,8 @@ bool VisitedLinkNotificationSinkStubDispatch::Accept(
           reinterpret_cast<internal::VisitedLinkNotificationSink_UpdateVisitedLinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VisitedLinkNotificationSink.0
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_table_region{};
       VisitedLinkNotificationSink_UpdateVisitedLinks_ParamsDataView input_data_view(params, message);
@@ -315,8 +317,8 @@ bool VisitedLinkNotificationSinkStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateVisitedLinks(
-std::move(p_table_region));
+      impl->UpdateVisitedLinks(        
+        std::move(p_table_region));
       return true;
     }
     case internal::kVisitedLinkNotificationSink_AddVisitedLinks_Name: {
@@ -326,6 +328,8 @@ std::move(p_table_region));
           reinterpret_cast<internal::VisitedLinkNotificationSink_AddVisitedLinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VisitedLinkNotificationSink.1
       bool success = true;
       std::vector<uint64_t> p_link_hashes{};
       VisitedLinkNotificationSink_AddVisitedLinks_ParamsDataView input_data_view(params, message);
@@ -341,8 +345,8 @@ std::move(p_table_region));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVisitedLinks(
-std::move(p_link_hashes));
+      impl->AddVisitedLinks(        
+        std::move(p_link_hashes));
       return true;
     }
     case internal::kVisitedLinkNotificationSink_ResetVisitedLinks_Name: {
@@ -352,6 +356,8 @@ std::move(p_link_hashes));
           reinterpret_cast<internal::VisitedLinkNotificationSink_ResetVisitedLinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VisitedLinkNotificationSink.2
       bool success = true;
       bool p_invalidate_cached_hashes{};
       VisitedLinkNotificationSink_ResetVisitedLinks_ParamsDataView input_data_view(params, message);
@@ -367,8 +373,8 @@ std::move(p_link_hashes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetVisitedLinks(
-std::move(p_invalidate_cached_hashes));
+      impl->ResetVisitedLinks(        
+        std::move(p_invalidate_cached_hashes));
       return true;
     }
   }

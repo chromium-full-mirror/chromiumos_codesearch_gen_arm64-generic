@@ -1125,6 +1125,8 @@ bool MediaDevicesDispatcherHost_EnumerateDevices_ForwardToCallback::Accept(
           internal::MediaDevicesDispatcherHost_EnumerateDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDevicesDispatcherHost.0
   bool success = true;
   std::vector<std::vector<::blink::WebMediaDeviceInfo>> p_enumeration{};
   std::vector<VideoInputDeviceCapabilitiesPtr> p_video_input_device_capabilities{};
@@ -1296,6 +1298,8 @@ bool MediaDevicesDispatcherHost_GetVideoInputCapabilities_ForwardToCallback::Acc
           internal::MediaDevicesDispatcherHost_GetVideoInputCapabilities_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDevicesDispatcherHost.1
   bool success = true;
   std::vector<VideoInputDeviceCapabilitiesPtr> p_video_input_device_capabilities{};
   MediaDevicesDispatcherHost_GetVideoInputCapabilities_ResponseParamsDataView input_data_view(params, message);
@@ -1427,6 +1431,8 @@ bool MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_ForwardToCallback:
           internal::MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDevicesDispatcherHost.2
   bool success = true;
   std::vector<::media::VideoCaptureFormat> p_formats{};
   MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_ResponseParamsDataView input_data_view(params, message);
@@ -1558,6 +1564,8 @@ bool MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_ForwardToCal
           internal::MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDevicesDispatcherHost.3
   bool success = true;
   std::vector<::media::VideoCaptureFormat> p_formats{};
   MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_ResponseParamsDataView input_data_view(params, message);
@@ -1689,6 +1697,8 @@ bool MediaDevicesDispatcherHost_GetAudioInputCapabilities_ForwardToCallback::Acc
           internal::MediaDevicesDispatcherHost_GetAudioInputCapabilities_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDevicesDispatcherHost.4
   bool success = true;
   std::vector<AudioInputDeviceCapabilitiesPtr> p_audio_input_device_capabilities{};
   MediaDevicesDispatcherHost_GetAudioInputCapabilities_ResponseParamsDataView input_data_view(params, message);
@@ -1820,6 +1830,8 @@ bool MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ForwardToCallback::Acc
           internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDevicesDispatcherHost.8
   bool success = true;
   std::string p_id{};
   MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ResponseParamsDataView input_data_view(params, message);
@@ -1919,6 +1931,8 @@ bool MediaDevicesDispatcherHostStubDispatch::Accept(
           reinterpret_cast<internal::MediaDevicesDispatcherHost_AddMediaDevicesListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.5
       bool success = true;
       bool p_subscribe_audio_input{};
       bool p_subscribe_video_input{};
@@ -1945,11 +1959,11 @@ bool MediaDevicesDispatcherHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMediaDevicesListener(
-std::move(p_subscribe_audio_input), 
-std::move(p_subscribe_video_input), 
-std::move(p_subscribe_audio_output), 
-std::move(p_listener));
+      impl->AddMediaDevicesListener(        
+        std::move(p_subscribe_audio_input), 
+        std::move(p_subscribe_video_input), 
+        std::move(p_subscribe_audio_output), 
+        std::move(p_listener));
       return true;
     }
     case internal::kMediaDevicesDispatcherHost_SetCaptureHandleConfig_Name: {
@@ -1959,6 +1973,8 @@ std::move(p_listener));
           reinterpret_cast<internal::MediaDevicesDispatcherHost_SetCaptureHandleConfig_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.6
       bool success = true;
       ::blink::mojom::CaptureHandleConfigPtr p_config{};
       MediaDevicesDispatcherHost_SetCaptureHandleConfig_ParamsDataView input_data_view(params, message);
@@ -1974,8 +1990,8 @@ std::move(p_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCaptureHandleConfig(
-std::move(p_config));
+      impl->SetCaptureHandleConfig(        
+        std::move(p_config));
       return true;
     }
     case internal::kMediaDevicesDispatcherHost_CloseFocusWindowOfOpportunity_Name: {
@@ -1985,6 +2001,8 @@ std::move(p_config));
           reinterpret_cast<internal::MediaDevicesDispatcherHost_CloseFocusWindowOfOpportunity_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.7
       bool success = true;
       std::string p_label{};
       MediaDevicesDispatcherHost_CloseFocusWindowOfOpportunity_ParamsDataView input_data_view(params, message);
@@ -2000,8 +2018,8 @@ std::move(p_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseFocusWindowOfOpportunity(
-std::move(p_label));
+      impl->CloseFocusWindowOfOpportunity(        
+        std::move(p_label));
       return true;
     }
     case internal::kMediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Name: {
@@ -2027,6 +2045,8 @@ bool MediaDevicesDispatcherHostStubDispatch::AcceptWithResponder(
               internal::MediaDevicesDispatcherHost_EnumerateDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.0
       bool success = true;
       bool p_request_audio_input{};
       bool p_request_video_input{};
@@ -2057,12 +2077,12 @@ bool MediaDevicesDispatcherHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnumerateDevices(
-std::move(p_request_audio_input), 
-std::move(p_request_video_input), 
-std::move(p_request_audio_output), 
-std::move(p_request_video_input_capabilities), 
-std::move(p_request_audio_input_capabilities), std::move(callback));
+      impl->EnumerateDevices(        
+        std::move(p_request_audio_input), 
+        std::move(p_request_video_input), 
+        std::move(p_request_audio_output), 
+        std::move(p_request_video_input_capabilities), 
+        std::move(p_request_audio_input_capabilities), std::move(callback));
       return true;
     }
     case internal::kMediaDevicesDispatcherHost_GetVideoInputCapabilities_Name: {
@@ -2072,6 +2092,8 @@ std::move(p_request_audio_input_capabilities), std::move(callback));
               internal::MediaDevicesDispatcherHost_GetVideoInputCapabilities_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.1
       bool success = true;
       MediaDevicesDispatcherHost_GetVideoInputCapabilities_ParamsDataView input_data_view(params, message);
       
@@ -2097,6 +2119,8 @@ std::move(p_request_audio_input_capabilities), std::move(callback));
               internal::MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.2
       bool success = true;
       std::string p_device_id{};
       MediaDevicesDispatcherHost_GetAllVideoInputDeviceFormats_ParamsDataView input_data_view(params, message);
@@ -2115,8 +2139,8 @@ std::move(p_request_audio_input_capabilities), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAllVideoInputDeviceFormats(
-std::move(p_device_id), std::move(callback));
+      impl->GetAllVideoInputDeviceFormats(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kMediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_Name: {
@@ -2126,6 +2150,8 @@ std::move(p_device_id), std::move(callback));
               internal::MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.3
       bool success = true;
       std::string p_device_id{};
       MediaDevicesDispatcherHost_GetAvailableVideoInputDeviceFormats_ParamsDataView input_data_view(params, message);
@@ -2144,8 +2170,8 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAvailableVideoInputDeviceFormats(
-std::move(p_device_id), std::move(callback));
+      impl->GetAvailableVideoInputDeviceFormats(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kMediaDevicesDispatcherHost_GetAudioInputCapabilities_Name: {
@@ -2155,6 +2181,8 @@ std::move(p_device_id), std::move(callback));
               internal::MediaDevicesDispatcherHost_GetAudioInputCapabilities_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.4
       bool success = true;
       MediaDevicesDispatcherHost_GetAudioInputCapabilities_ParamsDataView input_data_view(params, message);
       
@@ -2189,6 +2217,8 @@ std::move(p_device_id), std::move(callback));
               internal::MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDevicesDispatcherHost.8
       bool success = true;
       ::media::mojom::SubCaptureTargetType p_type{};
       MediaDevicesDispatcherHost_ProduceSubCaptureTargetId_ParamsDataView input_data_view(params, message);
@@ -2207,8 +2237,8 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProduceSubCaptureTargetId(
-std::move(p_type), std::move(callback));
+      impl->ProduceSubCaptureTargetId(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }
@@ -2375,6 +2405,8 @@ bool MediaDevicesListenerStubDispatch::Accept(
           reinterpret_cast<internal::MediaDevicesListener_OnDevicesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDevicesListener.0
       bool success = true;
       MediaDeviceType p_type{};
       std::vector<::blink::WebMediaDeviceInfo> p_device_infos{};
@@ -2393,9 +2425,9 @@ bool MediaDevicesListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicesChanged(
-std::move(p_type), 
-std::move(p_device_infos));
+      impl->OnDevicesChanged(        
+        std::move(p_type), 
+        std::move(p_device_infos));
       return true;
     }
   }

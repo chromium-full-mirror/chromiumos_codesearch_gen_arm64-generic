@@ -28,7 +28,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) ChildHistogramFetcherFactory
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::WritableSharedMemoryRegion_Data> shared_memory;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnsafeSharedMemoryRegion_Data> shared_memory;
   mojo::internal::Handle_Data child_histogram_fetcher;
   uint8_t padfinal_[4];
 
@@ -118,14 +118,14 @@ class ChildHistogramFetcherFactory_CreateFetcher_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetSharedMemoryDataView(
-      ::mojo_base::mojom::WritableSharedMemoryRegionDataView* output);
+      ::mojo_base::mojom::UnsafeSharedMemoryRegionDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadSharedMemory(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::WritableSharedMemoryRegionDataView, UserType>(),
+        ::mojo_base::mojom::UnsafeSharedMemoryRegionDataView, UserType>(),
     "Attempting to read the optional `shared_memory` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -134,7 +134,7 @@ static_assert(
     "of `ReadSharedMemory if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->shared_memory.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::WritableSharedMemoryRegionDataView>(
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnsafeSharedMemoryRegionDataView>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -233,9 +233,9 @@ class ChildHistogramFetcher_Ping_ResponseParamsDataView {
 };
 
 inline void ChildHistogramFetcherFactory_CreateFetcher_ParamsDataView::GetSharedMemoryDataView(
-    ::mojo_base::mojom::WritableSharedMemoryRegionDataView* output) {
+    ::mojo_base::mojom::UnsafeSharedMemoryRegionDataView* output) {
   auto pointer = data_->shared_memory.Get();
-  *output = ::mojo_base::mojom::WritableSharedMemoryRegionDataView(pointer, message_);
+  *output = ::mojo_base::mojom::UnsafeSharedMemoryRegionDataView(pointer, message_);
 }
 
 

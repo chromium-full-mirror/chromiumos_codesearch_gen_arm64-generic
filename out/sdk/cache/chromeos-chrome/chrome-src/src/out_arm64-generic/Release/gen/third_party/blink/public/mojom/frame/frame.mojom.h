@@ -133,10 +133,10 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = true;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    38, 
     39, 
     40, 
-    41
+    41, 
+    42
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -180,6 +180,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
     kNavigateToNavigationApiKeyMinVersion = 0,
     kNavigateEventHandlerPresenceChangedMinVersion = 0,
     kUpdateTitleMinVersion = 0,
+    kUpdateAppTitleMinVersion = 0,
     kUpdateUserActivationStateMinVersion = 0,
     kDidConsumeHistoryUserActivationMinVersion = 0,
     kHandleAccessibilityFindInPageResultMinVersion = 0,
@@ -214,6 +215,7 @@ class BLINK_COMMON_EXPORT LocalFrameHost
     kReceivedDelegatedCapabilityMinVersion = 0,
     kSendFencedFrameReportingBeaconMinVersion = 0,
     kSendFencedFrameReportingBeaconToCustomURLMinVersion = 0,
+    kDisableUntrustedNetworkInFencedFrameMinVersion = 0,
     kSendLegacyTechEventMinVersion = 0,
     kSetFencedFrameAutomaticBeaconReportEventDataMinVersion = 0,
     kSendPrivateAggregationRequestsForFencedFrameEventMinVersion = 0,
@@ -319,6 +321,9 @@ class BLINK_COMMON_EXPORT LocalFrameHost
   struct UpdateTitle_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct UpdateAppTitle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct UpdateUserActivationState_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -419,6 +424,9 @@ class BLINK_COMMON_EXPORT LocalFrameHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SendFencedFrameReportingBeaconToCustomURL_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DisableUntrustedNetworkInFencedFrame_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SendLegacyTechEvent_Sym {
@@ -539,6 +547,9 @@ class BLINK_COMMON_EXPORT LocalFrameHost
 
   
   virtual void UpdateTitle(const std::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) = 0;
+
+  
+  virtual void UpdateAppTitle(const ::std::u16string& app_title) = 0;
 
   
   virtual void UpdateUserActivationState(::blink::mojom::UserActivationUpdateType update_type, ::blink::mojom::UserActivationNotificationType notification_type) = 0;
@@ -665,6 +676,11 @@ class BLINK_COMMON_EXPORT LocalFrameHost
 
   
   virtual void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url) = 0;
+
+
+  using DisableUntrustedNetworkInFencedFrameCallback = base::OnceCallback<void()>;
+  
+  virtual void DisableUntrustedNetworkInFencedFrame(DisableUntrustedNetworkInFencedFrameCallback callback) = 0;
 
   
   virtual void SendLegacyTechEvent(const std::string& type, LegacyTechEventCodeLocationPtr code_location) = 0;
@@ -1491,6 +1507,8 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   
   void UpdateTitle(const std::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) final;
   
+  void UpdateAppTitle(const ::std::u16string& app_title) final;
+  
   void UpdateUserActivationState(::blink::mojom::UserActivationUpdateType update_type, ::blink::mojom::UserActivationNotificationType notification_type) final;
   
   void DidConsumeHistoryUserActivation() final;
@@ -1566,6 +1584,8 @@ class BLINK_COMMON_EXPORT LocalFrameHostProxy
   void SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations) final;
   
   void SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url) final;
+  
+  void DisableUntrustedNetworkInFencedFrame(DisableUntrustedNetworkInFencedFrameCallback callback) final;
   
   void SendLegacyTechEvent(const std::string& type, LegacyTechEventCodeLocationPtr code_location) final;
   

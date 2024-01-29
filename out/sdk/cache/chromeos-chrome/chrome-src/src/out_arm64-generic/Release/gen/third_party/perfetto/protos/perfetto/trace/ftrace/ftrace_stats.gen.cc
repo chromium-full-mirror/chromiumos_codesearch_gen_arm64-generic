@@ -30,7 +30,8 @@ bool FtraceStats::operator==(const FtraceStats& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(atrace_errors_, other.atrace_errors_)
    && ::protozero::internal::gen_helpers::EqualsField(unknown_ftrace_events_, other.unknown_ftrace_events_)
    && ::protozero::internal::gen_helpers::EqualsField(failed_ftrace_events_, other.failed_ftrace_events_)
-   && ::protozero::internal::gen_helpers::EqualsField(preserve_ftrace_buffer_, other.preserve_ftrace_buffer_);
+   && ::protozero::internal::gen_helpers::EqualsField(preserve_ftrace_buffer_, other.preserve_ftrace_buffer_)
+   && ::protozero::internal::gen_helpers::EqualsField(ftrace_parse_errors_, other.ftrace_parse_errors_);
 }
 
 int FtraceStats::cpu_stats_size() const { return static_cast<int>(cpu_stats_.size()); }
@@ -40,6 +41,7 @@ bool FtraceStats::ParseFromArray(const void* raw, size_t size) {
   cpu_stats_.clear();
   unknown_ftrace_events_.clear();
   failed_ftrace_events_.clear();
+  ftrace_parse_errors_.clear();
   unknown_fields_.clear();
   bool packed_error = false;
 
@@ -75,6 +77,10 @@ bool FtraceStats::ParseFromArray(const void* raw, size_t size) {
         break;
       case 8 /* preserve_ftrace_buffer */:
         field.get(&preserve_ftrace_buffer_);
+        break;
+      case 9 /* ftrace_parse_errors */:
+        ftrace_parse_errors_.emplace_back();
+        field.get(&ftrace_parse_errors_.back());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -135,6 +141,11 @@ void FtraceStats::Serialize(::protozero::Message* msg) const {
   // Field 8: preserve_ftrace_buffer
   if (_has_field_[8]) {
     ::protozero::internal::gen_helpers::SerializeTinyVarInt(8, preserve_ftrace_buffer_, msg);
+  }
+
+  // Field 9: ftrace_parse_errors
+  for (auto& it : ftrace_parse_errors_) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(9, it, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

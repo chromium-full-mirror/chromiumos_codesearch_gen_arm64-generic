@@ -21,6 +21,9 @@ class  SeaPenProviderInterceptorForTesting : public SeaPenProvider {
   void GetRecentSeaPenImages(GetRecentSeaPenImagesCallback callback) override;
   void GetRecentSeaPenImageThumbnail(const ::base::FilePath& path, GetRecentSeaPenImageThumbnailCallback callback) override;
   void DeleteRecentSeaPenImage(const ::base::FilePath& path, DeleteRecentSeaPenImageCallback callback) override;
+  void OpenFeedbackDialog(SeaPenFeedbackMetadataPtr metadata) override;
+  void ShouldShowSeaPenTermsOfServiceDialog(ShouldShowSeaPenTermsOfServiceDialogCallback callback) override;
+  void HandleSeaPenTermsOfServiceAccepted() override;
 };
 class  SeaPenProviderAsyncWaiter {
  public:
@@ -31,8 +34,8 @@ class  SeaPenProviderAsyncWaiter {
 
   ~SeaPenProviderAsyncWaiter();
   void SearchWallpaper(
-      SeaPenQueryPtr query, std::optional<std::vector<SeaPenThumbnailPtr>>* out_images);
-  std::optional<std::vector<SeaPenThumbnailPtr>> SearchWallpaper(SeaPenQueryPtr query);
+      SeaPenQueryPtr query, std::optional<std::vector<SeaPenThumbnailPtr>>* out_images, ::manta::MantaStatusCode* out_statusCode);
+  
   void SelectSeaPenThumbnail(
       uint32_t id, bool* out_success);
   bool SelectSeaPenThumbnail(uint32_t id);
@@ -40,14 +43,17 @@ class  SeaPenProviderAsyncWaiter {
       const ::base::FilePath& path, bool* out_success);
   bool SelectRecentSeaPenImage(const ::base::FilePath& path);
   void GetRecentSeaPenImages(
-      std::optional<std::vector<::base::FilePath>>* out_images);
-  std::optional<std::vector<::base::FilePath>> GetRecentSeaPenImages();
+      std::vector<::base::FilePath>* out_images);
+  std::vector<::base::FilePath> GetRecentSeaPenImages();
   void GetRecentSeaPenImageThumbnail(
       const ::base::FilePath& path, ::GURL* out_url);
   ::GURL GetRecentSeaPenImageThumbnail(const ::base::FilePath& path);
   void DeleteRecentSeaPenImage(
       const ::base::FilePath& path, bool* out_success);
   bool DeleteRecentSeaPenImage(const ::base::FilePath& path);
+  void ShouldShowSeaPenTermsOfServiceDialog(
+      bool* out_should_show_dialog);
+  bool ShouldShowSeaPenTermsOfServiceDialog();
 
  private:
   SeaPenProvider* const proxy_;

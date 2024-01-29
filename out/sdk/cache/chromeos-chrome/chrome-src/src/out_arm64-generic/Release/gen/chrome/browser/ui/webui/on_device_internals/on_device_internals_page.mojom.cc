@@ -307,6 +307,8 @@ bool OnDeviceInternalsPage_LoadModel_ForwardToCallback::Accept(
           internal::OnDeviceInternalsPage_LoadModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OnDeviceInternalsPage.0
   bool success = true;
   ::on_device_model::mojom::LoadModelResult p_result{};
   OnDeviceInternalsPage_LoadModel_ResponseParamsDataView input_data_view(params, message);
@@ -427,6 +429,8 @@ bool OnDeviceInternalsPage_GetEstimatedPerformanceClass_ForwardToCallback::Accep
           internal::OnDeviceInternalsPage_GetEstimatedPerformanceClass_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OnDeviceInternalsPage.1
   bool success = true;
   ::on_device_model::mojom::PerformanceClass p_performance_class{};
   OnDeviceInternalsPage_GetEstimatedPerformanceClass_ResponseParamsDataView input_data_view(params, message);
@@ -521,6 +525,8 @@ bool OnDeviceInternalsPageStubDispatch::AcceptWithResponder(
               internal::OnDeviceInternalsPage_LoadModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OnDeviceInternalsPage.0
       bool success = true;
       ::base::FilePath p_model_path{};
       ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> p_model{};
@@ -544,9 +550,9 @@ bool OnDeviceInternalsPageStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadModel(
-std::move(p_model_path), 
-std::move(p_model), std::move(callback));
+      impl->LoadModel(        
+        std::move(p_model_path), 
+        std::move(p_model), std::move(callback));
       return true;
     }
     case internal::kOnDeviceInternalsPage_GetEstimatedPerformanceClass_Name: {
@@ -556,6 +562,8 @@ std::move(p_model), std::move(callback));
               internal::OnDeviceInternalsPage_GetEstimatedPerformanceClass_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OnDeviceInternalsPage.1
       bool success = true;
       OnDeviceInternalsPage_GetEstimatedPerformanceClass_ParamsDataView input_data_view(params, message);
       

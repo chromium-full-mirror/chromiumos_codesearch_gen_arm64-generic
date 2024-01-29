@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "mojo/public/mojom/base/big_string.mojom-shared-internal.h"
+#include "services/network/public/mojom/network_param.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -134,7 +135,7 @@ class  ProxyList_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>>>> proxies;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::ProxyChain_Data>>> proxies;
 
  private:
   friend class mojo::internal::MessageFragment<ProxyList_Data>;
@@ -184,8 +185,7 @@ class  ProxyRules_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::ProxyBypassRules_Data> bypass_rules;
   uint8_t reverse_bypass : 1;
-  uint8_t restrict_to_network_service_proxy_allow_list : 1;
-  uint8_t pad2_[3];
+  uint8_t pad1_[3];
   int32_t type;
   mojo::internal::Pointer<internal::ProxyList_Data> single_proxies;
   mojo::internal::Pointer<internal::ProxyList_Data> proxies_for_http;

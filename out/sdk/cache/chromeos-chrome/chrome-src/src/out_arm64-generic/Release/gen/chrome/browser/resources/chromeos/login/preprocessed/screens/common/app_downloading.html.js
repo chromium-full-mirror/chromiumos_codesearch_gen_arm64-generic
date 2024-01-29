@@ -29,10 +29,9 @@ found in the LICENSE file.
   </div>
   <div slot="bottom-buttons">
     <oobe-text-button id="continue-setup-button"
-        text-key="appDownloadingContinueSetup" on-click="onContinue_"
+        text-key="appDownloadingContinueSetup" on-click="onContinue"
         class="focus-on-show" inverse></oobe-text-button>
   </div>
 </oobe-adaptive-dialog>
-
 <!--_html_template_end_-->`;
 }

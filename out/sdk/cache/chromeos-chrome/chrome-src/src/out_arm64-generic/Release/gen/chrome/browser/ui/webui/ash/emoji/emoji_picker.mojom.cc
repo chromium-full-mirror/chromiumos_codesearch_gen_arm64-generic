@@ -305,6 +305,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -322,8 +324,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -1191,6 +1193,8 @@ bool PageHandler_IsIncognitoTextField_ForwardToCallback::Accept(
           internal::PageHandler_IsIncognitoTextField_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   bool p_incognito{};
   PageHandler_IsIncognitoTextField_ResponseParamsDataView input_data_view(params, message);
@@ -1310,6 +1314,8 @@ bool PageHandler_GetFeatureList_ForwardToCallback::Accept(
           internal::PageHandler_GetFeatureList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   std::vector<Feature> p_feature_list{};
   PageHandler_GetFeatureList_ResponseParamsDataView input_data_view(params, message);
@@ -1441,6 +1447,8 @@ bool PageHandler_GetCategories_ForwardToCallback::Accept(
           internal::PageHandler_GetCategories_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.5
   bool success = true;
   Status p_status{};
   std::vector<std::string> p_gif_categories{};
@@ -1581,6 +1589,8 @@ bool PageHandler_GetFeaturedGifs_ForwardToCallback::Accept(
           internal::PageHandler_GetFeaturedGifs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.6
   bool success = true;
   Status p_status{};
   TenorGifResponsePtr p_featured_gifs{};
@@ -1719,6 +1729,8 @@ bool PageHandler_SearchGifs_ForwardToCallback::Accept(
           internal::PageHandler_SearchGifs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.7
   bool success = true;
   Status p_status{};
   TenorGifResponsePtr p_search_gifs{};
@@ -1857,6 +1869,8 @@ bool PageHandler_GetGifsByIds_ForwardToCallback::Accept(
           internal::PageHandler_GetGifsByIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   Status p_status{};
   std::vector<GifResponsePtr> p_selected_gifs{};
@@ -1952,6 +1966,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -1964,7 +1980,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
     case internal::kPageHandler_InsertEmoji_Name: {
@@ -1974,6 +1990,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_InsertEmoji_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       std::string p_emoji{};
       bool p_is_variant{};
@@ -1995,10 +2013,10 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InsertEmoji(
-std::move(p_emoji), 
-std::move(p_is_variant), 
-std::move(p_search_length));
+      impl->InsertEmoji(        
+        std::move(p_emoji), 
+        std::move(p_is_variant), 
+        std::move(p_search_length));
       return true;
     }
     case internal::kPageHandler_InsertGif_Name: {
@@ -2008,6 +2026,8 @@ std::move(p_search_length));
           reinterpret_cast<internal::PageHandler_InsertGif_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ::GURL p_gif{};
       PageHandler_InsertGif_ParamsDataView input_data_view(params, message);
@@ -2023,8 +2043,8 @@ std::move(p_search_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InsertGif(
-std::move(p_gif));
+      impl->InsertGif(        
+        std::move(p_gif));
       return true;
     }
     case internal::kPageHandler_IsIncognitoTextField_Name: {
@@ -2052,6 +2072,8 @@ std::move(p_gif));
           reinterpret_cast<internal::PageHandler_OnUiFullyLoaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       PageHandler_OnUiFullyLoaded_ParamsDataView input_data_view(params, message);
       
@@ -2064,7 +2086,7 @@ std::move(p_gif));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUiFullyLoaded();
+      impl->OnUiFullyLoaded(        );
       return true;
     }
   }
@@ -2096,6 +2118,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_IsIncognitoTextField_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_IsIncognitoTextField_ParamsDataView input_data_view(params, message);
       
@@ -2121,6 +2145,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetFeatureList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_GetFeatureList_ParamsDataView input_data_view(params, message);
       
@@ -2146,6 +2172,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetCategories_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       PageHandler_GetCategories_ParamsDataView input_data_view(params, message);
       
@@ -2171,6 +2199,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetFeaturedGifs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       std::optional<std::string> p_pos{};
       PageHandler_GetFeaturedGifs_ParamsDataView input_data_view(params, message);
@@ -2189,8 +2219,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFeaturedGifs(
-std::move(p_pos), std::move(callback));
+      impl->GetFeaturedGifs(        
+        std::move(p_pos), std::move(callback));
       return true;
     }
     case internal::kPageHandler_SearchGifs_Name: {
@@ -2200,6 +2230,8 @@ std::move(p_pos), std::move(callback));
               internal::PageHandler_SearchGifs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       std::string p_query{};
       std::optional<std::string> p_pos{};
@@ -2221,9 +2253,9 @@ std::move(p_pos), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SearchGifs(
-std::move(p_query), 
-std::move(p_pos), std::move(callback));
+      impl->SearchGifs(        
+        std::move(p_query), 
+        std::move(p_pos), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetGifsByIds_Name: {
@@ -2233,6 +2265,8 @@ std::move(p_pos), std::move(callback));
               internal::PageHandler_GetGifsByIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       std::vector<std::string> p_ids{};
       PageHandler_GetGifsByIds_ParamsDataView input_data_view(params, message);
@@ -2251,8 +2285,8 @@ std::move(p_pos), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetGifsByIds(
-std::move(p_ids), std::move(callback));
+      impl->GetGifsByIds(        
+        std::move(p_ids), std::move(callback));
       return true;
     }
     case internal::kPageHandler_OnUiFullyLoaded_Name: {

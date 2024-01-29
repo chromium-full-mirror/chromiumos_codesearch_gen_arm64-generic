@@ -417,6 +417,8 @@ bool DeviceSyncObserverStubDispatch::Accept(
           reinterpret_cast<internal::DeviceSyncObserver_OnEnrollmentFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSyncObserver.0
       bool success = true;
       DeviceSyncObserver_OnEnrollmentFinished_ParamsDataView input_data_view(params, message);
       
@@ -429,7 +431,7 @@ bool DeviceSyncObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnrollmentFinished();
+      impl->OnEnrollmentFinished(        );
       return true;
     }
     case internal::kDeviceSyncObserver_OnNewDevicesSynced_Name: {
@@ -439,6 +441,8 @@ bool DeviceSyncObserverStubDispatch::Accept(
           reinterpret_cast<internal::DeviceSyncObserver_OnNewDevicesSynced_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSyncObserver.1
       bool success = true;
       DeviceSyncObserver_OnNewDevicesSynced_ParamsDataView input_data_view(params, message);
       
@@ -451,7 +455,7 @@ bool DeviceSyncObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewDevicesSynced();
+      impl->OnNewDevicesSynced(        );
       return true;
     }
   }
@@ -1745,6 +1749,8 @@ bool DeviceSync_AddObserver_ForwardToCallback::Accept(
           internal::DeviceSync_AddObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.0
   bool success = true;
   DeviceSync_AddObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -1852,6 +1858,8 @@ bool DeviceSync_ForceEnrollmentNow_ForwardToCallback::Accept(
           internal::DeviceSync_ForceEnrollmentNow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.1
   bool success = true;
   bool p_success{};
   DeviceSync_ForceEnrollmentNow_ResponseParamsDataView input_data_view(params, message);
@@ -1921,6 +1929,8 @@ bool DeviceSync_ForceEnrollmentNow_HandleSyncResponse::Accept(
       reinterpret_cast<internal::DeviceSync_ForceEnrollmentNow_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for DeviceSync.1
   bool success = true;
   bool p_success{};
   DeviceSync_ForceEnrollmentNow_ResponseParamsDataView input_data_view(params, message);
@@ -1996,6 +2006,8 @@ bool DeviceSync_ForceSyncNow_ForwardToCallback::Accept(
           internal::DeviceSync_ForceSyncNow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.2
   bool success = true;
   bool p_success{};
   DeviceSync_ForceSyncNow_ResponseParamsDataView input_data_view(params, message);
@@ -2065,6 +2077,8 @@ bool DeviceSync_ForceSyncNow_HandleSyncResponse::Accept(
       reinterpret_cast<internal::DeviceSync_ForceSyncNow_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for DeviceSync.2
   bool success = true;
   bool p_success{};
   DeviceSync_ForceSyncNow_ResponseParamsDataView input_data_view(params, message);
@@ -2140,6 +2154,8 @@ bool DeviceSync_GetGroupPrivateKeyStatus_ForwardToCallback::Accept(
           internal::DeviceSync_GetGroupPrivateKeyStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.3
   bool success = true;
   ::ash::device_sync::GroupPrivateKeyStatus p_status{};
   DeviceSync_GetGroupPrivateKeyStatus_ResponseParamsDataView input_data_view(params, message);
@@ -2260,6 +2276,8 @@ bool DeviceSync_GetBetterTogetherMetadataStatus_ForwardToCallback::Accept(
           internal::DeviceSync_GetBetterTogetherMetadataStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.4
   bool success = true;
   ::ash::device_sync::BetterTogetherMetadataStatus p_status{};
   DeviceSync_GetBetterTogetherMetadataStatus_ResponseParamsDataView input_data_view(params, message);
@@ -2380,6 +2398,8 @@ bool DeviceSync_GetSyncedDevices_ForwardToCallback::Accept(
           internal::DeviceSync_GetSyncedDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.5
   bool success = true;
   std::optional<std::vector<::ash::multidevice::RemoteDevice>> p_devices{};
   DeviceSync_GetSyncedDevices_ResponseParamsDataView input_data_view(params, message);
@@ -2507,6 +2527,8 @@ bool DeviceSync_GetLocalDeviceMetadata_ForwardToCallback::Accept(
           internal::DeviceSync_GetLocalDeviceMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.6
   bool success = true;
   std::optional<::ash::multidevice::RemoteDevice> p_local_device{};
   DeviceSync_GetLocalDeviceMetadata_ResponseParamsDataView input_data_view(params, message);
@@ -2632,6 +2654,8 @@ bool DeviceSync_SetSoftwareFeatureState_ForwardToCallback::Accept(
           internal::DeviceSync_SetSoftwareFeatureState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.7
   bool success = true;
   NetworkRequestResult p_result_code{};
   DeviceSync_SetSoftwareFeatureState_ResponseParamsDataView input_data_view(params, message);
@@ -2752,6 +2776,8 @@ bool DeviceSync_SetFeatureStatus_ForwardToCallback::Accept(
           internal::DeviceSync_SetFeatureStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.8
   bool success = true;
   NetworkRequestResult p_result_code{};
   DeviceSync_SetFeatureStatus_ResponseParamsDataView input_data_view(params, message);
@@ -2872,6 +2898,8 @@ bool DeviceSync_FindEligibleDevices_ForwardToCallback::Accept(
           internal::DeviceSync_FindEligibleDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.9
   bool success = true;
   NetworkRequestResult p_result_code{};
   FindEligibleDevicesResponsePtr p_response{};
@@ -3006,6 +3034,8 @@ bool DeviceSync_NotifyDevices_ForwardToCallback::Accept(
           internal::DeviceSync_NotifyDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.10
   bool success = true;
   NetworkRequestResult p_result_code{};
   DeviceSync_NotifyDevices_ResponseParamsDataView input_data_view(params, message);
@@ -3126,6 +3156,8 @@ bool DeviceSync_GetDevicesActivityStatus_ForwardToCallback::Accept(
           internal::DeviceSync_GetDevicesActivityStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.11
   bool success = true;
   NetworkRequestResult p_result_code{};
   std::optional<std::vector<DeviceActivityStatusPtr>> p_device_activity_statuses{};
@@ -3262,6 +3294,8 @@ bool DeviceSync_GetDebugInfo_ForwardToCallback::Accept(
           internal::DeviceSync_GetDebugInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSync.12
   bool success = true;
   DebugInfoPtr p_debug_info{};
   DeviceSync_GetDebugInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3394,6 +3428,8 @@ bool DeviceSyncStubDispatch::AcceptWithResponder(
               internal::DeviceSync_AddObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.0
       bool success = true;
       ::mojo::PendingRemote<DeviceSyncObserver> p_observer{};
       DeviceSync_AddObserver_ParamsDataView input_data_view(params, message);
@@ -3414,8 +3450,8 @@ bool DeviceSyncStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer), std::move(callback));
+      impl->AddObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kDeviceSync_ForceEnrollmentNow_Name: {
@@ -3425,6 +3461,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_ForceEnrollmentNow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.1
       bool success = true;
       DeviceSync_ForceEnrollmentNow_ParamsDataView input_data_view(params, message);
       
@@ -3450,6 +3488,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_ForceSyncNow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.2
       bool success = true;
       DeviceSync_ForceSyncNow_ParamsDataView input_data_view(params, message);
       
@@ -3475,6 +3515,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_GetGroupPrivateKeyStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.3
       bool success = true;
       DeviceSync_GetGroupPrivateKeyStatus_ParamsDataView input_data_view(params, message);
       
@@ -3500,6 +3542,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_GetBetterTogetherMetadataStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.4
       bool success = true;
       DeviceSync_GetBetterTogetherMetadataStatus_ParamsDataView input_data_view(params, message);
       
@@ -3525,6 +3569,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_GetSyncedDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.5
       bool success = true;
       DeviceSync_GetSyncedDevices_ParamsDataView input_data_view(params, message);
       
@@ -3550,6 +3596,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_GetLocalDeviceMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.6
       bool success = true;
       DeviceSync_GetLocalDeviceMetadata_ParamsDataView input_data_view(params, message);
       
@@ -3575,6 +3623,8 @@ std::move(p_observer), std::move(callback));
               internal::DeviceSync_SetSoftwareFeatureState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.7
       bool success = true;
       std::string p_device_public_key{};
       ::ash::multidevice::SoftwareFeature p_software_feature{};
@@ -3602,11 +3652,11 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSoftwareFeatureState(
-std::move(p_device_public_key), 
-std::move(p_software_feature), 
-std::move(p_enabled), 
-std::move(p_is_exclusive), std::move(callback));
+      impl->SetSoftwareFeatureState(        
+        std::move(p_device_public_key), 
+        std::move(p_software_feature), 
+        std::move(p_enabled), 
+        std::move(p_is_exclusive), std::move(callback));
       return true;
     }
     case internal::kDeviceSync_SetFeatureStatus_Name: {
@@ -3616,6 +3666,8 @@ std::move(p_is_exclusive), std::move(callback));
               internal::DeviceSync_SetFeatureStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.8
       bool success = true;
       std::string p_device_instance_id{};
       ::ash::multidevice::SoftwareFeature p_feature{};
@@ -3640,10 +3692,10 @@ std::move(p_is_exclusive), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFeatureStatus(
-std::move(p_device_instance_id), 
-std::move(p_feature), 
-std::move(p_status_change), std::move(callback));
+      impl->SetFeatureStatus(        
+        std::move(p_device_instance_id), 
+        std::move(p_feature), 
+        std::move(p_status_change), std::move(callback));
       return true;
     }
     case internal::kDeviceSync_FindEligibleDevices_Name: {
@@ -3653,6 +3705,8 @@ std::move(p_status_change), std::move(callback));
               internal::DeviceSync_FindEligibleDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.9
       bool success = true;
       ::ash::multidevice::SoftwareFeature p_software_feature{};
       DeviceSync_FindEligibleDevices_ParamsDataView input_data_view(params, message);
@@ -3671,8 +3725,8 @@ std::move(p_status_change), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindEligibleDevices(
-std::move(p_software_feature), std::move(callback));
+      impl->FindEligibleDevices(        
+        std::move(p_software_feature), std::move(callback));
       return true;
     }
     case internal::kDeviceSync_NotifyDevices_Name: {
@@ -3682,6 +3736,8 @@ std::move(p_software_feature), std::move(callback));
               internal::DeviceSync_NotifyDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.10
       bool success = true;
       std::vector<std::string> p_device_instance_ids{};
       ::cryptauthv2::TargetService p_cryptauth_service{};
@@ -3706,10 +3762,10 @@ std::move(p_software_feature), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyDevices(
-std::move(p_device_instance_ids), 
-std::move(p_cryptauth_service), 
-std::move(p_feature), std::move(callback));
+      impl->NotifyDevices(        
+        std::move(p_device_instance_ids), 
+        std::move(p_cryptauth_service), 
+        std::move(p_feature), std::move(callback));
       return true;
     }
     case internal::kDeviceSync_GetDevicesActivityStatus_Name: {
@@ -3719,6 +3775,8 @@ std::move(p_feature), std::move(callback));
               internal::DeviceSync_GetDevicesActivityStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.11
       bool success = true;
       DeviceSync_GetDevicesActivityStatus_ParamsDataView input_data_view(params, message);
       
@@ -3744,6 +3802,8 @@ std::move(p_feature), std::move(callback));
               internal::DeviceSync_GetDebugInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSync.12
       bool success = true;
       DeviceSync_GetDebugInfo_ParamsDataView input_data_view(params, message);
       

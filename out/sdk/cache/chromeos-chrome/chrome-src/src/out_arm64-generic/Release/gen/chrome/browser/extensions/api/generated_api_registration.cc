@@ -303,6 +303,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AutofillPrivateBulkDeleteAllCvcsFunction::static_function_name(),
       AutofillPrivateBulkDeleteAllCvcsFunction::static_histogram_value(),
     },
+    {
+      &NewExtensionFunction<AutofillPrivateSetAutofillSyncToggleEnabledFunction>,
+      AutofillPrivateSetAutofillSyncToggleEnabledFunction::static_function_name(),
+      AutofillPrivateSetAutofillSyncToggleEnabledFunction::static_histogram_value(),
+    },
     #if BUILDFLAG(IS_CHROMEOS_ASH)
     {
       &NewExtensionFunction<AutotestPrivateInitializeEventsFunction>,
@@ -1009,6 +1014,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AutotestPrivateGetArcWakefulnessModeFunction::static_function_name(),
       AutotestPrivateGetArcWakefulnessModeFunction::static_histogram_value(),
     },
+    {
+      &NewExtensionFunction<AutotestPrivateSetDeviceLanguageFunction>,
+      AutotestPrivateSetDeviceLanguageFunction::static_function_name(),
+      AutotestPrivateSetDeviceLanguageFunction::static_histogram_value(),
+    },
     #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
     {
       &NewExtensionFunction<BookmarkManagerPrivateCopyFunction>,
@@ -1444,6 +1454,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<DeveloperPrivateRemoveMultipleExtensionsFunction>,
       DeveloperPrivateRemoveMultipleExtensionsFunction::static_function_name(),
       DeveloperPrivateRemoveMultipleExtensionsFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<DeveloperPrivateDismissSafetyHubExtensionsMenuNotificationFunction>,
+      DeveloperPrivateDismissSafetyHubExtensionsMenuNotificationFunction::static_function_name(),
+      DeveloperPrivateDismissSafetyHubExtensionsMenuNotificationFunction::static_histogram_value(),
     },
     #if BUILDFLAG(IS_CHROMEOS_ASH)
     {
@@ -3041,6 +3056,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       OdfsConfigPrivateGetAccountRestrictionsFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<OdfsConfigPrivateShowAutomatedMountErrorFunction>,
+      OdfsConfigPrivateShowAutomatedMountErrorFunction::static_function_name(),
+      OdfsConfigPrivateShowAutomatedMountErrorFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<PlatformKeysInternalSelectClientCertificatesFunction>,
       PlatformKeysInternalSelectClientCertificatesFunction::static_function_name(),
       PlatformKeysInternalSelectClientCertificatesFunction::static_histogram_value(),
@@ -3333,6 +3353,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AccessibilityPrivateInstallPumpkinForDictationFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<AccessibilityPrivateInstallFaceGazeAssetsFunction>,
+      AccessibilityPrivateInstallFaceGazeAssetsFunction::static_function_name(),
+      AccessibilityPrivateInstallFaceGazeAssetsFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<AccessibilityPrivateSetNativeAccessibilityEnabledFunction>,
       AccessibilityPrivateSetNativeAccessibilityEnabledFunction::static_function_name(),
       AccessibilityPrivateSetNativeAccessibilityEnabledFunction::static_histogram_value(),
@@ -3346,6 +3371,11 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       &NewExtensionFunction<AccessibilityPrivateSetHighlightsFunction>,
       AccessibilityPrivateSetHighlightsFunction::static_function_name(),
       AccessibilityPrivateSetHighlightsFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<AccessibilityPrivateSetSelectToSpeakFocusFunction>,
+      AccessibilityPrivateSetSelectToSpeakFocusFunction::static_function_name(),
+      AccessibilityPrivateSetSelectToSpeakFocusFunction::static_histogram_value(),
     },
     {
       &NewExtensionFunction<AccessibilityPrivateSetKeyboardListenerFunction>,

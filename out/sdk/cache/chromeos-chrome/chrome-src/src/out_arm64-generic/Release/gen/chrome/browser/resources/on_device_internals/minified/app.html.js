@@ -37,13 +37,13 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
 
 <div class="session" hidden="[[!currentResponse_]]">
   <div class="text">[[currentResponse_.text]]</div>
-  <div hidden$="[[!currentResponse_.response.length]]" class="response">[[currentResponse_.response]]</div>
+  <div hidden$="[[!currentResponse_.response.length]]" class$="[[currentResponse_.responseClass]]">[[currentResponse_.response]]</div>
   <div class="throbber" hidden$="[[currentResponse_.response.length]]"></div>
 </div>
 <template is="dom-repeat" items="[[responses_]]">
   <div class="session">
     <div class="text">[[item.text]]</div>
-    <div class$="[[responseClass_(item)]]">[[item.response]]</div>
+    <div class$="[[item.responseClass]]">[[item.response]]</div>
   </div>
 </template>
 <!--_html_template_end_-->`}

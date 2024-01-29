@@ -301,6 +301,8 @@ bool ProxyResolvingSocket_UpgradeToTLS_ForwardToCallback::Accept(
           internal::ProxyResolvingSocket_UpgradeToTLS_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProxyResolvingSocket.0
   bool success = true;
   int32_t p_net_error{};
   ::mojo::ScopedDataPipeConsumerHandle p_receive_stream{};
@@ -409,6 +411,8 @@ bool ProxyResolvingSocketStubDispatch::AcceptWithResponder(
               internal::ProxyResolvingSocket_UpgradeToTLS_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProxyResolvingSocket.0
       bool success = true;
       ::net::HostPortPair p_host_port_pair{};
       ::net::MutableNetworkTrafficAnnotationTag p_traffic_annotation{};
@@ -440,11 +444,11 @@ bool ProxyResolvingSocketStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpgradeToTLS(
-std::move(p_host_port_pair), 
-std::move(p_traffic_annotation), 
-std::move(p_receiver), 
-std::move(p_observer), std::move(callback));
+      impl->UpgradeToTLS(        
+        std::move(p_host_port_pair), 
+        std::move(p_traffic_annotation), 
+        std::move(p_receiver), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }
@@ -700,6 +704,8 @@ bool ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ForwardToCallback::A
           internal::ProxyResolvingSocketFactory_CreateProxyResolvingSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProxyResolvingSocketFactory.0
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -836,6 +842,8 @@ bool ProxyResolvingSocketFactoryStubDispatch::AcceptWithResponder(
               internal::ProxyResolvingSocketFactory_CreateProxyResolvingSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProxyResolvingSocketFactory.0
       bool success = true;
       ::GURL p_url{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -873,13 +881,13 @@ bool ProxyResolvingSocketFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateProxyResolvingSocket(
-std::move(p_url), 
-std::move(p_network_anonymization_key), 
-std::move(p_options), 
-std::move(p_traffic_annotation), 
-std::move(p_socket), 
-std::move(p_observer), std::move(callback));
+      impl->CreateProxyResolvingSocket(        
+        std::move(p_url), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_options), 
+        std::move(p_traffic_annotation), 
+        std::move(p_socket), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }

@@ -52,6 +52,9 @@ IndexedDBClientStateChecker::IPCStableHashFunction IndexedDBClientStateChecker::
     case internal::kIndexedDBClientStateChecker_DisallowInactiveClient_Name: {
       return &IndexedDBClientStateChecker::DisallowInactiveClient_Sym::IPCStableHash;
     }
+    case internal::kIndexedDBClientStateChecker_MakeClone_Name: {
+      return &IndexedDBClientStateChecker::MakeClone_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -65,11 +68,15 @@ const char* IndexedDBClientStateChecker::MessageToMethodName_(mojo::Message& mes
     switch (message.name()) {
       case internal::kIndexedDBClientStateChecker_DisallowInactiveClient_Name:
             return "Receive storage::mojom::IndexedDBClientStateChecker::DisallowInactiveClient";
+      case internal::kIndexedDBClientStateChecker_MakeClone_Name:
+            return "Receive storage::mojom::IndexedDBClientStateChecker::MakeClone";
     }
   } else {
     switch (message.name()) {
       case internal::kIndexedDBClientStateChecker_DisallowInactiveClient_Name:
             return "Receive reply storage::mojom::IndexedDBClientStateChecker::DisallowInactiveClient";
+      case internal::kIndexedDBClientStateChecker_MakeClone_Name:
+            return "Receive reply storage::mojom::IndexedDBClientStateChecker::MakeClone";
     }
   }
   return "Receive unknown mojo message";
@@ -93,6 +100,19 @@ uint32_t IndexedDBClientStateChecker::DisallowInactiveClient_Sym::IPCStableHash(
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)storage::mojom::IndexedDBClientStateChecker::DisallowInactiveClient");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t IndexedDBClientStateChecker::MakeClone_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)storage::mojom::IndexedDBClientStateChecker::MakeClone");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -166,6 +186,52 @@ void IndexedDBClientStateCheckerProxy::DisallowInactiveClient(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void IndexedDBClientStateCheckerProxy::MakeClone(
+    ::mojo::PendingReceiver<IndexedDBClientStateChecker> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send storage::mojom::IndexedDBClientStateChecker::MakeClone", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<IndexedDBClientStateChecker>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIndexedDBClientStateChecker_MakeClone_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::storage::mojom::internal::IndexedDBClientStateChecker_MakeClone_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::storage::mojom::IndexedDBClientStateCheckerInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in IndexedDBClientStateChecker.MakeClone request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IndexedDBClientStateChecker::Name_);
+  message.set_method_name("MakeClone");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class IndexedDBClientStateChecker_DisallowInactiveClient_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static IndexedDBClientStateChecker::DisallowInactiveClientCallback CreateCallback(
@@ -224,6 +290,8 @@ bool IndexedDBClientStateChecker_DisallowInactiveClient_ForwardToCallback::Accep
           internal::IndexedDBClientStateChecker_DisallowInactiveClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBClientStateChecker.0
   bool success = true;
   bool p_was_active{};
   IndexedDBClientStateChecker_DisallowInactiveClient_ResponseParamsDataView input_data_view(params, message);
@@ -294,6 +362,36 @@ bool IndexedDBClientStateCheckerStubDispatch::Accept(
     case internal::kIndexedDBClientStateChecker_DisallowInactiveClient_Name: {
       break;
     }
+    case internal::kIndexedDBClientStateChecker_MakeClone_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::IndexedDBClientStateChecker_MakeClone_Params_Data* params =
+          reinterpret_cast<internal::IndexedDBClientStateChecker_MakeClone_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for IndexedDBClientStateChecker.1
+      bool success = true;
+      ::mojo::PendingReceiver<IndexedDBClientStateChecker> p_receiver{};
+      IndexedDBClientStateChecker_MakeClone_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            IndexedDBClientStateChecker::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MakeClone(        
+        std::move(p_receiver));
+      return true;
+    }
   }
   return false;
 }
@@ -314,6 +412,8 @@ bool IndexedDBClientStateCheckerStubDispatch::AcceptWithResponder(
               internal::IndexedDBClientStateChecker_DisallowInactiveClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBClientStateChecker.0
       bool success = true;
       DisallowInactiveClientReason p_reason{};
       ::mojo::PendingReceiver<IndexedDBClientKeepActive> p_keep_active{};
@@ -337,10 +437,13 @@ bool IndexedDBClientStateCheckerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisallowInactiveClient(
-std::move(p_reason), 
-std::move(p_keep_active), std::move(callback));
+      impl->DisallowInactiveClient(        
+        std::move(p_reason), 
+        std::move(p_keep_active), std::move(callback));
       return true;
+    }
+    case internal::kIndexedDBClientStateChecker_MakeClone_Name: {
+      break;
     }
   }
   return false;
@@ -350,6 +453,8 @@ namespace {
 static const mojo::internal::GenericValidationInfo kIndexedDBClientStateCheckerValidationInfo[] = {
     { &internal::IndexedDBClientStateChecker_DisallowInactiveClient_Params_Data::Validate,
      &internal::IndexedDBClientStateChecker_DisallowInactiveClient_ResponseParams_Data::Validate},
+    { &internal::IndexedDBClientStateChecker_MakeClone_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool IndexedDBClientStateCheckerRequestValidator::Accept(mojo::Message* message) {
@@ -431,6 +536,9 @@ namespace storage::mojom {
 
 void IndexedDBClientStateCheckerInterceptorForTesting::DisallowInactiveClient(DisallowInactiveClientReason reason, ::mojo::PendingReceiver<IndexedDBClientKeepActive> keep_active, DisallowInactiveClientCallback callback) {
   GetForwardingInterface()->DisallowInactiveClient(std::move(reason), std::move(keep_active), std::move(callback));
+}
+void IndexedDBClientStateCheckerInterceptorForTesting::MakeClone(::mojo::PendingReceiver<IndexedDBClientStateChecker> receiver) {
+  GetForwardingInterface()->MakeClone(std::move(receiver));
 }
 IndexedDBClientStateCheckerAsyncWaiter::IndexedDBClientStateCheckerAsyncWaiter(
     IndexedDBClientStateChecker* proxy) : proxy_(proxy) {}

@@ -2391,6 +2391,39 @@ class  TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data {
 };
 static_assert(sizeof(TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data) == 8,
               "Bad sizeof(TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data)");
+class  TestController_IsToastShown_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> toast_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_IsToastShown_Params_Data>;
+
+  TestController_IsToastShown_Params_Data();
+  ~TestController_IsToastShown_Params_Data() = delete;
+};
+static_assert(sizeof(TestController_IsToastShown_Params_Data) == 16,
+              "Bad sizeof(TestController_IsToastShown_Params_Data)");
+class  TestController_IsToastShown_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t toast_shown : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<TestController_IsToastShown_ResponseParams_Data>;
+
+  TestController_IsToastShown_ResponseParams_Data();
+  ~TestController_IsToastShown_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(TestController_IsToastShown_ResponseParams_Data) == 16,
+              "Bad sizeof(TestController_IsToastShown_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -5716,6 +5749,50 @@ class TestController_SetAlmanacEndpointUrlForTesting_ResponseParamsDataView {
   internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class TestController_IsToastShown_ParamsDataView {
+ public:
+  TestController_IsToastShown_ParamsDataView() = default;
+
+  TestController_IsToastShown_ParamsDataView(
+      internal::TestController_IsToastShown_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetToastIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadToastId(UserType* output) {
+    
+    auto* pointer = data_->toast_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TestController_IsToastShown_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TestController_IsToastShown_ResponseParamsDataView {
+ public:
+  TestController_IsToastShown_ResponseParamsDataView() = default;
+
+  TestController_IsToastShown_ResponseParamsDataView(
+      internal::TestController_IsToastShown_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool toast_shown() const {
+    return data_->toast_shown;
+  }
+ private:
+  internal::TestController_IsToastShown_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void DomMessageObserver_OnMessage_ParamsDataView::GetMessageDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->message.Get();
@@ -6414,6 +6491,15 @@ inline void TestController_GetAllOpenTabURLs_ResponseParamsDataView::GetUrlsData
 inline void TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView::GetOverrideDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->override.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void TestController_IsToastShown_ParamsDataView::GetToastIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->toast_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

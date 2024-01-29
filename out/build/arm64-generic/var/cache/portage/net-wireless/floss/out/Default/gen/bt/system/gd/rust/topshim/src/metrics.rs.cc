@@ -89,6 +89,11 @@ void bluetooth$topshim$rust$cxxbridge1$acl_connection_state_changed(::bluetooth:
   void (*acl_connection_state_changed$)(::bluetooth::topshim::rust::RawAddress, ::std::uint32_t, ::std::uint32_t, ::std::uint32_t, ::std::uint32_t, ::std::uint32_t) = ::bluetooth::topshim::rust::acl_connection_state_changed;
   acl_connection_state_changed$(::std::move(*bt_addr), transport, status, acl_state, direction, hci_reason);
 }
+
+void bluetooth$topshim$rust$cxxbridge1$suspend_complete_state(::std::uint32_t state) noexcept {
+  void (*suspend_complete_state$)(::std::uint32_t) = ::bluetooth::topshim::rust::suspend_complete_state;
+  suspend_complete_state$(state);
+}
 } // extern "C"
 } // namespace rust
 } // namespace topshim

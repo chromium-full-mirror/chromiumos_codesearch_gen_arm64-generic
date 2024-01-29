@@ -107,8 +107,7 @@ do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
 TransformStreamDefaultController* blink_receiver = V8TransformStreamDefaultController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   blink_receiver->enqueue(script_state, exception_state);
@@ -142,8 +141,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 TransformStreamDefaultController* blink_receiver = V8TransformStreamDefaultController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   blink_receiver->error(script_state);
@@ -176,8 +174,7 @@ BLINK_BINDINGS_TRACE_EVENT("TransformStreamDefaultController.terminate");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 TransformStreamDefaultController* blink_receiver = V8TransformStreamDefaultController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 blink_receiver->terminate(script_state);
 

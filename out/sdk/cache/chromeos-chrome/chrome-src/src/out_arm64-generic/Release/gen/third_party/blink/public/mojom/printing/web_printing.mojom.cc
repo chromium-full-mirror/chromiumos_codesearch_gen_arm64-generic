@@ -134,10 +134,15 @@ WebPrinterAttributes::WebPrinterAttributes()
       copies_supported(),
       multiple_document_handling_default(),
       multiple_document_handling_supported(),
+      orientation_requested_default(),
+      orientation_requested_supported(),
       printer_resolution_default(),
       printer_resolution_supported(),
       print_color_mode_default(),
       print_color_mode_supported(),
+      printer_state(),
+      printer_state_message(),
+      printer_state_reasons(),
       sides_default(),
       sides_supported() {}
 
@@ -146,20 +151,30 @@ WebPrinterAttributes::WebPrinterAttributes(
     WebPrintingRangePtr copies_supported_in,
     WebPrintingMultipleDocumentHandling multiple_document_handling_default_in,
     std::vector<WebPrintingMultipleDocumentHandling> multiple_document_handling_supported_in,
+    WebPrintingOrientationRequested orientation_requested_default_in,
+    std::vector<WebPrintingOrientationRequested> orientation_requested_supported_in,
     const ::gfx::Size& printer_resolution_default_in,
     std::vector<::gfx::Size> printer_resolution_supported_in,
     WebPrintColorMode print_color_mode_default_in,
     std::vector<WebPrintColorMode> print_color_mode_supported_in,
+    ipp_pstate_t printer_state_in,
+    const std::string& printer_state_message_in,
+    std::vector<::printing::PrinterStatus::PrinterReason::Reason> printer_state_reasons_in,
     std::optional<::printing::mojom::DuplexMode> sides_default_in,
     std::vector<::printing::mojom::DuplexMode> sides_supported_in)
     : copies_default(std::move(copies_default_in)),
       copies_supported(std::move(copies_supported_in)),
       multiple_document_handling_default(std::move(multiple_document_handling_default_in)),
       multiple_document_handling_supported(std::move(multiple_document_handling_supported_in)),
+      orientation_requested_default(std::move(orientation_requested_default_in)),
+      orientation_requested_supported(std::move(orientation_requested_supported_in)),
       printer_resolution_default(std::move(printer_resolution_default_in)),
       printer_resolution_supported(std::move(printer_resolution_supported_in)),
       print_color_mode_default(std::move(print_color_mode_default_in)),
       print_color_mode_supported(std::move(print_color_mode_supported_in)),
+      printer_state(std::move(printer_state_in)),
+      printer_state_message(std::move(printer_state_message_in)),
+      printer_state_reasons(std::move(printer_state_reasons_in)),
       sides_default(std::move(sides_default_in)),
       sides_supported(std::move(sides_supported_in)) {}
 
@@ -206,6 +221,24 @@ void WebPrinterAttributes::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "orientation_requested_default"), this->orientation_requested_default,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type WebPrintingOrientationRequested>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "orientation_requested_supported"), this->orientation_requested_supported,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<WebPrintingOrientationRequested>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "printer_resolution_default"), this->printer_resolution_default,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::gfx::Size&>"
@@ -242,6 +275,33 @@ void WebPrinterAttributes::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "printer_state"), this->printer_state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ipp_pstate_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "printer_state_message"), this->printer_state_message,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "printer_state_reasons"), this->printer_state_reasons,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<::printing::PrinterStatus::PrinterReason::Reason>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "sides_default"), this->sides_default,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<::printing::mojom::DuplexMode>>"
@@ -269,6 +329,7 @@ WebPrintJobTemplateAttributes::WebPrintJobTemplateAttributes()
     : job_name(),
       copies(),
       multiple_document_handling(),
+      orientation_requested(),
       printer_resolution(),
       print_color_mode(),
       sides() {}
@@ -277,12 +338,14 @@ WebPrintJobTemplateAttributes::WebPrintJobTemplateAttributes(
     const std::string& job_name_in,
     uint32_t copies_in,
     std::optional<WebPrintingMultipleDocumentHandling> multiple_document_handling_in,
+    std::optional<WebPrintingOrientationRequested> orientation_requested_in,
     const std::optional<::gfx::Size>& printer_resolution_in,
     std::optional<WebPrintColorMode> print_color_mode_in,
     std::optional<::printing::mojom::DuplexMode> sides_in)
     : job_name(std::move(job_name_in)),
       copies(std::move(copies_in)),
       multiple_document_handling(std::move(multiple_document_handling_in)),
+      orientation_requested(std::move(orientation_requested_in)),
       printer_resolution(std::move(printer_resolution_in)),
       print_color_mode(std::move(print_color_mode_in)),
       sides(std::move(sides_in)) {}
@@ -321,6 +384,15 @@ void WebPrintJobTemplateAttributes::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "orientation_requested"), this->orientation_requested,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<WebPrintingOrientationRequested>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "printer_resolution"), this->printer_resolution,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<::gfx::Size>&>"
@@ -353,14 +425,62 @@ bool WebPrintJobTemplateAttributes::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+WebPrintJobUpdate::WebPrintJobUpdate()
+    : state(),
+      pages_printed(0U) {}
+
+WebPrintJobUpdate::WebPrintJobUpdate(
+    WebPrintJobState state_in,
+    uint32_t pages_printed_in)
+    : state(std::move(state_in)),
+      pages_printed(std::move(pages_printed_in)) {}
+
+WebPrintJobUpdate::~WebPrintJobUpdate() = default;
+size_t WebPrintJobUpdate::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  seed = mojo::internal::Hash(seed, this->pages_printed);
+  return seed;
+}
+
+void WebPrintJobUpdate::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type WebPrintJobState>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pages_printed"), this->pages_printed,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool WebPrintJobUpdate::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 WebPrintJobInfo::WebPrintJobInfo()
     : job_name(),
+      job_pages(),
       observer() {}
 
 WebPrintJobInfo::WebPrintJobInfo(
     const std::string& job_name_in,
+    uint32_t job_pages_in,
     ::mojo::PendingReceiver<WebPrintJobStateObserver> observer_in)
     : job_name(std::move(job_name_in)),
+      job_pages(std::move(job_pages_in)),
       observer(std::move(observer_in)) {}
 
 WebPrintJobInfo::~WebPrintJobInfo() = default;
@@ -373,6 +493,15 @@ void WebPrintJobInfo::WriteIntoTrace(
       "job_name"), this->job_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "job_pages"), this->job_pages,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -392,6 +521,100 @@ bool WebPrintJobInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
+}
+GetPrintersResult::GetPrintersResult() : tag_(Tag::kPrinters) {
+  data_.printers = new std::vector<WebPrinterInfoPtr>;
+}
+
+GetPrintersResult::~GetPrintersResult() {
+  DestroyActive();
+}
+
+
+void GetPrintersResult::set_printers(
+    std::vector<WebPrinterInfoPtr> printers) {
+  if (tag_ == Tag::kPrinters) {
+    *(data_.printers) = std::move(printers);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPrinters;
+    data_.printers = new std::vector<WebPrinterInfoPtr>(
+        std::move(printers));
+  }
+}
+void GetPrintersResult::set_error(
+    GetPrintersError error) {
+  if (tag_ != Tag::kError) {
+    DestroyActive();
+    tag_ = Tag::kError;
+  }
+  data_.error = error;
+}
+
+void GetPrintersResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kPrinters:
+
+      delete data_.printers;
+      break;
+    case Tag::kError:
+
+      break;
+  }
+}
+
+bool GetPrintersResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+WebPrinterFetchResult::WebPrinterFetchResult() : tag_(Tag::kPrinterAttributes) {
+  data_.printer_attributes = new WebPrinterAttributesPtr;
+}
+
+WebPrinterFetchResult::~WebPrinterFetchResult() {
+  DestroyActive();
+}
+
+
+void WebPrinterFetchResult::set_printer_attributes(
+    WebPrinterAttributesPtr printer_attributes) {
+  if (tag_ == Tag::kPrinterAttributes) {
+    *(data_.printer_attributes) = std::move(printer_attributes);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPrinterAttributes;
+    data_.printer_attributes = new WebPrinterAttributesPtr(
+        std::move(printer_attributes));
+  }
+}
+void WebPrinterFetchResult::set_error(
+    WebPrinterFetchError error) {
+  if (tag_ != Tag::kError) {
+    DestroyActive();
+    tag_ = Tag::kError;
+  }
+  data_.error = error;
+}
+
+void WebPrinterFetchResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kPrinterAttributes:
+
+      delete data_.printer_attributes;
+      break;
+    case Tag::kError:
+
+      break;
+  }
+}
+
+bool WebPrinterFetchResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
 }
 WebPrintResult::WebPrintResult() : tag_(Tag::kPrintJobInfo) {
   data_.print_job_info = new WebPrintJobInfoPtr;
@@ -445,8 +668,8 @@ const char WebPrintJobStateObserver::Name_[] = "blink.mojom.WebPrintJobStateObse
 WebPrintJobStateObserver::IPCStableHashFunction WebPrintJobStateObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name: {
-      return &WebPrintJobStateObserver::OnWebPrintJobStateChanged_Sym::IPCStableHash;
+    case internal::kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name: {
+      return &WebPrintJobStateObserver::OnWebPrintJobUpdate_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -459,13 +682,13 @@ const char* WebPrintJobStateObserver::MessageToMethodName_(mojo::Message& messag
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name:
-            return "Receive blink::mojom::WebPrintJobStateObserver::OnWebPrintJobStateChanged";
+      case internal::kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name:
+            return "Receive blink::mojom::WebPrintJobStateObserver::OnWebPrintJobUpdate";
     }
   } else {
     switch (message.name()) {
-      case internal::kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name:
-            return "Receive reply blink::mojom::WebPrintJobStateObserver::OnWebPrintJobStateChanged";
+      case internal::kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name:
+            return "Receive reply blink::mojom::WebPrintJobStateObserver::OnWebPrintJobUpdate";
     }
   }
   return "Receive unknown mojo message";
@@ -480,7 +703,7 @@ const char* WebPrintJobStateObserver::MessageToMethodName_(mojo::Message& messag
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t WebPrintJobStateObserver::OnWebPrintJobStateChanged_Sym::IPCStableHash() {
+uint32_t WebPrintJobStateObserver::OnWebPrintJobUpdate_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -488,7 +711,7 @@ uint32_t WebPrintJobStateObserver::OnWebPrintJobStateChanged_Sym::IPCStableHash(
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::WebPrintJobStateObserver::OnWebPrintJobStateChanged");
+          "(Impl)blink::mojom::WebPrintJobStateObserver::OnWebPrintJobUpdate");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -499,16 +722,16 @@ WebPrintJobStateObserverProxy::WebPrintJobStateObserverProxy(mojo::MessageReceiv
     : receiver_(receiver) {
 }
 
-void WebPrintJobStateObserverProxy::OnWebPrintJobStateChanged(
-    WebPrintJobState in_state) {
+void WebPrintJobStateObserverProxy::OnWebPrintJobUpdate(
+    WebPrintJobUpdatePtr in_update) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send blink::mojom::WebPrintJobStateObserver::OnWebPrintJobStateChanged", "input_parameters",
+    "mojom", "Send blink::mojom::WebPrintJobStateObserver::OnWebPrintJobUpdate", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("state"), in_state,
-                        "<value of type WebPrintJobState>");
+           dict.AddItem("update"), in_update,
+                        "<value of type WebPrintJobUpdatePtr>");
    });
 #endif
 
@@ -524,17 +747,26 @@ void WebPrintJobStateObserverProxy::OnWebPrintJobStateChanged(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name, kFlags, 0, 0, nullptr);
+      internal::kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::mojom::internal::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data> params(
+      ::blink::mojom::internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::blink::mojom::WebPrintJobState>(
-      in_state, &params->state);
+  mojo::internal::MessageFragment<
+      typename decltype(params->update)::BaseType> update_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::WebPrintJobUpdateDataView>(
+      in_update, update_fragment);
+  params->update.Set(
+      update_fragment.is_null() ? nullptr : update_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->update.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null update in WebPrintJobStateObserver.OnWebPrintJobUpdate request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebPrintJobStateObserver::Name_);
-  message.set_method_name("OnWebPrintJobStateChanged");
+  message.set_method_name("OnWebPrintJobUpdate");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -546,18 +778,20 @@ bool WebPrintJobStateObserverStubDispatch::Accept(
     WebPrintJobStateObserver* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name: {
+    case internal::kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name: {
 
       DCHECK(message->is_serialized());
-      internal::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data* params =
-          reinterpret_cast<internal::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data*>(
+      internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data* params =
+          reinterpret_cast<internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      WebPrintJobState p_state{};
-      WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadState(&p_state))
+      // Validation for WebPrintJobStateObserver.0
+      bool success = true;
+      WebPrintJobUpdatePtr p_update{};
+      WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadUpdate(&p_update))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -568,8 +802,8 @@ bool WebPrintJobStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWebPrintJobStateChanged(
-std::move(p_state));
+      impl->OnWebPrintJobUpdate(        
+        std::move(p_update));
       return true;
     }
   }
@@ -585,7 +819,7 @@ bool WebPrintJobStateObserverStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name: {
+    case internal::kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name: {
       break;
     }
   }
@@ -594,7 +828,7 @@ bool WebPrintJobStateObserverStubDispatch::AcceptWithResponder(
 namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kWebPrintJobStateObserverValidationInfo[] = {
-    { &internal::WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params_Data::Validate,
+    { &internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -854,7 +1088,7 @@ class WebPrinter_FetchAttributes_ProxyToResponder : public ::mojo::internal::Pro
 #endif
 
   void Run(
-      WebPrinterAttributesPtr in_attributes);
+      WebPrinterFetchResultPtr in_result);
 };
 
 bool WebPrinter_FetchAttributes_ForwardToCallback::Accept(
@@ -866,11 +1100,13 @@ bool WebPrinter_FetchAttributes_ForwardToCallback::Accept(
           internal::WebPrinter_FetchAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebPrinter.0
   bool success = true;
-  WebPrinterAttributesPtr p_attributes{};
+  WebPrinterFetchResultPtr p_result{};
   WebPrinter_FetchAttributes_ResponseParamsDataView input_data_view(params, message);
   
-  if (success && !input_data_view.ReadAttributes(&p_attributes))
+  if (success && !input_data_view.ReadResult(&p_result))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -881,20 +1117,20 @@ bool WebPrinter_FetchAttributes_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_attributes));
+std::move(p_result));
   return true;
 }
 
 void WebPrinter_FetchAttributes_ProxyToResponder::Run(
-    WebPrinterAttributesPtr in_attributes) {
+    WebPrinterFetchResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebPrinter::FetchAttributes", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("attributes"), in_attributes,
-                        "<value of type WebPrinterAttributesPtr>");
+           dict.AddItem("result"), in_result,
+                        "<value of type WebPrinterFetchResultPtr>");
    });
 #endif
   
@@ -909,13 +1145,15 @@ void WebPrinter_FetchAttributes_ProxyToResponder::Run(
       ::blink::mojom::internal::WebPrinter_FetchAttributes_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->attributes)::BaseType> attributes_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::WebPrinterAttributesDataView>(
-      in_attributes, attributes_fragment);
-  params->attributes.Set(
-      attributes_fragment.is_null() ? nullptr : attributes_fragment.data());
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::blink::mojom::WebPrinterFetchResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebPrinter::Name_);
@@ -991,6 +1229,8 @@ bool WebPrinter_Print_ForwardToCallback::Accept(
           internal::WebPrinter_Print_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebPrinter.1
   bool success = true;
   WebPrintResultPtr p_result{};
   WebPrinter_Print_ResponseParamsDataView input_data_view(params, message);
@@ -1092,6 +1332,8 @@ bool WebPrinterStubDispatch::AcceptWithResponder(
               internal::WebPrinter_FetchAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebPrinter.0
       bool success = true;
       WebPrinter_FetchAttributes_ParamsDataView input_data_view(params, message);
       
@@ -1117,6 +1359,8 @@ bool WebPrinterStubDispatch::AcceptWithResponder(
               internal::WebPrinter_Print_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebPrinter.1
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::Blob> p_document{};
       ::std::unique_ptr<::printing::PrintSettings> p_attributes{};
@@ -1140,9 +1384,9 @@ bool WebPrinterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Print(
-std::move(p_document), 
-std::move(p_attributes), std::move(callback));
+      impl->Print(        
+        std::move(p_document), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
   }
@@ -1320,7 +1564,7 @@ class WebPrintingService_GetPrinters_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      std::vector<WebPrinterInfoPtr> in_printers);
+      GetPrintersResultPtr in_result);
 };
 
 bool WebPrintingService_GetPrinters_ForwardToCallback::Accept(
@@ -1332,11 +1576,13 @@ bool WebPrintingService_GetPrinters_ForwardToCallback::Accept(
           internal::WebPrintingService_GetPrinters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebPrintingService.0
   bool success = true;
-  std::vector<WebPrinterInfoPtr> p_printers{};
+  GetPrintersResultPtr p_result{};
   WebPrintingService_GetPrinters_ResponseParamsDataView input_data_view(params, message);
   
-  if (success && !input_data_view.ReadPrinters(&p_printers))
+  if (success && !input_data_view.ReadResult(&p_result))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -1347,20 +1593,20 @@ bool WebPrintingService_GetPrinters_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_printers));
+std::move(p_result));
   return true;
 }
 
 void WebPrintingService_GetPrinters_ProxyToResponder::Run(
-    std::vector<WebPrinterInfoPtr> in_printers) {
+    GetPrintersResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::WebPrintingService::GetPrinters", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("printers"), in_printers,
-                        "<value of type std::vector<WebPrinterInfoPtr>>");
+           dict.AddItem("result"), in_result,
+                        "<value of type GetPrintersResultPtr>");
    });
 #endif
   
@@ -1375,19 +1621,15 @@ void WebPrintingService_GetPrinters_ProxyToResponder::Run(
       ::blink::mojom::internal::WebPrintingService_GetPrinters_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->printers)::BaseType>
-      printers_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& printers_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::WebPrinterInfoDataView>>(
-      in_printers, printers_fragment, &printers_validate_params);
-  params->printers.Set(
-      printers_fragment.is_null() ? nullptr : printers_fragment.data());
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::blink::mojom::GetPrintersResultDataView>(
+      in_result, result_fragment, true);
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->printers.is_null(),
+      params->result.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null printers in ");
+      "null result in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebPrintingService::Name_);
@@ -1434,6 +1676,8 @@ bool WebPrintingServiceStubDispatch::AcceptWithResponder(
               internal::WebPrintingService_GetPrinters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebPrintingService.0
       bool success = true;
       WebPrintingService_GetPrinters_ParamsDataView input_data_view(params, message);
       
@@ -1528,6 +1772,10 @@ bool StructTraits<::blink::mojom::WebPrinterAttributes::DataView, ::blink::mojom
         success = false;
       if (success && !input.ReadMultipleDocumentHandlingSupported(&result->multiple_document_handling_supported))
         success = false;
+      if (success && !input.ReadOrientationRequestedDefault(&result->orientation_requested_default))
+        success = false;
+      if (success && !input.ReadOrientationRequestedSupported(&result->orientation_requested_supported))
+        success = false;
       if (success && !input.ReadPrinterResolutionDefault(&result->printer_resolution_default))
         success = false;
       if (success && !input.ReadPrinterResolutionSupported(&result->printer_resolution_supported))
@@ -1535,6 +1783,12 @@ bool StructTraits<::blink::mojom::WebPrinterAttributes::DataView, ::blink::mojom
       if (success && !input.ReadPrintColorModeDefault(&result->print_color_mode_default))
         success = false;
       if (success && !input.ReadPrintColorModeSupported(&result->print_color_mode_supported))
+        success = false;
+      if (success && !input.ReadPrinterState(&result->printer_state))
+        success = false;
+      if (success && !input.ReadPrinterStateMessage(&result->printer_state_message))
+        success = false;
+      if (success && !input.ReadPrinterStateReasons(&result->printer_state_reasons))
         success = false;
       if (success && !input.ReadSidesDefault(&result->sides_default)) {
         success = false;
@@ -1560,6 +1814,9 @@ bool StructTraits<::blink::mojom::WebPrintJobTemplateAttributes::DataView, ::bli
       if (success && !input.ReadMultipleDocumentHandling(&result->multiple_document_handling)) {
         success = false;
       }
+      if (success && !input.ReadOrientationRequested(&result->orientation_requested)) {
+        success = false;
+      }
       if (success && !input.ReadPrinterResolution(&result->printer_resolution))
         success = false;
       if (success && !input.ReadPrintColorMode(&result->print_color_mode)) {
@@ -1574,6 +1831,22 @@ bool StructTraits<::blink::mojom::WebPrintJobTemplateAttributes::DataView, ::bli
 
 
 // static
+bool StructTraits<::blink::mojom::WebPrintJobUpdate::DataView, ::blink::mojom::WebPrintJobUpdatePtr>::Read(
+    ::blink::mojom::WebPrintJobUpdate::DataView input,
+    ::blink::mojom::WebPrintJobUpdatePtr* output) {
+  bool success = true;
+  ::blink::mojom::WebPrintJobUpdatePtr result(::blink::mojom::WebPrintJobUpdate::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+      if (success)
+        result->pages_printed = input.pages_printed();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::blink::mojom::WebPrintJobInfo::DataView, ::blink::mojom::WebPrintJobInfoPtr>::Read(
     ::blink::mojom::WebPrintJobInfo::DataView input,
     ::blink::mojom::WebPrintJobInfoPtr* output) {
@@ -1582,12 +1855,78 @@ bool StructTraits<::blink::mojom::WebPrintJobInfo::DataView, ::blink::mojom::Web
   
       if (success && !input.ReadJobName(&result->job_name))
         success = false;
+      if (success)
+        result->job_pages = input.job_pages();
       if (success) {
         result->observer =
             input.TakeObserver<decltype(result->observer)>();
       }
   *output = std::move(result);
   return success;
+}
+
+// static
+bool UnionTraits<::blink::mojom::GetPrintersResult::DataView, ::blink::mojom::GetPrintersResultPtr>::Read(
+    ::blink::mojom::GetPrintersResult::DataView input,
+    ::blink::mojom::GetPrintersResultPtr* output) {
+  using UnionType = ::blink::mojom::GetPrintersResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kPrinters: {
+      std::vector<::blink::mojom::WebPrinterInfoPtr> result_printers;
+      if (!input.ReadPrinters(&result_printers))
+        return false;
+
+      *output = UnionType::NewPrinters(
+          std::move(result_printers));
+      break;
+    }
+    case Tag::kError: {
+      ::blink::mojom::GetPrintersError result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(result_error);
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::blink::mojom::WebPrinterFetchResult::DataView, ::blink::mojom::WebPrinterFetchResultPtr>::Read(
+    ::blink::mojom::WebPrinterFetchResult::DataView input,
+    ::blink::mojom::WebPrinterFetchResultPtr* output) {
+  using UnionType = ::blink::mojom::WebPrinterFetchResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kPrinterAttributes: {
+      ::blink::mojom::WebPrinterAttributesPtr result_printer_attributes;
+      if (!input.ReadPrinterAttributes(&result_printer_attributes))
+        return false;
+
+      *output = UnionType::NewPrinterAttributes(
+          std::move(result_printer_attributes));
+      break;
+    }
+    case Tag::kError: {
+      ::blink::mojom::WebPrinterFetchError result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(result_error);
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
 }
 
 // static
@@ -1632,8 +1971,8 @@ bool UnionTraits<::blink::mojom::WebPrintResult::DataView, ::blink::mojom::WebPr
 namespace blink::mojom {
 
 
-void WebPrintJobStateObserverInterceptorForTesting::OnWebPrintJobStateChanged(WebPrintJobState state) {
-  GetForwardingInterface()->OnWebPrintJobStateChanged(std::move(state));
+void WebPrintJobStateObserverInterceptorForTesting::OnWebPrintJobUpdate(WebPrintJobUpdatePtr update) {
+  GetForwardingInterface()->OnWebPrintJobUpdate(std::move(update));
 }
 WebPrintJobStateObserverAsyncWaiter::WebPrintJobStateObserverAsyncWaiter(
     WebPrintJobStateObserver* proxy) : proxy_(proxy) {}
@@ -1655,24 +1994,24 @@ WebPrinterAsyncWaiter::WebPrinterAsyncWaiter(
 WebPrinterAsyncWaiter::~WebPrinterAsyncWaiter() = default;
 
 void WebPrinterAsyncWaiter::FetchAttributes(
-    WebPrinterAttributesPtr* out_attributes) {
+    WebPrinterFetchResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->FetchAttributes(
       base::BindOnce(
           [](base::RunLoop* loop,
-             WebPrinterAttributesPtr* out_attributes
+             WebPrinterFetchResultPtr* out_result
 ,
-             WebPrinterAttributesPtr attributes) {*out_attributes = std::move(attributes);
+             WebPrinterFetchResultPtr result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
-          out_attributes));
+          out_result));
   loop.Run();
 }
 
-WebPrinterAttributesPtr WebPrinterAsyncWaiter::FetchAttributes(
+WebPrinterFetchResultPtr WebPrinterAsyncWaiter::FetchAttributes(
     ) {
-  WebPrinterAttributesPtr async_wait_result;
+  WebPrinterFetchResultPtr async_wait_result;
   FetchAttributes(&async_wait_result);
   return async_wait_result;
 }
@@ -1712,24 +2051,24 @@ WebPrintingServiceAsyncWaiter::WebPrintingServiceAsyncWaiter(
 WebPrintingServiceAsyncWaiter::~WebPrintingServiceAsyncWaiter() = default;
 
 void WebPrintingServiceAsyncWaiter::GetPrinters(
-    std::vector<WebPrinterInfoPtr>* out_printers) {
+    GetPrintersResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->GetPrinters(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<WebPrinterInfoPtr>* out_printers
+             GetPrintersResultPtr* out_result
 ,
-             std::vector<WebPrinterInfoPtr> printers) {*out_printers = std::move(printers);
+             GetPrintersResultPtr result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
-          out_printers));
+          out_result));
   loop.Run();
 }
 
-std::vector<WebPrinterInfoPtr> WebPrintingServiceAsyncWaiter::GetPrinters(
+GetPrintersResultPtr WebPrintingServiceAsyncWaiter::GetPrinters(
     ) {
-  std::vector<WebPrinterInfoPtr> async_wait_result;
+  GetPrintersResultPtr async_wait_result;
   GetPrinters(&async_wait_result);
   return async_wait_result;
 }

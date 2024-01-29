@@ -3,17 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkIfTabExistsInDrawer = exports.tabExistsInDrawer = exports.tabExistsInMainPanel = exports.TAB_HEADER_SELECTOR = exports.DRAWER_PANEL_SELECTOR = exports.MAIN_PANEL_SELECTOR = exports.MOVE_TO_MAIN_PANEL_SELECTOR = exports.MOVE_TO_DRAWER_SELECTOR = exports.clickOnContextMenuItemFromTab = exports.navigateToCrossToolIntegrationSite = exports.prepareForCrossToolScenario = void 0;
+exports.checkIfTabExistsInDrawer = exports.tabExistsInDrawer = exports.tabExistsInMainPanel = exports.TAB_HEADER_SELECTOR = exports.DRAWER_PANEL_SELECTOR = exports.MAIN_PANEL_SELECTOR = exports.MOVE_TO_MAIN_PANEL_SELECTOR = exports.MOVE_TO_DRAWER_SELECTOR = exports.clickOnContextMenuItemFromTab = void 0;
 const helper_js_1 = require("../../shared/helper.js");
-async function prepareForCrossToolScenario() {
-    await navigateToCrossToolIntegrationSite();
-    await (0, helper_js_1.closeAllCloseableTabs)();
-}
-exports.prepareForCrossToolScenario = prepareForCrossToolScenario;
-async function navigateToCrossToolIntegrationSite() {
-    await (0, helper_js_1.goToResource)('cross_tool/default.html');
-}
-exports.navigateToCrossToolIntegrationSite = navigateToCrossToolIntegrationSite;
 async function clickOnContextMenuItemFromTab(tabId, menuItemSelector) {
     // Find the selected node, right click.
     await (0, helper_js_1.click)(tabId, { clickOptions: { button: 'right' } });

@@ -1,5 +1,8 @@
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import { emptyState as emptySeaPenState } from 'chrome://resources/ash/common/sea_pen/sea_pen_state.js';
 import { kDefaultImageSymbol } from './constants.js';
-import { emptyState as emptySeaPenState } from './sea_pen/sea_pen_state.js';
 export var DailyRefreshType;
 (function (DailyRefreshType) {
     DailyRefreshType["GOOGLE_PHOTOS"] = "daily_refresh_google_photos";

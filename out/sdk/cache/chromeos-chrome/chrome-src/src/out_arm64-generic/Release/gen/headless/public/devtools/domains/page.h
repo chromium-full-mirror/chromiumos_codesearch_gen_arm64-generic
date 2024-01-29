@@ -250,6 +250,11 @@ class HEADLESS_EXPORT Domain {
   void RemoveScriptToEvaluateOnNewDocument(const std::string& identifier, base::OnceClosure callback = base::OnceClosure());
   void RemoveScriptToEvaluateOnNewDocument(std::unique_ptr<RemoveScriptToEvaluateOnNewDocumentParams> params, base::OnceClosure callback);
 
+  // Enable page Content Security Policy by-passing.
+  void SetBypassCSP(std::unique_ptr<SetBypassCSPParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassCSPResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetBypassCSPResult>)>());
+  void SetBypassCSP(bool enabled, base::OnceClosure callback = base::OnceClosure());
+  void SetBypassCSP(std::unique_ptr<SetBypassCSPParams> params, base::OnceClosure callback);
+
   // Sets given markup as the document's HTML.
   void SetDocumentContent(std::unique_ptr<SetDocumentContentParams> params, base::OnceCallback<void(std::unique_ptr<SetDocumentContentResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetDocumentContentResult>)>());
   void SetDocumentContent(const std::string& frame_id, const std::string& html, base::OnceClosure callback = base::OnceClosure());
@@ -261,10 +266,27 @@ class HEADLESS_EXPORT Domain {
   void SetGeolocationOverride(base::OnceClosure callback = base::OnceClosure());
   void SetGeolocationOverride(std::unique_ptr<SetGeolocationOverrideParams> params, base::OnceClosure callback);
 
+  // Controls whether page will emit lifecycle events.
+  void SetLifecycleEventsEnabled(std::unique_ptr<SetLifecycleEventsEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetLifecycleEventsEnabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetLifecycleEventsEnabledResult>)>());
+  void SetLifecycleEventsEnabled(bool enabled, base::OnceClosure callback = base::OnceClosure());
+  void SetLifecycleEventsEnabled(std::unique_ptr<SetLifecycleEventsEnabledParams> params, base::OnceClosure callback);
+
   // Force the page stop all navigations and pending resource fetches.
   void StopLoading(std::unique_ptr<StopLoadingParams> params, base::OnceCallback<void(std::unique_ptr<StopLoadingResult>)> callback = base::OnceCallback<void(std::unique_ptr<StopLoadingResult>)>());
   void StopLoading(base::OnceClosure callback = base::OnceClosure());
   void StopLoading(std::unique_ptr<StopLoadingParams> params, base::OnceClosure callback);
+
+  // Tries to close page, running its beforeunload hooks, if any.
+  void Close(std::unique_ptr<CloseParams> params, base::OnceCallback<void(std::unique_ptr<CloseResult>)> callback = base::OnceCallback<void(std::unique_ptr<CloseResult>)>());
+  void Close(base::OnceClosure callback = base::OnceClosure());
+  void Close(std::unique_ptr<CloseParams> params, base::OnceClosure callback);
+
+  // Intercept file chooser requests and transfer control to protocol clients.
+  // When file chooser interception is enabled, native file chooser dialog is not shown.
+  // Instead, a protocol event `Page.fileChooserOpened` is emitted.
+  void SetInterceptFileChooserDialog(std::unique_ptr<SetInterceptFileChooserDialogParams> params, base::OnceCallback<void(std::unique_ptr<SetInterceptFileChooserDialogResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetInterceptFileChooserDialogResult>)>());
+  void SetInterceptFileChooserDialog(bool enabled, base::OnceClosure callback = base::OnceClosure());
+  void SetInterceptFileChooserDialog(std::unique_ptr<SetInterceptFileChooserDialogParams> params, base::OnceClosure callback);
 
  protected:
   Domain(internal::MessageDispatcher* dispatcher);
@@ -428,9 +450,6 @@ class ExperimentalDomain : public Domain {
   // Enable Chrome's experimental ad filter on all sites.
   void SetAdBlockingEnabled(std::unique_ptr<SetAdBlockingEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetAdBlockingEnabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAdBlockingEnabledResult>)>());
 
-  // Enable page Content Security Policy by-passing.
-  void SetBypassCSP(std::unique_ptr<SetBypassCSPParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassCSPResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetBypassCSPResult>)>());
-
   // Get Permissions Policy state on given frame.
   void GetPermissionsPolicyState(std::unique_ptr<GetPermissionsPolicyStateParams> params, base::OnceCallback<void(std::unique_ptr<GetPermissionsPolicyStateResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetPermissionsPolicyStateResult>)>());
 
@@ -454,9 +473,6 @@ class ExperimentalDomain : public Domain {
   // Set the behavior when downloading a file.
   void SetDownloadBehavior(std::unique_ptr<SetDownloadBehaviorParams> params, base::OnceCallback<void(std::unique_ptr<SetDownloadBehaviorResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetDownloadBehaviorResult>)>());
 
-  // Controls whether page will emit lifecycle events.
-  void SetLifecycleEventsEnabled(std::unique_ptr<SetLifecycleEventsEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetLifecycleEventsEnabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetLifecycleEventsEnabledResult>)>());
-
   // Toggles mouse event-based touch event emulation.
   void SetTouchEmulationEnabled(std::unique_ptr<SetTouchEmulationEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetTouchEmulationEnabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetTouchEmulationEnabledResult>)>());
 
@@ -465,9 +481,6 @@ class ExperimentalDomain : public Domain {
 
   // Crashes renderer on the IO thread, generates minidumps.
   void Crash(std::unique_ptr<CrashParams> params, base::OnceCallback<void(std::unique_ptr<CrashResult>)> callback = base::OnceCallback<void(std::unique_ptr<CrashResult>)>());
-
-  // Tries to close page, running its beforeunload hooks, if any.
-  void Close(std::unique_ptr<CloseParams> params, base::OnceCallback<void(std::unique_ptr<CloseResult>)> callback = base::OnceCallback<void(std::unique_ptr<CloseResult>)>());
 
   // Tries to update the web lifecycle state of the page.
   // It will transition the page to the given state according to:
@@ -505,11 +518,6 @@ class ExperimentalDomain : public Domain {
 
   // Pauses page execution. Can be resumed using generic Runtime.runIfWaitingForDebugger.
   void WaitForDebugger(std::unique_ptr<WaitForDebuggerParams> params, base::OnceCallback<void(std::unique_ptr<WaitForDebuggerResult>)> callback = base::OnceCallback<void(std::unique_ptr<WaitForDebuggerResult>)>());
-
-  // Intercept file chooser requests and transfer control to protocol clients.
-  // When file chooser interception is enabled, native file chooser dialog is not shown.
-  // Instead, a protocol event `Page.fileChooserOpened` is emitted.
-  void SetInterceptFileChooserDialog(std::unique_ptr<SetInterceptFileChooserDialogParams> params, base::OnceCallback<void(std::unique_ptr<SetInterceptFileChooserDialogResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetInterceptFileChooserDialogResult>)>());
 
   // Enable/disable prerendering manually.
   // 

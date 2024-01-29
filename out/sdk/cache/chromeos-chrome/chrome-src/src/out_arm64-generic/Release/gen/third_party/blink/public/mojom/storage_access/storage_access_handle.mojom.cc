@@ -610,6 +610,8 @@ bool StorageAccessHandle_GetDirectory_ForwardToCallback::Accept(
           internal::StorageAccessHandle_GetDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageAccessHandle.3
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   ::mojo::PendingRemote<::blink::mojom::FileSystemAccessDirectoryHandle> p_directory{};
@@ -750,6 +752,8 @@ bool StorageAccessHandle_Estimate_ForwardToCallback::Accept(
           internal::StorageAccessHandle_Estimate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageAccessHandle.4
   bool success = true;
   int64_t p_current_usage{};
   int64_t p_current_quota{};
@@ -840,6 +844,8 @@ bool StorageAccessHandleStubDispatch::Accept(
           reinterpret_cast<internal::StorageAccessHandle_BindIndexedDB_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.0
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::IDBFactory> p_receiver{};
       StorageAccessHandle_BindIndexedDB_ParamsDataView input_data_view(params, message);
@@ -857,8 +863,8 @@ bool StorageAccessHandleStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindIndexedDB(
-std::move(p_receiver));
+      impl->BindIndexedDB(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kStorageAccessHandle_BindLocks_Name: {
@@ -868,6 +874,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::StorageAccessHandle_BindLocks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.1
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::LockManager> p_receiver{};
       StorageAccessHandle_BindLocks_ParamsDataView input_data_view(params, message);
@@ -885,8 +893,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLocks(
-std::move(p_receiver));
+      impl->BindLocks(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kStorageAccessHandle_BindCaches_Name: {
@@ -896,6 +904,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::StorageAccessHandle_BindCaches_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.2
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::CacheStorage> p_receiver{};
       StorageAccessHandle_BindCaches_ParamsDataView input_data_view(params, message);
@@ -913,8 +923,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindCaches(
-std::move(p_receiver));
+      impl->BindCaches(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kStorageAccessHandle_GetDirectory_Name: {
@@ -930,6 +940,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::StorageAccessHandle_BindBlobStorage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.5
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::BlobURLStore> p_receiver{};
       StorageAccessHandle_BindBlobStorage_ParamsDataView input_data_view(params, message);
@@ -947,8 +959,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBlobStorage(
-std::move(p_receiver));
+      impl->BindBlobStorage(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kStorageAccessHandle_BindBroadcastChannel_Name: {
@@ -958,6 +970,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::StorageAccessHandle_BindBroadcastChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.6
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::BroadcastChannelProvider> p_receiver{};
       StorageAccessHandle_BindBroadcastChannel_ParamsDataView input_data_view(params, message);
@@ -975,8 +989,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBroadcastChannel(
-std::move(p_receiver));
+      impl->BindBroadcastChannel(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -1008,6 +1022,8 @@ bool StorageAccessHandleStubDispatch::AcceptWithResponder(
               internal::StorageAccessHandle_GetDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.3
       bool success = true;
       StorageAccessHandle_GetDirectory_ParamsDataView input_data_view(params, message);
       
@@ -1033,6 +1049,8 @@ bool StorageAccessHandleStubDispatch::AcceptWithResponder(
               internal::StorageAccessHandle_Estimate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageAccessHandle.4
       bool success = true;
       StorageAccessHandle_Estimate_ParamsDataView input_data_view(params, message);
       

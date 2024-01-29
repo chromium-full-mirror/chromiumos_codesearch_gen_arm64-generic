@@ -320,7 +320,7 @@ struct Params {
 
     // Restricts the item to apply only to documents or frames whose URL matches one
     // of the given patterns. For details on pattern formats, see <a
-    // href='match_patterns'>Match Patterns</a>.
+    // href='/docs/extensions/develop/concepts/match-patterns'>Match Patterns</a>.
     std::optional<std::vector<std::string>> document_url_patterns;
 
     // Similar to <code>documentUrlPatterns</code>, filters based on the

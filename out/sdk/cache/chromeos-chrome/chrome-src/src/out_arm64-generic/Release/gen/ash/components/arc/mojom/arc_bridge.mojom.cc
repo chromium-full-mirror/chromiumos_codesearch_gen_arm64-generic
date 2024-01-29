@@ -3923,6 +3923,8 @@ bool ArcBridgeHostStubDispatch::Accept(
           reinterpret_cast<internal::ArcBridgeHost_OnAccessibilityHelperInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.127
       bool success = true;
       ::mojo::PendingRemote<::ax::android::mojom::AccessibilityHelperInstance> p_instance_remote{};
       ArcBridgeHost_OnAccessibilityHelperInstanceReady_ParamsDataView input_data_view(params, message);
@@ -3940,8 +3942,8 @@ bool ArcBridgeHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAccessibilityHelperInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAccessibilityHelperInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnAdbdMonitorInstanceReady_Name: {
@@ -3951,6 +3953,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnAdbdMonitorInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.158
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::AdbdMonitorInstance> p_instance_remote{};
       ArcBridgeHost_OnAdbdMonitorInstanceReady_ParamsDataView input_data_view(params, message);
@@ -3968,8 +3972,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdbdMonitorInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAdbdMonitorInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnAppInstanceReady_Name: {
@@ -3979,6 +3983,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnAppInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.100
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::AppInstance> p_instance_remote{};
       ArcBridgeHost_OnAppInstanceReady_ParamsDataView input_data_view(params, message);
@@ -3996,8 +4002,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAppInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnAppPermissionsInstanceReady_Name: {
@@ -4007,6 +4013,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnAppPermissionsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.149
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::AppPermissionsInstance> p_instance_remote{};
       ArcBridgeHost_OnAppPermissionsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4024,8 +4032,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppPermissionsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAppPermissionsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnAppfuseInstanceReady_Name: {
@@ -4035,6 +4043,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnAppfuseInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.145
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::AppfuseInstance> p_instance_remote{};
       ArcBridgeHost_OnAppfuseInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4052,8 +4062,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppfuseInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAppfuseInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnAudioInstanceReady_Name: {
@@ -4063,6 +4073,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnAudioInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.115
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::AudioInstance> p_instance_remote{};
       ArcBridgeHost_OnAudioInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4080,8 +4092,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAudioInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAudioInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnAuthInstanceReady_Name: {
@@ -4091,6 +4103,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnAuthInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.106
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::AuthInstance> p_instance_remote{};
       ArcBridgeHost_OnAuthInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4108,8 +4122,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthInstanceReady(
-std::move(p_instance_remote));
+      impl->OnAuthInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnBackupSettingsInstanceReady_Name: {
@@ -4119,6 +4133,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnBackupSettingsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.138
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::BackupSettingsInstance> p_instance_remote{};
       ArcBridgeHost_OnBackupSettingsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4136,8 +4152,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBackupSettingsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnBackupSettingsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnBluetoothInstanceReady_Name: {
@@ -4147,6 +4163,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnBluetoothInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.113
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::BluetoothInstance> p_instance_remote{};
       ArcBridgeHost_OnBluetoothInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4164,8 +4182,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBluetoothInstanceReady(
-std::move(p_instance_remote));
+      impl->OnBluetoothInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnBootPhaseMonitorInstanceReady_Name: {
@@ -4175,6 +4193,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnBootPhaseMonitorInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.125
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::BootPhaseMonitorInstance> p_instance_remote{};
       ArcBridgeHost_OnBootPhaseMonitorInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4192,8 +4212,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBootPhaseMonitorInstanceReady(
-std::move(p_instance_remote));
+      impl->OnBootPhaseMonitorInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnCameraInstanceReady_Name: {
@@ -4203,6 +4223,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnCameraInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.151
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::CameraInstance> p_instance_remote{};
       ArcBridgeHost_OnCameraInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4220,8 +4242,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCameraInstanceReady(
-std::move(p_instance_remote));
+      impl->OnCameraInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnChromeFeatureFlagsInstanceReady_Name: {
@@ -4231,6 +4253,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnChromeFeatureFlagsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.170
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::ChromeFeatureFlagsInstance> p_instance_remote{};
       ArcBridgeHost_OnChromeFeatureFlagsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4248,8 +4272,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnChromeFeatureFlagsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnChromeFeatureFlagsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnClipboardInstanceReady_Name: {
@@ -4259,6 +4283,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnClipboardInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.109
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::ClipboardInstance> p_instance_remote{};
       ArcBridgeHost_OnClipboardInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4276,8 +4302,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClipboardInstanceReady(
-std::move(p_instance_remote));
+      impl->OnClipboardInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnCompatibilityModeInstanceReady_Name: {
@@ -4287,6 +4313,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnCompatibilityModeInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.161
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::CompatibilityModeInstance> p_instance_remote{};
       ArcBridgeHost_OnCompatibilityModeInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4304,8 +4332,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompatibilityModeInstanceReady(
-std::move(p_instance_remote));
+      impl->OnCompatibilityModeInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnCrashCollectorInstanceReady_Name: {
@@ -4315,6 +4343,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnCrashCollectorInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.112
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::CrashCollectorInstance> p_instance_remote{};
       ArcBridgeHost_OnCrashCollectorInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4332,8 +4362,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCrashCollectorInstanceReady(
-std::move(p_instance_remote));
+      impl->OnCrashCollectorInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnDigitalGoodsInstanceReady_Name: {
@@ -4343,6 +4373,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnDigitalGoodsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.156
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::DigitalGoodsInstance> p_instance_remote{};
       ArcBridgeHost_OnDigitalGoodsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4360,8 +4392,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDigitalGoodsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnDigitalGoodsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnDiskQuotaInstanceReady_Name: {
@@ -4371,6 +4403,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnDiskQuotaInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.144
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::DiskQuotaInstance> p_instance_remote{};
       ArcBridgeHost_OnDiskQuotaInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4388,8 +4422,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiskQuotaInstanceReady(
-std::move(p_instance_remote));
+      impl->OnDiskQuotaInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnEnterpriseReportingInstanceReady_Name: {
@@ -4399,6 +4433,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnEnterpriseReportingInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.122
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::EnterpriseReportingInstance> p_instance_remote{};
       ArcBridgeHost_OnEnterpriseReportingInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4416,8 +4452,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnterpriseReportingInstanceReady(
-std::move(p_instance_remote));
+      impl->OnEnterpriseReportingInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnFileSystemInstanceReady_Name: {
@@ -4427,6 +4463,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnFileSystemInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.119
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::FileSystemInstance> p_instance_remote{};
       ArcBridgeHost_OnFileSystemInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4444,8 +4482,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFileSystemInstanceReady(
-std::move(p_instance_remote));
+      impl->OnFileSystemInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnIioSensorInstanceReady_Name: {
@@ -4455,6 +4493,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnIioSensorInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.159
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::IioSensorInstance> p_instance_remote{};
       ArcBridgeHost_OnIioSensorInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4472,8 +4512,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIioSensorInstanceReady(
-std::move(p_instance_remote));
+      impl->OnIioSensorInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnImeInstanceReady_Name: {
@@ -4483,6 +4523,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnImeInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.110
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::ImeInstance> p_instance_remote{};
       ArcBridgeHost_OnImeInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4500,8 +4542,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImeInstanceReady(
-std::move(p_instance_remote));
+      impl->OnImeInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnInputMethodManagerInstanceReady_Name: {
@@ -4511,6 +4553,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnInputMethodManagerInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.143
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::InputMethodManagerInstance> p_instance_remote{};
       ArcBridgeHost_OnInputMethodManagerInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4528,8 +4572,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInputMethodManagerInstanceReady(
-std::move(p_instance_remote));
+      impl->OnInputMethodManagerInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnIntentHelperInstanceReady_Name: {
@@ -4539,6 +4583,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnIntentHelperInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.111
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::IntentHelperInstance> p_instance_remote{};
       ArcBridgeHost_OnIntentHelperInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4556,8 +4602,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIntentHelperInstanceReady(
-std::move(p_instance_remote));
+      impl->OnIntentHelperInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnKeyboardShortcutInstanceReady_Name: {
@@ -4567,6 +4613,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnKeyboardShortcutInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.165
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::KeyboardShortcutInstance> p_instance_remote{};
       ArcBridgeHost_OnKeyboardShortcutInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4584,8 +4632,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardShortcutInstanceReady(
-std::move(p_instance_remote));
+      impl->OnKeyboardShortcutInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnKeymasterInstanceReady_Name: {
@@ -4595,6 +4643,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnKeymasterInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.152
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::KeymasterInstance> p_instance_remote{};
       ArcBridgeHost_OnKeymasterInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4612,8 +4662,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeymasterInstanceReady(
-std::move(p_instance_remote));
+      impl->OnKeymasterInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnKeyMintInstanceReady_Name: {
@@ -4623,6 +4673,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnKeyMintInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.168
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::keymint::KeyMintInstance> p_instance_remote{};
       ArcBridgeHost_OnKeyMintInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4640,8 +4692,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyMintInstanceReady(
-std::move(p_instance_remote));
+      impl->OnKeyMintInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnKioskInstanceReady_Name: {
@@ -4651,6 +4703,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnKioskInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.126
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::KioskInstance> p_instance_remote{};
       ArcBridgeHost_OnKioskInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4668,8 +4722,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKioskInstanceReady(
-std::move(p_instance_remote));
+      impl->OnKioskInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name: {
@@ -4679,6 +4733,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnMediaSessionInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.148
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::MediaSessionInstance> p_instance_remote{};
       ArcBridgeHost_OnMediaSessionInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4696,8 +4752,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaSessionInstanceReady(
-std::move(p_instance_remote));
+      impl->OnMediaSessionInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnMemoryInstanceReady_Name: {
@@ -4707,6 +4763,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnMemoryInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.164
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::MemoryInstance> p_instance_remote{};
       ArcBridgeHost_OnMemoryInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4724,8 +4782,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMemoryInstanceReady(
-std::move(p_instance_remote));
+      impl->OnMemoryInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnMetricsInstanceReady_Name: {
@@ -4735,6 +4793,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnMetricsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.116
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::MetricsInstance> p_instance_remote{};
       ArcBridgeHost_OnMetricsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4752,8 +4812,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMetricsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnMetricsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnMidisInstanceReady_Name: {
@@ -4763,6 +4823,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnMidisInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.135
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::MidisInstance> p_instance_remote{};
       ArcBridgeHost_OnMidisInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4780,8 +4842,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMidisInstanceReady(
-std::move(p_instance_remote));
+      impl->OnMidisInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnNearbyShareInstanceReady_Name: {
@@ -4791,6 +4853,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnNearbyShareInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.163
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::NearbyShareInstance> p_instance_remote{};
       ArcBridgeHost_OnNearbyShareInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4808,8 +4872,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNearbyShareInstanceReady(
-std::move(p_instance_remote));
+      impl->OnNearbyShareInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnNetInstanceReady_Name: {
@@ -4819,6 +4883,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnNetInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.108
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::NetInstance> p_instance_remote{};
       ArcBridgeHost_OnNetInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4836,8 +4902,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetInstanceReady(
-std::move(p_instance_remote));
+      impl->OnNetInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnNotificationsInstanceReady_Name: {
@@ -4847,6 +4913,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnNotificationsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.102
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::NotificationsInstance> p_instance_remote{};
       ArcBridgeHost_OnNotificationsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4864,8 +4932,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnNotificationsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnObbMounterInstanceReady_Name: {
@@ -4875,6 +4943,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnObbMounterInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.120
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::ObbMounterInstance> p_instance_remote{};
       ArcBridgeHost_OnObbMounterInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4892,8 +4962,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnObbMounterInstanceReady(
-std::move(p_instance_remote));
+      impl->OnObbMounterInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnOemCryptoInstanceReady_Name: {
@@ -4903,6 +4973,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnOemCryptoInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.133
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::OemCryptoInstance> p_instance_remote{};
       ArcBridgeHost_OnOemCryptoInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4920,8 +4992,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOemCryptoInstanceReady(
-std::move(p_instance_remote));
+      impl->OnOemCryptoInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPaymentAppInstanceReady_Name: {
@@ -4931,6 +5003,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPaymentAppInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.155
       bool success = true;
       ::mojo::PendingRemote<::chromeos::payments::mojom::PaymentAppInstance> p_instance_remote{};
       ArcBridgeHost_OnPaymentAppInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4948,8 +5022,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPaymentAppInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPaymentAppInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPipInstanceReady_Name: {
@@ -4959,6 +5033,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPipInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.146
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::PipInstance> p_instance_remote{};
       ArcBridgeHost_OnPipInstanceReady_ParamsDataView input_data_view(params, message);
@@ -4976,8 +5052,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPipInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPipInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPolicyInstanceReady_Name: {
@@ -4987,6 +5063,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPolicyInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.114
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::PolicyInstance> p_instance_remote{};
       ArcBridgeHost_OnPolicyInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5004,8 +5082,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPolicyInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPolicyInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPowerInstanceReady_Name: {
@@ -5015,6 +5093,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPowerInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.103
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::PowerInstance> p_instance_remote{};
       ArcBridgeHost_OnPowerInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5032,8 +5112,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPowerInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPowerInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPrintSpoolerInstanceReady_Name: {
@@ -5043,6 +5123,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPrintSpoolerInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.150
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::PrintSpoolerInstance> p_instance_remote{};
       ArcBridgeHost_OnPrintSpoolerInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5060,8 +5142,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintSpoolerInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPrintSpoolerInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPrivacyItemsInstanceReady_Name: {
@@ -5071,6 +5153,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPrivacyItemsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.166
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::PrivacyItemsInstance> p_instance_remote{};
       ArcBridgeHost_OnPrivacyItemsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5088,8 +5172,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrivacyItemsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPrivacyItemsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnProcessInstanceReady_Name: {
@@ -5099,6 +5183,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnProcessInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.104
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::ProcessInstance> p_instance_remote{};
       ArcBridgeHost_OnProcessInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5116,8 +5202,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProcessInstanceReady(
-std::move(p_instance_remote));
+      impl->OnProcessInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnPropertyInstanceReady_Name: {
@@ -5127,6 +5213,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnPropertyInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.147
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::PropertyInstance> p_instance_remote{};
       ArcBridgeHost_OnPropertyInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5144,8 +5232,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPropertyInstanceReady(
-std::move(p_instance_remote));
+      impl->OnPropertyInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnScreenCaptureInstanceReady_Name: {
@@ -5155,6 +5243,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnScreenCaptureInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.140
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::ScreenCaptureInstance> p_instance_remote{};
       ArcBridgeHost_OnScreenCaptureInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5172,8 +5262,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenCaptureInstanceReady(
-std::move(p_instance_remote));
+      impl->OnScreenCaptureInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnSharesheetInstanceReady_Name: {
@@ -5183,6 +5273,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnSharesheetInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.157
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::SharesheetInstance> p_instance_remote{};
       ArcBridgeHost_OnSharesheetInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5200,8 +5292,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSharesheetInstanceReady(
-std::move(p_instance_remote));
+      impl->OnSharesheetInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnStorageManagerInstanceReady_Name: {
@@ -5211,6 +5303,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnStorageManagerInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.118
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::StorageManagerInstance> p_instance_remote{};
       ArcBridgeHost_OnStorageManagerInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5228,8 +5322,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStorageManagerInstanceReady(
-std::move(p_instance_remote));
+      impl->OnStorageManagerInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnSystemStateInstanceReady_Name: {
@@ -5239,6 +5333,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnSystemStateInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.169
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::SystemStateInstance> p_instance_remote{};
       ArcBridgeHost_OnSystemStateInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5256,8 +5352,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSystemStateInstanceReady(
-std::move(p_instance_remote));
+      impl->OnSystemStateInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnSystemUiInstanceReady_Name: {
@@ -5267,6 +5363,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnSystemUiInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.167
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::SystemUiInstance> p_instance_remote{};
       ArcBridgeHost_OnSystemUiInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5284,8 +5382,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSystemUiInstanceReady(
-std::move(p_instance_remote));
+      impl->OnSystemUiInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnTimerInstanceReady_Name: {
@@ -5295,6 +5393,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnTimerInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.141
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::TimerInstance> p_instance_remote{};
       ArcBridgeHost_OnTimerInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5312,8 +5412,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTimerInstanceReady(
-std::move(p_instance_remote));
+      impl->OnTimerInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnTracingInstanceReady_Name: {
@@ -5323,6 +5423,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnTracingInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.128
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::TracingInstance> p_instance_remote{};
       ArcBridgeHost_OnTracingInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5340,8 +5442,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTracingInstanceReady(
-std::move(p_instance_remote));
+      impl->OnTracingInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnTtsInstanceReady_Name: {
@@ -5351,6 +5453,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnTtsInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.123
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::TtsInstance> p_instance_remote{};
       ArcBridgeHost_OnTtsInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5368,8 +5472,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTtsInstanceReady(
-std::move(p_instance_remote));
+      impl->OnTtsInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnUsbHostInstanceReady_Name: {
@@ -5379,6 +5483,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnUsbHostInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.139
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::UsbHostInstance> p_instance_remote{};
       ArcBridgeHost_OnUsbHostInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5396,8 +5502,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUsbHostInstanceReady(
-std::move(p_instance_remote));
+      impl->OnUsbHostInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnVideoInstanceReady_Name: {
@@ -5407,6 +5513,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnVideoInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.107
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::VideoInstance> p_instance_remote{};
       ArcBridgeHost_OnVideoInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5424,8 +5532,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoInstanceReady(
-std::move(p_instance_remote));
+      impl->OnVideoInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnVolumeMounterInstanceReady_Name: {
@@ -5435,6 +5543,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnVolumeMounterInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.131
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::VolumeMounterInstance> p_instance_remote{};
       ArcBridgeHost_OnVolumeMounterInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5452,8 +5562,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVolumeMounterInstanceReady(
-std::move(p_instance_remote));
+      impl->OnVolumeMounterInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnWakeLockInstanceReady_Name: {
@@ -5463,6 +5573,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnWakeLockInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.142
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::WakeLockInstance> p_instance_remote{};
       ArcBridgeHost_OnWakeLockInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5480,8 +5592,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWakeLockInstanceReady(
-std::move(p_instance_remote));
+      impl->OnWakeLockInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnWallpaperInstanceReady_Name: {
@@ -5491,6 +5603,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnWallpaperInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.124
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::WallpaperInstance> p_instance_remote{};
       ArcBridgeHost_OnWallpaperInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5508,8 +5622,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWallpaperInstanceReady(
-std::move(p_instance_remote));
+      impl->OnWallpaperInstanceReady(        
+        std::move(p_instance_remote));
       return true;
     }
     case internal::kArcBridgeHost_OnWebApkInstanceReady_Name: {
@@ -5519,6 +5633,8 @@ std::move(p_instance_remote));
           reinterpret_cast<internal::ArcBridgeHost_OnWebApkInstanceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcBridgeHost.162
       bool success = true;
       ::mojo::PendingRemote<::arc::mojom::WebApkInstance> p_instance_ptr{};
       ArcBridgeHost_OnWebApkInstanceReady_ParamsDataView input_data_view(params, message);
@@ -5536,8 +5652,8 @@ std::move(p_instance_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWebApkInstanceReady(
-std::move(p_instance_ptr));
+      impl->OnWebApkInstanceReady(        
+        std::move(p_instance_ptr));
       return true;
     }
   }

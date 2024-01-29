@@ -42,6 +42,22 @@ class  MediaMetricsProvider_Initialize_Params_Data {
 };
 static_assert(sizeof(MediaMetricsProvider_Initialize_Params_Data) == 24,
               "Bad sizeof(MediaMetricsProvider_Initialize_Params_Data)");
+class  MediaMetricsProvider_OnStarted_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::media::mojom::internal::PipelineStatus_Data> status;
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaMetricsProvider_OnStarted_Params_Data>;
+
+  MediaMetricsProvider_OnStarted_Params_Data();
+  ~MediaMetricsProvider_OnStarted_Params_Data() = delete;
+};
+static_assert(sizeof(MediaMetricsProvider_OnStarted_Params_Data) == 16,
+              "Bad sizeof(MediaMetricsProvider_OnStarted_Params_Data)");
 class  MediaMetricsProvider_OnError_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -422,6 +438,32 @@ class MediaMetricsProvider_Initialize_ParamsDataView {
   }
  private:
   internal::MediaMetricsProvider_Initialize_Params_Data* data_ = nullptr;
+};
+
+
+class MediaMetricsProvider_OnStarted_ParamsDataView {
+ public:
+  MediaMetricsProvider_OnStarted_ParamsDataView() = default;
+
+  MediaMetricsProvider_OnStarted_ParamsDataView(
+      internal::MediaMetricsProvider_OnStarted_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStatusDataView(
+      ::media::mojom::PipelineStatusDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) {
+    
+    auto* pointer = data_->status.Get();
+    return mojo::internal::Deserialize<::media::mojom::PipelineStatusDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MediaMetricsProvider_OnStarted_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -927,6 +969,13 @@ class MediaMetricsProvider_SetAudioPipelineInfo_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+
+inline void MediaMetricsProvider_OnStarted_ParamsDataView::GetStatusDataView(
+    ::media::mojom::PipelineStatusDataView* output) {
+  auto pointer = data_->status.Get();
+  *output = ::media::mojom::PipelineStatusDataView(pointer, message_);
+}
 
 
 inline void MediaMetricsProvider_OnError_ParamsDataView::GetStatusDataView(

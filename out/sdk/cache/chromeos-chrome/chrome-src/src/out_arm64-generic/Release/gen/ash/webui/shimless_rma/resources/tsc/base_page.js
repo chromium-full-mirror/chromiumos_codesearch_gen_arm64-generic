@@ -15,13 +15,5 @@ export class BasePageElement extends PolymerElement {
     static get template() {
         return getTemplate();
     }
-    /** @override */
-    constructor() {
-        super();
-    }
-    /** @override */
-    ready() {
-        super.ready();
-    }
 }
 customElements.define(BasePageElement.is, BasePageElement);

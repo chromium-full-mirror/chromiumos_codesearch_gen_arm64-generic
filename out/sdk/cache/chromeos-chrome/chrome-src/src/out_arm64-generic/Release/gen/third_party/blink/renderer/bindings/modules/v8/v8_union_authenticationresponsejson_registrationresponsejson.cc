@@ -46,7 +46,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionAuthenticationResponseJSONOrRegistrationResponseJSON::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionAuthenticationResponseJSONOrRegistrationResponseJSON::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kAuthenticationResponseJSON: {
     return ToV8Traits<AuthenticationResponseJSON>::ToV8(script_state, member_authentication_response_js_on_.Get());
@@ -57,7 +57,7 @@ v8::MaybeLocal<v8::Value> V8UnionAuthenticationResponseJSONOrRegistrationRespons
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionAuthenticationResponseJSONOrRegistrationResponseJSON::Trace(Visitor* visitor) const {

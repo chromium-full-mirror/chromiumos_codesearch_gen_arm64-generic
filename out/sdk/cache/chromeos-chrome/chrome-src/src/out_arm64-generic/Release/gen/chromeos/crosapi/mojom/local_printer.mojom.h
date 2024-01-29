@@ -117,7 +117,7 @@ class PrintJobObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 11777680830234184726ULL,
                                       9707869230507575248ULL };
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -130,12 +130,16 @@ class PrintJobObserver
   using RequestValidator_ = PrintJobObserverRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kOnPrintJobUpdateMinVersion = 0,
+    kOnPrintJobUpdateDeprecatedMinVersion = 0,
+    kOnPrintJobUpdateMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct OnPrintJobUpdateDeprecated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct OnPrintJobUpdate_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -143,7 +147,10 @@ class PrintJobObserver
   virtual ~PrintJobObserver() = default;
 
   
-  virtual void OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) = 0;
+  virtual void OnPrintJobUpdateDeprecated(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) = 0;
+
+  
+  virtual void OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobUpdatePtr update) = 0;
 };
 
 class LocalPrintersObserverProxy;
@@ -411,7 +418,9 @@ class  PrintJobObserverProxy
 
   explicit PrintJobObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) final;
+  void OnPrintJobUpdateDeprecated(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) final;
+  
+  void OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobUpdatePtr update) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -815,6 +824,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
+
+
+class  PrintJobUpdate {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PrintJobUpdate, T>::value>;
+  using DataView = PrintJobUpdateDataView;
+  using Data_ = internal::PrintJobUpdate_Data;
+
+  template <typename... Args>
+  static PrintJobUpdatePtr New(Args&&... args) {
+    return PrintJobUpdatePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PrintJobUpdatePtr From(const U& u) {
+    return mojo::TypeConverter<PrintJobUpdatePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PrintJobUpdate>::Convert(*this);
+  }
+
+
+  PrintJobUpdate();
+
+  PrintJobUpdate(
+      PrintJobStatus status,
+      uint32_t pages_printed);
+
+
+  ~PrintJobUpdate();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PrintJobUpdatePtr>
+  PrintJobUpdatePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PrintJobUpdate::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PrintJobUpdate::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PrintJobUpdate_UnserializedMessageContext<
+            UserType, PrintJobUpdate::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PrintJobUpdate::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PrintJobUpdate::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PrintJobUpdate_UnserializedMessageContext<
+            UserType, PrintJobUpdate::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PrintJobUpdate::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  PrintJobStatus status;
+  
+  uint32_t pages_printed;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -2554,6 +2707,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 template <typename UnionPtrType>
 GetOAuthAccessTokenResultPtr GetOAuthAccessTokenResult::Clone() const {
   switch (tag_) {
@@ -3066,6 +3220,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+PrintJobUpdatePtr PrintJobUpdate::Clone() const {
+  return New(
+      mojo::Clone(status),
+      mojo::Clone(pages_printed)
+  );
+}
+
+template <typename T, PrintJobUpdate::EnableIfSame<T>*>
+bool PrintJobUpdate::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->status, other_struct.status))
+    return false;
+  if (!mojo::Equals(this->pages_printed, other_struct.pages_printed))
+    return false;
+  return true;
+}
+
+template <typename T, PrintJobUpdate::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.status < rhs.status)
+    return true;
+  if (rhs.status < lhs.status)
+    return false;
+  if (lhs.pages_printed < rhs.pages_printed)
+    return true;
+  if (rhs.pages_printed < lhs.pages_printed)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 OAuthNotNeededPtr OAuthNotNeeded::Clone() const {
   return New(
   );
@@ -3456,6 +3639,26 @@ struct  StructTraits<::crosapi::mojom::Policies::DataView,
   }
 
   static bool Read(::crosapi::mojom::Policies::DataView input, ::crosapi::mojom::PoliciesPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::PrintJobUpdate::DataView,
+                                         ::crosapi::mojom::PrintJobUpdatePtr> {
+  static bool IsNull(const ::crosapi::mojom::PrintJobUpdatePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::PrintJobUpdatePtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::PrintJobUpdate::status) status(
+      const ::crosapi::mojom::PrintJobUpdatePtr& input) {
+    return input->status;
+  }
+
+  static decltype(::crosapi::mojom::PrintJobUpdate::pages_printed) pages_printed(
+      const ::crosapi::mojom::PrintJobUpdatePtr& input) {
+    return input->pages_printed;
+  }
+
+  static bool Read(::crosapi::mojom::PrintJobUpdate::DataView input, ::crosapi::mojom::PrintJobUpdatePtr* output);
 };
 
 

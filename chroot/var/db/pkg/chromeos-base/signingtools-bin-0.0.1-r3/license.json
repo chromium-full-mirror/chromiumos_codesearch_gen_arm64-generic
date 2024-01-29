@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "signingtools-bin", "version": "0.0.1", "revision": 3, "fullname": "chromeos-base/signingtools-bin", "fullnamerev": "chromeos-base/signingtools-bin-0.0.1-r3", "license_names": ["BSD-Google", "GPL-2"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

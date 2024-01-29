@@ -856,6 +856,8 @@ bool ImeHost_SendKeyEvent_ForwardToCallback::Accept(
           internal::ImeHost_SendKeyEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImeHost.7
   bool success = true;
   bool p_is_consumed{};
   ImeHost_SendKeyEvent_ResponseParamsDataView input_data_view(params, message);
@@ -930,6 +932,8 @@ bool ImeHostStubDispatch::Accept(
           reinterpret_cast<internal::ImeHost_OnTextInputTypeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeHost.0
       bool success = true;
       ::ui::TextInputType p_type{};
       bool p_is_personalized_learning_allowed{};
@@ -951,10 +955,10 @@ bool ImeHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTextInputTypeChanged(
-std::move(p_type), 
-std::move(p_is_personalized_learning_allowed), 
-std::move(p_flags));
+      impl->OnTextInputTypeChanged(        
+        std::move(p_type), 
+        std::move(p_is_personalized_learning_allowed), 
+        std::move(p_flags));
       return true;
     }
     case internal::kImeHost_OnCursorRectChanged_Name: {
@@ -964,6 +968,8 @@ std::move(p_flags));
           reinterpret_cast<internal::ImeHost_OnCursorRectChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeHost.8
       bool success = true;
       ::gfx::Rect p_rect{};
       CursorCoordinateSpace p_coordinateSpace{};
@@ -982,9 +988,9 @@ std::move(p_flags));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCursorRectChanged(
-std::move(p_rect), 
-std::move(p_coordinateSpace));
+      impl->OnCursorRectChanged(        
+        std::move(p_rect), 
+        std::move(p_coordinateSpace));
       return true;
     }
     case internal::kImeHost_OnCancelComposition_Name: {
@@ -994,6 +1000,8 @@ std::move(p_coordinateSpace));
           reinterpret_cast<internal::ImeHost_OnCancelComposition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeHost.2
       bool success = true;
       ImeHost_OnCancelComposition_ParamsDataView input_data_view(params, message);
       
@@ -1006,7 +1014,7 @@ std::move(p_coordinateSpace));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCancelComposition();
+      impl->OnCancelComposition(        );
       return true;
     }
     case internal::kImeHost_ShowVirtualKeyboardIfEnabled_Name: {
@@ -1016,6 +1024,8 @@ std::move(p_coordinateSpace));
           reinterpret_cast<internal::ImeHost_ShowVirtualKeyboardIfEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeHost.3
       bool success = true;
       ImeHost_ShowVirtualKeyboardIfEnabled_ParamsDataView input_data_view(params, message);
       
@@ -1028,7 +1038,7 @@ std::move(p_coordinateSpace));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowVirtualKeyboardIfEnabled();
+      impl->ShowVirtualKeyboardIfEnabled(        );
       return true;
     }
     case internal::kImeHost_OnCursorRectChangedWithSurroundingText_Name: {
@@ -1038,6 +1048,8 @@ std::move(p_coordinateSpace));
           reinterpret_cast<internal::ImeHost_OnCursorRectChangedWithSurroundingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeHost.9
       bool success = true;
       ::gfx::Rect p_rect{};
       ::gfx::Range p_text_range{};
@@ -1065,12 +1077,12 @@ std::move(p_coordinateSpace));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCursorRectChangedWithSurroundingText(
-std::move(p_rect), 
-std::move(p_text_range), 
-std::move(p_text_in_range), 
-std::move(p_selection_range), 
-std::move(p_coordinateSpace));
+      impl->OnCursorRectChangedWithSurroundingText(        
+        std::move(p_rect), 
+        std::move(p_text_range), 
+        std::move(p_text_in_range), 
+        std::move(p_selection_range), 
+        std::move(p_coordinateSpace));
       return true;
     }
     case internal::kImeHost_SendKeyEvent_Name: {
@@ -1111,6 +1123,8 @@ bool ImeHostStubDispatch::AcceptWithResponder(
               internal::ImeHost_SendKeyEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImeHost.7
       bool success = true;
       ::std::unique_ptr<::ui::KeyEvent> p_key_event_data{};
       ImeHost_SendKeyEvent_ParamsDataView input_data_view(params, message);
@@ -1129,8 +1143,8 @@ bool ImeHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendKeyEvent(
-std::move(p_key_event_data), std::move(callback));
+      impl->SendKeyEvent(        
+        std::move(p_key_event_data), std::move(callback));
       return true;
     }
   }
@@ -1852,6 +1866,8 @@ bool ImeInstance_Init_ForwardToCallback::Accept(
           internal::ImeInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImeInstance.6
   bool success = true;
   ImeInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1917,6 +1933,8 @@ bool ImeInstanceStubDispatch::Accept(
           reinterpret_cast<internal::ImeInstance_SetCompositionText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.1
       bool success = true;
       std::string p_text{};
       std::vector<CompositionSegmentPtr> p_segments{};
@@ -1938,10 +1956,10 @@ bool ImeInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCompositionText(
-std::move(p_text), 
-std::move(p_segments), 
-std::move(p_selection_range));
+      impl->SetCompositionText(        
+        std::move(p_text), 
+        std::move(p_segments), 
+        std::move(p_selection_range));
       return true;
     }
     case internal::kImeInstance_SetSelectionText_Name: {
@@ -1951,6 +1969,8 @@ std::move(p_selection_range));
           reinterpret_cast<internal::ImeInstance_SetSelectionText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.7
       bool success = true;
       ::gfx::Range p_selection{};
       ImeInstance_SetSelectionText_ParamsDataView input_data_view(params, message);
@@ -1966,8 +1986,8 @@ std::move(p_selection_range));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSelectionText(
-std::move(p_selection));
+      impl->SetSelectionText(        
+        std::move(p_selection));
       return true;
     }
     case internal::kImeInstance_ConfirmCompositionText_Name: {
@@ -1977,6 +1997,8 @@ std::move(p_selection));
           reinterpret_cast<internal::ImeInstance_ConfirmCompositionText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.2
       bool success = true;
       ImeInstance_ConfirmCompositionText_ParamsDataView input_data_view(params, message);
       
@@ -1989,7 +2011,7 @@ std::move(p_selection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfirmCompositionText();
+      impl->ConfirmCompositionText(        );
       return true;
     }
     case internal::kImeInstance_InsertText_Name: {
@@ -1999,6 +2021,8 @@ std::move(p_selection));
           reinterpret_cast<internal::ImeInstance_InsertText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.3
       bool success = true;
       std::string p_text{};
       int32_t p_new_cursor_position{};
@@ -2017,9 +2041,9 @@ std::move(p_selection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InsertText(
-std::move(p_text), 
-std::move(p_new_cursor_position));
+      impl->InsertText(        
+        std::move(p_text), 
+        std::move(p_new_cursor_position));
       return true;
     }
     case internal::kImeInstance_OnKeyboardAppearanceChanging_Name: {
@@ -2029,6 +2053,8 @@ std::move(p_new_cursor_position));
           reinterpret_cast<internal::ImeInstance_OnKeyboardAppearanceChanging_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.4
       bool success = true;
       ::gfx::Rect p_new_bounds{};
       bool p_is_available{};
@@ -2047,9 +2073,9 @@ std::move(p_new_cursor_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardAppearanceChanging(
-std::move(p_new_bounds), 
-std::move(p_is_available));
+      impl->OnKeyboardAppearanceChanging(        
+        std::move(p_new_bounds), 
+        std::move(p_is_available));
       return true;
     }
     case internal::kImeInstance_ExtendSelectionAndDelete_Name: {
@@ -2059,6 +2085,8 @@ std::move(p_is_available));
           reinterpret_cast<internal::ImeInstance_ExtendSelectionAndDelete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.5
       bool success = true;
       uint64_t p_before{};
       uint64_t p_after{};
@@ -2077,9 +2105,9 @@ std::move(p_is_available));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtendSelectionAndDelete(
-std::move(p_before), 
-std::move(p_after));
+      impl->ExtendSelectionAndDelete(        
+        std::move(p_before), 
+        std::move(p_after));
       return true;
     }
     case internal::kImeInstance_SetComposingRegion_Name: {
@@ -2089,6 +2117,8 @@ std::move(p_after));
           reinterpret_cast<internal::ImeInstance_SetComposingRegion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImeInstance.8
       bool success = true;
       ::gfx::Range p_range{};
       ImeInstance_SetComposingRegion_ParamsDataView input_data_view(params, message);
@@ -2104,8 +2134,8 @@ std::move(p_after));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetComposingRegion(
-std::move(p_range));
+      impl->SetComposingRegion(        
+        std::move(p_range));
       return true;
     }
   }
@@ -2128,6 +2158,8 @@ bool ImeInstanceStubDispatch::AcceptWithResponder(
               internal::ImeInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImeInstance.6
       bool success = true;
       ::mojo::PendingRemote<ImeHost> p_host_remote{};
       ImeInstance_Init_ParamsDataView input_data_view(params, message);
@@ -2148,8 +2180,8 @@ bool ImeInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kImeInstance_SetCompositionText_Name: {

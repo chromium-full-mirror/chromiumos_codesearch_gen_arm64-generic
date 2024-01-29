@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Test-Fatal", "version": "0.17.0", "revision": 0, "fullname": "dev-perl/Test-Fatal", "fullnamerev": "dev-perl/Test-Fatal-0.17.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Test-Fatal"], "skip": false, "tainted": false, "ebuild_path": null}

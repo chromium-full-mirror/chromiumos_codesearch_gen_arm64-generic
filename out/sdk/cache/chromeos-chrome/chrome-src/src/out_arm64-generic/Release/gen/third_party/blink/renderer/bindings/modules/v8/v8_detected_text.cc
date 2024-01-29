@@ -86,30 +86,17 @@ bool DetectedText::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasBoundingBox()) {
-  if (!ToV8Traits<DOMRectReadOnly>::ToV8(script_state, member_bounding_box_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<DOMRectReadOnly>::ToV8(script_state, member_bounding_box_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasCornerPoints()) {
-  if (!ToV8Traits<IDLArray<Point2D>>::ToV8(script_state, member_corner_points_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLArray<Point2D>>::ToV8(script_state, member_corner_points_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasRawValue()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_raw_value_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_raw_value_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

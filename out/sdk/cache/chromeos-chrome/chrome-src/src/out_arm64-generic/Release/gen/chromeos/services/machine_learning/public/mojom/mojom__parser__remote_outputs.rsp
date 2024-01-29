@@ -1,0 +1,12 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/document_scanner.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/graph_executor.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/model.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/soda.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/tensor.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/text_classifier.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/text_suggester.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/web_platform_handwriting.mojom-module

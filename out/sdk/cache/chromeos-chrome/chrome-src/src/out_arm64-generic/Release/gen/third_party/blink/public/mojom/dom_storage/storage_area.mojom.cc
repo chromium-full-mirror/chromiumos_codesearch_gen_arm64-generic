@@ -572,6 +572,8 @@ bool StorageAreaObserverStubDispatch::Accept(
           reinterpret_cast<internal::StorageAreaObserver_KeyChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAreaObserver.0
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::vector<uint8_t> p_new_value{};
@@ -596,11 +598,11 @@ bool StorageAreaObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->KeyChanged(
-std::move(p_key), 
-std::move(p_new_value), 
-std::move(p_old_value), 
-std::move(p_source));
+      impl->KeyChanged(        
+        std::move(p_key), 
+        std::move(p_new_value), 
+        std::move(p_old_value), 
+        std::move(p_source));
       return true;
     }
     case internal::kStorageAreaObserver_KeyChangeFailed_Name: {
@@ -610,6 +612,8 @@ std::move(p_source));
           reinterpret_cast<internal::StorageAreaObserver_KeyChangeFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAreaObserver.1
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::string p_source{};
@@ -628,9 +632,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->KeyChangeFailed(
-std::move(p_key), 
-std::move(p_source));
+      impl->KeyChangeFailed(        
+        std::move(p_key), 
+        std::move(p_source));
       return true;
     }
     case internal::kStorageAreaObserver_KeyDeleted_Name: {
@@ -640,6 +644,8 @@ std::move(p_source));
           reinterpret_cast<internal::StorageAreaObserver_KeyDeleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAreaObserver.2
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::optional<std::vector<uint8_t>> p_old_value{};
@@ -661,10 +667,10 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->KeyDeleted(
-std::move(p_key), 
-std::move(p_old_value), 
-std::move(p_source));
+      impl->KeyDeleted(        
+        std::move(p_key), 
+        std::move(p_old_value), 
+        std::move(p_source));
       return true;
     }
     case internal::kStorageAreaObserver_AllDeleted_Name: {
@@ -674,6 +680,8 @@ std::move(p_source));
           reinterpret_cast<internal::StorageAreaObserver_AllDeleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAreaObserver.3
       bool success = true;
       bool p_was_nonempty{};
       std::string p_source{};
@@ -692,9 +700,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllDeleted(
-std::move(p_was_nonempty), 
-std::move(p_source));
+      impl->AllDeleted(        
+        std::move(p_was_nonempty), 
+        std::move(p_source));
       return true;
     }
     case internal::kStorageAreaObserver_ShouldSendOldValueOnMutations_Name: {
@@ -704,6 +712,8 @@ std::move(p_source));
           reinterpret_cast<internal::StorageAreaObserver_ShouldSendOldValueOnMutations_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageAreaObserver.4
       bool success = true;
       bool p_value{};
       StorageAreaObserver_ShouldSendOldValueOnMutations_ParamsDataView input_data_view(params, message);
@@ -719,8 +729,8 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShouldSendOldValueOnMutations(
-std::move(p_value));
+      impl->ShouldSendOldValueOnMutations(        
+        std::move(p_value));
       return true;
     }
   }
@@ -1526,6 +1536,8 @@ bool StorageArea_Put_ForwardToCallback::Accept(
           internal::StorageArea_Put_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageArea.1
   bool success = true;
   bool p_success{};
   StorageArea_Put_ResponseParamsDataView input_data_view(params, message);
@@ -1645,6 +1657,8 @@ bool StorageArea_Delete_ForwardToCallback::Accept(
           internal::StorageArea_Delete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageArea.2
   bool success = true;
   bool p_success{};
   StorageArea_Delete_ResponseParamsDataView input_data_view(params, message);
@@ -1764,6 +1778,8 @@ bool StorageArea_DeleteAll_ForwardToCallback::Accept(
           internal::StorageArea_DeleteAll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageArea.3
   bool success = true;
   bool p_success{};
   StorageArea_DeleteAll_ResponseParamsDataView input_data_view(params, message);
@@ -1883,6 +1899,8 @@ bool StorageArea_Get_ForwardToCallback::Accept(
           internal::StorageArea_Get_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageArea.4
   bool success = true;
   bool p_success{};
   std::vector<uint8_t> p_value{};
@@ -2022,6 +2040,8 @@ bool StorageArea_GetAll_ForwardToCallback::Accept(
           internal::StorageArea_GetAll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageArea.5
   bool success = true;
   std::vector<KeyValuePtr> p_data{};
   StorageArea_GetAll_ResponseParamsDataView input_data_view(params, message);
@@ -2103,6 +2123,8 @@ bool StorageArea_GetAll_HandleSyncResponse::Accept(
       reinterpret_cast<internal::StorageArea_GetAll_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for StorageArea.5
   bool success = true;
   std::vector<KeyValuePtr> p_data{};
   StorageArea_GetAll_ResponseParamsDataView input_data_view(params, message);
@@ -2133,6 +2155,8 @@ bool StorageAreaStubDispatch::Accept(
           reinterpret_cast<internal::StorageArea_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageArea.0
       bool success = true;
       ::mojo::PendingRemote<StorageAreaObserver> p_observer{};
       StorageArea_AddObserver_ParamsDataView input_data_view(params, message);
@@ -2150,8 +2174,8 @@ bool StorageAreaStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kStorageArea_Put_Name: {
@@ -2192,6 +2216,8 @@ bool StorageAreaStubDispatch::AcceptWithResponder(
               internal::StorageArea_Put_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageArea.1
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::vector<uint8_t> p_value{};
@@ -2219,11 +2245,11 @@ bool StorageAreaStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Put(
-std::move(p_key), 
-std::move(p_value), 
-std::move(p_client_old_value), 
-std::move(p_source), std::move(callback));
+      impl->Put(        
+        std::move(p_key), 
+        std::move(p_value), 
+        std::move(p_client_old_value), 
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kStorageArea_Delete_Name: {
@@ -2233,6 +2259,8 @@ std::move(p_source), std::move(callback));
               internal::StorageArea_Delete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageArea.2
       bool success = true;
       std::vector<uint8_t> p_key{};
       std::optional<std::vector<uint8_t>> p_client_old_value{};
@@ -2257,10 +2285,10 @@ std::move(p_source), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Delete(
-std::move(p_key), 
-std::move(p_client_old_value), 
-std::move(p_source), std::move(callback));
+      impl->Delete(        
+        std::move(p_key), 
+        std::move(p_client_old_value), 
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kStorageArea_DeleteAll_Name: {
@@ -2270,6 +2298,8 @@ std::move(p_source), std::move(callback));
               internal::StorageArea_DeleteAll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageArea.3
       bool success = true;
       std::string p_source{};
       ::mojo::PendingRemote<StorageAreaObserver> p_new_observer{};
@@ -2293,9 +2323,9 @@ std::move(p_source), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteAll(
-std::move(p_source), 
-std::move(p_new_observer), std::move(callback));
+      impl->DeleteAll(        
+        std::move(p_source), 
+        std::move(p_new_observer), std::move(callback));
       return true;
     }
     case internal::kStorageArea_Get_Name: {
@@ -2305,6 +2335,8 @@ std::move(p_new_observer), std::move(callback));
               internal::StorageArea_Get_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageArea.4
       bool success = true;
       std::vector<uint8_t> p_key{};
       StorageArea_Get_ParamsDataView input_data_view(params, message);
@@ -2323,8 +2355,8 @@ std::move(p_new_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Get(
-std::move(p_key), std::move(callback));
+      impl->Get(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kStorageArea_GetAll_Name: {
@@ -2334,6 +2366,8 @@ std::move(p_key), std::move(callback));
               internal::StorageArea_GetAll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageArea.5
       bool success = true;
       ::mojo::PendingRemote<StorageAreaObserver> p_new_observer{};
       StorageArea_GetAll_ParamsDataView input_data_view(params, message);
@@ -2354,8 +2388,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAll(
-std::move(p_new_observer), std::move(callback));
+      impl->GetAll(        
+        std::move(p_new_observer), std::move(callback));
       return true;
     }
   }

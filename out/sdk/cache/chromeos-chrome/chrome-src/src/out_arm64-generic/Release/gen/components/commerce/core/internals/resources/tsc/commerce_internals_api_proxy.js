@@ -23,8 +23,14 @@ export class CommerceInternalsApiProxy {
     resetPriceTrackingEmailPref() {
         this.handler.resetPriceTrackingEmailPref();
     }
+    getProductInfoForUrl(url) {
+        return this.handler.getProductInfoForUrl(url);
+    }
     getCallbackRouter() {
         return this.callbackRouter;
+    }
+    getSubscriptionDetails() {
+        return this.handler.getSubscriptionDetails();
     }
 }
 let instance = null;

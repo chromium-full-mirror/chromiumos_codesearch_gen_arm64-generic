@@ -16,6 +16,7 @@ namespace crosapi::mojom {
 class  TelemetryManagementServiceInterceptorForTesting : public TelemetryManagementService {
   virtual TelemetryManagementService* GetForwardingInterface() = 0;
   void SetAudioGain(uint64_t node_id, int32_t gain, SetAudioGainCallback callback) override;
+  void SetAudioVolume(uint64_t node_id, int32_t volume, bool is_muted, SetAudioVolumeCallback callback) override;
 };
 class  TelemetryManagementServiceAsyncWaiter {
  public:
@@ -26,8 +27,11 @@ class  TelemetryManagementServiceAsyncWaiter {
 
   ~TelemetryManagementServiceAsyncWaiter();
   void SetAudioGain(
-      uint64_t node_id, int32_t gain);
-  
+      uint64_t node_id, int32_t gain, bool* out_is_success);
+  bool SetAudioGain(uint64_t node_id, int32_t gain);
+  void SetAudioVolume(
+      uint64_t node_id, int32_t volume, bool is_muted, bool* out_is_success);
+  bool SetAudioVolume(uint64_t node_id, int32_t volume, bool is_muted);
 
  private:
   TelemetryManagementService* const proxy_;

@@ -8,6 +8,7 @@ import './memory_saver_card.js';
 import '../strings.m.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './app.html.js';
 import { PerformanceSidePanelNotification } from './performance.mojom-webui.js';
@@ -69,8 +70,12 @@ export class PerformanceAppElement extends PolymerElement {
     }
     connectedCallback() {
         super.connectedCallback();
-        // Inform the handler that listeners are registered.
-        setTimeout(() => this.performanceApi_.showUi(), 0);
+        // Wait until the first rendering of the side panel before showing the
+        // side panel. Best practices for side panels require that content be
+        // loaded before the side panel is shown to follow Native UI standards.
+        listenOnce(this.$.performanceControlsContainer, 'dom-change', () => {
+            setTimeout(() => this.performanceApi_.showUi(), 0);
+        });
     }
     isEqualTo(a, b) {
         return a === b;

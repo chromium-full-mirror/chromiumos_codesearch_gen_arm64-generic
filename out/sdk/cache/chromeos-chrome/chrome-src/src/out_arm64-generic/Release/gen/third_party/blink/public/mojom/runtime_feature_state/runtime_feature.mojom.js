@@ -23,13 +23,14 @@
 
   var RuntimeFeature = {};
   RuntimeFeature.kBlinkExtensionChromeOS = 0;
-  RuntimeFeature.kBlinkExtensionDiagnostics = 1;
-  RuntimeFeature.kDisableThirdPartyStoragePartitioning = 2;
-  RuntimeFeature.kFedCmIdpSigninStatus = 3;
-  RuntimeFeature.kOriginTrialsSampleAPIBrowserReadWrite = 4;
-  RuntimeFeature.kTestFeature = 5;
+  RuntimeFeature.kBlinkExtensionChromeOSKiosk = 1;
+  RuntimeFeature.kBlinkExtensionDiagnostics = 2;
+  RuntimeFeature.kDisableThirdPartyStoragePartitioning = 3;
+  RuntimeFeature.kFedCmIdpSigninStatus = 4;
+  RuntimeFeature.kOriginTrialsSampleAPIBrowserReadWrite = 5;
+  RuntimeFeature.kTestFeature = 6;
   RuntimeFeature.MIN_VALUE = 0;
-  RuntimeFeature.MAX_VALUE = 5;
+  RuntimeFeature.MAX_VALUE = 6;
 
   RuntimeFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -39,6 +40,7 @@
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     }
     return false;

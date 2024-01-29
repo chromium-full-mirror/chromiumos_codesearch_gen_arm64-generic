@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/schemeful_site.mojom', '../../../../../services/network/public/mojom/schemeful_site.mojom.js');
   }
+  var permissions_policy$ =
+      mojo.internal.exposeNamespace('blink.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom', '../permissions_policy/permissions_policy.mojom.js');
+  }
   var permissions_policy_feature$ =
       mojo.internal.exposeNamespace('blink.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -376,6 +382,72 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function ParentPermissionsInfo(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  ParentPermissionsInfo.prototype.initDefaults_ = function() {
+    this.parsedPermissionsPolicy = null;
+    this.origin = null;
+  };
+  ParentPermissionsInfo.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  ParentPermissionsInfo.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ParentPermissionsInfo.parsedPermissionsPolicy
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(permissions_policy$.ParsedPermissionsPolicyDeclaration), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate ParentPermissionsInfo.origin
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, origin$.Origin, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  ParentPermissionsInfo.encodedSize = codec.kStructHeaderSize + 16;
+
+  ParentPermissionsInfo.decode = function(decoder) {
+    var packed;
+    var val = new ParentPermissionsInfo();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.parsedPermissionsPolicy =
+        decoder.decodeArrayPointer(new codec.PointerTo(permissions_policy$.ParsedPermissionsPolicyDeclaration));
+    val.origin =
+        decoder.decodeStructPointer(origin$.Origin);
+    return val;
+  };
+
+  ParentPermissionsInfo.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(ParentPermissionsInfo.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(new codec.PointerTo(permissions_policy$.ParsedPermissionsPolicyDeclaration), val.parsedPermissionsPolicy);
+    encoder.encodeStructPointer(origin$.Origin, val.origin);
+  };
   function FencedFrameConfig(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -393,6 +465,7 @@
     this.urnUuid = null;
     this.mode = 0;
     this.effectiveEnabledPermissions = null;
+    this.parentPermissionsInfo = null;
   };
   FencedFrameConfig.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -408,7 +481,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 144}
+      {version: 0, numBytes: 152}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -474,10 +547,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate FencedFrameConfig.parentPermissionsInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 136, ParentPermissionsInfo, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  FencedFrameConfig.encodedSize = codec.kStructHeaderSize + 136;
+  FencedFrameConfig.encodedSize = codec.kStructHeaderSize + 144;
 
   FencedFrameConfig.decode = function(decoder) {
     var packed;
@@ -508,6 +587,8 @@
     decoder.skip(1);
     val.effectiveEnabledPermissions =
         decoder.decodeArrayPointer(new codec.Enum(permissions_policy_feature$.PermissionsPolicyFeature));
+    val.parentPermissionsInfo =
+        decoder.decodeStructPointer(ParentPermissionsInfo);
     return val;
   };
 
@@ -529,6 +610,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeArrayPointer(new codec.Enum(permissions_policy_feature$.PermissionsPolicyFeature), val.effectiveEnabledPermissions);
+    encoder.encodeStructPointer(ParentPermissionsInfo, val.parentPermissionsInfo);
   };
   function FencedFrameProperties(values) {
     this.initDefaults_();
@@ -545,8 +627,10 @@
     this.nestedUrnConfigPairs = null;
     this.sharedStorageBudgetMetadata = null;
     this.hasFencedFrameReporting = false;
+    this.canDisableUntrustedNetwork = false;
     this.mode = 0;
     this.effectiveEnabledPermissions = null;
+    this.parentPermissionsInfo = null;
   };
   FencedFrameProperties.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -562,7 +646,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 136}
+      {version: 0, numBytes: 144}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -623,10 +707,17 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate FencedFrameProperties.parentPermissionsInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 128, ParentPermissionsInfo, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     return validator.validationError.NONE;
   };
 
-  FencedFrameProperties.encodedSize = codec.kStructHeaderSize + 128;
+  FencedFrameProperties.encodedSize = codec.kStructHeaderSize + 136;
 
   FencedFrameProperties.decode = function(decoder) {
     var packed;
@@ -649,6 +740,7 @@
         decoder.decodeStruct(PotentiallyOpaqueSharedStorageBudgetMetadata);
     packed = decoder.readUint8();
     val.hasFencedFrameReporting = (packed >> 0) & 1 ? true : false;
+    val.canDisableUntrustedNetwork = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -656,6 +748,8 @@
         decoder.decodeStruct(new codec.Enum(DeprecatedFencedFrameMode));
     val.effectiveEnabledPermissions =
         decoder.decodeArrayPointer(new codec.Enum(permissions_policy_feature$.PermissionsPolicyFeature));
+    val.parentPermissionsInfo =
+        decoder.decodeStructPointer(ParentPermissionsInfo);
     return val;
   };
 
@@ -672,12 +766,14 @@
     encoder.encodeStruct(PotentiallyOpaqueSharedStorageBudgetMetadata, val.sharedStorageBudgetMetadata);
     packed = 0;
     packed |= (val.hasFencedFrameReporting & 1) << 0
+    packed |= (val.canDisableUntrustedNetwork & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.mode);
     encoder.encodeArrayPointer(new codec.Enum(permissions_policy_feature$.PermissionsPolicyFeature), val.effectiveEnabledPermissions);
+    encoder.encodeStructPointer(ParentPermissionsInfo, val.parentPermissionsInfo);
   };
 
   function PotentiallyOpaqueURL(value) {
@@ -1753,6 +1849,7 @@
   exports.AdAuctionData = AdAuctionData;
   exports.URNConfigPair = URNConfigPair;
   exports.SharedStorageBudgetMetadata = SharedStorageBudgetMetadata;
+  exports.ParentPermissionsInfo = ParentPermissionsInfo;
   exports.FencedFrameConfig = FencedFrameConfig;
   exports.FencedFrameProperties = FencedFrameProperties;
   exports.PotentiallyOpaqueURL = PotentiallyOpaqueURL;

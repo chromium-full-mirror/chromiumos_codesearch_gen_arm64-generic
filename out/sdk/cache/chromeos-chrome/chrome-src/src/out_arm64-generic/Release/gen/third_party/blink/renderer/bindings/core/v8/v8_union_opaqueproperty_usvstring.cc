@@ -56,7 +56,7 @@ content_type_ = ContentType::kUSVString;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionOpaquePropertyOrUSVString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionOpaquePropertyOrUSVString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kOpaqueProperty: {
     return ToV8Traits<V8OpaqueProperty>::ToV8(script_state, member_opaque_property_);
@@ -67,7 +67,7 @@ v8::MaybeLocal<v8::Value> V8UnionOpaquePropertyOrUSVString::ToV8Value(ScriptStat
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionOpaquePropertyOrUSVString::Trace(Visitor* visitor) const {

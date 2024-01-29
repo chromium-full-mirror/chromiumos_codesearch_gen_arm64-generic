@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "MRO-Compat", "version": "0.150.0", "revision": 0, "fullname": "dev-perl/MRO-Compat", "fullnamerev": "dev-perl/MRO-Compat-0.150.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/MRO-Compat"], "skip": false, "tainted": false, "ebuild_path": null}

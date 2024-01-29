@@ -362,6 +362,8 @@ bool SearchResultExtractor_ExtractCurrentSearchResults_ForwardToCallback::Accept
           internal::SearchResultExtractor_ExtractCurrentSearchResults_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SearchResultExtractor.0
   bool success = true;
   SearchResultExtractor::Status p_status{};
   CategoryResultsPtr p_results{};
@@ -471,6 +473,8 @@ bool SearchResultExtractorStubDispatch::AcceptWithResponder(
               internal::SearchResultExtractor_ExtractCurrentSearchResults_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SearchResultExtractor.0
       bool success = true;
       std::vector<ResultType> p_result_types{};
       SearchResultExtractor_ExtractCurrentSearchResults_ParamsDataView input_data_view(params, message);
@@ -489,8 +493,8 @@ bool SearchResultExtractorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtractCurrentSearchResults(
-std::move(p_result_types), std::move(callback));
+      impl->ExtractCurrentSearchResults(        
+        std::move(p_result_types), std::move(callback));
       return true;
     }
   }

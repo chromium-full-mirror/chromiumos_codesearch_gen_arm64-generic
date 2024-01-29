@@ -225,6 +225,8 @@ bool NativeThemeInfoObserverStubDispatch::Accept(
           reinterpret_cast<internal::NativeThemeInfoObserver_OnNativeThemeInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NativeThemeInfoObserver.0
       bool success = true;
       NativeThemeInfoPtr p_native_theme_info{};
       NativeThemeInfoObserver_OnNativeThemeInfoChanged_ParamsDataView input_data_view(params, message);
@@ -240,8 +242,8 @@ bool NativeThemeInfoObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNativeThemeInfoChanged(
-std::move(p_native_theme_info));
+      impl->OnNativeThemeInfoChanged(        
+        std::move(p_native_theme_info));
       return true;
     }
   }
@@ -393,6 +395,8 @@ bool NativeThemeServiceStubDispatch::Accept(
           reinterpret_cast<internal::NativeThemeService_AddNativeThemeInfoObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NativeThemeService.0
       bool success = true;
       ::mojo::PendingRemote<NativeThemeInfoObserver> p_observer{};
       NativeThemeService_AddNativeThemeInfoObserver_ParamsDataView input_data_view(params, message);
@@ -410,8 +414,8 @@ bool NativeThemeServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddNativeThemeInfoObserver(
-std::move(p_observer));
+      impl->AddNativeThemeInfoObserver(        
+        std::move(p_observer));
       return true;
     }
   }

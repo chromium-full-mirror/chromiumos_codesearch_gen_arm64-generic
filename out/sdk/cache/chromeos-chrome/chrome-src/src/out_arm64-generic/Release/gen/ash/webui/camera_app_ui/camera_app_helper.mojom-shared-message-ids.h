@@ -52,6 +52,7 @@ constexpr uint32_t kCameraAppHelper_MaybeTriggerSurvey_Name = 20;
 constexpr uint32_t kCameraAppHelper_StartStorageMonitor_Name = 21;
 constexpr uint32_t kCameraAppHelper_StopStorageMonitor_Name = 22;
 constexpr uint32_t kCameraAppHelper_OpenStorageManagement_Name = 23;
+constexpr uint32_t kCameraAppHelper_OpenWifiDialog_Name = 24;
 
 }  // namespace internal
 

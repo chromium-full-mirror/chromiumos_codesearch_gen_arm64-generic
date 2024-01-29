@@ -1543,6 +1543,8 @@ bool CartHandler_GetMerchantCarts_ForwardToCallback::Accept(
           internal::CartHandler_GetMerchantCarts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.0
   bool success = true;
   std::vector<MerchantCartPtr> p_carts{};
   CartHandler_GetMerchantCarts_ResponseParamsDataView input_data_view(params, message);
@@ -1674,6 +1676,8 @@ bool CartHandler_GetCartFeatureEnabled_ForwardToCallback::Accept(
           internal::CartHandler_GetCartFeatureEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.1
   bool success = true;
   bool p_enabled{};
   CartHandler_GetCartFeatureEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1793,6 +1797,8 @@ bool CartHandler_HideCart_ForwardToCallback::Accept(
           internal::CartHandler_HideCart_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.4
   bool success = true;
   bool p_success{};
   CartHandler_HideCart_ResponseParamsDataView input_data_view(params, message);
@@ -1912,6 +1918,8 @@ bool CartHandler_RestoreHiddenCart_ForwardToCallback::Accept(
           internal::CartHandler_RestoreHiddenCart_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.5
   bool success = true;
   bool p_success{};
   CartHandler_RestoreHiddenCart_ResponseParamsDataView input_data_view(params, message);
@@ -2031,6 +2039,8 @@ bool CartHandler_RemoveCart_ForwardToCallback::Accept(
           internal::CartHandler_RemoveCart_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.6
   bool success = true;
   bool p_success{};
   CartHandler_RemoveCart_ResponseParamsDataView input_data_view(params, message);
@@ -2150,6 +2160,8 @@ bool CartHandler_RestoreRemovedCart_ForwardToCallback::Accept(
           internal::CartHandler_RestoreRemovedCart_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.7
   bool success = true;
   bool p_success{};
   CartHandler_RestoreRemovedCart_ResponseParamsDataView input_data_view(params, message);
@@ -2269,6 +2281,8 @@ bool CartHandler_GetWarmWelcomeVisible_ForwardToCallback::Accept(
           internal::CartHandler_GetWarmWelcomeVisible_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.8
   bool success = true;
   bool p_welcome_visible{};
   CartHandler_GetWarmWelcomeVisible_ResponseParamsDataView input_data_view(params, message);
@@ -2388,6 +2402,8 @@ bool CartHandler_GetDiscountURL_ForwardToCallback::Accept(
           internal::CartHandler_GetDiscountURL_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.9
   bool success = true;
   ::GURL p_discount_url{};
   CartHandler_GetDiscountURL_ResponseParamsDataView input_data_view(params, message);
@@ -2517,6 +2533,8 @@ bool CartHandler_GetDiscountConsentCardVisible_ForwardToCallback::Accept(
           internal::CartHandler_GetDiscountConsentCardVisible_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.10
   bool success = true;
   bool p_consent_visible{};
   CartHandler_GetDiscountConsentCardVisible_ResponseParamsDataView input_data_view(params, message);
@@ -2636,6 +2654,8 @@ bool CartHandler_GetDiscountToggleVisible_ForwardToCallback::Accept(
           internal::CartHandler_GetDiscountToggleVisible_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.11
   bool success = true;
   bool p_toggle_visible{};
   CartHandler_GetDiscountToggleVisible_ResponseParamsDataView input_data_view(params, message);
@@ -2755,6 +2775,8 @@ bool CartHandler_ShowNativeConsentDialog_ForwardToCallback::Accept(
           internal::CartHandler_ShowNativeConsentDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.15
   bool success = true;
   ConsentStatus p_consent_status{};
   CartHandler_ShowNativeConsentDialog_ResponseParamsDataView input_data_view(params, message);
@@ -2875,6 +2897,8 @@ bool CartHandler_GetDiscountEnabled_ForwardToCallback::Accept(
           internal::CartHandler_GetDiscountEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CartHandler.16
   bool success = true;
   bool p_enabled{};
   CartHandler_GetDiscountEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -2955,6 +2979,8 @@ bool CartHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CartHandler_HideCartModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.2
       bool success = true;
       CartHandler_HideCartModule_ParamsDataView input_data_view(params, message);
       
@@ -2967,7 +2993,7 @@ bool CartHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideCartModule();
+      impl->HideCartModule(        );
       return true;
     }
     case internal::kCartHandler_RestoreHiddenCartModule_Name: {
@@ -2977,6 +3003,8 @@ bool CartHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CartHandler_RestoreHiddenCartModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.3
       bool success = true;
       CartHandler_RestoreHiddenCartModule_ParamsDataView input_data_view(params, message);
       
@@ -2989,7 +3017,7 @@ bool CartHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreHiddenCartModule();
+      impl->RestoreHiddenCartModule(        );
       return true;
     }
     case internal::kCartHandler_HideCart_Name: {
@@ -3023,6 +3051,8 @@ bool CartHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CartHandler_OnDiscountConsentAcknowledged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.12
       bool success = true;
       bool p_accept{};
       CartHandler_OnDiscountConsentAcknowledged_ParamsDataView input_data_view(params, message);
@@ -3038,8 +3068,8 @@ bool CartHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiscountConsentAcknowledged(
-std::move(p_accept));
+      impl->OnDiscountConsentAcknowledged(        
+        std::move(p_accept));
       return true;
     }
     case internal::kCartHandler_OnDiscountConsentDismissed_Name: {
@@ -3049,6 +3079,8 @@ std::move(p_accept));
           reinterpret_cast<internal::CartHandler_OnDiscountConsentDismissed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.13
       bool success = true;
       CartHandler_OnDiscountConsentDismissed_ParamsDataView input_data_view(params, message);
       
@@ -3061,7 +3093,7 @@ std::move(p_accept));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiscountConsentDismissed();
+      impl->OnDiscountConsentDismissed(        );
       return true;
     }
     case internal::kCartHandler_OnDiscountConsentContinued_Name: {
@@ -3071,6 +3103,8 @@ std::move(p_accept));
           reinterpret_cast<internal::CartHandler_OnDiscountConsentContinued_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.14
       bool success = true;
       CartHandler_OnDiscountConsentContinued_ParamsDataView input_data_view(params, message);
       
@@ -3083,7 +3117,7 @@ std::move(p_accept));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiscountConsentContinued();
+      impl->OnDiscountConsentContinued(        );
       return true;
     }
     case internal::kCartHandler_ShowNativeConsentDialog_Name: {
@@ -3099,6 +3133,8 @@ std::move(p_accept));
           reinterpret_cast<internal::CartHandler_SetDiscountEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.17
       bool success = true;
       bool p_enabled{};
       CartHandler_SetDiscountEnabled_ParamsDataView input_data_view(params, message);
@@ -3114,8 +3150,8 @@ std::move(p_accept));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDiscountEnabled(
-std::move(p_enabled));
+      impl->SetDiscountEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kCartHandler_PrepareForNavigation_Name: {
@@ -3125,6 +3161,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CartHandler_PrepareForNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CartHandler.18
       bool success = true;
       ::GURL p_cart_url{};
       bool p_is_navigating{};
@@ -3143,9 +3181,9 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepareForNavigation(
-std::move(p_cart_url), 
-std::move(p_is_navigating));
+      impl->PrepareForNavigation(        
+        std::move(p_cart_url), 
+        std::move(p_is_navigating));
       return true;
     }
   }
@@ -3168,6 +3206,8 @@ bool CartHandlerStubDispatch::AcceptWithResponder(
               internal::CartHandler_GetMerchantCarts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.0
       bool success = true;
       CartHandler_GetMerchantCarts_ParamsDataView input_data_view(params, message);
       
@@ -3193,6 +3233,8 @@ bool CartHandlerStubDispatch::AcceptWithResponder(
               internal::CartHandler_GetCartFeatureEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.1
       bool success = true;
       CartHandler_GetCartFeatureEnabled_ParamsDataView input_data_view(params, message);
       
@@ -3224,6 +3266,8 @@ bool CartHandlerStubDispatch::AcceptWithResponder(
               internal::CartHandler_HideCart_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.4
       bool success = true;
       ::GURL p_cart_url{};
       CartHandler_HideCart_ParamsDataView input_data_view(params, message);
@@ -3242,8 +3286,8 @@ bool CartHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideCart(
-std::move(p_cart_url), std::move(callback));
+      impl->HideCart(        
+        std::move(p_cart_url), std::move(callback));
       return true;
     }
     case internal::kCartHandler_RestoreHiddenCart_Name: {
@@ -3253,6 +3297,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_RestoreHiddenCart_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.5
       bool success = true;
       ::GURL p_cart_url{};
       CartHandler_RestoreHiddenCart_ParamsDataView input_data_view(params, message);
@@ -3271,8 +3317,8 @@ std::move(p_cart_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreHiddenCart(
-std::move(p_cart_url), std::move(callback));
+      impl->RestoreHiddenCart(        
+        std::move(p_cart_url), std::move(callback));
       return true;
     }
     case internal::kCartHandler_RemoveCart_Name: {
@@ -3282,6 +3328,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_RemoveCart_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.6
       bool success = true;
       ::GURL p_cart_url{};
       CartHandler_RemoveCart_ParamsDataView input_data_view(params, message);
@@ -3300,8 +3348,8 @@ std::move(p_cart_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveCart(
-std::move(p_cart_url), std::move(callback));
+      impl->RemoveCart(        
+        std::move(p_cart_url), std::move(callback));
       return true;
     }
     case internal::kCartHandler_RestoreRemovedCart_Name: {
@@ -3311,6 +3359,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_RestoreRemovedCart_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.7
       bool success = true;
       ::GURL p_cart_url{};
       CartHandler_RestoreRemovedCart_ParamsDataView input_data_view(params, message);
@@ -3329,8 +3379,8 @@ std::move(p_cart_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreRemovedCart(
-std::move(p_cart_url), std::move(callback));
+      impl->RestoreRemovedCart(        
+        std::move(p_cart_url), std::move(callback));
       return true;
     }
     case internal::kCartHandler_GetWarmWelcomeVisible_Name: {
@@ -3340,6 +3390,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_GetWarmWelcomeVisible_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.8
       bool success = true;
       CartHandler_GetWarmWelcomeVisible_ParamsDataView input_data_view(params, message);
       
@@ -3365,6 +3417,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_GetDiscountURL_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.9
       bool success = true;
       ::GURL p_cart_url{};
       CartHandler_GetDiscountURL_ParamsDataView input_data_view(params, message);
@@ -3383,8 +3437,8 @@ std::move(p_cart_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDiscountURL(
-std::move(p_cart_url), std::move(callback));
+      impl->GetDiscountURL(        
+        std::move(p_cart_url), std::move(callback));
       return true;
     }
     case internal::kCartHandler_GetDiscountConsentCardVisible_Name: {
@@ -3394,6 +3448,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_GetDiscountConsentCardVisible_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.10
       bool success = true;
       CartHandler_GetDiscountConsentCardVisible_ParamsDataView input_data_view(params, message);
       
@@ -3419,6 +3475,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_GetDiscountToggleVisible_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.11
       bool success = true;
       CartHandler_GetDiscountToggleVisible_ParamsDataView input_data_view(params, message);
       
@@ -3453,6 +3511,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_ShowNativeConsentDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.15
       bool success = true;
       CartHandler_ShowNativeConsentDialog_ParamsDataView input_data_view(params, message);
       
@@ -3478,6 +3538,8 @@ std::move(p_cart_url), std::move(callback));
               internal::CartHandler_GetDiscountEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CartHandler.16
       bool success = true;
       CartHandler_GetDiscountEnabled_ParamsDataView input_data_view(params, message);
       

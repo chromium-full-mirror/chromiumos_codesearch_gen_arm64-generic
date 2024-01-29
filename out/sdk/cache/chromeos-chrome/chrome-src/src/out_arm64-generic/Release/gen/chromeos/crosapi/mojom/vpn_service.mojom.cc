@@ -262,6 +262,8 @@ bool PepperVpnProxyObserverStubDispatch::Accept(
           reinterpret_cast<internal::PepperVpnProxyObserver_OnUnbind_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperVpnProxyObserver.0
       bool success = true;
       PepperVpnProxyObserver_OnUnbind_ParamsDataView input_data_view(params, message);
       
@@ -274,7 +276,7 @@ bool PepperVpnProxyObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUnbind();
+      impl->OnUnbind(        );
       return true;
     }
     case internal::kPepperVpnProxyObserver_OnPacketReceived_Name: {
@@ -284,6 +286,8 @@ bool PepperVpnProxyObserverStubDispatch::Accept(
           reinterpret_cast<internal::PepperVpnProxyObserver_OnPacketReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperVpnProxyObserver.1
       bool success = true;
       std::vector<uint8_t> p_data{};
       PepperVpnProxyObserver_OnPacketReceived_ParamsDataView input_data_view(params, message);
@@ -299,8 +303,8 @@ bool PepperVpnProxyObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPacketReceived(
-std::move(p_data));
+      impl->OnPacketReceived(        
+        std::move(p_data));
       return true;
     }
   }
@@ -744,6 +748,8 @@ bool EventObserverForExtensionStubDispatch::Accept(
           reinterpret_cast<internal::EventObserverForExtension_OnAddDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventObserverForExtension.0
       bool success = true;
       EventObserverForExtension_OnAddDialog_ParamsDataView input_data_view(params, message);
       
@@ -756,7 +762,7 @@ bool EventObserverForExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAddDialog();
+      impl->OnAddDialog(        );
       return true;
     }
     case internal::kEventObserverForExtension_OnConfigureDialog_Name: {
@@ -766,6 +772,8 @@ bool EventObserverForExtensionStubDispatch::Accept(
           reinterpret_cast<internal::EventObserverForExtension_OnConfigureDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventObserverForExtension.1
       bool success = true;
       std::string p_configuration_name{};
       EventObserverForExtension_OnConfigureDialog_ParamsDataView input_data_view(params, message);
@@ -781,8 +789,8 @@ bool EventObserverForExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConfigureDialog(
-std::move(p_configuration_name));
+      impl->OnConfigureDialog(        
+        std::move(p_configuration_name));
       return true;
     }
     case internal::kEventObserverForExtension_OnConfigRemoved_Name: {
@@ -792,6 +800,8 @@ std::move(p_configuration_name));
           reinterpret_cast<internal::EventObserverForExtension_OnConfigRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventObserverForExtension.2
       bool success = true;
       std::string p_configuration_name{};
       EventObserverForExtension_OnConfigRemoved_ParamsDataView input_data_view(params, message);
@@ -807,8 +817,8 @@ std::move(p_configuration_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConfigRemoved(
-std::move(p_configuration_name));
+      impl->OnConfigRemoved(        
+        std::move(p_configuration_name));
       return true;
     }
     case internal::kEventObserverForExtension_OnPlatformMessage_Name: {
@@ -818,6 +828,8 @@ std::move(p_configuration_name));
           reinterpret_cast<internal::EventObserverForExtension_OnPlatformMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventObserverForExtension.3
       bool success = true;
       std::string p_configuration_name{};
       int32_t p_platform_message{};
@@ -839,10 +851,10 @@ std::move(p_configuration_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPlatformMessage(
-std::move(p_configuration_name), 
-std::move(p_platform_message), 
-std::move(p_error));
+      impl->OnPlatformMessage(        
+        std::move(p_configuration_name), 
+        std::move(p_platform_message), 
+        std::move(p_error));
       return true;
     }
     case internal::kEventObserverForExtension_OnPacketReceived_Name: {
@@ -852,6 +864,8 @@ std::move(p_error));
           reinterpret_cast<internal::EventObserverForExtension_OnPacketReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventObserverForExtension.4
       bool success = true;
       std::vector<uint8_t> p_data{};
       EventObserverForExtension_OnPacketReceived_ParamsDataView input_data_view(params, message);
@@ -867,8 +881,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPacketReceived(
-std::move(p_data));
+      impl->OnPacketReceived(        
+        std::move(p_data));
       return true;
     }
   }
@@ -1672,6 +1686,8 @@ bool VpnServiceForExtension_CreateConfiguration_ForwardToCallback::Accept(
           internal::VpnServiceForExtension_CreateConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VpnServiceForExtension.0
   bool success = true;
   VpnErrorResponsePtr p_error{};
   VpnServiceForExtension_CreateConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -1797,6 +1813,8 @@ bool VpnServiceForExtension_DestroyConfiguration_ForwardToCallback::Accept(
           internal::VpnServiceForExtension_DestroyConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VpnServiceForExtension.1
   bool success = true;
   VpnErrorResponsePtr p_error{};
   VpnServiceForExtension_DestroyConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -1922,6 +1940,8 @@ bool VpnServiceForExtension_SetParameters_ForwardToCallback::Accept(
           internal::VpnServiceForExtension_SetParameters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VpnServiceForExtension.2
   bool success = true;
   VpnErrorResponsePtr p_error{};
   VpnServiceForExtension_SetParameters_ResponseParamsDataView input_data_view(params, message);
@@ -2047,6 +2067,8 @@ bool VpnServiceForExtension_SendPacket_ForwardToCallback::Accept(
           internal::VpnServiceForExtension_SendPacket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VpnServiceForExtension.3
   bool success = true;
   VpnErrorResponsePtr p_error{};
   VpnServiceForExtension_SendPacket_ResponseParamsDataView input_data_view(params, message);
@@ -2172,6 +2194,8 @@ bool VpnServiceForExtension_NotifyConnectionStateChanged_ForwardToCallback::Acce
           internal::VpnServiceForExtension_NotifyConnectionStateChanged_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VpnServiceForExtension.4
   bool success = true;
   VpnErrorResponsePtr p_error{};
   VpnServiceForExtension_NotifyConnectionStateChanged_ResponseParamsDataView input_data_view(params, message);
@@ -2297,6 +2321,8 @@ bool VpnServiceForExtension_BindPepperVpnProxyObserver_ForwardToCallback::Accept
           internal::VpnServiceForExtension_BindPepperVpnProxyObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VpnServiceForExtension.5
   bool success = true;
   VpnErrorResponsePtr p_error{};
   VpnServiceForExtension_BindPepperVpnProxyObserver_ResponseParamsDataView input_data_view(params, message);
@@ -2395,6 +2421,8 @@ bool VpnServiceForExtensionStubDispatch::Accept(
           reinterpret_cast<internal::VpnServiceForExtension_DispatchAddDialogEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.6
       bool success = true;
       VpnServiceForExtension_DispatchAddDialogEvent_ParamsDataView input_data_view(params, message);
       
@@ -2407,7 +2435,7 @@ bool VpnServiceForExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchAddDialogEvent();
+      impl->DispatchAddDialogEvent(        );
       return true;
     }
     case internal::kVpnServiceForExtension_DispatchConfigureDialogEvent_Name: {
@@ -2417,6 +2445,8 @@ bool VpnServiceForExtensionStubDispatch::Accept(
           reinterpret_cast<internal::VpnServiceForExtension_DispatchConfigureDialogEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.7
       bool success = true;
       std::string p_configuration_name{};
       VpnServiceForExtension_DispatchConfigureDialogEvent_ParamsDataView input_data_view(params, message);
@@ -2432,8 +2462,8 @@ bool VpnServiceForExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchConfigureDialogEvent(
-std::move(p_configuration_name));
+      impl->DispatchConfigureDialogEvent(        
+        std::move(p_configuration_name));
       return true;
     }
   }
@@ -2456,6 +2486,8 @@ bool VpnServiceForExtensionStubDispatch::AcceptWithResponder(
               internal::VpnServiceForExtension_CreateConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.0
       bool success = true;
       std::string p_configuration_name{};
       VpnServiceForExtension_CreateConfiguration_ParamsDataView input_data_view(params, message);
@@ -2474,8 +2506,8 @@ bool VpnServiceForExtensionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateConfiguration(
-std::move(p_configuration_name), std::move(callback));
+      impl->CreateConfiguration(        
+        std::move(p_configuration_name), std::move(callback));
       return true;
     }
     case internal::kVpnServiceForExtension_DestroyConfiguration_Name: {
@@ -2485,6 +2517,8 @@ std::move(p_configuration_name), std::move(callback));
               internal::VpnServiceForExtension_DestroyConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.1
       bool success = true;
       std::string p_configuration_name{};
       VpnServiceForExtension_DestroyConfiguration_ParamsDataView input_data_view(params, message);
@@ -2503,8 +2537,8 @@ std::move(p_configuration_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyConfiguration(
-std::move(p_configuration_name), std::move(callback));
+      impl->DestroyConfiguration(        
+        std::move(p_configuration_name), std::move(callback));
       return true;
     }
     case internal::kVpnServiceForExtension_SetParameters_Name: {
@@ -2514,6 +2548,8 @@ std::move(p_configuration_name), std::move(callback));
               internal::VpnServiceForExtension_SetParameters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.2
       bool success = true;
       ::base::Value::Dict p_parameters{};
       VpnServiceForExtension_SetParameters_ParamsDataView input_data_view(params, message);
@@ -2532,8 +2568,8 @@ std::move(p_configuration_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetParameters(
-std::move(p_parameters), std::move(callback));
+      impl->SetParameters(        
+        std::move(p_parameters), std::move(callback));
       return true;
     }
     case internal::kVpnServiceForExtension_SendPacket_Name: {
@@ -2543,6 +2579,8 @@ std::move(p_parameters), std::move(callback));
               internal::VpnServiceForExtension_SendPacket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.3
       bool success = true;
       std::vector<uint8_t> p_data{};
       VpnServiceForExtension_SendPacket_ParamsDataView input_data_view(params, message);
@@ -2561,8 +2599,8 @@ std::move(p_parameters), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendPacket(
-std::move(p_data), std::move(callback));
+      impl->SendPacket(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kVpnServiceForExtension_NotifyConnectionStateChanged_Name: {
@@ -2572,6 +2610,8 @@ std::move(p_data), std::move(callback));
               internal::VpnServiceForExtension_NotifyConnectionStateChanged_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.4
       bool success = true;
       bool p_connection_success{};
       VpnServiceForExtension_NotifyConnectionStateChanged_ParamsDataView input_data_view(params, message);
@@ -2590,8 +2630,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyConnectionStateChanged(
-std::move(p_connection_success), std::move(callback));
+      impl->NotifyConnectionStateChanged(        
+        std::move(p_connection_success), std::move(callback));
       return true;
     }
     case internal::kVpnServiceForExtension_BindPepperVpnProxyObserver_Name: {
@@ -2601,6 +2641,8 @@ std::move(p_connection_success), std::move(callback));
               internal::VpnServiceForExtension_BindPepperVpnProxyObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VpnServiceForExtension.5
       bool success = true;
       std::string p_configuration_name{};
       ::mojo::PendingRemote<PepperVpnProxyObserver> p_pepper_vpn_proxy_observer{};
@@ -2624,9 +2666,9 @@ std::move(p_connection_success), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPepperVpnProxyObserver(
-std::move(p_configuration_name), 
-std::move(p_pepper_vpn_proxy_observer), std::move(callback));
+      impl->BindPepperVpnProxyObserver(        
+        std::move(p_configuration_name), 
+        std::move(p_pepper_vpn_proxy_observer), std::move(callback));
       return true;
     }
     case internal::kVpnServiceForExtension_DispatchAddDialogEvent_Name: {
@@ -2884,6 +2926,8 @@ bool VpnServiceStubDispatch::Accept(
           reinterpret_cast<internal::VpnService_RegisterVpnServiceForExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VpnService.0
       bool success = true;
       std::string p_extension_id{};
       ::mojo::PendingReceiver<VpnServiceForExtension> p_receiver{};
@@ -2909,10 +2953,10 @@ bool VpnServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterVpnServiceForExtension(
-std::move(p_extension_id), 
-std::move(p_receiver), 
-std::move(p_observer));
+      impl->RegisterVpnServiceForExtension(        
+        std::move(p_extension_id), 
+        std::move(p_receiver), 
+        std::move(p_observer));
       return true;
     }
     case internal::kVpnService_MaybeFailActiveConnectionAndDestroyConfigurations_Name: {
@@ -2922,6 +2966,8 @@ std::move(p_observer));
           reinterpret_cast<internal::VpnService_MaybeFailActiveConnectionAndDestroyConfigurations_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VpnService.1
       bool success = true;
       std::string p_extension_id{};
       bool p_destroy_configurations{};
@@ -2940,9 +2986,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeFailActiveConnectionAndDestroyConfigurations(
-std::move(p_extension_id), 
-std::move(p_destroy_configurations));
+      impl->MaybeFailActiveConnectionAndDestroyConfigurations(        
+        std::move(p_extension_id), 
+        std::move(p_destroy_configurations));
       return true;
     }
   }

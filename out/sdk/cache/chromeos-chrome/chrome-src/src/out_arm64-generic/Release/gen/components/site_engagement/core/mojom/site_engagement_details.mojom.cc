@@ -349,6 +349,8 @@ bool SiteEngagementDetailsProvider_GetSiteEngagementDetails_ForwardToCallback::A
           internal::SiteEngagementDetailsProvider_GetSiteEngagementDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SiteEngagementDetailsProvider.0
   bool success = true;
   std::vector<SiteEngagementDetailsPtr> p_info{};
   SiteEngagementDetailsProvider_GetSiteEngagementDetails_ResponseParamsDataView input_data_view(params, message);
@@ -438,6 +440,8 @@ bool SiteEngagementDetailsProviderStubDispatch::Accept(
           reinterpret_cast<internal::SiteEngagementDetailsProvider_SetSiteEngagementBaseScoreForUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SiteEngagementDetailsProvider.1
       bool success = true;
       ::GURL p_url{};
       double p_score{};
@@ -456,9 +460,9 @@ bool SiteEngagementDetailsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSiteEngagementBaseScoreForUrl(
-std::move(p_url), 
-std::move(p_score));
+      impl->SetSiteEngagementBaseScoreForUrl(        
+        std::move(p_url), 
+        std::move(p_score));
       return true;
     }
   }
@@ -481,6 +485,8 @@ bool SiteEngagementDetailsProviderStubDispatch::AcceptWithResponder(
               internal::SiteEngagementDetailsProvider_GetSiteEngagementDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SiteEngagementDetailsProvider.0
       bool success = true;
       SiteEngagementDetailsProvider_GetSiteEngagementDetails_ParamsDataView input_data_view(params, message);
       

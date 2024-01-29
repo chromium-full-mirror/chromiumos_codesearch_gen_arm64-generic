@@ -161,6 +161,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_SetPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       PageHandler_SetPage_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPage(
-std::move(p_page));
+      impl->SetPage(        
+        std::move(p_page));
       return true;
     }
   }
@@ -317,6 +319,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnColorProviderChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       Page_OnColorProviderChanged_ParamsDataView input_data_view(params, message);
       
@@ -329,7 +333,7 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnColorProviderChanged();
+      impl->OnColorProviderChanged(        );
       return true;
     }
   }

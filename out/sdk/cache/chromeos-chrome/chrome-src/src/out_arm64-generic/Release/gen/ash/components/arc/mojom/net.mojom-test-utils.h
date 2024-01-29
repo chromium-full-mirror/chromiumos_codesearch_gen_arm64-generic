@@ -35,6 +35,7 @@ class  NetHostInterceptorForTesting : public NetHost {
   void StopLohs() override;
   void NotifyAndroidWifiMulticastLockChange(bool is_held) override;
   void NotifySocketConnectionEvent(SocketConnectionEventPtr msg) override;
+  void NotifyARCVPNSocketConnectionEvent(SocketConnectionEventPtr msg) override;
 };
 class  NetHostAsyncWaiter {
  public:

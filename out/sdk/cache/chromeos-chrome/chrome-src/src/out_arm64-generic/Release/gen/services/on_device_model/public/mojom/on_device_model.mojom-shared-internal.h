@@ -24,31 +24,9 @@ class ValidationContext;
 
 namespace on_device_model::mojom {
 namespace internal {
+class ResponseChunk_Data;
+class ResponseSummary_Data;
 class InputOptions_Data;
-
-struct ResponseStatus_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
 
 struct PerformanceClass_Data {
  public:
@@ -106,6 +84,103 @@ struct LoadModelResult_Data {
 };
 
 #pragma pack(push, 1)
+class  ResponseChunk_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> text;
+  mojo::internal::Pointer<mojo::internal::Array_Data<float>> ts_scores;
+
+ private:
+  friend class mojo::internal::MessageFragment<ResponseChunk_Data>;
+
+  ResponseChunk_Data();
+  ~ResponseChunk_Data() = delete;
+};
+static_assert(sizeof(ResponseChunk_Data) == 24,
+              "Bad sizeof(ResponseChunk_Data)");
+// Used by ResponseChunk::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ResponseChunk_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ResponseChunk_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ResponseChunk_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ResponseChunk_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ResponseChunk_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ResponseSummary_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<float>> ts_scores;
+
+ private:
+  friend class mojo::internal::MessageFragment<ResponseSummary_Data>;
+
+  ResponseSummary_Data();
+  ~ResponseSummary_Data() = delete;
+};
+static_assert(sizeof(ResponseSummary_Data) == 16,
+              "Bad sizeof(ResponseSummary_Data)");
+// Used by ResponseSummary::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ResponseSummary_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ResponseSummary_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ResponseSummary_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ResponseSummary_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ResponseSummary_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  InputOptions_Data {
  public:
   static bool Validate(const void* data,
@@ -117,10 +192,13 @@ class  InputOptions_Data {
   uint8_t token_offset_$flag : 1;
   uint8_t ignore_context : 1;
   uint8_t max_output_tokens_$flag : 1;
-  uint8_t pad4_[3];
+  uint8_t ts_interval_$flag : 1;
+  uint8_t pad5_[3];
   uint32_t max_tokens_$value;
   uint32_t token_offset_$value;
   uint32_t max_output_tokens_$value;
+  uint32_t ts_interval_$value;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<InputOptions_Data>;
@@ -128,7 +206,7 @@ class  InputOptions_Data {
   InputOptions_Data();
   ~InputOptions_Data() = delete;
 };
-static_assert(sizeof(InputOptions_Data) == 32,
+static_assert(sizeof(InputOptions_Data) == 40,
               "Bad sizeof(InputOptions_Data)");
 // Used by InputOptions::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

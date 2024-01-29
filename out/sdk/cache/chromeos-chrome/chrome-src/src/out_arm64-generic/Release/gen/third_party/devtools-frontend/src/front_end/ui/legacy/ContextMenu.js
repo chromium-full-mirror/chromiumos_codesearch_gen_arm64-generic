@@ -311,7 +311,6 @@ export class SubMenu extends Item {
 }
 export class ContextMenu extends SubMenu {
     contextMenu;
-    pendingPromises;
     pendingTargets;
     event;
     useSoftMenu;
@@ -331,7 +330,6 @@ export class ContextMenu extends SubMenu {
         const mouseEvent = event;
         this.contextMenu = this;
         super.init();
-        this.pendingPromises = [];
         this.pendingTargets = [];
         this.event = mouseEvent;
         this.eventTarget = this.event.target;
@@ -377,20 +375,20 @@ export class ContextMenu extends SubMenu {
     async show() {
         ContextMenu.pendingMenu = this;
         this.event.consume(true);
-        const loadedProviders = await Promise.all(this.pendingPromises);
+        const loadedProviders = await Promise.all(this.pendingTargets.map(async (target) => {
+            const providers = await loadApplicableRegisteredProviders(target);
+            return { target, providers };
+        }));
         // After loading all providers, the contextmenu might be hidden again, so bail out.
         if (ContextMenu.pendingMenu !== this) {
             return;
         }
         ContextMenu.pendingMenu = null;
-        for (let i = 0; i < loadedProviders.length; ++i) {
-            const providers = loadedProviders[i];
-            const target = this.pendingTargets[i];
+        for (const { target, providers } of loadedProviders) {
             for (const provider of providers) {
                 provider.appendApplicableItems(this.event, this, target);
             }
         }
-        this.pendingPromises = [];
         this.pendingTargets = [];
         this.innerShow();
     }
@@ -506,11 +504,17 @@ export class ContextMenu extends SubMenu {
             this.onSoftMenuClosed?.();
         }
     }
-    containsTarget(target) {
-        return this.pendingTargets.indexOf(target) >= 0;
-    }
+    /**
+     * Appends the `target` to the list of pending targets for which context menu providers
+     * will be loaded when showing the context menu. If the `target` was already appended
+     * before, it just ignores this call.
+     *
+     * @param target an object for which we can have registered menu item providers.
+     */
     appendApplicableItems(target) {
-        this.pendingPromises.push(loadApplicableRegisteredProviders(target));
+        if (this.pendingTargets.includes(target)) {
+            return;
+        }
         this.pendingTargets.push(target);
     }
     markAsMenuItemCheckBox() {
@@ -559,17 +563,4 @@ export function maybeRemoveItem(registration) {
 function getRegisteredItems() {
     return registeredItemsProviders;
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var ItemLocation;
-(function (ItemLocation) {
-    ItemLocation["DEVICE_MODE_MENU_SAVE"] = "deviceModeMenu/save";
-    ItemLocation["MAIN_MENU"] = "mainMenu";
-    ItemLocation["MAIN_MENU_DEFAULT"] = "mainMenu/default";
-    ItemLocation["MAIN_MENU_FOOTER"] = "mainMenu/footer";
-    ItemLocation["MAIN_MENU_HELP_DEFAULT"] = "mainMenuHelp/default";
-    ItemLocation["NAVIGATOR_MENU_DEFAULT"] = "navigatorMenu/default";
-    ItemLocation["PROFILER_MENU_DEFAULT"] = "profilerMenu/default";
-    ItemLocation["TIMELINE_MENU_OPEN"] = "timelineMenu/open";
-})(ItemLocation || (ItemLocation = {}));
 //# sourceMappingURL=ContextMenu.js.map

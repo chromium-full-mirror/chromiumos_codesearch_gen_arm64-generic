@@ -166,6 +166,8 @@ bool SubresourceLoaderUpdaterStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceLoaderUpdater_UpdateSubresourceLoaderFactories_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceLoaderUpdater.0
       bool success = true;
       ::std::unique_ptr<::blink::PendingURLLoaderFactoryBundle> p_subresource_loader_factories{};
       SubresourceLoaderUpdater_UpdateSubresourceLoaderFactories_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool SubresourceLoaderUpdaterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSubresourceLoaderFactories(
-std::move(p_subresource_loader_factories));
+      impl->UpdateSubresourceLoaderFactories(        
+        std::move(p_subresource_loader_factories));
       return true;
     }
   }

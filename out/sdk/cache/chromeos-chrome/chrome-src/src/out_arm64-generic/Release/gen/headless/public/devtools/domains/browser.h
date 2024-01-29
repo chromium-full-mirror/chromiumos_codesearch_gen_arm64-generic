@@ -62,6 +62,11 @@ class HEADLESS_EXPORT Domain {
   // commands may be changed or removed at any time.
   ExperimentalDomain* GetExperimental();
 
+  // Reset all permission management for all origins.
+  void ResetPermissions(std::unique_ptr<ResetPermissionsParams> params, base::OnceCallback<void(std::unique_ptr<ResetPermissionsResult>)> callback = base::OnceCallback<void(std::unique_ptr<ResetPermissionsResult>)>());
+  void ResetPermissions(base::OnceClosure callback = base::OnceClosure());
+  void ResetPermissions(std::unique_ptr<ResetPermissionsParams> params, base::OnceClosure callback);
+
   // Close browser gracefully.
   void Close(std::unique_ptr<CloseParams> params, base::OnceCallback<void(std::unique_ptr<CloseResult>)> callback = base::OnceCallback<void(std::unique_ptr<CloseResult>)>());
   void Close(base::OnceClosure callback = base::OnceClosure());
@@ -133,9 +138,6 @@ class ExperimentalDomain : public Domain {
 
   // Grant specific permissions to the given origin and reject all others.
   void GrantPermissions(std::unique_ptr<GrantPermissionsParams> params, base::OnceCallback<void(std::unique_ptr<GrantPermissionsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GrantPermissionsResult>)>());
-
-  // Reset all permission management for all origins.
-  void ResetPermissions(std::unique_ptr<ResetPermissionsParams> params, base::OnceCallback<void(std::unique_ptr<ResetPermissionsResult>)> callback = base::OnceCallback<void(std::unique_ptr<ResetPermissionsResult>)>());
 
   // Set the behavior when downloading a file.
   void SetDownloadBehavior(std::unique_ptr<SetDownloadBehaviorParams> params, base::OnceCallback<void(std::unique_ptr<SetDownloadBehaviorResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetDownloadBehaviorResult>)>());

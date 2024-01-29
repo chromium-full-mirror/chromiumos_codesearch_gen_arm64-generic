@@ -102,6 +102,16 @@ export class SettingsInternetSubpageElement extends SettingsInternetSubpageEleme
                     return {};
                 },
             },
+            /**
+             * Return true if instant hotspot rebrand feature flag is enabled.
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
+                },
+            },
             isShowingVpn_: {
                 type: Boolean,
                 computed: 'computeIsShowingVpn_(deviceState)',
@@ -397,7 +407,8 @@ export class SettingsInternetSubpageElement extends SettingsInternetSubpageEleme
             return;
         }
         // For the Cellular/Mobile subpage, also request Tether networks.
-        if (this.deviceState.type === NetworkType.kCellular &&
+        if (!this.isInstantHotspotRebrandEnabled_ &&
+            this.deviceState.type === NetworkType.kCellular &&
             this.tetherDeviceState) {
             const filter = {
                 filter: FilterType.kVisible,
@@ -492,7 +503,9 @@ export class SettingsInternetSubpageElement extends SettingsInternetSubpageEleme
     }
     enableToggleIsVisible_(deviceState) {
         return !!deviceState && deviceState.type !== NetworkType.kEthernet &&
-            deviceState.type !== NetworkType.kVPN;
+            deviceState.type !== NetworkType.kVPN &&
+            (!this.isInstantHotspotRebrandEnabled_ ||
+                deviceState.type !== NetworkType.kTether);
     }
     enableToggleIsEnabled_(deviceState) {
         if (!deviceState) {
@@ -518,6 +531,7 @@ export class SettingsInternetSubpageElement extends SettingsInternetSubpageEleme
         }
         switch (deviceState.type) {
             case NetworkType.kTether:
+                return this.i18n('internetToggleTetherA11yLabel');
             case NetworkType.kCellular:
                 return this.i18n('internetToggleMobileA11yLabel');
             case NetworkType.kWiFi:
@@ -702,7 +716,8 @@ export class SettingsInternetSubpageElement extends SettingsInternetSubpageEleme
     getNoNetworksInnerHtml_(deviceState, _tetherDeviceState) {
         const type = deviceState.type;
         if (type === NetworkType.kTether ||
-            (type === NetworkType.kCellular && this.tetherDeviceState)) {
+            (!this.isInstantHotspotRebrandEnabled_ &&
+                type === NetworkType.kCellular && this.tetherDeviceState)) {
             return this.i18nAdvanced('internetNoNetworksMobileData').toString();
         }
         if (type === NetworkType.kVPN) {

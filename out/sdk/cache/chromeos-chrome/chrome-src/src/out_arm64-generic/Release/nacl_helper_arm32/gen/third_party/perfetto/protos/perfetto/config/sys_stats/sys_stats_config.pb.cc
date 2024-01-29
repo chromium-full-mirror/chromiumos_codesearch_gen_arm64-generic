@@ -30,7 +30,8 @@ PROTOBUF_CONSTEXPR SysStatsConfig::SysStatsConfig(
   , devfreq_period_ms_(0u)
   , cpufreq_period_ms_(0u)
   , buddyinfo_period_ms_(0u)
-  , diskstat_period_ms_(0u){}
+  , diskstat_period_ms_(0u)
+  , psi_period_ms_(0u){}
 struct SysStatsConfigDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SysStatsConfigDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -144,6 +145,9 @@ class SysStatsConfig::_Internal {
   static void set_has_diskstat_period_ms(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
+  static void set_has_psi_period_ms(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
 };
 
 SysStatsConfig::SysStatsConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -163,16 +167,16 @@ SysStatsConfig::SysStatsConfig(const SysStatsConfig& from)
       stat_counters_(from.stat_counters_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&meminfo_period_ms_, &from.meminfo_period_ms_,
-    static_cast<size_t>(reinterpret_cast<char*>(&diskstat_period_ms_) -
-    reinterpret_cast<char*>(&meminfo_period_ms_)) + sizeof(diskstat_period_ms_));
+    static_cast<size_t>(reinterpret_cast<char*>(&psi_period_ms_) -
+    reinterpret_cast<char*>(&meminfo_period_ms_)) + sizeof(psi_period_ms_));
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.SysStatsConfig)
 }
 
 inline void SysStatsConfig::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&meminfo_period_ms_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&diskstat_period_ms_) -
-    reinterpret_cast<char*>(&meminfo_period_ms_)) + sizeof(diskstat_period_ms_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&psi_period_ms_) -
+    reinterpret_cast<char*>(&meminfo_period_ms_)) + sizeof(psi_period_ms_));
 }
 
 SysStatsConfig::~SysStatsConfig() {
@@ -202,10 +206,10 @@ void SysStatsConfig::Clear() {
   vmstat_counters_.Clear();
   stat_counters_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     ::memset(&meminfo_period_ms_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&diskstat_period_ms_) -
-        reinterpret_cast<char*>(&meminfo_period_ms_)) + sizeof(diskstat_period_ms_));
+        reinterpret_cast<char*>(&psi_period_ms_) -
+        reinterpret_cast<char*>(&meminfo_period_ms_)) + sizeof(psi_period_ms_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -344,6 +348,15 @@ const char* SysStatsConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
+      // optional uint32 psi_period_ms = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _Internal::set_has_psi_period_ms(&has_bits);
+          psi_period_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -438,6 +451,12 @@ uint8_t* SysStatsConfig::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(10, this->_internal_diskstat_period_ms(), target);
   }
 
+  // optional uint32 psi_period_ms = 11;
+  if (cached_has_bits & 0x00000080u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(11, this->_internal_psi_period_ms(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -485,7 +504,7 @@ size_t SysStatsConfig::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional uint32 meminfo_period_ms = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_meminfo_period_ms());
@@ -521,6 +540,11 @@ size_t SysStatsConfig::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_diskstat_period_ms());
     }
 
+    // optional uint32 psi_period_ms = 11;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_psi_period_ms());
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -546,7 +570,7 @@ void SysStatsConfig::MergeFrom(const SysStatsConfig& from) {
   vmstat_counters_.MergeFrom(from.vmstat_counters_);
   stat_counters_.MergeFrom(from.stat_counters_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       meminfo_period_ms_ = from.meminfo_period_ms_;
     }
@@ -567,6 +591,9 @@ void SysStatsConfig::MergeFrom(const SysStatsConfig& from) {
     }
     if (cached_has_bits & 0x00000040u) {
       diskstat_period_ms_ = from.diskstat_period_ms_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      psi_period_ms_ = from.psi_period_ms_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -592,8 +619,8 @@ void SysStatsConfig::InternalSwap(SysStatsConfig* other) {
   vmstat_counters_.InternalSwap(&other->vmstat_counters_);
   stat_counters_.InternalSwap(&other->stat_counters_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SysStatsConfig, diskstat_period_ms_)
-      + sizeof(SysStatsConfig::diskstat_period_ms_)
+      PROTOBUF_FIELD_OFFSET(SysStatsConfig, psi_period_ms_)
+      + sizeof(SysStatsConfig::psi_period_ms_)
       - PROTOBUF_FIELD_OFFSET(SysStatsConfig, meminfo_period_ms_)>(
           reinterpret_cast<char*>(&meminfo_period_ms_),
           reinterpret_cast<char*>(&other->meminfo_period_ms_));

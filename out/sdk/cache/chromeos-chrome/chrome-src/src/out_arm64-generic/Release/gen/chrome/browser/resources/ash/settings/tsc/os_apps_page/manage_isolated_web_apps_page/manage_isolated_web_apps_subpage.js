@@ -6,7 +6,7 @@
  * 'manage-isolated-web-apps-page' is responsible for Isolated Web Apps related
  * controls.
  */
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../../controls/settings_toggle_button.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

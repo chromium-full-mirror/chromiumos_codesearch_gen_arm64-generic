@@ -23,6 +23,7 @@ constexpr uint32_t kPrintCompositor_PrepareToCompositeDocument_Name = 5;
 constexpr uint32_t kPrintCompositor_FinishDocumentComposition_Name = 6;
 constexpr uint32_t kPrintCompositor_SetWebContentsURL_Name = 7;
 constexpr uint32_t kPrintCompositor_SetUserAgent_Name = 8;
+constexpr uint32_t kPrintCompositor_SetTitle_Name = 9;
 
 }  // namespace internal
 

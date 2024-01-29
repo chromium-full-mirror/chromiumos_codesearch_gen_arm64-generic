@@ -624,6 +624,7 @@ class  URLResponseHeadDevToolsInfo {
       ::base::Time response_time,
       const ::scoped_refptr<::net::HttpResponseHeaders>& headers,
       const std::string& mime_type,
+      const std::string& charset,
       const ::net::LoadTimingInfo& load_timing,
       uint32_t cert_status,
       int64_t encoded_data_length,
@@ -722,6 +723,8 @@ URLResponseHeadDevToolsInfo& operator=(const URLResponseHeadDevToolsInfo&) = del
   ::scoped_refptr<::net::HttpResponseHeaders> headers;
   
   std::string mime_type;
+  
+  std::string charset;
   
   ::net::LoadTimingInfo load_timing;
   
@@ -851,6 +854,7 @@ URLResponseHeadDevToolsInfoPtr URLResponseHeadDevToolsInfo::Clone() const {
       mojo::Clone(response_time),
       mojo::Clone(headers),
       mojo::Clone(mime_type),
+      mojo::Clone(charset),
       mojo::Clone(load_timing),
       mojo::Clone(cert_status),
       mojo::Clone(encoded_data_length),
@@ -875,6 +879,8 @@ bool URLResponseHeadDevToolsInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->headers, other_struct.headers))
     return false;
   if (!mojo::Equals(this->mime_type, other_struct.mime_type))
+    return false;
+  if (!mojo::Equals(this->charset, other_struct.charset))
     return false;
   if (!mojo::Equals(this->load_timing, other_struct.load_timing))
     return false;
@@ -920,6 +926,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.mime_type < rhs.mime_type)
     return true;
   if (rhs.mime_type < lhs.mime_type)
+    return false;
+  if (lhs.charset < rhs.charset)
+    return true;
+  if (rhs.charset < lhs.charset)
     return false;
   if (lhs.load_timing < rhs.load_timing)
     return true;
@@ -1072,6 +1082,11 @@ struct  StructTraits<::network::mojom::URLResponseHeadDevToolsInfo::DataView,
   static const decltype(::network::mojom::URLResponseHeadDevToolsInfo::mime_type)& mime_type(
       const ::network::mojom::URLResponseHeadDevToolsInfoPtr& input) {
     return input->mime_type;
+  }
+
+  static const decltype(::network::mojom::URLResponseHeadDevToolsInfo::charset)& charset(
+      const ::network::mojom::URLResponseHeadDevToolsInfoPtr& input) {
+    return input->charset;
   }
 
   static const decltype(::network::mojom::URLResponseHeadDevToolsInfo::load_timing)& load_timing(

@@ -119,7 +119,7 @@ ContentScript ContentScript::Clone() const {
 bool ContentScript::Populate(
     const base::Value::Dict& dict, ContentScript& out, std::u16string& error) {
   out.run_at = RunAt();
-  out.world = extension_types::ExecutionWorld();
+  out.world = extensions::api::extension_types::ExecutionWorld();
   const base::Value* matches_value = dict.Find("matches");
   if (!matches_value) {
     DCHECK(error.empty());
@@ -314,15 +314,15 @@ bool ContentScript::Populate(
         error = u"'ExecutionWorld': expected string, got " + UTF8ToUTF16(base::Value::GetTypeName((*world_value).type()));
         return false;
       }
-      out.world = extension_types::ParseExecutionWorld(*execution_world_as_string);
-      if (out.world == extension_types::ExecutionWorld()) {
+      out.world = extensions::api::extension_types::ParseExecutionWorld(*execution_world_as_string);
+      if (out.world == extensions::api::extension_types::ExecutionWorld()) {
         DCHECK(error.empty());
-        error = u"'ExecutionWorld': " + extension_types::GetExecutionWorldParseError(*execution_world_as_string);
+        error = u"'ExecutionWorld': " + extensions::api::extension_types::GetExecutionWorldParseError(*execution_world_as_string);
         return false;
       }
     }
     } else {
-    out.world = extension_types::ExecutionWorld();
+    out.world = extensions::api::extension_types::ExecutionWorld();
   }
 
   return true;
@@ -404,7 +404,7 @@ base::Value::Dict ContentScript::ToValue() const {
     to_value_result.Set("run_at", content_scripts::ToString(this->run_at));
 
   }
-  if (this->world != extension_types::ExecutionWorld()) {
+  if (this->world != extensions::api::extension_types::ExecutionWorld()) {
     to_value_result.Set("world", extension_types::ToString(this->world));
 
   }
@@ -421,7 +421,7 @@ const base::Value::Dict& root_dict, base::StringPiece key, ContentScript& out, s
     return false;
   const base::Value::Dict& dict = value->GetDict();
   out.run_at = RunAt();
-  out.world = extension_types::ExecutionWorld();
+  out.world = extensions::api::extension_types::ExecutionWorld();
   if (!::json_schema_compiler::manifest_parse_util::ParseFromDictionary(dict, kMatches, out.matches, error, error_path_reversed)) {
     error_path_reversed.push_back(key);
     return false;
@@ -472,7 +472,7 @@ const base::Value::Dict& root_dict, base::StringPiece key, ContentScript& out, s
     return false;
   }
 
-  if (!::json_schema_compiler::manifest_parse_util::ParseEnumFromDictionary(dict, kWorld, &extension_types::ParseExecutionWorld, true, extension_types::ExecutionWorld(), out.world, error, error_path_reversed)) {
+  if (!::json_schema_compiler::manifest_parse_util::ParseEnumFromDictionary(dict, kWorld, &extension_types::ParseExecutionWorld, true, extensions::api::extension_types::ExecutionWorld(), out.world, error, error_path_reversed)) {
     error_path_reversed.push_back(key);
     return false;
   }

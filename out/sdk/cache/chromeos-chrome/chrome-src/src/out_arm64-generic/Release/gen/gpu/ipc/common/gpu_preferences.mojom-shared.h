@@ -328,6 +328,9 @@ class GpuPreferencesDataView {
   bool enable_webgpu_developer_features() const {
     return data_->enable_webgpu_developer_features;
   }
+  bool enable_webgpu_experimental_features() const {
+    return data_->enable_webgpu_experimental_features;
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadUseWebgpuAdapter(UserType* output) const {
     auto data_value = data_->use_webgpu_adapter;
@@ -612,6 +615,7 @@ struct Serializer<::gpu::mojom::GpuPreferencesDataView, MaybeConstUserType> {
     fragment->enable_webgpu = Traits::enable_webgpu(input);
     fragment->enable_unsafe_webgpu = Traits::enable_unsafe_webgpu(input);
     fragment->enable_webgpu_developer_features = Traits::enable_webgpu_developer_features(input);
+    fragment->enable_webgpu_experimental_features = Traits::enable_webgpu_experimental_features(input);
     mojo::internal::Serialize<::gpu::mojom::WebGPUAdapterName>(
         Traits::use_webgpu_adapter(input), &fragment->use_webgpu_adapter);
     mojo::internal::Serialize<::gpu::mojom::WebGPUPowerPreference>(

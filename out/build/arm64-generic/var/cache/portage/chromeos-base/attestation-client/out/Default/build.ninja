@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/attestation-client-0.0.1-r829/work/attestation-client-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/attestation-client-0.0.1-r837/work/attestation-client-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -18,15 +18,30 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _libattestation-client-test.pc-install_config: phony obj/attestation/client/_libattestation-client-test.pc-install_config.stamp
+build _libattestation-client.pc-install_config: phony obj/attestation/client/_libattestation-client.pc-install_config.stamp
 build libattestation-client-headers: phony obj/attestation/client/libattestation-client-headers.stamp
+build libattestation-client-test.pc: phony obj/attestation/client/libattestation-client-test.pc.stamp
+build libattestation-client.pc: phony obj/attestation/client/libattestation-client.pc.stamp
+build libpca_agent-client-headers: phony obj/attestation/client/libpca_agent-client-headers.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
+build attestation/client$:_libattestation-client-test.pc-install_config: phony obj/attestation/client/_libattestation-client-test.pc-install_config.stamp
+build attestation/client$:_libattestation-client.pc-install_config: phony obj/attestation/client/_libattestation-client.pc-install_config.stamp
 build attestation/client$:all: phony obj/attestation/client/all.stamp
 build attestation/client$:libattestation-client-headers: phony obj/attestation/client/libattestation-client-headers.stamp
+build attestation/client$:libattestation-client-test.pc: phony obj/attestation/client/libattestation-client-test.pc.stamp
+build attestation/client$:libattestation-client.pc: phony obj/attestation/client/libattestation-client.pc.stamp
+build attestation/client$:libpca_agent-client-headers: phony obj/attestation/client/libpca_agent-client-headers.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 
 build all: phony $
+    obj/attestation/client/_libattestation-client-test.pc-install_config.stamp $
+    obj/attestation/client/_libattestation-client.pc-install_config.stamp $
     obj/attestation/client/all.stamp $
     obj/attestation/client/libattestation-client-headers.stamp $
+    obj/attestation/client/libattestation-client-test.pc.stamp $
+    obj/attestation/client/libattestation-client.pc.stamp $
+    obj/attestation/client/libpca_agent-client-headers.stamp $
     obj/common-mk/gn_root/root.stamp
 
 default all

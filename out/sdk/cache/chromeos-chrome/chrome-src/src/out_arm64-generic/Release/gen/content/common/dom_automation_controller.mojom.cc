@@ -166,6 +166,8 @@ bool DomAutomationControllerHostStubDispatch::Accept(
           reinterpret_cast<internal::DomAutomationControllerHost_DomOperationResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomAutomationControllerHost.0
       bool success = true;
       std::string p_json_string{};
       DomAutomationControllerHost_DomOperationResponse_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool DomAutomationControllerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DomOperationResponse(
-std::move(p_json_string));
+      impl->DomOperationResponse(        
+        std::move(p_json_string));
       return true;
     }
   }

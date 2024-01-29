@@ -18,9 +18,7 @@
 
 
 
-namespace mojo {
-enum class NativeEnum;
-}  // namespace mojo
+
 
 
 namespace network::mojom {

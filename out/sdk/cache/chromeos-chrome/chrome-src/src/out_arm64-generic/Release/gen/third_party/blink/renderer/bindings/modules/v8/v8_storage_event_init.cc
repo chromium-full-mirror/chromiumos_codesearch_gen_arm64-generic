@@ -116,46 +116,25 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasKey()) {
-  if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_key_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_key_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasNewValue()) {
-  if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_new_value_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_new_value_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasOldValue()) {
-  if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_old_value_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_old_value_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasStorageArea()) {
-  if (!ToV8Traits<IDLNullable<StorageArea>>::ToV8(script_state, member_storage_area_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<StorageArea>>::ToV8(script_state, member_storage_area_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasUrl()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_url_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_url_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

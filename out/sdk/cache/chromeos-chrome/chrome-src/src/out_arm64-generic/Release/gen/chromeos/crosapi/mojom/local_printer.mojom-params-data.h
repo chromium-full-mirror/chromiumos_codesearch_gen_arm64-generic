@@ -53,7 +53,7 @@ class  PrintServerObserver_OnServerPrintersChanged_Params_Data {
 };
 static_assert(sizeof(PrintServerObserver_OnServerPrintersChanged_Params_Data) == 8,
               "Bad sizeof(PrintServerObserver_OnServerPrintersChanged_Params_Data)");
-class  PrintJobObserver_OnPrintJobUpdate_Params_Data {
+class  PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -64,12 +64,31 @@ class  PrintJobObserver_OnPrintJobUpdate_Params_Data {
   int32_t status;
 
  private:
+  friend class mojo::internal::MessageFragment<PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data>;
+
+  PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data();
+  ~PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data() = delete;
+};
+static_assert(sizeof(PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data) == 24,
+              "Bad sizeof(PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data)");
+class  PrintJobObserver_OnPrintJobUpdate_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> printer_id;
+  uint32_t job_id;
+  uint8_t pad1_[4];
+  mojo::internal::Pointer<internal::PrintJobUpdate_Data> update;
+
+ private:
   friend class mojo::internal::MessageFragment<PrintJobObserver_OnPrintJobUpdate_Params_Data>;
 
   PrintJobObserver_OnPrintJobUpdate_Params_Data();
   ~PrintJobObserver_OnPrintJobUpdate_Params_Data() = delete;
 };
-static_assert(sizeof(PrintJobObserver_OnPrintJobUpdate_Params_Data) == 24,
+static_assert(sizeof(PrintJobObserver_OnPrintJobUpdate_Params_Data) == 32,
               "Bad sizeof(PrintJobObserver_OnPrintJobUpdate_Params_Data)");
 class  LocalPrintersObserver_OnLocalPrintersUpdated_Params_Data {
  public:
@@ -670,12 +689,12 @@ class PrintServerObserver_OnServerPrintersChanged_ParamsDataView {
 };
 
 
-class PrintJobObserver_OnPrintJobUpdate_ParamsDataView {
+class PrintJobObserver_OnPrintJobUpdateDeprecated_ParamsDataView {
  public:
-  PrintJobObserver_OnPrintJobUpdate_ParamsDataView() = default;
+  PrintJobObserver_OnPrintJobUpdateDeprecated_ParamsDataView() = default;
 
-  PrintJobObserver_OnPrintJobUpdate_ParamsDataView(
-      internal::PrintJobObserver_OnPrintJobUpdate_Params_Data* data,
+  PrintJobObserver_OnPrintJobUpdateDeprecated_ParamsDataView(
+      internal::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -702,6 +721,45 @@ class PrintJobObserver_OnPrintJobUpdate_ParamsDataView {
   PrintJobStatus status() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::crosapi::mojom::PrintJobStatus>(data_->status));
+  }
+ private:
+  internal::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PrintJobObserver_OnPrintJobUpdate_ParamsDataView {
+ public:
+  PrintJobObserver_OnPrintJobUpdate_ParamsDataView() = default;
+
+  PrintJobObserver_OnPrintJobUpdate_ParamsDataView(
+      internal::PrintJobObserver_OnPrintJobUpdate_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPrinterIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrinterId(UserType* output) {
+    
+    auto* pointer = data_->printer_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  uint32_t job_id() const {
+    return data_->job_id;
+  }
+  inline void GetUpdateDataView(
+      PrintJobUpdateDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUpdate(UserType* output) {
+    
+    auto* pointer = data_->update.Get();
+    return mojo::internal::Deserialize<::crosapi::mojom::PrintJobUpdateDataView>(
+        pointer, output, message_);
   }
  private:
   internal::PrintJobObserver_OnPrintJobUpdate_Params_Data* data_ = nullptr;
@@ -1528,10 +1586,22 @@ inline void PrintServerObserver_OnPrintServersChanged_ParamsDataView::GetConfigD
 
 
 
+inline void PrintJobObserver_OnPrintJobUpdateDeprecated_ParamsDataView::GetPrinterIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->printer_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void PrintJobObserver_OnPrintJobUpdate_ParamsDataView::GetPrinterIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->printer_id.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void PrintJobObserver_OnPrintJobUpdate_ParamsDataView::GetUpdateDataView(
+    PrintJobUpdateDataView* output) {
+  auto pointer = data_->update.Get();
+  *output = PrintJobUpdateDataView(pointer, message_);
 }
 
 

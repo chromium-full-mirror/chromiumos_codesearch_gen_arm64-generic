@@ -79,10 +79,30 @@ class  ConnectionDelegateAsyncWaiter {
 };
 
 
+class  SecureChannelStructuredMetricsLoggerInterceptorForTesting : public SecureChannelStructuredMetricsLogger {
+  virtual SecureChannelStructuredMetricsLogger* GetForwardingInterface() = 0;
+  void LogDiscoveryAttempt(DiscoveryResult result, std::optional<DiscoveryErrorCode> error_code) override;
+  void LogNearbyConnectionState(::ash::secure_channel::mojom::NearbyConnectionStep step, ::ash::secure_channel::mojom::NearbyConnectionStepResult status) override;
+  void LogSecureChannelState(SecureChannelState state) override;
+};
+class  SecureChannelStructuredMetricsLoggerAsyncWaiter {
+ public:
+  explicit SecureChannelStructuredMetricsLoggerAsyncWaiter(SecureChannelStructuredMetricsLogger* proxy);
+
+  SecureChannelStructuredMetricsLoggerAsyncWaiter(const SecureChannelStructuredMetricsLoggerAsyncWaiter&) = delete;
+  SecureChannelStructuredMetricsLoggerAsyncWaiter& operator=(const SecureChannelStructuredMetricsLoggerAsyncWaiter&) = delete;
+
+  ~SecureChannelStructuredMetricsLoggerAsyncWaiter();
+
+ private:
+  SecureChannelStructuredMetricsLogger* const proxy_;
+};
+
+
 class  SecureChannelInterceptorForTesting : public SecureChannel {
   virtual SecureChannel* GetForwardingInterface() = 0;
   void ListenForConnectionFromDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) override;
-  void InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) override;
+  void InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate, ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger> secure_channel_structured_metrics_logger) override;
   void SetNearbyConnector(::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector> nearby_connector) override;
   void GetLastSeenTimestamp(const std::string& remote_device_id, GetLastSeenTimestampCallback callback) override;
 };

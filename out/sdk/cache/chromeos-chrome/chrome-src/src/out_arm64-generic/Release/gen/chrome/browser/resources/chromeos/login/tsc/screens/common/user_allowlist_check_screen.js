@@ -5,41 +5,22 @@
  * @fileoverview Oobe signin screen implementation.
  */
 import '../../components/notification_card.js';
-import { assert } from '//resources/ash/common/assert.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { getTemplate } from './user_allowlist_check_screen.html.js';
 // The help topic regarding user not being in the allowlist.
 const HELP_CANT_ACCESS_ACCOUNT = 188036;
 /**
  * UI mode for the dialog.
- * @enum {string}
  */
-const DialogMode = {
-    DEFAULT: 'default',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
+var DialogMode;
+(function (DialogMode) {
+    DialogMode["DEFAULT"] = "default";
+})(DialogMode || (DialogMode = {}));
 const UserAllowlistCheckScreenElementBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   enterpriseManaged: boolean,
- *   familyLinkAllowed: boolean,
- * }}
- */
-let UserAllowlistCheckScreenData;
-/**
- * @polymer
- */
-class UserAllowlistCheckScreenElement extends UserAllowlistCheckScreenElementBase {
+export class UserAllowlistCheckScreenElement extends UserAllowlistCheckScreenElementBase {
     static get is() {
         return 'user-allowlist-check-screen-element';
     }
@@ -48,10 +29,7 @@ class UserAllowlistCheckScreenElement extends UserAllowlistCheckScreenElementBas
     }
     static get properties() {
         return {
-            /**
-             * @private {string}
-             */
-            allowlistError_: {
+            allowlistError: {
                 type: String,
                 value: 'allowlistErrorConsumer',
             },
@@ -60,36 +38,39 @@ class UserAllowlistCheckScreenElement extends UserAllowlistCheckScreenElementBas
     get EXTERNAL_API() {
         return [];
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
         return DialogMode.DEFAULT;
     }
     get UI_STEPS() {
         return DialogMode;
     }
-    /** @override */
     ready() {
         super.ready();
         this.initializeLoginScreen('UserAllowlistCheckScreen');
     }
     /**
      * Event handler that is invoked just before the frame is shown.
-     * @param {UserAllowlistCheckScreenData} opt_data Screen initial payload
      */
-    onBeforeShow(opt_data) {
-        const isManaged = opt_data && opt_data.enterpriseManaged;
-        const isFamilyLinkAllowed = opt_data && opt_data.familyLinkAllowed;
+    onBeforeShow(optData) {
+        const isManaged = optData && optData.enterpriseManaged;
+        const isFamilyLinkAllowed = optData && optData.familyLinkAllowed;
         if (isManaged && isFamilyLinkAllowed) {
-            this.allowlistError_ = 'allowlistErrorEnterpriseAndFamilyLink';
+            this.allowlistError = 'allowlistErrorEnterpriseAndFamilyLink';
         }
         else if (isManaged) {
-            this.allowlistError_ = 'allowlistErrorEnterprise';
+            this.allowlistError = 'allowlistErrorEnterprise';
         }
         else {
-            this.allowlistError_ = 'allowlistErrorConsumer';
+            this.allowlistError = 'allowlistErrorConsumer';
         }
-        this.$['gaia-allowlist-error'].submitButton.focus();
+        const submitButton = this.shadowRoot?.querySelector('#submitButton');
+        if (submitButton instanceof HTMLElement) {
+            // TODO(b/320446861): Fix type once GaiaButton can be added.
+            submitButton.focus();
+        }
     }
-    onAllowlistErrorTryAgainClick_() {
+    onAllowlistErrorTryAgainClick() {
         this.userActed('retry');
     }
     onAllowlistErrorLinkClick_() {

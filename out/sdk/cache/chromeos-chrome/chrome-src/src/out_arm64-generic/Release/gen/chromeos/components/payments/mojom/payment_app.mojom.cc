@@ -493,6 +493,8 @@ bool PaymentAppInstance_IsPaymentImplemented_ForwardToCallback::Accept(
           internal::PaymentAppInstance_IsPaymentImplemented_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentAppInstance.0
   bool success = true;
   ::chromeos::payments::mojom::IsPaymentImplementedResultPtr p_response{};
   PaymentAppInstance_IsPaymentImplemented_ResponseParamsDataView input_data_view(params, message);
@@ -620,6 +622,8 @@ bool PaymentAppInstance_IsReadyToPay_ForwardToCallback::Accept(
           internal::PaymentAppInstance_IsReadyToPay_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentAppInstance.1
   bool success = true;
   ::chromeos::payments::mojom::IsReadyToPayResultPtr p_response{};
   PaymentAppInstance_IsReadyToPay_ResponseParamsDataView input_data_view(params, message);
@@ -747,6 +751,8 @@ bool PaymentAppInstance_InvokePaymentApp_ForwardToCallback::Accept(
           internal::PaymentAppInstance_InvokePaymentApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentAppInstance.2
   bool success = true;
   ::chromeos::payments::mojom::InvokePaymentAppResultPtr p_response{};
   PaymentAppInstance_InvokePaymentApp_ResponseParamsDataView input_data_view(params, message);
@@ -874,6 +880,8 @@ bool PaymentAppInstance_AbortPaymentApp_ForwardToCallback::Accept(
           internal::PaymentAppInstance_AbortPaymentApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentAppInstance.3
   bool success = true;
   bool p_aborted{};
   PaymentAppInstance_AbortPaymentApp_ResponseParamsDataView input_data_view(params, message);
@@ -973,6 +981,8 @@ bool PaymentAppInstanceStubDispatch::AcceptWithResponder(
               internal::PaymentAppInstance_IsPaymentImplemented_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentAppInstance.0
       bool success = true;
       std::string p_package_name{};
       PaymentAppInstance_IsPaymentImplemented_ParamsDataView input_data_view(params, message);
@@ -991,8 +1001,8 @@ bool PaymentAppInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsPaymentImplemented(
-std::move(p_package_name), std::move(callback));
+      impl->IsPaymentImplemented(        
+        std::move(p_package_name), std::move(callback));
       return true;
     }
     case internal::kPaymentAppInstance_IsReadyToPay_Name: {
@@ -1002,6 +1012,8 @@ std::move(p_package_name), std::move(callback));
               internal::PaymentAppInstance_IsReadyToPay_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentAppInstance.1
       bool success = true;
       ::chromeos::payments::mojom::PaymentParametersPtr p_parameters{};
       PaymentAppInstance_IsReadyToPay_ParamsDataView input_data_view(params, message);
@@ -1020,8 +1032,8 @@ std::move(p_package_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsReadyToPay(
-std::move(p_parameters), std::move(callback));
+      impl->IsReadyToPay(        
+        std::move(p_parameters), std::move(callback));
       return true;
     }
     case internal::kPaymentAppInstance_InvokePaymentApp_Name: {
@@ -1031,6 +1043,8 @@ std::move(p_parameters), std::move(callback));
               internal::PaymentAppInstance_InvokePaymentApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentAppInstance.2
       bool success = true;
       ::chromeos::payments::mojom::PaymentParametersPtr p_parameters{};
       PaymentAppInstance_InvokePaymentApp_ParamsDataView input_data_view(params, message);
@@ -1049,8 +1063,8 @@ std::move(p_parameters), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InvokePaymentApp(
-std::move(p_parameters), std::move(callback));
+      impl->InvokePaymentApp(        
+        std::move(p_parameters), std::move(callback));
       return true;
     }
     case internal::kPaymentAppInstance_AbortPaymentApp_Name: {
@@ -1060,6 +1074,8 @@ std::move(p_parameters), std::move(callback));
               internal::PaymentAppInstance_AbortPaymentApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentAppInstance.3
       bool success = true;
       std::string p_request_token{};
       PaymentAppInstance_AbortPaymentApp_ParamsDataView input_data_view(params, message);
@@ -1078,8 +1094,8 @@ std::move(p_parameters), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AbortPaymentApp(
-std::move(p_request_token), std::move(callback));
+      impl->AbortPaymentApp(        
+        std::move(p_request_token), std::move(callback));
       return true;
     }
   }

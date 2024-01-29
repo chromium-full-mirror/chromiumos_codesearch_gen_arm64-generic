@@ -17,6 +17,9 @@
   "core/common/ResourceType.ts | fetch": {
     "message": "Fetch"
   },
+  "core/common/ResourceType.ts | fetchAndXHR": {
+    "message": "Fetch and XHR"
+  },
   "core/common/ResourceType.ts | font": {
     "message": "Font"
   },
@@ -76,9 +79,6 @@
   },
   "core/common/ResourceType.ts | ws": {
     "message": "WS"
-  },
-  "core/common/ResourceType.ts | xhrAndFetch": {
-    "message": "XHR and Fetch"
   },
   "core/common/Revealer.ts | applicationPanel": {
     "message": "Application panel"
@@ -872,6 +872,12 @@
   "entrypoints/js_app/js_app.ts | main": {
     "message": "Main"
   },
+  "entrypoints/js_app/js_app.ts | networkTitle": {
+    "message": "Scripts"
+  },
+  "entrypoints/js_app/js_app.ts | showNode": {
+    "message": "Show Scripts"
+  },
   "entrypoints/main/main-meta.ts | auto": {
     "message": "auto"
   },
@@ -1163,9 +1169,6 @@
   "generated/Deprecation.ts | MediaSourceDurationTruncatingBuffered": {
     "message": "Setting MediaSource.duration below the highest presentation timestamp of any buffered coded frames is deprecated due to specification change. Support for implicit removal of truncated buffered media will be removed in the future. You should instead perform explicit remove(newDuration, oldDuration) on all sourceBuffers, where newDuration < oldDuration."
   },
-  "generated/Deprecation.ts | NonStandardDeclarativeShadowDOM": {
-    "message": "The older, non-standardized shadowroot attribute is deprecated, and will *no longer function* in M119. Please use the new, standardized shadowrootmode attribute instead."
-  },
   "generated/Deprecation.ts | NoSysexWebMIDIWithoutPermission": {
     "message": "Web MIDI will ask a permission to use even if the sysex is not specified in the MIDIOptions."
   },
@@ -1328,6 +1331,9 @@
   "models/emulation/DeviceModeModel.ts | devicePixelRatioMustBeLessThanOr": {
     "message": "Device pixel ratio must be less than or equal to {PH1}."
   },
+  "models/emulation/DeviceModeModel.ts | heightCannotBeEmpty": {
+    "message": "Height cannot be empty."
+  },
   "models/emulation/DeviceModeModel.ts | heightMustBeANumber": {
     "message": "Height must be a number."
   },
@@ -1336,6 +1342,9 @@
   },
   "models/emulation/DeviceModeModel.ts | heightMustBeLessThanOrEqualToS": {
     "message": "Height must be less than or equal to {PH1}."
+  },
+  "models/emulation/DeviceModeModel.ts | widthCannotBeEmpty": {
+    "message": "Width cannot be empty."
   },
   "models/emulation/DeviceModeModel.ts | widthMustBeANumber": {
     "message": "Width must be a number."
@@ -2207,6 +2216,9 @@
   "panels/application/ApplicationPanelSidebar.ts | theContentOfThisDocumentHasBeen": {
     "message": "The content of this document has been generated dynamically via 'document.write()'."
   },
+  "panels/application/ApplicationPanelSidebar.ts | thirdPartyPhaseout": {
+    "message": "Cookies from {PH1} may have been blocked due to third-party cookie phaseout."
+  },
   "panels/application/ApplicationPanelSidebar.ts | versionS": {
     "message": "Version: {PH1}"
   },
@@ -2256,7 +2268,7 @@
     "message": "Copied suggested ID {PH1} to clipboard"
   },
   "panels/application/AppManifestView.ts | copyToClipboard": {
-    "message": "Copy to clipboard"
+    "message": "Copy suggested ID to clipboard"
   },
   "panels/application/AppManifestView.ts | couldNotCheckServiceWorker": {
     "message": "Could not check service worker without a 'start_url' field in the manifest"
@@ -2759,6 +2771,9 @@
   "panels/application/components/BackForwardCacheStrings.ts | keyboardLock": {
     "message": "Pages that use Keyboard lock are not currently eligible for back/forward cache."
   },
+  "panels/application/components/BackForwardCacheStrings.ts | LiveMediaStreamTrack": {
+    "message": "Undefined"
+  },
   "panels/application/components/BackForwardCacheStrings.ts | loading": {
     "message": "The page did not finish loading before navigating away."
   },
@@ -2867,6 +2882,9 @@
   "panels/application/components/BackForwardCacheStrings.ts | sharedWorker": {
     "message": "Pages that use SharedWorker are not currently eligible for back/forward cache."
   },
+  "panels/application/components/BackForwardCacheStrings.ts | SmartCard": {
+    "message": "Undefined"
+  },
   "panels/application/components/BackForwardCacheStrings.ts | speechRecognizer": {
     "message": "Pages that use SpeechRecognizer are not currently eligible for back/forward cache."
   },
@@ -2887,6 +2905,9 @@
   },
   "panels/application/components/BackForwardCacheStrings.ts | timeoutPuttingInCache": {
     "message": "The page timed out entering back/forward cache (likely due to long-running pagehide handlers)."
+  },
+  "panels/application/components/BackForwardCacheStrings.ts | UnloadHandler": {
+    "message": "Undefined"
   },
   "panels/application/components/BackForwardCacheStrings.ts | unloadHandlerExistsInMainFrame": {
     "message": "The page has an unload handler in the main frame."
@@ -3355,6 +3376,9 @@
   },
   "panels/application/components/StackTrace.ts | cannotRenderStackTrace": {
     "message": "Cannot render stack trace"
+  },
+  "panels/application/components/StackTrace.ts | creationStackTrace": {
+    "message": "Frame Creation Stack Trace"
   },
   "panels/application/components/StackTrace.ts | showLess": {
     "message": "Show less"
@@ -4487,6 +4511,9 @@
   "panels/autofill/autofill-meta.ts | showAutofill": {
     "message": "Show Autofill"
   },
+  "panels/autofill/AutofillView.ts | addressPreview": {
+    "message": "Address preview"
+  },
   "panels/autofill/AutofillView.ts | attr": {
     "message": "attr"
   },
@@ -4494,10 +4521,13 @@
     "message": "Autocomplete attribute"
   },
   "panels/autofill/AutofillView.ts | autoShow": {
-    "message": "Automatically open tab on autofill"
+    "message": "Open panel on autofill"
   },
   "panels/autofill/AutofillView.ts | formField": {
     "message": "Form field"
+  },
+  "panels/autofill/AutofillView.ts | formInspector": {
+    "message": "Form inspector"
   },
   "panels/autofill/AutofillView.ts | heur": {
     "message": "heur"
@@ -4534,6 +4564,9 @@
   },
   "panels/browser_debugger/browser_debugger-meta.ts | page": {
     "message": "Page"
+  },
+  "panels/browser_debugger/browser_debugger-meta.ts | refreshGlobalListeners": {
+    "message": "Refresh global listeners"
   },
   "panels/browser_debugger/browser_debugger-meta.ts | showContentScripts": {
     "message": "Show Content scripts"
@@ -4693,9 +4726,6 @@
   },
   "panels/browser_debugger/DOMBreakpointsSidebarPane.ts | unchecked": {
     "message": "unchecked"
-  },
-  "panels/browser_debugger/ObjectEventListenersSidebarPane.ts | refreshGlobalListeners": {
-    "message": "Refresh global listeners"
   },
   "panels/browser_debugger/XHRBreakpointsSidebarPane.ts | addBreakpoint": {
     "message": "Add breakpoint"
@@ -6376,9 +6406,6 @@
   },
   "panels/explain/components/ConsoleInsight.ts | relatedCode": {
     "message": "Related code"
-  },
-  "panels/explain/components/ConsoleInsight.ts | searchAnswers": {
-    "message": "Google search answers"
   },
   "panels/explain/components/ConsoleInsight.ts | sources": {
     "message": "Sources"
@@ -9512,6 +9539,9 @@
   "panels/profiler/ModuleUIStrings.ts | calculatingSamples": {
     "message": "Calculating samples…"
   },
+  "panels/profiler/ModuleUIStrings.ts | calculatingShallowSizes": {
+    "message": "Calculating shallow sizes…"
+  },
   "panels/profiler/ModuleUIStrings.ts | calculatingStatistics": {
     "message": "Calculating statistics…"
   },
@@ -11228,6 +11258,9 @@
   "panels/sources/components/BreakpointsView.ts | conditionCode": {
     "message": "Condition: {PH1}"
   },
+  "panels/sources/components/BreakpointsView.ts | disableAllBreakpoints": {
+    "message": "Disable all breakpoints"
+  },
   "panels/sources/components/BreakpointsView.ts | disableAllBreakpointsInFile": {
     "message": "Disable all breakpoints in file"
   },
@@ -11236,6 +11269,9 @@
   },
   "panels/sources/components/BreakpointsView.ts | editLogpoint": {
     "message": "Edit logpoint"
+  },
+  "panels/sources/components/BreakpointsView.ts | enableAllBreakpoints": {
+    "message": "Enable all breakpoints"
   },
   "panels/sources/components/BreakpointsView.ts | enableAllBreakpointsInFile": {
     "message": "Enable all breakpoints in file"
@@ -12185,6 +12221,9 @@
   "panels/timeline/EventUICategory.ts | consoleTime": {
     "message": "Console Time"
   },
+  "panels/timeline/EventUICategory.ts | cppGc": {
+    "message": "CPP GC"
+  },
   "panels/timeline/EventUICategory.ts | createWebsocket": {
     "message": "Create WebSocket"
   },
@@ -12457,6 +12496,12 @@
   },
   "panels/timeline/InteractionsTrackAppender.ts | interactions": {
     "message": "Interactions"
+  },
+  "panels/timeline/IsolateSelector.ts | empty": {
+    "message": "(empty)"
+  },
+  "panels/timeline/IsolateSelector.ts | selectJavascriptVmInstance": {
+    "message": "Select JavaScript VM instance"
   },
   "panels/timeline/LayoutShiftsTrackAppender.ts | layoutShifts": {
     "message": "Layout Shifts"
@@ -14267,6 +14312,18 @@
   "ui/legacy/components/perf_ui/FlameChart.ts | flameChart": {
     "message": "Flame Chart"
   },
+  "ui/legacy/components/perf_ui/FlameChart.ts | hideChildren": {
+    "message": "Hide children"
+  },
+  "ui/legacy/components/perf_ui/FlameChart.ts | hideFunction": {
+    "message": "Hide function"
+  },
+  "ui/legacy/components/perf_ui/FlameChart.ts | hideRepeatingChildren": {
+    "message": "Hide repeating children"
+  },
+  "ui/legacy/components/perf_ui/FlameChart.ts | resetTrace": {
+    "message": "Reset trace"
+  },
   "ui/legacy/components/perf_ui/FlameChart.ts | sCollapsed": {
     "message": "{PH1} collapsed"
   },
@@ -14350,6 +14407,9 @@
   },
   "ui/legacy/components/quick_open/FilteredListWidget.ts | quickOpenPrompt": {
     "message": "Quick open prompt"
+  },
+  "ui/legacy/components/quick_open/FilteredListWidget.ts | sItemSOfS": {
+    "message": "{PH1}, item {PH2} of {PH3}"
   },
   "ui/legacy/components/quick_open/quick_open-meta.ts | openFile": {
     "message": "Open file"
@@ -14633,8 +14693,14 @@
   "ui/legacy/ListWidget.ts | cancelString": {
     "message": "Cancel"
   },
+  "ui/legacy/ListWidget.ts | changesSaved": {
+    "message": "Changes to item have been saved"
+  },
   "ui/legacy/ListWidget.ts | editString": {
     "message": "Edit"
+  },
+  "ui/legacy/ListWidget.ts | removedItem": {
+    "message": "Item has been removed"
   },
   "ui/legacy/ListWidget.ts | removeString": {
     "message": "Remove"

@@ -82,7 +82,7 @@ let XfSplitter = XfSplitter_1 = class XfSplitter extends XfBase {
                 this.afterResizingElement_.clientWidth;
         this.classList.add('splitter-active');
         this.isRTLlayout_ =
-            window.getComputedStyle(this).getPropertyValue('direction') == 'rtl';
+            window.getComputedStyle(this).getPropertyValue('direction') === 'rtl';
     }
     finishDrag_() {
         assert(!!this.handlers_);

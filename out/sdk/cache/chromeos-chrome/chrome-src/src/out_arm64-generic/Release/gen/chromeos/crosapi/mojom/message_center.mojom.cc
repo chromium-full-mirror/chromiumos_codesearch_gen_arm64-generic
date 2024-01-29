@@ -362,6 +362,8 @@ bool MessageCenter_GetDisplayedNotifications_ForwardToCallback::Accept(
           internal::MessageCenter_GetDisplayedNotifications_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MessageCenter.2
   bool success = true;
   std::vector<std::string> p_ids{};
   MessageCenter_GetDisplayedNotifications_ResponseParamsDataView input_data_view(params, message);
@@ -448,6 +450,8 @@ bool MessageCenterStubDispatch::Accept(
           reinterpret_cast<internal::MessageCenter_DisplayNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessageCenter.0
       bool success = true;
       ::crosapi::mojom::NotificationPtr p_notification{};
       ::mojo::PendingRemote<NotificationDelegate> p_delegate{};
@@ -468,9 +472,9 @@ bool MessageCenterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayNotification(
-std::move(p_notification), 
-std::move(p_delegate));
+      impl->DisplayNotification(        
+        std::move(p_notification), 
+        std::move(p_delegate));
       return true;
     }
     case internal::kMessageCenter_CloseNotification_Name: {
@@ -480,6 +484,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::MessageCenter_CloseNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessageCenter.1
       bool success = true;
       std::string p_id{};
       MessageCenter_CloseNotification_ParamsDataView input_data_view(params, message);
@@ -495,8 +501,8 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseNotification(
-std::move(p_id));
+      impl->CloseNotification(        
+        std::move(p_id));
       return true;
     }
     case internal::kMessageCenter_GetDisplayedNotifications_Name: {
@@ -528,6 +534,8 @@ bool MessageCenterStubDispatch::AcceptWithResponder(
               internal::MessageCenter_GetDisplayedNotifications_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MessageCenter.2
       bool success = true;
       MessageCenter_GetDisplayedNotifications_ParamsDataView input_data_view(params, message);
       
@@ -912,6 +920,8 @@ bool NotificationDelegateStubDispatch::Accept(
           reinterpret_cast<internal::NotificationDelegate_OnNotificationClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.0
       bool success = true;
       bool p_by_user{};
       NotificationDelegate_OnNotificationClosed_ParamsDataView input_data_view(params, message);
@@ -927,8 +937,8 @@ bool NotificationDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationClosed(
-std::move(p_by_user));
+      impl->OnNotificationClosed(        
+        std::move(p_by_user));
       return true;
     }
     case internal::kNotificationDelegate_OnNotificationClicked_Name: {
@@ -938,6 +948,8 @@ std::move(p_by_user));
           reinterpret_cast<internal::NotificationDelegate_OnNotificationClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.1
       bool success = true;
       NotificationDelegate_OnNotificationClicked_ParamsDataView input_data_view(params, message);
       
@@ -950,7 +962,7 @@ std::move(p_by_user));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationClicked();
+      impl->OnNotificationClicked(        );
       return true;
     }
     case internal::kNotificationDelegate_OnNotificationButtonClicked_Name: {
@@ -960,6 +972,8 @@ std::move(p_by_user));
           reinterpret_cast<internal::NotificationDelegate_OnNotificationButtonClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.2
       bool success = true;
       uint32_t p_button_index{};
       std::optional<::std::u16string> p_reply{};
@@ -978,9 +992,9 @@ std::move(p_by_user));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationButtonClicked(
-std::move(p_button_index), 
-std::move(p_reply));
+      impl->OnNotificationButtonClicked(        
+        std::move(p_button_index), 
+        std::move(p_reply));
       return true;
     }
     case internal::kNotificationDelegate_OnNotificationSettingsButtonClicked_Name: {
@@ -990,6 +1004,8 @@ std::move(p_reply));
           reinterpret_cast<internal::NotificationDelegate_OnNotificationSettingsButtonClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.3
       bool success = true;
       NotificationDelegate_OnNotificationSettingsButtonClicked_ParamsDataView input_data_view(params, message);
       
@@ -1002,7 +1018,7 @@ std::move(p_reply));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationSettingsButtonClicked();
+      impl->OnNotificationSettingsButtonClicked(        );
       return true;
     }
     case internal::kNotificationDelegate_OnNotificationDisabled_Name: {
@@ -1012,6 +1028,8 @@ std::move(p_reply));
           reinterpret_cast<internal::NotificationDelegate_OnNotificationDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.4
       bool success = true;
       NotificationDelegate_OnNotificationDisabled_ParamsDataView input_data_view(params, message);
       
@@ -1024,7 +1042,7 @@ std::move(p_reply));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationDisabled();
+      impl->OnNotificationDisabled(        );
       return true;
     }
   }

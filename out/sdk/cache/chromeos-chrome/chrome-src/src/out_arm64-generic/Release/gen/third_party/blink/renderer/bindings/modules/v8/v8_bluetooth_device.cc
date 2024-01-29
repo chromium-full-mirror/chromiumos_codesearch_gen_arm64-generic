@@ -104,7 +104,8 @@ BLINK_BINDINGS_TRACE_EVENT("BluetoothDevice.name.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("BluetoothDevice.name.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBluetoothDeviceName);
 
@@ -225,7 +226,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBluetoothDeviceForget);
 
@@ -235,8 +237,7 @@ UseCounter::Count(current_execution_context, WebFeature::kBluetoothDeviceForget)
 
 
 BluetoothDevice* blink_receiver = V8BluetoothDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->forget(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -263,7 +264,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothWatchAdvertisements);
 
@@ -273,8 +275,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWebBluetoothWatchAdver
 
 
 BluetoothDevice* blink_receiver = V8BluetoothDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<WatchAdvertisementsOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {

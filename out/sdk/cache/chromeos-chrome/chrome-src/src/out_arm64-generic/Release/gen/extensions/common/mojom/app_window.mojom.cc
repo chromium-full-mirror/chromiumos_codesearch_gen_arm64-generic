@@ -217,6 +217,8 @@ bool AppWindowStubDispatch::Accept(
           reinterpret_cast<internal::AppWindow_SetVisuallyDeemphasized_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppWindow.0
       bool success = true;
       bool p_deemphasized{};
       AppWindow_SetVisuallyDeemphasized_ParamsDataView input_data_view(params, message);
@@ -232,8 +234,8 @@ bool AppWindowStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVisuallyDeemphasized(
-std::move(p_deemphasized));
+      impl->SetVisuallyDeemphasized(        
+        std::move(p_deemphasized));
       return true;
     }
     case internal::kAppWindow_SetSupportsAppRegion_Name: {
@@ -243,6 +245,8 @@ std::move(p_deemphasized));
           reinterpret_cast<internal::AppWindow_SetSupportsAppRegion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppWindow.1
       bool success = true;
       bool p_supports_app_region{};
       AppWindow_SetSupportsAppRegion_ParamsDataView input_data_view(params, message);
@@ -258,8 +262,8 @@ std::move(p_deemphasized));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSupportsAppRegion(
-std::move(p_supports_app_region));
+      impl->SetSupportsAppRegion(        
+        std::move(p_supports_app_region));
       return true;
     }
   }

@@ -59,14 +59,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_records;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLSequence<FileSystemChangeRecord>>::ToV8(script_state, arg1_records).ToLocal(&v8_arg1_records)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_records = ToV8Traits<IDLSequence<FileSystemChangeRecord>>::ToV8(script_state, arg1_records);
 argv[0] = v8_arg1_records;
 v8::Local<v8::Value> v8_arg2_observer;
-if (!ToV8Traits<FileSystemObserver>::ToV8(script_state, arg2_observer).ToLocal(&v8_arg2_observer)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_observer = ToV8Traits<FileSystemObserver>::ToV8(script_state, arg2_observer);
 argv[1] = v8_arg2_observer;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -105,14 +101,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_records;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLSequence<FileSystemChangeRecord>>::ToV8(script_state, arg1_records).ToLocal(&v8_arg1_records)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_records = ToV8Traits<IDLSequence<FileSystemChangeRecord>>::ToV8(script_state, arg1_records);
 argv[0] = v8_arg1_records;
 v8::Local<v8::Value> v8_arg2_observer;
-if (!ToV8Traits<FileSystemObserver>::ToV8(script_state, arg2_observer).ToLocal(&v8_arg2_observer)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_observer = ToV8Traits<FileSystemObserver>::ToV8(script_state, arg2_observer);
 argv[1] = v8_arg2_observer;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

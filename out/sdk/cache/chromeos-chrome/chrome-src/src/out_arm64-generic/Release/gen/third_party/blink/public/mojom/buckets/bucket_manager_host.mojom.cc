@@ -946,6 +946,8 @@ bool BucketHost_Persist_ForwardToCallback::Accept(
           internal::BucketHost_Persist_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.0
   bool success = true;
   bool p_persisted{};
   bool p_success{};
@@ -1073,6 +1075,8 @@ bool BucketHost_Persisted_ForwardToCallback::Accept(
           internal::BucketHost_Persisted_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.1
   bool success = true;
   bool p_persisted{};
   bool p_success{};
@@ -1200,6 +1204,8 @@ bool BucketHost_Estimate_ForwardToCallback::Accept(
           internal::BucketHost_Estimate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.2
   bool success = true;
   int64_t p_current_usage{};
   int64_t p_current_quota{};
@@ -1335,6 +1341,8 @@ bool BucketHost_Durability_ForwardToCallback::Accept(
           internal::BucketHost_Durability_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.3
   bool success = true;
   ::blink::mojom::BucketDurability p_durability{};
   bool p_success{};
@@ -1463,6 +1471,8 @@ bool BucketHost_SetExpires_ForwardToCallback::Accept(
           internal::BucketHost_SetExpires_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.4
   bool success = true;
   bool p_success{};
   BucketHost_SetExpires_ResponseParamsDataView input_data_view(params, message);
@@ -1582,6 +1592,8 @@ bool BucketHost_Expires_ForwardToCallback::Accept(
           internal::BucketHost_Expires_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.5
   bool success = true;
   std::optional<::base::Time> p_expires{};
   bool p_success{};
@@ -1715,6 +1727,8 @@ bool BucketHost_GetDirectory_ForwardToCallback::Accept(
           internal::BucketHost_GetDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketHost.9
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   ::mojo::PendingRemote<::blink::mojom::FileSystemAccessDirectoryHandle> p_directory{};
@@ -1828,6 +1842,8 @@ bool BucketHostStubDispatch::Accept(
           reinterpret_cast<internal::BucketHost_GetIdbFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BucketHost.6
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::IDBFactory> p_idb_factory{};
       BucketHost_GetIdbFactory_ParamsDataView input_data_view(params, message);
@@ -1845,8 +1861,8 @@ bool BucketHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetIdbFactory(
-std::move(p_idb_factory));
+      impl->GetIdbFactory(        
+        std::move(p_idb_factory));
       return true;
     }
     case internal::kBucketHost_GetLockManager_Name: {
@@ -1856,6 +1872,8 @@ std::move(p_idb_factory));
           reinterpret_cast<internal::BucketHost_GetLockManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BucketHost.7
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::LockManager> p_lock_manager{};
       BucketHost_GetLockManager_ParamsDataView input_data_view(params, message);
@@ -1873,8 +1891,8 @@ std::move(p_idb_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLockManager(
-std::move(p_lock_manager));
+      impl->GetLockManager(        
+        std::move(p_lock_manager));
       return true;
     }
     case internal::kBucketHost_GetCaches_Name: {
@@ -1884,6 +1902,8 @@ std::move(p_lock_manager));
           reinterpret_cast<internal::BucketHost_GetCaches_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BucketHost.8
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::CacheStorage> p_cache_storage{};
       BucketHost_GetCaches_ParamsDataView input_data_view(params, message);
@@ -1901,8 +1921,8 @@ std::move(p_lock_manager));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCaches(
-std::move(p_cache_storage));
+      impl->GetCaches(        
+        std::move(p_cache_storage));
       return true;
     }
     case internal::kBucketHost_GetDirectory_Name: {
@@ -1928,6 +1948,8 @@ bool BucketHostStubDispatch::AcceptWithResponder(
               internal::BucketHost_Persist_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.0
       bool success = true;
       BucketHost_Persist_ParamsDataView input_data_view(params, message);
       
@@ -1953,6 +1975,8 @@ bool BucketHostStubDispatch::AcceptWithResponder(
               internal::BucketHost_Persisted_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.1
       bool success = true;
       BucketHost_Persisted_ParamsDataView input_data_view(params, message);
       
@@ -1978,6 +2002,8 @@ bool BucketHostStubDispatch::AcceptWithResponder(
               internal::BucketHost_Estimate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.2
       bool success = true;
       BucketHost_Estimate_ParamsDataView input_data_view(params, message);
       
@@ -2003,6 +2029,8 @@ bool BucketHostStubDispatch::AcceptWithResponder(
               internal::BucketHost_Durability_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.3
       bool success = true;
       BucketHost_Durability_ParamsDataView input_data_view(params, message);
       
@@ -2028,6 +2056,8 @@ bool BucketHostStubDispatch::AcceptWithResponder(
               internal::BucketHost_SetExpires_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.4
       bool success = true;
       ::base::Time p_expires{};
       BucketHost_SetExpires_ParamsDataView input_data_view(params, message);
@@ -2046,8 +2076,8 @@ bool BucketHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExpires(
-std::move(p_expires), std::move(callback));
+      impl->SetExpires(        
+        std::move(p_expires), std::move(callback));
       return true;
     }
     case internal::kBucketHost_Expires_Name: {
@@ -2057,6 +2087,8 @@ std::move(p_expires), std::move(callback));
               internal::BucketHost_Expires_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.5
       bool success = true;
       BucketHost_Expires_ParamsDataView input_data_view(params, message);
       
@@ -2091,6 +2123,8 @@ std::move(p_expires), std::move(callback));
               internal::BucketHost_GetDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketHost.9
       bool success = true;
       BucketHost_GetDirectory_ParamsDataView input_data_view(params, message);
       
@@ -2582,6 +2616,8 @@ bool BucketManagerHost_OpenBucket_ForwardToCallback::Accept(
           internal::BucketManagerHost_OpenBucket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketManagerHost.0
   bool success = true;
   ::mojo::PendingRemote<BucketHost> p_remote{};
   BucketError p_error{};
@@ -2713,6 +2749,8 @@ bool BucketManagerHost_Keys_ForwardToCallback::Accept(
           internal::BucketManagerHost_Keys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketManagerHost.2
   bool success = true;
   std::vector<std::string> p_buckets{};
   bool p_success{};
@@ -2852,6 +2890,8 @@ bool BucketManagerHost_DeleteBucket_ForwardToCallback::Accept(
           internal::BucketManagerHost_DeleteBucket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BucketManagerHost.3
   bool success = true;
   bool p_success{};
   BucketManagerHost_DeleteBucket_ResponseParamsDataView input_data_view(params, message);
@@ -2929,6 +2969,8 @@ bool BucketManagerHostStubDispatch::Accept(
           reinterpret_cast<internal::BucketManagerHost_GetBucketForDevtools_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BucketManagerHost.1
       bool success = true;
       std::string p_name{};
       ::mojo::PendingReceiver<BucketHost> p_receiver{};
@@ -2949,9 +2991,9 @@ bool BucketManagerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBucketForDevtools(
-std::move(p_name), 
-std::move(p_receiver));
+      impl->GetBucketForDevtools(        
+        std::move(p_name), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kBucketManagerHost_Keys_Name: {
@@ -2980,6 +3022,8 @@ bool BucketManagerHostStubDispatch::AcceptWithResponder(
               internal::BucketManagerHost_OpenBucket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketManagerHost.0
       bool success = true;
       std::string p_name{};
       BucketPoliciesPtr p_policy{};
@@ -3001,9 +3045,9 @@ bool BucketManagerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenBucket(
-std::move(p_name), 
-std::move(p_policy), std::move(callback));
+      impl->OpenBucket(        
+        std::move(p_name), 
+        std::move(p_policy), std::move(callback));
       return true;
     }
     case internal::kBucketManagerHost_GetBucketForDevtools_Name: {
@@ -3016,6 +3060,8 @@ std::move(p_policy), std::move(callback));
               internal::BucketManagerHost_Keys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketManagerHost.2
       bool success = true;
       BucketManagerHost_Keys_ParamsDataView input_data_view(params, message);
       
@@ -3041,6 +3087,8 @@ std::move(p_policy), std::move(callback));
               internal::BucketManagerHost_DeleteBucket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BucketManagerHost.3
       bool success = true;
       std::string p_name{};
       BucketManagerHost_DeleteBucket_ParamsDataView input_data_view(params, message);
@@ -3059,8 +3107,8 @@ std::move(p_policy), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteBucket(
-std::move(p_name), std::move(callback));
+      impl->DeleteBucket(        
+        std::move(p_name), std::move(callback));
       return true;
     }
   }

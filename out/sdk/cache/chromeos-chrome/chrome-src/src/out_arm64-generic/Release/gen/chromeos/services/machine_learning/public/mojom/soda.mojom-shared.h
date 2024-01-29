@@ -35,6 +35,8 @@
 
 
 namespace chromeos::machine_learning::mojom {
+class SodaMultilangConfigDataView;
+
 class SodaConfigDataView;
 
 class TimingInfoDataView;
@@ -49,6 +51,8 @@ class FinalResultDataView;
 
 class AudioLevelEventDataView;
 
+class LangIdEventDataView;
+
 class SpeechRecognizerEventDataView;
 
 
@@ -56,6 +60,13 @@ class SpeechRecognizerEventDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::chromeos::machine_learning::mojom::SodaMultilangConfigDataView> {
+  using Data = ::chromeos::machine_learning::mojom::internal::SodaMultilangConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::chromeos::machine_learning::mojom::SodaConfigDataView> {
@@ -102,6 +113,13 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::FinalResultDataView>
 template <>
 struct MojomTypeTraits<::chromeos::machine_learning::mojom::AudioLevelEventDataView> {
   using Data = ::chromeos::machine_learning::mojom::internal::AudioLevelEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::chromeos::machine_learning::mojom::LangIdEventDataView> {
+  using Data = ::chromeos::machine_learning::mojom::internal::LangIdEvent_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -206,6 +224,33 @@ inline bool IsKnownEnumValue(EndpointReason value) {
   return internal::EndpointReason_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class AsrSwitchResult : int32_t {
+  
+  DEFAULT_NO_SWITCH = 0,
+  
+  SWITCH_SUCCEEDED = 1,
+  
+  SWITCH_FAILED = 2,
+  
+  SWITCH_SKIPPED_NO_LP = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, AsrSwitchResult value);
+inline bool IsKnownEnumValue(AsrSwitchResult value) {
+  return internal::AsrSwitchResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline AsrSwitchResult ToKnownEnumValue(AsrSwitchResult value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return AsrSwitchResult::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class SodaClientInterfaceBase {};
 
@@ -227,6 +272,35 @@ using SodaRecognizerAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<SodaRecognizerInterfaceBase>;
 using SodaRecognizerAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SodaRecognizerInterfaceBase>;
+
+
+class SodaMultilangConfigDataView {
+ public:
+  SodaMultilangConfigDataView() = default;
+
+  SodaMultilangConfigDataView(
+      internal::SodaMultilangConfig_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool rewind_when_switching_language() const {
+    return data_->rewind_when_switching_language;
+  }
+  inline void GetLocaleToLanguagePackMapDataView(
+      mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocaleToLanguagePackMap(UserType* output) {
+    
+    auto* pointer = data_->locale_to_language_pack_map.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SodaMultilangConfig_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class SodaConfigDataView {
@@ -315,6 +389,27 @@ class SodaConfigDataView {
     if (data_->header_.version < 6)
       return bool{};
     return data_->include_logging_output;
+  }
+  inline void GetMultiLangConfigDataView(
+      SodaMultilangConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMultiLangConfig(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::chromeos::machine_learning::mojom::SodaMultilangConfigDataView, UserType>(),
+    "Attempting to read the optional `multi_lang_config` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadMultiLangConfig` instead "
+    "of `ReadMultiLangConfig if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 7
+                    ? data_->multi_lang_config.Get() : nullptr;
+    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::SodaMultilangConfigDataView>(
+        pointer, output, message_);
   }
  private:
   internal::SodaConfig_Data* data_ = nullptr;
@@ -627,6 +722,45 @@ class AudioLevelEventDataView {
 };
 
 
+class LangIdEventDataView {
+ public:
+  LangIdEventDataView() = default;
+
+  LangIdEventDataView(
+      internal::LangIdEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLanguageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLanguage(UserType* output) {
+    
+    auto* pointer = data_->language.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  int32_t confidence_level() const {
+    return data_->confidence_level;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAsrSwitchResult(UserType* output) const {
+    auto data_value = data_->asr_switch_result;
+    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::AsrSwitchResult>(
+        data_value, output);
+  }
+  AsrSwitchResult asr_switch_result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::machine_learning::mojom::AsrSwitchResult>(data_->asr_switch_result));
+  }
+ private:
+  internal::LangIdEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class SpeechRecognizerEventDataView {
  public:
   using Tag = internal::SpeechRecognizerEvent_Data::SpeechRecognizerEvent_Tag;
@@ -689,6 +823,17 @@ class SpeechRecognizerEventDataView {
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::FinalResultDataView>(
         data_->data.f_final_result.Get(), output, message_);
   }
+  bool is_langid_event() const { return data_->tag == Tag::kLangidEvent; }
+  inline void GetLangidEventDataView(
+      LangIdEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLangidEvent(UserType* output) const {
+    
+    CHECK(is_langid_event());
+    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::LangIdEventDataView>(
+        data_->data.f_langid_event.Get(), output, message_);
+  }
 
  private:
   internal::SpeechRecognizerEvent_Data* data_ = nullptr;
@@ -716,6 +861,10 @@ struct hash<::chromeos::machine_learning::mojom::EndpointerType>
 template <>
 struct hash<::chromeos::machine_learning::mojom::EndpointReason>
     : public mojo::internal::EnumHashImpl<::chromeos::machine_learning::mojom::EndpointReason> {};
+
+template <>
+struct hash<::chromeos::machine_learning::mojom::AsrSwitchResult>
+    : public mojo::internal::EnumHashImpl<::chromeos::machine_learning::mojom::AsrSwitchResult> {};
 
 }  // namespace std
 
@@ -805,6 +954,70 @@ struct Serializer<::chromeos::machine_learning::mojom::EndpointReason, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::chromeos::machine_learning::mojom::AsrSwitchResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::chromeos::machine_learning::mojom::AsrSwitchResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::chromeos::machine_learning::mojom::AsrSwitchResult>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::machine_learning::mojom::SodaMultilangConfigDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::chromeos::machine_learning::mojom::SodaMultilangConfigDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::chromeos::machine_learning::mojom::internal::SodaMultilangConfig_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->rewind_when_switching_language = Traits::rewind_when_switching_language(input);
+    decltype(Traits::locale_to_language_pack_map(input)) in_locale_to_language_pack_map = Traits::locale_to_language_pack_map(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->locale_to_language_pack_map)::BaseType>
+        locale_to_language_pack_map_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& locale_to_language_pack_map_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+    mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+        in_locale_to_language_pack_map, locale_to_language_pack_map_fragment, &locale_to_language_pack_map_validate_params);
+    fragment->locale_to_language_pack_map.Set(
+        locale_to_language_pack_map_fragment.is_null() ? nullptr : locale_to_language_pack_map_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->locale_to_language_pack_map.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null locale_to_language_pack_map in SodaMultilangConfig struct");
+  }
+
+  static bool Deserialize(::chromeos::machine_learning::mojom::internal::SodaMultilangConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::machine_learning::mojom::SodaMultilangConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::chromeos::machine_learning::mojom::SodaConfigDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::chromeos::machine_learning::mojom::SodaConfigDataView, UserType>;
@@ -860,6 +1073,14 @@ struct Serializer<::chromeos::machine_learning::mojom::SodaConfigDataView, Maybe
     fragment->mask_offensive_words = Traits::mask_offensive_words(input);
     fragment->speaker_change_detection = Traits::speaker_change_detection(input);
     fragment->include_logging_output = Traits::include_logging_output(input);
+    decltype(Traits::multi_lang_config(input)) in_multi_lang_config = Traits::multi_lang_config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->multi_lang_config)::BaseType> multi_lang_config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::chromeos::machine_learning::mojom::SodaMultilangConfigDataView>(
+        in_multi_lang_config, multi_lang_config_fragment);
+    fragment->multi_lang_config.Set(
+        multi_lang_config_fragment.is_null() ? nullptr : multi_lang_config_fragment.data());
   }
 
   static bool Deserialize(::chromeos::machine_learning::mojom::internal::SodaConfig_Data* input,
@@ -1222,6 +1443,50 @@ struct Serializer<::chromeos::machine_learning::mojom::AudioLevelEventDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::chromeos::machine_learning::mojom::LangIdEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::chromeos::machine_learning::mojom::LangIdEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::chromeos::machine_learning::mojom::internal::LangIdEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::language(input)) in_language = Traits::language(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->language)::BaseType> language_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_language, language_fragment);
+    fragment->language.Set(
+        language_fragment.is_null() ? nullptr : language_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->language.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null language in LangIdEvent struct");
+    fragment->confidence_level = Traits::confidence_level(input);
+    mojo::internal::Serialize<::chromeos::machine_learning::mojom::AsrSwitchResult>(
+        Traits::asr_switch_result(input), &fragment->asr_switch_result);
+  }
+
+  static bool Deserialize(::chromeos::machine_learning::mojom::internal::LangIdEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::machine_learning::mojom::LangIdEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView, UserType>;
@@ -1307,6 +1572,22 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kLangidEvent: {
+        decltype(Traits::langid_event(input))
+            in_langid_event = Traits::langid_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_langid_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::chromeos::machine_learning::mojom::LangIdEventDataView>(
+            in_langid_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null langid_event in SpeechRecognizerEvent union");
+        fragment->data.f_langid_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1328,6 +1609,13 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
 
 namespace chromeos::machine_learning::mojom {
 
+inline void SodaMultilangConfigDataView::GetLocaleToLanguagePackMapDataView(
+    mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
+  auto pointer = data_->locale_to_language_pack_map.Get();
+  *output = mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>(pointer, message_);
+}
+
+
 inline void SodaConfigDataView::GetApiKeyDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->api_key.Get();
@@ -1342,6 +1630,12 @@ inline void SodaConfigDataView::GetLanguageDlcPathDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->language_dlc_path.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void SodaConfigDataView::GetMultiLangConfigDataView(
+    SodaMultilangConfigDataView* output) {
+  auto pointer = data_->header_.version >= 7
+                 ? data_->multi_lang_config.Get() : nullptr;
+  *output = SodaMultilangConfigDataView(pointer, message_);
 }
 
 
@@ -1428,6 +1722,13 @@ inline void FinalResultDataView::GetHypothesisPartDataView(
 
 
 
+inline void LangIdEventDataView::GetLanguageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->language.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void SpeechRecognizerEventDataView::GetAudioEventDataView(
     AudioLevelEventDataView* output) const {
   CHECK(is_audio_event());
@@ -1447,6 +1748,11 @@ inline void SpeechRecognizerEventDataView::GetFinalResultDataView(
     FinalResultDataView* output) const {
   CHECK(is_final_result());
   *output = FinalResultDataView(data_->data.f_final_result.Get(), message_);
+}
+inline void SpeechRecognizerEventDataView::GetLangidEventDataView(
+    LangIdEventDataView* output) const {
+  CHECK(is_langid_event());
+  *output = LangIdEventDataView(data_->data.f_langid_event.Get(), message_);
 }
 
 
@@ -1487,6 +1793,15 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointReason> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) TraceFormatTraits<::chromeos::machine_learning::mojom::AsrSwitchResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::AsrSwitchResult value);
 };
 
 } // namespace perfetto

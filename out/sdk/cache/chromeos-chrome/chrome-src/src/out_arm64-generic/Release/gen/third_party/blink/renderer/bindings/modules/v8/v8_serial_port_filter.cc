@@ -82,30 +82,17 @@ bool SerialPortFilter::FillV8ObjectWithMembers(ScriptState* script_state, v8::Lo
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasBluetoothServiceClassId()) {
-  if (!ToV8Traits<V8UnionStringOrUnsignedLong>::ToV8(script_state, member_bluetooth_service_class_id_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionStringOrUnsignedLong>::ToV8(script_state, member_bluetooth_service_class_id_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasUsbProductId()) {
-  if (!ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usb_product_id_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usb_product_id_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasUsbVendorId()) {
-  if (!ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usb_vendor_id_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usb_vendor_id_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

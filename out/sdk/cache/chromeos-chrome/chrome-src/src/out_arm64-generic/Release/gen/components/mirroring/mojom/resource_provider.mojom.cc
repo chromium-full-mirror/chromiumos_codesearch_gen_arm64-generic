@@ -184,6 +184,8 @@ bool AudioStreamCreatorClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioStreamCreatorClient_StreamCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioStreamCreatorClient.0
       bool success = true;
       ::mojo::PendingRemote<::media::mojom::AudioInputStream> p_stream{};
       ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> p_client_receiver{};
@@ -209,10 +211,10 @@ bool AudioStreamCreatorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StreamCreated(
-std::move(p_stream), 
-std::move(p_client_receiver), 
-std::move(p_data_pipe));
+      impl->StreamCreated(        
+        std::move(p_stream), 
+        std::move(p_client_receiver), 
+        std::move(p_data_pipe));
       return true;
     }
   }
@@ -720,6 +722,8 @@ bool ResourceProviderStubDispatch::Accept(
           reinterpret_cast<internal::ResourceProvider_BindGpu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceProvider.0
       bool success = true;
       ::mojo::PendingReceiver<::viz::mojom::Gpu> p_receiver{};
       ResourceProvider_BindGpu_ParamsDataView input_data_view(params, message);
@@ -737,8 +741,8 @@ bool ResourceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGpu(
-std::move(p_receiver));
+      impl->BindGpu(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kResourceProvider_GetVideoCaptureHost_Name: {
@@ -748,6 +752,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ResourceProvider_GetVideoCaptureHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceProvider.1
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::VideoCaptureHost> p_receiver{};
       ResourceProvider_GetVideoCaptureHost_ParamsDataView input_data_view(params, message);
@@ -765,8 +771,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVideoCaptureHost(
-std::move(p_receiver));
+      impl->GetVideoCaptureHost(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kResourceProvider_GetVideoEncoderMetricsProvider_Name: {
@@ -776,6 +782,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ResourceProvider_GetVideoEncoderMetricsProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceProvider.2
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::VideoEncoderMetricsProvider> p_receiver{};
       ResourceProvider_GetVideoEncoderMetricsProvider_ParamsDataView input_data_view(params, message);
@@ -793,8 +801,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVideoEncoderMetricsProvider(
-std::move(p_receiver));
+      impl->GetVideoEncoderMetricsProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kResourceProvider_GetNetworkContext_Name: {
@@ -804,6 +812,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ResourceProvider_GetNetworkContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceProvider.3
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::NetworkContext> p_receiver{};
       ResourceProvider_GetNetworkContext_ParamsDataView input_data_view(params, message);
@@ -821,8 +831,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworkContext(
-std::move(p_receiver));
+      impl->GetNetworkContext(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kResourceProvider_CreateAudioStream_Name: {
@@ -832,6 +842,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ResourceProvider_CreateAudioStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceProvider.4
       bool success = true;
       ::mojo::PendingRemote<AudioStreamCreatorClient> p_client{};
       ::media::AudioParameters p_param{};
@@ -855,10 +867,10 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAudioStream(
-std::move(p_client), 
-std::move(p_param), 
-std::move(p_shared_memory_count));
+      impl->CreateAudioStream(        
+        std::move(p_client), 
+        std::move(p_param), 
+        std::move(p_shared_memory_count));
       return true;
     }
     case internal::kResourceProvider_ConnectToRemotingSource_Name: {
@@ -868,6 +880,8 @@ std::move(p_shared_memory_count));
           reinterpret_cast<internal::ResourceProvider_ConnectToRemotingSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceProvider.5
       bool success = true;
       ::mojo::PendingRemote<::media::mojom::Remoter> p_remoter{};
       ::mojo::PendingReceiver<::media::mojom::RemotingSource> p_receiver{};
@@ -890,9 +904,9 @@ std::move(p_shared_memory_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToRemotingSource(
-std::move(p_remoter), 
-std::move(p_receiver));
+      impl->ConnectToRemotingSource(        
+        std::move(p_remoter), 
+        std::move(p_receiver));
       return true;
     }
   }

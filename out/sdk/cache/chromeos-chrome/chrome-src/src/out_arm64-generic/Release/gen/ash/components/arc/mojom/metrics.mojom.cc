@@ -317,18 +317,6 @@ MetricsHost::IPCStableHashFunction MetricsHost::MessageToMethodInfo_(mojo::Messa
     case internal::kMetricsHost_ReportWaylandLateTimingEvent_Name: {
       return &MetricsHost::ReportWaylandLateTimingEvent_Sym::IPCStableHash;
     }
-    case internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name: {
-      return &MetricsHost::ReportNonAndroidPlayFilesCount_Sym::IPCStableHash;
-    }
-    case internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name: {
-      return &MetricsHost::ReportPerAppFileStatsOfAndroidDataDirs_Sym::IPCStableHash;
-    }
-    case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name: {
-      return &MetricsHost::ReportTotalFileStatsOfAndroidDataDirs_Sym::IPCStableHash;
-    }
-    case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name: {
-      return &MetricsHost::ReportTotalFileStatsOfAndroidDataSubdir_Sym::IPCStableHash;
-    }
     case internal::kMetricsHost_ReportWebViewProcessStarted_Name: {
       return &MetricsHost::ReportWebViewProcessStarted_Sym::IPCStableHash;
     }
@@ -343,6 +331,9 @@ MetricsHost::IPCStableHashFunction MetricsHost::MessageToMethodInfo_(mojo::Messa
     }
     case internal::kMetricsHost_ReportArcKeyMintError_Name: {
       return &MetricsHost::ReportArcKeyMintError_Sym::IPCStableHash;
+    }
+    case internal::kMetricsHost_ReportDragResizeLatency_Name: {
+      return &MetricsHost::ReportDragResizeLatency_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -405,14 +396,6 @@ const char* MetricsHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::MetricsHost::ReportProvisioningPreSignIn";
       case internal::kMetricsHost_ReportWaylandLateTimingEvent_Name:
             return "Receive arc::mojom::MetricsHost::ReportWaylandLateTimingEvent";
-      case internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name:
-            return "Receive arc::mojom::MetricsHost::ReportNonAndroidPlayFilesCount";
-      case internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name:
-            return "Receive arc::mojom::MetricsHost::ReportPerAppFileStatsOfAndroidDataDirs";
-      case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name:
-            return "Receive arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataDirs";
-      case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name:
-            return "Receive arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataSubdir";
       case internal::kMetricsHost_ReportWebViewProcessStarted_Name:
             return "Receive arc::mojom::MetricsHost::ReportWebViewProcessStarted";
       case internal::kMetricsHost_ReportVpnServiceBuilderCompatApiUsage_Name:
@@ -423,6 +406,8 @@ const char* MetricsHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::MetricsHost::ReportQosSocketPercentage";
       case internal::kMetricsHost_ReportArcKeyMintError_Name:
             return "Receive arc::mojom::MetricsHost::ReportArcKeyMintError";
+      case internal::kMetricsHost_ReportDragResizeLatency_Name:
+            return "Receive arc::mojom::MetricsHost::ReportDragResizeLatency";
     }
   } else {
     switch (message.name()) {
@@ -476,14 +461,6 @@ const char* MetricsHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::MetricsHost::ReportProvisioningPreSignIn";
       case internal::kMetricsHost_ReportWaylandLateTimingEvent_Name:
             return "Receive reply arc::mojom::MetricsHost::ReportWaylandLateTimingEvent";
-      case internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name:
-            return "Receive reply arc::mojom::MetricsHost::ReportNonAndroidPlayFilesCount";
-      case internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name:
-            return "Receive reply arc::mojom::MetricsHost::ReportPerAppFileStatsOfAndroidDataDirs";
-      case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name:
-            return "Receive reply arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataDirs";
-      case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name:
-            return "Receive reply arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataSubdir";
       case internal::kMetricsHost_ReportWebViewProcessStarted_Name:
             return "Receive reply arc::mojom::MetricsHost::ReportWebViewProcessStarted";
       case internal::kMetricsHost_ReportVpnServiceBuilderCompatApiUsage_Name:
@@ -494,6 +471,8 @@ const char* MetricsHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::MetricsHost::ReportQosSocketPercentage";
       case internal::kMetricsHost_ReportArcKeyMintError_Name:
             return "Receive reply arc::mojom::MetricsHost::ReportArcKeyMintError";
+      case internal::kMetricsHost_ReportDragResizeLatency_Name:
+            return "Receive reply arc::mojom::MetricsHost::ReportDragResizeLatency";
     }
   }
   return "Receive unknown mojo message";
@@ -833,58 +812,6 @@ uint32_t MetricsHost::ReportWaylandLateTimingEvent_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t MetricsHost::ReportNonAndroidPlayFilesCount_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::MetricsHost::ReportNonAndroidPlayFilesCount");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t MetricsHost::ReportPerAppFileStatsOfAndroidDataDirs_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::MetricsHost::ReportPerAppFileStatsOfAndroidDataDirs");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t MetricsHost::ReportTotalFileStatsOfAndroidDataDirs_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataDirs");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t MetricsHost::ReportTotalFileStatsOfAndroidDataSubdir_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataSubdir");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t MetricsHost::ReportWebViewProcessStarted_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -946,6 +873,19 @@ uint32_t MetricsHost::ReportArcKeyMintError_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)arc::mojom::MetricsHost::ReportArcKeyMintError");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MetricsHost::ReportDragResizeLatency_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::MetricsHost::ReportDragResizeLatency");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2133,217 +2073,6 @@ void MetricsHostProxy::ReportWaylandLateTimingEvent(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void MetricsHostProxy::ReportNonAndroidPlayFilesCount(
-    uint32_t in_number_of_directories, uint32_t in_number_of_non_directories) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send arc::mojom::MetricsHost::ReportNonAndroidPlayFilesCount", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_directories"), in_number_of_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_non_directories"), in_number_of_non_directories,
-                        "<value of type uint32_t>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::arc::mojom::internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data> params(
-          message);
-  params.Allocate();
-  params->number_of_directories = in_number_of_directories;
-  params->number_of_non_directories = in_number_of_non_directories;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(MetricsHost::Name_);
-  message.set_method_name("ReportNonAndroidPlayFilesCount");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void MetricsHostProxy::ReportPerAppFileStatsOfAndroidDataDirs(
-    uint32_t in_number_of_directories, uint32_t in_number_of_non_directories, uint32_t in_size_in_kilobytes) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send arc::mojom::MetricsHost::ReportPerAppFileStatsOfAndroidDataDirs", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_directories"), in_number_of_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_non_directories"), in_number_of_non_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("size_in_kilobytes"), in_size_in_kilobytes,
-                        "<value of type uint32_t>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::arc::mojom::internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data> params(
-          message);
-  params.Allocate();
-  params->number_of_directories = in_number_of_directories;
-  params->number_of_non_directories = in_number_of_non_directories;
-  params->size_in_kilobytes = in_size_in_kilobytes;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(MetricsHost::Name_);
-  message.set_method_name("ReportPerAppFileStatsOfAndroidDataDirs");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void MetricsHostProxy::ReportTotalFileStatsOfAndroidDataDirs(
-    uint32_t in_number_of_directories, uint32_t in_number_of_non_directories, uint32_t in_size_in_kilobytes, ::base::TimeDelta in_duration) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataDirs", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_directories"), in_number_of_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_non_directories"), in_number_of_non_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("size_in_kilobytes"), in_size_in_kilobytes,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("duration"), in_duration,
-                        "<value of type ::base::TimeDelta>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::arc::mojom::internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data> params(
-          message);
-  params.Allocate();
-  params->number_of_directories = in_number_of_directories;
-  params->number_of_non_directories = in_number_of_non_directories;
-  params->size_in_kilobytes = in_size_in_kilobytes;
-  mojo::internal::MessageFragment<
-      typename decltype(params->duration)::BaseType> duration_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-      in_duration, duration_fragment);
-  params->duration.Set(
-      duration_fragment.is_null() ? nullptr : duration_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->duration.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null duration in MetricsHost.ReportTotalFileStatsOfAndroidDataDirs request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(MetricsHost::Name_);
-  message.set_method_name("ReportTotalFileStatsOfAndroidDataDirs");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void MetricsHostProxy::ReportTotalFileStatsOfAndroidDataSubdir(
-    AndroidDataSubdirectory in_target, uint32_t in_number_of_directories, uint32_t in_number_of_non_directories, uint32_t in_size_in_kilobytes) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send arc::mojom::MetricsHost::ReportTotalFileStatsOfAndroidDataSubdir", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("target"), in_target,
-                        "<value of type AndroidDataSubdirectory>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_directories"), in_number_of_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("number_of_non_directories"), in_number_of_non_directories,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("size_in_kilobytes"), in_size_in_kilobytes,
-                        "<value of type uint32_t>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::arc::mojom::internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::arc::mojom::AndroidDataSubdirectory>(
-      in_target, &params->target);
-  params->number_of_directories = in_number_of_directories;
-  params->number_of_non_directories = in_number_of_non_directories;
-  params->size_in_kilobytes = in_size_in_kilobytes;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(MetricsHost::Name_);
-  message.set_method_name("ReportTotalFileStatsOfAndroidDataSubdir");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void MetricsHostProxy::ReportWebViewProcessStarted(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2543,6 +2272,59 @@ void MetricsHostProxy::ReportArcKeyMintError(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void MetricsHostProxy::ReportDragResizeLatency(
+    const std::vector<::base::TimeDelta>& in_durations) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::MetricsHost::ReportDragResizeLatency", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("durations"), in_durations,
+                        "<value of type const std::vector<::base::TimeDelta>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMetricsHost_ReportDragResizeLatency_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::MetricsHost_ReportDragResizeLatency_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->durations)::BaseType>
+      durations_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& durations_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>>(
+      in_durations, durations_fragment, &durations_validate_params);
+  params->durations.Set(
+      durations_fragment.is_null() ? nullptr : durations_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->durations.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null durations in MetricsHost.ReportDragResizeLatency request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MetricsHost::Name_);
+  message.set_method_name("ReportDragResizeLatency");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool MetricsHostStubDispatch::Accept(
     MetricsHost* impl,
@@ -2555,6 +2337,8 @@ bool MetricsHostStubDispatch::Accept(
           reinterpret_cast<internal::MetricsHost_ReportBootProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.0
       bool success = true;
       std::vector<BootProgressEventPtr> p_events{};
       BootType p_boot_type{};
@@ -2573,9 +2357,9 @@ bool MetricsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportBootProgress(
-std::move(p_events), 
-std::move(p_boot_type));
+      impl->ReportBootProgress(        
+        std::move(p_events), 
+        std::move(p_boot_type));
       return true;
     }
     case internal::kMetricsHost_ReportNativeBridge_Name: {
@@ -2585,6 +2369,8 @@ std::move(p_boot_type));
           reinterpret_cast<internal::MetricsHost_ReportNativeBridge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.1
       bool success = true;
       NativeBridgeType p_native_bridge_type{};
       MetricsHost_ReportNativeBridge_ParamsDataView input_data_view(params, message);
@@ -2600,8 +2386,8 @@ std::move(p_boot_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportNativeBridge(
-std::move(p_native_bridge_type));
+      impl->ReportNativeBridge(        
+        std::move(p_native_bridge_type));
       return true;
     }
     case internal::kMetricsHost_ReportCompanionLibApiUsage_Name: {
@@ -2611,6 +2397,8 @@ std::move(p_native_bridge_type));
           reinterpret_cast<internal::MetricsHost_ReportCompanionLibApiUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.2
       bool success = true;
       CompanionLibApiId p_api_id{};
       MetricsHost_ReportCompanionLibApiUsage_ParamsDataView input_data_view(params, message);
@@ -2626,8 +2414,8 @@ std::move(p_native_bridge_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportCompanionLibApiUsage(
-std::move(p_api_id));
+      impl->ReportCompanionLibApiUsage(        
+        std::move(p_api_id));
       return true;
     }
     case internal::kMetricsHost_ReportAppKill_Name: {
@@ -2637,6 +2425,8 @@ std::move(p_api_id));
           reinterpret_cast<internal::MetricsHost_ReportAppKill_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.3
       bool success = true;
       AppKillPtr p_app_kill{};
       MetricsHost_ReportAppKill_ParamsDataView input_data_view(params, message);
@@ -2652,8 +2442,8 @@ std::move(p_api_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAppKill(
-std::move(p_app_kill));
+      impl->ReportAppKill(        
+        std::move(p_app_kill));
       return true;
     }
     case internal::kMetricsHost_ReportArcCorePriAbiMigEvent_Name: {
@@ -2663,6 +2453,8 @@ std::move(p_app_kill));
           reinterpret_cast<internal::MetricsHost_ReportArcCorePriAbiMigEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.4
       bool success = true;
       ArcCorePriAbiMigEvent p_event{};
       MetricsHost_ReportArcCorePriAbiMigEvent_ParamsDataView input_data_view(params, message);
@@ -2678,8 +2470,8 @@ std::move(p_app_kill));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcCorePriAbiMigEvent(
-std::move(p_event));
+      impl->ReportArcCorePriAbiMigEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kMetricsHost_ReportArcCorePriAbiMigFailedTries_Name: {
@@ -2689,6 +2481,8 @@ std::move(p_event));
           reinterpret_cast<internal::MetricsHost_ReportArcCorePriAbiMigFailedTries_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.5
       bool success = true;
       uint32_t p_failed_attempts{};
       MetricsHost_ReportArcCorePriAbiMigFailedTries_ParamsDataView input_data_view(params, message);
@@ -2704,8 +2498,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcCorePriAbiMigFailedTries(
-std::move(p_failed_attempts));
+      impl->ReportArcCorePriAbiMigFailedTries(        
+        std::move(p_failed_attempts));
       return true;
     }
     case internal::kMetricsHost_ReportArcCorePriAbiMigDowngradeDelay_Name: {
@@ -2715,6 +2509,8 @@ std::move(p_failed_attempts));
           reinterpret_cast<internal::MetricsHost_ReportArcCorePriAbiMigDowngradeDelay_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.6
       bool success = true;
       ::base::TimeDelta p_delay{};
       MetricsHost_ReportArcCorePriAbiMigDowngradeDelay_ParamsDataView input_data_view(params, message);
@@ -2730,8 +2526,8 @@ std::move(p_failed_attempts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcCorePriAbiMigDowngradeDelay(
-std::move(p_delay));
+      impl->ReportArcCorePriAbiMigDowngradeDelay(        
+        std::move(p_delay));
       return true;
     }
     case internal::kMetricsHost_ReportArcCorePriAbiMigBootTime_Name: {
@@ -2741,6 +2537,8 @@ std::move(p_delay));
           reinterpret_cast<internal::MetricsHost_ReportArcCorePriAbiMigBootTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.7
       bool success = true;
       ::base::TimeDelta p_duration{};
       MetricsHost_ReportArcCorePriAbiMigBootTime_ParamsDataView input_data_view(params, message);
@@ -2756,8 +2554,8 @@ std::move(p_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcCorePriAbiMigBootTime(
-std::move(p_duration));
+      impl->ReportArcCorePriAbiMigBootTime(        
+        std::move(p_duration));
       return true;
     }
     case internal::kMetricsHost_ReportClipboardDragDropEvent_Name: {
@@ -2767,6 +2565,8 @@ std::move(p_duration));
           reinterpret_cast<internal::MetricsHost_ReportClipboardDragDropEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.8
       bool success = true;
       ArcClipboardDragDropEvent p_event_type{};
       MetricsHost_ReportClipboardDragDropEvent_ParamsDataView input_data_view(params, message);
@@ -2782,8 +2582,8 @@ std::move(p_duration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportClipboardDragDropEvent(
-std::move(p_event_type));
+      impl->ReportClipboardDragDropEvent(        
+        std::move(p_event_type));
       return true;
     }
     case internal::kMetricsHost_ReportAnr_Name: {
@@ -2793,6 +2593,8 @@ std::move(p_event_type));
           reinterpret_cast<internal::MetricsHost_ReportAnr_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.10
       bool success = true;
       ::arc::mojom::AnrPtr p_anr{};
       MetricsHost_ReportAnr_ParamsDataView input_data_view(params, message);
@@ -2808,8 +2610,8 @@ std::move(p_event_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnr(
-std::move(p_anr));
+      impl->ReportAnr(        
+        std::move(p_anr));
       return true;
     }
     case internal::kMetricsHost_ReportArcSystemHealthUpgrade_Name: {
@@ -2819,6 +2621,8 @@ std::move(p_anr));
           reinterpret_cast<internal::MetricsHost_ReportArcSystemHealthUpgrade_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.11
       bool success = true;
       ::base::TimeDelta p_duration{};
       bool p_packages_deleted{};
@@ -2837,9 +2641,9 @@ std::move(p_anr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcSystemHealthUpgrade(
-std::move(p_duration), 
-std::move(p_packages_deleted));
+      impl->ReportArcSystemHealthUpgrade(        
+        std::move(p_duration), 
+        std::move(p_packages_deleted));
       return true;
     }
     case internal::kMetricsHost_ReportLowLatencyStylusLibApiUsage_Name: {
@@ -2849,6 +2653,8 @@ std::move(p_packages_deleted));
           reinterpret_cast<internal::MetricsHost_ReportLowLatencyStylusLibApiUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.12
       bool success = true;
       LowLatencyStylusLibApiId p_api_id{};
       MetricsHost_ReportLowLatencyStylusLibApiUsage_ParamsDataView input_data_view(params, message);
@@ -2864,8 +2670,8 @@ std::move(p_packages_deleted));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportLowLatencyStylusLibApiUsage(
-std::move(p_api_id));
+      impl->ReportLowLatencyStylusLibApiUsage(        
+        std::move(p_api_id));
       return true;
     }
     case internal::kMetricsHost_ReportLowLatencyStylusLibPredictionTarget_Name: {
@@ -2875,6 +2681,8 @@ std::move(p_api_id));
           reinterpret_cast<internal::MetricsHost_ReportLowLatencyStylusLibPredictionTarget_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.13
       bool success = true;
       LowLatencyStylusLibPredictionTargetPtr p_prediction_target{};
       MetricsHost_ReportLowLatencyStylusLibPredictionTarget_ParamsDataView input_data_view(params, message);
@@ -2890,8 +2698,8 @@ std::move(p_api_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportLowLatencyStylusLibPredictionTarget(
-std::move(p_prediction_target));
+      impl->ReportLowLatencyStylusLibPredictionTarget(        
+        std::move(p_prediction_target));
       return true;
     }
     case internal::kMetricsHost_ReportEntireFixupMetrics_Name: {
@@ -2901,6 +2709,8 @@ std::move(p_prediction_target));
           reinterpret_cast<internal::MetricsHost_ReportEntireFixupMetrics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.14
       bool success = true;
       ::base::TimeDelta p_duration{};
       uint32_t p_number_of_directories{};
@@ -2922,10 +2732,10 @@ std::move(p_prediction_target));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportEntireFixupMetrics(
-std::move(p_duration), 
-std::move(p_number_of_directories), 
-std::move(p_number_of_failures));
+      impl->ReportEntireFixupMetrics(        
+        std::move(p_duration), 
+        std::move(p_number_of_directories), 
+        std::move(p_number_of_failures));
       return true;
     }
     case internal::kMetricsHost_ReportPerAppFixupMetrics_Name: {
@@ -2935,6 +2745,8 @@ std::move(p_number_of_failures));
           reinterpret_cast<internal::MetricsHost_ReportPerAppFixupMetrics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.15
       bool success = true;
       ::base::TimeDelta p_duration{};
       uint32_t p_number_of_directories{};
@@ -2953,9 +2765,9 @@ std::move(p_number_of_failures));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportPerAppFixupMetrics(
-std::move(p_duration), 
-std::move(p_number_of_directories));
+      impl->ReportPerAppFixupMetrics(        
+        std::move(p_duration), 
+        std::move(p_number_of_directories));
       return true;
     }
     case internal::kMetricsHost_ReportDnsQueryResult_Name: {
@@ -2965,6 +2777,8 @@ std::move(p_number_of_directories));
           reinterpret_cast<internal::MetricsHost_ReportDnsQueryResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.16
       bool success = true;
       ArcDnsQuery p_query{};
       bool p_success{};
@@ -2983,9 +2797,9 @@ std::move(p_number_of_directories));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportDnsQueryResult(
-std::move(p_query), 
-std::move(p_success));
+      impl->ReportDnsQueryResult(        
+        std::move(p_query), 
+        std::move(p_success));
       return true;
     }
     case internal::kMetricsHost_ReportMainAccountHashMigrationMetrics_Name: {
@@ -2995,6 +2809,8 @@ std::move(p_success));
           reinterpret_cast<internal::MetricsHost_ReportMainAccountHashMigrationMetrics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.17
       bool success = true;
       MainAccountHashMigrationStatus p_status{};
       MetricsHost_ReportMainAccountHashMigrationMetrics_ParamsDataView input_data_view(params, message);
@@ -3010,8 +2826,8 @@ std::move(p_success));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportMainAccountHashMigrationMetrics(
-std::move(p_status));
+      impl->ReportMainAccountHashMigrationMetrics(        
+        std::move(p_status));
       return true;
     }
     case internal::kMetricsHost_ReportImageCopyPasteCompatActionDeprecated_Name: {
@@ -3021,6 +2837,8 @@ std::move(p_status));
           reinterpret_cast<internal::MetricsHost_ReportImageCopyPasteCompatActionDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.18
       bool success = true;
       ArcImageCopyPasteCompatAction p_action_type{};
       MetricsHost_ReportImageCopyPasteCompatActionDeprecated_ParamsDataView input_data_view(params, message);
@@ -3036,8 +2854,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportImageCopyPasteCompatActionDeprecated(
-std::move(p_action_type));
+      impl->ReportImageCopyPasteCompatActionDeprecated(        
+        std::move(p_action_type));
       return true;
     }
     case internal::kMetricsHost_ReportArcNetworkEvent_Name: {
@@ -3047,6 +2865,8 @@ std::move(p_action_type));
           reinterpret_cast<internal::MetricsHost_ReportArcNetworkEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.19
       bool success = true;
       ArcNetworkEvent p_event{};
       MetricsHost_ReportArcNetworkEvent_ParamsDataView input_data_view(params, message);
@@ -3062,8 +2882,8 @@ std::move(p_action_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcNetworkEvent(
-std::move(p_event));
+      impl->ReportArcNetworkEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kMetricsHost_ReportArcNetworkError_Name: {
@@ -3073,6 +2893,8 @@ std::move(p_event));
           reinterpret_cast<internal::MetricsHost_ReportArcNetworkError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.20
       bool success = true;
       ArcNetworkError p_error{};
       MetricsHost_ReportArcNetworkError_ParamsDataView input_data_view(params, message);
@@ -3088,8 +2910,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcNetworkError(
-std::move(p_error));
+      impl->ReportArcNetworkError(        
+        std::move(p_error));
       return true;
     }
     case internal::kMetricsHost_ReportAppPrimaryAbi_Name: {
@@ -3099,6 +2921,8 @@ std::move(p_error));
           reinterpret_cast<internal::MetricsHost_ReportAppPrimaryAbi_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.21
       bool success = true;
       AppPrimaryAbi p_abi{};
       MetricsHost_ReportAppPrimaryAbi_ParamsDataView input_data_view(params, message);
@@ -3114,8 +2938,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAppPrimaryAbi(
-std::move(p_abi));
+      impl->ReportAppPrimaryAbi(        
+        std::move(p_abi));
       return true;
     }
     case internal::kMetricsHost_ReportDataRestore_Name: {
@@ -3125,6 +2949,8 @@ std::move(p_abi));
           reinterpret_cast<internal::MetricsHost_ReportDataRestore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.22
       bool success = true;
       DataRestoreStatus p_status{};
       int64_t p_duration_ms{};
@@ -3143,9 +2969,9 @@ std::move(p_abi));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportDataRestore(
-std::move(p_status), 
-std::move(p_duration_ms));
+      impl->ReportDataRestore(        
+        std::move(p_status), 
+        std::move(p_duration_ms));
       return true;
     }
     case internal::kMetricsHost_ReportMemoryPressure_Name: {
@@ -3155,6 +2981,8 @@ std::move(p_duration_ms));
           reinterpret_cast<internal::MetricsHost_ReportMemoryPressure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.23
       bool success = true;
       std::vector<uint8_t> p_psi_file_contents{};
       MetricsHost_ReportMemoryPressure_ParamsDataView input_data_view(params, message);
@@ -3170,8 +2998,8 @@ std::move(p_duration_ms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportMemoryPressure(
-std::move(p_psi_file_contents));
+      impl->ReportMemoryPressure(        
+        std::move(p_psi_file_contents));
       return true;
     }
     case internal::kMetricsHost_ReportProvisioningPreSignIn_Name: {
@@ -3181,6 +3009,8 @@ std::move(p_psi_file_contents));
           reinterpret_cast<internal::MetricsHost_ReportProvisioningPreSignIn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.24
       bool success = true;
       MetricsHost_ReportProvisioningPreSignIn_ParamsDataView input_data_view(params, message);
       
@@ -3193,7 +3023,7 @@ std::move(p_psi_file_contents));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportProvisioningPreSignIn();
+      impl->ReportProvisioningPreSignIn(        );
       return true;
     }
     case internal::kMetricsHost_ReportWaylandLateTimingEvent_Name: {
@@ -3203,6 +3033,8 @@ std::move(p_psi_file_contents));
           reinterpret_cast<internal::MetricsHost_ReportWaylandLateTimingEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.30
       bool success = true;
       WaylandTimingEvent p_event{};
       ::base::TimeDelta p_duration{};
@@ -3221,149 +3053,9 @@ std::move(p_psi_file_contents));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportWaylandLateTimingEvent(
-std::move(p_event), 
-std::move(p_duration));
-      return true;
-    }
-    case internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data* params =
-          reinterpret_cast<internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      uint32_t p_number_of_directories{};
-      uint32_t p_number_of_non_directories{};
-      MetricsHost_ReportNonAndroidPlayFilesCount_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_number_of_directories = input_data_view.number_of_directories();
-      if (success)
-        p_number_of_non_directories = input_data_view.number_of_non_directories();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MetricsHost::Name_, 26, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ReportNonAndroidPlayFilesCount(
-std::move(p_number_of_directories), 
-std::move(p_number_of_non_directories));
-      return true;
-    }
-    case internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data* params =
-          reinterpret_cast<internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      uint32_t p_number_of_directories{};
-      uint32_t p_number_of_non_directories{};
-      uint32_t p_size_in_kilobytes{};
-      MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_number_of_directories = input_data_view.number_of_directories();
-      if (success)
-        p_number_of_non_directories = input_data_view.number_of_non_directories();
-      if (success)
-        p_size_in_kilobytes = input_data_view.size_in_kilobytes();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MetricsHost::Name_, 27, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ReportPerAppFileStatsOfAndroidDataDirs(
-std::move(p_number_of_directories), 
-std::move(p_number_of_non_directories), 
-std::move(p_size_in_kilobytes));
-      return true;
-    }
-    case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data* params =
-          reinterpret_cast<internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      uint32_t p_number_of_directories{};
-      uint32_t p_number_of_non_directories{};
-      uint32_t p_size_in_kilobytes{};
-      ::base::TimeDelta p_duration{};
-      MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_number_of_directories = input_data_view.number_of_directories();
-      if (success)
-        p_number_of_non_directories = input_data_view.number_of_non_directories();
-      if (success)
-        p_size_in_kilobytes = input_data_view.size_in_kilobytes();
-      if (success && !input_data_view.ReadDuration(&p_duration))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MetricsHost::Name_, 28, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ReportTotalFileStatsOfAndroidDataDirs(
-std::move(p_number_of_directories), 
-std::move(p_number_of_non_directories), 
-std::move(p_size_in_kilobytes), 
-std::move(p_duration));
-      return true;
-    }
-    case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data* params =
-          reinterpret_cast<internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      AndroidDataSubdirectory p_target{};
-      uint32_t p_number_of_directories{};
-      uint32_t p_number_of_non_directories{};
-      uint32_t p_size_in_kilobytes{};
-      MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadTarget(&p_target))
-        success = false;
-      if (success)
-        p_number_of_directories = input_data_view.number_of_directories();
-      if (success)
-        p_number_of_non_directories = input_data_view.number_of_non_directories();
-      if (success)
-        p_size_in_kilobytes = input_data_view.size_in_kilobytes();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MetricsHost::Name_, 29, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ReportTotalFileStatsOfAndroidDataSubdir(
-std::move(p_target), 
-std::move(p_number_of_directories), 
-std::move(p_number_of_non_directories), 
-std::move(p_size_in_kilobytes));
+      impl->ReportWaylandLateTimingEvent(        
+        std::move(p_event), 
+        std::move(p_duration));
       return true;
     }
     case internal::kMetricsHost_ReportWebViewProcessStarted_Name: {
@@ -3373,6 +3065,8 @@ std::move(p_size_in_kilobytes));
           reinterpret_cast<internal::MetricsHost_ReportWebViewProcessStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.31
       bool success = true;
       MetricsHost_ReportWebViewProcessStarted_ParamsDataView input_data_view(params, message);
       
@@ -3385,7 +3079,7 @@ std::move(p_size_in_kilobytes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportWebViewProcessStarted();
+      impl->ReportWebViewProcessStarted(        );
       return true;
     }
     case internal::kMetricsHost_ReportVpnServiceBuilderCompatApiUsage_Name: {
@@ -3395,6 +3089,8 @@ std::move(p_size_in_kilobytes));
           reinterpret_cast<internal::MetricsHost_ReportVpnServiceBuilderCompatApiUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.32
       bool success = true;
       VpnServiceBuilderCompatApiId p_api_id{};
       MetricsHost_ReportVpnServiceBuilderCompatApiUsage_ParamsDataView input_data_view(params, message);
@@ -3410,8 +3106,8 @@ std::move(p_size_in_kilobytes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportVpnServiceBuilderCompatApiUsage(
-std::move(p_api_id));
+      impl->ReportVpnServiceBuilderCompatApiUsage(        
+        std::move(p_api_id));
       return true;
     }
     case internal::kMetricsHost_ReportNewQosSocketCount_Name: {
@@ -3421,6 +3117,8 @@ std::move(p_api_id));
           reinterpret_cast<internal::MetricsHost_ReportNewQosSocketCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.33
       bool success = true;
       int32_t p_count{};
       MetricsHost_ReportNewQosSocketCount_ParamsDataView input_data_view(params, message);
@@ -3436,8 +3134,8 @@ std::move(p_api_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportNewQosSocketCount(
-std::move(p_count));
+      impl->ReportNewQosSocketCount(        
+        std::move(p_count));
       return true;
     }
     case internal::kMetricsHost_ReportQosSocketPercentage_Name: {
@@ -3447,6 +3145,8 @@ std::move(p_count));
           reinterpret_cast<internal::MetricsHost_ReportQosSocketPercentage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.34
       bool success = true;
       int32_t p_perc{};
       MetricsHost_ReportQosSocketPercentage_ParamsDataView input_data_view(params, message);
@@ -3462,8 +3162,8 @@ std::move(p_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportQosSocketPercentage(
-std::move(p_perc));
+      impl->ReportQosSocketPercentage(        
+        std::move(p_perc));
       return true;
     }
     case internal::kMetricsHost_ReportArcKeyMintError_Name: {
@@ -3473,6 +3173,8 @@ std::move(p_perc));
           reinterpret_cast<internal::MetricsHost_ReportArcKeyMintError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsHost.35
       bool success = true;
       ArcKeyMintError p_error{};
       MetricsHost_ReportArcKeyMintError_ParamsDataView input_data_view(params, message);
@@ -3488,8 +3190,36 @@ std::move(p_perc));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportArcKeyMintError(
-std::move(p_error));
+      impl->ReportArcKeyMintError(        
+        std::move(p_error));
+      return true;
+    }
+    case internal::kMetricsHost_ReportDragResizeLatency_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MetricsHost_ReportDragResizeLatency_Params_Data* params =
+          reinterpret_cast<internal::MetricsHost_ReportDragResizeLatency_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for MetricsHost.36
+      bool success = true;
+      std::vector<::base::TimeDelta> p_durations{};
+      MetricsHost_ReportDragResizeLatency_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDurations(&p_durations))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MetricsHost::Name_, 36, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ReportDragResizeLatency(        
+        std::move(p_durations));
       return true;
     }
   }
@@ -3580,18 +3310,6 @@ bool MetricsHostStubDispatch::AcceptWithResponder(
     case internal::kMetricsHost_ReportWaylandLateTimingEvent_Name: {
       break;
     }
-    case internal::kMetricsHost_ReportNonAndroidPlayFilesCount_Name: {
-      break;
-    }
-    case internal::kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name: {
-      break;
-    }
-    case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name: {
-      break;
-    }
-    case internal::kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name: {
-      break;
-    }
     case internal::kMetricsHost_ReportWebViewProcessStarted_Name: {
       break;
     }
@@ -3605,6 +3323,9 @@ bool MetricsHostStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kMetricsHost_ReportArcKeyMintError_Name: {
+      break;
+    }
+    case internal::kMetricsHost_ReportDragResizeLatency_Name: {
       break;
     }
   }
@@ -3663,14 +3384,10 @@ static const mojo::internal::GenericValidationInfo kMetricsHostValidationInfo[] 
     { &internal::MetricsHost_ReportProvisioningPreSignIn_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    { &internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data::Validate,
-     nullptr /* no response */},
+    {nullptr, nullptr},  // nonexistent
+    {nullptr, nullptr},  // nonexistent
+    {nullptr, nullptr},  // nonexistent
+    {nullptr, nullptr},  // nonexistent
     { &internal::MetricsHost_ReportWaylandLateTimingEvent_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::MetricsHost_ReportWebViewProcessStarted_Params_Data::Validate,
@@ -3682,6 +3399,8 @@ static const mojo::internal::GenericValidationInfo kMetricsHostValidationInfo[] 
     { &internal::MetricsHost_ReportQosSocketPercentage_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::MetricsHost_ReportArcKeyMintError_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MetricsHost_ReportDragResizeLatency_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3957,6 +3676,8 @@ bool MetricsInstance_Init_ForwardToCallback::Accept(
           internal::MetricsInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MetricsInstance.1
   bool success = true;
   MetricsInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -4064,6 +3785,8 @@ bool MetricsInstance_GetGfxMetrics_ForwardToCallback::Accept(
           internal::MetricsInstance_GetGfxMetrics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MetricsInstance.2
   bool success = true;
   GfxMetricsPtr p_metrics{};
   MetricsInstance_GetGfxMetrics_ResponseParamsDataView input_data_view(params, message);
@@ -4163,6 +3886,8 @@ bool MetricsInstanceStubDispatch::AcceptWithResponder(
               internal::MetricsInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MetricsInstance.1
       bool success = true;
       ::mojo::PendingRemote<MetricsHost> p_host_remote{};
       MetricsInstance_Init_ParamsDataView input_data_view(params, message);
@@ -4183,8 +3908,8 @@ bool MetricsInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kMetricsInstance_GetGfxMetrics_Name: {
@@ -4194,6 +3919,8 @@ std::move(p_host_remote), std::move(callback));
               internal::MetricsInstance_GetGfxMetrics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MetricsInstance.2
       bool success = true;
       std::string p_packageName{};
       MetricsInstance_GetGfxMetrics_ParamsDataView input_data_view(params, message);
@@ -4212,8 +3939,8 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetGfxMetrics(
-std::move(p_packageName), std::move(callback));
+      impl->GetGfxMetrics(        
+        std::move(p_packageName), std::move(callback));
       return true;
     }
   }
@@ -4396,18 +4123,6 @@ void MetricsHostInterceptorForTesting::ReportProvisioningPreSignIn() {
 void MetricsHostInterceptorForTesting::ReportWaylandLateTimingEvent(WaylandTimingEvent event, ::base::TimeDelta duration) {
   GetForwardingInterface()->ReportWaylandLateTimingEvent(std::move(event), std::move(duration));
 }
-void MetricsHostInterceptorForTesting::ReportNonAndroidPlayFilesCount(uint32_t number_of_directories, uint32_t number_of_non_directories) {
-  GetForwardingInterface()->ReportNonAndroidPlayFilesCount(std::move(number_of_directories), std::move(number_of_non_directories));
-}
-void MetricsHostInterceptorForTesting::ReportPerAppFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) {
-  GetForwardingInterface()->ReportPerAppFileStatsOfAndroidDataDirs(std::move(number_of_directories), std::move(number_of_non_directories), std::move(size_in_kilobytes));
-}
-void MetricsHostInterceptorForTesting::ReportTotalFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes, ::base::TimeDelta duration) {
-  GetForwardingInterface()->ReportTotalFileStatsOfAndroidDataDirs(std::move(number_of_directories), std::move(number_of_non_directories), std::move(size_in_kilobytes), std::move(duration));
-}
-void MetricsHostInterceptorForTesting::ReportTotalFileStatsOfAndroidDataSubdir(AndroidDataSubdirectory target, uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) {
-  GetForwardingInterface()->ReportTotalFileStatsOfAndroidDataSubdir(std::move(target), std::move(number_of_directories), std::move(number_of_non_directories), std::move(size_in_kilobytes));
-}
 void MetricsHostInterceptorForTesting::ReportWebViewProcessStarted() {
   GetForwardingInterface()->ReportWebViewProcessStarted();
 }
@@ -4422,6 +4137,9 @@ void MetricsHostInterceptorForTesting::ReportQosSocketPercentage(int32_t perc) {
 }
 void MetricsHostInterceptorForTesting::ReportArcKeyMintError(ArcKeyMintError error) {
   GetForwardingInterface()->ReportArcKeyMintError(std::move(error));
+}
+void MetricsHostInterceptorForTesting::ReportDragResizeLatency(const std::vector<::base::TimeDelta>& durations) {
+  GetForwardingInterface()->ReportDragResizeLatency(std::move(durations));
 }
 MetricsHostAsyncWaiter::MetricsHostAsyncWaiter(
     MetricsHost* proxy) : proxy_(proxy) {}

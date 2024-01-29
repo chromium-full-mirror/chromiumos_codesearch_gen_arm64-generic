@@ -232,6 +232,8 @@ bool WilcoDtcSupportdServiceFactory_GetService_ForwardToCallback::Accept(
           internal::WilcoDtcSupportdServiceFactory_GetService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WilcoDtcSupportdServiceFactory.0
   bool success = true;
   WilcoDtcSupportdServiceFactory_GetService_ResponseParamsDataView input_data_view(params, message);
   
@@ -310,6 +312,8 @@ bool WilcoDtcSupportdServiceFactoryStubDispatch::AcceptWithResponder(
               internal::WilcoDtcSupportdServiceFactory_GetService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdServiceFactory.0
       bool success = true;
       ::mojo::PendingReceiver<WilcoDtcSupportdService> p_service{};
       ::mojo::PendingRemote<WilcoDtcSupportdClient> p_client{};
@@ -335,9 +339,9 @@ bool WilcoDtcSupportdServiceFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetService(
-std::move(p_service), 
-std::move(p_client), std::move(callback));
+      impl->GetService(        
+        std::move(p_service), 
+        std::move(p_client), std::move(callback));
       return true;
     }
   }
@@ -591,6 +595,8 @@ bool WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ForwardToCallback::Accept(
           internal::WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WilcoDtcSupportdService.0
   bool success = true;
   ::mojo::ScopedHandle p_response_json_message{};
   WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParamsDataView input_data_view(params, message);
@@ -669,6 +675,8 @@ bool WilcoDtcSupportdServiceStubDispatch::Accept(
           reinterpret_cast<internal::WilcoDtcSupportdService_NotifyConfigurationDataChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdService.1
       bool success = true;
       WilcoDtcSupportdService_NotifyConfigurationDataChanged_ParamsDataView input_data_view(params, message);
       
@@ -681,7 +689,7 @@ bool WilcoDtcSupportdServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyConfigurationDataChanged();
+      impl->NotifyConfigurationDataChanged(        );
       return true;
     }
   }
@@ -704,6 +712,8 @@ bool WilcoDtcSupportdServiceStubDispatch::AcceptWithResponder(
               internal::WilcoDtcSupportdService_SendUiMessageToWilcoDtc_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdService.0
       bool success = true;
       ::mojo::ScopedHandle p_json_message{};
       WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ParamsDataView input_data_view(params, message);
@@ -722,8 +732,8 @@ bool WilcoDtcSupportdServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendUiMessageToWilcoDtc(
-std::move(p_json_message), std::move(callback));
+      impl->SendUiMessageToWilcoDtc(        
+        std::move(p_json_message), std::move(callback));
       return true;
     }
     case internal::kWilcoDtcSupportdService_NotifyConfigurationDataChanged_Name: {
@@ -1302,6 +1312,8 @@ bool WilcoDtcSupportdClient_PerformWebRequest_ForwardToCallback::Accept(
           internal::WilcoDtcSupportdClient_PerformWebRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WilcoDtcSupportdClient.0
   bool success = true;
   WilcoDtcSupportdWebRequestStatus p_status{};
   int32_t p_http_status{};
@@ -1439,6 +1451,8 @@ bool WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ForwardToCallback::Accept(
           internal::WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WilcoDtcSupportdClient.1
   bool success = true;
   ::mojo::ScopedHandle p_response_json_message{};
   WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ResponseParamsDataView input_data_view(params, message);
@@ -1559,6 +1573,8 @@ bool WilcoDtcSupportdClient_GetConfigurationData_ForwardToCallback::Accept(
           internal::WilcoDtcSupportdClient_GetConfigurationData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WilcoDtcSupportdClient.2
   bool success = true;
   std::string p_json_configuration_data{};
   WilcoDtcSupportdClient_GetConfigurationData_ResponseParamsDataView input_data_view(params, message);
@@ -1652,6 +1668,8 @@ bool WilcoDtcSupportdClientStubDispatch::Accept(
           reinterpret_cast<internal::WilcoDtcSupportdClient_HandleEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdClient.3
       bool success = true;
       WilcoDtcSupportdEvent p_event{};
       WilcoDtcSupportdClient_HandleEvent_ParamsDataView input_data_view(params, message);
@@ -1667,8 +1685,8 @@ bool WilcoDtcSupportdClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleEvent(
-std::move(p_event));
+      impl->HandleEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kWilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Name: {
@@ -1678,6 +1696,8 @@ std::move(p_event));
           reinterpret_cast<internal::WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdClient.4
       bool success = true;
       ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView input_data_view(params, message);
@@ -1695,8 +1715,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCrosHealthdDiagnosticsService(
-std::move(p_service));
+      impl->GetCrosHealthdDiagnosticsService(        
+        std::move(p_service));
       return true;
     }
     case internal::kWilcoDtcSupportdClient_GetCrosHealthdProbeService_Name: {
@@ -1706,6 +1726,8 @@ std::move(p_service));
           reinterpret_cast<internal::WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdClient.5
       bool success = true;
       ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView input_data_view(params, message);
@@ -1723,8 +1745,8 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCrosHealthdProbeService(
-std::move(p_service));
+      impl->GetCrosHealthdProbeService(        
+        std::move(p_service));
       return true;
     }
   }
@@ -1747,6 +1769,8 @@ bool WilcoDtcSupportdClientStubDispatch::AcceptWithResponder(
               internal::WilcoDtcSupportdClient_PerformWebRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdClient.0
       bool success = true;
       WilcoDtcSupportdWebRequestHttpMethod p_http_method{};
       ::mojo::ScopedHandle p_url{};
@@ -1774,11 +1798,11 @@ bool WilcoDtcSupportdClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformWebRequest(
-std::move(p_http_method), 
-std::move(p_url), 
-std::move(p_headers), 
-std::move(p_request_body), std::move(callback));
+      impl->PerformWebRequest(        
+        std::move(p_http_method), 
+        std::move(p_url), 
+        std::move(p_headers), 
+        std::move(p_request_body), std::move(callback));
       return true;
     }
     case internal::kWilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Name: {
@@ -1788,6 +1812,8 @@ std::move(p_request_body), std::move(callback));
               internal::WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdClient.1
       bool success = true;
       ::mojo::ScopedHandle p_json_message{};
       WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ParamsDataView input_data_view(params, message);
@@ -1806,8 +1832,8 @@ std::move(p_request_body), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendWilcoDtcMessageToUi(
-std::move(p_json_message), std::move(callback));
+      impl->SendWilcoDtcMessageToUi(        
+        std::move(p_json_message), std::move(callback));
       return true;
     }
     case internal::kWilcoDtcSupportdClient_GetConfigurationData_Name: {
@@ -1817,6 +1843,8 @@ std::move(p_json_message), std::move(callback));
               internal::WilcoDtcSupportdClient_GetConfigurationData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WilcoDtcSupportdClient.2
       bool success = true;
       WilcoDtcSupportdClient_GetConfigurationData_ParamsDataView input_data_view(params, message);
       

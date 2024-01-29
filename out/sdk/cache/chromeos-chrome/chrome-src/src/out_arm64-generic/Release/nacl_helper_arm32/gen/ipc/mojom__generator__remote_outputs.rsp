@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/ipc/ipc.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/ipc/ipc.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/ipc/ipc.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/ipc/ipc.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/ipc/ipc.mojom.h

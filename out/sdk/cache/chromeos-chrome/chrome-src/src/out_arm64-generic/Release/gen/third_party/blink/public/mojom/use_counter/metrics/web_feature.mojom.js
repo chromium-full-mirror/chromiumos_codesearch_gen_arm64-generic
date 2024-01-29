@@ -1383,7 +1383,7 @@
   WebFeature.kOBSOLETE_ShapeDetection_BarcodeDetectorConstructor = 1991;
   WebFeature.kOBSOLETE_ShapeDetection_FaceDetectorConstructor = 1992;
   WebFeature.kOBSOLETE_ShapeDetection_TextDetectorConstructor = 1993;
-  WebFeature.kInertAttribute = 1995;
+  WebFeature.kOBSOLETE_InertAttribute = 1995;
   WebFeature.kPluginInstanceAccessFromIsolatedWorld = 1996;
   WebFeature.kPluginInstanceAccessFromMainWorld = 1997;
   WebFeature.kShowModalForElementInFullscreenStack = 2000;
@@ -3761,7 +3761,7 @@
   WebFeature.kCSSValueAppearanceSliderthumbHorizontal = 4557;
   WebFeature.kCSSValueAppearanceSliderthumbVertical = 4558;
   WebFeature.kServiceWorkerBypassFetchHandlerForAllWithRaceNetworkRequestByOriginTrial = 4559;
-  WebFeature.kEventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved = 4560;
+  WebFeature.kOBSOLETE_EventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved = 4560;
   WebFeature.kLinkRelPreloadAsFont = 4561;
   WebFeature.kCrossWindowAccessToBrowserGeneratedDocument = 4562;
   WebFeature.kSpeculationRulesNoVarySearchHint = 4563;
@@ -3798,7 +3798,7 @@
   WebFeature.kOBSOLETE_TextWrapPretty = 4594;
   WebFeature.kOBSOLETE_TextWrapPrettyFail = 4595;
   WebFeature.kContainerQueryEvalUnknown = 4596;
-  WebFeature.kEventTimingPresentationPromiseResolvedAfterReport = 4597;
+  WebFeature.kOBSOLETE_EventTimingPresentationPromiseResolvedAfterReport = 4597;
   WebFeature.kGetCoalescedEventsInInsecureContext = 4598;
   WebFeature.kCSPEESameOriginBlanketEnforcement = 4599;
   WebFeature.kSharedDictionaryUsed = 4601;
@@ -3961,9 +3961,41 @@
   WebFeature.kCredentialManagerCrossOriginPublicKeyCreateRequest = 4758;
   WebFeature.kViewTransitionNameAuto = 4759;
   WebFeature.kV8WasmJavaScriptPromiseIntegration = 4760;
-  WebFeature.kNumberOfFeatures = 4761;
+  WebFeature.kWindowMinimize = 4761;
+  WebFeature.kWindowMaximize = 4762;
+  WebFeature.kWindowRestore = 4763;
+  WebFeature.kWindowSetResizable = 4764;
+  WebFeature.kV8WasmReturnCall = 4765;
+  WebFeature.kV8WasmExtendedConst = 4766;
+  WebFeature.kV8WasmRelaxedSimd = 4767;
+  WebFeature.kV8WasmTypeReflection = 4768;
+  WebFeature.kV8WasmExnRef = 4769;
+  WebFeature.kV8WasmTypedFuncRef = 4770;
+  WebFeature.kHTMLButtonInSelect = 4771;
+  WebFeature.kHTMLDatalistInSelect = 4772;
+  WebFeature.kEffectiveAlignContentForBlock = 4773;
+  WebFeature.kEffectiveAlignContentForTableCell = 4774;
+  WebFeature.kUserFeatureNgOptimizedImage = 4775;
+  WebFeature.kCSSAtRulePageMargin = 4776;
+  WebFeature.kThirdPartyCookieDeprecation_AllowByEnterprisePolicyCookieAllowedForUrls = 4777;
+  WebFeature.kUserFeatureNgAfterRender = 4778;
+  WebFeature.kUserFeatureNgHydration = 4779;
+  WebFeature.kCapturedSurfaceControl = 4780;
+  WebFeature.kElementGetHTML = 4781;
+  WebFeature.kElementAttachSerializableShadow = 4782;
+  WebFeature.kCSSBareDeclarationShift = 4783;
+  WebFeature.kCSSNestedGroupRuleSpecificity = 4784;
+  WebFeature.kCSSRuleWithSignalingChildModified = 4785;
+  WebFeature.kUserFeatureNextThirdPartiesGA = 4786;
+  WebFeature.kUserFeatureNextThirdPartiesGTM = 4787;
+  WebFeature.kUserFeatureNextThirdPartiesYouTubeEmbed = 4788;
+  WebFeature.kUserFeatureNextThirdPartiesGoogleMapsEmbed = 4789;
+  WebFeature.kStorageAccessAPI_hasUnpartitionedCookieAccess = 4790;
+  WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_cookies = 4791;
+  WebFeature.kVisualViewportScrollEndFired = 4792;
+  WebFeature.kNumberOfFeatures = 4793;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4761;
+  WebFeature.MAX_VALUE = 4793;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -7907,6 +7939,38 @@
     case 4759:
     case 4760:
     case 4761:
+    case 4762:
+    case 4763:
+    case 4764:
+    case 4765:
+    case 4766:
+    case 4767:
+    case 4768:
+    case 4769:
+    case 4770:
+    case 4771:
+    case 4772:
+    case 4773:
+    case 4774:
+    case 4775:
+    case 4776:
+    case 4777:
+    case 4778:
+    case 4779:
+    case 4780:
+    case 4781:
+    case 4782:
+    case 4783:
+    case 4784:
+    case 4785:
+    case 4786:
+    case 4787:
+    case 4788:
+    case 4789:
+    case 4790:
+    case 4791:
+    case 4792:
+    case 4793:
       return true;
     }
     return false;

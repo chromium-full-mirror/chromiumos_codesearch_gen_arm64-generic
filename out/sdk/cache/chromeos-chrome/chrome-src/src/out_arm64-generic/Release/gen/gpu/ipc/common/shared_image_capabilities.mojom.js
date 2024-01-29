@@ -32,6 +32,7 @@
     this.supportsScanoutSharedImages = false;
     this.supportsLuminanceSharedImages = false;
     this.supportsR16SharedImages = false;
+    this.isR16fSupported = false;
     this.disableR8SharedImages = false;
     this.disableWebgpuSharedImages = false;
     this.sharedImageD3d = false;
@@ -64,6 +65,7 @@
 
 
 
+
     return validator.validationError.NONE;
   };
 
@@ -78,10 +80,11 @@
     val.supportsScanoutSharedImages = (packed >> 0) & 1 ? true : false;
     val.supportsLuminanceSharedImages = (packed >> 1) & 1 ? true : false;
     val.supportsR16SharedImages = (packed >> 2) & 1 ? true : false;
-    val.disableR8SharedImages = (packed >> 3) & 1 ? true : false;
-    val.disableWebgpuSharedImages = (packed >> 4) & 1 ? true : false;
-    val.sharedImageD3d = (packed >> 5) & 1 ? true : false;
-    val.sharedImageSwapChain = (packed >> 6) & 1 ? true : false;
+    val.isR16fSupported = (packed >> 3) & 1 ? true : false;
+    val.disableR8SharedImages = (packed >> 4) & 1 ? true : false;
+    val.disableWebgpuSharedImages = (packed >> 5) & 1 ? true : false;
+    val.sharedImageD3d = (packed >> 6) & 1 ? true : false;
+    val.sharedImageSwapChain = (packed >> 7) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -100,10 +103,11 @@
     packed |= (val.supportsScanoutSharedImages & 1) << 0
     packed |= (val.supportsLuminanceSharedImages & 1) << 1
     packed |= (val.supportsR16SharedImages & 1) << 2
-    packed |= (val.disableR8SharedImages & 1) << 3
-    packed |= (val.disableWebgpuSharedImages & 1) << 4
-    packed |= (val.sharedImageD3d & 1) << 5
-    packed |= (val.sharedImageSwapChain & 1) << 6
+    packed |= (val.isR16fSupported & 1) << 3
+    packed |= (val.disableR8SharedImages & 1) << 4
+    packed |= (val.disableWebgpuSharedImages & 1) << 5
+    packed |= (val.sharedImageD3d & 1) << 6
+    packed |= (val.sharedImageSwapChain & 1) << 7
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

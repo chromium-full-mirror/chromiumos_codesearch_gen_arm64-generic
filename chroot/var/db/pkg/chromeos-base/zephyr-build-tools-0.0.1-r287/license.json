@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "zephyr-build-tools", "version": "0.0.1", "revision": 287, "fullname": "chromeos-base/zephyr-build-tools", "fullnamerev": "chromeos-base/zephyr-build-tools-0.0.1-r287", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://src.chromium.org"], "skip": false, "tainted": false, "ebuild_path": null}

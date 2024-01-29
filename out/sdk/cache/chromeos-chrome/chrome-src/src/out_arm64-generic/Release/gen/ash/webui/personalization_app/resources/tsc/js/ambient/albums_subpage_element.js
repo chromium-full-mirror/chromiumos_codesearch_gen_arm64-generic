@@ -5,12 +5,12 @@
  * @fileoverview The ambient albums subpage is to select personal albums in
  * Google Photos or categories in Art gallery.
  */
+import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/cr_components/localized_link/localized_link.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import './album_list_element.js';
 import './art_album_dialog_element.js';
-import '../../css/common.css.js';
 import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { TopicSource } from '../../personalization_app.mojom-webui.js';

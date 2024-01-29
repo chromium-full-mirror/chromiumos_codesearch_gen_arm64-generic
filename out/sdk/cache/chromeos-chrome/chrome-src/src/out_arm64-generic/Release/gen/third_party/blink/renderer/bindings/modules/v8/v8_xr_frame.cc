@@ -11,6 +11,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_xr_frame.h"
 
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "third_party/blink/renderer/bindings/core/v8/frozen_array.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
@@ -149,7 +150,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_XRFrame_d
 BLINK_BINDINGS_TRACE_EVENT("XRFrame.detectedPlanes.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameDetectedPlanes);
 
@@ -187,7 +189,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameCreateAnchor);
 
@@ -201,8 +204,7 @@ return;
 
 
 XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_initial_pose = NativeValueTraits<XRRigidTransform>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -226,7 +228,8 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.fillJointRadii");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameFillJointRadii);
 
@@ -267,7 +270,8 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.fillPoses");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameFillPoses);
 
@@ -312,7 +316,8 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.getDepthInformation");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameGetDepthInformation);
 
@@ -362,10 +367,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hit_test_source = NativeValueTraits<XRHitTestSource>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -376,9 +379,7 @@ auto&& return_value = blink_receiver->getHitTestResults(arg1_hit_test_source, ex
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLArray<XRHitTestResult>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<XRHitTestResult>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -402,10 +403,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_hit_test_source = NativeValueTraits<XRTransientInputHitTestSource>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -416,9 +415,7 @@ auto&& return_value = blink_receiver->getHitTestResultsForTransientInput(arg1_hi
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLArray<XRTransientInputHitTestResult>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<XRTransientInputHitTestResult>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -429,7 +426,8 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.getImageTrackingResults");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameGetImageTrackingResults);
 
@@ -438,10 +436,8 @@ UseCounter::Count(current_execution_context, WebFeature::kXRFrameGetImageTrackin
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 XRFrame* blink_receiver = V8XRFrame::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
@@ -452,9 +448,7 @@ auto&& return_value = blink_receiver->getImageTrackingResults(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLArray<XRImageTrackingResult>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<XRImageTrackingResult>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -465,7 +459,8 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.getJointPose");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameGetJointPose);
 
@@ -506,7 +501,8 @@ BLINK_BINDINGS_TRACE_EVENT("XRFrame.getLightEstimate");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kXRFrameGetLightEstimate);
 
@@ -705,7 +701,7 @@ void V8XRFrame::InstallContextDependentProperties(v8::Local<v8::Context> context
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::WebXRPlaneDetectionEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kWebXRPlaneDetection)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"detectedPlanes", DetectedPlanesAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

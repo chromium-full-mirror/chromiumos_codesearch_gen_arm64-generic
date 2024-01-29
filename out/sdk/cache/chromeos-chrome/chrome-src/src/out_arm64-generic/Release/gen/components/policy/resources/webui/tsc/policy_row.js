@@ -44,7 +44,7 @@ export class PolicyRowElement extends CustomElement {
         const nameDisplay = this.shadowRoot.querySelector('.name .link span');
         nameDisplay.textContent = policy.name;
         if (policy.link) {
-            const link = this.shadowRoot.querySelector('.name .link');
+            const link = this.getRequiredElement('.name .link');
             link.href = policy.link;
             link.title = loadTimeData.getStringF('policyLearnMore', policy.name);
             this.toggleAttribute('no-help-link', false);
@@ -92,7 +92,7 @@ export class PolicyRowElement extends CustomElement {
                 policyValueStr;
             const valueDisplay = this.shadowRoot.querySelector('.value');
             valueDisplay.textContent = truncatedValue;
-            const copyLink = this.shadowRoot.querySelector('.copy .link');
+            const copyLink = this.getRequiredElement('.copy .link');
             copyLink.title = loadTimeData.getStringF('policyCopyValue', policy.name);
             const valueRowContentDisplay = this.shadowRoot.querySelector('.value.row .value');
             // Expanded policy value is formatted.
@@ -171,17 +171,15 @@ export class PolicyRowElement extends CustomElement {
     }
     // Toggle the visibility of an additional row containing the complete text.
     toggleExpanded() {
-        const warningRowDisplay = this.shadowRoot.querySelector('.warnings.row');
-        const errorRowDisplay = this.shadowRoot.querySelector('.errors.row');
-        const infoRowDisplay = this.shadowRoot.querySelector('.infos.row');
-        const valueRowDisplay = this.shadowRoot.querySelector('.value.row');
+        const warningRowDisplay = this.getRequiredElement('.warnings.row');
+        const errorRowDisplay = this.getRequiredElement('.errors.row');
+        const infoRowDisplay = this.getRequiredElement('.infos.row');
+        const valueRowDisplay = this.getRequiredElement('.value.row');
         // 
         valueRowDisplay.hidden = !valueRowDisplay.hidden;
         this.classList.toggle('expanded', !valueRowDisplay.hidden);
-        this.shadowRoot.querySelector('.show-more').hidden =
-            !valueRowDisplay.hidden;
-        this.shadowRoot.querySelector('.show-less').hidden =
-            valueRowDisplay.hidden;
+        this.getRequiredElement('.show-more').hidden = !valueRowDisplay.hidden;
+        this.getRequiredElement('.show-less').hidden = valueRowDisplay.hidden;
         if (this.hasWarnings_) {
             warningRowDisplay.hidden = !warningRowDisplay.hidden;
         }

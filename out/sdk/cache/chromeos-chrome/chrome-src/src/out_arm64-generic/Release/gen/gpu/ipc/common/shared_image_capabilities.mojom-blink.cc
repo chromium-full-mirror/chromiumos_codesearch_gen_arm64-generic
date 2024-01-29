@@ -49,6 +49,7 @@ SharedImageCapabilities::SharedImageCapabilities()
     : supports_scanout_shared_images(),
       supports_luminance_shared_images(),
       supports_r16_shared_images(),
+      is_r16f_supported(),
       disable_r8_shared_images(),
       disable_webgpu_shared_images(),
       shared_image_d3d(),
@@ -58,6 +59,7 @@ SharedImageCapabilities::SharedImageCapabilities(
     bool supports_scanout_shared_images_in,
     bool supports_luminance_shared_images_in,
     bool supports_r16_shared_images_in,
+    bool is_r16f_supported_in,
     bool disable_r8_shared_images_in,
     bool disable_webgpu_shared_images_in,
     bool shared_image_d3d_in,
@@ -65,6 +67,7 @@ SharedImageCapabilities::SharedImageCapabilities(
     : supports_scanout_shared_images(std::move(supports_scanout_shared_images_in)),
       supports_luminance_shared_images(std::move(supports_luminance_shared_images_in)),
       supports_r16_shared_images(std::move(supports_r16_shared_images_in)),
+      is_r16f_supported(std::move(is_r16f_supported_in)),
       disable_r8_shared_images(std::move(disable_r8_shared_images_in)),
       disable_webgpu_shared_images(std::move(disable_webgpu_shared_images_in)),
       shared_image_d3d(std::move(shared_image_d3d_in)),
@@ -75,6 +78,7 @@ size_t SharedImageCapabilities::Hash(size_t seed) const {
   seed = mojo::internal::WTFHash(seed, this->supports_scanout_shared_images);
   seed = mojo::internal::WTFHash(seed, this->supports_luminance_shared_images);
   seed = mojo::internal::WTFHash(seed, this->supports_r16_shared_images);
+  seed = mojo::internal::WTFHash(seed, this->is_r16f_supported);
   seed = mojo::internal::WTFHash(seed, this->disable_r8_shared_images);
   seed = mojo::internal::WTFHash(seed, this->disable_webgpu_shared_images);
   seed = mojo::internal::WTFHash(seed, this->shared_image_d3d);
@@ -106,6 +110,15 @@ void SharedImageCapabilities::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "supports_r16_shared_images"), this->supports_r16_shared_images,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_r16f_supported"), this->is_r16f_supported,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -176,6 +189,8 @@ bool StructTraits<::gpu::mojom::blink::SharedImageCapabilities::DataView, ::gpu:
         result->supports_luminance_shared_images = input.supports_luminance_shared_images();
       if (success)
         result->supports_r16_shared_images = input.supports_r16_shared_images();
+      if (success)
+        result->is_r16f_supported = input.is_r16f_supported();
       if (success)
         result->disable_r8_shared_images = input.disable_r8_shared_images();
       if (success)

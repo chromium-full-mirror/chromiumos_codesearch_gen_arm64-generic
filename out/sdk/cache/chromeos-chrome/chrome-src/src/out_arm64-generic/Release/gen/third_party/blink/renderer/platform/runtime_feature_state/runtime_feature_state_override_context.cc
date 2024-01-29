@@ -56,6 +56,33 @@ void RuntimeFeatureStateOverrideContext::SetBlinkExtensionChromeOSForceEnabled()
 }
 
 bool RuntimeFeatureStateOverrideContext::
+    IsBlinkExtensionChromeOSKioskForceDisabled() const {
+  auto it = override_values_.find(
+      mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk);
+  if (it != override_values_.end() && it->second == false)
+    return true;
+
+  return false;
+}
+
+bool RuntimeFeatureStateOverrideContext::
+    IsBlinkExtensionChromeOSKioskForceEnabled() const {
+  auto it = override_values_.find(mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk);
+  if(it != override_values_.end() && it->second == true)
+    return true;
+
+  return false;
+}
+
+void RuntimeFeatureStateOverrideContext::SetBlinkExtensionChromeOSKioskForceDisabled() {
+  override_values_[mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk] = false;
+}
+
+void RuntimeFeatureStateOverrideContext::SetBlinkExtensionChromeOSKioskForceEnabled() {
+  override_values_[mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk] = true;
+}
+
+bool RuntimeFeatureStateOverrideContext::
     IsBlinkExtensionDiagnosticsForceDisabled() const {
   auto it = override_values_.find(
       mojom::RuntimeFeature::kBlinkExtensionDiagnostics);

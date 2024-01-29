@@ -376,6 +376,8 @@ bool GuestView_CanExecuteContentScript_ForwardToCallback::Accept(
           internal::GuestView_CanExecuteContentScript_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GuestView.1
   bool success = true;
   bool p_allowed{};
   GuestView_CanExecuteContentScript_ResponseParamsDataView input_data_view(params, message);
@@ -445,6 +447,8 @@ bool GuestView_CanExecuteContentScript_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GuestView_CanExecuteContentScript_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GuestView.1
   bool success = true;
   bool p_allowed{};
   GuestView_CanExecuteContentScript_ResponseParamsDataView input_data_view(params, message);
@@ -475,6 +479,8 @@ bool GuestViewStubDispatch::Accept(
           reinterpret_cast<internal::GuestView_ReadyToCreateMimeHandlerView_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GuestView.0
       bool success = true;
       bool p_success{};
       GuestView_ReadyToCreateMimeHandlerView_ParamsDataView input_data_view(params, message);
@@ -490,8 +496,8 @@ bool GuestViewStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadyToCreateMimeHandlerView(
-std::move(p_success));
+      impl->ReadyToCreateMimeHandlerView(        
+        std::move(p_success));
       return true;
     }
     case internal::kGuestView_CanExecuteContentScript_Name: {
@@ -520,6 +526,8 @@ bool GuestViewStubDispatch::AcceptWithResponder(
               internal::GuestView_CanExecuteContentScript_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GuestView.1
       bool success = true;
       std::string p_script_id{};
       GuestView_CanExecuteContentScript_ParamsDataView input_data_view(params, message);
@@ -538,8 +546,8 @@ bool GuestViewStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CanExecuteContentScript(
-std::move(p_script_id), std::move(callback));
+      impl->CanExecuteContentScript(        
+        std::move(p_script_id), std::move(callback));
       return true;
     }
   }
@@ -936,6 +944,8 @@ bool MimeHandlerViewContainerManager_CreateBeforeUnloadControl_ForwardToCallback
           internal::MimeHandlerViewContainerManager_CreateBeforeUnloadControl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MimeHandlerViewContainerManager.1
   bool success = true;
   ::mojo::PendingRemote<::extensions::mime_handler::BeforeUnloadControl> p_before_unload_control{};
   MimeHandlerViewContainerManager_CreateBeforeUnloadControl_ResponseParamsDataView input_data_view(params, message);
@@ -1017,6 +1027,8 @@ bool MimeHandlerViewContainerManagerStubDispatch::Accept(
           reinterpret_cast<internal::MimeHandlerViewContainerManager_SetInternalId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MimeHandlerViewContainerManager.0
       bool success = true;
       std::string p_token_id{};
       MimeHandlerViewContainerManager_SetInternalId_ParamsDataView input_data_view(params, message);
@@ -1032,8 +1044,8 @@ bool MimeHandlerViewContainerManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInternalId(
-std::move(p_token_id));
+      impl->SetInternalId(        
+        std::move(p_token_id));
       return true;
     }
     case internal::kMimeHandlerViewContainerManager_CreateBeforeUnloadControl_Name: {
@@ -1046,6 +1058,8 @@ std::move(p_token_id));
           reinterpret_cast<internal::MimeHandlerViewContainerManager_DestroyFrameContainer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MimeHandlerViewContainerManager.2
       bool success = true;
       int32_t p_element_instance_id{};
       MimeHandlerViewContainerManager_DestroyFrameContainer_ParamsDataView input_data_view(params, message);
@@ -1061,8 +1075,8 @@ std::move(p_token_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyFrameContainer(
-std::move(p_element_instance_id));
+      impl->DestroyFrameContainer(        
+        std::move(p_element_instance_id));
       return true;
     }
     case internal::kMimeHandlerViewContainerManager_DidLoad_Name: {
@@ -1072,6 +1086,8 @@ std::move(p_element_instance_id));
           reinterpret_cast<internal::MimeHandlerViewContainerManager_DidLoad_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MimeHandlerViewContainerManager.3
       bool success = true;
       int32_t p_mime_handler_view_guest_element_instance_id{};
       ::GURL p_resource_url{};
@@ -1090,9 +1106,9 @@ std::move(p_element_instance_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidLoad(
-std::move(p_mime_handler_view_guest_element_instance_id), 
-std::move(p_resource_url));
+      impl->DidLoad(        
+        std::move(p_mime_handler_view_guest_element_instance_id), 
+        std::move(p_resource_url));
       return true;
     }
   }
@@ -1118,6 +1134,8 @@ bool MimeHandlerViewContainerManagerStubDispatch::AcceptWithResponder(
               internal::MimeHandlerViewContainerManager_CreateBeforeUnloadControl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MimeHandlerViewContainerManager.1
       bool success = true;
       MimeHandlerViewContainerManager_CreateBeforeUnloadControl_ParamsDataView input_data_view(params, message);
       

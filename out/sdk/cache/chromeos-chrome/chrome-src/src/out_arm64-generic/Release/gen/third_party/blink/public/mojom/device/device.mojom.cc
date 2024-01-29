@@ -199,6 +199,8 @@ bool ManagedConfigurationObserverStubDispatch::Accept(
           reinterpret_cast<internal::ManagedConfigurationObserver_OnConfigurationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ManagedConfigurationObserver.0
       bool success = true;
       ManagedConfigurationObserver_OnConfigurationChanged_ParamsDataView input_data_view(params, message);
       
@@ -211,7 +213,7 @@ bool ManagedConfigurationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConfigurationChanged();
+      impl->OnConfigurationChanged(        );
       return true;
     }
   }
@@ -691,6 +693,8 @@ bool DeviceAPIService_GetDirectoryId_ForwardToCallback::Accept(
           internal::DeviceAPIService_GetDirectoryId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAPIService.0
   bool success = true;
   DeviceAttributeResultPtr p_result{};
   DeviceAPIService_GetDirectoryId_ResponseParamsDataView input_data_view(params, message);
@@ -818,6 +822,8 @@ bool DeviceAPIService_GetHostname_ForwardToCallback::Accept(
           internal::DeviceAPIService_GetHostname_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAPIService.1
   bool success = true;
   DeviceAttributeResultPtr p_result{};
   DeviceAPIService_GetHostname_ResponseParamsDataView input_data_view(params, message);
@@ -945,6 +951,8 @@ bool DeviceAPIService_GetSerialNumber_ForwardToCallback::Accept(
           internal::DeviceAPIService_GetSerialNumber_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAPIService.2
   bool success = true;
   DeviceAttributeResultPtr p_result{};
   DeviceAPIService_GetSerialNumber_ResponseParamsDataView input_data_view(params, message);
@@ -1072,6 +1080,8 @@ bool DeviceAPIService_GetAnnotatedAssetId_ForwardToCallback::Accept(
           internal::DeviceAPIService_GetAnnotatedAssetId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAPIService.3
   bool success = true;
   DeviceAttributeResultPtr p_result{};
   DeviceAPIService_GetAnnotatedAssetId_ResponseParamsDataView input_data_view(params, message);
@@ -1199,6 +1209,8 @@ bool DeviceAPIService_GetAnnotatedLocation_ForwardToCallback::Accept(
           internal::DeviceAPIService_GetAnnotatedLocation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAPIService.4
   bool success = true;
   DeviceAttributeResultPtr p_result{};
   DeviceAPIService_GetAnnotatedLocation_ResponseParamsDataView input_data_view(params, message);
@@ -1309,6 +1321,8 @@ bool DeviceAPIServiceStubDispatch::AcceptWithResponder(
               internal::DeviceAPIService_GetDirectoryId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAPIService.0
       bool success = true;
       DeviceAPIService_GetDirectoryId_ParamsDataView input_data_view(params, message);
       
@@ -1334,6 +1348,8 @@ bool DeviceAPIServiceStubDispatch::AcceptWithResponder(
               internal::DeviceAPIService_GetHostname_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAPIService.1
       bool success = true;
       DeviceAPIService_GetHostname_ParamsDataView input_data_view(params, message);
       
@@ -1359,6 +1375,8 @@ bool DeviceAPIServiceStubDispatch::AcceptWithResponder(
               internal::DeviceAPIService_GetSerialNumber_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAPIService.2
       bool success = true;
       DeviceAPIService_GetSerialNumber_ParamsDataView input_data_view(params, message);
       
@@ -1384,6 +1402,8 @@ bool DeviceAPIServiceStubDispatch::AcceptWithResponder(
               internal::DeviceAPIService_GetAnnotatedAssetId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAPIService.3
       bool success = true;
       DeviceAPIService_GetAnnotatedAssetId_ParamsDataView input_data_view(params, message);
       
@@ -1409,6 +1429,8 @@ bool DeviceAPIServiceStubDispatch::AcceptWithResponder(
               internal::DeviceAPIService_GetAnnotatedLocation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAPIService.4
       bool success = true;
       DeviceAPIService_GetAnnotatedLocation_ParamsDataView input_data_view(params, message);
       
@@ -1706,6 +1728,8 @@ bool ManagedConfigurationService_GetManagedConfiguration_ForwardToCallback::Acce
           internal::ManagedConfigurationService_GetManagedConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ManagedConfigurationService.0
   bool success = true;
   std::optional<base::flat_map<std::string, std::string>> p_configurations{};
   ManagedConfigurationService_GetManagedConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -1791,6 +1815,8 @@ bool ManagedConfigurationServiceStubDispatch::Accept(
           reinterpret_cast<internal::ManagedConfigurationService_SubscribeToManagedConfiguration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ManagedConfigurationService.1
       bool success = true;
       ::mojo::PendingRemote<ManagedConfigurationObserver> p_observer{};
       ManagedConfigurationService_SubscribeToManagedConfiguration_ParamsDataView input_data_view(params, message);
@@ -1808,8 +1834,8 @@ bool ManagedConfigurationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubscribeToManagedConfiguration(
-std::move(p_observer));
+      impl->SubscribeToManagedConfiguration(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -1832,6 +1858,8 @@ bool ManagedConfigurationServiceStubDispatch::AcceptWithResponder(
               internal::ManagedConfigurationService_GetManagedConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ManagedConfigurationService.0
       bool success = true;
       std::vector<std::string> p_keys{};
       ManagedConfigurationService_GetManagedConfiguration_ParamsDataView input_data_view(params, message);
@@ -1850,8 +1878,8 @@ bool ManagedConfigurationServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetManagedConfiguration(
-std::move(p_keys), std::move(callback));
+      impl->GetManagedConfiguration(        
+        std::move(p_keys), std::move(callback));
       return true;
     }
     case internal::kManagedConfigurationService_SubscribeToManagedConfiguration_Name: {

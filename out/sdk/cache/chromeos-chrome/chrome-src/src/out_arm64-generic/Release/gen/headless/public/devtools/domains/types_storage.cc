@@ -3048,6 +3048,79 @@ std::unique_ptr<SetInterestGroupTrackingResult> SetInterestGroupTrackingResult::
 }
 
 
+std::unique_ptr<SetInterestGroupAuctionTrackingParams> SetInterestGroupAuctionTrackingParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("SetInterestGroupAuctionTrackingParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<SetInterestGroupAuctionTrackingParams> result(new SetInterestGroupAuctionTrackingParams());
+  errors->Push();
+  errors->SetName("SetInterestGroupAuctionTrackingParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* enable_value = dict.Find("enable");
+  if (enable_value) {
+    errors->SetName("enable");
+    result->enable_ = internal::FromValue<bool>::Parse(*enable_value, errors);
+  } else {
+    errors->AddError("required property missing: enable");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value SetInterestGroupAuctionTrackingParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("enable", internal::ToValue(enable_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<SetInterestGroupAuctionTrackingParams> SetInterestGroupAuctionTrackingParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<SetInterestGroupAuctionTrackingParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<SetInterestGroupAuctionTrackingResult> SetInterestGroupAuctionTrackingResult::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("SetInterestGroupAuctionTrackingResult");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<SetInterestGroupAuctionTrackingResult> result(new SetInterestGroupAuctionTrackingResult());
+  errors->Push();
+  errors->SetName("SetInterestGroupAuctionTrackingResult");
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value SetInterestGroupAuctionTrackingResult::Serialize() const {
+  base::Value::Dict result;
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<SetInterestGroupAuctionTrackingResult> SetInterestGroupAuctionTrackingResult::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<SetInterestGroupAuctionTrackingResult> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<GetSharedStorageMetadataParams> GetSharedStorageMetadataParams::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("GetSharedStorageMetadataParams");
@@ -4274,6 +4347,26 @@ std::unique_ptr<InterestGroupAccessedParams> InterestGroupAccessedParams::Parse(
   } else {
     errors->AddError("required property missing: name");
   }
+  const base::Value* component_seller_origin_value = dict.Find("componentSellerOrigin");
+  if (component_seller_origin_value) {
+    errors->SetName("componentSellerOrigin");
+    result->component_seller_origin_ = internal::FromValue<std::string>::Parse(*component_seller_origin_value, errors);
+  }
+  const base::Value* bid_value = dict.Find("bid");
+  if (bid_value) {
+    errors->SetName("bid");
+    result->bid_ = internal::FromValue<double>::Parse(*bid_value, errors);
+  }
+  const base::Value* bid_currency_value = dict.Find("bidCurrency");
+  if (bid_currency_value) {
+    errors->SetName("bidCurrency");
+    result->bid_currency_ = internal::FromValue<std::string>::Parse(*bid_currency_value, errors);
+  }
+  const base::Value* unique_auction_id_value = dict.Find("uniqueAuctionId");
+  if (unique_auction_id_value) {
+    errors->SetName("uniqueAuctionId");
+    result->unique_auction_id_ = internal::FromValue<std::string>::Parse(*unique_auction_id_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -4287,12 +4380,148 @@ base::Value InterestGroupAccessedParams::Serialize() const {
   result.Set("type", internal::ToValue(type_));
   result.Set("ownerOrigin", internal::ToValue(owner_origin_));
   result.Set("name", internal::ToValue(name_));
+  if (component_seller_origin_)
+    result.Set("componentSellerOrigin", internal::ToValue(component_seller_origin_.value()));
+  if (bid_)
+    result.Set("bid", internal::ToValue(bid_.value()));
+  if (bid_currency_)
+    result.Set("bidCurrency", internal::ToValue(bid_currency_.value()));
+  if (unique_auction_id_)
+    result.Set("uniqueAuctionId", internal::ToValue(unique_auction_id_.value()));
   return base::Value(std::move(result));
 }
 
 std::unique_ptr<InterestGroupAccessedParams> InterestGroupAccessedParams::Clone() const {
   ErrorReporter errors;
   std::unique_ptr<InterestGroupAccessedParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<InterestGroupAuctionEventOccurredParams> InterestGroupAuctionEventOccurredParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("InterestGroupAuctionEventOccurredParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<InterestGroupAuctionEventOccurredParams> result(new InterestGroupAuctionEventOccurredParams());
+  errors->Push();
+  errors->SetName("InterestGroupAuctionEventOccurredParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* event_time_value = dict.Find("eventTime");
+  if (event_time_value) {
+    errors->SetName("eventTime");
+    result->event_time_ = internal::FromValue<double>::Parse(*event_time_value, errors);
+  } else {
+    errors->AddError("required property missing: eventTime");
+  }
+  const base::Value* type_value = dict.Find("type");
+  if (type_value) {
+    errors->SetName("type");
+    result->type_ = internal::FromValue<::headless::storage::InterestGroupAuctionEventType>::Parse(*type_value, errors);
+  } else {
+    errors->AddError("required property missing: type");
+  }
+  const base::Value* unique_auction_id_value = dict.Find("uniqueAuctionId");
+  if (unique_auction_id_value) {
+    errors->SetName("uniqueAuctionId");
+    result->unique_auction_id_ = internal::FromValue<std::string>::Parse(*unique_auction_id_value, errors);
+  } else {
+    errors->AddError("required property missing: uniqueAuctionId");
+  }
+  const base::Value* parent_auction_id_value = dict.Find("parentAuctionId");
+  if (parent_auction_id_value) {
+    errors->SetName("parentAuctionId");
+    result->parent_auction_id_ = internal::FromValue<std::string>::Parse(*parent_auction_id_value, errors);
+  }
+  const base::Value* auction_config_value = dict.Find("auctionConfig");
+  if (auction_config_value) {
+    errors->SetName("auctionConfig");
+    result->auction_config_ = internal::FromValue<base::Value>::Parse(*auction_config_value, errors);
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value InterestGroupAuctionEventOccurredParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("eventTime", internal::ToValue(event_time_));
+  result.Set("type", internal::ToValue(type_));
+  result.Set("uniqueAuctionId", internal::ToValue(unique_auction_id_));
+  if (parent_auction_id_)
+    result.Set("parentAuctionId", internal::ToValue(parent_auction_id_.value()));
+  if (auction_config_)
+    result.Set("auctionConfig", internal::ToValue(*auction_config_.value()));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<InterestGroupAuctionEventOccurredParams> InterestGroupAuctionEventOccurredParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<InterestGroupAuctionEventOccurredParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> InterestGroupAuctionNetworkRequestCreatedParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("InterestGroupAuctionNetworkRequestCreatedParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> result(new InterestGroupAuctionNetworkRequestCreatedParams());
+  errors->Push();
+  errors->SetName("InterestGroupAuctionNetworkRequestCreatedParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* type_value = dict.Find("type");
+  if (type_value) {
+    errors->SetName("type");
+    result->type_ = internal::FromValue<::headless::storage::InterestGroupAuctionFetchType>::Parse(*type_value, errors);
+  } else {
+    errors->AddError("required property missing: type");
+  }
+  const base::Value* request_id_value = dict.Find("requestId");
+  if (request_id_value) {
+    errors->SetName("requestId");
+    result->request_id_ = internal::FromValue<std::string>::Parse(*request_id_value, errors);
+  } else {
+    errors->AddError("required property missing: requestId");
+  }
+  const base::Value* auctions_value = dict.Find("auctions");
+  if (auctions_value) {
+    errors->SetName("auctions");
+    result->auctions_ = internal::FromValue<std::vector<std::string>>::Parse(*auctions_value, errors);
+  } else {
+    errors->AddError("required property missing: auctions");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value InterestGroupAuctionNetworkRequestCreatedParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("type", internal::ToValue(type_));
+  result.Set("requestId", internal::ToValue(request_id_));
+  result.Set("auctions", internal::ToValue(auctions_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> InterestGroupAuctionNetworkRequestCreatedParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }

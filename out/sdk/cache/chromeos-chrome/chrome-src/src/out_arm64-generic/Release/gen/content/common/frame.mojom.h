@@ -62,7 +62,6 @@
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom.h"
 #include "third_party/blink/public/mojom/frame/tree_scope_type.mojom-forward.h"
 #include "third_party/blink/public/mojom/loader/referrer.mojom.h"
-#include "third_party/blink/public/mojom/loader/resource_cache.mojom-forward.h"
 #include "third_party/blink/public/mojom/navigation/navigation_policy.mojom.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info.mojom-forward.h"
 #include "third_party/blink/public/mojom/loader/url_loader_factory_bundle.mojom.h"
@@ -206,7 +205,6 @@ class CONTENT_EXPORT Frame
     kGetInterfaceProviderMinVersion = 0,
     kSnapshotAccessibilityTreeMinVersion = 0,
     kGetSerializedHtmlWithLocalLinksMinVersion = 0,
-    kSetResourceCacheMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -237,9 +235,6 @@ class CONTENT_EXPORT Frame
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetSerializedHtmlWithLocalLinks_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetResourceCache_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -275,9 +270,6 @@ class CONTENT_EXPORT Frame
 
   
   virtual void GetSerializedHtmlWithLocalLinks(const base::flat_map<::GURL, ::base::FilePath>& url_map, const base::flat_map<::blink::FrameToken, ::base::FilePath>& frame_token_map, bool save_with_empty_url, ::mojo::PendingRemote<FrameHTMLSerializerHandler> handler_remote) = 0;
-
-  
-  virtual void SetResourceCache(::mojo::PendingRemote<::blink::mojom::ResourceCache> remote) = 0;
 };
 
 class FrameBindingsControlProxy;
@@ -580,8 +572,6 @@ class CONTENT_EXPORT FrameProxy
   void SnapshotAccessibilityTree(SnapshotAccessibilityTreeParamsPtr params, SnapshotAccessibilityTreeCallback callback) final;
   
   void GetSerializedHtmlWithLocalLinks(const base::flat_map<::GURL, ::base::FilePath>& url_map, const base::flat_map<::blink::FrameToken, ::base::FilePath>& frame_token_map, bool save_with_empty_url, ::mojo::PendingRemote<FrameHTMLSerializerHandler> handler_remote) final;
-  
-  void SetResourceCache(::mojo::PendingRemote<::blink::mojom::ResourceCache> remote) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

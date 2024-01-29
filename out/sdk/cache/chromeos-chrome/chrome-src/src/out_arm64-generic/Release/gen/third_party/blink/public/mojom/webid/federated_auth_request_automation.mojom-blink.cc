@@ -508,6 +508,8 @@ bool FederatedAuthRequestAutomation_GetDialogType_ForwardToCallback::Accept(
           internal::FederatedAuthRequestAutomation_GetDialogType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequestAutomation.0
   bool success = true;
   WTF::String p_title{};
   FederatedAuthRequestAutomation_GetDialogType_ResponseParamsDataView input_data_view(params, message);
@@ -633,6 +635,8 @@ bool FederatedAuthRequestAutomation_GetFedCmDialogTitle_ForwardToCallback::Accep
           internal::FederatedAuthRequestAutomation_GetFedCmDialogTitle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequestAutomation.1
   bool success = true;
   WTF::String p_title{};
   FederatedAuthRequestAutomation_GetFedCmDialogTitle_ResponseParamsDataView input_data_view(params, message);
@@ -758,6 +762,8 @@ bool FederatedAuthRequestAutomation_SelectFedCmAccount_ForwardToCallback::Accept
           internal::FederatedAuthRequestAutomation_SelectFedCmAccount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequestAutomation.2
   bool success = true;
   bool p_success{};
   FederatedAuthRequestAutomation_SelectFedCmAccount_ResponseParamsDataView input_data_view(params, message);
@@ -877,6 +883,8 @@ bool FederatedAuthRequestAutomation_DismissFedCmDialog_ForwardToCallback::Accept
           internal::FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequestAutomation.3
   bool success = true;
   bool p_success{};
   FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParamsDataView input_data_view(params, message);
@@ -996,6 +1004,8 @@ bool FederatedAuthRequestAutomation_ClickFedCmDialogButton_ForwardToCallback::Ac
           internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequestAutomation.4
   bool success = true;
   bool p_success{};
   FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsDataView input_data_view(params, message);
@@ -1098,6 +1108,8 @@ bool FederatedAuthRequestAutomationStubDispatch::AcceptWithResponder(
               internal::FederatedAuthRequestAutomation_GetDialogType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequestAutomation.0
       bool success = true;
       FederatedAuthRequestAutomation_GetDialogType_ParamsDataView input_data_view(params, message);
       
@@ -1123,6 +1135,8 @@ bool FederatedAuthRequestAutomationStubDispatch::AcceptWithResponder(
               internal::FederatedAuthRequestAutomation_GetFedCmDialogTitle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequestAutomation.1
       bool success = true;
       FederatedAuthRequestAutomation_GetFedCmDialogTitle_ParamsDataView input_data_view(params, message);
       
@@ -1148,6 +1162,8 @@ bool FederatedAuthRequestAutomationStubDispatch::AcceptWithResponder(
               internal::FederatedAuthRequestAutomation_SelectFedCmAccount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequestAutomation.2
       bool success = true;
       uint32_t p_account_index{};
       FederatedAuthRequestAutomation_SelectFedCmAccount_ParamsDataView input_data_view(params, message);
@@ -1166,8 +1182,8 @@ bool FederatedAuthRequestAutomationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectFedCmAccount(
-std::move(p_account_index), std::move(callback));
+      impl->SelectFedCmAccount(        
+        std::move(p_account_index), std::move(callback));
       return true;
     }
     case internal::kFederatedAuthRequestAutomation_DismissFedCmDialog_Name: {
@@ -1177,6 +1193,8 @@ std::move(p_account_index), std::move(callback));
               internal::FederatedAuthRequestAutomation_DismissFedCmDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequestAutomation.3
       bool success = true;
       FederatedAuthRequestAutomation_DismissFedCmDialog_ParamsDataView input_data_view(params, message);
       
@@ -1202,6 +1220,8 @@ std::move(p_account_index), std::move(callback));
               internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequestAutomation.4
       bool success = true;
       DialogButton p_dialog_button{};
       FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsDataView input_data_view(params, message);
@@ -1220,8 +1240,8 @@ std::move(p_account_index), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClickFedCmDialogButton(
-std::move(p_dialog_button), std::move(callback));
+      impl->ClickFedCmDialogButton(        
+        std::move(p_dialog_button), std::move(callback));
       return true;
     }
   }

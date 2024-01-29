@@ -190,21 +190,20 @@ export function testLeadAndAnchor2() {
 export function testSelectAll() {
     const sm = createSelectionModel(10);
     let changes = null;
-    sm.addEventListener('change', function (e) {
+    sm.addEventListener('change', (e) => {
         changes = e.detail.changes;
     });
     sm.selectAll();
     assert(changes);
     assertArrayEquals(range(0, 9), sm.selectedIndexes);
-    assertArrayEquals(range(0, 9), changes
-        .map(function (change) {
+    assertArrayEquals(range(0, 9), changes.map((change) => {
         return change.index;
     }));
 }
 export function testSelectAllOnEmptyList() {
     const sm = createSelectionModel(0);
     let changes = null;
-    sm.addEventListener('change', function (e) {
+    sm.addEventListener('change', (e) => {
         changes = e.detail.changes;
     });
     sm.selectAll();

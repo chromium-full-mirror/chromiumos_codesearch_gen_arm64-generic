@@ -533,6 +533,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -550,8 +552,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -1671,6 +1673,8 @@ bool PageHandler_GetDialogArgs_ForwardToCallback::Accept(
           internal::PageHandler_GetDialogArgs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   DialogArgsPtr p_args{};
   PageHandler_GetDialogArgs_ResponseParamsDataView input_data_view(params, message);
@@ -1796,6 +1800,8 @@ bool PageHandler_IsOfficeWebAppInstalled_ForwardToCallback::Accept(
           internal::PageHandler_IsOfficeWebAppInstalled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   bool p_installed{};
   PageHandler_IsOfficeWebAppInstalled_ResponseParamsDataView input_data_view(params, message);
@@ -1915,6 +1921,8 @@ bool PageHandler_InstallOfficeWebApp_ForwardToCallback::Accept(
           internal::PageHandler_InstallOfficeWebApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   bool p_installed{};
   PageHandler_InstallOfficeWebApp_ResponseParamsDataView input_data_view(params, message);
@@ -2034,6 +2042,8 @@ bool PageHandler_IsODFSMounted_ForwardToCallback::Accept(
           internal::PageHandler_IsODFSMounted_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   bool p_mounted{};
   PageHandler_IsODFSMounted_ResponseParamsDataView input_data_view(params, message);
@@ -2153,6 +2163,8 @@ bool PageHandler_SignInToOneDrive_ForwardToCallback::Accept(
           internal::PageHandler_SignInToOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   bool p_success{};
   PageHandler_SignInToOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2272,6 +2284,8 @@ bool PageHandler_GetAlwaysMoveOfficeFilesToDrive_ForwardToCallback::Accept(
           internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   bool p_always_move{};
   PageHandler_GetAlwaysMoveOfficeFilesToDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2391,6 +2405,8 @@ bool PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ForwardToCallback::Accept(
           internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.10
   bool success = true;
   bool p_always_move{};
   PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2510,6 +2526,8 @@ bool PageHandler_GetOfficeMoveConfirmationShownForDrive_ForwardToCallback::Accep
           internal::PageHandler_GetOfficeMoveConfirmationShownForDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.12
   bool success = true;
   bool p_move_confirmation_shown{};
   PageHandler_GetOfficeMoveConfirmationShownForDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2629,6 +2647,8 @@ bool PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ForwardToCallback::Ac
           internal::PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.13
   bool success = true;
   bool p_move_confirmation_shown{};
   PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2718,6 +2738,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_RespondWithUserActionAndClose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       UserAction p_response{};
       PageHandler_RespondWithUserActionAndClose_ParamsDataView input_data_view(params, message);
@@ -2733,8 +2755,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RespondWithUserActionAndClose(
-std::move(p_response));
+      impl->RespondWithUserActionAndClose(        
+        std::move(p_response));
       return true;
     }
     case internal::kPageHandler_RespondWithLocalTaskAndClose_Name: {
@@ -2744,6 +2766,8 @@ std::move(p_response));
           reinterpret_cast<internal::PageHandler_RespondWithLocalTaskAndClose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       int32_t p_task_position{};
       PageHandler_RespondWithLocalTaskAndClose_ParamsDataView input_data_view(params, message);
@@ -2759,8 +2783,8 @@ std::move(p_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RespondWithLocalTaskAndClose(
-std::move(p_task_position));
+      impl->RespondWithLocalTaskAndClose(        
+        std::move(p_task_position));
       return true;
     }
     case internal::kPageHandler_SetOfficeAsDefaultHandler_Name: {
@@ -2770,6 +2794,8 @@ std::move(p_task_position));
           reinterpret_cast<internal::PageHandler_SetOfficeAsDefaultHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_SetOfficeAsDefaultHandler_ParamsDataView input_data_view(params, message);
       
@@ -2782,7 +2808,7 @@ std::move(p_task_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOfficeAsDefaultHandler();
+      impl->SetOfficeAsDefaultHandler(        );
       return true;
     }
     case internal::kPageHandler_GetAlwaysMoveOfficeFilesToDrive_Name: {
@@ -2795,6 +2821,8 @@ std::move(p_task_position));
           reinterpret_cast<internal::PageHandler_SetAlwaysMoveOfficeFilesToDrive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       bool p_always_move{};
       PageHandler_SetAlwaysMoveOfficeFilesToDrive_ParamsDataView input_data_view(params, message);
@@ -2810,8 +2838,8 @@ std::move(p_task_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlwaysMoveOfficeFilesToDrive(
-std::move(p_always_move));
+      impl->SetAlwaysMoveOfficeFilesToDrive(        
+        std::move(p_always_move));
       return true;
     }
     case internal::kPageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Name: {
@@ -2824,6 +2852,8 @@ std::move(p_always_move));
           reinterpret_cast<internal::PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       bool p_always_move{};
       PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_ParamsDataView input_data_view(params, message);
@@ -2839,8 +2869,8 @@ std::move(p_always_move));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlwaysMoveOfficeFilesToOneDrive(
-std::move(p_always_move));
+      impl->SetAlwaysMoveOfficeFilesToOneDrive(        
+        std::move(p_always_move));
       return true;
     }
     case internal::kPageHandler_GetOfficeMoveConfirmationShownForDrive_Name: {
@@ -2856,6 +2886,8 @@ std::move(p_always_move));
           reinterpret_cast<internal::PageHandler_RecordCancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.14
       bool success = true;
       MetricsRecordedSetupPage p_page{};
       PageHandler_RecordCancel_ParamsDataView input_data_view(params, message);
@@ -2871,8 +2903,8 @@ std::move(p_always_move));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordCancel(
-std::move(p_page));
+      impl->RecordCancel(        
+        std::move(p_page));
       return true;
     }
   }
@@ -2895,6 +2927,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetDialogArgs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetDialogArgs_ParamsDataView input_data_view(params, message);
       
@@ -2920,6 +2954,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_IsOfficeWebAppInstalled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_IsOfficeWebAppInstalled_ParamsDataView input_data_view(params, message);
       
@@ -2945,6 +2981,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_InstallOfficeWebApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_InstallOfficeWebApp_ParamsDataView input_data_view(params, message);
       
@@ -2970,6 +3008,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_IsODFSMounted_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_IsODFSMounted_ParamsDataView input_data_view(params, message);
       
@@ -2995,6 +3035,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_SignInToOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_SignInToOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -3029,6 +3071,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       PageHandler_GetAlwaysMoveOfficeFilesToDrive_ParamsDataView input_data_view(params, message);
       
@@ -3057,6 +3101,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -3085,6 +3131,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetOfficeMoveConfirmationShownForDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       PageHandler_GetOfficeMoveConfirmationShownForDrive_ParamsDataView input_data_view(params, message);
       
@@ -3110,6 +3158,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetOfficeMoveConfirmationShownForOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       PageHandler_GetOfficeMoveConfirmationShownForOneDrive_ParamsDataView input_data_view(params, message);
       

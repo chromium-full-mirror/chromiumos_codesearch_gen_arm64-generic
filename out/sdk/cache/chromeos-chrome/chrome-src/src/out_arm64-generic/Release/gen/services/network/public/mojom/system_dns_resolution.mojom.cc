@@ -237,6 +237,8 @@ bool SystemDnsResolver_Resolve_ForwardToCallback::Accept(
           internal::SystemDnsResolver_Resolve_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemDnsResolver.0
   bool success = true;
   ::net::AddressList p_addr_list{};
   int32_t p_os_error{};
@@ -353,6 +355,8 @@ bool SystemDnsResolverStubDispatch::AcceptWithResponder(
               internal::SystemDnsResolver_Resolve_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemDnsResolver.0
       bool success = true;
       std::optional<std::string> p_hostname{};
       ::net::AddressFamily p_addr_family{};
@@ -380,11 +384,11 @@ bool SystemDnsResolverStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resolve(
-std::move(p_hostname), 
-std::move(p_addr_family), 
-std::move(p_flags), 
-std::move(p_network), std::move(callback));
+      impl->Resolve(        
+        std::move(p_hostname), 
+        std::move(p_addr_family), 
+        std::move(p_flags), 
+        std::move(p_network), std::move(callback));
       return true;
     }
   }

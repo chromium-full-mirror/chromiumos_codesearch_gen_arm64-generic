@@ -320,6 +320,8 @@ bool PageImageServiceHandler_GetPageImageUrl_ForwardToCallback::Accept(
           internal::PageImageServiceHandler_GetPageImageUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageImageServiceHandler.0
   bool success = true;
   ImageResultPtr p_result{};
   PageImageServiceHandler_GetPageImageUrl_ResponseParamsDataView input_data_view(params, message);
@@ -416,6 +418,8 @@ bool PageImageServiceHandlerStubDispatch::AcceptWithResponder(
               internal::PageImageServiceHandler_GetPageImageUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageImageServiceHandler.0
       bool success = true;
       ClientId p_client_id{};
       ::GURL p_page_url{};
@@ -440,10 +444,10 @@ bool PageImageServiceHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPageImageUrl(
-std::move(p_client_id), 
-std::move(p_page_url), 
-std::move(p_options), std::move(callback));
+      impl->GetPageImageUrl(        
+        std::move(p_client_id), 
+        std::move(p_page_url), 
+        std::move(p_options), std::move(callback));
       return true;
     }
   }

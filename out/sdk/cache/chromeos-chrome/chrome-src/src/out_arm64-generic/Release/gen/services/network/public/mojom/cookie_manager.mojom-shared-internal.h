@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared-internal.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/context.mojom-shared-internal.h"
 #include "services/network/public/mojom/cookie_partition_key.mojom-shared-internal.h"

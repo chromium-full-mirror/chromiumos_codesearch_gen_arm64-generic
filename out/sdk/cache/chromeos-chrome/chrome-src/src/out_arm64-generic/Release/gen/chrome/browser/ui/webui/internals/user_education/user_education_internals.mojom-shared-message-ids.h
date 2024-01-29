@@ -16,8 +16,11 @@ namespace internal {
 
 constexpr uint32_t kUserEducationInternalsPageHandler_GetTutorials_Name = 0;
 constexpr uint32_t kUserEducationInternalsPageHandler_StartTutorial_Name = 1;
-constexpr uint32_t kUserEducationInternalsPageHandler_GetFeaturePromos_Name = 2;
-constexpr uint32_t kUserEducationInternalsPageHandler_ShowFeaturePromo_Name = 3;
+constexpr uint32_t kUserEducationInternalsPageHandler_GetSessionData_Name = 2;
+constexpr uint32_t kUserEducationInternalsPageHandler_GetFeaturePromos_Name = 3;
+constexpr uint32_t kUserEducationInternalsPageHandler_ShowFeaturePromo_Name = 4;
+constexpr uint32_t kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name = 5;
+constexpr uint32_t kUserEducationInternalsPageHandler_ClearSessionData_Name = 6;
 
 }  // namespace internal
 

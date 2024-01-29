@@ -114,17 +114,24 @@ class OcrUntrustedPageHandler
   using RequestValidator_ = OcrUntrustedPageHandlerRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
+    kPageMetadataUpdatedMinVersion = 0,
     kViewportUpdatedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct PageMetadataUpdated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct ViewportUpdated_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~OcrUntrustedPageHandler() = default;
+
+  
+  virtual void PageMetadataUpdated(std::vector<PageMetadataPtr> page_metadata) = 0;
 
   
   virtual void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) = 0;
@@ -198,6 +205,8 @@ class  OcrUntrustedPageHandlerProxy
   using InterfaceType = OcrUntrustedPageHandler;
 
   explicit OcrUntrustedPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void PageMetadataUpdated(std::vector<PageMetadataPtr> page_metadata) final;
   
   void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) final;
 
@@ -359,9 +368,202 @@ class  OcrUntrustedPageRequestValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+class  PageMetadata {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PageMetadata, T>::value>;
+  using DataView = PageMetadataDataView;
+  using Data_ = internal::PageMetadata_Data;
+
+  template <typename... Args>
+  static PageMetadataPtr New(Args&&... args) {
+    return PageMetadataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PageMetadataPtr From(const U& u) {
+    return mojo::TypeConverter<PageMetadataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PageMetadata>::Convert(*this);
+  }
+
+
+  PageMetadata();
+
+  PageMetadata(
+      const std::string& id,
+      const ::gfx::RectF& rect);
+
+
+  ~PageMetadata();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PageMetadataPtr>
+  PageMetadataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PageMetadata::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PageMetadata::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PageMetadata_UnserializedMessageContext<
+            UserType, PageMetadata::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PageMetadata::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PageMetadata::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PageMetadata_UnserializedMessageContext<
+            UserType, PageMetadata::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PageMetadata::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string id;
+  
+  ::gfx::RectF rect;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PageMetadata::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+template <typename StructPtrType>
+PageMetadataPtr PageMetadata::Clone() const {
+  return New(
+      mojo::Clone(id),
+      mojo::Clone(rect)
+  );
+}
+
+template <typename T, PageMetadata::EnableIfSame<T>*>
+bool PageMetadata::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->rect, other_struct.rect))
+    return false;
+  return true;
+}
+
+template <typename T, PageMetadata::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
+    return false;
+  if (lhs.rect < rhs.rect)
+    return true;
+  if (rhs.rect < lhs.rect)
+    return false;
+  return false;
+}
+
+
 }  // ash::media_app_ui::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::ash::media_app_ui::mojom::PageMetadata::DataView,
+                                         ::ash::media_app_ui::mojom::PageMetadataPtr> {
+  static bool IsNull(const ::ash::media_app_ui::mojom::PageMetadataPtr& input) { return !input; }
+  static void SetToNull(::ash::media_app_ui::mojom::PageMetadataPtr* output) { output->reset(); }
+
+  static const decltype(::ash::media_app_ui::mojom::PageMetadata::id)& id(
+      const ::ash::media_app_ui::mojom::PageMetadataPtr& input) {
+    return input->id;
+  }
+
+  static const decltype(::ash::media_app_ui::mojom::PageMetadata::rect)& rect(
+      const ::ash::media_app_ui::mojom::PageMetadataPtr& input) {
+    return input->rect;
+  }
+
+  static bool Read(::ash::media_app_ui::mojom::PageMetadata::DataView input, ::ash::media_app_ui::mojom::PageMetadataPtr* output);
+};
 
 }  // namespace mojo
 

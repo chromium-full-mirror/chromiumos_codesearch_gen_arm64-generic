@@ -6,19 +6,19 @@ import * as i18n from '../../../../../front_end/core/i18n/i18n.js';
 import * as QuickOpen from '../../../../../front_end/ui/legacy/components/quick_open/quick_open.js';
 import { deinitializeGlobalVars, initializeGlobalVars } from '../../helpers/EnvironmentHelpers.js';
 const { assert } = chai;
-const settingName = 'mockSetting';
+const settingName = 'mock-setting';
 const settingTitle = 'Mock setting';
 const enableTitle = 'Enable mock setting';
 const disableTitle = 'Disable mock setting';
 describe('Setting registration', () => {
     // const enum `SettingCategory` not available in top level scope, thats why
     // its initialized here.
-    const settingCategory = Common.Settings.SettingCategory.CONSOLE;
+    const settingCategory = "CONSOLE" /* Common.Settings.SettingCategory.CONSOLE */;
     before(async () => {
         Common.Settings.registerSettingsForTest([{
                 category: settingCategory,
                 title: i18n.i18n.lockedLazyString(settingTitle),
-                settingType: Common.Settings.SettingType.BOOLEAN,
+                settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
                 settingName,
                 defaultValue: false,
                 options: [
@@ -70,7 +70,7 @@ describe('Setting registration', () => {
         assert.throws(() => {
             Common.Settings.registerSettingExtension({
                 settingName,
-                settingType: Common.Settings.SettingType.BOOLEAN,
+                settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
                 defaultValue: false,
             });
         });
@@ -81,7 +81,7 @@ describe('Setting registration', () => {
         assert.doesNotThrow(() => {
             Common.Settings.registerSettingExtension({
                 settingName,
-                settingType: Common.Settings.SettingType.BOOLEAN,
+                settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
                 defaultValue: false,
             });
         });

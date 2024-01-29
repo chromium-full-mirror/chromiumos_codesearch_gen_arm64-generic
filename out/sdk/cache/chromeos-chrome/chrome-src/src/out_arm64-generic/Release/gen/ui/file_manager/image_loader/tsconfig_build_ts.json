@@ -8,13 +8,21 @@
     "declaration": true,
     "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
+      "//resources/ash/common/*": [
+        "./../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../ash/webui/common/resources/preprocessed/*"
+      ],
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://file-manager/*": [
+        "./preprocessed/file_manager/*"
       ]
     }
   },
   "files": [
-    "preprocessed/image_loader/cache.js",
     "preprocessed/image_loader/image_loader.js",
     "preprocessed/image_loader/image_loader_client.js",
     "preprocessed/image_loader/image_loader_util.js",
@@ -24,8 +32,16 @@
     "preprocessed/image_loader/piex_loader.js",
     "preprocessed/image_loader/scheduler.js",
     "preprocessed/image_loader/background.ts",
+    "preprocessed/image_loader/cache.ts",
     "preprocessed/file_manager/common/js/file_types_data.js",
-    "preprocessed/file_manager/common/js/file_types_base.js",
-    "preprocessed/file_manager/common/js/lru_cache.js"
+    "preprocessed/file_manager/common/js/file_types_base.ts",
+    "preprocessed/file_manager/common/js/lru_cache.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/file_manager/image_loader/image_loader_private.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/runtime.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    }
   ]
 }

@@ -384,6 +384,8 @@ bool MirroringService_GetMirroringStats_ForwardToCallback::Accept(
           internal::MirroringService_GetMirroringStats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MirroringService.2
   bool success = true;
   ::base::Value p_json_stats{};
   MirroringService_GetMirroringStats_ResponseParamsDataView input_data_view(params, message);
@@ -466,6 +468,8 @@ bool MirroringServiceStubDispatch::Accept(
           reinterpret_cast<internal::MirroringService_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MirroringService.0
       bool success = true;
       ::mirroring::mojom::SessionParametersPtr p_params{};
       ::gfx::Size p_max_resolution{};
@@ -504,13 +508,13 @@ bool MirroringServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_params), 
-std::move(p_max_resolution), 
-std::move(p_observer), 
-std::move(p_resource_provider), 
-std::move(p_outbound_channel), 
-std::move(p_inbound_channel));
+      impl->Start(        
+        std::move(p_params), 
+        std::move(p_max_resolution), 
+        std::move(p_observer), 
+        std::move(p_resource_provider), 
+        std::move(p_outbound_channel), 
+        std::move(p_inbound_channel));
       return true;
     }
     case internal::kMirroringService_SwitchMirroringSourceTab_Name: {
@@ -520,6 +524,8 @@ std::move(p_inbound_channel));
           reinterpret_cast<internal::MirroringService_SwitchMirroringSourceTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MirroringService.1
       bool success = true;
       MirroringService_SwitchMirroringSourceTab_ParamsDataView input_data_view(params, message);
       
@@ -532,7 +538,7 @@ std::move(p_inbound_channel));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SwitchMirroringSourceTab();
+      impl->SwitchMirroringSourceTab(        );
       return true;
     }
     case internal::kMirroringService_GetMirroringStats_Name: {
@@ -564,6 +570,8 @@ bool MirroringServiceStubDispatch::AcceptWithResponder(
               internal::MirroringService_GetMirroringStats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MirroringService.2
       bool success = true;
       MirroringService_GetMirroringStats_ParamsDataView input_data_view(params, message);
       

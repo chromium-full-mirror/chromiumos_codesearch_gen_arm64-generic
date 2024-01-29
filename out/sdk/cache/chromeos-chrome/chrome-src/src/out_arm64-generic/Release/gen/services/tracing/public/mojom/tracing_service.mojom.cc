@@ -345,6 +345,8 @@ bool TracingServiceStubDispatch::Accept(
           reinterpret_cast<internal::TracingService_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingService.0
       bool success = true;
       std::vector<ClientInfoPtr> p_clients{};
       TracingService_Initialize_ParamsDataView input_data_view(params, message);
@@ -360,8 +362,8 @@ bool TracingServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_clients));
+      impl->Initialize(        
+        std::move(p_clients));
       return true;
     }
     case internal::kTracingService_AddClient_Name: {
@@ -371,6 +373,8 @@ std::move(p_clients));
           reinterpret_cast<internal::TracingService_AddClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingService.1
       bool success = true;
       ClientInfoPtr p_client{};
       TracingService_AddClient_ParamsDataView input_data_view(params, message);
@@ -386,8 +390,8 @@ std::move(p_clients));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddClient(
-std::move(p_client));
+      impl->AddClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kTracingService_BindConsumerHost_Name: {
@@ -397,6 +401,8 @@ std::move(p_client));
           reinterpret_cast<internal::TracingService_BindConsumerHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingService.2
       bool success = true;
       ::mojo::PendingReceiver<::tracing::mojom::ConsumerHost> p_receiver{};
       TracingService_BindConsumerHost_ParamsDataView input_data_view(params, message);
@@ -414,8 +420,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindConsumerHost(
-std::move(p_receiver));
+      impl->BindConsumerHost(        
+        std::move(p_receiver));
       return true;
     }
   }

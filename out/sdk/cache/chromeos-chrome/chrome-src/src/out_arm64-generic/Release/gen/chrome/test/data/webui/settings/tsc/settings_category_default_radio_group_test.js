@@ -1,7 +1,6 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 import { ContentSetting, ContentSettingProvider, ContentSettingsTypes, SiteSettingsPrefsBrowserProxyImpl } from 'chrome://settings/lazy_load.js';
 import { assertEquals, assertNotEquals, assertTrue, assertFalse } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';

@@ -97,46 +97,25 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasDepthStencil()) {
-  if (!ToV8Traits<GPUDepthStencilState>::ToV8(script_state, member_depth_stencil_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUDepthStencilState>::ToV8(script_state, member_depth_stencil_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasFragment()) {
-  if (!ToV8Traits<GPUFragmentState>::ToV8(script_state, member_fragment_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUFragmentState>::ToV8(script_state, member_fragment_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasMultisample()) {
-  if (!ToV8Traits<GPUMultisampleState>::ToV8(script_state, member_multisample_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUMultisampleState>::ToV8(script_state, member_multisample_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasPrimitive()) {
-  if (!ToV8Traits<GPUPrimitiveState>::ToV8(script_state, member_primitive_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUPrimitiveState>::ToV8(script_state, member_primitive_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasVertex()) {
-  if (!ToV8Traits<GPUVertexState>::ToV8(script_state, member_vertex_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUVertexState>::ToV8(script_state, member_vertex_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

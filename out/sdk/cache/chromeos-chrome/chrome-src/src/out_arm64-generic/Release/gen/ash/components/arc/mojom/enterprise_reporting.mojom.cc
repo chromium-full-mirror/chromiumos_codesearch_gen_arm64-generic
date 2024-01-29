@@ -165,6 +165,8 @@ bool EnterpriseReportingHostStubDispatch::Accept(
           reinterpret_cast<internal::EnterpriseReportingHost_ReportCloudDpcOperationTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EnterpriseReportingHost.1
       bool success = true;
       int64_t p_time_ms{};
       TimedCloudDpcOp p_op{};
@@ -186,10 +188,10 @@ bool EnterpriseReportingHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportCloudDpcOperationTime(
-std::move(p_time_ms), 
-std::move(p_op), 
-std::move(p_success));
+      impl->ReportCloudDpcOperationTime(        
+        std::move(p_time_ms), 
+        std::move(p_op), 
+        std::move(p_success));
       return true;
     }
   }
@@ -473,6 +475,8 @@ bool EnterpriseReportingInstance_Init_ForwardToCallback::Accept(
           internal::EnterpriseReportingInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EnterpriseReportingInstance.2
   bool success = true;
   EnterpriseReportingInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -580,6 +584,8 @@ bool EnterpriseReportingInstance_GetStatus_ForwardToCallback::Accept(
           internal::EnterpriseReportingInstance_GetStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EnterpriseReportingInstance.1
   bool success = true;
   std::string p_status{};
   std::string p_droid_guard_info{};
@@ -701,6 +707,8 @@ bool EnterpriseReportingInstanceStubDispatch::AcceptWithResponder(
               internal::EnterpriseReportingInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EnterpriseReportingInstance.2
       bool success = true;
       ::mojo::PendingRemote<EnterpriseReportingHost> p_host_remote{};
       EnterpriseReportingInstance_Init_ParamsDataView input_data_view(params, message);
@@ -721,8 +729,8 @@ bool EnterpriseReportingInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kEnterpriseReportingInstance_GetStatus_Name: {
@@ -732,6 +740,8 @@ std::move(p_host_remote), std::move(callback));
               internal::EnterpriseReportingInstance_GetStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EnterpriseReportingInstance.1
       bool success = true;
       EnterpriseReportingInstance_GetStatus_ParamsDataView input_data_view(params, message);
       

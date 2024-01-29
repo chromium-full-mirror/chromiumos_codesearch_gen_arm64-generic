@@ -426,6 +426,8 @@ bool GpuMemoryBufferFactory_CreateGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::GpuMemoryBufferFactory_CreateGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuMemoryBufferFactory.0
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   GpuMemoryBufferFactory_CreateGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -555,6 +557,8 @@ bool GpuMemoryBufferFactory_CopyGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::GpuMemoryBufferFactory_CopyGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuMemoryBufferFactory.2
   bool success = true;
   bool p_success{};
   GpuMemoryBufferFactory_CopyGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -632,6 +636,8 @@ bool GpuMemoryBufferFactoryStubDispatch::Accept(
           reinterpret_cast<internal::GpuMemoryBufferFactory_DestroyGpuMemoryBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferFactory.1
       bool success = true;
       ::gfx::GpuMemoryBufferId p_id{};
       GpuMemoryBufferFactory_DestroyGpuMemoryBuffer_ParamsDataView input_data_view(params, message);
@@ -647,8 +653,8 @@ bool GpuMemoryBufferFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyGpuMemoryBuffer(
-std::move(p_id));
+      impl->DestroyGpuMemoryBuffer(        
+        std::move(p_id));
       return true;
     }
     case internal::kGpuMemoryBufferFactory_CopyGpuMemoryBuffer_Name: {
@@ -674,6 +680,8 @@ bool GpuMemoryBufferFactoryStubDispatch::AcceptWithResponder(
               internal::GpuMemoryBufferFactory_CreateGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferFactory.0
       bool success = true;
       ::gfx::GpuMemoryBufferId p_id{};
       ::gfx::Size p_size{};
@@ -701,11 +709,11 @@ bool GpuMemoryBufferFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuMemoryBuffer(
-std::move(p_id), 
-std::move(p_size), 
-std::move(p_format), 
-std::move(p_usage), std::move(callback));
+      impl->CreateGpuMemoryBuffer(        
+        std::move(p_id), 
+        std::move(p_size), 
+        std::move(p_format), 
+        std::move(p_usage), std::move(callback));
       return true;
     }
     case internal::kGpuMemoryBufferFactory_DestroyGpuMemoryBuffer_Name: {
@@ -718,6 +726,8 @@ std::move(p_usage), std::move(callback));
               internal::GpuMemoryBufferFactory_CopyGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferFactory.2
       bool success = true;
       ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
       ::base::UnsafeSharedMemoryRegion p_shared_memory{};
@@ -739,9 +749,9 @@ std::move(p_usage), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyGpuMemoryBuffer(
-std::move(p_buffer_handle), 
-std::move(p_shared_memory), std::move(callback));
+      impl->CopyGpuMemoryBuffer(        
+        std::move(p_buffer_handle), 
+        std::move(p_shared_memory), std::move(callback));
       return true;
     }
   }
@@ -1197,6 +1207,8 @@ bool Gpu_EstablishGpuChannel_ForwardToCallback::Accept(
           internal::Gpu_EstablishGpuChannel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Gpu.2
   bool success = true;
   int32_t p_client_id{};
   ::mojo::ScopedMessagePipeHandle p_channel_handle{};
@@ -1334,6 +1346,8 @@ bool GpuStubDispatch::Accept(
           reinterpret_cast<internal::Gpu_CreateGpuMemoryBufferFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Gpu.0
       bool success = true;
       ::mojo::PendingReceiver<GpuMemoryBufferFactory> p_receiver{};
       Gpu_CreateGpuMemoryBufferFactory_ParamsDataView input_data_view(params, message);
@@ -1351,8 +1365,8 @@ bool GpuStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuMemoryBufferFactory(
-std::move(p_receiver));
+      impl->CreateGpuMemoryBufferFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kGpu_CreateClientGpuMemoryBufferFactory_Name: {
@@ -1362,6 +1376,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Gpu_CreateClientGpuMemoryBufferFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Gpu.1
       bool success = true;
       ::mojo::PendingReceiver<::gpu::mojom::blink::ClientGmbInterface> p_receiver{};
       Gpu_CreateClientGpuMemoryBufferFactory_ParamsDataView input_data_view(params, message);
@@ -1379,8 +1395,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateClientGpuMemoryBufferFactory(
-std::move(p_receiver));
+      impl->CreateClientGpuMemoryBufferFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kGpu_EstablishGpuChannel_Name: {
@@ -1393,6 +1409,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Gpu_CreateJpegDecodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Gpu.3
       bool success = true;
       ::mojo::PendingReceiver<::chromeos_camera::mojom::blink::MjpegDecodeAccelerator> p_jda{};
       Gpu_CreateJpegDecodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -1410,8 +1428,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateJpegDecodeAccelerator(
-std::move(p_jda));
+      impl->CreateJpegDecodeAccelerator(        
+        std::move(p_jda));
       return true;
     }
     case internal::kGpu_CreateVideoEncodeAcceleratorProvider_Name: {
@@ -1421,6 +1439,8 @@ std::move(p_jda));
           reinterpret_cast<internal::Gpu_CreateVideoEncodeAcceleratorProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Gpu.4
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::blink::VideoEncodeAcceleratorProvider> p_vea_provider{};
       Gpu_CreateVideoEncodeAcceleratorProvider_ParamsDataView input_data_view(params, message);
@@ -1438,8 +1458,8 @@ std::move(p_jda));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVideoEncodeAcceleratorProvider(
-std::move(p_vea_provider));
+      impl->CreateVideoEncodeAcceleratorProvider(        
+        std::move(p_vea_provider));
       return true;
     }
   }
@@ -1468,6 +1488,8 @@ bool GpuStubDispatch::AcceptWithResponder(
               internal::Gpu_EstablishGpuChannel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Gpu.2
       bool success = true;
       Gpu_EstablishGpuChannel_ParamsDataView input_data_view(params, message);
       

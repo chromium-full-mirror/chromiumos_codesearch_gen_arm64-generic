@@ -25,10 +25,6 @@ class CertificatesErrorDialogElement extends CertificatesErrorDialogElementBase 
             model: Object,
         };
     }
-    connectedCallback() {
-        super.connectedCallback();
-        this.$.dialog.showModal();
-    }
     onOkClick_() {
         this.$.dialog.close();
     }

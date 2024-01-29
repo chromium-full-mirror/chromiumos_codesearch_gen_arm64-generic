@@ -63,6 +63,8 @@ using PermissionDescriptorExtensionPtr = mojo::StructPtr<PermissionDescriptorExt
 
 class PermissionObserver;
 
+class EmbeddedPermissionControlClient;
+
 class PermissionService;
 
 

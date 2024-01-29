@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/heartd-tool-0.0.1-r6/work/heartd-tool-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/heartd-tool-0.0.1-r22/work/heartd-tool-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -19,14 +19,29 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build _heartd-tool-install_config: phony obj/heartd/tools/_heartd-tool-install_config.stamp
+build libheartd_mojo_bindings: phony ./libheartd_mojo_bindings.a
+build libheartd_mojo_bindings_gen: phony obj/heartd/mojom/libheartd_mojo_bindings_gen.stamp
+build libheartd_mojo_bindings_gen_mojo_templates: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates.stamp
+build libheartd_mojo_bindings_gen_mojo_templates_dir: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates_dir.stamp
+build libheartd_mojo_bindings_gen_parse: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_parse.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build heartd/mojom$:libheartd_mojo_bindings: phony ./libheartd_mojo_bindings.a
+build heartd/mojom$:libheartd_mojo_bindings_gen: phony obj/heartd/mojom/libheartd_mojo_bindings_gen.stamp
+build heartd/mojom$:libheartd_mojo_bindings_gen_mojo_templates: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates.stamp
+build heartd/mojom$:libheartd_mojo_bindings_gen_mojo_templates_dir: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates_dir.stamp
+build heartd/mojom$:libheartd_mojo_bindings_gen_parse: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_parse.stamp
 build heartd/tools$:_heartd-tool-install_config: phony obj/heartd/tools/_heartd-tool-install_config.stamp
 build heartd/tools$:all: phony obj/heartd/tools/all.stamp
 build heartd/tools$:heartd-tool: phony ./heartd-tool
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
+    ./libheartd_mojo_bindings.a $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen.stamp $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates.stamp $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen_parse.stamp $
     obj/heartd/tools/_heartd-tool-install_config.stamp $
     obj/heartd/tools/all.stamp $
     ./heartd-tool

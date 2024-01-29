@@ -5,8 +5,8 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.tree-outline{padding-left:0;color:var(--sys-color-on-surface)}.tree-outline > ol{padding-bottom:10px}.tree-outline li{min-height:20px}.tree-outline li[role="heading"]{color:var(--sys-color-on-surface-subtle);font-weight:500}li.storage-group-list-item{padding:10px 8px 6px}li.storage-group-list-item:not(:first-child){border-top:1px solid var(--sys-color-divider)}li.storage-group-list-item::before{display:none}.icons-container [is="ui-icon"].red-icon{background-color:var(--icon-error)}[is="ui-icon"].navigator-file-tree-item{background-color:var(--icon-file-default)}[is="ui-icon"].navigator-folder-tree-item{background-color:var(--icon-folder-primary)}[is="ui-icon"].navigator-script-tree-item{background-color:var(--icon-file-script)}[is="ui-icon"].navigator-stylesheet-tree-item{background-color:var(--icon-file-styles)}[is="ui-icon"].navigator-image-tree-item,
-[is="ui-icon"].navigator-font-tree-item{background-color:var(--icon-file-image)}.window-closed .tree-element-title{text-decoration:line-through}
+`.tree-outline{padding-left:0;color:var(--sys-color-on-surface)}.tree-outline > ol{padding-bottom:10px}.tree-outline li{min-height:20px}.tree-outline li[role="heading"]{color:var(--sys-color-on-surface-subtle);font-weight:500}li.storage-group-list-item{padding:10px 8px 6px}li.storage-group-list-item:not(:first-child){border-top:1px solid var(--sys-color-divider)}li.storage-group-list-item::before{display:none}.icons-container devtools-icon.red-icon{color:var(--icon-error)}.icons-container devtools-icon.warn-icon{color:var(--icon-warning)}devtools-icon.navigator-file-tree-item{color:var(--icon-file-default)}devtools-icon.navigator-folder-tree-item{color:var(--icon-folder-primary)}devtools-icon.navigator-script-tree-item{color:var(--icon-file-script)}devtools-icon.navigator-stylesheet-tree-item{color:var(--icon-file-styles)}devtools-icon.navigator-image-tree-item,
+devtools-icon.navigator-font-tree-item{color:var(--icon-file-image)}.window-closed .tree-element-title{text-decoration:line-through}
 /*# sourceURL=resourcesSidebar.css */
 `);
 

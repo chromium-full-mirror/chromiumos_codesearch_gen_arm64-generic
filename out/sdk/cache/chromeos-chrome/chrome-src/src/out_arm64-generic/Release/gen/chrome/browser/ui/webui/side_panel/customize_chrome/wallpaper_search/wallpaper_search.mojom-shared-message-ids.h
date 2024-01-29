@@ -16,13 +16,16 @@ namespace internal {
 
 constexpr uint32_t kWallpaperSearchHandlerFactory_CreateWallpaperSearchHandler_Name = 0;
 constexpr uint32_t kWallpaperSearchHandler_GetDescriptors_Name = 0;
-constexpr uint32_t kWallpaperSearchHandler_GetWallpaperSearchResults_Name = 1;
-constexpr uint32_t kWallpaperSearchHandler_SetResultRenderTime_Name = 2;
-constexpr uint32_t kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name = 3;
-constexpr uint32_t kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name = 4;
-constexpr uint32_t kWallpaperSearchHandler_UpdateHistory_Name = 5;
-constexpr uint32_t kWallpaperSearchHandler_SetUserFeedback_Name = 6;
-constexpr uint32_t kWallpaperSearchHandler_OpenHelpArticle_Name = 7;
+constexpr uint32_t kWallpaperSearchHandler_GetInspirations_Name = 1;
+constexpr uint32_t kWallpaperSearchHandler_GetWallpaperSearchResults_Name = 2;
+constexpr uint32_t kWallpaperSearchHandler_SetResultRenderTime_Name = 3;
+constexpr uint32_t kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name = 4;
+constexpr uint32_t kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name = 5;
+constexpr uint32_t kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name = 6;
+constexpr uint32_t kWallpaperSearchHandler_UpdateHistory_Name = 7;
+constexpr uint32_t kWallpaperSearchHandler_SetUserFeedback_Name = 8;
+constexpr uint32_t kWallpaperSearchHandler_OpenHelpArticle_Name = 9;
+constexpr uint32_t kWallpaperSearchHandler_LaunchHatsSurvey_Name = 10;
 constexpr uint32_t kWallpaperSearchClient_SetHistory_Name = 0;
 
 }  // namespace internal

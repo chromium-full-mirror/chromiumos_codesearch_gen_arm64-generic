@@ -51,6 +51,14 @@ void Domain::RegisterEventHandlersIfNeeded() {
       base::BindRepeating(&Domain::DispatchInterestGroupAccessedEvent,
                           base::Unretained(this)));
   dispatcher_->RegisterEventHandler(
+      "Storage.interestGroupAuctionEventOccurred",
+      base::BindRepeating(&Domain::DispatchInterestGroupAuctionEventOccurredEvent,
+                          base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "Storage.interestGroupAuctionNetworkRequestCreated",
+      base::BindRepeating(&Domain::DispatchInterestGroupAuctionNetworkRequestCreatedEvent,
+                          base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
       "Storage.sharedStorageAccessed",
       base::BindRepeating(&Domain::DispatchSharedStorageAccessedEvent,
                           base::Unretained(this)));
@@ -131,6 +139,9 @@ void ExperimentalDomain::GetInterestGroupDetails(std::unique_ptr<GetInterestGrou
 }
 void ExperimentalDomain::SetInterestGroupTracking(std::unique_ptr<SetInterestGroupTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback) {
   dispatcher_->SendMessage("Storage.setInterestGroupTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetInterestGroupTrackingResponse, std::move(callback)));
+}
+void ExperimentalDomain::SetInterestGroupAuctionTracking(std::unique_ptr<SetInterestGroupAuctionTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetInterestGroupAuctionTrackingResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setInterestGroupAuctionTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetInterestGroupAuctionTrackingResponse, std::move(callback)));
 }
 void ExperimentalDomain::GetSharedStorageMetadata(std::unique_ptr<GetSharedStorageMetadataParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback) {
   dispatcher_->SendMessage("Storage.getSharedStorageMetadata", params->Serialize(), base::BindOnce(&Domain::HandleGetSharedStorageMetadataResponse, std::move(callback)));
@@ -471,6 +482,21 @@ void Domain::HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std:
 }
 
 // static
+void Domain::HandleSetInterestGroupAuctionTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupAuctionTrackingResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetInterestGroupAuctionTrackingResult> result = SetInterestGroupAuctionTrackingResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
 void Domain::HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response) {
   if (callback.is_null())
     return;
@@ -692,6 +718,24 @@ void Domain::DispatchInterestGroupAccessedEvent(const base::Value& params) {
   DCHECK(!errors.HasErrors()) << errors.ToString();
   for (ExperimentalObserver& observer : observers_) {
     observer.OnInterestGroupAccessed(*parsed_params);
+  }
+}
+
+void Domain::DispatchInterestGroupAuctionEventOccurredEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<InterestGroupAuctionEventOccurredParams> parsed_params(InterestGroupAuctionEventOccurredParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnInterestGroupAuctionEventOccurred(*parsed_params);
+  }
+}
+
+void Domain::DispatchInterestGroupAuctionNetworkRequestCreatedEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> parsed_params(InterestGroupAuctionNetworkRequestCreatedParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnInterestGroupAuctionNetworkRequestCreated(*parsed_params);
   }
 }
 

@@ -1,43 +1,57 @@
 {
   "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "../tsc_preprocessed",
+    "rootDir": "ts_build_staging",
     "outDir": "tsc",
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_ts_build.tsbuildinfo",
     "paths": {
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "/common/*": [
+        "./../common/tsc/*"
       ]
     }
   },
   "files": [
-    "../tsc_preprocessed/accessibility_common/facegaze/mediapipe_availability.ts",
-    "../tsc_preprocessed/accessibility_common/accessibility_common_loader.ts",
-    "../tsc_preprocessed/accessibility_common/autoclick/autoclick.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/context_checker.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/dictation.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/editing_util.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/focus_handler.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/input_controller.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/locale_info.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/metrics_utils.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/ui_controller.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/delete_prev_sent_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/input_text_view_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/list_commands_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/macro_names.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/nav_sent_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/repeat_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/repeatable_key_press_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/smart_delete_phrase_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/smart_insert_before_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/smart_replace_phrase_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/smart_select_between_macro.ts",
-    "../tsc_preprocessed/accessibility_common/dictation/macros/stop_listening_macro.ts",
-    "../tsc_preprocessed/accessibility_common/facegaze/facegaze.ts",
-    "../tsc_preprocessed/accessibility_common/facegaze/gesture_detector.ts",
-    "../tsc_preprocessed/accessibility_common/facegaze/mouse_controller.ts",
-    "../tsc_preprocessed/accessibility_common/magnifier/magnifier.ts",
+    "ts_build_staging/third_party/mediapipe/availability/mediapipe_availability.ts",
+    "ts_build_staging/dictation/parse/input_text_strategy.js",
+    "ts_build_staging/dictation/parse/parse_strategy.js",
+    "ts_build_staging/dictation/parse/pumpkin/pumpkin_constants.js",
+    "ts_build_staging/dictation/parse/pumpkin_parse_strategy.js",
+    "ts_build_staging/dictation/parse/sandboxed_pumpkin_tagger.js",
+    "ts_build_staging/dictation/parse/simple_parse_strategy.js",
+    "ts_build_staging/dictation/parse/speech_parser.js",
+    "ts_build_staging/accessibility_common_loader.ts",
+    "ts_build_staging/autoclick/autoclick.ts",
+    "ts_build_staging/dictation/context_checker.ts",
+    "ts_build_staging/dictation/dictation.ts",
+    "ts_build_staging/dictation/editing_util.ts",
+    "ts_build_staging/dictation/focus_handler.ts",
+    "ts_build_staging/dictation/input_controller.ts",
+    "ts_build_staging/dictation/locale_info.ts",
+    "ts_build_staging/dictation/metrics_utils.ts",
+    "ts_build_staging/dictation/ui_controller.ts",
+    "ts_build_staging/dictation/macros/delete_prev_sent_macro.ts",
+    "ts_build_staging/dictation/macros/input_text_view_macro.ts",
+    "ts_build_staging/dictation/macros/list_commands_macro.ts",
+    "ts_build_staging/dictation/macros/macro.ts",
+    "ts_build_staging/dictation/macros/macro_names.ts",
+    "ts_build_staging/dictation/macros/nav_sent_macro.ts",
+    "ts_build_staging/dictation/macros/repeat_macro.ts",
+    "ts_build_staging/dictation/macros/repeatable_key_press_macro.ts",
+    "ts_build_staging/dictation/macros/smart_delete_phrase_macro.ts",
+    "ts_build_staging/dictation/macros/smart_insert_before_macro.ts",
+    "ts_build_staging/dictation/macros/smart_replace_phrase_macro.ts",
+    "ts_build_staging/dictation/macros/smart_select_between_macro.ts",
+    "ts_build_staging/dictation/macros/stop_listening_macro.ts",
+    "ts_build_staging/facegaze/facegaze.ts",
+    "ts_build_staging/facegaze/gesture_detector.ts",
+    "ts_build_staging/facegaze/mouse_controller.ts",
+    "ts_build_staging/magnifier/magnifier.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/accessibility_features_mv2.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/accessibility_private_mv2.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/audio.d.ts",
@@ -56,6 +70,11 @@
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/settings_private_mv2.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/windows.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/i18n.d.ts",
-    "../tsc_preprocessed/accessibility_common/facegaze/mediapipe_task_vision/vision.d.ts"
+    "ts_build_staging/third_party/mediapipe/task_vision/vision.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../common/tsconfig_ts_build.json"
+    }
   ]
 }

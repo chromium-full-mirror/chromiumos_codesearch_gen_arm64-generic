@@ -442,6 +442,8 @@ bool ResourceUsageReporter_GetUsageData_ForwardToCallback::Accept(
           internal::ResourceUsageReporter_GetUsageData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ResourceUsageReporter.0
   bool success = true;
   ResourceUsageDataPtr p_data{};
   ResourceUsageReporter_GetUsageData_ResponseParamsDataView input_data_view(params, message);
@@ -542,6 +544,8 @@ bool ResourceUsageReporterStubDispatch::AcceptWithResponder(
               internal::ResourceUsageReporter_GetUsageData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ResourceUsageReporter.0
       bool success = true;
       ResourceUsageReporter_GetUsageData_ParamsDataView input_data_view(params, message);
       

@@ -44,8 +44,17 @@ void Domain::RegisterEventHandlersIfNeeded() {
                           base::Unretained(this)));
 }
 
-void ExperimentalDomain::End(std::unique_ptr<EndParams> params, base::OnceCallback<void(std::unique_ptr<EndResult>)> callback) {
+void Domain::End(std::unique_ptr<EndParams> params, base::OnceCallback<void(std::unique_ptr<EndResult>)> callback) {
   dispatcher_->SendMessage("Tracing.end", params->Serialize(), base::BindOnce(&Domain::HandleEndResponse, std::move(callback)));
+}
+
+void Domain::End(base::OnceClosure callback) {
+  std::unique_ptr<EndParams> params = EndParams::Builder()
+      .Build();
+  dispatcher_->SendMessage("Tracing.end", params->Serialize(), std::move(callback));
+}
+void Domain::End(std::unique_ptr<EndParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Tracing.end", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::GetCategories(std::unique_ptr<GetCategoriesParams> params, base::OnceCallback<void(std::unique_ptr<GetCategoriesResult>)> callback) {
   dispatcher_->SendMessage("Tracing.getCategories", params->Serialize(), base::BindOnce(&Domain::HandleGetCategoriesResponse, std::move(callback)));
@@ -56,8 +65,17 @@ void ExperimentalDomain::RecordClockSyncMarker(std::unique_ptr<RecordClockSyncMa
 void ExperimentalDomain::RequestMemoryDump(std::unique_ptr<RequestMemoryDumpParams> params, base::OnceCallback<void(std::unique_ptr<RequestMemoryDumpResult>)> callback) {
   dispatcher_->SendMessage("Tracing.requestMemoryDump", params->Serialize(), base::BindOnce(&Domain::HandleRequestMemoryDumpResponse, std::move(callback)));
 }
-void ExperimentalDomain::Start(std::unique_ptr<StartParams> params, base::OnceCallback<void(std::unique_ptr<StartResult>)> callback) {
+void Domain::Start(std::unique_ptr<StartParams> params, base::OnceCallback<void(std::unique_ptr<StartResult>)> callback) {
   dispatcher_->SendMessage("Tracing.start", params->Serialize(), base::BindOnce(&Domain::HandleStartResponse, std::move(callback)));
+}
+
+void Domain::Start(base::OnceClosure callback) {
+  std::unique_ptr<StartParams> params = StartParams::Builder()
+      .Build();
+  dispatcher_->SendMessage("Tracing.start", params->Serialize(), std::move(callback));
+}
+void Domain::Start(std::unique_ptr<StartParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Tracing.start", params->Serialize(), std::move(callback));
 }
 
 

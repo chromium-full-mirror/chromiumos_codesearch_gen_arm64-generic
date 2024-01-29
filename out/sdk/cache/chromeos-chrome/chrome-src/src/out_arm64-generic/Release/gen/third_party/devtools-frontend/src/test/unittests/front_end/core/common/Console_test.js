@@ -4,24 +4,22 @@
 const { assert } = chai;
 import * as Common from '../../../../../front_end/core/common/common.js';
 const Console = Common.Console.Console;
-const Events = Common.Console.Events;
-const MessageLevel = Common.Console.MessageLevel;
 describe('Console', () => {
     let consoleImpl;
     beforeEach(() => {
         consoleImpl = Console.instance({ forceNew: true });
     });
     it('adds messages', () => {
-        consoleImpl.addMessage('Foo', MessageLevel.Info, true);
+        consoleImpl.addMessage('Foo', "info" /* Common.Console.MessageLevel.Info */, true);
         const messages = consoleImpl.messages();
         assert.strictEqual(messages.length, 1);
         assert.strictEqual(messages[0].text, 'Foo');
     });
     it('adds handles messages of all types', () => {
         const messageTypes = new Map([
-            [MessageLevel.Info, 'log'],
-            [MessageLevel.Warning, 'warn'],
-            [MessageLevel.Error, 'error'],
+            ["info" /* Common.Console.MessageLevel.Info */, 'log'],
+            ["warning" /* Common.Console.MessageLevel.Warning */, 'warn'],
+            ["error" /* Common.Console.MessageLevel.Error */, 'error'],
         ]);
         for (const [type, method] of messageTypes) {
             consoleImpl = Console.instance({ forceNew: true });
@@ -36,21 +34,21 @@ describe('Console', () => {
         }
     });
     it('stores messages', () => {
-        consoleImpl.addMessage('Foo', MessageLevel.Info, true);
-        consoleImpl.addMessage('Baz', MessageLevel.Warning, true);
-        consoleImpl.addMessage('Bar', MessageLevel.Error, true);
-        consoleImpl.addMessage('Donkey', MessageLevel.Info, true);
+        consoleImpl.addMessage('Foo', "info" /* Common.Console.MessageLevel.Info */, true);
+        consoleImpl.addMessage('Baz', "warning" /* Common.Console.MessageLevel.Warning */, true);
+        consoleImpl.addMessage('Bar', "error" /* Common.Console.MessageLevel.Error */, true);
+        consoleImpl.addMessage('Donkey', "info" /* Common.Console.MessageLevel.Info */, true);
         const messages = consoleImpl.messages();
         assert.strictEqual(messages.length, 4);
     });
     it('dispatches events to listeners', done => {
         const callback = ({ data }) => {
-            consoleImpl.removeEventListener(Events.MessageAdded, callback);
+            consoleImpl.removeEventListener("messageAdded" /* Common.Console.Events.MessageAdded */, callback);
             assert.strictEqual(data.text, 'Foo');
             done();
         };
-        consoleImpl.addEventListener(Events.MessageAdded, callback);
-        consoleImpl.addMessage('Foo', MessageLevel.Info, true);
+        consoleImpl.addEventListener("messageAdded" /* Common.Console.Events.MessageAdded */, callback);
+        consoleImpl.addMessage('Foo', "info" /* Common.Console.MessageLevel.Info */, true);
     });
 });
 //# sourceMappingURL=Console_test.js.map

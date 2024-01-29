@@ -43,7 +43,7 @@ class  PageHandlerAsyncWaiter {
 class  PageInterceptorForTesting : public Page {
   virtual Page* GetForwardingInterface() = 0;
   void AutocompleteResultChanged(AutocompleteResultPtr result) override;
-  void UpdateSelection(OmniboxPopupSelectionPtr selection) override;
+  void UpdateSelection(OmniboxPopupSelectionPtr old_selection, OmniboxPopupSelectionPtr selection) override;
 };
 class  PageAsyncWaiter {
  public:

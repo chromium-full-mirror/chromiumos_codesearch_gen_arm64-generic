@@ -1,0 +1,12 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/document_scanner.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/graph_executor.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/model.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/soda.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/tensor.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/text_classifier.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/text_suggester.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/services/machine_learning/public/mojom/web_platform_handwriting.mojom-shared-message-ids.h

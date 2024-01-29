@@ -7,15 +7,20 @@
 import {mojo} from '../../../../mojo/public/js/bindings.js';
 
 import {
-  ContentSettingsType as contentSettings_mojom_ContentSettingsType,
-  ContentSettingsTypeSpec as contentSettings_mojom_ContentSettingsTypeSpec,
   ContentSettingPatternSource as contentSettings_mojom_ContentSettingPatternSource,
   ContentSettingPatternSourceSpec as contentSettings_mojom_ContentSettingPatternSourceSpec
 } from '../../../../components/content_settings/core/common/content_settings.mojom.m.js';
 
 import {
+  ContentSettingsType as contentSettings_mojom_ContentSettingsType,
+  ContentSettingsTypeSpec as contentSettings_mojom_ContentSettingsTypeSpec
+} from '../../../../components/content_settings/core/common/content_settings_types.mojom.m.js';
+
+import {
   Time as mojoBase_mojom_Time,
-  TimeSpec as mojoBase_mojom_TimeSpec
+  TimeSpec as mojoBase_mojom_TimeSpec,
+  TimeDelta as mojoBase_mojom_TimeDelta,
+  TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec
 } from '../../../../mojo/public/mojom/base/time.mojom.m.js';
 
 import {
@@ -581,6 +586,12 @@ export class CookieManagerInterface {
    */
 
   setTrackingProtectionEnabledFor3pcd(enable) {}
+  
+  /**
+   * @param { !mojoBase_mojom_TimeDelta } delay
+   */
+
+  setPreCommitCallbackDelayForTesting(delay) {}
 }
 
 /**
@@ -927,6 +938,22 @@ export class CookieManagerRemote {
           enable
         ]);
   }
+
+  
+  /**
+   * @param { !mojoBase_mojom_TimeDelta } delay
+   */
+
+  setPreCommitCallbackDelayForTesting(
+      delay) {
+    this.proxy.sendMessage(
+        18,
+        CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+        null,
+        [
+          delay
+        ]);
+  }
 }
 
 /**
@@ -1039,6 +1066,11 @@ export class CookieManagerReceiver {
         CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
         null,
         impl.setTrackingProtectionEnabledFor3pcd.bind(impl));
+    this.helper_internal_.registerHandler(
+        18,
+        CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+        null,
+        impl.setPreCommitCallbackDelayForTesting.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1301,6 +1333,18 @@ export class CookieManagerCallbackRouter {
         CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
         null,
         this.setTrackingProtectionEnabledFor3pcd.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setPreCommitCallbackDelayForTesting =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        18,
+        CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+        null,
+        this.setPreCommitCallbackDelayForTesting.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1558,6 +1602,12 @@ export const CookieManager_SetMitigationsEnabledFor3pcd_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -3093,7 +3143,7 @@ mojo.internal.Struct(
         'contentSettingsType', 0,
         0,
         contentSettings_mojom_ContentSettingsTypeSpec.$,
-        0,
+        -1,
         false /* nullable */,
         0,
       ),
@@ -3273,6 +3323,35 @@ export class CookieManager_SetTrackingProtectionEnabledFor3pcd_Params {
   constructor() {
     /** @type { !boolean } */
     this.enable;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+    'CookieManager_SetPreCommitCallbackDelayForTesting_Params',
+    [
+      mojo.internal.StructField(
+        'delay', 0,
+        0,
+        mojoBase_mojom_TimeDeltaSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class CookieManager_SetPreCommitCallbackDelayForTesting_Params {
+  constructor() {
+    /** @type { !mojoBase_mojom_TimeDelta } */
+    this.delay;
   }
 }
 

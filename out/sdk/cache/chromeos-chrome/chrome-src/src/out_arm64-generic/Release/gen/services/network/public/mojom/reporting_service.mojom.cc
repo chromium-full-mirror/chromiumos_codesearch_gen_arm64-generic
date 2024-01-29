@@ -582,6 +582,8 @@ bool ReportingApiObserverStubDispatch::Accept(
           reinterpret_cast<internal::ReportingApiObserver_OnReportAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingApiObserver.0
       bool success = true;
       ::net::ReportingReport p_report{};
       ReportingApiObserver_OnReportAdded_ParamsDataView input_data_view(params, message);
@@ -597,8 +599,8 @@ bool ReportingApiObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportAdded(
-std::move(p_report));
+      impl->OnReportAdded(        
+        std::move(p_report));
       return true;
     }
     case internal::kReportingApiObserver_OnReportUpdated_Name: {
@@ -608,6 +610,8 @@ std::move(p_report));
           reinterpret_cast<internal::ReportingApiObserver_OnReportUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingApiObserver.1
       bool success = true;
       ::net::ReportingReport p_report{};
       ReportingApiObserver_OnReportUpdated_ParamsDataView input_data_view(params, message);
@@ -623,8 +627,8 @@ std::move(p_report));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportUpdated(
-std::move(p_report));
+      impl->OnReportUpdated(        
+        std::move(p_report));
       return true;
     }
     case internal::kReportingApiObserver_OnEndpointsUpdatedForOrigin_Name: {
@@ -634,6 +638,8 @@ std::move(p_report));
           reinterpret_cast<internal::ReportingApiObserver_OnEndpointsUpdatedForOrigin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingApiObserver.2
       bool success = true;
       std::vector<::net::ReportingEndpoint> p_endpoints{};
       ReportingApiObserver_OnEndpointsUpdatedForOrigin_ParamsDataView input_data_view(params, message);
@@ -649,8 +655,8 @@ std::move(p_report));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEndpointsUpdatedForOrigin(
-std::move(p_endpoints));
+      impl->OnEndpointsUpdatedForOrigin(        
+        std::move(p_endpoints));
       return true;
     }
   }

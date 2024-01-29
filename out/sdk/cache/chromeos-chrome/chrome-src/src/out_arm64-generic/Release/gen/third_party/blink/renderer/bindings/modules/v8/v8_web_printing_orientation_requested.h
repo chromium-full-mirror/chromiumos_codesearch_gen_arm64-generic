@@ -23,9 +23,9 @@ class MODULES_EXPORT V8WebPrintingOrientationRequested final : public bindings::
   
   public:
 enum class Enum : enum_int_t {
-kPortrait, kLandscape, kReverseLandscape, kReversePortrait
+kPortrait, kLandscape
 };
-static constexpr size_t kEnumSize = 4;
+static constexpr size_t kEnumSize = 2;
 
 static V8WebPrintingOrientationRequested Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state);
 static absl::optional<V8WebPrintingOrientationRequested> Create(const String& value);

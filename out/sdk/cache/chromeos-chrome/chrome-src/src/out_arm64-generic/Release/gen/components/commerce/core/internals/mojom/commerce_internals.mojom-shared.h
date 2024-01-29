@@ -24,6 +24,8 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "components/commerce/core/internals/mojom/commerce_internals.mojom-shared-internal.h"
+#include "ui/webui/resources/cr_components/commerce/shopping_service.mojom-shared.h"
+#include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -36,6 +38,8 @@ namespace commerce::mojom {
 class EligibleEntryDataView;
 
 class ShoppingListEligibleDetailDataView;
+
+class SubscriptionDataView;
 
 
 
@@ -54,6 +58,13 @@ struct MojomTypeTraits<::commerce::mojom::EligibleEntryDataView> {
 template <>
 struct MojomTypeTraits<::commerce::mojom::ShoppingListEligibleDetailDataView> {
   using Data = ::commerce::mojom::internal::ShoppingListEligibleDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::commerce::mojom::SubscriptionDataView> {
+  using Data = ::commerce::mojom::internal::Subscription_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -199,6 +210,35 @@ class ShoppingListEligibleDetailDataView {
   }
  private:
   internal::ShoppingListEligibleDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SubscriptionDataView {
+ public:
+  SubscriptionDataView() = default;
+
+  SubscriptionDataView(
+      internal::Subscription_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t cluster_id() const {
+    return data_->cluster_id;
+  }
+  inline void GetProductInfosDataView(
+      mojo::ArrayDataView<::shopping_service::mojom::BookmarkProductInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProductInfos(UserType* output) {
+    
+    auto* pointer = data_->product_infos.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::shopping_service::mojom::BookmarkProductInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Subscription_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -355,6 +395,50 @@ struct Serializer<::commerce::mojom::ShoppingListEligibleDetailDataView, MaybeCo
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::commerce::mojom::SubscriptionDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::commerce::mojom::SubscriptionDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::commerce::mojom::internal::Subscription_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->cluster_id = Traits::cluster_id(input);
+    decltype(Traits::product_infos(input)) in_product_infos = Traits::product_infos(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->product_infos)::BaseType>
+        product_infos_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& product_infos_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::shopping_service::mojom::BookmarkProductInfoDataView>>(
+        in_product_infos, product_infos_fragment, &product_infos_validate_params);
+    fragment->product_infos.Set(
+        product_infos_fragment.is_null() ? nullptr : product_infos_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->product_infos.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null product_infos in Subscription struct");
+  }
+
+  static bool Deserialize(::commerce::mojom::internal::Subscription_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::commerce::mojom::SubscriptionDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -396,6 +480,13 @@ inline void ShoppingListEligibleDetailDataView::GetIsSubjectToParentalControlsDa
     EligibleEntryDataView* output) {
   auto pointer = data_->is_subject_to_parental_controls.Get();
   *output = EligibleEntryDataView(pointer, message_);
+}
+
+
+inline void SubscriptionDataView::GetProductInfosDataView(
+    mojo::ArrayDataView<::shopping_service::mojom::BookmarkProductInfoDataView>* output) {
+  auto pointer = data_->product_infos.Get();
+  *output = mojo::ArrayDataView<::shopping_service::mojom::BookmarkProductInfoDataView>(pointer, message_);
 }
 
 

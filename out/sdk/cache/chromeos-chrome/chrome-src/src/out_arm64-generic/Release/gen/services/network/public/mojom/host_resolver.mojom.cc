@@ -572,6 +572,8 @@ bool ResolveHostHandleStubDispatch::Accept(
           reinterpret_cast<internal::ResolveHostHandle_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResolveHostHandle.0
       bool success = true;
       int32_t p_result{};
       ResolveHostHandle_Cancel_ParamsDataView input_data_view(params, message);
@@ -587,8 +589,8 @@ bool ResolveHostHandleStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel(
-std::move(p_result));
+      impl->Cancel(        
+        std::move(p_result));
       return true;
     }
   }
@@ -916,6 +918,8 @@ bool ResolveHostClientStubDispatch::Accept(
           reinterpret_cast<internal::ResolveHostClient_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResolveHostClient.0
       bool success = true;
       int32_t p_result{};
       ::net::ResolveErrorInfo p_resolve_error_info{};
@@ -940,11 +944,11 @@ bool ResolveHostClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete(
-std::move(p_result), 
-std::move(p_resolve_error_info), 
-std::move(p_resolved_addresses), 
-std::move(p_endpoint_results_with_metadata));
+      impl->OnComplete(        
+        std::move(p_result), 
+        std::move(p_resolve_error_info), 
+        std::move(p_resolved_addresses), 
+        std::move(p_endpoint_results_with_metadata));
       return true;
     }
     case internal::kResolveHostClient_OnTextResults_Name: {
@@ -954,6 +958,8 @@ std::move(p_endpoint_results_with_metadata));
           reinterpret_cast<internal::ResolveHostClient_OnTextResults_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResolveHostClient.1
       bool success = true;
       std::vector<std::string> p_text_results{};
       ResolveHostClient_OnTextResults_ParamsDataView input_data_view(params, message);
@@ -969,8 +975,8 @@ std::move(p_endpoint_results_with_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTextResults(
-std::move(p_text_results));
+      impl->OnTextResults(        
+        std::move(p_text_results));
       return true;
     }
     case internal::kResolveHostClient_OnHostnameResults_Name: {
@@ -980,6 +986,8 @@ std::move(p_text_results));
           reinterpret_cast<internal::ResolveHostClient_OnHostnameResults_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResolveHostClient.2
       bool success = true;
       std::vector<::net::HostPortPair> p_hosts{};
       ResolveHostClient_OnHostnameResults_ParamsDataView input_data_view(params, message);
@@ -995,8 +1003,8 @@ std::move(p_text_results));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostnameResults(
-std::move(p_hosts));
+      impl->OnHostnameResults(        
+        std::move(p_hosts));
       return true;
     }
   }
@@ -1403,6 +1411,8 @@ bool MdnsListenClientStubDispatch::Accept(
           reinterpret_cast<internal::MdnsListenClient_OnAddressResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MdnsListenClient.0
       bool success = true;
       ::net::MdnsListenerUpdateType p_update_type{};
       ::net::DnsQueryType p_query_type{};
@@ -1424,10 +1434,10 @@ bool MdnsListenClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAddressResult(
-std::move(p_update_type), 
-std::move(p_query_type), 
-std::move(p_endpoint));
+      impl->OnAddressResult(        
+        std::move(p_update_type), 
+        std::move(p_query_type), 
+        std::move(p_endpoint));
       return true;
     }
     case internal::kMdnsListenClient_OnTextResult_Name: {
@@ -1437,6 +1447,8 @@ std::move(p_endpoint));
           reinterpret_cast<internal::MdnsListenClient_OnTextResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MdnsListenClient.1
       bool success = true;
       ::net::MdnsListenerUpdateType p_update_type{};
       ::net::DnsQueryType p_query_type{};
@@ -1458,10 +1470,10 @@ std::move(p_endpoint));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTextResult(
-std::move(p_update_type), 
-std::move(p_query_type), 
-std::move(p_text_records));
+      impl->OnTextResult(        
+        std::move(p_update_type), 
+        std::move(p_query_type), 
+        std::move(p_text_records));
       return true;
     }
     case internal::kMdnsListenClient_OnHostnameResult_Name: {
@@ -1471,6 +1483,8 @@ std::move(p_text_records));
           reinterpret_cast<internal::MdnsListenClient_OnHostnameResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MdnsListenClient.2
       bool success = true;
       ::net::MdnsListenerUpdateType p_update_type{};
       ::net::DnsQueryType p_query_type{};
@@ -1492,10 +1506,10 @@ std::move(p_text_records));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostnameResult(
-std::move(p_update_type), 
-std::move(p_query_type), 
-std::move(p_host));
+      impl->OnHostnameResult(        
+        std::move(p_update_type), 
+        std::move(p_query_type), 
+        std::move(p_host));
       return true;
     }
     case internal::kMdnsListenClient_OnUnhandledResult_Name: {
@@ -1505,6 +1519,8 @@ std::move(p_host));
           reinterpret_cast<internal::MdnsListenClient_OnUnhandledResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MdnsListenClient.3
       bool success = true;
       ::net::MdnsListenerUpdateType p_update_type{};
       ::net::DnsQueryType p_query_type{};
@@ -1523,9 +1539,9 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUnhandledResult(
-std::move(p_update_type), 
-std::move(p_query_type));
+      impl->OnUnhandledResult(        
+        std::move(p_update_type), 
+        std::move(p_query_type));
       return true;
     }
   }
@@ -1872,6 +1888,8 @@ bool HostResolver_MdnsListen_ForwardToCallback::Accept(
           internal::HostResolver_MdnsListen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HostResolver.1
   bool success = true;
   int32_t p_result{};
   HostResolver_MdnsListen_ResponseParamsDataView input_data_view(params, message);
@@ -1946,6 +1964,8 @@ bool HostResolverStubDispatch::Accept(
           reinterpret_cast<internal::HostResolver_ResolveHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostResolver.0
       bool success = true;
       HostResolverHostPtr p_host{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -1972,11 +1992,11 @@ bool HostResolverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveHost(
-std::move(p_host), 
-std::move(p_network_anonymization_key), 
-std::move(p_optional_parameters), 
-std::move(p_response_client));
+      impl->ResolveHost(        
+        std::move(p_host), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_optional_parameters), 
+        std::move(p_response_client));
       return true;
     }
     case internal::kHostResolver_MdnsListen_Name: {
@@ -2005,6 +2025,8 @@ bool HostResolverStubDispatch::AcceptWithResponder(
               internal::HostResolver_MdnsListen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HostResolver.1
       bool success = true;
       ::net::HostPortPair p_host{};
       ::net::DnsQueryType p_query_type{};
@@ -2031,10 +2053,10 @@ bool HostResolverStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MdnsListen(
-std::move(p_host), 
-std::move(p_query_type), 
-std::move(p_response_client), std::move(callback));
+      impl->MdnsListen(        
+        std::move(p_host), 
+        std::move(p_query_type), 
+        std::move(p_response_client), std::move(callback));
       return true;
     }
   }
@@ -2162,6 +2184,8 @@ bool DnsConfigChangeManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::DnsConfigChangeManagerClient_OnDnsConfigChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DnsConfigChangeManagerClient.0
       bool success = true;
       DnsConfigChangeManagerClient_OnDnsConfigChanged_ParamsDataView input_data_view(params, message);
       
@@ -2174,7 +2198,7 @@ bool DnsConfigChangeManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDnsConfigChanged();
+      impl->OnDnsConfigChanged(        );
       return true;
     }
   }
@@ -2325,6 +2349,8 @@ bool DnsConfigChangeManagerStubDispatch::Accept(
           reinterpret_cast<internal::DnsConfigChangeManager_RequestNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DnsConfigChangeManager.0
       bool success = true;
       ::mojo::PendingRemote<DnsConfigChangeManagerClient> p_client{};
       DnsConfigChangeManager_RequestNotifications_ParamsDataView input_data_view(params, message);
@@ -2342,8 +2368,8 @@ bool DnsConfigChangeManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestNotifications(
-std::move(p_client));
+      impl->RequestNotifications(        
+        std::move(p_client));
       return true;
     }
   }

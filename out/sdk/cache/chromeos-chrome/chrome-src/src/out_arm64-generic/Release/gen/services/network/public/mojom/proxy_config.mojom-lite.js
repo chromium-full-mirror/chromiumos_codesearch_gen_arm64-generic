@@ -127,7 +127,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'proxies', 0,
         0,
-        mojo.internal.Array(mojo.internal.Array(mojo.internal.String, false), false),
+        mojo.internal.Array(network.mojom.ProxyChainSpec.$, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -142,7 +142,7 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.ProxyList = class {
   constructor() {
-    /** @export { !Array<!Array<!string>> } */
+    /** @export { !Array<!network.mojom.ProxyChain> } */
     this.proxies;
   }
 };
@@ -164,14 +164,6 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'reverseBypass', 8,
         0,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'restrictToNetworkServiceProxyAllowList', 8,
-        1,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -239,8 +231,6 @@ network.mojom.ProxyRules = class {
     this.bypassRules;
     /** @export { !boolean } */
     this.reverseBypass;
-    /** @export { !boolean } */
-    this.restrictToNetworkServiceProxyAllowList;
     /** @export { !network.mojom.ProxyRulesType } */
     this.type;
     /** @export { !network.mojom.ProxyList } */

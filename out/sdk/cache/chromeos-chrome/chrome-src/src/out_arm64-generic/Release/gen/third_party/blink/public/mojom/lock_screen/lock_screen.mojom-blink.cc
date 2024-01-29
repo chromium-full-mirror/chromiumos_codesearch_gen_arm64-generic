@@ -313,6 +313,8 @@ bool LockScreenService_GetKeys_ForwardToCallback::Accept(
           internal::LockScreenService_GetKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LockScreenService.0
   bool success = true;
   WTF::Vector<WTF::String> p_keys{};
   LockScreenService_GetKeys_ResponseParamsDataView input_data_view(params, message);
@@ -444,6 +446,8 @@ bool LockScreenService_SetData_ForwardToCallback::Accept(
           internal::LockScreenService_SetData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LockScreenService.1
   bool success = true;
   LockScreenServiceStatus p_status{};
   LockScreenService_SetData_ResponseParamsDataView input_data_view(params, message);
@@ -538,6 +542,8 @@ bool LockScreenServiceStubDispatch::AcceptWithResponder(
               internal::LockScreenService_GetKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LockScreenService.0
       bool success = true;
       LockScreenService_GetKeys_ParamsDataView input_data_view(params, message);
       
@@ -563,6 +569,8 @@ bool LockScreenServiceStubDispatch::AcceptWithResponder(
               internal::LockScreenService_SetData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LockScreenService.1
       bool success = true;
       WTF::String p_key{};
       WTF::String p_data{};
@@ -584,9 +592,9 @@ bool LockScreenServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetData(
-std::move(p_key), 
-std::move(p_data), std::move(callback));
+      impl->SetData(        
+        std::move(p_key), 
+        std::move(p_data), std::move(callback));
       return true;
     }
   }

@@ -57,15 +57,11 @@ const int argc = 1 + arg2_args.size();
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_input;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_input).ToLocal(&v8_arg1_input)) {
-  return v8::Nothing<String>();
-}
+v8_arg1_input = ToV8Traits<IDLString>::ToV8(script_state, arg1_input);
 argv[0] = v8_arg1_input;
 for (wtf_size_t i = 0; i < arg2_args.size(); ++i) {
   v8::Local<v8::Value> v8_arg2_args;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_args[i]).ToLocal(&v8_arg2_args)) {
-  return v8::Nothing<String>();
-}
+v8_arg2_args = ToV8Traits<IDLAny>::ToV8(script_state, arg2_args[i]);
 argv[1 + i] = v8_arg2_args;
 }
 
@@ -106,15 +102,11 @@ const int argc = 1 + arg2_args.size();
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_input;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_input).ToLocal(&v8_arg1_input)) {
-  return v8::Nothing<String>();
-}
+v8_arg1_input = ToV8Traits<IDLString>::ToV8(script_state, arg1_input);
 argv[0] = v8_arg1_input;
 for (wtf_size_t i = 0; i < arg2_args.size(); ++i) {
   v8::Local<v8::Value> v8_arg2_args;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_args[i]).ToLocal(&v8_arg2_args)) {
-  return v8::Nothing<String>();
-}
+v8_arg2_args = ToV8Traits<IDLAny>::ToV8(script_state, arg2_args[i]);
 argv[1 + i] = v8_arg2_args;
 }
 

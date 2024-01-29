@@ -99,6 +99,8 @@ NOINLINE static const char* DeviceRequestIdToStringHelper(DeviceRequestId value)
       return "kPressUnlock";
     case DeviceRequestId::kRemoveReplug:
       return "kRemoveReplug";
+    case DeviceRequestId::kReplugPower:
+      return "kReplugPower";
     default:
       return nullptr;
   }
@@ -121,10 +123,10 @@ NOINLINE static const char* DeviceRequestKindToStringHelper(DeviceRequestKind va
   switch(value) {
     case DeviceRequestKind::kUnknown:
       return "kUnknown";
-    case DeviceRequestKind::kImmediate:
-      return "kImmediate";
     case DeviceRequestKind::kPost:
       return "kPost";
+    case DeviceRequestKind::kImmediate:
+      return "kImmediate";
     default:
       return nullptr;
   }

@@ -210,6 +210,8 @@ bool DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_ForwardToCallback::Accept(
           internal::DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsQuotaDelegate.0
   bool success = true;
   int64_t p_free_remaining_bytes{};
   DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_ResponseParamsDataView input_data_view(params, message);
@@ -300,6 +302,8 @@ bool DriveFsQuotaDelegateStubDispatch::AcceptWithResponder(
               internal::DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsQuotaDelegate.0
       bool success = true;
       DriveFsQuotaDelegate_GetDriveFsFreeSpaceBytes_ParamsDataView input_data_view(params, message);
       
@@ -460,6 +464,8 @@ bool RecordingServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::RecordingServiceClient_OnRecordingEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingServiceClient.0
       bool success = true;
       RecordingStatus p_status{};
       ::gfx::ImageSkia p_thumbnail{};
@@ -478,9 +484,9 @@ bool RecordingServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRecordingEnded(
-std::move(p_status), 
-std::move(p_thumbnail));
+      impl->OnRecordingEnded(        
+        std::move(p_status), 
+        std::move(p_thumbnail));
       return true;
     }
   }
@@ -1303,6 +1309,8 @@ bool RecordingServiceStubDispatch::Accept(
           reinterpret_cast<internal::RecordingService_RecordFullscreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.0
       bool success = true;
       ::mojo::PendingRemote<RecordingServiceClient> p_client{};
       ::mojo::PendingRemote<::viz::mojom::FrameSinkVideoCapturer> p_video_capturer{};
@@ -1352,16 +1360,16 @@ bool RecordingServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordFullscreen(
-std::move(p_client), 
-std::move(p_video_capturer), 
-std::move(p_microphone_stream_factory), 
-std::move(p_system_audio_stream_factory), 
-std::move(p_drive_fs_quota_delegate), 
-std::move(p_output_file_path), 
-std::move(p_frame_sink_id), 
-std::move(p_frame_sink_size_dip), 
-std::move(p_device_scale_factor));
+      impl->RecordFullscreen(        
+        std::move(p_client), 
+        std::move(p_video_capturer), 
+        std::move(p_microphone_stream_factory), 
+        std::move(p_system_audio_stream_factory), 
+        std::move(p_drive_fs_quota_delegate), 
+        std::move(p_output_file_path), 
+        std::move(p_frame_sink_id), 
+        std::move(p_frame_sink_size_dip), 
+        std::move(p_device_scale_factor));
       return true;
     }
     case internal::kRecordingService_RecordWindow_Name: {
@@ -1371,6 +1379,8 @@ std::move(p_device_scale_factor));
           reinterpret_cast<internal::RecordingService_RecordWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.1
       bool success = true;
       ::mojo::PendingRemote<RecordingServiceClient> p_client{};
       ::mojo::PendingRemote<::viz::mojom::FrameSinkVideoCapturer> p_video_capturer{};
@@ -1426,18 +1436,18 @@ std::move(p_device_scale_factor));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordWindow(
-std::move(p_client), 
-std::move(p_video_capturer), 
-std::move(p_microphone_stream_factory), 
-std::move(p_system_audio_stream_factory), 
-std::move(p_drive_fs_quota_delegate), 
-std::move(p_output_file_path), 
-std::move(p_frame_sink_id), 
-std::move(p_frame_sink_size_dip), 
-std::move(p_device_scale_factor), 
-std::move(p_subtree_capture_id), 
-std::move(p_window_size_dip));
+      impl->RecordWindow(        
+        std::move(p_client), 
+        std::move(p_video_capturer), 
+        std::move(p_microphone_stream_factory), 
+        std::move(p_system_audio_stream_factory), 
+        std::move(p_drive_fs_quota_delegate), 
+        std::move(p_output_file_path), 
+        std::move(p_frame_sink_id), 
+        std::move(p_frame_sink_size_dip), 
+        std::move(p_device_scale_factor), 
+        std::move(p_subtree_capture_id), 
+        std::move(p_window_size_dip));
       return true;
     }
     case internal::kRecordingService_RecordRegion_Name: {
@@ -1447,6 +1457,8 @@ std::move(p_window_size_dip));
           reinterpret_cast<internal::RecordingService_RecordRegion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.2
       bool success = true;
       ::mojo::PendingRemote<RecordingServiceClient> p_client{};
       ::mojo::PendingRemote<::viz::mojom::FrameSinkVideoCapturer> p_video_capturer{};
@@ -1499,17 +1511,17 @@ std::move(p_window_size_dip));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordRegion(
-std::move(p_client), 
-std::move(p_video_capturer), 
-std::move(p_microphone_stream_factory), 
-std::move(p_system_audio_stream_factory), 
-std::move(p_drive_fs_quota_delegate), 
-std::move(p_output_file_path), 
-std::move(p_frame_sink_id), 
-std::move(p_frame_sink_size_dip), 
-std::move(p_device_scale_factor), 
-std::move(p_crop_region_dip));
+      impl->RecordRegion(        
+        std::move(p_client), 
+        std::move(p_video_capturer), 
+        std::move(p_microphone_stream_factory), 
+        std::move(p_system_audio_stream_factory), 
+        std::move(p_drive_fs_quota_delegate), 
+        std::move(p_output_file_path), 
+        std::move(p_frame_sink_id), 
+        std::move(p_frame_sink_size_dip), 
+        std::move(p_device_scale_factor), 
+        std::move(p_crop_region_dip));
       return true;
     }
     case internal::kRecordingService_StopRecording_Name: {
@@ -1519,6 +1531,8 @@ std::move(p_crop_region_dip));
           reinterpret_cast<internal::RecordingService_StopRecording_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.3
       bool success = true;
       RecordingService_StopRecording_ParamsDataView input_data_view(params, message);
       
@@ -1531,7 +1545,7 @@ std::move(p_crop_region_dip));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopRecording();
+      impl->StopRecording(        );
       return true;
     }
     case internal::kRecordingService_OnRecordedWindowChangingRoot_Name: {
@@ -1541,6 +1555,8 @@ std::move(p_crop_region_dip));
           reinterpret_cast<internal::RecordingService_OnRecordedWindowChangingRoot_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.4
       bool success = true;
       ::viz::FrameSinkId p_new_frame_sink_id{};
       ::gfx::Size p_new_frame_sink_size_dip{};
@@ -1562,10 +1578,10 @@ std::move(p_crop_region_dip));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRecordedWindowChangingRoot(
-std::move(p_new_frame_sink_id), 
-std::move(p_new_frame_sink_size_dip), 
-std::move(p_new_device_scale_factor));
+      impl->OnRecordedWindowChangingRoot(        
+        std::move(p_new_frame_sink_id), 
+        std::move(p_new_frame_sink_size_dip), 
+        std::move(p_new_device_scale_factor));
       return true;
     }
     case internal::kRecordingService_OnRecordedWindowSizeChanged_Name: {
@@ -1575,6 +1591,8 @@ std::move(p_new_device_scale_factor));
           reinterpret_cast<internal::RecordingService_OnRecordedWindowSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.5
       bool success = true;
       ::gfx::Size p_new_window_size_dip{};
       RecordingService_OnRecordedWindowSizeChanged_ParamsDataView input_data_view(params, message);
@@ -1590,8 +1608,8 @@ std::move(p_new_device_scale_factor));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRecordedWindowSizeChanged(
-std::move(p_new_window_size_dip));
+      impl->OnRecordedWindowSizeChanged(        
+        std::move(p_new_window_size_dip));
       return true;
     }
     case internal::kRecordingService_OnFrameSinkSizeChanged_Name: {
@@ -1601,6 +1619,8 @@ std::move(p_new_window_size_dip));
           reinterpret_cast<internal::RecordingService_OnFrameSinkSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecordingService.6
       bool success = true;
       ::gfx::Size p_new_frame_sink_size_dip{};
       float p_new_device_scale_factor{};
@@ -1619,9 +1639,9 @@ std::move(p_new_window_size_dip));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameSinkSizeChanged(
-std::move(p_new_frame_sink_size_dip), 
-std::move(p_new_device_scale_factor));
+      impl->OnFrameSinkSizeChanged(        
+        std::move(p_new_frame_sink_size_dip), 
+        std::move(p_new_device_scale_factor));
       return true;
     }
   }

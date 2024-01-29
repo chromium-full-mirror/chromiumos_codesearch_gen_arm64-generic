@@ -9109,6 +9109,8 @@ bool CrosNetworkConfig_GetNetworkState_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetNetworkState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.1
   bool success = true;
   NetworkStatePropertiesPtr p_result{};
   CrosNetworkConfig_GetNetworkState_ResponseParamsDataView input_data_view(params, message);
@@ -9234,6 +9236,8 @@ bool CrosNetworkConfig_GetNetworkStateList_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetNetworkStateList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.2
   bool success = true;
   std::vector<NetworkStatePropertiesPtr> p_result{};
   CrosNetworkConfig_GetNetworkStateList_ResponseParamsDataView input_data_view(params, message);
@@ -9365,6 +9369,8 @@ bool CrosNetworkConfig_GetDeviceStateList_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetDeviceStateList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.3
   bool success = true;
   std::vector<DeviceStatePropertiesPtr> p_result{};
   CrosNetworkConfig_GetDeviceStateList_ResponseParamsDataView input_data_view(params, message);
@@ -9496,6 +9502,8 @@ bool CrosNetworkConfig_GetManagedProperties_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetManagedProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.4
   bool success = true;
   ManagedPropertiesPtr p_result{};
   CrosNetworkConfig_GetManagedProperties_ResponseParamsDataView input_data_view(params, message);
@@ -9621,6 +9629,8 @@ bool CrosNetworkConfig_SetProperties_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_SetProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.5
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -9758,6 +9768,8 @@ bool CrosNetworkConfig_ConfigureNetwork_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_ConfigureNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.6
   bool success = true;
   std::optional<std::string> p_guid{};
   std::string p_error_message{};
@@ -9901,6 +9913,8 @@ bool CrosNetworkConfig_ForgetNetwork_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_ForgetNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.7
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_ForgetNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -10020,6 +10034,8 @@ bool CrosNetworkConfig_SetNetworkTypeEnabledState_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_SetNetworkTypeEnabledState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.8
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_SetNetworkTypeEnabledState_ResponseParamsDataView input_data_view(params, message);
@@ -10139,6 +10155,8 @@ bool CrosNetworkConfig_SetCellularSimState_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_SetCellularSimState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.9
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_SetCellularSimState_ResponseParamsDataView input_data_view(params, message);
@@ -10258,6 +10276,8 @@ bool CrosNetworkConfig_SelectCellularMobileNetwork_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_SelectCellularMobileNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.10
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_SelectCellularMobileNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -10377,6 +10397,8 @@ bool CrosNetworkConfig_GetGlobalPolicy_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetGlobalPolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.12
   bool success = true;
   GlobalPolicyPtr p_result{};
   CrosNetworkConfig_GetGlobalPolicy_ResponseParamsDataView input_data_view(params, message);
@@ -10506,6 +10528,8 @@ bool CrosNetworkConfig_StartConnect_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_StartConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.13
   bool success = true;
   StartConnectResult p_result{};
   std::string p_message{};
@@ -10644,6 +10668,8 @@ bool CrosNetworkConfig_StartDisconnect_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_StartDisconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.14
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_StartDisconnect_ResponseParamsDataView input_data_view(params, message);
@@ -10763,6 +10789,8 @@ bool CrosNetworkConfig_GetVpnProviders_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetVpnProviders_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.16
   bool success = true;
   std::vector<VpnProviderPtr> p_providers{};
   CrosNetworkConfig_GetVpnProviders_ResponseParamsDataView input_data_view(params, message);
@@ -10894,6 +10922,8 @@ bool CrosNetworkConfig_GetNetworkCertificates_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetNetworkCertificates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.17
   bool success = true;
   std::vector<NetworkCertificatePtr> p_server_cas{};
   std::vector<NetworkCertificatePtr> p_user_certs{};
@@ -11045,6 +11075,8 @@ bool CrosNetworkConfig_GetAlwaysOnVpn_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetAlwaysOnVpn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.18
   bool success = true;
   AlwaysOnVpnPropertiesPtr p_properties{};
   CrosNetworkConfig_GetAlwaysOnVpn_ResponseParamsDataView input_data_view(params, message);
@@ -11174,6 +11206,8 @@ bool CrosNetworkConfig_GetSupportedVpnTypes_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_GetSupportedVpnTypes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.20
   bool success = true;
   std::vector<std::string> p_vpn_types{};
   CrosNetworkConfig_GetSupportedVpnTypes_ResponseParamsDataView input_data_view(params, message);
@@ -11305,6 +11339,8 @@ bool CrosNetworkConfig_RequestTrafficCounters_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_RequestTrafficCounters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.21
   bool success = true;
   std::vector<TrafficCounterPtr> p_traffic_counters{};
   CrosNetworkConfig_RequestTrafficCounters_ResponseParamsDataView input_data_view(params, message);
@@ -11436,6 +11472,8 @@ bool CrosNetworkConfig_SetTrafficCountersAutoReset_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_SetTrafficCountersAutoReset_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.23
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_SetTrafficCountersAutoReset_ResponseParamsDataView input_data_view(params, message);
@@ -11555,6 +11593,8 @@ bool CrosNetworkConfig_CreateCustomApn_ForwardToCallback::Accept(
           internal::CrosNetworkConfig_CreateCustomApn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosNetworkConfig.24
   bool success = true;
   bool p_success{};
   CrosNetworkConfig_CreateCustomApn_ResponseParamsDataView input_data_view(params, message);
@@ -11629,6 +11669,8 @@ bool CrosNetworkConfigStubDispatch::Accept(
           reinterpret_cast<internal::CrosNetworkConfig_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.0
       bool success = true;
       ::mojo::PendingRemote<CrosNetworkConfigObserver> p_observer{};
       CrosNetworkConfig_AddObserver_ParamsDataView input_data_view(params, message);
@@ -11646,8 +11688,8 @@ bool CrosNetworkConfigStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosNetworkConfig_GetNetworkState_Name: {
@@ -11687,6 +11729,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosNetworkConfig_RequestNetworkScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.11
       bool success = true;
       ::chromeos::network_config::mojom::NetworkType p_type{};
       CrosNetworkConfig_RequestNetworkScan_ParamsDataView input_data_view(params, message);
@@ -11702,8 +11746,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestNetworkScan(
-std::move(p_type));
+      impl->RequestNetworkScan(        
+        std::move(p_type));
       return true;
     }
     case internal::kCrosNetworkConfig_GetGlobalPolicy_Name: {
@@ -11722,6 +11766,8 @@ std::move(p_type));
           reinterpret_cast<internal::CrosNetworkConfig_SetVpnProviders_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.15
       bool success = true;
       std::vector<VpnProviderPtr> p_providers{};
       CrosNetworkConfig_SetVpnProviders_ParamsDataView input_data_view(params, message);
@@ -11737,8 +11783,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVpnProviders(
-std::move(p_providers));
+      impl->SetVpnProviders(        
+        std::move(p_providers));
       return true;
     }
     case internal::kCrosNetworkConfig_GetVpnProviders_Name: {
@@ -11757,6 +11803,8 @@ std::move(p_providers));
           reinterpret_cast<internal::CrosNetworkConfig_SetAlwaysOnVpn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.19
       bool success = true;
       AlwaysOnVpnPropertiesPtr p_properties{};
       CrosNetworkConfig_SetAlwaysOnVpn_ParamsDataView input_data_view(params, message);
@@ -11772,8 +11820,8 @@ std::move(p_providers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlwaysOnVpn(
-std::move(p_properties));
+      impl->SetAlwaysOnVpn(        
+        std::move(p_properties));
       return true;
     }
     case internal::kCrosNetworkConfig_GetSupportedVpnTypes_Name: {
@@ -11789,6 +11837,8 @@ std::move(p_properties));
           reinterpret_cast<internal::CrosNetworkConfig_ResetTrafficCounters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.22
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_ResetTrafficCounters_ParamsDataView input_data_view(params, message);
@@ -11804,8 +11854,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetTrafficCounters(
-std::move(p_guid));
+      impl->ResetTrafficCounters(        
+        std::move(p_guid));
       return true;
     }
     case internal::kCrosNetworkConfig_SetTrafficCountersAutoReset_Name: {
@@ -11821,6 +11871,8 @@ std::move(p_guid));
           reinterpret_cast<internal::CrosNetworkConfig_RemoveCustomApn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.25
       bool success = true;
       std::string p_network_guid{};
       std::string p_apn_id{};
@@ -11839,9 +11891,9 @@ std::move(p_guid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveCustomApn(
-std::move(p_network_guid), 
-std::move(p_apn_id));
+      impl->RemoveCustomApn(        
+        std::move(p_network_guid), 
+        std::move(p_apn_id));
       return true;
     }
     case internal::kCrosNetworkConfig_ModifyCustomApn_Name: {
@@ -11851,6 +11903,8 @@ std::move(p_apn_id));
           reinterpret_cast<internal::CrosNetworkConfig_ModifyCustomApn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.26
       bool success = true;
       std::string p_network_guid{};
       ApnPropertiesPtr p_apn{};
@@ -11869,9 +11923,9 @@ std::move(p_apn_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ModifyCustomApn(
-std::move(p_network_guid), 
-std::move(p_apn));
+      impl->ModifyCustomApn(        
+        std::move(p_network_guid), 
+        std::move(p_apn));
       return true;
     }
   }
@@ -11897,6 +11951,8 @@ bool CrosNetworkConfigStubDispatch::AcceptWithResponder(
               internal::CrosNetworkConfig_GetNetworkState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.1
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_GetNetworkState_ParamsDataView input_data_view(params, message);
@@ -11915,8 +11971,8 @@ bool CrosNetworkConfigStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworkState(
-std::move(p_guid), std::move(callback));
+      impl->GetNetworkState(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_GetNetworkStateList_Name: {
@@ -11926,6 +11982,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_GetNetworkStateList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.2
       bool success = true;
       NetworkFilterPtr p_filter{};
       CrosNetworkConfig_GetNetworkStateList_ParamsDataView input_data_view(params, message);
@@ -11944,8 +12002,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworkStateList(
-std::move(p_filter), std::move(callback));
+      impl->GetNetworkStateList(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_GetDeviceStateList_Name: {
@@ -11955,6 +12013,8 @@ std::move(p_filter), std::move(callback));
               internal::CrosNetworkConfig_GetDeviceStateList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.3
       bool success = true;
       CrosNetworkConfig_GetDeviceStateList_ParamsDataView input_data_view(params, message);
       
@@ -11980,6 +12040,8 @@ std::move(p_filter), std::move(callback));
               internal::CrosNetworkConfig_GetManagedProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.4
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_GetManagedProperties_ParamsDataView input_data_view(params, message);
@@ -11998,8 +12060,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetManagedProperties(
-std::move(p_guid), std::move(callback));
+      impl->GetManagedProperties(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_SetProperties_Name: {
@@ -12009,6 +12071,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_SetProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.5
       bool success = true;
       std::string p_guid{};
       ConfigPropertiesPtr p_properties{};
@@ -12030,9 +12094,9 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProperties(
-std::move(p_guid), 
-std::move(p_properties), std::move(callback));
+      impl->SetProperties(        
+        std::move(p_guid), 
+        std::move(p_properties), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_ConfigureNetwork_Name: {
@@ -12042,6 +12106,8 @@ std::move(p_properties), std::move(callback));
               internal::CrosNetworkConfig_ConfigureNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.6
       bool success = true;
       ConfigPropertiesPtr p_properties{};
       bool p_shared{};
@@ -12063,9 +12129,9 @@ std::move(p_properties), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureNetwork(
-std::move(p_properties), 
-std::move(p_shared), std::move(callback));
+      impl->ConfigureNetwork(        
+        std::move(p_properties), 
+        std::move(p_shared), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_ForgetNetwork_Name: {
@@ -12075,6 +12141,8 @@ std::move(p_shared), std::move(callback));
               internal::CrosNetworkConfig_ForgetNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.7
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_ForgetNetwork_ParamsDataView input_data_view(params, message);
@@ -12093,8 +12161,8 @@ std::move(p_shared), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForgetNetwork(
-std::move(p_guid), std::move(callback));
+      impl->ForgetNetwork(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_SetNetworkTypeEnabledState_Name: {
@@ -12104,6 +12172,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_SetNetworkTypeEnabledState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.8
       bool success = true;
       ::chromeos::network_config::mojom::NetworkType p_type{};
       bool p_enabled{};
@@ -12125,9 +12195,9 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNetworkTypeEnabledState(
-std::move(p_type), 
-std::move(p_enabled), std::move(callback));
+      impl->SetNetworkTypeEnabledState(        
+        std::move(p_type), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_SetCellularSimState_Name: {
@@ -12137,6 +12207,8 @@ std::move(p_enabled), std::move(callback));
               internal::CrosNetworkConfig_SetCellularSimState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.9
       bool success = true;
       CellularSimStatePtr p_state{};
       CrosNetworkConfig_SetCellularSimState_ParamsDataView input_data_view(params, message);
@@ -12155,8 +12227,8 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCellularSimState(
-std::move(p_state), std::move(callback));
+      impl->SetCellularSimState(        
+        std::move(p_state), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_SelectCellularMobileNetwork_Name: {
@@ -12166,6 +12238,8 @@ std::move(p_state), std::move(callback));
               internal::CrosNetworkConfig_SelectCellularMobileNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.10
       bool success = true;
       std::string p_guid{};
       std::string p_network_id{};
@@ -12187,9 +12261,9 @@ std::move(p_state), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectCellularMobileNetwork(
-std::move(p_guid), 
-std::move(p_network_id), std::move(callback));
+      impl->SelectCellularMobileNetwork(        
+        std::move(p_guid), 
+        std::move(p_network_id), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_RequestNetworkScan_Name: {
@@ -12202,6 +12276,8 @@ std::move(p_network_id), std::move(callback));
               internal::CrosNetworkConfig_GetGlobalPolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.12
       bool success = true;
       CrosNetworkConfig_GetGlobalPolicy_ParamsDataView input_data_view(params, message);
       
@@ -12227,6 +12303,8 @@ std::move(p_network_id), std::move(callback));
               internal::CrosNetworkConfig_StartConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.13
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_StartConnect_ParamsDataView input_data_view(params, message);
@@ -12245,8 +12323,8 @@ std::move(p_network_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartConnect(
-std::move(p_guid), std::move(callback));
+      impl->StartConnect(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_StartDisconnect_Name: {
@@ -12256,6 +12334,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_StartDisconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.14
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_StartDisconnect_ParamsDataView input_data_view(params, message);
@@ -12274,8 +12354,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDisconnect(
-std::move(p_guid), std::move(callback));
+      impl->StartDisconnect(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_SetVpnProviders_Name: {
@@ -12288,6 +12368,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_GetVpnProviders_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.16
       bool success = true;
       CrosNetworkConfig_GetVpnProviders_ParamsDataView input_data_view(params, message);
       
@@ -12313,6 +12395,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_GetNetworkCertificates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.17
       bool success = true;
       CrosNetworkConfig_GetNetworkCertificates_ParamsDataView input_data_view(params, message);
       
@@ -12338,6 +12422,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_GetAlwaysOnVpn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.18
       bool success = true;
       CrosNetworkConfig_GetAlwaysOnVpn_ParamsDataView input_data_view(params, message);
       
@@ -12366,6 +12452,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_GetSupportedVpnTypes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.20
       bool success = true;
       CrosNetworkConfig_GetSupportedVpnTypes_ParamsDataView input_data_view(params, message);
       
@@ -12391,6 +12479,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_RequestTrafficCounters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.21
       bool success = true;
       std::string p_guid{};
       CrosNetworkConfig_RequestTrafficCounters_ParamsDataView input_data_view(params, message);
@@ -12409,8 +12499,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestTrafficCounters(
-std::move(p_guid), std::move(callback));
+      impl->RequestTrafficCounters(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_ResetTrafficCounters_Name: {
@@ -12423,6 +12513,8 @@ std::move(p_guid), std::move(callback));
               internal::CrosNetworkConfig_SetTrafficCountersAutoReset_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.23
       bool success = true;
       std::string p_guid{};
       bool p_auto_reset{};
@@ -12447,10 +12539,10 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTrafficCountersAutoReset(
-std::move(p_guid), 
-std::move(p_auto_reset), 
-std::move(p_day), std::move(callback));
+      impl->SetTrafficCountersAutoReset(        
+        std::move(p_guid), 
+        std::move(p_auto_reset), 
+        std::move(p_day), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_CreateCustomApn_Name: {
@@ -12460,6 +12552,8 @@ std::move(p_day), std::move(callback));
               internal::CrosNetworkConfig_CreateCustomApn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfig.24
       bool success = true;
       std::string p_network_guid{};
       ApnPropertiesPtr p_apn{};
@@ -12481,9 +12575,9 @@ std::move(p_day), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCustomApn(
-std::move(p_network_guid), 
-std::move(p_apn), std::move(callback));
+      impl->CreateCustomApn(        
+        std::move(p_network_guid), 
+        std::move(p_apn), std::move(callback));
       return true;
     }
     case internal::kCrosNetworkConfig_RemoveCustomApn_Name: {
@@ -13041,6 +13135,8 @@ bool CrosNetworkConfigObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnActiveNetworksChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.0
       bool success = true;
       std::vector<NetworkStatePropertiesPtr> p_networks{};
       CrosNetworkConfigObserver_OnActiveNetworksChanged_ParamsDataView input_data_view(params, message);
@@ -13056,8 +13152,8 @@ bool CrosNetworkConfigObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnActiveNetworksChanged(
-std::move(p_networks));
+      impl->OnActiveNetworksChanged(        
+        std::move(p_networks));
       return true;
     }
     case internal::kCrosNetworkConfigObserver_OnNetworkStateChanged_Name: {
@@ -13067,6 +13163,8 @@ std::move(p_networks));
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnNetworkStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.1
       bool success = true;
       NetworkStatePropertiesPtr p_network{};
       CrosNetworkConfigObserver_OnNetworkStateChanged_ParamsDataView input_data_view(params, message);
@@ -13082,8 +13180,8 @@ std::move(p_networks));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkStateChanged(
-std::move(p_network));
+      impl->OnNetworkStateChanged(        
+        std::move(p_network));
       return true;
     }
     case internal::kCrosNetworkConfigObserver_OnNetworkStateListChanged_Name: {
@@ -13093,6 +13191,8 @@ std::move(p_network));
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnNetworkStateListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.2
       bool success = true;
       CrosNetworkConfigObserver_OnNetworkStateListChanged_ParamsDataView input_data_view(params, message);
       
@@ -13105,7 +13205,7 @@ std::move(p_network));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkStateListChanged();
+      impl->OnNetworkStateListChanged(        );
       return true;
     }
     case internal::kCrosNetworkConfigObserver_OnDeviceStateListChanged_Name: {
@@ -13115,6 +13215,8 @@ std::move(p_network));
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnDeviceStateListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.3
       bool success = true;
       CrosNetworkConfigObserver_OnDeviceStateListChanged_ParamsDataView input_data_view(params, message);
       
@@ -13127,7 +13229,7 @@ std::move(p_network));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceStateListChanged();
+      impl->OnDeviceStateListChanged(        );
       return true;
     }
     case internal::kCrosNetworkConfigObserver_OnVpnProvidersChanged_Name: {
@@ -13137,6 +13239,8 @@ std::move(p_network));
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnVpnProvidersChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.4
       bool success = true;
       CrosNetworkConfigObserver_OnVpnProvidersChanged_ParamsDataView input_data_view(params, message);
       
@@ -13149,7 +13253,7 @@ std::move(p_network));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVpnProvidersChanged();
+      impl->OnVpnProvidersChanged(        );
       return true;
     }
     case internal::kCrosNetworkConfigObserver_OnNetworkCertificatesChanged_Name: {
@@ -13159,6 +13263,8 @@ std::move(p_network));
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnNetworkCertificatesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.5
       bool success = true;
       CrosNetworkConfigObserver_OnNetworkCertificatesChanged_ParamsDataView input_data_view(params, message);
       
@@ -13171,7 +13277,7 @@ std::move(p_network));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkCertificatesChanged();
+      impl->OnNetworkCertificatesChanged(        );
       return true;
     }
     case internal::kCrosNetworkConfigObserver_OnPoliciesApplied_Name: {
@@ -13181,6 +13287,8 @@ std::move(p_network));
           reinterpret_cast<internal::CrosNetworkConfigObserver_OnPoliciesApplied_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosNetworkConfigObserver.6
       bool success = true;
       std::string p_userhash{};
       CrosNetworkConfigObserver_OnPoliciesApplied_ParamsDataView input_data_view(params, message);
@@ -13196,8 +13304,8 @@ std::move(p_network));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPoliciesApplied(
-std::move(p_userhash));
+      impl->OnPoliciesApplied(        
+        std::move(p_userhash));
       return true;
     }
   }

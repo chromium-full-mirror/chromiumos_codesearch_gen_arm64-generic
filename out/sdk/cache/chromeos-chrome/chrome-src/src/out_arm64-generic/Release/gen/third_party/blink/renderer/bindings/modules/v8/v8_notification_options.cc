@@ -249,141 +249,76 @@ bool NotificationOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8:
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasActions()) {
-  if (!ToV8Traits<IDLSequence<NotificationAction>>::ToV8(script_state, member_actions_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<NotificationAction>>::ToV8(script_state, member_actions_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasBadge()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_badge_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_badge_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasBody()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_body_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_body_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasData()) {
-  if (!ToV8Traits<IDLAny>::ToV8(script_state, member_data_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLAny>::ToV8(script_state, member_data_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasDir()) {
-  if (!ToV8Traits<V8NotificationDirection>::ToV8(script_state, member_dir_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8NotificationDirection>::ToV8(script_state, member_dir_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasIcon()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_icon_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_icon_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (RuntimeEnabledFeatures::NotificationContentImageEnabled()) {
   if (hasImage()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_image_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_image_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasLang()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_lang_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_lang_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
 }
 if (hasRenotify()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_renotify_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_renotify_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
 }
 if (hasRequireInteraction()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_require_interaction_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_require_interaction_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
 }
 if (RuntimeEnabledFeatures::IncomingCallNotificationsEnabled()) {
   if (hasScenario()) {
-  if (!ToV8Traits<V8NotificationScenario>::ToV8(script_state, member_scenario_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8NotificationScenario>::ToV8(script_state, member_scenario_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
 }
 }
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::NotificationTriggersEnabled(execution_context)) {
   if (hasShowTrigger()) {
-  if (!ToV8Traits<TimestampTrigger>::ToV8(script_state, member_show_trigger_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<TimestampTrigger>::ToV8(script_state, member_show_trigger_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasSilent()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_silent_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_silent_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
 }
 if (hasTag()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_tag_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_tag_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
 }
 if (hasTimestamp()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_timestamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_timestamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
 }
 if (hasVibrate()) {
-  if (!ToV8Traits<V8UnionUnsignedLongOrUnsignedLongSequence>::ToV8(script_state, member_vibrate_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionUnsignedLongOrUnsignedLongSequence>::ToV8(script_state, member_vibrate_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

@@ -166,6 +166,8 @@ bool CrashMemoryMetricsReporterStubDispatch::Accept(
           reinterpret_cast<internal::CrashMemoryMetricsReporter_SetSharedMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrashMemoryMetricsReporter.0
       bool success = true;
       ::base::UnsafeSharedMemoryRegion p_shared_metrics_buffer{};
       CrashMemoryMetricsReporter_SetSharedMemory_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool CrashMemoryMetricsReporterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSharedMemory(
-std::move(p_shared_metrics_buffer));
+      impl->SetSharedMemory(        
+        std::move(p_shared_metrics_buffer));
       return true;
     }
   }

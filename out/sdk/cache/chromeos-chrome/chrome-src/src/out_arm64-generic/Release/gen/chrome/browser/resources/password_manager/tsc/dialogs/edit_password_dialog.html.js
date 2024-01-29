@@ -14,13 +14,13 @@ export function getTemplate() {
         </a>
       </div>
     </template>
-    <cr-input id="usernameInput" label="$i18n{usernameLabel}" autofocus value="{{username_}}" error-message="[[usernameErrorMessage_]]" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]">
+    <cr-input id="usernameInput" label="$i18n{usernameLabel}" autofocus value="{{username_}}" error-message="[[usernameErrorMessage_]]" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]" spellcheck="false">
     </cr-input>
     <a id="viewExistingPasswordLink" is="action-link" href="/" on-click="onViewExistingPasswordClick_" aria-description="[[getViewExistingPasswordAriaDescription_(
           conflictingUsernames_, username_)]]" hidden="[[!showRedirect_(showRedirect, usernameErrorMessage_)]]">
       $i18n{viewExistingPassword}
     </a>
-    <cr-input id="passwordInput" label="$i18n{passwordLabel}" required type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[!password_.length]]" class="password-input">
+    <cr-input id="passwordInput" label="$i18n{passwordLabel}" required type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[!password_.length]]" class="password-input" spellcheck="false">
       <cr-icon-button id="showPasswordButton" slot="inline-suffix" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowHidePasswordButtonClick">
       </cr-icon-button>
     </cr-input>

@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 var EventType = chrome.automation.EventType;
-import { AutomationPredicate } from '../../common/automation_predicate.js';
-import { AsyncUtil } from '../../common/async_util.js';
-import { EventHandler } from '../../common/event_handler.js';
+import { AutomationPredicate } from '/common/automation_predicate.js';
+import { AsyncUtil } from '/common/async_util.js';
+import { EventHandler } from '/common/event_handler.js';
 export class FocusHandler {
     active_ = false;
     /** The currently focused editable node. */

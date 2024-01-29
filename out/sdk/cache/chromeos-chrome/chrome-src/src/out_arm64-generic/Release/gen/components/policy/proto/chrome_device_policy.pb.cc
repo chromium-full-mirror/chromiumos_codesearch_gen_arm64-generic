@@ -1894,19 +1894,19 @@ struct DeviceFlexHwDataForProductImprovementEnabledProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceFlexHwDataForProductImprovementEnabledProtoDefaultTypeInternal _DeviceFlexHwDataForProductImprovementEnabledProto_default_instance_;
-PROTOBUF_CONSTEXPR ExtendedFkeysModifierProto::ExtendedFkeysModifierProto(
+PROTOBUF_CONSTEXPR OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ExtendedFkeysModifierProto(
     ::_pbi::ConstantInitialized)
-  : modifier_(0)
+  : obsolete_modifier_(0)
 {}
-struct ExtendedFkeysModifierProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExtendedFkeysModifierProtoDefaultTypeInternal()
+struct OBSOLETE_ExtendedFkeysModifierProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OBSOLETE_ExtendedFkeysModifierProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ExtendedFkeysModifierProtoDefaultTypeInternal() {}
+  ~OBSOLETE_ExtendedFkeysModifierProtoDefaultTypeInternal() {}
   union {
-    ExtendedFkeysModifierProto _instance;
+    OBSOLETE_ExtendedFkeysModifierProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExtendedFkeysModifierProtoDefaultTypeInternal _ExtendedFkeysModifierProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OBSOLETE_ExtendedFkeysModifierProtoDefaultTypeInternal _OBSOLETE_ExtendedFkeysModifierProto_default_instance_;
 PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
     ::_pbi::ConstantInitialized)
   : device_policy_refresh_rate_(nullptr)
@@ -2063,7 +2063,9 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_ephemeral_network_policies_enabled_(nullptr)
   , extended_fkeys_modifier_(nullptr)
   , device_flex_hw_data_for_product_improvement_enabled_(nullptr)
-  , devicehardwarevideodecodingenabled_(nullptr){}
+  , devicehardwarevideodecodingenabled_(nullptr)
+  , deviceloginscreentouchvirtualkeyboardenabled_(nullptr)
+  , deviceextendedautoupdateenabled_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3727,7 +3729,7 @@ constexpr DeviceCrostiniArcAdbSideloadingAllowedProto_AllowanceMode DeviceCrosti
 constexpr DeviceCrostiniArcAdbSideloadingAllowedProto_AllowanceMode DeviceCrostiniArcAdbSideloadingAllowedProto::AllowanceMode_MAX;
 constexpr int DeviceCrostiniArcAdbSideloadingAllowedProto::AllowanceMode_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-bool ExtendedFkeysModifierProto_ExtendedFkeysModifier_IsValid(int value) {
+bool OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -3739,61 +3741,61 @@ bool ExtendedFkeysModifierProto_ExtendedFkeysModifier_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ExtendedFkeysModifierProto_ExtendedFkeysModifier_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_strings[4] = {};
 
-static const char ExtendedFkeysModifierProto_ExtendedFkeysModifier_names[] =
-  "ALT"
-  "CTRL_SHIFT"
-  "DISABLED"
-  "SHIFT";
+static const char OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_names[] =
+  "OBSOLETE_ALT"
+  "OBSOLETE_CTRL_SHIFT"
+  "OBSOLETE_DISABLED"
+  "OBSOLETE_SHIFT";
 
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries[] = {
-  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 0, 3}, 1 },
-  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 3, 10}, 3 },
-  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 13, 8}, 0 },
-  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 21, 5}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries[] = {
+  { {OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_names + 0, 12}, 1 },
+  { {OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_names + 12, 19}, 3 },
+  { {OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_names + 31, 17}, 0 },
+  { {OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_names + 48, 14}, 2 },
 };
 
-static const int ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries_by_number[] = {
-  2, // 0 -> DISABLED
-  0, // 1 -> ALT
-  3, // 2 -> SHIFT
-  1, // 3 -> CTRL_SHIFT
+static const int OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries_by_number[] = {
+  2, // 0 -> OBSOLETE_DISABLED
+  0, // 1 -> OBSOLETE_ALT
+  3, // 2 -> OBSOLETE_SHIFT
+  1, // 3 -> OBSOLETE_CTRL_SHIFT
 };
 
-const std::string& ExtendedFkeysModifierProto_ExtendedFkeysModifier_Name(
-    ExtendedFkeysModifierProto_ExtendedFkeysModifier value) {
+const std::string& OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_Name(
+    OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier value) {
   static const bool dummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries,
-          ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries_by_number,
-          4, ExtendedFkeysModifierProto_ExtendedFkeysModifier_strings);
+          OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries,
+          OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries_by_number,
+          4, OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries,
-      ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries_by_number,
+      OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries,
+      OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries_by_number,
       4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     ExtendedFkeysModifierProto_ExtendedFkeysModifier_strings[idx].get();
+                     OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_strings[idx].get();
 }
-bool ExtendedFkeysModifierProto_ExtendedFkeysModifier_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ExtendedFkeysModifierProto_ExtendedFkeysModifier* value) {
+bool OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries, 4, name, &int_value);
+      OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_entries, 4, name, &int_value);
   if (success) {
-    *value = static_cast<ExtendedFkeysModifierProto_ExtendedFkeysModifier>(int_value);
+    *value = static_cast<OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier>(int_value);
   }
   return success;
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::DISABLED;
-constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::ALT;
-constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::SHIFT;
-constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::CTRL_SHIFT;
-constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::ExtendedFkeysModifier_MIN;
-constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::ExtendedFkeysModifier_MAX;
-constexpr int ExtendedFkeysModifierProto::ExtendedFkeysModifier_ARRAYSIZE;
+constexpr OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_DISABLED;
+constexpr OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ALT;
+constexpr OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_SHIFT;
+constexpr OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_CTRL_SHIFT;
+constexpr OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ExtendedFkeysModifier_MIN;
+constexpr OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ExtendedFkeysModifier_MAX;
+constexpr int OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ExtendedFkeysModifier_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 // ===================================================================
@@ -35395,34 +35397,34 @@ std::string DeviceFlexHwDataForProductImprovementEnabledProto::GetTypeName() con
 
 // ===================================================================
 
-class ExtendedFkeysModifierProto::_Internal {
+class OBSOLETE_ExtendedFkeysModifierProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<ExtendedFkeysModifierProto>()._has_bits_);
-  static void set_has_modifier(HasBits* has_bits) {
+  using HasBits = decltype(std::declval<OBSOLETE_ExtendedFkeysModifierProto>()._has_bits_);
+  static void set_has_obsolete_modifier(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-ExtendedFkeysModifierProto::ExtendedFkeysModifierProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ExtendedFkeysModifierProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:enterprise_management.ExtendedFkeysModifierProto)
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
 }
-ExtendedFkeysModifierProto::ExtendedFkeysModifierProto(const ExtendedFkeysModifierProto& from)
+OBSOLETE_ExtendedFkeysModifierProto::OBSOLETE_ExtendedFkeysModifierProto(const OBSOLETE_ExtendedFkeysModifierProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  modifier_ = from.modifier_;
-  // @@protoc_insertion_point(copy_constructor:enterprise_management.ExtendedFkeysModifierProto)
+  obsolete_modifier_ = from.obsolete_modifier_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
 }
 
-inline void ExtendedFkeysModifierProto::SharedCtor() {
-modifier_ = 0;
+inline void OBSOLETE_ExtendedFkeysModifierProto::SharedCtor() {
+obsolete_modifier_ = 0;
 }
 
-ExtendedFkeysModifierProto::~ExtendedFkeysModifierProto() {
-  // @@protoc_insertion_point(destructor:enterprise_management.ExtendedFkeysModifierProto)
+OBSOLETE_ExtendedFkeysModifierProto::~OBSOLETE_ExtendedFkeysModifierProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -35430,39 +35432,39 @@ ExtendedFkeysModifierProto::~ExtendedFkeysModifierProto() {
   SharedDtor();
 }
 
-inline void ExtendedFkeysModifierProto::SharedDtor() {
+inline void OBSOLETE_ExtendedFkeysModifierProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ExtendedFkeysModifierProto::SetCachedSize(int size) const {
+void OBSOLETE_ExtendedFkeysModifierProto::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void ExtendedFkeysModifierProto::Clear() {
-// @@protoc_insertion_point(message_clear_start:enterprise_management.ExtendedFkeysModifierProto)
+void OBSOLETE_ExtendedFkeysModifierProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  modifier_ = 0;
+  obsolete_modifier_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ExtendedFkeysModifierProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* OBSOLETE_ExtendedFkeysModifierProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .enterprise_management.ExtendedFkeysModifierProto.ExtendedFkeysModifier modifier = 1 [default = DISABLED];
+      // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto.OBSOLETE_ExtendedFkeysModifier OBSOLETE_modifier = 1 [default = OBSOLETE_DISABLED];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::ExtendedFkeysModifierProto_ExtendedFkeysModifier_IsValid(val))) {
-            _internal_set_modifier(static_cast<::enterprise_management::ExtendedFkeysModifierProto_ExtendedFkeysModifier>(val));
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier_IsValid(val))) {
+            _internal_set_obsolete_modifier(static_cast<::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto_OBSOLETE_ExtendedFkeysModifier>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
@@ -35493,41 +35495,41 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ExtendedFkeysModifierProto::_InternalSerialize(
+uint8_t* OBSOLETE_ExtendedFkeysModifierProto::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.ExtendedFkeysModifierProto)
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .enterprise_management.ExtendedFkeysModifierProto.ExtendedFkeysModifier modifier = 1 [default = DISABLED];
+  // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto.OBSOLETE_ExtendedFkeysModifier OBSOLETE_modifier = 1 [default = OBSOLETE_DISABLED];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_modifier(), target);
+      1, this->_internal_obsolete_modifier(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.ExtendedFkeysModifierProto)
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   return target;
 }
 
-size_t ExtendedFkeysModifierProto::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:enterprise_management.ExtendedFkeysModifierProto)
+size_t OBSOLETE_ExtendedFkeysModifierProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .enterprise_management.ExtendedFkeysModifierProto.ExtendedFkeysModifier modifier = 1 [default = DISABLED];
+  // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto.OBSOLETE_ExtendedFkeysModifier OBSOLETE_modifier = 1 [default = OBSOLETE_DISABLED];
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_modifier());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_obsolete_modifier());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -35538,44 +35540,44 @@ size_t ExtendedFkeysModifierProto::ByteSizeLong() const {
   return total_size;
 }
 
-void ExtendedFkeysModifierProto::CheckTypeAndMergeFrom(
+void OBSOLETE_ExtendedFkeysModifierProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const ExtendedFkeysModifierProto*>(
+  MergeFrom(*::_pbi::DownCast<const OBSOLETE_ExtendedFkeysModifierProto*>(
       &from));
 }
 
-void ExtendedFkeysModifierProto::MergeFrom(const ExtendedFkeysModifierProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.ExtendedFkeysModifierProto)
+void OBSOLETE_ExtendedFkeysModifierProto::MergeFrom(const OBSOLETE_ExtendedFkeysModifierProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_modifier()) {
-    _internal_set_modifier(from._internal_modifier());
+  if (from._internal_has_obsolete_modifier()) {
+    _internal_set_obsolete_modifier(from._internal_obsolete_modifier());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void ExtendedFkeysModifierProto::CopyFrom(const ExtendedFkeysModifierProto& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.ExtendedFkeysModifierProto)
+void OBSOLETE_ExtendedFkeysModifierProto::CopyFrom(const OBSOLETE_ExtendedFkeysModifierProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.OBSOLETE_ExtendedFkeysModifierProto)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ExtendedFkeysModifierProto::IsInitialized() const {
+bool OBSOLETE_ExtendedFkeysModifierProto::IsInitialized() const {
   return true;
 }
 
-void ExtendedFkeysModifierProto::InternalSwap(ExtendedFkeysModifierProto* other) {
+void OBSOLETE_ExtendedFkeysModifierProto::InternalSwap(OBSOLETE_ExtendedFkeysModifierProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(modifier_, other->modifier_);
+  swap(obsolete_modifier_, other->obsolete_modifier_);
 }
 
-std::string ExtendedFkeysModifierProto::GetTypeName() const {
-  return "enterprise_management.ExtendedFkeysModifierProto";
+std::string OBSOLETE_ExtendedFkeysModifierProto::GetTypeName() const {
+  return "enterprise_management.OBSOLETE_ExtendedFkeysModifierProto";
 }
 
 
@@ -36192,7 +36194,7 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_ephemeral_network_policies_enabled(HasBits* has_bits) {
     (*has_bits)[4] |= 8388608u;
   }
-  static const ::enterprise_management::ExtendedFkeysModifierProto& extended_fkeys_modifier(const ChromeDeviceSettingsProto* msg);
+  static const ::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto& extended_fkeys_modifier(const ChromeDeviceSettingsProto* msg);
   static void set_has_extended_fkeys_modifier(HasBits* has_bits) {
     (*has_bits)[4] |= 16777216u;
   }
@@ -36203,6 +36205,14 @@ class ChromeDeviceSettingsProto::_Internal {
   static const ::enterprise_management::BooleanPolicyProto& devicehardwarevideodecodingenabled(const ChromeDeviceSettingsProto* msg);
   static void set_has_devicehardwarevideodecodingenabled(HasBits* has_bits) {
     (*has_bits)[4] |= 67108864u;
+  }
+  static const ::enterprise_management::BooleanPolicyProto& deviceloginscreentouchvirtualkeyboardenabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_deviceloginscreentouchvirtualkeyboardenabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 134217728u;
+  }
+  static const ::enterprise_management::BooleanPolicyProto& deviceextendedautoupdateenabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_deviceextendedautoupdateenabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 268435456u;
   }
 };
 
@@ -36814,7 +36824,7 @@ const ::enterprise_management::BooleanPolicyProto&
 ChromeDeviceSettingsProto::_Internal::device_ephemeral_network_policies_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_ephemeral_network_policies_enabled_;
 }
-const ::enterprise_management::ExtendedFkeysModifierProto&
+const ::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto&
 ChromeDeviceSettingsProto::_Internal::extended_fkeys_modifier(const ChromeDeviceSettingsProto* msg) {
   return *msg->extended_fkeys_modifier_;
 }
@@ -36825,6 +36835,14 @@ ChromeDeviceSettingsProto::_Internal::device_flex_hw_data_for_product_improvemen
 const ::enterprise_management::BooleanPolicyProto&
 ChromeDeviceSettingsProto::_Internal::devicehardwarevideodecodingenabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->devicehardwarevideodecodingenabled_;
+}
+const ::enterprise_management::BooleanPolicyProto&
+ChromeDeviceSettingsProto::_Internal::deviceloginscreentouchvirtualkeyboardenabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->deviceloginscreentouchvirtualkeyboardenabled_;
+}
+const ::enterprise_management::BooleanPolicyProto&
+ChromeDeviceSettingsProto::_Internal::deviceextendedautoupdateenabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->deviceextendedautoupdateenabled_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -36905,6 +36923,14 @@ void ChromeDeviceSettingsProto::clear_device_ephemeral_network_policies_enabled(
 void ChromeDeviceSettingsProto::clear_devicehardwarevideodecodingenabled() {
   if (devicehardwarevideodecodingenabled_ != nullptr) devicehardwarevideodecodingenabled_->Clear();
   _has_bits_[4] &= ~0x04000000u;
+}
+void ChromeDeviceSettingsProto::clear_deviceloginscreentouchvirtualkeyboardenabled() {
+  if (deviceloginscreentouchvirtualkeyboardenabled_ != nullptr) deviceloginscreentouchvirtualkeyboardenabled_->Clear();
+  _has_bits_[4] &= ~0x08000000u;
+}
+void ChromeDeviceSettingsProto::clear_deviceextendedautoupdateenabled() {
+  if (deviceextendedautoupdateenabled_ != nullptr) deviceextendedautoupdateenabled_->Clear();
+  _has_bits_[4] &= ~0x10000000u;
 }
 ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -37677,7 +37703,7 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     device_ephemeral_network_policies_enabled_ = nullptr;
   }
   if (from._internal_has_extended_fkeys_modifier()) {
-    extended_fkeys_modifier_ = new ::enterprise_management::ExtendedFkeysModifierProto(*from.extended_fkeys_modifier_);
+    extended_fkeys_modifier_ = new ::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto(*from.extended_fkeys_modifier_);
   } else {
     extended_fkeys_modifier_ = nullptr;
   }
@@ -37691,14 +37717,24 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     devicehardwarevideodecodingenabled_ = nullptr;
   }
+  if (from._internal_has_deviceloginscreentouchvirtualkeyboardenabled()) {
+    deviceloginscreentouchvirtualkeyboardenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.deviceloginscreentouchvirtualkeyboardenabled_);
+  } else {
+    deviceloginscreentouchvirtualkeyboardenabled_ = nullptr;
+  }
+  if (from._internal_has_deviceextendedautoupdateenabled()) {
+    deviceextendedautoupdateenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.deviceextendedautoupdateenabled_);
+  } else {
+    deviceextendedautoupdateenabled_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&devicehardwarevideodecodingenabled_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(devicehardwarevideodecodingenabled_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&deviceextendedautoupdateenabled_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(deviceextendedautoupdateenabled_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -37867,6 +37903,8 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete extended_fkeys_modifier_;
   if (this != internal_default_instance()) delete device_flex_hw_data_for_product_improvement_enabled_;
   if (this != internal_default_instance()) delete devicehardwarevideodecodingenabled_;
+  if (this != internal_default_instance()) delete deviceloginscreentouchvirtualkeyboardenabled_;
+  if (this != internal_default_instance()) delete deviceextendedautoupdateenabled_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -38530,7 +38568,7 @@ void ChromeDeviceSettingsProto::Clear() {
       device_ephemeral_network_policies_enabled_->Clear();
     }
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x1f000000u) {
     if (cached_has_bits & 0x01000000u) {
       GOOGLE_DCHECK(extended_fkeys_modifier_ != nullptr);
       extended_fkeys_modifier_->Clear();
@@ -38542,6 +38580,14 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(devicehardwarevideodecodingenabled_ != nullptr);
       devicehardwarevideodecodingenabled_->Clear();
+    }
+    if (cached_has_bits & 0x08000000u) {
+      GOOGLE_DCHECK(deviceloginscreentouchvirtualkeyboardenabled_ != nullptr);
+      deviceloginscreentouchvirtualkeyboardenabled_->Clear();
+    }
+    if (cached_has_bits & 0x10000000u) {
+      GOOGLE_DCHECK(deviceextendedautoupdateenabled_ != nullptr);
+      deviceextendedautoupdateenabled_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -39770,7 +39816,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
+      // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto extended_fkeys_modifier = 156 [deprecated = true];
       case 156:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
           ptr = ctx->ParseMessage(_internal_mutable_extended_fkeys_modifier(), ptr);
@@ -39790,6 +39836,22 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
       case 1185:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_devicehardwarevideodecodingenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.BooleanPolicyProto DeviceLoginScreenTouchVirtualKeyboardEnabled = 1194;
+      case 1194:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr = ctx->ParseMessage(_internal_mutable_deviceloginscreentouchvirtualkeyboardenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.BooleanPolicyProto DeviceExtendedAutoUpdateEnabled = 1195;
+      case 1195:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr = ctx->ParseMessage(_internal_mutable_deviceextendedautoupdateenabled(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -40892,7 +40954,7 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_ephemeral_network_policies_enabled(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
+  // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto extended_fkeys_modifier = 156 [deprecated = true];
   if (cached_has_bits & 0x01000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(156, _Internal::extended_fkeys_modifier(this),
@@ -40911,6 +40973,20 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1185, _Internal::devicehardwarevideodecodingenabled(this),
         _Internal::devicehardwarevideodecodingenabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto DeviceLoginScreenTouchVirtualKeyboardEnabled = 1194;
+  if (cached_has_bits & 0x08000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1194, _Internal::deviceloginscreentouchvirtualkeyboardenabled(this),
+        _Internal::deviceloginscreentouchvirtualkeyboardenabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto DeviceExtendedAutoUpdateEnabled = 1195;
+  if (cached_has_bits & 0x10000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1195, _Internal::deviceextendedautoupdateenabled(this),
+        _Internal::deviceextendedautoupdateenabled(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -42036,8 +42112,8 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x07000000u) {
-    // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
+  if (cached_has_bits & 0x1f000000u) {
+    // optional .enterprise_management.OBSOLETE_ExtendedFkeysModifierProto extended_fkeys_modifier = 156 [deprecated = true];
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -42056,6 +42132,20 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *devicehardwarevideodecodingenabled_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto DeviceLoginScreenTouchVirtualKeyboardEnabled = 1194;
+    if (cached_has_bits & 0x08000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *deviceloginscreentouchvirtualkeyboardenabled_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto DeviceExtendedAutoUpdateEnabled = 1195;
+    if (cached_has_bits & 0x10000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *deviceextendedautoupdateenabled_);
     }
 
   }
@@ -42578,15 +42668,21 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_device_ephemeral_network_policies_enabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_device_ephemeral_network_policies_enabled());
     }
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x1f000000u) {
     if (cached_has_bits & 0x01000000u) {
-      _internal_mutable_extended_fkeys_modifier()->::enterprise_management::ExtendedFkeysModifierProto::MergeFrom(from._internal_extended_fkeys_modifier());
+      _internal_mutable_extended_fkeys_modifier()->::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto::MergeFrom(from._internal_extended_fkeys_modifier());
     }
     if (cached_has_bits & 0x02000000u) {
       _internal_mutable_device_flex_hw_data_for_product_improvement_enabled()->::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto::MergeFrom(from._internal_device_flex_hw_data_for_product_improvement_enabled());
     }
     if (cached_has_bits & 0x04000000u) {
       _internal_mutable_devicehardwarevideodecodingenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_devicehardwarevideodecodingenabled());
+    }
+    if (cached_has_bits & 0x08000000u) {
+      _internal_mutable_deviceloginscreentouchvirtualkeyboardenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_deviceloginscreentouchvirtualkeyboardenabled());
+    }
+    if (cached_has_bits & 0x10000000u) {
+      _internal_mutable_deviceextendedautoupdateenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_deviceextendedautoupdateenabled());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -42612,8 +42708,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, devicehardwarevideodecodingenabled_)
-      + sizeof(ChromeDeviceSettingsProto::devicehardwarevideodecodingenabled_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, deviceextendedautoupdateenabled_)
+      + sizeof(ChromeDeviceSettingsProto::deviceextendedautoupdateenabled_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -43199,9 +43295,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceFlexHwDataForProduct
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceFlexHwDataForProductImprovementEnabledProto >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::ExtendedFkeysModifierProto*
-Arena::CreateMaybeMessage< ::enterprise_management::ExtendedFkeysModifierProto >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::enterprise_management::ExtendedFkeysModifierProto >(arena);
+template<> PROTOBUF_NOINLINE ::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto*
+Arena::CreateMaybeMessage< ::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::OBSOLETE_ExtendedFkeysModifierProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::ChromeDeviceSettingsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::ChromeDeviceSettingsProto >(Arena* arena) {

@@ -638,9 +638,10 @@ export class WebTransportClientInterface {
   
   /**
    * @param { ?WebTransportCloseInfo } closeInfo
+   * @param { !WebTransportStats } finalStats
    */
 
-  onClosed(closeInfo) {}
+  onClosed(closeInfo, finalStats) {}
 }
 
 /**
@@ -758,16 +759,19 @@ export class WebTransportClientRemote {
   
   /**
    * @param { ?WebTransportCloseInfo } closeInfo
+   * @param { !WebTransportStats } finalStats
    */
 
   onClosed(
-      closeInfo) {
+      closeInfo,
+      finalStats) {
     this.proxy.sendMessage(
         5,
         WebTransportClient_OnClosed_ParamsSpec.$,
         null,
         [
-          closeInfo
+          closeInfo,
+          finalStats
         ]);
   }
 }
@@ -980,9 +984,10 @@ export class WebTransportHandshakeClientInterface {
    * @param { !WebTransportRemote } transport
    * @param { !WebTransportClientPendingReceiver } client
    * @param { !network_mojom_HttpResponseHeaders } responseHeaders
+   * @param { !WebTransportStats } initialStats
    */
 
-  onConnectionEstablished(transport, client, responseHeaders) {}
+  onConnectionEstablished(transport, client, responseHeaders, initialStats) {}
   
   /**
    * @param { ?WebTransportError } error
@@ -1019,12 +1024,14 @@ export class WebTransportHandshakeClientRemote {
    * @param { !WebTransportRemote } transport
    * @param { !WebTransportClientPendingReceiver } client
    * @param { !network_mojom_HttpResponseHeaders } responseHeaders
+   * @param { !WebTransportStats } initialStats
    */
 
   onConnectionEstablished(
       transport,
       client,
-      responseHeaders) {
+      responseHeaders,
+      initialStats) {
     this.proxy.sendMessage(
         0,
         WebTransportHandshakeClient_OnConnectionEstablished_ParamsSpec.$,
@@ -1032,7 +1039,8 @@ export class WebTransportHandshakeClientRemote {
         [
           transport,
           client,
-          responseHeaders
+          responseHeaders,
+          initialStats
         ]);
   }
 
@@ -2219,8 +2227,16 @@ mojo.internal.Struct(
         true /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'finalStats', 8,
+        0,
+        WebTransportStatsSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -2231,6 +2247,8 @@ export class WebTransportClient_OnClosed_Params {
   constructor() {
     /** @type { (WebTransportCloseInfo|undefined) } */
     this.closeInfo;
+    /** @type { !WebTransportStats } */
+    this.finalStats;
   }
 }
 
@@ -2264,8 +2282,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'initialStats', 24,
+        0,
+        WebTransportStatsSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 40],]);
 
 
 
@@ -2280,6 +2306,8 @@ export class WebTransportHandshakeClient_OnConnectionEstablished_Params {
     this.client;
     /** @type { !network_mojom_HttpResponseHeaders } */
     this.responseHeaders;
+    /** @type { !WebTransportStats } */
+    this.initialStats;
   }
 }
 

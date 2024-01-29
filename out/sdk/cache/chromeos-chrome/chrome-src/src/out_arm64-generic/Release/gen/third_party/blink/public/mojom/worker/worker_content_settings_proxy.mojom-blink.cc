@@ -697,6 +697,8 @@ bool WorkerContentSettingsProxy_AllowIndexedDB_ForwardToCallback::Accept(
           internal::WorkerContentSettingsProxy_AllowIndexedDB_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.0
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_AllowIndexedDB_ResponseParamsDataView input_data_view(params, message);
@@ -766,6 +768,8 @@ bool WorkerContentSettingsProxy_AllowIndexedDB_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WorkerContentSettingsProxy_AllowIndexedDB_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.0
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_AllowIndexedDB_ResponseParamsDataView input_data_view(params, message);
@@ -841,6 +845,8 @@ bool WorkerContentSettingsProxy_AllowCacheStorage_ForwardToCallback::Accept(
           internal::WorkerContentSettingsProxy_AllowCacheStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.1
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_AllowCacheStorage_ResponseParamsDataView input_data_view(params, message);
@@ -910,6 +916,8 @@ bool WorkerContentSettingsProxy_AllowCacheStorage_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WorkerContentSettingsProxy_AllowCacheStorage_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.1
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_AllowCacheStorage_ResponseParamsDataView input_data_view(params, message);
@@ -985,6 +993,8 @@ bool WorkerContentSettingsProxy_AllowWebLocks_ForwardToCallback::Accept(
           internal::WorkerContentSettingsProxy_AllowWebLocks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.2
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_AllowWebLocks_ResponseParamsDataView input_data_view(params, message);
@@ -1054,6 +1064,8 @@ bool WorkerContentSettingsProxy_AllowWebLocks_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WorkerContentSettingsProxy_AllowWebLocks_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.2
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_AllowWebLocks_ResponseParamsDataView input_data_view(params, message);
@@ -1129,6 +1141,8 @@ bool WorkerContentSettingsProxy_RequestFileSystemAccessSync_ForwardToCallback::A
           internal::WorkerContentSettingsProxy_RequestFileSystemAccessSync_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.3
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_RequestFileSystemAccessSync_ResponseParamsDataView input_data_view(params, message);
@@ -1198,6 +1212,8 @@ bool WorkerContentSettingsProxy_RequestFileSystemAccessSync_HandleSyncResponse::
       reinterpret_cast<internal::WorkerContentSettingsProxy_RequestFileSystemAccessSync_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WorkerContentSettingsProxy.3
   bool success = true;
   bool p_result{};
   WorkerContentSettingsProxy_RequestFileSystemAccessSync_ResponseParamsDataView input_data_view(params, message);
@@ -1253,6 +1269,8 @@ bool WorkerContentSettingsProxyStubDispatch::AcceptWithResponder(
               internal::WorkerContentSettingsProxy_AllowIndexedDB_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WorkerContentSettingsProxy.0
       bool success = true;
       WorkerContentSettingsProxy_AllowIndexedDB_ParamsDataView input_data_view(params, message);
       
@@ -1278,6 +1296,8 @@ bool WorkerContentSettingsProxyStubDispatch::AcceptWithResponder(
               internal::WorkerContentSettingsProxy_AllowCacheStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WorkerContentSettingsProxy.1
       bool success = true;
       WorkerContentSettingsProxy_AllowCacheStorage_ParamsDataView input_data_view(params, message);
       
@@ -1303,6 +1323,8 @@ bool WorkerContentSettingsProxyStubDispatch::AcceptWithResponder(
               internal::WorkerContentSettingsProxy_AllowWebLocks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WorkerContentSettingsProxy.2
       bool success = true;
       WorkerContentSettingsProxy_AllowWebLocks_ParamsDataView input_data_view(params, message);
       
@@ -1328,6 +1350,8 @@ bool WorkerContentSettingsProxyStubDispatch::AcceptWithResponder(
               internal::WorkerContentSettingsProxy_RequestFileSystemAccessSync_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WorkerContentSettingsProxy.3
       bool success = true;
       WorkerContentSettingsProxy_RequestFileSystemAccessSync_ParamsDataView input_data_view(params, message);
       

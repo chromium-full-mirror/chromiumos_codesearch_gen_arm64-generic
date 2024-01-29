@@ -139,7 +139,7 @@ export class DefaultResultSaver {
     }
     async saveGif(blob, name) {
         const file = await filesystem.saveBlob(blob, name);
-        ChromeHelper.getInstance().notifyTote(ToteMetricFormat.VIDEO_GIF, name);
+        ChromeHelper.getInstance().notifyTote(ToteMetricFormat.kVideoGif, name);
         await this.updateCover(file);
     }
     async saveVideo(file) {
@@ -147,7 +147,7 @@ export class DefaultResultSaver {
         assert(this.directory !== null);
         await file.moveTo(this.directory, videoName);
         ChromeHelper.getInstance().sendNewCaptureBroadcast({ isVideo: true, name: file.name });
-        ChromeHelper.getInstance().notifyTote(ToteMetricFormat.VIDEO_MP4, file.name);
+        ChromeHelper.getInstance().notifyTote(ToteMetricFormat.kVideoMp4, file.name);
         await this.updateCover(file);
     }
 }

@@ -578,6 +578,8 @@ bool ReportingObserverStubDispatch::Accept(
           reinterpret_cast<internal::ReportingObserver_OnReportEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingObserver.0
       bool success = true;
       DlpEventPtr p_event{};
       ReportingObserver_OnReportEvent_ParamsDataView input_data_view(params, message);
@@ -593,8 +595,8 @@ bool ReportingObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportEvent(
-std::move(p_event));
+      impl->OnReportEvent(        
+        std::move(p_event));
       return true;
     }
   }
@@ -1088,6 +1090,8 @@ bool PageHandler_GetClipboardDataSource_ForwardToCallback::Accept(
           internal::PageHandler_GetClipboardDataSource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   DataTransferEndpointPtr p_source{};
   PageHandler_GetClipboardDataSource_ResponseParamsDataView input_data_view(params, message);
@@ -1213,6 +1217,8 @@ bool PageHandler_GetContentRestrictionsInfo_ForwardToCallback::Accept(
           internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   std::vector<WebContentsInfoPtr> p_web_contents_info{};
   PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1344,6 +1350,8 @@ bool PageHandler_GetFilesDatabaseEntries_ForwardToCallback::Accept(
           internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   std::vector<FileDatabaseEntryPtr> p_db_entries{};
   PageHandler_GetFilesDatabaseEntries_ResponseParamsDataView input_data_view(params, message);
@@ -1475,6 +1483,8 @@ bool PageHandler_GetFileInode_ForwardToCallback::Accept(
           internal::PageHandler_GetFileInode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   uint64_t p_inode{};
   PageHandler_GetFileInode_ResponseParamsDataView input_data_view(params, message);
@@ -1555,6 +1565,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ObserveReporting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ::mojo::PendingRemote<ReportingObserver> p_observer{};
       PageHandler_ObserveReporting_ParamsDataView input_data_view(params, message);
@@ -1572,8 +1584,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveReporting(
-std::move(p_observer));
+      impl->ObserveReporting(        
+        std::move(p_observer));
       return true;
     }
     case internal::kPageHandler_GetFilesDatabaseEntries_Name: {
@@ -1602,6 +1614,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetClipboardDataSource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetClipboardDataSource_ParamsDataView input_data_view(params, message);
       
@@ -1627,6 +1641,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetContentRestrictionsInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetContentRestrictionsInfo_ParamsDataView input_data_view(params, message);
       
@@ -1655,6 +1671,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetFilesDatabaseEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_GetFilesDatabaseEntries_ParamsDataView input_data_view(params, message);
       
@@ -1680,6 +1698,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetFileInode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       std::string p_file_name{};
       PageHandler_GetFileInode_ParamsDataView input_data_view(params, message);
@@ -1698,8 +1718,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileInode(
-std::move(p_file_name), std::move(callback));
+      impl->GetFileInode(        
+        std::move(p_file_name), std::move(callback));
       return true;
     }
   }

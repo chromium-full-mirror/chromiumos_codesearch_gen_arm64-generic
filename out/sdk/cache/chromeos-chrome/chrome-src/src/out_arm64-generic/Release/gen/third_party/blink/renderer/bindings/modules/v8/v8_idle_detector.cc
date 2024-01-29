@@ -186,7 +186,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kIdleDetectionStart);
 
@@ -196,8 +197,7 @@ UseCounter::Count(current_execution_context, WebFeature::kIdleDetectionStart);
 
 
 IdleDetector* blink_receiver = V8IdleDetector::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IdleOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
@@ -222,7 +222,8 @@ BLINK_BINDINGS_TRACE_EVENT("IdleDetector.requestPermission");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kIdleDetectionPermissionRequested);
 
@@ -231,7 +232,6 @@ UseCounter::Count(current_execution_context, WebFeature::kIdleDetectionPermissio
 
 
 
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "IdleDetector";
@@ -311,7 +311,7 @@ void V8IdleDetector::InstallContextDependentProperties(v8::Local<v8::Context> co
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if (execution_context->IsWindow() && feature_selector.IsAll()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"requestPermission", RequestPermissionStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r420/work/featured-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/featured-0.0.1-r448/work/featured-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -18,9 +18,12 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _libfake_platform_features_pkg_config-install_config: phony obj/featured/_libfake_platform_features_pkg_config-install_config.stamp
+build early_boot_state_checks: phony obj/featured/early_boot_state_checks.stamp
 build featured-adaptors: phony obj/featured/featured-adaptors.stamp
 build libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
 build libfake_platform_features: phony ./lib/libfake_platform_features.so
+build libfake_platform_features_pkg_config: phony obj/featured/libfake_platform_features_pkg_config.stamp
 build libfeatured: phony ./libfeatured.a
 build libfeatures: phony ./lib/libfeatures.so
 build libfeatures_c: phony ./lib/libfeatures_c.so
@@ -28,11 +31,14 @@ build libstore_impl: phony ./libstore_impl.a
 build libtmp_storage_impl: phony ./libtmp_storage_impl.a
 build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build featured$:_libfake_platform_features_pkg_config-install_config: phony obj/featured/_libfake_platform_features_pkg_config-install_config.stamp
 build featured$:all: phony obj/featured/all.stamp
+build featured$:early_boot_state_checks: phony obj/featured/early_boot_state_checks.stamp
 build featured$:featured: phony ./featured
 build featured$:featured-adaptors: phony obj/featured/featured-adaptors.stamp
 build featured$:libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
 build featured$:libfake_platform_features: phony ./lib/libfake_platform_features.so
+build featured$:libfake_platform_features_pkg_config: phony obj/featured/libfake_platform_features_pkg_config.stamp
 build featured$:libfeatured: phony ./libfeatured.a
 build featured$:libfeatures: phony ./lib/libfeatures.so
 build featured$:libfeatures_c: phony ./lib/libfeatures_c.so
@@ -41,11 +47,14 @@ build featured$:libtmp_storage_impl: phony ./libtmp_storage_impl.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
+    obj/featured/_libfake_platform_features_pkg_config-install_config.stamp $
     obj/featured/all.stamp $
+    obj/featured/early_boot_state_checks.stamp $
     ./featured $
     obj/featured/featured-adaptors.stamp $
     ./lib/libc_fake_feature_library.so $
     ./lib/libfake_platform_features.so $
+    obj/featured/libfake_platform_features_pkg_config.stamp $
     ./libfeatured.a $
     ./lib/libfeatures.so $
     ./lib/libfeatures_c.so $

@@ -87,7 +87,7 @@ class PdfFlattener
   virtual ~PdfFlattener() = default;
 
 
-  using FlattenPdfCallback = base::OnceCallback<void(::base::ReadOnlySharedMemoryRegion)>;
+  using FlattenPdfCallback = base::OnceCallback<void(FlattenPdfResultPtr)>;
   
   virtual void FlattenPdf(::base::ReadOnlySharedMemoryRegion src_pdf_region, FlattenPdfCallback callback) = 0;
 
@@ -165,9 +165,199 @@ class  PdfFlattenerResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+class  FlattenPdfResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FlattenPdfResult, T>::value>;
+  using DataView = FlattenPdfResultDataView;
+  using Data_ = internal::FlattenPdfResult_Data;
+
+  template <typename... Args>
+  static FlattenPdfResultPtr New(Args&&... args) {
+    return FlattenPdfResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FlattenPdfResultPtr From(const U& u) {
+    return mojo::TypeConverter<FlattenPdfResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FlattenPdfResult>::Convert(*this);
+  }
+
+
+  FlattenPdfResult();
+
+  FlattenPdfResult(
+      ::base::ReadOnlySharedMemoryRegion flattened_pdf_region,
+      uint32_t page_count);
+
+FlattenPdfResult(const FlattenPdfResult&) = delete;
+FlattenPdfResult& operator=(const FlattenPdfResult&) = delete;
+
+  ~FlattenPdfResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FlattenPdfResultPtr>
+  FlattenPdfResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FlattenPdfResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FlattenPdfResult_UnserializedMessageContext<
+            UserType, FlattenPdfResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FlattenPdfResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FlattenPdfResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FlattenPdfResult_UnserializedMessageContext<
+            UserType, FlattenPdfResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FlattenPdfResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::base::ReadOnlySharedMemoryRegion flattened_pdf_region;
+  
+  uint32_t page_count;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FlattenPdfResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+template <typename StructPtrType>
+FlattenPdfResultPtr FlattenPdfResult::Clone() const {
+  return New(
+      mojo::Clone(flattened_pdf_region),
+      mojo::Clone(page_count)
+  );
+}
+
+template <typename T, FlattenPdfResult::EnableIfSame<T>*>
+bool FlattenPdfResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->flattened_pdf_region, other_struct.flattened_pdf_region))
+    return false;
+  if (!mojo::Equals(this->page_count, other_struct.page_count))
+    return false;
+  return true;
+}
+
+template <typename T, FlattenPdfResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.flattened_pdf_region < rhs.flattened_pdf_region)
+    return true;
+  if (rhs.flattened_pdf_region < lhs.flattened_pdf_region)
+    return false;
+  if (lhs.page_count < rhs.page_count)
+    return true;
+  if (rhs.page_count < lhs.page_count)
+    return false;
+  return false;
+}
+
+
 }  // printing::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::printing::mojom::FlattenPdfResult::DataView,
+                                         ::printing::mojom::FlattenPdfResultPtr> {
+  static bool IsNull(const ::printing::mojom::FlattenPdfResultPtr& input) { return !input; }
+  static void SetToNull(::printing::mojom::FlattenPdfResultPtr* output) { output->reset(); }
+
+  static  decltype(::printing::mojom::FlattenPdfResult::flattened_pdf_region)& flattened_pdf_region(
+       ::printing::mojom::FlattenPdfResultPtr& input) {
+    return input->flattened_pdf_region;
+  }
+
+  static decltype(::printing::mojom::FlattenPdfResult::page_count) page_count(
+      const ::printing::mojom::FlattenPdfResultPtr& input) {
+    return input->page_count;
+  }
+
+  static bool Read(::printing::mojom::FlattenPdfResult::DataView input, ::printing::mojom::FlattenPdfResultPtr* output);
+};
 
 }  // namespace mojo
 

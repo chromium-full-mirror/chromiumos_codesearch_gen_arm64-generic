@@ -5,11 +5,11 @@
  * @fileoverview The avatar-camera component displays a camera interface to
  * allow the user to take a selfie.
  */
+import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
+import 'chrome://resources/ash/common/personalization/personalization_shared_icons.html.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/polymer/v3_0/paper-spinner/paper-spinner-lite.js';
-import 'chrome://resources/ash/common/personalization_shared_icons.html.js';
-import '../../css/cros_button_style.css.js';
 import { assertInstanceof, assertNotReached } from 'chrome://resources/js/assert.js';
 import { afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { WithPersonalizationStore } from '../personalization_store.js';

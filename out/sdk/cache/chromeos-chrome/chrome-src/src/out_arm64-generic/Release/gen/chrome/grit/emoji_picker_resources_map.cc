@@ -10,12 +10,6 @@
 
 const webui::ResourcePath kEmojiPickerResources[] = {
   {"fuse.js", IDR_EMOJI_PICKER_FUSE_JS},
-  {"generic_error_dark.svg", IDR_EMOJI_PICKER_GENERIC_ERROR_DARK_SVG},
-  {"generic_error.svg", IDR_EMOJI_PICKER_GENERIC_ERROR_SVG},
-  {"network_error_dark.svg", IDR_EMOJI_PICKER_NETWORK_ERROR_DARK_SVG},
-  {"network_error.svg", IDR_EMOJI_PICKER_NETWORK_ERROR_SVG},
-  {"no_results_dark.svg", IDR_EMOJI_PICKER_NO_RESULTS_DARK_SVG},
-  {"no_results.svg", IDR_EMOJI_PICKER_NO_RESULTS_SVG},
   {"nudge_icon.svg", IDR_EMOJI_PICKER_NUDGE_ICON_SVG},
   {"index.html", IDR_EMOJI_PICKER_INDEX_HTML},
   {"emoji_picker.js", IDR_EMOJI_PICKER_EMOJI_PICKER_ROLLUP_JS},

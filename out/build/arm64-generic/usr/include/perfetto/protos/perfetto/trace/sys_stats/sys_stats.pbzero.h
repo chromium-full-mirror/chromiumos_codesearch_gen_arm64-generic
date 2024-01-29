@@ -22,11 +22,61 @@ class SysStats_DevfreqValue;
 class SysStats_DiskStat;
 class SysStats_InterruptCount;
 class SysStats_MeminfoValue;
+class SysStats_PsiSample;
 class SysStats_VmstatValue;
 enum MeminfoCounters : int32_t;
+namespace perfetto_pbzero_enum_SysStats_PsiSample {
+enum PsiResource : int32_t;
+}  // namespace perfetto_pbzero_enum_SysStats_PsiSample
+using SysStats_PsiSample_PsiResource = perfetto_pbzero_enum_SysStats_PsiSample::PsiResource;
 enum VmstatCounters : int32_t;
 
-class SysStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/13, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+namespace perfetto_pbzero_enum_SysStats_PsiSample {
+enum PsiResource : int32_t {
+  PSI_RESOURCE_UNSPECIFIED = 0,
+  PSI_RESOURCE_CPU_SOME = 1,
+  PSI_RESOURCE_CPU_FULL = 2,
+  PSI_RESOURCE_IO_SOME = 3,
+  PSI_RESOURCE_IO_FULL = 4,
+  PSI_RESOURCE_MEMORY_SOME = 5,
+  PSI_RESOURCE_MEMORY_FULL = 6,
+};
+} // namespace perfetto_pbzero_enum_SysStats_PsiSample
+using SysStats_PsiSample_PsiResource = perfetto_pbzero_enum_SysStats_PsiSample::PsiResource;
+
+
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample_PsiResource_MIN = SysStats_PsiSample_PsiResource::PSI_RESOURCE_UNSPECIFIED;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample_PsiResource_MAX = SysStats_PsiSample_PsiResource::PSI_RESOURCE_MEMORY_FULL;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* SysStats_PsiSample_PsiResource_Name(::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_UNSPECIFIED:
+    return "PSI_RESOURCE_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_CPU_SOME:
+    return "PSI_RESOURCE_CPU_SOME";
+
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_CPU_FULL:
+    return "PSI_RESOURCE_CPU_FULL";
+
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_IO_SOME:
+    return "PSI_RESOURCE_IO_SOME";
+
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_IO_FULL:
+    return "PSI_RESOURCE_IO_FULL";
+
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_MEMORY_SOME:
+    return "PSI_RESOURCE_MEMORY_SOME";
+
+  case ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource::PSI_RESOURCE_MEMORY_FULL:
+    return "PSI_RESOURCE_MEMORY_FULL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+class SysStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/14, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   SysStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit SysStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -57,6 +107,8 @@ class SysStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> buddy_info() const { return GetRepeated<::protozero::ConstBytes>(12); }
   bool has_disk_stat() const { return at<13>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> disk_stat() const { return GetRepeated<::protozero::ConstBytes>(13); }
+  bool has_psi() const { return at<14>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> psi() const { return GetRepeated<::protozero::ConstBytes>(14); }
 };
 
 class SysStats : public ::protozero::Message {
@@ -76,6 +128,7 @@ class SysStats : public ::protozero::Message {
     kCpufreqKhzFieldNumber = 11,
     kBuddyInfoFieldNumber = 12,
     kDiskStatFieldNumber = 13,
+    kPsiFieldNumber = 14,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.SysStats"; }
 
@@ -86,6 +139,7 @@ class SysStats : public ::protozero::Message {
   using DevfreqValue = ::perfetto::protos::pbzero::SysStats_DevfreqValue;
   using BuddyInfo = ::perfetto::protos::pbzero::SysStats_BuddyInfo;
   using DiskStat = ::perfetto::protos::pbzero::SysStats_DiskStat;
+  using PsiSample = ::perfetto::protos::pbzero::SysStats_PsiSample;
 
   using FieldMetadata_Meminfo =
     ::protozero::proto_utils::FieldMetadata<
@@ -288,6 +342,90 @@ class SysStats : public ::protozero::Message {
     return BeginNestedMessage<T>(13);
   }
 
+
+  using FieldMetadata_Psi =
+    ::protozero::proto_utils::FieldMetadata<
+      14,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      SysStats_PsiSample,
+      SysStats>;
+
+  static constexpr FieldMetadata_Psi kPsi{};
+  template <typename T = SysStats_PsiSample> T* add_psi() {
+    return BeginNestedMessage<T>(14);
+  }
+
+};
+
+class SysStats_PsiSample_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  SysStats_PsiSample_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SysStats_PsiSample_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SysStats_PsiSample_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_resource() const { return at<1>().valid(); }
+  int32_t resource() const { return at<1>().as_int32(); }
+  bool has_total_ns() const { return at<2>().valid(); }
+  uint64_t total_ns() const { return at<2>().as_uint64(); }
+};
+
+class SysStats_PsiSample : public ::protozero::Message {
+ public:
+  using Decoder = SysStats_PsiSample_Decoder;
+  enum : int32_t {
+    kResourceFieldNumber = 1,
+    kTotalNsFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.SysStats.PsiSample"; }
+
+
+  using PsiResource = ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource;
+  static inline const char* PsiResource_Name(PsiResource value) {
+    return ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource_Name(value);
+  }
+  static inline const PsiResource PSI_RESOURCE_UNSPECIFIED = PsiResource::PSI_RESOURCE_UNSPECIFIED;
+  static inline const PsiResource PSI_RESOURCE_CPU_SOME = PsiResource::PSI_RESOURCE_CPU_SOME;
+  static inline const PsiResource PSI_RESOURCE_CPU_FULL = PsiResource::PSI_RESOURCE_CPU_FULL;
+  static inline const PsiResource PSI_RESOURCE_IO_SOME = PsiResource::PSI_RESOURCE_IO_SOME;
+  static inline const PsiResource PSI_RESOURCE_IO_FULL = PsiResource::PSI_RESOURCE_IO_FULL;
+  static inline const PsiResource PSI_RESOURCE_MEMORY_SOME = PsiResource::PSI_RESOURCE_MEMORY_SOME;
+  static inline const PsiResource PSI_RESOURCE_MEMORY_FULL = PsiResource::PSI_RESOURCE_MEMORY_FULL;
+
+  using FieldMetadata_Resource =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource,
+      SysStats_PsiSample>;
+
+  static constexpr FieldMetadata_Resource kResource{};
+  void set_resource(::perfetto::protos::pbzero::SysStats_PsiSample_PsiResource value) {
+    static constexpr uint32_t field_id = FieldMetadata_Resource::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TotalNs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      SysStats_PsiSample>;
+
+  static constexpr FieldMetadata_TotalNs kTotalNs{};
+  void set_total_ns(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TotalNs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
 };
 
 class SysStats_DiskStat_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {

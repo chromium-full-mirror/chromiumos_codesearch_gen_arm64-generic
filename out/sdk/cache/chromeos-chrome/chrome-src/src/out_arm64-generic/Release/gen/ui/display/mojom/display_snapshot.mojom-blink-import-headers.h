@@ -8,6 +8,8 @@
 #define UI_DISPLAY_MOJOM_DISPLAY_SNAPSHOT_MOJOM_BLINK_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/file_path.mojom-blink.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink-import-headers.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom-blink.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom-blink-import-headers.h"
 #include "ui/display/mojom/display_constants.mojom-blink.h"
 #include "ui/display/mojom/display_constants.mojom-blink-import-headers.h"
 #include "ui/display/mojom/display_mode.mojom-blink.h"

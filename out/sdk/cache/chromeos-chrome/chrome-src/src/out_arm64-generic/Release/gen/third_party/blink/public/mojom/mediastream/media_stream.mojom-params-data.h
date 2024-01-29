@@ -110,6 +110,25 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDeviceObserv
 };
 static_assert(sizeof(MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data) == 24,
               "Bad sizeof(MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> label;
+  mojo::internal::Pointer<internal::MediaStreamDevice_Data> device;
+  int32_t zoom_level;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data>;
+
+  MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data();
+  ~MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data) == 32,
+              "Bad sizeof(MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_GenerateStreams_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -737,6 +756,45 @@ class MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsDataView {
   }
  private:
   internal::MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MediaStreamDeviceObserver_OnZoomLevelChange_ParamsDataView {
+ public:
+  MediaStreamDeviceObserver_OnZoomLevelChange_ParamsDataView() = default;
+
+  MediaStreamDeviceObserver_OnZoomLevelChange_ParamsDataView(
+      internal::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLabelDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLabel(UserType* output) {
+    
+    auto* pointer = data_->label.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDeviceDataView(
+      MediaStreamDeviceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDevice(UserType* output) {
+    
+    auto* pointer = data_->device.Get();
+    return mojo::internal::Deserialize<::blink::mojom::MediaStreamDeviceDataView>(
+        pointer, output, message_);
+  }
+  int32_t zoom_level() const {
+    return data_->zoom_level;
+  }
+ private:
+  internal::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1599,6 +1657,18 @@ inline void MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsDataView
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsDataView::GetDeviceDataView(
+    MediaStreamDeviceDataView* output) {
+  auto pointer = data_->device.Get();
+  *output = MediaStreamDeviceDataView(pointer, message_);
+}
+
+
+inline void MediaStreamDeviceObserver_OnZoomLevelChange_ParamsDataView::GetLabelDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->label.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void MediaStreamDeviceObserver_OnZoomLevelChange_ParamsDataView::GetDeviceDataView(
     MediaStreamDeviceDataView* output) {
   auto pointer = data_->device.Get();
   *output = MediaStreamDeviceDataView(pointer, message_);

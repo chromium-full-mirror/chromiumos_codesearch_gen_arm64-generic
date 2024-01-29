@@ -161,6 +161,8 @@ bool MultiCaptureServiceStubDispatch::Accept(
           reinterpret_cast<internal::MultiCaptureService_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiCaptureService.0
       bool success = true;
       ::mojo::PendingRemote<MultiCaptureServiceClient> p_observer{};
       MultiCaptureService_AddObserver_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool MultiCaptureServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -420,6 +422,8 @@ bool MultiCaptureServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::MultiCaptureServiceClient_MultiCaptureStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiCaptureServiceClient.0
       bool success = true;
       std::string p_label{};
       ::url::Origin p_origin{};
@@ -438,9 +442,9 @@ bool MultiCaptureServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MultiCaptureStarted(
-std::move(p_label), 
-std::move(p_origin));
+      impl->MultiCaptureStarted(        
+        std::move(p_label), 
+        std::move(p_origin));
       return true;
     }
     case internal::kMultiCaptureServiceClient_MultiCaptureStopped_Name: {
@@ -450,6 +454,8 @@ std::move(p_origin));
           reinterpret_cast<internal::MultiCaptureServiceClient_MultiCaptureStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiCaptureServiceClient.1
       bool success = true;
       std::string p_label{};
       MultiCaptureServiceClient_MultiCaptureStopped_ParamsDataView input_data_view(params, message);
@@ -465,8 +471,8 @@ std::move(p_origin));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MultiCaptureStopped(
-std::move(p_label));
+      impl->MultiCaptureStopped(        
+        std::move(p_label));
       return true;
     }
   }

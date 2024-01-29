@@ -590,6 +590,8 @@ bool SpeechRecognitionContext_BindRecognizer_ForwardToCallback::Accept(
           internal::SpeechRecognitionContext_BindRecognizer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpeechRecognitionContext.0
   bool success = true;
   bool p_is_multichannel_supported{};
   SpeechRecognitionContext_BindRecognizer_ResponseParamsDataView input_data_view(params, message);
@@ -680,6 +682,8 @@ bool SpeechRecognitionContextStubDispatch::AcceptWithResponder(
               internal::SpeechRecognitionContext_BindRecognizer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionContext.0
       bool success = true;
       ::mojo::PendingReceiver<SpeechRecognitionRecognizer> p_receiver{};
       ::mojo::PendingRemote<SpeechRecognitionRecognizerClient> p_client{};
@@ -708,10 +712,10 @@ bool SpeechRecognitionContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRecognizer(
-std::move(p_receiver), 
-std::move(p_client), 
-std::move(p_options), std::move(callback));
+      impl->BindRecognizer(        
+        std::move(p_receiver), 
+        std::move(p_client), 
+        std::move(p_options), std::move(callback));
       return true;
     }
   }
@@ -1040,6 +1044,8 @@ bool SpeechRecognitionRecognizerStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionRecognizer_SendAudioToSpeechRecognitionService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizer.0
       bool success = true;
       ::media::mojom::blink::AudioDataS16Ptr p_buffer{};
       SpeechRecognitionRecognizer_SendAudioToSpeechRecognitionService_ParamsDataView input_data_view(params, message);
@@ -1055,8 +1061,8 @@ bool SpeechRecognitionRecognizerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendAudioToSpeechRecognitionService(
-std::move(p_buffer));
+      impl->SendAudioToSpeechRecognitionService(        
+        std::move(p_buffer));
       return true;
     }
     case internal::kSpeechRecognitionRecognizer_MarkDone_Name: {
@@ -1066,6 +1072,8 @@ std::move(p_buffer));
           reinterpret_cast<internal::SpeechRecognitionRecognizer_MarkDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizer.1
       bool success = true;
       SpeechRecognitionRecognizer_MarkDone_ParamsDataView input_data_view(params, message);
       
@@ -1078,7 +1086,7 @@ std::move(p_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MarkDone();
+      impl->MarkDone(        );
       return true;
     }
     case internal::kSpeechRecognitionRecognizer_OnLanguageChanged_Name: {
@@ -1088,6 +1096,8 @@ std::move(p_buffer));
           reinterpret_cast<internal::SpeechRecognitionRecognizer_OnLanguageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizer.2
       bool success = true;
       WTF::String p_language{};
       SpeechRecognitionRecognizer_OnLanguageChanged_ParamsDataView input_data_view(params, message);
@@ -1103,8 +1113,8 @@ std::move(p_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLanguageChanged(
-std::move(p_language));
+      impl->OnLanguageChanged(        
+        std::move(p_language));
       return true;
     }
     case internal::kSpeechRecognitionRecognizer_OnMaskOffensiveWordsChanged_Name: {
@@ -1114,6 +1124,8 @@ std::move(p_language));
           reinterpret_cast<internal::SpeechRecognitionRecognizer_OnMaskOffensiveWordsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizer.3
       bool success = true;
       bool p_mask_offensive_words{};
       SpeechRecognitionRecognizer_OnMaskOffensiveWordsChanged_ParamsDataView input_data_view(params, message);
@@ -1129,8 +1141,8 @@ std::move(p_language));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMaskOffensiveWordsChanged(
-std::move(p_mask_offensive_words));
+      impl->OnMaskOffensiveWordsChanged(        
+        std::move(p_mask_offensive_words));
       return true;
     }
   }
@@ -1540,6 +1552,8 @@ bool SpeechRecognitionRecognizerClient_OnSpeechRecognitionRecognitionEvent_Forwa
           internal::SpeechRecognitionRecognizerClient_OnSpeechRecognitionRecognitionEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpeechRecognitionRecognizerClient.0
   bool success = true;
   bool p_continue_recognition{};
   SpeechRecognitionRecognizerClient_OnSpeechRecognitionRecognitionEvent_ResponseParamsDataView input_data_view(params, message);
@@ -1617,6 +1631,8 @@ bool SpeechRecognitionRecognizerClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionRecognizerClient_OnSpeechRecognitionStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizerClient.1
       bool success = true;
       SpeechRecognitionRecognizerClient_OnSpeechRecognitionStopped_ParamsDataView input_data_view(params, message);
       
@@ -1629,7 +1645,7 @@ bool SpeechRecognitionRecognizerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRecognitionStopped();
+      impl->OnSpeechRecognitionStopped(        );
       return true;
     }
     case internal::kSpeechRecognitionRecognizerClient_OnSpeechRecognitionError_Name: {
@@ -1639,6 +1655,8 @@ bool SpeechRecognitionRecognizerClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionRecognizerClient_OnSpeechRecognitionError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizerClient.2
       bool success = true;
       SpeechRecognitionRecognizerClient_OnSpeechRecognitionError_ParamsDataView input_data_view(params, message);
       
@@ -1651,7 +1669,7 @@ bool SpeechRecognitionRecognizerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRecognitionError();
+      impl->OnSpeechRecognitionError(        );
       return true;
     }
     case internal::kSpeechRecognitionRecognizerClient_OnLanguageIdentificationEvent_Name: {
@@ -1661,6 +1679,8 @@ bool SpeechRecognitionRecognizerClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionRecognizerClient_OnLanguageIdentificationEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizerClient.3
       bool success = true;
       LanguageIdentificationEventPtr p_event{};
       SpeechRecognitionRecognizerClient_OnLanguageIdentificationEvent_ParamsDataView input_data_view(params, message);
@@ -1676,8 +1696,8 @@ bool SpeechRecognitionRecognizerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLanguageIdentificationEvent(
-std::move(p_event));
+      impl->OnLanguageIdentificationEvent(        
+        std::move(p_event));
       return true;
     }
   }
@@ -1700,6 +1720,8 @@ bool SpeechRecognitionRecognizerClientStubDispatch::AcceptWithResponder(
               internal::SpeechRecognitionRecognizerClient_OnSpeechRecognitionRecognitionEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionRecognizerClient.0
       bool success = true;
       SpeechRecognitionResultPtr p_result{};
       SpeechRecognitionRecognizerClient_OnSpeechRecognitionRecognitionEvent_ParamsDataView input_data_view(params, message);
@@ -1718,8 +1740,8 @@ bool SpeechRecognitionRecognizerClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRecognitionRecognitionEvent(
-std::move(p_result), std::move(callback));
+      impl->OnSpeechRecognitionRecognitionEvent(        
+        std::move(p_result), std::move(callback));
       return true;
     }
     case internal::kSpeechRecognitionRecognizerClient_OnSpeechRecognitionStopped_Name: {
@@ -2000,6 +2022,8 @@ bool SpeechRecognitionBrowserObserverStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionBrowserObserver_SpeechRecognitionAvailabilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionBrowserObserver.0
       bool success = true;
       bool p_is_speech_recognition_available{};
       SpeechRecognitionBrowserObserver_SpeechRecognitionAvailabilityChanged_ParamsDataView input_data_view(params, message);
@@ -2015,8 +2039,8 @@ bool SpeechRecognitionBrowserObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SpeechRecognitionAvailabilityChanged(
-std::move(p_is_speech_recognition_available));
+      impl->SpeechRecognitionAvailabilityChanged(        
+        std::move(p_is_speech_recognition_available));
       return true;
     }
     case internal::kSpeechRecognitionBrowserObserver_SpeechRecognitionLanguageChanged_Name: {
@@ -2026,6 +2050,8 @@ std::move(p_is_speech_recognition_available));
           reinterpret_cast<internal::SpeechRecognitionBrowserObserver_SpeechRecognitionLanguageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionBrowserObserver.1
       bool success = true;
       WTF::String p_language{};
       SpeechRecognitionBrowserObserver_SpeechRecognitionLanguageChanged_ParamsDataView input_data_view(params, message);
@@ -2041,8 +2067,8 @@ std::move(p_is_speech_recognition_available));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SpeechRecognitionLanguageChanged(
-std::move(p_language));
+      impl->SpeechRecognitionLanguageChanged(        
+        std::move(p_language));
       return true;
     }
     case internal::kSpeechRecognitionBrowserObserver_SpeechRecognitionMaskOffensiveWordsChanged_Name: {
@@ -2052,6 +2078,8 @@ std::move(p_language));
           reinterpret_cast<internal::SpeechRecognitionBrowserObserver_SpeechRecognitionMaskOffensiveWordsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionBrowserObserver.2
       bool success = true;
       bool p_mask_offensive_words{};
       SpeechRecognitionBrowserObserver_SpeechRecognitionMaskOffensiveWordsChanged_ParamsDataView input_data_view(params, message);
@@ -2067,8 +2095,8 @@ std::move(p_language));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SpeechRecognitionMaskOffensiveWordsChanged(
-std::move(p_mask_offensive_words));
+      impl->SpeechRecognitionMaskOffensiveWordsChanged(        
+        std::move(p_mask_offensive_words));
       return true;
     }
   }
@@ -2331,6 +2359,8 @@ bool SpeechRecognitionSurface_GetBounds_ForwardToCallback::Accept(
           internal::SpeechRecognitionSurface_GetBounds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpeechRecognitionSurface.1
   bool success = true;
   std::optional<::gfx::Rect> p_bounds{};
   SpeechRecognitionSurface_GetBounds_ResponseParamsDataView input_data_view(params, message);
@@ -2411,6 +2441,8 @@ bool SpeechRecognitionSurfaceStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionSurface_Activate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSurface.0
       bool success = true;
       SpeechRecognitionSurface_Activate_ParamsDataView input_data_view(params, message);
       
@@ -2423,7 +2455,7 @@ bool SpeechRecognitionSurfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Activate();
+      impl->Activate(        );
       return true;
     }
     case internal::kSpeechRecognitionSurface_GetBounds_Name: {
@@ -2452,6 +2484,8 @@ bool SpeechRecognitionSurfaceStubDispatch::AcceptWithResponder(
               internal::SpeechRecognitionSurface_GetBounds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSurface.1
       bool success = true;
       SpeechRecognitionSurface_GetBounds_ParamsDataView input_data_view(params, message);
       
@@ -2648,6 +2682,8 @@ bool SpeechRecognitionSurfaceClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionSurfaceClient_OnSessionEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSurfaceClient.0
       bool success = true;
       SpeechRecognitionSurfaceClient_OnSessionEnded_ParamsDataView input_data_view(params, message);
       
@@ -2660,7 +2696,7 @@ bool SpeechRecognitionSurfaceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionEnded();
+      impl->OnSessionEnded(        );
       return true;
     }
     case internal::kSpeechRecognitionSurfaceClient_OnFullscreenToggled_Name: {
@@ -2670,6 +2706,8 @@ bool SpeechRecognitionSurfaceClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionSurfaceClient_OnFullscreenToggled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSurfaceClient.1
       bool success = true;
       SpeechRecognitionSurfaceClient_OnFullscreenToggled_ParamsDataView input_data_view(params, message);
       
@@ -2682,7 +2720,7 @@ bool SpeechRecognitionSurfaceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFullscreenToggled();
+      impl->OnFullscreenToggled(        );
       return true;
     }
   }
@@ -2936,6 +2974,8 @@ bool SpeechRecognitionClientBrowserInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionClientBrowserInterface_BindSpeechRecognitionBrowserObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionClientBrowserInterface.0
       bool success = true;
       ::mojo::PendingRemote<SpeechRecognitionBrowserObserver> p_observer{};
       SpeechRecognitionClientBrowserInterface_BindSpeechRecognitionBrowserObserver_ParamsDataView input_data_view(params, message);
@@ -2953,8 +2993,8 @@ bool SpeechRecognitionClientBrowserInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSpeechRecognitionBrowserObserver(
-std::move(p_observer));
+      impl->BindSpeechRecognitionBrowserObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSpeechRecognitionClientBrowserInterface_BindRecognizerToRemoteClient_Name: {
@@ -2964,6 +3004,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SpeechRecognitionClientBrowserInterface_BindRecognizerToRemoteClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionClientBrowserInterface.1
       bool success = true;
       ::mojo::PendingReceiver<SpeechRecognitionRecognizerClient> p_client{};
       ::mojo::PendingReceiver<SpeechRecognitionSurfaceClient> p_surface_client{};
@@ -2994,11 +3036,11 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRecognizerToRemoteClient(
-std::move(p_client), 
-std::move(p_surface_client), 
-std::move(p_surface), 
-std::move(p_metadata));
+      impl->BindRecognizerToRemoteClient(        
+        std::move(p_client), 
+        std::move(p_surface_client), 
+        std::move(p_surface), 
+        std::move(p_metadata));
       return true;
     }
   }

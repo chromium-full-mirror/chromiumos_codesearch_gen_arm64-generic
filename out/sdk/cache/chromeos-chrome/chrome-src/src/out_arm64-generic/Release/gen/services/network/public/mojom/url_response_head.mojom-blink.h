@@ -117,7 +117,7 @@ class BLINK_PLATFORM_EXPORT URLResponseHead {
       bool is_validated,
       bool was_fetched_via_cache,
       NavigationDeliveryType navigation_delivery_type,
-      ::network::mojom::blink::ProxyChainPtr proxy_chain,
+      const ::net::ProxyChain& proxy_chain,
       bool was_fetched_via_service_worker,
       ::network::mojom::blink::FetchResponseSource service_worker_response_source,
       WTF::Vector<::blink::KURL> url_list_via_service_worker,
@@ -275,7 +275,7 @@ URLResponseHead& operator=(const URLResponseHead&) = delete;
   
   NavigationDeliveryType navigation_delivery_type;
   
-  ::network::mojom::blink::ProxyChainPtr proxy_chain;
+  ::net::ProxyChain proxy_chain;
   
   bool was_fetched_via_service_worker;
   

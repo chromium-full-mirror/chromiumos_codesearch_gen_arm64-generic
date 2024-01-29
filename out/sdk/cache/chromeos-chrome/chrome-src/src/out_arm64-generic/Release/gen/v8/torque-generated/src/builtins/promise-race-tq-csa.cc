@@ -122,12 +122,11 @@ TF_BUILTIN(PromiseRace, CodeStubAssembler) {
   compiler::CodeAssemblerParameterizedLabel<> block41(&ca_, compiler::CodeAssemblerLabel::kDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block42(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block45(&ca_, compiler::CodeAssemblerLabel::kDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block46(&ca_, compiler::CodeAssemblerLabel::kDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block43(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block47(&ca_, compiler::CodeAssemblerLabel::kDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block46(&ca_, compiler::CodeAssemblerLabel::kDeferred);
   compiler::CodeAssemblerParameterizedLabel<BoolT> block44(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block39(&ca_, compiler::CodeAssemblerLabel::kDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block48(&ca_, compiler::CodeAssemblerLabel::kDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block47(&ca_, compiler::CodeAssemblerLabel::kDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block40(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block23(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<Object, HeapObject> block20(&ca_, compiler::CodeAssemblerLabel::kDeferred);
@@ -500,8 +499,6 @@ TF_BUILTIN(PromiseRace, CodeStubAssembler) {
 
   TNode<BoolT> tmp71;
       TNode<Object> tmp73;
-  TNode<BoolT> tmp74;
-      TNode<Object> tmp76;
   if (block42.is_used()) {
     ca_.Bind(&block42);
     compiler::CodeAssemblerExceptionHandlerLabel catch72__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
@@ -515,57 +512,39 @@ TF_BUILTIN(PromiseRace, CodeStubAssembler) {
       ca_.Goto(&block45);
       ca_.Bind(&catch72_skip);
     }
-    compiler::CodeAssemblerExceptionHandlerLabel catch75__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
-    { compiler::ScopedExceptionHandler s(&ca_, &catch75__label);
-    tmp74 = CodeStubAssembler(state_).Word32BinaryNot(TNode<BoolT>{tmp71});
-    }
-    if (catch75__label.is_used()) {
-      compiler::CodeAssemblerLabel catch75_skip(&ca_);
-      ca_.Goto(&catch75_skip);
-      ca_.Bind(&catch75__label, &tmp76);
-      ca_.Goto(&block46);
-      ca_.Bind(&catch75_skip);
-    }
-    ca_.Goto(&block44, tmp74);
+    ca_.Goto(&block44, tmp71);
   }
 
-  TNode<HeapObject> tmp77;
+  TNode<HeapObject> tmp74;
   if (block45.is_used()) {
     ca_.Bind(&block45);
-    tmp77 = GetAndResetPendingMessage_0(state_);
-    ca_.Goto(&block20, tmp73, tmp77);
+    tmp74 = GetAndResetPendingMessage_0(state_);
+    ca_.Goto(&block20, tmp73, tmp74);
+  }
+
+  TNode<BoolT> tmp75;
+      TNode<Object> tmp77;
+  if (block43.is_used()) {
+    ca_.Bind(&block43);
+    compiler::CodeAssemblerExceptionHandlerLabel catch76__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
+    { compiler::ScopedExceptionHandler s(&ca_, &catch76__label);
+    tmp75 = FromConstexpr_bool_constexpr_bool_0(state_, false);
+    }
+    if (catch76__label.is_used()) {
+      compiler::CodeAssemblerLabel catch76_skip(&ca_);
+      ca_.Goto(&catch76_skip);
+      ca_.Bind(&catch76__label, &tmp77);
+      ca_.Goto(&block46);
+      ca_.Bind(&catch76_skip);
+    }
+    ca_.Goto(&block44, tmp75);
   }
 
   TNode<HeapObject> tmp78;
   if (block46.is_used()) {
     ca_.Bind(&block46);
     tmp78 = GetAndResetPendingMessage_0(state_);
-    ca_.Goto(&block20, tmp76, tmp78);
-  }
-
-  TNode<BoolT> tmp79;
-      TNode<Object> tmp81;
-  if (block43.is_used()) {
-    ca_.Bind(&block43);
-    compiler::CodeAssemblerExceptionHandlerLabel catch80__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
-    { compiler::ScopedExceptionHandler s(&ca_, &catch80__label);
-    tmp79 = FromConstexpr_bool_constexpr_bool_0(state_, false);
-    }
-    if (catch80__label.is_used()) {
-      compiler::CodeAssemblerLabel catch80_skip(&ca_);
-      ca_.Goto(&catch80_skip);
-      ca_.Bind(&catch80__label, &tmp81);
-      ca_.Goto(&block47);
-      ca_.Bind(&catch80_skip);
-    }
-    ca_.Goto(&block44, tmp79);
-  }
-
-  TNode<HeapObject> tmp82;
-  if (block47.is_used()) {
-    ca_.Bind(&block47);
-    tmp82 = GetAndResetPendingMessage_0(state_);
-    ca_.Goto(&block20, tmp81, tmp82);
+    ca_.Goto(&block20, tmp77, tmp78);
   }
 
   TNode<BoolT> phi_bb44_19;
@@ -574,31 +553,31 @@ TF_BUILTIN(PromiseRace, CodeStubAssembler) {
     ca_.Branch(phi_bb44_19, &block39, std::vector<compiler::Node*>{}, &block40, std::vector<compiler::Node*>{});
   }
 
-  TNode<Symbol> tmp83;
-  TNode<Object> tmp84;
-      TNode<Object> tmp86;
+  TNode<Symbol> tmp79;
+  TNode<Object> tmp80;
+      TNode<Object> tmp82;
   if (block39.is_used()) {
     ca_.Bind(&block39);
-    tmp83 = kPromiseHandledBySymbol_0(state_);
-    compiler::CodeAssemblerExceptionHandlerLabel catch85__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
-    { compiler::ScopedExceptionHandler s(&ca_, &catch85__label);
-    tmp84 = CodeStubAssembler(state_).SetPropertyStrict(TNode<Context>{parameter0}, TNode<Object>{tmp58}, TNode<Object>{tmp83}, TNode<Object>{tmp11});
+    tmp79 = kPromiseHandledBySymbol_0(state_);
+    compiler::CodeAssemblerExceptionHandlerLabel catch81__label(&ca_, compiler::CodeAssemblerLabel::kDeferred);
+    { compiler::ScopedExceptionHandler s(&ca_, &catch81__label);
+    tmp80 = CodeStubAssembler(state_).SetPropertyStrict(TNode<Context>{parameter0}, TNode<Object>{tmp58}, TNode<Object>{tmp79}, TNode<Object>{tmp11});
     }
-    if (catch85__label.is_used()) {
-      compiler::CodeAssemblerLabel catch85_skip(&ca_);
-      ca_.Goto(&catch85_skip);
-      ca_.Bind(&catch85__label, &tmp86);
-      ca_.Goto(&block48);
-      ca_.Bind(&catch85_skip);
+    if (catch81__label.is_used()) {
+      compiler::CodeAssemblerLabel catch81_skip(&ca_);
+      ca_.Goto(&catch81_skip);
+      ca_.Bind(&catch81__label, &tmp82);
+      ca_.Goto(&block47);
+      ca_.Bind(&catch81_skip);
     }
     ca_.Goto(&block40);
   }
 
-  TNode<HeapObject> tmp87;
-  if (block48.is_used()) {
-    ca_.Bind(&block48);
-    tmp87 = GetAndResetPendingMessage_0(state_);
-    ca_.Goto(&block20, tmp86, tmp87);
+  TNode<HeapObject> tmp83;
+  if (block47.is_used()) {
+    ca_.Bind(&block47);
+    tmp83 = GetAndResetPendingMessage_0(state_);
+    ca_.Goto(&block20, tmp82, tmp83);
   }
 
   if (block40.is_used()) {
@@ -620,19 +599,19 @@ TF_BUILTIN(PromiseRace, CodeStubAssembler) {
   }
 
   TNode<Object> phi_bb14_10;
-  TNode<Object> tmp88;
-  TNode<Undefined> tmp89;
-  TNode<Object> tmp90;
+  TNode<Object> tmp84;
+  TNode<Undefined> tmp85;
+  TNode<Object> tmp86;
   if (block14.is_used()) {
     ca_.Bind(&block14, &phi_bb14_10);
-    tmp88 = UnsafeCast_JSAny_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
-    tmp89 = Undefined_0(state_);
-    tmp90 = CodeStubAssembler(state_).Call(TNode<Context>{parameter0}, TNode<Object>{tmp88}, TNode<Object>{tmp89}, TNode<Object>{phi_bb14_10});
+    tmp84 = UnsafeCast_JSAny_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
+    tmp85 = Undefined_0(state_);
+    tmp86 = CodeStubAssembler(state_).Call(TNode<Context>{parameter0}, TNode<Object>{tmp84}, TNode<Object>{tmp85}, TNode<Object>{phi_bb14_10});
     CodeStubAssembler(state_).Return(tmp11);
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-race.tq?l=88&c=33
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/promise-race.tq?l=88&c=32
 TNode<BoolT> Is_JSPromise_JSReceiver_OR_Undefined_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<HeapObject> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

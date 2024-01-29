@@ -484,6 +484,8 @@ bool OneShotBackgroundSyncService_Register_ForwardToCallback::Accept(
           internal::OneShotBackgroundSyncService_Register_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OneShotBackgroundSyncService.0
   bool success = true;
   BackgroundSyncError p_err{};
   SyncRegistrationOptionsPtr p_options{};
@@ -618,6 +620,8 @@ bool OneShotBackgroundSyncService_GetRegistrations_ForwardToCallback::Accept(
           internal::OneShotBackgroundSyncService_GetRegistrations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OneShotBackgroundSyncService.2
   bool success = true;
   BackgroundSyncError p_err{};
   std::vector<SyncRegistrationOptionsPtr> p_registrations{};
@@ -716,6 +720,8 @@ bool OneShotBackgroundSyncServiceStubDispatch::Accept(
           reinterpret_cast<internal::OneShotBackgroundSyncService_DidResolveRegistration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OneShotBackgroundSyncService.1
       bool success = true;
       BackgroundSyncRegistrationInfoPtr p_registration_info{};
       OneShotBackgroundSyncService_DidResolveRegistration_ParamsDataView input_data_view(params, message);
@@ -731,8 +737,8 @@ bool OneShotBackgroundSyncServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidResolveRegistration(
-std::move(p_registration_info));
+      impl->DidResolveRegistration(        
+        std::move(p_registration_info));
       return true;
     }
     case internal::kOneShotBackgroundSyncService_GetRegistrations_Name: {
@@ -758,6 +764,8 @@ bool OneShotBackgroundSyncServiceStubDispatch::AcceptWithResponder(
               internal::OneShotBackgroundSyncService_Register_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OneShotBackgroundSyncService.0
       bool success = true;
       SyncRegistrationOptionsPtr p_options{};
       int64_t p_service_worker_registration_id{};
@@ -779,9 +787,9 @@ bool OneShotBackgroundSyncServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_options), 
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->Register(        
+        std::move(p_options), 
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
     case internal::kOneShotBackgroundSyncService_DidResolveRegistration_Name: {
@@ -794,6 +802,8 @@ std::move(p_service_worker_registration_id), std::move(callback));
               internal::OneShotBackgroundSyncService_GetRegistrations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OneShotBackgroundSyncService.2
       bool success = true;
       int64_t p_service_worker_registration_id{};
       OneShotBackgroundSyncService_GetRegistrations_ParamsDataView input_data_view(params, message);
@@ -812,8 +822,8 @@ std::move(p_service_worker_registration_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRegistrations(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->GetRegistrations(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
   }
@@ -1197,6 +1207,8 @@ bool PeriodicBackgroundSyncService_Register_ForwardToCallback::Accept(
           internal::PeriodicBackgroundSyncService_Register_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PeriodicBackgroundSyncService.0
   bool success = true;
   BackgroundSyncError p_err{};
   SyncRegistrationOptionsPtr p_options{};
@@ -1331,6 +1343,8 @@ bool PeriodicBackgroundSyncService_Unregister_ForwardToCallback::Accept(
           internal::PeriodicBackgroundSyncService_Unregister_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PeriodicBackgroundSyncService.1
   bool success = true;
   BackgroundSyncError p_err{};
   PeriodicBackgroundSyncService_Unregister_ResponseParamsDataView input_data_view(params, message);
@@ -1451,6 +1465,8 @@ bool PeriodicBackgroundSyncService_GetRegistrations_ForwardToCallback::Accept(
           internal::PeriodicBackgroundSyncService_GetRegistrations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PeriodicBackgroundSyncService.2
   bool success = true;
   BackgroundSyncError p_err{};
   std::vector<SyncRegistrationOptionsPtr> p_registrations{};
@@ -1568,6 +1584,8 @@ bool PeriodicBackgroundSyncServiceStubDispatch::AcceptWithResponder(
               internal::PeriodicBackgroundSyncService_Register_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PeriodicBackgroundSyncService.0
       bool success = true;
       SyncRegistrationOptionsPtr p_options{};
       int64_t p_service_worker_registration_id{};
@@ -1589,9 +1607,9 @@ bool PeriodicBackgroundSyncServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_options), 
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->Register(        
+        std::move(p_options), 
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
     case internal::kPeriodicBackgroundSyncService_Unregister_Name: {
@@ -1601,6 +1619,8 @@ std::move(p_service_worker_registration_id), std::move(callback));
               internal::PeriodicBackgroundSyncService_Unregister_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PeriodicBackgroundSyncService.1
       bool success = true;
       int64_t p_service_worker_registration_id{};
       std::string p_tag{};
@@ -1622,9 +1642,9 @@ std::move(p_service_worker_registration_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Unregister(
-std::move(p_service_worker_registration_id), 
-std::move(p_tag), std::move(callback));
+      impl->Unregister(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_tag), std::move(callback));
       return true;
     }
     case internal::kPeriodicBackgroundSyncService_GetRegistrations_Name: {
@@ -1634,6 +1654,8 @@ std::move(p_tag), std::move(callback));
               internal::PeriodicBackgroundSyncService_GetRegistrations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PeriodicBackgroundSyncService.2
       bool success = true;
       int64_t p_service_worker_registration_id{};
       PeriodicBackgroundSyncService_GetRegistrations_ParamsDataView input_data_view(params, message);
@@ -1652,8 +1674,8 @@ std::move(p_tag), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRegistrations(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->GetRegistrations(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
   }

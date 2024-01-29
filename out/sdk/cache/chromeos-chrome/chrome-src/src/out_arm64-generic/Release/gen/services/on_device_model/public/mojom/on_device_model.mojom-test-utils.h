@@ -15,8 +15,8 @@ namespace on_device_model::mojom {
 
 class  StreamingResponderInterceptorForTesting : public StreamingResponder {
   virtual StreamingResponder* GetForwardingInterface() = 0;
-  void OnResponse(const std::string& text) override;
-  void OnComplete(ResponseStatus status) override;
+  void OnResponse(ResponseChunkPtr chunk) override;
+  void OnComplete(ResponseSummaryPtr summary) override;
 };
 class  StreamingResponderAsyncWaiter {
  public:

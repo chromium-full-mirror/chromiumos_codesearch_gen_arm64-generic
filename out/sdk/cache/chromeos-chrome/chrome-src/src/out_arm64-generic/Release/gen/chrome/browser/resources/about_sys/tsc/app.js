@@ -15,6 +15,7 @@ export class SystemAppElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.eventTracker_ = new EventTracker();
+        // 
     }
     static get is() {
         return 'system-app';
@@ -32,8 +33,13 @@ export class SystemAppElement extends PolymerElement {
             },
         };
     }
+    // 
     async connectedCallback() {
         super.connectedCallback();
+        // 
+        this.isLacrosEnabled_ =
+            await BrowserProxyImpl.getInstance().isLacrosEnabled();
+        // 
         this.loading_ = true;
         this.logs_ = await BrowserProxyImpl.getInstance().requestSystemInfo();
         this.loading_ = false;
@@ -95,6 +101,22 @@ export class SystemAppElement extends PolymerElement {
     }
     showImportError_(fileName) {
         this.$.status.textContent = loadTimeData.getStringF('parseError', fileName);
+    }
+    // 
+    onOsLinkContainerClick_(event) {
+        this.handleOsLinkContainerClick_(event);
+    }
+    onOsLinkContainerAuxClick_(event) {
+        // Make middle-clicks have the same effects as Ctrl+clicks
+        if (event.button === 1) {
+            this.handleOsLinkContainerClick_(event);
+        }
+    }
+    handleOsLinkContainerClick_(event) {
+        if (event.target instanceof Element && event.target.id === 'osLinkHref') {
+            event.preventDefault();
+            BrowserProxyImpl.getInstance().openLacrosSystemPage();
+        }
     }
 }
 customElements.define(SystemAppElement.is, SystemAppElement);

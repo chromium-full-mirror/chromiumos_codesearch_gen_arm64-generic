@@ -154,67 +154,38 @@ bool RTCEncodedAudioFrameMetadata::FillV8ObjectWithMembers(ScriptState* script_s
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (RuntimeEnabledFeatures::RTCEncodedAudioFrameAbsCaptureTimeEnabled()) {
   if (hasAbsCaptureTime()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_abs_capture_time_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_abs_capture_time_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasContributingSources()) {
-  if (!ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_contributing_sources_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_contributing_sources_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasMimeType()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_mime_type_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_mime_type_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasPayloadType()) {
-  if (!ToV8Traits<IDLOctet>::ToV8(script_state, member_payload_type_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLOctet>::ToV8(script_state, member_payload_type_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::RTCEncodedFrameSetMetadataEnabled(execution_context)) {
   if (hasRtpTimestamp()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasSequenceNumber()) {
-  if (!ToV8Traits<IDLNullable<IDLUnsignedShort>>::ToV8(script_state, member_sequence_number_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLUnsignedShort>>::ToV8(script_state, member_sequence_number_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasSynchronizationSource()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_synchronization_source_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_synchronization_source_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

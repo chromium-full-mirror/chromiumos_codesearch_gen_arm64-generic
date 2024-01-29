@@ -236,6 +236,10 @@ extern const char kTextToSpeechSubpagePath[];
 
 extern const char kSwitchAccessOptionsSubpagePath[];
 
+extern const char kFaceGazeCursorSettingsSubpagePath[];
+
+extern const char kFaceGazeFacialExpressionsSettingsSubpagePath[];
+
 extern const char kResetSectionPath[];
 
 extern const char kAboutChromeOsSectionPath[];

@@ -8,6 +8,8 @@
 #define SERVICES_NETWORK_PUBLIC_MOJOM_COOKIE_MANAGER_MOJOM_BLINK_IMPORT_HEADERS_H_
 #include "components/content_settings/core/common/content_settings.mojom-blink.h"
 #include "components/content_settings/core/common/content_settings.mojom-blink-import-headers.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-blink.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "mojo/public/mojom/base/time.mojom-blink-import-headers.h"
 #include "sandbox/policy/mojom/context.mojom-blink.h"

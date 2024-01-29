@@ -36,6 +36,17 @@ namespace dawn::native {
         bool operator==(const AdapterProperties& rhs) const;
     };
 
+    struct AdapterPropertiesD3D : ChainedStructOut {
+        AdapterPropertiesD3D() {
+            sType = wgpu::SType::AdapterPropertiesD3D;
+        }
+        alignas(wgpu::AdapterPropertiesD3D::kFirstMemberAlignment) uint32_t shaderModel;
+
+        // Equality operators, mostly for testing. Note that this tests
+        // strict pointer-pointer equality if the struct contains member pointers.
+        bool operator==(const AdapterPropertiesD3D& rhs) const;
+    };
+
     struct BindGroupEntry {
         ChainedStruct const * nextInChain = nullptr;
         uint32_t binding;
@@ -55,6 +66,12 @@ namespace dawn::native {
         wgpu::BlendFactor srcFactor = wgpu::BlendFactor::One;
         wgpu::BlendFactor dstFactor = wgpu::BlendFactor::Zero;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] BlendComponent WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const BlendComponent& rhs) const;
@@ -187,6 +204,28 @@ namespace dawn::native {
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const CopyTextureForBrowserOptions& rhs) const;
+    };
+
+    struct CreateComputePipelineAsyncCallbackInfo {
+        ChainedStruct const * nextInChain = nullptr;
+        wgpu::CallbackMode mode;
+        WGPUCreateComputePipelineAsyncCallback callback;
+        void * userdata;
+
+        // Equality operators, mostly for testing. Note that this tests
+        // strict pointer-pointer equality if the struct contains member pointers.
+        bool operator==(const CreateComputePipelineAsyncCallbackInfo& rhs) const;
+    };
+
+    struct CreateRenderPipelineAsyncCallbackInfo {
+        ChainedStruct const * nextInChain = nullptr;
+        wgpu::CallbackMode mode;
+        WGPUCreateRenderPipelineAsyncCallback callback;
+        void * userdata;
+
+        // Equality operators, mostly for testing. Note that this tests
+        // strict pointer-pointer equality if the struct contains member pointers.
+        bool operator==(const CreateRenderPipelineAsyncCallbackInfo& rhs) const;
     };
 
     struct DawnWGSLBlocklist : ChainedStruct {
@@ -525,6 +564,12 @@ namespace dawn::native {
         wgpu::FrontFace frontFace = wgpu::FrontFace::CCW;
         wgpu::CullMode cullMode = wgpu::CullMode::None;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] PrimitiveState WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const PrimitiveState& rhs) const;
@@ -646,6 +691,17 @@ namespace dawn::native {
         bool operator==(const RequestAdapterOptions& rhs) const;
     };
 
+    struct RequestDeviceCallbackInfo {
+        ChainedStruct const * nextInChain = nullptr;
+        wgpu::CallbackMode mode;
+        WGPURequestDeviceCallback callback;
+        void * userdata;
+
+        // Equality operators, mostly for testing. Note that this tests
+        // strict pointer-pointer equality if the struct contains member pointers.
+        bool operator==(const RequestDeviceCallbackInfo& rhs) const;
+    };
+
     struct SamplerBindingLayout {
         ChainedStruct const * nextInChain = nullptr;
         wgpu::SamplerBindingType type = wgpu::SamplerBindingType::Undefined;
@@ -669,6 +725,12 @@ namespace dawn::native {
         wgpu::CompareFunction compare = wgpu::CompareFunction::Undefined;
         uint16_t maxAnisotropy = 1;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] SamplerDescriptor WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const SamplerDescriptor& rhs) const;
@@ -880,6 +942,7 @@ namespace dawn::native {
 
     struct SharedTextureMemoryBeginAccessDescriptor {
         ChainedStruct const * nextInChain = nullptr;
+        wgpu::Bool concurrentRead;
         wgpu::Bool initialized;
         size_t fenceCount;
         SharedFenceBase* const * fences;
@@ -996,6 +1059,12 @@ namespace dawn::native {
         wgpu::StencilOperation depthFailOp = wgpu::StencilOperation::Keep;
         wgpu::StencilOperation passOp = wgpu::StencilOperation::Keep;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] StencilFaceState WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const StencilFaceState& rhs) const;
@@ -1005,8 +1074,14 @@ namespace dawn::native {
         ChainedStruct const * nextInChain = nullptr;
         wgpu::StorageTextureAccess access = wgpu::StorageTextureAccess::Undefined;
         wgpu::TextureFormat format = wgpu::TextureFormat::Undefined;
-        wgpu::TextureViewDimension viewDimension = wgpu::TextureViewDimension::Undefined;
+        wgpu::TextureViewDimension viewDimension = wgpu::TextureViewDimension::e2D;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] StorageTextureBindingLayout WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const StorageTextureBindingLayout& rhs) const;
@@ -1129,9 +1204,15 @@ namespace dawn::native {
     struct TextureBindingLayout {
         ChainedStruct const * nextInChain = nullptr;
         wgpu::TextureSampleType sampleType = wgpu::TextureSampleType::Undefined;
-        wgpu::TextureViewDimension viewDimension = wgpu::TextureViewDimension::Undefined;
+        wgpu::TextureViewDimension viewDimension = wgpu::TextureViewDimension::e2D;
         wgpu::Bool multisampled = false;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] TextureBindingLayout WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const TextureBindingLayout& rhs) const;
@@ -1170,6 +1251,12 @@ namespace dawn::native {
         uint32_t arrayLayerCount = WGPU_ARRAY_LAYER_COUNT_UNDEFINED;
         wgpu::TextureAspect aspect = wgpu::TextureAspect::All;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] TextureViewDescriptor WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const TextureViewDescriptor& rhs) const;
@@ -1224,6 +1311,12 @@ namespace dawn::native {
         TextureBindingLayout texture;
         StorageTextureBindingLayout storageTexture;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] BindGroupLayoutEntry WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const BindGroupLayoutEntry& rhs) const;
@@ -1233,6 +1326,12 @@ namespace dawn::native {
         BlendComponent color;
         BlendComponent alpha;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] BlendState WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const BlendState& rhs) const;
@@ -1271,6 +1370,12 @@ namespace dawn::native {
         float depthBiasSlopeScale = 0.0f;
         float depthBiasClamp = 0.0f;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] DepthStencilState WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const DepthStencilState& rhs) const;
@@ -1333,6 +1438,12 @@ namespace dawn::native {
         Origin3D origin;
         wgpu::TextureAspect aspect = wgpu::TextureAspect::All;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] ImageCopyTexture WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const ImageCopyTexture& rhs) const;
@@ -1468,6 +1579,12 @@ namespace dawn::native {
         size_t viewFormatCount = 0;
         wgpu::TextureFormat const * viewFormats;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] TextureDescriptor WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const TextureDescriptor& rhs) const;
@@ -1479,6 +1596,12 @@ namespace dawn::native {
         size_t attributeCount;
         VertexAttribute const * attributes;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] VertexBufferLayout WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const VertexBufferLayout& rhs) const;
@@ -1597,6 +1720,12 @@ namespace dawn::native {
         MultisampleState multisample;
         FragmentState const * fragment = nullptr;
 
+        // This method makes a copy of the struct, then, for any enum members with trivial
+        // defaulting (where something like "Undefined" is replaced with a default), applies
+        // all of the defaults for the struct, and recursively its by-value substructs (but
+        // NOT by-pointer substructs since they are const*). It must be called in an
+        // appropriate place in Dawn.
+        [[nodiscard]] RenderPipelineDescriptor WithTrivialFrontendDefaults() const;
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.
         bool operator==(const RenderPipelineDescriptor& rhs) const;

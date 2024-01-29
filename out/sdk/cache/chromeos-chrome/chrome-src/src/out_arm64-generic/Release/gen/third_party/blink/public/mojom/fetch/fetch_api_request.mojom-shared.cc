@@ -60,6 +60,8 @@ NOINLINE static const char* RequestContextTypeToStringHelper(RequestContextType 
       return "IMAGE_SET";
     case RequestContextType::INTERNAL:
       return "INTERNAL";
+    case RequestContextType::JSON:
+      return "JSON";
     case RequestContextType::LOCATION:
       return "LOCATION";
     case RequestContextType::MANIFEST:

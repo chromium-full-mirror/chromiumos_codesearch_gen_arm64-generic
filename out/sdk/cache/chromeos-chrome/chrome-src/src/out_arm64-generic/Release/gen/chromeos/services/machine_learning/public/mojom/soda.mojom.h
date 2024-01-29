@@ -306,6 +306,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaRecognizerRequestValidator : public 
 
 
 
+
 class COMPONENT_EXPORT(MLSERVICE_MOJOM) AudioLevelEvent {
  public:
   template <typename T>
@@ -450,6 +451,153 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class COMPONENT_EXPORT(MLSERVICE_MOJOM) LangIdEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LangIdEvent, T>::value>;
+  using DataView = LangIdEventDataView;
+  using Data_ = internal::LangIdEvent_Data;
+
+  template <typename... Args>
+  static LangIdEventPtr New(Args&&... args) {
+    return LangIdEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LangIdEventPtr From(const U& u) {
+    return mojo::TypeConverter<LangIdEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LangIdEvent>::Convert(*this);
+  }
+
+
+  LangIdEvent();
+
+  LangIdEvent(
+      const std::string& language,
+      int32_t confidence_level,
+      AsrSwitchResult asr_switch_result);
+
+
+  ~LangIdEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LangIdEventPtr>
+  LangIdEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        LangIdEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LangIdEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LangIdEvent_UnserializedMessageContext<
+            UserType, LangIdEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LangIdEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LangIdEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LangIdEvent_UnserializedMessageContext<
+            UserType, LangIdEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LangIdEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string language;
+  
+  int32_t confidence_level;
+  
+  AsrSwitchResult asr_switch_result;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LangIdEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class COMPONENT_EXPORT(MLSERVICE_MOJOM) SpeechRecognizerEvent {
  public:
   using DataView = SpeechRecognizerEventDataView;
@@ -496,6 +644,14 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SpeechRecognizerEvent {
       FinalResultPtr value) {
     auto result = SpeechRecognizerEventPtr(absl::in_place);
     result->set_final_result(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |langid_event|.
+  static SpeechRecognizerEventPtr
+  NewLangidEvent(
+      LangIdEventPtr value) {
+    auto result = SpeechRecognizerEventPtr(absl::in_place);
+    result->set_langid_event(std::move(value));
     return result;
   }
 
@@ -588,6 +744,18 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SpeechRecognizerEvent {
   
   void set_final_result(
       FinalResultPtr final_result);
+  
+  bool is_langid_event() const { return tag_ == Tag::kLangidEvent; }
+
+  
+  LangIdEventPtr& get_langid_event() const {
+    CHECK(tag_ == Tag::kLangidEvent);
+    return *(data_.langid_event);
+  }
+
+  
+  void set_langid_event(
+      LangIdEventPtr langid_event);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -610,6 +778,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SpeechRecognizerEvent {
     PartialResultPtr* partial_result;
     EndpointerEventPtr* endpointer_event;
     FinalResultPtr* final_result;
+    LangIdEventPtr* langid_event;
   };
 
   static bool Validate(const void* data,
@@ -619,6 +788,149 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SpeechRecognizerEvent {
   Tag tag_;
   Union_ data_;
 };
+
+
+
+
+
+class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaMultilangConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SodaMultilangConfig, T>::value>;
+  using DataView = SodaMultilangConfigDataView;
+  using Data_ = internal::SodaMultilangConfig_Data;
+
+  template <typename... Args>
+  static SodaMultilangConfigPtr New(Args&&... args) {
+    return SodaMultilangConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SodaMultilangConfigPtr From(const U& u) {
+    return mojo::TypeConverter<SodaMultilangConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SodaMultilangConfig>::Convert(*this);
+  }
+
+
+  SodaMultilangConfig();
+
+  SodaMultilangConfig(
+      bool rewind_when_switching_language,
+      const base::flat_map<std::string, std::string>& locale_to_language_pack_map);
+
+
+  ~SodaMultilangConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SodaMultilangConfigPtr>
+  SodaMultilangConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SodaMultilangConfig::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SodaMultilangConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SodaMultilangConfig_UnserializedMessageContext<
+            UserType, SodaMultilangConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SodaMultilangConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SodaMultilangConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SodaMultilangConfig_UnserializedMessageContext<
+            UserType, SodaMultilangConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SodaMultilangConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool rewind_when_switching_language;
+  
+  base::flat_map<std::string, std::string> locale_to_language_pack_map;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SodaMultilangConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -707,6 +1019,21 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaConfig {
       bool speaker_change_detection,
       bool include_logging_output);
 
+  SodaConfig(
+      uint32_t channel_count,
+      uint32_t sample_rate,
+      const std::string& api_key,
+      const std::string& library_dlc_path,
+      const std::string& language_dlc_path,
+      OptionalBool enable_formatting,
+      SodaRecognitionMode recognition_mode,
+      bool mask_offensive_words,
+      bool speaker_change_detection,
+      bool include_logging_output,
+      SodaMultilangConfigPtr multi_lang_config);
+
+SodaConfig(const SodaConfig&) = delete;
+SodaConfig& operator=(const SodaConfig&) = delete;
 
   ~SodaConfig();
 
@@ -727,7 +1054,6 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaConfig {
 
   template <typename T, SodaConfig::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -803,6 +1129,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaConfig {
   bool speaker_change_detection;
   
   bool include_logging_output;
+  
+  SodaMultilangConfigPtr multi_lang_config;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1581,6 +1909,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
 template <typename UnionPtrType>
 SpeechRecognizerEventPtr SpeechRecognizerEvent::Clone() const {
   switch (tag_) {
@@ -1596,6 +1925,9 @@ SpeechRecognizerEventPtr SpeechRecognizerEvent::Clone() const {
     case Tag::kFinalResult:
       return NewFinalResult(
           mojo::Clone(*data_.final_result));
+    case Tag::kLangidEvent:
+      return NewLangidEvent(
+          mojo::Clone(*data_.langid_event));
   }
   return nullptr;
 }
@@ -1616,8 +1948,39 @@ bool SpeechRecognizerEvent::Equals(const T& other) const {
       return mojo::Equals(*(data_.endpointer_event), *(other.data_.endpointer_event));
     case Tag::kFinalResult:
       return mojo::Equals(*(data_.final_result), *(other.data_.final_result));
+    case Tag::kLangidEvent:
+      return mojo::Equals(*(data_.langid_event), *(other.data_.langid_event));
   }
 
+  return false;
+}
+template <typename StructPtrType>
+SodaMultilangConfigPtr SodaMultilangConfig::Clone() const {
+  return New(
+      mojo::Clone(rewind_when_switching_language),
+      mojo::Clone(locale_to_language_pack_map)
+  );
+}
+
+template <typename T, SodaMultilangConfig::EnableIfSame<T>*>
+bool SodaMultilangConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->rewind_when_switching_language, other_struct.rewind_when_switching_language))
+    return false;
+  if (!mojo::Equals(this->locale_to_language_pack_map, other_struct.locale_to_language_pack_map))
+    return false;
+  return true;
+}
+
+template <typename T, SodaMultilangConfig::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.rewind_when_switching_language < rhs.rewind_when_switching_language)
+    return true;
+  if (rhs.rewind_when_switching_language < lhs.rewind_when_switching_language)
+    return false;
+  if (lhs.locale_to_language_pack_map < rhs.locale_to_language_pack_map)
+    return true;
+  if (rhs.locale_to_language_pack_map < lhs.locale_to_language_pack_map)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -1632,7 +1995,8 @@ SodaConfigPtr SodaConfig::Clone() const {
       mojo::Clone(recognition_mode),
       mojo::Clone(mask_offensive_words),
       mojo::Clone(speaker_change_detection),
-      mojo::Clone(include_logging_output)
+      mojo::Clone(include_logging_output),
+      mojo::Clone(multi_lang_config)
   );
 }
 
@@ -1657,6 +2021,8 @@ bool SodaConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->speaker_change_detection, other_struct.speaker_change_detection))
     return false;
   if (!mojo::Equals(this->include_logging_output, other_struct.include_logging_output))
+    return false;
+  if (!mojo::Equals(this->multi_lang_config, other_struct.multi_lang_config))
     return false;
   return true;
 }
@@ -1702,6 +2068,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.include_logging_output < rhs.include_logging_output)
     return true;
   if (rhs.include_logging_output < lhs.include_logging_output)
+    return false;
+  if (lhs.multi_lang_config < rhs.multi_lang_config)
+    return true;
+  if (rhs.multi_lang_config < lhs.multi_lang_config)
     return false;
   return false;
 }
@@ -1928,11 +2298,67 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+LangIdEventPtr LangIdEvent::Clone() const {
+  return New(
+      mojo::Clone(language),
+      mojo::Clone(confidence_level),
+      mojo::Clone(asr_switch_result)
+  );
+}
+
+template <typename T, LangIdEvent::EnableIfSame<T>*>
+bool LangIdEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->language, other_struct.language))
+    return false;
+  if (!mojo::Equals(this->confidence_level, other_struct.confidence_level))
+    return false;
+  if (!mojo::Equals(this->asr_switch_result, other_struct.asr_switch_result))
+    return false;
+  return true;
+}
+
+template <typename T, LangIdEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.language < rhs.language)
+    return true;
+  if (rhs.language < lhs.language)
+    return false;
+  if (lhs.confidence_level < rhs.confidence_level)
+    return true;
+  if (rhs.confidence_level < lhs.confidence_level)
+    return false;
+  if (lhs.asr_switch_result < rhs.asr_switch_result)
+    return true;
+  if (rhs.asr_switch_result < lhs.asr_switch_result)
+    return false;
+  return false;
+}
 
 
 }  // chromeos::machine_learning::mojom
 
 namespace mojo {
+
+
+template <>
+struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learning::mojom::SodaMultilangConfig::DataView,
+                                         ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr> {
+  static bool IsNull(const ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr& input) { return !input; }
+  static void SetToNull(::chromeos::machine_learning::mojom::SodaMultilangConfigPtr* output) { output->reset(); }
+
+  static decltype(::chromeos::machine_learning::mojom::SodaMultilangConfig::rewind_when_switching_language) rewind_when_switching_language(
+      const ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr& input) {
+    return input->rewind_when_switching_language;
+  }
+
+  static const decltype(::chromeos::machine_learning::mojom::SodaMultilangConfig::locale_to_language_pack_map)& locale_to_language_pack_map(
+      const ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr& input) {
+    return input->locale_to_language_pack_map;
+  }
+
+  static bool Read(::chromeos::machine_learning::mojom::SodaMultilangConfig::DataView input, ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr* output);
+};
 
 
 template <>
@@ -1989,6 +2415,11 @@ struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learni
   static decltype(::chromeos::machine_learning::mojom::SodaConfig::include_logging_output) include_logging_output(
       const ::chromeos::machine_learning::mojom::SodaConfigPtr& input) {
     return input->include_logging_output;
+  }
+
+  static const decltype(::chromeos::machine_learning::mojom::SodaConfig::multi_lang_config)& multi_lang_config(
+      const ::chromeos::machine_learning::mojom::SodaConfigPtr& input) {
+    return input->multi_lang_config;
   }
 
   static bool Read(::chromeos::machine_learning::mojom::SodaConfig::DataView input, ::chromeos::machine_learning::mojom::SodaConfigPtr* output);
@@ -2151,6 +2582,31 @@ struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learni
 
 
 template <>
+struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learning::mojom::LangIdEvent::DataView,
+                                         ::chromeos::machine_learning::mojom::LangIdEventPtr> {
+  static bool IsNull(const ::chromeos::machine_learning::mojom::LangIdEventPtr& input) { return !input; }
+  static void SetToNull(::chromeos::machine_learning::mojom::LangIdEventPtr* output) { output->reset(); }
+
+  static const decltype(::chromeos::machine_learning::mojom::LangIdEvent::language)& language(
+      const ::chromeos::machine_learning::mojom::LangIdEventPtr& input) {
+    return input->language;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::LangIdEvent::confidence_level) confidence_level(
+      const ::chromeos::machine_learning::mojom::LangIdEventPtr& input) {
+    return input->confidence_level;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::LangIdEvent::asr_switch_result) asr_switch_result(
+      const ::chromeos::machine_learning::mojom::LangIdEventPtr& input) {
+    return input->asr_switch_result;
+  }
+
+  static bool Read(::chromeos::machine_learning::mojom::LangIdEvent::DataView input, ::chromeos::machine_learning::mojom::LangIdEventPtr* output);
+};
+
+
+template <>
 struct COMPONENT_EXPORT(MLSERVICE_MOJOM) UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::DataView,
                                         ::chromeos::machine_learning::mojom::SpeechRecognizerEventPtr> {
   static bool IsNull(const ::chromeos::machine_learning::mojom::SpeechRecognizerEventPtr& input) { return !input; }
@@ -2174,6 +2630,10 @@ struct COMPONENT_EXPORT(MLSERVICE_MOJOM) UnionTraits<::chromeos::machine_learnin
 
   static const ::chromeos::machine_learning::mojom::FinalResultPtr& final_result(const ::chromeos::machine_learning::mojom::SpeechRecognizerEventPtr& input) {
     return input->get_final_result();
+  }
+
+  static const ::chromeos::machine_learning::mojom::LangIdEventPtr& langid_event(const ::chromeos::machine_learning::mojom::SpeechRecognizerEventPtr& input) {
+    return input->get_langid_event();
   }
 
   static bool Read(::chromeos::machine_learning::mojom::SpeechRecognizerEvent::DataView input, ::chromeos::machine_learning::mojom::SpeechRecognizerEventPtr* output);

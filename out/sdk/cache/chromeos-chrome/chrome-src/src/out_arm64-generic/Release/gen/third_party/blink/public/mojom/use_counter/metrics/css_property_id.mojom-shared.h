@@ -1467,8 +1467,10 @@ enum class CSSSampleId : int32_t {
   kMaskMode = 780,
   
   kInsetArea = 781,
+  
+  kViewTransitionClass = 782,
   kMinValue = 0,
-  kMaxValue = 781,
+  kMaxValue = 782,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, CSSSampleId value);

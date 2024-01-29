@@ -113,17 +113,13 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.data.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->data();
-if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -161,17 +157,13 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.getMetadata");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCEncodedVideoFrame* blink_receiver = V8RTCEncodedVideoFrame::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getMetadata();
-if (!ToV8Traits<RTCEncodedVideoFrameMetadata>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<RTCEncodedVideoFrameMetadata>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -182,7 +174,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.setMetadata");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCEncodedVideoFrame_SetMetadata_Method);
 
@@ -219,7 +212,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCEncodedVideoFrame.setTimestamp");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCEncodedVideoFrame_SetTimestamp_Method);
 
@@ -331,7 +325,7 @@ void V8RTCEncodedVideoFrame::InstallContextDependentProperties(v8::Local<v8::Con
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::RTCEncodedFrameSetMetadataEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kRTCEncodedFrameSetMetadata)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"setMetadata", SetMetadataOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

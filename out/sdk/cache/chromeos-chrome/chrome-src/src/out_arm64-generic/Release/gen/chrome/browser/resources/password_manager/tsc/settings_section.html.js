@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#blockedSitesTitle{margin-top:28px}.blocked-site-content{border-top:var(--cr-separator-line);flex:1;min-height:var(--section-min-height)}.blocked-site-content[first]{border-top:none}#blockedSitesHeader,.favicon{margin-inline-end:20px;margin-inline-start:20px}.site-url{flex:1}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px}@media all and (display-mode:standalone){#addShortcutBanner{display:none}}pref-toggle-button:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}cr-link-row:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
+    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#blockedSitesTitle{margin-top:28px}.blocked-site-content{border-top:var(--cr-separator-line);flex:1;min-height:var(--section-min-height)}.blocked-site-content[first]{border-top:none}#blockedSitesHeader,.favicon{margin-inline-end:20px;margin-inline-start:20px}.site-url{flex:1}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px}@media all and (display-mode:standalone){#addShortcutBanner{display:none}}pref-toggle-button:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}cr-link-row:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}cr-link-row[hide-icon]::part(icon){display:none}</style>
 <h2 class="page-title">$i18n{settings}</h2>
 <div class="card">
   <pref-toggle-button id="passwordToggle" no-extension-indicator label="$i18n{savePasswordsLabel}" pref="{{prefs.credentials_enable_service}}">
@@ -19,6 +19,13 @@ export function getTemplate() {
   <template is="dom-if" if="[[isEligibleForAccountStorage]]">
     <pref-toggle-button id="accountStorageToggle" class="hr" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
     </pref-toggle-button>
+  </template>
+  <template is="dom-if" if="[[shouldShowMovePasswordsEntry_(isAccountStoreUser, passwordsOnDevice_)]]" restamp>
+    <cr-link-row class="cr-row" non-clickable label="[[movePasswordsLabel_]]" sub-label="$i18n{movePasswordsInSettingsSubLabel}" hide-icon>
+      <cr-button id="movePasswordsButton" on-click="onMovePasswordsClicked_">
+          $i18n{moveSinglePasswordButton}
+      </cr-button>
+    </cr-link-row>
   </template>
   <cr-link-row id="trustedVaultBanner" class="cr-row" label="[[getTrustedVaultBannerTitle_(trustedVaultBannerState_)]]" sub-label="[[getTrustedVaultBannerDescription_(trustedVaultBannerState_)]]" hidden$="[[shouldHideTrustedVaultBanner_(trustedVaultBannerState_)]]" button-aria-description="$i18n{opensInNewTab}" on-click="onTrustedVaultBannerClick_" external>
   </cr-link-row>
@@ -59,5 +66,9 @@ export function getTemplate() {
     </div>
   </div>
 </div>
+<template is="dom-if" if="[[showMovePasswordsDialog_]]" restamp>
+  <move-passwords-dialog on-close="onMovePasswordsDialogClose_" id="movePasswordsDialog" passwords="[[passwordsOnDevice_]]" trigger="[[getMovePasswordsDialogTrigger_()]]">
+  </move-passwords-dialog>
+</template>
 <!--_html_template_end_-->`;
 }

@@ -198,6 +198,36 @@ class  BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data {
 };
 static_assert(sizeof(BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data) == 8,
               "Bad sizeof(BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data)");
+class  BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data>;
+
+  BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data();
+  ~BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data() = delete;
+};
+static_assert(sizeof(BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data) == 8,
+              "Bad sizeof(BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data)");
+class  BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data>;
+
+  BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data();
+  ~BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data) == 8,
+              "Bad sizeof(BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -403,6 +433,40 @@ class BluetoothInternalsHandler_RequestLocationServices_ResponseParamsDataView {
  private:
   internal::BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data* data_ = nullptr;
 };
+
+
+class BluetoothInternalsHandler_RestartSystemBluetooth_ParamsDataView {
+ public:
+  BluetoothInternalsHandler_RestartSystemBluetooth_ParamsDataView() = default;
+
+  BluetoothInternalsHandler_RestartSystemBluetooth_ParamsDataView(
+      internal::BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data* data_ = nullptr;
+};
+
+
+class BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsDataView {
+ public:
+  BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsDataView() = default;
+
+  BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsDataView(
+      internal::BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
+
 
 
 

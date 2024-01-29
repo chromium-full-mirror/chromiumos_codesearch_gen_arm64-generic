@@ -845,6 +845,8 @@ bool ConversationObserverStubDispatch::Accept(
           reinterpret_cast<internal::ConversationObserver_OnInteractionStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.0
       bool success = true;
       ::ash::assistant::AssistantInteractionMetadata p_metadata{};
       ConversationObserver_OnInteractionStarted_ParamsDataView input_data_view(params, message);
@@ -860,8 +862,8 @@ bool ConversationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInteractionStarted(
-std::move(p_metadata));
+      impl->OnInteractionStarted(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kConversationObserver_OnInteractionFinished_Name: {
@@ -871,6 +873,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::ConversationObserver_OnInteractionFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.1
       bool success = true;
       ::ash::assistant::AssistantInteractionResolution p_resolution{};
       ConversationObserver_OnInteractionFinished_ParamsDataView input_data_view(params, message);
@@ -886,8 +890,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInteractionFinished(
-std::move(p_resolution));
+      impl->OnInteractionFinished(        
+        std::move(p_resolution));
       return true;
     }
     case internal::kConversationObserver_OnTtsStarted_Name: {
@@ -897,6 +901,8 @@ std::move(p_resolution));
           reinterpret_cast<internal::ConversationObserver_OnTtsStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.2
       bool success = true;
       bool p_due_to_error{};
       ConversationObserver_OnTtsStarted_ParamsDataView input_data_view(params, message);
@@ -912,8 +918,8 @@ std::move(p_resolution));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTtsStarted(
-std::move(p_due_to_error));
+      impl->OnTtsStarted(        
+        std::move(p_due_to_error));
       return true;
     }
     case internal::kConversationObserver_OnHtmlResponse_Name: {
@@ -923,6 +929,8 @@ std::move(p_due_to_error));
           reinterpret_cast<internal::ConversationObserver_OnHtmlResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.3
       bool success = true;
       std::string p_response{};
       std::string p_fallback{};
@@ -941,9 +949,9 @@ std::move(p_due_to_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHtmlResponse(
-std::move(p_response), 
-std::move(p_fallback));
+      impl->OnHtmlResponse(        
+        std::move(p_response), 
+        std::move(p_fallback));
       return true;
     }
     case internal::kConversationObserver_OnTextResponse_Name: {
@@ -953,6 +961,8 @@ std::move(p_fallback));
           reinterpret_cast<internal::ConversationObserver_OnTextResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.4
       bool success = true;
       std::string p_response{};
       ConversationObserver_OnTextResponse_ParamsDataView input_data_view(params, message);
@@ -968,8 +978,8 @@ std::move(p_fallback));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTextResponse(
-std::move(p_response));
+      impl->OnTextResponse(        
+        std::move(p_response));
       return true;
     }
     case internal::kConversationObserver_OnSuggestionsResponse_Name: {
@@ -979,6 +989,8 @@ std::move(p_response));
           reinterpret_cast<internal::ConversationObserver_OnSuggestionsResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.5
       bool success = true;
       std::vector<::ash::assistant::AssistantSuggestion> p_suggestions{};
       ConversationObserver_OnSuggestionsResponse_ParamsDataView input_data_view(params, message);
@@ -994,8 +1006,8 @@ std::move(p_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSuggestionsResponse(
-std::move(p_suggestions));
+      impl->OnSuggestionsResponse(        
+        std::move(p_suggestions));
       return true;
     }
     case internal::kConversationObserver_OnOpenUrlResponse_Name: {
@@ -1005,6 +1017,8 @@ std::move(p_suggestions));
           reinterpret_cast<internal::ConversationObserver_OnOpenUrlResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.6
       bool success = true;
       ::GURL p_url{};
       bool p_in_background{};
@@ -1023,9 +1037,9 @@ std::move(p_suggestions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenUrlResponse(
-std::move(p_url), 
-std::move(p_in_background));
+      impl->OnOpenUrlResponse(        
+        std::move(p_url), 
+        std::move(p_in_background));
       return true;
     }
     case internal::kConversationObserver_OnOpenAppResponse_Name: {
@@ -1035,6 +1049,8 @@ std::move(p_in_background));
           reinterpret_cast<internal::ConversationObserver_OnOpenAppResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.7
       bool success = true;
       ::ash::assistant::AndroidAppInfo p_app_info{};
       ConversationObserver_OnOpenAppResponse_ParamsDataView input_data_view(params, message);
@@ -1050,8 +1066,8 @@ std::move(p_in_background));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenAppResponse(
-std::move(p_app_info));
+      impl->OnOpenAppResponse(        
+        std::move(p_app_info));
       return true;
     }
     case internal::kConversationObserver_OnWaitStarted_Name: {
@@ -1061,6 +1077,8 @@ std::move(p_app_info));
           reinterpret_cast<internal::ConversationObserver_OnWaitStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationObserver.8
       bool success = true;
       ConversationObserver_OnWaitStarted_ParamsDataView input_data_view(params, message);
       
@@ -1073,7 +1091,7 @@ std::move(p_app_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWaitStarted();
+      impl->OnWaitStarted(        );
       return true;
     }
   }

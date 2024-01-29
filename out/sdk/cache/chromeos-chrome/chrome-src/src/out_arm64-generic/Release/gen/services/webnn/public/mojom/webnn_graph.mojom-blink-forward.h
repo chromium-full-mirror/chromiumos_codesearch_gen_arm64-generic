@@ -24,8 +24,6 @@ namespace webnn::mojom {
 
 enum class InputOperandLayout : int32_t;
 
-enum class ComputeResult : int32_t;
-
 enum class Operand_DataType : int32_t;
 
 enum class Operand_Kind : int32_t;
@@ -52,7 +50,6 @@ class WebNNGraphInterfaceBase;
 namespace webnn::mojom::blink {
 // Aliases for definition in the parent namespace.
 using InputOperandLayout = InputOperandLayout;
-using ComputeResult = ComputeResult;
 using WebNNGraphInterfaceBase = WebNNGraphInterfaceBase;
 class Operand;
 using OperandPtr = mojo::StructPtr<Operand>;
@@ -129,6 +126,9 @@ using GatherPtr = mojo::InlinedStructPtr<Gather>;
 class Gemm;
 using GemmPtr = mojo::StructPtr<Gemm>;
 
+class HardSigmoid;
+using HardSigmoidPtr = mojo::InlinedStructPtr<HardSigmoid>;
+
 class LayerNormalization;
 using LayerNormalizationPtr = mojo::StructPtr<LayerNormalization>;
 
@@ -155,6 +155,9 @@ using SoftmaxPtr = mojo::InlinedStructPtr<Softmax>;
 
 class Softplus;
 using SoftplusPtr = mojo::InlinedStructPtr<Softplus>;
+
+class Softsign;
+using SoftsignPtr = mojo::InlinedStructPtr<Softsign>;
 
 class Split;
 using SplitPtr = mojo::StructPtr<Split>;
@@ -185,6 +188,10 @@ using ActivationPtr = mojo::StructPtr<Activation>;
 class Operation;
 
 using OperationPtr = mojo::StructPtr<Operation>;
+
+class ComputeResult;
+
+using ComputeResultPtr = mojo::StructPtr<ComputeResult>;
 
 class WebNNGraph;
 

@@ -52,6 +52,9 @@ extern JoinSecurityDomainsRequestDefaultTypeInternal _JoinSecurityDomainsRequest
 class JoinSecurityDomainsResponse;
 struct JoinSecurityDomainsResponseDefaultTypeInternal;
 extern JoinSecurityDomainsResponseDefaultTypeInternal _JoinSecurityDomainsResponse_default_instance_;
+class ListSecurityDomainMembersResponse;
+struct ListSecurityDomainMembersResponseDefaultTypeInternal;
+extern ListSecurityDomainMembersResponseDefaultTypeInternal _ListSecurityDomainMembersResponse_default_instance_;
 class Proto3Any;
 struct Proto3AnyDefaultTypeInternal;
 extern Proto3AnyDefaultTypeInternal _Proto3Any_default_instance_;
@@ -73,6 +76,9 @@ extern SecurityDomainDetails_SyncDetailsDefaultTypeInternal _SecurityDomainDetai
 class SecurityDomainMember;
 struct SecurityDomainMemberDefaultTypeInternal;
 extern SecurityDomainMemberDefaultTypeInternal _SecurityDomainMember_default_instance_;
+class SecurityDomainMember_MemberMetadata;
+struct SecurityDomainMember_MemberMetadataDefaultTypeInternal;
+extern SecurityDomainMember_MemberMetadataDefaultTypeInternal _SecurityDomainMember_MemberMetadata_default_instance_;
 class SecurityDomainMember_SecurityDomainMembership;
 struct SecurityDomainMember_SecurityDomainMembershipDefaultTypeInternal;
 extern SecurityDomainMember_SecurityDomainMembershipDefaultTypeInternal _SecurityDomainMember_SecurityDomainMembership_default_instance_;
@@ -84,6 +90,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::trusted_vault_pb::JoinSecurityDomainsErrorDetail* Arena::CreateMaybeMessage<::trusted_vault_pb::JoinSecurityDomainsErrorDetail>(Arena*);
 template<> ::trusted_vault_pb::JoinSecurityDomainsRequest* Arena::CreateMaybeMessage<::trusted_vault_pb::JoinSecurityDomainsRequest>(Arena*);
 template<> ::trusted_vault_pb::JoinSecurityDomainsResponse* Arena::CreateMaybeMessage<::trusted_vault_pb::JoinSecurityDomainsResponse>(Arena*);
+template<> ::trusted_vault_pb::ListSecurityDomainMembersResponse* Arena::CreateMaybeMessage<::trusted_vault_pb::ListSecurityDomainMembersResponse>(Arena*);
 template<> ::trusted_vault_pb::Proto3Any* Arena::CreateMaybeMessage<::trusted_vault_pb::Proto3Any>(Arena*);
 template<> ::trusted_vault_pb::RPCStatus* Arena::CreateMaybeMessage<::trusted_vault_pb::RPCStatus>(Arena*);
 template<> ::trusted_vault_pb::RotationProof* Arena::CreateMaybeMessage<::trusted_vault_pb::RotationProof>(Arena*);
@@ -91,6 +98,7 @@ template<> ::trusted_vault_pb::SecurityDomain* Arena::CreateMaybeMessage<::trust
 template<> ::trusted_vault_pb::SecurityDomainDetails* Arena::CreateMaybeMessage<::trusted_vault_pb::SecurityDomainDetails>(Arena*);
 template<> ::trusted_vault_pb::SecurityDomainDetails_SyncDetails* Arena::CreateMaybeMessage<::trusted_vault_pb::SecurityDomainDetails_SyncDetails>(Arena*);
 template<> ::trusted_vault_pb::SecurityDomainMember* Arena::CreateMaybeMessage<::trusted_vault_pb::SecurityDomainMember>(Arena*);
+template<> ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* Arena::CreateMaybeMessage<::trusted_vault_pb::SecurityDomainMember_MemberMetadata>(Arena*);
 template<> ::trusted_vault_pb::SecurityDomainMember_SecurityDomainMembership* Arena::CreateMaybeMessage<::trusted_vault_pb::SecurityDomainMember_SecurityDomainMembership>(Arena*);
 template<> ::trusted_vault_pb::SharedMemberKey* Arena::CreateMaybeMessage<::trusted_vault_pb::SharedMemberKey>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1021,6 +1029,133 @@ class SecurityDomainMember_SecurityDomainMembership final :
 };
 // -------------------------------------------------------------------
 
+class SecurityDomainMember_MemberMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trusted_vault_pb.SecurityDomainMember.MemberMetadata) */ {
+ public:
+  inline SecurityDomainMember_MemberMetadata() : SecurityDomainMember_MemberMetadata(nullptr) {}
+  ~SecurityDomainMember_MemberMetadata() override;
+  explicit PROTOBUF_CONSTEXPR SecurityDomainMember_MemberMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SecurityDomainMember_MemberMetadata(const SecurityDomainMember_MemberMetadata& from);
+  SecurityDomainMember_MemberMetadata(SecurityDomainMember_MemberMetadata&& from) noexcept
+    : SecurityDomainMember_MemberMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline SecurityDomainMember_MemberMetadata& operator=(const SecurityDomainMember_MemberMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SecurityDomainMember_MemberMetadata& operator=(SecurityDomainMember_MemberMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SecurityDomainMember_MemberMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SecurityDomainMember_MemberMetadata* internal_default_instance() {
+    return reinterpret_cast<const SecurityDomainMember_MemberMetadata*>(
+               &_SecurityDomainMember_MemberMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(SecurityDomainMember_MemberMetadata& a, SecurityDomainMember_MemberMetadata& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SecurityDomainMember_MemberMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SecurityDomainMember_MemberMetadata* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SecurityDomainMember_MemberMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SecurityDomainMember_MemberMetadata>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SecurityDomainMember_MemberMetadata& from);
+  void MergeFrom(const SecurityDomainMember_MemberMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SecurityDomainMember_MemberMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "trusted_vault_pb.SecurityDomainMember.MemberMetadata";
+  }
+  protected:
+  explicit SecurityDomainMember_MemberMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUsableForRetrievalFieldNumber = 1,
+  };
+  // bool usable_for_retrieval = 1;
+  void clear_usable_for_retrieval();
+  bool usable_for_retrieval() const;
+  void set_usable_for_retrieval(bool value);
+  private:
+  bool _internal_usable_for_retrieval() const;
+  void _internal_set_usable_for_retrieval(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool usable_for_retrieval_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_vault_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SecurityDomainMember final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trusted_vault_pb.SecurityDomainMember) */ {
  public:
@@ -1060,7 +1195,7 @@ class SecurityDomainMember final :
                &_SecurityDomainMember_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(SecurityDomainMember& a, SecurityDomainMember& b) {
     a.Swap(&b);
@@ -1122,6 +1257,7 @@ class SecurityDomainMember final :
   // nested types ----------------------------------------------------
 
   typedef SecurityDomainMember_SecurityDomainMembership SecurityDomainMembership;
+  typedef SecurityDomainMember_MemberMetadata MemberMetadata;
 
   typedef SecurityDomainMember_MemberType MemberType;
   static constexpr MemberType MEMBER_TYPE_UNSPECIFIED =
@@ -1155,6 +1291,7 @@ class SecurityDomainMember final :
     kMembershipsFieldNumber = 3,
     kNameFieldNumber = 1,
     kPublicKeyFieldNumber = 2,
+    kMemberMetadataFieldNumber = 6,
     kMemberTypeFieldNumber = 4,
   };
   // repeated .trusted_vault_pb.SecurityDomainMember.SecurityDomainMembership memberships = 3;
@@ -1203,6 +1340,24 @@ class SecurityDomainMember final :
   std::string* _internal_mutable_public_key();
   public:
 
+  // .trusted_vault_pb.SecurityDomainMember.MemberMetadata member_metadata = 6;
+  bool has_member_metadata() const;
+  private:
+  bool _internal_has_member_metadata() const;
+  public:
+  void clear_member_metadata();
+  const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata& member_metadata() const;
+  PROTOBUF_NODISCARD ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* release_member_metadata();
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* mutable_member_metadata();
+  void set_allocated_member_metadata(::trusted_vault_pb::SecurityDomainMember_MemberMetadata* member_metadata);
+  private:
+  const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata& _internal_member_metadata() const;
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* _internal_mutable_member_metadata();
+  public:
+  void unsafe_arena_set_allocated_member_metadata(
+      ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* member_metadata);
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* unsafe_arena_release_member_metadata();
+
   // .trusted_vault_pb.SecurityDomainMember.MemberType member_type = 4;
   void clear_member_type();
   ::trusted_vault_pb::SecurityDomainMember_MemberType member_type() const;
@@ -1222,6 +1377,7 @@ class SecurityDomainMember final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::trusted_vault_pb::SecurityDomainMember_SecurityDomainMembership > memberships_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr public_key_;
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* member_metadata_;
   int member_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_vault_2eproto;
@@ -1267,7 +1423,7 @@ class JoinSecurityDomainsRequest final :
                &_JoinSecurityDomainsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(JoinSecurityDomainsRequest& a, JoinSecurityDomainsRequest& b) {
     a.Swap(&b);
@@ -1454,7 +1610,7 @@ class JoinSecurityDomainsResponse final :
                &_JoinSecurityDomainsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(JoinSecurityDomainsResponse& a, JoinSecurityDomainsResponse& b) {
     a.Swap(&b);
@@ -1590,7 +1746,7 @@ class JoinSecurityDomainsErrorDetail final :
                &_JoinSecurityDomainsErrorDetail_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(JoinSecurityDomainsErrorDetail& a, JoinSecurityDomainsErrorDetail& b) {
     a.Swap(&b);
@@ -1687,6 +1843,158 @@ class JoinSecurityDomainsErrorDetail final :
 };
 // -------------------------------------------------------------------
 
+class ListSecurityDomainMembersResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trusted_vault_pb.ListSecurityDomainMembersResponse) */ {
+ public:
+  inline ListSecurityDomainMembersResponse() : ListSecurityDomainMembersResponse(nullptr) {}
+  ~ListSecurityDomainMembersResponse() override;
+  explicit PROTOBUF_CONSTEXPR ListSecurityDomainMembersResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListSecurityDomainMembersResponse(const ListSecurityDomainMembersResponse& from);
+  ListSecurityDomainMembersResponse(ListSecurityDomainMembersResponse&& from) noexcept
+    : ListSecurityDomainMembersResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ListSecurityDomainMembersResponse& operator=(const ListSecurityDomainMembersResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListSecurityDomainMembersResponse& operator=(ListSecurityDomainMembersResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ListSecurityDomainMembersResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListSecurityDomainMembersResponse* internal_default_instance() {
+    return reinterpret_cast<const ListSecurityDomainMembersResponse*>(
+               &_ListSecurityDomainMembersResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(ListSecurityDomainMembersResponse& a, ListSecurityDomainMembersResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ListSecurityDomainMembersResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListSecurityDomainMembersResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ListSecurityDomainMembersResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ListSecurityDomainMembersResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ListSecurityDomainMembersResponse& from);
+  void MergeFrom(const ListSecurityDomainMembersResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ListSecurityDomainMembersResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "trusted_vault_pb.ListSecurityDomainMembersResponse";
+  }
+  protected:
+  explicit ListSecurityDomainMembersResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSecurityDomainMembersFieldNumber = 1,
+    kNextPageTokenFieldNumber = 2,
+  };
+  // repeated .trusted_vault_pb.SecurityDomainMember security_domain_members = 1;
+  int security_domain_members_size() const;
+  private:
+  int _internal_security_domain_members_size() const;
+  public:
+  void clear_security_domain_members();
+  ::trusted_vault_pb::SecurityDomainMember* mutable_security_domain_members(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::trusted_vault_pb::SecurityDomainMember >*
+      mutable_security_domain_members();
+  private:
+  const ::trusted_vault_pb::SecurityDomainMember& _internal_security_domain_members(int index) const;
+  ::trusted_vault_pb::SecurityDomainMember* _internal_add_security_domain_members();
+  public:
+  const ::trusted_vault_pb::SecurityDomainMember& security_domain_members(int index) const;
+  ::trusted_vault_pb::SecurityDomainMember* add_security_domain_members();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::trusted_vault_pb::SecurityDomainMember >&
+      security_domain_members() const;
+
+  // string next_page_token = 2;
+  void clear_next_page_token();
+  const std::string& next_page_token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_next_page_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_next_page_token();
+  PROTOBUF_NODISCARD std::string* release_next_page_token();
+  void set_allocated_next_page_token(std::string* next_page_token);
+  private:
+  const std::string& _internal_next_page_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_next_page_token(const std::string& value);
+  std::string* _internal_mutable_next_page_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:trusted_vault_pb.ListSecurityDomainMembersResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::trusted_vault_pb::SecurityDomainMember > security_domain_members_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr next_page_token_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_vault_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Proto3Any final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trusted_vault_pb.Proto3Any) */ {
  public:
@@ -1726,7 +2034,7 @@ class Proto3Any final :
                &_Proto3Any_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(Proto3Any& a, Proto3Any& b) {
     a.Swap(&b);
@@ -1874,7 +2182,7 @@ class RPCStatus final :
                &_RPCStatus_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(RPCStatus& a, RPCStatus& b) {
     a.Swap(&b);
@@ -2592,6 +2900,30 @@ SecurityDomainMember_SecurityDomainMembership::rotation_proofs() const {
 
 // -------------------------------------------------------------------
 
+// SecurityDomainMember_MemberMetadata
+
+// bool usable_for_retrieval = 1;
+inline void SecurityDomainMember_MemberMetadata::clear_usable_for_retrieval() {
+  usable_for_retrieval_ = false;
+}
+inline bool SecurityDomainMember_MemberMetadata::_internal_usable_for_retrieval() const {
+  return usable_for_retrieval_;
+}
+inline bool SecurityDomainMember_MemberMetadata::usable_for_retrieval() const {
+  // @@protoc_insertion_point(field_get:trusted_vault_pb.SecurityDomainMember.MemberMetadata.usable_for_retrieval)
+  return _internal_usable_for_retrieval();
+}
+inline void SecurityDomainMember_MemberMetadata::_internal_set_usable_for_retrieval(bool value) {
+  
+  usable_for_retrieval_ = value;
+}
+inline void SecurityDomainMember_MemberMetadata::set_usable_for_retrieval(bool value) {
+  _internal_set_usable_for_retrieval(value);
+  // @@protoc_insertion_point(field_set:trusted_vault_pb.SecurityDomainMember.MemberMetadata.usable_for_retrieval)
+}
+
+// -------------------------------------------------------------------
+
 // SecurityDomainMember
 
 // string name = 1;
@@ -2752,6 +3084,96 @@ inline void SecurityDomainMember::_internal_set_member_type(::trusted_vault_pb::
 inline void SecurityDomainMember::set_member_type(::trusted_vault_pb::SecurityDomainMember_MemberType value) {
   _internal_set_member_type(value);
   // @@protoc_insertion_point(field_set:trusted_vault_pb.SecurityDomainMember.member_type)
+}
+
+// .trusted_vault_pb.SecurityDomainMember.MemberMetadata member_metadata = 6;
+inline bool SecurityDomainMember::_internal_has_member_metadata() const {
+  return this != internal_default_instance() && member_metadata_ != nullptr;
+}
+inline bool SecurityDomainMember::has_member_metadata() const {
+  return _internal_has_member_metadata();
+}
+inline void SecurityDomainMember::clear_member_metadata() {
+  if (GetArenaForAllocation() == nullptr && member_metadata_ != nullptr) {
+    delete member_metadata_;
+  }
+  member_metadata_ = nullptr;
+}
+inline const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata& SecurityDomainMember::_internal_member_metadata() const {
+  const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* p = member_metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata&>(
+      ::trusted_vault_pb::_SecurityDomainMember_MemberMetadata_default_instance_);
+}
+inline const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata& SecurityDomainMember::member_metadata() const {
+  // @@protoc_insertion_point(field_get:trusted_vault_pb.SecurityDomainMember.member_metadata)
+  return _internal_member_metadata();
+}
+inline void SecurityDomainMember::unsafe_arena_set_allocated_member_metadata(
+    ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* member_metadata) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(member_metadata_);
+  }
+  member_metadata_ = member_metadata;
+  if (member_metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:trusted_vault_pb.SecurityDomainMember.member_metadata)
+}
+inline ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* SecurityDomainMember::release_member_metadata() {
+  
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* temp = member_metadata_;
+  member_metadata_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* SecurityDomainMember::unsafe_arena_release_member_metadata() {
+  // @@protoc_insertion_point(field_release:trusted_vault_pb.SecurityDomainMember.member_metadata)
+  
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* temp = member_metadata_;
+  member_metadata_ = nullptr;
+  return temp;
+}
+inline ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* SecurityDomainMember::_internal_mutable_member_metadata() {
+  
+  if (member_metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::trusted_vault_pb::SecurityDomainMember_MemberMetadata>(GetArenaForAllocation());
+    member_metadata_ = p;
+  }
+  return member_metadata_;
+}
+inline ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* SecurityDomainMember::mutable_member_metadata() {
+  ::trusted_vault_pb::SecurityDomainMember_MemberMetadata* _msg = _internal_mutable_member_metadata();
+  // @@protoc_insertion_point(field_mutable:trusted_vault_pb.SecurityDomainMember.member_metadata)
+  return _msg;
+}
+inline void SecurityDomainMember::set_allocated_member_metadata(::trusted_vault_pb::SecurityDomainMember_MemberMetadata* member_metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete member_metadata_;
+  }
+  if (member_metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(member_metadata);
+    if (message_arena != submessage_arena) {
+      member_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, member_metadata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  member_metadata_ = member_metadata;
+  // @@protoc_insertion_point(field_set_allocated:trusted_vault_pb.SecurityDomainMember.member_metadata)
 }
 
 // -------------------------------------------------------------------
@@ -3188,6 +3610,100 @@ inline void JoinSecurityDomainsErrorDetail::set_allocated_already_exists_respons
 
 // -------------------------------------------------------------------
 
+// ListSecurityDomainMembersResponse
+
+// repeated .trusted_vault_pb.SecurityDomainMember security_domain_members = 1;
+inline int ListSecurityDomainMembersResponse::_internal_security_domain_members_size() const {
+  return security_domain_members_.size();
+}
+inline int ListSecurityDomainMembersResponse::security_domain_members_size() const {
+  return _internal_security_domain_members_size();
+}
+inline void ListSecurityDomainMembersResponse::clear_security_domain_members() {
+  security_domain_members_.Clear();
+}
+inline ::trusted_vault_pb::SecurityDomainMember* ListSecurityDomainMembersResponse::mutable_security_domain_members(int index) {
+  // @@protoc_insertion_point(field_mutable:trusted_vault_pb.ListSecurityDomainMembersResponse.security_domain_members)
+  return security_domain_members_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::trusted_vault_pb::SecurityDomainMember >*
+ListSecurityDomainMembersResponse::mutable_security_domain_members() {
+  // @@protoc_insertion_point(field_mutable_list:trusted_vault_pb.ListSecurityDomainMembersResponse.security_domain_members)
+  return &security_domain_members_;
+}
+inline const ::trusted_vault_pb::SecurityDomainMember& ListSecurityDomainMembersResponse::_internal_security_domain_members(int index) const {
+  return security_domain_members_.Get(index);
+}
+inline const ::trusted_vault_pb::SecurityDomainMember& ListSecurityDomainMembersResponse::security_domain_members(int index) const {
+  // @@protoc_insertion_point(field_get:trusted_vault_pb.ListSecurityDomainMembersResponse.security_domain_members)
+  return _internal_security_domain_members(index);
+}
+inline ::trusted_vault_pb::SecurityDomainMember* ListSecurityDomainMembersResponse::_internal_add_security_domain_members() {
+  return security_domain_members_.Add();
+}
+inline ::trusted_vault_pb::SecurityDomainMember* ListSecurityDomainMembersResponse::add_security_domain_members() {
+  ::trusted_vault_pb::SecurityDomainMember* _add = _internal_add_security_domain_members();
+  // @@protoc_insertion_point(field_add:trusted_vault_pb.ListSecurityDomainMembersResponse.security_domain_members)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::trusted_vault_pb::SecurityDomainMember >&
+ListSecurityDomainMembersResponse::security_domain_members() const {
+  // @@protoc_insertion_point(field_list:trusted_vault_pb.ListSecurityDomainMembersResponse.security_domain_members)
+  return security_domain_members_;
+}
+
+// string next_page_token = 2;
+inline void ListSecurityDomainMembersResponse::clear_next_page_token() {
+  next_page_token_.ClearToEmpty();
+}
+inline const std::string& ListSecurityDomainMembersResponse::next_page_token() const {
+  // @@protoc_insertion_point(field_get:trusted_vault_pb.ListSecurityDomainMembersResponse.next_page_token)
+  return _internal_next_page_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ListSecurityDomainMembersResponse::set_next_page_token(ArgT0&& arg0, ArgT... args) {
+ 
+ next_page_token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:trusted_vault_pb.ListSecurityDomainMembersResponse.next_page_token)
+}
+inline std::string* ListSecurityDomainMembersResponse::mutable_next_page_token() {
+  std::string* _s = _internal_mutable_next_page_token();
+  // @@protoc_insertion_point(field_mutable:trusted_vault_pb.ListSecurityDomainMembersResponse.next_page_token)
+  return _s;
+}
+inline const std::string& ListSecurityDomainMembersResponse::_internal_next_page_token() const {
+  return next_page_token_.Get();
+}
+inline void ListSecurityDomainMembersResponse::_internal_set_next_page_token(const std::string& value) {
+  
+  next_page_token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ListSecurityDomainMembersResponse::_internal_mutable_next_page_token() {
+  
+  return next_page_token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ListSecurityDomainMembersResponse::release_next_page_token() {
+  // @@protoc_insertion_point(field_release:trusted_vault_pb.ListSecurityDomainMembersResponse.next_page_token)
+  return next_page_token_.Release();
+}
+inline void ListSecurityDomainMembersResponse::set_allocated_next_page_token(std::string* next_page_token) {
+  if (next_page_token != nullptr) {
+    
+  } else {
+    
+  }
+  next_page_token_.SetAllocated(next_page_token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (next_page_token_.IsDefault()) {
+    next_page_token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:trusted_vault_pb.ListSecurityDomainMembersResponse.next_page_token)
+}
+
+// -------------------------------------------------------------------
+
 // Proto3Any
 
 // string type_url = 1;
@@ -3337,6 +3853,10 @@ RPCStatus::details() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

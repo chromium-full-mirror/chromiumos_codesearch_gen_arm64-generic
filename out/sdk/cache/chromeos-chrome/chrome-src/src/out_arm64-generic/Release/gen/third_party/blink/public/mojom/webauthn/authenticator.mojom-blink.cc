@@ -2255,6 +2255,8 @@ bool Authenticator_MakeCredential_ForwardToCallback::Accept(
           internal::Authenticator_MakeCredential_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Authenticator.0
   bool success = true;
   AuthenticatorStatus p_status{};
   MakeCredentialAuthenticatorResponsePtr p_credential{};
@@ -2403,6 +2405,8 @@ bool Authenticator_GetAssertion_ForwardToCallback::Accept(
           internal::Authenticator_GetAssertion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Authenticator.1
   bool success = true;
   AuthenticatorStatus p_status{};
   GetAssertionAuthenticatorResponsePtr p_credential{};
@@ -2551,6 +2555,8 @@ bool Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_ForwardToCallba
           internal::Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Authenticator.2
   bool success = true;
   bool p_available{};
   Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -2670,6 +2676,8 @@ bool Authenticator_IsConditionalMediationAvailable_ForwardToCallback::Accept(
           internal::Authenticator_IsConditionalMediationAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Authenticator.3
   bool success = true;
   bool p_available{};
   Authenticator_IsConditionalMediationAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -2756,6 +2764,8 @@ bool AuthenticatorStubDispatch::Accept(
           reinterpret_cast<internal::Authenticator_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Authenticator.4
       bool success = true;
       Authenticator_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -2768,7 +2778,7 @@ bool AuthenticatorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel();
+      impl->Cancel(        );
       return true;
     }
   }
@@ -2791,6 +2801,8 @@ bool AuthenticatorStubDispatch::AcceptWithResponder(
               internal::Authenticator_MakeCredential_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Authenticator.0
       bool success = true;
       PublicKeyCredentialCreationOptionsPtr p_options{};
       Authenticator_MakeCredential_ParamsDataView input_data_view(params, message);
@@ -2809,8 +2821,8 @@ bool AuthenticatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MakeCredential(
-std::move(p_options), std::move(callback));
+      impl->MakeCredential(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kAuthenticator_GetAssertion_Name: {
@@ -2820,6 +2832,8 @@ std::move(p_options), std::move(callback));
               internal::Authenticator_GetAssertion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Authenticator.1
       bool success = true;
       PublicKeyCredentialRequestOptionsPtr p_options{};
       Authenticator_GetAssertion_ParamsDataView input_data_view(params, message);
@@ -2838,8 +2852,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAssertion(
-std::move(p_options), std::move(callback));
+      impl->GetAssertion(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kAuthenticator_IsUserVerifyingPlatformAuthenticatorAvailable_Name: {
@@ -2849,6 +2863,8 @@ std::move(p_options), std::move(callback));
               internal::Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Authenticator.2
       bool success = true;
       Authenticator_IsUserVerifyingPlatformAuthenticatorAvailable_ParamsDataView input_data_view(params, message);
       
@@ -2874,6 +2890,8 @@ std::move(p_options), std::move(callback));
               internal::Authenticator_IsConditionalMediationAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Authenticator.3
       bool success = true;
       Authenticator_IsConditionalMediationAvailable_ParamsDataView input_data_view(params, message);
       

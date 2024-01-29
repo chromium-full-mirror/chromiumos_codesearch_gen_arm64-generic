@@ -228,6 +228,8 @@ bool SecurityKeyForwarder_OnSecurityKeyRequest_ForwardToCallback::Accept(
           internal::SecurityKeyForwarder_OnSecurityKeyRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SecurityKeyForwarder.0
   bool success = true;
   std::string p_response_data{};
   SecurityKeyForwarder_OnSecurityKeyRequest_ResponseParamsDataView input_data_view(params, message);
@@ -328,6 +330,8 @@ bool SecurityKeyForwarderStubDispatch::AcceptWithResponder(
               internal::SecurityKeyForwarder_OnSecurityKeyRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SecurityKeyForwarder.0
       bool success = true;
       std::string p_request_data{};
       SecurityKeyForwarder_OnSecurityKeyRequest_ParamsDataView input_data_view(params, message);
@@ -346,8 +350,8 @@ bool SecurityKeyForwarderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSecurityKeyRequest(
-std::move(p_request_data), std::move(callback));
+      impl->OnSecurityKeyRequest(        
+        std::move(p_request_data), std::move(callback));
       return true;
     }
   }

@@ -827,6 +827,13 @@ std::unique_ptr<Response> Response::Parse(const base::Value& value, ErrorReporte
   } else {
     errors->AddError("required property missing: mimeType");
   }
+  const base::Value* charset_value = dict.Find("charset");
+  if (charset_value) {
+    errors->SetName("charset");
+    result->charset_ = internal::FromValue<std::string>::Parse(*charset_value, errors);
+  } else {
+    errors->AddError("required property missing: charset");
+  }
   const base::Value* request_headers_value = dict.Find("requestHeaders");
   if (request_headers_value) {
     errors->SetName("requestHeaders");
@@ -946,6 +953,7 @@ base::Value Response::Serialize() const {
   if (headers_text_)
     result.Set("headersText", internal::ToValue(headers_text_.value()));
   result.Set("mimeType", internal::ToValue(mime_type_));
+  result.Set("charset", internal::ToValue(charset_));
   if (request_headers_)
     result.Set("requestHeaders", internal::ToValue(*request_headers_.value()));
   if (request_headers_text_)

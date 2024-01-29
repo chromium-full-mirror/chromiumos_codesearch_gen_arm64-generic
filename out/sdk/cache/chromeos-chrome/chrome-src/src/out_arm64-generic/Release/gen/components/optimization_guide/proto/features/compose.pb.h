@@ -51,9 +51,6 @@ extern ComposeLoggingDataDefaultTypeInternal _ComposeLoggingData_default_instanc
 class ComposePageMetadata;
 struct ComposePageMetadataDefaultTypeInternal;
 extern ComposePageMetadataDefaultTypeInternal _ComposePageMetadata_default_instance_;
-class ComposePriorResponse;
-struct ComposePriorResponseDefaultTypeInternal;
-extern ComposePriorResponseDefaultTypeInternal _ComposePriorResponse_default_instance_;
 class ComposeQuality;
 struct ComposeQualityDefaultTypeInternal;
 extern ComposeQualityDefaultTypeInternal _ComposeQuality_default_instance_;
@@ -77,7 +74,6 @@ extern Int128DefaultTypeInternal _Int128_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::optimization_guide::proto::ComposeLoggingData* Arena::CreateMaybeMessage<::optimization_guide::proto::ComposeLoggingData>(Arena*);
 template<> ::optimization_guide::proto::ComposePageMetadata* Arena::CreateMaybeMessage<::optimization_guide::proto::ComposePageMetadata>(Arena*);
-template<> ::optimization_guide::proto::ComposePriorResponse* Arena::CreateMaybeMessage<::optimization_guide::proto::ComposePriorResponse>(Arena*);
 template<> ::optimization_guide::proto::ComposeQuality* Arena::CreateMaybeMessage<::optimization_guide::proto::ComposeQuality>(Arena*);
 template<> ::optimization_guide::proto::ComposeRequest* Arena::CreateMaybeMessage<::optimization_guide::proto::ComposeRequest>(Arena*);
 template<> ::optimization_guide::proto::ComposeRequest_GenerateParams* Arena::CreateMaybeMessage<::optimization_guide::proto::ComposeRequest_GenerateParams>(Arena*);
@@ -354,171 +350,6 @@ class ComposeLoggingData final :
 };
 // -------------------------------------------------------------------
 
-class ComposePriorResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.ComposePriorResponse) */ {
- public:
-  inline ComposePriorResponse() : ComposePriorResponse(nullptr) {}
-  ~ComposePriorResponse() override;
-  explicit PROTOBUF_CONSTEXPR ComposePriorResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  ComposePriorResponse(const ComposePriorResponse& from);
-  ComposePriorResponse(ComposePriorResponse&& from) noexcept
-    : ComposePriorResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline ComposePriorResponse& operator=(const ComposePriorResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline ComposePriorResponse& operator=(ComposePriorResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ComposePriorResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const ComposePriorResponse* internal_default_instance() {
-    return reinterpret_cast<const ComposePriorResponse*>(
-               &_ComposePriorResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(ComposePriorResponse& a, ComposePriorResponse& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(ComposePriorResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(ComposePriorResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  ComposePriorResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ComposePriorResponse>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const ComposePriorResponse& from);
-  void MergeFrom(const ComposePriorResponse& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(ComposePriorResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "optimization_guide.proto.ComposePriorResponse";
-  }
-  protected:
-  explicit ComposePriorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kResponseTextFieldNumber = 1,
-    kToneFieldNumber = 2,
-    kLengthFieldNumber = 3,
-    kRegenerateRequestedSinceFieldNumber = 4,
-  };
-  // string response_text = 1;
-  void clear_response_text();
-  const std::string& response_text() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_response_text(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_response_text();
-  PROTOBUF_NODISCARD std::string* release_response_text();
-  void set_allocated_response_text(std::string* response_text);
-  private:
-  const std::string& _internal_response_text() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_response_text(const std::string& value);
-  std::string* _internal_mutable_response_text();
-  public:
-
-  // .optimization_guide.proto.ComposeTone tone = 2;
-  void clear_tone();
-  ::optimization_guide::proto::ComposeTone tone() const;
-  void set_tone(::optimization_guide::proto::ComposeTone value);
-  private:
-  ::optimization_guide::proto::ComposeTone _internal_tone() const;
-  void _internal_set_tone(::optimization_guide::proto::ComposeTone value);
-  public:
-
-  // .optimization_guide.proto.ComposeLength length = 3;
-  void clear_length();
-  ::optimization_guide::proto::ComposeLength length() const;
-  void set_length(::optimization_guide::proto::ComposeLength value);
-  private:
-  ::optimization_guide::proto::ComposeLength _internal_length() const;
-  void _internal_set_length(::optimization_guide::proto::ComposeLength value);
-  public:
-
-  // bool regenerate_requested_since = 4;
-  void clear_regenerate_requested_since();
-  bool regenerate_requested_since() const;
-  void set_regenerate_requested_since(bool value);
-  private:
-  bool _internal_regenerate_requested_since() const;
-  void _internal_set_regenerate_requested_since(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:optimization_guide.proto.ComposePriorResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr response_text_;
-  int tone_;
-  int length_;
-  bool regenerate_requested_since_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2ffeatures_2fcompose_2eproto;
-};
-// -------------------------------------------------------------------
-
 class ComposePageMetadata final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.ComposePageMetadata) */ {
  public:
@@ -558,7 +389,7 @@ class ComposePageMetadata final :
                &_ComposePageMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(ComposePageMetadata& a, ComposePageMetadata& b) {
     a.Swap(&b);
@@ -733,7 +564,7 @@ class ComposeRequest_GenerateParams final :
                &_ComposeRequest_GenerateParams_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(ComposeRequest_GenerateParams& a, ComposeRequest_GenerateParams& b) {
     a.Swap(&b);
@@ -872,7 +703,7 @@ class ComposeRequest_RewriteParams final :
                &_ComposeRequest_RewriteParams_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(ComposeRequest_RewriteParams& a, ComposeRequest_RewriteParams& b) {
     a.Swap(&b);
@@ -1069,7 +900,7 @@ class ComposeRequest final :
                &_ComposeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(ComposeRequest& a, ComposeRequest& b) {
     a.Swap(&b);
@@ -1261,7 +1092,7 @@ class ComposeResponse final :
                &_ComposeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(ComposeResponse& a, ComposeResponse& b) {
     a.Swap(&b);
@@ -1393,7 +1224,7 @@ class Int128 final :
                &_Int128_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(Int128& a, Int128& b) {
     a.Swap(&b);
@@ -1531,7 +1362,7 @@ class ComposeQuality final :
                &_ComposeQuality_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(ComposeQuality& a, ComposeQuality& b) {
     a.Swap(&b);
@@ -1971,120 +1802,6 @@ inline void ComposeLoggingData::set_allocated_quality_data(::optimization_guide:
   }
   quality_data_ = quality_data;
   // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.ComposeLoggingData.quality_data)
-}
-
-// -------------------------------------------------------------------
-
-// ComposePriorResponse
-
-// string response_text = 1;
-inline void ComposePriorResponse::clear_response_text() {
-  response_text_.ClearToEmpty();
-}
-inline const std::string& ComposePriorResponse::response_text() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.ComposePriorResponse.response_text)
-  return _internal_response_text();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ComposePriorResponse::set_response_text(ArgT0&& arg0, ArgT... args) {
- 
- response_text_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:optimization_guide.proto.ComposePriorResponse.response_text)
-}
-inline std::string* ComposePriorResponse::mutable_response_text() {
-  std::string* _s = _internal_mutable_response_text();
-  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.ComposePriorResponse.response_text)
-  return _s;
-}
-inline const std::string& ComposePriorResponse::_internal_response_text() const {
-  return response_text_.Get();
-}
-inline void ComposePriorResponse::_internal_set_response_text(const std::string& value) {
-  
-  response_text_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ComposePriorResponse::_internal_mutable_response_text() {
-  
-  return response_text_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ComposePriorResponse::release_response_text() {
-  // @@protoc_insertion_point(field_release:optimization_guide.proto.ComposePriorResponse.response_text)
-  return response_text_.Release();
-}
-inline void ComposePriorResponse::set_allocated_response_text(std::string* response_text) {
-  if (response_text != nullptr) {
-    
-  } else {
-    
-  }
-  response_text_.SetAllocated(response_text, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (response_text_.IsDefault()) {
-    response_text_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.ComposePriorResponse.response_text)
-}
-
-// .optimization_guide.proto.ComposeTone tone = 2;
-inline void ComposePriorResponse::clear_tone() {
-  tone_ = 0;
-}
-inline ::optimization_guide::proto::ComposeTone ComposePriorResponse::_internal_tone() const {
-  return static_cast< ::optimization_guide::proto::ComposeTone >(tone_);
-}
-inline ::optimization_guide::proto::ComposeTone ComposePriorResponse::tone() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.ComposePriorResponse.tone)
-  return _internal_tone();
-}
-inline void ComposePriorResponse::_internal_set_tone(::optimization_guide::proto::ComposeTone value) {
-  
-  tone_ = value;
-}
-inline void ComposePriorResponse::set_tone(::optimization_guide::proto::ComposeTone value) {
-  _internal_set_tone(value);
-  // @@protoc_insertion_point(field_set:optimization_guide.proto.ComposePriorResponse.tone)
-}
-
-// .optimization_guide.proto.ComposeLength length = 3;
-inline void ComposePriorResponse::clear_length() {
-  length_ = 0;
-}
-inline ::optimization_guide::proto::ComposeLength ComposePriorResponse::_internal_length() const {
-  return static_cast< ::optimization_guide::proto::ComposeLength >(length_);
-}
-inline ::optimization_guide::proto::ComposeLength ComposePriorResponse::length() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.ComposePriorResponse.length)
-  return _internal_length();
-}
-inline void ComposePriorResponse::_internal_set_length(::optimization_guide::proto::ComposeLength value) {
-  
-  length_ = value;
-}
-inline void ComposePriorResponse::set_length(::optimization_guide::proto::ComposeLength value) {
-  _internal_set_length(value);
-  // @@protoc_insertion_point(field_set:optimization_guide.proto.ComposePriorResponse.length)
-}
-
-// bool regenerate_requested_since = 4;
-inline void ComposePriorResponse::clear_regenerate_requested_since() {
-  regenerate_requested_since_ = false;
-}
-inline bool ComposePriorResponse::_internal_regenerate_requested_since() const {
-  return regenerate_requested_since_;
-}
-inline bool ComposePriorResponse::regenerate_requested_since() const {
-  // @@protoc_insertion_point(field_get:optimization_guide.proto.ComposePriorResponse.regenerate_requested_since)
-  return _internal_regenerate_requested_since();
-}
-inline void ComposePriorResponse::_internal_set_regenerate_requested_since(bool value) {
-  
-  regenerate_requested_since_ = value;
-}
-inline void ComposePriorResponse::set_regenerate_requested_since(bool value) {
-  _internal_set_regenerate_requested_since(value);
-  // @@protoc_insertion_point(field_set:optimization_guide.proto.ComposePriorResponse.regenerate_requested_since)
 }
 
 // -------------------------------------------------------------------
@@ -3058,8 +2775,6 @@ inline void ComposeQuality::set_was_generated_via_edit(bool value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -93,6 +93,9 @@ class  LoadModelParams_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::ModelAssets_Data> assets;
   uint32_t max_tokens;
+  uint8_t ts_dimension_$flag : 1;
+  uint8_t pad2_[3];
+  uint32_t ts_dimension_$value;
   uint8_t padfinal_[4];
 
  private:
@@ -101,7 +104,7 @@ class  LoadModelParams_Data {
   LoadModelParams_Data();
   ~LoadModelParams_Data() = delete;
 };
-static_assert(sizeof(LoadModelParams_Data) == 24,
+static_assert(sizeof(LoadModelParams_Data) == 32,
               "Bad sizeof(LoadModelParams_Data)");
 // Used by LoadModelParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

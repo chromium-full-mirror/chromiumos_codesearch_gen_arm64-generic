@@ -773,6 +773,8 @@ bool HidService_GetDevices_ForwardToCallback::Accept(
           internal::HidService_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidService.1
   bool success = true;
   WTF::Vector<::device::mojom::blink::HidDeviceInfoPtr> p_devices{};
   HidService_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -904,6 +906,8 @@ bool HidService_RequestDevice_ForwardToCallback::Accept(
           internal::HidService_RequestDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidService.2
   bool success = true;
   WTF::Vector<::device::mojom::blink::HidDeviceInfoPtr> p_devices{};
   HidService_RequestDevice_ResponseParamsDataView input_data_view(params, message);
@@ -1035,6 +1039,8 @@ bool HidService_Connect_ForwardToCallback::Accept(
           internal::HidService_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidService.3
   bool success = true;
   ::mojo::PendingRemote<::device::mojom::blink::HidConnection> p_connection{};
   HidService_Connect_ResponseParamsDataView input_data_view(params, message);
@@ -1157,6 +1163,8 @@ bool HidService_Forget_ForwardToCallback::Accept(
           internal::HidService_Forget_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidService.4
   bool success = true;
   HidService_Forget_ResponseParamsDataView input_data_view(params, message);
   
@@ -1219,6 +1227,8 @@ bool HidServiceStubDispatch::Accept(
           reinterpret_cast<internal::HidService_RegisterClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HidService.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<::device::mojom::blink::HidManagerClient> p_client{};
       HidService_RegisterClient_ParamsDataView input_data_view(params, message);
@@ -1236,8 +1246,8 @@ bool HidServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterClient(
-std::move(p_client));
+      impl->RegisterClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kHidService_GetDevices_Name: {
@@ -1275,6 +1285,8 @@ bool HidServiceStubDispatch::AcceptWithResponder(
               internal::HidService_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidService.1
       bool success = true;
       HidService_GetDevices_ParamsDataView input_data_view(params, message);
       
@@ -1300,6 +1312,8 @@ bool HidServiceStubDispatch::AcceptWithResponder(
               internal::HidService_RequestDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidService.2
       bool success = true;
       WTF::Vector<HidDeviceFilterPtr> p_filters{};
       WTF::Vector<HidDeviceFilterPtr> p_exclusion_filters{};
@@ -1321,9 +1335,9 @@ bool HidServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestDevice(
-std::move(p_filters), 
-std::move(p_exclusion_filters), std::move(callback));
+      impl->RequestDevice(        
+        std::move(p_filters), 
+        std::move(p_exclusion_filters), std::move(callback));
       return true;
     }
     case internal::kHidService_Connect_Name: {
@@ -1333,6 +1347,8 @@ std::move(p_exclusion_filters), std::move(callback));
               internal::HidService_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidService.3
       bool success = true;
       WTF::String p_device_guid{};
       ::mojo::PendingRemote<::device::mojom::blink::HidConnectionClient> p_client{};
@@ -1356,9 +1372,9 @@ std::move(p_exclusion_filters), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_device_guid), 
-std::move(p_client), std::move(callback));
+      impl->Connect(        
+        std::move(p_device_guid), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kHidService_Forget_Name: {
@@ -1368,6 +1384,8 @@ std::move(p_client), std::move(callback));
               internal::HidService_Forget_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidService.4
       bool success = true;
       ::device::mojom::blink::HidDeviceInfoPtr p_device_info{};
       HidService_Forget_ParamsDataView input_data_view(params, message);
@@ -1386,8 +1404,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Forget(
-std::move(p_device_info), std::move(callback));
+      impl->Forget(        
+        std::move(p_device_info), std::move(callback));
       return true;
     }
   }

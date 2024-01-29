@@ -22,7 +22,7 @@ found in the LICENSE file. -->
     </iron-icon>
   </div>
   <div slot="bottom-buttons">
-    <oobe-text-button id="doneButton" inverse on-click="onDone_"
+    <oobe-text-button id="doneButton" inverse on-click="onDone"
         class="focus-on-show" text-key="cryptohomeRecoveryDoneButton">
     </oobe-text-button>
   </div>
@@ -40,10 +40,10 @@ found in the LICENSE file. -->
   </div>
   <div slot="bottom-buttons">
     <oobe-text-button id="manualRecoveryButton"
-        on-click="onGoToManualRecovery_"
+        on-click="onGoToManualRecovery"
         text-key="cryptohomeRecoveryManualRecoveryButton">
     </oobe-text-button>
-    <oobe-text-button id="retryButton" on-click="onRetry_"
+    <oobe-text-button id="retryButton" on-click="onRetry"
         text-key="cryptohomeRecoveryRetryButton">
     </oobe-text-button>
   </div>
@@ -67,7 +67,7 @@ found in the LICENSE file. -->
   </div>
   <div slot="bottom-buttons">
     <oobe-next-button id="reauthButton" class="focus-on-show"
-        on-click="onReauthButtonClicked_">
+        on-click="onReauthButtonClicked">
     </oobe-next-button>
   </div>
 </oobe-adaptive-dialog>

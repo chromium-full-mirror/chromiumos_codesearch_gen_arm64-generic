@@ -16,6 +16,7 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 class TracePacketDefaults;
+class V8CodeDefaults;
 class PerfSampleDefaults;
 class PerfEvents_Timebase;
 class PerfEvents_RawEvent;
@@ -41,6 +42,7 @@ class PERFETTO_EXPORT_COMPONENT TracePacketDefaults : public ::protozero::CppMes
     kTimestampClockIdFieldNumber = 58,
     kTrackEventDefaultsFieldNumber = 11,
     kPerfSampleDefaultsFieldNumber = 12,
+    kV8CodeDefaultsFieldNumber = 99,
   };
 
   TracePacketDefaults();
@@ -69,16 +71,21 @@ class PERFETTO_EXPORT_COMPONENT TracePacketDefaults : public ::protozero::CppMes
   const PerfSampleDefaults& perf_sample_defaults() const { return *perf_sample_defaults_; }
   PerfSampleDefaults* mutable_perf_sample_defaults() { _has_field_.set(12); return perf_sample_defaults_.get(); }
 
+  bool has_v8_code_defaults() const { return _has_field_[99]; }
+  const V8CodeDefaults& v8_code_defaults() const { return *v8_code_defaults_; }
+  V8CodeDefaults* mutable_v8_code_defaults() { _has_field_.set(99); return v8_code_defaults_.get(); }
+
  private:
   uint32_t timestamp_clock_id_{};
   ::protozero::CopyablePtr<TrackEventDefaults> track_event_defaults_;
   ::protozero::CopyablePtr<PerfSampleDefaults> perf_sample_defaults_;
+  ::protozero::CopyablePtr<V8CodeDefaults> v8_code_defaults_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<59> _has_field_{};
+  std::bitset<100> _has_field_{};
 };
 
 }  // namespace perfetto

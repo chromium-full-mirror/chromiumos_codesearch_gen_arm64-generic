@@ -17,10 +17,96 @@ namespace protos {
 namespace pbzero {
 
 class FtraceCpuStats;
+enum FtraceParseStatus : int32_t;
 namespace perfetto_pbzero_enum_FtraceStats {
 enum Phase : int32_t;
 }  // namespace perfetto_pbzero_enum_FtraceStats
 using FtraceStats_Phase = perfetto_pbzero_enum_FtraceStats::Phase;
+
+enum FtraceParseStatus : int32_t {
+  FTRACE_STATUS_UNSPECIFIED = 0,
+  FTRACE_STATUS_OK = 1,
+  FTRACE_STATUS_UNEXPECTED_READ_ERROR = 2,
+  FTRACE_STATUS_PARTIAL_PAGE_READ = 3,
+  FTRACE_STATUS_ABI_INVALID_PAGE_HEADER = 4,
+  FTRACE_STATUS_ABI_SHORT_EVENT_HEADER = 5,
+  FTRACE_STATUS_ABI_NULL_PADDING = 6,
+  FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH = 7,
+  FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH = 8,
+  FTRACE_STATUS_ABI_SHORT_TIME_EXTEND = 9,
+  FTRACE_STATUS_ABI_SHORT_TIME_STAMP = 10,
+  FTRACE_STATUS_ABI_SHORT_DATA_LENGTH = 11,
+  FTRACE_STATUS_ABI_ZERO_DATA_LENGTH = 12,
+  FTRACE_STATUS_ABI_INVALID_DATA_LENGTH = 13,
+  FTRACE_STATUS_ABI_SHORT_EVENT_ID = 14,
+  FTRACE_STATUS_ABI_END_OVERFLOW = 15,
+  FTRACE_STATUS_SHORT_COMPACT_EVENT = 16,
+  FTRACE_STATUS_INVALID_EVENT = 17,
+};
+
+constexpr FtraceParseStatus FtraceParseStatus_MIN = FtraceParseStatus::FTRACE_STATUS_UNSPECIFIED;
+constexpr FtraceParseStatus FtraceParseStatus_MAX = FtraceParseStatus::FTRACE_STATUS_INVALID_EVENT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* FtraceParseStatus_Name(::perfetto::protos::pbzero::FtraceParseStatus value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_UNSPECIFIED:
+    return "FTRACE_STATUS_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_OK:
+    return "FTRACE_STATUS_OK";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_UNEXPECTED_READ_ERROR:
+    return "FTRACE_STATUS_UNEXPECTED_READ_ERROR";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_PARTIAL_PAGE_READ:
+    return "FTRACE_STATUS_PARTIAL_PAGE_READ";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_INVALID_PAGE_HEADER:
+    return "FTRACE_STATUS_ABI_INVALID_PAGE_HEADER";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_SHORT_EVENT_HEADER:
+    return "FTRACE_STATUS_ABI_SHORT_EVENT_HEADER";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_NULL_PADDING:
+    return "FTRACE_STATUS_ABI_NULL_PADDING";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH:
+    return "FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH:
+    return "FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_SHORT_TIME_EXTEND:
+    return "FTRACE_STATUS_ABI_SHORT_TIME_EXTEND";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_SHORT_TIME_STAMP:
+    return "FTRACE_STATUS_ABI_SHORT_TIME_STAMP";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_SHORT_DATA_LENGTH:
+    return "FTRACE_STATUS_ABI_SHORT_DATA_LENGTH";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_ZERO_DATA_LENGTH:
+    return "FTRACE_STATUS_ABI_ZERO_DATA_LENGTH";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_INVALID_DATA_LENGTH:
+    return "FTRACE_STATUS_ABI_INVALID_DATA_LENGTH";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_SHORT_EVENT_ID:
+    return "FTRACE_STATUS_ABI_SHORT_EVENT_ID";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_ABI_END_OVERFLOW:
+    return "FTRACE_STATUS_ABI_END_OVERFLOW";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_SHORT_COMPACT_EVENT:
+    return "FTRACE_STATUS_SHORT_COMPACT_EVENT";
+
+  case ::perfetto::protos::pbzero::FtraceParseStatus::FTRACE_STATUS_INVALID_EVENT:
+    return "FTRACE_STATUS_INVALID_EVENT";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
 
 namespace perfetto_pbzero_enum_FtraceStats {
 enum Phase : int32_t {
@@ -51,7 +137,7 @@ const char* FtraceStats_Phase_Name(::perfetto::protos::pbzero::FtraceStats_Phase
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class FtraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class FtraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   FtraceStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -72,6 +158,8 @@ class FtraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> failed_ftrace_events() const { return GetRepeated<::protozero::ConstChars>(7); }
   bool has_preserve_ftrace_buffer() const { return at<8>().valid(); }
   bool preserve_ftrace_buffer() const { return at<8>().as_bool(); }
+  bool has_ftrace_parse_errors() const { return at<9>().valid(); }
+  ::protozero::RepeatedFieldIterator<int32_t> ftrace_parse_errors() const { return GetRepeated<int32_t>(9); }
 };
 
 class FtraceStats : public ::protozero::Message {
@@ -86,6 +174,7 @@ class FtraceStats : public ::protozero::Message {
     kUnknownFtraceEventsFieldNumber = 6,
     kFailedFtraceEventsFieldNumber = 7,
     kPreserveFtraceBufferFieldNumber = 8,
+    kFtraceParseErrorsFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceStats"; }
 
@@ -253,6 +342,24 @@ class FtraceStats : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FtraceParseErrors =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::FtraceParseStatus,
+      FtraceStats>;
+
+  static constexpr FieldMetadata_FtraceParseErrors kFtraceParseErrors{};
+  void add_ftrace_parse_errors(::perfetto::protos::pbzero::FtraceParseStatus value) {
+    static constexpr uint32_t field_id = FieldMetadata_FtraceParseErrors::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
         ::Append(*this, field_id, value);
   }
 };

@@ -161,6 +161,8 @@ bool ThreadTypeSwitcherStubDispatch::Accept(
           reinterpret_cast<internal::ThreadTypeSwitcher_SetThreadType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThreadTypeSwitcher.0
       bool success = true;
       int32_t p_platform_thread_id{};
       ::base::ThreadType p_thread_type{};
@@ -179,9 +181,9 @@ bool ThreadTypeSwitcherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetThreadType(
-std::move(p_platform_thread_id), 
-std::move(p_thread_type));
+      impl->SetThreadType(        
+        std::move(p_platform_thread_id), 
+        std::move(p_thread_type));
       return true;
     }
   }

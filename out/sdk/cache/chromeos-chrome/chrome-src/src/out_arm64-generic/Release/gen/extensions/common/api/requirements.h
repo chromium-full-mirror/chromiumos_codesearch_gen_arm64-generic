@@ -75,7 +75,6 @@ struct ManifestKeys {
     // Manifest key constants.
     static constexpr char kPlugins[] = "plugins";
     static constexpr char k3d[] = "3D";
-    static constexpr char kWindow[] = "window";
 
     // Parses the given |key| from |root_dict|. Any keys not available to the
     // manifest will be ignored. On a parsing error, false is returned and |error|
@@ -125,33 +124,10 @@ struct ManifestKeys {
 
     };
 
-    struct Window {
-      Window();
-      ~Window();
-      Window(const Window&) = delete;
-      Window& operator=(const Window&) = delete;
-      Window(Window&& rhs) noexcept;
-      Window& operator=(Window&& rhs) noexcept;
-
-      // Manifest key constants.
-      static constexpr char kShape[] = "shape";
-
-      // Parses the given |key| from |root_dict|. Any keys not available to the
-      // manifest will be ignored. On a parsing error, false is returned and |error|
-      // and |error_path_reversed| are populated.
-      static bool ParseFromDictionary(const base::Value::Dict& root_dict, base::StringPiece key, Window& out, std::u16string& error, std::vector<base::StringPiece>& error_path_reversed);
-
-
-      std::optional<bool> shape;
-
-    };
-
 
     std::optional<Plugins> plugins;
 
     std::optional<_3D> _3d;
-
-    std::optional<Window> window;
 
   };
 

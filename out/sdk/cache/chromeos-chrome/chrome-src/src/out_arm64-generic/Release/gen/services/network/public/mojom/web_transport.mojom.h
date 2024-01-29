@@ -239,7 +239,7 @@ class WebTransportClient
   virtual void OnReceivedResetStream(uint32_t stream_id, uint32_t stream_error_code) = 0;
 
   
-  virtual void OnClosed(WebTransportCloseInfoPtr close_info) = 0;
+  virtual void OnClosed(WebTransportCloseInfoPtr close_info, WebTransportStatsPtr final_stats) = 0;
 };
 
 class WebTransportHandshakeClientProxy;
@@ -288,7 +288,7 @@ class WebTransportHandshakeClient
   virtual ~WebTransportHandshakeClient() = default;
 
   
-  virtual void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) = 0;
+  virtual void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers, WebTransportStatsPtr initial_stats) = 0;
 
   
   virtual void OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) = 0;
@@ -346,7 +346,7 @@ class  WebTransportClientProxy
   
   void OnReceivedResetStream(uint32_t stream_id, uint32_t stream_error_code) final;
   
-  void OnClosed(WebTransportCloseInfoPtr close_info) final;
+  void OnClosed(WebTransportCloseInfoPtr close_info, WebTransportStatsPtr final_stats) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -361,7 +361,7 @@ class  WebTransportHandshakeClientProxy
 
   explicit WebTransportHandshakeClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) final;
+  void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers, WebTransportStatsPtr initial_stats) final;
   
   void OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) final;
 

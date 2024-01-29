@@ -291,6 +291,8 @@ bool Producer_OnNewBuffer_ForwardToCallback::Accept(
           internal::Producer_OnNewBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Producer.0
   bool success = true;
   Producer_OnNewBuffer_ResponseParamsDataView input_data_view(params, message);
   
@@ -356,6 +358,8 @@ bool ProducerStubDispatch::Accept(
           reinterpret_cast<internal::Producer_OnBufferRetired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Producer.1
       bool success = true;
       int32_t p_buffer_id{};
       Producer_OnBufferRetired_ParamsDataView input_data_view(params, message);
@@ -371,8 +375,8 @@ bool ProducerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferRetired(
-std::move(p_buffer_id));
+      impl->OnBufferRetired(        
+        std::move(p_buffer_id));
       return true;
     }
   }
@@ -395,6 +399,8 @@ bool ProducerStubDispatch::AcceptWithResponder(
               internal::Producer_OnNewBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Producer.0
       bool success = true;
       int32_t p_buffer_id{};
       ::media::mojom::VideoBufferHandlePtr p_buffer_handle{};
@@ -416,9 +422,9 @@ bool ProducerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewBuffer(
-std::move(p_buffer_id), 
-std::move(p_buffer_handle), std::move(callback));
+      impl->OnNewBuffer(        
+        std::move(p_buffer_id), 
+        std::move(p_buffer_handle), std::move(callback));
       return true;
     }
     case internal::kProducer_OnBufferRetired_Name: {

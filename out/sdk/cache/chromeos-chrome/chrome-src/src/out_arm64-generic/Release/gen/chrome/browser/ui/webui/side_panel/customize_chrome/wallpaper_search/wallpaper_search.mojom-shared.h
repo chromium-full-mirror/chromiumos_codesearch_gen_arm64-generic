@@ -26,6 +26,7 @@
 #include "chrome/browser/ui/webui/side_panel/customize_chrome/wallpaper_search/wallpaper_search.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/token.mojom-shared.h"
 #include "skia/public/mojom/skcolor.mojom-shared.h"
+#include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -41,7 +42,13 @@ class DescriptorBDataView;
 
 class DescriptorsDataView;
 
+class InspirationDataView;
+
+class InspirationGroupDataView;
+
 class WallpaperSearchResultDataView;
+
+class ResultDescriptorsDataView;
 
 class DescriptorDValueDataView;
 
@@ -73,8 +80,29 @@ struct MojomTypeTraits<::side_panel::customize_chrome::mojom::DescriptorsDataVie
 };
 
 template <>
+struct MojomTypeTraits<::side_panel::customize_chrome::mojom::InspirationDataView> {
+  using Data = ::side_panel::customize_chrome::mojom::internal::Inspiration_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::side_panel::customize_chrome::mojom::InspirationGroupDataView> {
+  using Data = ::side_panel::customize_chrome::mojom::internal::InspirationGroup_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::side_panel::customize_chrome::mojom::WallpaperSearchResultDataView> {
   using Data = ::side_panel::customize_chrome::mojom::internal::WallpaperSearchResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView> {
+  using Data = ::side_panel::customize_chrome::mojom::internal::ResultDescriptors_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -91,6 +119,20 @@ struct MojomTypeTraits<::side_panel::customize_chrome::mojom::DescriptorDValueDa
 
 
 namespace side_panel::customize_chrome::mojom {
+
+
+enum class DescriptorDName : int32_t {
+  
+  kYellow = 0,
+  kMinValue = 0,
+  kMaxValue = 0,
+};
+
+ std::ostream& operator<<(std::ostream& os, DescriptorDName value);
+inline bool IsKnownEnumValue(DescriptorDName value) {
+  return internal::DescriptorDName_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 
 
 enum class WallpaperSearchStatus : int32_t {
@@ -280,6 +322,98 @@ class DescriptorsDataView {
 };
 
 
+class InspirationDataView {
+ public:
+  InspirationDataView() = default;
+
+  InspirationDataView(
+      internal::Inspiration_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      ::mojo_base::mojom::TokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDescriptionDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescription(UserType* output) {
+    
+    auto* pointer = data_->description.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetBackgroundUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBackgroundUrl(UserType* output) {
+    
+    auto* pointer = data_->background_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetThumbnailUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThumbnailUrl(UserType* output) {
+    
+    auto* pointer = data_->thumbnail_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Inspiration_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class InspirationGroupDataView {
+ public:
+  InspirationGroupDataView() = default;
+
+  InspirationGroupDataView(
+      internal::InspirationGroup_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDescriptorsDataView(
+      ResultDescriptorsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescriptors(UserType* output) {
+    
+    auto* pointer = data_->descriptors.Get();
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInspirationsDataView(
+      mojo::ArrayDataView<InspirationDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInspirations(UserType* output) {
+    
+    auto* pointer = data_->inspirations.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::side_panel::customize_chrome::mojom::InspirationDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::InspirationGroup_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class WallpaperSearchResultDataView {
  public:
   WallpaperSearchResultDataView() = default;
@@ -310,8 +444,124 @@ class WallpaperSearchResultDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetDescriptorsDataView(
+      ResultDescriptorsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescriptors(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::side_panel::customize_chrome::mojom::ResultDescriptorsDataView, UserType>(),
+    "Attempting to read the optional `descriptors` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDescriptors` instead "
+    "of `ReadDescriptors if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->descriptors.Get();
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::WallpaperSearchResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ResultDescriptorsDataView {
+ public:
+  ResultDescriptorsDataView() = default;
+
+  ResultDescriptorsDataView(
+      internal::ResultDescriptors_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSubjectDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubject(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `subject` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSubject` instead "
+    "of `ReadSubject if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->subject.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetStyleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStyle(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `style` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadStyle` instead "
+    "of `ReadStyle if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->style.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetMoodDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMood(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `mood` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadMood` instead "
+    "of `ReadMood if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->mood.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetColorDataView(
+      DescriptorDValueDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadColor(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::side_panel::customize_chrome::mojom::DescriptorDValueDataView, UserType>(),
+    "Attempting to read the optional `color` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadColor` instead "
+    "of `ReadColor if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = !data_->color.is_null() ? &data_->color : nullptr;
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::DescriptorDValueDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ResultDescriptors_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -350,6 +600,19 @@ class DescriptorDValueDataView {
     CHECK(is_hue());
     return data_->data.f_hue;
   }
+  bool is_name() const { return data_->tag == Tag::kName; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    CHECK(is_name());
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::DescriptorDName>(
+        data_->data.f_name, output);
+  }
+  DescriptorDName name() const {
+    CHECK(is_name());
+    // TODO(dcheng): This seems incorrect, as it bypasses enum traits.
+    return ::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::customize_chrome::mojom::DescriptorDName>(data_->data.f_name));
+  }
 
  private:
   internal::DescriptorDValue_Data* data_ = nullptr;
@@ -363,6 +626,10 @@ class DescriptorDValueDataView {
 namespace std {
 
 template <>
+struct hash<::side_panel::customize_chrome::mojom::DescriptorDName>
+    : public mojo::internal::EnumHashImpl<::side_panel::customize_chrome::mojom::DescriptorDName> {};
+
+template <>
 struct hash<::side_panel::customize_chrome::mojom::WallpaperSearchStatus>
     : public mojo::internal::EnumHashImpl<::side_panel::customize_chrome::mojom::WallpaperSearchStatus> {};
 
@@ -373,6 +640,26 @@ struct hash<::side_panel::customize_chrome::mojom::UserFeedback>
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::customize_chrome::mojom::DescriptorDName, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::side_panel::customize_chrome::mojom::DescriptorDName, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::side_panel::customize_chrome::mojom::DescriptorDName>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -597,6 +884,138 @@ struct Serializer<::side_panel::customize_chrome::mojom::DescriptorsDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::side_panel::customize_chrome::mojom::InspirationDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::side_panel::customize_chrome::mojom::InspirationDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::side_panel::customize_chrome::mojom::internal::Inspiration_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::id(input)) in_id = Traits::id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->id)::BaseType> id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
+        in_id, id_fragment);
+    fragment->id.Set(
+        id_fragment.is_null() ? nullptr : id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null id in Inspiration struct");
+    decltype(Traits::description(input)) in_description = Traits::description(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->description)::BaseType> description_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_description, description_fragment);
+    fragment->description.Set(
+        description_fragment.is_null() ? nullptr : description_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->description.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null description in Inspiration struct");
+    decltype(Traits::background_url(input)) in_background_url = Traits::background_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->background_url)::BaseType> background_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_background_url, background_url_fragment);
+    fragment->background_url.Set(
+        background_url_fragment.is_null() ? nullptr : background_url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->background_url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null background_url in Inspiration struct");
+    decltype(Traits::thumbnail_url(input)) in_thumbnail_url = Traits::thumbnail_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->thumbnail_url)::BaseType> thumbnail_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_thumbnail_url, thumbnail_url_fragment);
+    fragment->thumbnail_url.Set(
+        thumbnail_url_fragment.is_null() ? nullptr : thumbnail_url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->thumbnail_url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null thumbnail_url in Inspiration struct");
+  }
+
+  static bool Deserialize(::side_panel::customize_chrome::mojom::internal::Inspiration_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::side_panel::customize_chrome::mojom::InspirationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::customize_chrome::mojom::InspirationGroupDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::side_panel::customize_chrome::mojom::InspirationGroupDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::side_panel::customize_chrome::mojom::internal::InspirationGroup_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::descriptors(input)) in_descriptors = Traits::descriptors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->descriptors)::BaseType> descriptors_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+        in_descriptors, descriptors_fragment);
+    fragment->descriptors.Set(
+        descriptors_fragment.is_null() ? nullptr : descriptors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->descriptors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null descriptors in InspirationGroup struct");
+    decltype(Traits::inspirations(input)) in_inspirations = Traits::inspirations(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->inspirations)::BaseType>
+        inspirations_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& inspirations_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::side_panel::customize_chrome::mojom::InspirationDataView>>(
+        in_inspirations, inspirations_fragment, &inspirations_validate_params);
+    fragment->inspirations.Set(
+        inspirations_fragment.is_null() ? nullptr : inspirations_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->inspirations.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null inspirations in InspirationGroup struct");
+  }
+
+  static bool Deserialize(::side_panel::customize_chrome::mojom::internal::InspirationGroup_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::side_panel::customize_chrome::mojom::InspirationGroupDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::side_panel::customize_chrome::mojom::WallpaperSearchResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::side_panel::customize_chrome::mojom::WallpaperSearchResultDataView, UserType>;
@@ -631,6 +1050,14 @@ struct Serializer<::side_panel::customize_chrome::mojom::WallpaperSearchResultDa
         fragment->image.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null image in WallpaperSearchResult struct");
+    decltype(Traits::descriptors(input)) in_descriptors = Traits::descriptors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->descriptors)::BaseType> descriptors_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+        in_descriptors, descriptors_fragment);
+    fragment->descriptors.Set(
+        descriptors_fragment.is_null() ? nullptr : descriptors_fragment.data());
   }
 
   static bool Deserialize(::side_panel::customize_chrome::mojom::internal::WallpaperSearchResult_Data* input,
@@ -640,6 +1067,65 @@ struct Serializer<::side_panel::customize_chrome::mojom::WallpaperSearchResultDa
       return CallSetToNullIfExists<Traits>(output);
 
     ::side_panel::customize_chrome::mojom::WallpaperSearchResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::side_panel::customize_chrome::mojom::internal::ResultDescriptors_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::subject(input)) in_subject = Traits::subject(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->subject)::BaseType> subject_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_subject, subject_fragment);
+    fragment->subject.Set(
+        subject_fragment.is_null() ? nullptr : subject_fragment.data());
+    decltype(Traits::style(input)) in_style = Traits::style(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->style)::BaseType> style_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_style, style_fragment);
+    fragment->style.Set(
+        style_fragment.is_null() ? nullptr : style_fragment.data());
+    decltype(Traits::mood(input)) in_mood = Traits::mood(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->mood)::BaseType> mood_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_mood, mood_fragment);
+    fragment->mood.Set(
+        mood_fragment.is_null() ? nullptr : mood_fragment.data());
+    decltype(Traits::color(input)) in_color = Traits::color(input);
+    mojo::internal::MessageFragment<decltype(fragment->color)>
+        color_fragment(fragment.message());
+    color_fragment.Claim(&fragment->color);
+    mojo::internal::Serialize<::side_panel::customize_chrome::mojom::DescriptorDValueDataView>(
+        in_color, color_fragment, true);
+  }
+
+  static bool Deserialize(::side_panel::customize_chrome::mojom::internal::ResultDescriptors_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::side_panel::customize_chrome::mojom::ResultDescriptorsDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -691,6 +1177,13 @@ struct Serializer<::side_panel::customize_chrome::mojom::DescriptorDValueDataVie
         decltype(Traits::hue(input))
             in_hue = Traits::hue(input);
         fragment->data.f_hue = in_hue;
+        break;
+      }
+      case ::side_panel::customize_chrome::mojom::DescriptorDValueDataView::Tag::kName: {
+        decltype(Traits::name(input))
+            in_name = Traits::name(input);
+        mojo::internal::Serialize<::side_panel::customize_chrome::mojom::DescriptorDName>(
+            in_name, &fragment->data.f_name);
         break;
       }
     }
@@ -755,6 +1248,40 @@ inline void DescriptorsDataView::GetDescriptorCDataView(
 }
 
 
+inline void InspirationDataView::GetIdDataView(
+    ::mojo_base::mojom::TokenDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
+}
+inline void InspirationDataView::GetDescriptionDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->description.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void InspirationDataView::GetBackgroundUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->background_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void InspirationDataView::GetThumbnailUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->thumbnail_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+
+
+inline void InspirationGroupDataView::GetDescriptorsDataView(
+    ResultDescriptorsDataView* output) {
+  auto pointer = data_->descriptors.Get();
+  *output = ResultDescriptorsDataView(pointer, message_);
+}
+inline void InspirationGroupDataView::GetInspirationsDataView(
+    mojo::ArrayDataView<InspirationDataView>* output) {
+  auto pointer = data_->inspirations.Get();
+  *output = mojo::ArrayDataView<InspirationDataView>(pointer, message_);
+}
+
+
 inline void WallpaperSearchResultDataView::GetIdDataView(
     ::mojo_base::mojom::TokenDataView* output) {
   auto pointer = data_->id.Get();
@@ -764,6 +1291,33 @@ inline void WallpaperSearchResultDataView::GetImageDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->image.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void WallpaperSearchResultDataView::GetDescriptorsDataView(
+    ResultDescriptorsDataView* output) {
+  auto pointer = data_->descriptors.Get();
+  *output = ResultDescriptorsDataView(pointer, message_);
+}
+
+
+inline void ResultDescriptorsDataView::GetSubjectDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->subject.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ResultDescriptorsDataView::GetStyleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->style.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ResultDescriptorsDataView::GetMoodDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->mood.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ResultDescriptorsDataView::GetColorDataView(
+    DescriptorDValueDataView* output) {
+  auto pointer = &data_->color;
+  *output = DescriptorDValueDataView(pointer, message_);
 }
 
 
@@ -778,6 +1332,15 @@ inline void DescriptorDValueDataView::GetColorDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::side_panel::customize_chrome::mojom::DescriptorDName> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::side_panel::customize_chrome::mojom::DescriptorDName value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

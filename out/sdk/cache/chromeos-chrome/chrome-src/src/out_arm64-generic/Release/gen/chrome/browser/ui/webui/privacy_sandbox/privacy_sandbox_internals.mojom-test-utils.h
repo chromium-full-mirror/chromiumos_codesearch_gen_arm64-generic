@@ -15,9 +15,14 @@ namespace privacy_sandbox_internals::mojom {
 
 class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
+  void ReadPref(const std::string& pref_name, ReadPrefCallback callback) override;
   void GetCookieSettings(GetCookieSettingsCallback callback) override;
   void GetTpcdMetadataGrants(GetTpcdMetadataGrantsCallback callback) override;
+  void GetTpcdHeuristicsGrants(GetTpcdHeuristicsGrantsCallback callback) override;
+  void GetTpcdTrial(GetTpcdTrialCallback callback) override;
+  void GetTopLevelTpcdTrial(GetTopLevelTpcdTrialCallback callback) override;
   void ContentSettingsPatternToString(const ::ContentSettingsPattern& pattern, ContentSettingsPatternToStringCallback callback) override;
+  void StringToContentSettingsPattern(const std::string& s, StringToContentSettingsPatternCallback callback) override;
 };
 class  PageHandlerAsyncWaiter {
  public:
@@ -27,15 +32,30 @@ class  PageHandlerAsyncWaiter {
   PageHandlerAsyncWaiter& operator=(const PageHandlerAsyncWaiter&) = delete;
 
   ~PageHandlerAsyncWaiter();
+  void ReadPref(
+      const std::string& pref_name, ::base::Value* out_s);
+  ::base::Value ReadPref(const std::string& pref_name);
   void GetCookieSettings(
       std::vector<::ContentSettingPatternSource>* out_content_settings);
   std::vector<::ContentSettingPatternSource> GetCookieSettings();
   void GetTpcdMetadataGrants(
       std::vector<::ContentSettingPatternSource>* out_content_settings);
   std::vector<::ContentSettingPatternSource> GetTpcdMetadataGrants();
+  void GetTpcdHeuristicsGrants(
+      std::vector<::ContentSettingPatternSource>* out_content_settings);
+  std::vector<::ContentSettingPatternSource> GetTpcdHeuristicsGrants();
+  void GetTpcdTrial(
+      std::vector<::ContentSettingPatternSource>* out_content_settings);
+  std::vector<::ContentSettingPatternSource> GetTpcdTrial();
+  void GetTopLevelTpcdTrial(
+      std::vector<::ContentSettingPatternSource>* out_content_settings);
+  std::vector<::ContentSettingPatternSource> GetTopLevelTpcdTrial();
   void ContentSettingsPatternToString(
       const ::ContentSettingsPattern& pattern, std::string* out_s);
   std::string ContentSettingsPatternToString(const ::ContentSettingsPattern& pattern);
+  void StringToContentSettingsPattern(
+      const std::string& s, ::ContentSettingsPattern* out_pattern);
+  ::ContentSettingsPattern StringToContentSettingsPattern(const std::string& s);
 
  private:
   PageHandler* const proxy_;

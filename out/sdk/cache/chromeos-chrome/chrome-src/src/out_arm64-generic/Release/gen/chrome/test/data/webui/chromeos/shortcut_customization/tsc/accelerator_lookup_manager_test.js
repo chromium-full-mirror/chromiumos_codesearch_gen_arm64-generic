@@ -5,7 +5,7 @@ import 'chrome://webui-test/chromeos/mojo_webui_test_support.js';
 import { AcceleratorLookupManager } from 'chrome://shortcut-customization/js/accelerator_lookup_manager.js';
 import { fakeAcceleratorConfig, fakeAmbientConfig, fakeLayoutInfo } from 'chrome://shortcut-customization/js/fake_data.js';
 import { FakeShortcutProvider } from 'chrome://shortcut-customization/js/fake_shortcut_provider.js';
-import { AcceleratorCategory, AcceleratorSource } from 'chrome://shortcut-customization/js/shortcut_types.js';
+import { AcceleratorCategory, AcceleratorSource, AcceleratorSubcategory } from 'chrome://shortcut-customization/js/shortcut_types.js';
 import { assertDeepEquals, assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 suite('acceleratorLookupManagerTest', function () {
     let provider = null;
@@ -46,7 +46,7 @@ suite('acceleratorLookupManagerTest', function () {
             assertEquals(1, getManager().getSubcategories(AcceleratorCategory.kBrowser).size);
         });
     });
-    test('GetIsCategoryLocked', async () => {
+    test('GetIsSubcategoryLocked', async () => {
         // First, initialize the accelerators into the AcceleratorLookupManager.
         getProvider().setFakeAcceleratorConfig(fakeAcceleratorConfig);
         const { config: accelConfig } = await getProvider().getAccelerators();
@@ -57,10 +57,10 @@ suite('acceleratorLookupManagerTest', function () {
         const { layoutInfos: layoutInfos } = await getProvider().getAcceleratorLayoutInfos();
         assertDeepEquals(fakeLayoutInfo, layoutInfos);
         getManager().setAcceleratorLayoutLookup(layoutInfos);
-        // We expect that kWindowsAndDesks category is not locked.
-        assertFalse(getManager().isCategoryLocked(AcceleratorCategory.kWindowsAndDesks));
-        // We expect that kBrowser category is locked.
-        assertTrue(getManager().isCategoryLocked(AcceleratorCategory.kBrowser));
+        // We expect that kWindows subcategory is not locked.
+        assertFalse(getManager().isSubcategoryLocked(AcceleratorSubcategory.kWindows));
+        // We expect that kTabs subcategory is locked.
+        assertTrue(getManager().isSubcategoryLocked(AcceleratorSubcategory.kTabs));
     });
     test('AcceleratorsAddedToCorrectLookupMap', () => {
         getProvider().setFakeAcceleratorConfig(fakeAmbientConfig);

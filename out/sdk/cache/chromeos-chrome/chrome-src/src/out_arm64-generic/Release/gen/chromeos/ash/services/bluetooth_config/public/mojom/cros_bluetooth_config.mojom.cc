@@ -594,6 +594,8 @@ bool SystemPropertiesObserverStubDispatch::Accept(
           reinterpret_cast<internal::SystemPropertiesObserver_OnPropertiesUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemPropertiesObserver.0
       bool success = true;
       BluetoothSystemPropertiesPtr p_properties{};
       SystemPropertiesObserver_OnPropertiesUpdated_ParamsDataView input_data_view(params, message);
@@ -609,8 +611,8 @@ bool SystemPropertiesObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPropertiesUpdated(
-std::move(p_properties));
+      impl->OnPropertiesUpdated(        
+        std::move(p_properties));
       return true;
     }
   }
@@ -908,6 +910,8 @@ bool BluetoothDeviceStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::BluetoothDeviceStatusObserver_OnDevicePaired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothDeviceStatusObserver.0
       bool success = true;
       PairedBluetoothDevicePropertiesPtr p_device{};
       BluetoothDeviceStatusObserver_OnDevicePaired_ParamsDataView input_data_view(params, message);
@@ -923,8 +927,8 @@ bool BluetoothDeviceStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicePaired(
-std::move(p_device));
+      impl->OnDevicePaired(        
+        std::move(p_device));
       return true;
     }
     case internal::kBluetoothDeviceStatusObserver_OnDeviceConnected_Name: {
@@ -934,6 +938,8 @@ std::move(p_device));
           reinterpret_cast<internal::BluetoothDeviceStatusObserver_OnDeviceConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothDeviceStatusObserver.1
       bool success = true;
       PairedBluetoothDevicePropertiesPtr p_device{};
       BluetoothDeviceStatusObserver_OnDeviceConnected_ParamsDataView input_data_view(params, message);
@@ -949,8 +955,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceConnected(
-std::move(p_device));
+      impl->OnDeviceConnected(        
+        std::move(p_device));
       return true;
     }
     case internal::kBluetoothDeviceStatusObserver_OnDeviceDisconnected_Name: {
@@ -960,6 +966,8 @@ std::move(p_device));
           reinterpret_cast<internal::BluetoothDeviceStatusObserver_OnDeviceDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothDeviceStatusObserver.2
       bool success = true;
       PairedBluetoothDevicePropertiesPtr p_device{};
       BluetoothDeviceStatusObserver_OnDeviceDisconnected_ParamsDataView input_data_view(params, message);
@@ -975,8 +983,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceDisconnected(
-std::move(p_device));
+      impl->OnDeviceDisconnected(        
+        std::move(p_device));
       return true;
     }
   }
@@ -1132,6 +1140,8 @@ bool DiscoverySessionStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::DiscoverySessionStatusObserver_OnHasAtLeastOneDiscoverySessionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DiscoverySessionStatusObserver.0
       bool success = true;
       bool p_has_at_least_one_discovery_session{};
       DiscoverySessionStatusObserver_OnHasAtLeastOneDiscoverySessionChanged_ParamsDataView input_data_view(params, message);
@@ -1147,8 +1157,8 @@ bool DiscoverySessionStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHasAtLeastOneDiscoverySessionChanged(
-std::move(p_has_at_least_one_discovery_session));
+      impl->OnHasAtLeastOneDiscoverySessionChanged(        
+        std::move(p_has_at_least_one_discovery_session));
       return true;
     }
   }
@@ -1294,6 +1304,8 @@ bool KeyEnteredHandlerStubDispatch::Accept(
           reinterpret_cast<internal::KeyEnteredHandler_HandleKeyEntered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyEnteredHandler.0
       bool success = true;
       uint8_t p_num_keys_entered{};
       KeyEnteredHandler_HandleKeyEntered_ParamsDataView input_data_view(params, message);
@@ -1309,8 +1321,8 @@ bool KeyEnteredHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleKeyEntered(
-std::move(p_num_keys_entered));
+      impl->HandleKeyEntered(        
+        std::move(p_num_keys_entered));
       return true;
     }
   }
@@ -1898,6 +1910,8 @@ bool DevicePairingDelegate_RequestPinCode_ForwardToCallback::Accept(
           internal::DevicePairingDelegate_RequestPinCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePairingDelegate.0
   bool success = true;
   std::string p_pin_code{};
   DevicePairingDelegate_RequestPinCode_ResponseParamsDataView input_data_view(params, message);
@@ -2027,6 +2041,8 @@ bool DevicePairingDelegate_RequestPasskey_ForwardToCallback::Accept(
           internal::DevicePairingDelegate_RequestPasskey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePairingDelegate.1
   bool success = true;
   std::string p_passkey{};
   DevicePairingDelegate_RequestPasskey_ResponseParamsDataView input_data_view(params, message);
@@ -2156,6 +2172,8 @@ bool DevicePairingDelegate_ConfirmPasskey_ForwardToCallback::Accept(
           internal::DevicePairingDelegate_ConfirmPasskey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePairingDelegate.4
   bool success = true;
   bool p_confirmed{};
   DevicePairingDelegate_ConfirmPasskey_ResponseParamsDataView input_data_view(params, message);
@@ -2275,6 +2293,8 @@ bool DevicePairingDelegate_AuthorizePairing_ForwardToCallback::Accept(
           internal::DevicePairingDelegate_AuthorizePairing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePairingDelegate.5
   bool success = true;
   bool p_confirmed{};
   DevicePairingDelegate_AuthorizePairing_ResponseParamsDataView input_data_view(params, message);
@@ -2355,6 +2375,8 @@ bool DevicePairingDelegateStubDispatch::Accept(
           reinterpret_cast<internal::DevicePairingDelegate_DisplayPinCode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePairingDelegate.2
       bool success = true;
       std::string p_pin_code{};
       ::mojo::PendingReceiver<KeyEnteredHandler> p_handler{};
@@ -2375,9 +2397,9 @@ bool DevicePairingDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayPinCode(
-std::move(p_pin_code), 
-std::move(p_handler));
+      impl->DisplayPinCode(        
+        std::move(p_pin_code), 
+        std::move(p_handler));
       return true;
     }
     case internal::kDevicePairingDelegate_DisplayPasskey_Name: {
@@ -2387,6 +2409,8 @@ std::move(p_handler));
           reinterpret_cast<internal::DevicePairingDelegate_DisplayPasskey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePairingDelegate.3
       bool success = true;
       std::string p_passkey{};
       ::mojo::PendingReceiver<KeyEnteredHandler> p_handler{};
@@ -2407,9 +2431,9 @@ std::move(p_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayPasskey(
-std::move(p_passkey), 
-std::move(p_handler));
+      impl->DisplayPasskey(        
+        std::move(p_passkey), 
+        std::move(p_handler));
       return true;
     }
     case internal::kDevicePairingDelegate_ConfirmPasskey_Name: {
@@ -2438,6 +2462,8 @@ bool DevicePairingDelegateStubDispatch::AcceptWithResponder(
               internal::DevicePairingDelegate_RequestPinCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePairingDelegate.0
       bool success = true;
       DevicePairingDelegate_RequestPinCode_ParamsDataView input_data_view(params, message);
       
@@ -2463,6 +2489,8 @@ bool DevicePairingDelegateStubDispatch::AcceptWithResponder(
               internal::DevicePairingDelegate_RequestPasskey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePairingDelegate.1
       bool success = true;
       DevicePairingDelegate_RequestPasskey_ParamsDataView input_data_view(params, message);
       
@@ -2494,6 +2522,8 @@ bool DevicePairingDelegateStubDispatch::AcceptWithResponder(
               internal::DevicePairingDelegate_ConfirmPasskey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePairingDelegate.4
       bool success = true;
       std::string p_passkey{};
       DevicePairingDelegate_ConfirmPasskey_ParamsDataView input_data_view(params, message);
@@ -2512,8 +2542,8 @@ bool DevicePairingDelegateStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfirmPasskey(
-std::move(p_passkey), std::move(callback));
+      impl->ConfirmPasskey(        
+        std::move(p_passkey), std::move(callback));
       return true;
     }
     case internal::kDevicePairingDelegate_AuthorizePairing_Name: {
@@ -2523,6 +2553,8 @@ std::move(p_passkey), std::move(callback));
               internal::DevicePairingDelegate_AuthorizePairing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePairingDelegate.5
       bool success = true;
       DevicePairingDelegate_AuthorizePairing_ParamsDataView input_data_view(params, message);
       
@@ -2851,6 +2883,8 @@ bool DevicePairingHandler_PairDevice_ForwardToCallback::Accept(
           internal::DevicePairingHandler_PairDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePairingHandler.0
   bool success = true;
   PairingResult p_result{};
   DevicePairingHandler_PairDevice_ResponseParamsDataView input_data_view(params, message);
@@ -2971,6 +3005,8 @@ bool DevicePairingHandler_FetchDevice_ForwardToCallback::Accept(
           internal::DevicePairingHandler_FetchDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePairingHandler.1
   bool success = true;
   BluetoothDevicePropertiesPtr p_device{};
   DevicePairingHandler_FetchDevice_ResponseParamsDataView input_data_view(params, message);
@@ -3070,6 +3106,8 @@ bool DevicePairingHandlerStubDispatch::AcceptWithResponder(
               internal::DevicePairingHandler_PairDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePairingHandler.0
       bool success = true;
       std::string p_device_id{};
       ::mojo::PendingRemote<DevicePairingDelegate> p_delegate{};
@@ -3093,9 +3131,9 @@ bool DevicePairingHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PairDevice(
-std::move(p_device_id), 
-std::move(p_delegate), std::move(callback));
+      impl->PairDevice(        
+        std::move(p_device_id), 
+        std::move(p_delegate), std::move(callback));
       return true;
     }
     case internal::kDevicePairingHandler_FetchDevice_Name: {
@@ -3105,6 +3143,8 @@ std::move(p_delegate), std::move(callback));
               internal::DevicePairingHandler_FetchDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePairingHandler.1
       bool success = true;
       std::string p_device_address{};
       DevicePairingHandler_FetchDevice_ParamsDataView input_data_view(params, message);
@@ -3123,8 +3163,8 @@ std::move(p_delegate), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchDevice(
-std::move(p_device_address), std::move(callback));
+      impl->FetchDevice(        
+        std::move(p_device_address), std::move(callback));
       return true;
     }
   }
@@ -3391,6 +3431,8 @@ bool BluetoothDiscoveryDelegateStubDispatch::Accept(
           reinterpret_cast<internal::BluetoothDiscoveryDelegate_OnBluetoothDiscoveryStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothDiscoveryDelegate.0
       bool success = true;
       ::mojo::PendingRemote<DevicePairingHandler> p_handler{};
       BluetoothDiscoveryDelegate_OnBluetoothDiscoveryStarted_ParamsDataView input_data_view(params, message);
@@ -3408,8 +3450,8 @@ bool BluetoothDiscoveryDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBluetoothDiscoveryStarted(
-std::move(p_handler));
+      impl->OnBluetoothDiscoveryStarted(        
+        std::move(p_handler));
       return true;
     }
     case internal::kBluetoothDiscoveryDelegate_OnBluetoothDiscoveryStopped_Name: {
@@ -3419,6 +3461,8 @@ std::move(p_handler));
           reinterpret_cast<internal::BluetoothDiscoveryDelegate_OnBluetoothDiscoveryStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothDiscoveryDelegate.1
       bool success = true;
       BluetoothDiscoveryDelegate_OnBluetoothDiscoveryStopped_ParamsDataView input_data_view(params, message);
       
@@ -3431,7 +3475,7 @@ std::move(p_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBluetoothDiscoveryStopped();
+      impl->OnBluetoothDiscoveryStopped(        );
       return true;
     }
     case internal::kBluetoothDiscoveryDelegate_OnDiscoveredDevicesListChanged_Name: {
@@ -3441,6 +3485,8 @@ std::move(p_handler));
           reinterpret_cast<internal::BluetoothDiscoveryDelegate_OnDiscoveredDevicesListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothDiscoveryDelegate.2
       bool success = true;
       std::vector<BluetoothDevicePropertiesPtr> p_discovered_devices{};
       BluetoothDiscoveryDelegate_OnDiscoveredDevicesListChanged_ParamsDataView input_data_view(params, message);
@@ -3456,8 +3502,8 @@ std::move(p_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiscoveredDevicesListChanged(
-std::move(p_discovered_devices));
+      impl->OnDiscoveredDevicesListChanged(        
+        std::move(p_discovered_devices));
       return true;
     }
   }
@@ -4385,6 +4431,8 @@ bool CrosBluetoothConfig_Connect_ForwardToCallback::Accept(
           internal::CrosBluetoothConfig_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosBluetoothConfig.7
   bool success = true;
   bool p_success{};
   CrosBluetoothConfig_Connect_ResponseParamsDataView input_data_view(params, message);
@@ -4504,6 +4552,8 @@ bool CrosBluetoothConfig_Disconnect_ForwardToCallback::Accept(
           internal::CrosBluetoothConfig_Disconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosBluetoothConfig.8
   bool success = true;
   bool p_success{};
   CrosBluetoothConfig_Disconnect_ResponseParamsDataView input_data_view(params, message);
@@ -4623,6 +4673,8 @@ bool CrosBluetoothConfig_Forget_ForwardToCallback::Accept(
           internal::CrosBluetoothConfig_Forget_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosBluetoothConfig.9
   bool success = true;
   bool p_success{};
   CrosBluetoothConfig_Forget_ResponseParamsDataView input_data_view(params, message);
@@ -4697,6 +4749,8 @@ bool CrosBluetoothConfigStubDispatch::Accept(
           reinterpret_cast<internal::CrosBluetoothConfig_ObserveSystemProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.0
       bool success = true;
       ::mojo::PendingRemote<SystemPropertiesObserver> p_observer{};
       CrosBluetoothConfig_ObserveSystemProperties_ParamsDataView input_data_view(params, message);
@@ -4714,8 +4768,8 @@ bool CrosBluetoothConfigStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveSystemProperties(
-std::move(p_observer));
+      impl->ObserveSystemProperties(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosBluetoothConfig_ObserveDeviceStatusChanges_Name: {
@@ -4725,6 +4779,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosBluetoothConfig_ObserveDeviceStatusChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.1
       bool success = true;
       ::mojo::PendingRemote<BluetoothDeviceStatusObserver> p_observer{};
       CrosBluetoothConfig_ObserveDeviceStatusChanges_ParamsDataView input_data_view(params, message);
@@ -4742,8 +4798,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveDeviceStatusChanges(
-std::move(p_observer));
+      impl->ObserveDeviceStatusChanges(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosBluetoothConfig_ObserveDiscoverySessionStatusChanges_Name: {
@@ -4753,6 +4809,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosBluetoothConfig_ObserveDiscoverySessionStatusChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.2
       bool success = true;
       ::mojo::PendingRemote<DiscoverySessionStatusObserver> p_observer{};
       CrosBluetoothConfig_ObserveDiscoverySessionStatusChanges_ParamsDataView input_data_view(params, message);
@@ -4770,8 +4828,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveDiscoverySessionStatusChanges(
-std::move(p_observer));
+      impl->ObserveDiscoverySessionStatusChanges(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosBluetoothConfig_SetBluetoothEnabledState_Name: {
@@ -4781,6 +4839,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosBluetoothConfig_SetBluetoothEnabledState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.3
       bool success = true;
       bool p_enabled{};
       CrosBluetoothConfig_SetBluetoothEnabledState_ParamsDataView input_data_view(params, message);
@@ -4796,8 +4856,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBluetoothEnabledState(
-std::move(p_enabled));
+      impl->SetBluetoothEnabledState(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kCrosBluetoothConfig_SetBluetoothHidDetectionActive_Name: {
@@ -4807,6 +4867,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CrosBluetoothConfig_SetBluetoothHidDetectionActive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.4
       bool success = true;
       CrosBluetoothConfig_SetBluetoothHidDetectionActive_ParamsDataView input_data_view(params, message);
       
@@ -4819,7 +4881,7 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBluetoothHidDetectionActive();
+      impl->SetBluetoothHidDetectionActive(        );
       return true;
     }
     case internal::kCrosBluetoothConfig_SetBluetoothHidDetectionInactive_Name: {
@@ -4829,6 +4891,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CrosBluetoothConfig_SetBluetoothHidDetectionInactive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.5
       bool success = true;
       bool p_is_using_bluetooth{};
       CrosBluetoothConfig_SetBluetoothHidDetectionInactive_ParamsDataView input_data_view(params, message);
@@ -4844,8 +4908,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBluetoothHidDetectionInactive(
-std::move(p_is_using_bluetooth));
+      impl->SetBluetoothHidDetectionInactive(        
+        std::move(p_is_using_bluetooth));
       return true;
     }
     case internal::kCrosBluetoothConfig_StartDiscovery_Name: {
@@ -4855,6 +4919,8 @@ std::move(p_is_using_bluetooth));
           reinterpret_cast<internal::CrosBluetoothConfig_StartDiscovery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.6
       bool success = true;
       ::mojo::PendingRemote<BluetoothDiscoveryDelegate> p_delegate{};
       CrosBluetoothConfig_StartDiscovery_ParamsDataView input_data_view(params, message);
@@ -4872,8 +4938,8 @@ std::move(p_is_using_bluetooth));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDiscovery(
-std::move(p_delegate));
+      impl->StartDiscovery(        
+        std::move(p_delegate));
       return true;
     }
     case internal::kCrosBluetoothConfig_Connect_Name: {
@@ -4892,6 +4958,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::CrosBluetoothConfig_SetDeviceNickname_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.10
       bool success = true;
       std::string p_device_id{};
       std::string p_nickname{};
@@ -4910,9 +4978,9 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeviceNickname(
-std::move(p_device_id), 
-std::move(p_nickname));
+      impl->SetDeviceNickname(        
+        std::move(p_device_id), 
+        std::move(p_nickname));
       return true;
     }
   }
@@ -4956,6 +5024,8 @@ bool CrosBluetoothConfigStubDispatch::AcceptWithResponder(
               internal::CrosBluetoothConfig_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.7
       bool success = true;
       std::string p_device_id{};
       CrosBluetoothConfig_Connect_ParamsDataView input_data_view(params, message);
@@ -4974,8 +5044,8 @@ bool CrosBluetoothConfigStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_device_id), std::move(callback));
+      impl->Connect(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kCrosBluetoothConfig_Disconnect_Name: {
@@ -4985,6 +5055,8 @@ std::move(p_device_id), std::move(callback));
               internal::CrosBluetoothConfig_Disconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.8
       bool success = true;
       std::string p_device_id{};
       CrosBluetoothConfig_Disconnect_ParamsDataView input_data_view(params, message);
@@ -5003,8 +5075,8 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Disconnect(
-std::move(p_device_id), std::move(callback));
+      impl->Disconnect(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kCrosBluetoothConfig_Forget_Name: {
@@ -5014,6 +5086,8 @@ std::move(p_device_id), std::move(callback));
               internal::CrosBluetoothConfig_Forget_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosBluetoothConfig.9
       bool success = true;
       std::string p_device_id{};
       CrosBluetoothConfig_Forget_ParamsDataView input_data_view(params, message);
@@ -5032,8 +5106,8 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Forget(
-std::move(p_device_id), std::move(callback));
+      impl->Forget(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kCrosBluetoothConfig_SetDeviceNickname_Name: {

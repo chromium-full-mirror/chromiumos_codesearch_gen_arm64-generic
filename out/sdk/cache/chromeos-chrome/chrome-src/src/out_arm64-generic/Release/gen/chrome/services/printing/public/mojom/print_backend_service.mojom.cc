@@ -449,6 +449,8 @@ bool UnsandboxedPrintBackendHostStubDispatch::Accept(
           reinterpret_cast<internal::UnsandboxedPrintBackendHost_BindBackend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UnsandboxedPrintBackendHost.0
       bool success = true;
       ::mojo::PendingReceiver<PrintBackendService> p_service{};
       UnsandboxedPrintBackendHost_BindBackend_ParamsDataView input_data_view(params, message);
@@ -466,8 +468,8 @@ bool UnsandboxedPrintBackendHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBackend(
-std::move(p_service));
+      impl->BindBackend(        
+        std::move(p_service));
       return true;
     }
   }
@@ -618,6 +620,8 @@ bool SandboxedPrintBackendHostStubDispatch::Accept(
           reinterpret_cast<internal::SandboxedPrintBackendHost_BindBackend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SandboxedPrintBackendHost.0
       bool success = true;
       ::mojo::PendingReceiver<PrintBackendService> p_service{};
       SandboxedPrintBackendHost_BindBackend_ParamsDataView input_data_view(params, message);
@@ -635,8 +639,8 @@ bool SandboxedPrintBackendHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBackend(
-std::move(p_service));
+      impl->BindBackend(        
+        std::move(p_service));
       return true;
     }
   }
@@ -1800,6 +1804,8 @@ bool PrintBackendService_EnumeratePrinters_ForwardToCallback::Accept(
           internal::PrintBackendService_EnumeratePrinters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.2
   bool success = true;
   PrinterListResultPtr p_printer_list{};
   PrintBackendService_EnumeratePrinters_ResponseParamsDataView input_data_view(params, message);
@@ -1927,6 +1933,8 @@ bool PrintBackendService_GetDefaultPrinterName_ForwardToCallback::Accept(
           internal::PrintBackendService_GetDefaultPrinterName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.3
   bool success = true;
   DefaultPrinterNameResultPtr p_printer_name{};
   PrintBackendService_GetDefaultPrinterName_ResponseParamsDataView input_data_view(params, message);
@@ -2054,6 +2062,8 @@ bool PrintBackendService_GetPrinterSemanticCapsAndDefaults_ForwardToCallback::Ac
           internal::PrintBackendService_GetPrinterSemanticCapsAndDefaults_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.4
   bool success = true;
   PrinterSemanticCapsAndDefaultsResultPtr p_printer_caps{};
   PrintBackendService_GetPrinterSemanticCapsAndDefaults_ResponseParamsDataView input_data_view(params, message);
@@ -2181,6 +2191,8 @@ bool PrintBackendService_FetchCapabilities_ForwardToCallback::Accept(
           internal::PrintBackendService_FetchCapabilities_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.5
   bool success = true;
   PrinterCapsAndInfoResultPtr p_printer_caps_and_info{};
   PrintBackendService_FetchCapabilities_ResponseParamsDataView input_data_view(params, message);
@@ -2308,6 +2320,8 @@ bool PrintBackendService_UseDefaultSettings_ForwardToCallback::Accept(
           internal::PrintBackendService_UseDefaultSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.7
   bool success = true;
   PrintSettingsResultPtr p_settings{};
   PrintBackendService_UseDefaultSettings_ResponseParamsDataView input_data_view(params, message);
@@ -2435,6 +2449,8 @@ bool PrintBackendService_UpdatePrintSettings_ForwardToCallback::Accept(
           internal::PrintBackendService_UpdatePrintSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.8
   bool success = true;
   PrintSettingsResultPtr p_settings{};
   PrintBackendService_UpdatePrintSettings_ResponseParamsDataView input_data_view(params, message);
@@ -2550,7 +2566,7 @@ class PrintBackendService_StartPrinting_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      ::printing::mojom::ResultCode in_result_code);
+      ::printing::mojom::ResultCode in_result_code, int32_t in_job_id);
 };
 
 bool PrintBackendService_StartPrinting_ForwardToCallback::Accept(
@@ -2562,12 +2578,17 @@ bool PrintBackendService_StartPrinting_ForwardToCallback::Accept(
           internal::PrintBackendService_StartPrinting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.9
   bool success = true;
   ::printing::mojom::ResultCode p_result_code{};
+  int32_t p_job_id{};
   PrintBackendService_StartPrinting_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResultCode(&p_result_code))
     success = false;
+  if (success)
+    p_job_id = input_data_view.job_id();
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -2577,12 +2598,13 @@ bool PrintBackendService_StartPrinting_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_result_code));
+std::move(p_result_code), 
+std::move(p_job_id));
   return true;
 }
 
 void PrintBackendService_StartPrinting_ProxyToResponder::Run(
-    ::printing::mojom::ResultCode in_result_code) {
+    ::printing::mojom::ResultCode in_result_code, int32_t in_job_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply printing::mojom::PrintBackendService::StartPrinting", "async_response_parameters",
@@ -2591,6 +2613,9 @@ void PrintBackendService_StartPrinting_ProxyToResponder::Run(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result_code"), in_result_code,
                         "<value of type ::printing::mojom::ResultCode>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("job_id"), in_job_id,
+                        "<value of type int32_t>");
    });
 #endif
   
@@ -2607,6 +2632,7 @@ void PrintBackendService_StartPrinting_ProxyToResponder::Run(
   params.Allocate();
   mojo::internal::Serialize<::printing::mojom::ResultCode>(
       in_result_code, &params->result_code);
+  params->job_id = in_job_id;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintBackendService::Name_);
@@ -2682,6 +2708,8 @@ bool PrintBackendService_RenderPrintedDocument_ForwardToCallback::Accept(
           internal::PrintBackendService_RenderPrintedDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.10
   bool success = true;
   ::printing::mojom::ResultCode p_result_code{};
   PrintBackendService_RenderPrintedDocument_ResponseParamsDataView input_data_view(params, message);
@@ -2802,6 +2830,8 @@ bool PrintBackendService_DocumentDone_ForwardToCallback::Accept(
           internal::PrintBackendService_DocumentDone_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.11
   bool success = true;
   ::printing::mojom::ResultCode p_result_code{};
   PrintBackendService_DocumentDone_ResponseParamsDataView input_data_view(params, message);
@@ -2922,6 +2952,8 @@ bool PrintBackendService_Cancel_ForwardToCallback::Accept(
           internal::PrintBackendService_Cancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintBackendService.12
   bool success = true;
   PrintBackendService_Cancel_ResponseParamsDataView input_data_view(params, message);
   
@@ -2984,6 +3016,8 @@ bool PrintBackendServiceStubDispatch::Accept(
           reinterpret_cast<internal::PrintBackendService_Init_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.0
       bool success = true;
       std::string p_locale{};
       PrintBackendService_Init_ParamsDataView input_data_view(params, message);
@@ -2999,8 +3033,8 @@ bool PrintBackendServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_locale));
+      impl->Init(        
+        std::move(p_locale));
       return true;
     }
     case internal::kPrintBackendService_Poke_Name: {
@@ -3010,6 +3044,8 @@ std::move(p_locale));
           reinterpret_cast<internal::PrintBackendService_Poke_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.1
       bool success = true;
       PrintBackendService_Poke_ParamsDataView input_data_view(params, message);
       
@@ -3022,7 +3058,7 @@ std::move(p_locale));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Poke();
+      impl->Poke(        );
       return true;
     }
     case internal::kPrintBackendService_EnumeratePrinters_Name: {
@@ -3044,6 +3080,8 @@ std::move(p_locale));
           reinterpret_cast<internal::PrintBackendService_EstablishPrintingContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.6
       bool success = true;
       uint32_t p_context_id{};
       PrintBackendService_EstablishPrintingContext_ParamsDataView input_data_view(params, message);
@@ -3059,8 +3097,8 @@ std::move(p_locale));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EstablishPrintingContext(
-std::move(p_context_id));
+      impl->EstablishPrintingContext(        
+        std::move(p_context_id));
       return true;
     }
     case internal::kPrintBackendService_UseDefaultSettings_Name: {
@@ -3107,6 +3145,8 @@ bool PrintBackendServiceStubDispatch::AcceptWithResponder(
               internal::PrintBackendService_EnumeratePrinters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.2
       bool success = true;
       PrintBackendService_EnumeratePrinters_ParamsDataView input_data_view(params, message);
       
@@ -3132,6 +3172,8 @@ bool PrintBackendServiceStubDispatch::AcceptWithResponder(
               internal::PrintBackendService_GetDefaultPrinterName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.3
       bool success = true;
       PrintBackendService_GetDefaultPrinterName_ParamsDataView input_data_view(params, message);
       
@@ -3157,6 +3199,8 @@ bool PrintBackendServiceStubDispatch::AcceptWithResponder(
               internal::PrintBackendService_GetPrinterSemanticCapsAndDefaults_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.4
       bool success = true;
       std::string p_printer_name{};
       PrintBackendService_GetPrinterSemanticCapsAndDefaults_ParamsDataView input_data_view(params, message);
@@ -3175,8 +3219,8 @@ bool PrintBackendServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPrinterSemanticCapsAndDefaults(
-std::move(p_printer_name), std::move(callback));
+      impl->GetPrinterSemanticCapsAndDefaults(        
+        std::move(p_printer_name), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_FetchCapabilities_Name: {
@@ -3186,6 +3230,8 @@ std::move(p_printer_name), std::move(callback));
               internal::PrintBackendService_FetchCapabilities_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.5
       bool success = true;
       std::string p_printer_name{};
       PrintBackendService_FetchCapabilities_ParamsDataView input_data_view(params, message);
@@ -3204,8 +3250,8 @@ std::move(p_printer_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchCapabilities(
-std::move(p_printer_name), std::move(callback));
+      impl->FetchCapabilities(        
+        std::move(p_printer_name), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_EstablishPrintingContext_Name: {
@@ -3218,6 +3264,8 @@ std::move(p_printer_name), std::move(callback));
               internal::PrintBackendService_UseDefaultSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.7
       bool success = true;
       uint32_t p_context_id{};
       PrintBackendService_UseDefaultSettings_ParamsDataView input_data_view(params, message);
@@ -3236,8 +3284,8 @@ std::move(p_printer_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UseDefaultSettings(
-std::move(p_context_id), std::move(callback));
+      impl->UseDefaultSettings(        
+        std::move(p_context_id), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_UpdatePrintSettings_Name: {
@@ -3247,6 +3295,8 @@ std::move(p_context_id), std::move(callback));
               internal::PrintBackendService_UpdatePrintSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.8
       bool success = true;
       uint32_t p_context_id{};
       ::base::Value::Dict p_job_settings{};
@@ -3268,9 +3318,9 @@ std::move(p_context_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePrintSettings(
-std::move(p_context_id), 
-std::move(p_job_settings), std::move(callback));
+      impl->UpdatePrintSettings(        
+        std::move(p_context_id), 
+        std::move(p_job_settings), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_StartPrinting_Name: {
@@ -3280,6 +3330,8 @@ std::move(p_job_settings), std::move(callback));
               internal::PrintBackendService_StartPrinting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.9
       bool success = true;
       uint32_t p_context_id{};
       int32_t p_document_cookie{};
@@ -3307,11 +3359,11 @@ std::move(p_job_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPrinting(
-std::move(p_context_id), 
-std::move(p_document_cookie), 
-std::move(p_document_name), 
-std::move(p_settings), std::move(callback));
+      impl->StartPrinting(        
+        std::move(p_context_id), 
+        std::move(p_document_cookie), 
+        std::move(p_document_name), 
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_RenderPrintedDocument_Name: {
@@ -3321,6 +3373,8 @@ std::move(p_settings), std::move(callback));
               internal::PrintBackendService_RenderPrintedDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.10
       bool success = true;
       int32_t p_document_cookie{};
       uint32_t p_page_count{};
@@ -3348,11 +3402,11 @@ std::move(p_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenderPrintedDocument(
-std::move(p_document_cookie), 
-std::move(p_page_count), 
-std::move(p_data_type), 
-std::move(p_serialized_doc), std::move(callback));
+      impl->RenderPrintedDocument(        
+        std::move(p_document_cookie), 
+        std::move(p_page_count), 
+        std::move(p_data_type), 
+        std::move(p_serialized_doc), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_DocumentDone_Name: {
@@ -3362,6 +3416,8 @@ std::move(p_serialized_doc), std::move(callback));
               internal::PrintBackendService_DocumentDone_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.11
       bool success = true;
       int32_t p_document_cookie{};
       PrintBackendService_DocumentDone_ParamsDataView input_data_view(params, message);
@@ -3380,8 +3436,8 @@ std::move(p_serialized_doc), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DocumentDone(
-std::move(p_document_cookie), std::move(callback));
+      impl->DocumentDone(        
+        std::move(p_document_cookie), std::move(callback));
       return true;
     }
     case internal::kPrintBackendService_Cancel_Name: {
@@ -3391,6 +3447,8 @@ std::move(p_document_cookie), std::move(callback));
               internal::PrintBackendService_Cancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintBackendService.12
       bool success = true;
       int32_t p_document_cookie{};
       PrintBackendService_Cancel_ParamsDataView input_data_view(params, message);
@@ -3409,8 +3467,8 @@ std::move(p_document_cookie), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel(
-std::move(p_document_cookie), std::move(callback));
+      impl->Cancel(        
+        std::move(p_document_cookie), std::move(callback));
       return true;
     }
   }
@@ -3854,27 +3912,26 @@ PrintSettingsResultPtr PrintBackendServiceAsyncWaiter::UpdatePrintSettings(
 }
 
 void PrintBackendServiceAsyncWaiter::StartPrinting(
-    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code) {
+    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code, int32_t* out_job_id) {
   base::RunLoop loop;
   proxy_->StartPrinting(std::move(context_id),std::move(document_cookie),std::move(document_name),std::move(settings),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::printing::mojom::ResultCode* out_result_code
 ,
-             ::printing::mojom::ResultCode result_code) {*out_result_code = std::move(result_code);
+             int32_t* out_job_id
+,
+             ::printing::mojom::ResultCode result_code,
+             int32_t job_id) {*out_result_code = std::move(result_code);*out_job_id = std::move(job_id);
             loop->Quit();
           },
           &loop,
-          out_result_code));
+          out_result_code,
+          out_job_id));
   loop.Run();
 }
 
-::printing::mojom::ResultCode PrintBackendServiceAsyncWaiter::StartPrinting(
-    uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings) {
-  ::printing::mojom::ResultCode async_wait_result;
-  StartPrinting(std::move(context_id),std::move(document_cookie),std::move(document_name),std::move(settings),&async_wait_result);
-  return async_wait_result;
-}
+
 
 void PrintBackendServiceAsyncWaiter::RenderPrintedDocument(
     int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc, ::printing::mojom::ResultCode* out_result_code) {

@@ -1263,7 +1263,7 @@ MediaRouteProvider_DiscoverSinksNow_Params_Data::MediaRouteProvider_DiscoverSink
 
 
 // static
-bool MediaRouteProvider_CreateMediaRouteController_Params_Data::Validate(
+bool MediaRouteProvider_BindMediaController_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1275,8 +1275,8 @@ bool MediaRouteProvider_CreateMediaRouteController_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const MediaRouteProvider_CreateMediaRouteController_Params_Data* object =
-      static_cast<const MediaRouteProvider_CreateMediaRouteController_Params_Data*>(data);
+  [[maybe_unused]] const MediaRouteProvider_BindMediaController_Params_Data* object =
+      static_cast<const MediaRouteProvider_BindMediaController_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->route_id, 1, validation_context)) {
@@ -1310,12 +1310,12 @@ bool MediaRouteProvider_CreateMediaRouteController_Params_Data::Validate(
   return true;
 }
 
-MediaRouteProvider_CreateMediaRouteController_Params_Data::MediaRouteProvider_CreateMediaRouteController_Params_Data()
+MediaRouteProvider_BindMediaController_Params_Data::MediaRouteProvider_BindMediaController_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data::Validate(
+bool MediaRouteProvider_BindMediaController_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1327,13 +1327,13 @@ bool MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data::Validate
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data* object =
-      static_cast<const MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data*>(data);
+  [[maybe_unused]] const MediaRouteProvider_BindMediaController_ResponseParams_Data* object =
+      static_cast<const MediaRouteProvider_BindMediaController_ResponseParams_Data*>(data);
 
   return true;
 }
 
-MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data()
+MediaRouteProvider_BindMediaController_ResponseParams_Data::MediaRouteProvider_BindMediaController_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

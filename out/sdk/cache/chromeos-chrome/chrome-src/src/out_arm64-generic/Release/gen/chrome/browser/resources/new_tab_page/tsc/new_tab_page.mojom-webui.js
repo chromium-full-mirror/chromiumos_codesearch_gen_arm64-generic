@@ -10,13 +10,14 @@ export const NtpBackgroundImageSourceSpec = { $: mojo.internal.Enum() };
 export var NtpBackgroundImageSource;
 (function (NtpBackgroundImageSource) {
     NtpBackgroundImageSource[NtpBackgroundImageSource["MIN_VALUE"] = 0] = "MIN_VALUE";
-    NtpBackgroundImageSource[NtpBackgroundImageSource["MAX_VALUE"] = 5] = "MAX_VALUE";
+    NtpBackgroundImageSource[NtpBackgroundImageSource["MAX_VALUE"] = 6] = "MAX_VALUE";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kNoImage"] = 0] = "kNoImage";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kFirstPartyThemeWithoutDailyRefresh"] = 1] = "kFirstPartyThemeWithoutDailyRefresh";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kFirstPartyThemeWithDailyRefresh"] = 2] = "kFirstPartyThemeWithDailyRefresh";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kThirdPartyTheme"] = 3] = "kThirdPartyTheme";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kUploadedImage"] = 4] = "kUploadedImage";
     NtpBackgroundImageSource[NtpBackgroundImageSource["kWallpaperSearch"] = 5] = "kWallpaperSearch";
+    NtpBackgroundImageSource[NtpBackgroundImageSource["kWallpaperSearchInspiration"] = 6] = "kWallpaperSearchInspiration";
 })(NtpBackgroundImageSource || (NtpBackgroundImageSource = {}));
 export const IphFeatureSpec = { $: mojo.internal.Enum() };
 export var IphFeature;
@@ -775,7 +776,6 @@ mojo.internal.Struct(ThemeSpec.$, 'Theme', [
     mojo.internal.StructField('isCustomBackground', 16, 1, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('dailyRefreshEnabled', 16, 2, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('isDark', 16, 3, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('themeRealboxIcons', 16, 4, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('logoColor', 24, 0, skia_mojom_SkColorSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('backgroundImageCollectionId', 32, 0, mojo.internal.String, null, true /* nullable */, 0),
     mojo.internal.StructField('backgroundImage', 40, 0, BackgroundImageSpec.$, null, true /* nullable */, 0),

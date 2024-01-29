@@ -59,6 +59,9 @@ extern BackgroundTracingMetadata_TriggerRule_NamedRuleDefaultTypeInternal _Backg
 class ChromeMetadataPacket;
 struct ChromeMetadataPacketDefaultTypeInternal;
 extern ChromeMetadataPacketDefaultTypeInternal _ChromeMetadataPacket_default_instance_;
+class ChromeMetadataPacket_FinchHash;
+struct ChromeMetadataPacket_FinchHashDefaultTypeInternal;
+extern ChromeMetadataPacket_FinchHashDefaultTypeInternal _ChromeMetadataPacket_FinchHash_default_instance_;
 }  // namespace protos
 }  // namespace perfetto
 PROTOBUF_NAMESPACE_OPEN
@@ -67,6 +70,7 @@ template<> ::perfetto::protos::BackgroundTracingMetadata_TriggerRule* Arena::Cre
 template<> ::perfetto::protos::BackgroundTracingMetadata_TriggerRule_HistogramRule* Arena::CreateMaybeMessage<::perfetto::protos::BackgroundTracingMetadata_TriggerRule_HistogramRule>(Arena*);
 template<> ::perfetto::protos::BackgroundTracingMetadata_TriggerRule_NamedRule* Arena::CreateMaybeMessage<::perfetto::protos::BackgroundTracingMetadata_TriggerRule_NamedRule>(Arena*);
 template<> ::perfetto::protos::ChromeMetadataPacket* Arena::CreateMaybeMessage<::perfetto::protos::ChromeMetadataPacket>(Arena*);
+template<> ::perfetto::protos::ChromeMetadataPacket_FinchHash* Arena::CreateMaybeMessage<::perfetto::protos::ChromeMetadataPacket_FinchHash>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace perfetto {
 namespace protos {
@@ -117,6 +121,160 @@ bool BackgroundTracingMetadata_TriggerRule_TriggerType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BackgroundTracingMetadata_TriggerRule_TriggerType* value);
 // ===================================================================
 
+class ChromeMetadataPacket_FinchHash final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.ChromeMetadataPacket.FinchHash) */ {
+ public:
+  inline ChromeMetadataPacket_FinchHash() : ChromeMetadataPacket_FinchHash(nullptr) {}
+  ~ChromeMetadataPacket_FinchHash() override;
+  explicit PROTOBUF_CONSTEXPR ChromeMetadataPacket_FinchHash(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ChromeMetadataPacket_FinchHash(const ChromeMetadataPacket_FinchHash& from);
+  ChromeMetadataPacket_FinchHash(ChromeMetadataPacket_FinchHash&& from) noexcept
+    : ChromeMetadataPacket_FinchHash() {
+    *this = ::std::move(from);
+  }
+
+  inline ChromeMetadataPacket_FinchHash& operator=(const ChromeMetadataPacket_FinchHash& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ChromeMetadataPacket_FinchHash& operator=(ChromeMetadataPacket_FinchHash&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ChromeMetadataPacket_FinchHash& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ChromeMetadataPacket_FinchHash* internal_default_instance() {
+    return reinterpret_cast<const ChromeMetadataPacket_FinchHash*>(
+               &_ChromeMetadataPacket_FinchHash_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(ChromeMetadataPacket_FinchHash& a, ChromeMetadataPacket_FinchHash& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ChromeMetadataPacket_FinchHash* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ChromeMetadataPacket_FinchHash* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ChromeMetadataPacket_FinchHash* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ChromeMetadataPacket_FinchHash>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ChromeMetadataPacket_FinchHash& from);
+  void MergeFrom(const ChromeMetadataPacket_FinchHash& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ChromeMetadataPacket_FinchHash* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "perfetto.protos.ChromeMetadataPacket.FinchHash";
+  }
+  protected:
+  explicit ChromeMetadataPacket_FinchHash(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kGroupFieldNumber = 2,
+  };
+  // optional uint32 name = 1;
+  bool has_name() const;
+  private:
+  bool _internal_has_name() const;
+  public:
+  void clear_name();
+  uint32_t name() const;
+  void set_name(uint32_t value);
+  private:
+  uint32_t _internal_name() const;
+  void _internal_set_name(uint32_t value);
+  public:
+
+  // optional uint32 group = 2;
+  bool has_group() const;
+  private:
+  bool _internal_has_group() const;
+  public:
+  void clear_group();
+  uint32_t group() const;
+  void set_group(uint32_t value);
+  private:
+  uint32_t _internal_group() const;
+  void _internal_set_group(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:perfetto.protos.ChromeMetadataPacket.FinchHash)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t name_;
+  uint32_t group_;
+  friend struct ::TableStruct_protos_2fperfetto_2ftrace_2fchrome_2fchrome_5fmetadata_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ChromeMetadataPacket final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.ChromeMetadataPacket) */ {
  public:
@@ -163,7 +321,7 @@ class ChromeMetadataPacket final :
                &_ChromeMetadataPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(ChromeMetadataPacket& a, ChromeMetadataPacket& b) {
     a.Swap(&b);
@@ -224,13 +382,34 @@ class ChromeMetadataPacket final :
 
   // nested types ----------------------------------------------------
 
+  typedef ChromeMetadataPacket_FinchHash FinchHash;
+
   // accessors -------------------------------------------------------
 
   enum : int {
+    kFieldTrialHashesFieldNumber = 4,
     kEnabledCategoriesFieldNumber = 3,
     kBackgroundTracingMetadataFieldNumber = 1,
     kChromeVersionCodeFieldNumber = 2,
   };
+  // repeated .perfetto.protos.ChromeMetadataPacket.FinchHash field_trial_hashes = 4;
+  int field_trial_hashes_size() const;
+  private:
+  int _internal_field_trial_hashes_size() const;
+  public:
+  void clear_field_trial_hashes();
+  ::perfetto::protos::ChromeMetadataPacket_FinchHash* mutable_field_trial_hashes(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::ChromeMetadataPacket_FinchHash >*
+      mutable_field_trial_hashes();
+  private:
+  const ::perfetto::protos::ChromeMetadataPacket_FinchHash& _internal_field_trial_hashes(int index) const;
+  ::perfetto::protos::ChromeMetadataPacket_FinchHash* _internal_add_field_trial_hashes();
+  public:
+  const ::perfetto::protos::ChromeMetadataPacket_FinchHash& field_trial_hashes(int index) const;
+  ::perfetto::protos::ChromeMetadataPacket_FinchHash* add_field_trial_hashes();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::ChromeMetadataPacket_FinchHash >&
+      field_trial_hashes() const;
+
   // optional string enabled_categories = 3;
   bool has_enabled_categories() const;
   private:
@@ -289,6 +468,7 @@ class ChromeMetadataPacket final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::ChromeMetadataPacket_FinchHash > field_trial_hashes_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr enabled_categories_;
   ::perfetto::protos::BackgroundTracingMetadata* background_tracing_metadata_;
   int32_t chrome_version_code_;
@@ -342,7 +522,7 @@ class BackgroundTracingMetadata_TriggerRule_HistogramRule final :
                &_BackgroundTracingMetadata_TriggerRule_HistogramRule_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(BackgroundTracingMetadata_TriggerRule_HistogramRule& a, BackgroundTracingMetadata_TriggerRule_HistogramRule& b) {
     a.Swap(&b);
@@ -511,7 +691,7 @@ class BackgroundTracingMetadata_TriggerRule_NamedRule final :
                &_BackgroundTracingMetadata_TriggerRule_NamedRule_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(BackgroundTracingMetadata_TriggerRule_NamedRule& a, BackgroundTracingMetadata_TriggerRule_NamedRule& b) {
     a.Swap(&b);
@@ -701,7 +881,7 @@ class BackgroundTracingMetadata_TriggerRule final :
                &_BackgroundTracingMetadata_TriggerRule_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(BackgroundTracingMetadata_TriggerRule& a, BackgroundTracingMetadata_TriggerRule& b) {
     a.Swap(&b);
@@ -926,7 +1106,7 @@ class BackgroundTracingMetadata final :
                &_BackgroundTracingMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(BackgroundTracingMetadata& a, BackgroundTracingMetadata& b) {
     a.Swap(&b);
@@ -1068,6 +1248,66 @@ class BackgroundTracingMetadata final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// ChromeMetadataPacket_FinchHash
+
+// optional uint32 name = 1;
+inline bool ChromeMetadataPacket_FinchHash::_internal_has_name() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ChromeMetadataPacket_FinchHash::has_name() const {
+  return _internal_has_name();
+}
+inline void ChromeMetadataPacket_FinchHash::clear_name() {
+  name_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t ChromeMetadataPacket_FinchHash::_internal_name() const {
+  return name_;
+}
+inline uint32_t ChromeMetadataPacket_FinchHash::name() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.ChromeMetadataPacket.FinchHash.name)
+  return _internal_name();
+}
+inline void ChromeMetadataPacket_FinchHash::_internal_set_name(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  name_ = value;
+}
+inline void ChromeMetadataPacket_FinchHash::set_name(uint32_t value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.ChromeMetadataPacket.FinchHash.name)
+}
+
+// optional uint32 group = 2;
+inline bool ChromeMetadataPacket_FinchHash::_internal_has_group() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ChromeMetadataPacket_FinchHash::has_group() const {
+  return _internal_has_group();
+}
+inline void ChromeMetadataPacket_FinchHash::clear_group() {
+  group_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t ChromeMetadataPacket_FinchHash::_internal_group() const {
+  return group_;
+}
+inline uint32_t ChromeMetadataPacket_FinchHash::group() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.ChromeMetadataPacket.FinchHash.group)
+  return _internal_group();
+}
+inline void ChromeMetadataPacket_FinchHash::_internal_set_group(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  group_ = value;
+}
+inline void ChromeMetadataPacket_FinchHash::set_group(uint32_t value) {
+  _internal_set_group(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.ChromeMetadataPacket.FinchHash.group)
+}
+
+// -------------------------------------------------------------------
+
 // ChromeMetadataPacket
 
 // optional .perfetto.protos.BackgroundTracingMetadata background_tracing_metadata = 1;
@@ -1254,6 +1494,46 @@ inline void ChromeMetadataPacket::set_allocated_enabled_categories(std::string* 
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:perfetto.protos.ChromeMetadataPacket.enabled_categories)
+}
+
+// repeated .perfetto.protos.ChromeMetadataPacket.FinchHash field_trial_hashes = 4;
+inline int ChromeMetadataPacket::_internal_field_trial_hashes_size() const {
+  return field_trial_hashes_.size();
+}
+inline int ChromeMetadataPacket::field_trial_hashes_size() const {
+  return _internal_field_trial_hashes_size();
+}
+inline void ChromeMetadataPacket::clear_field_trial_hashes() {
+  field_trial_hashes_.Clear();
+}
+inline ::perfetto::protos::ChromeMetadataPacket_FinchHash* ChromeMetadataPacket::mutable_field_trial_hashes(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.ChromeMetadataPacket.field_trial_hashes)
+  return field_trial_hashes_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::ChromeMetadataPacket_FinchHash >*
+ChromeMetadataPacket::mutable_field_trial_hashes() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.ChromeMetadataPacket.field_trial_hashes)
+  return &field_trial_hashes_;
+}
+inline const ::perfetto::protos::ChromeMetadataPacket_FinchHash& ChromeMetadataPacket::_internal_field_trial_hashes(int index) const {
+  return field_trial_hashes_.Get(index);
+}
+inline const ::perfetto::protos::ChromeMetadataPacket_FinchHash& ChromeMetadataPacket::field_trial_hashes(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.ChromeMetadataPacket.field_trial_hashes)
+  return _internal_field_trial_hashes(index);
+}
+inline ::perfetto::protos::ChromeMetadataPacket_FinchHash* ChromeMetadataPacket::_internal_add_field_trial_hashes() {
+  return field_trial_hashes_.Add();
+}
+inline ::perfetto::protos::ChromeMetadataPacket_FinchHash* ChromeMetadataPacket::add_field_trial_hashes() {
+  ::perfetto::protos::ChromeMetadataPacket_FinchHash* _add = _internal_add_field_trial_hashes();
+  // @@protoc_insertion_point(field_add:perfetto.protos.ChromeMetadataPacket.field_trial_hashes)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::ChromeMetadataPacket_FinchHash >&
+ChromeMetadataPacket::field_trial_hashes() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.ChromeMetadataPacket.field_trial_hashes)
+  return field_trial_hashes_;
 }
 
 // -------------------------------------------------------------------
@@ -1811,6 +2091,8 @@ inline void BackgroundTracingMetadata::set_scenario_name_hash(uint32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

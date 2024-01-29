@@ -106,8 +106,11 @@ export function isGroupButtonActive(element) {
  * setup() which is more like jasmine beforeEach()
  */
 export function initialiseEmojiPickerForTest(incognito = false, localStorage = []) {
+    const setIncognito = (incognito) => {
+        EmojiPickerApiProxyImpl.getInstance().isIncognitoTextField = async () => ({ incognito });
+    };
     // Set default incognito state to False.
-    EmojiPickerApiProxyImpl.getInstance().isIncognitoTextField = async () => ({ incognito: incognito });
+    setIncognito(incognito);
     EmojiPickerApp.configs = () => ({
         dataUrls: {
             emoji: [
@@ -126,7 +129,7 @@ export function initialiseEmojiPickerForTest(incognito = false, localStorage = [
     for (const { key, value } of localStorage) {
         window.localStorage.setItem(key, value);
     }
-    const emojiPicker = document.createElement('emoji-picker-app');
+    let emojiPicker = document.createElement('emoji-picker-app');
     const findInEmojiPicker = (...path) => deepQuerySelector(emojiPicker, path);
     const waitUntilFindInEmojiPicker = async (...path) => {
         await waitForCondition(() => findInEmojiPicker(...path) !== null, 'element should not be null');
@@ -135,6 +138,32 @@ export function initialiseEmojiPickerForTest(incognito = false, localStorage = [
     const findEmojiFirstButton = (...path) => {
         const emojiElement = findInEmojiPicker(...path);
         return emojiElement?.firstEmojiButton();
+    };
+    const findEmojiButtonByText = (text, group) => {
+        const buttons = Array.from(group.shadowRoot.querySelectorAll('.emoji-button'));
+        return buttons.find(button => button.innerText === text) ?? null;
+    };
+    const findGroup = (groupId) => findInEmojiPicker(`[data-group="${groupId}"] > emoji-group`);
+    const findSearchGroup = (category) => findInEmojiPicker('emoji-search', `emoji-group[category="${category}"]`);
+    const expectEmojiButton = (text, getGroup = () => findGroup('0')) => waitForCondition(() => {
+        const group = getGroup();
+        return group ? findEmojiButtonByText(text, group) : null;
+    }, `wait for emoji ${text} to render`);
+    const expectEmojiButtons = (texts, getGroup) => Promise.all(texts.map(text => expectEmojiButton(text, getGroup)));
+    const findVariant = (text, button) => {
+        const variants = button.parentElement?.querySelector('emoji-variants');
+        if (!variants || variants.style.display === 'none') {
+            return null;
+        }
+        const variantButtons = Array.from(variants?.shadowRoot.querySelectorAll('emoji-button'));
+        const component = variantButtons.find(button => button.emoji === text);
+        return component?.shadowRoot.querySelector('#emoji-button') ??
+            null;
+    };
+    const clickVariant = async (text, button) => {
+        dispatchMouseEvent(button, 2);
+        const variant = await waitForCondition(() => findVariant(text, button), `wait for variants for emoji ${text} to render`);
+        variant.click();
     };
     const scrollDown = (height) => {
         const thisRect = emojiPicker.$.groups;
@@ -153,19 +182,31 @@ export function initialiseEmojiPickerForTest(incognito = false, localStorage = [
         }
     };
     // Wait until emoji data is loaded before executing tests.
-    const readyPromise = new Promise((resolve) => {
+    const createReadyPromise = () => new Promise((resolve) => {
         emojiPicker.addEventListener(EMOJI_PICKER_READY, () => {
             flush();
             resolve();
         });
         document.body.appendChild(emojiPicker);
     });
+    const reload = async () => {
+        emojiPicker.remove();
+        emojiPicker = document.createElement('emoji-picker-app');
+        await createReadyPromise();
+    };
     return {
         emojiPicker,
         findInEmojiPicker,
         waitUntilFindInEmojiPicker,
         findEmojiFirstButton,
-        readyPromise,
+        expectEmojiButton,
+        expectEmojiButtons,
+        clickVariant,
+        findGroup,
+        findSearchGroup,
+        readyPromise: createReadyPromise(),
+        reload,
+        setIncognito,
         scrollDown,
         scrollToBottom,
     };

@@ -242,6 +242,8 @@ bool ServiceWorkerStreamCallbackStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerStreamCallback_OnCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStreamCallback.0
       bool success = true;
       ServiceWorkerStreamCallback_OnCompleted_ParamsDataView input_data_view(params, message);
       
@@ -254,7 +256,7 @@ bool ServiceWorkerStreamCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompleted();
+      impl->OnCompleted(        );
       return true;
     }
     case internal::kServiceWorkerStreamCallback_OnAborted_Name: {
@@ -264,6 +266,8 @@ bool ServiceWorkerStreamCallbackStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerStreamCallback_OnAborted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStreamCallback.1
       bool success = true;
       ServiceWorkerStreamCallback_OnAborted_ParamsDataView input_data_view(params, message);
       
@@ -276,7 +280,7 @@ bool ServiceWorkerStreamCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAborted();
+      impl->OnAborted(        );
       return true;
     }
   }

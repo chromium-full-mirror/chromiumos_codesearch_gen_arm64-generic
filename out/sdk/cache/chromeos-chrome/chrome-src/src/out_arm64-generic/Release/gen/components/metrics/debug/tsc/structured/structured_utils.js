@@ -47,6 +47,7 @@ export function updateStructuredMetricsEvents(eventBody, events, eventTemplate, 
         updateEventDetailsTable(details, event, kvTemplate);
         updateEventMetricsTable(metrics, event, kvTemplate);
         const eventRow = row.querySelector('#event-row');
+        assert(eventRow);
         eventRow.addEventListener('click', () => {
             if (metricsRow.style.display === 'none') {
                 metricsRow.style.display = 'table-row';

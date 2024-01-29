@@ -12,10 +12,10 @@ import { recordMediumCount, recordUserAction } from '../../common/js/metrics.js'
 import { getEntryLabel } from '../../common/js/translations.js';
 import { testSendMessage } from '../../common/js/util.js';
 import { FileSystemType, getVolumeTypeFromRootType, isNative, RootType, Source, VolumeType } from '../../common/js/volume_manager_types.js';
-import { PropStatus, SearchLocation, SearchOptions, State, Volume, VolumeId } from '../../externs/ts/state.js';
 import { getMyFiles } from '../../state/ducks/all_entries.js';
 import { changeDirectory } from '../../state/ducks/current_directory.js';
 import { clearSearch, getDefaultSearchOptions, updateSearch } from '../../state/ducks/search.js';
+import { PropStatus, SearchLocation } from '../../state/state.js';
 import { getFileData, getStore, getVolume } from '../../state/store.js';
 import { CROSTINI_CONNECT_ERR, DLP_METADATA_PREFETCH_PROPERTY_NAMES, LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES } from './constants.js';
 import { ContentScanner, CrostiniMounter, DirectoryContents, DirectoryContentScanner, DriveMetadataSearchContentScanner, EmptyContentScanner, FileFilter, FileListContext, GuestOsMounter, MediaViewContentScanner, RecentContentScanner, SearchV2ContentScanner, TrashContentScanner } from './directory_contents.js';
@@ -292,7 +292,7 @@ export class DirectoryModel extends FilesEventTarget {
      */
     isOnNative() {
         const rootType = this.getCurrentRootType();
-        return rootType != null && !isRecentRootType(rootType) &&
+        return rootType !== null && !isRecentRootType(rootType) &&
             isNative(getVolumeTypeFromRootType(rootType));
     }
     /**
@@ -311,7 +311,7 @@ export class DirectoryModel extends FilesEventTarget {
      */
     isCurrentRootVolumeType_(volumeType) {
         const rootType = this.getCurrentRootType();
-        return rootType != null && !isRecentRootType(rootType) &&
+        return rootType !== null && !isRecentRootType(rootType) &&
             getVolumeTypeFromRootType(rootType) === volumeType;
     }
     /**
@@ -853,8 +853,8 @@ export class DirectoryModel extends FilesEventTarget {
             // If nothing is selected after update, then select file next to the
             // latest selection
             let forceChangeEvent = false;
-            if (this.fileListSelection_.selectedIndexes.length == 0 &&
-                selectedIndices.length != 0) {
+            if (this.fileListSelection_.selectedIndexes.length === 0 &&
+                selectedIndices.length !== 0) {
                 const maxIdx = Math.max.apply(null, selectedIndices);
                 this.selectIndex(Math.min(maxIdx - selectedIndices.length + 2, this.getFileList().length) -
                     1);
@@ -1243,11 +1243,11 @@ export class DirectoryModel extends FilesEventTarget {
      */
     isSearchDirectory(entry, query) {
         const rootType = getRootType(entry);
-        if (isRecentRootType(rootType) || rootType == RootType.CROSTINI ||
-            rootType == RootType.DRIVE_FAKE_ROOT) {
+        if (isRecentRootType(rootType) || rootType === RootType.CROSTINI ||
+            rootType === RootType.DRIVE_FAKE_ROOT) {
             return true;
         }
-        if (rootType == RootType.MY_FILES) {
+        if (rootType === RootType.MY_FILES) {
             return false;
         }
         if ((query || '').trimStart()) {
@@ -1255,7 +1255,7 @@ export class DirectoryModel extends FilesEventTarget {
         }
         const locationInfo = this.volumeManager_.getLocationInfo(entry);
         if (locationInfo &&
-            (locationInfo.rootType == RootType.MEDIA_VIEW ||
+            (locationInfo.rootType === RootType.MEDIA_VIEW ||
                 locationInfo.isSpecialSearchRoot)) {
             return true;
         }
@@ -1280,27 +1280,27 @@ export class DirectoryModel extends FilesEventTarget {
         // TODO(b/271485133): Make sure the entry here is a fake entry, not real
         // volume entry.
         const rootType = getRootType(entry);
-        if (rootType == RootType.CROSTINI) {
+        if (rootType === RootType.CROSTINI) {
             return () => {
                 return new CrostiniMounter();
             };
         }
-        if (rootType == RootType.GUEST_OS) {
+        if (rootType === RootType.GUEST_OS) {
             return () => {
                 return new GuestOsMounter(entry.guest_id);
             };
         }
-        if (rootType == RootType.MY_FILES) {
+        if (rootType === RootType.MY_FILES) {
             return () => {
                 return new DirectoryContentScanner(entry);
             };
         }
-        if (rootType == RootType.DRIVE_FAKE_ROOT) {
+        if (rootType === RootType.DRIVE_FAKE_ROOT) {
             return () => {
                 return new EmptyContentScanner();
             };
         }
-        if (rootType == RootType.TRASH) {
+        if (rootType === RootType.TRASH) {
             return () => {
                 return new TrashContentScanner(this.volumeManager_);
             };
@@ -1312,7 +1312,7 @@ export class DirectoryModel extends FilesEventTarget {
                 entry, sanitizedQuery, options || getDefaultSearchOptions());
             };
         }
-        if (locationInfo && locationInfo.rootType == RootType.MEDIA_VIEW) {
+        if (locationInfo && locationInfo.rootType === RootType.MEDIA_VIEW) {
             return () => {
                 return new MediaViewContentScanner(entry);
             };
@@ -1460,7 +1460,7 @@ export class DirectoryModel extends FilesEventTarget {
         if (!rescan) {
             return;
         }
-        const isIOTaskFinished = event.state === chrome.fileManagerPrivate.IOTaskState.SUCCESS;
+        const isIOTaskFinished = event.state === chrome.fileManagerPrivate.IoTaskState.SUCCESS;
         if (isIOTaskFinished) {
             this.rescanLater(/* refresh= */ false, /* invalidateCache= */ true);
         }

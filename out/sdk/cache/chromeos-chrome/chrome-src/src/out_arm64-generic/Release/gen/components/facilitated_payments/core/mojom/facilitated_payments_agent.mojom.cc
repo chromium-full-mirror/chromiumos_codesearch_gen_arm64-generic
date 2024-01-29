@@ -210,6 +210,8 @@ bool FacilitatedPaymentsAgent_TriggerPixCodeDetection_ForwardToCallback::Accept(
           internal::FacilitatedPaymentsAgent_TriggerPixCodeDetection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FacilitatedPaymentsAgent.0
   bool success = true;
   bool p_found_pix_code{};
   FacilitatedPaymentsAgent_TriggerPixCodeDetection_ResponseParamsDataView input_data_view(params, message);
@@ -300,6 +302,8 @@ bool FacilitatedPaymentsAgentStubDispatch::AcceptWithResponder(
               internal::FacilitatedPaymentsAgent_TriggerPixCodeDetection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FacilitatedPaymentsAgent.0
       bool success = true;
       FacilitatedPaymentsAgent_TriggerPixCodeDetection_ParamsDataView input_data_view(params, message);
       

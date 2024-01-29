@@ -770,14 +770,14 @@ inline TorqueGeneratedSortState<D, P>::TorqueGeneratedSortState(Address ptr)
   SLOW_DCHECK(IsSortState_NonInline(*this));
 }
 TQ_OBJECT_CONSTRUCTORS_IMPL(SortState)
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
 template<class D, class P>
 Tagged<String> TorqueGeneratedWasmStringViewIter<D, P>::string() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmStringViewIter::string(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
 template<class D, class P>
 Tagged<String> TorqueGeneratedWasmStringViewIter<D, P>::string(PtrComprCageBase cage_base) const {
   Tagged<String> value = TaggedField<Tagged<String>>::load(cage_base, *this, kStringOffset);
@@ -785,7 +785,7 @@ Tagged<String> TorqueGeneratedWasmStringViewIter<D, P>::string(PtrComprCageBase 
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
 template<class D, class P>
 void TorqueGeneratedWasmStringViewIter<D, P>::set_string(Tagged<String> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsString(value));
@@ -793,20 +793,20 @@ void TorqueGeneratedWasmStringViewIter<D, P>::set_string(Tagged<String> value, W
   CONDITIONAL_WRITE_BARRIER(*this, kStringOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=232&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
 template<class D, class P>
 uint32_t TorqueGeneratedWasmStringViewIter<D, P>::offset() const {
   uint32_t value = this->template ReadField<uint32_t>(kOffsetOffset);
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=232&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
 template<class D, class P>
 void TorqueGeneratedWasmStringViewIter<D, P>::set_offset(uint32_t value) {
   this->template WriteField<uint32_t>(kOffsetOffset, value);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=230&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmStringViewIter<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));

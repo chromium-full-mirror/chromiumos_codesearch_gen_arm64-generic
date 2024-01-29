@@ -902,6 +902,44 @@ struct PumpkinData {
 
 };
 
+struct FaceGazeAssets {
+  FaceGazeAssets();
+  ~FaceGazeAssets();
+  FaceGazeAssets(const FaceGazeAssets&) = delete;
+  FaceGazeAssets& operator=(const FaceGazeAssets&) = delete;
+  FaceGazeAssets(FaceGazeAssets&& rhs) noexcept;
+  FaceGazeAssets& operator=(FaceGazeAssets&& rhs) noexcept;
+
+  // Populates a FaceGazeAssets object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, FaceGazeAssets& out);
+
+  // Populates a FaceGazeAssets object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, FaceGazeAssets& out);
+
+  // Creates a deep copy of FaceGazeAssets.
+  FaceGazeAssets Clone() const;
+
+  // Creates a FaceGazeAssets object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<FaceGazeAssets> FromValue(const base::Value::Dict& value);
+
+  // Creates a FaceGazeAssets object from a base::Value, or nullopt on failure.
+  static std::optional<FaceGazeAssets> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisFaceGazeAssets object.
+  base::Value::Dict ToValue() const;
+
+  // The contents of the FaceLandmarker model as a Uint8Array.
+  std::vector<uint8_t> model;
+
+  // The contents of the vision_wasm_internal.wasm file as a Uint8Array.
+  std::vector<uint8_t> wasm;
+
+};
+
 
 //
 // Functions
@@ -924,6 +962,15 @@ base::Value::List Create(const PumpkinData& data);
 }  // namespace Results
 
 }  // namespace InstallPumpkinForDictation
+
+namespace InstallFaceGazeAssets {
+
+namespace Results {
+
+base::Value::List Create(const FaceGazeAssets& assets);
+}  // namespace Results
+
+}  // namespace InstallFaceGazeAssets
 
 namespace SetNativeAccessibilityEnabled {
 
@@ -990,6 +1037,27 @@ struct Params {
 };
 
 }  // namespace SetHighlights
+
+namespace SetSelectToSpeakFocus {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  // Bounds of currently spoken word (if available) or node (if the spoken node is
+  // not a text node).
+  ScreenRect bounds;
+
+
+ private:
+  Params();
+};
+
+}  // namespace SetSelectToSpeakFocus
 
 namespace SetKeyboardListener {
 
@@ -1642,6 +1710,14 @@ extern const char kEventName[];  // "accessibilityPrivate.onSelectToSpeakContext
 
 base::Value::List Create();
 }  // namespace OnSelectToSpeakContextMenuClicked
+
+namespace OnSelectToSpeakFocusChanged {
+
+extern const char kEventName[];  // "accessibilityPrivate.onSelectToSpeakFocusChanged"
+
+// Select to Speak's focus bounds in global screen coordinates.
+base::Value::List Create(const ScreenRect& bounds);
+}  // namespace OnSelectToSpeakFocusChanged
 
 namespace OnSelectToSpeakStateChangeRequested {
 

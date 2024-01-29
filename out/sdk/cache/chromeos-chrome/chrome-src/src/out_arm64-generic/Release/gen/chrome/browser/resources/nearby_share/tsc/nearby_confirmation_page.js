@@ -10,7 +10,6 @@ import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
 import 'chrome://resources/cr_elements/cr_lottie/cr_lottie.js';
 import 'chrome://resources/cros_components/lottie_renderer/lottie-renderer.js';
-import 'chrome://resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import '/shared/nearby_page_template.js';
 import '/shared/nearby_preview.js';
 import '/shared/nearby_progress.js';
@@ -18,7 +17,6 @@ import './strings.m.js';
 import { TransferStatus, TransferUpdateListenerReceiver } from '/shared/nearby_share.mojom-webui.js';
 import { CloseReason } from '/shared/types.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getDiscoveryManager } from './discovery_manager.js';
 import { getTemplate } from './nearby_confirmation_page.html.js';
@@ -37,19 +35,10 @@ class TransferUpdateListener {
         this.page_.onTransferUpdate(status, token);
     }
 }
-// TODO(TODO(b/279623883): Remove dark mode handling.
 /**
- * The progress bar asset URL for light mode
+ * The progress bar asset URL.
  */
-const PROGRESS_BAR_URL_LIGHT = 'nearby_share_progress_bar_light.json';
-/**
- * The progress bar asset URL for dark mode
- */
-const PROGRESS_BAR_URL_DARK = 'nearby_share_progress_bar_dark.json';
-/**
- * The progress bar asset URL for jelly mode.
- */
-const PROGRESS_BAR_URL_JELLY = 'nearby_share_progress_bar_jelly.json';
+const PROGRESS_BAR_URL = 'nearby_share_progress_bar.json';
 const NearbyConfirmationPageElementBase = I18nMixin(PolymerElement);
 export class NearbyConfirmationPageElement extends NearbyConfirmationPageElementBase {
     constructor() {
@@ -139,24 +128,6 @@ export class NearbyConfirmationPageElement extends NearbyConfirmationPageElement
             lastTransferStatus_: {
                 type: TransferStatus,
                 value: null,
-            },
-            /**
-             * Whether the confirmation page is being rendered in dark mode.
-             */
-            isDarkModeActive_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * Return true if the Jelly feature flag is enabled.
-             */
-            isJellyEnabled_: {
-                type: Boolean,
-                readOnly: true,
-                value() {
-                    return loadTimeData.valueExists('isJellyEnabled') &&
-                        loadTimeData.getBoolean('isJellyEnabled');
-                },
             },
         };
     }
@@ -303,11 +274,7 @@ export class NearbyConfirmationPageElement extends NearbyConfirmationPageElement
      * progress bar.
      */
     getAnimationUrl_() {
-        if (this.isJellyEnabled_) {
-            return PROGRESS_BAR_URL_JELLY;
-        }
-        return this.isDarkModeActive_ ? PROGRESS_BAR_URL_DARK :
-            PROGRESS_BAR_URL_LIGHT;
+        return PROGRESS_BAR_URL;
     }
 }
 customElements.define(NearbyConfirmationPageElement.is, NearbyConfirmationPageElement);

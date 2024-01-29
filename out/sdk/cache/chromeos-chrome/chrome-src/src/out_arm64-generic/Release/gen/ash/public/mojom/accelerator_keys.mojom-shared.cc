@@ -416,6 +416,38 @@ NOINLINE static const char* VKeyToStringHelper(VKey value) {
       return "kPA1";
     case VKey::kOemClear:
       return "kOemClear";
+    case VKey::kButton0:
+      return "kButton0";
+    case VKey::kButton1:
+      return "kButton1";
+    case VKey::kButton2:
+      return "kButton2";
+    case VKey::kButton3:
+      return "kButton3";
+    case VKey::kButton4:
+      return "kButton4";
+    case VKey::kButton5:
+      return "kButton5";
+    case VKey::kButton6:
+      return "kButton6";
+    case VKey::kButton7:
+      return "kButton7";
+    case VKey::kButton8:
+      return "kButton8";
+    case VKey::kButton9:
+      return "kButton9";
+    case VKey::kButtonA:
+      return "kButtonA";
+    case VKey::kButtonB:
+      return "kButtonB";
+    case VKey::kButtonC:
+      return "kButtonC";
+    case VKey::kButtonX:
+      return "kButtonX";
+    case VKey::kButtonY:
+      return "kButtonY";
+    case VKey::kButtonZ:
+      return "kButtonZ";
     default:
       return nullptr;
   }

@@ -730,6 +730,8 @@ bool Index_GetSize_ForwardToCallback::Accept(
           internal::Index_GetSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.0
   bool success = true;
   uint64_t p_num_items{};
   Index_GetSize_ResponseParamsDataView input_data_view(params, message);
@@ -849,6 +851,8 @@ bool Index_AddOrUpdate_ForwardToCallback::Accept(
           internal::Index_AddOrUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.1
   bool success = true;
   Index_AddOrUpdate_ResponseParamsDataView input_data_view(params, message);
   
@@ -956,6 +960,8 @@ bool Index_Delete_ForwardToCallback::Accept(
           internal::Index_Delete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.2
   bool success = true;
   uint32_t p_num_deleted{};
   Index_Delete_ResponseParamsDataView input_data_view(params, message);
@@ -1075,6 +1081,8 @@ bool Index_UpdateDocuments_ForwardToCallback::Accept(
           internal::Index_UpdateDocuments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.3
   bool success = true;
   uint32_t p_num_deleted{};
   Index_UpdateDocuments_ResponseParamsDataView input_data_view(params, message);
@@ -1194,6 +1202,8 @@ bool Index_Find_ForwardToCallback::Accept(
           internal::Index_Find_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.4
   bool success = true;
   ::ash::local_search_service::ResponseStatus p_status{};
   std::optional<std::vector<::ash::local_search_service::Result>> p_results{};
@@ -1330,6 +1340,8 @@ bool Index_ClearIndex_ForwardToCallback::Accept(
           internal::Index_ClearIndex_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.5
   bool success = true;
   Index_ClearIndex_ResponseParamsDataView input_data_view(params, message);
   
@@ -1437,6 +1449,8 @@ bool Index_SetSearchParams_ForwardToCallback::Accept(
           internal::Index_SetSearchParams_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Index.6
   bool success = true;
   Index_SetSearchParams_ResponseParamsDataView input_data_view(params, message);
   
@@ -1533,6 +1547,8 @@ bool IndexStubDispatch::AcceptWithResponder(
               internal::Index_GetSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.0
       bool success = true;
       Index_GetSize_ParamsDataView input_data_view(params, message);
       
@@ -1558,6 +1574,8 @@ bool IndexStubDispatch::AcceptWithResponder(
               internal::Index_AddOrUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.1
       bool success = true;
       std::vector<::ash::local_search_service::Data> p_data{};
       Index_AddOrUpdate_ParamsDataView input_data_view(params, message);
@@ -1576,8 +1594,8 @@ bool IndexStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddOrUpdate(
-std::move(p_data), std::move(callback));
+      impl->AddOrUpdate(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kIndex_Delete_Name: {
@@ -1587,6 +1605,8 @@ std::move(p_data), std::move(callback));
               internal::Index_Delete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.2
       bool success = true;
       std::vector<std::string> p_ids{};
       Index_Delete_ParamsDataView input_data_view(params, message);
@@ -1605,8 +1625,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Delete(
-std::move(p_ids), std::move(callback));
+      impl->Delete(        
+        std::move(p_ids), std::move(callback));
       return true;
     }
     case internal::kIndex_UpdateDocuments_Name: {
@@ -1616,6 +1636,8 @@ std::move(p_ids), std::move(callback));
               internal::Index_UpdateDocuments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.3
       bool success = true;
       std::vector<::ash::local_search_service::Data> p_data{};
       Index_UpdateDocuments_ParamsDataView input_data_view(params, message);
@@ -1634,8 +1656,8 @@ std::move(p_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDocuments(
-std::move(p_data), std::move(callback));
+      impl->UpdateDocuments(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kIndex_Find_Name: {
@@ -1645,6 +1667,8 @@ std::move(p_data), std::move(callback));
               internal::Index_Find_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.4
       bool success = true;
       ::std::u16string p_query{};
       uint32_t p_max_results{};
@@ -1666,9 +1690,9 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Find(
-std::move(p_query), 
-std::move(p_max_results), std::move(callback));
+      impl->Find(        
+        std::move(p_query), 
+        std::move(p_max_results), std::move(callback));
       return true;
     }
     case internal::kIndex_ClearIndex_Name: {
@@ -1678,6 +1702,8 @@ std::move(p_max_results), std::move(callback));
               internal::Index_ClearIndex_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.5
       bool success = true;
       Index_ClearIndex_ParamsDataView input_data_view(params, message);
       
@@ -1703,6 +1729,8 @@ std::move(p_max_results), std::move(callback));
               internal::Index_SetSearchParams_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Index.6
       bool success = true;
       ::ash::local_search_service::SearchParams p_search_params{};
       Index_SetSearchParams_ParamsDataView input_data_view(params, message);
@@ -1721,8 +1749,8 @@ std::move(p_max_results), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSearchParams(
-std::move(p_search_params), std::move(callback));
+      impl->SetSearchParams(        
+        std::move(p_search_params), std::move(callback));
       return true;
     }
   }

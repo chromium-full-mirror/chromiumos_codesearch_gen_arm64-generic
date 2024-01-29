@@ -329,6 +329,8 @@ bool RoutineRunnerStubDispatch::Accept(
           reinterpret_cast<internal::RoutineRunner_OnRoutineResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RoutineRunner.0
       bool success = true;
       RoutineResultInfoPtr p_info{};
       RoutineRunner_OnRoutineResult_ParamsDataView input_data_view(params, message);
@@ -344,8 +346,8 @@ bool RoutineRunnerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRoutineResult(
-std::move(p_info));
+      impl->OnRoutineResult(        
+        std::move(p_info));
       return true;
     }
   }
@@ -616,6 +618,8 @@ bool SystemRoutineController_GetSupportedRoutines_ForwardToCallback::Accept(
           internal::SystemRoutineController_GetSupportedRoutines_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemRoutineController.0
   bool success = true;
   std::vector<RoutineType> p_routines{};
   SystemRoutineController_GetSupportedRoutines_ResponseParamsDataView input_data_view(params, message);
@@ -705,6 +709,8 @@ bool SystemRoutineControllerStubDispatch::Accept(
           reinterpret_cast<internal::SystemRoutineController_RunRoutine_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemRoutineController.1
       bool success = true;
       RoutineType p_type{};
       ::mojo::PendingRemote<RoutineRunner> p_runner{};
@@ -725,9 +731,9 @@ bool SystemRoutineControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunRoutine(
-std::move(p_type), 
-std::move(p_runner));
+      impl->RunRoutine(        
+        std::move(p_type), 
+        std::move(p_runner));
       return true;
     }
   }
@@ -750,6 +756,8 @@ bool SystemRoutineControllerStubDispatch::AcceptWithResponder(
               internal::SystemRoutineController_GetSupportedRoutines_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemRoutineController.0
       bool success = true;
       SystemRoutineController_GetSupportedRoutines_ParamsDataView input_data_view(params, message);
       

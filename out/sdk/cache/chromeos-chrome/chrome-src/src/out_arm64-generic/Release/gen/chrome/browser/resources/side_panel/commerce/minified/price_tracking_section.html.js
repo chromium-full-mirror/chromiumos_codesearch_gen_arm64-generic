@@ -11,6 +11,6 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
       </span>
     </div>
   </div>
-  <cr-toggle id="toggle" checked="{{isProductTracked_}}" on-change="onPriceTrackingToggled_" title="$i18n{trackPriceTitle}" aria-describedby="toggleAnnotation">
+  <cr-toggle id="toggle" checked="{{isProductTracked}}" on-change="onPriceTrackingToggled_" title="$i18n{trackPriceTitle}" aria-describedby="toggleAnnotation">
   </cr-toggle>
 </div><!--_html_template_end_-->`}

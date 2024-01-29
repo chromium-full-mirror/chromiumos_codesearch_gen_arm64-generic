@@ -5,7 +5,7 @@ import 'chrome://customize-chrome-side-panel.top-chrome/wallpaper_search/wallpap
 import 'chrome://customize-chrome-side-panel.top-chrome/strings.m.js';
 import { CustomizeChromeAction } from 'chrome://customize-chrome-side-panel.top-chrome/common.js';
 import { CustomizeChromeApiProxy } from 'chrome://customize-chrome-side-panel.top-chrome/customize_chrome_api_proxy.js';
-import { UserFeedback, WallpaperSearchClientCallbackRouter, WallpaperSearchHandlerRemote, WallpaperSearchStatus } from 'chrome://customize-chrome-side-panel.top-chrome/wallpaper_search.mojom-webui.js';
+import { DescriptorDName, UserFeedback, WallpaperSearchClientCallbackRouter, WallpaperSearchHandlerRemote, WallpaperSearchStatus } from 'chrome://customize-chrome-side-panel.top-chrome/wallpaper_search.mojom-webui.js';
 import { DESCRIPTOR_D_VALUE } from 'chrome://customize-chrome-side-panel.top-chrome/wallpaper_search/wallpaper_search.js';
 import { WallpaperSearchProxy } from 'chrome://customize-chrome-side-panel.top-chrome/wallpaper_search/wallpaper_search_proxy.js';
 import { WindowProxy } from 'chrome://customize-chrome-side-panel.top-chrome/window_proxy.js';
@@ -25,19 +25,20 @@ suite('WallpaperSearchTest', () => {
     let wallpaperSearchCallbackRouterRemote;
     let wallpaperSearchElement;
     let windowProxy;
-    async function createWallpaperSearchElement(descriptors = null) {
+    async function createWallpaperSearchElement(descriptors = null, inspirationGroups = null) {
         handler.setResultFor('getDescriptors', Promise.resolve({ descriptors }));
+        handler.setResultFor('getInspirations', Promise.resolve({ inspirationGroups }));
         wallpaperSearchElement =
             document.createElement('customize-chrome-wallpaper-search');
         document.body.appendChild(wallpaperSearchElement);
         return wallpaperSearchElement;
     }
-    async function createWallpaperSearchElementWithDescriptors() {
+    async function createWallpaperSearchElementWithDescriptors(inspirationGroups = null) {
         createWallpaperSearchElement({
             descriptorA: [{ category: 'foo', labels: ['bar', 'baz'] }],
             descriptorB: [{ label: 'foo', imagePath: 'bar.png' }],
             descriptorC: ['foo', 'bar', 'baz'],
-        });
+        }, inspirationGroups);
     }
     function updateCrFeedbackButtons(option) {
         wallpaperSearchElement.$.feedbackButtons.selectedOption = option;
@@ -79,6 +80,13 @@ suite('WallpaperSearchTest', () => {
             await handler.whenCalled('openHelpArticle');
             assertTrue(clickEvent.defaultPrevented);
         });
+        test('inspiration card is not shown if inspiration is disabled', async () => {
+            loadTimeData.overrideValues({ wallpaperSearchInspirationCardEnabled: false });
+            createWallpaperSearchElement();
+            await flushTasks();
+            assertEquals(0, handler.getCallCount('getInspirations'));
+            assertFalse(!!wallpaperSearchElement.shadowRoot.querySelector('#inspirationCard'));
+        });
     });
     suite('Descriptors', () => {
         test('descriptors are fetched from the backend', () => {
@@ -115,16 +123,58 @@ suite('WallpaperSearchTest', () => {
             assertEquals(checkedMarkedColors[0].parentElement.title, 'Custom color');
             assertEquals(checkedMarkedColors[0].parentElement.getAttribute('aria-current'), 'true');
         });
+        test('unselects colors', async () => {
+            createWallpaperSearchElementWithDescriptors();
+            await flushTasks();
+            assertFalse(!!$$(wallpaperSearchElement, '#descriptorMenuD button [checked]'));
+            $$(wallpaperSearchElement, '.default-color').click();
+            let checkedMarkedColors = wallpaperSearchElement.shadowRoot.querySelectorAll('#descriptorMenuD button [checked]');
+            assertEquals(1, checkedMarkedColors.length);
+            // Clicking again should deselect it.
+            $$(wallpaperSearchElement, '.default-color').click();
+            checkedMarkedColors = wallpaperSearchElement.shadowRoot.querySelectorAll('#descriptorMenuD button [checked]');
+            assertEquals(0, checkedMarkedColors.length);
+            // Verify submitting does not send a color.
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: [] }));
+            wallpaperSearchElement.$.submitButton.click();
+            await flushTasks();
+            assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
+            assertEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0].color);
+        });
+        test('unselects hue', async () => {
+            createWallpaperSearchElementWithDescriptors();
+            await flushTasks();
+            assertTrue(wallpaperSearchElement.$.deleteSelectedHueButton.hidden);
+            // Select a hue and verify delete button becomes visible.
+            wallpaperSearchElement.$.hueSlider.selectedHue = 10;
+            wallpaperSearchElement.$.hueSlider.dispatchEvent(new Event('selected-hue-changed'));
+            await flushTasks();
+            assertFalse(wallpaperSearchElement.$.deleteSelectedHueButton.hidden);
+            // Click on delete button.
+            wallpaperSearchElement.$.deleteSelectedHueButton.click();
+            await flushTasks();
+            // Verify there are no checked colors.
+            assertEquals(0, wallpaperSearchElement.shadowRoot
+                .querySelectorAll('#descriptorMenuD button [checked]')
+                .length);
+            // Verify submitting does not send a hue.
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: [] }));
+            wallpaperSearchElement.$.submitButton.click();
+            await flushTasks();
+            assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
+            assertEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0].color);
+        });
     });
     suite('Search', () => {
         test('clicking search invokes backend', async () => {
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: [] }));
             wallpaperSearchElement.$.submitButton.click();
             assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
         });
         test('sends selected descriptor values to backend', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: ['123', '456'] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: ['123', '456'] }));
             createWallpaperSearchElement({
                 descriptorA: [{ category: 'foo', labels: ['bar', 'baz'] }],
                 descriptorB: [{ label: 'foo', imagePath: 'bar.png' }],
@@ -137,15 +187,16 @@ suite('WallpaperSearchTest', () => {
             $$(wallpaperSearchElement, '#descriptorMenuD button').click();
             wallpaperSearchElement.$.submitButton.click();
             assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
-            assertEquals('bar', handler.getArgs('getWallpaperSearchResults')[0][0]);
-            assertEquals('foo', handler.getArgs('getWallpaperSearchResults')[0][1]);
-            assertEquals('baz', handler.getArgs('getWallpaperSearchResults')[0][2]);
+            const resultDescriptors = handler.getArgs('getWallpaperSearchResults')[0];
+            assertEquals('bar', resultDescriptors.subject);
+            assertEquals('foo', resultDescriptors.style);
+            assertEquals('baz', resultDescriptors.mood);
             const skColor = hexColorToSkColor(DESCRIPTOR_D_VALUE[0].hex);
             assertNotEquals(skColor, { value: 0 });
-            assertDeepEquals({ color: skColor }, handler.getArgs('getWallpaperSearchResults')[0][3]);
+            assertDeepEquals({ color: skColor }, resultDescriptors.color);
         });
         test('sends hue to backend', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: ['123', '456'] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: ['123', '456'] }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             $$(wallpaperSearchElement, '#descriptorMenuD button').click();
@@ -154,10 +205,13 @@ suite('WallpaperSearchTest', () => {
             wallpaperSearchElement.$.submitButton.click();
             await flushTasks();
             assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
-            assertDeepEquals({ hue: 10 }, handler.getArgs('getWallpaperSearchResults')[0][3]);
+            assertDeepEquals({ hue: 10 }, handler.getArgs('getWallpaperSearchResults')[0].color);
         });
         test('selects random descriptor a if user does not select one', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: ['123', '456'] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: ['123', '456'],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             assertEquals(undefined, wallpaperSearchElement.$.descriptorComboboxA.value);
@@ -165,10 +219,10 @@ suite('WallpaperSearchTest', () => {
             await flushTasks();
             assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
             assertNotEquals(undefined, wallpaperSearchElement.$.descriptorComboboxA.value);
-            assertNotEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0][0]);
+            assertNotEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0].subject);
         });
         test('sends one descriptor value to the backend', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: [] }));
             createWallpaperSearchElement({
                 descriptorA: [{ category: 'foo', labels: ['bar'] }],
                 descriptorB: [{ label: 'foo', imagePath: 'bar.png' }],
@@ -179,13 +233,14 @@ suite('WallpaperSearchTest', () => {
             await flushTasks();
             wallpaperSearchElement.$.submitButton.click();
             assertEquals(1, handler.getCallCount('getWallpaperSearchResults'));
-            assertEquals('bar', handler.getArgs('getWallpaperSearchResults')[0][0]);
-            assertEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0][1]);
-            assertEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0][2]);
-            assertEquals(undefined, handler.getArgs('getWallpaperSearchResults')[0][3]);
+            const resultDescriptors = handler.getArgs('getWallpaperSearchResults')[0];
+            assertEquals('bar', resultDescriptors.subject);
+            assertEquals(undefined, resultDescriptors.style);
+            assertEquals(undefined, resultDescriptors.mood);
+            assertEquals(undefined, resultDescriptors.color);
         });
         test('empty result shows no tiles', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: [] }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             wallpaperSearchElement.$.submitButton.click();
@@ -194,6 +249,7 @@ suite('WallpaperSearchTest', () => {
         });
         test('shows mix of filled and empty containers', async () => {
             handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
                 results: [
                     { image: '123', id: { high: 10, low: 1 } },
                     { image: '456', id: { high: 8, low: 2 } },
@@ -217,7 +273,10 @@ suite('WallpaperSearchTest', () => {
         });
         test('handle result click', async () => {
             windowProxy.setResultFor('now', 321);
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '123', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             assertFalse(isVisible(wallpaperSearchElement.$.loading));
@@ -265,7 +324,10 @@ suite('WallpaperSearchTest', () => {
             assertTrue(!!result);
         });
         test('sizes loading tiles', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '123', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             // Force a width on the element for more consistent testing.
@@ -291,6 +353,7 @@ suite('WallpaperSearchTest', () => {
         });
         test('current theme is checked', async () => {
             handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
                 results: [
                     { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
                     { image: '456', id: { high: BigInt(8), low: BigInt(2) } },
@@ -333,6 +396,7 @@ suite('WallpaperSearchTest', () => {
                 'wallpaperSearchResultLabelBC': 'Image $1 of $2, $3, $4',
             });
             handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
                 results: [
                     { image: '123', id: { high: 10, low: 1 } },
                     { image: '123', id: { high: 10, low: 1 } },
@@ -385,6 +449,110 @@ suite('WallpaperSearchTest', () => {
             assertEquals('Image 1 of Label A1, Label C', getAriaLabelOfTile(0));
             assertEquals('Image 2 of Label A1, Label C', getAriaLabelOfTile(1));
         });
+        test('announces results', async () => {
+            loadTimeData.overrideValues({
+                'wallpaperSearchLoadingA11yMessage': 'Generating...',
+                'wallpaperSearchSuccessA11yMessage': 'Generated $1 images',
+            });
+            const resultsResolver = new PromiseResolver();
+            handler.setResultFor('getWallpaperSearchResults', resultsResolver.promise);
+            createWallpaperSearchElement({
+                descriptorA: [{ category: 'category', labels: ['Label A1', 'Label A2'] }],
+                descriptorB: [{ label: 'Label B', imagePath: 'bar.png' }],
+                descriptorC: ['Label C'],
+            });
+            await flushTasks();
+            const loadingEventPromise = eventToPromise('cr-a11y-announcer-messages-sent', document.body);
+            wallpaperSearchElement.$.submitButton.click();
+            const loadingEvent = await loadingEventPromise;
+            assertTrue(loadingEvent.detail.messages.includes('Generating...'));
+            const successEventPromise = eventToPromise('cr-a11y-announcer-messages-sent', document.body);
+            resultsResolver.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [
+                    { image: '123', id: { high: 10, low: 1 } },
+                    { image: '123', id: { high: 10, low: 1 } },
+                ],
+            });
+            const successEvent = await successEventPromise;
+            assertTrue(successEvent.detail.messages.includes('Generated 2 images'));
+        });
+        test('shows results from latest search request', async () => {
+            windowProxy.setResultFor('now', 321);
+            createWallpaperSearchElementWithDescriptors();
+            await flushTasks();
+            assertFalse(isVisible(wallpaperSearchElement.$.loading));
+            const resultsPromise1 = new PromiseResolver();
+            handler.setResultFor('getWallpaperSearchResults', resultsPromise1.promise);
+            wallpaperSearchElement.$.submitButton.click();
+            const resultsPromise2 = new PromiseResolver();
+            handler.setResultFor('getWallpaperSearchResults', resultsPromise2.promise);
+            wallpaperSearchElement.$.submitButton.click();
+            assertTrue(isVisible(wallpaperSearchElement.$.loading));
+            resultsPromise1.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 9, low: 1 } }],
+            });
+            await flushTasks();
+            assertTrue(isVisible(wallpaperSearchElement.$.loading));
+            assertFalse(isVisible($$(wallpaperSearchElement, '#error')));
+            resultsPromise2.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 7, low: 8 } }],
+            });
+            await flushTasks();
+            assertFalse(isVisible(wallpaperSearchElement.$.loading));
+            assertGE(handler.getCallCount('getWallpaperSearchResults'), 2);
+            assertTrue(!!$$(wallpaperSearchElement, '#wallpaperSearch .tile.result'));
+            assertGE(handler.getCallCount('setResultRenderTime'), 1);
+            assertDeepEquals([[{ high: 7, low: 8 }], 321], handler.getArgs('setResultRenderTime').at(-1));
+        });
+        test('error status is ignored if there is another request', async () => {
+            windowProxy.setResultFor('now', 321);
+            createWallpaperSearchElementWithDescriptors();
+            await flushTasks();
+            assertFalse(isVisible(wallpaperSearchElement.$.loading));
+            const resultsPromise1 = new PromiseResolver();
+            handler.setResultFor('getWallpaperSearchResults', resultsPromise1.promise);
+            wallpaperSearchElement.$.submitButton.click();
+            const resultsPromise2 = new PromiseResolver();
+            handler.setResultFor('getWallpaperSearchResults', resultsPromise2.promise);
+            wallpaperSearchElement.$.submitButton.click();
+            assertTrue(isVisible(wallpaperSearchElement.$.loading));
+            resultsPromise1.resolve({ status: WallpaperSearchStatus.kError, results: [] });
+            await flushTasks();
+            assertTrue(isVisible(wallpaperSearchElement.$.loading));
+            assertFalse(isVisible($$(wallpaperSearchElement, '#error')));
+            resultsPromise2.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            });
+            await flushTasks();
+            assertFalse(isVisible(wallpaperSearchElement.$.loading));
+            assertGE(handler.getCallCount('getWallpaperSearchResults'), 2);
+            assertTrue(!!$$(wallpaperSearchElement, '#wallpaperSearch .tile.result'));
+            assertGE(handler.getCallCount('setResultRenderTime'), 1);
+            assertDeepEquals([[{ high: 10, low: 1 }], 321], handler.getArgs('setResultRenderTime').at(-1));
+        });
+        test('triggers hats survey on success', async () => {
+            createWallpaperSearchElementWithDescriptors();
+            await flushTasks();
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
+            wallpaperSearchElement.$.submitButton.click();
+            await flushTasks();
+            assertEquals(1, handler.getCallCount('launchHatsSurvey'));
+        });
+        test('does not trigger hats survey on error', async () => {
+            createWallpaperSearchElementWithDescriptors();
+            await flushTasks();
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kError, results: [] }));
+            wallpaperSearchElement.$.submitButton.click();
+            await flushTasks();
+            assertEquals(0, handler.getCallCount('launchHatsSurvey'));
+        });
     });
     suite('History', () => {
         test('hide history card if history is empty', async () => {
@@ -412,7 +580,15 @@ suite('WallpaperSearchTest', () => {
         test('set history image on click', async () => {
             createWallpaperSearchElement();
             wallpaperSearchCallbackRouterRemote.setHistory([
-                { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
+                {
+                    image: '123',
+                    id: { high: BigInt(10), low: BigInt(1) },
+                    descriptors: {
+                        subject: 'foo',
+                        mood: 'bar',
+                        style: 'foobar',
+                    },
+                },
                 { image: '456', id: { high: BigInt(8), low: BigInt(2) } },
             ]);
             await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
@@ -420,8 +596,12 @@ suite('WallpaperSearchTest', () => {
             assertTrue(!!historyTile);
             historyTile.click();
             assertEquals(1, handler.getCallCount('setBackgroundToHistoryImage'));
-            assertEquals(BigInt(10), handler.getArgs('setBackgroundToHistoryImage')[0].high);
-            assertEquals(BigInt(1), handler.getArgs('setBackgroundToHistoryImage')[0].low);
+            const args = handler.getArgs('setBackgroundToHistoryImage');
+            assertEquals(BigInt(10), args[0][0].high);
+            assertEquals(BigInt(1), args[0][0].low);
+            assertEquals('foo', args[0][1].subject);
+            assertEquals('bar', args[0][1].mood);
+            assertEquals('foobar', args[0][1].style);
         });
         test('current history theme is checked', async () => {
             createWallpaperSearchElement();
@@ -430,15 +610,10 @@ suite('WallpaperSearchTest', () => {
                 { image: '456', id: { high: BigInt(8), low: BigInt(2) } },
             ]);
             await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
-            // Set a default theme.
-            let theme = createTheme();
-            callbackRouterRemote.setTheme(theme);
-            await callbackRouterRemote.$.flushForTesting();
-            await waitAfterNextRender(wallpaperSearchElement);
             // There should be no checked tiles.
             assertFalse(!!$$(wallpaperSearchElement, '.tile [checked]'));
             // Set theme to the first tile.
-            theme = createTheme();
+            const theme = createTheme();
             theme.backgroundImage = createBackgroundImage('');
             theme.backgroundImage.localBackgroundId = {
                 high: BigInt(10),
@@ -446,7 +621,6 @@ suite('WallpaperSearchTest', () => {
             };
             callbackRouterRemote.setTheme(theme);
             await callbackRouterRemote.$.flushForTesting();
-            await waitAfterNextRender(wallpaperSearchElement);
             // The first result should be checked and be the only one checked.
             const firstResult = $$(wallpaperSearchElement, '.tile .image-check-mark');
             const checkedResults = wallpaperSearchElement.shadowRoot.querySelectorAll('.tile [checked]');
@@ -454,23 +628,75 @@ suite('WallpaperSearchTest', () => {
             assertEquals(checkedResults[0], firstResult);
             assertEquals(checkedResults[0].parentElement.getAttribute('aria-current'), 'true');
         });
+        test('labels history', async () => {
+            loadTimeData.overrideValues({
+                'wallpaperSearchHistoryResultLabelNoDescriptor': 'Image $1',
+                'wallpaperSearchHistoryResultLabel': 'Image $1 of $2',
+                'wallpaperSearchHistoryResultLabelB': 'Image $1 of $2, $3',
+                'wallpaperSearchHistoryResultLabelC': 'Image $1 of $2, $3',
+                'wallpaperSearchHistoryResultLabelBC': 'Image $1 of $2, $3, $4',
+            });
+            createWallpaperSearchElement();
+            wallpaperSearchCallbackRouterRemote.setHistory([
+                { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
+                {
+                    image: '456',
+                    id: { high: BigInt(8), low: BigInt(2) },
+                    descriptors: {
+                        subject: 'foo',
+                    },
+                },
+                {
+                    image: '789',
+                    id: { high: BigInt(8), low: BigInt(3) },
+                    descriptors: {
+                        subject: 'foo',
+                        mood: 'bar',
+                    },
+                },
+                {
+                    image: '012',
+                    id: { high: BigInt(8), low: BigInt(4) },
+                    descriptors: {
+                        subject: 'foo',
+                        style: 'foobar',
+                    },
+                },
+                {
+                    image: '345',
+                    id: { high: BigInt(10), low: BigInt(5) },
+                    descriptors: {
+                        subject: 'foo',
+                        mood: 'bar',
+                        style: 'foobar',
+                    },
+                },
+            ]);
+            await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
+            const historyTiles = wallpaperSearchElement.$.historyCard.querySelectorAll('.tile.result');
+            assertEquals(historyTiles.length, 5);
+            assertEquals('Image 1', historyTiles[0].ariaLabel);
+            assertEquals('Image 2 of foo', historyTiles[1].ariaLabel);
+            assertEquals('Image 3 of foo, bar', historyTiles[2].ariaLabel);
+            assertEquals('Image 4 of foo, foobar', historyTiles[3].ariaLabel);
+            assertEquals('Image 5 of foo, foobar, bar', historyTiles[4].ariaLabel);
+        });
     });
     suite('Error', () => {
         suite('Descriptors', () => {
             test('shows error ui for failed descriptor fetch', async () => {
                 createWallpaperSearchElement(/*descriptors=*/ null);
                 await flushTasks();
-                wallpaperSearchElement.$.submitButton.click();
-                await waitAfterNextRender(wallpaperSearchElement);
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
                 assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
             test('reattempts failed descriptor fetch for generic error', async () => {
+                loadTimeData.overrideValues({ genericErrorDescription: 'generic error' });
                 createWallpaperSearchElement();
                 await flushTasks();
                 assertEquals(1, handler.getCallCount('getDescriptors'));
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
-                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Please try again later.');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error');
                 assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
                 handler.setResultFor('getDescriptors', Promise.resolve({
                     status: WallpaperSearchStatus.kOk,
@@ -487,6 +713,7 @@ suite('WallpaperSearchTest', () => {
                 assertNotStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
             test('shows history description for generic error', async () => {
+                loadTimeData.overrideValues({ genericErrorDescriptionWithHistory: 'generic error with history' });
                 createWallpaperSearchElement();
                 wallpaperSearchCallbackRouterRemote.setHistory([
                     { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
@@ -494,16 +721,79 @@ suite('WallpaperSearchTest', () => {
                 ]);
                 await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
-                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Try again or select from one of the previously generated themes below.');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error with history');
+                assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
+            });
+            test('shows inspiration description for generic error', async () => {
+                loadTimeData.overrideValues({
+                    wallpaperSearchInspirationCardEnabled: true,
+                    genericErrorDescriptionWithInspiration: 'generic error with inspiration',
+                });
+                createWallpaperSearchElement(
+                /*descriptors=*/ null, /*inspirationGroups=*/ [
+                    {
+                        descriptors: {
+                            subject: 'foobar',
+                            style: undefined,
+                            mood: undefined,
+                            color: undefined,
+                        },
+                        inspirations: [
+                            {
+                                id: { high: BigInt(10), low: BigInt(1) },
+                                description: 'Description',
+                                backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                                thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                            },
+                        ],
+                    },
+                ]);
+                await flushTasks();
+                assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error with inspiration');
+                assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
+            });
+            test('shows inspiration and history description for generic error', async () => {
+                loadTimeData.overrideValues({
+                    wallpaperSearchInspirationCardEnabled: true,
+                    genericErrorDescriptionWithHistoryAndInspiration: 'generic error with history and inspiration',
+                });
+                createWallpaperSearchElement(
+                /*descriptors=*/ null, /*inspirationGroups=*/ [
+                    {
+                        descriptors: {
+                            subject: 'foobar',
+                            style: undefined,
+                            mood: undefined,
+                            color: undefined,
+                        },
+                        inspirations: [
+                            {
+                                id: { high: BigInt(10), low: BigInt(1) },
+                                description: 'Description',
+                                backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                                thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                            },
+                        ],
+                    },
+                ]);
+                wallpaperSearchCallbackRouterRemote.setHistory([
+                    { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
+                    { image: '456', id: { high: BigInt(8), low: BigInt(2) } },
+                ]);
+                await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
+                assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error with history and inspiration');
                 assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
             test('reattempts failed descriptor fetch with offline error', async () => {
+                loadTimeData.overrideValues({ offlineDescription: 'offline error' });
                 windowProxy.setResultFor('onLine', false);
                 createWallpaperSearchElement();
                 await flushTasks();
                 assertEquals(1, handler.getCallCount('getDescriptors'));
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
-                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Check your internet and try again.');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'offline error');
                 assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
                 windowProxy.setResultFor('onLine', true);
                 handler.setResultFor('getDescriptors', Promise.resolve({
@@ -521,6 +811,7 @@ suite('WallpaperSearchTest', () => {
                 assertNotStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
             test('shows history description for offline error', async () => {
+                loadTimeData.overrideValues({ offlineDescriptionWithHistory: 'offline error with history' });
                 createWallpaperSearchElement();
                 windowProxy.setResultFor('onLine', false);
                 wallpaperSearchCallbackRouterRemote.setHistory([
@@ -529,8 +820,7 @@ suite('WallpaperSearchTest', () => {
                 ]);
                 await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
-                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Check your internet and try again. ' +
-                    'You can still select from one of the previously generated themes below.');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'offline error with history');
             });
         });
         suite('Search', () => {
@@ -546,6 +836,7 @@ suite('WallpaperSearchTest', () => {
                 assertNotStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
             test('shows error ui if browser offline', async () => {
+                loadTimeData.overrideValues({ offlineDescription: 'offline error' });
                 windowProxy.setResultFor('onLine', false);
                 createWallpaperSearchElementWithDescriptors();
                 await flushTasks();
@@ -553,7 +844,7 @@ suite('WallpaperSearchTest', () => {
                 await waitAfterNextRender(wallpaperSearchElement);
                 assertEquals(1, windowProxy.getCallCount('onLine'));
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
-                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Check your internet and try again.');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'offline error');
                 assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
             test('checks if browser is back online', async () => {
@@ -570,10 +861,14 @@ suite('WallpaperSearchTest', () => {
                 assertStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
                 assertNotStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
-            [[WallpaperSearchStatus.kError, 'Please try again later.'],
-                [WallpaperSearchStatus.kRequestThrottled, 'Please try again tomorrow.'],
+            [[WallpaperSearchStatus.kError, 'generic error'],
+                [WallpaperSearchStatus.kRequestThrottled, 'throttle error'],
             ].forEach(([status, description]) => {
-                test(`shows error ${description} for status ${status}`, async () => {
+                test(`shows correct error for status ${status}`, async () => {
+                    loadTimeData.overrideValues({
+                        genericErrorDescription: 'generic error',
+                        requestThrottledDescription: 'throttle error',
+                    });
                     handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: status, results: [] }));
                     createWallpaperSearchElementWithDescriptors();
                     await flushTasks();
@@ -585,6 +880,7 @@ suite('WallpaperSearchTest', () => {
                 });
             });
             test(`shows generic error if there is history`, async () => {
+                loadTimeData.overrideValues({ genericErrorDescriptionWithHistory: 'generic error with history' });
                 handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kError, results: [] }));
                 createWallpaperSearchElementWithDescriptors();
                 await flushTasks();
@@ -596,19 +892,83 @@ suite('WallpaperSearchTest', () => {
                 wallpaperSearchElement.$.submitButton.click();
                 await waitAfterNextRender(wallpaperSearchElement);
                 assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
-                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Try again or select from one of the previously generated themes below.');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error with history');
+                assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
+            });
+            test(`shows generic error if there is inspiration`, async () => {
+                loadTimeData.overrideValues({
+                    wallpaperSearchInspirationCardEnabled: true,
+                    genericErrorDescriptionWithInspiration: 'generic error with inspiration',
+                });
+                handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kError, results: [] }));
+                createWallpaperSearchElementWithDescriptors([{
+                        descriptors: {
+                            subject: 'foobar',
+                            style: undefined,
+                            mood: undefined,
+                            color: undefined,
+                        },
+                        inspirations: [
+                            {
+                                id: { high: BigInt(10), low: BigInt(1) },
+                                description: 'Description',
+                                backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                                thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                            },
+                        ],
+                    }]);
+                await flushTasks();
+                wallpaperSearchElement.$.submitButton.click();
+                await waitAfterNextRender(wallpaperSearchElement);
+                assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error with inspiration');
+                assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
+            });
+            test(`shows generic error if there is history and inspiration`, async () => {
+                loadTimeData.overrideValues({
+                    wallpaperSearchInspirationCardEnabled: true,
+                    genericErrorDescriptionWithHistoryAndInspiration: 'generic error with history and inspiration',
+                });
+                handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kError, results: [] }));
+                createWallpaperSearchElementWithDescriptors([{
+                        descriptors: {
+                            subject: 'foobar',
+                            style: undefined,
+                            mood: undefined,
+                            color: undefined,
+                        },
+                        inspirations: [
+                            {
+                                id: { high: BigInt(10), low: BigInt(1) },
+                                description: 'Description',
+                                backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                                thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                            },
+                        ],
+                    }]);
+                await flushTasks();
+                wallpaperSearchCallbackRouterRemote.setHistory([
+                    { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
+                    { image: '456', id: { high: BigInt(8), low: BigInt(2) } },
+                ]);
+                await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
+                wallpaperSearchElement.$.submitButton.click();
+                await waitAfterNextRender(wallpaperSearchElement);
+                assertNotStyle($$(wallpaperSearchElement, '#error'), 'display', 'none');
+                assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'generic error with history and inspiration');
                 assertStyle($$(wallpaperSearchElement, '#wallpaperSearch'), 'display', 'none');
             });
         });
         test('maintains focus on error ui if error is unresolved', async () => {
+            loadTimeData.overrideValues({ offlineDescription: 'offline error' });
             windowProxy.setResultFor('onLine', false);
             createWallpaperSearchElement();
             await flushTasks();
-            assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Check your internet and try again.');
+            assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'offline error');
             assertEquals(wallpaperSearchElement.$.error, wallpaperSearchElement.shadowRoot.activeElement);
             $$(wallpaperSearchElement, '#errorCTA').click();
             await waitAfterNextRender(wallpaperSearchElement);
-            assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'Check your internet and try again.');
+            assertEquals($$(wallpaperSearchElement, '#errorDescription').textContent, 'offline error');
             assertEquals(wallpaperSearchElement.$.error, wallpaperSearchElement.shadowRoot.activeElement);
         });
         test('refocuses on search ui after error is resolved', async () => {
@@ -629,7 +989,10 @@ suite('WallpaperSearchTest', () => {
     });
     suite('Feedback', () => {
         test('shows feedback buttons and submits', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '123', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             assertFalse(isVisible(wallpaperSearchElement.$.feedbackButtons));
@@ -651,7 +1014,10 @@ suite('WallpaperSearchTest', () => {
         });
         test('resets on new results', async () => {
             // First result.
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '123', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             wallpaperSearchElement.$.submitButton.click();
@@ -660,7 +1026,10 @@ suite('WallpaperSearchTest', () => {
             await handler.whenCalled('setUserFeedback');
             handler.resetResolver('setUserFeedback');
             // New results.
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '321', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '321', id: { high: 10, low: 1 } }],
+            }));
             wallpaperSearchElement.$.submitButton.click();
             await waitAfterNextRender(wallpaperSearchElement);
             // Verify feedback option was reset, but this shouldn't call the back-end.
@@ -672,13 +1041,17 @@ suite('WallpaperSearchTest', () => {
         test('clicking submit sets metric', async () => {
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ status: WallpaperSearchStatus.kOk, results: [] }));
             wallpaperSearchElement.$.submitButton.click();
-            assertEquals(2, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
+            assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
             assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction', CustomizeChromeAction.WALLPAPER_SEARCH_PROMPT_SUBMITTED));
         });
         test('clicking result tile sets metric', async () => {
             windowProxy.setResultFor('now', 321);
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '123', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             wallpaperSearchElement.$.submitButton.click();
@@ -686,7 +1059,7 @@ suite('WallpaperSearchTest', () => {
             const result = $$(wallpaperSearchElement, '#wallpaperSearch .tile.result');
             assertTrue(!!result);
             result.click();
-            assertEquals(3, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
+            assertEquals(2, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
             assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction', CustomizeChromeAction.WALLPAPER_SEARCH_RESULT_IMAGE_SELECTED));
         });
         test('clicking history tile sets metric', async () => {
@@ -703,18 +1076,21 @@ suite('WallpaperSearchTest', () => {
             assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction', CustomizeChromeAction.WALLPAPER_SEARCH_HISTORY_IMAGE_SELECTED));
         });
         test('clicking feedback buttons sets metric', async () => {
-            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({ results: [{ image: '123', id: { high: 10, low: 1 } }] }));
+            handler.setResultFor('getWallpaperSearchResults', Promise.resolve({
+                status: WallpaperSearchStatus.kOk,
+                results: [{ image: '123', id: { high: 10, low: 1 } }],
+            }));
             createWallpaperSearchElementWithDescriptors();
             await flushTasks();
             wallpaperSearchElement.$.submitButton.click();
             await waitAfterNextRender(wallpaperSearchElement);
             // Set metric on thumbs down.
             updateCrFeedbackButtons(CrFeedbackOption.THUMBS_DOWN);
-            assertEquals(3, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
+            assertEquals(2, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
             assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction', CustomizeChromeAction.WALLPAPER_SEARCH_THUMBS_DOWN_SELECTED));
             // Set metric on thumbs up.
             updateCrFeedbackButtons(CrFeedbackOption.THUMBS_UP);
-            assertEquals(4, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
+            assertEquals(3, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
             assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction', CustomizeChromeAction.WALLPAPER_SEARCH_THUMBS_UP_SELECTED));
         });
         test('changing subject descriptor sets metric', async () => {
@@ -783,19 +1159,461 @@ suite('WallpaperSearchTest', () => {
             assertEquals(3, metrics.count('NewTabPage.WallpaperSearch.Status'));
             assertEquals(2, metrics.count('NewTabPage.WallpaperSearch.Status', WallpaperSearchStatus.kOk));
         });
+        test('clicking inspiration tile sets metric', async () => {
+            loadTimeData.overrideValues({ wallpaperSearchInspirationCardEnabled: true });
+            createWallpaperSearchElement(
+            /*descriptors=*/ null, /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'foobar',
+                        style: undefined,
+                        mood: undefined,
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            const result = $$(wallpaperSearchElement, '#inspirationCard .tile.result');
+            assertTrue(!!result);
+            result.click();
+            assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction'));
+            assertEquals(1, metrics.count('NewTabPage.CustomizeChromeSidePanelAction', CustomizeChromeAction
+                .WALLPAPER_SEARCH_INSPIRATION_THEME_SELECTED));
+        });
     });
     suite('Inspiration', () => {
-        test('inspiration card is not shown if inspiration is disabled', async () => {
-            loadTimeData.overrideValues({ wallpaperSearchInspirationCardEnabled: false });
-            createWallpaperSearchElementWithDescriptors();
-            await flushTasks();
-            assertFalse(!!wallpaperSearchElement.shadowRoot.querySelector('#inspirationCard'));
+        suiteSetup(() => {
+            loadTimeData.overrideValues({ wallpaperSearchInspirationCardEnabled: true });
         });
         test('inspiration card shows if inspiration is enabled', async () => {
-            loadTimeData.overrideValues({ wallpaperSearchInspirationCardEnabled: true });
-            createWallpaperSearchElementWithDescriptors();
+            createWallpaperSearchElement();
             await flushTasks();
             assertTrue(!!wallpaperSearchElement.shadowRoot.querySelector('#inspirationCard'));
+        });
+        test('inspirations are fetched from the backend', () => {
+            createWallpaperSearchElement();
+            assertEquals(1, handler.getCallCount('getInspirations'));
+        });
+        test('inspirations populate correctly', async () => {
+            createWallpaperSearchElement(
+            /*descriptors=*/ null, /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'foobar',
+                        style: undefined,
+                        mood: undefined,
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description foo',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                        {
+                            id: { high: BigInt(8), low: BigInt(2) },
+                            description: 'Description bar',
+                            backgroundUrl: { url: 'https://example.com/bar_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/bar_2.png' },
+                        },
+                    ],
+                },
+                {
+                    descriptors: {
+                        subject: 'baz',
+                        style: undefined,
+                        mood: undefined,
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(7), low: BigInt(2) },
+                            description: 'Description baz',
+                            backgroundUrl: { url: 'https://example.com/baz_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/baz_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            // Ensure inspiration titles are correct.
+            const inspirationTitles = wallpaperSearchElement.shadowRoot.querySelectorAll('#inspirationCard .inspiration-title');
+            assertTrue(!!inspirationTitles);
+            assertEquals(2, inspirationTitles.length);
+            assertEquals('foobar', inspirationTitles[0].textContent.trim());
+            assertEquals('baz', inspirationTitles[1].textContent.trim());
+            // Ensure the correct amount of groups show.
+            const inspirationsGroups = wallpaperSearchElement.shadowRoot.querySelectorAll('#inspirationCard cr-grid');
+            assertTrue(!!inspirationsGroups);
+            assertEquals(2, inspirationsGroups.length);
+            // Ensure the correct amount of inspirations show.
+            const inspirations = wallpaperSearchElement.shadowRoot.querySelectorAll('#inspirationCard .tile.result');
+            assertTrue(!!inspirations);
+            assertEquals(3, inspirations.length);
+            // Ensure that inspirations are populated in the correct group with the
+            // right image.
+            const inspirationGridResults1 = inspirationsGroups[0].querySelectorAll('.tile.result');
+            assertEquals(inspirations[0], inspirationGridResults1[0]);
+            assertEquals('https://example.com/foo_2.png', inspirations[0].querySelector('img').autoSrc);
+            assertEquals('Description foo', inspirations[0].ariaLabel);
+            assertEquals(inspirations[1], inspirationGridResults1[1]);
+            assertEquals('https://example.com/bar_2.png', inspirations[1].querySelector('img').autoSrc);
+            assertEquals('Description bar', inspirations[1].ariaLabel);
+            const inspirationGridResults2 = inspirationsGroups[1].querySelectorAll('.tile.result');
+            assertEquals(inspirations[2], inspirationGridResults2[0]);
+            assertEquals('https://example.com/baz_2.png', inspirations[2].querySelector('img').autoSrc);
+            assertEquals('Description baz', inspirations[2].ariaLabel);
+        });
+        test('descriptor titles format properly', async () => {
+            createWallpaperSearchElement(
+            /*descriptors=*/ null, /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'foo',
+                        style: 'bar',
+                        mood: 'baz',
+                        color: { name: DescriptorDName.kYellow },
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+                {
+                    descriptors: {
+                        subject: 'foo',
+                        style: undefined,
+                        mood: 'baz',
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            const inspirationTitles = wallpaperSearchElement.shadowRoot.querySelectorAll('#inspirationCard .inspiration-title');
+            assertTrue(!!inspirationTitles);
+            assertEquals(2, inspirationTitles.length);
+            assertEquals('foo, bar, baz, Yellow', inspirationTitles[0].textContent.trim());
+            assertEquals('foo, baz', inspirationTitles[1].textContent.trim());
+        });
+        test('setting inspiration to background calls backend', async () => {
+            createWallpaperSearchElement(
+            /*descriptors=*/ null, /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'foobar',
+                        style: undefined,
+                        mood: undefined,
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            const result = $$(wallpaperSearchElement, '#inspirationCard .tile.result');
+            assertTrue(!!result);
+            result.click();
+            assertEquals(1, handler.getCallCount('setBackgroundToInspirationImage'));
+            assertEquals(BigInt(10), handler.getArgs('setBackgroundToInspirationImage')[0][0].high);
+            assertEquals(BigInt(1), handler.getArgs('setBackgroundToInspirationImage')[0][0].low);
+            assertEquals('https://example.com/foo_1.png', handler.getArgs('setBackgroundToInspirationImage')[0][1].url);
+        });
+        test('inspration group titles update selected descriptors', async () => {
+            loadTimeData.overrideValues({
+                'wallpaperSearchDescriptorsChangedA11yMessage': 'Descriptors updated',
+            });
+            createWallpaperSearchElement(
+            /*descriptors=*/ {
+                descriptorA: [{ category: 'foo', labels: ['bar', 'baz'] }],
+                descriptorB: [{ label: 'foo', imagePath: 'bar.png' }],
+                descriptorC: ['foo', 'bar', 'baz'],
+            }, 
+            /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'baz',
+                        style: 'foo',
+                        mood: 'bar',
+                        color: { name: DescriptorDName.kYellow },
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description foo',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+                {
+                    descriptors: {
+                        subject: 'bar',
+                        mood: 'baz',
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description foo',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            const groupTitles = wallpaperSearchElement.shadowRoot.querySelectorAll('.inspiration-title');
+            const firstGroupTitle = groupTitles[0];
+            const secondGroupTitle = groupTitles[1];
+            assertTrue(!!firstGroupTitle);
+            assertTrue(!!secondGroupTitle);
+            let loadingEventPromise = eventToPromise('cr-a11y-announcer-messages-sent', document.body);
+            firstGroupTitle.click();
+            await flushTasks();
+            assertEquals('baz', $$(wallpaperSearchElement, '#descriptorComboboxA').value);
+            assertEquals('foo', $$(wallpaperSearchElement, '#descriptorComboboxB').value);
+            assertEquals('bar', $$(wallpaperSearchElement, '#descriptorComboboxC').value);
+            const checkedColor = $$(wallpaperSearchElement, '#descriptorMenuD button [checked]');
+            assertTrue(!!checkedColor);
+            assertEquals('Yellow', checkedColor.parentElement.title);
+            assertEquals(firstGroupTitle.getAttribute('aria-current'), 'true');
+            assertEquals(secondGroupTitle.getAttribute('aria-current'), 'false');
+            let loadingEvent = await loadingEventPromise;
+            assertTrue(loadingEvent.detail.messages.includes('Descriptors updated'));
+            loadingEventPromise =
+                eventToPromise('cr-a11y-announcer-messages-sent', document.body);
+            secondGroupTitle
+                .dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+            await flushTasks();
+            assertEquals('bar', $$(wallpaperSearchElement, '#descriptorComboboxA').value);
+            assertEquals(null, $$(wallpaperSearchElement, '#descriptorComboboxB').value);
+            assertEquals('baz', $$(wallpaperSearchElement, '#descriptorComboboxC').value);
+            assertFalse(!!$$(wallpaperSearchElement, '#descriptorMenuD button [checked]'));
+            assertEquals(firstGroupTitle.getAttribute('aria-current'), 'false');
+            assertEquals(secondGroupTitle.getAttribute('aria-current'), 'true');
+            loadingEvent = await loadingEventPromise;
+            assertTrue(loadingEvent.detail.messages.includes('Descriptors updated'));
+        });
+        test('inspiration tiles updates selected descriptors', async () => {
+            loadTimeData.overrideValues({
+                'wallpaperSearchDescriptorsChangedA11yMessage': 'Descriptors updated',
+            });
+            createWallpaperSearchElement(
+            /*descriptors=*/ {
+                descriptorA: [{ category: 'foo', labels: ['bar', 'baz'] }],
+                descriptorB: [{ label: 'foo', imagePath: 'bar.png' }],
+                descriptorC: ['foo', 'bar', 'baz'],
+            }, 
+            /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'baz',
+                        style: 'foo',
+                        mood: 'bar',
+                        color: { name: DescriptorDName.kYellow },
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description foo',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+                {
+                    descriptors: {
+                        subject: 'bar',
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description bar',
+                            backgroundUrl: { url: 'https://example.com/bar_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/bar_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            assertEquals(undefined, $$(wallpaperSearchElement, '#descriptorComboboxA').value);
+            assertEquals(undefined, $$(wallpaperSearchElement, '#descriptorComboboxB').value);
+            assertEquals(undefined, $$(wallpaperSearchElement, '#descriptorComboboxC').value);
+            assertFalse(!!$$(wallpaperSearchElement, '#descriptorMenuD button [checked]'));
+            let loadingEventPromise = eventToPromise('cr-a11y-announcer-messages-sent', document.body);
+            const inspirationGroupGrids = wallpaperSearchElement.shadowRoot.querySelectorAll('#inspirationCard cr-grid');
+            assertEquals(2, inspirationGroupGrids.length);
+            let inspirationTile = inspirationGroupGrids[0].querySelector('.tile');
+            assertTrue(!!inspirationTile);
+            inspirationTile.click();
+            await flushTasks();
+            assertEquals('baz', $$(wallpaperSearchElement, '#descriptorComboboxA').value);
+            assertEquals('foo', $$(wallpaperSearchElement, '#descriptorComboboxB').value);
+            assertEquals('bar', $$(wallpaperSearchElement, '#descriptorComboboxC').value);
+            const checkedColor = $$(wallpaperSearchElement, '#descriptorMenuD button [checked]');
+            assertTrue(!!checkedColor);
+            assertEquals('Yellow', checkedColor.parentElement.title);
+            let loadingEvent = await loadingEventPromise;
+            assertTrue(loadingEvent.detail.messages.includes('Descriptors updated'));
+            loadingEventPromise =
+                eventToPromise('cr-a11y-announcer-messages-sent', document.body);
+            inspirationTile = inspirationGroupGrids[1].querySelector('.tile');
+            assertTrue(!!inspirationTile);
+            inspirationTile.click();
+            await flushTasks();
+            assertEquals('bar', $$(wallpaperSearchElement, '#descriptorComboboxA').value);
+            assertEquals(null, $$(wallpaperSearchElement, '#descriptorComboboxB').value);
+            assertEquals(null, $$(wallpaperSearchElement, '#descriptorComboboxC').value);
+            assertFalse(!!$$(wallpaperSearchElement, '#descriptorMenuD button [checked]'));
+            loadingEvent = await loadingEventPromise;
+            assertTrue(loadingEvent.detail.messages.includes('Descriptors updated'));
+        });
+        test('inspiration card toggles on click', async () => {
+            createWallpaperSearchElement();
+            await flushTasks();
+            const ironCollapse = $$(wallpaperSearchElement, 'iron-collapse');
+            assertFalse(ironCollapse.opened);
+            assertEquals('expand-carets', wallpaperSearchElement.shadowRoot
+                .querySelector('#inspirationToggle').className);
+            assertEquals('false', $$(wallpaperSearchElement, '#inspirationToggle').ariaExpanded);
+            $$(wallpaperSearchElement, '#inspirationToggle').click();
+            assertTrue(ironCollapse.opened);
+            assertEquals('collapse-carets', wallpaperSearchElement.shadowRoot
+                .querySelector('#inspirationToggle').className);
+            assertEquals('true', $$(wallpaperSearchElement, '#inspirationToggle').ariaExpanded);
+            $$(wallpaperSearchElement, '#inspirationToggle').click();
+            assertFalse(ironCollapse.opened);
+            assertEquals('expand-carets', wallpaperSearchElement.shadowRoot
+                .querySelector('#inspirationToggle').className);
+            assertEquals('false', $$(wallpaperSearchElement, '#inspirationToggle').ariaExpanded);
+        });
+        test('inspiration card collapsible reacts to history updates', async () => {
+            createWallpaperSearchElement();
+            await flushTasks();
+            // Card collapsed when the element is created.
+            const ironCollapse = $$(wallpaperSearchElement, 'iron-collapse');
+            assertFalse(ironCollapse.opened);
+            // Card opens if there is no history.
+            wallpaperSearchCallbackRouterRemote.setHistory([]);
+            await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
+            assertTrue(ironCollapse.opened);
+            // Card collapses if there is history.
+            wallpaperSearchCallbackRouterRemote.setHistory([
+                { image: '123', id: { high: BigInt(10), low: BigInt(1) } },
+                { image: '456', id: { high: BigInt(8), low: BigInt(2) } },
+            ]);
+            await wallpaperSearchCallbackRouterRemote.$.flushForTesting();
+            assertTrue(!!$$(wallpaperSearchElement, '#historyCard .tile.result'));
+            assertFalse(ironCollapse.opened);
+        });
+        test('inspiration card hides if inspiration is empty', async () => {
+            createWallpaperSearchElement();
+            await flushTasks();
+            const inspirationCard = $$(wallpaperSearchElement, '#inspirationCard');
+            assertTrue(!!inspirationCard);
+            assertTrue(inspirationCard.hidden);
+        });
+        test('inspiration card shows if inspiration is not empty', async () => {
+            createWallpaperSearchElement(
+            /*descriptors=*/ null, /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'foobar',
+                        style: undefined,
+                        mood: undefined,
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            const inspirationCard = $$(wallpaperSearchElement, '#inspirationCard');
+            assertTrue(!!inspirationCard);
+            assertFalse(inspirationCard.hidden);
+        });
+        test('current inspiration theme is checked', async () => {
+            createWallpaperSearchElement(
+            /*descriptors=*/ null, /*inspirationGroups=*/ [
+                {
+                    descriptors: {
+                        subject: 'foobar',
+                        style: undefined,
+                        mood: undefined,
+                        color: undefined,
+                    },
+                    inspirations: [
+                        {
+                            id: { high: BigInt(10), low: BigInt(1) },
+                            description: 'Description foo',
+                            backgroundUrl: { url: 'https://example.com/foo_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/foo_2.png' },
+                        },
+                        {
+                            id: { high: BigInt(8), low: BigInt(2) },
+                            description: 'Description bar',
+                            backgroundUrl: { url: 'https://example.com/bar_1.png' },
+                            thumbnailUrl: { url: 'https://example.com/bar_2.png' },
+                        },
+                    ],
+                },
+            ]);
+            await flushTasks();
+            // Set a default theme.
+            let theme = createTheme();
+            callbackRouterRemote.setTheme(theme);
+            await callbackRouterRemote.$.flushForTesting();
+            await waitAfterNextRender(wallpaperSearchElement);
+            // There should be no checked tiles.
+            assertFalse(!!$$(wallpaperSearchElement, '.tile [checked]'));
+            // Set theme to the inspiration.
+            theme = createTheme();
+            theme.backgroundImage = createBackgroundImage('');
+            theme.backgroundImage.localBackgroundId = {
+                high: BigInt(10),
+                low: BigInt(1),
+            };
+            callbackRouterRemote.setTheme(theme);
+            await callbackRouterRemote.$.flushForTesting();
+            await waitAfterNextRender(wallpaperSearchElement);
+            // The first inspiration should be the only tile checked.
+            const firstResult = $$(wallpaperSearchElement, '#inspirationCard .tile .image-check-mark');
+            const checkedResults = wallpaperSearchElement.shadowRoot.querySelectorAll('.tile [checked]');
+            assertEquals(1, checkedResults.length);
+            assertEquals(firstResult, checkedResults[0]);
+            assertEquals('true', checkedResults[0].parentElement.getAttribute('aria-current'));
         });
     });
 });

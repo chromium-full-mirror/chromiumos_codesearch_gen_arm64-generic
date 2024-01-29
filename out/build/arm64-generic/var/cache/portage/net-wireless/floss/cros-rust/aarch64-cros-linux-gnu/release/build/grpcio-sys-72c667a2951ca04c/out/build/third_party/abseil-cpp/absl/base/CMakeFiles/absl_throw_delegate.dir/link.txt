@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libabsl_throw_delegate.a CMakeFiles/absl_throw_delegate.dir/internal/throw_delegate.cc.o
-/usr/bin/llvm-ranlib libabsl_throw_delegate.a

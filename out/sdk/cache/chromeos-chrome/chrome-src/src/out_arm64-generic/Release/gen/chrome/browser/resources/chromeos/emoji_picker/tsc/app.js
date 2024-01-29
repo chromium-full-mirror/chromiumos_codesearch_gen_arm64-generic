@@ -14,7 +14,6 @@ import 'chrome://resources/cr_elements/cr_auto_img/cr_auto_img.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_icons.css.js';
 import { getInstance as getAnnouncerInstance } from '//resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
-import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './app.html.js';
 import * as constants from './constants.js';
@@ -63,6 +62,8 @@ export class EmojiPickerApp extends PolymerElement {
             categoriesGroupElements: { type: Array, value: () => ([]) },
             activeInfiniteGroupId: { type: String, value: null },
             categoriesHistory: { type: Object, value: () => ({}) },
+            globalTone: { type: Number, value: null },
+            globalGender: { type: Number, value: null },
             pagination: { type: Number, value: 1, observer: 'onPaginationChanged' },
             searchLazyIndexing: { type: Boolean, value: true },
             textSubcategoryBarEnabled: {
@@ -74,9 +75,6 @@ export class EmojiPickerApp extends PolymerElement {
             searchExtensionEnabled: { type: Boolean, value: false },
             incognito: { type: Boolean, value: true },
             gifSupport: { type: Boolean, value: false },
-            // TODO(b/297297441): Remove this property once jelly in emoji picker is
-            // fully launched.
-            jellySupport: { type: Boolean, value: false },
             sealSupport: { type: Boolean, value: false },
             variantGroupingSupport: { type: Boolean, value: false },
             showGifNudgeOverlay: { type: Boolean, value: false },
@@ -89,7 +87,9 @@ export class EmojiPickerApp extends PolymerElement {
         super();
         this.emojiGroupTabs = EMOJI_GROUP_TABS;
         this.allCategoryTabs = SUBCATEGORY_TABS;
-        this.emojiPreferences = new EmojiPreferencesStore();
+        this.emojiPreferences = null;
+        this.globalTone = null;
+        this.globalGender = null;
         this.activeVariant = null;
         this.apiProxy = EmojiPickerApiProxyImpl.getInstance();
         this.autoScrollingToGroup = false;
@@ -194,10 +194,6 @@ export class EmojiPickerApp extends PolymerElement {
             this.apiProxy.isIncognitoTextField().then((response) => this.initHistoryUi(response.incognito)),
         ])
             .then(values => values[0]); // Map to the fetched data only.
-        if (this.jellySupport) {
-            await this.loadJellyColorStylesheet();
-            await this.loadJellyTypographyStylesheet();
-        }
         // After initial data is loaded, if the GIF nudge is not shown before, show
         // the GIF nudge.
         if (this.gifSupport && !GifNudgeHistoryStore.hasNudgeShown()) {
@@ -212,19 +208,6 @@ export class EmojiPickerApp extends PolymerElement {
                 '--emoji-spacing': constants.V2_5_EMOJI_SPACING_PX,
                 '--emoji-group-spacing': constants.V2_5_EMOJI_GROUP_SPACING_PX,
                 '--visual-content-width': constants.V2_5_VISUAL_CONTENT_WIDTH_PX,
-            });
-        }
-        if (this.jellySupport) {
-            this.updateStyles({
-                '--emoji-picker-top-padding': constants.JELLY_EMOJI_PICKER_TOP_PADDING_PX,
-                '--emoji-picker-search-side-padding': constants.JELLY_EMOJI_PICKER_SEARCH_SIDE_PADDING_PX,
-                // The keyline should expand all the way with jelly flag on.
-                '--emoji-picker-divider-inline-margin': 0,
-                '--emoji-picker-tabs-vertical-padding': '0px',
-                '--emoji-picker-group-button-padding': '8px',
-                '--emoji-picker-group-button-border-radius': '4px',
-                '--emoji-picker-group-button-icon-size': '24px',
-                '--emoji-picker-group-button-height': '48px',
             });
         }
         // Update UI and relevant features based on the initial data.
@@ -257,32 +240,6 @@ export class EmojiPickerApp extends PolymerElement {
         if (this.gifSupport) {
             await this.fetchAndProcessGifData(prevFetchPromise, prevRenderPromise);
         }
-    }
-    loadJellyColorStylesheet() {
-        return new Promise((resolve) => {
-            const linkElement = document.createElement('link');
-            linkElement.rel = 'stylesheet';
-            linkElement.href = 'chrome://theme/colors.css?sets=sys';
-            linkElement.addEventListener('load', () => {
-                ColorChangeUpdater.forDocument().start();
-                resolve();
-            });
-            document.head.appendChild(linkElement);
-        });
-    }
-    // TODO(b/263055563): Move this stylesheet to `index.html` and drop the legacy
-    // stylesheet once Jelly is fully launched in Emoji Picker.
-    loadJellyTypographyStylesheet() {
-        return new Promise((resolve) => {
-            const linkElement = document.createElement('link');
-            linkElement.rel = 'stylesheet';
-            linkElement.href = 'chrome://theme/typography.css';
-            linkElement.addEventListener('load', () => {
-                ColorChangeUpdater.forDocument().start();
-                resolve();
-            });
-            document.head.appendChild(linkElement);
-        });
     }
     fetchAndProcessGifData(prevFetchPromise = Promise.resolve([]), prevRenderPromise = Promise.resolve()) {
         this.validateRecentlyUsedGifs();
@@ -357,11 +314,10 @@ export class EmojiPickerApp extends PolymerElement {
         this.searchExtensionEnabled =
             featureList.includes(Feature.EMOJI_PICKER_SEARCH_EXTENSION);
         this.gifSupport = featureList.includes(Feature.EMOJI_PICKER_GIF_SUPPORT);
-        this.jellySupport =
-            featureList.includes(Feature.EMOJI_PICKER_JELLY_SUPPORT);
         this.sealSupport = featureList.includes(Feature.EMOJI_PICKER_SEAL_SUPPORT);
         this.variantGroupingSupport =
             featureList.includes(Feature.EMOJI_PICKER_VARIANT_GROUPING_SUPPORT);
+        this.updateEmojiPreferencesStore();
     }
     fetchOrderingData(url) {
         return new Promise((resolve) => {
@@ -874,18 +830,6 @@ export class EmojiPickerApp extends PolymerElement {
             [];
     }
     /**
-     * Gets the global emoji skin tone preference.
-     */
-    getGlobalTone() {
-        return this.emojiPreferences.getTone();
-    }
-    /**
-     * Gets the global emoji gender preference.
-     */
-    getGlobalGender() {
-        return this.emojiPreferences.getGender();
-    }
-    /**
      * Handles the event where history or preferences are modified for a
      * category.
      *
@@ -914,12 +858,23 @@ export class EmojiPickerApp extends PolymerElement {
      */
     updateIncognitoState(incognito) {
         this.incognito = incognito;
+        this.updateEmojiPreferencesStore();
         // Load the history item for each category.
         for (const category of Object.values(CategoryEnum)) {
             this.categoriesHistory[category] =
                 incognito ? null : new RecentlyUsedStore(`${category}-recently-used`);
             this.categoryHistoryUpdated(category);
         }
+    }
+    /**
+     * Updates the emoji preferences store, global tone, and global gender.
+     */
+    updateEmojiPreferencesStore() {
+        this.emojiPreferences = this.incognito || !this.variantGroupingSupport ?
+            null :
+            new EmojiPreferencesStore();
+        this.globalTone = this.emojiPreferences?.getTone() ?? null;
+        this.globalGender = this.emojiPreferences?.getGender() ?? null;
     }
     /**
      * Inserts a new item to the history of a category. It will do nothing during
@@ -947,10 +902,10 @@ export class EmojiPickerApp extends PolymerElement {
             return;
         }
         if (tone !== undefined) {
-            this.emojiPreferences.setTone(tone);
+            this.emojiPreferences?.setTone(tone);
         }
         if (gender !== undefined) {
-            this.emojiPreferences.setGender(gender);
+            this.emojiPreferences?.setGender(gender);
         }
     }
     /**
@@ -987,6 +942,13 @@ export class EmojiPickerApp extends PolymerElement {
      */
     isCategoryHistoryEmpty(category) {
         return this.incognito || this.categoriesHistory[category]?.isHistoryEmpty();
+    }
+    /**
+     * @returns True if the emoji should use the global variant preference, or
+     * false if it should revert to the individual preference.
+     */
+    shouldUseGroupedPreference(isHistory) {
+        return this.variantGroupingSupport && !isHistory;
     }
     /**
      * Gets HTML classes for an emoji group element.

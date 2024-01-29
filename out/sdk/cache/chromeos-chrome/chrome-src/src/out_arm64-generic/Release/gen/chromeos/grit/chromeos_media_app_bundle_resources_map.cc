@@ -9,7 +9,7 @@
 #include "chromeos_media_app_bundle_resources.h"
 
 const webui::ResourcePath kChromeosMediaAppBundleResources[] = {
-  {"js/app_main.js", IDR_MEDIA_APP_APP_MAIN_JS},
+  {"js/app_main/js", IDR_MEDIA_APP_APP_MAIN_JS},
   {"js/mock_module.js", IDR_MEDIA_APP_APP_IMAGE_HANDLER_MODULE_JS},
   {"../assets/icon16.png", IDR_MEDIA_APP_APP_ICON_16_PNG},
   {"../assets/icon32.png", IDR_MEDIA_APP_APP_ICON_32_PNG},

@@ -21,7 +21,8 @@ suite('TabOrganizationPageTest', () => {
         paused: false,
     }) {
         testApiProxy = new TestTabSearchApiProxy();
-        testApiProxy.setSession(createSession());
+        const session = createSession();
+        testApiProxy.setSession(session);
         TabSearchApiProxyImpl.setInstance(testApiProxy);
         testSyncProxy = new TestTabSearchSyncBrowserProxy();
         testSyncProxy.syncInfo = syncInfo;
@@ -29,6 +30,7 @@ suite('TabOrganizationPageTest', () => {
         tabOrganizationPage = document.createElement('tab-organization-page');
         document.body.innerHTML = window.trustedTypes.emptyHTML;
         document.body.appendChild(tabOrganizationPage);
+        tabOrganizationPage.setSessionForTesting(session);
         await flushTasks();
     }
     async function tabOrganizationResultsSetup() {
@@ -302,7 +304,7 @@ suite('TabOrganizationPageTest', () => {
             syncingHistory: false,
             paused: false,
         };
-        webUIListenerCallback('sync-info-changed');
+        webUIListenerCallback('sync-info-changed', testSyncProxy.syncInfo);
         await testSyncProxy.whenCalled('getSyncInfo');
         const accountRowUnsynced = notStarted.shadowRoot.querySelector('.account-row');
         assertTrue(!!accountRowUnsynced);
@@ -313,14 +315,14 @@ suite('TabOrganizationPageTest', () => {
             state: TabOrganizationState.kFailure,
             error: TabOrganizationError.kGeneric,
         }));
-        assertEquals(0, testApiProxy.getCallCount('resetSession'));
+        assertEquals(0, testApiProxy.getCallCount('restartSession'));
         const failure = tabOrganizationPage.shadowRoot.querySelector('tab-organization-failure');
         assertTrue(!!failure);
         const checkNowAction = failure.shadowRoot.querySelector('.tab-organization-link');
         assertTrue(!!checkNowAction);
         checkNowAction.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
         await flushTasks();
-        assertEquals(1, testApiProxy.getCallCount('resetSession'));
+        assertEquals(1, testApiProxy.getCallCount('restartSession'));
     });
     test('Tip action activates on Enter', async () => {
         loadTimeData.overrideValues({

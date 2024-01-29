@@ -8,6 +8,7 @@ import { alphabeticalSort, getAppIcon } from 'chrome://resources/cr_components/a
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { AppLanguageSelectionDialogEntryPoint } from '../common/app_language_selection_dialog/app_language_selection_dialog.js';
 import { AppManagementBrowserProxy } from '../common/app_management/browser_proxy.js';
 import { AppManagementStoreMixin } from '../common/app_management/store_mixin.js';
 import { getTemplate } from './app_languages_page.html.js';
@@ -39,7 +40,7 @@ export class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElement
     }
     connectedCallback() {
         super.connectedCallback();
-        this.watch('appList_', state => this.computeAppsSupportingPerAppLanguage(state.apps));
+        this.watch('appList_', state => this.computeAppsSupportingPerAppLanguage_(state.apps));
         this.updateFromStore();
     }
     // UI i18n and icon helper methods.
@@ -120,7 +121,7 @@ export class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElement
     /**
      * Only show apps supporting per-app-language, and sort ascending.
      */
-    computeAppsSupportingPerAppLanguage(apps) {
+    computeAppsSupportingPerAppLanguage_(apps) {
         const filteredApps = Object.values(apps).filter(app => {
             return app.supportedLocales.length > 0;
         });
@@ -129,6 +130,9 @@ export class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElement
             assert(b.title);
             return alphabeticalSort(a.title, b.title);
         });
+    }
+    getDialogEntryPoint_() {
+        return AppLanguageSelectionDialogEntryPoint.LANGUAGES_PAGE;
     }
 }
 customElements.define(OsSettingsAppLanguagesPageElement.is, OsSettingsAppLanguagesPageElement);

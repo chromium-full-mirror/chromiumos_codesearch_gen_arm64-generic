@@ -157,7 +157,8 @@ ArcNotificationData::ArcNotificationData()
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -205,7 +206,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -255,7 +257,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -307,7 +310,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -360,7 +364,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -414,7 +419,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -470,7 +476,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -527,7 +534,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -585,7 +593,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -644,7 +653,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -704,7 +714,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -765,7 +776,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -827,7 +839,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -890,7 +903,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -955,7 +969,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1021,7 +1036,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1089,7 +1105,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1158,7 +1175,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(std::move(is_inline_reply_enabled_in)),
       render_on_chrome(),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1228,7 +1246,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(std::move(is_inline_reply_enabled_in)),
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1299,7 +1318,8 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(std::move(is_inline_reply_enabled_in)),
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(std::move(group_key_in)),
-      reply_button_index() {}
+      reply_button_index(),
+      children_data() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1371,7 +1391,82 @@ ArcNotificationData::ArcNotificationData(
       is_inline_reply_enabled(std::move(is_inline_reply_enabled_in)),
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(std::move(group_key_in)),
-      reply_button_index(std::move(reply_button_index_in)) {}
+      reply_button_index(std::move(reply_button_index_in)),
+      children_data() {}
+
+ArcNotificationData::ArcNotificationData(
+    const std::string& key_in,
+    ArcNotificationType type_in,
+    const std::string& message_in,
+    const std::string& title_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    ArcNotificationPriority priority_in,
+    int64_t time_in,
+    int32_t progress_current_in,
+    int32_t progress_max_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    bool no_clear_in,
+    bool ongoing_event_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
+    bool is_custom_notification_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
+    float snapshot_image_scale_in,
+    const std::optional<std::string>& accessible_name_in,
+    ArcNotificationExpandState expand_state_in,
+    ArcNotificationShownContents shown_contents_in,
+    ArcNotificationRemoteInputState remote_input_state_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
+    ArcNotificationFlagsPtr flags_in,
+    bool indeterminate_progress_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
+    bool is_media_notification_in,
+    ArcNotificationStyle style_in,
+    bool is_action_enabled_in,
+    bool is_inline_reply_enabled_in,
+    bool render_on_chrome_in,
+    const std::optional<std::string>& group_key_in,
+    int32_t reply_button_index_in,
+    std::optional<std::vector<ArcNotificationDataPtr>> children_data_in)
+    : key(std::move(key_in)),
+      type(std::move(type_in)),
+      message(std::move(message_in)),
+      title(std::move(title_in)),
+      app_display_name(std::move(app_display_name_in)),
+      deprecated_icon_data(std::move(deprecated_icon_data_in)),
+      priority(std::move(priority_in)),
+      time(std::move(time_in)),
+      progress_current(std::move(progress_current_in)),
+      progress_max(std::move(progress_max_in)),
+      buttons(std::move(buttons_in)),
+      no_clear(std::move(no_clear_in)),
+      ongoing_event(std::move(ongoing_event_in)),
+      texts(std::move(texts_in)),
+      big_picture(std::move(big_picture_in)),
+      is_custom_notification(std::move(is_custom_notification_in)),
+      small_icon(std::move(small_icon_in)),
+      snapshot_image(std::move(snapshot_image_in)),
+      snapshot_image_scale(std::move(snapshot_image_scale_in)),
+      accessible_name(std::move(accessible_name_in)),
+      expand_state(std::move(expand_state_in)),
+      shown_contents(std::move(shown_contents_in)),
+      remote_input_state(std::move(remote_input_state_in)),
+      swipe_input_rect(std::move(swipe_input_rect_in)),
+      package_name(std::move(package_name_in)),
+      flags(std::move(flags_in)),
+      indeterminate_progress(std::move(indeterminate_progress_in)),
+      snapshot_image_public(std::move(snapshot_image_public_in)),
+      is_media_notification(std::move(is_media_notification_in)),
+      style(std::move(style_in)),
+      is_action_enabled(std::move(is_action_enabled_in)),
+      is_inline_reply_enabled(std::move(is_inline_reply_enabled_in)),
+      render_on_chrome(std::move(render_on_chrome_in)),
+      group_key(std::move(group_key_in)),
+      reply_button_index(std::move(reply_button_index_in)),
+      children_data(std::move(children_data_in)) {}
 
 ArcNotificationData::~ArcNotificationData() = default;
 
@@ -1689,6 +1784,15 @@ void ArcNotificationData::WriteIntoTrace(
       "reply_button_index"), this->reply_button_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "children_data"), this->children_data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<std::vector<ArcNotificationDataPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2534,6 +2638,8 @@ bool NotificationsHostStubDispatch::Accept(
           reinterpret_cast<internal::NotificationsHost_OnDoNotDisturbStatusUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.7
       bool success = true;
       ArcDoNotDisturbStatusPtr p_status{};
       NotificationsHost_OnDoNotDisturbStatusUpdated_ParamsDataView input_data_view(params, message);
@@ -2549,8 +2655,8 @@ bool NotificationsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDoNotDisturbStatusUpdated(
-std::move(p_status));
+      impl->OnDoNotDisturbStatusUpdated(        
+        std::move(p_status));
       return true;
     }
     case internal::kNotificationsHost_OnNotificationPosted_Name: {
@@ -2560,6 +2666,8 @@ std::move(p_status));
           reinterpret_cast<internal::NotificationsHost_OnNotificationPosted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.0
       bool success = true;
       ArcNotificationDataPtr p_notification_data{};
       NotificationsHost_OnNotificationPosted_ParamsDataView input_data_view(params, message);
@@ -2575,8 +2683,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationPosted(
-std::move(p_notification_data));
+      impl->OnNotificationPosted(        
+        std::move(p_notification_data));
       return true;
     }
     case internal::kNotificationsHost_OnNotificationRemoved_Name: {
@@ -2586,6 +2694,8 @@ std::move(p_notification_data));
           reinterpret_cast<internal::NotificationsHost_OnNotificationRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.1
       bool success = true;
       std::string p_key{};
       NotificationsHost_OnNotificationRemoved_ParamsDataView input_data_view(params, message);
@@ -2601,8 +2711,8 @@ std::move(p_notification_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationRemoved(
-std::move(p_key));
+      impl->OnNotificationRemoved(        
+        std::move(p_key));
       return true;
     }
     case internal::kNotificationsHost_OnNotificationUpdated_Name: {
@@ -2612,6 +2722,8 @@ std::move(p_key));
           reinterpret_cast<internal::NotificationsHost_OnNotificationUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.5
       bool success = true;
       ArcNotificationDataPtr p_notification_data{};
       NotificationsHost_OnNotificationUpdated_ParamsDataView input_data_view(params, message);
@@ -2627,8 +2739,8 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationUpdated(
-std::move(p_notification_data));
+      impl->OnNotificationUpdated(        
+        std::move(p_notification_data));
       return true;
     }
     case internal::kNotificationsHost_OpenMessageCenter_Name: {
@@ -2638,6 +2750,8 @@ std::move(p_notification_data));
           reinterpret_cast<internal::NotificationsHost_OpenMessageCenter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.6
       bool success = true;
       NotificationsHost_OpenMessageCenter_ParamsDataView input_data_view(params, message);
       
@@ -2650,7 +2764,7 @@ std::move(p_notification_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenMessageCenter();
+      impl->OpenMessageCenter(        );
       return true;
     }
     case internal::kNotificationsHost_CloseMessageCenter_Name: {
@@ -2660,6 +2774,8 @@ std::move(p_notification_data));
           reinterpret_cast<internal::NotificationsHost_CloseMessageCenter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.8
       bool success = true;
       NotificationsHost_CloseMessageCenter_ParamsDataView input_data_view(params, message);
       
@@ -2672,7 +2788,7 @@ std::move(p_notification_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseMessageCenter();
+      impl->CloseMessageCenter(        );
       return true;
     }
     case internal::kNotificationsHost_ProcessUserAction_Name: {
@@ -2682,6 +2798,8 @@ std::move(p_notification_data));
           reinterpret_cast<internal::NotificationsHost_ProcessUserAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.9
       bool success = true;
       ArcNotificationUserActionDataPtr p_data{};
       NotificationsHost_ProcessUserAction_ParamsDataView input_data_view(params, message);
@@ -2697,8 +2815,8 @@ std::move(p_notification_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessUserAction(
-std::move(p_data));
+      impl->ProcessUserAction(        
+        std::move(p_data));
       return true;
     }
     case internal::kNotificationsHost_OnLockScreenSettingUpdated_Name: {
@@ -2708,6 +2826,8 @@ std::move(p_data));
           reinterpret_cast<internal::NotificationsHost_OnLockScreenSettingUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.10
       bool success = true;
       ArcLockScreenNotificationSettingPtr p_setting{};
       NotificationsHost_OnLockScreenSettingUpdated_ParamsDataView input_data_view(params, message);
@@ -2723,8 +2843,8 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLockScreenSettingUpdated(
-std::move(p_setting));
+      impl->OnLockScreenSettingUpdated(        
+        std::move(p_setting));
       return true;
     }
     case internal::kNotificationsHost_LogInlineReplySent_Name: {
@@ -2734,6 +2854,8 @@ std::move(p_setting));
           reinterpret_cast<internal::NotificationsHost_LogInlineReplySent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsHost.11
       bool success = true;
       std::string p_key{};
       NotificationsHost_LogInlineReplySent_ParamsDataView input_data_view(params, message);
@@ -2749,8 +2871,8 @@ std::move(p_setting));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogInlineReplySent(
-std::move(p_key));
+      impl->LogInlineReplySent(        
+        std::move(p_key));
       return true;
     }
   }
@@ -3923,6 +4045,8 @@ bool NotificationsInstance_Init_ForwardToCallback::Accept(
           internal::NotificationsInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NotificationsInstance.5
   bool success = true;
   NotificationsInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -3988,6 +4112,8 @@ bool NotificationsInstanceStubDispatch::Accept(
           reinterpret_cast<internal::NotificationsInstance_SendNotificationEventToAndroid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.1
       bool success = true;
       std::string p_key{};
       ArcNotificationEvent p_event{};
@@ -4006,9 +4132,9 @@ bool NotificationsInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNotificationEventToAndroid(
-std::move(p_key), 
-std::move(p_event));
+      impl->SendNotificationEventToAndroid(        
+        std::move(p_key), 
+        std::move(p_event));
       return true;
     }
     case internal::kNotificationsInstance_CreateNotificationWindow_Name: {
@@ -4018,6 +4144,8 @@ std::move(p_event));
           reinterpret_cast<internal::NotificationsInstance_CreateNotificationWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.2
       bool success = true;
       std::string p_key{};
       NotificationsInstance_CreateNotificationWindow_ParamsDataView input_data_view(params, message);
@@ -4033,8 +4161,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNotificationWindow(
-std::move(p_key));
+      impl->CreateNotificationWindow(        
+        std::move(p_key));
       return true;
     }
     case internal::kNotificationsInstance_CloseNotificationWindow_Name: {
@@ -4044,6 +4172,8 @@ std::move(p_key));
           reinterpret_cast<internal::NotificationsInstance_CloseNotificationWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.3
       bool success = true;
       std::string p_key{};
       NotificationsInstance_CloseNotificationWindow_ParamsDataView input_data_view(params, message);
@@ -4059,8 +4189,8 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseNotificationWindow(
-std::move(p_key));
+      impl->CloseNotificationWindow(        
+        std::move(p_key));
       return true;
     }
     case internal::kNotificationsInstance_OpenNotificationSettings_Name: {
@@ -4070,6 +4200,8 @@ std::move(p_key));
           reinterpret_cast<internal::NotificationsInstance_OpenNotificationSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.4
       bool success = true;
       std::string p_key{};
       NotificationsInstance_OpenNotificationSettings_ParamsDataView input_data_view(params, message);
@@ -4085,8 +4217,8 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenNotificationSettings(
-std::move(p_key));
+      impl->OpenNotificationSettings(        
+        std::move(p_key));
       return true;
     }
     case internal::kNotificationsInstance_OpenNotificationSnoozeSettings_Name: {
@@ -4096,6 +4228,8 @@ std::move(p_key));
           reinterpret_cast<internal::NotificationsInstance_OpenNotificationSnoozeSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.6
       bool success = true;
       std::string p_key{};
       NotificationsInstance_OpenNotificationSnoozeSettings_ParamsDataView input_data_view(params, message);
@@ -4111,8 +4245,8 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenNotificationSnoozeSettings(
-std::move(p_key));
+      impl->OpenNotificationSnoozeSettings(        
+        std::move(p_key));
       return true;
     }
     case internal::kNotificationsInstance_SetDoNotDisturbStatusOnAndroid_Name: {
@@ -4122,6 +4256,8 @@ std::move(p_key));
           reinterpret_cast<internal::NotificationsInstance_SetDoNotDisturbStatusOnAndroid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.7
       bool success = true;
       ArcDoNotDisturbStatusPtr p_status{};
       NotificationsInstance_SetDoNotDisturbStatusOnAndroid_ParamsDataView input_data_view(params, message);
@@ -4137,8 +4273,8 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDoNotDisturbStatusOnAndroid(
-std::move(p_status));
+      impl->SetDoNotDisturbStatusOnAndroid(        
+        std::move(p_status));
       return true;
     }
     case internal::kNotificationsInstance_CancelPress_Name: {
@@ -4148,6 +4284,8 @@ std::move(p_status));
           reinterpret_cast<internal::NotificationsInstance_CancelPress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.8
       bool success = true;
       std::string p_key{};
       NotificationsInstance_CancelPress_ParamsDataView input_data_view(params, message);
@@ -4163,8 +4301,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPress(
-std::move(p_key));
+      impl->CancelPress(        
+        std::move(p_key));
       return true;
     }
     case internal::kNotificationsInstance_PerformDeferredUserAction_Name: {
@@ -4174,6 +4312,8 @@ std::move(p_key));
           reinterpret_cast<internal::NotificationsInstance_PerformDeferredUserAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.9
       bool success = true;
       uint32_t p_action_id{};
       NotificationsInstance_PerformDeferredUserAction_ParamsDataView input_data_view(params, message);
@@ -4189,8 +4329,8 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformDeferredUserAction(
-std::move(p_action_id));
+      impl->PerformDeferredUserAction(        
+        std::move(p_action_id));
       return true;
     }
     case internal::kNotificationsInstance_CancelDeferredUserAction_Name: {
@@ -4200,6 +4340,8 @@ std::move(p_action_id));
           reinterpret_cast<internal::NotificationsInstance_CancelDeferredUserAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.10
       bool success = true;
       uint32_t p_action_id{};
       NotificationsInstance_CancelDeferredUserAction_ParamsDataView input_data_view(params, message);
@@ -4215,8 +4357,8 @@ std::move(p_action_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelDeferredUserAction(
-std::move(p_action_id));
+      impl->CancelDeferredUserAction(        
+        std::move(p_action_id));
       return true;
     }
     case internal::kNotificationsInstance_SetLockScreenSettingOnAndroid_Name: {
@@ -4226,6 +4368,8 @@ std::move(p_action_id));
           reinterpret_cast<internal::NotificationsInstance_SetLockScreenSettingOnAndroid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.11
       bool success = true;
       ArcLockScreenNotificationSettingPtr p_setting{};
       NotificationsInstance_SetLockScreenSettingOnAndroid_ParamsDataView input_data_view(params, message);
@@ -4241,8 +4385,8 @@ std::move(p_action_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLockScreenSettingOnAndroid(
-std::move(p_setting));
+      impl->SetLockScreenSettingOnAndroid(        
+        std::move(p_setting));
       return true;
     }
     case internal::kNotificationsInstance_SetNotificationConfiguration_Name: {
@@ -4252,6 +4396,8 @@ std::move(p_setting));
           reinterpret_cast<internal::NotificationsInstance_SetNotificationConfiguration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.12
       bool success = true;
       NotificationConfigurationPtr p_configuration{};
       NotificationsInstance_SetNotificationConfiguration_ParamsDataView input_data_view(params, message);
@@ -4267,8 +4413,8 @@ std::move(p_setting));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNotificationConfiguration(
-std::move(p_configuration));
+      impl->SetNotificationConfiguration(        
+        std::move(p_configuration));
       return true;
     }
     case internal::kNotificationsInstance_OnMessageCenterVisibilityChanged_Name: {
@@ -4278,6 +4424,8 @@ std::move(p_configuration));
           reinterpret_cast<internal::NotificationsInstance_OnMessageCenterVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.13
       bool success = true;
       MessageCenterVisibility p_visibility{};
       NotificationsInstance_OnMessageCenterVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -4293,8 +4441,8 @@ std::move(p_configuration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessageCenterVisibilityChanged(
-std::move(p_visibility));
+      impl->OnMessageCenterVisibilityChanged(        
+        std::move(p_visibility));
       return true;
     }
     case internal::kNotificationsInstance_SendNotificationButtonClickToAndroid_Name: {
@@ -4304,6 +4452,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::NotificationsInstance_SendNotificationButtonClickToAndroid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.14
       bool success = true;
       std::string p_key{};
       uint32_t p_action_button_index{};
@@ -4325,10 +4475,10 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNotificationButtonClickToAndroid(
-std::move(p_key), 
-std::move(p_action_button_index), 
-std::move(p_input));
+      impl->SendNotificationButtonClickToAndroid(        
+        std::move(p_key), 
+        std::move(p_action_button_index), 
+        std::move(p_input));
       return true;
     }
   }
@@ -4351,6 +4501,8 @@ bool NotificationsInstanceStubDispatch::AcceptWithResponder(
               internal::NotificationsInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NotificationsInstance.5
       bool success = true;
       ::mojo::PendingRemote<NotificationsHost> p_host_remote{};
       NotificationsInstance_Init_ParamsDataView input_data_view(params, message);
@@ -4371,8 +4523,8 @@ bool NotificationsInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kNotificationsInstance_SendNotificationEventToAndroid_Name: {
@@ -4575,6 +4727,8 @@ bool StructTraits<::arc::mojom::ArcNotificationData::DataView, ::arc::mojom::Arc
         success = false;
       if (success)
         result->reply_button_index = input.reply_button_index();
+      if (success && !input.ReadChildrenData(&result->children_data))
+        success = false;
   *output = std::move(result);
   return success;
 }

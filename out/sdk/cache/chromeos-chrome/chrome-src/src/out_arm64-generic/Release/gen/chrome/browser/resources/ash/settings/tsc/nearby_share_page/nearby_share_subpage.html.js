@@ -1,12 +1,11 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#help{flex-direction:row;align-items:flex-start;padding-block-start:12px}#helpIcon{--iron-icon-fill-color:var(--cr-secondary-text-color);height:16px;margin-inline-end:8px;padding:2px;width:16px}.help-text{flex-direction:column;color:var(--cr-secondary-text-color);font-size:13px;line-height:20px}#helpTopRow{margin-bottom:2.5%}#highVisibilityContainer{border-top:none;padding-inline-start:var(--cr-section-indent-padding);padding-inline-end:var(--cr-section-padding)}.separator{margin:0}#highVisibilityContainer>cr-toggle{margin-inline-end:var(--cr-section-padding);margin-inline-start:var(--cr-section-padding)}.enabled-toggle-off{font-weight:500}.enabled-toggle-on{color:var(--cros-text-color-prominent);font-weight:500}#setupRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#help{flex-direction:row;align-items:flex-start;padding-block-end:12px;padding-block-start:12px}#helpIcon{--iron-icon-fill-color:var(--cr-secondary-text-color);height:16px;margin-inline-end:8px;padding:2px;width:16px}.help-text{flex-direction:column;color:var(--cr-secondary-text-color);font-size:13px;line-height:20px}#helpTopRow{margin-bottom:2.5%}#highVisibilityContainer{border-top:none;padding-inline-start:var(--cr-section-indent-padding);padding-inline-end:var(--cr-section-padding)}.separator{margin:0}#highVisibilityContainer>cr-toggle{margin-inline-start:var(--cr-section-padding)}#setupRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}</style>
 
 <template is="dom-if" if="[[prefs]]" restamp>
   <template is="dom-if" if="[[prefs.nearby_sharing.onboarding_complete.value]]" restamp>
     <settings-toggle-button id="featureToggleButton" label="[[getOnOffString_(prefs.nearby_sharing.enabled.value,
-            '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]" pref="{{prefs.nearby_sharing.enabled}}" deep-link-focus-id$="[[Setting.kNearbyShareOnOff]]" class$="[[getEnabledToggleClassName_(
-            prefs.nearby_sharing.enabled.value)]]">
+            '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]" pref="{{prefs.nearby_sharing.enabled}}" deep-link-focus-id$="[[Setting.kNearbyShareOnOff]]" class="primary-toggle">
     </settings-toggle-button>
   </template>
   <template is="dom-if" if="[[!prefs.nearby_sharing.onboarding_complete.value]]" restamp>

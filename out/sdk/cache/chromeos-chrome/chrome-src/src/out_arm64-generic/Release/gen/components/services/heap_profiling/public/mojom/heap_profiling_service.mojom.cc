@@ -326,6 +326,8 @@ bool ProfilingService_AddProfilingClient_ForwardToCallback::Accept(
           internal::ProfilingService_AddProfilingClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProfilingService.0
   bool success = true;
   ProfilingService_AddProfilingClient_ResponseParamsDataView input_data_view(params, message);
   
@@ -433,6 +435,8 @@ bool ProfilingService_GetProfiledPids_ForwardToCallback::Accept(
           internal::ProfilingService_GetProfiledPids_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProfilingService.1
   bool success = true;
   std::vector<::base::ProcessId> p_pids{};
   ProfilingService_GetProfiledPids_ResponseParamsDataView input_data_view(params, message);
@@ -538,6 +542,8 @@ bool ProfilingServiceStubDispatch::AcceptWithResponder(
               internal::ProfilingService_AddProfilingClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProfilingService.0
       bool success = true;
       ::base::ProcessId p_pid{};
       ::mojo::PendingRemote<::heap_profiling::mojom::ProfilingClient> p_client{};
@@ -567,11 +573,11 @@ bool ProfilingServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddProfilingClient(
-std::move(p_pid), 
-std::move(p_client), 
-std::move(p_process_type), 
-std::move(p_params), std::move(callback));
+      impl->AddProfilingClient(        
+        std::move(p_pid), 
+        std::move(p_client), 
+        std::move(p_process_type), 
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kProfilingService_GetProfiledPids_Name: {
@@ -581,6 +587,8 @@ std::move(p_params), std::move(callback));
               internal::ProfilingService_GetProfiledPids_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProfilingService.1
       bool success = true;
       ProfilingService_GetProfiledPids_ParamsDataView input_data_view(params, message);
       

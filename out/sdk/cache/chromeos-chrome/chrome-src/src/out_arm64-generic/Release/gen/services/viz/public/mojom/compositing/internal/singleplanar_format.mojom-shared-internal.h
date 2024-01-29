@@ -49,6 +49,7 @@ struct SingleplanarFormat_Data {
       case 19:
       case 20:
       case 21:
+      case 22:
         return true;
     }
     return false;

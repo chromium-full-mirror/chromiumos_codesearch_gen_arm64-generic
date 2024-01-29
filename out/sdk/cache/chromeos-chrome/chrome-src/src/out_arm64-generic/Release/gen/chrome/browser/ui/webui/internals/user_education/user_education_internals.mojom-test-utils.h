@@ -17,8 +17,11 @@ class  UserEducationInternalsPageHandlerInterceptorForTesting : public UserEduca
   virtual UserEducationInternalsPageHandler* GetForwardingInterface() = 0;
   void GetTutorials(GetTutorialsCallback callback) override;
   void StartTutorial(const std::string& tutorial_id, StartTutorialCallback callback) override;
+  void GetSessionData(GetSessionDataCallback callback) override;
   void GetFeaturePromos(GetFeaturePromosCallback callback) override;
   void ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) override;
+  void ClearFeaturePromoData(const std::string& feature_name, ClearFeaturePromoDataCallback callback) override;
+  void ClearSessionData(ClearSessionDataCallback callback) override;
 };
 class  UserEducationInternalsPageHandlerAsyncWaiter {
  public:
@@ -34,12 +37,21 @@ class  UserEducationInternalsPageHandlerAsyncWaiter {
   void StartTutorial(
       const std::string& tutorial_id, std::string* out_error_message);
   std::string StartTutorial(const std::string& tutorial_id);
+  void GetSessionData(
+      std::vector<FeaturePromoDemoPageDataPtr>* out_session_data);
+  std::vector<FeaturePromoDemoPageDataPtr> GetSessionData();
   void GetFeaturePromos(
       std::vector<FeaturePromoDemoPageInfoPtr>* out_feature_promos);
   std::vector<FeaturePromoDemoPageInfoPtr> GetFeaturePromos();
   void ShowFeaturePromo(
       const std::string& feature_name, std::string* out_error_message);
   std::string ShowFeaturePromo(const std::string& feature_name);
+  void ClearFeaturePromoData(
+      const std::string& feature_name, std::string* out_error_message);
+  std::string ClearFeaturePromoData(const std::string& feature_name);
+  void ClearSessionData(
+      std::string* out_error_message);
+  std::string ClearSessionData();
 
  private:
   UserEducationInternalsPageHandler* const proxy_;

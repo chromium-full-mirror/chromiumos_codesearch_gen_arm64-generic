@@ -403,6 +403,8 @@ bool StateChangeDelegateStubDispatch::Accept(
           reinterpret_cast<internal::StateChangeDelegate_OnPause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StateChangeDelegate.0
       bool success = true;
       StateChangeDelegate_OnPause_ParamsDataView input_data_view(params, message);
       
@@ -415,7 +417,7 @@ bool StateChangeDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPause();
+      impl->OnPause(        );
       return true;
     }
     case internal::kStateChangeDelegate_OnResume_Name: {
@@ -425,6 +427,8 @@ bool StateChangeDelegateStubDispatch::Accept(
           reinterpret_cast<internal::StateChangeDelegate_OnResume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StateChangeDelegate.1
       bool success = true;
       StateChangeDelegate_OnResume_ParamsDataView input_data_view(params, message);
       
@@ -437,7 +441,7 @@ bool StateChangeDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResume();
+      impl->OnResume(        );
       return true;
     }
     case internal::kStateChangeDelegate_OnStop_Name: {
@@ -447,6 +451,8 @@ bool StateChangeDelegateStubDispatch::Accept(
           reinterpret_cast<internal::StateChangeDelegate_OnStop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StateChangeDelegate.2
       bool success = true;
       StateChangeDelegate_OnStop_ParamsDataView input_data_view(params, message);
       
@@ -459,7 +465,7 @@ bool StateChangeDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStop();
+      impl->OnStop(        );
       return true;
     }
   }
@@ -1065,6 +1071,8 @@ bool Dlp_CheckScreenShareRestriction_ForwardToCallback::Accept(
           internal::Dlp_CheckScreenShareRestriction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Dlp.1
   bool success = true;
   bool p_proceed{};
   Dlp_CheckScreenShareRestriction_ResponseParamsDataView input_data_view(params, message);
@@ -1139,6 +1147,8 @@ bool DlpStubDispatch::Accept(
           reinterpret_cast<internal::Dlp_DlpRestrictionsUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Dlp.0
       bool success = true;
       std::string p_window_id{};
       DlpRestrictionSetPtr p_restrictions{};
@@ -1157,9 +1167,9 @@ bool DlpStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DlpRestrictionsUpdated(
-std::move(p_window_id), 
-std::move(p_restrictions));
+      impl->DlpRestrictionsUpdated(        
+        std::move(p_window_id), 
+        std::move(p_restrictions));
       return true;
     }
     case internal::kDlp_CheckScreenShareRestriction_Name: {
@@ -1172,6 +1182,8 @@ std::move(p_restrictions));
           reinterpret_cast<internal::Dlp_OnScreenShareStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Dlp.2
       bool success = true;
       std::string p_label{};
       ScreenShareAreaPtr p_area{};
@@ -1198,11 +1210,11 @@ std::move(p_restrictions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenShareStarted(
-std::move(p_label), 
-std::move(p_area), 
-std::move(p_application_title), 
-std::move(p_delegate));
+      impl->OnScreenShareStarted(        
+        std::move(p_label), 
+        std::move(p_area), 
+        std::move(p_application_title), 
+        std::move(p_delegate));
       return true;
     }
     case internal::kDlp_OnScreenShareStopped_Name: {
@@ -1212,6 +1224,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::Dlp_OnScreenShareStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Dlp.3
       bool success = true;
       std::string p_label{};
       ScreenShareAreaPtr p_area{};
@@ -1230,9 +1244,9 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenShareStopped(
-std::move(p_label), 
-std::move(p_area));
+      impl->OnScreenShareStopped(        
+        std::move(p_label), 
+        std::move(p_area));
       return true;
     }
     case internal::kDlp_ShowBlockedFiles_Name: {
@@ -1242,6 +1256,8 @@ std::move(p_area));
           reinterpret_cast<internal::Dlp_ShowBlockedFiles_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Dlp.4
       bool success = true;
       std::optional<uint64_t> p_task_id{};
       std::vector<::base::FilePath> p_files{};
@@ -1264,10 +1280,10 @@ std::move(p_area));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowBlockedFiles(
-std::move(p_task_id), 
-std::move(p_files), 
-std::move(p_action));
+      impl->ShowBlockedFiles(        
+        std::move(p_task_id), 
+        std::move(p_files), 
+        std::move(p_action));
       return true;
     }
   }
@@ -1293,6 +1309,8 @@ bool DlpStubDispatch::AcceptWithResponder(
               internal::Dlp_CheckScreenShareRestriction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Dlp.1
       bool success = true;
       ScreenShareAreaPtr p_area{};
       ::std::u16string p_application_title{};
@@ -1314,9 +1332,9 @@ bool DlpStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckScreenShareRestriction(
-std::move(p_area), 
-std::move(p_application_title), std::move(callback));
+      impl->CheckScreenShareRestriction(        
+        std::move(p_area), 
+        std::move(p_application_title), std::move(callback));
       return true;
     }
     case internal::kDlp_OnScreenShareStarted_Name: {

@@ -53,19 +53,16 @@ CustomProxyConfig::CustomProxyConfig()
     : rules(),
       should_override_existing_config(false),
       allow_non_idempotent_methods(false),
-      should_replace_direct(false),
       connect_tunnel_headers() {}
 
 CustomProxyConfig::CustomProxyConfig(
     const ::net::ProxyConfig::ProxyRules& rules_in,
     bool should_override_existing_config_in,
     bool allow_non_idempotent_methods_in,
-    bool should_replace_direct_in,
     const ::net::HttpRequestHeaders& connect_tunnel_headers_in)
     : rules(std::move(rules_in)),
       should_override_existing_config(std::move(should_override_existing_config_in)),
       allow_non_idempotent_methods(std::move(allow_non_idempotent_methods_in)),
-      should_replace_direct(std::move(should_replace_direct_in)),
       connect_tunnel_headers(std::move(connect_tunnel_headers_in)) {}
 
 CustomProxyConfig::~CustomProxyConfig() = default;
@@ -94,15 +91,6 @@ void CustomProxyConfig::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "allow_non_idempotent_methods"), this->allow_non_idempotent_methods,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "should_replace_direct"), this->should_replace_direct,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -419,6 +407,7 @@ NetworkContextParams::NetworkContextParams()
       proxy_config_poller_client(),
       proxy_error_client(),
       ip_protection_config_getter(),
+      ip_protection_proxy_delegate(),
       pac_quick_check_enabled(true),
       enable_certificate_reporting(false),
       enforce_chrome_ct_policy(false),
@@ -447,7 +436,8 @@ NetworkContextParams::NetworkContextParams()
       first_party_sets_access_delegate_receiver(),
       acam_preflight_spec_conformant(true),
       cookie_deprecation_label(),
-      afp_block_list_experiment_enabled(false) {}
+      afp_block_list_experiment_enabled(false),
+      cookie_encryption_provider() {}
 
 NetworkContextParams::NetworkContextParams(
     const std::string& user_agent_in,
@@ -475,6 +465,7 @@ NetworkContextParams::NetworkContextParams(
     ::mojo::PendingRemote<::network::mojom::ProxyConfigPollerClient> proxy_config_poller_client_in,
     ::mojo::PendingRemote<::network::mojom::ProxyErrorClient> proxy_error_client_in,
     ::mojo::PendingRemote<IpProtectionConfigGetter> ip_protection_config_getter_in,
+    ::mojo::PendingReceiver<IpProtectionProxyDelegate> ip_protection_proxy_delegate_in,
     bool pac_quick_check_enabled_in,
     bool enable_certificate_reporting_in,
     bool enforce_chrome_ct_policy_in,
@@ -503,7 +494,8 @@ NetworkContextParams::NetworkContextParams(
     ::mojo::PendingReceiver<::network::mojom::FirstPartySetsAccessDelegate> first_party_sets_access_delegate_receiver_in,
     bool acam_preflight_spec_conformant_in,
     const std::optional<std::string>& cookie_deprecation_label_in,
-    bool afp_block_list_experiment_enabled_in)
+    bool afp_block_list_experiment_enabled_in,
+    ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> cookie_encryption_provider_in)
     : user_agent(std::move(user_agent_in)),
       accept_language(std::move(accept_language_in)),
       enable_brotli(std::move(enable_brotli_in)),
@@ -529,6 +521,7 @@ NetworkContextParams::NetworkContextParams(
       proxy_config_poller_client(std::move(proxy_config_poller_client_in)),
       proxy_error_client(std::move(proxy_error_client_in)),
       ip_protection_config_getter(std::move(ip_protection_config_getter_in)),
+      ip_protection_proxy_delegate(std::move(ip_protection_proxy_delegate_in)),
       pac_quick_check_enabled(std::move(pac_quick_check_enabled_in)),
       enable_certificate_reporting(std::move(enable_certificate_reporting_in)),
       enforce_chrome_ct_policy(std::move(enforce_chrome_ct_policy_in)),
@@ -557,7 +550,8 @@ NetworkContextParams::NetworkContextParams(
       first_party_sets_access_delegate_receiver(std::move(first_party_sets_access_delegate_receiver_in)),
       acam_preflight_spec_conformant(std::move(acam_preflight_spec_conformant_in)),
       cookie_deprecation_label(std::move(cookie_deprecation_label_in)),
-      afp_block_list_experiment_enabled(std::move(afp_block_list_experiment_enabled_in)) {}
+      afp_block_list_experiment_enabled(std::move(afp_block_list_experiment_enabled_in)),
+      cookie_encryption_provider(std::move(cookie_encryption_provider_in)) {}
 
 NetworkContextParams::~NetworkContextParams() = default;
 
@@ -785,6 +779,15 @@ void NetworkContextParams::WriteIntoTrace(
       "ip_protection_config_getter"), this->ip_protection_config_getter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::mojo::PendingRemote<IpProtectionConfigGetter>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ip_protection_proxy_delegate"), this->ip_protection_proxy_delegate,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::mojo::PendingReceiver<IpProtectionProxyDelegate>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1046,6 +1049,15 @@ void NetworkContextParams::WriteIntoTrace(
       "afp_block_list_experiment_enabled"), this->afp_block_list_experiment_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "cookie_encryption_provider"), this->cookie_encryption_provider,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1992,6 +2004,8 @@ bool CustomProxyConnectionObserverStubDispatch::Accept(
           reinterpret_cast<internal::CustomProxyConnectionObserver_OnFallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomProxyConnectionObserver.0
       bool success = true;
       ::net::ProxyChain p_bad_chain{};
       int32_t p_net_error{};
@@ -2010,9 +2024,9 @@ bool CustomProxyConnectionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFallback(
-std::move(p_bad_chain), 
-std::move(p_net_error));
+      impl->OnFallback(        
+        std::move(p_bad_chain), 
+        std::move(p_net_error));
       return true;
     }
     case internal::kCustomProxyConnectionObserver_OnTunnelHeadersReceived_Name: {
@@ -2022,6 +2036,8 @@ std::move(p_net_error));
           reinterpret_cast<internal::CustomProxyConnectionObserver_OnTunnelHeadersReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomProxyConnectionObserver.1
       bool success = true;
       ::net::ProxyChain p_proxy_chain{};
       uint64_t p_chain_index{};
@@ -2043,10 +2059,10 @@ std::move(p_net_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTunnelHeadersReceived(
-std::move(p_proxy_chain), 
-std::move(p_chain_index), 
-std::move(p_response_headers));
+      impl->OnTunnelHeadersReceived(        
+        std::move(p_proxy_chain), 
+        std::move(p_chain_index), 
+        std::move(p_response_headers));
       return true;
     }
   }
@@ -2093,12 +2109,6 @@ CustomProxyConfigClient::IPCStableHashFunction CustomProxyConfigClient::MessageT
     case internal::kCustomProxyConfigClient_OnCustomProxyConfigUpdated_Name: {
       return &CustomProxyConfigClient::OnCustomProxyConfigUpdated_Sym::IPCStableHash;
     }
-    case internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name: {
-      return &CustomProxyConfigClient::MarkProxiesAsBad_Sym::IPCStableHash;
-    }
-    case internal::kCustomProxyConfigClient_ClearBadProxiesCache_Name: {
-      return &CustomProxyConfigClient::ClearBadProxiesCache_Sym::IPCStableHash;
-    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2112,19 +2122,11 @@ const char* CustomProxyConfigClient::MessageToMethodName_(mojo::Message& message
     switch (message.name()) {
       case internal::kCustomProxyConfigClient_OnCustomProxyConfigUpdated_Name:
             return "Receive network::mojom::CustomProxyConfigClient::OnCustomProxyConfigUpdated";
-      case internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name:
-            return "Receive network::mojom::CustomProxyConfigClient::MarkProxiesAsBad";
-      case internal::kCustomProxyConfigClient_ClearBadProxiesCache_Name:
-            return "Receive network::mojom::CustomProxyConfigClient::ClearBadProxiesCache";
     }
   } else {
     switch (message.name()) {
       case internal::kCustomProxyConfigClient_OnCustomProxyConfigUpdated_Name:
             return "Receive reply network::mojom::CustomProxyConfigClient::OnCustomProxyConfigUpdated";
-      case internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name:
-            return "Receive reply network::mojom::CustomProxyConfigClient::MarkProxiesAsBad";
-      case internal::kCustomProxyConfigClient_ClearBadProxiesCache_Name:
-            return "Receive reply network::mojom::CustomProxyConfigClient::ClearBadProxiesCache";
     }
   }
   return "Receive unknown mojo message";
@@ -2152,32 +2154,6 @@ uint32_t CustomProxyConfigClient::OnCustomProxyConfigUpdated_Sym::IPCStableHash(
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CustomProxyConfigClient::MarkProxiesAsBad_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::CustomProxyConfigClient::MarkProxiesAsBad");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t CustomProxyConfigClient::ClearBadProxiesCache_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::CustomProxyConfigClient::ClearBadProxiesCache");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CustomProxyConfigClient_OnCustomProxyConfigUpdated_ForwardToCallback
@@ -2194,22 +2170,6 @@ class CustomProxyConfigClient_OnCustomProxyConfigUpdated_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CustomProxyConfigClient::OnCustomProxyConfigUpdatedCallback callback_;
-};
-
-class CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback(
-      CustomProxyConfigClient::MarkProxiesAsBadCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback(const CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback&) = delete;
-  CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback& operator=(const CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  CustomProxyConfigClient::MarkProxiesAsBadCallback callback_;
 };
 
 CustomProxyConfigClientProxy::CustomProxyConfigClientProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -2266,105 +2226,6 @@ void CustomProxyConfigClientProxy::OnCustomProxyConfigUpdated(
       new CustomProxyConfigClient_OnCustomProxyConfigUpdated_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CustomProxyConfigClientProxy::MarkProxiesAsBad(
-    ::base::TimeDelta in_bypass_duration, const ::net::ProxyList& in_bad_proxies, MarkProxiesAsBadCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send network::mojom::CustomProxyConfigClient::MarkProxiesAsBad", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bypass_duration"), in_bypass_duration,
-                        "<value of type ::base::TimeDelta>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bad_proxies"), in_bad_proxies,
-                        "<value of type const ::net::ProxyList&>");
-   });
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::CustomProxyConfigClient_MarkProxiesAsBad_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->bypass_duration)::BaseType> bypass_duration_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-      in_bypass_duration, bypass_duration_fragment);
-  params->bypass_duration.Set(
-      bypass_duration_fragment.is_null() ? nullptr : bypass_duration_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->bypass_duration.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null bypass_duration in CustomProxyConfigClient.MarkProxiesAsBad request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->bad_proxies)::BaseType> bad_proxies_fragment(
-          params.message());
-  mojo::internal::Serialize<::network::mojom::ProxyListDataView>(
-      in_bad_proxies, bad_proxies_fragment);
-  params->bad_proxies.Set(
-      bad_proxies_fragment.is_null() ? nullptr : bad_proxies_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->bad_proxies.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null bad_proxies in CustomProxyConfigClient.MarkProxiesAsBad request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomProxyConfigClient::Name_);
-  message.set_method_name("MarkProxiesAsBad");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void CustomProxyConfigClientProxy::ClearBadProxiesCache(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send network::mojom::CustomProxyConfigClient::ClearBadProxiesCache");
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kCustomProxyConfigClient_ClearBadProxiesCache_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::CustomProxyConfigClient_ClearBadProxiesCache_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomProxyConfigClient::Name_);
-  message.set_method_name("ClearBadProxiesCache");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class CustomProxyConfigClient_OnCustomProxyConfigUpdated_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -2424,6 +2285,8 @@ bool CustomProxyConfigClient_OnCustomProxyConfigUpdated_ForwardToCallback::Accep
           internal::CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CustomProxyConfigClient.0
   bool success = true;
   CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParamsDataView input_data_view(params, message);
   
@@ -2473,113 +2336,6 @@ void CustomProxyConfigClient_OnCustomProxyConfigUpdated_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static CustomProxyConfigClient::MarkProxiesAsBadCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder> proxy(
-        new CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "CustomProxyConfigClient::MarkProxiesAsBadCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      );
-};
-
-bool CustomProxyConfigClient_MarkProxiesAsBad_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  CustomProxyConfigClient_MarkProxiesAsBad_ResponseParamsDataView input_data_view(params, message);
-  
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CustomProxyConfigClient::Name_, 1, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run();
-  return true;
-}
-
-void CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder::Run(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send reply network::mojom::CustomProxyConfigClient::MarkProxiesAsBad");
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(CustomProxyConfigClient::Name_);
-  message.set_method_name("MarkProxiesAsBad");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 
 // static
 bool CustomProxyConfigClientStubDispatch::Accept(
@@ -2588,31 +2344,6 @@ bool CustomProxyConfigClientStubDispatch::Accept(
   switch (message->header()->name) {
     case internal::kCustomProxyConfigClient_OnCustomProxyConfigUpdated_Name: {
       break;
-    }
-    case internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name: {
-      break;
-    }
-    case internal::kCustomProxyConfigClient_ClearBadProxiesCache_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::CustomProxyConfigClient_ClearBadProxiesCache_Params_Data* params =
-          reinterpret_cast<internal::CustomProxyConfigClient_ClearBadProxiesCache_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      CustomProxyConfigClient_ClearBadProxiesCache_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomProxyConfigClient::Name_, 2, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ClearBadProxiesCache();
-      return true;
     }
   }
   return false;
@@ -2634,6 +2365,8 @@ bool CustomProxyConfigClientStubDispatch::AcceptWithResponder(
               internal::CustomProxyConfigClient_OnCustomProxyConfigUpdated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CustomProxyConfigClient.0
       bool success = true;
       CustomProxyConfigPtr p_proxy_config{};
       CustomProxyConfigClient_OnCustomProxyConfigUpdated_ParamsDataView input_data_view(params, message);
@@ -2652,45 +2385,9 @@ bool CustomProxyConfigClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCustomProxyConfigUpdated(
-std::move(p_proxy_config), std::move(callback));
+      impl->OnCustomProxyConfigUpdated(        
+        std::move(p_proxy_config), std::move(callback));
       return true;
-    }
-    case internal::kCustomProxyConfigClient_MarkProxiesAsBad_Name: {
-
-      internal::CustomProxyConfigClient_MarkProxiesAsBad_Params_Data* params =
-          reinterpret_cast<
-              internal::CustomProxyConfigClient_MarkProxiesAsBad_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::base::TimeDelta p_bypass_duration{};
-      ::net::ProxyList p_bad_proxies{};
-      CustomProxyConfigClient_MarkProxiesAsBad_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadBypassDuration(&p_bypass_duration))
-        success = false;
-      if (success && !input_data_view.ReadBadProxies(&p_bad_proxies))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            CustomProxyConfigClient::Name_, 1, false);
-        return false;
-      }
-      CustomProxyConfigClient::MarkProxiesAsBadCallback callback =
-          CustomProxyConfigClient_MarkProxiesAsBad_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->MarkProxiesAsBad(
-std::move(p_bypass_duration), 
-std::move(p_bad_proxies), std::move(callback));
-      return true;
-    }
-    case internal::kCustomProxyConfigClient_ClearBadProxiesCache_Name: {
-      break;
     }
   }
   return false;
@@ -2700,10 +2397,6 @@ namespace {
 static const mojo::internal::GenericValidationInfo kCustomProxyConfigClientValidationInfo[] = {
     { &internal::CustomProxyConfigClient_OnCustomProxyConfigUpdated_Params_Data::Validate,
      &internal::CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParams_Data::Validate},
-    { &internal::CustomProxyConfigClient_MarkProxiesAsBad_Params_Data::Validate,
-     &internal::CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data::Validate},
-    { &internal::CustomProxyConfigClient_ClearBadProxiesCache_Params_Data::Validate,
-     nullptr /* no response */},
 };
 
 bool CustomProxyConfigClientRequestValidator::Accept(mojo::Message* message) {
@@ -3001,6 +2694,8 @@ bool TrustedHeaderClient_OnBeforeSendHeaders_ForwardToCallback::Accept(
           internal::TrustedHeaderClient_OnBeforeSendHeaders_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedHeaderClient.0
   bool success = true;
   int32_t p_result{};
   std::optional<::net::HttpRequestHeaders> p_headers{};
@@ -3134,6 +2829,8 @@ bool TrustedHeaderClient_OnHeadersReceived_ForwardToCallback::Accept(
           internal::TrustedHeaderClient_OnHeadersReceived_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedHeaderClient.1
   bool success = true;
   int32_t p_result{};
   std::optional<std::string> p_headers{};
@@ -3255,6 +2952,8 @@ bool TrustedHeaderClientStubDispatch::AcceptWithResponder(
               internal::TrustedHeaderClient_OnBeforeSendHeaders_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedHeaderClient.0
       bool success = true;
       ::net::HttpRequestHeaders p_headers{};
       TrustedHeaderClient_OnBeforeSendHeaders_ParamsDataView input_data_view(params, message);
@@ -3273,8 +2972,8 @@ bool TrustedHeaderClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBeforeSendHeaders(
-std::move(p_headers), std::move(callback));
+      impl->OnBeforeSendHeaders(        
+        std::move(p_headers), std::move(callback));
       return true;
     }
     case internal::kTrustedHeaderClient_OnHeadersReceived_Name: {
@@ -3284,6 +2983,8 @@ std::move(p_headers), std::move(callback));
               internal::TrustedHeaderClient_OnHeadersReceived_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedHeaderClient.1
       bool success = true;
       std::string p_headers{};
       ::net::IPEndPoint p_remote_endpoint{};
@@ -3305,9 +3006,9 @@ std::move(p_headers), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHeadersReceived(
-std::move(p_headers), 
-std::move(p_remote_endpoint), std::move(callback));
+      impl->OnHeadersReceived(        
+        std::move(p_headers), 
+        std::move(p_remote_endpoint), std::move(callback));
       return true;
     }
   }
@@ -3532,6 +3233,8 @@ bool TrustedURLLoaderHeaderClientStubDispatch::Accept(
           reinterpret_cast<internal::TrustedURLLoaderHeaderClient_OnLoaderCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedURLLoaderHeaderClient.0
       bool success = true;
       int32_t p_request_id{};
       ::mojo::PendingReceiver<TrustedHeaderClient> p_header_client{};
@@ -3552,9 +3255,9 @@ bool TrustedURLLoaderHeaderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLoaderCreated(
-std::move(p_request_id), 
-std::move(p_header_client));
+      impl->OnLoaderCreated(        
+        std::move(p_request_id), 
+        std::move(p_header_client));
       return true;
     }
     case internal::kTrustedURLLoaderHeaderClient_OnLoaderForCorsPreflightCreated_Name: {
@@ -3564,6 +3267,8 @@ std::move(p_header_client));
           reinterpret_cast<internal::TrustedURLLoaderHeaderClient_OnLoaderForCorsPreflightCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedURLLoaderHeaderClient.1
       bool success = true;
       ::network::ResourceRequest p_request{};
       ::mojo::PendingReceiver<TrustedHeaderClient> p_header_client{};
@@ -3584,9 +3289,9 @@ std::move(p_header_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLoaderForCorsPreflightCreated(
-std::move(p_request), 
-std::move(p_header_client));
+      impl->OnLoaderForCorsPreflightCreated(        
+        std::move(p_request), 
+        std::move(p_header_client));
       return true;
     }
   }
@@ -4187,6 +3892,8 @@ bool NetworkContextClient_OnFileUploadRequested_ForwardToCallback::Accept(
           internal::NetworkContextClient_OnFileUploadRequested_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContextClient.0
   bool success = true;
   int32_t p_net_error{};
   std::vector<::base::File> p_files{};
@@ -4326,6 +4033,8 @@ bool NetworkContextClient_OnCanSendReportingReports_ForwardToCallback::Accept(
           internal::NetworkContextClient_OnCanSendReportingReports_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContextClient.1
   bool success = true;
   std::vector<::url::Origin> p_origins{};
   NetworkContextClient_OnCanSendReportingReports_ResponseParamsDataView input_data_view(params, message);
@@ -4457,6 +4166,8 @@ bool NetworkContextClient_OnCanSendDomainReliabilityUpload_ForwardToCallback::Ac
           internal::NetworkContextClient_OnCanSendDomainReliabilityUpload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContextClient.2
   bool success = true;
   bool p_allowed{};
   NetworkContextClient_OnCanSendDomainReliabilityUpload_ResponseParamsDataView input_data_view(params, message);
@@ -4576,6 +4287,8 @@ bool NetworkContextClient_OnCanSendSCTAuditingReport_ForwardToCallback::Accept(
           internal::NetworkContextClient_OnCanSendSCTAuditingReport_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContextClient.4
   bool success = true;
   bool p_allowed{};
   NetworkContextClient_OnCanSendSCTAuditingReport_ResponseParamsDataView input_data_view(params, message);
@@ -4659,6 +4372,8 @@ bool NetworkContextClientStubDispatch::Accept(
           reinterpret_cast<internal::NetworkContextClient_OnTrustAnchorUsed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContextClient.3
       bool success = true;
       NetworkContextClient_OnTrustAnchorUsed_ParamsDataView input_data_view(params, message);
       
@@ -4671,7 +4386,7 @@ bool NetworkContextClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTrustAnchorUsed();
+      impl->OnTrustAnchorUsed(        );
       return true;
     }
     case internal::kNetworkContextClient_OnCanSendSCTAuditingReport_Name: {
@@ -4684,6 +4399,8 @@ bool NetworkContextClientStubDispatch::Accept(
           reinterpret_cast<internal::NetworkContextClient_OnNewSCTAuditingReportSent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContextClient.5
       bool success = true;
       NetworkContextClient_OnNewSCTAuditingReportSent_ParamsDataView input_data_view(params, message);
       
@@ -4696,7 +4413,7 @@ bool NetworkContextClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewSCTAuditingReportSent();
+      impl->OnNewSCTAuditingReportSent(        );
       return true;
     }
   }
@@ -4719,6 +4436,8 @@ bool NetworkContextClientStubDispatch::AcceptWithResponder(
               internal::NetworkContextClient_OnFileUploadRequested_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContextClient.0
       bool success = true;
       int32_t p_process_id{};
       bool p_async{};
@@ -4746,11 +4465,11 @@ bool NetworkContextClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFileUploadRequested(
-std::move(p_process_id), 
-std::move(p_async), 
-std::move(p_file_paths), 
-std::move(p_destination_url), std::move(callback));
+      impl->OnFileUploadRequested(        
+        std::move(p_process_id), 
+        std::move(p_async), 
+        std::move(p_file_paths), 
+        std::move(p_destination_url), std::move(callback));
       return true;
     }
     case internal::kNetworkContextClient_OnCanSendReportingReports_Name: {
@@ -4760,6 +4479,8 @@ std::move(p_destination_url), std::move(callback));
               internal::NetworkContextClient_OnCanSendReportingReports_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContextClient.1
       bool success = true;
       std::vector<::url::Origin> p_origins{};
       NetworkContextClient_OnCanSendReportingReports_ParamsDataView input_data_view(params, message);
@@ -4778,8 +4499,8 @@ std::move(p_destination_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCanSendReportingReports(
-std::move(p_origins), std::move(callback));
+      impl->OnCanSendReportingReports(        
+        std::move(p_origins), std::move(callback));
       return true;
     }
     case internal::kNetworkContextClient_OnCanSendDomainReliabilityUpload_Name: {
@@ -4789,6 +4510,8 @@ std::move(p_origins), std::move(callback));
               internal::NetworkContextClient_OnCanSendDomainReliabilityUpload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContextClient.2
       bool success = true;
       ::url::Origin p_origin{};
       NetworkContextClient_OnCanSendDomainReliabilityUpload_ParamsDataView input_data_view(params, message);
@@ -4807,8 +4530,8 @@ std::move(p_origins), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCanSendDomainReliabilityUpload(
-std::move(p_origin), std::move(callback));
+      impl->OnCanSendDomainReliabilityUpload(        
+        std::move(p_origin), std::move(callback));
       return true;
     }
     case internal::kNetworkContextClient_OnTrustAnchorUsed_Name: {
@@ -4821,6 +4544,8 @@ std::move(p_origin), std::move(callback));
               internal::NetworkContextClient_OnCanSendSCTAuditingReport_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContextClient.4
       bool success = true;
       NetworkContextClient_OnCanSendSCTAuditingReport_ParamsDataView input_data_view(params, message);
       
@@ -5120,6 +4845,8 @@ bool IpProtectionConfigGetter_TryGetAuthTokens_ForwardToCallback::Accept(
           internal::IpProtectionConfigGetter_TryGetAuthTokens_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IpProtectionConfigGetter.0
   bool success = true;
   std::optional<std::vector<BlindSignedAuthTokenPtr>> p_bsa_tokens{};
   std::optional<::base::Time> p_try_again_after{};
@@ -5261,6 +4988,8 @@ bool IpProtectionConfigGetter_GetProxyList_ForwardToCallback::Accept(
           internal::IpProtectionConfigGetter_GetProxyList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IpProtectionConfigGetter.1
   bool success = true;
   std::optional<std::vector<std::vector<std::string>>> p_proxy_list{};
   IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView input_data_view(params, message);
@@ -5362,6 +5091,8 @@ bool IpProtectionConfigGetterStubDispatch::AcceptWithResponder(
               internal::IpProtectionConfigGetter_TryGetAuthTokens_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IpProtectionConfigGetter.0
       bool success = true;
       uint32_t p_batch_size{};
       IpProtectionProxyLayer p_proxy_layer{};
@@ -5383,9 +5114,9 @@ bool IpProtectionConfigGetterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TryGetAuthTokens(
-std::move(p_batch_size), 
-std::move(p_proxy_layer), std::move(callback));
+      impl->TryGetAuthTokens(        
+        std::move(p_batch_size), 
+        std::move(p_proxy_layer), std::move(callback));
       return true;
     }
     case internal::kIpProtectionConfigGetter_GetProxyList_Name: {
@@ -5395,6 +5126,8 @@ std::move(p_proxy_layer), std::move(callback));
               internal::IpProtectionConfigGetter_GetProxyList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IpProtectionConfigGetter.1
       bool success = true;
       IpProtectionConfigGetter_GetProxyList_ParamsDataView input_data_view(params, message);
       
@@ -5433,6 +5166,405 @@ bool IpProtectionConfigGetterRequestValidator::Accept(mojo::Message* message) {
 bool IpProtectionConfigGetterResponseValidator::Accept(mojo::Message* message) {
   const char* name = ::network::mojom::IpProtectionConfigGetter::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kIpProtectionConfigGetterValidationInfo);
+}
+const char IpProtectionProxyDelegate::Name_[] = "network.mojom.IpProtectionProxyDelegate";
+
+IpProtectionProxyDelegate::IPCStableHashFunction IpProtectionProxyDelegate::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name: {
+      return &IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting_Sym::IPCStableHash;
+    }
+    case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
+      return &IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* IpProtectionProxyDelegate::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name:
+            return "Receive network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting";
+      case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
+            return "Receive network::mojom::IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name:
+            return "Receive reply network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting";
+      case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
+            return "Receive reply network::mojom::IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback(
+      IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTestingCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback(const IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback&) = delete;
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback& operator=(const IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTestingCallback callback_;
+};
+
+IpProtectionProxyDelegateProxy::IpProtectionProxyDelegateProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void IpProtectionProxyDelegateProxy::VerifyIpProtectionConfigGetterForTesting(
+    VerifyIpProtectionConfigGetterForTestingCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IpProtectionProxyDelegate::Name_);
+  message.set_method_name("VerifyIpProtectionConfigGetterForTesting");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void IpProtectionProxyDelegateProxy::InvalidateIpProtectionConfigCacheTryAgainAfterTime(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send network::mojom::IpProtectionProxyDelegate::InvalidateIpProtectionConfigCacheTryAgainAfterTime");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IpProtectionProxyDelegate::Name_);
+  message.set_method_name("InvalidateIpProtectionConfigCacheTryAgainAfterTime");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTestingCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder> proxy(
+        new IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTestingCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      BlindSignedAuthTokenPtr in_bsa_token, std::optional<::base::Time> in_try_again_after);
+};
+
+bool IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for IpProtectionProxyDelegate.0
+  bool success = true;
+  BlindSignedAuthTokenPtr p_bsa_token{};
+  std::optional<::base::Time> p_try_again_after{};
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadBsaToken(&p_bsa_token))
+    success = false;
+  if (success && !input_data_view.ReadTryAgainAfter(&p_try_again_after))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        IpProtectionProxyDelegate::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_bsa_token), 
+std::move(p_try_again_after));
+  return true;
+}
+
+void IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder::Run(
+    BlindSignedAuthTokenPtr in_bsa_token, std::optional<::base::Time> in_try_again_after) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply network::mojom::IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTesting", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("bsa_token"), in_bsa_token,
+                        "<value of type BlindSignedAuthTokenPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("try_again_after"), in_try_again_after,
+                        "<value of type std::optional<::base::Time>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->bsa_token)::BaseType> bsa_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::network::mojom::BlindSignedAuthTokenDataView>(
+      in_bsa_token, bsa_token_fragment);
+  params->bsa_token.Set(
+      bsa_token_fragment.is_null() ? nullptr : bsa_token_fragment.data());
+  mojo::internal::MessageFragment<
+      typename decltype(params->try_again_after)::BaseType> try_again_after_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+      in_try_again_after, try_again_after_fragment);
+  params->try_again_after.Set(
+      try_again_after_fragment.is_null() ? nullptr : try_again_after_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(IpProtectionProxyDelegate::Name_);
+  message.set_method_name("VerifyIpProtectionConfigGetterForTesting");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
+// static
+bool IpProtectionProxyDelegateStubDispatch::Accept(
+    IpProtectionProxyDelegate* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name: {
+      break;
+    }
+    case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* params =
+          reinterpret_cast<internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for IpProtectionProxyDelegate.1
+      bool success = true;
+      IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            IpProtectionProxyDelegate::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->InvalidateIpProtectionConfigCacheTryAgainAfterTime(        );
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool IpProtectionProxyDelegateStubDispatch::AcceptWithResponder(
+    IpProtectionProxyDelegate* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kIpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Name: {
+
+      internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data* params =
+          reinterpret_cast<
+              internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for IpProtectionProxyDelegate.0
+      bool success = true;
+      IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            IpProtectionProxyDelegate::Name_, 0, false);
+        return false;
+      }
+      IpProtectionProxyDelegate::VerifyIpProtectionConfigGetterForTestingCallback callback =
+          IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->VerifyIpProtectionConfigGetterForTesting(std::move(callback));
+      return true;
+    }
+    case internal::kIpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kIpProtectionProxyDelegateValidationInfo[] = {
+    { &internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data::Validate,
+     &internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data::Validate},
+    { &internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool IpProtectionProxyDelegateRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::network::mojom::IpProtectionProxyDelegate::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kIpProtectionProxyDelegateValidationInfo);
+}
+
+bool IpProtectionProxyDelegateResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::network::mojom::IpProtectionProxyDelegate::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kIpProtectionProxyDelegateValidationInfo);
 }
 const char NetworkContext::Name_[] = "network.mojom.NetworkContext";
 
@@ -5597,12 +5729,6 @@ NetworkContext::IPCStableHashFunction NetworkContext::MessageToMethodInfo_(mojo:
     }
     case internal::kNetworkContext_VerifyCertForSignedExchange_Name: {
       return &NetworkContext::VerifyCertForSignedExchange_Sym::IPCStableHash;
-    }
-    case internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name: {
-      return &NetworkContext::VerifyIpProtectionConfigGetterForTesting_Sym::IPCStableHash;
-    }
-    case internal::kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
-      return &NetworkContext::InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym::IPCStableHash;
     }
     case internal::kNetworkContext_AddHSTS_Name: {
       return &NetworkContext::AddHSTS_Sym::IPCStableHash;
@@ -5796,10 +5922,6 @@ const char* NetworkContext::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::NetworkContext::CreateHostResolver";
       case internal::kNetworkContext_VerifyCertForSignedExchange_Name:
             return "Receive network::mojom::NetworkContext::VerifyCertForSignedExchange";
-      case internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name:
-            return "Receive network::mojom::NetworkContext::VerifyIpProtectionConfigGetterForTesting";
-      case internal::kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
-            return "Receive network::mojom::NetworkContext::InvalidateIpProtectionConfigCacheTryAgainAfterTime";
       case internal::kNetworkContext_AddHSTS_Name:
             return "Receive network::mojom::NetworkContext::AddHSTS";
       case internal::kNetworkContext_IsHSTSActiveForHost_Name:
@@ -5959,10 +6081,6 @@ const char* NetworkContext::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::NetworkContext::CreateHostResolver";
       case internal::kNetworkContext_VerifyCertForSignedExchange_Name:
             return "Receive reply network::mojom::NetworkContext::VerifyCertForSignedExchange";
-      case internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name:
-            return "Receive reply network::mojom::NetworkContext::VerifyIpProtectionConfigGetterForTesting";
-      case internal::kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name:
-            return "Receive reply network::mojom::NetworkContext::InvalidateIpProtectionConfigCacheTryAgainAfterTime";
       case internal::kNetworkContext_AddHSTS_Name:
             return "Receive reply network::mojom::NetworkContext::AddHSTS";
       case internal::kNetworkContext_IsHSTSActiveForHost_Name:
@@ -6716,32 +6834,6 @@ uint32_t NetworkContext::VerifyCertForSignedExchange_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t NetworkContext::VerifyIpProtectionConfigGetterForTesting_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::NetworkContext::VerifyIpProtectionConfigGetterForTesting");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t NetworkContext::InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::NetworkContext::InvalidateIpProtectionConfigCacheTryAgainAfterTime");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t NetworkContext::AddHSTS_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -7479,22 +7571,6 @@ class NetworkContext_VerifyCertForSignedExchange_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   NetworkContext::VerifyCertForSignedExchangeCallback callback_;
-};
-
-class NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback(
-      NetworkContext::VerifyIpProtectionConfigGetterForTestingCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback(const NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback&) = delete;
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback& operator=(const NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  NetworkContext::VerifyIpProtectionConfigGetterForTestingCallback callback_;
 };
 
 class NetworkContext_AddHSTS_ForwardToCallback
@@ -11178,73 +11254,6 @@ void NetworkContextProxy::VerifyCertForSignedExchange(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void NetworkContextProxy::VerifyIpProtectionConfigGetterForTesting(
-    VerifyIpProtectionConfigGetterForTestingCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send network::mojom::NetworkContext::VerifyIpProtectionConfigGetterForTesting");
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(NetworkContext::Name_);
-  message.set_method_name("VerifyIpProtectionConfigGetterForTesting");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void NetworkContextProxy::InvalidateIpProtectionConfigCacheTryAgainAfterTime(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send network::mojom::NetworkContext::InvalidateIpProtectionConfigCacheTryAgainAfterTime");
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(NetworkContext::Name_);
-  message.set_method_name("InvalidateIpProtectionConfigCacheTryAgainAfterTime");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void NetworkContextProxy::AddHSTS(
     const std::string& in_host, ::base::Time in_expiry, bool in_include_subdomains, AddHSTSCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -12836,6 +12845,8 @@ bool NetworkContext_ClearTrustTokenData_ForwardToCallback::Accept(
           internal::NetworkContext_ClearTrustTokenData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.7
   bool success = true;
   NetworkContext_ClearTrustTokenData_ResponseParamsDataView input_data_view(params, message);
   
@@ -12943,6 +12954,8 @@ bool NetworkContext_ClearTrustTokenSessionOnlyData_ForwardToCallback::Accept(
           internal::NetworkContext_ClearTrustTokenSessionOnlyData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.8
   bool success = true;
   bool p_any_data_deleted{};
   NetworkContext_ClearTrustTokenSessionOnlyData_ResponseParamsDataView input_data_view(params, message);
@@ -13062,6 +13075,8 @@ bool NetworkContext_GetStoredTrustTokenCounts_ForwardToCallback::Accept(
           internal::NetworkContext_GetStoredTrustTokenCounts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.9
   bool success = true;
   std::vector<::network::mojom::StoredTrustTokensForIssuerPtr> p_tokens{};
   NetworkContext_GetStoredTrustTokenCounts_ResponseParamsDataView input_data_view(params, message);
@@ -13193,6 +13208,8 @@ bool NetworkContext_DeleteStoredTrustTokens_ForwardToCallback::Accept(
           internal::NetworkContext_DeleteStoredTrustTokens_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.10
   bool success = true;
   ::network::mojom::DeleteStoredTrustTokensStatus p_status{};
   NetworkContext_DeleteStoredTrustTokens_ResponseParamsDataView input_data_view(params, message);
@@ -13313,6 +13330,8 @@ bool NetworkContext_ClearNetworkingHistoryBetween_ForwardToCallback::Accept(
           internal::NetworkContext_ClearNetworkingHistoryBetween_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.12
   bool success = true;
   NetworkContext_ClearNetworkingHistoryBetween_ResponseParamsDataView input_data_view(params, message);
   
@@ -13420,6 +13439,8 @@ bool NetworkContext_ClearHttpCache_ForwardToCallback::Accept(
           internal::NetworkContext_ClearHttpCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.13
   bool success = true;
   NetworkContext_ClearHttpCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -13527,6 +13548,8 @@ bool NetworkContext_ComputeHttpCacheSize_ForwardToCallback::Accept(
           internal::NetworkContext_ComputeHttpCacheSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.14
   bool success = true;
   bool p_is_upper_bound{};
   int64_t p_size_or_error{};
@@ -13654,6 +13677,8 @@ bool NetworkContext_ClearHostCache_ForwardToCallback::Accept(
           internal::NetworkContext_ClearHostCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.16
   bool success = true;
   NetworkContext_ClearHostCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -13761,6 +13786,8 @@ bool NetworkContext_ClearHttpAuthCache_ForwardToCallback::Accept(
           internal::NetworkContext_ClearHttpAuthCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.17
   bool success = true;
   NetworkContext_ClearHttpAuthCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -13868,6 +13895,8 @@ bool NetworkContext_ClearCorsPreflightCache_ForwardToCallback::Accept(
           internal::NetworkContext_ClearCorsPreflightCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.18
   bool success = true;
   NetworkContext_ClearCorsPreflightCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -13975,6 +14004,8 @@ bool NetworkContext_ClearReportingCacheReports_ForwardToCallback::Accept(
           internal::NetworkContext_ClearReportingCacheReports_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.19
   bool success = true;
   NetworkContext_ClearReportingCacheReports_ResponseParamsDataView input_data_view(params, message);
   
@@ -14082,6 +14113,8 @@ bool NetworkContext_ClearReportingCacheClients_ForwardToCallback::Accept(
           internal::NetworkContext_ClearReportingCacheClients_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.20
   bool success = true;
   NetworkContext_ClearReportingCacheClients_ResponseParamsDataView input_data_view(params, message);
   
@@ -14189,6 +14222,8 @@ bool NetworkContext_ClearNetworkErrorLogging_ForwardToCallback::Accept(
           internal::NetworkContext_ClearNetworkErrorLogging_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.21
   bool success = true;
   NetworkContext_ClearNetworkErrorLogging_ResponseParamsDataView input_data_view(params, message);
   
@@ -14296,6 +14331,8 @@ bool NetworkContext_ClearDomainReliability_ForwardToCallback::Accept(
           internal::NetworkContext_ClearDomainReliability_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.22
   bool success = true;
   NetworkContext_ClearDomainReliability_ResponseParamsDataView input_data_view(params, message);
   
@@ -14403,6 +14440,8 @@ bool NetworkContext_ClearSharedDictionaryCache_ForwardToCallback::Accept(
           internal::NetworkContext_ClearSharedDictionaryCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.23
   bool success = true;
   NetworkContext_ClearSharedDictionaryCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -14510,6 +14549,8 @@ bool NetworkContext_ClearSharedDictionaryCacheForIsolationKey_ForwardToCallback:
           internal::NetworkContext_ClearSharedDictionaryCacheForIsolationKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.24
   bool success = true;
   NetworkContext_ClearSharedDictionaryCacheForIsolationKey_ResponseParamsDataView input_data_view(params, message);
   
@@ -14617,6 +14658,8 @@ bool NetworkContext_CloseAllConnections_ForwardToCallback::Accept(
           internal::NetworkContext_CloseAllConnections_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.29
   bool success = true;
   NetworkContext_CloseAllConnections_ResponseParamsDataView input_data_view(params, message);
   
@@ -14724,6 +14767,8 @@ bool NetworkContext_CloseIdleConnections_ForwardToCallback::Accept(
           internal::NetworkContext_CloseIdleConnections_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.30
   bool success = true;
   NetworkContext_CloseIdleConnections_ResponseParamsDataView input_data_view(params, message);
   
@@ -14831,6 +14876,8 @@ bool NetworkContext_CreateRestrictedUDPSocket_ForwardToCallback::Accept(
           internal::NetworkContext_CreateRestrictedUDPSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.36
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr_out{};
@@ -14964,6 +15011,8 @@ bool NetworkContext_CreateTCPServerSocket_ForwardToCallback::Accept(
           internal::NetworkContext_CreateTCPServerSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.37
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr_out{};
@@ -15097,6 +15146,8 @@ bool NetworkContext_CreateTCPConnectedSocket_ForwardToCallback::Accept(
           internal::NetworkContext_CreateTCPConnectedSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.38
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -15262,6 +15313,8 @@ bool NetworkContext_CreateTCPBoundSocket_ForwardToCallback::Accept(
           internal::NetworkContext_CreateTCPBoundSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.39
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -15395,6 +15448,8 @@ bool NetworkContext_ForceReloadProxyConfig_ForwardToCallback::Accept(
           internal::NetworkContext_ForceReloadProxyConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.42
   bool success = true;
   NetworkContext_ForceReloadProxyConfig_ResponseParamsDataView input_data_view(params, message);
   
@@ -15502,6 +15557,8 @@ bool NetworkContext_ClearBadProxiesCache_ForwardToCallback::Accept(
           internal::NetworkContext_ClearBadProxiesCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.43
   bool success = true;
   NetworkContext_ClearBadProxiesCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -15609,6 +15666,8 @@ bool NetworkContext_VerifyCertForSignedExchange_ForwardToCallback::Accept(
           internal::NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.52
   bool success = true;
   int32_t p_error_code{};
   ::net::CertVerifyResult p_cv_result{};
@@ -15696,145 +15755,6 @@ void NetworkContext_VerifyCertForSignedExchange_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static NetworkContext::VerifyIpProtectionConfigGetterForTestingCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder> proxy(
-        new NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "NetworkContext::VerifyIpProtectionConfigGetterForTestingCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      BlindSignedAuthTokenPtr in_bsa_token, std::optional<::base::Time> in_try_again_after);
-};
-
-bool NetworkContext_VerifyIpProtectionConfigGetterForTesting_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  BlindSignedAuthTokenPtr p_bsa_token{};
-  std::optional<::base::Time> p_try_again_after{};
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadBsaToken(&p_bsa_token))
-    success = false;
-  if (success && !input_data_view.ReadTryAgainAfter(&p_try_again_after))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 53, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_bsa_token), 
-std::move(p_try_again_after));
-  return true;
-}
-
-void NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder::Run(
-    BlindSignedAuthTokenPtr in_bsa_token, std::optional<::base::Time> in_try_again_after) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply network::mojom::NetworkContext::VerifyIpProtectionConfigGetterForTesting", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bsa_token"), in_bsa_token,
-                        "<value of type BlindSignedAuthTokenPtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("try_again_after"), in_try_again_after,
-                        "<value of type std::optional<::base::Time>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::network::mojom::internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->bsa_token)::BaseType> bsa_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::network::mojom::BlindSignedAuthTokenDataView>(
-      in_bsa_token, bsa_token_fragment);
-  params->bsa_token.Set(
-      bsa_token_fragment.is_null() ? nullptr : bsa_token_fragment.data());
-  mojo::internal::MessageFragment<
-      typename decltype(params->try_again_after)::BaseType> try_again_after_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
-      in_try_again_after, try_again_after_fragment);
-  params->try_again_after.Set(
-      try_again_after_fragment.is_null() ? nullptr : try_again_after_fragment.data());
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(NetworkContext::Name_);
-  message.set_method_name("VerifyIpProtectionConfigGetterForTesting");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class NetworkContext_AddHSTS_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static NetworkContext::AddHSTSCallback CreateCallback(
@@ -15893,6 +15813,8 @@ bool NetworkContext_AddHSTS_ForwardToCallback::Accept(
           internal::NetworkContext_AddHSTS_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.53
   bool success = true;
   NetworkContext_AddHSTS_ResponseParamsDataView input_data_view(params, message);
   
@@ -15900,7 +15822,7 @@ bool NetworkContext_AddHSTS_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 55, true);
+        NetworkContext::Name_, 53, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16000,6 +15922,8 @@ bool NetworkContext_IsHSTSActiveForHost_ForwardToCallback::Accept(
           internal::NetworkContext_IsHSTSActiveForHost_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.54
   bool success = true;
   bool p_result{};
   NetworkContext_IsHSTSActiveForHost_ResponseParamsDataView input_data_view(params, message);
@@ -16010,7 +15934,7 @@ bool NetworkContext_IsHSTSActiveForHost_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 56, true);
+        NetworkContext::Name_, 54, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16119,6 +16043,8 @@ bool NetworkContext_GetHSTSState_ForwardToCallback::Accept(
           internal::NetworkContext_GetHSTSState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.55
   bool success = true;
   ::base::Value::Dict p_state{};
   NetworkContext_GetHSTSState_ResponseParamsDataView input_data_view(params, message);
@@ -16129,7 +16055,7 @@ bool NetworkContext_GetHSTSState_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 57, true);
+        NetworkContext::Name_, 55, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16248,6 +16174,8 @@ bool NetworkContext_SetCorsOriginAccessListsForOrigin_ForwardToCallback::Accept(
           internal::NetworkContext_SetCorsOriginAccessListsForOrigin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.56
   bool success = true;
   NetworkContext_SetCorsOriginAccessListsForOrigin_ResponseParamsDataView input_data_view(params, message);
   
@@ -16255,7 +16183,7 @@ bool NetworkContext_SetCorsOriginAccessListsForOrigin_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 58, true);
+        NetworkContext::Name_, 56, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16355,6 +16283,8 @@ bool NetworkContext_DeleteDynamicDataForHost_ForwardToCallback::Accept(
           internal::NetworkContext_DeleteDynamicDataForHost_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.57
   bool success = true;
   bool p_result{};
   NetworkContext_DeleteDynamicDataForHost_ResponseParamsDataView input_data_view(params, message);
@@ -16365,7 +16295,7 @@ bool NetworkContext_DeleteDynamicDataForHost_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 59, true);
+        NetworkContext::Name_, 57, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16474,6 +16404,8 @@ bool NetworkContext_SaveHttpAuthCacheProxyEntries_ForwardToCallback::Accept(
           internal::NetworkContext_SaveHttpAuthCacheProxyEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.59
   bool success = true;
   ::base::UnguessableToken p_cache_key{};
   NetworkContext_SaveHttpAuthCacheProxyEntries_ResponseParamsDataView input_data_view(params, message);
@@ -16484,7 +16416,7 @@ bool NetworkContext_SaveHttpAuthCacheProxyEntries_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 61, true);
+        NetworkContext::Name_, 59, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16603,6 +16535,8 @@ bool NetworkContext_LoadHttpAuthCacheProxyEntries_ForwardToCallback::Accept(
           internal::NetworkContext_LoadHttpAuthCacheProxyEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.60
   bool success = true;
   NetworkContext_LoadHttpAuthCacheProxyEntries_ResponseParamsDataView input_data_view(params, message);
   
@@ -16610,7 +16544,7 @@ bool NetworkContext_LoadHttpAuthCacheProxyEntries_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 62, true);
+        NetworkContext::Name_, 60, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16710,6 +16644,8 @@ bool NetworkContext_AddAuthCacheEntry_ForwardToCallback::Accept(
           internal::NetworkContext_AddAuthCacheEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.61
   bool success = true;
   NetworkContext_AddAuthCacheEntry_ResponseParamsDataView input_data_view(params, message);
   
@@ -16717,7 +16653,7 @@ bool NetworkContext_AddAuthCacheEntry_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 63, true);
+        NetworkContext::Name_, 61, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16817,6 +16753,8 @@ bool NetworkContext_LookupServerBasicAuthCredentials_ForwardToCallback::Accept(
           internal::NetworkContext_LookupServerBasicAuthCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.63
   bool success = true;
   std::optional<::net::AuthCredentials> p_credentials{};
   NetworkContext_LookupServerBasicAuthCredentials_ResponseParamsDataView input_data_view(params, message);
@@ -16827,7 +16765,7 @@ bool NetworkContext_LookupServerBasicAuthCredentials_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 65, true);
+        NetworkContext::Name_, 63, true);
     return false;
   }
   if (!callback_.is_null())
@@ -16942,6 +16880,8 @@ bool NetworkContext_LookupProxyAuthCredentials_ForwardToCallback::Accept(
           internal::NetworkContext_LookupProxyAuthCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.64
   bool success = true;
   std::optional<::net::AuthCredentials> p_credentials{};
   NetworkContext_LookupProxyAuthCredentials_ResponseParamsDataView input_data_view(params, message);
@@ -16952,7 +16892,7 @@ bool NetworkContext_LookupProxyAuthCredentials_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 66, true);
+        NetworkContext::Name_, 64, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17067,6 +17007,8 @@ bool NetworkContext_EnableStaticKeyPinningForTesting_ForwardToCallback::Accept(
           internal::NetworkContext_EnableStaticKeyPinningForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.65
   bool success = true;
   NetworkContext_EnableStaticKeyPinningForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -17074,7 +17016,7 @@ bool NetworkContext_EnableStaticKeyPinningForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 67, true);
+        NetworkContext::Name_, 65, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17124,6 +17066,8 @@ bool NetworkContext_EnableStaticKeyPinningForTesting_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NetworkContext_EnableStaticKeyPinningForTesting_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetworkContext.65
   bool success = true;
   NetworkContext_EnableStaticKeyPinningForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -17131,7 +17075,7 @@ bool NetworkContext_EnableStaticKeyPinningForTesting_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 67, true);
+        NetworkContext::Name_, 65, true);
     return false;
   }
   *result_ = true;
@@ -17195,6 +17139,8 @@ bool NetworkContext_VerifyCertificateForTesting_ForwardToCallback::Accept(
           internal::NetworkContext_VerifyCertificateForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.66
   bool success = true;
   int32_t p_error_code{};
   NetworkContext_VerifyCertificateForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -17205,7 +17151,7 @@ bool NetworkContext_VerifyCertificateForTesting_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 68, true);
+        NetworkContext::Name_, 66, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17314,6 +17260,8 @@ bool NetworkContext_AddDomainReliabilityContextForTesting_ForwardToCallback::Acc
           internal::NetworkContext_AddDomainReliabilityContextForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.67
   bool success = true;
   NetworkContext_AddDomainReliabilityContextForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -17321,7 +17269,7 @@ bool NetworkContext_AddDomainReliabilityContextForTesting_ForwardToCallback::Acc
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 69, true);
+        NetworkContext::Name_, 67, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17371,6 +17319,8 @@ bool NetworkContext_AddDomainReliabilityContextForTesting_HandleSyncResponse::Ac
       reinterpret_cast<internal::NetworkContext_AddDomainReliabilityContextForTesting_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetworkContext.67
   bool success = true;
   NetworkContext_AddDomainReliabilityContextForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -17378,7 +17328,7 @@ bool NetworkContext_AddDomainReliabilityContextForTesting_HandleSyncResponse::Ac
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 69, true);
+        NetworkContext::Name_, 67, true);
     return false;
   }
   *result_ = true;
@@ -17442,6 +17392,8 @@ bool NetworkContext_ForceDomainReliabilityUploadsForTesting_ForwardToCallback::A
           internal::NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.68
   bool success = true;
   NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -17449,7 +17401,7 @@ bool NetworkContext_ForceDomainReliabilityUploadsForTesting_ForwardToCallback::A
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 70, true);
+        NetworkContext::Name_, 68, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17499,6 +17451,8 @@ bool NetworkContext_ForceDomainReliabilityUploadsForTesting_HandleSyncResponse::
       reinterpret_cast<internal::NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetworkContext.68
   bool success = true;
   NetworkContext_ForceDomainReliabilityUploadsForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -17506,7 +17460,7 @@ bool NetworkContext_ForceDomainReliabilityUploadsForTesting_HandleSyncResponse::
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 70, true);
+        NetworkContext::Name_, 68, true);
     return false;
   }
   *result_ = true;
@@ -17570,6 +17524,8 @@ bool NetworkContext_GetSharedDictionaryUsageInfo_ForwardToCallback::Accept(
           internal::NetworkContext_GetSharedDictionaryUsageInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.71
   bool success = true;
   std::vector<::net::SharedDictionaryUsageInfo> p_usage_info{};
   NetworkContext_GetSharedDictionaryUsageInfo_ResponseParamsDataView input_data_view(params, message);
@@ -17580,7 +17536,7 @@ bool NetworkContext_GetSharedDictionaryUsageInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 73, true);
+        NetworkContext::Name_, 71, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17701,6 +17657,8 @@ bool NetworkContext_GetSharedDictionaryInfo_ForwardToCallback::Accept(
           internal::NetworkContext_GetSharedDictionaryInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.72
   bool success = true;
   std::vector<SharedDictionaryInfoPtr> p_dictionaries{};
   NetworkContext_GetSharedDictionaryInfo_ResponseParamsDataView input_data_view(params, message);
@@ -17711,7 +17669,7 @@ bool NetworkContext_GetSharedDictionaryInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 74, true);
+        NetworkContext::Name_, 72, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17832,6 +17790,8 @@ bool NetworkContext_GetSharedDictionaryOriginsBetween_ForwardToCallback::Accept(
           internal::NetworkContext_GetSharedDictionaryOriginsBetween_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkContext.73
   bool success = true;
   std::vector<::url::Origin> p_origins{};
   NetworkContext_GetSharedDictionaryOriginsBetween_ResponseParamsDataView input_data_view(params, message);
@@ -17842,7 +17802,7 @@ bool NetworkContext_GetSharedDictionaryOriginsBetween_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        NetworkContext::Name_, 75, true);
+        NetworkContext::Name_, 73, true);
     return false;
   }
   if (!callback_.is_null())
@@ -17918,6 +17878,8 @@ bool NetworkContextStubDispatch::Accept(
           reinterpret_cast<internal::NetworkContext_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.0
       bool success = true;
       ::mojo::PendingRemote<NetworkContextClient> p_client{};
       NetworkContext_SetClient_ParamsDataView input_data_view(params, message);
@@ -17935,8 +17897,8 @@ bool NetworkContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kNetworkContext_CreateURLLoaderFactory_Name: {
@@ -17946,6 +17908,8 @@ std::move(p_client));
           reinterpret_cast<internal::NetworkContext_CreateURLLoaderFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.1
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::URLLoaderFactory> p_url_loader_factory{};
       URLLoaderFactoryParamsPtr p_params{};
@@ -17966,9 +17930,9 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateURLLoaderFactory(
-std::move(p_url_loader_factory), 
-std::move(p_params));
+      impl->CreateURLLoaderFactory(        
+        std::move(p_url_loader_factory), 
+        std::move(p_params));
       return true;
     }
     case internal::kNetworkContext_ResetURLLoaderFactories_Name: {
@@ -17978,6 +17942,8 @@ std::move(p_params));
           reinterpret_cast<internal::NetworkContext_ResetURLLoaderFactories_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.2
       bool success = true;
       NetworkContext_ResetURLLoaderFactories_ParamsDataView input_data_view(params, message);
       
@@ -17990,7 +17956,7 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetURLLoaderFactories();
+      impl->ResetURLLoaderFactories(        );
       return true;
     }
     case internal::kNetworkContext_GetViaObliviousHttp_Name: {
@@ -18000,6 +17966,8 @@ std::move(p_params));
           reinterpret_cast<internal::NetworkContext_GetViaObliviousHttp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.3
       bool success = true;
       ::network::mojom::ObliviousHttpRequestPtr p_request{};
       ::mojo::PendingRemote<::network::mojom::ObliviousHttpClient> p_client{};
@@ -18020,9 +17988,9 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetViaObliviousHttp(
-std::move(p_request), 
-std::move(p_client));
+      impl->GetViaObliviousHttp(        
+        std::move(p_request), 
+        std::move(p_client));
       return true;
     }
     case internal::kNetworkContext_GetCookieManager_Name: {
@@ -18032,6 +18000,8 @@ std::move(p_client));
           reinterpret_cast<internal::NetworkContext_GetCookieManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.4
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::CookieManager> p_cookie_manager{};
       NetworkContext_GetCookieManager_ParamsDataView input_data_view(params, message);
@@ -18049,8 +18019,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCookieManager(
-std::move(p_cookie_manager));
+      impl->GetCookieManager(        
+        std::move(p_cookie_manager));
       return true;
     }
     case internal::kNetworkContext_GetRestrictedCookieManager_Name: {
@@ -18060,6 +18030,8 @@ std::move(p_cookie_manager));
           reinterpret_cast<internal::NetworkContext_GetRestrictedCookieManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.5
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::RestrictedCookieManager> p_restricted_cookie_manager{};
       ::network::mojom::RestrictedCookieManagerRole p_role{};
@@ -18094,13 +18066,13 @@ std::move(p_cookie_manager));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRestrictedCookieManager(
-std::move(p_restricted_cookie_manager), 
-std::move(p_role), 
-std::move(p_origin), 
-std::move(p_isolation_info), 
-std::move(p_cookie_setting_overrides), 
-std::move(p_cookie_observer));
+      impl->GetRestrictedCookieManager(        
+        std::move(p_restricted_cookie_manager), 
+        std::move(p_role), 
+        std::move(p_origin), 
+        std::move(p_isolation_info), 
+        std::move(p_cookie_setting_overrides), 
+        std::move(p_cookie_observer));
       return true;
     }
     case internal::kNetworkContext_GetTrustTokenQueryAnswerer_Name: {
@@ -18110,6 +18082,8 @@ std::move(p_cookie_observer));
           reinterpret_cast<internal::NetworkContext_GetTrustTokenQueryAnswerer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.6
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::TrustTokenQueryAnswerer> p_trust_token_query_answerer{};
       ::url::Origin p_top_frame_origin{};
@@ -18130,9 +18104,9 @@ std::move(p_cookie_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetTrustTokenQueryAnswerer(
-std::move(p_trust_token_query_answerer), 
-std::move(p_top_frame_origin));
+      impl->GetTrustTokenQueryAnswerer(        
+        std::move(p_trust_token_query_answerer), 
+        std::move(p_top_frame_origin));
       return true;
     }
     case internal::kNetworkContext_ClearTrustTokenData_Name: {
@@ -18154,6 +18128,8 @@ std::move(p_top_frame_origin));
           reinterpret_cast<internal::NetworkContext_SetBlockTrustTokens_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.11
       bool success = true;
       bool p_block{};
       NetworkContext_SetBlockTrustTokens_ParamsDataView input_data_view(params, message);
@@ -18169,8 +18145,8 @@ std::move(p_top_frame_origin));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBlockTrustTokens(
-std::move(p_block));
+      impl->SetBlockTrustTokens(        
+        std::move(p_block));
       return true;
     }
     case internal::kNetworkContext_ClearNetworkingHistoryBetween_Name: {
@@ -18189,6 +18165,8 @@ std::move(p_block));
           reinterpret_cast<internal::NetworkContext_NotifyExternalCacheHit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.15
       bool success = true;
       ::GURL p_url{};
       std::string p_http_method{};
@@ -18216,12 +18194,12 @@ std::move(p_block));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyExternalCacheHit(
-std::move(p_url), 
-std::move(p_http_method), 
-std::move(p_key), 
-std::move(p_is_subframe_document_resource), 
-std::move(p_include_credentials));
+      impl->NotifyExternalCacheHit(        
+        std::move(p_url), 
+        std::move(p_http_method), 
+        std::move(p_key), 
+        std::move(p_is_subframe_document_resource), 
+        std::move(p_include_credentials));
       return true;
     }
     case internal::kNetworkContext_ClearHostCache_Name: {
@@ -18258,6 +18236,8 @@ std::move(p_include_credentials));
           reinterpret_cast<internal::NetworkContext_SetDocumentReportingEndpoints_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.25
       bool success = true;
       ::base::UnguessableToken p_reporting_source{};
       ::url::Origin p_origin{};
@@ -18282,11 +18262,11 @@ std::move(p_include_credentials));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDocumentReportingEndpoints(
-std::move(p_reporting_source), 
-std::move(p_origin), 
-std::move(p_isolation_info), 
-std::move(p_endpoints));
+      impl->SetDocumentReportingEndpoints(        
+        std::move(p_reporting_source), 
+        std::move(p_origin), 
+        std::move(p_isolation_info), 
+        std::move(p_endpoints));
       return true;
     }
     case internal::kNetworkContext_SendReportsAndRemoveSource_Name: {
@@ -18296,6 +18276,8 @@ std::move(p_endpoints));
           reinterpret_cast<internal::NetworkContext_SendReportsAndRemoveSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.26
       bool success = true;
       ::base::UnguessableToken p_reporting_source{};
       NetworkContext_SendReportsAndRemoveSource_ParamsDataView input_data_view(params, message);
@@ -18311,8 +18293,8 @@ std::move(p_endpoints));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendReportsAndRemoveSource(
-std::move(p_reporting_source));
+      impl->SendReportsAndRemoveSource(        
+        std::move(p_reporting_source));
       return true;
     }
     case internal::kNetworkContext_QueueReport_Name: {
@@ -18322,6 +18304,8 @@ std::move(p_reporting_source));
           reinterpret_cast<internal::NetworkContext_QueueReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.27
       bool success = true;
       std::string p_type{};
       std::string p_group{};
@@ -18355,14 +18339,14 @@ std::move(p_reporting_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueReport(
-std::move(p_type), 
-std::move(p_group), 
-std::move(p_url), 
-std::move(p_reporting_source), 
-std::move(p_network_anonymization_key), 
-std::move(p_user_agent), 
-std::move(p_body));
+      impl->QueueReport(        
+        std::move(p_type), 
+        std::move(p_group), 
+        std::move(p_url), 
+        std::move(p_reporting_source), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_user_agent), 
+        std::move(p_body));
       return true;
     }
     case internal::kNetworkContext_QueueSignedExchangeReport_Name: {
@@ -18372,6 +18356,8 @@ std::move(p_body));
           reinterpret_cast<internal::NetworkContext_QueueSignedExchangeReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.28
       bool success = true;
       SignedExchangeReportPtr p_report{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -18390,9 +18376,9 @@ std::move(p_body));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueSignedExchangeReport(
-std::move(p_report), 
-std::move(p_network_anonymization_key));
+      impl->QueueSignedExchangeReport(        
+        std::move(p_report), 
+        std::move(p_network_anonymization_key));
       return true;
     }
     case internal::kNetworkContext_CloseAllConnections_Name: {
@@ -18408,6 +18394,8 @@ std::move(p_network_anonymization_key));
           reinterpret_cast<internal::NetworkContext_SetNetworkConditions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.31
       bool success = true;
       ::base::UnguessableToken p_throttling_profile_id{};
       NetworkConditionsPtr p_conditions{};
@@ -18426,9 +18414,9 @@ std::move(p_network_anonymization_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNetworkConditions(
-std::move(p_throttling_profile_id), 
-std::move(p_conditions));
+      impl->SetNetworkConditions(        
+        std::move(p_throttling_profile_id), 
+        std::move(p_conditions));
       return true;
     }
     case internal::kNetworkContext_SetAcceptLanguage_Name: {
@@ -18438,6 +18426,8 @@ std::move(p_conditions));
           reinterpret_cast<internal::NetworkContext_SetAcceptLanguage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.32
       bool success = true;
       std::string p_new_accept_language{};
       NetworkContext_SetAcceptLanguage_ParamsDataView input_data_view(params, message);
@@ -18453,8 +18443,8 @@ std::move(p_conditions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAcceptLanguage(
-std::move(p_new_accept_language));
+      impl->SetAcceptLanguage(        
+        std::move(p_new_accept_language));
       return true;
     }
     case internal::kNetworkContext_SetEnableReferrers_Name: {
@@ -18464,6 +18454,8 @@ std::move(p_new_accept_language));
           reinterpret_cast<internal::NetworkContext_SetEnableReferrers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.33
       bool success = true;
       bool p_enable_referrers{};
       NetworkContext_SetEnableReferrers_ParamsDataView input_data_view(params, message);
@@ -18479,8 +18471,8 @@ std::move(p_new_accept_language));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEnableReferrers(
-std::move(p_enable_referrers));
+      impl->SetEnableReferrers(        
+        std::move(p_enable_referrers));
       return true;
     }
     case internal::kNetworkContext_SetCTPolicy_Name: {
@@ -18490,6 +18482,8 @@ std::move(p_enable_referrers));
           reinterpret_cast<internal::NetworkContext_SetCTPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.34
       bool success = true;
       CTPolicyPtr p_ct_policy{};
       NetworkContext_SetCTPolicy_ParamsDataView input_data_view(params, message);
@@ -18505,8 +18499,8 @@ std::move(p_enable_referrers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCTPolicy(
-std::move(p_ct_policy));
+      impl->SetCTPolicy(        
+        std::move(p_ct_policy));
       return true;
     }
     case internal::kNetworkContext_CreateUDPSocket_Name: {
@@ -18516,6 +18510,8 @@ std::move(p_ct_policy));
           reinterpret_cast<internal::NetworkContext_CreateUDPSocket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.35
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::UDPSocket> p_receiver{};
       ::mojo::PendingRemote<::network::mojom::UDPSocketListener> p_listener{};
@@ -18538,9 +18534,9 @@ std::move(p_ct_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUDPSocket(
-std::move(p_receiver), 
-std::move(p_listener));
+      impl->CreateUDPSocket(        
+        std::move(p_receiver), 
+        std::move(p_listener));
       return true;
     }
     case internal::kNetworkContext_CreateRestrictedUDPSocket_Name: {
@@ -18562,6 +18558,8 @@ std::move(p_listener));
           reinterpret_cast<internal::NetworkContext_CreateProxyResolvingSocketFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.40
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::ProxyResolvingSocketFactory> p_factory{};
       NetworkContext_CreateProxyResolvingSocketFactory_ParamsDataView input_data_view(params, message);
@@ -18579,8 +18577,8 @@ std::move(p_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateProxyResolvingSocketFactory(
-std::move(p_factory));
+      impl->CreateProxyResolvingSocketFactory(        
+        std::move(p_factory));
       return true;
     }
     case internal::kNetworkContext_LookUpProxyForURL_Name: {
@@ -18590,6 +18588,8 @@ std::move(p_factory));
           reinterpret_cast<internal::NetworkContext_LookUpProxyForURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.41
       bool success = true;
       ::GURL p_url{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -18613,10 +18613,10 @@ std::move(p_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LookUpProxyForURL(
-std::move(p_url), 
-std::move(p_network_anonymization_key), 
-std::move(p_proxy_lookup_client));
+      impl->LookUpProxyForURL(        
+        std::move(p_url), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_proxy_lookup_client));
       return true;
     }
     case internal::kNetworkContext_ForceReloadProxyConfig_Name: {
@@ -18632,6 +18632,8 @@ std::move(p_proxy_lookup_client));
           reinterpret_cast<internal::NetworkContext_CreateWebSocket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.44
       bool success = true;
       ::GURL p_url{};
       std::vector<std::string> p_requested_protocols{};
@@ -18697,22 +18699,22 @@ std::move(p_proxy_lookup_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWebSocket(
-std::move(p_url), 
-std::move(p_requested_protocols), 
-std::move(p_site_for_cookies), 
-std::move(p_has_storage_access), 
-std::move(p_isolation_info), 
-std::move(p_additional_headers), 
-std::move(p_process_id), 
-std::move(p_origin), 
-std::move(p_options), 
-std::move(p_traffic_annotation), 
-std::move(p_handshake_client), 
-std::move(p_url_loader_network_observer), 
-std::move(p_auth_handler), 
-std::move(p_header_client), 
-std::move(p_throttling_profile_id));
+      impl->CreateWebSocket(        
+        std::move(p_url), 
+        std::move(p_requested_protocols), 
+        std::move(p_site_for_cookies), 
+        std::move(p_has_storage_access), 
+        std::move(p_isolation_info), 
+        std::move(p_additional_headers), 
+        std::move(p_process_id), 
+        std::move(p_origin), 
+        std::move(p_options), 
+        std::move(p_traffic_annotation), 
+        std::move(p_handshake_client), 
+        std::move(p_url_loader_network_observer), 
+        std::move(p_auth_handler), 
+        std::move(p_header_client), 
+        std::move(p_throttling_profile_id));
       return true;
     }
     case internal::kNetworkContext_CreateWebTransport_Name: {
@@ -18722,6 +18724,8 @@ std::move(p_throttling_profile_id));
           reinterpret_cast<internal::NetworkContext_CreateWebTransport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.45
       bool success = true;
       ::GURL p_url{};
       ::url::Origin p_origin{};
@@ -18751,12 +18755,12 @@ std::move(p_throttling_profile_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWebTransport(
-std::move(p_url), 
-std::move(p_origin), 
-std::move(p_network_anonymization_key), 
-std::move(p_fingerprints), 
-std::move(p_handshake_client));
+      impl->CreateWebTransport(        
+        std::move(p_url), 
+        std::move(p_origin), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_fingerprints), 
+        std::move(p_handshake_client));
       return true;
     }
     case internal::kNetworkContext_CreateNetLogExporter_Name: {
@@ -18766,6 +18770,8 @@ std::move(p_handshake_client));
           reinterpret_cast<internal::NetworkContext_CreateNetLogExporter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.46
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::NetLogExporter> p_receiver{};
       NetworkContext_CreateNetLogExporter_ParamsDataView input_data_view(params, message);
@@ -18783,8 +18789,8 @@ std::move(p_handshake_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNetLogExporter(
-std::move(p_receiver));
+      impl->CreateNetLogExporter(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kNetworkContext_PreconnectSockets_Name: {
@@ -18794,6 +18800,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NetworkContext_PreconnectSockets_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.47
       bool success = true;
       uint32_t p_num_streams{};
       ::GURL p_url{};
@@ -18818,11 +18826,11 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreconnectSockets(
-std::move(p_num_streams), 
-std::move(p_url), 
-std::move(p_allow_credentials), 
-std::move(p_network_anonymization_key));
+      impl->PreconnectSockets(        
+        std::move(p_num_streams), 
+        std::move(p_url), 
+        std::move(p_allow_credentials), 
+        std::move(p_network_anonymization_key));
       return true;
     }
     case internal::kNetworkContext_CreateP2PSocketManager_Name: {
@@ -18832,6 +18840,8 @@ std::move(p_network_anonymization_key));
           reinterpret_cast<internal::NetworkContext_CreateP2PSocketManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.48
       bool success = true;
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
       ::mojo::PendingRemote<::network::mojom::P2PTrustedSocketManagerClient> p_client{};
@@ -18862,11 +18872,11 @@ std::move(p_network_anonymization_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateP2PSocketManager(
-std::move(p_network_anonymization_key), 
-std::move(p_client), 
-std::move(p_trusted_socket_manager), 
-std::move(p_socket_manager));
+      impl->CreateP2PSocketManager(        
+        std::move(p_network_anonymization_key), 
+        std::move(p_client), 
+        std::move(p_trusted_socket_manager), 
+        std::move(p_socket_manager));
       return true;
     }
     case internal::kNetworkContext_CreateMdnsResponder_Name: {
@@ -18876,6 +18886,8 @@ std::move(p_socket_manager));
           reinterpret_cast<internal::NetworkContext_CreateMdnsResponder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.49
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::MdnsResponder> p_responder_receiver{};
       NetworkContext_CreateMdnsResponder_ParamsDataView input_data_view(params, message);
@@ -18893,8 +18905,8 @@ std::move(p_socket_manager));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateMdnsResponder(
-std::move(p_responder_receiver));
+      impl->CreateMdnsResponder(        
+        std::move(p_responder_receiver));
       return true;
     }
     case internal::kNetworkContext_ResolveHost_Name: {
@@ -18904,6 +18916,8 @@ std::move(p_responder_receiver));
           reinterpret_cast<internal::NetworkContext_ResolveHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.50
       bool success = true;
       ::network::mojom::HostResolverHostPtr p_host{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -18930,11 +18944,11 @@ std::move(p_responder_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveHost(
-std::move(p_host), 
-std::move(p_network_anonymization_key), 
-std::move(p_optional_parameters), 
-std::move(p_response_client));
+      impl->ResolveHost(        
+        std::move(p_host), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_optional_parameters), 
+        std::move(p_response_client));
       return true;
     }
     case internal::kNetworkContext_CreateHostResolver_Name: {
@@ -18944,6 +18958,8 @@ std::move(p_response_client));
           reinterpret_cast<internal::NetworkContext_CreateHostResolver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.51
       bool success = true;
       std::optional<::net::DnsConfigOverrides> p_config_overrides{};
       ::mojo::PendingReceiver<::network::mojom::HostResolver> p_host_resolver{};
@@ -18964,38 +18980,13 @@ std::move(p_response_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateHostResolver(
-std::move(p_config_overrides), 
-std::move(p_host_resolver));
+      impl->CreateHostResolver(        
+        std::move(p_config_overrides), 
+        std::move(p_host_resolver));
       return true;
     }
     case internal::kNetworkContext_VerifyCertForSignedExchange_Name: {
       break;
-    }
-    case internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name: {
-      break;
-    }
-    case internal::kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* params =
-          reinterpret_cast<internal::NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 54, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->InvalidateIpProtectionConfigCacheTryAgainAfterTime();
-      return true;
     }
     case internal::kNetworkContext_AddHSTS_Name: {
       break;
@@ -19019,6 +19010,8 @@ std::move(p_host_resolver));
           reinterpret_cast<internal::NetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.58
       bool success = true;
       bool p_split_auth_cache_by_network_anonymization_key{};
       NetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_ParamsDataView input_data_view(params, message);
@@ -19029,13 +19022,13 @@ std::move(p_host_resolver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 60, false);
+            NetworkContext::Name_, 58, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSplitAuthCacheByNetworkAnonymizationKey(
-std::move(p_split_auth_cache_by_network_anonymization_key));
+      impl->SetSplitAuthCacheByNetworkAnonymizationKey(        
+        std::move(p_split_auth_cache_by_network_anonymization_key));
       return true;
     }
     case internal::kNetworkContext_SaveHttpAuthCacheProxyEntries_Name: {
@@ -19054,6 +19047,8 @@ std::move(p_split_auth_cache_by_network_anonymization_key));
           reinterpret_cast<internal::NetworkContext_SetCorsNonWildcardRequestHeadersSupport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.62
       bool success = true;
       bool p_value{};
       NetworkContext_SetCorsNonWildcardRequestHeadersSupport_ParamsDataView input_data_view(params, message);
@@ -19064,13 +19059,13 @@ std::move(p_split_auth_cache_by_network_anonymization_key));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 64, false);
+            NetworkContext::Name_, 62, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCorsNonWildcardRequestHeadersSupport(
-std::move(p_value));
+      impl->SetCorsNonWildcardRequestHeadersSupport(        
+        std::move(p_value));
       return true;
     }
     case internal::kNetworkContext_LookupServerBasicAuthCredentials_Name: {
@@ -19098,6 +19093,8 @@ std::move(p_value));
           reinterpret_cast<internal::NetworkContext_SetSCTAuditingMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.69
       bool success = true;
       SCTAuditingMode p_mode{};
       NetworkContext_SetSCTAuditingMode_ParamsDataView input_data_view(params, message);
@@ -19108,13 +19105,13 @@ std::move(p_value));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 71, false);
+            NetworkContext::Name_, 69, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSCTAuditingMode(
-std::move(p_mode));
+      impl->SetSCTAuditingMode(        
+        std::move(p_mode));
       return true;
     }
     case internal::kNetworkContext_AddReportingApiObserver_Name: {
@@ -19124,6 +19121,8 @@ std::move(p_mode));
           reinterpret_cast<internal::NetworkContext_AddReportingApiObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.70
       bool success = true;
       ::mojo::PendingRemote<::network::mojom::ReportingApiObserver> p_observer{};
       NetworkContext_AddReportingApiObserver_ParamsDataView input_data_view(params, message);
@@ -19136,13 +19135,13 @@ std::move(p_mode));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 72, false);
+            NetworkContext::Name_, 70, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddReportingApiObserver(
-std::move(p_observer));
+      impl->AddReportingApiObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kNetworkContext_GetSharedDictionaryUsageInfo_Name: {
@@ -19161,6 +19160,8 @@ std::move(p_observer));
           reinterpret_cast<internal::NetworkContext_SetSharedDictionaryCacheMaxSize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.74
       bool success = true;
       uint64_t p_cache_max_size{};
       NetworkContext_SetSharedDictionaryCacheMaxSize_ParamsDataView input_data_view(params, message);
@@ -19171,13 +19172,13 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 76, false);
+            NetworkContext::Name_, 74, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSharedDictionaryCacheMaxSize(
-std::move(p_cache_max_size));
+      impl->SetSharedDictionaryCacheMaxSize(        
+        std::move(p_cache_max_size));
       return true;
     }
     case internal::kNetworkContext_ResourceSchedulerClientVisibilityChanged_Name: {
@@ -19187,6 +19188,8 @@ std::move(p_cache_max_size));
           reinterpret_cast<internal::NetworkContext_ResourceSchedulerClientVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.75
       bool success = true;
       ::base::UnguessableToken p_client_token{};
       bool p_visible{};
@@ -19200,14 +19203,14 @@ std::move(p_cache_max_size));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 77, false);
+            NetworkContext::Name_, 75, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResourceSchedulerClientVisibilityChanged(
-std::move(p_client_token), 
-std::move(p_visible));
+      impl->ResourceSchedulerClientVisibilityChanged(        
+        std::move(p_client_token), 
+        std::move(p_visible));
       return true;
     }
     case internal::kNetworkContext_FlushCachedClientCertIfNeeded_Name: {
@@ -19217,6 +19220,8 @@ std::move(p_visible));
           reinterpret_cast<internal::NetworkContext_FlushCachedClientCertIfNeeded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.76
       bool success = true;
       ::net::HostPortPair p_host{};
       ::scoped_refptr<::net::X509Certificate> p_certificate{};
@@ -19230,14 +19235,14 @@ std::move(p_visible));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 78, false);
+            NetworkContext::Name_, 76, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FlushCachedClientCertIfNeeded(
-std::move(p_host), 
-std::move(p_certificate));
+      impl->FlushCachedClientCertIfNeeded(        
+        std::move(p_host), 
+        std::move(p_certificate));
       return true;
     }
     case internal::kNetworkContext_SetCookieDeprecationLabel_Name: {
@@ -19247,6 +19252,8 @@ std::move(p_certificate));
           reinterpret_cast<internal::NetworkContext_SetCookieDeprecationLabel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkContext.77
       bool success = true;
       std::optional<std::string> p_label{};
       NetworkContext_SetCookieDeprecationLabel_ParamsDataView input_data_view(params, message);
@@ -19257,13 +19264,13 @@ std::move(p_certificate));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 79, false);
+            NetworkContext::Name_, 77, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCookieDeprecationLabel(
-std::move(p_label));
+      impl->SetCookieDeprecationLabel(        
+        std::move(p_label));
       return true;
     }
   }
@@ -19307,6 +19314,8 @@ bool NetworkContextStubDispatch::AcceptWithResponder(
               internal::NetworkContext_ClearTrustTokenData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.7
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext_ClearTrustTokenData_ParamsDataView input_data_view(params, message);
@@ -19325,8 +19334,8 @@ bool NetworkContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearTrustTokenData(
-std::move(p_filter), std::move(callback));
+      impl->ClearTrustTokenData(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearTrustTokenSessionOnlyData_Name: {
@@ -19336,6 +19345,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearTrustTokenSessionOnlyData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.8
       bool success = true;
       NetworkContext_ClearTrustTokenSessionOnlyData_ParamsDataView input_data_view(params, message);
       
@@ -19361,6 +19372,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_GetStoredTrustTokenCounts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.9
       bool success = true;
       NetworkContext_GetStoredTrustTokenCounts_ParamsDataView input_data_view(params, message);
       
@@ -19386,6 +19399,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_DeleteStoredTrustTokens_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.10
       bool success = true;
       ::url::Origin p_issuer{};
       NetworkContext_DeleteStoredTrustTokens_ParamsDataView input_data_view(params, message);
@@ -19404,8 +19419,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteStoredTrustTokens(
-std::move(p_issuer), std::move(callback));
+      impl->DeleteStoredTrustTokens(        
+        std::move(p_issuer), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_SetBlockTrustTokens_Name: {
@@ -19418,6 +19433,8 @@ std::move(p_issuer), std::move(callback));
               internal::NetworkContext_ClearNetworkingHistoryBetween_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.12
       bool success = true;
       ::base::Time p_start_time{};
       ::base::Time p_end_time{};
@@ -19439,9 +19456,9 @@ std::move(p_issuer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearNetworkingHistoryBetween(
-std::move(p_start_time), 
-std::move(p_end_time), std::move(callback));
+      impl->ClearNetworkingHistoryBetween(        
+        std::move(p_start_time), 
+        std::move(p_end_time), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearHttpCache_Name: {
@@ -19451,6 +19468,8 @@ std::move(p_end_time), std::move(callback));
               internal::NetworkContext_ClearHttpCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.13
       bool success = true;
       ::base::Time p_start_time{};
       ::base::Time p_end_time{};
@@ -19475,10 +19494,10 @@ std::move(p_end_time), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearHttpCache(
-std::move(p_start_time), 
-std::move(p_end_time), 
-std::move(p_filter), std::move(callback));
+      impl->ClearHttpCache(        
+        std::move(p_start_time), 
+        std::move(p_end_time), 
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ComputeHttpCacheSize_Name: {
@@ -19488,6 +19507,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ComputeHttpCacheSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.14
       bool success = true;
       ::base::Time p_start_time{};
       ::base::Time p_end_time{};
@@ -19509,9 +19530,9 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ComputeHttpCacheSize(
-std::move(p_start_time), 
-std::move(p_end_time), std::move(callback));
+      impl->ComputeHttpCacheSize(        
+        std::move(p_start_time), 
+        std::move(p_end_time), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_NotifyExternalCacheHit_Name: {
@@ -19524,6 +19545,8 @@ std::move(p_end_time), std::move(callback));
               internal::NetworkContext_ClearHostCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.16
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext_ClearHostCache_ParamsDataView input_data_view(params, message);
@@ -19542,8 +19565,8 @@ std::move(p_end_time), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearHostCache(
-std::move(p_filter), std::move(callback));
+      impl->ClearHostCache(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearHttpAuthCache_Name: {
@@ -19553,6 +19576,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearHttpAuthCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.17
       bool success = true;
       ::base::Time p_start_time{};
       ::base::Time p_end_time{};
@@ -19577,10 +19602,10 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearHttpAuthCache(
-std::move(p_start_time), 
-std::move(p_end_time), 
-std::move(p_filter), std::move(callback));
+      impl->ClearHttpAuthCache(        
+        std::move(p_start_time), 
+        std::move(p_end_time), 
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearCorsPreflightCache_Name: {
@@ -19590,6 +19615,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearCorsPreflightCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.18
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext_ClearCorsPreflightCache_ParamsDataView input_data_view(params, message);
@@ -19608,8 +19635,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearCorsPreflightCache(
-std::move(p_filter), std::move(callback));
+      impl->ClearCorsPreflightCache(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearReportingCacheReports_Name: {
@@ -19619,6 +19646,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearReportingCacheReports_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.19
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext_ClearReportingCacheReports_ParamsDataView input_data_view(params, message);
@@ -19637,8 +19666,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearReportingCacheReports(
-std::move(p_filter), std::move(callback));
+      impl->ClearReportingCacheReports(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearReportingCacheClients_Name: {
@@ -19648,6 +19677,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearReportingCacheClients_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.20
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext_ClearReportingCacheClients_ParamsDataView input_data_view(params, message);
@@ -19666,8 +19697,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearReportingCacheClients(
-std::move(p_filter), std::move(callback));
+      impl->ClearReportingCacheClients(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearNetworkErrorLogging_Name: {
@@ -19677,6 +19708,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearNetworkErrorLogging_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.21
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext_ClearNetworkErrorLogging_ParamsDataView input_data_view(params, message);
@@ -19695,8 +19728,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearNetworkErrorLogging(
-std::move(p_filter), std::move(callback));
+      impl->ClearNetworkErrorLogging(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearDomainReliability_Name: {
@@ -19706,6 +19739,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearDomainReliability_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.22
       bool success = true;
       ::network::mojom::ClearDataFilterPtr p_filter{};
       NetworkContext::DomainReliabilityClearMode p_mode{};
@@ -19727,9 +19762,9 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearDomainReliability(
-std::move(p_filter), 
-std::move(p_mode), std::move(callback));
+      impl->ClearDomainReliability(        
+        std::move(p_filter), 
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearSharedDictionaryCache_Name: {
@@ -19739,6 +19774,8 @@ std::move(p_mode), std::move(callback));
               internal::NetworkContext_ClearSharedDictionaryCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.23
       bool success = true;
       ::base::Time p_start_time{};
       ::base::Time p_end_time{};
@@ -19763,10 +19800,10 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearSharedDictionaryCache(
-std::move(p_start_time), 
-std::move(p_end_time), 
-std::move(p_filter), std::move(callback));
+      impl->ClearSharedDictionaryCache(        
+        std::move(p_start_time), 
+        std::move(p_end_time), 
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ClearSharedDictionaryCacheForIsolationKey_Name: {
@@ -19776,6 +19813,8 @@ std::move(p_filter), std::move(callback));
               internal::NetworkContext_ClearSharedDictionaryCacheForIsolationKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.24
       bool success = true;
       ::net::SharedDictionaryIsolationKey p_isolation_key{};
       NetworkContext_ClearSharedDictionaryCacheForIsolationKey_ParamsDataView input_data_view(params, message);
@@ -19794,8 +19833,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearSharedDictionaryCacheForIsolationKey(
-std::move(p_isolation_key), std::move(callback));
+      impl->ClearSharedDictionaryCacheForIsolationKey(        
+        std::move(p_isolation_key), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_SetDocumentReportingEndpoints_Name: {
@@ -19817,6 +19856,8 @@ std::move(p_isolation_key), std::move(callback));
               internal::NetworkContext_CloseAllConnections_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.29
       bool success = true;
       NetworkContext_CloseAllConnections_ParamsDataView input_data_view(params, message);
       
@@ -19842,6 +19883,8 @@ std::move(p_isolation_key), std::move(callback));
               internal::NetworkContext_CloseIdleConnections_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.30
       bool success = true;
       NetworkContext_CloseIdleConnections_ParamsDataView input_data_view(params, message);
       
@@ -19882,6 +19925,8 @@ std::move(p_isolation_key), std::move(callback));
               internal::NetworkContext_CreateRestrictedUDPSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.36
       bool success = true;
       ::net::IPEndPoint p_addr{};
       ::network::mojom::RestrictedUDPSocketMode p_mode{};
@@ -19919,13 +19964,13 @@ std::move(p_isolation_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRestrictedUDPSocket(
-std::move(p_addr), 
-std::move(p_mode), 
-std::move(p_traffic_annotation), 
-std::move(p_params), 
-std::move(p_receiver), 
-std::move(p_listener), std::move(callback));
+      impl->CreateRestrictedUDPSocket(        
+        std::move(p_addr), 
+        std::move(p_mode), 
+        std::move(p_traffic_annotation), 
+        std::move(p_params), 
+        std::move(p_receiver), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_CreateTCPServerSocket_Name: {
@@ -19935,6 +19980,8 @@ std::move(p_listener), std::move(callback));
               internal::NetworkContext_CreateTCPServerSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.37
       bool success = true;
       ::net::IPEndPoint p_local_addr{};
       ::network::mojom::TCPServerSocketOptionsPtr p_options{};
@@ -19964,11 +20011,11 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTCPServerSocket(
-std::move(p_local_addr), 
-std::move(p_options), 
-std::move(p_traffic_annotation), 
-std::move(p_socket), std::move(callback));
+      impl->CreateTCPServerSocket(        
+        std::move(p_local_addr), 
+        std::move(p_options), 
+        std::move(p_traffic_annotation), 
+        std::move(p_socket), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_CreateTCPConnectedSocket_Name: {
@@ -19978,6 +20025,8 @@ std::move(p_socket), std::move(callback));
               internal::NetworkContext_CreateTCPConnectedSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.38
       bool success = true;
       std::optional<::net::IPEndPoint> p_local_addr{};
       ::net::AddressList p_remote_addr_list{};
@@ -20015,13 +20064,13 @@ std::move(p_socket), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTCPConnectedSocket(
-std::move(p_local_addr), 
-std::move(p_remote_addr_list), 
-std::move(p_tcp_connected_socket_options), 
-std::move(p_traffic_annotation), 
-std::move(p_socket), 
-std::move(p_observer), std::move(callback));
+      impl->CreateTCPConnectedSocket(        
+        std::move(p_local_addr), 
+        std::move(p_remote_addr_list), 
+        std::move(p_tcp_connected_socket_options), 
+        std::move(p_traffic_annotation), 
+        std::move(p_socket), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_CreateTCPBoundSocket_Name: {
@@ -20031,6 +20080,8 @@ std::move(p_observer), std::move(callback));
               internal::NetworkContext_CreateTCPBoundSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.39
       bool success = true;
       ::net::IPEndPoint p_local_addr{};
       ::net::MutableNetworkTrafficAnnotationTag p_traffic_annotation{};
@@ -20057,10 +20108,10 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTCPBoundSocket(
-std::move(p_local_addr), 
-std::move(p_traffic_annotation), 
-std::move(p_socket), std::move(callback));
+      impl->CreateTCPBoundSocket(        
+        std::move(p_local_addr), 
+        std::move(p_traffic_annotation), 
+        std::move(p_socket), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_CreateProxyResolvingSocketFactory_Name: {
@@ -20076,6 +20127,8 @@ std::move(p_socket), std::move(callback));
               internal::NetworkContext_ForceReloadProxyConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.42
       bool success = true;
       NetworkContext_ForceReloadProxyConfig_ParamsDataView input_data_view(params, message);
       
@@ -20101,6 +20154,8 @@ std::move(p_socket), std::move(callback));
               internal::NetworkContext_ClearBadProxiesCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.43
       bool success = true;
       NetworkContext_ClearBadProxiesCache_ParamsDataView input_data_view(params, message);
       
@@ -20150,6 +20205,8 @@ std::move(p_socket), std::move(callback));
               internal::NetworkContext_VerifyCertForSignedExchange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.52
       bool success = true;
       ::scoped_refptr<::net::X509Certificate> p_certificate{};
       ::GURL p_url{};
@@ -20177,40 +20234,12 @@ std::move(p_socket), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->VerifyCertForSignedExchange(
-std::move(p_certificate), 
-std::move(p_url), 
-std::move(p_ocsp_response), 
-std::move(p_sct_list), std::move(callback));
+      impl->VerifyCertForSignedExchange(        
+        std::move(p_certificate), 
+        std::move(p_url), 
+        std::move(p_ocsp_response), 
+        std::move(p_sct_list), std::move(callback));
       return true;
-    }
-    case internal::kNetworkContext_VerifyIpProtectionConfigGetterForTesting_Name: {
-
-      internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data* params =
-          reinterpret_cast<
-              internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 53, false);
-        return false;
-      }
-      NetworkContext::VerifyIpProtectionConfigGetterForTestingCallback callback =
-          NetworkContext_VerifyIpProtectionConfigGetterForTesting_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->VerifyIpProtectionConfigGetterForTesting(std::move(callback));
-      return true;
-    }
-    case internal::kNetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Name: {
-      break;
     }
     case internal::kNetworkContext_AddHSTS_Name: {
 
@@ -20219,6 +20248,8 @@ std::move(p_sct_list), std::move(callback));
               internal::NetworkContext_AddHSTS_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.53
       bool success = true;
       std::string p_host{};
       ::base::Time p_expiry{};
@@ -20235,7 +20266,7 @@ std::move(p_sct_list), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 55, false);
+            NetworkContext::Name_, 53, false);
         return false;
       }
       NetworkContext::AddHSTSCallback callback =
@@ -20243,10 +20274,10 @@ std::move(p_sct_list), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddHSTS(
-std::move(p_host), 
-std::move(p_expiry), 
-std::move(p_include_subdomains), std::move(callback));
+      impl->AddHSTS(        
+        std::move(p_host), 
+        std::move(p_expiry), 
+        std::move(p_include_subdomains), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_IsHSTSActiveForHost_Name: {
@@ -20256,6 +20287,8 @@ std::move(p_include_subdomains), std::move(callback));
               internal::NetworkContext_IsHSTSActiveForHost_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.54
       bool success = true;
       std::string p_host{};
       NetworkContext_IsHSTSActiveForHost_ParamsDataView input_data_view(params, message);
@@ -20266,7 +20299,7 @@ std::move(p_include_subdomains), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 56, false);
+            NetworkContext::Name_, 54, false);
         return false;
       }
       NetworkContext::IsHSTSActiveForHostCallback callback =
@@ -20274,8 +20307,8 @@ std::move(p_include_subdomains), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsHSTSActiveForHost(
-std::move(p_host), std::move(callback));
+      impl->IsHSTSActiveForHost(        
+        std::move(p_host), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_GetHSTSState_Name: {
@@ -20285,6 +20318,8 @@ std::move(p_host), std::move(callback));
               internal::NetworkContext_GetHSTSState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.55
       bool success = true;
       std::string p_domain{};
       NetworkContext_GetHSTSState_ParamsDataView input_data_view(params, message);
@@ -20295,7 +20330,7 @@ std::move(p_host), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 57, false);
+            NetworkContext::Name_, 55, false);
         return false;
       }
       NetworkContext::GetHSTSStateCallback callback =
@@ -20303,8 +20338,8 @@ std::move(p_host), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHSTSState(
-std::move(p_domain), std::move(callback));
+      impl->GetHSTSState(        
+        std::move(p_domain), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_SetCorsOriginAccessListsForOrigin_Name: {
@@ -20314,6 +20349,8 @@ std::move(p_domain), std::move(callback));
               internal::NetworkContext_SetCorsOriginAccessListsForOrigin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.56
       bool success = true;
       ::url::Origin p_source_origin{};
       std::vector<::network::mojom::CorsOriginPatternPtr> p_allow_patterns{};
@@ -20330,7 +20367,7 @@ std::move(p_domain), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 58, false);
+            NetworkContext::Name_, 56, false);
         return false;
       }
       NetworkContext::SetCorsOriginAccessListsForOriginCallback callback =
@@ -20338,10 +20375,10 @@ std::move(p_domain), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCorsOriginAccessListsForOrigin(
-std::move(p_source_origin), 
-std::move(p_allow_patterns), 
-std::move(p_block_patterns), std::move(callback));
+      impl->SetCorsOriginAccessListsForOrigin(        
+        std::move(p_source_origin), 
+        std::move(p_allow_patterns), 
+        std::move(p_block_patterns), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_DeleteDynamicDataForHost_Name: {
@@ -20351,6 +20388,8 @@ std::move(p_block_patterns), std::move(callback));
               internal::NetworkContext_DeleteDynamicDataForHost_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.57
       bool success = true;
       std::string p_host{};
       NetworkContext_DeleteDynamicDataForHost_ParamsDataView input_data_view(params, message);
@@ -20361,7 +20400,7 @@ std::move(p_block_patterns), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 59, false);
+            NetworkContext::Name_, 57, false);
         return false;
       }
       NetworkContext::DeleteDynamicDataForHostCallback callback =
@@ -20369,8 +20408,8 @@ std::move(p_block_patterns), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteDynamicDataForHost(
-std::move(p_host), std::move(callback));
+      impl->DeleteDynamicDataForHost(        
+        std::move(p_host), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_SetSplitAuthCacheByNetworkAnonymizationKey_Name: {
@@ -20383,6 +20422,8 @@ std::move(p_host), std::move(callback));
               internal::NetworkContext_SaveHttpAuthCacheProxyEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.59
       bool success = true;
       NetworkContext_SaveHttpAuthCacheProxyEntries_ParamsDataView input_data_view(params, message);
       
@@ -20390,7 +20431,7 @@ std::move(p_host), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 61, false);
+            NetworkContext::Name_, 59, false);
         return false;
       }
       NetworkContext::SaveHttpAuthCacheProxyEntriesCallback callback =
@@ -20408,6 +20449,8 @@ std::move(p_host), std::move(callback));
               internal::NetworkContext_LoadHttpAuthCacheProxyEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.60
       bool success = true;
       ::base::UnguessableToken p_cache_key{};
       NetworkContext_LoadHttpAuthCacheProxyEntries_ParamsDataView input_data_view(params, message);
@@ -20418,7 +20461,7 @@ std::move(p_host), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 62, false);
+            NetworkContext::Name_, 60, false);
         return false;
       }
       NetworkContext::LoadHttpAuthCacheProxyEntriesCallback callback =
@@ -20426,8 +20469,8 @@ std::move(p_host), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadHttpAuthCacheProxyEntries(
-std::move(p_cache_key), std::move(callback));
+      impl->LoadHttpAuthCacheProxyEntries(        
+        std::move(p_cache_key), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_AddAuthCacheEntry_Name: {
@@ -20437,6 +20480,8 @@ std::move(p_cache_key), std::move(callback));
               internal::NetworkContext_AddAuthCacheEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.61
       bool success = true;
       ::net::AuthChallengeInfo p_challenge{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -20453,7 +20498,7 @@ std::move(p_cache_key), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 63, false);
+            NetworkContext::Name_, 61, false);
         return false;
       }
       NetworkContext::AddAuthCacheEntryCallback callback =
@@ -20461,10 +20506,10 @@ std::move(p_cache_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAuthCacheEntry(
-std::move(p_challenge), 
-std::move(p_network_anonymization_key), 
-std::move(p_credentials), std::move(callback));
+      impl->AddAuthCacheEntry(        
+        std::move(p_challenge), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_credentials), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_SetCorsNonWildcardRequestHeadersSupport_Name: {
@@ -20477,6 +20522,8 @@ std::move(p_credentials), std::move(callback));
               internal::NetworkContext_LookupServerBasicAuthCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.63
       bool success = true;
       ::GURL p_url{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -20490,7 +20537,7 @@ std::move(p_credentials), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 65, false);
+            NetworkContext::Name_, 63, false);
         return false;
       }
       NetworkContext::LookupServerBasicAuthCredentialsCallback callback =
@@ -20498,9 +20545,9 @@ std::move(p_credentials), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LookupServerBasicAuthCredentials(
-std::move(p_url), 
-std::move(p_network_anonymization_key), std::move(callback));
+      impl->LookupServerBasicAuthCredentials(        
+        std::move(p_url), 
+        std::move(p_network_anonymization_key), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_LookupProxyAuthCredentials_Name: {
@@ -20510,6 +20557,8 @@ std::move(p_network_anonymization_key), std::move(callback));
               internal::NetworkContext_LookupProxyAuthCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.64
       bool success = true;
       ::net::ProxyServer p_proxy_server{};
       std::string p_auth_scheme{};
@@ -20526,7 +20575,7 @@ std::move(p_network_anonymization_key), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 66, false);
+            NetworkContext::Name_, 64, false);
         return false;
       }
       NetworkContext::LookupProxyAuthCredentialsCallback callback =
@@ -20534,10 +20583,10 @@ std::move(p_network_anonymization_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LookupProxyAuthCredentials(
-std::move(p_proxy_server), 
-std::move(p_auth_scheme), 
-std::move(p_realm), std::move(callback));
+      impl->LookupProxyAuthCredentials(        
+        std::move(p_proxy_server), 
+        std::move(p_auth_scheme), 
+        std::move(p_realm), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_EnableStaticKeyPinningForTesting_Name: {
@@ -20547,6 +20596,8 @@ std::move(p_realm), std::move(callback));
               internal::NetworkContext_EnableStaticKeyPinningForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.65
       bool success = true;
       NetworkContext_EnableStaticKeyPinningForTesting_ParamsDataView input_data_view(params, message);
       
@@ -20554,7 +20605,7 @@ std::move(p_realm), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 67, false);
+            NetworkContext::Name_, 65, false);
         return false;
       }
       NetworkContext::EnableStaticKeyPinningForTestingCallback callback =
@@ -20572,6 +20623,8 @@ std::move(p_realm), std::move(callback));
               internal::NetworkContext_VerifyCertificateForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.66
       bool success = true;
       ::scoped_refptr<::net::X509Certificate> p_certificate{};
       std::string p_hostname{};
@@ -20591,7 +20644,7 @@ std::move(p_realm), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 68, false);
+            NetworkContext::Name_, 66, false);
         return false;
       }
       NetworkContext::VerifyCertificateForTestingCallback callback =
@@ -20599,11 +20652,11 @@ std::move(p_realm), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->VerifyCertificateForTesting(
-std::move(p_certificate), 
-std::move(p_hostname), 
-std::move(p_ocsp_response), 
-std::move(p_sct_list), std::move(callback));
+      impl->VerifyCertificateForTesting(        
+        std::move(p_certificate), 
+        std::move(p_hostname), 
+        std::move(p_ocsp_response), 
+        std::move(p_sct_list), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_AddDomainReliabilityContextForTesting_Name: {
@@ -20613,6 +20666,8 @@ std::move(p_sct_list), std::move(callback));
               internal::NetworkContext_AddDomainReliabilityContextForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.67
       bool success = true;
       ::url::Origin p_origin{};
       ::GURL p_upload_url{};
@@ -20626,7 +20681,7 @@ std::move(p_sct_list), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 69, false);
+            NetworkContext::Name_, 67, false);
         return false;
       }
       NetworkContext::AddDomainReliabilityContextForTestingCallback callback =
@@ -20634,9 +20689,9 @@ std::move(p_sct_list), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDomainReliabilityContextForTesting(
-std::move(p_origin), 
-std::move(p_upload_url), std::move(callback));
+      impl->AddDomainReliabilityContextForTesting(        
+        std::move(p_origin), 
+        std::move(p_upload_url), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_ForceDomainReliabilityUploadsForTesting_Name: {
@@ -20646,6 +20701,8 @@ std::move(p_upload_url), std::move(callback));
               internal::NetworkContext_ForceDomainReliabilityUploadsForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.68
       bool success = true;
       NetworkContext_ForceDomainReliabilityUploadsForTesting_ParamsDataView input_data_view(params, message);
       
@@ -20653,7 +20710,7 @@ std::move(p_upload_url), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 70, false);
+            NetworkContext::Name_, 68, false);
         return false;
       }
       NetworkContext::ForceDomainReliabilityUploadsForTestingCallback callback =
@@ -20677,6 +20734,8 @@ std::move(p_upload_url), std::move(callback));
               internal::NetworkContext_GetSharedDictionaryUsageInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.71
       bool success = true;
       NetworkContext_GetSharedDictionaryUsageInfo_ParamsDataView input_data_view(params, message);
       
@@ -20684,7 +20743,7 @@ std::move(p_upload_url), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 73, false);
+            NetworkContext::Name_, 71, false);
         return false;
       }
       NetworkContext::GetSharedDictionaryUsageInfoCallback callback =
@@ -20702,6 +20761,8 @@ std::move(p_upload_url), std::move(callback));
               internal::NetworkContext_GetSharedDictionaryInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.72
       bool success = true;
       ::net::SharedDictionaryIsolationKey p_isolation_key{};
       NetworkContext_GetSharedDictionaryInfo_ParamsDataView input_data_view(params, message);
@@ -20712,7 +20773,7 @@ std::move(p_upload_url), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 74, false);
+            NetworkContext::Name_, 72, false);
         return false;
       }
       NetworkContext::GetSharedDictionaryInfoCallback callback =
@@ -20720,8 +20781,8 @@ std::move(p_upload_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSharedDictionaryInfo(
-std::move(p_isolation_key), std::move(callback));
+      impl->GetSharedDictionaryInfo(        
+        std::move(p_isolation_key), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_GetSharedDictionaryOriginsBetween_Name: {
@@ -20731,6 +20792,8 @@ std::move(p_isolation_key), std::move(callback));
               internal::NetworkContext_GetSharedDictionaryOriginsBetween_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkContext.73
       bool success = true;
       ::base::Time p_start_time{};
       ::base::Time p_end_time{};
@@ -20744,7 +20807,7 @@ std::move(p_isolation_key), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            NetworkContext::Name_, 75, false);
+            NetworkContext::Name_, 73, false);
         return false;
       }
       NetworkContext::GetSharedDictionaryOriginsBetweenCallback callback =
@@ -20752,9 +20815,9 @@ std::move(p_isolation_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSharedDictionaryOriginsBetween(
-std::move(p_start_time), 
-std::move(p_end_time), std::move(callback));
+      impl->GetSharedDictionaryOriginsBetween(        
+        std::move(p_start_time), 
+        std::move(p_end_time), std::move(callback));
       return true;
     }
     case internal::kNetworkContext_SetSharedDictionaryCacheMaxSize_Name: {
@@ -20881,10 +20944,6 @@ static const mojo::internal::GenericValidationInfo kNetworkContextValidationInfo
      nullptr /* no response */},
     { &internal::NetworkContext_VerifyCertForSignedExchange_Params_Data::Validate,
      &internal::NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data::Validate},
-    { &internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data::Validate,
-     &internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data::Validate},
-    { &internal::NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data::Validate,
-     nullptr /* no response */},
     { &internal::NetworkContext_AddHSTS_Params_Data::Validate,
      &internal::NetworkContext_AddHSTS_ResponseParams_Data::Validate},
     { &internal::NetworkContext_IsHSTSActiveForHost_Params_Data::Validate,
@@ -20967,8 +21026,6 @@ bool StructTraits<::network::mojom::CustomProxyConfig::DataView, ::network::mojo
         result->should_override_existing_config = input.should_override_existing_config();
       if (success)
         result->allow_non_idempotent_methods = input.allow_non_idempotent_methods();
-      if (success)
-        result->should_replace_direct = input.should_replace_direct();
       if (success && !input.ReadConnectTunnelHeaders(&result->connect_tunnel_headers))
         success = false;
   *output = std::move(result);
@@ -21139,6 +21196,10 @@ bool StructTraits<::network::mojom::NetworkContextParams::DataView, ::network::m
         result->ip_protection_config_getter =
             input.TakeIpProtectionConfigGetter<decltype(result->ip_protection_config_getter)>();
       }
+      if (success) {
+        result->ip_protection_proxy_delegate =
+            input.TakeIpProtectionProxyDelegate<decltype(result->ip_protection_proxy_delegate)>();
+      }
       if (success)
         result->pac_quick_check_enabled = input.pac_quick_check_enabled();
       if (success)
@@ -21199,6 +21260,10 @@ bool StructTraits<::network::mojom::NetworkContextParams::DataView, ::network::m
         success = false;
       if (success)
         result->afp_block_list_experiment_enabled = input.afp_block_list_experiment_enabled();
+      if (success) {
+        result->cookie_encryption_provider =
+            input.TakeCookieEncryptionProvider<decltype(result->cookie_encryption_provider)>();
+      }
   *output = std::move(result);
   return success;
 }
@@ -21424,12 +21489,6 @@ CustomProxyConnectionObserverAsyncWaiter::~CustomProxyConnectionObserverAsyncWai
 void CustomProxyConfigClientInterceptorForTesting::OnCustomProxyConfigUpdated(CustomProxyConfigPtr proxy_config, OnCustomProxyConfigUpdatedCallback callback) {
   GetForwardingInterface()->OnCustomProxyConfigUpdated(std::move(proxy_config), std::move(callback));
 }
-void CustomProxyConfigClientInterceptorForTesting::MarkProxiesAsBad(::base::TimeDelta bypass_duration, const ::net::ProxyList& bad_proxies, MarkProxiesAsBadCallback callback) {
-  GetForwardingInterface()->MarkProxiesAsBad(std::move(bypass_duration), std::move(bad_proxies), std::move(callback));
-}
-void CustomProxyConfigClientInterceptorForTesting::ClearBadProxiesCache() {
-  GetForwardingInterface()->ClearBadProxiesCache();
-}
 CustomProxyConfigClientAsyncWaiter::CustomProxyConfigClientAsyncWaiter(
     CustomProxyConfigClient* proxy) : proxy_(proxy) {}
 
@@ -21439,20 +21498,6 @@ void CustomProxyConfigClientAsyncWaiter::OnCustomProxyConfigUpdated(
     CustomProxyConfigPtr proxy_config) {
   base::RunLoop loop;
   proxy_->OnCustomProxyConfigUpdated(std::move(proxy_config),
-      base::BindOnce(
-          [](base::RunLoop* loop) {
-            loop->Quit();
-          },
-          &loop));
-  loop.Run();
-}
-
-
-
-void CustomProxyConfigClientAsyncWaiter::MarkProxiesAsBad(
-    ::base::TimeDelta bypass_duration, const ::net::ProxyList& bad_proxies) {
-  base::RunLoop loop;
-  proxy_->MarkProxiesAsBad(std::move(bypass_duration),std::move(bad_proxies),
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();
@@ -21718,6 +21763,42 @@ std::optional<std::vector<std::vector<std::string>>> IpProtectionConfigGetterAsy
 
 
 
+void IpProtectionProxyDelegateInterceptorForTesting::VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) {
+  GetForwardingInterface()->VerifyIpProtectionConfigGetterForTesting(std::move(callback));
+}
+void IpProtectionProxyDelegateInterceptorForTesting::InvalidateIpProtectionConfigCacheTryAgainAfterTime() {
+  GetForwardingInterface()->InvalidateIpProtectionConfigCacheTryAgainAfterTime();
+}
+IpProtectionProxyDelegateAsyncWaiter::IpProtectionProxyDelegateAsyncWaiter(
+    IpProtectionProxyDelegate* proxy) : proxy_(proxy) {}
+
+IpProtectionProxyDelegateAsyncWaiter::~IpProtectionProxyDelegateAsyncWaiter() = default;
+
+void IpProtectionProxyDelegateAsyncWaiter::VerifyIpProtectionConfigGetterForTesting(
+    BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after) {
+  base::RunLoop loop;
+  proxy_->VerifyIpProtectionConfigGetterForTesting(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             BlindSignedAuthTokenPtr* out_bsa_token
+,
+             std::optional<::base::Time>* out_try_again_after
+,
+             BlindSignedAuthTokenPtr bsa_token,
+             std::optional<::base::Time> try_again_after) {*out_bsa_token = std::move(bsa_token);*out_try_again_after = std::move(try_again_after);
+            loop->Quit();
+          },
+          &loop,
+          out_bsa_token,
+          out_try_again_after));
+  loop.Run();
+}
+
+
+
+
+
+
 void NetworkContextInterceptorForTesting::SetClient(::mojo::PendingRemote<NetworkContextClient> client) {
   GetForwardingInterface()->SetClient(std::move(client));
 }
@@ -21876,12 +21957,6 @@ void NetworkContextInterceptorForTesting::CreateHostResolver(const std::optional
 }
 void NetworkContextInterceptorForTesting::VerifyCertForSignedExchange(const ::scoped_refptr<::net::X509Certificate>& certificate, const ::GURL& url, const std::string& ocsp_response, const std::string& sct_list, VerifyCertForSignedExchangeCallback callback) {
   GetForwardingInterface()->VerifyCertForSignedExchange(std::move(certificate), std::move(url), std::move(ocsp_response), std::move(sct_list), std::move(callback));
-}
-void NetworkContextInterceptorForTesting::VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) {
-  GetForwardingInterface()->VerifyIpProtectionConfigGetterForTesting(std::move(callback));
-}
-void NetworkContextInterceptorForTesting::InvalidateIpProtectionConfigCacheTryAgainAfterTime() {
-  GetForwardingInterface()->InvalidateIpProtectionConfigCacheTryAgainAfterTime();
 }
 void NetworkContextInterceptorForTesting::AddHSTS(const std::string& host, ::base::Time expiry, bool include_subdomains, AddHSTSCallback callback) {
   GetForwardingInterface()->AddHSTS(std::move(host), std::move(expiry), std::move(include_subdomains), std::move(callback));
@@ -22399,28 +22474,6 @@ void NetworkContextAsyncWaiter::VerifyCertForSignedExchange(
           out_error_code,
           out_cv_result,
           out_pkp_bypassed));
-  loop.Run();
-}
-
-
-
-void NetworkContextAsyncWaiter::VerifyIpProtectionConfigGetterForTesting(
-    BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after) {
-  base::RunLoop loop;
-  proxy_->VerifyIpProtectionConfigGetterForTesting(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             BlindSignedAuthTokenPtr* out_bsa_token
-,
-             std::optional<::base::Time>* out_try_again_after
-,
-             BlindSignedAuthTokenPtr bsa_token,
-             std::optional<::base::Time> try_again_after) {*out_bsa_token = std::move(bsa_token);*out_try_again_after = std::move(try_again_after);
-            loop->Quit();
-          },
-          &loop,
-          out_bsa_token,
-          out_try_again_after));
   loop.Run();
 }
 

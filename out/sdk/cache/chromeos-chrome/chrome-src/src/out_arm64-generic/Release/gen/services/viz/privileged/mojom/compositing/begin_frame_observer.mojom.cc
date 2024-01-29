@@ -167,6 +167,8 @@ bool BeginFrameObserverStubDispatch::Accept(
           reinterpret_cast<internal::BeginFrameObserver_OnStandaloneBeginFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BeginFrameObserver.0
       bool success = true;
       ::viz::BeginFrameArgs p_args{};
       BeginFrameObserver_OnStandaloneBeginFrame_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool BeginFrameObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStandaloneBeginFrame(
-std::move(p_args));
+      impl->OnStandaloneBeginFrame(        
+        std::move(p_args));
       return true;
     }
   }

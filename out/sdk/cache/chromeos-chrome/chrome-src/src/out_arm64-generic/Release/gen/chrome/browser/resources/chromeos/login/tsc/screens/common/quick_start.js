@@ -1,49 +1,42 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Polymer element for displaying quick start screen.
- */
 import '//resources/polymer/v3_0/paper-styles/color.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/quick_start_pin.js';
-import { assert } from '//resources/ash/common/assert.js';
+import { assert } from '//resources/js/assert.js';
 import { flush, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
-import { OobeAdaptiveDialog } from '../../components/dialogs/oobe_adaptive_dialog.js';
-import { OobeTypes } from '../../components/oobe_types.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeCrLottie } from '../../components/oobe_cr_lottie.js';
 import { QrCodeCanvas } from '../../components/qr_code_canvas.js';
+import { OobeModalDialog } from '../../components/dialogs/oobe_modal_dialog.js';
 import { loadTimeData } from '../../i18n_setup.js';
 import { getTemplate } from './quick_start.html.js';
 /**
  * UI mode for the screen.
- * @enum {string}
  */
-export const QuickStartUIState = {
-    DEFAULT: 'default',
-    CONNECTING_TO_PHONE: 'connecting_to_phone',
-    VERIFICATION: 'verification',
-    CONNECTING_TO_WIFI: 'connecting_to_wifi',
-    CONNECTED_TO_WIFI: 'connected_to_wifi',
-    CONFIRM_GOOGLE_ACCOUNT: 'confirm_google_account',
-    SIGNING_IN: 'signing_in',
-    SETUP_COMPLETE: 'setup_complete',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
+var QuickStartUiState;
+(function (QuickStartUiState) {
+    QuickStartUiState["DEFAULT"] = "default";
+    QuickStartUiState["CONNECTING_TO_PHONE"] = "connecting_to_phone";
+    QuickStartUiState["VERIFICATION"] = "verification";
+    QuickStartUiState["CONNECTING_TO_WIFI"] = "connecting_to_wifi";
+    QuickStartUiState["CONNECTED_TO_WIFI"] = "connected_to_wifi";
+    QuickStartUiState["CONFIRM_GOOGLE_ACCOUNT"] = "confirm_google_account";
+    QuickStartUiState["SIGNING_IN"] = "signing_in";
+    QuickStartUiState["SETUP_COMPLETE"] = "setup_complete";
+})(QuickStartUiState || (QuickStartUiState = {}));
+var UserActions;
+(function (UserActions) {
+    UserActions["CANCEL"] = "cancel";
+    UserActions["NEXT"] = "next";
+    UserActions["TURN_ON_BLUETOOTH"] = "turn_on_bluetooth";
+})(UserActions || (UserActions = {}));
 const QuickStartScreenBase = mixinBehaviors([LoginScreenBehavior, MultiStepBehavior, OobeI18nBehavior], PolymerElement);
-/**
- * @polymer
- */
-class QuickStartScreen extends QuickStartScreenBase {
+export class QuickStartScreen extends QuickStartScreenBase {
     static get is() {
         return 'quick-start-element';
     }
@@ -52,33 +45,33 @@ class QuickStartScreen extends QuickStartScreenBase {
     }
     static get properties() {
         return {
-            discoverableName_: {
+            discoverableName: {
                 type: String,
                 value: '',
             },
-            pin_: {
+            pin: {
                 type: String,
                 value: '0000',
             },
             // Whether to show the PIN for verification instead of a QR code.
-            usePinInsteadOfQrForVerification_: {
+            usePinInsteadOfQrForVerification: {
                 type: Boolean,
                 value: false,
             },
-            userEmail_: {
+            userEmail: {
                 type: String,
                 value: '',
             },
-            userFullName_: {
+            userFullName: {
                 type: String,
                 value: '',
             },
-            userAvatarUrl_: {
+            userAvatarUrl: {
                 type: String,
                 value: '',
             },
             // Once account creation starts, it is no longer possible to cancel.
-            canCancelSignin_: {
+            canCancelSignin: {
                 type: Boolean,
                 value: true,
             },
@@ -86,9 +79,6 @@ class QuickStartScreen extends QuickStartScreenBase {
     }
     constructor() {
         super();
-        this.UI_STEPS = QuickStartUIState;
-        this.discoverableName_ = '';
-        this.usePinInsteadOfQrForVerification_ = false;
         this.qrCodeCanvas = null;
     }
     get EXTERNAL_API() {
@@ -96,109 +86,138 @@ class QuickStartScreen extends QuickStartScreenBase {
             'setQRCode',
             'setPin',
             'showInitialUiStep',
+            'showBluetoothDialog',
             'showConnectingToPhoneStep',
             'showConnectingToWifi',
             'setDiscoverableName',
             'showConfirmGoogleAccount',
             'showSigningInStep',
             'showCreatingAccountStep',
+            'showSetupCompleteStep',
             'setUserEmail',
             'setUserFullName',
             'setUserAvatarUrl',
         ];
     }
-    getVerificationSubtitle(title) {
+    getVerificationSubtitle(_title) {
         return this.i18nAdvanced('quickStartSetupSubtitle', {
-            substitutions: [loadTimeData.getString('deviceType'), this.discoverableName_],
+            substitutions: [loadTimeData.getString('deviceType'), this.discoverableName],
         });
     }
     getSetupCompleteTitle(locale) {
-        return this.i18nAdvanced('quickStartSetupCompleteTitle', {
+        return this.i18nAdvancedDynamic(locale, 'quickStartSetupCompleteTitle', {
             substitutions: [loadTimeData.getString('deviceType')],
         });
     }
-    getSetupCompleteSubtitle(locale, email) {
-        return this.i18nAdvanced('quickStartSetupCompleteSubtitle', {
-            substitutions: [this.userEmail_],
+    getSetupCompleteSubtitle(locale, _email) {
+        return this.i18nAdvancedDynamic(locale, 'quickStartSetupCompleteSubtitle', {
+            substitutions: [this.userEmail],
         });
     }
-    /** @override */
+    getCanvas() {
+        const canvas = this.shadowRoot?.querySelector('#qrCodeCanvas');
+        assert(canvas instanceof HTMLCanvasElement);
+        return canvas;
+    }
+    getQuickStartBluetoothDialog() {
+        const dialog = this.shadowRoot?.
+            querySelector('#quickStartBluetoothDialog');
+        assert(dialog instanceof OobeModalDialog);
+        return dialog;
+    }
+    getSpinnerAnimation() {
+        const animation = this.shadowRoot?.querySelector('#spinner');
+        assert(animation instanceof OobeCrLottie);
+        return animation;
+    }
     ready() {
         super.ready();
         this.initializeLoginScreen('QuickStartScreen');
         // Helper for drawing the QR code using circles as per spec.
-        this.qrCodeCanvas = new QrCodeCanvas(this.getCanvas_());
+        this.qrCodeCanvas = new QrCodeCanvas(this.getCanvas());
     }
     onBeforeHide() {
-        this.$.spinner.playing = false;
+        this.getSpinnerAnimation().playing = false;
     }
-    /** @override */
+    get UI_STEPS() {
+        return QuickStartUiState;
+    }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return QuickStartUIState.DEFAULT;
+        return QuickStartUiState.DEFAULT;
     }
     showInitialUiStep() {
         this.setUIStep(this.defaultUIStep());
     }
     showConnectingToPhoneStep() {
-        this.setUIStep(QuickStartUIState.CONNECTING_TO_PHONE);
+        this.getQuickStartBluetoothDialog().hideDialog();
+        this.setUIStep(QuickStartUiState.CONNECTING_TO_PHONE);
     }
     showConnectingToWifi() {
-        this.setUIStep(QuickStartUIState.CONNECTING_TO_WIFI);
+        this.setUIStep(QuickStartUiState.CONNECTING_TO_WIFI);
     }
-    /**
-     * @param {!Array<boolean>} qrCode
-     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     setQRCode(qrCode) {
-        this.usePinInsteadOfQrForVerification_ = false;
-        this.setUIStep(QuickStartUIState.VERIFICATION);
+        this.getQuickStartBluetoothDialog().hideDialog();
+        this.usePinInsteadOfQrForVerification = false;
+        this.setUIStep(QuickStartUiState.VERIFICATION);
         flush();
-        this.qrCodeCanvas.setData(qrCode);
+        this.qrCodeCanvas?.setData(qrCode);
     }
     setPin(pin) {
-        this.usePinInsteadOfQrForVerification_ = true;
-        this.setUIStep(QuickStartUIState.VERIFICATION);
+        this.usePinInsteadOfQrForVerification = true;
+        this.setUIStep(QuickStartUiState.VERIFICATION);
         assert(pin.length === 4);
-        this.pin_ = pin;
+        this.pin = pin;
     }
     setDiscoverableName(discoverableName) {
-        this.discoverableName_ = discoverableName;
+        this.discoverableName = discoverableName;
     }
     showConfirmGoogleAccount() {
-        this.setUIStep(QuickStartUIState.CONFIRM_GOOGLE_ACCOUNT);
+        this.setUIStep(QuickStartUiState.CONFIRM_GOOGLE_ACCOUNT);
     }
     showSigningInStep() {
-        this.setUIStep(QuickStartUIState.SIGNING_IN);
-        this.$.spinner.playing = true;
+        this.setUIStep(QuickStartUiState.SIGNING_IN);
+        this.getSpinnerAnimation().playing = true;
     }
     showCreatingAccountStep() {
         // Same UI as 'Signing in...' but without a cancel button.
-        this.setUIStep(QuickStartUIState.SIGNING_IN);
-        this.canCancelSignin_ = false;
+        this.setUIStep(QuickStartUiState.SIGNING_IN);
+        this.canCancelSignin = false;
     }
     showSetupCompleteStep() {
-        this.setUIStep(QuickStartUIState.SETUP_COMPLETE);
+        this.setUIStep(QuickStartUiState.SETUP_COMPLETE);
     }
     setUserEmail(email) {
-        this.userEmail_ = email;
+        this.userEmail = email;
     }
     setUserFullName(userFullName) {
-        this.userFullName_ = userFullName;
+        this.userFullName = userFullName;
     }
     setUserAvatarUrl(userAvatarUrl) {
-        this.userAvatarUrl_ = userAvatarUrl;
+        this.userAvatarUrl = userAvatarUrl;
     }
-    getCanvas_() {
-        return this.shadowRoot.querySelector('#qrCodeCanvas');
+    showBluetoothDialog() {
+        // Shown on top of the QR code step.
+        this.setUIStep(QuickStartUiState.VERIFICATION);
+        this.getQuickStartBluetoothDialog().showDialog();
+    }
+    cancelBluetoothDialog() {
+        this.getQuickStartBluetoothDialog().hideDialog();
+        this.userActed(UserActions.CANCEL);
+    }
+    turnOnBluetooth() {
+        this.getQuickStartBluetoothDialog().hideDialog();
+        this.userActed(UserActions.TURN_ON_BLUETOOTH);
     }
     /**
      * Wrap the user avatar as an image into a html snippet.
      *
-     * @param {string} avatarUri the icon uri to be wrapped.
-     * @return {string} wrapped html snippet.
+     * @param avatarUri the icon uri to be wrapped.
+     * @return wrapped html snippet.
      *
-     * @private
      */
-    getWrappedAvatar_(avatarUri) {
+    getWrappedAvatar(avatarUri) {
         return ('data:text/html;charset=utf-8,' + encodeURIComponent(String.raw `
     <html>
       <style>
@@ -214,14 +233,11 @@ class QuickStartScreen extends QuickStartScreenBase {
       </style>
     <body><img id="avatar" src="` + avatarUri + '"></body></html>'));
     }
-    onCancelClicked_() {
-        this.userActed('cancel');
+    onCancelClicked() {
+        this.userActed(UserActions.CANCEL);
     }
-    onNextClicked_() {
-        this.userActed('next');
-    }
-    isEq_(a, b) {
-        return a === b;
+    onNextClicked() {
+        this.userActed(UserActions.NEXT);
     }
 }
 customElements.define(QuickStartScreen.is, QuickStartScreen);

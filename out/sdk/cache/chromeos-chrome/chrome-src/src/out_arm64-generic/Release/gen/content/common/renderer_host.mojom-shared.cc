@@ -148,6 +148,52 @@ bool RendererHost_RecordUserMetricsAction_Params_Data::Validate(
 RendererHost_RecordUserMetricsAction_Params_Data::RendererHost_RecordUserMetricsAction_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool RendererHost_HasGpuProcess_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RendererHost_HasGpuProcess_Params_Data* object =
+      static_cast<const RendererHost_HasGpuProcess_Params_Data*>(data);
+
+  return true;
+}
+
+RendererHost_HasGpuProcess_Params_Data::RendererHost_HasGpuProcess_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RendererHost_HasGpuProcess_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RendererHost_HasGpuProcess_ResponseParams_Data* object =
+      static_cast<const RendererHost_HasGpuProcess_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+RendererHost_HasGpuProcess_ResponseParams_Data::RendererHost_HasGpuProcess_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace content

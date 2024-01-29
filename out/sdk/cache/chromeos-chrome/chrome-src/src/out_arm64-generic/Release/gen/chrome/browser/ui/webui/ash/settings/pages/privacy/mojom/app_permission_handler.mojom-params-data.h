@@ -69,6 +69,68 @@ class  AppPermissionsHandler_GetApps_ResponseParams_Data {
 };
 static_assert(sizeof(AppPermissionsHandler_GetApps_ResponseParams_Data) == 16,
               "Bad sizeof(AppPermissionsHandler_GetApps_ResponseParams_Data)");
+class  AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data>;
+
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data();
+  ~AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data) == 8,
+              "Bad sizeof(AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data)");
+class  AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::App_Data>>> apps;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data>;
+
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data();
+  ~AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data) == 16,
+              "Bad sizeof(AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data)");
+class  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data>;
+
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data();
+  ~AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data) == 8,
+              "Bad sizeof(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data)");
+class  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::App_Data>>> apps;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data>;
+
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data();
+  ~AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data) == 16,
+              "Bad sizeof(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data)");
 class  AppPermissionsHandler_OpenNativeSettings_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -204,6 +266,88 @@ class AppPermissionsHandler_GetApps_ResponseParamsDataView {
 };
 
 
+class AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsDataView {
+ public:
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsDataView() = default;
+
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsDataView(
+      internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data* data_ = nullptr;
+};
+
+
+class AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsDataView {
+ public:
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsDataView() = default;
+
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsDataView(
+      internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppsDataView(
+      mojo::ArrayDataView<AppDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadApps(UserType* output) {
+    
+    auto* pointer = data_->apps.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::settings::app_permission::mojom::AppDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsDataView {
+ public:
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsDataView() = default;
+
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsDataView(
+      internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data* data_ = nullptr;
+};
+
+
+class AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsDataView {
+ public:
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsDataView() = default;
+
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsDataView(
+      internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppsDataView(
+      mojo::ArrayDataView<AppDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadApps(UserType* output) {
+    
+    auto* pointer = data_->apps.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::settings::app_permission::mojom::AppDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class AppPermissionsHandler_OpenNativeSettings_ParamsDataView {
  public:
   AppPermissionsHandler_OpenNativeSettings_ParamsDataView() = default;
@@ -322,6 +466,24 @@ class AppPermissionsObserver_OnAppUpdated_ParamsDataView {
 
 
 inline void AppPermissionsHandler_GetApps_ResponseParamsDataView::GetAppsDataView(
+    mojo::ArrayDataView<AppDataView>* output) {
+  auto pointer = data_->apps.Get();
+  *output = mojo::ArrayDataView<AppDataView>(pointer, message_);
+}
+
+
+
+
+inline void AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsDataView::GetAppsDataView(
+    mojo::ArrayDataView<AppDataView>* output) {
+  auto pointer = data_->apps.Get();
+  *output = mojo::ArrayDataView<AppDataView>(pointer, message_);
+}
+
+
+
+
+inline void AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsDataView::GetAppsDataView(
     mojo::ArrayDataView<AppDataView>* output) {
   auto pointer = data_->apps.Get();
   *output = mojo::ArrayDataView<AppDataView>(pointer, message_);

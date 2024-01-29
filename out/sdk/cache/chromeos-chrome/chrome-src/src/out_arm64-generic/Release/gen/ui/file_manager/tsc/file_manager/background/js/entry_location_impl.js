@@ -3,16 +3,11 @@
 // found in the LICENSE file.
 import { isRecentRootType } from '../../common/js/entry_utils.js';
 import { RootType } from '../../common/js/volume_manager_types.js';
-import { EntryLocation } from '../../externs/entry_location.js';
-// To avoid the import being elided, closure requires this name here because of
-// the @implements.
-export const _unused = EntryLocation;
 /**
  * Location information which shows where the path points in FileManager's
  * file system.
- * @implements {EntryLocation}
  */
-export class EntryLocationImpl {
+export class EntryLocation {
     constructor(volumeInfo, rootType, isRootEntry, isReadOnly) {
         this.volumeInfo = volumeInfo;
         this.rootType = rootType;

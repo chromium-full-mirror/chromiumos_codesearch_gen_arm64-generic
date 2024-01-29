@@ -1197,6 +1197,29 @@ SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data::SensorServiceNewDe
 
 
 // static
+bool SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data* object =
+      static_cast<const SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data*>(data);
+
+  return true;
+}
+
+SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool SensorDeviceEventsObserver_OnEventUpdated_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

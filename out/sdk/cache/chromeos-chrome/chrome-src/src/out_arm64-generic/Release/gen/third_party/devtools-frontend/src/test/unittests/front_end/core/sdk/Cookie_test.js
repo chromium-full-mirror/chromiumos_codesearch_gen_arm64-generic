@@ -64,6 +64,7 @@ describe('Cookie', () => {
         assert.strictEqual(cookie.sourceScheme(), "Secure" /* Protocol.Network.CookieSourceScheme.Secure */);
         assert.strictEqual(cookie.partitionKey(), 'https://a.com');
         assert.strictEqual(cookie.partitionKeyOpaque(), false);
+        assert.strictEqual(cookie.partitioned(), true);
     });
     // The jsdoc states that the fields are required, not optional
     it('can be created from a protocol Cookie with no optional fields set', () => {
@@ -205,6 +206,11 @@ describe('Cookie', () => {
         assert.isFalse(SDK.Cookie.Cookie.isDomainMatch('.example.com', 'example.de'));
         assert.isFalse(SDK.Cookie.Cookie.isDomainMatch('.example.de', 'example.de.vu'));
         assert.isFalse(SDK.Cookie.Cookie.isDomainMatch('example.com', 'notexample.com'));
+    });
+    it('detects the Partitioned attribute in the Set-Cookie header', () => {
+        const cookie = new SDK.Cookie.Cookie('name', 'value');
+        cookie.addAttribute('Partitioned');
+        assert.isTrue(cookie.partitioned());
     });
 });
 //# sourceMappingURL=Cookie_test.js.map

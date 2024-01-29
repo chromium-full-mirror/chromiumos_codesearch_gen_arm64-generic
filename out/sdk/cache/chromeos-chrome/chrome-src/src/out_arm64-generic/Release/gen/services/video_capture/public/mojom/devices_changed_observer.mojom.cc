@@ -148,6 +148,8 @@ bool DevicesChangedObserverStubDispatch::Accept(
           reinterpret_cast<internal::DevicesChangedObserver_OnDevicesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicesChangedObserver.0
       bool success = true;
       DevicesChangedObserver_OnDevicesChanged_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool DevicesChangedObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicesChanged();
+      impl->OnDevicesChanged(        );
       return true;
     }
   }

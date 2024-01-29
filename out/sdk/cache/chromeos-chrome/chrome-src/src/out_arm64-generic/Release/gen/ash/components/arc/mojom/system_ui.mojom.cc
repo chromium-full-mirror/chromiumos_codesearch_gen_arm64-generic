@@ -222,6 +222,8 @@ bool SystemUiInstanceStubDispatch::Accept(
           reinterpret_cast<internal::SystemUiInstance_SetDarkThemeStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemUiInstance.0
       bool success = true;
       bool p_active{};
       SystemUiInstance_SetDarkThemeStatus_ParamsDataView input_data_view(params, message);
@@ -237,8 +239,8 @@ bool SystemUiInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDarkThemeStatus(
-std::move(p_active));
+      impl->SetDarkThemeStatus(        
+        std::move(p_active));
       return true;
     }
     case internal::kSystemUiInstance_SetOverlayColor_Name: {
@@ -248,6 +250,8 @@ std::move(p_active));
           reinterpret_cast<internal::SystemUiInstance_SetOverlayColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemUiInstance.1
       bool success = true;
       uint32_t p_source_color{};
       ThemeStyleType p_theme_style{};
@@ -266,9 +270,9 @@ std::move(p_active));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOverlayColor(
-std::move(p_source_color), 
-std::move(p_theme_style));
+      impl->SetOverlayColor(        
+        std::move(p_source_color), 
+        std::move(p_theme_style));
       return true;
     }
   }

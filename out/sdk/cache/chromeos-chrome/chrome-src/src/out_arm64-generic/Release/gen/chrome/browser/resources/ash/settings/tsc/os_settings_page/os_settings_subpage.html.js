@@ -1,21 +1,19 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--settings-subpage-min-height:calc(100vh - var(--settings-toolbar-height));background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);box-sizing:border-box;display:block;min-height:var(--settings-subpage-min-height);padding-bottom:60px}:host-context(body.revamp-wayfinding-enabled):host{--settings-subpage-margin-bottom:16px;--settings-subpage-min-height:calc(100vh - var(--settings-toolbar-height)
-        - var(--settings-container-padding-top)
-        - var(--settings-subpage-margin-bottom));background-color:var(--settings-content-backdrop-bg-color);border-radius:16px;box-shadow:none;margin-bottom:var(--settings-subpage-margin-bottom);min-height:var(--settings-subpage-min-height);padding-bottom:16px;padding-inline-end:16px;padding-inline-start:16px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageHeader>h1{flex:1;font:var(--cros-button-1-font)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#closeButton{margin-inline-end:10px;margin-inline-start:-10px}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{margin-inline-start:16px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block}:host-context(body:not(.revamp-wayfinding-enabled)):host{background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);min-height:calc(100vh - var(--settings-toolbar-height));padding-bottom:60px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageTitle{flex:1;font:var(--cros-button-1-font)}:host-context(body.revamp-wayfinding-enabled) #subpageTitle{color:var(--cros-sys-primary)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#backButton{margin-inline-end:10px;margin-inline-start:-10px}:host-context(body.revamp-wayfinding-enabled) #backButton{--cr-icon-button-fill-color:var(--cros-sys-primary)}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{--cr-search-field-input-width:200px;margin-inline-start:16px}:host-context(body.revamp-wayfinding-enabled) #searchField::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_shaded)}</style>
 <div id="subpageHeader" class="cr-row first">
-  <cr-icon-button id="closeButton" class="icon-arrow-back" hidden="[[hideCloseButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
+  <cr-icon-button id="backButton" class="icon-arrow-back" hidden="[[hideBackButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
   </cr-icon-button>
   <template is="dom-if" if="[[titleIcon]]">
     <img id="titleIcon" src="[[titleIcon]]" aria-hidden="true">
   </template>
-  <h1 class="cr-title-text">[[pageTitle]]</h1>
+  <h1 id="subpageTitle">[[pageTitle]]</h1>
   <template is="dom-if" if="[[learnMoreUrl]]">
     <cr-icon-button iron-icon="cr:help-outline" dir="ltr" aria-label="[[getLearnMoreAriaLabel_(pageTitle)]]" on-click="onHelpClick_">
     </cr-icon-button>
   </template>
   <template is="dom-if" if="[[searchLabel]]">
-    <cr-search-field label="[[searchLabel]]" on-search-changed="onSearchChanged_" clear-label="$i18n{clearSearch}">
+    <cr-search-field id="searchField" label="[[searchLabel]]" on-search-changed="onSearchChanged_" clear-label="$i18n{clearSearch}">
     </cr-search-field>
   </template>
   <template is="dom-if" if="[[showSpinner]]">

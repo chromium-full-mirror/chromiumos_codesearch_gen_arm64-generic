@@ -1736,6 +1736,8 @@ bool NetworkDiagnosticsRoutines_GetResult_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_GetResult_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.27
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_GetResult_ResponseParamsDataView input_data_view(params, message);
@@ -1861,6 +1863,8 @@ bool NetworkDiagnosticsRoutines_GetAllResults_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_GetAllResults_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.28
   bool success = true;
   base::flat_map<RoutineType, RoutineResultPtr> p_results{};
   NetworkDiagnosticsRoutines_GetAllResults_ResponseParamsDataView input_data_view(params, message);
@@ -1992,6 +1996,8 @@ bool NetworkDiagnosticsRoutines_RunLanConnectivity_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.12
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsDataView input_data_view(params, message);
@@ -2121,6 +2127,8 @@ bool NetworkDiagnosticsRoutines_RunSignalStrength_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.13
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsDataView input_data_view(params, message);
@@ -2250,6 +2258,8 @@ bool NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.14
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsDataView input_data_view(params, message);
@@ -2379,6 +2389,8 @@ bool NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ForwardToCallback::Ac
           internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.15
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsDataView input_data_view(params, message);
@@ -2508,6 +2520,8 @@ bool NetworkDiagnosticsRoutines_RunDnsResolverPresent_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.16
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsDataView input_data_view(params, message);
@@ -2637,6 +2651,8 @@ bool NetworkDiagnosticsRoutines_RunDnsLatency_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.17
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsDataView input_data_view(params, message);
@@ -2766,6 +2782,8 @@ bool NetworkDiagnosticsRoutines_RunDnsResolution_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.18
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsDataView input_data_view(params, message);
@@ -2895,6 +2913,8 @@ bool NetworkDiagnosticsRoutines_RunCaptivePortal_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.19
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsDataView input_data_view(params, message);
@@ -3024,6 +3044,8 @@ bool NetworkDiagnosticsRoutines_RunHttpFirewall_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.20
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsDataView input_data_view(params, message);
@@ -3153,6 +3175,8 @@ bool NetworkDiagnosticsRoutines_RunHttpsFirewall_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.21
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsDataView input_data_view(params, message);
@@ -3282,6 +3306,8 @@ bool NetworkDiagnosticsRoutines_RunHttpsLatency_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.22
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsDataView input_data_view(params, message);
@@ -3411,6 +3437,8 @@ bool NetworkDiagnosticsRoutines_RunVideoConferencing_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.23
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsDataView input_data_view(params, message);
@@ -3540,6 +3568,8 @@ bool NetworkDiagnosticsRoutines_RunArcHttp_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.24
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsDataView input_data_view(params, message);
@@ -3669,6 +3699,8 @@ bool NetworkDiagnosticsRoutines_RunArcPing_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunArcPing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.25
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsDataView input_data_view(params, message);
@@ -3798,6 +3830,8 @@ bool NetworkDiagnosticsRoutines_RunArcDnsResolution_ForwardToCallback::Accept(
           internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkDiagnosticsRoutines.26
   bool success = true;
   RoutineResultPtr p_result{};
   NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsDataView input_data_view(params, message);
@@ -3946,6 +3980,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               internal::NetworkDiagnosticsRoutines_GetResult_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.27
       bool success = true;
       RoutineType p_routine{};
       NetworkDiagnosticsRoutines_GetResult_ParamsDataView input_data_view(params, message);
@@ -3964,8 +4000,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetResult(
-std::move(p_routine), std::move(callback));
+      impl->GetResult(        
+        std::move(p_routine), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name: {
@@ -3975,6 +4011,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.28
       bool success = true;
       NetworkDiagnosticsRoutines_GetAllResults_ParamsDataView input_data_view(params, message);
       
@@ -4000,6 +4038,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.12
       bool success = true;
       NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsDataView input_data_view(params, message);
       
@@ -4025,6 +4065,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.13
       bool success = true;
       NetworkDiagnosticsRoutines_RunSignalStrength_ParamsDataView input_data_view(params, message);
       
@@ -4050,6 +4092,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.14
       bool success = true;
       NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsDataView input_data_view(params, message);
       
@@ -4075,6 +4119,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.15
       bool success = true;
       NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsDataView input_data_view(params, message);
       
@@ -4100,6 +4146,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.16
       bool success = true;
       NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsDataView input_data_view(params, message);
       
@@ -4125,6 +4173,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.17
       bool success = true;
       NetworkDiagnosticsRoutines_RunDnsLatency_ParamsDataView input_data_view(params, message);
       
@@ -4150,6 +4200,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.18
       bool success = true;
       NetworkDiagnosticsRoutines_RunDnsResolution_ParamsDataView input_data_view(params, message);
       
@@ -4175,6 +4227,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.19
       bool success = true;
       NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsDataView input_data_view(params, message);
       
@@ -4200,6 +4254,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.20
       bool success = true;
       NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsDataView input_data_view(params, message);
       
@@ -4225,6 +4281,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.21
       bool success = true;
       NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsDataView input_data_view(params, message);
       
@@ -4250,6 +4308,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.22
       bool success = true;
       NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsDataView input_data_view(params, message);
       
@@ -4275,6 +4335,8 @@ std::move(p_routine), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.23
       bool success = true;
       std::optional<std::string> p_stun_server_hostname{};
       NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsDataView input_data_view(params, message);
@@ -4293,8 +4355,8 @@ std::move(p_routine), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunVideoConferencing(
-std::move(p_stun_server_hostname), std::move(callback));
+      impl->RunVideoConferencing(        
+        std::move(p_stun_server_hostname), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
@@ -4304,6 +4366,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.24
       bool success = true;
       NetworkDiagnosticsRoutines_RunArcHttp_ParamsDataView input_data_view(params, message);
       
@@ -4329,6 +4393,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.25
       bool success = true;
       NetworkDiagnosticsRoutines_RunArcPing_ParamsDataView input_data_view(params, message);
       
@@ -4354,6 +4420,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsRoutines.26
       bool success = true;
       NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsDataView input_data_view(params, message);
       

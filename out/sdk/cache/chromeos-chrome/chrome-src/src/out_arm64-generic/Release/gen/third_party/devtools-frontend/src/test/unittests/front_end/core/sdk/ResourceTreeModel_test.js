@@ -99,7 +99,7 @@ describeWithMockConnection('ResourceTreeModel', () => {
         const manager = target.model(SDK.StorageKeyManager.StorageKeyManager);
         assertNotNullOrUndefined(manager);
         const storageKeyAddedPromise = new Promise(resolve => {
-            manager.addEventListener(SDK.StorageKeyManager.Events.StorageKeyAdded, () => {
+            manager.addEventListener("StorageKeyAdded" /* SDK.StorageKeyManager.Events.StorageKeyAdded */, () => {
                 resolve();
             });
         });
@@ -107,12 +107,12 @@ describeWithMockConnection('ResourceTreeModel', () => {
         await storageKeyAddedPromise;
         assert.strictEqual(resourceTreeModel?.frames().length, 1);
         const mainStorageKeyChangedPromise = new Promise(resolve => {
-            manager.addEventListener(SDK.StorageKeyManager.Events.MainStorageKeyChanged, () => {
+            manager.addEventListener("MainStorageKeyChanged" /* SDK.StorageKeyManager.Events.MainStorageKeyChanged */, () => {
                 resolve();
             });
         });
         const storageKeyRemovedPromise = new Promise(resolve => {
-            manager.addEventListener(SDK.StorageKeyManager.Events.StorageKeyRemoved, () => {
+            manager.addEventListener("StorageKeyRemoved" /* SDK.StorageKeyManager.Events.StorageKeyRemoved */, () => {
                 resolve();
             });
         });

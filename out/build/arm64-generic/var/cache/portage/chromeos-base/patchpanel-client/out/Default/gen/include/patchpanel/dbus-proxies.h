@@ -353,6 +353,18 @@ class PatchPanelProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool NotifyARCVPNSocketConnectionEvent(
+      const patchpanel::NotifyARCVPNSocketConnectionEventRequest& in_request,
+      patchpanel::NotifyARCVPNSocketConnectionEventResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void NotifyARCVPNSocketConnectionEventAsync(
+      const patchpanel::NotifyARCVPNSocketConnectionEventRequest& in_request,
+      base::OnceCallback<void(const patchpanel::NotifyARCVPNSocketConnectionEventResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SetFeatureFlag(
       const patchpanel::SetFeatureFlagRequest& in_request,
       patchpanel::SetFeatureFlagResponse* out_response,
@@ -1268,6 +1280,37 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PatchPanel",
         "NotifySocketConnectionEvent",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool NotifyARCVPNSocketConnectionEvent(
+      const patchpanel::NotifyARCVPNSocketConnectionEventRequest& in_request,
+      patchpanel::NotifyARCVPNSocketConnectionEventResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "NotifyARCVPNSocketConnectionEvent",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void NotifyARCVPNSocketConnectionEventAsync(
+      const patchpanel::NotifyARCVPNSocketConnectionEventRequest& in_request,
+      base::OnceCallback<void(const patchpanel::NotifyARCVPNSocketConnectionEventResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "NotifyARCVPNSocketConnectionEvent",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

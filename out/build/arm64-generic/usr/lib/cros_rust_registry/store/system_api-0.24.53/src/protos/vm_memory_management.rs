@@ -1425,107 +1425,53 @@ impl ::std::default::Default for ConnectionType {
 }
 
 
-// Note: you cannot use pattern matching for enums with allow_alias option
-#[derive(Clone,Copy,Eq,Debug)]
+#[derive(Clone,Copy,PartialEq,Eq,Debug,Hash)]
 // @@protoc_insertion_point(enum:vm_tools.vm_memory_management.ResizePriority)
 pub enum ResizePriority {
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_UNSPECIFIED)
-    RESIZE_PRIORITY_UNSPECIFIED, // 0
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_HIGHEST)
-    RESIZE_PRIORITY_HIGHEST, // 1
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_BALLOON_STALL)
-    RESIZE_PRIORITY_BALLOON_STALL, // 1
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST)
-    RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST, // 2
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST)
-    RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST, // 3
+    RESIZE_PRIORITY_UNSPECIFIED = 0,
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_FOCUSED_TAB)
-    RESIZE_PRIORITY_FOCUSED_TAB, // 4
+    RESIZE_PRIORITY_FOCUSED_TAB = 4,
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_FOCUSED_APP)
-    RESIZE_PRIORITY_FOCUSED_APP, // 5
+    RESIZE_PRIORITY_FOCUSED_APP = 5,
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_PERCEPTIBLE_TAB)
-    RESIZE_PRIORITY_PERCEPTIBLE_TAB, // 6
+    RESIZE_PRIORITY_PERCEPTIBLE_TAB = 6,
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_PERCEPTIBLE_APP)
-    RESIZE_PRIORITY_PERCEPTIBLE_APP, // 7
+    RESIZE_PRIORITY_PERCEPTIBLE_APP = 7,
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_CACHED_TAB)
-    RESIZE_PRIORITY_CACHED_TAB, // 8
+    RESIZE_PRIORITY_CACHED_TAB = 8,
     // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_CACHED_APP)
-    RESIZE_PRIORITY_CACHED_APP, // 9
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_MGLRU_RECLAIM)
-    RESIZE_PRIORITY_MGLRU_RECLAIM, // 10
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_LOWEST)
-    RESIZE_PRIORITY_LOWEST, // 10
-    // @@protoc_insertion_point(enum_value:vm_tools.vm_memory_management.ResizePriority.RESIZE_PRIORITY_N_PRIORITIES)
-    RESIZE_PRIORITY_N_PRIORITIES, // 11
-}
-
-impl ::std::cmp::PartialEq for ResizePriority {
-    fn eq(&self, other: &Self) -> bool {
-        ::protobuf::Enum::value(self) == ::protobuf::Enum::value(other)
-    }
-}
-
-impl ::std::hash::Hash for ResizePriority {
-    fn hash<H : ::std::hash::Hasher>(&self, state: &mut H) {
-        state.write_i32(::protobuf::Enum::value(self))
-    }
+    RESIZE_PRIORITY_CACHED_APP = 9,
 }
 
 impl ::protobuf::Enum for ResizePriority {
     const NAME: &'static str = "ResizePriority";
 
     fn value(&self) -> i32 {
-        match *self {
-            ResizePriority::RESIZE_PRIORITY_UNSPECIFIED => 0,
-            ResizePriority::RESIZE_PRIORITY_HIGHEST => 1,
-            ResizePriority::RESIZE_PRIORITY_BALLOON_STALL => 1,
-            ResizePriority::RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST => 2,
-            ResizePriority::RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST => 3,
-            ResizePriority::RESIZE_PRIORITY_FOCUSED_TAB => 4,
-            ResizePriority::RESIZE_PRIORITY_FOCUSED_APP => 5,
-            ResizePriority::RESIZE_PRIORITY_PERCEPTIBLE_TAB => 6,
-            ResizePriority::RESIZE_PRIORITY_PERCEPTIBLE_APP => 7,
-            ResizePriority::RESIZE_PRIORITY_CACHED_TAB => 8,
-            ResizePriority::RESIZE_PRIORITY_CACHED_APP => 9,
-            ResizePriority::RESIZE_PRIORITY_MGLRU_RECLAIM => 10,
-            ResizePriority::RESIZE_PRIORITY_LOWEST => 10,
-            ResizePriority::RESIZE_PRIORITY_N_PRIORITIES => 11,
-        }
+        *self as i32
     }
 
     fn from_i32(value: i32) -> ::std::option::Option<ResizePriority> {
         match value {
             0 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_UNSPECIFIED),
-            1 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_HIGHEST),
-            2 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST),
-            3 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST),
             4 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_FOCUSED_TAB),
             5 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_FOCUSED_APP),
             6 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_PERCEPTIBLE_TAB),
             7 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_PERCEPTIBLE_APP),
             8 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_CACHED_TAB),
             9 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_CACHED_APP),
-            10 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_MGLRU_RECLAIM),
-            11 => ::std::option::Option::Some(ResizePriority::RESIZE_PRIORITY_N_PRIORITIES),
             _ => ::std::option::Option::None
         }
     }
 
     const VALUES: &'static [ResizePriority] = &[
         ResizePriority::RESIZE_PRIORITY_UNSPECIFIED,
-        ResizePriority::RESIZE_PRIORITY_HIGHEST,
-        ResizePriority::RESIZE_PRIORITY_BALLOON_STALL,
-        ResizePriority::RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST,
-        ResizePriority::RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST,
         ResizePriority::RESIZE_PRIORITY_FOCUSED_TAB,
         ResizePriority::RESIZE_PRIORITY_FOCUSED_APP,
         ResizePriority::RESIZE_PRIORITY_PERCEPTIBLE_TAB,
         ResizePriority::RESIZE_PRIORITY_PERCEPTIBLE_APP,
         ResizePriority::RESIZE_PRIORITY_CACHED_TAB,
         ResizePriority::RESIZE_PRIORITY_CACHED_APP,
-        ResizePriority::RESIZE_PRIORITY_MGLRU_RECLAIM,
-        ResizePriority::RESIZE_PRIORITY_LOWEST,
-        ResizePriority::RESIZE_PRIORITY_N_PRIORITIES,
     ];
 }
 

@@ -975,6 +975,8 @@ bool ProcessInternalsHandler_GetProcessCountInfo_ForwardToCallback::Accept(
           internal::ProcessInternalsHandler_GetProcessCountInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInternalsHandler.0
   bool success = true;
   ProcessCountInfoPtr p_info{};
   ProcessInternalsHandler_GetProcessCountInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1104,6 +1106,8 @@ bool ProcessInternalsHandler_GetIsolationMode_ForwardToCallback::Accept(
           internal::ProcessInternalsHandler_GetIsolationMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInternalsHandler.1
   bool success = true;
   std::string p_mode{};
   ProcessInternalsHandler_GetIsolationMode_ResponseParamsDataView input_data_view(params, message);
@@ -1233,6 +1237,8 @@ bool ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_ForwardToCallback::
           internal::ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInternalsHandler.2
   bool success = true;
   std::vector<std::string> p_isolated_origins{};
   ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_ResponseParamsDataView input_data_view(params, message);
@@ -1364,6 +1370,8 @@ bool ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_ForwardToCallback::A
           internal::ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInternalsHandler.3
   bool success = true;
   std::vector<std::string> p_isolated_origins{};
   ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_ResponseParamsDataView input_data_view(params, message);
@@ -1495,6 +1503,8 @@ bool ProcessInternalsHandler_GetGloballyIsolatedOrigins_ForwardToCallback::Accep
           internal::ProcessInternalsHandler_GetGloballyIsolatedOrigins_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInternalsHandler.4
   bool success = true;
   std::vector<IsolatedOriginInfoPtr> p_isolated_origins{};
   ProcessInternalsHandler_GetGloballyIsolatedOrigins_ResponseParamsDataView input_data_view(params, message);
@@ -1626,6 +1636,8 @@ bool ProcessInternalsHandler_GetAllWebContentsInfo_ForwardToCallback::Accept(
           internal::ProcessInternalsHandler_GetAllWebContentsInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInternalsHandler.5
   bool success = true;
   std::vector<WebContentsInfoPtr> p_infos{};
   ProcessInternalsHandler_GetAllWebContentsInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1743,6 +1755,8 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::ProcessInternalsHandler_GetProcessCountInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInternalsHandler.0
       bool success = true;
       ProcessInternalsHandler_GetProcessCountInfo_ParamsDataView input_data_view(params, message);
       
@@ -1768,6 +1782,8 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::ProcessInternalsHandler_GetIsolationMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInternalsHandler.1
       bool success = true;
       ProcessInternalsHandler_GetIsolationMode_ParamsDataView input_data_view(params, message);
       
@@ -1793,6 +1809,8 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInternalsHandler.2
       bool success = true;
       ProcessInternalsHandler_GetUserTriggeredIsolatedOrigins_ParamsDataView input_data_view(params, message);
       
@@ -1818,6 +1836,8 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInternalsHandler.3
       bool success = true;
       ProcessInternalsHandler_GetWebTriggeredIsolatedOrigins_ParamsDataView input_data_view(params, message);
       
@@ -1843,6 +1863,8 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::ProcessInternalsHandler_GetGloballyIsolatedOrigins_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInternalsHandler.4
       bool success = true;
       ProcessInternalsHandler_GetGloballyIsolatedOrigins_ParamsDataView input_data_view(params, message);
       
@@ -1868,6 +1890,8 @@ bool ProcessInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::ProcessInternalsHandler_GetAllWebContentsInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInternalsHandler.5
       bool success = true;
       ProcessInternalsHandler_GetAllWebContentsInfo_ParamsDataView input_data_view(params, message);
       

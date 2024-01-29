@@ -16,8 +16,8 @@ namespace network::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserverInterceptorForTesting : public CustomProxyConnectionObserver {
   virtual CustomProxyConnectionObserver* GetForwardingInterface() = 0;
-  void OnFallback(::network::mojom::blink::ProxyChainPtr bad_chain, int32_t net_error) override;
-  void OnTunnelHeadersReceived(::network::mojom::blink::ProxyChainPtr proxy_chain, uint64_t chain_index, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) override;
+  void OnFallback(const ::net::ProxyChain& bad_chain, int32_t net_error) override;
+  void OnTunnelHeadersReceived(const ::net::ProxyChain& proxy_chain, uint64_t chain_index, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) override;
 };
 class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserverAsyncWaiter {
  public:
@@ -36,8 +36,6 @@ class BLINK_PLATFORM_EXPORT CustomProxyConnectionObserverAsyncWaiter {
 class BLINK_PLATFORM_EXPORT CustomProxyConfigClientInterceptorForTesting : public CustomProxyConfigClient {
   virtual CustomProxyConfigClient* GetForwardingInterface() = 0;
   void OnCustomProxyConfigUpdated(CustomProxyConfigPtr proxy_config, OnCustomProxyConfigUpdatedCallback callback) override;
-  void MarkProxiesAsBad(::base::TimeDelta bypass_duration, ::network::mojom::blink::ProxyListPtr bad_proxies, MarkProxiesAsBadCallback callback) override;
-  void ClearBadProxiesCache() override;
 };
 class BLINK_PLATFORM_EXPORT CustomProxyConfigClientAsyncWaiter {
  public:
@@ -49,9 +47,6 @@ class BLINK_PLATFORM_EXPORT CustomProxyConfigClientAsyncWaiter {
   ~CustomProxyConfigClientAsyncWaiter();
   void OnCustomProxyConfigUpdated(
       CustomProxyConfigPtr proxy_config);
-  
-  void MarkProxiesAsBad(
-      ::base::TimeDelta bypass_duration, ::network::mojom::blink::ProxyListPtr bad_proxies);
   
 
  private:
@@ -163,6 +158,28 @@ class BLINK_PLATFORM_EXPORT IpProtectionConfigGetterAsyncWaiter {
 };
 
 
+class BLINK_PLATFORM_EXPORT IpProtectionProxyDelegateInterceptorForTesting : public IpProtectionProxyDelegate {
+  virtual IpProtectionProxyDelegate* GetForwardingInterface() = 0;
+  void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) override;
+  void InvalidateIpProtectionConfigCacheTryAgainAfterTime() override;
+};
+class BLINK_PLATFORM_EXPORT IpProtectionProxyDelegateAsyncWaiter {
+ public:
+  explicit IpProtectionProxyDelegateAsyncWaiter(IpProtectionProxyDelegate* proxy);
+
+  IpProtectionProxyDelegateAsyncWaiter(const IpProtectionProxyDelegateAsyncWaiter&) = delete;
+  IpProtectionProxyDelegateAsyncWaiter& operator=(const IpProtectionProxyDelegateAsyncWaiter&) = delete;
+
+  ~IpProtectionProxyDelegateAsyncWaiter();
+  void VerifyIpProtectionConfigGetterForTesting(
+      BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after);
+  
+
+ private:
+  IpProtectionProxyDelegate* const proxy_;
+};
+
+
 class BLINK_PLATFORM_EXPORT NetworkContextInterceptorForTesting : public NetworkContext {
   virtual NetworkContext* GetForwardingInterface() = 0;
   void SetClient(::mojo::PendingRemote<NetworkContextClient> client) override;
@@ -218,8 +235,6 @@ class BLINK_PLATFORM_EXPORT NetworkContextInterceptorForTesting : public Network
   void ResolveHost(::network::mojom::blink::HostResolverHostPtr host, ::network::mojom::blink::NetworkAnonymizationKeyPtr network_anonymization_key, ::network::mojom::blink::ResolveHostParametersPtr optional_parameters, ::mojo::PendingRemote<::network::mojom::blink::ResolveHostClient> response_client) override;
   void CreateHostResolver(::network::mojom::blink::DnsConfigOverridesPtr config_overrides, ::mojo::PendingReceiver<::network::mojom::blink::HostResolver> host_resolver) override;
   void VerifyCertForSignedExchange(::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, const WTF::String& ocsp_response, const WTF::String& sct_list, VerifyCertForSignedExchangeCallback callback) override;
-  void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) override;
-  void InvalidateIpProtectionConfigCacheTryAgainAfterTime() override;
   void AddHSTS(const WTF::String& host, ::base::Time expiry, bool include_subdomains, AddHSTSCallback callback) override;
   void IsHSTSActiveForHost(const WTF::String& host, IsHSTSActiveForHostCallback callback) override;
   void GetHSTSState(const WTF::String& domain, GetHSTSStateCallback callback) override;
@@ -328,9 +343,6 @@ class BLINK_PLATFORM_EXPORT NetworkContextAsyncWaiter {
   
   void VerifyCertForSignedExchange(
       ::network::mojom::blink::X509CertificatePtr certificate, const ::blink::KURL& url, const WTF::String& ocsp_response, const WTF::String& sct_list, int32_t* out_error_code, ::network::mojom::blink::CertVerifyResultPtr* out_cv_result, bool* out_pkp_bypassed);
-  
-  void VerifyIpProtectionConfigGetterForTesting(
-      BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after);
   
   void AddHSTS(
       const WTF::String& host, ::base::Time expiry, bool include_subdomains);

@@ -2764,7 +2764,7 @@ enum class WebFeature : int32_t {
   
   kOBSOLETE_ShapeDetection_TextDetectorConstructor = 1993,
   
-  kInertAttribute = 1995,
+  kOBSOLETE_InertAttribute = 1995,
   
   kPluginInstanceAccessFromIsolatedWorld = 1996,
   
@@ -7520,7 +7520,7 @@ enum class WebFeature : int32_t {
   
   kServiceWorkerBypassFetchHandlerForAllWithRaceNetworkRequestByOriginTrial = 4559,
   
-  kEventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved = 4560,
+  kOBSOLETE_EventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved = 4560,
   
   kLinkRelPreloadAsFont = 4561,
   
@@ -7594,7 +7594,7 @@ enum class WebFeature : int32_t {
   
   kContainerQueryEvalUnknown = 4596,
   
-  kEventTimingPresentationPromiseResolvedAfterReport = 4597,
+  kOBSOLETE_EventTimingPresentationPromiseResolvedAfterReport = 4597,
   
   kGetCoalescedEventsInInsecureContext = 4598,
   
@@ -7920,9 +7920,73 @@ enum class WebFeature : int32_t {
   
   kV8WasmJavaScriptPromiseIntegration = 4760,
   
-  kNumberOfFeatures = 4761,
+  kWindowMinimize = 4761,
+  
+  kWindowMaximize = 4762,
+  
+  kWindowRestore = 4763,
+  
+  kWindowSetResizable = 4764,
+  
+  kV8WasmReturnCall = 4765,
+  
+  kV8WasmExtendedConst = 4766,
+  
+  kV8WasmRelaxedSimd = 4767,
+  
+  kV8WasmTypeReflection = 4768,
+  
+  kV8WasmExnRef = 4769,
+  
+  kV8WasmTypedFuncRef = 4770,
+  
+  kHTMLButtonInSelect = 4771,
+  
+  kHTMLDatalistInSelect = 4772,
+  
+  kEffectiveAlignContentForBlock = 4773,
+  
+  kEffectiveAlignContentForTableCell = 4774,
+  
+  kUserFeatureNgOptimizedImage = 4775,
+  
+  kCSSAtRulePageMargin = 4776,
+  
+  kThirdPartyCookieDeprecation_AllowByEnterprisePolicyCookieAllowedForUrls = 4777,
+  
+  kUserFeatureNgAfterRender = 4778,
+  
+  kUserFeatureNgHydration = 4779,
+  
+  kCapturedSurfaceControl = 4780,
+  
+  kElementGetHTML = 4781,
+  
+  kElementAttachSerializableShadow = 4782,
+  
+  kCSSBareDeclarationShift = 4783,
+  
+  kCSSNestedGroupRuleSpecificity = 4784,
+  
+  kCSSRuleWithSignalingChildModified = 4785,
+  
+  kUserFeatureNextThirdPartiesGA = 4786,
+  
+  kUserFeatureNextThirdPartiesGTM = 4787,
+  
+  kUserFeatureNextThirdPartiesYouTubeEmbed = 4788,
+  
+  kUserFeatureNextThirdPartiesGoogleMapsEmbed = 4789,
+  
+  kStorageAccessAPI_hasUnpartitionedCookieAccess = 4790,
+  
+  kStorageAccessAPI_requestStorageAccess_BeyondCookies_cookies = 4791,
+  
+  kVisualViewportScrollEndFired = 4792,
+  
+  kNumberOfFeatures = 4793,
   kMinValue = 0,
-  kMaxValue = 4761,
+  kMaxValue = 4793,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, WebFeature value);

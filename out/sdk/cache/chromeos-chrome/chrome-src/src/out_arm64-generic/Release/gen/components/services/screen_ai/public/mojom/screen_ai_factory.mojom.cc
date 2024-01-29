@@ -174,6 +174,7 @@ void ScreenAIServiceFactoryProxy::InitializeOCR(
    });
 #endif
 
+  CHECK(base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIOCREnabled));
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
@@ -217,10 +218,6 @@ void ScreenAIServiceFactoryProxy::InitializeOCR(
       "null model_files in ScreenAIServiceFactory.InitializeOCR request");
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::screen_ai::mojom::OCRServiceInterfaceBase>>(
       in_ocr_service_receiver, &params->ocr_service_receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->ocr_service_receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid ocr_service_receiver in ScreenAIServiceFactory.InitializeOCR request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ScreenAIServiceFactory::Name_);
@@ -251,6 +248,7 @@ void ScreenAIServiceFactoryProxy::InitializeMainContentExtraction(
    });
 #endif
 
+  CHECK(base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIMainContentExtractionEnabled));
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
@@ -294,10 +292,6 @@ void ScreenAIServiceFactoryProxy::InitializeMainContentExtraction(
       "null model_files in ScreenAIServiceFactory.InitializeMainContentExtraction request");
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::screen_ai::mojom::MainContentExtractionServiceInterfaceBase>>(
       in_main_content_extractor_service, &params->main_content_extractor_service, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->main_content_extractor_service),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid main_content_extractor_service in ScreenAIServiceFactory.InitializeMainContentExtraction request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ScreenAIServiceFactory::Name_);
@@ -366,6 +360,8 @@ bool ScreenAIServiceFactory_InitializeOCR_ForwardToCallback::Accept(
           internal::ScreenAIServiceFactory_InitializeOCR_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIServiceFactory.0
   bool success = true;
   bool p_initialized{};
   ScreenAIServiceFactory_InitializeOCR_ResponseParamsDataView input_data_view(params, message);
@@ -485,6 +481,8 @@ bool ScreenAIServiceFactory_InitializeMainContentExtraction_ForwardToCallback::A
           internal::ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIServiceFactory.1
   bool success = true;
   bool p_initialized{};
   ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParamsDataView input_data_view(params, message);
@@ -578,6 +576,8 @@ bool ScreenAIServiceFactoryStubDispatch::AcceptWithResponder(
               internal::ScreenAIServiceFactory_InitializeOCR_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIServiceFactory.0
       bool success = true;
       ::base::FilePath p_library_path{};
       base::flat_map<::base::FilePath, ::base::File> p_model_files{};
@@ -604,10 +604,10 @@ bool ScreenAIServiceFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeOCR(
-std::move(p_library_path), 
-std::move(p_model_files), 
-std::move(p_ocr_service_receiver), std::move(callback));
+      impl->InitializeOCR(        
+        std::move(p_library_path), 
+        std::move(p_model_files), 
+        std::move(p_ocr_service_receiver), std::move(callback));
       return true;
     }
     case internal::kScreenAIServiceFactory_InitializeMainContentExtraction_Name: {
@@ -617,6 +617,8 @@ std::move(p_ocr_service_receiver), std::move(callback));
               internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIServiceFactory.1
       bool success = true;
       ::base::FilePath p_library_path{};
       base::flat_map<::base::FilePath, ::base::File> p_model_files{};
@@ -643,21 +645,39 @@ std::move(p_ocr_service_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeMainContentExtraction(
-std::move(p_library_path), 
-std::move(p_model_files), 
-std::move(p_main_content_extractor_service), std::move(callback));
+      impl->InitializeMainContentExtraction(        
+        std::move(p_library_path), 
+        std::move(p_model_files), 
+        std::move(p_main_content_extractor_service), std::move(callback));
       return true;
     }
   }
   return false;
 }
 namespace {
+
+bool ValidateWithRuntimeFeature_ScreenAIServiceFactory_InitializeOCR(
+  const void* data, mojo::internal::ValidationContext* validation_context) {
+  if (!base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIOCREnabled)) {
+    return false;
+  }
+  return internal::ScreenAIServiceFactory_InitializeOCR_Params_Data::Validate(
+    data, validation_context);
+}
+
+bool ValidateWithRuntimeFeature_ScreenAIServiceFactory_InitializeMainContentExtraction(
+  const void* data, mojo::internal::ValidationContext* validation_context) {
+  if (!base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIMainContentExtractionEnabled)) {
+    return false;
+  }
+  return internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data::Validate(
+    data, validation_context);
+}
 }  // namespace
 static const mojo::internal::GenericValidationInfo kScreenAIServiceFactoryValidationInfo[] = {
-    { &internal::ScreenAIServiceFactory_InitializeOCR_Params_Data::Validate,
+    { &ValidateWithRuntimeFeature_ScreenAIServiceFactory_InitializeOCR,
      &internal::ScreenAIServiceFactory_InitializeOCR_ResponseParams_Data::Validate},
-    { &internal::ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data::Validate,
+    { &ValidateWithRuntimeFeature_ScreenAIServiceFactory_InitializeMainContentExtraction,
      &internal::ScreenAIServiceFactory_InitializeMainContentExtraction_ResponseParams_Data::Validate},
 };
 

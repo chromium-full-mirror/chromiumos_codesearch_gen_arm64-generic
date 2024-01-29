@@ -156,6 +156,8 @@ bool DebugLogsChangeHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DebugLogsChangeHandler_ChangeDebugLogsState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DebugLogsChangeHandler.0
       bool success = true;
       bool p_should_debug_logs_be_enabled{};
       DebugLogsChangeHandler_ChangeDebugLogsState_ParamsDataView input_data_view(params, message);
@@ -171,8 +173,8 @@ bool DebugLogsChangeHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangeDebugLogsState(
-std::move(p_should_debug_logs_be_enabled));
+      impl->ChangeDebugLogsState(        
+        std::move(p_should_debug_logs_be_enabled));
       return true;
     }
   }
@@ -226,6 +228,9 @@ BluetoothInternalsHandler::IPCStableHashFunction BluetoothInternalsHandler::Mess
     case internal::kBluetoothInternalsHandler_RequestLocationServices_Name: {
       return &BluetoothInternalsHandler::RequestLocationServices_Sym::IPCStableHash;
     }
+    case internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name: {
+      return &BluetoothInternalsHandler::RestartSystemBluetooth_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -247,6 +252,8 @@ const char* BluetoothInternalsHandler::MessageToMethodName_(mojo::Message& messa
             return "Receive mojom::BluetoothInternalsHandler::RequestSystemPermissions";
       case internal::kBluetoothInternalsHandler_RequestLocationServices_Name:
             return "Receive mojom::BluetoothInternalsHandler::RequestLocationServices";
+      case internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name:
+            return "Receive mojom::BluetoothInternalsHandler::RestartSystemBluetooth";
     }
   } else {
     switch (message.name()) {
@@ -260,6 +267,8 @@ const char* BluetoothInternalsHandler::MessageToMethodName_(mojo::Message& messa
             return "Receive reply mojom::BluetoothInternalsHandler::RequestSystemPermissions";
       case internal::kBluetoothInternalsHandler_RequestLocationServices_Name:
             return "Receive reply mojom::BluetoothInternalsHandler::RequestLocationServices";
+      case internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name:
+            return "Receive reply mojom::BluetoothInternalsHandler::RestartSystemBluetooth";
     }
   }
   return "Receive unknown mojo message";
@@ -335,6 +344,19 @@ uint32_t BluetoothInternalsHandler::RequestLocationServices_Sym::IPCStableHash()
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)mojom::BluetoothInternalsHandler::RequestLocationServices");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t BluetoothInternalsHandler::RestartSystemBluetooth_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)mojom::BluetoothInternalsHandler::RestartSystemBluetooth");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -419,6 +441,22 @@ class BluetoothInternalsHandler_RequestLocationServices_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   BluetoothInternalsHandler::RequestLocationServicesCallback callback_;
+};
+
+class BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback(
+      BluetoothInternalsHandler::RestartSystemBluetoothCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback(const BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback&) = delete;
+  BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback& operator=(const BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  BluetoothInternalsHandler::RestartSystemBluetoothCallback callback_;
 };
 
 BluetoothInternalsHandlerProxy::BluetoothInternalsHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -594,6 +632,40 @@ void BluetoothInternalsHandlerProxy::RequestLocationServices(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void BluetoothInternalsHandlerProxy::RestartSystemBluetooth(
+    RestartSystemBluetoothCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send mojom::BluetoothInternalsHandler::RestartSystemBluetooth");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(BluetoothInternalsHandler::Name_);
+  message.set_method_name("RestartSystemBluetooth");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class BluetoothInternalsHandler_GetAdapter_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static BluetoothInternalsHandler::GetAdapterCallback CreateCallback(
@@ -652,6 +724,8 @@ bool BluetoothInternalsHandler_GetAdapter_ForwardToCallback::Accept(
           internal::BluetoothInternalsHandler_GetAdapter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInternalsHandler.0
   bool success = true;
   ::mojo::PendingRemote<::bluetooth::mojom::Adapter> p_adapter{};
   BluetoothInternalsHandler_GetAdapter_ResponseParamsDataView input_data_view(params, message);
@@ -774,6 +848,8 @@ bool BluetoothInternalsHandler_GetDebugLogsChangeHandler_ForwardToCallback::Acce
           internal::BluetoothInternalsHandler_GetDebugLogsChangeHandler_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInternalsHandler.1
   bool success = true;
   ::mojo::PendingRemote<DebugLogsChangeHandler> p_handler{};
   bool p_initial_toggle_value{};
@@ -904,6 +980,8 @@ bool BluetoothInternalsHandler_CheckSystemPermissions_ForwardToCallback::Accept(
           internal::BluetoothInternalsHandler_CheckSystemPermissions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInternalsHandler.2
   bool success = true;
   bool p_need_location_permission{};
   bool p_need_nearby_devices_permission{};
@@ -1047,6 +1125,8 @@ bool BluetoothInternalsHandler_RequestSystemPermissions_ForwardToCallback::Accep
           internal::BluetoothInternalsHandler_RequestSystemPermissions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInternalsHandler.3
   bool success = true;
   BluetoothInternalsHandler_RequestSystemPermissions_ResponseParamsDataView input_data_view(params, message);
   
@@ -1154,6 +1234,8 @@ bool BluetoothInternalsHandler_RequestLocationServices_ForwardToCallback::Accept
           internal::BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInternalsHandler.4
   bool success = true;
   BluetoothInternalsHandler_RequestLocationServices_ResponseParamsDataView input_data_view(params, message);
   
@@ -1203,6 +1285,115 @@ void BluetoothInternalsHandler_RequestLocationServices_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static BluetoothInternalsHandler::RestartSystemBluetoothCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder> proxy(
+        new BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "BluetoothInternalsHandler::RestartSystemBluetoothCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool BluetoothInternalsHandler_RestartSystemBluetooth_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for BluetoothInternalsHandler.5
+  bool success = true;
+  BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        BluetoothInternalsHandler::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply mojom::BluetoothInternalsHandler::RestartSystemBluetooth");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::internal::BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(BluetoothInternalsHandler::Name_);
+  message.set_method_name("RestartSystemBluetooth");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool BluetoothInternalsHandlerStubDispatch::Accept(
@@ -1222,6 +1413,9 @@ bool BluetoothInternalsHandlerStubDispatch::Accept(
       break;
     }
     case internal::kBluetoothInternalsHandler_RequestLocationServices_Name: {
+      break;
+    }
+    case internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name: {
       break;
     }
   }
@@ -1244,6 +1438,8 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::BluetoothInternalsHandler_GetAdapter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInternalsHandler.0
       bool success = true;
       BluetoothInternalsHandler_GetAdapter_ParamsDataView input_data_view(params, message);
       
@@ -1269,6 +1465,8 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::BluetoothInternalsHandler_GetDebugLogsChangeHandler_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInternalsHandler.1
       bool success = true;
       BluetoothInternalsHandler_GetDebugLogsChangeHandler_ParamsDataView input_data_view(params, message);
       
@@ -1294,6 +1492,8 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::BluetoothInternalsHandler_CheckSystemPermissions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInternalsHandler.2
       bool success = true;
       BluetoothInternalsHandler_CheckSystemPermissions_ParamsDataView input_data_view(params, message);
       
@@ -1319,6 +1519,8 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::BluetoothInternalsHandler_RequestSystemPermissions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInternalsHandler.3
       bool success = true;
       BluetoothInternalsHandler_RequestSystemPermissions_ParamsDataView input_data_view(params, message);
       
@@ -1344,6 +1546,8 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::BluetoothInternalsHandler_RequestLocationServices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInternalsHandler.4
       bool success = true;
       BluetoothInternalsHandler_RequestLocationServices_ParamsDataView input_data_view(params, message);
       
@@ -1362,6 +1566,33 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
       impl->RequestLocationServices(std::move(callback));
       return true;
     }
+    case internal::kBluetoothInternalsHandler_RestartSystemBluetooth_Name: {
+
+      internal::BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data* params =
+          reinterpret_cast<
+              internal::BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for BluetoothInternalsHandler.5
+      bool success = true;
+      BluetoothInternalsHandler_RestartSystemBluetooth_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            BluetoothInternalsHandler::Name_, 5, false);
+        return false;
+      }
+      BluetoothInternalsHandler::RestartSystemBluetoothCallback callback =
+          BluetoothInternalsHandler_RestartSystemBluetooth_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RestartSystemBluetooth(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1378,6 +1609,8 @@ static const mojo::internal::GenericValidationInfo kBluetoothInternalsHandlerVal
      &internal::BluetoothInternalsHandler_RequestSystemPermissions_ResponseParams_Data::Validate},
     { &internal::BluetoothInternalsHandler_RequestLocationServices_Params_Data::Validate,
      &internal::BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data::Validate},
+    { &internal::BluetoothInternalsHandler_RestartSystemBluetooth_Params_Data::Validate,
+     &internal::BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams_Data::Validate},
 };
 
 bool BluetoothInternalsHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -1431,6 +1664,9 @@ void BluetoothInternalsHandlerInterceptorForTesting::RequestSystemPermissions(Re
 }
 void BluetoothInternalsHandlerInterceptorForTesting::RequestLocationServices(RequestLocationServicesCallback callback) {
   GetForwardingInterface()->RequestLocationServices(std::move(callback));
+}
+void BluetoothInternalsHandlerInterceptorForTesting::RestartSystemBluetooth(RestartSystemBluetoothCallback callback) {
+  GetForwardingInterface()->RestartSystemBluetooth(std::move(callback));
 }
 BluetoothInternalsHandlerAsyncWaiter::BluetoothInternalsHandlerAsyncWaiter(
     BluetoothInternalsHandler* proxy) : proxy_(proxy) {}
@@ -1530,6 +1766,20 @@ void BluetoothInternalsHandlerAsyncWaiter::RequestLocationServices(
     ) {
   base::RunLoop loop;
   proxy_->RequestLocationServices(
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
+
+void BluetoothInternalsHandlerAsyncWaiter::RestartSystemBluetooth(
+    ) {
+  base::RunLoop loop;
+  proxy_->RestartSystemBluetooth(
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();

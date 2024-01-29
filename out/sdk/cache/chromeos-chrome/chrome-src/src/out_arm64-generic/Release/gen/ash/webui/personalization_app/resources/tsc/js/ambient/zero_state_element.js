@@ -4,7 +4,7 @@
 /**
  * @fileoverview Polymer element that displays the Ambient zero state.
  */
-import '../../css/common.css.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
 import { getTemplate } from './zero_state_element.html.js';

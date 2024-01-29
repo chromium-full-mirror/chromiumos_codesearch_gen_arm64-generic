@@ -642,14 +642,17 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("AddressMode::");
             switch (value) {
+            case AddressMode::Undefined:
+                s->Append("Undefined");
+                break;
+            case AddressMode::ClampToEdge:
+                s->Append("ClampToEdge");
+                break;
             case AddressMode::Repeat:
                 s->Append("Repeat");
                 break;
             case AddressMode::MirrorRepeat:
                 s->Append("MirrorRepeat");
-                break;
-            case AddressMode::ClampToEdge:
-                s->Append("ClampToEdge");
                 break;
             }
         } else {
@@ -726,6 +729,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("BlendFactor::");
             switch (value) {
+            case BlendFactor::Undefined:
+                s->Append("Undefined");
+                break;
             case BlendFactor::Zero:
                 s->Append("Zero");
                 break;
@@ -790,6 +796,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("BlendOperation::");
             switch (value) {
+            case BlendOperation::Undefined:
+                s->Append("Undefined");
+                break;
             case BlendOperation::Add:
                 s->Append("Add");
                 break;
@@ -1045,6 +1054,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("CullMode::");
             switch (value) {
+            case CullMode::Undefined:
+                s->Append("Undefined");
+                break;
             case CullMode::None:
                 s->Append("None");
                 break;
@@ -1272,6 +1284,9 @@ namespace wgpu {
             case FeatureName::AdapterPropertiesMemoryHeaps:
                 s->Append("AdapterPropertiesMemoryHeaps");
                 break;
+            case FeatureName::AdapterPropertiesD3D:
+                s->Append("AdapterPropertiesD3D");
+                break;
             case FeatureName::SharedTextureMemoryVkDedicatedAllocation:
                 s->Append("SharedTextureMemoryVkDedicatedAllocation");
                 break;
@@ -1327,6 +1342,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("FilterMode::");
             switch (value) {
+            case FilterMode::Undefined:
+                s->Append("Undefined");
+                break;
             case FilterMode::Nearest:
                 s->Append("Nearest");
                 break;
@@ -1346,6 +1364,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("FrontFace::");
             switch (value) {
+            case FrontFace::Undefined:
+                s->Append("Undefined");
+                break;
             case FrontFace::CCW:
                 s->Append("CCW");
                 break;
@@ -1434,6 +1455,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("MipmapFilterMode::");
             switch (value) {
+            case MipmapFilterMode::Undefined:
+                s->Append("Undefined");
+                break;
             case MipmapFilterMode::Nearest:
                 s->Append("Nearest");
                 break;
@@ -1497,6 +1521,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("PrimitiveTopology::");
             switch (value) {
+            case PrimitiveTopology::Undefined:
+                s->Append("Undefined");
+                break;
             case PrimitiveTopology::PointList:
                 s->Append("PointList");
                 break;
@@ -1721,6 +1748,9 @@ namespace wgpu {
             case SType::AdapterPropertiesMemoryHeaps:
                 s->Append("AdapterPropertiesMemoryHeaps");
                 break;
+            case SType::AdapterPropertiesD3D:
+                s->Append("AdapterPropertiesD3D");
+                break;
             case SType::DawnComputePipelineFullSubgroups:
                 s->Append("DawnComputePipelineFullSubgroups");
                 break;
@@ -1871,6 +1901,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("StencilOperation::");
             switch (value) {
+            case StencilOperation::Undefined:
+                s->Append("Undefined");
+                break;
             case StencilOperation::Keep:
                 s->Append("Keep");
                 break;
@@ -1955,6 +1988,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("TextureAspect::");
             switch (value) {
+            case TextureAspect::Undefined:
+                s->Append("Undefined");
+                break;
             case TextureAspect::All:
                 s->Append("All");
                 break;
@@ -1986,6 +2022,9 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("TextureDimension::");
             switch (value) {
+            case TextureDimension::Undefined:
+                s->Append("Undefined");
+                break;
             case TextureDimension::e1D:
                 s->Append("e1D");
                 break;
@@ -2510,14 +2549,17 @@ namespace wgpu {
         if (spec.conversion_char() == absl::FormatConversionChar::s) {
             s->Append("VertexStepMode::");
             switch (value) {
+            case VertexStepMode::Undefined:
+                s->Append("Undefined");
+                break;
+            case VertexStepMode::VertexBufferNotUsed:
+                s->Append("VertexBufferNotUsed");
+                break;
             case VertexStepMode::Vertex:
                 s->Append("Vertex");
                 break;
             case VertexStepMode::Instance:
                 s->Append("Instance");
-                break;
-            case VertexStepMode::VertexBufferNotUsed:
-                s->Append("VertexBufferNotUsed");
                 break;
             }
         } else {

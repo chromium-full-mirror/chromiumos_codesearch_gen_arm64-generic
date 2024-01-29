@@ -730,8 +730,9 @@ export const CSSSampleId = {
   kMaskPosition: 779,
   kMaskMode: 780,
   kInsetArea: 781,
+  kViewTransitionClass: 782,
   MIN_VALUE: 0,
-  MAX_VALUE: 781,
+  MAX_VALUE: 782,
 };
 
 

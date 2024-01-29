@@ -6,46 +6,13 @@
  */
 import '//resources/js/action_link.js';
 import '../../components/throbber_notice.js';
-import { ensureTransitionEndEvent } from '//resources/ash/common/util.js';
-import { html, mixinBehaviors, Polymer, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { ensureTransitionEndEvent } from '//resources/js/util.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { getTemplate } from './app_launch_splash.html.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- */
 const AppLaunchSplashBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior], PolymerElement);
-/**
- * @typedef {{
- *   configNetworkContainer:  HTMLElement,
- *   configNetwork:  HTMLElement,
- *   shortcutInfo:  HTMLElement,
- *   header:  HTMLElement,
- * }}
- */
-AppLaunchSplashBase.$;
-/**
- * @typedef {{
- *   name: string,
- *   iconURL: string,
- *   url: string,
- * }}
- */
-let AppData;
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   shortcutEnabled: boolean,
- *   appInfo: AppData,
- * }}
- */
-let AppLaunchSplashScreenData;
-/**
- * @polymer
- */
 class AppLaunchSplash extends AppLaunchSplashBase {
     static get is() {
         return 'app-launch-splash-element';
@@ -55,79 +22,91 @@ class AppLaunchSplash extends AppLaunchSplashBase {
     }
     static get properties() {
         return {
-            appName: { type: String, value: '' },
-            appUrl: { type: String, value: '' },
-            launchText: { type: String, value: '' },
+            appName: {
+                type: String,
+                value: '',
+            },
+            appUrl: {
+                type: String,
+                value: '',
+            },
+            launchText: {
+                type: String,
+                value: '',
+            },
         };
     }
     get EXTERNAL_API() {
-        return ['toggleNetworkConfig',
-            'updateApp',
-            'updateMessage'];
+        return ['toggleNetworkConfig', 'updateApp', 'updateMessage'];
     }
     ready() {
         super.ready();
         this.initializeLoginScreen('AppLaunchSplashScreen');
-        const networkContainer = this.$.configNetworkContainer;
-        networkContainer.addEventListener('transitionend', this.onConfigNetworkTransitionend_.bind(this));
+        const networkContainer = this.shadowRoot.getElementById('configNetworkContainer');
+        networkContainer.addEventListener('transitionend', this.onConfigNetworkTransitionend.bind(this));
         // Ensure the transitionend event gets called after a wait time.
         // The wait time should be inline with the transition duration time
         // defined in css file. The current value in css is 1000ms. To avoid
         // the emulated transitionend firing before real one, a 1050ms
         // delay is used.
-        ensureTransitionEndEvent(/** @type {!HTMLElement} */ (networkContainer), 1050);
+        ensureTransitionEndEvent((networkContainer), 1050);
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.KIOSK;
     }
-    onConfigNetwork_(e) {
+    onConfigNetwork() {
         chrome.send('configureNetwork');
     }
-    onConfigNetworkTransitionend_(e) {
-        if (this.$.configNetworkContainer.classList.contains('faded')) {
-            this.$.configNetwork.hidden = true;
+    onConfigNetworkTransitionend() {
+        if (this.shadowRoot.getElementById('configNetworkContainer').classList
+            .contains('faded')) {
+            this.shadowRoot.getElementById('configNetwork').hidden = true;
         }
     }
     /**
      * Event handler that is invoked just before the frame is shown.
-     * @param {AppLaunchSplashScreenData} data Screen init payload.
+     * @param data Screen init payload.
      */
     onBeforeShow(data) {
-        this.$.configNetwork.hidden = true;
+        this.shadowRoot.getElementById('configNetwork').hidden = true;
         this.toggleNetworkConfig(false);
         this.updateApp(data['appInfo']);
-        this.$.shortcutInfo.hidden = !data['shortcutEnabled'];
+        this.shadowRoot.getElementById('shortcutInfo').hidden =
+            !data['shortcutEnabled'];
     }
     /**
      * Toggles visibility of the network configuration option.
-     * @param {boolean} visible Whether to show the option.
+     * @param visible Whether to show the option.
      */
     toggleNetworkConfig(visible) {
-        const currVisible = !this.$.configNetworkContainer.classList.contains('faded');
+        const currVisible = !this.shadowRoot.getElementById('configNetworkContainer').classList
+            .contains('faded');
         if (currVisible == visible) {
             return;
         }
         if (visible) {
-            this.$.configNetwork.hidden = false;
-            this.$.configNetworkContainer.classList.remove('faded');
+            this.shadowRoot.getElementById('configNetwork').hidden = false;
+            this.shadowRoot.getElementById('configNetworkContainer').classList.remove('faded');
         }
         else {
-            this.$.configNetworkContainer.classList.add('faded');
+            this.shadowRoot.getElementById('configNetworkContainer').classList.add('faded');
         }
     }
     /**
      * Updates the app name and icon.
-     * @param {AppData} app Details of app being launched.
+     * @param app Details of app being launched.
      */
     updateApp(app) {
         this.appName = app.name;
         this.appUrl = app.url;
-        this.$.header.style.backgroundImage = 'url(' + app.iconURL + ')';
+        this.shadowRoot.getElementById('header').style.backgroundImage =
+            'url(' + app.iconURL + ')';
     }
     /**
      * Updates the message for the current launch state.
-     * @param {string} message Description for current launch state.
+     * @param message Description for current launch state.
      */
     updateMessage(message) {
         this.launchText = message;

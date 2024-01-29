@@ -710,6 +710,8 @@ bool UserInterface_ShowConfirmationDialog_ForwardToCallback::Accept(
           internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserInterface.2
   bool success = true;
   bool p_confirmed{};
   UserInterface_ShowConfirmationDialog_ResponseParamsDataView input_data_view(params, message);
@@ -784,6 +786,8 @@ bool UserInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::UserInterface_DarkenScreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserInterface.0
       bool success = true;
       bool p_darken{};
       UserInterface_DarkenScreen_ParamsDataView input_data_view(params, message);
@@ -799,8 +803,8 @@ bool UserInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DarkenScreen(
-std::move(p_darken));
+      impl->DarkenScreen(        
+        std::move(p_darken));
       return true;
     }
     case internal::kUserInterface_OpenSettingsSubpage_Name: {
@@ -810,6 +814,8 @@ std::move(p_darken));
           reinterpret_cast<internal::UserInterface_OpenSettingsSubpage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserInterface.1
       bool success = true;
       std::string p_subpage{};
       UserInterface_OpenSettingsSubpage_ParamsDataView input_data_view(params, message);
@@ -825,8 +831,8 @@ std::move(p_darken));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenSettingsSubpage(
-std::move(p_subpage));
+      impl->OpenSettingsSubpage(        
+        std::move(p_subpage));
       return true;
     }
     case internal::kUserInterface_ShowConfirmationDialog_Name: {
@@ -839,6 +845,8 @@ std::move(p_subpage));
           reinterpret_cast<internal::UserInterface_SetFocusRings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserInterface.3
       bool success = true;
       std::vector<FocusRingInfoPtr> p_focus_rings{};
       ::ax::mojom::AssistiveTechnologyType p_at_type{};
@@ -857,9 +865,9 @@ std::move(p_subpage));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFocusRings(
-std::move(p_focus_rings), 
-std::move(p_at_type));
+      impl->SetFocusRings(        
+        std::move(p_focus_rings), 
+        std::move(p_at_type));
       return true;
     }
     case internal::kUserInterface_SetHighlights_Name: {
@@ -869,6 +877,8 @@ std::move(p_at_type));
           reinterpret_cast<internal::UserInterface_SetHighlights_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserInterface.4
       bool success = true;
       std::vector<::gfx::Rect> p_rects{};
       ::SkColor p_color{};
@@ -887,9 +897,9 @@ std::move(p_at_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHighlights(
-std::move(p_rects), 
-std::move(p_color));
+      impl->SetHighlights(        
+        std::move(p_rects), 
+        std::move(p_color));
       return true;
     }
     case internal::kUserInterface_SetVirtualKeyboardVisible_Name: {
@@ -899,6 +909,8 @@ std::move(p_color));
           reinterpret_cast<internal::UserInterface_SetVirtualKeyboardVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserInterface.5
       bool success = true;
       bool p_is_visible{};
       UserInterface_SetVirtualKeyboardVisible_ParamsDataView input_data_view(params, message);
@@ -914,8 +926,8 @@ std::move(p_color));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVirtualKeyboardVisible(
-std::move(p_is_visible));
+      impl->SetVirtualKeyboardVisible(        
+        std::move(p_is_visible));
       return true;
     }
   }
@@ -944,6 +956,8 @@ bool UserInterfaceStubDispatch::AcceptWithResponder(
               internal::UserInterface_ShowConfirmationDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserInterface.2
       bool success = true;
       std::string p_title{};
       std::string p_description{};
@@ -968,10 +982,10 @@ bool UserInterfaceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowConfirmationDialog(
-std::move(p_title), 
-std::move(p_description), 
-std::move(p_cancelName), std::move(callback));
+      impl->ShowConfirmationDialog(        
+        std::move(p_title), 
+        std::move(p_description), 
+        std::move(p_cancelName), std::move(callback));
       return true;
     }
     case internal::kUserInterface_SetFocusRings_Name: {

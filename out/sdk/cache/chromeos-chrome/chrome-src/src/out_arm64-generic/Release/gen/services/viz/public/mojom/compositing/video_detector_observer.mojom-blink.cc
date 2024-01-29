@@ -202,6 +202,8 @@ bool VideoDetectorObserverStubDispatch::Accept(
           reinterpret_cast<internal::VideoDetectorObserver_OnVideoActivityStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDetectorObserver.0
       bool success = true;
       VideoDetectorObserver_OnVideoActivityStarted_ParamsDataView input_data_view(params, message);
       
@@ -214,7 +216,7 @@ bool VideoDetectorObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoActivityStarted();
+      impl->OnVideoActivityStarted(        );
       return true;
     }
     case internal::kVideoDetectorObserver_OnVideoActivityEnded_Name: {
@@ -224,6 +226,8 @@ bool VideoDetectorObserverStubDispatch::Accept(
           reinterpret_cast<internal::VideoDetectorObserver_OnVideoActivityEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDetectorObserver.1
       bool success = true;
       VideoDetectorObserver_OnVideoActivityEnded_ParamsDataView input_data_view(params, message);
       
@@ -236,7 +240,7 @@ bool VideoDetectorObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoActivityEnded();
+      impl->OnVideoActivityEnded(        );
       return true;
     }
   }

@@ -280,6 +280,8 @@ bool Clipboard_GetCopyPasteText_ForwardToCallback::Accept(
           internal::Clipboard_GetCopyPasteText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Clipboard.0
   bool success = true;
   std::string p_text{};
   Clipboard_GetCopyPasteText_ResponseParamsDataView input_data_view(params, message);
@@ -359,6 +361,8 @@ bool Clipboard_GetCopyPasteText_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Clipboard_GetCopyPasteText_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Clipboard.0
   bool success = true;
   std::string p_text{};
   Clipboard_GetCopyPasteText_ResponseParamsDataView input_data_view(params, message);
@@ -405,6 +409,8 @@ bool ClipboardStubDispatch::AcceptWithResponder(
               internal::Clipboard_GetCopyPasteText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Clipboard.0
       bool success = true;
       Clipboard_GetCopyPasteText_ParamsDataView input_data_view(params, message);
       

@@ -11,6 +11,7 @@ export var ThemeActionName;
     ThemeActionName["SET_COLOR_SCHEME"] = "set_color_scheme";
     ThemeActionName["SET_SAMPLE_COLOR_SCHEMES"] = "set_sample_color_schemes";
     ThemeActionName["SET_STATIC_COLOR"] = "set_static_color";
+    ThemeActionName["SET_GEOLOCATION_PERMISSION_ENABLED"] = "set_geolocation_permission_enabled";
 })(ThemeActionName || (ThemeActionName = {}));
 export function setDarkModeEnabledAction(enabled) {
     return { name: ThemeActionName.SET_DARK_MODE_ENABLED, enabled };
@@ -26,4 +27,7 @@ export function setSampleColorSchemesAction(sampleColorSchemes) {
 }
 export function setStaticColorAction(staticColor) {
     return { name: ThemeActionName.SET_STATIC_COLOR, staticColor };
+}
+export function setGeolocationPermissionEnabledAction(enabled) {
+    return { name: ThemeActionName.SET_GEOLOCATION_PERMISSION_ENABLED, enabled };
 }

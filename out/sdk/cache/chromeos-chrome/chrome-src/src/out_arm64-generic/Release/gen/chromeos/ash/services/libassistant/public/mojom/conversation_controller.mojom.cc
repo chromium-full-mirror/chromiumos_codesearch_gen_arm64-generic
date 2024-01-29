@@ -740,6 +740,8 @@ bool ConversationControllerStubDispatch::Accept(
           reinterpret_cast<internal::ConversationController_SendTextQuery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.0
       bool success = true;
       std::string p_query{};
       ::ash::assistant::AssistantQuerySource p_source{};
@@ -761,10 +763,10 @@ bool ConversationControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendTextQuery(
-std::move(p_query), 
-std::move(p_source), 
-std::move(p_allow_tts));
+      impl->SendTextQuery(        
+        std::move(p_query), 
+        std::move(p_source), 
+        std::move(p_allow_tts));
       return true;
     }
     case internal::kConversationController_StartVoiceInteraction_Name: {
@@ -774,6 +776,8 @@ std::move(p_allow_tts));
           reinterpret_cast<internal::ConversationController_StartVoiceInteraction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.1
       bool success = true;
       ConversationController_StartVoiceInteraction_ParamsDataView input_data_view(params, message);
       
@@ -786,7 +790,7 @@ std::move(p_allow_tts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartVoiceInteraction();
+      impl->StartVoiceInteraction(        );
       return true;
     }
     case internal::kConversationController_StartEditReminderInteraction_Name: {
@@ -796,6 +800,8 @@ std::move(p_allow_tts));
           reinterpret_cast<internal::ConversationController_StartEditReminderInteraction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.2
       bool success = true;
       std::string p_client_id{};
       ConversationController_StartEditReminderInteraction_ParamsDataView input_data_view(params, message);
@@ -811,8 +817,8 @@ std::move(p_allow_tts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEditReminderInteraction(
-std::move(p_client_id));
+      impl->StartEditReminderInteraction(        
+        std::move(p_client_id));
       return true;
     }
     case internal::kConversationController_StopActiveInteraction_Name: {
@@ -822,6 +828,8 @@ std::move(p_client_id));
           reinterpret_cast<internal::ConversationController_StopActiveInteraction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.3
       bool success = true;
       bool p_cancel_conversation{};
       ConversationController_StopActiveInteraction_ParamsDataView input_data_view(params, message);
@@ -837,8 +845,8 @@ std::move(p_client_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopActiveInteraction(
-std::move(p_cancel_conversation));
+      impl->StopActiveInteraction(        
+        std::move(p_cancel_conversation));
       return true;
     }
     case internal::kConversationController_RetrieveNotification_Name: {
@@ -848,6 +856,8 @@ std::move(p_cancel_conversation));
           reinterpret_cast<internal::ConversationController_RetrieveNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.4
       bool success = true;
       ::ash::assistant::AssistantNotification p_notification{};
       int32_t p_action_index{};
@@ -866,9 +876,9 @@ std::move(p_cancel_conversation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RetrieveNotification(
-std::move(p_notification), 
-std::move(p_action_index));
+      impl->RetrieveNotification(        
+        std::move(p_notification), 
+        std::move(p_action_index));
       return true;
     }
     case internal::kConversationController_DismissNotification_Name: {
@@ -878,6 +888,8 @@ std::move(p_action_index));
           reinterpret_cast<internal::ConversationController_DismissNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.5
       bool success = true;
       ::ash::assistant::AssistantNotification p_notification{};
       ConversationController_DismissNotification_ParamsDataView input_data_view(params, message);
@@ -893,8 +905,8 @@ std::move(p_action_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissNotification(
-std::move(p_notification));
+      impl->DismissNotification(        
+        std::move(p_notification));
       return true;
     }
     case internal::kConversationController_SendAssistantFeedback_Name: {
@@ -904,6 +916,8 @@ std::move(p_notification));
           reinterpret_cast<internal::ConversationController_SendAssistantFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.6
       bool success = true;
       ::ash::assistant::AssistantFeedback p_feedback{};
       ConversationController_SendAssistantFeedback_ParamsDataView input_data_view(params, message);
@@ -919,8 +933,8 @@ std::move(p_notification));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendAssistantFeedback(
-std::move(p_feedback));
+      impl->SendAssistantFeedback(        
+        std::move(p_feedback));
       return true;
     }
     case internal::kConversationController_AddRemoteObserver_Name: {
@@ -930,6 +944,8 @@ std::move(p_feedback));
           reinterpret_cast<internal::ConversationController_AddRemoteObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConversationController.7
       bool success = true;
       ::mojo::PendingRemote<::ash::libassistant::mojom::ConversationObserver> p_observer{};
       ConversationController_AddRemoteObserver_ParamsDataView input_data_view(params, message);
@@ -947,8 +963,8 @@ std::move(p_feedback));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddRemoteObserver(
-std::move(p_observer));
+      impl->AddRemoteObserver(        
+        std::move(p_observer));
       return true;
     }
   }

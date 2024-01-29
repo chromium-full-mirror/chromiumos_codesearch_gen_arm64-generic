@@ -557,6 +557,10 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
       kind: ScreenKind.ERROR,
     },
     {
+      id: 'install-attributes-error-message',
+      kind: ScreenKind.ERROR,
+    },
+    {
       id: 'signin-fatal-error',
       kind: ScreenKind.ERROR,
       states: [
@@ -1153,7 +1157,8 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
     {
       id: 'consolidated-consent',
       kind: ScreenKind.NORMAL,
-      handledSteps: 'loaded,loading,error,google-eula,cros-eula,arc,privacy',
+      handledSteps:
+          'loaded,loading,play-load-error,google-eula,cros-eula,arc,privacy',
       // TODO(crbug.com/1247174): Use localized URLs for eulaUrl and
       // additionalTosUrl.
       states: [
@@ -1169,7 +1174,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1187,7 +1192,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1205,7 +1210,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: true,
             recoveryOptionDefault: true,
@@ -1223,7 +1228,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1241,7 +1246,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1256,7 +1261,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1274,7 +1279,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1292,7 +1297,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1312,17 +1317,16 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: true,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
           },
         },
         {
-          id: 'error',
+          id: 'play-load-error',
           trigger: (screen) => {
-            screen.setUIStep('error');
-            screen.setUsageOptinHidden(false);
+            screen.setUIStep('play-load-error');
           },
           data: {
             isArcEnabled: true,
@@ -1331,7 +1335,7 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
             isTosHidden: false,
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
             crosEulaUrl: 'https://www.google.com/intl/en/chrome/terms/',
-            arcTosUrl: 'https://play.google.com/about/play-terms/embedded/',
+            arcTosUrl: 'https://play.google/play-terms/embedded/',
             privacyPolicyUrl: 'https://policies.google.com/privacy/embedded',
             showRecoveryOption: false,
             recoveryOptionDefault: false,
@@ -1347,14 +1351,14 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
     {
       id: 'guest-tos',
       kind: ScreenKind.NORMAL,
-      handledSteps: 'loading,loaded,google-eula,cros-eula',
+      handledSteps: 'loading,overview,google-eula,cros-eula',
       // TODO(crbug.com/1247174): Use localized URLs for googleEulaURL and
       // crosEulaURL.
       states: [
         {
-          id: 'loaded',
+          id: 'overview',
           trigger: (screen) => {
-            screen.setUIStep('loaded');
+            screen.setUIStep('overview');
           },
           data: {
             googleEulaUrl: 'https://policies.google.com/terms/embedded?hl=en',
@@ -1834,14 +1838,17 @@ const createAssistantZippy = (type, isMinor, isNativeIcons) => {
       ],
     },
     {
+      id: 'remote-activity-notification',
+      kind: ScreenKind.NORMAL,
+    },
+    {
       id: 'cryptohome-recovery',
       kind: ScreenKind.NORMAL,
     },
     {
       id: 'quick-start',
       kind: ScreenKind.NORMAL,
-      handledSteps:
-          'verification,connecting_to_wifi,signing_in,setup_complete',
+      handledSteps: 'verification,connecting_to_wifi,signing_in,setup_complete',
       states: [
         {
           id: 'PinVerification',

@@ -32,6 +32,16 @@ const MD_FIELD_TOP_BOTTOM_SPACE_PX = css `${DEFAULT_TOP_BOTTOM_SPACE + CROS_DROP
  * focus outline, we have to increase the corner radius by the outline width.
  */
 const CROS_DROPDOWN_CONTAINER_CORNER_RADIUS = css `${8 + CROS_DROPDOWN_OUTLINE_WIDTH}px`;
+/** The SVG to use in the trailing icon slot when the dropdown is open. */
+const ARROW_DROP_UP_ICON = html `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 -960 960 960">
+    <path d="M274.848-378.5 480-583.652 685.152-378.5H274.848Z"/>
+  </svg>`;
+/** The SVG to use in the trailing icon slot when the dropdown is closed. */
+const ARROW_DROP_DOWN_ICON = html `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 -960 960 960">
+    <path d="M480-376.348 274.848-581.5h410.304L480-376.348Z"/>
+  </svg>`;
 /**
  * A chromeOS compliant dropdown.
  */
@@ -58,7 +68,7 @@ export class Dropdown extends LitElement {
       --md-outlined-select-text-field-trailing-icon-size: 20px;
 
       --md-outlined-select-text-field-input-text-color: var(--cros-sys-on_surface);
-      --md-outlined-select-text-field-input-text-font: var(--cros-body-2-font-family);
+      --md-outlined-select-text-field-input-text-font: var(--cros-dropdown-input-text-font, var(--cros-body-2-font-family));
       --md-outlined-select-text-field-input-text-line-height: var(--cros-body-2-line-height);
       --md-outlined-select-text-field-input-text-size: var(--cros-body-2-font-size);
       --md-outlined-select-text-field-input-text-weight: var(--cros-body-2-font-weight);
@@ -179,6 +189,10 @@ export class Dropdown extends LitElement {
       height: var(--md-outlined-select-text-field-leading-icon-size);
       width: var(--md-outlined-select-text-field-leading-icon-size);
     }
+
+    slot[name="trailing"] {
+      fill: var(--cros-sys-secondary)
+    }
   `; }
     /** @nocollapse */
     static { this.shadowRootOptions = {
@@ -203,6 +217,9 @@ export class Dropdown extends LitElement {
     get mdField() {
         return this.mdSelect?.shadowRoot?.querySelector('md-outlined-field') ||
             null;
+    }
+    get trailingIcon() {
+        return this.shadowRoot.querySelector('slot[name="trailing"]') || null;
     }
     /**
      * The value of the dropdown, should match the `value` property of a child
@@ -279,6 +296,11 @@ export class Dropdown extends LitElement {
               @slotchange=${this.handleIconChange}>
           </slot>
           <slot></slot>
+          <slot
+            name="trailing"
+            slot="trailing-icon">
+            ${this.open ? ARROW_DROP_UP_ICON : ARROW_DROP_DOWN_ICON}
+          </slot>
         </md-outlined-select>
       </div>
     `;
@@ -293,11 +315,11 @@ export class Dropdown extends LitElement {
     // wrapper to read aria-expanded.
     onOpened() {
         this.open = true;
-        this.mdSelect?.style.setProperty('--md-outlined-field-focus-trailing-content-color', 'var(--cros-sys-primary)');
+        this.trailingIcon?.style.setProperty('fill', 'var(--cros-sys-primary)');
     }
     onClosed() {
         this.open = false;
-        this.mdSelect?.style.setProperty('--md-outlined-field-focus-trailing-content-color', 'var(--cros-sys-secondary)');
+        this.trailingIcon?.style.setProperty('fill', 'var(--cros-sys-secondary)');
         this.mdField.ariaExpanded = 'false';
     }
     toggleErrorStyles(error) {

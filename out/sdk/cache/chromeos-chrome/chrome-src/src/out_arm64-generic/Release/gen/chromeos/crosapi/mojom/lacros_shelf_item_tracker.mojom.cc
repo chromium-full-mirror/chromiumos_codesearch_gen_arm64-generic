@@ -231,6 +231,8 @@ bool LacrosShelfItemTrackerStubDispatch::Accept(
           reinterpret_cast<internal::LacrosShelfItemTracker_AddOrUpdateWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LacrosShelfItemTracker.0
       bool success = true;
       WindowDataPtr p_window_data{};
       LacrosShelfItemTracker_AddOrUpdateWindow_ParamsDataView input_data_view(params, message);
@@ -246,8 +248,8 @@ bool LacrosShelfItemTrackerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddOrUpdateWindow(
-std::move(p_window_data));
+      impl->AddOrUpdateWindow(        
+        std::move(p_window_data));
       return true;
     }
   }

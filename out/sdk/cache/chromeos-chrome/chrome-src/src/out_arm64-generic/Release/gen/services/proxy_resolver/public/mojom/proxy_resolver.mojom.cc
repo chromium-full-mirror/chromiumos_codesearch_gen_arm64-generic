@@ -201,6 +201,8 @@ bool HostResolverRequestClientStubDispatch::Accept(
           reinterpret_cast<internal::HostResolverRequestClient_ReportResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostResolverRequestClient.0
       bool success = true;
       int32_t p_error{};
       std::vector<::net::IPAddress> p_result{};
@@ -219,9 +221,9 @@ bool HostResolverRequestClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportResult(
-std::move(p_error), 
-std::move(p_result));
+      impl->ReportResult(        
+        std::move(p_error), 
+        std::move(p_result));
       return true;
     }
   }
@@ -398,6 +400,8 @@ bool ProxyResolverStubDispatch::Accept(
           reinterpret_cast<internal::ProxyResolver_GetProxyForUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolver.0
       bool success = true;
       ::GURL p_url{};
       ::net::NetworkAnonymizationKey p_network_anonymization_key{};
@@ -421,10 +425,10 @@ bool ProxyResolverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetProxyForUrl(
-std::move(p_url), 
-std::move(p_network_anonymization_key), 
-std::move(p_client));
+      impl->GetProxyForUrl(        
+        std::move(p_url), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_client));
       return true;
     }
   }
@@ -827,6 +831,8 @@ bool ProxyResolverRequestClientStubDispatch::Accept(
           reinterpret_cast<internal::ProxyResolverRequestClient_ReportResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverRequestClient.0
       bool success = true;
       int32_t p_error{};
       ::net::ProxyInfo p_proxy_info{};
@@ -845,9 +851,9 @@ bool ProxyResolverRequestClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportResult(
-std::move(p_error), 
-std::move(p_proxy_info));
+      impl->ReportResult(        
+        std::move(p_error), 
+        std::move(p_proxy_info));
       return true;
     }
     case internal::kProxyResolverRequestClient_Alert_Name: {
@@ -857,6 +863,8 @@ std::move(p_proxy_info));
           reinterpret_cast<internal::ProxyResolverRequestClient_Alert_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverRequestClient.1
       bool success = true;
       std::string p_error{};
       ProxyResolverRequestClient_Alert_ParamsDataView input_data_view(params, message);
@@ -872,8 +880,8 @@ std::move(p_proxy_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Alert(
-std::move(p_error));
+      impl->Alert(        
+        std::move(p_error));
       return true;
     }
     case internal::kProxyResolverRequestClient_OnError_Name: {
@@ -883,6 +891,8 @@ std::move(p_error));
           reinterpret_cast<internal::ProxyResolverRequestClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverRequestClient.2
       bool success = true;
       int32_t p_line_number{};
       std::string p_error{};
@@ -901,9 +911,9 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_line_number), 
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_line_number), 
+        std::move(p_error));
       return true;
     }
     case internal::kProxyResolverRequestClient_ResolveDns_Name: {
@@ -913,6 +923,8 @@ std::move(p_error));
           reinterpret_cast<internal::ProxyResolverRequestClient_ResolveDns_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverRequestClient.3
       bool success = true;
       std::string p_host{};
       ::net::ProxyResolveDnsOperation p_operation{};
@@ -939,11 +951,11 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveDns(
-std::move(p_host), 
-std::move(p_operation), 
-std::move(p_network_anonymization_key), 
-std::move(p_client));
+      impl->ResolveDns(        
+        std::move(p_host), 
+        std::move(p_operation), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_client));
       return true;
     }
   }
@@ -1132,6 +1144,8 @@ bool ProxyResolverFactoryStubDispatch::Accept(
           reinterpret_cast<internal::ProxyResolverFactory_CreateResolver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverFactory.0
       bool success = true;
       std::string p_pac_script{};
       ::mojo::PendingReceiver<ProxyResolver> p_receiver{};
@@ -1157,10 +1171,10 @@ bool ProxyResolverFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateResolver(
-std::move(p_pac_script), 
-std::move(p_receiver), 
-std::move(p_client));
+      impl->CreateResolver(        
+        std::move(p_pac_script), 
+        std::move(p_receiver), 
+        std::move(p_client));
       return true;
     }
   }
@@ -1549,6 +1563,8 @@ bool ProxyResolverFactoryRequestClientStubDispatch::Accept(
           reinterpret_cast<internal::ProxyResolverFactoryRequestClient_ReportResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverFactoryRequestClient.0
       bool success = true;
       int32_t p_error{};
       ProxyResolverFactoryRequestClient_ReportResult_ParamsDataView input_data_view(params, message);
@@ -1564,8 +1580,8 @@ bool ProxyResolverFactoryRequestClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportResult(
-std::move(p_error));
+      impl->ReportResult(        
+        std::move(p_error));
       return true;
     }
     case internal::kProxyResolverFactoryRequestClient_Alert_Name: {
@@ -1575,6 +1591,8 @@ std::move(p_error));
           reinterpret_cast<internal::ProxyResolverFactoryRequestClient_Alert_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverFactoryRequestClient.1
       bool success = true;
       std::string p_error{};
       ProxyResolverFactoryRequestClient_Alert_ParamsDataView input_data_view(params, message);
@@ -1590,8 +1608,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Alert(
-std::move(p_error));
+      impl->Alert(        
+        std::move(p_error));
       return true;
     }
     case internal::kProxyResolverFactoryRequestClient_OnError_Name: {
@@ -1601,6 +1619,8 @@ std::move(p_error));
           reinterpret_cast<internal::ProxyResolverFactoryRequestClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverFactoryRequestClient.2
       bool success = true;
       int32_t p_line_number{};
       std::string p_error{};
@@ -1619,9 +1639,9 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_line_number), 
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_line_number), 
+        std::move(p_error));
       return true;
     }
     case internal::kProxyResolverFactoryRequestClient_ResolveDns_Name: {
@@ -1631,6 +1651,8 @@ std::move(p_error));
           reinterpret_cast<internal::ProxyResolverFactoryRequestClient_ResolveDns_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyResolverFactoryRequestClient.3
       bool success = true;
       std::string p_host{};
       ::net::ProxyResolveDnsOperation p_operation{};
@@ -1657,11 +1679,11 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveDns(
-std::move(p_host), 
-std::move(p_operation), 
-std::move(p_network_anonymization_key), 
-std::move(p_client));
+      impl->ResolveDns(        
+        std::move(p_host), 
+        std::move(p_operation), 
+        std::move(p_network_anonymization_key), 
+        std::move(p_client));
       return true;
     }
   }

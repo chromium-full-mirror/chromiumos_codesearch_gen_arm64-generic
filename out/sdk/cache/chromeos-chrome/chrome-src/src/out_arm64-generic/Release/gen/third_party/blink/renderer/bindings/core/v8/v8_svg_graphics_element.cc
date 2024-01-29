@@ -91,7 +91,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGraphi
 BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.transform.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGGraphicsElement_Transform_AttributeGetter);
 
@@ -110,7 +111,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGraphi
 BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.nearestViewportElement.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVGLocatableNearestViewportElement);
 
@@ -129,7 +131,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGGraphi
 BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.farthestViewportElement.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVGLocatableFarthestViewportElement);
 
@@ -150,7 +153,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.requiredExtensions.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGGraphicsElement.requiredExtensions.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 
@@ -173,7 +177,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGraphicsElement.systemLanguage.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGGraphicsElement.systemLanguage.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMSVGTests);
 

@@ -111,12 +111,12 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8AbortController_Constructor);
 
 
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& return_value = AbortController::Create(script_state);
 v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V8AbortController::GetWrapperTypeInfo(), v8_receiver);
@@ -139,8 +139,7 @@ do {  // Dummy loop for use of 'break'.
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 AbortController* blink_receiver = V8AbortController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   blink_receiver->abort(script_state);

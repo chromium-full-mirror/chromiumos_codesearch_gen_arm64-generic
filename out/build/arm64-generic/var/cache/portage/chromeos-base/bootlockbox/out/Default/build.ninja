@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/bootlockbox-0.0.1-r425/work/bootlockbox-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/bootlockbox-0.0.1-r441/work/bootlockbox-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

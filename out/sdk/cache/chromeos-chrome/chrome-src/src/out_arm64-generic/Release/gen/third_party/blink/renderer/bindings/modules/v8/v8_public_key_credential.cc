@@ -89,17 +89,13 @@ BLINK_BINDINGS_TRACE_EVENT("PublicKeyCredential.rawId.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rawId();
-if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -145,17 +141,13 @@ BLINK_BINDINGS_TRACE_EVENT("PublicKeyCredential.getClientExtensionResults");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getClientExtensionResults();
-if (!ToV8Traits<AuthenticationExtensionsClientOutputs>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<AuthenticationExtensionsClientOutputs>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -170,17 +162,13 @@ BLINK_BINDINGS_TRACE_EVENT("PublicKeyCredential.toJSON");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 PublicKeyCredential* blink_receiver = V8PublicKeyCredential::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toJSON(script_state);
-if (!ToV8Traits<V8UnionAuthenticationResponseJSONOrRegistrationResponseJSON>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<V8UnionAuthenticationResponseJSONOrRegistrationResponseJSON>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -242,7 +230,6 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
@@ -254,9 +241,7 @@ auto&& return_value = PublicKeyCredential::parseCreationOptionsFromJSON(script_s
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<PublicKeyCredentialCreationOptions>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<PublicKeyCredentialCreationOptions>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

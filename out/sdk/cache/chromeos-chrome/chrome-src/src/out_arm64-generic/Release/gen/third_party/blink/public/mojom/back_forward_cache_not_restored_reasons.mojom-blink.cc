@@ -47,15 +47,12 @@
 namespace blink::mojom::blink {
 SameOriginBfcacheNotRestoredDetails::SameOriginBfcacheNotRestoredDetails()
     : url(),
-      reasons(),
       children() {}
 
 SameOriginBfcacheNotRestoredDetails::SameOriginBfcacheNotRestoredDetails(
     const WTF::String& url_in,
-    WTF::Vector<WTF::String> reasons_in,
     WTF::Vector<BackForwardCacheNotRestoredReasonsPtr> children_in)
     : url(std::move(url_in)),
-      reasons(std::move(reasons_in)),
       children(std::move(children_in)) {}
 
 SameOriginBfcacheNotRestoredDetails::~SameOriginBfcacheNotRestoredDetails() = default;
@@ -68,15 +65,6 @@ void SameOriginBfcacheNotRestoredDetails::WriteIntoTrace(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::String&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "reasons"), this->reasons,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const WTF::Vector<WTF::String>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -98,22 +86,22 @@ bool SameOriginBfcacheNotRestoredDetails::Validate(
   return Data_::Validate(data, validation_context);
 }
 BackForwardCacheNotRestoredReasons::BackForwardCacheNotRestoredReasons()
-    : blocked(),
-      src(),
+    : src(),
       id(),
       name(),
+      reasons(),
       same_origin_details() {}
 
 BackForwardCacheNotRestoredReasons::BackForwardCacheNotRestoredReasons(
-    BFCacheBlocked blocked_in,
     const WTF::String& src_in,
     const WTF::String& id_in,
     const WTF::String& name_in,
+    WTF::Vector<WTF::String> reasons_in,
     SameOriginBfcacheNotRestoredDetailsPtr same_origin_details_in)
-    : blocked(std::move(blocked_in)),
-      src(std::move(src_in)),
+    : src(std::move(src_in)),
       id(std::move(id_in)),
       name(std::move(name_in)),
+      reasons(std::move(reasons_in)),
       same_origin_details(std::move(same_origin_details_in)) {}
 
 BackForwardCacheNotRestoredReasons::~BackForwardCacheNotRestoredReasons() = default;
@@ -121,15 +109,6 @@ BackForwardCacheNotRestoredReasons::~BackForwardCacheNotRestoredReasons() = defa
 void BackForwardCacheNotRestoredReasons::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "blocked"), this->blocked,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type BFCacheBlocked>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "src"), this->src,
@@ -153,6 +132,15 @@ void BackForwardCacheNotRestoredReasons::WriteIntoTrace(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::String&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "reasons"), this->reasons,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<WTF::String>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -190,8 +178,6 @@ bool StructTraits<::blink::mojom::blink::SameOriginBfcacheNotRestoredDetails::Da
   
       if (success && !input.ReadUrl(&result->url))
         success = false;
-      if (success && !input.ReadReasons(&result->reasons))
-        success = false;
       if (success && !input.ReadChildren(&result->children))
         success = false;
   *output = std::move(result);
@@ -206,13 +192,13 @@ bool StructTraits<::blink::mojom::blink::BackForwardCacheNotRestoredReasons::Dat
   bool success = true;
   ::blink::mojom::blink::BackForwardCacheNotRestoredReasonsPtr result(::blink::mojom::blink::BackForwardCacheNotRestoredReasons::New());
   
-      if (success && !input.ReadBlocked(&result->blocked))
-        success = false;
       if (success && !input.ReadSrc(&result->src))
         success = false;
       if (success && !input.ReadId(&result->id))
         success = false;
       if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadReasons(&result->reasons))
         success = false;
       if (success && !input.ReadSameOriginDetails(&result->same_origin_details))
         success = false;

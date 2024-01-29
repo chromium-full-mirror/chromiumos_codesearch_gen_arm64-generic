@@ -1,6 +1,7 @@
 {
   "deps": [
     "../../../../../media/mojo/mojom/mojom.build_metadata",
+    "../../../../../ui/accessibility/ax_features_mojo.build_metadata",
     "../../../../../ui/accessibility/mojom/mojom.build_metadata"
   ],
   "sources": [

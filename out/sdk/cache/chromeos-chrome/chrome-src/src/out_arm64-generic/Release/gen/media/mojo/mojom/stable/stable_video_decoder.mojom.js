@@ -924,6 +924,157 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function StableCdmContext_ParseEncryptedSliceHeader_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  StableCdmContext_ParseEncryptedSliceHeader_Params.prototype.initDefaults_ = function() {
+    this.secureHandle = 0;
+    this.offset = 0;
+    this.streamData = null;
+  };
+  StableCdmContext_ParseEncryptedSliceHeader_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  StableCdmContext_ParseEncryptedSliceHeader_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 32}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // validate StableCdmContext_ParseEncryptedSliceHeader_Params.streamData
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 1, codec.Uint8, false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  StableCdmContext_ParseEncryptedSliceHeader_Params.encodedSize = codec.kStructHeaderSize + 24;
+
+  StableCdmContext_ParseEncryptedSliceHeader_Params.decode = function(decoder) {
+    var packed;
+    var val = new StableCdmContext_ParseEncryptedSliceHeader_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.secureHandle =
+        decoder.decodeStruct(codec.Uint64);
+    val.offset =
+        decoder.decodeStruct(codec.Uint32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.streamData =
+        decoder.decodeArrayPointer(codec.Uint8);
+    return val;
+  };
+
+  StableCdmContext_ParseEncryptedSliceHeader_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(StableCdmContext_ParseEncryptedSliceHeader_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Uint64, val.secureHandle);
+    encoder.encodeStruct(codec.Uint32, val.offset);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeArrayPointer(codec.Uint8, val.streamData);
+  };
+  function StableCdmContext_ParseEncryptedSliceHeader_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.prototype.initDefaults_ = function() {
+    this.success = false;
+    this.sliceHeader = null;
+  };
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.sliceHeader
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 1, codec.Uint8, false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new StableCdmContext_ParseEncryptedSliceHeader_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.success = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.sliceHeader =
+        decoder.decodeArrayPointer(codec.Uint8);
+    return val;
+  };
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.success & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeArrayPointer(codec.Uint8, val.sliceHeader);
+  };
   function StableVideoDecoder_GetSupportedConfigs_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -2096,6 +2247,7 @@
   var kStableCdmContext_GetHwConfigData_Name = 2;
   var kStableCdmContext_GetScreenResolutions_Name = 3;
   var kStableCdmContext_AllocateSecureBuffer_Name = 4;
+  var kStableCdmContext_ParseEncryptedSliceHeader_Name = 5;
 
   function StableCdmContextPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(StableCdmContext,
@@ -2229,6 +2381,33 @@
       });
     }.bind(this));
   };
+  StableCdmContextPtr.prototype.parseEncryptedSliceHeader = function() {
+    return StableCdmContextProxy.prototype.parseEncryptedSliceHeader
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  StableCdmContextProxy.prototype.parseEncryptedSliceHeader = function(secureHandle, offset, streamData) {
+    var params_ = new StableCdmContext_ParseEncryptedSliceHeader_Params();
+    params_.secureHandle = secureHandle;
+    params_.offset = offset;
+    params_.streamData = streamData;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kStableCdmContext_ParseEncryptedSliceHeader_Name,
+          codec.align(StableCdmContext_ParseEncryptedSliceHeader_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(StableCdmContext_ParseEncryptedSliceHeader_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(StableCdmContext_ParseEncryptedSliceHeader_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
 
   function StableCdmContextStub(delegate) {
     this.delegate_ = delegate;
@@ -2247,6 +2426,9 @@
   }
   StableCdmContextStub.prototype.allocateSecureBuffer = function(size) {
     return this.delegate_ && this.delegate_.allocateSecureBuffer && this.delegate_.allocateSecureBuffer(size);
+  }
+  StableCdmContextStub.prototype.parseEncryptedSliceHeader = function(secureHandle, offset, streamData) {
+    return this.delegate_ && this.delegate_.parseEncryptedSliceHeader && this.delegate_.parseEncryptedSliceHeader(secureHandle, offset, streamData);
   }
 
   StableCdmContextStub.prototype.accept = function(message) {
@@ -2331,6 +2513,23 @@
         responder.accept(message);
       });
       return true;
+    case kStableCdmContext_ParseEncryptedSliceHeader_Name:
+      var params = reader.decodeStruct(StableCdmContext_ParseEncryptedSliceHeader_Params);
+      this.parseEncryptedSliceHeader(params.secureHandle, params.offset, params.streamData).then(function(response) {
+        var responseParams =
+            new StableCdmContext_ParseEncryptedSliceHeader_ResponseParams();
+        responseParams.success = response.success;
+        responseParams.sliceHeader = response.sliceHeader;
+        var builder = new codec.MessageV1Builder(
+            kStableCdmContext_ParseEncryptedSliceHeader_Name,
+            codec.align(StableCdmContext_ParseEncryptedSliceHeader_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(StableCdmContext_ParseEncryptedSliceHeader_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -2360,6 +2559,10 @@
         if (message.expectsResponse())
           paramsClass = StableCdmContext_AllocateSecureBuffer_Params;
       break;
+      case kStableCdmContext_ParseEncryptedSliceHeader_Name:
+        if (message.expectsResponse())
+          paramsClass = StableCdmContext_ParseEncryptedSliceHeader_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2386,6 +2589,10 @@
         if (message.isResponse())
           paramsClass = StableCdmContext_AllocateSecureBuffer_ResponseParams;
         break;
+      case kStableCdmContext_ParseEncryptedSliceHeader_Name:
+        if (message.isResponse())
+          paramsClass = StableCdmContext_ParseEncryptedSliceHeader_ResponseParams;
+        break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2394,7 +2601,7 @@
 
   var StableCdmContext = {
     name: 'media.stable.mojom.StableCdmContext',
-    kVersion: 2,
+    kVersion: 3,
     ptrClass: StableCdmContextPtr,
     proxyClass: StableCdmContextProxy,
     stubClass: StableCdmContextStub,

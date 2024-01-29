@@ -171,6 +171,8 @@ bool HoldingSpaceServiceStubDispatch::Accept(
           reinterpret_cast<internal::HoldingSpaceService_AddPrintedPdf_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HoldingSpaceService.0
       bool success = true;
       ::base::FilePath p_file_path{};
       bool p_from_incognito_profile{};
@@ -189,9 +191,9 @@ bool HoldingSpaceServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPrintedPdf(
-std::move(p_file_path), 
-std::move(p_from_incognito_profile));
+      impl->AddPrintedPdf(        
+        std::move(p_file_path), 
+        std::move(p_from_incognito_profile));
       return true;
     }
   }

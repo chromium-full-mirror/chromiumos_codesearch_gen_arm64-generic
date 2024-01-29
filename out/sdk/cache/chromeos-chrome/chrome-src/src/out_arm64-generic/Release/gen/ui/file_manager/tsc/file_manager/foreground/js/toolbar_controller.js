@@ -8,8 +8,7 @@ import { isCrosComponentsEnabled } from '../../common/js/flags.js';
 import { str, strf } from '../../common/js/translations.js';
 import { canBulkPinningCloudPanelShow } from '../../common/js/util.js';
 import { RootType } from '../../common/js/volume_manager_types.js';
-import { State } from '../../externs/ts/state.js';
-import { Store } from '../../externs/ts/store.js';
+import {} from '../../state/state.js';
 import { getStore } from '../../state/store.js';
 import { XfCloudPanel } from '../../widgets/xf_cloud_panel.js';
 import { ICON_TYPES } from './constants.js';
@@ -156,18 +155,18 @@ export class ToolbarController {
             text = '';
         }
         else if (selection.totalCount === 1) {
-            if (selection.directoryCount == 0) {
+            if (selection.directoryCount === 0) {
                 text = str('ONE_FILE_SELECTED');
             }
-            else if (selection.fileCount == 0) {
+            else if (selection.fileCount === 0) {
                 text = str('ONE_DIRECTORY_SELECTED');
             }
         }
         else {
-            if (selection.directoryCount == 0) {
+            if (selection.directoryCount === 0) {
                 text = strf('MANY_FILES_SELECTED', selection.fileCount);
             }
-            else if (selection.fileCount == 0) {
+            else if (selection.fileCount === 0) {
                 text = strf('MANY_DIRECTORIES_SELECTED', selection.directoryCount);
             }
             else {
@@ -191,7 +190,7 @@ export class ToolbarController {
             this.moveToTrashCommand.canExecuteChange(this.listContainer_.currentList);
         }
         // Update visibility of the restore-from-trash button.
-        this.restoreFromTrashButton_.hidden = (selection.totalCount == 0) ||
+        this.restoreFromTrashButton_.hidden = (selection.totalCount === 0) ||
             this.directoryModel_.getCurrentRootType() !== RootType.TRASH;
         this.togglePinnedCommand_.canExecuteChange(this.listContainer_.currentList);
         // Set .selecting class to containing element to change the view
@@ -203,7 +202,7 @@ export class ToolbarController {
         if (this.directoryModel_.getFileListSelection().multiple) {
             const bodyClassList = this.filesSelectedLabel_.ownerDocument.body.classList;
             bodyClassList.toggle('selecting', selection.totalCount > 0);
-            if (bodyClassList.contains('check-select') !=
+            if (bodyClassList.contains('check-select') !==
                 this.directoryModel_.getFileListSelection()
                     .getCheckSelectMode()) {
                 bodyClassList.toggle('check-select');

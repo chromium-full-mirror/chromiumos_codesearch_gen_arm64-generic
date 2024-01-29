@@ -5,7 +5,7 @@
  * @fileoverview Displays a dialog informing the user that a Google Photos album
  * selected for daily refresh is shared with other Google Photos accounts.
  */
-import '../../css/cros_button_style.css.js';
+import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { isGooglePhotosSharedAlbumsEnabled } from '../load_time_booleans.js';

@@ -76,7 +76,8 @@ class  DisplayMediaInformation {
       DisplayCaptureSurfaceType display_surface,
       bool logical_surface,
       CursorCaptureType cursor,
-      ::media::mojom::CaptureHandlePtr capture_handle);
+      ::media::mojom::CaptureHandlePtr capture_handle,
+      int32_t initial_zoom_level);
 
 DisplayMediaInformation(const DisplayMediaInformation&) = delete;
 DisplayMediaInformation& operator=(const DisplayMediaInformation&) = delete;
@@ -163,6 +164,8 @@ DisplayMediaInformation& operator=(const DisplayMediaInformation&) = delete;
   CursorCaptureType cursor;
   
   ::media::mojom::CaptureHandlePtr capture_handle;
+  
+  int32_t initial_zoom_level;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -199,7 +202,8 @@ DisplayMediaInformationPtr DisplayMediaInformation::Clone() const {
       mojo::Clone(display_surface),
       mojo::Clone(logical_surface),
       mojo::Clone(cursor),
-      mojo::Clone(capture_handle)
+      mojo::Clone(capture_handle),
+      mojo::Clone(initial_zoom_level)
   );
 }
 
@@ -212,6 +216,8 @@ bool DisplayMediaInformation::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->cursor, other_struct.cursor))
     return false;
   if (!mojo::Equals(this->capture_handle, other_struct.capture_handle))
+    return false;
+  if (!mojo::Equals(this->initial_zoom_level, other_struct.initial_zoom_level))
     return false;
   return true;
 }
@@ -233,6 +239,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.capture_handle < rhs.capture_handle)
     return true;
   if (rhs.capture_handle < lhs.capture_handle)
+    return false;
+  if (lhs.initial_zoom_level < rhs.initial_zoom_level)
+    return true;
+  if (rhs.initial_zoom_level < lhs.initial_zoom_level)
     return false;
   return false;
 }
@@ -267,6 +277,11 @@ struct  StructTraits<::media::mojom::DisplayMediaInformation::DataView,
   static const decltype(::media::mojom::DisplayMediaInformation::capture_handle)& capture_handle(
       const ::media::mojom::DisplayMediaInformationPtr& input) {
     return input->capture_handle;
+  }
+
+  static decltype(::media::mojom::DisplayMediaInformation::initial_zoom_level) initial_zoom_level(
+      const ::media::mojom::DisplayMediaInformationPtr& input) {
+    return input->initial_zoom_level;
   }
 
   static bool Read(::media::mojom::DisplayMediaInformation::DataView input, ::media::mojom::DisplayMediaInformationPtr* output);

@@ -2596,6 +2596,8 @@ bool ClipboardHost_GetSequenceNumber_ForwardToCallback::Accept(
           internal::ClipboardHost_GetSequenceNumber_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.0
   bool success = true;
   ::blink::ClipboardSequenceNumberToken p_result{};
   ClipboardHost_GetSequenceNumber_ResponseParamsDataView input_data_view(params, message);
@@ -2675,6 +2677,8 @@ bool ClipboardHost_GetSequenceNumber_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_GetSequenceNumber_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.0
   bool success = true;
   ::blink::ClipboardSequenceNumberToken p_result{};
   ClipboardHost_GetSequenceNumber_ResponseParamsDataView input_data_view(params, message);
@@ -2750,6 +2754,8 @@ bool ClipboardHost_IsFormatAvailable_ForwardToCallback::Accept(
           internal::ClipboardHost_IsFormatAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.1
   bool success = true;
   bool p_result{};
   ClipboardHost_IsFormatAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -2819,6 +2825,8 @@ bool ClipboardHost_IsFormatAvailable_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_IsFormatAvailable_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.1
   bool success = true;
   bool p_result{};
   ClipboardHost_IsFormatAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -2894,6 +2902,8 @@ bool ClipboardHost_ReadAvailableTypes_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadAvailableTypes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.2
   bool success = true;
   std::vector<::std::u16string> p_types{};
   ClipboardHost_ReadAvailableTypes_ResponseParamsDataView input_data_view(params, message);
@@ -2975,6 +2985,8 @@ bool ClipboardHost_ReadAvailableTypes_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadAvailableTypes_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.2
   bool success = true;
   std::vector<::std::u16string> p_types{};
   ClipboardHost_ReadAvailableTypes_ResponseParamsDataView input_data_view(params, message);
@@ -3050,6 +3062,8 @@ bool ClipboardHost_ReadText_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.3
   bool success = true;
   ::std::u16string p_result{};
   ClipboardHost_ReadText_ResponseParamsDataView input_data_view(params, message);
@@ -3129,6 +3143,8 @@ bool ClipboardHost_ReadText_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadText_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.3
   bool success = true;
   ::std::u16string p_result{};
   ClipboardHost_ReadText_ResponseParamsDataView input_data_view(params, message);
@@ -3204,6 +3220,8 @@ bool ClipboardHost_ReadHtml_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadHtml_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.4
   bool success = true;
   ::std::u16string p_markup{};
   ::GURL p_url{};
@@ -3317,6 +3335,8 @@ bool ClipboardHost_ReadHtml_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadHtml_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.4
   bool success = true;
   ::std::u16string p_markup{};
   ::GURL p_url{};
@@ -3404,6 +3424,8 @@ bool ClipboardHost_ReadSvg_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadSvg_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.5
   bool success = true;
   ::std::u16string p_result{};
   ClipboardHost_ReadSvg_ResponseParamsDataView input_data_view(params, message);
@@ -3533,6 +3555,8 @@ bool ClipboardHost_ReadRtf_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadRtf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.6
   bool success = true;
   ::std::string p_result{};
   ClipboardHost_ReadRtf_ResponseParamsDataView input_data_view(params, message);
@@ -3612,6 +3636,8 @@ bool ClipboardHost_ReadRtf_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadRtf_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.6
   bool success = true;
   ::std::string p_result{};
   ClipboardHost_ReadRtf_ResponseParamsDataView input_data_view(params, message);
@@ -3687,6 +3713,8 @@ bool ClipboardHost_ReadPng_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadPng_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.7
   bool success = true;
   ::mojo_base::BigBuffer p_png{};
   ClipboardHost_ReadPng_ResponseParamsDataView input_data_view(params, message);
@@ -3764,6 +3792,8 @@ bool ClipboardHost_ReadPng_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadPng_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.7
   bool success = true;
   ::mojo_base::BigBuffer p_png{};
   ClipboardHost_ReadPng_ResponseParamsDataView input_data_view(params, message);
@@ -3839,6 +3869,8 @@ bool ClipboardHost_ReadFiles_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadFiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.8
   bool success = true;
   ClipboardFilesPtr p_result{};
   ClipboardHost_ReadFiles_ResponseParamsDataView input_data_view(params, message);
@@ -3918,6 +3950,8 @@ bool ClipboardHost_ReadFiles_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadFiles_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.8
   bool success = true;
   ClipboardFilesPtr p_result{};
   ClipboardHost_ReadFiles_ResponseParamsDataView input_data_view(params, message);
@@ -3993,6 +4027,8 @@ bool ClipboardHost_ReadCustomData_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadCustomData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.9
   bool success = true;
   ::std::u16string p_result{};
   ClipboardHost_ReadCustomData_ResponseParamsDataView input_data_view(params, message);
@@ -4072,6 +4108,8 @@ bool ClipboardHost_ReadCustomData_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ClipboardHost_ReadCustomData_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.9
   bool success = true;
   ::std::u16string p_result{};
   ClipboardHost_ReadCustomData_ResponseParamsDataView input_data_view(params, message);
@@ -4147,6 +4185,8 @@ bool ClipboardHost_ReadAvailableCustomAndStandardFormats_ForwardToCallback::Acce
           internal::ClipboardHost_ReadAvailableCustomAndStandardFormats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.10
   bool success = true;
   std::vector<::std::u16string> p_format_types{};
   ClipboardHost_ReadAvailableCustomAndStandardFormats_ResponseParamsDataView input_data_view(params, message);
@@ -4228,6 +4268,8 @@ bool ClipboardHost_ReadAvailableCustomAndStandardFormats_HandleSyncResponse::Acc
       reinterpret_cast<internal::ClipboardHost_ReadAvailableCustomAndStandardFormats_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.10
   bool success = true;
   std::vector<::std::u16string> p_format_types{};
   ClipboardHost_ReadAvailableCustomAndStandardFormats_ResponseParamsDataView input_data_view(params, message);
@@ -4303,6 +4345,8 @@ bool ClipboardHost_ReadUnsanitizedCustomFormat_ForwardToCallback::Accept(
           internal::ClipboardHost_ReadUnsanitizedCustomFormat_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.11
   bool success = true;
   ::mojo_base::BigBuffer p_data{};
   ClipboardHost_ReadUnsanitizedCustomFormat_ResponseParamsDataView input_data_view(params, message);
@@ -4421,6 +4465,8 @@ bool ClipboardHostStubDispatch::Accept(
           reinterpret_cast<internal::ClipboardHost_WriteText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.12
       bool success = true;
       ::std::u16string p_text{};
       ClipboardHost_WriteText_ParamsDataView input_data_view(params, message);
@@ -4436,8 +4482,8 @@ bool ClipboardHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteText(
-std::move(p_text));
+      impl->WriteText(        
+        std::move(p_text));
       return true;
     }
     case internal::kClipboardHost_WriteHtml_Name: {
@@ -4447,6 +4493,8 @@ std::move(p_text));
           reinterpret_cast<internal::ClipboardHost_WriteHtml_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.13
       bool success = true;
       ::std::u16string p_markup{};
       ::GURL p_url{};
@@ -4465,9 +4513,9 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteHtml(
-std::move(p_markup), 
-std::move(p_url));
+      impl->WriteHtml(        
+        std::move(p_markup), 
+        std::move(p_url));
       return true;
     }
     case internal::kClipboardHost_WriteSvg_Name: {
@@ -4477,6 +4525,8 @@ std::move(p_url));
           reinterpret_cast<internal::ClipboardHost_WriteSvg_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.14
       bool success = true;
       ::std::u16string p_markup{};
       ClipboardHost_WriteSvg_ParamsDataView input_data_view(params, message);
@@ -4492,8 +4542,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteSvg(
-std::move(p_markup));
+      impl->WriteSvg(        
+        std::move(p_markup));
       return true;
     }
     case internal::kClipboardHost_WriteSmartPasteMarker_Name: {
@@ -4503,6 +4553,8 @@ std::move(p_markup));
           reinterpret_cast<internal::ClipboardHost_WriteSmartPasteMarker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.15
       bool success = true;
       ClipboardHost_WriteSmartPasteMarker_ParamsDataView input_data_view(params, message);
       
@@ -4515,7 +4567,7 @@ std::move(p_markup));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteSmartPasteMarker();
+      impl->WriteSmartPasteMarker(        );
       return true;
     }
     case internal::kClipboardHost_WriteCustomData_Name: {
@@ -4525,6 +4577,8 @@ std::move(p_markup));
           reinterpret_cast<internal::ClipboardHost_WriteCustomData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.16
       bool success = true;
       base::flat_map<::std::u16string, ::std::u16string> p_data{};
       ClipboardHost_WriteCustomData_ParamsDataView input_data_view(params, message);
@@ -4540,8 +4594,8 @@ std::move(p_markup));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteCustomData(
-std::move(p_data));
+      impl->WriteCustomData(        
+        std::move(p_data));
       return true;
     }
     case internal::kClipboardHost_WriteBookmark_Name: {
@@ -4551,6 +4605,8 @@ std::move(p_data));
           reinterpret_cast<internal::ClipboardHost_WriteBookmark_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.17
       bool success = true;
       std::string p_url{};
       ::std::u16string p_title{};
@@ -4569,9 +4625,9 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteBookmark(
-std::move(p_url), 
-std::move(p_title));
+      impl->WriteBookmark(        
+        std::move(p_url), 
+        std::move(p_title));
       return true;
     }
     case internal::kClipboardHost_WriteImage_Name: {
@@ -4581,6 +4637,8 @@ std::move(p_title));
           reinterpret_cast<internal::ClipboardHost_WriteImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.18
       bool success = true;
       ::SkBitmap p_image{};
       ClipboardHost_WriteImage_ParamsDataView input_data_view(params, message);
@@ -4596,8 +4654,8 @@ std::move(p_title));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteImage(
-std::move(p_image));
+      impl->WriteImage(        
+        std::move(p_image));
       return true;
     }
     case internal::kClipboardHost_WriteUnsanitizedCustomFormat_Name: {
@@ -4607,6 +4665,8 @@ std::move(p_image));
           reinterpret_cast<internal::ClipboardHost_WriteUnsanitizedCustomFormat_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.19
       bool success = true;
       ::std::u16string p_format{};
       ::mojo_base::BigBuffer p_data{};
@@ -4625,9 +4685,9 @@ std::move(p_image));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteUnsanitizedCustomFormat(
-std::move(p_format), 
-std::move(p_data));
+      impl->WriteUnsanitizedCustomFormat(        
+        std::move(p_format), 
+        std::move(p_data));
       return true;
     }
     case internal::kClipboardHost_CommitWrite_Name: {
@@ -4637,6 +4697,8 @@ std::move(p_data));
           reinterpret_cast<internal::ClipboardHost_CommitWrite_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.20
       bool success = true;
       ClipboardHost_CommitWrite_ParamsDataView input_data_view(params, message);
       
@@ -4649,7 +4711,7 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CommitWrite();
+      impl->CommitWrite(        );
       return true;
     }
   }
@@ -4672,6 +4734,8 @@ bool ClipboardHostStubDispatch::AcceptWithResponder(
               internal::ClipboardHost_GetSequenceNumber_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.0
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_GetSequenceNumber_ParamsDataView input_data_view(params, message);
@@ -4690,8 +4754,8 @@ bool ClipboardHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSequenceNumber(
-std::move(p_buffer), std::move(callback));
+      impl->GetSequenceNumber(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_IsFormatAvailable_Name: {
@@ -4701,6 +4765,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_IsFormatAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.1
       bool success = true;
       ClipboardFormat p_format{};
       ::ui::ClipboardBuffer p_buffer{};
@@ -4722,9 +4788,9 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsFormatAvailable(
-std::move(p_format), 
-std::move(p_buffer), std::move(callback));
+      impl->IsFormatAvailable(        
+        std::move(p_format), 
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadAvailableTypes_Name: {
@@ -4734,6 +4800,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadAvailableTypes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.2
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadAvailableTypes_ParamsDataView input_data_view(params, message);
@@ -4752,8 +4820,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadAvailableTypes(
-std::move(p_buffer), std::move(callback));
+      impl->ReadAvailableTypes(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadText_Name: {
@@ -4763,6 +4831,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.3
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadText_ParamsDataView input_data_view(params, message);
@@ -4781,8 +4851,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadText(
-std::move(p_buffer), std::move(callback));
+      impl->ReadText(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadHtml_Name: {
@@ -4792,6 +4862,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadHtml_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.4
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadHtml_ParamsDataView input_data_view(params, message);
@@ -4810,8 +4882,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadHtml(
-std::move(p_buffer), std::move(callback));
+      impl->ReadHtml(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadSvg_Name: {
@@ -4821,6 +4893,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadSvg_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.5
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadSvg_ParamsDataView input_data_view(params, message);
@@ -4839,8 +4913,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadSvg(
-std::move(p_buffer), std::move(callback));
+      impl->ReadSvg(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadRtf_Name: {
@@ -4850,6 +4924,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadRtf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.6
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadRtf_ParamsDataView input_data_view(params, message);
@@ -4868,8 +4944,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadRtf(
-std::move(p_buffer), std::move(callback));
+      impl->ReadRtf(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadPng_Name: {
@@ -4879,6 +4955,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadPng_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.7
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadPng_ParamsDataView input_data_view(params, message);
@@ -4897,8 +4975,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadPng(
-std::move(p_buffer), std::move(callback));
+      impl->ReadPng(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadFiles_Name: {
@@ -4908,6 +4986,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadFiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.8
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ClipboardHost_ReadFiles_ParamsDataView input_data_view(params, message);
@@ -4926,8 +5006,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadFiles(
-std::move(p_buffer), std::move(callback));
+      impl->ReadFiles(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadCustomData_Name: {
@@ -4937,6 +5017,8 @@ std::move(p_buffer), std::move(callback));
               internal::ClipboardHost_ReadCustomData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.9
       bool success = true;
       ::ui::ClipboardBuffer p_buffer{};
       ::std::u16string p_type{};
@@ -4958,9 +5040,9 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadCustomData(
-std::move(p_buffer), 
-std::move(p_type), std::move(callback));
+      impl->ReadCustomData(        
+        std::move(p_buffer), 
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_ReadAvailableCustomAndStandardFormats_Name: {
@@ -4970,6 +5052,8 @@ std::move(p_type), std::move(callback));
               internal::ClipboardHost_ReadAvailableCustomAndStandardFormats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.10
       bool success = true;
       ClipboardHost_ReadAvailableCustomAndStandardFormats_ParamsDataView input_data_view(params, message);
       
@@ -4995,6 +5079,8 @@ std::move(p_type), std::move(callback));
               internal::ClipboardHost_ReadUnsanitizedCustomFormat_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.11
       bool success = true;
       ::std::u16string p_format{};
       ClipboardHost_ReadUnsanitizedCustomFormat_ParamsDataView input_data_view(params, message);
@@ -5013,8 +5099,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadUnsanitizedCustomFormat(
-std::move(p_format), std::move(callback));
+      impl->ReadUnsanitizedCustomFormat(        
+        std::move(p_format), std::move(callback));
       return true;
     }
     case internal::kClipboardHost_WriteText_Name: {

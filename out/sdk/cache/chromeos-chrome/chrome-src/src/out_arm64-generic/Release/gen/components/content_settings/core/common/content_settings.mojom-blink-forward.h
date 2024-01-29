@@ -18,12 +18,9 @@
 
 
 
-namespace mojo {
-enum class NativeEnum;
-}  // namespace mojo
+
 
 namespace content_settings::mojom {
-using ContentSettingsType = mojo::NativeEnum;
 
 enum class ContentSetting : int32_t;
 
@@ -34,7 +31,6 @@ enum class SessionModel : int32_t;
 
 
 namespace content_settings::mojom::blink {
-using ContentSettingsType = ContentSettingsType;
 using ContentSetting = ContentSetting;
 using SessionModel = SessionModel;
 class PatternParts;

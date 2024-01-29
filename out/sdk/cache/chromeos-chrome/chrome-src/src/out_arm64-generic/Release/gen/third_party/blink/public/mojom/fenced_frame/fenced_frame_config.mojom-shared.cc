@@ -622,13 +622,54 @@ SharedStorageBudgetMetadata_Data::SharedStorageBudgetMetadata_Data()
 
 
 // static
+bool ParentPermissionsInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ParentPermissionsInfo_Data* object =
+      static_cast<const ParentPermissionsInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->parsed_permissions_policy, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& parsed_permissions_policy_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->parsed_permissions_policy, validation_context,
+                                         &parsed_permissions_policy_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->origin, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->origin, validation_context))
+    return false;
+
+  return true;
+}
+
+ParentPermissionsInfo_Data::ParentPermissionsInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FencedFrameConfig_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 144, validation_context)) {
+          data, 152, validation_context)) {
     return false;
   }
 
@@ -681,6 +722,9 @@ bool FencedFrameConfig_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidateStruct(object->parent_permissions_info, validation_context))
+    return false;
+
   return true;
 }
 
@@ -695,7 +739,7 @@ bool FencedFrameProperties_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 136, validation_context)) {
+          data, 144, validation_context)) {
     return false;
   }
 
@@ -740,6 +784,9 @@ bool FencedFrameProperties_Data::Validate(
                                          &effective_enabled_permissions_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidateStruct(object->parent_permissions_info, validation_context))
+    return false;
 
   return true;
 }

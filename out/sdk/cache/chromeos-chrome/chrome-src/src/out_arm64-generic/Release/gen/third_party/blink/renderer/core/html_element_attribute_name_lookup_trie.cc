@@ -1319,8 +1319,17 @@ const QualifiedName& LookupHTMLAttributeName(const UChar* data, unsigned length)
           }
           break;
         case 'd':
-          if (memcmp(data + 3, u"ragend", 2 * 6) == 0) {
-            return html_names::kOndragendAttr;
+          switch (data[3]) {
+          case 'i':
+            if (memcmp(data + 4, u"smiss", 2 * 5) == 0) {
+              return html_names::kOndismissAttr;
+            }
+            break;
+          case 'r':
+            if (memcmp(data + 4, u"agend", 2 * 5) == 0) {
+              return html_names::kOndragendAttr;
+            }
+            break;
           }
           break;
         case 'e':
@@ -1365,6 +1374,11 @@ const QualifiedName& LookupHTMLAttributeName(const UChar* data, unsigned length)
         case 'p':
           if (memcmp(data + 3, u"laying", 2 * 6) == 0) {
             return html_names::kOnplayingAttr;
+          }
+          break;
+        case 'r':
+          if (memcmp(data + 3, u"esolve", 2 * 6) == 0) {
+            return html_names::kOnresolveAttr;
           }
           break;
         case 's':
@@ -1997,8 +2011,17 @@ const QualifiedName& LookupHTMLAttributeName(const UChar* data, unsigned length)
       }
       break;
     case 's':
-      if (memcmp(data + 1, u"crollamount", 2 * 11) == 0) {
-        return html_names::kScrollamountAttr;
+      switch (data[1]) {
+      case 'c':
+        if (memcmp(data + 2, u"rollamount", 2 * 10) == 0) {
+          return html_names::kScrollamountAttr;
+        }
+        break;
+      case 'e':
+        if (memcmp(data + 2, u"rializable", 2 * 10) == 0) {
+          return html_names::kSerializableAttr;
+        }
+        break;
       }
       break;
     }
@@ -2602,7 +2625,6 @@ const QualifiedName& LookupHTMLAttributeName(const UChar* data, unsigned length)
   return g_null_name;
 }
 
-#if defined(USE_INNER_HTML_PARSER_FAST_PATH)
 const QualifiedName& LookupHTMLAttributeName(const LChar* data, unsigned length) {
   DCHECK(data);
   DCHECK(length);
@@ -3908,8 +3930,17 @@ const QualifiedName& LookupHTMLAttributeName(const LChar* data, unsigned length)
           }
           break;
         case 'd':
-          if (memcmp(data + 3, "ragend", 6) == 0) {
-            return html_names::kOndragendAttr;
+          switch (data[3]) {
+          case 'i':
+            if (memcmp(data + 4, "smiss", 5) == 0) {
+              return html_names::kOndismissAttr;
+            }
+            break;
+          case 'r':
+            if (memcmp(data + 4, "agend", 5) == 0) {
+              return html_names::kOndragendAttr;
+            }
+            break;
           }
           break;
         case 'e':
@@ -3954,6 +3985,11 @@ const QualifiedName& LookupHTMLAttributeName(const LChar* data, unsigned length)
         case 'p':
           if (memcmp(data + 3, "laying", 6) == 0) {
             return html_names::kOnplayingAttr;
+          }
+          break;
+        case 'r':
+          if (memcmp(data + 3, "esolve", 6) == 0) {
+            return html_names::kOnresolveAttr;
           }
           break;
         case 's':
@@ -4586,8 +4622,17 @@ const QualifiedName& LookupHTMLAttributeName(const LChar* data, unsigned length)
       }
       break;
     case 's':
-      if (memcmp(data + 1, "crollamount", 11) == 0) {
-        return html_names::kScrollamountAttr;
+      switch (data[1]) {
+      case 'c':
+        if (memcmp(data + 2, "rollamount", 10) == 0) {
+          return html_names::kScrollamountAttr;
+        }
+        break;
+      case 'e':
+        if (memcmp(data + 2, "rializable", 10) == 0) {
+          return html_names::kSerializableAttr;
+        }
+        break;
       }
       break;
     }
@@ -5190,6 +5235,5 @@ const QualifiedName& LookupHTMLAttributeName(const LChar* data, unsigned length)
 
   return g_null_name;
 }
-#endif
 
 }  // namespace blink

@@ -8,6 +8,8 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_FENCED_FRAME_FENCED_FRAME_CONFIG_MOJOM_IMPORT_HEADERS_H_
 #include "services/network/public/mojom/schemeful_site.mojom.h"
 #include "services/network/public/mojom/schemeful_site.mojom-import-headers.h"
+#include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom.h"
+#include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom-import-headers.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"

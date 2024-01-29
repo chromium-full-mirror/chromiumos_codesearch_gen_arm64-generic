@@ -7,11 +7,11 @@ found in the LICENSE file.
 -->
 
 <notification-card id="gaia-allowlist-error" class="fit" for-step="default"
-  on-buttonclick="onAllowlistErrorTryAgainClick_"
-  on-linkclick="onAllowlistErrorLinkClick_"
+  on-buttonclick="onAllowlistErrorTryAgainClick"
+  on-linkclick="onAllowlistErrorLinkClick"
   button-label="[[i18nDynamic(locale, 'tryAgainButton')]]"
   link-label="[[i18nDynamic(locale, 'learnMoreButton')]]">
-  [[i18nDynamic(locale, allowlistError_)]]
+  [[i18nDynamic(locale, allowlistError)]]
 </notification-card>
 <!--_html_template_end_-->`;
 }

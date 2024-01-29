@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
+import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import { createTarget } from '../../helpers/EnvironmentHelpers.js';
 import { describeWithMockConnection, } from '../../helpers/MockConnection.js';
-import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 const { assert } = chai;
 describeWithMockConnection('WebAuthn pane', () => {
     let Webauthn;
@@ -117,6 +117,7 @@ describeWithMockConnection('WebAuthn pane', () => {
                 rpId: 'talos1.org',
                 userHandle: 'morgan',
                 signCount: 1,
+                privateKey: '',
             };
             model.dispatchEventToListeners("CredentialAdded" /* SDK.WebAuthnModel.Events.CredentialAdded */, {
                 authenticatorId,
@@ -156,6 +157,7 @@ describeWithMockConnection('WebAuthn pane', () => {
                 rpId: 'talos1.org',
                 userHandle: 'morgan',
                 signCount: 1,
+                privateKey: '',
             };
             model.dispatchEventToListeners("CredentialAdded" /* SDK.WebAuthnModel.Events.CredentialAdded */, {
                 authenticatorId,
@@ -178,6 +180,7 @@ describeWithMockConnection('WebAuthn pane', () => {
                 rpId: 'talos1.org',
                 userHandle: 'morgan',
                 signCount: 2,
+                privateKey: '',
             };
             model.dispatchEventToListeners("CredentialAsserted" /* SDK.WebAuthnModel.Events.CredentialAsserted */, {
                 authenticatorId,
@@ -193,6 +196,7 @@ describeWithMockConnection('WebAuthn pane', () => {
                 rpId: 'talos1.org',
                 userHandle: 'alex',
                 signCount: 1,
+                privateKey: '',
             };
             model.dispatchEventToListeners("CredentialAsserted" /* SDK.WebAuthnModel.Events.CredentialAsserted */, {
                 authenticatorId,

@@ -22,7 +22,12 @@
 
 
 namespace mojom::user_education_internals {
+class FeaturePromoDemoPageDataDataView;
+
 class FeaturePromoDemoPageInfoDataView;
+
+class FeaturePromoDemoPageData;
+using FeaturePromoDemoPageDataPtr = mojo::InlinedStructPtr<FeaturePromoDemoPageData>;
 
 class FeaturePromoDemoPageInfo;
 using FeaturePromoDemoPageInfoPtr = mojo::StructPtr<FeaturePromoDemoPageInfo>;

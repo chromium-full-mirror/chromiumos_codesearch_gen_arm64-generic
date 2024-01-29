@@ -1,4 +1,4 @@
-import { Polymer, dom, html, PolymerElement, Base, mixinBehaviors, beforeNextRender, dedupingMixin, afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { Polymer, dom, html, PolymerElement, Base, dedupingMixin, beforeNextRender, afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import Fuse from './fuse.js';
 
@@ -514,10 +514,10 @@ document.head.appendChild(template$3.content);
 // height and width should match the dialog size in EmojiPickerDialog.
 const EMOJI_NUM_TABS_IN_FIRST_PAGE = 8;
 const EMOJI_HIGHLIGHTER_WIDTH = 24;
-const EMOJI_PICKER_TOP_PADDING = 20;
+const EMOJI_PICKER_TOP_PADDING = 10;
 const EMOJI_PICKER_HEIGHT = 480;
 const EMOJI_PICKER_WIDTH = 420;
-const EMOJI_PICKER_SIDE_PADDING = 20;
+const EMOJI_PICKER_SIDE_PADDING = 16;
 const EMOJI_PER_ROW = 9;
 const GROUP_ICON_SIZE = (EMOJI_PICKER_WIDTH - 2 * EMOJI_PICKER_SIDE_PADDING) / EMOJI_PER_ROW;
 const EMOJI_ICON_SIZE = 32;
@@ -578,13 +578,9 @@ const V2_5_EMOJI_GROUP_SPACING = (EMOJI_PICKER_WIDTH - 2 * V2_5_EMOJI_PICKER_SID
     (GROUP_PER_ROW - 1);
 const V2_5_EMOJI_PICKER_TOTAL_EMOJI_WIDTH = EMOJI_ICON_SIZE + V2_5_EMOJI_GROUP_SPACING;
 const V2_5_EMOJI_GROUP_SPACING_PX = `${V2_5_EMOJI_GROUP_SPACING}px`;
-const JELLY_EMOJI_PICKER_TOP_PADDING = 10;
-const JELLY_EMOJI_PICKER_SEARCH_SIDE_PADDING = 16;
-const JELLY_EMOJI_PICKER_TOP_PADDING_PX = `${JELLY_EMOJI_PICKER_TOP_PADDING}px`;
-const JELLY_EMOJI_PICKER_SEARCH_SIDE_PADDING_PX = `${JELLY_EMOJI_PICKER_SEARCH_SIDE_PADDING}px`;
 
 function getTemplate$f() {
-    return html `<!--_html_template_start_--><style>.emoji-image-container{position:relative}.emoji-image{background-color:var(--cros-button-stroke-color-secondary-disabled);border:none;border-radius:8px;cursor:pointer;display:block;height:var(--visual-content-height);margin-bottom:var(--visual-content-padding);width:var(--visual-content-width)}.emoji-image:active,.emoji-image:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}.emoji-image:hover{background-color:var(--emoji-hover-background)}.emoji-image.loading{animation:loading-rect-loop 1.5s;animation-iteration-count:infinite}@keyframes loading-rect-loop{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}.emoji-image-clear{background-color:var(--emoji-picker-container-color);border:2px solid transparent;border-radius:4px;box-shadow:var(--cros-elevation-1-shadow,--cr-elevation-1);color:var(--cros-text-color-secondary);cursor:pointer;font:var(--cros-button-2-font);outline:0;padding:7px 11px 7px 11px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;width:fit-content;z-index:200}.emoji-image-clear:active,.emoji-image-clear:focus{border:2px solid var(--cros-toggle-color)}</style>
+    return html `<!--_html_template_start_--><style>.emoji-image-container{position:relative}.emoji-image{background-color:var(--cros-button-stroke-color-secondary-disabled);border:none;border-radius:8px;cursor:pointer;display:block;height:var(--visual-content-height);margin-bottom:var(--visual-content-padding);width:var(--visual-content-width)}.emoji-image:active,.emoji-image:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}.emoji-image:hover{background-color:var(--emoji-hover-background)}.emoji-image.loading{animation:loading-rect-loop 1.5s;animation-iteration-count:infinite}@keyframes loading-rect-loop{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}.emoji-image-clear{background-color:var(--emoji-picker-container-color);border:2px solid transparent;border-radius:4px;box-shadow:var(--cros-elevation-1-shadow);color:var(--cros-text-color-secondary);cursor:pointer;font:var(--cros-button-2-font);outline:0;padding:7px 11px 7px 11px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;width:fit-content;z-index:200}.emoji-image-clear:active,.emoji-image-clear:focus{border:2px solid var(--cros-toggle-color)}</style>
 
 <div class="emoji-image-container" on-contextmenu="handleContextMenu" on-mouseleave="handleMouseLeave" style$="[[getStyles(item)]]">
 
@@ -901,7 +897,6 @@ var Feature;
     Feature[Feature["EMOJI_PICKER_EXTENSION"] = 0] = "EMOJI_PICKER_EXTENSION";
     Feature[Feature["EMOJI_PICKER_SEARCH_EXTENSION"] = 1] = "EMOJI_PICKER_SEARCH_EXTENSION";
     Feature[Feature["EMOJI_PICKER_GIF_SUPPORT"] = 2] = "EMOJI_PICKER_GIF_SUPPORT";
-    Feature[Feature["EMOJI_PICKER_JELLY_SUPPORT"] = 3] = "EMOJI_PICKER_JELLY_SUPPORT";
     Feature[Feature["EMOJI_PICKER_SEAL_SUPPORT"] = 4] = "EMOJI_PICKER_SEAL_SUPPORT";
     Feature[Feature["EMOJI_PICKER_VARIANT_GROUPING_SUPPORT"] = 5] = "EMOJI_PICKER_VARIANT_GROUPING_SUPPORT";
 })(Feature || (Feature = {}));
@@ -950,18 +945,18 @@ class PageHandlerFactory {
         return remote;
     }
 }
-let PageHandlerPendingReceiver$1 = class PageHandlerPendingReceiver {
+class PageHandlerPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
     bindInBrowser(scope = 'context') {
         mojo.internal.interfaceSupport.bind(this.handle, 'emoji_picker.mojom.PageHandler', scope);
     }
-};
-let PageHandlerRemote$1 = class PageHandlerRemote {
+}
+class PageHandlerRemote {
     constructor(handle) {
         this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver$1, handle);
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
@@ -1008,7 +1003,7 @@ let PageHandlerRemote$1 = class PageHandlerRemote {
     onUiFullyLoaded() {
         this.proxy.sendMessage(9, PageHandler_OnUiFullyLoaded_ParamsSpec.$, null, []);
     }
-};
+}
 const TenorGifResponseSpec = { $: {} };
 const GifResponseSpec = { $: {} };
 const GifUrlsSpec = { $: {} };
@@ -1044,7 +1039,7 @@ mojo.internal.Struct(GifUrlsSpec.$, 'GifUrls', [
     mojo.internal.StructField('preview', 8, 0, UrlSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
-    mojo.internal.StructField('handler', 0, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver$1), null, false /* nullable */, 0),
+    mojo.internal.StructField('handler', 0, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_ShowUI_ParamsSpec.$, 'PageHandler_ShowUI_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_InsertEmoji_ParamsSpec.$, 'PageHandler_InsertEmoji_Params', [
@@ -1141,7 +1136,7 @@ const HELP_CENTRE_URL = 'https://support.google.com/chrome?p=palette';
 class EmojiPickerApiProxyImpl {
     static { this.instance = null; }
     constructor() {
-        this.handler = new PageHandlerRemote$1();
+        this.handler = new PageHandlerRemote();
         this.newWindowProxy = NewWindowProxy.getRemote();
         const factory = PageHandlerFactory.getRemote();
         factory.createPageHandler(this.handler.$.bindNewPipeAndPassReceiver());
@@ -2604,126 +2599,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$d() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
@@ -2777,7 +2772,7 @@ function getTemplate$d() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
@@ -3552,7 +3547,7 @@ Polymer({
 });
 
 function getTemplate$c() {
-    return html `<!--_html_template_start_--><style>:host{--emoji-background:transparent;height:var(--emoji-size);position:relative;width:var(--emoji-size)}#emoji-button{background:var(--emoji-background);border:none;border-radius:50%;cursor:pointer;display:block;font-family:'Noto Color Emoji';font-size:19px;height:100%;line-height:var(--emoji-size);outline:0;padding:0;text-align:center;user-select:none;width:100%}#emoji-button:active,#emoji-button:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}#emoji-button:disabled{color:red;cursor:default}#emoji-button:hover{background-color:var(--emoji-hover-background)}.has-variants::after{background:linear-gradient(315deg,var(--google-grey-500) 4px,var(--emoji-background) 4px,var(--emoji-background));content:'';display:block;height:var(--emoji-size);position:relative;top:calc(0 - var(--emoji-size));width:var(--emoji-size)}#tooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-delay-in:var(--emoji-tooltip-delay-in);--paper-tooltip-delay-out:var(--emoji-tooltip-delay-out);--paper-tooltip-duration-in:0;--paper-tooltip-duration-out:0;--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#tooltip::part(tooltip){box-shadow:var(--cros-elevation-1-shadow,--cr-elevation-1);font:var(--cros-annotation-1-font);margin:4px;padding:4px 8px 4px 8px;white-space:nowrap}</style>
+    return html `<!--_html_template_start_--><style>:host{--emoji-background:transparent;height:var(--emoji-size);position:relative;width:var(--emoji-size)}#emoji-button{background:var(--emoji-background);border:none;border-radius:50%;cursor:pointer;display:block;font-family:'Noto Color Emoji';font-size:19px;height:100%;line-height:var(--emoji-size);outline:0;padding:0;text-align:center;user-select:none;width:100%}#emoji-button:active,#emoji-button:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}#emoji-button:disabled{color:red;cursor:default}#emoji-button:hover{background-color:var(--emoji-hover-background)}.has-variants::after{background:linear-gradient(315deg,var(--google-grey-500) 4px,var(--emoji-background) 4px,var(--emoji-background));content:'';display:block;height:var(--emoji-size);position:relative;top:calc(0 - var(--emoji-size));width:var(--emoji-size)}#tooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-delay-in:var(--emoji-tooltip-delay-in);--paper-tooltip-delay-out:var(--emoji-tooltip-delay-out);--paper-tooltip-duration-in:0;--paper-tooltip-duration-out:0;--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#tooltip::part(tooltip){box-shadow:var(--cros-elevation-1-shadow);font:var(--cros-annotation-1-font);margin:4px;padding:4px 8px 4px 8px;white-space:nowrap}</style>
 
 <button id="emoji-button" on-click="onClick" disabled="[[disabled]]" aria-label="[[getLabel()]]">
   [[emoji]]
@@ -3628,7 +3623,7 @@ class EmojiButton extends PolymerElement {
 customElements.define(EmojiButton.is, EmojiButton);
 
 function getTemplate$b() {
-    return html `<!--_html_template_start_--><style>:host{background:var(--emoji-picker-container-color);border-radius:8px;box-shadow:var(--cros-elevation-2-shadow,--cr-elevation-2);display:grid;grid-template-columns:max-content max-content max-content;grid-template-rows:max-content max-content;height:fit-content;padding:4px;position:relative;width:fit-content;z-index:100}#grid-base-emoji{display:flex;flex-direction:column-reverse;grid-column:1;grid-row:1/span 2}#grid-skin-tone-top{display:flex;flex-direction:row;gap:var(--emoji-spacing);grid-column:3;grid-row:1}#grid-skin-tone-left{display:flex;flex-direction:column;grid-column:2;grid-row:2}.skin-tone>emoji-button{clip-path:circle(4px)}#grid-variants{display:flex;flex-direction:column;grid-column:3;grid-row:2;width:fit-content}.variant-row{display:flex;flex-direction:row;gap:var(--emoji-spacing);height:var(--emoji-size)}</style>
+    return html `<!--_html_template_start_--><style>:host{background:var(--emoji-picker-container-color);border-radius:8px;box-shadow:var(--cros-elevation-2-shadow);display:grid;grid-template-columns:max-content max-content max-content;grid-template-rows:max-content max-content;height:fit-content;padding:4px;position:relative;width:fit-content;z-index:100}#grid-base-emoji{display:flex;flex-direction:column-reverse;grid-column:1;grid-row:1/span 2}#grid-skin-tone-top{display:flex;flex-direction:row;gap:var(--emoji-spacing);grid-column:3;grid-row:1}#grid-skin-tone-left{display:flex;flex-direction:column;grid-column:2;grid-row:2}.skin-tone>emoji-button{clip-path:circle(4px)}#grid-variants{display:flex;flex-direction:column;grid-column:3;grid-row:2;width:fit-content}.variant-row{display:flex;flex-direction:row;gap:var(--emoji-spacing);height:var(--emoji-size)}</style>
 
 
 
@@ -3824,7 +3819,7 @@ function assertNotReached(message = 'Unreachable code hit') {
 }
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_--><style>:host{margin-top:10px;position:relative;--emoji-background:transparent}:host([category=emoticon][jelly-support]),:host([category=symbol][jelly-support]){--emoji-button-border-radius:4px}.emoji-button{background:var(--emoji-background);border:none;cursor:pointer;height:100%}.emoji-button-container{height:var(--emoji-size);position:relative;width:var(--emoji-size)}.grid-layout{display:grid;gap:var(--emoji-spacing);grid-auto-rows:max-content;grid-template-columns:repeat(var(--emoji-per-row),1fr);justify-items:center}.grid-layout .emoji-button{border-radius:var(--emoji-button-border-radius,50%);display:block;font-family:'Noto Color Emoji';font-size:19px;line-height:var(--emoji-size);outline:0;padding:0;text-align:center;user-select:none;width:100%}.flex-layout{display:flex;flex-wrap:wrap;gap:12px 20px}.flex-layout .emoji-button-container{width:max-content}.flex-layout .emoji-button{border-radius:var(--emoji-button-border-radius,0);color:var(--emoji-picker-symbol-color);font-family:'Noto Sans CJK JP';font-size:13px;padding:6px;width:max-content}.two-column-layout{display:flex}.two-column-layout .left-column{flex:50%}.two-column-layout .right-column{align-items:flex-end;display:flex;flex:50%;flex-direction:column}#heading{color:var(--emoji-picker-category-header-color);display:flex;font-size:13px;padding-bottom:var(--emoji-group-heading-padding-bottom);padding-top:var(--emoji-group-heading-padding-top)}#heading:active,#heading:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-width:2px}#heading-left{height:var(--emoji-group-heading-size);line-height:var(--emoji-group-heading-size);user-select:none;width:100%}#palette{padding-bottom:16px}#show-clear{--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);height:var(--emoji-group-heading-size);left:var(--emoji-picker-last-emoji-left);margin:0;width:var(--emoji-group-heading-size)}#clear-recents-container{position:absolute;right:0;top:calc(var(--emoji-group-heading-padding-top) + var(--emoji-group-heading-padding-bottom) + var(--emoji-group-heading-size));box-shadow:var(--cros-elevation-1-shadow,--cr-elevation-1);border-radius:4px;overflow:hidden;z-index:300}#clear-recents,#help{background-color:var(--emoji-picker-container-color);border:2px solid transparent;color:var(--cros-text-color-secondary);cursor:pointer;font-family:Roboto,sans-serif;font-size:12px;height:var(--emoji-size);outline:0;padding:0;white-space:nowrap;width:100%;z-index:200;display:block;text-align:left}#clear-recents:active,#clear-recents:focus,#help:active,#help:focus{border:2px solid var(--cros-toggle-color)}#fake-focus-target{position:absolute}#clear-recents-hover{border:2px solid transparent;margin:-2px;padding:7px 11px 7px 11px}#clear-recents-hover:hover{background-color:var(--cros-button-background-color-secondary-hover);border:2px solid var(--cros-button-background-color-secondary-hover)}.emoji-button:active,.emoji-button:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}.emoji-button:disabled{color:red;cursor:default}.emoji-button:hover{background-color:var(--emoji-hover-background)}.has-variants::after{background:linear-gradient(315deg,var(--google-grey-500) 4px,var(--emoji-background) 4px,var(--emoji-background));content:'';display:block;height:var(--emoji-size);position:relative;top:calc(0px - var(--emoji-size));width:var(--emoji-size)}paper-tooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-delay-in:var(--emoji-tooltip-delay-in);--paper-tooltip-delay-out:var(--emoji-tooltip-delay-out);--paper-tooltip-duration-in:0;--paper-tooltip-duration-out:0;--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}paper-tooltip::part(tooltip){box-shadow:var(--cros-elevation-1-shadow,--cr-elevation-1);font-family:Roboto,sans-serif;font-size:12px;margin:4px;padding:4px 8px 4px 8px;white-space:nowrap}</style>
+    return html `<!--_html_template_start_--><style>:host{margin-top:10px;position:relative;--emoji-background:transparent}:host([category=emoticon]),:host([category=symbol]){--emoji-button-border-radius:4px}.emoji-button{background:var(--emoji-background);border:none;cursor:pointer;height:100%}.emoji-button-container{height:var(--emoji-size);position:relative;width:var(--emoji-size)}.grid-layout{display:grid;gap:var(--emoji-spacing);grid-auto-rows:max-content;grid-template-columns:repeat(var(--emoji-per-row),1fr);justify-items:center}.grid-layout .emoji-button{border-radius:var(--emoji-button-border-radius,50%);display:block;font-family:'Noto Color Emoji';font-size:19px;line-height:var(--emoji-size);outline:0;padding:0;text-align:center;user-select:none;width:100%}.flex-layout{display:flex;flex-wrap:wrap;gap:12px 20px}.flex-layout .emoji-button-container{width:max-content}.flex-layout .emoji-button{border-radius:var(--emoji-button-border-radius,0);color:var(--emoji-picker-symbol-color);font-family:'Noto Sans CJK JP';font-size:13px;padding:6px;width:max-content}.two-column-layout{display:flex}.two-column-layout .left-column{flex:50%}.two-column-layout .right-column{align-items:flex-end;display:flex;flex:50%;flex-direction:column}#heading{color:var(--emoji-picker-category-header-color);display:flex;font-size:13px;padding-bottom:var(--emoji-group-heading-padding-bottom);padding-top:var(--emoji-group-heading-padding-top)}#heading:active,#heading:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-width:2px}#heading-left{height:var(--emoji-group-heading-size);line-height:var(--emoji-group-heading-size);user-select:none;width:100%}#palette{padding-bottom:16px}#show-clear{--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);height:var(--emoji-group-heading-size);left:var(--emoji-picker-last-emoji-left);margin:0;width:var(--emoji-group-heading-size)}#clear-recents-container{position:absolute;right:0;top:calc(var(--emoji-group-heading-padding-top) + var(--emoji-group-heading-padding-bottom) + var(--emoji-group-heading-size));box-shadow:var(--cros-elevation-1-shadow);border-radius:4px;overflow:hidden;z-index:300}#clear-recents,#help{background-color:var(--emoji-picker-container-color);border:2px solid transparent;color:var(--cros-text-color-secondary);cursor:pointer;font-family:Roboto,sans-serif;font-size:12px;height:var(--emoji-size);outline:0;padding:0;white-space:nowrap;width:100%;z-index:200;display:block;text-align:left}#clear-recents:active,#clear-recents:focus,#help:active,#help:focus{border:2px solid var(--cros-toggle-color)}#fake-focus-target{position:absolute}#clear-recents-hover{border:2px solid transparent;margin:-2px;padding:7px 11px 7px 11px}#clear-recents-hover:hover{background-color:var(--cros-button-background-color-secondary-hover);border:2px solid var(--cros-button-background-color-secondary-hover)}.emoji-button:active,.emoji-button:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}.emoji-button:disabled{color:red;cursor:default}.emoji-button:hover{background-color:var(--emoji-hover-background)}.has-variants::after{background:linear-gradient(315deg,var(--google-grey-500) 4px,var(--emoji-background) 4px,var(--emoji-background));content:'';display:block;height:var(--emoji-size);position:relative;top:calc(0px - var(--emoji-size));width:var(--emoji-size)}paper-tooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-delay-in:var(--emoji-tooltip-delay-in);--paper-tooltip-delay-out:var(--emoji-tooltip-delay-out);--paper-tooltip-duration-in:0;--paper-tooltip-duration-out:0;--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}paper-tooltip::part(tooltip){box-shadow:var(--cros-elevation-1-shadow);font-family:Roboto,sans-serif;font-size:12px;margin:4px;padding:4px 8px 4px 8px;white-space:nowrap}</style>
 
 
 <template is="dom-if" if="[[group]]">
@@ -3874,7 +3869,7 @@ function getTemplate$a() {
       <template is="dom-repeat" items="[[data]]">
         <div class="emoji-button-container">
         <button id="emoji-[[index]]" data-index$="[[index]]" class$="emoji-button [[getEmojiButtonClassName(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
-          [[getDisplayEmojiForEmoji(item.base.string)]]
+          [[getDisplayEmojiForEmoji(item.base.string, item)]]
         </button>
         <template is="dom-if" if="[[isEmojiVariantVisible(index,shownEmojiVariantIndex)]]">
           <emoji-variants id="emoji-variant-[[index]]" variants="[[item.alternates]]" grouped-tone="[[item.groupedTone]]" grouped-gender="[[item.groupedGender]]" tooltip="[[item.base.name]]">
@@ -3887,7 +3882,7 @@ function getTemplate$a() {
       <template is="dom-repeat" items="[[data]]">
         <div class="emoji-button-container">
         <button id="emoji-[[index]]" data-index$="[[index]]" class$="emoji-button [[getEmojiButtonClassName(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
-          [[getDisplayEmojiForEmoji(item.base.string)]]
+          [[getDisplayEmojiForEmoji(item.base.string, item)]]
         </button>
         </div>
       </template>
@@ -3936,6 +3931,7 @@ class EmojiGroupComponent extends PolymerElement {
             globalGender: { type: Number, value: null, readonly: true },
             preferred: { type: Object, value: () => ({}) },
             clearable: { type: Boolean, value: false },
+            useGroupedPreference: { type: Boolean, value: false },
             category: {
                 type: String,
                 value: CategoryEnum.EMOJI,
@@ -4022,7 +4018,7 @@ class EmojiGroupComponent extends PolymerElement {
         }
         // Text-based emoji clicked
         if (emoji.base.string) {
-            const text = this.getDisplayEmojiForEmoji(emoji.base.string);
+            const text = this.getDisplayEmojiForEmoji(emoji.base.string, emoji);
             this.dispatchEvent(createCustomEvent(EMOJI_TEXT_BUTTON_CLICK, {
                 name: emoji.base.name,
                 category: this.category,
@@ -4118,7 +4114,7 @@ class EmojiGroupComponent extends PolymerElement {
         if (emoji.base.string) {
             const emojiLabel = this.isLangEnglish ?
                 emoji.base.name :
-                this.getDisplayEmojiForEmoji(emoji.base.string);
+                (this.getDisplayEmojiForEmoji(emoji.base.string, emoji));
             if (emoji.alternates && emoji.alternates.length > 0) {
                 return emojiLabel + ' with variants.';
             }
@@ -4131,8 +4127,20 @@ class EmojiGroupComponent extends PolymerElement {
     /**
      * Returns the character to be shown for the emoji.
      */
-    getDisplayEmojiForEmoji(baseEmoji) {
-        return this.preferred[baseEmoji] || baseEmoji;
+    getDisplayEmojiForEmoji(text, emoji) {
+        const { alternates, groupedTone, groupedGender } = emoji;
+        const individualPreference = this.preferred[text];
+        if (!this.useGroupedPreference || !(groupedTone || groupedGender)) {
+            return individualPreference ?? text;
+        }
+        const preference = alternates.find(variant => variant.string === individualPreference);
+        const tone = this.globalTone ?? preference?.tone ?? Tone.DEFAULT;
+        const gender = this.globalGender ?? preference?.gender ?? Gender.DEFAULT;
+        const variant = alternates.find(variant => {
+            return (variant.tone ?? tone) === tone &&
+                (variant.gender ?? gender) === gender;
+        });
+        return variant?.string ?? text;
     }
     /**
      * Return whether variants of an emoji is visible or not.
@@ -4605,6 +4613,9 @@ const template = html `
       </g>
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
+      </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
       </g>
       
         <g id="banner-warning">
@@ -5093,13 +5104,13 @@ class EmojiCategoryButton extends PolymerElement {
 customElements.define(EmojiCategoryButton.is, EmojiCategoryButton);
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_--><style>:host{--emoji-picker-search-margins:14px;--emoji-picker-search-height:40px;--emoji-picker-top-bar-bottom-padding:16px;--search-content-width:calc(var(--emoji-picker-width) - 2*var(--emoji-picker-side-padding));display:flex;flex-direction:column;overflow-y:scroll;min-height:var(--min-height)}:host([gif-support]){--emoji-picker-search-height:36px;--emoji-picker-top-bar-bottom-padding:20px;--search-content-width:calc(var(--emoji-picker-width) - 2*var(--emoji-picker-search-side-padding))}:host([jelly-support]){--emoji-picker-top-bar-bottom-padding:10px}cr-search-field{--cr-search-field-clear-icon-fill:var(--emoji-picker-search-field-clear-icon-color);--cr-search-field-clear-icon-margin-end:var(--emoji-picker-search-margins);--cr-search-field-clear-icon-size:20px;--cr-search-field-clear-button-size:32px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-min-height:var(--emoji-picker-search-height);--cr-search-field-input-padding-bottom:0;--cr-search-field-input-padding-start:8px;--cr-search-field-input-padding-top:0;--cr-search-field-input-width:100%;--cr-search-field-placeholder-color:var(--emoji-picker-search-field-placeholder-color);--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--emoji-picker-search-field-search-icon-color);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:var(--emoji-picker-search-margins);--cr-search-field-underline-display:none;--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);align-items:center;background-color:var(--emoji-picker-search-field-container-color);border:2px solid transparent;font-size:13px;height:var(--emoji-picker-search-height)}cr-search-field.jelly{border-radius:8px}cr-search-field:not(.jelly){border-radius:40px}cr-search-field:focus-within{border:2px solid var(--emoji-picker-focus-ring-color)}.result{border:2px solid transparent;border-radius:40px;display:flex;margin-inline-end:var(--emoji-picker-search-margins)}.result:active,.result:focus{border-color:var(--emoji-picker-focus-ring-color);border-style:solid;border-width:2px;outline-style:none}.result:hover{background-color:var(--cros-ripple-color)}.name{color:var(--cr-primary-text-color);font-size:13px;line-height:var(--emoji-size);user-select:none}.sr-only{color:transparent;position:absolute;user-select:none;z-index:-2}.no-result{color:var(--emoji-picker-illustration-text-color);font:var(--cros-headline-1-font);left:50%;line-height:24px;position:absolute;text-align:center;--emoji-header-height:calc(
+    return html `<!--_html_template_start_--><style>:host{--emoji-picker-search-margins:14px;--emoji-picker-search-height:40px;--emoji-picker-top-bar-bottom-padding:10px;--search-content-width:calc(var(--emoji-picker-width) - 2*var(--emoji-picker-side-padding));display:flex;flex-direction:column;overflow-y:scroll;min-height:var(--min-height)}:host([gif-support]){--emoji-picker-search-height:36px;--search-content-width:calc(var(--emoji-picker-width) - 2*var(--emoji-picker-search-side-padding))}cr-search-field{--cr-search-field-clear-icon-fill:var(--emoji-picker-search-field-clear-icon-color);--cr-search-field-clear-icon-margin-end:var(--emoji-picker-search-margins);--cr-search-field-clear-icon-size:20px;--cr-search-field-clear-button-size:32px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-min-height:var(--emoji-picker-search-height);--cr-search-field-input-padding-bottom:0;--cr-search-field-input-padding-start:8px;--cr-search-field-input-padding-top:0;--cr-search-field-input-width:100%;--cr-search-field-placeholder-color:var(--emoji-picker-search-field-placeholder-color);--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--emoji-picker-search-field-search-icon-color);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:var(--emoji-picker-search-margins);--cr-search-field-underline-display:none;--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);align-items:center;background-color:var(--emoji-picker-search-field-container-color);border:2px solid transparent;font-size:13px;height:var(--emoji-picker-search-height)}cr-search-field{border-radius:8px}cr-search-field:focus-within{border:2px solid var(--emoji-picker-focus-ring-color)}.result{border:2px solid transparent;border-radius:40px;display:flex;margin-inline-end:var(--emoji-picker-search-margins)}.result:active,.result:focus{border-color:var(--emoji-picker-focus-ring-color);border-style:solid;border-width:2px;outline-style:none}.result:hover{background-color:var(--cros-ripple-color)}.name{color:var(--cr-primary-text-color);font-size:13px;line-height:var(--emoji-size);user-select:none}.sr-only{color:transparent;position:absolute;user-select:none;z-index:-2}.no-result{color:var(--emoji-picker-illustration-text-color);font:var(--cros-headline-1-font);left:50%;line-height:24px;position:absolute;text-align:center;--emoji-header-height:calc(
       var(--emoji-picker-top-padding) +
       var(--emoji-picker-search-height) +
-      var(--emoji-picker-top-bar-bottom-padding));top:calc(50% + var(--emoji-header-height)/ 2);transform:translate(-50%,-50%);width:100vw}#searchShadow{background-color:var(--emoji-picker-container-color);box-shadow:var(--cros-elevation-2-shadow,--cr-elevation-2);display:flex;margin-bottom:7px;margin-inline-end:calc(0px - var(--emoji-picker-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-side-padding));padding-bottom:var(--emoji-picker-top-bar-bottom-padding);padding-inline-end:var(--emoji-picker-side-padding);padding-inline-start:var(--emoji-picker-side-padding);position:sticky;top:0}:host([gif-support]) #searchShadow{margin-inline-end:calc(0px - var(--emoji-picker-search-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-search-side-padding));padding-inline-end:var(--emoji-picker-search-side-padding);padding-inline-start:var(--emoji-picker-search-side-padding)}#results{flex-grow:1;margin-inline-end:var(--emoji-picker-side-padding);overflow-y:scroll;padding:13px 2px 2px 2px;margin-top:-6px;padding-top:6px}#no-emoji-image{display:block;margin:auto}#category-button-group{align-items:center;display:flex;justify-content:space-between;margin-inline-start:20px;width:120px}:host([gif-support]) #category-button-group{margin-inline-start:var(--emoji-picker-search-side-padding);width:168px}#search{width:240px}:host([gif-support]) #search{width:200px}#search-results{width:var(--search-content-width)}</style>
+      var(--emoji-picker-top-bar-bottom-padding));top:calc(50% + var(--emoji-header-height)/ 2);transform:translate(-50%,-50%);width:100vw}#searchShadow{background-color:var(--emoji-picker-container-color);box-shadow:var(--cros-elevation-2-shadow);display:flex;margin-bottom:7px;margin-inline-end:calc(0px - var(--emoji-picker-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-side-padding));padding-bottom:var(--emoji-picker-top-bar-bottom-padding);padding-inline-end:var(--emoji-picker-side-padding);padding-inline-start:var(--emoji-picker-side-padding);position:sticky;top:0}:host([gif-support]) #searchShadow{margin-inline-end:calc(0px - var(--emoji-picker-search-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-search-side-padding));padding-inline-end:var(--emoji-picker-search-side-padding);padding-inline-start:var(--emoji-picker-search-side-padding)}#results{flex-grow:1;margin-inline-end:var(--emoji-picker-side-padding);overflow-y:scroll;padding:13px 2px 2px 2px;margin-top:-6px;padding-top:6px;width:calc(var(--emoji-picker-width) - 4px - var(--emoji-picker-side-padding))}#no-emoji-image{display:block;margin:auto}#category-button-group{align-items:center;display:flex;justify-content:space-between;margin-inline-start:20px;width:120px}:host([gif-support]) #category-button-group{margin-inline-start:var(--emoji-picker-search-side-padding);width:168px}#search{width:240px}:host([gif-support]) #search{width:200px}#search-results{width:var(--search-content-width)}</style>
 
 <div id="searchShadow">
-  <cr-search-field id="search" class$="[[computeCrSearchFieldClass(jellySupport)]]" label="[[getSearchPlaceholderLabel(gifSupport)]]" autofocus="true">
+  <cr-search-field id="search" label="[[getSearchPlaceholderLabel(gifSupport)]]" autofocus="true">
   </cr-search-field>
   <div id="category-button-group">
     <template is="dom-repeat" items="[[categoryMetadata]]">
@@ -5116,33 +5127,25 @@ function getTemplate$5() {
     </div>
     <div id="search-results">
       <template is="dom-repeat" items="[[searchResults]]">
-        <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" jelly-support$="[[jellySupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
+        <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]">
         </emoji-group>
       </template>
     </div>
     <div class="no-result">
       <template is="dom-if" if="[[noResults(status, searchResults)]]">
-        <template is="dom-if" if="[[jellySupport]]">
-          <svg id="no-emoji-image" xmlns="http://www.w3.org/2000/svg" width="224" height="168" viewBox="0 0 224 168" fill="none">
-            <path d="M183 71.5103C183 70.6172 183.782 69.9474 184.675 70.0032C192.21 70.8405 198.071 77.2038 198.071 84.9068C198.071 92.6656 192.266 99.0289 184.731 99.8662C183.838 99.9778 183.056 99.2522 183.056 98.3591L183 71.5103Z" fill="var(--cros-sys-illo-secondary)"/>
-            <path d="M123.572 74.0606C121.841 74.7862 120.167 75.7351 118.548 76.6282C116.259 77.8562 113.58 78.1353 111.124 77.4097C109.729 77.019 108.389 76.5166 106.938 76.2375C101.97 75.3444 97.1704 78.9168 97.0024 84.0521C96.8904 88.6292 100.742 92.704 105.375 92.4807C107.496 92.3691 109.561 91.5318 111.627 91.2527C113.915 90.9736 116.148 91.3643 118.101 92.5365C119.776 93.5413 121.339 94.7134 123.125 95.5507C124.856 96.3322 126.753 96.6671 128.707 96.5555C134.456 96.1647 139.145 91.5876 139.647 85.8383C140.261 78.9726 134.959 73.1675 128.205 73C126.586 73.0558 125.023 73.4466 123.572 74.0606Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="1.65922" stroke-miterlimit="10"/>
-            <path d="M68.0816 87.1182L82.2037 95.491C83.655 96.3283 85.497 95.3236 85.5528 93.649L85.7761 77.2384C85.7761 75.5638 83.9899 74.4474 82.4828 75.2847L68.1374 83.3226C66.6303 84.104 66.6303 86.2251 68.0816 87.1182Z" fill="var(--cros-sys-illo-color1-2)"/>
-            <path d="M214.247 90.4939C217.145 90.4939 219.494 88.1448 219.494 85.247C219.494 82.3492 217.145 80 214.247 80C211.349 80 209 82.3492 209 85.247C209 88.1448 211.349 90.4939 214.247 90.4939Z" fill="var(--cros-sys-illo-color1-1)"/>
-            <path d="M31.9604 97.1109C44.9697 97.1109 55.5158 86.5648 55.5158 73.5555C55.5158 60.5462 44.9697 50 31.9604 50C18.9511 50 8.40491 60.5462 8.40491 73.5555C8.40491 86.5648 18.9511 97.1109 31.9604 97.1109Z" stroke="var(--cros-sys-illo-color1)" stroke-width="1.65922" stroke-miterlimit="10"/>
-            <path d="M19.9036 93.8184L5 118.825" stroke="var(--cros-sys-illo-color1)" stroke-width="5.94044" stroke-miterlimit="10"/>
-            <path d="M170.717 88.1871L164.187 94.7179C162.68 96.225 160.168 96.225 158.661 94.7179L152.13 88.1871C150.623 86.68 150.623 84.1682 152.13 82.6611L158.661 76.1303C160.168 74.6232 162.68 74.6232 164.187 76.1303L170.717 82.6611C172.225 84.1682 172.225 86.6242 170.717 88.1871Z" fill="var(--cros-sys-illo-color1)"/>
-          </svg>
-        </template>
-        <template is="dom-if" if="[[!jellySupport]]">
-          <picture>
-            <source srcset="no_results_dark.svg" media="(prefers-color-scheme: dark)">
-            <img src="no_results.svg" id="no-emoji-image">
-          </picture>
-        </template>
+        <svg id="no-emoji-image" xmlns="http://www.w3.org/2000/svg" width="224" height="168" viewBox="0 0 224 168" fill="none">
+          <path d="M183 71.5103C183 70.6172 183.782 69.9474 184.675 70.0032C192.21 70.8405 198.071 77.2038 198.071 84.9068C198.071 92.6656 192.266 99.0289 184.731 99.8662C183.838 99.9778 183.056 99.2522 183.056 98.3591L183 71.5103Z" fill="var(--cros-sys-illo-secondary)"/>
+          <path d="M123.572 74.0606C121.841 74.7862 120.167 75.7351 118.548 76.6282C116.259 77.8562 113.58 78.1353 111.124 77.4097C109.729 77.019 108.389 76.5166 106.938 76.2375C101.97 75.3444 97.1704 78.9168 97.0024 84.0521C96.8904 88.6292 100.742 92.704 105.375 92.4807C107.496 92.3691 109.561 91.5318 111.627 91.2527C113.915 90.9736 116.148 91.3643 118.101 92.5365C119.776 93.5413 121.339 94.7134 123.125 95.5507C124.856 96.3322 126.753 96.6671 128.707 96.5555C134.456 96.1647 139.145 91.5876 139.647 85.8383C140.261 78.9726 134.959 73.1675 128.205 73C126.586 73.0558 125.023 73.4466 123.572 74.0606Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="1.65922" stroke-miterlimit="10"/>
+          <path d="M68.0816 87.1182L82.2037 95.491C83.655 96.3283 85.497 95.3236 85.5528 93.649L85.7761 77.2384C85.7761 75.5638 83.9899 74.4474 82.4828 75.2847L68.1374 83.3226C66.6303 84.104 66.6303 86.2251 68.0816 87.1182Z" fill="var(--cros-sys-illo-color1-2)"/>
+          <path d="M214.247 90.4939C217.145 90.4939 219.494 88.1448 219.494 85.247C219.494 82.3492 217.145 80 214.247 80C211.349 80 209 82.3492 209 85.247C209 88.1448 211.349 90.4939 214.247 90.4939Z" fill="var(--cros-sys-illo-color1-1)"/>
+          <path d="M31.9604 97.1109C44.9697 97.1109 55.5158 86.5648 55.5158 73.5555C55.5158 60.5462 44.9697 50 31.9604 50C18.9511 50 8.40491 60.5462 8.40491 73.5555C8.40491 86.5648 18.9511 97.1109 31.9604 97.1109Z" stroke="var(--cros-sys-illo-color1)" stroke-width="1.65922" stroke-miterlimit="10"/>
+          <path d="M19.9036 93.8184L5 118.825" stroke="var(--cros-sys-illo-color1)" stroke-width="5.94044" stroke-miterlimit="10"/>
+          <path d="M170.717 88.1871L164.187 94.7179C162.68 96.225 160.168 96.225 158.661 94.7179L152.13 88.1871C150.623 86.68 150.623 84.1682 152.13 82.6611L158.661 76.1303C160.168 74.6232 162.68 74.6232 164.187 76.1303L170.717 82.6611C172.225 84.1682 172.225 86.6242 170.717 88.1871Z" fill="var(--cros-sys-illo-color1)"/>
+        </svg>
         No result found
       </template>
       <template is="dom-if" if="[[isGifInErrorState(status, searchResults)]]">
-        <emoji-error status="[[status]]" error-message="[[errorMessage]]" jelly-support$="[[jellySupport]]">
+        <emoji-error status="[[status]]" error-message="[[errorMessage]]">
         </emoji-error>
       </template>
     </div>
@@ -5184,12 +5187,12 @@ class EmojiSearch extends PolymerElement {
             searchResults: { type: Array },
             needIndexing: { type: Boolean, value: false },
             gifSupport: { type: Boolean, value: false },
-            jellySupport: { type: Boolean, value: false },
             status: { type: Status, value: null },
             searchQuery: { type: String, value: '' },
             nextGifPos: { type: String, value: '' },
             errorMessage: { type: String, value: NO_INTERNET_SEARCH_ERROR_MSG },
             closeGifNudgeOverlay: { type: Object },
+            useGroupedPreference: { type: Boolean, value: false },
             globalTone: { type: Number, value: null, readonly: true },
             globalGender: { type: Number, value: null, readonly: true },
         };
@@ -5492,9 +5495,6 @@ class EmojiSearch extends PolymerElement {
     setSearchQuery(value) {
         this.$.search.setValue(value);
     }
-    computeCrSearchFieldClass(jellySupport) {
-        return jellySupport ? 'jelly' : '';
-    }
 }
 customElements.define(EmojiSearch.is, EmojiSearch);
 
@@ -5503,56 +5503,40 @@ function getTemplate$4() {
 
 <div class="gif-error-container">
   <template is="dom-if" if="[[isGifInHttpErrorState(status)]]">
-    <template is="dom-if" if="[[jellySupport]]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="224" height="72" viewBox="0 0 224 72" fill="none">
-        <g clip-path="url(#clip0_1219_58731)">
-        <path d="M206 45.999C209.314 45.999 212 43.3127 212 39.999C212 36.6853 209.314 33.999 206 33.999C202.686 33.999 200 36.6853 200 39.999C200 43.3127 202.686 45.999 206 45.999Z" fill="var(--cros-sys-illo-color3)"/>
-        <path d="M25.6256 0.578691L12.7803 10.2144C12.1638 10.6769 12.2788 11.5796 12.9523 11.8351L27.2622 17.5317C27.9357 17.7872 28.655 17.2476 28.5981 16.5296L27.1334 1.19723C27.04 0.430515 26.1907 0.154718 25.6256 0.578691Z" fill="var(--cros-sys-illo-color1-2)"/>
-        <path d="M203.634 13.9104C205.064 12.9585 205.244 11.0326 204.153 9.78079C197.227 2.09106 185.69 0.394099 176.768 6.24445C167.946 12.1147 164.86 23.3705 169.183 32.7062C169.917 34.196 171.763 34.7733 173.075 33.9007L203.634 13.9104Z" fill="var(--cros-sys-illo-color1-2)"/>
-        <path d="M164.949 18.9237C176.944 18.8539 186.629 28.7498 186.561 40.9214L186.6 41.2391C186.453 53.2915 176.655 62.9932 164.6 62.8445C152.545 62.6959 142.84 52.8993 142.988 40.8469L142.948 40.5292C142.977 28.5561 152.874 18.8744 164.949 18.9237Z" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.61 3.61"/>
-        <path d="M118.118 55.206C117.603 53.1357 117.548 51.3247 117.954 49.773C118.391 48.1696 119.412 46.1789 121.019 43.8008C122.264 41.9087 123.109 40.3575 123.556 39.1474C124.033 37.8855 124.087 36.5093 123.716 35.0187C123.222 33.0312 122.184 31.5966 120.602 30.715C119.009 29.792 117.074 29.6136 114.797 30.1799C112.727 30.6946 111.24 31.7017 110.338 33.201C109.426 34.659 108.875 36.3347 108.686 38.2281L103.27 37.3986C103.501 34.7911 104.446 32.3139 106.105 29.967C107.753 27.5787 110.234 25.9727 113.546 25.149C116.03 24.5313 118.354 24.5032 120.516 25.0648C122.709 25.5746 124.544 26.5911 126.022 28.1142C127.541 29.6269 128.574 31.4806 129.12 33.6751C129.511 35.2485 129.545 36.8008 129.222 38.3319C128.889 39.8216 128.437 41.0991 127.867 42.1642C127.328 43.1776 126.596 44.3926 125.674 45.8091C124.616 47.3911 123.895 48.8234 123.511 50.1061C123.167 51.3785 123.181 52.76 123.552 54.2506L124.2 56.8591L118.859 58.1872L118.118 55.206ZM124.881 71.0008C123.804 71.2685 122.78 71.1275 121.808 70.5778C120.867 69.9764 120.258 69.1167 119.98 67.9988C119.712 66.9222 119.858 65.9186 120.418 64.988C121.009 64.0057 121.843 63.3807 122.92 63.113C124.038 62.835 125.067 62.9967 126.008 63.5981C126.98 64.1478 127.6 64.9609 127.868 66.0375C128.146 67.1554 127.989 68.2056 127.398 69.1879C126.838 70.1185 125.999 70.7228 124.881 71.0008Z" fill="var(--cros-sys-illo-color1-2)"/>
-        <path d="M69.3399 63.4977L64.2765 48.8173C63.3651 46.1849 64.7828 43.2488 67.4158 42.3376L82.0996 37.2754C84.7325 36.3642 87.6693 37.7817 88.5807 40.414L93.6441 55.0944C94.5555 57.7268 93.1378 60.6629 90.5048 61.5741L75.821 66.6363C73.188 67.5475 70.2513 66.1301 69.3399 63.4977Z" fill="var(--cros-sys-illo-color1)"/>
-        <path d="M48.8435 12.2944L34.4635 21.8114C32.1343 23.3301 30.8179 25.9624 31.0204 28.696L32.0331 45.9076C32.2356 48.6412 33.8559 51.071 36.2863 52.286L51.679 59.9805C54.1094 61.1954 57.0462 60.993 59.3754 59.4743L73.7553 49.9573C76.0845 48.4387 77.401 45.8063 77.1984 43.0727L76.1858 25.8612C75.9832 23.1276 74.363 20.6977 71.9325 19.4828L56.5398 11.7882C54.0081 10.5733 51.0714 10.7758 48.8435 12.2944Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-        <defs>
-        <clipPath id="clip0_1219_58731">
-        <rect width="224" height="72" fill="var(--cros-sys-illo-base)"/>
-        </clipPath>
-        </defs>
-      </svg>
-    </template>
-    <template is="dom-if" if="[[!jellySupport]]">
-      <picture>
-        <source srcset="generic_error_dark.svg" media="(prefers-color-scheme: dark)">
-        <img src="generic_error.svg">
-      </picture>
-    </template>
+    <svg xmlns="http://www.w3.org/2000/svg" width="224" height="72" viewBox="0 0 224 72" fill="none">
+      <g clip-path="url(#clip0_1219_58731)">
+      <path d="M206 45.999C209.314 45.999 212 43.3127 212 39.999C212 36.6853 209.314 33.999 206 33.999C202.686 33.999 200 36.6853 200 39.999C200 43.3127 202.686 45.999 206 45.999Z" fill="var(--cros-sys-illo-color3)"/>
+      <path d="M25.6256 0.578691L12.7803 10.2144C12.1638 10.6769 12.2788 11.5796 12.9523 11.8351L27.2622 17.5317C27.9357 17.7872 28.655 17.2476 28.5981 16.5296L27.1334 1.19723C27.04 0.430515 26.1907 0.154718 25.6256 0.578691Z" fill="var(--cros-sys-illo-color1-2)"/>
+      <path d="M203.634 13.9104C205.064 12.9585 205.244 11.0326 204.153 9.78079C197.227 2.09106 185.69 0.394099 176.768 6.24445C167.946 12.1147 164.86 23.3705 169.183 32.7062C169.917 34.196 171.763 34.7733 173.075 33.9007L203.634 13.9104Z" fill="var(--cros-sys-illo-color1-2)"/>
+      <path d="M164.949 18.9237C176.944 18.8539 186.629 28.7498 186.561 40.9214L186.6 41.2391C186.453 53.2915 176.655 62.9932 164.6 62.8445C152.545 62.6959 142.84 52.8993 142.988 40.8469L142.948 40.5292C142.977 28.5561 152.874 18.8744 164.949 18.9237Z" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.61 3.61"/>
+      <path d="M118.118 55.206C117.603 53.1357 117.548 51.3247 117.954 49.773C118.391 48.1696 119.412 46.1789 121.019 43.8008C122.264 41.9087 123.109 40.3575 123.556 39.1474C124.033 37.8855 124.087 36.5093 123.716 35.0187C123.222 33.0312 122.184 31.5966 120.602 30.715C119.009 29.792 117.074 29.6136 114.797 30.1799C112.727 30.6946 111.24 31.7017 110.338 33.201C109.426 34.659 108.875 36.3347 108.686 38.2281L103.27 37.3986C103.501 34.7911 104.446 32.3139 106.105 29.967C107.753 27.5787 110.234 25.9727 113.546 25.149C116.03 24.5313 118.354 24.5032 120.516 25.0648C122.709 25.5746 124.544 26.5911 126.022 28.1142C127.541 29.6269 128.574 31.4806 129.12 33.6751C129.511 35.2485 129.545 36.8008 129.222 38.3319C128.889 39.8216 128.437 41.0991 127.867 42.1642C127.328 43.1776 126.596 44.3926 125.674 45.8091C124.616 47.3911 123.895 48.8234 123.511 50.1061C123.167 51.3785 123.181 52.76 123.552 54.2506L124.2 56.8591L118.859 58.1872L118.118 55.206ZM124.881 71.0008C123.804 71.2685 122.78 71.1275 121.808 70.5778C120.867 69.9764 120.258 69.1167 119.98 67.9988C119.712 66.9222 119.858 65.9186 120.418 64.988C121.009 64.0057 121.843 63.3807 122.92 63.113C124.038 62.835 125.067 62.9967 126.008 63.5981C126.98 64.1478 127.6 64.9609 127.868 66.0375C128.146 67.1554 127.989 68.2056 127.398 69.1879C126.838 70.1185 125.999 70.7228 124.881 71.0008Z" fill="var(--cros-sys-illo-color1-2)"/>
+      <path d="M69.3399 63.4977L64.2765 48.8173C63.3651 46.1849 64.7828 43.2488 67.4158 42.3376L82.0996 37.2754C84.7325 36.3642 87.6693 37.7817 88.5807 40.414L93.6441 55.0944C94.5555 57.7268 93.1378 60.6629 90.5048 61.5741L75.821 66.6363C73.188 67.5475 70.2513 66.1301 69.3399 63.4977Z" fill="var(--cros-sys-illo-color1)"/>
+      <path d="M48.8435 12.2944L34.4635 21.8114C32.1343 23.3301 30.8179 25.9624 31.0204 28.696L32.0331 45.9076C32.2356 48.6412 33.8559 51.071 36.2863 52.286L51.679 59.9805C54.1094 61.1954 57.0462 60.993 59.3754 59.4743L73.7553 49.9573C76.0845 48.4387 77.401 45.8063 77.1984 43.0727L76.1858 25.8612C75.9832 23.1276 74.363 20.6977 71.9325 19.4828L56.5398 11.7882C54.0081 10.5733 51.0714 10.7758 48.8435 12.2944Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_1219_58731">
+      <rect width="224" height="72" fill="var(--cros-sys-illo-base)"/>
+      </clipPath>
+      </defs>
+    </svg>
   </template>
   <template is="dom-if" if="[[isGifInNetworkErrorState(status)]]">
-    <template is="dom-if" if="[[jellySupport]]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="72" viewBox="0 0 200 72" fill="none">
-        <path d="M69.9043 55.1479L68.5888 51.3154C68.349 50.617 67.5873 50.2447 66.8875 50.484L63.0474 51.7969C62.3475 52.0362 61.9746 52.7963 62.2143 53.4947L63.5298 57.3272C63.7696 58.0256 64.5312 58.3979 65.2311 58.1586L69.0712 56.8457C69.771 56.6064 70.144 55.8463 69.9043 55.1479Z" fill="var(--cros-sys-illo-color1)"/>
-        <path d="M50.3433 30.8118C49.8983 30.6909 49.4409 30.6213 48.98 30.6044L47.5111 30.3799C46.2916 30.1791 45.1856 29.5463 44.3959 28.5975C43.2542 27.2982 42.4975 25.7029 40.6468 25.3219C39.9277 25.1721 39.1818 25.213 38.4833 25.4403C37.7849 25.6677 37.1583 26.0737 36.666 26.6179C36.6149 26.6723 36.5638 26.7335 36.516 26.7913C36.1413 27.2691 35.8746 27.8221 35.7345 28.4125C35.5943 29.0029 35.584 29.6165 35.7041 30.2113C35.8243 30.806 36.0721 31.3677 36.4305 31.8578C36.789 32.3478 37.2495 32.7545 37.7805 33.05C38.4247 33.4106 39.1438 33.6691 39.8016 33.965C41.0035 34.4897 41.9483 35.4681 42.4294 36.6861L42.9713 38.0671C43.2364 39.0793 43.7637 40.0041 44.5003 40.7486C45.2369 41.4931 46.1568 42.031 47.1676 42.3084C48.1784 42.5858 49.2446 42.5929 50.259 42.329C51.2734 42.065 52.2004 41.5393 52.9468 40.8047C53.6933 40.0701 54.2329 39.1524 54.5115 38.1438C54.7901 37.1352 54.7979 36.0712 54.5341 35.0586C54.2703 34.046 53.7442 33.1206 53.0086 32.3751C52.273 31.6297 51.3538 31.0906 50.3433 30.8118V30.8118Z" stroke="var(--cros-sys-illo-secondary)" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M187.529 30.8935C188.894 30.8935 190 29.7894 190 28.4275C190 27.0655 188.894 25.9614 187.529 25.9614C186.164 25.9614 185.058 27.0655 185.058 28.4275C185.058 29.7894 186.164 30.8935 187.529 30.8935Z" fill="var(--cros-sys-illo-secondary)"/>
-        <path d="M156.811 51.2135C157.635 51.2135 158.303 50.5465 158.303 49.7237C158.303 48.9009 157.635 48.2339 156.811 48.2339C155.986 48.2339 155.318 48.9009 155.318 49.7237C155.318 50.5465 155.986 51.2135 156.811 51.2135Z" fill="var(--cros-sys-illo-color1)"/>
-        <path d="M12.0867 23.1225C13.2391 23.1225 14.1734 22.1902 14.1734 21.04C14.1734 19.8899 13.2391 18.9575 12.0867 18.9575C10.9342 18.9575 10 19.8899 10 21.04C10 22.1902 10.9342 23.1225 12.0867 23.1225Z" fill="var(--cros-sys-illo-color1)"/>
-        <path d="M132.918 45.788L129.169 48.271C128.869 48.4658 128.627 48.7366 128.466 49.0558C128.306 49.375 128.233 49.731 128.256 50.0874L128.529 54.5807C128.55 54.933 128.664 55.2734 128.859 55.5677C129.054 55.8621 129.323 56.1 129.64 56.2576L133.678 58.2509C133.995 58.4092 134.347 58.4816 134.7 58.4607C135.053 58.4398 135.394 58.3264 135.689 58.1318L139.438 55.6488C139.733 55.4536 139.971 55.1847 140.129 54.869C140.287 54.5532 140.359 54.2017 140.338 53.8494L140.066 49.3527C140.043 49.0006 139.929 48.6605 139.734 48.3662C139.539 48.072 139.27 47.8339 138.954 47.6758L134.929 45.6655C134.613 45.508 134.26 45.4363 133.907 45.4578C133.554 45.4793 133.213 45.5932 132.918 45.788V45.788Z" stroke="var(--cros-sys-illo-secondary)" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M22.9887 39.3359H16.3562C16.2857 39.3369 16.2167 39.3563 16.1562 39.3922C16.0956 39.4282 16.0455 39.4794 16.011 39.5407C15.9765 39.602 15.9587 39.6713 15.9595 39.7416C15.9603 39.8119 15.9795 39.8808 16.0154 39.9414L19.3282 45.666C19.3637 45.7244 19.4138 45.7727 19.4735 45.8063C19.5332 45.8398 19.6005 45.8574 19.669 45.8574C19.7375 45.8574 19.8049 45.8398 19.8645 45.8063C19.9242 45.7727 19.9743 45.7244 20.0098 45.666L23.3261 39.9346C23.3601 39.8745 23.3781 39.8066 23.3781 39.7375C23.3782 39.6684 23.3604 39.6005 23.3265 39.5403C23.2925 39.4801 23.2436 39.4297 23.1844 39.3939C23.1253 39.3581 23.0578 39.3381 22.9887 39.3359Z" fill="var(--cros-sys-illo-color1-2)"/>
-        <path d="M152.622 33.6144C152.55 33.6866 152.494 33.7735 152.458 33.8692C152.422 33.9649 152.408 34.0672 152.416 34.169C152.424 34.2707 152.453 34.3697 152.503 34.4589C152.553 34.5481 152.621 34.6256 152.704 34.6859C153.765 35.4778 155.076 35.8634 156.398 35.7727C157.72 35.682 158.965 35.1211 159.908 34.1918C160.85 33.2625 161.428 32.0265 161.535 30.7084C161.642 29.3904 161.272 28.0777 160.492 27.0089C160.432 26.926 160.355 26.857 160.266 26.8065C160.177 26.756 160.078 26.7252 159.977 26.7162C159.875 26.7071 159.772 26.7201 159.676 26.7542C159.579 26.7882 159.491 26.8426 159.418 26.9136L152.622 33.6144Z" fill="var(--cros-sys-illo-color1-2)"/>
-        <circle cx="163.5" cy="26.5" r="5.5" stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-dasharray="2 2"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M81.8614 18.0259C79.3692 19.5124 77.0488 21.3099 74.9612 23.3931L70.9429 27.4068C70.6351 27.7139 70.3909 28.0784 70.2243 28.4797C70.0577 28.8809 69.9719 29.311 69.9719 29.7453C69.9719 30.1797 70.0577 30.6097 70.2243 31.011C70.3909 31.4122 70.6351 31.7768 70.9429 32.0838L77.848 38.9785C77.9408 38.8423 78.0457 38.7148 78.1616 38.5976L81.1847 35.5805C84.5762 32.1968 88.7841 29.8154 93.3462 28.6273L81.8614 18.0259ZM97.0115 27.941C98.0318 27.8227 99.0631 27.7625 100.101 27.7625C107.195 27.7625 113.999 30.5747 119.016 35.5805L122.039 38.5976C122.155 38.7148 122.26 38.8423 122.353 38.9785L129.258 32.0838C129.566 31.7772 129.811 31.413 129.978 31.012C130.145 30.611 130.232 30.1811 130.232 29.7467C130.233 29.3124 130.148 28.8822 129.982 28.4807C129.816 28.0792 129.572 27.7143 129.265 27.4068L125.247 23.3931C118.578 16.7385 109.534 13 100.104 13C94.7001 13 89.4232 14.2276 84.6474 16.528L97.0115 27.941Z" fill="var(--cros-sys-illo-color1-2)"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M93.3479 28.6289C88.7878 29.8174 84.5818 32.1982 81.1917 35.5806L78.1685 38.5977C78.0527 38.715 77.9477 38.8425 77.855 38.9787L87.2618 48.3871L88.0457 47.6047C89.6284 46.023 91.5081 44.7681 93.5772 43.9119C95.6462 43.0557 97.8642 42.615 100.104 42.615C102.344 42.615 104.562 43.0557 106.631 43.9119C108.7 44.7681 110.58 46.023 112.162 47.6047L112.946 48.3871L113.814 47.5209L93.3479 28.6289ZM115.933 45.4067L122.36 38.9923C122.267 38.8561 122.162 38.7286 122.046 38.6113L119.023 35.5806C114.006 30.5748 107.202 27.7627 100.107 27.7627C99.068 27.7627 98.0347 27.8231 97.0124 27.9419L115.933 45.4067Z" fill="var(--cros-sys-illo-color1-1)"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M112.947 48.3731L102.449 58.8495C101.827 59.4702 100.984 59.8188 100.104 59.8188C99.2247 59.8188 98.3812 59.4702 97.7593 58.8495L87.2619 48.3731L88.0458 47.5908C89.6285 46.009 91.5082 44.7541 93.5773 43.8979C95.6464 43.0418 97.8643 42.6011 100.104 42.6011C102.344 42.6011 104.562 43.0418 106.631 43.8979C108.7 44.7541 110.58 46.009 112.163 47.5908L112.947 48.3731Z" fill="var(--cros-sys-illo-color1)"/>
-        <path d="M73.2043 12L121.917 56.9652" stroke="var(--cros-sys-illo-base)" stroke-width="3" stroke-linecap="round"/>
-        <path d="M73.2043 12L121.917 56.9652" stroke="var(--cros-sys-illo-color1-1)" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-    </template>
-    <template is="dom-if" if="[[!jellySupport]]">
-      <picture>
-        <source srcset="network_error_dark.svg" media="(prefers-color-scheme: dark)">
-        <img src="network_error.svg">
-      </picture>
-    </template>
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="72" viewBox="0 0 200 72" fill="none">
+      <path d="M69.9043 55.1479L68.5888 51.3154C68.349 50.617 67.5873 50.2447 66.8875 50.484L63.0474 51.7969C62.3475 52.0362 61.9746 52.7963 62.2143 53.4947L63.5298 57.3272C63.7696 58.0256 64.5312 58.3979 65.2311 58.1586L69.0712 56.8457C69.771 56.6064 70.144 55.8463 69.9043 55.1479Z" fill="var(--cros-sys-illo-color1)"/>
+      <path d="M50.3433 30.8118C49.8983 30.6909 49.4409 30.6213 48.98 30.6044L47.5111 30.3799C46.2916 30.1791 45.1856 29.5463 44.3959 28.5975C43.2542 27.2982 42.4975 25.7029 40.6468 25.3219C39.9277 25.1721 39.1818 25.213 38.4833 25.4403C37.7849 25.6677 37.1583 26.0737 36.666 26.6179C36.6149 26.6723 36.5638 26.7335 36.516 26.7913C36.1413 27.2691 35.8746 27.8221 35.7345 28.4125C35.5943 29.0029 35.584 29.6165 35.7041 30.2113C35.8243 30.806 36.0721 31.3677 36.4305 31.8578C36.789 32.3478 37.2495 32.7545 37.7805 33.05C38.4247 33.4106 39.1438 33.6691 39.8016 33.965C41.0035 34.4897 41.9483 35.4681 42.4294 36.6861L42.9713 38.0671C43.2364 39.0793 43.7637 40.0041 44.5003 40.7486C45.2369 41.4931 46.1568 42.031 47.1676 42.3084C48.1784 42.5858 49.2446 42.5929 50.259 42.329C51.2734 42.065 52.2004 41.5393 52.9468 40.8047C53.6933 40.0701 54.2329 39.1524 54.5115 38.1438C54.7901 37.1352 54.7979 36.0712 54.5341 35.0586C54.2703 34.046 53.7442 33.1206 53.0086 32.3751C52.273 31.6297 51.3538 31.0906 50.3433 30.8118V30.8118Z" stroke="var(--cros-sys-illo-secondary)" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M187.529 30.8935C188.894 30.8935 190 29.7894 190 28.4275C190 27.0655 188.894 25.9614 187.529 25.9614C186.164 25.9614 185.058 27.0655 185.058 28.4275C185.058 29.7894 186.164 30.8935 187.529 30.8935Z" fill="var(--cros-sys-illo-secondary)"/>
+      <path d="M156.811 51.2135C157.635 51.2135 158.303 50.5465 158.303 49.7237C158.303 48.9009 157.635 48.2339 156.811 48.2339C155.986 48.2339 155.318 48.9009 155.318 49.7237C155.318 50.5465 155.986 51.2135 156.811 51.2135Z" fill="var(--cros-sys-illo-color1)"/>
+      <path d="M12.0867 23.1225C13.2391 23.1225 14.1734 22.1902 14.1734 21.04C14.1734 19.8899 13.2391 18.9575 12.0867 18.9575C10.9342 18.9575 10 19.8899 10 21.04C10 22.1902 10.9342 23.1225 12.0867 23.1225Z" fill="var(--cros-sys-illo-color1)"/>
+      <path d="M132.918 45.788L129.169 48.271C128.869 48.4658 128.627 48.7366 128.466 49.0558C128.306 49.375 128.233 49.731 128.256 50.0874L128.529 54.5807C128.55 54.933 128.664 55.2734 128.859 55.5677C129.054 55.8621 129.323 56.1 129.64 56.2576L133.678 58.2509C133.995 58.4092 134.347 58.4816 134.7 58.4607C135.053 58.4398 135.394 58.3264 135.689 58.1318L139.438 55.6488C139.733 55.4536 139.971 55.1847 140.129 54.869C140.287 54.5532 140.359 54.2017 140.338 53.8494L140.066 49.3527C140.043 49.0006 139.929 48.6605 139.734 48.3662C139.539 48.072 139.27 47.8339 138.954 47.6758L134.929 45.6655C134.613 45.508 134.26 45.4363 133.907 45.4578C133.554 45.4793 133.213 45.5932 132.918 45.788V45.788Z" stroke="var(--cros-sys-illo-secondary)" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22.9887 39.3359H16.3562C16.2857 39.3369 16.2167 39.3563 16.1562 39.3922C16.0956 39.4282 16.0455 39.4794 16.011 39.5407C15.9765 39.602 15.9587 39.6713 15.9595 39.7416C15.9603 39.8119 15.9795 39.8808 16.0154 39.9414L19.3282 45.666C19.3637 45.7244 19.4138 45.7727 19.4735 45.8063C19.5332 45.8398 19.6005 45.8574 19.669 45.8574C19.7375 45.8574 19.8049 45.8398 19.8645 45.8063C19.9242 45.7727 19.9743 45.7244 20.0098 45.666L23.3261 39.9346C23.3601 39.8745 23.3781 39.8066 23.3781 39.7375C23.3782 39.6684 23.3604 39.6005 23.3265 39.5403C23.2925 39.4801 23.2436 39.4297 23.1844 39.3939C23.1253 39.3581 23.0578 39.3381 22.9887 39.3359Z" fill="var(--cros-sys-illo-color1-2)"/>
+      <path d="M152.622 33.6144C152.55 33.6866 152.494 33.7735 152.458 33.8692C152.422 33.9649 152.408 34.0672 152.416 34.169C152.424 34.2707 152.453 34.3697 152.503 34.4589C152.553 34.5481 152.621 34.6256 152.704 34.6859C153.765 35.4778 155.076 35.8634 156.398 35.7727C157.72 35.682 158.965 35.1211 159.908 34.1918C160.85 33.2625 161.428 32.0265 161.535 30.7084C161.642 29.3904 161.272 28.0777 160.492 27.0089C160.432 26.926 160.355 26.857 160.266 26.8065C160.177 26.756 160.078 26.7252 159.977 26.7162C159.875 26.7071 159.772 26.7201 159.676 26.7542C159.579 26.7882 159.491 26.8426 159.418 26.9136L152.622 33.6144Z" fill="var(--cros-sys-illo-color1-2)"/>
+      <circle cx="163.5" cy="26.5" r="5.5" stroke="var(--cros-sys-illo-color1)" stroke-linecap="round" stroke-dasharray="2 2"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M81.8614 18.0259C79.3692 19.5124 77.0488 21.3099 74.9612 23.3931L70.9429 27.4068C70.6351 27.7139 70.3909 28.0784 70.2243 28.4797C70.0577 28.8809 69.9719 29.311 69.9719 29.7453C69.9719 30.1797 70.0577 30.6097 70.2243 31.011C70.3909 31.4122 70.6351 31.7768 70.9429 32.0838L77.848 38.9785C77.9408 38.8423 78.0457 38.7148 78.1616 38.5976L81.1847 35.5805C84.5762 32.1968 88.7841 29.8154 93.3462 28.6273L81.8614 18.0259ZM97.0115 27.941C98.0318 27.8227 99.0631 27.7625 100.101 27.7625C107.195 27.7625 113.999 30.5747 119.016 35.5805L122.039 38.5976C122.155 38.7148 122.26 38.8423 122.353 38.9785L129.258 32.0838C129.566 31.7772 129.811 31.413 129.978 31.012C130.145 30.611 130.232 30.1811 130.232 29.7467C130.233 29.3124 130.148 28.8822 129.982 28.4807C129.816 28.0792 129.572 27.7143 129.265 27.4068L125.247 23.3931C118.578 16.7385 109.534 13 100.104 13C94.7001 13 89.4232 14.2276 84.6474 16.528L97.0115 27.941Z" fill="var(--cros-sys-illo-color1-2)"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M93.3479 28.6289C88.7878 29.8174 84.5818 32.1982 81.1917 35.5806L78.1685 38.5977C78.0527 38.715 77.9477 38.8425 77.855 38.9787L87.2618 48.3871L88.0457 47.6047C89.6284 46.023 91.5081 44.7681 93.5772 43.9119C95.6462 43.0557 97.8642 42.615 100.104 42.615C102.344 42.615 104.562 43.0557 106.631 43.9119C108.7 44.7681 110.58 46.023 112.162 47.6047L112.946 48.3871L113.814 47.5209L93.3479 28.6289ZM115.933 45.4067L122.36 38.9923C122.267 38.8561 122.162 38.7286 122.046 38.6113L119.023 35.5806C114.006 30.5748 107.202 27.7627 100.107 27.7627C99.068 27.7627 98.0347 27.8231 97.0124 27.9419L115.933 45.4067Z" fill="var(--cros-sys-illo-color1-1)"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M112.947 48.3731L102.449 58.8495C101.827 59.4702 100.984 59.8188 100.104 59.8188C99.2247 59.8188 98.3812 59.4702 97.7593 58.8495L87.2619 48.3731L88.0458 47.5908C89.6285 46.009 91.5082 44.7541 93.5773 43.8979C95.6464 43.0418 97.8643 42.6011 100.104 42.6011C102.344 42.6011 104.562 43.0418 106.631 43.8979C108.7 44.7541 110.58 46.009 112.163 47.5908L112.947 48.3731Z" fill="var(--cros-sys-illo-color1)"/>
+      <path d="M73.2043 12L121.917 56.9652" stroke="var(--cros-sys-illo-base)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M73.2043 12L121.917 56.9652" stroke="var(--cros-sys-illo-color1-1)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
   </template>
   <span class="error-text">[[getErrorMessage(status)]]</span>
   <a class="try-again-button" onclick="[[onClickTryAgain]]">Try again</a>
@@ -5574,7 +5558,6 @@ class EmojiErrorComponent extends PolymerElement {
         return {
             status: { type: Status },
             errorMessage: { type: String },
-            jellySupport: { type: Boolean, value: false },
         };
     }
     isGifInHttpErrorState(status) {
@@ -5698,7 +5681,7 @@ function getTemplate$3() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -5864,7 +5847,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -5882,7 +5865,7 @@ function getTemplate$2() {
     return html `<!--_html_template_start_--><style>#group-button{--hover-bg-color:var(--cr-hover-background-color);border:none;border-radius:0;color:var(--emoji-picker-tab-unselected-color);font-size:12px;font:var(--cros-button-1-font);margin:0;margin-inline:var(--tab-button-margin);min-width:unset;width:max-content;--cr-button-height:var(--emoji-picker-group-button-height, 32px);padding-left:var(--emoji-picker-group-button-padding,0);padding-right:var(--emoji-picker-group-button-padding,0);border-radius:var(--emoji-picker-group-button-border-radius,0)}#group-button:hover{box-shadow:none}#group-button:active{box-shadow:none}#group-button.text-group-active{--cr-icon-button-fill-color:var(--emoji-picker-tab-selected-color);color:var(--emoji-picker-tab-selected-color)}cr-button{--focus-shadow-color:var(--emoji-picker-focus-ring-color)}</style>
 
 <cr-button id="group-button" class$="[[calculateClassName(active)]]" on-click="handleClick" custom-tab-index="[[customTabIndex]]" aria-pressed$="[[getAriaPressedState(active)]]">
-  [[maybeToUpperCase(name, jellySupport)]]
+  [[name]]
 </cr-button>
 <!--_html_template_end_-->`;
 }
@@ -5903,7 +5886,6 @@ class TextGroupButton extends PolymerElement {
             groupId: { type: String, readonly: true },
             active: { type: Boolean, value: false },
             disabled: { type: Boolean, value: false },
-            jellySupport: { type: Boolean, value: false },
             customTabIndex: { type: Number, value: -1 },
         };
     }
@@ -5915,14 +5897,6 @@ class TextGroupButton extends PolymerElement {
     }
     calculateClassName(active) {
         return active ? 'text-group-active' : '';
-    }
-    maybeToUpperCase(text, jellySupport) {
-        // With Jelly flag on, we do not capitalize texts here.
-        // TODO(b/263055563): Remove this flag once Jelly is default on.
-        if (jellySupport) {
-            return text;
-        }
-        return text.toUpperCase();
     }
     getAriaPressedState(active) {
         return active ? 'true' : 'false';
@@ -6250,257 +6224,10 @@ class CrA11yAnnouncerElement extends CustomElement {
 }
 customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
 
-// ui/webui/resources/cr_components/color_change_listener/color_change_listener.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class PageHandlerPendingReceiver {
-    handle;
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.PageHandler', scope);
-    }
-}
-class PageHandlerRemote {
-    proxy;
-    $;
-    onConnectionError;
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    setPage(page) {
-        this.proxy.sendMessage(0, PageHandler_SetPage_ParamsSpec.$, null, [
-            page
-        ]);
-    }
-}
-class PageHandler {
-    static get $interfaceName() {
-        return "color_change_listener.mojom.PageHandler";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new PageHandlerRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-class PagePendingReceiver {
-    handle;
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.Page', scope);
-    }
-}
-class PageRemote {
-    proxy;
-    $;
-    onConnectionError;
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    onColorProviderChanged() {
-        this.proxy.sendMessage(0, Page_OnColorProviderChanged_ParamsSpec.$, null, []);
-    }
-}
-/**
- * An object which receives request messages for the Page
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-class PageCallbackRouter {
-    helper_internal_;
-    $;
-    router_;
-    onColorProviderChanged;
-    onConnectionError;
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.onColorProviderChanged =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, Page_OnColorProviderChanged_ParamsSpec.$, null, this.onColorProviderChanged.createReceiverHandler(false /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-    /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
-     */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-}
-const PageHandler_SetPage_ParamsSpec = { $: {} };
-const Page_OnColorProviderChanged_ParamsSpec = { $: {} };
-mojo.internal.Struct(PageHandler_SetPage_ParamsSpec.$, 'PageHandler_SetPage_Params', [
-    mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProviderChanged_Params', [], [[0, 8],]);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file provides a singleton class that exposes the Mojo
- * handler interface used for one way communication between the JS and the
- * browser.
- * TODO(tluk): Convert this into typescript once all dependencies have been
- * fully migrated.
- */
-let instance = null;
-class BrowserProxy {
-    callbackRouter;
-    constructor() {
-        this.callbackRouter = new PageCallbackRouter();
-        const pageHandlerRemote = PageHandler.getRemote();
-        pageHandlerRemote.setPage(this.callbackRouter.$.bindNewPipeAndPassRemote());
-    }
-    static getInstance() {
-        return instance || (instance = new BrowserProxy());
-    }
-    static setInstance(newInstance) {
-        instance = newInstance;
-    }
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file holds the functions that allow WebUI to update its
- * colors CSS stylesheet when a ColorProvider change in the browser is detected.
- */
-/**
- * The CSS selector used to get the <link> node with the colors.css stylesheet.
- * The wildcard is needed since the URL ends with a timestamp.
- */
-const COLORS_CSS_SELECTOR = 'link[href*=\'//theme/colors.css\']';
-let documentInstance = null;
-// 
-// Event fired after updated colors have been fetched and applied.
-const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
-// 
-class ColorChangeUpdater {
-    listenerId_ = null;
-    root_;
-    // 
-    eventTarget = new EventTarget();
-    // 
-    constructor(root) {
-        assert(documentInstance === null || root !== document);
-        this.root_ = root;
-    }
-    /**
-     * Starts listening for ColorProvider changes from the browser and updates the
-     * `root_` whenever changes occur.
-     */
-    start() {
-        if (this.listenerId_ !== null) {
-            return;
-        }
-        this.listenerId_ = BrowserProxy.getInstance()
-            .callbackRouter.onColorProviderChanged.addListener(this.onColorProviderChanged.bind(this));
-    }
-    // TODO(dpapad): Figure out how to properly trigger
-    // `callbackRouter.onColorProviderChanged` listeners from tests and make this
-    // method private.
-    async onColorProviderChanged() {
-        await this.refreshColorsCss();
-        // 
-        this.eventTarget.dispatchEvent(new CustomEvent(COLOR_PROVIDER_CHANGED));
-        // 
-    }
-    /**
-     * Forces `root_` to refresh its colors.css stylesheet. This is used to
-     * fetch an updated stylesheet when the ColorProvider associated with the
-     * WebUI has changed.
-     * @return A promise which resolves to true once the new colors are loaded and
-     *     installed into the DOM. In the case of an error returns false. When a
-     *     new colors.css is loaded, this will always freshly query the existing
-     *     colors.css, allowing multiple calls to successfully remove existing,
-     *     outdated CSS.
-     */
-    async refreshColorsCss() {
-        const colorCssNode = this.root_.querySelector(COLORS_CSS_SELECTOR);
-        if (!colorCssNode) {
-            return false;
-        }
-        const href = colorCssNode.getAttribute('href');
-        if (!href) {
-            return false;
-        }
-        const hrefURL = new URL(href, location.href);
-        const params = new URLSearchParams(hrefURL.search);
-        params.set('version', new Date().getTime().toString());
-        const newHref = `${hrefURL.origin}${hrefURL.pathname}?${params.toString()}`;
-        // A flickering effect may take place when setting the href property of
-        // the existing color css node with a new value. In order to avoid
-        // flickering, we create a new link element and once it is loaded we
-        // remove the old one. See crbug.com/1365320 for additional details.
-        const newColorsCssLink = document.createElement('link');
-        newColorsCssLink.setAttribute('href', newHref);
-        newColorsCssLink.rel = 'stylesheet';
-        newColorsCssLink.type = 'text/css';
-        const newColorsLoaded = new Promise(resolve => {
-            newColorsCssLink.onload = resolve;
-        });
-        if (this.root_ === document) {
-            document.getElementsByTagName('body')[0].appendChild(newColorsCssLink);
-        }
-        else {
-            this.root_.appendChild(newColorsCssLink);
-        }
-        await newColorsLoaded;
-        const oldColorCssNode = document.querySelector(COLORS_CSS_SELECTOR);
-        if (oldColorCssNode) {
-            oldColorCssNode.remove();
-        }
-        return true;
-    }
-    static forDocument() {
-        return documentInstance ||
-            (documentInstance = new ColorChangeUpdater(document));
-    }
-}
-
 function getTemplate() {
     return html `<!--_html_template_start_--><style>:host{--emoji-group-button-size:0;--emoji-picker-height:0;--emoji-picker-side-padding:0;--emoji-picker-top-padding:0;--emoji-picker-width:0;--emoji-size:0;--emoji-spacing:0;--emoji-per-row:0;--emoji-group-clear-recents-icon-size:16px;--emoji-group-heading-padding-bottom:6px;--emoji-group-heading-padding-top:10px;--emoji-group-heading-size:32px;--emoji-group-tabs-left:0;--emoji-hover-background:var(--cros-ripple-color);--emoji-picker-bottom-padding:14px;--emoji-picker-last-emoji-left:calc(var(--emoji-picker-side-padding)
             + var(--emoji-size) * (var(--emoji-per-row) - 1)
-            + var(--emoji-spacing) * (var(--emoji-per-row) - 1));--emoji-picker-group-highlight-bar-width:24px;--emoji-picker-subcategory-bar-inline-margin:18px;--emoji-tooltip-delay-in:500ms;--emoji-tooltip-delay-out:500ms;--emoji-picker-category-header-color:var(--cros-sys-on_surface_variant,
-                                          var(--cros-text-color-secondary));--emoji-picker-container-color:var(--cros-sys-base_elevated,
-                                    var(--cros-bg-color));--emoji-picker-focus-ring-color:var(--cros-sys-focus_ring,
-                                     var(--cros-focus-ring-color));--emoji-picker-icon-button-icon-color:var(--cros-sys-on_surface,
-                                           var(--cros-icon-color-primary));--emoji-picker-icon-toggle-unselected-color:var(--cros-sys-on_surface,
-                                                 var(--cros-icon-color-secondary));--emoji-picker-icon-toggle-selected-color:var(--cros-sys-primary,
-                                               var(--cros-icon-color-prominent));--emoji-picker-icon-toggle-selected-container-color:var(--cros-sys-app_base_shaded,
-                                                         var(--cros-highlight-color));--emoji-picker-illustration-text-color:var(--cros-sys-on_surface_variant,
-                                     var(--cros-button-label-color-secondary-disabled));--emoji-picker-illustration-link-color:var(--cros-sys-primary,
-                                     var(--cros-icon-color-prominent));--emoji-picker-nudge-background-color:var(--cros-sys-primary,
-                                           var(--cros-nudge-background-color));--emoji-picker-nudge-icon-color:var(--cros-sys-on_primary,
-                                     var(--cros-button-icon-color-primary));--emoji-picker-search-field-clear-icon-color:var(--cros-sys-secondary,
-                                                  var(--cros-icon-color-primary));--emoji-picker-search-field-placeholder-color:var(--cros-sys-secondary,
-                                                   var(--cros-text-color-disabled));--emoji-picker-search-field-search-icon-color:var(--cros-sys-secondary,
-                                                   var(--cros-text-color-secondary));--emoji-picker-search-field-container-color:var(--cros-sys-input_field_on_base,
-                                                 var(--cros-toolbar-search-bg-color));--emoji-picker-symbol-color:var(--cros-sys-on_surface,
-                                 var(--cros-text-color-primary));--emoji-picker-tab-selected-color:var(--cros-sys-primary,
-                                       var(--cros-icon-color-prominent));--emoji-picker-tab-unselected-color:var(--cros-sys-on_surface_variant,
-                                         var(--cros-icon-color-secondary));background-color:var(--emoji-picker-container-color);display:flex;flex-direction:column;font:var(--cros-body-2-font);height:calc(var(--emoji-picker-height) - var(--emoji-picker-top-padding));margin-top:0;padding-top:var(--emoji-picker-top-padding);width:var(--emoji-picker-width)}.search-side-padding,.side-padding{flex-grow:0;flex-shrink:0;max-height:100%;overflow-y:scroll}.search-side-padding{padding-inline-end:var(--emoji-picker-search-side-padding);padding-inline-start:var(--emoji-picker-search-side-padding)}.side-padding{padding-inline-end:var(--emoji-picker-side-padding);padding-inline-start:var(--emoji-picker-side-padding)}#list-container,#search-container{display:flex;flex-direction:column;overflow-y:clip}#list-container{margin-top:-6px}#search-container{flex-grow:0}#tabs{display:grid;grid-gap:var(--emoji-spacing);grid-template-columns:repeat(100,1fr);left:var(--emoji-group-tabs-left);overflow-x:hidden;padding-top:var(--emoji-picker-tabs-vertical-padding,6px);padding-bottom:var(--emoji-picker-tabs-vertical-padding,6px);scroll-behavior:smooth;scroll-padding:var(--emoji-size);scroll-snap-type:x mandatory;width:100%}#tabs::-webkit-scrollbar{display:none}#tabs::-webkit-scrollbar{display:none}#groups{flex-grow:1;flex-shrink:1;overflow-y:scroll;padding-bottom:var(--emoji-picker-bottom-padding)}.chevron{--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);--cr-icon-button-icon-size:20px;--cr-icon-button-size:28px;background-color:var(--emoji-picker-container-color);border-radius:0;margin:0;padding:0;position:absolute;width:var(--emoji-size);z-index:2}#right-chevron{left:var(--emoji-picker-last-emoji-left);padding-inline-end:var(--emoji-picker-side-padding)}#left-chevron{display:none;left:var(--emoji-picker-side-padding)}.divider{border-top:1px solid var(--cros-separator-color);margin-inline:var(--emoji-picker-divider-inline-margin,var(--emoji-picker-subcategory-bar-inline-margin))}.sr-only{color:transparent;position:absolute;z-index:-2}.hidden{display:none}#bar-container[jelly-support]{margin-top:-4px}#bar-container[jelly-support]>#bar{height:4px;border-top-left-radius:4px;border-top-right-radius:4px}#bar{background-color:var(--emoji-picker-tab-selected-color);border-top-left-radius:2px;border-top-right-radius:2px;display:none;flex-shrink:0;height:2px;left:0;padding-inline-end:calc((var(--emoji-size) - var(--emoji-picker-group-highlight-bar-width))/ 2);padding-inline-start:calc((var(--emoji-size) - var(--emoji-picker-group-highlight-bar-width))/ 2);position:relative;width:var(--emoji-picker-group-highlight-bar-width)}.fake{flex-shrink:0;width:var(--emoji-size)}#dummyTab{border:0;height:1em;line-height:0;margin:0;padding:0;position:absolute;visibility:hidden}.sr-only{user-select:none}.pagination{align-items:center;display:flex;width:var(--emoji-picker-width)}:host(:not([text-subcategory-bar-enabled])) #tabs{grid-gap:var(--emoji-group-spacing)}:host(:not([text-subcategory-bar-enabled])) #left-chevron{display:none}:host(:not([text-subcategory-bar-enabled])) #right-chevron{display:none}:host([text-subcategory-bar-enabled]) .chevron{--cr-icon-button-size:var(--emoji-size);width:var(--emoji-size)}:host([text-subcategory-bar-enabled]) #left-chevron{left:var(--emoji-picker-subcategory-bar-inline-margin);margin-inline-end:var(--tab-button-margin);border-radius:var(--emoji-picker-group-button-border-radius,0)}:host([text-subcategory-bar-enabled]) #right-chevron{left:calc(var(--emoji-picker-width) - var(--emoji-size) - var(--emoji-picker-subcategory-bar-inline-margin));padding-inline-end:0;--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);border-radius:var(--emoji-picker-group-button-border-radius,0)}:host([text-subcategory-bar-enabled]) #tabs{align-items:center;grid-gap:unset}:host([text-subcategory-bar-enabled]) #bar{margin-inline:9px;padding-inline:0}:host(:not([text-subcategory-bar-enabled])) #bar{margin-inline:4px;padding-inline:0}.category-gap{height:16px}#list-container.error-only{flex:1}#list-container.error-only>:not(#groups,#dummyTab){display:none}#list-container.error-only>#groups{display:block;flex-grow:0;margin:auto}#list-container.error-only>#groups>:not(emoji-error){display:none}#list-container.error-only emoji-error{display:block}#list-container.no-gif emoji-group[category=gif]{display:none}</style>
+            + var(--emoji-spacing) * (var(--emoji-per-row) - 1));--emoji-picker-group-button-padding:8px;--emoji-picker-group-button-border-radius:4px;--emoji-picker-group-button-icon-size:24px;--emoji-picker-group-button-height:48px;--emoji-picker-group-highlight-bar-width:24px;--emoji-picker-subcategory-bar-inline-margin:18px;--emoji-picker-tabs-vertical-padding:0px;--emoji-tooltip-delay-in:500ms;--emoji-tooltip-delay-out:500ms;--emoji-picker-category-header-color:var(--cros-sys-on_surface_variant);--emoji-picker-container-color:var(--cros-sys-base_elevated);--emoji-picker-focus-ring-color:var(--cros-sys-focus_ring);--emoji-picker-icon-button-icon-color:var(--cros-sys-on_surface);--emoji-picker-icon-toggle-unselected-color:var(--cros-sys-on_surface);--emoji-picker-icon-toggle-selected-color:var(--cros-sys-primary);--emoji-picker-icon-toggle-selected-container-color:var(--cros-sys-app_base_shaded);--emoji-picker-illustration-text-color:var(--cros-sys-on_surface_variant);--emoji-picker-illustration-link-color:var(--cros-sys-primary);--emoji-picker-nudge-background-color:var(--cros-sys-primary);--emoji-picker-nudge-icon-color:var(--cros-sys-on_primary);--emoji-picker-search-field-clear-icon-color:var(--cros-sys-secondary);--emoji-picker-search-field-placeholder-color:var(--cros-sys-secondary);--emoji-picker-search-field-search-icon-color:var(--cros-sys-secondary);--emoji-picker-search-field-container-color:var(--cros-sys-input_field_on_base);--emoji-picker-symbol-color:var(--cros-sys-on_surface);--emoji-picker-tab-selected-color:var(--cros-sys-primary);--emoji-picker-tab-unselected-color:var(--cros-sys-on_surface_variant);background-color:var(--emoji-picker-container-color);display:flex;flex-direction:column;font:var(--cros-body-2-font);height:calc(var(--emoji-picker-height) - var(--emoji-picker-top-padding));margin-top:0;padding-top:var(--emoji-picker-top-padding);width:var(--emoji-picker-width)}.search-side-padding,.side-padding{flex-grow:0;flex-shrink:0;max-height:100%;overflow-y:scroll}.search-side-padding{padding-inline-end:var(--emoji-picker-search-side-padding);padding-inline-start:var(--emoji-picker-search-side-padding)}.side-padding{padding-inline-end:var(--emoji-picker-side-padding);padding-inline-start:var(--emoji-picker-side-padding)}#list-container,#search-container{display:flex;flex-direction:column;overflow-y:clip}#list-container{margin-top:-6px}#search-container{flex-grow:0}#tabs{display:grid;grid-gap:var(--emoji-spacing);grid-template-columns:repeat(100,1fr);left:var(--emoji-group-tabs-left);overflow-x:hidden;padding-top:var(--emoji-picker-tabs-vertical-padding,6px);padding-bottom:var(--emoji-picker-tabs-vertical-padding,6px);scroll-behavior:smooth;scroll-padding:var(--emoji-size);scroll-snap-type:x mandatory;width:100%}#tabs::-webkit-scrollbar{display:none}#tabs::-webkit-scrollbar{display:none}#groups{flex-grow:1;flex-shrink:1;overflow-y:scroll;padding-bottom:var(--emoji-picker-bottom-padding)}.chevron{--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);--cr-icon-button-icon-size:20px;--cr-icon-button-size:28px;background-color:var(--emoji-picker-container-color);border-radius:0;margin:0;padding:0;position:absolute;width:var(--emoji-size);z-index:2}#right-chevron{left:var(--emoji-picker-last-emoji-left);padding-inline-end:var(--emoji-picker-side-padding)}#left-chevron{display:none;left:var(--emoji-picker-side-padding)}.divider{border-top:1px solid var(--cros-separator-color)}.sr-only{color:transparent;position:absolute;z-index:-2}.hidden{display:none}#bar-container{margin-top:-4px}#bar-container>#bar{height:4px;border-top-left-radius:4px;border-top-right-radius:4px}#bar{background-color:var(--emoji-picker-tab-selected-color);border-top-left-radius:2px;border-top-right-radius:2px;display:none;flex-shrink:0;height:2px;left:0;padding-inline-end:calc((var(--emoji-size) - var(--emoji-picker-group-highlight-bar-width))/ 2);padding-inline-start:calc((var(--emoji-size) - var(--emoji-picker-group-highlight-bar-width))/ 2);position:relative;width:var(--emoji-picker-group-highlight-bar-width)}.fake{flex-shrink:0;width:var(--emoji-size)}#dummyTab{border:0;height:1em;line-height:0;margin:0;padding:0;position:absolute;visibility:hidden}.sr-only{user-select:none}.pagination{align-items:center;display:flex;width:var(--emoji-picker-width)}:host(:not([text-subcategory-bar-enabled])) #tabs{grid-gap:var(--emoji-group-spacing)}:host(:not([text-subcategory-bar-enabled])) #left-chevron{display:none}:host(:not([text-subcategory-bar-enabled])) #right-chevron{display:none}:host([text-subcategory-bar-enabled]) .chevron{--cr-icon-button-size:var(--emoji-size);width:var(--emoji-size)}:host([text-subcategory-bar-enabled]) #left-chevron{left:var(--emoji-picker-subcategory-bar-inline-margin);margin-inline-end:var(--tab-button-margin);border-radius:var(--emoji-picker-group-button-border-radius,0)}:host([text-subcategory-bar-enabled]) #right-chevron{left:calc(var(--emoji-picker-width) - var(--emoji-size) - var(--emoji-picker-subcategory-bar-inline-margin));padding-inline-end:0;--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);border-radius:var(--emoji-picker-group-button-border-radius,0)}:host([text-subcategory-bar-enabled]) #tabs{align-items:center;grid-gap:unset}:host([text-subcategory-bar-enabled]) #bar{margin-inline:9px;padding-inline:0}:host(:not([text-subcategory-bar-enabled])) #bar{margin-inline:4px;padding-inline:0}.category-gap{height:16px}#list-container.error-only{flex:1}#list-container.error-only>:not(#groups,#dummyTab){display:none}#list-container.error-only>#groups{display:block;flex-grow:0;margin:auto}#list-container.error-only>#groups>:not(emoji-error){display:none}#list-container.error-only emoji-error{display:block}#list-container.no-gif emoji-group[category=gif]{display:none}</style>
 
 <div class="sr-only" aria-live="polite">
   Insert emoji by activating them. Close with escape.
@@ -6509,7 +6236,7 @@ function getTemplate() {
 </div>
 
 <div id="message" class="sr-only" aria-live="polite"></div>
-  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" jelly-support$="[[jellySupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" global-tone="[[getGlobalTone()]]" global-gender="[[getGlobalGender()]]">
+  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
   </emoji-search>
 
 <div id="list-container" class$="[[computeListContainerClass(category, status)]]">
@@ -6545,14 +6272,14 @@ function getTemplate() {
           
           
           <template is="dom-repeat" items="[[emojiGroupTabs]]" filter="[[filterGroupTabByPagination(1)]]">
-            <text-group-button data-group$="[[item.groupId]]" group-id="[[item.groupId]]" active="[[item.active]]" disabled="[[item.disabled]]" jelly-support$="[[jellySupport]]" name="[[item.name]]" class="tab" on-focus="preventV2TabScrolling" custom-tab-index="[[getTabIndex(item.pagination,pagination)]]">
+            <text-group-button data-group$="[[item.groupId]]" group-id="[[item.groupId]]" active="[[item.active]]" disabled="[[item.disabled]]" name="[[item.name]]" class="tab" on-focus="preventV2TabScrolling" custom-tab-index="[[getTabIndex(item.pagination,pagination)]]">
             </text-group-button>
           </template>
         </div>
         <template is="dom-repeat" as="pageNumber" filter="isNotFirstPage" items="[[getPaginationArray(emojiGroupTabs)]]">
           <div class="pagination">
             <template is="dom-repeat" items="[[emojiGroupTabs]]" filter="[[filterGroupTabByPagination(pageNumber)]]">
-              <text-group-button data-group$="[[item.groupId]]" group-id="[[item.groupId]]" active="[[item.active]]" disabled="[[item.disabled]]" jelly-support$="[[jellySupport]]" name="[[item.name]]" class="tab" on-focus="preventV2TabScrolling" custom-tab-index="[[getTabIndex(item.pagination,pagination)]]">
+              <text-group-button data-group$="[[item.groupId]]" group-id="[[item.groupId]]" active="[[item.active]]" disabled="[[item.disabled]]" name="[[item.name]]" class="tab" on-focus="preventV2TabScrolling" custom-tab-index="[[getTabIndex(item.pagination,pagination)]]">
               </text-group-button>
             </template>
           </div>
@@ -6563,25 +6290,25 @@ function getTemplate() {
     </div>
   </div>
   <div class="sr-only" role="heading" aria-level="1">Emoji Groups</div>
-  <div class="side-padding" id="bar-container" jelly-support$="[[jellySupport]]">
+  <div class="side-padding" id="bar-container">
     <div id="bar" on-transitionend="onBarTransitionEnd" on-transitionstart="onBarTransitionStart"></div>
   </div>
   <div class="divider"></div>
   <div class="side-padding" id="groups" on-scroll="onEmojiScroll">
     <template is="dom-repeat" items="[[categoriesGroupElements]]">
       <div data-group$="[[item.groupId]]">
-        <emoji-group data="[[item.emoji]]" gif-support$="[[gifSupport]]" jelly-support$="[[jellySupport]]" group="[[item.name]]" global-tone="[[getGlobalTone()]]" global-gender="[[getGlobalGender()]]" preferred="[[item.preferences]]" clearable$="[[item.isHistory]]" category$="[[item.category]]" class$="[[getEmojiGroupClassNames(item.emoji,item,category,activeInfiniteGroupId)]]">
+        <emoji-group data="[[item.emoji]]" gif-support$="[[gifSupport]]" group="[[item.name]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" preferred="[[item.preferences]]" clearable$="[[item.isHistory]]" use-grouped-preference="[[shouldUseGroupedPreference(item.isHistory)]]" category$="[[item.category]]" class$="[[getEmojiGroupClassNames(item.emoji,item,category,activeInfiniteGroupId)]]">
         </emoji-group>
       </div>
     </template>
     <template is="dom-if" if="[[isGifInErrorState(status)]]">
-      <emoji-error status="[[status]]" error-message="[[errorMessage]]" jelly-support$="[[jellySupport]]">
+      <emoji-error status="[[status]]" error-message="[[errorMessage]]">
       </emoji-error>
     </template>
   </div>
   
   <div id="dummyTab">
-    <text-group-button data-group$="[[dummyTab]]" group-id="[[dummyTab.groupId]]" active="[[dummyTab.active]]" disabled="[[dummyTab.disabled]]" jelly-support$="[[jellySupport]]" name="[[dummyTab.name]]" class="tab" on-focus="preventV2TabScrolling" custom-tab-index="[[getTabIndex(dummyTab.pagination,pagination)]]">
+    <text-group-button data-group$="[[dummyTab]]" group-id="[[dummyTab.groupId]]" active="[[dummyTab.active]]" disabled="[[dummyTab.disabled]]" name="[[dummyTab.name]]" class="tab" on-focus="preventV2TabScrolling" custom-tab-index="[[getTabIndex(dummyTab.pagination,pagination)]]">
     </text-group-button>
   </div>
 </div>
@@ -6986,6 +6713,8 @@ class EmojiPickerApp extends PolymerElement {
             categoriesGroupElements: { type: Array, value: () => ([]) },
             activeInfiniteGroupId: { type: String, value: null },
             categoriesHistory: { type: Object, value: () => ({}) },
+            globalTone: { type: Number, value: null },
+            globalGender: { type: Number, value: null },
             pagination: { type: Number, value: 1, observer: 'onPaginationChanged' },
             searchLazyIndexing: { type: Boolean, value: true },
             textSubcategoryBarEnabled: {
@@ -6997,9 +6726,6 @@ class EmojiPickerApp extends PolymerElement {
             searchExtensionEnabled: { type: Boolean, value: false },
             incognito: { type: Boolean, value: true },
             gifSupport: { type: Boolean, value: false },
-            // TODO(b/297297441): Remove this property once jelly in emoji picker is
-            // fully launched.
-            jellySupport: { type: Boolean, value: false },
             sealSupport: { type: Boolean, value: false },
             variantGroupingSupport: { type: Boolean, value: false },
             showGifNudgeOverlay: { type: Boolean, value: false },
@@ -7012,7 +6738,9 @@ class EmojiPickerApp extends PolymerElement {
         super();
         this.emojiGroupTabs = EMOJI_GROUP_TABS;
         this.allCategoryTabs = SUBCATEGORY_TABS;
-        this.emojiPreferences = new EmojiPreferencesStore();
+        this.emojiPreferences = null;
+        this.globalTone = null;
+        this.globalGender = null;
         this.activeVariant = null;
         this.apiProxy = EmojiPickerApiProxyImpl.getInstance();
         this.autoScrollingToGroup = false;
@@ -7117,10 +6845,6 @@ class EmojiPickerApp extends PolymerElement {
             this.apiProxy.isIncognitoTextField().then((response) => this.initHistoryUi(response.incognito)),
         ])
             .then(values => values[0]); // Map to the fetched data only.
-        if (this.jellySupport) {
-            await this.loadJellyColorStylesheet();
-            await this.loadJellyTypographyStylesheet();
-        }
         // After initial data is loaded, if the GIF nudge is not shown before, show
         // the GIF nudge.
         if (this.gifSupport && !GifNudgeHistoryStore.hasNudgeShown()) {
@@ -7135,19 +6859,6 @@ class EmojiPickerApp extends PolymerElement {
                 '--emoji-spacing': V2_5_EMOJI_SPACING_PX,
                 '--emoji-group-spacing': V2_5_EMOJI_GROUP_SPACING_PX,
                 '--visual-content-width': V2_5_VISUAL_CONTENT_WIDTH_PX,
-            });
-        }
-        if (this.jellySupport) {
-            this.updateStyles({
-                '--emoji-picker-top-padding': JELLY_EMOJI_PICKER_TOP_PADDING_PX,
-                '--emoji-picker-search-side-padding': JELLY_EMOJI_PICKER_SEARCH_SIDE_PADDING_PX,
-                // The keyline should expand all the way with jelly flag on.
-                '--emoji-picker-divider-inline-margin': 0,
-                '--emoji-picker-tabs-vertical-padding': '0px',
-                '--emoji-picker-group-button-padding': '8px',
-                '--emoji-picker-group-button-border-radius': '4px',
-                '--emoji-picker-group-button-icon-size': '24px',
-                '--emoji-picker-group-button-height': '48px',
             });
         }
         // Update UI and relevant features based on the initial data.
@@ -7180,32 +6891,6 @@ class EmojiPickerApp extends PolymerElement {
         if (this.gifSupport) {
             await this.fetchAndProcessGifData(prevFetchPromise, prevRenderPromise);
         }
-    }
-    loadJellyColorStylesheet() {
-        return new Promise((resolve) => {
-            const linkElement = document.createElement('link');
-            linkElement.rel = 'stylesheet';
-            linkElement.href = 'chrome://theme/colors.css?sets=sys';
-            linkElement.addEventListener('load', () => {
-                ColorChangeUpdater.forDocument().start();
-                resolve();
-            });
-            document.head.appendChild(linkElement);
-        });
-    }
-    // TODO(b/263055563): Move this stylesheet to `index.html` and drop the legacy
-    // stylesheet once Jelly is fully launched in Emoji Picker.
-    loadJellyTypographyStylesheet() {
-        return new Promise((resolve) => {
-            const linkElement = document.createElement('link');
-            linkElement.rel = 'stylesheet';
-            linkElement.href = 'chrome://theme/typography.css';
-            linkElement.addEventListener('load', () => {
-                ColorChangeUpdater.forDocument().start();
-                resolve();
-            });
-            document.head.appendChild(linkElement);
-        });
     }
     fetchAndProcessGifData(prevFetchPromise = Promise.resolve([]), prevRenderPromise = Promise.resolve()) {
         this.validateRecentlyUsedGifs();
@@ -7280,11 +6965,10 @@ class EmojiPickerApp extends PolymerElement {
         this.searchExtensionEnabled =
             featureList.includes(Feature.EMOJI_PICKER_SEARCH_EXTENSION);
         this.gifSupport = featureList.includes(Feature.EMOJI_PICKER_GIF_SUPPORT);
-        this.jellySupport =
-            featureList.includes(Feature.EMOJI_PICKER_JELLY_SUPPORT);
         this.sealSupport = featureList.includes(Feature.EMOJI_PICKER_SEAL_SUPPORT);
         this.variantGroupingSupport =
             featureList.includes(Feature.EMOJI_PICKER_VARIANT_GROUPING_SUPPORT);
+        this.updateEmojiPreferencesStore();
     }
     fetchOrderingData(url) {
         return new Promise((resolve) => {
@@ -7797,18 +7481,6 @@ class EmojiPickerApp extends PolymerElement {
             [];
     }
     /**
-     * Gets the global emoji skin tone preference.
-     */
-    getGlobalTone() {
-        return this.emojiPreferences.getTone();
-    }
-    /**
-     * Gets the global emoji gender preference.
-     */
-    getGlobalGender() {
-        return this.emojiPreferences.getGender();
-    }
-    /**
      * Handles the event where history or preferences are modified for a
      * category.
      *
@@ -7837,12 +7509,23 @@ class EmojiPickerApp extends PolymerElement {
      */
     updateIncognitoState(incognito) {
         this.incognito = incognito;
+        this.updateEmojiPreferencesStore();
         // Load the history item for each category.
         for (const category of Object.values(CategoryEnum)) {
             this.categoriesHistory[category] =
                 incognito ? null : new RecentlyUsedStore(`${category}-recently-used`);
             this.categoryHistoryUpdated(category);
         }
+    }
+    /**
+     * Updates the emoji preferences store, global tone, and global gender.
+     */
+    updateEmojiPreferencesStore() {
+        this.emojiPreferences = this.incognito || !this.variantGroupingSupport ?
+            null :
+            new EmojiPreferencesStore();
+        this.globalTone = this.emojiPreferences?.getTone() ?? null;
+        this.globalGender = this.emojiPreferences?.getGender() ?? null;
     }
     /**
      * Inserts a new item to the history of a category. It will do nothing during
@@ -7870,10 +7553,10 @@ class EmojiPickerApp extends PolymerElement {
             return;
         }
         if (tone !== undefined) {
-            this.emojiPreferences.setTone(tone);
+            this.emojiPreferences?.setTone(tone);
         }
         if (gender !== undefined) {
-            this.emojiPreferences.setGender(gender);
+            this.emojiPreferences?.setGender(gender);
         }
     }
     /**
@@ -7910,6 +7593,13 @@ class EmojiPickerApp extends PolymerElement {
      */
     isCategoryHistoryEmpty(category) {
         return this.incognito || this.categoriesHistory[category]?.isHistoryEmpty();
+    }
+    /**
+     * @returns True if the emoji should use the global variant preference, or
+     * false if it should revert to the individual preference.
+     */
+    shouldUseGroupedPreference(isHistory) {
+        return this.variantGroupingSupport && !isHistory;
     }
     /**
      * Gets HTML classes for an emoji group element.

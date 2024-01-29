@@ -91,8 +91,7 @@ BLINK_BINDINGS_TRACE_EVENT("WorkerInternals.collectGarbage");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 WorkerInternals* blink_receiver = V8WorkerInternals::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 blink_receiver->collectGarbage(script_state);
 
@@ -120,8 +119,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WorkerInternals* blink_receiver = V8WorkerInternals::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_feature = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -156,8 +154,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WorkerInternals* blink_receiver = V8WorkerInternals::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_feature = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -197,8 +194,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerInternals* blink_receiver = V8WorkerInternals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -233,10 +229,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerInternals* blink_receiver = V8WorkerInternals::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_response = NativeValueTraits<Response>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -244,9 +238,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = WorkerInternalsFetch::getInternalResponseURLList(*blink_receiver, arg1_response);
-if (!ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

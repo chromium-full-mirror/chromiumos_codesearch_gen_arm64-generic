@@ -393,6 +393,8 @@ bool AuctionSharedStorageHostStubDispatch::Accept(
           reinterpret_cast<internal::AuctionSharedStorageHost_Set_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionSharedStorageHost.0
       bool success = true;
       ::std::u16string p_key{};
       ::std::u16string p_value{};
@@ -414,10 +416,10 @@ bool AuctionSharedStorageHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Set(
-std::move(p_key), 
-std::move(p_value), 
-std::move(p_ignore_if_present));
+      impl->Set(        
+        std::move(p_key), 
+        std::move(p_value), 
+        std::move(p_ignore_if_present));
       return true;
     }
     case internal::kAuctionSharedStorageHost_Append_Name: {
@@ -427,6 +429,8 @@ std::move(p_ignore_if_present));
           reinterpret_cast<internal::AuctionSharedStorageHost_Append_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionSharedStorageHost.1
       bool success = true;
       ::std::u16string p_key{};
       ::std::u16string p_value{};
@@ -445,9 +449,9 @@ std::move(p_ignore_if_present));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Append(
-std::move(p_key), 
-std::move(p_value));
+      impl->Append(        
+        std::move(p_key), 
+        std::move(p_value));
       return true;
     }
     case internal::kAuctionSharedStorageHost_Delete_Name: {
@@ -457,6 +461,8 @@ std::move(p_value));
           reinterpret_cast<internal::AuctionSharedStorageHost_Delete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionSharedStorageHost.2
       bool success = true;
       ::std::u16string p_key{};
       AuctionSharedStorageHost_Delete_ParamsDataView input_data_view(params, message);
@@ -472,8 +478,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Delete(
-std::move(p_key));
+      impl->Delete(        
+        std::move(p_key));
       return true;
     }
     case internal::kAuctionSharedStorageHost_Clear_Name: {
@@ -483,6 +489,8 @@ std::move(p_key));
           reinterpret_cast<internal::AuctionSharedStorageHost_Clear_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionSharedStorageHost.3
       bool success = true;
       AuctionSharedStorageHost_Clear_ParamsDataView input_data_view(params, message);
       
@@ -495,7 +503,7 @@ std::move(p_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clear();
+      impl->Clear(        );
       return true;
     }
   }

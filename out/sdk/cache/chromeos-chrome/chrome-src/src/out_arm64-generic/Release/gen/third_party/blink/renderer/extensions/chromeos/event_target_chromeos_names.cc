@@ -19,28 +19,8 @@ namespace event_target_names {
 
 void* chromeosnames_storage[kChromeOSNamesCount * ((sizeof(AtomicString) + sizeof(void *) - 1) / sizeof(void *))];
 
-const AtomicString& kCrosWindowManagement = reinterpret_cast<AtomicString*>(&chromeosnames_storage)[0];
 
 void InitChromeOS() {
-  static bool is_loaded = false;
-  if (is_loaded) return;
-  is_loaded = true;
-
-  struct NameEntry {
-    const char* name;
-    unsigned hash;
-    unsigned char length;
-  };
-
-  static const NameEntry kNames[] = {
-    { "CrosWindowManagement", 1189570, 20 },
-  };
-
-  for (size_t i = 0; i < std::size(kNames); ++i) {
-    StringImpl* impl = StringImpl::CreateStatic(kNames[i].name, kNames[i].length, kNames[i].hash);
-    void* address = reinterpret_cast<AtomicString*>(&chromeosnames_storage) + i;
-    new (address) AtomicString(impl);
-  }
 }
 
 }  // namespace event_target_names

@@ -114,7 +114,7 @@ TNode<HeapNumber> Cast_HeapNumber_0(compiler::CodeAssemblerState* state_, TNode<
   return TNode<HeapNumber>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=9&c=3
 TNode<Float64T> LoadHeapNumberValue_0(compiler::CodeAssemblerState* state_, TNode<HeapNumber> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -135,7 +135,7 @@ TNode<Float64T> LoadHeapNumberValue_0(compiler::CodeAssemblerState* state_, TNod
   return TNode<Float64T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=9&c=3
 void StoreHeapNumberValue_0(compiler::CodeAssemblerState* state_, TNode<HeapNumber> p_o, TNode<Float64T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

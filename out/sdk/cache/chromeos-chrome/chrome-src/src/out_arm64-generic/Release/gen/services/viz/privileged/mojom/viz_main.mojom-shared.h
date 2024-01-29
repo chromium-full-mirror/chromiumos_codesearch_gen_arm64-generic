@@ -25,6 +25,7 @@
 
 #include "services/viz/privileged/mojom/viz_main.mojom-shared-internal.h"
 #include "components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom-shared.h"
+#include "components/viz/service/debugger/mojom/viz_debugger.mojom-shared.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/compositing_mode_watcher.mojom-shared.h"

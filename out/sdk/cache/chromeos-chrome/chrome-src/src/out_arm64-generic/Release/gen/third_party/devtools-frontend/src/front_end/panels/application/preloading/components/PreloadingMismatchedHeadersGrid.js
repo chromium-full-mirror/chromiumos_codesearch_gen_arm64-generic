@@ -51,7 +51,7 @@ export class PreloadingMismatchedHeadersGrid extends LegacyWrapper.LegacyWrapper
         const reportsGridData = {
             columns: [
                 {
-                    id: 'headerName',
+                    id: 'header-name',
                     title: i18nString(UIStrings.headerName),
                     widthWeighting: 30,
                     hideable: false,
@@ -59,7 +59,7 @@ export class PreloadingMismatchedHeadersGrid extends LegacyWrapper.LegacyWrapper
                     sortable: true,
                 },
                 {
-                    id: 'initialValue',
+                    id: 'initial-value',
                     title: i18nString(UIStrings.initialNavigationValue),
                     widthWeighting: 30,
                     hideable: false,
@@ -67,7 +67,7 @@ export class PreloadingMismatchedHeadersGrid extends LegacyWrapper.LegacyWrapper
                     sortable: true,
                 },
                 {
-                    id: 'activationValue',
+                    id: 'activation-value',
                     title: i18nString(UIStrings.activationNavigationValue),
                     widthWeighting: 30,
                     hideable: false,
@@ -94,15 +94,15 @@ export class PreloadingMismatchedHeadersGrid extends LegacyWrapper.LegacyWrapper
         return this.#data.mismatchedHeaders.map(mismatchedHeaders => ({
             cells: [
                 {
-                    columnId: 'headerName',
+                    columnId: 'header-name',
                     value: mismatchedHeaders.headerName,
                 },
                 {
-                    columnId: 'initialValue',
+                    columnId: 'initial-value',
                     value: mismatchedHeaders.initialValue ?? i18nString(UIStrings.missing),
                 },
                 {
-                    columnId: 'activationValue',
+                    columnId: 'activation-value',
                     value: mismatchedHeaders.activationValue ?? i18nString(UIStrings.missing),
                 },
             ],

@@ -636,6 +636,8 @@ bool EmbeddedWorkerInstanceClientStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedWorkerInstanceClient_StartWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceClient.0
       bool success = true;
       EmbeddedWorkerStartParamsPtr p_params{};
       EmbeddedWorkerInstanceClient_StartWorker_ParamsDataView input_data_view(params, message);
@@ -651,8 +653,8 @@ bool EmbeddedWorkerInstanceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartWorker(
-std::move(p_params));
+      impl->StartWorker(        
+        std::move(p_params));
       return true;
     }
     case internal::kEmbeddedWorkerInstanceClient_StopWorker_Name: {
@@ -662,6 +664,8 @@ std::move(p_params));
           reinterpret_cast<internal::EmbeddedWorkerInstanceClient_StopWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceClient.1
       bool success = true;
       EmbeddedWorkerInstanceClient_StopWorker_ParamsDataView input_data_view(params, message);
       
@@ -674,7 +678,7 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopWorker();
+      impl->StopWorker(        );
       return true;
     }
   }
@@ -1460,6 +1464,8 @@ bool EmbeddedWorkerInstanceHost_RequestTermination_ForwardToCallback::Accept(
           internal::EmbeddedWorkerInstanceHost_RequestTermination_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EmbeddedWorkerInstanceHost.0
   bool success = true;
   bool p_will_be_terminated{};
   EmbeddedWorkerInstanceHost_RequestTermination_ResponseParamsDataView input_data_view(params, message);
@@ -1537,6 +1543,8 @@ bool EmbeddedWorkerInstanceHostStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_CountFeature_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.1
       bool success = true;
       ::blink::mojom::blink::WebFeature p_feature{};
       EmbeddedWorkerInstanceHost_CountFeature_ParamsDataView input_data_view(params, message);
@@ -1552,8 +1560,8 @@ bool EmbeddedWorkerInstanceHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CountFeature(
-std::move(p_feature));
+      impl->CountFeature(        
+        std::move(p_feature));
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnReadyForInspection_Name: {
@@ -1563,6 +1571,8 @@ std::move(p_feature));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnReadyForInspection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.2
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::DevToolsAgent> p_agent{};
       ::mojo::PendingReceiver<::blink::mojom::blink::DevToolsAgentHost> p_agent_host{};
@@ -1585,9 +1595,9 @@ std::move(p_feature));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReadyForInspection(
-std::move(p_agent), 
-std::move(p_agent_host));
+      impl->OnReadyForInspection(        
+        std::move(p_agent), 
+        std::move(p_agent_host));
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnScriptLoaded_Name: {
@@ -1597,6 +1607,8 @@ std::move(p_agent_host));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnScriptLoaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.3
       bool success = true;
       EmbeddedWorkerInstanceHost_OnScriptLoaded_ParamsDataView input_data_view(params, message);
       
@@ -1609,7 +1621,7 @@ std::move(p_agent_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScriptLoaded();
+      impl->OnScriptLoaded(        );
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnScriptEvaluationStart_Name: {
@@ -1619,6 +1631,8 @@ std::move(p_agent_host));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnScriptEvaluationStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.4
       bool success = true;
       EmbeddedWorkerInstanceHost_OnScriptEvaluationStart_ParamsDataView input_data_view(params, message);
       
@@ -1631,7 +1645,7 @@ std::move(p_agent_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScriptEvaluationStart();
+      impl->OnScriptEvaluationStart(        );
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnStarted_Name: {
@@ -1641,6 +1655,8 @@ std::move(p_agent_host));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.5
       bool success = true;
       ::blink::mojom::blink::ServiceWorkerStartStatus p_status{};
       ::blink::mojom::blink::ServiceWorkerFetchHandlerType p_fetch_handler_type{};
@@ -1671,13 +1687,13 @@ std::move(p_agent_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStarted(
-std::move(p_status), 
-std::move(p_fetch_handler_type), 
-std::move(p_has_hid_event_handlers), 
-std::move(p_has_usb_event_handlers), 
-std::move(p_thread_id), 
-std::move(p_start_timing));
+      impl->OnStarted(        
+        std::move(p_status), 
+        std::move(p_fetch_handler_type), 
+        std::move(p_has_hid_event_handlers), 
+        std::move(p_has_usb_event_handlers), 
+        std::move(p_thread_id), 
+        std::move(p_start_timing));
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnReportException_Name: {
@@ -1687,6 +1703,8 @@ std::move(p_start_timing));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnReportException_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.6
       bool success = true;
       ::WTF::String p_error_message{};
       int32_t p_line_number{};
@@ -1711,11 +1729,11 @@ std::move(p_start_timing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportException(
-std::move(p_error_message), 
-std::move(p_line_number), 
-std::move(p_column_number), 
-std::move(p_source_url));
+      impl->OnReportException(        
+        std::move(p_error_message), 
+        std::move(p_line_number), 
+        std::move(p_column_number), 
+        std::move(p_source_url));
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnReportConsoleMessage_Name: {
@@ -1725,6 +1743,8 @@ std::move(p_source_url));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnReportConsoleMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.7
       bool success = true;
       ::blink::mojom::blink::ConsoleMessageSource p_source{};
       ::blink::mojom::blink::ConsoleMessageLevel p_message_level{};
@@ -1752,12 +1772,12 @@ std::move(p_source_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportConsoleMessage(
-std::move(p_source), 
-std::move(p_message_level), 
-std::move(p_message), 
-std::move(p_line_number), 
-std::move(p_source_url));
+      impl->OnReportConsoleMessage(        
+        std::move(p_source), 
+        std::move(p_message_level), 
+        std::move(p_message), 
+        std::move(p_line_number), 
+        std::move(p_source_url));
       return true;
     }
     case internal::kEmbeddedWorkerInstanceHost_OnStopped_Name: {
@@ -1767,6 +1787,8 @@ std::move(p_source_url));
           reinterpret_cast<internal::EmbeddedWorkerInstanceHost_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.8
       bool success = true;
       EmbeddedWorkerInstanceHost_OnStopped_ParamsDataView input_data_view(params, message);
       
@@ -1779,7 +1801,7 @@ std::move(p_source_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped();
+      impl->OnStopped(        );
       return true;
     }
   }
@@ -1802,6 +1824,8 @@ bool EmbeddedWorkerInstanceHostStubDispatch::AcceptWithResponder(
               internal::EmbeddedWorkerInstanceHost_RequestTermination_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EmbeddedWorkerInstanceHost.0
       bool success = true;
       EmbeddedWorkerInstanceHost_RequestTermination_ParamsDataView input_data_view(params, message);
       

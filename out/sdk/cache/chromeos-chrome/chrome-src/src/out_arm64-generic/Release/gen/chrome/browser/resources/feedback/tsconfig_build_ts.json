@@ -28,6 +28,7 @@
     "preprocessed/js/autofill_metadata.ts",
     "preprocessed/js/feedback_browser_proxy.ts",
     "preprocessed/js/feedback.ts",
+    "preprocessed/js/feedback_regexes.ts",
     "preprocessed/js/feedback_util.ts",
     "preprocessed/js/logs_map_page.ts",
     "preprocessed/js/questionnaire.ts",

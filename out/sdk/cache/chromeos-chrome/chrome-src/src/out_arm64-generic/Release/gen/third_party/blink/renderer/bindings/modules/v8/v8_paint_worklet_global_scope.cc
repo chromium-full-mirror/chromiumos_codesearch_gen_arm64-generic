@@ -63,6 +63,9 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_writable_stream_default_controller.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_writable_stream_default_writer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_filter.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_paint_rendering_context_2d.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_paint_size.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_path_2d.h"
@@ -134,7 +137,8 @@ BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.devicePixelRatio.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintWorkletGlobalScope.devicePixelRatio.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaintWorkletGlobalScope_DevicePixelRatio_AttributeGetter);
 
@@ -387,6 +391,27 @@ BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.CountQueuingStrategy");
 bindings::V8SetReturnValue(info, V8CountQueuingStrategy::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void Mesh2DIndexBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintWorkletGlobalScope_Mesh2DIndexBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.Mesh2DIndexBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DIndexBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DUVBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintWorkletGlobalScope_Mesh2DUVBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.Mesh2DUVBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DUVBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DVertexBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintWorkletGlobalScope_Mesh2DVertexBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.Mesh2DVertexBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DVertexBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void PaintRenderingContext2DExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintWorkletGlobalScope_PaintRenderingContext2D_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.PaintRenderingContext2D");
@@ -513,7 +538,8 @@ BLINK_BINDINGS_TRACE_EVENT("PaintWorkletGlobalScope.registerPaint");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaintWorkletGlobalScope_RegisterPaint_Method);
 
@@ -532,8 +558,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 PaintWorkletGlobalScope* blink_receiver = V8PaintWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -681,6 +706,16 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, 
 if (RuntimeEnabledFeatures::Canvas2dCanvasFilterEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"CanvasFilter", CanvasFilterExposedConstructCallback}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
+}
+if (RuntimeEnabledFeatures::Canvas2dMeshEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"Mesh2DIndexBuffer", Mesh2DIndexBufferExposedConstructCallback}, 
+{"Mesh2DUVBuffer", Mesh2DUVBufferExposedConstructCallback}, 
+{"Mesh2DVertexBuffer", Mesh2DVertexBufferExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

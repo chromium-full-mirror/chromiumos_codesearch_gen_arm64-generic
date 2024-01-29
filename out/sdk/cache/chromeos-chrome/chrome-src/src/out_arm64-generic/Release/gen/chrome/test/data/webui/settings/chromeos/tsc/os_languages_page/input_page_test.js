@@ -58,7 +58,7 @@ suite('<os-settings-input-page>', () => {
         await CrSettingsPrefs.initialized;
         // Set up fake languageSettingsPrivate API.
         const languageSettingsPrivate = browserProxy.getLanguageSettingsPrivate();
-        languageSettingsPrivate.setSettingsPrefs(prefElement);
+        languageSettingsPrivate.setSettingsPrefsForTesting(prefElement);
         // Instantiate the data model with data bindings for prefs.
         settingsLanguages = document.createElement('settings-languages');
         settingsLanguages.prefs = prefElement.prefs;

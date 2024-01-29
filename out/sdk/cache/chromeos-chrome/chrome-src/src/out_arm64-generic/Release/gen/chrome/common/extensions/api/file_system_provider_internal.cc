@@ -72,8 +72,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!provider_error_as_string) {
         return std::nullopt;
       }
-      params.error = file_system_provider::ParseProviderError(*provider_error_as_string);
-      if (params.error == file_system_provider::ProviderError()) {
+      params.error = extensions::api::file_system_provider::ParseProviderError(*provider_error_as_string);
+      if (params.error == extensions::api::file_system_provider::ProviderError()) {
         return std::nullopt;
       }
     }
@@ -643,8 +643,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!provider_error_as_string) {
         return std::nullopt;
       }
-      params.error = file_system_provider::ParseProviderError(*provider_error_as_string);
-      if (params.error == file_system_provider::ProviderError()) {
+      params.error = extensions::api::file_system_provider::ParseProviderError(*provider_error_as_string);
+      if (params.error == extensions::api::file_system_provider::ProviderError()) {
         return std::nullopt;
       }
     }

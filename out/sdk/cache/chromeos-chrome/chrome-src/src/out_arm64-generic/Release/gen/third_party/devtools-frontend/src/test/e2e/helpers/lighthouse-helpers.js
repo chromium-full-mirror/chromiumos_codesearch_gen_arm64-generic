@@ -87,7 +87,7 @@ async function selectMode(mode) {
 }
 exports.selectMode = selectMode;
 async function selectDevice(device) {
-    await selectRadioOption(device, 'lighthouse.device_type');
+    await selectRadioOption(device, 'lighthouse.device-type');
 }
 exports.selectDevice = selectDevice;
 async function setToolbarCheckboxWithText(enabled, textContext) {

@@ -375,6 +375,8 @@ bool TracingInstance_QueryAvailableCategories_ForwardToCallback::Accept(
           internal::TracingInstance_QueryAvailableCategories_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracingInstance.0
   bool success = true;
   std::vector<std::string> p_categories{};
   TracingInstance_QueryAvailableCategories_ResponseParamsDataView input_data_view(params, message);
@@ -506,6 +508,8 @@ bool TracingInstance_StartTracing_ForwardToCallback::Accept(
           internal::TracingInstance_StartTracing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracingInstance.1
   bool success = true;
   bool p_success{};
   TracingInstance_StartTracing_ResponseParamsDataView input_data_view(params, message);
@@ -625,6 +629,8 @@ bool TracingInstance_StopTracing_ForwardToCallback::Accept(
           internal::TracingInstance_StopTracing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracingInstance.2
   bool success = true;
   bool p_success{};
   TracingInstance_StopTracing_ResponseParamsDataView input_data_view(params, message);
@@ -721,6 +727,8 @@ bool TracingInstanceStubDispatch::AcceptWithResponder(
               internal::TracingInstance_QueryAvailableCategories_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracingInstance.0
       bool success = true;
       TracingInstance_QueryAvailableCategories_ParamsDataView input_data_view(params, message);
       
@@ -746,6 +754,8 @@ bool TracingInstanceStubDispatch::AcceptWithResponder(
               internal::TracingInstance_StartTracing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracingInstance.1
       bool success = true;
       std::vector<std::string> p_categories{};
       ::mojo::ScopedHandle p_socket{};
@@ -767,9 +777,9 @@ bool TracingInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartTracing(
-std::move(p_categories), 
-std::move(p_socket), std::move(callback));
+      impl->StartTracing(        
+        std::move(p_categories), 
+        std::move(p_socket), std::move(callback));
       return true;
     }
     case internal::kTracingInstance_StopTracing_Name: {
@@ -779,6 +789,8 @@ std::move(p_socket), std::move(callback));
               internal::TracingInstance_StopTracing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracingInstance.2
       bool success = true;
       TracingInstance_StopTracing_ParamsDataView input_data_view(params, message);
       

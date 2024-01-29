@@ -313,6 +313,8 @@ bool KeySystemSupportObserverStubDispatch::Accept(
           reinterpret_cast<internal::KeySystemSupportObserver_OnKeySystemSupportUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeySystemSupportObserver.0
       bool success = true;
       WTF::HashMap<WTF::String, KeySystemCapabilityPtr> p_key_systems{};
       KeySystemSupportObserver_OnKeySystemSupportUpdated_ParamsDataView input_data_view(params, message);
@@ -328,8 +330,8 @@ bool KeySystemSupportObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeySystemSupportUpdated(
-std::move(p_key_systems));
+      impl->OnKeySystemSupportUpdated(        
+        std::move(p_key_systems));
       return true;
     }
   }
@@ -480,6 +482,8 @@ bool KeySystemSupportStubDispatch::Accept(
           reinterpret_cast<internal::KeySystemSupport_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeySystemSupport.0
       bool success = true;
       ::mojo::PendingRemote<KeySystemSupportObserver> p_observer{};
       KeySystemSupport_AddObserver_ParamsDataView input_data_view(params, message);
@@ -497,8 +501,8 @@ bool KeySystemSupportStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
   }

@@ -82,8 +82,24 @@ has_job_name_ = true;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void WebPrintJobAttributes::Trace(Visitor* visitor) const {
   TraceIfNeeded<String>::Trace(visitor, member_job_name_);
+TraceIfNeeded<uint32_t>::Trace(visitor, member_job_pages_);
+TraceIfNeeded<uint32_t>::Trace(visitor, member_job_pages_completed_);
 TraceIfNeeded<V8WebPrintJobState>::Trace(visitor, member_job_state_);
 bindings::DictionaryBase::Trace(visitor);
 }
@@ -93,22 +109,21 @@ bool WebPrintJobAttributes::FillV8ObjectWithMembers(ScriptState* script_state, v
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasJobName()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_job_name_).ToLocal(&v8_value)) {
-  return false;
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_job_name_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
+if (hasJobPages()) {
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_job_pages_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
+if (hasJobPagesCompleted()) {
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_job_pages_completed_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasJobState()) {
-  if (!ToV8Traits<V8WebPrintJobState>::ToV8(script_state, member_job_state_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8WebPrintJobState>::ToV8(script_state, member_job_state_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -124,8 +139,16 @@ v8::TryCatch try_block(isolate);
 if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_job_name_, member_job_name_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("jobPages");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_job_pages_, member_job_pages_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("jobPagesCompleted");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_job_pages_completed_, member_job_pages_completed_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("jobState");
-if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintJobState, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_job_state_, member_job_state_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintJobState, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_job_state_, member_job_state_, try_block, exception_state)) {
   return;
 }
 }
@@ -133,6 +156,8 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintJobState, is_optional>(
 const base::span<const v8::Eternal<v8::Name>> WebPrintJobAttributes::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "jobName",
+"jobPages",
+"jobPagesCompleted",
 "jobState",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

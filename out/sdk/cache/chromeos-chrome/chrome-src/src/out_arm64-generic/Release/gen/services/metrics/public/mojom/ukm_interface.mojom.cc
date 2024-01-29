@@ -258,6 +258,8 @@ bool SingularUkmInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::SingularUkmInterface_Submit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SingularUkmInterface.0
       bool success = true;
       UkmEntryPtr p_entry{};
       SingularUkmInterface_Submit_ParamsDataView input_data_view(params, message);
@@ -273,8 +275,8 @@ bool SingularUkmInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Submit(
-std::move(p_entry));
+      impl->Submit(        
+        std::move(p_entry));
       return true;
     }
   }
@@ -430,6 +432,8 @@ bool UkmRecorderClientInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::UkmRecorderClientInterface_SetParameters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UkmRecorderClientInterface.0
       bool success = true;
       UkmRecorderParametersPtr p_params{};
       UkmRecorderClientInterface_SetParameters_ParamsDataView input_data_view(params, message);
@@ -445,8 +449,8 @@ bool UkmRecorderClientInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetParameters(
-std::move(p_params));
+      impl->SetParameters(        
+        std::move(p_params));
       return true;
     }
   }
@@ -677,6 +681,8 @@ bool UkmRecorderInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::UkmRecorderInterface_AddEntry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UkmRecorderInterface.0
       bool success = true;
       UkmEntryPtr p_entry{};
       UkmRecorderInterface_AddEntry_ParamsDataView input_data_view(params, message);
@@ -692,8 +698,8 @@ bool UkmRecorderInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddEntry(
-std::move(p_entry));
+      impl->AddEntry(        
+        std::move(p_entry));
       return true;
     }
     case internal::kUkmRecorderInterface_UpdateSourceURL_Name: {
@@ -703,6 +709,8 @@ std::move(p_entry));
           reinterpret_cast<internal::UkmRecorderInterface_UpdateSourceURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UkmRecorderInterface.1
       bool success = true;
       int64_t p_source_id{};
       std::string p_url{};
@@ -721,9 +729,9 @@ std::move(p_entry));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSourceURL(
-std::move(p_source_id), 
-std::move(p_url));
+      impl->UpdateSourceURL(        
+        std::move(p_source_id), 
+        std::move(p_url));
       return true;
     }
   }
@@ -884,6 +892,8 @@ bool UkmRecorderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::UkmRecorderFactory_CreateUkmRecorder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UkmRecorderFactory.0
       bool success = true;
       ::mojo::PendingReceiver<UkmRecorderInterface> p_receiver{};
       ::mojo::PendingRemote<UkmRecorderClientInterface> p_client_remote{};
@@ -906,9 +916,9 @@ bool UkmRecorderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUkmRecorder(
-std::move(p_receiver), 
-std::move(p_client_remote));
+      impl->CreateUkmRecorder(        
+        std::move(p_receiver), 
+        std::move(p_client_remote));
       return true;
     }
   }

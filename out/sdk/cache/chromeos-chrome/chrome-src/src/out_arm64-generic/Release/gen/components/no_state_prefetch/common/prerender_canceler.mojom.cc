@@ -201,6 +201,8 @@ bool PrerenderCancelerStubDispatch::Accept(
           reinterpret_cast<internal::PrerenderCanceler_CancelPrerenderForUnsupportedScheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrerenderCanceler.0
       bool success = true;
       PrerenderCanceler_CancelPrerenderForUnsupportedScheme_ParamsDataView input_data_view(params, message);
       
@@ -213,7 +215,7 @@ bool PrerenderCancelerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPrerenderForUnsupportedScheme();
+      impl->CancelPrerenderForUnsupportedScheme(        );
       return true;
     }
     case internal::kPrerenderCanceler_CancelPrerenderForNoStatePrefetch_Name: {
@@ -223,6 +225,8 @@ bool PrerenderCancelerStubDispatch::Accept(
           reinterpret_cast<internal::PrerenderCanceler_CancelPrerenderForNoStatePrefetch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrerenderCanceler.1
       bool success = true;
       PrerenderCanceler_CancelPrerenderForNoStatePrefetch_ParamsDataView input_data_view(params, message);
       
@@ -235,7 +239,7 @@ bool PrerenderCancelerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPrerenderForNoStatePrefetch();
+      impl->CancelPrerenderForNoStatePrefetch(        );
       return true;
     }
   }

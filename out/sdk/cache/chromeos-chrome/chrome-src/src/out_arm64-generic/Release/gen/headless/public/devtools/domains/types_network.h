@@ -1184,6 +1184,10 @@ class HEADLESS_EXPORT Response {
   std::string GetMimeType() const { return mime_type_; }
   void SetMimeType(const std::string& value) { mime_type_ = value; }
 
+  // Resource charset as determined by the browser (if applicable).
+  std::string GetCharset() const { return charset_; }
+  void SetCharset(const std::string& value) { charset_ = value; }
+
   // Refined HTTP request headers that were actually transmitted over the network.
   bool HasRequestHeaders() const { return !!request_headers_; }
   const base::Value::Dict& GetRequestHeaders() const { DCHECK(HasRequestHeaders()); return *request_headers_.value(); }
@@ -1288,11 +1292,12 @@ class HEADLESS_EXPORT Response {
     kStatusTextSet = 1 << 3,
     kHeadersSet = 1 << 4,
     kMimeTypeSet = 1 << 5,
-    kConnectionReusedSet = 1 << 6,
-    kConnectionIdSet = 1 << 7,
-    kEncodedDataLengthSet = 1 << 8,
-    kSecurityStateSet = 1 << 9,
-      kAllRequiredFieldsSet = (kUrlSet | kStatusSet | kStatusTextSet | kHeadersSet | kMimeTypeSet | kConnectionReusedSet | kConnectionIdSet | kEncodedDataLengthSet | kSecurityStateSet | 0)
+    kCharsetSet = 1 << 6,
+    kConnectionReusedSet = 1 << 7,
+    kConnectionIdSet = 1 << 8,
+    kEncodedDataLengthSet = 1 << 9,
+    kSecurityStateSet = 1 << 10,
+      kAllRequiredFieldsSet = (kUrlSet | kStatusSet | kStatusTextSet | kHeadersSet | kMimeTypeSet | kCharsetSet | kConnectionReusedSet | kConnectionIdSet | kEncodedDataLengthSet | kSecurityStateSet | 0)
     };
 
     ResponseBuilder<STATE | kUrlSet>& SetUrl(const std::string& value) {
@@ -1328,6 +1333,12 @@ class HEADLESS_EXPORT Response {
       static_assert(!(STATE & kMimeTypeSet), "property mimeType should not have already been set");
       result_->SetMimeType(value);
       return CastState<kMimeTypeSet>();
+    }
+
+    ResponseBuilder<STATE | kCharsetSet>& SetCharset(const std::string& value) {
+      static_assert(!(STATE & kCharsetSet), "property charset should not have already been set");
+      result_->SetCharset(value);
+      return CastState<kCharsetSet>();
     }
 
     ResponseBuilder<STATE>& SetRequestHeaders(std::optional<base::Value::Dict> value) {
@@ -1458,6 +1469,7 @@ class HEADLESS_EXPORT Response {
   std::optional<base::Value::Dict> headers_;
   absl::optional<std::string> headers_text_;
   std::string mime_type_;
+  std::string charset_;
   absl::optional<std::optional<base::Value::Dict>> request_headers_;
   absl::optional<std::string> request_headers_text_;
   bool connection_reused_;

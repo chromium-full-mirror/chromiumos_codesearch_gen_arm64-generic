@@ -1370,7 +1370,6 @@ function enrichChartData(chart) {
         case 'net':
         case 'disk':
         case 'powersupply':
-        case 'statsd':
             chart.menu = tmp;
             break;
 
@@ -4933,8 +4932,7 @@ function handleSignInMessage(e) {
 
     netdataRegistryCallback(registryAgents);
     if (e.data.redirectURI && !window.location.href.includes(e.data.redirectURI)) {
-        // lgtm false-positive - redirectURI does not come from user input, but from iframe callback
-        window.location.replace(e.data.redirectURI); // lgtm[js/client-side-unvalidated-url-redirection]
+        window.location.replace(e.data.redirectURI);
     }
 }
 

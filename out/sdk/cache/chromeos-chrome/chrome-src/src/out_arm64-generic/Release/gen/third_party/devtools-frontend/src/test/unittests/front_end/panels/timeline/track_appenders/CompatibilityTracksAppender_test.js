@@ -7,7 +7,7 @@ import * as PerfUI from '../../../../../../front_end/ui/legacy/components/perf_u
 import { describeWithEnvironment } from '../../../helpers/EnvironmentHelpers.js';
 import { TraceLoader } from '../../../helpers/TraceLoader.js';
 const { assert } = chai;
-describeWithEnvironment('TimingTrackAppender', function () {
+describeWithEnvironment('CompatibilityTracksAppender', function () {
     let traceParsedData;
     let tracksAppender;
     let entryData = [];
@@ -32,7 +32,7 @@ describeWithEnvironment('TimingTrackAppender', function () {
     beforeEach(async () => {
         await initTrackAppender(this);
     });
-    describe('CompatibilityTracksAppender', () => {
+    describe('Tree view data', () => {
         describe('eventsInTrack', () => {
             it('returns all the events appended by a track with multiple levels', () => {
                 const timingsTrack = tracksAppender.timingsTrackAppender();
@@ -135,19 +135,15 @@ describeWithEnvironment('TimingTrackAppender', function () {
             }
             assert.strictEqual(warning?.innerText, 'Long task took 1.30\u00A0s.');
         });
-        it('shows the correct warning for a force recalc styles when hovered', async function () {
-            await initTrackAppender(this, 'large-recalc-style.json.gz');
-            const events = traceParsedData.Renderer?.allTraceEntries;
+        it('shows the correct warning for a forced recalc styles when hovered', async function () {
+            await initTrackAppender(this, 'large-layout-small-recalc.json.gz');
+            const events = traceParsedData.Warnings.perWarning.get('FORCED_REFLOW') || [];
             if (!events) {
-                throw new Error('Could not find renderer events');
+                throw new Error('Could not find forced reflows events');
             }
-            const recalcStyles = events.find(event => {
-                return (event.name === "RecalculateStyles" /* TraceModel.Types.TraceEvents.KnownEventName.RecalculateStyles */ ||
-                    event.name === "UpdateLayoutTree" /* TraceModel.Types.TraceEvents.KnownEventName.UpdateLayoutTree */) &&
-                    (event.dur && event.dur >= TraceModel.Handlers.ModelHandlers.Warnings.FORCED_LAYOUT_AND_STYLES_THRESHOLD);
-            });
+            const recalcStyles = events[0];
             if (!recalcStyles) {
-                throw new Error('Could not find styles recalc');
+                throw new Error('Could not find recalc styles');
             }
             const info = tracksAppender.highlightedEntryInfo(recalcStyles, 2);
             assert.strictEqual(info.warningElements?.length, 1);
@@ -157,16 +153,13 @@ describeWithEnvironment('TimingTrackAppender', function () {
             }
             assert.strictEqual(warning?.innerText, 'Forced reflow is a likely performance bottleneck.');
         });
-        it('shows the correct warning for a force layout when hovered', async function () {
-            await initTrackAppender(this, 'large-recalc-style.json.gz');
-            const events = traceParsedData.Renderer?.allTraceEntries;
+        it('shows the correct warning for a forced layout when hovered', async function () {
+            await initTrackAppender(this, 'large-layout-small-recalc.json.gz');
+            const events = traceParsedData.Warnings.perWarning.get('FORCED_REFLOW') || [];
             if (!events) {
-                throw new Error('Could not find renderer events');
+                throw new Error('Could not find forced reflows events');
             }
-            const layout = events.find(event => {
-                return event.name === "Layout" /* TraceModel.Types.TraceEvents.KnownEventName.Layout */ && event.dur &&
-                    event.dur >= TraceModel.Handlers.ModelHandlers.Warnings.FORCED_LAYOUT_AND_STYLES_THRESHOLD;
-            });
+            const layout = events[1];
             if (!layout) {
                 throw new Error('Could not find layout');
             }

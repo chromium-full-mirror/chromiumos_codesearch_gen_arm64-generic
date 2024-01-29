@@ -35,8 +35,6 @@ class  CustomProxyConnectionObserverAsyncWaiter {
 class  CustomProxyConfigClientInterceptorForTesting : public CustomProxyConfigClient {
   virtual CustomProxyConfigClient* GetForwardingInterface() = 0;
   void OnCustomProxyConfigUpdated(CustomProxyConfigPtr proxy_config, OnCustomProxyConfigUpdatedCallback callback) override;
-  void MarkProxiesAsBad(::base::TimeDelta bypass_duration, const ::net::ProxyList& bad_proxies, MarkProxiesAsBadCallback callback) override;
-  void ClearBadProxiesCache() override;
 };
 class  CustomProxyConfigClientAsyncWaiter {
  public:
@@ -48,9 +46,6 @@ class  CustomProxyConfigClientAsyncWaiter {
   ~CustomProxyConfigClientAsyncWaiter();
   void OnCustomProxyConfigUpdated(
       CustomProxyConfigPtr proxy_config);
-  
-  void MarkProxiesAsBad(
-      ::base::TimeDelta bypass_duration, const ::net::ProxyList& bad_proxies);
   
 
  private:
@@ -162,6 +157,28 @@ class  IpProtectionConfigGetterAsyncWaiter {
 };
 
 
+class  IpProtectionProxyDelegateInterceptorForTesting : public IpProtectionProxyDelegate {
+  virtual IpProtectionProxyDelegate* GetForwardingInterface() = 0;
+  void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) override;
+  void InvalidateIpProtectionConfigCacheTryAgainAfterTime() override;
+};
+class  IpProtectionProxyDelegateAsyncWaiter {
+ public:
+  explicit IpProtectionProxyDelegateAsyncWaiter(IpProtectionProxyDelegate* proxy);
+
+  IpProtectionProxyDelegateAsyncWaiter(const IpProtectionProxyDelegateAsyncWaiter&) = delete;
+  IpProtectionProxyDelegateAsyncWaiter& operator=(const IpProtectionProxyDelegateAsyncWaiter&) = delete;
+
+  ~IpProtectionProxyDelegateAsyncWaiter();
+  void VerifyIpProtectionConfigGetterForTesting(
+      BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after);
+  
+
+ private:
+  IpProtectionProxyDelegate* const proxy_;
+};
+
+
 class  NetworkContextInterceptorForTesting : public NetworkContext {
   virtual NetworkContext* GetForwardingInterface() = 0;
   void SetClient(::mojo::PendingRemote<NetworkContextClient> client) override;
@@ -217,8 +234,6 @@ class  NetworkContextInterceptorForTesting : public NetworkContext {
   void ResolveHost(::network::mojom::HostResolverHostPtr host, const ::net::NetworkAnonymizationKey& network_anonymization_key, ::network::mojom::ResolveHostParametersPtr optional_parameters, ::mojo::PendingRemote<::network::mojom::ResolveHostClient> response_client) override;
   void CreateHostResolver(const std::optional<::net::DnsConfigOverrides>& config_overrides, ::mojo::PendingReceiver<::network::mojom::HostResolver> host_resolver) override;
   void VerifyCertForSignedExchange(const ::scoped_refptr<::net::X509Certificate>& certificate, const ::GURL& url, const std::string& ocsp_response, const std::string& sct_list, VerifyCertForSignedExchangeCallback callback) override;
-  void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) override;
-  void InvalidateIpProtectionConfigCacheTryAgainAfterTime() override;
   void AddHSTS(const std::string& host, ::base::Time expiry, bool include_subdomains, AddHSTSCallback callback) override;
   void IsHSTSActiveForHost(const std::string& host, IsHSTSActiveForHostCallback callback) override;
   void GetHSTSState(const std::string& domain, GetHSTSStateCallback callback) override;
@@ -327,9 +342,6 @@ class  NetworkContextAsyncWaiter {
   
   void VerifyCertForSignedExchange(
       const ::scoped_refptr<::net::X509Certificate>& certificate, const ::GURL& url, const std::string& ocsp_response, const std::string& sct_list, int32_t* out_error_code, ::net::CertVerifyResult* out_cv_result, bool* out_pkp_bypassed);
-  
-  void VerifyIpProtectionConfigGetterForTesting(
-      BlindSignedAuthTokenPtr* out_bsa_token, std::optional<::base::Time>* out_try_again_after);
   
   void AddHSTS(
       const std::string& host, ::base::Time expiry, bool include_subdomains);

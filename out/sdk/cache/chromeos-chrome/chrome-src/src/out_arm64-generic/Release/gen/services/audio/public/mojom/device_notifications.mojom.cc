@@ -148,6 +148,8 @@ bool DeviceListenerStubDispatch::Accept(
           reinterpret_cast<internal::DeviceListener_DevicesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceListener.0
       bool success = true;
       DeviceListener_DevicesChanged_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool DeviceListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DevicesChanged();
+      impl->DevicesChanged(        );
       return true;
     }
   }
@@ -311,6 +313,8 @@ bool DeviceNotifierStubDispatch::Accept(
           reinterpret_cast<internal::DeviceNotifier_RegisterListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceNotifier.0
       bool success = true;
       ::mojo::PendingRemote<DeviceListener> p_listener{};
       DeviceNotifier_RegisterListener_ParamsDataView input_data_view(params, message);
@@ -328,8 +332,8 @@ bool DeviceNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterListener(
-std::move(p_listener));
+      impl->RegisterListener(        
+        std::move(p_listener));
       return true;
     }
   }

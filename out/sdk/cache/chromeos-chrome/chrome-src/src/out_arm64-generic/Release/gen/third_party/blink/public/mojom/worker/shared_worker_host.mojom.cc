@@ -417,6 +417,8 @@ bool SharedWorkerHostStubDispatch::Accept(
           reinterpret_cast<internal::SharedWorkerHost_OnConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerHost.0
       bool success = true;
       int32_t p_connection_id{};
       SharedWorkerHost_OnConnected_ParamsDataView input_data_view(params, message);
@@ -432,8 +434,8 @@ bool SharedWorkerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnected(
-std::move(p_connection_id));
+      impl->OnConnected(        
+        std::move(p_connection_id));
       return true;
     }
     case internal::kSharedWorkerHost_OnContextClosed_Name: {
@@ -443,6 +445,8 @@ std::move(p_connection_id));
           reinterpret_cast<internal::SharedWorkerHost_OnContextClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerHost.1
       bool success = true;
       SharedWorkerHost_OnContextClosed_ParamsDataView input_data_view(params, message);
       
@@ -455,7 +459,7 @@ std::move(p_connection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnContextClosed();
+      impl->OnContextClosed(        );
       return true;
     }
     case internal::kSharedWorkerHost_OnReadyForInspection_Name: {
@@ -465,6 +469,8 @@ std::move(p_connection_id));
           reinterpret_cast<internal::SharedWorkerHost_OnReadyForInspection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerHost.2
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::DevToolsAgent> p_agent{};
       ::mojo::PendingReceiver<::blink::mojom::DevToolsAgentHost> p_agent_host{};
@@ -487,9 +493,9 @@ std::move(p_connection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReadyForInspection(
-std::move(p_agent), 
-std::move(p_agent_host));
+      impl->OnReadyForInspection(        
+        std::move(p_agent), 
+        std::move(p_agent_host));
       return true;
     }
     case internal::kSharedWorkerHost_OnScriptLoadFailed_Name: {
@@ -499,6 +505,8 @@ std::move(p_agent_host));
           reinterpret_cast<internal::SharedWorkerHost_OnScriptLoadFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerHost.3
       bool success = true;
       std::string p_error_message{};
       SharedWorkerHost_OnScriptLoadFailed_ParamsDataView input_data_view(params, message);
@@ -514,8 +522,8 @@ std::move(p_agent_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScriptLoadFailed(
-std::move(p_error_message));
+      impl->OnScriptLoadFailed(        
+        std::move(p_error_message));
       return true;
     }
     case internal::kSharedWorkerHost_OnFeatureUsed_Name: {
@@ -525,6 +533,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::SharedWorkerHost_OnFeatureUsed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerHost.4
       bool success = true;
       ::blink::mojom::WebFeature p_feature{};
       SharedWorkerHost_OnFeatureUsed_ParamsDataView input_data_view(params, message);
@@ -540,8 +550,8 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFeatureUsed(
-std::move(p_feature));
+      impl->OnFeatureUsed(        
+        std::move(p_feature));
       return true;
     }
   }

@@ -97,11 +97,24 @@ struct SecurityDomainMember_SecurityDomainMembershipDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SecurityDomainMember_SecurityDomainMembershipDefaultTypeInternal _SecurityDomainMember_SecurityDomainMembership_default_instance_;
+PROTOBUF_CONSTEXPR SecurityDomainMember_MemberMetadata::SecurityDomainMember_MemberMetadata(
+    ::_pbi::ConstantInitialized)
+  : usable_for_retrieval_(false){}
+struct SecurityDomainMember_MemberMetadataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SecurityDomainMember_MemberMetadataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SecurityDomainMember_MemberMetadataDefaultTypeInternal() {}
+  union {
+    SecurityDomainMember_MemberMetadata _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SecurityDomainMember_MemberMetadataDefaultTypeInternal _SecurityDomainMember_MemberMetadata_default_instance_;
 PROTOBUF_CONSTEXPR SecurityDomainMember::SecurityDomainMember(
     ::_pbi::ConstantInitialized)
   : memberships_()
   , name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , member_metadata_(nullptr)
   , member_type_(0)
 {}
 struct SecurityDomainMemberDefaultTypeInternal {
@@ -152,6 +165,19 @@ struct JoinSecurityDomainsErrorDetailDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 JoinSecurityDomainsErrorDetailDefaultTypeInternal _JoinSecurityDomainsErrorDetail_default_instance_;
+PROTOBUF_CONSTEXPR ListSecurityDomainMembersResponse::ListSecurityDomainMembersResponse(
+    ::_pbi::ConstantInitialized)
+  : security_domain_members_()
+  , next_page_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct ListSecurityDomainMembersResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ListSecurityDomainMembersResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ListSecurityDomainMembersResponseDefaultTypeInternal() {}
+  union {
+    ListSecurityDomainMembersResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListSecurityDomainMembersResponseDefaultTypeInternal _ListSecurityDomainMembersResponse_default_instance_;
 PROTOBUF_CONSTEXPR Proto3Any::Proto3Any(
     ::_pbi::ConstantInitialized)
   : type_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -1585,10 +1611,183 @@ std::string SecurityDomainMember_SecurityDomainMembership::GetTypeName() const {
 
 // ===================================================================
 
-class SecurityDomainMember::_Internal {
+class SecurityDomainMember_MemberMetadata::_Internal {
  public:
 };
 
+SecurityDomainMember_MemberMetadata::SecurityDomainMember_MemberMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+}
+SecurityDomainMember_MemberMetadata::SecurityDomainMember_MemberMetadata(const SecurityDomainMember_MemberMetadata& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  usable_for_retrieval_ = from.usable_for_retrieval_;
+  // @@protoc_insertion_point(copy_constructor:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+}
+
+inline void SecurityDomainMember_MemberMetadata::SharedCtor() {
+usable_for_retrieval_ = false;
+}
+
+SecurityDomainMember_MemberMetadata::~SecurityDomainMember_MemberMetadata() {
+  // @@protoc_insertion_point(destructor:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SecurityDomainMember_MemberMetadata::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SecurityDomainMember_MemberMetadata::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SecurityDomainMember_MemberMetadata::Clear() {
+// @@protoc_insertion_point(message_clear_start:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  usable_for_retrieval_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SecurityDomainMember_MemberMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool usable_for_retrieval = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          usable_for_retrieval_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SecurityDomainMember_MemberMetadata::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool usable_for_retrieval = 1;
+  if (this->_internal_usable_for_retrieval() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_usable_for_retrieval(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  return target;
+}
+
+size_t SecurityDomainMember_MemberMetadata::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool usable_for_retrieval = 1;
+  if (this->_internal_usable_for_retrieval() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SecurityDomainMember_MemberMetadata::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SecurityDomainMember_MemberMetadata*>(
+      &from));
+}
+
+void SecurityDomainMember_MemberMetadata::MergeFrom(const SecurityDomainMember_MemberMetadata& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_usable_for_retrieval() != 0) {
+    _internal_set_usable_for_retrieval(from._internal_usable_for_retrieval());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SecurityDomainMember_MemberMetadata::CopyFrom(const SecurityDomainMember_MemberMetadata& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:trusted_vault_pb.SecurityDomainMember.MemberMetadata)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SecurityDomainMember_MemberMetadata::IsInitialized() const {
+  return true;
+}
+
+void SecurityDomainMember_MemberMetadata::InternalSwap(SecurityDomainMember_MemberMetadata* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(usable_for_retrieval_, other->usable_for_retrieval_);
+}
+
+std::string SecurityDomainMember_MemberMetadata::GetTypeName() const {
+  return "trusted_vault_pb.SecurityDomainMember.MemberMetadata";
+}
+
+
+// ===================================================================
+
+class SecurityDomainMember::_Internal {
+ public:
+  static const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata& member_metadata(const SecurityDomainMember* msg);
+};
+
+const ::trusted_vault_pb::SecurityDomainMember_MemberMetadata&
+SecurityDomainMember::_Internal::member_metadata(const SecurityDomainMember* msg) {
+  return *msg->member_metadata_;
+}
 SecurityDomainMember::SecurityDomainMember(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
@@ -1616,6 +1815,11 @@ SecurityDomainMember::SecurityDomainMember(const SecurityDomainMember& from)
     public_key_.Set(from._internal_public_key(), 
       GetArenaForAllocation());
   }
+  if (from._internal_has_member_metadata()) {
+    member_metadata_ = new ::trusted_vault_pb::SecurityDomainMember_MemberMetadata(*from.member_metadata_);
+  } else {
+    member_metadata_ = nullptr;
+  }
   member_type_ = from.member_type_;
   // @@protoc_insertion_point(copy_constructor:trusted_vault_pb.SecurityDomainMember)
 }
@@ -1629,7 +1833,10 @@ public_key_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   public_key_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-member_type_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&member_metadata_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&member_type_) -
+    reinterpret_cast<char*>(&member_metadata_)) + sizeof(member_type_));
 }
 
 SecurityDomainMember::~SecurityDomainMember() {
@@ -1645,6 +1852,7 @@ inline void SecurityDomainMember::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.Destroy();
   public_key_.Destroy();
+  if (this != internal_default_instance()) delete member_metadata_;
 }
 
 void SecurityDomainMember::SetCachedSize(int size) const {
@@ -1660,6 +1868,10 @@ void SecurityDomainMember::Clear() {
   memberships_.Clear();
   name_.ClearToEmpty();
   public_key_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && member_metadata_ != nullptr) {
+    delete member_metadata_;
+  }
+  member_metadata_ = nullptr;
   member_type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -1708,6 +1920,14 @@ const char* SecurityDomainMember::_InternalParse(const char* ptr, ::_pbi::ParseC
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_member_type(static_cast<::trusted_vault_pb::SecurityDomainMember_MemberType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .trusted_vault_pb.SecurityDomainMember.MemberMetadata member_metadata = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_member_metadata(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1771,6 +1991,13 @@ uint8_t* SecurityDomainMember::_InternalSerialize(
       4, this->_internal_member_type(), target);
   }
 
+  // .trusted_vault_pb.SecurityDomainMember.MemberMetadata member_metadata = 6;
+  if (this->_internal_has_member_metadata()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::member_metadata(this),
+        _Internal::member_metadata(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1808,6 +2035,13 @@ size_t SecurityDomainMember::ByteSizeLong() const {
         this->_internal_public_key());
   }
 
+  // .trusted_vault_pb.SecurityDomainMember.MemberMetadata member_metadata = 6;
+  if (this->_internal_has_member_metadata()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *member_metadata_);
+  }
+
   // .trusted_vault_pb.SecurityDomainMember.MemberType member_type = 4;
   if (this->_internal_member_type() != 0) {
     total_size += 1 +
@@ -1841,6 +2075,9 @@ void SecurityDomainMember::MergeFrom(const SecurityDomainMember& from) {
   if (!from._internal_public_key().empty()) {
     _internal_set_public_key(from._internal_public_key());
   }
+  if (from._internal_has_member_metadata()) {
+    _internal_mutable_member_metadata()->::trusted_vault_pb::SecurityDomainMember_MemberMetadata::MergeFrom(from._internal_member_metadata());
+  }
   if (from._internal_member_type() != 0) {
     _internal_set_member_type(from._internal_member_type());
   }
@@ -1872,7 +2109,12 @@ void SecurityDomainMember::InternalSwap(SecurityDomainMember* other) {
       &public_key_, lhs_arena,
       &other->public_key_, rhs_arena
   );
-  swap(member_type_, other->member_type_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SecurityDomainMember, member_type_)
+      + sizeof(SecurityDomainMember::member_type_)
+      - PROTOBUF_FIELD_OFFSET(SecurityDomainMember, member_metadata_)>(
+          reinterpret_cast<char*>(&member_metadata_),
+          reinterpret_cast<char*>(&other->member_metadata_));
 }
 
 std::string SecurityDomainMember::GetTypeName() const {
@@ -2539,6 +2781,231 @@ std::string JoinSecurityDomainsErrorDetail::GetTypeName() const {
 
 // ===================================================================
 
+class ListSecurityDomainMembersResponse::_Internal {
+ public:
+};
+
+ListSecurityDomainMembersResponse::ListSecurityDomainMembersResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  security_domain_members_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:trusted_vault_pb.ListSecurityDomainMembersResponse)
+}
+ListSecurityDomainMembersResponse::ListSecurityDomainMembersResponse(const ListSecurityDomainMembersResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      security_domain_members_(from.security_domain_members_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  next_page_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    next_page_token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_next_page_token().empty()) {
+    next_page_token_.Set(from._internal_next_page_token(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:trusted_vault_pb.ListSecurityDomainMembersResponse)
+}
+
+inline void ListSecurityDomainMembersResponse::SharedCtor() {
+next_page_token_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  next_page_token_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+ListSecurityDomainMembersResponse::~ListSecurityDomainMembersResponse() {
+  // @@protoc_insertion_point(destructor:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ListSecurityDomainMembersResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  next_page_token_.Destroy();
+}
+
+void ListSecurityDomainMembersResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ListSecurityDomainMembersResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  security_domain_members_.Clear();
+  next_page_token_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ListSecurityDomainMembersResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .trusted_vault_pb.SecurityDomainMember security_domain_members = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_security_domain_members(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string next_page_token = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_next_page_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ListSecurityDomainMembersResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .trusted_vault_pb.SecurityDomainMember security_domain_members = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_security_domain_members_size()); i < n; i++) {
+    const auto& repfield = this->_internal_security_domain_members(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // string next_page_token = 2;
+  if (!this->_internal_next_page_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_next_page_token().data(), static_cast<int>(this->_internal_next_page_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "trusted_vault_pb.ListSecurityDomainMembersResponse.next_page_token");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_next_page_token(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  return target;
+}
+
+size_t ListSecurityDomainMembersResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .trusted_vault_pb.SecurityDomainMember security_domain_members = 1;
+  total_size += 1UL * this->_internal_security_domain_members_size();
+  for (const auto& msg : this->security_domain_members_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // string next_page_token = 2;
+  if (!this->_internal_next_page_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_next_page_token());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ListSecurityDomainMembersResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ListSecurityDomainMembersResponse*>(
+      &from));
+}
+
+void ListSecurityDomainMembersResponse::MergeFrom(const ListSecurityDomainMembersResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  security_domain_members_.MergeFrom(from.security_domain_members_);
+  if (!from._internal_next_page_token().empty()) {
+    _internal_set_next_page_token(from._internal_next_page_token());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ListSecurityDomainMembersResponse::CopyFrom(const ListSecurityDomainMembersResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:trusted_vault_pb.ListSecurityDomainMembersResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListSecurityDomainMembersResponse::IsInitialized() const {
+  return true;
+}
+
+void ListSecurityDomainMembersResponse::InternalSwap(ListSecurityDomainMembersResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  security_domain_members_.InternalSwap(&other->security_domain_members_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &next_page_token_, lhs_arena,
+      &other->next_page_token_, rhs_arena
+  );
+}
+
+std::string ListSecurityDomainMembersResponse::GetTypeName() const {
+  return "trusted_vault_pb.ListSecurityDomainMembersResponse";
+}
+
+
+// ===================================================================
+
 class Proto3Any::_Internal {
  public:
 };
@@ -2974,6 +3441,10 @@ template<> PROTOBUF_NOINLINE ::trusted_vault_pb::SecurityDomainMember_SecurityDo
 Arena::CreateMaybeMessage< ::trusted_vault_pb::SecurityDomainMember_SecurityDomainMembership >(Arena* arena) {
   return Arena::CreateMessageInternal< ::trusted_vault_pb::SecurityDomainMember_SecurityDomainMembership >(arena);
 }
+template<> PROTOBUF_NOINLINE ::trusted_vault_pb::SecurityDomainMember_MemberMetadata*
+Arena::CreateMaybeMessage< ::trusted_vault_pb::SecurityDomainMember_MemberMetadata >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::trusted_vault_pb::SecurityDomainMember_MemberMetadata >(arena);
+}
 template<> PROTOBUF_NOINLINE ::trusted_vault_pb::SecurityDomainMember*
 Arena::CreateMaybeMessage< ::trusted_vault_pb::SecurityDomainMember >(Arena* arena) {
   return Arena::CreateMessageInternal< ::trusted_vault_pb::SecurityDomainMember >(arena);
@@ -2989,6 +3460,10 @@ Arena::CreateMaybeMessage< ::trusted_vault_pb::JoinSecurityDomainsResponse >(Are
 template<> PROTOBUF_NOINLINE ::trusted_vault_pb::JoinSecurityDomainsErrorDetail*
 Arena::CreateMaybeMessage< ::trusted_vault_pb::JoinSecurityDomainsErrorDetail >(Arena* arena) {
   return Arena::CreateMessageInternal< ::trusted_vault_pb::JoinSecurityDomainsErrorDetail >(arena);
+}
+template<> PROTOBUF_NOINLINE ::trusted_vault_pb::ListSecurityDomainMembersResponse*
+Arena::CreateMaybeMessage< ::trusted_vault_pb::ListSecurityDomainMembersResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::trusted_vault_pb::ListSecurityDomainMembersResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::trusted_vault_pb::Proto3Any*
 Arena::CreateMaybeMessage< ::trusted_vault_pb::Proto3Any >(Arena* arena) {

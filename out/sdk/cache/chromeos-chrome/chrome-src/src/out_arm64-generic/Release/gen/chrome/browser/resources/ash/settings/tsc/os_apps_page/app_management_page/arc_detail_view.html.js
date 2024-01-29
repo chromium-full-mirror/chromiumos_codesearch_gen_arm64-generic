@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#noPermissions{border-top:none}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#noPermissions{border-top:none}#appDetails{padding-bottom:12px}</style>
 <div class="permission-list">
   <app-management-pin-to-shelf-item id="pinToShelfSetting" class="permission-card-row separated-row" app="[[app_]]">
   </app-management-pin-to-shelf-item>

@@ -370,6 +370,8 @@ bool MediaControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaController_ResumeInternalMediaPlayer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.0
       bool success = true;
       MediaController_ResumeInternalMediaPlayer_ParamsDataView input_data_view(params, message);
       
@@ -382,7 +384,7 @@ bool MediaControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResumeInternalMediaPlayer();
+      impl->ResumeInternalMediaPlayer(        );
       return true;
     }
     case internal::kMediaController_PauseInternalMediaPlayer_Name: {
@@ -392,6 +394,8 @@ bool MediaControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaController_PauseInternalMediaPlayer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.1
       bool success = true;
       MediaController_PauseInternalMediaPlayer_ParamsDataView input_data_view(params, message);
       
@@ -404,7 +408,7 @@ bool MediaControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PauseInternalMediaPlayer();
+      impl->PauseInternalMediaPlayer(        );
       return true;
     }
     case internal::kMediaController_SetExternalPlaybackState_Name: {
@@ -414,6 +418,8 @@ bool MediaControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaController_SetExternalPlaybackState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.2
       bool success = true;
       MediaStatePtr p_state{};
       MediaController_SetExternalPlaybackState_ParamsDataView input_data_view(params, message);
@@ -429,8 +435,8 @@ bool MediaControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExternalPlaybackState(
-std::move(p_state));
+      impl->SetExternalPlaybackState(        
+        std::move(p_state));
       return true;
     }
   }
@@ -1003,6 +1009,8 @@ bool MediaDelegateStubDispatch::Accept(
           reinterpret_cast<internal::MediaDelegate_OnPlaybackStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.0
       bool success = true;
       MediaStatePtr p_new_state{};
       MediaDelegate_OnPlaybackStateChanged_ParamsDataView input_data_view(params, message);
@@ -1018,8 +1026,8 @@ bool MediaDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPlaybackStateChanged(
-std::move(p_new_state));
+      impl->OnPlaybackStateChanged(        
+        std::move(p_new_state));
       return true;
     }
     case internal::kMediaDelegate_PlayAndroidMedia_Name: {
@@ -1029,6 +1037,8 @@ std::move(p_new_state));
           reinterpret_cast<internal::MediaDelegate_PlayAndroidMedia_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.1
       bool success = true;
       ::ash::assistant::AndroidAppInfo p_app_info{};
       MediaDelegate_PlayAndroidMedia_ParamsDataView input_data_view(params, message);
@@ -1044,8 +1054,8 @@ std::move(p_new_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PlayAndroidMedia(
-std::move(p_app_info));
+      impl->PlayAndroidMedia(        
+        std::move(p_app_info));
       return true;
     }
     case internal::kMediaDelegate_PlayWebMedia_Name: {
@@ -1055,6 +1065,8 @@ std::move(p_app_info));
           reinterpret_cast<internal::MediaDelegate_PlayWebMedia_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.2
       bool success = true;
       std::string p_url{};
       MediaDelegate_PlayWebMedia_ParamsDataView input_data_view(params, message);
@@ -1070,8 +1082,8 @@ std::move(p_app_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PlayWebMedia(
-std::move(p_url));
+      impl->PlayWebMedia(        
+        std::move(p_url));
       return true;
     }
     case internal::kMediaDelegate_NextTrack_Name: {
@@ -1081,6 +1093,8 @@ std::move(p_url));
           reinterpret_cast<internal::MediaDelegate_NextTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.3
       bool success = true;
       MediaDelegate_NextTrack_ParamsDataView input_data_view(params, message);
       
@@ -1093,7 +1107,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NextTrack();
+      impl->NextTrack(        );
       return true;
     }
     case internal::kMediaDelegate_PreviousTrack_Name: {
@@ -1103,6 +1117,8 @@ std::move(p_url));
           reinterpret_cast<internal::MediaDelegate_PreviousTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.4
       bool success = true;
       MediaDelegate_PreviousTrack_ParamsDataView input_data_view(params, message);
       
@@ -1115,7 +1131,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviousTrack();
+      impl->PreviousTrack(        );
       return true;
     }
     case internal::kMediaDelegate_Pause_Name: {
@@ -1125,6 +1141,8 @@ std::move(p_url));
           reinterpret_cast<internal::MediaDelegate_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.5
       bool success = true;
       MediaDelegate_Pause_ParamsDataView input_data_view(params, message);
       
@@ -1137,7 +1155,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kMediaDelegate_Resume_Name: {
@@ -1147,6 +1165,8 @@ std::move(p_url));
           reinterpret_cast<internal::MediaDelegate_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.6
       bool success = true;
       MediaDelegate_Resume_ParamsDataView input_data_view(params, message);
       
@@ -1159,7 +1179,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kMediaDelegate_Stop_Name: {
@@ -1169,6 +1189,8 @@ std::move(p_url));
           reinterpret_cast<internal::MediaDelegate_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaDelegate.7
       bool success = true;
       MediaDelegate_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1181,7 +1203,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
   }

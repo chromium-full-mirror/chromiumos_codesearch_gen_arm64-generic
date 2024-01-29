@@ -76,6 +76,7 @@ class PageHandler
     kToggleVideoConferenceTrayMinVersion = 0,
     kToggleProjectorTrayMinVersion = 0,
     kSetActiveDirectoryManagedMinVersion = 0,
+    kSetIsInUserChildSessionMinVersion = 0,
     kTriggerPrivacyIndicatorsMinVersion = 0,
   };
 
@@ -104,6 +105,9 @@ class PageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetActiveDirectoryManaged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetIsInUserChildSession_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct TriggerPrivacyIndicators_Sym {
@@ -137,6 +141,9 @@ class PageHandler
   virtual void SetActiveDirectoryManaged(bool managed) = 0;
 
   
+  virtual void SetIsInUserChildSession(bool in_child_session) = 0;
+
+  
   virtual void TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) = 0;
 };
 
@@ -164,6 +171,8 @@ class  PageHandlerProxy
   void ToggleProjectorTray(bool visible) final;
   
   void SetActiveDirectoryManaged(bool managed) final;
+  
+  void SetIsInUserChildSession(bool in_child_session) final;
   
   void TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) final;
 

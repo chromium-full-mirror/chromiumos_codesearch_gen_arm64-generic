@@ -218,6 +218,8 @@ bool PointerLockContext_RequestMouseLockChange_ForwardToCallback::Accept(
           internal::PointerLockContext_RequestMouseLockChange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PointerLockContext.0
   bool success = true;
   ::blink::mojom::PointerLockResult p_result{};
   PointerLockContext_RequestMouseLockChange_ResponseParamsDataView input_data_view(params, message);
@@ -309,6 +311,8 @@ bool PointerLockContextStubDispatch::AcceptWithResponder(
               internal::PointerLockContext_RequestMouseLockChange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PointerLockContext.0
       bool success = true;
       bool p_unadjusted_movement{};
       PointerLockContext_RequestMouseLockChange_ParamsDataView input_data_view(params, message);
@@ -327,8 +331,8 @@ bool PointerLockContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestMouseLockChange(
-std::move(p_unadjusted_movement), std::move(callback));
+      impl->RequestMouseLockChange(        
+        std::move(p_unadjusted_movement), std::move(callback));
       return true;
     }
   }

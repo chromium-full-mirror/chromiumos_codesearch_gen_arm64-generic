@@ -1144,11 +1144,12 @@ enum ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface : int {
   ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_BUBBLE_MAINPAGE = 1,
   ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_BUBBLE_SUBPAGE = 2,
   ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOADS_PAGE = 3,
-  ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_PROMPT = 4
+  ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_PROMPT = 4,
+  ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_NOTIFICATION = 5
 };
 bool ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_IsValid(int value);
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Surface_MIN = ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_SURFACE_UNSPECIFIED;
-constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Surface_MAX = ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_PROMPT;
+constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Surface_MAX = ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_NOTIFICATION;
 constexpr int ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Surface_ARRAYSIZE = ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Surface_MAX + 1;
 
 const std::string& ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Name(ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface value);
@@ -1307,7 +1308,7 @@ enum ClientSafeBrowsingReportRequest_ReportType : int {
   ClientSafeBrowsingReportRequest_ReportType_APK_DOWNLOAD = 17,
   ClientSafeBrowsingReportRequest_ReportType_BLOCKED_AD_REDIRECT = 19,
   ClientSafeBrowsingReportRequest_ReportType_BLOCKED_AD_POPUP = 20,
-  ClientSafeBrowsingReportRequest_ReportType_HASH_PREFIX_REAL_TIME_EXPERIMENT = 21,
+  ClientSafeBrowsingReportRequest_ReportType_HASH_PREFIX_REAL_TIME_EXPERIMENT PROTOBUF_DEPRECATED_ENUM = 21,
   ClientSafeBrowsingReportRequest_ReportType_PHISHY_SITE_INTERACTIONS = 22,
   ClientSafeBrowsingReportRequest_ReportType_WARNING_SHOWN = 23
 };
@@ -1379,11 +1380,12 @@ enum ClientSafeBrowsingReportRequest_UrlRequestDestination : int {
   ClientSafeBrowsingReportRequest_UrlRequestDestination_FENCED_FRAME = 23,
   ClientSafeBrowsingReportRequest_UrlRequestDestination_WEB_IDENTITY = 24,
   ClientSafeBrowsingReportRequest_UrlRequestDestination_DICTIONARY = 25,
-  ClientSafeBrowsingReportRequest_UrlRequestDestination_SPECULATION_RULES = 26
+  ClientSafeBrowsingReportRequest_UrlRequestDestination_SPECULATION_RULES = 26,
+  ClientSafeBrowsingReportRequest_UrlRequestDestination_JSON = 27
 };
 bool ClientSafeBrowsingReportRequest_UrlRequestDestination_IsValid(int value);
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest_UrlRequestDestination_UrlRequestDestination_MIN = ClientSafeBrowsingReportRequest_UrlRequestDestination_REQUEST_DESTINATION_UNSPECIFIED;
-constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest_UrlRequestDestination_UrlRequestDestination_MAX = ClientSafeBrowsingReportRequest_UrlRequestDestination_SPECULATION_RULES;
+constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest_UrlRequestDestination_UrlRequestDestination_MAX = ClientSafeBrowsingReportRequest_UrlRequestDestination_JSON;
 constexpr int ClientSafeBrowsingReportRequest_UrlRequestDestination_UrlRequestDestination_ARRAYSIZE = ClientSafeBrowsingReportRequest_UrlRequestDestination_UrlRequestDestination_MAX + 1;
 
 const std::string& ClientSafeBrowsingReportRequest_UrlRequestDestination_Name(ClientSafeBrowsingReportRequest_UrlRequestDestination value);
@@ -9167,6 +9169,7 @@ class ClientDownloadRequest_ArchiveSummary final :
     kParserStatusFieldNumber = 1,
     kFileCountFieldNumber = 2,
     kDirectoryCountFieldNumber = 3,
+    kIsEncryptedFieldNumber = 4,
   };
   // optional .safe_browsing.ClientDownloadRequest.ArchiveSummary.Status parser_status = 1;
   bool has_parser_status() const;
@@ -9207,6 +9210,19 @@ class ClientDownloadRequest_ArchiveSummary final :
   void _internal_set_directory_count(int32_t value);
   public:
 
+  // optional bool is_encrypted = 4;
+  bool has_is_encrypted() const;
+  private:
+  bool _internal_has_is_encrypted() const;
+  public:
+  void clear_is_encrypted();
+  bool is_encrypted() const;
+  void set_is_encrypted(bool value);
+  private:
+  bool _internal_is_encrypted() const;
+  void _internal_set_is_encrypted(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:safe_browsing.ClientDownloadRequest.ArchiveSummary)
  private:
   class _Internal;
@@ -9219,6 +9235,7 @@ class ClientDownloadRequest_ArchiveSummary final :
   int parser_status_;
   int32_t file_count_;
   int32_t directory_count_;
+  bool is_encrypted_;
   friend struct ::TableStruct_components_2fsafe_5fbrowsing_2fcore_2fcommon_2fproto_2fcsd_2eproto;
 };
 // -------------------------------------------------------------------
@@ -19065,6 +19082,8 @@ class ClientSafeBrowsingReportRequest_DownloadWarningAction final :
     ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOADS_PAGE;
   static constexpr Surface DOWNLOAD_PROMPT =
     ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_PROMPT;
+  static constexpr Surface DOWNLOAD_NOTIFICATION =
+    ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_DOWNLOAD_NOTIFICATION;
   static inline bool Surface_IsValid(int value) {
     return ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_IsValid(value);
   }
@@ -20390,7 +20409,7 @@ class ClientSafeBrowsingReportRequest final :
     ClientSafeBrowsingReportRequest_ReportType_BLOCKED_AD_REDIRECT;
   static constexpr ReportType BLOCKED_AD_POPUP =
     ClientSafeBrowsingReportRequest_ReportType_BLOCKED_AD_POPUP;
-  static constexpr ReportType HASH_PREFIX_REAL_TIME_EXPERIMENT =
+  PROTOBUF_DEPRECATED_ENUM static constexpr ReportType HASH_PREFIX_REAL_TIME_EXPERIMENT =
     ClientSafeBrowsingReportRequest_ReportType_HASH_PREFIX_REAL_TIME_EXPERIMENT;
   static constexpr ReportType PHISHY_SITE_INTERACTIONS =
     ClientSafeBrowsingReportRequest_ReportType_PHISHY_SITE_INTERACTIONS;
@@ -20512,6 +20531,8 @@ class ClientSafeBrowsingReportRequest final :
     ClientSafeBrowsingReportRequest_UrlRequestDestination_DICTIONARY;
   static constexpr UrlRequestDestination SPECULATION_RULES =
     ClientSafeBrowsingReportRequest_UrlRequestDestination_SPECULATION_RULES;
+  static constexpr UrlRequestDestination JSON =
+    ClientSafeBrowsingReportRequest_UrlRequestDestination_JSON;
   static inline bool UrlRequestDestination_IsValid(int value) {
     return ClientSafeBrowsingReportRequest_UrlRequestDestination_IsValid(value);
   }
@@ -20857,23 +20878,23 @@ class ClientSafeBrowsingReportRequest final :
       ::safe_browsing::ChromeUserPopulation* population);
   ::safe_browsing::ChromeUserPopulation* unsafe_arena_release_population();
 
-  // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28;
-  bool has_hash_real_time_experiment_details() const;
+  // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_hash_real_time_experiment_details() const;
   private:
   bool _internal_has_hash_real_time_experiment_details() const;
   public:
-  void clear_hash_real_time_experiment_details();
-  const ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails& hash_real_time_experiment_details() const;
-  PROTOBUF_NODISCARD ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* release_hash_real_time_experiment_details();
-  ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* mutable_hash_real_time_experiment_details();
-  void set_allocated_hash_real_time_experiment_details(::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* hash_real_time_experiment_details);
+  PROTOBUF_DEPRECATED void clear_hash_real_time_experiment_details();
+  PROTOBUF_DEPRECATED const ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails& hash_real_time_experiment_details() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* release_hash_real_time_experiment_details();
+  PROTOBUF_DEPRECATED ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* mutable_hash_real_time_experiment_details();
+  PROTOBUF_DEPRECATED void set_allocated_hash_real_time_experiment_details(::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* hash_real_time_experiment_details);
   private:
   const ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails& _internal_hash_real_time_experiment_details() const;
   ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* _internal_mutable_hash_real_time_experiment_details();
   public:
-  void unsafe_arena_set_allocated_hash_real_time_experiment_details(
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_hash_real_time_experiment_details(
       ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* hash_real_time_experiment_details);
-  ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* unsafe_arena_release_hash_real_time_experiment_details();
+  PROTOBUF_DEPRECATED ::safe_browsing::ClientSafeBrowsingReportRequest_HashRealTimeExperimentDetails* unsafe_arena_release_hash_real_time_experiment_details();
 
   // optional .safe_browsing.ClientSafeBrowsingReportRequest.WarningShownInfo warning_shown_info = 33;
   bool has_warning_shown_info() const;
@@ -34004,6 +34025,34 @@ inline void ClientDownloadRequest_ArchiveSummary::_internal_set_directory_count(
 inline void ClientDownloadRequest_ArchiveSummary::set_directory_count(int32_t value) {
   _internal_set_directory_count(value);
   // @@protoc_insertion_point(field_set:safe_browsing.ClientDownloadRequest.ArchiveSummary.directory_count)
+}
+
+// optional bool is_encrypted = 4;
+inline bool ClientDownloadRequest_ArchiveSummary::_internal_has_is_encrypted() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool ClientDownloadRequest_ArchiveSummary::has_is_encrypted() const {
+  return _internal_has_is_encrypted();
+}
+inline void ClientDownloadRequest_ArchiveSummary::clear_is_encrypted() {
+  is_encrypted_ = false;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline bool ClientDownloadRequest_ArchiveSummary::_internal_is_encrypted() const {
+  return is_encrypted_;
+}
+inline bool ClientDownloadRequest_ArchiveSummary::is_encrypted() const {
+  // @@protoc_insertion_point(field_get:safe_browsing.ClientDownloadRequest.ArchiveSummary.is_encrypted)
+  return _internal_is_encrypted();
+}
+inline void ClientDownloadRequest_ArchiveSummary::_internal_set_is_encrypted(bool value) {
+  _has_bits_[0] |= 0x00000008u;
+  is_encrypted_ = value;
+}
+inline void ClientDownloadRequest_ArchiveSummary::set_is_encrypted(bool value) {
+  _internal_set_is_encrypted(value);
+  // @@protoc_insertion_point(field_set:safe_browsing.ClientDownloadRequest.ArchiveSummary.is_encrypted)
 }
 
 // -------------------------------------------------------------------
@@ -47179,7 +47228,7 @@ ClientSafeBrowsingReportRequest::download_warning_actions() const {
   return download_warning_actions_;
 }
 
-// optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28;
+// optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28 [deprecated = true];
 inline bool ClientSafeBrowsingReportRequest::_internal_has_hash_real_time_experiment_details() const {
   bool value = (_has_bits_[0] & 0x00000200u) != 0;
   PROTOBUF_ASSUME(!value || hash_real_time_experiment_details_ != nullptr);

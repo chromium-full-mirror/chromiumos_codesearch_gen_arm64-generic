@@ -273,6 +273,8 @@ bool ContentSettingsAgentStubDispatch::Accept(
           reinterpret_cast<internal::ContentSettingsAgent_SetAllowRunningInsecureContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSettingsAgent.0
       bool success = true;
       ContentSettingsAgent_SetAllowRunningInsecureContent_ParamsDataView input_data_view(params, message);
       
@@ -285,7 +287,7 @@ bool ContentSettingsAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAllowRunningInsecureContent();
+      impl->SetAllowRunningInsecureContent(        );
       return true;
     }
     case internal::kContentSettingsAgent_SetDisabledMixedContentUpgrades_Name: {
@@ -295,6 +297,8 @@ bool ContentSettingsAgentStubDispatch::Accept(
           reinterpret_cast<internal::ContentSettingsAgent_SetDisabledMixedContentUpgrades_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSettingsAgent.1
       bool success = true;
       ContentSettingsAgent_SetDisabledMixedContentUpgrades_ParamsDataView input_data_view(params, message);
       
@@ -307,7 +311,7 @@ bool ContentSettingsAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisabledMixedContentUpgrades();
+      impl->SetDisabledMixedContentUpgrades(        );
       return true;
     }
     case internal::kContentSettingsAgent_SendRendererContentSettingRules_Name: {
@@ -317,6 +321,8 @@ bool ContentSettingsAgentStubDispatch::Accept(
           reinterpret_cast<internal::ContentSettingsAgent_SendRendererContentSettingRules_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSettingsAgent.2
       bool success = true;
       ::RendererContentSettingRules p_renderer_settings{};
       ContentSettingsAgent_SendRendererContentSettingRules_ParamsDataView input_data_view(params, message);
@@ -332,8 +338,8 @@ bool ContentSettingsAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendRendererContentSettingRules(
-std::move(p_renderer_settings));
+      impl->SendRendererContentSettingRules(        
+        std::move(p_renderer_settings));
       return true;
     }
   }

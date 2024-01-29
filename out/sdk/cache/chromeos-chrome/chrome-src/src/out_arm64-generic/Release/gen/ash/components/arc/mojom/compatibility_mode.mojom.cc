@@ -304,6 +304,8 @@ bool CompatibilityModeInstance_IsOptimizedForCrosApp_ForwardToCallback::Accept(
           internal::CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CompatibilityModeInstance.2
   bool success = true;
   bool p_is_o4c_app{};
   CompatibilityModeInstance_IsOptimizedForCrosApp_ResponseParamsDataView input_data_view(params, message);
@@ -378,6 +380,8 @@ bool CompatibilityModeInstanceStubDispatch::Accept(
           reinterpret_cast<internal::CompatibilityModeInstance_SetResizeLockState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompatibilityModeInstance.0
       bool success = true;
       std::string p_package_name{};
       ArcResizeLockState p_state{};
@@ -396,9 +400,9 @@ bool CompatibilityModeInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetResizeLockState(
-std::move(p_package_name), 
-std::move(p_state));
+      impl->SetResizeLockState(        
+        std::move(p_package_name), 
+        std::move(p_state));
       return true;
     }
     case internal::kCompatibilityModeInstance_IsOptimizedForCrosApp_Name: {
@@ -427,6 +431,8 @@ bool CompatibilityModeInstanceStubDispatch::AcceptWithResponder(
               internal::CompatibilityModeInstance_IsOptimizedForCrosApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CompatibilityModeInstance.2
       bool success = true;
       std::string p_package_name{};
       CompatibilityModeInstance_IsOptimizedForCrosApp_ParamsDataView input_data_view(params, message);
@@ -445,8 +451,8 @@ bool CompatibilityModeInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsOptimizedForCrosApp(
-std::move(p_package_name), std::move(callback));
+      impl->IsOptimizedForCrosApp(        
+        std::move(p_package_name), std::move(callback));
       return true;
     }
   }

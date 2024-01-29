@@ -1,8 +1,33 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]):host([side-type-class_=primary-side]) .container:not(.actions):hover{background-color:var(--color-realbox-results-background-hovered)}:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected]):not([side-type-class_=secondary-side])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator{display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-entity-suggestion][has-image]) #description{font-size:.875em}.match{font-weight:600}#description:has(.dim),.dim,:host([is-entity-suggestion]) #description{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}.container:hover #remove{display:inline-flex}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]){border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container.underneath,:host([has-outset-action-focus-ring][inlined-actions]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]):host([side-type-class_=primary-side]) .container:not(.actions):hover{background-color:var(--color-realbox-results-background-hovered)}:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected]):not([side-type-class_=secondary-side])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator:not(.selected-within){display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-rich-suggestion]) #description{font-size:.875em}.match{font-weight:600}#description,.dim{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}.container:hover #remove{display:inline-flex}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]){border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}.icon-text-action-container{flex-grow:1;overflow:hidden}.icon-text-container{display:flex}:host([show-cr-non-inlined-hover-fill]) .container:not(.actions){border-top-right-radius:200px;border-bottom-right-radius:200px}:host([show-cr-non-inlined-hover-fill]) #focus-indicator{height:44px;top:0}:host([show-cr-non-inlined-hover-fill]) .actions{margin-inline-start:30px;padding-inline-start:10px;padding-bottom:6px;padding-top:6px;height:34px}</style>
 <div class="container" aria-hidden="true">
   <div id="focus-indicator"></div>
-  <cr-realbox-icon id="icon" match="[[match]]"></cr-realbox-icon>
-  <div id="text-container" class$="[[simplifiedClass_]]">
+  
+  <template is="dom-if" if="[[showCrNonInlinedHoverFill]]">
+    <div class="icon-text-action-container">
+      <div class="icon-text-container">
+        <cr-realbox-icon id="icon" match="[[match]]"></cr-realbox-icon>
+        <div id="text-container" class$="[[simplifiedClass_]]">
+          <span id="tail-suggest-prefix" hidden$="[[!tailSuggestPrefix_]]">
+            <span id="prefix">[[tailSuggestPrefix_]]</span>
+            <span id="ellipsis">...&nbsp</span>
+          </span>
+          <span id="contents" inner-h-t-m-l="[[contentsHtml_]]"></span>
+          <span id="separator" class="dim">[[separatorText_]]</span>
+          <span id="description" inner-h-t-m-l="[[descriptionHtml_]]"></span>
+        </div>
+      </div>
+      <div class="actions container" aria-hidden="true">
+        <template is="dom-repeat" items="[[match.actions]]">
+          <div id="actions-focus-border">
+            <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+            </cr-realbox-action>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+  <cr-realbox-icon id="icon" match="[[match]]" hidden="[[showCrNonInlinedHoverFill]]"></cr-realbox-icon>
+  <div id="text-container" class$="[[simplifiedClass_]]" hidden="[[showCrNonInlinedHoverFill]]">
     <span id="tail-suggest-prefix" hidden$="[[!tailSuggestPrefix_]]">
       <span id="prefix">[[tailSuggestPrefix_]]</span>
       
@@ -12,27 +37,39 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
     <span id="separator" class="dim">[[separatorText_]]</span>
     <span id="description" inner-h-t-m-l="[[descriptionHtml_]]"></span>
   </div>
-  <div class="actions container inlined" aria-hidden="true" hidden="[[!showActionsInlined_()]]">
-    <template is="dom-repeat" items="[[match.actions]]">
-      <div id="actions-focus-border" hidden="[[!expandedStateIconsChromeRefresh]]">
-        <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
-        </cr-realbox-action>
-      </div>
-      <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1" hidden="[[expandedStateIconsChromeRefresh]]">
-      </cr-realbox-action>
-    </template>
-  </div>
+  <template is="dom-if" if="[[showActionsInlined_()]]">
+    <div class="actions container inlined" aria-hidden="true">
+      <template is="dom-repeat" items="[[match.actions]]">
+        <template is="dom-if" if="[[expandedStateIconsChromeRefresh]]">
+          <div id="actions-focus-border">
+            <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+            </cr-realbox-action>
+          </div>
+        </template>
+        <template is="dom-if" if="[[!expandedStateIconsChromeRefresh]]">
+          <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+          </cr-realbox-action>
+      </template>
+      </template>
+    </div>
+  </template>
   <cr-icon-button id="remove" class="action-icon icon-clear" aria-label="[[removeButtonAriaLabel_]]" on-click="onRemoveButtonClick_" on-mousedown="onRemoveButtonMouseDown_" title="[[removeButtonTitle_]]" hidden$="[[!match.supportsDeletion]]" tabindex="2">
   </cr-icon-button>
 </div>
-<div class="actions container underneath" aria-hidden="true" hidden="[[!showActionsUnderneath_(match)]]">
-  <template is="dom-repeat" items="[[match.actions]]">
-    <div id="actions-focus-border" hidden="[[!expandedStateIconsChromeRefresh]]">
+<template is="dom-if" if="[[showActionsUnderneath_(match)]]">
+  <div class="actions container underneath" aria-hidden="true">
+    <template is="dom-repeat" items="[[match.actions]]">
+      <template is="dom-if" if="[[expandedStateIconsChromeRefresh]]">
+        <div id="actions-focus-border">
+          <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+          </cr-realbox-action>
+        </div>
+      </template>
+      <template is="dom-if" if="[[!expandedStateIconsChromeRefresh]]">
         <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
         </cr-realbox-action>
-    </div>
-    <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1" hidden="[[expandedStateIconsChromeRefresh]]">
-    </cr-realbox-action>
-  </template>
-</div>
+    </template>
+    </template>
+  </div>
+</template>
 <!--_html_template_end_-->`}

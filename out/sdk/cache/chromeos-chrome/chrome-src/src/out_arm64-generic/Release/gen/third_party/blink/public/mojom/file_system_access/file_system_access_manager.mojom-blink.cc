@@ -967,6 +967,8 @@ bool FileSystemAccessManager_GetSandboxedFileSystem_ForwardToCallback::Accept(
           internal::FileSystemAccessManager_GetSandboxedFileSystem_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessManager.0
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessDirectoryHandle> p_directory{};
@@ -1107,6 +1109,8 @@ bool FileSystemAccessManager_ChooseEntries_ForwardToCallback::Accept(
           internal::FileSystemAccessManager_ChooseEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessManager.1
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   WTF::Vector<::blink::mojom::blink::FileSystemAccessEntryPtr> p_entries{};
@@ -1256,6 +1260,8 @@ bool FileSystemAccessManager_GetEntryFromDataTransferToken_ForwardToCallback::Ac
           internal::FileSystemAccessManager_GetEntryFromDataTransferToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessManager.4
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   ::blink::mojom::blink::FileSystemAccessEntryPtr p_entry{};
@@ -1360,6 +1366,8 @@ bool FileSystemAccessManagerStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessManager_GetFileHandleFromToken_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessManager.2
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> p_token{};
       ::mojo::PendingReceiver<::blink::mojom::blink::FileSystemAccessFileHandle> p_file_handle{};
@@ -1382,9 +1390,9 @@ bool FileSystemAccessManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileHandleFromToken(
-std::move(p_token), 
-std::move(p_file_handle));
+      impl->GetFileHandleFromToken(        
+        std::move(p_token), 
+        std::move(p_file_handle));
       return true;
     }
     case internal::kFileSystemAccessManager_GetDirectoryHandleFromToken_Name: {
@@ -1394,6 +1402,8 @@ std::move(p_file_handle));
           reinterpret_cast<internal::FileSystemAccessManager_GetDirectoryHandleFromToken_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessManager.3
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> p_token{};
       ::mojo::PendingReceiver<::blink::mojom::blink::FileSystemAccessDirectoryHandle> p_directory_handle{};
@@ -1416,9 +1426,9 @@ std::move(p_file_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDirectoryHandleFromToken(
-std::move(p_token), 
-std::move(p_directory_handle));
+      impl->GetDirectoryHandleFromToken(        
+        std::move(p_token), 
+        std::move(p_directory_handle));
       return true;
     }
     case internal::kFileSystemAccessManager_GetEntryFromDataTransferToken_Name: {
@@ -1431,6 +1441,8 @@ std::move(p_directory_handle));
           reinterpret_cast<internal::FileSystemAccessManager_BindObserverHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessManager.5
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::FileSystemAccessObserverHost> p_observer_host{};
       FileSystemAccessManager_BindObserverHost_ParamsDataView input_data_view(params, message);
@@ -1448,8 +1460,8 @@ std::move(p_directory_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindObserverHost(
-std::move(p_observer_host));
+      impl->BindObserverHost(        
+        std::move(p_observer_host));
       return true;
     }
   }
@@ -1472,6 +1484,8 @@ bool FileSystemAccessManagerStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessManager_GetSandboxedFileSystem_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessManager.0
       bool success = true;
       FileSystemAccessManager_GetSandboxedFileSystem_ParamsDataView input_data_view(params, message);
       
@@ -1497,6 +1511,8 @@ bool FileSystemAccessManagerStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessManager_ChooseEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessManager.1
       bool success = true;
       FilePickerOptionsPtr p_options{};
       FileSystemAccessManager_ChooseEntries_ParamsDataView input_data_view(params, message);
@@ -1515,8 +1531,8 @@ bool FileSystemAccessManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChooseEntries(
-std::move(p_options), std::move(callback));
+      impl->ChooseEntries(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessManager_GetFileHandleFromToken_Name: {
@@ -1532,6 +1548,8 @@ std::move(p_options), std::move(callback));
               internal::FileSystemAccessManager_GetEntryFromDataTransferToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessManager.4
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessDataTransferToken> p_token{};
       FileSystemAccessManager_GetEntryFromDataTransferToken_ParamsDataView input_data_view(params, message);
@@ -1552,8 +1570,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEntryFromDataTransferToken(
-std::move(p_token), std::move(callback));
+      impl->GetEntryFromDataTransferToken(        
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessManager_BindObserverHost_Name: {

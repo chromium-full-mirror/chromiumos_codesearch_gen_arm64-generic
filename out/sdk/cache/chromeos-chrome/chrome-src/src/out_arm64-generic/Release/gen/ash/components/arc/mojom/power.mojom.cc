@@ -683,6 +683,8 @@ bool PowerHost_IsDisplayOn_ForwardToCallback::Accept(
           internal::PowerHost_IsDisplayOn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PowerHost.2
   bool success = true;
   bool p_is_on{};
   PowerHost_IsDisplayOn_ResponseParamsDataView input_data_view(params, message);
@@ -802,6 +804,8 @@ bool PowerHost_GetBatterySaverModeState_ForwardToCallback::Accept(
           internal::PowerHost_GetBatterySaverModeState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PowerHost.8
   bool success = true;
   BatterySaverModeStatePtr p_state{};
   PowerHost_GetBatterySaverModeState_ResponseParamsDataView input_data_view(params, message);
@@ -886,6 +890,8 @@ bool PowerHostStubDispatch::Accept(
           reinterpret_cast<internal::PowerHost_OnAcquireDisplayWakeLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerHost.0
       bool success = true;
       DisplayWakeLockType p_type{};
       PowerHost_OnAcquireDisplayWakeLock_ParamsDataView input_data_view(params, message);
@@ -901,8 +907,8 @@ bool PowerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAcquireDisplayWakeLock(
-std::move(p_type));
+      impl->OnAcquireDisplayWakeLock(        
+        std::move(p_type));
       return true;
     }
     case internal::kPowerHost_OnReleaseDisplayWakeLock_Name: {
@@ -912,6 +918,8 @@ std::move(p_type));
           reinterpret_cast<internal::PowerHost_OnReleaseDisplayWakeLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerHost.1
       bool success = true;
       DisplayWakeLockType p_type{};
       PowerHost_OnReleaseDisplayWakeLock_ParamsDataView input_data_view(params, message);
@@ -927,8 +935,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReleaseDisplayWakeLock(
-std::move(p_type));
+      impl->OnReleaseDisplayWakeLock(        
+        std::move(p_type));
       return true;
     }
     case internal::kPowerHost_OnWakefulnessChanged_Name: {
@@ -938,6 +946,8 @@ std::move(p_type));
           reinterpret_cast<internal::PowerHost_OnWakefulnessChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerHost.5
       bool success = true;
       WakefulnessMode p_mode{};
       PowerHost_OnWakefulnessChanged_ParamsDataView input_data_view(params, message);
@@ -953,8 +963,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWakefulnessChanged(
-std::move(p_mode));
+      impl->OnWakefulnessChanged(        
+        std::move(p_mode));
       return true;
     }
     case internal::kPowerHost_IsDisplayOn_Name: {
@@ -967,6 +977,8 @@ std::move(p_mode));
           reinterpret_cast<internal::PowerHost_OnScreenBrightnessUpdateRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerHost.3
       bool success = true;
       double p_percent{};
       PowerHost_OnScreenBrightnessUpdateRequest_ParamsDataView input_data_view(params, message);
@@ -982,8 +994,8 @@ std::move(p_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenBrightnessUpdateRequest(
-std::move(p_percent));
+      impl->OnScreenBrightnessUpdateRequest(        
+        std::move(p_percent));
       return true;
     }
     case internal::kPowerHost_OnPreAnr_Name: {
@@ -993,6 +1005,8 @@ std::move(p_percent));
           reinterpret_cast<internal::PowerHost_OnPreAnr_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerHost.6
       bool success = true;
       ::arc::mojom::AnrType p_type{};
       PowerHost_OnPreAnr_ParamsDataView input_data_view(params, message);
@@ -1008,8 +1022,8 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPreAnr(
-std::move(p_type));
+      impl->OnPreAnr(        
+        std::move(p_type));
       return true;
     }
     case internal::kPowerHost_OnAnrRecoveryFailed_Name: {
@@ -1019,6 +1033,8 @@ std::move(p_type));
           reinterpret_cast<internal::PowerHost_OnAnrRecoveryFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerHost.7
       bool success = true;
       ::arc::mojom::AnrType p_type{};
       PowerHost_OnAnrRecoveryFailed_ParamsDataView input_data_view(params, message);
@@ -1034,8 +1050,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAnrRecoveryFailed(
-std::move(p_type));
+      impl->OnAnrRecoveryFailed(        
+        std::move(p_type));
       return true;
     }
     case internal::kPowerHost_GetBatterySaverModeState_Name: {
@@ -1070,6 +1086,8 @@ bool PowerHostStubDispatch::AcceptWithResponder(
               internal::PowerHost_IsDisplayOn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PowerHost.2
       bool success = true;
       PowerHost_IsDisplayOn_ParamsDataView input_data_view(params, message);
       
@@ -1104,6 +1122,8 @@ bool PowerHostStubDispatch::AcceptWithResponder(
               internal::PowerHost_GetBatterySaverModeState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PowerHost.8
       bool success = true;
       PowerHost_GetBatterySaverModeState_ParamsDataView input_data_view(params, message);
       
@@ -1898,6 +1918,8 @@ bool PowerInstance_Init_ForwardToCallback::Accept(
           internal::PowerInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PowerInstance.5
   bool success = true;
   PowerInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -2005,6 +2027,8 @@ bool PowerInstance_Suspend_ForwardToCallback::Accept(
           internal::PowerInstance_Suspend_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PowerInstance.2
   bool success = true;
   PowerInstance_Suspend_ResponseParamsDataView input_data_view(params, message);
   
@@ -2112,6 +2136,8 @@ bool PowerInstance_GetWakefulnessMode_ForwardToCallback::Accept(
           internal::PowerInstance_GetWakefulnessMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PowerInstance.7
   bool success = true;
   WakefulnessMode p_mode{};
   PowerInstance_GetWakefulnessMode_ResponseParamsDataView input_data_view(params, message);
@@ -2190,6 +2216,8 @@ bool PowerInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PowerInstance_SetInteractiveDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.1
       bool success = true;
       bool p_enabled{};
       PowerInstance_SetInteractiveDeprecated_ParamsDataView input_data_view(params, message);
@@ -2205,8 +2233,8 @@ bool PowerInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInteractiveDeprecated(
-std::move(p_enabled));
+      impl->SetInteractiveDeprecated(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kPowerInstance_Suspend_Name: {
@@ -2219,6 +2247,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::PowerInstance_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.3
       bool success = true;
       PowerInstance_Resume_ParamsDataView input_data_view(params, message);
       
@@ -2231,7 +2261,7 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kPowerInstance_UpdateScreenBrightnessSettings_Name: {
@@ -2241,6 +2271,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::PowerInstance_UpdateScreenBrightnessSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.4
       bool success = true;
       double p_percent{};
       PowerInstance_UpdateScreenBrightnessSettings_ParamsDataView input_data_view(params, message);
@@ -2256,8 +2288,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateScreenBrightnessSettings(
-std::move(p_percent));
+      impl->UpdateScreenBrightnessSettings(        
+        std::move(p_percent));
       return true;
     }
     case internal::kPowerInstance_PowerSupplyInfoChanged_Name: {
@@ -2267,6 +2299,8 @@ std::move(p_percent));
           reinterpret_cast<internal::PowerInstance_PowerSupplyInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.6
       bool success = true;
       PowerInstance_PowerSupplyInfoChanged_ParamsDataView input_data_view(params, message);
       
@@ -2279,7 +2313,7 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PowerSupplyInfoChanged();
+      impl->PowerSupplyInfoChanged(        );
       return true;
     }
     case internal::kPowerInstance_GetWakefulnessMode_Name: {
@@ -2292,6 +2326,8 @@ std::move(p_percent));
           reinterpret_cast<internal::PowerInstance_OnCpuRestrictionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.8
       bool success = true;
       CpuRestrictionState p_state{};
       PowerInstance_OnCpuRestrictionChanged_ParamsDataView input_data_view(params, message);
@@ -2307,8 +2343,8 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCpuRestrictionChanged(
-std::move(p_state));
+      impl->OnCpuRestrictionChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kPowerInstance_OnBatterySaverModeStateChanged_Name: {
@@ -2318,6 +2354,8 @@ std::move(p_state));
           reinterpret_cast<internal::PowerInstance_OnBatterySaverModeStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.9
       bool success = true;
       BatterySaverModeStatePtr p_state{};
       PowerInstance_OnBatterySaverModeStateChanged_ParamsDataView input_data_view(params, message);
@@ -2333,8 +2371,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBatterySaverModeStateChanged(
-std::move(p_state));
+      impl->OnBatterySaverModeStateChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kPowerInstance_SetIdleState_Name: {
@@ -2344,6 +2382,8 @@ std::move(p_state));
           reinterpret_cast<internal::PowerInstance_SetIdleState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerInstance.10
       bool success = true;
       IdleState p_state{};
       PowerInstance_SetIdleState_ParamsDataView input_data_view(params, message);
@@ -2359,8 +2399,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIdleState(
-std::move(p_state));
+      impl->SetIdleState(        
+        std::move(p_state));
       return true;
     }
   }
@@ -2383,6 +2423,8 @@ bool PowerInstanceStubDispatch::AcceptWithResponder(
               internal::PowerInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PowerInstance.5
       bool success = true;
       ::mojo::PendingRemote<PowerHost> p_host_remote{};
       PowerInstance_Init_ParamsDataView input_data_view(params, message);
@@ -2403,8 +2445,8 @@ bool PowerInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kPowerInstance_SetInteractiveDeprecated_Name: {
@@ -2417,6 +2459,8 @@ std::move(p_host_remote), std::move(callback));
               internal::PowerInstance_Suspend_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PowerInstance.2
       bool success = true;
       PowerInstance_Suspend_ParamsDataView input_data_view(params, message);
       
@@ -2451,6 +2495,8 @@ std::move(p_host_remote), std::move(callback));
               internal::PowerInstance_GetWakefulnessMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PowerInstance.7
       bool success = true;
       PowerInstance_GetWakefulnessMode_ParamsDataView input_data_view(params, message);
       

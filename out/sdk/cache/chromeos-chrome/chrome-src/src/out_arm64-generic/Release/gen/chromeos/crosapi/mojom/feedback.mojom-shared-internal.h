@@ -46,6 +46,7 @@ struct LacrosFeedbackSource_Data {
       case 9:
       case 10:
       case 11:
+      case 12:
         return true;
     }
     return false;
@@ -77,6 +78,7 @@ class  FeedbackInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> category_tag;
   mojo::internal::Pointer<mojo::internal::String_Data> extra_diagnostics;
   ::mojo_base::mojom::internal::Value_Data autofill_metadata;
+  ::mojo_base::mojom::internal::Value_Data ai_metadata;
 
  private:
   friend class mojo::internal::MessageFragment<FeedbackInfo_Data>;
@@ -84,7 +86,7 @@ class  FeedbackInfo_Data {
   FeedbackInfo_Data();
   ~FeedbackInfo_Data() = delete;
 };
-static_assert(sizeof(FeedbackInfo_Data) == 72,
+static_assert(sizeof(FeedbackInfo_Data) == 88,
               "Bad sizeof(FeedbackInfo_Data)");
 // Used by FeedbackInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -16,26 +16,6 @@ mojo.internal.exportModule('blink.mojom');
 
 
 
-/**
- * @const { {$: !mojo.internal.MojomType} }
- * @export
- */
-blink.mojom.BFCacheBlockedSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- * @export
- */
-blink.mojom.BFCacheBlocked = {
-  
-  kYes: 0,
-  kNo: 1,
-  kMasked: 2,
-  MIN_VALUE: 0,
-  MAX_VALUE: 2,
-};
-
-
 
 
 /**
@@ -69,15 +49,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'reasons', 8,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'children', 16,
+        'children', 8,
         0,
         mojo.internal.Array(blink.mojom.BackForwardCacheNotRestoredReasonsSpec.$, false),
         null,
@@ -85,7 +57,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 32],]);
+    [[0, 24],]);
 
 
 
@@ -96,8 +68,6 @@ blink.mojom.SameOriginBfcacheNotRestoredDetails = class {
   constructor() {
     /** @export { !string } */
     this.url;
-    /** @export { !Array<!string> } */
-    this.reasons;
     /** @export { !Array<!blink.mojom.BackForwardCacheNotRestoredReasons> } */
     this.children;
   }
@@ -110,35 +80,35 @@ mojo.internal.Struct(
     'BackForwardCacheNotRestoredReasons',
     [
       mojo.internal.StructField(
-        'blocked', 0,
+        'src', 0,
         0,
-        blink.mojom.BFCacheBlockedSpec.$,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'id', 8,
         0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'name', 16,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'reasons', 24,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
         false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'src', 8,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'id', 16,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'name', 24,
-        0,
-        mojo.internal.String,
-        null,
-        true, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
@@ -159,14 +129,14 @@ mojo.internal.Struct(
 /** @record */
 blink.mojom.BackForwardCacheNotRestoredReasons = class {
   constructor() {
-    /** @export { !blink.mojom.BFCacheBlocked } */
-    this.blocked;
     /** @export { (string|undefined) } */
     this.src;
     /** @export { (string|undefined) } */
     this.id;
     /** @export { (string|undefined) } */
     this.name;
+    /** @export { !Array<!string> } */
+    this.reasons;
     /** @export { (blink.mojom.SameOriginBfcacheNotRestoredDetails|undefined) } */
     this.sameOriginDetails;
   }

@@ -137,7 +137,7 @@ export class Dictation {
         // available. If that scenario is possible, we may have to use
         // `chrome.audio.getDevices` and verify that there's at least one input
         // device.
-        chrome.audio.getMute(StreamType.INPUT, muted => {
+        chrome.audio.getMute(StreamType.INPUT, (muted) => {
             if (muted) {
                 this.stopDictation_(/*notify=*/ true);
                 chrome.accessibilityPrivate.showToast(ToastType.DICTATION_MIC_MUTED);
@@ -154,7 +154,7 @@ export class Dictation {
     maybeStartSpeechRecognition_() {
         if (this.active_) {
             // TODO(b/314203187): Determine if not null assertion is acceptable.
-            chrome.speechRecognitionPrivate.start(this.speechRecognitionOptions_, type => this.onSpeechRecognitionStarted_(type));
+            chrome.speechRecognitionPrivate.start(this.speechRecognitionOptions_, (type) => this.onSpeechRecognitionStarted_(type));
         }
         else {
             // We are no longer starting up - perhaps a stop came

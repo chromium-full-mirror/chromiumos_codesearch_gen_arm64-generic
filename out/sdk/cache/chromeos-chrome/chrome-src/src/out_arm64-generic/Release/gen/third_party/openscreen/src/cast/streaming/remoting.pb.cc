@@ -938,7 +938,6 @@ bool VideoDecoderConfig_Profile_IsValid(int value) {
     case 17:
     case 18:
     case 19:
-    case 20:
     case 21:
     case 22:
     case 23:
@@ -961,14 +960,13 @@ bool VideoDecoderConfig_Profile_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VideoDecoderConfig_Profile_strings[38] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VideoDecoderConfig_Profile_strings[37] = {};
 
 static const char VideoDecoderConfig_Profile_names[] =
   "AV1PROFILE_PROFILE_HIGH"
   "AV1PROFILE_PROFILE_MAIN"
   "AV1PROFILE_PROFILE_PRO"
   "DOLBYVISION_PROFILE0"
-  "DOLBYVISION_PROFILE4"
   "DOLBYVISION_PROFILE5"
   "DOLBYVISION_PROFILE7"
   "DOLBYVISION_PROFILE8"
@@ -1008,81 +1006,79 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry VideoDecoderConfig_Pro
   { {VideoDecoderConfig_Profile_names + 23, 23}, 24 },
   { {VideoDecoderConfig_Profile_names + 46, 22}, 26 },
   { {VideoDecoderConfig_Profile_names + 68, 20}, 19 },
-  { {VideoDecoderConfig_Profile_names + 88, 20}, 20 },
-  { {VideoDecoderConfig_Profile_names + 108, 20}, 21 },
-  { {VideoDecoderConfig_Profile_names + 128, 20}, 22 },
-  { {VideoDecoderConfig_Profile_names + 148, 20}, 27 },
-  { {VideoDecoderConfig_Profile_names + 168, 20}, 28 },
-  { {VideoDecoderConfig_Profile_names + 188, 20}, 0 },
-  { {VideoDecoderConfig_Profile_names + 208, 20}, 2 },
-  { {VideoDecoderConfig_Profile_names + 228, 16}, 3 },
-  { {VideoDecoderConfig_Profile_names + 244, 25}, 4 },
-  { {VideoDecoderConfig_Profile_names + 269, 26}, 5 },
-  { {VideoDecoderConfig_Profile_names + 295, 36}, 6 },
-  { {VideoDecoderConfig_Profile_names + 331, 16}, 1 },
-  { {VideoDecoderConfig_Profile_names + 347, 25}, 10 },
-  { {VideoDecoderConfig_Profile_names + 372, 28}, 7 },
-  { {VideoDecoderConfig_Profile_names + 400, 24}, 8 },
-  { {VideoDecoderConfig_Profile_names + 424, 22}, 9 },
-  { {VideoDecoderConfig_Profile_names + 446, 19}, 33 },
-  { {VideoDecoderConfig_Profile_names + 465, 27}, 30 },
-  { {VideoDecoderConfig_Profile_names + 492, 43}, 36 },
-  { {VideoDecoderConfig_Profile_names + 535, 16}, 16 },
-  { {VideoDecoderConfig_Profile_names + 551, 18}, 17 },
-  { {VideoDecoderConfig_Profile_names + 569, 30}, 18 },
-  { {VideoDecoderConfig_Profile_names + 599, 26}, 31 },
-  { {VideoDecoderConfig_Profile_names + 625, 16}, 29 },
-  { {VideoDecoderConfig_Profile_names + 641, 25}, 32 },
-  { {VideoDecoderConfig_Profile_names + 666, 25}, 35 },
-  { {VideoDecoderConfig_Profile_names + 691, 27}, 34 },
-  { {VideoDecoderConfig_Profile_names + 718, 17}, 23 },
-  { {VideoDecoderConfig_Profile_names + 735, 27}, -1 },
-  { {VideoDecoderConfig_Profile_names + 762, 14}, 11 },
-  { {VideoDecoderConfig_Profile_names + 776, 19}, 12 },
-  { {VideoDecoderConfig_Profile_names + 795, 19}, 13 },
-  { {VideoDecoderConfig_Profile_names + 814, 19}, 14 },
-  { {VideoDecoderConfig_Profile_names + 833, 19}, 15 },
+  { {VideoDecoderConfig_Profile_names + 88, 20}, 21 },
+  { {VideoDecoderConfig_Profile_names + 108, 20}, 22 },
+  { {VideoDecoderConfig_Profile_names + 128, 20}, 27 },
+  { {VideoDecoderConfig_Profile_names + 148, 20}, 28 },
+  { {VideoDecoderConfig_Profile_names + 168, 20}, 0 },
+  { {VideoDecoderConfig_Profile_names + 188, 20}, 2 },
+  { {VideoDecoderConfig_Profile_names + 208, 16}, 3 },
+  { {VideoDecoderConfig_Profile_names + 224, 25}, 4 },
+  { {VideoDecoderConfig_Profile_names + 249, 26}, 5 },
+  { {VideoDecoderConfig_Profile_names + 275, 36}, 6 },
+  { {VideoDecoderConfig_Profile_names + 311, 16}, 1 },
+  { {VideoDecoderConfig_Profile_names + 327, 25}, 10 },
+  { {VideoDecoderConfig_Profile_names + 352, 28}, 7 },
+  { {VideoDecoderConfig_Profile_names + 380, 24}, 8 },
+  { {VideoDecoderConfig_Profile_names + 404, 22}, 9 },
+  { {VideoDecoderConfig_Profile_names + 426, 19}, 33 },
+  { {VideoDecoderConfig_Profile_names + 445, 27}, 30 },
+  { {VideoDecoderConfig_Profile_names + 472, 43}, 36 },
+  { {VideoDecoderConfig_Profile_names + 515, 16}, 16 },
+  { {VideoDecoderConfig_Profile_names + 531, 18}, 17 },
+  { {VideoDecoderConfig_Profile_names + 549, 30}, 18 },
+  { {VideoDecoderConfig_Profile_names + 579, 26}, 31 },
+  { {VideoDecoderConfig_Profile_names + 605, 16}, 29 },
+  { {VideoDecoderConfig_Profile_names + 621, 25}, 32 },
+  { {VideoDecoderConfig_Profile_names + 646, 25}, 35 },
+  { {VideoDecoderConfig_Profile_names + 671, 27}, 34 },
+  { {VideoDecoderConfig_Profile_names + 698, 17}, 23 },
+  { {VideoDecoderConfig_Profile_names + 715, 27}, -1 },
+  { {VideoDecoderConfig_Profile_names + 742, 14}, 11 },
+  { {VideoDecoderConfig_Profile_names + 756, 19}, 12 },
+  { {VideoDecoderConfig_Profile_names + 775, 19}, 13 },
+  { {VideoDecoderConfig_Profile_names + 794, 19}, 14 },
+  { {VideoDecoderConfig_Profile_names + 813, 19}, 15 },
 };
 
 static const int VideoDecoderConfig_Profile_entries_by_number[] = {
-  32, // -1 -> VIDEO_CODEC_PROFILE_UNKNOWN
-  9, // 0 -> H264PROFILE_BASELINE
-  15, // 1 -> H264PROFILE_MAIN
-  10, // 2 -> H264PROFILE_EXTENDED
-  11, // 3 -> H264PROFILE_HIGH
-  12, // 4 -> H264PROFILE_HIGH10PROFILE
-  13, // 5 -> H264PROFILE_HIGH422PROFILE
-  14, // 6 -> H264PROFILE_HIGH444PREDICTIVEPROFILE
-  17, // 7 -> H264PROFILE_SCALABLEBASELINE
-  18, // 8 -> H264PROFILE_SCALABLEHIGH
-  19, // 9 -> H264PROFILE_STEREOHIGH
-  16, // 10 -> H264PROFILE_MULTIVIEWHIGH
-  33, // 11 -> VP8PROFILE_ANY
-  34, // 12 -> VP9PROFILE_PROFILE0
-  35, // 13 -> VP9PROFILE_PROFILE1
-  36, // 14 -> VP9PROFILE_PROFILE2
-  37, // 15 -> VP9PROFILE_PROFILE3
-  23, // 16 -> HEVCPROFILE_MAIN
-  24, // 17 -> HEVCPROFILE_MAIN10
-  25, // 18 -> HEVCPROFILE_MAIN_STILL_PICTURE
+  31, // -1 -> VIDEO_CODEC_PROFILE_UNKNOWN
+  8, // 0 -> H264PROFILE_BASELINE
+  14, // 1 -> H264PROFILE_MAIN
+  9, // 2 -> H264PROFILE_EXTENDED
+  10, // 3 -> H264PROFILE_HIGH
+  11, // 4 -> H264PROFILE_HIGH10PROFILE
+  12, // 5 -> H264PROFILE_HIGH422PROFILE
+  13, // 6 -> H264PROFILE_HIGH444PREDICTIVEPROFILE
+  16, // 7 -> H264PROFILE_SCALABLEBASELINE
+  17, // 8 -> H264PROFILE_SCALABLEHIGH
+  18, // 9 -> H264PROFILE_STEREOHIGH
+  15, // 10 -> H264PROFILE_MULTIVIEWHIGH
+  32, // 11 -> VP8PROFILE_ANY
+  33, // 12 -> VP9PROFILE_PROFILE0
+  34, // 13 -> VP9PROFILE_PROFILE1
+  35, // 14 -> VP9PROFILE_PROFILE2
+  36, // 15 -> VP9PROFILE_PROFILE3
+  22, // 16 -> HEVCPROFILE_MAIN
+  23, // 17 -> HEVCPROFILE_MAIN10
+  24, // 18 -> HEVCPROFILE_MAIN_STILL_PICTURE
   3, // 19 -> DOLBYVISION_PROFILE0
-  4, // 20 -> DOLBYVISION_PROFILE4
-  5, // 21 -> DOLBYVISION_PROFILE5
-  6, // 22 -> DOLBYVISION_PROFILE7
-  31, // 23 -> THEORAPROFILE_ANY
+  4, // 21 -> DOLBYVISION_PROFILE5
+  5, // 22 -> DOLBYVISION_PROFILE7
+  30, // 23 -> THEORAPROFILE_ANY
   1, // 24 -> AV1PROFILE_PROFILE_MAIN
   0, // 25 -> AV1PROFILE_PROFILE_HIGH
   2, // 26 -> AV1PROFILE_PROFILE_PRO
-  7, // 27 -> DOLBYVISION_PROFILE8
-  8, // 28 -> DOLBYVISION_PROFILE9
-  27, // 29 -> HEVCPROFILE_REXT
-  21, // 30 -> HEVCPROFILE_HIGH_THROUGHPUT
-  26, // 31 -> HEVCPROFILE_MULTIVIEW_MAIN
-  28, // 32 -> HEVCPROFILE_SCALABLE_MAIN
-  20, // 33 -> HEVCPROFILE_3D_MAIN
-  30, // 34 -> HEVCPROFILE_SCREEN_EXTENDED
-  29, // 35 -> HEVCPROFILE_SCALABLE_REXT
-  22, // 36 -> HEVCPROFILE_HIGH_THROUGHPUT_SCREEN_EXTENDED
+  6, // 27 -> DOLBYVISION_PROFILE8
+  7, // 28 -> DOLBYVISION_PROFILE9
+  26, // 29 -> HEVCPROFILE_REXT
+  20, // 30 -> HEVCPROFILE_HIGH_THROUGHPUT
+  25, // 31 -> HEVCPROFILE_MULTIVIEW_MAIN
+  27, // 32 -> HEVCPROFILE_SCALABLE_MAIN
+  19, // 33 -> HEVCPROFILE_3D_MAIN
+  29, // 34 -> HEVCPROFILE_SCREEN_EXTENDED
+  28, // 35 -> HEVCPROFILE_SCALABLE_REXT
+  21, // 36 -> HEVCPROFILE_HIGH_THROUGHPUT_SCREEN_EXTENDED
 };
 
 const std::string& VideoDecoderConfig_Profile_Name(
@@ -1091,12 +1087,12 @@ const std::string& VideoDecoderConfig_Profile_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           VideoDecoderConfig_Profile_entries,
           VideoDecoderConfig_Profile_entries_by_number,
-          38, VideoDecoderConfig_Profile_strings);
+          37, VideoDecoderConfig_Profile_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       VideoDecoderConfig_Profile_entries,
       VideoDecoderConfig_Profile_entries_by_number,
-      38, value);
+      37, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      VideoDecoderConfig_Profile_strings[idx].get();
 }
@@ -1104,7 +1100,7 @@ bool VideoDecoderConfig_Profile_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VideoDecoderConfig_Profile* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      VideoDecoderConfig_Profile_entries, 38, name, &int_value);
+      VideoDecoderConfig_Profile_entries, 37, name, &int_value);
   if (success) {
     *value = static_cast<VideoDecoderConfig_Profile>(int_value);
   }
@@ -1132,7 +1128,6 @@ constexpr VideoDecoderConfig_Profile VideoDecoderConfig::HEVCPROFILE_MAIN;
 constexpr VideoDecoderConfig_Profile VideoDecoderConfig::HEVCPROFILE_MAIN10;
 constexpr VideoDecoderConfig_Profile VideoDecoderConfig::HEVCPROFILE_MAIN_STILL_PICTURE;
 constexpr VideoDecoderConfig_Profile VideoDecoderConfig::DOLBYVISION_PROFILE0;
-constexpr VideoDecoderConfig_Profile VideoDecoderConfig::DOLBYVISION_PROFILE4;
 constexpr VideoDecoderConfig_Profile VideoDecoderConfig::DOLBYVISION_PROFILE5;
 constexpr VideoDecoderConfig_Profile VideoDecoderConfig::DOLBYVISION_PROFILE7;
 constexpr VideoDecoderConfig_Profile VideoDecoderConfig::THEORAPROFILE_ANY;

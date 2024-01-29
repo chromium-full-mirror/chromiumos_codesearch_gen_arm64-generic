@@ -288,6 +288,8 @@ bool OutputProtection_QueryStatus_ForwardToCallback::Accept(
           internal::OutputProtection_QueryStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OutputProtection.0
   bool success = true;
   bool p_success{};
   uint32_t p_link_mask{};
@@ -423,6 +425,8 @@ bool OutputProtection_EnableProtection_ForwardToCallback::Accept(
           internal::OutputProtection_EnableProtection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OutputProtection.1
   bool success = true;
   bool p_success{};
   OutputProtection_EnableProtection_ResponseParamsDataView input_data_view(params, message);
@@ -516,6 +520,8 @@ bool OutputProtectionStubDispatch::AcceptWithResponder(
               internal::OutputProtection_QueryStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OutputProtection.0
       bool success = true;
       OutputProtection_QueryStatus_ParamsDataView input_data_view(params, message);
       
@@ -541,6 +547,8 @@ bool OutputProtectionStubDispatch::AcceptWithResponder(
               internal::OutputProtection_EnableProtection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OutputProtection.1
       bool success = true;
       uint32_t p_desired_protection_mask{};
       OutputProtection_EnableProtection_ParamsDataView input_data_view(params, message);
@@ -559,8 +567,8 @@ bool OutputProtectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableProtection(
-std::move(p_desired_protection_mask), std::move(callback));
+      impl->EnableProtection(        
+        std::move(p_desired_protection_mask), std::move(callback));
       return true;
     }
   }

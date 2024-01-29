@@ -1717,7 +1717,6 @@ class  Theme {
       bool is_custom_background,
       bool daily_refresh_enabled,
       bool is_dark,
-      bool theme_realbox_icons,
       std::optional<::SkColor> logo_color,
       const std::optional<std::string>& background_image_collection_id,
       BackgroundImagePtr background_image,
@@ -1815,8 +1814,6 @@ Theme& operator=(const Theme&) = delete;
   bool daily_refresh_enabled;
   
   bool is_dark;
-  
-  bool theme_realbox_icons;
   
   std::optional<::SkColor> logo_color;
   
@@ -3268,7 +3265,6 @@ ThemePtr Theme::Clone() const {
       mojo::Clone(is_custom_background),
       mojo::Clone(daily_refresh_enabled),
       mojo::Clone(is_dark),
-      mojo::Clone(theme_realbox_icons),
       mojo::Clone(logo_color),
       mojo::Clone(background_image_collection_id),
       mojo::Clone(background_image),
@@ -3292,8 +3288,6 @@ bool Theme::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->daily_refresh_enabled, other_struct.daily_refresh_enabled))
     return false;
   if (!mojo::Equals(this->is_dark, other_struct.is_dark))
-    return false;
-  if (!mojo::Equals(this->theme_realbox_icons, other_struct.theme_realbox_icons))
     return false;
   if (!mojo::Equals(this->logo_color, other_struct.logo_color))
     return false;
@@ -3337,10 +3331,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_dark < rhs.is_dark)
     return true;
   if (rhs.is_dark < lhs.is_dark)
-    return false;
-  if (lhs.theme_realbox_icons < rhs.theme_realbox_icons)
-    return true;
-  if (rhs.theme_realbox_icons < lhs.theme_realbox_icons)
     return false;
   if (lhs.logo_color < rhs.logo_color)
     return true;
@@ -3907,11 +3897,6 @@ struct  StructTraits<::new_tab_page::mojom::Theme::DataView,
   static decltype(::new_tab_page::mojom::Theme::is_dark) is_dark(
       const ::new_tab_page::mojom::ThemePtr& input) {
     return input->is_dark;
-  }
-
-  static decltype(::new_tab_page::mojom::Theme::theme_realbox_icons) theme_realbox_icons(
-      const ::new_tab_page::mojom::ThemePtr& input) {
-    return input->theme_realbox_icons;
   }
 
   static const decltype(::new_tab_page::mojom::Theme::logo_color)& logo_color(

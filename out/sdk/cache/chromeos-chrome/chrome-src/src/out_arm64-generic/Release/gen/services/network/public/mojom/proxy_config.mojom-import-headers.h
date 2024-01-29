@@ -8,5 +8,7 @@
 #define SERVICES_NETWORK_PUBLIC_MOJOM_PROXY_CONFIG_MOJOM_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/big_string.mojom.h"
 #include "mojo/public/mojom/base/big_string.mojom-import-headers.h"
+#include "services/network/public/mojom/network_param.mojom.h"
+#include "services/network/public/mojom/network_param.mojom-import-headers.h"
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_PROXY_CONFIG_MOJOM_IMPORT_HEADERS_H_

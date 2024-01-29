@@ -52,19 +52,19 @@ let DOMAIN_SELECTOR;
         await (0, application_helpers_js_1.navigateToApplicationTab)(target, 'cookies');
         await (0, application_helpers_js_1.doubleClickSourceTreeItem)(COOKIES_SELECTOR);
         await (0, application_helpers_js_1.doubleClickSourceTreeItem)(DOMAIN_SELECTOR);
-        const dataGridRowValues1 = await (0, application_helpers_js_1.getStorageItemsData)(['partitionKey'], 4);
+        const dataGridRowValues1 = await (0, application_helpers_js_1.getStorageItemsData)(['partition-key'], 4);
         chai_1.assert.deepEqual(dataGridRowValues1, [
             {
-                partitionKey: 'https://localhost',
+                'partition-key': 'https://localhost',
             },
             {
-                partitionKey: '',
+                'partition-key': '',
             },
             {
-                partitionKey: '',
+                'partition-key': '',
             },
             {
-                partitionKey: '',
+                'partition-key': '',
             },
         ]);
     });
@@ -122,13 +122,13 @@ let DOMAIN_SELECTOR;
                 name: '__Host-foo3',
             },
             {
-                name: 'urlencoded',
+                name: 'foo',
             },
             {
                 name: 'foo2',
             },
             {
-                name: 'foo',
+                name: 'urlencoded',
             },
         ]);
         await (0, application_helpers_js_1.filterStorageItems)('foo2');
@@ -140,10 +140,10 @@ let DOMAIN_SELECTOR;
                 name: '__Host-foo3',
             },
             {
-                name: 'urlencoded',
+                name: 'foo',
             },
             {
-                name: 'foo',
+                name: 'urlencoded',
             },
         ]);
     });

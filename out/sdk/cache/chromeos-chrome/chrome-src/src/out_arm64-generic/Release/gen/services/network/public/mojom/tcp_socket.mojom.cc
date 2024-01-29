@@ -501,6 +501,8 @@ bool TCPBoundSocket_Listen_ForwardToCallback::Accept(
           internal::TCPBoundSocket_Listen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPBoundSocket.0
   bool success = true;
   int32_t p_net_error{};
   TCPBoundSocket_Listen_ResponseParamsDataView input_data_view(params, message);
@@ -620,6 +622,8 @@ bool TCPBoundSocket_Connect_ForwardToCallback::Accept(
           internal::TCPBoundSocket_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPBoundSocket.1
   bool success = true;
   int32_t p_net_error{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -759,6 +763,8 @@ bool TCPBoundSocketStubDispatch::AcceptWithResponder(
               internal::TCPBoundSocket_Listen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPBoundSocket.0
       bool success = true;
       uint32_t p_backlog{};
       ::mojo::PendingReceiver<TCPServerSocket> p_socket{};
@@ -782,9 +788,9 @@ bool TCPBoundSocketStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Listen(
-std::move(p_backlog), 
-std::move(p_socket), std::move(callback));
+      impl->Listen(        
+        std::move(p_backlog), 
+        std::move(p_socket), std::move(callback));
       return true;
     }
     case internal::kTCPBoundSocket_Connect_Name: {
@@ -794,6 +800,8 @@ std::move(p_socket), std::move(callback));
               internal::TCPBoundSocket_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPBoundSocket.1
       bool success = true;
       ::net::AddressList p_remote_addr_list{};
       TCPConnectedSocketOptionsPtr p_tcp_connected_socket_options{};
@@ -825,11 +833,11 @@ std::move(p_socket), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_remote_addr_list), 
-std::move(p_tcp_connected_socket_options), 
-std::move(p_socket), 
-std::move(p_observer), std::move(callback));
+      impl->Connect(        
+        std::move(p_remote_addr_list), 
+        std::move(p_tcp_connected_socket_options), 
+        std::move(p_socket), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }
@@ -1391,6 +1399,8 @@ bool TCPConnectedSocket_UpgradeToTLS_ForwardToCallback::Accept(
           internal::TCPConnectedSocket_UpgradeToTLS_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPConnectedSocket.0
   bool success = true;
   int32_t p_net_error{};
   ::mojo::ScopedDataPipeConsumerHandle p_receive_stream{};
@@ -1542,6 +1552,8 @@ bool TCPConnectedSocket_SetSendBufferSize_ForwardToCallback::Accept(
           internal::TCPConnectedSocket_SetSendBufferSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPConnectedSocket.1
   bool success = true;
   int32_t p_net_error{};
   TCPConnectedSocket_SetSendBufferSize_ResponseParamsDataView input_data_view(params, message);
@@ -1661,6 +1673,8 @@ bool TCPConnectedSocket_SetReceiveBufferSize_ForwardToCallback::Accept(
           internal::TCPConnectedSocket_SetReceiveBufferSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPConnectedSocket.2
   bool success = true;
   int32_t p_net_error{};
   TCPConnectedSocket_SetReceiveBufferSize_ResponseParamsDataView input_data_view(params, message);
@@ -1780,6 +1794,8 @@ bool TCPConnectedSocket_SetNoDelay_ForwardToCallback::Accept(
           internal::TCPConnectedSocket_SetNoDelay_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPConnectedSocket.3
   bool success = true;
   bool p_success{};
   TCPConnectedSocket_SetNoDelay_ResponseParamsDataView input_data_view(params, message);
@@ -1899,6 +1915,8 @@ bool TCPConnectedSocket_SetKeepAlive_ForwardToCallback::Accept(
           internal::TCPConnectedSocket_SetKeepAlive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPConnectedSocket.4
   bool success = true;
   bool p_success{};
   TCPConnectedSocket_SetKeepAlive_ResponseParamsDataView input_data_view(params, message);
@@ -2001,6 +2019,8 @@ bool TCPConnectedSocketStubDispatch::AcceptWithResponder(
               internal::TCPConnectedSocket_UpgradeToTLS_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPConnectedSocket.0
       bool success = true;
       ::net::HostPortPair p_host_port_pair{};
       ::network::mojom::TLSClientSocketOptionsPtr p_options{};
@@ -2035,12 +2055,12 @@ bool TCPConnectedSocketStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpgradeToTLS(
-std::move(p_host_port_pair), 
-std::move(p_options), 
-std::move(p_traffic_annotation), 
-std::move(p_receiver), 
-std::move(p_observer), std::move(callback));
+      impl->UpgradeToTLS(        
+        std::move(p_host_port_pair), 
+        std::move(p_options), 
+        std::move(p_traffic_annotation), 
+        std::move(p_receiver), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kTCPConnectedSocket_SetSendBufferSize_Name: {
@@ -2050,6 +2070,8 @@ std::move(p_observer), std::move(callback));
               internal::TCPConnectedSocket_SetSendBufferSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPConnectedSocket.1
       bool success = true;
       int32_t p_send_buffer_size{};
       TCPConnectedSocket_SetSendBufferSize_ParamsDataView input_data_view(params, message);
@@ -2068,8 +2090,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSendBufferSize(
-std::move(p_send_buffer_size), std::move(callback));
+      impl->SetSendBufferSize(        
+        std::move(p_send_buffer_size), std::move(callback));
       return true;
     }
     case internal::kTCPConnectedSocket_SetReceiveBufferSize_Name: {
@@ -2079,6 +2101,8 @@ std::move(p_send_buffer_size), std::move(callback));
               internal::TCPConnectedSocket_SetReceiveBufferSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPConnectedSocket.2
       bool success = true;
       int32_t p_receive_buffer_size{};
       TCPConnectedSocket_SetReceiveBufferSize_ParamsDataView input_data_view(params, message);
@@ -2097,8 +2121,8 @@ std::move(p_send_buffer_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReceiveBufferSize(
-std::move(p_receive_buffer_size), std::move(callback));
+      impl->SetReceiveBufferSize(        
+        std::move(p_receive_buffer_size), std::move(callback));
       return true;
     }
     case internal::kTCPConnectedSocket_SetNoDelay_Name: {
@@ -2108,6 +2132,8 @@ std::move(p_receive_buffer_size), std::move(callback));
               internal::TCPConnectedSocket_SetNoDelay_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPConnectedSocket.3
       bool success = true;
       bool p_no_delay{};
       TCPConnectedSocket_SetNoDelay_ParamsDataView input_data_view(params, message);
@@ -2126,8 +2152,8 @@ std::move(p_receive_buffer_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNoDelay(
-std::move(p_no_delay), std::move(callback));
+      impl->SetNoDelay(        
+        std::move(p_no_delay), std::move(callback));
       return true;
     }
     case internal::kTCPConnectedSocket_SetKeepAlive_Name: {
@@ -2137,6 +2163,8 @@ std::move(p_no_delay), std::move(callback));
               internal::TCPConnectedSocket_SetKeepAlive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPConnectedSocket.4
       bool success = true;
       bool p_enable{};
       int32_t p_delay_secs{};
@@ -2158,9 +2186,9 @@ std::move(p_no_delay), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetKeepAlive(
-std::move(p_enable), 
-std::move(p_delay_secs), std::move(callback));
+      impl->SetKeepAlive(        
+        std::move(p_enable), 
+        std::move(p_delay_secs), std::move(callback));
       return true;
     }
   }
@@ -2363,6 +2391,8 @@ bool SocketObserverStubDispatch::Accept(
           reinterpret_cast<internal::SocketObserver_OnReadError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SocketObserver.0
       bool success = true;
       int32_t p_net_error{};
       SocketObserver_OnReadError_ParamsDataView input_data_view(params, message);
@@ -2378,8 +2408,8 @@ bool SocketObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReadError(
-std::move(p_net_error));
+      impl->OnReadError(        
+        std::move(p_net_error));
       return true;
     }
     case internal::kSocketObserver_OnWriteError_Name: {
@@ -2389,6 +2419,8 @@ std::move(p_net_error));
           reinterpret_cast<internal::SocketObserver_OnWriteError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SocketObserver.1
       bool success = true;
       int32_t p_net_error{};
       SocketObserver_OnWriteError_ParamsDataView input_data_view(params, message);
@@ -2404,8 +2436,8 @@ std::move(p_net_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWriteError(
-std::move(p_net_error));
+      impl->OnWriteError(        
+        std::move(p_net_error));
       return true;
     }
   }
@@ -2619,6 +2651,8 @@ bool TCPServerSocket_Accept_ForwardToCallback::Accept(
           internal::TCPServerSocket_Accept_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TCPServerSocket.0
   bool success = true;
   int32_t p_net_error{};
   std::optional<::net::IPEndPoint> p_remote_addr{};
@@ -2752,6 +2786,8 @@ bool TCPServerSocketStubDispatch::AcceptWithResponder(
               internal::TCPServerSocket_Accept_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TCPServerSocket.0
       bool success = true;
       ::mojo::PendingRemote<SocketObserver> p_observer{};
       TCPServerSocket_Accept_ParamsDataView input_data_view(params, message);
@@ -2772,8 +2808,8 @@ bool TCPServerSocketStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Accept(
-std::move(p_observer), std::move(callback));
+      impl->Accept(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }

@@ -104,7 +104,7 @@ void V8UnionGPUCanvasContextOrImageBitmapRenderingContextOrOffscreenCanvasRender
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionGPUCanvasContextOrImageBitmapRenderingContextOrOffscreenCanvasRenderingContext2DOrWebGL2RenderingContextOrWebGLRenderingContext::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionGPUCanvasContextOrImageBitmapRenderingContextOrOffscreenCanvasRenderingContext2DOrWebGL2RenderingContextOrWebGLRenderingContext::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kGPUCanvasContext: {
     return ToV8Traits<GPUCanvasContext>::ToV8(script_state, member_gpu_canvas_context_.Get());
@@ -124,7 +124,7 @@ v8::MaybeLocal<v8::Value> V8UnionGPUCanvasContextOrImageBitmapRenderingContextOr
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionGPUCanvasContextOrImageBitmapRenderingContextOrOffscreenCanvasRenderingContext2DOrWebGL2RenderingContextOrWebGLRenderingContext::Trace(Visitor* visitor) const {

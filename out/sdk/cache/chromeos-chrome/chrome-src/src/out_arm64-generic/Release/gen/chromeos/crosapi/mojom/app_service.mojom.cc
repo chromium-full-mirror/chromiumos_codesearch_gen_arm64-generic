@@ -308,6 +308,8 @@ bool AppPublisherStubDispatch::Accept(
           reinterpret_cast<internal::AppPublisher_OnApps_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPublisher.0
       bool success = true;
       std::vector<::apps::AppPtr> p_deltas{};
       AppPublisher_OnApps_ParamsDataView input_data_view(params, message);
@@ -323,8 +325,8 @@ bool AppPublisherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnApps(
-std::move(p_deltas));
+      impl->OnApps(        
+        std::move(p_deltas));
       return true;
     }
     case internal::kAppPublisher_RegisterAppController_Name: {
@@ -334,6 +336,8 @@ std::move(p_deltas));
           reinterpret_cast<internal::AppPublisher_RegisterAppController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPublisher.1
       bool success = true;
       ::mojo::PendingRemote<AppController> p_controller{};
       AppPublisher_RegisterAppController_ParamsDataView input_data_view(params, message);
@@ -351,8 +355,8 @@ std::move(p_deltas));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterAppController(
-std::move(p_controller));
+      impl->RegisterAppController(        
+        std::move(p_controller));
       return true;
     }
     case internal::kAppPublisher_OnCapabilityAccesses_Name: {
@@ -362,6 +366,8 @@ std::move(p_controller));
           reinterpret_cast<internal::AppPublisher_OnCapabilityAccesses_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPublisher.2
       bool success = true;
       std::vector<::apps::CapabilityAccessPtr> p_deltas{};
       AppPublisher_OnCapabilityAccesses_ParamsDataView input_data_view(params, message);
@@ -377,8 +383,8 @@ std::move(p_controller));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCapabilityAccesses(
-std::move(p_deltas));
+      impl->OnCapabilityAccesses(        
+        std::move(p_deltas));
       return true;
     }
   }
@@ -1605,6 +1611,8 @@ bool AppController_GetMenuModel_ForwardToCallback::Accept(
           internal::AppController_GetMenuModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppController.4
   bool success = true;
   ::crosapi::mojom::MenuItemsPtr p_menu_items{};
   AppController_GetMenuModel_ResponseParamsDataView input_data_view(params, message);
@@ -1734,6 +1742,8 @@ bool AppController_DEPRECATED_LoadIcon_ForwardToCallback::Accept(
           internal::AppController_DEPRECATED_LoadIcon_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppController.5
   bool success = true;
   ::apps::IconValuePtr p_icon_value{};
   AppController_DEPRECATED_LoadIcon_ResponseParamsDataView input_data_view(params, message);
@@ -1863,6 +1873,8 @@ bool AppController_GetCompressedIcon_ForwardToCallback::Accept(
           internal::AppController_GetCompressedIcon_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppController.20
   bool success = true;
   ::apps::IconValuePtr p_icon_value{};
   AppController_GetCompressedIcon_ResponseParamsDataView input_data_view(params, message);
@@ -1992,6 +2004,8 @@ bool AppController_Launch_ForwardToCallback::Accept(
           internal::AppController_Launch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppController.8
   bool success = true;
   ::crosapi::mojom::LaunchResultPtr p_launch_result{};
   AppController_Launch_ResponseParamsDataView input_data_view(params, message);
@@ -2121,6 +2135,8 @@ bool AppController_ExecuteContextMenuCommand_ForwardToCallback::Accept(
           internal::AppController_ExecuteContextMenuCommand_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppController.9
   bool success = true;
   ::crosapi::mojom::LaunchResultPtr p_launch_result{};
   AppController_ExecuteContextMenuCommand_ResponseParamsDataView input_data_view(params, message);
@@ -2205,6 +2221,8 @@ bool AppControllerStubDispatch::Accept(
           reinterpret_cast<internal::AppController_Uninstall_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.1
       bool success = true;
       std::string p_app_id{};
       ::apps::UninstallSource p_uninstall_source{};
@@ -2229,11 +2247,11 @@ bool AppControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Uninstall(
-std::move(p_app_id), 
-std::move(p_uninstall_source), 
-std::move(p_clear_site_data), 
-std::move(p_report_abuse));
+      impl->Uninstall(        
+        std::move(p_app_id), 
+        std::move(p_uninstall_source), 
+        std::move(p_clear_site_data), 
+        std::move(p_report_abuse));
       return true;
     }
     case internal::kAppController_PauseApp_Name: {
@@ -2243,6 +2261,8 @@ std::move(p_report_abuse));
           reinterpret_cast<internal::AppController_PauseApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.2
       bool success = true;
       std::string p_app_id{};
       AppController_PauseApp_ParamsDataView input_data_view(params, message);
@@ -2258,8 +2278,8 @@ std::move(p_report_abuse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PauseApp(
-std::move(p_app_id));
+      impl->PauseApp(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppController_UnpauseApp_Name: {
@@ -2269,6 +2289,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppController_UnpauseApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.3
       bool success = true;
       std::string p_app_id{};
       AppController_UnpauseApp_ParamsDataView input_data_view(params, message);
@@ -2284,8 +2306,8 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnpauseApp(
-std::move(p_app_id));
+      impl->UnpauseApp(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppController_GetMenuModel_Name: {
@@ -2304,6 +2326,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppController_OpenNativeSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.6
       bool success = true;
       std::string p_app_id{};
       AppController_OpenNativeSettings_ParamsDataView input_data_view(params, message);
@@ -2319,8 +2343,8 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenNativeSettings(
-std::move(p_app_id));
+      impl->OpenNativeSettings(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppController_SetWindowMode_Name: {
@@ -2330,6 +2354,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppController_SetWindowMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.7
       bool success = true;
       std::string p_app_id{};
       ::apps::WindowMode p_window_mode{};
@@ -2348,9 +2374,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWindowMode(
-std::move(p_app_id), 
-std::move(p_window_mode));
+      impl->SetWindowMode(        
+        std::move(p_app_id), 
+        std::move(p_window_mode));
       return true;
     }
     case internal::kAppController_Launch_Name: {
@@ -2366,6 +2392,8 @@ std::move(p_window_mode));
           reinterpret_cast<internal::AppController_StopApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.10
       bool success = true;
       std::string p_app_id{};
       AppController_StopApp_ParamsDataView input_data_view(params, message);
@@ -2381,8 +2409,8 @@ std::move(p_window_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopApp(
-std::move(p_app_id));
+      impl->StopApp(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppController_SetPermission_Name: {
@@ -2392,6 +2420,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppController_SetPermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.11
       bool success = true;
       std::string p_app_id{};
       ::apps::PermissionPtr p_permission{};
@@ -2410,9 +2440,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPermission(
-std::move(p_app_id), 
-std::move(p_permission));
+      impl->SetPermission(        
+        std::move(p_app_id), 
+        std::move(p_permission));
       return true;
     }
     case internal::kAppController_UpdateAppSize_Name: {
@@ -2422,6 +2452,8 @@ std::move(p_permission));
           reinterpret_cast<internal::AppController_UpdateAppSize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppController.21
       bool success = true;
       std::string p_app_id{};
       AppController_UpdateAppSize_ParamsDataView input_data_view(params, message);
@@ -2437,8 +2469,8 @@ std::move(p_permission));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateAppSize(
-std::move(p_app_id));
+      impl->UpdateAppSize(        
+        std::move(p_app_id));
       return true;
     }
   }
@@ -2470,6 +2502,8 @@ bool AppControllerStubDispatch::AcceptWithResponder(
               internal::AppController_GetMenuModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppController.4
       bool success = true;
       std::string p_app_id{};
       AppController_GetMenuModel_ParamsDataView input_data_view(params, message);
@@ -2488,8 +2522,8 @@ bool AppControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMenuModel(
-std::move(p_app_id), std::move(callback));
+      impl->GetMenuModel(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kAppController_DEPRECATED_LoadIcon_Name: {
@@ -2499,6 +2533,8 @@ std::move(p_app_id), std::move(callback));
               internal::AppController_DEPRECATED_LoadIcon_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppController.5
       bool success = true;
       std::string p_app_id{};
       ::apps::IconKeyPtr p_icon_key{};
@@ -2526,11 +2562,11 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_LoadIcon(
-std::move(p_app_id), 
-std::move(p_icon_key), 
-std::move(p_icon_type), 
-std::move(p_size_hint_in_dip), std::move(callback));
+      impl->DEPRECATED_LoadIcon(        
+        std::move(p_app_id), 
+        std::move(p_icon_key), 
+        std::move(p_icon_type), 
+        std::move(p_size_hint_in_dip), std::move(callback));
       return true;
     }
     case internal::kAppController_GetCompressedIcon_Name: {
@@ -2540,6 +2576,8 @@ std::move(p_size_hint_in_dip), std::move(callback));
               internal::AppController_GetCompressedIcon_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppController.20
       bool success = true;
       std::string p_app_id{};
       int32_t p_size_in_dip{};
@@ -2564,10 +2602,10 @@ std::move(p_size_hint_in_dip), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCompressedIcon(
-std::move(p_app_id), 
-std::move(p_size_in_dip), 
-std::move(p_scale_factor), std::move(callback));
+      impl->GetCompressedIcon(        
+        std::move(p_app_id), 
+        std::move(p_size_in_dip), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kAppController_OpenNativeSettings_Name: {
@@ -2583,6 +2621,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::AppController_Launch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppController.8
       bool success = true;
       ::crosapi::mojom::LaunchParamsPtr p_params{};
       AppController_Launch_ParamsDataView input_data_view(params, message);
@@ -2601,8 +2641,8 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Launch(
-std::move(p_params), std::move(callback));
+      impl->Launch(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kAppController_ExecuteContextMenuCommand_Name: {
@@ -2612,6 +2652,8 @@ std::move(p_params), std::move(callback));
               internal::AppController_ExecuteContextMenuCommand_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppController.9
       bool success = true;
       std::string p_app_id{};
       std::string p_id{};
@@ -2633,9 +2675,9 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteContextMenuCommand(
-std::move(p_app_id), 
-std::move(p_id), std::move(callback));
+      impl->ExecuteContextMenuCommand(        
+        std::move(p_app_id), 
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kAppController_StopApp_Name: {
@@ -3523,6 +3565,8 @@ bool AppServiceProxy_LaunchWithResult_ForwardToCallback::Accept(
           internal::AppServiceProxy_LaunchWithResult_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppServiceProxy.7
   bool success = true;
   ::crosapi::mojom::LaunchResultPtr p_launch_result{};
   AppServiceProxy_LaunchWithResult_ResponseParamsDataView input_data_view(params, message);
@@ -3652,6 +3696,8 @@ bool AppServiceProxy_LoadIcon_ForwardToCallback::Accept(
           internal::AppServiceProxy_LoadIcon_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppServiceProxy.2
   bool success = true;
   ::apps::IconValuePtr p_icon_value{};
   AppServiceProxy_LoadIcon_ResponseParamsDataView input_data_view(params, message);
@@ -3781,6 +3827,8 @@ bool AppServiceProxy_InstallApp_ForwardToCallback::Accept(
           internal::AppServiceProxy_InstallApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppServiceProxy.8
   bool success = true;
   ::crosapi::mojom::AppInstallResultPtr p_result{};
   AppServiceProxy_InstallApp_ResponseParamsDataView input_data_view(params, message);
@@ -3865,6 +3913,8 @@ bool AppServiceProxyStubDispatch::Accept(
           reinterpret_cast<internal::AppServiceProxy_RegisterAppServiceSubscriber_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.0
       bool success = true;
       ::mojo::PendingRemote<AppServiceSubscriber> p_subscriber{};
       AppServiceProxy_RegisterAppServiceSubscriber_ParamsDataView input_data_view(params, message);
@@ -3882,8 +3932,8 @@ bool AppServiceProxyStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterAppServiceSubscriber(
-std::move(p_subscriber));
+      impl->RegisterAppServiceSubscriber(        
+        std::move(p_subscriber));
       return true;
     }
     case internal::kAppServiceProxy_Launch_Name: {
@@ -3893,6 +3943,8 @@ std::move(p_subscriber));
           reinterpret_cast<internal::AppServiceProxy_Launch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.1
       bool success = true;
       ::crosapi::mojom::LaunchParamsPtr p_params{};
       AppServiceProxy_Launch_ParamsDataView input_data_view(params, message);
@@ -3908,8 +3960,8 @@ std::move(p_subscriber));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Launch(
-std::move(p_params));
+      impl->Launch(        
+        std::move(p_params));
       return true;
     }
     case internal::kAppServiceProxy_LaunchWithResult_Name: {
@@ -3925,6 +3977,8 @@ std::move(p_params));
           reinterpret_cast<internal::AppServiceProxy_AddPreferredAppDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.3
       bool success = true;
       std::string p_app_id{};
       ::crosapi::mojom::IntentPtr p_intent{};
@@ -3943,9 +3997,9 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPreferredAppDeprecated(
-std::move(p_app_id), 
-std::move(p_intent));
+      impl->AddPreferredAppDeprecated(        
+        std::move(p_app_id), 
+        std::move(p_intent));
       return true;
     }
     case internal::kAppServiceProxy_ShowAppManagementPage_Name: {
@@ -3955,6 +4009,8 @@ std::move(p_intent));
           reinterpret_cast<internal::AppServiceProxy_ShowAppManagementPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.4
       bool success = true;
       std::string p_app_id{};
       AppServiceProxy_ShowAppManagementPage_ParamsDataView input_data_view(params, message);
@@ -3970,8 +4026,8 @@ std::move(p_intent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowAppManagementPage(
-std::move(p_app_id));
+      impl->ShowAppManagementPage(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppServiceProxy_SetSupportedLinksPreference_Name: {
@@ -3981,6 +4037,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppServiceProxy_SetSupportedLinksPreference_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.5
       bool success = true;
       std::string p_app_id{};
       AppServiceProxy_SetSupportedLinksPreference_ParamsDataView input_data_view(params, message);
@@ -3996,8 +4054,8 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSupportedLinksPreference(
-std::move(p_app_id));
+      impl->SetSupportedLinksPreference(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppServiceProxy_UninstallSilently_Name: {
@@ -4007,6 +4065,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppServiceProxy_UninstallSilently_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.6
       bool success = true;
       std::string p_app_id{};
       ::apps::UninstallSource p_uninstall_source{};
@@ -4025,9 +4085,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UninstallSilently(
-std::move(p_app_id), 
-std::move(p_uninstall_source));
+      impl->UninstallSilently(        
+        std::move(p_app_id), 
+        std::move(p_uninstall_source));
       return true;
     }
     case internal::kAppServiceProxy_InstallApp_Name: {
@@ -4059,6 +4119,8 @@ bool AppServiceProxyStubDispatch::AcceptWithResponder(
               internal::AppServiceProxy_LaunchWithResult_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.7
       bool success = true;
       ::crosapi::mojom::LaunchParamsPtr p_params{};
       AppServiceProxy_LaunchWithResult_ParamsDataView input_data_view(params, message);
@@ -4077,8 +4139,8 @@ bool AppServiceProxyStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchWithResult(
-std::move(p_params), std::move(callback));
+      impl->LaunchWithResult(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kAppServiceProxy_LoadIcon_Name: {
@@ -4088,6 +4150,8 @@ std::move(p_params), std::move(callback));
               internal::AppServiceProxy_LoadIcon_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.2
       bool success = true;
       std::string p_app_id{};
       ::apps::IconKeyPtr p_icon_key{};
@@ -4115,11 +4179,11 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadIcon(
-std::move(p_app_id), 
-std::move(p_icon_key), 
-std::move(p_icon_type), 
-std::move(p_size_hint_in_dip), std::move(callback));
+      impl->LoadIcon(        
+        std::move(p_app_id), 
+        std::move(p_icon_key), 
+        std::move(p_icon_type), 
+        std::move(p_size_hint_in_dip), std::move(callback));
       return true;
     }
     case internal::kAppServiceProxy_AddPreferredAppDeprecated_Name: {
@@ -4141,6 +4205,8 @@ std::move(p_size_hint_in_dip), std::move(callback));
               internal::AppServiceProxy_InstallApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppServiceProxy.8
       bool success = true;
       ::crosapi::mojom::InstallAppParamsPtr p_params{};
       AppServiceProxy_InstallApp_ParamsDataView input_data_view(params, message);
@@ -4159,8 +4225,8 @@ std::move(p_size_hint_in_dip), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallApp(
-std::move(p_params), std::move(callback));
+      impl->InstallApp(        
+        std::move(p_params), std::move(callback));
       return true;
     }
   }
@@ -4476,6 +4542,8 @@ bool AppServiceSubscriberStubDispatch::Accept(
           reinterpret_cast<internal::AppServiceSubscriber_OnApps_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceSubscriber.0
       bool success = true;
       std::vector<::apps::AppPtr> p_deltas{};
       ::apps::AppType p_app_type{};
@@ -4497,10 +4565,10 @@ bool AppServiceSubscriberStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnApps(
-std::move(p_deltas), 
-std::move(p_app_type), 
-std::move(p_should_notify_initialized));
+      impl->OnApps(        
+        std::move(p_deltas), 
+        std::move(p_app_type), 
+        std::move(p_should_notify_initialized));
       return true;
     }
     case internal::kAppServiceSubscriber_OnPreferredAppsChanged_Name: {
@@ -4510,6 +4578,8 @@ std::move(p_should_notify_initialized));
           reinterpret_cast<internal::AppServiceSubscriber_OnPreferredAppsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceSubscriber.1
       bool success = true;
       ::apps::PreferredAppChangesPtr p_changes{};
       AppServiceSubscriber_OnPreferredAppsChanged_ParamsDataView input_data_view(params, message);
@@ -4525,8 +4595,8 @@ std::move(p_should_notify_initialized));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPreferredAppsChanged(
-std::move(p_changes));
+      impl->OnPreferredAppsChanged(        
+        std::move(p_changes));
       return true;
     }
     case internal::kAppServiceSubscriber_InitializePreferredApps_Name: {
@@ -4536,6 +4606,8 @@ std::move(p_changes));
           reinterpret_cast<internal::AppServiceSubscriber_InitializePreferredApps_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppServiceSubscriber.2
       bool success = true;
       std::vector<::apps::PreferredAppPtr> p_preferred_apps{};
       AppServiceSubscriber_InitializePreferredApps_ParamsDataView input_data_view(params, message);
@@ -4551,8 +4623,8 @@ std::move(p_changes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializePreferredApps(
-std::move(p_preferred_apps));
+      impl->InitializePreferredApps(        
+        std::move(p_preferred_apps));
       return true;
     }
   }
@@ -4954,6 +5026,8 @@ bool AppShortcutPublisher_PublishShortcuts_ForwardToCallback::Accept(
           internal::AppShortcutPublisher_PublishShortcuts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppShortcutPublisher.0
   bool success = true;
   AppShortcutPublisher_PublishShortcuts_ResponseParamsDataView input_data_view(params, message);
   
@@ -5061,6 +5135,8 @@ bool AppShortcutPublisher_RegisterAppShortcutController_ForwardToCallback::Accep
           internal::AppShortcutPublisher_RegisterAppShortcutController_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppShortcutPublisher.1
   bool success = true;
   ::crosapi::mojom::ControllerRegistrationResult p_result{};
   AppShortcutPublisher_RegisterAppShortcutController_ResponseParamsDataView input_data_view(params, message);
@@ -5181,6 +5257,8 @@ bool AppShortcutPublisher_ShortcutRemoved_ForwardToCallback::Accept(
           internal::AppShortcutPublisher_ShortcutRemoved_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppShortcutPublisher.2
   bool success = true;
   AppShortcutPublisher_ShortcutRemoved_ResponseParamsDataView input_data_view(params, message);
   
@@ -5265,6 +5343,8 @@ bool AppShortcutPublisherStubDispatch::AcceptWithResponder(
               internal::AppShortcutPublisher_PublishShortcuts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppShortcutPublisher.0
       bool success = true;
       std::vector<::apps::ShortcutPtr> p_deltas{};
       AppShortcutPublisher_PublishShortcuts_ParamsDataView input_data_view(params, message);
@@ -5283,8 +5363,8 @@ bool AppShortcutPublisherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PublishShortcuts(
-std::move(p_deltas), std::move(callback));
+      impl->PublishShortcuts(        
+        std::move(p_deltas), std::move(callback));
       return true;
     }
     case internal::kAppShortcutPublisher_RegisterAppShortcutController_Name: {
@@ -5294,6 +5374,8 @@ std::move(p_deltas), std::move(callback));
               internal::AppShortcutPublisher_RegisterAppShortcutController_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppShortcutPublisher.1
       bool success = true;
       ::mojo::PendingRemote<AppShortcutController> p_controller{};
       AppShortcutPublisher_RegisterAppShortcutController_ParamsDataView input_data_view(params, message);
@@ -5314,8 +5396,8 @@ std::move(p_deltas), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterAppShortcutController(
-std::move(p_controller), std::move(callback));
+      impl->RegisterAppShortcutController(        
+        std::move(p_controller), std::move(callback));
       return true;
     }
     case internal::kAppShortcutPublisher_ShortcutRemoved_Name: {
@@ -5325,6 +5407,8 @@ std::move(p_controller), std::move(callback));
               internal::AppShortcutPublisher_ShortcutRemoved_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppShortcutPublisher.2
       bool success = true;
       std::string p_shortcut_id{};
       AppShortcutPublisher_ShortcutRemoved_ParamsDataView input_data_view(params, message);
@@ -5343,8 +5427,8 @@ std::move(p_controller), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShortcutRemoved(
-std::move(p_shortcut_id), std::move(callback));
+      impl->ShortcutRemoved(        
+        std::move(p_shortcut_id), std::move(callback));
       return true;
     }
   }
@@ -5791,6 +5875,8 @@ bool AppShortcutController_LaunchShortcut_ForwardToCallback::Accept(
           internal::AppShortcutController_LaunchShortcut_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppShortcutController.0
   bool success = true;
   AppShortcutController_LaunchShortcut_ResponseParamsDataView input_data_view(params, message);
   
@@ -5898,6 +5984,8 @@ bool AppShortcutController_GetCompressedIcon_ForwardToCallback::Accept(
           internal::AppShortcutController_GetCompressedIcon_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppShortcutController.1
   bool success = true;
   ::apps::IconValuePtr p_icon_value{};
   AppShortcutController_GetCompressedIcon_ResponseParamsDataView input_data_view(params, message);
@@ -6027,6 +6115,8 @@ bool AppShortcutController_RemoveShortcut_ForwardToCallback::Accept(
           internal::AppShortcutController_RemoveShortcut_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppShortcutController.2
   bool success = true;
   AppShortcutController_RemoveShortcut_ResponseParamsDataView input_data_view(params, message);
   
@@ -6111,6 +6201,8 @@ bool AppShortcutControllerStubDispatch::AcceptWithResponder(
               internal::AppShortcutController_LaunchShortcut_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppShortcutController.0
       bool success = true;
       std::string p_host_app_id{};
       std::string p_local_shortcut_id{};
@@ -6135,10 +6227,10 @@ bool AppShortcutControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchShortcut(
-std::move(p_host_app_id), 
-std::move(p_local_shortcut_id), 
-std::move(p_display_id), std::move(callback));
+      impl->LaunchShortcut(        
+        std::move(p_host_app_id), 
+        std::move(p_local_shortcut_id), 
+        std::move(p_display_id), std::move(callback));
       return true;
     }
     case internal::kAppShortcutController_GetCompressedIcon_Name: {
@@ -6148,6 +6240,8 @@ std::move(p_display_id), std::move(callback));
               internal::AppShortcutController_GetCompressedIcon_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppShortcutController.1
       bool success = true;
       std::string p_host_app_id{};
       std::string p_local_shortcut_id{};
@@ -6175,11 +6269,11 @@ std::move(p_display_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCompressedIcon(
-std::move(p_host_app_id), 
-std::move(p_local_shortcut_id), 
-std::move(p_size_in_dip), 
-std::move(p_scale_factor), std::move(callback));
+      impl->GetCompressedIcon(        
+        std::move(p_host_app_id), 
+        std::move(p_local_shortcut_id), 
+        std::move(p_size_in_dip), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kAppShortcutController_RemoveShortcut_Name: {
@@ -6189,6 +6283,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::AppShortcutController_RemoveShortcut_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppShortcutController.2
       bool success = true;
       std::string p_host_app_id{};
       std::string p_local_shortcut_id{};
@@ -6213,10 +6309,10 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveShortcut(
-std::move(p_host_app_id), 
-std::move(p_local_shortcut_id), 
-std::move(p_uninstall_source), std::move(callback));
+      impl->RemoveShortcut(        
+        std::move(p_host_app_id), 
+        std::move(p_local_shortcut_id), 
+        std::move(p_uninstall_source), std::move(callback));
       return true;
     }
   }

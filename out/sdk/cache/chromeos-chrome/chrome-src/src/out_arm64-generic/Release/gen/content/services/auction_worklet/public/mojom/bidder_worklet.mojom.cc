@@ -1012,6 +1012,8 @@ bool GenerateBidClient_OnBiddingSignalsReceived_ForwardToCallback::Accept(
           internal::GenerateBidClient_OnBiddingSignalsReceived_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GenerateBidClient.0
   bool success = true;
   GenerateBidClient_OnBiddingSignalsReceived_ResponseParamsDataView input_data_view(params, message);
   
@@ -1077,6 +1079,8 @@ bool GenerateBidClientStubDispatch::Accept(
           reinterpret_cast<internal::GenerateBidClient_OnGenerateBidComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GenerateBidClient.1
       bool success = true;
       BidderWorkletBidPtr p_bid{};
       BidderWorkletKAnonEnforcedBidPtr p_kanon_bid{};
@@ -1134,22 +1138,22 @@ bool GenerateBidClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGenerateBidComplete(
-std::move(p_bid), 
-std::move(p_kanon_bid), 
-std::move(p_bidding_signals_data_version), 
-std::move(p_has_bidding_signals_data_version), 
-std::move(p_debug_loss_report_url), 
-std::move(p_debug_win_report_url), 
-std::move(p_set_priority), 
-std::move(p_has_set_priority), 
-std::move(p_update_priority_signals_overrides), 
-std::move(p_pa_requests), 
-std::move(p_non_kanon_pa_requests), 
-std::move(p_bidding_latency), 
-std::move(p_generate_bid_dependency_latencies), 
-std::move(p_reject_reason), 
-std::move(p_errors));
+      impl->OnGenerateBidComplete(        
+        std::move(p_bid), 
+        std::move(p_kanon_bid), 
+        std::move(p_bidding_signals_data_version), 
+        std::move(p_has_bidding_signals_data_version), 
+        std::move(p_debug_loss_report_url), 
+        std::move(p_debug_win_report_url), 
+        std::move(p_set_priority), 
+        std::move(p_has_set_priority), 
+        std::move(p_update_priority_signals_overrides), 
+        std::move(p_pa_requests), 
+        std::move(p_non_kanon_pa_requests), 
+        std::move(p_bidding_latency), 
+        std::move(p_generate_bid_dependency_latencies), 
+        std::move(p_reject_reason), 
+        std::move(p_errors));
       return true;
     }
   }
@@ -1172,6 +1176,8 @@ bool GenerateBidClientStubDispatch::AcceptWithResponder(
               internal::GenerateBidClient_OnBiddingSignalsReceived_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GenerateBidClient.0
       bool success = true;
       base::flat_map<std::string, double> p_priority_vector{};
       ::base::TimeDelta p_trusted_signals_fetch_latency{};
@@ -1193,9 +1199,9 @@ bool GenerateBidClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBiddingSignalsReceived(
-std::move(p_priority_vector), 
-std::move(p_trusted_signals_fetch_latency), std::move(callback));
+      impl->OnBiddingSignalsReceived(        
+        std::move(p_priority_vector), 
+        std::move(p_trusted_signals_fetch_latency), std::move(callback));
       return true;
     }
     case internal::kGenerateBidClient_OnGenerateBidComplete_Name: {
@@ -1410,6 +1416,8 @@ bool GenerateBidFinalizerStubDispatch::Accept(
           reinterpret_cast<internal::GenerateBidFinalizer_FinishGenerateBid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GenerateBidFinalizer.0
       bool success = true;
       std::optional<std::string> p_auction_signals_json{};
       std::optional<std::string> p_per_buyer_signals_json{};
@@ -1446,15 +1454,15 @@ bool GenerateBidFinalizerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FinishGenerateBid(
-std::move(p_auction_signals_json), 
-std::move(p_per_buyer_signals_json), 
-std::move(p_per_buyer_timeout), 
-std::move(p_expected_buyer_currency), 
-std::move(p_direct_from_seller_per_buyer_signals), 
-std::move(p_direct_from_seller_per_buyer_signals_header_ad_slot), 
-std::move(p_direct_from_seller_auction_signals), 
-std::move(p_direct_from_seller_auction_signals_header_ad_slot));
+      impl->FinishGenerateBid(        
+        std::move(p_auction_signals_json), 
+        std::move(p_per_buyer_signals_json), 
+        std::move(p_per_buyer_timeout), 
+        std::move(p_expected_buyer_currency), 
+        std::move(p_direct_from_seller_per_buyer_signals), 
+        std::move(p_direct_from_seller_per_buyer_signals_header_ad_slot), 
+        std::move(p_direct_from_seller_auction_signals), 
+        std::move(p_direct_from_seller_auction_signals_header_ad_slot));
       return true;
     }
   }
@@ -2194,6 +2202,8 @@ bool BidderWorklet_ReportWin_ForwardToCallback::Accept(
           internal::BidderWorklet_ReportWin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BidderWorklet.2
   bool success = true;
   std::optional<::GURL> p_report_url{};
   base::flat_map<std::string, ::GURL> p_ad_beacon_map{};
@@ -2372,6 +2382,8 @@ bool BidderWorkletStubDispatch::Accept(
           reinterpret_cast<internal::BidderWorklet_BeginGenerateBid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BidderWorklet.0
       bool success = true;
       BidderWorkletNonSharedParamsPtr p_bidder_worklet_non_shared_params{};
       KAnonymityBidMode p_kanon_mode{};
@@ -2430,21 +2442,21 @@ bool BidderWorkletStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeginGenerateBid(
-std::move(p_bidder_worklet_non_shared_params), 
-std::move(p_kanon_mode), 
-std::move(p_interest_group_join_origin), 
-std::move(p_direct_from_seller_per_buyer_signals), 
-std::move(p_direct_from_seller_auction_signals), 
-std::move(p_browser_signal_seller_origin), 
-std::move(p_browser_signal_top_level_seller_origin), 
-std::move(p_browser_signal_recency), 
-std::move(p_bidding_browser_signals), 
-std::move(p_auction_start_time), 
-std::move(p_requested_ad_size), 
-std::move(p_trace_id), 
-std::move(p_generate_bid_client), 
-std::move(p_bid_finalizer));
+      impl->BeginGenerateBid(        
+        std::move(p_bidder_worklet_non_shared_params), 
+        std::move(p_kanon_mode), 
+        std::move(p_interest_group_join_origin), 
+        std::move(p_direct_from_seller_per_buyer_signals), 
+        std::move(p_direct_from_seller_auction_signals), 
+        std::move(p_browser_signal_seller_origin), 
+        std::move(p_browser_signal_top_level_seller_origin), 
+        std::move(p_browser_signal_recency), 
+        std::move(p_bidding_browser_signals), 
+        std::move(p_auction_start_time), 
+        std::move(p_requested_ad_size), 
+        std::move(p_trace_id), 
+        std::move(p_generate_bid_client), 
+        std::move(p_bid_finalizer));
       return true;
     }
     case internal::kBidderWorklet_SendPendingSignalsRequests_Name: {
@@ -2454,6 +2466,8 @@ std::move(p_bid_finalizer));
           reinterpret_cast<internal::BidderWorklet_SendPendingSignalsRequests_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BidderWorklet.1
       bool success = true;
       BidderWorklet_SendPendingSignalsRequests_ParamsDataView input_data_view(params, message);
       
@@ -2466,7 +2480,7 @@ std::move(p_bid_finalizer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendPendingSignalsRequests();
+      impl->SendPendingSignalsRequests(        );
       return true;
     }
     case internal::kBidderWorklet_ReportWin_Name: {
@@ -2479,6 +2493,8 @@ std::move(p_bid_finalizer));
           reinterpret_cast<internal::BidderWorklet_ConnectDevToolsAgent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BidderWorklet.3
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> p_agent{};
       BidderWorklet_ConnectDevToolsAgent_ParamsDataView input_data_view(params, message);
@@ -2496,8 +2512,8 @@ std::move(p_bid_finalizer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectDevToolsAgent(
-std::move(p_agent));
+      impl->ConnectDevToolsAgent(        
+        std::move(p_agent));
       return true;
     }
   }
@@ -2526,6 +2542,8 @@ bool BidderWorkletStubDispatch::AcceptWithResponder(
               internal::BidderWorklet_ReportWin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BidderWorklet.2
       bool success = true;
       bool p_is_for_additional_bid{};
       ReportingIdField p_reporting_id_field{};
@@ -2622,33 +2640,33 @@ bool BidderWorkletStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportWin(
-std::move(p_is_for_additional_bid), 
-std::move(p_reporting_id_field), 
-std::move(p_reporting_id), 
-std::move(p_auction_signals_json), 
-std::move(p_per_buyer_signals_json), 
-std::move(p_direct_from_seller_per_buyer_signals), 
-std::move(p_direct_from_seller_per_buyer_signals_header_ad_slot), 
-std::move(p_direct_from_seller_auction_signals), 
-std::move(p_direct_from_seller_auction_signals_header_ad_slot), 
-std::move(p_seller_signals_json), 
-std::move(p_kanon_mode), 
-std::move(p_bid_is_kanon), 
-std::move(p_browser_signal_render_url), 
-std::move(p_browser_signal_bid), 
-std::move(p_browser_signal_bid_currency), 
-std::move(p_browser_signal_highest_scoring_other_bid), 
-std::move(p_browser_signal_highest_scoring_other_bid_currency), 
-std::move(p_browser_signal_made_highest_scoring_other_bid), 
-std::move(p_browser_signal_ad_cost), 
-std::move(p_browser_signal_modeling_signals), 
-std::move(p_browser_signal_join_count), 
-std::move(p_browser_signal_recency), 
-std::move(p_browser_signal_seller_origin), 
-std::move(p_browser_signal_top_level_seller_origin), 
-std::move(p_bidding_signals_data_version), 
-std::move(p_trace_id), std::move(callback));
+      impl->ReportWin(        
+        std::move(p_is_for_additional_bid), 
+        std::move(p_reporting_id_field), 
+        std::move(p_reporting_id), 
+        std::move(p_auction_signals_json), 
+        std::move(p_per_buyer_signals_json), 
+        std::move(p_direct_from_seller_per_buyer_signals), 
+        std::move(p_direct_from_seller_per_buyer_signals_header_ad_slot), 
+        std::move(p_direct_from_seller_auction_signals), 
+        std::move(p_direct_from_seller_auction_signals_header_ad_slot), 
+        std::move(p_seller_signals_json), 
+        std::move(p_kanon_mode), 
+        std::move(p_bid_is_kanon), 
+        std::move(p_browser_signal_render_url), 
+        std::move(p_browser_signal_bid), 
+        std::move(p_browser_signal_bid_currency), 
+        std::move(p_browser_signal_highest_scoring_other_bid), 
+        std::move(p_browser_signal_highest_scoring_other_bid_currency), 
+        std::move(p_browser_signal_made_highest_scoring_other_bid), 
+        std::move(p_browser_signal_ad_cost), 
+        std::move(p_browser_signal_modeling_signals), 
+        std::move(p_browser_signal_join_count), 
+        std::move(p_browser_signal_recency), 
+        std::move(p_browser_signal_seller_origin), 
+        std::move(p_browser_signal_top_level_seller_origin), 
+        std::move(p_bidding_signals_data_version), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kBidderWorklet_ConnectDevToolsAgent_Name: {

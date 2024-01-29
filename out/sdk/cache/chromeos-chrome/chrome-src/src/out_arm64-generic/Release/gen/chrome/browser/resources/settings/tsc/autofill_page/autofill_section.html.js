@@ -3,6 +3,8 @@ export function getTemplate() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared passwords-shared iron-flex">#addressList .start{display:flex;overflow:hidden}#addressSummary{display:flex;flex:1;overflow:hidden}</style>
     <settings-toggle-button id="autofillProfileToggle" no-extension-indicator label="$i18n{enableProfilesLabel}" sub-label="$i18n{enableProfilesSublabel}" pref="{{prefs.autofill.profile_enabled}}">
     </settings-toggle-button>
+    <settings-toggle-button id="autofillSyncToggle" hidden$="[[!isAutofillSyncToggleVisible_(accountInfo_)]]" checked="[[accountInfo_.isAutofillSyncToggleEnabled]]" label="$i18n{autofillSyncToggleLabel}" sub-label="[[accountInfo_.email]]" on-change="onAutofillSyncEnabledChange_" no-extension-indicator no-set-pref>
+    </settings-toggle-button>
     <template is="dom-if" if="[[prefs.autofill.profile_enabled.extensionId]]">
       <div class="cr-row continuation">
         <extension-controlled-indicator class="flex" id="autofillExtensionIndicator" extension-id="[[prefs.autofill.profile_enabled.extensionId]]" extension-name="[[prefs.autofill.profile_enabled.controlledByName]]" extension-can-be-disabled="[[

@@ -21,6 +21,7 @@ class PLATFORM_EXPORT MediaStreamDeviceObserverInterceptorForTesting : public Me
   void OnDeviceRequestStateChange(const WTF::String& label, const ::blink::MediaStreamDevice& device, MediaStreamStateChange new_state) override;
   void OnDeviceCaptureConfigurationChange(const WTF::String& label, const ::blink::MediaStreamDevice& device) override;
   void OnDeviceCaptureHandleChange(const WTF::String& label, const ::blink::MediaStreamDevice& device) override;
+  void OnZoomLevelChange(const WTF::String& label, const ::blink::MediaStreamDevice& device, int32_t zoom_level) override;
 };
 class PLATFORM_EXPORT MediaStreamDeviceObserverAsyncWaiter {
  public:

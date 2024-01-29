@@ -181,6 +181,8 @@ bool WebUIHostStubDispatch::Accept(
           reinterpret_cast<internal::WebUIHost_Send_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebUIHost.0
       bool success = true;
       std::string p_message{};
       ::base::Value::List p_args{};
@@ -199,9 +201,9 @@ bool WebUIHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Send(
-std::move(p_message), 
-std::move(p_args));
+      impl->Send(        
+        std::move(p_message), 
+        std::move(p_args));
       return true;
     }
   }
@@ -371,6 +373,8 @@ bool WebUIStubDispatch::Accept(
           reinterpret_cast<internal::WebUI_SetProperty_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebUI.0
       bool success = true;
       std::string p_property_name{};
       std::string p_property_value_json{};
@@ -389,9 +393,9 @@ bool WebUIStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProperty(
-std::move(p_property_name), 
-std::move(p_property_value_json));
+      impl->SetProperty(        
+        std::move(p_property_name), 
+        std::move(p_property_value_json));
       return true;
     }
   }

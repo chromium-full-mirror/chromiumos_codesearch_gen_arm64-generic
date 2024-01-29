@@ -243,6 +243,8 @@ bool NetworkHintsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::NetworkHintsHandler_PrefetchDNS_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkHintsHandler.0
       bool success = true;
       std::vector<::url::SchemeHostPort> p_url_list{};
       NetworkHintsHandler_PrefetchDNS_ParamsDataView input_data_view(params, message);
@@ -258,8 +260,8 @@ bool NetworkHintsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrefetchDNS(
-std::move(p_url_list));
+      impl->PrefetchDNS(        
+        std::move(p_url_list));
       return true;
     }
     case internal::kNetworkHintsHandler_Preconnect_Name: {
@@ -269,6 +271,8 @@ std::move(p_url_list));
           reinterpret_cast<internal::NetworkHintsHandler_Preconnect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkHintsHandler.1
       bool success = true;
       ::url::SchemeHostPort p_url{};
       bool p_allow_credentials{};
@@ -287,9 +291,9 @@ std::move(p_url_list));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Preconnect(
-std::move(p_url), 
-std::move(p_allow_credentials));
+      impl->Preconnect(        
+        std::move(p_url), 
+        std::move(p_allow_credentials));
       return true;
     }
   }

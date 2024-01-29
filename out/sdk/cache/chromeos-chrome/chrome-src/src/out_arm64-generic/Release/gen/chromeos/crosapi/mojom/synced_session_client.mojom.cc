@@ -360,6 +360,8 @@ bool SyncedSessionClientFaviconDelegate_GetFaviconImageForPageURL_ForwardToCallb
           internal::SyncedSessionClientFaviconDelegate_GetFaviconImageForPageURL_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SyncedSessionClientFaviconDelegate.0
   bool success = true;
   ::gfx::ImageSkia p_image{};
   SyncedSessionClientFaviconDelegate_GetFaviconImageForPageURL_ResponseParamsDataView input_data_view(params, message);
@@ -456,6 +458,8 @@ bool SyncedSessionClientFaviconDelegateStubDispatch::AcceptWithResponder(
               internal::SyncedSessionClientFaviconDelegate_GetFaviconImageForPageURL_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SyncedSessionClientFaviconDelegate.0
       bool success = true;
       ::GURL p_page_url{};
       SyncedSessionClientFaviconDelegate_GetFaviconImageForPageURL_ParamsDataView input_data_view(params, message);
@@ -474,8 +478,8 @@ bool SyncedSessionClientFaviconDelegateStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFaviconImageForPageURL(
-std::move(p_page_url), std::move(callback));
+      impl->GetFaviconImageForPageURL(        
+        std::move(p_page_url), std::move(callback));
       return true;
     }
   }
@@ -748,6 +752,8 @@ bool SyncedSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::SyncedSessionClient_OnForeignSyncedPhoneSessionsUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncedSessionClient.0
       bool success = true;
       std::vector<SyncedSessionPtr> p_sessions{};
       SyncedSessionClient_OnForeignSyncedPhoneSessionsUpdated_ParamsDataView input_data_view(params, message);
@@ -763,8 +769,8 @@ bool SyncedSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnForeignSyncedPhoneSessionsUpdated(
-std::move(p_sessions));
+      impl->OnForeignSyncedPhoneSessionsUpdated(        
+        std::move(p_sessions));
       return true;
     }
     case internal::kSyncedSessionClient_OnSessionSyncEnabledChanged_Name: {
@@ -774,6 +780,8 @@ std::move(p_sessions));
           reinterpret_cast<internal::SyncedSessionClient_OnSessionSyncEnabledChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncedSessionClient.1
       bool success = true;
       bool p_enabled{};
       SyncedSessionClient_OnSessionSyncEnabledChanged_ParamsDataView input_data_view(params, message);
@@ -789,8 +797,8 @@ std::move(p_sessions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionSyncEnabledChanged(
-std::move(p_enabled));
+      impl->OnSessionSyncEnabledChanged(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kSyncedSessionClient_SetFaviconDelegate_Name: {
@@ -800,6 +808,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::SyncedSessionClient_SetFaviconDelegate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncedSessionClient.2
       bool success = true;
       ::mojo::PendingRemote<SyncedSessionClientFaviconDelegate> p_delegate{};
       SyncedSessionClient_SetFaviconDelegate_ParamsDataView input_data_view(params, message);
@@ -817,8 +827,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFaviconDelegate(
-std::move(p_delegate));
+      impl->SetFaviconDelegate(        
+        std::move(p_delegate));
       return true;
     }
   }

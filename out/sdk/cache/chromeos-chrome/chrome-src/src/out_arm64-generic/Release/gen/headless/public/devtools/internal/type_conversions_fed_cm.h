@@ -108,6 +108,33 @@ inline base::Value ToValue(const fed_cm::DialogButton& value) {
   NOTREACHED();
   return base::Value();
 }
+template <>
+struct FromValue<fed_cm::AccountUrlType> {
+  static fed_cm::AccountUrlType Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return fed_cm::AccountUrlType::TERMS_OF_SERVICE;
+    }
+    if (value.GetString() == "TermsOfService")
+      return fed_cm::AccountUrlType::TERMS_OF_SERVICE;
+    if (value.GetString() == "PrivacyPolicy")
+      return fed_cm::AccountUrlType::PRIVACY_POLICY;
+    errors->AddError("invalid enum value");
+    return fed_cm::AccountUrlType::TERMS_OF_SERVICE;
+  }
+};
+
+template <>
+inline base::Value ToValue(const fed_cm::AccountUrlType& value) {
+  switch (value) {
+    case fed_cm::AccountUrlType::TERMS_OF_SERVICE:
+      return base::Value("TermsOfService");
+    case fed_cm::AccountUrlType::PRIVACY_POLICY:
+      return base::Value("PrivacyPolicy");
+  };
+  NOTREACHED();
+  return base::Value();
+}
 
 template <>
 struct FromValue<fed_cm::Account> {
@@ -222,6 +249,32 @@ struct FromValue<fed_cm::ClickDialogButtonResult> {
 
 template <>
 inline base::Value ToValue(const fed_cm::ClickDialogButtonResult& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<fed_cm::OpenUrlParams> {
+  static std::unique_ptr<fed_cm::OpenUrlParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return fed_cm::OpenUrlParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const fed_cm::OpenUrlParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<fed_cm::OpenUrlResult> {
+  static std::unique_ptr<fed_cm::OpenUrlResult> Parse(const base::Value& value, ErrorReporter* errors) {
+    return fed_cm::OpenUrlResult::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const fed_cm::OpenUrlResult& value) {
   return value.Serialize();
 }
 

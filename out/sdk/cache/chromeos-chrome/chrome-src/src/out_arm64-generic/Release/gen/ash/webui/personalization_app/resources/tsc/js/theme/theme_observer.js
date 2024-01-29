@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import { ThemeObserverReceiver } from '../../personalization_app.mojom-webui.js';
 import { PersonalizationStore } from '../personalization_store.js';
-import { setColorModeAutoScheduleEnabledAction, setColorSchemeAction, setDarkModeEnabledAction, setSampleColorSchemesAction, setStaticColorAction } from './theme_actions.js';
+import { setColorModeAutoScheduleEnabledAction, setColorSchemeAction, setDarkModeEnabledAction, setGeolocationPermissionEnabledAction, setSampleColorSchemesAction, setStaticColorAction } from './theme_actions.js';
 import { getThemeProvider } from './theme_interface_provider.js';
 /** @fileoverview listens for updates on color mode changes. */
 let instance = null;
@@ -49,5 +49,9 @@ export class ThemeObserver {
     onStaticColorChanged(staticColor) {
         const store = PersonalizationStore.getInstance();
         store.dispatch(setStaticColorAction(staticColor));
+    }
+    onGeolocationPermissionForSystemServicesChanged(enabled) {
+        const store = PersonalizationStore.getInstance();
+        store.dispatch(setGeolocationPermissionEnabledAction(enabled));
     }
 }

@@ -910,6 +910,18 @@ media.stable.mojom.StableCdmContextInterface = class {
    */
 
   allocateSecureBuffer(size) {}
+  
+  /**
+   * @param { !bigint } secureHandle
+   * @param { !number } offset
+   * @param { !Array<!number> } streamData
+   * @return {!Promise<{
+        success: !boolean,
+        sliceHeader: !Array<!number>,
+   *  }>}
+   */
+
+  parseEncryptedSliceHeader(secureHandle, offset, streamData) {}
 };
 
 /**
@@ -1026,6 +1038,32 @@ media.stable.mojom.StableCdmContextRemote = class {
           size
         ]);
   }
+
+  
+  /**
+   * @param { !bigint } secureHandle
+   * @param { !number } offset
+   * @param { !Array<!number> } streamData
+   * @return {!Promise<{
+        success: !boolean,
+        sliceHeader: !Array<!number>,
+   *  }>}
+   */
+
+  parseEncryptedSliceHeader(
+      secureHandle,
+      offset,
+      streamData) {
+    return this.proxy.sendMessage(
+        5,
+        media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+        media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+        [
+          secureHandle,
+          offset,
+          streamData
+        ]);
+  }
 };
 
 /**
@@ -1075,6 +1113,11 @@ media.stable.mojom.StableCdmContextReceiver = class {
         media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ParamsSpec.$,
         media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ResponseParamsSpec.$,
         impl.allocateSecureBuffer.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+        media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+        impl.parseEncryptedSliceHeader.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1187,6 +1230,18 @@ media.stable.mojom.StableCdmContextCallbackRouter = class {
         media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ParamsSpec.$,
         media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ResponseParamsSpec.$,
         this.allocateSecureBuffer.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.parseEncryptedSliceHeader =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+        media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+        this.parseEncryptedSliceHeader.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -2237,6 +2292,22 @@ goog.provide('media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ResponseP
 media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('media.stable.mojom.StableVideoDecoder_GetSupportedConfigs_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -2759,6 +2830,94 @@ media.stable.mojom.StableCdmContext_AllocateSecureBuffer_ResponseParams = class 
   constructor() {
     /** @export { (MojoHandle|undefined) } */
     this.secureBuffer;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+    'StableCdmContext_ParseEncryptedSliceHeader_Params',
+    [
+      mojo.internal.StructField(
+        'secureHandle', 0,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'offset', 8,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'streamData', 16,
+        0,
+        mojo.internal.Array(mojo.internal.Uint8, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+goog.provide('media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_Params');
+
+/** @record */
+media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_Params = class {
+  constructor() {
+    /** @export { !bigint } */
+    this.secureHandle;
+    /** @export { !number } */
+    this.offset;
+    /** @export { !Array<!number> } */
+    this.streamData;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+    'StableCdmContext_ParseEncryptedSliceHeader_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'sliceHeader', 8,
+        0,
+        mojo.internal.Array(mojo.internal.Uint8, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParams');
+
+/** @record */
+media.stable.mojom.StableCdmContext_ParseEncryptedSliceHeader_ResponseParams = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.success;
+    /** @export { !Array<!number> } */
+    this.sliceHeader;
   }
 };
 

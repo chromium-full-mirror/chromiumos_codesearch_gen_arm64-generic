@@ -9,10 +9,24 @@ suite('emoji-search', () => {
     let emojiPicker;
     let emojiSearch;
     let findInEmojiPicker;
+    let expectEmojiButton;
+    let expectEmojiButtons;
+    let clickVariant;
+    let findSearchGroup;
+    let reload;
+    const setSearchQuery = (value) => {
+        const emojiSearch = findInEmojiPicker('emoji-search');
+        emojiSearch.setSearchQuery(value);
+    };
     setup(async () => {
         const newPicker = initialiseEmojiPickerForTest();
         emojiPicker = newPicker.emojiPicker;
         findInEmojiPicker = newPicker.findInEmojiPicker;
+        expectEmojiButton = newPicker.expectEmojiButton;
+        expectEmojiButtons = newPicker.expectEmojiButtons;
+        clickVariant = newPicker.clickVariant;
+        findSearchGroup = newPicker.findSearchGroup;
+        reload = newPicker.reload;
         await newPicker.readyPromise;
         emojiSearch = findInEmojiPicker('emoji-search');
     });
@@ -66,5 +80,19 @@ suite('emoji-search', () => {
         const emojiResults = findInEmojiPicker('emoji-search', 'emoji-group[category="symbol"]')
             .shadowRoot.querySelectorAll('.emoji-button');
         assertEquals(emojiResults.length, 4);
+    });
+    test('selecting a variant from search should update preferences', async () => {
+        setSearchQuery('shrug');
+        const searchEmoji = await expectEmojiButton('🤷', () => findSearchGroup('emoji'));
+        await clickVariant('🤷🏿‍♀', searchEmoji);
+        await reload();
+        await expectEmojiButtons(['🤷🏿‍♀', '👍🏿', '🧞‍♀']);
+    });
+    test('preferences should be applied in emoji search', async () => {
+        const thumbsUp = await expectEmojiButton('👍');
+        await clickVariant('👍🏿', thumbsUp);
+        await reload();
+        setSearchQuery('shrug');
+        await expectEmojiButton('🤷🏿', () => findSearchGroup('emoji'));
     });
 });

@@ -35,6 +35,7 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
+#include "ash/webui/common/mojom/sea_pen_mojom_traits.h"
 
 
 
@@ -77,6 +78,9 @@ class SeaPenProvider
     kGetRecentSeaPenImagesMinVersion = 0,
     kGetRecentSeaPenImageThumbnailMinVersion = 0,
     kDeleteRecentSeaPenImageMinVersion = 0,
+    kOpenFeedbackDialogMinVersion = 0,
+    kShouldShowSeaPenTermsOfServiceDialogMinVersion = 0,
+    kHandleSeaPenTermsOfServiceAcceptedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -100,11 +104,20 @@ class SeaPenProvider
   struct DeleteRecentSeaPenImage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OpenFeedbackDialog_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ShouldShowSeaPenTermsOfServiceDialog_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct HandleSeaPenTermsOfServiceAccepted_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SeaPenProvider() = default;
 
 
-  using SearchWallpaperCallback = base::OnceCallback<void(std::optional<std::vector<SeaPenThumbnailPtr>>)>;
+  using SearchWallpaperCallback = base::OnceCallback<void(std::optional<std::vector<SeaPenThumbnailPtr>>, ::manta::MantaStatusCode)>;
   
   virtual void SearchWallpaper(SeaPenQueryPtr query, SearchWallpaperCallback callback) = 0;
 
@@ -119,7 +132,7 @@ class SeaPenProvider
   virtual void SelectRecentSeaPenImage(const ::base::FilePath& path, SelectRecentSeaPenImageCallback callback) = 0;
 
 
-  using GetRecentSeaPenImagesCallback = base::OnceCallback<void(const std::optional<std::vector<::base::FilePath>>&)>;
+  using GetRecentSeaPenImagesCallback = base::OnceCallback<void(const std::vector<::base::FilePath>&)>;
   
   virtual void GetRecentSeaPenImages(GetRecentSeaPenImagesCallback callback) = 0;
 
@@ -132,6 +145,17 @@ class SeaPenProvider
   using DeleteRecentSeaPenImageCallback = base::OnceCallback<void(bool)>;
   
   virtual void DeleteRecentSeaPenImage(const ::base::FilePath& path, DeleteRecentSeaPenImageCallback callback) = 0;
+
+  
+  virtual void OpenFeedbackDialog(SeaPenFeedbackMetadataPtr metadata) = 0;
+
+
+  using ShouldShowSeaPenTermsOfServiceDialogCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void ShouldShowSeaPenTermsOfServiceDialog(ShouldShowSeaPenTermsOfServiceDialogCallback callback) = 0;
+
+  
+  virtual void HandleSeaPenTermsOfServiceAccepted() = 0;
 };
 
 
@@ -154,6 +178,12 @@ class  SeaPenProviderProxy
   void GetRecentSeaPenImageThumbnail(const ::base::FilePath& path, GetRecentSeaPenImageThumbnailCallback callback) final;
   
   void DeleteRecentSeaPenImage(const ::base::FilePath& path, DeleteRecentSeaPenImageCallback callback) final;
+  
+  void OpenFeedbackDialog(SeaPenFeedbackMetadataPtr metadata) final;
+  
+  void ShouldShowSeaPenTermsOfServiceDialog(ShouldShowSeaPenTermsOfServiceDialogCallback callback) final;
+  
+  void HandleSeaPenTermsOfServiceAccepted() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -209,6 +239,294 @@ class  SeaPenProviderResponseValidator : public mojo::MessageReceiver {
 };
 
 
+
+
+
+
+class  SeaPenUserVisibleQuery {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SeaPenUserVisibleQuery, T>::value>;
+  using DataView = SeaPenUserVisibleQueryDataView;
+  using Data_ = internal::SeaPenUserVisibleQuery_Data;
+
+  template <typename... Args>
+  static SeaPenUserVisibleQueryPtr New(Args&&... args) {
+    return SeaPenUserVisibleQueryPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SeaPenUserVisibleQueryPtr From(const U& u) {
+    return mojo::TypeConverter<SeaPenUserVisibleQueryPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SeaPenUserVisibleQuery>::Convert(*this);
+  }
+
+
+  SeaPenUserVisibleQuery();
+
+  SeaPenUserVisibleQuery(
+      const std::string& text,
+      const std::string& template_title);
+
+
+  ~SeaPenUserVisibleQuery();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SeaPenUserVisibleQueryPtr>
+  SeaPenUserVisibleQueryPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SeaPenUserVisibleQuery::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SeaPenUserVisibleQuery::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SeaPenUserVisibleQuery_UnserializedMessageContext<
+            UserType, SeaPenUserVisibleQuery::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SeaPenUserVisibleQuery::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SeaPenUserVisibleQuery::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SeaPenUserVisibleQuery_UnserializedMessageContext<
+            UserType, SeaPenUserVisibleQuery::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SeaPenUserVisibleQuery::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string text;
+  
+  std::string template_title;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  SeaPenFeedbackMetadata {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SeaPenFeedbackMetadata, T>::value>;
+  using DataView = SeaPenFeedbackMetadataDataView;
+  using Data_ = internal::SeaPenFeedbackMetadata_Data;
+
+  template <typename... Args>
+  static SeaPenFeedbackMetadataPtr New(Args&&... args) {
+    return SeaPenFeedbackMetadataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SeaPenFeedbackMetadataPtr From(const U& u) {
+    return mojo::TypeConverter<SeaPenFeedbackMetadataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SeaPenFeedbackMetadata>::Convert(*this);
+  }
+
+
+  SeaPenFeedbackMetadata();
+
+  SeaPenFeedbackMetadata(
+      bool is_positive,
+      const std::string& log_id);
+
+
+  ~SeaPenFeedbackMetadata();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SeaPenFeedbackMetadataPtr>
+  SeaPenFeedbackMetadataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SeaPenFeedbackMetadata::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SeaPenFeedbackMetadata::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SeaPenFeedbackMetadata_UnserializedMessageContext<
+            UserType, SeaPenFeedbackMetadata::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SeaPenFeedbackMetadata::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SeaPenFeedbackMetadata::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SeaPenFeedbackMetadata_UnserializedMessageContext<
+            UserType, SeaPenFeedbackMetadata::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SeaPenFeedbackMetadata::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool is_positive;
+  
+  std::string log_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -489,6 +807,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  SeaPenTemplateQuery {
  public:
   template <typename T>
@@ -517,8 +836,11 @@ class  SeaPenTemplateQuery {
 
   SeaPenTemplateQuery(
       SeaPenTemplateId id,
-      const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>& options);
+      const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>& options,
+      SeaPenUserVisibleQueryPtr user_visible_query);
 
+SeaPenTemplateQuery(const SeaPenTemplateQuery&) = delete;
+SeaPenTemplateQuery& operator=(const SeaPenTemplateQuery&) = delete;
 
   ~SeaPenTemplateQuery();
 
@@ -598,6 +920,8 @@ class  SeaPenTemplateQuery {
   SeaPenTemplateId id;
   
   base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption> options;
+  
+  SeaPenUserVisibleQueryPtr user_visible_query;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -627,6 +951,7 @@ template <typename T, SeaPenTemplateQuery::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 template <typename UnionPtrType>
 SeaPenQueryPtr SeaPenQuery::Clone() const {
@@ -687,10 +1012,40 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+SeaPenUserVisibleQueryPtr SeaPenUserVisibleQuery::Clone() const {
+  return New(
+      mojo::Clone(text),
+      mojo::Clone(template_title)
+  );
+}
+
+template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>*>
+bool SeaPenUserVisibleQuery::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->text, other_struct.text))
+    return false;
+  if (!mojo::Equals(this->template_title, other_struct.template_title))
+    return false;
+  return true;
+}
+
+template <typename T, SeaPenUserVisibleQuery::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.text < rhs.text)
+    return true;
+  if (rhs.text < lhs.text)
+    return false;
+  if (lhs.template_title < rhs.template_title)
+    return true;
+  if (rhs.template_title < lhs.template_title)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 SeaPenTemplateQueryPtr SeaPenTemplateQuery::Clone() const {
   return New(
       mojo::Clone(id),
-      mojo::Clone(options)
+      mojo::Clone(options),
+      mojo::Clone(user_visible_query)
   );
 }
 
@@ -699,6 +1054,8 @@ bool SeaPenTemplateQuery::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->options, other_struct.options))
+    return false;
+  if (!mojo::Equals(this->user_visible_query, other_struct.user_visible_query))
     return false;
   return true;
 }
@@ -712,6 +1069,39 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.options < rhs.options)
     return true;
   if (rhs.options < lhs.options)
+    return false;
+  if (lhs.user_visible_query < rhs.user_visible_query)
+    return true;
+  if (rhs.user_visible_query < lhs.user_visible_query)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+SeaPenFeedbackMetadataPtr SeaPenFeedbackMetadata::Clone() const {
+  return New(
+      mojo::Clone(is_positive),
+      mojo::Clone(log_id)
+  );
+}
+
+template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>*>
+bool SeaPenFeedbackMetadata::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->is_positive, other_struct.is_positive))
+    return false;
+  if (!mojo::Equals(this->log_id, other_struct.log_id))
+    return false;
+  return true;
+}
+
+template <typename T, SeaPenFeedbackMetadata::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.is_positive < rhs.is_positive)
+    return true;
+  if (rhs.is_positive < lhs.is_positive)
+    return false;
+  if (lhs.log_id < rhs.log_id)
+    return true;
+  if (rhs.log_id < lhs.log_id)
     return false;
   return false;
 }
@@ -743,6 +1133,26 @@ struct  StructTraits<::ash::personalization_app::mojom::SeaPenThumbnail::DataVie
 
 
 template <>
+struct  StructTraits<::ash::personalization_app::mojom::SeaPenUserVisibleQuery::DataView,
+                                         ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr> {
+  static bool IsNull(const ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr& input) { return !input; }
+  static void SetToNull(::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr* output) { output->reset(); }
+
+  static const decltype(::ash::personalization_app::mojom::SeaPenUserVisibleQuery::text)& text(
+      const ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr& input) {
+    return input->text;
+  }
+
+  static const decltype(::ash::personalization_app::mojom::SeaPenUserVisibleQuery::template_title)& template_title(
+      const ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr& input) {
+    return input->template_title;
+  }
+
+  static bool Read(::ash::personalization_app::mojom::SeaPenUserVisibleQuery::DataView input, ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::personalization_app::mojom::SeaPenTemplateQuery::DataView,
                                          ::ash::personalization_app::mojom::SeaPenTemplateQueryPtr> {
   static bool IsNull(const ::ash::personalization_app::mojom::SeaPenTemplateQueryPtr& input) { return !input; }
@@ -758,7 +1168,32 @@ struct  StructTraits<::ash::personalization_app::mojom::SeaPenTemplateQuery::Dat
     return input->options;
   }
 
+  static const decltype(::ash::personalization_app::mojom::SeaPenTemplateQuery::user_visible_query)& user_visible_query(
+      const ::ash::personalization_app::mojom::SeaPenTemplateQueryPtr& input) {
+    return input->user_visible_query;
+  }
+
   static bool Read(::ash::personalization_app::mojom::SeaPenTemplateQuery::DataView input, ::ash::personalization_app::mojom::SeaPenTemplateQueryPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::personalization_app::mojom::SeaPenFeedbackMetadata::DataView,
+                                         ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr> {
+  static bool IsNull(const ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr& input) { return !input; }
+  static void SetToNull(::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr* output) { output->reset(); }
+
+  static decltype(::ash::personalization_app::mojom::SeaPenFeedbackMetadata::is_positive) is_positive(
+      const ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr& input) {
+    return input->is_positive;
+  }
+
+  static const decltype(::ash::personalization_app::mojom::SeaPenFeedbackMetadata::log_id)& log_id(
+      const ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr& input) {
+    return input->log_id;
+  }
+
+  static bool Read(::ash::personalization_app::mojom::SeaPenFeedbackMetadata::DataView input, ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr* output);
 };
 
 

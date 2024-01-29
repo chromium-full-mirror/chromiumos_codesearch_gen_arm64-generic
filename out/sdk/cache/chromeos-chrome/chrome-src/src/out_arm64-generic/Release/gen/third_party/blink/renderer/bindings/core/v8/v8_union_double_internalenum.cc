@@ -45,7 +45,7 @@ return MakeGarbageCollected<V8UnionDoubleOrInternalEnum>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionDoubleOrInternalEnum::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionDoubleOrInternalEnum::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kDouble: {
     return ToV8Traits<IDLDouble>::ToV8(script_state, member_double_);
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionDoubleOrInternalEnum::ToV8Value(ScriptState* sc
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionDoubleOrInternalEnum::Trace(Visitor* visitor) const {

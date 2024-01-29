@@ -4,7 +4,6 @@
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { PolicyErrorType, ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../../common/js/progress_center_common.js';
 import { secondsToRemainingTimeString, str, strf } from '../../../common/js/translations.js';
-import { ProgressCenterPanelInterface } from '../../../externs/progress_center_panel.js';
 import { DisplayPanel } from '../../elements/xf_display_panel.js';
 import { PanelType } from '../../elements/xf_panel_item.js';
 /**
@@ -175,13 +174,13 @@ export class ProgressCenterPanel {
                         return strf('DELETE_FILE_NAME', source);
                     }
                     if (item.type === ProgressItemType.TRASH) {
-                        return item.state == ProgressItemState.PROGRESSING ?
+                        return item.state === ProgressItemState.PROGRESSING ?
                             strf('MOVE_TO_TRASH_FILE_NAME', source) :
                             strf('UNDO_DELETE_ONE', source);
                     }
                     if (item.type === ProgressItemType.RESTORE_TO_DESTINATION ||
                         item.type === ProgressItemType.RESTORE) {
-                        return item.state == ProgressItemState.PROGRESSING ?
+                        return item.state === ProgressItemState.PROGRESSING ?
                             strf('RESTORING_FROM_TRASH_FILE_NAME', source) :
                             strf('RESTORE_TRASH_FILE_NAME', source);
                     }
@@ -196,7 +195,7 @@ export class ProgressCenterPanel {
                         strf('FILE_ITEMS_COPIED', source);
                 }
                 if (item.type === ProgressItemType.EXTRACT) {
-                    return item.state == ProgressItemState.PROGRESSING ?
+                    return item.state === ProgressItemState.PROGRESSING ?
                         strf('EXTRACT_ITEMS_REMAINING', count) :
                         strf('FILE_ITEMS_EXTRACTED', count);
                 }
@@ -214,13 +213,13 @@ export class ProgressCenterPanel {
                     return strf('DELETE_ITEMS_REMAINING', count);
                 }
                 if (item.type === ProgressItemType.TRASH) {
-                    return item.state == ProgressItemState.PROGRESSING ?
+                    return item.state === ProgressItemState.PROGRESSING ?
                         strf('MOVE_TO_TRASH_ITEMS_REMAINING', count) :
                         strf('UNDO_DELETE_SOME', count);
                 }
                 if (item.type === ProgressItemType.RESTORE_TO_DESTINATION ||
                     item.type === ProgressItemType.RESTORE) {
-                    return item.state == ProgressItemState.PROGRESSING ?
+                    return item.state === ProgressItemState.PROGRESSING ?
                         strf('RESTORING_FROM_TRASH_ITEMS_REMAINING', count) :
                         strf('RESTORE_TRASH_MANY_ITEMS', count);
                 }
@@ -244,11 +243,11 @@ export class ProgressCenterPanel {
                     item.skippedEncryptedFiles.length > 0) {
                     switch (item.type) {
                         case ProgressItemType.COPY:
-                            return item.skippedEncryptedFiles.length == 1 ?
+                            return item.skippedEncryptedFiles.length === 1 ?
                                 strf('COPY_SKIPPED_ENCRYPTED_SINGLE_FILE', item.skippedEncryptedFiles[0]) :
                                 strf('COPY_SKIPPED_ENCRYPTED_FILES', item.skippedEncryptedFiles.length);
                         case ProgressItemType.MOVE:
-                            return item.skippedEncryptedFiles.length == 1 ?
+                            return item.skippedEncryptedFiles.length === 1 ?
                                 strf('MOVE_SKIPPED_ENCRYPTED_SINGLE_FILE', item.skippedEncryptedFiles[0]) :
                                 strf('MOVE_SKIPPED_ENCRYPTED_FILES', item.skippedEncryptedFiles.length);
                     }
@@ -601,7 +600,7 @@ export class ProgressCenterPanel {
                 this.items_[item.id] = item.clone();
                 break;
             default:
-                if (this.items_[item.id] == null) {
+                if (this.items_[item.id] === null) {
                     console.warn('ProgressCenterItem not updated: ${item.id} state: ${item.state}');
                 }
                 break;

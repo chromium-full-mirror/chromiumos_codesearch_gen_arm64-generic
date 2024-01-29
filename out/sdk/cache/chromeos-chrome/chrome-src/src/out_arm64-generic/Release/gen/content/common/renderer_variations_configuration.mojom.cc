@@ -247,6 +247,8 @@ bool RendererVariationsConfigurationStubDispatch::Accept(
           reinterpret_cast<internal::RendererVariationsConfiguration_SetVariationsHeaders_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererVariationsConfiguration.0
       bool success = true;
       ::variations::mojom::VariationsHeadersPtr p_variations_headers{};
       RendererVariationsConfiguration_SetVariationsHeaders_ParamsDataView input_data_view(params, message);
@@ -262,8 +264,8 @@ bool RendererVariationsConfigurationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVariationsHeaders(
-std::move(p_variations_headers));
+      impl->SetVariationsHeaders(        
+        std::move(p_variations_headers));
       return true;
     }
     case internal::kRendererVariationsConfiguration_SetFieldTrialGroup_Name: {
@@ -273,6 +275,8 @@ std::move(p_variations_headers));
           reinterpret_cast<internal::RendererVariationsConfiguration_SetFieldTrialGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererVariationsConfiguration.1
       bool success = true;
       std::string p_trial_name{};
       std::string p_group_name{};
@@ -291,9 +295,9 @@ std::move(p_variations_headers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFieldTrialGroup(
-std::move(p_trial_name), 
-std::move(p_group_name));
+      impl->SetFieldTrialGroup(        
+        std::move(p_trial_name), 
+        std::move(p_group_name));
       return true;
     }
   }

@@ -267,6 +267,8 @@ bool FetchLaterLoaderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::FetchLaterLoaderFactory_CreateLoader_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FetchLaterLoaderFactory.0
       bool success = true;
       ::mojo::PendingAssociatedReceiver<FetchLaterLoader> p_loader{};
       int32_t p_request_id{};
@@ -296,12 +298,12 @@ bool FetchLaterLoaderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateLoader(
-std::move(p_loader), 
-std::move(p_request_id), 
-std::move(p_options), 
-std::move(p_request), 
-std::move(p_traffic_annotation));
+      impl->CreateLoader(        
+        std::move(p_loader), 
+        std::move(p_request_id), 
+        std::move(p_options), 
+        std::move(p_request), 
+        std::move(p_traffic_annotation));
       return true;
     }
     case internal::kFetchLaterLoaderFactory_Clone_Name: {
@@ -311,6 +313,8 @@ std::move(p_traffic_annotation));
           reinterpret_cast<internal::FetchLaterLoaderFactory_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FetchLaterLoaderFactory.1
       bool success = true;
       ::mojo::PendingAssociatedReceiver<FetchLaterLoaderFactory> p_factory{};
       FetchLaterLoaderFactory_Clone_ParamsDataView input_data_view(params, message);
@@ -328,8 +332,8 @@ std::move(p_traffic_annotation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_factory));
+      impl->Clone(        
+        std::move(p_factory));
       return true;
     }
   }
@@ -525,6 +529,8 @@ bool FetchLaterLoaderStubDispatch::Accept(
           reinterpret_cast<internal::FetchLaterLoader_SendNow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FetchLaterLoader.0
       bool success = true;
       FetchLaterLoader_SendNow_ParamsDataView input_data_view(params, message);
       
@@ -537,7 +543,7 @@ bool FetchLaterLoaderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNow();
+      impl->SendNow(        );
       return true;
     }
     case internal::kFetchLaterLoader_Cancel_Name: {
@@ -547,6 +553,8 @@ bool FetchLaterLoaderStubDispatch::Accept(
           reinterpret_cast<internal::FetchLaterLoader_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FetchLaterLoader.1
       bool success = true;
       FetchLaterLoader_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -559,7 +567,7 @@ bool FetchLaterLoaderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel();
+      impl->Cancel(        );
       return true;
     }
   }

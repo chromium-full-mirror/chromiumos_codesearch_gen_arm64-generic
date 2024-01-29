@@ -397,16 +397,13 @@ const helpers_js_1 = require("./helpers.js");
             const events = [];
             // We can't import 'puppeteer' here because its not listed in the tsconfig.json of
             // the test target.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const targetLifecycleHandler = (target, type) => {
                 if (!target.url().endsWith('popup.html')) {
                     return;
                 }
                 events.push({ type, url: target.url() });
             };
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const targetCreatedHandler = (target) => targetLifecycleHandler(target, 'targetCreated');
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const targetDestroyedHandler = (target) => targetLifecycleHandler(target, 'targetDestroyed');
             browser.on('targetcreated', targetCreatedHandler);
             browser.on('targetdestroyed', targetDestroyedHandler);

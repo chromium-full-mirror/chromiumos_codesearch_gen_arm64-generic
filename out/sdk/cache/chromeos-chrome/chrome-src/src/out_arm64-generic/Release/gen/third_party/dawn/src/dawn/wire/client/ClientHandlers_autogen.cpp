@@ -14,12 +14,7 @@ namespace dawn::wire::client {
         }
 
 
-        Adapter* adapter = Get<Adapter>(cmd.adapter.id);
-        if (adapter != nullptr && adapter->GetWireGeneration() != cmd.adapter.generation) {
-            adapter = nullptr;
-        }
-
-        return DoAdapterRequestDeviceCallback(adapter, cmd.requestSerial, cmd.status, cmd.message, cmd.limits, cmd.featuresCount, cmd.features);
+        return DoAdapterRequestDeviceCallback(cmd.eventManager, cmd.future, cmd.status, cmd.message, cmd.limits, cmd.featuresCount, cmd.features);
     }
     bool Client::HandleBufferMapAsyncCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnBufferMapAsyncCallbackCmd cmd;
@@ -30,12 +25,7 @@ namespace dawn::wire::client {
         }
 
 
-        Buffer* buffer = Get<Buffer>(cmd.buffer.id);
-        if (buffer != nullptr && buffer->GetWireGeneration() != cmd.buffer.generation) {
-            buffer = nullptr;
-        }
-
-        return DoBufferMapAsyncCallback(buffer, cmd.future, cmd.status, cmd.readDataUpdateInfoLength, cmd.readDataUpdateInfo);
+        return DoBufferMapAsyncCallback(cmd.eventManager, cmd.future, cmd.status, cmd.readDataUpdateInfoLength, cmd.readDataUpdateInfo);
     }
     bool Client::HandleDeviceCreateComputePipelineAsyncCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnDeviceCreateComputePipelineAsyncCallbackCmd cmd;
@@ -46,12 +36,7 @@ namespace dawn::wire::client {
         }
 
 
-        Device* device = Get<Device>(cmd.device.id);
-        if (device != nullptr && device->GetWireGeneration() != cmd.device.generation) {
-            device = nullptr;
-        }
-
-        return DoDeviceCreateComputePipelineAsyncCallback(device, cmd.requestSerial, cmd.status, cmd.message);
+        return DoDeviceCreateComputePipelineAsyncCallback(cmd.eventManager, cmd.future, cmd.status, cmd.message);
     }
     bool Client::HandleDeviceCreateRenderPipelineAsyncCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnDeviceCreateRenderPipelineAsyncCallbackCmd cmd;
@@ -62,12 +47,7 @@ namespace dawn::wire::client {
         }
 
 
-        Device* device = Get<Device>(cmd.device.id);
-        if (device != nullptr && device->GetWireGeneration() != cmd.device.generation) {
-            device = nullptr;
-        }
-
-        return DoDeviceCreateRenderPipelineAsyncCallback(device, cmd.requestSerial, cmd.status, cmd.message);
+        return DoDeviceCreateRenderPipelineAsyncCallback(cmd.eventManager, cmd.future, cmd.status, cmd.message);
     }
     bool Client::HandleDeviceLoggingCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnDeviceLoggingCallbackCmd cmd;
@@ -142,12 +122,7 @@ namespace dawn::wire::client {
         }
 
 
-        Instance* instance = Get<Instance>(cmd.instance.id);
-        if (instance != nullptr && instance->GetWireGeneration() != cmd.instance.generation) {
-            instance = nullptr;
-        }
-
-        return DoInstanceRequestAdapterCallback(instance, cmd.future, cmd.status, cmd.message, cmd.properties, cmd.limits, cmd.featuresCount, cmd.features);
+        return DoInstanceRequestAdapterCallback(cmd.eventManager, cmd.future, cmd.status, cmd.message, cmd.properties, cmd.limits, cmd.featuresCount, cmd.features);
     }
     bool Client::HandleQueueWorkDoneCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnQueueWorkDoneCallbackCmd cmd;
@@ -158,12 +133,7 @@ namespace dawn::wire::client {
         }
 
 
-        Queue* queue = Get<Queue>(cmd.queue.id);
-        if (queue != nullptr && queue->GetWireGeneration() != cmd.queue.generation) {
-            queue = nullptr;
-        }
-
-        return DoQueueWorkDoneCallback(queue, cmd.future, cmd.status);
+        return DoQueueWorkDoneCallback(cmd.eventManager, cmd.future, cmd.status);
     }
     bool Client::HandleShaderModuleGetCompilationInfoCallback(DeserializeBuffer* deserializeBuffer) {
         ReturnShaderModuleGetCompilationInfoCallbackCmd cmd;

@@ -161,7 +161,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 ExecutionContext* execution_context_of_document_tree = current_execution_context;
 auto&& arg1_script_url = NativeValueTraits<IDLUSVStringStringContextTrustedScriptURL>::ArgumentValue(isolate, 0, info[0], exception_state, execution_context_of_document_tree);
@@ -204,8 +205,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 DedicatedWorker* blink_receiver = V8Worker::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_message = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -241,8 +241,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 DedicatedWorker* blink_receiver = V8Worker::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_message = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -387,7 +386,7 @@ void V8Worker::InstallContextDependentProperties(v8::Local<v8::Context> context,
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) && feature_selector.IsAll()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onerror", OnerrorAttributeGetCallback, OnerrorAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

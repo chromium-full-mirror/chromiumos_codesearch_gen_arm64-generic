@@ -200,9 +200,11 @@ enum class MediaStreamRequestResult : int32_t {
   
   DEVICE_IN_USE = 16,
   
-  NUM_MEDIA_REQUEST_RESULTS = 17,
+  REQUEST_CANCELLED = 17,
+  
+  NUM_MEDIA_REQUEST_RESULTS = 18,
   kMinValue = 0,
-  kMaxValue = 17,
+  kMaxValue = 18,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, MediaStreamRequestResult value);
@@ -274,9 +276,15 @@ enum class CapturedSurfaceControlResult : int32_t {
   
   kNoPermissionError = 2,
   
-  kCapturedSurfaceNotFoundError = 3,
+  kCapturerNotFoundError = 3,
+  
+  kCapturedSurfaceNotFoundError = 4,
+  
+  kDisallowedForSelfCaptureError = 5,
+  
+  kCapturerNotFocusedError = 6,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 6,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, CapturedSurfaceControlResult value);
@@ -670,11 +678,11 @@ class CapturedWheelActionDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  int32_t x() const {
-    return data_->x;
+  double relative_x() const {
+    return data_->relative_x;
   }
-  int32_t y() const {
-    return data_->y;
+  double relative_y() const {
+    return data_->relative_y;
   }
   int32_t wheel_delta_x() const {
     return data_->wheel_delta_x;
@@ -1237,8 +1245,8 @@ struct Serializer<::blink::mojom::CapturedWheelActionDataView, MaybeConstUserTyp
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->x = Traits::x(input);
-    fragment->y = Traits::y(input);
+    fragment->relative_x = Traits::relative_x(input);
+    fragment->relative_y = Traits::relative_y(input);
     fragment->wheel_delta_x = Traits::wheel_delta_x(input);
     fragment->wheel_delta_y = Traits::wheel_delta_y(input);
   }

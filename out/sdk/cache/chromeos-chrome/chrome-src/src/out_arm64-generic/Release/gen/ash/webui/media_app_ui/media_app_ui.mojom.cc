@@ -161,6 +161,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -782,6 +784,8 @@ bool PageHandler_OpenFeedbackDialog_ForwardToCallback::Accept(
           internal::PageHandler_OpenFeedbackDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::optional<std::string> p_error_message{};
   PageHandler_OpenFeedbackDialog_ResponseParamsDataView input_data_view(params, message);
@@ -907,6 +911,8 @@ bool PageHandler_ToggleBrowserFullscreenMode_ForwardToCallback::Accept(
           internal::PageHandler_ToggleBrowserFullscreenMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   PageHandler_ToggleBrowserFullscreenMode_ResponseParamsDataView input_data_view(params, message);
   
@@ -1014,6 +1020,8 @@ bool PageHandler_MaybeTriggerPdfHats_ForwardToCallback::Accept(
           internal::PageHandler_MaybeTriggerPdfHats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   PageHandler_MaybeTriggerPdfHats_ResponseParamsDataView input_data_view(params, message);
   
@@ -1121,6 +1129,8 @@ bool PageHandler_IsFileArcWritable_ForwardToCallback::Accept(
           internal::PageHandler_IsFileArcWritable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   bool p_writable{};
   PageHandler_IsFileArcWritable_ResponseParamsDataView input_data_view(params, message);
@@ -1240,6 +1250,8 @@ bool PageHandler_IsFileBrowserWritable_ForwardToCallback::Accept(
           internal::PageHandler_IsFileBrowserWritable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   bool p_writable{};
   PageHandler_IsFileBrowserWritable_ResponseParamsDataView input_data_view(params, message);
@@ -1359,6 +1371,8 @@ bool PageHandler_EditInPhotos_ForwardToCallback::Accept(
           internal::PageHandler_EditInPhotos_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.5
   bool success = true;
   PageHandler_EditInPhotos_ResponseParamsDataView input_data_view(params, message);
   
@@ -1452,6 +1466,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_OpenFeedbackDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_OpenFeedbackDialog_ParamsDataView input_data_view(params, message);
       
@@ -1477,6 +1493,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_ToggleBrowserFullscreenMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_ToggleBrowserFullscreenMode_ParamsDataView input_data_view(params, message);
       
@@ -1502,6 +1520,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_MaybeTriggerPdfHats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_MaybeTriggerPdfHats_ParamsDataView input_data_view(params, message);
       
@@ -1527,6 +1547,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_IsFileArcWritable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> p_token{};
       PageHandler_IsFileArcWritable_ParamsDataView input_data_view(params, message);
@@ -1547,8 +1569,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsFileArcWritable(
-std::move(p_token), std::move(callback));
+      impl->IsFileArcWritable(        
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kPageHandler_IsFileBrowserWritable_Name: {
@@ -1558,6 +1580,8 @@ std::move(p_token), std::move(callback));
               internal::PageHandler_IsFileBrowserWritable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> p_token{};
       PageHandler_IsFileBrowserWritable_ParamsDataView input_data_view(params, message);
@@ -1578,8 +1602,8 @@ std::move(p_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsFileBrowserWritable(
-std::move(p_token), std::move(callback));
+      impl->IsFileBrowserWritable(        
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kPageHandler_EditInPhotos_Name: {
@@ -1589,6 +1613,8 @@ std::move(p_token), std::move(callback));
               internal::PageHandler_EditInPhotos_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> p_token{};
       std::string p_mime_type{};
@@ -1612,9 +1638,9 @@ std::move(p_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EditInPhotos(
-std::move(p_token), 
-std::move(p_mime_type), std::move(callback));
+      impl->EditInPhotos(        
+        std::move(p_token), 
+        std::move(p_mime_type), std::move(callback));
       return true;
     }
   }

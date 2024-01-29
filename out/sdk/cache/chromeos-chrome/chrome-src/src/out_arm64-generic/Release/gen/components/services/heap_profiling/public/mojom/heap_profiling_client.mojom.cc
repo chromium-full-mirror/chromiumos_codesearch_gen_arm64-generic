@@ -529,6 +529,8 @@ bool ProfilingClient_StartProfiling_ForwardToCallback::Accept(
           internal::ProfilingClient_StartProfiling_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProfilingClient.0
   bool success = true;
   ProfilingClient_StartProfiling_ResponseParamsDataView input_data_view(params, message);
   
@@ -636,6 +638,8 @@ bool ProfilingClient_RetrieveHeapProfile_ForwardToCallback::Accept(
           internal::ProfilingClient_RetrieveHeapProfile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProfilingClient.1
   bool success = true;
   HeapProfilePtr p_profile{};
   ProfilingClient_RetrieveHeapProfile_ResponseParamsDataView input_data_view(params, message);
@@ -765,6 +769,8 @@ bool ProfilingClient_AddHeapProfileToTrace_ForwardToCallback::Accept(
           internal::ProfilingClient_AddHeapProfileToTrace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProfilingClient.2
   bool success = true;
   bool p_success{};
   ProfilingClient_AddHeapProfileToTrace_ResponseParamsDataView input_data_view(params, message);
@@ -861,6 +867,8 @@ bool ProfilingClientStubDispatch::AcceptWithResponder(
               internal::ProfilingClient_StartProfiling_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProfilingClient.0
       bool success = true;
       ProfilingParamsPtr p_params{};
       ProfilingClient_StartProfiling_ParamsDataView input_data_view(params, message);
@@ -879,8 +887,8 @@ bool ProfilingClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartProfiling(
-std::move(p_params), std::move(callback));
+      impl->StartProfiling(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kProfilingClient_RetrieveHeapProfile_Name: {
@@ -890,6 +898,8 @@ std::move(p_params), std::move(callback));
               internal::ProfilingClient_RetrieveHeapProfile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProfilingClient.1
       bool success = true;
       ProfilingClient_RetrieveHeapProfile_ParamsDataView input_data_view(params, message);
       
@@ -915,6 +925,8 @@ std::move(p_params), std::move(callback));
               internal::ProfilingClient_AddHeapProfileToTrace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProfilingClient.2
       bool success = true;
       ProfilingClient_AddHeapProfileToTrace_ParamsDataView input_data_view(params, message);
       

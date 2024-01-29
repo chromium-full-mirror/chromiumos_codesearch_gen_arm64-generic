@@ -20,7 +20,7 @@ export async function testAsyncQueueOrder() {
         }, 100);
     };
     queue.run(firstTask);
-    await waitUntil(() => taskTrace.length == 2);
+    await waitUntil(() => taskTrace.length === 2);
     assertArrayEquals(['1', '2'], taskTrace);
 }
 /** Checks that tasks with errors do not interrupt the queue's operations. */

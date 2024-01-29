@@ -230,6 +230,8 @@ bool InputChannel_ProcessMessage_ForwardToCallback::Accept(
           internal::InputChannel_ProcessMessage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputChannel.0
   bool success = true;
   std::vector<uint8_t> p_result{};
   InputChannel_ProcessMessage_ResponseParamsDataView input_data_view(params, message);
@@ -332,6 +334,8 @@ bool InputChannelStubDispatch::AcceptWithResponder(
               internal::InputChannel_ProcessMessage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputChannel.0
       bool success = true;
       std::vector<uint8_t> p_message{};
       InputChannel_ProcessMessage_ParamsDataView input_data_view(params, message);
@@ -350,8 +354,8 @@ bool InputChannelStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessMessage(
-std::move(p_message), std::move(callback));
+      impl->ProcessMessage(        
+        std::move(p_message), std::move(callback));
       return true;
     }
   }

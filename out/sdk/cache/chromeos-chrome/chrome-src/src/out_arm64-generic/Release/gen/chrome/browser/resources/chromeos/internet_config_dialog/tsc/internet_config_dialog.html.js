@@ -5,7 +5,7 @@ export function getTemplate() {
 <cr-dialog id="dialog" no-cancel>
   <div slot="title">[[getDialogTitle_(type_)]]</div>
   <div slot="body">
-    <network-config id="networkConfig" class="flex" guid="[[guid_]]" type="{{type_}}" enable-connect="{{enableConnect_}}" share-allow-enable="[[shareAllowEnable_]]" share-default="[[shareDefault_]]" error="{{error_}}" on-close="close_" connect-on-enter>
+    <network-config id="networkConfig" class="flex" guid="[[guid_]]" type="{{type_}}" prefilled-properties="[[prefilledProperties_]]" enable-connect="{{enableConnect_}}" share-allow-enable="[[shareAllowEnable_]]" share-default="[[shareDefault_]]" error="{{error_}}" on-close="close_" connect-on-enter>
     </network-config>
   </div>
   <div class="layout horizontal center" slot="button-container">

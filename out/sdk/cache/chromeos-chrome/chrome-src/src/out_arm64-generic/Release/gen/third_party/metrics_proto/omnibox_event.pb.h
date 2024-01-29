@@ -208,11 +208,12 @@ enum OmniboxEventProto_ProviderType : int {
   OmniboxEventProto_ProviderType_HISTORY_FUZZY = 21,
   OmniboxEventProto_ProviderType_OPEN_TAB = 22,
   OmniboxEventProto_ProviderType_TAB_SWITCH = 23,
-  OmniboxEventProto_ProviderType_PEDALS = 24
+  OmniboxEventProto_ProviderType_PEDALS = 24,
+  OmniboxEventProto_ProviderType_FEATURED_SEARCH = 25
 };
 bool OmniboxEventProto_ProviderType_IsValid(int value);
 constexpr OmniboxEventProto_ProviderType OmniboxEventProto_ProviderType_ProviderType_MIN = OmniboxEventProto_ProviderType_UNKNOWN_PROVIDER;
-constexpr OmniboxEventProto_ProviderType OmniboxEventProto_ProviderType_ProviderType_MAX = OmniboxEventProto_ProviderType_PEDALS;
+constexpr OmniboxEventProto_ProviderType OmniboxEventProto_ProviderType_ProviderType_MAX = OmniboxEventProto_ProviderType_FEATURED_SEARCH;
 constexpr int OmniboxEventProto_ProviderType_ProviderType_ARRAYSIZE = OmniboxEventProto_ProviderType_ProviderType_MAX + 1;
 
 const std::string& OmniboxEventProto_ProviderType_Name(OmniboxEventProto_ProviderType value);
@@ -1821,6 +1822,8 @@ class OmniboxEventProto final :
     OmniboxEventProto_ProviderType_TAB_SWITCH;
   static constexpr ProviderType PEDALS =
     OmniboxEventProto_ProviderType_PEDALS;
+  static constexpr ProviderType FEATURED_SEARCH =
+    OmniboxEventProto_ProviderType_FEATURED_SEARCH;
   static inline bool ProviderType_IsValid(int value) {
     return OmniboxEventProto_ProviderType_IsValid(value);
   }

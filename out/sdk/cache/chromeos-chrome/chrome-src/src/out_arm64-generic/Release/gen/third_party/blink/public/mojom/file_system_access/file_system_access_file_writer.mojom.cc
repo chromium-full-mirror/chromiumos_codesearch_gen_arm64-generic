@@ -445,6 +445,8 @@ bool FileSystemAccessFileWriter_Write_ForwardToCallback::Accept(
           internal::FileSystemAccessFileWriter_Write_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileWriter.0
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   uint64_t p_bytes_written{};
@@ -582,6 +584,8 @@ bool FileSystemAccessFileWriter_Truncate_ForwardToCallback::Accept(
           internal::FileSystemAccessFileWriter_Truncate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileWriter.1
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessFileWriter_Truncate_ResponseParamsDataView input_data_view(params, message);
@@ -711,6 +715,8 @@ bool FileSystemAccessFileWriter_Close_ForwardToCallback::Accept(
           internal::FileSystemAccessFileWriter_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileWriter.2
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessFileWriter_Close_ResponseParamsDataView input_data_view(params, message);
@@ -840,6 +846,8 @@ bool FileSystemAccessFileWriter_Abort_ForwardToCallback::Accept(
           internal::FileSystemAccessFileWriter_Abort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileWriter.3
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessFileWriter_Abort_ResponseParamsDataView input_data_view(params, message);
@@ -949,6 +957,8 @@ bool FileSystemAccessFileWriterStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessFileWriter_Write_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileWriter.0
       bool success = true;
       uint64_t p_offset{};
       ::mojo::ScopedDataPipeConsumerHandle p_stream{};
@@ -970,9 +980,9 @@ bool FileSystemAccessFileWriterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Write(
-std::move(p_offset), 
-std::move(p_stream), std::move(callback));
+      impl->Write(        
+        std::move(p_offset), 
+        std::move(p_stream), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileWriter_Truncate_Name: {
@@ -982,6 +992,8 @@ std::move(p_stream), std::move(callback));
               internal::FileSystemAccessFileWriter_Truncate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileWriter.1
       bool success = true;
       uint64_t p_length{};
       FileSystemAccessFileWriter_Truncate_ParamsDataView input_data_view(params, message);
@@ -1000,8 +1012,8 @@ std::move(p_stream), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Truncate(
-std::move(p_length), std::move(callback));
+      impl->Truncate(        
+        std::move(p_length), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileWriter_Close_Name: {
@@ -1011,6 +1023,8 @@ std::move(p_length), std::move(callback));
               internal::FileSystemAccessFileWriter_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileWriter.2
       bool success = true;
       FileSystemAccessFileWriter_Close_ParamsDataView input_data_view(params, message);
       
@@ -1036,6 +1050,8 @@ std::move(p_length), std::move(callback));
               internal::FileSystemAccessFileWriter_Abort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileWriter.3
       bool success = true;
       FileSystemAccessFileWriter_Abort_ParamsDataView input_data_view(params, message);
       

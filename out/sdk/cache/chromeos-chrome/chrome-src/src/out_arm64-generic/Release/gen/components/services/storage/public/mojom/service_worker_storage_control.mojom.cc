@@ -573,6 +573,8 @@ bool ServiceWorkerResourceReader_ReadResponseHead_ForwardToCallback::Accept(
           internal::ServiceWorkerResourceReader_ReadResponseHead_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerResourceReader.0
   bool success = true;
   int32_t p_status{};
   ::network::mojom::URLResponseHeadPtr p_response_head{};
@@ -718,6 +720,8 @@ bool ServiceWorkerResourceReader_PrepareReadData_ForwardToCallback::Accept(
           internal::ServiceWorkerResourceReader_PrepareReadData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerResourceReader.1
   bool success = true;
   ::mojo::ScopedDataPipeConsumerHandle p_pipe{};
   ServiceWorkerResourceReader_PrepareReadData_ResponseParamsDataView input_data_view(params, message);
@@ -838,6 +842,8 @@ bool ServiceWorkerResourceReader_ReadData_ForwardToCallback::Accept(
           internal::ServiceWorkerResourceReader_ReadData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerResourceReader.2
   bool success = true;
   int32_t p_status{};
   ServiceWorkerResourceReader_ReadData_ResponseParamsDataView input_data_view(params, message);
@@ -934,6 +940,8 @@ bool ServiceWorkerResourceReaderStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerResourceReader_ReadResponseHead_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerResourceReader.0
       bool success = true;
       ServiceWorkerResourceReader_ReadResponseHead_ParamsDataView input_data_view(params, message);
       
@@ -959,6 +967,8 @@ bool ServiceWorkerResourceReaderStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerResourceReader_PrepareReadData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerResourceReader.1
       bool success = true;
       int64_t p_size{};
       ServiceWorkerResourceReader_PrepareReadData_ParamsDataView input_data_view(params, message);
@@ -977,8 +987,8 @@ bool ServiceWorkerResourceReaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepareReadData(
-std::move(p_size), std::move(callback));
+      impl->PrepareReadData(        
+        std::move(p_size), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerResourceReader_ReadData_Name: {
@@ -988,6 +998,8 @@ std::move(p_size), std::move(callback));
               internal::ServiceWorkerResourceReader_ReadData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerResourceReader.2
       bool success = true;
       ServiceWorkerResourceReader_ReadData_ParamsDataView input_data_view(params, message);
       
@@ -1299,6 +1311,8 @@ bool ServiceWorkerResourceWriter_WriteResponseHead_ForwardToCallback::Accept(
           internal::ServiceWorkerResourceWriter_WriteResponseHead_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerResourceWriter.0
   bool success = true;
   int32_t p_status{};
   ServiceWorkerResourceWriter_WriteResponseHead_ResponseParamsDataView input_data_view(params, message);
@@ -1418,6 +1432,8 @@ bool ServiceWorkerResourceWriter_WriteData_ForwardToCallback::Accept(
           internal::ServiceWorkerResourceWriter_WriteData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerResourceWriter.1
   bool success = true;
   int32_t p_status{};
   ServiceWorkerResourceWriter_WriteData_ResponseParamsDataView input_data_view(params, message);
@@ -1511,6 +1527,8 @@ bool ServiceWorkerResourceWriterStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerResourceWriter_WriteResponseHead_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerResourceWriter.0
       bool success = true;
       ::network::mojom::URLResponseHeadPtr p_response_head{};
       ServiceWorkerResourceWriter_WriteResponseHead_ParamsDataView input_data_view(params, message);
@@ -1529,8 +1547,8 @@ bool ServiceWorkerResourceWriterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteResponseHead(
-std::move(p_response_head), std::move(callback));
+      impl->WriteResponseHead(        
+        std::move(p_response_head), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerResourceWriter_WriteData_Name: {
@@ -1540,6 +1558,8 @@ std::move(p_response_head), std::move(callback));
               internal::ServiceWorkerResourceWriter_WriteData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerResourceWriter.1
       bool success = true;
       ::mojo_base::BigBuffer p_data{};
       ServiceWorkerResourceWriter_WriteData_ParamsDataView input_data_view(params, message);
@@ -1558,8 +1578,8 @@ std::move(p_response_head), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteData(
-std::move(p_data), std::move(callback));
+      impl->WriteData(        
+        std::move(p_data), std::move(callback));
       return true;
     }
   }
@@ -1765,6 +1785,8 @@ bool ServiceWorkerResourceMetadataWriter_WriteMetadata_ForwardToCallback::Accept
           internal::ServiceWorkerResourceMetadataWriter_WriteMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerResourceMetadataWriter.0
   bool success = true;
   int32_t p_status{};
   ServiceWorkerResourceMetadataWriter_WriteMetadata_ResponseParamsDataView input_data_view(params, message);
@@ -1855,6 +1877,8 @@ bool ServiceWorkerResourceMetadataWriterStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerResourceMetadataWriter_WriteMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerResourceMetadataWriter.0
       bool success = true;
       ::mojo_base::BigBuffer p_data{};
       ServiceWorkerResourceMetadataWriter_WriteMetadata_ParamsDataView input_data_view(params, message);
@@ -1873,8 +1897,8 @@ bool ServiceWorkerResourceMetadataWriterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteMetadata(
-std::move(p_data), std::move(callback));
+      impl->WriteMetadata(        
+        std::move(p_data), std::move(callback));
       return true;
     }
   }
@@ -5575,6 +5599,8 @@ bool ServiceWorkerStorageControl_Disable_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_Disable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.0
   bool success = true;
   ServiceWorkerStorageControl_Disable_ResponseParamsDataView input_data_view(params, message);
   
@@ -5682,6 +5708,8 @@ bool ServiceWorkerStorageControl_Delete_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_Delete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.1
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_Delete_ResponseParamsDataView input_data_view(params, message);
@@ -5802,6 +5830,8 @@ bool ServiceWorkerStorageControl_Recover_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_Recover_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.2
   bool success = true;
   ServiceWorkerStorageControl_Recover_ResponseParamsDataView input_data_view(params, message);
   
@@ -5909,6 +5939,8 @@ bool ServiceWorkerStorageControl_GetRegisteredStorageKeys_ForwardToCallback::Acc
           internal::ServiceWorkerStorageControl_GetRegisteredStorageKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.3
   bool success = true;
   std::vector<::blink::StorageKey> p_keys{};
   ServiceWorkerStorageControl_GetRegisteredStorageKeys_ResponseParamsDataView input_data_view(params, message);
@@ -6040,6 +6072,8 @@ bool ServiceWorkerStorageControl_FindRegistrationForClientUrl_ForwardToCallback:
           internal::ServiceWorkerStorageControl_FindRegistrationForClientUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.4
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerFindRegistrationResultPtr p_result{};
@@ -6190,6 +6224,8 @@ bool ServiceWorkerStorageControl_FindRegistrationForScope_ForwardToCallback::Acc
           internal::ServiceWorkerStorageControl_FindRegistrationForScope_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.5
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerFindRegistrationResultPtr p_result{};
@@ -6324,6 +6360,8 @@ bool ServiceWorkerStorageControl_FindRegistrationForId_ForwardToCallback::Accept
           internal::ServiceWorkerStorageControl_FindRegistrationForId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.6
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerFindRegistrationResultPtr p_result{};
@@ -6458,6 +6496,8 @@ bool ServiceWorkerStorageControl_GetRegistrationsForStorageKey_ForwardToCallback
           internal::ServiceWorkerStorageControl_GetRegistrationsForStorageKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.7
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<ServiceWorkerFindRegistrationResultPtr> p_registrations{};
@@ -6598,6 +6638,8 @@ bool ServiceWorkerStorageControl_GetUsageForStorageKey_ForwardToCallback::Accept
           internal::ServiceWorkerStorageControl_GetUsageForStorageKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.8
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   int64_t p_usage{};
@@ -6726,6 +6768,8 @@ bool ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_ForwardToCallback
           internal::ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.9
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<::storage::mojom::ServiceWorkerRegistrationDataPtr> p_registrations{};
@@ -6866,6 +6910,8 @@ bool ServiceWorkerStorageControl_StoreRegistration_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_StoreRegistration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.10
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   uint64_t p_deleted_resources_size{};
@@ -6994,6 +7040,8 @@ bool ServiceWorkerStorageControl_DeleteRegistration_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_DeleteRegistration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.11
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   uint64_t p_deleted_resources_size{};
@@ -7131,6 +7179,8 @@ bool ServiceWorkerStorageControl_UpdateToActiveState_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_UpdateToActiveState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.12
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_UpdateToActiveState_ResponseParamsDataView input_data_view(params, message);
@@ -7251,6 +7301,8 @@ bool ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_ForwardToCallback::Ac
           internal::ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.13
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_ResponseParamsDataView input_data_view(params, message);
@@ -7371,6 +7423,8 @@ bool ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_ForwardToCallbac
           internal::ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.14
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -7491,6 +7545,8 @@ bool ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_ForwardToCallback
           internal::ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.15
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_ResponseParamsDataView input_data_view(params, message);
@@ -7611,6 +7667,8 @@ bool ServiceWorkerStorageControl_UpdateFetchHandlerType_ForwardToCallback::Accep
           internal::ServiceWorkerStorageControl_UpdateFetchHandlerType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.16
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_UpdateFetchHandlerType_ResponseParamsDataView input_data_view(params, message);
@@ -7731,6 +7789,8 @@ bool ServiceWorkerStorageControl_UpdateResourceSha256Checksums_ForwardToCallback
           internal::ServiceWorkerStorageControl_UpdateResourceSha256Checksums_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.17
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_UpdateResourceSha256Checksums_ResponseParamsDataView input_data_view(params, message);
@@ -7851,6 +7911,8 @@ bool ServiceWorkerStorageControl_GetNewRegistrationId_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_GetNewRegistrationId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.18
   bool success = true;
   int64_t p_registration_id{};
   ServiceWorkerStorageControl_GetNewRegistrationId_ResponseParamsDataView input_data_view(params, message);
@@ -7970,6 +8032,8 @@ bool ServiceWorkerStorageControl_GetNewVersionId_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_GetNewVersionId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.19
   bool success = true;
   int64_t p_version_id{};
   ::mojo::PendingRemote<ServiceWorkerLiveVersionRef> p_version_reference{};
@@ -8100,6 +8164,8 @@ bool ServiceWorkerStorageControl_GetNewResourceId_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_GetNewResourceId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.20
   bool success = true;
   int64_t p_resource_id{};
   ServiceWorkerStorageControl_GetNewResourceId_ResponseParamsDataView input_data_view(params, message);
@@ -8219,6 +8285,8 @@ bool ServiceWorkerStorageControl_StoreUncommittedResourceId_ForwardToCallback::A
           internal::ServiceWorkerStorageControl_StoreUncommittedResourceId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.24
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_StoreUncommittedResourceId_ResponseParamsDataView input_data_view(params, message);
@@ -8339,6 +8407,8 @@ bool ServiceWorkerStorageControl_DoomUncommittedResources_ForwardToCallback::Acc
           internal::ServiceWorkerStorageControl_DoomUncommittedResources_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.25
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_DoomUncommittedResources_ResponseParamsDataView input_data_view(params, message);
@@ -8459,6 +8529,8 @@ bool ServiceWorkerStorageControl_GetUserData_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_GetUserData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.26
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<std::string> p_values{};
@@ -8599,6 +8671,8 @@ bool ServiceWorkerStorageControl_StoreUserData_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_StoreUserData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.27
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_StoreUserData_ResponseParamsDataView input_data_view(params, message);
@@ -8719,6 +8793,8 @@ bool ServiceWorkerStorageControl_ClearUserData_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_ClearUserData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.28
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_ClearUserData_ResponseParamsDataView input_data_view(params, message);
@@ -8839,6 +8915,8 @@ bool ServiceWorkerStorageControl_GetUserDataByKeyPrefix_ForwardToCallback::Accep
           internal::ServiceWorkerStorageControl_GetUserDataByKeyPrefix_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.29
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<std::string> p_values{};
@@ -8979,6 +9057,8 @@ bool ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_ForwardToCallback
           internal::ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.30
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   base::flat_map<std::string, std::string> p_user_data{};
@@ -9119,6 +9199,8 @@ bool ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_ForwardToCallback::A
           internal::ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.31
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_ResponseParamsDataView input_data_view(params, message);
@@ -9239,6 +9321,8 @@ bool ServiceWorkerStorageControl_GetUserDataForAllRegistrations_ForwardToCallbac
           internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.32
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<ServiceWorkerUserDataPtr> p_values{};
@@ -9379,6 +9463,8 @@ bool ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Forwa
           internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.33
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<ServiceWorkerUserDataPtr> p_values{};
@@ -9519,6 +9605,8 @@ bool ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_For
           internal::ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.34
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_ResponseParamsDataView input_data_view(params, message);
@@ -9639,6 +9727,8 @@ bool ServiceWorkerStorageControl_PerformStorageCleanup_ForwardToCallback::Accept
           internal::ServiceWorkerStorageControl_PerformStorageCleanup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.35
   bool success = true;
   ServiceWorkerStorageControl_PerformStorageCleanup_ResponseParamsDataView input_data_view(params, message);
   
@@ -9746,6 +9836,8 @@ bool ServiceWorkerStorageControl_ApplyPolicyUpdates_ForwardToCallback::Accept(
           internal::ServiceWorkerStorageControl_ApplyPolicyUpdates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.36
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   ServiceWorkerStorageControl_ApplyPolicyUpdates_ResponseParamsDataView input_data_view(params, message);
@@ -9866,6 +9958,8 @@ bool ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_ForwardToCallback:
           internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.37
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<int64_t> p_resource_ids{};
@@ -10006,6 +10100,8 @@ bool ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Forw
           internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.38
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<int64_t> p_resource_ids{};
@@ -10146,6 +10242,8 @@ bool ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_ForwardToCallbac
           internal::ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.39
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<int64_t> p_resource_ids{};
@@ -10286,6 +10384,8 @@ bool ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_ForwardToCallb
           internal::ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.40
   bool success = true;
   ::storage::mojom::ServiceWorkerDatabaseStatus p_status{};
   std::vector<int64_t> p_resource_ids{};
@@ -10426,6 +10526,8 @@ bool ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_ForwardToCall
           internal::ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerStorageControl.41
   bool success = true;
   ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_ResponseParamsDataView input_data_view(params, message);
   
@@ -10551,6 +10653,8 @@ bool ServiceWorkerStorageControlStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerStorageControl_CreateResourceReader_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.21
       bool success = true;
       int64_t p_resource_id{};
       ::mojo::PendingReceiver<ServiceWorkerResourceReader> p_reader{};
@@ -10571,9 +10675,9 @@ bool ServiceWorkerStorageControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateResourceReader(
-std::move(p_resource_id), 
-std::move(p_reader));
+      impl->CreateResourceReader(        
+        std::move(p_resource_id), 
+        std::move(p_reader));
       return true;
     }
     case internal::kServiceWorkerStorageControl_CreateResourceWriter_Name: {
@@ -10583,6 +10687,8 @@ std::move(p_reader));
           reinterpret_cast<internal::ServiceWorkerStorageControl_CreateResourceWriter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.22
       bool success = true;
       int64_t p_resource_id{};
       ::mojo::PendingReceiver<ServiceWorkerResourceWriter> p_writer{};
@@ -10603,9 +10709,9 @@ std::move(p_reader));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateResourceWriter(
-std::move(p_resource_id), 
-std::move(p_writer));
+      impl->CreateResourceWriter(        
+        std::move(p_resource_id), 
+        std::move(p_writer));
       return true;
     }
     case internal::kServiceWorkerStorageControl_CreateResourceMetadataWriter_Name: {
@@ -10615,6 +10721,8 @@ std::move(p_writer));
           reinterpret_cast<internal::ServiceWorkerStorageControl_CreateResourceMetadataWriter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.23
       bool success = true;
       int64_t p_resource_id{};
       ::mojo::PendingReceiver<ServiceWorkerResourceMetadataWriter> p_writer{};
@@ -10635,9 +10743,9 @@ std::move(p_writer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateResourceMetadataWriter(
-std::move(p_resource_id), 
-std::move(p_writer));
+      impl->CreateResourceMetadataWriter(        
+        std::move(p_resource_id), 
+        std::move(p_writer));
       return true;
     }
     case internal::kServiceWorkerStorageControl_StoreUncommittedResourceId_Name: {
@@ -10714,6 +10822,8 @@ bool ServiceWorkerStorageControlStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerStorageControl_Disable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.0
       bool success = true;
       ServiceWorkerStorageControl_Disable_ParamsDataView input_data_view(params, message);
       
@@ -10739,6 +10849,8 @@ bool ServiceWorkerStorageControlStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerStorageControl_Delete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.1
       bool success = true;
       ServiceWorkerStorageControl_Delete_ParamsDataView input_data_view(params, message);
       
@@ -10764,6 +10876,8 @@ bool ServiceWorkerStorageControlStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerStorageControl_Recover_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.2
       bool success = true;
       std::vector<ServiceWorkerLiveVersionInfoPtr> p_versions{};
       ServiceWorkerStorageControl_Recover_ParamsDataView input_data_view(params, message);
@@ -10782,8 +10896,8 @@ bool ServiceWorkerStorageControlStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Recover(
-std::move(p_versions), std::move(callback));
+      impl->Recover(        
+        std::move(p_versions), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetRegisteredStorageKeys_Name: {
@@ -10793,6 +10907,8 @@ std::move(p_versions), std::move(callback));
               internal::ServiceWorkerStorageControl_GetRegisteredStorageKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.3
       bool success = true;
       ServiceWorkerStorageControl_GetRegisteredStorageKeys_ParamsDataView input_data_view(params, message);
       
@@ -10818,6 +10934,8 @@ std::move(p_versions), std::move(callback));
               internal::ServiceWorkerStorageControl_FindRegistrationForClientUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.4
       bool success = true;
       ::GURL p_client_url{};
       ::blink::StorageKey p_key{};
@@ -10839,9 +10957,9 @@ std::move(p_versions), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindRegistrationForClientUrl(
-std::move(p_client_url), 
-std::move(p_key), std::move(callback));
+      impl->FindRegistrationForClientUrl(        
+        std::move(p_client_url), 
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_FindRegistrationForScope_Name: {
@@ -10851,6 +10969,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_FindRegistrationForScope_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.5
       bool success = true;
       ::GURL p_scope{};
       ::blink::StorageKey p_key{};
@@ -10872,9 +10992,9 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindRegistrationForScope(
-std::move(p_scope), 
-std::move(p_key), std::move(callback));
+      impl->FindRegistrationForScope(        
+        std::move(p_scope), 
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_FindRegistrationForId_Name: {
@@ -10884,6 +11004,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_FindRegistrationForId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.6
       bool success = true;
       int64_t p_registration_id{};
       std::optional<::blink::StorageKey> p_key{};
@@ -10905,9 +11027,9 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindRegistrationForId(
-std::move(p_registration_id), 
-std::move(p_key), std::move(callback));
+      impl->FindRegistrationForId(        
+        std::move(p_registration_id), 
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetRegistrationsForStorageKey_Name: {
@@ -10917,6 +11039,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_GetRegistrationsForStorageKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.7
       bool success = true;
       ::blink::StorageKey p_key{};
       ServiceWorkerStorageControl_GetRegistrationsForStorageKey_ParamsDataView input_data_view(params, message);
@@ -10935,8 +11059,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRegistrationsForStorageKey(
-std::move(p_key), std::move(callback));
+      impl->GetRegistrationsForStorageKey(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetUsageForStorageKey_Name: {
@@ -10946,6 +11070,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUsageForStorageKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.8
       bool success = true;
       ::blink::StorageKey p_key{};
       ServiceWorkerStorageControl_GetUsageForStorageKey_ParamsDataView input_data_view(params, message);
@@ -10964,8 +11090,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUsageForStorageKey(
-std::move(p_key), std::move(callback));
+      impl->GetUsageForStorageKey(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetAllRegistrationsDeprecated_Name: {
@@ -10975,6 +11101,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.9
       bool success = true;
       ServiceWorkerStorageControl_GetAllRegistrationsDeprecated_ParamsDataView input_data_view(params, message);
       
@@ -11000,6 +11128,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_StoreRegistration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.10
       bool success = true;
       ::storage::mojom::ServiceWorkerRegistrationDataPtr p_registration{};
       std::vector<::storage::mojom::ServiceWorkerResourceRecordPtr> p_resources{};
@@ -11021,9 +11151,9 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StoreRegistration(
-std::move(p_registration), 
-std::move(p_resources), std::move(callback));
+      impl->StoreRegistration(        
+        std::move(p_registration), 
+        std::move(p_resources), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_DeleteRegistration_Name: {
@@ -11033,6 +11163,8 @@ std::move(p_resources), std::move(callback));
               internal::ServiceWorkerStorageControl_DeleteRegistration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.11
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11054,9 +11186,9 @@ std::move(p_resources), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteRegistration(
-std::move(p_registration_id), 
-std::move(p_key), std::move(callback));
+      impl->DeleteRegistration(        
+        std::move(p_registration_id), 
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_UpdateToActiveState_Name: {
@@ -11066,6 +11198,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_UpdateToActiveState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.12
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11087,9 +11221,9 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateToActiveState(
-std::move(p_registration_id), 
-std::move(p_key), std::move(callback));
+      impl->UpdateToActiveState(        
+        std::move(p_registration_id), 
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_UpdateLastUpdateCheckTime_Name: {
@@ -11099,6 +11233,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_UpdateLastUpdateCheckTime_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.13
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11123,10 +11259,10 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLastUpdateCheckTime(
-std::move(p_registration_id), 
-std::move(p_key), 
-std::move(p_last_update_check_time), std::move(callback));
+      impl->UpdateLastUpdateCheckTime(        
+        std::move(p_registration_id), 
+        std::move(p_key), 
+        std::move(p_last_update_check_time), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_Name: {
@@ -11136,6 +11272,8 @@ std::move(p_last_update_check_time), std::move(callback));
               internal::ServiceWorkerStorageControl_UpdateNavigationPreloadEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.14
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11160,10 +11298,10 @@ std::move(p_last_update_check_time), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateNavigationPreloadEnabled(
-std::move(p_registration_id), 
-std::move(p_key), 
-std::move(p_enable), std::move(callback));
+      impl->UpdateNavigationPreloadEnabled(        
+        std::move(p_registration_id), 
+        std::move(p_key), 
+        std::move(p_enable), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_UpdateNavigationPreloadHeader_Name: {
@@ -11173,6 +11311,8 @@ std::move(p_enable), std::move(callback));
               internal::ServiceWorkerStorageControl_UpdateNavigationPreloadHeader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.15
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11197,10 +11337,10 @@ std::move(p_enable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateNavigationPreloadHeader(
-std::move(p_registration_id), 
-std::move(p_key), 
-std::move(p_value), std::move(callback));
+      impl->UpdateNavigationPreloadHeader(        
+        std::move(p_registration_id), 
+        std::move(p_key), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_UpdateFetchHandlerType_Name: {
@@ -11210,6 +11350,8 @@ std::move(p_value), std::move(callback));
               internal::ServiceWorkerStorageControl_UpdateFetchHandlerType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.16
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11234,10 +11376,10 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateFetchHandlerType(
-std::move(p_registration_id), 
-std::move(p_key), 
-std::move(p_type), std::move(callback));
+      impl->UpdateFetchHandlerType(        
+        std::move(p_registration_id), 
+        std::move(p_key), 
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_UpdateResourceSha256Checksums_Name: {
@@ -11247,6 +11389,8 @@ std::move(p_type), std::move(callback));
               internal::ServiceWorkerStorageControl_UpdateResourceSha256Checksums_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.17
       bool success = true;
       int64_t p_registratation_id{};
       ::blink::StorageKey p_key{};
@@ -11271,10 +11415,10 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateResourceSha256Checksums(
-std::move(p_registratation_id), 
-std::move(p_key), 
-std::move(p_updated_sha256_checksums), std::move(callback));
+      impl->UpdateResourceSha256Checksums(        
+        std::move(p_registratation_id), 
+        std::move(p_key), 
+        std::move(p_updated_sha256_checksums), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetNewRegistrationId_Name: {
@@ -11284,6 +11428,8 @@ std::move(p_updated_sha256_checksums), std::move(callback));
               internal::ServiceWorkerStorageControl_GetNewRegistrationId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.18
       bool success = true;
       ServiceWorkerStorageControl_GetNewRegistrationId_ParamsDataView input_data_view(params, message);
       
@@ -11309,6 +11455,8 @@ std::move(p_updated_sha256_checksums), std::move(callback));
               internal::ServiceWorkerStorageControl_GetNewVersionId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.19
       bool success = true;
       ServiceWorkerStorageControl_GetNewVersionId_ParamsDataView input_data_view(params, message);
       
@@ -11334,6 +11482,8 @@ std::move(p_updated_sha256_checksums), std::move(callback));
               internal::ServiceWorkerStorageControl_GetNewResourceId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.20
       bool success = true;
       ServiceWorkerStorageControl_GetNewResourceId_ParamsDataView input_data_view(params, message);
       
@@ -11368,6 +11518,8 @@ std::move(p_updated_sha256_checksums), std::move(callback));
               internal::ServiceWorkerStorageControl_StoreUncommittedResourceId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.24
       bool success = true;
       int64_t p_resource_id{};
       ServiceWorkerStorageControl_StoreUncommittedResourceId_ParamsDataView input_data_view(params, message);
@@ -11386,8 +11538,8 @@ std::move(p_updated_sha256_checksums), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StoreUncommittedResourceId(
-std::move(p_resource_id), std::move(callback));
+      impl->StoreUncommittedResourceId(        
+        std::move(p_resource_id), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_DoomUncommittedResources_Name: {
@@ -11397,6 +11549,8 @@ std::move(p_resource_id), std::move(callback));
               internal::ServiceWorkerStorageControl_DoomUncommittedResources_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.25
       bool success = true;
       std::vector<int64_t> p_resource_ids{};
       ServiceWorkerStorageControl_DoomUncommittedResources_ParamsDataView input_data_view(params, message);
@@ -11415,8 +11569,8 @@ std::move(p_resource_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoomUncommittedResources(
-std::move(p_resource_ids), std::move(callback));
+      impl->DoomUncommittedResources(        
+        std::move(p_resource_ids), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetUserData_Name: {
@@ -11426,6 +11580,8 @@ std::move(p_resource_ids), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUserData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.26
       bool success = true;
       int64_t p_registration_id{};
       std::vector<std::string> p_keys{};
@@ -11447,9 +11603,9 @@ std::move(p_resource_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserData(
-std::move(p_registration_id), 
-std::move(p_keys), std::move(callback));
+      impl->GetUserData(        
+        std::move(p_registration_id), 
+        std::move(p_keys), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_StoreUserData_Name: {
@@ -11459,6 +11615,8 @@ std::move(p_keys), std::move(callback));
               internal::ServiceWorkerStorageControl_StoreUserData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.27
       bool success = true;
       int64_t p_registration_id{};
       ::blink::StorageKey p_key{};
@@ -11483,10 +11641,10 @@ std::move(p_keys), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StoreUserData(
-std::move(p_registration_id), 
-std::move(p_key), 
-std::move(p_user_data), std::move(callback));
+      impl->StoreUserData(        
+        std::move(p_registration_id), 
+        std::move(p_key), 
+        std::move(p_user_data), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_ClearUserData_Name: {
@@ -11496,6 +11654,8 @@ std::move(p_user_data), std::move(callback));
               internal::ServiceWorkerStorageControl_ClearUserData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.28
       bool success = true;
       int64_t p_registration_id{};
       std::vector<std::string> p_keys{};
@@ -11517,9 +11677,9 @@ std::move(p_user_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearUserData(
-std::move(p_registration_id), 
-std::move(p_keys), std::move(callback));
+      impl->ClearUserData(        
+        std::move(p_registration_id), 
+        std::move(p_keys), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetUserDataByKeyPrefix_Name: {
@@ -11529,6 +11689,8 @@ std::move(p_keys), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUserDataByKeyPrefix_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.29
       bool success = true;
       int64_t p_registration_id{};
       std::string p_key_prefix{};
@@ -11550,9 +11712,9 @@ std::move(p_keys), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserDataByKeyPrefix(
-std::move(p_registration_id), 
-std::move(p_key_prefix), std::move(callback));
+      impl->GetUserDataByKeyPrefix(        
+        std::move(p_registration_id), 
+        std::move(p_key_prefix), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_Name: {
@@ -11562,6 +11724,8 @@ std::move(p_key_prefix), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUserKeysAndDataByKeyPrefix_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.30
       bool success = true;
       int64_t p_registration_id{};
       std::string p_key_prefix{};
@@ -11583,9 +11747,9 @@ std::move(p_key_prefix), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserKeysAndDataByKeyPrefix(
-std::move(p_registration_id), 
-std::move(p_key_prefix), std::move(callback));
+      impl->GetUserKeysAndDataByKeyPrefix(        
+        std::move(p_registration_id), 
+        std::move(p_key_prefix), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_Name: {
@@ -11595,6 +11759,8 @@ std::move(p_key_prefix), std::move(callback));
               internal::ServiceWorkerStorageControl_ClearUserDataByKeyPrefixes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.31
       bool success = true;
       int64_t p_registratation_id{};
       std::vector<std::string> p_key_prefixes{};
@@ -11616,9 +11782,9 @@ std::move(p_key_prefix), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearUserDataByKeyPrefixes(
-std::move(p_registratation_id), 
-std::move(p_key_prefixes), std::move(callback));
+      impl->ClearUserDataByKeyPrefixes(        
+        std::move(p_registratation_id), 
+        std::move(p_key_prefixes), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetUserDataForAllRegistrations_Name: {
@@ -11628,6 +11794,8 @@ std::move(p_key_prefixes), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.32
       bool success = true;
       std::string p_key{};
       ServiceWorkerStorageControl_GetUserDataForAllRegistrations_ParamsDataView input_data_view(params, message);
@@ -11646,8 +11814,8 @@ std::move(p_key_prefixes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserDataForAllRegistrations(
-std::move(p_key), std::move(callback));
+      impl->GetUserDataForAllRegistrations(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Name: {
@@ -11657,6 +11825,8 @@ std::move(p_key), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.33
       bool success = true;
       std::string p_key_prefix{};
       ServiceWorkerStorageControl_GetUserDataForAllRegistrationsByKeyPrefix_ParamsDataView input_data_view(params, message);
@@ -11675,8 +11845,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserDataForAllRegistrationsByKeyPrefix(
-std::move(p_key_prefix), std::move(callback));
+      impl->GetUserDataForAllRegistrationsByKeyPrefix(        
+        std::move(p_key_prefix), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Name: {
@@ -11686,6 +11856,8 @@ std::move(p_key_prefix), std::move(callback));
               internal::ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.34
       bool success = true;
       std::string p_key_prefix{};
       ServiceWorkerStorageControl_ClearUserDataForAllRegistrationsByKeyPrefix_ParamsDataView input_data_view(params, message);
@@ -11704,8 +11876,8 @@ std::move(p_key_prefix), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearUserDataForAllRegistrationsByKeyPrefix(
-std::move(p_key_prefix), std::move(callback));
+      impl->ClearUserDataForAllRegistrationsByKeyPrefix(        
+        std::move(p_key_prefix), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_PerformStorageCleanup_Name: {
@@ -11715,6 +11887,8 @@ std::move(p_key_prefix), std::move(callback));
               internal::ServiceWorkerStorageControl_PerformStorageCleanup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.35
       bool success = true;
       ServiceWorkerStorageControl_PerformStorageCleanup_ParamsDataView input_data_view(params, message);
       
@@ -11740,6 +11914,8 @@ std::move(p_key_prefix), std::move(callback));
               internal::ServiceWorkerStorageControl_ApplyPolicyUpdates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.36
       bool success = true;
       std::vector<::storage::mojom::StoragePolicyUpdatePtr> p_policy_updates{};
       ServiceWorkerStorageControl_ApplyPolicyUpdates_ParamsDataView input_data_view(params, message);
@@ -11758,8 +11934,8 @@ std::move(p_key_prefix), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyPolicyUpdates(
-std::move(p_policy_updates), std::move(callback));
+      impl->ApplyPolicyUpdates(        
+        std::move(p_policy_updates), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetPurgingResourceIdsForTest_Name: {
@@ -11769,6 +11945,8 @@ std::move(p_policy_updates), std::move(callback));
               internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.37
       bool success = true;
       ServiceWorkerStorageControl_GetPurgingResourceIdsForTest_ParamsDataView input_data_view(params, message);
       
@@ -11794,6 +11972,8 @@ std::move(p_policy_updates), std::move(callback));
               internal::ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.38
       bool success = true;
       int64_t p_version_id{};
       ServiceWorkerStorageControl_GetPurgingResourceIdsForLiveVersionForTest_ParamsDataView input_data_view(params, message);
@@ -11812,8 +11992,8 @@ std::move(p_policy_updates), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPurgingResourceIdsForLiveVersionForTest(
-std::move(p_version_id), std::move(callback));
+      impl->GetPurgingResourceIdsForLiveVersionForTest(        
+        std::move(p_version_id), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_Name: {
@@ -11823,6 +12003,8 @@ std::move(p_version_id), std::move(callback));
               internal::ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.39
       bool success = true;
       ServiceWorkerStorageControl_GetPurgeableResourceIdsForTest_ParamsDataView input_data_view(params, message);
       
@@ -11848,6 +12030,8 @@ std::move(p_version_id), std::move(callback));
               internal::ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.40
       bool success = true;
       ServiceWorkerStorageControl_GetUncommittedResourceIdsForTest_ParamsDataView input_data_view(params, message);
       
@@ -11873,6 +12057,8 @@ std::move(p_version_id), std::move(callback));
               internal::ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerStorageControl.41
       bool success = true;
       ServiceWorkerStorageControl_SetPurgingCompleteCallbackForTest_ParamsDataView input_data_view(params, message);
       

@@ -97,7 +97,7 @@ content_type_ = ContentType::kByteStringSequenceSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionByteStringByteStringRecordOrByteStringSequenceSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionByteStringByteStringRecordOrByteStringSequenceSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kByteStringByteStringRecord: {
     return ToV8Traits<IDLRecord<IDLByteString, IDLByteString>>::ToV8(script_state, member_byte_string_byte_string_record_);
@@ -108,7 +108,7 @@ v8::MaybeLocal<v8::Value> V8UnionByteStringByteStringRecordOrByteStringSequenceS
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionByteStringByteStringRecordOrByteStringSequenceSequence::Trace(Visitor* visitor) const {

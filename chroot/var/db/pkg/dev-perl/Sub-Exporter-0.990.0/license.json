@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Sub-Exporter", "version": "0.990.0", "revision": 0, "fullname": "dev-perl/Sub-Exporter", "fullnamerev": "dev-perl/Sub-Exporter-0.990.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Sub-Exporter"], "skip": false, "tainted": false, "ebuild_path": null}

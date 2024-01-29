@@ -391,7 +391,7 @@ export class Camera extends View {
         });
         try {
             const name = (new Filenamer(timestamp)).newImageName();
-            await this.resultSaver.savePhoto(blob, ToteMetricFormat.PHOTO, name, metadata);
+            await this.resultSaver.savePhoto(blob, ToteMetricFormat.kPhoto, name, metadata);
         }
         catch (e) {
             toast.show(I18nString.ERROR_MSG_SAVE_FILE_FAILED);
@@ -427,7 +427,7 @@ export class Camera extends View {
             });
             try {
                 const name = (new Filenamer(timestamp)).newImageName();
-                await this.resultSaver.savePhoto(blob, ToteMetricFormat.PHOTO, name, metadata);
+                await this.resultSaver.savePhoto(blob, ToteMetricFormat.kPhoto, name, metadata);
             }
             catch (e) {
                 toast.show(I18nString.ERROR_MSG_SAVE_FILE_FAILED);
@@ -458,7 +458,7 @@ export class Camera extends View {
                 });
                 filenamer = filenamer ?? new Filenamer(timestamp);
                 const name = filenamer.newBurstName(false);
-                await this.resultSaver.savePhoto(blob, ToteMetricFormat.PHOTO, name, metadata);
+                await this.resultSaver.savePhoto(blob, ToteMetricFormat.kPhoto, name, metadata);
             }
             catch (e) {
                 toast.show(I18nString.ERROR_MSG_SAVE_FILE_FAILED);
@@ -471,7 +471,7 @@ export class Camera extends View {
                 const { timestamp: portraitTimestamp, blob: portraitBlob, metadata: portraitMetadata, } = await pendingCroppedPortrait;
                 filenamer = filenamer ?? new Filenamer(portraitTimestamp);
                 const name = filenamer.newBurstName(true);
-                await this.resultSaver.savePhoto(portraitBlob, ToteMetricFormat.PHOTO, name, portraitMetadata);
+                await this.resultSaver.savePhoto(portraitBlob, ToteMetricFormat.kPhoto, name, portraitMetadata);
             }
             catch (e) {
                 // We tolerate the error when no face is detected for the scene.

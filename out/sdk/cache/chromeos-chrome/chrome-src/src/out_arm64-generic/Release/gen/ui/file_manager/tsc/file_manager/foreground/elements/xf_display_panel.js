@@ -1,7 +1,7 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { str, strf } from '../../common/js/translations.js';
+import { getPluralString, str, strf } from '../../common/js/translations.js';
 import { PanelButton } from './xf_button.js';
 import { getTemplate } from './xf_display_panel.html.js';
 import { PanelItem, PanelType } from './xf_panel_item.js';
@@ -103,11 +103,10 @@ export class DisplayPanel extends HTMLElement {
     }
     /**
      * Update the summary panel item progress indicator.
-     * @public
      */
-    updateProgress() {
+    async updateProgress() {
         let total = 0;
-        if (this.items_.length == 0) {
+        if (this.items_.length === 0) {
             return;
         }
         let errors = 0;
@@ -140,7 +139,7 @@ export class DisplayPanel extends HTMLElement {
         // error) if no operations are ongoing.
         if (progressCount > 0) {
             // Make sure we have a progress indicator on the summary panel.
-            if (summaryPanel.indicator != 'largeprogress') {
+            if (summaryPanel.indicator !== 'largeprogress') {
                 summaryPanel.indicator = 'largeprogress';
             }
             summaryPanel.primaryText = strf('PERCENT_COMPLETE', total.toFixed(0));
@@ -149,7 +148,7 @@ export class DisplayPanel extends HTMLElement {
             summaryPanel.errorMarkerVisibility = (errors > 0) ? 'visible' : 'hidden';
             return;
         }
-        if (summaryPanel.indicator != 'status') {
+        if (summaryPanel.indicator !== 'status') {
             // Make sure we have a status indicator on the summary panel.
             summaryPanel.indicator = 'status';
         }
@@ -157,24 +156,21 @@ export class DisplayPanel extends HTMLElement {
             // Both errors and warnings: show the error indicator, along with counts
             // of both.
             summaryPanel.status = 'failure';
-            summaryPanel.primaryText = this.generateErrorMessage_(errors) + ' ' +
-                this.generateWarningMessage_(warnings);
+            const errorMessage = await this.generateErrorMessage_(errors);
+            const warningMessage = await this.generateWarningMessage_(errors);
+            summaryPanel.primaryText = `${errorMessage} ${warningMessage}`;
             return;
         }
         if (errors > 0) {
             // Only errors, but no warnings.
             summaryPanel.status = 'failure';
-            summaryPanel.primaryText = this.generateErrorMessage_(errors);
-            if (warnings > 0) {
-                summaryPanel.primaryText +=
-                    ' ' + this.generateWarningMessage_(warnings);
-            }
+            summaryPanel.primaryText = await this.generateErrorMessage_(errors);
             return;
         }
         if (warnings > 0) {
             // Only warnings, but no errors.
             summaryPanel.status = 'warning';
-            summaryPanel.primaryText = this.generateWarningMessage_(warnings);
+            summaryPanel.primaryText = await this.generateWarningMessage_(warnings);
             return;
         }
         // No errors or warnings.
@@ -333,26 +329,24 @@ export class DisplayPanel extends HTMLElement {
      * @param errors Number of error subpanels.
      * @return Title text.
      */
-    generateErrorMessage_(errors) {
+    async generateErrorMessage_(errors) {
         if (errors <= 0) {
             console.warn(`generateWarningMessage_ expected errors > 0, but got ${errors}.`);
             return '';
         }
-        return errors == 1 ? str('ERROR_PROGRESS_SUMMARY_SINGLE') :
-            strf('ERROR_PROGRESS_SUMMARY_PLURAL', errors);
+        return getPluralString('ERROR_PROGRESS_SUMMARY', errors);
     }
     /**
      * Generates the summary panel title message based on the number of warnings.
      * @param warnings Number of warning subpanels.
      * @return Title text.
      */
-    generateWarningMessage_(warnings) {
+    async generateWarningMessage_(warnings) {
         if (warnings <= 0) {
             console.warn(`generateWarningMessage_ expected warnings > 0, but got ${warnings}.`);
             return '';
         }
-        return warnings === 1 ? str('WARNING_PROGRESS_SUMMARY_SINGLE') :
-            strf('WARNING_PROGRESS_SUMMARY_PLURAL', warnings);
+        return getPluralString('WARNING_PROGRESS_SUMMARY', warnings);
     }
 }
 window.customElements.define(DisplayPanel.is, DisplayPanel);

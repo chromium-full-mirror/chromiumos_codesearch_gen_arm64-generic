@@ -106,10 +106,8 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentPartRoot.clone");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8UnionChildNodePartOrDocumentPartRoot* return_value;
 v8::Isolate* isolate = info.GetIsolate();
@@ -133,9 +131,7 @@ return_value = blink_receiver->clone(arg1_options, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<V8UnionChildNodePartOrDocumentPartRoot>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<V8UnionChildNodePartOrDocumentPartRoot>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -210,17 +206,13 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentPartRoot.getParts");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getParts();
-if (!ToV8Traits<IDLSequence<Part>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<Part>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -252,7 +244,7 @@ void V8DocumentPartRoot::InstallContextDependentProperties(v8::Local<v8::Context
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if (execution_context->IsWindow() && (feature_selector.IsAll() && RuntimeEnabledFeatures::DOMPartsAPIEnabled())) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"rootContainer", RootContainerAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

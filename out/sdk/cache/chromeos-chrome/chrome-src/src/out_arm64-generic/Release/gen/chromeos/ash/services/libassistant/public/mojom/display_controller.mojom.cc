@@ -351,6 +351,8 @@ bool DisplayControllerStubDispatch::Accept(
           reinterpret_cast<internal::DisplayController_SetArcPlayStoreEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayController.0
       bool success = true;
       bool p_enabled{};
       DisplayController_SetArcPlayStoreEnabled_ParamsDataView input_data_view(params, message);
@@ -366,8 +368,8 @@ bool DisplayControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetArcPlayStoreEnabled(
-std::move(p_enabled));
+      impl->SetArcPlayStoreEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDisplayController_SetDeviceAppsEnabled_Name: {
@@ -377,6 +379,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DisplayController_SetDeviceAppsEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayController.1
       bool success = true;
       bool p_enabled{};
       DisplayController_SetDeviceAppsEnabled_ParamsDataView input_data_view(params, message);
@@ -392,8 +396,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeviceAppsEnabled(
-std::move(p_enabled));
+      impl->SetDeviceAppsEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDisplayController_SetRelatedInfoEnabled_Name: {
@@ -403,6 +407,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DisplayController_SetRelatedInfoEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayController.2
       bool success = true;
       bool p_enabled{};
       DisplayController_SetRelatedInfoEnabled_ParamsDataView input_data_view(params, message);
@@ -418,8 +424,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRelatedInfoEnabled(
-std::move(p_enabled));
+      impl->SetRelatedInfoEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDisplayController_SetAndroidAppList_Name: {
@@ -429,6 +435,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DisplayController_SetAndroidAppList_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayController.3
       bool success = true;
       std::vector<::ash::assistant::AndroidAppInfo> p_apps{};
       DisplayController_SetAndroidAppList_ParamsDataView input_data_view(params, message);
@@ -444,8 +452,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAndroidAppList(
-std::move(p_apps));
+      impl->SetAndroidAppList(        
+        std::move(p_apps));
       return true;
     }
   }

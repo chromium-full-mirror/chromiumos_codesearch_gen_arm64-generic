@@ -44,11 +44,6 @@ import {
 } from '../../../../url/mojom/url.mojom.m.js';
 
 import {
-  CookieEncryptionProviderRemote as network_mojom_CookieEncryptionProviderRemote,
-  CookieEncryptionProviderPendingReceiver as network_mojom_CookieEncryptionProviderPendingReceiver
-} from './cookie_encryption_provider.mojom.m.js';
-
-import {
   CTLogInfo as network_mojom_CTLogInfo,
   CTLogInfoSpec as network_mojom_CTLogInfoSpec
 } from './ct_log_info.mojom.m.js';
@@ -85,6 +80,11 @@ import {
   NetLogProxySourceRemote as network_mojom_NetLogProxySourceRemote,
   NetLogProxySourcePendingReceiver as network_mojom_NetLogProxySourcePendingReceiver
 } from './net_log.mojom.m.js';
+
+import {
+  NetworkAnnotationMonitorRemote as network_mojom_NetworkAnnotationMonitorRemote,
+  NetworkAnnotationMonitorPendingReceiver as network_mojom_NetworkAnnotationMonitorPendingReceiver
+} from './network_annotation_monitor.mojom.m.js';
 
 import {
   ConnectionSubtype as network_mojom_ConnectionSubtype,
@@ -239,7 +239,7 @@ export class NetworkServiceInterface {
    * @param { !number } maxConnections
    */
 
-  setMaxConnectionsPerProxy(maxConnections) {}
+  setMaxConnectionsPerProxyChain(maxConnections) {}
   
   /**
    * @param { !network_mojom_NetworkChangeManagerPendingReceiver } networkChangeManager
@@ -389,10 +389,10 @@ export class NetworkServiceInterface {
   setIPv6ReachabilityOverride(reachabilityOverride) {}
   
   /**
-   * @param { !network_mojom_CookieEncryptionProviderRemote } provider
+   * @param { !network_mojom_NetworkAnnotationMonitorRemote } remote
    */
 
-  setCookieEncryptionProvider(provider) {}
+  setNetworkAnnotationMonitor(remote) {}
 }
 
 /**
@@ -607,11 +607,11 @@ export class NetworkServiceRemote {
    * @param { !number } maxConnections
    */
 
-  setMaxConnectionsPerProxy(
+  setMaxConnectionsPerProxyChain(
       maxConnections) {
     this.proxy.sendMessage(
         10,
-        NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
+        NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
         null,
         [
           maxConnections
@@ -995,17 +995,17 @@ export class NetworkServiceRemote {
 
   
   /**
-   * @param { !network_mojom_CookieEncryptionProviderRemote } provider
+   * @param { !network_mojom_NetworkAnnotationMonitorRemote } remote
    */
 
-  setCookieEncryptionProvider(
-      provider) {
+  setNetworkAnnotationMonitor(
+      remote) {
     this.proxy.sendMessage(
         34,
-        NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
         null,
         [
-          provider
+          remote
         ]);
   }
 }
@@ -1082,9 +1082,9 @@ export class NetworkServiceReceiver {
         impl.setRawHeadersAccess.bind(impl));
     this.helper_internal_.registerHandler(
         10,
-        NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
+        NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
         null,
-        impl.setMaxConnectionsPerProxy.bind(impl));
+        impl.setMaxConnectionsPerProxyChain.bind(impl));
     this.helper_internal_.registerHandler(
         11,
         NetworkService_GetNetworkChangeManager_ParamsSpec.$,
@@ -1202,9 +1202,9 @@ export class NetworkServiceReceiver {
         impl.setIPv6ReachabilityOverride.bind(impl));
     this.helper_internal_.registerHandler(
         34,
-        NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
         null,
-        impl.setCookieEncryptionProvider.bind(impl));
+        impl.setNetworkAnnotationMonitor.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1374,15 +1374,15 @@ export class NetworkServiceCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setMaxConnectionsPerProxy =
+    this.setMaxConnectionsPerProxyChain =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         10,
-        NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
+        NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
         null,
-        this.setMaxConnectionsPerProxy.createReceiverHandler(false /* expectsResponse */));
+        this.setMaxConnectionsPerProxyChain.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -1662,15 +1662,15 @@ export class NetworkServiceCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setCookieEncryptionProvider =
+    this.setNetworkAnnotationMonitor =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         34,
-        NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
         null,
-        this.setCookieEncryptionProvider.createReceiverHandler(false /* expectsResponse */));
+        this.setNetworkAnnotationMonitor.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1777,7 +1777,7 @@ export const NetworkService_SetRawHeadersAccess_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const NetworkService_SetMaxConnectionsPerProxy_ParamsSpec =
+export const NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -1957,7 +1957,7 @@ export const NetworkService_SetIPv6ReachabilityOverride_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const NetworkService_SetCookieEncryptionProvider_ParamsSpec =
+export const NetworkService_SetNetworkAnnotationMonitor_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2709,8 +2709,8 @@ export class NetworkService_SetRawHeadersAccess_Params {
 
 
 mojo.internal.Struct(
-    NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
-    'NetworkService_SetMaxConnectionsPerProxy_Params',
+    NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
+    'NetworkService_SetMaxConnectionsPerProxyChain_Params',
     [
       mojo.internal.StructField(
         'maxConnections', 0,
@@ -2728,7 +2728,7 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class NetworkService_SetMaxConnectionsPerProxy_Params {
+export class NetworkService_SetMaxConnectionsPerProxyChain_Params {
   constructor() {
     /** @type { !number } */
     this.maxConnections;
@@ -3529,13 +3529,13 @@ export class NetworkService_SetIPv6ReachabilityOverride_Params {
 
 
 mojo.internal.Struct(
-    NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
-    'NetworkService_SetCookieEncryptionProvider_Params',
+    NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
+    'NetworkService_SetNetworkAnnotationMonitor_Params',
     [
       mojo.internal.StructField(
-        'provider', 0,
+        'remote', 0,
         0,
-        mojo.internal.InterfaceProxy(network_mojom_CookieEncryptionProviderRemote),
+        mojo.internal.InterfaceProxy(network_mojom_NetworkAnnotationMonitorRemote),
         null,
         false /* nullable */,
         0,
@@ -3548,10 +3548,10 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class NetworkService_SetCookieEncryptionProvider_Params {
+export class NetworkService_SetNetworkAnnotationMonitor_Params {
   constructor() {
-    /** @type { !network_mojom_CookieEncryptionProviderRemote } */
-    this.provider;
+    /** @type { !network_mojom_NetworkAnnotationMonitorRemote } */
+    this.remote;
   }
 }
 

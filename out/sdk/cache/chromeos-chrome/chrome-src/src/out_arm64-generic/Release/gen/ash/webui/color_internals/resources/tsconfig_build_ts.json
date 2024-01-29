@@ -11,6 +11,12 @@
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
       ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
       "//resources/mojo/*": [
         "./../../../../ui/webui/resources/tsc/mojo/*"
       ],
@@ -31,6 +37,9 @@
   "references": [
     {
       "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"

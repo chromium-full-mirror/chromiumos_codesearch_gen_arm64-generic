@@ -85,38 +85,21 @@ bool SmartCardReaderStateOut::FillV8ObjectWithMembers(ScriptState* script_state,
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAnswerToReset()) {
-  if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, member_answer_to_reset_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<DOMArrayBuffer>::ToV8(script_state, member_answer_to_reset_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasEventCount()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_event_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_event_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasEventState()) {
-  if (!ToV8Traits<SmartCardReaderStateFlagsOut>::ToV8(script_state, member_event_state_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<SmartCardReaderStateFlagsOut>::ToV8(script_state, member_event_state_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasReaderName()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_reader_name_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_reader_name_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

@@ -1,4 +1,3 @@
-
 // Copyright 2012 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -90,6 +89,8 @@ SanitizeUserNameWithSalt(const Username& username, const SecureBlob& salt);
 // created. This is used for testing only.
 BRILLO_EXPORT void SetUserHomePrefix(const std::string& prefix);
 
+BRILLO_EXPORT bool IsLegacySystemSalt(base::FilePath root);
+
 // Deprecated. Prefer `FakeSystemSaltLoader`.
 BRILLO_EXPORT void SetSystemSalt(std::string* salt);
 
@@ -129,8 +130,9 @@ class BRILLO_EXPORT SystemSaltLoader {
 
  protected:
   explicit SystemSaltLoader(base::FilePath file_path);
+  explicit SystemSaltLoader(std::vector<base::FilePath> file_paths);
 
-  const base::FilePath file_path_;
+  const std::vector<base::FilePath> file_paths_;
   std::string value_;
 
  private:

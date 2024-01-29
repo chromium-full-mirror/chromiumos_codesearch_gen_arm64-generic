@@ -391,7 +391,8 @@ class  ArcNotificationData_Data {
   mojo::internal::Pointer<::arc::mojom::internal::ArcBitmap_Data> snapshot_image_public;
   mojo::internal::Pointer<mojo::internal::String_Data> group_key;
   int32_t reply_button_index;
-  uint8_t padfinal_[4];
+  uint8_t pad34_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ArcNotificationData_Data>>> children_data;
 
  private:
   friend class mojo::internal::MessageFragment<ArcNotificationData_Data>;
@@ -399,7 +400,7 @@ class  ArcNotificationData_Data {
   ArcNotificationData_Data();
   ~ArcNotificationData_Data() = delete;
 };
-static_assert(sizeof(ArcNotificationData_Data) == 192,
+static_assert(sizeof(ArcNotificationData_Data) == 200,
               "Bad sizeof(ArcNotificationData_Data)");
 // Used by ArcNotificationData::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

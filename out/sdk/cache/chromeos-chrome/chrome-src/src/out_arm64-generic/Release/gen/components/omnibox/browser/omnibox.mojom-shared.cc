@@ -833,7 +833,7 @@ bool Page_UpdateSelection_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -843,7 +843,14 @@ bool Page_UpdateSelection_Params_Data::Validate(
       static_cast<const Page_UpdateSelection_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->selection, 1, validation_context)) {
+          object->old_selection, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->old_selection, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->selection, 2, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->selection, validation_context))

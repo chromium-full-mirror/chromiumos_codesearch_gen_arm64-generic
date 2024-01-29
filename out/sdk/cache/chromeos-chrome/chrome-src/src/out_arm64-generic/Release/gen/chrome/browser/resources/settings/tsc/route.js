@@ -30,6 +30,10 @@ function addPrivacyChildRoutes(r) {
         r.PRIVACY_SANDBOX = r.PRIVACY.createChild('/adPrivacy');
         r.PRIVACY_SANDBOX_TOPICS =
             r.PRIVACY_SANDBOX.createChild('/adPrivacy/interests');
+        if (loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled')) {
+            r.PRIVACY_SANDBOX_MANAGE_TOPICS =
+                r.PRIVACY_SANDBOX_TOPICS.createChild('/adPrivacy/interests/manage');
+        }
         r.PRIVACY_SANDBOX_FLEDGE =
             r.PRIVACY_SANDBOX.createChild('/adPrivacy/sites');
         r.PRIVACY_SANDBOX_AD_MEASUREMENT =
@@ -76,6 +80,7 @@ function addPrivacyChildRoutes(r) {
     r.SITE_SETTINGS_IMAGES = r.SITE_SETTINGS.createChild('images');
     r.SITE_SETTINGS_MIXEDSCRIPT = r.SITE_SETTINGS.createChild('insecureContent');
     r.SITE_SETTINGS_JAVASCRIPT = r.SITE_SETTINGS.createChild('javascript');
+    r.SITE_SETTINGS_JAVASCRIPT_JIT = r.SITE_SETTINGS.createChild('v8');
     r.SITE_SETTINGS_SOUND = r.SITE_SETTINGS.createChild('sound');
     r.SITE_SETTINGS_SENSORS = r.SITE_SETTINGS.createChild('sensors');
     r.SITE_SETTINGS_LOCATION = r.SITE_SETTINGS.createChild('location');
@@ -86,6 +91,9 @@ function addPrivacyChildRoutes(r) {
     r.SITE_SETTINGS_USB_DEVICES = r.SITE_SETTINGS.createChild('usbDevices');
     r.SITE_SETTINGS_HID_DEVICES = r.SITE_SETTINGS.createChild('hidDevices');
     r.SITE_SETTINGS_SERIAL_PORTS = r.SITE_SETTINGS.createChild('serialPorts');
+    if (loadTimeData.getBoolean('enableWebPrintingContentSetting')) {
+        r.SITE_SETTINGS_WEB_PRINTING = r.SITE_SETTINGS.createChild('webPrinting');
+    }
     if (loadTimeData.getBoolean('enableWebBluetoothNewPermissionsBackend')) {
         r.SITE_SETTINGS_BLUETOOTH_DEVICES =
             r.SITE_SETTINGS.createChild('bluetoothDevices');
@@ -140,7 +148,7 @@ function createBrowserSettingsRoutes() {
     const visibility = pageVisibility || {};
     if (visibility.ai !== false &&
         loadTimeData.getBoolean('showAdvancedFeaturesMainControl')) {
-        r.AI = r.BASIC.createSection('/ai', 'ai', loadTimeData.getString('experimentalAdvancedPageTitle'));
+        r.AI = r.BASIC.createSection('/ai', 'ai', loadTimeData.getString('aiPageTitle'));
     }
     // 
     if (visibility.appearance !== false) {

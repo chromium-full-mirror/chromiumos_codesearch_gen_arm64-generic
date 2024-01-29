@@ -12,58 +12,91 @@ export var ScreenState;
 (function (ScreenState) {
     ScreenState[ScreenState["MIN_VALUE"] = 0] = "MIN_VALUE";
     ScreenState[ScreenState["MAX_VALUE"] = 2] = "MAX_VALUE";
-    ScreenState[ScreenState["ON"] = 0] = "ON";
-    ScreenState[ScreenState["OFF"] = 1] = "OFF";
-    ScreenState[ScreenState["OFF_AUTO"] = 2] = "OFF_AUTO";
+    ScreenState[ScreenState["kOn"] = 0] = "kOn";
+    ScreenState[ScreenState["kOff"] = 1] = "kOff";
+    ScreenState[ScreenState["kOffAuto"] = 2] = "kOffAuto";
 })(ScreenState || (ScreenState = {}));
+export const WifiSecurityTypeSpec = { $: mojo.internal.Enum() };
+export var WifiSecurityType;
+(function (WifiSecurityType) {
+    WifiSecurityType[WifiSecurityType["MIN_VALUE"] = 0] = "MIN_VALUE";
+    WifiSecurityType[WifiSecurityType["MAX_VALUE"] = 3] = "MAX_VALUE";
+    WifiSecurityType[WifiSecurityType["kNone"] = 0] = "kNone";
+    WifiSecurityType[WifiSecurityType["kEap"] = 1] = "kEap";
+    WifiSecurityType[WifiSecurityType["kWep"] = 2] = "kWep";
+    WifiSecurityType[WifiSecurityType["kWpa"] = 3] = "kWpa";
+})(WifiSecurityType || (WifiSecurityType = {}));
+export const WifiEapMethodSpec = { $: mojo.internal.Enum() };
+export var WifiEapMethod;
+(function (WifiEapMethod) {
+    WifiEapMethod[WifiEapMethod["MIN_VALUE"] = 0] = "MIN_VALUE";
+    WifiEapMethod[WifiEapMethod["MAX_VALUE"] = 3] = "MAX_VALUE";
+    WifiEapMethod[WifiEapMethod["kEapTls"] = 0] = "kEapTls";
+    WifiEapMethod[WifiEapMethod["kEapTtls"] = 1] = "kEapTtls";
+    WifiEapMethod[WifiEapMethod["kLeap"] = 2] = "kLeap";
+    WifiEapMethod[WifiEapMethod["kPeap"] = 3] = "kPeap";
+})(WifiEapMethod || (WifiEapMethod = {}));
+export const WifiEapPhase2MethodSpec = { $: mojo.internal.Enum() };
+export var WifiEapPhase2Method;
+(function (WifiEapPhase2Method) {
+    WifiEapPhase2Method[WifiEapPhase2Method["MIN_VALUE"] = 0] = "MIN_VALUE";
+    WifiEapPhase2Method[WifiEapPhase2Method["MAX_VALUE"] = 6] = "MAX_VALUE";
+    WifiEapPhase2Method[WifiEapPhase2Method["kAutomatic"] = 0] = "kAutomatic";
+    WifiEapPhase2Method[WifiEapPhase2Method["kChap"] = 1] = "kChap";
+    WifiEapPhase2Method[WifiEapPhase2Method["kGtc"] = 2] = "kGtc";
+    WifiEapPhase2Method[WifiEapPhase2Method["kMd5"] = 3] = "kMd5";
+    WifiEapPhase2Method[WifiEapPhase2Method["kMschap"] = 4] = "kMschap";
+    WifiEapPhase2Method[WifiEapPhase2Method["kMschapv2"] = 5] = "kMschapv2";
+    WifiEapPhase2Method[WifiEapPhase2Method["kPap"] = 6] = "kPap";
+})(WifiEapPhase2Method || (WifiEapPhase2Method = {}));
 export const WindowStateTypeSpec = { $: mojo.internal.Enum() };
 export var WindowStateType;
 (function (WindowStateType) {
     WindowStateType[WindowStateType["MIN_VALUE"] = 0] = "MIN_VALUE";
     WindowStateType[WindowStateType["MAX_VALUE"] = 3] = "MAX_VALUE";
-    WindowStateType[WindowStateType["MINIMIZED"] = 0] = "MINIMIZED";
-    WindowStateType[WindowStateType["MAXIMIZED"] = 1] = "MAXIMIZED";
-    WindowStateType[WindowStateType["FULLSCREEN"] = 2] = "FULLSCREEN";
-    WindowStateType[WindowStateType["REGULAR"] = 3] = "REGULAR";
+    WindowStateType[WindowStateType["kMinimized"] = 0] = "kMinimized";
+    WindowStateType[WindowStateType["kMaximized"] = 1] = "kMaximized";
+    WindowStateType[WindowStateType["kFullscreen"] = 2] = "kFullscreen";
+    WindowStateType[WindowStateType["kRegular"] = 3] = "kRegular";
 })(WindowStateType || (WindowStateType = {}));
 export const FileMonitorResultSpec = { $: mojo.internal.Enum() };
 export var FileMonitorResult;
 (function (FileMonitorResult) {
     FileMonitorResult[FileMonitorResult["MIN_VALUE"] = 0] = "MIN_VALUE";
     FileMonitorResult[FileMonitorResult["MAX_VALUE"] = 2] = "MAX_VALUE";
-    FileMonitorResult[FileMonitorResult["DELETED"] = 0] = "DELETED";
-    FileMonitorResult[FileMonitorResult["CANCELED"] = 1] = "CANCELED";
-    FileMonitorResult[FileMonitorResult["ERROR"] = 2] = "ERROR";
+    FileMonitorResult[FileMonitorResult["kDeleted"] = 0] = "kDeleted";
+    FileMonitorResult[FileMonitorResult["kCanceled"] = 1] = "kCanceled";
+    FileMonitorResult[FileMonitorResult["kError"] = 2] = "kError";
 })(FileMonitorResult || (FileMonitorResult = {}));
 export const StorageMonitorStatusSpec = { $: mojo.internal.Enum() };
 export var StorageMonitorStatus;
 (function (StorageMonitorStatus) {
     StorageMonitorStatus[StorageMonitorStatus["MIN_VALUE"] = 0] = "MIN_VALUE";
     StorageMonitorStatus[StorageMonitorStatus["MAX_VALUE"] = 4] = "MAX_VALUE";
-    StorageMonitorStatus[StorageMonitorStatus["NORMAL"] = 0] = "NORMAL";
-    StorageMonitorStatus[StorageMonitorStatus["LOW"] = 1] = "LOW";
-    StorageMonitorStatus[StorageMonitorStatus["CRITICALLY_LOW"] = 2] = "CRITICALLY_LOW";
-    StorageMonitorStatus[StorageMonitorStatus["CANCELED"] = 3] = "CANCELED";
-    StorageMonitorStatus[StorageMonitorStatus["ERROR"] = 4] = "ERROR";
+    StorageMonitorStatus[StorageMonitorStatus["kNormal"] = 0] = "kNormal";
+    StorageMonitorStatus[StorageMonitorStatus["kLow"] = 1] = "kLow";
+    StorageMonitorStatus[StorageMonitorStatus["kCriticallyLow"] = 2] = "kCriticallyLow";
+    StorageMonitorStatus[StorageMonitorStatus["kCanceled"] = 3] = "kCanceled";
+    StorageMonitorStatus[StorageMonitorStatus["kError"] = 4] = "kError";
 })(StorageMonitorStatus || (StorageMonitorStatus = {}));
 export const ToteMetricFormatSpec = { $: mojo.internal.Enum() };
 export var ToteMetricFormat;
 (function (ToteMetricFormat) {
     ToteMetricFormat[ToteMetricFormat["MIN_VALUE"] = 0] = "MIN_VALUE";
     ToteMetricFormat[ToteMetricFormat["MAX_VALUE"] = 4] = "MAX_VALUE";
-    ToteMetricFormat[ToteMetricFormat["PHOTO"] = 0] = "PHOTO";
-    ToteMetricFormat[ToteMetricFormat["SCAN_JPG"] = 1] = "SCAN_JPG";
-    ToteMetricFormat[ToteMetricFormat["SCAN_PDF"] = 2] = "SCAN_PDF";
-    ToteMetricFormat[ToteMetricFormat["VIDEO_GIF"] = 3] = "VIDEO_GIF";
-    ToteMetricFormat[ToteMetricFormat["VIDEO_MP4"] = 4] = "VIDEO_MP4";
+    ToteMetricFormat[ToteMetricFormat["kPhoto"] = 0] = "kPhoto";
+    ToteMetricFormat[ToteMetricFormat["kScanJpg"] = 1] = "kScanJpg";
+    ToteMetricFormat[ToteMetricFormat["kScanPdf"] = 2] = "kScanPdf";
+    ToteMetricFormat[ToteMetricFormat["kVideoGif"] = 3] = "kVideoGif";
+    ToteMetricFormat[ToteMetricFormat["kVideoMp4"] = 4] = "kVideoMp4";
 })(ToteMetricFormat || (ToteMetricFormat = {}));
 export const DocumentOutputFormatSpec = { $: mojo.internal.Enum() };
 export var DocumentOutputFormat;
 (function (DocumentOutputFormat) {
     DocumentOutputFormat[DocumentOutputFormat["MIN_VALUE"] = 0] = "MIN_VALUE";
     DocumentOutputFormat[DocumentOutputFormat["MAX_VALUE"] = 1] = "MAX_VALUE";
-    DocumentOutputFormat[DocumentOutputFormat["JPEG"] = 0] = "JPEG";
-    DocumentOutputFormat[DocumentOutputFormat["PDF"] = 1] = "PDF";
+    DocumentOutputFormat[DocumentOutputFormat["kJpeg"] = 0] = "kJpeg";
+    DocumentOutputFormat[DocumentOutputFormat["kPdf"] = 1] = "kPdf";
 })(DocumentOutputFormat || (DocumentOutputFormat = {}));
 export class TabletModeMonitorPendingReceiver {
     constructor(handle) {
@@ -760,6 +793,11 @@ export class CameraAppHelperRemote {
     openStorageManagement() {
         this.proxy.sendMessage(23, CameraAppHelper_OpenStorageManagement_ParamsSpec.$, null, []);
     }
+    openWifiDialog(config) {
+        this.proxy.sendMessage(24, CameraAppHelper_OpenWifiDialog_ParamsSpec.$, null, [
+            config
+        ]);
+    }
 }
 ;
 /**
@@ -795,6 +833,7 @@ export class CameraAppHelperReceiver {
         this.helper_internal_.registerHandler(21, CameraAppHelper_StartStorageMonitor_ParamsSpec.$, CameraAppHelper_StartStorageMonitor_ResponseParamsSpec.$, impl.startStorageMonitor.bind(impl));
         this.helper_internal_.registerHandler(22, CameraAppHelper_StopStorageMonitor_ParamsSpec.$, null, impl.stopStorageMonitor.bind(impl));
         this.helper_internal_.registerHandler(23, CameraAppHelper_OpenStorageManagement_ParamsSpec.$, null, impl.openStorageManagement.bind(impl));
+        this.helper_internal_.registerHandler(24, CameraAppHelper_OpenWifiDialog_ParamsSpec.$, null, impl.openWifiDialog.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -896,6 +935,9 @@ export class CameraAppHelperCallbackRouter {
         this.openStorageManagement =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(23, CameraAppHelper_OpenStorageManagement_ParamsSpec.$, null, this.openStorageManagement.createReceiverHandler(false /* expectsResponse */));
+        this.openWifiDialog =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(24, CameraAppHelper_OpenWifiDialog_ParamsSpec.$, null, this.openWifiDialog.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -906,6 +948,7 @@ export class CameraAppHelperCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export const WifiConfigSpec = { $: {} };
 export const TabletModeMonitor_Update_ParamsSpec = { $: {} };
 export const ScreenStateMonitor_Update_ParamsSpec = { $: {} };
 export const ExternalScreenMonitor_Update_ParamsSpec = { $: {} };
@@ -966,6 +1009,32 @@ export const CameraAppHelper_StartStorageMonitor_ParamsSpec = { $: {} };
 export const CameraAppHelper_StartStorageMonitor_ResponseParamsSpec = { $: {} };
 export const CameraAppHelper_StopStorageMonitor_ParamsSpec = { $: {} };
 export const CameraAppHelper_OpenStorageManagement_ParamsSpec = { $: {} };
+export const CameraAppHelper_OpenWifiDialog_ParamsSpec = { $: {} };
+mojo.internal.Struct(WifiConfigSpec.$, 'WifiConfig', [
+    mojo.internal.StructField('ssid', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('security', 8, 0, WifiSecurityTypeSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('password', 16, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('eap_method_$flag', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "eap_method_$value",
+        originalFieldName: "eapMethod",
+    }),
+    mojo.internal.StructField('eap_method_$value', 24, 0, WifiEapMethodSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "eapMethod",
+    }),
+    mojo.internal.StructField('eap_phase2_method_$flag', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "eap_phase2_method_$value",
+        originalFieldName: "eapPhase2Method",
+    }),
+    mojo.internal.StructField('eap_phase2_method_$value', 28, 0, WifiEapPhase2MethodSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "eapPhase2Method",
+    }),
+    mojo.internal.StructField('eapIdentity', 32, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('eapAnonymousIdentity', 40, 0, mojo.internal.String, null, true /* nullable */, 0),
+], [[0, 56],]);
 mojo.internal.Struct(TabletModeMonitor_Update_ParamsSpec.$, 'TabletModeMonitor_Update_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -1113,3 +1182,6 @@ mojo.internal.Struct(CameraAppHelper_StartStorageMonitor_ResponseParamsSpec.$, '
 ], [[0, 16],]);
 mojo.internal.Struct(CameraAppHelper_StopStorageMonitor_ParamsSpec.$, 'CameraAppHelper_StopStorageMonitor_Params', [], [[0, 8],]);
 mojo.internal.Struct(CameraAppHelper_OpenStorageManagement_ParamsSpec.$, 'CameraAppHelper_OpenStorageManagement_Params', [], [[0, 8],]);
+mojo.internal.Struct(CameraAppHelper_OpenWifiDialog_ParamsSpec.$, 'CameraAppHelper_OpenWifiDialog_Params', [
+    mojo.internal.StructField('config', 0, 0, WifiConfigSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);

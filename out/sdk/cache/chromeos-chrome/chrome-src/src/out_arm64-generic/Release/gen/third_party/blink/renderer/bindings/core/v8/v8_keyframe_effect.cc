@@ -219,7 +219,8 @@ blink_receiver->setComposite(arg1_value);
 void ConstructorOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8KeyframeEffect_Constructor);
 
@@ -234,7 +235,6 @@ return;
 KeyframeEffect* return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& arg1_target = NativeValueTraits<IDLNullable<Element>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -265,7 +265,8 @@ bindings::V8SetReturnValue(info, v8_wrapper);
 void ConstructorOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8KeyframeEffect_Constructor);
 
@@ -277,7 +278,6 @@ if (UNLIKELY(info.Length() < 1)) {
 return;
 }
 
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& arg1_source = NativeValueTraits<KeyframeEffect>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -340,17 +340,13 @@ BLINK_BINDINGS_TRACE_EVENT("KeyframeEffect.getKeyframes");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getKeyframes(script_state);
-if (!ToV8Traits<IDLSequence<IDLObject>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<IDLObject>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -376,8 +372,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 KeyframeEffect* blink_receiver = V8KeyframeEffect::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_keyframes = NativeValueTraits<IDLNullable<IDLObject>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

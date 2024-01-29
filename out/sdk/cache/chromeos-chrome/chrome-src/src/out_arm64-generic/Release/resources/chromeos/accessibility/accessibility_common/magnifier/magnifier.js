@@ -1,11 +1,11 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { AutomationPredicate } from '../../common/automation_predicate.js';
-import { ChromeEventHandler } from '../../common/chrome_event_handler.js';
-import { EventHandler } from '../../common/event_handler.js';
-import { FlagName, Flags } from '../../common/flags.js';
-import { RectUtil } from '../../common/rect_util.js';
+import { AutomationPredicate } from '/common/automation_predicate.js';
+import { ChromeEventHandler } from '/common/chrome_event_handler.js';
+import { EventHandler } from '/common/event_handler.js';
+import { FlagName, Flags } from '/common/flags.js';
+import { RectUtil } from '/common/rect_util.js';
 var EventType = chrome.automation.EventType;
 var RoleType = chrome.automation.RoleType;
 /** Main class for the Chrome OS magnifier. */
@@ -23,14 +23,17 @@ export class Magnifier {
     isInitializing_ = true;
     /** Last time mouse has moved (from last onMouseMovedOrDragged). */
     lastMouseMovedTime_;
+    lastFocusSelectionOrCaretMove_;
     focusHandler_;
     activeDescendantHandler_;
     selectionHandler_;
     onCaretBoundsChangedHandler;
     onMagnifierBoundsChangedHandler_;
+    onSelectToSpeakFocusChangedHandler_;
     updateFromPrefsHandler_;
     onMouseMovedHandler_;
     onMouseDraggedHandler_;
+    lastSelectToSpeakBounds_;
     onLoadDesktopCallbackForTest_;
     constructor(type) {
         this.type = type;
@@ -39,22 +42,27 @@ export class Magnifier {
         this.selectionHandler_ = new EventHandler([], EventType.SELECTION, event => this.onFocusOrSelectionChanged_(event));
         this.onCaretBoundsChangedHandler = new EventHandler([], EventType.CARET_BOUNDS_CHANGED, event => this.onCaretBoundsChanged(event));
         this.onMagnifierBoundsChangedHandler_ = new ChromeEventHandler(chrome.accessibilityPrivate.onMagnifierBoundsChanged, bounds => this.onMagnifierBoundsChanged_(bounds));
+        this.onSelectToSpeakFocusChangedHandler_ = new ChromeEventHandler(chrome.accessibilityPrivate.onSelectToSpeakFocusChanged, bounds => this.onSelectToSpeakFocusChanged_(bounds));
         this.updateFromPrefsHandler_ = new ChromeEventHandler(chrome.settingsPrivate.onPrefsChanged, prefs => this.updateFromPrefs_(prefs));
         this.onMouseMovedHandler_ = new EventHandler([], chrome.automation.EventType.MOUSE_MOVED, () => this.onMouseMovedOrDragged_());
         this.onMouseDraggedHandler_ = new EventHandler([], chrome.automation.EventType.MOUSE_DRAGGED, () => this.onMouseMovedOrDragged_());
         this.onLoadDesktopCallbackForTest_ = null;
         this.init_();
     }
-    /** Destructor to remove listener. */
+    /** Destructor to remove listeners. */
     onMagnifierDisabled() {
         this.focusHandler_.stop();
         this.activeDescendantHandler_.stop();
         this.selectionHandler_.stop();
         this.onCaretBoundsChangedHandler.stop();
         this.onMagnifierBoundsChangedHandler_.stop();
+        this.onSelectToSpeakFocusChangedHandler_.stop();
         this.updateFromPrefsHandler_.stop();
         this.onMouseMovedHandler_.stop();
         this.onMouseDraggedHandler_.stop();
+        this.lastMouseMovedTime_ = undefined;
+        this.lastSelectToSpeakBounds_ = undefined;
+        this.lastFocusSelectionOrCaretMove_ = undefined;
     }
     /** Initializes Magnifier. */
     init_() {
@@ -79,6 +87,7 @@ export class Magnifier {
             }
         });
         this.onMagnifierBoundsChangedHandler_.start();
+        this.onSelectToSpeakFocusChangedHandler_.start();
         chrome.accessibilityPrivate.enableMouseEvents(true);
         this.isInitializing_ = true;
         setTimeout(() => {
@@ -95,6 +104,30 @@ export class Magnifier {
                     type: chrome.accessibilityPrivate.FocusType.GLOW,
                     color: '#22d',
                 }], chrome.accessibilityPrivate.AssistiveTechnologyType.MAGNIFIER);
+        }
+    }
+    onSelectToSpeakFocusChanged_(bounds) {
+        // Don't follow select to speak if focus following is off.
+        if (!this.shouldFollowFocus()) {
+            return;
+        }
+        // Don't follow select to speak focus if the mouse, keyboard focus or caret
+        // has moved too recently.
+        // TODO(b/259363112): Add a test for this.
+        const now = new Date().getTime();
+        if ((this.lastMouseMovedTime_ !== undefined &&
+            now - this.lastMouseMovedTime_.getTime() <
+                Magnifier.IGNORE_STS_UPDATES_AFTER_OTHER_MOVE_MS) ||
+            (this.lastFocusSelectionOrCaretMove_ !== undefined &&
+                now - this.lastFocusSelectionOrCaretMove_.getTime() <
+                    Magnifier.IGNORE_STS_UPDATES_AFTER_OTHER_MOVE_MS)) {
+            return;
+        }
+        // Select to Speak refreshes the UI occasionally. We can
+        // ignore repeated updates.
+        if (bounds !== this.lastSelectToSpeakBounds_) {
+            this.lastSelectToSpeakBounds_ = bounds;
+            chrome.accessibilityPrivate.moveMagnifierToRect(bounds);
         }
     }
     /**
@@ -155,6 +188,7 @@ export class Magnifier {
         if (node.isRootNode || isTooBig(node)) {
             return;
         }
+        this.lastFocusSelectionOrCaretMove_ = new Date();
         chrome.accessibilityPrivate.moveMagnifierToRect(node.location);
     }
     /**
@@ -195,6 +229,7 @@ export class Magnifier {
         if (target.caretBounds.width === 0 && target.caretBounds.height === 0) {
             return;
         }
+        this.lastFocusSelectionOrCaretMove_ = new Date();
         const caretBoundsCenter = RectUtil.center(target.caretBounds);
         chrome.accessibilityPrivate.magnifierCenterOnPoint(caretBoundsCenter);
     }
@@ -237,4 +272,9 @@ export class Magnifier {
      * updates, to prevent the magnified region from jumping.
      */
     Magnifier.IGNORE_FOCUS_UPDATES_AFTER_MOUSE_MOVE_MS = 250;
+    /**
+     * Duration of time directly after a mouse move or drag to ignore Select
+     * to Speak focus updates, to prevent the magnified region from jumping.
+     */
+    Magnifier.IGNORE_STS_UPDATES_AFTER_OTHER_MOVE_MS = 1500;
 })(Magnifier || (Magnifier = {}));

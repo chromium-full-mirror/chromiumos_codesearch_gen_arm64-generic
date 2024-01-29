@@ -4,10 +4,7 @@ export function getTemplate() {
 
 <nearby-page-template title="$i18n{nearbyShareDiscoveryPageTitle}" sub-title="$i18n{nearbyShareDiscoveryPageSubtitle}" action-button-label="$i18n{nearbyShareActionsNext}" action-button-event-name="next" action-disabled="[[!selectedShareTarget]]" cancel-button-label="$i18n{nearbyShareActionsCancel}" cancel-button-event-name="close" close-only="[[errorTitle_]]">
   <div id="centerContent" slot="content">
-    
-    <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-    </iron-media-query>
-      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_(isDarkModeActive_, isJellyEnabled_)]]" autoplay dynamic aria-hidden>
+      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_()]]" autoplay dynamic aria-hidden>
       </cros-lottie-renderer>
     <div id="process-row">
       <nearby-preview payload-preview="[[payloadPreview]]" disabled="[[errorTitle_]]">

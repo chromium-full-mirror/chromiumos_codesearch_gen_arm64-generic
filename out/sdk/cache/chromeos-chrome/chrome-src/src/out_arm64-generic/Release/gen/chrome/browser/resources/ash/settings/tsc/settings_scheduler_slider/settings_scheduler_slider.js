@@ -10,7 +10,7 @@ import '../settings_shared.css.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { IronResizableBehavior } from 'chrome://resources/polymer/v3_0/iron-resizable-behavior/iron-resizable-behavior.js';
-import { PaperRippleBehavior } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
+import { PaperRippleMixin } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
 import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './settings_scheduler_slider.html.js';
 const HOURS_PER_DAY = 24;
@@ -36,7 +36,7 @@ const DEFAULT_CUSTOM_END_TIME = 6 * 60;
 function modulo(x, y) {
     return ((x % y) + y) % y;
 }
-const SettingsSchedulerSliderElementBase = mixinBehaviors([IronResizableBehavior, PaperRippleBehavior], PrefsMixin(I18nMixin(PolymerElement)));
+const SettingsSchedulerSliderElementBase = mixinBehaviors([IronResizableBehavior], PaperRippleMixin(PrefsMixin(I18nMixin(PolymerElement))));
 export class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase {
     static get is() {
         return 'settings-scheduler-slider';
@@ -485,7 +485,7 @@ export class SettingsSchedulerSliderElement extends SettingsSchedulerSliderEleme
         }
     }
     /**
-     * Overrides _createRipple() from PaperRippleBehavior to create the ripple
+     * Overrides _createRipple() from PaperRippleMixin to create the ripple
      * only on a knob if it's focused, or on a dummy hidden element so that it
      * doesn't show.
      */
@@ -496,7 +496,7 @@ export class SettingsSchedulerSliderElement extends SettingsSchedulerSliderEleme
         }
         else {
             // We can't just skip the ripple creation and return early with null here.
-            // The code inherited from PaperRippleBehavior expects that this function
+            // The code inherited from PaperRippleMixin expects that this function
             // returns a ripple element. So to avoid crashes, we'll setup the ripple
             // to be created under a hidden element.
             this._rippleContainer = this.$.dummyRippleContainer;

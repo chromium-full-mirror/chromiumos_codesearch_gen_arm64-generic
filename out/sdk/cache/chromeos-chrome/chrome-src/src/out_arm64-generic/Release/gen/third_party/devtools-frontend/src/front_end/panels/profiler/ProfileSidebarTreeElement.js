@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as i18n from '../../core/i18n/i18n.js';
+import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as UI from '../../ui/legacy/legacy.js';
 import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
-import { Events as ProfileHeaderEvents, } from './ProfileHeader.js';
 const UIStrings = {
     /**
      *@description Tooltip for the 3-dots menu in the Memory panel profiles list.
@@ -38,7 +38,7 @@ export class ProfileSidebarTreeElement extends UI.TreeOutline.TreeElement {
         this.subtitleElement = this.titlesElement.createChild('span', 'subtitle');
         this.menuElement = document.createElement('button');
         this.menuElement.tabIndex = -1;
-        this.menuElement.appendChild(UI.Icon.Icon.create('dots-vertical'));
+        this.menuElement.appendChild(IconButton.Icon.create('dots-vertical'));
         this.menuElement.addEventListener('click', this.handleContextMenuEvent.bind(this));
         this.menuElement.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('dots-menu')}`);
         UI.Tooltip.Tooltip.install(this.menuElement, i18nString(UIStrings.profileOptions));
@@ -47,7 +47,7 @@ export class ProfileSidebarTreeElement extends UI.TreeOutline.TreeElement {
         this.small = false;
         this.dataDisplayDelegate = dataDisplayDelegate;
         this.profile = profile;
-        profile.addEventListener(ProfileHeaderEvents.UpdateStatus, this.updateStatus, this);
+        profile.addEventListener("UpdateStatus" /* ProfileHeaderEvents.UpdateStatus */, this.updateStatus, this);
     }
     updateStatus(event) {
         const statusUpdate = event.data;
@@ -83,7 +83,7 @@ export class ProfileSidebarTreeElement extends UI.TreeOutline.TreeElement {
         delete this.editing;
     }
     dispose() {
-        this.profile.removeEventListener(ProfileHeaderEvents.UpdateStatus, this.updateStatus, this);
+        this.profile.removeEventListener("UpdateStatus" /* ProfileHeaderEvents.UpdateStatus */, this.updateStatus, this);
     }
     onselect() {
         this.dataDisplayDelegate.showProfile(this.profile);

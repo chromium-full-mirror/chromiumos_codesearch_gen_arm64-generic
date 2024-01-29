@@ -21,7 +21,7 @@ import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './chromevox_subpage.html.js';
 import { ChromeVoxSubpageBrowserProxyImpl } from './chromevox_subpage_browser_proxy.js';
-export { SettingsToggleButtonElement } from '/shared/settings/controls/settings_toggle_button.js';
+export { SettingsToggleButtonElement } from '../controls/settings_toggle_button.js';
 const SYSTEM_VOICE = 'chromeos_system_voice';
 const CHROMEVOX_EXTENSION_ID = 'mndnfokpggljbaajbnioimlmbfngpief';
 const GOOGLE_TTS_EXTENSION_ID = 'gjjabgpgjpampikjhjpfhneeoapjbjaf';

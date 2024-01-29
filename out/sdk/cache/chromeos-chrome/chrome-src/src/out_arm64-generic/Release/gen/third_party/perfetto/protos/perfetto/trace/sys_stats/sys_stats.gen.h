@@ -16,6 +16,7 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 class SysStats;
+class SysStats_PsiSample;
 class SysStats_DiskStat;
 class SysStats_BuddyInfo;
 class SysStats_DevfreqValue;
@@ -23,6 +24,7 @@ class SysStats_InterruptCount;
 class SysStats_CpuTimes;
 class SysStats_VmstatValue;
 class SysStats_MeminfoValue;
+enum SysStats_PsiSample_PsiResource : int;
 enum VmstatCounters : int;
 enum MeminfoCounters : int;
 }  // namespace perfetto
@@ -36,6 +38,15 @@ class Message;
 namespace perfetto {
 namespace protos {
 namespace gen {
+enum SysStats_PsiSample_PsiResource : int {
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_UNSPECIFIED = 0,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_SOME = 1,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_FULL = 2,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_SOME = 3,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_FULL = 4,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_SOME = 5,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_FULL = 6,
+};
 
 class PERFETTO_EXPORT_COMPONENT SysStats : public ::protozero::CppMessageObj {
  public:
@@ -46,6 +57,7 @@ class PERFETTO_EXPORT_COMPONENT SysStats : public ::protozero::CppMessageObj {
   using DevfreqValue = SysStats_DevfreqValue;
   using BuddyInfo = SysStats_BuddyInfo;
   using DiskStat = SysStats_DiskStat;
+  using PsiSample = SysStats_PsiSample;
   enum FieldNumbers {
     kMeminfoFieldNumber = 1,
     kVmstatFieldNumber = 2,
@@ -60,6 +72,7 @@ class PERFETTO_EXPORT_COMPONENT SysStats : public ::protozero::CppMessageObj {
     kCpufreqKhzFieldNumber = 11,
     kBuddyInfoFieldNumber = 12,
     kDiskStatFieldNumber = 13,
+    kPsiFieldNumber = 14,
   };
 
   SysStats();
@@ -147,6 +160,12 @@ class PERFETTO_EXPORT_COMPONENT SysStats : public ::protozero::CppMessageObj {
   void clear_disk_stat();
   SysStats_DiskStat* add_disk_stat();
 
+  const std::vector<SysStats_PsiSample>& psi() const { return psi_; }
+  std::vector<SysStats_PsiSample>* mutable_psi() { return &psi_; }
+  int psi_size() const;
+  void clear_psi();
+  SysStats_PsiSample* add_psi();
+
  private:
   std::vector<SysStats_MeminfoValue> meminfo_;
   std::vector<SysStats_VmstatValue> vmstat_;
@@ -161,12 +180,64 @@ class PERFETTO_EXPORT_COMPONENT SysStats : public ::protozero::CppMessageObj {
   std::vector<uint32_t> cpufreq_khz_;
   std::vector<SysStats_BuddyInfo> buddy_info_;
   std::vector<SysStats_DiskStat> disk_stat_;
+  std::vector<SysStats_PsiSample> psi_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<14> _has_field_{};
+  std::bitset<15> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT SysStats_PsiSample : public ::protozero::CppMessageObj {
+ public:
+  using PsiResource = SysStats_PsiSample_PsiResource;
+  static constexpr auto PSI_RESOURCE_UNSPECIFIED = SysStats_PsiSample_PsiResource_PSI_RESOURCE_UNSPECIFIED;
+  static constexpr auto PSI_RESOURCE_CPU_SOME = SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_SOME;
+  static constexpr auto PSI_RESOURCE_CPU_FULL = SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_FULL;
+  static constexpr auto PSI_RESOURCE_IO_SOME = SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_SOME;
+  static constexpr auto PSI_RESOURCE_IO_FULL = SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_FULL;
+  static constexpr auto PSI_RESOURCE_MEMORY_SOME = SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_SOME;
+  static constexpr auto PSI_RESOURCE_MEMORY_FULL = SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_FULL;
+  static constexpr auto PsiResource_MIN = SysStats_PsiSample_PsiResource_PSI_RESOURCE_UNSPECIFIED;
+  static constexpr auto PsiResource_MAX = SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_FULL;
+  enum FieldNumbers {
+    kResourceFieldNumber = 1,
+    kTotalNsFieldNumber = 2,
+  };
+
+  SysStats_PsiSample();
+  ~SysStats_PsiSample() override;
+  SysStats_PsiSample(SysStats_PsiSample&&) noexcept;
+  SysStats_PsiSample& operator=(SysStats_PsiSample&&);
+  SysStats_PsiSample(const SysStats_PsiSample&);
+  SysStats_PsiSample& operator=(const SysStats_PsiSample&);
+  bool operator==(const SysStats_PsiSample&) const;
+  bool operator!=(const SysStats_PsiSample& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_resource() const { return _has_field_[1]; }
+  SysStats_PsiSample_PsiResource resource() const { return resource_; }
+  void set_resource(SysStats_PsiSample_PsiResource value) { resource_ = value; _has_field_.set(1); }
+
+  bool has_total_ns() const { return _has_field_[2]; }
+  uint64_t total_ns() const { return total_ns_; }
+  void set_total_ns(uint64_t value) { total_ns_ = value; _has_field_.set(2); }
+
+ private:
+  SysStats_PsiSample_PsiResource resource_{};
+  uint64_t total_ns_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
 };
 
 

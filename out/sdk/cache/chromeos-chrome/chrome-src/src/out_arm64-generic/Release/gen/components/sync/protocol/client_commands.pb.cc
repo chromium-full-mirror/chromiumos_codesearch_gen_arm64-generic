@@ -37,7 +37,6 @@ PROTOBUF_CONSTEXPR ClientCommand::ClientCommand(
   , set_sync_poll_interval_(0)
   , set_sync_long_poll_interval_(0)
   , max_commit_batch_size_(0)
-  , sessions_commit_delay_seconds_(0)
   , throttle_delay_seconds_(0)
   , client_invalidation_hint_buffer_size_(0)
   , gu_retry_delay_seconds_(0)
@@ -297,26 +296,23 @@ class ClientCommand::_Internal {
   static void set_has_max_commit_batch_size(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static void set_has_sessions_commit_delay_seconds(HasBits* has_bits) {
+  static void set_has_throttle_delay_seconds(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static void set_has_throttle_delay_seconds(HasBits* has_bits) {
+  static void set_has_client_invalidation_hint_buffer_size(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static void set_has_client_invalidation_hint_buffer_size(HasBits* has_bits) {
+  static void set_has_gu_retry_delay_seconds(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static void set_has_gu_retry_delay_seconds(HasBits* has_bits) {
+  static void set_has_extension_types_max_tokens(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
-  static void set_has_extension_types_max_tokens(HasBits* has_bits) {
+  static void set_has_extension_types_refill_interval_seconds(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
-  static void set_has_extension_types_refill_interval_seconds(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
-  }
   static void set_has_extension_types_depleted_quota_nudge_delay_seconds(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 256u;
   }
 };
 
@@ -372,14 +368,10 @@ void ClientCommand::Clear() {
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     ::memset(&set_sync_poll_interval_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&extension_types_max_tokens_) -
-        reinterpret_cast<char*>(&set_sync_poll_interval_)) + sizeof(extension_types_max_tokens_));
+        reinterpret_cast<char*>(&extension_types_refill_interval_seconds_) -
+        reinterpret_cast<char*>(&set_sync_poll_interval_)) + sizeof(extension_types_refill_interval_seconds_));
   }
-  if (cached_has_bits & 0x00000300u) {
-    ::memset(&extension_types_refill_interval_seconds_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&extension_types_depleted_quota_nudge_delay_seconds_) -
-        reinterpret_cast<char*>(&extension_types_refill_interval_seconds_)) + sizeof(extension_types_depleted_quota_nudge_delay_seconds_));
-  }
+  extension_types_depleted_quota_nudge_delay_seconds_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -414,15 +406,6 @@ const char* ClientCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_max_commit_batch_size(&has_bits);
           max_commit_batch_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional int32 sessions_commit_delay_seconds = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _Internal::set_has_sessions_commit_delay_seconds(&has_bits);
-          sessions_commit_delay_seconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -543,26 +526,20 @@ uint8_t* ClientCommand::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_max_commit_batch_size(), target);
   }
 
-  // optional int32 sessions_commit_delay_seconds = 4;
-  if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_sessions_commit_delay_seconds(), target);
-  }
-
   // optional int32 throttle_delay_seconds = 5;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_throttle_delay_seconds(), target);
   }
 
   // optional int32 client_invalidation_hint_buffer_size = 6 [deprecated = true];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_client_invalidation_hint_buffer_size(), target);
   }
 
   // optional int32 gu_retry_delay_seconds = 7;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_gu_retry_delay_seconds(), target);
   }
@@ -576,19 +553,19 @@ uint8_t* ClientCommand::_InternalSerialize(
   }
 
   // optional int32 extension_types_max_tokens = 9;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_extension_types_max_tokens(), target);
   }
 
   // optional int32 extension_types_refill_interval_seconds = 10;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_extension_types_refill_interval_seconds(), target);
   }
 
   // optional int32 extension_types_depleted_quota_nudge_delay_seconds = 11;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(11, this->_internal_extension_types_depleted_quota_nudge_delay_seconds(), target);
   }
@@ -633,44 +610,37 @@ size_t ClientCommand::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_max_commit_batch_size());
     }
 
-    // optional int32 sessions_commit_delay_seconds = 4;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sessions_commit_delay_seconds());
-    }
-
     // optional int32 throttle_delay_seconds = 5;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_throttle_delay_seconds());
     }
 
     // optional int32 client_invalidation_hint_buffer_size = 6 [deprecated = true];
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_client_invalidation_hint_buffer_size());
     }
 
     // optional int32 gu_retry_delay_seconds = 7;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_gu_retry_delay_seconds());
     }
 
     // optional int32 extension_types_max_tokens = 9;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_extension_types_max_tokens());
     }
 
-  }
-  if (cached_has_bits & 0x00000300u) {
     // optional int32 extension_types_refill_interval_seconds = 10;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_extension_types_refill_interval_seconds());
     }
 
-    // optional int32 extension_types_depleted_quota_nudge_delay_seconds = 11;
-    if (cached_has_bits & 0x00000200u) {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_extension_types_depleted_quota_nudge_delay_seconds());
-    }
-
   }
+  // optional int32 extension_types_depleted_quota_nudge_delay_seconds = 11;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_extension_types_depleted_quota_nudge_delay_seconds());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -704,30 +674,24 @@ void ClientCommand::MergeFrom(const ClientCommand& from) {
       max_commit_batch_size_ = from.max_commit_batch_size_;
     }
     if (cached_has_bits & 0x00000008u) {
-      sessions_commit_delay_seconds_ = from.sessions_commit_delay_seconds_;
-    }
-    if (cached_has_bits & 0x00000010u) {
       throttle_delay_seconds_ = from.throttle_delay_seconds_;
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       client_invalidation_hint_buffer_size_ = from.client_invalidation_hint_buffer_size_;
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       gu_retry_delay_seconds_ = from.gu_retry_delay_seconds_;
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       extension_types_max_tokens_ = from.extension_types_max_tokens_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      extension_types_refill_interval_seconds_ = from.extension_types_refill_interval_seconds_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000300u) {
-    if (cached_has_bits & 0x00000100u) {
-      extension_types_refill_interval_seconds_ = from.extension_types_refill_interval_seconds_;
-    }
-    if (cached_has_bits & 0x00000200u) {
-      extension_types_depleted_quota_nudge_delay_seconds_ = from.extension_types_depleted_quota_nudge_delay_seconds_;
-    }
-    _has_bits_[0] |= cached_has_bits;
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_extension_types_depleted_quota_nudge_delay_seconds(from._internal_extension_types_depleted_quota_nudge_delay_seconds());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }

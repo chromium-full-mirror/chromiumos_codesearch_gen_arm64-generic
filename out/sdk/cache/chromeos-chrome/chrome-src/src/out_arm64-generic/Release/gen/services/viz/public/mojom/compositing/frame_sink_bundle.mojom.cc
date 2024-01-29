@@ -738,6 +738,8 @@ bool FrameSinkBundleStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkBundle_InitializeCompositorFrameSinkType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundle.0
       bool success = true;
       uint32_t p_sink_id{};
       ::viz::mojom::CompositorFrameSinkType p_type{};
@@ -756,9 +758,9 @@ bool FrameSinkBundleStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeCompositorFrameSinkType(
-std::move(p_sink_id), 
-std::move(p_type));
+      impl->InitializeCompositorFrameSinkType(        
+        std::move(p_sink_id), 
+        std::move(p_type));
       return true;
     }
     case internal::kFrameSinkBundle_SetNeedsBeginFrame_Name: {
@@ -768,6 +770,8 @@ std::move(p_type));
           reinterpret_cast<internal::FrameSinkBundle_SetNeedsBeginFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundle.1
       bool success = true;
       uint32_t p_sink_id{};
       bool p_needs_begin_frame{};
@@ -786,9 +790,9 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNeedsBeginFrame(
-std::move(p_sink_id), 
-std::move(p_needs_begin_frame));
+      impl->SetNeedsBeginFrame(        
+        std::move(p_sink_id), 
+        std::move(p_needs_begin_frame));
       return true;
     }
     case internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name: {
@@ -798,6 +802,8 @@ std::move(p_needs_begin_frame));
           reinterpret_cast<internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundle.2
       bool success = true;
       uint32_t p_sink_id{};
       FrameSinkBundle_SetWantsBeginFrameAcks_ParamsDataView input_data_view(params, message);
@@ -813,8 +819,8 @@ std::move(p_needs_begin_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWantsBeginFrameAcks(
-std::move(p_sink_id));
+      impl->SetWantsBeginFrameAcks(        
+        std::move(p_sink_id));
       return true;
     }
     case internal::kFrameSinkBundle_Submit_Name: {
@@ -824,6 +830,8 @@ std::move(p_sink_id));
           reinterpret_cast<internal::FrameSinkBundle_Submit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundle.3
       bool success = true;
       std::vector<BundledFrameSubmissionPtr> p_submissions{};
       FrameSinkBundle_Submit_ParamsDataView input_data_view(params, message);
@@ -839,8 +847,8 @@ std::move(p_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Submit(
-std::move(p_submissions));
+      impl->Submit(        
+        std::move(p_submissions));
       return true;
     }
     case internal::kFrameSinkBundle_DidAllocateSharedBitmap_Name: {
@@ -850,6 +858,8 @@ std::move(p_submissions));
           reinterpret_cast<internal::FrameSinkBundle_DidAllocateSharedBitmap_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundle.4
       bool success = true;
       uint32_t p_sink_id{};
       ::base::ReadOnlySharedMemoryRegion p_region{};
@@ -871,10 +881,10 @@ std::move(p_submissions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidAllocateSharedBitmap(
-std::move(p_sink_id), 
-std::move(p_region), 
-std::move(p_id));
+      impl->DidAllocateSharedBitmap(        
+        std::move(p_sink_id), 
+        std::move(p_region), 
+        std::move(p_id));
       return true;
     }
   }
@@ -1214,6 +1224,8 @@ bool FrameSinkBundleClientStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkBundleClient_FlushNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundleClient.0
       bool success = true;
       std::vector<BundledReturnedResourcesPtr> p_acks{};
       std::vector<BeginFrameInfoPtr> p_begin_frames{};
@@ -1235,10 +1247,10 @@ bool FrameSinkBundleClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FlushNotifications(
-std::move(p_acks), 
-std::move(p_begin_frames), 
-std::move(p_reclaimed_resources));
+      impl->FlushNotifications(        
+        std::move(p_acks), 
+        std::move(p_begin_frames), 
+        std::move(p_reclaimed_resources));
       return true;
     }
     case internal::kFrameSinkBundleClient_OnBeginFramePausedChanged_Name: {
@@ -1248,6 +1260,8 @@ std::move(p_reclaimed_resources));
           reinterpret_cast<internal::FrameSinkBundleClient_OnBeginFramePausedChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundleClient.1
       bool success = true;
       uint32_t p_sink_id{};
       bool p_paused{};
@@ -1266,9 +1280,9 @@ std::move(p_reclaimed_resources));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBeginFramePausedChanged(
-std::move(p_sink_id), 
-std::move(p_paused));
+      impl->OnBeginFramePausedChanged(        
+        std::move(p_sink_id), 
+        std::move(p_paused));
       return true;
     }
     case internal::kFrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Name: {
@@ -1278,6 +1292,8 @@ std::move(p_paused));
           reinterpret_cast<internal::FrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkBundleClient.2
       bool success = true;
       uint32_t p_sink_id{};
       uint32_t p_sequence_id{};
@@ -1296,9 +1312,9 @@ std::move(p_paused));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompositorFrameTransitionDirectiveProcessed(
-std::move(p_sink_id), 
-std::move(p_sequence_id));
+      impl->OnCompositorFrameTransitionDirectiveProcessed(        
+        std::move(p_sink_id), 
+        std::move(p_sequence_id));
       return true;
     }
   }

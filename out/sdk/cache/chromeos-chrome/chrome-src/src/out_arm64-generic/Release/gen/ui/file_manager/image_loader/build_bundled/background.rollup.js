@@ -89,36 +89,31 @@ function assertInstanceof(value, type, message) {
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 /**
  * Persistent cache storing images in an indexed database on the hard disk.
  */
 class ImageCache {
-    constructor() {
-        /**
-         * IndexedDB database handle.
-         * @type {IDBDatabase}
-         * @private
-         */
-        this.db_ = null;
-    }
+    /**
+     * IndexedDB database handle.
+     */
+    db_ = null;
     /**
      * Initializes the cache database.
-     * @param {function()} callback Completion callback.
+     * @param callback Completion callback.
      */
     initialize(callback) {
         // Establish a connection to the database or (re)create it if not available
         // or not up to date. After changing the database's schema, increment
         // DB_VERSION to force database recreating.
-        const openRequest = window.indexedDB.open(DB_NAME, DB_VERSION);
-        openRequest.onsuccess = (e) => {
-            this.db_ = e.target.result;
+        const openRequest = indexedDB.open(DB_NAME, DB_VERSION);
+        openRequest.onsuccess = () => {
+            this.db_ = openRequest.result;
             callback();
         };
         openRequest.onerror = callback;
-        openRequest.onupgradeneeded = (e) => {
+        openRequest.onupgradeneeded = () => {
             console.info('Cache database creating or upgrading.');
-            const db = e.target.result;
+            const db = openRequest.result;
             if (db.objectStoreNames.contains('metadata')) {
                 db.deleteObjectStore('metadata');
             }
@@ -136,33 +131,33 @@ class ImageCache {
     /**
      * Sets size of the cache.
      *
-     * @param {number} size Size in bytes.
-     * @param {IDBTransaction=} opt_transaction Transaction to be reused. If not
-     *     provided, then a new one is created.
-     * @private
+     * @param size Size in bytes.
+     * @param transaction Transaction to be reused. If not provided, then a new
+     *     one is created.
      */
-    setCacheSize_(size, opt_transaction) {
-        const transaction = opt_transaction || this.db_.transaction(['settings'], 'readwrite');
+    setCacheSize_(size, transaction) {
+        transaction =
+            transaction || this.db_.transaction(['settings'], 'readwrite');
         const settingsStore = transaction.objectStore('settings');
         settingsStore.put({ key: 'size', value: size }); // Update asynchronously.
     }
     /**
      * Fetches current size of the cache.
      *
-     * @param {function(number)} onSuccess Callback to return the size.
-     * @param {function()} onFailure Failure callback.
-     * @param {IDBTransaction=} opt_transaction Transaction to be reused. If not
+     * @param onSuccess Callback to return the size.
+     * @param onFailure Failure callback.
+     * @param transaction Transaction to be reused. If not
      *     provided, then a new one is created.
-     * @private
      */
-    fetchCacheSize_(onSuccess, onFailure, opt_transaction) {
-        const transaction = opt_transaction ||
+    fetchCacheSize_(onSuccess, onFailure, transaction) {
+        transaction = transaction ||
             this.db_.transaction(['settings', 'metadata', 'data'], 'readwrite');
         const settingsStore = transaction.objectStore('settings');
         const sizeRequest = settingsStore.get('size');
-        sizeRequest.onsuccess = (e) => {
-            if (e.target.result) {
-                onSuccess(e.target.result.value);
+        sizeRequest.onsuccess = () => {
+            const result = sizeRequest.result;
+            if (result) {
+                onSuccess(result.value);
             }
             else {
                 onSuccess(0);
@@ -177,15 +172,14 @@ class ImageCache {
      * Evicts the least used elements in cache to make space for a new image and
      * updates size of the cache taking into account the upcoming item.
      *
-     * @param {number} size Requested size.
-     * @param {function()} onSuccess Success callback.
-     * @param {function()} onFailure Failure callback.
-     * @param {IDBTransaction=} opt_transaction Transaction to be reused. If not
-     *     provided, then a new one is created.
-     * @private
+     * @param size Requested size.
+     * @param onSuccess Success callback.
+     * @param onFailure Failure callback.
+     * @param dbTransaction Transaction to be reused. If not provided, then a new
+     *     one is created.
      */
-    evictCache_(size, onSuccess, onFailure, opt_transaction) {
-        const transaction = opt_transaction ||
+    evictCache_(size, onSuccess, onFailure, dbTransaction) {
+        const transaction = dbTransaction ||
             this.db_.transaction(['settings', 'metadata', 'data'], 'readwrite');
         // Check if the requested size is smaller than the cache size.
         if (size > MEMORY_LIMIT) {
@@ -218,11 +212,12 @@ class ImageCache {
                 }
                 this.setCacheSize_(cacheSize - totalEvicted + size, transaction);
             };
-            metadataStore.openCursor().onsuccess = (e) => {
-                const cursor = e.target.result;
-                if (cursor) {
-                    metadataEntries.push(cursor.value);
-                    cursor.continue();
+            const cursor = metadataStore.openCursor();
+            cursor.onsuccess = () => {
+                const result = cursor.result;
+                if (result) {
+                    metadataEntries.push(result.value);
+                    result.continue();
                 }
                 else {
                     onEntriesFetched();
@@ -234,13 +229,13 @@ class ImageCache {
     /**
      * Saves an image in the cache.
      *
-     * @param {string} key Cache key.
-     * @param {number} timestamp Last modification timestamp. Used to detect
-     *     if the image cache entry is out of date.
-     * @param {number} width Image width.
-     * @param {number} height Image height.
-     * @param {?string} ifd Image ifd, null if none.
-     * @param {string} data Image data.
+     * @param key Cache key.
+     * @param timestamp Last modification timestamp. Used to detect if the image
+     *     cache entry is out of date.
+     * @param width Image width.
+     * @param height Image height.
+     * @param ifd Image ifd, null if none.
+     * @param data Image data.
      */
     saveImage(key, timestamp, width, height, ifd, data) {
         if (!this.db_) {
@@ -268,18 +263,18 @@ class ImageCache {
             // Make sure there is enough space in the cache.
             this.evictCache_(data.length, onCacheEvicted, () => { }, transaction);
         };
-        // Check if the image is already in cache. If not, then save it to cache.
+        // Check if the image is already in cache. If not, then save it to
+        // cache.
         this.loadImage(key, timestamp, () => { }, onNotFoundInCache);
     }
     /**
      * Loads an image from the cache.
      *
-     * @param {string} key Cache key.
-     * @param {number} timestamp Last modification timestamp. If different
-     *     than the one in cache, then the entry will be invalidated.
-     * @param {function(number, number, ?string, string)} onSuccess Success
-     *     callback with the image width, height, ?ifd, and data.
-     * @param {function()} onFailure Failure callback.
+     * @param key Cache key.
+     * @param timestamp Last modification timestamp. If different than the one in
+     *     cache, then the entry will be invalidated.
+     * @param onSuccess Success callback.
+     * @param onFailure Failure callback.
      */
     loadImage(key, timestamp, onSuccess, onFailure) {
         if (!this.db_) {
@@ -302,7 +297,7 @@ class ImageCache {
                 return;
             }
             // Check if both entries are available or both unavailable.
-            if (!!metadataEntry != !!dataEntry) {
+            if (!!metadataEntry !== !!dataEntry) {
                 console.warn('Inconsistent cache database.');
                 onFailure();
                 return;
@@ -312,7 +307,7 @@ class ImageCache {
                 // The image not found.
                 onFailure();
             }
-            else if (metadataEntry.timestamp != timestamp) {
+            else if (metadataEntry.timestamp !== timestamp) {
                 // The image is not up to date, so remove it.
                 this.removeImage(key, () => { }, () => { }, transaction);
                 onFailure();
@@ -325,16 +320,16 @@ class ImageCache {
                 onSuccess(metadataEntry.width, metadataEntry.height, metadataEntry.ifd, dataEntry.data);
             }
         };
-        metadataRequest.onsuccess = (e) => {
-            if (e.target.result) {
-                metadataEntry = e.target.result;
+        metadataRequest.onsuccess = () => {
+            if (metadataRequest.result) {
+                metadataEntry = metadataRequest.result;
             }
             metadataReceived = true;
             onPartialSuccess();
         };
-        dataRequest.onsuccess = (e) => {
-            if (e.target.result) {
-                dataEntry = e.target.result;
+        dataRequest.onsuccess = () => {
+            if (dataRequest.result) {
+                dataEntry = dataRequest.result;
             }
             dataReceived = true;
             onPartialSuccess();
@@ -353,18 +348,18 @@ class ImageCache {
     /**
      * Removes the image from the cache.
      *
-     * @param {string} key Cache key.
-     * @param {function()=} opt_onSuccess Success callback.
-     * @param {function()=} opt_onFailure Failure callback.
-     * @param {IDBTransaction=} opt_transaction Transaction to be reused. If not
-     *     provided, then a new one is created.
+     * @param key Cache key.
+     * @param onSuccess Success callback.
+     * @param onFailure Failure callback.
+     * @param transaction Transaction to be reused. If not provided, then a new
+     *     one is created.
      */
-    removeImage(key, opt_onSuccess, opt_onFailure, opt_transaction) {
+    removeImage(key, onSuccess, onFailure, transaction) {
         if (!this.db_) {
             console.warn('Cache database not available.');
             return;
         }
-        const transaction = opt_transaction ||
+        transaction = transaction ||
             this.db_.transaction(['settings', 'metadata', 'data'], 'readwrite');
         const metadataStore = transaction.objectStore('metadata');
         const dataStore = transaction.objectStore('data');
@@ -376,16 +371,16 @@ class ImageCache {
             if (!cacheSizeReceived || !metadataReceived) {
                 return;
             }
-            // If either cache size or metadata entry is not available, then it is
-            // an error.
+            // If either cache size or metadata entry is not available, then it is an
+            // error.
             if (cacheSize === null || !metadataEntry) {
-                if (opt_onFailure) {
-                    opt_onFailure();
+                if (onFailure) {
+                    onFailure();
                 }
                 return;
             }
-            if (opt_onSuccess) {
-                opt_onSuccess();
+            if (onSuccess) {
+                onSuccess();
             }
             this.setCacheSize_(cacheSize - metadataEntry.size, transaction);
             metadataStore.delete(key); // Delete asynchronously.
@@ -403,9 +398,9 @@ class ImageCache {
         this.fetchCacheSize_(onCacheSizeSuccess, onCacheSizeFailure, transaction);
         // Receive image's metadata.
         const metadataRequest = metadataStore.get(key);
-        metadataRequest.onsuccess = (e) => {
-            if (e.target.result) {
-                metadataEntry = e.target.result;
+        metadataRequest.onsuccess = () => {
+            if (metadataRequest.result) {
+                metadataEntry = metadataRequest.result;
             }
             metadataReceived = true;
             onPartialSuccess();
@@ -419,29 +414,19 @@ class ImageCache {
 }
 /**
  * Cache database name.
- * @type {string}
- * @const
  */
 const DB_NAME = 'image-loader';
 /**
  * Cache database version.
- * @type {number}
- * @const
  */
 const DB_VERSION = 16;
 /**
  * Memory limit for images data in bytes.
- *
- * @const
- * @type {number}
  */
 const MEMORY_LIMIT = 250 * 1024 * 1024; // 250 MB.
 /**
- * Minimal amount of memory freed per eviction. Used to limit number of
- * evictions which are expensive.
- *
- * @const
- * @type {number}
+ * Minimal amount of memory freed per eviction. Used to limit number
+ * of evictions which are expensive.
  */
 const EVICTION_CHUNK_SIZE = 50 * 1024 * 1024; // 50 MB.
 
@@ -1515,6 +1500,16 @@ const EXTENSION_TO_TYPE = new Map([
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
+    [".gmaillayout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
     [".pdf", {
             "extensions": [
                 ".pdf"
@@ -1815,7 +1810,7 @@ class LoadImageResponse {
         if (status === LoadImageResponseStatus.ERROR) {
             return;
         }
-        // Response result defined only when status == SUCCESS.
+        // Response result defined only when status === SUCCESS.
         assert(opt_result);
         /** @type {number|undefined} */
         this.width = opt_result.width;
@@ -1849,7 +1844,7 @@ class LoadImageResponse {
         if (!response || response.status === LoadImageResponseStatus.ERROR) {
             return null;
         }
-        // Response result defined only when status == SUCCESS.
+        // Response result defined only when status === SUCCESS.
         assert(response.width);
         assert(response.height);
         assert(response.data);
@@ -1991,7 +1986,7 @@ function ImageLoaderUtil() { }
 ImageLoaderUtil.shouldProcess = function (width, height, request) {
     const targetDimensions = ImageLoaderUtil.resizeDimensions(width, height, request);
     // Dimensions has to be adjusted.
-    if (targetDimensions.width != width || targetDimensions.height != height) {
+    if (targetDimensions.width !== width || targetDimensions.height !== height) {
         return true;
     }
     // Orientation has to be adjusted.
@@ -2242,6 +2237,7 @@ class PiexLoaderResponse {
  * @const {!Uint8Array}
  */
 const adobeProfile = new Uint8Array([
+    // clang-format off
     // APP2 ICC_PROFILE\0 segment header.
     0xff, 0xe2, 0x02, 0x40, 0x49, 0x43, 0x43, 0x5f, 0x50, 0x52, 0x4f, 0x46,
     0x49, 0x4c, 0x45, 0x00, 0x01, 0x01,
@@ -2293,6 +2289,7 @@ const adobeProfile = new Uint8Array([
     0x00, 0x00, 0x34, 0x8d, 0x00, 0x00, 0xa0, 0x2c, 0x00, 0x00, 0x0f, 0x95,
     0x58, 0x59, 0x5a, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26, 0x31,
     0x00, 0x00, 0x10, 0x2f, 0x00, 0x00, 0xbe, 0x9c,
+    // clang-format on
 ]);
 /**
  * Preview Image EXtractor (PIEX).
@@ -2562,10 +2559,13 @@ class ImageBuffer {
                 switch (rowPad) {
                     case 3:
                         bitmap.setUint8(output++, 0);
+                    // Fall through.
                     case 2:
                         bitmap.setUint8(output++, 0);
+                    // Fall through.
                     case 1:
                         bitmap.setUint8(output++, 0);
+                    // Fall through.
                 }
                 paddingOffset += rowStride;
             }
@@ -2698,7 +2698,6 @@ PiexLoader.load = function (buffer, onPiexModuleFailed) {
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 /**
  * Creates and starts downloading and then resizing of the image. Finally,
  * returns the image using the callback.
@@ -2707,8 +2706,8 @@ class ImageRequestTask {
     /**
      * @param {string} id Request ID.
      * @param {ImageCache} cache Cache object.
-     * @param {!LoadImageRequest} request Request message as a hash array.
-     * @param {function(!LoadImageResponse)} callback Response handler.
+     * @param {LoadImageRequest} request Request message as a hash array.
+     * @param {(a: LoadImageResponse)=> void} callback Response handler.
      */
     constructor(id, cache, request, callback) {
         /**
@@ -2728,13 +2727,13 @@ class ImageRequestTask {
          */
         this.request_ = request;
         /**
-         * @type {function(!LoadImageResponse)}
+         * @type {(a: LoadImageResponse)=>void}
          * @private
          */
         this.sendResponse_ = callback;
         /**
          * Temporary image used to download images.
-         * @type {Image}
+         * @type {HTMLImageElement}
          * @private
          */
         this.image_ = new Image();
@@ -2753,7 +2752,7 @@ class ImageRequestTask {
         this.ifd_ = null;
         /**
          * Used to download remote images using http:// or https:// protocols.
-         * @type {XMLHttpRequest}
+         * @type {?XMLHttpRequest}
          * @private
          */
         this.xhr_ = null;
@@ -2776,7 +2775,7 @@ class ImageRequestTask {
         this.renderOrientation_ = null;
         /**
          * Callback to be called once downloading is finished.
-         * @type {?function()}
+         * @type {?VoidCallback}
          * @private
          */
         this.downloadCallback_ = null;
@@ -2789,7 +2788,8 @@ class ImageRequestTask {
     /**
      * Extracts MIME type of a data URL.
      * @param {string|undefined} dataUrl Data URL.
-     * @return {?string} MIME type string, or null if the URL is invalid.
+     * @return {?string|undefined} MIME type string, or null if the URL is
+     *     invalid.
      */
     static getDataUrlMimeType(dataUrl) {
         const dataUrlMatches = (dataUrl || '').match(/^data:([^,;]*)[,;]/);
@@ -2809,6 +2809,8 @@ class ImageRequestTask {
     getClientTaskId() {
         // Every incoming request should have been given a taskId.
         assert(this.request_.taskId);
+        // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable to
+        // type 'number'.
         return this.request_.taskId;
     }
     /**
@@ -2824,8 +2826,8 @@ class ImageRequestTask {
      * Tries to load the image from cache, if it exists in the cache, and sends
      * the response. Fails if the image is not found in the cache.
      *
-     * @param {function()} onSuccess Success callback.
-     * @param {function()} onFailure Failure callback.
+     * @param {VoidCallback} onSuccess Success callback.
+     * @param {VoidCallback} onFailure Failure callback.
      */
     loadFromCacheAndProcess(onSuccess, onFailure) {
         this.loadFromCache_((width, height, ifd, data) => {
@@ -2837,7 +2839,7 @@ class ImageRequestTask {
     /**
      * Tries to download the image, resizes and sends the response.
      *
-     * @param {function()} callback Completion callback.
+     * @param {VoidCallback} callback Completion callback.
      */
     downloadAndProcess(callback) {
         if (this.downloadCallback_) {
@@ -2849,9 +2851,9 @@ class ImageRequestTask {
     /**
      * Fetches the image from the persistent cache.
      *
-     * @param {function(number, number, ?string, string)} onSuccess
+     * @param {(a: number, b: number, c: ?string, d: string)=> void} onSuccess
      *    Success callback with the image width, height, ?ifd, and data.
-     * @param {function()} onFailure Failure callback.
+     * @param {VoidCallback} onFailure Failure callback.
      * @private
      */
     loadFromCache_(onSuccess, onFailure) {
@@ -2874,6 +2876,10 @@ class ImageRequestTask {
             onFailure();
             return;
         }
+        // @ts-ignore: error TS2345: Argument of type '(a: number, b: number, c:
+        // string | null, d: string) => void' is not assignable to parameter of type
+        // '(width: number, height: number, ifd?: string | undefined, data?: string
+        // | undefined) => void'.
         this.cache_.loadImage(cacheKey, timestamp, onSuccess, onFailure);
     }
     /**
@@ -2895,6 +2901,8 @@ class ImageRequestTask {
             // Cache key is not provided for the request.
             return;
         }
+        // @ts-ignore: error TS2345: Argument of type 'string | null' is not
+        // assignable to parameter of type 'string | undefined'.
         this.cache_.saveImage(cacheKey, timestamp, width, height, this.ifd_, data);
     }
     /**
@@ -2918,8 +2926,8 @@ class ImageRequestTask {
      * Loads |this.image_| with the |this.request_.url| source or the thumbnail
      * image of the source.
      *
-     * @param {function()} onSuccess Success callback.
-     * @param {function()} onFailure Failure callback.
+     * @param {VoidCallback} onSuccess Success callback.
+     * @param {VoidCallback} onFailure Failure callback.
      * @private
      */
     downloadThumbnail_(onSuccess, onFailure) {
@@ -2936,10 +2944,14 @@ class ImageRequestTask {
         // Load dataURL sources directly.
         const dataUrlMimeType = ImageRequestTask.getDataUrlMimeType(this.request_.url);
         if (dataUrlMimeType) {
+            // @ts-ignore: error TS2322: Type 'string | undefined' is not assignable
+            // to type 'string'.
             this.image_.src = this.request_.url;
             this.contentType_ = dataUrlMimeType;
             return;
         }
+        // @ts-ignore: error TS7006: Parameter 'dataUrl' implicitly has an 'any'
+        // type.
         const onExternalThumbnail = (dataUrl) => {
             if (chrome.runtime.lastError) {
                 console.warn(chrome.runtime.lastError.message);
@@ -2947,6 +2959,8 @@ class ImageRequestTask {
             }
             else if (dataUrl) {
                 this.image_.src = dataUrl;
+                // @ts-ignore: error TS2322: Type 'string | null | undefined' is not
+                // assignable to type 'string | null'.
                 this.contentType_ = ImageRequestTask.getDataUrlMimeType(dataUrl);
             }
             else {
@@ -2954,31 +2968,52 @@ class ImageRequestTask {
             }
         };
         // Load Drive source thumbnail.
+        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
         const drivefsUrlMatches = this.request_.url.match(/^drivefs:(.*)/);
         if (drivefsUrlMatches) {
             const url = drivefsUrlMatches[1];
             const cropToSquare = !!this.request_.crop;
-            chrome.imageLoaderPrivate.getDriveThumbnail(url, cropToSquare, onExternalThumbnail);
+            // @ts-ignore: error TS2339: Property 'imageLoaderPrivate' does not exist
+            // on type 'typeof chrome'.
+            chrome.imageLoaderPrivate.getDriveThumbnail(
+            // @ts-ignore: Convert the `onExternalThumbnail` callback to promise.
+            url, cropToSquare, onExternalThumbnail);
             return;
         }
         // Load PDF source thumbnail.
+        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
         if (this.request_.url.endsWith('.pdf')) {
             const { width, height } = this.targetThumbnailSize_();
-            chrome.imageLoaderPrivate.getPdfThumbnail(this.request_.url, width, height, onExternalThumbnail);
+            // @ts-ignore: error TS2339: Property 'imageLoaderPrivate' does not exist
+            // on type 'typeof chrome'.
+            chrome.imageLoaderPrivate.getPdfThumbnail(
+            // @ts-ignore: Convert the `onExternalThumbnail` callback to promise.
+            this.request_.url, width, height, onExternalThumbnail);
             return;
         }
         // Load DocumentsProvider thumbnail, if supported.
+        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
         const isDocumentsProviderRequest = !!this.request_.url.match(RegExp('filesystem:chrome-extension://[a-z]+/external/arc-documents-provider/.*'));
         if (isDocumentsProviderRequest) {
             const { width, height } = this.targetThumbnailSize_();
-            chrome.imageLoaderPrivate.getArcDocumentsProviderThumbnail(this.request_.url, width, height, onExternalThumbnail);
+            // @ts-ignore: error TS2339: Property 'imageLoaderPrivate' does not exist
+            // on type 'typeof chrome'.
+            chrome.imageLoaderPrivate.getArcDocumentsProviderThumbnail(
+            // @ts-ignore: Convert the `onExternalThumbnail` callback to promise.
+            this.request_.url, width, height, onExternalThumbnail);
             return;
         }
+        // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
+        // assignable to parameter of type 'string'.
         const fileType = getFileTypeForName(this.request_.url);
         // Load video source thumbnail.
         if (fileType.type === 'video') {
+            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
+            // assignable to parameter of type 'string'.
             this.createVideoThumbnailUrl_(this.request_.url)
                 .then((url) => {
+                // @ts-ignore: error TS2322: Type 'Blob' is not assignable to type
+                // 'string'.
                 this.image_.src = url;
             })
                 .catch((error) => {
@@ -2988,10 +3023,14 @@ class ImageRequestTask {
             return;
         }
         // Load the source directly.
+        // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
+        // assignable to parameter of type 'string'.
         this.load(this.request_.url, (contentType, blob) => {
             // Load RAW image source thumbnail.
             if (fileType.type === 'raw') {
                 blob.arrayBuffer()
+                    // @ts-ignore: error TS2339: Property 'reload' does not exist on
+                    // type 'typeof runtime'.
                     .then(buffer => PiexLoader.load(buffer, chrome.runtime.reload))
                     .then(data => {
                     this.renderOrientation_ =
@@ -3021,22 +3060,37 @@ class ImageRequestTask {
      */
     createVideoThumbnailUrl_(url) {
         const video = assertInstanceof(document.createElement('video'), HTMLVideoElement);
+        // @ts-ignore: error TS2322: Type 'Promise<string | Blob>' is not assignable
+        // to type 'Promise<Blob>'.
         return Promise
             .race([
             new Promise((resolve, reject) => {
-                video.addEventListener('canplay', resolve);
+                video.addEventListener('loadedmetadata', () => {
+                    video.addEventListener('seeked', () => {
+                        if (video.readyState >= video.HAVE_CURRENT_DATA) {
+                            // @ts-ignore: error TS2810: Expected 1 argument, but got 0.
+                            // 'new Promise()' needs a JSDoc hint to produce a 'resolve'
+                            // that can be called without arguments.
+                            resolve();
+                        }
+                        else {
+                            video.addEventListener('loadeddata', resolve);
+                        }
+                    });
+                    const halfDuration = video.duration / 2;
+                    video.currentTime = halfDuration;
+                });
                 video.addEventListener('error', reject);
-                video.currentTime = ImageRequestTask.VIDEO_THUMBNAIL_POSITION;
-                video.preload = 'auto';
+                video.preload = 'metadata';
                 video.src = url;
                 video.load();
             }),
             new Promise((resolve) => {
                 setTimeout(resolve, ImageRequestTask.MAX_MILLISECONDS_TO_LOAD_VIDEO);
             }).then(() => {
-                // If we don't receive 'canplay' event after 3 seconds have passed
-                // for some reason (e.g. unseekable video), we give up generating
-                // thumbnail.
+                // If we can't get the frame at the midpoint of the video after 3
+                // seconds have passed for some reason (e.g. unseekable video), we
+                // give up generating thumbnail.
                 video.src =
                     ''; // Make sure to stop loading remaining part of the video.
                 throw new Error('Seeking video failed.');
@@ -3055,18 +3109,22 @@ class ImageRequestTask {
      * Loads an image.
      *
      * @param {string} url URL to the resource to be fetched.
-     * @param {function(string, Blob)} onSuccess Success callback with the content
-     *     type and the fetched data.
-     * @param {function()} onFailure Failure callback.
+     * @param {(a: string, b: Blob)=>void} onSuccess Success callback with the
+     *     content type and the fetched data.
+     * @param {VoidCallback} onFailure Failure callback.
      */
     load(url, onSuccess, onFailure) {
         this.aborted_ = false;
         // Do not call any callbacks when aborting.
         const onMaybeSuccess = 
-        /** @type {function(string, Blob)} */ ((contentType, response) => {
+        /** @type {(a: string, b: Blob)=>void} */ ((contentType, response) => {
             // When content type is not available, try to estimate it from url.
             if (!contentType) {
                 contentType =
+                    // @ts-ignore: error TS7053: Element implicitly has an 'any'
+                    // type because expression of type 'string' can't be used to
+                    // index type '{ gif: string; png: string; svg: string; bmp:
+                    // string; jpg: string; jpeg: string; }'.
                     ImageRequestTask
                         .ExtensionContentTypeMap[this.extractExtension_(url)];
             }
@@ -3075,7 +3133,9 @@ class ImageRequestTask {
             }
         });
         const onMaybeFailure = 
-        /** @type {function(number=)} */ ((opt_code) => {
+        // @ts-ignore: error TS6133: 'opt_code' is declared but its value is
+        // never read.
+        /** @type {(a?: number)=>void} */ ((opt_code) => {
             if (!this.aborted_) {
                 onFailure();
             }
@@ -3093,15 +3153,17 @@ class ImageRequestTask {
      */
     extractExtension_(url) {
         const result = (/\.([a-zA-Z]+)$/i).exec(url);
+        // @ts-ignore: error TS2322: Type 'string | undefined' is not assignable to
+        // type 'string'.
         return result ? result[1] : '';
     }
     /**
      * Fetches data using XmlHttpRequest.
      *
      * @param {string} url URL to the resource to be fetched.
-     * @param {function(string, Blob)} onSuccess Success callback with the content
-     *     type and the fetched data.
-     * @param {function(number=)} onFailure Failure callback with the error code
+     * @param {(a: string, b: Blob)=>void} onSuccess Success callback with the
+     *     content type and the fetched data.
+     * @param {(a?: number)=>void} onFailure Failure callback with the error code
      *     if available.
      * @return {XMLHttpRequest} XHR instance.
      * @private
@@ -3110,10 +3172,10 @@ class ImageRequestTask {
         const xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
         xhr.onreadystatechange = () => {
-            if (xhr.readyState != 4) {
+            if (xhr.readyState !== 4) {
                 return;
             }
-            if (xhr.status != 200) {
+            if (xhr.status !== 200) {
                 onFailure(xhr.status);
                 return;
             }
@@ -3193,9 +3255,14 @@ class ImageRequestTask {
         // Perform processing if the url is not a data url, or if there are some
         // operations requested.
         let imageChanged = false;
+        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
         if (!(this.request_.url.match(/^data/) ||
+            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
             this.request_.url.match(/^drivefs:/)) ||
             ImageLoaderUtil.shouldProcess(this.image_.width, this.image_.height, this.request_)) {
+            // @ts-ignore: error TS2345: Argument of type 'HTMLImageElement' is not
+            // assignable to parameter of type 'HTMLCanvasElement | (new (width?:
+            // number | undefined, height?: number | undefined) => HTMLImageElement)'.
             ImageLoaderUtil.resizeAndCrop(this.image_, this.canvas_, this.request_);
             imageChanged = true; // The image is now on the <canvas>.
         }
@@ -3206,6 +3273,8 @@ class ImageRequestTask {
         // Finalize the request.
         this.sendImage_(imageChanged);
         this.cleanup_();
+        // @ts-ignore: error TS2721: Cannot invoke an object which is possibly
+        // 'null'.
         this.downloadCallback_();
     }
     /**
@@ -3216,6 +3285,8 @@ class ImageRequestTask {
     onImageError_() {
         this.sendResponse_(new LoadImageResponse(LoadImageResponseStatus.ERROR, this.getClientTaskId()));
         this.cleanup_();
+        // @ts-ignore: error TS2721: Cannot invoke an object which is possibly
+        // 'null'.
         this.downloadCallback_();
     }
     /**
@@ -3248,15 +3319,6 @@ class ImageRequestTask {
         this.canvas_.height = 0;
     }
 }
-/**
- * Seeks offset to generate video thumbnail.
- * TODO(ryoh):
- *   What is the best position for the thumbnail?
- *   The first frame seems not good -- sometimes it is a black frame.
- * @const
- * @type {number}
- */
-ImageRequestTask.VIDEO_THUMBNAIL_POSITION = 3; // [sec]
 /**
  * The maximum milliseconds to load video. If loading video exceeds the limit,
  * we give up generating video thumbnail and free the consumed memory.
@@ -3377,11 +3439,11 @@ class Scheduler {
         }
         // Remove from the internal queues with pending tasks.
         const newIndex = this.newTasks_.indexOf(task);
-        if (newIndex != -1) {
+        if (newIndex !== -1) {
             this.newTasks_.splice(newIndex, 1);
         }
         const pendingIndex = this.pendingTasks_.indexOf(task);
-        if (pendingIndex != -1) {
+        if (pendingIndex !== -1) {
             this.pendingTasks_.splice(pendingIndex, 1);
         }
         // Cancel the task.
@@ -3487,7 +3549,7 @@ class ImageLoader {
             this.onIncomingRequest_(msg, sender.origin, sendResponse);
         });
         chrome.runtime['onConnectNative'].addListener((port) => {
-            if (port.sender.nativeApplication != 'com.google.ash_thumbnail_loader') {
+            if (port.sender.nativeApplication !== 'com.google.ash_thumbnail_loader') {
                 port.disconnect();
                 return;
             }

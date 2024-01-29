@@ -541,6 +541,11 @@ export class ThemeObserverRemote {
             color
         ]);
     }
+    onGeolocationPermissionForSystemServicesChanged(enabled) {
+        this.proxy.sendMessage(5, ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, null, [
+            enabled
+        ]);
+    }
 }
 ;
 /**
@@ -557,6 +562,7 @@ export class ThemeObserverReceiver {
         this.helper_internal_.registerHandler(2, ThemeObserver_OnColorSchemeChanged_ParamsSpec.$, null, impl.onColorSchemeChanged.bind(impl));
         this.helper_internal_.registerHandler(3, ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec.$, null, impl.onSampleColorSchemesChanged.bind(impl));
         this.helper_internal_.registerHandler(4, ThemeObserver_OnStaticColorChanged_ParamsSpec.$, null, impl.onStaticColorChanged.bind(impl));
+        this.helper_internal_.registerHandler(5, ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, null, impl.onGeolocationPermissionForSystemServicesChanged.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -601,6 +607,9 @@ export class ThemeObserverCallbackRouter {
         this.onStaticColorChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, ThemeObserver_OnStaticColorChanged_ParamsSpec.$, null, this.onStaticColorChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onGeolocationPermissionForSystemServicesChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, null, this.onGeolocationPermissionForSystemServicesChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -651,20 +660,26 @@ export class ThemeProviderRemote {
             staticColor
         ]);
     }
+    enableGeolocationForSystemServices() {
+        this.proxy.sendMessage(5, ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec.$, null, []);
+    }
     getColorScheme() {
-        return this.proxy.sendMessage(5, ThemeProvider_GetColorScheme_ParamsSpec.$, ThemeProvider_GetColorScheme_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(6, ThemeProvider_GetColorScheme_ParamsSpec.$, ThemeProvider_GetColorScheme_ResponseParamsSpec.$, []);
     }
     getStaticColor() {
-        return this.proxy.sendMessage(6, ThemeProvider_GetStaticColor_ParamsSpec.$, ThemeProvider_GetStaticColor_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(7, ThemeProvider_GetStaticColor_ParamsSpec.$, ThemeProvider_GetStaticColor_ResponseParamsSpec.$, []);
     }
     generateSampleColorSchemes() {
-        return this.proxy.sendMessage(7, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec.$, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(8, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec.$, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec.$, []);
     }
     isColorModeAutoScheduleEnabled() {
-        return this.proxy.sendMessage(8, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec.$, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(9, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec.$, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec.$, []);
     }
     isDarkModeEnabled() {
-        return this.proxy.sendMessage(9, ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, []);
+        return this.proxy.sendMessage(10, ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, []);
+    }
+    isGeolocationEnabledForSystemServices() {
+        return this.proxy.sendMessage(11, ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, []);
     }
 }
 ;
@@ -682,11 +697,13 @@ export class ThemeProviderReceiver {
         this.helper_internal_.registerHandler(2, ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsSpec.$, null, impl.setColorModeAutoScheduleEnabled.bind(impl));
         this.helper_internal_.registerHandler(3, ThemeProvider_SetColorScheme_ParamsSpec.$, null, impl.setColorScheme.bind(impl));
         this.helper_internal_.registerHandler(4, ThemeProvider_SetStaticColor_ParamsSpec.$, null, impl.setStaticColor.bind(impl));
-        this.helper_internal_.registerHandler(5, ThemeProvider_GetColorScheme_ParamsSpec.$, ThemeProvider_GetColorScheme_ResponseParamsSpec.$, impl.getColorScheme.bind(impl));
-        this.helper_internal_.registerHandler(6, ThemeProvider_GetStaticColor_ParamsSpec.$, ThemeProvider_GetStaticColor_ResponseParamsSpec.$, impl.getStaticColor.bind(impl));
-        this.helper_internal_.registerHandler(7, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec.$, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec.$, impl.generateSampleColorSchemes.bind(impl));
-        this.helper_internal_.registerHandler(8, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec.$, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec.$, impl.isColorModeAutoScheduleEnabled.bind(impl));
-        this.helper_internal_.registerHandler(9, ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, impl.isDarkModeEnabled.bind(impl));
+        this.helper_internal_.registerHandler(5, ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec.$, null, impl.enableGeolocationForSystemServices.bind(impl));
+        this.helper_internal_.registerHandler(6, ThemeProvider_GetColorScheme_ParamsSpec.$, ThemeProvider_GetColorScheme_ResponseParamsSpec.$, impl.getColorScheme.bind(impl));
+        this.helper_internal_.registerHandler(7, ThemeProvider_GetStaticColor_ParamsSpec.$, ThemeProvider_GetStaticColor_ResponseParamsSpec.$, impl.getStaticColor.bind(impl));
+        this.helper_internal_.registerHandler(8, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec.$, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec.$, impl.generateSampleColorSchemes.bind(impl));
+        this.helper_internal_.registerHandler(9, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec.$, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec.$, impl.isColorModeAutoScheduleEnabled.bind(impl));
+        this.helper_internal_.registerHandler(10, ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, impl.isDarkModeEnabled.bind(impl));
+        this.helper_internal_.registerHandler(11, ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, impl.isGeolocationEnabledForSystemServices.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -731,21 +748,27 @@ export class ThemeProviderCallbackRouter {
         this.setStaticColor =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, ThemeProvider_SetStaticColor_ParamsSpec.$, null, this.setStaticColor.createReceiverHandler(false /* expectsResponse */));
+        this.enableGeolocationForSystemServices =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec.$, null, this.enableGeolocationForSystemServices.createReceiverHandler(false /* expectsResponse */));
         this.getColorScheme =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, ThemeProvider_GetColorScheme_ParamsSpec.$, ThemeProvider_GetColorScheme_ResponseParamsSpec.$, this.getColorScheme.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(6, ThemeProvider_GetColorScheme_ParamsSpec.$, ThemeProvider_GetColorScheme_ResponseParamsSpec.$, this.getColorScheme.createReceiverHandler(true /* expectsResponse */));
         this.getStaticColor =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(6, ThemeProvider_GetStaticColor_ParamsSpec.$, ThemeProvider_GetStaticColor_ResponseParamsSpec.$, this.getStaticColor.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(7, ThemeProvider_GetStaticColor_ParamsSpec.$, ThemeProvider_GetStaticColor_ResponseParamsSpec.$, this.getStaticColor.createReceiverHandler(true /* expectsResponse */));
         this.generateSampleColorSchemes =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(7, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec.$, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec.$, this.generateSampleColorSchemes.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(8, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec.$, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec.$, this.generateSampleColorSchemes.createReceiverHandler(true /* expectsResponse */));
         this.isColorModeAutoScheduleEnabled =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(8, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec.$, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec.$, this.isColorModeAutoScheduleEnabled.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(9, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec.$, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec.$, this.isColorModeAutoScheduleEnabled.createReceiverHandler(true /* expectsResponse */));
         this.isDarkModeEnabled =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(9, ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, this.isDarkModeEnabled.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(10, ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, this.isDarkModeEnabled.createReceiverHandler(true /* expectsResponse */));
+        this.isGeolocationEnabledForSystemServices =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(11, ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, this.isGeolocationEnabledForSystemServices.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -1039,6 +1062,11 @@ export class AmbientObserverRemote {
             visibility
         ]);
     }
+    onGeolocationPermissionForSystemServicesChanged(enabled) {
+        this.proxy.sendMessage(8, AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, null, [
+            enabled
+        ]);
+    }
 }
 ;
 /**
@@ -1058,6 +1086,7 @@ export class AmbientObserverReceiver {
         this.helper_internal_.registerHandler(5, AmbientObserver_OnAlbumsChanged_ParamsSpec.$, null, impl.onAlbumsChanged.bind(impl));
         this.helper_internal_.registerHandler(6, AmbientObserver_OnPreviewsFetched_ParamsSpec.$, null, impl.onPreviewsFetched.bind(impl));
         this.helper_internal_.registerHandler(7, AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec.$, null, impl.onAmbientUiVisibilityChanged.bind(impl));
+        this.helper_internal_.registerHandler(8, AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, null, impl.onGeolocationPermissionForSystemServicesChanged.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -1111,6 +1140,9 @@ export class AmbientObserverCallbackRouter {
         this.onAmbientUiVisibilityChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(7, AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec.$, null, this.onAmbientUiVisibilityChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onGeolocationPermissionForSystemServicesChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(8, AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, null, this.onGeolocationPermissionForSystemServicesChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -1191,6 +1223,12 @@ export class AmbientProviderRemote {
     handleTimeOfDayBannerDismissed() {
         this.proxy.sendMessage(12, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec.$, null, []);
     }
+    isGeolocationEnabledForSystemServices() {
+        return this.proxy.sendMessage(13, AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, []);
+    }
+    enableGeolocationForSystemServices() {
+        this.proxy.sendMessage(14, AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec.$, null, []);
+    }
 }
 ;
 /**
@@ -1215,6 +1253,8 @@ export class AmbientProviderReceiver {
         this.helper_internal_.registerHandler(10, AmbientProvider_StartScreenSaverPreview_ParamsSpec.$, null, impl.startScreenSaverPreview.bind(impl));
         this.helper_internal_.registerHandler(11, AmbientProvider_ShouldShowTimeOfDayBanner_ParamsSpec.$, AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpec.$, impl.shouldShowTimeOfDayBanner.bind(impl));
         this.helper_internal_.registerHandler(12, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec.$, null, impl.handleTimeOfDayBannerDismissed.bind(impl));
+        this.helper_internal_.registerHandler(13, AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, impl.isGeolocationEnabledForSystemServices.bind(impl));
+        this.helper_internal_.registerHandler(14, AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec.$, null, impl.enableGeolocationForSystemServices.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -1283,6 +1323,12 @@ export class AmbientProviderCallbackRouter {
         this.handleTimeOfDayBannerDismissed =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(12, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec.$, null, this.handleTimeOfDayBannerDismissed.createReceiverHandler(false /* expectsResponse */));
+        this.isGeolocationEnabledForSystemServices =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(13, AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, this.isGeolocationEnabledForSystemServices.createReceiverHandler(true /* expectsResponse */));
+        this.enableGeolocationForSystemServices =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(14, AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec.$, null, this.enableGeolocationForSystemServices.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -1552,11 +1598,13 @@ export const ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec = { $: {} }
 export const ThemeObserver_OnColorSchemeChanged_ParamsSpec = { $: {} };
 export const ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec = { $: {} };
 export const ThemeObserver_OnStaticColorChanged_ParamsSpec = { $: {} };
+export const ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec = { $: {} };
 export const ThemeProvider_SetThemeObserver_ParamsSpec = { $: {} };
 export const ThemeProvider_SetColorModePref_ParamsSpec = { $: {} };
 export const ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsSpec = { $: {} };
 export const ThemeProvider_SetColorScheme_ParamsSpec = { $: {} };
 export const ThemeProvider_SetStaticColor_ParamsSpec = { $: {} };
+export const ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec = { $: {} };
 export const ThemeProvider_GetColorScheme_ParamsSpec = { $: {} };
 export const ThemeProvider_GetColorScheme_ResponseParamsSpec = { $: {} };
 export const ThemeProvider_GetStaticColor_ParamsSpec = { $: {} };
@@ -1567,6 +1615,8 @@ export const ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec = { $: {} }
 export const ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec = { $: {} };
 export const ThemeProvider_IsDarkModeEnabled_ParamsSpec = { $: {} };
 export const ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec = { $: {} };
+export const ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec = { $: {} };
+export const ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec = { $: {} };
 export const UserImageObserver_OnUserImageChanged_ParamsSpec = { $: {} };
 export const UserImageObserver_OnUserProfileImageUpdated_ParamsSpec = { $: {} };
 export const UserImageObserver_OnCameraPresenceCheckDone_ParamsSpec = { $: {} };
@@ -1589,6 +1639,7 @@ export const AmbientObserver_OnTemperatureUnitChanged_ParamsSpec = { $: {} };
 export const AmbientObserver_OnAlbumsChanged_ParamsSpec = { $: {} };
 export const AmbientObserver_OnPreviewsFetched_ParamsSpec = { $: {} };
 export const AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec = { $: {} };
+export const AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec = { $: {} };
 export const AmbientProvider_IsAmbientModeEnabled_ParamsSpec = { $: {} };
 export const AmbientProvider_IsAmbientModeEnabled_ResponseParamsSpec = { $: {} };
 export const AmbientProvider_SetAmbientModeEnabled_ParamsSpec = { $: {} };
@@ -1604,6 +1655,9 @@ export const AmbientProvider_StartScreenSaverPreview_ParamsSpec = { $: {} };
 export const AmbientProvider_ShouldShowTimeOfDayBanner_ParamsSpec = { $: {} };
 export const AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpec = { $: {} };
 export const AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec = { $: {} };
+export const AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec = { $: {} };
+export const AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec = { $: {} };
+export const AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec = { $: {} };
 export const KeyboardBacklightObserver_OnBacklightStateChanged_ParamsSpec = { $: {} };
 export const KeyboardBacklightObserver_OnWallpaperColorChanged_ParamsSpec = { $: {} };
 export const KeyboardBacklightProvider_SetKeyboardBacklightObserver_ParamsSpec = { $: {} };
@@ -1832,6 +1886,9 @@ mojo.internal.Struct(ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec.$, 'Th
 mojo.internal.Struct(ThemeObserver_OnStaticColorChanged_ParamsSpec.$, 'ThemeObserver_OnStaticColorChanged_Params', [
     mojo.internal.StructField('color', 0, 0, skia_mojom_SkColorSpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, 'ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params', [
+    mojo.internal.StructField('enabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(ThemeProvider_SetThemeObserver_ParamsSpec.$, 'ThemeProvider_SetThemeObserver_Params', [
     mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(ThemeObserverRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -1847,6 +1904,7 @@ mojo.internal.Struct(ThemeProvider_SetColorScheme_ParamsSpec.$, 'ThemeProvider_S
 mojo.internal.Struct(ThemeProvider_SetStaticColor_ParamsSpec.$, 'ThemeProvider_SetStaticColor_Params', [
     mojo.internal.StructField('staticColor', 0, 0, skia_mojom_SkColorSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(ThemeProvider_EnableGeolocationForSystemServices_ParamsSpec.$, 'ThemeProvider_EnableGeolocationForSystemServices_Params', [], [[0, 8],]);
 mojo.internal.Struct(ThemeProvider_GetColorScheme_ParamsSpec.$, 'ThemeProvider_GetColorScheme_Params', [], [[0, 8],]);
 mojo.internal.Struct(ThemeProvider_GetColorScheme_ResponseParamsSpec.$, 'ThemeProvider_GetColorScheme_ResponseParams', [
     mojo.internal.StructField('colorScheme', 0, 0, ash_style_mojom_ColorSchemeSpec.$, 0, false /* nullable */, 0),
@@ -1866,6 +1924,10 @@ mojo.internal.Struct(ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParams
 mojo.internal.Struct(ThemeProvider_IsDarkModeEnabled_ParamsSpec.$, 'ThemeProvider_IsDarkModeEnabled_Params', [], [[0, 8],]);
 mojo.internal.Struct(ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec.$, 'ThemeProvider_IsDarkModeEnabled_ResponseParams', [
     mojo.internal.StructField('darkModeEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, 'ThemeProvider_IsGeolocationEnabledForSystemServices_Params', [], [[0, 8],]);
+mojo.internal.Struct(ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, 'ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams', [
+    mojo.internal.StructField('geolocationEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(UserImageObserver_OnUserImageChanged_ParamsSpec.$, 'UserImageObserver_OnUserImageChanged_Params', [
     mojo.internal.StructField('userImage', 0, 0, UserImageSpec.$, null, false /* nullable */, 0),
@@ -1923,6 +1985,9 @@ mojo.internal.Struct(AmbientObserver_OnPreviewsFetched_ParamsSpec.$, 'AmbientObs
 mojo.internal.Struct(AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec.$, 'AmbientObserver_OnAmbientUiVisibilityChanged_Params', [
     mojo.internal.StructField('visibility', 0, 0, AmbientUiVisibilitySpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsSpec.$, 'AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params', [
+    mojo.internal.StructField('enabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(AmbientProvider_IsAmbientModeEnabled_ParamsSpec.$, 'AmbientProvider_IsAmbientModeEnabled_Params', [], [[0, 8],]);
 mojo.internal.Struct(AmbientProvider_IsAmbientModeEnabled_ResponseParamsSpec.$, 'AmbientProvider_IsAmbientModeEnabled_ResponseParams', [
     mojo.internal.StructField('enabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
@@ -1958,6 +2023,11 @@ mojo.internal.Struct(AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpe
     mojo.internal.StructField('shouldShowBanner', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec.$, 'AmbientProvider_HandleTimeOfDayBannerDismissed_Params', [], [[0, 8],]);
+mojo.internal.Struct(AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsSpec.$, 'AmbientProvider_IsGeolocationEnabledForSystemServices_Params', [], [[0, 8],]);
+mojo.internal.Struct(AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsSpec.$, 'AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams', [
+    mojo.internal.StructField('geolocationEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AmbientProvider_EnableGeolocationForSystemServices_ParamsSpec.$, 'AmbientProvider_EnableGeolocationForSystemServices_Params', [], [[0, 8],]);
 mojo.internal.Struct(KeyboardBacklightObserver_OnBacklightStateChanged_ParamsSpec.$, 'KeyboardBacklightObserver_OnBacklightStateChanged_Params', [
     mojo.internal.StructField('currentBacklightState', 0, 0, CurrentBacklightStateSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);

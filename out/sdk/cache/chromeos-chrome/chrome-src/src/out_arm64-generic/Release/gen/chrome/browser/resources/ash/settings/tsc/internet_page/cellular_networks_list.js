@@ -16,7 +16,7 @@ import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classe
 import '../os_settings_icons.css.js';
 import './esim_install_error_dialog.js';
 import { CellularSetupPageName } from 'chrome://resources/ash/common/cellular_setup/cellular_types.js';
-import { ESimManagerListenerBehavior } from 'chrome://resources/ash/common/cellular_setup/esim_manager_listener_behavior.js';
+import { ESimManagerListenerMixin } from 'chrome://resources/ash/common/cellular_setup/esim_manager_listener_mixin.js';
 import { getEuicc, getPendingESimProfiles } from 'chrome://resources/ash/common/cellular_setup/esim_manager_utils.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { getSimSlotCount } from 'chrome://resources/ash/common/network/cellular_utils.js';
@@ -30,12 +30,12 @@ import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { ProfileInstallResult, ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { InhibitReason } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { DeviceStateType, NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
 import { MultiDeviceBrowserProxyImpl } from '../multidevice_page/multidevice_browser_proxy.js';
 import { MultiDeviceFeatureState } from '../multidevice_page/multidevice_constants.js';
 import { getTemplate } from './cellular_networks_list.html.js';
-const CellularNetworksListElementBase = mixinBehaviors([ESimManagerListenerBehavior], WebUiListenerMixin(I18nMixin(PolymerElement)));
+const CellularNetworksListElementBase = ESimManagerListenerMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
 export class CellularNetworksListElement extends CellularNetworksListElementBase {
     static get is() {
         return 'cellular-networks-list';
@@ -169,6 +169,16 @@ export class CellularNetworksListElement extends CellularNetworksListElementBase
                     'cellularDeviceState.inhibitReason)',
             },
             /**
+             * Return true if instant hotspot rebrand feature flag is enabled
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
+                },
+            },
+            /**
              * Return true if SmdsSupportEnabled feature flag is enabled.
              */
             smdsSupportEnabled_: {
@@ -204,7 +214,10 @@ export class CellularNetworksListElement extends CellularNetworksListElementBase
         }
         const response = await profile.getProperties();
         const eSimPendingProfileItem = this.eSimPendingProfileItems_.find(item => {
-            return item.customData.iccid === response.properties.iccid;
+            if (typeof item.customData === 'object') {
+                return item.customData.iccid === response.properties.iccid;
+            }
+            return false;
         });
         if (!eSimPendingProfileItem) {
             return;
@@ -320,6 +333,9 @@ export class CellularNetworksListElement extends CellularNetworksListElementBase
     }
     shouldShowTetherSection_(pageContentData) {
         if (!pageContentData) {
+            return false;
+        }
+        if (this.isInstantHotspotRebrandEnabled_) {
             return false;
         }
         return pageContentData.instantTetheringState ===

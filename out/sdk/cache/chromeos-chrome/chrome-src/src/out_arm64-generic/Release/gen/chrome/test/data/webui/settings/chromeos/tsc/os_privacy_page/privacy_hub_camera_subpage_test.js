@@ -12,7 +12,7 @@ import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { isVisible } from 'chrome://webui-test/test_util.js';
 import { FakeMediaDevices } from '../fake_media_devices.js';
 import { FakeAppPermissionHandler } from './fake_app_permission_handler.js';
-import { createApp, createFakeMetricsPrivate } from './privacy_hub_app_permission_test_util.js';
+import { createApp, createFakeMetricsPrivate, getSystemServicePermissionText, getSystemServicesFromSubpage } from './privacy_hub_app_permission_test_util.js';
 import { TestPrivacyHubBrowserProxy } from './test_privacy_hub_browser_proxy.js';
 suite('<settings-privacy-hub-camera-subpage>', () => {
     let fakeHandler;
@@ -69,12 +69,16 @@ suite('<settings-privacy-hub-camera-subpage>', () => {
     function getCameraList() {
         return privacyHubCameraSubpage.shadowRoot.querySelector('#cameraList');
     }
+    function isBlockedSuffixDisplayedAfterCameraName() {
+        return isVisible(privacyHubCameraSubpage.shadowRoot.querySelector('#cameraNameWithBlockedSuffix'));
+    }
     test('Camera section view when access is enabled', () => {
         const cameraToggle = getCameraCrToggle();
         assertTrue(cameraToggle.checked);
         assertEquals(privacyHubCameraSubpage.i18n('deviceOn'), getOnOffText());
         assertEquals(privacyHubCameraSubpage.i18n('cameraToggleSubtext'), getOnOffSubtext());
         assertTrue(isCameraListSectionVisible());
+        assertFalse(isBlockedSuffixDisplayedAfterCameraName());
     });
     test('Camera section view when access is disabled', async () => {
         mediaDevices.addDevice('videoinput', 'Fake Camera');
@@ -85,8 +89,11 @@ suite('<settings-privacy-hub-camera-subpage>', () => {
         flush();
         assertFalse(cameraToggle.checked);
         assertEquals(privacyHubCameraSubpage.i18n('deviceOff'), getOnOffText());
-        assertEquals(privacyHubCameraSubpage.i18n('blockedForAllText'), getOnOffSubtext());
-        assertFalse(isCameraListSectionVisible());
+        assertEquals(privacyHubCameraSubpage.i18n('privacyHubCameraAccessBlockedText'), getOnOffSubtext());
+        assertTrue(isCameraListSectionVisible());
+        assertTrue(isBlockedSuffixDisplayedAfterCameraName());
+        assertEquals(privacyHubCameraSubpage.i18n('privacyHubSensorNameWithBlockedSuffix', 'Fake Camera'), privacyHubCameraSubpage.shadowRoot
+            .querySelector('#cameraNameWithBlockedSuffix').innerText.trim());
     });
     test('Repeatedly toggle camera access', async () => {
         mediaDevices.addDevice('videoinput', 'Fake Camera');
@@ -304,5 +311,23 @@ suite('<settings-privacy-hub-camera-subpage>', () => {
         assertEquals(0, metrics.countMetricValue('ChromeOS.PrivacyHub.CameraSubpage.UserAction', PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED));
         getManagePermissionsInChromeRow().click();
         assertEquals(1, metrics.countMetricValue('ChromeOS.PrivacyHub.CameraSubpage.UserAction', PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED));
+    });
+    test('System services section when camera is allowed', async () => {
+        assertEquals(privacyHubCameraSubpage.i18n('privacyHubSystemServicesSectionTitle'), privacyHubCameraSubpage.shadowRoot
+            .querySelector('#systemServicesSectionTitle').textContent.trim());
+        await flushTasks();
+        const systemServices = getSystemServicesFromSubpage(privacyHubCameraSubpage);
+        assertEquals(1, systemServices.length);
+        assertEquals(privacyHubCameraSubpage.i18n('privacyHubSystemServicesAllowedText'), getSystemServicePermissionText(systemServices[0]));
+    });
+    test('System services section when camera is not allowed', async () => {
+        mediaDevices.addDevice('videoinput', 'Fake Camera');
+        await flushTasks();
+        // Toggle camera access.
+        getCameraCrToggle().click();
+        flush();
+        const systemServices = getSystemServicesFromSubpage(privacyHubCameraSubpage);
+        assertEquals(1, systemServices.length);
+        assertEquals(privacyHubCameraSubpage.i18n('privacyHubSystemServicesBlockedText'), getSystemServicePermissionText(systemServices[0]));
     });
 });

@@ -166,6 +166,8 @@ bool RendererPreferenceWatcherStubDispatch::Accept(
           reinterpret_cast<internal::RendererPreferenceWatcher_NotifyUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererPreferenceWatcher.0
       bool success = true;
       ::blink::RendererPreferences p_new_prefs{};
       RendererPreferenceWatcher_NotifyUpdate_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool RendererPreferenceWatcherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyUpdate(
-std::move(p_new_prefs));
+      impl->NotifyUpdate(        
+        std::move(p_new_prefs));
       return true;
     }
   }

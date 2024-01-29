@@ -631,6 +631,24 @@ void setTorch(bool value) {
 has_torch_ = true;
 }
 
+bool hasVoiceIsolation() const {
+  return has_voice_isolation_;
+}
+bool voiceIsolation() const {
+  DCHECK(hasVoiceIsolation());
+return member_voice_isolation_;
+}
+bool getVoiceIsolationOr(bool fallback_value) const {
+  if (!hasVoiceIsolation()) {
+  return fallback_value;
+}
+return member_voice_isolation_;
+}
+void setVoiceIsolation(bool value) {
+  member_voice_isolation_ = value;
+has_voice_isolation_ = true;
+}
+
 bool hasWhiteBalanceMode() const {
   return has_white_balance_mode_;
 }
@@ -730,6 +748,7 @@ bool has_sharpness_ = false;
 bool has_suppress_local_audio_playback_ = false;
 bool has_tilt_ = false;
 bool has_torch_ = false;
+bool has_voice_isolation_ = false;
 bool has_white_balance_mode_ = false;
 bool has_width_ = false;
 bool has_zoom_ = false;
@@ -770,6 +789,7 @@ double member_sharpness_;
 bool member_suppress_local_audio_playback_;
 double member_tilt_;
 bool member_torch_;
+bool member_voice_isolation_;
 String member_white_balance_mode_;
 int32_t member_width_;
 double member_zoom_;

@@ -756,6 +756,8 @@ bool HostStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::HostStatusObserver_OnClientAccessDenied_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.0
       bool success = true;
       std::string p_signaling_id{};
       HostStatusObserver_OnClientAccessDenied_ParamsDataView input_data_view(params, message);
@@ -771,8 +773,8 @@ bool HostStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientAccessDenied(
-std::move(p_signaling_id));
+      impl->OnClientAccessDenied(        
+        std::move(p_signaling_id));
       return true;
     }
     case internal::kHostStatusObserver_OnClientAuthenticated_Name: {
@@ -782,6 +784,8 @@ std::move(p_signaling_id));
           reinterpret_cast<internal::HostStatusObserver_OnClientAuthenticated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.1
       bool success = true;
       std::string p_signaling_id{};
       HostStatusObserver_OnClientAuthenticated_ParamsDataView input_data_view(params, message);
@@ -797,8 +801,8 @@ std::move(p_signaling_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientAuthenticated(
-std::move(p_signaling_id));
+      impl->OnClientAuthenticated(        
+        std::move(p_signaling_id));
       return true;
     }
     case internal::kHostStatusObserver_OnClientConnected_Name: {
@@ -808,6 +812,8 @@ std::move(p_signaling_id));
           reinterpret_cast<internal::HostStatusObserver_OnClientConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.2
       bool success = true;
       std::string p_signaling_id{};
       HostStatusObserver_OnClientConnected_ParamsDataView input_data_view(params, message);
@@ -823,8 +829,8 @@ std::move(p_signaling_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientConnected(
-std::move(p_signaling_id));
+      impl->OnClientConnected(        
+        std::move(p_signaling_id));
       return true;
     }
     case internal::kHostStatusObserver_OnClientDisconnected_Name: {
@@ -834,6 +840,8 @@ std::move(p_signaling_id));
           reinterpret_cast<internal::HostStatusObserver_OnClientDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.3
       bool success = true;
       std::string p_signaling_id{};
       HostStatusObserver_OnClientDisconnected_ParamsDataView input_data_view(params, message);
@@ -849,8 +857,8 @@ std::move(p_signaling_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientDisconnected(
-std::move(p_signaling_id));
+      impl->OnClientDisconnected(        
+        std::move(p_signaling_id));
       return true;
     }
     case internal::kHostStatusObserver_OnClientRouteChange_Name: {
@@ -860,6 +868,8 @@ std::move(p_signaling_id));
           reinterpret_cast<internal::HostStatusObserver_OnClientRouteChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.4
       bool success = true;
       std::string p_signaling_id{};
       std::string p_channel_name{};
@@ -881,10 +891,10 @@ std::move(p_signaling_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientRouteChange(
-std::move(p_signaling_id), 
-std::move(p_channel_name), 
-std::move(p_route));
+      impl->OnClientRouteChange(        
+        std::move(p_signaling_id), 
+        std::move(p_channel_name), 
+        std::move(p_route));
       return true;
     }
     case internal::kHostStatusObserver_OnHostStarted_Name: {
@@ -894,6 +904,8 @@ std::move(p_route));
           reinterpret_cast<internal::HostStatusObserver_OnHostStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.5
       bool success = true;
       std::string p_owner_email{};
       HostStatusObserver_OnHostStarted_ParamsDataView input_data_view(params, message);
@@ -909,8 +921,8 @@ std::move(p_route));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStarted(
-std::move(p_owner_email));
+      impl->OnHostStarted(        
+        std::move(p_owner_email));
       return true;
     }
     case internal::kHostStatusObserver_OnHostShutdown_Name: {
@@ -920,6 +932,8 @@ std::move(p_owner_email));
           reinterpret_cast<internal::HostStatusObserver_OnHostShutdown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.6
       bool success = true;
       HostStatusObserver_OnHostShutdown_ParamsDataView input_data_view(params, message);
       
@@ -932,7 +946,7 @@ std::move(p_owner_email));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostShutdown();
+      impl->OnHostShutdown(        );
       return true;
     }
   }

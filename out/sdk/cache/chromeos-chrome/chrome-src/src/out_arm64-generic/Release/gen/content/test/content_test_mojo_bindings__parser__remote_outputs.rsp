@@ -1,0 +1,3 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/mojo_capability_control_test_interfaces.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/test_service.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/test/frame_host_test_interface.mojom-module

@@ -522,6 +522,8 @@ bool AutomationStubDispatch::Accept(
           reinterpret_cast<internal::Automation_DispatchTreeDestroyedEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.0
       bool success = true;
       ::ui::AXTreeID p_tree_id{};
       Automation_DispatchTreeDestroyedEvent_ParamsDataView input_data_view(params, message);
@@ -537,8 +539,8 @@ bool AutomationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchTreeDestroyedEvent(
-std::move(p_tree_id));
+      impl->DispatchTreeDestroyedEvent(        
+        std::move(p_tree_id));
       return true;
     }
     case internal::kAutomation_DispatchActionResult_Name: {
@@ -548,6 +550,8 @@ std::move(p_tree_id));
           reinterpret_cast<internal::Automation_DispatchActionResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.1
       bool success = true;
       ::ui::AXActionData p_data{};
       bool p_result{};
@@ -566,9 +570,9 @@ std::move(p_tree_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchActionResult(
-std::move(p_data), 
-std::move(p_result));
+      impl->DispatchActionResult(        
+        std::move(p_data), 
+        std::move(p_result));
       return true;
     }
     case internal::kAutomation_DispatchAccessibilityEvents_Name: {
@@ -578,6 +582,8 @@ std::move(p_result));
           reinterpret_cast<internal::Automation_DispatchAccessibilityEvents_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.2
       bool success = true;
       ::ui::AXTreeID p_tree_id{};
       std::vector<::ui::AXTreeUpdate> p_updates{};
@@ -602,11 +608,11 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchAccessibilityEvents(
-std::move(p_tree_id), 
-std::move(p_updates), 
-std::move(p_mouse_location), 
-std::move(p_events));
+      impl->DispatchAccessibilityEvents(        
+        std::move(p_tree_id), 
+        std::move(p_updates), 
+        std::move(p_mouse_location), 
+        std::move(p_events));
       return true;
     }
     case internal::kAutomation_DispatchAccessibilityLocationChange_Name: {
@@ -616,6 +622,8 @@ std::move(p_events));
           reinterpret_cast<internal::Automation_DispatchAccessibilityLocationChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.3
       bool success = true;
       ::ui::AXTreeID p_tree_id{};
       int32_t p_node_id{};
@@ -637,10 +645,10 @@ std::move(p_events));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchAccessibilityLocationChange(
-std::move(p_tree_id), 
-std::move(p_node_id), 
-std::move(p_bounds));
+      impl->DispatchAccessibilityLocationChange(        
+        std::move(p_tree_id), 
+        std::move(p_node_id), 
+        std::move(p_bounds));
       return true;
     }
     case internal::kAutomation_DispatchGetTextLocationResult_Name: {
@@ -650,6 +658,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::Automation_DispatchGetTextLocationResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.4
       bool success = true;
       ::ui::AXActionData p_data{};
       std::optional<::gfx::Rect> p_rect{};
@@ -668,9 +678,9 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchGetTextLocationResult(
-std::move(p_data), 
-std::move(p_rect));
+      impl->DispatchGetTextLocationResult(        
+        std::move(p_data), 
+        std::move(p_rect));
       return true;
     }
   }

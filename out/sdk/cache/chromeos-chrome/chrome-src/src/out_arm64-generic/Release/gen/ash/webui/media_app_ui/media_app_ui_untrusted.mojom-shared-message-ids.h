@@ -15,7 +15,8 @@ namespace internal {
 
 
 constexpr uint32_t kUntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Name = 0;
-constexpr uint32_t kOcrUntrustedPageHandler_ViewportUpdated_Name = 0;
+constexpr uint32_t kOcrUntrustedPageHandler_PageMetadataUpdated_Name = 0;
+constexpr uint32_t kOcrUntrustedPageHandler_ViewportUpdated_Name = 1;
 constexpr uint32_t kOcrUntrustedPage_SetViewport_Name = 0;
 
 }  // namespace internal

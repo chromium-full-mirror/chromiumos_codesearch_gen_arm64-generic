@@ -115,7 +115,7 @@ TNode<BigInt> Cast_BigIntBase_0(compiler::CodeAssemblerState* state_, TNode<Heap
   return TNode<BigInt>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bigint.tq?l=16&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bigint.tq?l=18&c=1
 TNode<BigInt> Convert_BigInt_MutableBigInt_0(compiler::CodeAssemblerState* state_, TNode<BigInt> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -281,7 +281,7 @@ TNode<BigInt> DownCastForTorqueClass_BigIntBase_0(compiler::CodeAssemblerState* 
   return TNode<BigInt>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bigint.tq?l=18&c=31
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bigint.tq?l=20&c=31
 TNode<BigInt> Convert_BigIntBase_MutableBigInt_0(compiler::CodeAssemblerState* state_, TNode<BigInt> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

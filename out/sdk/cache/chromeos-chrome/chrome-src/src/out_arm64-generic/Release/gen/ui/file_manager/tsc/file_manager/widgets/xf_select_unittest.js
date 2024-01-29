@@ -34,7 +34,7 @@ export async function testSetOptions() {
     await waitForElementUpdate(element);
     const want1 = { index: 1, value: 'value-b', text: 'Text B' };
     const got1 = element.getSelectedOption();
-    assertDeepEquals(want1, got1, `${JSON.stringify(want1)} != ${JSON.stringify(got1)}`);
+    assertDeepEquals(want1, got1, `${JSON.stringify(want1)} !== ${JSON.stringify(got1)}`);
     // Test 2: No option has default: true; expect the first one to be selected.
     element.options = [
         { value: 'value-c', text: 'Text C' },
@@ -43,7 +43,7 @@ export async function testSetOptions() {
     await waitForElementUpdate(element);
     const want2 = { index: 0, value: 'value-c', text: 'Text C' };
     const got2 = element.getSelectedOption();
-    assertDeepEquals(want2, got2, `${JSON.stringify(want2)} != ${JSON.stringify(got2)}`);
+    assertDeepEquals(want2, got2, `${JSON.stringify(want2)} !== ${JSON.stringify(got2)}`);
 }
 export async function testEvents() {
     const element = getSearchOptionsElement();
@@ -56,7 +56,7 @@ export async function testEvents() {
     const event = await selectionChangedPromise;
     const want = { index: 0, value: 'value-a', text: 'Text A' };
     const got = event.detail;
-    assertDeepEquals(want, got, `${JSON.stringify(want)} != ${JSON.stringify(got)}`);
+    assertDeepEquals(want, got, `${JSON.stringify(want)} !== ${JSON.stringify(got)}`);
 }
 export async function testInteractionViaUI() {
     const element = getSearchOptionsElement();
@@ -76,5 +76,5 @@ export async function testInteractionViaUI() {
     const event = await selectionChangedDueMenuClickPromise;
     const want = { index: 0, value: 'value-a', text: 'Text A' };
     const got = event.detail;
-    assertDeepEquals(want, got, `${JSON.stringify(want)} != ${JSON.stringify(got)}`);
+    assertDeepEquals(want, got, `${JSON.stringify(want)} !== ${JSON.stringify(got)}`);
 }

@@ -26,7 +26,8 @@ export var CustomizeChromeAction;
     CustomizeChromeAction[CustomizeChromeAction["WALLPAPER_SEARCH_STYLE_DESCRIPTOR_UPDATED"] = 12] = "WALLPAPER_SEARCH_STYLE_DESCRIPTOR_UPDATED";
     CustomizeChromeAction[CustomizeChromeAction["WALLPAPER_SEARCH_MOOD_DESCRIPTOR_UPDATED"] = 13] = "WALLPAPER_SEARCH_MOOD_DESCRIPTOR_UPDATED";
     CustomizeChromeAction[CustomizeChromeAction["WALLPAPER_SEARCH_COLOR_DESCRIPTOR_UPDATED"] = 14] = "WALLPAPER_SEARCH_COLOR_DESCRIPTOR_UPDATED";
-    CustomizeChromeAction[CustomizeChromeAction["MAX_VALUE"] = 15] = "MAX_VALUE";
+    CustomizeChromeAction[CustomizeChromeAction["WALLPAPER_SEARCH_INSPIRATION_THEME_SELECTED"] = 15] = "WALLPAPER_SEARCH_INSPIRATION_THEME_SELECTED";
+    CustomizeChromeAction[CustomizeChromeAction["MAX_VALUE"] = 16] = "MAX_VALUE";
 })(CustomizeChromeAction || (CustomizeChromeAction = {}));
 export function recordCustomizeChromeAction(action) {
     chrome.metricsPrivate.recordEnumerationValue('NewTabPage.CustomizeChromeSidePanelAction', action, CustomizeChromeAction.MAX_VALUE);

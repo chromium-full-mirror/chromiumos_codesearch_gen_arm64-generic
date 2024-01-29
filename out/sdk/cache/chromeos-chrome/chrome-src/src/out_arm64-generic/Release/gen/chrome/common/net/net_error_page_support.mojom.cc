@@ -148,6 +148,8 @@ bool NetErrorPageSupportStubDispatch::Accept(
           reinterpret_cast<internal::NetErrorPageSupport_ShowPortalSignin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetErrorPageSupport.0
       bool success = true;
       NetErrorPageSupport_ShowPortalSignin_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool NetErrorPageSupportStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowPortalSignin();
+      impl->ShowPortalSignin(        );
       return true;
     }
   }

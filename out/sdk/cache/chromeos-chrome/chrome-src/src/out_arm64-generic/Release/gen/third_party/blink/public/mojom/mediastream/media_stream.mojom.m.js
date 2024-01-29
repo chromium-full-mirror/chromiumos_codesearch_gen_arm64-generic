@@ -89,9 +89,10 @@ export const MediaStreamRequestResult = {
   KILL_SWITCH_ON: 14,
   SYSTEM_PERMISSION_DENIED: 15,
   DEVICE_IN_USE: 16,
-  NUM_MEDIA_REQUEST_RESULTS: 17,
+  REQUEST_CANCELLED: 17,
+  NUM_MEDIA_REQUEST_RESULTS: 18,
   MIN_VALUE: 0,
-  MAX_VALUE: 17,
+  MAX_VALUE: 18,
 };
 
 /**
@@ -158,9 +159,12 @@ export const CapturedSurfaceControlResult = {
   kSuccess: 0,
   kUnknownError: 1,
   kNoPermissionError: 2,
-  kCapturedSurfaceNotFoundError: 3,
+  kCapturerNotFoundError: 3,
+  kCapturedSurfaceNotFoundError: 4,
+  kDisallowedForSelfCaptureError: 5,
+  kCapturerNotFocusedError: 6,
   MIN_VALUE: 0,
-  MAX_VALUE: 3,
+  MAX_VALUE: 6,
 };
 
 
@@ -223,6 +227,14 @@ export class MediaStreamDeviceObserverInterface {
    */
 
   onDeviceCaptureHandleChange(label, device) {}
+  
+  /**
+   * @param { !string } label
+   * @param { !MediaStreamDevice } device
+   * @param { !number } zoomLevel
+   */
+
+  onZoomLevelChange(label, device, zoomLevel) {}
 }
 
 /**
@@ -348,6 +360,28 @@ export class MediaStreamDeviceObserverRemote {
           device
         ]);
   }
+
+  
+  /**
+   * @param { !string } label
+   * @param { !MediaStreamDevice } device
+   * @param { !number } zoomLevel
+   */
+
+  onZoomLevelChange(
+      label,
+      device,
+      zoomLevel) {
+    this.proxy.sendMessage(
+        5,
+        MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+        null,
+        [
+          label,
+          device,
+          zoomLevel
+        ]);
+  }
 }
 
 /**
@@ -395,6 +429,11 @@ export class MediaStreamDeviceObserverReceiver {
         MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsSpec.$,
         null,
         impl.onDeviceCaptureHandleChange.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+        null,
+        impl.onZoomLevelChange.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -501,6 +540,18 @@ export class MediaStreamDeviceObserverCallbackRouter {
         MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsSpec.$,
         null,
         this.onDeviceCaptureHandleChange.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onZoomLevelChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+        null,
+        this.onZoomLevelChange.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1611,6 +1662,12 @@ export const MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const MediaStreamDispatcherHost_GenerateStreams_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2145,7 +2202,23 @@ mojo.internal.Struct(
     'CapturedWheelAction',
     [
       mojo.internal.StructField(
-        'x', 0,
+        'relativeX', 0,
+        0,
+        mojo.internal.Double,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'relativeY', 8,
+        0,
+        mojo.internal.Double,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'wheelDeltaX', 16,
         0,
         mojo.internal.Int32,
         0,
@@ -2153,23 +2226,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'wheelDeltaX', 8,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'wheelDeltaY', 12,
+        'wheelDeltaY', 20,
         0,
         mojo.internal.Int32,
         0,
@@ -2177,7 +2234,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -2187,9 +2244,9 @@ mojo.internal.Struct(
 export class CapturedWheelAction {
   constructor() {
     /** @type { !number } */
-    this.x;
+    this.relativeX;
     /** @type { !number } */
-    this.y;
+    this.relativeY;
     /** @type { !number } */
     this.wheelDeltaX;
     /** @type { !number } */
@@ -2477,6 +2534,55 @@ export class MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params {
     this.label;
     /** @type { !MediaStreamDevice } */
     this.device;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+    'MediaStreamDeviceObserver_OnZoomLevelChange_Params',
+    [
+      mojo.internal.StructField(
+        'label', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'device', 8,
+        0,
+        MediaStreamDeviceSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'zoomLevel', 16,
+        0,
+        mojo.internal.Int32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+/**
+ * @record
+ */
+export class MediaStreamDeviceObserver_OnZoomLevelChange_Params {
+  constructor() {
+    /** @type { !string } */
+    this.label;
+    /** @type { !MediaStreamDevice } */
+    this.device;
+    /** @type { !number } */
+    this.zoomLevel;
   }
 }
 

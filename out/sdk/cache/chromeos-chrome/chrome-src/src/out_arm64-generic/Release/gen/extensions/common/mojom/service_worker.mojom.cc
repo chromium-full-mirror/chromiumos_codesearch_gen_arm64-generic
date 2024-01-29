@@ -378,6 +378,8 @@ bool ServiceWorker_DispatchOnConnect_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchOnConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.1
   bool success = true;
   bool p_success{};
   ServiceWorker_DispatchOnConnect_ResponseParamsDataView input_data_view(params, message);
@@ -452,6 +454,8 @@ bool ServiceWorkerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorker_UpdatePermissions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.0
       bool success = true;
       ::extensions::PermissionSet p_active_permissions{};
       ::extensions::PermissionSet p_withheld_permissions{};
@@ -470,9 +474,9 @@ bool ServiceWorkerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePermissions(
-std::move(p_active_permissions), 
-std::move(p_withheld_permissions));
+      impl->UpdatePermissions(        
+        std::move(p_active_permissions), 
+        std::move(p_withheld_permissions));
       return true;
     }
     case internal::kServiceWorker_DispatchOnConnect_Name: {
@@ -501,6 +505,8 @@ bool ServiceWorkerStubDispatch::AcceptWithResponder(
               internal::ServiceWorker_DispatchOnConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.1
       bool success = true;
       ::extensions::PortId p_port_id{};
       ::extensions::mojom::ChannelType p_channel_type{};
@@ -541,14 +547,14 @@ bool ServiceWorkerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchOnConnect(
-std::move(p_port_id), 
-std::move(p_channel_type), 
-std::move(p_channel_name), 
-std::move(p_tab_info), 
-std::move(p_external_connection_info), 
-std::move(p_port), 
-std::move(p_port_host), std::move(callback));
+      impl->DispatchOnConnect(        
+        std::move(p_port_id), 
+        std::move(p_channel_type), 
+        std::move(p_channel_name), 
+        std::move(p_tab_info), 
+        std::move(p_external_connection_info), 
+        std::move(p_port), 
+        std::move(p_port_host), std::move(callback));
       return true;
     }
   }

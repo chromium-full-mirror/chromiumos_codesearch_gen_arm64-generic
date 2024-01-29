@@ -14,37 +14,30 @@ import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/dialogs/oobe_modal_dialog.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { afterNextRender, html, mixinBehaviors, Polymer, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
+import { loadTimeData } from '//resources/js/load_time_data.js';
+import { afterNextRender, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeTextButton } from '../../components/buttons/oobe_text_button.js';
+import { OobeModalDialog } from '../../components/dialogs/oobe_modal_dialog.js';
 import { getTemplate } from './os_install.html.js';
-const OsInstallScreenState = {
-    INTRO: 'intro',
-    IN_PROGRESS: 'in-progress',
-    FAILED: 'failed',
-    NO_DESTINATION_DEVICE_FOUND: 'no-destination-device-found',
-    SUCCESS: 'success',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
+var OsInstallScreenSteps;
+(function (OsInstallScreenSteps) {
+    OsInstallScreenSteps["INTRO"] = "intro";
+    OsInstallScreenSteps["IN_PROGRESS"] = "in-progress";
+    OsInstallScreenSteps["FAILED"] = "failed";
+    OsInstallScreenSteps["NO_DESTINATION_DEVICE_FOUND"] = "no-destination-device-found";
+    OsInstallScreenSteps["SUCCESS"] = "success";
+})(OsInstallScreenSteps || (OsInstallScreenSteps = {}));
 const OsInstallScreenElementBase = mixinBehaviors([
     OobeI18nBehavior,
     OobeDialogHostBehavior,
     LoginScreenBehavior,
     MultiStepBehavior,
 ], PolymerElement);
-/**
- * @polymer
- */
-class OsInstall extends OsInstallScreenElementBase {
+export class OsInstall extends OsInstallScreenElementBase {
     static get is() {
         return 'os-install-element';
     }
@@ -56,7 +49,7 @@ class OsInstall extends OsInstallScreenElementBase {
             /**
              * Success step subtitile message.
              */
-            osInstallDialogSuccessSubtitile_: {
+            osInstallDialogSuccessSubtitile: {
                 type: String,
                 value: '',
             },
@@ -68,136 +61,149 @@ class OsInstall extends OsInstallScreenElementBase {
     get EXTERNAL_API() {
         return ['showStep', 'setServiceLogs', 'updateCountdownString'];
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return OsInstallScreenState.INTRO;
+        return OsInstallScreenSteps.INTRO;
     }
     get UI_STEPS() {
-        return OsInstallScreenState;
+        return OsInstallScreenSteps;
     }
-    /** @override */
     ready() {
         super.ready();
         this.initializeLoginScreen('OsInstallScreen');
     }
     /**
      * Set and show screen step.
-     * @param {string} step screen step.
      */
     showStep(step) {
         this.setUIStep(step);
     }
     /**
      * This is the 'on-click' event handler for the 'back' button.
-     * @private
      */
-    onBack_() {
+    onBack() {
         this.userActed('os-install-exit');
     }
-    onIntroNextButtonPressed_() {
-        this.$.osInstallDialogConfirm.showDialog();
-        this.$.closeConfirmDialogButton.focus();
+    onIntroNextButtonPressed() {
+        const confirmationDialog = this.shadowRoot?.querySelector('#osInstallDialogConfirm');
+        if (confirmationDialog instanceof OobeModalDialog) {
+            confirmationDialog.showDialog();
+        }
+        const closeConfirmDialogButton = this.shadowRoot?.querySelector('#closeConfirmDialogButton');
+        if (closeConfirmDialogButton instanceof OobeTextButton) {
+            closeConfirmDialogButton.focus();
+        }
     }
-    onConfirmNextButtonPressed_() {
-        this.$.osInstallDialogConfirm.hideDialog();
+    onConfirmNextButtonPressed() {
+        const confirmationDialog = this.shadowRoot?.querySelector('#osInstallDialogConfirm');
+        if (confirmationDialog instanceof OobeModalDialog) {
+            confirmationDialog.hideDialog();
+        }
         this.userActed('os-install-confirm-next');
     }
-    onErrorSendFeedbackButtonPressed_() {
+    onErrorSendFeedbackButtonPressed() {
         this.userActed('os-install-error-send-feedback');
     }
-    onErrorShutdownButtonPressed_() {
+    onErrorShutdownButtonPressed() {
         this.userActed('os-install-error-shutdown');
     }
-    onSuccessRestartButtonPressed_() {
-        this.userActed('os-install-success-restart');
+    onCloseConfirmDialogButtonPressed() {
+        const confirmationDialog = this.shadowRoot?.querySelector('#osInstallDialogConfirm');
+        if (confirmationDialog instanceof OobeModalDialog) {
+            confirmationDialog.hideDialog();
+        }
+        const osInstallIntroNextButton = this.shadowRoot?.querySelector('#osInstallIntroNextButton');
+        if (osInstallIntroNextButton instanceof OobeTextButton) {
+            osInstallIntroNextButton.focus();
+        }
     }
-    onCloseConfirmDialogButtonPressed_() {
-        this.$.osInstallDialogConfirm.hideDialog();
-        this.$.osInstallIntroNextButton.focus();
-    }
-    /**
-     * @param {string} locale
-     * @return {string}
-     * @private
-     */
-    getErrorNoDestContentHtml_(locale) {
-        return this.i18nAdvanced('osInstallDialogErrorNoDestContent', {
+    getErrorNoDestContentHtml(locale) {
+        return this.i18nAdvancedDynamic(locale, 'osInstallDialogErrorNoDestContent', {
             tags: ['p', 'ul', 'li'],
         });
     }
-    /**
-     * @param {string} locale
-     * @return {string}
-     * @private
-     */
-    getErrorFailedSubtitleHtml_(locale) {
-        return this.i18nAdvanced('osInstallDialogErrorFailedSubtitle', {
+    getErrorFailedSubtitleHtml(locale) {
+        return this.i18nAdvancedDynamic(locale, 'osInstallDialogErrorFailedSubtitle', {
             tags: ['p'],
         });
     }
     /**
      * Shows service logs.
-     * @private
      */
-    onServiceLogsLinkClicked_() {
-        this.$.serviceLogsDialog.showDialog();
-        this.$.closeServiceLogsDialog.focus();
+    onServiceLogsLinkClicked() {
+        const serviceLogsDialog = this.shadowRoot?.querySelector('#serviceLogsDialog');
+        if (serviceLogsDialog instanceof OobeModalDialog) {
+            serviceLogsDialog.showDialog();
+        }
+        const closeServiceLogsDialog = this.shadowRoot?.querySelector('#closeServiceLogsDialog');
+        if (closeServiceLogsDialog instanceof OobeTextButton) {
+            closeServiceLogsDialog.focus();
+        }
     }
     /**
      * On-click event handler for close button of the service logs dialog.
-     * @private
      */
-    hideServiceLogsDialog_() {
-        this.$.serviceLogsDialog.hideDialog();
-        this.focusLogsLink_();
+    hideServiceLogsDialog() {
+        const serviceLogsDialog = this.shadowRoot?.querySelector('#serviceLogsDialog');
+        if (serviceLogsDialog instanceof OobeModalDialog) {
+            serviceLogsDialog.hideDialog();
+        }
+        this.focusLogsLink();
+    }
+    focusLogsLink() {
+        if (this.uiStep == OsInstallScreenSteps.NO_DESTINATION_DEVICE_FOUND) {
+            afterNextRender(this, () => {
+                const noDestLogsLink = this.shadowRoot?.querySelector('#noDestLogsLink');
+                if (noDestLogsLink instanceof HTMLAnchorElement) {
+                    noDestLogsLink.focus();
+                }
+            });
+        }
+        else if (this.uiStep == OsInstallScreenSteps.FAILED) {
+            afterNextRender(this, () => {
+                const serviceLogsLink = this.shadowRoot?.querySelector('#serviceLogsLink');
+                if (serviceLogsLink instanceof HTMLAnchorElement) {
+                    serviceLogsLink.focus();
+                }
+            });
+        }
     }
     /**
-     * @private
-     */
-    focusLogsLink_() {
-        if (this.uiStep == OsInstallScreenState.NO_DESTINATION_DEVICE_FOUND) {
-            afterNextRender(this, () => this.$.noDestLogsLink.focus());
-        }
-        else if (this.uiStep == OsInstallScreenState.FAILED) {
-            afterNextRender(this, () => this.$.serviceLogsLink.focus());
-        }
-    }
-    /**
-     * @param {string} serviceLogs Logs to show as plain text.
+     * serviceLogs Logs to show as plain text.
      */
     setServiceLogs(serviceLogs) {
-        this.$.serviceLogsFrame.src = 'data:text/html;charset=utf-8,' +
-            encodeURIComponent('<style>' +
-                'body {' + this.getServiceLogsFontsStyling() +
-                '  color: RGBA(0,0,0,.87);' +
-                '  margin : 0;' +
-                '  padding : 0;' +
-                '  white-space: pre-wrap;' +
-                '}' +
-                '#logsContainer {' +
-                '  overflow: auto;' +
-                '  height: 99%;' +
-                '  padding-left: 16px;' +
-                '  padding-right: 16px;' +
-                '}' +
-                '#logsContainer::-webkit-scrollbar-thumb {' +
-                '  border-radius: 10px;' +
-                '}' +
-                '</style>' +
-                '<body><div id="logsContainer">' + serviceLogs +
-                '</div>' +
-                '</body>');
+        const webview = this.shadowRoot.getElementById('serviceLogsFrame');
+        webview.src =
+            'data:text/html;charset=utf-8,' +
+                encodeURIComponent('<style>' +
+                    'body {' + this.getServiceLogsFontsStyling() +
+                    '  color: RGBA(0,0,0,.87);' +
+                    '  margin : 0;' +
+                    '  padding : 0;' +
+                    '  white-space: pre-wrap;' +
+                    '}' +
+                    '#logsContainer {' +
+                    '  overflow: auto;' +
+                    '  height: 99%;' +
+                    '  padding-left: 16px;' +
+                    '  padding-right: 16px;' +
+                    '}' +
+                    '#logsContainer::-webkit-scrollbar-thumb {' +
+                    '  border-radius: 10px;' +
+                    '}' +
+                    '</style>' +
+                    '<body><div id="logsContainer">' + serviceLogs + '</div>' +
+                    '</body>');
     }
     /**
-     * @param {string} timeLeftMessage Countdown message on success step.
+     * timeLeftMessage Countdown message on success step.
      */
     updateCountdownString(timeLeftMessage) {
-        this.osInstallDialogSuccessSubtitile_ = timeLeftMessage;
+        this.osInstallDialogSuccessSubtitile = timeLeftMessage;
     }
     /**
      * Generates fonts styling for the service log WebView based on OobeJelly
      * flag.
-     * @return {string}
-     * @private
      */
     getServiceLogsFontsStyling() {
         const isOobeJellyEnabled = loadTimeData.getBoolean('isOobeJellyEnabled');

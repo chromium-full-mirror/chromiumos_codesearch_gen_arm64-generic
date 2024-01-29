@@ -444,6 +444,8 @@ bool RenderAccessibilityHost_HandleAXEvents_ForwardToCallback::Accept(
           internal::RenderAccessibilityHost_HandleAXEvents_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RenderAccessibilityHost.0
   bool success = true;
   RenderAccessibilityHost_HandleAXEvents_ResponseParamsDataView input_data_view(params, message);
   
@@ -510,6 +512,8 @@ bool RenderAccessibilityHostStubDispatch::Accept(
           reinterpret_cast<internal::RenderAccessibilityHost_HandleAXLocationChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderAccessibilityHost.1
       bool success = true;
       WTF::Vector<LocationChangesPtr> p_changes{};
       uint32_t p_reset_token{};
@@ -528,9 +532,9 @@ bool RenderAccessibilityHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAXLocationChanges(
-std::move(p_changes), 
-std::move(p_reset_token));
+      impl->HandleAXLocationChanges(        
+        std::move(p_changes), 
+        std::move(p_reset_token));
       return true;
     }
   }
@@ -553,6 +557,8 @@ bool RenderAccessibilityHostStubDispatch::AcceptWithResponder(
               internal::RenderAccessibilityHost_HandleAXEvents_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RenderAccessibilityHost.0
       bool success = true;
       AXUpdatesAndEventsPtr p_events_and_updates{};
       uint32_t p_reset_token{};
@@ -574,9 +580,9 @@ bool RenderAccessibilityHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAXEvents(
-std::move(p_events_and_updates), 
-std::move(p_reset_token), std::move(callback));
+      impl->HandleAXEvents(        
+        std::move(p_events_and_updates), 
+        std::move(p_reset_token), std::move(callback));
       return true;
     }
     case internal::kRenderAccessibilityHost_HandleAXLocationChanges_Name: {
@@ -1056,6 +1062,8 @@ bool RenderAccessibility_HitTest_ForwardToCallback::Accept(
           internal::RenderAccessibility_HitTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RenderAccessibility.2
   bool success = true;
   HitTestResponsePtr p_hit_test_response{};
   RenderAccessibility_HitTest_ResponseParamsDataView input_data_view(params, message);
@@ -1136,6 +1144,8 @@ bool RenderAccessibilityStubDispatch::Accept(
           reinterpret_cast<internal::RenderAccessibility_SetMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderAccessibility.0
       bool success = true;
       ::ax::mojom::blink::AXModePtr p_ax_mode{};
       uint32_t p_reset_token{};
@@ -1154,9 +1164,9 @@ bool RenderAccessibilityStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMode(
-std::move(p_ax_mode), 
-std::move(p_reset_token));
+      impl->SetMode(        
+        std::move(p_ax_mode), 
+        std::move(p_reset_token));
       return true;
     }
     case internal::kRenderAccessibility_FatalError_Name: {
@@ -1166,6 +1176,8 @@ std::move(p_reset_token));
           reinterpret_cast<internal::RenderAccessibility_FatalError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderAccessibility.1
       bool success = true;
       RenderAccessibility_FatalError_ParamsDataView input_data_view(params, message);
       
@@ -1178,7 +1190,7 @@ std::move(p_reset_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FatalError();
+      impl->FatalError(        );
       return true;
     }
     case internal::kRenderAccessibility_HitTest_Name: {
@@ -1191,6 +1203,8 @@ std::move(p_reset_token));
           reinterpret_cast<internal::RenderAccessibility_PerformAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderAccessibility.3
       bool success = true;
       ::ax::mojom::blink::AXActionDataPtr p_action_data{};
       RenderAccessibility_PerformAction_ParamsDataView input_data_view(params, message);
@@ -1206,8 +1220,8 @@ std::move(p_reset_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformAction(
-std::move(p_action_data));
+      impl->PerformAction(        
+        std::move(p_action_data));
       return true;
     }
     case internal::kRenderAccessibility_Reset_Name: {
@@ -1217,6 +1231,8 @@ std::move(p_action_data));
           reinterpret_cast<internal::RenderAccessibility_Reset_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderAccessibility.4
       bool success = true;
       uint32_t p_reset_token{};
       RenderAccessibility_Reset_ParamsDataView input_data_view(params, message);
@@ -1232,8 +1248,8 @@ std::move(p_action_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Reset(
-std::move(p_reset_token));
+      impl->Reset(        
+        std::move(p_reset_token));
       return true;
     }
   }
@@ -1262,6 +1278,8 @@ bool RenderAccessibilityStubDispatch::AcceptWithResponder(
               internal::RenderAccessibility_HitTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RenderAccessibility.2
       bool success = true;
       ::gfx::Point p_point{};
       ::ax::mojom::blink::Event p_event_to_fire{};
@@ -1286,10 +1304,10 @@ bool RenderAccessibilityStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HitTest(
-std::move(p_point), 
-std::move(p_event_to_fire), 
-std::move(p_request_id), std::move(callback));
+      impl->HitTest(        
+        std::move(p_point), 
+        std::move(p_event_to_fire), 
+        std::move(p_request_id), std::move(callback));
       return true;
     }
     case internal::kRenderAccessibility_PerformAction_Name: {

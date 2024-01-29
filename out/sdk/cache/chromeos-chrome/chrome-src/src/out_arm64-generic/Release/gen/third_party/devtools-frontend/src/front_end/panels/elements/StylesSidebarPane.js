@@ -53,6 +53,7 @@ import { ElementsPanel } from './ElementsPanel.js';
 import { ElementsSidebarPane } from './ElementsSidebarPane.js';
 import { ImagePreviewPopover } from './ImagePreviewPopover.js';
 import * as LayersWidget from './LayersWidget.js';
+import { LegacyRegexMatcher, renderPropertyValue } from './PropertyParser.js';
 import { StyleEditorWidget } from './StyleEditorWidget.js';
 import { BlankStylePropertiesSection, FontPaletteValuesRuleSection, HighlightPseudoStylePropertiesSection, KeyframePropertiesSection, RegisteredPropertiesSection, StylePropertiesSection, TryRuleSection, } from './StylePropertiesSection.js';
 import { StylePropertyHighlighter } from './StylePropertyHighlighter.js';
@@ -249,7 +250,7 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         this.sectionsContainer.addEventListener('focusout', this.sectionsContainerFocusChanged.bind(this), false);
         this.sectionByElement = new WeakMap();
         this.swatchPopoverHelperInternal = new InlineEditor.SwatchPopoverHelper.SwatchPopoverHelper();
-        this.swatchPopoverHelperInternal.addEventListener(InlineEditor.SwatchPopoverHelper.Events.WillShowPopover, this.hideAllPopovers, this);
+        this.swatchPopoverHelperInternal.addEventListener("WillShowPopover" /* InlineEditor.SwatchPopoverHelper.Events.WillShowPopover */, this.hideAllPopovers, this);
         this.linkifier = new Components.Linkifier.Linkifier(MAX_LINK_LENGTH, /* useLinkDecorator */ true);
         this.decorator = new StylePropertyHighlighter(this);
         this.lastRevealedProperty = null;
@@ -378,27 +379,16 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         this.userOperation = userOperation;
     }
     createExclamationMark(property, title) {
-        const exclamationElement = document.createElement('span', { is: 'dt-icon-label' });
-        exclamationElement.className = 'exclamation-mark';
-        if (!StylesSidebarPane.ignoreErrorsForProperty(property)) {
-            exclamationElement
-                .data = { iconName: 'warning-filled', color: 'var(--icon-warning)', width: '14px', height: '14px' };
-        }
-        let invalidMessage;
-        if (typeof title === 'string') {
-            UI.Tooltip.Tooltip.install(exclamationElement, title);
-            invalidMessage = title;
+        const exclamationElement = document.createElement('span');
+        exclamationElement.classList.add('exclamation-mark');
+        const invalidMessage = SDK.CSSMetadata.cssMetadata().isCSSPropertyName(property.name) ?
+            i18nString(UIStrings.invalidPropertyValue) :
+            i18nString(UIStrings.unknownPropertyName);
+        if (title === null) {
+            UI.Tooltip.Tooltip.install(exclamationElement, invalidMessage);
         }
         else {
-            invalidMessage = SDK.CSSMetadata.cssMetadata().isCSSPropertyName(property.name) ?
-                i18nString(UIStrings.invalidPropertyValue) :
-                i18nString(UIStrings.unknownPropertyName);
-            if (!title) {
-                UI.Tooltip.Tooltip.install(exclamationElement, invalidMessage);
-            }
-            else {
-                this.addPopover(exclamationElement, () => title);
-            }
+            this.addPopover(exclamationElement, () => title);
         }
         const invalidString = i18nString(UIStrings.invalidString, { PH1: invalidMessage, PH2: property.name, PH3: property.value });
         // Storing the invalidString for future screen reader support when editing the property
@@ -653,7 +643,7 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         if (!this.initialUpdateCompleted) {
             this.initialUpdateCompleted = true;
             this.appendToolbarItem(this.createRenderingShortcuts());
-            if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.STYLES_PANE_CSS_CHANGES)) {
+            if (Root.Runtime.experiments.isEnabled("stylesPaneCSSChanges" /* Root.Runtime.ExperimentName.STYLES_PANE_CSS_CHANGES */)) {
                 this.#copyChangesButton = this.createCopyAllChangesButton();
                 this.appendToolbarItem(this.#copyChangesButton);
                 this.#copyChangesButton.element.classList.add('hidden');
@@ -788,7 +778,7 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
                 section.element.focus();
                 return;
             }
-            element.startEditing();
+            element.startEditingName();
         }
     }
     async innerRebuildUpdate(signal, matchedStyles, computedStyles, parentsComputedStyles) {
@@ -904,7 +894,7 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         LayersWidget.ButtonProvider.instance().item().setVisible(false);
         const refreshedURLs = new Set();
         for (const style of matchedStyles.nodeStyles()) {
-            if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.STYLES_PANE_CSS_CHANGES) && style.parentRule) {
+            if (Root.Runtime.experiments.isEnabled("stylesPaneCSSChanges" /* Root.Runtime.ExperimentName.STYLES_PANE_CSS_CHANGES */) && style.parentRule) {
                 const url = style.parentRule.resourceURL();
                 if (url && !refreshedURLs.has(url)) {
                     await this.trackURLForChanges(url);
@@ -1226,7 +1216,7 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         const hbox = container.createChild('div', 'hbox styles-sidebar-pane-toolbar');
         const toolbar = new UI.Toolbar.Toolbar('styles-pane-toolbar', hbox);
         const filterInput = new UI.Toolbar.ToolbarInput(i18nString(UIStrings.filter), i18nString(UIStrings.filterStyles), 1, 1, undefined, undefined, false);
-        filterInput.addEventListener(UI.Toolbar.ToolbarInput.Event.TextChanged, this.onFilterChanged, this);
+        filterInput.addEventListener("TextChanged" /* UI.Toolbar.ToolbarInput.Event.TextChanged */, this.onFilterChanged, this);
         toolbar.appendToolbarItem(filterInput);
         toolbar.makeToggledGray();
         void toolbar.appendItemsAtLocation('styles-sidebarpane-toolbar');
@@ -1300,7 +1290,7 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         const autoDarkModeSetting = Common.Settings.Settings.instance().moduleSetting('emulateAutoDarkMode');
         const decorateStatus = (condition, title) => `${condition ? '✓ ' : ''}${title}`;
         const button = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.toggleRenderingEmulations), 'brush', 'brush-filled');
-        button.element.setAttribute('jslog', `${VisualLogging.dropDown().track({ click: true }).context('renderingEmulations')}`);
+        button.element.setAttribute('jslog', `${VisualLogging.dropDown().track({ click: true }).context('rendering-emulations')}`);
         button.element.addEventListener('click', event => {
             const boundingRect = button.element.getBoundingClientRect();
             const menu = new UI.ContextMenu.ContextMenu(event, {
@@ -1338,10 +1328,10 @@ export class StylesSidebarPane extends Common.ObjectWrapper.eventMixin(ElementsS
         // TODO(1296947): implement a dedicated component to share between all copy buttons
         copyAllChangesButton.element.setAttribute('data-content', i18nString(UIStrings.copiedToClipboard));
         let timeout;
-        copyAllChangesButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, async () => {
+        copyAllChangesButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, async () => {
             const allChanges = await this.getFormattedChanges();
             Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(allChanges);
-            Host.userMetrics.styleTextCopied(Host.UserMetrics.StyleTextCopied.AllChangesViaStylesPane);
+            Host.userMetrics.styleTextCopied(2 /* Host.UserMetrics.StyleTextCopied.AllChangesViaStylesPane */);
             if (timeout) {
                 clearTimeout(timeout);
                 timeout = undefined;
@@ -1869,7 +1859,6 @@ export class StylesSidebarPropertyRenderer {
     node;
     propertyName;
     propertyValue;
-    colorHandler;
     colorMixHandler;
     bezierHandler;
     fontHandler;
@@ -1882,12 +1871,12 @@ export class StylesSidebarPropertyRenderer {
     animationHandler;
     positionFallbackHandler;
     fontPaletteHandler;
-    constructor(rule, node, name, value) {
+    matchers;
+    constructor(rule, node, name, value, matchers = []) {
         this.rule = rule;
         this.node = node;
         this.propertyName = name;
         this.propertyValue = value;
-        this.colorHandler = null;
         this.colorMixHandler = null;
         this.bezierHandler = null;
         this.fontHandler = null;
@@ -1900,9 +1889,7 @@ export class StylesSidebarPropertyRenderer {
         this.animationHandler = null;
         this.positionFallbackHandler = null;
         this.fontPaletteHandler = null;
-    }
-    setColorHandler(handler) {
-        this.colorHandler = handler;
+        this.matchers = matchers;
     }
     setColorMixHandler(handler) {
         this.colorMixHandler = handler;
@@ -1977,73 +1964,52 @@ export class StylesSidebarPropertyRenderer {
         if (metadata.isStringProperty(this.propertyName)) {
             UI.Tooltip.Tooltip.install(valueElement, unescapeCssString(this.propertyValue));
         }
-        const regexes = [];
-        const processors = [];
+        const matchers = [...this.matchers];
+        // AST matching applies regexes bottom-up to subexpressions. This requires the regexes to be explicit enough to only
+        // capture a full subexpression and not partials or prefixes. This helper converts a regex to a full-line regex if
+        // it does not already take line endings into account in some way.
+        const asLineMatch = (r) => {
+            const { source, flags, multiline } = r;
+            if (source.startsWith('^') || source.endsWith('$') || multiline) {
+                return r;
+            }
+            return new RegExp(`^${source}$`, flags);
+        };
         // Push `color-mix` handler before pushing regex handler because
         // `color-mix` can contain variables inside and we want to handle
         // it as `color-mix` swatch that displays a variable swatch inside
         // `color: color-mix(in srgb, var(--a), var(--b))` should be handled
         // by colorMixHandler not varHandler.
         if (this.colorMixHandler && metadata.isColorAwareProperty(this.propertyName)) {
-            regexes.push(Common.Color.ColorMixRegex);
-            processors.push(this.colorMixHandler);
+            matchers.push(new LegacyRegexMatcher(Common.Color.ColorMixRegex, this.colorMixHandler));
         }
-        regexes.push(SDK.CSSMetadata.VariableRegex, SDK.CSSMetadata.URLRegex);
-        processors.push(this.varHandler, this.processURL.bind(this));
-        // Handle `color` properties before handling other ones
-        // because color Regex is fairly narrow to only select real colors.
-        // However, some other Regexes like Bezier is very wide (text that
-        // contains keyword 'linear'. So, we're handling the narrowly matching
-        // handler first so that we will reduce the possibility of wrong matches.
-        // i.e. color(srgb-linear ...) matching as a bezier curve (because
-        // of the `linear` keyword)
-        if (this.colorHandler && metadata.isColorAwareProperty(this.propertyName)) {
-            regexes.push(Common.Color.Regex);
-            processors.push(this.colorHandler);
-        }
+        matchers.push(new LegacyRegexMatcher(SDK.CSSMetadata.URLRegex, this.processURL.bind(this)));
         if (this.bezierHandler && metadata.isBezierAwareProperty(this.propertyName)) {
-            regexes.push(UI.Geometry.CubicBezier.Regex);
-            processors.push(this.bezierHandler);
+            matchers.push(new LegacyRegexMatcher(UI.Geometry.CubicBezier.Regex, this.bezierHandler));
         }
         if (this.angleHandler && metadata.isAngleAwareProperty(this.propertyName)) {
             // TODO(changhaohan): crbug.com/1138628 refactor this to handle unitless 0 cases
-            regexes.push(InlineEditor.CSSAngleUtils.CSSAngleRegex);
-            processors.push(this.angleHandler);
+            matchers.push(new LegacyRegexMatcher(asLineMatch(InlineEditor.CSSAngleUtils.CSSAngleRegex), this.angleHandler));
         }
         if (this.fontHandler && metadata.isFontAwareProperty(this.propertyName)) {
-            if (this.propertyName === 'font-family') {
-                regexes.push(InlineEditor.FontEditorUtils.FontFamilyRegex);
-            }
-            else {
-                regexes.push(InlineEditor.FontEditorUtils.FontPropertiesRegex);
-            }
-            processors.push(this.fontHandler);
+            matchers.push(new LegacyRegexMatcher(this.propertyName === 'font-family' ? InlineEditor.FontEditorUtils.FontFamilyRegex :
+                InlineEditor.FontEditorUtils.FontPropertiesRegex, this.fontHandler));
         }
-        if (this.lengthHandler) {
+        if (Root.Runtime.experiments.isEnabled('cssTypeComponentLength') && this.lengthHandler) {
             // TODO(changhaohan): crbug.com/1138628 refactor this to handle unitless 0 cases
-            regexes.push(InlineEditor.CSSLengthUtils.CSSLengthRegex);
-            processors.push(this.lengthHandler);
+            matchers.push(new LegacyRegexMatcher(asLineMatch(InlineEditor.CSSLengthUtils.CSSLengthRegex), this.lengthHandler));
         }
-        if (this.propertyName === 'animation-name') {
-            regexes.push(/^.*$/g);
-            processors.push(this.animationNameHandler);
+        if (this.propertyName === 'animation-name' && this.animationNameHandler) {
+            matchers.push(new LegacyRegexMatcher(/^[^,]*$/g, this.animationNameHandler));
         }
-        if (this.propertyName === 'font-palette') {
-            regexes.push(/^.*$/g);
-            processors.push(this.fontPaletteHandler);
+        if (this.propertyName === 'font-palette' && this.fontPaletteHandler) {
+            matchers.push(new LegacyRegexMatcher(/^.*$/g, this.fontPaletteHandler));
         }
         if (this.positionFallbackHandler && this.propertyName === 'position-fallback') {
-            regexes.push(/^.*$/g);
-            processors.push(this.positionFallbackHandler);
+            matchers.push(new LegacyRegexMatcher(/^.*$/g, this.positionFallbackHandler));
         }
-        const results = TextUtils.TextUtils.Utils.splitStringByRegexes(this.propertyValue, regexes);
-        for (let i = 0; i < results.length; i++) {
-            const result = results[i];
-            const processor = result.regexIndex === -1 ? document.createTextNode.bind(document) : processors[result.regexIndex];
-            if (processor) {
-                valueElement.appendChild(processor(result.value));
-            }
-        }
+        renderPropertyValue(this.propertyValue, matchers, this.propertyName)
+            .forEach(node => valueElement.appendChild(node));
         valueElement.normalize();
         return valueElement;
     }

@@ -318,6 +318,8 @@ bool BleScanParser_Parse_ForwardToCallback::Accept(
           internal::BleScanParser_Parse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BleScanParser.0
   bool success = true;
   ScanRecordPtr p_scan_record{};
   BleScanParser_Parse_ResponseParamsDataView input_data_view(params, message);
@@ -414,6 +416,8 @@ bool BleScanParserStubDispatch::AcceptWithResponder(
               internal::BleScanParser_Parse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BleScanParser.0
       bool success = true;
       std::vector<uint8_t> p_advertising_data{};
       BleScanParser_Parse_ParamsDataView input_data_view(params, message);
@@ -432,8 +436,8 @@ bool BleScanParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Parse(
-std::move(p_advertising_data), std::move(callback));
+      impl->Parse(        
+        std::move(p_advertising_data), std::move(callback));
       return true;
     }
   }

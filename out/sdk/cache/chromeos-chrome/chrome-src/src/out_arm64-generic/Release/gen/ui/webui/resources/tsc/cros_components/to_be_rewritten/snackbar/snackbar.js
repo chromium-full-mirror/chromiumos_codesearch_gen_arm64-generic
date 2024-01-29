@@ -34,7 +34,6 @@ export class Snackbar extends LitElement {
     static { this.events = {
         /** The snackbar popup timed out and closed itself. */
         TIMEOUT: 'cros-snackbar-timeout',
-        CLOSED: 'cros-snackbar-closed',
     }; }
     constructor() {
         super();
@@ -94,7 +93,6 @@ export class Snackbar extends LitElement {
             this.startTimeout();
         }
         else if (e.newState === 'closed') {
-            this.dispatchEvent(new CustomEvent(Snackbar.events.CLOSED));
             // If the snackbar was closed before the timer fired cancel it.
             if (this.pendingTimeout) {
                 clearTimeout(this.pendingTimeout);

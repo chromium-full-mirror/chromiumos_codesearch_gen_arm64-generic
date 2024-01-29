@@ -24,7 +24,7 @@ constexpr uint32_t kPageHandler_SwitchToTab_Name = 5;
 constexpr uint32_t kPageHandler_OpenRecentlyClosedEntry_Name = 6;
 constexpr uint32_t kPageHandler_RequestTabOrganization_Name = 7;
 constexpr uint32_t kPageHandler_RemoveTabFromOrganization_Name = 8;
-constexpr uint32_t kPageHandler_ResetSession_Name = 9;
+constexpr uint32_t kPageHandler_RestartSession_Name = 9;
 constexpr uint32_t kPageHandler_SaveRecentlyClosedExpandedPref_Name = 10;
 constexpr uint32_t kPageHandler_SetTabIndex_Name = 11;
 constexpr uint32_t kPageHandler_StartTabGroupTutorial_Name = 12;
@@ -39,6 +39,7 @@ constexpr uint32_t kPage_TabOrganizationSessionUpdated_Name = 0;
 constexpr uint32_t kPage_TabsChanged_Name = 1;
 constexpr uint32_t kPage_TabUpdated_Name = 2;
 constexpr uint32_t kPage_TabsRemoved_Name = 3;
+constexpr uint32_t kPage_TabSearchTabIndexChanged_Name = 4;
 
 }  // namespace internal
 

@@ -482,6 +482,8 @@ bool FrameInterfaceFactory_GetCdmOrigin_ForwardToCallback::Accept(
           internal::FrameInterfaceFactory_GetCdmOrigin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameInterfaceFactory.2
   bool success = true;
   ::url::Origin p_cdm_origin{};
   FrameInterfaceFactory_GetCdmOrigin_ResponseParamsDataView input_data_view(params, message);
@@ -561,6 +563,8 @@ bool FrameInterfaceFactory_GetCdmOrigin_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FrameInterfaceFactory_GetCdmOrigin_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FrameInterfaceFactory.2
   bool success = true;
   ::url::Origin p_cdm_origin{};
   FrameInterfaceFactory_GetCdmOrigin_ResponseParamsDataView input_data_view(params, message);
@@ -591,6 +595,8 @@ bool FrameInterfaceFactoryStubDispatch::Accept(
           reinterpret_cast<internal::FrameInterfaceFactory_CreateProvisionFetcher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameInterfaceFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::ProvisionFetcher> p_provision_fetcher{};
       FrameInterfaceFactory_CreateProvisionFetcher_ParamsDataView input_data_view(params, message);
@@ -608,8 +614,8 @@ bool FrameInterfaceFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateProvisionFetcher(
-std::move(p_provision_fetcher));
+      impl->CreateProvisionFetcher(        
+        std::move(p_provision_fetcher));
       return true;
     }
     case internal::kFrameInterfaceFactory_CreateCdmStorage_Name: {
@@ -619,6 +625,8 @@ std::move(p_provision_fetcher));
           reinterpret_cast<internal::FrameInterfaceFactory_CreateCdmStorage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameInterfaceFactory.1
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::CdmStorage> p_cdm_storage{};
       FrameInterfaceFactory_CreateCdmStorage_ParamsDataView input_data_view(params, message);
@@ -636,8 +644,8 @@ std::move(p_provision_fetcher));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCdmStorage(
-std::move(p_cdm_storage));
+      impl->CreateCdmStorage(        
+        std::move(p_cdm_storage));
       return true;
     }
     case internal::kFrameInterfaceFactory_GetCdmOrigin_Name: {
@@ -650,6 +658,8 @@ std::move(p_cdm_storage));
           reinterpret_cast<internal::FrameInterfaceFactory_BindEmbedderReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameInterfaceFactory.3
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       FrameInterfaceFactory_BindEmbedderReceiver_ParamsDataView input_data_view(params, message);
@@ -665,8 +675,8 @@ std::move(p_cdm_storage));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEmbedderReceiver(
-std::move(p_receiver));
+      impl->BindEmbedderReceiver(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -695,6 +705,8 @@ bool FrameInterfaceFactoryStubDispatch::AcceptWithResponder(
               internal::FrameInterfaceFactory_GetCdmOrigin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameInterfaceFactory.2
       bool success = true;
       FrameInterfaceFactory_GetCdmOrigin_ParamsDataView input_data_view(params, message);
       

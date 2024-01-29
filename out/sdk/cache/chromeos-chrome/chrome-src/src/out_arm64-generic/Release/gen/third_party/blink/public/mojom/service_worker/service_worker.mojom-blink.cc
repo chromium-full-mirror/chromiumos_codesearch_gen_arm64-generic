@@ -1311,6 +1311,8 @@ bool ServiceWorkerHost_GetClients_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_GetClients_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.2
   bool success = true;
   WTF::Vector<::blink::mojom::blink::ServiceWorkerClientInfoPtr> p_clients{};
   ServiceWorkerHost_GetClients_ResponseParamsDataView input_data_view(params, message);
@@ -1442,6 +1444,8 @@ bool ServiceWorkerHost_GetClient_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_GetClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.3
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerClientInfoPtr p_client{};
   ServiceWorkerHost_GetClient_ResponseParamsDataView input_data_view(params, message);
@@ -1567,6 +1571,8 @@ bool ServiceWorkerHost_OpenNewTab_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_OpenNewTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.4
   bool success = true;
   bool p_success{};
   ::blink::mojom::blink::ServiceWorkerClientInfoPtr p_client{};
@@ -1714,6 +1720,8 @@ bool ServiceWorkerHost_OpenPaymentHandlerWindow_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_OpenPaymentHandlerWindow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.5
   bool success = true;
   bool p_success{};
   ::blink::mojom::blink::ServiceWorkerClientInfoPtr p_client{};
@@ -1861,6 +1869,8 @@ bool ServiceWorkerHost_FocusClient_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_FocusClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.7
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerClientInfoPtr p_client{};
   ServiceWorkerHost_FocusClient_ResponseParamsDataView input_data_view(params, message);
@@ -1986,6 +1996,8 @@ bool ServiceWorkerHost_NavigateClient_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_NavigateClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.8
   bool success = true;
   bool p_success{};
   ::blink::mojom::blink::ServiceWorkerClientInfoPtr p_client{};
@@ -2133,6 +2145,8 @@ bool ServiceWorkerHost_SkipWaiting_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_SkipWaiting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.9
   bool success = true;
   bool p_success{};
   ServiceWorkerHost_SkipWaiting_ResponseParamsDataView input_data_view(params, message);
@@ -2252,6 +2266,8 @@ bool ServiceWorkerHost_ClaimClients_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_ClaimClients_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.10
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
@@ -2386,6 +2402,8 @@ bool ServiceWorkerHost_RegisterRouter_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_RegisterRouter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.11
   bool success = true;
   ServiceWorkerHost_RegisterRouter_ResponseParamsDataView input_data_view(params, message);
   
@@ -2493,6 +2511,8 @@ bool ServiceWorkerHost_AddRoutes_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_AddRoutes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.12
   bool success = true;
   ServiceWorkerHost_AddRoutes_ResponseParamsDataView input_data_view(params, message);
   
@@ -2555,6 +2575,8 @@ bool ServiceWorkerHostStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerHost_SetCachedMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.0
       bool success = true;
       ::blink::KURL p_url{};
       ::base::span<const ::uint8_t> p_data{};
@@ -2573,9 +2595,9 @@ bool ServiceWorkerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCachedMetadata(
-std::move(p_url), 
-std::move(p_data));
+      impl->SetCachedMetadata(        
+        std::move(p_url), 
+        std::move(p_data));
       return true;
     }
     case internal::kServiceWorkerHost_ClearCachedMetadata_Name: {
@@ -2585,6 +2607,8 @@ std::move(p_data));
           reinterpret_cast<internal::ServiceWorkerHost_ClearCachedMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.1
       bool success = true;
       ::blink::KURL p_url{};
       ServiceWorkerHost_ClearCachedMetadata_ParamsDataView input_data_view(params, message);
@@ -2600,8 +2624,8 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearCachedMetadata(
-std::move(p_url));
+      impl->ClearCachedMetadata(        
+        std::move(p_url));
       return true;
     }
     case internal::kServiceWorkerHost_GetClients_Name: {
@@ -2623,6 +2647,8 @@ std::move(p_url));
           reinterpret_cast<internal::ServiceWorkerHost_PostMessageToClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.6
       bool success = true;
       WTF::String p_client_uuid{};
       ::blink::BlinkTransferableMessage p_message{};
@@ -2641,9 +2667,9 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PostMessageToClient(
-std::move(p_client_uuid), 
-std::move(p_message));
+      impl->PostMessageToClient(        
+        std::move(p_client_uuid), 
+        std::move(p_message));
       return true;
     }
     case internal::kServiceWorkerHost_FocusClient_Name: {
@@ -2690,6 +2716,8 @@ bool ServiceWorkerHostStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerHost_GetClients_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.2
       bool success = true;
       ::blink::mojom::blink::ServiceWorkerClientQueryOptionsPtr p_options{};
       ServiceWorkerHost_GetClients_ParamsDataView input_data_view(params, message);
@@ -2708,8 +2736,8 @@ bool ServiceWorkerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetClients(
-std::move(p_options), std::move(callback));
+      impl->GetClients(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_GetClient_Name: {
@@ -2719,6 +2747,8 @@ std::move(p_options), std::move(callback));
               internal::ServiceWorkerHost_GetClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.3
       bool success = true;
       WTF::String p_client_uuid{};
       ServiceWorkerHost_GetClient_ParamsDataView input_data_view(params, message);
@@ -2737,8 +2767,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetClient(
-std::move(p_client_uuid), std::move(callback));
+      impl->GetClient(        
+        std::move(p_client_uuid), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_OpenNewTab_Name: {
@@ -2748,6 +2778,8 @@ std::move(p_client_uuid), std::move(callback));
               internal::ServiceWorkerHost_OpenNewTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.4
       bool success = true;
       ::blink::KURL p_url{};
       ServiceWorkerHost_OpenNewTab_ParamsDataView input_data_view(params, message);
@@ -2766,8 +2798,8 @@ std::move(p_client_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenNewTab(
-std::move(p_url), std::move(callback));
+      impl->OpenNewTab(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_OpenPaymentHandlerWindow_Name: {
@@ -2777,6 +2809,8 @@ std::move(p_url), std::move(callback));
               internal::ServiceWorkerHost_OpenPaymentHandlerWindow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.5
       bool success = true;
       ::blink::KURL p_url{};
       ServiceWorkerHost_OpenPaymentHandlerWindow_ParamsDataView input_data_view(params, message);
@@ -2795,8 +2829,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenPaymentHandlerWindow(
-std::move(p_url), std::move(callback));
+      impl->OpenPaymentHandlerWindow(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_PostMessageToClient_Name: {
@@ -2809,6 +2843,8 @@ std::move(p_url), std::move(callback));
               internal::ServiceWorkerHost_FocusClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.7
       bool success = true;
       WTF::String p_client_uuid{};
       ServiceWorkerHost_FocusClient_ParamsDataView input_data_view(params, message);
@@ -2827,8 +2863,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusClient(
-std::move(p_client_uuid), std::move(callback));
+      impl->FocusClient(        
+        std::move(p_client_uuid), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_NavigateClient_Name: {
@@ -2838,6 +2874,8 @@ std::move(p_client_uuid), std::move(callback));
               internal::ServiceWorkerHost_NavigateClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.8
       bool success = true;
       WTF::String p_client_uuid{};
       ::blink::KURL p_url{};
@@ -2859,9 +2897,9 @@ std::move(p_client_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NavigateClient(
-std::move(p_client_uuid), 
-std::move(p_url), std::move(callback));
+      impl->NavigateClient(        
+        std::move(p_client_uuid), 
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_SkipWaiting_Name: {
@@ -2871,6 +2909,8 @@ std::move(p_url), std::move(callback));
               internal::ServiceWorkerHost_SkipWaiting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.9
       bool success = true;
       ServiceWorkerHost_SkipWaiting_ParamsDataView input_data_view(params, message);
       
@@ -2896,6 +2936,8 @@ std::move(p_url), std::move(callback));
               internal::ServiceWorkerHost_ClaimClients_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.10
       bool success = true;
       ServiceWorkerHost_ClaimClients_ParamsDataView input_data_view(params, message);
       
@@ -2921,6 +2963,8 @@ std::move(p_url), std::move(callback));
               internal::ServiceWorkerHost_RegisterRouter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.11
       bool success = true;
       ::blink::ServiceWorkerRouterRules p_rules{};
       ServiceWorkerHost_RegisterRouter_ParamsDataView input_data_view(params, message);
@@ -2939,8 +2983,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterRouter(
-std::move(p_rules), std::move(callback));
+      impl->RegisterRouter(        
+        std::move(p_rules), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_AddRoutes_Name: {
@@ -2950,6 +2994,8 @@ std::move(p_rules), std::move(callback));
               internal::ServiceWorkerHost_AddRoutes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.12
       bool success = true;
       ::blink::ServiceWorkerRouterRules p_rules{};
       ServiceWorkerHost_AddRoutes_ParamsDataView input_data_view(params, message);
@@ -2968,8 +3014,8 @@ std::move(p_rules), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddRoutes(
-std::move(p_rules), std::move(callback));
+      impl->AddRoutes(        
+        std::move(p_rules), std::move(callback));
       return true;
     }
   }
@@ -5401,6 +5447,8 @@ bool ServiceWorker_DispatchInstallEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchInstallEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.1
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   uint32_t p_fetch_count{};
@@ -5529,6 +5577,8 @@ bool ServiceWorker_DispatchActivateEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchActivateEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.2
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchActivateEvent_ResponseParamsDataView input_data_view(params, message);
@@ -5649,6 +5699,8 @@ bool ServiceWorker_DispatchBackgroundFetchAbortEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchBackgroundFetchAbortEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.3
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchBackgroundFetchAbortEvent_ResponseParamsDataView input_data_view(params, message);
@@ -5769,6 +5821,8 @@ bool ServiceWorker_DispatchBackgroundFetchClickEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchBackgroundFetchClickEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.4
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchBackgroundFetchClickEvent_ResponseParamsDataView input_data_view(params, message);
@@ -5889,6 +5943,8 @@ bool ServiceWorker_DispatchBackgroundFetchFailEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchBackgroundFetchFailEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.5
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchBackgroundFetchFailEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6009,6 +6065,8 @@ bool ServiceWorker_DispatchBackgroundFetchSuccessEvent_ForwardToCallback::Accept
           internal::ServiceWorker_DispatchBackgroundFetchSuccessEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.6
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchBackgroundFetchSuccessEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6129,6 +6187,8 @@ bool ServiceWorker_DispatchCookieChangeEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchCookieChangeEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.7
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchCookieChangeEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6249,6 +6309,8 @@ bool ServiceWorker_DispatchFetchEventForMainResource_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchFetchEventForMainResource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.8
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchFetchEventForMainResource_ResponseParamsDataView input_data_view(params, message);
@@ -6369,6 +6431,8 @@ bool ServiceWorker_DispatchNotificationClickEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchNotificationClickEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.9
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchNotificationClickEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6489,6 +6553,8 @@ bool ServiceWorker_DispatchNotificationCloseEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchNotificationCloseEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.10
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchNotificationCloseEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6609,6 +6675,8 @@ bool ServiceWorker_DispatchPushEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchPushEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.11
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchPushEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6729,6 +6797,8 @@ bool ServiceWorker_DispatchPushSubscriptionChangeEvent_ForwardToCallback::Accept
           internal::ServiceWorker_DispatchPushSubscriptionChangeEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.12
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchPushSubscriptionChangeEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6849,6 +6919,8 @@ bool ServiceWorker_DispatchSyncEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchSyncEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.13
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchSyncEvent_ResponseParamsDataView input_data_view(params, message);
@@ -6969,6 +7041,8 @@ bool ServiceWorker_DispatchPeriodicSyncEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchPeriodicSyncEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.14
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchPeriodicSyncEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7089,6 +7163,8 @@ bool ServiceWorker_DispatchAbortPaymentEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchAbortPaymentEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.15
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchAbortPaymentEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7209,6 +7285,8 @@ bool ServiceWorker_DispatchCanMakePaymentEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchCanMakePaymentEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.16
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchCanMakePaymentEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7329,6 +7407,8 @@ bool ServiceWorker_DispatchPaymentRequestEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchPaymentRequestEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.17
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchPaymentRequestEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7449,6 +7529,8 @@ bool ServiceWorker_DispatchExtendableMessageEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchExtendableMessageEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.18
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchExtendableMessageEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7569,6 +7651,8 @@ bool ServiceWorker_DispatchContentDeleteEvent_ForwardToCallback::Accept(
           internal::ServiceWorker_DispatchContentDeleteEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.19
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ServiceWorker_DispatchContentDeleteEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7689,6 +7773,8 @@ bool ServiceWorker_Ping_ForwardToCallback::Accept(
           internal::ServiceWorker_Ping_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.20
   bool success = true;
   ServiceWorker_Ping_ResponseParamsDataView input_data_view(params, message);
   
@@ -7796,6 +7882,8 @@ bool ServiceWorker_ExecuteScriptForTest_ForwardToCallback::Accept(
           internal::ServiceWorker_ExecuteScriptForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorker.25
   bool success = true;
   ::base::Value p_result{};
   WTF::String p_error{};
@@ -7892,6 +7980,8 @@ bool ServiceWorkerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorker_InitializeGlobalScope_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<ServiceWorkerHost> p_service_worker_host{};
       ::mojo::PendingAssociatedRemote<::blink::mojom::blink::AssociatedInterfaceProvider> p_associated_interfaces_to_browser{};
@@ -7939,16 +8029,16 @@ bool ServiceWorkerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeGlobalScope(
-std::move(p_service_worker_host), 
-std::move(p_associated_interfaces_to_browser), 
-std::move(p_associated_interfaces_from_browser), 
-std::move(p_registration_info), 
-std::move(p_service_worker_info), 
-std::move(p_fetch_handler_existence), 
-std::move(p_reporting_observer_receiver), 
-std::move(p_ancestor_frame_type), 
-std::move(p_storage_key));
+      impl->InitializeGlobalScope(        
+        std::move(p_service_worker_host), 
+        std::move(p_associated_interfaces_to_browser), 
+        std::move(p_associated_interfaces_from_browser), 
+        std::move(p_registration_info), 
+        std::move(p_service_worker_info), 
+        std::move(p_fetch_handler_existence), 
+        std::move(p_reporting_observer_receiver), 
+        std::move(p_ancestor_frame_type), 
+        std::move(p_storage_key));
       return true;
     }
     case internal::kServiceWorker_DispatchInstallEvent_Name: {
@@ -8018,6 +8108,8 @@ std::move(p_storage_key));
           reinterpret_cast<internal::ServiceWorker_SetIdleDelay_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.21
       bool success = true;
       ::base::TimeDelta p_delay{};
       ServiceWorker_SetIdleDelay_ParamsDataView input_data_view(params, message);
@@ -8033,8 +8125,8 @@ std::move(p_storage_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIdleDelay(
-std::move(p_delay));
+      impl->SetIdleDelay(        
+        std::move(p_delay));
       return true;
     }
     case internal::kServiceWorker_AddKeepAlive_Name: {
@@ -8044,6 +8136,8 @@ std::move(p_delay));
           reinterpret_cast<internal::ServiceWorker_AddKeepAlive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.22
       bool success = true;
       ServiceWorker_AddKeepAlive_ParamsDataView input_data_view(params, message);
       
@@ -8056,7 +8150,7 @@ std::move(p_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddKeepAlive();
+      impl->AddKeepAlive(        );
       return true;
     }
     case internal::kServiceWorker_ClearKeepAlive_Name: {
@@ -8066,6 +8160,8 @@ std::move(p_delay));
           reinterpret_cast<internal::ServiceWorker_ClearKeepAlive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.23
       bool success = true;
       ServiceWorker_ClearKeepAlive_ParamsDataView input_data_view(params, message);
       
@@ -8078,7 +8174,7 @@ std::move(p_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearKeepAlive();
+      impl->ClearKeepAlive(        );
       return true;
     }
     case internal::kServiceWorker_AddMessageToConsole_Name: {
@@ -8088,6 +8184,8 @@ std::move(p_delay));
           reinterpret_cast<internal::ServiceWorker_AddMessageToConsole_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.24
       bool success = true;
       ::blink::mojom::blink::ConsoleMessageLevel p_level{};
       WTF::String p_message{};
@@ -8106,9 +8204,9 @@ std::move(p_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMessageToConsole(
-std::move(p_level), 
-std::move(p_message));
+      impl->AddMessageToConsole(        
+        std::move(p_level), 
+        std::move(p_message));
       return true;
     }
     case internal::kServiceWorker_ExecuteScriptForTest_Name: {
@@ -8137,6 +8235,8 @@ bool ServiceWorkerStubDispatch::AcceptWithResponder(
               internal::ServiceWorker_DispatchInstallEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.1
       bool success = true;
       ServiceWorker_DispatchInstallEvent_ParamsDataView input_data_view(params, message);
       
@@ -8162,6 +8262,8 @@ bool ServiceWorkerStubDispatch::AcceptWithResponder(
               internal::ServiceWorker_DispatchActivateEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.2
       bool success = true;
       ServiceWorker_DispatchActivateEvent_ParamsDataView input_data_view(params, message);
       
@@ -8187,6 +8289,8 @@ bool ServiceWorkerStubDispatch::AcceptWithResponder(
               internal::ServiceWorker_DispatchBackgroundFetchAbortEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.3
       bool success = true;
       ::blink::mojom::blink::BackgroundFetchRegistrationPtr p_registration{};
       ServiceWorker_DispatchBackgroundFetchAbortEvent_ParamsDataView input_data_view(params, message);
@@ -8205,8 +8309,8 @@ bool ServiceWorkerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchBackgroundFetchAbortEvent(
-std::move(p_registration), std::move(callback));
+      impl->DispatchBackgroundFetchAbortEvent(        
+        std::move(p_registration), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchBackgroundFetchClickEvent_Name: {
@@ -8216,6 +8320,8 @@ std::move(p_registration), std::move(callback));
               internal::ServiceWorker_DispatchBackgroundFetchClickEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.4
       bool success = true;
       ::blink::mojom::blink::BackgroundFetchRegistrationPtr p_registration{};
       ServiceWorker_DispatchBackgroundFetchClickEvent_ParamsDataView input_data_view(params, message);
@@ -8234,8 +8340,8 @@ std::move(p_registration), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchBackgroundFetchClickEvent(
-std::move(p_registration), std::move(callback));
+      impl->DispatchBackgroundFetchClickEvent(        
+        std::move(p_registration), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchBackgroundFetchFailEvent_Name: {
@@ -8245,6 +8351,8 @@ std::move(p_registration), std::move(callback));
               internal::ServiceWorker_DispatchBackgroundFetchFailEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.5
       bool success = true;
       ::blink::mojom::blink::BackgroundFetchRegistrationPtr p_registration{};
       ServiceWorker_DispatchBackgroundFetchFailEvent_ParamsDataView input_data_view(params, message);
@@ -8263,8 +8371,8 @@ std::move(p_registration), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchBackgroundFetchFailEvent(
-std::move(p_registration), std::move(callback));
+      impl->DispatchBackgroundFetchFailEvent(        
+        std::move(p_registration), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchBackgroundFetchSuccessEvent_Name: {
@@ -8274,6 +8382,8 @@ std::move(p_registration), std::move(callback));
               internal::ServiceWorker_DispatchBackgroundFetchSuccessEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.6
       bool success = true;
       ::blink::mojom::blink::BackgroundFetchRegistrationPtr p_registration{};
       ServiceWorker_DispatchBackgroundFetchSuccessEvent_ParamsDataView input_data_view(params, message);
@@ -8292,8 +8402,8 @@ std::move(p_registration), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchBackgroundFetchSuccessEvent(
-std::move(p_registration), std::move(callback));
+      impl->DispatchBackgroundFetchSuccessEvent(        
+        std::move(p_registration), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchCookieChangeEvent_Name: {
@@ -8303,6 +8413,8 @@ std::move(p_registration), std::move(callback));
               internal::ServiceWorker_DispatchCookieChangeEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.7
       bool success = true;
       ::network::mojom::blink::CookieChangeInfoPtr p_change{};
       ServiceWorker_DispatchCookieChangeEvent_ParamsDataView input_data_view(params, message);
@@ -8321,8 +8433,8 @@ std::move(p_registration), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchCookieChangeEvent(
-std::move(p_change), std::move(callback));
+      impl->DispatchCookieChangeEvent(        
+        std::move(p_change), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchFetchEventForMainResource_Name: {
@@ -8332,6 +8444,8 @@ std::move(p_change), std::move(callback));
               internal::ServiceWorker_DispatchFetchEventForMainResource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.8
       bool success = true;
       ::blink::mojom::blink::DispatchFetchEventParamsPtr p_params{};
       ::mojo::PendingRemote<::blink::mojom::blink::ServiceWorkerFetchResponseCallback> p_response_callback{};
@@ -8355,9 +8469,9 @@ std::move(p_change), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchFetchEventForMainResource(
-std::move(p_params), 
-std::move(p_response_callback), std::move(callback));
+      impl->DispatchFetchEventForMainResource(        
+        std::move(p_params), 
+        std::move(p_response_callback), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchNotificationClickEvent_Name: {
@@ -8367,6 +8481,8 @@ std::move(p_response_callback), std::move(callback));
               internal::ServiceWorker_DispatchNotificationClickEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.9
       bool success = true;
       WTF::String p_notification_id{};
       ::blink::mojom::blink::NotificationDataPtr p_notification_data{};
@@ -8394,11 +8510,11 @@ std::move(p_response_callback), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchNotificationClickEvent(
-std::move(p_notification_id), 
-std::move(p_notification_data), 
-std::move(p_action_index), 
-std::move(p_reply), std::move(callback));
+      impl->DispatchNotificationClickEvent(        
+        std::move(p_notification_id), 
+        std::move(p_notification_data), 
+        std::move(p_action_index), 
+        std::move(p_reply), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchNotificationCloseEvent_Name: {
@@ -8408,6 +8524,8 @@ std::move(p_reply), std::move(callback));
               internal::ServiceWorker_DispatchNotificationCloseEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.10
       bool success = true;
       WTF::String p_notification_id{};
       ::blink::mojom::blink::NotificationDataPtr p_notification_data{};
@@ -8429,9 +8547,9 @@ std::move(p_reply), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchNotificationCloseEvent(
-std::move(p_notification_id), 
-std::move(p_notification_data), std::move(callback));
+      impl->DispatchNotificationCloseEvent(        
+        std::move(p_notification_id), 
+        std::move(p_notification_data), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchPushEvent_Name: {
@@ -8441,6 +8559,8 @@ std::move(p_notification_data), std::move(callback));
               internal::ServiceWorker_DispatchPushEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.11
       bool success = true;
       WTF::String p_payload{};
       ServiceWorker_DispatchPushEvent_ParamsDataView input_data_view(params, message);
@@ -8459,8 +8579,8 @@ std::move(p_notification_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchPushEvent(
-std::move(p_payload), std::move(callback));
+      impl->DispatchPushEvent(        
+        std::move(p_payload), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchPushSubscriptionChangeEvent_Name: {
@@ -8470,6 +8590,8 @@ std::move(p_payload), std::move(callback));
               internal::ServiceWorker_DispatchPushSubscriptionChangeEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.12
       bool success = true;
       ::blink::mojom::blink::PushSubscriptionPtr p_old_subscription{};
       ::blink::mojom::blink::PushSubscriptionPtr p_new_subscription{};
@@ -8491,9 +8613,9 @@ std::move(p_payload), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchPushSubscriptionChangeEvent(
-std::move(p_old_subscription), 
-std::move(p_new_subscription), std::move(callback));
+      impl->DispatchPushSubscriptionChangeEvent(        
+        std::move(p_old_subscription), 
+        std::move(p_new_subscription), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchSyncEvent_Name: {
@@ -8503,6 +8625,8 @@ std::move(p_new_subscription), std::move(callback));
               internal::ServiceWorker_DispatchSyncEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.13
       bool success = true;
       WTF::String p_tag{};
       bool p_last_chance{};
@@ -8527,10 +8651,10 @@ std::move(p_new_subscription), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchSyncEvent(
-std::move(p_tag), 
-std::move(p_last_chance), 
-std::move(p_timeout), std::move(callback));
+      impl->DispatchSyncEvent(        
+        std::move(p_tag), 
+        std::move(p_last_chance), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchPeriodicSyncEvent_Name: {
@@ -8540,6 +8664,8 @@ std::move(p_timeout), std::move(callback));
               internal::ServiceWorker_DispatchPeriodicSyncEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.14
       bool success = true;
       WTF::String p_tag{};
       ::base::TimeDelta p_timeout{};
@@ -8561,9 +8687,9 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchPeriodicSyncEvent(
-std::move(p_tag), 
-std::move(p_timeout), std::move(callback));
+      impl->DispatchPeriodicSyncEvent(        
+        std::move(p_tag), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchAbortPaymentEvent_Name: {
@@ -8573,6 +8699,8 @@ std::move(p_timeout), std::move(callback));
               internal::ServiceWorker_DispatchAbortPaymentEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.15
       bool success = true;
       ::mojo::PendingRemote<::payments::mojom::blink::PaymentHandlerResponseCallback> p_result_of_abort_payment{};
       ServiceWorker_DispatchAbortPaymentEvent_ParamsDataView input_data_view(params, message);
@@ -8593,8 +8721,8 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchAbortPaymentEvent(
-std::move(p_result_of_abort_payment), std::move(callback));
+      impl->DispatchAbortPaymentEvent(        
+        std::move(p_result_of_abort_payment), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchCanMakePaymentEvent_Name: {
@@ -8604,6 +8732,8 @@ std::move(p_result_of_abort_payment), std::move(callback));
               internal::ServiceWorker_DispatchCanMakePaymentEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.16
       bool success = true;
       ::payments::mojom::blink::CanMakePaymentEventDataPtr p_event_data{};
       ::mojo::PendingRemote<::payments::mojom::blink::PaymentHandlerResponseCallback> p_result_of_can_make_payment{};
@@ -8627,9 +8757,9 @@ std::move(p_result_of_abort_payment), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchCanMakePaymentEvent(
-std::move(p_event_data), 
-std::move(p_result_of_can_make_payment), std::move(callback));
+      impl->DispatchCanMakePaymentEvent(        
+        std::move(p_event_data), 
+        std::move(p_result_of_can_make_payment), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchPaymentRequestEvent_Name: {
@@ -8639,6 +8769,8 @@ std::move(p_result_of_can_make_payment), std::move(callback));
               internal::ServiceWorker_DispatchPaymentRequestEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.17
       bool success = true;
       ::payments::mojom::blink::PaymentRequestEventDataPtr p_request_data{};
       ::mojo::PendingRemote<::payments::mojom::blink::PaymentHandlerResponseCallback> p_response_callback{};
@@ -8662,9 +8794,9 @@ std::move(p_result_of_can_make_payment), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchPaymentRequestEvent(
-std::move(p_request_data), 
-std::move(p_response_callback), std::move(callback));
+      impl->DispatchPaymentRequestEvent(        
+        std::move(p_request_data), 
+        std::move(p_response_callback), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchExtendableMessageEvent_Name: {
@@ -8674,6 +8806,8 @@ std::move(p_response_callback), std::move(callback));
               internal::ServiceWorker_DispatchExtendableMessageEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.18
       bool success = true;
       ExtendableMessageEventPtr p_event{};
       ServiceWorker_DispatchExtendableMessageEvent_ParamsDataView input_data_view(params, message);
@@ -8692,8 +8826,8 @@ std::move(p_response_callback), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchExtendableMessageEvent(
-std::move(p_event), std::move(callback));
+      impl->DispatchExtendableMessageEvent(        
+        std::move(p_event), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_DispatchContentDeleteEvent_Name: {
@@ -8703,6 +8837,8 @@ std::move(p_event), std::move(callback));
               internal::ServiceWorker_DispatchContentDeleteEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.19
       bool success = true;
       WTF::String p_id{};
       ServiceWorker_DispatchContentDeleteEvent_ParamsDataView input_data_view(params, message);
@@ -8721,8 +8857,8 @@ std::move(p_event), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchContentDeleteEvent(
-std::move(p_id), std::move(callback));
+      impl->DispatchContentDeleteEvent(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kServiceWorker_Ping_Name: {
@@ -8732,6 +8868,8 @@ std::move(p_id), std::move(callback));
               internal::ServiceWorker_Ping_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.20
       bool success = true;
       ServiceWorker_Ping_ParamsDataView input_data_view(params, message);
       
@@ -8769,6 +8907,8 @@ std::move(p_id), std::move(callback));
               internal::ServiceWorker_ExecuteScriptForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorker.25
       bool success = true;
       ::WTF::String p_javascript{};
       bool p_wants_result{};
@@ -8790,9 +8930,9 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteScriptForTest(
-std::move(p_javascript), 
-std::move(p_wants_result), std::move(callback));
+      impl->ExecuteScriptForTest(        
+        std::move(p_javascript), 
+        std::move(p_wants_result), std::move(callback));
       return true;
     }
   }

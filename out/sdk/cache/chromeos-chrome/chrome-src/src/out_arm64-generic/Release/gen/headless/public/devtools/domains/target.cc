@@ -99,11 +99,23 @@ dispatcher_->SendMessage("Target.closeTarget", params->Serialize(), base::BindOn
 void ExperimentalDomain::ExposeDevToolsProtocol(std::unique_ptr<ExposeDevToolsProtocolParams> params, base::OnceCallback<void(std::unique_ptr<ExposeDevToolsProtocolResult>)> callback) {
   dispatcher_->SendMessage("Target.exposeDevToolsProtocol", params->Serialize(), base::BindOnce(&Domain::HandleExposeDevToolsProtocolResponse, std::move(callback)));
 }
-void ExperimentalDomain::CreateBrowserContext(std::unique_ptr<CreateBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)> callback) {
+void Domain::CreateBrowserContext(std::unique_ptr<CreateBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)> callback) {
   dispatcher_->SendMessage("Target.createBrowserContext", params->Serialize(), base::BindOnce(&Domain::HandleCreateBrowserContextResponse, std::move(callback)));
 }
-void ExperimentalDomain::GetBrowserContexts(std::unique_ptr<GetBrowserContextsParams> params, base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)> callback) {
+
+void Domain::CreateBrowserContext(base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)> callback) {
+  std::unique_ptr<CreateBrowserContextParams> params = CreateBrowserContextParams::Builder()
+      .Build();
+dispatcher_->SendMessage("Target.createBrowserContext", params->Serialize(), base::BindOnce(&Domain::HandleCreateBrowserContextResponse, std::move(callback)));
+}
+void Domain::GetBrowserContexts(std::unique_ptr<GetBrowserContextsParams> params, base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)> callback) {
   dispatcher_->SendMessage("Target.getBrowserContexts", params->Serialize(), base::BindOnce(&Domain::HandleGetBrowserContextsResponse, std::move(callback)));
+}
+
+void Domain::GetBrowserContexts(base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)> callback) {
+  std::unique_ptr<GetBrowserContextsParams> params = GetBrowserContextsParams::Builder()
+      .Build();
+dispatcher_->SendMessage("Target.getBrowserContexts", params->Serialize(), base::BindOnce(&Domain::HandleGetBrowserContextsResponse, std::move(callback)));
 }
 void Domain::CreateTarget(std::unique_ptr<CreateTargetParams> params, base::OnceCallback<void(std::unique_ptr<CreateTargetResult>)> callback) {
   dispatcher_->SendMessage("Target.createTarget", params->Serialize(), base::BindOnce(&Domain::HandleCreateTargetResponse, std::move(callback)));
@@ -127,8 +139,18 @@ void Domain::DetachFromTarget(base::OnceClosure callback) {
 void Domain::DetachFromTarget(std::unique_ptr<DetachFromTargetParams> params, base::OnceClosure callback) {
   dispatcher_->SendMessage("Target.detachFromTarget", params->Serialize(), std::move(callback));
 }
-void ExperimentalDomain::DisposeBrowserContext(std::unique_ptr<DisposeBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<DisposeBrowserContextResult>)> callback) {
+void Domain::DisposeBrowserContext(std::unique_ptr<DisposeBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<DisposeBrowserContextResult>)> callback) {
   dispatcher_->SendMessage("Target.disposeBrowserContext", params->Serialize(), base::BindOnce(&Domain::HandleDisposeBrowserContextResponse, std::move(callback)));
+}
+
+void Domain::DisposeBrowserContext(const std::string& browser_context_id, base::OnceClosure callback) {
+  std::unique_ptr<DisposeBrowserContextParams> params = DisposeBrowserContextParams::Builder()
+      .SetBrowserContextId(std::move(browser_context_id))
+      .Build();
+  dispatcher_->SendMessage("Target.disposeBrowserContext", params->Serialize(), std::move(callback));
+}
+void Domain::DisposeBrowserContext(std::unique_ptr<DisposeBrowserContextParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Target.disposeBrowserContext", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::GetTargetInfo(std::unique_ptr<GetTargetInfoParams> params, base::OnceCallback<void(std::unique_ptr<GetTargetInfoResult>)> callback) {
   dispatcher_->SendMessage("Target.getTargetInfo", params->Serialize(), base::BindOnce(&Domain::HandleGetTargetInfoResponse, std::move(callback)));
@@ -155,8 +177,19 @@ void Domain::SendMessageToTarget(const std::string& message, base::OnceClosure c
 void Domain::SendMessageToTarget(std::unique_ptr<SendMessageToTargetParams> params, base::OnceClosure callback) {
   dispatcher_->SendMessage("Target.sendMessageToTarget", params->Serialize(), std::move(callback));
 }
-void ExperimentalDomain::SetAutoAttach(std::unique_ptr<SetAutoAttachParams> params, base::OnceCallback<void(std::unique_ptr<SetAutoAttachResult>)> callback) {
+void Domain::SetAutoAttach(std::unique_ptr<SetAutoAttachParams> params, base::OnceCallback<void(std::unique_ptr<SetAutoAttachResult>)> callback) {
   dispatcher_->SendMessage("Target.setAutoAttach", params->Serialize(), base::BindOnce(&Domain::HandleSetAutoAttachResponse, std::move(callback)));
+}
+
+void Domain::SetAutoAttach(bool auto_attach, bool wait_for_debugger_on_start, base::OnceClosure callback) {
+  std::unique_ptr<SetAutoAttachParams> params = SetAutoAttachParams::Builder()
+      .SetAutoAttach(std::move(auto_attach))
+      .SetWaitForDebuggerOnStart(std::move(wait_for_debugger_on_start))
+      .Build();
+  dispatcher_->SendMessage("Target.setAutoAttach", params->Serialize(), std::move(callback));
+}
+void Domain::SetAutoAttach(std::unique_ptr<SetAutoAttachParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Target.setAutoAttach", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::AutoAttachRelated(std::unique_ptr<AutoAttachRelatedParams> params, base::OnceCallback<void(std::unique_ptr<AutoAttachRelatedResult>)> callback) {
   dispatcher_->SendMessage("Target.autoAttachRelated", params->Serialize(), base::BindOnce(&Domain::HandleAutoAttachRelatedResponse, std::move(callback)));

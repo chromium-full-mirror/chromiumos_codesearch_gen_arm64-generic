@@ -186,6 +186,8 @@ bool WakeLockContextStubDispatch::Accept(
           reinterpret_cast<internal::WakeLockContext_GetWakeLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLockContext.0
       bool success = true;
       ::device::mojom::blink::WakeLockType p_type{};
       ::device::mojom::blink::WakeLockReason p_reason{};
@@ -212,11 +214,11 @@ bool WakeLockContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWakeLock(
-std::move(p_type), 
-std::move(p_reason), 
-std::move(p_description), 
-std::move(p_wake_lock));
+      impl->GetWakeLock(        
+        std::move(p_type), 
+        std::move(p_reason), 
+        std::move(p_description), 
+        std::move(p_wake_lock));
       return true;
     }
   }

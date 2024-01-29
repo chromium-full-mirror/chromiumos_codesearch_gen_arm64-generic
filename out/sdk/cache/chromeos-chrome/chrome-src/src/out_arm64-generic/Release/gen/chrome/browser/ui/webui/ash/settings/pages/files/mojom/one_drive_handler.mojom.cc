@@ -170,6 +170,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -192,9 +194,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -604,6 +606,8 @@ bool PageHandler_GetUserEmailAddress_ForwardToCallback::Accept(
           internal::PageHandler_GetUserEmailAddress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::optional<std::string> p_email{};
   PageHandler_GetUserEmailAddress_ResponseParamsDataView input_data_view(params, message);
@@ -729,6 +733,8 @@ bool PageHandler_ConnectToOneDrive_ForwardToCallback::Accept(
           internal::PageHandler_ConnectToOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   bool p_success{};
   PageHandler_ConnectToOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -848,6 +854,8 @@ bool PageHandler_DisconnectFromOneDrive_ForwardToCallback::Accept(
           internal::PageHandler_DisconnectFromOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   bool p_success{};
   PageHandler_DisconnectFromOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -967,6 +975,8 @@ bool PageHandler_OpenOneDriveFolder_ForwardToCallback::Accept(
           internal::PageHandler_OpenOneDriveFolder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   bool p_success{};
   PageHandler_OpenOneDriveFolder_ResponseParamsDataView input_data_view(params, message);
@@ -1066,6 +1076,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetUserEmailAddress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetUserEmailAddress_ParamsDataView input_data_view(params, message);
       
@@ -1091,6 +1103,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_ConnectToOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_ConnectToOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -1116,6 +1130,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_DisconnectFromOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_DisconnectFromOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -1141,6 +1157,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_OpenOneDriveFolder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_OpenOneDriveFolder_ParamsDataView input_data_view(params, message);
       
@@ -1288,6 +1306,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnODFSMountOrUnmount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       Page_OnODFSMountOrUnmount_ParamsDataView input_data_view(params, message);
       
@@ -1300,7 +1320,7 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnODFSMountOrUnmount();
+      impl->OnODFSMountOrUnmount(        );
       return true;
     }
   }

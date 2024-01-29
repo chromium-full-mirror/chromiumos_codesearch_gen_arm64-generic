@@ -48,6 +48,8 @@ NOINLINE static const char* LacrosFeedbackSourceToStringHelper(LacrosFeedbackSou
       return "kFeedbackSourceProfileErrorDialog";
     case LacrosFeedbackSource::kFeedbackSourceQuickOffice:
       return "kFeedbackSourceQuickOffice";
+    case LacrosFeedbackSource::kFeedbackSourceAI:
+      return "kFeedbackSourceAI";
     default:
       return nullptr;
   }
@@ -77,6 +79,7 @@ bool FeedbackInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 56 },
     { 1, 72 },
+    { 2, 88 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -148,12 +151,17 @@ bool FeedbackInfo_Data::Validate(
 
   if (!mojo::internal::ValidateInlinedUnion(object->autofill_metadata, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->ai_metadata, validation_context))
+    return false;
 
   return true;
 }
 
 FeedbackInfo_Data::FeedbackInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static

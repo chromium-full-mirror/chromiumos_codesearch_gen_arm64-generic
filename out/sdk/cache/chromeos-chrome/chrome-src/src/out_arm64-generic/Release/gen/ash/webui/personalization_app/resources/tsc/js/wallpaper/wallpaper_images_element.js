@@ -7,8 +7,8 @@
  * and display the images. It also caches the list of wallpaper images by
  * wallpaper collection id to avoid refetching data unnecessarily.
  */
+import 'chrome://resources/ash/common/personalization/wallpaper.css.js';
 import 'chrome://resources/polymer/v3_0/iron-media-query/iron-media-query.js';
-import '../../css/wallpaper.css.js';
 import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { OnlineImageType, WallpaperType } from '../../personalization_app.mojom-webui.js';

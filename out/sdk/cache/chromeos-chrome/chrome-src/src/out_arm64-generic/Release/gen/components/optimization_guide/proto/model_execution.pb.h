@@ -1001,6 +1001,9 @@ class RedactRule final :
     kRegexFieldNumber = 2,
     kReplacementStringFieldNumber = 3,
     kBehaviorFieldNumber = 1,
+    kMinPatternLengthFieldNumber = 4,
+    kMaxPatternLengthFieldNumber = 5,
+    kGroupIndexFieldNumber = 6,
   };
   // optional string regex = 2;
   bool has_regex() const;
@@ -1051,6 +1054,45 @@ class RedactRule final :
   void _internal_set_behavior(::optimization_guide::proto::RedactBehavior value);
   public:
 
+  // optional int32 min_pattern_length = 4;
+  bool has_min_pattern_length() const;
+  private:
+  bool _internal_has_min_pattern_length() const;
+  public:
+  void clear_min_pattern_length();
+  int32_t min_pattern_length() const;
+  void set_min_pattern_length(int32_t value);
+  private:
+  int32_t _internal_min_pattern_length() const;
+  void _internal_set_min_pattern_length(int32_t value);
+  public:
+
+  // optional int32 max_pattern_length = 5;
+  bool has_max_pattern_length() const;
+  private:
+  bool _internal_has_max_pattern_length() const;
+  public:
+  void clear_max_pattern_length();
+  int32_t max_pattern_length() const;
+  void set_max_pattern_length(int32_t value);
+  private:
+  int32_t _internal_max_pattern_length() const;
+  void _internal_set_max_pattern_length(int32_t value);
+  public:
+
+  // optional int32 group_index = 6;
+  bool has_group_index() const;
+  private:
+  bool _internal_has_group_index() const;
+  public:
+  void clear_group_index();
+  int32_t group_index() const;
+  void set_group_index(int32_t value);
+  private:
+  int32_t _internal_group_index() const;
+  void _internal_set_group_index(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:optimization_guide.proto.RedactRule)
  private:
   class _Internal;
@@ -1063,6 +1105,9 @@ class RedactRule final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr regex_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr replacement_string_;
   int behavior_;
+  int32_t min_pattern_length_;
+  int32_t max_pattern_length_;
+  int32_t group_index_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fmodel_5fexecution_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3788,6 +3833,90 @@ inline void RedactRule::set_allocated_replacement_string(std::string* replacemen
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.RedactRule.replacement_string)
+}
+
+// optional int32 min_pattern_length = 4;
+inline bool RedactRule::_internal_has_min_pattern_length() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool RedactRule::has_min_pattern_length() const {
+  return _internal_has_min_pattern_length();
+}
+inline void RedactRule::clear_min_pattern_length() {
+  min_pattern_length_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline int32_t RedactRule::_internal_min_pattern_length() const {
+  return min_pattern_length_;
+}
+inline int32_t RedactRule::min_pattern_length() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRule.min_pattern_length)
+  return _internal_min_pattern_length();
+}
+inline void RedactRule::_internal_set_min_pattern_length(int32_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  min_pattern_length_ = value;
+}
+inline void RedactRule::set_min_pattern_length(int32_t value) {
+  _internal_set_min_pattern_length(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.RedactRule.min_pattern_length)
+}
+
+// optional int32 max_pattern_length = 5;
+inline bool RedactRule::_internal_has_max_pattern_length() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool RedactRule::has_max_pattern_length() const {
+  return _internal_has_max_pattern_length();
+}
+inline void RedactRule::clear_max_pattern_length() {
+  max_pattern_length_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline int32_t RedactRule::_internal_max_pattern_length() const {
+  return max_pattern_length_;
+}
+inline int32_t RedactRule::max_pattern_length() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRule.max_pattern_length)
+  return _internal_max_pattern_length();
+}
+inline void RedactRule::_internal_set_max_pattern_length(int32_t value) {
+  _has_bits_[0] |= 0x00000010u;
+  max_pattern_length_ = value;
+}
+inline void RedactRule::set_max_pattern_length(int32_t value) {
+  _internal_set_max_pattern_length(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.RedactRule.max_pattern_length)
+}
+
+// optional int32 group_index = 6;
+inline bool RedactRule::_internal_has_group_index() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool RedactRule::has_group_index() const {
+  return _internal_has_group_index();
+}
+inline void RedactRule::clear_group_index() {
+  group_index_ = 0;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline int32_t RedactRule::_internal_group_index() const {
+  return group_index_;
+}
+inline int32_t RedactRule::group_index() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RedactRule.group_index)
+  return _internal_group_index();
+}
+inline void RedactRule::_internal_set_group_index(int32_t value) {
+  _has_bits_[0] |= 0x00000020u;
+  group_index_ = value;
+}
+inline void RedactRule::set_group_index(int32_t value) {
+  _internal_set_group_index(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.RedactRule.group_index)
 }
 
 // -------------------------------------------------------------------

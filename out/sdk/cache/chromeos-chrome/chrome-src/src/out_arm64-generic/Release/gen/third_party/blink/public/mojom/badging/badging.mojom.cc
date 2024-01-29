@@ -273,6 +273,8 @@ bool BadgeServiceStubDispatch::Accept(
           reinterpret_cast<internal::BadgeService_SetBadge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BadgeService.0
       bool success = true;
       BadgeValuePtr p_value{};
       BadgeService_SetBadge_ParamsDataView input_data_view(params, message);
@@ -288,8 +290,8 @@ bool BadgeServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBadge(
-std::move(p_value));
+      impl->SetBadge(        
+        std::move(p_value));
       return true;
     }
     case internal::kBadgeService_ClearBadge_Name: {
@@ -299,6 +301,8 @@ std::move(p_value));
           reinterpret_cast<internal::BadgeService_ClearBadge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BadgeService.1
       bool success = true;
       BadgeService_ClearBadge_ParamsDataView input_data_view(params, message);
       
@@ -311,7 +315,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearBadge();
+      impl->ClearBadge(        );
       return true;
     }
   }

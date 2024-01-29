@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_recorder.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_recorder.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_recorder.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_recorder.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_recorder.mojom-shared.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_types.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_types.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_types.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_types.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/paint_preview/common/mojom/paint_preview_types.mojom-shared.h

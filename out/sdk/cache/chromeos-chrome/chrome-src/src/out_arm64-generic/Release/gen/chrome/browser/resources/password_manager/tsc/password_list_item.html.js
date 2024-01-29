@@ -14,7 +14,8 @@ export function getTemplate() {
     </div>
 
     <div id="endIcons">
-      <iron-icon id="localPasswordsIcon" icon="cr20:cloud-off" hidden="[[!shouldShowDeviceOnlyCredentialsIcon_()]]"></iron-icon>
+      <iron-icon id="localPasswordsIcon" icon="cr20:cloud-off" hidden="[[!shouldShowDeviceOnlyCredentialsIcon_(isAccountStoreUser, item.entries)]]">
+      </iron-icon>
       <cr-icon-button id="seePasswordDetails" class="subpage-arrow" aria-label="[[getAriaLabel_(item)]]">
       </cr-icon-button>
     </div>

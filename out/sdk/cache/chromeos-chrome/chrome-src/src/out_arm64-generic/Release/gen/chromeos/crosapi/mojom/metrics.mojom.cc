@@ -211,6 +211,8 @@ bool Metrics_GetFullHardwareClass_ForwardToCallback::Accept(
           internal::Metrics_GetFullHardwareClass_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Metrics.0
   bool success = true;
   std::string p_full_hardware_class{};
   Metrics_GetFullHardwareClass_ResponseParamsDataView input_data_view(params, message);
@@ -311,6 +313,8 @@ bool MetricsStubDispatch::AcceptWithResponder(
               internal::Metrics_GetFullHardwareClass_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Metrics.0
       bool success = true;
       Metrics_GetFullHardwareClass_ParamsDataView input_data_view(params, message);
       

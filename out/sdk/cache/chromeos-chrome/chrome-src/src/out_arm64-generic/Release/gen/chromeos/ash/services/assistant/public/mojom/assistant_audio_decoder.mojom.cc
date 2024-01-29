@@ -179,6 +179,8 @@ bool AssistantAudioDecoderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::AssistantAudioDecoderFactory_CreateAssistantAudioDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistantAudioDecoderFactory.0
       bool success = true;
       ::mojo::PendingReceiver<AssistantAudioDecoder> p_audio_decoder{};
       ::mojo::PendingRemote<AssistantAudioDecoderClient> p_client{};
@@ -206,10 +208,10 @@ bool AssistantAudioDecoderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAssistantAudioDecoder(
-std::move(p_audio_decoder), 
-std::move(p_client), 
-std::move(p_data_source));
+      impl->CreateAssistantAudioDecoder(        
+        std::move(p_audio_decoder), 
+        std::move(p_client), 
+        std::move(p_data_source));
       return true;
     }
   }
@@ -532,6 +534,8 @@ bool AssistantAudioDecoder_OpenDecoder_ForwardToCallback::Accept(
           internal::AssistantAudioDecoder_OpenDecoder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AssistantAudioDecoder.0
   bool success = true;
   bool p_success{};
   uint32_t p_bytes_per_sample{};
@@ -675,6 +679,8 @@ bool AssistantAudioDecoder_CloseDecoder_ForwardToCallback::Accept(
           internal::AssistantAudioDecoder_CloseDecoder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AssistantAudioDecoder.2
   bool success = true;
   AssistantAudioDecoder_CloseDecoder_ResponseParamsDataView input_data_view(params, message);
   
@@ -740,6 +746,8 @@ bool AssistantAudioDecoderStubDispatch::Accept(
           reinterpret_cast<internal::AssistantAudioDecoder_Decode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistantAudioDecoder.1
       bool success = true;
       AssistantAudioDecoder_Decode_ParamsDataView input_data_view(params, message);
       
@@ -752,7 +760,7 @@ bool AssistantAudioDecoderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decode();
+      impl->Decode(        );
       return true;
     }
     case internal::kAssistantAudioDecoder_CloseDecoder_Name: {
@@ -778,6 +786,8 @@ bool AssistantAudioDecoderStubDispatch::AcceptWithResponder(
               internal::AssistantAudioDecoder_OpenDecoder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AssistantAudioDecoder.0
       bool success = true;
       AssistantAudioDecoder_OpenDecoder_ParamsDataView input_data_view(params, message);
       
@@ -806,6 +816,8 @@ bool AssistantAudioDecoderStubDispatch::AcceptWithResponder(
               internal::AssistantAudioDecoder_CloseDecoder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AssistantAudioDecoder.2
       bool success = true;
       AssistantAudioDecoder_CloseDecoder_ParamsDataView input_data_view(params, message);
       
@@ -971,6 +983,8 @@ bool AssistantAudioDecoderClientStubDispatch::Accept(
           reinterpret_cast<internal::AssistantAudioDecoderClient_OnNewBuffers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistantAudioDecoderClient.0
       bool success = true;
       std::vector<std::vector<uint8_t>> p_buffers{};
       AssistantAudioDecoderClient_OnNewBuffers_ParamsDataView input_data_view(params, message);
@@ -986,8 +1000,8 @@ bool AssistantAudioDecoderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewBuffers(
-std::move(p_buffers));
+      impl->OnNewBuffers(        
+        std::move(p_buffers));
       return true;
     }
   }
@@ -1195,6 +1209,8 @@ bool AssistantMediaDataSource_Read_ForwardToCallback::Accept(
           internal::AssistantMediaDataSource_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AssistantMediaDataSource.0
   bool success = true;
   std::vector<uint8_t> p_data{};
   AssistantMediaDataSource_Read_ResponseParamsDataView input_data_view(params, message);
@@ -1297,6 +1313,8 @@ bool AssistantMediaDataSourceStubDispatch::AcceptWithResponder(
               internal::AssistantMediaDataSource_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AssistantMediaDataSource.0
       bool success = true;
       uint32_t p_size{};
       AssistantMediaDataSource_Read_ParamsDataView input_data_view(params, message);
@@ -1315,8 +1333,8 @@ bool AssistantMediaDataSourceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_size), std::move(callback));
+      impl->Read(        
+        std::move(p_size), std::move(callback));
       return true;
     }
   }

@@ -35,8 +35,6 @@
 #include "mojo/public/cpp/system/data_pipe.h"
 
 
-#include "mojo/public/cpp/bindings/native_enum.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 

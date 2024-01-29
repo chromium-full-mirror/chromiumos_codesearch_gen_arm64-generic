@@ -111,9 +111,9 @@ export class ButtonProvider {
     constructor() {
         this.button = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.toggleCSSLayers), 'layers', 'layers-filled');
         this.button.setVisible(false);
-        this.button.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.clicked, this);
+        this.button.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.clicked, this);
         this.button.element.classList.add('monospace');
-        this.button.element.setAttribute('jslog', `${VisualLogging.toggleSubpane().track({ click: true }).context('cssLayers')}`);
+        this.button.element.setAttribute('jslog', `${VisualLogging.toggleSubpane().track({ click: true }).context('css-layers')}`);
     }
     static instance(opts = { forceNew: null }) {
         const { forceNew } = opts;

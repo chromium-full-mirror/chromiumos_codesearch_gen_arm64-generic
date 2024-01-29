@@ -229,61 +229,36 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (RuntimeEnabledFeatures::FedCmDomainHintEnabled()) {
   if (hasDomainHint()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_domain_hint_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_domain_hint_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasLoginHint()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_login_hint_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_login_hint_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasNonce()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_nonce_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_nonce_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
   if (hasParams()) {
-  if (!ToV8Traits<IDLRecord<IDLUSVString, IDLUSVString>>::ToV8(script_state, member_params_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLRecord<IDLUSVString, IDLUSVString>>::ToV8(script_state, member_params_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 }
 if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
   if (hasResponseType()) {
-  if (!ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_response_type_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_response_type_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 }
 if (RuntimeEnabledFeatures::FedCmAuthzEnabled()) {
   if (hasScope()) {
-  if (!ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_scope_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_scope_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 }
 return true;

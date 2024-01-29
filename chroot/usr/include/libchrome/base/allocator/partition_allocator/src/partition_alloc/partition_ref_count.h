@@ -5,10 +5,9 @@
 #ifndef BASE_ALLOCATOR_PARTITION_ALLOCATOR_SRC_PARTITION_ALLOC_PARTITION_REF_COUNT_H_
 #define BASE_ALLOCATOR_PARTITION_ALLOCATOR_SRC_PARTITION_ALLOC_PARTITION_REF_COUNT_H_
 
-#include <stddef.h>
-#include <stdint.h>
-
 #include <atomic>
+#include <cstddef>
+#include <cstdint>
 
 #include "build/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/dangling_raw_ptr_checks.h"
@@ -30,22 +29,20 @@
 
 namespace partition_alloc::internal {
 
-// Aligns up (on 8B boundary) and returns `ref_count_size` if needed.
-// *  Known to be needed on MacOS 13: https://crbug.com/1378822.
-// *  Thought to be needed on MacOS 14: https://crbug.com/1457756.
-// *  No-op everywhere else.
+// Aligns up (on 8B boundary) `ref_count_size` on Mac as a workaround for crash.
+// Workaround was introduced for MacOS 13: https://crbug.com/1378822.
+// But it has been enabled by default because MacOS 14 and later seems to need
+// it too. https://crbug.com/1457756
 //
 // Placed outside `BUILDFLAG(ENABLE_BACKUP_REF_PTR_SUPPORT)`
 // intentionally to accommodate usage in contexts also outside
 // this gating.
 PA_ALWAYS_INLINE size_t AlignUpRefCountSizeForMac(size_t ref_count_size) {
 #if BUILDFLAG(IS_MAC)
-  if (internal::base::mac::MacOSMajorVersion() == 13 ||
-      internal::base::mac::MacOSMajorVersion() == 14) {
-    return internal::base::bits::AlignUp<size_t>(ref_count_size, 8);
-  }
-#endif  // BUILDFLAG(IS_MAC)
+  return internal::base::bits::AlignUp<size_t>(ref_count_size, 8);
+#else
   return ref_count_size;
+#endif  // BUILDFLAG(IS_MAC)
 }
 
 #if BUILDFLAG(ENABLE_BACKUP_REF_PTR_SUPPORT)
@@ -106,7 +103,7 @@ class PA_COMPONENT_EXPORT(PARTITION_ALLOC) PartitionRefCount {
 
   static constexpr CountType kPtrInc = 0x0000'0000'0000'0002;
   static constexpr CountType kUnprotectedPtrInc = 0x0000'0004'0000'0000;
-#else
+#else   // BUILDFLAG(ENABLE_DANGLING_RAW_PTR_CHECKS)
   using CountType = uint32_t;
   static constexpr CountType kMemoryHeldByAllocatorBit = 0x0000'0001;
 
@@ -116,7 +113,7 @@ class PA_COMPONENT_EXPORT(PARTITION_ALLOC) PartitionRefCount {
   static constexpr CountType kNeedsMac11MallocSizeHackBit = 0x8000'0000;
 
   static constexpr CountType kPtrInc = 0x0000'0002;
-#endif
+#endif  // BUILDFLAG(ENABLE_DANGLING_RAW_PTR_CHECKS)
 
   PA_ALWAYS_INLINE explicit PartitionRefCount(
       bool needs_mac11_malloc_size_hack);
@@ -390,8 +387,6 @@ PA_ALWAYS_INLINE PartitionRefCount::PartitionRefCount(
 {
 }
 
-#if BUILDFLAG(PUT_REF_COUNT_IN_PREVIOUS_SLOT)
-
 static_assert(kAlignment % alignof(PartitionRefCount) == 0,
               "kAlignment must be multiples of alignof(PartitionRefCount).");
 
@@ -418,7 +413,7 @@ static constexpr size_t kPartitionRefCountSizeShift = 3;
 static constexpr size_t kPartitionRefCountSizeShift = 2;
 #endif
 
-#endif  // PA_CONFIG(REF_COUNT_CHECK_COOKIE)
+#endif  // PA_CONFIG(ENABLE_DANGLING_RAW_PTR_CHECKS)
 static_assert((1 << kPartitionRefCountSizeShift) == sizeof(PartitionRefCount));
 
 // The ref-count table is tucked in the metadata region of the super page,
@@ -441,13 +436,28 @@ GetPartitionRefCountIndexMultiplierShift() {
 }
 
 PA_ALWAYS_INLINE PartitionRefCount* PartitionRefCountPointer(
-    uintptr_t slot_start) {
+    uintptr_t slot_start,
+    size_t slot_size,
+    bool ref_count_in_same_slot) {
   // In the "previous slot" mode, ref-counts that would be on a different page
   // than their corresponding slot are instead placed in the super page metadata
   // area. This is done so that they don't interfere with discarding of data
   // pages.
+  //
+  // In the "same slot" mode, we have a handful of other issues:
+  // 1. GWP-ASan uses 2-page slots and wants the 2nd page to be inaccissable, so
+  //    putting a ref-count there is a no-go.
+  // 2. When direct map is reallocated in-place, it's `slot_size` may change and
+  //    pages can be (de)committed. This would force ref-count relocation, which
+  //    in turn could cause a race with ref-count access.
+  // 3. For single-slot spans, the unused pages between `GetUtilizedSlotSize()`
+  //    and `slot_size` may be discarded thus interfering with the ref-count.
+  // All of the above happen have `slot_start` at the page boundary, so we can
+  // reuse the "previous slot" mode code.
   if (PA_LIKELY(slot_start & SystemPageOffsetMask())) {
-    uintptr_t refcount_address = slot_start - sizeof(PartitionRefCount);
+    uintptr_t refcount_address = slot_start +
+                                 (ref_count_in_same_slot ? slot_size : 0) -
+                                 sizeof(PartitionRefCount);
 #if BUILDFLAG(PA_DCHECK_IS_ON) || BUILDFLAG(ENABLE_BACKUP_REF_PTR_SLOW_CHECKS)
     PA_CHECK(refcount_address % alignof(PartitionRefCount) == 0);
 #endif
@@ -465,12 +475,6 @@ PA_ALWAYS_INLINE PartitionRefCount* PartitionRefCountPointer(
     return table_base + index;
   }
 }
-
-#else  // BUILDFLAG(PUT_REF_COUNT_IN_PREVIOUS_SLOT)
-
-static_assert(false, "Not implemented.");
-
-#endif  // BUILDFLAG(PUT_REF_COUNT_IN_PREVIOUS_SLOT)
 
 static_assert(sizeof(PartitionRefCount) <= kInSlotRefCountBufferSize,
               "PartitionRefCount should fit into the in-slot buffer.");

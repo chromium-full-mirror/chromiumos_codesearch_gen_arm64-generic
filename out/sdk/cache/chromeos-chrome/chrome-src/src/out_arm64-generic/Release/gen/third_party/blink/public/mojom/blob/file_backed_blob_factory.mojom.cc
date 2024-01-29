@@ -489,6 +489,8 @@ bool FileBackedBlobFactory_RegisterBlobSync_ForwardToCallback::Accept(
           internal::FileBackedBlobFactory_RegisterBlobSync_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileBackedBlobFactory.1
   bool success = true;
   FileBackedBlobFactory_RegisterBlobSync_ResponseParamsDataView input_data_view(params, message);
   
@@ -546,6 +548,8 @@ bool FileBackedBlobFactory_RegisterBlobSync_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileBackedBlobFactory_RegisterBlobSync_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileBackedBlobFactory.1
   bool success = true;
   FileBackedBlobFactory_RegisterBlobSync_ResponseParamsDataView input_data_view(params, message);
   
@@ -572,6 +576,8 @@ bool FileBackedBlobFactoryStubDispatch::Accept(
           reinterpret_cast<internal::FileBackedBlobFactory_RegisterBlob_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileBackedBlobFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::Blob> p_blob{};
       std::string p_uuid{};
@@ -598,11 +604,11 @@ bool FileBackedBlobFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterBlob(
-std::move(p_blob), 
-std::move(p_uuid), 
-std::move(p_content_type), 
-std::move(p_file));
+      impl->RegisterBlob(        
+        std::move(p_blob), 
+        std::move(p_uuid), 
+        std::move(p_content_type), 
+        std::move(p_file));
       return true;
     }
     case internal::kFileBackedBlobFactory_RegisterBlobSync_Name: {
@@ -631,6 +637,8 @@ bool FileBackedBlobFactoryStubDispatch::AcceptWithResponder(
               internal::FileBackedBlobFactory_RegisterBlobSync_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileBackedBlobFactory.1
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::Blob> p_blob{};
       std::string p_uuid{};
@@ -660,11 +668,11 @@ bool FileBackedBlobFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterBlobSync(
-std::move(p_blob), 
-std::move(p_uuid), 
-std::move(p_content_type), 
-std::move(p_file), std::move(callback));
+      impl->RegisterBlobSync(        
+        std::move(p_blob), 
+        std::move(p_uuid), 
+        std::move(p_content_type), 
+        std::move(p_file), std::move(callback));
       return true;
     }
   }

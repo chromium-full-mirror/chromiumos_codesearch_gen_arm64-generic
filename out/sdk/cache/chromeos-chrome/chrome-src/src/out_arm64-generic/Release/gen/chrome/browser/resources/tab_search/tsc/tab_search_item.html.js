@@ -29,7 +29,7 @@ export function getTemplate() {
 </div>
 <template is="dom-if" if="[[isCloseable_(data.type)]]">
   <div class$="[[getButtonContainerStyles_(data)]]">
-    <cr-icon-button id="closeButton" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="[[tooltipForButton_(inSuggestedGroup)]]">
+    <cr-icon-button id="closeButton" role="[[getCloseButtonRole_()]]" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="[[tooltipForButton_(inSuggestedGroup)]]">
     </cr-icon-button>
   </div>
 </template>

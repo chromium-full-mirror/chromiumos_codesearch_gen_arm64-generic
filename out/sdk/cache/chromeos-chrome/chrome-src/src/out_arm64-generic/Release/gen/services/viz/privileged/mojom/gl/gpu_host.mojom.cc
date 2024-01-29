@@ -1097,6 +1097,8 @@ bool GpuHost_GetIsolationKey_ForwardToCallback::Accept(
           internal::GpuHost_GetIsolationKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuHost.10
   bool success = true;
   std::string p_isolation_key{};
   GpuHost_GetIsolationKey_ResponseParamsDataView input_data_view(params, message);
@@ -1181,6 +1183,8 @@ bool GpuHostStubDispatch::Accept(
           reinterpret_cast<internal::GpuHost_DidInitialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.0
       bool success = true;
       ::gpu::GPUInfo p_gpu_info{};
       ::gpu::GpuFeatureInfo p_gpu_feature_info{};
@@ -1208,12 +1212,12 @@ bool GpuHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidInitialize(
-std::move(p_gpu_info), 
-std::move(p_gpu_feature_info), 
-std::move(p_gpu_info_for_hardware_gpu), 
-std::move(p_gpu_feature_info_for_hardware_gpu), 
-std::move(p_gpu_extra_info));
+      impl->DidInitialize(        
+        std::move(p_gpu_info), 
+        std::move(p_gpu_feature_info), 
+        std::move(p_gpu_info_for_hardware_gpu), 
+        std::move(p_gpu_feature_info_for_hardware_gpu), 
+        std::move(p_gpu_extra_info));
       return true;
     }
     case internal::kGpuHost_DidFailInitialize_Name: {
@@ -1223,6 +1227,8 @@ std::move(p_gpu_extra_info));
           reinterpret_cast<internal::GpuHost_DidFailInitialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.1
       bool success = true;
       GpuHost_DidFailInitialize_ParamsDataView input_data_view(params, message);
       
@@ -1235,7 +1241,7 @@ std::move(p_gpu_extra_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFailInitialize();
+      impl->DidFailInitialize(        );
       return true;
     }
     case internal::kGpuHost_DidCreateContextSuccessfully_Name: {
@@ -1245,6 +1251,8 @@ std::move(p_gpu_extra_info));
           reinterpret_cast<internal::GpuHost_DidCreateContextSuccessfully_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.2
       bool success = true;
       GpuHost_DidCreateContextSuccessfully_ParamsDataView input_data_view(params, message);
       
@@ -1257,7 +1265,7 @@ std::move(p_gpu_extra_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCreateContextSuccessfully();
+      impl->DidCreateContextSuccessfully(        );
       return true;
     }
     case internal::kGpuHost_DidCreateOffscreenContext_Name: {
@@ -1267,6 +1275,8 @@ std::move(p_gpu_extra_info));
           reinterpret_cast<internal::GpuHost_DidCreateOffscreenContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.3
       bool success = true;
       ::GURL p_url{};
       GpuHost_DidCreateOffscreenContext_ParamsDataView input_data_view(params, message);
@@ -1282,8 +1292,8 @@ std::move(p_gpu_extra_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCreateOffscreenContext(
-std::move(p_url));
+      impl->DidCreateOffscreenContext(        
+        std::move(p_url));
       return true;
     }
     case internal::kGpuHost_DidDestroyOffscreenContext_Name: {
@@ -1293,6 +1303,8 @@ std::move(p_url));
           reinterpret_cast<internal::GpuHost_DidDestroyOffscreenContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.4
       bool success = true;
       ::GURL p_url{};
       GpuHost_DidDestroyOffscreenContext_ParamsDataView input_data_view(params, message);
@@ -1308,8 +1320,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDestroyOffscreenContext(
-std::move(p_url));
+      impl->DidDestroyOffscreenContext(        
+        std::move(p_url));
       return true;
     }
     case internal::kGpuHost_DidDestroyChannel_Name: {
@@ -1319,6 +1331,8 @@ std::move(p_url));
           reinterpret_cast<internal::GpuHost_DidDestroyChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.5
       bool success = true;
       int32_t p_client_id{};
       GpuHost_DidDestroyChannel_ParamsDataView input_data_view(params, message);
@@ -1334,8 +1348,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDestroyChannel(
-std::move(p_client_id));
+      impl->DidDestroyChannel(        
+        std::move(p_client_id));
       return true;
     }
     case internal::kGpuHost_DidDestroyAllChannels_Name: {
@@ -1345,6 +1359,8 @@ std::move(p_client_id));
           reinterpret_cast<internal::GpuHost_DidDestroyAllChannels_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.6
       bool success = true;
       GpuHost_DidDestroyAllChannels_ParamsDataView input_data_view(params, message);
       
@@ -1357,7 +1373,7 @@ std::move(p_client_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDestroyAllChannels();
+      impl->DidDestroyAllChannels(        );
       return true;
     }
     case internal::kGpuHost_DidLoseContext_Name: {
@@ -1367,6 +1383,8 @@ std::move(p_client_id));
           reinterpret_cast<internal::GpuHost_DidLoseContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.7
       bool success = true;
       ::gpu::error::ContextLostReason p_reason{};
       ::GURL p_active_url{};
@@ -1385,9 +1403,9 @@ std::move(p_client_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidLoseContext(
-std::move(p_reason), 
-std::move(p_active_url));
+      impl->DidLoseContext(        
+        std::move(p_reason), 
+        std::move(p_active_url));
       return true;
     }
     case internal::kGpuHost_DidUpdateGPUInfo_Name: {
@@ -1397,6 +1415,8 @@ std::move(p_active_url));
           reinterpret_cast<internal::GpuHost_DidUpdateGPUInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.8
       bool success = true;
       ::gpu::GPUInfo p_gpu_info{};
       GpuHost_DidUpdateGPUInfo_ParamsDataView input_data_view(params, message);
@@ -1412,8 +1432,8 @@ std::move(p_active_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidUpdateGPUInfo(
-std::move(p_gpu_info));
+      impl->DidUpdateGPUInfo(        
+        std::move(p_gpu_info));
       return true;
     }
     case internal::kGpuHost_DisableGpuCompositing_Name: {
@@ -1423,6 +1443,8 @@ std::move(p_gpu_info));
           reinterpret_cast<internal::GpuHost_DisableGpuCompositing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.9
       bool success = true;
       GpuHost_DisableGpuCompositing_ParamsDataView input_data_view(params, message);
       
@@ -1435,7 +1457,7 @@ std::move(p_gpu_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableGpuCompositing();
+      impl->DisableGpuCompositing(        );
       return true;
     }
     case internal::kGpuHost_GetIsolationKey_Name: {
@@ -1448,6 +1470,8 @@ std::move(p_gpu_info));
           reinterpret_cast<internal::GpuHost_StoreBlobToDisk_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.11
       bool success = true;
       ::gpu::GpuDiskCacheHandle p_cache_handle{};
       std::string p_key{};
@@ -1469,10 +1493,10 @@ std::move(p_gpu_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StoreBlobToDisk(
-std::move(p_cache_handle), 
-std::move(p_key), 
-std::move(p_blob));
+      impl->StoreBlobToDisk(        
+        std::move(p_cache_handle), 
+        std::move(p_key), 
+        std::move(p_blob));
       return true;
     }
     case internal::kGpuHost_RecordLogMessage_Name: {
@@ -1482,6 +1506,8 @@ std::move(p_blob));
           reinterpret_cast<internal::GpuHost_RecordLogMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuHost.12
       bool success = true;
       int32_t p_severity{};
       std::string p_header{};
@@ -1503,10 +1529,10 @@ std::move(p_blob));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordLogMessage(
-std::move(p_severity), 
-std::move(p_header), 
-std::move(p_message));
+      impl->RecordLogMessage(        
+        std::move(p_severity), 
+        std::move(p_header), 
+        std::move(p_message));
       return true;
     }
   }
@@ -1559,6 +1585,8 @@ bool GpuHostStubDispatch::AcceptWithResponder(
               internal::GpuHost_GetIsolationKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuHost.10
       bool success = true;
       int32_t p_client_id{};
       ::blink::WebGPUExecutionContextToken p_wgpu_context_token{};
@@ -1580,9 +1608,9 @@ bool GpuHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetIsolationKey(
-std::move(p_client_id), 
-std::move(p_wgpu_context_token), std::move(callback));
+      impl->GetIsolationKey(        
+        std::move(p_client_id), 
+        std::move(p_wgpu_context_token), std::move(callback));
       return true;
     }
     case internal::kGpuHost_StoreBlobToDisk_Name: {

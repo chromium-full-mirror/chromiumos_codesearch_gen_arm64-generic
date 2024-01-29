@@ -503,6 +503,8 @@ bool NaClRendererHost_ReportExitStatus_ForwardToCallback::Accept(
           internal::NaClRendererHost_ReportExitStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NaClRendererHost.0
   bool success = true;
   NaClRendererHost_ReportExitStatus_ResponseParamsDataView input_data_view(params, message);
   
@@ -560,6 +562,8 @@ bool NaClRendererHost_ReportExitStatus_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NaClRendererHost_ReportExitStatus_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NaClRendererHost.0
   bool success = true;
   NaClRendererHost_ReportExitStatus_ResponseParamsDataView input_data_view(params, message);
   
@@ -631,6 +635,8 @@ bool NaClRendererHost_ReportLoadStatus_ForwardToCallback::Accept(
           internal::NaClRendererHost_ReportLoadStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NaClRendererHost.1
   bool success = true;
   NaClRendererHost_ReportLoadStatus_ResponseParamsDataView input_data_view(params, message);
   
@@ -688,6 +694,8 @@ bool NaClRendererHost_ReportLoadStatus_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NaClRendererHost_ReportLoadStatus_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NaClRendererHost.1
   bool success = true;
   NaClRendererHost_ReportLoadStatus_ResponseParamsDataView input_data_view(params, message);
   
@@ -720,6 +728,8 @@ bool NaClRendererHostStubDispatch::Accept(
           reinterpret_cast<internal::NaClRendererHost_ProvideExitControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NaClRendererHost.2
       bool success = true;
       ::mojo::PendingRemote<NaClExitControl> p_exit_control{};
       NaClRendererHost_ProvideExitControl_ParamsDataView input_data_view(params, message);
@@ -737,8 +747,8 @@ bool NaClRendererHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProvideExitControl(
-std::move(p_exit_control));
+      impl->ProvideExitControl(        
+        std::move(p_exit_control));
       return true;
     }
   }
@@ -761,6 +771,8 @@ bool NaClRendererHostStubDispatch::AcceptWithResponder(
               internal::NaClRendererHost_ReportExitStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NaClRendererHost.0
       bool success = true;
       int32_t p_exit_status{};
       NaClRendererHost_ReportExitStatus_ParamsDataView input_data_view(params, message);
@@ -779,8 +791,8 @@ bool NaClRendererHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportExitStatus(
-std::move(p_exit_status), std::move(callback));
+      impl->ReportExitStatus(        
+        std::move(p_exit_status), std::move(callback));
       return true;
     }
     case internal::kNaClRendererHost_ReportLoadStatus_Name: {
@@ -790,6 +802,8 @@ std::move(p_exit_status), std::move(callback));
               internal::NaClRendererHost_ReportLoadStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NaClRendererHost.1
       bool success = true;
       ::NaClErrorCode p_load_status{};
       NaClRendererHost_ReportLoadStatus_ParamsDataView input_data_view(params, message);
@@ -808,8 +822,8 @@ std::move(p_exit_status), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportLoadStatus(
-std::move(p_load_status), std::move(callback));
+      impl->ReportLoadStatus(        
+        std::move(p_load_status), std::move(callback));
       return true;
     }
     case internal::kNaClRendererHost_ProvideExitControl_Name: {

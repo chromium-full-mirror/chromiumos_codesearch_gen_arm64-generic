@@ -13,7 +13,6 @@
 
 #include "base/containers/span.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
-#include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
 
 namespace blink {
 
@@ -33,6 +32,60 @@ static VirtualSensorReading* Create(v8::Isolate* isolate, v8::Local<v8::Value> v
 explicit  VirtualSensorReading();
 explicit  VirtualSensorReading(v8::Isolate* isolate);
 
+bool hasAlpha() const {
+  return has_alpha_;
+}
+double alpha() const {
+  DCHECK(hasAlpha());
+return member_alpha_;
+}
+double getAlphaOr(double fallback_value) const {
+  if (!hasAlpha()) {
+  return fallback_value;
+}
+return member_alpha_;
+}
+void setAlpha(double value) {
+  member_alpha_ = value;
+has_alpha_ = true;
+}
+
+bool hasBeta() const {
+  return has_beta_;
+}
+double beta() const {
+  DCHECK(hasBeta());
+return member_beta_;
+}
+double getBetaOr(double fallback_value) const {
+  if (!hasBeta()) {
+  return fallback_value;
+}
+return member_beta_;
+}
+void setBeta(double value) {
+  member_beta_ = value;
+has_beta_ = true;
+}
+
+bool hasGamma() const {
+  return has_gamma_;
+}
+double gamma() const {
+  DCHECK(hasGamma());
+return member_gamma_;
+}
+double getGammaOr(double fallback_value) const {
+  if (!hasGamma()) {
+  return fallback_value;
+}
+return member_gamma_;
+}
+void setGamma(double value) {
+  member_gamma_ = value;
+has_gamma_ = true;
+}
+
 bool hasIlluminance() const {
   return has_illuminance_;
 }
@@ -50,18 +103,6 @@ void setIlluminance(double value) {
   member_illuminance_ = value;
 has_illuminance_ = true;
 }
-
-bool hasQuaternion() const {
-  return has_quaternion_;
-}
-const Vector<double>& quaternion() const {
-  DCHECK(hasQuaternion());
-return member_quaternion_;
-}
-Vector<double> getQuaternionOr(const Vector<double>& fallback_value) const;
-Vector<double> getQuaternionOr(Vector<double>&& fallback_value) const;
-void setQuaternion(const Vector<double>& value);
-void setQuaternion(Vector<double>&& value);
 
 bool hasX() const {
   return has_x_;
@@ -132,14 +173,18 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
+bool has_alpha_ = false;
+bool has_beta_ = false;
+bool has_gamma_ = false;
 bool has_illuminance_ = false;
-bool has_quaternion_ = false;
 bool has_x_ = false;
 bool has_y_ = false;
 bool has_z_ = false;
 
+double member_alpha_;
+double member_beta_;
+double member_gamma_;
 double member_illuminance_;
-Vector<double> member_quaternion_;
 double member_x_;
 double member_y_;
 double member_z_;

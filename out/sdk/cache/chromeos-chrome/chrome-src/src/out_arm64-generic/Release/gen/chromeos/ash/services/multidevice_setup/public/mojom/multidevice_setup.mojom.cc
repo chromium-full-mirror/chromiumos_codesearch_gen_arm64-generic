@@ -436,6 +436,8 @@ bool AccountStatusChangeDelegateStubDispatch::Accept(
           reinterpret_cast<internal::AccountStatusChangeDelegate_OnPotentialHostExistsForNewUser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountStatusChangeDelegate.0
       bool success = true;
       AccountStatusChangeDelegate_OnPotentialHostExistsForNewUser_ParamsDataView input_data_view(params, message);
       
@@ -448,7 +450,7 @@ bool AccountStatusChangeDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPotentialHostExistsForNewUser();
+      impl->OnPotentialHostExistsForNewUser(        );
       return true;
     }
     case internal::kAccountStatusChangeDelegate_OnNoLongerNewUser_Name: {
@@ -458,6 +460,8 @@ bool AccountStatusChangeDelegateStubDispatch::Accept(
           reinterpret_cast<internal::AccountStatusChangeDelegate_OnNoLongerNewUser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountStatusChangeDelegate.1
       bool success = true;
       AccountStatusChangeDelegate_OnNoLongerNewUser_ParamsDataView input_data_view(params, message);
       
@@ -470,7 +474,7 @@ bool AccountStatusChangeDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNoLongerNewUser();
+      impl->OnNoLongerNewUser(        );
       return true;
     }
     case internal::kAccountStatusChangeDelegate_OnConnectedHostSwitchedForExistingUser_Name: {
@@ -480,6 +484,8 @@ bool AccountStatusChangeDelegateStubDispatch::Accept(
           reinterpret_cast<internal::AccountStatusChangeDelegate_OnConnectedHostSwitchedForExistingUser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountStatusChangeDelegate.2
       bool success = true;
       std::string p_new_host_device_name{};
       AccountStatusChangeDelegate_OnConnectedHostSwitchedForExistingUser_ParamsDataView input_data_view(params, message);
@@ -495,8 +501,8 @@ bool AccountStatusChangeDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectedHostSwitchedForExistingUser(
-std::move(p_new_host_device_name));
+      impl->OnConnectedHostSwitchedForExistingUser(        
+        std::move(p_new_host_device_name));
       return true;
     }
     case internal::kAccountStatusChangeDelegate_OnNewChromebookAddedForExistingUser_Name: {
@@ -506,6 +512,8 @@ std::move(p_new_host_device_name));
           reinterpret_cast<internal::AccountStatusChangeDelegate_OnNewChromebookAddedForExistingUser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountStatusChangeDelegate.3
       bool success = true;
       std::string p_new_host_device_name{};
       AccountStatusChangeDelegate_OnNewChromebookAddedForExistingUser_ParamsDataView input_data_view(params, message);
@@ -521,8 +529,8 @@ std::move(p_new_host_device_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewChromebookAddedForExistingUser(
-std::move(p_new_host_device_name));
+      impl->OnNewChromebookAddedForExistingUser(        
+        std::move(p_new_host_device_name));
       return true;
     }
     case internal::kAccountStatusChangeDelegate_OnBecameEligibleForWifiSync_Name: {
@@ -532,6 +540,8 @@ std::move(p_new_host_device_name));
           reinterpret_cast<internal::AccountStatusChangeDelegate_OnBecameEligibleForWifiSync_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountStatusChangeDelegate.4
       bool success = true;
       AccountStatusChangeDelegate_OnBecameEligibleForWifiSync_ParamsDataView input_data_view(params, message);
       
@@ -544,7 +554,7 @@ std::move(p_new_host_device_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBecameEligibleForWifiSync();
+      impl->OnBecameEligibleForWifiSync(        );
       return true;
     }
   }
@@ -721,6 +731,8 @@ bool HostStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::HostStatusObserver_OnHostStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HostStatusObserver.0
       bool success = true;
       HostStatus p_host_status{};
       std::optional<::ash::multidevice::RemoteDevice> p_host_device{};
@@ -739,9 +751,9 @@ bool HostStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStatusChanged(
-std::move(p_host_status), 
-std::move(p_host_device));
+      impl->OnHostStatusChanged(        
+        std::move(p_host_status), 
+        std::move(p_host_device));
       return true;
     }
   }
@@ -899,6 +911,8 @@ bool FeatureStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::FeatureStateObserver_OnFeatureStatesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeatureStateObserver.0
       bool success = true;
       base::flat_map<Feature, FeatureState> p_feature_states_map{};
       FeatureStateObserver_OnFeatureStatesChanged_ParamsDataView input_data_view(params, message);
@@ -914,8 +928,8 @@ bool FeatureStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFeatureStatesChanged(
-std::move(p_feature_states_map));
+      impl->OnFeatureStatesChanged(        
+        std::move(p_feature_states_map));
       return true;
     }
   }
@@ -2061,6 +2075,8 @@ bool MultiDeviceSetup_GetEligibleHostDevices_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_GetEligibleHostDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.3
   bool success = true;
   std::vector<::ash::multidevice::RemoteDevice> p_eligible_host_devices{};
   MultiDeviceSetup_GetEligibleHostDevices_ResponseParamsDataView input_data_view(params, message);
@@ -2192,6 +2208,8 @@ bool MultiDeviceSetup_GetEligibleActiveHostDevices_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_GetEligibleActiveHostDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.4
   bool success = true;
   std::vector<HostDevicePtr> p_eligible_host_devices{};
   MultiDeviceSetup_GetEligibleActiveHostDevices_ResponseParamsDataView input_data_view(params, message);
@@ -2323,6 +2341,8 @@ bool MultiDeviceSetup_SetHostDevice_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_SetHostDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.5
   bool success = true;
   bool p_success{};
   MultiDeviceSetup_SetHostDevice_ResponseParamsDataView input_data_view(params, message);
@@ -2442,6 +2462,8 @@ bool MultiDeviceSetup_GetHostStatus_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_GetHostStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.7
   bool success = true;
   HostStatus p_host_status{};
   std::optional<::ash::multidevice::RemoteDevice> p_host_device{};
@@ -2576,6 +2598,8 @@ bool MultiDeviceSetup_SetFeatureEnabledState_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_SetFeatureEnabledState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.8
   bool success = true;
   bool p_success{};
   MultiDeviceSetup_SetFeatureEnabledState_ResponseParamsDataView input_data_view(params, message);
@@ -2695,6 +2719,8 @@ bool MultiDeviceSetup_GetFeatureStates_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_GetFeatureStates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.9
   bool success = true;
   base::flat_map<Feature, FeatureState> p_feature_states_map{};
   MultiDeviceSetup_GetFeatureStates_ResponseParamsDataView input_data_view(params, message);
@@ -2826,6 +2852,8 @@ bool MultiDeviceSetup_RetrySetHostNow_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_RetrySetHostNow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.10
   bool success = true;
   bool p_success{};
   MultiDeviceSetup_RetrySetHostNow_ResponseParamsDataView input_data_view(params, message);
@@ -2945,6 +2973,8 @@ bool MultiDeviceSetup_TriggerEventForDebugging_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_TriggerEventForDebugging_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.11
   bool success = true;
   bool p_success{};
   MultiDeviceSetup_TriggerEventForDebugging_ResponseParamsDataView input_data_view(params, message);
@@ -3064,6 +3094,8 @@ bool MultiDeviceSetup_GetQuickStartPhoneInstanceID_ForwardToCallback::Accept(
           internal::MultiDeviceSetup_GetQuickStartPhoneInstanceID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiDeviceSetup.13
   bool success = true;
   std::optional<std::string> p_qs_phone_instance_id{};
   MultiDeviceSetup_GetQuickStartPhoneInstanceID_ResponseParamsDataView input_data_view(params, message);
@@ -3144,6 +3176,8 @@ bool MultiDeviceSetupStubDispatch::Accept(
           reinterpret_cast<internal::MultiDeviceSetup_SetAccountStatusChangeDelegate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.0
       bool success = true;
       ::mojo::PendingRemote<AccountStatusChangeDelegate> p_delegate{};
       MultiDeviceSetup_SetAccountStatusChangeDelegate_ParamsDataView input_data_view(params, message);
@@ -3161,8 +3195,8 @@ bool MultiDeviceSetupStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAccountStatusChangeDelegate(
-std::move(p_delegate));
+      impl->SetAccountStatusChangeDelegate(        
+        std::move(p_delegate));
       return true;
     }
     case internal::kMultiDeviceSetup_AddHostStatusObserver_Name: {
@@ -3172,6 +3206,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::MultiDeviceSetup_AddHostStatusObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.1
       bool success = true;
       ::mojo::PendingRemote<HostStatusObserver> p_observer{};
       MultiDeviceSetup_AddHostStatusObserver_ParamsDataView input_data_view(params, message);
@@ -3189,8 +3225,8 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddHostStatusObserver(
-std::move(p_observer));
+      impl->AddHostStatusObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kMultiDeviceSetup_AddFeatureStateObserver_Name: {
@@ -3200,6 +3236,8 @@ std::move(p_observer));
           reinterpret_cast<internal::MultiDeviceSetup_AddFeatureStateObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.2
       bool success = true;
       ::mojo::PendingRemote<FeatureStateObserver> p_observer{};
       MultiDeviceSetup_AddFeatureStateObserver_ParamsDataView input_data_view(params, message);
@@ -3217,8 +3255,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddFeatureStateObserver(
-std::move(p_observer));
+      impl->AddFeatureStateObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kMultiDeviceSetup_GetEligibleHostDevices_Name: {
@@ -3237,6 +3275,8 @@ std::move(p_observer));
           reinterpret_cast<internal::MultiDeviceSetup_RemoveHostDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.6
       bool success = true;
       MultiDeviceSetup_RemoveHostDevice_ParamsDataView input_data_view(params, message);
       
@@ -3249,7 +3289,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveHostDevice();
+      impl->RemoveHostDevice(        );
       return true;
     }
     case internal::kMultiDeviceSetup_GetHostStatus_Name: {
@@ -3274,6 +3314,8 @@ std::move(p_observer));
           reinterpret_cast<internal::MultiDeviceSetup_SetQuickStartPhoneInstanceID_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.12
       bool success = true;
       std::string p_qs_phone_instance_id{};
       MultiDeviceSetup_SetQuickStartPhoneInstanceID_ParamsDataView input_data_view(params, message);
@@ -3289,8 +3331,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetQuickStartPhoneInstanceID(
-std::move(p_qs_phone_instance_id));
+      impl->SetQuickStartPhoneInstanceID(        
+        std::move(p_qs_phone_instance_id));
       return true;
     }
     case internal::kMultiDeviceSetup_GetQuickStartPhoneInstanceID_Name: {
@@ -3325,6 +3367,8 @@ bool MultiDeviceSetupStubDispatch::AcceptWithResponder(
               internal::MultiDeviceSetup_GetEligibleHostDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.3
       bool success = true;
       MultiDeviceSetup_GetEligibleHostDevices_ParamsDataView input_data_view(params, message);
       
@@ -3350,6 +3394,8 @@ bool MultiDeviceSetupStubDispatch::AcceptWithResponder(
               internal::MultiDeviceSetup_GetEligibleActiveHostDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.4
       bool success = true;
       MultiDeviceSetup_GetEligibleActiveHostDevices_ParamsDataView input_data_view(params, message);
       
@@ -3375,6 +3421,8 @@ bool MultiDeviceSetupStubDispatch::AcceptWithResponder(
               internal::MultiDeviceSetup_SetHostDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.5
       bool success = true;
       std::string p_instance_id_or_legacy_device_id{};
       std::string p_auth_token{};
@@ -3396,9 +3444,9 @@ bool MultiDeviceSetupStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHostDevice(
-std::move(p_instance_id_or_legacy_device_id), 
-std::move(p_auth_token), std::move(callback));
+      impl->SetHostDevice(        
+        std::move(p_instance_id_or_legacy_device_id), 
+        std::move(p_auth_token), std::move(callback));
       return true;
     }
     case internal::kMultiDeviceSetup_RemoveHostDevice_Name: {
@@ -3411,6 +3459,8 @@ std::move(p_auth_token), std::move(callback));
               internal::MultiDeviceSetup_GetHostStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.7
       bool success = true;
       MultiDeviceSetup_GetHostStatus_ParamsDataView input_data_view(params, message);
       
@@ -3436,6 +3486,8 @@ std::move(p_auth_token), std::move(callback));
               internal::MultiDeviceSetup_SetFeatureEnabledState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.8
       bool success = true;
       Feature p_feature{};
       bool p_enabled{};
@@ -3460,10 +3512,10 @@ std::move(p_auth_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFeatureEnabledState(
-std::move(p_feature), 
-std::move(p_enabled), 
-std::move(p_auth_token), std::move(callback));
+      impl->SetFeatureEnabledState(        
+        std::move(p_feature), 
+        std::move(p_enabled), 
+        std::move(p_auth_token), std::move(callback));
       return true;
     }
     case internal::kMultiDeviceSetup_GetFeatureStates_Name: {
@@ -3473,6 +3525,8 @@ std::move(p_auth_token), std::move(callback));
               internal::MultiDeviceSetup_GetFeatureStates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.9
       bool success = true;
       MultiDeviceSetup_GetFeatureStates_ParamsDataView input_data_view(params, message);
       
@@ -3498,6 +3552,8 @@ std::move(p_auth_token), std::move(callback));
               internal::MultiDeviceSetup_RetrySetHostNow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.10
       bool success = true;
       MultiDeviceSetup_RetrySetHostNow_ParamsDataView input_data_view(params, message);
       
@@ -3523,6 +3579,8 @@ std::move(p_auth_token), std::move(callback));
               internal::MultiDeviceSetup_TriggerEventForDebugging_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.11
       bool success = true;
       EventTypeForDebugging p_type{};
       MultiDeviceSetup_TriggerEventForDebugging_ParamsDataView input_data_view(params, message);
@@ -3541,8 +3599,8 @@ std::move(p_auth_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerEventForDebugging(
-std::move(p_type), std::move(callback));
+      impl->TriggerEventForDebugging(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kMultiDeviceSetup_SetQuickStartPhoneInstanceID_Name: {
@@ -3555,6 +3613,8 @@ std::move(p_type), std::move(callback));
               internal::MultiDeviceSetup_GetQuickStartPhoneInstanceID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiDeviceSetup.13
       bool success = true;
       MultiDeviceSetup_GetQuickStartPhoneInstanceID_ParamsDataView input_data_view(params, message);
       
@@ -3802,6 +3862,8 @@ bool PrivilegedHostDeviceSetter_SetHostDevice_ForwardToCallback::Accept(
           internal::PrivilegedHostDeviceSetter_SetHostDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrivilegedHostDeviceSetter.0
   bool success = true;
   bool p_success{};
   PrivilegedHostDeviceSetter_SetHostDevice_ResponseParamsDataView input_data_view(params, message);
@@ -3892,6 +3954,8 @@ bool PrivilegedHostDeviceSetterStubDispatch::AcceptWithResponder(
               internal::PrivilegedHostDeviceSetter_SetHostDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrivilegedHostDeviceSetter.0
       bool success = true;
       std::string p_instance_id_or_legacy_device_id{};
       PrivilegedHostDeviceSetter_SetHostDevice_ParamsDataView input_data_view(params, message);
@@ -3910,8 +3974,8 @@ bool PrivilegedHostDeviceSetterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHostDevice(
-std::move(p_instance_id_or_legacy_device_id), std::move(callback));
+      impl->SetHostDevice(        
+        std::move(p_instance_id_or_legacy_device_id), std::move(callback));
       return true;
     }
   }

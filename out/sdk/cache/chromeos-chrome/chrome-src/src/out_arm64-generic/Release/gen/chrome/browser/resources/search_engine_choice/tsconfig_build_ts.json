@@ -46,7 +46,8 @@
     "preprocessed/app.ts",
     "preprocessed/browser_proxy.ts",
     "preprocessed/app.html.ts",
-    "preprocessed/search_engine_choice.mojom-webui.ts"
+    "preprocessed/search_engine_choice.mojom-webui.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts"
   ],
   "references": [
     {

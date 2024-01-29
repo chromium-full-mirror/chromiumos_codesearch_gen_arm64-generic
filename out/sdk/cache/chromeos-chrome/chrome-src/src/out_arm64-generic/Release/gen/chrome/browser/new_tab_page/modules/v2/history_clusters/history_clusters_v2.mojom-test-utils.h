@@ -20,8 +20,9 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void GetDiscountsForCluster(::history_clusters::mojom::ClusterPtr cluster, GetDiscountsForClusterCallback callback) override;
   void ShowJourneysSidePanel(const std::string& query) override;
   void RecordClick(int64_t cluster_id) override;
+  void RecordDisabled(int64_t cluster_id) override;
   void RecordLayoutTypeShown(::ntp::history_clusters::mojom::LayoutType layout_type, int64_t cluster_id) override;
-  void UpdateClusterVisitsInteractionState(std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) override;
+  void UpdateClusterVisitsInteractionState(int64_t cluster_id, std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) override;
 };
 class  PageHandlerAsyncWaiter {
  public:

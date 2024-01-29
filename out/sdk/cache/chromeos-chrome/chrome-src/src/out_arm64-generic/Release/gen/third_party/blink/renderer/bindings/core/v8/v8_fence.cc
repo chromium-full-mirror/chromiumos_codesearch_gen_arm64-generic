@@ -76,6 +76,39 @@ namespace  {
 
 namespace v8_fence {
 
+void DisableUntrustedNetworkOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Fence_disableUntrustedNetwork");
+BLINK_BINDINGS_TRACE_EVENT("Fence.disableUntrustedNetwork");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Fence";
+const char* const property_name = "disableUntrustedNetwork";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Fence::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+
+
+
+Fence* blink_receiver = V8Fence::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->disableUntrustedNetwork(script_state, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value);
+}
+
 void GetNestedConfigsOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Fence_getNestedConfigs");
 BLINK_BINDINGS_TRACE_EVENT("Fence.getNestedConfigs");
@@ -87,10 +120,8 @@ BLINK_BINDINGS_TRACE_EVENT("Fence.getNestedConfigs");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 Fence* blink_receiver = V8Fence::ToWrappableUnsafe(isolate, v8_receiver);
@@ -102,9 +133,7 @@ auto&& return_value = blink_receiver->getNestedConfigs(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLSequence<FencedFrameConfig>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<FencedFrameConfig>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -130,14 +159,11 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 Fence* blink_receiver = V8Fence::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 auto&& arg1_event = NativeValueTraits<V8UnionFenceEventOrString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->reportEvent(script_state, arg1_event, exception_state);
+blink_receiver->reportEvent(arg1_event, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -166,14 +192,11 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 Fence* blink_receiver = V8Fence::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 auto&& arg1_event = NativeValueTraits<FenceEvent>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->setReportEventDataForAutomaticBeacons(script_state, arg1_event, exception_state);
+blink_receiver->setReportEventDataForAutomaticBeacons(arg1_event, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -203,6 +226,7 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8Fence::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -227,6 +251,24 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8Fence::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+if (RuntimeEnabledFeatures::FencedFramesLocalUnpartitionedDataAccessEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"disableUntrustedNetwork", DisableUntrustedNetworkOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+
+
+}
 
 
 

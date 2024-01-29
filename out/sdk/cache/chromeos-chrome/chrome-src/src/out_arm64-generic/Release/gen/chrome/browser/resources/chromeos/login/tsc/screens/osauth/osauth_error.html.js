@@ -21,7 +21,7 @@ found in the LICENSE file.
     <oobe-text-button id="retryButton" inverse
         class="focus-on-show"
         text-key="osauthRetryButton"
-        on-click="onRetryLoginButtonPressed_"></oobe-text-button>
+        on-click="onRetryLoginButtonPressed"></oobe-text-button>
   </div>
 </oobe-adaptive-dialog>
 <!--_html_template_end_-->`;

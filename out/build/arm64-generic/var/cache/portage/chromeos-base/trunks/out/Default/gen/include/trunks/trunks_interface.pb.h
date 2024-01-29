@@ -53,12 +53,32 @@ extern SendCommandRequestDefaultTypeInternal _SendCommandRequest_default_instanc
 class SendCommandResponse;
 struct SendCommandResponseDefaultTypeInternal;
 extern SendCommandResponseDefaultTypeInternal _SendCommandResponse_default_instance_;
+class StartEventRequest;
+struct StartEventRequestDefaultTypeInternal;
+extern StartEventRequestDefaultTypeInternal _StartEventRequest_default_instance_;
+class StartEventResponse;
+struct StartEventResponseDefaultTypeInternal;
+extern StartEventResponseDefaultTypeInternal _StartEventResponse_default_instance_;
+class StopEventRequest;
+struct StopEventRequestDefaultTypeInternal;
+extern StopEventRequestDefaultTypeInternal _StopEventRequest_default_instance_;
+class StopEventResponse;
+struct StopEventResponseDefaultTypeInternal;
+extern StopEventResponseDefaultTypeInternal _StopEventResponse_default_instance_;
 }  // namespace trunks
 PROTOBUF_NAMESPACE_OPEN
 template <>
 ::trunks::SendCommandRequest* Arena::CreateMaybeMessage<::trunks::SendCommandRequest>(Arena*);
 template <>
 ::trunks::SendCommandResponse* Arena::CreateMaybeMessage<::trunks::SendCommandResponse>(Arena*);
+template <>
+::trunks::StartEventRequest* Arena::CreateMaybeMessage<::trunks::StartEventRequest>(Arena*);
+template <>
+::trunks::StartEventResponse* Arena::CreateMaybeMessage<::trunks::StartEventResponse>(Arena*);
+template <>
+::trunks::StopEventRequest* Arena::CreateMaybeMessage<::trunks::StopEventRequest>(Arena*);
+template <>
+::trunks::StopEventResponse* Arena::CreateMaybeMessage<::trunks::StopEventResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 namespace trunks {
@@ -179,6 +199,7 @@ class SendCommandRequest final :
 
   enum : int {
     kCommandFieldNumber = 1,
+    kSenderIdFieldNumber = 2,
   };
   // optional bytes command = 1;
   bool has_command() const;
@@ -201,6 +222,17 @@ class SendCommandRequest final :
   std::string* _internal_mutable_command();
 
   public:
+  // optional uint64 sender_id = 2;
+  bool has_sender_id() const;
+  void clear_sender_id() ;
+  ::uint64_t sender_id() const;
+  void set_sender_id(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_sender_id() const;
+  void _internal_set_sender_id(::uint64_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:trunks.SendCommandRequest)
  private:
   class _Internal;
@@ -212,6 +244,7 @@ class SendCommandRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr command_;
+    ::uint64_t sender_id_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_trunks_5finterface_2eproto;
@@ -364,6 +397,576 @@ class SendCommandResponse final :
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_trunks_5finterface_2eproto;
+};// -------------------------------------------------------------------
+
+class StartEventRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trunks.StartEventRequest) */ {
+ public:
+  inline StartEventRequest() : StartEventRequest(nullptr) {}
+  ~StartEventRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR StartEventRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StartEventRequest(const StartEventRequest& from);
+  StartEventRequest(StartEventRequest&& from) noexcept
+    : StartEventRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline StartEventRequest& operator=(const StartEventRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StartEventRequest& operator=(StartEventRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StartEventRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StartEventRequest* internal_default_instance() {
+    return reinterpret_cast<const StartEventRequest*>(
+               &_StartEventRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(StartEventRequest& a, StartEventRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StartEventRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StartEventRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StartEventRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StartEventRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StartEventRequest& from);
+  void MergeFrom(const StartEventRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StartEventRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "trunks.StartEventRequest";
+  }
+  protected:
+  explicit StartEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventFieldNumber = 1,
+    kSenderIdFieldNumber = 2,
+  };
+  // optional string event = 1;
+  bool has_event() const;
+  void clear_event() ;
+  const std::string& event() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_event(Arg_&& arg, Args_... args);
+  std::string* mutable_event();
+  PROTOBUF_NODISCARD std::string* release_event();
+  void set_allocated_event(std::string* ptr);
+
+  private:
+  const std::string& _internal_event() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_event(
+      const std::string& value);
+  std::string* _internal_mutable_event();
+
+  public:
+  // optional uint64 sender_id = 2;
+  bool has_sender_id() const;
+  void clear_sender_id() ;
+  ::uint64_t sender_id() const;
+  void set_sender_id(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_sender_id() const;
+  void _internal_set_sender_id(::uint64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:trunks.StartEventRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr event_;
+    ::uint64_t sender_id_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_trunks_5finterface_2eproto;
+};// -------------------------------------------------------------------
+
+class StartEventResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trunks.StartEventResponse) */ {
+ public:
+  inline StartEventResponse() : StartEventResponse(nullptr) {}
+  ~StartEventResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR StartEventResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StartEventResponse(const StartEventResponse& from);
+  StartEventResponse(StartEventResponse&& from) noexcept
+    : StartEventResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline StartEventResponse& operator=(const StartEventResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StartEventResponse& operator=(StartEventResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StartEventResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StartEventResponse* internal_default_instance() {
+    return reinterpret_cast<const StartEventResponse*>(
+               &_StartEventResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(StartEventResponse& a, StartEventResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StartEventResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StartEventResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StartEventResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StartEventResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StartEventResponse& from);
+  void MergeFrom(const StartEventResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StartEventResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "trunks.StartEventResponse";
+  }
+  protected:
+  explicit StartEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:trunks.StartEventResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_trunks_5finterface_2eproto;
+};// -------------------------------------------------------------------
+
+class StopEventRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trunks.StopEventRequest) */ {
+ public:
+  inline StopEventRequest() : StopEventRequest(nullptr) {}
+  ~StopEventRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR StopEventRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StopEventRequest(const StopEventRequest& from);
+  StopEventRequest(StopEventRequest&& from) noexcept
+    : StopEventRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline StopEventRequest& operator=(const StopEventRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StopEventRequest& operator=(StopEventRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StopEventRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StopEventRequest* internal_default_instance() {
+    return reinterpret_cast<const StopEventRequest*>(
+               &_StopEventRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(StopEventRequest& a, StopEventRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StopEventRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StopEventRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StopEventRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StopEventRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StopEventRequest& from);
+  void MergeFrom(const StopEventRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StopEventRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "trunks.StopEventRequest";
+  }
+  protected:
+  explicit StopEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventFieldNumber = 1,
+    kSenderIdFieldNumber = 2,
+  };
+  // optional string event = 1;
+  bool has_event() const;
+  void clear_event() ;
+  const std::string& event() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_event(Arg_&& arg, Args_... args);
+  std::string* mutable_event();
+  PROTOBUF_NODISCARD std::string* release_event();
+  void set_allocated_event(std::string* ptr);
+
+  private:
+  const std::string& _internal_event() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_event(
+      const std::string& value);
+  std::string* _internal_mutable_event();
+
+  public:
+  // optional uint64 sender_id = 2;
+  bool has_sender_id() const;
+  void clear_sender_id() ;
+  ::uint64_t sender_id() const;
+  void set_sender_id(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_sender_id() const;
+  void _internal_set_sender_id(::uint64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:trunks.StopEventRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr event_;
+    ::uint64_t sender_id_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_trunks_5finterface_2eproto;
+};// -------------------------------------------------------------------
+
+class StopEventResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trunks.StopEventResponse) */ {
+ public:
+  inline StopEventResponse() : StopEventResponse(nullptr) {}
+  ~StopEventResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR StopEventResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StopEventResponse(const StopEventResponse& from);
+  StopEventResponse(StopEventResponse&& from) noexcept
+    : StopEventResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline StopEventResponse& operator=(const StopEventResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StopEventResponse& operator=(StopEventResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StopEventResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StopEventResponse* internal_default_instance() {
+    return reinterpret_cast<const StopEventResponse*>(
+               &_StopEventResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(StopEventResponse& a, StopEventResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StopEventResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StopEventResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StopEventResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StopEventResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StopEventResponse& from);
+  void MergeFrom(const StopEventResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StopEventResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "trunks.StopEventResponse";
+  }
+  protected:
+  explicit StopEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:trunks.StopEventResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_trunks_5finterface_2eproto;
 };
 
 // ===================================================================
@@ -447,6 +1050,31 @@ inline void SendCommandRequest::set_allocated_command(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:trunks.SendCommandRequest.command)
 }
 
+// optional uint64 sender_id = 2;
+inline bool SendCommandRequest::has_sender_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void SendCommandRequest::clear_sender_id() {
+  _impl_.sender_id_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::uint64_t SendCommandRequest::sender_id() const {
+  // @@protoc_insertion_point(field_get:trunks.SendCommandRequest.sender_id)
+  return _internal_sender_id();
+}
+inline void SendCommandRequest::set_sender_id(::uint64_t value) {
+  _internal_set_sender_id(value);
+  // @@protoc_insertion_point(field_set:trunks.SendCommandRequest.sender_id)
+}
+inline ::uint64_t SendCommandRequest::_internal_sender_id() const {
+  return _impl_.sender_id_;
+}
+inline void SendCommandRequest::_internal_set_sender_id(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.sender_id_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // SendCommandResponse
@@ -515,6 +1143,202 @@ inline void SendCommandResponse::set_allocated_response(std::string* value) {
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:trunks.SendCommandResponse.response)
 }
+
+// -------------------------------------------------------------------
+
+// StartEventRequest
+
+// optional string event = 1;
+inline bool StartEventRequest::has_event() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void StartEventRequest::clear_event() {
+  _impl_.event_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& StartEventRequest::event() const {
+  // @@protoc_insertion_point(field_get:trunks.StartEventRequest.event)
+  return _internal_event();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void StartEventRequest::set_event(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.event_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:trunks.StartEventRequest.event)
+}
+inline std::string* StartEventRequest::mutable_event() {
+  std::string* _s = _internal_mutable_event();
+  // @@protoc_insertion_point(field_mutable:trunks.StartEventRequest.event)
+  return _s;
+}
+inline const std::string& StartEventRequest::_internal_event() const {
+  return _impl_.event_.Get();
+}
+inline void StartEventRequest::_internal_set_event(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+
+
+  _impl_.event_.Set(value, GetArenaForAllocation());
+}
+inline std::string* StartEventRequest::_internal_mutable_event() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.event_.Mutable( GetArenaForAllocation());
+}
+inline std::string* StartEventRequest::release_event() {
+  // @@protoc_insertion_point(field_release:trunks.StartEventRequest.event)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.event_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.event_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void StartEventRequest::set_allocated_event(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.event_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.event_.IsDefault()) {
+          _impl_.event_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:trunks.StartEventRequest.event)
+}
+
+// optional uint64 sender_id = 2;
+inline bool StartEventRequest::has_sender_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void StartEventRequest::clear_sender_id() {
+  _impl_.sender_id_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::uint64_t StartEventRequest::sender_id() const {
+  // @@protoc_insertion_point(field_get:trunks.StartEventRequest.sender_id)
+  return _internal_sender_id();
+}
+inline void StartEventRequest::set_sender_id(::uint64_t value) {
+  _internal_set_sender_id(value);
+  // @@protoc_insertion_point(field_set:trunks.StartEventRequest.sender_id)
+}
+inline ::uint64_t StartEventRequest::_internal_sender_id() const {
+  return _impl_.sender_id_;
+}
+inline void StartEventRequest::_internal_set_sender_id(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.sender_id_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// StartEventResponse
+
+// -------------------------------------------------------------------
+
+// StopEventRequest
+
+// optional string event = 1;
+inline bool StopEventRequest::has_event() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void StopEventRequest::clear_event() {
+  _impl_.event_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& StopEventRequest::event() const {
+  // @@protoc_insertion_point(field_get:trunks.StopEventRequest.event)
+  return _internal_event();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void StopEventRequest::set_event(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.event_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:trunks.StopEventRequest.event)
+}
+inline std::string* StopEventRequest::mutable_event() {
+  std::string* _s = _internal_mutable_event();
+  // @@protoc_insertion_point(field_mutable:trunks.StopEventRequest.event)
+  return _s;
+}
+inline const std::string& StopEventRequest::_internal_event() const {
+  return _impl_.event_.Get();
+}
+inline void StopEventRequest::_internal_set_event(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+
+
+  _impl_.event_.Set(value, GetArenaForAllocation());
+}
+inline std::string* StopEventRequest::_internal_mutable_event() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.event_.Mutable( GetArenaForAllocation());
+}
+inline std::string* StopEventRequest::release_event() {
+  // @@protoc_insertion_point(field_release:trunks.StopEventRequest.event)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.event_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.event_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void StopEventRequest::set_allocated_event(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.event_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.event_.IsDefault()) {
+          _impl_.event_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:trunks.StopEventRequest.event)
+}
+
+// optional uint64 sender_id = 2;
+inline bool StopEventRequest::has_sender_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void StopEventRequest::clear_sender_id() {
+  _impl_.sender_id_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::uint64_t StopEventRequest::sender_id() const {
+  // @@protoc_insertion_point(field_get:trunks.StopEventRequest.sender_id)
+  return _internal_sender_id();
+}
+inline void StopEventRequest::set_sender_id(::uint64_t value) {
+  _internal_set_sender_id(value);
+  // @@protoc_insertion_point(field_set:trunks.StopEventRequest.sender_id)
+}
+inline ::uint64_t StopEventRequest::_internal_sender_id() const {
+  return _impl_.sender_id_;
+}
+inline void StopEventRequest::_internal_set_sender_id(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.sender_id_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// StopEventResponse
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop

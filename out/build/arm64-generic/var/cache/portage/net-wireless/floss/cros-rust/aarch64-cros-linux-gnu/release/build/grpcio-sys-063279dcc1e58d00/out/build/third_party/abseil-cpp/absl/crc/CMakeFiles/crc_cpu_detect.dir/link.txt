@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc libabsl_crc_cpu_detect.a CMakeFiles/crc_cpu_detect.dir/internal/cpu_detect.cc.o
+/usr/bin/llvm-ranlib libabsl_crc_cpu_detect.a

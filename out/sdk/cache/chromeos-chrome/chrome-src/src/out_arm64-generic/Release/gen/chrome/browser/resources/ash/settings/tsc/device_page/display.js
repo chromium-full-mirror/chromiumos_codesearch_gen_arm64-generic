@@ -15,7 +15,7 @@ import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classe
 import './display_layout.js';
 import './display_overscan_dialog.js';
 import './display_night_light.js';
-import '/shared/settings/controls/settings_slider.js';
+import '../controls/settings_slider.js';
 import '../settings_shared.css.js';
 import '../settings_vars.css.js';
 import 'chrome://resources/cr_elements/cr_slider/cr_slider.js';
@@ -30,7 +30,7 @@ import { assertExists, cast, castExists } from '../assert_extras.js';
 import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
 import { RouteObserverMixin } from '../common/route_observer_mixin.js';
-import { DisplayConfigurationObserverReceiver, DisplaySettingsType, TabletModeObserverReceiver } from '../mojom-webui/display_settings_provider.mojom-webui.js';
+import { DisplayConfigurationObserverReceiver, DisplaySettingsOrientationOption, DisplaySettingsType, TabletModeObserverReceiver } from '../mojom-webui/display_settings_provider.mojom-webui.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
 import { routes } from '../router.js';
 import { DevicePageBrowserProxyImpl, getDisplayApi } from './device_page_browser_proxy.js';
@@ -978,7 +978,20 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
-        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOrientation, { isInternalDisplay: this.selectedDisplay.isInternal });
+        let orientation = DisplaySettingsOrientationOption.k0Degree;
+        if (value === -1) {
+            orientation = DisplaySettingsOrientationOption.kAuto;
+        }
+        else if (value === 90) {
+            orientation = DisplaySettingsOrientationOption.k90Degree;
+        }
+        else if (value === 180) {
+            orientation = DisplaySettingsOrientationOption.k180Degree;
+        }
+        else if (value === 270) {
+            orientation = DisplaySettingsOrientationOption.k270Degree;
+        }
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOrientation, { isInternalDisplay: this.selectedDisplay.isInternal, orientation });
     }
     onMirroredClick_(event) {
         // Blur the control so that when the transition animation completes and

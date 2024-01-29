@@ -953,6 +953,8 @@ bool ServiceWorkerHost_RequestWorker_ForwardToCallback::Accept(
           internal::ServiceWorkerHost_RequestWorker_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerHost.3
   bool success = true;
   bool p_success{};
   ::base::Value::List p_response_wrapper{};
@@ -1078,6 +1080,8 @@ bool ServiceWorkerHostStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerHost_DidInitializeServiceWorkerContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.0
       bool success = true;
       std::string p_extension_id{};
       int64_t p_service_worker_version_id{};
@@ -1104,11 +1108,11 @@ bool ServiceWorkerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidInitializeServiceWorkerContext(
-std::move(p_extension_id), 
-std::move(p_service_worker_version_id), 
-std::move(p_worker_thread_id), 
-std::move(p_event_dispatcher));
+      impl->DidInitializeServiceWorkerContext(        
+        std::move(p_extension_id), 
+        std::move(p_service_worker_version_id), 
+        std::move(p_worker_thread_id), 
+        std::move(p_event_dispatcher));
       return true;
     }
     case internal::kServiceWorkerHost_DidStartServiceWorkerContext_Name: {
@@ -1118,6 +1122,8 @@ std::move(p_event_dispatcher));
           reinterpret_cast<internal::ServiceWorkerHost_DidStartServiceWorkerContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.1
       bool success = true;
       std::string p_extension_id{};
       ::base::UnguessableToken p_activation_token{};
@@ -1145,12 +1151,12 @@ std::move(p_event_dispatcher));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStartServiceWorkerContext(
-std::move(p_extension_id), 
-std::move(p_activation_token), 
-std::move(p_service_worker_scope), 
-std::move(p_service_worker_version_id), 
-std::move(p_worker_thread_id));
+      impl->DidStartServiceWorkerContext(        
+        std::move(p_extension_id), 
+        std::move(p_activation_token), 
+        std::move(p_service_worker_scope), 
+        std::move(p_service_worker_version_id), 
+        std::move(p_worker_thread_id));
       return true;
     }
     case internal::kServiceWorkerHost_DidStopServiceWorkerContext_Name: {
@@ -1160,6 +1166,8 @@ std::move(p_worker_thread_id));
           reinterpret_cast<internal::ServiceWorkerHost_DidStopServiceWorkerContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.2
       bool success = true;
       std::string p_extension_id{};
       ::base::UnguessableToken p_activation_token{};
@@ -1187,12 +1195,12 @@ std::move(p_worker_thread_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStopServiceWorkerContext(
-std::move(p_extension_id), 
-std::move(p_activation_token), 
-std::move(p_service_worker_scope), 
-std::move(p_service_worker_version_id), 
-std::move(p_worker_thread_id));
+      impl->DidStopServiceWorkerContext(        
+        std::move(p_extension_id), 
+        std::move(p_activation_token), 
+        std::move(p_service_worker_scope), 
+        std::move(p_service_worker_version_id), 
+        std::move(p_worker_thread_id));
       return true;
     }
     case internal::kServiceWorkerHost_RequestWorker_Name: {
@@ -1205,6 +1213,8 @@ std::move(p_worker_thread_id));
           reinterpret_cast<internal::ServiceWorkerHost_WorkerResponseAck_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.4
       bool success = true;
       ::base::Uuid p_request_uuid{};
       ServiceWorkerHost_WorkerResponseAck_ParamsDataView input_data_view(params, message);
@@ -1220,8 +1230,8 @@ std::move(p_worker_thread_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WorkerResponseAck(
-std::move(p_request_uuid));
+      impl->WorkerResponseAck(        
+        std::move(p_request_uuid));
       return true;
     }
     case internal::kServiceWorkerHost_OpenChannelToExtension_Name: {
@@ -1231,6 +1241,8 @@ std::move(p_request_uuid));
           reinterpret_cast<internal::ServiceWorkerHost_OpenChannelToExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.5
       bool success = true;
       ::extensions::mojom::ExternalConnectionInfoPtr p_info{};
       ::extensions::mojom::ChannelType p_channel_type{};
@@ -1265,13 +1277,13 @@ std::move(p_request_uuid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToExtension(
-std::move(p_info), 
-std::move(p_channel_type), 
-std::move(p_channel_name), 
-std::move(p_port_id), 
-std::move(p_port), 
-std::move(p_port_host));
+      impl->OpenChannelToExtension(        
+        std::move(p_info), 
+        std::move(p_channel_type), 
+        std::move(p_channel_name), 
+        std::move(p_port_id), 
+        std::move(p_port), 
+        std::move(p_port_host));
       return true;
     }
     case internal::kServiceWorkerHost_OpenChannelToNativeApp_Name: {
@@ -1281,6 +1293,8 @@ std::move(p_port_host));
           reinterpret_cast<internal::ServiceWorkerHost_OpenChannelToNativeApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.6
       bool success = true;
       std::string p_native_app_name{};
       ::extensions::PortId p_port_id{};
@@ -1309,11 +1323,11 @@ std::move(p_port_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToNativeApp(
-std::move(p_native_app_name), 
-std::move(p_port_id), 
-std::move(p_port), 
-std::move(p_port_host));
+      impl->OpenChannelToNativeApp(        
+        std::move(p_native_app_name), 
+        std::move(p_port_id), 
+        std::move(p_port), 
+        std::move(p_port_host));
       return true;
     }
     case internal::kServiceWorkerHost_OpenChannelToTab_Name: {
@@ -1323,6 +1337,8 @@ std::move(p_port_host));
           reinterpret_cast<internal::ServiceWorkerHost_OpenChannelToTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.7
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_frame_id{};
@@ -1363,15 +1379,15 @@ std::move(p_port_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToTab(
-std::move(p_tab_id), 
-std::move(p_frame_id), 
-std::move(p_document_id), 
-std::move(p_channel_type), 
-std::move(p_channel_name), 
-std::move(p_port_id), 
-std::move(p_port), 
-std::move(p_port_host));
+      impl->OpenChannelToTab(        
+        std::move(p_tab_id), 
+        std::move(p_frame_id), 
+        std::move(p_document_id), 
+        std::move(p_channel_type), 
+        std::move(p_channel_name), 
+        std::move(p_port_id), 
+        std::move(p_port), 
+        std::move(p_port_host));
       return true;
     }
   }
@@ -1403,6 +1419,8 @@ bool ServiceWorkerHostStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerHost_RequestWorker_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerHost.3
       bool success = true;
       ::extensions::mojom::RequestParamsPtr p_params{};
       ServiceWorkerHost_RequestWorker_ParamsDataView input_data_view(params, message);
@@ -1421,8 +1439,8 @@ bool ServiceWorkerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestWorker(
-std::move(p_params), std::move(callback));
+      impl->RequestWorker(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerHost_WorkerResponseAck_Name: {

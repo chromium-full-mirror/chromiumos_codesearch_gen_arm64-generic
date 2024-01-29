@@ -34,13 +34,16 @@ class  WallpaperSearchHandlerFactoryAsyncWaiter {
 class  WallpaperSearchHandlerInterceptorForTesting : public WallpaperSearchHandler {
   virtual WallpaperSearchHandler* GetForwardingInterface() = 0;
   void GetDescriptors(GetDescriptorsCallback callback) override;
-  void GetWallpaperSearchResults(const std::string& descriptor_a, const std::optional<std::string>& descriptor_b, const std::optional<std::string>& descriptor_c, DescriptorDValuePtr descriptor_d_value, GetWallpaperSearchResultsCallback callback) override;
+  void GetInspirations(GetInspirationsCallback callback) override;
+  void GetWallpaperSearchResults(ResultDescriptorsPtr result_descriptors, GetWallpaperSearchResultsCallback callback) override;
   void SetResultRenderTime(const std::vector<::base::Token>& result_ids, double time) override;
-  void SetBackgroundToHistoryImage(const ::base::Token& result_id) override;
-  void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time) override;
+  void SetBackgroundToHistoryImage(const ::base::Token& result_id, ResultDescriptorsPtr descriptors) override;
+  void SetBackgroundToInspirationImage(const ::base::Token& id, const ::GURL& background_url) override;
+  void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time, ResultDescriptorsPtr descriptors) override;
   void UpdateHistory() override;
   void SetUserFeedback(UserFeedback selected_option) override;
   void OpenHelpArticle() override;
+  void LaunchHatsSurvey() override;
 };
 class  WallpaperSearchHandlerAsyncWaiter {
  public:
@@ -53,8 +56,11 @@ class  WallpaperSearchHandlerAsyncWaiter {
   void GetDescriptors(
       DescriptorsPtr* out_descriptors);
   DescriptorsPtr GetDescriptors();
+  void GetInspirations(
+      std::optional<std::vector<InspirationGroupPtr>>* out_inspirationGroups);
+  std::optional<std::vector<InspirationGroupPtr>> GetInspirations();
   void GetWallpaperSearchResults(
-      const std::string& descriptor_a, const std::optional<std::string>& descriptor_b, const std::optional<std::string>& descriptor_c, DescriptorDValuePtr descriptor_d_value, WallpaperSearchStatus* out_status, std::vector<WallpaperSearchResultPtr>* out_results);
+      ResultDescriptorsPtr result_descriptors, WallpaperSearchStatus* out_status, std::vector<WallpaperSearchResultPtr>* out_results);
   
 
  private:

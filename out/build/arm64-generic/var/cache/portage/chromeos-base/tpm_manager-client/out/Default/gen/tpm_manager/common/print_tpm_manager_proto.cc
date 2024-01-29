@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/tpm_manager-client-0.0.1-r772/work/tpm_manager-client-0.0.1/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/tpm_manager-client-0.0.1-r782/work/tpm_manager-client-0.0.1/libhwsec-foundation/utility/proto_print.py
 // --subdir common --proto-include tpm_manager/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/tpm_manager-client/out/Default/gen/tpm_manager/client/../common
 // /build/arm64-generic/usr/include/chromeos/dbus/tpm_manager/tpm_manager.proto

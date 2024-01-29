@@ -394,6 +394,8 @@ pub struct DlcState {
     pub last_error_code: ::std::string::String,
     // @@protoc_insertion_point(field:dlcservice.DlcState.is_verified)
     pub is_verified: bool,
+    // @@protoc_insertion_point(field:dlcservice.DlcState.image_path)
+    pub image_path: ::std::string::String,
     // special fields
     // @@protoc_insertion_point(special_field:dlcservice.DlcState.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -439,6 +441,9 @@ impl ::protobuf::Message for DlcState {
                 48 => {
                     self.is_verified = is.read_bool()?;
                 },
+                58 => {
+                    self.image_path = is.read_string()?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -469,6 +474,9 @@ impl ::protobuf::Message for DlcState {
         if self.is_verified != false {
             my_size += 1 + 1;
         }
+        if !self.image_path.is_empty() {
+            my_size += ::protobuf::rt::string_size(7, &self.image_path);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -493,6 +501,9 @@ impl ::protobuf::Message for DlcState {
         if self.is_verified != false {
             os.write_bool(6, self.is_verified)?;
         }
+        if !self.image_path.is_empty() {
+            os.write_string(7, &self.image_path)?;
+        }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
     }
@@ -516,6 +527,7 @@ impl ::protobuf::Message for DlcState {
         self.progress = 0.;
         self.last_error_code.clear();
         self.is_verified = false;
+        self.image_path.clear();
         self.special_fields.clear();
     }
 
@@ -527,6 +539,7 @@ impl ::protobuf::Message for DlcState {
             progress: 0.,
             last_error_code: ::std::string::String::new(),
             is_verified: false,
+            image_path: ::std::string::String::new(),
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

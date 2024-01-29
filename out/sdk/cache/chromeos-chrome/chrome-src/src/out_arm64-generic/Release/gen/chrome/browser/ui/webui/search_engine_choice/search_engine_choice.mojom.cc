@@ -161,6 +161,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -431,6 +433,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_DisplayDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_DisplayDialog_ParamsDataView input_data_view(params, message);
       
@@ -443,7 +447,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayDialog();
+      impl->DisplayDialog(        );
       return true;
     }
     case internal::kPageHandler_HandleSearchEngineChoiceSelected_Name: {
@@ -453,6 +457,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_HandleSearchEngineChoiceSelected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       int32_t p_prepopulate_id{};
       PageHandler_HandleSearchEngineChoiceSelected_ParamsDataView input_data_view(params, message);
@@ -468,8 +474,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleSearchEngineChoiceSelected(
-std::move(p_prepopulate_id));
+      impl->HandleSearchEngineChoiceSelected(        
+        std::move(p_prepopulate_id));
       return true;
     }
     case internal::kPageHandler_HandleLearnMoreLinkClicked_Name: {
@@ -479,6 +485,8 @@ std::move(p_prepopulate_id));
           reinterpret_cast<internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_HandleLearnMoreLinkClicked_ParamsDataView input_data_view(params, message);
       
@@ -491,7 +499,7 @@ std::move(p_prepopulate_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleLearnMoreLinkClicked();
+      impl->HandleLearnMoreLinkClicked(        );
       return true;
     }
   }

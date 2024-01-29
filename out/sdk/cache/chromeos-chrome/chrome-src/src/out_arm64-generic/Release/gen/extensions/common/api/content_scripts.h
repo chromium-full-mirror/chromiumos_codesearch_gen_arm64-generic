@@ -97,13 +97,13 @@ struct ContentScript {
 
 
   // Specifies which pages this content script will be injected into. See <a
-  // href="match_patterns">Match Patterns</a> for more details on the syntax of
-  // these strings.
+  // href="develop/concepts/match-patterns">Match Patterns</a> for more details on
+  // the syntax of these strings.
   std::vector<std::string> matches;
 
   // Excludes pages that this content script would otherwise be injected into. See
-  // <a href="match_patterns">Match Patterns</a> for more details on the syntax of
-  // these strings.
+  // <a href="develop/concepts/match-patterns">Match Patterns</a> for more details
+  // on the syntax of these strings.
   std::optional<std::vector<std::string>> exclude_matches;
 
   // The list of CSS files to be injected into matching pages. These are injected

@@ -716,6 +716,8 @@ bool WebBundleParserFactoryStubDispatch::Accept(
           reinterpret_cast<internal::WebBundleParserFactory_GetParserForDataSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBundleParserFactory.0
       bool success = true;
       ::mojo::PendingReceiver<WebBundleParser> p_receiver{};
       std::optional<::GURL> p_base_url{};
@@ -741,10 +743,10 @@ bool WebBundleParserFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetParserForDataSource(
-std::move(p_receiver), 
-std::move(p_base_url), 
-std::move(p_data_source));
+      impl->GetParserForDataSource(        
+        std::move(p_receiver), 
+        std::move(p_base_url), 
+        std::move(p_data_source));
       return true;
     }
     case internal::kWebBundleParserFactory_BindFileDataSource_Name: {
@@ -754,6 +756,8 @@ std::move(p_data_source));
           reinterpret_cast<internal::WebBundleParserFactory_BindFileDataSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBundleParserFactory.1
       bool success = true;
       ::mojo::PendingReceiver<BundleDataSource> p_data_source{};
       ::base::File p_file{};
@@ -774,9 +778,9 @@ std::move(p_data_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFileDataSource(
-std::move(p_data_source), 
-std::move(p_file));
+      impl->BindFileDataSource(        
+        std::move(p_data_source), 
+        std::move(p_file));
       return true;
     }
   }
@@ -1214,6 +1218,8 @@ bool WebBundleParser_ParseIntegrityBlock_ForwardToCallback::Accept(
           internal::WebBundleParser_ParseIntegrityBlock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBundleParser.0
   bool success = true;
   BundleIntegrityBlockPtr p_Result{};
   BundleIntegrityBlockParseErrorPtr p_error{};
@@ -1353,6 +1359,8 @@ bool WebBundleParser_ParseMetadata_ForwardToCallback::Accept(
           internal::WebBundleParser_ParseMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBundleParser.1
   bool success = true;
   BundleMetadataPtr p_Result{};
   BundleMetadataParseErrorPtr p_error{};
@@ -1492,6 +1500,8 @@ bool WebBundleParser_ParseResponse_ForwardToCallback::Accept(
           internal::WebBundleParser_ParseResponse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBundleParser.2
   bool success = true;
   BundleResponsePtr p_Result{};
   BundleResponseParseErrorPtr p_error{};
@@ -1631,6 +1641,8 @@ bool WebBundleParser_Close_ForwardToCallback::Accept(
           internal::WebBundleParser_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBundleParser.3
   bool success = true;
   WebBundleParser_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -1718,6 +1730,8 @@ bool WebBundleParserStubDispatch::AcceptWithResponder(
               internal::WebBundleParser_ParseIntegrityBlock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBundleParser.0
       bool success = true;
       WebBundleParser_ParseIntegrityBlock_ParamsDataView input_data_view(params, message);
       
@@ -1743,6 +1757,8 @@ bool WebBundleParserStubDispatch::AcceptWithResponder(
               internal::WebBundleParser_ParseMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBundleParser.1
       bool success = true;
       std::optional<uint64_t> p_offset{};
       WebBundleParser_ParseMetadata_ParamsDataView input_data_view(params, message);
@@ -1762,8 +1778,8 @@ bool WebBundleParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseMetadata(
-std::move(p_offset), std::move(callback));
+      impl->ParseMetadata(        
+        std::move(p_offset), std::move(callback));
       return true;
     }
     case internal::kWebBundleParser_ParseResponse_Name: {
@@ -1773,6 +1789,8 @@ std::move(p_offset), std::move(callback));
               internal::WebBundleParser_ParseResponse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBundleParser.2
       bool success = true;
       uint64_t p_response_offset{};
       uint64_t p_response_length{};
@@ -1794,9 +1812,9 @@ std::move(p_offset), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseResponse(
-std::move(p_response_offset), 
-std::move(p_response_length), std::move(callback));
+      impl->ParseResponse(        
+        std::move(p_response_offset), 
+        std::move(p_response_length), std::move(callback));
       return true;
     }
     case internal::kWebBundleParser_Close_Name: {
@@ -1806,6 +1824,8 @@ std::move(p_response_length), std::move(callback));
               internal::WebBundleParser_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBundleParser.3
       bool success = true;
       WebBundleParser_Close_ParamsDataView input_data_view(params, message);
       
@@ -2237,6 +2257,8 @@ bool BundleDataSource_Read_ForwardToCallback::Accept(
           internal::BundleDataSource_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BundleDataSource.0
   bool success = true;
   std::optional<std::vector<uint8_t>> p_buffer{};
   BundleDataSource_Read_ResponseParamsDataView input_data_view(params, message);
@@ -2364,6 +2386,8 @@ bool BundleDataSource_Length_ForwardToCallback::Accept(
           internal::BundleDataSource_Length_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BundleDataSource.1
   bool success = true;
   int64_t p_length{};
   BundleDataSource_Length_ResponseParamsDataView input_data_view(params, message);
@@ -2483,6 +2507,8 @@ bool BundleDataSource_IsRandomAccessContext_ForwardToCallback::Accept(
           internal::BundleDataSource_IsRandomAccessContext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BundleDataSource.2
   bool success = true;
   bool p_is_random_access{};
   BundleDataSource_IsRandomAccessContext_ResponseParamsDataView input_data_view(params, message);
@@ -2602,6 +2628,8 @@ bool BundleDataSource_Close_ForwardToCallback::Accept(
           internal::BundleDataSource_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BundleDataSource.3
   bool success = true;
   BundleDataSource_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -2689,6 +2717,8 @@ bool BundleDataSourceStubDispatch::AcceptWithResponder(
               internal::BundleDataSource_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BundleDataSource.0
       bool success = true;
       uint64_t p_offset{};
       uint64_t p_length{};
@@ -2710,9 +2740,9 @@ bool BundleDataSourceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_offset), 
-std::move(p_length), std::move(callback));
+      impl->Read(        
+        std::move(p_offset), 
+        std::move(p_length), std::move(callback));
       return true;
     }
     case internal::kBundleDataSource_Length_Name: {
@@ -2722,6 +2752,8 @@ std::move(p_length), std::move(callback));
               internal::BundleDataSource_Length_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BundleDataSource.1
       bool success = true;
       BundleDataSource_Length_ParamsDataView input_data_view(params, message);
       
@@ -2747,6 +2779,8 @@ std::move(p_length), std::move(callback));
               internal::BundleDataSource_IsRandomAccessContext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BundleDataSource.2
       bool success = true;
       BundleDataSource_IsRandomAccessContext_ParamsDataView input_data_view(params, message);
       
@@ -2772,6 +2806,8 @@ std::move(p_length), std::move(callback));
               internal::BundleDataSource_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BundleDataSource.3
       bool success = true;
       BundleDataSource_Close_ParamsDataView input_data_view(params, message);
       

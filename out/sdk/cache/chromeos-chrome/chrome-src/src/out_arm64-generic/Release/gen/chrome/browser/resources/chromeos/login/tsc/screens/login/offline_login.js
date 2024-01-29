@@ -7,53 +7,27 @@
 import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
 import '//resources/cr_elements/cr_shared_style.css.js';
 import '//resources/cr_elements/cr_button/cr_button.js';
-import '//resources/cr_elements/cr_dialog/cr_dialog.js';
-import '//resources/cr_elements/cr_input/cr_input.js';
 import '../../components/gaia_button.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/buttons/oobe_back_button.js';
 import '../../components/buttons/oobe_next_button.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
+import '../../components/dialogs/oobe_content_dialog.js';
+import '//resources/cr_elements/cr_dialog/cr_dialog.js';
+import '//resources/cr_elements/cr_input/cr_input.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
-import { OobeContentDialog } from '../../components/dialogs/oobe_content_dialog.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { getTemplate } from './offline_login.html.js';
 const DEFAULT_EMAIL_DOMAIN = '@gmail.com';
 const INPUT_EMAIL_PATTERN = '^[a-zA-Z0-9.!#$%&\'*+=?^_`\\{\\|\\}~\\-]+(@[^\\s@]+)?$';
-const LOGIN_SECTION = {
-    EMAIL: 'emailSection',
-    PASSWORD: 'passwordSection',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
+var LoginSection;
+(function (LoginSection) {
+    LoginSection["EMAIL"] = "emailSection";
+    LoginSection["PASSWORD"] = "passwordSection";
+})(LoginSection || (LoginSection = {}));
 const OfflineLoginBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior, LoginScreenBehavior], PolymerElement);
-/**
- * @typedef {{
- *   emailInput: CrInputElement,
- *   passwordInput: CrInputElement,
- *   dialog: OobeContentDialog,
- *   forgotPasswordDlg: CrDialogElement,
- *   onlineRequiredDialog: CrDialogElement,
- * }}
- */
-OfflineLoginBase.$;
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   enterpriseDomainManager: (string|undefined),
- *   emailDomain: (string|undefined),
- * }}
- */
-let OfflineLoginScreenData;
-/**
- * @polymer
- */
-class OfflineLogin extends OfflineLoginBase {
+export class OfflineLogin extends OfflineLoginBase {
     static get is() {
         return 'offline-login-element';
     }
@@ -68,7 +42,6 @@ class OfflineLogin extends OfflineLoginBase {
             },
             /**
              * Domain manager.
-             * @type {?string}
              */
             manager: {
                 type: String,
@@ -76,7 +49,6 @@ class OfflineLogin extends OfflineLoginBase {
             },
             /**
              * E-mail domain including initial '@' sign.
-             * @type {?string}
              */
             emailDomain: {
                 type: String,
@@ -85,34 +57,34 @@ class OfflineLogin extends OfflineLoginBase {
             /**
              * |domain| or empty string, depending on |email_| value.
              */
-            displayDomain_: {
+            displayDomain: {
                 type: String,
-                computed: 'computeDomain_(emailDomain, email_)',
+                computed: 'computeDomain(emailDomain, email)',
             },
             /**
              * Current value of e-mail input field.
              */
-            email_: {
+            email: {
                 type: String,
                 value: '',
             },
             /**
              * Current value of password input field.
              */
-            password_: {
+            password: {
                 type: String,
                 value: '',
             },
             /**
              * Proper e-mail with domain, displayed on password page.
              */
-            fullEmail_: {
+            fullEmail: {
                 type: String,
                 value: '',
             },
             activeSection: {
                 type: String,
-                value: LOGIN_SECTION.EMAIL,
+                value: LoginSection.EMAIL,
             },
             animationInProgress: {
                 type: Boolean,
@@ -120,33 +92,31 @@ class OfflineLogin extends OfflineLoginBase {
             },
         };
     }
-    /** Overridden from LoginScreenBehavior. */
-    // clang-format off
     get EXTERNAL_API() {
-        return ['reset',
+        return [
+            'reset',
             'proceedToPasswordPage',
             'showOnlineRequiredDialog',
             'showPasswordMismatchMessage',
         ];
     }
-    // clang-format on
-    /** @override */
     ready() {
         super.ready();
         this.initializeLoginScreen('OfflineLoginScreen');
     }
-    attached() {
-        super.attached();
-        if (this.isRTL_()) {
+    connectedCallback() {
+        super.connectedCallback();
+        const rtl = document.querySelector('html[dir=rtl]') != null;
+        if (rtl) {
             this.setAttribute('rtl', '');
         }
     }
     focus() {
-        if (this.isEmailSectionActive_()) {
-            this.$.emailInput.focusInput();
+        if (this.isEmailSectionActive()) {
+            this.shadowRoot.querySelector('#emailInput').focusInput();
         }
         else {
-            this.$.passwordInput.focusInput();
+            this.shadowRoot.querySelector('#passwordInput').focusInput();
         }
     }
     back() {
@@ -156,11 +126,8 @@ class OfflineLogin extends OfflineLoginBase {
         if (this.disabled) {
             return;
         }
-        this.onBackButtonClicked_();
+        this.onBackButtonClicked();
     }
-    /**
-     * @param {OfflineLoginScreenData} params
-     */
     onBeforeShow(params) {
         this.reset();
         if ('enterpriseDomainManager' in params) {
@@ -169,8 +136,9 @@ class OfflineLogin extends OfflineLoginBase {
         if ('emailDomain' in params) {
             this.emailDomain = '@' + params['emailDomain'];
         }
-        this.$.emailInput.pattern = INPUT_EMAIL_PATTERN;
-        if (!this.email_) {
+        this.shadowRoot.querySelector('#emailInput').pattern =
+            INPUT_EMAIL_PATTERN;
+        if (!this.email) {
             this.switchToEmailCard(false /* animated */);
         }
     }
@@ -179,115 +147,103 @@ class OfflineLogin extends OfflineLoginBase {
         this.disabled = false;
         this.emailDomain = '';
         this.manager = '';
-        this.email_ = '';
-        this.fullEmail_ = '';
-        this.$.emailInput.invalid = false;
-        this.$.passwordInput.invalid = false;
-        this.activeSection = LOGIN_SECTION.EMAIL;
+        this.email = '';
+        this.fullEmail = '';
+        this.shadowRoot.querySelector('#emailInput').invalid =
+            false;
+        this.shadowRoot.querySelector('#passwordInput').invalid =
+            false;
+        this.activeSection = LoginSection.EMAIL;
     }
     proceedToPasswordPage() {
         this.switchToPasswordCard(true /* animated */);
     }
     showOnlineRequiredDialog() {
         this.disabled = true;
-        this.$.onlineRequiredDialog.showModal();
+        this.shadowRoot.querySelector('#onlineRequiredDialog').showModal();
     }
-    onForgotPasswordClicked_() {
+    onForgotPasswordClicked() {
         this.disabled = true;
-        this.$.forgotPasswordDlg.showModal();
+        this.shadowRoot.querySelector('#forgotPasswordDlg').showModal();
     }
-    onForgotPasswordCloseTap_() {
-        this.$.forgotPasswordDlg.close();
+    onForgotPasswordCloseClicked() {
+        this.shadowRoot.querySelector('#forgotPasswordDlg').close();
     }
-    onOnlineRequiredDialogCloseTap_() {
-        this.$.onlineRequiredDialog.close();
+    onOnlineRequiredDialogCloseClicked() {
+        this.shadowRoot.querySelector('#onlineRequiredDialog').close();
         this.userActed('cancel');
     }
-    onDialogOverlayClosed_() {
+    onDialogOverlayClosed() {
         this.disabled = false;
     }
-    isRTL_() {
-        return !!document.querySelector('html[dir=rtl]');
+    isEmailSectionActive() {
+        return this.activeSection == LoginSection.EMAIL;
     }
-    isEmailSectionActive_() {
-        return this.activeSection == LOGIN_SECTION.EMAIL;
-    }
-    /**
-     * @param {boolean} animated
-     */
     switchToEmailCard(animated) {
-        this.$.emailInput.invalid = false;
-        this.$.passwordInput.invalid = false;
-        this.password_ = '';
-        if (this.isEmailSectionActive_()) {
+        this.shadowRoot.querySelector('#emailInput').invalid =
+            false;
+        this.shadowRoot.querySelector('#passwordInput').invalid =
+            false;
+        this.password = '';
+        if (this.isEmailSectionActive()) {
             return;
         }
         this.animationInProgress = animated;
         this.disabled = animated;
-        this.activeSection = LOGIN_SECTION.EMAIL;
+        this.activeSection = LoginSection.EMAIL;
     }
-    /**
-     * @param {boolean} animated
-     */
     switchToPasswordCard(animated) {
-        if (!this.isEmailSectionActive_()) {
+        if (!this.isEmailSectionActive()) {
             return;
         }
         this.animationInProgress = animated;
         this.disabled = animated;
-        this.activeSection = LOGIN_SECTION.PASSWORD;
+        this.activeSection = LoginSection.PASSWORD;
     }
-    onSlideAnimationEnd_() {
+    onSlideAnimationEnd() {
         this.animationInProgress = false;
         this.disabled = false;
         this.focus();
     }
-    onEmailSubmitted_() {
-        if (this.$.emailInput.validate()) {
-            this.fullEmail_ = this.computeFullEmail_(this.email_);
-            this.userActed(['email-submitted', this.fullEmail_]);
+    onEmailSubmitted() {
+        if (this.shadowRoot.querySelector('#emailInput').validate()) {
+            this.fullEmail = this.computeFullEmail(this.email);
+            this.userActed(['email-submitted', this.fullEmail]);
         }
         else {
-            this.$.emailInput.focusInput();
+            this.shadowRoot.querySelector('#emailInput').focusInput();
         }
     }
-    onPasswordSubmitted_() {
-        if (!this.$.passwordInput.validate()) {
+    onPasswordSubmitted() {
+        if (!this.shadowRoot.querySelector('#passwordInput').validate()) {
             return;
         }
-        this.email_ = this.fullEmail_;
-        this.userActed(['complete-authentication', this.email_, this.password_]);
+        this.email = this.fullEmail;
+        this.userActed(['complete-authentication', this.email, this.password]);
         this.disabled = true;
     }
-    onBackButtonClicked_() {
-        if (!this.isEmailSectionActive_()) {
+    onBackButtonClicked() {
+        if (!this.isEmailSectionActive()) {
             this.switchToEmailCard(true);
         }
         else {
             this.userActed('cancel');
         }
     }
-    onNextButtonClicked_() {
-        if (this.isEmailSectionActive_()) {
-            this.onEmailSubmitted_();
+    onNextButtonClicked() {
+        if (this.isEmailSectionActive()) {
+            this.onEmailSubmitted();
             return;
         }
-        this.onPasswordSubmitted_();
+        this.onPasswordSubmitted();
     }
-    /**
-     * @param {string} domain
-     * @param {string} email
-     */
-    computeDomain_(domain, email) {
+    computeDomain(domain, email) {
         if (email && email.indexOf('@') !== -1) {
             return '';
         }
         return domain;
     }
-    /**
-     * @param {string} email
-     */
-    computeFullEmail_(email) {
+    computeFullEmail(email) {
         if (email.indexOf('@') === -1) {
             if (this.emailDomain) {
                 email = email + this.emailDomain;
@@ -299,22 +255,19 @@ class OfflineLogin extends OfflineLoginBase {
         return email;
     }
     showPasswordMismatchMessage() {
-        this.$.passwordInput.invalid = true;
+        this.shadowRoot.querySelector('#passwordInput').invalid =
+            true;
         this.disabled = false;
-        this.$.passwordInput.focusInput();
+        this.shadowRoot.querySelector('#passwordInput').focusInput();
     }
-    /**
-     * @param {string} email
-     */
     setEmailForTest(email) {
-        this.email_ = email;
+        this.email = email;
     }
-    /** @private */
-    onKeyDown_(e) {
+    onKeyDown(e) {
         if (e.keyCode != 13 || this.disabled) {
             return;
         }
-        this.onNextButtonClicked_();
+        this.onNextButtonClicked();
     }
 }
 customElements.define(OfflineLogin.is, OfflineLogin);

@@ -467,7 +467,7 @@ const helpers_js_1 = require("./helpers.js");
             await (0, helpers_js_1.startRecordingViaShortcut)('recorder/recorder.html');
             const controller = await (0, helpers_js_1.getRecordingController)();
             await controller.evaluate(element => {
-                return element.handleActions('chrome_recorder.create-recording');
+                return element.handleActions('chrome-recorder.create-recording');
             });
             const page = await controller.evaluate(element => {
                 return element.getCurrentPageForTesting();

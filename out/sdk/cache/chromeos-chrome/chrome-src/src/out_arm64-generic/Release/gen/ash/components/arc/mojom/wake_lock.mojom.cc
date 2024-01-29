@@ -280,6 +280,8 @@ bool WakeLockHost_AcquirePartialWakeLock_ForwardToCallback::Accept(
           internal::WakeLockHost_AcquirePartialWakeLock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WakeLockHost.0
   bool success = true;
   bool p_result{};
   WakeLockHost_AcquirePartialWakeLock_ResponseParamsDataView input_data_view(params, message);
@@ -399,6 +401,8 @@ bool WakeLockHost_ReleasePartialWakeLock_ForwardToCallback::Accept(
           internal::WakeLockHost_ReleasePartialWakeLock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WakeLockHost.1
   bool success = true;
   bool p_result{};
   WakeLockHost_ReleasePartialWakeLock_ResponseParamsDataView input_data_view(params, message);
@@ -492,6 +496,8 @@ bool WakeLockHostStubDispatch::AcceptWithResponder(
               internal::WakeLockHost_AcquirePartialWakeLock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WakeLockHost.0
       bool success = true;
       WakeLockHost_AcquirePartialWakeLock_ParamsDataView input_data_view(params, message);
       
@@ -517,6 +523,8 @@ bool WakeLockHostStubDispatch::AcceptWithResponder(
               internal::WakeLockHost_ReleasePartialWakeLock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WakeLockHost.1
       bool success = true;
       WakeLockHost_ReleasePartialWakeLock_ParamsDataView input_data_view(params, message);
       
@@ -735,6 +743,8 @@ bool WakeLockInstance_Init_ForwardToCallback::Accept(
           internal::WakeLockInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WakeLockInstance.0
   bool success = true;
   WakeLockInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -813,6 +823,8 @@ bool WakeLockInstanceStubDispatch::AcceptWithResponder(
               internal::WakeLockInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WakeLockInstance.0
       bool success = true;
       ::mojo::PendingRemote<WakeLockHost> p_host_remote{};
       WakeLockInstance_Init_ParamsDataView input_data_view(params, message);
@@ -833,8 +845,8 @@ bool WakeLockInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

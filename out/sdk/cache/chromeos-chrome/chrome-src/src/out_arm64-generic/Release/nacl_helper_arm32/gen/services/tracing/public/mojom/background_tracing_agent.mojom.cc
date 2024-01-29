@@ -251,6 +251,8 @@ bool BackgroundTracingAgentClientStubDispatch::Accept(
           reinterpret_cast<internal::BackgroundTracingAgentClient_OnInitialized_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundTracingAgentClient.0
       bool success = true;
       BackgroundTracingAgentClient_OnInitialized_ParamsDataView input_data_view(params, message);
       
@@ -263,7 +265,7 @@ bool BackgroundTracingAgentClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInitialized();
+      impl->OnInitialized(        );
       return true;
     }
     case internal::kBackgroundTracingAgentClient_OnTriggerBackgroundTrace_Name: {
@@ -273,6 +275,8 @@ bool BackgroundTracingAgentClientStubDispatch::Accept(
           reinterpret_cast<internal::BackgroundTracingAgentClient_OnTriggerBackgroundTrace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundTracingAgentClient.1
       bool success = true;
       BackgroundTracingRulePtr p_rule{};
       BackgroundTracingAgentClient_OnTriggerBackgroundTrace_ParamsDataView input_data_view(params, message);
@@ -288,8 +292,8 @@ bool BackgroundTracingAgentClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTriggerBackgroundTrace(
-std::move(p_rule));
+      impl->OnTriggerBackgroundTrace(        
+        std::move(p_rule));
       return true;
     }
   }
@@ -543,6 +547,8 @@ bool BackgroundTracingAgentStubDispatch::Accept(
           reinterpret_cast<internal::BackgroundTracingAgent_SetUMACallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundTracingAgent.0
       bool success = true;
       BackgroundTracingRulePtr p_rule{};
       std::string p_histogram_name{};
@@ -567,11 +573,11 @@ bool BackgroundTracingAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUMACallback(
-std::move(p_rule), 
-std::move(p_histogram_name), 
-std::move(p_histogram_lower_value), 
-std::move(p_histogram_upper_value));
+      impl->SetUMACallback(        
+        std::move(p_rule), 
+        std::move(p_histogram_name), 
+        std::move(p_histogram_lower_value), 
+        std::move(p_histogram_upper_value));
       return true;
     }
     case internal::kBackgroundTracingAgent_ClearUMACallback_Name: {
@@ -581,6 +587,8 @@ std::move(p_histogram_upper_value));
           reinterpret_cast<internal::BackgroundTracingAgent_ClearUMACallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundTracingAgent.1
       bool success = true;
       BackgroundTracingRulePtr p_rule{};
       BackgroundTracingAgent_ClearUMACallback_ParamsDataView input_data_view(params, message);
@@ -596,8 +604,8 @@ std::move(p_histogram_upper_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearUMACallback(
-std::move(p_rule));
+      impl->ClearUMACallback(        
+        std::move(p_rule));
       return true;
     }
   }
@@ -766,6 +774,8 @@ bool BackgroundTracingAgentProviderStubDispatch::Accept(
           reinterpret_cast<internal::BackgroundTracingAgentProvider_Create_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundTracingAgentProvider.0
       bool success = true;
       uint64_t p_tracing_process_id{};
       ::mojo::PendingRemote<BackgroundTracingAgentClient> p_client{};
@@ -791,10 +801,10 @@ bool BackgroundTracingAgentProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_tracing_process_id), 
-std::move(p_client), 
-std::move(p_agent));
+      impl->Create(        
+        std::move(p_tracing_process_id), 
+        std::move(p_client), 
+        std::move(p_agent));
       return true;
     }
   }

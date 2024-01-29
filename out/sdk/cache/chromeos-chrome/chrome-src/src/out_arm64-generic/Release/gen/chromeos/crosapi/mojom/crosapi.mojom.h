@@ -48,6 +48,7 @@
 #include "chromeos/crosapi/mojom/clipboard_history.mojom-forward.h"
 #include "chromeos/crosapi/mojom/content_protection.mojom-forward.h"
 #include "chromeos/crosapi/mojom/cros_display_config.mojom-forward.h"
+#include "chromeos/crosapi/mojom/debug_interface.mojom-forward.h"
 #include "chromeos/crosapi/mojom/desk.mojom-forward.h"
 #include "chromeos/crosapi/mojom/desk_profiles.mojom-forward.h"
 #include "chromeos/crosapi/mojom/desk_template.mojom-forward.h"
@@ -70,6 +71,7 @@
 #include "chromeos/crosapi/mojom/eye_dropper.mojom-forward.h"
 #include "chromeos/crosapi/mojom/feedback.mojom-forward.h"
 #include "chromeos/crosapi/mojom/field_trial.mojom-forward.h"
+#include "chromeos/crosapi/mojom/file_change_service_bridge.mojom-forward.h"
 #include "chromeos/crosapi/mojom/file_manager.mojom-forward.h"
 #include "chromeos/crosapi/mojom/file_system_access_cloud_identifier.mojom-forward.h"
 #include "chromeos/crosapi/mojom/file_system_provider.mojom-forward.h"
@@ -99,11 +101,13 @@
 #include "chromeos/crosapi/mojom/network_change.mojom-forward.h"
 #include "chromeos/crosapi/mojom/networking_attributes.mojom-forward.h"
 #include "chromeos/crosapi/mojom/networking_private.mojom-forward.h"
+#include "chromeos/crosapi/mojom/one_drive_notification_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/power.mojom-forward.h"
 #include "chromeos/crosapi/mojom/network_settings_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/parent_access.mojom-forward.h"
 #include "chromeos/crosapi/mojom/passkeys.mojom-forward.h"
 #include "chromeos/crosapi/mojom/prefs.mojom-forward.h"
+#include "chromeos/crosapi/mojom/nonclosable_app_toast_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/printing_metrics.mojom-forward.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom-forward.h"
 #include "chromeos/crosapi/mojom/remoting.mojom-forward.h"
@@ -182,7 +186,7 @@ class Crosapi
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 10050278788261495961ULL,
                                       10924238995165686814ULL };
-  static constexpr uint32_t Version_ = 127;
+  static constexpr uint32_t Version_ = 131;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -216,6 +220,7 @@ class Crosapi
     kBindClipboardHistoryMinVersion = 23,
     kBindContentProtectionMinVersion = 26,
     kBindCrosDisplayConfigControllerMinVersion = 89,
+    kBindDebugInterfaceRegistererMinVersion = 131,
     kBindDeskMinVersion = 99,
     kBindDeskProfileObserverMinVersion = 122,
     kBindDeskTemplateMinVersion = 68,
@@ -237,6 +242,7 @@ class Crosapi
     kREMOVED_105MinVersion = 101,
     kBindNetworkingPrivateMinVersion = 80,
     kBindExtensionPublisherMinVersion = 70,
+    kBindFileChangeServiceBridgeMinVersion = 128,
     kBindFileManagerMinVersion = 5,
     kBindFileSystemAccessCloudIdentifierProviderMinVersion = 114,
     kBindFileSystemProviderServiceMinVersion = 78,
@@ -266,11 +272,13 @@ class Crosapi
     kBindMultiCaptureServiceMinVersion = 100,
     kBindNetworkChangeMinVersion = 88,
     kBindNetworkingAttributesMinVersion = 39,
+    kBindOneDriveNotificationServiceMinVersion = 130,
     kBindParentAccessMinVersion = 97,
     kBindPasskeyAuthenticatorMinVersion = 124,
     kBindPaymentAppInstanceMinVersion = 113,
     kBindPolicyServiceMinVersion = 56,
     kBindPrefsMinVersion = 11,
+    kBindNonclosableAppToastServiceMinVersion = 129,
     kBindRemoteAppsLacrosBridgeMinVersion = 74,
     kBindRemotingMinVersion = 32,
     kBindScreenAIDownloaderMinVersion = 110,
@@ -389,6 +397,9 @@ class Crosapi
   struct BindCrosDisplayConfigController_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct BindDebugInterfaceRegisterer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct BindDesk_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -450,6 +461,9 @@ class Crosapi
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindExtensionPublisher_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindFileChangeServiceBridge_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindFileManager_Sym {
@@ -539,6 +553,9 @@ class Crosapi
   struct BindNetworkingAttributes_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct BindOneDriveNotificationService_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct BindParentAccess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -552,6 +569,9 @@ class Crosapi
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindPrefs_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindNonclosableAppToastService_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindRemoteAppsLacrosBridge_Sym {
@@ -771,6 +791,9 @@ class Crosapi
   virtual void BindCrosDisplayConfigController(::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> receiver) = 0;
 
   
+  virtual void BindDebugInterfaceRegisterer(::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer> receiver) = 0;
+
+  
   virtual void BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) = 0;
 
   
@@ -832,6 +855,9 @@ class Crosapi
 
   
   virtual void BindExtensionPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) = 0;
+
+  
+  virtual void BindFileChangeServiceBridge(::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge> receiver) = 0;
 
   
   virtual void BindFileManager(::mojo::PendingReceiver<::crosapi::mojom::FileManager> receiver) = 0;
@@ -921,6 +947,9 @@ class Crosapi
   virtual void BindNetworkingAttributes(::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> receiver) = 0;
 
   
+  virtual void BindOneDriveNotificationService(::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService> receiver) = 0;
+
+  
   virtual void BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) = 0;
 
   
@@ -934,6 +963,9 @@ class Crosapi
 
   
   virtual void BindPrefs(::mojo::PendingReceiver<::crosapi::mojom::Prefs> receiver) = 0;
+
+  
+  virtual void BindNonclosableAppToastService(::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService> receiver) = 0;
 
   
   virtual void BindRemoteAppsLacrosBridge(::mojo::PendingReceiver<::chromeos::remote_apps::mojom::RemoteAppsLacrosBridge> receiver) = 0;
@@ -1412,6 +1444,8 @@ class  CrosapiProxy
   
   void BindCrosDisplayConfigController(::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> receiver) final;
   
+  void BindDebugInterfaceRegisterer(::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer> receiver) final;
+  
   void BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) final;
   
   void BindDeskProfileObserver(::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> receiver) final;
@@ -1453,6 +1487,8 @@ class  CrosapiProxy
   void BindNetworkingPrivate(::mojo::PendingReceiver<::crosapi::mojom::NetworkingPrivate> receiver) final;
   
   void BindExtensionPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) final;
+  
+  void BindFileChangeServiceBridge(::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge> receiver) final;
   
   void BindFileManager(::mojo::PendingReceiver<::crosapi::mojom::FileManager> receiver) final;
   
@@ -1512,6 +1548,8 @@ class  CrosapiProxy
   
   void BindNetworkingAttributes(::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> receiver) final;
   
+  void BindOneDriveNotificationService(::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService> receiver) final;
+  
   void BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) final;
   
   void BindPasskeyAuthenticator(::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> receiver) final;
@@ -1521,6 +1559,8 @@ class  CrosapiProxy
   void BindPolicyService(::mojo::PendingReceiver<::crosapi::mojom::PolicyService> receiver) final;
   
   void BindPrefs(::mojo::PendingReceiver<::crosapi::mojom::Prefs> receiver) final;
+  
+  void BindNonclosableAppToastService(::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService> receiver) final;
   
   void BindRemoteAppsLacrosBridge(::mojo::PendingReceiver<::chromeos::remote_apps::mojom::RemoteAppsLacrosBridge> receiver) final;
   

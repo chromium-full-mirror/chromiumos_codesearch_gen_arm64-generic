@@ -667,6 +667,8 @@ bool MidiSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::MidiSessionClient_AddInputPort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.0
       bool success = true;
       PortInfoPtr p_info{};
       MidiSessionClient_AddInputPort_ParamsDataView input_data_view(params, message);
@@ -682,8 +684,8 @@ bool MidiSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddInputPort(
-std::move(p_info));
+      impl->AddInputPort(        
+        std::move(p_info));
       return true;
     }
     case internal::kMidiSessionClient_AddOutputPort_Name: {
@@ -693,6 +695,8 @@ std::move(p_info));
           reinterpret_cast<internal::MidiSessionClient_AddOutputPort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.1
       bool success = true;
       PortInfoPtr p_info{};
       MidiSessionClient_AddOutputPort_ParamsDataView input_data_view(params, message);
@@ -708,8 +712,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddOutputPort(
-std::move(p_info));
+      impl->AddOutputPort(        
+        std::move(p_info));
       return true;
     }
     case internal::kMidiSessionClient_SetInputPortState_Name: {
@@ -719,6 +723,8 @@ std::move(p_info));
           reinterpret_cast<internal::MidiSessionClient_SetInputPortState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.2
       bool success = true;
       uint32_t p_port{};
       PortState p_state{};
@@ -737,9 +743,9 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInputPortState(
-std::move(p_port), 
-std::move(p_state));
+      impl->SetInputPortState(        
+        std::move(p_port), 
+        std::move(p_state));
       return true;
     }
     case internal::kMidiSessionClient_SetOutputPortState_Name: {
@@ -749,6 +755,8 @@ std::move(p_state));
           reinterpret_cast<internal::MidiSessionClient_SetOutputPortState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.3
       bool success = true;
       uint32_t p_port{};
       PortState p_state{};
@@ -767,9 +775,9 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutputPortState(
-std::move(p_port), 
-std::move(p_state));
+      impl->SetOutputPortState(        
+        std::move(p_port), 
+        std::move(p_state));
       return true;
     }
     case internal::kMidiSessionClient_SessionStarted_Name: {
@@ -779,6 +787,8 @@ std::move(p_state));
           reinterpret_cast<internal::MidiSessionClient_SessionStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.4
       bool success = true;
       Result p_result{};
       MidiSessionClient_SessionStarted_ParamsDataView input_data_view(params, message);
@@ -794,8 +804,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SessionStarted(
-std::move(p_result));
+      impl->SessionStarted(        
+        std::move(p_result));
       return true;
     }
     case internal::kMidiSessionClient_AcknowledgeSentData_Name: {
@@ -805,6 +815,8 @@ std::move(p_result));
           reinterpret_cast<internal::MidiSessionClient_AcknowledgeSentData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.5
       bool success = true;
       uint32_t p_bytes{};
       MidiSessionClient_AcknowledgeSentData_ParamsDataView input_data_view(params, message);
@@ -820,8 +832,8 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcknowledgeSentData(
-std::move(p_bytes));
+      impl->AcknowledgeSentData(        
+        std::move(p_bytes));
       return true;
     }
     case internal::kMidiSessionClient_DataReceived_Name: {
@@ -831,6 +843,8 @@ std::move(p_bytes));
           reinterpret_cast<internal::MidiSessionClient_DataReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionClient.6
       bool success = true;
       uint32_t p_port{};
       std::vector<uint8_t> p_data{};
@@ -852,10 +866,10 @@ std::move(p_bytes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DataReceived(
-std::move(p_port), 
-std::move(p_data), 
-std::move(p_timestamp));
+      impl->DataReceived(        
+        std::move(p_port), 
+        std::move(p_data), 
+        std::move(p_timestamp));
       return true;
     }
   }
@@ -1045,6 +1059,8 @@ bool MidiSessionProviderStubDispatch::Accept(
           reinterpret_cast<internal::MidiSessionProvider_StartSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSessionProvider.0
       bool success = true;
       ::mojo::PendingReceiver<MidiSession> p_receiver{};
       ::mojo::PendingRemote<MidiSessionClient> p_client{};
@@ -1067,9 +1083,9 @@ bool MidiSessionProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSession(
-std::move(p_receiver), 
-std::move(p_client));
+      impl->StartSession(        
+        std::move(p_receiver), 
+        std::move(p_client));
       return true;
     }
   }
@@ -1245,6 +1261,8 @@ bool MidiSessionStubDispatch::Accept(
           reinterpret_cast<internal::MidiSession_SendData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidiSession.0
       bool success = true;
       uint32_t p_port{};
       std::vector<uint8_t> p_data{};
@@ -1266,10 +1284,10 @@ bool MidiSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendData(
-std::move(p_port), 
-std::move(p_data), 
-std::move(p_timestamp));
+      impl->SendData(        
+        std::move(p_port), 
+        std::move(p_data), 
+        std::move(p_timestamp));
       return true;
     }
   }

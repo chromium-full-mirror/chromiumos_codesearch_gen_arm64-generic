@@ -2,11 +2,9 @@ import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
   return html`<!--_html_template_start_--><style include="iron-positioning">
   :host([expanded_]) #pageBody {
-    overflow: auto;
     transition-duration: 200ms;
   }
   :host(:not([expanded_])) #pageBody {
-    overflow: auto;
     transition-duration: 150ms;
   }
 
@@ -165,7 +163,7 @@ export function getTemplate() {
     font-size: var(--cr-form-field-label-font-size);
     letter-spacing: .4px;
     line-height: var(--cr-form-field-label-line-height);
-    position: absolute;
+    margin-top: -16px;
   }
 
   #video {
@@ -205,7 +203,7 @@ export function getTemplate() {
     </span>
     <template is="dom-if"
         if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
-      <div id="carrierLockWarningContainer">
+      <div id="carrierLockWarningContainer" aria-live="alert">
           <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
           </iron-icon>
         [[i18n('eSimCarrierLockedDevice')]]

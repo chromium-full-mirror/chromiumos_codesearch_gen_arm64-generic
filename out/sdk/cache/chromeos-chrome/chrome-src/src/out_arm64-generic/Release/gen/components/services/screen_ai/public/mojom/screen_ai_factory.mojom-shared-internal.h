@@ -14,6 +14,7 @@
 #include "mojo/public/mojom/base/read_only_file.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-shared-internal.h"
+#include "ui/accessibility/ax_features.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

@@ -1,16 +1,15 @@
 import './strings.m.js';
-import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk, G as GeolocationAccessLevel, v as LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, w as GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE, x as TimeZoneBrowserProxyImpl, y as isChild, z as I18nBehavior, B as getApnDisplayName, E as assert$1, H as ApnDetailDialogMode, J as processDeviceState, K as getInstance, M as CrPolicyNetworkBehaviorMojo, Q as FAKE_CREDENTIAL, X as isActiveSim, Y as InternetPageBrowserProxyImpl, Z as OsSyncBrowserProxyImpl, _ as assertExists, $ as assertInstanceof, a0 as focusWithoutInk$1, a1 as getESimProfileProperties, a2 as mojoString16ToString, a3 as CellularSetupPageName, a4 as ESimManagerListenerBehavior, a5 as MultiDeviceBrowserProxyImpl, a6 as getEuicc, a7 as getSimSlotCount, a8 as getPendingESimProfiles, a9 as MultiDeviceFeatureState, aa as CrToggleElement, ab as BrowserProxy, ac as getImage, ad as SettingsToggleButtonElement, ae as DevicePageBrowserProxyImpl, af as ChromeVoxSubpageBrowserProxyImpl, ag as assertExhaustive, ah as SelectToSpeakSubpageBrowserProxyImpl, ai as LanguagesBrowserProxyImpl, aj as SwitchAccessSubpageBrowserProxyImpl, ak as TextToSpeechSubpageBrowserProxyImpl, al as TtsVoiceSubpageBrowserProxyImpl, am as BrowserChannel, an as isTargetChannelMoreStable, ao as DeviceNameBrowserProxyImpl, ap as SetDeviceNameResult, aq as DeviceNameState, ar as AccountManagerBrowserProxyImpl, as as ParentalControlsBrowserProxyImpl, at as assertInstanceof$1, au as fireAuthTokenInvalidEvent, av as LockStateMixin, aw as MultiDeviceFeatureMixin, ax as MultiDeviceFeature, ay as MultiDeviceSettingsMode, az as CrInputElement, aA as CrButtonElement, aB as CrDialogElement, aC as CrIconButtonElement, aD as CrActionMenuElement, aE as recordLockScreenProgress, aF as LockScreenProgress, aG as PluralStringProxyImpl, aH as SyncBrowserProxyImpl, aI as PageStatus, aJ as StatusAction, aK as CrScrollableMixin, aL as PrivacyHubBrowserProxyImpl, aM as getAppPermissionProvider, aN as MediaDevicesProxy, aO as AppPermissionsObserverReceiver, aP as isPermissionEnabled, aQ as CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aR as PrivacyHubSensorSubpageUserAction, aS as NUMBER_OF_POSSIBLE_USER_ACTIONS, aT as MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aU as AppManagementBrowserProxy, aV as getAppIcon, aW as OneDriveBrowserProxy, aX as AppManagementStoreMixin, aY as alphabeticalSort$1, aZ as GlobalScrollTargetMixin, a_ as OsSettingsSubpageElement, a$ as FindShortcutMixin, b0 as ACCESSIBILITY_COMMON_IME_ID, b1 as IronA11yKeysBehavior, b2 as PrivacyPageBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, b5 as StaticShortcutAction$1, b6 as EventTracker$1, b7 as getInputDeviceSettingsProvider, b8 as FakeInputDeviceSettingsProvider, b9 as ButtonPressObserverReceiver, ba as buttonsAreEqual, bb as getShortcutInputProvider, bc as keyEventsAreEqual, bd as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
-export { bI as AppManagementAppDetailViewElement, bJ as AppManagementAppDetailsItem, bK as AppManagementAppItemElement, bM as AppManagementArcDetailViewElement, bN as AppManagementBorealisDetailViewElement, bO as AppManagementChromeAppDetailViewElement, bP as AppManagementDomSwitchElement, bQ as AppManagementMainViewElement, bR as AppManagementPermissionHeadingElement, bS as AppManagementPinToShelfItemElement, bT as AppManagementPluginVmDetailViewElement, bU as AppManagementPwaDetailViewElement, bV as AppManagementResizeLockItemElement, bW as AppManagementSubAppsItemElement, bh as AppManagementSupportedLinksItemElement, bi as AppManagementSupportedLinksOverlappingAppsDialogElement, bY as AppNotificationsSubpage, bt as CROSTINI_TYPE, bw as ContainerSelectElement, bj as DateTimeSettingsCardElement, c5 as FilesSettingsCardElement, bu as GuestOsBrowserProxyImpl, c7 as LanguageSettingsCardElement, bF as NearbyShareReceiveDialogElement, cd as OsResetBrowserProxyImpl, cc as OsSettingsPowerwashDialogElement, bv as PLUGIN_VM_TYPE, c9 as PrintingSettingsCardElement, ce as ResetSettingsCardElement, bH as SettingsAndroidAppsSubpageElement, bL as SettingsAppManagementPageElement, bX as SettingsAppNotificationsManagerSubpage, bZ as SettingsBluetoothChangeDeviceNameDialogElement, b_ as SettingsBluetoothDeviceDetailSubpageElement, b$ as SettingsBluetoothDevicesSubpageElement, c0 as SettingsBluetoothSavedDevicesSubpageElement, c1 as SettingsBluetoothTrueWirelessImagesElement, bl as SettingsCustomizeMouseButtonsSubpageElement, bm as SettingsCustomizePenButtonsSubpageElement, bn as SettingsCustomizeTabletButtonsSubpageElement, c6 as SettingsGoogleDriveSubpageElement, bx as SettingsGuestOsSharedPathsElement, bo as SettingsKeyboardElement, c8 as SettingsLanguagesElement, by as SettingsMultideviceCombinedSetupItemElement, bz as SettingsMultideviceFeatureItemElement, bA as SettingsMultideviceFeatureToggleElement, bB as SettingsMultideviceSubpageElement, bC as SettingsMultideviceTaskContinuationDisabledLinkElement, bD as SettingsMultideviceTaskContinuationItemElement, bE as SettingsMultideviceWifiSyncDisabledLinkElement, bG as SettingsNearbyShareSubpageElement, c2 as SettingsPairedBluetoothListElement, c3 as SettingsPairedBluetoothListItemElement, bp as SettingsPointersElement, bq as SettingsPowerElement, ca as SettingsPrivacyHubGeolocationSubpage, cb as SettingsPrivacyHubSubpage, be as SettingsRadioGroupElement, c4 as SettingsSavedDevicesListElement, br as SettingsStorageElement, bs as SettingsStylusElement, bf as SmbBrowserProxyImpl, bg as SmbMountResult, bk as TimezoneSelectorElement } from './shared.rollup.js';
+import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk$1, G as GeolocationAccessLevel, v as LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, w as GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE, x as TimeZoneBrowserProxyImpl, y as isChild, z as I18nBehavior, B as getApnDisplayName, E as assert$1, H as ApnDetailDialogMode, J as processDeviceState, K as getInstance, M as CrPolicyNetworkBehaviorMojo, Q as FAKE_CREDENTIAL, X as isActiveSim, Y as InternetPageBrowserProxyImpl, Z as OsSyncBrowserProxyImpl, _ as assertExists, $ as assertInstanceof, a0 as getESimProfileProperties, a1 as mojoString16ToString, a2 as CellularSetupPageName, a3 as ESimManagerListenerMixin, a4 as MultiDeviceBrowserProxyImpl, a5 as getEuicc, a6 as getSimSlotCount, a7 as getPendingESimProfiles, a8 as MultiDeviceFeatureState, a9 as CrToggleElement, aa as BrowserProxy, ab as getImage, ac as ChromeVoxSubpageBrowserProxyImpl, ad as assertExhaustive, ae as DevicePageBrowserProxyImpl, af as SettingsToggleButtonElement, ag as SelectToSpeakSubpageBrowserProxyImpl, ah as LanguagesBrowserProxyImpl, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, al as BrowserChannel, am as isTargetChannelMoreStable, an as DeviceNameBrowserProxyImpl, ao as SetDeviceNameResult, ap as DeviceNameState, aq as AccountManagerBrowserProxyImpl, ar as ParentalControlsBrowserProxyImpl, as as assertInstanceof$1, at as fireAuthTokenInvalidEvent, au as LockStateMixin, av as MultiDeviceFeatureMixin, aw as MultiDeviceFeature, ax as MultiDeviceSettingsMode, ay as CrInputElement, az as CrButtonElement, aA as CrDialogElement, aB as CrIconButtonElement, aC as CrActionMenuElement, aD as recordLockScreenProgress, aE as LockScreenProgress, aF as PluralStringProxyImpl, aG as SyncBrowserProxyImpl, aH as PageStatus, aI as StatusAction, aJ as CrScrollableMixin, aK as PrivacyHubBrowserProxyImpl, aL as getAppPermissionProvider, aM as MediaDevicesProxy, aN as AppPermissionsObserverReceiver, aO as isPermissionEnabled, aP as CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aQ as PrivacyHubSensorSubpageUserAction, aR as NUMBER_OF_POSSIBLE_USER_ACTIONS, aS as MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aT as AppLanguageSelectionDialogEntryPoint, aU as OneDriveBrowserProxy, aV as AppManagementStoreMixin, aW as getAppIcon, aX as AppManagementBrowserProxy, aY as alphabeticalSort$1, aZ as GlobalScrollTargetMixin, a_ as OsSettingsSubpageElement, a$ as FindShortcutMixin, b0 as ACCESSIBILITY_COMMON_IME_ID, b1 as IronA11yKeysBehavior, b2 as PrivacyPageBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, b5 as StaticShortcutAction$1, b6 as EventTracker$1, b7 as getInputDeviceSettingsProvider, b8 as FakeInputDeviceSettingsProvider, b9 as ButtonPressObserverReceiver, ba as buttonsAreEqual, bb as getShortcutInputProvider, bc as keyEventsAreEqual, bd as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
+export { bi as AppLanguageSelectionDialogElement, bj as AppLanguageSelectionItemElement, bK as AppManagementAppDetailViewElement, bL as AppManagementAppDetailsItem, bM as AppManagementAppItemElement, bO as AppManagementArcDetailViewElement, bP as AppManagementBorealisDetailViewElement, bQ as AppManagementChromeAppDetailViewElement, bR as AppManagementDomSwitchElement, bS as AppManagementMainViewElement, bT as AppManagementPermissionHeadingElement, bU as AppManagementPinToShelfItemElement, bV as AppManagementPluginVmDetailViewElement, bW as AppManagementPwaDetailViewElement, bX as AppManagementResizeLockItemElement, bY as AppManagementSubAppsItemElement, bg as AppManagementSupportedLinksItemElement, bh as AppManagementSupportedLinksOverlappingAppsDialogElement, b_ as AppNotificationsSubpage, bv as CROSTINI_TYPE, by as ContainerSelectElement, bl as DateTimeSettingsCardElement, c7 as FilesSettingsCardElement, bw as GuestOsBrowserProxyImpl, c9 as LanguageSettingsCardElement, bH as NearbyShareReceiveDialogElement, cf as OsResetBrowserProxyImpl, ce as OsSettingsPowerwashDialogElement, bx as PLUGIN_VM_TYPE, cb as PrintingSettingsCardElement, cg as ResetSettingsCardElement, bJ as SettingsAndroidAppsSubpageElement, bN as SettingsAppManagementPageElement, bZ as SettingsAppNotificationsManagerSubpage, b$ as SettingsBluetoothChangeDeviceNameDialogElement, c0 as SettingsBluetoothDeviceDetailSubpageElement, c1 as SettingsBluetoothDevicesSubpageElement, c2 as SettingsBluetoothSavedDevicesSubpageElement, c3 as SettingsBluetoothTrueWirelessImagesElement, bn as SettingsCustomizeMouseButtonsSubpageElement, bo as SettingsCustomizePenButtonsSubpageElement, bp as SettingsCustomizeTabletButtonsSubpageElement, c8 as SettingsGoogleDriveSubpageElement, bz as SettingsGuestOsSharedPathsElement, bq as SettingsKeyboardElement, ca as SettingsLanguagesElement, bA as SettingsMultideviceCombinedSetupItemElement, bB as SettingsMultideviceFeatureItemElement, bC as SettingsMultideviceFeatureToggleElement, bD as SettingsMultideviceSubpageElement, bE as SettingsMultideviceTaskContinuationDisabledLinkElement, bF as SettingsMultideviceTaskContinuationItemElement, bG as SettingsMultideviceWifiSyncDisabledLinkElement, bI as SettingsNearbyShareSubpageElement, c4 as SettingsPairedBluetoothListElement, c5 as SettingsPairedBluetoothListItemElement, br as SettingsPointersElement, bs as SettingsPowerElement, cc as SettingsPrivacyHubGeolocationSubpage, cd as SettingsPrivacyHubSubpage, bk as SettingsRadioGroupElement, c6 as SettingsSavedDevicesListElement, bt as SettingsStorageElement, bu as SettingsStylusElement, be as SmbBrowserProxyImpl, bf as SmbMountResult, bm as TimezoneSelectorElement } from './shared.rollup.js';
 import { html, PolymerElement, microTask, mixinBehaviors, dedupingMixin, calculateSplices, afterNextRender, Polymer, flush, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
-import { FilterType, NO_LIMIT, ApnState, ApnType, MAX_NUM_CUSTOM_APNS, ApnAuthenticationType, ApnIpType, NO_ROUTING_PREFIX, TrafficCounterSource, HiddenSsidMode, VpnType, ActivationStateType, SecurityType, MatchType, InhibitReason, AlwaysOnVpnMode } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
+import { FilterType, NO_LIMIT, ApnState, ApnType, MAX_NUM_CUSTOM_APNS, ApnAuthenticationType, ApnIpType, NO_ROUTING_PREFIX, HiddenSsidMode, VpnType, ActivationStateType, SecurityType, MatchType, InhibitReason, AlwaysOnVpnMode } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { NetworkType, ConnectionStateType, PortalState, OncSource, PolicySource, IPConfigType, DeviceStateType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { getHotspotConfig } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.js';
 import { HotspotState, HotspotAllowStatus, SetHotspotConfigResult } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
-import 'chrome://resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { MojoConnectivityProvider } from 'chrome://resources/ash/common/connectivity/mojo_connectivity_provider.js';
 import { PasspointEventsListenerReceiver } from 'chrome://resources/ash/common/connectivity/passpoint.mojom-webui.js';
 import { ESimOperationResult, ProfileInstallResult, ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
@@ -25,7 +24,7 @@ import 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
 
-function getTemplate$2h() {
+function getTemplate$2i() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title" hidden="[[!isEnabling_(action)]]">
@@ -219,7 +218,7 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-arc-adb-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$2h();
+        return getTemplate$2i();
     }
     static get properties() {
         return {
@@ -262,7 +261,7 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniArcAdbConfirmationDialogElement.is, SettingsCrostiniArcAdbConfirmationDialogElement);
 
-function getTemplate$2g() {
+function getTemplate$2h() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}</style>
 <div class="settings-box first">
   <div class="settings-box-text">
@@ -306,7 +305,7 @@ class SettingsCrostiniArcAdbElement extends SettingsCrostiniArcAdbElementBase {
         return 'settings-crostini-arc-adb';
     }
     static get template() {
-        return getTemplate$2g();
+        return getTemplate$2h();
     }
     static get properties() {
         return {
@@ -424,7 +423,7 @@ class SettingsCrostiniArcAdbElement extends SettingsCrostiniArcAdbElementBase {
 }
 customElements.define(SettingsCrostiniArcAdbElement.is, SettingsCrostiniArcAdbElement);
 
-function getTemplate$2f() {
+function getTemplate$2g() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniImportConfirmationDialogTitle}</div>
@@ -452,7 +451,7 @@ class SettingsCrostiniImportConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-import-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
@@ -479,7 +478,7 @@ class SettingsCrostiniImportConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniImportConfirmationDialogElement.is, SettingsCrostiniImportConfirmationDialogElement);
 
-function getTemplate$2e() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_--><style include="settings-shared">.container-select{padding:0 8px}.two-line-settings-box{min-height:80px}#secondaryText{padding:3px 0}</style>
 <div id="export" class$="settings-box first [[getSettingsBoxClass_(allContainers_)]]">
   <div id="exportCrostiniLabel" class="start">
@@ -532,7 +531,7 @@ class SettingsCrostiniExportImportElement extends SettingsCrostiniExportImportEl
         return 'settings-crostini-export-import';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -665,7 +664,7 @@ class SettingsCrostiniExportImportElement extends SettingsCrostiniExportImportEl
 }
 customElements.define(SettingsCrostiniExportImportElement.is, SettingsCrostiniExportImportElement);
 
-function getTemplate$2d() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.custom-button-container{float:right}.input-container{display:flex;flex-direction:row;justify-content:space-between}.advanced-section{display:flex;flex-direction:column;justify-content:space-between;padding-bottom:12px;padding-inline-start:20px}.custom-body{padding-bottom:20px}#advancedToggle{--ink-color:var(--cros-text-color-primary);background:0 0;border:none;box-shadow:none;color:var(--cros-text-color-primary);font-weight:400;margin-bottom:12px;min-height:32px;padding-inline-start:0}#containerFileField{display:flex;flex-direction:row}#containerFileInput{width:100%}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniExtraContainersCreateDialogTitle}</div>
@@ -723,7 +722,7 @@ class ExtraContainersCreateDialog extends PolymerElement {
         return 'settings-crostini-create-container-dialog';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -870,7 +869,7 @@ function hexColorToSkColor(hexColor) {
     return { value: 0xff000000 + (r << 16) + (g << 8) + b };
 }
 
-function getTemplate$2c() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_--><style include="settings-shared">.container-details-list{padding-inline-start:var(--cr-section-indent-padding)}.detail-content{color:var(--cros-text-color-primary);flex:auto}.detail-heading{color:var(--cr-secondary-text-color);flex:auto}.vm-column{flex:1;flex-grow:3;word-break:break-all}#createExtraContainer{padding-top:10px}cr-expand-button{--cr-section-vertical-padding:0;flex:auto}</style>
 <div class="settings-box first">
   <div id="extraContainersDescription" class="start">
@@ -975,7 +974,7 @@ class ExtraContainersElement extends ExtraContainersElementBase {
         return 'settings-crostini-extra-containers';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -1204,7 +1203,7 @@ class ExtraContainersElement extends ExtraContainersElementBase {
 }
 customElements.define(ExtraContainersElement.is, ExtraContainersElement);
 
-function getTemplate$2b() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">#portNumberInput{padding-inline-end:20px;width:376px}#portLabelInput{padding-top:20px;width:472px}#selectProtocol{max-width:96px}.custom-body{padding-bottom:20px}.custom-button-container{float:right}.input-container{display:flex;flex-direction:row;justify-content:space-between}.placeholder-label{visibility:hidden}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniPortForwardingAddPortDialogTitle}</div>
@@ -1260,7 +1259,7 @@ class CrostiniPortForwardingAddPortDialog extends PolymerElement {
         return 'settings-crostini-add-port-dialog';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -1398,7 +1397,7 @@ class CrostiniPortForwardingAddPortDialog extends PolymerElement {
 }
 customElements.define(CrostiniPortForwardingAddPortDialog.is, CrostiniPortForwardingAddPortDialog);
 
-function getTemplate$2a() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toggle-margin-inline-start:16px;--cr-toggle-width:34px}cr-toggle{margin-inline-start:var(--cr-toggle-margin-inline-start);width:var(--cr-toggle-width)}.column-title{color:var(--cr-secondary-text-color)}.label-column{align-items:center;display:flex;flex:1;flex-grow:3}.label-text{flex-grow:3;word-break:break-all}.no-ports-text{padding-inline-start:24px}.interface-ip{padding-inline-start:24px}#addPort{padding-top:10px}#errorIcon{display:inline-block;margin-inline-end:8px}#protocolText{color:var(--cros-text-color-disabled);margin-inline-start:8px}#portForwardingListContainerId{border-top:var(--cr-separator-line)}#portForwardingDescription{flex-grow:3}</style>
 <div id="addPort" class="settings-box first">
   <div id="portForwardingDescription">
@@ -1503,7 +1502,7 @@ class CrostiniPortForwardingElement extends CrostiniPortForwardingBase {
         return 'settings-crostini-port-forwarding';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -1715,7 +1714,7 @@ class CrostiniSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDevicesEle
 }
 customElements.define(CrostiniSharedUsbDevicesElement.is, CrostiniSharedUsbDevicesElement);
 
-function getTemplate$29() {
+function getTemplate$2a() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" show-on-attach close-text="$i18n{close}" on-cancel="onDialogCancel_" on-close="onDialogClose_">
   
@@ -1750,7 +1749,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -1782,7 +1781,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniConfirmationDialogElement.is, SettingsCrostiniConfirmationDialogElement);
 
-function getTemplate$28() {
+function getTemplate$29() {
     return html `<!--_html_template_start_--><style include="settings-shared">#disk-labels{display:flex;justify-content:space-between}#resize-block{align-items:stretch;margin-inline-end:10px;margin-inline-start:10px}.error{color:var(--cros-text-color-alert)}#errorIcon{--iron-icon-fill-color:var(--cros-icon-color-alert);display:inline-block}#warningIcon{--iron-icon-fill-color:var(--cros-icon-color-warning)}#message{margin-inline-end:auto}</style>
 <cr-dialog id="diskResizeDialog" close-text="$i18n{close}">
   
@@ -1885,7 +1884,7 @@ class SettingsCrostiniDiskResizeDialogElement extends PolymerElement {
         return 'settings-crostini-disk-resize-dialog';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -2007,7 +2006,7 @@ class SettingsCrostiniDiskResizeDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniDiskResizeDialogElement.is, SettingsCrostiniDiskResizeDialogElement);
 
-function getTemplate$27() {
+function getTemplate$28() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniDiskResizeConfirmationDialogTitle}</div>
@@ -2035,7 +2034,7 @@ class SettingsCrostiniDiskResizeConfirmationDialogElement extends PolymerElement
         return 'settings-crostini-disk-resize-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$28();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -2053,7 +2052,7 @@ class SettingsCrostiniDiskResizeConfirmationDialogElement extends PolymerElement
 }
 customElements.define(SettingsCrostiniDiskResizeConfirmationDialogElement.is, SettingsCrostiniDiskResizeConfirmationDialogElement);
 
-function getTemplate$26() {
+function getTemplate$27() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <template is="dom-if" if="[[showCrostiniContainerUpgrade_]]">
   <div id="container-upgrade" class="settings-box first">
@@ -2153,7 +2152,7 @@ class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageElementBase 
         return 'settings-crostini-subpage';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$27();
     }
     static get properties() {
         return {
@@ -2457,7 +2456,7 @@ class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageElementBase 
 }
 customElements.define(SettingsCrostiniSubpageElement.is, SettingsCrostiniSubpageElement);
 
-function getTemplate$25() {
+function getTemplate$26() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-link-row class="hr" label="$i18n{guestOsSharedUsbDevicesLabel}" id="bruschettaSharedUsbDevicesRow" on-click="onSharedUsbDevicesClick_" role-description="$i18n{subpageArrowRoleDescription}">
 </cr-link-row>
@@ -2490,7 +2489,7 @@ class BruschettaSubpageElement extends BruschettaSubpageElementBase {
         return 'settings-bruschetta-subpage';
     }
     static get template() {
-        return getTemplate$25();
+        return getTemplate$26();
     }
     static get observers() {
         return [
@@ -2529,7 +2528,7 @@ class BruschettaSubpageElement extends BruschettaSubpageElementBase {
 }
 customElements.define(BruschettaSubpageElement.is, BruschettaSubpageElement);
 
-function getTemplate$24() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="settings-shared">#bruschettaRowIcon,:host-context(body.revamp-wayfinding-enabled) #crostiniRowIcon{margin-inline-end:16px;fill:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="$i18n{crostiniPageTitle}">
@@ -2613,7 +2612,7 @@ class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
         return 'crostini-settings-card';
     }
     static get template() {
-        return getTemplate$24();
+        return getTemplate$25();
     }
     static get properties() {
         return {
@@ -2715,7 +2714,7 @@ class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
 }
 customElements.define(CrostiniSettingsCardElement.is, CrostiniSettingsCardElement);
 
-function getTemplate$23() {
+function getTemplate$24() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -2810,7 +2809,7 @@ class SettingsCrostiniPageElement extends PolymerElement {
         return 'settings-crostini-page';
     }
     static get template() {
-        return getTemplate$23();
+        return getTemplate$24();
     }
     static get properties() {
         return {
@@ -2845,7 +2844,7 @@ var TimeZoneAutoDetectMethod;
     TimeZoneAutoDetectMethod[TimeZoneAutoDetectMethod["SEND_ALL_LOCATION_INFO"] = 3] = "SEND_ALL_LOCATION_INFO";
 })(TimeZoneAutoDetectMethod || (TimeZoneAutoDetectMethod = {}));
 
-function getTemplate$22() {
+function getTemplate$23() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages section="[[section_]]">
@@ -2877,7 +2876,7 @@ class SettingsDateTimePageElement extends PolymerElement {
         return 'settings-date-time-page';
     }
     static get template() {
-        return getTemplate$22();
+        return getTemplate$23();
     }
     static get properties() {
         return {
@@ -2903,7 +2902,7 @@ class SettingsDateTimePageElement extends PolymerElement {
 }
 customElements.define(SettingsDateTimePageElement.is, SettingsDateTimePageElement);
 
-function getTemplate$21() {
+function getTemplate$22() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{aboutUpdateWarningTitle}</div>
@@ -2934,7 +2933,7 @@ class SettingsUpdateWarningDialogElement extends SettingsUpdateWarningDialogElem
         return 'settings-update-warning-dialog';
     }
     static get template() {
-        return getTemplate$21();
+        return getTemplate$22();
     }
     static get properties() {
         return {
@@ -2975,8 +2974,8 @@ class SettingsUpdateWarningDialogElement extends SettingsUpdateWarningDialogElem
 }
 customElements.define(SettingsUpdateWarningDialogElement.is, SettingsUpdateWarningDialogElement);
 
-function getTemplate$20() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--chromeos-logo-width:40px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}#productRow{min-height:auto;padding-bottom:18px;padding-top:18px}#productRow>#productTitle{font:var(--cros-display-7-font);margin:0}#productRow>#productLogo{margin-inline-end:16px;width:var(--chromeos-logo-width)}.icon-container{margin-inline-end:10px;min-width:var(--chromeos-logo-width);text-align:center}:host-context(body.revamp-wayfinding-enabled) #updateRowIcon{margin-inline-end:16px}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}iron-icon[icon='os-settings:about-update-complete']{fill:var(--cros-sys-positive)}iron-icon[icon='os-settings:about-update-warning']{fill:var(--cros-sys-warning)}iron-icon[icon='os-settings:about-update-error']{fill:var(--cros-sys-error)}:host-context(body.revamp-wayfinding-enabled) iron-icon[icon='cr20:domain']{fill:var(--cros-sys-primary)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}</style>
+function getTemplate$21() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--chromeos-logo-width:40px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}#productRow{min-height:auto;padding-bottom:18px;padding-top:18px}#productRow>#productTitle{font:var(--cros-display-7-font);margin:0}#productRow>#productLogo{margin-inline-end:16px;width:var(--chromeos-logo-width)}.icon-container{margin-inline-end:10px;min-width:var(--chromeos-logo-width);text-align:center}:host-context(body.revamp-wayfinding-enabled) #updateRowIcon{margin-inline-end:16px}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}iron-icon[icon='os-settings:about-update-complete']{fill:var(--cros-sys-positive)}iron-icon[icon='os-settings:about-update-warning']{fill:var(--cros-sys-warning)}iron-icon[icon='os-settings:about-update-error']{fill:var(--cros-sys-error)}:host-context(body.revamp-wayfinding-enabled) iron-icon[icon='cr20:domain']{fill:var(--cros-sys-primary)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}:host-context(body:not(.revamp-wayfinding-enabled)) #copyrightCard{margin-top:var(--cr-section-vertical-margin)}</style>
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
 
@@ -3087,7 +3086,7 @@ function getTemplate$20() {
         <crostini-settings-card prefs="{{prefs}}"></crostini-settings-card>
       </template>
 
-      <settings-card>
+      <settings-card id="copyrightCard">
         <div class="settings-box padded block first">
           <div class="info-section">
             <div class="secondary">$i18n{aboutOsProductTitle}</div>
@@ -3218,7 +3217,7 @@ class OsAboutPageElement extends OsAboutPageBase {
         return 'os-about-page';
     }
     static get template() {
-        return getTemplate$20();
+        return getTemplate$21();
     }
     static get properties() {
         return {
@@ -3798,7 +3797,7 @@ class OsAboutPageElement extends OsAboutPageBase {
 }
 customElements.define(OsAboutPageElement.is, OsAboutPageElement);
 
-function getTemplate$1$() {
+function getTemplate$20() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -3850,7 +3849,7 @@ class OsSettingsFilesPageElement extends PolymerElement {
         return 'os-settings-files-page';
     }
     static get template() {
-        return getTemplate$1$();
+        return getTemplate$20();
     }
     static get properties() {
         return {
@@ -3874,7 +3873,7 @@ class OsSettingsFilesPageElement extends PolymerElement {
 }
 customElements.define(OsSettingsFilesPageElement.is, OsSettingsFilesPageElement);
 
-function getTemplate$1_() {
+function getTemplate$1$() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 
@@ -3949,7 +3948,7 @@ class OsSettingsLanguagesSectionElement extends OsSettingsLanguagesSectionElemen
         return 'os-settings-languages-section';
     }
     static get template() {
-        return getTemplate$1_();
+        return getTemplate$1$();
     }
     static get properties() {
         return {
@@ -3985,7 +3984,7 @@ styleMod$1.appendChild(html `
 `.content);
 styleMod$1.register('cups-printer-shared');
 
-function getTemplate$1Z() {
+function getTemplate$1_() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialog [slot=body]{padding-inline-end:0;padding-inline-start:0}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}">
@@ -4014,7 +4013,7 @@ class AddPrinterDialogElement extends PolymerElement {
         return 'add-printer-dialog';
     }
     static get template() {
-        return getTemplate$1Z();
+        return getTemplate$1_();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -4026,7 +4025,7 @@ class AddPrinterDialogElement extends PolymerElement {
 }
 customElements.define(AddPrinterDialogElement.is, AddPrinterDialogElement);
 
-function getTemplate$1Y() {
+function getTemplate$1Z() {
     return html `<!--_html_template_start_--><style>#error-wrap{align-items:center;display:flex}#error-container{height:20px;margin-top:10px}#error-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#error-message{color:var(--cros-text-color-alert);font-size:10px;margin-inline-start:5px}</style>
 <div id="error-container" hidden="[[!errorText]]">
   <div id="error-wrap">
@@ -4050,7 +4049,7 @@ class PrinterDialogErrorElement extends PolymerElement {
         return 'printer-dialog-error';
     }
     static get template() {
-        return getTemplate$1Y();
+        return getTemplate$1Z();
     }
     static get properties() {
         return {
@@ -4066,7 +4065,7 @@ class PrinterDialogErrorElement extends PolymerElement {
 }
 customElements.define(PrinterDialogErrorElement.is, PrinterDialogErrorElement);
 
-function getTemplate$1X() {
+function getTemplate$1Y() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cups-printer-shared"></style>
 <add-printer-dialog>
   <div slot="dialog-title">
@@ -4360,14 +4359,14 @@ var DialogActions;
     DialogActions[DialogActions["VIEW_PPD_CLICKED"] = 1] = "VIEW_PPD_CLICKED";
 })(DialogActions || (DialogActions = {}));
 /** Keyword used for recording metrics */
-const METRICS_KEYWORD = 'Printing.CUPS.EditDialog';
+const METRICS_KEYWORD = 'Printing.CUPS.PrinterEditDialogActions';
 const SettingsCupsEditPrinterDialogElementBase = mixinBehaviors([NetworkListenerBehavior], I18nMixin(PolymerElement));
 class SettingsCupsEditPrinterDialogElement extends SettingsCupsEditPrinterDialogElementBase {
     static get is() {
         return 'settings-cups-edit-printer-dialog';
     }
     static get template() {
-        return getTemplate$1X();
+        return getTemplate$1Y();
     }
     static get properties() {
         return {
@@ -4792,7 +4791,7 @@ var PrinterType;
     PrinterType[PrinterType["ENTERPRISE"] = 4] = "ENTERPRISE";
 })(PrinterType || (PrinterType = {}));
 
-function getTemplate$1W() {
+function getTemplate$1X() {
     return html `<!--_html_template_start_--><style include="settings-shared">.icon-more-vert{background-color:none}.printer-name{align-items:center;display:flex;flex:1}.list-item:focus-within{background-color:var(--cros-sys-hover_on_subtle);outline:0}.entry-icon{flex-basis:40px}:host([is-printer-settings-revamp-enabled_]) .entry-icon{flex-basis:20px;padding-inline:20px 16px}.entry-text{flex:1;margin:20px auto}iron-icon{display:block;margin:auto}#printerSubtext{color:var(--cros-sys-warning)}:host([has-high-severity-error_]) #printerSubtext{color:var(--cros-sys-error)}cr-button{border-radius:18px}.container,.list-item{height:64px}.row-button{margin-inline-end:20px}</style>
 <div class="container" focus-row-container>
   <div id="entry" class="list-item" focus-row-control focus-type="entry" aria-label$="[[getAriaLabel_(printerEntry.printerInfo.printerId,
@@ -4975,7 +4974,7 @@ class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryElementB
         return 'settings-cups-printers-entry';
     }
     static get template() {
-        return getTemplate$1W();
+        return getTemplate$1X();
     }
     static get properties() {
         return {
@@ -5191,7 +5190,7 @@ class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryElementB
 }
 customElements.define(SettingsCupsPrintersEntryElement.is, SettingsCupsPrintersEntryElement);
 
-function getTemplate$1V() {
+function getTemplate$1W() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared iron-flex iron-flex-alignment
     iron-flex-factors">:host{display:flex;flex-direction:column}#no-search-results{margin-top:20px}#show-more-container{align-items:center;min-height:var(--cr-section-min-height)}#show-more-line-separator{border-bottom:var(--cr-separator-line);margin-inline-end:20px;margin-inline-start:60px;position:relative;width:596px}#show-more-icon{--cr-icon-button-margin-end:0}#show-more-text{flex:1}:host([is-printer-settings-revamp-enabled_]) .list-frame{padding-inline:0}</style>
 
@@ -5527,7 +5526,7 @@ class SettingsCupsEnterprisePrintersElement extends SettingsCupsEnterprisePrinte
         return 'settings-cups-enterprise-printers';
     }
     static get template() {
-        return getTemplate$1V();
+        return getTemplate$1W();
     }
     static get properties() {
         return {
@@ -5688,7 +5687,7 @@ class SettingsCupsEnterprisePrintersElement extends SettingsCupsEnterprisePrinte
 }
 customElements.define(SettingsCupsEnterprisePrintersElement.is, SettingsCupsEnterprisePrintersElement);
 
-function getTemplate$1U() {
+function getTemplate$1V() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared iron-flex iron-flex-alignment
     iron-flex-factors">:host{display:flex;flex-direction:column}#no-search-results{margin-bottom:20px}#show-more-container{align-items:center;min-height:var(--cr-section-min-height)}:host([is-printer-settings-revamp-enabled_]) #show-more-container{margin-inline-end:20px}#show-more-line-separator{border-bottom:var(--cr-separator-line);margin-inline-end:20px;margin-inline-start:60px;position:relative;width:596px}:host([is-printer-settings-revamp-enabled_]) #show-more-line-separator{margin-inline:0;width:auto}#show-more-icon{--cr-icon-button-margin-end:0}#show-more-text{flex:1}:host([is-printer-settings-revamp-enabled_]) .list-frame{padding-inline:0}</style>
 
@@ -5770,7 +5769,7 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
         return 'settings-cups-saved-printers';
     }
     static get template() {
-        return getTemplate$1U();
+        return getTemplate$1V();
     }
     static get properties() {
         return {
@@ -6178,7 +6177,7 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
 }
 customElements.define(SettingsCupsSavedPrintersElement.is, SettingsCupsSavedPrintersElement);
 
-function getTemplate$1T() {
+function getTemplate$1U() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared">[slot=dialog-body]{height:90px}[slot=dialog-buttons]{width:auto}</style>
 <add-printer-dialog id="printServerDialog">
   <div slot="dialog-title">
@@ -6216,7 +6215,7 @@ class AddPrintServerDialogElement extends PolymerElement {
         return 'add-print-server-dialog';
     }
     static get template() {
-        return getTemplate$1T();
+        return getTemplate$1U();
     }
     static get properties() {
         return {
@@ -6280,7 +6279,7 @@ class AddPrintServerDialogElement extends PolymerElement {
 }
 customElements.define(AddPrintServerDialogElement.is, AddPrintServerDialogElement);
 
-function getTemplate$1S() {
+function getTemplate$1T() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared"></style>
 <add-printer-dialog>
   <div slot="dialog-title">
@@ -6376,7 +6375,7 @@ class AddPrinterManuallyDialogElement extends PolymerElement {
         return 'add-printer-manually-dialog';
     }
     static get template() {
-        return getTemplate$1S();
+        return getTemplate$1T();
     }
     static get properties() {
         return {
@@ -6506,7 +6505,7 @@ class AddPrinterManuallyDialogElement extends PolymerElement {
 }
 customElements.define(AddPrinterManuallyDialogElement.is, AddPrinterManuallyDialogElement);
 
-function getTemplate$1R() {
+function getTemplate$1S() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared">.subtext{margin-bottom:10px;padding-inline-end:20px;padding-inline-start:20px}#make-model-body{height:290px}</style>
 <add-printer-dialog>
   <div slot="dialog-title">
@@ -6576,7 +6575,7 @@ class AddPrinterManufacturerModelDialogElement extends PolymerElement {
         return 'add-printer-manufacturer-model-dialog';
     }
     static get template() {
-        return getTemplate$1R();
+        return getTemplate$1S();
     }
     static get properties() {
         return {
@@ -6744,7 +6743,7 @@ class AddPrinterManufacturerModelDialogElement extends PolymerElement {
 }
 customElements.define(AddPrinterManufacturerModelDialogElement.is, AddPrinterManufacturerModelDialogElement);
 
-function getTemplate$1Q() {
+function getTemplate$1R() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 
@@ -6819,7 +6818,7 @@ class SettingsCupsAddPrinterDialogElement extends PolymerElement {
         return 'settings-cups-add-printer-dialog';
     }
     static get template() {
-        return getTemplate$1Q();
+        return getTemplate$1R();
     }
     static get properties() {
         return {
@@ -6895,13 +6894,14 @@ class SettingsCupsAddPrinterDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCupsAddPrinterDialogElement.is, SettingsCupsAddPrinterDialogElement);
 
-function getTemplate$1P() {
+function getTemplate$1Q() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared action-link iron-flex
     iron-flex-alignment">.custom-list-item-bottom{border-bottom:var(--cr-separator-line);min-height:var(--cr-section-min-height)}.custom-list-item-top{min-height:var(--cr-section-min-height)}:host(:not([nearby-printers-empty_])) .custom-list-item-top{border-top:var(--cr-separator-line)}.padded{padding:20px}#addPrinterText{flex:1}.add-manual-printer-icon{--cr-icon-button-fill-color:var(--cros-sys-primary);--cr-icon-button-margin-end:0}#addManualPrinterButtonRevamp{background:0 0}#cloudOffIcon{--iron-icon-fill-color:var(--cros-icon-color-secondary);margin-top:10px}#connectionMessage{padding-inline-start:20px}#noConnectivityContentContainer{border-bottom:var(--cr-separator-line);padding-inline-start:20px}#noSearchResultsMessage{color:var(--md-loading-message-color);font-size:16px;font-weight:500;margin-top:80px;text-align:center}#savedPrintersContainer{border-bottom:var(--cr-separator-line);padding-bottom:8px}:host([is-printer-settings-revamp-enabled_]) #savedPrintersContainer{padding-inline-start:var(--cr-section-padding)}#savedPrintersDescription{height:64px;margin-bottom:8px}:host([is-printer-settings-revamp-enabled_]) #savedPrintersDescription{padding-inline-start:0}#enterprisePrintersContainer{border-top:var(--cr-separator-line)}:host([is-printer-settings-revamp-enabled_]) #enterprisePrintersContainer{padding-inline-start:var(--cr-section-padding)}:host(:not([has-active-network-connection])) .add-printer-section,:host(:not([has-active-network-connection])) .nearby-printers-section{opacity:var(--cr-disabled-opacity);pointer-events:none}#nearbyPrintersRevamp{display:flex}#nearbyPrintersDescription{flex:1}#nearbyPrinterToggleButton{margin:0}:host([is-printer-settings-revamp-enabled_]) #collapsibleSection{padding-inline-end:0;padding-inline-start:20px;padding-bottom:20px;padding-top:0}#helpSection{align-items:center;background-color:var(--cros-sys-app_base_shaded);border-radius:12px;display:flex;margin-bottom:8px;margin-inline:-6px 14px;padding:16px 12px}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font);margin-bottom:5px}#noSavedPrinters{align-items:center;display:flex;height:48px;margin:8px 0;padding-inline-start:20px}#addPrinterSectionRevamp{height:64px;padding-inline:0}#addPrinterSectionRevampContainer{padding-inline-start:10px;padding-top:8px}cr-button{border-radius:18px}cr-button.prefix-icon{padding-inline:12px 16px}:host([is-printer-settings-revamp-enabled_]) .section-title{font:var(--cros-button-2-font)}</style>
 
 
 <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-  <cr-link-row id="printManagement" class="section-title" on-click="onClickPrintManagement_" label="$i18n{printJobsTitle}" sub-label="$i18n{printJobsSublabel}" external deep-link-focus-id$="[[Setting.kPrintJobs]]">
+  <cr-link-row id="printManagement" on-click="onClickPrintManagement_" external using-slotted-label sub-label="$i18n{printJobsSublabel}" deep-link-focus-id$="[[Setting.kPrintJobs]]">
+    <div slot="label" class="section-title">$i18n{printJobsTitle}</div>
   </cr-link-row>
   <div class="hr"></div>
 </template>
@@ -7089,7 +7089,7 @@ class SettingsCupsPrintersElement extends SettingsCupsPrintersElementBase {
         return 'settings-cups-printers';
     }
     static get template() {
-        return getTemplate$1P();
+        return getTemplate$1Q();
     }
     static get properties() {
         return {
@@ -7364,7 +7364,7 @@ class SettingsCupsPrintersElement extends SettingsCupsPrintersElementBase {
     onAddPrinterDialogClose_() {
         const icon = this.shadowRoot.querySelector('#addManualPrinterIcon');
         assert(icon);
-        focusWithoutInk(icon);
+        focusWithoutInk$1(icon);
     }
     onShowCupsEditPrinterDialog_() {
         this.showCupsEditPrinterDialog_ = true;
@@ -7466,7 +7466,7 @@ class SettingsCupsPrintersElement extends SettingsCupsPrintersElementBase {
 }
 customElements.define(SettingsCupsPrintersElement.is, SettingsCupsPrintersElement);
 
-function getTemplate$1O() {
+function getTemplate$1P() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -7491,7 +7491,7 @@ class OsSettingsPrintingPageElement extends PolymerElement {
         return 'os-settings-printing-page';
     }
     static get template() {
-        return getTemplate$1O();
+        return getTemplate$1P();
     }
     static get properties() {
         return {
@@ -7518,7 +7518,7 @@ class OsSettingsPrintingPageElement extends PolymerElement {
 }
 customElements.define(OsSettingsPrintingPageElement.is, OsSettingsPrintingPageElement);
 
-function getTemplate$1N() {
+function getTemplate$1O() {
     return html `<!--_html_template_start_--><os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <reset-settings-card></reset-settings-card>
@@ -7539,7 +7539,7 @@ class OsSettingsResetPageElement extends PolymerElement {
         return 'os-settings-reset-page';
     }
     static get template() {
-        return getTemplate$1N();
+        return getTemplate$1O();
     }
     static get properties() {
         return {
@@ -7553,7 +7553,7 @@ class OsSettingsResetPageElement extends PolymerElement {
 }
 customElements.define(OsSettingsResetPageElement.is, OsSettingsResetPageElement);
 
-function getTemplate$1M() {
+function getTemplate$1N() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialogBody{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
 
 <cr-dialog id="systemGeolocationDialog" show-on-attach>
@@ -7589,7 +7589,7 @@ class PrivacyHubGeolocationDialog extends PrivacyHubGeolocationDialogBase {
         return 'settings-privacy-hub-geolocation-dialog';
     }
     static get template() {
-        return getTemplate$1M();
+        return getTemplate$1N();
     }
     /**
      * Enables geolocation usage for system services.
@@ -7610,7 +7610,7 @@ class PrivacyHubGeolocationDialog extends PrivacyHubGeolocationDialogBase {
 }
 customElements.define(PrivacyHubGeolocationDialog.is, PrivacyHubGeolocationDialog);
 
-function getTemplate$1L() {
+function getTemplate$1M() {
     return html `<!--_html_template_start_--><style include="settings-shared">#container{display:inline-flex;width:inherit;margin-top:5px;text-align:left}#warningIcon{margin-right:5px}</style>
 <div id="container">
   <iron-icon id="warningIcon" icon="cr20:warning"></iron-icon>
@@ -7628,7 +7628,7 @@ class PrivacyHubGeolocationWarningText extends PolymerElement {
         return 'settings-privacy-hub-geolocation-warning-text';
     }
     static get template() {
-        return getTemplate$1L();
+        return getTemplate$1M();
     }
     static get properties() {
         return {
@@ -7648,9 +7648,9 @@ class PrivacyHubGeolocationWarningText extends PolymerElement {
 }
 customElements.define(PrivacyHubGeolocationWarningText.is, PrivacyHubGeolocationWarningText);
 
-function getTemplate$1K() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.block{display:block}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}#warningText{width:425px;padding-inline-start:28px}</style>
-<div class="settings-box block first">
+function getTemplate$1L() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#timezoneRadioContainer{padding-bottom:var(--cr-section-padding)}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}#warningText{width:425px;padding-inline-start:28px}</style>
+<div id="timezoneRadioContainer" class="settings-box first">
   <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
     <controlled-radio-button id="timeZoneAutoDetectOn" name="true" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOn}" no-extension-indicator>
     </controlled-radio-button>
@@ -7658,7 +7658,7 @@ function getTemplate$1K() {
             prefs.generated.resolve_timezone_by_geolocation_method_short)]]">
     </settings-dropdown-menu>
     <template is="dom-if" if="[[shouldShowGeolocationWarningText_]]" restamp>
-      <settings-privacy-hub-geolocation-warning-text id="warningText" warning-text-with-anchor="$i18n{timeZoneGeolocationWarningText}" on-link-clicked="openGeolocationDialog_">
+      <settings-privacy-hub-geolocation-warning-text id="warningText" warning-text-with-anchor="[[geolocationWarningText_]]" on-link-clicked="openGeolocationDialog_">
       </settings-privacy-hub-geolocation-warning-text>
     </template>
     <controlled-radio-button id="timeZoneAutoDetectOff" name="false" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOff}" no-extension-indicator>
@@ -7682,13 +7682,13 @@ function getTemplate$1K() {
  * @fileoverview 'timezone-subpage' is the collapsible section containing
  * time zone settings.
  */
-const TimezoneSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(PrefsMixin(WebUiListenerMixin(PolymerElement))));
+const TimezoneSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(I18nMixin(PrefsMixin(WebUiListenerMixin(PolymerElement)))));
 class TimezoneSubpageElement extends TimezoneSubpageElementBase {
     static get is() {
         return 'timezone-subpage';
     }
     static get template() {
-        return getTemplate$1K();
+        return getTemplate$1L();
     }
     static get properties() {
         return {
@@ -7705,6 +7705,10 @@ class TimezoneSubpageElement extends TimezoneSubpageElementBase {
             supportedSettingIds: {
                 type: Object,
                 value: () => new Set([Setting.kChangeTimeZone]),
+            },
+            geolocationWarningText_: {
+                type: String,
+                computed: 'computedGeolocationWarningText(activeTimeZoneDisplayName)',
             },
             shouldShowGeolocationWarningText_: {
                 type: Boolean,
@@ -7741,6 +7745,9 @@ class TimezoneSubpageElement extends TimezoneSubpageElementBase {
             this.browserProxy_.showParentAccessForTimeZone();
         }
         this.attemptDeepLink();
+    }
+    computedGeolocationWarningText() {
+        return this.i18n('timeZoneGeolocationWarningText', this.activeTimeZoneDisplayName);
     }
     computeShouldShowGeolocationWarningText_() {
         return (this.prefs.generated.resolve_timezone_by_geolocation_on_off.value ===
@@ -7815,7 +7822,7 @@ class TimezoneSubpageElement extends TimezoneSubpageElementBase {
 }
 customElements.define(TimezoneSubpageElement.is, TimezoneSubpageElement);
 
-function getTemplate$1J() {
+function getTemplate$1K() {
   return html`<!--_html_template_start_--><style include="network-shared">
   :host {
     box-sizing: border-box;
@@ -7929,7 +7936,7 @@ class ApnListItem extends ApnListItemBase {
   }
 
   static get template() {
-    return getTemplate$1J();
+    return getTemplate$1K();
   }
 
   static get properties() {
@@ -8231,7 +8238,7 @@ class ApnListItem extends ApnListItemBase {
 
 customElements.define(ApnListItem.is, ApnListItem);
 
-function getTemplate$1I() {
+function getTemplate$1J() {
   return html`<!--_html_template_start_--><style include="network-shared">
   div {
     color: var(--cr-secondary-text-color);
@@ -8367,7 +8374,7 @@ class ApnList extends ApnListBase {
   }
 
   static get template() {
-    return getTemplate$1I();
+    return getTemplate$1J();
   }
 
   static get properties() {
@@ -8636,7 +8643,7 @@ class ApnList extends ApnListBase {
 
 customElements.define(ApnList.is, ApnList);
 
-function getTemplate$1H() {
+function getTemplate$1I() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <apn-list id="apnList" managed-cellular-properties="[[managedProperties_.typeProperties.cellular]]" guid="[[guid_]]" error-state="[[managedProperties_.errorState]]" portal-state="[[managedProperties_.portalState]]">
 </apn-list><!--_html_template_end_-->`;
@@ -8657,7 +8664,7 @@ class ApnSubpageElement extends ApnSubpageElementBase {
         return 'apn-subpage';
     }
     static get template() {
-        return getTemplate$1H();
+        return getTemplate$1I();
     }
     static get properties() {
         return {
@@ -8791,7 +8798,7 @@ class ApnSubpageElement extends ApnSubpageElementBase {
 }
 customElements.define(ApnSubpageElement.is, ApnSubpageElement);
 
-function getTemplate$1G() {
+function getTemplate$1H() {
     return html `<!--_html_template_start_--><style include="settings-shared">.separator-line{border-top:var(--cr-separator-line);padding:0}#hotspotToggleText{font-weight:500}#hotspotToggleText[on]{color:var(--cros-text-color-prominent)}#hotspotToggleText:not([on]){color:var(--cros-text-color-secondary)}</style>
 <div class="settings-box first">
   <div id="hotspotToggleText" class="start" on$="[[isHotspotToggleOn_]]">
@@ -8843,7 +8850,7 @@ class SettingsHotspotSubpageElement extends SettingsHotspotSubpageElementBase {
         return 'settings-hotspot-subpage';
     }
     static get template() {
-        return getTemplate$1G();
+        return getTemplate$1H();
     }
     static get properties() {
         return {
@@ -8981,7 +8988,7 @@ class SettingsHotspotSubpageElement extends SettingsHotspotSubpageElementBase {
 }
 customElements.define(SettingsHotspotSubpageElement.is, SettingsHotspotSubpageElement);
 
-function getTemplate$1F() {
+function getTemplate$1G() {
   return html`<!--_html_template_start_--><style include="cr-shared-style network-shared iron-flex">
   /* Property lists are embedded; remove the padding. */
   .property-box {
@@ -9045,7 +9052,7 @@ function getTemplate$1F() {
 
 
 Polymer({
-  _template: getTemplate$1F(),
+  _template: getTemplate$1G(),
   is: 'network-property-list-mojo',
 
   behaviors: [I18nBehavior, CrPolicyNetworkBehaviorMojo],
@@ -9552,7 +9559,7 @@ Polymer({
   },
 });
 
-function getTemplate$1E() {
+function getTemplate$1F() {
   return html`<!--_html_template_start_--><style include="network-shared md-select">
   :host {
     --cr-property-box-width: 200px;
@@ -9634,7 +9641,7 @@ const USE_ATTACH_APN_ON_SAVE_METRIC_NAME =
     'Network.Cellular.Apn.UseAttachApnOnSave';
 
 Polymer({
-  _template: getTemplate$1E(),
+  _template: getTemplate$1F(),
   is: 'network-apnlist',
 
   behaviors: [I18nBehavior],
@@ -10027,7 +10034,7 @@ Polymer({
   },
 });
 
-function getTemplate$1D() {
+function getTemplate$1E() {
   return html`<!--_html_template_start_--><style include="cr-shared-style network-shared md-select iron-flex">
   /* Leave some space between button and select. */
   select {
@@ -10068,7 +10075,7 @@ function getTemplate$1D() {
 
 
 Polymer({
-  _template: getTemplate$1D(),
+  _template: getTemplate$1E(),
   is: 'network-choose-mobile',
 
   behaviors: [I18nBehavior],
@@ -10253,7 +10260,7 @@ Polymer({
   },
 });
 
-function getTemplate$1C() {
+function getTemplate$1D() {
   return html`<!--_html_template_start_--><style include="network-shared iron-flex">
   cr-toggle {
     margin-inline-start: var(--settings-control-label-spacing);
@@ -10375,7 +10382,7 @@ const getRoutingPrefixAsLength = function(netmask) {
 };
 
 Polymer({
-  _template: getTemplate$1C(),
+  _template: getTemplate$1D(),
   is: 'network-ip-config',
 
   behaviors: [I18nBehavior, CrPolicyNetworkBehaviorMojo],
@@ -10708,7 +10715,7 @@ Polymer({
   },
 });
 
-function getTemplate$1B() {
+function getTemplate$1C() {
   return html`<!--_html_template_start_--><style include="network-shared md-select iron-flex">
   a {
     margin-inline-start: 4px;
@@ -10833,7 +10840,7 @@ const NameserversType = {
 };
 
 Polymer({
-  _template: getTemplate$1B(),
+  _template: getTemplate$1C(),
   is: 'network-nameservers',
 
   behaviors: [I18nBehavior, CrPolicyNetworkBehaviorMojo],
@@ -11252,7 +11259,7 @@ Polymer({
   },
 });
 
-function getTemplate$1A() {
+function getTemplate$1B() {
   return html`<!--_html_template_start_--><style include="network-shared iron-flex">
   :host {
     cursor: default
@@ -11370,7 +11377,7 @@ const State = {
 };
 
 Polymer({
-  _template: getTemplate$1A(),
+  _template: getTemplate$1B(),
   is: 'network-siminfo',
 
   behaviors: [I18nBehavior],
@@ -11706,7 +11713,7 @@ Polymer({
   },
 });
 
-function getTemplate$1z() {
+function getTemplate$1A() {
     return html `<!--_html_template_start_--><style include="settings-shared">#cellularRoamingToggle{display:flex;justify-content:center;min-height:var(--cr-section-two-line-min-height)}#cellularRoamingToggle:not([disabled]):hover{background-color:var(--cr-hover-background-color)}#cellularRoamingToggle:not([disabled]):active{background-color:var(--cr-active-background-color)}</style>
 <template is="dom-if" if="[[showPerNetworkAllowRoamingToggle_(isRoamingAllowedForNetwork_)]]">
     <network-config-toggle id="cellularRoamingToggle" class="settings-box" policy-on-left property="[[managedProperties.typeProperties.cellular.allowRoaming]]" label="$i18n{networkAllowDataRoaming}" sub-label="[[getRoamingDetails_(managedProperties.typeProperties.cellular.allowRoaming.*, prefs.cros.signed.data_roaming_enabled)]]" checked="{{isRoamingAllowedForNetwork_}}" disabled="[[isPerNetworkToggleDisabled_(managedProperties.typeProperties.cellular.allowRoaming.*, disabled, prefs.cros.signed.data_roaming_enabled)]]">
@@ -11730,7 +11737,7 @@ class CellularRoamingToggleButtonElement extends CellularRoamingToggleButtonElem
         return 'cellular-roaming-toggle-button';
     }
     static get template() {
-        return getTemplate$1z();
+        return getTemplate$1A();
     }
     static get properties() {
         return {
@@ -11846,7 +11853,7 @@ class CellularRoamingToggleButtonElement extends CellularRoamingToggleButtonElem
 }
 customElements.define(CellularRoamingToggleButtonElement.is, CellularRoamingToggleButtonElement);
 
-function getTemplate$1y() {
+function getTemplate$1z() {
   return html`<!--_html_template_start_--><style include="network-shared cr-hidden-style iron-flex">
   #container {
     align-self: stretch;
@@ -11881,7 +11888,7 @@ function getTemplate$1y() {
 
 
 Polymer({
-  _template: getTemplate$1y(),
+  _template: getTemplate$1z(),
   is: 'network-proxy-exclusions',
 
   behaviors: [I18nBehavior],
@@ -11918,7 +11925,7 @@ Polymer({
   },
 });
 
-function getTemplate$1x() {
+function getTemplate$1y() {
   return html`<!--_html_template_start_--><style include="network-shared">
   cr-input {
     margin: 0 var(--cr-button-edge-spacing);
@@ -11964,7 +11971,7 @@ function getTemplate$1x() {
 
 
 Polymer({
-  _template: getTemplate$1x(),
+  _template: getTemplate$1y(),
   is: 'network-proxy-input',
 
   behaviors: [I18nBehavior],
@@ -12020,7 +12027,7 @@ Polymer({
   },
 });
 
-function getTemplate$1w() {
+function getTemplate$1x() {
   return html`<!--_html_template_start_--><style include="network-shared cr-hidden-style iron-flex iron-flex-alignment md-select">
   network-proxy-input {
     margin-bottom: 10px;
@@ -12169,7 +12176,7 @@ function getTemplate$1w() {
 
 
 Polymer({
-  _template: getTemplate$1w(),
+  _template: getTemplate$1x(),
   is: 'network-proxy',
 
   behaviors: [
@@ -12738,7 +12745,7 @@ Polymer({
   },
 });
 
-function getTemplate$1v() {
+function getTemplate$1w() {
     return html `<!--_html_template_start_--><style include="internet-shared cr-hidden-style iron-flex
     iron-flex-alignment">cr-policy-network-indicator-mojo{margin-inline-end:10px}extension-controlled-indicator{margin-inline-start:0;width:100%}lacros-extension-controlled-indicator{margin-inline-start:0;width:100%}.settings-box:first-of-type{border-top:none}</style>
 
@@ -12811,7 +12818,7 @@ class NetworkProxySectionElement extends NetworkProxySectionElementBase {
         return 'network-proxy-section';
     }
     static get template() {
-        return getTemplate$1v();
+        return getTemplate$1w();
     }
     static get properties() {
         return {
@@ -12958,7 +12965,7 @@ class NetworkProxySectionElement extends NetworkProxySectionElementBase {
 }
 customElements.define(NetworkProxySectionElement.is, NetworkProxySectionElement);
 
-function getTemplate$1u() {
+function getTemplate$1v() {
     return html `<!--_html_template_start_--><style include="settings-shared">#description{margin-bottom:var(--cr-section-vertical-margin)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">
@@ -12996,7 +13003,7 @@ class PasspointRemoveDialogElement extends PasspointRemoveDialogElementBase {
         return 'passpoint-remove-dialog';
     }
     static get template() {
-        return getTemplate$1u();
+        return getTemplate$1v();
     }
     static get properties() {
         return {};
@@ -13062,7 +13069,7 @@ class PasspointRemoveDialogElement extends PasspointRemoveDialogElementBase {
 }
 customElements.define(PasspointRemoveDialogElement.is, PasspointRemoveDialogElement);
 
-function getTemplate$1t() {
+function getTemplate$1u() {
   return html`<!--_html_template_start_--><style include="network-shared"></style>
 <h2>[[i18n('TrafficCountersTrafficCounters')]]</h2>
 <div class="button-group">
@@ -13073,7 +13080,7 @@ function getTemplate$1t() {
 <template is="dom-repeat" items="[[networks_]]" as="network">
   <network-health-container
       label="[[getNetworkTypeString_(network.type)]]"
-      expanded="[[getTypeExpanded_(network.type, typeExpanded_.*)]]"
+      expanded="[[getTypeExpanded_(network.type, typeExpanded.*)]]"
       on-toggle-expanded="onToggleExpanded_">
     <span slot="header">
       <img class="type-icon" src="[[getNetworkTypeIcon_(network.type)]]">
@@ -13117,464 +13124,279 @@ function getTemplate$1t() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @type {number} Default traffic counter reset day. */
+/**
+ * Class that provides the functionality for interacting with traffic counters.
+ */
+/** Default traffic counter reset day. */
 const kDefaultResetDay = 1;
-
-
 /**
  * Helper function to create a Network object.
- * @param {string} guid
- * @param {string} name
- * @param {!NetworkType} type
- * @param {!Array<!Object>} counters
- * @param {?Time} lastResetTime
- * @param {?string} friendlyDate
- * @param {boolean} autoReset
- * @param {number} userSpecifiedResetDay
- * @return {Network} Network object
  */
-function createNetwork$1(
-    guid, name, type, counters, lastResetTime, friendlyDate, autoReset,
-    userSpecifiedResetDay) {
-  return {
-    guid: guid,
-    name: name,
-    type: type,
-    counters: counters,
-    lastResetTime: lastResetTime,
-    friendlyDate: friendlyDate,
-    autoReset: autoReset,
-    userSpecifiedResetDay: userSpecifiedResetDay,
-  };
-}
-
-class TrafficCountersAdapter {
-  constructor() {
-    /**
-     * Network Config mojo remote.
-     * @private {?CrosNetworkConfigInterface}
-     */
-    this.networkConfig_ =
-        MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
-  }
-
-  /**
-   * Requests traffic counters for active networks.
-   * @return {!Promise<!Array<!Network>>}
-   */
-  async requestTrafficCountersForActiveNetworks() {
-    const filter = {
-      filter: FilterType.kActive,
-      networkType: NetworkType.kAll,
-      limit: NO_LIMIT,
+function createNetwork$1(guid, name, type, counters, lastResetTime, friendlyDate, autoReset, userSpecifiedResetDay) {
+    return {
+        guid: guid,
+        name: name,
+        type: type,
+        counters: counters,
+        lastResetTime: lastResetTime,
+        friendlyDate: friendlyDate,
+        autoReset: autoReset,
+        userSpecifiedResetDay: userSpecifiedResetDay,
     };
-    const networks = [];
-    const networkStateList =
-        await this.networkConfig_.getNetworkStateList(filter);
-    for (const networkState of networkStateList.result) {
-      const trafficCounters =
-          await this.requestTrafficCountersForNetwork(networkState.guid);
-      const lastResetTime =
-          await this.requestLastResetTimeForNetwork(networkState.guid);
-      const friendlyDate =
-          await this.requestFriendlyDateForNetwork(networkState.guid);
-      const autoReset =
-          await this.requestEnableAutoResetBooleanForNetwork(networkState.guid);
-      const userSpecifiedResetDay =
-          await this.requestUserSpecifiedResetDayForNetwork(networkState.guid);
-      networks.push(createNetwork$1(
-          networkState.guid, networkState.name, networkState.type,
-          trafficCounters, lastResetTime, friendlyDate, autoReset,
-          userSpecifiedResetDay));
+}
+class TrafficCountersAdapter {
+    constructor() {
+        /**
+         * Network Config mojo remote.
+         */
+        this.networkConfig_ =
+            MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
     }
-    return networks;
-  }
-
-  /**
-   * Resets traffic counters for the given network.
-   * @param {string} guid
-   */
-  async resetTrafficCountersForNetwork(guid) {
-    await this.networkConfig_.resetTrafficCounters(guid);
-  }
-
-  /**
-   * Requests traffic counters for the given network.
-   * @param {string} guid
-   * @return {!Promise<!Array<!Object>>} traffic counters for network with guid
-   */
-  async requestTrafficCountersForNetwork(guid) {
-    const trafficCountersObj =
-        await this.networkConfig_.requestTrafficCounters(guid);
-    return trafficCountersObj.trafficCounters;
-  }
-
-  /**
-   * Requests last reset time for the given network.
-   * @param {string} guid
-   * @return {?Promise<?Time>} last reset
-   * time for network with guid
-   */
-  async requestLastResetTimeForNetwork(guid) {
-    const managedPropertiesPromise =
-        await this.networkConfig_.getManagedProperties(guid);
-    if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
-      return null;
+    /**
+     * Requests traffic counters for active networks.
+     */
+    async requestTrafficCountersForActiveNetworks() {
+        const filter = {
+            filter: FilterType.kActive,
+            networkType: NetworkType.kAll,
+            limit: NO_LIMIT,
+        };
+        const networks = [];
+        const networkStateList = await this.networkConfig_.getNetworkStateList(filter);
+        for (const networkState of networkStateList.result) {
+            const trafficCounters = await this.requestTrafficCountersForNetwork(networkState.guid);
+            const lastResetTime = await this.requestLastResetTimeForNetwork(networkState.guid);
+            const friendlyDate = await this.requestFriendlyDateForNetwork(networkState.guid);
+            const autoReset = await this.requestEnableAutoResetBooleanForNetwork(networkState.guid);
+            const userSpecifiedResetDay = await this.requestUserSpecifiedResetDayForNetwork(networkState.guid);
+            networks.push(createNetwork$1(networkState.guid, networkState.name, networkState.type, trafficCounters, lastResetTime, friendlyDate, autoReset, userSpecifiedResetDay));
+        }
+        return networks;
     }
-    return managedPropertiesPromise.result.trafficCounterProperties
-               .lastResetTime ||
-        null;
-  }
-
-  /**
-   * Requests a reader friendly date, corresponding to the last reset time,
-   * for the given network.
-   * @param {string} guid
-   * @return {?Promise<?string>} friendly date corresponding to the last rest
-   * time for network matching |guid|.
-   */
-  async requestFriendlyDateForNetwork(guid) {
-    const managedPropertiesPromise =
-        await this.networkConfig_.getManagedProperties(guid);
-    if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
-      return null;
+    /**
+     * Resets traffic counters for the given network.
+     */
+    async resetTrafficCountersForNetwork(guid) {
+        await this.networkConfig_.resetTrafficCounters(guid);
     }
-    return managedPropertiesPromise.result.trafficCounterProperties
-               .friendlyDate ||
-        null;
-  }
-
-  /**
-   * Requests enable traffic counters auto reset boolean for the given network.
-   * @param {string} guid
-   * @return {!Promise<boolean>} whether traffic counter auto reset is enabled
-   */
-  async requestEnableAutoResetBooleanForNetwork(guid) {
-    const managedPropertiesPromise =
-        await this.networkConfig_.getManagedProperties(guid);
-    if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
-      return false;
+    /**
+     * Requests traffic counters for the given network.
+     */
+    async requestTrafficCountersForNetwork(guid) {
+        const trafficCountersObj = await this.networkConfig_.requestTrafficCounters(guid);
+        return trafficCountersObj.trafficCounters;
     }
-    return managedPropertiesPromise.result.trafficCounterProperties.autoReset;
-  }
-
-  /**
-   * Requests user specified reset day for the given network.
-   * @param {string} guid
-   * @return {!Promise<number>}
-   */
-  async requestUserSpecifiedResetDayForNetwork(guid) {
-    const managedPropertiesPromise =
-        await this.networkConfig_.getManagedProperties(guid);
-    if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
-      return kDefaultResetDay;
+    /**
+     * Requests last reset time for the given network.
+     */
+    async requestLastResetTimeForNetwork(guid) {
+        const managedPropertiesPromise = await this.networkConfig_.getManagedProperties(guid);
+        if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
+            return null;
+        }
+        return managedPropertiesPromise.result.trafficCounterProperties
+            .lastResetTime ||
+            null;
     }
-    return managedPropertiesPromise.result.trafficCounterProperties
-        .userSpecifiedResetDay;
-  }
-
-  /**
-   * Sets values for auto reset.
-   * @param {string} guid
-   * @param {boolean} autoReset
-   * @param {?UInt32Value} resetDay
-   */
-  async setTrafficCountersAutoResetForNetwork(guid, autoReset, resetDay) {
-    await this.networkConfig_.setTrafficCountersAutoReset(
-        guid, autoReset, resetDay);
-  }
+    /**
+     * Requests a reader friendly date, corresponding to the last reset time,
+     * for the given network.
+     */
+    async requestFriendlyDateForNetwork(guid) {
+        const managedPropertiesPromise = await this.networkConfig_.getManagedProperties(guid);
+        if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
+            return null;
+        }
+        return managedPropertiesPromise.result.trafficCounterProperties
+            .friendlyDate ||
+            null;
+    }
+    /**
+     * Requests enable traffic counters auto reset boolean for the given network.
+     */
+    async requestEnableAutoResetBooleanForNetwork(guid) {
+        const managedPropertiesPromise = await this.networkConfig_.getManagedProperties(guid);
+        if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
+            return false;
+        }
+        return managedPropertiesPromise.result.trafficCounterProperties.autoReset;
+    }
+    /**
+     * Requests user specified reset day for the given network.
+     */
+    async requestUserSpecifiedResetDayForNetwork(guid) {
+        const managedPropertiesPromise = await this.networkConfig_.getManagedProperties(guid);
+        if (!managedPropertiesPromise || !managedPropertiesPromise.result) {
+            return kDefaultResetDay;
+        }
+        return managedPropertiesPromise.result.trafficCounterProperties
+            .userSpecifiedResetDay;
+    }
+    /**
+     * Sets values for auto reset.
+     */
+    async setTrafficCountersAutoResetForNetwork(guid, autoReset, resetDay) {
+        await this.networkConfig_.setTrafficCountersAutoReset(guid, autoReset, resetDay);
+    }
 }
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
  * @fileoverview Polymer element for a container used in displaying network
  * traffic information.
  */
-
 /**
  * Image file name corresponding to network type.
- * @enum {string}
  */
-const TechnologyIcons = {
-  CELLULAR: 'cellular_0.svg',
-  ETHERNET: 'ethernet.svg',
-  VPN: 'vpn.svg',
-  WIFI: 'wifi_0.svg',
-};
-
+var TechnologyIcons;
+(function (TechnologyIcons) {
+    TechnologyIcons["CELLULAR"] = "cellular_0.svg";
+    TechnologyIcons["ETHERNET"] = "ethernet.svg";
+    TechnologyIcons["VPN"] = "vpn.svg";
+    TechnologyIcons["WIFI"] = "wifi_0.svg";
+})(TechnologyIcons || (TechnologyIcons = {}));
 /**
  * Helper function to create a Network object.
- * @param {string} guid
- * @param {string} name
- * @param {!NetworkType} type
- * @param {!Array<!Object>} counters
- * @param {?Time} lastResetTime
- * @return {Network} Network object
  */
 function createNetwork(guid, name, type, counters, lastResetTime) {
-  return {
-    guid: guid,
-    name: name,
-    type: type,
-    counters: counters,
-    lastResetTime: lastResetTime,
-  };
+    return {
+        guid: guid,
+        name: name,
+        type: type,
+        counters: counters,
+        lastResetTime: lastResetTime,
+    };
 }
-
 /**
  * Replacer function used to handle the bigint type.
- * @param {string} key
- * @param {*|null|undefined} value
- * @return {*|undefined} value in string format
  */
-function replacer(key, value) {
-  return typeof value === 'bigint' ? value.toString() : value;
+function replacer(_key, value) {
+    return typeof value === 'bigint' ? value.toString() : value;
 }
-
 /**
  * Converts a mojo time to JS. TODO(b/200327630)
- * @param {!Time} mojoTime
- * @return {!Date}
  */
 function convertMojoTimeToJS(mojoTime) {
-  // The JS Date() is based off of the number of milliseconds since the
-  // UNIX epoch (1970-01-01 00::00:00 UTC), while |internalValue| of the
-  // base::Time (represented in mojom.Time) represents the number of
-  // microseconds since the Windows FILETIME epoch (1601-01-01 00:00:00 UTC).
-  // This computes the final JS time by computing the epoch delta and the
-  // conversion from microseconds to milliseconds.
-  const windowsEpoch = Date.UTC(1601, 0, 1, 0, 0, 0, 0);
-  const unixEpoch = Date.UTC(1970, 0, 1, 0, 0, 0, 0);
-  // |epochDeltaInMs| equals to base::Time::kTimeToMicrosecondsOffset.
-  const epochDeltaInMs = unixEpoch - windowsEpoch;
-  const timeInMs = Number(mojoTime.internalValue) / 1000;
-
-  return new Date(timeInMs - epochDeltaInMs);
+    // The JS Date() is based off of the number of milliseconds since the
+    // UNIX epoch (1970-01-01 00::00:00 UTC), while |internalValue| of the
+    // base::Time (represented in mojom.Time) represents the number of
+    // microseconds since the Windows FILETIME epoch (1601-01-01 00:00:00 UTC).
+    // This computes the final JS time by computing the epoch delta and the
+    // conversion from microseconds to milliseconds.
+    const windowsEpoch = Date.UTC(1601, 0, 1, 0, 0, 0, 0);
+    const unixEpoch = Date.UTC(1970, 0, 1, 0, 0, 0, 0);
+    // |epochDeltaInMs| equals to base::Time::kTimeToMicrosecondsOffset.
+    const epochDeltaInMs = unixEpoch - windowsEpoch;
+    const timeInMs = Number(mojoTime.internalValue) / 1000;
+    return new Date(timeInMs - epochDeltaInMs);
 }
-
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const TrafficCountersElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
+const TrafficCountersElementBase = I18nMixin(PolymerElement);
 class TrafficCountersElement extends TrafficCountersElementBase {
-  static get is() {
-    return 'traffic-counters';
-  }
-
-  static get template() {
-    return getTemplate$1t();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * Information about networks.
-       * @private {!Array<!Network>}
-       */
-      networks_: {type: Array, value: []},
-    };
-  }
-
-  constructor() {
-    super();
-
+    static get is() {
+        return 'traffic-counters';
+    }
+    static get template() {
+        return getTemplate$1u();
+    }
+    static get properties() {
+        return {
+            /**
+             * Information about networks.
+             */
+            networks_: { type: Array, value: [] },
+        };
+    }
+    constructor() {
+        super();
+        /**
+         * Expanded state per network type.
+         */
+        this.typeExpanded_ = [];
+        /**
+         * Adapter to access traffic counters functionality.
+         */
+        this.trafficCountersAdapter_ = new TrafficCountersAdapter();
+    }
     /**
-     * Expanded state per network type.
-     * @private {!Array<boolean>}
+     * Handles requests to request traffic counters.
      */
-    this.typeExpanded_ = [];
-
+    async onRequestTrafficCountersClick_() {
+        await this.fetchTrafficCountersForActiveNetworks_();
+    }
     /**
-     * Adapter to access traffic counters functionality.
-     * @private {!TrafficCountersAdapter}
+     * Handles requests to reset traffic counters.
      */
-    this.trafficCountersAdapter_ = new TrafficCountersAdapter();
-  }
-
-  /**
-   * Handles requests to request traffic counters.
-   * @private
-   */
-  async onRequestTrafficCountersClick_() {
-    await this.fetchTrafficCountersForActiveNetworks_();
-  }
-
-  /**
-   * Handles requests to reset traffic counters.
-   * @param {!Event} event
-   * @private
-   */
-  async onResetTrafficCountersClick_(event) {
-    const network = event.model.network;
-    await this.trafficCountersAdapter_.resetTrafficCountersForNetwork(
-        network.guid);
-    let trafficCounters =
-        await this.trafficCountersAdapter_.requestTrafficCountersForNetwork(
-            network.guid);
-    trafficCounters = this.convertSourceEnumToString_(trafficCounters);
-    const lastResetTime =
-        await this.trafficCountersAdapter_.requestLastResetTimeForNetwork(
-            network.guid);
-    const foundIdx = this.networks_.findIndex(n => n.guid === network.guid);
-    if (foundIdx === -1) {
-      return;
+    async onResetTrafficCountersClick_(event) {
+        const network = event.model.network;
+        await this.trafficCountersAdapter_.resetTrafficCountersForNetwork(network.guid);
+        const trafficCounters = await this.trafficCountersAdapter_.requestTrafficCountersForNetwork(network.guid);
+        const lastResetTime = await this.trafficCountersAdapter_.requestLastResetTimeForNetwork(network.guid);
+        const foundIdx = this.networks_.findIndex(n => n.guid === network.guid);
+        if (foundIdx === -1) {
+            return;
+        }
+        this.splice('networks_', foundIdx, 1, createNetwork(network.guid, network.name, network.type, trafficCounters, lastResetTime));
     }
-    this.splice(
-        'networks_', foundIdx, 1,
-        createNetwork(
-            network.guid, network.name, network.type, trafficCounters,
-            lastResetTime));
-  }
-
-  /**
-   * Requests traffic counters for networks.
-   * @return {!Promise<!Array<!Network>>} information about networks
-   */
-  async fetchTrafficCountersForActiveNetworks_() {
-    const networks = await this.trafficCountersAdapter_
-                         .requestTrafficCountersForActiveNetworks();
-    for (const network of networks) {
-      network.counters = this.convertSourceEnumToString_(network.counters);
+    /**
+     * Requests traffic counters for networks.
+     */
+    async fetchTrafficCountersForActiveNetworks_() {
+        const networks = await this.trafficCountersAdapter_
+            .requestTrafficCountersForActiveNetworks();
+        this.networks_ = networks;
+        return this.networks_;
     }
-    this.networks_ = networks;
-    return this.networks_;
-  }
-
-  /**
-   * @param {!NetworkType} type
-   * @return {string} A string for the given NetworkType.
-   * @private
-   */
-  getNetworkTypeString_(type) {
-    return this.i18n('OncType' + OncMojo.getNetworkTypeString(type));
-  }
-
-  /**
-   * @param {!NetworkType} type
-   * @return {string} An icon for the given NetworkType.
-   * @private
-   */
-  getNetworkTypeIcon_(type) {
-    switch (type) {
-      case NetworkType.kEthernet:
-        return TechnologyIcons.ETHERNET;
-      case NetworkType.kWiFi:
-        return TechnologyIcons.WIFI;
-      case NetworkType.kVPN:
-        return TechnologyIcons.VPN;
-      case NetworkType.kTether:
-      case NetworkType.kMobile:
-      case NetworkType.kCellular:
-        return TechnologyIcons.CELLULAR;
-      default:
-        return '';
+    getNetworkTypeString_(type) {
+        return this.i18n('OncType' + OncMojo.getNetworkTypeString(type));
     }
-  }
-
-  /**
-   * @param {!NetworkType} type
-   * @return {boolean} Whether type should be expanded.
-   * @private
-   * */
-  getTypeExpanded_(type) {
-    if (this.typeExpanded_[type] === undefined) {
-      this.set('typeExpanded_.' + type, false);
-      return false;
+    getNetworkTypeIcon_(type) {
+        switch (type) {
+            case NetworkType.kEthernet:
+                return TechnologyIcons.ETHERNET;
+            case NetworkType.kWiFi:
+                return TechnologyIcons.WIFI;
+            case NetworkType.kVPN:
+                return TechnologyIcons.VPN;
+            case NetworkType.kTether:
+            case NetworkType.kMobile:
+            case NetworkType.kCellular:
+                return TechnologyIcons.CELLULAR;
+            default:
+                return '';
+        }
     }
-    return this.typeExpanded_[type];
-  }
-
-  /**
-   * Helper function to toggle the expanded properties when the network
-   * container is toggled.
-   * @param {!Event} event
-   * @private
-   */
-  onToggleExpanded_(event) {
-    const type = event.model.network.type;
-    this.set('typeExpanded_.' + type, !this.typeExpanded_[type]);
-  }
-
-  /**
-   * Convert the traffic counters' source enum to a readable string.
-   * @param {!Array<!Object>} counters with source enum
-   * @return {!Array<!Object>} counters with source string
-   * @private
-   */
-  convertSourceEnumToString_(counters) {
-    for (const counter of counters) {
-      switch (counter.source) {
-        case TrafficCounterSource.kUnknown:
-          counter.source = this.i18n('TrafficCountersUnknown');
-          break;
-        case TrafficCounterSource.kChrome:
-          counter.source = this.i18n('TrafficCountersChrome');
-          break;
-        case TrafficCounterSource.kUser:
-          counter.source = this.i18n('TrafficCountersUser');
-          break;
-        case TrafficCounterSource.kArc:
-          counter.source = this.i18n('TrafficCountersArc');
-          break;
-        case TrafficCounterSource.kCrosvm:
-          counter.source = this.i18n('TrafficCountersCrosvm');
-          break;
-        case TrafficCounterSource.kPluginvm:
-          counter.source = this.i18n('TrafficCountersPluginvm');
-          break;
-        case TrafficCounterSource.kUpdateEngine:
-          counter.source = this.i18n('TrafficCountersUpdateEngine');
-          break;
-        case TrafficCounterSource.kVpn:
-          counter.source = this.i18n('TrafficCountersVpn');
-          break;
-        case TrafficCounterSource.kSystem:
-          counter.source = this.i18n('TrafficCountersSystem');
-      }
+    getTypeExpanded_(type) {
+        if (this.typeExpanded_[type] === undefined) {
+            this.set('typeExpanded.' + type, false);
+            return false;
+        }
+        return this.typeExpanded_[type];
     }
-    return counters;
-  }
-
-  /**
-   * @param {!Array<!Object>} counters
-   * @return {string} A string representation of the traffic counters for a
-   *     particular network.
-   * @private
-   */
-  countersToString_(counters) {
-    // '\t' describes the number of white space characters to use as white space
-    // while forming the JSON string.
-    return JSON.stringify(counters, replacer, '\t');
-  }
-
-  /**
-   * @param {Network} network
-   * @return {string} a representation of the last reset time for a particular
-   * network.
-   * @private
-   */
-  lastResetTimeString_(network) {
-    if (network.lastResetTime === null || network.lastResetTime === undefined) {
-      return '';
+    /**
+     * Helper function to toggle the expanded properties when the network
+     * container is toggled.
+     */
+    onToggleExpanded_(event) {
+        const type = event.model.network.type;
+        this.set('typeExpanded.' + type, !this.typeExpanded_[type]);
     }
-    return convertMojoTimeToJS(network.lastResetTime).toLocaleString();
-  }
+    countersToString_(counters) {
+        // '\t' describes the number of white space characters to use as white space
+        // while forming the JSON string.
+        return JSON.stringify(counters, replacer, '\t');
+    }
+    lastResetTimeString_(network) {
+        if (network.lastResetTime === null || network.lastResetTime === undefined) {
+            return '';
+        }
+        return convertMojoTimeToJS(network.lastResetTime).toLocaleString();
+    }
 }
 customElements.define(TrafficCountersElement.is, TrafficCountersElement);
 
-function getTemplate$1s() {
+function getTemplate$1t() {
     return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex md-select">#data-usage-wrapper{align-items:center;display:flex}</style>
 <template is="dom-if" if="[[trafficCountersAvailable_]]">
   <div class="settings-box single-column stretch indented first">
@@ -13681,7 +13503,7 @@ class SettingsTrafficCountersElement extends SettingsTrafficCountersElementBase 
         return 'settings-traffic-counters';
     }
     static get template() {
-        return getTemplate$1s();
+        return getTemplate$1t();
     }
     static get properties() {
         return {
@@ -13861,7 +13683,7 @@ class SettingsTrafficCountersElement extends SettingsTrafficCountersElementBase 
 }
 customElements.define(SettingsTrafficCountersElement.is, SettingsTrafficCountersElement);
 
-function getTemplate$1r() {
+function getTemplate$1s() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--section-padding:24px;--bottom-padding:20px;--cr-dialog-title-slot-padding-top:var(--section-padding);--cr-dialog-title-slot-padding-bottom:var(--section-padding);--cr-dialog-title-slot-padding-start:var(--section-padding);--cr-dialog-title-slot-padding-end:var(--section-padding);--cr-dialog-button-container-padding-horizontal:var(--section-padding);--cr-dialog-button-container-padding-bottom:var(--bottom-padding)}[slot=body]>*{margin-inline-start:5px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}#host-device-text-container{display:flex;flex-direction:column;margin-inline-start:18px}#availability-title{color:var(--cros-text-color-secondary);margin-top:5px}#host-device-container{align-items:center;display:flex;margin-top:12px;min-height:46px}#tether-carrier-warning,#tether-description-title,#tether-explanation{margin-top:var(--cr-section-vertical-margin)}#tether-carrier-warning{font-weight:600}#tether-description-list{padding-inline-start:16px}#host-device-lost-container{color:var(--cros-text-color-alert);font-weight:500}#host-device-lost-container iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{tetherConnectionDialogTitle}</div>
@@ -13948,7 +13770,7 @@ class TetherConnectionDialogElement extends TetherConnectionDialogElementBase {
         return 'tether-connection-dialog';
     }
     static get template() {
-        return getTemplate$1r();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -14046,7 +13868,7 @@ class TetherConnectionDialogElement extends TetherConnectionDialogElementBase {
 }
 customElements.define(TetherConnectionDialogElement.is, TetherConnectionDialogElement);
 
-function getTemplate$1q() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}.signin-button{margin-inline-end:8px;padding:8px 16px 8px 8px}.signin-icon{background-color:var(--text-color);margin-inline-end:4px;margin-inline-start:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row:not([warning]){--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
 
 <div id="titleDiv" class="settings-box first">
@@ -14415,7 +14237,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         return 'settings-internet-detail-subpage';
     }
     static get template() {
-        return getTemplate$1q();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -16270,7 +16092,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
 }
 customElements.define(SettingsInternetDetailPageElement.is, SettingsInternetDetailPageElement);
 
-function getTemplate$1p() {
+function getTemplate$1q() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}</style>
 
 <div class="settings-box first">
@@ -16421,7 +16243,7 @@ class SettingsInternetKnownNetworksPageElement extends SettingsInternetKnownNetw
         return 'settings-internet-known-networks-subpage';
     }
     static get template() {
-        return getTemplate$1p();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -16703,6 +16525,46 @@ class SettingsInternetKnownNetworksPageElement extends SettingsInternetKnownNetw
     }
 }
 customElements.define(SettingsInternetKnownNetworksPageElement.is, SettingsInternetKnownNetworksPageElement);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// clang-format on
+
+
+let hideInk = false;
+
+document.addEventListener('pointerdown', function() {
+  hideInk = true;
+}, true);
+
+document.addEventListener('keydown', function() {
+  hideInk = false;
+}, true);
+
+/**
+ * Attempts to track whether focus outlines should be shown, and if they
+ * shouldn't, removes the "ink" (ripple) from a control while focusing it.
+ * This is helpful when a user is clicking/touching, because it's not super
+ * helpful to show focus ripples in that case. This is Polymer-specific.
+ * @param {!Element} toFocus
+ */
+const focusWithoutInk = function(toFocus) {
+  // |toFocus| does not have a 'noink' property, so it's unclear whether the
+  // element has "ink" and/or whether it can be suppressed. Just focus().
+  if (!('noink' in toFocus) || !hideInk) {
+    toFocus.focus();
+    return;
+  }
+
+  // Make sure the element is in the document we're listening to events on.
+  assert$1(document === toFocus.ownerDocument);
+  const {noink} = toFocus;
+  toFocus.noink = true;
+  toFocus.focus();
+  toFocus.noink = noink;
+};
 
 // Copyright 2011 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -17460,10 +17322,10 @@ function hasKeyModifiers(e) {
           this.listBlurred && e.composedPath()[0] === this;
 
       if (this.lastFocused && !restoreFocusToFirst) {
-        focusWithoutInk$1(this.row_.getEquivalentElement(this.lastFocused));
+        focusWithoutInk(this.row_.getEquivalentElement(this.lastFocused));
       } else {
         const firstFocusable = assert$1(this.firstControl_);
-        focusWithoutInk$1(firstFocusable);
+        focusWithoutInk(firstFocusable);
       }
       this.listBlurred = false;
       this.isFocused = true;
@@ -17511,7 +17373,7 @@ function hasKeyModifiers(e) {
     },
   };
 
-function getTemplate$1o() {
+function getTemplate$1p() {
   return html`<!--_html_template_start_--><style include="cr-shared-style internet-shared iron-flex">
   :host {
     display: inline-flex;
@@ -17749,7 +17611,7 @@ NetworkList.CustomItemType = {
 
 
 Polymer({
-  _template: getTemplate$1o(),
+  _template: getTemplate$1p(),
   is: 'network-list-item',
 
   behaviors: [
@@ -19174,7 +19036,7 @@ const ListPropertyUpdateBehavior = {
   },
 };
 
-function getTemplate$1n() {
+function getTemplate$1o() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
 
   network-list-item {
@@ -19233,7 +19095,7 @@ function getTemplate$1n() {
  * Polymer class definition for 'network-list'.
  */
 Polymer({
-  _template: getTemplate$1n(),
+  _template: getTemplate$1o(),
   is: 'network-list',
 
   properties: {
@@ -19385,7 +19247,7 @@ Polymer({
   },
 });
 
-function getTemplate$1m() {
+function getTemplate$1n() {
     return html `<!--_html_template_start_-->
 <style include="settings-shared iron-flex iron-positioning">:host{--cr-dialog-width:372px}paper-spinner-lite{height:20px;position:absolute;right:16px;top:6px;width:20px}#confirmationCodeMessage{margin-bottom:30px}#cancel{margin-inline-end:8px}</style>
 <cr-dialog id="installErrorDialog" show-on-attach>
@@ -19433,7 +19295,7 @@ class EsimInstallErrorDialogElement extends EsimInstallErrorDialogElementBase {
         return 'esim-install-error-dialog';
     }
     static get template() {
-        return getTemplate$1m();
+        return getTemplate$1n();
     }
     static get properties() {
         return {
@@ -19498,7 +19360,7 @@ class EsimInstallErrorDialogElement extends EsimInstallErrorDialogElementBase {
 }
 customElements.define(EsimInstallErrorDialogElement.is, EsimInstallErrorDialogElement);
 
-function getTemplate$1l() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_--><style include="cr-shared-style os-settings-icons settings-shared iron-flex">:host>div{padding-inline-end:calc(var(--cr-section-padding) - var(--cr-icon-ripple-padding));padding-inline-start:var(--cr-section-padding)}.cellular-network-list-separator{border-top:var(--cr-separator-line);padding:0}.cellular-network-list-header{align-items:center;display:flex;height:72px}.esim-list-title{align-self:center}.cellular-network-content{margin-inline-start:32px}.cellular-not-setup{color:var(--cr-secondary-text-color);font-size:small;margin-bottom:16px}.flex{display:flex}.flex-column{display:flex;flex-direction:column}#eidPopupButton{--cr-icon-button-size:18px;cursor:pointer;margin-inline-start:4px}:host-context([dir=rtl]) #addESimButton{transform:scaleX(1)}#alignEnd{align-items:center;display:flex;margin-inline-end:12px;margin-inline-start:auto}#inhibitedSubtext{color:var(--cr-secondary-text-color)}paper-spinner-lite{height:20px;width:20px}cr-policy-indicator{margin-inline-start:24px}.separator{margin-inline-end:0;margin-inline-start:24px}</style>
 <template is="dom-if" if="[[shouldShowEsimSection_(euicc_,
     cellularDeviceState, cellularDeviceState.*)]]" restamp>
@@ -19605,13 +19467,13 @@ function getTemplate$1l() {
  * @fileoverview Polymer element for displaying a summary of Cellular network
  * states
  */
-const CellularNetworksListElementBase = mixinBehaviors([ESimManagerListenerBehavior], WebUiListenerMixin(I18nMixin(PolymerElement)));
+const CellularNetworksListElementBase = ESimManagerListenerMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
 class CellularNetworksListElement extends CellularNetworksListElementBase {
     static get is() {
         return 'cellular-networks-list';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
@@ -19739,6 +19601,16 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
                     'cellularDeviceState.inhibitReason)',
             },
             /**
+             * Return true if instant hotspot rebrand feature flag is enabled
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData$1.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData$1.getBoolean('isInstantHotspotRebrandEnabled');
+                },
+            },
+            /**
              * Return true if SmdsSupportEnabled feature flag is enabled.
              */
             smdsSupportEnabled_: {
@@ -19774,7 +19646,10 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
         }
         const response = await profile.getProperties();
         const eSimPendingProfileItem = this.eSimPendingProfileItems_.find(item => {
-            return item.customData.iccid === response.properties.iccid;
+            if (typeof item.customData === 'object') {
+                return item.customData.iccid === response.properties.iccid;
+            }
+            return false;
         });
         if (!eSimPendingProfileItem) {
             return;
@@ -19890,6 +19765,9 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
     }
     shouldShowTetherSection_(pageContentData) {
         if (!pageContentData) {
+            return false;
+        }
+        if (this.isInstantHotspotRebrandEnabled_) {
             return false;
         }
         return pageContentData.instantTetheringState ===
@@ -20069,7 +19947,7 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
 }
 customElements.define(CellularNetworksListElement.is, CellularNetworksListElement);
 
-function getTemplate$1k() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style include="settings-shared network-shared md-select">#lockdown{border-top:var(--cr-separator-line)}</style>
 
 <div class="property-box">
@@ -20133,7 +20011,7 @@ class NetworkAlwaysOnVpnElement extends NetworkAlwaysOnVpnElementBase {
         return 'network-always-on-vpn';
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -20250,7 +20128,7 @@ class NetworkAlwaysOnVpnElement extends NetworkAlwaysOnVpnElementBase {
 }
 customElements.define(NetworkAlwaysOnVpnElement.is, NetworkAlwaysOnVpnElement);
 
-function getTemplate$1j() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--cr-dialog-body-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:20px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-width:416px;--cr-dialog-title-slot-padding-bottom:12px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-font-size:calc(16 / 13 * 100%)}#qrCodeCanvas{display:block;margin:20px auto 20px auto;max-width:calc(var(--cr-dialog-width) - var(--cr-dialog-title-slot-padding-start) - var(--cr-dialog-title-slot-padding-end))}@media(prefers-color-scheme:dark){#qrCodeCanvas{background-color:var(--cros-icon-color-primary);padding:1px}}.info-container{padding-top:16px}#eidContainer{border-bottom:var(--cr-separator-line)}.info-label{font-weight:700}.info-value{color:var(--cr-primary-text-color)}</style>
 <cr-dialog id="deviceInfoDialog" show-on-attach>
   <div slot="title">$i18n{mobileDeviceInfoPopupTitle}</div>
@@ -20313,7 +20191,7 @@ class NetworkDeviceInfoDialogElement extends I18nMixin(PolymerElement) {
         return 'network-device-info-dialog';
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1k();
     }
     static get properties() {
         return {
@@ -20435,7 +20313,7 @@ class NetworkDeviceInfoDialogElement extends I18nMixin(PolymerElement) {
 }
 customElements.define(NetworkDeviceInfoDialogElement.is, NetworkDeviceInfoDialogElement);
 
-function getTemplate$1i() {
+function getTemplate$1j() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <template is="dom-if" if="[[shouldShowDotsMenuButton_(deviceState)]]" restamp>
   <cr-icon-button id="moreNetworkMenuButton" class="icon-more-vert" title="$i18n{moreActions}" on-click="onDotsClick_">
@@ -20464,13 +20342,13 @@ function getTemplate$1i() {
  * additional technology specific actions for a network type in the network
  * subpage.
  */
-const SettingsInternetSubpageMenuElementBase = mixinBehaviors([ESimManagerListenerBehavior], WebUiListenerMixin(PolymerElement));
+const SettingsInternetSubpageMenuElementBase = ESimManagerListenerMixin(WebUiListenerMixin(PolymerElement));
 class SettingsInternetSubpageMenuElement extends SettingsInternetSubpageMenuElementBase {
     static get is() {
         return 'settings-internet-subpage-menu';
     }
     static get template() {
-        return getTemplate$1i();
+        return getTemplate$1j();
     }
     static get properties() {
         return {
@@ -20515,7 +20393,7 @@ class SettingsInternetSubpageMenuElement extends SettingsInternetSubpageMenuElem
 }
 customElements.define(SettingsInternetSubpageMenuElement.is, SettingsInternetSubpageMenuElement);
 
-function getTemplate$1h() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="cr-shared-style os-settings-icons settings-shared iron-flex">#networkListDiv{min-height:var(--cr-section-min-height)}:host(:not([is-showing-vpn_])) #networkListDiv{margin-top:var(--cr-section-vertical-margin)}#cellularNetworkList{margin-top:calc(-1*var(--cr-section-vertical-margin))}#networkListDiv>*{padding-inline-end:calc(var(--cr-section-padding) - var(--cr-icon-ripple-padding));padding-inline-start:var(--cr-section-padding)}.add-button{margin-inline-end:20px}#onOff{font-weight:500}#onOff[on]{color:var(--cros-text-color-prominent)}.vpn-header{margin-bottom:8px;margin-inline-end:12px;margin-inline-start:4px;margin-top:8px}.no-networks{margin:4px}network-list{flex:1}network-always-on-vpn{width:100%}#gmscore-notifications-container{border-top:var(--cr-separator-line);margin:10px 0;padding-bottom:var(--cr-section-padding);padding-top:var(--cr-section-padding)}#gmscore-notifications-container[no-networks-text-below]{border-bottom:var(--cr-separator-line);margin-top:0}#gmscore-notifications-device-string{margin-top:5px}#gmscore-notifications-instructions{margin:0;padding-inline-start:15px}#cellularNetworkList{padding-inline-end:0;padding-inline-start:0}</style>
 <template is="dom-if" if="[[enableToggleIsVisible_(deviceState)]]">
   <div class="settings-box first">
@@ -20636,7 +20514,7 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
         return 'settings-internet-subpage';
     }
     static get template() {
-        return getTemplate$1h();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -20688,6 +20566,16 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
                 type: Object,
                 value() {
                     return {};
+                },
+            },
+            /**
+             * Return true if instant hotspot rebrand feature flag is enabled.
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
                 },
             },
             isShowingVpn_: {
@@ -20985,7 +20873,8 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
             return;
         }
         // For the Cellular/Mobile subpage, also request Tether networks.
-        if (this.deviceState.type === NetworkType.kCellular &&
+        if (!this.isInstantHotspotRebrandEnabled_ &&
+            this.deviceState.type === NetworkType.kCellular &&
             this.tetherDeviceState) {
             const filter = {
                 filter: FilterType.kVisible,
@@ -21080,7 +20969,9 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
     }
     enableToggleIsVisible_(deviceState) {
         return !!deviceState && deviceState.type !== NetworkType.kEthernet &&
-            deviceState.type !== NetworkType.kVPN;
+            deviceState.type !== NetworkType.kVPN &&
+            (!this.isInstantHotspotRebrandEnabled_ ||
+                deviceState.type !== NetworkType.kTether);
     }
     enableToggleIsEnabled_(deviceState) {
         if (!deviceState) {
@@ -21106,6 +20997,7 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
         }
         switch (deviceState.type) {
             case NetworkType.kTether:
+                return this.i18n('internetToggleTetherA11yLabel');
             case NetworkType.kCellular:
                 return this.i18n('internetToggleMobileA11yLabel');
             case NetworkType.kWiFi:
@@ -21290,7 +21182,8 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
     getNoNetworksInnerHtml_(deviceState, _tetherDeviceState) {
         const type = deviceState.type;
         if (type === NetworkType.kTether ||
-            (type === NetworkType.kCellular && this.tetherDeviceState)) {
+            (!this.isInstantHotspotRebrandEnabled_ &&
+                type === NetworkType.kCellular && this.tetherDeviceState)) {
             return this.i18nAdvanced('internetNoNetworksMobileData').toString();
         }
         if (type === NetworkType.kVPN) {
@@ -21390,7 +21283,7 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
 }
 customElements.define(SettingsInternetSubpageElement.is, SettingsInternetSubpageElement);
 
-function getTemplate$1g() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><style include="settings-shared network-shared">#headlineLink{margin-inline-start:36px}</style>
 <div class="settings-box first two-line">
   <localized-link id="headlineLink" class="secondary" localized-string="$i18n{passpointHeadlineText}" link-url="$i18nRaw{wifiPasspointLearnMoreUrl}">
@@ -21485,7 +21378,7 @@ class SettingsPasspointSubpageElement extends PasspointListenerMixin(RouteObserv
         return 'settings-passpoint-subpage';
     }
     static get template() {
-        return getTemplate$1g();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -21740,7 +21633,7 @@ class KerberosAccountsBrowserProxyImpl {
     }
 }
 
-function getTemplate$1f() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><style include="settings-shared action-link">#advancedConfigDesc{align-items:center;display:flex}#advancedConfigPolicyIndicator{margin-inline-start:1em}#credentials{margin-top:16px}#credentials>:not(:last-child){margin-bottom:var(--cr-form-field-bottom-spacing)}#general-error-container{display:flex;height:56px}#config-error-container{display:flex;height:40px;margin-top:16px}#config-error-message,#general-error-message{color:var(--settings-error-color)}iron-icon[icon='cr:error']{fill:var(--settings-error-color);margin-inline-end:8px}#rememberPasswordContainer{align-items:center;display:flex;margin-bottom:32px}#rememberPassword{margin-inline-end:1em}#kerberosDomain{color:var(--cros-text-color-primary);padding-inline-end:8px;white-space:nowrap}h3{font-size:inherit;font-weight:500;margin-block-end:12px;margin-block-start:0}</style>
 
 <cr-dialog id="addDialog" hidden="[[showAdvancedConfig_]]">
@@ -21845,7 +21738,7 @@ class KerberosAddAccountDialogElement extends KerberosAddAccountDialogElementBas
         return 'kerberos-add-account-dialog';
     }
     static get template() {
-        return getTemplate$1f();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -22250,7 +22143,7 @@ class KerberosAddAccountDialogElement extends KerberosAddAccountDialogElementBas
 }
 customElements.define(KerberosAddAccountDialogElement.is, KerberosAddAccountDialogElement);
 
-function getTemplate$1e() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.account-icon{background:center no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}#account-list-header{padding-bottom:1em}#remove-account-policy-indicator,.account-toolbar{margin-inline-start:1em}#add-account-policy-indicator{margin-inline-end:1em}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}#remove-account-container{align-items:center;display:flex}.error-badge{left:60%;position:relative;top:60%}.warning{color:var(--cros-text-color-alert)}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}</style>
 
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
@@ -22366,7 +22259,7 @@ class SettingsKerberosAccountsSubpageElement extends SettingsKerberosAccountsSub
         return 'settings-kerberos-accounts-subpage';
     }
     static get template() {
-        return getTemplate$1e();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -22533,1231 +22426,6 @@ class SettingsKerberosAccountsSubpageElement extends SettingsKerberosAccountsSub
     }
 }
 customElements.define(SettingsKerberosAccountsSubpageElement.is, SettingsKerberosAccountsSubpageElement);
-
-function getTemplate$1d() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.settings-box.indented,settings-toggle-button.indented{margin-inline-start:calc(var(--cr-section-indent-padding) + var(--cr-section-indent-width))}#screenMagnifierZoomHintLabel{white-space:pre-line}#colorFilteringDeficiencyTypeDropdown{--md-select-width:300px}.color-item>.settings-box{border-top:none}.color-preview-holder{border:1px solid var(--cros-separator-color);border-radius:8px;gap:16px;margin-bottom:16px;margin-inline-end:20px;padding:16px 0;text-align:center}.color-preview-holder table{border-collapse:collapse;border-spacing:0;margin:0 auto}.color-preview-holder th{font-weight:400;padding-bottom:4px;padding-top:16px}.color-preview-holder td{margin:0;padding:0}.color-preview{height:92px;width:calc(524px / 8)}.color-preview.red{background:linear-gradient(180deg,var(--cros-color-preview-red),transparent)}.color-preview.orange{background:linear-gradient(180deg,var(--cros-color-preview-orange),transparent)}.color-preview.yellow{background:linear-gradient(180deg,var(--cros-color-preview-yellow),transparent)}.color-preview.green{background:linear-gradient(180deg,var(--cros-color-preview-green),transparent)}.color-preview.cyan{background:linear-gradient(180deg,var(--cros-color-preview-cyan),transparent)}.color-preview.blue{background:linear-gradient(180deg,var(--cros-color-preview-blue),transparent)}.color-preview.purple{background:linear-gradient(180deg,var(--cros-color-preview-purple),transparent)}.color-preview.gray{background:linear-gradient(180deg,var(--cros-color-preview-grey),transparent)}</style>
-<settings-toggle-button id="enableColorFiltering" icon="os-settings:color-correction" pref="{{prefs.settings.a11y.color_filtering.enabled}}" label="$i18n{colorFilteringLabel}" sub-label="$i18n{colorFilteringDescription}" deep-link-focus-id$="[[Setting.kColorCorrectionEnabled]]">
-</settings-toggle-button>
-<template is="dom-if" if="[[prefs.settings.a11y.color_filtering.enabled.value]]">
-  <div class="sub-item color-item">
-    <div class="settings-box">
-      <div class="start settings-box-text">
-        <div class="label" aria-hidden="true">
-          $i18n{colorVisionDeficiencyTypeLabel}
-        </div>
-      </div>
-      <settings-dropdown-menu id="colorFilteringDeficiencyTypeDropdown" label="$i18n{colorVisionDeficiencyTypeLabel}" pref="{{prefs.settings.a11y.color_filtering.color_vision_deficiency_type}}" menu-options="[[colorVisionDeficiencyTypeOptions_]]" deep-link-focus-id$="[[Setting.kColorCorrectionFilterType]]">
-      </settings-dropdown-menu>
-    </div>
-    <div class="settings-box">
-      <div class="start settings-box-text" aria-hidden="true">
-        $i18n{colorVisionFilterIntensityLabel}
-      </div>
-      <settings-slider id="colorFilteringIntensitySlider" pref="{{prefs.settings.a11y.color_filtering.color_vision_correction_amount}}" min="0" max="100" label-aria="$i18n{colorVisionFilterIntensityLabel}" label-min="$i18n{colorFilterMinLabel}" label-max="$i18n{colorFilterMaxLabel}" deep-link-focus-id$="[[Setting.kColorCorrectionFilterAmount]]">
-      </settings-slider>
-    </div>
-    <div class="color-preview-holder">
-      <div>$i18n{colorFilteringPreviewInstructions}</div>
-      <table>
-        <tr>
-          <th>$i18n{colorFilteringPreviewColorRed}</th>
-          <th>$i18n{colorFilteringPreviewColorOrange}</th>
-          <th>$i18n{colorFilteringPreviewColorYellow}</th>
-          <th>$i18n{colorFilteringPreviewColorGreen}</th>
-          <th>$i18n{colorFilteringPreviewColorCyan}</th>
-          <th>$i18n{colorFilteringPreviewColorBlue}</th>
-          <th>$i18n{colorFilteringPreviewColorPurple}</th>
-          <th>$i18n{colorFilteringPreviewColorGray}</th>
-        </tr>
-        <tr>
-          <td><div class="color-preview red"></div></td>
-          <td><div class="color-preview orange"></div></td>
-          <td><div class="color-preview yellow"></div></td>
-          <td><div class="color-preview green"></div></td>
-          <td><div class="color-preview cyan"></div></td>
-          <td><div class="color-preview blue"></div></td>
-          <td><div class="color-preview purple"></div></td>
-          <td><div class="color-preview gray"></div></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</template>
-<settings-toggle-button icon="os-settings:contrast" pref="{{prefs.settings.a11y.high_contrast_enabled}}" label="$i18n{highContrastLabel}" sub-label="$i18n{highContrastDescription}" deep-link-focus-id$="[[Setting.kHighContrastMode]]" class="hr">
-</settings-toggle-button>
-<settings-toggle-button class="hr" icon="os-settings:fullscreen-magnifier" pref="{{prefs.settings.a11y.screen_magnifier}}" label="$i18n{screenMagnifierLabel}" sub-label="[[getScreenMagnifierDescription_(
-        prefs.settings.a11y.screen_magnifier.value)]]" disabled="[[prefs.ash.docked_magnifier.enabled.value]]" deep-link-focus-id$="[[Setting.kFullscreenMagnifier]]">
-</settings-toggle-button>
-<template is="dom-if" if="[[prefs.settings.a11y.screen_magnifier.value]]">
-  <div class="sub-item">
-    <div class="hr">
-      <settings-radio-group id="screenMagnifierMouseFollowingModeRadioGroup" pref="{{prefs.settings.a11y.screen_magnifier_mouse_following_mode}}">
-        <controlled-radio-button id="screenMagnifierMouseFollowingModeContinuous" name="[[screenMagnifierMouseFollowingModePrefValues_.CONTINUOUS]]" pref="[[prefs.settings.a11y.screen_magnifier_mouse_following_mode]]" label="$i18n{screenMagnifierMouseFollowingModeContinuous}">
-        </controlled-radio-button>
-        <controlled-radio-button id="screenMagnifierMouseFollowingModeCentered" name="[[screenMagnifierMouseFollowingModePrefValues_.CENTERED]]" pref="[[prefs.settings.a11y.screen_magnifier_mouse_following_mode]]" label="$i18n{screenMagnifierMouseFollowingModeCentered}">
-        </controlled-radio-button>
-        <controlled-radio-button id="screenMagnifierMouseFollowingModeEdge" name="[[screenMagnifierMouseFollowingModePrefValues_.EDGE]]" pref="[[prefs.settings.a11y.screen_magnifier_mouse_following_mode]]" label="$i18n{screenMagnifierMouseFollowingModeEdge}">
-        </controlled-radio-button>
-      </settings-radio-group>
-    </div>
-    <settings-toggle-button class="settings-box hr" pref="{{prefs.settings.a11y.screen_magnifier_focus_following}}" label="$i18n{screenMagnifierFocusFollowingLabel}" deep-link-focus-id$="[[Setting.kFullscreenMagnifierFocusFollowing]]">
-    </settings-toggle-button>
-    <div class="settings-box">
-      <div class="flex start settings-box-text" id="labelWrapper">
-        <div class="label" aria-hidden="true">
-          $i18n{screenMagnifierZoomLabel}
-        </div>
-        
-        <div id="screenMagnifierZoomHintLabel" class="secondary label">$i18n{screenMagnifierZoomHintLabel}</div>
-      </div>
-      <settings-dropdown-menu label="$i18n{screenMagnifierZoomLabel}" pref="{{prefs.settings.a11y.screen_magnifier_scale}}" menu-options="[[screenMagnifierZoomOptions_]]" disabled="[[!prefs.settings.a11y.screen_magnifier.value]]">
-      </settings-dropdown-menu>
-    </div>
-  </div>
-</template>
-<settings-toggle-button class="hr" icon="os-settings:docked-magnifier" pref="{{prefs.ash.docked_magnifier.enabled}}" label="$i18n{dockedMagnifierLabel}" sub-label="$i18n{dockedMagnifierDescription}" disabled="[[prefs.settings.a11y.screen_magnifier.value]]" deep-link-focus-id$="[[Setting.kDockedMagnifier]]">
-</settings-toggle-button>
-<template is="dom-if" if="[[prefs.ash.docked_magnifier.enabled.value]]">
-  <div class="sub-item">
-    <div class="settings-box">
-      <div class="start settings-box-text" aria-hidden="true">
-        $i18n{dockedMagnifierZoomLabel}
-      </div>
-      <settings-dropdown-menu label="$i18n{dockedMagnifierZoomLabel}" pref="{{prefs.ash.docked_magnifier.scale}}" menu-options="[[screenMagnifierZoomOptions_]]" disabled="[[!prefs.ash.docked_magnifier.enabled.value]]">
-      </settings-dropdown-menu>
-    </div>
-  </div>
-</template>
-<template is="dom-if" if="[[!isKioskModeActive_]]">
-  <cr-link-row id="displaySubpageButton" class="hr" label="$i18n{displaySettingsTitle}" on-click="onDisplayClick_" sub-label="$i18n{displaySettingsDescription}" role-description="$i18n{subpageArrowRoleDescription}" embedded>
-  </cr-link-row>
-  <cr-link-row id="appearanceSubpageButton" class="hr" label="$i18n{appearanceSettingsTitle}" on-click="onAppearanceClick_" sub-label="$i18n{appearanceSettingsDescription}" external embedded>
-  </cr-link-row>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-display-and-magnification-subpage' is the accessibility settings
- * subpage for display and magnification accessibility settings.
- */
-const SettingsDisplayAndMagnificationSubpageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
-class SettingsDisplayAndMagnificationSubpageElement extends SettingsDisplayAndMagnificationSubpageElementBase {
-    static get is() {
-        return 'settings-display-and-magnification-subpage';
-    }
-    static get template() {
-        return getTemplate$1d();
-    }
-    static get properties() {
-        return {
-            /**
-             * Enum values for the
-             * 'settings.a11y.screen_magnifier_mouse_following_mode' preference. These
-             * values map to AccessibilityController::MagnifierMouseFollowingMode, and
-             * are written to prefs and metrics, so order should not be changed.
-             */
-            screenMagnifierMouseFollowingModePrefValues_: {
-                readOnly: true,
-                type: Object,
-                value: {
-                    CONTINUOUS: 0,
-                    CENTERED: 1,
-                    EDGE: 2,
-                },
-            },
-            screenMagnifierZoomOptions_: {
-                readOnly: true,
-                type: Array,
-                value() {
-                    // These values correspond to the i18n values in
-                    // settings_strings.grdp. If these values get changed then those
-                    // strings need to be changed as well.
-                    return [
-                        { value: 2, name: loadTimeData.getString('screenMagnifierZoom2x') },
-                        { value: 4, name: loadTimeData.getString('screenMagnifierZoom4x') },
-                        { value: 6, name: loadTimeData.getString('screenMagnifierZoom6x') },
-                        { value: 8, name: loadTimeData.getString('screenMagnifierZoom8x') },
-                        { value: 10, name: loadTimeData.getString('screenMagnifierZoom10x') },
-                        { value: 12, name: loadTimeData.getString('screenMagnifierZoom12x') },
-                        { value: 14, name: loadTimeData.getString('screenMagnifierZoom14x') },
-                        { value: 16, name: loadTimeData.getString('screenMagnifierZoom16x') },
-                        { value: 18, name: loadTimeData.getString('screenMagnifierZoom18x') },
-                        { value: 20, name: loadTimeData.getString('screenMagnifierZoom20x') },
-                    ];
-                },
-            },
-            colorVisionDeficiencyTypeOptions_: {
-                readOnly: true,
-                type: Array,
-                value() {
-                    // The first 3 values correspond to ColorVisionDeficiencyType enums in
-                    // ash/color_enhancement/color_enhancement_controller.cc.
-                    // CVD types are ordered here by how common they are.
-                    // The final value is a greyscale color filter.
-                    return [
-                        { value: 1, name: loadTimeData.getString('deuteranomalyFilter') },
-                        { value: 0, name: loadTimeData.getString('protanomalyFilter') },
-                        { value: 2, name: loadTimeData.getString('tritanomalyFilter') },
-                        { value: 3, name: loadTimeData.getString('greyscaleLabel') },
-                    ];
-                },
-            },
-            /**
-             * Whether the user is in kiosk mode.
-             */
-            isKioskModeActive_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isKioskModeActive');
-                },
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kColorCorrectionEnabled,
-                    Setting.kColorCorrectionFilterType,
-                    Setting.kColorCorrectionFilterAmount,
-                    Setting.kFullscreenMagnifier,
-                    Setting.kFullscreenMagnifierMouseFollowingMode,
-                    Setting.kFullscreenMagnifierFocusFollowing,
-                    Setting.kDockedMagnifier,
-                ]),
-            },
-        };
-    }
-    constructor() {
-        super();
-        /** RouteOriginMixin override */
-        this.route = routes.A11Y_DISPLAY_AND_MAGNIFICATION;
-    }
-    ready() {
-        super.ready();
-        this.addFocusConfig(routes.DISPLAY, '#displaySubpageButton');
-    }
-    /**
-     * Note: Overrides RouteOriginMixin implementation
-     */
-    currentRouteChanged(newRoute, prevRoute) {
-        super.currentRouteChanged(newRoute, prevRoute);
-        // Does not apply to this page.
-        if (newRoute !== this.route) {
-            return;
-        }
-        this.attemptDeepLink();
-    }
-    /**
-     * Return Fullscreen magnifier description text based on whether Fullscreen
-     * magnifier is enabled.
-     */
-    getScreenMagnifierDescription_(enabled) {
-        return this.i18n(enabled ? 'screenMagnifierDescriptionOn' :
-            'screenMagnifierDescriptionOff');
-    }
-    onDisplayClick_() {
-        Router.getInstance().navigateTo(routes.DISPLAY, 
-        /* dynamicParams= */ undefined, /* removeSearch= */ true);
-    }
-    onAppearanceClick_() {
-        chrome.send('showBrowserAppearanceSettings');
-    }
-}
-customElements.define(SettingsDisplayAndMagnificationSubpageElement.is, SettingsDisplayAndMagnificationSubpageElement);
-
-const template$3 = html `
-<style>
-html{--dialog-horizontal-padding:24px}
-</style>
-`;
-document.head.appendChild(template$3.content);
-
-const styleMod = document.createElement('dom-module');
-styleMod.appendChild(html `
-  <template>
-    <style>
-cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-icon-color-primary);--cr-search-field-clear-icon-margin-end:8px;--cr-search-field-clear-icon-size:18px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-min-height:32px;--cr-search-field-input-padding-bottom:0;--cr-search-field-input-padding-start:8px;--cr-search-field-input-padding-top:0;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-input-underline-height:4px;--cr-search-field-input-width:100%;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-icon-color-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;background-color:var(--cros-textfield-background-color);border-radius:4px}cr-dialog [slot=title]{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding);padding-top:var(--dialog-horizontal-padding)}cr-dialog [slot=body]{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding)}cr-dialog [slot=button-container]{padding-bottom:20px;padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding);padding-top:20px}.centered-message{align-items:center;color:var(--md-loading-message-color);display:flex;flex:1;font-size:108%;font-weight:500;height:100%;justify-content:center}
-    </style>
-  </template>
-`.content);
-styleMod.register('shared-style');
-
-function getTemplate$1c() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex shared-style">#dialogBody{display:flex;flex-direction:column;height:420px;overflow:auto;padding-inline-end:0;padding-inline-start:0}h3{color:var(--cros-text-color-secondary);font-size:inherit;margin:0;min-height:36px;padding-bottom:0;padding-top:0}cr-search-field{margin-bottom:16px;margin-inline-end:var(--dialog-horizontal-padding);margin-inline-start:var(--dialog-horizontal-padding);margin-top:16px}iron-icon[icon='settings:check-circle']{margin-inline-end:26px}.previous{fill:var(--cros-text-color-secondary)}.active{fill:var(--cr-link-color)}.hidden{visibility:hidden}.subtitle{color:var(--cros-text-color-secondary)}iron-list>div:not(.selected):hover{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>:not(.no-outline):focus{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>.selected:not(.no-outline):focus{background-color:transparent}.list-item{color:var(--cros-text-color-primary);min-height:36px}.padded{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding)}paper-ripple{color:var(--cros-menu-item-ripple-color)}</style>
-
-<cr-dialog id="changeDictationLocaleDialog" close-text="$i18n{close}" show-on-attach>
-  <div slot="title">$i18n{dictationChangeLanguageDialogTitle}</div>
-  <div id="dialogBody" slot="body" scrollable>
-    <cr-search-field label="$i18n{dictationChangeLanguageDialogSearchHint}" id="search" on-search-changed="onSearchChanged_" clear-label="$i18n{dictationChangeLanguageDialogSearchClear}" on-keydown="onKeydown_" autofocus>
-    </cr-search-field>
-    <h3 class="padded" hidden$="[[recommendedLocalesEmpty_]]">
-      $i18n{dictationChangeLanguageDialogRecommended}
-    </h3>
-    <iron-list id="recommendedLocalesList" items="[[recommendedLocales_]]" selection-enabled selected-item="{{selectedRecommendedLocale_}}" on-selected-item-changed="selectedRecommendedLocaleChanged_" hidden$="[[recommendedLocalesEmpty_]]" scroll-target="[[$$('[slot=body]')]]">
-      <template>
-        
-        <div class$="list-item [[getItemClass_(selected)]]" role="button" tabindex$="[[tabIndex]]" aria-label="[[getAriaLabelForItem_(item, selected)]]">
-          <paper-ripple></paper-ripple>
-          <div class="flex padded" aria-hidden="true">
-            [[item.name]]
-            <div class="subtitle" hidden="[[!item.worksOffline]]">
-              $i18n{dictationLocaleOfflineSubtitle}
-            </div>
-          </div>
-          <iron-icon icon="settings:check-circle" class$="[[getIconClass_(item, selected)]]">
-          </iron-icon>
-        </div>
-      </template>
-    </iron-list>
-    <h3 class="padded" hidden$="[[displayedLocalesEmpty_]]">
-      $i18n{dictationChangeLanguageDialogAll}
-    </h3>
-    <iron-list id="allLocalesList" items="[[displayedLocales_]]" selection-enabled selected-item="{{selectedLocale_}}" on-selected-item-changed="selectedLocaleChanged_" hidden$="[[displayedLocalesEmpty_]]" scroll-target="[[$$('[slot=body]')]]">
-      <template>
-        <div class$="list-item [[getItemClass_(selected)]]" role="button" tabindex$="[[tabIndex]]" aria-label="[[getAriaLabelForItem_(item, selected)]]">
-          <paper-ripple></paper-ripple>
-          <div class="flex padded" aria-hidden="true">
-            [[item.name]]
-            <div class="subtitle" hidden="[[!item.worksOffline]]">
-              $i18n{dictationLocaleOfflineSubtitle}
-            </div>
-          </div>
-          <iron-icon icon="settings:check-circle" class$="[[getIconClass_(item, selected)]]">
-          </iron-icon>
-        </div>
-      </template>
-    </iron-list>
-    <div id="no-search-results" class="centered-message" hidden$="[[!displayedLocalesEmpty_]]">
-      $i18n{dictationChangeLanguageDialogNoResults}
-    </div>
-  </div>
-  <div slot="button-container">
-    <cr-button id="cancel" class="cancel-button" on-click="onCancelClick_">
-      $i18n{dictationChangeLanguageDialogCancelButton}
-    </cr-button>
-    <cr-button id="update" class="action-button" on-click="onUpdateClick_" disabled="[[disableUpdateButton_]]">
-      $i18n{dictationChangeLanguageDialogUpdateButton}
-    </cr-button>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This dialog holds a Dictation locale selection pane that
- * allows a user to pick their locale for Dictation's speech recognition.
- */
-const ChangeDictationLocaleDialogBase = I18nMixin(PolymerElement);
-class ChangeDictationLocaleDialog extends ChangeDictationLocaleDialogBase {
-    static get is() {
-        return 'os-settings-change-dictation-locale-dialog';
-    }
-    static get template() {
-        return getTemplate$1c();
-    }
-    static get properties() {
-        return {
-            /**
-             * Set by the manage OS a11y page, this is the full list of locales
-             * available.
-             */
-            options: Array,
-            /**
-             * Preference associated with Dictation locales.
-             */
-            pref: Object,
-            displayedLocales_: {
-                type: Array,
-                computed: `getAllDictationLocales_(options, lowercaseQueryString_)`,
-            },
-            recommendedLocales_: {
-                type: Array,
-                computed: `getRecommendedDictationLocales_(options, lowercaseQueryString_)`,
-            },
-            /**
-             * Whether any locales are displayed.
-             */
-            displayedLocalesEmpty_: {
-                type: Boolean,
-                computed: 'isZero_(displayedLocales_.length)',
-            },
-            /**
-             * Whether any locales are displayed.
-             */
-            recommendedLocalesEmpty_: {
-                type: Boolean,
-                computed: 'isZero_(recommendedLocales_.length)',
-            },
-            /**
-             * Whether to enable the button to update the locale pref.
-             */
-            disableUpdateButton_: {
-                type: Boolean,
-                computed: 'shouldDisableActionButton_(selectedLocale_)',
-            },
-            lowercaseQueryString_: {
-                type: String,
-                value: '',
-            },
-            /**
-             * The currently selected locale from the recommended locales list.
-             */
-            selectedRecommendedLocale_: {
-                type: Object,
-                value: null,
-            },
-            /**
-             * The currently selected locale from the full locales list.
-             */
-            selectedLocale_: {
-                type: Object,
-                value: null,
-            },
-        };
-    }
-    ready() {
-        super.ready();
-        this.addEventListener('exit-pane', () => this.onPaneExit_());
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        // Sets offset in iron-list that uses the body as a scrollTarget.
-        afterNextRender(this, () => {
-            this.$.allLocalesList.scrollOffset = this.$.allLocalesList.offsetTop;
-        });
-    }
-    /**
-     * Gets the list of all recommended Dictation locales based on the current
-     * search.
-     */
-    getRecommendedDictationLocales_() {
-        return this.getPossibleDictationLocales_(/*recommendedOnly=*/ true);
-    }
-    /**
-     * Gets the list of all possible Dictation locales based on the current
-     * search.
-     */
-    getAllDictationLocales_() {
-        return this.getPossibleDictationLocales_(/*recommendedOnly=*/ false);
-    }
-    getPossibleDictationLocales_(recommendedOnly) {
-        return this.options
-            .filter(option => {
-            // Filter recommended options. The currently selected option is also
-            // recommended.
-            if (recommendedOnly &&
-                !(this.pref.value === option.value || option.recommended)) {
-                return false;
-            }
-            return !this.lowercaseQueryString_ ||
-                option.name.toLowerCase().includes(this.lowercaseQueryString_) ||
-                option.value.toLowerCase().includes(this.lowercaseQueryString_);
-        })
-            .sort((first, second) => {
-            return first.name.localeCompare(second.name);
-        });
-    }
-    /**
-     * |selectedRecommendedLocale_| is not changed by the time this is called. The
-     * value that |selectedRecommendedLocale_| will be assigned to is stored in
-     * |this.$.recommendedLocalesList.selectedItem|.
-     */
-    selectedRecommendedLocaleChanged_() {
-        const allLocalesSelected = this.$.allLocalesList.selectedItem;
-        const recommendedLocalesSelected = this.$.recommendedLocalesList.selectedItem;
-        // Check for equality before updating to avoid an infinite loop with
-        // selectedLocaleChanged_().
-        if (allLocalesSelected === recommendedLocalesSelected) {
-            return;
-        }
-        if (recommendedLocalesSelected) {
-            this.$.allLocalesList.selectItem(recommendedLocalesSelected);
-        }
-        else {
-            this.$.allLocalesList.deselectItem(allLocalesSelected);
-        }
-    }
-    /**
-     * |selectedLocale_| is not changed by the time this is called. The value that
-     * |selectedLocale_| will be assigned to is stored in
-     * |this.$.allLocalesList.selectedItem|.
-     */
-    selectedLocaleChanged_() {
-        const allLocalesSelected = this.$.allLocalesList.selectedItem;
-        const recommendedLocalesSelected = this.$.recommendedLocalesList.selectedItem;
-        if (allLocalesSelected === recommendedLocalesSelected) {
-            return;
-        }
-        // Check if the locale is also in the recommended list.
-        if (allLocalesSelected?.recommended) {
-            this.$.recommendedLocalesList.selectItem(allLocalesSelected);
-        }
-        else if (recommendedLocalesSelected) {
-            this.$.recommendedLocalesList.deselectItem(recommendedLocalesSelected);
-        }
-    }
-    isZero_(num) {
-        return num === 0;
-    }
-    /**
-     * Disable the action button unless a new locale has been selected.
-     * @return Whether the "update" action button should be disabled.
-     */
-    shouldDisableActionButton_() {
-        return this.selectedLocale_ === null ||
-            this.selectedLocale_.value === this.pref.value;
-    }
-    /**
-     * Gets the ARIA label for an item given the online/offline state and selected
-     * state, which are also portrayed via icons in the HTML.
-     */
-    getAriaLabelForItem_(item, selected) {
-        const longName = item.worksOffline ?
-            this.i18n('dictationChangeLanguageDialogOfflineDescription', item.name) :
-            item.name;
-        const description = selected ?
-            'dictationChangeLanguageDialogSelectedDescription' :
-            'dictationChangeLanguageDialogNotSelectedDescription';
-        return this.i18n(description, longName);
-    }
-    getItemClass_(selected) {
-        return selected ? 'selected' : '';
-    }
-    getIconClass_(item, selected) {
-        if (this.pref.value === item.value) {
-            return 'previous';
-        }
-        return selected ? 'active' : 'hidden';
-    }
-    onSearchChanged_(e) {
-        this.lowercaseQueryString_ = e.detail.toLowerCase();
-    }
-    onKeydown_(e) {
-        // Close dialog if 'esc' is pressed and the search box is already empty.
-        if (e.key === 'Escape' && !this.$.search.getValue().trim()) {
-            this.$.changeDictationLocaleDialog.close();
-        }
-        else if (e.key !== 'PageDown' && e.key !== 'PageUp') {
-            this.$.search.scrollIntoViewIfNeeded();
-        }
-    }
-    onPaneExit_() {
-        this.$.changeDictationLocaleDialog.close();
-    }
-    onCancelClick_() {
-        this.$.changeDictationLocaleDialog.close();
-    }
-    onUpdateClick_() {
-        if (this.selectedLocale_) {
-            this.set('pref.value', this.selectedLocale_.value);
-        }
-        this.$.changeDictationLocaleDialog.close();
-    }
-}
-customElements.define(ChangeDictationLocaleDialog.is, ChangeDictationLocaleDialog);
-
-function getTemplate$1b() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.settings-box.indented,settings-toggle-button.indented{margin-inline-start:var(--cr-section-indent-width)}#screenMagnifierZoomHintLabel{white-space:pre-line}#dictationLocaleMenuSubtitle{max-width:450px;overflow-wrap:break-word}#focusHighlightDisabledTooltip,#stickyKeysDisabledTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-border-radius:4px;--paper-tooltip-text-color:var(--cros-tooltip-label-color);--paper-tooltip-padding:8px}</style>
-
-<settings-toggle-button icon="os-settings:on-screen-keyboard" pref="{{prefs.settings.a11y.virtual_keyboard}}" label="$i18n{onScreenKeyboardLabel}" sub-label="$i18n{onScreenKeyboardDescription}" deep-link-focus-id$="[[Setting.kOnScreenKeyboard]]">
-</settings-toggle-button>
-<settings-toggle-button id="enableDictation" class="hr" icon="os-settings:dictation" pref="{{prefs.settings.a11y.dictation}}" label="$i18n{dictationLabel}" sub-label="$i18n{dictationDescription}" deep-link-focus-id$="[[Setting.kDictation]]" learn-more-url="[[dictationLearnMoreUrl_]]">
-</settings-toggle-button>
-<template is="dom-if" if="[[prefs.settings.a11y.dictation.value]]">
-  <div class="settings-box indented">
-    <div class="flex start settings-box-text" id="labelWrapper">
-      <div class="label" aria-hidden="true" id="dictationLocaleMenuLabel">
-          $i18n{dictationLocaleMenuLabel}
-      </div>
-      <div class="secondary label" id="dictationLocaleMenuSubtitle">
-          [[dictationLocaleMenuSubtitle_]]
-      </div>
-    </div>
-    <cr-button on-click="onChangeDictationLocaleButtonClicked_">
-      $i18n{dictationChangeLanguageButton}
-    </cr-button>
-    <template is="dom-if" if="[[showDictationLocaleMenu_]]" restamp>
-      <os-settings-change-dictation-locale-dialog id="changeDictationLocaleDialog" pref="{{prefs.settings.a11y.dictation_locale}}" on-close="onChangeDictationLocalesDialogClosed_" options="[[dictationLocaleOptions_]]">
-      </os-settings-change-dictation-locale-dialog>
-    </template>
-  </div>
-</template>
-<template is="dom-if" if="[[!isKioskModeActive_]]">
-  <settings-toggle-button id="enableSwitchAccess" class="hr" icon="os-settings:switch-access" pref="{{prefs.settings.a11y.switch_access.enabled}}" label="$i18n{switchAccessLabel}" sub-label="$i18n{switchAccessLabelSubtext}" deep-link-focus-id$="[[Setting.kEnableSwitchAccess]]">
-  </settings-toggle-button>
-  <iron-collapse opened="[[prefs.settings.a11y.switch_access.enabled.value]]">
-    <div class="sub-item">
-      <cr-link-row id="switchAccessSubpageButton" class="settings-box" label="$i18n{switchAccessOptionsLabel}" on-click="onSwitchAccessSettingsClick_" role-description="$i18n{subpageArrowRoleDescription}" embedded>
-      </cr-link-row>
-    </div>
-  </iron-collapse>
-</template>
-<settings-toggle-button id="stickyKeysToggle" class="hr" pref="[[stickyKeysEnabledVirtualPref_]]" no-set-pref on-settings-boolean-control-change="updateStickyKeysEnabledVirtualPref_" label="$i18n{stickyKeysLabel}" sub-label="$i18n{stickyKeysDescription}" disabled="[[prefs.settings.accessibility.value]]" deep-link-focus-id$="[[Setting.kStickyKeys]]">
-  <cr-tooltip-icon id="stickyKeysDisabledTooltip" hidden$="[[!prefs.settings.accessibility.value]]" tooltip-text="$i18n{stickyKeysDisabledByChromevoxTooltip}" icon-class="cr:info-outline" slot="more-actions">
-  </cr-tooltip-icon>
-</settings-toggle-button>
-<settings-toggle-button id="focusHighlightToggle" class="hr" pref="[[focusHighlightEnabledVirtualPref_]]" no-set-pref on-settings-boolean-control-change="updateFocusHighlightEnabledVirtualPref_" label="$i18n{focusHighlightLabel}" sub-label="$i18n{focusHighlightLabelSubtext}" disabled="[[prefs.settings.accessibility.value]]" deep-link-focus-id$="[[Setting.kHighlightKeyboardFocus]]">
-  <cr-tooltip-icon id="focusHighlightDisabledTooltip" hidden$="[[!prefs.settings.accessibility.value]]" tooltip-text="$i18n{focusHighlightDisabledByChromevoxTooltip}" icon-class="cr:info-outline" slot="more-actions">
-  </cr-tooltip-icon>
-</settings-toggle-button>
-<settings-toggle-button id="caretHighlightToggle" class="hr" pref="{{prefs.settings.a11y.caret_highlight}}" label="$i18n{caretHighlightLabel}" sub-label="$i18n{caretHighlightLabelSubtext}" deep-link-focus-id$="[[Setting.kHighlightTextCaret]]">
-</settings-toggle-button>
-<settings-toggle-button id="caretBrowsingToggle" class="hr" pref="{{prefs.settings.a11y.caretbrowsing.enabled}}" on-change="onA11yCaretBrowsingChange_" label="$i18n{caretBrowsingLabel}" sub-label="$i18n{caretBrowsingLabelSubtext}">
-</settings-toggle-button>
-<template is="dom-if" if="[[!isKioskModeActive_]]">
-  <cr-link-row id="keyboardSubpageButton" class="hr" label="$i18n{keyboardSettingsTitle}" on-click="onKeyboardClick_" sub-label="$i18n{keyboardSettingsDescription}" role-description="$i18n{subpageArrowRoleDescription}" embedded>
-  </cr-link-row>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-let instance$6 = null;
-class KeyboardAndTextInputPageBrowserProxyImpl {
-    static getInstance() {
-        return instance$6 ||
-            (instance$6 = new KeyboardAndTextInputPageBrowserProxyImpl());
-    }
-    static setInstanceForTesting(obj) {
-        instance$6 = obj;
-    }
-    keyboardAndTextInputPageReady() {
-        chrome.send('manageA11yPageReady');
-    }
-}
-
-// Copyright 2016 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-keyboard-and-text-input-page' is the accessibility settings subpage
- * for keyboard and text input accessibility settings.
- */
-const SettingsKeyboardAndTextInputPageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
-class SettingsKeyboardAndTextInputPageElement extends SettingsKeyboardAndTextInputPageElementBase {
-    static get is() {
-        return 'settings-keyboard-and-text-input-page';
-    }
-    static get template() {
-        return getTemplate$1b();
-    }
-    static get properties() {
-        return {
-            /**
-             * Whether the user is in kiosk mode.
-             */
-            isKioskModeActive_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isKioskModeActive');
-                },
-            },
-            dictationLocaleMenuSubtitle_: {
-                type: String,
-                computed: 'computeDictationLocaleSubtitle_(' +
-                    'dictationLocaleOptions_, ' +
-                    'prefs.settings.a11y.dictation_locale.value, ' +
-                    'dictationLocaleSubtitleOverride_)',
-            },
-            dictationLocaleOptions_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-            dictationLocalesList_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-            showDictationLocaleMenu_: {
-                type: Boolean,
-                value: false,
-            },
-            dictationLearnMoreUrl_: {
-                type: String,
-                value() {
-                    return loadTimeData.getBoolean('isKioskModeActive') ?
-                        '' :
-                        'https://support.google.com/chromebook?p=text_dictation_m100';
-                },
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kStickyKeys,
-                    Setting.kOnScreenKeyboard,
-                    Setting.kDictation,
-                    Setting.kHighlightKeyboardFocus,
-                    Setting.kHighlightTextCaret,
-                    Setting.kEnableSwitchAccess,
-                ]),
-            },
-            focusHighlightEnabledVirtualPref_: {
-                type: Object,
-                computed: 'computeEnabledWithConflictingFeature_(' +
-                    'prefs.settings.a11y.focus_highlight.value, ' +
-                    'prefs.settings.accessibility.value)',
-            },
-            stickyKeysEnabledVirtualPref_: {
-                type: Object,
-                computed: 'computeEnabledWithConflictingFeature_(' +
-                    'prefs.settings.a11y.sticky_keys_enabled.value, ' +
-                    'prefs.settings.accessibility.value)',
-            },
-        };
-    }
-    constructor() {
-        super();
-        /** RouteOriginMixin override */
-        this.route = routes.A11Y_KEYBOARD_AND_TEXT_INPUT;
-        this.keyboardAndTextInputBrowserProxy_ =
-            KeyboardAndTextInputPageBrowserProxyImpl.getInstance();
-        this.dictationLocaleSubtitleOverride_ = '';
-        this.useDictationLocaleSubtitleOverride_ = false;
-    }
-    ready() {
-        super.ready();
-        this.addWebUiListener('dictation-locale-menu-subtitle-changed', (result) => this.onDictationLocaleMenuSubtitleChanged_(result));
-        this.addWebUiListener('dictation-locales-set', (locales) => this.onDictationLocalesSet_(locales));
-        this.keyboardAndTextInputBrowserProxy_.keyboardAndTextInputPageReady();
-        const r = routes;
-        this.addFocusConfig(r.MANAGE_SWITCH_ACCESS_SETTINGS, '#switchAccessSubpageButton');
-        this.addFocusConfig(r.KEYBOARD, '#keyboardSubpageButton');
-    }
-    /**
-     * Note: Overrides RouteOriginMixin implementation
-     */
-    currentRouteChanged(newRoute, prevRoute) {
-        super.currentRouteChanged(newRoute, prevRoute);
-        // Does not apply to this page.
-        if (newRoute !== this.route) {
-            return;
-        }
-        this.attemptDeepLink();
-    }
-    onSwitchAccessSettingsClick_() {
-        Router.getInstance().navigateTo(routes.MANAGE_SWITCH_ACCESS_SETTINGS);
-    }
-    onKeyboardClick_() {
-        Router.getInstance().navigateTo(routes.KEYBOARD, 
-        /* dynamicParams= */ undefined, /* removeSearch= */ true);
-    }
-    onA11yCaretBrowsingChange_(event) {
-        const targetEl = cast(event.target, SettingsToggleButtonElement);
-        if (targetEl.checked) {
-            chrome.metricsPrivate.recordUserAction('Accessibility.CaretBrowsing.EnableWithSettings');
-        }
-        else {
-            chrome.metricsPrivate.recordUserAction('Accessibility.CaretBrowsing.DisableWithSettings');
-        }
-    }
-    onDictationLocaleMenuSubtitleChanged_(subtitle) {
-        this.useDictationLocaleSubtitleOverride_ = true;
-        this.dictationLocaleSubtitleOverride_ = subtitle;
-    }
-    /**
-     * Saves a list of locales and updates the UI to reflect the list.
-     */
-    onDictationLocalesSet_(locales) {
-        this.dictationLocalesList_ = locales;
-        this.onDictationLocalesChanged_();
-    }
-    /**
-     * Converts an array of locales and their human-readable equivalents to
-     * an array of menu options.
-     * TODO(crbug.com/1195916): Use 'offline' to indicate to the user which
-     * locales work offline with an icon in the select options.
-     */
-    onDictationLocalesChanged_() {
-        const currentLocale = this.get('prefs.settings.a11y.dictation_locale.value');
-        this.dictationLocaleOptions_ =
-            this.dictationLocalesList_.map((localeInfo) => {
-                return {
-                    name: localeInfo.name,
-                    value: localeInfo.value,
-                    worksOffline: localeInfo.worksOffline,
-                    installed: localeInfo.installed,
-                    recommended: localeInfo.recommended || localeInfo.value === currentLocale,
-                };
-            });
-    }
-    /**
-     * Calculates the Dictation locale subtitle based on the current
-     * locale from prefs and the offline availability of that locale.
-     */
-    computeDictationLocaleSubtitle_() {
-        if (this.useDictationLocaleSubtitleOverride_) {
-            // Only use the subtitle override once, since we still want the subtitle
-            // to repsond to changes to the dictation locale.
-            this.useDictationLocaleSubtitleOverride_ = false;
-            return this.dictationLocaleSubtitleOverride_;
-        }
-        const currentLocale = this.get('prefs.settings.a11y.dictation_locale.value');
-        const locale = this.dictationLocaleOptions_.find((element) => element.value === currentLocale);
-        if (!locale) {
-            return '';
-        }
-        if (!locale.worksOffline) {
-            // If a locale is not supported offline, then use the network subtitle.
-            return this.i18n('dictationLocaleSubLabelNetwork', locale.name);
-        }
-        if (!locale.installed) {
-            // If a locale is supported offline, but isn't installed, then use the
-            // temporary network subtitle.
-            return this.i18n('dictationLocaleSubLabelNetworkTemporarily', locale.name);
-        }
-        // If we get here, we know a locale is both supported offline and installed.
-        return this.i18n('dictationLocaleSubLabelOffline', locale.name);
-    }
-    onChangeDictationLocaleButtonClicked_() {
-        this.showDictationLocaleMenu_ = true;
-    }
-    onChangeDictationLocalesDialogClosed_() {
-        this.showDictationLocaleMenu_ = false;
-    }
-    computeEnabledWithConflictingFeature_(prefValue, conflictingPrefValue) {
-        return {
-            value: !conflictingPrefValue && prefValue,
-            type: chrome.settingsPrivate.PrefType.BOOLEAN,
-            key: '',
-        };
-    }
-    updateFocusHighlightEnabledVirtualPref_() {
-        // Focus highlight is automatically disabled when ChromeVox is
-        // enabled, although the underlying pref is unchanged (allows
-        // for state restore if ChromeVox is later disabled).)
-        // Reflect the fact focus highlight isn't running by showing
-        // the toggle as off.
-        if (this.getPref('settings.accessibility').value) {
-            return;
-        }
-        this.setPrefValue('settings.a11y.focus_highlight', !this.getPref('settings.a11y.focus_highlight').value);
-    }
-    updateStickyKeysEnabledVirtualPref_() {
-        // Sticky keys is automatically disabled when ChromeVox is
-        // enabled, although the underlying pref is unchanged (allows
-        // for state restore if ChromeVox is later disabled).)
-        // Reflect the fact sticky keys isn't running by showing
-        // the toggle as off.
-        if (this.getPref('settings.accessibility').value) {
-            return;
-        }
-        this.setPrefValue('settings.a11y.sticky_keys_enabled', !this.getPref('settings.a11y.sticky_keys_enabled').value);
-    }
-}
-customElements.define(SettingsKeyboardAndTextInputPageElement.is, SettingsKeyboardAndTextInputPageElement);
-
-function getTemplate$1a() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}.start-padding{padding-inline-start:var(--cr-section-padding)}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
-
-<settings-toggle-button id="autoClickToggle" pref="{{prefs.settings.a11y.autoclick}}" icon="os-settings:autoclick" label="$i18n{clickOnStopLabel}" sub-label="$i18n{clickOnStopDescription}" deep-link-focus-id$="[[Setting.kAutoClickWhenCursorStops]]">
-</settings-toggle-button>
-<div class="sub-item" hidden$="[[!prefs.settings.a11y.autoclick.value]]">
-  <div class="settings-box">
-    <div class="start settings-box-text" aria-hidden="true">
-      $i18n{delayBeforeClickLabel}
-    </div>
-    <settings-dropdown-menu id="delayBeforeClickDropdown" label="$i18n{delayBeforeClickLabel}" pref="{{prefs.settings.a11y.autoclick_delay_ms}}" menu-options="[[autoClickDelayOptions_]]" disabled="[[!prefs.settings.a11y.autoclick.value]]">
-    </settings-dropdown-menu>
-  </div>
-  <settings-toggle-button id="autoClickStabilizePositionToggle" class="settings-box hr" pref="{{prefs.settings.a11y.autoclick_stabilize_position}}" label="$i18n{autoclickStabilizeCursorPosition}">
-  </settings-toggle-button>
-  <div class="settings-box">
-    <div class="start settings-box-text" aria-hidden="true">
-      $i18n{autoclickMovementThresholdLabel}
-    </div>
-    <settings-dropdown-menu id="autoclickMovementThresholdDropdown" label="$i18n{autoclickMovementThresholdLabel}" pref="{{prefs.settings.a11y.autoclick_movement_threshold}}" menu-options="[[autoClickMovementThresholdOptions_]]" disabled="[[!prefs.settings.a11y.autoclick.value]]">
-    </settings-dropdown-menu>
-  </div>
-  <settings-toggle-button id="autoClickRevertToLeftClickToggle" class="settings-box hr" pref="{{prefs.settings.a11y.autoclick_revert_to_left_click}}" label="$i18n{autoclickRevertToLeftClick}">
-  </settings-toggle-button>
-</div>
-
-<template is="dom-if" if="[[isAccessibilityFaceGazeEnabled_]]">
-  <settings-toggle-button id="faceGazeToggle" pref="{{prefs.settings.a11y.face_gaze.enabled}}" icon="os-settings:face-gaze" label="$i18n{accessibilityFaceGazeLabel}" sub-label="$i18n{accessibilityFaceGazeDescription}">
-  </settings-toggle-button>
-  <iron-collapse opened="[[prefs.settings.a11y.face_gaze.enabled.value]]">
-    <div>
-      
-      <cr-link-row id="faceGazeCursorControlButton" class="sub-item" label="$i18n{accessibilityFaceGazeSettings}" sub-label="$i18n{accessibilityFaceGazeSettingsDescription}">
-      </cr-link-row>
-    </div>
-    <div>
-      
-      <cr-link-row id="faceGazeFacialExpressionsButton" class="sub-item" label="$i18n{accessibilityFaceGazeFacialExpressionsSettings}" sub-label="$i18n{accessibilityFaceGazeFacialExpressionsSettingsDescription}">
-      </cr-link-row>
-    </div>
-  </iron-collapse>
-</template>
-<settings-toggle-button id="largeCursorEnabledControl" class="hr" pref="{{prefs.settings.a11y.large_cursor_enabled}}" label="$i18n{largeMouseCursorLabel}" deep-link-focus-id$="[[Setting.kLargeCursor]]">
-</settings-toggle-button>
-<div class="sub-item">
-  <div class="settings-box" hidden$="[[!prefs.settings.a11y.large_cursor_enabled.value]]">
-    <div class="start settings-box-text" aria-hidden="true">
-      $i18n{largeMouseCursorSizeLabel}
-    </div>
-    <settings-slider id="largeCursorSizeSlider" pref="{{prefs.settings.a11y.large_cursor_dip_size}}" min="25" max="[[largeCursorMaxSize_]]" label-aria="$i18n{largeMouseCursorSizeLabel}" label-min="$i18n{largeMouseCursorSizeDefaultLabel}" label-max="$i18n{largeMouseCursorSizeLargeLabel}">
-    </settings-slider>
-  </div>
-</div>
-<div class="settings-box start-padding">
-  <div class="start settings-box-text" id="cursorColorOptionsLabel">
-    $i18n{cursorColorOptionsLabel}
-  </div>
-  <settings-dropdown-menu id="cursorColorDropdown" aria-labeledby="cursorColorOptionsLabel" pref="{{prefs.settings.a11y.cursor_color}}" menu-options="[[cursorColorOptions_]]" on-settings-control-change="onA11yCursorColorChange_" deep-link-focus-id$="[[Setting.kEnableCursorColor]]">
-  </settings-dropdown-menu>
-</div>
-<settings-toggle-button id="cursorHighlightToggle" class="hr" pref="{{prefs.settings.a11y.cursor_highlight}}" label="$i18n{cursorHighlightLabel}" deep-link-focus-id$="[[Setting.kHighlightCursorWhileMoving]]">
-</settings-toggle-button>
-<template is="dom-if" if="[[showShelfNavigationButtonsSettings_]]" restamp>
-  
-  <settings-toggle-button id="shelfNavigationButtonsEnabledControl" class="hr" disabled="[[shelfNavigationButtonsImplicitlyEnabled_]]" pref="[[shelfNavigationButtonsPref_]]" no-set-pref on-settings-boolean-control-change="updateShelfNavigationButtonsEnabledPref_" label="$i18n{tabletModeShelfNavigationButtonsSettingLabel}" sub-label="$i18n{tabletModeShelfNavigationButtonsSettingDescription}" learn-more-url="$i18n{tabletModeShelfNavigationButtonsLearnMoreUrl}" on-learn-more-clicked="onShelfNavigationButtonsLearnMoreClicked_" deep-link-focus-id$="[[Setting.kTabletNavigationButtons]]">
-  </settings-toggle-button>
-</template>
-<cr-link-row id="pointerSubpageButton" class="hr" label="$i18n{mouseSettingsTitle}" on-click="onMouseClick_" role-description="$i18n{subpageArrowRoleDescription}" embedded>
-</cr-link-row>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-let instance$5 = null;
-class CursorAndTouchpadPageBrowserProxyImpl {
-    static getInstance() {
-        return instance$5 || (instance$5 = new CursorAndTouchpadPageBrowserProxyImpl());
-    }
-    static setInstanceForTesting(obj) {
-        instance$5 = obj;
-    }
-    recordSelectedShowShelfNavigationButtonValue(enabled) {
-        chrome.send('recordSelectedShowShelfNavigationButtonValue', [enabled]);
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-cursor-and-touchpad-page' is the accessibility settings subpage
- * for cursor and touchpad accessibility settings.
- */
-const DEFAULT_BLACK_CURSOR_COLOR = 0;
-const SettingsCursorAndTouchpadPageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
-class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouchpadPageElementBase {
-    static get is() {
-        return 'settings-cursor-and-touchpad-page';
-    }
-    static get template() {
-        return getTemplate$1a();
-    }
-    static get properties() {
-        return {
-            /**
-             * Drop down menu options for auto click delay.
-             */
-            autoClickDelayOptions_: {
-                readOnly: true,
-                type: Array,
-                value() {
-                    // These values correspond to the i18n values in
-                    // settings_strings.grdp. If these values get changed then those
-                    // strings need to be changed as well.
-                    return [
-                        {
-                            value: 600,
-                            name: loadTimeData.getString('delayBeforeClickExtremelyShort'),
-                        },
-                        {
-                            value: 800,
-                            name: loadTimeData.getString('delayBeforeClickVeryShort'),
-                        },
-                        {
-                            value: 1000,
-                            name: loadTimeData.getString('delayBeforeClickShort'),
-                        },
-                        { value: 2000, name: loadTimeData.getString('delayBeforeClickLong') },
-                        {
-                            value: 4000,
-                            name: loadTimeData.getString('delayBeforeClickVeryLong'),
-                        },
-                    ];
-                },
-            },
-            /**
-             * Drop down menu options for auto click movement threshold.
-             */
-            autoClickMovementThresholdOptions_: {
-                readOnly: true,
-                type: Array,
-                value() {
-                    return [
-                        {
-                            value: 5,
-                            name: loadTimeData.getString('autoclickMovementThresholdExtraSmall'),
-                        },
-                        {
-                            value: 10,
-                            name: loadTimeData.getString('autoclickMovementThresholdSmall'),
-                        },
-                        {
-                            value: 20,
-                            name: loadTimeData.getString('autoclickMovementThresholdDefault'),
-                        },
-                        {
-                            value: 30,
-                            name: loadTimeData.getString('autoclickMovementThresholdLarge'),
-                        },
-                        {
-                            value: 40,
-                            name: loadTimeData.getString('autoclickMovementThresholdExtraLarge'),
-                        },
-                    ];
-                },
-            },
-            cursorColorOptions_: {
-                readOnly: true,
-                type: Array,
-                value() {
-                    return [
-                        {
-                            value: DEFAULT_BLACK_CURSOR_COLOR,
-                            name: loadTimeData.getString('cursorColorBlack'),
-                        },
-                        {
-                            value: 0xd93025, // Red 600
-                            name: loadTimeData.getString('cursorColorRed'),
-                        },
-                        {
-                            value: 0xf29900, //  Yellow 700
-                            name: loadTimeData.getString('cursorColorYellow'),
-                        },
-                        {
-                            value: 0x1e8e3e, // Green 600
-                            name: loadTimeData.getString('cursorColorGreen'),
-                        },
-                        {
-                            value: 0x03b6be, // Cyan 600
-                            name: loadTimeData.getString('cursorColorCyan'),
-                        },
-                        {
-                            value: 0x1a73e8, // Blue 600
-                            name: loadTimeData.getString('cursorColorBlue'),
-                        },
-                        {
-                            value: 0xc61ad9, // Magenta 600
-                            name: loadTimeData.getString('cursorColorMagenta'),
-                        },
-                        {
-                            value: 0xf50057, // Pink A400
-                            name: loadTimeData.getString('cursorColorPink'),
-                        },
-                    ];
-                },
-            },
-            /**
-             * Whether the user is in kiosk mode.
-             */
-            isKioskModeActive_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isKioskModeActive');
-                },
-            },
-            /**
-             * Whether a setting for enabling shelf navigation buttons in tablet mode
-             * should be displayed in the accessibility settings.
-             */
-            showShelfNavigationButtonsSettings_: {
-                type: Boolean,
-                computed: 'computeShowShelfNavigationButtonsSettings_(isKioskModeActive_)',
-            },
-            /**
-             * Boolean indicating whether shelf navigation buttons should implicitly
-             * be enabled in tablet mode - the navigation buttons are implicitly
-             * enabled when spoken feedback, automatic clicks, or switch access are
-             * enabled. The buttons can also be explicitly enabled by a designated
-             * a11y setting.
-             */
-            shelfNavigationButtonsImplicitlyEnabled_: {
-                type: Boolean,
-                computed: 'computeShelfNavigationButtonsImplicitlyEnabled_(' +
-                    'prefs.settings.accessibility.value,' +
-                    'prefs.settings.a11y.autoclick.value,' +
-                    'prefs.settings.a11y.switch_access.enabled.value)',
-            },
-            /**
-             * The effective pref value that indicates whether shelf navigation
-             * buttons are enabled in tablet mode.
-             */
-            shelfNavigationButtonsPref_: {
-                type: Object,
-                computed: 'getShelfNavigationButtonsEnabledPref_(' +
-                    'shelfNavigationButtonsImplicitlyEnabled_,' +
-                    'prefs.settings.a11y.tablet_mode_shelf_nav_buttons_enabled)',
-            },
-            /**
-             * Whether the face movements mouse cursor and keyboard control feature is
-             * enabled.
-             */
-            isAccessibilityFaceGazeEnabled_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isAccessibilityFaceGazeEnabled');
-                },
-            },
-            /**
-             * The maximum size in density-independent pixels of the large mouse
-             * cursor. Note that this has no effect if it is larger than the maximum
-             * set in CursorWindowController.
-             */
-            largeCursorMaxSize_: {
-                type: Number,
-                value() {
-                    return loadTimeData.getBoolean('isAccessibilityExtraLargeCursorEnabled') ?
-                        128 :
-                        64;
-                },
-            },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
-                type: Object,
-                value: () => new Set([
-                    Setting.kAutoClickWhenCursorStops,
-                    Setting.kLargeCursor,
-                    Setting.kHighlightCursorWhileMoving,
-                    Setting.kTabletNavigationButtons,
-                    Setting.kEnableCursorColor,
-                ]),
-            },
-        };
-    }
-    static get observers() {
-        return [
-            'pointersChanged(hasMouse_, hasPointingStick_, hasTouchpad_, ' +
-                'isKioskModeActive_)',
-        ];
-    }
-    constructor() {
-        super();
-        /** RouteOriginMixin override */
-        this.route = routes.A11Y_CURSOR_AND_TOUCHPAD;
-        this.cursorAndTouchpadBrowserProxy_ =
-            CursorAndTouchpadPageBrowserProxyImpl.getInstance();
-        this.deviceBrowserProxy_ = DevicePageBrowserProxyImpl.getInstance();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.addWebUiListener('has-mouse-changed', (exists) => this.set('hasMouse_', exists));
-        this.addWebUiListener('has-pointing-stick-changed', (exists) => this.set('hasPointingStick_', exists));
-        this.addWebUiListener('has-touchpad-changed', (exists) => this.set('hasTouchpad_', exists));
-        this.deviceBrowserProxy_.initializePointers();
-    }
-    ready() {
-        super.ready();
-        this.addFocusConfig(routes.POINTERS, '#pointerSubpageButton');
-    }
-    /**
-     * Note: Overrides RouteOriginMixin implementation
-     */
-    currentRouteChanged(newRoute, prevRoute) {
-        super.currentRouteChanged(newRoute, prevRoute);
-        // Does not apply to this page.
-        if (newRoute !== this.route) {
-            return;
-        }
-        this.attemptDeepLink();
-    }
-    pointersChanged(hasMouse, hasTouchpad, hasPointingStick, isKioskModeActive) {
-        this.$.pointerSubpageButton.hidden =
-            (!hasMouse && !hasPointingStick && !hasTouchpad) || isKioskModeActive;
-    }
-    computeShowShelfNavigationButtonsSettings_() {
-        return !this.isKioskModeActive_ &&
-            loadTimeData.getBoolean('showTabletModeShelfNavigationButtonsSettings');
-    }
-    /**
-     * @return Whether shelf navigation buttons should implicitly be
-     *     enabled in tablet mode (due to accessibility settings different than
-     *     shelf_navigation_buttons_enabled_in_tablet_mode).
-     */
-    computeShelfNavigationButtonsImplicitlyEnabled_() {
-        /**
-         * Gets the bool pref value for the provided pref key.
-         */
-        const getBoolPrefValue = (key) => {
-            const pref = this.getPref(key);
-            return pref && !!pref.value;
-        };
-        return getBoolPrefValue('settings.accessibility') ||
-            getBoolPrefValue('settings.a11y.autoclick') ||
-            getBoolPrefValue('settings.a11y.switch_access.enabled');
-    }
-    /**
-     * Calculates the effective value for "shelf navigation buttons enabled in
-     * tablet mode" setting - if the setting is implicitly enabled (by other a11y
-     * settings), this will return a stub pref value.
-     */
-    getShelfNavigationButtonsEnabledPref_() {
-        if (this.shelfNavigationButtonsImplicitlyEnabled_) {
-            return {
-                value: true,
-                type: chrome.settingsPrivate.PrefType.BOOLEAN,
-                key: '',
-            };
-        }
-        return this.getPref('settings.a11y.tablet_mode_shelf_nav_buttons_enabled');
-    }
-    onShelfNavigationButtonsLearnMoreClicked_() {
-        chrome.metricsPrivate.recordUserAction('Settings_A11y_ShelfNavigationButtonsLearnMoreClicked');
-    }
-    /**
-     * Handles the <code>tablet_mode_shelf_nav_buttons_enabled</code> setting's
-     * toggle changes. It updates the backing pref value, unless the setting is
-     * implicitly enabled.
-     */
-    updateShelfNavigationButtonsEnabledPref_() {
-        if (this.shelfNavigationButtonsImplicitlyEnabled_) {
-            return;
-        }
-        const enabled = this.shadowRoot
-            .querySelector('#shelfNavigationButtonsEnabledControl').checked;
-        this.setPrefValue('settings.a11y.tablet_mode_shelf_nav_buttons_enabled', enabled);
-        this.cursorAndTouchpadBrowserProxy_
-            .recordSelectedShowShelfNavigationButtonValue(enabled);
-    }
-    onA11yCursorColorChange_() {
-        // Custom cursor color is enabled when the color is not set to black.
-        const a11yCursorColorOn = this.getPref('settings.a11y.cursor_color').value !==
-            DEFAULT_BLACK_CURSOR_COLOR;
-        this.set('prefs.settings.a11y.cursor_color_enabled.value', a11yCursorColorOn);
-    }
-    onMouseClick_() {
-        Router.getInstance().navigateTo(routes.POINTERS, 
-        /* dynamicParams= */ undefined, /* removeSearch= */ true);
-    }
-}
-customElements.define(SettingsCursorAndTouchpadPageElement.is, SettingsCursorAndTouchpadPageElement);
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -23965,7 +22633,7 @@ class BluetoothBrailleDisplayManager {
     }
 }
 
-function getTemplate$19() {
+function getTemplate$1e() {
     return html `<!--_html_template_start_--><style include="settings-shared">settings-dropdown-menu{--md-select-width:100%}.container{align-items:center;display:flex;flex:1;justify-content:space-between;margin-inline-end:var(--cr-section-padding);min-height:var(--cr-section-min-height)}#pinContainer{align-items:baseline;display:flex;height:32px}#pinLabel{margin-inline-end:var(--cr-section-padding)}.controls{align-items:center;display:flex;flex:1}.menu{flex:1}.button,.menu{margin-inline-start:16px}</style>
 
 <div class="container">
@@ -24019,7 +22687,7 @@ class BluetoothBrailleDisplayUiElement extends BluetoothBrailleDisplayUiElementB
         return 'bluetooth-braille-display-ui';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -24153,7 +22821,7 @@ class BluetoothBrailleDisplayUiElement extends BluetoothBrailleDisplayUiElementB
 }
 customElements.define(BluetoothBrailleDisplayUiElement.is, BluetoothBrailleDisplayUiElement);
 
-function getTemplate$18() {
+function getTemplate$1d() {
     return html `<!--_html_template_start_-->
 
 <style include="settings-shared md-select">:host{--cr-section-indent-width:60px}h2{padding-inline-start:var(--cr-section-padding)}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.indented{margin-inline-start:32px}.settings-box{justify-content:space-between;margin-inline-end:var(--cr-section-padding);padding-inline-end:0;padding-inline-start:0}settings-dropdown-menu{--md-select-width:100%}settings-dropdown-menu+settings-dropdown-menu{padding-inline-start:16px}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.text-row{min-height:var(--cr-section-min-height);padding-bottom:8px;padding-top:14px}cr-input{--cr-input-error-display:none;width:80px}cr-expand-button{margin-top:20px}#developerOptionsExpandButton{min-height:var(--cr-section-min-height);padding-inline-end:var(--cr-section-padding)}#developerOptionsHeading{padding-bottom:0;padding-top:0}</style>
@@ -24319,7 +22987,7 @@ class SettingsChromeVoxSubpageElement extends SettingsChromeVoxSubpageElementBas
         return 'settings-chromevox-subpage';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$1d();
     }
     static get properties() {
         return {
@@ -24826,7 +23494,1320 @@ class SettingsChromeVoxSubpageElement extends SettingsChromeVoxSubpageElementBas
 }
 customElements.define(SettingsChromeVoxSubpageElement.is, SettingsChromeVoxSubpageElement);
 
+function getTemplate$1c() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}.start-padding{padding-inline-start:var(--cr-section-padding)}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
+
+<settings-toggle-button id="autoClickToggle" pref="{{prefs.settings.a11y.autoclick}}" icon="os-settings:autoclick" label="$i18n{clickOnStopLabel}" sub-label="$i18n{clickOnStopDescription}" deep-link-focus-id$="[[Setting.kAutoClickWhenCursorStops]]">
+</settings-toggle-button>
+<div class="sub-item" hidden$="[[!prefs.settings.a11y.autoclick.value]]">
+  <div class="settings-box">
+    <div class="start settings-box-text" aria-hidden="true">
+      $i18n{delayBeforeClickLabel}
+    </div>
+    <settings-dropdown-menu id="delayBeforeClickDropdown" label="$i18n{delayBeforeClickLabel}" pref="{{prefs.settings.a11y.autoclick_delay_ms}}" menu-options="[[autoClickDelayOptions_]]" disabled="[[!prefs.settings.a11y.autoclick.value]]">
+    </settings-dropdown-menu>
+  </div>
+  <settings-toggle-button id="autoClickStabilizePositionToggle" class="settings-box hr" pref="{{prefs.settings.a11y.autoclick_stabilize_position}}" label="$i18n{autoclickStabilizeCursorPosition}">
+  </settings-toggle-button>
+  <div class="settings-box">
+    <div class="start settings-box-text" aria-hidden="true">
+      $i18n{autoclickMovementThresholdLabel}
+    </div>
+    <settings-dropdown-menu id="autoclickMovementThresholdDropdown" label="$i18n{autoclickMovementThresholdLabel}" pref="{{prefs.settings.a11y.autoclick_movement_threshold}}" menu-options="[[autoClickMovementThresholdOptions_]]" disabled="[[!prefs.settings.a11y.autoclick.value]]">
+    </settings-dropdown-menu>
+  </div>
+  <settings-toggle-button id="autoClickRevertToLeftClickToggle" class="settings-box hr" pref="{{prefs.settings.a11y.autoclick_revert_to_left_click}}" label="$i18n{autoclickRevertToLeftClick}">
+  </settings-toggle-button>
+</div>
+
+<template is="dom-if" if="[[isAccessibilityFaceGazeEnabled_]]">
+  <settings-toggle-button id="faceGazeToggle" pref="{{prefs.settings.a11y.face_gaze.enabled}}" icon="os-settings:face-gaze" label="$i18n{accessibilityFaceGazeLabel}" sub-label="$i18n{accessibilityFaceGazeDescription}">
+  </settings-toggle-button>
+  <iron-collapse opened="[[prefs.settings.a11y.face_gaze.enabled.value]]">
+    <div>
+      
+      <cr-link-row id="faceGazeCursorControlButton" class="sub-item" label="$i18n{accessibilityFaceGazeSettings}" sub-label="$i18n{accessibilityFaceGazeSettingsDescription}" on-click="onFaceGazeCursorSettingsClick_">
+      </cr-link-row>
+    </div>
+    <div>
+      
+      <cr-link-row id="faceGazeFacialExpressionsButton" class="sub-item" label="$i18n{accessibilityFaceGazeFacialExpressionsSettings}" sub-label="$i18n{accessibilityFaceGazeFacialExpressionsSettingsDescription}" on-click="onFaceGazeFacialExpressionsSettingsClick_">
+      </cr-link-row>
+    </div>
+  </iron-collapse>
+</template>
+<settings-toggle-button id="largeCursorEnabledControl" class="hr" pref="{{prefs.settings.a11y.large_cursor_enabled}}" label="$i18n{largeMouseCursorLabel}" deep-link-focus-id$="[[Setting.kLargeCursor]]">
+</settings-toggle-button>
+<div class="sub-item">
+  <div class="settings-box" hidden$="[[!prefs.settings.a11y.large_cursor_enabled.value]]">
+    <div class="start settings-box-text" aria-hidden="true">
+      $i18n{largeMouseCursorSizeLabel}
+    </div>
+    <settings-slider id="largeCursorSizeSlider" pref="{{prefs.settings.a11y.large_cursor_dip_size}}" min="25" max="[[largeCursorMaxSize_]]" label-aria="$i18n{largeMouseCursorSizeLabel}" label-min="$i18n{largeMouseCursorSizeDefaultLabel}" label-max="$i18n{largeMouseCursorSizeLargeLabel}">
+    </settings-slider>
+  </div>
+</div>
+<div class="settings-box start-padding">
+  <div class="start settings-box-text" id="cursorColorOptionsLabel">
+    $i18n{cursorColorOptionsLabel}
+  </div>
+  <settings-dropdown-menu id="cursorColorDropdown" aria-labeledby="cursorColorOptionsLabel" pref="{{prefs.settings.a11y.cursor_color}}" menu-options="[[cursorColorOptions_]]" on-settings-control-change="onA11yCursorColorChange_" deep-link-focus-id$="[[Setting.kEnableCursorColor]]">
+  </settings-dropdown-menu>
+</div>
+<settings-toggle-button id="cursorHighlightToggle" class="hr" pref="{{prefs.settings.a11y.cursor_highlight}}" label="$i18n{cursorHighlightLabel}" deep-link-focus-id$="[[Setting.kHighlightCursorWhileMoving]]">
+</settings-toggle-button>
+<template is="dom-if" if="[[showShelfNavigationButtonsSettings_]]" restamp>
+  
+  <settings-toggle-button id="shelfNavigationButtonsEnabledControl" class="hr" disabled="[[shelfNavigationButtonsImplicitlyEnabled_]]" pref="[[shelfNavigationButtonsPref_]]" no-set-pref on-settings-boolean-control-change="updateShelfNavigationButtonsEnabledPref_" label="$i18n{tabletModeShelfNavigationButtonsSettingLabel}" sub-label="$i18n{tabletModeShelfNavigationButtonsSettingDescription}" learn-more-url="$i18n{tabletModeShelfNavigationButtonsLearnMoreUrl}" on-learn-more-clicked="onShelfNavigationButtonsLearnMoreClicked_" deep-link-focus-id$="[[Setting.kTabletNavigationButtons]]">
+  </settings-toggle-button>
+</template>
+<cr-link-row id="pointerSubpageButton" class="hr" label="$i18n{mouseSettingsTitle}" on-click="onMouseClick_" role-description="$i18n{subpageArrowRoleDescription}" embedded>
+</cr-link-row>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let instance$6 = null;
+class CursorAndTouchpadPageBrowserProxyImpl {
+    static getInstance() {
+        return instance$6 || (instance$6 = new CursorAndTouchpadPageBrowserProxyImpl());
+    }
+    static setInstanceForTesting(obj) {
+        instance$6 = obj;
+    }
+    recordSelectedShowShelfNavigationButtonValue(enabled) {
+        chrome.send('recordSelectedShowShelfNavigationButtonValue', [enabled]);
+    }
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-cursor-and-touchpad-page' is the accessibility settings subpage
+ * for cursor and touchpad accessibility settings.
+ */
+const DEFAULT_BLACK_CURSOR_COLOR = 0;
+const SettingsCursorAndTouchpadPageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
+class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouchpadPageElementBase {
+    static get is() {
+        return 'settings-cursor-and-touchpad-page';
+    }
+    static get template() {
+        return getTemplate$1c();
+    }
+    static get properties() {
+        return {
+            /**
+             * Drop down menu options for auto click delay.
+             */
+            autoClickDelayOptions_: {
+                readOnly: true,
+                type: Array,
+                value() {
+                    // These values correspond to the i18n values in
+                    // settings_strings.grdp. If these values get changed then those
+                    // strings need to be changed as well.
+                    return [
+                        {
+                            value: 600,
+                            name: loadTimeData.getString('delayBeforeClickExtremelyShort'),
+                        },
+                        {
+                            value: 800,
+                            name: loadTimeData.getString('delayBeforeClickVeryShort'),
+                        },
+                        {
+                            value: 1000,
+                            name: loadTimeData.getString('delayBeforeClickShort'),
+                        },
+                        { value: 2000, name: loadTimeData.getString('delayBeforeClickLong') },
+                        {
+                            value: 4000,
+                            name: loadTimeData.getString('delayBeforeClickVeryLong'),
+                        },
+                    ];
+                },
+            },
+            /**
+             * Drop down menu options for auto click movement threshold.
+             */
+            autoClickMovementThresholdOptions_: {
+                readOnly: true,
+                type: Array,
+                value() {
+                    return [
+                        {
+                            value: 5,
+                            name: loadTimeData.getString('autoclickMovementThresholdExtraSmall'),
+                        },
+                        {
+                            value: 10,
+                            name: loadTimeData.getString('autoclickMovementThresholdSmall'),
+                        },
+                        {
+                            value: 20,
+                            name: loadTimeData.getString('autoclickMovementThresholdDefault'),
+                        },
+                        {
+                            value: 30,
+                            name: loadTimeData.getString('autoclickMovementThresholdLarge'),
+                        },
+                        {
+                            value: 40,
+                            name: loadTimeData.getString('autoclickMovementThresholdExtraLarge'),
+                        },
+                    ];
+                },
+            },
+            cursorColorOptions_: {
+                readOnly: true,
+                type: Array,
+                value() {
+                    return [
+                        {
+                            value: DEFAULT_BLACK_CURSOR_COLOR,
+                            name: loadTimeData.getString('cursorColorBlack'),
+                        },
+                        {
+                            value: 0xd93025, // Red 600
+                            name: loadTimeData.getString('cursorColorRed'),
+                        },
+                        {
+                            value: 0xf29900, //  Yellow 700
+                            name: loadTimeData.getString('cursorColorYellow'),
+                        },
+                        {
+                            value: 0x1e8e3e, // Green 600
+                            name: loadTimeData.getString('cursorColorGreen'),
+                        },
+                        {
+                            value: 0x03b6be, // Cyan 600
+                            name: loadTimeData.getString('cursorColorCyan'),
+                        },
+                        {
+                            value: 0x1a73e8, // Blue 600
+                            name: loadTimeData.getString('cursorColorBlue'),
+                        },
+                        {
+                            value: 0xc61ad9, // Magenta 600
+                            name: loadTimeData.getString('cursorColorMagenta'),
+                        },
+                        {
+                            value: 0xf50057, // Pink A400
+                            name: loadTimeData.getString('cursorColorPink'),
+                        },
+                    ];
+                },
+            },
+            /**
+             * Whether the user is in kiosk mode.
+             */
+            isKioskModeActive_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isKioskModeActive');
+                },
+            },
+            /**
+             * Whether a setting for enabling shelf navigation buttons in tablet mode
+             * should be displayed in the accessibility settings.
+             */
+            showShelfNavigationButtonsSettings_: {
+                type: Boolean,
+                computed: 'computeShowShelfNavigationButtonsSettings_(isKioskModeActive_)',
+            },
+            /**
+             * Boolean indicating whether shelf navigation buttons should implicitly
+             * be enabled in tablet mode - the navigation buttons are implicitly
+             * enabled when spoken feedback, automatic clicks, or switch access are
+             * enabled. The buttons can also be explicitly enabled by a designated
+             * a11y setting.
+             */
+            shelfNavigationButtonsImplicitlyEnabled_: {
+                type: Boolean,
+                computed: 'computeShelfNavigationButtonsImplicitlyEnabled_(' +
+                    'prefs.settings.accessibility.value,' +
+                    'prefs.settings.a11y.autoclick.value,' +
+                    'prefs.settings.a11y.switch_access.enabled.value)',
+            },
+            /**
+             * The effective pref value that indicates whether shelf navigation
+             * buttons are enabled in tablet mode.
+             */
+            shelfNavigationButtonsPref_: {
+                type: Object,
+                computed: 'getShelfNavigationButtonsEnabledPref_(' +
+                    'shelfNavigationButtonsImplicitlyEnabled_,' +
+                    'prefs.settings.a11y.tablet_mode_shelf_nav_buttons_enabled)',
+            },
+            /**
+             * Whether the face movements mouse cursor and keyboard control feature is
+             * enabled.
+             */
+            isAccessibilityFaceGazeEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isAccessibilityFaceGazeEnabled');
+                },
+            },
+            /**
+             * The maximum size in density-independent pixels of the large mouse
+             * cursor. Note that this has no effect if it is larger than the maximum
+             * set in CursorWindowController.
+             */
+            largeCursorMaxSize_: {
+                type: Number,
+                value() {
+                    return loadTimeData.getBoolean('isAccessibilityExtraLargeCursorEnabled') ?
+                        128 :
+                        64;
+                },
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([
+                    Setting.kAutoClickWhenCursorStops,
+                    Setting.kLargeCursor,
+                    Setting.kHighlightCursorWhileMoving,
+                    Setting.kTabletNavigationButtons,
+                    Setting.kEnableCursorColor,
+                ]),
+            },
+        };
+    }
+    static get observers() {
+        return [
+            'pointersChanged(hasMouse_, hasPointingStick_, hasTouchpad_, ' +
+                'isKioskModeActive_)',
+        ];
+    }
+    constructor() {
+        super();
+        /** RouteOriginMixin override */
+        this.route = routes.A11Y_CURSOR_AND_TOUCHPAD;
+        this.cursorAndTouchpadBrowserProxy_ =
+            CursorAndTouchpadPageBrowserProxyImpl.getInstance();
+        this.deviceBrowserProxy_ = DevicePageBrowserProxyImpl.getInstance();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.addWebUiListener('has-mouse-changed', (exists) => this.set('hasMouse_', exists));
+        this.addWebUiListener('has-pointing-stick-changed', (exists) => this.set('hasPointingStick_', exists));
+        this.addWebUiListener('has-touchpad-changed', (exists) => this.set('hasTouchpad_', exists));
+        this.deviceBrowserProxy_.initializePointers();
+    }
+    ready() {
+        super.ready();
+        this.addFocusConfig(routes.POINTERS, '#pointerSubpageButton');
+        this.addFocusConfig(routes.MANAGE_FACEGAZE_CURSOR_SETTINGS, '#faceGazeCursorControlButton');
+        this.addFocusConfig(routes.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS, '#faceGazeFacialExpressionsButton');
+    }
+    /**
+     * Note: Overrides RouteOriginMixin implementation
+     */
+    currentRouteChanged(newRoute, prevRoute) {
+        super.currentRouteChanged(newRoute, prevRoute);
+        // Does not apply to this page.
+        if (newRoute !== this.route) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+    onFaceGazeCursorSettingsClick_() {
+        Router.getInstance().navigateTo(routes.MANAGE_FACEGAZE_CURSOR_SETTINGS);
+    }
+    onFaceGazeFacialExpressionsSettingsClick_() {
+        Router.getInstance().navigateTo(routes.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS);
+    }
+    pointersChanged(hasMouse, hasTouchpad, hasPointingStick, isKioskModeActive) {
+        this.$.pointerSubpageButton.hidden =
+            (!hasMouse && !hasPointingStick && !hasTouchpad) || isKioskModeActive;
+    }
+    computeShowShelfNavigationButtonsSettings_() {
+        return !this.isKioskModeActive_ &&
+            loadTimeData.getBoolean('showTabletModeShelfNavigationButtonsSettings');
+    }
+    /**
+     * @return Whether shelf navigation buttons should implicitly be
+     *     enabled in tablet mode (due to accessibility settings different than
+     *     shelf_navigation_buttons_enabled_in_tablet_mode).
+     */
+    computeShelfNavigationButtonsImplicitlyEnabled_() {
+        /**
+         * Gets the bool pref value for the provided pref key.
+         */
+        const getBoolPrefValue = (key) => {
+            const pref = this.getPref(key);
+            return pref && !!pref.value;
+        };
+        return getBoolPrefValue('settings.accessibility') ||
+            getBoolPrefValue('settings.a11y.autoclick') ||
+            getBoolPrefValue('settings.a11y.switch_access.enabled');
+    }
+    /**
+     * Calculates the effective value for "shelf navigation buttons enabled in
+     * tablet mode" setting - if the setting is implicitly enabled (by other a11y
+     * settings), this will return a stub pref value.
+     */
+    getShelfNavigationButtonsEnabledPref_() {
+        if (this.shelfNavigationButtonsImplicitlyEnabled_) {
+            return {
+                value: true,
+                type: chrome.settingsPrivate.PrefType.BOOLEAN,
+                key: '',
+            };
+        }
+        return this.getPref('settings.a11y.tablet_mode_shelf_nav_buttons_enabled');
+    }
+    onShelfNavigationButtonsLearnMoreClicked_() {
+        chrome.metricsPrivate.recordUserAction('Settings_A11y_ShelfNavigationButtonsLearnMoreClicked');
+    }
+    /**
+     * Handles the <code>tablet_mode_shelf_nav_buttons_enabled</code> setting's
+     * toggle changes. It updates the backing pref value, unless the setting is
+     * implicitly enabled.
+     */
+    updateShelfNavigationButtonsEnabledPref_() {
+        if (this.shelfNavigationButtonsImplicitlyEnabled_) {
+            return;
+        }
+        const enabled = this.shadowRoot
+            .querySelector('#shelfNavigationButtonsEnabledControl').checked;
+        this.setPrefValue('settings.a11y.tablet_mode_shelf_nav_buttons_enabled', enabled);
+        this.cursorAndTouchpadBrowserProxy_
+            .recordSelectedShowShelfNavigationButtonValue(enabled);
+    }
+    onA11yCursorColorChange_() {
+        // Custom cursor color is enabled when the color is not set to black.
+        const a11yCursorColorOn = this.getPref('settings.a11y.cursor_color').value !==
+            DEFAULT_BLACK_CURSOR_COLOR;
+        this.set('prefs.settings.a11y.cursor_color_enabled.value', a11yCursorColorOn);
+    }
+    onMouseClick_() {
+        Router.getInstance().navigateTo(routes.POINTERS, 
+        /* dynamicParams= */ undefined, /* removeSearch= */ true);
+    }
+}
+customElements.define(SettingsCursorAndTouchpadPageElement.is, SettingsCursorAndTouchpadPageElement);
+
+function getTemplate$1b() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.settings-box.indented,settings-toggle-button.indented{margin-inline-start:calc(var(--cr-section-indent-padding) + var(--cr-section-indent-width))}#screenMagnifierZoomHintLabel{white-space:pre-line}#colorFilteringDeficiencyTypeDropdown{--md-select-width:300px}.color-item>.settings-box{border-top:none}.color-preview-holder{border:1px solid var(--cros-separator-color);border-radius:8px;gap:16px;margin-bottom:16px;margin-inline-end:20px;padding:16px 0;text-align:center}.color-preview-holder table{border-collapse:collapse;border-spacing:0;margin:0 auto}.color-preview-holder th{font-weight:400;padding-bottom:4px;padding-top:16px}.color-preview-holder td{margin:0;padding:0}.color-preview{height:92px;width:calc(524px / 8)}.color-preview.red{background:linear-gradient(180deg,var(--cros-color-preview-red),transparent)}.color-preview.orange{background:linear-gradient(180deg,var(--cros-color-preview-orange),transparent)}.color-preview.yellow{background:linear-gradient(180deg,var(--cros-color-preview-yellow),transparent)}.color-preview.green{background:linear-gradient(180deg,var(--cros-color-preview-green),transparent)}.color-preview.cyan{background:linear-gradient(180deg,var(--cros-color-preview-cyan),transparent)}.color-preview.blue{background:linear-gradient(180deg,var(--cros-color-preview-blue),transparent)}.color-preview.purple{background:linear-gradient(180deg,var(--cros-color-preview-purple),transparent)}.color-preview.gray{background:linear-gradient(180deg,var(--cros-color-preview-grey),transparent)}</style>
+<settings-toggle-button id="enableColorFiltering" icon="os-settings:color-correction" pref="{{prefs.settings.a11y.color_filtering.enabled}}" label="$i18n{colorFilteringLabel}" sub-label="$i18n{colorFilteringDescription}" deep-link-focus-id$="[[Setting.kColorCorrectionEnabled]]">
+</settings-toggle-button>
+<template is="dom-if" if="[[prefs.settings.a11y.color_filtering.enabled.value]]">
+  <div class="sub-item color-item">
+    <div class="settings-box">
+      <div class="start settings-box-text">
+        <div class="label" aria-hidden="true">
+          $i18n{colorVisionDeficiencyTypeLabel}
+        </div>
+      </div>
+      <settings-dropdown-menu id="colorFilteringDeficiencyTypeDropdown" label="$i18n{colorVisionDeficiencyTypeLabel}" pref="{{prefs.settings.a11y.color_filtering.color_vision_deficiency_type}}" menu-options="[[colorVisionDeficiencyTypeOptions_]]" deep-link-focus-id$="[[Setting.kColorCorrectionFilterType]]">
+      </settings-dropdown-menu>
+    </div>
+    <div class="settings-box">
+      <div class="start settings-box-text" aria-hidden="true">
+        $i18n{colorVisionFilterIntensityLabel}
+      </div>
+      <settings-slider id="colorFilteringIntensitySlider" pref="{{prefs.settings.a11y.color_filtering.color_vision_correction_amount}}" min="0" max="100" label-aria="$i18n{colorVisionFilterIntensityLabel}" label-min="$i18n{colorFilterMinLabel}" label-max="$i18n{colorFilterMaxLabel}" deep-link-focus-id$="[[Setting.kColorCorrectionFilterAmount]]">
+      </settings-slider>
+    </div>
+    <div class="color-preview-holder">
+      <div>$i18n{colorFilteringPreviewInstructions}</div>
+      <table>
+        <tr>
+          <th>$i18n{colorFilteringPreviewColorRed}</th>
+          <th>$i18n{colorFilteringPreviewColorOrange}</th>
+          <th>$i18n{colorFilteringPreviewColorYellow}</th>
+          <th>$i18n{colorFilteringPreviewColorGreen}</th>
+          <th>$i18n{colorFilteringPreviewColorCyan}</th>
+          <th>$i18n{colorFilteringPreviewColorBlue}</th>
+          <th>$i18n{colorFilteringPreviewColorPurple}</th>
+          <th>$i18n{colorFilteringPreviewColorGray}</th>
+        </tr>
+        <tr>
+          <td><div class="color-preview red"></div></td>
+          <td><div class="color-preview orange"></div></td>
+          <td><div class="color-preview yellow"></div></td>
+          <td><div class="color-preview green"></div></td>
+          <td><div class="color-preview cyan"></div></td>
+          <td><div class="color-preview blue"></div></td>
+          <td><div class="color-preview purple"></div></td>
+          <td><div class="color-preview gray"></div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>
+<settings-toggle-button icon="os-settings:contrast" pref="{{prefs.settings.a11y.high_contrast_enabled}}" label="$i18n{highContrastLabel}" sub-label="$i18n{highContrastDescription}" deep-link-focus-id$="[[Setting.kHighContrastMode]]" class="hr">
+</settings-toggle-button>
+<settings-toggle-button class="hr" icon="os-settings:fullscreen-magnifier" pref="{{prefs.settings.a11y.screen_magnifier}}" label="$i18n{screenMagnifierLabel}" sub-label="[[getScreenMagnifierDescription_(
+        prefs.settings.a11y.screen_magnifier.value)]]" disabled="[[prefs.ash.docked_magnifier.enabled.value]]" deep-link-focus-id$="[[Setting.kFullscreenMagnifier]]">
+</settings-toggle-button>
+<template is="dom-if" if="[[prefs.settings.a11y.screen_magnifier.value]]">
+  <div class="sub-item">
+    <div class="hr">
+      <settings-radio-group id="screenMagnifierMouseFollowingModeRadioGroup" pref="{{prefs.settings.a11y.screen_magnifier_mouse_following_mode}}">
+        <controlled-radio-button id="screenMagnifierMouseFollowingModeContinuous" name="[[screenMagnifierMouseFollowingModePrefValues_.CONTINUOUS]]" pref="[[prefs.settings.a11y.screen_magnifier_mouse_following_mode]]" label="$i18n{screenMagnifierMouseFollowingModeContinuous}">
+        </controlled-radio-button>
+        <controlled-radio-button id="screenMagnifierMouseFollowingModeCentered" name="[[screenMagnifierMouseFollowingModePrefValues_.CENTERED]]" pref="[[prefs.settings.a11y.screen_magnifier_mouse_following_mode]]" label="$i18n{screenMagnifierMouseFollowingModeCentered}">
+        </controlled-radio-button>
+        <controlled-radio-button id="screenMagnifierMouseFollowingModeEdge" name="[[screenMagnifierMouseFollowingModePrefValues_.EDGE]]" pref="[[prefs.settings.a11y.screen_magnifier_mouse_following_mode]]" label="$i18n{screenMagnifierMouseFollowingModeEdge}">
+        </controlled-radio-button>
+      </settings-radio-group>
+    </div>
+    <settings-toggle-button class="settings-box hr" pref="{{prefs.settings.a11y.screen_magnifier_focus_following}}" label="$i18n{screenMagnifierFocusFollowingLabel}" deep-link-focus-id$="[[Setting.kFullscreenMagnifierFocusFollowing]]">
+    </settings-toggle-button>
+    <div class="settings-box">
+      <div class="flex start settings-box-text" id="labelWrapper">
+        <div class="label" aria-hidden="true">
+          $i18n{screenMagnifierZoomLabel}
+        </div>
+        
+        <div id="screenMagnifierZoomHintLabel" class="secondary label">$i18n{screenMagnifierZoomHintLabel}</div>
+      </div>
+      <settings-dropdown-menu label="$i18n{screenMagnifierZoomLabel}" pref="{{prefs.settings.a11y.screen_magnifier_scale}}" menu-options="[[screenMagnifierZoomOptions_]]" disabled="[[!prefs.settings.a11y.screen_magnifier.value]]">
+      </settings-dropdown-menu>
+    </div>
+  </div>
+</template>
+<settings-toggle-button class="hr" icon="os-settings:docked-magnifier" pref="{{prefs.ash.docked_magnifier.enabled}}" label="$i18n{dockedMagnifierLabel}" sub-label="$i18n{dockedMagnifierDescription}" disabled="[[prefs.settings.a11y.screen_magnifier.value]]" deep-link-focus-id$="[[Setting.kDockedMagnifier]]">
+</settings-toggle-button>
+<template is="dom-if" if="[[prefs.ash.docked_magnifier.enabled.value]]">
+  <div class="sub-item">
+    <div class="settings-box">
+      <div class="start settings-box-text" aria-hidden="true">
+        $i18n{dockedMagnifierZoomLabel}
+      </div>
+      <settings-dropdown-menu label="$i18n{dockedMagnifierZoomLabel}" pref="{{prefs.ash.docked_magnifier.scale}}" menu-options="[[screenMagnifierZoomOptions_]]" disabled="[[!prefs.ash.docked_magnifier.enabled.value]]">
+      </settings-dropdown-menu>
+    </div>
+  </div>
+</template>
+<template is="dom-if" if="[[!isKioskModeActive_]]">
+  <cr-link-row id="displaySubpageButton" class="hr" label="$i18n{displaySettingsTitle}" on-click="onDisplayClick_" sub-label="$i18n{displaySettingsDescription}" role-description="$i18n{subpageArrowRoleDescription}" embedded>
+  </cr-link-row>
+  <cr-link-row id="appearanceSubpageButton" class="hr" label="$i18n{appearanceSettingsTitle}" on-click="onAppearanceClick_" sub-label="$i18n{appearanceSettingsDescription}" external embedded>
+  </cr-link-row>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-display-and-magnification-subpage' is the accessibility settings
+ * subpage for display and magnification accessibility settings.
+ */
+const SettingsDisplayAndMagnificationSubpageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
+class SettingsDisplayAndMagnificationSubpageElement extends SettingsDisplayAndMagnificationSubpageElementBase {
+    static get is() {
+        return 'settings-display-and-magnification-subpage';
+    }
+    static get template() {
+        return getTemplate$1b();
+    }
+    static get properties() {
+        return {
+            /**
+             * Enum values for the
+             * 'settings.a11y.screen_magnifier_mouse_following_mode' preference. These
+             * values map to AccessibilityController::MagnifierMouseFollowingMode, and
+             * are written to prefs and metrics, so order should not be changed.
+             */
+            screenMagnifierMouseFollowingModePrefValues_: {
+                readOnly: true,
+                type: Object,
+                value: {
+                    CONTINUOUS: 0,
+                    CENTERED: 1,
+                    EDGE: 2,
+                },
+            },
+            screenMagnifierZoomOptions_: {
+                readOnly: true,
+                type: Array,
+                value() {
+                    // These values correspond to the i18n values in
+                    // settings_strings.grdp. If these values get changed then those
+                    // strings need to be changed as well.
+                    return [
+                        { value: 2, name: loadTimeData.getString('screenMagnifierZoom2x') },
+                        { value: 4, name: loadTimeData.getString('screenMagnifierZoom4x') },
+                        { value: 6, name: loadTimeData.getString('screenMagnifierZoom6x') },
+                        { value: 8, name: loadTimeData.getString('screenMagnifierZoom8x') },
+                        { value: 10, name: loadTimeData.getString('screenMagnifierZoom10x') },
+                        { value: 12, name: loadTimeData.getString('screenMagnifierZoom12x') },
+                        { value: 14, name: loadTimeData.getString('screenMagnifierZoom14x') },
+                        { value: 16, name: loadTimeData.getString('screenMagnifierZoom16x') },
+                        { value: 18, name: loadTimeData.getString('screenMagnifierZoom18x') },
+                        { value: 20, name: loadTimeData.getString('screenMagnifierZoom20x') },
+                    ];
+                },
+            },
+            colorVisionDeficiencyTypeOptions_: {
+                readOnly: true,
+                type: Array,
+                value() {
+                    // The first 3 values correspond to ColorVisionDeficiencyType enums in
+                    // ash/color_enhancement/color_enhancement_controller.cc.
+                    // CVD types are ordered here by how common they are.
+                    // The final value is a greyscale color filter.
+                    return [
+                        { value: 1, name: loadTimeData.getString('deuteranomalyFilter') },
+                        { value: 0, name: loadTimeData.getString('protanomalyFilter') },
+                        { value: 2, name: loadTimeData.getString('tritanomalyFilter') },
+                        { value: 3, name: loadTimeData.getString('greyscaleLabel') },
+                    ];
+                },
+            },
+            /**
+             * Whether the user is in kiosk mode.
+             */
+            isKioskModeActive_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isKioskModeActive');
+                },
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([
+                    Setting.kColorCorrectionEnabled,
+                    Setting.kColorCorrectionFilterType,
+                    Setting.kColorCorrectionFilterAmount,
+                    Setting.kFullscreenMagnifier,
+                    Setting.kFullscreenMagnifierMouseFollowingMode,
+                    Setting.kFullscreenMagnifierFocusFollowing,
+                    Setting.kDockedMagnifier,
+                ]),
+            },
+        };
+    }
+    constructor() {
+        super();
+        /** RouteOriginMixin override */
+        this.route = routes.A11Y_DISPLAY_AND_MAGNIFICATION;
+    }
+    ready() {
+        super.ready();
+        this.addFocusConfig(routes.DISPLAY, '#displaySubpageButton');
+    }
+    /**
+     * Note: Overrides RouteOriginMixin implementation
+     */
+    currentRouteChanged(newRoute, prevRoute) {
+        super.currentRouteChanged(newRoute, prevRoute);
+        // Does not apply to this page.
+        if (newRoute !== this.route) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+    /**
+     * Return Fullscreen magnifier description text based on whether Fullscreen
+     * magnifier is enabled.
+     */
+    getScreenMagnifierDescription_(enabled) {
+        return this.i18n(enabled ? 'screenMagnifierDescriptionOn' :
+            'screenMagnifierDescriptionOff');
+    }
+    onDisplayClick_() {
+        Router.getInstance().navigateTo(routes.DISPLAY, 
+        /* dynamicParams= */ undefined, /* removeSearch= */ true);
+    }
+    onAppearanceClick_() {
+        chrome.send('showBrowserAppearanceSettings');
+    }
+}
+customElements.define(SettingsDisplayAndMagnificationSubpageElement.is, SettingsDisplayAndMagnificationSubpageElement);
+
+function getTemplate$1a() {
+    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SettingsFaceGazeCursorSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(WebUiListenerMixin(I18nMixin(PolymerElement))));
+class SettingsFaceGazeCursorSubpageElement extends SettingsFaceGazeCursorSubpageElementBase {
+    static get is() {
+        return 'settings-facegaze-cursor-subpage';
+    }
+    static get template() {
+        return getTemplate$1a();
+    }
+    static get properties() {
+        return {
+            /**
+             * Preferences state.
+             */
+            prefs: {
+                type: Object,
+                notify: true,
+            },
+        };
+    }
+    constructor() {
+        super();
+    }
+    currentRouteChanged(route) {
+        // Does not apply to this page.
+        if (route !== routes.MANAGE_FACEGAZE_CURSOR_SETTINGS) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+}
+customElements.define(SettingsFaceGazeCursorSubpageElement.is, SettingsFaceGazeCursorSubpageElement);
+
+function getTemplate$19() {
+    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SettingsFaceGazeFacialExpressionSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(WebUiListenerMixin(I18nMixin(PolymerElement))));
+class SettingsFaceGazeFacialExpressionSubpageElement extends SettingsFaceGazeFacialExpressionSubpageElementBase {
+    static get is() {
+        return 'settings-facegaze-facial-expression-subpage';
+    }
+    static get template() {
+        return getTemplate$19();
+    }
+    static get properties() {
+        return {
+            /**
+             * Preferences state.
+             */
+            prefs: {
+                type: Object,
+                notify: true,
+            },
+        };
+    }
+    constructor() {
+        super();
+    }
+    currentRouteChanged(route) {
+        // Does not apply to this page.
+        if (route !== routes.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+}
+customElements.define(SettingsFaceGazeFacialExpressionSubpageElement.is, SettingsFaceGazeFacialExpressionSubpageElement);
+
+const template$3 = html `
+<style>
+html{--dialog-horizontal-padding:24px}
+</style>
+`;
+document.head.appendChild(template$3.content);
+
+const styleMod = document.createElement('dom-module');
+styleMod.appendChild(html `
+  <template>
+    <style>
+cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-icon-color-primary);--cr-search-field-clear-icon-margin-end:8px;--cr-search-field-clear-icon-size:18px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-min-height:32px;--cr-search-field-input-padding-bottom:0;--cr-search-field-input-padding-start:8px;--cr-search-field-input-padding-top:0;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-input-underline-height:4px;--cr-search-field-input-width:100%;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-icon-color-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;background-color:var(--cros-textfield-background-color);border-radius:4px}cr-dialog [slot=title]{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding);padding-top:var(--dialog-horizontal-padding)}cr-dialog [slot=body]{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding)}cr-dialog [slot=button-container]{padding-bottom:20px;padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding);padding-top:20px}.centered-message{align-items:center;color:var(--md-loading-message-color);display:flex;flex:1;font-size:108%;font-weight:500;height:100%;justify-content:center}
+    </style>
+  </template>
+`.content);
+styleMod.register('shared-style');
+
+function getTemplate$18() {
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex shared-style">#dialogBody{display:flex;flex-direction:column;height:420px;overflow:auto;padding-inline-end:0;padding-inline-start:0}h3{color:var(--cros-text-color-secondary);font-size:inherit;margin:0;min-height:36px;padding-bottom:0;padding-top:0}cr-search-field{margin-bottom:16px;margin-inline-end:var(--dialog-horizontal-padding);margin-inline-start:var(--dialog-horizontal-padding);margin-top:16px}iron-icon[icon='settings:check-circle']{margin-inline-end:26px}.previous{fill:var(--cros-text-color-secondary)}.active{fill:var(--cr-link-color)}.hidden{visibility:hidden}.subtitle{color:var(--cros-text-color-secondary)}iron-list>div:not(.selected):hover{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>:not(.no-outline):focus{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>.selected:not(.no-outline):focus{background-color:transparent}.list-item{color:var(--cros-text-color-primary);min-height:36px}.padded{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding)}paper-ripple{color:var(--cros-menu-item-ripple-color)}</style>
+
+<cr-dialog id="changeDictationLocaleDialog" close-text="$i18n{close}" show-on-attach>
+  <div slot="title">$i18n{dictationChangeLanguageDialogTitle}</div>
+  <div id="dialogBody" slot="body" scrollable>
+    <cr-search-field label="$i18n{dictationChangeLanguageDialogSearchHint}" id="search" on-search-changed="onSearchChanged_" clear-label="$i18n{dictationChangeLanguageDialogSearchClear}" on-keydown="onKeydown_" autofocus>
+    </cr-search-field>
+    <h3 class="padded" hidden$="[[recommendedLocalesEmpty_]]">
+      $i18n{dictationChangeLanguageDialogRecommended}
+    </h3>
+    <iron-list id="recommendedLocalesList" items="[[recommendedLocales_]]" selection-enabled selected-item="{{selectedRecommendedLocale_}}" on-selected-item-changed="selectedRecommendedLocaleChanged_" hidden$="[[recommendedLocalesEmpty_]]" scroll-target="[[$$('[slot=body]')]]">
+      <template>
+        
+        <div class$="list-item [[getItemClass_(selected)]]" role="button" tabindex$="[[tabIndex]]" aria-label="[[getAriaLabelForItem_(item, selected)]]">
+          <paper-ripple></paper-ripple>
+          <div class="flex padded" aria-hidden="true">
+            [[item.name]]
+            <div class="subtitle" hidden="[[!item.worksOffline]]">
+              $i18n{dictationLocaleOfflineSubtitle}
+            </div>
+          </div>
+          <iron-icon icon="settings:check-circle" class$="[[getIconClass_(item, selected)]]">
+          </iron-icon>
+        </div>
+      </template>
+    </iron-list>
+    <h3 class="padded" hidden$="[[displayedLocalesEmpty_]]">
+      $i18n{dictationChangeLanguageDialogAll}
+    </h3>
+    <iron-list id="allLocalesList" items="[[displayedLocales_]]" selection-enabled selected-item="{{selectedLocale_}}" on-selected-item-changed="selectedLocaleChanged_" hidden$="[[displayedLocalesEmpty_]]" scroll-target="[[$$('[slot=body]')]]">
+      <template>
+        <div class$="list-item [[getItemClass_(selected)]]" role="button" tabindex$="[[tabIndex]]" aria-label="[[getAriaLabelForItem_(item, selected)]]">
+          <paper-ripple></paper-ripple>
+          <div class="flex padded" aria-hidden="true">
+            [[item.name]]
+            <div class="subtitle" hidden="[[!item.worksOffline]]">
+              $i18n{dictationLocaleOfflineSubtitle}
+            </div>
+          </div>
+          <iron-icon icon="settings:check-circle" class$="[[getIconClass_(item, selected)]]">
+          </iron-icon>
+        </div>
+      </template>
+    </iron-list>
+    <div id="no-search-results" class="centered-message" hidden$="[[!displayedLocalesEmpty_]]">
+      $i18n{dictationChangeLanguageDialogNoResults}
+    </div>
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancel" class="cancel-button" on-click="onCancelClick_">
+      $i18n{dictationChangeLanguageDialogCancelButton}
+    </cr-button>
+    <cr-button id="update" class="action-button" on-click="onUpdateClick_" disabled="[[disableUpdateButton_]]">
+      $i18n{dictationChangeLanguageDialogUpdateButton}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This dialog holds a Dictation locale selection pane that
+ * allows a user to pick their locale for Dictation's speech recognition.
+ */
+const ChangeDictationLocaleDialogBase = I18nMixin(PolymerElement);
+class ChangeDictationLocaleDialog extends ChangeDictationLocaleDialogBase {
+    static get is() {
+        return 'os-settings-change-dictation-locale-dialog';
+    }
+    static get template() {
+        return getTemplate$18();
+    }
+    static get properties() {
+        return {
+            /**
+             * Set by the manage OS a11y page, this is the full list of locales
+             * available.
+             */
+            options: Array,
+            /**
+             * Preference associated with Dictation locales.
+             */
+            pref: Object,
+            displayedLocales_: {
+                type: Array,
+                computed: `getAllDictationLocales_(options, lowercaseQueryString_)`,
+            },
+            recommendedLocales_: {
+                type: Array,
+                computed: `getRecommendedDictationLocales_(options, lowercaseQueryString_)`,
+            },
+            /**
+             * Whether any locales are displayed.
+             */
+            displayedLocalesEmpty_: {
+                type: Boolean,
+                computed: 'isZero_(displayedLocales_.length)',
+            },
+            /**
+             * Whether any locales are displayed.
+             */
+            recommendedLocalesEmpty_: {
+                type: Boolean,
+                computed: 'isZero_(recommendedLocales_.length)',
+            },
+            /**
+             * Whether to enable the button to update the locale pref.
+             */
+            disableUpdateButton_: {
+                type: Boolean,
+                computed: 'shouldDisableActionButton_(selectedLocale_)',
+            },
+            lowercaseQueryString_: {
+                type: String,
+                value: '',
+            },
+            /**
+             * The currently selected locale from the recommended locales list.
+             */
+            selectedRecommendedLocale_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * The currently selected locale from the full locales list.
+             */
+            selectedLocale_: {
+                type: Object,
+                value: null,
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('exit-pane', () => this.onPaneExit_());
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // Sets offset in iron-list that uses the body as a scrollTarget.
+        afterNextRender(this, () => {
+            this.$.allLocalesList.scrollOffset = this.$.allLocalesList.offsetTop;
+        });
+    }
+    /**
+     * Gets the list of all recommended Dictation locales based on the current
+     * search.
+     */
+    getRecommendedDictationLocales_() {
+        return this.getPossibleDictationLocales_(/*recommendedOnly=*/ true);
+    }
+    /**
+     * Gets the list of all possible Dictation locales based on the current
+     * search.
+     */
+    getAllDictationLocales_() {
+        return this.getPossibleDictationLocales_(/*recommendedOnly=*/ false);
+    }
+    getPossibleDictationLocales_(recommendedOnly) {
+        return this.options
+            .filter(option => {
+            // Filter recommended options. The currently selected option is also
+            // recommended.
+            if (recommendedOnly &&
+                !(this.pref.value === option.value || option.recommended)) {
+                return false;
+            }
+            return !this.lowercaseQueryString_ ||
+                option.name.toLowerCase().includes(this.lowercaseQueryString_) ||
+                option.value.toLowerCase().includes(this.lowercaseQueryString_);
+        })
+            .sort((first, second) => {
+            return first.name.localeCompare(second.name);
+        });
+    }
+    /**
+     * |selectedRecommendedLocale_| is not changed by the time this is called. The
+     * value that |selectedRecommendedLocale_| will be assigned to is stored in
+     * |this.$.recommendedLocalesList.selectedItem|.
+     */
+    selectedRecommendedLocaleChanged_() {
+        const allLocalesSelected = this.$.allLocalesList.selectedItem;
+        const recommendedLocalesSelected = this.$.recommendedLocalesList.selectedItem;
+        // Check for equality before updating to avoid an infinite loop with
+        // selectedLocaleChanged_().
+        if (allLocalesSelected === recommendedLocalesSelected) {
+            return;
+        }
+        if (recommendedLocalesSelected) {
+            this.$.allLocalesList.selectItem(recommendedLocalesSelected);
+        }
+        else {
+            this.$.allLocalesList.deselectItem(allLocalesSelected);
+        }
+    }
+    /**
+     * |selectedLocale_| is not changed by the time this is called. The value that
+     * |selectedLocale_| will be assigned to is stored in
+     * |this.$.allLocalesList.selectedItem|.
+     */
+    selectedLocaleChanged_() {
+        const allLocalesSelected = this.$.allLocalesList.selectedItem;
+        const recommendedLocalesSelected = this.$.recommendedLocalesList.selectedItem;
+        if (allLocalesSelected === recommendedLocalesSelected) {
+            return;
+        }
+        // Check if the locale is also in the recommended list.
+        if (allLocalesSelected?.recommended) {
+            this.$.recommendedLocalesList.selectItem(allLocalesSelected);
+        }
+        else if (recommendedLocalesSelected) {
+            this.$.recommendedLocalesList.deselectItem(recommendedLocalesSelected);
+        }
+    }
+    isZero_(num) {
+        return num === 0;
+    }
+    /**
+     * Disable the action button unless a new locale has been selected.
+     * @return Whether the "update" action button should be disabled.
+     */
+    shouldDisableActionButton_() {
+        return this.selectedLocale_ === null ||
+            this.selectedLocale_.value === this.pref.value;
+    }
+    /**
+     * Gets the ARIA label for an item given the online/offline state and selected
+     * state, which are also portrayed via icons in the HTML.
+     */
+    getAriaLabelForItem_(item, selected) {
+        const longName = item.worksOffline ?
+            this.i18n('dictationChangeLanguageDialogOfflineDescription', item.name) :
+            item.name;
+        const description = selected ?
+            'dictationChangeLanguageDialogSelectedDescription' :
+            'dictationChangeLanguageDialogNotSelectedDescription';
+        return this.i18n(description, longName);
+    }
+    getItemClass_(selected) {
+        return selected ? 'selected' : '';
+    }
+    getIconClass_(item, selected) {
+        if (this.pref.value === item.value) {
+            return 'previous';
+        }
+        return selected ? 'active' : 'hidden';
+    }
+    onSearchChanged_(e) {
+        this.lowercaseQueryString_ = e.detail.toLowerCase();
+    }
+    onKeydown_(e) {
+        // Close dialog if 'esc' is pressed and the search box is already empty.
+        if (e.key === 'Escape' && !this.$.search.getValue().trim()) {
+            this.$.changeDictationLocaleDialog.close();
+        }
+        else if (e.key !== 'PageDown' && e.key !== 'PageUp') {
+            this.$.search.scrollIntoViewIfNeeded();
+        }
+    }
+    onPaneExit_() {
+        this.$.changeDictationLocaleDialog.close();
+    }
+    onCancelClick_() {
+        this.$.changeDictationLocaleDialog.close();
+    }
+    onUpdateClick_() {
+        if (this.selectedLocale_) {
+            this.set('pref.value', this.selectedLocale_.value);
+        }
+        this.$.changeDictationLocaleDialog.close();
+    }
+}
+customElements.define(ChangeDictationLocaleDialog.is, ChangeDictationLocaleDialog);
+
 function getTemplate$17() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.settings-box.indented,settings-toggle-button.indented{margin-inline-start:var(--cr-section-indent-width)}#screenMagnifierZoomHintLabel{white-space:pre-line}#dictationLocaleMenuSubtitle{max-width:450px;overflow-wrap:break-word}#focusHighlightDisabledTooltip,#stickyKeysDisabledTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-border-radius:4px;--paper-tooltip-text-color:var(--cros-tooltip-label-color);--paper-tooltip-padding:8px}</style>
+
+<settings-toggle-button icon="os-settings:on-screen-keyboard" pref="{{prefs.settings.a11y.virtual_keyboard}}" label="$i18n{onScreenKeyboardLabel}" sub-label="$i18n{onScreenKeyboardDescription}" deep-link-focus-id$="[[Setting.kOnScreenKeyboard]]">
+</settings-toggle-button>
+<settings-toggle-button id="enableDictation" class="hr" icon="os-settings:dictation" pref="{{prefs.settings.a11y.dictation}}" label="$i18n{dictationLabel}" sub-label="$i18n{dictationDescription}" deep-link-focus-id$="[[Setting.kDictation]]" learn-more-url="[[dictationLearnMoreUrl_]]">
+</settings-toggle-button>
+<template is="dom-if" if="[[prefs.settings.a11y.dictation.value]]">
+  <div class="settings-box indented">
+    <div class="flex start settings-box-text" id="labelWrapper">
+      <div class="label" aria-hidden="true" id="dictationLocaleMenuLabel">
+          $i18n{dictationLocaleMenuLabel}
+      </div>
+      <div class="secondary label" id="dictationLocaleMenuSubtitle">
+          [[dictationLocaleMenuSubtitle_]]
+      </div>
+    </div>
+    <cr-button on-click="onChangeDictationLocaleButtonClicked_">
+      $i18n{dictationChangeLanguageButton}
+    </cr-button>
+    <template is="dom-if" if="[[showDictationLocaleMenu_]]" restamp>
+      <os-settings-change-dictation-locale-dialog id="changeDictationLocaleDialog" pref="{{prefs.settings.a11y.dictation_locale}}" on-close="onChangeDictationLocalesDialogClosed_" options="[[dictationLocaleOptions_]]">
+      </os-settings-change-dictation-locale-dialog>
+    </template>
+  </div>
+</template>
+<template is="dom-if" if="[[!isKioskModeActive_]]">
+  <settings-toggle-button id="enableSwitchAccess" class="hr" icon="os-settings:switch-access" pref="{{prefs.settings.a11y.switch_access.enabled}}" label="$i18n{switchAccessLabel}" sub-label="$i18n{switchAccessLabelSubtext}" deep-link-focus-id$="[[Setting.kEnableSwitchAccess]]">
+  </settings-toggle-button>
+  <iron-collapse opened="[[prefs.settings.a11y.switch_access.enabled.value]]">
+    <div class="sub-item">
+      <cr-link-row id="switchAccessSubpageButton" class="settings-box" label="$i18n{switchAccessOptionsLabel}" on-click="onSwitchAccessSettingsClick_" role-description="$i18n{subpageArrowRoleDescription}" embedded>
+      </cr-link-row>
+    </div>
+  </iron-collapse>
+</template>
+<settings-toggle-button id="stickyKeysToggle" class="hr" pref="[[stickyKeysEnabledVirtualPref_]]" no-set-pref on-settings-boolean-control-change="updateStickyKeysEnabledVirtualPref_" label="$i18n{stickyKeysLabel}" sub-label="$i18n{stickyKeysDescription}" disabled="[[prefs.settings.accessibility.value]]" deep-link-focus-id$="[[Setting.kStickyKeys]]">
+  <cr-tooltip-icon id="stickyKeysDisabledTooltip" hidden$="[[!prefs.settings.accessibility.value]]" tooltip-text="$i18n{stickyKeysDisabledByChromevoxTooltip}" icon-class="cr:info-outline" slot="more-actions">
+  </cr-tooltip-icon>
+</settings-toggle-button>
+<settings-toggle-button id="focusHighlightToggle" class="hr" pref="[[focusHighlightEnabledVirtualPref_]]" no-set-pref on-settings-boolean-control-change="updateFocusHighlightEnabledVirtualPref_" label="$i18n{focusHighlightLabel}" sub-label="$i18n{focusHighlightLabelSubtext}" disabled="[[prefs.settings.accessibility.value]]" deep-link-focus-id$="[[Setting.kHighlightKeyboardFocus]]">
+  <cr-tooltip-icon id="focusHighlightDisabledTooltip" hidden$="[[!prefs.settings.accessibility.value]]" tooltip-text="$i18n{focusHighlightDisabledByChromevoxTooltip}" icon-class="cr:info-outline" slot="more-actions">
+  </cr-tooltip-icon>
+</settings-toggle-button>
+<settings-toggle-button id="caretHighlightToggle" class="hr" pref="{{prefs.settings.a11y.caret_highlight}}" label="$i18n{caretHighlightLabel}" sub-label="$i18n{caretHighlightLabelSubtext}" deep-link-focus-id$="[[Setting.kHighlightTextCaret]]">
+</settings-toggle-button>
+<settings-toggle-button id="caretBrowsingToggle" class="hr" pref="{{prefs.settings.a11y.caretbrowsing.enabled}}" on-change="onA11yCaretBrowsingChange_" label="$i18n{caretBrowsingLabel}" sub-label="$i18n{caretBrowsingLabelSubtext}">
+</settings-toggle-button>
+<template is="dom-if" if="[[!isKioskModeActive_]]">
+  <cr-link-row id="keyboardSubpageButton" class="hr" label="$i18n{keyboardSettingsTitle}" on-click="onKeyboardClick_" sub-label="$i18n{keyboardSettingsDescription}" role-description="$i18n{subpageArrowRoleDescription}" embedded>
+  </cr-link-row>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let instance$5 = null;
+class KeyboardAndTextInputPageBrowserProxyImpl {
+    static getInstance() {
+        return instance$5 ||
+            (instance$5 = new KeyboardAndTextInputPageBrowserProxyImpl());
+    }
+    static setInstanceForTesting(obj) {
+        instance$5 = obj;
+    }
+    keyboardAndTextInputPageReady() {
+        chrome.send('manageA11yPageReady');
+    }
+}
+
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-keyboard-and-text-input-page' is the accessibility settings subpage
+ * for keyboard and text input accessibility settings.
+ */
+const SettingsKeyboardAndTextInputPageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
+class SettingsKeyboardAndTextInputPageElement extends SettingsKeyboardAndTextInputPageElementBase {
+    static get is() {
+        return 'settings-keyboard-and-text-input-page';
+    }
+    static get template() {
+        return getTemplate$17();
+    }
+    static get properties() {
+        return {
+            /**
+             * Whether the user is in kiosk mode.
+             */
+            isKioskModeActive_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isKioskModeActive');
+                },
+            },
+            dictationLocaleMenuSubtitle_: {
+                type: String,
+                computed: 'computeDictationLocaleSubtitle_(' +
+                    'dictationLocaleOptions_, ' +
+                    'prefs.settings.a11y.dictation_locale.value, ' +
+                    'dictationLocaleSubtitleOverride_)',
+            },
+            dictationLocaleOptions_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+            },
+            dictationLocalesList_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+            },
+            showDictationLocaleMenu_: {
+                type: Boolean,
+                value: false,
+            },
+            dictationLearnMoreUrl_: {
+                type: String,
+                value() {
+                    return loadTimeData.getBoolean('isKioskModeActive') ?
+                        '' :
+                        'https://support.google.com/chromebook?p=text_dictation_m100';
+                },
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([
+                    Setting.kStickyKeys,
+                    Setting.kOnScreenKeyboard,
+                    Setting.kDictation,
+                    Setting.kHighlightKeyboardFocus,
+                    Setting.kHighlightTextCaret,
+                    Setting.kEnableSwitchAccess,
+                ]),
+            },
+            focusHighlightEnabledVirtualPref_: {
+                type: Object,
+                computed: 'computeEnabledWithConflictingFeature_(' +
+                    'prefs.settings.a11y.focus_highlight.value, ' +
+                    'prefs.settings.accessibility.value)',
+            },
+            stickyKeysEnabledVirtualPref_: {
+                type: Object,
+                computed: 'computeEnabledWithConflictingFeature_(' +
+                    'prefs.settings.a11y.sticky_keys_enabled.value, ' +
+                    'prefs.settings.accessibility.value)',
+            },
+        };
+    }
+    constructor() {
+        super();
+        /** RouteOriginMixin override */
+        this.route = routes.A11Y_KEYBOARD_AND_TEXT_INPUT;
+        this.keyboardAndTextInputBrowserProxy_ =
+            KeyboardAndTextInputPageBrowserProxyImpl.getInstance();
+        this.dictationLocaleSubtitleOverride_ = '';
+        this.useDictationLocaleSubtitleOverride_ = false;
+    }
+    ready() {
+        super.ready();
+        this.addWebUiListener('dictation-locale-menu-subtitle-changed', (result) => this.onDictationLocaleMenuSubtitleChanged_(result));
+        this.addWebUiListener('dictation-locales-set', (locales) => this.onDictationLocalesSet_(locales));
+        this.keyboardAndTextInputBrowserProxy_.keyboardAndTextInputPageReady();
+        const r = routes;
+        this.addFocusConfig(r.MANAGE_SWITCH_ACCESS_SETTINGS, '#switchAccessSubpageButton');
+        this.addFocusConfig(r.KEYBOARD, '#keyboardSubpageButton');
+    }
+    /**
+     * Note: Overrides RouteOriginMixin implementation
+     */
+    currentRouteChanged(newRoute, prevRoute) {
+        super.currentRouteChanged(newRoute, prevRoute);
+        // Does not apply to this page.
+        if (newRoute !== this.route) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+    onSwitchAccessSettingsClick_() {
+        Router.getInstance().navigateTo(routes.MANAGE_SWITCH_ACCESS_SETTINGS);
+    }
+    onKeyboardClick_() {
+        Router.getInstance().navigateTo(routes.KEYBOARD, 
+        /* dynamicParams= */ undefined, /* removeSearch= */ true);
+    }
+    onA11yCaretBrowsingChange_(event) {
+        const targetEl = cast(event.target, SettingsToggleButtonElement);
+        if (targetEl.checked) {
+            chrome.metricsPrivate.recordUserAction('Accessibility.CaretBrowsing.EnableWithSettings');
+        }
+        else {
+            chrome.metricsPrivate.recordUserAction('Accessibility.CaretBrowsing.DisableWithSettings');
+        }
+    }
+    onDictationLocaleMenuSubtitleChanged_(subtitle) {
+        this.useDictationLocaleSubtitleOverride_ = true;
+        this.dictationLocaleSubtitleOverride_ = subtitle;
+    }
+    /**
+     * Saves a list of locales and updates the UI to reflect the list.
+     */
+    onDictationLocalesSet_(locales) {
+        this.dictationLocalesList_ = locales;
+        this.onDictationLocalesChanged_();
+    }
+    /**
+     * Converts an array of locales and their human-readable equivalents to
+     * an array of menu options.
+     * TODO(crbug.com/1195916): Use 'offline' to indicate to the user which
+     * locales work offline with an icon in the select options.
+     */
+    onDictationLocalesChanged_() {
+        const currentLocale = this.get('prefs.settings.a11y.dictation_locale.value');
+        this.dictationLocaleOptions_ =
+            this.dictationLocalesList_.map((localeInfo) => {
+                return {
+                    name: localeInfo.name,
+                    value: localeInfo.value,
+                    worksOffline: localeInfo.worksOffline,
+                    installed: localeInfo.installed,
+                    recommended: localeInfo.recommended || localeInfo.value === currentLocale,
+                };
+            });
+    }
+    /**
+     * Calculates the Dictation locale subtitle based on the current
+     * locale from prefs and the offline availability of that locale.
+     */
+    computeDictationLocaleSubtitle_() {
+        if (this.useDictationLocaleSubtitleOverride_) {
+            // Only use the subtitle override once, since we still want the subtitle
+            // to repsond to changes to the dictation locale.
+            this.useDictationLocaleSubtitleOverride_ = false;
+            return this.dictationLocaleSubtitleOverride_;
+        }
+        const currentLocale = this.get('prefs.settings.a11y.dictation_locale.value');
+        const locale = this.dictationLocaleOptions_.find((element) => element.value === currentLocale);
+        if (!locale) {
+            return '';
+        }
+        if (!locale.worksOffline) {
+            // If a locale is not supported offline, then use the network subtitle.
+            return this.i18n('dictationLocaleSubLabelNetwork', locale.name);
+        }
+        if (!locale.installed) {
+            // If a locale is supported offline, but isn't installed, then use the
+            // temporary network subtitle.
+            return this.i18n('dictationLocaleSubLabelNetworkTemporarily', locale.name);
+        }
+        // If we get here, we know a locale is both supported offline and installed.
+        return this.i18n('dictationLocaleSubLabelOffline', locale.name);
+    }
+    onChangeDictationLocaleButtonClicked_() {
+        this.showDictationLocaleMenu_ = true;
+    }
+    onChangeDictationLocalesDialogClosed_() {
+        this.showDictationLocaleMenu_ = false;
+    }
+    computeEnabledWithConflictingFeature_(prefValue, conflictingPrefValue) {
+        return {
+            value: !conflictingPrefValue && prefValue,
+            type: chrome.settingsPrivate.PrefType.BOOLEAN,
+            key: '',
+        };
+    }
+    updateFocusHighlightEnabledVirtualPref_() {
+        // Focus highlight is automatically disabled when ChromeVox is
+        // enabled, although the underlying pref is unchanged (allows
+        // for state restore if ChromeVox is later disabled).)
+        // Reflect the fact focus highlight isn't running by showing
+        // the toggle as off.
+        if (this.getPref('settings.accessibility').value) {
+            return;
+        }
+        this.setPrefValue('settings.a11y.focus_highlight', !this.getPref('settings.a11y.focus_highlight').value);
+    }
+    updateStickyKeysEnabledVirtualPref_() {
+        // Sticky keys is automatically disabled when ChromeVox is
+        // enabled, although the underlying pref is unchanged (allows
+        // for state restore if ChromeVox is later disabled).)
+        // Reflect the fact sticky keys isn't running by showing
+        // the toggle as off.
+        if (this.getPref('settings.accessibility').value) {
+            return;
+        }
+        this.setPrefValue('settings.a11y.sticky_keys_enabled', !this.getPref('settings.a11y.sticky_keys_enabled').value);
+    }
+}
+customElements.define(SettingsKeyboardAndTextInputPageElement.is, SettingsKeyboardAndTextInputPageElement);
+
+function getTemplate$16() {
     return html `<!--_html_template_start_-->
 
 <style include="settings-shared">:host{--cr-section-indent-width:60px;--focus-ring-highlight-color:rgb(218, 54, 232)}h2{padding-inline-start:var(--cr-section-padding)}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.indented{margin-inline-start:32px}.settings-box{margin-inline-end:var(--cr-section-padding);padding-inline-end:0;padding-inline-start:0}settings-dropdown-menu{--md-select-width:100%}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.preview-input{width:315px;--cr-input-error-display:none}.preview-input cr-button{margin-inline-start:8px}.highlight-example-container{display:flex;flex-direction:row;justify-content:space-between;margin-inline-end:var(--cr-section-padding)}.example{display:flex;flex:1;font-size:1em;height:60px;justify-content:center;line-height:60px;padding:0 3px;vertical-align:middle}.example.light{background-color:var(--cros-bg-color-light);border-radius:4px 0 0 4px;color:var(--cros-text-color-primary-light)}.example.dark{background-color:var(--cros-bg-color-dark);border-radius:0 4px 4px 0;color:var(--cros-text-color-primary-dark)}.highlight{height:20px;opacity:.3;position:relative;top:-40px;width:100%;z-index:10}.background-preview{background-color:rgba(var(--cros-bg-color-dark-rgb),.4);border-radius:4px;line-height:1.5;margin-inline-end:var(--cr-section-padding);margin-top:16px;padding:16px 24px 16px 24px;position:relative}.background-preview-selected{background-color:var(--cros-bg-color);border-radius:6px;box-shadow:0 0 4px 4px var(--focus-ring-highlight-color);color:var(--cros-text-color-primary);display:inline-block;margin:0;padding:6px 4px 6px 4px}.background-preview-unselected{color:var(--cros-text-color-secondary);margin:2px 0 2px 0;padding:0 4px 0 4px}</style>
@@ -24984,7 +24965,7 @@ class SettingsSelectToSpeakSubpageElement extends SettingsSelectToSpeakSubpageEl
         return 'settings-select-to-speak-subpage';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$16();
     }
     static get properties() {
         return {
@@ -25410,7 +25391,7 @@ class SettingsSelectToSpeakSubpageElement extends SettingsSelectToSpeakSubpageEl
 }
 customElements.define(SettingsSelectToSpeakSubpageElement.is, SettingsSelectToSpeakSubpageElement);
 
-function getTemplate$16() {
+function getTemplate$15() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:420px}</style>
 
 <cr-dialog id="switchAccessActionAssignmentDialog" show-on-attach>
@@ -25506,7 +25487,7 @@ class SettingsSwitchAccessActionAssignmentDialogElement extends SettingsSwitchAc
         return 'settings-switch-access-action-assignment-dialog';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$15();
     }
     static get properties() {
         return {
@@ -25559,8 +25540,8 @@ class SettingsSwitchAccessActionAssignmentDialogElement extends SettingsSwitchAc
 }
 customElements.define(SettingsSwitchAccessActionAssignmentDialogElement.is, SettingsSwitchAccessActionAssignmentDialogElement);
 
-function getTemplate$15() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#prompt{color:var(--cr-primary-text-color);margin-top:8px;min-height:40px;white-space:pre-line}#switchAssignments{background-color:var(--cros-textfield-background-color);border-radius:4px;display:flex;flex-direction:column;gap:12px;height:60px;margin-top:20px;overflow:auto;padding:16px}:host-context(body.jelly-enabled) #switchAssignments{background-color:var(--cros-sys-input_field_on_base)}.switch-assignment{display:flex}.icon{margin-inline-end:10px}.add-assignment-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.assigned-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}.remove-assignment-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#errorIcon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#button-container{margin-inline-end:10px;padding-top:8px}#errorContainer{height:40px;margin-top:16px}#error{color:var(--cros-icon-color-alert);display:flex}</style>
+function getTemplate$14() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#prompt{color:var(--cr-primary-text-color);margin-top:8px;min-height:40px;white-space:pre-line}#switchAssignments{background-color:var(--cros-sys-input_field_on_base);border-radius:4px;display:flex;flex-direction:column;gap:12px;height:60px;margin-top:20px;overflow:auto;padding:16px}.switch-assignment{display:flex}.icon{margin-inline-end:10px}.add-assignment-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.assigned-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}.remove-assignment-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#errorIcon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#button-container{margin-inline-end:10px;padding-top:8px}#errorContainer{height:40px;margin-top:16px}#error{color:var(--cros-icon-color-alert);display:flex}</style>
 <div id="prompt" aria-live="polite">[[promptText_]]</div>
 <div id="switchAssignments">
   <template is="dom-if" if="[[!assignments_.length]]">
@@ -25633,7 +25614,7 @@ class SettingsSwitchAccessActionAssignmentPaneElement extends SettingsSwitchAcce
         return 'settings-switch-access-action-assignment-pane';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -25982,9 +25963,9 @@ class SettingsSwitchAccessActionAssignmentPaneElement extends SettingsSwitchAcce
 }
 customElements.define(SettingsSwitchAccessActionAssignmentPaneElement.is, SettingsSwitchAccessActionAssignmentPaneElement);
 
-function getTemplate$14() {
+function getTemplate$13() {
     return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
-<style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{background-position:center center;background-repeat:no-repeat;background-size:183px}.illustration,.illustration-jelly{height:173px;margin-top:15px;padding:16px;width:183px}#intro .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_start_pairing.svg)}#assignSwitch[data-switch=select] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_select.svg)}#assignSwitch[data-switch=next] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_next.svg)}#assignSwitch[data-switch=previous] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_previous.svg)}#chooseSwitchCount[data-switch-count='1'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_one_switch.svg)}#chooseSwitchCount[data-switch-count='2'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_two_switches.svg)}#chooseSwitchCount[data-switch-count='3'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_three_switches.svg)}#autoScanEnabled .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_auto_scan_enabled.svg)}#closing .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_closing.svg)}@media(prefers-color-scheme:dark){#intro .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_start_pairing_dark.svg)}#assignSwitch[data-switch=select] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_select_dark.svg)}#assignSwitch[data-switch=next] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_next_dark.svg)}#assignSwitch[data-switch=previous] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_previous_dark.svg)}#chooseSwitchCount[data-switch-count='1'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_one_switch_dark.svg)}#chooseSwitchCount[data-switch-count='2'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_two_switches_dark.svg)}#chooseSwitchCount[data-switch-count='3'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_three_switches_dark.svg)}#autoScanEnabled .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_auto_scan_enabled_dark.svg)}#closing .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_closing_dark.svg)}}:host-context(body:not(.jelly-enabled)) .illustration-jelly{display:none}:host-context(body.jelly-enabled) .illustration{display:none}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
+<style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{height:173px;margin-top:15px;padding:16px;width:183px}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
 <cr-dialog id="switchAccessSetupGuideDialog" show-on-attach>
   <div slot="title" class="sa-setup-title" id="title">
     <span id="titleText">
@@ -25999,15 +25980,13 @@ function getTemplate$14() {
         $i18n{switchAccessSetupIntroBody}
       </div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="os-settings-illo:switch-access-setup-guide-start-pairing" class="illustration-jelly">
+      <iron-icon icon="os-settings-illo:switch-access-setup-guide-start-pairing" class="illustration">
       </iron-icon>
     </div>
     <div id="assignSwitch" class="flex" hidden data-switch$="[[switchToAssign_]]">
       <div class="sa-setup-contents"></div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="[[getAssignSwitchIllo_(switchToAssign_)]]" class="illustration-jelly">
+      <iron-icon icon="[[getAssignSwitchIllo_(switchToAssign_)]]" class="illustration">
       </iron-icon>
     </div>
     <div id="autoScanEnabled" class="flex" hidden>
@@ -26016,8 +25995,7 @@ function getTemplate$14() {
         <p>$i18n{switchAccessSetupAutoScanEnabledDirections}</p>
       </div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="os-settings-illo:switch-access-setup-guide-auto-scan" class="illustration-jelly">
+      <iron-icon icon="os-settings-illo:switch-access-setup-guide-auto-scan" class="illustration">
       </iron-icon>
     </div>
     <div id="chooseSwitchCount" class="flex" hidden data-switch-count$="[[switchCount_]]">
@@ -26047,8 +26025,7 @@ function getTemplate$14() {
         
       </cr-radio-group></div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="[[getSwitchCountIllo_(switchCount_)]]" class="illustration-jelly">
+      <iron-icon icon="[[getSwitchCountIllo_(switchCount_)]]" class="illustration">
       </iron-icon>
     </div>
     <div id="autoScanSpeed" hidden>
@@ -26068,8 +26045,7 @@ function getTemplate$14() {
         <p>$i18n{switchAccessSetupClosingInfo}</p>
       </div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="os-settings-illo:switch-access-setup-guide-closing" class="illustration-jelly">
+      <iron-icon icon="os-settings-illo:switch-access-setup-guide-closing" class="illustration">
       </iron-icon>
     </div>
   </div>
@@ -26197,7 +26173,7 @@ class SettingsSwitchAccessSetupGuideDialogElement extends SettingsSwitchAccessSe
         return 'settings-switch-access-setup-guide-dialog';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$13();
     }
     static get properties() {
         return {
@@ -26520,7 +26496,7 @@ class SettingsSwitchAccessSetupGuideDialogElement extends SettingsSwitchAccessSe
 }
 customElements.define(SettingsSwitchAccessSetupGuideDialogElement.is, SettingsSwitchAccessSetupGuideDialogElement);
 
-function getTemplate$13() {
+function getTemplate$12() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:320px}.body{margin-top:8px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{switchAccessSetupGuideWarningDialogTitle}</div>
@@ -26546,7 +26522,7 @@ class SettingsSwitchAccessSetupGuideWarningDialogElement extends PolymerElement 
         return 'settings-switch-access-setup-guide-warning-dialog';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$12();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -26561,7 +26537,7 @@ class SettingsSwitchAccessSetupGuideWarningDialogElement extends PolymerElement 
 }
 customElements.define(SettingsSwitchAccessSetupGuideWarningDialogElement.is, SettingsSwitchAccessSetupGuideWarningDialogElement);
 
-function getTemplate$12() {
+function getTemplate$11() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">h2{padding-inline-start:var(--cr-section-padding)}ul{list-style-type:none;text-align:end}</style>
 <cr-link-row on-click="onSetupGuideRerunClick_" label="$i18n{switchAccessSetupGuideLabel}" id="setupGuideLink">
 </cr-link-row>
@@ -26641,7 +26617,7 @@ class SettingsSwitchAccessSubpageElement extends SettingsSwitchAccessSubpageElem
         return 'settings-switch-access-subpage';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -26870,7 +26846,7 @@ class SettingsSwitchAccessSubpageElement extends SettingsSwitchAccessSubpageElem
 }
 customElements.define(SettingsSwitchAccessSubpageElement.is, SettingsSwitchAccessSubpageElement);
 
-function getTemplate$11() {
+function getTemplate$10() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
 <settings-toggle-button icon="os-settings:text-to-speech" pref="{{prefs.settings.accessibility}}" label="$i18n{chromeVoxLabel}" sub-label="[[getChromeVoxDescription_(prefs.settings.accessibility.value)]]" deep-link-focus-id$="[[Setting.kChromeVox]]">
 </settings-toggle-button>
@@ -26943,7 +26919,7 @@ class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElem
         return 'settings-text-to-speech-subpage';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -27097,7 +27073,7 @@ class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElem
 }
 customElements.define(SettingsTextToSpeechSubpageElement.is, SettingsTextToSpeechSubpageElement);
 
-function getTemplate$10() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">h2{padding-inline-start:var(--cr-section-padding)}.settings-box{margin-inline-end:var(--cr-section-padding);margin-inline-start:var(--cr-section-indent-padding);padding-inline-end:0;padding-inline-start:0}#previewInput{width:70%;--cr-input-error-display:none}#previewInput cr-button{margin-inline-start:8px}</style>
 
 <h2>$i18n{textToSpeechProperties}</h2>
@@ -27204,7 +27180,7 @@ class SettingsTtsVoiceSubpageElement extends SettingsTtsVoiceSubpageElementBase 
         return 'settings-tts-voice-subpage';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -27533,7 +27509,7 @@ class SettingsTtsVoiceSubpageElement extends SettingsTtsVoiceSubpageElementBase 
 }
 customElements.define(SettingsTtsVoiceSubpageElement.is, SettingsTtsVoiceSubpageElement);
 
-function getTemplate$$() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="settings-shared">#warningSelector>:not(.iron-selected){display:none}h3{font-size:inherit}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{aboutChangeChannel}</div>
@@ -27602,7 +27578,7 @@ class SettingsChannelSwitcherDialogElement extends PolymerElement {
         return 'settings-channel-switcher-dialog';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -27721,7 +27697,7 @@ class SettingsChannelSwitcherDialogElement extends PolymerElement {
 }
 customElements.define(SettingsChannelSwitcherDialogElement.is, SettingsChannelSwitcherDialogElement);
 
-function getTemplate$_() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="settings-shared">#warningSelector>:not(.iron-selected){display:none}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{aboutConsumerAutoUpdateToggleDialogTitle}</div>
@@ -27746,7 +27722,7 @@ class SettingsConsumerAutoUpdateToggleDialogElement extends PolymerElement {
         return 'settings-consumer-auto-update-toggle-dialog';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$Z();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -27775,7 +27751,7 @@ class SettingsConsumerAutoUpdateToggleDialogElement extends PolymerElement {
 }
 customElements.define(SettingsConsumerAutoUpdateToggleDialogElement.is, SettingsConsumerAutoUpdateToggleDialogElement);
 
-function getTemplate$Z() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:335px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-top:24px;--cr-dialog-title-slot-padding-bottom:0;--cr-dialog-body-padding-horizontal:24px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:20px}:host([is-input-invalid_]) #inputInfo{color:var(--cros-text-color-alert)}#inputContainer{position:relative}#deviceNameInfo{margin-bottom:24px}#deviceName{margin:8px 0 24px 0}#inputInfo{background-color:var(--cros-bg-color-elevation-3);color:var(--cros-text-color-secondary);font-size:var(--cr-form-field-label-font-size);font-weight:400;height:30px;line-height:var(--cr-form-field-label-line-height);padding-top:8px;position:absolute;top:97px;width:100%}#inputCount{position:absolute;right:0;top:8px}:host-context([dir=rtl]) #inputCount{left:0;right:auto}#inputSubtitle{display:block;width:290px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title">$i18n{aboutEditDeviceName}</div>
@@ -27821,7 +27797,7 @@ class EditHostnameDialogElement extends EditHostnameDialogElementBase {
         return 'edit-hostname-dialog';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -27895,9 +27871,9 @@ class EditHostnameDialogElement extends EditHostnameDialogElementBase {
 }
 customElements.define(EditHostnameDialogElement.is, EditHostnameDialogElement);
 
-function getTemplate$Y() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}</style>
-<div class="settings-box two-line">
+function getTemplate$X() {
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}:host-context(body:not(.revamp-wayfinding-enabled)) #buildDetailsLinkContainer{border-bottom:var(--cr-separator-line)}</style>
+<div class="settings-box two-line first">
   <div class="start">
     <div role="heading" aria-level="2">$i18n{aboutChannelLabel}</div>
     <div id="currentlyOnChannelText" aria-hidden="true" class="secondary">
@@ -27990,7 +27966,6 @@ function getTemplate$Y() {
   <cr-icon-button on-click="onVisitBuildDetailsPageClick_" aria-labelledby="aboutBuildDetailsTitle" class="icon-external">
   </cr-icon-button>
 </div>
-<div class="hr"></div>
 <!--_html_template_end_-->`;
 }
 
@@ -28007,7 +27982,7 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
         return 'settings-detailed-build-info-subpage';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -28276,13 +28251,13 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
     onChannelSwitcherDialogClosed_() {
         this.showChannelSwitcherDialog_ = false;
         const button = castExists(this.shadowRoot.querySelector('cr-button'));
-        focusWithoutInk(button);
+        focusWithoutInk$1(button);
         this.updateChannelInfo_();
     }
     onEditHostnameDialogClosed_() {
         this.showEditHostnameDialog_ = false;
         const button = castExists(this.shadowRoot.querySelector('cr-button'));
-        focusWithoutInk(button);
+        focusWithoutInk$1(button);
     }
 }
 customElements.define(SettingsDetailedBuildInfoSubpageElement.is, SettingsDetailedBuildInfoSubpageElement);
@@ -28309,7 +28284,7 @@ class GoogleAssistantBrowserProxyImpl {
     }
 }
 
-function getTemplate$X() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.text-area{margin-inline-end:24px}select.md-select{min-width:200px}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
 <settings-toggle-button id="google-assistant-enable" class="primary-toggle" pref="{{prefs.settings.voice_interaction.enabled}}" label="[[getAssistantOnOffLabel_(
         prefs.settings.voice_interaction.enabled.value)]]" disabled="[[prefs.settings.assistant.disabled_by_policy.value]]" aria-label="[[getAssistantOnOffLabel_(
@@ -28410,7 +28385,7 @@ class SettingsGoogleAssistantSubpageElement extends SettingsGoogleAssistantSubpa
         return 'settings-google-assistant-subpage';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -28572,7 +28547,7 @@ class SettingsGoogleAssistantSubpageElement extends SettingsGoogleAssistantSubpa
 }
 customElements.define(SettingsGoogleAssistantSubpageElement.is, SettingsGoogleAssistantSubpageElement);
 
-function getTemplate$W() {
+function getTemplate$V() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}#quick-answers-definition-enable{border-top:none}</style>
 <settings-search-engine deep-link-focus-id$="[[Setting.kPreferredSearchEngine]]">
 </settings-search-engine>
@@ -28610,7 +28585,7 @@ class SettingsSearchSubpageElement extends SettingsSearchSubpageElementBase {
         return 'settings-search-subpage';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -28682,9 +28657,9 @@ class SettingsSearchSubpageElement extends SettingsSearchSubpageElementBase {
 }
 customElements.define(SettingsSearchSubpageElement.is, SettingsSearchSubpageElement);
 
-function getTemplate$V() {
+function getTemplate$U() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.account-manager-description{color:var(--cr-secondary-text-color);display:block;max-width:560px}.account-manager-description.full-width{max-width:none}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.device-account-container{align-items:center;display:flex;flex-direction:column}.device-account-container .primary{font-weight:500;margin-bottom:4px;margin-top:16px}.account-list-item{padding-inline-end:8px;padding-inline-start:0}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.account-list-header-description{align-items:center;display:flex;width:100%}.account-list-header-description.with-padding{padding-top:16px}.account-list-header-description>.secondary,.account-list-header-description>h2{flex-grow:1;padding-inline-end:40px}.account-list-header-description>h2{padding-bottom:16px;padding-top:16px}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}#account-list-header>h2{padding-bottom:8px;padding-top:16px}#account-list-header{padding-bottom:8px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#add-account-button{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.managed-badge{--badge-offset:calc(100% - var(--badge-size)
-                         - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}.management-status{color:var(--cr-secondary-text-color);overflow:hidden;text-align:end;text-overflow:ellipsis;width:18ch}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:rgba(var(--cros-color-alert-rgb), .9);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}:host-context(body.jelly-enabled) #removeConfirmationButton{--hover-bg-action:var(--cros-sys-hover_on_prominent)}</style>
+                         - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}.management-status{color:var(--cr-secondary-text-color);overflow:hidden;text-align:end;text-overflow:ellipsis;width:18ch}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:var(--cros-sys-hover_on_prominent);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}</style>
 
 <div class="settings-box first account-manager-description full-width">
   <localized-link localized-string="[[getAccountManagerDescription_()]]" link-url="$i18nRaw{accountManagerLearnMoreUrl}">
@@ -28840,7 +28815,7 @@ class SettingsAccountManagerSubpageElement extends SettingsAccountManagerSubpage
         return 'settings-account-manager-subpage';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -29152,7 +29127,7 @@ const template$2 = html`<iron-iconset-svg name="fingerprint-icon" size="32">
   </iron-iconset-svg>`;
 document.head.appendChild(template$2.content);
 
-function getTemplate$U() {
+function getTemplate$T() {
   return html`<!--_html_template_start_--><style>
     :host {
       user-select: none;
@@ -29245,7 +29220,7 @@ class FingerprintProgressElement extends PolymerElement {
         return 'fingerprint-progress';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -29588,7 +29563,7 @@ class FingerprintBrowserProxyImpl {
     }
 }
 
-function getTemplate$T() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialog::part(dialog){min-width:500px;width:500px}#scannerLocationLottie{height:220px;padding:10px 0}#messageDiv[invisible]{visibility:hidden}#closeButton{margin-inline-start:5px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{configureFingerprintTitle}</div>
@@ -29597,10 +29572,10 @@ function getTemplate$T() {
       <span>[[getInstructionMessage_(step_, problemMessage_)]]</span>
     </div>
     <div id="scannerLocationLottie" hidden="[[!showScannerLocation_(step_)]]">
-      <cros-lottie-renderer asset-url="fingerprint_scanner_animation.json" autoplay dynamic="[[isDynamicColor_]]">
+      <cros-lottie-renderer asset-url="fingerprint_scanner_animation.json" autoplay dynamic>
       </cros-lottie-renderer>
     </div>
-    <fingerprint-progress id="arc" dynamic="[[isDynamicColor_]]" circle-radius="100" autoplay hidden="[[!showArc_(step_)]]">
+    <fingerprint-progress id="arc" dynamic circle-radius="100" autoplay hidden="[[!showArc_(step_)]]">
     </fingerprint-progress>
   </div>
   <div slot="button-container">
@@ -29638,7 +29613,7 @@ class SettingsSetupFingerprintDialogElement extends SettingsSetupFingerprintDial
         return 'settings-setup-fingerprint-dialog';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -29677,13 +29652,6 @@ class SettingsSetupFingerprintDialogElement extends SettingsSetupFingerprintDial
                 type: Number,
                 value: 0,
                 observer: 'onProgressChanged_',
-            },
-            /**
-             * Indicates whether Jelly is enabled.
-             */
-            isDynamicColor_: {
-                type: Boolean,
-                value: loadTimeData.getBoolean('isJellyEnabled'),
             },
         };
     }
@@ -29888,7 +29856,7 @@ class SettingsSetupFingerprintDialogElement extends SettingsSetupFingerprintDial
 }
 customElements.define(SettingsSetupFingerprintDialogElement.is, SettingsSetupFingerprintDialogElement);
 
-function getTemplate$S() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-input{--cr-input-error-display:none}cr-tooltip-icon{--cr-icon-size:16px;--cr-tooltip-icon-fill-color:var(--cros-sys-on_surface_variant)}iron-icon{--iron-icon-fill-color:var(--cros-sys-on_surface_variant);--iron-icon-height:16px;--iron-icon-width:16px}#savedFingerprints{margin-inline-end:4px;color:var(--cros-sys-on_surface_variant)}#fingerprintTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-border-radius:8px;--paper-tooltip-delay-out:500ms;--paper-tooltip-opacity:1;--paper-tooltip-padding:12px 16px;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#fingerprintTooltip::part(tooltip){box-shadow:var(--cr-card-shadow)}#fingerprintNotice{--cr-localized-link-display:block;font-size:12px;line-height:18px}#lockScreenFingerprintWarning{margin-inline-start:4px;color:var(--cros-sys-on_surface_variant)}</style>
 <h2 class="settings-box">
   <div id="savedFingerprints">
@@ -29940,7 +29908,7 @@ class SettingsFingerprintListSubpageElement extends SettingsFingerprintListSubpa
         return 'settings-fingerprint-list-subpage';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -30037,7 +30005,7 @@ class SettingsFingerprintListSubpageElement extends SettingsFingerprintListSubpa
     }
     onSetupFingerprintDialogClose_() {
         this.showSetupFingerprintDialog_ = false;
-        focusWithoutInk$1(castExists(this.shadowRoot.querySelector('#addFingerprint')));
+        focusWithoutInk(castExists(this.shadowRoot.querySelector('#addFingerprint')));
     }
     /**
      * Close the setup fingerprint dialog when the screen is unlocked.
@@ -30064,7 +30032,7 @@ class SettingsFingerprintListSubpageElement extends SettingsFingerprintListSubpa
 }
 customElements.define(SettingsFingerprintListSubpageElement.is, SettingsFingerprintListSubpageElement);
 
-function getTemplate$R() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:fit-content}#errorIcon{--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);--iron-icon-fill-color:var(--cros-icon-color-alert);display:inline-block;margin-inline-start:8px}#errorDiv{align-items:center;color:var(--cros-text-color-alert);display:flex;flex-direction:row;max-width:200px;min-height:48px}#errorDiv[invisible]{visibility:hidden}#pinKeyboardDiv{justify-content:center;padding:0}#pinAutosubmitDialogSubtitle{padding-bottom:16px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{configurePinConfirmPinTitle}</div>
@@ -30117,7 +30085,7 @@ class SettingsPinAutosubmitDialogElement extends SettingsPinAutosubmitDialogElem
         return 'settings-pin-autosubmit-dialog';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -30268,7 +30236,7 @@ class SettingsPinAutosubmitDialogElement extends SettingsPinAutosubmitDialogElem
 }
 customElements.define(SettingsPinAutosubmitDialogElement.is, SettingsPinAutosubmitDialogElement);
 
-function getTemplate$Q() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:fit-content}</style>
 <cr-dialog id="dialog" on-close="onClose_" close-text="$i18n{close}">
   <div slot="title">$i18n{recoveryDisableDialogTitle}</div>
@@ -30302,7 +30270,7 @@ class LocalDataRecoveryDialogElement extends LocalDataRecoveryDialogElementBase 
         return 'local-data-recovery-dialog';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -30351,7 +30319,7 @@ class LocalDataRecoveryDialogElement extends LocalDataRecoveryDialogElementBase 
 }
 customElements.define(LocalDataRecoveryDialogElement.is, LocalDataRecoveryDialogElement);
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_--><template is="dom-if" if="[[shouldShowFeature_(pageContentData)]]" restamp>
   <settings-multidevice-feature-item id="smartLockItem" feature="[[MultiDeviceFeature.SMART_LOCK]]" page-content-data="[[pageContentData]]" is-feature-icon-hidden>
   </settings-multidevice-feature-item>
@@ -30375,7 +30343,7 @@ class SettingsMultideviceSmartlockItemElement extends SettingsMultideviceSmartlo
         return 'settings-multidevice-smartlock-item';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -30428,7 +30396,7 @@ class SettingsMultideviceSmartlockItemElement extends SettingsMultideviceSmartlo
 }
 customElements.define(SettingsMultideviceSmartlockItemElement.is, SettingsMultideviceSmartlockItemElement);
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_--><style include="settings-shared">#password-type-radio-group{width:auto;padding-inline-end:0}.two-elements-left-right{display:flex;flex-direction:row;justify-content:space-between}:host{display:block}:host>div{width:100%}</style>
 <div>
   <div class="two-elements-left-right">
@@ -30478,7 +30446,7 @@ const template$1 = html`<iron-iconset-svg name="auth-setup" size="24">
 `;
 document.head.appendChild(template$1.content);
 
-function getTemplate$N() {
+function getTemplate$M() {
   return html`<!--_html_template_start_--><!--
 Copyright 2023 The Chromium Authors
 Use of this source code is governed by a BSD-style license that can be
@@ -30589,7 +30557,7 @@ class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
         return 'set-local-password-input';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -30811,7 +30779,7 @@ class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
 }
 customElements.define(SetLocalPasswordInputElement.is, SetLocalPasswordInputElement);
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style include="settings-shared">.error{color:var(--cros-text-color-alert)}</style>
 <cr-dialog id="dialog" ignore-enter-key close-text="$i18n{close}">
   <div slot="title">$i18n{setLocalPasswordDialogTitle}</div>
@@ -30845,7 +30813,7 @@ class SettingsSetLocalPasswordDialogElement extends PolymerElement {
         return 'settings-set-local-password-dialog';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -30923,7 +30891,7 @@ class SettingsPasswordSettingsElement extends PolymerElement {
         return 'settings-password-settings';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -31037,7 +31005,7 @@ class SettingsPasswordSettingsElement extends PolymerElement {
 }
 customElements.define(SettingsPasswordSettingsElement.is, SettingsPasswordSettingsElement);
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style include="settings-shared">.two-elements-left-right{display:flex;flex-direction:row;justify-content:space-between;align-items:center}:host{display:block}:host>div{width:100%}cr-policy-indicator{margin-left:16px;margin-right:16px}</style>
 <div>
   <div class="two-elements-left-right">
@@ -31092,7 +31060,7 @@ class SettingsPinSettingsElement extends SettingsPinSettingsElementBase {
         return 'settings-pin-settings';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -31191,7 +31159,7 @@ class SettingsPinSettingsElement extends SettingsPinSettingsElementBase {
     }
     onSetPinDialogClose_() {
         this.showSetPinDialog_ = false;
-        focusWithoutInk(this.setPinButton_());
+        focusWithoutInk$1(this.setPinButton_());
     }
     onPinAutosubmitChange_(event) {
         const target = event.target;
@@ -31216,7 +31184,7 @@ class SettingsPinSettingsElement extends SettingsPinSettingsElementBase {
     onPinAutosubmitDialogClose_() {
         this.showPinAutosubmitDialog_ = false;
         const toggle = this.enablePinAutoSubmitToggle_();
-        focusWithoutInk(toggle);
+        focusWithoutInk$1(toggle);
     }
     onMoreButtonClicked_(event) {
         event.preventDefault(); // Prevent default browser action (navigation).
@@ -31257,7 +31225,7 @@ class SettingsPinSettingsElement extends SettingsPinSettingsElementBase {
 }
 customElements.define(SettingsPinSettingsElement.is, SettingsPinSettingsElement);
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-wrap:wrap}.list-item{width:100%}#lockOptionsDiv{display:block}.underbar{border-bottom:var(--cr-separator-line)}</style>
 <div>
   <settings-toggle-button id="enableLockScreen" pref="{{prefs.settings.enable_screen_lock}}" on-settings-boolean-control-change="onScreenLockChange_" no-set-pref label="$i18n{enableScreenlock}" deep-link-focus-id$="[[Setting.kLockScreenV2]]">
@@ -31339,7 +31307,7 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
         return 'settings-lock-screen-subpage';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -31498,7 +31466,7 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
     onRecoveryDialogClose_() {
         this.showDisableRecoveryDialog_ = false;
         this.recoveryChangeInProcess_ = false;
-        focusWithoutInk(castExists(this.shadowRoot.querySelector('#recoveryToggle')));
+        focusWithoutInk$1(castExists(this.shadowRoot.querySelector('#recoveryToggle')));
     }
     recoveryToggleSubLabel_() {
         if (this.recovery_) {
@@ -31695,9 +31663,9 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
 }
 customElements.define(SettingsLockScreenElement.is, SettingsLockScreenElement);
 
-function getTemplate$J() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.settings-box{border-top:none}.list-item{display:flex}.list-item[sync-revamp-enabled]{align-items:center;flex-direction:row;gap:16px;padding:14px 20px}#tooltipIcon{--cr-tooltip-icon-fill-color:var(--cros-color-secondary);margin-inline-end:20px}#tooltipIcon::part(tooltip){--paper-tooltip-background:var(--cros-bg-color);--paper-tooltip-text-color:var(--cros-text-color-secondary);--paper-tooltip-delay-in:0;border-radius:6px;box-shadow:0 1px 3px var(--cros-shadow-color-key),0 4px 8px var(--cros-separator-color);font:var(--cros-body-2-font)}#tooltipIcon[label-disabled]::part(tooltip){visibility:hidden}.list-item>div{flex:1}cr-tooltip-icon[label-disabled],div[label-disabled]{opacity:var(--cros-disabled-opacity)}</style>
-<div id="featureLabel" class="settings-box">
+function getTemplate$I() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-item{display:flex}.list-item[sync-revamp-enabled]{align-items:center;flex-direction:row;gap:16px;padding:14px 20px}#tooltipIcon{--cr-tooltip-icon-fill-color:var(--cros-color-secondary);margin-inline-end:20px}#tooltipIcon::part(tooltip){--paper-tooltip-background:var(--cros-bg-color);--paper-tooltip-text-color:var(--cros-text-color-secondary);--paper-tooltip-delay-in:0;border-radius:6px;box-shadow:0 1px 3px var(--cros-shadow-color-key),0 4px 8px var(--cros-separator-color);font:var(--cros-body-2-font)}#tooltipIcon[label-disabled]::part(tooltip){visibility:hidden}.list-item>div{flex:1}cr-tooltip-icon[label-disabled],div[label-disabled]{opacity:var(--cros-disabled-opacity)}</style>
+<div class="settings-box first">
   <localized-link class="secondary" localized-string="$i18n{osSyncFeatureLabel}" on-link-clicked="onBrowserSyncSettingsClicked_">
   </localized-link>
 </div>
@@ -31799,7 +31767,7 @@ class OsSyncControlsSubpageElement extends OsSyncControlsSubpageElementBase {
         return 'os-sync-controls-subpage';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -31962,7 +31930,7 @@ class OsSyncControlsSubpageElement extends OsSyncControlsSubpageElementBase {
 }
 customElements.define(OsSyncControlsSubpageElement.is, OsSyncControlsSubpageElement);
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#create-password-box{margin-bottom:1em}#create-password-box .list-item{margin-bottom:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-width:var(--cr-default-input-max-width)}.passphrase-reset-icon{margin-inline-end:8px}cr-radio-button[name=encrypt-with-passphrase]{align-items:start}</style>
 
 <template is="dom-if" if="[[!syncPrefs.passphraseRequired]]">
@@ -32017,7 +31985,7 @@ class OsSettingsSyncEncryptionOptionsElement extends PolymerElement {
         return 'os-settings-sync-encryption-options';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -32179,7 +32147,7 @@ class OsSettingsSyncEncryptionOptionsElement extends PolymerElement {
 }
 customElements.define(OsSettingsSyncEncryptionOptionsElement.is, OsSettingsSyncEncryptionOptionsElement);
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#sync-separator{border-bottom:var(--cr-separator-line)}#create-password-box{margin-inline-start:var(--cr-section-indent-width)}#create-password-box{margin-bottom:1em}#create-password-box .list-item{margin-bottom:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-width:var(--cr-default-input-max-width)}#existingPassphrase{border-bottom:var(--cr-separator-line);border-top:var(--cr-separator-line);padding-inline-start:var(--cr-section-padding)}#submitExistingPassphrase{margin-inline-start:16px}#passphraseRecoverHint{align-items:center}#other-sync-items{padding-bottom:8px}.passphrase-reset-icon{margin-inline-end:8px}#disabled-by-admin-icon{text-align:center;width:40px}#toast{left:0;z-index:1}:host-context([dir=rtl]) #toast{left:auto;right:0}cr-link-row{padding-inline-end:0;padding-inline-start:0}</style>
 
 <div class="cr-row first" hidden="[[!syncDisabledByAdmin_]]">
@@ -32275,7 +32243,7 @@ class OsSettingsSyncSubpageElement extends OsSettingsSyncSubpageElementBase {
         return 'os-settings-sync-subpage';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -32682,7 +32650,7 @@ class OsSettingsSyncSubpageElement extends OsSettingsSyncSubpageElementBase {
 }
 customElements.define(OsSettingsSyncSubpageElement.is, OsSettingsSyncSubpageElement);
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">.user-list{max-height:calc(4 * (var(--cr-section-two-line-min-height) + 1px));overflow-y:auto}.user{border-bottom:var(--cr-separator-line)}.user-icon{background-position:center;background-repeat:no-repeat;background-size:cover;border-radius:20px;flex-shrink:0;height:40px;width:40px}.user-info{padding-inline-start:20px}:host([disabled]) .user-list{opacity:var(--cr-disabled-opacity);overflow:auto}</style>
 <div class="user-list" scrollable>
   <template is="dom-repeat" items="[[users_]]">
@@ -32725,7 +32693,7 @@ class SettingsUserListElement extends SettingsUserListElementBase {
         return 'settings-user-list';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -32822,7 +32790,7 @@ class SettingsUserListElement extends SettingsUserListElementBase {
 }
 customElements.define(SettingsUserListElement.is, SettingsUserListElement);
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:320px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{addUsers}</div>
@@ -32876,7 +32844,7 @@ class SettingsUsersAddUserDialogElement extends SettingsUsersAddUserDialogElemen
         return 'settings-users-add-user-dialog';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -32962,7 +32930,7 @@ class SettingsUsersAddUserDialogElement extends SettingsUsersAddUserDialogElemen
 }
 customElements.define(SettingsUsersAddUserDialogElement.is, SettingsUsersAddUserDialogElement);
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="settings-shared action-link">.settings-box:first-of-type{border-top:none}#add-user-button{margin-inline-start:var(--cr-section-indent-padding)}.block{display:block}#header{padding-inline-start:20px}</style>
 <div class="settings-box" hidden$="[[!isUserListManaged_]]">
   $i18n{settingsManagedLabel}
@@ -33008,7 +32976,7 @@ class SettingsManageUsersSubpageElement extends SettingsManageUsersSubpageElemen
         return 'settings-manage-users-subpage';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -33107,7 +33075,7 @@ class SettingsManageUsersSubpageElement extends SettingsManageUsersSubpageElemen
         return this.isUserListManaged_ || this.isOwner_;
     }
     focusAddUserButton_() {
-        focusWithoutInk(castExists(this.shadowRoot.querySelector('#add-user-button a')));
+        focusWithoutInk$1(castExists(this.shadowRoot.querySelector('#add-user-button a')));
     }
     getRestrictSigninSublabel_() {
         return this.isRevampWayfindingEnabled_ ?
@@ -33117,7 +33085,7 @@ class SettingsManageUsersSubpageElement extends SettingsManageUsersSubpageElemen
 }
 customElements.define(SettingsManageUsersSubpageElement.is, SettingsManageUsersSubpageElement);
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-sys-primary)}#accessStatusRow:hover[actionable]{background-color:var(--cr-hover-background-color)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}</style>
 <div id="accessStatusRow" class="settings-box first" actionable$="[[!shouldDisableCameraToggle_]]" on-click="onAccessStatusRowClick_">
   <div class="start settings-box-text" aria-hidden="true">
@@ -33125,36 +33093,39 @@ function getTemplate$D() {
       [[computeOnOffText_(prefs.ash.user.camera_allowed.value)]]
     </div>
     <div id="onOffSubtext" class="secondary">
-      [[computeOnOffSubtext_(prefs.ash.user.camera_allowed.value)]]
+      [[cameraAccessStateText_]]
     </div>
   </div>
   <div id="cameraToggleWrapper">
-    <cr-toggle id="cameraToggle" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" on-click="onCameraToggleClick_">
+    <cr-toggle id="cameraToggle" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" on-click="onCameraToggleClick_" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraAccessStateText_]]">
     </cr-toggle>
   </div>
 </div>
-<template is="dom-if" if="[[prefs.ash.user.camera_allowed.value]]" restamp>
-  <div id="cameraListSection" class="list-frame">
-    <template is="dom-if" if="[[isCameraListEmpty_]]" restamp>
-      <div id="noCameraText" class="list-item">
-        $i18n{noCameraConnectedText}
+<div id="cameraListSection" class="list-frame">
+  <template is="dom-if" if="[[isCameraListEmpty_]]" restamp>
+    <div id="noCameraText" class="list-item">
+      $i18n{noCameraConnectedText}
+    </div>
+  </template>
+  <template is="dom-if" if="[[!isCameraListEmpty_]]" restamp>
+    <template id="cameraList" is="dom-repeat" items="[[connectedCameras_]]">
+      <div class="list-item">
+        <span id="cameraName" hidden$="[[!prefs.ash.user.camera_allowed.value]]">
+          [[item]]
+        </span>
+        <span id="cameraNameWithBlockedSuffix" hidden$="[[prefs.ash.user.camera_allowed.value]]">
+          [[i18n('privacyHubSensorNameWithBlockedSuffix', item)]]
+        </span>
       </div>
     </template>
-    <template is="dom-if" if="[[!isCameraListEmpty_]]" restamp>
-      <template id="cameraList" is="dom-repeat" items="[[connectedCameras_]]">
-        <div class="list-item">
-          [[item]]
-        </div>
-      </template>
-    </template>
-  </div>
-</template>
+  </template>
+</div>
 <div class="hr"></div>
 <div id="appsSection">
   <h2 id="appsSectionTitle">$i18n{privacyHubAppsSectionTitle}</h2>
   <template is="dom-if" if="[[prefs.ash.user.camera_allowed.value]]" restamp>
     <div class="list-frame">
-      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app">
+      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app" sort="alphabeticalSort_">
         <settings-privacy-hub-app-permission-row class="list-item" app="[[app]]" permission-type="kCamera">
         </settings-privacy-hub-app-permission-row>
       </template>
@@ -33180,6 +33151,18 @@ function getTemplate$D() {
   </template>
 </div>
 <div class="hr"></div>
+<div id="systemServicesSection">
+  <h2 id="systemServicesSectionTitle">
+    $i18n{privacyHubSystemServicesSectionTitle}
+  </h2>
+  <div class="list-frame">
+    <template id="systemServiceList" is="dom-repeat" items="[[systemApps_]]" as="app" sort="alphabeticalSort_">
+      <settings-privacy-hub-system-service-row class="list-item" name="[[app.name]]" permission-state="[[getSystemServicesPermissionText_(
+            prefs.ash.user.camera_allowed.value)]]" icon-source="chrome://app-icon/[[app.id]]/64">
+      </settings-privacy-hub-system-service-row>
+    </template>
+  </div>
+</div>
 <!--_html_template_end_-->`;
 }
 
@@ -33203,14 +33186,20 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
         return 'settings-privacy-hub-camera-subpage';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
             /**
              * Apps with camera permission defined.
+             * Only contains apps that are displayed in the App Management page.
+             * Does not contain system apps.
              */
             appList_: {
+                type: Array,
+                value: [],
+            },
+            systemApps_: {
                 type: Array,
                 value: [],
             },
@@ -33234,6 +33223,15 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
                 computed: 'computeShouldDisableCameraToggle_(isCameraListEmpty_, ' +
                     'cameraSwitchForceDisabled_)',
             },
+            cameraFallbackMechanismEnabled_: {
+                type: Boolean,
+                value: false,
+            },
+            cameraAccessStateText_: {
+                type: String,
+                computed: 'computeCameraAccessStateText_(' +
+                    'cameraFallbackMechanismEnabled_, prefs.ash.user.camera_allowed.*)',
+            },
         };
     }
     constructor() {
@@ -33250,6 +33248,9 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
         this.browserProxy_.getInitialCameraSwitchForceDisabledState().then((disabled) => {
             this.cameraSwitchForceDisabled_ = disabled;
         });
+        this.browserProxy_.getCameraLedFallbackState().then((enabled) => {
+            this.cameraFallbackMechanismEnabled_ = enabled;
+        });
         this.updateCameraList_();
         MediaDevicesProxy.getMediaDevices().addEventListener('devicechange', () => this.updateCameraList_());
     }
@@ -33258,15 +33259,31 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
         this.appPermissionsObserverReceiver_ =
             new AppPermissionsObserverReceiver(this);
         this.mojoInterfaceProvider_.addObserver(this.appPermissionsObserverReceiver_.$.bindNewPipeAndPassRemote());
-        this.updateAppList_();
+        this.updateAppLists_();
     }
     disconnectedCallback() {
         super.disconnectedCallback();
         this.appPermissionsObserverReceiver_.$.close();
     }
-    async updateAppList_() {
+    async updateAppLists_() {
         const apps = (await this.mojoInterfaceProvider_.getApps()).apps;
         this.appList_ = apps.filter(hasCameraPermission);
+        this.systemApps_ =
+            (await this.mojoInterfaceProvider_.getSystemAppsThatUseCamera()).apps;
+    }
+    isCameraAllowed_() {
+        return this.getPref('ash.user.camera_allowed').value;
+    }
+    getSystemServicesPermissionText_() {
+        return this.isCameraAllowed_() ?
+            this.i18n('privacyHubSystemServicesAllowedText') :
+            this.i18n('privacyHubSystemServicesBlockedText');
+    }
+    /**
+     * The function is used for sorting app names alphabetically.
+     */
+    alphabeticalSort_(first, second) {
+        return first.name.localeCompare(second.name);
     }
     isCameraPermissionEnabled_(app) {
         const permission = castExists(app.permissions[PermissionType.kCamera]);
@@ -33308,13 +33325,18 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
         return this.connectedCameras_.length === 0;
     }
     computeOnOffText_() {
-        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
-        return cameraAllowed ? this.i18n('deviceOn') : this.i18n('deviceOff');
+        return this.isCameraAllowed_() ? this.i18n('deviceOn') :
+            this.i18n('deviceOff');
     }
-    computeOnOffSubtext_() {
-        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
-        return cameraAllowed ? this.i18n('cameraToggleSubtext') :
-            this.i18n('blockedForAllText');
+    computeCameraAccessStateText_() {
+        if (this.isCameraAllowed_()) {
+            return this.cameraFallbackMechanismEnabled_ ?
+                this.i18n('cameraToggleFallbackSubtext') :
+                this.i18n('cameraToggleSubtext');
+        }
+        else {
+            return this.i18n('privacyHubCameraAccessBlockedText');
+        }
     }
     computeShouldDisableCameraToggle_() {
         return this.cameraSwitchForceDisabled_ || this.isCameraListEmpty_;
@@ -33338,7 +33360,30 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
 }
 customElements.define(SettingsPrivacyHubCameraSubpage.is, SettingsPrivacyHubCameraSubpage);
 
-function getTemplate$C() {
+function getTemplate$B() {
+    return html `<!--_html_template_start_--><div>Geolocation Advanced Settings</div><!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-privacy-hub-geolocation-advanced-subpage' contains advance
+ * settings regarding geolocation. For example: Google Location Accuracy.
+ *
+ */
+class SettingsPrivacyHubGeolocationAdvancedSubpage extends PolymerElement {
+    static get is() {
+        return 'settings-privacy-hub-geolocation-advanced-subpage';
+    }
+    static get template() {
+        return getTemplate$B();
+    }
+}
+customElements.define(SettingsPrivacyHubGeolocationAdvancedSubpage.is, SettingsPrivacyHubGeolocationAdvancedSubpage);
+
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-text-color-prominent)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}#accessStatusRow[actionable]:hover{background-color:var(--cr-hover-background-color)}</style>
 <div id="accessStatusRow" class="settings-box first" actionable$="[[!shouldDisableMicrophoneToggle_]]" on-click="onAccessStatusRowClick_">
   <div class="start settings-box-text" aria-hidden="true">
@@ -33350,35 +33395,39 @@ function getTemplate$C() {
     </div>
   </div>
   <div id="microphoneToggleWrapper">
-    <cr-toggle id="microphoneToggle" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]" on-click="onMicrophoneToggleClick_">
+    <cr-toggle id="microphoneToggle" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]" on-click="onMicrophoneToggleClick_" aria-label="$i18n{microphoneToggleTitle}" aria-description="[[computeOnOffSubtext_(
+          prefs.ash.user.microphone_allowed.value)]]">
     </cr-toggle>
   </div>
   <paper-tooltip id="microphoneToggleTooltip" hidden="[[!microphoneHardwareToggleActive_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
     $i18n{microphoneHwToggleTooltip}
   </paper-tooltip>
 </div>
-<template is="dom-if" if="[[prefs.ash.user.microphone_allowed.value]]" restamp>
-  <div id="microphoneListSection" class="list-frame">
-    <template is="dom-if" if="[[isMicListEmpty_]]" restamp>
-      <div id="noMicrophoneText" class="list-item">
-        $i18n{noMicrophoneConnectedText}
+<div id="microphoneListSection" class="list-frame">
+  <template is="dom-if" if="[[isMicListEmpty_]]" restamp>
+    <div id="noMicrophoneText" class="list-item">
+      $i18n{noMicrophoneConnectedText}
+    </div>
+  </template>
+  <template is="dom-if" if="[[!isMicListEmpty_]]" restamp>
+    <template id="microphoneList" is="dom-repeat" items="[[connectedMicrophones_]]">
+      <div class="list-item">
+        <span id="microphoneName" hidden$="[[!prefs.ash.user.microphone_allowed.value]]">
+          [[item]]
+        </span>
+        <span id="microphoneNameWithBlockedSuffix" hidden$="[[prefs.ash.user.microphone_allowed.value]]">
+          [[i18n('privacyHubSensorNameWithBlockedSuffix', item)]]
+        </span>
       </div>
     </template>
-    <template is="dom-if" if="[[!isMicListEmpty_]]" restamp>
-      <template id="microphoneList" is="dom-repeat" items="[[connectedMicrophones_]]">
-        <div class="list-item">
-          [[item]]
-        </div>
-      </template>
-    </template>
-  </div>
-</template>
+  </template>
+</div>
 <div class="hr"></div>
 <div id="appsSection">
   <h2 id="appsSectionTitle">$i18n{privacyHubAppsSectionTitle}</h2>
   <template is="dom-if" if="[[prefs.ash.user.microphone_allowed.value]]" restamp>
     <div class="list-frame">
-      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app">
+      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app" sort="alphabeticalSort_">
           <settings-privacy-hub-app-permission-row class="list-item" app="[[app]]" permission-type="kMicrophone">
           </settings-privacy-hub-app-permission-row>
       </template>
@@ -33397,6 +33446,19 @@ function getTemplate$C() {
   </cr-link-row>
   <div id="noWebsiteHasAccessText" class="settings-box-text subsection" hidden="[[prefs.ash.user.microphone_allowed.value]]">
     $i18n{noWebsiteCanUseMicText}
+  </div>
+</div>
+<div class="hr"></div>
+<div id="systemServicesSection">
+  <h2 id="systemServicesSectionTitle">
+    $i18n{privacyHubSystemServicesSectionTitle}
+  </h2>
+  <div class="list-frame">
+    <template id="systemServiceList" is="dom-repeat" items="[[systemApps_]]" as="app" sort="alphabeticalSort_">
+      <settings-privacy-hub-system-service-row class="list-item" name="[[app.name]]" permission-state="[[getSystemServicesPermissionText_(
+            prefs.ash.user.microphone_allowed.value)]]" icon-source="chrome://app-icon/[[app.id]]/64">
+      </settings-privacy-hub-system-service-row>
+    </template>
   </div>
 </div>
 <!--_html_template_end_-->`;
@@ -33422,14 +33484,20 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
         return 'settings-privacy-hub-microphone-subpage';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$A();
     }
     static get properties() {
         return {
             /**
              * Apps with microphone permission.
+             * Only contains apps that are displayed in the App Management page.
+             * Does not contain system apps.
              */
             appList_: {
+                type: Array,
+                value: [],
+            },
+            systemApps_: {
                 type: Array,
                 value: [],
             },
@@ -33481,12 +33549,12 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
         this.updateMicrophoneList_();
         MediaDevicesProxy.getMediaDevices().addEventListener('devicechange', () => this.updateMicrophoneList_());
     }
-    async connectedCallback() {
+    connectedCallback() {
         super.connectedCallback();
         this.appPermissionsObserverReceiver_ =
             new AppPermissionsObserverReceiver(this);
         this.mojoInterfaceProvider_.addObserver(this.appPermissionsObserverReceiver_.$.bindNewPipeAndPassRemote());
-        await this.updateAppList_();
+        this.updateAppLists_();
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -33495,9 +33563,24 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
     setMicrophoneHardwareToggleState_(enabled) {
         this.microphoneHardwareToggleActive_ = enabled;
     }
-    async updateAppList_() {
+    async updateAppLists_() {
         const apps = (await this.mojoInterfaceProvider_.getApps()).apps;
         this.appList_ = apps.filter(hasMicrophonePermission);
+        this.systemApps_ =
+            (await this.mojoInterfaceProvider_.getSystemAppsThatUseMicrophone())
+                .apps;
+    }
+    getSystemServicesPermissionText_() {
+        const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
+        return microphoneAllowed ?
+            this.i18n('privacyHubSystemServicesAllowedText') :
+            this.i18n('privacyHubSystemServicesBlockedText');
+    }
+    /**
+     * The function is used for sorting app names alphabetically.
+     */
+    alphabeticalSort_(first, second) {
+        return first.name.localeCompare(second.name);
     }
     async updateMicrophoneList_() {
         const connectedMicrophones = [];
@@ -33518,8 +33601,9 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
     }
     computeOnOffSubtext_() {
         const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
-        return microphoneAllowed ? this.i18n('microphoneToggleSubtext') :
-            this.i18n('blockedForAllText');
+        return microphoneAllowed ?
+            this.i18n('microphoneToggleSubtext') :
+            this.i18n('privacyHubMicrophoneAccessBlockedText');
     }
     computeShouldDisableMicrophoneToggle_() {
         return this.microphoneHardwareToggleActive_ || this.isMicListEmpty_;
@@ -33573,7 +33657,7 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
 }
 customElements.define(SettingsPrivacyHubMicrophoneSubpage.is, SettingsPrivacyHubMicrophoneSubpage);
 
-function getTemplate$B() {
+function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-flow:column wrap}.indented{margin-inline-start:var(--cr-section-padding)}.doubly-indented{padding-inline-start:var(--cr-section-indent-padding)}.left-float-graphic{float:left;height:200px;margin-inline-end:10px;width:200px}.large-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);--iron-icon-stroke-color:var(--cros-icon-color-prominent);--iron-icon-height:32px;--iron-icon-width:32px;margin-bottom:10px}.banner{display:inline-block;margin:0 0 10px 0;padding:0 10px 10px 10px}</style>
 
 <div class="banner">
@@ -33644,7 +33728,7 @@ class SettingsSmartPrivacySubpage extends SettingsSmartPrivacySubpageBase {
         return 'settings-smart-privacy-subpage';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -33698,7 +33782,7 @@ class SettingsSmartPrivacySubpage extends SettingsSmartPrivacySubpageBase {
 }
 customElements.define(SettingsSmartPrivacySubpage.is, SettingsSmartPrivacySubpage);
 
-function getTemplate$A() {
+function getTemplate$y() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;border:1px solid var(--cr-separator-color);border-radius:8px;column-gap:12px;display:flex;flex-shrink:0;margin:4px;outline-width:0;padding:12px}#keyboardShortcutIcon{height:48px;width:48px}#text{flex:1}h2{color:var(--cr-primary-text-color);font:var(--cros-headline-1-font);margin:0}.reminder-message{color:var(--cr-secondary-text-color);margin-top:4px}kbd{font-family:Roboto,sans-serif;font-weight:500}kbd>kbd{background-color:var(--cros-sys-surface_variant);background-image:linear-gradient(var(--cros-shortcut-background-gradient-color),var(--cros-shortcut-background-gradient-color));border-radius:12px;color:var(--cros-text-color-secondary);font:var(--cros-button-2-font);display:inline-block;height:20px;margin:0 4px;padding:0 6px}:not(kbd)>kbd{color:var(--cros-text-color-prominent)}</style>
 
 <iron-icon id="keyboardShortcutIcon" icon="os-settings:keyboard-shortcut">
@@ -33737,7 +33821,7 @@ class KeyboardShortcutBanner extends KeyboardShortcutBannerBase {
         return 'keyboard-shortcut-banner';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -33766,254 +33850,12 @@ class KeyboardShortcutBanner extends KeyboardShortcutBannerBase {
 }
 customElements.define(KeyboardShortcutBanner.is, KeyboardShortcutBanner);
 
-function getTemplate$z() {
-    return html `<!--_html_template_start_--><style include="settings-shared shared-style">iron-icon[icon='settings:check-circle']{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:26px}#listItem{min-height:36px;align-items:center;display:flex;justify-content:space-between;flex-direction:row;padding-left:32px;cursor:pointer}</style>
-
-<div id="listItem">
-  <paper-ripple></paper-ripple>
-  <div>[[getDisplayText_(item)]]</div>
-  <iron-icon icon="settings:check-circle" hidden="[[!selected]]"></iron-icon>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'app-language-selection-item' is part of app language picker
- * dialog to display language option in a single row.
- */
-class AppLanguageSelectionItemElement extends PolymerElement {
-    static get is() {
-        return 'app-language-selection-item';
-    }
-    static get template() {
-        return getTemplate$z();
-    }
-    static get properties() {
-        return {
-            item: Object,
-            selected: {
-                type: Boolean,
-                value: false,
-            },
-        };
-    }
-    getDisplayText_() {
-        let name = this.item.displayName;
-        if (name === '') {
-            // If displayName couldn't be translated, we'll display the localeTag
-            // instead.
-            return this.item.localeTag;
-        }
-        if (this.item.nativeDisplayName !== '' &&
-            this.item.nativeDisplayName !== name) {
-            name += ' - ' + this.item.nativeDisplayName;
-        }
-        return name;
-    }
-}
-customElements.define(AppLanguageSelectionItemElement.is, AppLanguageSelectionItemElement);
-
-function getTemplate$y() {
-    return html `<!--_html_template_start_--><style include="settings-shared shared-style">[slot=header]{align-items:center;display:flex;flex-direction:row;font-weight:400;height:48px;margin-inline-start:24px}.app-title{flex:1;overflow:hidden;text-overflow:ellipsis}.app-icon{height:36px;width:36px;margin-inline-end:12px}[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-bottom:8px}iron-list>:not([selected]):hover{background-color:var(--cros-menu-item-bg-color-focus)}iron-list>[selected]:not(.no-outline):focus{background-color:transparent}.label{padding-bottom:8px;padding-top:8px}</style>
-
-<cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
-  <div slot="title">$i18n{appLanguageDialogTitle}</div>
-  <div slot="header">
-    <img class="app-icon" src="[[iconUrlFromApp_(app)]]" alt="[[app.title]] app icon." aria-hidden="true">
-    <div class="app-title">[[app.title]]</div>
-  </div>
-  <div id="dialogBody" slot="body" scrollable>
-    <cr-search-field label="$i18n{appLanguageDialogSearchPlaceholderText}" id="search" clear-label="$i18n{clearSearch}" autofocus on-search-changed="onSearchChanged_" on-keydown="onKeydown_">
-    </cr-search-field>
-    <template is="dom-if" if="[[!isSearchQueryPresent(searchQuery_.length)]]">
-      <div class="label">
-        $i18n{appLanguageDialogSuggestedLabel}
-      </div>
-      <iron-list id="suggestedItemsList" items="[[suggestedLanguages_]]" scroll-target="dialogBody">
-        <template>
-          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" tab-index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
-          </app-language-selection-item>
-        </template>
-      </iron-list>
-    </template>
-    <template is="dom-if" if="[[showFilteredLanguages(filteredLanguages_.length)]]">
-      <div class="label" hidden="[[isSearchQueryPresent(searchQuery_.length)]]">
-        $i18n{appLanguageDialogAllLanguagesLabel}
-      </div>
-      <iron-list id="filteredItemsList" items="[[filteredLanguages_]]" scroll-target="dialog-body">
-        <template>
-          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" tab-index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
-          </app-language-selection-item>
-        </template>
-      </iron-list>
-    </template>
-    <div id="noSearchResults" class="centered-message" hidden="[[!isSearchResultEmpty_(searchQuery_.length)]]">
-      $i18n{noSearchResults}
-    </div>
-  </div>
-  <div slot="button-container">
-    <cr-button class="cancel-button" on-click="onCancelButtonClick_">
-      $i18n{cancel}
-    </cr-button>
-    <cr-button class="action-button" disabled="[[shouldDisableActionButton_(selectedLanguage_)]]" on-click="onActionButtonClick_">
-      $i18n{appLanguageDialogUpdateButtonText}
-    </cr-button>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'app-language-selection-dialog' is a dialog to select
- * per-app language. The component supports suggested items, and filtering
- * by search query.
- * Note: `App` object must be present before showing this dialog.
- */
-const AppLanguageSelectionDialogElementBase = PrefsMixin(I18nMixin(PolymerElement));
-class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialogElementBase {
-    constructor() {
-        super(...arguments);
-        this.suggestedLanguages_ = [];
-        this.filteredLanguages_ = [];
-        this.searchQuery_ = '';
-    }
-    static get is() {
-        return 'app-language-selection-dialog';
-    }
-    static get template() {
-        return getTemplate$y();
-    }
-    static get properties() {
-        return {
-            app: Object,
-            filteredLanguages_: {
-                type: Array,
-                computed: 'getFilteredLanguages_(searchQuery_.length, suggestedLanguages_)',
-            },
-        };
-    }
-    ready() {
-        super.ready();
-        this.initializeSuggestedLanguages_();
-    }
-    onCancelButtonClick_() {
-        this.$.dialog.close();
-    }
-    onActionButtonClick_() {
-        AppManagementBrowserProxy.getInstance().handler.setAppLocale(this.app.id, this.selectedLanguage_.localeTag);
-        this.$.dialog.close();
-    }
-    shouldDisableActionButton_() {
-        return !this.selectedLanguage_;
-    }
-    // 'on-search-changed' event listener on a <cr-search-field>.
-    onSearchChanged_(e) {
-        this.searchQuery_ = e.detail.toLocaleLowerCase();
-    }
-    // Used to display "search result is empty" text.
-    isSearchResultEmpty_() {
-        return this.searchQuery_.length > 0 && this.filteredLanguages_.length === 0;
-    }
-    // 'on-keydown' event listener on a <cr-search-field>.
-    onKeydown_(e) {
-        // Close dialog if 'esc' is pressed and the search box is already empty.
-        if (e.key === 'Escape' && !this.$.search.getValue().trim()) {
-            this.$.dialog.close();
-        }
-        else if (e.key !== 'PageDown' && e.key !== 'PageUp') {
-            this.$.search.scrollIntoView();
-        }
-    }
-    // 'on-click' event listener on a <app-language-selection-item>.
-    toggleSelection_(e) {
-        if (e.model.item === this.selectedLanguage_) {
-            this.selectedLanguage_ = undefined;
-        }
-        else {
-            this.selectedLanguage_ = e.model.item;
-        }
-    }
-    // Defines whether a selected-icon should be added to the item.
-    isItemSelected_(item) {
-        if (!this.selectedLanguage_) {
-            return false;
-        }
-        return this.selectedLanguage_.localeTag === item.localeTag;
-    }
-    // Hide suggestedLanguages along with "Device Language", and "All languages"
-    // label if searchQuery exists.
-    isSearchQueryPresent() {
-        return this.searchQuery_.length > 0;
-    }
-    // The only case where `filteredLanguages` is completely hidden is when
-    // there's only 1 app-language available, and it's already selected. In this
-    // case, we'll only display suggestedLanguages (deviceLanguage,
-    // selectedLanguage).
-    showFilteredLanguages() {
-        return this.filteredLanguages_.length > 0;
-    }
-    // `suggestedLanguages_` is immutable throughout the dialog lifecycle, hence
-    // it's better to pre-populate once here.
-    initializeSuggestedLanguages_() {
-        const defaultDeviceLanguage = {
-            localeTag: '',
-            displayName: this.i18n('appLanguageDeviceLanguageLabel'),
-            nativeDisplayName: '',
-        };
-        // Possibly add selected locale to suggested list and init
-        // currently-selected language.
-        const suggestedLanguages = [defaultDeviceLanguage];
-        if (this.app.selectedLocale && this.app.selectedLocale.localeTag !== '') {
-            suggestedLanguages.push(this.app.selectedLocale);
-            this.selectedLanguage_ = this.app.selectedLocale;
-        }
-        else {
-            // Set device language as selected if no other locale selected.
-            this.selectedLanguage_ = defaultDeviceLanguage;
-        }
-        const lastSetAppLocaleTag = this.getPref('arc.last_set_app_locale').value;
-        // Add last-set-app-locale into suggestions if it's supported by app and
-        // hasn't been included yet.
-        const lastSetAppLocale = this.app.supportedLocales.find(locale => locale.localeTag === lastSetAppLocaleTag);
-        if (lastSetAppLocale &&
-            !suggestedLanguages.find(locale => locale.localeTag === lastSetAppLocale.localeTag)) {
-            suggestedLanguages.push(lastSetAppLocale);
-        }
-        this.suggestedLanguages_ = suggestedLanguages;
-    }
-    // Display list of all supported languages, minus suggestedLanguages, and
-    // filtered by search query.
-    getFilteredLanguages_() {
-        let filteredItems;
-        if (this.searchQuery_.length === 0) {
-            // Filter out elements in suggestedList
-            filteredItems = this.app.supportedLocales.filter(locale => !this.suggestedLanguages_.some(suggestedLanguage => suggestedLanguage.localeTag === locale.localeTag));
-        }
-        else {
-            // Filter out based on search query.
-            filteredItems = this.app.supportedLocales.filter(locale => locale.displayName.toLocaleLowerCase().includes(this.searchQuery_) ||
-                locale.nativeDisplayName.toLocaleLowerCase().includes(this.searchQuery_));
-        }
-        return filteredItems.sort((a, b) => a.displayName.localeCompare(b.displayName));
-    }
-    iconUrlFromApp_() {
-        return getAppIcon(this.app);
-    }
-}
-customElements.define(AppLanguageSelectionDialogElement.is, AppLanguageSelectionDialogElement);
-
 function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="cr-shared-style"></style>
 <cr-link-row embedded no-hover label="$i18n{appManagementAppLanguageLabel}" sub-label="[[getSelectedLocale_(app)]]" on-click="onClick_">
 </cr-link-row>
 <template is="dom-if" if="[[showSelectLanguageDialog_]]" restamp>
-  <app-language-selection-dialog app="[[app]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_">
+  <app-language-selection-dialog app="[[app]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_" entry-point="[[getDialogEntryPoint_()]]">
   </app-language-selection-dialog>
 </template>
 <!--_html_template_end_-->`;
@@ -34074,6 +33916,9 @@ class AppManagementAppLanguageItemElement extends AppManagementAppLanguageItemEl
                 displayName;
         }
         return this.i18n('appLanguageDeviceLanguageLabel');
+    }
+    getDialogEntryPoint_() {
+        return AppLanguageSelectionDialogEntryPoint.APPS_MANAGEMENT_PAGE;
     }
 }
 customElements.define(AppManagementAppLanguageItemElement.is, AppManagementAppLanguageItemElement);
@@ -34399,7 +34244,7 @@ function getTemplate$s() {
 </cr-lazy-render>
 
 <template is="dom-if" if="[[showSelectLanguageDialog_]]" restamp>
-  <app-language-selection-dialog app="[[selectedApp_]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_">
+  <app-language-selection-dialog app="[[selectedApp_]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_" entry-point="[[getDialogEntryPoint_()]]">
   </app-language-selection-dialog>
 </template>
 <!--_html_template_end_-->`;
@@ -34436,7 +34281,7 @@ class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElementBase {
     }
     connectedCallback() {
         super.connectedCallback();
-        this.watch('appList_', state => this.computeAppsSupportingPerAppLanguage(state.apps));
+        this.watch('appList_', state => this.computeAppsSupportingPerAppLanguage_(state.apps));
         this.updateFromStore();
     }
     // UI i18n and icon helper methods.
@@ -34517,7 +34362,7 @@ class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElementBase {
     /**
      * Only show apps supporting per-app-language, and sort ascending.
      */
-    computeAppsSupportingPerAppLanguage(apps) {
+    computeAppsSupportingPerAppLanguage_(apps) {
         const filteredApps = Object.values(apps).filter(app => {
             return app.supportedLocales.length > 0;
         });
@@ -34526,6 +34371,9 @@ class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElementBase {
             assert(b.title);
             return alphabeticalSort$1(a.title, b.title);
         });
+    }
+    getDialogEntryPoint_() {
+        return AppLanguageSelectionDialogEntryPoint.LANGUAGES_PAGE;
     }
 }
 customElements.define(OsSettingsAppLanguagesPageElement.is, OsSettingsAppLanguagesPageElement);
@@ -37243,7 +37091,7 @@ function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">h2{padding-inline-start:var(--cr-section-padding)}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}cr-policy-pref-indicator+cr-icon-button{margin-inline-start:0}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.explain-selected,.language-packs-error{font-weight:initial;margin-top:4px}.explain-selected{color:var(--cros-text-color-positive)}.language-packs-error{color:var(--cros-text-color-alert)}.icon-external{margin-inline-end:0}.name-with-error[disabled]{pointer-events:none}.name-with-error{padding:14px 0}.name-with-error div{color:var(--cros-text-color-alert);margin-top:8px}iron-icon[icon='cr:error'],iron-icon[icon='os-settings:multidevice-error']{--iron-icon-fill-color:var(--cros-icon-color-alert);margin-inline-end:4px}iron-icon[icon='cr:error']{height:var(--cr-icon-size);width:var(--cr-icon-size)}iron-icon[icon='os-settings:multidevice-error']{height:16px;width:16px}iron-icon[icon='cr20:domain']{margin-inline-end:10px}iron-icon+span{vertical-align:middle}.selected[actionable]{cursor:auto}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection .list-frame{padding-inline-end:0;padding-inline-start:40px}#spellCheckLanguagesListV2>.cr-row,.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}.subsection>cr-link-row:not(:first-of-type),.subsection>settings-toggle-button:not(:first-of-type){border-top:var(--cr-separator-line)}.external-wrapper,.internal-wrapper{display:flex}#addInputMethod,#addSpellcheckLanguages{--iron-icon-fill-color:var(--cr-link-color);margin-top:16px}cr-button[disabled] iron-icon{--iron-icon-fill-color:var(--cros-button-icon-color-primary-disabled)}paper-spinner-lite{height:14px;width:14px;--paper-spinner-stroke-width:2px}</style>
 
 <template is="dom-if" if="[[shouldShowLanguagePacksNotice_]]">
-  <div class="cr-row first bottom-margin">
+  <div class="settings-box first">
     <localized-link id="languagePacksNotice" class="cr-secondary-text" localized-string="$i18n{languagePacksNotice}" on-link-clicked="onLanguagePackNoticeLinkClick_">
     </localized-link>
   </div>
@@ -37701,7 +37549,7 @@ class OsSettingsInputPageElement extends OsSettingsInputPageElementBase {
     }
     onAddInputMethodsDialogClose_() {
         this.showAddInputMethodsDialog_ = false;
-        focusWithoutInk(this.$.addInputMethod);
+        focusWithoutInk$1(this.$.addInputMethod);
     }
     onAddSpellcheckLanguagesClick_() {
         this.showAddSpellcheckLanguagesDialog_ = true;
@@ -37722,7 +37570,7 @@ class OsSettingsInputPageElement extends OsSettingsInputPageElementBase {
         // this.$.addSpellCheckLanguages.
         // TODO(b/263823772): Move addSpellcheckLanguages to `this.$` once we remove
         // LSV2 Update 2 code.
-        focusWithoutInk(
+        focusWithoutInk$1(
         // Safety: This method is only called when the spell check
         // language dialog is closed, but that can only be opened if
         // #addSpellchecklanguages was clicked.
@@ -38428,7 +38276,7 @@ class OsSettingsLanguagesPageV2Element extends OsSettingsLanguagesPageV2ElementB
     }
     onChangeDeviceLanguageDialogClose_() {
         this.showChangeDeviceLanguageDialog_ = false;
-        focusWithoutInk(
+        focusWithoutInk$1(
         // Safety: This method is only called when the change device
         // language dialog is closed, but that can only be opened if
         // #changeDeviceLanguage was clicked.
@@ -38454,7 +38302,7 @@ class OsSettingsLanguagesPageV2Element extends OsSettingsLanguagesPageV2ElementB
     }
     onAddLanguagesDialogClose_() {
         this.showAddLanguagesDialog_ = false;
-        focusWithoutInk(this.$.addLanguages);
+        focusWithoutInk$1(this.$.addLanguages);
     }
     /**
      * Checks if there are supported languages that are not enabled but can be
@@ -39108,8 +38956,6 @@ customElements.define(SettingsSecureDnsDialogElement.is, SettingsSecureDnsDialog
 function getTemplate$b() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style md-select cros-color-overrides">#resolverSelect{width:inherit}#resolverLabel{flex:1}#privacyPolicy{display:none;padding:calc(var(--cr-section-padding)/ 2) var(--cr-section-padding)}#privacyPolicy a{color:var(--cr-link-color)}#secureDnsInputContainer{margin-top:calc(var(--cr-section-padding)/ 2)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
-
-
     <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
       <settings-toggle-button id="secureDnsToggle" class="hr" pref="{{secureDnsToggle_}}" label="$i18n{secureDnsOsSettingsTitle}" sub-label="[[secureDnsDescription_]]" on-change="onToggleChanged_">
       </settings-toggle-button>
@@ -39119,7 +38965,6 @@ function getTemplate$b() {
       <settings-toggle-button id="secureDnsToggle" class="hr" icon="os-settings:privacy-secure-dns" pref="[[secureDnsToggle_]]" label="$i18n{secureDnsOsSettingsTitle}" sub-label="[[secureDnsDescription_]]" on-settings-boolean-control-change="onDnsToggleClick_" no-set-pref>
       </settings-toggle-button>
     </template>
-
 
     <div id="resolverOptions" hidden="[[!showSecureDnsOptions_]]">
       <div class="cr-row continuation">
@@ -39152,12 +38997,10 @@ function getTemplate$b() {
       </div>
     </div>
 
-
     <template is="dom-if" if="[[showDisableDnsDialog_]]" restamp>
       <settings-secure-dns-dialog id="warningDialog" on-close="onDisableDnsDialogClosed_" prefs="{{prefs}}">
       </settings-secure-dns-dialog>
     </template>
-
 <!--_html_template_end_-->`;
 }
 
@@ -39190,7 +39033,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
     constructor() {
         super(...arguments);
         this.browserProxy_ = PrivacyPageBrowserProxyImpl.getInstance();
-        // 
     }
     static get is() {
         return 'settings-secure-dns';
@@ -39242,7 +39084,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
              * String to display in the custom text field.
              */
             secureDnsInputValue_: String,
-            // 
             showDisableDnsDialog_: {
                 type: Boolean,
                 value: false,
@@ -39254,10 +39095,8 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
                 },
                 readOnly: true,
             },
-            // 
         };
     }
-    // 
     connectedCallback() {
         super.connectedCallback();
         // Fetch the options for the dropdown menu before configuring the setting
@@ -39269,9 +39108,7 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
             // UI representation to match. (Changes to the host resolver configuration
             // may be generated in ways other than direct UI manipulation).
             this.addWebUiListener('secure-dns-setting-changed', (setting) => this.onSecureDnsPrefsChanged_(setting));
-            // 
             this.addEventListener('dns-settings-invalid-custom-to-off-mode', () => this.onSecureDnsPrefChangedToFalse_());
-            // 
         });
     }
     /**
@@ -39293,12 +39130,10 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         }
         this.updateManagementView_(setting);
     }
-    // 
     onSecureDnsPrefChangedToFalse_() {
         this.set('secureDnsToggle_.value', false);
         this.showSecureDnsOptions_ = false;
     }
-    // 
     /**
      * Updates the underlying secure DNS mode pref based on the new toggle
      * selection (and the underlying select menu if the toggle has just been
@@ -39321,7 +39156,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
             this.updateDnsPrefs_(SecureDnsMode.SECURE);
         }
     }
-    // 
     /**
      * Only gets called when the user wants to turn on the toggle from ChromeOS
      * Settings.
@@ -39330,7 +39164,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         this.set('secureDnsToggle_.value', true);
         this.onToggleChanged_();
     }
-    //
     /**
      * Helper method for updating the underlying secure DNS prefs based on the
      * provided mode and templates (if the latter is specified). The templates
@@ -39413,7 +39246,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         // template URI for display in which the identifiers are shown in plain
         // text.
         let secureDescription = loadTimeData.getString('secureDnsDescription');
-        // 
         if (this.isRevampWayfindingEnabled_) {
             secureDescription =
                 loadTimeData.getString('secureDnsOsSettingsDescription');
@@ -39421,7 +39253,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         if (setting.dohWithIdentifiersActive) {
             secureDescription = loadTimeData.substituteString(loadTimeData.getString('secureDnsWithIdentifiersDescription'), setting.configForDisplay);
         }
-        // 
         if (this.getPref('dns_over_https.mode').enforcement ===
             chrome.settingsPrivate.Enforcement.ENFORCED) {
             pref.enforcement = chrome.settingsPrivate.Enforcement.ENFORCED;
@@ -39532,7 +39363,6 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         }
         return undefined;
     }
-    // 
     onDnsToggleClick_() {
         const secureDnsToggle = this.shadowRoot.querySelector('#secureDnsToggle');
         assert(secureDnsToggle);
@@ -39557,7 +39387,7 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
 customElements.define(SettingsSecureDnsElement.is, SettingsSecureDnsElement);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">:host([selected]) #container{background-color:var(--cros-highlight-color-focus)}#container{align-items:center;display:flex;height:36px;padding:0 16px}#container:hover{background-color:var(--cros-highlight-color-hover)}</style>
+    return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">:host([selected]) #container{background-color:var(--cros-highlight-color-focus)}#container{align-items:center;display:flex;height:36px;padding:0 16px}#container:focus,#container:hover{outline:0;background-color:var(--cros-highlight-color-hover)}</style>
 <div id="container" hidden="[[option.hidden]]" tabindex="-1" class="option-item" on-click="onDropdownItemSelected_">
   [[option.name]]
 </div>
@@ -39585,6 +39415,10 @@ class CustomizeButtonDropdownItemElement extends PolymerElement {
                 type: Object,
             },
         };
+    }
+    focus() {
+        super.focus();
+        this.$.container.focus();
     }
     onDropdownItemSelected_() {
         this.dispatchEvent(new CustomEvent('customize-button-dropdown-selected', {
@@ -40174,7 +40008,7 @@ function getTemplate$8() {
     [[label_]]
   </template>
 </div>
-<iron-dropdown opened="[[shouldShowDropdownMenu_]]" no-cancel-on-outside-click dynamic-align>
+<iron-dropdown opened="[[shouldShowDropdownMenu_]]" no-cancel-on-outside-click focus-target="[[focusTarget_]]" dynamic-align>
   <div id="menuContainer" slot="dropdown-content">
     <template is="dom-repeat" items="[[menu]]">
       <customize-button-dropdown-item option="[[item]]" selected="[[isItemSelected_(item, selectedItem)]]">
@@ -40210,10 +40044,10 @@ var Modifier;
  * contains the following four.
  */
 const modifierBitMaskToString = new Map([
-    [Modifier.CONTROL, 'Ctrl'],
-    [Modifier.SHIFT, 'Shift'],
-    [Modifier.ALT, 'Alt'],
-    [Modifier.META, 'Meta'],
+    [Modifier.CONTROL, 'ctrl'],
+    [Modifier.SHIFT, 'shift'],
+    [Modifier.ALT, 'alt'],
+    [Modifier.META, 'meta'],
 ]);
 /**
  * Converts a keyEvent to a string representing all the modifiers and the vkey.
@@ -40221,16 +40055,17 @@ const modifierBitMaskToString = new Map([
 function getInputKeys(keyEvent) {
     const inputKeysArray = [];
     modifierBitMaskToString.forEach((modifierName, bitValue) => {
-        // Now if pressing a single modifier key like "shift", it will show
-        // "shift + shift" instead of a single "shift".
-        // Temporarily add a condition to check modifierName duplicating with
-        // keyDisplay until it's fixed in the key combination logics.
-        if ((keyEvent.modifiers & bitValue) !== 0 &&
-            modifierName !== keyEvent.keyDisplay) {
+        if ((keyEvent.modifiers & bitValue) !== 0) {
             inputKeysArray.push(modifierName, '+');
         }
     });
-    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0) {
+    // Now if pressing a single modifier key like "shift", it will show
+    // "shift + shift" instead of a single "shift".
+    // Temporarily add a condition to check modifierName duplicating with
+    // keyDisplay until it's fixed in the key combination logics.
+    // TODO(yyhyyh@): Remove the condition when it's fixed in backend.
+    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0 &&
+        !inputKeysArray.includes(keyEvent.keyDisplay.toLowerCase())) {
         inputKeysArray.push(keyEvent.keyDisplay);
     }
     else {
@@ -40285,6 +40120,14 @@ class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBase {
                 type: Boolean,
                 value: false,
             },
+            highlightedValue_: {
+                type: String,
+                value: '',
+            },
+            focusTarget_: {
+                type: Object,
+                value: undefined,
+            },
         };
     }
     static get observers() {
@@ -40321,10 +40164,30 @@ class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBase {
         this.isInitialized_ = true;
     }
     showDropdownMenu_() {
+        if (!this.menu) {
+            this.shouldShowDropdownMenu_ = true;
+            return;
+        }
+        // Focus the selected Row.
+        assert(!!this.selectedValue, 'There should be a selected item already.');
+        this.highlightedValue_ =
+            this.selectedValue === KEY_COMBINATION_OPTION_VALUE ?
+                OPEN_DIALOG_OPTION_VALUE :
+                this.selectedValue;
+        const indexOfCurrentRow = this.menu.findIndex((action) => action.value === this.highlightedValue_);
+        const dropdownMenuOptions = this.$.menuContainer.querySelectorAll('customize-button-dropdown-item');
+        assert(!!dropdownMenuOptions[indexOfCurrentRow]);
+        this.set('focusTarget_', dropdownMenuOptions[indexOfCurrentRow]);
         this.shouldShowDropdownMenu_ = true;
     }
     onBlur_() {
+        this.highlightedValue_ = '';
         this.shouldShowDropdownMenu_ = false;
+    }
+    hideDropdownMenu_() {
+        this.highlightedValue_ = '';
+        this.shouldShowDropdownMenu_ = false;
+        this.focus();
     }
     onDropdownItemSelected_(e) {
         const optionValue = e.detail.value ?? NO_REMAPPING_OPTION_VALUE;
@@ -40339,7 +40202,7 @@ class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBase {
             this.set('selectedValue', optionValue);
         }
         // Close dropdown menu after selected.
-        this.shouldShowDropdownMenu_ = false;
+        this.hideDropdownMenu_();
     }
     getSelectedLabel_() {
         if (!this.selectedValue || !this.menu) {
@@ -40504,10 +40367,56 @@ class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBase {
     }
     onKeyDown_(e) {
         if (e.key === 'Enter') {
-            this.shouldShowDropdownMenu_ = !this.shouldShowDropdownMenu_;
+            if (this.shouldShowDropdownMenu_) {
+                this.updateDropdownSelection_();
+            }
+            else {
+                this.showDropdownMenu_();
+            }
             return;
         }
-        // TODO(yyhyyh@): Add case for ArrowUp and ArrowDown.
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            this.selectRowViaKeys(e.key);
+            return;
+        }
+        if (e.key === 'Escape') {
+            this.hideDropdownMenu_();
+        }
+    }
+    selectRowViaKeys(key) {
+        assert(key === 'ArrowDown' || key === 'ArrowUp', 'Only arrow keys.');
+        // Display the dropdown menu if it's not popped out.
+        if (!this.shouldShowDropdownMenu_) {
+            this.showDropdownMenu_();
+            return;
+        }
+        assert(!!this.highlightedValue_, 'There should be a highlighted item already.');
+        // Select the new item.
+        const indexOfCurrentRow = this.menu.findIndex((action) => action.value === this.highlightedValue_);
+        // Skipping the hidden option for key combination label display.
+        const numRows = this.menu.length - 1;
+        const delta = key === 'ArrowUp' ? -1 : 1;
+        const indexOfNewRow = (numRows + indexOfCurrentRow + delta) % numRows;
+        const dropdownMenuOptions = this.$.menuContainer.querySelectorAll('customize-button-dropdown-item');
+        assert(!!dropdownMenuOptions[indexOfNewRow]);
+        dropdownMenuOptions[indexOfNewRow]?.focus();
+        dropdownMenuOptions[indexOfNewRow]?.scrollIntoViewIfNeeded();
+        // Update the highlighted value.
+        this.highlightedValue_ = this.menu[indexOfNewRow].value;
+    }
+    updateDropdownSelection_() {
+        if (!!this.highlightedValue_ && this.highlightedValue_ !== '' &&
+            this.menu?.findIndex((action) => action.value === this.highlightedValue_) >= 0) {
+            this.dispatchEvent(new CustomEvent('customize-button-dropdown-selected', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    value: this.highlightedValue_,
+                },
+            }));
+        }
+        this.hideDropdownMenu_();
     }
 }
 customElements.define(CustomizeButtonSelectElement.is, CustomizeButtonSelectElement);
@@ -40531,7 +40440,7 @@ function getTemplate$7() {
     return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">#container{position:relative;transition:background 150ms ease}:host([is-being-dragged_]) #container{background:var(--cros-sys-highlight_shape)}.edit-button{--cr-icon-button-fill-color:var(--cros-text-color-disabled)}#container::before{border:0;content:'';display:block;left:0;pointer-events:none;position:absolute;right:0;width:100%}:host(.drop-indicator-bottom) #container::after,:host(.drop-indicator-top) #container::before{background:var(--cros-app-scrollbar-color);height:2px;--indicator-offset:calc(-1.5 * var(--cr-separator-height))}:host(.drop-indicator-top) #container::before{top:var(--indicator-offset)}:host(.drop-indicator-bottom) #container::after{bottom:var(--indicator-offset)}#header{display:flex}.edit-button{--cr-icon-button-icon-start-offset:4px;--cr-icon-button-margin-start:0;opacity:0;transition:opacity .3s,transform .1s}.edit-button,.move-button{--cr-icon-button-icon-size:16px;--cr-icon-button-fill-color:var(--cros-sys-on_surface)}#container:hover .edit-button,.edit-button:focus-visible{opacity:1}.settings-box{align-self:stretch;height:64px;padding-inline-start:0}select{padding-inline-end:12px;padding-inline-start:16px}.edit-icon-container{align-items:center;flex:auto;size:48px}#buttonLabelContainer{padding-inline-end:6px;margin-inline-end:6px;max-width:292px}#keyCombination{display:none}cr-icon-button{margin-inline-end:24px;margin-inline-start:0}</style>
 <div id="container" class="settings-box" on-mousedown="onContainerMouseDown_" on-dragstart="onDragStart_" on-dragend="onDragEnd_" draggable="true">
   <div class="move-icon-container">
-    <cr-icon-button class="move-button" iron-icon="os-settings:move">
+    <cr-icon-button class="move-button" iron-icon="os-settings:move" tabindex="-1">
     </cr-icon-button>
   </div>
   <div id="buttonLabelContainer">
@@ -41318,7 +41227,7 @@ const AcceleratorActionSpec = { $: mojo.internal.Enum() };
 var AcceleratorAction;
 (function (AcceleratorAction) {
     AcceleratorAction[AcceleratorAction["MIN_VALUE"] = 0] = "MIN_VALUE";
-    AcceleratorAction[AcceleratorAction["MAX_VALUE"] = 155] = "MAX_VALUE";
+    AcceleratorAction[AcceleratorAction["MAX_VALUE"] = 9027] = "MAX_VALUE";
     AcceleratorAction[AcceleratorAction["kBrightnessDown"] = 0] = "kBrightnessDown";
     AcceleratorAction[AcceleratorAction["kBrightnessUp"] = 1] = "kBrightnessUp";
     AcceleratorAction[AcceleratorAction["kCycleBackwardMru"] = 2] = "kCycleBackwardMru";
@@ -41448,33 +41357,34 @@ var AcceleratorAction;
     AcceleratorAction[AcceleratorAction["kWindowMinimize"] = 126] = "kWindowMinimize";
     AcceleratorAction[AcceleratorAction["kMinimizeTopWindowOnBack"] = 127] = "kMinimizeTopWindowOnBack";
     AcceleratorAction[AcceleratorAction["kVolumeMuteToggle"] = 128] = "kVolumeMuteToggle";
-    AcceleratorAction[AcceleratorAction["kDebugClearUseKMeansPref"] = 129] = "kDebugClearUseKMeansPref";
-    AcceleratorAction[AcceleratorAction["kDebugKeyboardBacklightToggle"] = 130] = "kDebugKeyboardBacklightToggle";
-    AcceleratorAction[AcceleratorAction["kDebugMicrophoneMuteToggle"] = 131] = "kDebugMicrophoneMuteToggle";
-    AcceleratorAction[AcceleratorAction["kDebugPrintLayerHierarchy"] = 132] = "kDebugPrintLayerHierarchy";
-    AcceleratorAction[AcceleratorAction["kDebugPrintViewHierarchy"] = 133] = "kDebugPrintViewHierarchy";
-    AcceleratorAction[AcceleratorAction["kDebugPrintWindowHierarchy"] = 134] = "kDebugPrintWindowHierarchy";
-    AcceleratorAction[AcceleratorAction["kDebugShowInformedRestore"] = 135] = "kDebugShowInformedRestore";
-    AcceleratorAction[AcceleratorAction["kDebugShowToast"] = 136] = "kDebugShowToast";
-    AcceleratorAction[AcceleratorAction["kDebugShowSystemNudge"] = 137] = "kDebugShowSystemNudge";
-    AcceleratorAction[AcceleratorAction["kDebugSystemUiStyleViewer"] = 138] = "kDebugSystemUiStyleViewer";
-    AcceleratorAction[AcceleratorAction["kDebugToggleDarkMode"] = 139] = "kDebugToggleDarkMode";
-    AcceleratorAction[AcceleratorAction["kDebugToggleDynamicColor"] = 140] = "kDebugToggleDynamicColor";
-    AcceleratorAction[AcceleratorAction["kDebugTogglePowerButtonMenu"] = 141] = "kDebugTogglePowerButtonMenu";
-    AcceleratorAction[AcceleratorAction["kDebugToggleShowDebugBorders"] = 142] = "kDebugToggleShowDebugBorders";
-    AcceleratorAction[AcceleratorAction["kDebugToggleShowFpsCounter"] = 143] = "kDebugToggleShowFpsCounter";
-    AcceleratorAction[AcceleratorAction["kDebugToggleShowPaintRects"] = 144] = "kDebugToggleShowPaintRects";
-    AcceleratorAction[AcceleratorAction["kDebugToggleTouchPad"] = 145] = "kDebugToggleTouchPad";
-    AcceleratorAction[AcceleratorAction["kDebugToggleTouchScreen"] = 146] = "kDebugToggleTouchScreen";
-    AcceleratorAction[AcceleratorAction["kDebugToggleTabletMode"] = 147] = "kDebugToggleTabletMode";
-    AcceleratorAction[AcceleratorAction["kDebugToggleVideoConferenceCameraTrayIcon"] = 148] = "kDebugToggleVideoConferenceCameraTrayIcon";
-    AcceleratorAction[AcceleratorAction["kDebugToggleWallpaperMode"] = 149] = "kDebugToggleWallpaperMode";
-    AcceleratorAction[AcceleratorAction["kDebugTriggerCrash"] = 150] = "kDebugTriggerCrash";
-    AcceleratorAction[AcceleratorAction["kDebugToggleHudDisplay"] = 151] = "kDebugToggleHudDisplay";
-    AcceleratorAction[AcceleratorAction["kDebugToggleVirtualTrackpad"] = 152] = "kDebugToggleVirtualTrackpad";
-    AcceleratorAction[AcceleratorAction["kDevAddRemoveDisplay"] = 153] = "kDevAddRemoveDisplay";
-    AcceleratorAction[AcceleratorAction["kDevToggleAppList"] = 154] = "kDevToggleAppList";
-    AcceleratorAction[AcceleratorAction["kDevToggleUnifiedDesktop"] = 155] = "kDevToggleUnifiedDesktop";
+    AcceleratorAction[AcceleratorAction["kDebugClearUseKMeansPref"] = 9000] = "kDebugClearUseKMeansPref";
+    AcceleratorAction[AcceleratorAction["kDebugKeyboardBacklightToggle"] = 9001] = "kDebugKeyboardBacklightToggle";
+    AcceleratorAction[AcceleratorAction["kDebugMicrophoneMuteToggle"] = 9002] = "kDebugMicrophoneMuteToggle";
+    AcceleratorAction[AcceleratorAction["kDebugPrintLayerHierarchy"] = 9003] = "kDebugPrintLayerHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugPrintViewHierarchy"] = 9004] = "kDebugPrintViewHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugPrintWindowHierarchy"] = 9005] = "kDebugPrintWindowHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugShowInformedRestore"] = 9006] = "kDebugShowInformedRestore";
+    AcceleratorAction[AcceleratorAction["kDebugShowToast"] = 9007] = "kDebugShowToast";
+    AcceleratorAction[AcceleratorAction["kDebugShowSystemNudge"] = 9008] = "kDebugShowSystemNudge";
+    AcceleratorAction[AcceleratorAction["kDebugSystemUiStyleViewer"] = 9009] = "kDebugSystemUiStyleViewer";
+    AcceleratorAction[AcceleratorAction["kDebugToggleDarkMode"] = 9010] = "kDebugToggleDarkMode";
+    AcceleratorAction[AcceleratorAction["kDebugToggleDynamicColor"] = 9011] = "kDebugToggleDynamicColor";
+    AcceleratorAction[AcceleratorAction["kDebugToggleFocusModeState"] = 9012] = "kDebugToggleFocusModeState";
+    AcceleratorAction[AcceleratorAction["kDebugTogglePowerButtonMenu"] = 9013] = "kDebugTogglePowerButtonMenu";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowDebugBorders"] = 9014] = "kDebugToggleShowDebugBorders";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowFpsCounter"] = 9015] = "kDebugToggleShowFpsCounter";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowPaintRects"] = 9016] = "kDebugToggleShowPaintRects";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTouchPad"] = 9017] = "kDebugToggleTouchPad";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTouchScreen"] = 9018] = "kDebugToggleTouchScreen";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTabletMode"] = 9019] = "kDebugToggleTabletMode";
+    AcceleratorAction[AcceleratorAction["kDebugToggleVideoConferenceCameraTrayIcon"] = 9020] = "kDebugToggleVideoConferenceCameraTrayIcon";
+    AcceleratorAction[AcceleratorAction["kDebugToggleWallpaperMode"] = 9021] = "kDebugToggleWallpaperMode";
+    AcceleratorAction[AcceleratorAction["kDebugTriggerCrash"] = 9022] = "kDebugTriggerCrash";
+    AcceleratorAction[AcceleratorAction["kDebugToggleHudDisplay"] = 9023] = "kDebugToggleHudDisplay";
+    AcceleratorAction[AcceleratorAction["kDebugToggleVirtualTrackpad"] = 9024] = "kDebugToggleVirtualTrackpad";
+    AcceleratorAction[AcceleratorAction["kDevAddRemoveDisplay"] = 9025] = "kDevAddRemoveDisplay";
+    AcceleratorAction[AcceleratorAction["kDevToggleAppList"] = 9026] = "kDevToggleAppList";
+    AcceleratorAction[AcceleratorAction["kDevToggleUnifiedDesktop"] = 9027] = "kDevToggleUnifiedDesktop";
 })(AcceleratorAction || (AcceleratorAction = {}));
 
 // ash/public/mojom/accelerator_keys.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
@@ -41485,7 +41395,7 @@ const VKeySpec = { $: mojo.internal.Enum() };
 var VKey;
 (function (VKey) {
     VKey[VKey["MIN_VALUE"] = 0] = "MIN_VALUE";
-    VKey[VKey["MAX_VALUE"] = 254] = "MAX_VALUE";
+    VKey[VKey["MAX_VALUE"] = 65295] = "MAX_VALUE";
     VKey[VKey["kCancel"] = 3] = "kCancel";
     VKey[VKey["kBack"] = 8] = "kBack";
     VKey[VKey["kTab"] = 9] = "kTab";
@@ -41685,6 +41595,22 @@ var VKey;
     VKey[VKey["kEmojiPicker"] = 237] = "kEmojiPicker";
     VKey[VKey["kDictate"] = 238] = "kDictate";
     VKey[VKey["kAllApplications"] = 239] = "kAllApplications";
+    VKey[VKey["kButton0"] = 65280] = "kButton0";
+    VKey[VKey["kButton1"] = 65281] = "kButton1";
+    VKey[VKey["kButton2"] = 65282] = "kButton2";
+    VKey[VKey["kButton3"] = 65283] = "kButton3";
+    VKey[VKey["kButton4"] = 65284] = "kButton4";
+    VKey[VKey["kButton5"] = 65285] = "kButton5";
+    VKey[VKey["kButton6"] = 65286] = "kButton6";
+    VKey[VKey["kButton7"] = 65287] = "kButton7";
+    VKey[VKey["kButton8"] = 65288] = "kButton8";
+    VKey[VKey["kButton9"] = 65289] = "kButton9";
+    VKey[VKey["kButtonA"] = 65290] = "kButtonA";
+    VKey[VKey["kButtonB"] = 65291] = "kButtonB";
+    VKey[VKey["kButtonC"] = 65292] = "kButtonC";
+    VKey[VKey["kButtonX"] = 65293] = "kButtonX";
+    VKey[VKey["kButtonY"] = 65294] = "kButtonY";
+    VKey[VKey["kButtonZ"] = 65295] = "kButtonZ";
 })(VKey || (VKey = {}));
 
 // ui/events/ash/mojom/extended_fkeys_modifier.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
@@ -41815,6 +41741,15 @@ var CustomizableButton;
     CustomizableButton[CustomizableButton["kExtra"] = 5] = "kExtra";
     CustomizableButton[CustomizableButton["kSide"] = 6] = "kSide";
 })(CustomizableButton || (CustomizableButton = {}));
+const MouseButtonConfigSpec = { $: mojo.internal.Enum() };
+var MouseButtonConfig;
+(function (MouseButtonConfig) {
+    MouseButtonConfig[MouseButtonConfig["MIN_VALUE"] = 0] = "MIN_VALUE";
+    MouseButtonConfig[MouseButtonConfig["MAX_VALUE"] = 2] = "MAX_VALUE";
+    MouseButtonConfig[MouseButtonConfig["kNoConfig"] = 0] = "kNoConfig";
+    MouseButtonConfig[MouseButtonConfig["kFiveKey"] = 1] = "kFiveKey";
+    MouseButtonConfig[MouseButtonConfig["kLogitechSixKey"] = 2] = "kLogitechSixKey";
+})(MouseButtonConfig || (MouseButtonConfig = {}));
 const StaticShortcutActionSpec = { $: mojo.internal.Enum() };
 var StaticShortcutAction;
 (function (StaticShortcutAction) {
@@ -41847,6 +41782,7 @@ var CustomizationRestriction;
 const SixPackKeyInfoSpec = { $: {} };
 const InputDeviceSettingsPolicySpec = { $: {} };
 const InputDeviceSettingsFkeyPolicySpec = { $: {} };
+const InputDeviceSettingsSixPackKeyPolicySpec = { $: {} };
 const KeyboardPoliciesSpec = { $: {} };
 const MousePoliciesSpec = { $: {} };
 const KeyboardSpec = { $: {} };
@@ -41880,11 +41816,20 @@ mojo.internal.Struct(InputDeviceSettingsFkeyPolicySpec.$, 'InputDeviceSettingsFk
     mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('value', 4, 0, ExtendedFkeysModifierSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(InputDeviceSettingsSixPackKeyPolicySpec.$, 'InputDeviceSettingsSixPackKeyPolicy', [
+    mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 4, 0, SixPackShortcutModifierSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(KeyboardPoliciesSpec.$, 'KeyboardPolicies', [
     mojo.internal.StructField('topRowAreFkeysPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('enableMetaFkeyRewritesPolicy', 8, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('extendedFkeysPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
-], [[0, 32],]);
+    mojo.internal.StructField('f11KeyPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('f12KeyPolicy', 24, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('homeAndEndKeysPolicy', 32, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('pageUpAndPageDownKeysPolicy', 40, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('deleteKeyPolicy', 48, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('insertKeyPolicy', 56, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+], [[0, 72],]);
 mojo.internal.Struct(MousePoliciesSpec.$, 'MousePolicies', [
     mojo.internal.StructField('swapRightPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
@@ -41928,6 +41873,7 @@ mojo.internal.Struct(MouseSpec.$, 'Mouse', [
     mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
     mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('customizationRestriction', 24, 0, CustomizationRestrictionSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('mouseButtonConfig', 28, 0, MouseButtonConfigSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('settings', 32, 0, MouseSettingsSpec.$, null, false /* nullable */, 0),
 ], [[0, 48],]);
 mojo.internal.Struct(MouseSettingsSpec.$, 'MouseSettings', [
@@ -42195,8 +42141,13 @@ class ShortcutInputElement extends ShortcutInputElementBase {
         if (this.shouldIgnoreKeyRelease) {
             return;
         }
+        // Ignore the release event if no key was pressed before. This is to
+        // avoid the case when the user presses "enter" key to pop up the
+        // shortcut input, release of the key is captured by accident.
+        if (!this.pendingKeyEvent) {
+            return;
+        }
         if (this.updateOnKeyPress) {
-            console.log('keyevent', keyEvent);
             const updatedKeyEvent = { ...keyEvent };
             const updatedPrerewrittenKeyEvent = { ...prerewrittenKeyEvent };
             // If the key released is not a modifier, reset keyDisplay.
@@ -43433,5 +43384,5 @@ class ManageIsolatedWebAppsSubpageElement extends ManageIsolatedWebAppsSubpageBa
 }
 customElements.define(ManageIsolatedWebAppsSubpageElement.is, ManageIsolatedWebAppsSubpageElement);
 
-export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, AppLanguageSelectionDialogElement, AppLanguageSelectionItemElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
+export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
 //# sourceMappingURL=lazy_load.rollup.js.map

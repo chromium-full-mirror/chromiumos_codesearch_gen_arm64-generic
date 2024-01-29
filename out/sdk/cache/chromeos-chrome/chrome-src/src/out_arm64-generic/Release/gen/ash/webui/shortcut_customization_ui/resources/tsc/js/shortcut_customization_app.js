@@ -15,6 +15,7 @@ import 'chrome://resources/cr_elements/policy/cr_policy_indicator.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
+import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import { CrToolbarSearchFieldElement } from 'chrome://resources/cr_elements/cr_toolbar/cr_toolbar_search_field.js';
 import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
@@ -228,14 +229,14 @@ export class ShortcutCustomizationAppElement extends ShortcutCustomizationAppEle
         this.showRestoreAllDialog = true;
     }
     onCancelRestoreButtonClicked() {
-        this.closeRestoreAllDialog();
+        strictQuery('#restoreDialog', this.shadowRoot, CrDialogElement).close();
     }
     onConfirmRestoreButtonClicked() {
         this.shortcutProvider.restoreAllDefaults().then(({ result }) => {
             // TODO(jimmyxgong): Explore error state with restore all.
             if (result.result === AcceleratorConfigResult.kSuccess) {
                 this.shortcutProvider.recordUserAction(UserAction.kResetAll);
-                this.closeRestoreAllDialog();
+                strictQuery('#restoreDialog', this.shadowRoot, CrDialogElement).close();
             }
         });
     }

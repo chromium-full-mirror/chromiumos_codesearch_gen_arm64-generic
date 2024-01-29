@@ -176,6 +176,8 @@ bool InterfaceProviderStubDispatch::Accept(
           reinterpret_cast<internal::InterfaceProvider_GetInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterfaceProvider.0
       bool success = true;
       WTF::String p_interface_name{};
       ::mojo::ScopedMessagePipeHandle p_pipe{};
@@ -194,9 +196,9 @@ bool InterfaceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetInterface(
-std::move(p_interface_name), 
-std::move(p_pipe));
+      impl->GetInterface(        
+        std::move(p_interface_name), 
+        std::move(p_pipe));
       return true;
     }
   }

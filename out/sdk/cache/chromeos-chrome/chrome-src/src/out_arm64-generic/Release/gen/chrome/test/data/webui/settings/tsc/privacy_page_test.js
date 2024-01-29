@@ -31,6 +31,7 @@ const redesignedPages = [
     routes.SITE_SETTINGS_IDLE_DETECTION,
     routes.SITE_SETTINGS_IMAGES,
     routes.SITE_SETTINGS_JAVASCRIPT,
+    routes.SITE_SETTINGS_JAVASCRIPT_JIT,
     routes.SITE_SETTINGS_LOCAL_FONTS,
     routes.SITE_SETTINGS_LOCATION,
     routes.SITE_SETTINGS_MICROPHONE,
@@ -46,6 +47,10 @@ const redesignedPages = [
     routes.SITE_SETTINGS_STORAGE_ACCESS,
     routes.SITE_SETTINGS_USB_DEVICES,
     routes.SITE_SETTINGS_VR,
+    // WEB_PRINTING is currently only supported on ChromeOS.
+    // 
+    routes.SITE_SETTINGS_WEB_PRINTING,
+    // 
     // TODO(crbug.com/1128902) After restructure add coverage for elements on
     // routes which depend on flags being enabled.
     // routes.SITE_SETTINGS_BLUETOOTH_SCANNING,
@@ -186,16 +191,6 @@ suite(`PrivacySandbox`, function () {
         const privacySandboxLinkRow = page.shadowRoot.querySelector('#privacySandboxLinkRow');
         assertEquals(loadTimeData.getString('adPrivacyLinkRowLabel'), privacySandboxLinkRow.label);
     });
-    test('privacySandboxRowSublabel', async function () {
-        page.set('prefs.privacy_sandbox.apis_enabled_v2.value', true);
-        assertTrue(isChildVisible(page, '#privacySandboxLinkRow'));
-        const privacySandboxLinkRow = page.shadowRoot.querySelector('#privacySandboxLinkRow');
-        await flushTasks();
-        assertEquals(loadTimeData.getString('adPrivacyLinkRowSubLabel'), privacySandboxLinkRow.subLabel);
-        page.set('prefs.privacy_sandbox.apis_enabled_v2.value', false);
-        await flushTasks();
-        assertEquals(loadTimeData.getString('adPrivacyLinkRowSubLabel'), privacySandboxLinkRow.subLabel);
-    });
     test('privacySandboxNotExternalLink', function () {
         const privacySandboxLinkRow = page.shadowRoot.querySelector('#privacySandboxLinkRow');
         assertTrue(!!privacySandboxLinkRow);
@@ -211,6 +206,11 @@ suite(`PrivacySandbox`, function () {
         // kPrivacySandboxSettings4.
         await flushTasks();
         assertEquals(routes.PRIVACY_SANDBOX, Router.getInstance().getCurrentRoute());
+    });
+});
+suite('WebPrintingNotShown', function () {
+    test('navigateToWebPrinting', function () {
+        assertThrows(() => Router.getInstance().navigateTo(routes.SITE_SETTINGS_WEB_PRINTING));
     });
 });
 suite(`CookiesSubpage`, function () {

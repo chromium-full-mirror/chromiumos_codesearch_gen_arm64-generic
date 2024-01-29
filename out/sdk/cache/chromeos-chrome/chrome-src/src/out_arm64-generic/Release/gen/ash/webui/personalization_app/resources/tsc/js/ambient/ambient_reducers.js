@@ -82,6 +82,14 @@ export function shouldShowTimeOfDayBannerReducer(state, action, _) {
             return state;
     }
 }
+export function geolocationPermissionEnabledReducer(state, action, _) {
+    switch (action.name) {
+        case AmbientActionName.SET_GEOLOCATION_PERMISSION_ENABLED:
+            return action.enabled;
+        default:
+            return state;
+    }
+}
 export const ambientReducers = {
     albums: albumsReducer,
     ambientModeEnabled: ambientModeEnabledReducer,
@@ -92,4 +100,5 @@ export const ambientReducers = {
     topicSource: topicSourceReducer,
     ambientUiVisibility: ambientUiVisibilityReducer,
     shouldShowTimeOfDayBanner: shouldShowTimeOfDayBannerReducer,
+    geolocationPermissionEnabled: geolocationPermissionEnabledReducer,
 };

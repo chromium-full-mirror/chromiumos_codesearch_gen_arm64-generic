@@ -19,8 +19,9 @@ constexpr uint32_t kPageHandler_GetCartForCluster_Name = 1;
 constexpr uint32_t kPageHandler_GetDiscountsForCluster_Name = 2;
 constexpr uint32_t kPageHandler_ShowJourneysSidePanel_Name = 3;
 constexpr uint32_t kPageHandler_RecordClick_Name = 4;
-constexpr uint32_t kPageHandler_RecordLayoutTypeShown_Name = 5;
-constexpr uint32_t kPageHandler_UpdateClusterVisitsInteractionState_Name = 6;
+constexpr uint32_t kPageHandler_RecordDisabled_Name = 5;
+constexpr uint32_t kPageHandler_RecordLayoutTypeShown_Name = 6;
+constexpr uint32_t kPageHandler_UpdateClusterVisitsInteractionState_Name = 7;
 
 }  // namespace internal
 

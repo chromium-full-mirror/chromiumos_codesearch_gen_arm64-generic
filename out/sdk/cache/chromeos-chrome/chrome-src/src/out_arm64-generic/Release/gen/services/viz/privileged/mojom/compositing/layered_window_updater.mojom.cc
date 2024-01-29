@@ -295,6 +295,8 @@ bool LayeredWindowUpdater_Draw_ForwardToCallback::Accept(
           internal::LayeredWindowUpdater_Draw_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LayeredWindowUpdater.1
   bool success = true;
   LayeredWindowUpdater_Draw_ResponseParamsDataView input_data_view(params, message);
   
@@ -357,6 +359,8 @@ bool LayeredWindowUpdaterStubDispatch::Accept(
           reinterpret_cast<internal::LayeredWindowUpdater_OnAllocatedSharedMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LayeredWindowUpdater.0
       bool success = true;
       ::gfx::Size p_pixel_size{};
       ::base::UnsafeSharedMemoryRegion p_region{};
@@ -375,9 +379,9 @@ bool LayeredWindowUpdaterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAllocatedSharedMemory(
-std::move(p_pixel_size), 
-std::move(p_region));
+      impl->OnAllocatedSharedMemory(        
+        std::move(p_pixel_size), 
+        std::move(p_region));
       return true;
     }
     case internal::kLayeredWindowUpdater_Draw_Name: {
@@ -406,6 +410,8 @@ bool LayeredWindowUpdaterStubDispatch::AcceptWithResponder(
               internal::LayeredWindowUpdater_Draw_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LayeredWindowUpdater.1
       bool success = true;
       LayeredWindowUpdater_Draw_ParamsDataView input_data_view(params, message);
       

@@ -277,6 +277,8 @@ bool FilePayloadListenerStubDispatch::Accept(
           reinterpret_cast<internal::FilePayloadListener_OnFileTransferUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FilePayloadListener.0
       bool success = true;
       FileTransferUpdatePtr p_update{};
       FilePayloadListener_OnFileTransferUpdate_ParamsDataView input_data_view(params, message);
@@ -292,8 +294,8 @@ bool FilePayloadListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFileTransferUpdate(
-std::move(p_update));
+      impl->OnFileTransferUpdate(        
+        std::move(p_update));
       return true;
     }
   }

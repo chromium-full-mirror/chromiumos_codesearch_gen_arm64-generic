@@ -6,6 +6,7 @@ import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import '../../common/app_language_selection_dialog/app_language_selection_dialog.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { AppLanguageSelectionDialogEntryPoint } from '../../common/app_language_selection_dialog/app_language_selection_dialog.js';
 import { getTemplate } from './app_language_item.html.js';
 const AppManagementAppLanguageItemElementBase = I18nMixin(PolymerElement);
 export class AppManagementAppLanguageItemElement extends AppManagementAppLanguageItemElementBase {
@@ -59,6 +60,9 @@ export class AppManagementAppLanguageItemElement extends AppManagementAppLanguag
                 displayName;
         }
         return this.i18n('appLanguageDeviceLanguageLabel');
+    }
+    getDialogEntryPoint_() {
+        return AppLanguageSelectionDialogEntryPoint.APPS_MANAGEMENT_PAGE;
     }
 }
 customElements.define(AppManagementAppLanguageItemElement.is, AppManagementAppLanguageItemElement);

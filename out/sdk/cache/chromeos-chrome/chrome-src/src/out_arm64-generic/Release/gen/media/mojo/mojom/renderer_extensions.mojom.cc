@@ -237,6 +237,8 @@ bool MediaPlayerRendererClientExtensionStubDispatch::Accept(
           reinterpret_cast<internal::MediaPlayerRendererClientExtension_OnVideoSizeChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerRendererClientExtension.0
       bool success = true;
       ::gfx::Size p_size{};
       MediaPlayerRendererClientExtension_OnVideoSizeChange_ParamsDataView input_data_view(params, message);
@@ -252,8 +254,8 @@ bool MediaPlayerRendererClientExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoSizeChange(
-std::move(p_size));
+      impl->OnVideoSizeChange(        
+        std::move(p_size));
       return true;
     }
     case internal::kMediaPlayerRendererClientExtension_OnDurationChange_Name: {
@@ -263,6 +265,8 @@ std::move(p_size));
           reinterpret_cast<internal::MediaPlayerRendererClientExtension_OnDurationChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPlayerRendererClientExtension.1
       bool success = true;
       ::base::TimeDelta p_duration{};
       MediaPlayerRendererClientExtension_OnDurationChange_ParamsDataView input_data_view(params, message);
@@ -278,8 +282,8 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDurationChange(
-std::move(p_duration));
+      impl->OnDurationChange(        
+        std::move(p_duration));
       return true;
     }
   }
@@ -484,6 +488,8 @@ bool MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_ForwardToCallback
           internal::MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaPlayerRendererExtension.0
   bool success = true;
   ::base::UnguessableToken p_request_token{};
   MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_ResponseParamsDataView input_data_view(params, message);
@@ -584,6 +590,8 @@ bool MediaPlayerRendererExtensionStubDispatch::AcceptWithResponder(
               internal::MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaPlayerRendererExtension.0
       bool success = true;
       MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_ParamsDataView input_data_view(params, message);
       
@@ -734,6 +742,8 @@ bool FlingingRendererClientExtensionStubDispatch::Accept(
           reinterpret_cast<internal::FlingingRendererClientExtension_OnRemotePlayStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FlingingRendererClientExtension.0
       bool success = true;
       ::media::MediaStatus::State p_state{};
       FlingingRendererClientExtension_OnRemotePlayStateChange_ParamsDataView input_data_view(params, message);
@@ -749,8 +759,8 @@ bool FlingingRendererClientExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemotePlayStateChange(
-std::move(p_state));
+      impl->OnRemotePlayStateChange(        
+        std::move(p_state));
       return true;
     }
   }
@@ -952,6 +962,8 @@ bool MediaFoundationRendererNotifierStubDispatch::Accept(
           reinterpret_cast<internal::MediaFoundationRendererNotifier_MediaFoundationRendererCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaFoundationRendererNotifier.0
       bool success = true;
       ::mojo::PendingReceiver<MediaFoundationRendererObserver> p_observer{};
       MediaFoundationRendererNotifier_MediaFoundationRendererCreated_ParamsDataView input_data_view(params, message);
@@ -969,8 +981,8 @@ bool MediaFoundationRendererNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaFoundationRendererCreated(
-std::move(p_observer));
+      impl->MediaFoundationRendererCreated(        
+        std::move(p_observer));
       return true;
     }
   }

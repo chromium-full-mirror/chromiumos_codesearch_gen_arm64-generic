@@ -20,14 +20,14 @@ describeWithMockConnection('StorageKeyManager', () => {
         let eventFired = false;
         const keys = ['storagekey1', 'storagekey2'];
         assert.isEmpty(manager.storageKeys());
-        manager.addEventListener(SDK.StorageKeyManager.Events.StorageKeyAdded, () => {
+        manager.addEventListener("StorageKeyAdded" /* SDK.StorageKeyManager.Events.StorageKeyAdded */, () => {
             eventFired = true;
         });
         manager.updateStorageKeys(new Set(keys));
         assert.isTrue(eventFired);
         assert.deepEqual(manager.storageKeys(), keys);
         eventFired = false;
-        manager.addEventListener(SDK.StorageKeyManager.Events.StorageKeyRemoved, () => {
+        manager.addEventListener("StorageKeyRemoved" /* SDK.StorageKeyManager.Events.StorageKeyRemoved */, () => {
             eventFired = true;
         });
         manager.updateStorageKeys(new Set());
@@ -38,7 +38,7 @@ describeWithMockConnection('StorageKeyManager', () => {
         const mainKey = 'storagekey1';
         let eventFired = false;
         assert.isEmpty(manager.mainStorageKey());
-        manager.addEventListener(SDK.StorageKeyManager.Events.MainStorageKeyChanged, () => {
+        manager.addEventListener("MainStorageKeyChanged" /* SDK.StorageKeyManager.Events.MainStorageKeyChanged */, () => {
             eventFired = true;
         });
         manager.setMainStorageKey(mainKey);

@@ -223,14 +223,14 @@ export class AnimationTimeline extends UI.Widget.VBox {
         const toolbarContainer = this.contentElement.createChild('div', 'animation-timeline-toolbar-container');
         const topToolbar = new UI.Toolbar.Toolbar('animation-timeline-toolbar', toolbarContainer);
         this.#clearButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.clearAll), 'clear');
-        this.#clearButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
+        this.#clearButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => {
             Host.userMetrics.actionTaken(Host.UserMetrics.Action.AnimationGroupsCleared);
             this.reset();
         });
         topToolbar.appendToolbarItem(this.#clearButton);
         topToolbar.appendSeparator();
         this.#pauseButton = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.pauseAll), 'pause', 'resume');
-        this.#pauseButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
+        this.#pauseButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => {
             this.togglePauseAll();
         });
         topToolbar.appendToolbarItem(this.#pauseButton);
@@ -263,7 +263,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.#controlButton = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.replayTimeline), 'replay');
         this.#controlState = "replay-outline" /* ControlState.Replay */;
         this.#controlButton.setToggled(true);
-        this.#controlButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.controlButtonToggle.bind(this));
+        this.#controlButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.controlButtonToggle.bind(this));
         toolbar.appendToolbarItem(this.#controlButton);
         this.#gridHeader = container.createChild('div', 'animation-grid-header');
         UI.UIUtils.installDragHandle(this.#gridHeader, this.scrubberDragStart.bind(this), this.scrubberDragMove.bind(this), this.scrubberDragEnd.bind(this), null);
@@ -445,11 +445,12 @@ export class AnimationTimeline extends UI.Widget.VBox {
         previewUiContainer.appendChild(preview.element);
         const screenshotsContainer = document.createElement('div');
         screenshotsContainer.classList.add('screenshots-container', 'no-screenshots');
-        screenshotsContainer.appendChild(UI.Icon.Icon.create('mediumicon-arrow-top', 'screenshot-arrow'));
+        screenshotsContainer.createChild('span', 'screenshot-arrow');
         // After the view is shown on hover, position it if it is out of bounds.
         screenshotsContainer.addEventListener('animationend', () => {
-            const { right } = screenshotsContainer.getBoundingClientRect();
-            if (right > window.innerWidth) {
+            const { right, left, width } = screenshotsContainer.getBoundingClientRect();
+            // Render to the left if it is not getting out of bounds when rendered on the left.
+            if (right > window.innerWidth && (left - width) >= 0) {
                 screenshotsContainer.classList.add('to-the-left');
             }
         });

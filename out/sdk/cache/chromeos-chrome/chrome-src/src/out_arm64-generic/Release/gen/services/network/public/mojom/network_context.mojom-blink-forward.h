@@ -19,9 +19,7 @@
 
 
 
-namespace mojo {
-enum class NativeEnum;
-}  // namespace mojo
+
 
 namespace network::mojom {
 
@@ -38,6 +36,7 @@ class TrustedHeaderClientInterfaceBase;
 class TrustedURLLoaderHeaderClientInterfaceBase;
 class NetworkContextClientInterfaceBase;
 class IpProtectionConfigGetterInterfaceBase;
+class IpProtectionProxyDelegateInterfaceBase;
 class NetworkContextInterfaceBase;
 
 
@@ -55,6 +54,7 @@ using TrustedHeaderClientInterfaceBase = TrustedHeaderClientInterfaceBase;
 using TrustedURLLoaderHeaderClientInterfaceBase = TrustedURLLoaderHeaderClientInterfaceBase;
 using NetworkContextClientInterfaceBase = NetworkContextClientInterfaceBase;
 using IpProtectionConfigGetterInterfaceBase = IpProtectionConfigGetterInterfaceBase;
+using IpProtectionProxyDelegateInterfaceBase = IpProtectionProxyDelegateInterfaceBase;
 using NetworkContextInterfaceBase = NetworkContextInterfaceBase;
 
 constexpr uint32_t kWebSocketOptionNone = 0U;
@@ -113,6 +113,8 @@ class TrustedURLLoaderHeaderClient;
 class NetworkContextClient;
 
 class IpProtectionConfigGetter;
+
+class IpProtectionProxyDelegate;
 
 class NetworkContext;
 

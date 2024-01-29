@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "extensions/common/mojom/event_dispatcher.mojom-shared-internal.h"
+#include "extensions/common/mojom/host_id.mojom-shared.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -179,14 +180,14 @@ class DispatchEventParamsDataView {
   int32_t worker_thread_id() const {
     return data_->worker_thread_id;
   }
-  inline void GetExtensionIdDataView(
-      mojo::StringDataView* output);
+  inline void GetHostIdDataView(
+      ::extensions::mojom::HostIDDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadExtensionId(UserType* output) {
+  [[nodiscard]] bool ReadHostId(UserType* output) {
     
-    auto* pointer = data_->extension_id.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    auto* pointer = data_->host_id.Get();
+    return mojo::internal::Deserialize<::extensions::mojom::HostIDDataView>(
         pointer, output, message_);
   }
   inline void GetEventNameDataView(
@@ -301,18 +302,18 @@ struct Serializer<::extensions::mojom::DispatchEventParamsDataView, MaybeConstUs
       return;
     fragment.Allocate();
     fragment->worker_thread_id = Traits::worker_thread_id(input);
-    decltype(Traits::extension_id(input)) in_extension_id = Traits::extension_id(input);
+    decltype(Traits::host_id(input)) in_host_id = Traits::host_id(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->extension_id)::BaseType> extension_id_fragment(
+        typename decltype(fragment->host_id)::BaseType> host_id_fragment(
             fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_extension_id, extension_id_fragment);
-    fragment->extension_id.Set(
-        extension_id_fragment.is_null() ? nullptr : extension_id_fragment.data());
+    mojo::internal::Serialize<::extensions::mojom::HostIDDataView>(
+        in_host_id, host_id_fragment);
+    fragment->host_id.Set(
+        host_id_fragment.is_null() ? nullptr : host_id_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->extension_id.is_null(),
+        fragment->host_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null extension_id in DispatchEventParams struct");
+        "null host_id in DispatchEventParams struct");
     decltype(Traits::event_name(input)) in_event_name = Traits::event_name(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->event_name)::BaseType> event_name_fragment(
@@ -376,10 +377,10 @@ inline void EventFilteringInfoDataView::GetWindowTypeDataView(
 }
 
 
-inline void DispatchEventParamsDataView::GetExtensionIdDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->extension_id.Get();
-  *output = mojo::StringDataView(pointer, message_);
+inline void DispatchEventParamsDataView::GetHostIdDataView(
+    ::extensions::mojom::HostIDDataView* output) {
+  auto pointer = data_->host_id.Get();
+  *output = ::extensions::mojom::HostIDDataView(pointer, message_);
 }
 inline void DispatchEventParamsDataView::GetEventNameDataView(
     mojo::StringDataView* output) {

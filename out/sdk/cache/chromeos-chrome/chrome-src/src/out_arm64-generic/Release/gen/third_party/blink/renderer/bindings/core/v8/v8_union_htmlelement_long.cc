@@ -51,7 +51,7 @@ return MakeGarbageCollected<V8UnionHTMLElementOrLong>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionHTMLElementOrLong::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionHTMLElementOrLong::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kHTMLElement: {
     return ToV8Traits<HTMLElement>::ToV8(script_state, member_html_element_.Get());
@@ -62,7 +62,7 @@ v8::MaybeLocal<v8::Value> V8UnionHTMLElementOrLong::ToV8Value(ScriptState* scrip
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionHTMLElementOrLong::Trace(Visitor* visitor) const {

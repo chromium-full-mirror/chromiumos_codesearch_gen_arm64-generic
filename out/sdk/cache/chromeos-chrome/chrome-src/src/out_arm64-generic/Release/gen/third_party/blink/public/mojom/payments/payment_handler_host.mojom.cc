@@ -572,6 +572,8 @@ bool PaymentHandlerHost_ChangePaymentMethod_ForwardToCallback::Accept(
           internal::PaymentHandlerHost_ChangePaymentMethod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentHandlerHost.0
   bool success = true;
   PaymentRequestDetailsUpdatePtr p_response_data{};
   PaymentHandlerHost_ChangePaymentMethod_ResponseParamsDataView input_data_view(params, message);
@@ -701,6 +703,8 @@ bool PaymentHandlerHost_ChangeShippingOption_ForwardToCallback::Accept(
           internal::PaymentHandlerHost_ChangeShippingOption_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentHandlerHost.1
   bool success = true;
   PaymentRequestDetailsUpdatePtr p_response_data{};
   PaymentHandlerHost_ChangeShippingOption_ResponseParamsDataView input_data_view(params, message);
@@ -830,6 +834,8 @@ bool PaymentHandlerHost_ChangeShippingAddress_ForwardToCallback::Accept(
           internal::PaymentHandlerHost_ChangeShippingAddress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentHandlerHost.2
   bool success = true;
   PaymentRequestDetailsUpdatePtr p_response_data{};
   PaymentHandlerHost_ChangeShippingAddress_ResponseParamsDataView input_data_view(params, message);
@@ -936,6 +942,8 @@ bool PaymentHandlerHostStubDispatch::AcceptWithResponder(
               internal::PaymentHandlerHost_ChangePaymentMethod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentHandlerHost.0
       bool success = true;
       PaymentHandlerMethodDataPtr p_method_data{};
       PaymentHandlerHost_ChangePaymentMethod_ParamsDataView input_data_view(params, message);
@@ -954,8 +962,8 @@ bool PaymentHandlerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangePaymentMethod(
-std::move(p_method_data), std::move(callback));
+      impl->ChangePaymentMethod(        
+        std::move(p_method_data), std::move(callback));
       return true;
     }
     case internal::kPaymentHandlerHost_ChangeShippingOption_Name: {
@@ -965,6 +973,8 @@ std::move(p_method_data), std::move(callback));
               internal::PaymentHandlerHost_ChangeShippingOption_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentHandlerHost.1
       bool success = true;
       std::string p_shipping_option_id{};
       PaymentHandlerHost_ChangeShippingOption_ParamsDataView input_data_view(params, message);
@@ -983,8 +993,8 @@ std::move(p_method_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangeShippingOption(
-std::move(p_shipping_option_id), std::move(callback));
+      impl->ChangeShippingOption(        
+        std::move(p_shipping_option_id), std::move(callback));
       return true;
     }
     case internal::kPaymentHandlerHost_ChangeShippingAddress_Name: {
@@ -994,6 +1004,8 @@ std::move(p_shipping_option_id), std::move(callback));
               internal::PaymentHandlerHost_ChangeShippingAddress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentHandlerHost.2
       bool success = true;
       ::payments::mojom::PaymentAddressPtr p_shipping_address{};
       PaymentHandlerHost_ChangeShippingAddress_ParamsDataView input_data_view(params, message);
@@ -1012,8 +1024,8 @@ std::move(p_shipping_option_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangeShippingAddress(
-std::move(p_shipping_address), std::move(callback));
+      impl->ChangeShippingAddress(        
+        std::move(p_shipping_address), std::move(callback));
       return true;
     }
   }

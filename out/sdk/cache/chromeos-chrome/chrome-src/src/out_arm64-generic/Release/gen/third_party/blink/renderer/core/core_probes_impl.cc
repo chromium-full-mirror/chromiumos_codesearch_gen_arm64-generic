@@ -2109,6 +2109,8 @@ void WillHandlePromiseImpl(ExecutionContext* context, ScriptState* script_state,
 
 RecalculateStyle::RecalculateStyle(Document* document) :
     document(document) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAnimationFrameTimingMonitor | CoreProbeSink::kInspectorCSSAgent | CoreProbeSink::kInspectorPageAgent | CoreProbeSink::kInspectorPerformanceAgent | CoreProbeSink::kPerformanceMonitor))
+    return;
   probe_sink = ToCoreProbeSink(document);
   if (!probe_sink)
     return;
@@ -2171,6 +2173,8 @@ RecalculateStyle::~RecalculateStyle() {
 
 UpdateLayout::UpdateLayout(Document* document) :
     document(document) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAnimationFrameTimingMonitor | CoreProbeSink::kInspectorPageAgent | CoreProbeSink::kInspectorPerformanceAgent | CoreProbeSink::kPerformanceMonitor))
+    return;
   probe_sink = ToCoreProbeSink(document);
   if (!probe_sink)
     return;
@@ -2226,6 +2230,8 @@ EvaluateScriptBlock::EvaluateScriptBlock(ScriptState* script_state, std::referen
     source_url(source_url),
     is_module(is_module),
     sanitize(sanitize) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAnimationFrameTimingMonitor))
+    return;
   probe_sink = ToCoreProbeSink(script_state);
   if (!probe_sink)
     return;
@@ -2251,6 +2257,8 @@ ExecuteScript::ExecuteScript(ExecutionContext* context, v8::Local<v8::Context> v
     v8_context(v8_context),
     script_url(script_url),
     script_id(script_id) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAdTracker | CoreProbeSink::kAnimationFrameTimingMonitor | CoreProbeSink::kInspectorEventBreakpointsAgent | CoreProbeSink::kInspectorPerformanceAgent | CoreProbeSink::kLCPScriptObserver | CoreProbeSink::kPerformanceMonitor))
+    return;
   probe_sink = ToCoreProbeSink(context);
   if (!probe_sink)
     return;
@@ -2326,6 +2334,8 @@ CallFunction::CallFunction(ExecutionContext* context, v8::Local<v8::Context> v8_
     v8_context(v8_context),
     function(function),
     depth(depth) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAdTracker | CoreProbeSink::kInspectorPerformanceAgent | CoreProbeSink::kInspectorTraceEvents | CoreProbeSink::kLCPScriptObserver | CoreProbeSink::kPerformanceMonitor))
+    return;
   probe_sink = ToCoreProbeSink(context);
   if (!probe_sink)
     return;
@@ -2394,6 +2404,8 @@ UserCallback::UserCallback(ExecutionContext* context, const char* name, AtomicSt
     event_target(event_target),
     event(event),
     listener(listener) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorDOMDebuggerAgent | CoreProbeSink::kInspectorEventBreakpointsAgent | CoreProbeSink::kPerformanceMonitor))
+    return;
   probe_sink = ToCoreProbeSink(context);
   if (!probe_sink)
     return;
@@ -2439,6 +2451,8 @@ InvokeCallback::InvokeCallback(ScriptState* script_state, const char* name, Call
     name(name),
     callback(callback),
     function(function) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAnimationFrameTimingMonitor))
+    return;
   probe_sink = ToCoreProbeSink(script_state);
   if (!probe_sink)
     return;
@@ -2463,6 +2477,8 @@ InvokeEventHandler::InvokeEventHandler(ScriptState* script_state, Event* event, 
     script_state(script_state),
     event(event),
     listener(listener) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kAnimationFrameTimingMonitor))
+    return;
   probe_sink = ToCoreProbeSink(script_state);
   if (!probe_sink)
     return;
@@ -2488,6 +2504,8 @@ V8Compile::V8Compile(ExecutionContext* context, std::reference_wrapper<std::remo
     file_name(file_name),
     line(line),
     column(column) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorPerformanceAgent | CoreProbeSink::kPerformanceMonitor))
+    return;
   probe_sink = ToCoreProbeSink(context);
   if (!probe_sink)
     return;
@@ -2521,6 +2539,8 @@ V8Compile::~V8Compile() {
 ParseHTML::ParseHTML(Document* document, HTMLDocumentParser* parser) :
     document(document),
     parser(parser) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorTraceEvents))
+    return;
   probe_sink = ToCoreProbeSink(document);
   if (!probe_sink)
     return;

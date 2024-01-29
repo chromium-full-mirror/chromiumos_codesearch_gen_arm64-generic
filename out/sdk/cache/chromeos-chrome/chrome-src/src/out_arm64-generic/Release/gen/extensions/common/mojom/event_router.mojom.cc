@@ -1350,6 +1350,8 @@ bool EventRouterStubDispatch::Accept(
           reinterpret_cast<internal::EventRouter_AddListenerForMainThread_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.0
       bool success = true;
       EventListenerPtr p_event_listener{};
       EventRouter_AddListenerForMainThread_ParamsDataView input_data_view(params, message);
@@ -1365,8 +1367,8 @@ bool EventRouterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddListenerForMainThread(
-std::move(p_event_listener));
+      impl->AddListenerForMainThread(        
+        std::move(p_event_listener));
       return true;
     }
     case internal::kEventRouter_AddListenerForServiceWorker_Name: {
@@ -1376,6 +1378,8 @@ std::move(p_event_listener));
           reinterpret_cast<internal::EventRouter_AddListenerForServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.1
       bool success = true;
       EventListenerPtr p_event_listener{};
       EventRouter_AddListenerForServiceWorker_ParamsDataView input_data_view(params, message);
@@ -1391,8 +1395,8 @@ std::move(p_event_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddListenerForServiceWorker(
-std::move(p_event_listener));
+      impl->AddListenerForServiceWorker(        
+        std::move(p_event_listener));
       return true;
     }
     case internal::kEventRouter_AddLazyListenerForMainThread_Name: {
@@ -1402,6 +1406,8 @@ std::move(p_event_listener));
           reinterpret_cast<internal::EventRouter_AddLazyListenerForMainThread_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.2
       bool success = true;
       std::string p_extension_id{};
       std::string p_event_name{};
@@ -1420,9 +1426,9 @@ std::move(p_event_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLazyListenerForMainThread(
-std::move(p_extension_id), 
-std::move(p_event_name));
+      impl->AddLazyListenerForMainThread(        
+        std::move(p_extension_id), 
+        std::move(p_event_name));
       return true;
     }
     case internal::kEventRouter_AddLazyListenerForServiceWorker_Name: {
@@ -1432,6 +1438,8 @@ std::move(p_event_name));
           reinterpret_cast<internal::EventRouter_AddLazyListenerForServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.3
       bool success = true;
       std::string p_extension_id{};
       ::GURL p_worker_scope_url{};
@@ -1453,10 +1461,10 @@ std::move(p_event_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLazyListenerForServiceWorker(
-std::move(p_extension_id), 
-std::move(p_worker_scope_url), 
-std::move(p_event_name));
+      impl->AddLazyListenerForServiceWorker(        
+        std::move(p_extension_id), 
+        std::move(p_worker_scope_url), 
+        std::move(p_event_name));
       return true;
     }
     case internal::kEventRouter_AddFilteredListenerForMainThread_Name: {
@@ -1466,6 +1474,8 @@ std::move(p_event_name));
           reinterpret_cast<internal::EventRouter_AddFilteredListenerForMainThread_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.4
       bool success = true;
       EventListenerOwnerPtr p_listener_owner{};
       std::string p_event_name{};
@@ -1490,11 +1500,11 @@ std::move(p_event_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddFilteredListenerForMainThread(
-std::move(p_listener_owner), 
-std::move(p_event_name), 
-std::move(p_filter), 
-std::move(p_add_lazy_listener));
+      impl->AddFilteredListenerForMainThread(        
+        std::move(p_listener_owner), 
+        std::move(p_event_name), 
+        std::move(p_filter), 
+        std::move(p_add_lazy_listener));
       return true;
     }
     case internal::kEventRouter_AddFilteredListenerForServiceWorker_Name: {
@@ -1504,6 +1514,8 @@ std::move(p_add_lazy_listener));
           reinterpret_cast<internal::EventRouter_AddFilteredListenerForServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.5
       bool success = true;
       std::string p_extension_id{};
       std::string p_event_name{};
@@ -1531,12 +1543,12 @@ std::move(p_add_lazy_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddFilteredListenerForServiceWorker(
-std::move(p_extension_id), 
-std::move(p_event_name), 
-std::move(p_service_worker_context), 
-std::move(p_filter), 
-std::move(p_add_lazy_listener));
+      impl->AddFilteredListenerForServiceWorker(        
+        std::move(p_extension_id), 
+        std::move(p_event_name), 
+        std::move(p_service_worker_context), 
+        std::move(p_filter), 
+        std::move(p_add_lazy_listener));
       return true;
     }
     case internal::kEventRouter_RemoveListenerForMainThread_Name: {
@@ -1546,6 +1558,8 @@ std::move(p_add_lazy_listener));
           reinterpret_cast<internal::EventRouter_RemoveListenerForMainThread_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.6
       bool success = true;
       EventListenerPtr p_event_listener{};
       EventRouter_RemoveListenerForMainThread_ParamsDataView input_data_view(params, message);
@@ -1561,8 +1575,8 @@ std::move(p_add_lazy_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveListenerForMainThread(
-std::move(p_event_listener));
+      impl->RemoveListenerForMainThread(        
+        std::move(p_event_listener));
       return true;
     }
     case internal::kEventRouter_RemoveListenerForServiceWorker_Name: {
@@ -1572,6 +1586,8 @@ std::move(p_event_listener));
           reinterpret_cast<internal::EventRouter_RemoveListenerForServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.7
       bool success = true;
       EventListenerPtr p_event_listener{};
       EventRouter_RemoveListenerForServiceWorker_ParamsDataView input_data_view(params, message);
@@ -1587,8 +1603,8 @@ std::move(p_event_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveListenerForServiceWorker(
-std::move(p_event_listener));
+      impl->RemoveListenerForServiceWorker(        
+        std::move(p_event_listener));
       return true;
     }
     case internal::kEventRouter_RemoveLazyListenerForMainThread_Name: {
@@ -1598,6 +1614,8 @@ std::move(p_event_listener));
           reinterpret_cast<internal::EventRouter_RemoveLazyListenerForMainThread_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.8
       bool success = true;
       std::string p_extension_id{};
       std::string p_event_name{};
@@ -1616,9 +1634,9 @@ std::move(p_event_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveLazyListenerForMainThread(
-std::move(p_extension_id), 
-std::move(p_event_name));
+      impl->RemoveLazyListenerForMainThread(        
+        std::move(p_extension_id), 
+        std::move(p_event_name));
       return true;
     }
     case internal::kEventRouter_RemoveLazyListenerForServiceWorker_Name: {
@@ -1628,6 +1646,8 @@ std::move(p_event_name));
           reinterpret_cast<internal::EventRouter_RemoveLazyListenerForServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.9
       bool success = true;
       std::string p_extension_id{};
       ::GURL p_worker_scope_url{};
@@ -1649,10 +1669,10 @@ std::move(p_event_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveLazyListenerForServiceWorker(
-std::move(p_extension_id), 
-std::move(p_worker_scope_url), 
-std::move(p_event_name));
+      impl->RemoveLazyListenerForServiceWorker(        
+        std::move(p_extension_id), 
+        std::move(p_worker_scope_url), 
+        std::move(p_event_name));
       return true;
     }
     case internal::kEventRouter_RemoveFilteredListenerForMainThread_Name: {
@@ -1662,6 +1682,8 @@ std::move(p_event_name));
           reinterpret_cast<internal::EventRouter_RemoveFilteredListenerForMainThread_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.10
       bool success = true;
       EventListenerOwnerPtr p_listener_owner{};
       std::string p_event_name{};
@@ -1686,11 +1708,11 @@ std::move(p_event_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveFilteredListenerForMainThread(
-std::move(p_listener_owner), 
-std::move(p_event_name), 
-std::move(p_filter), 
-std::move(p_remove_lazy_listener));
+      impl->RemoveFilteredListenerForMainThread(        
+        std::move(p_listener_owner), 
+        std::move(p_event_name), 
+        std::move(p_filter), 
+        std::move(p_remove_lazy_listener));
       return true;
     }
     case internal::kEventRouter_RemoveFilteredListenerForServiceWorker_Name: {
@@ -1700,6 +1722,8 @@ std::move(p_remove_lazy_listener));
           reinterpret_cast<internal::EventRouter_RemoveFilteredListenerForServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventRouter.11
       bool success = true;
       std::string p_extension_id{};
       std::string p_event_name{};
@@ -1727,12 +1751,12 @@ std::move(p_remove_lazy_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveFilteredListenerForServiceWorker(
-std::move(p_extension_id), 
-std::move(p_event_name), 
-std::move(p_service_worker_context), 
-std::move(p_filter), 
-std::move(p_remove_lazy_listener));
+      impl->RemoveFilteredListenerForServiceWorker(        
+        std::move(p_extension_id), 
+        std::move(p_event_name), 
+        std::move(p_service_worker_context), 
+        std::move(p_filter), 
+        std::move(p_remove_lazy_listener));
       return true;
     }
   }

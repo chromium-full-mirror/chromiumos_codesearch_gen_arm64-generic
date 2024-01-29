@@ -520,6 +520,8 @@ bool SnapshotCapturer_ListSources_ForwardToCallback::Accept(
           internal::SnapshotCapturer_ListSources_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SnapshotCapturer.0
   bool success = true;
   std::vector<SnapshotSourcePtr> p_sources{};
   SnapshotCapturer_ListSources_ResponseParamsDataView input_data_view(params, message);
@@ -601,6 +603,8 @@ bool SnapshotCapturer_ListSources_HandleSyncResponse::Accept(
       reinterpret_cast<internal::SnapshotCapturer_ListSources_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for SnapshotCapturer.0
   bool success = true;
   std::vector<SnapshotSourcePtr> p_sources{};
   SnapshotCapturer_ListSources_ResponseParamsDataView input_data_view(params, message);
@@ -676,6 +680,8 @@ bool SnapshotCapturer_TakeSnapshot_ForwardToCallback::Accept(
           internal::SnapshotCapturer_TakeSnapshot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SnapshotCapturer.1
   bool success = true;
   bool p_success{};
   ::SkBitmap p_snapshot{};
@@ -759,6 +765,8 @@ bool SnapshotCapturer_TakeSnapshot_HandleSyncResponse::Accept(
       reinterpret_cast<internal::SnapshotCapturer_TakeSnapshot_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for SnapshotCapturer.1
   bool success = true;
   bool p_success{};
   ::SkBitmap p_snapshot{};
@@ -812,6 +820,8 @@ bool SnapshotCapturerStubDispatch::AcceptWithResponder(
               internal::SnapshotCapturer_ListSources_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SnapshotCapturer.0
       bool success = true;
       SnapshotCapturer_ListSources_ParamsDataView input_data_view(params, message);
       
@@ -837,6 +847,8 @@ bool SnapshotCapturerStubDispatch::AcceptWithResponder(
               internal::SnapshotCapturer_TakeSnapshot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SnapshotCapturer.1
       bool success = true;
       uint64_t p_id{};
       SnapshotCapturer_TakeSnapshot_ParamsDataView input_data_view(params, message);
@@ -855,8 +867,8 @@ bool SnapshotCapturerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TakeSnapshot(
-std::move(p_id), std::move(callback));
+      impl->TakeSnapshot(        
+        std::move(p_id), std::move(callback));
       return true;
     }
   }
@@ -1686,6 +1698,8 @@ bool ScreenManager_DeprecatedTakeScreenSnapshot_ForwardToCallback::Accept(
           internal::ScreenManager_DeprecatedTakeScreenSnapshot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenManager.0
   bool success = true;
   ::crosapi::mojom::BitmapPtr p_snapshot{};
   ScreenManager_DeprecatedTakeScreenSnapshot_ResponseParamsDataView input_data_view(params, message);
@@ -1765,6 +1779,8 @@ bool ScreenManager_DeprecatedTakeScreenSnapshot_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ScreenManager_DeprecatedTakeScreenSnapshot_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ScreenManager.0
   bool success = true;
   ::crosapi::mojom::BitmapPtr p_snapshot{};
   ScreenManager_DeprecatedTakeScreenSnapshot_ResponseParamsDataView input_data_view(params, message);
@@ -1840,6 +1856,8 @@ bool ScreenManager_DeprecatedListWindows_ForwardToCallback::Accept(
           internal::ScreenManager_DeprecatedListWindows_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenManager.1
   bool success = true;
   std::vector<SnapshotSourcePtr> p_windows{};
   ScreenManager_DeprecatedListWindows_ResponseParamsDataView input_data_view(params, message);
@@ -1921,6 +1939,8 @@ bool ScreenManager_DeprecatedListWindows_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ScreenManager_DeprecatedListWindows_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ScreenManager.1
   bool success = true;
   std::vector<SnapshotSourcePtr> p_windows{};
   ScreenManager_DeprecatedListWindows_ResponseParamsDataView input_data_view(params, message);
@@ -1996,6 +2016,8 @@ bool ScreenManager_DeprecatedTakeWindowSnapshot_ForwardToCallback::Accept(
           internal::ScreenManager_DeprecatedTakeWindowSnapshot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenManager.2
   bool success = true;
   bool p_success{};
   ::crosapi::mojom::BitmapPtr p_snapshot{};
@@ -2083,6 +2105,8 @@ bool ScreenManager_DeprecatedTakeWindowSnapshot_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ScreenManager_DeprecatedTakeWindowSnapshot_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ScreenManager.2
   bool success = true;
   bool p_success{};
   ::crosapi::mojom::BitmapPtr p_snapshot{};
@@ -2126,6 +2150,8 @@ bool ScreenManagerStubDispatch::Accept(
           reinterpret_cast<internal::ScreenManager_GetScreenCapturer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenManager.3
       bool success = true;
       ::mojo::PendingReceiver<SnapshotCapturer> p_capturer{};
       ScreenManager_GetScreenCapturer_ParamsDataView input_data_view(params, message);
@@ -2143,8 +2169,8 @@ bool ScreenManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetScreenCapturer(
-std::move(p_capturer));
+      impl->GetScreenCapturer(        
+        std::move(p_capturer));
       return true;
     }
     case internal::kScreenManager_GetWindowCapturer_Name: {
@@ -2154,6 +2180,8 @@ std::move(p_capturer));
           reinterpret_cast<internal::ScreenManager_GetWindowCapturer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenManager.4
       bool success = true;
       ::mojo::PendingReceiver<SnapshotCapturer> p_capturer{};
       ScreenManager_GetWindowCapturer_ParamsDataView input_data_view(params, message);
@@ -2171,8 +2199,8 @@ std::move(p_capturer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWindowCapturer(
-std::move(p_capturer));
+      impl->GetWindowCapturer(        
+        std::move(p_capturer));
       return true;
     }
     case internal::kScreenManager_GetScreenVideoCapturer_Name: {
@@ -2182,6 +2210,8 @@ std::move(p_capturer));
           reinterpret_cast<internal::ScreenManager_GetScreenVideoCapturer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenManager.5
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VideoCaptureDevice> p_capturer{};
       uint64_t p_screen_id{};
@@ -2202,9 +2232,9 @@ std::move(p_capturer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetScreenVideoCapturer(
-std::move(p_capturer), 
-std::move(p_screen_id));
+      impl->GetScreenVideoCapturer(        
+        std::move(p_capturer), 
+        std::move(p_screen_id));
       return true;
     }
     case internal::kScreenManager_GetWindowVideoCapturer_Name: {
@@ -2214,6 +2244,8 @@ std::move(p_screen_id));
           reinterpret_cast<internal::ScreenManager_GetWindowVideoCapturer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenManager.6
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VideoCaptureDevice> p_capturer{};
       uint64_t p_window_id{};
@@ -2234,9 +2266,9 @@ std::move(p_screen_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWindowVideoCapturer(
-std::move(p_capturer), 
-std::move(p_window_id));
+      impl->GetWindowVideoCapturer(        
+        std::move(p_capturer), 
+        std::move(p_window_id));
       return true;
     }
   }
@@ -2259,6 +2291,8 @@ bool ScreenManagerStubDispatch::AcceptWithResponder(
               internal::ScreenManager_DeprecatedTakeScreenSnapshot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenManager.0
       bool success = true;
       ScreenManager_DeprecatedTakeScreenSnapshot_ParamsDataView input_data_view(params, message);
       
@@ -2284,6 +2318,8 @@ bool ScreenManagerStubDispatch::AcceptWithResponder(
               internal::ScreenManager_DeprecatedListWindows_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenManager.1
       bool success = true;
       ScreenManager_DeprecatedListWindows_ParamsDataView input_data_view(params, message);
       
@@ -2309,6 +2345,8 @@ bool ScreenManagerStubDispatch::AcceptWithResponder(
               internal::ScreenManager_DeprecatedTakeWindowSnapshot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenManager.2
       bool success = true;
       uint64_t p_id{};
       ScreenManager_DeprecatedTakeWindowSnapshot_ParamsDataView input_data_view(params, message);
@@ -2327,8 +2365,8 @@ bool ScreenManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedTakeWindowSnapshot(
-std::move(p_id), std::move(callback));
+      impl->DeprecatedTakeWindowSnapshot(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kScreenManager_GetScreenCapturer_Name: {

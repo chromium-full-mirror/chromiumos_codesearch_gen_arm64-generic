@@ -15,6 +15,7 @@ namespace internal {
 
 
 constexpr uint32_t kIndexedDBClientStateChecker_DisallowInactiveClient_Name = 0;
+constexpr uint32_t kIndexedDBClientStateChecker_MakeClone_Name = 1;
 
 }  // namespace internal
 

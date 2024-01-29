@@ -238,6 +238,8 @@ bool VideoDecodeStatsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::VideoDecodeStatsRecorder_StartNewRecord_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeStatsRecorder.0
       bool success = true;
       ::media::mojom::blink::PredictionFeaturesPtr p_features{};
       VideoDecodeStatsRecorder_StartNewRecord_ParamsDataView input_data_view(params, message);
@@ -253,8 +255,8 @@ bool VideoDecodeStatsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartNewRecord(
-std::move(p_features));
+      impl->StartNewRecord(        
+        std::move(p_features));
       return true;
     }
     case internal::kVideoDecodeStatsRecorder_UpdateRecord_Name: {
@@ -264,6 +266,8 @@ std::move(p_features));
           reinterpret_cast<internal::VideoDecodeStatsRecorder_UpdateRecord_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeStatsRecorder.1
       bool success = true;
       ::media::mojom::blink::PredictionTargetsPtr p_targets{};
       VideoDecodeStatsRecorder_UpdateRecord_ParamsDataView input_data_view(params, message);
@@ -279,8 +283,8 @@ std::move(p_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateRecord(
-std::move(p_targets));
+      impl->UpdateRecord(        
+        std::move(p_targets));
       return true;
     }
   }

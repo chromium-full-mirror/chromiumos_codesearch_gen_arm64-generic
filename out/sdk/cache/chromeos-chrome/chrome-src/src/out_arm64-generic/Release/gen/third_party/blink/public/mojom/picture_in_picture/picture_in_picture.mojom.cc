@@ -219,6 +219,8 @@ bool PictureInPictureSessionObserverStubDispatch::Accept(
           reinterpret_cast<internal::PictureInPictureSessionObserver_OnWindowSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PictureInPictureSessionObserver.0
       bool success = true;
       ::gfx::Size p_size{};
       PictureInPictureSessionObserver_OnWindowSizeChanged_ParamsDataView input_data_view(params, message);
@@ -234,8 +236,8 @@ bool PictureInPictureSessionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWindowSizeChanged(
-std::move(p_size));
+      impl->OnWindowSizeChanged(        
+        std::move(p_size));
       return true;
     }
     case internal::kPictureInPictureSessionObserver_OnStopped_Name: {
@@ -245,6 +247,8 @@ std::move(p_size));
           reinterpret_cast<internal::PictureInPictureSessionObserver_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PictureInPictureSessionObserver.1
       bool success = true;
       PictureInPictureSessionObserver_OnStopped_ParamsDataView input_data_view(params, message);
       
@@ -257,7 +261,7 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped();
+      impl->OnStopped(        );
       return true;
     }
   }
@@ -564,6 +568,8 @@ bool PictureInPictureSession_Stop_ForwardToCallback::Accept(
           internal::PictureInPictureSession_Stop_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PictureInPictureSession.1
   bool success = true;
   PictureInPictureSession_Stop_ResponseParamsDataView input_data_view(params, message);
   
@@ -626,6 +632,8 @@ bool PictureInPictureSessionStubDispatch::Accept(
           reinterpret_cast<internal::PictureInPictureSession_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PictureInPictureSession.0
       bool success = true;
       uint32_t p_player_id{};
       ::mojo::PendingAssociatedRemote<::media::mojom::MediaPlayer> p_player_remote{};
@@ -655,12 +663,12 @@ bool PictureInPictureSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_player_id), 
-std::move(p_player_remote), 
-std::move(p_surface_id), 
-std::move(p_natural_size), 
-std::move(p_show_play_pause_button));
+      impl->Update(        
+        std::move(p_player_id), 
+        std::move(p_player_remote), 
+        std::move(p_surface_id), 
+        std::move(p_natural_size), 
+        std::move(p_show_play_pause_button));
       return true;
     }
     case internal::kPictureInPictureSession_Stop_Name: {
@@ -689,6 +697,8 @@ bool PictureInPictureSessionStubDispatch::AcceptWithResponder(
               internal::PictureInPictureSession_Stop_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PictureInPictureSession.1
       bool success = true;
       PictureInPictureSession_Stop_ParamsDataView input_data_view(params, message);
       
@@ -966,6 +976,8 @@ bool PictureInPictureService_StartSession_ForwardToCallback::Accept(
           internal::PictureInPictureService_StartSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PictureInPictureService.0
   bool success = true;
   ::mojo::PendingRemote<PictureInPictureSession> p_session{};
   ::gfx::Size p_size{};
@@ -1077,6 +1089,8 @@ bool PictureInPictureServiceStubDispatch::AcceptWithResponder(
               internal::PictureInPictureService_StartSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PictureInPictureService.0
       bool success = true;
       uint32_t p_player_id{};
       ::mojo::PendingAssociatedRemote<::media::mojom::MediaPlayer> p_player_remote{};
@@ -1117,14 +1131,14 @@ bool PictureInPictureServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSession(
-std::move(p_player_id), 
-std::move(p_player_remote), 
-std::move(p_surface_id), 
-std::move(p_natural_size), 
-std::move(p_show_play_pause_button), 
-std::move(p_observer), 
-std::move(p_source_bounds), std::move(callback));
+      impl->StartSession(        
+        std::move(p_player_id), 
+        std::move(p_player_remote), 
+        std::move(p_surface_id), 
+        std::move(p_natural_size), 
+        std::move(p_show_play_pause_button), 
+        std::move(p_observer), 
+        std::move(p_source_bounds), std::move(callback));
       return true;
     }
   }

@@ -170,6 +170,8 @@ bool MediaPerceptionServiceStubDispatch::Accept(
           reinterpret_cast<internal::MediaPerceptionService_GetController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPerceptionService.0
       bool success = true;
       ::mojo::PendingReceiver<MediaPerceptionController> p_receiver{};
       ::mojo::PendingRemote<MediaPerceptionControllerClient> p_client{};
@@ -192,9 +194,9 @@ bool MediaPerceptionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetController(
-std::move(p_receiver), 
-std::move(p_client));
+      impl->GetController(        
+        std::move(p_receiver), 
+        std::move(p_client));
       return true;
     }
   }
@@ -345,6 +347,8 @@ bool MediaPerceptionControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaPerceptionController_ActivateMediaPerception_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPerceptionController.0
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::media_perception::mojom::MediaPerception> p_receiver{};
       MediaPerceptionController_ActivateMediaPerception_ParamsDataView input_data_view(params, message);
@@ -362,8 +366,8 @@ bool MediaPerceptionControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivateMediaPerception(
-std::move(p_receiver));
+      impl->ActivateMediaPerception(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -514,6 +518,8 @@ bool MediaPerceptionControllerClientStubDispatch::Accept(
           reinterpret_cast<internal::MediaPerceptionControllerClient_ConnectToVideoCaptureService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaPerceptionControllerClient.0
       bool success = true;
       ::mojo::PendingReceiver<::video_capture::mojom::VideoSourceProvider> p_receiver{};
       MediaPerceptionControllerClient_ConnectToVideoCaptureService_ParamsDataView input_data_view(params, message);
@@ -531,8 +537,8 @@ bool MediaPerceptionControllerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToVideoCaptureService(
-std::move(p_receiver));
+      impl->ConnectToVideoCaptureService(        
+        std::move(p_receiver));
       return true;
     }
   }

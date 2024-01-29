@@ -46,8 +46,8 @@ export class TabSearchApiProxyImpl {
     requestTabOrganization() {
         this.handler.requestTabOrganization();
     }
-    resetSession() {
-        this.handler.resetSession();
+    restartSession() {
+        this.handler.restartSession();
     }
     switchToTab(info) {
         this.handler.switchToTab(info);

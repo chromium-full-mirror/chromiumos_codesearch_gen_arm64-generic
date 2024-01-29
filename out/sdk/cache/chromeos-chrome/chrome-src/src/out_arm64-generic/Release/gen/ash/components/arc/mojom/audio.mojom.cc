@@ -209,6 +209,8 @@ bool AudioHostStubDispatch::Accept(
           reinterpret_cast<internal::AudioHost_ShowVolumeControls_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioHost.0
       bool success = true;
       AudioHost_ShowVolumeControls_ParamsDataView input_data_view(params, message);
       
@@ -221,7 +223,7 @@ bool AudioHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowVolumeControls();
+      impl->ShowVolumeControls(        );
       return true;
     }
     case internal::kAudioHost_OnSystemVolumeUpdateRequest_Name: {
@@ -231,6 +233,8 @@ bool AudioHostStubDispatch::Accept(
           reinterpret_cast<internal::AudioHost_OnSystemVolumeUpdateRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioHost.1
       bool success = true;
       int32_t p_percent{};
       AudioHost_OnSystemVolumeUpdateRequest_ParamsDataView input_data_view(params, message);
@@ -246,8 +250,8 @@ bool AudioHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSystemVolumeUpdateRequest(
-std::move(p_percent));
+      impl->OnSystemVolumeUpdateRequest(        
+        std::move(p_percent));
       return true;
     }
   }
@@ -591,6 +595,8 @@ bool AudioInstance_Init_ForwardToCallback::Accept(
           internal::AudioInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioInstance.3
   bool success = true;
   AudioInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -656,6 +662,8 @@ bool AudioInstanceStubDispatch::Accept(
           reinterpret_cast<internal::AudioInstance_NotifySwitchState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInstance.0
       bool success = true;
       uint32_t p_state{};
       AudioInstance_NotifySwitchState_ParamsDataView input_data_view(params, message);
@@ -671,8 +679,8 @@ bool AudioInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifySwitchState(
-std::move(p_state));
+      impl->NotifySwitchState(        
+        std::move(p_state));
       return true;
     }
     case internal::kAudioInstance_NotifyVolumeState_Name: {
@@ -682,6 +690,8 @@ std::move(p_state));
           reinterpret_cast<internal::AudioInstance_NotifyVolumeState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInstance.2
       bool success = true;
       uint32_t p_volume{};
       bool p_muted{};
@@ -700,9 +710,9 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyVolumeState(
-std::move(p_volume), 
-std::move(p_muted));
+      impl->NotifyVolumeState(        
+        std::move(p_volume), 
+        std::move(p_muted));
       return true;
     }
   }
@@ -725,6 +735,8 @@ bool AudioInstanceStubDispatch::AcceptWithResponder(
               internal::AudioInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioInstance.3
       bool success = true;
       ::mojo::PendingRemote<AudioHost> p_host_remote{};
       AudioInstance_Init_ParamsDataView input_data_view(params, message);
@@ -745,8 +757,8 @@ bool AudioInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kAudioInstance_NotifySwitchState_Name: {

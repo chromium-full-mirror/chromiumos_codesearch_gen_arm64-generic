@@ -22,9 +22,96 @@ mojo.internal.exportModule('display.mojom');
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+display.mojom.DisplaySnapshotColorInfoSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 display.mojom.DisplaySnapshotSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+
+
+
+mojo.internal.Struct(
+    display.mojom.DisplaySnapshotColorInfoSpec.$,
+    'DisplaySnapshotColorInfo',
+    [
+      mojo.internal.StructField(
+        'colorSpace', 0,
+        0,
+        gfx.mojom.ColorSpaceSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'edidPrimaries', 8,
+        0,
+        skia.mojom.SkColorSpacePrimariesSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'edidGamma', 16,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'hdrStaticMetadata', 24,
+        0,
+        gfx.mojom.HDRStaticMetadataSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'supportsColorTemperatureAdjustment', 20,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'bitsPerChannel', 32,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 48],]);
+
+
+
+
+
+/** @record */
+display.mojom.DisplaySnapshotColorInfo = class {
+  constructor() {
+    /** @export { !gfx.mojom.ColorSpace } */
+    this.colorSpace;
+    /** @export { !skia.mojom.SkColorSpacePrimaries } */
+    this.edidPrimaries;
+    /** @export { !number } */
+    this.edidGamma;
+    /** @export { (gfx.mojom.HDRStaticMetadata|undefined) } */
+    this.hdrStaticMetadata;
+    /** @export { !boolean } */
+    this.supportsColorTemperatureAdjustment;
+    /** @export { !number } */
+    this.bitsPerChannel;
+  }
+};
 
 
 
@@ -137,39 +224,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasColorCorrectionMatrix', 26,
-        3,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'colorSpace', 72,
+        'colorInfo', 72,
         0,
-        gfx.mojom.ColorSpaceSpec.$,
+        display.mojom.DisplaySnapshotColorInfoSpec.$,
         null,
         false, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'bitsPerChannel', 68,
-        0,
-        mojo.internal.Uint32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'hdrStaticMetadata', 80,
-        0,
-        gfx.mojom.HDRStaticMetadataSpec.$,
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'displayName', 88,
+        'displayName', 80,
         0,
         mojo.internal.String,
         null,
@@ -177,7 +240,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sysPath', 96,
+        'sysPath', 88,
         0,
         mojoBase.mojom.FilePathSpec.$,
         null,
@@ -185,7 +248,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'modes', 104,
+        'modes', 96,
         0,
         mojo.internal.Array(display.mojom.DisplayModeSpec.$, false),
         null,
@@ -193,7 +256,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'panelOrientation', 112,
+        'panelOrientation', 68,
         0,
         display.mojom.PanelOrientationSpec.$,
         0,
@@ -201,7 +264,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'edid', 120,
+        'edid', 104,
         0,
         mojo.internal.Array(mojo.internal.Uint8, false),
         null,
@@ -209,7 +272,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'currentModeIndex', 128,
+        'currentModeIndex', 112,
         0,
         mojo.internal.Uint64,
         BigInt(0),
@@ -218,14 +281,14 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasCurrentMode', 26,
-        4,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'nativeModeIndex', 136,
+        'nativeModeIndex', 120,
         0,
         mojo.internal.Uint64,
         BigInt(0),
@@ -234,14 +297,14 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasNativeMode', 26,
-        5,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'productCode', 144,
+        'productCode', 128,
         0,
         mojo.internal.Int64,
         BigInt(0),
@@ -249,7 +312,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'yearOfManufacture', 116,
+        'yearOfManufacture', 136,
         0,
         mojo.internal.Int32,
         0,
@@ -257,7 +320,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'maximumCursorSize', 152,
+        'maximumCursorSize', 144,
         0,
         gfx.mojom.SizeSpec.$,
         null,
@@ -265,7 +328,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'variableRefreshRateState', 160,
+        'variableRefreshRateState', 140,
         0,
         display.mojom.VariableRefreshRateStateSpec.$,
         0,
@@ -273,7 +336,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'vsyncRateMin', 164,
+        'vsyncRateMin', 152,
         0,
         mojo.internal.Uint16,
         0,
@@ -281,7 +344,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'drmFormatsAndModifiers', 168,
+        'drmFormatsAndModifiers', 160,
         0,
         mojo.internal.Map(mojo.internal.Uint32, mojo.internal.Array(mojo.internal.Uint64, false), false),
         null,
@@ -289,7 +352,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 184],]);
+    [[0, 176],]);
 
 
 
@@ -324,14 +387,8 @@ display.mojom.DisplaySnapshot = class {
     this.privacyScreenState;
     /** @export { !boolean } */
     this.hasContentProtectionKey;
-    /** @export { !boolean } */
-    this.hasColorCorrectionMatrix;
-    /** @export { !gfx.mojom.ColorSpace } */
-    this.colorSpace;
-    /** @export { !number } */
-    this.bitsPerChannel;
-    /** @export { (gfx.mojom.HDRStaticMetadata|undefined) } */
-    this.hdrStaticMetadata;
+    /** @export { !display.mojom.DisplaySnapshotColorInfo } */
+    this.colorInfo;
     /** @export { !string } */
     this.displayName;
     /** @export { !mojoBase.mojom.FilePath } */

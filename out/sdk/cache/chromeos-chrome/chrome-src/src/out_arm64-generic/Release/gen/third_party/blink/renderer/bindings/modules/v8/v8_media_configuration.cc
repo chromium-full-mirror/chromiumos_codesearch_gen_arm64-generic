@@ -75,22 +75,13 @@ bool MediaConfiguration::FillV8ObjectWithMembers(ScriptState* script_state, v8::
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAudio()) {
-  if (!ToV8Traits<AudioConfiguration>::ToV8(script_state, member_audio_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<AudioConfiguration>::ToV8(script_state, member_audio_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasVideo()) {
-  if (!ToV8Traits<VideoConfiguration>::ToV8(script_state, member_video_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<VideoConfiguration>::ToV8(script_state, member_video_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

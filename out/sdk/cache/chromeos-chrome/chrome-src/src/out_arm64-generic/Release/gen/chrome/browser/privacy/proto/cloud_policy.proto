@@ -141,7 +141,6 @@ message CloudPolicySettings {
   optional StringListPolicyProto DefaultSearchProviderAlternateURLs = 163;
   optional BooleanPolicyProto DefaultSearchProviderEnabled = 42;
   optional StringListPolicyProto DefaultSearchProviderEncodings = 49;
-  optional StringPolicyProto DefaultSearchProviderIconURL = 48;
   optional StringPolicyProto DefaultSearchProviderImageURL = 231;
   optional StringPolicyProto DefaultSearchProviderImageURLPostParams = 235;
   optional StringPolicyProto DefaultSearchProviderKeyword = 44;
@@ -159,7 +158,6 @@ message CloudPolicySettings {
   optional StringPolicyProto DriveFileSyncAvailable = 1160;
   optional StringListPolicyProto MicrosoftOneDriveAccountRestrictions = 1176;
   optional StringPolicyProto MicrosoftOneDriveMount = 1150;
-  optional BooleanPolicyProto ChromeAppsWebViewPermissiveBehaviorAllowed = 1075;
   optional StringListPolicyProto ExtensionAllowedTypes = 170;
   optional StringListPolicyProto ExtensionExtendedBackgroundLifetimeForPortConnectionsToUrls = 1076;
   optional StringListPolicyProto ExtensionInstallAllowlist = 740;
@@ -173,6 +171,9 @@ message CloudPolicySettings {
   optional StringListPolicyProto MandatoryExtensionsForIncognitoNavigation = 1087;
   optional BooleanPolicyProto FirstPartySetsEnabled = 950;
   optional StringPolicyProto FirstPartySetsOverrides = 971;
+  optional StringListPolicyProto FloatingSsoDomainBlocklist = 1200;
+  optional StringListPolicyProto FloatingSsoDomainBlocklistExceptions = 1201;
+  optional BooleanPolicyProto FloatingSsoEnabled = 1199;
   optional IntegerPolicyProto GaiaOfflineSigninTimeLimitDays = 823;
   optional IntegerPolicyProto CreateThemesSettings = 1190;
   optional IntegerPolicyProto HelpMeWriteSettings = 1189;
@@ -264,6 +265,7 @@ message CloudPolicySettings {
   optional StringPolicyProto DefaultDownloadDirectory = 403;
   optional StringPolicyProto DefaultHandlersForFileExtensions = 1023;
   optional BooleanPolicyProto DefaultSearchProviderContextMenuAccessAllowed = 717;
+  optional IntegerPolicyProto DeleteKeyModifier = 1206;
   optional BooleanPolicyProto DeskTemplatesEnabled = 912;
   optional IntegerPolicyProto DeveloperToolsAvailability = 445;
   optional BooleanPolicyProto DeveloperToolsDisabled = 38;
@@ -293,6 +295,8 @@ message CloudPolicySettings {
   optional StringListPolicyProto ExplicitlyAllowedNetworkPorts = 851;
   optional BooleanPolicyProto ExternalStorageDisabled = 154;
   optional BooleanPolicyProto ExternalStorageReadOnly = 345;
+  optional IntegerPolicyProto F11KeyModifier = 1202;
+  optional IntegerPolicyProto F12KeyModifier = 1203;
   optional BooleanPolicyProto FastPairEnabled = 914;
   optional BooleanPolicyProto FeedbackSurveysEnabled = 1184;
   optional IntegerPolicyProto FetchKeepaliveDurationSecondsOnShutdown = 829;
@@ -321,6 +325,7 @@ message CloudPolicySettings {
   optional BooleanPolicyProto HideWebStoreIcon = 191;
   optional BooleanPolicyProto HighEfficiencyModeEnabled = 1008;
   optional BooleanPolicyProto HistoryClustersVisible = 928;
+  optional IntegerPolicyProto HomeAndEndKeysModifier = 1207;
   optional StringListPolicyProto HttpAllowlist = 1084;
   optional StringPolicyProto HttpsOnlyMode = 872;
   optional BooleanPolicyProto HttpsUpgradesEnabled = 1085;
@@ -328,6 +333,7 @@ message CloudPolicySettings {
   optional IntegerPolicyProto IncognitoModeAvailability = 95;
   optional BooleanPolicyProto InsecureFormsWarningsEnabled = 750;
   optional BooleanPolicyProto InsecureHashesInTLSHandshakesEnabled = 1097;
+  optional IntegerPolicyProto InsertKeyModifier = 1209;
   optional BooleanPolicyProto InsightsExtensionEnabled = 977;
   optional BooleanPolicyProto InstantTetheringAllowed = 369;
   optional BooleanPolicyProto IntensiveWakeUpThrottlingEnabled = 715;
@@ -371,7 +377,7 @@ message CloudPolicySettings {
   optional BooleanPolicyProto OriginAgentClusterDefaultEnabled = 935;
   optional StringPolicyProto OsColorMode = 988;
   optional StringListPolicyProto OverrideSecurityRestrictionsOnInsecureOrigin = 459;
-  optional BooleanPolicyProto PPAPISharedImagesForVideoDecoderAllowed = 1165;
+  optional IntegerPolicyProto PageUpAndPageDownKeysModifier = 1208;
   optional BooleanPolicyProto PaymentMethodQueryEnabled = 653;
   optional BooleanPolicyProto PdfAnnotationsEnabled = 846;
   optional BooleanPolicyProto PdfUseSkiaRendererEnabled = 1110;
@@ -417,7 +423,6 @@ message CloudPolicySettings {
   optional BooleanPolicyProto ScrollToTextFragmentEnabled = 689;
   optional BooleanPolicyProto SearchSuggestEnabled = 8;
   optional BooleanPolicyProto SecondaryGoogleAccountSigninAllowed = 408;
-  optional StringPolicyProto SecondaryGoogleAccountUsage = 958;
   optional StringListPolicyProto SecurityKeyPermitAttestation = 404;
   optional StringPolicyProto SecurityTokenSessionBehavior = 801;
   optional IntegerPolicyProto SecurityTokenSessionNotificationSeconds = 802;
@@ -477,6 +482,7 @@ message CloudPolicySettings {
   optional StringListPolicyProto UserFeedbackWithLowLevelDebugDataAllowed = 1175;
   optional BooleanPolicyProto VideoCaptureAllowed = 169;
   optional StringListPolicyProto VideoCaptureAllowedUrls = 211;
+  optional BooleanPolicyProto VirtualKeyboardSmartVisibilityEnabled = 1204;
   optional BooleanPolicyProto VmManagementCliAllowed = 579;
   optional BooleanPolicyProto VpnConfigAllowed = 487;
   optional BooleanPolicyProto WPADQuickCheckEnabled = 263;

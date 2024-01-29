@@ -10,6 +10,18 @@
 
 namespace dawn::wire::client {
 
+    // Template function for constexpr branching when creating new objects.
+    template <typename Parent, typename Child, typename... Args>
+    Child* Create(Parent p, Args... args) {
+        if constexpr (std::is_constructible_v<Child, const ObjectBaseParams&, decltype(args)...>) {
+            return p->GetClient()->template Make<Child>(args...);
+        } else if constexpr (std::is_constructible_v<Child, const ObjectBaseParams&, const ObjectHandle&, decltype(args)...>) {
+            return p->GetClient()->template Make<Child>(p->GetEventManagerHandle(), args...);
+        } else {
+            return p->GetClient()->template Make<Child>();
+        }
+    }
+
 
 
 
@@ -53,6 +65,12 @@ namespace dawn::wire::client {
     void ClientAdapterRequestDevice(WGPUAdapter cSelf, WGPUDeviceDescriptor const * descriptor, WGPURequestDeviceCallback callback, void * userdata) {
         auto self = reinterpret_cast<Adapter*>(cSelf);
         return self->RequestDevice( descriptor,  callback,  userdata);
+    }
+
+    static
+    WGPUFuture ClientAdapterRequestDeviceF(WGPUAdapter cSelf, WGPUDeviceDescriptor const * options, WGPURequestDeviceCallbackInfo callbackInfo) {
+        auto self = reinterpret_cast<Adapter*>(cSelf);
+        return self->RequestDeviceF( options,  callbackInfo);
     }
 
     void ClientAdapterRelease(WGPUAdapter cObj) {
@@ -276,13 +294,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        ComputePassEncoder* returnObject;
-        if constexpr (std::is_constructible_v<ComputePassEncoder, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<ComputePassEncoder>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<ComputePassEncoder>();
-        }
+        ComputePassEncoder* returnObject = Create<CommandEncoder*, ComputePassEncoder>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -299,13 +311,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        RenderPassEncoder* returnObject;
-        if constexpr (std::is_constructible_v<RenderPassEncoder, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<RenderPassEncoder>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<RenderPassEncoder>();
-        }
+        RenderPassEncoder* returnObject = Create<CommandEncoder*, RenderPassEncoder>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -416,13 +422,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        CommandBuffer* returnObject;
-        if constexpr (std::is_constructible_v<CommandBuffer, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<CommandBuffer>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<CommandBuffer>();
-        }
+        CommandBuffer* returnObject = Create<CommandEncoder*, CommandBuffer>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -757,13 +757,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        BindGroupLayout* returnObject;
-        if constexpr (std::is_constructible_v<BindGroupLayout, const ObjectBaseParams&, decltype(groupIndex)>) {
-            returnObject = self->GetClient()->Make<BindGroupLayout>(groupIndex);
-        } else {
-            returnObject = self->GetClient()->Make<BindGroupLayout>();
-        }
+        BindGroupLayout* returnObject = Create<ComputePipeline*, BindGroupLayout>(self, groupIndex);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -815,13 +809,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        BindGroup* returnObject;
-        if constexpr (std::is_constructible_v<BindGroup, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<BindGroup>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<BindGroup>();
-        }
+        BindGroup* returnObject = Create<Device*, BindGroup>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -838,13 +826,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        BindGroupLayout* returnObject;
-        if constexpr (std::is_constructible_v<BindGroupLayout, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<BindGroupLayout>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<BindGroupLayout>();
-        }
+        BindGroupLayout* returnObject = Create<Device*, BindGroupLayout>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -867,13 +849,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        CommandEncoder* returnObject;
-        if constexpr (std::is_constructible_v<CommandEncoder, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<CommandEncoder>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<CommandEncoder>();
-        }
+        CommandEncoder* returnObject = Create<Device*, CommandEncoder>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -890,13 +866,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        ComputePipeline* returnObject;
-        if constexpr (std::is_constructible_v<ComputePipeline, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<ComputePipeline>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<ComputePipeline>();
-        }
+        ComputePipeline* returnObject = Create<Device*, ComputePipeline>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -913,19 +883,19 @@ namespace dawn::wire::client {
         return self->CreateComputePipelineAsync( descriptor,  callback,  userdata);
     }
 
+    static
+    WGPUFuture ClientDeviceCreateComputePipelineAsyncF(WGPUDevice cSelf, WGPUComputePipelineDescriptor const * descriptor, WGPUCreateComputePipelineAsyncCallbackInfo callbackInfo) {
+        auto self = reinterpret_cast<Device*>(cSelf);
+        return self->CreateComputePipelineAsyncF( descriptor,  callbackInfo);
+    }
+
     WGPUBuffer ClientDeviceCreateErrorBuffer(WGPUDevice cSelf, WGPUBufferDescriptor const * descriptor) {
         auto self = reinterpret_cast<Device*>(cSelf);
         DeviceCreateErrorBufferCmd cmd;
 
         cmd.self = cSelf;
 
-
-        Buffer* returnObject;
-        if constexpr (std::is_constructible_v<Buffer, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<Buffer>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<Buffer>();
-        }
+        Buffer* returnObject = Create<Device*, Buffer>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -942,13 +912,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        ExternalTexture* returnObject;
-        if constexpr (std::is_constructible_v<ExternalTexture, const ObjectBaseParams&>) {
-            returnObject = self->GetClient()->Make<ExternalTexture>();
-        } else {
-            returnObject = self->GetClient()->Make<ExternalTexture>();
-        }
+        ExternalTexture* returnObject = Create<Device*, ExternalTexture>(self);
         cmd.result = returnObject->GetWireHandle();
 
 
@@ -963,13 +927,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        ShaderModule* returnObject;
-        if constexpr (std::is_constructible_v<ShaderModule, const ObjectBaseParams&, decltype(descriptor), decltype(errorMessage)>) {
-            returnObject = self->GetClient()->Make<ShaderModule>(descriptor, errorMessage);
-        } else {
-            returnObject = self->GetClient()->Make<ShaderModule>();
-        }
+        ShaderModule* returnObject = Create<Device*, ShaderModule>(self, descriptor, errorMessage);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -988,13 +946,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        Texture* returnObject;
-        if constexpr (std::is_constructible_v<Texture, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<Texture>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<Texture>();
-        }
+        Texture* returnObject = Create<Device*, Texture>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1011,13 +963,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        ExternalTexture* returnObject;
-        if constexpr (std::is_constructible_v<ExternalTexture, const ObjectBaseParams&, decltype(externalTextureDescriptor)>) {
-            returnObject = self->GetClient()->Make<ExternalTexture>(externalTextureDescriptor);
-        } else {
-            returnObject = self->GetClient()->Make<ExternalTexture>();
-        }
+        ExternalTexture* returnObject = Create<Device*, ExternalTexture>(self, externalTextureDescriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1034,13 +980,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        PipelineLayout* returnObject;
-        if constexpr (std::is_constructible_v<PipelineLayout, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<PipelineLayout>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<PipelineLayout>();
-        }
+        PipelineLayout* returnObject = Create<Device*, PipelineLayout>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1057,13 +997,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        QuerySet* returnObject;
-        if constexpr (std::is_constructible_v<QuerySet, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<QuerySet>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<QuerySet>();
-        }
+        QuerySet* returnObject = Create<Device*, QuerySet>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1080,13 +1014,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        RenderBundleEncoder* returnObject;
-        if constexpr (std::is_constructible_v<RenderBundleEncoder, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<RenderBundleEncoder>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<RenderBundleEncoder>();
-        }
+        RenderBundleEncoder* returnObject = Create<Device*, RenderBundleEncoder>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1103,13 +1031,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        RenderPipeline* returnObject;
-        if constexpr (std::is_constructible_v<RenderPipeline, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<RenderPipeline>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<RenderPipeline>();
-        }
+        RenderPipeline* returnObject = Create<Device*, RenderPipeline>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1126,19 +1048,19 @@ namespace dawn::wire::client {
         return self->CreateRenderPipelineAsync( descriptor,  callback,  userdata);
     }
 
+    static
+    WGPUFuture ClientDeviceCreateRenderPipelineAsyncF(WGPUDevice cSelf, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallbackInfo callbackInfo) {
+        auto self = reinterpret_cast<Device*>(cSelf);
+        return self->CreateRenderPipelineAsyncF( descriptor,  callbackInfo);
+    }
+
     WGPUSampler ClientDeviceCreateSampler(WGPUDevice cSelf, WGPUSamplerDescriptor const * descriptor) {
         auto self = reinterpret_cast<Device*>(cSelf);
         DeviceCreateSamplerCmd cmd;
 
         cmd.self = cSelf;
 
-
-        Sampler* returnObject;
-        if constexpr (std::is_constructible_v<Sampler, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<Sampler>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<Sampler>();
-        }
+        Sampler* returnObject = Create<Device*, Sampler>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1155,13 +1077,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        ShaderModule* returnObject;
-        if constexpr (std::is_constructible_v<ShaderModule, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<ShaderModule>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<ShaderModule>();
-        }
+        ShaderModule* returnObject = Create<Device*, ShaderModule>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1178,13 +1094,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        SwapChain* returnObject;
-        if constexpr (std::is_constructible_v<SwapChain, const ObjectBaseParams&, decltype(surface), decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<SwapChain>(surface, descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<SwapChain>();
-        }
+        SwapChain* returnObject = Create<Device*, SwapChain>(self, surface, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1203,13 +1113,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        Texture* returnObject;
-        if constexpr (std::is_constructible_v<Texture, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<Texture>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<Texture>();
-        }
+        Texture* returnObject = Create<Device*, Texture>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1454,13 +1358,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        Surface* returnObject;
-        if constexpr (std::is_constructible_v<Surface, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<Surface>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<Surface>();
-        }
+        Surface* returnObject = Create<Instance*, Surface>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -1852,13 +1750,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        RenderBundle* returnObject;
-        if constexpr (std::is_constructible_v<RenderBundle, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<RenderBundle>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<RenderBundle>();
-        }
+        RenderBundle* returnObject = Create<RenderBundleEncoder*, RenderBundle>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -2401,13 +2293,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        BindGroupLayout* returnObject;
-        if constexpr (std::is_constructible_v<BindGroupLayout, const ObjectBaseParams&, decltype(groupIndex)>) {
-            returnObject = self->GetClient()->Make<BindGroupLayout>(groupIndex);
-        } else {
-            returnObject = self->GetClient()->Make<BindGroupLayout>();
-        }
+        BindGroupLayout* returnObject = Create<RenderPipeline*, BindGroupLayout>(self, groupIndex);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -2562,13 +2448,7 @@ namespace dawn::wire::client {
 
         cmd.self = cSelf;
 
-
-        TextureView* returnObject;
-        if constexpr (std::is_constructible_v<TextureView, const ObjectBaseParams&>) {
-            returnObject = self->GetClient()->Make<TextureView>();
-        } else {
-            returnObject = self->GetClient()->Make<TextureView>();
-        }
+        TextureView* returnObject = Create<SwapChain*, TextureView>(self);
         cmd.result = returnObject->GetWireHandle();
 
 
@@ -2610,19 +2490,30 @@ namespace dawn::wire::client {
     }
 
 
+    WGPUTextureView ClientTextureCreateErrorView(WGPUTexture cSelf, WGPUTextureViewDescriptor const * descriptor) {
+        auto self = reinterpret_cast<Texture*>(cSelf);
+        TextureCreateErrorViewCmd cmd;
+
+        cmd.self = cSelf;
+
+        TextureView* returnObject = Create<Texture*, TextureView>(self, descriptor);
+        cmd.result = returnObject->GetWireHandle();
+
+        
+        cmd.descriptor = descriptor;
+
+        self->GetClient()->SerializeCommand(cmd);
+
+        return ToAPI(returnObject);
+    }
+
     WGPUTextureView ClientTextureCreateView(WGPUTexture cSelf, WGPUTextureViewDescriptor const * descriptor) {
         auto self = reinterpret_cast<Texture*>(cSelf);
         TextureCreateViewCmd cmd;
 
         cmd.self = cSelf;
 
-
-        TextureView* returnObject;
-        if constexpr (std::is_constructible_v<TextureView, const ObjectBaseParams&, decltype(descriptor)>) {
-            returnObject = self->GetClient()->Make<TextureView>(descriptor);
-        } else {
-            returnObject = self->GetClient()->Make<TextureView>();
-        }
+        TextureView* returnObject = Create<Texture*, TextureView>(self, descriptor);
         cmd.result = returnObject->GetWireHandle();
 
         
@@ -2777,6 +2668,7 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientAdapterReference), "wgpuAdapterReference" },
             { reinterpret_cast<WGPUProc>(ClientAdapterRelease), "wgpuAdapterRelease" },
             { reinterpret_cast<WGPUProc>(ClientAdapterRequestDevice), "wgpuAdapterRequestDevice" },
+            { reinterpret_cast<WGPUProc>(ClientAdapterRequestDeviceF), "wgpuAdapterRequestDeviceF" },
             { reinterpret_cast<WGPUProc>(ClientBindGroupLayoutReference), "wgpuBindGroupLayoutReference" },
             { reinterpret_cast<WGPUProc>(ClientBindGroupLayoutRelease), "wgpuBindGroupLayoutRelease" },
             { reinterpret_cast<WGPUProc>(ClientBindGroupLayoutSetLabel), "wgpuBindGroupLayoutSetLabel" },
@@ -2838,6 +2730,7 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateCommandEncoder), "wgpuDeviceCreateCommandEncoder" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateComputePipeline), "wgpuDeviceCreateComputePipeline" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateComputePipelineAsync), "wgpuDeviceCreateComputePipelineAsync" },
+            { reinterpret_cast<WGPUProc>(ClientDeviceCreateComputePipelineAsyncF), "wgpuDeviceCreateComputePipelineAsyncF" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateErrorBuffer), "wgpuDeviceCreateErrorBuffer" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateErrorExternalTexture), "wgpuDeviceCreateErrorExternalTexture" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateErrorShaderModule), "wgpuDeviceCreateErrorShaderModule" },
@@ -2848,6 +2741,7 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateRenderBundleEncoder), "wgpuDeviceCreateRenderBundleEncoder" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateRenderPipeline), "wgpuDeviceCreateRenderPipeline" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateRenderPipelineAsync), "wgpuDeviceCreateRenderPipelineAsync" },
+            { reinterpret_cast<WGPUProc>(ClientDeviceCreateRenderPipelineAsyncF), "wgpuDeviceCreateRenderPipelineAsyncF" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateSampler), "wgpuDeviceCreateSampler" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateShaderModule), "wgpuDeviceCreateShaderModule" },
             { reinterpret_cast<WGPUProc>(ClientDeviceCreateSwapChain), "wgpuDeviceCreateSwapChain" },
@@ -2963,6 +2857,7 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientSwapChainPresent), "wgpuSwapChainPresent" },
             { reinterpret_cast<WGPUProc>(ClientSwapChainReference), "wgpuSwapChainReference" },
             { reinterpret_cast<WGPUProc>(ClientSwapChainRelease), "wgpuSwapChainRelease" },
+            { reinterpret_cast<WGPUProc>(ClientTextureCreateErrorView), "wgpuTextureCreateErrorView" },
             { reinterpret_cast<WGPUProc>(ClientTextureCreateView), "wgpuTextureCreateView" },
             { reinterpret_cast<WGPUProc>(ClientTextureDestroy), "wgpuTextureDestroy" },
             { reinterpret_cast<WGPUProc>(ClientTextureGetDepthOrArrayLayers), "wgpuTextureGetDepthOrArrayLayers" },
@@ -3056,6 +2951,7 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::adapterGetProperties, ClientAdapterGetProperties)
         , std::make_pair(&DawnProcTable::adapterHasFeature, ClientAdapterHasFeature)
         , std::make_pair(&DawnProcTable::adapterRequestDevice, ClientAdapterRequestDevice)
+        , std::make_pair(&DawnProcTable::adapterRequestDeviceF, ClientAdapterRequestDeviceF)
         , std::make_pair(&DawnProcTable::adapterReference, ClientAdapterReference)
         , std::make_pair(&DawnProcTable::adapterRelease, ClientAdapterRelease)
         , std::make_pair(&DawnProcTable::bindGroupSetLabel, ClientBindGroupSetLabel)
@@ -3119,6 +3015,7 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::deviceCreateCommandEncoder, ClientDeviceCreateCommandEncoder)
         , std::make_pair(&DawnProcTable::deviceCreateComputePipeline, ClientDeviceCreateComputePipeline)
         , std::make_pair(&DawnProcTable::deviceCreateComputePipelineAsync, ClientDeviceCreateComputePipelineAsync)
+        , std::make_pair(&DawnProcTable::deviceCreateComputePipelineAsyncF, ClientDeviceCreateComputePipelineAsyncF)
         , std::make_pair(&DawnProcTable::deviceCreateErrorBuffer, ClientDeviceCreateErrorBuffer)
         , std::make_pair(&DawnProcTable::deviceCreateErrorExternalTexture, ClientDeviceCreateErrorExternalTexture)
         , std::make_pair(&DawnProcTable::deviceCreateErrorShaderModule, ClientDeviceCreateErrorShaderModule)
@@ -3129,6 +3026,7 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::deviceCreateRenderBundleEncoder, ClientDeviceCreateRenderBundleEncoder)
         , std::make_pair(&DawnProcTable::deviceCreateRenderPipeline, ClientDeviceCreateRenderPipeline)
         , std::make_pair(&DawnProcTable::deviceCreateRenderPipelineAsync, ClientDeviceCreateRenderPipelineAsync)
+        , std::make_pair(&DawnProcTable::deviceCreateRenderPipelineAsyncF, ClientDeviceCreateRenderPipelineAsyncF)
         , std::make_pair(&DawnProcTable::deviceCreateSampler, ClientDeviceCreateSampler)
         , std::make_pair(&DawnProcTable::deviceCreateShaderModule, ClientDeviceCreateShaderModule)
         , std::make_pair(&DawnProcTable::deviceCreateSwapChain, ClientDeviceCreateSwapChain)
@@ -3244,6 +3142,7 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::swapChainPresent, ClientSwapChainPresent)
         , std::make_pair(&DawnProcTable::swapChainReference, ClientSwapChainReference)
         , std::make_pair(&DawnProcTable::swapChainRelease, ClientSwapChainRelease)
+        , std::make_pair(&DawnProcTable::textureCreateErrorView, ClientTextureCreateErrorView)
         , std::make_pair(&DawnProcTable::textureCreateView, ClientTextureCreateView)
         , std::make_pair(&DawnProcTable::textureDestroy, ClientTextureDestroy)
         , std::make_pair(&DawnProcTable::textureGetDepthOrArrayLayers, ClientTextureGetDepthOrArrayLayers)

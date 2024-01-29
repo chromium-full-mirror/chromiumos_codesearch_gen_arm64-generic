@@ -38,7 +38,10 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
     }
     static get properties() {
         return {
-            dialogStage_: Number,
+            dialogStage_: {
+                type: Number,
+                observer: 'stateChange_',
+            },
             password: Object,
             passwordName: String,
             iconUrl: String,
@@ -55,6 +58,10 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
     }
     ready() {
         super.ready();
+        // Start the animation after all elements have been loaded.
+        setTimeout(() => {
+            this.$.animation.classList.add('loading');
+        }, 0);
         // The user has 5 seconds to cancel the share action while loading/sharing
         // animation is in progress.
         setTimeout(() => {
@@ -67,6 +74,13 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
     }
     isStage_(stage) {
         return this.dialogStage_ === stage;
+    }
+    stateChange_() {
+        // Force the screen reader to focus on the updated dialog header.
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+        this.$.dialog.focus();
     }
     getDialogTitle_() {
         switch (this.dialogStage_) {
@@ -85,7 +99,6 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
             return this.i18nAdvanced('sharePasswordConfirmationDescriptionMultipleRecipients', {
                 substitutions: [
                     this.passwordName,
-                    this.i18n('passwordSharingLearnMoreURL'),
                 ],
             });
         }
@@ -93,7 +106,6 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
             substitutions: [
                 this.recipients[0].displayName,
                 this.passwordName,
-                this.i18n('passwordSharingLearnMoreURL'),
             ],
         });
     }
@@ -116,12 +128,6 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
             ],
         });
     }
-    onDescriptionClick_(e) {
-        const element = e.target;
-        if (element.tagName === 'A') {
-            recordPasswordSharingInteraction(PasswordSharingActions.CONFIRMATION_DIALOG_LEARN_MORE_CLICKED);
-        }
-    }
     onFooterClick_(e) {
         const element = e.target;
         if (element.tagName === 'A') {
@@ -138,6 +144,7 @@ export class SharePasswordConfirmationDialogElement extends SharePasswordConfirm
         }
         recordPasswordSharingInteraction(PasswordSharingActions.CONFIRMATION_DIALOG_SHARING_CANCELED);
         this.dialogStage_ = ConfirmationDialogStage.CANCELED;
+        this.$.animation.classList.remove('loading');
     }
 }
 customElements.define(SharePasswordConfirmationDialogElement.is, SharePasswordConfirmationDialogElement);

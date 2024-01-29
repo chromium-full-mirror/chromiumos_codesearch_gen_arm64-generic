@@ -57,7 +57,7 @@ return MakeGarbageCollected<V8UnionConstrainDoubleRangeOrDouble>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionConstrainDoubleRangeOrDouble::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionConstrainDoubleRangeOrDouble::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kConstrainDoubleRange: {
     return ToV8Traits<ConstrainDoubleRange>::ToV8(script_state, member_constrain_double_range_.Get());
@@ -68,7 +68,7 @@ v8::MaybeLocal<v8::Value> V8UnionConstrainDoubleRangeOrDouble::ToV8Value(ScriptS
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionConstrainDoubleRangeOrDouble::Trace(Visitor* visitor) const {

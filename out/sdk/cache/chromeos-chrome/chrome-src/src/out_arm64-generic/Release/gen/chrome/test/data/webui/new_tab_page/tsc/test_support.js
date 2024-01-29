@@ -61,7 +61,6 @@ export function createTheme(isDark = false) {
         isDark,
         mostVisited: mostVisited,
         textColor: { value: 0xff0000ff },
-        themeRealboxIcons: false,
         isCustomBackground: true,
     };
 }

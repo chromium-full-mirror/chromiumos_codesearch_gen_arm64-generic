@@ -41,6 +41,7 @@
 
 #include "third_party/blink/public/mojom/interest_group/ad_auction_service.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/interest_group/ad_auction_service.mojom-test-utils.h"
+#include "third_party/blink/common/permissions_policy/permissions_policy_mojom_traits.h"
 
 
 namespace blink::mojom {
@@ -893,6 +894,8 @@ bool AbortableAdAuctionStubDispatch::Accept(
           reinterpret_cast<internal::AbortableAdAuction_ResolvedPromiseParam_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.0
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       AuctionAdConfigField p_field{};
@@ -914,10 +917,10 @@ bool AbortableAdAuctionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedPromiseParam(
-std::move(p_auction), 
-std::move(p_field), 
-std::move(p_json_value));
+      impl->ResolvedPromiseParam(        
+        std::move(p_auction), 
+        std::move(p_field), 
+        std::move(p_json_value));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedPerBuyerSignalsPromise_Name: {
@@ -927,6 +930,8 @@ std::move(p_json_value));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedPerBuyerSignalsPromise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.1
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       std::optional<base::flat_map<::url::Origin, std::string>> p_per_buyer_signals{};
@@ -945,9 +950,9 @@ std::move(p_json_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedPerBuyerSignalsPromise(
-std::move(p_auction), 
-std::move(p_per_buyer_signals));
+      impl->ResolvedPerBuyerSignalsPromise(        
+        std::move(p_auction), 
+        std::move(p_per_buyer_signals));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedBuyerTimeoutsPromise_Name: {
@@ -957,6 +962,8 @@ std::move(p_per_buyer_signals));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedBuyerTimeoutsPromise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.2
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       AuctionAdConfigBuyerTimeoutField p_field{};
@@ -978,10 +985,10 @@ std::move(p_per_buyer_signals));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedBuyerTimeoutsPromise(
-std::move(p_auction), 
-std::move(p_field), 
-std::move(p_buyer_timeouts));
+      impl->ResolvedBuyerTimeoutsPromise(        
+        std::move(p_auction), 
+        std::move(p_field), 
+        std::move(p_buyer_timeouts));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedBuyerCurrenciesPromise_Name: {
@@ -991,6 +998,8 @@ std::move(p_buyer_timeouts));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedBuyerCurrenciesPromise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.3
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       ::blink::AuctionConfig::BuyerCurrencies p_per_buyer_currencies{};
@@ -1009,9 +1018,9 @@ std::move(p_buyer_timeouts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedBuyerCurrenciesPromise(
-std::move(p_auction), 
-std::move(p_per_buyer_currencies));
+      impl->ResolvedBuyerCurrenciesPromise(        
+        std::move(p_auction), 
+        std::move(p_per_buyer_currencies));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedDirectFromSellerSignalsPromise_Name: {
@@ -1021,6 +1030,8 @@ std::move(p_per_buyer_currencies));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedDirectFromSellerSignalsPromise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.4
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       std::optional<::blink::DirectFromSellerSignals> p_direct_from_seller_signals{};
@@ -1039,9 +1050,9 @@ std::move(p_per_buyer_currencies));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedDirectFromSellerSignalsPromise(
-std::move(p_auction), 
-std::move(p_direct_from_seller_signals));
+      impl->ResolvedDirectFromSellerSignalsPromise(        
+        std::move(p_auction), 
+        std::move(p_direct_from_seller_signals));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedDirectFromSellerSignalsHeaderAdSlotPromise_Name: {
@@ -1051,6 +1062,8 @@ std::move(p_direct_from_seller_signals));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedDirectFromSellerSignalsHeaderAdSlotPromise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.5
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       std::optional<std::string> p_direct_from_seller_signals_header_ad_slot{};
@@ -1069,9 +1082,9 @@ std::move(p_direct_from_seller_signals));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(
-std::move(p_auction), 
-std::move(p_direct_from_seller_signals_header_ad_slot));
+      impl->ResolvedDirectFromSellerSignalsHeaderAdSlotPromise(        
+        std::move(p_auction), 
+        std::move(p_direct_from_seller_signals_header_ad_slot));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedAuctionAdResponsePromise_Name: {
@@ -1081,6 +1094,8 @@ std::move(p_direct_from_seller_signals_header_ad_slot));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedAuctionAdResponsePromise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.6
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       ::mojo_base::BigBuffer p_result{};
@@ -1099,9 +1114,9 @@ std::move(p_direct_from_seller_signals_header_ad_slot));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedAuctionAdResponsePromise(
-std::move(p_auction), 
-std::move(p_result));
+      impl->ResolvedAuctionAdResponsePromise(        
+        std::move(p_auction), 
+        std::move(p_result));
       return true;
     }
     case internal::kAbortableAdAuction_ResolvedAdditionalBids_Name: {
@@ -1111,6 +1126,8 @@ std::move(p_result));
           reinterpret_cast<internal::AbortableAdAuction_ResolvedAdditionalBids_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.7
       bool success = true;
       AuctionAdConfigAuctionIdPtr p_auction{};
       AbortableAdAuction_ResolvedAdditionalBids_ParamsDataView input_data_view(params, message);
@@ -1126,8 +1143,8 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolvedAdditionalBids(
-std::move(p_auction));
+      impl->ResolvedAdditionalBids(        
+        std::move(p_auction));
       return true;
     }
     case internal::kAbortableAdAuction_Abort_Name: {
@@ -1137,6 +1154,8 @@ std::move(p_auction));
           reinterpret_cast<internal::AbortableAdAuction_Abort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AbortableAdAuction.8
       bool success = true;
       AbortableAdAuction_Abort_ParamsDataView input_data_view(params, message);
       
@@ -1149,7 +1168,7 @@ std::move(p_auction));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort();
+      impl->Abort(        );
       return true;
     }
   }
@@ -2366,6 +2385,8 @@ bool AdAuctionService_CreateAdRequest_ForwardToCallback::Accept(
           internal::AdAuctionService_CreateAdRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.0
   bool success = true;
   std::optional<std::string> p_ads_guid{};
   AdAuctionService_CreateAdRequest_ResponseParamsDataView input_data_view(params, message);
@@ -2491,6 +2512,8 @@ bool AdAuctionService_FinalizeAd_ForwardToCallback::Accept(
           internal::AdAuctionService_FinalizeAd_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.1
   bool success = true;
   std::optional<::GURL> p_ad_display_url{};
   AdAuctionService_FinalizeAd_ResponseParamsDataView input_data_view(params, message);
@@ -2616,6 +2639,8 @@ bool AdAuctionService_CreateAuctionNonce_ForwardToCallback::Accept(
           internal::AdAuctionService_CreateAuctionNonce_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.2
   bool success = true;
   ::base::Uuid p_nonce{};
   AdAuctionService_CreateAuctionNonce_ResponseParamsDataView input_data_view(params, message);
@@ -2745,6 +2770,8 @@ bool AdAuctionService_RunAdAuction_ForwardToCallback::Accept(
           internal::AdAuctionService_RunAdAuction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.3
   bool success = true;
   bool p_aborted_by_script{};
   std::optional<::blink::FencedFrame::RedactedFencedFrameConfig> p_config{};
@@ -2878,6 +2905,8 @@ bool AdAuctionService_JoinInterestGroup_ForwardToCallback::Accept(
           internal::AdAuctionService_JoinInterestGroup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.4
   bool success = true;
   bool p_failed_well_known_check{};
   AdAuctionService_JoinInterestGroup_ResponseParamsDataView input_data_view(params, message);
@@ -2997,6 +3026,8 @@ bool AdAuctionService_LeaveInterestGroup_ForwardToCallback::Accept(
           internal::AdAuctionService_LeaveInterestGroup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.5
   bool success = true;
   bool p_failed_well_known_check{};
   AdAuctionService_LeaveInterestGroup_ResponseParamsDataView input_data_view(params, message);
@@ -3116,6 +3147,8 @@ bool AdAuctionService_ClearOriginJoinedInterestGroups_ForwardToCallback::Accept(
           internal::AdAuctionService_ClearOriginJoinedInterestGroups_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.7
   bool success = true;
   bool p_failed_well_known_check{};
   AdAuctionService_ClearOriginJoinedInterestGroups_ResponseParamsDataView input_data_view(params, message);
@@ -3235,6 +3268,8 @@ bool AdAuctionService_DeprecatedGetURLFromURN_ForwardToCallback::Accept(
           internal::AdAuctionService_DeprecatedGetURLFromURN_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.9
   bool success = true;
   std::optional<::GURL> p_decoded_url{};
   AdAuctionService_DeprecatedGetURLFromURN_ResponseParamsDataView input_data_view(params, message);
@@ -3360,6 +3395,8 @@ bool AdAuctionService_DeprecatedReplaceInURN_ForwardToCallback::Accept(
           internal::AdAuctionService_DeprecatedReplaceInURN_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.10
   bool success = true;
   AdAuctionService_DeprecatedReplaceInURN_ResponseParamsDataView input_data_view(params, message);
   
@@ -3467,6 +3504,8 @@ bool AdAuctionService_GetInterestGroupAdAuctionData_ForwardToCallback::Accept(
           internal::AdAuctionService_GetInterestGroupAdAuctionData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdAuctionService.11
   bool success = true;
   ::mojo_base::BigBuffer p_request{};
   std::optional<::base::Uuid> p_request_id{};
@@ -3599,6 +3638,8 @@ bool AdAuctionServiceStubDispatch::Accept(
           reinterpret_cast<internal::AdAuctionService_LeaveInterestGroupForDocument_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.6
       bool success = true;
       AdAuctionService_LeaveInterestGroupForDocument_ParamsDataView input_data_view(params, message);
       
@@ -3611,7 +3652,7 @@ bool AdAuctionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LeaveInterestGroupForDocument();
+      impl->LeaveInterestGroupForDocument(        );
       return true;
     }
     case internal::kAdAuctionService_ClearOriginJoinedInterestGroups_Name: {
@@ -3624,6 +3665,8 @@ bool AdAuctionServiceStubDispatch::Accept(
           reinterpret_cast<internal::AdAuctionService_UpdateAdInterestGroups_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.8
       bool success = true;
       AdAuctionService_UpdateAdInterestGroups_ParamsDataView input_data_view(params, message);
       
@@ -3636,7 +3679,7 @@ bool AdAuctionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateAdInterestGroups();
+      impl->UpdateAdInterestGroups(        );
       return true;
     }
     case internal::kAdAuctionService_DeprecatedGetURLFromURN_Name: {
@@ -3668,6 +3711,8 @@ bool AdAuctionServiceStubDispatch::AcceptWithResponder(
               internal::AdAuctionService_CreateAdRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.0
       bool success = true;
       ::blink::mojom::AdRequestConfigPtr p_config{};
       AdAuctionService_CreateAdRequest_ParamsDataView input_data_view(params, message);
@@ -3686,8 +3731,8 @@ bool AdAuctionServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAdRequest(
-std::move(p_config), std::move(callback));
+      impl->CreateAdRequest(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_FinalizeAd_Name: {
@@ -3697,6 +3742,8 @@ std::move(p_config), std::move(callback));
               internal::AdAuctionService_FinalizeAd_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.1
       bool success = true;
       std::string p_ads_guid{};
       ::blink::AuctionConfig p_config{};
@@ -3718,9 +3765,9 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FinalizeAd(
-std::move(p_ads_guid), 
-std::move(p_config), std::move(callback));
+      impl->FinalizeAd(        
+        std::move(p_ads_guid), 
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_CreateAuctionNonce_Name: {
@@ -3730,6 +3777,8 @@ std::move(p_config), std::move(callback));
               internal::AdAuctionService_CreateAuctionNonce_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.2
       bool success = true;
       AdAuctionService_CreateAuctionNonce_ParamsDataView input_data_view(params, message);
       
@@ -3755,6 +3804,8 @@ std::move(p_config), std::move(callback));
               internal::AdAuctionService_RunAdAuction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.3
       bool success = true;
       ::blink::AuctionConfig p_config{};
       ::mojo::PendingReceiver<AbortableAdAuction> p_abort_receiver{};
@@ -3778,9 +3829,9 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunAdAuction(
-std::move(p_config), 
-std::move(p_abort_receiver), std::move(callback));
+      impl->RunAdAuction(        
+        std::move(p_config), 
+        std::move(p_abort_receiver), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_JoinInterestGroup_Name: {
@@ -3790,6 +3841,8 @@ std::move(p_abort_receiver), std::move(callback));
               internal::AdAuctionService_JoinInterestGroup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.4
       bool success = true;
       ::blink::InterestGroup p_group{};
       AdAuctionService_JoinInterestGroup_ParamsDataView input_data_view(params, message);
@@ -3808,8 +3861,8 @@ std::move(p_abort_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JoinInterestGroup(
-std::move(p_group), std::move(callback));
+      impl->JoinInterestGroup(        
+        std::move(p_group), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_LeaveInterestGroup_Name: {
@@ -3819,6 +3872,8 @@ std::move(p_group), std::move(callback));
               internal::AdAuctionService_LeaveInterestGroup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.5
       bool success = true;
       ::url::Origin p_owner{};
       std::string p_name{};
@@ -3840,9 +3895,9 @@ std::move(p_group), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LeaveInterestGroup(
-std::move(p_owner), 
-std::move(p_name), std::move(callback));
+      impl->LeaveInterestGroup(        
+        std::move(p_owner), 
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_LeaveInterestGroupForDocument_Name: {
@@ -3855,6 +3910,8 @@ std::move(p_name), std::move(callback));
               internal::AdAuctionService_ClearOriginJoinedInterestGroups_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.7
       bool success = true;
       ::url::Origin p_owner{};
       std::vector<std::string> p_interest_groups_to_keep{};
@@ -3876,9 +3933,9 @@ std::move(p_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearOriginJoinedInterestGroups(
-std::move(p_owner), 
-std::move(p_interest_groups_to_keep), std::move(callback));
+      impl->ClearOriginJoinedInterestGroups(        
+        std::move(p_owner), 
+        std::move(p_interest_groups_to_keep), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_UpdateAdInterestGroups_Name: {
@@ -3891,6 +3948,8 @@ std::move(p_interest_groups_to_keep), std::move(callback));
               internal::AdAuctionService_DeprecatedGetURLFromURN_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.9
       bool success = true;
       ::GURL p_uuid_url{};
       bool p_send_reports{};
@@ -3912,9 +3971,9 @@ std::move(p_interest_groups_to_keep), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedGetURLFromURN(
-std::move(p_uuid_url), 
-std::move(p_send_reports), std::move(callback));
+      impl->DeprecatedGetURLFromURN(        
+        std::move(p_uuid_url), 
+        std::move(p_send_reports), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_DeprecatedReplaceInURN_Name: {
@@ -3924,6 +3983,8 @@ std::move(p_send_reports), std::move(callback));
               internal::AdAuctionService_DeprecatedReplaceInURN_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.10
       bool success = true;
       ::GURL p_uuid_url{};
       std::vector<AdKeywordReplacementPtr> p_replacements{};
@@ -3945,9 +4006,9 @@ std::move(p_send_reports), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedReplaceInURN(
-std::move(p_uuid_url), 
-std::move(p_replacements), std::move(callback));
+      impl->DeprecatedReplaceInURN(        
+        std::move(p_uuid_url), 
+        std::move(p_replacements), std::move(callback));
       return true;
     }
     case internal::kAdAuctionService_GetInterestGroupAdAuctionData_Name: {
@@ -3957,6 +4018,8 @@ std::move(p_replacements), std::move(callback));
               internal::AdAuctionService_GetInterestGroupAdAuctionData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdAuctionService.11
       bool success = true;
       ::url::Origin p_seller{};
       std::optional<::url::Origin> p_coordinator{};
@@ -3978,9 +4041,9 @@ std::move(p_replacements), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetInterestGroupAdAuctionData(
-std::move(p_seller), 
-std::move(p_coordinator), std::move(callback));
+      impl->GetInterestGroupAdAuctionData(        
+        std::move(p_seller), 
+        std::move(p_coordinator), std::move(callback));
       return true;
     }
   }

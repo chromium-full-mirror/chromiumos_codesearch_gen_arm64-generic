@@ -824,6 +824,8 @@ bool DirectSocketsService_OpenTCPSocket_ForwardToCallback::Accept(
           internal::DirectSocketsService_OpenTCPSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DirectSocketsService.0
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -989,6 +991,8 @@ bool DirectSocketsService_OpenConnectedUDPSocket_ForwardToCallback::Accept(
           internal::DirectSocketsService_OpenConnectedUDPSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DirectSocketsService.1
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -1136,6 +1140,8 @@ bool DirectSocketsService_OpenBoundUDPSocket_ForwardToCallback::Accept(
           internal::DirectSocketsService_OpenBoundUDPSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DirectSocketsService.2
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -1269,6 +1275,8 @@ bool DirectSocketsService_OpenTCPServerSocket_ForwardToCallback::Accept(
           internal::DirectSocketsService_OpenTCPServerSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DirectSocketsService.3
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -1382,6 +1390,8 @@ bool DirectSocketsServiceStubDispatch::AcceptWithResponder(
               internal::DirectSocketsService_OpenTCPSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DirectSocketsService.0
       bool success = true;
       DirectTCPSocketOptionsPtr p_options{};
       ::mojo::PendingReceiver<::network::mojom::blink::TCPConnectedSocket> p_receiver{};
@@ -1410,10 +1420,10 @@ bool DirectSocketsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenTCPSocket(
-std::move(p_options), 
-std::move(p_receiver), 
-std::move(p_observer), std::move(callback));
+      impl->OpenTCPSocket(        
+        std::move(p_options), 
+        std::move(p_receiver), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kDirectSocketsService_OpenConnectedUDPSocket_Name: {
@@ -1423,6 +1433,8 @@ std::move(p_observer), std::move(callback));
               internal::DirectSocketsService_OpenConnectedUDPSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DirectSocketsService.1
       bool success = true;
       DirectConnectedUDPSocketOptionsPtr p_options{};
       ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> p_receiver{};
@@ -1451,10 +1463,10 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenConnectedUDPSocket(
-std::move(p_options), 
-std::move(p_receiver), 
-std::move(p_listener), std::move(callback));
+      impl->OpenConnectedUDPSocket(        
+        std::move(p_options), 
+        std::move(p_receiver), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kDirectSocketsService_OpenBoundUDPSocket_Name: {
@@ -1464,6 +1476,8 @@ std::move(p_listener), std::move(callback));
               internal::DirectSocketsService_OpenBoundUDPSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DirectSocketsService.2
       bool success = true;
       DirectBoundUDPSocketOptionsPtr p_options{};
       ::mojo::PendingReceiver<::network::mojom::blink::RestrictedUDPSocket> p_receiver{};
@@ -1492,10 +1506,10 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenBoundUDPSocket(
-std::move(p_options), 
-std::move(p_receiver), 
-std::move(p_listener), std::move(callback));
+      impl->OpenBoundUDPSocket(        
+        std::move(p_options), 
+        std::move(p_receiver), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kDirectSocketsService_OpenTCPServerSocket_Name: {
@@ -1505,6 +1519,8 @@ std::move(p_listener), std::move(callback));
               internal::DirectSocketsService_OpenTCPServerSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DirectSocketsService.3
       bool success = true;
       DirectTCPServerSocketOptionsPtr p_options{};
       ::mojo::PendingReceiver<::network::mojom::blink::TCPServerSocket> p_receiver{};
@@ -1528,9 +1544,9 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenTCPServerSocket(
-std::move(p_options), 
-std::move(p_receiver), std::move(callback));
+      impl->OpenTCPServerSocket(        
+        std::move(p_options), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
   }

@@ -5,7 +5,8 @@ export function getTemplate() {
 
 
 <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-  <cr-link-row id="printManagement" class="section-title" on-click="onClickPrintManagement_" label="$i18n{printJobsTitle}" sub-label="$i18n{printJobsSublabel}" external deep-link-focus-id$="[[Setting.kPrintJobs]]">
+  <cr-link-row id="printManagement" on-click="onClickPrintManagement_" external using-slotted-label sub-label="$i18n{printJobsSublabel}" deep-link-focus-id$="[[Setting.kPrintJobs]]">
+    <div slot="label" class="section-title">$i18n{printJobsTitle}</div>
   </cr-link-row>
   <div class="hr"></div>
 </template>

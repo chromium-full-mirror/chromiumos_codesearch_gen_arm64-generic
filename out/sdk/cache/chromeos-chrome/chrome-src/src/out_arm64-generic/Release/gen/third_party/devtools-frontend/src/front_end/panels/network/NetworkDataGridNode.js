@@ -42,6 +42,7 @@ import * as Bindings from '../../models/bindings/bindings.js';
 import * as Logs from '../../models/logs/logs.js';
 import * as Workspace from '../../models/workspace/workspace.js';
 import * as NetworkForward from '../../panels/network/forward/forward.js';
+import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as DataGrid from '../../ui/legacy/components/data_grid/data_grid.js';
 import * as PerfUI from '../../ui/legacy/components/perf_ui/perf_ui.js';
 import * as Components from '../../ui/legacy/components/utils/utils.js';
@@ -293,14 +294,6 @@ const UIStrings = {
 };
 const str_ = i18n.i18n.registerUIStrings('panels/network/NetworkDataGridNode.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var Events;
-(function (Events) {
-    // RequestSelected might fire twice for the same "activation"
-    Events["RequestSelected"] = "RequestSelected";
-    Events["RequestActivated"] = "RequestActivated";
-})(Events || (Events = {}));
 export class NetworkNode extends DataGrid.SortableDataGrid.SortableDataGridNode {
     parentViewInternal;
     isHovered;
@@ -904,7 +897,7 @@ export class NetworkRequestNode extends NetworkNode {
     }
     select(supressSelectedEvent) {
         super.select(supressSelectedEvent);
-        this.parentView().dispatchEventToListeners(Events.RequestSelected, this.requestInternal);
+        this.parentView().dispatchEventToListeners("RequestSelected" /* Events.RequestSelected */, this.requestInternal);
     }
     highlightMatchedSubstring(regexp) {
         if (!regexp || !this.nameCell || this.nameCell.textContent === null) {
@@ -955,7 +948,7 @@ export class NetworkRequestNode extends NetworkNode {
                 // When the request panel isn't visible yet, firing the RequestActivated event
                 // doesn't make it visible if no request is selected. So we'll select it first.
                 this.select();
-                this.parentView().dispatchEventToListeners(Events.RequestActivated, { showPanel: true });
+                this.parentView().dispatchEventToListeners("RequestActivated" /* Events.RequestActivated */, { showPanel: true });
             });
             cell.addEventListener('focus', () => this.parentView().resetFocus());
             // render icons
@@ -995,7 +988,7 @@ export class NetworkRequestNode extends NetworkNode {
     createIconElement(iconData, title) {
         const iconElement = document.createElement('div');
         iconElement.title = title;
-        iconElement.style.setProperty('-webkit-mask', `url('${new URL(`../../Images/${iconData.iconName}.svg`, import.meta.url).toString()}')  no-repeat center /99%`);
+        iconElement.style.setProperty('mask', `url('${new URL(`../../Images/${iconData.iconName}.svg`, import.meta.url).toString()}')  no-repeat center /99%`);
         iconElement.style.setProperty('background-color', iconData.color);
         return iconElement;
     }
@@ -1168,9 +1161,9 @@ export class NetworkRequestNode extends NetworkNode {
             }
             if (displayShowHeadersLink) {
                 this.setTextAndTitleAsLink(cell, i18nString(UIStrings.blockeds, { PH1: reason }), i18nString(UIStrings.blockedTooltip), () => {
-                    this.parentView().dispatchEventToListeners(Events.RequestActivated, {
+                    this.parentView().dispatchEventToListeners("RequestActivated" /* Events.RequestActivated */, {
                         showPanel: true,
-                        tab: NetworkForward.UIRequestLocation.UIRequestTabs.HeadersComponent,
+                        tab: "headersComponent" /* NetworkForward.UIRequestLocation.UIRequestTabs.HeadersComponent */,
                     });
                 });
             }
@@ -1249,7 +1242,7 @@ export class NetworkRequestNode extends NetworkNode {
             cell.appendChild(document.createTextNode(i18nString(UIStrings.push)));
         }
         switch (initiator.type) {
-            case SDK.NetworkRequest.InitiatorType.Parser: {
+            case "parser" /* SDK.NetworkRequest.InitiatorType.Parser */: {
                 const uiSourceCode = Workspace.Workspace.WorkspaceImpl.instance().uiSourceCodeForURL(initiator.url);
                 const displayName = uiSourceCode?.displayName();
                 const text = displayName !== undefined && initiator.lineNumber !== undefined ?
@@ -1264,7 +1257,7 @@ export class NetworkRequestNode extends NetworkNode {
                 this.appendSubtitle(cell, i18nString(UIStrings.parser));
                 break;
             }
-            case SDK.NetworkRequest.InitiatorType.Redirect: {
+            case "redirect" /* SDK.NetworkRequest.InitiatorType.Redirect */: {
                 UI.Tooltip.Tooltip.install(cell, initiator.url);
                 const redirectSource = request.redirectSource();
                 console.assert(redirectSource !== null);
@@ -1277,7 +1270,7 @@ export class NetworkRequestNode extends NetworkNode {
                 this.appendSubtitle(cell, i18nString(UIStrings.redirect));
                 break;
             }
-            case SDK.NetworkRequest.InitiatorType.Script: {
+            case "script" /* SDK.NetworkRequest.InitiatorType.Script */: {
                 const target = SDK.NetworkManager.NetworkManager.forRequest(request)?.target() || null;
                 const linkifier = this.parentView().linkifier();
                 if (initiator.stack) {
@@ -1292,21 +1285,21 @@ export class NetworkRequestNode extends NetworkNode {
                 cell.classList.add('network-script-initiated');
                 break;
             }
-            case SDK.NetworkRequest.InitiatorType.Preload: {
+            case "preload" /* SDK.NetworkRequest.InitiatorType.Preload */: {
                 UI.Tooltip.Tooltip.install(cell, i18nString(UIStrings.preload));
                 cell.classList.add('network-dim-cell');
                 cell.appendChild(document.createTextNode(i18nString(UIStrings.preload)));
                 break;
             }
-            case SDK.NetworkRequest.InitiatorType.SignedExchange: {
+            case "signedExchange" /* SDK.NetworkRequest.InitiatorType.SignedExchange */: {
                 cell.appendChild(Components.Linkifier.Linkifier.linkifyURL(initiator.url));
                 this.appendSubtitle(cell, i18nString(UIStrings.signedexchange));
                 break;
             }
-            case SDK.NetworkRequest.InitiatorType.Preflight: {
+            case "preflight" /* SDK.NetworkRequest.InitiatorType.Preflight */: {
                 cell.appendChild(document.createTextNode(i18nString(UIStrings.preflight)));
                 if (initiator.initiatorRequest) {
-                    const icon = UI.Icon.Icon.create('arrow-up-down-circle');
+                    const icon = IconButton.Icon.create('arrow-up-down-circle');
                     const link = Components.Linkifier.Linkifier.linkifyRevealable(initiator.initiatorRequest, icon, undefined, i18nString(UIStrings.selectTheRequestThatTriggered), 'trailing-link-icon');
                     UI.ARIAUtils.setLabel(link, i18nString(UIStrings.selectTheRequestThatTriggered));
                     cell.appendChild(link);
@@ -1420,7 +1413,7 @@ export class NetworkGroupNode extends NetworkNode {
         const firstChildNode = this.traverseNextNode(false, undefined, true);
         const request = firstChildNode?.request();
         if (request) {
-            this.parentView().dispatchEventToListeners(Events.RequestSelected, request);
+            this.parentView().dispatchEventToListeners("RequestSelected" /* Events.RequestSelected */, request);
         }
     }
 }

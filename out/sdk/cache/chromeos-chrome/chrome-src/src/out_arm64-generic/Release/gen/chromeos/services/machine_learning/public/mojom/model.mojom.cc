@@ -487,6 +487,8 @@ bool Model_REMOVED_0_ForwardToCallback::Accept(
           internal::Model_REMOVED_0_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Model.0
   bool success = true;
   CreateGraphExecutorResult p_result{};
   Model_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
@@ -607,6 +609,8 @@ bool Model_CreateGraphExecutor_ForwardToCallback::Accept(
           internal::Model_CreateGraphExecutor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Model.1
   bool success = true;
   CreateGraphExecutorResult p_result{};
   Model_CreateGraphExecutor_ResponseParamsDataView input_data_view(params, message);
@@ -701,6 +705,8 @@ bool ModelStubDispatch::AcceptWithResponder(
               internal::Model_REMOVED_0_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Model.0
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> p_receiver{};
       Model_REMOVED_0_ParamsDataView input_data_view(params, message);
@@ -721,8 +727,8 @@ bool ModelStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_0(
-std::move(p_receiver), std::move(callback));
+      impl->REMOVED_0(        
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kModel_CreateGraphExecutor_Name: {
@@ -732,6 +738,8 @@ std::move(p_receiver), std::move(callback));
               internal::Model_CreateGraphExecutor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Model.1
       bool success = true;
       GraphExecutorOptionsPtr p_options{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> p_receiver{};
@@ -755,9 +763,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGraphExecutor(
-std::move(p_options), 
-std::move(p_receiver), std::move(callback));
+      impl->CreateGraphExecutor(        
+        std::move(p_options), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
   }

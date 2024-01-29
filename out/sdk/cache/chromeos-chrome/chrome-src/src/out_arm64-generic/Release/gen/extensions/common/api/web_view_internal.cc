@@ -528,7 +528,7 @@ ContentScriptDetails ContentScriptDetails::Clone() const {
 // static
 bool ContentScriptDetails::Populate(
     const base::Value::Dict& dict, ContentScriptDetails& out) {
-  out.run_at = extension_types::RunAt();
+  out.run_at = extensions::api::extension_types::RunAt();
   const base::Value* name_value = dict.Find("name");
   if (!name_value) {
     return false;
@@ -619,13 +619,13 @@ bool ContentScriptDetails::Populate(
       if (!run_at_as_string) {
         return false;
       }
-      out.run_at = extension_types::ParseRunAt(*run_at_as_string);
-      if (out.run_at == extension_types::RunAt()) {
+      out.run_at = extensions::api::extension_types::ParseRunAt(*run_at_as_string);
+      if (out.run_at == extensions::api::extension_types::RunAt()) {
         return false;
       }
     }
     } else {
-    out.run_at = extension_types::RunAt();
+    out.run_at = extensions::api::extension_types::RunAt();
   }
 
   const base::Value* all_frames_value = dict.Find("all_frames");
@@ -723,7 +723,7 @@ base::Value::Dict ContentScriptDetails::ToValue() const {
     to_value_result.Set("js", (this->js)->ToValue());
 
   }
-  if (this->run_at != extension_types::RunAt()) {
+  if (this->run_at != extensions::api::extension_types::RunAt()) {
     to_value_result.Set("run_at", extension_types::ToString(this->run_at));
 
   }

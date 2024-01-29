@@ -38,6 +38,7 @@ struct PlaneConfig_Data {
       case 1:
       case 2:
       case 3:
+      case 4:
         return true;
     }
     return false;

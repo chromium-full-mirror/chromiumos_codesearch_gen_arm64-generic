@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/webui/resources/js/browser_command/browser_command.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/webui/resources/js/browser_command/browser_command.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/webui/resources/js/browser_command/browser_command.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/webui/resources/js/browser_command/browser_command.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/webui/resources/js/browser_command/browser_command.mojom.h

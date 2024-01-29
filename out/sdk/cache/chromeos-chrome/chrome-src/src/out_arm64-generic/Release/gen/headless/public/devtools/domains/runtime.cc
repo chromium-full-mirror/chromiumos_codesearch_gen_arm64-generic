@@ -247,11 +247,31 @@ void ExperimentalDomain::SetMaxCallStackSizeToCapture(std::unique_ptr<SetMaxCall
 void ExperimentalDomain::TerminateExecution(std::unique_ptr<TerminateExecutionParams> params, base::OnceCallback<void(std::unique_ptr<TerminateExecutionResult>)> callback) {
   dispatcher_->SendMessage("Runtime.terminateExecution", params->Serialize(), base::BindOnce(&Domain::HandleTerminateExecutionResponse, std::move(callback)));
 }
-void ExperimentalDomain::AddBinding(std::unique_ptr<AddBindingParams> params, base::OnceCallback<void(std::unique_ptr<AddBindingResult>)> callback) {
+void Domain::AddBinding(std::unique_ptr<AddBindingParams> params, base::OnceCallback<void(std::unique_ptr<AddBindingResult>)> callback) {
   dispatcher_->SendMessage("Runtime.addBinding", params->Serialize(), base::BindOnce(&Domain::HandleAddBindingResponse, std::move(callback)));
 }
-void ExperimentalDomain::RemoveBinding(std::unique_ptr<RemoveBindingParams> params, base::OnceCallback<void(std::unique_ptr<RemoveBindingResult>)> callback) {
+
+void Domain::AddBinding(const std::string& name, base::OnceClosure callback) {
+  std::unique_ptr<AddBindingParams> params = AddBindingParams::Builder()
+      .SetName(std::move(name))
+      .Build();
+  dispatcher_->SendMessage("Runtime.addBinding", params->Serialize(), std::move(callback));
+}
+void Domain::AddBinding(std::unique_ptr<AddBindingParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Runtime.addBinding", params->Serialize(), std::move(callback));
+}
+void Domain::RemoveBinding(std::unique_ptr<RemoveBindingParams> params, base::OnceCallback<void(std::unique_ptr<RemoveBindingResult>)> callback) {
   dispatcher_->SendMessage("Runtime.removeBinding", params->Serialize(), base::BindOnce(&Domain::HandleRemoveBindingResponse, std::move(callback)));
+}
+
+void Domain::RemoveBinding(const std::string& name, base::OnceClosure callback) {
+  std::unique_ptr<RemoveBindingParams> params = RemoveBindingParams::Builder()
+      .SetName(std::move(name))
+      .Build();
+  dispatcher_->SendMessage("Runtime.removeBinding", params->Serialize(), std::move(callback));
+}
+void Domain::RemoveBinding(std::unique_ptr<RemoveBindingParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Runtime.removeBinding", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::GetExceptionDetails(std::unique_ptr<GetExceptionDetailsParams> params, base::OnceCallback<void(std::unique_ptr<GetExceptionDetailsResult>)> callback) {
   dispatcher_->SendMessage("Runtime.getExceptionDetails", params->Serialize(), base::BindOnce(&Domain::HandleGetExceptionDetailsResponse, std::move(callback)));

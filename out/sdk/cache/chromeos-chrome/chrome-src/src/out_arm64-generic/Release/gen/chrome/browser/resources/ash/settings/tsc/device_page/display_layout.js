@@ -17,7 +17,7 @@ import { getTemplate } from './display_layout.html.js';
 import { LayoutMixin } from './layout_mixin.js';
 const MIN_VISUAL_SCALE = .01;
 const DisplayLayoutElementBase = mixinBehaviors([IronResizableBehavior], LayoutMixin(PolymerElement));
-class DisplayLayoutElement extends DisplayLayoutElementBase {
+export class DisplayLayoutElement extends DisplayLayoutElementBase {
     static get is() {
         return 'display-layout';
     }

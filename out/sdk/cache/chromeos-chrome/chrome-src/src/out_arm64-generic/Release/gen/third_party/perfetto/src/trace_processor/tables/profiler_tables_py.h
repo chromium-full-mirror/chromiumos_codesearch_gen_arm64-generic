@@ -296,31 +296,31 @@ class StackProfileMappingTable : public macros_internal::MacroTable {
         load_bias_(ColumnStorage<ColumnType::load_bias::stored_type>::Create<false>()),
         name_(ColumnStorage<ColumnType::name::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::build_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::build_id::stored_type>(
           ColumnFlag::build_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::exact_offset::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::exact_offset::stored_type>(
           ColumnFlag::exact_offset),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::start_offset::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::start_offset::stored_type>(
           ColumnFlag::start_offset),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::start::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::start::stored_type>(
           ColumnFlag::start),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::end::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::end::stored_type>(
           ColumnFlag::end),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::load_bias::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::load_bias::stored_type>(
           ColumnFlag::load_bias),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -582,7 +582,7 @@ class StackProfileFrameTable : public macros_internal::MacroTable {
     static constexpr uint32_t name = ColumnType::name::default_flags();
     static constexpr uint32_t mapping = ColumnType::mapping::default_flags();
     static constexpr uint32_t rel_pc = ColumnType::rel_pc::default_flags();
-    static constexpr uint32_t symbol_set_id = static_cast<uint32_t>(Column::Flag::kDense) | ColumnType::symbol_set_id::default_flags();
+    static constexpr uint32_t symbol_set_id = static_cast<uint32_t>(ColumnLegacy::Flag::kDense) | ColumnType::symbol_set_id::default_flags();
     static constexpr uint32_t deobfuscated_name = ColumnType::deobfuscated_name::default_flags();
   };
 
@@ -763,23 +763,23 @@ class StackProfileFrameTable : public macros_internal::MacroTable {
         symbol_set_id_(ColumnStorage<ColumnType::symbol_set_id::stored_type>::Create<true>()),
         deobfuscated_name_(ColumnStorage<ColumnType::deobfuscated_name::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::mapping::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::mapping::stored_type>(
           ColumnFlag::mapping),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::rel_pc::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::rel_pc::stored_type>(
           ColumnFlag::rel_pc),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::symbol_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::symbol_set_id::stored_type>(
           ColumnFlag::symbol_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::deobfuscated_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::deobfuscated_name::stored_type>(
           ColumnFlag::deobfuscated_name),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1140,15 +1140,15 @@ class StackProfileCallsiteTable : public macros_internal::MacroTable {
         parent_id_(ColumnStorage<ColumnType::parent_id::stored_type>::Create<false>()),
         frame_id_(ColumnStorage<ColumnType::frame_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::depth::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::depth::stored_type>(
           ColumnFlag::depth),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
           ColumnFlag::parent_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::frame_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::frame_id::stored_type>(
           ColumnFlag::frame_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1317,7 +1317,7 @@ class StackSampleTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t ts = static_cast<uint32_t>(Column::Flag::kSorted) | ColumnType::ts::default_flags();
+    static constexpr uint32_t ts = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::ts::default_flags();
     static constexpr uint32_t callsite_id = ColumnType::callsite_id::default_flags();
   };
 
@@ -1450,11 +1450,11 @@ class StackSampleTable : public macros_internal::MacroTable {
         ts_(ColumnStorage<ColumnType::ts::stored_type>::Create<false>()),
         callsite_id_(ColumnStorage<ColumnType::callsite_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::callsite_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::callsite_id::stored_type>(
           ColumnFlag::callsite_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1771,11 +1771,11 @@ class CpuProfileStackSampleTable : public macros_internal::MacroTable {
         parent_(parent), utid_(ColumnStorage<ColumnType::utid::stored_type>::Create<false>()),
         process_priority_(ColumnStorage<ColumnType::process_priority::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::process_priority::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::process_priority::stored_type>(
           ColumnFlag::process_priority),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1931,11 +1931,11 @@ class CpuProfileStackSampleTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::process_priority::stored_type> process_priority)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::process_priority::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::process_priority::stored_type>(
           ColumnFlag::process_priority),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(utid.size() == parent_overlay.size());
@@ -1957,7 +1957,7 @@ class CpuProfileStackSampleTable : public macros_internal::MacroTable {
 };
   
 
-class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
+class ExperimentalFlamegraphTable : public macros_internal::MacroTable {
  public:
   struct Id : public BaseId {
     Id() = default;
@@ -1969,33 +1969,38 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
   struct ColumnIndex {
     static constexpr uint32_t id = 0;
     static constexpr uint32_t type = 1;
-    static constexpr uint32_t ts = 2;
-    static constexpr uint32_t upid = 3;
-    static constexpr uint32_t profile_type = 4;
-    static constexpr uint32_t focus_str = 5;
-    static constexpr uint32_t depth = 6;
-    static constexpr uint32_t name = 7;
-    static constexpr uint32_t map_name = 8;
-    static constexpr uint32_t count = 9;
-    static constexpr uint32_t cumulative_count = 10;
-    static constexpr uint32_t size = 11;
-    static constexpr uint32_t cumulative_size = 12;
-    static constexpr uint32_t alloc_count = 13;
-    static constexpr uint32_t cumulative_alloc_count = 14;
-    static constexpr uint32_t alloc_size = 15;
-    static constexpr uint32_t cumulative_alloc_size = 16;
-    static constexpr uint32_t parent_id = 17;
-    static constexpr uint32_t source_file = 18;
-    static constexpr uint32_t line_number = 19;
-    static constexpr uint32_t upid_group = 20;
+    static constexpr uint32_t profile_type = 2;
+    static constexpr uint32_t ts_in = 3;
+    static constexpr uint32_t ts_constraint = 4;
+    static constexpr uint32_t upid = 5;
+    static constexpr uint32_t upid_group = 6;
+    static constexpr uint32_t focus_str = 7;
+    static constexpr uint32_t ts = 8;
+    static constexpr uint32_t depth = 9;
+    static constexpr uint32_t name = 10;
+    static constexpr uint32_t map_name = 11;
+    static constexpr uint32_t count = 12;
+    static constexpr uint32_t cumulative_count = 13;
+    static constexpr uint32_t size = 14;
+    static constexpr uint32_t cumulative_size = 15;
+    static constexpr uint32_t alloc_count = 16;
+    static constexpr uint32_t cumulative_alloc_count = 17;
+    static constexpr uint32_t alloc_size = 18;
+    static constexpr uint32_t cumulative_alloc_size = 19;
+    static constexpr uint32_t parent_id = 20;
+    static constexpr uint32_t source_file = 21;
+    static constexpr uint32_t line_number = 22;
   };
   struct ColumnType {
-    using id = IdColumn<ExperimentalFlamegraphNodesTable::Id>;
+    using id = IdColumn<ExperimentalFlamegraphTable::Id>;
     using type = TypedColumn<StringPool::Id>;
-    using ts = TypedColumn<int64_t>;
-    using upid = TypedColumn<uint32_t>;
     using profile_type = TypedColumn<StringPool::Id>;
-    using focus_str = TypedColumn<StringPool::Id>;
+    using ts_in = TypedColumn<std::optional<int64_t>>;
+    using ts_constraint = TypedColumn<std::optional<StringPool::Id>>;
+    using upid = TypedColumn<std::optional<uint32_t>>;
+    using upid_group = TypedColumn<std::optional<StringPool::Id>>;
+    using focus_str = TypedColumn<std::optional<StringPool::Id>>;
+    using ts = TypedColumn<int64_t>;
     using depth = TypedColumn<uint32_t>;
     using name = TypedColumn<StringPool::Id>;
     using map_name = TypedColumn<StringPool::Id>;
@@ -2007,16 +2012,18 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     using cumulative_alloc_count = TypedColumn<int64_t>;
     using alloc_size = TypedColumn<int64_t>;
     using cumulative_alloc_size = TypedColumn<int64_t>;
-    using parent_id = TypedColumn<std::optional<ExperimentalFlamegraphNodesTable::Id>>;
+    using parent_id = TypedColumn<std::optional<ExperimentalFlamegraphTable::Id>>;
     using source_file = TypedColumn<std::optional<StringPool::Id>>;
     using line_number = TypedColumn<std::optional<uint32_t>>;
-    using upid_group = TypedColumn<std::optional<StringPool::Id>>;
   };
   struct Row : public macros_internal::RootParentTable::Row {
-    Row(int64_t in_ts = {},
-        uint32_t in_upid = {},
-        StringPool::Id in_profile_type = {},
-        StringPool::Id in_focus_str = {},
+    Row(StringPool::Id in_profile_type = {},
+        std::optional<int64_t> in_ts_in = {},
+        std::optional<StringPool::Id> in_ts_constraint = {},
+        std::optional<uint32_t> in_upid = {},
+        std::optional<StringPool::Id> in_upid_group = {},
+        std::optional<StringPool::Id> in_focus_str = {},
+        int64_t in_ts = {},
         uint32_t in_depth = {},
         StringPool::Id in_name = {},
         StringPool::Id in_map_name = {},
@@ -2028,16 +2035,18 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         int64_t in_cumulative_alloc_count = {},
         int64_t in_alloc_size = {},
         int64_t in_cumulative_alloc_size = {},
-        std::optional<ExperimentalFlamegraphNodesTable::Id> in_parent_id = {},
+        std::optional<ExperimentalFlamegraphTable::Id> in_parent_id = {},
         std::optional<StringPool::Id> in_source_file = {},
         std::optional<uint32_t> in_line_number = {},
-        std::optional<StringPool::Id> in_upid_group = {},
         std::nullptr_t = nullptr)
         : macros_internal::RootParentTable::Row(),
-          ts(std::move(in_ts)),
-          upid(std::move(in_upid)),
           profile_type(std::move(in_profile_type)),
+          ts_in(std::move(in_ts_in)),
+          ts_constraint(std::move(in_ts_constraint)),
+          upid(std::move(in_upid)),
+          upid_group(std::move(in_upid_group)),
           focus_str(std::move(in_focus_str)),
+          ts(std::move(in_ts)),
           depth(std::move(in_depth)),
           name(std::move(in_name)),
           map_name(std::move(in_map_name)),
@@ -2051,14 +2060,16 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
           cumulative_alloc_size(std::move(in_cumulative_alloc_size)),
           parent_id(std::move(in_parent_id)),
           source_file(std::move(in_source_file)),
-          line_number(std::move(in_line_number)),
-          upid_group(std::move(in_upid_group)) {
-      type_ = "experimental_flamegraph_nodes";
+          line_number(std::move(in_line_number)) {
+      type_ = "experimental_flamegraph";
     }
-    int64_t ts;
-    uint32_t upid;
     StringPool::Id profile_type;
-    StringPool::Id focus_str;
+    std::optional<int64_t> ts_in;
+    std::optional<StringPool::Id> ts_constraint;
+    std::optional<uint32_t> upid;
+    std::optional<StringPool::Id> upid_group;
+    std::optional<StringPool::Id> focus_str;
+    int64_t ts;
     uint32_t depth;
     StringPool::Id name;
     StringPool::Id map_name;
@@ -2070,16 +2081,18 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     int64_t cumulative_alloc_count;
     int64_t alloc_size;
     int64_t cumulative_alloc_size;
-    std::optional<ExperimentalFlamegraphNodesTable::Id> parent_id;
+    std::optional<ExperimentalFlamegraphTable::Id> parent_id;
     std::optional<StringPool::Id> source_file;
     std::optional<uint32_t> line_number;
-    std::optional<StringPool::Id> upid_group;
 
-    bool operator==(const ExperimentalFlamegraphNodesTable::Row& other) const {
-      return type() == other.type() && ColumnType::ts::Equals(ts, other.ts) &&
+    bool operator==(const ExperimentalFlamegraphTable::Row& other) const {
+      return type() == other.type() && ColumnType::profile_type::Equals(profile_type, other.profile_type) &&
+       ColumnType::ts_in::Equals(ts_in, other.ts_in) &&
+       ColumnType::ts_constraint::Equals(ts_constraint, other.ts_constraint) &&
        ColumnType::upid::Equals(upid, other.upid) &&
-       ColumnType::profile_type::Equals(profile_type, other.profile_type) &&
+       ColumnType::upid_group::Equals(upid_group, other.upid_group) &&
        ColumnType::focus_str::Equals(focus_str, other.focus_str) &&
+       ColumnType::ts::Equals(ts, other.ts) &&
        ColumnType::depth::Equals(depth, other.depth) &&
        ColumnType::name::Equals(name, other.name) &&
        ColumnType::map_name::Equals(map_name, other.map_name) &&
@@ -2093,15 +2106,17 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
        ColumnType::cumulative_alloc_size::Equals(cumulative_alloc_size, other.cumulative_alloc_size) &&
        ColumnType::parent_id::Equals(parent_id, other.parent_id) &&
        ColumnType::source_file::Equals(source_file, other.source_file) &&
-       ColumnType::line_number::Equals(line_number, other.line_number) &&
-       ColumnType::upid_group::Equals(upid_group, other.upid_group);
+       ColumnType::line_number::Equals(line_number, other.line_number);
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t ts = static_cast<uint32_t>(Column::Flag::kSorted | Column::Flag::kHidden) | ColumnType::ts::default_flags();
-    static constexpr uint32_t upid = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::upid::default_flags();
-    static constexpr uint32_t profile_type = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::profile_type::default_flags();
-    static constexpr uint32_t focus_str = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::focus_str::default_flags();
+    static constexpr uint32_t profile_type = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::profile_type::default_flags();
+    static constexpr uint32_t ts_in = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted | ColumnLegacy::Flag::kHidden) | ColumnType::ts_in::default_flags();
+    static constexpr uint32_t ts_constraint = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::ts_constraint::default_flags();
+    static constexpr uint32_t upid = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::upid::default_flags();
+    static constexpr uint32_t upid_group = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::upid_group::default_flags();
+    static constexpr uint32_t focus_str = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::focus_str::default_flags();
+    static constexpr uint32_t ts = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::ts::default_flags();
     static constexpr uint32_t depth = ColumnType::depth::default_flags();
     static constexpr uint32_t name = ColumnType::name::default_flags();
     static constexpr uint32_t map_name = ColumnType::map_name::default_flags();
@@ -2116,7 +2131,6 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     static constexpr uint32_t parent_id = ColumnType::parent_id::default_flags();
     static constexpr uint32_t source_file = ColumnType::source_file::default_flags();
     static constexpr uint32_t line_number = ColumnType::line_number::default_flags();
-    static constexpr uint32_t upid_group = ColumnType::upid_group::default_flags();
   };
 
   class RowNumber;
@@ -2124,7 +2138,7 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
   class RowReference;
 
   class RowNumber : public macros_internal::AbstractRowNumber<
-      ExperimentalFlamegraphNodesTable, ConstRowReference, RowReference> {
+      ExperimentalFlamegraphTable, ConstRowReference, RowReference> {
    public:
     explicit RowNumber(uint32_t row_number)
         : AbstractRowNumber(row_number) {}
@@ -2133,9 +2147,9 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
                 "Inheritance used without trivial destruction");
 
   class ConstRowReference : public macros_internal::AbstractConstRowReference<
-    ExperimentalFlamegraphNodesTable, RowNumber> {
+    ExperimentalFlamegraphTable, RowNumber> {
    public:
-    ConstRowReference(const ExperimentalFlamegraphNodesTable* table, uint32_t row_number)
+    ConstRowReference(const ExperimentalFlamegraphTable* table, uint32_t row_number)
         : AbstractConstRowReference(table, row_number) {}
 
     ColumnType::id::type id() const {
@@ -2144,17 +2158,26 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     ColumnType::type::type type() const {
       return table_->type()[row_number_];
     }
-    ColumnType::ts::type ts() const {
-      return table_->ts()[row_number_];
+    ColumnType::profile_type::type profile_type() const {
+      return table_->profile_type()[row_number_];
+    }
+    ColumnType::ts_in::type ts_in() const {
+      return table_->ts_in()[row_number_];
+    }
+    ColumnType::ts_constraint::type ts_constraint() const {
+      return table_->ts_constraint()[row_number_];
     }
     ColumnType::upid::type upid() const {
       return table_->upid()[row_number_];
     }
-    ColumnType::profile_type::type profile_type() const {
-      return table_->profile_type()[row_number_];
+    ColumnType::upid_group::type upid_group() const {
+      return table_->upid_group()[row_number_];
     }
     ColumnType::focus_str::type focus_str() const {
       return table_->focus_str()[row_number_];
+    }
+    ColumnType::ts::type ts() const {
+      return table_->ts()[row_number_];
     }
     ColumnType::depth::type depth() const {
       return table_->depth()[row_number_];
@@ -2198,32 +2221,41 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     ColumnType::line_number::type line_number() const {
       return table_->line_number()[row_number_];
     }
-    ColumnType::upid_group::type upid_group() const {
-      return table_->upid_group()[row_number_];
-    }
   };
   static_assert(std::is_trivially_destructible<ConstRowReference>::value,
                 "Inheritance used without trivial destruction");
   class RowReference : public ConstRowReference {
    public:
-    RowReference(const ExperimentalFlamegraphNodesTable* table, uint32_t row_number)
+    RowReference(const ExperimentalFlamegraphTable* table, uint32_t row_number)
         : ConstRowReference(table, row_number) {}
 
-    void set_ts(
-        ColumnType::ts::non_optional_type v) {
-      return mutable_table()->mutable_ts()->Set(row_number_, v);
+    void set_profile_type(
+        ColumnType::profile_type::non_optional_type v) {
+      return mutable_table()->mutable_profile_type()->Set(row_number_, v);
+    }
+    void set_ts_in(
+        ColumnType::ts_in::non_optional_type v) {
+      return mutable_table()->mutable_ts_in()->Set(row_number_, v);
+    }
+    void set_ts_constraint(
+        ColumnType::ts_constraint::non_optional_type v) {
+      return mutable_table()->mutable_ts_constraint()->Set(row_number_, v);
     }
     void set_upid(
         ColumnType::upid::non_optional_type v) {
       return mutable_table()->mutable_upid()->Set(row_number_, v);
     }
-    void set_profile_type(
-        ColumnType::profile_type::non_optional_type v) {
-      return mutable_table()->mutable_profile_type()->Set(row_number_, v);
+    void set_upid_group(
+        ColumnType::upid_group::non_optional_type v) {
+      return mutable_table()->mutable_upid_group()->Set(row_number_, v);
     }
     void set_focus_str(
         ColumnType::focus_str::non_optional_type v) {
       return mutable_table()->mutable_focus_str()->Set(row_number_, v);
+    }
+    void set_ts(
+        ColumnType::ts::non_optional_type v) {
+      return mutable_table()->mutable_ts()->Set(row_number_, v);
     }
     void set_depth(
         ColumnType::depth::non_optional_type v) {
@@ -2281,14 +2313,10 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         ColumnType::line_number::non_optional_type v) {
       return mutable_table()->mutable_line_number()->Set(row_number_, v);
     }
-    void set_upid_group(
-        ColumnType::upid_group::non_optional_type v) {
-      return mutable_table()->mutable_upid_group()->Set(row_number_, v);
-    }
 
    private:
-    ExperimentalFlamegraphNodesTable* mutable_table() const {
-      return const_cast<ExperimentalFlamegraphNodesTable*>(table_);
+    ExperimentalFlamegraphTable* mutable_table() const {
+      return const_cast<ExperimentalFlamegraphTable*>(table_);
     }
   };
   static_assert(std::is_trivially_destructible<RowReference>::value,
@@ -2296,7 +2324,7 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
 
   class ConstIterator;
   class ConstIterator : public macros_internal::AbstractConstIterator<
-    ConstIterator, ExperimentalFlamegraphNodesTable, RowNumber, ConstRowReference> {
+    ConstIterator, ExperimentalFlamegraphTable, RowNumber, ConstRowReference> {
    public:
     ColumnType::id::type id() const {
       const auto& col = table_->id();
@@ -2306,20 +2334,32 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
       const auto& col = table_->type();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
-    ColumnType::ts::type ts() const {
-      const auto& col = table_->ts();
+    ColumnType::profile_type::type profile_type() const {
+      const auto& col = table_->profile_type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::ts_in::type ts_in() const {
+      const auto& col = table_->ts_in();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::ts_constraint::type ts_constraint() const {
+      const auto& col = table_->ts_constraint();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
     ColumnType::upid::type upid() const {
       const auto& col = table_->upid();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
-    ColumnType::profile_type::type profile_type() const {
-      const auto& col = table_->profile_type();
+    ColumnType::upid_group::type upid_group() const {
+      const auto& col = table_->upid_group();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
     ColumnType::focus_str::type focus_str() const {
       const auto& col = table_->focus_str();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::ts::type ts() const {
+      const auto& col = table_->ts();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
     ColumnType::depth::type depth() const {
@@ -2378,13 +2418,9 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
       const auto& col = table_->line_number();
       return col.GetAtIdx(its_[col.overlay_index()].index());
     }
-    ColumnType::upid_group::type upid_group() const {
-      const auto& col = table_->upid_group();
-      return col.GetAtIdx(its_[col.overlay_index()].index());
-    }
 
    protected:
-    explicit ConstIterator(const ExperimentalFlamegraphNodesTable* table,
+    explicit ConstIterator(const ExperimentalFlamegraphTable* table,
                            std::vector<ColumnStorageOverlay> overlays)
         : AbstractConstIterator(table, std::move(overlays)) {}
 
@@ -2393,26 +2429,38 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     }
 
    private:
-    friend class ExperimentalFlamegraphNodesTable;
+    friend class ExperimentalFlamegraphTable;
     friend class macros_internal::AbstractConstIterator<
-      ConstIterator, ExperimentalFlamegraphNodesTable, RowNumber, ConstRowReference>;
+      ConstIterator, ExperimentalFlamegraphTable, RowNumber, ConstRowReference>;
   };
   class Iterator : public ConstIterator {
     public:
-    void set_ts(ColumnType::ts::non_optional_type v) {
-        auto* col = mutable_table_->mutable_ts();
+    void set_profile_type(ColumnType::profile_type::non_optional_type v) {
+        auto* col = mutable_table_->mutable_profile_type();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_ts_in(ColumnType::ts_in::non_optional_type v) {
+        auto* col = mutable_table_->mutable_ts_in();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_ts_constraint(ColumnType::ts_constraint::non_optional_type v) {
+        auto* col = mutable_table_->mutable_ts_constraint();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
       void set_upid(ColumnType::upid::non_optional_type v) {
         auto* col = mutable_table_->mutable_upid();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
-      void set_profile_type(ColumnType::profile_type::non_optional_type v) {
-        auto* col = mutable_table_->mutable_profile_type();
+      void set_upid_group(ColumnType::upid_group::non_optional_type v) {
+        auto* col = mutable_table_->mutable_upid_group();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
       void set_focus_str(ColumnType::focus_str::non_optional_type v) {
         auto* col = mutable_table_->mutable_focus_str();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_ts(ColumnType::ts::non_optional_type v) {
+        auto* col = mutable_table_->mutable_ts();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
       void set_depth(ColumnType::depth::non_optional_type v) {
@@ -2471,24 +2519,20 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         auto* col = mutable_table_->mutable_line_number();
         col->SetAtIdx(its_[col->overlay_index()].index(), v);
       }
-      void set_upid_group(ColumnType::upid_group::non_optional_type v) {
-        auto* col = mutable_table_->mutable_upid_group();
-        col->SetAtIdx(its_[col->overlay_index()].index(), v);
-      }
 
     RowReference row_reference() const {
       return RowReference(mutable_table_, CurrentRowNumber());
     }
 
     private:
-    friend class ExperimentalFlamegraphNodesTable;
+    friend class ExperimentalFlamegraphTable;
 
-    explicit Iterator(ExperimentalFlamegraphNodesTable* table,
+    explicit Iterator(ExperimentalFlamegraphTable* table,
                       std::vector<ColumnStorageOverlay> overlays)
         : ConstIterator(table, std::move(overlays)),
           mutable_table_(table) {}
 
-    ExperimentalFlamegraphNodesTable* mutable_table_ = nullptr;
+    ExperimentalFlamegraphTable* mutable_table_ = nullptr;
   };
 
   struct IdAndRow {
@@ -2498,12 +2542,15 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     RowNumber row_number;
   };
 
-  explicit ExperimentalFlamegraphNodesTable(StringPool* pool)
+  explicit ExperimentalFlamegraphTable(StringPool* pool)
       : macros_internal::MacroTable(pool, nullptr),
-        ts_(ColumnStorage<ColumnType::ts::stored_type>::Create<false>()),
-        upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()),
         profile_type_(ColumnStorage<ColumnType::profile_type::stored_type>::Create<false>()),
+        ts_in_(ColumnStorage<ColumnType::ts_in::stored_type>::Create<false>()),
+        ts_constraint_(ColumnStorage<ColumnType::ts_constraint::stored_type>::Create<false>()),
+        upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()),
+        upid_group_(ColumnStorage<ColumnType::upid_group::stored_type>::Create<false>()),
         focus_str_(ColumnStorage<ColumnType::focus_str::stored_type>::Create<false>()),
+        ts_(ColumnStorage<ColumnType::ts::stored_type>::Create<false>()),
         depth_(ColumnStorage<ColumnType::depth::stored_type>::Create<false>()),
         name_(ColumnStorage<ColumnType::name::stored_type>::Create<false>()),
         map_name_(ColumnStorage<ColumnType::map_name::stored_type>::Create<false>()),
@@ -2517,95 +2564,111 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         cumulative_alloc_size_(ColumnStorage<ColumnType::cumulative_alloc_size::stored_type>::Create<false>()),
         parent_id_(ColumnStorage<ColumnType::parent_id::stored_type>::Create<false>()),
         source_file_(ColumnStorage<ColumnType::source_file::stored_type>::Create<false>()),
-        line_number_(ColumnStorage<ColumnType::line_number::stored_type>::Create<false>()),
-        upid_group_(ColumnStorage<ColumnType::upid_group::stored_type>::Create<false>()) {
+        line_number_(ColumnStorage<ColumnType::line_number::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
-          ColumnFlag::ts),
-        "Column type and flag combination is not valid");
-      static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
-          ColumnFlag::upid),
-        "Column type and flag combination is not valid");
-      static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::profile_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::profile_type::stored_type>(
           ColumnFlag::profile_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::focus_str::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts_in::stored_type>(
+          ColumnFlag::ts_in),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts_constraint::stored_type>(
+          ColumnFlag::ts_constraint),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+          ColumnFlag::upid),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid_group::stored_type>(
+          ColumnFlag::upid_group),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::focus_str::stored_type>(
           ColumnFlag::focus_str),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::depth::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+          ColumnFlag::ts),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::depth::stored_type>(
           ColumnFlag::depth),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::map_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::map_name::stored_type>(
           ColumnFlag::map_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::count::stored_type>(
           ColumnFlag::count),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cumulative_count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cumulative_count::stored_type>(
           ColumnFlag::cumulative_count),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
           ColumnFlag::size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cumulative_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cumulative_size::stored_type>(
           ColumnFlag::cumulative_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::alloc_count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::alloc_count::stored_type>(
           ColumnFlag::alloc_count),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cumulative_alloc_count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cumulative_alloc_count::stored_type>(
           ColumnFlag::cumulative_alloc_count),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::alloc_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::alloc_size::stored_type>(
           ColumnFlag::alloc_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cumulative_alloc_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cumulative_alloc_size::stored_type>(
           ColumnFlag::cumulative_alloc_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
           ColumnFlag::parent_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::source_file::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::source_file::stored_type>(
           ColumnFlag::source_file),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::line_number::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::line_number::stored_type>(
           ColumnFlag::line_number),
         "Column type and flag combination is not valid");
-      static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid_group::stored_type>(
-          ColumnFlag::upid_group),
-        "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
-    columns_.emplace_back("ts", &ts_, ColumnFlag::ts,
+    columns_.emplace_back("profile_type", &profile_type_, ColumnFlag::profile_type,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("ts_in", &ts_in_, ColumnFlag::ts_in,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("ts_constraint", &ts_constraint_, ColumnFlag::ts_constraint,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("upid", &upid_, ColumnFlag::upid,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
-    columns_.emplace_back("profile_type", &profile_type_, ColumnFlag::profile_type,
+    columns_.emplace_back("upid_group", &upid_group_, ColumnFlag::upid_group,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("focus_str", &focus_str_, ColumnFlag::focus_str,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("ts", &ts_, ColumnFlag::ts,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
     columns_.emplace_back("depth", &depth_, ColumnFlag::depth,
@@ -2650,13 +2713,10 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     columns_.emplace_back("line_number", &line_number_, ColumnFlag::line_number,
                           this, static_cast<uint32_t>(columns_.size()),
                           olay_idx);
-    columns_.emplace_back("upid_group", &upid_group_, ColumnFlag::upid_group,
-                          this, static_cast<uint32_t>(columns_.size()),
-                          olay_idx);
   }
-  ~ExperimentalFlamegraphNodesTable() override;
+  ~ExperimentalFlamegraphTable() override;
 
-  static const char* Name() { return "experimental_flamegraph_nodes"; }
+  static const char* Name() { return "experimental_flamegraph"; }
 
   static Table::Schema ComputeStaticSchema() {
     Table::Schema schema;
@@ -2665,8 +2725,18 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     schema.columns.emplace_back(Table::Schema::Column{
         "type", SqlValue::Type::kString, false, false, false, false});
     schema.columns.emplace_back(Table::Schema::Column{
-        "ts", ColumnType::ts::SqlValueType(), false,
+        "profile_type", ColumnType::profile_type::SqlValueType(), false,
+        false,
         true,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "ts_in", ColumnType::ts_in::SqlValueType(), false,
+        true,
+        true,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "ts_constraint", ColumnType::ts_constraint::SqlValueType(), false,
+        false,
         true,
         false});
     schema.columns.emplace_back(Table::Schema::Column{
@@ -2675,7 +2745,7 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         true,
         false});
     schema.columns.emplace_back(Table::Schema::Column{
-        "profile_type", ColumnType::profile_type::SqlValueType(), false,
+        "upid_group", ColumnType::upid_group::SqlValueType(), false,
         false,
         true,
         false});
@@ -2683,6 +2753,11 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         "focus_str", ColumnType::focus_str::SqlValueType(), false,
         false,
         true,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "ts", ColumnType::ts::SqlValueType(), false,
+        true,
+        false,
         false});
     schema.columns.emplace_back(Table::Schema::Column{
         "depth", ColumnType::depth::SqlValueType(), false,
@@ -2754,11 +2829,6 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
         false,
         false,
         false});
-    schema.columns.emplace_back(Table::Schema::Column{
-        "upid_group", ColumnType::upid_group::SqlValueType(), false,
-        false,
-        false,
-        false});
     return schema;
   }
 
@@ -2782,10 +2852,13 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
 
   void ShrinkToFit() {
     type_.ShrinkToFit();
-    ts_.ShrinkToFit();
-    upid_.ShrinkToFit();
     profile_type_.ShrinkToFit();
+    ts_in_.ShrinkToFit();
+    ts_constraint_.ShrinkToFit();
+    upid_.ShrinkToFit();
+    upid_group_.ShrinkToFit();
     focus_str_.ShrinkToFit();
+    ts_.ShrinkToFit();
     depth_.ShrinkToFit();
     name_.ShrinkToFit();
     map_name_.ShrinkToFit();
@@ -2800,7 +2873,6 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     parent_id_.ShrinkToFit();
     source_file_.ShrinkToFit();
     line_number_.ShrinkToFit();
-    upid_group_.ShrinkToFit();
   }
 
   std::optional<ConstRowReference> FindById(Id find_id) const {
@@ -2818,10 +2890,13 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     uint32_t row_number = row_count();
     Id id = Id{row_number};
     type_.Append(string_pool_->InternString(row.type()));
-    mutable_ts()->Append(std::move(row.ts));
-    mutable_upid()->Append(std::move(row.upid));
     mutable_profile_type()->Append(std::move(row.profile_type));
+    mutable_ts_in()->Append(std::move(row.ts_in));
+    mutable_ts_constraint()->Append(std::move(row.ts_constraint));
+    mutable_upid()->Append(std::move(row.upid));
+    mutable_upid_group()->Append(std::move(row.upid_group));
     mutable_focus_str()->Append(std::move(row.focus_str));
+    mutable_ts()->Append(std::move(row.ts));
     mutable_depth()->Append(std::move(row.depth));
     mutable_name()->Append(std::move(row.name));
     mutable_map_name()->Append(std::move(row.map_name));
@@ -2836,7 +2911,6 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     mutable_parent_id()->Append(std::move(row.parent_id));
     mutable_source_file()->Append(std::move(row.source_file));
     mutable_line_number()->Append(std::move(row.line_number));
-    mutable_upid_group()->Append(std::move(row.upid_group));
     UpdateSelfOverlayAfterInsert();
     return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
                      RowNumber(row_number)};
@@ -2844,23 +2918,32 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
 
   
 
-  const IdColumn<ExperimentalFlamegraphNodesTable::Id>& id() const {
+  const IdColumn<ExperimentalFlamegraphTable::Id>& id() const {
     return static_cast<const ColumnType::id&>(columns_[ColumnIndex::id]);
   }
   const TypedColumn<StringPool::Id>& type() const {
     return static_cast<const ColumnType::type&>(columns_[ColumnIndex::type]);
   }
-  const TypedColumn<int64_t>& ts() const {
-    return static_cast<const ColumnType::ts&>(columns_[ColumnIndex::ts]);
-  }
-  const TypedColumn<uint32_t>& upid() const {
-    return static_cast<const ColumnType::upid&>(columns_[ColumnIndex::upid]);
-  }
   const TypedColumn<StringPool::Id>& profile_type() const {
     return static_cast<const ColumnType::profile_type&>(columns_[ColumnIndex::profile_type]);
   }
-  const TypedColumn<StringPool::Id>& focus_str() const {
+  const TypedColumn<std::optional<int64_t>>& ts_in() const {
+    return static_cast<const ColumnType::ts_in&>(columns_[ColumnIndex::ts_in]);
+  }
+  const TypedColumn<std::optional<StringPool::Id>>& ts_constraint() const {
+    return static_cast<const ColumnType::ts_constraint&>(columns_[ColumnIndex::ts_constraint]);
+  }
+  const TypedColumn<std::optional<uint32_t>>& upid() const {
+    return static_cast<const ColumnType::upid&>(columns_[ColumnIndex::upid]);
+  }
+  const TypedColumn<std::optional<StringPool::Id>>& upid_group() const {
+    return static_cast<const ColumnType::upid_group&>(columns_[ColumnIndex::upid_group]);
+  }
+  const TypedColumn<std::optional<StringPool::Id>>& focus_str() const {
     return static_cast<const ColumnType::focus_str&>(columns_[ColumnIndex::focus_str]);
+  }
+  const TypedColumn<int64_t>& ts() const {
+    return static_cast<const ColumnType::ts&>(columns_[ColumnIndex::ts]);
   }
   const TypedColumn<uint32_t>& depth() const {
     return static_cast<const ColumnType::depth&>(columns_[ColumnIndex::depth]);
@@ -2895,7 +2978,7 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
   const TypedColumn<int64_t>& cumulative_alloc_size() const {
     return static_cast<const ColumnType::cumulative_alloc_size&>(columns_[ColumnIndex::cumulative_alloc_size]);
   }
-  const TypedColumn<std::optional<ExperimentalFlamegraphNodesTable::Id>>& parent_id() const {
+  const TypedColumn<std::optional<ExperimentalFlamegraphTable::Id>>& parent_id() const {
     return static_cast<const ColumnType::parent_id&>(columns_[ColumnIndex::parent_id]);
   }
   const TypedColumn<std::optional<StringPool::Id>>& source_file() const {
@@ -2904,25 +2987,34 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
   const TypedColumn<std::optional<uint32_t>>& line_number() const {
     return static_cast<const ColumnType::line_number&>(columns_[ColumnIndex::line_number]);
   }
-  const TypedColumn<std::optional<StringPool::Id>>& upid_group() const {
-    return static_cast<const ColumnType::upid_group&>(columns_[ColumnIndex::upid_group]);
-  }
 
-  TypedColumn<int64_t>* mutable_ts() {
-    return static_cast<ColumnType::ts*>(
-        &columns_[ColumnIndex::ts]);
-  }
-  TypedColumn<uint32_t>* mutable_upid() {
-    return static_cast<ColumnType::upid*>(
-        &columns_[ColumnIndex::upid]);
-  }
   TypedColumn<StringPool::Id>* mutable_profile_type() {
     return static_cast<ColumnType::profile_type*>(
         &columns_[ColumnIndex::profile_type]);
   }
-  TypedColumn<StringPool::Id>* mutable_focus_str() {
+  TypedColumn<std::optional<int64_t>>* mutable_ts_in() {
+    return static_cast<ColumnType::ts_in*>(
+        &columns_[ColumnIndex::ts_in]);
+  }
+  TypedColumn<std::optional<StringPool::Id>>* mutable_ts_constraint() {
+    return static_cast<ColumnType::ts_constraint*>(
+        &columns_[ColumnIndex::ts_constraint]);
+  }
+  TypedColumn<std::optional<uint32_t>>* mutable_upid() {
+    return static_cast<ColumnType::upid*>(
+        &columns_[ColumnIndex::upid]);
+  }
+  TypedColumn<std::optional<StringPool::Id>>* mutable_upid_group() {
+    return static_cast<ColumnType::upid_group*>(
+        &columns_[ColumnIndex::upid_group]);
+  }
+  TypedColumn<std::optional<StringPool::Id>>* mutable_focus_str() {
     return static_cast<ColumnType::focus_str*>(
         &columns_[ColumnIndex::focus_str]);
+  }
+  TypedColumn<int64_t>* mutable_ts() {
+    return static_cast<ColumnType::ts*>(
+        &columns_[ColumnIndex::ts]);
   }
   TypedColumn<uint32_t>* mutable_depth() {
     return static_cast<ColumnType::depth*>(
@@ -2968,7 +3060,7 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     return static_cast<ColumnType::cumulative_alloc_size*>(
         &columns_[ColumnIndex::cumulative_alloc_size]);
   }
-  TypedColumn<std::optional<ExperimentalFlamegraphNodesTable::Id>>* mutable_parent_id() {
+  TypedColumn<std::optional<ExperimentalFlamegraphTable::Id>>* mutable_parent_id() {
     return static_cast<ColumnType::parent_id*>(
         &columns_[ColumnIndex::parent_id]);
   }
@@ -2980,18 +3072,17 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
     return static_cast<ColumnType::line_number*>(
         &columns_[ColumnIndex::line_number]);
   }
-  TypedColumn<std::optional<StringPool::Id>>* mutable_upid_group() {
-    return static_cast<ColumnType::upid_group*>(
-        &columns_[ColumnIndex::upid_group]);
-  }
 
  private:
   
   
-  ColumnStorage<ColumnType::ts::stored_type> ts_;
-  ColumnStorage<ColumnType::upid::stored_type> upid_;
   ColumnStorage<ColumnType::profile_type::stored_type> profile_type_;
+  ColumnStorage<ColumnType::ts_in::stored_type> ts_in_;
+  ColumnStorage<ColumnType::ts_constraint::stored_type> ts_constraint_;
+  ColumnStorage<ColumnType::upid::stored_type> upid_;
+  ColumnStorage<ColumnType::upid_group::stored_type> upid_group_;
   ColumnStorage<ColumnType::focus_str::stored_type> focus_str_;
+  ColumnStorage<ColumnType::ts::stored_type> ts_;
   ColumnStorage<ColumnType::depth::stored_type> depth_;
   ColumnStorage<ColumnType::name::stored_type> name_;
   ColumnStorage<ColumnType::map_name::stored_type> map_name_;
@@ -3006,7 +3097,6 @@ class ExperimentalFlamegraphNodesTable : public macros_internal::MacroTable {
   ColumnStorage<ColumnType::parent_id::stored_type> parent_id_;
   ColumnStorage<ColumnType::source_file::stored_type> source_file_;
   ColumnStorage<ColumnType::line_number::stored_type> line_number_;
-  ColumnStorage<ColumnType::upid_group::stored_type> upid_group_;
 };
   
 
@@ -3182,11 +3272,11 @@ class GpuCounterGroupTable : public macros_internal::MacroTable {
         group_id_(ColumnStorage<ColumnType::group_id::stored_type>::Create<false>()),
         track_id_(ColumnStorage<ColumnType::track_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::group_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::group_id::stored_type>(
           ColumnFlag::group_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
           ColumnFlag::track_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3562,27 +3652,27 @@ class HeapGraphClassTable : public macros_internal::MacroTable {
         classloader_id_(ColumnStorage<ColumnType::classloader_id::stored_type>::Create<false>()),
         kind_(ColumnStorage<ColumnType::kind::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::deobfuscated_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::deobfuscated_name::stored_type>(
           ColumnFlag::deobfuscated_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::location::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::location::stored_type>(
           ColumnFlag::location),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::superclass_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::superclass_id::stored_type>(
           ColumnFlag::superclass_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::classloader_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::classloader_id::stored_type>(
           ColumnFlag::classloader_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::kind::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::kind::stored_type>(
           ColumnFlag::kind),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3851,11 +3941,11 @@ class HeapGraphObjectTable : public macros_internal::MacroTable {
     static constexpr uint32_t graph_sample_ts = ColumnType::graph_sample_ts::default_flags();
     static constexpr uint32_t self_size = ColumnType::self_size::default_flags();
     static constexpr uint32_t native_size = ColumnType::native_size::default_flags();
-    static constexpr uint32_t reference_set_id = static_cast<uint32_t>(Column::Flag::kDense) | ColumnType::reference_set_id::default_flags();
+    static constexpr uint32_t reference_set_id = static_cast<uint32_t>(ColumnLegacy::Flag::kDense) | ColumnType::reference_set_id::default_flags();
     static constexpr uint32_t reachable = ColumnType::reachable::default_flags();
     static constexpr uint32_t type_id = ColumnType::type_id::default_flags();
     static constexpr uint32_t root_type = ColumnType::root_type::default_flags();
-    static constexpr uint32_t root_distance = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::root_distance::default_flags();
+    static constexpr uint32_t root_distance = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::root_distance::default_flags();
   };
 
   class RowNumber;
@@ -4099,39 +4189,39 @@ class HeapGraphObjectTable : public macros_internal::MacroTable {
         root_type_(ColumnStorage<ColumnType::root_type::stored_type>::Create<false>()),
         root_distance_(ColumnStorage<ColumnType::root_distance::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::graph_sample_ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::graph_sample_ts::stored_type>(
           ColumnFlag::graph_sample_ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::self_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::self_size::stored_type>(
           ColumnFlag::self_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::native_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::native_size::stored_type>(
           ColumnFlag::native_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::reference_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::reference_set_id::stored_type>(
           ColumnFlag::reference_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::reachable::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::reachable::stored_type>(
           ColumnFlag::reachable),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::type_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::type_id::stored_type>(
           ColumnFlag::type_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::root_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::root_type::stored_type>(
           ColumnFlag::root_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::root_distance::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::root_distance::stored_type>(
           ColumnFlag::root_distance),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -4432,7 +4522,7 @@ class HeapGraphReferenceTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t reference_set_id = static_cast<uint32_t>(Column::Flag::kSorted | Column::Flag::kSetId) | ColumnType::reference_set_id::default_flags();
+    static constexpr uint32_t reference_set_id = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted | ColumnLegacy::Flag::kSetId) | ColumnType::reference_set_id::default_flags();
     static constexpr uint32_t owner_id = ColumnType::owner_id::default_flags();
     static constexpr uint32_t owned_id = ColumnType::owned_id::default_flags();
     static constexpr uint32_t field_name = ColumnType::field_name::default_flags();
@@ -4633,27 +4723,27 @@ class HeapGraphReferenceTable : public macros_internal::MacroTable {
         field_type_name_(ColumnStorage<ColumnType::field_type_name::stored_type>::Create<false>()),
         deobfuscated_field_name_(ColumnStorage<ColumnType::deobfuscated_field_name::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::reference_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::reference_set_id::stored_type>(
           ColumnFlag::reference_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::owner_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::owner_id::stored_type>(
           ColumnFlag::owner_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::owned_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::owned_id::stored_type>(
           ColumnFlag::owned_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::field_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::field_name::stored_type>(
           ColumnFlag::field_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::field_type_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::field_type_name::stored_type>(
           ColumnFlag::field_type_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::deobfuscated_field_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::deobfuscated_field_name::stored_type>(
           ColumnFlag::deobfuscated_field_name),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -5101,27 +5191,27 @@ class HeapProfileAllocationTable : public macros_internal::MacroTable {
         count_(ColumnStorage<ColumnType::count::stored_type>::Create<false>()),
         size_(ColumnStorage<ColumnType::size::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::heap_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::heap_name::stored_type>(
           ColumnFlag::heap_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::callsite_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::callsite_id::stored_type>(
           ColumnFlag::callsite_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::count::stored_type>(
           ColumnFlag::count),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
           ColumnFlag::size),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -5546,23 +5636,23 @@ class PackageListTable : public macros_internal::MacroTable {
         profileable_from_shell_(ColumnStorage<ColumnType::profileable_from_shell::stored_type>::Create<false>()),
         version_code_(ColumnStorage<ColumnType::version_code::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::package_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::package_name::stored_type>(
           ColumnFlag::package_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::debuggable::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::debuggable::stored_type>(
           ColumnFlag::debuggable),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::profileable_from_shell::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::profileable_from_shell::stored_type>(
           ColumnFlag::profileable_from_shell),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::version_code::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::version_code::stored_type>(
           ColumnFlag::version_code),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -5797,7 +5887,7 @@ class PerfSampleTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t ts = static_cast<uint32_t>(Column::Flag::kSorted) | ColumnType::ts::default_flags();
+    static constexpr uint32_t ts = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::ts::default_flags();
     static constexpr uint32_t utid = ColumnType::utid::default_flags();
     static constexpr uint32_t cpu = ColumnType::cpu::default_flags();
     static constexpr uint32_t cpu_mode = ColumnType::cpu_mode::default_flags();
@@ -6015,31 +6105,31 @@ class PerfSampleTable : public macros_internal::MacroTable {
         unwind_error_(ColumnStorage<ColumnType::unwind_error::stored_type>::Create<false>()),
         perf_session_id_(ColumnStorage<ColumnType::perf_session_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu_mode::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu_mode::stored_type>(
           ColumnFlag::cpu_mode),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::callsite_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::callsite_id::stored_type>(
           ColumnFlag::callsite_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::unwind_error::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::unwind_error::stored_type>(
           ColumnFlag::unwind_error),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_session_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_session_id::stored_type>(
           ColumnFlag::perf_session_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -6758,71 +6848,71 @@ class ProfilerSmapsTable : public macros_internal::MacroTable {
         locked_kb_(ColumnStorage<ColumnType::locked_kb::stored_type>::Create<false>()),
         proportional_resident_kb_(ColumnStorage<ColumnType::proportional_resident_kb::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
           ColumnFlag::path),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::size_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::size_kb::stored_type>(
           ColumnFlag::size_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::private_dirty_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::private_dirty_kb::stored_type>(
           ColumnFlag::private_dirty_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::swap_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::swap_kb::stored_type>(
           ColumnFlag::swap_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::file_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::file_name::stored_type>(
           ColumnFlag::file_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::start_address::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::start_address::stored_type>(
           ColumnFlag::start_address),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::module_timestamp::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::module_timestamp::stored_type>(
           ColumnFlag::module_timestamp),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::module_debugid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::module_debugid::stored_type>(
           ColumnFlag::module_debugid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::module_debug_path::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::module_debug_path::stored_type>(
           ColumnFlag::module_debug_path),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::protection_flags::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::protection_flags::stored_type>(
           ColumnFlag::protection_flags),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::private_clean_resident_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::private_clean_resident_kb::stored_type>(
           ColumnFlag::private_clean_resident_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::shared_dirty_resident_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::shared_dirty_resident_kb::stored_type>(
           ColumnFlag::shared_dirty_resident_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::shared_clean_resident_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::shared_clean_resident_kb::stored_type>(
           ColumnFlag::shared_clean_resident_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::locked_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::locked_kb::stored_type>(
           ColumnFlag::locked_kb),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::proportional_resident_kb::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::proportional_resident_kb::stored_type>(
           ColumnFlag::proportional_resident_kb),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -7255,7 +7345,7 @@ class SymbolTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t symbol_set_id = static_cast<uint32_t>(Column::Flag::kSorted | Column::Flag::kSetId) | ColumnType::symbol_set_id::default_flags();
+    static constexpr uint32_t symbol_set_id = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted | ColumnLegacy::Flag::kSetId) | ColumnType::symbol_set_id::default_flags();
     static constexpr uint32_t name = ColumnType::name::default_flags();
     static constexpr uint32_t source_file = ColumnType::source_file::default_flags();
     static constexpr uint32_t line_number = ColumnType::line_number::default_flags();
@@ -7422,19 +7512,19 @@ class SymbolTable : public macros_internal::MacroTable {
         source_file_(ColumnStorage<ColumnType::source_file::stored_type>::Create<false>()),
         line_number_(ColumnStorage<ColumnType::line_number::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::symbol_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::symbol_set_id::stored_type>(
           ColumnFlag::symbol_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::source_file::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::source_file::stored_type>(
           ColumnFlag::source_file),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::line_number::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::line_number::stored_type>(
           ColumnFlag::line_number),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -8030,59 +8120,59 @@ class VulkanMemoryAllocationsTable : public macros_internal::MacroTable {
         memory_size_(ColumnStorage<ColumnType::memory_size::stored_type>::Create<false>()),
         scope_(ColumnStorage<ColumnType::scope::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::source::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::source::stored_type>(
           ColumnFlag::source),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::operation::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::operation::stored_type>(
           ColumnFlag::operation),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::timestamp::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::timestamp::stored_type>(
           ColumnFlag::timestamp),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::device::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::device::stored_type>(
           ColumnFlag::device),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::device_memory::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::device_memory::stored_type>(
           ColumnFlag::device_memory),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::memory_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::memory_type::stored_type>(
           ColumnFlag::memory_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::heap::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::heap::stored_type>(
           ColumnFlag::heap),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::function_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::function_name::stored_type>(
           ColumnFlag::function_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::object_handle::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::object_handle::stored_type>(
           ColumnFlag::object_handle),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::memory_address::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::memory_address::stored_type>(
           ColumnFlag::memory_address),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::memory_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::memory_size::stored_type>(
           ColumnFlag::memory_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::scope::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::scope::stored_type>(
           ColumnFlag::scope),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

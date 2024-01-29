@@ -36,6 +36,7 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindClipboardHistory(::mojo::PendingReceiver<::crosapi::mojom::ClipboardHistory> receiver) override;
   void BindContentProtection(::mojo::PendingReceiver<::crosapi::mojom::ContentProtection> receiver) override;
   void BindCrosDisplayConfigController(::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> receiver) override;
+  void BindDebugInterfaceRegisterer(::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer> receiver) override;
   void BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) override;
   void BindDeskProfileObserver(::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> receiver) override;
   void BindDeskTemplate(::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> receiver) override;
@@ -57,6 +58,7 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void REMOVED_105(::mojo::PendingReceiver<::crosapi::mojom::FirewallHoleServiceDeprecated> receiver) override;
   void BindNetworkingPrivate(::mojo::PendingReceiver<::crosapi::mojom::NetworkingPrivate> receiver) override;
   void BindExtensionPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) override;
+  void BindFileChangeServiceBridge(::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge> receiver) override;
   void BindFileManager(::mojo::PendingReceiver<::crosapi::mojom::FileManager> receiver) override;
   void BindFileSystemAccessCloudIdentifierProvider(::mojo::PendingReceiver<::crosapi::mojom::FileSystemAccessCloudIdentifierProvider> receiver) override;
   void BindFileSystemProviderService(::mojo::PendingReceiver<::crosapi::mojom::FileSystemProviderService> receiver) override;
@@ -86,11 +88,13 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   void BindMultiCaptureService(::mojo::PendingReceiver<::crosapi::mojom::MultiCaptureService> receiver) override;
   void BindNetworkChange(::mojo::PendingReceiver<::crosapi::mojom::NetworkChange> receiver) override;
   void BindNetworkingAttributes(::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> receiver) override;
+  void BindOneDriveNotificationService(::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService> receiver) override;
   void BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) override;
   void BindPasskeyAuthenticator(::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> receiver) override;
   void BindPaymentAppInstance(::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> receiver) override;
   void BindPolicyService(::mojo::PendingReceiver<::crosapi::mojom::PolicyService> receiver) override;
   void BindPrefs(::mojo::PendingReceiver<::crosapi::mojom::Prefs> receiver) override;
+  void BindNonclosableAppToastService(::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService> receiver) override;
   void BindRemoteAppsLacrosBridge(::mojo::PendingReceiver<::chromeos::remote_apps::mojom::RemoteAppsLacrosBridge> receiver) override;
   void BindRemoting(::mojo::PendingReceiver<::crosapi::mojom::Remoting> receiver) override;
   void BindScreenAIDownloader(::mojo::PendingReceiver<::crosapi::mojom::ScreenAIDownloader> receiver) override;

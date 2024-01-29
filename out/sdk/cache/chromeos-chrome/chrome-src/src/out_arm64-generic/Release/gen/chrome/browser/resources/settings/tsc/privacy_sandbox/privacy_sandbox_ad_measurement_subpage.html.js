@@ -33,10 +33,6 @@ export function getTemplate() {
         <iron-icon icon="settings20:filter-list" aria-hidden="true"></iron-icon>
         <div class="secondary">$i18n{adMeasurementPageConsiderBullet2}</div>
       </li>
-      <li>
-        <iron-icon icon="settings:devices" aria-hidden="true"></iron-icon>
-        <div class="secondary">$i18n{adMeasurementPageConsiderBullet3}</div>
-      </li>
     </ul>
   </div>
 </div>

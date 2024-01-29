@@ -250,6 +250,8 @@ bool SystemStateHostStubDispatch::Accept(
           reinterpret_cast<internal::SystemStateHost_UpdateAppRunningState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemStateHost.0
       bool success = true;
       SystemAppRunningStatePtr p_state{};
       SystemStateHost_UpdateAppRunningState_ParamsDataView input_data_view(params, message);
@@ -265,8 +267,8 @@ bool SystemStateHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateAppRunningState(
-std::move(p_state));
+      impl->UpdateAppRunningState(        
+        std::move(p_state));
       return true;
     }
   }
@@ -479,6 +481,8 @@ bool SystemStateInstance_Init_ForwardToCallback::Accept(
           internal::SystemStateInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemStateInstance.0
   bool success = true;
   SystemStateInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -557,6 +561,8 @@ bool SystemStateInstanceStubDispatch::AcceptWithResponder(
               internal::SystemStateInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemStateInstance.0
       bool success = true;
       ::mojo::PendingRemote<SystemStateHost> p_host_remote{};
       SystemStateInstance_Init_ParamsDataView input_data_view(params, message);
@@ -577,8 +583,8 @@ bool SystemStateInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

@@ -32,6 +32,7 @@
 #include "protos/perfetto/trace/profiling/profile_packet.gen.h"
 #include "protos/perfetto/trace/profiling/profile_common.gen.h"
 #include "protos/perfetto/common/perf_events.gen.h"
+#include "protos/perfetto/trace/chrome/v8.gen.h"
 
 namespace perfetto {
 namespace protos {
@@ -48,7 +49,8 @@ bool TracePacketDefaults::operator==(const TracePacketDefaults& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
    && ::protozero::internal::gen_helpers::EqualsField(timestamp_clock_id_, other.timestamp_clock_id_)
    && ::protozero::internal::gen_helpers::EqualsField(track_event_defaults_, other.track_event_defaults_)
-   && ::protozero::internal::gen_helpers::EqualsField(perf_sample_defaults_, other.perf_sample_defaults_);
+   && ::protozero::internal::gen_helpers::EqualsField(perf_sample_defaults_, other.perf_sample_defaults_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_code_defaults_, other.v8_code_defaults_);
 }
 
 bool TracePacketDefaults::ParseFromArray(const void* raw, size_t size) {
@@ -69,6 +71,9 @@ bool TracePacketDefaults::ParseFromArray(const void* raw, size_t size) {
         break;
       case 12 /* perf_sample_defaults */:
         (*perf_sample_defaults_).ParseFromArray(field.data(), field.size());
+        break;
+      case 99 /* v8_code_defaults */:
+        (*v8_code_defaults_).ParseFromArray(field.data(), field.size());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -104,6 +109,11 @@ void TracePacketDefaults::Serialize(::protozero::Message* msg) const {
   // Field 12: perf_sample_defaults
   if (_has_field_[12]) {
     (*perf_sample_defaults_).Serialize(msg->BeginNestedMessage<::protozero::Message>(12));
+  }
+
+  // Field 99: v8_code_defaults
+  if (_has_field_[99]) {
+    (*v8_code_defaults_).Serialize(msg->BeginNestedMessage<::protozero::Message>(99));
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

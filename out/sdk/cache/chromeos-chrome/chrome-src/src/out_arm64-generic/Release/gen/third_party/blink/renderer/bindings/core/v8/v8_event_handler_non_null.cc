@@ -58,9 +58,7 @@ v8::Local<v8::Value> argv[std::max(1, argc)];
 ScriptState* script_state = CallbackRelevantScriptState();
 for (wtf_size_t i = 0; i < arg1_args.size(); ++i) {
   v8::Local<v8::Value> v8_arg1_args;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_args[i]).ToLocal(&v8_arg1_args)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_args = ToV8Traits<IDLAny>::ToV8(script_state, arg1_args[i]);
 argv[0 + i] = v8_arg1_args;
 }
 
@@ -102,9 +100,7 @@ v8::Local<v8::Value> argv[std::max(1, argc)];
 ScriptState* script_state = CallbackRelevantScriptState();
 for (wtf_size_t i = 0; i < arg1_args.size(); ++i) {
   v8::Local<v8::Value> v8_arg1_args;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_args[i]).ToLocal(&v8_arg1_args)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_args = ToV8Traits<IDLAny>::ToV8(script_state, arg1_args[i]);
 argv[0 + i] = v8_arg1_args;
 }
 
@@ -161,9 +157,7 @@ v8::Local<v8::Value> argv[std::max(1, argc)];
 ScriptState* script_state = CallbackRelevantScriptState();
 for (wtf_size_t i = 0; i < arg1_args.size(); ++i) {
   v8::Local<v8::Value> v8_arg1_args;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_args[i]).ToLocal(&v8_arg1_args)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_args = ToV8Traits<IDLAny>::ToV8(script_state, arg1_args[i]);
 argv[0 + i] = v8_arg1_args;
 }
 

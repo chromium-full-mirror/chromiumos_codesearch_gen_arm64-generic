@@ -9,12 +9,8 @@
 #include "nearby_share_dialog_resources.h"
 
 const webui::ResourcePath kNearbyShareDialogResources[] = {
-  {"nearby_share_progress_bar_dark.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PROGRESS_BAR_DARK_JSON},
-  {"nearby_share_progress_bar_light.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PROGRESS_BAR_LIGHT_JSON},
-  {"nearby_share_progress_bar_jelly.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PROGRESS_BAR_JELLY_JSON},
-  {"nearby_share_pulse_animation_dark.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PULSE_ANIMATION_DARK_JSON},
-  {"nearby_share_pulse_animation_light.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PULSE_ANIMATION_LIGHT_JSON},
-  {"nearby_share_pulse_animation_jelly.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PULSE_ANIMATION_JELLY_JSON},
+  {"nearby_share_progress_bar.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PROGRESS_BAR_JSON},
+  {"nearby_share_pulse_animation.json", IDR_NEARBY_SHARE_NEARBY_SHARE_PULSE_ANIMATION_JSON},
   {"shared/nearby_contact_visibility.js", IDR_NEARBY_SHARE_NEARBY_CONTACT_VISIBILITY_JS},
   {"shared/nearby_device_icon.js", IDR_NEARBY_SHARE_NEARBY_DEVICE_ICON_JS},
   {"shared/nearby_device.js", IDR_NEARBY_SHARE_NEARBY_DEVICE_JS},

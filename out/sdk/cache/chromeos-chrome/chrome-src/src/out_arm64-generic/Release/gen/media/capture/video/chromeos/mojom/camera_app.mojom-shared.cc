@@ -24,10 +24,10 @@ namespace mojom {
 NOINLINE static const char* EffectToStringHelper(Effect value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case Effect::NO_EFFECT:
-      return "NO_EFFECT";
-    case Effect::PORTRAIT_MODE:
-      return "PORTRAIT_MODE";
+    case Effect::kNoEffect:
+      return "kNoEffect";
+    case Effect::kPortraitMode:
+      return "kPortraitMode";
     default:
       return nullptr;
   }
@@ -48,16 +48,16 @@ std::ostream& operator<<(std::ostream& os, Effect value) {
 NOINLINE static const char* StreamTypeToStringHelper(StreamType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case StreamType::PREVIEW_OUTPUT:
-      return "PREVIEW_OUTPUT";
-    case StreamType::JPEG_OUTPUT:
-      return "JPEG_OUTPUT";
-    case StreamType::JPEG_PORTRAIT_OUTPUT:
-      return "JPEG_PORTRAIT_OUTPUT";
-    case StreamType::RECORDIND_OUTPUT:
-      return "RECORDIND_OUTPUT";
-    case StreamType::UNKNOWN:
-      return "UNKNOWN";
+    case StreamType::kPreviewOutput:
+      return "kPreviewOutput";
+    case StreamType::kJpegOutput:
+      return "kJpegOutput";
+    case StreamType::kJpegPortraitOutput:
+      return "kJpegPortraitOutput";
+    case StreamType::kRecordingOutput:
+      return "kRecordingOutput";
+    case StreamType::kUnknown:
+      return "kUnknown";
     default:
       return nullptr;
   }
@@ -78,10 +78,10 @@ std::ostream& operator<<(std::ostream& os, StreamType value) {
 NOINLINE static const char* GetCameraAppDeviceStatusToStringHelper(GetCameraAppDeviceStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case GetCameraAppDeviceStatus::SUCCESS:
-      return "SUCCESS";
-    case GetCameraAppDeviceStatus::ERROR_INVALID_ID:
-      return "ERROR_INVALID_ID";
+    case GetCameraAppDeviceStatus::kSuccess:
+      return "kSuccess";
+    case GetCameraAppDeviceStatus::kErrorInvalidId:
+      return "kErrorInvalidId";
     default:
       return nullptr;
   }
@@ -102,14 +102,14 @@ std::ostream& operator<<(std::ostream& os, GetCameraAppDeviceStatus value) {
 NOINLINE static const char* CaptureIntentToStringHelper(CaptureIntent value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case CaptureIntent::DEFAULT:
-      return "DEFAULT";
-    case CaptureIntent::VIDEO_RECORD:
-      return "VIDEO_RECORD";
-    case CaptureIntent::STILL_CAPTURE:
-      return "STILL_CAPTURE";
-    case CaptureIntent::PORTRAIT_CAPTURE:
-      return "PORTRAIT_CAPTURE";
+    case CaptureIntent::kDefault:
+      return "kDefault";
+    case CaptureIntent::kVideoRecord:
+      return "kVideoRecord";
+    case CaptureIntent::kStillCapture:
+      return "kStillCapture";
+    case CaptureIntent::kPortraitCapture:
+      return "kPortraitCapture";
     default:
       return nullptr;
   }

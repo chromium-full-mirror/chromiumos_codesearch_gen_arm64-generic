@@ -392,6 +392,7 @@ bool CSSOMTypes::IsPropertySupported(CSSPropertyID id) {
     case CSSPropertyID::kUserSelect:
     case CSSPropertyID::kVectorEffect:
     case CSSPropertyID::kVerticalAlign:
+    case CSSPropertyID::kViewTransitionClass:
     case CSSPropertyID::kViewTransitionName:
     case CSSPropertyID::kVisibility:
     case CSSPropertyID::kWhiteSpaceCollapse:

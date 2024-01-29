@@ -142,16 +142,16 @@ export class CoverageListView extends UI.Widget.VBox {
                 width: '60px',
                 fixedWidth: true,
                 sortable: true,
-                align: DataGrid.DataGrid.Align.Right,
+                align: "right" /* DataGrid.DataGrid.Align.Right */,
                 weight: 1,
             },
             {
-                id: 'unusedSize',
+                id: 'unused-size',
                 title: i18nString(UIStrings.unusedBytes),
                 width: '100px',
                 fixedWidth: true,
                 sortable: true,
-                align: DataGrid.DataGrid.Align.Right,
+                align: "right" /* DataGrid.DataGrid.Align.Right */,
                 sort: DataGrid.DataGrid.Order.Descending,
                 weight: 1,
             },
@@ -171,11 +171,12 @@ export class CoverageListView extends UI.Widget.VBox {
             refreshCallback: undefined,
             deleteCallback: undefined,
         });
-        this.dataGrid.setResizeMethod(DataGrid.DataGrid.ResizeMethod.Last);
+        this.dataGrid.setResizeMethod("last" /* DataGrid.DataGrid.ResizeMethod.Last */);
+        this.dataGrid.setStriped(true);
         this.dataGrid.element.classList.add('flex-auto');
         this.dataGrid.element.addEventListener('keydown', this.onKeyDown.bind(this), false);
-        this.dataGrid.addEventListener(DataGrid.DataGrid.Events.OpenedNode, this.onOpenedNode, this);
-        this.dataGrid.addEventListener(DataGrid.DataGrid.Events.SortingChanged, this.sortingChanged, this);
+        this.dataGrid.addEventListener("OpenedNode" /* DataGrid.DataGrid.Events.OpenedNode */, this.onOpenedNode, this);
+        this.dataGrid.addEventListener("SortingChanged" /* DataGrid.DataGrid.Events.SortingChanged */, this.sortingChanged, this);
         const dataGridWidget = this.dataGrid.asWidget();
         dataGridWidget.show(this.contentElement);
         this.setDefaultFocusedChild(dataGridWidget);
@@ -391,7 +392,7 @@ export class GridNode extends DataGrid.SortableDataGrid.SortableDataGridNode {
                 this.setCellAccessibleName(sizeAccessibleName, cell, columnId);
                 break;
             }
-            case 'unusedSize': {
+            case 'unused-size': {
                 const unusedSize = this.coverageInfo.unusedSize() || 0;
                 const unusedSizeSpan = cell.createChild('span');
                 const unusedPercentsSpan = cell.createChild('span', 'percent-value');
@@ -456,7 +457,7 @@ export class GridNode extends DataGrid.SortableDataGrid.SortableDataGridNode {
             case 'size':
                 return (a, b) => a.coverageInfo.size() - b.coverageInfo.size() || compareURL(a, b);
             case 'bars':
-            case 'unusedSize':
+            case 'unused-size':
                 return (a, b) => a.coverageInfo.unusedSize() - b.coverageInfo.unusedSize() || compareURL(a, b);
             default:
                 console.assert(false, 'Unknown sort field: ' + columnId);

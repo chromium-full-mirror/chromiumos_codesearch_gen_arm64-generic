@@ -305,6 +305,8 @@ bool CrossOriginEmbedderPolicyReporterStubDispatch::Accept(
           reinterpret_cast<internal::CrossOriginEmbedderPolicyReporter_QueueCorpViolationReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrossOriginEmbedderPolicyReporter.0
       bool success = true;
       ::GURL p_blocked_url{};
       ::network::mojom::RequestDestination p_destination{};
@@ -326,10 +328,10 @@ bool CrossOriginEmbedderPolicyReporterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueCorpViolationReport(
-std::move(p_blocked_url), 
-std::move(p_destination), 
-std::move(p_report_only));
+      impl->QueueCorpViolationReport(        
+        std::move(p_blocked_url), 
+        std::move(p_destination), 
+        std::move(p_report_only));
       return true;
     }
     case internal::kCrossOriginEmbedderPolicyReporter_Clone_Name: {
@@ -339,6 +341,8 @@ std::move(p_report_only));
           reinterpret_cast<internal::CrossOriginEmbedderPolicyReporter_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrossOriginEmbedderPolicyReporter.1
       bool success = true;
       ::mojo::PendingReceiver<CrossOriginEmbedderPolicyReporter> p_receiver{};
       CrossOriginEmbedderPolicyReporter_Clone_ParamsDataView input_data_view(params, message);
@@ -356,8 +360,8 @@ std::move(p_report_only));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }

@@ -60,14 +60,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_current_time;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLDouble>::ToV8(script_state, arg1_current_time).ToLocal(&v8_arg1_current_time)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_current_time = ToV8Traits<IDLDouble>::ToV8(script_state, arg1_current_time);
 argv[0] = v8_arg1_current_time;
 v8::Local<v8::Value> v8_arg2_effect;
-if (!ToV8Traits<V8UnionWorkletAnimationEffectOrWorkletGroupEffect>::ToV8(script_state, arg2_effect).ToLocal(&v8_arg2_effect)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_effect = ToV8Traits<V8UnionWorkletAnimationEffectOrWorkletGroupEffect>::ToV8(script_state, arg2_effect);
 argv[1] = v8_arg2_effect;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -106,14 +102,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_current_time;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLDouble>::ToV8(script_state, arg1_current_time).ToLocal(&v8_arg1_current_time)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_current_time = ToV8Traits<IDLDouble>::ToV8(script_state, arg1_current_time);
 argv[0] = v8_arg1_current_time;
 v8::Local<v8::Value> v8_arg2_effect;
-if (!ToV8Traits<V8UnionWorkletAnimationEffectOrWorkletGroupEffect>::ToV8(script_state, arg2_effect).ToLocal(&v8_arg2_effect)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_effect = ToV8Traits<V8UnionWorkletAnimationEffectOrWorkletGroupEffect>::ToV8(script_state, arg2_effect);
 argv[1] = v8_arg2_effect;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

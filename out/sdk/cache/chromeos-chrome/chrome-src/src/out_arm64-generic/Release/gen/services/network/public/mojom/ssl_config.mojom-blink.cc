@@ -327,6 +327,8 @@ bool SSLConfigClientStubDispatch::Accept(
           reinterpret_cast<internal::SSLConfigClient_OnSSLConfigUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SSLConfigClient.0
       bool success = true;
       SSLConfigPtr p_ssl_config{};
       SSLConfigClient_OnSSLConfigUpdated_ParamsDataView input_data_view(params, message);
@@ -342,8 +344,8 @@ bool SSLConfigClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSSLConfigUpdated(
-std::move(p_ssl_config));
+      impl->OnSSLConfigUpdated(        
+        std::move(p_ssl_config));
       return true;
     }
   }

@@ -103,57 +103,32 @@ bool EncodedAudioChunkInit::FillV8ObjectWithMembers(ScriptState* script_state, v
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasData()) {
-  if (!ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_data_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_data_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::MediaSourceExtensionsForWebCodecsEnabled(execution_context)) {
   if (hasDecryptConfig()) {
-  if (!ToV8Traits<DecryptConfig>::ToV8(script_state, member_decrypt_config_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<DecryptConfig>::ToV8(script_state, member_decrypt_config_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasDuration()) {
-  if (!ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_duration_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_duration_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasTimestamp()) {
-  if (!ToV8Traits<IDLLongLongEnforceRange>::ToV8(script_state, member_timestamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLongLongEnforceRange>::ToV8(script_state, member_timestamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasTransfer()) {
-  if (!ToV8Traits<IDLSequence<DOMArrayBuffer>>::ToV8(script_state, member_transfer_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<DOMArrayBuffer>>::ToV8(script_state, member_transfer_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasType()) {
-  if (!ToV8Traits<V8EncodedAudioChunkType>::ToV8(script_state, member_type_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8EncodedAudioChunkType>::ToV8(script_state, member_type_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

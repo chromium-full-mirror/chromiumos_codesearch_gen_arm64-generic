@@ -204,15 +204,15 @@ class MemorySnapshotTable : public macros_internal::MacroTable {
         track_id_(ColumnStorage<ColumnType::track_id::stored_type>::Create<false>()),
         detail_level_(ColumnStorage<ColumnType::detail_level::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::timestamp::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::timestamp::stored_type>(
           ColumnFlag::timestamp),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
           ColumnFlag::track_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::detail_level::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::detail_level::stored_type>(
           ColumnFlag::detail_level),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -514,11 +514,11 @@ class ProcessMemorySnapshotTable : public macros_internal::MacroTable {
         snapshot_id_(ColumnStorage<ColumnType::snapshot_id::stored_type>::Create<false>()),
         upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::snapshot_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::snapshot_id::stored_type>(
           ColumnFlag::snapshot_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -894,27 +894,27 @@ class MemorySnapshotNodeTable : public macros_internal::MacroTable {
         effective_size_(ColumnStorage<ColumnType::effective_size::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::process_snapshot_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::process_snapshot_id::stored_type>(
           ColumnFlag::process_snapshot_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_node_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_node_id::stored_type>(
           ColumnFlag::parent_node_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
           ColumnFlag::path),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
           ColumnFlag::size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::effective_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::effective_size::stored_type>(
           ColumnFlag::effective_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1293,15 +1293,15 @@ class MemorySnapshotEdgeTable : public macros_internal::MacroTable {
         target_node_id_(ColumnStorage<ColumnType::target_node_id::stored_type>::Create<false>()),
         importance_(ColumnStorage<ColumnType::importance::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::source_node_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::source_node_id::stored_type>(
           ColumnFlag::source_node_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::target_node_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::target_node_id::stored_type>(
           ColumnFlag::target_node_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::importance::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::importance::stored_type>(
           ColumnFlag::importance),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

@@ -228,6 +228,8 @@ bool Echo_EchoString_ForwardToCallback::Accept(
           internal::Echo_EchoString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Echo.0
   bool success = true;
   std::string p_echoed_input{};
   Echo_EchoString_ResponseParamsDataView input_data_view(params, message);
@@ -328,6 +330,8 @@ bool EchoStubDispatch::AcceptWithResponder(
               internal::Echo_EchoString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Echo.0
       bool success = true;
       std::string p_input{};
       Echo_EchoString_ParamsDataView input_data_view(params, message);
@@ -346,8 +350,8 @@ bool EchoStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EchoString(
-std::move(p_input), std::move(callback));
+      impl->EchoString(        
+        std::move(p_input), std::move(callback));
       return true;
     }
   }

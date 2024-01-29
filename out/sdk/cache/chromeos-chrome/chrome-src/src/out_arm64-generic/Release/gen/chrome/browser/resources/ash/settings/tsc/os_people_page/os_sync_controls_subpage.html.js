@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.settings-box{border-top:none}.list-item{display:flex}.list-item[sync-revamp-enabled]{align-items:center;flex-direction:row;gap:16px;padding:14px 20px}#tooltipIcon{--cr-tooltip-icon-fill-color:var(--cros-color-secondary);margin-inline-end:20px}#tooltipIcon::part(tooltip){--paper-tooltip-background:var(--cros-bg-color);--paper-tooltip-text-color:var(--cros-text-color-secondary);--paper-tooltip-delay-in:0;border-radius:6px;box-shadow:0 1px 3px var(--cros-shadow-color-key),0 4px 8px var(--cros-separator-color);font:var(--cros-body-2-font)}#tooltipIcon[label-disabled]::part(tooltip){visibility:hidden}.list-item>div{flex:1}cr-tooltip-icon[label-disabled],div[label-disabled]{opacity:var(--cros-disabled-opacity)}</style>
-<div id="featureLabel" class="settings-box">
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-item{display:flex}.list-item[sync-revamp-enabled]{align-items:center;flex-direction:row;gap:16px;padding:14px 20px}#tooltipIcon{--cr-tooltip-icon-fill-color:var(--cros-color-secondary);margin-inline-end:20px}#tooltipIcon::part(tooltip){--paper-tooltip-background:var(--cros-bg-color);--paper-tooltip-text-color:var(--cros-text-color-secondary);--paper-tooltip-delay-in:0;border-radius:6px;box-shadow:0 1px 3px var(--cros-shadow-color-key),0 4px 8px var(--cros-separator-color);font:var(--cros-body-2-font)}#tooltipIcon[label-disabled]::part(tooltip){visibility:hidden}.list-item>div{flex:1}cr-tooltip-icon[label-disabled],div[label-disabled]{opacity:var(--cros-disabled-opacity)}</style>
+<div class="settings-box first">
   <localized-link class="secondary" localized-string="$i18n{osSyncFeatureLabel}" on-link-clicked="onBrowserSyncSettingsClicked_">
   </localized-link>
 </div>

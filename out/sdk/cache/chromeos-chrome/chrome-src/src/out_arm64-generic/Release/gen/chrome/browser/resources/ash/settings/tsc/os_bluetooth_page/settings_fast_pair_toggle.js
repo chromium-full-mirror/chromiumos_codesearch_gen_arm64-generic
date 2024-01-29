@@ -5,7 +5,7 @@
  * @fileoverview
  * Reusable toggle that turns Fast Pair on and off.
  */
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './settings_fast_pair_toggle.html.js';

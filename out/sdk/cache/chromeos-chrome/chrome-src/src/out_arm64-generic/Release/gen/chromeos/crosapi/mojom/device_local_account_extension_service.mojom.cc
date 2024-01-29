@@ -166,6 +166,8 @@ bool DeviceLocalAccountExtensionInstallerStubDispatch::Accept(
           reinterpret_cast<internal::DeviceLocalAccountExtensionInstaller_SetForceInstallExtensionsFromCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceLocalAccountExtensionInstaller.0
       bool success = true;
       ::base::Value::Dict p_dict{};
       DeviceLocalAccountExtensionInstaller_SetForceInstallExtensionsFromCache_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool DeviceLocalAccountExtensionInstallerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetForceInstallExtensionsFromCache(
-std::move(p_dict));
+      impl->SetForceInstallExtensionsFromCache(        
+        std::move(p_dict));
       return true;
     }
   }
@@ -334,6 +336,8 @@ bool DeviceLocalAccountExtensionServiceStubDispatch::Accept(
           reinterpret_cast<internal::DeviceLocalAccountExtensionService_BindExtensionInstaller_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceLocalAccountExtensionService.0
       bool success = true;
       ::mojo::PendingRemote<DeviceLocalAccountExtensionInstaller> p_installer{};
       DeviceLocalAccountExtensionService_BindExtensionInstaller_ParamsDataView input_data_view(params, message);
@@ -351,8 +355,8 @@ bool DeviceLocalAccountExtensionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindExtensionInstaller(
-std::move(p_installer));
+      impl->BindExtensionInstaller(        
+        std::move(p_installer));
       return true;
     }
   }

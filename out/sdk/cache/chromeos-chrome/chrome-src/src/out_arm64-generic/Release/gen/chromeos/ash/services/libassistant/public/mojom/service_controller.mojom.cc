@@ -500,6 +500,8 @@ bool ServiceControllerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceController_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceController.0
       bool success = true;
       BootupConfigPtr p_bootup_config{};
       ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> p_url_loading_factory{};
@@ -520,9 +522,9 @@ bool ServiceControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_bootup_config), 
-std::move(p_url_loading_factory));
+      impl->Initialize(        
+        std::move(p_bootup_config), 
+        std::move(p_url_loading_factory));
       return true;
     }
     case internal::kServiceController_Start_Name: {
@@ -532,6 +534,8 @@ std::move(p_url_loading_factory));
           reinterpret_cast<internal::ServiceController_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceController.1
       bool success = true;
       ServiceController_Start_ParamsDataView input_data_view(params, message);
       
@@ -544,7 +548,7 @@ std::move(p_url_loading_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start();
+      impl->Start(        );
       return true;
     }
     case internal::kServiceController_Stop_Name: {
@@ -554,6 +558,8 @@ std::move(p_url_loading_factory));
           reinterpret_cast<internal::ServiceController_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceController.2
       bool success = true;
       ServiceController_Stop_ParamsDataView input_data_view(params, message);
       
@@ -566,7 +572,7 @@ std::move(p_url_loading_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kServiceController_ResetAllDataAndStop_Name: {
@@ -576,6 +582,8 @@ std::move(p_url_loading_factory));
           reinterpret_cast<internal::ServiceController_ResetAllDataAndStop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceController.3
       bool success = true;
       ServiceController_ResetAllDataAndStop_ParamsDataView input_data_view(params, message);
       
@@ -588,7 +596,7 @@ std::move(p_url_loading_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetAllDataAndStop();
+      impl->ResetAllDataAndStop(        );
       return true;
     }
     case internal::kServiceController_AddAndFireStateObserver_Name: {
@@ -598,6 +606,8 @@ std::move(p_url_loading_factory));
           reinterpret_cast<internal::ServiceController_AddAndFireStateObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceController.4
       bool success = true;
       ::mojo::PendingRemote<StateObserver> p_observer{};
       ServiceController_AddAndFireStateObserver_ParamsDataView input_data_view(params, message);
@@ -615,8 +625,8 @@ std::move(p_url_loading_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAndFireStateObserver(
-std::move(p_observer));
+      impl->AddAndFireStateObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -783,6 +793,8 @@ bool StateObserverStubDispatch::Accept(
           reinterpret_cast<internal::StateObserver_OnStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StateObserver.0
       bool success = true;
       ServiceState p_new_state{};
       StateObserver_OnStateChanged_ParamsDataView input_data_view(params, message);
@@ -798,8 +810,8 @@ bool StateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStateChanged(
-std::move(p_new_state));
+      impl->OnStateChanged(        
+        std::move(p_new_state));
       return true;
     }
   }

@@ -977,6 +977,29 @@ struct SetFeatureFlagResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFeatureFlagResponseDefaultTypeInternal _SetFeatureFlagResponse_default_instance_;
+PROTOBUF_CONSTEXPR NotifyARCVPNSocketConnectionEventRequest::NotifyARCVPNSocketConnectionEventRequest(
+    ::_pbi::ConstantInitialized)
+  : msg_(nullptr){}
+struct NotifyARCVPNSocketConnectionEventRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NotifyARCVPNSocketConnectionEventRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NotifyARCVPNSocketConnectionEventRequestDefaultTypeInternal() {}
+  union {
+    NotifyARCVPNSocketConnectionEventRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifyARCVPNSocketConnectionEventRequestDefaultTypeInternal _NotifyARCVPNSocketConnectionEventRequest_default_instance_;
+PROTOBUF_CONSTEXPR NotifyARCVPNSocketConnectionEventResponse::NotifyARCVPNSocketConnectionEventResponse(
+    ::_pbi::ConstantInitialized){}
+struct NotifyARCVPNSocketConnectionEventResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NotifyARCVPNSocketConnectionEventResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NotifyARCVPNSocketConnectionEventResponseDefaultTypeInternal() {}
+  union {
+    NotifyARCVPNSocketConnectionEventResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifyARCVPNSocketConnectionEventResponseDefaultTypeInternal _NotifyARCVPNSocketConnectionEventResponse_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool NetworkDevice_GuestType_IsValid(int value) {
@@ -18308,6 +18331,327 @@ std::string SetFeatureFlagResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class NotifyARCVPNSocketConnectionEventRequest::_Internal {
+ public:
+  static const ::patchpanel::SocketConnectionEvent& msg(const NotifyARCVPNSocketConnectionEventRequest* msg);
+};
+
+const ::patchpanel::SocketConnectionEvent&
+NotifyARCVPNSocketConnectionEventRequest::_Internal::msg(const NotifyARCVPNSocketConnectionEventRequest* msg) {
+  return *msg->msg_;
+}
+NotifyARCVPNSocketConnectionEventRequest::NotifyARCVPNSocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+}
+NotifyARCVPNSocketConnectionEventRequest::NotifyARCVPNSocketConnectionEventRequest(const NotifyARCVPNSocketConnectionEventRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_msg()) {
+    msg_ = new ::patchpanel::SocketConnectionEvent(*from.msg_);
+  } else {
+    msg_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+}
+
+inline void NotifyARCVPNSocketConnectionEventRequest::SharedCtor() {
+msg_ = nullptr;
+}
+
+NotifyARCVPNSocketConnectionEventRequest::~NotifyARCVPNSocketConnectionEventRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void NotifyARCVPNSocketConnectionEventRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete msg_;
+}
+
+void NotifyARCVPNSocketConnectionEventRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NotifyARCVPNSocketConnectionEventRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && msg_ != nullptr) {
+    delete msg_;
+  }
+  msg_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NotifyARCVPNSocketConnectionEventRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.SocketConnectionEvent msg = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NotifyARCVPNSocketConnectionEventRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  if (this->_internal_has_msg()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::msg(this),
+        _Internal::msg(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  return target;
+}
+
+size_t NotifyARCVPNSocketConnectionEventRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  if (this->_internal_has_msg()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *msg_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NotifyARCVPNSocketConnectionEventRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const NotifyARCVPNSocketConnectionEventRequest*>(
+      &from));
+}
+
+void NotifyARCVPNSocketConnectionEventRequest::MergeFrom(const NotifyARCVPNSocketConnectionEventRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_msg()) {
+    _internal_mutable_msg()->::patchpanel::SocketConnectionEvent::MergeFrom(from._internal_msg());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NotifyARCVPNSocketConnectionEventRequest::CopyFrom(const NotifyARCVPNSocketConnectionEventRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NotifyARCVPNSocketConnectionEventRequest::IsInitialized() const {
+  return true;
+}
+
+void NotifyARCVPNSocketConnectionEventRequest::InternalSwap(NotifyARCVPNSocketConnectionEventRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(msg_, other->msg_);
+}
+
+std::string NotifyARCVPNSocketConnectionEventRequest::GetTypeName() const {
+  return "patchpanel.NotifyARCVPNSocketConnectionEventRequest";
+}
+
+
+// ===================================================================
+
+class NotifyARCVPNSocketConnectionEventResponse::_Internal {
+ public:
+};
+
+NotifyARCVPNSocketConnectionEventResponse::NotifyARCVPNSocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+}
+NotifyARCVPNSocketConnectionEventResponse::NotifyARCVPNSocketConnectionEventResponse(const NotifyARCVPNSocketConnectionEventResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+}
+
+inline void NotifyARCVPNSocketConnectionEventResponse::SharedCtor() {
+}
+
+NotifyARCVPNSocketConnectionEventResponse::~NotifyARCVPNSocketConnectionEventResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void NotifyARCVPNSocketConnectionEventResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void NotifyARCVPNSocketConnectionEventResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NotifyARCVPNSocketConnectionEventResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NotifyARCVPNSocketConnectionEventResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NotifyARCVPNSocketConnectionEventResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  return target;
+}
+
+size_t NotifyARCVPNSocketConnectionEventResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NotifyARCVPNSocketConnectionEventResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const NotifyARCVPNSocketConnectionEventResponse*>(
+      &from));
+}
+
+void NotifyARCVPNSocketConnectionEventResponse::MergeFrom(const NotifyARCVPNSocketConnectionEventResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NotifyARCVPNSocketConnectionEventResponse::CopyFrom(const NotifyARCVPNSocketConnectionEventResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NotifyARCVPNSocketConnectionEventResponse::IsInitialized() const {
+  return true;
+}
+
+void NotifyARCVPNSocketConnectionEventResponse::InternalSwap(NotifyARCVPNSocketConnectionEventResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string NotifyARCVPNSocketConnectionEventResponse::GetTypeName() const {
+  return "patchpanel.NotifyARCVPNSocketConnectionEventResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
@@ -18590,6 +18934,14 @@ Arena::CreateMaybeMessage< ::patchpanel::SetFeatureFlagRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::patchpanel::SetFeatureFlagResponse*
 Arena::CreateMaybeMessage< ::patchpanel::SetFeatureFlagResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::SetFeatureFlagResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NotifyARCVPNSocketConnectionEventRequest*
+Arena::CreateMaybeMessage< ::patchpanel::NotifyARCVPNSocketConnectionEventRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NotifyARCVPNSocketConnectionEventRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NotifyARCVPNSocketConnectionEventResponse*
+Arena::CreateMaybeMessage< ::patchpanel::NotifyARCVPNSocketConnectionEventResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NotifyARCVPNSocketConnectionEventResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

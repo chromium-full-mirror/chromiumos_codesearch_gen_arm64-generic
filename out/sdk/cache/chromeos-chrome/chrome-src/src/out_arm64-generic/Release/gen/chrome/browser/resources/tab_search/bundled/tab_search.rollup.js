@@ -1,4 +1,4 @@
-import { html, Polymer, dom, mixinBehaviors, PolymerElement, dedupingMixin, Base, dashToCamelCase, get, afterNextRender, templatize, calculateSplices, useShadow } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, dom, dedupingMixin, PolymerElement, Base, dashToCamelCase, get, templatize, calculateSplices, useShadow } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
@@ -1229,126 +1229,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$h() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
@@ -1380,7 +1380,7 @@ function getTemplate$h() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -1546,7 +1546,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -1591,18 +1591,20 @@ const styleMod$4 = document.createElement('dom-module');
 styleMod$4.appendChild(html `
   <template>
     <style>
-.tab-organization-body{color:var(--color-secondary-foreground);font-size:13px;font-weight:400;line-height:20px}.tab-organization-container{display:flex;flex-direction:column;gap:16px;width:100%}.tab-organization-header{color:var(--cr-primary-text-color);font-size:14px;font-weight:500}.tab-organization-link{color:var(--color-link-foreground-on-bubble-footer);cursor:pointer;display:inline-block;font-size:13px;font-weight:400;outline-color:var(--color-button-foreground);outline-offset:2px;text-decoration:underline;width:fit-content}.tab-organization-text-container{display:flex;flex-direction:column;gap:8px}@keyframes displayOut{0%{height:auto;visibility:visible;position:relative}50%{visibility:visible}100%{height:0;visibility:hidden;position:absolute}}@keyframes displayIn{0%{height:0;visibility:hidden;position:absolute}50%{visibility:hidden}100%{height:auto;visibility:visible;position:relative}}@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes marginOut{0%{margin-top:0}100%{margin-top:-16px}}@keyframes paddingIn{0%{padding-top:16px}100%{padding-top:0}}
+.tab-organization-body{color:var(--color-secondary-foreground);font-size:13px;font-weight:400;line-height:20px}.tab-organization-container{display:flex;flex-direction:column;gap:16px;width:100%}.tab-organization-header{color:var(--cr-primary-text-color);font-size:14px;font-weight:500}.tab-organization-link{color:var(--color-link-foreground-on-bubble-footer);cursor:pointer;display:inline-block;font-size:13px;font-weight:400;outline-color:var(--color-button-foreground);outline-offset:1px;text-decoration:underline;width:fit-content}.tab-organization-text-container{display:flex;flex-direction:column;gap:8px}@keyframes displayOut{0%{height:auto;visibility:visible;position:relative}50%{visibility:visible}100%{height:0;visibility:hidden;position:absolute}}@keyframes displayIn{0%{height:0;visibility:hidden;position:absolute}50%{visibility:hidden}100%{height:auto;visibility:visible;position:relative}}@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes slideOut{0%{transform:translateY(0)}100%{transform:translateY(-16px)}}@keyframes slideIn{0%{transform:translateY(16px)}100%{transform:translateY(0)}}
     </style>
   </template>
 `.content);
 styleMod$4.register('tab-organization-shared-style');
 
 function getTemplate$g() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">.footer{background-color:var(--color-bubble-footer-background);display:flex;flex-direction:column;margin:0 -20px;padding:16px var(--mwb-list-item-horizontal-margin)}.tab-organization-body{width:280px}</style>
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">.footer{background-color:var(--color-bubble-footer-background);display:flex;flex-direction:column;margin:0 -20px -20px -20px;padding:16px var(--mwb-list-item-horizontal-margin)}.tab-organization-body{width:280px}</style>
 
 <div class="tab-organization-container">
   <div class="tab-organization-text-container">
-    <div class="tab-organization-header">[[getTitle_(error)]]</div>
+    <div id="header" class="tab-organization-header" aria-live="polite" aria-relevant="all">
+      [[getTitle_(error)]]
+    </div>
     <div class="tab-organization-body">
       [[getBodyPreLink_(error)]]
       <div class="tab-organization-link" role="link" tabindex="0" on-click="onCheckNow_" on-keydown="onCheckNowKeyDown_">
@@ -1727,11 +1729,12 @@ const TabOrganizationStateSpec = { $: mojo.internal.Enum() };
 var TabOrganizationState;
 (function (TabOrganizationState) {
     TabOrganizationState[TabOrganizationState["MIN_VALUE"] = 0] = "MIN_VALUE";
-    TabOrganizationState[TabOrganizationState["MAX_VALUE"] = 3] = "MAX_VALUE";
-    TabOrganizationState[TabOrganizationState["kNotStarted"] = 0] = "kNotStarted";
-    TabOrganizationState[TabOrganizationState["kInProgress"] = 1] = "kInProgress";
-    TabOrganizationState[TabOrganizationState["kSuccess"] = 2] = "kSuccess";
-    TabOrganizationState[TabOrganizationState["kFailure"] = 3] = "kFailure";
+    TabOrganizationState[TabOrganizationState["MAX_VALUE"] = 4] = "MAX_VALUE";
+    TabOrganizationState[TabOrganizationState["kInitializing"] = 0] = "kInitializing";
+    TabOrganizationState[TabOrganizationState["kNotStarted"] = 1] = "kNotStarted";
+    TabOrganizationState[TabOrganizationState["kInProgress"] = 2] = "kInProgress";
+    TabOrganizationState[TabOrganizationState["kSuccess"] = 3] = "kSuccess";
+    TabOrganizationState[TabOrganizationState["kFailure"] = 4] = "kFailure";
 })(TabOrganizationState || (TabOrganizationState = {}));
 const TabOrganizationErrorSpec = { $: mojo.internal.Enum() };
 var TabOrganizationError;
@@ -1848,8 +1851,8 @@ let PageHandlerRemote$1 = class PageHandlerRemote {
             tab
         ]);
     }
-    resetSession() {
-        this.proxy.sendMessage(9, PageHandler_ResetSession_ParamsSpec.$, null, []);
+    restartSession() {
+        this.proxy.sendMessage(9, PageHandler_RestartSession_ParamsSpec.$, null, []);
     }
     saveRecentlyClosedExpandedPref(expanded) {
         this.proxy.sendMessage(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, [
@@ -1927,6 +1930,11 @@ let PageRemote$1 = class PageRemote {
             tabsRemovedInfo
         ]);
     }
+    tabSearchTabIndexChanged(index) {
+        this.proxy.sendMessage(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, [
+            index
+        ]);
+    }
 };
 /**
  * An object which receives request messages for the Page
@@ -1951,6 +1959,9 @@ let PageCallbackRouter$1 = class PageCallbackRouter {
         this.tabsRemoved =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(3, Page_TabsRemoved_ParamsSpec.$, null, this.tabsRemoved.createReceiverHandler(false /* expectsResponse */));
+        this.tabSearchTabIndexChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, this.tabSearchTabIndexChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -1984,7 +1995,7 @@ const PageHandler_SwitchToTab_ParamsSpec = { $: {} };
 const PageHandler_OpenRecentlyClosedEntry_ParamsSpec = { $: {} };
 const PageHandler_RequestTabOrganization_ParamsSpec = { $: {} };
 const PageHandler_RemoveTabFromOrganization_ParamsSpec = { $: {} };
-const PageHandler_ResetSession_ParamsSpec = { $: {} };
+const PageHandler_RestartSession_ParamsSpec = { $: {} };
 const PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec = { $: {} };
 const PageHandler_SetTabIndex_ParamsSpec = { $: {} };
 const PageHandler_StartTabGroupTutorial_ParamsSpec = { $: {} };
@@ -1999,6 +2010,7 @@ const Page_TabOrganizationSessionUpdated_ParamsSpec = { $: {} };
 const Page_TabsChanged_ParamsSpec = { $: {} };
 const Page_TabUpdated_ParamsSpec = { $: {} };
 const Page_TabsRemoved_ParamsSpec = { $: {} };
+const Page_TabSearchTabIndexChanged_ParamsSpec = { $: {} };
 mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
     mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('tabGroups', 8, 0, mojo.internal.Array(TabGroupSpec.$, false), null, false /* nullable */, 0),
@@ -2107,7 +2119,7 @@ mojo.internal.Struct(PageHandler_RemoveTabFromOrganization_ParamsSpec.$, 'PageHa
     mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('tab', 8, 0, TabSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(PageHandler_ResetSession_ParamsSpec.$, 'PageHandler_ResetSession_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_RestartSession_ParamsSpec.$, 'PageHandler_RestartSession_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, 'PageHandler_SaveRecentlyClosedExpandedPref_Params', [
     mojo.internal.StructField('expanded', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -2140,6 +2152,9 @@ mojo.internal.Struct(Page_TabUpdated_ParamsSpec.$, 'Page_TabUpdated_Params', [
 mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
     mojo.internal.StructField('tabsRemovedInfo', 0, 0, TabsRemovedInfoSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(Page_TabSearchTabIndexChanged_ParamsSpec.$, 'Page_TabSearchTabIndexChanged_Params', [
+    mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -2161,6 +2176,10 @@ class TabOrganizationFailureElement extends PolymerElement {
     }
     static get template() {
         return getTemplate$g();
+    }
+    announceHeader() {
+        this.$.header.textContent = '';
+        this.$.header.textContent = this.getTitle_();
     }
     getTitle_() {
         switch (this.error) {
@@ -2303,7 +2322,9 @@ function getTemplate$e() {
     return html `<!--_html_template_start_--><style include="tab-organization-shared-style">#loading-container{border:solid 1px var(--color-loading-gradient-border);border-radius:8px;padding:14px}</style>
 
 <div class="tab-organization-container">
-  <div class="tab-organization-header">$i18n{inProgressTitle}</div>
+  <div id="header" class="tab-organization-header" aria-live="polite" aria-relevant="all">
+    [[getTitle_()]]
+  </div>
   <div id="loading-container">
     <cr-loading-gradient>
         <svg width="100%" height="191">
@@ -2337,6 +2358,13 @@ class TabOrganizationInProgressElement extends PolymerElement {
     }
     static get template() {
         return getTemplate$e();
+    }
+    announceHeader() {
+        this.$.header.textContent = '';
+        this.$.header.textContent = this.getTitle_();
+    }
+    getTitle_() {
+        return loadTimeData.getString('inProgressTitle');
     }
 }
 customElements.define(TabOrganizationInProgressElement.is, TabOrganizationInProgressElement);
@@ -2444,7 +2472,9 @@ function getTemplate$c() {
 <div class="tab-organization-container">
   <tab-organization-not-started-image></tab-organization-not-started-image>
   <div class="tab-organization-text-container">
-    <div class="tab-organization-header">[[getTitle_(showFre)]]</div>
+    <div id="header" class="tab-organization-header" aria-live="polite" aria-relevant="all">
+      [[getTitle_(showFre)]]
+    </div>
     <div class="tab-organization-body">
       [[getBody_(showFre, sync_, account_)]]
     </div>
@@ -2461,7 +2491,7 @@ function getTemplate$c() {
       </div>
     </div>
   </template>
-  <cr-button class="action-button" on-click="onButtonClick_">
+  <cr-button class="action-button" aria-label="[[getButtonAriaLabel_(sync_, account_)]]" on-click="onButtonClick_">
     [[getButtonText_(sync_, account_)]]
   </cr-button>
 </div>
@@ -2525,12 +2555,15 @@ class TabOrganizationNotStartedElement extends TabOrganizationNotStartedElementB
         this.syncBrowserProxy_.getSyncInfo().then(this.setSync_.bind(this));
         this.addWebUiListener('sync-info-changed', this.setSync_.bind(this));
     }
+    announceHeader() {
+        this.$.header.textContent = '';
+        this.$.header.textContent = this.getTitle_();
+    }
     setAccount_(account) {
         this.account_ = account;
     }
     setSync_(sync) {
         this.sync_ = sync;
-        this.dispatchEvent(new CustomEvent('sync-change', { bubbles: true, composed: true }));
     }
     getSyncState_() {
         if (!this.account_) {
@@ -2585,6 +2618,24 @@ class TabOrganizationNotStartedElement extends TabOrganizationNotStartedElementB
     getAccountImageSrc_(image) {
         // image can be undefined if the account has not set an avatar photo.
         return image || 'chrome://theme/IDR_PROFILE_AVATAR_PLACEHOLDER_LARGE';
+    }
+    getButtonAriaLabel_() {
+        switch (this.getSyncState_()) {
+            case SyncState.SIGNED_OUT:
+            case SyncState.UNSYNCED:
+                return loadTimeData.getString('notStartedButtonUnsyncedAriaLabel');
+            case SyncState.SYNC_PAUSED:
+                return loadTimeData.getString('notStartedButtonSyncPausedAriaLabel');
+            case SyncState.UNSYNCED_HISTORY:
+                return loadTimeData.getString('notStartedButtonUnsyncedHistoryAriaLabel');
+            case SyncState.SYNCED:
+                if (this.showFre) {
+                    return loadTimeData.getString('notStartedButtonFREAriaLabel');
+                }
+                else {
+                    return loadTimeData.getString('notStartedButtonAriaLabel');
+                }
+        }
     }
     getButtonText_() {
         switch (this.getSyncState_()) {
@@ -3078,7 +3129,7 @@ function getTemplate$b() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
@@ -3510,6 +3561,9 @@ const template$2 = html `
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
       </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
+      </g>
       
         <g id="banner-warning">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
@@ -3765,9 +3819,9 @@ function getTemplate$a() {
     return html `<!--_html_template_start_--><style>.buttons{--cr-feedback-buttons-icon-size_:16px;display:grid;grid-auto-columns:var(--cr-feedback-buttons-icon-size_);grid-auto-rows:var(--cr-feedback-buttons-icon-size_);grid-auto-flow:column;gap:12px;align-items:center;justify-items:center}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-icon-size:var(--cr-feedback-buttons-icon-size_);--cr-icon-button-size:24px;margin:0}</style>
 
 <div class="buttons">
-  <cr-icon-button id="thumbsUp" iron-icon="[[getThumbsUpIcon_(selectedOption)]]" aria-label="[[thumbsUpLabel_]]" aria-pressed="[[getThumbsUpAriaPressed_(selectedOption)]]" on-click="onThumbsUpClick_">
+  <cr-icon-button id="thumbsUp" iron-icon="[[getThumbsUpIcon_(selectedOption)]]" aria-label="[[thumbsUpLabel_]]" title="[[thumbsUpLabel_]]" aria-pressed="[[getThumbsUpAriaPressed_(selectedOption)]]" on-click="onThumbsUpClick_">
   </cr-icon-button>
-  <cr-icon-button id="thumbsDown" iron-icon="[[getThumbsDownIcon_(selectedOption)]]" aria-label="[[thumbsDownLabel_]]" aria-pressed="[[getThumbsDownAriaPressed_(selectedOption)]]" on-click="onThumbsDownClick_">
+  <cr-icon-button id="thumbsDown" iron-icon="[[getThumbsDownIcon_(selectedOption)]]" aria-label="[[thumbsDownLabel_]]" title="[[thumbsDownLabel_]]" aria-pressed="[[getThumbsDownAriaPressed_(selectedOption)]]" on-click="onThumbsDownClick_">
   </cr-icon-button>
 </div>
 <!--_html_template_end_-->`;
@@ -5272,7 +5326,7 @@ function getTemplate$8() {
 </div>
 <template is="dom-if" if="[[isCloseable_(data.type)]]">
   <div class$="[[getButtonContainerStyles_(data)]]">
-    <cr-icon-button id="closeButton" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="[[tooltipForButton_(inSuggestedGroup)]]">
+    <cr-icon-button id="closeButton" role="[[getCloseButtonRole_()]]" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="[[tooltipForButton_(inSuggestedGroup)]]">
     </cr-icon-button>
   </div>
 </template>
@@ -5323,6 +5377,12 @@ class TabSearchItem extends TabSearchItemBase {
             (this.isOpenTabAndHasMediaAlert_(tabData) ?
                 ' allocate-space-while-hidden' :
                 '');
+    }
+    getCloseButtonRole_() {
+        // If this tab search item is an option within a list, the button
+        // should also be treated as an option in a list to ensure the correct
+        // focus traversal behavior when a screenreader is on.
+        return this.role === 'option' ? 'option' : 'button';
     }
     onItemClose_(e) {
         this.dispatchEvent(new CustomEvent('close'));
@@ -5422,14 +5482,16 @@ function getTemplate$7() {
     return html `<!--_html_template_start_--><style include="mwb-shared-style tab-organization-shared-style">cr-button{margin-top:16px;width:fit-content}cr-feedback-buttons{color:var(--color-icon)}cr-input{--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border);--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-error-display:none;--cr-input-padding-bottom:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;margin:0 var(--mwb-list-item-horizontal-margin) 16px var(--mwb-list-item-horizontal-margin)}cr-input:focus{--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-top:8px}tab-search-item{--tab-search-favicon-background:var(--color-tab-search-background)}.button-row{display:flex;gap:16px;justify-content:flex-end;margin:0 16px}.feedback{align-items:center;display:flex;gap:8px;justify-content:space-between}iron-selector>.mwb-list-item:focus{background-color:var(--mwb-list-item-selected-background-color)}.mwb-list-item{background-color:transparent;min-height:var(--mwb-item-height)}.results{background-color:var(--color-tab-search-card-background);border-radius:8px}#scrollable{display:flex;flex-direction:column;overflow-y:auto;padding:16px 0}.tab-organization-body,.tab-organization-link{font-size:11px;line-height:16px}</style>
 
 <div class="tab-organization-container">
-  <div class="tab-organization-header">$i18n{successTitle}</div>
+  <div id="header" class="tab-organization-header" aria-live="polite" aria-relevant="all">
+    [[getTitle_()]]
+  </div>
   <div class="results">
     <div id="scrollable">
-      <cr-input id="input" type="text" value="{{name}}" on-focus="onInputFocus_" on-keydown="onInputKeyDown_">
+      <cr-input id="input" type="text" value="{{name}}" aria-label="[[getInputAriaLabel_(name)]]" on-focus="onInputFocus_" on-keydown="onInputKeyDown_">
       </cr-input>
-      <iron-selector id="selector" role="list" on-keydown="onListKeyDown_" selected-class="selected" on-iron-select="onSelectedChanged_">
+      <iron-selector id="selector" role="listbox" on-keydown="onListKeyDown_" selected-class="selected" on-iron-select="onSelectedChanged_">
         <template is="dom-repeat" items="[[tabDatas_]]">
-          <tab-search-item class="mwb-list-item" data="[[item]]" role="listitem" tabindex$="[[getTabIndex_(index, lastFocusedIndex_)]]" on-close="onTabRemove_" on-focus="onTabFocus_" on-blur="onTabBlur_" in-suggested-group>
+          <tab-search-item class="mwb-list-item" data="[[item]]" role="option" tabindex$="[[getTabIndex_(index, lastFocusedIndex_)]]" on-close="onTabRemove_" on-focus="onTabFocus_" on-blur="onTabBlur_" in-suggested-group>
           </tab-search-item>
         </template>
       </iron-selector>
@@ -5448,11 +5510,11 @@ function getTemplate$7() {
   <div class="feedback" role="toolbar" on-keydown="onFeedbackKeyDown_">
     <div class="tab-organization-body">
       $i18n{learnMoreDisclaimer}
-      <div id="learnMore" class="tab-organization-link" on-click="onLearnMoreClick_" on-keydown="onLearnMoreKeyDown_" role="link" tabindex="0">
+      <div id="learnMore" class="tab-organization-link" on-click="onLearnMoreClick_" on-keydown="onLearnMoreKeyDown_" role="link" tabindex="0" aria-label="$i18n{learnMoreAriaLabel}">
         $i18n{learnMore}
       </div>
     </div>
-    <cr-feedback-buttons id="feedbackButtons" tabindex="-1" on-selected-option-changed="onFeedbackSelectedOptionChanged_">
+    <cr-feedback-buttons id="feedbackButtons" tabindex="-1" selected-option="[[feedbackSelectedOption_]]" on-selected-option-changed="onFeedbackSelectedOptionChanged_">
     </cr-feedback-buttons>
   </div>
 </div>
@@ -5480,6 +5542,10 @@ class TabOrganizationResultsElement extends PolymerElement {
                 observer: 'onAvailableHeightChange_',
             },
             isLastOrganization: Boolean,
+            organizationId: {
+                type: Number,
+                observer: 'onOrganizationIdChange_',
+            },
             lastFocusedIndex_: {
                 type: Number,
                 value: 0,
@@ -5493,10 +5559,21 @@ class TabOrganizationResultsElement extends PolymerElement {
                 value: () => [],
                 computed: 'computeTabDatas_(tabs.*)',
             },
+            feedbackSelectedOption_: {
+                type: String,
+                value: CrFeedbackOption.UNSPECIFIED,
+            },
         };
     }
     static get template() {
         return getTemplate$7();
+    }
+    announceHeader() {
+        this.$.header.textContent = '';
+        this.$.header.textContent = this.getTitle_();
+    }
+    focusInput() {
+        this.$.input.focus();
     }
     computeTabDatas_() {
         return this.tabs.map(tab => new TabData(tab, TabItemType.OPEN_TAB, new URL(tab.url.url).hostname));
@@ -5505,6 +5582,9 @@ class TabOrganizationResultsElement extends PolymerElement {
         if (this.lastFocusedIndex_ > this.tabs.length - 1) {
             this.lastFocusedIndex_ = 0;
         }
+    }
+    getTitle_() {
+        return loadTimeData.getString('successTitle');
     }
     getRefreshButtonText_() {
         if (this.isLastOrganization) {
@@ -5519,6 +5599,12 @@ class TabOrganizationResultsElement extends PolymerElement {
         const maxHeight = Math.max(MINIMUM_SCROLLABLE_MAX_HEIGHT, (this.availableHeight - NON_SCROLLABLE_VERTICAL_SPACING));
         this.$.scrollable.style.maxHeight = maxHeight + 'px';
     }
+    onOrganizationIdChange_() {
+        this.feedbackSelectedOption_ = CrFeedbackOption.UNSPECIFIED;
+    }
+    getInputAriaLabel_() {
+        return loadTimeData.getStringF('inputAriaLabel', this.name);
+    }
     onInputFocus_() {
         this.$.input.select();
     }
@@ -5529,20 +5615,29 @@ class TabOrganizationResultsElement extends PolymerElement {
         }
     }
     onListKeyDown_(event) {
-        if (event.shiftKey) {
-            return;
-        }
         const selector = this.$.selector;
         if (selector.selected === undefined) {
             return;
         }
-        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        let handled = false;
+        if (event.shiftKey && event.key === 'Tab') {
+            // Explicitly focus the element prior to the list in focus order and
+            // override the default behavior, which would be to focus the row that
+            // the currently focused close button is in.
+            this.$.input.focus();
+            handled = true;
+        }
+        else if (!event.shiftKey) {
             if (event.key === 'ArrowUp') {
                 selector.selectPrevious();
+                handled = true;
             }
-            else {
+            else if (event.key === 'ArrowDown') {
                 selector.selectNext();
+                handled = true;
             }
+        }
+        if (handled) {
             event.stopPropagation();
             event.preventDefault();
         }
@@ -5625,6 +5720,7 @@ class TabOrganizationResultsElement extends PolymerElement {
         focusableElements[nextFocusedIndex].focus();
     }
     onFeedbackSelectedOptionChanged_(event) {
+        this.feedbackSelectedOption_ = event.detail.value;
         this.dispatchEvent(new CustomEvent('feedback', {
             bubbles: true,
             composed: true,
@@ -5647,19 +5743,33 @@ function stringToMojoString16(str) {
 }
 // Convert a Mojo String16 into a javascript string.
 function mojoString16ToString(str16) {
-    return String.fromCharCode(...str16.data);
+    // Taken from chunk size used in goog.crypt.byteArrayToBinaryString in Closure
+    // Library. The value is equal to 2^13.
+    const CHUNK_SIZE = 8192;
+    if (str16.data.length < CHUNK_SIZE) {
+        return String.fromCharCode(...str16.data);
+    }
+    // Convert the array to a string in chunks, to avoid passing too many
+    // arguments to String.fromCharCode() at once, which can exceed the max call
+    // stack size (c.f. crbug.com/1509792).
+    let str = '';
+    for (let i = 0; i < str16.data.length; i += CHUNK_SIZE) {
+        const chunk = str16.data.slice(i, i + CHUNK_SIZE);
+        str += String.fromCharCode(...chunk);
+    }
+    return str;
 }
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--standard-curve:cubic-bezier(0.2, 0.0, 0, 1.0)}tab-organization-failure,tab-organization-in-progress,tab-organization-not-started,tab-organization-results{display:flex}:host(.changed-state) tab-organization-failure[shown],:host(.changed-state) tab-organization-in-progress[shown],:host(.changed-state) tab-organization-not-started[shown],:host(.changed-state) tab-organization-results[shown]{animation:fadeIn .1s linear .1s forwards,displayIn .2s linear forwards,paddingIn 250ms var(--standard-curve) forwards}tab-organization-failure:not([shown]),tab-organization-in-progress:not([shown]),tab-organization-not-started:not([shown]),tab-organization-results:not([shown]){height:0;position:absolute;visibility:hidden}:host(.changed-state.from-failure) tab-organization-failure:not([shown]),:host(.changed-state.from-in-progress) tab-organization-in-progress:not([shown]),:host(.changed-state.from-not-started) tab-organization-not-started:not([shown]),:host(.changed-state.from-success) tab-organization-results:not([shown]){animation:fadeOut .1s linear forwards,displayOut .2s linear forwards,marginOut 250ms var(--standard-curve) forwards}#body{margin:var(--mwb-list-item-horizontal-margin)}#contents{overflow:hidden;transition:height 250ms var(--standard-curve)}#contents.no-transition{transition:none}</style>
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--standard-curve:cubic-bezier(0.2, 0.0, 0, 1.0)}tab-organization-failure,tab-organization-in-progress,tab-organization-not-started,tab-organization-results{display:flex}:host(.changed-state) tab-organization-failure[shown],:host(.changed-state) tab-organization-in-progress[shown],:host(.changed-state) tab-organization-not-started[shown],:host(.changed-state) tab-organization-results[shown]{animation:fadeIn .1s linear .1s forwards,displayIn .2s linear forwards,slideIn 250ms var(--standard-curve) forwards}tab-organization-failure:not([shown]),tab-organization-in-progress:not([shown]),tab-organization-not-started:not([shown]),tab-organization-results:not([shown]){height:0;position:absolute;visibility:hidden}:host(.changed-state.from-failure) tab-organization-failure:not([shown]),:host(.changed-state.from-in-progress) tab-organization-in-progress:not([shown]),:host(.changed-state.from-not-started) tab-organization-not-started:not([shown]),:host(.changed-state.from-success) tab-organization-results:not([shown]){animation:fadeOut .1s linear forwards,displayOut .2s linear forwards,slideOut 250ms var(--standard-curve) forwards}#body{margin:var(--mwb-list-item-horizontal-margin)}#contents{overflow:hidden}</style>
 
 <div id="contents">
   <div id="body">
-    <tab-organization-not-started id="notStarted" shown$="[[isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-sync-change="updateContentsHeightAfterNextRender" on-sync-click="onSyncClick_" on-sign-in-click="onSignInClick_" on-settings-click="onSettingsClick_" on-organize-tabs-click="onOrganizeTabsClick_" show-fre="[[showFRE_]]">
+    <tab-organization-not-started id="notStarted" shown$="[[isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-sync-click="onSyncClick_" on-sign-in-click="onSignInClick_" on-settings-click="onSettingsClick_" on-organize-tabs-click="onOrganizeTabsClick_" show-fre="[[showFRE_]]">
     </tab-organization-not-started>
     <tab-organization-in-progress id="inProgress" shown$="[[isState_(tabOrganizationStateEnum_.kInProgress, state_)]]">
     </tab-organization-in-progress>
-    <tab-organization-results id="results" shown$="[[isState_(tabOrganizationStateEnum_.kSuccess, state_)]]" name="[[name_]]" tabs="[[tabs_]]" is-last-organization="[[isLastOrganization_]]" available-height="[[availableHeight_]]" on-refresh-click="onRefreshClick_" on-create-group-click="onCreateGroupClick_" on-remove-tab="onRemoveTab_" on-learn-more-click="onLearnMoreClick_" on-feedback="onFeedback_">
+    <tab-organization-results id="results" shown$="[[isState_(tabOrganizationStateEnum_.kSuccess, state_)]]" name="[[name_]]" tabs="[[tabs_]]" organization-id="[[organizationId_]]" is-last-organization="[[isLastOrganization_]]" available-height="[[availableHeight_]]" on-refresh-click="onRefreshClick_" on-create-group-click="onCreateGroupClick_" on-remove-tab="onRemoveTab_" on-learn-more-click="onLearnMoreClick_" on-feedback="onFeedback_">
     </tab-organization-results>
     <tab-organization-failure id="failure" shown$="[[isState_(tabOrganizationStateEnum_.kFailure, state_)]]" show-fre="[[showFRE_]]" error="[[error_]]" on-check-now="onCheckNow_" on-tip-click="onTipClick_">
     </tab-organization-failure>
@@ -5714,8 +5824,8 @@ class TabSearchApiProxyImpl {
     requestTabOrganization() {
         this.handler.requestTabOrganization();
     }
-    resetSession() {
-        this.handler.resetSession();
+    restartSession() {
+        this.handler.restartSession();
     }
     switchToTab(info) {
         this.handler.switchToTab(info);
@@ -5768,8 +5878,7 @@ let instance$1 = null;
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const BODY_VERTICAL_MARGIN = 40;
-const HEIGHT_ANIMATION_LENGTH = 250;
+const MIN_LOADING_ANIMATION_MS = 500;
 class TabOrganizationPageElement extends PolymerElement {
     static get is() {
         return 'tab-organization-page';
@@ -5782,6 +5891,7 @@ class TabOrganizationPageElement extends PolymerElement {
             error_: Object,
             availableHeight_: Number,
             isLastOrganization_: Boolean,
+            organizationId_: Number,
             tabOrganizationStateEnum_: {
                 type: Object,
                 value: TabOrganizationState,
@@ -5799,7 +5909,7 @@ class TabOrganizationPageElement extends PolymerElement {
         super();
         this.apiProxy_ = TabSearchApiProxyImpl.getInstance();
         this.listenerIds_ = [];
-        this.state_ = TabOrganizationState.kNotStarted;
+        this.state_ = TabOrganizationState.kInitializing;
         this.error_ = TabOrganizationError.kNone;
         this.availableHeight_ = 0;
         this.sessionId_ = -1;
@@ -5829,44 +5939,11 @@ class TabOrganizationPageElement extends PolymerElement {
             this.apiProxy_.rejectTabOrganization(this.sessionId_, this.organizationId_);
         }
     }
-    updateContentsHeightAfterNextRender() {
-        afterNextRender(this, () => this.updateContentsHeight_());
-    }
-    updateContentsHeight_() {
-        let contentsHeight = 0;
-        switch (this.state_) {
-            case TabOrganizationState.kNotStarted:
-                // Subtract padding out here and below as this is variable during
-                // animation and should not affect contents height.
-                contentsHeight = this.$.notStarted.scrollHeight -
-                    this.getPaddingTopValue_(this.$.notStarted) + BODY_VERTICAL_MARGIN;
-                break;
-            case TabOrganizationState.kInProgress:
-                contentsHeight = this.$.inProgress.scrollHeight -
-                    this.getPaddingTopValue_(this.$.inProgress) + BODY_VERTICAL_MARGIN;
-                break;
-            case TabOrganizationState.kSuccess:
-                contentsHeight = this.$.results.scrollHeight -
-                    this.getPaddingTopValue_(this.$.results) + BODY_VERTICAL_MARGIN;
-                break;
-            case TabOrganizationState.kFailure:
-                contentsHeight = this.$.failure.scrollHeight -
-                    this.getPaddingTopValue_(this.$.failure) + BODY_VERTICAL_MARGIN;
-                if (this.showFRE_) {
-                    // If the failure footer is shown, exclude bottom margin as the
-                    // footer should extend to the bottom of the bubble.
-                    contentsHeight -= BODY_VERTICAL_MARGIN / 2;
-                }
-                break;
-        }
-        this.$.contents.style.height = contentsHeight + 'px';
-    }
     onVisible_() {
-        // When the UI goes from not shown to shown, bypass height transition.
-        this.$.contents.classList.toggle('no-transition', true);
         this.updateAvailableHeight_();
-        // TODO(emshack): We should find a way to avoid using a timeout here.
-        setTimeout(() => this.$.contents.classList.toggle('no-transition', false), HEIGHT_ANIMATION_LENGTH);
+        // When the UI goes from not shown to shown, bypass any state change
+        // animations.
+        this.classList.toggle('changed-state', false);
     }
     // TODO(emshack): Consider moving the available height calculation into
     // app.ts and reusing across both tab search and tab organization.
@@ -5877,12 +5954,10 @@ class TabOrganizationPageElement extends PolymerElement {
             const activeWindow = profileData.windows.find((t) => t.active);
             this.availableHeight_ =
                 activeWindow ? activeWindow.height : profileData.windows[0].height;
-            this.updateContentsHeight_();
         });
     }
-    getPaddingTopValue_(element) {
-        const pxValue = getComputedStyle(element).getPropertyValue('padding-top');
-        return Number.parseInt(pxValue.trim().slice(0, -2), 10);
+    setSessionForTesting(session) {
+        this.setSession_(session);
     }
     setSession_(session) {
         this.sessionId_ = session.sessionId;
@@ -5897,18 +5972,60 @@ class TabOrganizationPageElement extends PolymerElement {
         else {
             this.organizationId_ = -1;
         }
-        this.setState_(session.state);
+        this.maybeSetState_(session.state);
+    }
+    maybeSetState_(state) {
+        if (this.futureState_) {
+            this.futureState_ = state;
+            return;
+        }
+        this.setState_(state);
     }
     setState_(state) {
-        this.classList.toggle('changed-state', this.state_ !== state);
+        const changedState = this.state_ !== state;
+        this.classList.toggle('changed-state', changedState);
         this.classList.toggle('from-not-started', this.state_ === TabOrganizationState.kNotStarted);
         this.classList.toggle('from-in-progress', this.state_ === TabOrganizationState.kInProgress);
         this.classList.toggle('from-success', this.state_ === TabOrganizationState.kSuccess);
         this.classList.toggle('from-failure', this.state_ === TabOrganizationState.kFailure);
         this.state_ = state;
-        // Wait for a rendering pass so the new state's scroll height is up to date
-        // with any new data.
-        this.updateContentsHeightAfterNextRender();
+        if (!changedState) {
+            return;
+        }
+        switch (state) {
+            case TabOrganizationState.kInitializing:
+                break;
+            case TabOrganizationState.kNotStarted:
+                this.$.notStarted.announceHeader();
+                break;
+            case TabOrganizationState.kInProgress:
+                this.$.inProgress.announceHeader();
+                break;
+            case TabOrganizationState.kSuccess:
+                this.$.results.announceHeader();
+                // Wait until the new state is visible after the transition to focus on
+                // the new UI.
+                this.$.results.addEventListener('animationend', () => {
+                    this.$.results.focusInput();
+                }, { once: true });
+                break;
+            case TabOrganizationState.kFailure:
+                this.$.failure.announceHeader();
+                break;
+            default:
+                assertNotReached('Invalid tab organization state');
+        }
+        // Ensure the loading state appears for a sufficient amount of time, so as
+        // to not appear jumpy if the request completes quickly.
+        if (state === TabOrganizationState.kInProgress) {
+            this.futureState_ = TabOrganizationState.kInProgress;
+            setTimeout(() => this.applyFutureState_(), MIN_LOADING_ANIMATION_MS);
+        }
+    }
+    applyFutureState_() {
+        assert(this.futureState_);
+        this.setState_(this.futureState_);
+        this.futureState_ = null;
     }
     isState_(state) {
         return this.state_ === state;
@@ -5934,7 +6051,7 @@ class TabOrganizationPageElement extends PolymerElement {
         this.apiProxy_.acceptTabOrganization(this.sessionId_, this.organizationId_, this.name_, this.tabs_);
     }
     onCheckNow_() {
-        this.apiProxy_.resetSession();
+        this.apiProxy_.restartSession();
     }
     onTipClick_() {
         this.apiProxy_.startTabGroupTutorial();
@@ -6012,7 +6129,8 @@ function getTemplate$5() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
+    </cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -6042,7 +6160,6 @@ class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -6064,13 +6181,12 @@ class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
-                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
-                observer: 'onIconChange_',
             },
+            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -6081,7 +6197,10 @@ class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
+        return [
+            'updateAriaExpanded_(disabled, expanded)',
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
     }
     ready() {
         super.ready();
@@ -6106,14 +6225,8 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
     updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
@@ -8127,12 +8240,14 @@ class TabSearchPageElement extends TabSearchSearchFieldBase {
 customElements.define(TabSearchPageElement.is, TabSearchPageElement);
 
 function getTemplate$1() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+
     <template is="dom-repeat" items="[[tabNames]]">
       <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
         <div class="tab-icon" style$="[[getIconStyle_(index)]]">
         </div>
         [[item]]
+        <div class="tab-indicator-background"></div>
         <div class="tab-indicator"></div>
       </div>
     </template>
@@ -8615,7 +8730,7 @@ Polymer({
 });
 
 function getTemplate() {
-    return html `<!--_html_template_start_--><style include="mwb-shared-style">:host-context([chrome-refresh-2023]){--cr-primary-text-color:var(--color-tab-search-primary-foreground);--cr-secondary-text-color:var(--color-tab-search-secondary-foreground);--cr-separator-color:var(--color-tab-search-divider);--cr-tabs-flex:1;--cr-tabs-focus-outline-offset:-4px;--cr-tabs-font-size:12px;--cr-tabs-icon-margin-end:4px;--cr-tabs-icon-size:16px;--cr-tabs-selected-color:var(--color-tab-search-selected);--cr-tabs-selection-bar-unselected-opacity:1;--cr-tabs-unselected-color:var(--color-tab-search-divider);--mwb-background-color:var(--color-tab-search-background);--mwb-icon-button-fill-color:var(--color-tab-search-secondary-foreground);--mwb-list-item-hover-background-color:var(--cr-hover-background-color);--mwb-list-item-selected-background-color:var(--cr-active-background-color);--mwb-primary-text-font-size:12px;--mwb-primary-text-font-weight:500;--mwb-secondary-text-font-size:11px;--mwb-secondary-text-font-weight:400;--mwb-scrollbar-thumb-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-thumb-hover-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-track-color:transparent}:host{user-select:none}</style>
+    return html `<!--_html_template_start_--><style include="mwb-shared-style">:host-context([chrome-refresh-2023]){--cr-primary-text-color:var(--color-tab-search-primary-foreground);--cr-secondary-text-color:var(--color-tab-search-secondary-foreground);--cr-separator-color:var(--color-tab-search-divider);--cr-tabs-flex:1;--cr-tabs-focus-outline-offset:-4px;--cr-tabs-font-size:12px;--cr-tabs-icon-margin-end:4px;--cr-tabs-icon-size:16px;--cr-tabs-selected-color:var(--color-tab-search-selected);--cr-tabs-selection-bar-radius:0;--cr-tabs-selection-bar-unselected-opacity:1;--cr-tabs-unselected-color:var(--color-tab-search-divider);--mwb-background-color:var(--color-tab-search-background);--mwb-icon-button-fill-color:var(--color-tab-search-secondary-foreground);--mwb-list-item-hover-background-color:var(--cr-hover-background-color);--mwb-list-item-selected-background-color:var(--cr-active-background-color);--mwb-primary-text-font-size:12px;--mwb-primary-text-font-weight:500;--mwb-secondary-text-font-size:11px;--mwb-secondary-text-font-weight:400;--mwb-scrollbar-thumb-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-thumb-hover-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-track-color:transparent}:host{user-select:none}</style>
 
 <template is="dom-if" if="[[tabOrganizationEnabled_]]">
   <cr-tabs tab-names="[[tabNames_]]" tab-icons="[[tabIcons_]]" selected="{{selectedTabIndex_}}" on-selected-changed="onSelectedTabChanged_">
@@ -8639,6 +8754,7 @@ class TabSearchAppElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.apiProxy_ = TabSearchApiProxyImpl.getInstance();
+        this.listenerIds_ = [];
     }
     static get is() {
         return 'tab-search-app';
@@ -8647,7 +8763,7 @@ class TabSearchAppElement extends PolymerElement {
         return {
             selectedTabIndex_: {
                 type: Number,
-                value: loadTimeData.getInteger('tabIndex'),
+                value: () => loadTimeData.getInteger('tabIndex'),
             },
             tabNames_: {
                 type: Array,
@@ -8669,11 +8785,22 @@ class TabSearchAppElement extends PolymerElement {
     static get template() {
         return getTemplate();
     }
+    connectedCallback() {
+        super.connectedCallback();
+        const callbackRouter = this.apiProxy_.getCallbackRouter();
+        this.listenerIds_.push(callbackRouter.tabSearchTabIndexChanged.addListener(this.onTabIndexChanged_.bind(this)));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.listenerIds_.forEach(id => this.apiProxy_.getCallbackRouter().removeListener(id));
+    }
+    onTabIndexChanged_(index) {
+        this.selectedTabIndex_ = index;
+    }
     onSelectedTabChanged_(event) {
         if (event.detail.value === 1) {
             const tabOrganizationPage = this.shadowRoot.querySelector('tab-organization-page');
             tabOrganizationPage.classList.toggle('changed-state', false);
-            tabOrganizationPage.updateContentsHeightAfterNextRender();
         }
         this.apiProxy_.setTabIndex(event.detail.value);
     }

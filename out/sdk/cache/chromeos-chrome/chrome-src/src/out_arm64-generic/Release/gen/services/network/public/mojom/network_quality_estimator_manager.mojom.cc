@@ -189,6 +189,8 @@ bool NetworkQualityEstimatorManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::NetworkQualityEstimatorManagerClient_OnNetworkQualityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkQualityEstimatorManagerClient.0
       bool success = true;
       ::net::EffectiveConnectionType p_type{};
       ::base::TimeDelta p_http_rtt{};
@@ -213,11 +215,11 @@ bool NetworkQualityEstimatorManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkQualityChanged(
-std::move(p_type), 
-std::move(p_http_rtt), 
-std::move(p_transport_rtt), 
-std::move(p_downlink_bandwidth_kbps));
+      impl->OnNetworkQualityChanged(        
+        std::move(p_type), 
+        std::move(p_http_rtt), 
+        std::move(p_transport_rtt), 
+        std::move(p_downlink_bandwidth_kbps));
       return true;
     }
   }
@@ -368,6 +370,8 @@ bool NetworkQualityEstimatorManagerStubDispatch::Accept(
           reinterpret_cast<internal::NetworkQualityEstimatorManager_RequestNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkQualityEstimatorManager.0
       bool success = true;
       ::mojo::PendingRemote<NetworkQualityEstimatorManagerClient> p_client{};
       NetworkQualityEstimatorManager_RequestNotifications_ParamsDataView input_data_view(params, message);
@@ -385,8 +389,8 @@ bool NetworkQualityEstimatorManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestNotifications(
-std::move(p_client));
+      impl->RequestNotifications(        
+        std::move(p_client));
       return true;
     }
   }

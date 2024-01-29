@@ -7,9 +7,9 @@ import { installMockChrome } from '../../common/js/mock_chrome.js';
 import { MockDirectoryEntry, MockFileEntry, MockFileSystem } from '../../common/js/mock_entry.js';
 import { assertRejected, waitUntil } from '../../common/js/test_error_reporting.js';
 import { FileSystemType, RootType, Source, VolumeError, VolumeType } from '../../common/js/volume_manager_types.js';
-import { VolumeInfoImpl } from './volume_info_impl.js';
+import { VolumeInfo } from './volume_info.js';
+import { createVolumeInfo, VolumeManager } from './volume_manager.js';
 import { volumeManagerFactory } from './volume_manager_factory.js';
-import { createVolumeInfo, VolumeManagerImpl } from './volume_manager_impl.js';
 let mockChrome;
 let mockData;
 let webkitResolveLocalFileSystemURLOriginal;
@@ -376,7 +376,7 @@ export async function testGetLocationInfo(done) {
 export async function testWhenReady(done) {
     const volumeManager = await volumeManagerFactory.getInstance();
     const promiseBeforeAdd = volumeManager.whenVolumeInfoReady('volumeId');
-    const volumeInfo = new VolumeInfoImpl(
+    const volumeInfo = new VolumeInfo(
     /* volumeType */ VolumeType.MY_FILES, 
     /* volumeId */ 'volumeId', 
     /* fileSystem */ null, 
@@ -388,7 +388,6 @@ export async function testWhenReady(done) {
     /* profile */ { displayName: '', isCurrentProfile: true }, 
     /* label */ 'testLabel', 
     /* extensionid */ undefined, 
-    /* hasMedia */ false, 
     /* configurable */ false, 
     /* watchable */ true, 
     /* source */ Source.FILE, 
@@ -459,7 +458,7 @@ export async function testErrorInitializingVolume(done) {
         return createVolumeInfo(volumeMetadata);
     };
     // Wait for initialization to populate volumeInfoList.
-    const volumeManager = new VolumeManagerImpl(createVolumeInfoFake);
+    const volumeManager = new VolumeManager(createVolumeInfoFake);
     await volumeManager.initialize();
     // VolumeInfoList should contain only Android and MyFiles.
     await waitUntil(() => volumeManager.volumeInfoList.length === 2);
@@ -469,7 +468,7 @@ export async function testErrorInitializingVolume(done) {
     done();
 }
 /**
- * Tests VolumeInfoImpl doesn't raise exception if null is passed for
+ * Tests VolumeInfo doesn't raise exception if null is passed for
  * filesystem. crbug.com/1041340
  */
 export async function testDriveWithNullFilesystem(done) {
@@ -482,8 +481,8 @@ export async function testDriveWithNullFilesystem(done) {
     const expectedError = 'EXPECTED ERROR DESCRIPTION';
     // Create a VolumeInfo with null filesystem, in the same way that happens on
     // createVolumeInfo().
-    const volumeInfo = new VolumeInfoImpl(driveVolumeMetadata.volumeType, driveVolumeMetadata.volumeId, null, // File system is not found.
-    expectedError, driveVolumeMetadata.deviceType, driveVolumeMetadata.devicePath, driveVolumeMetadata.isReadOnly, driveVolumeMetadata.isReadOnlyRemovableDevice, driveVolumeMetadata.profile, localizedLabel, driveVolumeMetadata.providerId, driveVolumeMetadata.hasMedia, driveVolumeMetadata.configurable, driveVolumeMetadata.watchable, driveVolumeMetadata.source, driveVolumeMetadata.diskFileSystemType, driveVolumeMetadata.iconSet, driveVolumeMetadata.driveLabel, driveVolumeMetadata.remoteMountPath, driveVolumeMetadata.vmType);
+    const volumeInfo = new VolumeInfo(driveVolumeMetadata.volumeType, driveVolumeMetadata.volumeId, null, // File system is not found.
+    expectedError, driveVolumeMetadata.deviceType, driveVolumeMetadata.devicePath, driveVolumeMetadata.isReadOnly, driveVolumeMetadata.isReadOnlyRemovableDevice, driveVolumeMetadata.profile, localizedLabel, driveVolumeMetadata.providerId, driveVolumeMetadata.configurable, driveVolumeMetadata.watchable, driveVolumeMetadata.source, driveVolumeMetadata.diskFileSystemType, driveVolumeMetadata.iconSet, driveVolumeMetadata.driveLabel, driveVolumeMetadata.remoteMountPath, driveVolumeMetadata.vmType);
     // Wait for trying to resolve display root, it should fail with
     // |expectedError| if not re-throw to make the test fail.
     await volumeInfo.resolveDisplayRoot().catch(error => {

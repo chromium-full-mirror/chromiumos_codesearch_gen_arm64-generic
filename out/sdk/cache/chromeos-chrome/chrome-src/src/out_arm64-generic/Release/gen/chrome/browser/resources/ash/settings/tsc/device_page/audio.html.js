@@ -99,9 +99,9 @@ export function getTemplate() {
 <div id="deviceSounds">
   <h2>$i18n{deviceSoundsTitle}</h2>
   <div id="deviceSoundsSection" class="subsection">
-    <settings-toggle-button id="lowBatterySoundToggle" pref="{{prefs.ash.low_battery_sound.enabled}}" label="$i18n{lowBatterySoundLabel}" deep-link-focus-id$="[[Setting.kLowBatterySound]]" hidden$="[[!systemSoundsEnabled_]]">
+    <settings-toggle-button id="lowBatterySoundToggle" pref="{{prefs.ash.low_battery_sound.enabled}}" label="$i18n{lowBatterySoundLabel}" deep-link-focus-id$="[[Setting.kLowBatterySound]]" hidden$="[[powerSoundsHidden_]]">
     </settings-toggle-button>
-    <settings-toggle-button id="chargingSoundsToggle" pref="{{prefs.ash.charging_sounds.enabled}}" label="$i18n{chargingSoundsLabel}" deep-link-focus-id$="[[Setting.kChargingSounds]]" hidden$="[[!systemSoundsEnabled_]]">
+    <settings-toggle-button id="chargingSoundsToggle" pref="{{prefs.ash.charging_sounds.enabled}}" label="$i18n{chargingSoundsLabel}" deep-link-focus-id$="[[Setting.kChargingSounds]]" hidden$="[[powerSoundsHidden_]]">
     </settings-toggle-button>
     <div class="settings-box start-padding continuation">
       <div id="deviceStartupSoundEnabledLabel" class="start settings-box-text">

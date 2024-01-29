@@ -377,6 +377,8 @@ bool BlobDataItemReader_Read_ForwardToCallback::Accept(
           internal::BlobDataItemReader_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobDataItemReader.0
   bool success = true;
   int32_t p_success{};
   BlobDataItemReader_Read_ResponseParamsDataView input_data_view(params, message);
@@ -496,6 +498,8 @@ bool BlobDataItemReader_ReadSideData_ForwardToCallback::Accept(
           internal::BlobDataItemReader_ReadSideData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobDataItemReader.1
   bool success = true;
   int32_t p_success{};
   ::mojo_base::BigBuffer p_data{};
@@ -605,6 +609,8 @@ bool BlobDataItemReaderStubDispatch::AcceptWithResponder(
               internal::BlobDataItemReader_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobDataItemReader.0
       bool success = true;
       uint64_t p_offset{};
       uint64_t p_length{};
@@ -629,10 +635,10 @@ bool BlobDataItemReaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_offset), 
-std::move(p_length), 
-std::move(p_pipe), std::move(callback));
+      impl->Read(        
+        std::move(p_offset), 
+        std::move(p_length), 
+        std::move(p_pipe), std::move(callback));
       return true;
     }
     case internal::kBlobDataItemReader_ReadSideData_Name: {
@@ -642,6 +648,8 @@ std::move(p_pipe), std::move(callback));
               internal::BlobDataItemReader_ReadSideData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobDataItemReader.1
       bool success = true;
       BlobDataItemReader_ReadSideData_ParamsDataView input_data_view(params, message);
       
@@ -1140,6 +1148,8 @@ bool BlobStorageContext_WriteBlobToFile_ForwardToCallback::Accept(
           internal::BlobStorageContext_WriteBlobToFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobStorageContext.2
   bool success = true;
   WriteBlobToFileResult p_result{};
   BlobStorageContext_WriteBlobToFile_ResponseParamsDataView input_data_view(params, message);
@@ -1215,6 +1225,8 @@ bool BlobStorageContextStubDispatch::Accept(
           reinterpret_cast<internal::BlobStorageContext_RegisterFromDataItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobStorageContext.0
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::Blob> p_blob{};
       std::string p_uuid{};
@@ -1238,10 +1250,10 @@ bool BlobStorageContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFromDataItem(
-std::move(p_blob), 
-std::move(p_uuid), 
-std::move(p_item));
+      impl->RegisterFromDataItem(        
+        std::move(p_blob), 
+        std::move(p_uuid), 
+        std::move(p_item));
       return true;
     }
     case internal::kBlobStorageContext_RegisterFromMemory_Name: {
@@ -1251,6 +1263,8 @@ std::move(p_item));
           reinterpret_cast<internal::BlobStorageContext_RegisterFromMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobStorageContext.1
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::Blob> p_blob{};
       std::string p_uuid{};
@@ -1274,10 +1288,10 @@ std::move(p_item));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFromMemory(
-std::move(p_blob), 
-std::move(p_uuid), 
-std::move(p_data));
+      impl->RegisterFromMemory(        
+        std::move(p_blob), 
+        std::move(p_uuid), 
+        std::move(p_data));
       return true;
     }
     case internal::kBlobStorageContext_WriteBlobToFile_Name: {
@@ -1290,6 +1304,8 @@ std::move(p_data));
           reinterpret_cast<internal::BlobStorageContext_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobStorageContext.3
       bool success = true;
       ::mojo::PendingReceiver<BlobStorageContext> p_receiver{};
       BlobStorageContext_Clone_ParamsDataView input_data_view(params, message);
@@ -1307,8 +1323,8 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -1337,6 +1353,8 @@ bool BlobStorageContextStubDispatch::AcceptWithResponder(
               internal::BlobStorageContext_WriteBlobToFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobStorageContext.2
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::Blob> p_blob{};
       ::base::FilePath p_path{};
@@ -1366,11 +1384,11 @@ bool BlobStorageContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteBlobToFile(
-std::move(p_blob), 
-std::move(p_path), 
-std::move(p_flush_on_write), 
-std::move(p_last_modified), std::move(callback));
+      impl->WriteBlobToFile(        
+        std::move(p_blob), 
+        std::move(p_path), 
+        std::move(p_flush_on_write), 
+        std::move(p_last_modified), std::move(callback));
       return true;
     }
     case internal::kBlobStorageContext_Clone_Name: {

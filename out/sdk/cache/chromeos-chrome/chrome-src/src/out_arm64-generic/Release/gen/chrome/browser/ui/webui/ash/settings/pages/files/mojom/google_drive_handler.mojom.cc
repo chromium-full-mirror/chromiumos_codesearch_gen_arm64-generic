@@ -254,6 +254,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -276,9 +278,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -654,6 +656,8 @@ bool PageHandler_GetContentCacheSize_ForwardToCallback::Accept(
           internal::PageHandler_GetContentCacheSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   std::optional<std::string> p_size{};
   PageHandler_GetContentCacheSize_ResponseParamsDataView input_data_view(params, message);
@@ -779,6 +783,8 @@ bool PageHandler_ClearPinnedFiles_ForwardToCallback::Accept(
           internal::PageHandler_ClearPinnedFiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   PageHandler_ClearPinnedFiles_ResponseParamsDataView input_data_view(params, message);
   
@@ -841,6 +847,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_CalculateRequiredSpace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_CalculateRequiredSpace_ParamsDataView input_data_view(params, message);
       
@@ -853,7 +861,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CalculateRequiredSpace();
+      impl->CalculateRequiredSpace(        );
       return true;
     }
     case internal::kPageHandler_GetContentCacheSize_Name: {
@@ -869,6 +877,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_RecordBulkPinningEnabledMetric_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_RecordBulkPinningEnabledMetric_ParamsDataView input_data_view(params, message);
       
@@ -881,7 +891,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordBulkPinningEnabledMetric();
+      impl->RecordBulkPinningEnabledMetric(        );
       return true;
     }
   }
@@ -907,6 +917,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetContentCacheSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetContentCacheSize_ParamsDataView input_data_view(params, message);
       
@@ -932,6 +944,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_ClearPinnedFiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_ClearPinnedFiles_ParamsDataView input_data_view(params, message);
       
@@ -1153,6 +1167,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnServiceUnavailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       Page_OnServiceUnavailable_ParamsDataView input_data_view(params, message);
       
@@ -1165,7 +1181,7 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceUnavailable();
+      impl->OnServiceUnavailable(        );
       return true;
     }
     case internal::kPage_OnProgress_Name: {
@@ -1175,6 +1191,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       StatusPtr p_status{};
       Page_OnProgress_ParamsDataView input_data_view(params, message);
@@ -1190,8 +1208,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProgress(
-std::move(p_status));
+      impl->OnProgress(        
+        std::move(p_status));
       return true;
     }
   }

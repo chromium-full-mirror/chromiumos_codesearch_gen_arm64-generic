@@ -159,64 +159,35 @@ bool PublicKeyCredentialRequestOptions::FillV8ObjectWithMembers(ScriptState* scr
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAllowCredentials()) {
-  if (!ToV8Traits<IDLSequence<PublicKeyCredentialDescriptor>>::ToV8(script_state, member_allow_credentials_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<PublicKeyCredentialDescriptor>>::ToV8(script_state, member_allow_credentials_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasChallenge()) {
-  if (!ToV8Traits<V8UnionArrayBufferOrArrayBufferView>::ToV8(script_state, member_challenge_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionArrayBufferOrArrayBufferView>::ToV8(script_state, member_challenge_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasExtensions()) {
-  if (!ToV8Traits<AuthenticationExtensionsClientInputs>::ToV8(script_state, member_extensions_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<AuthenticationExtensionsClientInputs>::ToV8(script_state, member_extensions_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (RuntimeEnabledFeatures::WebAuthenticationHintsEnabled()) {
   if (hasHints()) {
-  if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_hints_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_hints_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasRpId()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_rp_id_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_rp_id_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasTimeout()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_timeout_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_timeout_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasUserVerification()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_user_verification_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_user_verification_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

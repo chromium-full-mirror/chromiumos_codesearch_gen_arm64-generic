@@ -1175,7 +1175,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'allCertificates', 0,
         0,
-        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1183,21 +1183,37 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'trustAnchors', 8,
         0,
-        mojo.internal.Array(network.mojom.X509CertificateSpec.$, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'distrustedSpkis', 16,
+        'trustAnchorsWithEnforcedConstraints', 16,
         0,
         mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'distrustedSpkis', 24,
+        0,
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'includeSystemTrustStore', 32,
+        0,
+        mojo.internal.Bool,
+        true,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 48],]);
 
 
 
@@ -1206,12 +1222,16 @@ mojo.internal.Struct(
 /** @record */
 certVerifier.mojom.AdditionalCertificates = class {
   constructor() {
-    /** @export { !Array<!network.mojom.X509Certificate> } */
+    /** @export { !Array<!Array<!number>> } */
     this.allCertificates;
-    /** @export { !Array<!network.mojom.X509Certificate> } */
+    /** @export { !Array<!Array<!number>> } */
     this.trustAnchors;
     /** @export { !Array<!Array<!number>> } */
+    this.trustAnchorsWithEnforcedConstraints;
+    /** @export { !Array<!Array<!number>> } */
     this.distrustedSpkis;
+    /** @export { !boolean } */
+    this.includeSystemTrustStore;
   }
 };
 

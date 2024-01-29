@@ -283,7 +283,7 @@ export class PanelItem extends HTMLElement {
                     parent.appendChild(textNode);
                 }
                 // Remove the secondary text node if the text is empty
-                if (newValue == '') {
+                if (newValue === '') {
                     textNode.remove();
                 }
                 else {

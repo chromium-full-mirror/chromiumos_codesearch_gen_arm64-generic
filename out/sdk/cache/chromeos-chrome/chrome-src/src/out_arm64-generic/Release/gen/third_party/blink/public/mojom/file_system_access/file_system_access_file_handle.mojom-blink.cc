@@ -1180,6 +1180,8 @@ bool FileSystemAccessFileHandle_GetPermissionStatus_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_GetPermissionStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.0
   bool success = true;
   ::blink::mojom::blink::PermissionStatus p_status{};
   FileSystemAccessFileHandle_GetPermissionStatus_ResponseParamsDataView input_data_view(params, message);
@@ -1300,6 +1302,8 @@ bool FileSystemAccessFileHandle_RequestPermission_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_RequestPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.1
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   ::blink::mojom::blink::PermissionStatus p_status{};
@@ -1438,6 +1442,8 @@ bool FileSystemAccessFileHandle_AsBlob_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_AsBlob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.2
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   ::base::File::Info p_info{};
@@ -1599,6 +1605,8 @@ bool FileSystemAccessFileHandle_CreateFileWriter_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_CreateFileWriter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.3
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessFileWriter> p_writer{};
@@ -1739,6 +1747,8 @@ bool FileSystemAccessFileHandle_Rename_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_Rename_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.4
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessFileHandle_Rename_ResponseParamsDataView input_data_view(params, message);
@@ -1868,6 +1878,8 @@ bool FileSystemAccessFileHandle_Move_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_Move_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.5
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessFileHandle_Move_ResponseParamsDataView input_data_view(params, message);
@@ -1997,6 +2009,8 @@ bool FileSystemAccessFileHandle_Remove_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_Remove_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.6
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessFileHandle_Remove_ResponseParamsDataView input_data_view(params, message);
@@ -2126,6 +2140,8 @@ bool FileSystemAccessFileHandle_OpenAccessHandle_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_OpenAccessHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.7
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   FileSystemAccessAccessHandleFilePtr p_file{};
@@ -2278,6 +2294,8 @@ bool FileSystemAccessFileHandle_IsSameEntry_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_IsSameEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.8
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   bool p_is_same{};
@@ -2415,6 +2433,8 @@ bool FileSystemAccessFileHandle_GetUniqueId_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_GetUniqueId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.10
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   WTF::String p_id{};
@@ -2562,6 +2582,8 @@ bool FileSystemAccessFileHandle_GetCloudIdentifiers_ForwardToCallback::Accept(
           internal::FileSystemAccessFileHandle_GetCloudIdentifiers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileHandle.11
   bool success = true;
   ::blink::mojom::blink::FileSystemAccessErrorPtr p_result{};
   WTF::Vector<::blink::mojom::blink::FileSystemAccessCloudIdentifierPtr> p_cloud_identifiers{};
@@ -2693,6 +2715,8 @@ bool FileSystemAccessFileHandleStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessFileHandle_Transfer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.9
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::FileSystemAccessTransferToken> p_token{};
       FileSystemAccessFileHandle_Transfer_ParamsDataView input_data_view(params, message);
@@ -2710,8 +2734,8 @@ bool FileSystemAccessFileHandleStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Transfer(
-std::move(p_token));
+      impl->Transfer(        
+        std::move(p_token));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_GetUniqueId_Name: {
@@ -2740,6 +2764,8 @@ bool FileSystemAccessFileHandleStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessFileHandle_GetPermissionStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.0
       bool success = true;
       bool p_writable{};
       FileSystemAccessFileHandle_GetPermissionStatus_ParamsDataView input_data_view(params, message);
@@ -2758,8 +2784,8 @@ bool FileSystemAccessFileHandleStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPermissionStatus(
-std::move(p_writable), std::move(callback));
+      impl->GetPermissionStatus(        
+        std::move(p_writable), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_RequestPermission_Name: {
@@ -2769,6 +2795,8 @@ std::move(p_writable), std::move(callback));
               internal::FileSystemAccessFileHandle_RequestPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.1
       bool success = true;
       bool p_writable{};
       FileSystemAccessFileHandle_RequestPermission_ParamsDataView input_data_view(params, message);
@@ -2787,8 +2815,8 @@ std::move(p_writable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPermission(
-std::move(p_writable), std::move(callback));
+      impl->RequestPermission(        
+        std::move(p_writable), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_AsBlob_Name: {
@@ -2798,6 +2826,8 @@ std::move(p_writable), std::move(callback));
               internal::FileSystemAccessFileHandle_AsBlob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.2
       bool success = true;
       FileSystemAccessFileHandle_AsBlob_ParamsDataView input_data_view(params, message);
       
@@ -2823,6 +2853,8 @@ std::move(p_writable), std::move(callback));
               internal::FileSystemAccessFileHandle_CreateFileWriter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.3
       bool success = true;
       bool p_keep_existing_data{};
       bool p_auto_close{};
@@ -2847,10 +2879,10 @@ std::move(p_writable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFileWriter(
-std::move(p_keep_existing_data), 
-std::move(p_auto_close), 
-std::move(p_mode), std::move(callback));
+      impl->CreateFileWriter(        
+        std::move(p_keep_existing_data), 
+        std::move(p_auto_close), 
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_Rename_Name: {
@@ -2860,6 +2892,8 @@ std::move(p_mode), std::move(callback));
               internal::FileSystemAccessFileHandle_Rename_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.4
       bool success = true;
       WTF::String p_new_entry_name{};
       FileSystemAccessFileHandle_Rename_ParamsDataView input_data_view(params, message);
@@ -2878,8 +2912,8 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Rename(
-std::move(p_new_entry_name), std::move(callback));
+      impl->Rename(        
+        std::move(p_new_entry_name), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_Move_Name: {
@@ -2889,6 +2923,8 @@ std::move(p_new_entry_name), std::move(callback));
               internal::FileSystemAccessFileHandle_Move_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.5
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> p_destination_directory{};
       WTF::String p_new_entry_name{};
@@ -2912,9 +2948,9 @@ std::move(p_new_entry_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Move(
-std::move(p_destination_directory), 
-std::move(p_new_entry_name), std::move(callback));
+      impl->Move(        
+        std::move(p_destination_directory), 
+        std::move(p_new_entry_name), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_Remove_Name: {
@@ -2924,6 +2960,8 @@ std::move(p_new_entry_name), std::move(callback));
               internal::FileSystemAccessFileHandle_Remove_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.6
       bool success = true;
       FileSystemAccessFileHandle_Remove_ParamsDataView input_data_view(params, message);
       
@@ -2949,6 +2987,8 @@ std::move(p_new_entry_name), std::move(callback));
               internal::FileSystemAccessFileHandle_OpenAccessHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.7
       bool success = true;
       FileSystemAccessAccessHandleLockMode p_mode{};
       FileSystemAccessFileHandle_OpenAccessHandle_ParamsDataView input_data_view(params, message);
@@ -2967,8 +3007,8 @@ std::move(p_new_entry_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenAccessHandle(
-std::move(p_mode), std::move(callback));
+      impl->OpenAccessHandle(        
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_IsSameEntry_Name: {
@@ -2978,6 +3018,8 @@ std::move(p_mode), std::move(callback));
               internal::FileSystemAccessFileHandle_IsSameEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.8
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> p_other{};
       FileSystemAccessFileHandle_IsSameEntry_ParamsDataView input_data_view(params, message);
@@ -2998,8 +3040,8 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsSameEntry(
-std::move(p_other), std::move(callback));
+      impl->IsSameEntry(        
+        std::move(p_other), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileHandle_Transfer_Name: {
@@ -3012,6 +3054,8 @@ std::move(p_other), std::move(callback));
               internal::FileSystemAccessFileHandle_GetUniqueId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.10
       bool success = true;
       FileSystemAccessFileHandle_GetUniqueId_ParamsDataView input_data_view(params, message);
       
@@ -3037,6 +3081,8 @@ std::move(p_other), std::move(callback));
               internal::FileSystemAccessFileHandle_GetCloudIdentifiers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileHandle.11
       bool success = true;
       FileSystemAccessFileHandle_GetCloudIdentifiers_ParamsDataView input_data_view(params, message);
       

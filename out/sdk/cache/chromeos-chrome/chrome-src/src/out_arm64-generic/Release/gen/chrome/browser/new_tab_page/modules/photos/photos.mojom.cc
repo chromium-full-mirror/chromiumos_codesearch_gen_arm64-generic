@@ -777,6 +777,8 @@ bool PhotosHandler_GetMemories_ForwardToCallback::Accept(
           internal::PhotosHandler_GetMemories_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhotosHandler.0
   bool success = true;
   std::vector<MemoryPtr> p_memories{};
   PhotosHandler_GetMemories_ResponseParamsDataView input_data_view(params, message);
@@ -908,6 +910,8 @@ bool PhotosHandler_ShouldShowOptInScreen_ForwardToCallback::Accept(
           internal::PhotosHandler_ShouldShowOptInScreen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhotosHandler.3
   bool success = true;
   bool p_show_opt_in_screen{};
   PhotosHandler_ShouldShowOptInScreen_ResponseParamsDataView input_data_view(params, message);
@@ -1027,6 +1031,8 @@ bool PhotosHandler_ShouldShowSoftOptOutButton_ForwardToCallback::Accept(
           internal::PhotosHandler_ShouldShowSoftOptOutButton_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhotosHandler.6
   bool success = true;
   bool p_show_soft_opt_out_button{};
   PhotosHandler_ShouldShowSoftOptOutButton_ResponseParamsDataView input_data_view(params, message);
@@ -1146,6 +1152,8 @@ bool PhotosHandler_GetOptInTitleText_ForwardToCallback::Accept(
           internal::PhotosHandler_GetOptInTitleText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhotosHandler.8
   bool success = true;
   std::string p_opt_in_title_text{};
   PhotosHandler_GetOptInTitleText_ResponseParamsDataView input_data_view(params, message);
@@ -1233,6 +1241,8 @@ bool PhotosHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PhotosHandler_DismissModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.1
       bool success = true;
       PhotosHandler_DismissModule_ParamsDataView input_data_view(params, message);
       
@@ -1245,7 +1255,7 @@ bool PhotosHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissModule();
+      impl->DismissModule(        );
       return true;
     }
     case internal::kPhotosHandler_RestoreModule_Name: {
@@ -1255,6 +1265,8 @@ bool PhotosHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PhotosHandler_RestoreModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.2
       bool success = true;
       PhotosHandler_RestoreModule_ParamsDataView input_data_view(params, message);
       
@@ -1267,7 +1279,7 @@ bool PhotosHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreModule();
+      impl->RestoreModule(        );
       return true;
     }
     case internal::kPhotosHandler_ShouldShowOptInScreen_Name: {
@@ -1280,6 +1292,8 @@ bool PhotosHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PhotosHandler_OnUserOptIn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.4
       bool success = true;
       bool p_accept{};
       PhotosHandler_OnUserOptIn_ParamsDataView input_data_view(params, message);
@@ -1295,8 +1309,8 @@ bool PhotosHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUserOptIn(
-std::move(p_accept));
+      impl->OnUserOptIn(        
+        std::move(p_accept));
       return true;
     }
     case internal::kPhotosHandler_OnMemoryOpen_Name: {
@@ -1306,6 +1320,8 @@ std::move(p_accept));
           reinterpret_cast<internal::PhotosHandler_OnMemoryOpen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.5
       bool success = true;
       PhotosHandler_OnMemoryOpen_ParamsDataView input_data_view(params, message);
       
@@ -1318,7 +1334,7 @@ std::move(p_accept));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMemoryOpen();
+      impl->OnMemoryOpen(        );
       return true;
     }
     case internal::kPhotosHandler_ShouldShowSoftOptOutButton_Name: {
@@ -1331,6 +1347,8 @@ std::move(p_accept));
           reinterpret_cast<internal::PhotosHandler_SoftOptOut_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.7
       bool success = true;
       PhotosHandler_SoftOptOut_ParamsDataView input_data_view(params, message);
       
@@ -1343,7 +1361,7 @@ std::move(p_accept));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SoftOptOut();
+      impl->SoftOptOut(        );
       return true;
     }
     case internal::kPhotosHandler_GetOptInTitleText_Name: {
@@ -1369,6 +1387,8 @@ bool PhotosHandlerStubDispatch::AcceptWithResponder(
               internal::PhotosHandler_GetMemories_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.0
       bool success = true;
       PhotosHandler_GetMemories_ParamsDataView input_data_view(params, message);
       
@@ -1400,6 +1420,8 @@ bool PhotosHandlerStubDispatch::AcceptWithResponder(
               internal::PhotosHandler_ShouldShowOptInScreen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.3
       bool success = true;
       PhotosHandler_ShouldShowOptInScreen_ParamsDataView input_data_view(params, message);
       
@@ -1431,6 +1453,8 @@ bool PhotosHandlerStubDispatch::AcceptWithResponder(
               internal::PhotosHandler_ShouldShowSoftOptOutButton_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.6
       bool success = true;
       PhotosHandler_ShouldShowSoftOptOutButton_ParamsDataView input_data_view(params, message);
       
@@ -1459,6 +1483,8 @@ bool PhotosHandlerStubDispatch::AcceptWithResponder(
               internal::PhotosHandler_GetOptInTitleText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhotosHandler.8
       bool success = true;
       std::vector<MemoryPtr> p_memories{};
       PhotosHandler_GetOptInTitleText_ParamsDataView input_data_view(params, message);
@@ -1477,8 +1503,8 @@ bool PhotosHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOptInTitleText(
-std::move(p_memories), std::move(callback));
+      impl->GetOptInTitleText(        
+        std::move(p_memories), std::move(callback));
       return true;
     }
   }

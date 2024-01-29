@@ -26,7 +26,6 @@ const webui::ResourcePath kNearbyInternalsResources[] = {
   {"nearby_http_browser_proxy.js", IDR_NEARBY_INTERNALS_NEARBY_HTTP_BROWSER_PROXY_JS},
   {"cross_device_logs_browser_proxy.js", IDR_NEARBY_INTERNALS_CROSS_DEVICE_LOGS_BROWSER_PROXY_JS},
   {"nearby_presence_browser_proxy.js", IDR_NEARBY_INTERNALS_NEARBY_PRESENCE_BROWSER_PROXY_JS},
-  {"push_notification_browser_proxy.js", IDR_NEARBY_INTERNALS_PUSH_NOTIFICATION_BROWSER_PROXY_JS},
   {"nearby_prefs_browser_proxy.js", IDR_NEARBY_INTERNALS_NEARBY_PREFS_BROWSER_PROXY_JS},
   {"nearby_ui_trigger_browser_proxy.js", IDR_NEARBY_INTERNALS_NEARBY_UI_TRIGGER_BROWSER_PROXY_JS},
   {"types.js", IDR_NEARBY_INTERNALS_TYPES_JS},

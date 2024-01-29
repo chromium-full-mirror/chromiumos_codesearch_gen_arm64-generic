@@ -334,6 +334,8 @@ bool UserNotesPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::UserNotesPageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<UserNotesPage> p_page{};
       ::mojo::PendingReceiver<UserNotesPageHandler> p_handler{};
@@ -356,9 +358,9 @@ bool UserNotesPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -1494,6 +1496,8 @@ bool UserNotesPageHandler_GetNoteOverviews_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_GetNoteOverviews_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.1
   bool success = true;
   std::vector<NoteOverviewPtr> p_overviews{};
   UserNotesPageHandler_GetNoteOverviews_ResponseParamsDataView input_data_view(params, message);
@@ -1625,6 +1629,8 @@ bool UserNotesPageHandler_GetNotesForCurrentTab_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_GetNotesForCurrentTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.2
   bool success = true;
   std::vector<NotePtr> p_notes{};
   UserNotesPageHandler_GetNotesForCurrentTab_ResponseParamsDataView input_data_view(params, message);
@@ -1756,6 +1762,8 @@ bool UserNotesPageHandler_NewNoteFinished_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_NewNoteFinished_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.3
   bool success = true;
   bool p_success{};
   UserNotesPageHandler_NewNoteFinished_ResponseParamsDataView input_data_view(params, message);
@@ -1875,6 +1883,8 @@ bool UserNotesPageHandler_UpdateNote_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_UpdateNote_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.4
   bool success = true;
   bool p_success{};
   UserNotesPageHandler_UpdateNote_ResponseParamsDataView input_data_view(params, message);
@@ -1994,6 +2004,8 @@ bool UserNotesPageHandler_DeleteNote_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_DeleteNote_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.5
   bool success = true;
   bool p_success{};
   UserNotesPageHandler_DeleteNote_ResponseParamsDataView input_data_view(params, message);
@@ -2113,6 +2125,8 @@ bool UserNotesPageHandler_DeleteNotesForUrl_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_DeleteNotesForUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.6
   bool success = true;
   bool p_success{};
   UserNotesPageHandler_DeleteNotesForUrl_ResponseParamsDataView input_data_view(params, message);
@@ -2232,6 +2246,8 @@ bool UserNotesPageHandler_HasNotesInAnyPages_ForwardToCallback::Accept(
           internal::UserNotesPageHandler_HasNotesInAnyPages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserNotesPageHandler.9
   bool success = true;
   bool p_has_notes{};
   UserNotesPageHandler_HasNotesInAnyPages_ResponseParamsDataView input_data_view(params, message);
@@ -2306,6 +2322,8 @@ bool UserNotesPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UserNotesPageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.0
       bool success = true;
       UserNotesPageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -2318,7 +2336,7 @@ bool UserNotesPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
     case internal::kUserNotesPageHandler_GetNoteOverviews_Name: {
@@ -2346,6 +2364,8 @@ bool UserNotesPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UserNotesPageHandler_NoteOverviewSelected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.7
       bool success = true;
       ::GURL p_url{};
       ::ui::mojom::ClickModifiersPtr p_click_modifiers{};
@@ -2364,9 +2384,9 @@ bool UserNotesPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NoteOverviewSelected(
-std::move(p_url), 
-std::move(p_click_modifiers));
+      impl->NoteOverviewSelected(        
+        std::move(p_url), 
+        std::move(p_click_modifiers));
       return true;
     }
     case internal::kUserNotesPageHandler_SetSortOrder_Name: {
@@ -2376,6 +2396,8 @@ std::move(p_click_modifiers));
           reinterpret_cast<internal::UserNotesPageHandler_SetSortOrder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.8
       bool success = true;
       bool p_sort_by_newest{};
       UserNotesPageHandler_SetSortOrder_ParamsDataView input_data_view(params, message);
@@ -2391,8 +2413,8 @@ std::move(p_click_modifiers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSortOrder(
-std::move(p_sort_by_newest));
+      impl->SetSortOrder(        
+        std::move(p_sort_by_newest));
       return true;
     }
     case internal::kUserNotesPageHandler_HasNotesInAnyPages_Name: {
@@ -2405,6 +2427,8 @@ std::move(p_sort_by_newest));
           reinterpret_cast<internal::UserNotesPageHandler_OpenInNewTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.10
       bool success = true;
       ::GURL p_url{};
       UserNotesPageHandler_OpenInNewTab_ParamsDataView input_data_view(params, message);
@@ -2420,8 +2444,8 @@ std::move(p_sort_by_newest));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenInNewTab(
-std::move(p_url));
+      impl->OpenInNewTab(        
+        std::move(p_url));
       return true;
     }
     case internal::kUserNotesPageHandler_OpenInNewWindow_Name: {
@@ -2431,6 +2455,8 @@ std::move(p_url));
           reinterpret_cast<internal::UserNotesPageHandler_OpenInNewWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.11
       bool success = true;
       ::GURL p_url{};
       UserNotesPageHandler_OpenInNewWindow_ParamsDataView input_data_view(params, message);
@@ -2446,8 +2472,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenInNewWindow(
-std::move(p_url));
+      impl->OpenInNewWindow(        
+        std::move(p_url));
       return true;
     }
     case internal::kUserNotesPageHandler_OpenInIncognitoWindow_Name: {
@@ -2457,6 +2483,8 @@ std::move(p_url));
           reinterpret_cast<internal::UserNotesPageHandler_OpenInIncognitoWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.12
       bool success = true;
       ::GURL p_url{};
       UserNotesPageHandler_OpenInIncognitoWindow_ParamsDataView input_data_view(params, message);
@@ -2472,8 +2500,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenInIncognitoWindow(
-std::move(p_url));
+      impl->OpenInIncognitoWindow(        
+        std::move(p_url));
       return true;
     }
   }
@@ -2499,6 +2527,8 @@ bool UserNotesPageHandlerStubDispatch::AcceptWithResponder(
               internal::UserNotesPageHandler_GetNoteOverviews_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.1
       bool success = true;
       std::string p_user_input{};
       UserNotesPageHandler_GetNoteOverviews_ParamsDataView input_data_view(params, message);
@@ -2517,8 +2547,8 @@ bool UserNotesPageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNoteOverviews(
-std::move(p_user_input), std::move(callback));
+      impl->GetNoteOverviews(        
+        std::move(p_user_input), std::move(callback));
       return true;
     }
     case internal::kUserNotesPageHandler_GetNotesForCurrentTab_Name: {
@@ -2528,6 +2558,8 @@ std::move(p_user_input), std::move(callback));
               internal::UserNotesPageHandler_GetNotesForCurrentTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.2
       bool success = true;
       UserNotesPageHandler_GetNotesForCurrentTab_ParamsDataView input_data_view(params, message);
       
@@ -2553,6 +2585,8 @@ std::move(p_user_input), std::move(callback));
               internal::UserNotesPageHandler_NewNoteFinished_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.3
       bool success = true;
       std::string p_text{};
       UserNotesPageHandler_NewNoteFinished_ParamsDataView input_data_view(params, message);
@@ -2571,8 +2605,8 @@ std::move(p_user_input), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NewNoteFinished(
-std::move(p_text), std::move(callback));
+      impl->NewNoteFinished(        
+        std::move(p_text), std::move(callback));
       return true;
     }
     case internal::kUserNotesPageHandler_UpdateNote_Name: {
@@ -2582,6 +2616,8 @@ std::move(p_text), std::move(callback));
               internal::UserNotesPageHandler_UpdateNote_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.4
       bool success = true;
       std::string p_guid{};
       std::string p_text{};
@@ -2603,9 +2639,9 @@ std::move(p_text), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateNote(
-std::move(p_guid), 
-std::move(p_text), std::move(callback));
+      impl->UpdateNote(        
+        std::move(p_guid), 
+        std::move(p_text), std::move(callback));
       return true;
     }
     case internal::kUserNotesPageHandler_DeleteNote_Name: {
@@ -2615,6 +2651,8 @@ std::move(p_text), std::move(callback));
               internal::UserNotesPageHandler_DeleteNote_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.5
       bool success = true;
       std::string p_guid{};
       UserNotesPageHandler_DeleteNote_ParamsDataView input_data_view(params, message);
@@ -2633,8 +2671,8 @@ std::move(p_text), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteNote(
-std::move(p_guid), std::move(callback));
+      impl->DeleteNote(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kUserNotesPageHandler_DeleteNotesForUrl_Name: {
@@ -2644,6 +2682,8 @@ std::move(p_guid), std::move(callback));
               internal::UserNotesPageHandler_DeleteNotesForUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.6
       bool success = true;
       ::GURL p_url{};
       UserNotesPageHandler_DeleteNotesForUrl_ParamsDataView input_data_view(params, message);
@@ -2662,8 +2702,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteNotesForUrl(
-std::move(p_url), std::move(callback));
+      impl->DeleteNotesForUrl(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kUserNotesPageHandler_NoteOverviewSelected_Name: {
@@ -2679,6 +2719,8 @@ std::move(p_url), std::move(callback));
               internal::UserNotesPageHandler_HasNotesInAnyPages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserNotesPageHandler.9
       bool success = true;
       UserNotesPageHandler_HasNotesInAnyPages_ParamsDataView input_data_view(params, message);
       
@@ -3028,6 +3070,8 @@ bool UserNotesPageStubDispatch::Accept(
           reinterpret_cast<internal::UserNotesPage_NotesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPage.0
       bool success = true;
       UserNotesPage_NotesChanged_ParamsDataView input_data_view(params, message);
       
@@ -3040,7 +3084,7 @@ bool UserNotesPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotesChanged();
+      impl->NotesChanged(        );
       return true;
     }
     case internal::kUserNotesPage_CurrentTabUrlChanged_Name: {
@@ -3050,6 +3094,8 @@ bool UserNotesPageStubDispatch::Accept(
           reinterpret_cast<internal::UserNotesPage_CurrentTabUrlChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPage.1
       bool success = true;
       bool p_start_note_creation{};
       UserNotesPage_CurrentTabUrlChanged_ParamsDataView input_data_view(params, message);
@@ -3065,8 +3111,8 @@ bool UserNotesPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CurrentTabUrlChanged(
-std::move(p_start_note_creation));
+      impl->CurrentTabUrlChanged(        
+        std::move(p_start_note_creation));
       return true;
     }
     case internal::kUserNotesPage_SortByNewestPrefChanged_Name: {
@@ -3076,6 +3122,8 @@ std::move(p_start_note_creation));
           reinterpret_cast<internal::UserNotesPage_SortByNewestPrefChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPage.2
       bool success = true;
       bool p_sort_by_newest{};
       UserNotesPage_SortByNewestPrefChanged_ParamsDataView input_data_view(params, message);
@@ -3091,8 +3139,8 @@ std::move(p_start_note_creation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SortByNewestPrefChanged(
-std::move(p_sort_by_newest));
+      impl->SortByNewestPrefChanged(        
+        std::move(p_sort_by_newest));
       return true;
     }
     case internal::kUserNotesPage_StartNoteCreation_Name: {
@@ -3102,6 +3150,8 @@ std::move(p_sort_by_newest));
           reinterpret_cast<internal::UserNotesPage_StartNoteCreation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserNotesPage.3
       bool success = true;
       UserNotesPage_StartNoteCreation_ParamsDataView input_data_view(params, message);
       
@@ -3114,7 +3164,7 @@ std::move(p_sort_by_newest));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartNoteCreation();
+      impl->StartNoteCreation(        );
       return true;
     }
   }

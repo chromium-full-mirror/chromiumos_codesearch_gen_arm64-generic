@@ -149,54 +149,29 @@ bool RouterCondition::FillV8ObjectWithMembers(ScriptState* script_state, v8::Loc
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasOrConditions()) {
-  if (!ToV8Traits<IDLSequence<RouterCondition>>::ToV8(script_state, member_or_conditions_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<RouterCondition>>::ToV8(script_state, member_or_conditions_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasRequestDestination()) {
-  if (!ToV8Traits<V8RequestDestination>::ToV8(script_state, member_request_destination_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RequestDestination>::ToV8(script_state, member_request_destination_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasRequestMethod()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_request_method_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLByteString>::ToV8(script_state, member_request_method_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasRequestMode()) {
-  if (!ToV8Traits<V8RequestMode>::ToV8(script_state, member_request_mode_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RequestMode>::ToV8(script_state, member_request_mode_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasRunningStatus()) {
-  if (!ToV8Traits<V8RunningStatusEnum>::ToV8(script_state, member_running_status_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RunningStatusEnum>::ToV8(script_state, member_running_status_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasUrlPattern()) {
-  if (!ToV8Traits<V8UnionURLPatternOrURLPatternInitOrUSVString>::ToV8(script_state, member_url_pattern_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionURLPatternOrURLPatternInitOrUSVString>::ToV8(script_state, member_url_pattern_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -217,7 +192,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8RequestDestination, is_optional
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("requestMethod");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_request_method_, member_request_method_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLByteString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_request_method_, member_request_method_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("requestMode");

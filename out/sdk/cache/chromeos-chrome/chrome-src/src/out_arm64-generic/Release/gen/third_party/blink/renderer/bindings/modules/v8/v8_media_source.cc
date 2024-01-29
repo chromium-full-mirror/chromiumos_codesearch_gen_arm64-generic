@@ -264,7 +264,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MediaSour
 BLINK_BINDINGS_TRACE_EVENT("MediaSource.handle.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kMediaSourceGetHandle);
 
@@ -286,7 +287,8 @@ BLINK_BINDINGS_TRACE_EVENT("MediaSource.canConstructInDedicatedWorker.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& return_value = MediaSource::canConstructInDedicatedWorker(execution_context);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
@@ -314,7 +316,8 @@ return;
 
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& return_value = MediaSource::Create(execution_context);
 v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V8MediaSource::GetWrapperTypeInfo(), v8_receiver);
@@ -355,7 +358,8 @@ void AddSourceBufferOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAddSourceBufferUsingConfig);
 
@@ -374,8 +378,8 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 MediaSource* blink_receiver = V8MediaSource::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_config = NativeValueTraits<SourceBufferConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -397,8 +401,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 const int arg_count = std::min(info.Length(), 1);
 if (arg_count == 1) {
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (RuntimeEnabledFeatures::MediaSourceExtensionsForWebCodecsEnabled(execution_context)) {
   if (info[0]->IsNullOrUndefined()) {
@@ -578,7 +582,8 @@ return;
 
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
 if (LIKELY(info[0]->IsString())) {
@@ -669,7 +674,7 @@ void V8MediaSource::InstallContextDependentProperties(v8::Local<v8::Context> con
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if (execution_context->IsDedicatedWorkerGlobalScope() && feature_selector.IsAll()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"handle", HandleAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

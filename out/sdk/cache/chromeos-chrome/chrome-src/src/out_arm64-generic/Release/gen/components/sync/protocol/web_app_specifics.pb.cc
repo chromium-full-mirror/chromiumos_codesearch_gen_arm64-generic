@@ -42,9 +42,11 @@ PROTOBUF_CONSTEXPR WebAppSpecifics::WebAppSpecifics(
   , user_page_ordinal_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , user_launch_ordinal_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , relative_manifest_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , user_display_mode_(0)
+  , user_display_mode_non_cros_(0)
 
-  , theme_color_(0u){}
+  , theme_color_(0u)
+  , user_display_mode_cros_(0)
+{}
 struct WebAppSpecificsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR WebAppSpecificsDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -487,7 +489,7 @@ class WebAppSpecifics::_Internal {
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_user_display_mode(HasBits* has_bits) {
+  static void set_has_user_display_mode_non_cros(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
   static void set_has_theme_color(HasBits* has_bits) {
@@ -504,6 +506,9 @@ class WebAppSpecifics::_Internal {
   }
   static void set_has_relative_manifest_id(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
+  }
+  static void set_has_user_display_mode_cros(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
   }
 };
 
@@ -567,9 +572,9 @@ WebAppSpecifics::WebAppSpecifics(const WebAppSpecifics& from)
     relative_manifest_id_.Set(from._internal_relative_manifest_id(), 
       GetArenaForAllocation());
   }
-  ::memcpy(&user_display_mode_, &from.user_display_mode_,
-    static_cast<size_t>(reinterpret_cast<char*>(&theme_color_) -
-    reinterpret_cast<char*>(&user_display_mode_)) + sizeof(theme_color_));
+  ::memcpy(&user_display_mode_non_cros_, &from.user_display_mode_non_cros_,
+    static_cast<size_t>(reinterpret_cast<char*>(&user_display_mode_cros_) -
+    reinterpret_cast<char*>(&user_display_mode_non_cros_)) + sizeof(user_display_mode_cros_));
   // @@protoc_insertion_point(copy_constructor:sync_pb.WebAppSpecifics)
 }
 
@@ -599,9 +604,9 @@ relative_manifest_id_.InitDefault();
   relative_manifest_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&user_display_mode_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&theme_color_) -
-    reinterpret_cast<char*>(&user_display_mode_)) + sizeof(theme_color_));
+    reinterpret_cast<char*>(&user_display_mode_non_cros_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&user_display_mode_cros_) -
+    reinterpret_cast<char*>(&user_display_mode_non_cros_)) + sizeof(user_display_mode_cros_));
 }
 
 WebAppSpecifics::~WebAppSpecifics() {
@@ -656,10 +661,11 @@ void WebAppSpecifics::Clear() {
     }
   }
   if (cached_has_bits & 0x000000c0u) {
-    ::memset(&user_display_mode_, 0, static_cast<size_t>(
+    ::memset(&user_display_mode_non_cros_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&theme_color_) -
-        reinterpret_cast<char*>(&user_display_mode_)) + sizeof(theme_color_));
+        reinterpret_cast<char*>(&user_display_mode_non_cros_)) + sizeof(theme_color_));
   }
+  user_display_mode_cros_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -689,13 +695,13 @@ const char* WebAppSpecifics::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode = 3;
+      // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_non_cros = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::sync_pb::WebAppSpecifics_UserDisplayMode_IsValid(val))) {
-            _internal_set_user_display_mode(static_cast<::sync_pb::WebAppSpecifics_UserDisplayMode>(val));
+            _internal_set_user_display_mode_non_cros(static_cast<::sync_pb::WebAppSpecifics_UserDisplayMode>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
@@ -760,6 +766,19 @@ const char* WebAppSpecifics::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
+      // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_cros = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::WebAppSpecifics_UserDisplayMode_IsValid(val))) {
+            _internal_set_user_display_mode_cros(static_cast<::sync_pb::WebAppSpecifics_UserDisplayMode>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(10, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -803,11 +822,11 @@ uint8_t* WebAppSpecifics::_InternalSerialize(
         2, this->_internal_name(), target);
   }
 
-  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode = 3;
+  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_non_cros = 3;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      3, this->_internal_user_display_mode(), target);
+      3, this->_internal_user_display_mode_non_cros(), target);
   }
 
   // optional uint32 theme_color = 4;
@@ -846,6 +865,13 @@ uint8_t* WebAppSpecifics::_InternalSerialize(
   if (cached_has_bits & 0x00000020u) {
     target = stream->WriteStringMaybeAliased(
         9, this->_internal_relative_manifest_id(), target);
+  }
+
+  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_cros = 10;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      10, this->_internal_user_display_mode_cros(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -915,10 +941,10 @@ size_t WebAppSpecifics::ByteSizeLong() const {
           this->_internal_relative_manifest_id());
     }
 
-    // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode = 3;
+    // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_non_cros = 3;
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_user_display_mode());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_user_display_mode_non_cros());
     }
 
     // optional uint32 theme_color = 4;
@@ -927,6 +953,12 @@ size_t WebAppSpecifics::ByteSizeLong() const {
     }
 
   }
+  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_cros = 10;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_user_display_mode_cros());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -969,12 +1001,15 @@ void WebAppSpecifics::MergeFrom(const WebAppSpecifics& from) {
       _internal_set_relative_manifest_id(from._internal_relative_manifest_id());
     }
     if (cached_has_bits & 0x00000040u) {
-      user_display_mode_ = from.user_display_mode_;
+      user_display_mode_non_cros_ = from.user_display_mode_non_cros_;
     }
     if (cached_has_bits & 0x00000080u) {
       theme_color_ = from.theme_color_;
     }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_user_display_mode_cros(from._internal_user_display_mode_cros());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1022,11 +1057,11 @@ void WebAppSpecifics::InternalSwap(WebAppSpecifics* other) {
       &other->relative_manifest_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(WebAppSpecifics, theme_color_)
-      + sizeof(WebAppSpecifics::theme_color_)
-      - PROTOBUF_FIELD_OFFSET(WebAppSpecifics, user_display_mode_)>(
-          reinterpret_cast<char*>(&user_display_mode_),
-          reinterpret_cast<char*>(&other->user_display_mode_));
+      PROTOBUF_FIELD_OFFSET(WebAppSpecifics, user_display_mode_cros_)
+      + sizeof(WebAppSpecifics::user_display_mode_cros_)
+      - PROTOBUF_FIELD_OFFSET(WebAppSpecifics, user_display_mode_non_cros_)>(
+          reinterpret_cast<char*>(&user_display_mode_non_cros_),
+          reinterpret_cast<char*>(&other->user_display_mode_non_cros_));
 }
 
 std::string WebAppSpecifics::GetTypeName() const {

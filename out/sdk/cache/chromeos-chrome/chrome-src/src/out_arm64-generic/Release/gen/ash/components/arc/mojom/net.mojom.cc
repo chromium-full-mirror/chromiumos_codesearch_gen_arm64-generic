@@ -2874,6 +2874,9 @@ NetHost::IPCStableHashFunction NetHost::MessageToMethodInfo_(mojo::Message& mess
     case internal::kNetHost_NotifySocketConnectionEvent_Name: {
       return &NetHost::NotifySocketConnectionEvent_Sym::IPCStableHash;
     }
+    case internal::kNetHost_NotifyARCVPNSocketConnectionEvent_Name: {
+      return &NetHost::NotifyARCVPNSocketConnectionEvent_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2925,6 +2928,8 @@ const char* NetHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::NetHost::NotifyAndroidWifiMulticastLockChange";
       case internal::kNetHost_NotifySocketConnectionEvent_Name:
             return "Receive arc::mojom::NetHost::NotifySocketConnectionEvent";
+      case internal::kNetHost_NotifyARCVPNSocketConnectionEvent_Name:
+            return "Receive arc::mojom::NetHost::NotifyARCVPNSocketConnectionEvent";
     }
   } else {
     switch (message.name()) {
@@ -2968,6 +2973,8 @@ const char* NetHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::NetHost::NotifyAndroidWifiMulticastLockChange";
       case internal::kNetHost_NotifySocketConnectionEvent_Name:
             return "Receive reply arc::mojom::NetHost::NotifySocketConnectionEvent";
+      case internal::kNetHost_NotifyARCVPNSocketConnectionEvent_Name:
+            return "Receive reply arc::mojom::NetHost::NotifyARCVPNSocketConnectionEvent";
     }
   }
   return "Receive unknown mojo message";
@@ -3238,6 +3245,19 @@ uint32_t NetHost::NotifySocketConnectionEvent_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)arc::mojom::NetHost::NotifySocketConnectionEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetHost::NotifyARCVPNSocketConnectionEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::NetHost::NotifyARCVPNSocketConnectionEvent");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -4345,6 +4365,57 @@ void NetHostProxy::NotifySocketConnectionEvent(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void NetHostProxy::NotifyARCVPNSocketConnectionEvent(
+    SocketConnectionEventPtr in_msg) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::NetHost::NotifyARCVPNSocketConnectionEvent", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("msg"), in_msg,
+                        "<value of type SocketConnectionEventPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNetHost_NotifyARCVPNSocketConnectionEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->msg)::BaseType> msg_fragment(
+          params.message());
+  mojo::internal::Serialize<::arc::mojom::SocketConnectionEventDataView>(
+      in_msg, msg_fragment);
+  params->msg.Set(
+      msg_fragment.is_null() ? nullptr : msg_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->msg.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null msg in NetHost.NotifyARCVPNSocketConnectionEvent request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetHost::Name_);
+  message.set_method_name("NotifyARCVPNSocketConnectionEvent");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class NetHost_GetWifiEnabledState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static NetHost::GetWifiEnabledStateCallback CreateCallback(
@@ -4403,6 +4474,8 @@ bool NetHost_GetWifiEnabledState_ForwardToCallback::Accept(
           internal::NetHost_GetWifiEnabledState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.1
   bool success = true;
   bool p_is_enabled{};
   NetHost_GetWifiEnabledState_ResponseParamsDataView input_data_view(params, message);
@@ -4522,6 +4595,8 @@ bool NetHost_SetWifiEnabledState_ForwardToCallback::Accept(
           internal::NetHost_SetWifiEnabledState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.4
   bool success = true;
   bool p_result{};
   NetHost_SetWifiEnabledState_ResponseParamsDataView input_data_view(params, message);
@@ -4641,6 +4716,8 @@ bool NetHost_CreateNetwork_ForwardToCallback::Accept(
           internal::NetHost_CreateNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.5
   bool success = true;
   std::string p_guid{};
   NetHost_CreateNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -4770,6 +4847,8 @@ bool NetHost_ForgetNetwork_ForwardToCallback::Accept(
           internal::NetHost_ForgetNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.6
   bool success = true;
   NetworkResult p_status{};
   NetHost_ForgetNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -4890,6 +4969,8 @@ bool NetHost_UpdateWifiNetwork_ForwardToCallback::Accept(
           internal::NetHost_UpdateWifiNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.20
   bool success = true;
   NetworkResult p_status{};
   NetHost_UpdateWifiNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -5010,6 +5091,8 @@ bool NetHost_StartConnect_ForwardToCallback::Accept(
           internal::NetHost_StartConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.7
   bool success = true;
   NetworkResult p_status{};
   NetHost_StartConnect_ResponseParamsDataView input_data_view(params, message);
@@ -5130,6 +5213,8 @@ bool NetHost_StartDisconnect_ForwardToCallback::Accept(
           internal::NetHost_StartDisconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.8
   bool success = true;
   NetworkResult p_status{};
   NetHost_StartDisconnect_ResponseParamsDataView input_data_view(params, message);
@@ -5250,6 +5335,8 @@ bool NetHost_GetNetworks_ForwardToCallback::Accept(
           internal::NetHost_GetNetworks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.10
   bool success = true;
   GetNetworksResponseTypePtr p_response{};
   NetHost_GetNetworks_ResponseParamsDataView input_data_view(params, message);
@@ -5379,6 +5466,8 @@ bool NetHost_RequestPasspointAppApproval_ForwardToCallback::Accept(
           internal::NetHost_RequestPasspointAppApproval_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.21
   bool success = true;
   PasspointApprovalResponsePtr p_response{};
   NetHost_RequestPasspointAppApproval_ResponseParamsDataView input_data_view(params, message);
@@ -5508,6 +5597,8 @@ bool NetHost_StartLohs_ForwardToCallback::Accept(
           internal::NetHost_StartLohs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetHost.18
   bool success = true;
   LohsStatus p_status{};
   NetHost_StartLohs_ResponseParamsDataView input_data_view(params, message);
@@ -5586,6 +5677,8 @@ bool NetHostStubDispatch::Accept(
           reinterpret_cast<internal::NetHost_StartScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.2
       bool success = true;
       NetHost_StartScan_ParamsDataView input_data_view(params, message);
       
@@ -5598,7 +5691,7 @@ bool NetHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartScan();
+      impl->StartScan(        );
       return true;
     }
     case internal::kNetHost_SetWifiEnabledState_Name: {
@@ -5629,6 +5722,8 @@ bool NetHostStubDispatch::Accept(
           reinterpret_cast<internal::NetHost_AndroidVpnConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.11
       bool success = true;
       AndroidVpnConfigurationPtr p_cfg{};
       NetHost_AndroidVpnConnected_ParamsDataView input_data_view(params, message);
@@ -5644,8 +5739,8 @@ bool NetHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AndroidVpnConnected(
-std::move(p_cfg));
+      impl->AndroidVpnConnected(        
+        std::move(p_cfg));
       return true;
     }
     case internal::kNetHost_AndroidVpnStateChanged_Name: {
@@ -5655,6 +5750,8 @@ std::move(p_cfg));
           reinterpret_cast<internal::NetHost_AndroidVpnStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.12
       bool success = true;
       ConnectionStateType p_state{};
       NetHost_AndroidVpnStateChanged_ParamsDataView input_data_view(params, message);
@@ -5670,8 +5767,8 @@ std::move(p_cfg));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AndroidVpnStateChanged(
-std::move(p_state));
+      impl->AndroidVpnStateChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kNetHost_SetAlwaysOnVpn_Name: {
@@ -5681,6 +5778,8 @@ std::move(p_state));
           reinterpret_cast<internal::NetHost_SetAlwaysOnVpn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.13
       bool success = true;
       std::string p_vpnPackage{};
       bool p_lockdown{};
@@ -5699,9 +5798,9 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlwaysOnVpn(
-std::move(p_vpnPackage), 
-std::move(p_lockdown));
+      impl->SetAlwaysOnVpn(        
+        std::move(p_vpnPackage), 
+        std::move(p_lockdown));
       return true;
     }
     case internal::kNetHost_RequestPasspointAppApproval_Name: {
@@ -5714,6 +5813,8 @@ std::move(p_lockdown));
           reinterpret_cast<internal::NetHost_AddPasspointCredentials_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.14
       bool success = true;
       PasspointCredentialsPtr p_credentials{};
       NetHost_AddPasspointCredentials_ParamsDataView input_data_view(params, message);
@@ -5729,8 +5830,8 @@ std::move(p_lockdown));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPasspointCredentials(
-std::move(p_credentials));
+      impl->AddPasspointCredentials(        
+        std::move(p_credentials));
       return true;
     }
     case internal::kNetHost_RemovePasspointCredentials_Name: {
@@ -5740,6 +5841,8 @@ std::move(p_credentials));
           reinterpret_cast<internal::NetHost_RemovePasspointCredentials_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.16
       bool success = true;
       PasspointRemovalPropertiesPtr p_properties{};
       NetHost_RemovePasspointCredentials_ParamsDataView input_data_view(params, message);
@@ -5755,8 +5858,8 @@ std::move(p_credentials));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovePasspointCredentials(
-std::move(p_properties));
+      impl->RemovePasspointCredentials(        
+        std::move(p_properties));
       return true;
     }
     case internal::kNetHost_DisconnectHostVpn_Name: {
@@ -5766,6 +5869,8 @@ std::move(p_properties));
           reinterpret_cast<internal::NetHost_DisconnectHostVpn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.17
       bool success = true;
       NetHost_DisconnectHostVpn_ParamsDataView input_data_view(params, message);
       
@@ -5778,7 +5883,7 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectHostVpn();
+      impl->DisconnectHostVpn(        );
       return true;
     }
     case internal::kNetHost_StartLohs_Name: {
@@ -5791,6 +5896,8 @@ std::move(p_properties));
           reinterpret_cast<internal::NetHost_StopLohs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.19
       bool success = true;
       NetHost_StopLohs_ParamsDataView input_data_view(params, message);
       
@@ -5803,7 +5910,7 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopLohs();
+      impl->StopLohs(        );
       return true;
     }
     case internal::kNetHost_NotifyAndroidWifiMulticastLockChange_Name: {
@@ -5813,6 +5920,8 @@ std::move(p_properties));
           reinterpret_cast<internal::NetHost_NotifyAndroidWifiMulticastLockChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.22
       bool success = true;
       bool p_is_held{};
       NetHost_NotifyAndroidWifiMulticastLockChange_ParamsDataView input_data_view(params, message);
@@ -5828,8 +5937,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyAndroidWifiMulticastLockChange(
-std::move(p_is_held));
+      impl->NotifyAndroidWifiMulticastLockChange(        
+        std::move(p_is_held));
       return true;
     }
     case internal::kNetHost_NotifySocketConnectionEvent_Name: {
@@ -5839,6 +5948,8 @@ std::move(p_is_held));
           reinterpret_cast<internal::NetHost_NotifySocketConnectionEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetHost.23
       bool success = true;
       SocketConnectionEventPtr p_msg{};
       NetHost_NotifySocketConnectionEvent_ParamsDataView input_data_view(params, message);
@@ -5854,8 +5965,36 @@ std::move(p_is_held));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifySocketConnectionEvent(
-std::move(p_msg));
+      impl->NotifySocketConnectionEvent(        
+        std::move(p_msg));
+      return true;
+    }
+    case internal::kNetHost_NotifyARCVPNSocketConnectionEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data* params =
+          reinterpret_cast<internal::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for NetHost.24
+      bool success = true;
+      SocketConnectionEventPtr p_msg{};
+      NetHost_NotifyARCVPNSocketConnectionEvent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMsg(&p_msg))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NetHost::Name_, 24, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->NotifyARCVPNSocketConnectionEvent(        
+        std::move(p_msg));
       return true;
     }
   }
@@ -5878,6 +6017,8 @@ bool NetHostStubDispatch::AcceptWithResponder(
               internal::NetHost_GetWifiEnabledState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.1
       bool success = true;
       NetHost_GetWifiEnabledState_ParamsDataView input_data_view(params, message);
       
@@ -5906,6 +6047,8 @@ bool NetHostStubDispatch::AcceptWithResponder(
               internal::NetHost_SetWifiEnabledState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.4
       bool success = true;
       bool p_is_enabled{};
       NetHost_SetWifiEnabledState_ParamsDataView input_data_view(params, message);
@@ -5924,8 +6067,8 @@ bool NetHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWifiEnabledState(
-std::move(p_is_enabled), std::move(callback));
+      impl->SetWifiEnabledState(        
+        std::move(p_is_enabled), std::move(callback));
       return true;
     }
     case internal::kNetHost_CreateNetwork_Name: {
@@ -5935,6 +6078,8 @@ std::move(p_is_enabled), std::move(callback));
               internal::NetHost_CreateNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.5
       bool success = true;
       WifiConfigurationPtr p_cfg{};
       NetHost_CreateNetwork_ParamsDataView input_data_view(params, message);
@@ -5953,8 +6098,8 @@ std::move(p_is_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNetwork(
-std::move(p_cfg), std::move(callback));
+      impl->CreateNetwork(        
+        std::move(p_cfg), std::move(callback));
       return true;
     }
     case internal::kNetHost_ForgetNetwork_Name: {
@@ -5964,6 +6109,8 @@ std::move(p_cfg), std::move(callback));
               internal::NetHost_ForgetNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.6
       bool success = true;
       std::string p_guid{};
       NetHost_ForgetNetwork_ParamsDataView input_data_view(params, message);
@@ -5982,8 +6129,8 @@ std::move(p_cfg), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForgetNetwork(
-std::move(p_guid), std::move(callback));
+      impl->ForgetNetwork(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetHost_UpdateWifiNetwork_Name: {
@@ -5993,6 +6140,8 @@ std::move(p_guid), std::move(callback));
               internal::NetHost_UpdateWifiNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.20
       bool success = true;
       std::string p_guid{};
       WifiConfigurationPtr p_cfg{};
@@ -6014,9 +6163,9 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateWifiNetwork(
-std::move(p_guid), 
-std::move(p_cfg), std::move(callback));
+      impl->UpdateWifiNetwork(        
+        std::move(p_guid), 
+        std::move(p_cfg), std::move(callback));
       return true;
     }
     case internal::kNetHost_StartConnect_Name: {
@@ -6026,6 +6175,8 @@ std::move(p_cfg), std::move(callback));
               internal::NetHost_StartConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.7
       bool success = true;
       std::string p_guid{};
       NetHost_StartConnect_ParamsDataView input_data_view(params, message);
@@ -6044,8 +6195,8 @@ std::move(p_cfg), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartConnect(
-std::move(p_guid), std::move(callback));
+      impl->StartConnect(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetHost_StartDisconnect_Name: {
@@ -6055,6 +6206,8 @@ std::move(p_guid), std::move(callback));
               internal::NetHost_StartDisconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.8
       bool success = true;
       std::string p_guid{};
       NetHost_StartDisconnect_ParamsDataView input_data_view(params, message);
@@ -6073,8 +6226,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDisconnect(
-std::move(p_guid), std::move(callback));
+      impl->StartDisconnect(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetHost_GetNetworks_Name: {
@@ -6084,6 +6237,8 @@ std::move(p_guid), std::move(callback));
               internal::NetHost_GetNetworks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.10
       bool success = true;
       GetNetworksRequestType p_type{};
       NetHost_GetNetworks_ParamsDataView input_data_view(params, message);
@@ -6102,8 +6257,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworks(
-std::move(p_type), std::move(callback));
+      impl->GetNetworks(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kNetHost_AndroidVpnConnected_Name: {
@@ -6122,6 +6277,8 @@ std::move(p_type), std::move(callback));
               internal::NetHost_RequestPasspointAppApproval_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.21
       bool success = true;
       PasspointApprovalRequestPtr p_request{};
       NetHost_RequestPasspointAppApproval_ParamsDataView input_data_view(params, message);
@@ -6140,8 +6297,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPasspointAppApproval(
-std::move(p_request), std::move(callback));
+      impl->RequestPasspointAppApproval(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kNetHost_AddPasspointCredentials_Name: {
@@ -6160,6 +6317,8 @@ std::move(p_request), std::move(callback));
               internal::NetHost_StartLohs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetHost.18
       bool success = true;
       LohsConfigPtr p_config{};
       NetHost_StartLohs_ParamsDataView input_data_view(params, message);
@@ -6178,8 +6337,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartLohs(
-std::move(p_config), std::move(callback));
+      impl->StartLohs(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kNetHost_StopLohs_Name: {
@@ -6189,6 +6348,9 @@ std::move(p_config), std::move(callback));
       break;
     }
     case internal::kNetHost_NotifySocketConnectionEvent_Name: {
+      break;
+    }
+    case internal::kNetHost_NotifyARCVPNSocketConnectionEvent_Name: {
       break;
     }
   }
@@ -6240,6 +6402,8 @@ static const mojo::internal::GenericValidationInfo kNetHostValidationInfo[] = {
     { &internal::NetHost_NotifyAndroidWifiMulticastLockChange_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::NetHost_NotifySocketConnectionEvent_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -7096,6 +7260,8 @@ bool NetInstance_Init_ForwardToCallback::Accept(
           internal::NetInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetInstance.6
   bool success = true;
   NetInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -7203,6 +7369,8 @@ bool NetInstance_DnsResolutionTest_ForwardToCallback::Accept(
           internal::NetInstance_DnsResolutionTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetInstance.8
   bool success = true;
   ArcDnsResolutionTestResultPtr p_result{};
   NetInstance_DnsResolutionTest_ResponseParamsDataView input_data_view(params, message);
@@ -7332,6 +7500,8 @@ bool NetInstance_HttpTest_ForwardToCallback::Accept(
           internal::NetInstance_HttpTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetInstance.9
   bool success = true;
   ArcHttpTestResultPtr p_result{};
   NetInstance_HttpTest_ResponseParamsDataView input_data_view(params, message);
@@ -7461,6 +7631,8 @@ bool NetInstance_PingTest_ForwardToCallback::Accept(
           internal::NetInstance_PingTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetInstance.10
   bool success = true;
   ArcPingTestResultPtr p_result{};
   NetInstance_PingTest_ResponseParamsDataView input_data_view(params, message);
@@ -7548,6 +7720,8 @@ bool NetInstanceStubDispatch::Accept(
           reinterpret_cast<internal::NetInstance_ScanCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetInstance.1
       bool success = true;
       NetInstance_ScanCompleted_ParamsDataView input_data_view(params, message);
       
@@ -7560,7 +7734,7 @@ bool NetInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScanCompleted();
+      impl->ScanCompleted(        );
       return true;
     }
     case internal::kNetInstance_WifiEnabledStateChanged_Name: {
@@ -7570,6 +7744,8 @@ bool NetInstanceStubDispatch::Accept(
           reinterpret_cast<internal::NetInstance_WifiEnabledStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetInstance.3
       bool success = true;
       bool p_is_enabled{};
       NetInstance_WifiEnabledStateChanged_ParamsDataView input_data_view(params, message);
@@ -7585,8 +7761,8 @@ bool NetInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WifiEnabledStateChanged(
-std::move(p_is_enabled));
+      impl->WifiEnabledStateChanged(        
+        std::move(p_is_enabled));
       return true;
     }
     case internal::kNetInstance_DisconnectAndroidVpn_Name: {
@@ -7596,6 +7772,8 @@ std::move(p_is_enabled));
           reinterpret_cast<internal::NetInstance_DisconnectAndroidVpn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetInstance.4
       bool success = true;
       NetInstance_DisconnectAndroidVpn_ParamsDataView input_data_view(params, message);
       
@@ -7608,7 +7786,7 @@ std::move(p_is_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectAndroidVpn();
+      impl->DisconnectAndroidVpn(        );
       return true;
     }
     case internal::kNetInstance_ConfigureAndroidVpn_Name: {
@@ -7618,6 +7796,8 @@ std::move(p_is_enabled));
           reinterpret_cast<internal::NetInstance_ConfigureAndroidVpn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetInstance.5
       bool success = true;
       NetInstance_ConfigureAndroidVpn_ParamsDataView input_data_view(params, message);
       
@@ -7630,7 +7810,7 @@ std::move(p_is_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureAndroidVpn();
+      impl->ConfigureAndroidVpn(        );
       return true;
     }
     case internal::kNetInstance_ActiveNetworksChanged_Name: {
@@ -7640,6 +7820,8 @@ std::move(p_is_enabled));
           reinterpret_cast<internal::NetInstance_ActiveNetworksChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetInstance.7
       bool success = true;
       std::vector<NetworkConfigurationPtr> p_network{};
       NetInstance_ActiveNetworksChanged_ParamsDataView input_data_view(params, message);
@@ -7655,8 +7837,8 @@ std::move(p_is_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActiveNetworksChanged(
-std::move(p_network));
+      impl->ActiveNetworksChanged(        
+        std::move(p_network));
       return true;
     }
     case internal::kNetInstance_DnsResolutionTest_Name: {
@@ -7675,6 +7857,8 @@ std::move(p_network));
           reinterpret_cast<internal::NetInstance_SetUpFlag_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetInstance.11
       bool success = true;
       Flag p_flag{};
       bool p_value{};
@@ -7693,9 +7877,9 @@ std::move(p_network));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpFlag(
-std::move(p_flag), 
-std::move(p_value));
+      impl->SetUpFlag(        
+        std::move(p_flag), 
+        std::move(p_value));
       return true;
     }
   }
@@ -7718,6 +7902,8 @@ bool NetInstanceStubDispatch::AcceptWithResponder(
               internal::NetInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetInstance.6
       bool success = true;
       ::mojo::PendingRemote<NetHost> p_host_remote{};
       NetInstance_Init_ParamsDataView input_data_view(params, message);
@@ -7738,8 +7924,8 @@ bool NetInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kNetInstance_ScanCompleted_Name: {
@@ -7764,6 +7950,8 @@ std::move(p_host_remote), std::move(callback));
               internal::NetInstance_DnsResolutionTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetInstance.8
       bool success = true;
       std::string p_transport_name{};
       std::string p_host_name{};
@@ -7785,9 +7973,9 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DnsResolutionTest(
-std::move(p_transport_name), 
-std::move(p_host_name), std::move(callback));
+      impl->DnsResolutionTest(        
+        std::move(p_transport_name), 
+        std::move(p_host_name), std::move(callback));
       return true;
     }
     case internal::kNetInstance_HttpTest_Name: {
@@ -7797,6 +7985,8 @@ std::move(p_host_name), std::move(callback));
               internal::NetInstance_HttpTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetInstance.9
       bool success = true;
       std::string p_transport_name{};
       ::GURL p_url{};
@@ -7818,9 +8008,9 @@ std::move(p_host_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HttpTest(
-std::move(p_transport_name), 
-std::move(p_url), std::move(callback));
+      impl->HttpTest(        
+        std::move(p_transport_name), 
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kNetInstance_PingTest_Name: {
@@ -7830,6 +8020,8 @@ std::move(p_url), std::move(callback));
               internal::NetInstance_PingTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetInstance.10
       bool success = true;
       std::string p_transport_name{};
       std::string p_ip_address{};
@@ -7851,9 +8043,9 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PingTest(
-std::move(p_transport_name), 
-std::move(p_ip_address), std::move(callback));
+      impl->PingTest(        
+        std::move(p_transport_name), 
+        std::move(p_ip_address), std::move(callback));
       return true;
     }
     case internal::kNetInstance_SetUpFlag_Name: {
@@ -8580,6 +8772,9 @@ void NetHostInterceptorForTesting::NotifyAndroidWifiMulticastLockChange(bool is_
 }
 void NetHostInterceptorForTesting::NotifySocketConnectionEvent(SocketConnectionEventPtr msg) {
   GetForwardingInterface()->NotifySocketConnectionEvent(std::move(msg));
+}
+void NetHostInterceptorForTesting::NotifyARCVPNSocketConnectionEvent(SocketConnectionEventPtr msg) {
+  GetForwardingInterface()->NotifyARCVPNSocketConnectionEvent(std::move(msg));
 }
 NetHostAsyncWaiter::NetHostAsyncWaiter(
     NetHost* proxy) : proxy_(proxy) {}

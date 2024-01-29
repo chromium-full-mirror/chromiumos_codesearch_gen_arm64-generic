@@ -228,6 +228,8 @@ bool FieldTrialObserverStubDispatch::Accept(
           reinterpret_cast<internal::FieldTrialObserver_OnFieldTrialGroupActivated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FieldTrialObserver.0
       bool success = true;
       std::vector<FieldTrialGroupInfoPtr> p_field_trial_group_infos{};
       FieldTrialObserver_OnFieldTrialGroupActivated_ParamsDataView input_data_view(params, message);
@@ -243,8 +245,8 @@ bool FieldTrialObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFieldTrialGroupActivated(
-std::move(p_field_trial_group_infos));
+      impl->OnFieldTrialGroupActivated(        
+        std::move(p_field_trial_group_infos));
       return true;
     }
   }
@@ -396,6 +398,8 @@ bool FieldTrialServiceStubDispatch::Accept(
           reinterpret_cast<internal::FieldTrialService_AddFieldTrialObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FieldTrialService.0
       bool success = true;
       ::mojo::PendingRemote<FieldTrialObserver> p_observer{};
       FieldTrialService_AddFieldTrialObserver_ParamsDataView input_data_view(params, message);
@@ -413,8 +417,8 @@ bool FieldTrialServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddFieldTrialObserver(
-std::move(p_observer));
+      impl->AddFieldTrialObserver(        
+        std::move(p_observer));
       return true;
     }
   }

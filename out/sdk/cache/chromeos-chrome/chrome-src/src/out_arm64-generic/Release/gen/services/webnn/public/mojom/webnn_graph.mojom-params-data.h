@@ -44,9 +44,7 @@ class  WebNNGraph_Compute_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t result;
-  uint8_t pad0_[4];
-  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, ::mojo_base::mojom::internal::BigBuffer_Data>> named_outputs;
+  internal::ComputeResult_Data result;
 
  private:
   friend class mojo::internal::MessageFragment<WebNNGraph_Compute_ResponseParams_Data>;
@@ -96,34 +94,14 @@ class WebNNGraph_Compute_ResponseParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) const {
-    auto data_value = data_->result;
-    return mojo::internal::Deserialize<::webnn::mojom::ComputeResult>(
-        data_value, output);
-  }
-  ComputeResult result() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::webnn::mojom::ComputeResult>(data_->result));
-  }
-  inline void GetNamedOutputsDataView(
-      mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>* output);
+  inline void GetResultDataView(
+      ComputeResultDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadNamedOutputs(UserType* output) {
+  [[nodiscard]] bool ReadResult(UserType* output) {
     
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>, UserType>(),
-    "Attempting to read the optional `named_outputs` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadNamedOutputs` instead "
-    "of `ReadNamedOutputs if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->named_outputs.Get();
-    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>>(
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::webnn::mojom::ComputeResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -138,10 +116,10 @@ inline void WebNNGraph_Compute_ParamsDataView::GetNamedInputsDataView(
 }
 
 
-inline void WebNNGraph_Compute_ResponseParamsDataView::GetNamedOutputsDataView(
-    mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>* output) {
-  auto pointer = data_->named_outputs.Get();
-  *output = mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>(pointer, message_);
+inline void WebNNGraph_Compute_ResponseParamsDataView::GetResultDataView(
+    ComputeResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = ComputeResultDataView(pointer, message_);
 }
 
 

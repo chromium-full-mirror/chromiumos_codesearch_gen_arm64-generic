@@ -46,8 +46,17 @@ void ExperimentalDomain::SetPermission(std::unique_ptr<SetPermissionParams> para
 void ExperimentalDomain::GrantPermissions(std::unique_ptr<GrantPermissionsParams> params, base::OnceCallback<void(std::unique_ptr<GrantPermissionsResult>)> callback) {
   dispatcher_->SendMessage("Browser.grantPermissions", params->Serialize(), base::BindOnce(&Domain::HandleGrantPermissionsResponse, std::move(callback)));
 }
-void ExperimentalDomain::ResetPermissions(std::unique_ptr<ResetPermissionsParams> params, base::OnceCallback<void(std::unique_ptr<ResetPermissionsResult>)> callback) {
+void Domain::ResetPermissions(std::unique_ptr<ResetPermissionsParams> params, base::OnceCallback<void(std::unique_ptr<ResetPermissionsResult>)> callback) {
   dispatcher_->SendMessage("Browser.resetPermissions", params->Serialize(), base::BindOnce(&Domain::HandleResetPermissionsResponse, std::move(callback)));
+}
+
+void Domain::ResetPermissions(base::OnceClosure callback) {
+  std::unique_ptr<ResetPermissionsParams> params = ResetPermissionsParams::Builder()
+      .Build();
+  dispatcher_->SendMessage("Browser.resetPermissions", params->Serialize(), std::move(callback));
+}
+void Domain::ResetPermissions(std::unique_ptr<ResetPermissionsParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Browser.resetPermissions", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::SetDownloadBehavior(std::unique_ptr<SetDownloadBehaviorParams> params, base::OnceCallback<void(std::unique_ptr<SetDownloadBehaviorResult>)> callback) {
   dispatcher_->SendMessage("Browser.setDownloadBehavior", params->Serialize(), base::BindOnce(&Domain::HandleSetDownloadBehaviorResponse, std::move(callback)));

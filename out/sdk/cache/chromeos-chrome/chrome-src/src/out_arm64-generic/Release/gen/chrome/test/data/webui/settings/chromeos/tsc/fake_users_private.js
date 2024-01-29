@@ -2,47 +2,48 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview Fake implementation of chrome.usersPrivate
- * for testing.
- */
-/**
  * Fake of the chrome.usersPrivate API. Only methods that are called
  * during testing have been implemented.
- *
- * @constructor
- * @implements {UsersPrivate}
  */
-export function FakeUsersPrivate() { }
-FakeUsersPrivate.prototype = {
-    /** @type {User[]} */
-    users: [],
-    /**
-     * @param {User} user
-     * @return {!Promise<boolean>}
-     */
-    addUser(user) {
-        this.users.push(user);
+export class FakeUsersPrivate {
+    users = [];
+    setUsersForTesting(users) {
+        this.users = users;
+    }
+    addUser(email) {
+        this.users.push({
+            email,
+            displayEmail: email,
+            name: 'Test User',
+            isOwner: false,
+            isChild: false,
+        });
         return Promise.resolve(true);
-    },
-    /**
-     * @return {!Promise<User[]>}
-     */
+    }
     getUsers() {
         return Promise.resolve(this.users);
-    },
-    /**
-     * @param {string} email
-     * @return {!Promise<boolean>}
-     */
+    }
     removeUser(email) {
         this.users = this.users.filter(user => user.email !== email);
         return Promise.resolve(true);
-    },
-    /**
-     * @param {User} user
-     * @return {!Promise<boolean>}
-     */
-    isUserInList(user) {
-        return Promise.resolve(this.users.includes(user));
-    },
-};
+    }
+    isUserInList(email) {
+        const exists = !!this.users.find(user => user.email === email);
+        return Promise.resolve(exists);
+    }
+    isUserListManaged() {
+        return Promise.resolve(false);
+    }
+    getLoginStatus() {
+        const loginStatuses = this.users.map((_user) => {
+            return {
+                isLoggedIn: true,
+                isScreenLocked: false,
+            };
+        });
+        return Promise.resolve(loginStatuses);
+    }
+    getCurrentUser() {
+        return Promise.resolve(this.users[0]);
+    }
+}

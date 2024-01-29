@@ -61,7 +61,7 @@ bool AnchorElementMetrics_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -71,21 +71,14 @@ bool AnchorElementMetrics_Data::Validate(
       static_cast<const AnchorElementMetrics_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->source_url, 15, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->source_url, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->target_url, 16, validation_context)) {
+          object->target_url, 12, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->target_url, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->viewport_size, 17, validation_context)) {
+          object->viewport_size, 13, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->viewport_size, validation_context))

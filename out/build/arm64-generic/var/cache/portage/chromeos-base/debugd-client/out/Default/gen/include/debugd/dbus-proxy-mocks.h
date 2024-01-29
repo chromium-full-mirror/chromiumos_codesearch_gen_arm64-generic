@@ -26,7 +26,8 @@ class debugdProxyMock : public debugdProxyInterface {
 
   MOCK_METHOD(bool,
               CroshShellStart,
-              (const base::ScopedFD& /*in_lifeline_fd*/,
+              (const base::ScopedFD& /*in_shell_lifeline_fd*/,
+               const base::ScopedFD& /*in_caller_lifeline_fd*/,
                const base::ScopedFD& /*in_infd*/,
                const base::ScopedFD& /*in_outfd*/,
                std::string* /*out_handle*/,
@@ -35,7 +36,8 @@ class debugdProxyMock : public debugdProxyInterface {
               (override));
   MOCK_METHOD(void,
               CroshShellStartAsync,
-              (const base::ScopedFD& /*in_lifeline_fd*/,
+              (const base::ScopedFD& /*in_shell_lifeline_fd*/,
+               const base::ScopedFD& /*in_caller_lifeline_fd*/,
                const base::ScopedFD& /*in_infd*/,
                const base::ScopedFD& /*in_outfd*/,
                base::OnceCallback<void(const std::string& /*handle*/)> /*success_callback*/,
@@ -323,7 +325,7 @@ class debugdProxyMock : public debugdProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
-              GetFeedbackLogsV2,
+              GetFeedbackLogs,
               (const base::ScopedFD& /*in_outfd*/,
                const std::string& /*in_username*/,
                const std::vector<int32_t>& /*in_requested_logs*/,
@@ -331,7 +333,7 @@ class debugdProxyMock : public debugdProxyInterface {
                int /*timeout_ms*/),
               (override));
   MOCK_METHOD(void,
-              GetFeedbackLogsV2Async,
+              GetFeedbackLogsAsync,
               (const base::ScopedFD& /*in_outfd*/,
                const std::string& /*in_username*/,
                const std::vector<int32_t>& /*in_requested_logs*/,
@@ -1155,19 +1157,6 @@ class debugdProxyMock : public debugdProxyInterface {
               (const std::string& /*in_policy*/,
                bool /*in_lock_policy*/,
                (base::OnceCallback<void(bool /*result*/, uint32_t /*num_cores_disabled*/)>) /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              WifiFWDump,
-              (std::string* /*out_output*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              WifiFWDumpAsync,
-              (base::OnceCallback<void(const std::string& /*output*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

@@ -895,6 +895,8 @@ bool ScanObserverStubDispatch::Accept(
           reinterpret_cast<internal::ScanObserver_OnDeviceFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanObserver.0
       bool success = true;
       PresenceDevicePtr p_device{};
       ScanObserver_OnDeviceFound_ParamsDataView input_data_view(params, message);
@@ -910,8 +912,8 @@ bool ScanObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceFound(
-std::move(p_device));
+      impl->OnDeviceFound(        
+        std::move(p_device));
       return true;
     }
     case internal::kScanObserver_OnDeviceChanged_Name: {
@@ -921,6 +923,8 @@ std::move(p_device));
           reinterpret_cast<internal::ScanObserver_OnDeviceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanObserver.1
       bool success = true;
       PresenceDevicePtr p_device{};
       ScanObserver_OnDeviceChanged_ParamsDataView input_data_view(params, message);
@@ -936,8 +940,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceChanged(
-std::move(p_device));
+      impl->OnDeviceChanged(        
+        std::move(p_device));
       return true;
     }
     case internal::kScanObserver_OnDeviceLost_Name: {
@@ -947,6 +951,8 @@ std::move(p_device));
           reinterpret_cast<internal::ScanObserver_OnDeviceLost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanObserver.2
       bool success = true;
       PresenceDevicePtr p_device{};
       ScanObserver_OnDeviceLost_ParamsDataView input_data_view(params, message);
@@ -962,8 +968,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceLost(
-std::move(p_device));
+      impl->OnDeviceLost(        
+        std::move(p_device));
       return true;
     }
   }
@@ -1608,6 +1614,8 @@ bool NearbyPresence_StartScan_ForwardToCallback::Accept(
           internal::NearbyPresence_StartScan_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresence.0
   bool success = true;
   ::mojo::PendingRemote<ScanSession> p_scan_session{};
   ::mojo_base::mojom::AbslStatusCode p_status{};
@@ -1739,6 +1747,8 @@ bool NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_ForwardToCal
           internal::NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresence.3
   bool success = true;
   std::vector<SharedCredentialPtr> p_shared_credentials{};
   ::mojo_base::mojom::AbslStatusCode p_status{};
@@ -1879,6 +1889,8 @@ bool NearbyPresence_UpdateRemoteSharedCredentials_ForwardToCallback::Accept(
           internal::NearbyPresence_UpdateRemoteSharedCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresence.4
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
   NearbyPresence_UpdateRemoteSharedCredentials_ResponseParamsDataView input_data_view(params, message);
@@ -1999,6 +2011,8 @@ bool NearbyPresence_GetLocalSharedCredentials_ForwardToCallback::Accept(
           internal::NearbyPresence_GetLocalSharedCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresence.5
   bool success = true;
   std::vector<SharedCredentialPtr> p_shared_credentials{};
   ::mojo_base::mojom::AbslStatusCode p_status{};
@@ -2097,6 +2111,8 @@ bool NearbyPresenceStubDispatch::Accept(
           reinterpret_cast<internal::NearbyPresence_SetScanObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyPresence.1
       bool success = true;
       ::mojo::PendingRemote<ScanObserver> p_scan_observer{};
       NearbyPresence_SetScanObserver_ParamsDataView input_data_view(params, message);
@@ -2114,8 +2130,8 @@ bool NearbyPresenceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScanObserver(
-std::move(p_scan_observer));
+      impl->SetScanObserver(        
+        std::move(p_scan_observer));
       return true;
     }
     case internal::kNearbyPresence_UpdateLocalDeviceMetadata_Name: {
@@ -2125,6 +2141,8 @@ std::move(p_scan_observer));
           reinterpret_cast<internal::NearbyPresence_UpdateLocalDeviceMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyPresence.2
       bool success = true;
       MetadataPtr p_metadata{};
       NearbyPresence_UpdateLocalDeviceMetadata_ParamsDataView input_data_view(params, message);
@@ -2140,8 +2158,8 @@ std::move(p_scan_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLocalDeviceMetadata(
-std::move(p_metadata));
+      impl->UpdateLocalDeviceMetadata(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kNearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_Name: {
@@ -2173,6 +2191,8 @@ bool NearbyPresenceStubDispatch::AcceptWithResponder(
               internal::NearbyPresence_StartScan_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresence.0
       bool success = true;
       ScanRequestPtr p_scan_request{};
       NearbyPresence_StartScan_ParamsDataView input_data_view(params, message);
@@ -2191,8 +2211,8 @@ bool NearbyPresenceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartScan(
-std::move(p_scan_request), std::move(callback));
+      impl->StartScan(        
+        std::move(p_scan_request), std::move(callback));
       return true;
     }
     case internal::kNearbyPresence_SetScanObserver_Name: {
@@ -2208,6 +2228,8 @@ std::move(p_scan_request), std::move(callback));
               internal::NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresence.3
       bool success = true;
       MetadataPtr p_metadata{};
       NearbyPresence_UpdateLocalDeviceMetadataAndGenerateCredentials_ParamsDataView input_data_view(params, message);
@@ -2226,8 +2248,8 @@ std::move(p_scan_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLocalDeviceMetadataAndGenerateCredentials(
-std::move(p_metadata), std::move(callback));
+      impl->UpdateLocalDeviceMetadataAndGenerateCredentials(        
+        std::move(p_metadata), std::move(callback));
       return true;
     }
     case internal::kNearbyPresence_UpdateRemoteSharedCredentials_Name: {
@@ -2237,6 +2259,8 @@ std::move(p_metadata), std::move(callback));
               internal::NearbyPresence_UpdateRemoteSharedCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresence.4
       bool success = true;
       std::vector<SharedCredentialPtr> p_shared_credentials{};
       std::string p_account_name{};
@@ -2258,9 +2282,9 @@ std::move(p_metadata), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateRemoteSharedCredentials(
-std::move(p_shared_credentials), 
-std::move(p_account_name), std::move(callback));
+      impl->UpdateRemoteSharedCredentials(        
+        std::move(p_shared_credentials), 
+        std::move(p_account_name), std::move(callback));
       return true;
     }
     case internal::kNearbyPresence_GetLocalSharedCredentials_Name: {
@@ -2270,6 +2294,8 @@ std::move(p_account_name), std::move(callback));
               internal::NearbyPresence_GetLocalSharedCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresence.5
       bool success = true;
       std::string p_account_name{};
       NearbyPresence_GetLocalSharedCredentials_ParamsDataView input_data_view(params, message);
@@ -2288,8 +2314,8 @@ std::move(p_account_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLocalSharedCredentials(
-std::move(p_account_name), std::move(callback));
+      impl->GetLocalSharedCredentials(        
+        std::move(p_account_name), std::move(callback));
       return true;
     }
   }

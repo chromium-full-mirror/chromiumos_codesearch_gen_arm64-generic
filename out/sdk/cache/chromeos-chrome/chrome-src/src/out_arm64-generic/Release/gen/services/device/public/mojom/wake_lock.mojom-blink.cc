@@ -462,6 +462,8 @@ bool WakeLock_ChangeType_ForwardToCallback::Accept(
           internal::WakeLock_ChangeType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WakeLock.3
   bool success = true;
   bool p_result{};
   WakeLock_ChangeType_ResponseParamsDataView input_data_view(params, message);
@@ -581,6 +583,8 @@ bool WakeLock_HasWakeLockForTests_ForwardToCallback::Accept(
           internal::WakeLock_HasWakeLockForTests_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WakeLock.4
   bool success = true;
   bool p_result{};
   WakeLock_HasWakeLockForTests_ResponseParamsDataView input_data_view(params, message);
@@ -655,6 +659,8 @@ bool WakeLockStubDispatch::Accept(
           reinterpret_cast<internal::WakeLock_RequestWakeLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLock.0
       bool success = true;
       WakeLock_RequestWakeLock_ParamsDataView input_data_view(params, message);
       
@@ -667,7 +673,7 @@ bool WakeLockStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestWakeLock();
+      impl->RequestWakeLock(        );
       return true;
     }
     case internal::kWakeLock_CancelWakeLock_Name: {
@@ -677,6 +683,8 @@ bool WakeLockStubDispatch::Accept(
           reinterpret_cast<internal::WakeLock_CancelWakeLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLock.1
       bool success = true;
       WakeLock_CancelWakeLock_ParamsDataView input_data_view(params, message);
       
@@ -689,7 +697,7 @@ bool WakeLockStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelWakeLock();
+      impl->CancelWakeLock(        );
       return true;
     }
     case internal::kWakeLock_AddClient_Name: {
@@ -699,6 +707,8 @@ bool WakeLockStubDispatch::Accept(
           reinterpret_cast<internal::WakeLock_AddClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLock.2
       bool success = true;
       ::mojo::PendingReceiver<WakeLock> p_wake_lock{};
       WakeLock_AddClient_ParamsDataView input_data_view(params, message);
@@ -716,8 +726,8 @@ bool WakeLockStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddClient(
-std::move(p_wake_lock));
+      impl->AddClient(        
+        std::move(p_wake_lock));
       return true;
     }
     case internal::kWakeLock_ChangeType_Name: {
@@ -755,6 +765,8 @@ bool WakeLockStubDispatch::AcceptWithResponder(
               internal::WakeLock_ChangeType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WakeLock.3
       bool success = true;
       WakeLockType p_type{};
       WakeLock_ChangeType_ParamsDataView input_data_view(params, message);
@@ -773,8 +785,8 @@ bool WakeLockStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangeType(
-std::move(p_type), std::move(callback));
+      impl->ChangeType(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kWakeLock_HasWakeLockForTests_Name: {
@@ -784,6 +796,8 @@ std::move(p_type), std::move(callback));
               internal::WakeLock_HasWakeLockForTests_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WakeLock.4
       bool success = true;
       WakeLock_HasWakeLockForTests_ParamsDataView input_data_view(params, message);
       

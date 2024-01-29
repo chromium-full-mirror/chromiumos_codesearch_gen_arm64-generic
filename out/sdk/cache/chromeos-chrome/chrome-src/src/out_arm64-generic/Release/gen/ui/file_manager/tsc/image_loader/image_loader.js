@@ -38,7 +38,7 @@ export class ImageLoader {
             this.onIncomingRequest_(msg, sender.origin, sendResponse);
         });
         chrome.runtime['onConnectNative'].addListener((port) => {
-            if (port.sender.nativeApplication != 'com.google.ash_thumbnail_loader') {
+            if (port.sender.nativeApplication !== 'com.google.ash_thumbnail_loader') {
                 port.disconnect();
                 return;
             }

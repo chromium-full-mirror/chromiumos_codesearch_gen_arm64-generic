@@ -3,13 +3,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeAllocationSampleViewViaDropdown = exports.changeViewViaDropdown = exports.waitForRetainerChain = exports.appearsInOrder = exports.waitUntilRetainerChainSatisfies = exports.assertRetainerChainSatisfies = exports.findSearchResult = exports.waitForSearchResultNumber = exports.setSearchFilter = exports.triggerLocalFindDialog = exports.setClassFilter = exports.getDataGridRows = exports.waitForNonEmptyHeapSnapshotData = exports.waitForHeapSnapshotData = exports.takeHeapSnapshot = exports.takeAllocationTimelineProfile = exports.takeAllocationProfile = exports.navigateToMemoryTab = exports.MEMORY_TAB_ID = void 0;
+exports.getSizesFromSelectedRow = exports.expandFocusedRow = exports.focusTableRow = exports.changeAllocationSampleViewViaDropdown = exports.changeViewViaDropdown = exports.waitForRetainerChain = exports.appearsInOrder = exports.waitUntilRetainerChainSatisfies = exports.assertRetainerChainSatisfies = exports.findSearchResult = exports.waitForSearchResultNumber = exports.setSearchFilter = exports.triggerLocalFindDialog = exports.setClassFilter = exports.getDataGridRows = exports.waitForNonEmptyHeapSnapshotData = exports.waitForHeapSnapshotData = exports.takeHeapSnapshot = exports.takeAllocationTimelineProfile = exports.takeAllocationProfile = exports.navigateToMemoryTab = exports.MEMORY_TAB_ID = void 0;
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const NEW_HEAP_SNAPSHOT_BUTTON = 'button[aria-label="Take heap snapshot"]';
 const MEMORY_PANEL_CONTENT = 'div[aria-label="Memory panel"]';
 const PROFILE_TREE_SIDEBAR = 'div.profiles-tree-sidebar';
-exports.MEMORY_TAB_ID = '#tab-heap_profiler';
+exports.MEMORY_TAB_ID = '#tab-heap-profiler';
 const CLASS_FILTER_INPUT = 'div[aria-placeholder="Class filter"]';
 const SELECTED_RESULT = '#profile-views table.data tr.data-grid-data-grid-node.revealed.parent.selected';
 async function navigateToMemoryTab() {
@@ -255,4 +255,30 @@ async function changeAllocationSampleViewViaDropdown(newPerspective) {
     await dropdown.select(optionValue);
 }
 exports.changeAllocationSampleViewViaDropdown = changeAllocationSampleViewViaDropdown;
+async function focusTableRow(text) {
+    const row = await (0, helper_js_1.waitFor)(`//span[text()="${text}"]/ancestor::tr`, undefined, undefined, 'xpath');
+    // Click in a numeric cell, to avoid accidentally clicking a link.
+    const cell = await (0, helper_js_1.waitFor)('.numeric-column', row);
+    await (0, helper_js_1.clickElement)(cell);
+}
+exports.focusTableRow = focusTableRow;
+async function expandFocusedRow() {
+    const { frontend } = (0, helper_js_1.getBrowserAndPages)();
+    await frontend.keyboard.press('ArrowRight');
+    await (0, helper_js_1.waitFor)('.selected.data-grid-data-grid-node.expanded');
+}
+exports.expandFocusedRow = expandFocusedRow;
+async function getSizesFromSelectedRow() {
+    const row = await (0, helper_js_1.waitFor)('.selected.data-grid-data-grid-node');
+    const numericData = await (0, helper_js_1.$$)('.numeric-column>.profile-multiple-values>span', row);
+    chai_1.assert.strictEqual(numericData.length, 4);
+    function readNumber(e) {
+        return parseInt(e.textContent.replaceAll('\xa0', ''), 10);
+    }
+    const shallowSize = await numericData[0].evaluate(readNumber);
+    const retainedSize = await numericData[2].evaluate(readNumber);
+    chai_1.assert.isTrue(retainedSize >= shallowSize);
+    return { shallowSize, retainedSize };
+}
+exports.getSizesFromSelectedRow = getSizesFromSelectedRow;
 //# sourceMappingURL=memory-helpers.js.map

@@ -11,7 +11,7 @@ import { MockDirectoryEntry, MockFileSystem } from '../../../common/js/mock_entr
 import { waitUntil } from '../../../common/js/test_error_reporting.js';
 import { str } from '../../../common/js/translations.js';
 import { RootType, VolumeType } from '../../../common/js/volume_manager_types.js';
-import { DialogType } from '../../../externs/ts/state.js';
+import { DialogType } from '../../../state/state.js';
 import { DirectoryModel } from '../directory_model.js';
 import { createFakeAndroidAppListModel } from '../fake_android_app_list_model.js';
 import { MetadataModel } from '../metadata/metadata_model.js';
@@ -175,7 +175,7 @@ export async function testCreateDirectoryTree() {
     const driveItem = directoryTree.items[0];
     await waitUntil(() => {
         // Under the drive item, there exist 3 entries.
-        return driveItem.items.length == 3;
+        return driveItem.items.length === 3;
     });
     // There exist 1 my drive entry and 3 fake entries under the drive item.
     assertEquals(str('DRIVE_MY_DRIVE_LABEL'), driveItem.items[0].label);
@@ -230,7 +230,7 @@ export async function testCreateDirectoryTreeWithTeamDrive() {
     const driveItem = directoryTree.items[0];
     await waitUntil(() => {
         // Under the drive item, there exist 4 entries.
-        return driveItem.items.length == 4;
+        return driveItem.items.length === 4;
     });
     // There exist 1 my drive entry and 3 fake entries under the drive item.
     assertEquals(str('DRIVE_MY_DRIVE_LABEL'), driveItem.items[0].label);
@@ -266,11 +266,11 @@ export async function testCreateDirectoryTreeWithEmptyTeamDrive() {
         // Root entries under Drive volume is generated, Team Drives isn't
         // included because it has no child.
         // See testCreateDirectoryTreeWithTeamDrive for detail.
-        return driveItem.items.length == 3;
+        return driveItem.items.length === 3;
     });
     let teamDrivesItemFound = false;
     for (let i = 0; i < driveItem.items.length; i++) {
-        if (driveItem.items[i].label == str('DRIVE_SHARED_DRIVES_LABEL')) {
+        if (driveItem.items[i].label === str('DRIVE_SHARED_DRIVES_LABEL')) {
             teamDrivesItemFound = true;
             break;
         }
@@ -324,7 +324,7 @@ export async function testCreateDirectoryTreeWithComputers() {
     const driveItem = directoryTree.items[0];
     await waitUntil(() => {
         // Under the drive item, there exist 4 entries.
-        return driveItem.items.length == 4;
+        return driveItem.items.length === 4;
     });
     // There exist 1 my drive entry and 3 fake entries under the drive item.
     assertEquals(str('DRIVE_MY_DRIVE_LABEL'), driveItem.items[0].label);
@@ -362,11 +362,11 @@ export async function testCreateDirectoryTreeWithEmptyComputers() {
         // Root entries under Drive volume is generated, Computers isn't
         // included because it has no child.
         // See testCreateDirectoryTreeWithComputers for detail.
-        return driveItem.items.length == 3;
+        return driveItem.items.length === 3;
     });
     let teamDrivesItemFound = false;
     for (let i = 0; i < driveItem.items.length; i++) {
-        if (driveItem.items[i].label == str('DRIVE_COMPUTERS_LABEL')) {
+        if (driveItem.items[i].label === str('DRIVE_COMPUTERS_LABEL')) {
             teamDrivesItemFound = true;
             break;
         }
@@ -424,7 +424,7 @@ export async function testCreateDirectoryTreeWithTeamDrivesAndComputers() {
     const driveItem = directoryTree.items[0];
     await waitUntil(() => {
         // Under the drive item, there exist 4 entries.
-        return driveItem.items.length == 5;
+        return driveItem.items.length === 5;
     });
     // There exist 1 my drive entry and 3 fake entries under the drive item.
     assertEquals(str('DRIVE_MY_DRIVE_LABEL'), driveItem.items[0].label);
@@ -738,7 +738,7 @@ export async function testAddFirstTeamDrive() {
     // 'HTMLElement'.
     const driveItem = directoryTree.items[0];
     await waitUntil(() => {
-        return driveItem.items.length == 3;
+        return driveItem.items.length === 3;
     });
     // @ts-ignore: error TS2322: Type 'FileSystemDirectoryEntry' is not
     // assignable to type 'MockDirectoryEntry'.
@@ -753,7 +753,7 @@ export async function testAddFirstTeamDrive() {
     }
     await waitUntil(() => {
         for (let i = 0; i < driveItem.items.length; i++) {
-            if (driveItem.items[i].label == str('DRIVE_SHARED_DRIVES_LABEL')) {
+            if (driveItem.items[i].label === str('DRIVE_SHARED_DRIVES_LABEL')) {
                 return !driveItem.items[i].hidden;
             }
         }
@@ -791,7 +791,7 @@ export async function testRemoveLastTeamDrive() {
     // 'HTMLElement'.
     const driveItem = directoryTree.items[0];
     await waitUntil(() => {
-        return driveItem.items.length == 4;
+        return driveItem.items.length === 4;
     });
     await new Promise(resolve => {
         // @ts-ignore: error TS2532: Object is possibly 'undefined'.
@@ -810,7 +810,7 @@ export async function testRemoveLastTeamDrive() {
     // Wait team drive grand root to appear.
     await waitUntil(() => {
         for (let i = 0; i < driveItem.items.length; i++) {
-            if (driveItem.items[i].label == str('DRIVE_SHARED_DRIVES_LABEL')) {
+            if (driveItem.items[i].label === str('DRIVE_SHARED_DRIVES_LABEL')) {
                 return false;
             }
         }
@@ -846,7 +846,7 @@ export async function testAddFirstComputer() {
     // adding a filesystem "/Computers/a" results in the Computers item being
     // displayed under Drive.
     await waitUntil(() => {
-        return driveItem.items.length == 3;
+        return driveItem.items.length === 3;
     });
     // @ts-ignore: error TS2322: Type 'FileSystemDirectoryEntry' is not
     // assignable to type 'MockDirectoryEntry'.
@@ -861,7 +861,7 @@ export async function testAddFirstComputer() {
     }
     await waitUntil(() => {
         for (let i = 0; i < driveItem.items.length; i++) {
-            if (driveItem.items[i].label == str('DRIVE_COMPUTERS_LABEL')) {
+            if (driveItem.items[i].label === str('DRIVE_COMPUTERS_LABEL')) {
                 return !driveItem.items[i].hidden;
             }
         }
@@ -901,7 +901,7 @@ export async function testRemoveLastComputer() {
     // Check that removing the local computer "a" results in the entire
     // "Computers" element being removed, as it has no children.
     await waitUntil(() => {
-        return driveItem.items.length == 4;
+        return driveItem.items.length === 4;
     });
     await new Promise(resolve => {
         // @ts-ignore: error TS2532: Object is possibly 'undefined'.
@@ -920,7 +920,7 @@ export async function testRemoveLastComputer() {
     // Wait team drive grand root to appear.
     await waitUntil(() => {
         for (let i = 0; i < driveItem.items.length; i++) {
-            if (driveItem.items[i].label == str('DRIVE_COMPUTERS_LABEL')) {
+            if (driveItem.items[i].label === str('DRIVE_COMPUTERS_LABEL')) {
                 return false;
             }
         }
@@ -1122,7 +1122,7 @@ export async function testSmbNotFetchedUntilClick() {
     await waitUntil(() => {
         // Wait until the SMB share item has been updated with its sub
         // directories.
-        return smbItem.items.length == 1;
+        return smbItem.items.length === 1;
     });
     assertEquals('smb_child', smbItem.items[0].label);
 }

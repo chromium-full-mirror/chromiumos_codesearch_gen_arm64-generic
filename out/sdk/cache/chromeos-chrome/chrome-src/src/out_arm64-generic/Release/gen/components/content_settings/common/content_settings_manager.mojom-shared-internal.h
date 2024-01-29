@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-shared-internal.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared-internal.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-shared-internal.h"

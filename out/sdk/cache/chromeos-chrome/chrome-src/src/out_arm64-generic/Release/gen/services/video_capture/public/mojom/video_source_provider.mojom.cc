@@ -665,6 +665,8 @@ bool VideoSourceProvider_GetSourceInfos_ForwardToCallback::Accept(
           internal::VideoSourceProvider_GetSourceInfos_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoSourceProvider.0
   bool success = true;
   std::vector<::media::VideoCaptureDeviceInfo> p_source_infos{};
   VideoSourceProvider_GetSourceInfos_ResponseParamsDataView input_data_view(params, message);
@@ -796,6 +798,8 @@ bool VideoSourceProvider_Close_ForwardToCallback::Accept(
           internal::VideoSourceProvider_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoSourceProvider.6
   bool success = true;
   VideoSourceProvider_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -861,6 +865,8 @@ bool VideoSourceProviderStubDispatch::Accept(
           reinterpret_cast<internal::VideoSourceProvider_GetVideoSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.1
       bool success = true;
       std::string p_source_id{};
       ::mojo::PendingReceiver<::video_capture::mojom::VideoSource> p_stream{};
@@ -881,9 +887,9 @@ bool VideoSourceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVideoSource(
-std::move(p_source_id), 
-std::move(p_stream));
+      impl->GetVideoSource(        
+        std::move(p_source_id), 
+        std::move(p_stream));
       return true;
     }
     case internal::kVideoSourceProvider_AddSharedMemoryVirtualDevice_Name: {
@@ -893,6 +899,8 @@ std::move(p_stream));
           reinterpret_cast<internal::VideoSourceProvider_AddSharedMemoryVirtualDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.2
       bool success = true;
       ::media::VideoCaptureDeviceInfo p_device_info{};
       ::mojo::PendingRemote<::video_capture::mojom::Producer> p_producer{};
@@ -918,10 +926,10 @@ std::move(p_stream));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSharedMemoryVirtualDevice(
-std::move(p_device_info), 
-std::move(p_producer), 
-std::move(p_virtual_device_receiver));
+      impl->AddSharedMemoryVirtualDevice(        
+        std::move(p_device_info), 
+        std::move(p_producer), 
+        std::move(p_virtual_device_receiver));
       return true;
     }
     case internal::kVideoSourceProvider_AddTextureVirtualDevice_Name: {
@@ -931,6 +939,8 @@ std::move(p_virtual_device_receiver));
           reinterpret_cast<internal::VideoSourceProvider_AddTextureVirtualDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.3
       bool success = true;
       ::media::VideoCaptureDeviceInfo p_device_info{};
       ::mojo::PendingReceiver<::video_capture::mojom::TextureVirtualDevice> p_virtual_device_receiver{};
@@ -951,9 +961,9 @@ std::move(p_virtual_device_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddTextureVirtualDevice(
-std::move(p_device_info), 
-std::move(p_virtual_device_receiver));
+      impl->AddTextureVirtualDevice(        
+        std::move(p_device_info), 
+        std::move(p_virtual_device_receiver));
       return true;
     }
     case internal::kVideoSourceProvider_RegisterVirtualDevicesChangedObserver_Name: {
@@ -963,6 +973,8 @@ std::move(p_virtual_device_receiver));
           reinterpret_cast<internal::VideoSourceProvider_RegisterVirtualDevicesChangedObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.4
       bool success = true;
       ::mojo::PendingRemote<::video_capture::mojom::DevicesChangedObserver> p_observer{};
       bool p_raise_event_if_virtual_devices_already_present{};
@@ -983,9 +995,9 @@ std::move(p_virtual_device_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterVirtualDevicesChangedObserver(
-std::move(p_observer), 
-std::move(p_raise_event_if_virtual_devices_already_present));
+      impl->RegisterVirtualDevicesChangedObserver(        
+        std::move(p_observer), 
+        std::move(p_raise_event_if_virtual_devices_already_present));
       return true;
     }
     case internal::kVideoSourceProvider_RegisterDevicesChangedObserver_Name: {
@@ -995,6 +1007,8 @@ std::move(p_raise_event_if_virtual_devices_already_present));
           reinterpret_cast<internal::VideoSourceProvider_RegisterDevicesChangedObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.5
       bool success = true;
       ::mojo::PendingRemote<::video_capture::mojom::DevicesChangedObserver> p_observer{};
       VideoSourceProvider_RegisterDevicesChangedObserver_ParamsDataView input_data_view(params, message);
@@ -1012,8 +1026,8 @@ std::move(p_raise_event_if_virtual_devices_already_present));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterDevicesChangedObserver(
-std::move(p_observer));
+      impl->RegisterDevicesChangedObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kVideoSourceProvider_Close_Name: {
@@ -1039,6 +1053,8 @@ bool VideoSourceProviderStubDispatch::AcceptWithResponder(
               internal::VideoSourceProvider_GetSourceInfos_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.0
       bool success = true;
       VideoSourceProvider_GetSourceInfos_ParamsDataView input_data_view(params, message);
       
@@ -1079,6 +1095,8 @@ bool VideoSourceProviderStubDispatch::AcceptWithResponder(
               internal::VideoSourceProvider_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoSourceProvider.6
       bool success = true;
       VideoSourceProvider_Close_ParamsDataView input_data_view(params, message);
       

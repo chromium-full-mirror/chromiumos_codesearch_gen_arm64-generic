@@ -167,6 +167,31 @@ class BRILLO_EXPORT BluetoothProfileConnectionStateChanged final : public ::metr
 
 };
 
+class BRILLO_EXPORT BluetoothSuspendIdStateChanged final : public ::metrics::structured::EventBase {
+ public:
+  BluetoothSuspendIdStateChanged();
+  ~BluetoothSuspendIdStateChanged() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(18258901921707488550);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(9074739597929991885);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  BluetoothSuspendIdStateChanged& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  BluetoothSuspendIdStateChanged& SetSystemTime(const int64_t value);
+  int64_t GetSystemTimeForTest() const;
+
+  static constexpr uint64_t kSuspendIdStateNameHash = UINT64_C(4586308630544949436);
+  BluetoothSuspendIdStateChanged& SetSuspendIdState(const int64_t value);
+  int64_t GetSuspendIdStateForTest() const;
+
+};
+
 class BRILLO_EXPORT BluetoothDeviceInfoReport final : public ::metrics::structured::EventBase {
  public:
   BluetoothDeviceInfoReport();

@@ -26,10 +26,10 @@ export async function testShowAndHideEvents() {
     cmh.setContextMenu(elem1, menu);
     cmh.setContextMenu(elem2, menu);
     const events = [];
-    cmh.addEventListener('show', function (e) {
+    cmh.addEventListener('show', (e) => {
         events.push(e);
     });
-    cmh.addEventListener('hide', function (e) {
+    cmh.addEventListener('hide', (e) => {
         events.push(e);
     });
     // Show context menu of elem1.

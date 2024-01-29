@@ -89,7 +89,8 @@ export function getTemplate() {
                   <div class="report">
                     <iron-icon icon="[[getIconForDeviceReportingType_(
                         item.reportingType)]]"></iron-icon>
-                    <div inner-h-t-m-l="[[i18nAdvanced(item.messageId)]]"></div>
+                    <div inner-h-t-m-l="[[getDeviceReportingHtmlContent_(item)]]">
+                    </div>
                   </div>
                 </template>
               </div>

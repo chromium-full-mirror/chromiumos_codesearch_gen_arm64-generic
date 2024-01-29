@@ -1,0 +1,22 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="diagnostics-shared">#cardTitle{align-items:center;display:flex}#icon{padding-inline-end:12px}</style>
+<diagnostics-card is-networking-card="true">
+  <div id="cardTitle" slot="title" tabindex="0">
+    <diagnostics-network-icon id="icon" network="[[network]]">
+    </diagnostics-network-icon>
+    <span id="titleText">
+      [[getNetworkCardTitle(networkType, networkState)]]
+    </span>
+  </div>
+  <template is="dom-if" if="[[macAddress]]">
+    <div id="macAddressChip" slot="chip" class="diagnostics-chip" tabindex="0">
+      [[getMacAddress(macAddress)]]
+    </div>
+  </template>
+  <hr slot="body" hidden$="[[!hasRoutines(routineGroups)]]">
+  <network-info network="[[network]]" slot="body"></network-info>
+  <routine-section slot="left-panel" routines="[[routineGroups]]" test-suite-status="{{testSuiteStatus}}" routine-runtime="{{getEstimateRuntimeInMinutes(routineGroups)}}" is-active="[[isActive]]" hide-routine-status opened>
+  </routine-section>
+  <ip-config-info-drawer id="ipConfigInfoDrawer" network="[[network]]" slot="routines">
+  </ip-config-info-drawer>
+</diagnostics-card>
+<!--_html_template_end_-->`}

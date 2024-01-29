@@ -83,7 +83,7 @@ def parse_args():
 def refresh(client):
     """Uses fwupd client to refresh metadata"""
     remotes = client.get_remotes()
-    client.set_user_agent_for_package("simple_client", "1.9.9")
+    client.set_user_agent_for_package("simple_client", "1.9.10")
     for remote in remotes:
         if not remote.get_enabled():
             continue

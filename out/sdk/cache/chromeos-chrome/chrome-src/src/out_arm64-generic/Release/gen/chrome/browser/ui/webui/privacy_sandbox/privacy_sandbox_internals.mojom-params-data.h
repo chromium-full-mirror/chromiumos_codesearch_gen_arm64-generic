@@ -22,6 +22,38 @@ class ValidationContext;
 
 namespace privacy_sandbox_internals::mojom {
 namespace internal {
+class  PageHandler_ReadPref_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> pref_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_ReadPref_Params_Data>;
+
+  PageHandler_ReadPref_Params_Data();
+  ~PageHandler_ReadPref_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_ReadPref_Params_Data) == 16,
+              "Bad sizeof(PageHandler_ReadPref_Params_Data)");
+class  PageHandler_ReadPref_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::mojo_base::mojom::internal::Value_Data s;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_ReadPref_ResponseParams_Data>;
+
+  PageHandler_ReadPref_ResponseParams_Data();
+  ~PageHandler_ReadPref_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_ReadPref_ResponseParams_Data) == 24,
+              "Bad sizeof(PageHandler_ReadPref_ResponseParams_Data)");
 class  PageHandler_GetCookieSettings_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -84,6 +116,99 @@ class  PageHandler_GetTpcdMetadataGrants_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandler_GetTpcdMetadataGrants_ResponseParams_Data) == 16,
               "Bad sizeof(PageHandler_GetTpcdMetadataGrants_ResponseParams_Data)");
+class  PageHandler_GetTpcdHeuristicsGrants_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetTpcdHeuristicsGrants_Params_Data>;
+
+  PageHandler_GetTpcdHeuristicsGrants_Params_Data();
+  ~PageHandler_GetTpcdHeuristicsGrants_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetTpcdHeuristicsGrants_Params_Data) == 8,
+              "Bad sizeof(PageHandler_GetTpcdHeuristicsGrants_Params_Data)");
+class  PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::content_settings::mojom::internal::ContentSettingPatternSource_Data>>> content_settings;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data>;
+
+  PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data();
+  ~PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data)");
+class  PageHandler_GetTpcdTrial_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetTpcdTrial_Params_Data>;
+
+  PageHandler_GetTpcdTrial_Params_Data();
+  ~PageHandler_GetTpcdTrial_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetTpcdTrial_Params_Data) == 8,
+              "Bad sizeof(PageHandler_GetTpcdTrial_Params_Data)");
+class  PageHandler_GetTpcdTrial_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::content_settings::mojom::internal::ContentSettingPatternSource_Data>>> content_settings;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetTpcdTrial_ResponseParams_Data>;
+
+  PageHandler_GetTpcdTrial_ResponseParams_Data();
+  ~PageHandler_GetTpcdTrial_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetTpcdTrial_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetTpcdTrial_ResponseParams_Data)");
+class  PageHandler_GetTopLevelTpcdTrial_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetTopLevelTpcdTrial_Params_Data>;
+
+  PageHandler_GetTopLevelTpcdTrial_Params_Data();
+  ~PageHandler_GetTopLevelTpcdTrial_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetTopLevelTpcdTrial_Params_Data) == 8,
+              "Bad sizeof(PageHandler_GetTopLevelTpcdTrial_Params_Data)");
+class  PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::content_settings::mojom::internal::ContentSettingPatternSource_Data>>> content_settings;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data>;
+
+  PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data();
+  ~PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data)");
 class  PageHandler_ContentSettingsPatternToString_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -116,8 +241,92 @@ class  PageHandler_ContentSettingsPatternToString_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandler_ContentSettingsPatternToString_ResponseParams_Data) == 16,
               "Bad sizeof(PageHandler_ContentSettingsPatternToString_ResponseParams_Data)");
+class  PageHandler_StringToContentSettingsPattern_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> s;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_StringToContentSettingsPattern_Params_Data>;
+
+  PageHandler_StringToContentSettingsPattern_Params_Data();
+  ~PageHandler_StringToContentSettingsPattern_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_StringToContentSettingsPattern_Params_Data) == 16,
+              "Bad sizeof(PageHandler_StringToContentSettingsPattern_Params_Data)");
+class  PageHandler_StringToContentSettingsPattern_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::content_settings::mojom::internal::ContentSettingsPattern_Data> pattern;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_StringToContentSettingsPattern_ResponseParams_Data>;
+
+  PageHandler_StringToContentSettingsPattern_ResponseParams_Data();
+  ~PageHandler_StringToContentSettingsPattern_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_StringToContentSettingsPattern_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_StringToContentSettingsPattern_ResponseParams_Data)");
 
 }  // namespace internal
+
+
+class PageHandler_ReadPref_ParamsDataView {
+ public:
+  PageHandler_ReadPref_ParamsDataView() = default;
+
+  PageHandler_ReadPref_ParamsDataView(
+      internal::PageHandler_ReadPref_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPrefNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrefName(UserType* output) {
+    
+    auto* pointer = data_->pref_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_ReadPref_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_ReadPref_ResponseParamsDataView {
+ public:
+  PageHandler_ReadPref_ResponseParamsDataView() = default;
+
+  PageHandler_ReadPref_ResponseParamsDataView(
+      internal::PageHandler_ReadPref_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSDataView(
+      ::mojo_base::mojom::ValueDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadS(UserType* output) {
+    
+    auto* pointer = !data_->s.is_null() ? &data_->s : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::ValueDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_ReadPref_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class PageHandler_GetCookieSettings_ParamsDataView {
@@ -202,6 +411,129 @@ class PageHandler_GetTpcdMetadataGrants_ResponseParamsDataView {
 };
 
 
+class PageHandler_GetTpcdHeuristicsGrants_ParamsDataView {
+ public:
+  PageHandler_GetTpcdHeuristicsGrants_ParamsDataView() = default;
+
+  PageHandler_GetTpcdHeuristicsGrants_ParamsDataView(
+      internal::PageHandler_GetTpcdHeuristicsGrants_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_GetTpcdHeuristicsGrants_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_GetTpcdHeuristicsGrants_ResponseParamsDataView {
+ public:
+  PageHandler_GetTpcdHeuristicsGrants_ResponseParamsDataView() = default;
+
+  PageHandler_GetTpcdHeuristicsGrants_ResponseParamsDataView(
+      internal::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContentSettingsDataView(
+      mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContentSettings(UserType* output) {
+    
+    auto* pointer = data_->content_settings.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_GetTpcdTrial_ParamsDataView {
+ public:
+  PageHandler_GetTpcdTrial_ParamsDataView() = default;
+
+  PageHandler_GetTpcdTrial_ParamsDataView(
+      internal::PageHandler_GetTpcdTrial_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_GetTpcdTrial_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_GetTpcdTrial_ResponseParamsDataView {
+ public:
+  PageHandler_GetTpcdTrial_ResponseParamsDataView() = default;
+
+  PageHandler_GetTpcdTrial_ResponseParamsDataView(
+      internal::PageHandler_GetTpcdTrial_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContentSettingsDataView(
+      mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContentSettings(UserType* output) {
+    
+    auto* pointer = data_->content_settings.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetTpcdTrial_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_GetTopLevelTpcdTrial_ParamsDataView {
+ public:
+  PageHandler_GetTopLevelTpcdTrial_ParamsDataView() = default;
+
+  PageHandler_GetTopLevelTpcdTrial_ParamsDataView(
+      internal::PageHandler_GetTopLevelTpcdTrial_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_GetTopLevelTpcdTrial_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_GetTopLevelTpcdTrial_ResponseParamsDataView {
+ public:
+  PageHandler_GetTopLevelTpcdTrial_ResponseParamsDataView() = default;
+
+  PageHandler_GetTopLevelTpcdTrial_ResponseParamsDataView(
+      internal::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContentSettingsDataView(
+      mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContentSettings(UserType* output) {
+    
+    auto* pointer = data_->content_settings.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class PageHandler_ContentSettingsPatternToString_ParamsDataView {
  public:
   PageHandler_ContentSettingsPatternToString_ParamsDataView() = default;
@@ -254,6 +586,72 @@ class PageHandler_ContentSettingsPatternToString_ResponseParamsDataView {
 };
 
 
+class PageHandler_StringToContentSettingsPattern_ParamsDataView {
+ public:
+  PageHandler_StringToContentSettingsPattern_ParamsDataView() = default;
+
+  PageHandler_StringToContentSettingsPattern_ParamsDataView(
+      internal::PageHandler_StringToContentSettingsPattern_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadS(UserType* output) {
+    
+    auto* pointer = data_->s.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_StringToContentSettingsPattern_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_StringToContentSettingsPattern_ResponseParamsDataView {
+ public:
+  PageHandler_StringToContentSettingsPattern_ResponseParamsDataView() = default;
+
+  PageHandler_StringToContentSettingsPattern_ResponseParamsDataView(
+      internal::PageHandler_StringToContentSettingsPattern_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPatternDataView(
+      ::content_settings::mojom::ContentSettingsPatternDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPattern(UserType* output) {
+    
+    auto* pointer = data_->pattern.Get();
+    return mojo::internal::Deserialize<::content_settings::mojom::ContentSettingsPatternDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_StringToContentSettingsPattern_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+inline void PageHandler_ReadPref_ParamsDataView::GetPrefNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->pref_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_ReadPref_ResponseParamsDataView::GetSDataView(
+    ::mojo_base::mojom::ValueDataView* output) {
+  auto pointer = &data_->s;
+  *output = ::mojo_base::mojom::ValueDataView(pointer, message_);
+}
+
+
+
 
 inline void PageHandler_GetCookieSettings_ResponseParamsDataView::GetContentSettingsDataView(
     mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output) {
@@ -271,6 +669,33 @@ inline void PageHandler_GetTpcdMetadataGrants_ResponseParamsDataView::GetContent
 }
 
 
+
+
+inline void PageHandler_GetTpcdHeuristicsGrants_ResponseParamsDataView::GetContentSettingsDataView(
+    mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output) {
+  auto pointer = data_->content_settings.Get();
+  *output = mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>(pointer, message_);
+}
+
+
+
+
+inline void PageHandler_GetTpcdTrial_ResponseParamsDataView::GetContentSettingsDataView(
+    mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output) {
+  auto pointer = data_->content_settings.Get();
+  *output = mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>(pointer, message_);
+}
+
+
+
+
+inline void PageHandler_GetTopLevelTpcdTrial_ResponseParamsDataView::GetContentSettingsDataView(
+    mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>* output) {
+  auto pointer = data_->content_settings.Get();
+  *output = mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>(pointer, message_);
+}
+
+
 inline void PageHandler_ContentSettingsPatternToString_ParamsDataView::GetPatternDataView(
     ::content_settings::mojom::ContentSettingsPatternDataView* output) {
   auto pointer = data_->pattern.Get();
@@ -282,6 +707,20 @@ inline void PageHandler_ContentSettingsPatternToString_ResponseParamsDataView::G
     mojo::StringDataView* output) {
   auto pointer = data_->s.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_StringToContentSettingsPattern_ParamsDataView::GetSDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->s.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PageHandler_StringToContentSettingsPattern_ResponseParamsDataView::GetPatternDataView(
+    ::content_settings::mojom::ContentSettingsPatternDataView* output) {
+  auto pointer = data_->pattern.Get();
+  *output = ::content_settings::mojom::ContentSettingsPatternDataView(pointer, message_);
 }
 
 

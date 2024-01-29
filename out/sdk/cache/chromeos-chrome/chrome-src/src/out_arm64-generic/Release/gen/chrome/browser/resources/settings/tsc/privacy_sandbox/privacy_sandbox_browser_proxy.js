@@ -19,6 +19,12 @@ export class PrivacySandboxBrowserProxyImpl {
     topicsToggleChanged(newToggleValue) {
         chrome.send('topicsToggleChanged', [newToggleValue]);
     }
+    getFirstLevelTopics() {
+        return sendWithPromise('getFirstLevelTopics');
+    }
+    getChildTopicsCurrentlyAssigned(topic) {
+        return sendWithPromise('getChildTopicsCurrentlyAssigned', topic.topicId, topic.taxonomyVersion);
+    }
     static getInstance() {
         return instance || (instance = new PrivacySandboxBrowserProxyImpl());
     }

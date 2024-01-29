@@ -202,6 +202,8 @@ bool TrustedVaultBackendObserverStubDispatch::Accept(
           reinterpret_cast<internal::TrustedVaultBackendObserver_OnTrustedVaultKeysChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackendObserver.0
       bool success = true;
       TrustedVaultBackendObserver_OnTrustedVaultKeysChanged_ParamsDataView input_data_view(params, message);
       
@@ -214,7 +216,7 @@ bool TrustedVaultBackendObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTrustedVaultKeysChanged();
+      impl->OnTrustedVaultKeysChanged(        );
       return true;
     }
     case internal::kTrustedVaultBackendObserver_OnTrustedVaultRecoverabilityChanged_Name: {
@@ -224,6 +226,8 @@ bool TrustedVaultBackendObserverStubDispatch::Accept(
           reinterpret_cast<internal::TrustedVaultBackendObserver_OnTrustedVaultRecoverabilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackendObserver.1
       bool success = true;
       TrustedVaultBackendObserver_OnTrustedVaultRecoverabilityChanged_ParamsDataView input_data_view(params, message);
       
@@ -236,7 +240,7 @@ bool TrustedVaultBackendObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTrustedVaultRecoverabilityChanged();
+      impl->OnTrustedVaultRecoverabilityChanged(        );
       return true;
     }
   }
@@ -972,6 +976,8 @@ bool TrustedVaultBackend_FetchKeys_ForwardToCallback::Accept(
           internal::TrustedVaultBackend_FetchKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedVaultBackend.1
   bool success = true;
   std::vector<std::vector<uint8_t>> p_keys{};
   TrustedVaultBackend_FetchKeys_ResponseParamsDataView input_data_view(params, message);
@@ -1103,6 +1109,8 @@ bool TrustedVaultBackend_MarkLocalKeysAsStale_ForwardToCallback::Accept(
           internal::TrustedVaultBackend_MarkLocalKeysAsStale_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedVaultBackend.2
   bool success = true;
   bool p_result{};
   TrustedVaultBackend_MarkLocalKeysAsStale_ResponseParamsDataView input_data_view(params, message);
@@ -1222,6 +1230,8 @@ bool TrustedVaultBackend_GetIsRecoverabilityDegraded_ForwardToCallback::Accept(
           internal::TrustedVaultBackend_GetIsRecoverabilityDegraded_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedVaultBackend.4
   bool success = true;
   bool p_degraded{};
   TrustedVaultBackend_GetIsRecoverabilityDegraded_ResponseParamsDataView input_data_view(params, message);
@@ -1341,6 +1351,8 @@ bool TrustedVaultBackend_AddTrustedRecoveryMethod_ForwardToCallback::Accept(
           internal::TrustedVaultBackend_AddTrustedRecoveryMethod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedVaultBackend.5
   bool success = true;
   TrustedVaultBackend_AddTrustedRecoveryMethod_ResponseParamsDataView input_data_view(params, message);
   
@@ -1403,6 +1415,8 @@ bool TrustedVaultBackendStubDispatch::Accept(
           reinterpret_cast<internal::TrustedVaultBackend_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.0
       bool success = true;
       ::mojo::PendingRemote<TrustedVaultBackendObserver> p_observer{};
       TrustedVaultBackend_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1420,8 +1434,8 @@ bool TrustedVaultBackendStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kTrustedVaultBackend_FetchKeys_Name: {
@@ -1437,6 +1451,8 @@ std::move(p_observer));
           reinterpret_cast<internal::TrustedVaultBackend_StoreKeys_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.3
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       std::vector<std::vector<uint8_t>> p_keys{};
@@ -1458,10 +1474,10 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StoreKeys(
-std::move(p_account_key), 
-std::move(p_keys), 
-std::move(p_last_key_version));
+      impl->StoreKeys(        
+        std::move(p_account_key), 
+        std::move(p_keys), 
+        std::move(p_last_key_version));
       return true;
     }
     case internal::kTrustedVaultBackend_GetIsRecoverabilityDegraded_Name: {
@@ -1477,6 +1493,8 @@ std::move(p_last_key_version));
           reinterpret_cast<internal::TrustedVaultBackend_ClearLocalDataForAccount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.6
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       TrustedVaultBackend_ClearLocalDataForAccount_ParamsDataView input_data_view(params, message);
@@ -1492,8 +1510,8 @@ std::move(p_last_key_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearLocalDataForAccount(
-std::move(p_account_key));
+      impl->ClearLocalDataForAccount(        
+        std::move(p_account_key));
       return true;
     }
   }
@@ -1519,6 +1537,8 @@ bool TrustedVaultBackendStubDispatch::AcceptWithResponder(
               internal::TrustedVaultBackend_FetchKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.1
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       TrustedVaultBackend_FetchKeys_ParamsDataView input_data_view(params, message);
@@ -1537,8 +1557,8 @@ bool TrustedVaultBackendStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchKeys(
-std::move(p_account_key), std::move(callback));
+      impl->FetchKeys(        
+        std::move(p_account_key), std::move(callback));
       return true;
     }
     case internal::kTrustedVaultBackend_MarkLocalKeysAsStale_Name: {
@@ -1548,6 +1568,8 @@ std::move(p_account_key), std::move(callback));
               internal::TrustedVaultBackend_MarkLocalKeysAsStale_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.2
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       TrustedVaultBackend_MarkLocalKeysAsStale_ParamsDataView input_data_view(params, message);
@@ -1566,8 +1588,8 @@ std::move(p_account_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MarkLocalKeysAsStale(
-std::move(p_account_key), std::move(callback));
+      impl->MarkLocalKeysAsStale(        
+        std::move(p_account_key), std::move(callback));
       return true;
     }
     case internal::kTrustedVaultBackend_StoreKeys_Name: {
@@ -1580,6 +1602,8 @@ std::move(p_account_key), std::move(callback));
               internal::TrustedVaultBackend_GetIsRecoverabilityDegraded_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.4
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       TrustedVaultBackend_GetIsRecoverabilityDegraded_ParamsDataView input_data_view(params, message);
@@ -1598,8 +1622,8 @@ std::move(p_account_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetIsRecoverabilityDegraded(
-std::move(p_account_key), std::move(callback));
+      impl->GetIsRecoverabilityDegraded(        
+        std::move(p_account_key), std::move(callback));
       return true;
     }
     case internal::kTrustedVaultBackend_AddTrustedRecoveryMethod_Name: {
@@ -1609,6 +1633,8 @@ std::move(p_account_key), std::move(callback));
               internal::TrustedVaultBackend_AddTrustedRecoveryMethod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedVaultBackend.5
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       std::vector<uint8_t> p_public_key{};
@@ -1633,10 +1659,10 @@ std::move(p_account_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddTrustedRecoveryMethod(
-std::move(p_account_key), 
-std::move(p_public_key), 
-std::move(p_method_type_hint), std::move(callback));
+      impl->AddTrustedRecoveryMethod(        
+        std::move(p_account_key), 
+        std::move(p_public_key), 
+        std::move(p_method_type_hint), std::move(callback));
       return true;
     }
     case internal::kTrustedVaultBackend_ClearLocalDataForAccount_Name: {

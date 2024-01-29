@@ -29,16 +29,17 @@ suite('acceleratorSubsectionTest', function () {
         sectionElement.remove();
         sectionElement = null;
     });
-    async function initAcceleratorSubsectionElement(category) {
+    async function initAcceleratorSubsectionElement(category, subcategory) {
         sectionElement = document.createElement('accelerator-subsection');
         sectionElement.category = category;
+        sectionElement.subcategory = subcategory;
         document.body.appendChild(sectionElement);
         return flushTasks();
     }
     // TODO(jimmyxgong): Update this test after retrieving accelerators is
     // implemented for a subsection.
     test('LoadsBasicSection', async () => {
-        await initAcceleratorSubsectionElement(AcceleratorCategory.kWindowsAndDesks);
+        await initAcceleratorSubsectionElement(AcceleratorCategory.kWindowsAndDesks, AcceleratorSubcategory.kWindows);
         const acceleratorInfo1 = createUserAcceleratorInfo(Modifier.CONTROL | Modifier.SHIFT, 
         /*key=*/ 71, 
         /*keyDisplay=*/ 'g');
@@ -65,41 +66,39 @@ suite('acceleratorSubsectionTest', function () {
         assertEquals(title, sectionElement.shadowRoot.querySelector('#title').textContent.trim());
     });
     test('LoadCategoryAndConfirmDescriptions', async () => {
-        await initAcceleratorSubsectionElement(AcceleratorCategory.kWindowsAndDesks);
+        await initAcceleratorSubsectionElement(AcceleratorCategory.kWindowsAndDesks, AcceleratorSubcategory.kWindows);
         const expectedTitle = 'test title';
         sectionElement.title = expectedTitle;
-        sectionElement.subcategory = AcceleratorSubcategory.kWindows;
         await flushTasks();
         const rowListElement = sectionElement.shadowRoot.querySelectorAll('accelerator-row');
-        // First accelerator-row corresponds to 'Snap Window Left', and its category
-        // is kWindowsAndDesks.
+        // First accelerator-row corresponds to 'Snap Window Left', and its
+        // subcategory is kWindows.
         assertEquals(manager.getAcceleratorName(/*source=*/ 0, /*action=*/ 0), rowListElement[0].description);
-        assertEquals(manager.getAcceleratorCategory(/*source=*/ 0, /*action=*/ 0), AcceleratorCategory.kWindowsAndDesks);
+        assertEquals(manager.getAcceleratorSubcategory(/*source=*/ 0, /*action=*/ 0), AcceleratorSubcategory.kWindows);
         // Second accelerator-row corresponds to 'Snap Window Right', and its
-        // category is kWindowsAndDesks.
+        // subcategory is kWindows.
         assertEquals(manager.getAcceleratorName(/*source=*/ 0, /*action=*/ 1), rowListElement[1].description);
-        assertEquals(manager.getAcceleratorCategory(/*source=*/ 0, /*action=*/ 1), AcceleratorCategory.kWindowsAndDesks);
+        assertEquals(manager.getAcceleratorSubcategory(/*source=*/ 0, /*action=*/ 1), AcceleratorSubcategory.kWindows);
     });
     test('ShowEmptyRowWhenCertainKeysAreUnavailable', async () => {
-        await initAcceleratorSubsectionElement(AcceleratorCategory.kGeneral);
+        await initAcceleratorSubsectionElement(AcceleratorCategory.kGeneral, AcceleratorSubcategory.kApps);
         const expectedTitle = 'test title';
         sectionElement.title = expectedTitle;
-        sectionElement.subcategory = AcceleratorSubcategory.kApps;
         await flushTasks();
         const rowListElement = sectionElement.shadowRoot.querySelectorAll('accelerator-row');
         // There are two accelerators in General -> Apps category: 'Open
         // Calculator app' and 'Open Diagnostic app'.
         assertEquals(2, rowListElement.length);
         // First accelerator row in General -> Apps category
-        // corresponds to 'Open Diagnostic app'. And its category is kGeneral.
+        // corresponds to 'Open Diagnostic app'. And its subcategory is kApps.
         assertEquals(manager.getAcceleratorName(/*source=*/ 0, /*action=*/ 5), rowListElement[1].description);
-        assertEquals(manager.getAcceleratorCategory(/*source=*/ 0, /*action=*/ 5), AcceleratorCategory.kGeneral);
+        assertEquals(manager.getAcceleratorSubcategory(/*source=*/ 0, /*action=*/ 5), AcceleratorSubcategory.kApps);
         let shortcutsAssignedElement = rowListElement[1].shadowRoot.querySelector('#noShortcutAssignedContainer');
         assertTrue(shortcutsAssignedElement.hidden);
-        // Second accelerator row in General -> Apps category corresponds to
+        // Second accelerator row in General -> Apps subcategory corresponds to
         // 'Open calculator app'. It should have an empty row.
         assertEquals(manager.getAcceleratorName(/*source=*/ 0, /*action=*/ 4), rowListElement[0].description);
-        assertEquals(manager.getAcceleratorCategory(/*source=*/ 0, /*action=*/ 4), AcceleratorCategory.kGeneral);
+        assertEquals(manager.getAcceleratorSubcategory(/*source=*/ 0, /*action=*/ 4), AcceleratorSubcategory.kApps);
         // Expect the `noShortcutsAssigned` view to be available.
         shortcutsAssignedElement =
             rowListElement[0].shadowRoot.querySelector('#noShortcutAssignedContainer');
@@ -118,10 +117,9 @@ suite('acceleratorSubsectionTest', function () {
         assertTrue(showDialogListenerCalled);
     });
     test('RemoveAcceleratorWhenCertainKeysAreUnavailable', async () => {
-        await initAcceleratorSubsectionElement(AcceleratorCategory.kGeneral);
+        await initAcceleratorSubsectionElement(AcceleratorCategory.kGeneral, AcceleratorSubcategory.kGeneralControls);
         const expectedTitle = 'test title';
         sectionElement.title = expectedTitle;
-        sectionElement.subcategory = AcceleratorSubcategory.kGeneralControls;
         await flushTasks();
         const rowListElement = sectionElement.shadowRoot.querySelectorAll('accelerator-row');
         // 'Open/close Google assistant' has two accelerators:
@@ -132,9 +130,9 @@ suite('acceleratorSubsectionTest', function () {
         // accelerator will be shown.
         assertEquals(1, rowListElement[0].acceleratorInfos.length);
         // First and the only accelerator row in General -> GeneralControls category
-        // corresponds to 'Open/close Google assistant', and its category is
-        // kGeneral.
+        // corresponds to 'Open/close Google assistant', and its subcategory is
+        // kGeneralControls.
         assertEquals(manager.getAcceleratorName(/*source=*/ 0, /*action=*/ 6), rowListElement[0].description);
-        assertEquals(manager.getAcceleratorCategory(/*source=*/ 0, /*action=*/ 6), AcceleratorCategory.kGeneral);
+        assertEquals(manager.getAcceleratorSubcategory(/*source=*/ 0, /*action=*/ 6), AcceleratorSubcategory.kGeneralControls);
     });
 });

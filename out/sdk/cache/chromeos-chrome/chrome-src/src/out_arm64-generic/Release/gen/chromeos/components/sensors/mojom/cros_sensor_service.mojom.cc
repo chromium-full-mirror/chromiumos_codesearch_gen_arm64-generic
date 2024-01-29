@@ -161,6 +161,8 @@ bool SensorHalServerStubDispatch::Accept(
           reinterpret_cast<internal::SensorHalServer_CreateChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorHalServer.0
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> p_sensor_service_request{};
       SensorHalServer_CreateChannel_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool SensorHalServerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateChannel(
-std::move(p_sensor_service_request));
+      impl->CreateChannel(        
+        std::move(p_sensor_service_request));
       return true;
     }
   }
@@ -331,6 +333,8 @@ bool SensorHalClientStubDispatch::Accept(
           reinterpret_cast<internal::SensorHalClient_SetUpChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorHalClient.0
       bool success = true;
       ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorService> p_sensor_service_ptr{};
       SensorHalClient_SetUpChannel_ParamsDataView input_data_view(params, message);
@@ -348,8 +352,8 @@ bool SensorHalClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpChannel(
-std::move(p_sensor_service_ptr));
+      impl->SetUpChannel(        
+        std::move(p_sensor_service_ptr));
       return true;
     }
   }

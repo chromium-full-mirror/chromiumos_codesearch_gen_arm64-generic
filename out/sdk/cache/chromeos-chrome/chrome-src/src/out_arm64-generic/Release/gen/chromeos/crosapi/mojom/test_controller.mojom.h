@@ -575,7 +575,7 @@ class TestController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 2275436942397425260ULL,
                                       11994706605012627667ULL };
-  static constexpr uint32_t Version_ = 30;
+  static constexpr uint32_t Version_ = 31;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -632,6 +632,7 @@ class TestController
     kCheckAtLeastOneAshBrowserWindowOpenMinVersion = 28,
     kGetAllOpenTabURLsMinVersion = 29,
     kSetAlmanacEndpointUrlForTestingMinVersion = 30,
+    kIsToastShownMinVersion = 31,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -767,6 +768,9 @@ class TestController
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetAlmanacEndpointUrlForTesting_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct IsToastShown_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -977,6 +981,11 @@ class TestController
   using SetAlmanacEndpointUrlForTestingCallback = base::OnceCallback<void()>;
   
   virtual void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) = 0;
+
+
+  using IsToastShownCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void IsToastShown(const std::string& toast_id, IsToastShownCallback callback) = 0;
 };
 
 
@@ -1210,6 +1219,8 @@ class  TestControllerProxy
   void GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) final;
   
   void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) final;
+  
+  void IsToastShown(const std::string& toast_id, IsToastShownCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -1113,6 +1113,8 @@ bool HidManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::HidManagerClient_DeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HidManagerClient.0
       bool success = true;
       HidDeviceInfoPtr p_device_info{};
       HidManagerClient_DeviceAdded_ParamsDataView input_data_view(params, message);
@@ -1128,8 +1130,8 @@ bool HidManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceAdded(
-std::move(p_device_info));
+      impl->DeviceAdded(        
+        std::move(p_device_info));
       return true;
     }
     case internal::kHidManagerClient_DeviceRemoved_Name: {
@@ -1139,6 +1141,8 @@ std::move(p_device_info));
           reinterpret_cast<internal::HidManagerClient_DeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HidManagerClient.1
       bool success = true;
       HidDeviceInfoPtr p_device_info{};
       HidManagerClient_DeviceRemoved_ParamsDataView input_data_view(params, message);
@@ -1154,8 +1158,8 @@ std::move(p_device_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceRemoved(
-std::move(p_device_info));
+      impl->DeviceRemoved(        
+        std::move(p_device_info));
       return true;
     }
     case internal::kHidManagerClient_DeviceChanged_Name: {
@@ -1165,6 +1169,8 @@ std::move(p_device_info));
           reinterpret_cast<internal::HidManagerClient_DeviceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HidManagerClient.2
       bool success = true;
       HidDeviceInfoPtr p_device_info{};
       HidManagerClient_DeviceChanged_ParamsDataView input_data_view(params, message);
@@ -1180,8 +1186,8 @@ std::move(p_device_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceChanged(
-std::move(p_device_info));
+      impl->DeviceChanged(        
+        std::move(p_device_info));
       return true;
     }
   }
@@ -1647,6 +1653,8 @@ bool HidManager_GetDevicesAndSetClient_ForwardToCallback::Accept(
           internal::HidManager_GetDevicesAndSetClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidManager.0
   bool success = true;
   std::vector<HidDeviceInfoPtr> p_devices{};
   HidManager_GetDevicesAndSetClient_ResponseParamsDataView input_data_view(params, message);
@@ -1778,6 +1786,8 @@ bool HidManager_GetDevices_ForwardToCallback::Accept(
           internal::HidManager_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidManager.1
   bool success = true;
   std::vector<HidDeviceInfoPtr> p_devices{};
   HidManager_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -1909,6 +1919,8 @@ bool HidManager_Connect_ForwardToCallback::Accept(
           internal::HidManager_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidManager.2
   bool success = true;
   ::mojo::PendingRemote<HidConnection> p_connection{};
   HidManager_Connect_ResponseParamsDataView input_data_view(params, message);
@@ -1995,6 +2007,8 @@ bool HidManagerStubDispatch::Accept(
           reinterpret_cast<internal::HidManager_AddReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HidManager.3
       bool success = true;
       ::mojo::PendingReceiver<HidManager> p_receiver{};
       HidManager_AddReceiver_ParamsDataView input_data_view(params, message);
@@ -2012,8 +2026,8 @@ bool HidManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddReceiver(
-std::move(p_receiver));
+      impl->AddReceiver(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -2036,6 +2050,8 @@ bool HidManagerStubDispatch::AcceptWithResponder(
               internal::HidManager_GetDevicesAndSetClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidManager.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<HidManagerClient> p_client{};
       HidManager_GetDevicesAndSetClient_ParamsDataView input_data_view(params, message);
@@ -2056,8 +2072,8 @@ bool HidManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevicesAndSetClient(
-std::move(p_client), std::move(callback));
+      impl->GetDevicesAndSetClient(        
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kHidManager_GetDevices_Name: {
@@ -2067,6 +2083,8 @@ std::move(p_client), std::move(callback));
               internal::HidManager_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidManager.1
       bool success = true;
       HidManager_GetDevices_ParamsDataView input_data_view(params, message);
       
@@ -2092,6 +2110,8 @@ std::move(p_client), std::move(callback));
               internal::HidManager_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidManager.2
       bool success = true;
       std::string p_device_guid{};
       ::mojo::PendingRemote<HidConnectionClient> p_connection_client{};
@@ -2126,12 +2146,12 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_device_guid), 
-std::move(p_connection_client), 
-std::move(p_watcher), 
-std::move(p_allow_protected_reports), 
-std::move(p_allow_fido_reports), std::move(callback));
+      impl->Connect(        
+        std::move(p_device_guid), 
+        std::move(p_connection_client), 
+        std::move(p_watcher), 
+        std::move(p_allow_protected_reports), 
+        std::move(p_allow_fido_reports), std::move(callback));
       return true;
     }
     case internal::kHidManager_AddReceiver_Name: {
@@ -2595,6 +2615,8 @@ bool HidConnection_Read_ForwardToCallback::Accept(
           internal::HidConnection_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidConnection.0
   bool success = true;
   bool p_success{};
   uint8_t p_report_id{};
@@ -2738,6 +2760,8 @@ bool HidConnection_Write_ForwardToCallback::Accept(
           internal::HidConnection_Write_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidConnection.1
   bool success = true;
   bool p_success{};
   HidConnection_Write_ResponseParamsDataView input_data_view(params, message);
@@ -2857,6 +2881,8 @@ bool HidConnection_GetFeatureReport_ForwardToCallback::Accept(
           internal::HidConnection_GetFeatureReport_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidConnection.2
   bool success = true;
   bool p_success{};
   std::optional<std::vector<uint8_t>> p_buffer{};
@@ -2992,6 +3018,8 @@ bool HidConnection_SendFeatureReport_ForwardToCallback::Accept(
           internal::HidConnection_SendFeatureReport_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HidConnection.3
   bool success = true;
   bool p_success{};
   HidConnection_SendFeatureReport_ResponseParamsDataView input_data_view(params, message);
@@ -3091,6 +3119,8 @@ bool HidConnectionStubDispatch::AcceptWithResponder(
               internal::HidConnection_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidConnection.0
       bool success = true;
       HidConnection_Read_ParamsDataView input_data_view(params, message);
       
@@ -3116,6 +3146,8 @@ bool HidConnectionStubDispatch::AcceptWithResponder(
               internal::HidConnection_Write_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidConnection.1
       bool success = true;
       uint8_t p_report_id{};
       std::vector<uint8_t> p_buffer{};
@@ -3137,9 +3169,9 @@ bool HidConnectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Write(
-std::move(p_report_id), 
-std::move(p_buffer), std::move(callback));
+      impl->Write(        
+        std::move(p_report_id), 
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kHidConnection_GetFeatureReport_Name: {
@@ -3149,6 +3181,8 @@ std::move(p_buffer), std::move(callback));
               internal::HidConnection_GetFeatureReport_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidConnection.2
       bool success = true;
       uint8_t p_report_id{};
       HidConnection_GetFeatureReport_ParamsDataView input_data_view(params, message);
@@ -3167,8 +3201,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFeatureReport(
-std::move(p_report_id), std::move(callback));
+      impl->GetFeatureReport(        
+        std::move(p_report_id), std::move(callback));
       return true;
     }
     case internal::kHidConnection_SendFeatureReport_Name: {
@@ -3178,6 +3212,8 @@ std::move(p_report_id), std::move(callback));
               internal::HidConnection_SendFeatureReport_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HidConnection.3
       bool success = true;
       uint8_t p_report_id{};
       std::vector<uint8_t> p_buffer{};
@@ -3199,9 +3235,9 @@ std::move(p_report_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendFeatureReport(
-std::move(p_report_id), 
-std::move(p_buffer), std::move(callback));
+      impl->SendFeatureReport(        
+        std::move(p_report_id), 
+        std::move(p_buffer), std::move(callback));
       return true;
     }
   }
@@ -3358,6 +3394,8 @@ bool HidConnectionClientStubDispatch::Accept(
           reinterpret_cast<internal::HidConnectionClient_OnInputReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HidConnectionClient.0
       bool success = true;
       uint8_t p_report_id{};
       std::vector<uint8_t> p_buffer{};
@@ -3376,9 +3414,9 @@ bool HidConnectionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInputReport(
-std::move(p_report_id), 
-std::move(p_buffer));
+      impl->OnInputReport(        
+        std::move(p_report_id), 
+        std::move(p_buffer));
       return true;
     }
   }

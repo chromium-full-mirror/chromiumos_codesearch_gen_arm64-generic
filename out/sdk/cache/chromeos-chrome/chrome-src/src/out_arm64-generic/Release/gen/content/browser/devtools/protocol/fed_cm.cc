@@ -46,6 +46,12 @@ const char ErrorMoreDetails[] = "ErrorMoreDetails";
 } // namespace DialogButtonEnum
 
 
+namespace AccountUrlTypeEnum {
+const char TermsOfService[] = "TermsOfService";
+const char PrivacyPolicy[] = "PrivacyPolicy";
+} // namespace AccountUrlTypeEnum
+
+
 CRDTP_BEGIN_DESERIALIZER(Account)
     CRDTP_DESERIALIZE_FIELD("accountId", m_accountId),
     CRDTP_DESERIALIZE_FIELD("email", m_email),
@@ -127,6 +133,7 @@ public:
     void disable(const crdtp::Dispatchable& dispatchable);
     void selectAccount(const crdtp::Dispatchable& dispatchable);
     void clickDialogButton(const crdtp::Dispatchable& dispatchable);
+    void openUrl(const crdtp::Dispatchable& dispatchable);
     void dismissDialog(const crdtp::Dispatchable& dispatchable);
     void resetCooldown(const crdtp::Dispatchable& dispatchable);
  protected:
@@ -156,6 +163,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("enable"),
           &DomainDispatcherImpl::enable
+    },
+    {
+          crdtp::SpanFrom("openUrl"),
+          &DomainDispatcherImpl::openUrl
     },
     {
           crdtp::SpanFrom("resetCooldown"),
@@ -301,6 +312,44 @@ void DomainDispatcherImpl::clickDialogButton(const crdtp::Dispatchable& dispatch
     DispatchResponse response = m_backend->ClickDialogButton(params.dialogId, params.dialogButton);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("FedCm.clickDialogButton"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+struct openUrlParams : public crdtp::DeserializableProtocolObject<openUrlParams> {
+    String dialogId;
+    int accountIndex;
+    String accountUrlType;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(openUrlParams)
+    CRDTP_DESERIALIZE_FIELD("accountIndex", accountIndex),
+    CRDTP_DESERIALIZE_FIELD("accountUrlType", accountUrlType),
+    CRDTP_DESERIALIZE_FIELD("dialogId", dialogId),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::openUrl(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    openUrlParams params;
+    if (!openUrlParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->OpenUrl(params.dialogId, params.accountIndex, params.accountUrlType);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("FedCm.openUrl"), dispatchable.Serialized());
         return;
     }
     if (weak->get())

@@ -77,7 +77,10 @@ PROTOBUF_CONSTEXPR RedactRule::RedactRule(
   : regex_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , replacement_string_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , behavior_(0)
-{}
+
+  , min_pattern_length_(0)
+  , max_pattern_length_(0)
+  , group_index_(0){}
 struct RedactRuleDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RedactRuleDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1571,6 +1574,15 @@ class RedactRule::_Internal {
   static void set_has_replacement_string(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_min_pattern_length(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_max_pattern_length(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_group_index(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
 };
 
 RedactRule::RedactRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1599,7 +1611,9 @@ RedactRule::RedactRule(const RedactRule& from)
     replacement_string_.Set(from._internal_replacement_string(), 
       GetArenaForAllocation());
   }
-  behavior_ = from.behavior_;
+  ::memcpy(&behavior_, &from.behavior_,
+    static_cast<size_t>(reinterpret_cast<char*>(&group_index_) -
+    reinterpret_cast<char*>(&behavior_)) + sizeof(group_index_));
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.RedactRule)
 }
 
@@ -1612,7 +1626,10 @@ replacement_string_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   replacement_string_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-behavior_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&behavior_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&group_index_) -
+    reinterpret_cast<char*>(&behavior_)) + sizeof(group_index_));
 }
 
 RedactRule::~RedactRule() {
@@ -1649,7 +1666,11 @@ void RedactRule::Clear() {
       replacement_string_.ClearNonDefaultToEmpty();
     }
   }
-  behavior_ = 0;
+  if (cached_has_bits & 0x0000003cu) {
+    ::memset(&behavior_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&group_index_) -
+        reinterpret_cast<char*>(&behavior_)) + sizeof(group_index_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1688,6 +1709,33 @@ const char* RedactRule::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_replacement_string();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 min_pattern_length = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_min_pattern_length(&has_bits);
+          min_pattern_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 max_pattern_length = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_max_pattern_length(&has_bits);
+          max_pattern_length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 group_index = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _Internal::set_has_group_index(&has_bits);
+          group_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1742,6 +1790,24 @@ uint8_t* RedactRule::_InternalSerialize(
         3, this->_internal_replacement_string(), target);
   }
 
+  // optional int32 min_pattern_length = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_min_pattern_length(), target);
+  }
+
+  // optional int32 max_pattern_length = 5;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_max_pattern_length(), target);
+  }
+
+  // optional int32 group_index = 6;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_group_index(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1759,7 +1825,7 @@ size_t RedactRule::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional string regex = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1778,6 +1844,21 @@ size_t RedactRule::ByteSizeLong() const {
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_behavior());
+    }
+
+    // optional int32 min_pattern_length = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_min_pattern_length());
+    }
+
+    // optional int32 max_pattern_length = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_max_pattern_length());
+    }
+
+    // optional int32 group_index = 6;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_group_index());
     }
 
   }
@@ -1802,7 +1883,7 @@ void RedactRule::MergeFrom(const RedactRule& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_regex(from._internal_regex());
     }
@@ -1811,6 +1892,15 @@ void RedactRule::MergeFrom(const RedactRule& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       behavior_ = from.behavior_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      min_pattern_length_ = from.min_pattern_length_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      max_pattern_length_ = from.max_pattern_length_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      group_index_ = from.group_index_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1842,7 +1932,12 @@ void RedactRule::InternalSwap(RedactRule* other) {
       &replacement_string_, lhs_arena,
       &other->replacement_string_, rhs_arena
   );
-  swap(behavior_, other->behavior_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RedactRule, group_index_)
+      + sizeof(RedactRule::group_index_)
+      - PROTOBUF_FIELD_OFFSET(RedactRule, behavior_)>(
+          reinterpret_cast<char*>(&behavior_),
+          reinterpret_cast<char*>(&other->behavior_));
 }
 
 std::string RedactRule::GetTypeName() const {

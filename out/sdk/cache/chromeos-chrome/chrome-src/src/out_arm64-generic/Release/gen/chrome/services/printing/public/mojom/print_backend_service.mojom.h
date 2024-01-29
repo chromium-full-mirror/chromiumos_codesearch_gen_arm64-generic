@@ -269,7 +269,7 @@ class PrintBackendService
   virtual void UpdatePrintSettings(uint32_t context_id, ::base::Value::Dict job_settings, UpdatePrintSettingsCallback callback) = 0;
 
 
-  using StartPrintingCallback = base::OnceCallback<void(::printing::mojom::ResultCode)>;
+  using StartPrintingCallback = base::OnceCallback<void(::printing::mojom::ResultCode, int32_t)>;
   
   virtual void StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, StartPrintingCallback callback) = 0;
 

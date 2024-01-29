@@ -119,6 +119,12 @@ AppPermissionsHandler::IPCStableHashFunction AppPermissionsHandler::MessageToMet
     case internal::kAppPermissionsHandler_GetApps_Name: {
       return &AppPermissionsHandler::GetApps_Sym::IPCStableHash;
     }
+    case internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name: {
+      return &AppPermissionsHandler::GetSystemAppsThatUseCamera_Sym::IPCStableHash;
+    }
+    case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name: {
+      return &AppPermissionsHandler::GetSystemAppsThatUseMicrophone_Sym::IPCStableHash;
+    }
     case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
       return &AppPermissionsHandler::OpenNativeSettings_Sym::IPCStableHash;
     }
@@ -140,6 +146,10 @@ const char* AppPermissionsHandler::MessageToMethodName_(mojo::Message& message) 
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::AddObserver";
       case internal::kAppPermissionsHandler_GetApps_Name:
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::GetApps";
+      case internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name:
+            return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera";
+      case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name:
+            return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone";
       case internal::kAppPermissionsHandler_OpenNativeSettings_Name:
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings";
       case internal::kAppPermissionsHandler_SetPermission_Name:
@@ -151,6 +161,10 @@ const char* AppPermissionsHandler::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::AddObserver";
       case internal::kAppPermissionsHandler_GetApps_Name:
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetApps";
+      case internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name:
+            return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera";
+      case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name:
+            return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone";
       case internal::kAppPermissionsHandler_OpenNativeSettings_Name:
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings";
       case internal::kAppPermissionsHandler_SetPermission_Name:
@@ -191,6 +205,32 @@ uint32_t AppPermissionsHandler::GetApps_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::GetApps");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppPermissionsHandler::GetSystemAppsThatUseCamera_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppPermissionsHandler::GetSystemAppsThatUseMicrophone_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -237,6 +277,38 @@ class AppPermissionsHandler_GetApps_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   AppPermissionsHandler::GetAppsCallback callback_;
+};
+
+class AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback(
+      AppPermissionsHandler::GetSystemAppsThatUseCameraCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback(const AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback&) = delete;
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback& operator=(const AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppPermissionsHandler::GetSystemAppsThatUseCameraCallback callback_;
+};
+
+class AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback(
+      AppPermissionsHandler::GetSystemAppsThatUseMicrophoneCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback(const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback&) = delete;
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback& operator=(const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AppPermissionsHandler::GetSystemAppsThatUseMicrophoneCallback callback_;
 };
 
 AppPermissionsHandlerProxy::AppPermissionsHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -319,6 +391,74 @@ void AppPermissionsHandlerProxy::GetApps(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new AppPermissionsHandler_GetApps_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppPermissionsHandlerProxy::GetSystemAppsThatUseCamera(
+    GetSystemAppsThatUseCameraCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("GetSystemAppsThatUseCamera");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppPermissionsHandlerProxy::GetSystemAppsThatUseMicrophone(
+    GetSystemAppsThatUseMicrophoneCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("GetSystemAppsThatUseMicrophone");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -496,6 +636,8 @@ bool AppPermissionsHandler_GetApps_ForwardToCallback::Accept(
           internal::AppPermissionsHandler_GetApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppPermissionsHandler.1
   bool success = true;
   std::vector<AppPtr> p_apps{};
   AppPermissionsHandler_GetApps_ResponseParamsDataView input_data_view(params, message);
@@ -569,6 +711,272 @@ void AppPermissionsHandler_GetApps_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppPermissionsHandler::GetSystemAppsThatUseCameraCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder> proxy(
+        new AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppPermissionsHandler::GetSystemAppsThatUseCameraCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<AppPtr> in_apps);
+};
+
+bool AppPermissionsHandler_GetSystemAppsThatUseCamera_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for AppPermissionsHandler.2
+  bool success = true;
+  std::vector<AppPtr> p_apps{};
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadApps(&p_apps))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppPermissionsHandler::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_apps));
+  return true;
+}
+
+void AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder::Run(
+    std::vector<AppPtr> in_apps) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("apps"), in_apps,
+                        "<value of type std::vector<AppPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->apps)::BaseType>
+      apps_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::settings::app_permission::mojom::AppDataView>>(
+      in_apps, apps_fragment, &apps_validate_params);
+  params->apps.Set(
+      apps_fragment.is_null() ? nullptr : apps_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->apps.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null apps in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("GetSystemAppsThatUseCamera");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AppPermissionsHandler::GetSystemAppsThatUseMicrophoneCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder> proxy(
+        new AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AppPermissionsHandler::GetSystemAppsThatUseMicrophoneCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<AppPtr> in_apps);
+};
+
+bool AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for AppPermissionsHandler.3
+  bool success = true;
+  std::vector<AppPtr> p_apps{};
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadApps(&p_apps))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AppPermissionsHandler::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_apps));
+  return true;
+}
+
+void AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder::Run(
+    std::vector<AppPtr> in_apps) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("apps"), in_apps,
+                        "<value of type std::vector<AppPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->apps)::BaseType>
+      apps_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::settings::app_permission::mojom::AppDataView>>(
+      in_apps, apps_fragment, &apps_validate_params);
+  params->apps.Set(
+      apps_fragment.is_null() ? nullptr : apps_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->apps.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null apps in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("GetSystemAppsThatUseMicrophone");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool AppPermissionsHandlerStubDispatch::Accept(
@@ -582,6 +990,8 @@ bool AppPermissionsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::AppPermissionsHandler_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsHandler.0
       bool success = true;
       ::mojo::PendingRemote<AppPermissionsObserver> p_observer{};
       AppPermissionsHandler_AddObserver_ParamsDataView input_data_view(params, message);
@@ -599,11 +1009,17 @@ bool AppPermissionsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAppPermissionsHandler_GetApps_Name: {
+      break;
+    }
+    case internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name: {
+      break;
+    }
+    case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name: {
       break;
     }
     case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
@@ -613,6 +1029,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AppPermissionsHandler_OpenNativeSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsHandler.4
       bool success = true;
       std::string p_app_id{};
       AppPermissionsHandler_OpenNativeSettings_ParamsDataView input_data_view(params, message);
@@ -623,13 +1041,13 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AppPermissionsHandler::Name_, 2, false);
+            AppPermissionsHandler::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenNativeSettings(
-std::move(p_app_id));
+      impl->OpenNativeSettings(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppPermissionsHandler_SetPermission_Name: {
@@ -639,6 +1057,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppPermissionsHandler_SetPermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsHandler.5
       bool success = true;
       std::string p_app_id{};
       ::apps::PermissionPtr p_permission{};
@@ -652,14 +1072,14 @@ std::move(p_app_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AppPermissionsHandler::Name_, 3, false);
+            AppPermissionsHandler::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPermission(
-std::move(p_app_id), 
-std::move(p_permission));
+      impl->SetPermission(        
+        std::move(p_app_id), 
+        std::move(p_permission));
       return true;
     }
   }
@@ -685,6 +1105,8 @@ bool AppPermissionsHandlerStubDispatch::AcceptWithResponder(
               internal::AppPermissionsHandler_GetApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppPermissionsHandler.1
       bool success = true;
       AppPermissionsHandler_GetApps_ParamsDataView input_data_view(params, message);
       
@@ -703,6 +1125,60 @@ bool AppPermissionsHandlerStubDispatch::AcceptWithResponder(
       impl->GetApps(std::move(callback));
       return true;
     }
+    case internal::kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name: {
+
+      internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data* params =
+          reinterpret_cast<
+              internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for AppPermissionsHandler.2
+      bool success = true;
+      AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppPermissionsHandler::Name_, 2, false);
+        return false;
+      }
+      AppPermissionsHandler::GetSystemAppsThatUseCameraCallback callback =
+          AppPermissionsHandler_GetSystemAppsThatUseCamera_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetSystemAppsThatUseCamera(std::move(callback));
+      return true;
+    }
+    case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name: {
+
+      internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data* params =
+          reinterpret_cast<
+              internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for AppPermissionsHandler.3
+      bool success = true;
+      AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppPermissionsHandler::Name_, 3, false);
+        return false;
+      }
+      AppPermissionsHandler::GetSystemAppsThatUseMicrophoneCallback callback =
+          AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetSystemAppsThatUseMicrophone(std::move(callback));
+      return true;
+    }
     case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
       break;
     }
@@ -719,6 +1195,10 @@ static const mojo::internal::GenericValidationInfo kAppPermissionsHandlerValidat
      nullptr /* no response */},
     { &internal::AppPermissionsHandler_GetApps_Params_Data::Validate,
      &internal::AppPermissionsHandler_GetApps_ResponseParams_Data::Validate},
+    { &internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data::Validate,
+     &internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data::Validate},
+    { &internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data::Validate,
+     &internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data::Validate},
     { &internal::AppPermissionsHandler_OpenNativeSettings_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AppPermissionsHandler_SetPermission_Params_Data::Validate,
@@ -927,6 +1407,8 @@ bool AppPermissionsObserverStubDispatch::Accept(
           reinterpret_cast<internal::AppPermissionsObserver_OnAppRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsObserver.0
       bool success = true;
       std::string p_app_id{};
       AppPermissionsObserver_OnAppRemoved_ParamsDataView input_data_view(params, message);
@@ -942,8 +1424,8 @@ bool AppPermissionsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppRemoved(
-std::move(p_app_id));
+      impl->OnAppRemoved(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kAppPermissionsObserver_OnAppUpdated_Name: {
@@ -953,6 +1435,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::AppPermissionsObserver_OnAppUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsObserver.1
       bool success = true;
       AppPtr p_app{};
       AppPermissionsObserver_OnAppUpdated_ParamsDataView input_data_view(params, message);
@@ -968,8 +1452,8 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppUpdated(
-std::move(p_app));
+      impl->OnAppUpdated(        
+        std::move(p_app));
       return true;
     }
   }
@@ -1051,6 +1535,12 @@ void AppPermissionsHandlerInterceptorForTesting::AddObserver(::mojo::PendingRemo
 void AppPermissionsHandlerInterceptorForTesting::GetApps(GetAppsCallback callback) {
   GetForwardingInterface()->GetApps(std::move(callback));
 }
+void AppPermissionsHandlerInterceptorForTesting::GetSystemAppsThatUseCamera(GetSystemAppsThatUseCameraCallback callback) {
+  GetForwardingInterface()->GetSystemAppsThatUseCamera(std::move(callback));
+}
+void AppPermissionsHandlerInterceptorForTesting::GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) {
+  GetForwardingInterface()->GetSystemAppsThatUseMicrophone(std::move(callback));
+}
 void AppPermissionsHandlerInterceptorForTesting::OpenNativeSettings(const std::string& app_id) {
   GetForwardingInterface()->OpenNativeSettings(std::move(app_id));
 }
@@ -1082,6 +1572,52 @@ std::vector<AppPtr> AppPermissionsHandlerAsyncWaiter::GetApps(
     ) {
   std::vector<AppPtr> async_wait_result;
   GetApps(&async_wait_result);
+  return async_wait_result;
+}
+
+void AppPermissionsHandlerAsyncWaiter::GetSystemAppsThatUseCamera(
+    std::vector<AppPtr>* out_apps) {
+  base::RunLoop loop;
+  proxy_->GetSystemAppsThatUseCamera(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<AppPtr>* out_apps
+,
+             std::vector<AppPtr> apps) {*out_apps = std::move(apps);
+            loop->Quit();
+          },
+          &loop,
+          out_apps));
+  loop.Run();
+}
+
+std::vector<AppPtr> AppPermissionsHandlerAsyncWaiter::GetSystemAppsThatUseCamera(
+    ) {
+  std::vector<AppPtr> async_wait_result;
+  GetSystemAppsThatUseCamera(&async_wait_result);
+  return async_wait_result;
+}
+
+void AppPermissionsHandlerAsyncWaiter::GetSystemAppsThatUseMicrophone(
+    std::vector<AppPtr>* out_apps) {
+  base::RunLoop loop;
+  proxy_->GetSystemAppsThatUseMicrophone(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<AppPtr>* out_apps
+,
+             std::vector<AppPtr> apps) {*out_apps = std::move(apps);
+            loop->Quit();
+          },
+          &loop,
+          out_apps));
+  loop.Run();
+}
+
+std::vector<AppPtr> AppPermissionsHandlerAsyncWaiter::GetSystemAppsThatUseMicrophone(
+    ) {
+  std::vector<AppPtr> async_wait_result;
+  GetSystemAppsThatUseMicrophone(&async_wait_result);
   return async_wait_result;
 }
 

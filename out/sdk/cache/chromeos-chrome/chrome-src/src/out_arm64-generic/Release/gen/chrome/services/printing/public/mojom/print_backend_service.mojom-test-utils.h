@@ -92,8 +92,8 @@ class  PrintBackendServiceAsyncWaiter {
       uint32_t context_id, ::base::Value::Dict job_settings, PrintSettingsResultPtr* out_settings);
   PrintSettingsResultPtr UpdatePrintSettings(uint32_t context_id, ::base::Value::Dict job_settings);
   void StartPrinting(
-      uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code);
-  ::printing::mojom::ResultCode StartPrinting(uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings);
+      uint32_t context_id, int32_t document_cookie, const ::std::u16string& document_name, const std::optional<::printing::PrintSettings>& settings, ::printing::mojom::ResultCode* out_result_code, int32_t* out_job_id);
+  
   void RenderPrintedDocument(
       int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc, ::printing::mojom::ResultCode* out_result_code);
   ::printing::mojom::ResultCode RenderPrintedDocument(int32_t document_cookie, uint32_t page_count, ::printing::mojom::MetafileDataType data_type, ::base::ReadOnlySharedMemoryRegion serialized_doc);

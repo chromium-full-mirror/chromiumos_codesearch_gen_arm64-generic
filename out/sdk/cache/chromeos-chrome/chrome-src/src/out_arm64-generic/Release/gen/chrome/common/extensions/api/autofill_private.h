@@ -66,6 +66,17 @@ struct AccountInfo {
 
   bool is_eligible_for_address_account_storage;
 
+  // Controls whether the Autofill Sync toggle should be available (duplicated
+  // from the Sync Settings page) on the Autofill Settings page.
+  // TODO(crbug.com/1502843): Remove when toggle becomes available on the Sync
+  // page for non-syncing users.
+  bool is_autofill_sync_toggle_available;
+
+  // Represents the UserSelectableType::kAutofill state (enabled or not).
+  // TODO(crbug.com/1502843): Remove when toggle becomes available on the Sync
+  // page for non-syncing users.
+  bool is_autofill_sync_toggle_enabled;
+
 };
 
 // A copy of FieldType from chrome/common/extensions/api/autofill_private.idl
@@ -140,7 +151,6 @@ enum class FieldType {
   kAddressHomeAddress,
   kAddressHomeAddressWithName,
   kAddressHomeFloor,
-  kNameFullWithHonorificPrefix,
   kBirthdateDay,
   kBirthdateMonth,
   kBirthdate4DigitYear,
@@ -160,6 +170,9 @@ enum class FieldType {
   kAddressHomeStreetLocation,
   kAddressHomeBetweenStreets,
   kAddressHomeBetweenStreetsOrLandmark,
+  kAddressHomeStreetLocationAndLocality,
+  kAddressHomeStreetLocationAndLandmark,
+  kAddressHomeDependentLocalityAndLandmark,
   kAddressHomeBetweenStreets1,
   kAddressHomeBetweenStreets2,
   kSingleUsernameForgotPassword,
@@ -908,6 +921,25 @@ base::Value::List Create(bool is_device_auth_available);
 namespace BulkDeleteAllCvcs {
 
 }  // namespace BulkDeleteAllCvcs
+
+namespace SetAutofillSyncToggleEnabled {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  bool enabled;
+
+
+ private:
+  Params();
+};
+
+}  // namespace SetAutofillSyncToggleEnabled
 
 //
 // Events

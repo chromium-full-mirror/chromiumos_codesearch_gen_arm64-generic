@@ -54,7 +54,7 @@ return MakeGarbageCollected<V8UnionBooleanOrConstrainBooleanParameters>(blink_va
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionBooleanOrConstrainBooleanParameters::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionBooleanOrConstrainBooleanParameters::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kBoolean: {
     return ToV8Traits<IDLBoolean>::ToV8(script_state, member_boolean_);
@@ -65,7 +65,7 @@ v8::MaybeLocal<v8::Value> V8UnionBooleanOrConstrainBooleanParameters::ToV8Value(
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionBooleanOrConstrainBooleanParameters::Trace(Visitor* visitor) const {

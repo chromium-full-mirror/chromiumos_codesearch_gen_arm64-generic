@@ -29,11 +29,14 @@ export function getTemplate() {
               $i18n{searchEnginesChange}
             </cr-button>
             <template is="dom-if" if="[[showSearchEngineListDialog_]]" restamp>
-              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_">
+              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_" on-search-engine-changed="onDefaultSearchEngineChangedInDialog_">
               </settings-search-engine-list-dialog>
             </template>
           </div>
         </div>
+        <cr-toast id="confirmationToast" duration="10000">
+          <div>[[confirmationToastLabel_]]</div>
+        </cr-toast>
       </template>
       <template is="dom-if" if="[[!searchEngineChoiceSettingsUi_]]">
         <div id="searchExplanation" class="flex cr-padded-text">

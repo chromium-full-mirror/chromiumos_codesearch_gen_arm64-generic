@@ -123,8 +123,10 @@ enum class ResourceType : int32_t {
   kNavigationPreloadMainFrame = 19,
   
   kNavigationPreloadSubFrame = 20,
+  
+  kJson = 21,
   kMinValue = 0,
-  kMaxValue = 20,
+  kMaxValue = 21,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, ResourceType value);

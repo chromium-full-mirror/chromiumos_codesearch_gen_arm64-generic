@@ -523,6 +523,8 @@ bool Advertisement_Unregister_ForwardToCallback::Accept(
           internal::Advertisement_Unregister_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Advertisement.0
   bool success = true;
   Advertisement_Unregister_ResponseParamsDataView input_data_view(params, message);
   
@@ -580,6 +582,8 @@ bool Advertisement_Unregister_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Advertisement_Unregister_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Advertisement.0
   bool success = true;
   Advertisement_Unregister_ResponseParamsDataView input_data_view(params, message);
   
@@ -622,6 +626,8 @@ bool AdvertisementStubDispatch::AcceptWithResponder(
               internal::Advertisement_Unregister_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Advertisement.0
       bool success = true;
       Advertisement_Unregister_ParamsDataView input_data_view(params, message);
       
@@ -1033,6 +1039,8 @@ bool DiscoverySession_IsActive_ForwardToCallback::Accept(
           internal::DiscoverySession_IsActive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscoverySession.0
   bool success = true;
   bool p_active{};
   DiscoverySession_IsActive_ResponseParamsDataView input_data_view(params, message);
@@ -1102,6 +1110,8 @@ bool DiscoverySession_IsActive_HandleSyncResponse::Accept(
       reinterpret_cast<internal::DiscoverySession_IsActive_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for DiscoverySession.0
   bool success = true;
   bool p_active{};
   DiscoverySession_IsActive_ResponseParamsDataView input_data_view(params, message);
@@ -1177,6 +1187,8 @@ bool DiscoverySession_Stop_ForwardToCallback::Accept(
           internal::DiscoverySession_Stop_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscoverySession.1
   bool success = true;
   bool p_success{};
   DiscoverySession_Stop_ResponseParamsDataView input_data_view(params, message);
@@ -1246,6 +1258,8 @@ bool DiscoverySession_Stop_HandleSyncResponse::Accept(
       reinterpret_cast<internal::DiscoverySession_Stop_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for DiscoverySession.1
   bool success = true;
   bool p_success{};
   DiscoverySession_Stop_ResponseParamsDataView input_data_view(params, message);
@@ -1295,6 +1309,8 @@ bool DiscoverySessionStubDispatch::AcceptWithResponder(
               internal::DiscoverySession_IsActive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscoverySession.0
       bool success = true;
       DiscoverySession_IsActive_ParamsDataView input_data_view(params, message);
       
@@ -1320,6 +1336,8 @@ bool DiscoverySessionStubDispatch::AcceptWithResponder(
               internal::DiscoverySession_Stop_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscoverySession.1
       bool success = true;
       DiscoverySession_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1586,6 +1604,8 @@ bool Socket_Disconnect_ForwardToCallback::Accept(
           internal::Socket_Disconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Socket.0
   bool success = true;
   Socket_Disconnect_ResponseParamsDataView input_data_view(params, message);
   
@@ -1643,6 +1663,8 @@ bool Socket_Disconnect_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Socket_Disconnect_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Socket.0
   bool success = true;
   Socket_Disconnect_ResponseParamsDataView input_data_view(params, message);
   
@@ -1685,6 +1707,8 @@ bool SocketStubDispatch::AcceptWithResponder(
               internal::Socket_Disconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Socket.0
       bool success = true;
       Socket_Disconnect_ParamsDataView input_data_view(params, message);
       
@@ -2088,6 +2112,8 @@ bool ServerSocket_Accept_ForwardToCallback::Accept(
           internal::ServerSocket_Accept_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServerSocket.0
   bool success = true;
   AcceptConnectionResultPtr p_result{};
   ServerSocket_Accept_ResponseParamsDataView input_data_view(params, message);
@@ -2163,6 +2189,8 @@ bool ServerSocket_Accept_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ServerSocket_Accept_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ServerSocket.0
   bool success = true;
   AcceptConnectionResultPtr p_result{};
   ServerSocket_Accept_ResponseParamsDataView input_data_view(params, message);
@@ -2238,6 +2266,8 @@ bool ServerSocket_Disconnect_ForwardToCallback::Accept(
           internal::ServerSocket_Disconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServerSocket.1
   bool success = true;
   ServerSocket_Disconnect_ResponseParamsDataView input_data_view(params, message);
   
@@ -2295,6 +2325,8 @@ bool ServerSocket_Disconnect_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ServerSocket_Disconnect_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ServerSocket.1
   bool success = true;
   ServerSocket_Disconnect_ResponseParamsDataView input_data_view(params, message);
   
@@ -2340,6 +2372,8 @@ bool ServerSocketStubDispatch::AcceptWithResponder(
               internal::ServerSocket_Accept_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServerSocket.0
       bool success = true;
       ServerSocket_Accept_ParamsDataView input_data_view(params, message);
       
@@ -2365,6 +2399,8 @@ bool ServerSocketStubDispatch::AcceptWithResponder(
               internal::ServerSocket_Disconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServerSocket.1
       bool success = true;
       ServerSocket_Disconnect_ParamsDataView input_data_view(params, message);
       
@@ -4088,6 +4124,8 @@ bool Adapter_ConnectToDevice_ForwardToCallback::Accept(
           internal::Adapter_ConnectToDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.0
   bool success = true;
   ConnectResult p_result{};
   ::mojo::PendingRemote<::bluetooth::mojom::Device> p_device{};
@@ -4219,6 +4257,8 @@ bool Adapter_GetDevices_ForwardToCallback::Accept(
           internal::Adapter_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.1
   bool success = true;
   std::vector<::bluetooth::mojom::DeviceInfoPtr> p_devices{};
   Adapter_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -4350,6 +4390,8 @@ bool Adapter_GetInfo_ForwardToCallback::Accept(
           internal::Adapter_GetInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.2
   bool success = true;
   AdapterInfoPtr p_info{};
   Adapter_GetInfo_ResponseParamsDataView input_data_view(params, message);
@@ -4429,6 +4471,8 @@ bool Adapter_GetInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_GetInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.2
   bool success = true;
   AdapterInfoPtr p_info{};
   Adapter_GetInfo_ResponseParamsDataView input_data_view(params, message);
@@ -4504,6 +4548,8 @@ bool Adapter_AddObserver_ForwardToCallback::Accept(
           internal::Adapter_AddObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.3
   bool success = true;
   Adapter_AddObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -4561,6 +4607,8 @@ bool Adapter_AddObserver_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_AddObserver_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.3
   bool success = true;
   Adapter_AddObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -4632,6 +4680,8 @@ bool Adapter_RegisterAdvertisement_ForwardToCallback::Accept(
           internal::Adapter_RegisterAdvertisement_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.4
   bool success = true;
   ::mojo::PendingRemote<Advertisement> p_advertisement{};
   Adapter_RegisterAdvertisement_ResponseParamsDataView input_data_view(params, message);
@@ -4704,6 +4754,8 @@ bool Adapter_RegisterAdvertisement_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_RegisterAdvertisement_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.4
   bool success = true;
   ::mojo::PendingRemote<Advertisement> p_advertisement{};
   Adapter_RegisterAdvertisement_ResponseParamsDataView input_data_view(params, message);
@@ -4781,6 +4833,8 @@ bool Adapter_SetDiscoverable_ForwardToCallback::Accept(
           internal::Adapter_SetDiscoverable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.5
   bool success = true;
   bool p_success{};
   Adapter_SetDiscoverable_ResponseParamsDataView input_data_view(params, message);
@@ -4850,6 +4904,8 @@ bool Adapter_SetDiscoverable_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_SetDiscoverable_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.5
   bool success = true;
   bool p_success{};
   Adapter_SetDiscoverable_ResponseParamsDataView input_data_view(params, message);
@@ -4925,6 +4981,8 @@ bool Adapter_SetName_ForwardToCallback::Accept(
           internal::Adapter_SetName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.6
   bool success = true;
   bool p_success{};
   Adapter_SetName_ResponseParamsDataView input_data_view(params, message);
@@ -4994,6 +5052,8 @@ bool Adapter_SetName_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_SetName_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.6
   bool success = true;
   bool p_success{};
   Adapter_SetName_ResponseParamsDataView input_data_view(params, message);
@@ -5069,6 +5129,8 @@ bool Adapter_StartDiscoverySession_ForwardToCallback::Accept(
           internal::Adapter_StartDiscoverySession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.7
   bool success = true;
   ::mojo::PendingRemote<DiscoverySession> p_session{};
   Adapter_StartDiscoverySession_ResponseParamsDataView input_data_view(params, message);
@@ -5141,6 +5203,8 @@ bool Adapter_StartDiscoverySession_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_StartDiscoverySession_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.7
   bool success = true;
   ::mojo::PendingRemote<DiscoverySession> p_session{};
   Adapter_StartDiscoverySession_ResponseParamsDataView input_data_view(params, message);
@@ -5218,6 +5282,8 @@ bool Adapter_ConnectToServiceInsecurely_ForwardToCallback::Accept(
           internal::Adapter_ConnectToServiceInsecurely_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.8
   bool success = true;
   ConnectToServiceResultPtr p_result{};
   Adapter_ConnectToServiceInsecurely_ResponseParamsDataView input_data_view(params, message);
@@ -5293,6 +5359,8 @@ bool Adapter_ConnectToServiceInsecurely_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_ConnectToServiceInsecurely_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.8
   bool success = true;
   ConnectToServiceResultPtr p_result{};
   Adapter_ConnectToServiceInsecurely_ResponseParamsDataView input_data_view(params, message);
@@ -5368,6 +5436,8 @@ bool Adapter_CreateRfcommServiceInsecurely_ForwardToCallback::Accept(
           internal::Adapter_CreateRfcommServiceInsecurely_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Adapter.9
   bool success = true;
   ::mojo::PendingRemote<ServerSocket> p_server_socket{};
   Adapter_CreateRfcommServiceInsecurely_ResponseParamsDataView input_data_view(params, message);
@@ -5440,6 +5510,8 @@ bool Adapter_CreateRfcommServiceInsecurely_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Adapter_CreateRfcommServiceInsecurely_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Adapter.9
   bool success = true;
   ::mojo::PendingRemote<ServerSocket> p_server_socket{};
   Adapter_CreateRfcommServiceInsecurely_ResponseParamsDataView input_data_view(params, message);
@@ -5515,6 +5587,8 @@ bool AdapterStubDispatch::AcceptWithResponder(
               internal::Adapter_ConnectToDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.0
       bool success = true;
       std::string p_address{};
       Adapter_ConnectToDevice_ParamsDataView input_data_view(params, message);
@@ -5533,8 +5607,8 @@ bool AdapterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToDevice(
-std::move(p_address), std::move(callback));
+      impl->ConnectToDevice(        
+        std::move(p_address), std::move(callback));
       return true;
     }
     case internal::kAdapter_GetDevices_Name: {
@@ -5544,6 +5618,8 @@ std::move(p_address), std::move(callback));
               internal::Adapter_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.1
       bool success = true;
       Adapter_GetDevices_ParamsDataView input_data_view(params, message);
       
@@ -5569,6 +5645,8 @@ std::move(p_address), std::move(callback));
               internal::Adapter_GetInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.2
       bool success = true;
       Adapter_GetInfo_ParamsDataView input_data_view(params, message);
       
@@ -5594,6 +5672,8 @@ std::move(p_address), std::move(callback));
               internal::Adapter_AddObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.3
       bool success = true;
       ::mojo::PendingRemote<AdapterObserver> p_observer{};
       Adapter_AddObserver_ParamsDataView input_data_view(params, message);
@@ -5614,8 +5694,8 @@ std::move(p_address), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer), std::move(callback));
+      impl->AddObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kAdapter_RegisterAdvertisement_Name: {
@@ -5625,6 +5705,8 @@ std::move(p_observer), std::move(callback));
               internal::Adapter_RegisterAdvertisement_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.4
       bool success = true;
       ::device::BluetoothUUID p_service_id{};
       std::vector<uint8_t> p_service_data{};
@@ -5649,10 +5731,10 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterAdvertisement(
-std::move(p_service_id), 
-std::move(p_service_data), 
-std::move(p_use_scan_response), std::move(callback));
+      impl->RegisterAdvertisement(        
+        std::move(p_service_id), 
+        std::move(p_service_data), 
+        std::move(p_use_scan_response), std::move(callback));
       return true;
     }
     case internal::kAdapter_SetDiscoverable_Name: {
@@ -5662,6 +5744,8 @@ std::move(p_use_scan_response), std::move(callback));
               internal::Adapter_SetDiscoverable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.5
       bool success = true;
       bool p_discoverable{};
       Adapter_SetDiscoverable_ParamsDataView input_data_view(params, message);
@@ -5680,8 +5764,8 @@ std::move(p_use_scan_response), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDiscoverable(
-std::move(p_discoverable), std::move(callback));
+      impl->SetDiscoverable(        
+        std::move(p_discoverable), std::move(callback));
       return true;
     }
     case internal::kAdapter_SetName_Name: {
@@ -5691,6 +5775,8 @@ std::move(p_discoverable), std::move(callback));
               internal::Adapter_SetName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.6
       bool success = true;
       std::string p_name{};
       Adapter_SetName_ParamsDataView input_data_view(params, message);
@@ -5709,8 +5795,8 @@ std::move(p_discoverable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetName(
-std::move(p_name), std::move(callback));
+      impl->SetName(        
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kAdapter_StartDiscoverySession_Name: {
@@ -5720,6 +5806,8 @@ std::move(p_name), std::move(callback));
               internal::Adapter_StartDiscoverySession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.7
       bool success = true;
       std::string p_client_name{};
       Adapter_StartDiscoverySession_ParamsDataView input_data_view(params, message);
@@ -5738,8 +5826,8 @@ std::move(p_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDiscoverySession(
-std::move(p_client_name), std::move(callback));
+      impl->StartDiscoverySession(        
+        std::move(p_client_name), std::move(callback));
       return true;
     }
     case internal::kAdapter_ConnectToServiceInsecurely_Name: {
@@ -5749,6 +5837,8 @@ std::move(p_client_name), std::move(callback));
               internal::Adapter_ConnectToServiceInsecurely_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.8
       bool success = true;
       std::string p_address{};
       ::device::BluetoothUUID p_service_uuid{};
@@ -5773,10 +5863,10 @@ std::move(p_client_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToServiceInsecurely(
-std::move(p_address), 
-std::move(p_service_uuid), 
-std::move(p_should_unbond_on_error), std::move(callback));
+      impl->ConnectToServiceInsecurely(        
+        std::move(p_address), 
+        std::move(p_service_uuid), 
+        std::move(p_should_unbond_on_error), std::move(callback));
       return true;
     }
     case internal::kAdapter_CreateRfcommServiceInsecurely_Name: {
@@ -5786,6 +5876,8 @@ std::move(p_should_unbond_on_error), std::move(callback));
               internal::Adapter_CreateRfcommServiceInsecurely_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Adapter.9
       bool success = true;
       std::string p_service_name{};
       ::device::BluetoothUUID p_service_uuid{};
@@ -5807,9 +5899,9 @@ std::move(p_should_unbond_on_error), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRfcommServiceInsecurely(
-std::move(p_service_name), 
-std::move(p_service_uuid), std::move(callback));
+      impl->CreateRfcommServiceInsecurely(        
+        std::move(p_service_name), 
+        std::move(p_service_uuid), std::move(callback));
       return true;
     }
   }
@@ -6357,6 +6449,8 @@ bool AdapterObserverStubDispatch::Accept(
           reinterpret_cast<internal::AdapterObserver_PresentChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.0
       bool success = true;
       bool p_present{};
       AdapterObserver_PresentChanged_ParamsDataView input_data_view(params, message);
@@ -6372,8 +6466,8 @@ bool AdapterObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PresentChanged(
-std::move(p_present));
+      impl->PresentChanged(        
+        std::move(p_present));
       return true;
     }
     case internal::kAdapterObserver_PoweredChanged_Name: {
@@ -6383,6 +6477,8 @@ std::move(p_present));
           reinterpret_cast<internal::AdapterObserver_PoweredChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.1
       bool success = true;
       bool p_powered{};
       AdapterObserver_PoweredChanged_ParamsDataView input_data_view(params, message);
@@ -6398,8 +6494,8 @@ std::move(p_present));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PoweredChanged(
-std::move(p_powered));
+      impl->PoweredChanged(        
+        std::move(p_powered));
       return true;
     }
     case internal::kAdapterObserver_DiscoverableChanged_Name: {
@@ -6409,6 +6505,8 @@ std::move(p_powered));
           reinterpret_cast<internal::AdapterObserver_DiscoverableChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.2
       bool success = true;
       bool p_discoverable{};
       AdapterObserver_DiscoverableChanged_ParamsDataView input_data_view(params, message);
@@ -6424,8 +6522,8 @@ std::move(p_powered));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DiscoverableChanged(
-std::move(p_discoverable));
+      impl->DiscoverableChanged(        
+        std::move(p_discoverable));
       return true;
     }
     case internal::kAdapterObserver_DiscoveringChanged_Name: {
@@ -6435,6 +6533,8 @@ std::move(p_discoverable));
           reinterpret_cast<internal::AdapterObserver_DiscoveringChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.3
       bool success = true;
       bool p_discovering{};
       AdapterObserver_DiscoveringChanged_ParamsDataView input_data_view(params, message);
@@ -6450,8 +6550,8 @@ std::move(p_discoverable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DiscoveringChanged(
-std::move(p_discovering));
+      impl->DiscoveringChanged(        
+        std::move(p_discovering));
       return true;
     }
     case internal::kAdapterObserver_DeviceAdded_Name: {
@@ -6461,6 +6561,8 @@ std::move(p_discovering));
           reinterpret_cast<internal::AdapterObserver_DeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.4
       bool success = true;
       ::bluetooth::mojom::DeviceInfoPtr p_device{};
       AdapterObserver_DeviceAdded_ParamsDataView input_data_view(params, message);
@@ -6476,8 +6578,8 @@ std::move(p_discovering));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceAdded(
-std::move(p_device));
+      impl->DeviceAdded(        
+        std::move(p_device));
       return true;
     }
     case internal::kAdapterObserver_DeviceChanged_Name: {
@@ -6487,6 +6589,8 @@ std::move(p_device));
           reinterpret_cast<internal::AdapterObserver_DeviceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.5
       bool success = true;
       ::bluetooth::mojom::DeviceInfoPtr p_device{};
       AdapterObserver_DeviceChanged_ParamsDataView input_data_view(params, message);
@@ -6502,8 +6606,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceChanged(
-std::move(p_device));
+      impl->DeviceChanged(        
+        std::move(p_device));
       return true;
     }
     case internal::kAdapterObserver_DeviceRemoved_Name: {
@@ -6513,6 +6617,8 @@ std::move(p_device));
           reinterpret_cast<internal::AdapterObserver_DeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdapterObserver.6
       bool success = true;
       ::bluetooth::mojom::DeviceInfoPtr p_device{};
       AdapterObserver_DeviceRemoved_ParamsDataView input_data_view(params, message);
@@ -6528,8 +6634,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceRemoved(
-std::move(p_device));
+      impl->DeviceRemoved(        
+        std::move(p_device));
       return true;
     }
   }

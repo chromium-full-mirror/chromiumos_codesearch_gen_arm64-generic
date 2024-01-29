@@ -703,68 +703,6 @@ const StylePropertyShorthand& flexFlowShorthand() {
 static const StylePropertyShorthand* fontShorthand1() {
   if (!RuntimeEnabledFeatures::CSSFontSizeAdjustEnabled())
     return nullptr;
-  if (RuntimeEnabledFeatures::FontVariantPositionEnabled())
-    return nullptr;
-
-  static const CSSProperty* longhands[] = {
-    &GetCSSPropertyFontStyle(),
-    &GetCSSPropertyFontVariantLigatures(),
-    &GetCSSPropertyFontVariantCaps(),
-    &GetCSSPropertyFontVariantNumeric(),
-    &GetCSSPropertyFontVariantEastAsian(),
-    &GetCSSPropertyFontVariantAlternates(),
-    &GetCSSPropertyFontWeight(),
-    &GetCSSPropertyFontStretch(),
-    &GetCSSPropertyFontSize(),
-    &GetCSSPropertyLineHeight(),
-    &GetCSSPropertyFontFamily(),
-    &GetCSSPropertyFontOpticalSizing(),
-    &GetCSSPropertyFontSizeAdjust(),
-    &GetCSSPropertyFontKerning(),
-    &GetCSSPropertyFontFeatureSettings(),
-    &GetCSSPropertyFontVariationSettings(),
-  };
-
-  static const StylePropertyShorthand shorthand(
-      CSSPropertyID::kFont, longhands, std::size(longhands));
-  return &shorthand;
-}
-
-static const StylePropertyShorthand* fontShorthand2() {
-  if (RuntimeEnabledFeatures::CSSFontSizeAdjustEnabled())
-    return nullptr;
-  if (!RuntimeEnabledFeatures::FontVariantPositionEnabled())
-    return nullptr;
-
-  static const CSSProperty* longhands[] = {
-    &GetCSSPropertyFontStyle(),
-    &GetCSSPropertyFontVariantLigatures(),
-    &GetCSSPropertyFontVariantCaps(),
-    &GetCSSPropertyFontVariantNumeric(),
-    &GetCSSPropertyFontVariantEastAsian(),
-    &GetCSSPropertyFontVariantAlternates(),
-    &GetCSSPropertyFontVariantPosition(),
-    &GetCSSPropertyFontWeight(),
-    &GetCSSPropertyFontStretch(),
-    &GetCSSPropertyFontSize(),
-    &GetCSSPropertyLineHeight(),
-    &GetCSSPropertyFontFamily(),
-    &GetCSSPropertyFontOpticalSizing(),
-    &GetCSSPropertyFontKerning(),
-    &GetCSSPropertyFontFeatureSettings(),
-    &GetCSSPropertyFontVariationSettings(),
-  };
-
-  static const StylePropertyShorthand shorthand(
-      CSSPropertyID::kFont, longhands, std::size(longhands));
-  return &shorthand;
-}
-
-static const StylePropertyShorthand* fontShorthand3() {
-  if (!RuntimeEnabledFeatures::CSSFontSizeAdjustEnabled())
-    return nullptr;
-  if (!RuntimeEnabledFeatures::FontVariantPositionEnabled())
-    return nullptr;
 
   static const CSSProperty* longhands[] = {
     &GetCSSPropertyFontStyle(),
@@ -794,13 +732,8 @@ static const StylePropertyShorthand* fontShorthand3() {
 const StylePropertyShorthand& fontShorthand() {
   if (const auto* s = fontShorthand1())
     return *s;
-  if (const auto* s = fontShorthand2())
-    return *s;
-  if (const auto* s = fontShorthand3())
-    return *s;
 
   DCHECK(!RuntimeEnabledFeatures::CSSFontSizeAdjustEnabled());
-  DCHECK(!RuntimeEnabledFeatures::FontVariantPositionEnabled());
 
   static const CSSProperty* longhands[] = {
     &GetCSSPropertyFontStyle(),
@@ -809,6 +742,7 @@ const StylePropertyShorthand& fontShorthand() {
     &GetCSSPropertyFontVariantNumeric(),
     &GetCSSPropertyFontVariantEastAsian(),
     &GetCSSPropertyFontVariantAlternates(),
+    &GetCSSPropertyFontVariantPosition(),
     &GetCSSPropertyFontWeight(),
     &GetCSSPropertyFontStretch(),
     &GetCSSPropertyFontSize(),
@@ -837,10 +771,7 @@ const StylePropertyShorthand& fontSynthesisShorthand() {
   return shorthand;
 }
 
-static const StylePropertyShorthand* fontVariantShorthand1() {
-  if (!RuntimeEnabledFeatures::FontVariantPositionEnabled())
-    return nullptr;
-
+const StylePropertyShorthand& fontVariantShorthand() {
   static const CSSProperty* longhands[] = {
     &GetCSSPropertyFontVariantLigatures(),
     &GetCSSPropertyFontVariantCaps(),
@@ -848,25 +779,6 @@ static const StylePropertyShorthand* fontVariantShorthand1() {
     &GetCSSPropertyFontVariantNumeric(),
     &GetCSSPropertyFontVariantEastAsian(),
     &GetCSSPropertyFontVariantPosition(),
-  };
-
-  static const StylePropertyShorthand shorthand(
-      CSSPropertyID::kFontVariant, longhands, std::size(longhands));
-  return &shorthand;
-}
-
-const StylePropertyShorthand& fontVariantShorthand() {
-  if (const auto* s = fontVariantShorthand1())
-    return *s;
-
-  DCHECK(!RuntimeEnabledFeatures::FontVariantPositionEnabled());
-
-  static const CSSProperty* longhands[] = {
-    &GetCSSPropertyFontVariantLigatures(),
-    &GetCSSPropertyFontVariantCaps(),
-    &GetCSSPropertyFontVariantAlternates(),
-    &GetCSSPropertyFontVariantNumeric(),
-    &GetCSSPropertyFontVariantEastAsian(),
   };
 
   static const StylePropertyShorthand shorthand(

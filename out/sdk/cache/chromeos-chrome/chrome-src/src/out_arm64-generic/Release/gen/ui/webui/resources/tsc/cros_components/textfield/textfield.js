@@ -39,9 +39,15 @@ const MD_FIELD_LEFT_RIGHT_SPACE_PX = css `${DEFAULT_LEFT_RIGHT_SPACE + MD_TEXTFI
 const MD_TEXTFIELD_CONTAINER_CORNER_RADIUS = css `${8 + MD_TEXTFIELD_OUTLINE_WIDTH}px`;
 /** Regex used for automatically stripping non numeric characters from input. */
 const NON_INTEGER_REGEX = /\D/g;
+// DO NOT MODIFY THIS STYLESHEET
+// Added by MWC team to be removed in b/278960272.
+const MWC_SELECTION_STYLES = css `
+  ::selection {
+    background-color: var(--cros-sys-highlight_text);
+  }
+`;
 /**
- * Textfield component. See the specs here:
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=3227%3A25882&t=50tDpMdSJky6eT9O-0
+ * ChromeOS compliant Textfield component.
  */
 export class Textfield extends LitElement {
     /** @nocollapse */
@@ -63,7 +69,7 @@ export class Textfield extends LitElement {
       --md-outlined-field-supporting-text-color: var(--cros-sys-on_surface);
       --md-outlined-field-supporting-text-leading-space: ${MD_TEXTFIELD_OUTLINE_WIDTH}px;
       --md-outlined-field-supporting-text-trailing-space: ${MD_TEXTFIELD_OUTLINE_WIDTH}px;
-      --md-outlined-field-supporting-text-top-space: 8px;;
+      --md-outlined-field-supporting-text-top-space: 6px;
       --md-outlined-text-field-focus-caret-color: var(--cros-sys-primary);
       --md-outlined-text-field-container-shape-end-end: ${MD_TEXTFIELD_CONTAINER_CORNER_RADIUS};
       --md-outlined-text-field-container-shape-end-start: ${MD_TEXTFIELD_CONTAINER_CORNER_RADIUS};
@@ -75,10 +81,10 @@ export class Textfield extends LitElement {
       --md-outlined-text-field-input-text-prefix-color: var(--cros-sys-on_surface);
       --md-outlined-text-field-input-text-suffix-color: var(--cros-sys-secondary);
       --md-outlined-text-field-input-text-suffix-leading-space: 8px;
-      --md-outlined-text-field-input-text-font: var(--cros-body-2-font-family);
-      --md-outlined-text-field-input-text-size: var(--cros-body-2-font-size);
+      --md-outlined-text-field-input-text-font: var(--cros-textfield-font-family, var(--cros-body-2-font-family));
+      --md-outlined-text-field-input-text-size: var(--cros-textfield-font-size, var(--cros-body-2-font-size));
       --md-outlined-text-field-input-text-line-height: var(--cros-body-2-line-height);
-      --md-outlined-text-field-input-text-weight: var(--cros-body-2-font-weight);
+      --md-outlined-text-field-input-text-weight: var(--cros-textfield-font-weight, var(--cros-body-2-font-weight));
       --md-outlined-text-field-outline-width: 0px;
       --md-outlined-text-field-supporting-text-font: var(--cros-label-2-font-family);
       --md-outlined-text-field-supporting-text-size: var(--cros-label-2-font-size);
@@ -199,6 +205,7 @@ export class Textfield extends LitElement {
         pattern: { type: String, attribute: true },
         autofix: { type: String, attribute: true },
         required: { type: Boolean, attribute: true },
+        noSpinner: { type: Boolean, attribute: true },
     }; }
     /** @nocollapse */
     static { this.events = {
@@ -267,12 +274,19 @@ export class Textfield extends LitElement {
         this.placeholder = '';
         this.autofix = 'preserve';
         this.required = false;
+        this.noSpinner = false;
     }
     async firstUpdated() {
         this.mdTextfield.value = this.valueInitial;
         // Run the logic to forward any slotted icons to the md-text-field internal
         // icon slots.
         this.handleIconChange();
+        // DO NOT MODIFY THIS BLOCK
+        // Added by MWC team to be removed in b/278960272.
+        this.mdTextfield.shadowRoot.adoptedStyleSheets = [
+            ...this.mdTextfield.shadowRoot.adoptedStyleSheets,
+            MWC_SELECTION_STYLES.styleSheet
+        ];
     }
     update(changedProperties) {
         if (changedProperties.has('disabled')) {
@@ -299,6 +313,7 @@ export class Textfield extends LitElement {
             min=${this.min > -1 ? this.min : nothing}
             max=${this.max > -1 ? this.max : nothing}
             ?required=${this.required}
+            ?no-spinner=${this.noSpinner}
             supporting-text=${this.hint}
             ?error=${this.error ?? nothing}
             error-text=${ifDefined(errorTextOrUndef)}

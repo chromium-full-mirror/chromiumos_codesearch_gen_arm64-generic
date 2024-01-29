@@ -161,6 +161,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -326,6 +328,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_Close_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       DialogChoice p_choice{};
       PageHandler_Close_ParamsDataView input_data_view(params, message);
@@ -341,8 +345,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Close(
-std::move(p_choice));
+      impl->Close(        
+        std::move(p_choice));
       return true;
     }
   }

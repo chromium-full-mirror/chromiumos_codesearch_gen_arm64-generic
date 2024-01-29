@@ -33,7 +33,7 @@ export async function testUpdatePreferences(done) {
     // Expect the preferences in the store to be updated.
     const firstState = store.getState().preferences;
     const want = INITIAL_PREFERENCES;
-    assertDeepEquals(want, firstState, `${JSON.stringify(want)} != ${JSON.stringify(firstState)}`);
+    assertDeepEquals(want, firstState, `${JSON.stringify(want)} !== ${JSON.stringify(firstState)}`);
     done();
 }
 export async function testPreferencesWithNoKeysUpdates(done) {
@@ -55,7 +55,7 @@ export async function testPreferencesWithNoKeysUpdates(done) {
         };
         // Expect the preferences in the store to be updated.
         const state = store.getState().preferences;
-        assertDeepEquals(want, state, `${JSON.stringify(want)} != ${JSON.stringify(state)}`);
+        assertDeepEquals(want, state, `${JSON.stringify(want)} !== ${JSON.stringify(state)}`);
         return want;
     };
     // Verify all the `boolean` type preferences update appropriately, they are

@@ -78,15 +78,16 @@ enum LookupSingleLeakRequest_ClientUseCase : int {
   LookupSingleLeakRequest_ClientUseCase_CLIENT_USE_CASE_UNSPECIFIED = 0,
   LookupSingleLeakRequest_ClientUseCase_CHROME_SIGN_IN_CHECK = 5,
   LookupSingleLeakRequest_ClientUseCase_CHROME_BULK_SYNCED_PASSWORDS_CHECK = 6,
-  LookupSingleLeakRequest_ClientUseCase_CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP = 7,
+  LookupSingleLeakRequest_ClientUseCase_CHROME_DESKTOP_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP = 7,
   LookupSingleLeakRequest_ClientUseCase_IGA_BULK_SYNCED_PASSWORDS_CHECK = 11,
   LookupSingleLeakRequest_ClientUseCase_CHROME_EDIT_CHECK = 15,
+  LookupSingleLeakRequest_ClientUseCase_CHROME_IOS_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP = 18,
   LookupSingleLeakRequest_ClientUseCase_LookupSingleLeakRequest_ClientUseCase_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   LookupSingleLeakRequest_ClientUseCase_LookupSingleLeakRequest_ClientUseCase_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool LookupSingleLeakRequest_ClientUseCase_IsValid(int value);
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest_ClientUseCase_ClientUseCase_MIN = LookupSingleLeakRequest_ClientUseCase_CLIENT_USE_CASE_UNSPECIFIED;
-constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest_ClientUseCase_ClientUseCase_MAX = LookupSingleLeakRequest_ClientUseCase_CHROME_EDIT_CHECK;
+constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest_ClientUseCase_ClientUseCase_MAX = LookupSingleLeakRequest_ClientUseCase_CHROME_IOS_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP;
 constexpr int LookupSingleLeakRequest_ClientUseCase_ClientUseCase_ARRAYSIZE = LookupSingleLeakRequest_ClientUseCase_ClientUseCase_MAX + 1;
 
 const std::string& LookupSingleLeakRequest_ClientUseCase_Name(LookupSingleLeakRequest_ClientUseCase value);
@@ -208,12 +209,14 @@ class LookupSingleLeakRequest final :
     LookupSingleLeakRequest_ClientUseCase_CHROME_SIGN_IN_CHECK;
   static constexpr ClientUseCase CHROME_BULK_SYNCED_PASSWORDS_CHECK =
     LookupSingleLeakRequest_ClientUseCase_CHROME_BULK_SYNCED_PASSWORDS_CHECK;
-  static constexpr ClientUseCase CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP =
-    LookupSingleLeakRequest_ClientUseCase_CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP;
+  static constexpr ClientUseCase CHROME_DESKTOP_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP =
+    LookupSingleLeakRequest_ClientUseCase_CHROME_DESKTOP_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP;
   static constexpr ClientUseCase IGA_BULK_SYNCED_PASSWORDS_CHECK =
     LookupSingleLeakRequest_ClientUseCase_IGA_BULK_SYNCED_PASSWORDS_CHECK;
   static constexpr ClientUseCase CHROME_EDIT_CHECK =
     LookupSingleLeakRequest_ClientUseCase_CHROME_EDIT_CHECK;
+  static constexpr ClientUseCase CHROME_IOS_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP =
+    LookupSingleLeakRequest_ClientUseCase_CHROME_IOS_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP;
   static inline bool ClientUseCase_IsValid(int value) {
     return LookupSingleLeakRequest_ClientUseCase_IsValid(value);
   }

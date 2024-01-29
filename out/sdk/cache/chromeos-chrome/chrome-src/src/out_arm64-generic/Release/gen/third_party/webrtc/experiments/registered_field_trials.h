@@ -9,6 +9,7 @@ namespace webrtc {
 
 inline constexpr absl::string_view kRegisteredFieldTrials[] = {
     "UseTwccPlrForAna",
+    "WebRTC-AV1-OverridePriorityBitrate",
     "WebRTC-AddNetworkCostToVpn",
     "WebRTC-AddPacingToCongestionWindowPushback",
     "WebRTC-AdjustOpusBandwidth",
@@ -111,6 +112,7 @@ inline constexpr absl::string_view kRegisteredFieldTrials[] = {
     "WebRTC-Audio-NetEqSmartFlushing",
     "WebRTC-Audio-OpusAvoidNoisePumpingDuringDtx",
     "WebRTC-Audio-OpusBitrateMultipliers",
+    "WebRTC-Audio-OpusGeneratePlc",
     "WebRTC-Audio-OpusPlcUsePrevDecodedSamples",
     "WebRTC-Audio-OpusSetSignalVoiceWithDtx",
     "WebRTC-Audio-Red-For-Opus",
@@ -159,7 +161,6 @@ inline constexpr absl::string_view kRegisteredFieldTrials[] = {
     "WebRTC-DecoderDataDumpDirectory",
     "WebRTC-DefaultBitrateLimitsKillSwitch",
     "WebRTC-DependencyDescriptorAdvertised",
-    "WebRTC-DisablePacerEmergencyStop",
     "WebRTC-DisableRtxRateLimiter",
     "WebRTC-DisableUlpFecExperiment",
     "WebRTC-DontIncreaseDelayBasedBweInAlr",
@@ -288,6 +289,7 @@ inline constexpr absl::string_view kRegisteredFieldTrials[] = {
     "WebRTC-Vp9ExternalRefCtrl",
     "WebRTC-Vp9InterLayerPred",
     "WebRTC-Vp9IssueKeyFrameOnLayerDeactivation",
+    "WebRTC-ZeroHertzQueueOverload",
     "WebRTC-ZeroHertzScreenshare",
     "WebRTC-ZeroPlayoutDelay",
 };

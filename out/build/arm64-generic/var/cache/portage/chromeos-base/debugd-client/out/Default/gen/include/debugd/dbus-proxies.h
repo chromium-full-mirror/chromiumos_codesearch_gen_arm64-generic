@@ -33,7 +33,8 @@ class debugdProxyInterface {
 
   // Starts a crosh shell instance.
   virtual bool CroshShellStart(
-      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_shell_lifeline_fd,
+      const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
       const base::ScopedFD& in_outfd,
       std::string* out_handle,
@@ -42,7 +43,8 @@ class debugdProxyInterface {
 
   // Starts a crosh shell instance.
   virtual void CroshShellStartAsync(
-      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_shell_lifeline_fd,
+      const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
       const base::ScopedFD& in_outfd,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -364,7 +366,7 @@ class debugdProxyInterface {
   // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
-  virtual bool GetFeedbackLogsV2(
+  virtual bool GetFeedbackLogs(
       const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
@@ -375,7 +377,7 @@ class debugdProxyInterface {
   // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
-  virtual void GetFeedbackLogsV2Async(
+  virtual void GetFeedbackLogsAsync(
       const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
@@ -1255,18 +1257,6 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  // Trigger wifi firmware dump.
-  virtual bool WifiFWDump(
-      std::string* out_output,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Trigger wifi firmware dump.
-  virtual void WifiFWDumpAsync(
-      base::OnceCallback<void(const std::string& /*output*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   // Runs the 'ectool inventory' command with pre-defined
   // sandbox options in rootfs and returns the output.
   virtual bool EcGetInventory(
@@ -1543,7 +1533,8 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Starts a crosh shell instance.
   bool CroshShellStart(
-      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_shell_lifeline_fd,
+      const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
       const base::ScopedFD& in_outfd,
       std::string* out_handle,
@@ -1555,7 +1546,8 @@ class debugdProxy final : public debugdProxyInterface {
         "org.chromium.debugd",
         "CroshShellStart",
         error,
-        in_lifeline_fd,
+        in_shell_lifeline_fd,
+        in_caller_lifeline_fd,
         in_infd,
         in_outfd);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
@@ -1564,7 +1556,8 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Starts a crosh shell instance.
   void CroshShellStartAsync(
-      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_shell_lifeline_fd,
+      const base::ScopedFD& in_caller_lifeline_fd,
       const base::ScopedFD& in_infd,
       const base::ScopedFD& in_outfd,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -1577,7 +1570,8 @@ class debugdProxy final : public debugdProxyInterface {
         "CroshShellStart",
         std::move(success_callback),
         std::move(error_callback),
-        in_lifeline_fd,
+        in_shell_lifeline_fd,
+        in_caller_lifeline_fd,
         in_infd,
         in_outfd);
   }
@@ -2253,7 +2247,7 @@ class debugdProxy final : public debugdProxyInterface {
   // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
-  bool GetFeedbackLogsV2(
+  bool GetFeedbackLogs(
       const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
@@ -2263,7 +2257,7 @@ class debugdProxy final : public debugdProxyInterface {
         timeout_ms,
         dbus_object_proxy_,
         "org.chromium.debugd",
-        "GetFeedbackLogsV2",
+        "GetFeedbackLogs",
         error,
         in_outfd,
         in_username,
@@ -2276,7 +2270,7 @@ class debugdProxy final : public debugdProxyInterface {
   // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
-  void GetFeedbackLogsV2Async(
+  void GetFeedbackLogsAsync(
       const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
@@ -2287,7 +2281,7 @@ class debugdProxy final : public debugdProxyInterface {
         timeout_ms,
         dbus_object_proxy_,
         "org.chromium.debugd",
-        "GetFeedbackLogsV2",
+        "GetFeedbackLogs",
         std::move(success_callback),
         std::move(error_callback),
         in_outfd,
@@ -4226,35 +4220,6 @@ class debugdProxy final : public debugdProxyInterface {
         std::move(error_callback),
         in_policy,
         in_lock_policy);
-  }
-
-  // Trigger wifi firmware dump.
-  bool WifiFWDump(
-      std::string* out_output,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.debugd",
-        "WifiFWDump",
-        error);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_output);
-  }
-
-  // Trigger wifi firmware dump.
-  void WifiFWDumpAsync(
-      base::OnceCallback<void(const std::string& /*output*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.debugd",
-        "WifiFWDump",
-        std::move(success_callback),
-        std::move(error_callback));
   }
 
   // Runs the 'ectool inventory' command with pre-defined

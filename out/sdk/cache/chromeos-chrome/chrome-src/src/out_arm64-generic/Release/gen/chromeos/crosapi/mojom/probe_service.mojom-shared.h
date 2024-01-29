@@ -95,6 +95,10 @@ class ProbeExternalDisplayInfoDataView;
 
 class ProbeDisplayInfoDataView;
 
+class ProbeThermalSensorInfoDataView;
+
+class ProbeThermalInfoDataView;
+
 class ProbeTelemetryInfoDataView;
 
 class ProbeOemDataDataView;
@@ -116,6 +120,7 @@ class ProbeSystemResultDataView;
 class ProbeNetworkResultDataView;
 class ProbeAudioResultDataView;
 class ProbeDisplayResultDataView;
+class ProbeThermalResultDataView;
 
 
 }  // crosapi::mojom
@@ -334,6 +339,20 @@ struct MojomTypeTraits<::crosapi::mojom::ProbeDisplayInfoDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::crosapi::mojom::ProbeThermalSensorInfoDataView> {
+  using Data = ::crosapi::mojom::internal::ProbeThermalSensorInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::ProbeThermalInfoDataView> {
+  using Data = ::crosapi::mojom::internal::ProbeThermalInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::crosapi::mojom::ProbeTelemetryInfoDataView> {
   using Data = ::crosapi::mojom::internal::ProbeTelemetryInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -466,6 +485,13 @@ struct MojomTypeTraits<::crosapi::mojom::ProbeDisplayResultDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
+template <>
+struct MojomTypeTraits<::crosapi::mojom::ProbeThermalResultDataView> {
+  using Data = ::crosapi::mojom::internal::ProbeThermalResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -508,8 +534,10 @@ enum class ProbeCategoryEnum : int32_t {
   kBus = 15,
   
   kDisplay = 16,
+  
+  kThermal = 17,
   kMinValue = 0,
-  kMaxValue = 16,
+  kMaxValue = 17,
   kDefaultValue = 11
 };
 
@@ -734,6 +762,31 @@ inline ProbeDisplayInputType ToKnownEnumValue(ProbeDisplayInputType value) {
     return value;
   }
   return ProbeDisplayInputType::kDefaultValue;
+}
+
+
+enum class ProbeThermalSensorSource : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kEc = 1,
+  
+  kSysFs = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, ProbeThermalSensorSource value);
+inline bool IsKnownEnumValue(ProbeThermalSensorSource value) {
+  return internal::ProbeThermalSensorSource_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline ProbeThermalSensorSource ToKnownEnumValue(ProbeThermalSensorSource value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ProbeThermalSensorSource::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class TelemetryProbeServiceInterfaceBase {};
@@ -3771,6 +3824,71 @@ static_assert(
 };
 
 
+class ProbeThermalSensorInfoDataView {
+ public:
+  ProbeThermalSensorInfoDataView() = default;
+
+  ProbeThermalSensorInfoDataView(
+      internal::ProbeThermalSensorInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  double temperature_celsius() const {
+    return data_->temperature_celsius;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    auto data_value = data_->source;
+    return mojo::internal::Deserialize<::crosapi::mojom::ProbeThermalSensorSource>(
+        data_value, output);
+  }
+  ProbeThermalSensorSource source() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::crosapi::mojom::ProbeThermalSensorSource>(data_->source));
+  }
+ private:
+  internal::ProbeThermalSensorInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ProbeThermalInfoDataView {
+ public:
+  ProbeThermalInfoDataView() = default;
+
+  ProbeThermalInfoDataView(
+      internal::ProbeThermalInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetThermalSensorsDataView(
+      mojo::ArrayDataView<ProbeThermalSensorInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalSensors(UserType* output) {
+    
+    auto* pointer = data_->thermal_sensors.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::crosapi::mojom::ProbeThermalSensorInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ProbeThermalInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class ProbeTelemetryInfoDataView {
  public:
   ProbeTelemetryInfoDataView() = default;
@@ -4102,6 +4220,27 @@ static_assert(
     auto* pointer = data_->header_.version >= 3 && !data_->display_result.is_null()
                     ? &data_->display_result : nullptr;
     return mojo::internal::Deserialize<::crosapi::mojom::ProbeDisplayResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetThermalResultDataView(
+      ProbeThermalResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::crosapi::mojom::ProbeThermalResultDataView, UserType>(),
+    "Attempting to read the optional `thermal_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadThermalResult` instead "
+    "of `ReadThermalResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 4 && !data_->thermal_result.is_null()
+                    ? &data_->thermal_result : nullptr;
+    return mojo::internal::Deserialize<::crosapi::mojom::ProbeThermalResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -4966,6 +5105,54 @@ class ProbeDisplayResultDataView {
 
 
 
+class ProbeThermalResultDataView {
+ public:
+  using Tag = internal::ProbeThermalResult_Data::ProbeThermalResult_Tag;
+
+  ProbeThermalResultDataView() = default;
+
+  ProbeThermalResultDataView(
+      internal::ProbeThermalResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_thermal_info() const { return data_->tag == Tag::kThermalInfo; }
+  inline void GetThermalInfoDataView(
+      ProbeThermalInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalInfo(UserType* output) const {
+    
+    CHECK(is_thermal_info());
+    return mojo::internal::Deserialize<::crosapi::mojom::ProbeThermalInfoDataView>(
+        data_->data.f_thermal_info.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  inline void GetErrorDataView(
+      ProbeErrorDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::crosapi::mojom::ProbeErrorDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::ProbeThermalResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 }  // crosapi::mojom
 
 namespace std {
@@ -5001,6 +5188,10 @@ struct hash<::crosapi::mojom::ProbeTpmGSCVersion>
 template <>
 struct hash<::crosapi::mojom::ProbeDisplayInputType>
     : public mojo::internal::EnumHashImpl<::crosapi::mojom::ProbeDisplayInputType> {};
+
+template <>
+struct hash<::crosapi::mojom::ProbeThermalSensorSource>
+    : public mojo::internal::EnumHashImpl<::crosapi::mojom::ProbeThermalSensorSource> {};
 
 }  // namespace std
 
@@ -5161,6 +5352,26 @@ struct Serializer<::crosapi::mojom::ProbeDisplayInputType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::crosapi::mojom::ProbeDisplayInputType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::ProbeThermalSensorSource, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::crosapi::mojom::ProbeThermalSensorSource, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::crosapi::mojom::ProbeThermalSensorSource>(input)), output);
   }
 };
 
@@ -7134,6 +7345,93 @@ struct Serializer<::crosapi::mojom::ProbeDisplayInfoDataView, MaybeConstUserType
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::ProbeThermalSensorInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::ProbeThermalSensorInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::ProbeThermalSensorInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null name in ProbeThermalSensorInfo struct");
+    fragment->temperature_celsius = Traits::temperature_celsius(input);
+    mojo::internal::Serialize<::crosapi::mojom::ProbeThermalSensorSource>(
+        Traits::source(input), &fragment->source);
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::ProbeThermalSensorInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::ProbeThermalSensorInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::ProbeThermalInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::ProbeThermalInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::ProbeThermalInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::thermal_sensors(input)) in_thermal_sensors = Traits::thermal_sensors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->thermal_sensors)::BaseType>
+        thermal_sensors_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& thermal_sensors_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::crosapi::mojom::ProbeThermalSensorInfoDataView>>(
+        in_thermal_sensors, thermal_sensors_fragment, &thermal_sensors_validate_params);
+    fragment->thermal_sensors.Set(
+        thermal_sensors_fragment.is_null() ? nullptr : thermal_sensors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->thermal_sensors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null thermal_sensors in ProbeThermalInfo struct");
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::ProbeThermalInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::ProbeThermalInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::crosapi::mojom::ProbeTelemetryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::crosapi::mojom::ProbeTelemetryInfoDataView, UserType>;
@@ -7240,6 +7538,12 @@ struct Serializer<::crosapi::mojom::ProbeTelemetryInfoDataView, MaybeConstUserTy
     display_result_fragment.Claim(&fragment->display_result);
     mojo::internal::Serialize<::crosapi::mojom::ProbeDisplayResultDataView>(
         in_display_result, display_result_fragment, true);
+    decltype(Traits::thermal_result(input)) in_thermal_result = Traits::thermal_result(input);
+    mojo::internal::MessageFragment<decltype(fragment->thermal_result)>
+        thermal_result_fragment(fragment.message());
+    thermal_result_fragment.Claim(&fragment->thermal_result);
+    mojo::internal::Serialize<::crosapi::mojom::ProbeThermalResultDataView>(
+        in_thermal_result, thermal_result_fragment, true);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::ProbeTelemetryInfo_Data* input,
@@ -8529,6 +8833,79 @@ struct Serializer<::crosapi::mojom::ProbeDisplayResultDataView, MaybeConstUserTy
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::ProbeThermalResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::crosapi::mojom::ProbeThermalResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::crosapi::mojom::internal::ProbeThermalResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::crosapi::mojom::ProbeThermalResultDataView::Tag::kThermalInfo: {
+        decltype(Traits::thermal_info(input))
+            in_thermal_info = Traits::thermal_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_thermal_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::crosapi::mojom::ProbeThermalInfoDataView>(
+            in_thermal_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null thermal_info in ProbeThermalResult union");
+        fragment->data.f_thermal_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::crosapi::mojom::ProbeThermalResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::crosapi::mojom::ProbeErrorDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in ProbeThermalResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::ProbeThermalResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::ProbeThermalResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -9197,6 +9574,20 @@ inline void ProbeDisplayInfoDataView::GetExternalDisplaysDataView(
 }
 
 
+inline void ProbeThermalSensorInfoDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void ProbeThermalInfoDataView::GetThermalSensorsDataView(
+    mojo::ArrayDataView<ProbeThermalSensorInfoDataView>* output) {
+  auto pointer = data_->thermal_sensors.Get();
+  *output = mojo::ArrayDataView<ProbeThermalSensorInfoDataView>(pointer, message_);
+}
+
+
 inline void ProbeTelemetryInfoDataView::GetBatteryResultDataView(
     ProbeBatteryResultDataView* output) {
   auto pointer = &data_->battery_result;
@@ -9279,6 +9670,12 @@ inline void ProbeTelemetryInfoDataView::GetDisplayResultDataView(
   auto pointer = data_->header_.version >= 3
                  ? &data_->display_result : nullptr;
   *output = ProbeDisplayResultDataView(pointer, message_);
+}
+inline void ProbeTelemetryInfoDataView::GetThermalResultDataView(
+    ProbeThermalResultDataView* output) {
+  auto pointer = data_->header_.version >= 4
+                 ? &data_->thermal_result : nullptr;
+  *output = ProbeThermalResultDataView(pointer, message_);
 }
 
 
@@ -9471,6 +9868,17 @@ inline void ProbeDisplayResultDataView::GetErrorDataView(
   *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
 }
 
+inline void ProbeThermalResultDataView::GetThermalInfoDataView(
+    ProbeThermalInfoDataView* output) const {
+  CHECK(is_thermal_info());
+  *output = ProbeThermalInfoDataView(data_->data.f_thermal_info.Get(), message_);
+}
+inline void ProbeThermalResultDataView::GetErrorDataView(
+    ProbeErrorDataView* output) const {
+  CHECK(is_error());
+  *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
+}
+
 
 }  // crosapi::mojom
 
@@ -9545,6 +9953,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::crosapi::mojom::ProbeDisplayInputType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::ProbeDisplayInputType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::crosapi::mojom::ProbeThermalSensorSource> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::crosapi::mojom::ProbeThermalSensorSource value);
 };
 
 } // namespace perfetto

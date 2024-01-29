@@ -14,8 +14,7 @@ export class TestLanguagesBrowserProxy extends TestBrowserProxy {
             'getInputMethodPrivate',
             'getLanguageSettingsPrivate',
         ]);
-        this.languageSettingsPrivate_ =
-            new FakeLanguageSettingsPrivate();
+        this.languageSettingsPrivate_ = new FakeLanguageSettingsPrivate();
         this.inputMethodPrivate_ =
             new FakeInputMethodPrivate();
     }

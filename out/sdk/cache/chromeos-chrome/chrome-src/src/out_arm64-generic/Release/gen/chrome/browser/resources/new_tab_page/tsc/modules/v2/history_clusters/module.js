@@ -126,6 +126,7 @@ export class HistoryClustersModuleElement extends I18nMixin(PolymerElement) {
             !!cart;
     }
     onDisableButtonClick_() {
+        HistoryClustersProxyImpl.getInstance().handler.recordDisabled(this.cluster.id);
         const disableEvent = new CustomEvent('disable-module', {
             composed: true,
             detail: {
@@ -136,7 +137,7 @@ export class HistoryClustersModuleElement extends I18nMixin(PolymerElement) {
     }
     onDismissButtonClick_() {
         HistoryClustersProxyImpl.getInstance()
-            .handler.updateClusterVisitsInteractionState(this.cluster.visits, InteractionState.kHidden);
+            .handler.updateClusterVisitsInteractionState(this.cluster.id, this.cluster.visits, InteractionState.kHidden);
         this.dispatchEvent(new CustomEvent('dismiss-module-instance', {
             bubbles: true,
             composed: true,
@@ -144,14 +145,14 @@ export class HistoryClustersModuleElement extends I18nMixin(PolymerElement) {
                 message: loadTimeData.getStringF('dismissModuleToastMessage', this.cluster.label),
                 restoreCallback: () => {
                     HistoryClustersProxyImpl.getInstance()
-                        .handler.updateClusterVisitsInteractionState(this.cluster.visits, InteractionState.kDefault);
+                        .handler.updateClusterVisitsInteractionState(this.cluster.id, this.cluster.visits, InteractionState.kDefault);
                 },
             },
         }));
     }
     onDoneButtonClick_() {
         HistoryClustersProxyImpl.getInstance()
-            .handler.updateClusterVisitsInteractionState(this.cluster.visits, InteractionState.kDone);
+            .handler.updateClusterVisitsInteractionState(this.cluster.id, this.cluster.visits, InteractionState.kDone);
         this.dispatchEvent(new CustomEvent('dismiss-module-instance', {
             bubbles: true,
             composed: true,
@@ -159,7 +160,7 @@ export class HistoryClustersModuleElement extends I18nMixin(PolymerElement) {
                 message: loadTimeData.getStringF('dismissModuleToastMessage', this.cluster.label),
                 restoreCallback: () => {
                     HistoryClustersProxyImpl.getInstance()
-                        .handler.updateClusterVisitsInteractionState(this.cluster.visits, InteractionState.kDefault);
+                        .handler.updateClusterVisitsInteractionState(this.cluster.id, this.cluster.visits, InteractionState.kDefault);
                 },
             },
         }));

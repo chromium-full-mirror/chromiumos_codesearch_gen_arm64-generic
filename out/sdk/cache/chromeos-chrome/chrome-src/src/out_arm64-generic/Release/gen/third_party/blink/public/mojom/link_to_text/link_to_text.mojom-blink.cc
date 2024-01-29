@@ -527,6 +527,8 @@ bool TextFragmentReceiver_RequestSelector_ForwardToCallback::Accept(
           internal::TextFragmentReceiver_RequestSelector_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextFragmentReceiver.1
   bool success = true;
   WTF::String p_selector{};
   ::shared_highlighting::LinkGenerationError p_error{};
@@ -674,6 +676,8 @@ bool TextFragmentReceiver_ExtractTextFragmentsMatches_ForwardToCallback::Accept(
           internal::TextFragmentReceiver_ExtractTextFragmentsMatches_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextFragmentReceiver.3
   bool success = true;
   WTF::Vector<WTF::String> p_text{};
   TextFragmentReceiver_ExtractTextFragmentsMatches_ResponseParamsDataView input_data_view(params, message);
@@ -805,6 +809,8 @@ bool TextFragmentReceiver_GetExistingSelectors_ForwardToCallback::Accept(
           internal::TextFragmentReceiver_GetExistingSelectors_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextFragmentReceiver.4
   bool success = true;
   WTF::Vector<WTF::String> p_selectors{};
   TextFragmentReceiver_GetExistingSelectors_ResponseParamsDataView input_data_view(params, message);
@@ -936,6 +942,8 @@ bool TextFragmentReceiver_ExtractFirstFragmentRect_ForwardToCallback::Accept(
           internal::TextFragmentReceiver_ExtractFirstFragmentRect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextFragmentReceiver.5
   bool success = true;
   ::gfx::Rect p_bounds{};
   TextFragmentReceiver_ExtractFirstFragmentRect_ResponseParamsDataView input_data_view(params, message);
@@ -1020,6 +1028,8 @@ bool TextFragmentReceiverStubDispatch::Accept(
           reinterpret_cast<internal::TextFragmentReceiver_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextFragmentReceiver.0
       bool success = true;
       TextFragmentReceiver_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -1032,7 +1042,7 @@ bool TextFragmentReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel();
+      impl->Cancel(        );
       return true;
     }
     case internal::kTextFragmentReceiver_RequestSelector_Name: {
@@ -1045,6 +1055,8 @@ bool TextFragmentReceiverStubDispatch::Accept(
           reinterpret_cast<internal::TextFragmentReceiver_RemoveFragments_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextFragmentReceiver.2
       bool success = true;
       TextFragmentReceiver_RemoveFragments_ParamsDataView input_data_view(params, message);
       
@@ -1057,7 +1069,7 @@ bool TextFragmentReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveFragments();
+      impl->RemoveFragments(        );
       return true;
     }
     case internal::kTextFragmentReceiver_ExtractTextFragmentsMatches_Name: {
@@ -1092,6 +1104,8 @@ bool TextFragmentReceiverStubDispatch::AcceptWithResponder(
               internal::TextFragmentReceiver_RequestSelector_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextFragmentReceiver.1
       bool success = true;
       TextFragmentReceiver_RequestSelector_ParamsDataView input_data_view(params, message);
       
@@ -1120,6 +1134,8 @@ bool TextFragmentReceiverStubDispatch::AcceptWithResponder(
               internal::TextFragmentReceiver_ExtractTextFragmentsMatches_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextFragmentReceiver.3
       bool success = true;
       TextFragmentReceiver_ExtractTextFragmentsMatches_ParamsDataView input_data_view(params, message);
       
@@ -1145,6 +1161,8 @@ bool TextFragmentReceiverStubDispatch::AcceptWithResponder(
               internal::TextFragmentReceiver_GetExistingSelectors_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextFragmentReceiver.4
       bool success = true;
       TextFragmentReceiver_GetExistingSelectors_ParamsDataView input_data_view(params, message);
       
@@ -1170,6 +1188,8 @@ bool TextFragmentReceiverStubDispatch::AcceptWithResponder(
               internal::TextFragmentReceiver_ExtractFirstFragmentRect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextFragmentReceiver.5
       bool success = true;
       TextFragmentReceiver_ExtractFirstFragmentRect_ParamsDataView input_data_view(params, message);
       

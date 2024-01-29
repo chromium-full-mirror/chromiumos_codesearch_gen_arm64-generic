@@ -814,6 +814,8 @@ bool ReportingServiceProxyStubDispatch::Accept(
           reinterpret_cast<internal::ReportingServiceProxy_QueueInterventionReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingServiceProxy.0
       bool success = true;
       ::GURL p_url{};
       std::string p_id{};
@@ -844,13 +846,13 @@ bool ReportingServiceProxyStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueInterventionReport(
-std::move(p_url), 
-std::move(p_id), 
-std::move(p_message), 
-std::move(p_source_file), 
-std::move(p_line_number), 
-std::move(p_column_number));
+      impl->QueueInterventionReport(        
+        std::move(p_url), 
+        std::move(p_id), 
+        std::move(p_message), 
+        std::move(p_source_file), 
+        std::move(p_line_number), 
+        std::move(p_column_number));
       return true;
     }
     case internal::kReportingServiceProxy_QueueDeprecationReport_Name: {
@@ -860,6 +862,8 @@ std::move(p_column_number));
           reinterpret_cast<internal::ReportingServiceProxy_QueueDeprecationReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingServiceProxy.1
       bool success = true;
       ::GURL p_url{};
       std::string p_id{};
@@ -893,14 +897,14 @@ std::move(p_column_number));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueDeprecationReport(
-std::move(p_url), 
-std::move(p_id), 
-std::move(p_anticipatedRemoval), 
-std::move(p_message), 
-std::move(p_source_file), 
-std::move(p_line_number), 
-std::move(p_column_number));
+      impl->QueueDeprecationReport(        
+        std::move(p_url), 
+        std::move(p_id), 
+        std::move(p_anticipatedRemoval), 
+        std::move(p_message), 
+        std::move(p_source_file), 
+        std::move(p_line_number), 
+        std::move(p_column_number));
       return true;
     }
     case internal::kReportingServiceProxy_QueueCspViolationReport_Name: {
@@ -910,6 +914,8 @@ std::move(p_column_number));
           reinterpret_cast<internal::ReportingServiceProxy_QueueCspViolationReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingServiceProxy.2
       bool success = true;
       ::GURL p_url{};
       std::string p_group{};
@@ -961,20 +967,20 @@ std::move(p_column_number));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueCspViolationReport(
-std::move(p_url), 
-std::move(p_group), 
-std::move(p_document_url), 
-std::move(p_referrer), 
-std::move(p_blocked_url), 
-std::move(p_effective_directive), 
-std::move(p_original_policy), 
-std::move(p_source_file), 
-std::move(p_script_sample), 
-std::move(p_disposition), 
-std::move(p_status_code), 
-std::move(p_line_number), 
-std::move(p_column_number));
+      impl->QueueCspViolationReport(        
+        std::move(p_url), 
+        std::move(p_group), 
+        std::move(p_document_url), 
+        std::move(p_referrer), 
+        std::move(p_blocked_url), 
+        std::move(p_effective_directive), 
+        std::move(p_original_policy), 
+        std::move(p_source_file), 
+        std::move(p_script_sample), 
+        std::move(p_disposition), 
+        std::move(p_status_code), 
+        std::move(p_line_number), 
+        std::move(p_column_number));
       return true;
     }
     case internal::kReportingServiceProxy_QueuePermissionsPolicyViolationReport_Name: {
@@ -984,6 +990,8 @@ std::move(p_column_number));
           reinterpret_cast<internal::ReportingServiceProxy_QueuePermissionsPolicyViolationReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingServiceProxy.3
       bool success = true;
       ::GURL p_url{};
       std::string p_endpoint{};
@@ -1020,15 +1028,15 @@ std::move(p_column_number));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueuePermissionsPolicyViolationReport(
-std::move(p_url), 
-std::move(p_endpoint), 
-std::move(p_policy_id), 
-std::move(p_disposition), 
-std::move(p_message), 
-std::move(p_source_file), 
-std::move(p_line_number), 
-std::move(p_column_number));
+      impl->QueuePermissionsPolicyViolationReport(        
+        std::move(p_url), 
+        std::move(p_endpoint), 
+        std::move(p_policy_id), 
+        std::move(p_disposition), 
+        std::move(p_message), 
+        std::move(p_source_file), 
+        std::move(p_line_number), 
+        std::move(p_column_number));
       return true;
     }
     case internal::kReportingServiceProxy_QueueDocumentPolicyViolationReport_Name: {
@@ -1038,6 +1046,8 @@ std::move(p_column_number));
           reinterpret_cast<internal::ReportingServiceProxy_QueueDocumentPolicyViolationReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingServiceProxy.4
       bool success = true;
       ::GURL p_url{};
       std::string p_group{};
@@ -1074,15 +1084,15 @@ std::move(p_column_number));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueDocumentPolicyViolationReport(
-std::move(p_url), 
-std::move(p_group), 
-std::move(p_policy_id), 
-std::move(p_disposition), 
-std::move(p_message), 
-std::move(p_source_file), 
-std::move(p_line_number), 
-std::move(p_column_number));
+      impl->QueueDocumentPolicyViolationReport(        
+        std::move(p_url), 
+        std::move(p_group), 
+        std::move(p_policy_id), 
+        std::move(p_disposition), 
+        std::move(p_message), 
+        std::move(p_source_file), 
+        std::move(p_line_number), 
+        std::move(p_column_number));
       return true;
     }
   }

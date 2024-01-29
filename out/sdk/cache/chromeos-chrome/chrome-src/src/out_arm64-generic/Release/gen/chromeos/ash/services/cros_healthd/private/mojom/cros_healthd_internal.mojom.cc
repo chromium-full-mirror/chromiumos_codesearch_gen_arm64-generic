@@ -591,6 +591,8 @@ bool ChromiumDataCollector_GetTouchscreenDevices_ForwardToCallback::Accept(
           internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromiumDataCollector.0
   bool success = true;
   std::vector<TouchscreenDevicePtr> p_devices{};
   ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView input_data_view(params, message);
@@ -722,6 +724,8 @@ bool ChromiumDataCollector_GetTouchpadLibraryName_ForwardToCallback::Accept(
           internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromiumDataCollector.1
   bool success = true;
   std::string p_library_name{};
   ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView input_data_view(params, message);
@@ -851,6 +855,8 @@ bool ChromiumDataCollector_SetPrivacyScreenState_ForwardToCallback::Accept(
           internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromiumDataCollector.2
   bool success = true;
   bool p_success{};
   ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView input_data_view(params, message);
@@ -970,6 +976,8 @@ bool ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback::Accept(
           internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromiumDataCollector.3
   bool success = true;
   bool p_success{};
   ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView input_data_view(params, message);
@@ -1069,6 +1077,8 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
               internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromiumDataCollector.0
       bool success = true;
       ChromiumDataCollector_GetTouchscreenDevices_ParamsDataView input_data_view(params, message);
       
@@ -1094,6 +1104,8 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
               internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromiumDataCollector.1
       bool success = true;
       ChromiumDataCollector_GetTouchpadLibraryName_ParamsDataView input_data_view(params, message);
       
@@ -1119,6 +1131,8 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
               internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromiumDataCollector.2
       bool success = true;
       bool p_state{};
       ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView input_data_view(params, message);
@@ -1137,8 +1151,8 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPrivacyScreenState(
-std::move(p_state), std::move(callback));
+      impl->SetPrivacyScreenState(        
+        std::move(p_state), std::move(callback));
       return true;
     }
     case internal::kChromiumDataCollector_SetAudioOutputMute_Name: {
@@ -1148,6 +1162,8 @@ std::move(p_state), std::move(callback));
               internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromiumDataCollector.3
       bool success = true;
       bool p_mute_on{};
       ChromiumDataCollector_SetAudioOutputMute_ParamsDataView input_data_view(params, message);
@@ -1166,8 +1182,8 @@ std::move(p_state), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAudioOutputMute(
-std::move(p_mute_on), std::move(callback));
+      impl->SetAudioOutputMute(        
+        std::move(p_mute_on), std::move(callback));
       return true;
     }
   }

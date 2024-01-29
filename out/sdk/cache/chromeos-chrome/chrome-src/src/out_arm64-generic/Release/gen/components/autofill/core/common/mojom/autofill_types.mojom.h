@@ -635,6 +635,8 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
 class  SectionValue {
  public:
   using DataView = SectionValueDataView;
@@ -1758,6 +1760,158 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  FormFieldData_FillData {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FormFieldData_FillData, T>::value>;
+  using DataView = FormFieldData_FillDataDataView;
+  using Data_ = internal::FormFieldData_FillData_Data;
+
+  template <typename... Args>
+  static FormFieldData_FillDataPtr New(Args&&... args) {
+    return FormFieldData_FillDataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FormFieldData_FillDataPtr From(const U& u) {
+    return mojo::TypeConverter<FormFieldData_FillDataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FormFieldData_FillData>::Convert(*this);
+  }
+
+
+  FormFieldData_FillData();
+
+  FormFieldData_FillData(
+      const ::std::u16string& value,
+      ::autofill::FieldRendererId unique_renderer_id,
+      bool is_autofilled,
+      const ::autofill::Section& section,
+      bool force_override);
+
+
+  ~FormFieldData_FillData();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FormFieldData_FillDataPtr>
+  FormFieldData_FillDataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FormFieldData_FillData::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FormFieldData_FillData::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FormFieldData_FillData_UnserializedMessageContext<
+            UserType, FormFieldData_FillData::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FormFieldData_FillData::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FormFieldData_FillData::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FormFieldData_FillData_UnserializedMessageContext<
+            UserType, FormFieldData_FillData::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FormFieldData_FillData::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::std::u16string value;
+  
+  ::autofill::FieldRendererId unique_renderer_id;
+  
+  bool is_autofilled;
+  
+  ::autofill::Section section;
+  
+  bool force_override;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FormFieldData_FillData::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  ButtonTitleInfo {
  public:
   template <typename T>
@@ -2079,6 +2233,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  FormData_FillData {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FormData_FillData, T>::value>;
+  using DataView = FormData_FillDataDataView;
+  using Data_ = internal::FormData_FillData_Data;
+
+  template <typename... Args>
+  static FormData_FillDataPtr New(Args&&... args) {
+    return FormData_FillDataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FormData_FillDataPtr From(const U& u) {
+    return mojo::TypeConverter<FormData_FillDataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FormData_FillData>::Convert(*this);
+  }
+
+
+  FormData_FillData();
+
+  FormData_FillData(
+      ::autofill::FormRendererId unique_renderer_id,
+      std::vector<::autofill::FormFieldData::FillData> fields);
+
+
+  ~FormData_FillData();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FormData_FillDataPtr>
+  FormData_FillDataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FormData_FillData::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FormData_FillData::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FormData_FillData_UnserializedMessageContext<
+            UserType, FormData_FillData::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FormData_FillData::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FormData_FillData::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FormData_FillData_UnserializedMessageContext<
+            UserType, FormData_FillData::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FormData_FillData::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::autofill::FormRendererId unique_renderer_id;
+  
+  std::vector<::autofill::FormFieldData::FillData> fields;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FormData_FillData::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  FormFieldDataPredictions {
  public:
   template <typename T>
@@ -2109,7 +2406,7 @@ class  FormFieldDataPredictions {
       const std::string& host_form_signature,
       const std::string& signature,
       const std::string& heuristic_type,
-      const std::string& server_type,
+      const std::optional<std::string>& server_type,
       const std::string& html_type,
       const std::string& overall_type,
       const std::string& parseable_name,
@@ -2201,7 +2498,7 @@ class  FormFieldDataPredictions {
   
   std::string heuristic_type;
   
-  std::string server_type;
+  std::optional<std::string> server_type;
   
   std::string html_type;
   
@@ -3709,6 +4006,56 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+FormFieldData_FillDataPtr FormFieldData_FillData::Clone() const {
+  return New(
+      mojo::Clone(value),
+      mojo::Clone(unique_renderer_id),
+      mojo::Clone(is_autofilled),
+      mojo::Clone(section),
+      mojo::Clone(force_override)
+  );
+}
+
+template <typename T, FormFieldData_FillData::EnableIfSame<T>*>
+bool FormFieldData_FillData::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->value, other_struct.value))
+    return false;
+  if (!mojo::Equals(this->unique_renderer_id, other_struct.unique_renderer_id))
+    return false;
+  if (!mojo::Equals(this->is_autofilled, other_struct.is_autofilled))
+    return false;
+  if (!mojo::Equals(this->section, other_struct.section))
+    return false;
+  if (!mojo::Equals(this->force_override, other_struct.force_override))
+    return false;
+  return true;
+}
+
+template <typename T, FormFieldData_FillData::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.value < rhs.value)
+    return true;
+  if (rhs.value < lhs.value)
+    return false;
+  if (lhs.unique_renderer_id < rhs.unique_renderer_id)
+    return true;
+  if (rhs.unique_renderer_id < lhs.unique_renderer_id)
+    return false;
+  if (lhs.is_autofilled < rhs.is_autofilled)
+    return true;
+  if (rhs.is_autofilled < lhs.is_autofilled)
+    return false;
+  if (lhs.section < rhs.section)
+    return true;
+  if (rhs.section < lhs.section)
+    return false;
+  if (lhs.force_override < rhs.force_override)
+    return true;
+  if (rhs.force_override < lhs.force_override)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ButtonTitleInfoPtr ButtonTitleInfo::Clone() const {
   return New(
       mojo::Clone(title),
@@ -3840,6 +4187,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_gaia_with_skip_save_password_form < rhs.is_gaia_with_skip_save_password_form)
     return true;
   if (rhs.is_gaia_with_skip_save_password_form < lhs.is_gaia_with_skip_save_password_form)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+FormData_FillDataPtr FormData_FillData::Clone() const {
+  return New(
+      mojo::Clone(unique_renderer_id),
+      mojo::Clone(fields)
+  );
+}
+
+template <typename T, FormData_FillData::EnableIfSame<T>*>
+bool FormData_FillData::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->unique_renderer_id, other_struct.unique_renderer_id))
+    return false;
+  if (!mojo::Equals(this->fields, other_struct.fields))
+    return false;
+  return true;
+}
+
+template <typename T, FormData_FillData::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.unique_renderer_id < rhs.unique_renderer_id)
+    return true;
+  if (rhs.unique_renderer_id < lhs.unique_renderer_id)
+    return false;
+  if (lhs.fields < rhs.fields)
+    return true;
+  if (rhs.fields < lhs.fields)
     return false;
   return false;
 }
@@ -4610,6 +4986,41 @@ struct  StructTraits<::autofill::mojom::FormFieldData::DataView,
 
 
 template <>
+struct  StructTraits<::autofill::mojom::FormFieldData_FillData::DataView,
+                                         ::autofill::mojom::FormFieldData_FillDataPtr> {
+  static bool IsNull(const ::autofill::mojom::FormFieldData_FillDataPtr& input) { return !input; }
+  static void SetToNull(::autofill::mojom::FormFieldData_FillDataPtr* output) { output->reset(); }
+
+  static const decltype(::autofill::mojom::FormFieldData_FillData::value)& value(
+      const ::autofill::mojom::FormFieldData_FillDataPtr& input) {
+    return input->value;
+  }
+
+  static const decltype(::autofill::mojom::FormFieldData_FillData::unique_renderer_id)& unique_renderer_id(
+      const ::autofill::mojom::FormFieldData_FillDataPtr& input) {
+    return input->unique_renderer_id;
+  }
+
+  static decltype(::autofill::mojom::FormFieldData_FillData::is_autofilled) is_autofilled(
+      const ::autofill::mojom::FormFieldData_FillDataPtr& input) {
+    return input->is_autofilled;
+  }
+
+  static const decltype(::autofill::mojom::FormFieldData_FillData::section)& section(
+      const ::autofill::mojom::FormFieldData_FillDataPtr& input) {
+    return input->section;
+  }
+
+  static decltype(::autofill::mojom::FormFieldData_FillData::force_override) force_override(
+      const ::autofill::mojom::FormFieldData_FillDataPtr& input) {
+    return input->force_override;
+  }
+
+  static bool Read(::autofill::mojom::FormFieldData_FillData::DataView input, ::autofill::mojom::FormFieldData_FillDataPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::autofill::mojom::ButtonTitleInfo::DataView,
                                          ::autofill::mojom::ButtonTitleInfoPtr> {
   static bool IsNull(const ::autofill::mojom::ButtonTitleInfoPtr& input) { return !input; }
@@ -4701,6 +5112,26 @@ struct  StructTraits<::autofill::mojom::FormData::DataView,
   }
 
   static bool Read(::autofill::mojom::FormData::DataView input, ::autofill::mojom::FormDataPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::autofill::mojom::FormData_FillData::DataView,
+                                         ::autofill::mojom::FormData_FillDataPtr> {
+  static bool IsNull(const ::autofill::mojom::FormData_FillDataPtr& input) { return !input; }
+  static void SetToNull(::autofill::mojom::FormData_FillDataPtr* output) { output->reset(); }
+
+  static const decltype(::autofill::mojom::FormData_FillData::unique_renderer_id)& unique_renderer_id(
+      const ::autofill::mojom::FormData_FillDataPtr& input) {
+    return input->unique_renderer_id;
+  }
+
+  static const decltype(::autofill::mojom::FormData_FillData::fields)& fields(
+      const ::autofill::mojom::FormData_FillDataPtr& input) {
+    return input->fields;
+  }
+
+  static bool Read(::autofill::mojom::FormData_FillData::DataView input, ::autofill::mojom::FormData_FillDataPtr* output);
 };
 
 

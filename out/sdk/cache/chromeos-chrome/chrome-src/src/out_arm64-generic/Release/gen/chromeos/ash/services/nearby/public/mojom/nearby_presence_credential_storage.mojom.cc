@@ -488,6 +488,8 @@ bool NearbyPresenceCredentialStorage_SaveCredentials_ForwardToCallback::Accept(
           internal::NearbyPresenceCredentialStorage_SaveCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresenceCredentialStorage.0
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
   NearbyPresenceCredentialStorage_SaveCredentials_ResponseParamsDataView input_data_view(params, message);
@@ -608,6 +610,8 @@ bool NearbyPresenceCredentialStorage_GetPublicCredentials_ForwardToCallback::Acc
           internal::NearbyPresenceCredentialStorage_GetPublicCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresenceCredentialStorage.1
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
   std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>> p_shared_credentials{};
@@ -744,6 +748,8 @@ bool NearbyPresenceCredentialStorage_GetPrivateCredentials_ForwardToCallback::Ac
           internal::NearbyPresenceCredentialStorage_GetPrivateCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresenceCredentialStorage.2
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
   std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>> p_local_credentials{};
@@ -880,6 +886,8 @@ bool NearbyPresenceCredentialStorage_UpdateLocalCredential_ForwardToCallback::Ac
           internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyPresenceCredentialStorage.3
   bool success = true;
   ::mojo_base::mojom::AbslStatusCode p_status{};
   NearbyPresenceCredentialStorage_UpdateLocalCredential_ResponseParamsDataView input_data_view(params, message);
@@ -980,6 +988,8 @@ bool NearbyPresenceCredentialStorageStubDispatch::AcceptWithResponder(
               internal::NearbyPresenceCredentialStorage_SaveCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresenceCredentialStorage.0
       bool success = true;
       std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr> p_local_credentials{};
       std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr> p_shared_credentials{};
@@ -1004,10 +1014,10 @@ bool NearbyPresenceCredentialStorageStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SaveCredentials(
-std::move(p_local_credentials), 
-std::move(p_shared_credentials), 
-std::move(p_public_credential_type), std::move(callback));
+      impl->SaveCredentials(        
+        std::move(p_local_credentials), 
+        std::move(p_shared_credentials), 
+        std::move(p_public_credential_type), std::move(callback));
       return true;
     }
     case internal::kNearbyPresenceCredentialStorage_GetPublicCredentials_Name: {
@@ -1017,6 +1027,8 @@ std::move(p_public_credential_type), std::move(callback));
               internal::NearbyPresenceCredentialStorage_GetPublicCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresenceCredentialStorage.1
       bool success = true;
       ::ash::nearby::presence::mojom::PublicCredentialType p_public_credential_type{};
       NearbyPresenceCredentialStorage_GetPublicCredentials_ParamsDataView input_data_view(params, message);
@@ -1035,8 +1047,8 @@ std::move(p_public_credential_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPublicCredentials(
-std::move(p_public_credential_type), std::move(callback));
+      impl->GetPublicCredentials(        
+        std::move(p_public_credential_type), std::move(callback));
       return true;
     }
     case internal::kNearbyPresenceCredentialStorage_GetPrivateCredentials_Name: {
@@ -1046,6 +1058,8 @@ std::move(p_public_credential_type), std::move(callback));
               internal::NearbyPresenceCredentialStorage_GetPrivateCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresenceCredentialStorage.2
       bool success = true;
       NearbyPresenceCredentialStorage_GetPrivateCredentials_ParamsDataView input_data_view(params, message);
       
@@ -1071,6 +1085,8 @@ std::move(p_public_credential_type), std::move(callback));
               internal::NearbyPresenceCredentialStorage_UpdateLocalCredential_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyPresenceCredentialStorage.3
       bool success = true;
       ::ash::nearby::presence::mojom::LocalCredentialPtr p_local_credential{};
       NearbyPresenceCredentialStorage_UpdateLocalCredential_ParamsDataView input_data_view(params, message);
@@ -1089,8 +1105,8 @@ std::move(p_public_credential_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLocalCredential(
-std::move(p_local_credential), std::move(callback));
+      impl->UpdateLocalCredential(        
+        std::move(p_local_credential), std::move(callback));
       return true;
     }
   }

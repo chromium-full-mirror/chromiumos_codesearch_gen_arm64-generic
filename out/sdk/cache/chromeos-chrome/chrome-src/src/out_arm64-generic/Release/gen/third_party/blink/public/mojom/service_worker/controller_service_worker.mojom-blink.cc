@@ -541,6 +541,8 @@ bool ControllerServiceWorker_DispatchFetchEventForSubresource_ForwardToCallback:
           internal::ControllerServiceWorker_DispatchFetchEventForSubresource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ControllerServiceWorker.0
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerEventStatus p_status{};
   ControllerServiceWorker_DispatchFetchEventForSubresource_ResponseParamsDataView input_data_view(params, message);
@@ -619,6 +621,8 @@ bool ControllerServiceWorkerStubDispatch::Accept(
           reinterpret_cast<internal::ControllerServiceWorker_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ControllerServiceWorker.1
       bool success = true;
       ::mojo::PendingReceiver<ControllerServiceWorker> p_receiver{};
       ::network::CrossOriginEmbedderPolicy p_cross_origin_embedder_policy{};
@@ -644,10 +648,10 @@ bool ControllerServiceWorkerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver), 
-std::move(p_cross_origin_embedder_policy), 
-std::move(p_coep_reporter));
+      impl->Clone(        
+        std::move(p_receiver), 
+        std::move(p_cross_origin_embedder_policy), 
+        std::move(p_coep_reporter));
       return true;
     }
   }
@@ -670,6 +674,8 @@ bool ControllerServiceWorkerStubDispatch::AcceptWithResponder(
               internal::ControllerServiceWorker_DispatchFetchEventForSubresource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ControllerServiceWorker.0
       bool success = true;
       ::blink::mojom::blink::DispatchFetchEventParamsPtr p_params{};
       ::mojo::PendingRemote<::blink::mojom::blink::ServiceWorkerFetchResponseCallback> p_response_callback{};
@@ -693,9 +699,9 @@ bool ControllerServiceWorkerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchFetchEventForSubresource(
-std::move(p_params), 
-std::move(p_response_callback), std::move(callback));
+      impl->DispatchFetchEventForSubresource(        
+        std::move(p_params), 
+        std::move(p_response_callback), std::move(callback));
       return true;
     }
     case internal::kControllerServiceWorker_Clone_Name: {
@@ -835,6 +841,8 @@ bool ControllerServiceWorkerConnectorStubDispatch::Accept(
           reinterpret_cast<internal::ControllerServiceWorkerConnector_UpdateController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ControllerServiceWorkerConnector.0
       bool success = true;
       ::mojo::PendingRemote<ControllerServiceWorker> p_controller{};
       ControllerServiceWorkerConnector_UpdateController_ParamsDataView input_data_view(params, message);
@@ -852,8 +860,8 @@ bool ControllerServiceWorkerConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateController(
-std::move(p_controller));
+      impl->UpdateController(        
+        std::move(p_controller));
       return true;
     }
   }

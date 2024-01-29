@@ -166,6 +166,8 @@ bool NewWindowProxyStubDispatch::Accept(
           reinterpret_cast<internal::NewWindowProxy_OpenUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NewWindowProxy.0
       bool success = true;
       ::GURL p_url{};
       NewWindowProxy_OpenUrl_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool NewWindowProxyStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrl(
-std::move(p_url));
+      impl->OpenUrl(        
+        std::move(p_url));
       return true;
     }
   }

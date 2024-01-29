@@ -700,6 +700,8 @@ bool BatteryChargeStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::BatteryChargeStatusObserver_OnBatteryChargeStatusUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BatteryChargeStatusObserver.0
       bool success = true;
       BatteryChargeStatusPtr p_battery_charge_status{};
       BatteryChargeStatusObserver_OnBatteryChargeStatusUpdated_ParamsDataView input_data_view(params, message);
@@ -715,8 +717,8 @@ bool BatteryChargeStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBatteryChargeStatusUpdated(
-std::move(p_battery_charge_status));
+      impl->OnBatteryChargeStatusUpdated(        
+        std::move(p_battery_charge_status));
       return true;
     }
   }
@@ -872,6 +874,8 @@ bool BatteryHealthObserverStubDispatch::Accept(
           reinterpret_cast<internal::BatteryHealthObserver_OnBatteryHealthUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BatteryHealthObserver.0
       bool success = true;
       BatteryHealthPtr p_battery_health{};
       BatteryHealthObserver_OnBatteryHealthUpdated_ParamsDataView input_data_view(params, message);
@@ -887,8 +891,8 @@ bool BatteryHealthObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBatteryHealthUpdated(
-std::move(p_battery_health));
+      impl->OnBatteryHealthUpdated(        
+        std::move(p_battery_health));
       return true;
     }
   }
@@ -1044,6 +1048,8 @@ bool MemoryUsageObserverStubDispatch::Accept(
           reinterpret_cast<internal::MemoryUsageObserver_OnMemoryUsageUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MemoryUsageObserver.0
       bool success = true;
       MemoryUsagePtr p_memory_usage{};
       MemoryUsageObserver_OnMemoryUsageUpdated_ParamsDataView input_data_view(params, message);
@@ -1059,8 +1065,8 @@ bool MemoryUsageObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMemoryUsageUpdated(
-std::move(p_memory_usage));
+      impl->OnMemoryUsageUpdated(        
+        std::move(p_memory_usage));
       return true;
     }
   }
@@ -1216,6 +1222,8 @@ bool CpuUsageObserverStubDispatch::Accept(
           reinterpret_cast<internal::CpuUsageObserver_OnCpuUsageUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CpuUsageObserver.0
       bool success = true;
       CpuUsagePtr p_cpu_usage{};
       CpuUsageObserver_OnCpuUsageUpdated_ParamsDataView input_data_view(params, message);
@@ -1231,8 +1239,8 @@ bool CpuUsageObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCpuUsageUpdated(
-std::move(p_cpu_usage));
+      impl->OnCpuUsageUpdated(        
+        std::move(p_cpu_usage));
       return true;
     }
   }
@@ -1766,6 +1774,8 @@ bool SystemDataProvider_GetSystemInfo_ForwardToCallback::Accept(
           internal::SystemDataProvider_GetSystemInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemDataProvider.0
   bool success = true;
   SystemInfoPtr p_system_info{};
   SystemDataProvider_GetSystemInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1895,6 +1905,8 @@ bool SystemDataProvider_GetBatteryInfo_ForwardToCallback::Accept(
           internal::SystemDataProvider_GetBatteryInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemDataProvider.1
   bool success = true;
   BatteryInfoPtr p_battery_info{};
   SystemDataProvider_GetBatteryInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1985,6 +1997,8 @@ bool SystemDataProviderStubDispatch::Accept(
           reinterpret_cast<internal::SystemDataProvider_ObserveBatteryChargeStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemDataProvider.2
       bool success = true;
       ::mojo::PendingRemote<BatteryChargeStatusObserver> p_observer{};
       SystemDataProvider_ObserveBatteryChargeStatus_ParamsDataView input_data_view(params, message);
@@ -2002,8 +2016,8 @@ bool SystemDataProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveBatteryChargeStatus(
-std::move(p_observer));
+      impl->ObserveBatteryChargeStatus(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSystemDataProvider_ObserveBatteryHealth_Name: {
@@ -2013,6 +2027,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SystemDataProvider_ObserveBatteryHealth_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemDataProvider.3
       bool success = true;
       ::mojo::PendingRemote<BatteryHealthObserver> p_observer{};
       SystemDataProvider_ObserveBatteryHealth_ParamsDataView input_data_view(params, message);
@@ -2030,8 +2046,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveBatteryHealth(
-std::move(p_observer));
+      impl->ObserveBatteryHealth(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSystemDataProvider_ObserveMemoryUsage_Name: {
@@ -2041,6 +2057,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SystemDataProvider_ObserveMemoryUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemDataProvider.4
       bool success = true;
       ::mojo::PendingRemote<MemoryUsageObserver> p_observer{};
       SystemDataProvider_ObserveMemoryUsage_ParamsDataView input_data_view(params, message);
@@ -2058,8 +2076,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveMemoryUsage(
-std::move(p_observer));
+      impl->ObserveMemoryUsage(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSystemDataProvider_ObserveCpuUsage_Name: {
@@ -2069,6 +2087,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SystemDataProvider_ObserveCpuUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemDataProvider.5
       bool success = true;
       ::mojo::PendingRemote<CpuUsageObserver> p_observer{};
       SystemDataProvider_ObserveCpuUsage_ParamsDataView input_data_view(params, message);
@@ -2086,8 +2106,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveCpuUsage(
-std::move(p_observer));
+      impl->ObserveCpuUsage(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -2110,6 +2130,8 @@ bool SystemDataProviderStubDispatch::AcceptWithResponder(
               internal::SystemDataProvider_GetSystemInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemDataProvider.0
       bool success = true;
       SystemDataProvider_GetSystemInfo_ParamsDataView input_data_view(params, message);
       
@@ -2135,6 +2157,8 @@ bool SystemDataProviderStubDispatch::AcceptWithResponder(
               internal::SystemDataProvider_GetBatteryInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemDataProvider.1
       bool success = true;
       SystemDataProvider_GetBatteryInfo_ParamsDataView input_data_view(params, message);
       

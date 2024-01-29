@@ -595,7 +595,7 @@ describeWithMockConnection('NetworkPersistenceManager', () => {
         };
         project.uiSourceCodes = () => [networkUISourceCode];
         const eventURLs = [];
-        networkPersistenceManager.addEventListener(Persistence.NetworkPersistenceManager.Events.RequestsForHeaderOverridesFileChanged, event => {
+        networkPersistenceManager.addEventListener("RequestsForHeaderOverridesFileChanged" /* Persistence.NetworkPersistenceManager.Events.RequestsForHeaderOverridesFileChanged */, event => {
             eventURLs.push(event.data.url());
         });
         workspace.dispatchEventToListeners(Workspace.Workspace.Events.UISourceCodeAdded, networkUISourceCode);

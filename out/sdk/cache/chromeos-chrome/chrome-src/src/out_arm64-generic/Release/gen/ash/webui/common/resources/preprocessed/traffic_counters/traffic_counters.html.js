@@ -10,7 +10,7 @@ export function getTemplate() {
 <template is="dom-repeat" items="[[networks_]]" as="network">
   <network-health-container
       label="[[getNetworkTypeString_(network.type)]]"
-      expanded="[[getTypeExpanded_(network.type, typeExpanded_.*)]]"
+      expanded="[[getTypeExpanded_(network.type, typeExpanded.*)]]"
       on-toggle-expanded="onToggleExpanded_">
     <span slot="header">
       <img class="type-icon" src="[[getNetworkTypeIcon_(network.type)]]">

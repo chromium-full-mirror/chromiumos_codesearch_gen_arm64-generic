@@ -7,7 +7,7 @@
 #ifndef THIRD_PARTY_BLINK_PUBLIC_MOJOM_BACK_FORWARD_CACHE_NOT_RESTORED_REASONS_MOJOM_BLINK_FORWARD_H_
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_BACK_FORWARD_CACHE_NOT_RESTORED_REASONS_MOJOM_BLINK_FORWARD_H_
 
-#include <stdint.h>
+
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -22,14 +22,11 @@
 
 namespace blink::mojom {
 
-enum class BFCacheBlocked : int32_t;
-
 
 }  // blink::mojom
 
 
 namespace blink::mojom::blink {
-using BFCacheBlocked = BFCacheBlocked;
 class SameOriginBfcacheNotRestoredDetails;
 using SameOriginBfcacheNotRestoredDetailsPtr = mojo::StructPtr<SameOriginBfcacheNotRestoredDetails>;
 

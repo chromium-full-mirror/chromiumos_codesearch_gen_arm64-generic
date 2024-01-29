@@ -44,6 +44,51 @@
 
 
 namespace mojom::user_education_internals {
+FeaturePromoDemoPageData::FeaturePromoDemoPageData()
+    : name(),
+      value() {}
+
+FeaturePromoDemoPageData::FeaturePromoDemoPageData(
+    const std::string& name_in,
+    const std::string& value_in)
+    : name(std::move(name_in)),
+      value(std::move(value_in)) {}
+
+FeaturePromoDemoPageData::~FeaturePromoDemoPageData() = default;
+size_t FeaturePromoDemoPageData::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->name);
+  seed = mojo::internal::Hash(seed, this->value);
+  return seed;
+}
+
+void FeaturePromoDemoPageData::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "value"), this->value,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FeaturePromoDemoPageData::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 FeaturePromoDemoPageInfo::FeaturePromoDemoPageInfo()
     : display_title(),
       display_description(),
@@ -51,8 +96,10 @@ FeaturePromoDemoPageInfo::FeaturePromoDemoPageInfo()
       type(),
       added_milestone(),
       supported_platforms(),
+      required_features(),
       instructions(),
-      followed_by_internal_name() {}
+      followed_by_internal_name(),
+      data() {}
 
 FeaturePromoDemoPageInfo::FeaturePromoDemoPageInfo(
     const std::string& display_title_in,
@@ -61,16 +108,20 @@ FeaturePromoDemoPageInfo::FeaturePromoDemoPageInfo(
     const std::string& type_in,
     int32_t added_milestone_in,
     std::vector<std::string> supported_platforms_in,
+    std::vector<std::string> required_features_in,
     std::vector<std::string> instructions_in,
-    const std::string& followed_by_internal_name_in)
+    const std::string& followed_by_internal_name_in,
+    std::vector<FeaturePromoDemoPageDataPtr> data_in)
     : display_title(std::move(display_title_in)),
       display_description(std::move(display_description_in)),
       internal_name(std::move(internal_name_in)),
       type(std::move(type_in)),
       added_milestone(std::move(added_milestone_in)),
       supported_platforms(std::move(supported_platforms_in)),
+      required_features(std::move(required_features_in)),
       instructions(std::move(instructions_in)),
-      followed_by_internal_name(std::move(followed_by_internal_name_in)) {}
+      followed_by_internal_name(std::move(followed_by_internal_name_in)),
+      data(std::move(data_in)) {}
 
 FeaturePromoDemoPageInfo::~FeaturePromoDemoPageInfo() = default;
 
@@ -133,6 +184,15 @@ void FeaturePromoDemoPageInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "required_features"), this->required_features,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "instructions"), this->instructions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::string>&>"
@@ -145,6 +205,15 @@ void FeaturePromoDemoPageInfo::WriteIntoTrace(
       "followed_by_internal_name"), this->followed_by_internal_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "data"), this->data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<FeaturePromoDemoPageDataPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -167,11 +236,20 @@ UserEducationInternalsPageHandler::IPCStableHashFunction UserEducationInternalsP
     case internal::kUserEducationInternalsPageHandler_StartTutorial_Name: {
       return &UserEducationInternalsPageHandler::StartTutorial_Sym::IPCStableHash;
     }
+    case internal::kUserEducationInternalsPageHandler_GetSessionData_Name: {
+      return &UserEducationInternalsPageHandler::GetSessionData_Sym::IPCStableHash;
+    }
     case internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name: {
       return &UserEducationInternalsPageHandler::GetFeaturePromos_Sym::IPCStableHash;
     }
     case internal::kUserEducationInternalsPageHandler_ShowFeaturePromo_Name: {
       return &UserEducationInternalsPageHandler::ShowFeaturePromo_Sym::IPCStableHash;
+    }
+    case internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name: {
+      return &UserEducationInternalsPageHandler::ClearFeaturePromoData_Sym::IPCStableHash;
+    }
+    case internal::kUserEducationInternalsPageHandler_ClearSessionData_Name: {
+      return &UserEducationInternalsPageHandler::ClearSessionData_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -188,10 +266,16 @@ const char* UserEducationInternalsPageHandler::MessageToMethodName_(mojo::Messag
             return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::GetTutorials";
       case internal::kUserEducationInternalsPageHandler_StartTutorial_Name:
             return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::StartTutorial";
+      case internal::kUserEducationInternalsPageHandler_GetSessionData_Name:
+            return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::GetSessionData";
       case internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name:
             return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::GetFeaturePromos";
       case internal::kUserEducationInternalsPageHandler_ShowFeaturePromo_Name:
             return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::ShowFeaturePromo";
+      case internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name:
+            return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::ClearFeaturePromoData";
+      case internal::kUserEducationInternalsPageHandler_ClearSessionData_Name:
+            return "Receive mojom::user_education_internals::UserEducationInternalsPageHandler::ClearSessionData";
     }
   } else {
     switch (message.name()) {
@@ -199,10 +283,16 @@ const char* UserEducationInternalsPageHandler::MessageToMethodName_(mojo::Messag
             return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::GetTutorials";
       case internal::kUserEducationInternalsPageHandler_StartTutorial_Name:
             return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::StartTutorial";
+      case internal::kUserEducationInternalsPageHandler_GetSessionData_Name:
+            return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::GetSessionData";
       case internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name:
             return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::GetFeaturePromos";
       case internal::kUserEducationInternalsPageHandler_ShowFeaturePromo_Name:
             return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::ShowFeaturePromo";
+      case internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name:
+            return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::ClearFeaturePromoData";
+      case internal::kUserEducationInternalsPageHandler_ClearSessionData_Name:
+            return "Receive reply mojom::user_education_internals::UserEducationInternalsPageHandler::ClearSessionData";
     }
   }
   return "Receive unknown mojo message";
@@ -243,6 +333,19 @@ uint32_t UserEducationInternalsPageHandler::StartTutorial_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t UserEducationInternalsPageHandler::GetSessionData_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)mojom::user_education_internals::UserEducationInternalsPageHandler::GetSessionData");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t UserEducationInternalsPageHandler::GetFeaturePromos_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -265,6 +368,32 @@ uint32_t UserEducationInternalsPageHandler::ShowFeaturePromo_Sym::IPCStableHash(
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)mojom::user_education_internals::UserEducationInternalsPageHandler::ShowFeaturePromo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t UserEducationInternalsPageHandler::ClearFeaturePromoData_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)mojom::user_education_internals::UserEducationInternalsPageHandler::ClearFeaturePromoData");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t UserEducationInternalsPageHandler::ClearSessionData_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)mojom::user_education_internals::UserEducationInternalsPageHandler::ClearSessionData");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -303,6 +432,22 @@ class UserEducationInternalsPageHandler_StartTutorial_ForwardToCallback
   UserEducationInternalsPageHandler::StartTutorialCallback callback_;
 };
 
+class UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback(
+      UserEducationInternalsPageHandler::GetSessionDataCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback(const UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback&) = delete;
+  UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback& operator=(const UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  UserEducationInternalsPageHandler::GetSessionDataCallback callback_;
+};
+
 class UserEducationInternalsPageHandler_GetFeaturePromos_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -333,6 +478,38 @@ class UserEducationInternalsPageHandler_ShowFeaturePromo_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   UserEducationInternalsPageHandler::ShowFeaturePromoCallback callback_;
+};
+
+class UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback(
+      UserEducationInternalsPageHandler::ClearFeaturePromoDataCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback(const UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback&) = delete;
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback& operator=(const UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  UserEducationInternalsPageHandler::ClearFeaturePromoDataCallback callback_;
+};
+
+class UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback(
+      UserEducationInternalsPageHandler::ClearSessionDataCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback(const UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback&) = delete;
+  UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback& operator=(const UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  UserEducationInternalsPageHandler::ClearSessionDataCallback callback_;
 };
 
 UserEducationInternalsPageHandlerProxy::UserEducationInternalsPageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -425,6 +602,40 @@ void UserEducationInternalsPageHandlerProxy::StartTutorial(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void UserEducationInternalsPageHandlerProxy::GetSessionData(
+    GetSessionDataCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send mojom::user_education_internals::UserEducationInternalsPageHandler::GetSessionData");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserEducationInternalsPageHandler_GetSessionData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::user_education_internals::internal::UserEducationInternalsPageHandler_GetSessionData_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserEducationInternalsPageHandler::Name_);
+  message.set_method_name("GetSessionData");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void UserEducationInternalsPageHandlerProxy::GetFeaturePromos(
     GetFeaturePromosCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -510,6 +721,92 @@ void UserEducationInternalsPageHandlerProxy::ShowFeaturePromo(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void UserEducationInternalsPageHandlerProxy::ClearFeaturePromoData(
+    const std::string& in_feature_name, ClearFeaturePromoDataCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send mojom::user_education_internals::UserEducationInternalsPageHandler::ClearFeaturePromoData", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("feature_name"), in_feature_name,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::user_education_internals::internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->feature_name)::BaseType> feature_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_feature_name, feature_name_fragment);
+  params->feature_name.Set(
+      feature_name_fragment.is_null() ? nullptr : feature_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->feature_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null feature_name in UserEducationInternalsPageHandler.ClearFeaturePromoData request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserEducationInternalsPageHandler::Name_);
+  message.set_method_name("ClearFeaturePromoData");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void UserEducationInternalsPageHandlerProxy::ClearSessionData(
+    ClearSessionDataCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send mojom::user_education_internals::UserEducationInternalsPageHandler::ClearSessionData");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserEducationInternalsPageHandler_ClearSessionData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::user_education_internals::internal::UserEducationInternalsPageHandler_ClearSessionData_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserEducationInternalsPageHandler::Name_);
+  message.set_method_name("ClearSessionData");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class UserEducationInternalsPageHandler_GetTutorials_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static UserEducationInternalsPageHandler::GetTutorialsCallback CreateCallback(
@@ -568,6 +865,8 @@ bool UserEducationInternalsPageHandler_GetTutorials_ForwardToCallback::Accept(
           internal::UserEducationInternalsPageHandler_GetTutorials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserEducationInternalsPageHandler.0
   bool success = true;
   std::vector<FeaturePromoDemoPageInfoPtr> p_tutorial_infos{};
   UserEducationInternalsPageHandler_GetTutorials_ResponseParamsDataView input_data_view(params, message);
@@ -699,6 +998,8 @@ bool UserEducationInternalsPageHandler_StartTutorial_ForwardToCallback::Accept(
           internal::UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserEducationInternalsPageHandler.1
   bool success = true;
   std::string p_error_message{};
   UserEducationInternalsPageHandler_StartTutorial_ResponseParamsDataView input_data_view(params, message);
@@ -770,6 +1071,139 @@ void UserEducationInternalsPageHandler_StartTutorial_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static UserEducationInternalsPageHandler::GetSessionDataCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder> proxy(
+        new UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "UserEducationInternalsPageHandler::GetSessionDataCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<FeaturePromoDemoPageDataPtr> in_session_data);
+};
+
+bool UserEducationInternalsPageHandler_GetSessionData_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for UserEducationInternalsPageHandler.2
+  bool success = true;
+  std::vector<FeaturePromoDemoPageDataPtr> p_session_data{};
+  UserEducationInternalsPageHandler_GetSessionData_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadSessionData(&p_session_data))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        UserEducationInternalsPageHandler::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_session_data));
+  return true;
+}
+
+void UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder::Run(
+    std::vector<FeaturePromoDemoPageDataPtr> in_session_data) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply mojom::user_education_internals::UserEducationInternalsPageHandler::GetSessionData", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("session_data"), in_session_data,
+                        "<value of type std::vector<FeaturePromoDemoPageDataPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserEducationInternalsPageHandler_GetSessionData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::user_education_internals::internal::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->session_data)::BaseType>
+      session_data_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& session_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView>>(
+      in_session_data, session_data_fragment, &session_data_validate_params);
+  params->session_data.Set(
+      session_data_fragment.is_null() ? nullptr : session_data_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->session_data.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null session_data in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserEducationInternalsPageHandler::Name_);
+  message.set_method_name("GetSessionData");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 class UserEducationInternalsPageHandler_GetFeaturePromos_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static UserEducationInternalsPageHandler::GetFeaturePromosCallback CreateCallback(
@@ -828,6 +1262,8 @@ bool UserEducationInternalsPageHandler_GetFeaturePromos_ForwardToCallback::Accep
           internal::UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserEducationInternalsPageHandler.3
   bool success = true;
   std::vector<FeaturePromoDemoPageInfoPtr> p_feature_promos{};
   UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsDataView input_data_view(params, message);
@@ -838,7 +1274,7 @@ bool UserEducationInternalsPageHandler_GetFeaturePromos_ForwardToCallback::Accep
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        UserEducationInternalsPageHandler::Name_, 2, true);
+        UserEducationInternalsPageHandler::Name_, 3, true);
     return false;
   }
   if (!callback_.is_null())
@@ -959,6 +1395,8 @@ bool UserEducationInternalsPageHandler_ShowFeaturePromo_ForwardToCallback::Accep
           internal::UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserEducationInternalsPageHandler.4
   bool success = true;
   std::string p_error_message{};
   UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsDataView input_data_view(params, message);
@@ -969,7 +1407,7 @@ bool UserEducationInternalsPageHandler_ShowFeaturePromo_ForwardToCallback::Accep
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        UserEducationInternalsPageHandler::Name_, 3, true);
+        UserEducationInternalsPageHandler::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1030,6 +1468,268 @@ void UserEducationInternalsPageHandler_ShowFeaturePromo_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static UserEducationInternalsPageHandler::ClearFeaturePromoDataCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder> proxy(
+        new UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "UserEducationInternalsPageHandler::ClearFeaturePromoDataCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::string& in_error_message);
+};
+
+bool UserEducationInternalsPageHandler_ClearFeaturePromoData_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for UserEducationInternalsPageHandler.5
+  bool success = true;
+  std::string p_error_message{};
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadErrorMessage(&p_error_message))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        UserEducationInternalsPageHandler::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_error_message));
+  return true;
+}
+
+void UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder::Run(
+    const std::string& in_error_message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply mojom::user_education_internals::UserEducationInternalsPageHandler::ClearFeaturePromoData", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("error_message"), in_error_message,
+                        "<value of type const std::string&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::user_education_internals::internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->error_message)::BaseType> error_message_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_error_message, error_message_fragment);
+  params->error_message.Set(
+      error_message_fragment.is_null() ? nullptr : error_message_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->error_message.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null error_message in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserEducationInternalsPageHandler::Name_);
+  message.set_method_name("ClearFeaturePromoData");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static UserEducationInternalsPageHandler::ClearSessionDataCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder> proxy(
+        new UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "UserEducationInternalsPageHandler::ClearSessionDataCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::string& in_error_message);
+};
+
+bool UserEducationInternalsPageHandler_ClearSessionData_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for UserEducationInternalsPageHandler.6
+  bool success = true;
+  std::string p_error_message{};
+  UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadErrorMessage(&p_error_message))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        UserEducationInternalsPageHandler::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_error_message));
+  return true;
+}
+
+void UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder::Run(
+    const std::string& in_error_message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply mojom::user_education_internals::UserEducationInternalsPageHandler::ClearSessionData", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("error_message"), in_error_message,
+                        "<value of type const std::string&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserEducationInternalsPageHandler_ClearSessionData_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::mojom::user_education_internals::internal::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->error_message)::BaseType> error_message_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_error_message, error_message_fragment);
+  params->error_message.Set(
+      error_message_fragment.is_null() ? nullptr : error_message_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->error_message.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null error_message in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserEducationInternalsPageHandler::Name_);
+  message.set_method_name("ClearSessionData");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool UserEducationInternalsPageHandlerStubDispatch::Accept(
@@ -1042,10 +1742,19 @@ bool UserEducationInternalsPageHandlerStubDispatch::Accept(
     case internal::kUserEducationInternalsPageHandler_StartTutorial_Name: {
       break;
     }
+    case internal::kUserEducationInternalsPageHandler_GetSessionData_Name: {
+      break;
+    }
     case internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name: {
       break;
     }
     case internal::kUserEducationInternalsPageHandler_ShowFeaturePromo_Name: {
+      break;
+    }
+    case internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name: {
+      break;
+    }
+    case internal::kUserEducationInternalsPageHandler_ClearSessionData_Name: {
       break;
     }
   }
@@ -1068,6 +1777,8 @@ bool UserEducationInternalsPageHandlerStubDispatch::AcceptWithResponder(
               internal::UserEducationInternalsPageHandler_GetTutorials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserEducationInternalsPageHandler.0
       bool success = true;
       UserEducationInternalsPageHandler_GetTutorials_ParamsDataView input_data_view(params, message);
       
@@ -1093,6 +1804,8 @@ bool UserEducationInternalsPageHandlerStubDispatch::AcceptWithResponder(
               internal::UserEducationInternalsPageHandler_StartTutorial_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserEducationInternalsPageHandler.1
       bool success = true;
       std::string p_tutorial_id{};
       UserEducationInternalsPageHandler_StartTutorial_ParamsDataView input_data_view(params, message);
@@ -1111,8 +1824,35 @@ bool UserEducationInternalsPageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartTutorial(
-std::move(p_tutorial_id), std::move(callback));
+      impl->StartTutorial(        
+        std::move(p_tutorial_id), std::move(callback));
+      return true;
+    }
+    case internal::kUserEducationInternalsPageHandler_GetSessionData_Name: {
+
+      internal::UserEducationInternalsPageHandler_GetSessionData_Params_Data* params =
+          reinterpret_cast<
+              internal::UserEducationInternalsPageHandler_GetSessionData_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for UserEducationInternalsPageHandler.2
+      bool success = true;
+      UserEducationInternalsPageHandler_GetSessionData_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UserEducationInternalsPageHandler::Name_, 2, false);
+        return false;
+      }
+      UserEducationInternalsPageHandler::GetSessionDataCallback callback =
+          UserEducationInternalsPageHandler_GetSessionData_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetSessionData(std::move(callback));
       return true;
     }
     case internal::kUserEducationInternalsPageHandler_GetFeaturePromos_Name: {
@@ -1122,6 +1862,8 @@ std::move(p_tutorial_id), std::move(callback));
               internal::UserEducationInternalsPageHandler_GetFeaturePromos_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserEducationInternalsPageHandler.3
       bool success = true;
       UserEducationInternalsPageHandler_GetFeaturePromos_ParamsDataView input_data_view(params, message);
       
@@ -1129,7 +1871,7 @@ std::move(p_tutorial_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UserEducationInternalsPageHandler::Name_, 2, false);
+            UserEducationInternalsPageHandler::Name_, 3, false);
         return false;
       }
       UserEducationInternalsPageHandler::GetFeaturePromosCallback callback =
@@ -1147,6 +1889,8 @@ std::move(p_tutorial_id), std::move(callback));
               internal::UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserEducationInternalsPageHandler.4
       bool success = true;
       std::string p_feature_name{};
       UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsDataView input_data_view(params, message);
@@ -1157,7 +1901,7 @@ std::move(p_tutorial_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UserEducationInternalsPageHandler::Name_, 3, false);
+            UserEducationInternalsPageHandler::Name_, 4, false);
         return false;
       }
       UserEducationInternalsPageHandler::ShowFeaturePromoCallback callback =
@@ -1165,8 +1909,66 @@ std::move(p_tutorial_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowFeaturePromo(
-std::move(p_feature_name), std::move(callback));
+      impl->ShowFeaturePromo(        
+        std::move(p_feature_name), std::move(callback));
+      return true;
+    }
+    case internal::kUserEducationInternalsPageHandler_ClearFeaturePromoData_Name: {
+
+      internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data* params =
+          reinterpret_cast<
+              internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for UserEducationInternalsPageHandler.5
+      bool success = true;
+      std::string p_feature_name{};
+      UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadFeatureName(&p_feature_name))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UserEducationInternalsPageHandler::Name_, 5, false);
+        return false;
+      }
+      UserEducationInternalsPageHandler::ClearFeaturePromoDataCallback callback =
+          UserEducationInternalsPageHandler_ClearFeaturePromoData_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ClearFeaturePromoData(        
+        std::move(p_feature_name), std::move(callback));
+      return true;
+    }
+    case internal::kUserEducationInternalsPageHandler_ClearSessionData_Name: {
+
+      internal::UserEducationInternalsPageHandler_ClearSessionData_Params_Data* params =
+          reinterpret_cast<
+              internal::UserEducationInternalsPageHandler_ClearSessionData_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for UserEducationInternalsPageHandler.6
+      bool success = true;
+      UserEducationInternalsPageHandler_ClearSessionData_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UserEducationInternalsPageHandler::Name_, 6, false);
+        return false;
+      }
+      UserEducationInternalsPageHandler::ClearSessionDataCallback callback =
+          UserEducationInternalsPageHandler_ClearSessionData_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ClearSessionData(std::move(callback));
       return true;
     }
   }
@@ -1179,10 +1981,16 @@ static const mojo::internal::GenericValidationInfo kUserEducationInternalsPageHa
      &internal::UserEducationInternalsPageHandler_GetTutorials_ResponseParams_Data::Validate},
     { &internal::UserEducationInternalsPageHandler_StartTutorial_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data::Validate},
+    { &internal::UserEducationInternalsPageHandler_GetSessionData_Params_Data::Validate,
+     &internal::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data::Validate},
     { &internal::UserEducationInternalsPageHandler_GetFeaturePromos_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParams_Data::Validate},
     { &internal::UserEducationInternalsPageHandler_ShowFeaturePromo_Params_Data::Validate,
      &internal::UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data::Validate},
+    { &internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data::Validate,
+     &internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data::Validate},
+    { &internal::UserEducationInternalsPageHandler_ClearSessionData_Params_Data::Validate,
+     &internal::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data::Validate},
 };
 
 bool UserEducationInternalsPageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -1200,6 +2008,22 @@ bool UserEducationInternalsPageHandlerResponseValidator::Accept(mojo::Message* m
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageData::DataView, ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr>::Read(
+    ::mojom::user_education_internals::FeaturePromoDemoPageData::DataView input,
+    ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr* output) {
+  bool success = true;
+  ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr result(::mojom::user_education_internals::FeaturePromoDemoPageData::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadValue(&result->value))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
 
 
 // static
@@ -1221,9 +2045,13 @@ bool StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfo::D
         result->added_milestone = input.added_milestone();
       if (success && !input.ReadSupportedPlatforms(&result->supported_platforms))
         success = false;
+      if (success && !input.ReadRequiredFeatures(&result->required_features))
+        success = false;
       if (success && !input.ReadInstructions(&result->instructions))
         success = false;
       if (success && !input.ReadFollowedByInternalName(&result->followed_by_internal_name))
+        success = false;
+      if (success && !input.ReadData(&result->data))
         success = false;
   *output = std::move(result);
   return success;
@@ -1245,11 +2073,20 @@ void UserEducationInternalsPageHandlerInterceptorForTesting::GetTutorials(GetTut
 void UserEducationInternalsPageHandlerInterceptorForTesting::StartTutorial(const std::string& tutorial_id, StartTutorialCallback callback) {
   GetForwardingInterface()->StartTutorial(std::move(tutorial_id), std::move(callback));
 }
+void UserEducationInternalsPageHandlerInterceptorForTesting::GetSessionData(GetSessionDataCallback callback) {
+  GetForwardingInterface()->GetSessionData(std::move(callback));
+}
 void UserEducationInternalsPageHandlerInterceptorForTesting::GetFeaturePromos(GetFeaturePromosCallback callback) {
   GetForwardingInterface()->GetFeaturePromos(std::move(callback));
 }
 void UserEducationInternalsPageHandlerInterceptorForTesting::ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) {
   GetForwardingInterface()->ShowFeaturePromo(std::move(feature_name), std::move(callback));
+}
+void UserEducationInternalsPageHandlerInterceptorForTesting::ClearFeaturePromoData(const std::string& feature_name, ClearFeaturePromoDataCallback callback) {
+  GetForwardingInterface()->ClearFeaturePromoData(std::move(feature_name), std::move(callback));
+}
+void UserEducationInternalsPageHandlerInterceptorForTesting::ClearSessionData(ClearSessionDataCallback callback) {
+  GetForwardingInterface()->ClearSessionData(std::move(callback));
 }
 UserEducationInternalsPageHandlerAsyncWaiter::UserEducationInternalsPageHandlerAsyncWaiter(
     UserEducationInternalsPageHandler* proxy) : proxy_(proxy) {}
@@ -1302,6 +2139,29 @@ std::string UserEducationInternalsPageHandlerAsyncWaiter::StartTutorial(
   return async_wait_result;
 }
 
+void UserEducationInternalsPageHandlerAsyncWaiter::GetSessionData(
+    std::vector<FeaturePromoDemoPageDataPtr>* out_session_data) {
+  base::RunLoop loop;
+  proxy_->GetSessionData(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<FeaturePromoDemoPageDataPtr>* out_session_data
+,
+             std::vector<FeaturePromoDemoPageDataPtr> session_data) {*out_session_data = std::move(session_data);
+            loop->Quit();
+          },
+          &loop,
+          out_session_data));
+  loop.Run();
+}
+
+std::vector<FeaturePromoDemoPageDataPtr> UserEducationInternalsPageHandlerAsyncWaiter::GetSessionData(
+    ) {
+  std::vector<FeaturePromoDemoPageDataPtr> async_wait_result;
+  GetSessionData(&async_wait_result);
+  return async_wait_result;
+}
+
 void UserEducationInternalsPageHandlerAsyncWaiter::GetFeaturePromos(
     std::vector<FeaturePromoDemoPageInfoPtr>* out_feature_promos) {
   base::RunLoop loop;
@@ -1345,6 +2205,52 @@ std::string UserEducationInternalsPageHandlerAsyncWaiter::ShowFeaturePromo(
     const std::string& feature_name) {
   std::string async_wait_result;
   ShowFeaturePromo(std::move(feature_name),&async_wait_result);
+  return async_wait_result;
+}
+
+void UserEducationInternalsPageHandlerAsyncWaiter::ClearFeaturePromoData(
+    const std::string& feature_name, std::string* out_error_message) {
+  base::RunLoop loop;
+  proxy_->ClearFeaturePromoData(std::move(feature_name),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::string* out_error_message
+,
+             const std::string& error_message) {*out_error_message = std::move(error_message);
+            loop->Quit();
+          },
+          &loop,
+          out_error_message));
+  loop.Run();
+}
+
+std::string UserEducationInternalsPageHandlerAsyncWaiter::ClearFeaturePromoData(
+    const std::string& feature_name) {
+  std::string async_wait_result;
+  ClearFeaturePromoData(std::move(feature_name),&async_wait_result);
+  return async_wait_result;
+}
+
+void UserEducationInternalsPageHandlerAsyncWaiter::ClearSessionData(
+    std::string* out_error_message) {
+  base::RunLoop loop;
+  proxy_->ClearSessionData(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::string* out_error_message
+,
+             const std::string& error_message) {*out_error_message = std::move(error_message);
+            loop->Quit();
+          },
+          &loop,
+          out_error_message));
+  loop.Run();
+}
+
+std::string UserEducationInternalsPageHandlerAsyncWaiter::ClearSessionData(
+    ) {
+  std::string async_wait_result;
+  ClearSessionData(&async_wait_result);
   return async_wait_result;
 }
 

@@ -291,6 +291,8 @@ bool DeviceCursorStubDispatch::Accept(
           reinterpret_cast<internal::DeviceCursor_SetCursor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceCursor.0
       bool success = true;
       ::gfx::AcceleratedWidget p_window{};
       std::vector<::SkBitmap> p_bitmaps{};
@@ -315,11 +317,11 @@ bool DeviceCursorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCursor(
-std::move(p_window), 
-std::move(p_bitmaps), 
-std::move(p_point), 
-std::move(p_frame_delay));
+      impl->SetCursor(        
+        std::move(p_window), 
+        std::move(p_bitmaps), 
+        std::move(p_point), 
+        std::move(p_frame_delay));
       return true;
     }
     case internal::kDeviceCursor_MoveCursor_Name: {
@@ -329,6 +331,8 @@ std::move(p_frame_delay));
           reinterpret_cast<internal::DeviceCursor_MoveCursor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceCursor.1
       bool success = true;
       ::gfx::AcceleratedWidget p_window{};
       ::gfx::Point p_point{};
@@ -347,9 +351,9 @@ std::move(p_frame_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveCursor(
-std::move(p_window), 
-std::move(p_point));
+      impl->MoveCursor(        
+        std::move(p_window), 
+        std::move(p_point));
       return true;
     }
   }

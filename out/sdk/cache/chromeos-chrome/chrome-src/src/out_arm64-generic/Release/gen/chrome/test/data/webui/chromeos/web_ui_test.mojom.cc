@@ -162,6 +162,8 @@ bool TestRunnerStubDispatch::Accept(
           reinterpret_cast<internal::TestRunner_TestComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestRunner.0
       bool success = true;
       std::optional<std::string> p_failureMessage{};
       TestRunner_TestComplete_ParamsDataView input_data_view(params, message);
@@ -177,8 +179,8 @@ bool TestRunnerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TestComplete(
-std::move(p_failureMessage));
+      impl->TestComplete(        
+        std::move(p_failureMessage));
       return true;
     }
   }

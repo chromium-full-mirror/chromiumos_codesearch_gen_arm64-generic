@@ -40,12 +40,13 @@
   SingleplanarFormat.BGRX_8888 = 15;
   SingleplanarFormat.RGBX_1010102 = 16;
   SingleplanarFormat.BGRX_1010102 = 17;
-  SingleplanarFormat.YV12_LEGACY = 18;
-  SingleplanarFormat.NV12_LEGACY = 19;
-  SingleplanarFormat.NV12A_LEGACY = 20;
-  SingleplanarFormat.P010_LEGACY = 21;
+  SingleplanarFormat.R_F16 = 18;
+  SingleplanarFormat.YV12_LEGACY = 19;
+  SingleplanarFormat.NV12_LEGACY = 20;
+  SingleplanarFormat.NV12A_LEGACY = 21;
+  SingleplanarFormat.P010_LEGACY = 22;
   SingleplanarFormat.MIN_VALUE = 0;
-  SingleplanarFormat.MAX_VALUE = 21;
+  SingleplanarFormat.MAX_VALUE = 22;
 
   SingleplanarFormat.isKnownEnumValue = function(value) {
     switch (value) {
@@ -71,6 +72,7 @@
     case 19:
     case 20:
     case 21:
+    case 22:
       return true;
     }
     return false;

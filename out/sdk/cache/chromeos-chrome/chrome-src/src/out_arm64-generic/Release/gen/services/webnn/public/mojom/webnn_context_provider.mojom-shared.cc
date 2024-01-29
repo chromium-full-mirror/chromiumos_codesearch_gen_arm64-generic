@@ -47,30 +47,6 @@ std::ostream& operator<<(std::ostream& os, PowerPreference value) {
   return os << PowerPreferenceToString(value);
 }
 
-NOINLINE static const char* Error_CodeToStringHelper(Error_Code value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case Error_Code::kUnknownError:
-      return "kUnknownError";
-    case Error_Code::kNotSupportedError:
-      return "kNotSupportedError";
-    default:
-      return nullptr;
-  }
-}
-
-std::string Error_CodeToString(Error_Code value) {
-  const char *str = Error_CodeToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown Error_Code value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, Error_Code value) {
-  return os << Error_CodeToString(value);
-}
-
 namespace internal {
 // static
 bool CreateGraphResult_Data::Validate(
@@ -213,45 +189,6 @@ CreateContextOptions_Data::CreateContextOptions_Data()
 
 
 // static
-bool Error_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Error_Data* object =
-      static_cast<const Error_Data*>(data);
-
-
-  if (!::webnn::mojom::internal::Error_Code_Data
-        ::Validate(object->error_code, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->error_message, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& error_message_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->error_message, validation_context,
-                                         &error_message_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-Error_Data::Error_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool WebNNContext_CreateGraph_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -380,16 +317,6 @@ namespace perfetto {
 void TraceFormatTraits<::webnn::mojom::PowerPreference>::WriteIntoTrace(
    perfetto::TracedValue context, ::webnn::mojom::PowerPreference value) {
   return std::move(context).WriteString(::webnn::mojom::PowerPreferenceToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::webnn::mojom::Error_Code>::WriteIntoTrace(
-   perfetto::TracedValue context, ::webnn::mojom::Error_Code value) {
-  return std::move(context).WriteString(::webnn::mojom::Error_CodeToString(value));
 }
 
 } // namespace perfetto

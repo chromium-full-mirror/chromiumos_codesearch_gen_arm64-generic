@@ -5,7 +5,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { saveAppState, updateAppState } from '../../common/js/app_util.js';
 import { isRecentRoot } from '../../common/js/entry_utils.js';
 import { storage } from '../../common/js/storage.js';
-import { DialogType } from '../../externs/ts/state.js';
+import { DialogType } from '../../state/state.js';
 import { GROUP_BY_FIELD_DIRECTORY, GROUP_BY_FIELD_MODIFICATION_TIME } from './file_list_model.js';
 import { ListType } from './ui/list_container.js';
 export class AppStateController {

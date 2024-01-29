@@ -31,7 +31,10 @@ class WebPrinterInfo_Data;
 class WebPrintingRange_Data;
 class WebPrinterAttributes_Data;
 class WebPrintJobTemplateAttributes_Data;
+class WebPrintJobUpdate_Data;
 class WebPrintJobInfo_Data;
+class GetPrintersResult_Data;
+class WebPrinterFetchResult_Data;
 class WebPrintResult_Data;
 
 struct WebPrintingMultipleDocumentHandling_Data {
@@ -107,6 +110,112 @@ struct WebPrintColorMode_Data {
   }
 };
 
+struct WebPrintingOrientationRequested_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WebPrinterState_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WebPrinterStateReason_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+      case 19:
+      case 20:
+      case 21:
+      case 22:
+      case 23:
+      case 24:
+      case 25:
+      case 26:
+      case 27:
+      case 28:
+      case 29:
+      case 30:
+      case 31:
+      case 32:
+      case 33:
+      case 34:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct WebPrintJobState_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -134,6 +243,53 @@ struct WebPrintJobState_Data {
   }
 };
 
+struct GetPrintersError_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WebPrinterFetchError_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct WebPrintError_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -143,6 +299,7 @@ struct WebPrintError_Data {
       case 0:
       case 1:
       case 2:
+      case 3:
         return true;
     }
     return false;
@@ -160,6 +317,110 @@ struct WebPrintError_Data {
 };
 
 #pragma pack(push, 1)
+
+
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) GetPrintersResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  GetPrintersResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~GetPrintersResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<GetPrintersResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class GetPrintersResult_Tag : uint32_t {
+
+    
+    kPrinters,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::WebPrinterInfo_Data>>> f_printers;
+    int32_t f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  GetPrintersResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(GetPrintersResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(GetPrintersResult_Data)");
+
+
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinterFetchResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  WebPrinterFetchResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~WebPrinterFetchResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<WebPrinterFetchResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class WebPrinterFetchResult_Tag : uint32_t {
+
+    
+    kPrinterAttributes,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::WebPrinterAttributes_Data> f_printer_attributes;
+    int32_t f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  WebPrinterFetchResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(WebPrinterFetchResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(WebPrinterFetchResult_Data)");
 
 
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintResult_Data {
@@ -320,14 +581,19 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinterAttributes_Da
   int32_t multiple_document_handling_default;
   mojo::internal::Pointer<internal::WebPrintingRange_Data> copies_supported;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> multiple_document_handling_supported;
+  int32_t orientation_requested_default;
+  int32_t print_color_mode_default;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> orientation_requested_supported;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> printer_resolution_default;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::gfx::mojom::internal::Size_Data>>> printer_resolution_supported;
-  int32_t print_color_mode_default;
-  uint8_t sides_default_$flag : 1;
-  uint8_t pad7_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> print_color_mode_supported;
+  int32_t printer_state;
+  uint8_t sides_default_$flag : 1;
+  uint8_t pad11_[3];
+  mojo::internal::Pointer<mojo::internal::String_Data> printer_state_message;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> printer_state_reasons;
   int32_t sides_default_$value;
-  uint8_t pad9_[4];
+  uint8_t pad14_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> sides_supported;
 
  private:
@@ -336,7 +602,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinterAttributes_Da
   WebPrinterAttributes_Data();
   ~WebPrinterAttributes_Data() = delete;
 };
-static_assert(sizeof(WebPrinterAttributes_Data) == 80,
+static_assert(sizeof(WebPrinterAttributes_Data) == 112,
               "Bad sizeof(WebPrinterAttributes_Data)");
 // Used by WebPrinterAttributes::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -379,14 +645,15 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobTemplateAttr
   mojo::internal::Pointer<mojo::internal::String_Data> job_name;
   uint32_t copies;
   uint8_t multiple_document_handling_$flag : 1;
+  uint8_t orientation_requested_$flag : 1;
   uint8_t print_color_mode_$flag : 1;
   uint8_t sides_$flag : 1;
-  uint8_t pad4_[3];
+  uint8_t pad5_[3];
   int32_t multiple_document_handling_$value;
-  int32_t print_color_mode_$value;
+  int32_t orientation_requested_$value;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> printer_resolution;
+  int32_t print_color_mode_$value;
   int32_t sides_$value;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<WebPrintJobTemplateAttributes_Data>;
@@ -428,6 +695,55 @@ struct WebPrintJobTemplateAttributes_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     WebPrintJobTemplateAttributes_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobUpdate_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint32_t pages_printed;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebPrintJobUpdate_Data>;
+
+  WebPrintJobUpdate_Data();
+  ~WebPrintJobUpdate_Data() = delete;
+};
+static_assert(sizeof(WebPrintJobUpdate_Data) == 16,
+              "Bad sizeof(WebPrintJobUpdate_Data)");
+// Used by WebPrintJobUpdate::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct WebPrintJobUpdate_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  WebPrintJobUpdate_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~WebPrintJobUpdate_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<WebPrintJobUpdate_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    WebPrintJobUpdate_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -435,8 +751,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobInfo_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> job_name;
+  uint32_t job_pages;
   mojo::internal::Handle_Data observer;
-  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<WebPrintJobInfo_Data>;

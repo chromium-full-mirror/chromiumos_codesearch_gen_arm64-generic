@@ -5,10 +5,10 @@ import 'chrome://resources/cr_elements/cr_radio_button/cr_radio_button_style.css
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/cr_elements/policy/cr_policy_indicator.js';
 import { CrRadioButtonMixin } from 'chrome://resources/cr_elements/cr_radio_button/cr_radio_button_mixin.js';
-import { PaperRippleBehavior } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './multidevice_radio_button.html.js';
-const MultideviceRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const MultideviceRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class MultideviceRadioButtonElement extends MultideviceRadioButtonElementBase {
     static get is() {
         return 'multidevice-radio-button';
@@ -46,7 +46,7 @@ class MultideviceRadioButtonElement extends MultideviceRadioButtonElementBase {
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');

@@ -229,6 +229,8 @@ NOINLINE static const char* DisableReasonToStringHelper(DisableReason value) {
       return "kSuspended";
     case DisableReason::kRestart:
       return "kRestart";
+    case DisableReason::kUpstreamNoInternet:
+      return "kUpstreamNoInternet";
     default:
       return nullptr;
   }

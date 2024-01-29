@@ -59,6 +59,7 @@ class PERFETTO_EXPORT_COMPONENT SysStatsConfig : public ::protozero::CppMessageO
     kCpufreqPeriodMsFieldNumber = 8,
     kBuddyinfoPeriodMsFieldNumber = 9,
     kDiskstatPeriodMsFieldNumber = 10,
+    kPsiPeriodMsFieldNumber = 11,
   };
 
   SysStatsConfig();
@@ -124,6 +125,10 @@ class PERFETTO_EXPORT_COMPONENT SysStatsConfig : public ::protozero::CppMessageO
   uint32_t diskstat_period_ms() const { return diskstat_period_ms_; }
   void set_diskstat_period_ms(uint32_t value) { diskstat_period_ms_ = value; _has_field_.set(10); }
 
+  bool has_psi_period_ms() const { return _has_field_[11]; }
+  uint32_t psi_period_ms() const { return psi_period_ms_; }
+  void set_psi_period_ms(uint32_t value) { psi_period_ms_ = value; _has_field_.set(11); }
+
  private:
   uint32_t meminfo_period_ms_{};
   std::vector<MeminfoCounters> meminfo_counters_;
@@ -135,12 +140,13 @@ class PERFETTO_EXPORT_COMPONENT SysStatsConfig : public ::protozero::CppMessageO
   uint32_t cpufreq_period_ms_{};
   uint32_t buddyinfo_period_ms_{};
   uint32_t diskstat_period_ms_{};
+  uint32_t psi_period_ms_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<11> _has_field_{};
+  std::bitset<12> _has_field_{};
 };
 
 }  // namespace perfetto

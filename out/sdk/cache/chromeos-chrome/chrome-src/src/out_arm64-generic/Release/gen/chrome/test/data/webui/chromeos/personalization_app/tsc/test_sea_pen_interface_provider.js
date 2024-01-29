@@ -1,6 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { MantaStatusCode } from 'chrome://resources/ash/common/sea_pen/sea_pen.mojom-webui.js';
 import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
 export class TestSeaPenProvider extends TestBrowserProxy {
     images = [
@@ -40,6 +41,8 @@ export class TestSeaPenProvider extends TestBrowserProxy {
             queryInfo: 'query 3',
         },
     };
+    selectSeaPenThumbnailResponse = Promise.resolve({ success: true });
+    shouldShowSeaPenTermsOfServiceDialogResponse = true;
     constructor() {
         super([
             'searchWallpaper',
@@ -48,15 +51,20 @@ export class TestSeaPenProvider extends TestBrowserProxy {
             'getRecentSeaPenImages',
             'getRecentSeaPenImageThumbnail',
             'deleteRecentSeaPenImage',
+            'shouldShowSeaPenTermsOfServiceDialog',
+            'handleSeaPenTermsOfServiceAccepted',
         ]);
     }
     searchWallpaper(query) {
         this.methodCalled('searchWallpaper', query);
-        return Promise.resolve({ images: this.images });
+        return Promise.resolve({
+            images: this.images,
+            statusCode: MantaStatusCode.kOk,
+        });
     }
     selectSeaPenThumbnail(id) {
         this.methodCalled('selectSeaPenThumbnail', id);
-        return Promise.resolve({ success: true });
+        return this.selectSeaPenThumbnailResponse;
     }
     selectRecentSeaPenImage(filePath) {
         this.methodCalled('selectRecentSeaPenImage', filePath);
@@ -74,5 +82,17 @@ export class TestSeaPenProvider extends TestBrowserProxy {
         this.methodCalled('deleteRecentSeaPenImage', filePath);
         this.recentImages.splice(this.recentImages.indexOf(filePath), 1);
         return Promise.resolve({ success: true });
+    }
+    openFeedbackDialog(metadata) {
+        this.methodCalled('openFeedbackDialog', metadata);
+        return;
+    }
+    shouldShowSeaPenTermsOfServiceDialog() {
+        this.methodCalled('shouldShowSeaPenTermsOfServiceDialog');
+        return Promise.resolve({ shouldShowDialog: this.shouldShowSeaPenTermsOfServiceDialogResponse });
+    }
+    handleSeaPenTermsOfServiceAccepted() {
+        this.methodCalled('handleSeaPenTermsOfServiceAccepted');
+        this.shouldShowSeaPenTermsOfServiceDialogResponse = false;
     }
 }

@@ -1,0 +1,16 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/mock/js",
+    "outDir": ".",
+    "paths": {
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/mock/js/app_main.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/media_app.d.ts"
+  ]
+}

@@ -10,8 +10,8 @@ import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
-import '/shared/settings/controls/settings_slider.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_slider.js';
+import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
 import 'chrome://resources/cr_components/localized_link/localized_link.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
@@ -242,6 +242,8 @@ export class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouch
     ready() {
         super.ready();
         this.addFocusConfig(routes.POINTERS, '#pointerSubpageButton');
+        this.addFocusConfig(routes.MANAGE_FACEGAZE_CURSOR_SETTINGS, '#faceGazeCursorControlButton');
+        this.addFocusConfig(routes.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS, '#faceGazeFacialExpressionsButton');
     }
     /**
      * Note: Overrides RouteOriginMixin implementation
@@ -253,6 +255,12 @@ export class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouch
             return;
         }
         this.attemptDeepLink();
+    }
+    onFaceGazeCursorSettingsClick_() {
+        Router.getInstance().navigateTo(routes.MANAGE_FACEGAZE_CURSOR_SETTINGS);
+    }
+    onFaceGazeFacialExpressionsSettingsClick_() {
+        Router.getInstance().navigateTo(routes.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS);
     }
     pointersChanged(hasMouse, hasTouchpad, hasPointingStick, isKioskModeActive) {
         this.$.pointerSubpageButton.hidden =

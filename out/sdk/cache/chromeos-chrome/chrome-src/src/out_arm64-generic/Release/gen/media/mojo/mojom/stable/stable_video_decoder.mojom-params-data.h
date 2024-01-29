@@ -256,6 +256,43 @@ class  StableCdmContext_AllocateSecureBuffer_ResponseParams_Data {
 };
 static_assert(sizeof(StableCdmContext_AllocateSecureBuffer_ResponseParams_Data) == 16,
               "Bad sizeof(StableCdmContext_AllocateSecureBuffer_ResponseParams_Data)");
+class  StableCdmContext_ParseEncryptedSliceHeader_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t secure_handle;
+  uint32_t offset;
+  uint8_t pad1_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> stream_data;
+
+ private:
+  friend class mojo::internal::MessageFragment<StableCdmContext_ParseEncryptedSliceHeader_Params_Data>;
+
+  StableCdmContext_ParseEncryptedSliceHeader_Params_Data();
+  ~StableCdmContext_ParseEncryptedSliceHeader_Params_Data() = delete;
+};
+static_assert(sizeof(StableCdmContext_ParseEncryptedSliceHeader_Params_Data) == 32,
+              "Bad sizeof(StableCdmContext_ParseEncryptedSliceHeader_Params_Data)");
+class  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t pad0_[7];
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> slice_header;
+
+ private:
+  friend class mojo::internal::MessageFragment<StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data>;
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data();
+  ~StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data) == 24,
+              "Bad sizeof(StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data)");
 class  StableVideoDecoder_GetSupportedConfigs_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -819,6 +856,67 @@ class StableCdmContext_AllocateSecureBuffer_ResponseParamsDataView {
 };
 
 
+class StableCdmContext_ParseEncryptedSliceHeader_ParamsDataView {
+ public:
+  StableCdmContext_ParseEncryptedSliceHeader_ParamsDataView() = default;
+
+  StableCdmContext_ParseEncryptedSliceHeader_ParamsDataView(
+      internal::StableCdmContext_ParseEncryptedSliceHeader_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t secure_handle() const {
+    return data_->secure_handle;
+  }
+  uint32_t offset() const {
+    return data_->offset;
+  }
+  inline void GetStreamDataDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStreamData(UserType* output) {
+    
+    auto* pointer = data_->stream_data.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StableCdmContext_ParseEncryptedSliceHeader_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsDataView {
+ public:
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsDataView() = default;
+
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsDataView(
+      internal::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+  inline void GetSliceHeaderDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSliceHeader(UserType* output) {
+    
+    auto* pointer = data_->slice_header.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class StableVideoDecoder_GetSupportedConfigs_ParamsDataView {
  public:
   StableVideoDecoder_GetSupportedConfigs_ParamsDataView() = default;
@@ -1242,6 +1340,20 @@ inline void StableCdmContext_GetScreenResolutions_ResponseParamsDataView::GetRes
 
 
 
+
+
+inline void StableCdmContext_ParseEncryptedSliceHeader_ParamsDataView::GetStreamDataDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->stream_data.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
+
+
+inline void StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsDataView::GetSliceHeaderDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->slice_header.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
 
 
 

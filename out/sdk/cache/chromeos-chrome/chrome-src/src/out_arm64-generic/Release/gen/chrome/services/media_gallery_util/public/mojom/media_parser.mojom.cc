@@ -693,6 +693,8 @@ bool MediaParser_ParseMediaMetadata_ForwardToCallback::Accept(
           internal::MediaParser_ParseMediaMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaParser.0
   bool success = true;
   bool p_parse_success{};
   MediaMetadataPtr p_metadata{};
@@ -850,6 +852,8 @@ bool MediaParser_CheckMediaFile_ForwardToCallback::Accept(
           internal::MediaParser_CheckMediaFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaParser.1
   bool success = true;
   bool p_success{};
   MediaParser_CheckMediaFile_ResponseParamsDataView input_data_view(params, message);
@@ -969,6 +973,8 @@ bool MediaParser_GetCpuInfo_ForwardToCallback::Accept(
           internal::MediaParser_GetCpuInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaParser.2
   bool success = true;
   int64_t p_libyuv_cpu_flags{};
   int64_t p_ffmpeg_cpu_flags{};
@@ -1073,6 +1079,8 @@ bool MediaParserStubDispatch::AcceptWithResponder(
               internal::MediaParser_ParseMediaMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaParser.0
       bool success = true;
       std::string p_mime_type{};
       int64_t p_total_size{};
@@ -1102,11 +1110,11 @@ bool MediaParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseMediaMetadata(
-std::move(p_mime_type), 
-std::move(p_total_size), 
-std::move(p_get_attached_images), 
-std::move(p_media_data_source), std::move(callback));
+      impl->ParseMediaMetadata(        
+        std::move(p_mime_type), 
+        std::move(p_total_size), 
+        std::move(p_get_attached_images), 
+        std::move(p_media_data_source), std::move(callback));
       return true;
     }
     case internal::kMediaParser_CheckMediaFile_Name: {
@@ -1116,6 +1124,8 @@ std::move(p_media_data_source), std::move(callback));
               internal::MediaParser_CheckMediaFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaParser.1
       bool success = true;
       ::base::TimeDelta p_decode_time{};
       ::base::File p_file{};
@@ -1137,9 +1147,9 @@ std::move(p_media_data_source), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckMediaFile(
-std::move(p_decode_time), 
-std::move(p_file), std::move(callback));
+      impl->CheckMediaFile(        
+        std::move(p_decode_time), 
+        std::move(p_file), std::move(callback));
       return true;
     }
     case internal::kMediaParser_GetCpuInfo_Name: {
@@ -1149,6 +1159,8 @@ std::move(p_file), std::move(callback));
               internal::MediaParser_GetCpuInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaParser.2
       bool success = true;
       MediaParser_GetCpuInfo_ParamsDataView input_data_view(params, message);
       
@@ -1368,6 +1380,8 @@ bool MediaParserFactory_CreateMediaParser_ForwardToCallback::Accept(
           internal::MediaParserFactory_CreateMediaParser_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaParserFactory.0
   bool success = true;
   ::mojo::PendingRemote<MediaParser> p_media_parser{};
   MediaParserFactory_CreateMediaParser_ResponseParamsDataView input_data_view(params, message);
@@ -1465,6 +1479,8 @@ bool MediaParserFactoryStubDispatch::AcceptWithResponder(
               internal::MediaParserFactory_CreateMediaParser_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaParserFactory.0
       bool success = true;
       int64_t p_libyuv_cpu_flags{};
       int64_t p_libavutil_cpu_flags{};
@@ -1486,9 +1502,9 @@ bool MediaParserFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateMediaParser(
-std::move(p_libyuv_cpu_flags), 
-std::move(p_libavutil_cpu_flags), std::move(callback));
+      impl->CreateMediaParser(        
+        std::move(p_libyuv_cpu_flags), 
+        std::move(p_libavutil_cpu_flags), std::move(callback));
       return true;
     }
   }
@@ -1688,6 +1704,8 @@ bool MediaDataSource_Read_ForwardToCallback::Accept(
           internal::MediaDataSource_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaDataSource.0
   bool success = true;
   std::vector<uint8_t> p_data{};
   MediaDataSource_Read_ResponseParamsDataView input_data_view(params, message);
@@ -1790,6 +1808,8 @@ bool MediaDataSourceStubDispatch::AcceptWithResponder(
               internal::MediaDataSource_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaDataSource.0
       bool success = true;
       int64_t p_position{};
       int64_t p_length{};
@@ -1811,9 +1831,9 @@ bool MediaDataSourceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_position), 
-std::move(p_length), std::move(callback));
+      impl->Read(        
+        std::move(p_position), 
+        std::move(p_length), std::move(callback));
       return true;
     }
   }

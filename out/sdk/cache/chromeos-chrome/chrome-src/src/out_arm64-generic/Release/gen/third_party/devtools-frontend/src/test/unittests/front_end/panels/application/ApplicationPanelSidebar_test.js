@@ -15,17 +15,17 @@ class SharedStorageTreeElementListener {
     #originsAdded = new Array();
     constructor(sidebar) {
         this.#sidebar = sidebar;
-        this.#sidebar.sharedStorageTreeElementDispatcher.addEventListener(Application.ApplicationPanelSidebar.SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded, this.#treeElementAdded, this);
+        this.#sidebar.sharedStorageTreeElementDispatcher.addEventListener("SharedStorageTreeElementAdded" /* Application.ApplicationPanelSidebar.SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded */, this.#treeElementAdded, this);
     }
     dispose() {
-        this.#sidebar.sharedStorageTreeElementDispatcher.removeEventListener(Application.ApplicationPanelSidebar.SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded, this.#treeElementAdded, this);
+        this.#sidebar.sharedStorageTreeElementDispatcher.removeEventListener("SharedStorageTreeElementAdded" /* Application.ApplicationPanelSidebar.SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded */, this.#treeElementAdded, this);
     }
     #treeElementAdded(event) {
         this.#originsAdded.push(event.data.origin);
     }
     async waitForElementsAdded(expectedCount) {
         while (this.#originsAdded.length < expectedCount) {
-            await this.#sidebar.sharedStorageTreeElementDispatcher.once(Application.ApplicationPanelSidebar.SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded);
+            await this.#sidebar.sharedStorageTreeElementDispatcher.once("SharedStorageTreeElementAdded" /* Application.ApplicationPanelSidebar.SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded */);
         }
     }
 }
@@ -83,8 +83,8 @@ describeWithMockConnection('ApplicationPanelSidebar', () => {
         beforeEach(() => {
             stubNoopSettings();
             target = targetFactory();
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL, '', false);
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE, '', false);
+            Root.Runtime.experiments.register("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */, '', false);
+            Root.Runtime.experiments.register("storageBucketsTree" /* Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE */, '', false);
             sinon.stub(UI.ViewManager.ViewManager.instance(), 'showView').resolves(); // Silence console error
             setMockConnectionResponseHandler('Storage.getSharedStorageEntries', () => ({}));
             setMockConnectionResponseHandler('Storage.setSharedStorageTracking', () => ({}));
@@ -147,7 +147,7 @@ describeWithMockConnection('ApplicationPanelSidebar', () => {
             ]);
             sidebar.sharedStorageListTreeElement.view.setDefaultIdForTesting(ID);
             for (const event of EVENTS) {
-                sharedStorageModel.dispatchEventToListeners(Application.SharedStorageModel.Events.SharedStorageAccess, event);
+                sharedStorageModel.dispatchEventToListeners("SharedStorageAccess" /* Application.SharedStorageModel.Events.SharedStorageAccess */, event);
             }
             assert.deepEqual(sidebar.sharedStorageListTreeElement.view.getEventsForTesting(), EVENTS);
         });
@@ -176,16 +176,16 @@ describeWithMockConnection('ApplicationPanelSidebar', () => {
             await new Promise(resolve => setTimeout(resolve, 0));
             assert.strictEqual(expectedCall.called, inScope);
         };
-        it('adds database element on in scope event', testUiUpdate(Application.DatabaseModel.Events.DatabaseAdded, Application.DatabaseModel.DatabaseModel, 'databasesListTreeElement.appendChild', true));
-        it('does not add database element on out of scope event', testUiUpdate(Application.DatabaseModel.Events.DatabaseAdded, Application.DatabaseModel.DatabaseModel, 'databasesListTreeElement.appendChild', false));
-        it('adds interest group event on in scope event', testUiUpdate(Application.InterestGroupStorageModel.Events.InterestGroupAccess, Application.InterestGroupStorageModel.InterestGroupStorageModel, 'interestGroupTreeElement.addEvent', true));
-        it('does not add interest group event on out of scope event', testUiUpdate(Application.InterestGroupStorageModel.Events.InterestGroupAccess, Application.InterestGroupStorageModel.InterestGroupStorageModel, 'interestGroupTreeElement.addEvent', false));
-        it('adds DOM storage on in scope event', testUiUpdate(Application.DOMStorageModel.Events.DOMStorageAdded, Application.DOMStorageModel.DOMStorageModel, 'sessionStorageListTreeElement.appendChild', true));
-        it('does not add DOM storage on out of scope event', testUiUpdate(Application.DOMStorageModel.Events.DOMStorageAdded, Application.DOMStorageModel.DOMStorageModel, 'sessionStorageListTreeElement.appendChild', false));
+        it('adds database element on in scope event', testUiUpdate("DatabaseAdded" /* Application.DatabaseModel.Events.DatabaseAdded */, Application.DatabaseModel.DatabaseModel, 'databasesListTreeElement.appendChild', true));
+        it('does not add database element on out of scope event', testUiUpdate("DatabaseAdded" /* Application.DatabaseModel.Events.DatabaseAdded */, Application.DatabaseModel.DatabaseModel, 'databasesListTreeElement.appendChild', false));
+        it('adds interest group event on in scope event', testUiUpdate("InterestGroupAccess" /* Application.InterestGroupStorageModel.Events.InterestGroupAccess */, Application.InterestGroupStorageModel.InterestGroupStorageModel, 'interestGroupTreeElement.addEvent', true));
+        it('does not add interest group event on out of scope event', testUiUpdate("InterestGroupAccess" /* Application.InterestGroupStorageModel.Events.InterestGroupAccess */, Application.InterestGroupStorageModel.InterestGroupStorageModel, 'interestGroupTreeElement.addEvent', false));
+        it('adds DOM storage on in scope event', testUiUpdate("DOMStorageAdded" /* Application.DOMStorageModel.Events.DOMStorageAdded */, Application.DOMStorageModel.DOMStorageModel, 'sessionStorageListTreeElement.appendChild', true));
+        it('does not add DOM storage on out of scope event', testUiUpdate("DOMStorageAdded" /* Application.DOMStorageModel.Events.DOMStorageAdded */, Application.DOMStorageModel.DOMStorageModel, 'sessionStorageListTreeElement.appendChild', false));
         it('adds indexed DB on in scope event', testUiUpdate(Application.IndexedDBModel.Events.DatabaseAdded, Application.IndexedDBModel.IndexedDBModel, 'indexedDBListTreeElement.appendChild', true));
         it('does not add indexed DB on out of scope event', testUiUpdate(Application.IndexedDBModel.Events.DatabaseAdded, Application.IndexedDBModel.IndexedDBModel, 'indexedDBListTreeElement.appendChild', false));
-        it('adds shared storage on in scope event', testUiUpdate(Application.SharedStorageModel.Events.SharedStorageAdded, Application.SharedStorageModel.SharedStorageModel, 'sharedStorageListTreeElement.appendChild', true));
-        it('does not add shared storage on out of scope event', testUiUpdate(Application.SharedStorageModel.Events.SharedStorageAdded, Application.SharedStorageModel.SharedStorageModel, 'sharedStorageListTreeElement.appendChild', false));
+        it('adds shared storage on in scope event', testUiUpdate("SharedStorageAdded" /* Application.SharedStorageModel.Events.SharedStorageAdded */, Application.SharedStorageModel.SharedStorageModel, 'sharedStorageListTreeElement.appendChild', true));
+        it('does not add shared storage on out of scope event', testUiUpdate("SharedStorageAdded" /* Application.SharedStorageModel.Events.SharedStorageAdded */, Application.SharedStorageModel.SharedStorageModel, 'sharedStorageListTreeElement.appendChild', false));
         const MOCK_GETTER_ITEM = {
             ...MOCK_EVENT_ITEM,
             ...MOCK_EVENT_ITEM.databaseId,
@@ -215,8 +215,8 @@ describeWithMockConnection('ApplicationPanelSidebar', () => {
 describeWithMockConnection('IDBDatabaseTreeElement', () => {
     beforeEach(() => {
         stubNoopSettings();
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL, '', false);
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE, '', false);
+        Root.Runtime.experiments.register("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */, '', false);
+        Root.Runtime.experiments.register("storageBucketsTree" /* Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE */, '', false);
     });
     it('only becomes selectable after database is updated', () => {
         const target = createTarget();
@@ -235,8 +235,8 @@ describeWithMockConnection('ResourcesSection', () => {
         let target;
         beforeEach(() => {
             stubNoopSettings();
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL, '', false);
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE, '', false);
+            Root.Runtime.experiments.register("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */, '', false);
+            Root.Runtime.experiments.register("storageBucketsTree" /* Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE */, '', false);
             SDK.FrameManager.FrameManager.instance({ forceNew: true });
             target = createTarget();
         });

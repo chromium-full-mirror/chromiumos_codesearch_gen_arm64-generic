@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "chromeos-gce-l1-vkms", "version": "0.0.1", "revision": 1, "fullname": "chromeos-base/chromeos-gce-l1-vkms", "fullnamerev": "chromeos-base/chromeos-gce-l1-vkms-0.0.1-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

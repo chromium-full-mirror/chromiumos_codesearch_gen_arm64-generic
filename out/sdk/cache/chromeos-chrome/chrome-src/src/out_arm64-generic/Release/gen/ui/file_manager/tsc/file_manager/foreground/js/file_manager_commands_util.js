@@ -244,7 +244,7 @@ export function isRootEntry(volumeManager, entry) {
  * @return True if the event was triggered by the selection menu button.
  */
 export function isFromSelectionMenu(event) {
-    return event.target.id == 'selection-menu-button';
+    return event.target.id === 'selection-menu-button';
 }
 /**
  * If entry is fake/invalid/non-interactive/root, we don't show menu items
@@ -289,7 +289,7 @@ export function shouldShowMenuItemsForEntry(volumeManager, entry) {
  * @param capability Name of the capability to check for.
  */
 export function hasCapability(fileManager, entries, capability) {
-    if (entries.length == 0) {
+    if (entries.length === 0) {
         return false;
     }
     // Check if the capability is true or undefined, but not false. A capability

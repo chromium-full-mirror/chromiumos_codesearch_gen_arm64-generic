@@ -8,5 +8,7 @@
 #define SERVICES_WEBNN_PUBLIC_MOJOM_WEBNN_GRAPH_MOJOM_BLINK_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/big_buffer.mojom-blink.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-blink-import-headers.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-blink.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-blink-import-headers.h"
 
 #endif  // SERVICES_WEBNN_PUBLIC_MOJOM_WEBNN_GRAPH_MOJOM_BLINK_IMPORT_HEADERS_H_

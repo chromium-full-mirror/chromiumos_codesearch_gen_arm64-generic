@@ -966,6 +966,8 @@ bool WebAppProviderBridge_WebAppInstalledInArc_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_WebAppInstalledInArc_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.0
   bool success = true;
   std::string p_app_id{};
   ::webapps::InstallResultCode p_install_result{};
@@ -1104,6 +1106,8 @@ bool WebAppProviderBridge_WebAppUninstalledInArc_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_WebAppUninstalledInArc_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.1
   bool success = true;
   ::webapps::UninstallResultCode p_uninstall_result{};
   WebAppProviderBridge_WebAppUninstalledInArc_ResponseParamsDataView input_data_view(params, message);
@@ -1224,6 +1228,8 @@ bool WebAppProviderBridge_GetWebApkCreationParams_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_GetWebApkCreationParams_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.2
   bool success = true;
   WebApkCreationParamsPtr p_webapk_creation_params{};
   WebAppProviderBridge_GetWebApkCreationParams_ResponseParamsDataView input_data_view(params, message);
@@ -1353,6 +1359,8 @@ bool WebAppProviderBridge_InstallMicrosoft365_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_InstallMicrosoft365_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.3
   bool success = true;
   ::webapps::InstallResultCode p_install_result{};
   WebAppProviderBridge_InstallMicrosoft365_ResponseParamsDataView input_data_view(params, message);
@@ -1473,6 +1481,8 @@ bool WebAppProviderBridge_GetSubAppIds_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_GetSubAppIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.4
   bool success = true;
   std::vector<std::string> p_sub_apps{};
   WebAppProviderBridge_GetSubAppIds_ResponseParamsDataView input_data_view(params, message);
@@ -1604,6 +1614,8 @@ bool WebAppProviderBridge_GetSubAppToParentMap_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_GetSubAppToParentMap_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.6
   bool success = true;
   base::flat_map<std::string, std::string> p_parent_apps{};
   WebAppProviderBridge_GetSubAppToParentMap_ResponseParamsDataView input_data_view(params, message);
@@ -1735,6 +1747,8 @@ bool WebAppProviderBridge_InstallPreloadWebApp_ForwardToCallback::Accept(
           internal::WebAppProviderBridge_InstallPreloadWebApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppProviderBridge.7
   bool success = true;
   std::string p_app_id{};
   ::webapps::InstallResultCode p_install_result{};
@@ -1843,6 +1857,8 @@ bool WebAppProviderBridgeStubDispatch::Accept(
           reinterpret_cast<internal::WebAppProviderBridge_ScheduleNavigateAndTriggerInstallDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.5
       bool success = true;
       ::GURL p_install_url{};
       ::GURL p_origin_url{};
@@ -1864,10 +1880,10 @@ bool WebAppProviderBridgeStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScheduleNavigateAndTriggerInstallDialog(
-std::move(p_install_url), 
-std::move(p_origin_url), 
-std::move(p_is_renderer_initiated));
+      impl->ScheduleNavigateAndTriggerInstallDialog(        
+        std::move(p_install_url), 
+        std::move(p_origin_url), 
+        std::move(p_is_renderer_initiated));
       return true;
     }
     case internal::kWebAppProviderBridge_GetSubAppToParentMap_Name: {
@@ -1883,6 +1899,8 @@ std::move(p_is_renderer_initiated));
           reinterpret_cast<internal::WebAppProviderBridge_LaunchIsolatedWebAppInstaller_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.8
       bool success = true;
       ::base::FilePath p_bundle_path{};
       WebAppProviderBridge_LaunchIsolatedWebAppInstaller_ParamsDataView input_data_view(params, message);
@@ -1898,8 +1916,8 @@ std::move(p_is_renderer_initiated));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchIsolatedWebAppInstaller(
-std::move(p_bundle_path));
+      impl->LaunchIsolatedWebAppInstaller(        
+        std::move(p_bundle_path));
       return true;
     }
   }
@@ -1922,6 +1940,8 @@ bool WebAppProviderBridgeStubDispatch::AcceptWithResponder(
               internal::WebAppProviderBridge_WebAppInstalledInArc_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.0
       bool success = true;
       ::crosapi::mojom::ArcWebAppInstallInfoPtr p_info{};
       WebAppProviderBridge_WebAppInstalledInArc_ParamsDataView input_data_view(params, message);
@@ -1940,8 +1960,8 @@ bool WebAppProviderBridgeStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WebAppInstalledInArc(
-std::move(p_info), std::move(callback));
+      impl->WebAppInstalledInArc(        
+        std::move(p_info), std::move(callback));
       return true;
     }
     case internal::kWebAppProviderBridge_WebAppUninstalledInArc_Name: {
@@ -1951,6 +1971,8 @@ std::move(p_info), std::move(callback));
               internal::WebAppProviderBridge_WebAppUninstalledInArc_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.1
       bool success = true;
       std::string p_app_id{};
       WebAppProviderBridge_WebAppUninstalledInArc_ParamsDataView input_data_view(params, message);
@@ -1969,8 +1991,8 @@ std::move(p_info), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WebAppUninstalledInArc(
-std::move(p_app_id), std::move(callback));
+      impl->WebAppUninstalledInArc(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kWebAppProviderBridge_GetWebApkCreationParams_Name: {
@@ -1980,6 +2002,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppProviderBridge_GetWebApkCreationParams_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.2
       bool success = true;
       std::string p_app_id{};
       WebAppProviderBridge_GetWebApkCreationParams_ParamsDataView input_data_view(params, message);
@@ -1998,8 +2022,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWebApkCreationParams(
-std::move(p_app_id), std::move(callback));
+      impl->GetWebApkCreationParams(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kWebAppProviderBridge_InstallMicrosoft365_Name: {
@@ -2009,6 +2033,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppProviderBridge_InstallMicrosoft365_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.3
       bool success = true;
       WebAppProviderBridge_InstallMicrosoft365_ParamsDataView input_data_view(params, message);
       
@@ -2034,6 +2060,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppProviderBridge_GetSubAppIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.4
       bool success = true;
       std::string p_app_id{};
       WebAppProviderBridge_GetSubAppIds_ParamsDataView input_data_view(params, message);
@@ -2052,8 +2080,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSubAppIds(
-std::move(p_app_id), std::move(callback));
+      impl->GetSubAppIds(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kWebAppProviderBridge_ScheduleNavigateAndTriggerInstallDialog_Name: {
@@ -2066,6 +2094,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppProviderBridge_GetSubAppToParentMap_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.6
       bool success = true;
       WebAppProviderBridge_GetSubAppToParentMap_ParamsDataView input_data_view(params, message);
       
@@ -2091,6 +2121,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppProviderBridge_InstallPreloadWebApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppProviderBridge.7
       bool success = true;
       ::crosapi::mojom::PreloadWebAppInstallInfoPtr p_preload_install_info{};
       WebAppProviderBridge_InstallPreloadWebApp_ParamsDataView input_data_view(params, message);
@@ -2109,8 +2141,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallPreloadWebApp(
-std::move(p_preload_install_info), std::move(callback));
+      impl->InstallPreloadWebApp(        
+        std::move(p_preload_install_info), std::move(callback));
       return true;
     }
     case internal::kWebAppProviderBridge_LaunchIsolatedWebAppInstaller_Name: {
@@ -2504,6 +2536,8 @@ bool WebAppService_GetAssociatedAndroidPackage_ForwardToCallback::Accept(
           internal::WebAppService_GetAssociatedAndroidPackage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppService.1
   bool success = true;
   WebAppAndroidPackagePtr p_package{};
   WebAppService_GetAssociatedAndroidPackage_ResponseParamsDataView input_data_view(params, message);
@@ -2629,6 +2663,8 @@ bool WebAppService_MigrateLauncherState_ForwardToCallback::Accept(
           internal::WebAppService_MigrateLauncherState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppService.2
   bool success = true;
   WebAppService_MigrateLauncherState_ResponseParamsDataView input_data_view(params, message);
   
@@ -2691,6 +2727,8 @@ bool WebAppServiceStubDispatch::Accept(
           reinterpret_cast<internal::WebAppService_RegisterWebAppProviderBridge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebAppService.0
       bool success = true;
       ::mojo::PendingRemote<WebAppProviderBridge> p_web_app_provider_bridge{};
       WebAppService_RegisterWebAppProviderBridge_ParamsDataView input_data_view(params, message);
@@ -2708,8 +2746,8 @@ bool WebAppServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterWebAppProviderBridge(
-std::move(p_web_app_provider_bridge));
+      impl->RegisterWebAppProviderBridge(        
+        std::move(p_web_app_provider_bridge));
       return true;
     }
     case internal::kWebAppService_GetAssociatedAndroidPackage_Name: {
@@ -2741,6 +2779,8 @@ bool WebAppServiceStubDispatch::AcceptWithResponder(
               internal::WebAppService_GetAssociatedAndroidPackage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppService.1
       bool success = true;
       std::string p_web_app_id{};
       WebAppService_GetAssociatedAndroidPackage_ParamsDataView input_data_view(params, message);
@@ -2759,8 +2799,8 @@ bool WebAppServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAssociatedAndroidPackage(
-std::move(p_web_app_id), std::move(callback));
+      impl->GetAssociatedAndroidPackage(        
+        std::move(p_web_app_id), std::move(callback));
       return true;
     }
     case internal::kWebAppService_MigrateLauncherState_Name: {
@@ -2770,6 +2810,8 @@ std::move(p_web_app_id), std::move(callback));
               internal::WebAppService_MigrateLauncherState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppService.2
       bool success = true;
       std::string p_from_app_id{};
       std::string p_to_app_id{};
@@ -2791,9 +2833,9 @@ std::move(p_web_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MigrateLauncherState(
-std::move(p_from_app_id), 
-std::move(p_to_app_id), std::move(callback));
+      impl->MigrateLauncherState(        
+        std::move(p_from_app_id), 
+        std::move(p_to_app_id), std::move(callback));
       return true;
     }
   }

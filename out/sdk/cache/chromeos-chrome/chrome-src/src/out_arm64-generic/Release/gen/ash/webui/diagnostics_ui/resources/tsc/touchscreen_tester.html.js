@@ -1,18 +1,8 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style>
-  #canvas-dialog {
-    --cr-dialog-width: 100%;
-    --cr-dialog-height: 100%;
-  }
+    return html `<!--_html_template_start_--><style>#canvas-dialog{--cr-dialog-width:100%;--cr-dialog-height:100%}#canvas-dialog [slot=body]{overflow:hidden;padding:0}</style>
 
-  #canvas-dialog [slot='body'] {
-    overflow: hidden;
-    padding: 0;
-  }
-</style>
 
-<!-- TODO(wenyu): Strings need translation. -->
 <cr-dialog id="intro-dialog">
   <div slot="body">
     Test your touchscreen

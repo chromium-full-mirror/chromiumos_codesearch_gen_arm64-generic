@@ -2579,11 +2579,12 @@ CertProvBackendError_Error_CA_FAILURE = 9,
 CertProvBackendError_Error_PROFILE_NOT_FOUND = 10,
 CertProvBackendError_Error_USER_PRIMARY_EMAIL_NOT_FOUND = 11,
 CertProvBackendError_Error_CA_CONNECTION_NOT_FOUND = 12,
-CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND = 13
+CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND = 13,
+CertProvBackendError_Error_BAD_ADAPTER_CERTIFICATE_RECEIVED = 14
 };
 POLICY_PROTO_EXPORT bool CertProvBackendError_Error_IsValid(int value);
 constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MIN = CertProvBackendError_Error_ERROR_UNSPECIFIED;
-constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND;
+constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = CertProvBackendError_Error_BAD_ADAPTER_CERTIFICATE_RECEIVED;
 constexpr int CertProvBackendError_Error_Error_ARRAYSIZE = CertProvBackendError_Error_Error_MAX + 1;
 
 const std::string& CertProvBackendError_Error_Name(CertProvBackendError_Error value);
@@ -40929,6 +40930,8 @@ static constexpr Error CA_CONNECTION_NOT_FOUND =
 CertProvBackendError_Error_CA_CONNECTION_NOT_FOUND;
 static constexpr Error PUBSUB_TOPIC_NOT_FOUND =
 CertProvBackendError_Error_PUBSUB_TOPIC_NOT_FOUND;
+static constexpr Error BAD_ADAPTER_CERTIFICATE_RECEIVED =
+CertProvBackendError_Error_BAD_ADAPTER_CERTIFICATE_RECEIVED;
 static inline bool Error_IsValid(int value) {
 return CertProvBackendError_Error_IsValid(value);
 }

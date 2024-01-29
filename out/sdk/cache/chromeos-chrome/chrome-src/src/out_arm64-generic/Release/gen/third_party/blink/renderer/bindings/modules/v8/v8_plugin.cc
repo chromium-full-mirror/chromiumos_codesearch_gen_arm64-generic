@@ -263,9 +263,13 @@ blink_receiver->NamedPropertyEnumerator(blink_property_names, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 bindings::V8SetReturnValue(
     info,
-    ToV8(blink_property_names, v8_receiver, isolate));
+    ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state,
+                                             blink_property_names)
+         .As<v8::Array>());
 
 }
 
@@ -419,7 +423,8 @@ BLINK_BINDINGS_TRACE_EVENT("Plugin.name.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Plugin.name.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPluginName);
 
@@ -442,7 +447,8 @@ BLINK_BINDINGS_TRACE_EVENT("Plugin.filename.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Plugin.filename.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPluginFilename);
 
@@ -465,7 +471,8 @@ BLINK_BINDINGS_TRACE_EVENT("Plugin.description.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Plugin.description.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPluginDescription);
 

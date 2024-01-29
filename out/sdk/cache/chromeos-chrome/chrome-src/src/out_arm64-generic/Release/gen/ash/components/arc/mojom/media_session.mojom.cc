@@ -214,6 +214,8 @@ bool MediaSessionInstanceStubDispatch::Accept(
           reinterpret_cast<internal::MediaSessionInstance_EnableAudioFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionInstance.1
       bool success = true;
       ::mojo::PendingRemote<::media_session::mojom::AudioFocusManager> p_service{};
       MediaSessionInstance_EnableAudioFocus_ParamsDataView input_data_view(params, message);
@@ -231,8 +233,8 @@ bool MediaSessionInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAudioFocus(
-std::move(p_service));
+      impl->EnableAudioFocus(        
+        std::move(p_service));
       return true;
     }
     case internal::kMediaSessionInstance_DisableAudioFocus_Name: {
@@ -242,6 +244,8 @@ std::move(p_service));
           reinterpret_cast<internal::MediaSessionInstance_DisableAudioFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionInstance.2
       bool success = true;
       MediaSessionInstance_DisableAudioFocus_ParamsDataView input_data_view(params, message);
       
@@ -254,7 +258,7 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableAudioFocus();
+      impl->DisableAudioFocus(        );
       return true;
     }
   }

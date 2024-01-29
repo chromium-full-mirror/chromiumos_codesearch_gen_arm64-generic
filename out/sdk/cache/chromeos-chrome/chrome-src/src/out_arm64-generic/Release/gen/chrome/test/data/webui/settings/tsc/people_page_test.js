@@ -9,7 +9,6 @@ import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.m
 // 
 // 
 import { loadTimeData } from 'chrome://settings/settings.js';
-// 
 import { pageVisibility, ProfileInfoBrowserProxyImpl, Router, routes, StatusAction, SyncBrowserProxyImpl } from 'chrome://settings/settings.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 // 

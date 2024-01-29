@@ -415,6 +415,13 @@ bool OldPageInfo_Data::Validate(
       static_cast<const OldPageInfo_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
+          object->frame_token_for_old_main_frame, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->frame_token_for_old_main_frame, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
           object->new_lifecycle_state_for_old_page, 2, validation_context)) {
     return false;
   }

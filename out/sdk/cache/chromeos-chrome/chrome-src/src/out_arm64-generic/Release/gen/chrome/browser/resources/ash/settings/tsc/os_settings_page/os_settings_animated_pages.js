@@ -12,9 +12,9 @@
  *      <!-- Insert your section controls here -->
  *    </os-settings-animated-pages>
  */
-import '//resources/polymer/v3_0/iron-pages/iron-pages.js';
-import { assert } from '//resources/js/assert.js';
-import { DomIf, FlattenedNodesObserver, microTask, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import 'chrome://resources/polymer/v3_0/iron-pages/iron-pages.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { DomIf, FlattenedNodesObserver, microTask, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { getSettingIdParameter } from '../common/setting_id_param_util.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';

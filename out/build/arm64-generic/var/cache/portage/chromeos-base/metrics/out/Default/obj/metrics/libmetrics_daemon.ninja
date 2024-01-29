@@ -1,24 +1,27 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -I../../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2/metrics -Igen/include -I../../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2 -I/build/arm64-generic/usr/include -Igen
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -DPROTOBUF_USE_DLLS -pthread -DPROTOBUF_USE_DLLS
+include_dirs = -I../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2/metrics -Igen/include -I../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/debugd-client -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions
 root_out_dir = .
 target_output_name = libmetrics_daemon
 
-build obj/metrics/libmetrics_daemon.metrics_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2/metrics/metrics_daemon.cc || obj/metrics/metrics_proto_gen.stamp
+build obj/metrics/libmetrics_daemon.debugd_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2/metrics/debugd_reader.cc || obj/metrics/metrics_proto_gen.stamp
+  source_file_part = debugd_reader.cc
+  source_name_part = debugd_reader
+build obj/metrics/libmetrics_daemon.metrics_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2/metrics/metrics_daemon.cc || obj/metrics/metrics_proto_gen.stamp
   source_file_part = metrics_daemon.cc
   source_name_part = metrics_daemon
-build obj/metrics/libmetrics_daemon.metrics_daemon_main.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2/metrics/metrics_daemon_main.cc || obj/metrics/metrics_proto_gen.stamp
+build obj/metrics/libmetrics_daemon.metrics_daemon_main.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2/metrics/metrics_daemon_main.cc || obj/metrics/metrics_proto_gen.stamp
   source_file_part = metrics_daemon_main.cc
   source_name_part = metrics_daemon_main
-build obj/metrics/libmetrics_daemon.process_meter.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2/metrics/process_meter.cc || obj/metrics/metrics_proto_gen.stamp
-  source_file_part = process_meter.cc
-  source_name_part = process_meter
-build obj/metrics/libmetrics_daemon.vmlog_writer.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3766/work/metrics-0.0.1/platform2/metrics/vmlog_writer.cc || obj/metrics/metrics_proto_gen.stamp
+build obj/metrics/libmetrics_daemon.mmc_error_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2/metrics/mmc_error_parser.cc || obj/metrics/metrics_proto_gen.stamp
+  source_file_part = mmc_error_parser.cc
+  source_name_part = mmc_error_parser
+build obj/metrics/libmetrics_daemon.vmlog_writer.o: cxx ../../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3776/work/metrics-0.0.2/platform2/metrics/vmlog_writer.cc || obj/metrics/metrics_proto_gen.stamp
   source_file_part = vmlog_writer.cc
   source_name_part = vmlog_writer
 
-build ./libmetrics_daemon.a: alink obj/metrics/libmetrics_daemon.metrics_daemon.o obj/metrics/libmetrics_daemon.metrics_daemon_main.o obj/metrics/libmetrics_daemon.process_meter.o obj/metrics/libmetrics_daemon.vmlog_writer.o || ./lib/libmetrics.so ./libupload_service.a ./libmetrics_proto.a
+build ./libmetrics_daemon.a: alink obj/metrics/libmetrics_daemon.debugd_reader.o obj/metrics/libmetrics_daemon.metrics_daemon.o obj/metrics/libmetrics_daemon.metrics_daemon_main.o obj/metrics/libmetrics_daemon.mmc_error_parser.o obj/metrics/libmetrics_daemon.vmlog_writer.o || ./lib/libmetrics.so ./libupload_service.a ./libmetrics_proto.a
   arflags = rcsT
   output_extension = .a
   output_dir = 

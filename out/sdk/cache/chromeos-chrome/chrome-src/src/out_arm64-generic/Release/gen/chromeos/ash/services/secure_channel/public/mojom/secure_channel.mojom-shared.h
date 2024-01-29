@@ -161,6 +161,74 @@ inline bool IsKnownEnumValue(ConnectionMedium value) {
   return internal::ConnectionMedium_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class DiscoveryResult : int32_t {
+  
+  kFailure = 0,
+  
+  kSuccess = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, DiscoveryResult value);
+inline bool IsKnownEnumValue(DiscoveryResult value) {
+  return internal::DiscoveryResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class DiscoveryErrorCode : int32_t {
+  
+  kBluetoothTurnedOff = 0,
+  
+  kFilterCreationFailed = 1,
+  
+  kErrorStartingDiscovery = 2,
+  
+  kBleSessionInvalidated = 3,
+  
+  kDeviceNotInScanRequest = 4,
+  
+  kTimeout = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+};
+
+ std::ostream& operator<<(std::ostream& os, DiscoveryErrorCode value);
+inline bool IsKnownEnumValue(DiscoveryErrorCode value) {
+  return internal::DiscoveryErrorCode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class SecureChannelState : int32_t {
+  
+  kGeneratingSessionKeys = 0,
+  
+  kSendingHello = 1,
+  
+  kSentHello = 2,
+  
+  kReceivedResponderAuth = 3,
+  
+  kValidatedResponderAuth = 4,
+  
+  kSentInitiatorAuth = 5,
+  
+  kAuthenticationSuccess = 6,
+  
+  kAuthenticationFailure = 7,
+  kMinValue = 0,
+  kMaxValue = 7,
+};
+
+ std::ostream& operator<<(std::ostream& os, SecureChannelState value);
+inline bool IsKnownEnumValue(SecureChannelState value) {
+  return internal::SecureChannelState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class ChannelInterfaceBase {};
 
@@ -192,6 +260,16 @@ using ConnectionDelegateAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<ConnectionDelegateInterfaceBase>;
 using ConnectionDelegateAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<ConnectionDelegateInterfaceBase>;
+class SecureChannelStructuredMetricsLoggerInterfaceBase {};
+
+using SecureChannelStructuredMetricsLoggerPtrDataView =
+    mojo::InterfacePtrDataView<SecureChannelStructuredMetricsLoggerInterfaceBase>;
+using SecureChannelStructuredMetricsLoggerRequestDataView =
+    mojo::InterfaceRequestDataView<SecureChannelStructuredMetricsLoggerInterfaceBase>;
+using SecureChannelStructuredMetricsLoggerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<SecureChannelStructuredMetricsLoggerInterfaceBase>;
+using SecureChannelStructuredMetricsLoggerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<SecureChannelStructuredMetricsLoggerInterfaceBase>;
 class SecureChannelInterfaceBase {};
 
 using SecureChannelPtrDataView =
@@ -298,6 +376,18 @@ template <>
 struct hash<::ash::secure_channel::mojom::ConnectionMedium>
     : public mojo::internal::EnumHashImpl<::ash::secure_channel::mojom::ConnectionMedium> {};
 
+template <>
+struct hash<::ash::secure_channel::mojom::DiscoveryResult>
+    : public mojo::internal::EnumHashImpl<::ash::secure_channel::mojom::DiscoveryResult> {};
+
+template <>
+struct hash<::ash::secure_channel::mojom::DiscoveryErrorCode>
+    : public mojo::internal::EnumHashImpl<::ash::secure_channel::mojom::DiscoveryErrorCode> {};
+
+template <>
+struct hash<::ash::secure_channel::mojom::SecureChannelState>
+    : public mojo::internal::EnumHashImpl<::ash::secure_channel::mojom::SecureChannelState> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -377,6 +467,66 @@ struct Serializer<::ash::secure_channel::mojom::ConnectionMedium, MaybeConstUser
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::secure_channel::mojom::ConnectionMedium>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::secure_channel::mojom::DiscoveryResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::secure_channel::mojom::DiscoveryResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::secure_channel::mojom::DiscoveryResult>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::secure_channel::mojom::DiscoveryErrorCode, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::secure_channel::mojom::DiscoveryErrorCode, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::secure_channel::mojom::DiscoveryErrorCode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::secure_channel::mojom::SecureChannelState, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::secure_channel::mojom::SecureChannelState, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::secure_channel::mojom::SecureChannelState>(input)), output);
   }
 };
 
@@ -537,6 +687,33 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::secure_channel::mojom::ConnectionMedium> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::secure_channel::mojom::ConnectionMedium value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::secure_channel::mojom::DiscoveryResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::secure_channel::mojom::DiscoveryResult value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::secure_channel::mojom::DiscoveryErrorCode> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::secure_channel::mojom::DiscoveryErrorCode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::secure_channel::mojom::SecureChannelState> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::secure_channel::mojom::SecureChannelState value);
 };
 
 } // namespace perfetto

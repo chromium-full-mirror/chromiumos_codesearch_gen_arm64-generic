@@ -25,6 +25,7 @@
 
 #include "services/webnn/public/mojom/webnn_context_provider.mojom-shared-internal.h"
 #include "components/ml/webnn/features.mojom-shared.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-shared.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
@@ -36,8 +37,6 @@
 
 namespace webnn::mojom {
 class CreateContextOptionsDataView;
-
-class ErrorDataView;
 
 class CreateGraphResultDataView;
 class CreateContextResultDataView;
@@ -51,13 +50,6 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::webnn::mojom::CreateContextOptionsDataView> {
   using Data = ::webnn::mojom::internal::CreateContextOptions_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::webnn::mojom::ErrorDataView> {
-  using Data = ::webnn::mojom::internal::Error_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -97,22 +89,6 @@ enum class PowerPreference : int32_t {
  std::ostream& operator<<(std::ostream& os, PowerPreference value);
 inline bool IsKnownEnumValue(PowerPreference value) {
   return internal::PowerPreference_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
-enum class Error_Code : int32_t {
-  
-  kUnknownError = 0,
-  
-  kNotSupportedError = 1,
-  kMinValue = 0,
-  kMaxValue = 1,
-};
-
- std::ostream& operator<<(std::ostream& os, Error_Code value);
-inline bool IsKnownEnumValue(Error_Code value) {
-  return internal::Error_Code_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -163,42 +139,6 @@ class CreateContextOptionsDataView {
 };
 
 
-class ErrorDataView {
- public:
-  ErrorDataView() = default;
-
-  ErrorDataView(
-      internal::Error_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadErrorCode(UserType* output) const {
-    auto data_value = data_->error_code;
-    return mojo::internal::Deserialize<::webnn::mojom::Error_Code>(
-        data_value, output);
-  }
-  Error_Code error_code() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::webnn::mojom::Error_Code>(data_->error_code));
-  }
-  inline void GetErrorMessageDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadErrorMessage(UserType* output) {
-    
-    auto* pointer = data_->error_message.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Error_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class CreateGraphResultDataView {
  public:
   using Tag = internal::CreateGraphResult_Data::CreateGraphResult_Tag;
@@ -230,7 +170,7 @@ class CreateGraphResultDataView {
   }
   bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
-      ErrorDataView* output) const;
+      ::webnn::mojom::ErrorDataView* output) const;
 
   template <typename UserType>
   [[nodiscard]] bool ReadError(UserType* output) const {
@@ -278,7 +218,7 @@ class CreateContextResultDataView {
   }
   bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
-      ErrorDataView* output) const;
+      ::webnn::mojom::ErrorDataView* output) const;
 
   template <typename UserType>
   [[nodiscard]] bool ReadError(UserType* output) const {
@@ -303,10 +243,6 @@ template <>
 struct hash<::webnn::mojom::PowerPreference>
     : public mojo::internal::EnumHashImpl<::webnn::mojom::PowerPreference> {};
 
-template <>
-struct hash<::webnn::mojom::Error_Code>
-    : public mojo::internal::EnumHashImpl<::webnn::mojom::Error_Code> {};
-
 }  // namespace std
 
 namespace mojo {
@@ -326,26 +262,6 @@ struct Serializer<::webnn::mojom::PowerPreference, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::webnn::mojom::PowerPreference>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::webnn::mojom::Error_Code, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::webnn::mojom::Error_Code, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::webnn::mojom::Error_Code>(input)), output);
   }
 };
 
@@ -376,49 +292,6 @@ struct Serializer<::webnn::mojom::CreateContextOptionsDataView, MaybeConstUserTy
       return CallSetToNullIfExists<Traits>(output);
 
     ::webnn::mojom::CreateContextOptionsDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::webnn::mojom::ErrorDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::webnn::mojom::ErrorDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::webnn::mojom::internal::Error_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    mojo::internal::Serialize<::webnn::mojom::Error_Code>(
-        Traits::error_code(input), &fragment->error_code);
-    decltype(Traits::error_message(input)) in_error_message = Traits::error_message(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->error_message)::BaseType> error_message_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_error_message, error_message_fragment);
-    fragment->error_message.Set(
-        error_message_fragment.is_null() ? nullptr : error_message_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->error_message.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null error_message in Error struct");
-  }
-
-  static bool Deserialize(::webnn::mojom::internal::Error_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::webnn::mojom::ErrorDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -560,23 +433,16 @@ namespace webnn::mojom {
 
 
 
-inline void ErrorDataView::GetErrorMessageDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->error_message.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
 inline void CreateGraphResultDataView::GetErrorDataView(
-    ErrorDataView* output) const {
+    ::webnn::mojom::ErrorDataView* output) const {
   CHECK(is_error());
-  *output = ErrorDataView(data_->data.f_error.Get(), message_);
+  *output = ::webnn::mojom::ErrorDataView(data_->data.f_error.Get(), message_);
 }
 
 inline void CreateContextResultDataView::GetErrorDataView(
-    ErrorDataView* output) const {
+    ::webnn::mojom::ErrorDataView* output) const {
   CHECK(is_error());
-  *output = ErrorDataView(data_->data.f_error.Get(), message_);
+  *output = ::webnn::mojom::ErrorDataView(data_->data.f_error.Get(), message_);
 }
 
 
@@ -590,15 +456,6 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::webnn::mojom::PowerPreference> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::webnn::mojom::PowerPreference value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::webnn::mojom::Error_Code> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::webnn::mojom::Error_Code value);
 };
 
 } // namespace perfetto

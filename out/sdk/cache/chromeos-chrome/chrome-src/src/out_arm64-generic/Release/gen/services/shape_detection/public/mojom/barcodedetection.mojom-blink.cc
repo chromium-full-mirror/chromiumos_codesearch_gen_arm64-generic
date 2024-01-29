@@ -293,6 +293,8 @@ bool BarcodeDetection_Detect_ForwardToCallback::Accept(
           internal::BarcodeDetection_Detect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BarcodeDetection.0
   bool success = true;
   WTF::Vector<BarcodeDetectionResultPtr> p_results{};
   BarcodeDetection_Detect_ResponseParamsDataView input_data_view(params, message);
@@ -395,6 +397,8 @@ bool BarcodeDetectionStubDispatch::AcceptWithResponder(
               internal::BarcodeDetection_Detect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BarcodeDetection.0
       bool success = true;
       ::SkBitmap p_bitmap_data{};
       BarcodeDetection_Detect_ParamsDataView input_data_view(params, message);
@@ -413,8 +417,8 @@ bool BarcodeDetectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Detect(
-std::move(p_bitmap_data), std::move(callback));
+      impl->Detect(        
+        std::move(p_bitmap_data), std::move(callback));
       return true;
     }
   }

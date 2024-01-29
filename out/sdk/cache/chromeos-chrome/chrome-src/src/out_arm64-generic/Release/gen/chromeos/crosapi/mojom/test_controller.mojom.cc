@@ -453,6 +453,8 @@ bool DomMessageObserverStubDispatch::Accept(
           reinterpret_cast<internal::DomMessageObserver_OnMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomMessageObserver.0
       bool success = true;
       std::string p_message{};
       DomMessageObserver_OnMessage_ParamsDataView input_data_view(params, message);
@@ -468,8 +470,8 @@ bool DomMessageObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessage(
-std::move(p_message));
+      impl->OnMessage(        
+        std::move(p_message));
       return true;
     }
   }
@@ -1628,6 +1630,8 @@ bool StandaloneBrowserTestController_InstallWebApp_ForwardToCallback::Accept(
           internal::StandaloneBrowserTestController_InstallWebApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.0
   bool success = true;
   std::string p_app_id{};
   StandaloneBrowserTestController_InstallWebApp_ResponseParamsDataView input_data_view(params, message);
@@ -1757,6 +1761,8 @@ bool StandaloneBrowserTestController_LoadVpnExtension_ForwardToCallback::Accept(
           internal::StandaloneBrowserTestController_LoadVpnExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.1
   bool success = true;
   std::string p_extension_id{};
   StandaloneBrowserTestController_LoadVpnExtension_ResponseParamsDataView input_data_view(params, message);
@@ -1886,6 +1892,8 @@ bool StandaloneBrowserTestController_GetTtsVoices_ForwardToCallback::Accept(
           internal::StandaloneBrowserTestController_GetTtsVoices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.2
   bool success = true;
   std::vector<::crosapi::mojom::TtsVoicePtr> p_voices{};
   StandaloneBrowserTestController_GetTtsVoices_ResponseParamsDataView input_data_view(params, message);
@@ -2017,6 +2025,8 @@ bool StandaloneBrowserTestController_GetExtensionKeeplist_ForwardToCallback::Acc
           internal::StandaloneBrowserTestController_GetExtensionKeeplist_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.3
   bool success = true;
   ::crosapi::mojom::ExtensionKeepListPtr p_keep_list{};
   StandaloneBrowserTestController_GetExtensionKeeplist_ResponseParamsDataView input_data_view(params, message);
@@ -2146,6 +2156,8 @@ bool StandaloneBrowserTestController_InstallSubApp_ForwardToCallback::Accept(
           internal::StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.5
   bool success = true;
   std::string p_sub_app_id{};
   StandaloneBrowserTestController_InstallSubApp_ResponseParamsDataView input_data_view(params, message);
@@ -2275,6 +2287,8 @@ bool StandaloneBrowserTestController_InstallIsolatedWebApp_ForwardToCallback::Ac
           internal::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.6
   bool success = true;
   InstallWebAppResultPtr p_result{};
   StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParamsDataView input_data_view(params, message);
@@ -2402,6 +2416,8 @@ bool StandaloneBrowserTestController_SetWebAppSettingsPref_ForwardToCallback::Ac
           internal::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.7
   bool success = true;
   bool p_success{};
   StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParamsDataView input_data_view(params, message);
@@ -2521,6 +2537,8 @@ bool StandaloneBrowserTestController_InstallUnpackedExtension_ForwardToCallback:
           internal::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.8
   bool success = true;
   std::string p_extension_id{};
   StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParamsDataView input_data_view(params, message);
@@ -2650,6 +2668,8 @@ bool StandaloneBrowserTestController_RemoveComponentExtension_ForwardToCallback:
           internal::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.9
   bool success = true;
   StandaloneBrowserTestController_RemoveComponentExtension_ResponseParamsDataView input_data_view(params, message);
   
@@ -2757,6 +2777,8 @@ bool StandaloneBrowserTestController_ObserveDomMessages_ForwardToCallback::Accep
           internal::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.10
   bool success = true;
   StandaloneBrowserTestController_ObserveDomMessages_ResponseParamsDataView input_data_view(params, message);
   
@@ -2864,6 +2886,8 @@ bool StandaloneBrowserTestController_SetWebAppInstallForceListPref_ForwardToCall
           internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StandaloneBrowserTestController.11
   bool success = true;
   bool p_success{};
   StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParamsDataView input_data_view(params, message);
@@ -2950,6 +2974,8 @@ bool StandaloneBrowserTestControllerStubDispatch::Accept(
           reinterpret_cast<internal::StandaloneBrowserTestController_TtsSpeak_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.4
       bool success = true;
       ::crosapi::mojom::TtsUtterancePtr p_utterance{};
       ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient> p_utterance_client{};
@@ -2970,9 +2996,9 @@ bool StandaloneBrowserTestControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TtsSpeak(
-std::move(p_utterance), 
-std::move(p_utterance_client));
+      impl->TtsSpeak(        
+        std::move(p_utterance), 
+        std::move(p_utterance_client));
       return true;
     }
     case internal::kStandaloneBrowserTestController_InstallSubApp_Name: {
@@ -3016,6 +3042,8 @@ bool StandaloneBrowserTestControllerStubDispatch::AcceptWithResponder(
               internal::StandaloneBrowserTestController_InstallWebApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.0
       bool success = true;
       std::string p_start_url{};
       ::apps::WindowMode p_mode{};
@@ -3037,9 +3065,9 @@ bool StandaloneBrowserTestControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallWebApp(
-std::move(p_start_url), 
-std::move(p_mode), std::move(callback));
+      impl->InstallWebApp(        
+        std::move(p_start_url), 
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_LoadVpnExtension_Name: {
@@ -3049,6 +3077,8 @@ std::move(p_mode), std::move(callback));
               internal::StandaloneBrowserTestController_LoadVpnExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.1
       bool success = true;
       std::string p_extension_name{};
       StandaloneBrowserTestController_LoadVpnExtension_ParamsDataView input_data_view(params, message);
@@ -3067,8 +3097,8 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadVpnExtension(
-std::move(p_extension_name), std::move(callback));
+      impl->LoadVpnExtension(        
+        std::move(p_extension_name), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_GetTtsVoices_Name: {
@@ -3078,6 +3108,8 @@ std::move(p_extension_name), std::move(callback));
               internal::StandaloneBrowserTestController_GetTtsVoices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.2
       bool success = true;
       StandaloneBrowserTestController_GetTtsVoices_ParamsDataView input_data_view(params, message);
       
@@ -3103,6 +3135,8 @@ std::move(p_extension_name), std::move(callback));
               internal::StandaloneBrowserTestController_GetExtensionKeeplist_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.3
       bool success = true;
       StandaloneBrowserTestController_GetExtensionKeeplist_ParamsDataView input_data_view(params, message);
       
@@ -3131,6 +3165,8 @@ std::move(p_extension_name), std::move(callback));
               internal::StandaloneBrowserTestController_InstallSubApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.5
       bool success = true;
       std::string p_parent_app_id{};
       std::string p_sub_app_path{};
@@ -3152,9 +3188,9 @@ std::move(p_extension_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallSubApp(
-std::move(p_parent_app_id), 
-std::move(p_sub_app_path), std::move(callback));
+      impl->InstallSubApp(        
+        std::move(p_parent_app_id), 
+        std::move(p_sub_app_path), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_InstallIsolatedWebApp_Name: {
@@ -3164,6 +3200,8 @@ std::move(p_sub_app_path), std::move(callback));
               internal::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.6
       bool success = true;
       IsolatedWebAppLocationPtr p_location{};
       bool p_dev_mode{};
@@ -3185,9 +3223,9 @@ std::move(p_sub_app_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallIsolatedWebApp(
-std::move(p_location), 
-std::move(p_dev_mode), std::move(callback));
+      impl->InstallIsolatedWebApp(        
+        std::move(p_location), 
+        std::move(p_dev_mode), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_SetWebAppSettingsPref_Name: {
@@ -3197,6 +3235,8 @@ std::move(p_dev_mode), std::move(callback));
               internal::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.7
       bool success = true;
       std::string p_policy{};
       StandaloneBrowserTestController_SetWebAppSettingsPref_ParamsDataView input_data_view(params, message);
@@ -3215,8 +3255,8 @@ std::move(p_dev_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWebAppSettingsPref(
-std::move(p_policy), std::move(callback));
+      impl->SetWebAppSettingsPref(        
+        std::move(p_policy), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_InstallUnpackedExtension_Name: {
@@ -3226,6 +3266,8 @@ std::move(p_policy), std::move(callback));
               internal::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.8
       bool success = true;
       std::string p_path{};
       StandaloneBrowserTestController_InstallUnpackedExtension_ParamsDataView input_data_view(params, message);
@@ -3244,8 +3286,8 @@ std::move(p_policy), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallUnpackedExtension(
-std::move(p_path), std::move(callback));
+      impl->InstallUnpackedExtension(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_RemoveComponentExtension_Name: {
@@ -3255,6 +3297,8 @@ std::move(p_path), std::move(callback));
               internal::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.9
       bool success = true;
       std::string p_extension_id{};
       StandaloneBrowserTestController_RemoveComponentExtension_ParamsDataView input_data_view(params, message);
@@ -3273,8 +3317,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveComponentExtension(
-std::move(p_extension_id), std::move(callback));
+      impl->RemoveComponentExtension(        
+        std::move(p_extension_id), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_ObserveDomMessages_Name: {
@@ -3284,6 +3328,8 @@ std::move(p_extension_id), std::move(callback));
               internal::StandaloneBrowserTestController_ObserveDomMessages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.10
       bool success = true;
       ::mojo::PendingRemote<DomMessageObserver> p_observer{};
       StandaloneBrowserTestController_ObserveDomMessages_ParamsDataView input_data_view(params, message);
@@ -3304,8 +3350,8 @@ std::move(p_extension_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveDomMessages(
-std::move(p_observer), std::move(callback));
+      impl->ObserveDomMessages(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name: {
@@ -3315,6 +3361,8 @@ std::move(p_observer), std::move(callback));
               internal::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StandaloneBrowserTestController.11
       bool success = true;
       std::string p_policy{};
       StandaloneBrowserTestController_SetWebAppInstallForceListPref_ParamsDataView input_data_view(params, message);
@@ -3333,8 +3381,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWebAppInstallForceListPref(
-std::move(p_policy), std::move(callback));
+      impl->SetWebAppInstallForceListPref(        
+        std::move(p_policy), std::move(callback));
       return true;
     }
   }
@@ -3620,6 +3668,8 @@ bool TestShillControllerStubDispatch::Accept(
           reinterpret_cast<internal::TestShillController_OnPacketReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestShillController.0
       bool success = true;
       std::string p_extension_id{};
       std::string p_configuration_name{};
@@ -3641,10 +3691,10 @@ bool TestShillControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPacketReceived(
-std::move(p_extension_id), 
-std::move(p_configuration_name), 
-std::move(p_data));
+      impl->OnPacketReceived(        
+        std::move(p_extension_id), 
+        std::move(p_configuration_name), 
+        std::move(p_data));
       return true;
     }
     case internal::kTestShillController_OnPlatformMessage_Name: {
@@ -3654,6 +3704,8 @@ std::move(p_data));
           reinterpret_cast<internal::TestShillController_OnPlatformMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestShillController.1
       bool success = true;
       std::string p_extension_id{};
       std::string p_configuration_name{};
@@ -3675,10 +3727,10 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPlatformMessage(
-std::move(p_extension_id), 
-std::move(p_configuration_name), 
-std::move(p_message));
+      impl->OnPlatformMessage(        
+        std::move(p_extension_id), 
+        std::move(p_configuration_name), 
+        std::move(p_message));
       return true;
     }
   }
@@ -4846,6 +4898,8 @@ bool ShillClientTestInterface_AddDevice_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_AddDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.0
   bool success = true;
   ShillClientTestInterface_AddDevice_ResponseParamsDataView input_data_view(params, message);
   
@@ -4953,6 +5007,8 @@ bool ShillClientTestInterface_ClearDevices_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_ClearDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.1
   bool success = true;
   ShillClientTestInterface_ClearDevices_ResponseParamsDataView input_data_view(params, message);
   
@@ -5060,6 +5116,8 @@ bool ShillClientTestInterface_SetDeviceProperty_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_SetDeviceProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.2
   bool success = true;
   ShillClientTestInterface_SetDeviceProperty_ResponseParamsDataView input_data_view(params, message);
   
@@ -5167,6 +5225,8 @@ bool ShillClientTestInterface_SetSimLocked_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_SetSimLocked_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.3
   bool success = true;
   ShillClientTestInterface_SetSimLocked_ResponseParamsDataView input_data_view(params, message);
   
@@ -5274,6 +5334,8 @@ bool ShillClientTestInterface_AddService_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_AddService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.4
   bool success = true;
   ShillClientTestInterface_AddService_ResponseParamsDataView input_data_view(params, message);
   
@@ -5381,6 +5443,8 @@ bool ShillClientTestInterface_ClearServices_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_ClearServices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.5
   bool success = true;
   ShillClientTestInterface_ClearServices_ResponseParamsDataView input_data_view(params, message);
   
@@ -5488,6 +5552,8 @@ bool ShillClientTestInterface_SetServiceProperty_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_SetServiceProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.6
   bool success = true;
   ShillClientTestInterface_SetServiceProperty_ResponseParamsDataView input_data_view(params, message);
   
@@ -5595,6 +5661,8 @@ bool ShillClientTestInterface_AddProfile_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_AddProfile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.7
   bool success = true;
   ShillClientTestInterface_AddProfile_ResponseParamsDataView input_data_view(params, message);
   
@@ -5702,6 +5770,8 @@ bool ShillClientTestInterface_AddServiceToProfile_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_AddServiceToProfile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.8
   bool success = true;
   ShillClientTestInterface_AddServiceToProfile_ResponseParamsDataView input_data_view(params, message);
   
@@ -5809,6 +5879,8 @@ bool ShillClientTestInterface_AddIPConfig_ForwardToCallback::Accept(
           internal::ShillClientTestInterface_AddIPConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShillClientTestInterface.9
   bool success = true;
   ShillClientTestInterface_AddIPConfig_ResponseParamsDataView input_data_view(params, message);
   
@@ -5914,6 +5986,8 @@ bool ShillClientTestInterfaceStubDispatch::AcceptWithResponder(
               internal::ShillClientTestInterface_AddDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.0
       bool success = true;
       std::string p_device_path{};
       std::string p_type{};
@@ -5938,10 +6012,10 @@ bool ShillClientTestInterfaceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDevice(
-std::move(p_device_path), 
-std::move(p_type), 
-std::move(p_name), std::move(callback));
+      impl->AddDevice(        
+        std::move(p_device_path), 
+        std::move(p_type), 
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_ClearDevices_Name: {
@@ -5951,6 +6025,8 @@ std::move(p_name), std::move(callback));
               internal::ShillClientTestInterface_ClearDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.1
       bool success = true;
       ShillClientTestInterface_ClearDevices_ParamsDataView input_data_view(params, message);
       
@@ -5976,6 +6052,8 @@ std::move(p_name), std::move(callback));
               internal::ShillClientTestInterface_SetDeviceProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.2
       bool success = true;
       std::string p_device_path{};
       std::string p_name{};
@@ -6003,11 +6081,11 @@ std::move(p_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeviceProperty(
-std::move(p_device_path), 
-std::move(p_name), 
-std::move(p_value), 
-std::move(p_notify_changed), std::move(callback));
+      impl->SetDeviceProperty(        
+        std::move(p_device_path), 
+        std::move(p_name), 
+        std::move(p_value), 
+        std::move(p_notify_changed), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_SetSimLocked_Name: {
@@ -6017,6 +6095,8 @@ std::move(p_notify_changed), std::move(callback));
               internal::ShillClientTestInterface_SetSimLocked_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.3
       bool success = true;
       std::string p_device_path{};
       bool p_enabled{};
@@ -6038,9 +6118,9 @@ std::move(p_notify_changed), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSimLocked(
-std::move(p_device_path), 
-std::move(p_enabled), std::move(callback));
+      impl->SetSimLocked(        
+        std::move(p_device_path), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_AddService_Name: {
@@ -6050,6 +6130,8 @@ std::move(p_enabled), std::move(callback));
               internal::ShillClientTestInterface_AddService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.4
       bool success = true;
       std::string p_service_path{};
       std::string p_guid{};
@@ -6083,13 +6165,13 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddService(
-std::move(p_service_path), 
-std::move(p_guid), 
-std::move(p_name), 
-std::move(p_type), 
-std::move(p_state), 
-std::move(p_visible), std::move(callback));
+      impl->AddService(        
+        std::move(p_service_path), 
+        std::move(p_guid), 
+        std::move(p_name), 
+        std::move(p_type), 
+        std::move(p_state), 
+        std::move(p_visible), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_ClearServices_Name: {
@@ -6099,6 +6181,8 @@ std::move(p_visible), std::move(callback));
               internal::ShillClientTestInterface_ClearServices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.5
       bool success = true;
       ShillClientTestInterface_ClearServices_ParamsDataView input_data_view(params, message);
       
@@ -6124,6 +6208,8 @@ std::move(p_visible), std::move(callback));
               internal::ShillClientTestInterface_SetServiceProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.6
       bool success = true;
       std::string p_service_path{};
       std::string p_property{};
@@ -6148,10 +6234,10 @@ std::move(p_visible), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetServiceProperty(
-std::move(p_service_path), 
-std::move(p_property), 
-std::move(p_value), std::move(callback));
+      impl->SetServiceProperty(        
+        std::move(p_service_path), 
+        std::move(p_property), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_AddProfile_Name: {
@@ -6161,6 +6247,8 @@ std::move(p_value), std::move(callback));
               internal::ShillClientTestInterface_AddProfile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.7
       bool success = true;
       std::string p_profile_path{};
       std::string p_userhash{};
@@ -6182,9 +6270,9 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddProfile(
-std::move(p_profile_path), 
-std::move(p_userhash), std::move(callback));
+      impl->AddProfile(        
+        std::move(p_profile_path), 
+        std::move(p_userhash), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_AddServiceToProfile_Name: {
@@ -6194,6 +6282,8 @@ std::move(p_userhash), std::move(callback));
               internal::ShillClientTestInterface_AddServiceToProfile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.8
       bool success = true;
       std::string p_profile_path{};
       std::string p_service_path{};
@@ -6215,9 +6305,9 @@ std::move(p_userhash), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddServiceToProfile(
-std::move(p_profile_path), 
-std::move(p_service_path), std::move(callback));
+      impl->AddServiceToProfile(        
+        std::move(p_profile_path), 
+        std::move(p_service_path), std::move(callback));
       return true;
     }
     case internal::kShillClientTestInterface_AddIPConfig_Name: {
@@ -6227,6 +6317,8 @@ std::move(p_service_path), std::move(callback));
               internal::ShillClientTestInterface_AddIPConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShillClientTestInterface.9
       bool success = true;
       std::string p_ip_config_path{};
       ::base::Value p_properties{};
@@ -6248,9 +6340,9 @@ std::move(p_service_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddIPConfig(
-std::move(p_ip_config_path), 
-std::move(p_properties), std::move(callback));
+      impl->AddIPConfig(        
+        std::move(p_ip_config_path), 
+        std::move(p_properties), std::move(callback));
       return true;
     }
   }
@@ -7207,6 +7299,8 @@ bool InputMethodTestInterface_WaitForFocus_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_WaitForFocus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.0
   bool success = true;
   InputMethodTestInterface_WaitForFocus_ResponseParamsDataView input_data_view(params, message);
   
@@ -7314,6 +7408,8 @@ bool InputMethodTestInterface_CommitText_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_CommitText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.1
   bool success = true;
   InputMethodTestInterface_CommitText_ResponseParamsDataView input_data_view(params, message);
   
@@ -7421,6 +7517,8 @@ bool InputMethodTestInterface_SetComposition_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_SetComposition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.2
   bool success = true;
   InputMethodTestInterface_SetComposition_ResponseParamsDataView input_data_view(params, message);
   
@@ -7528,6 +7626,8 @@ bool InputMethodTestInterface_SendKeyEvent_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_SendKeyEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.3
   bool success = true;
   uint64_t p_key_event_id{};
   InputMethodTestInterface_SendKeyEvent_ResponseParamsDataView input_data_view(params, message);
@@ -7647,6 +7747,8 @@ bool InputMethodTestInterface_KeyEventHandled_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_KeyEventHandled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.4
   bool success = true;
   InputMethodTestInterface_KeyEventHandled_ResponseParamsDataView input_data_view(params, message);
   
@@ -7754,6 +7856,8 @@ bool InputMethodTestInterface_WaitForNextSurroundingTextChange_ForwardToCallback
           internal::InputMethodTestInterface_WaitForNextSurroundingTextChange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.5
   bool success = true;
   std::string p_surrounding_text{};
   ::gfx::Range p_selection_range{};
@@ -7901,6 +8005,8 @@ bool InputMethodTestInterface_HasCapabilities_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_HasCapabilities_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.6
   bool success = true;
   bool p_has_capabilities{};
   InputMethodTestInterface_HasCapabilities_ResponseParamsDataView input_data_view(params, message);
@@ -8020,6 +8126,8 @@ bool InputMethodTestInterface_ConfirmComposition_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_ConfirmComposition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.7
   bool success = true;
   InputMethodTestInterface_ConfirmComposition_ResponseParamsDataView input_data_view(params, message);
   
@@ -8127,6 +8235,8 @@ bool InputMethodTestInterface_DeleteSurroundingText_ForwardToCallback::Accept(
           internal::InputMethodTestInterface_DeleteSurroundingText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.8
   bool success = true;
   InputMethodTestInterface_DeleteSurroundingText_ResponseParamsDataView input_data_view(params, message);
   
@@ -8234,6 +8344,8 @@ bool InputMethodTestInterface_InstallAndSwitchToInputMethod_ForwardToCallback::A
           internal::InputMethodTestInterface_InstallAndSwitchToInputMethod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodTestInterface.9
   bool success = true;
   InputMethodTestInterface_InstallAndSwitchToInputMethod_ResponseParamsDataView input_data_view(params, message);
   
@@ -8339,6 +8451,8 @@ bool InputMethodTestInterfaceStubDispatch::AcceptWithResponder(
               internal::InputMethodTestInterface_WaitForFocus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.0
       bool success = true;
       InputMethodTestInterface_WaitForFocus_ParamsDataView input_data_view(params, message);
       
@@ -8364,6 +8478,8 @@ bool InputMethodTestInterfaceStubDispatch::AcceptWithResponder(
               internal::InputMethodTestInterface_CommitText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.1
       bool success = true;
       std::string p_text{};
       InputMethodTestInterface_CommitText_ParamsDataView input_data_view(params, message);
@@ -8382,8 +8498,8 @@ bool InputMethodTestInterfaceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CommitText(
-std::move(p_text), std::move(callback));
+      impl->CommitText(        
+        std::move(p_text), std::move(callback));
       return true;
     }
     case internal::kInputMethodTestInterface_SetComposition_Name: {
@@ -8393,6 +8509,8 @@ std::move(p_text), std::move(callback));
               internal::InputMethodTestInterface_SetComposition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.2
       bool success = true;
       std::string p_text{};
       uint32_t p_index{};
@@ -8414,9 +8532,9 @@ std::move(p_text), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetComposition(
-std::move(p_text), 
-std::move(p_index), std::move(callback));
+      impl->SetComposition(        
+        std::move(p_text), 
+        std::move(p_index), std::move(callback));
       return true;
     }
     case internal::kInputMethodTestInterface_SendKeyEvent_Name: {
@@ -8426,6 +8544,8 @@ std::move(p_index), std::move(callback));
               internal::InputMethodTestInterface_SendKeyEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.3
       bool success = true;
       KeyEventPtr p_event{};
       InputMethodTestInterface_SendKeyEvent_ParamsDataView input_data_view(params, message);
@@ -8444,8 +8564,8 @@ std::move(p_index), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendKeyEvent(
-std::move(p_event), std::move(callback));
+      impl->SendKeyEvent(        
+        std::move(p_event), std::move(callback));
       return true;
     }
     case internal::kInputMethodTestInterface_KeyEventHandled_Name: {
@@ -8455,6 +8575,8 @@ std::move(p_event), std::move(callback));
               internal::InputMethodTestInterface_KeyEventHandled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.4
       bool success = true;
       uint64_t p_key_event_id{};
       bool p_handled{};
@@ -8476,9 +8598,9 @@ std::move(p_event), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->KeyEventHandled(
-std::move(p_key_event_id), 
-std::move(p_handled), std::move(callback));
+      impl->KeyEventHandled(        
+        std::move(p_key_event_id), 
+        std::move(p_handled), std::move(callback));
       return true;
     }
     case internal::kInputMethodTestInterface_WaitForNextSurroundingTextChange_Name: {
@@ -8488,6 +8610,8 @@ std::move(p_handled), std::move(callback));
               internal::InputMethodTestInterface_WaitForNextSurroundingTextChange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.5
       bool success = true;
       InputMethodTestInterface_WaitForNextSurroundingTextChange_ParamsDataView input_data_view(params, message);
       
@@ -8513,6 +8637,8 @@ std::move(p_handled), std::move(callback));
               internal::InputMethodTestInterface_HasCapabilities_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.6
       bool success = true;
       std::vector<std::string> p_capabilities{};
       InputMethodTestInterface_HasCapabilities_ParamsDataView input_data_view(params, message);
@@ -8531,8 +8657,8 @@ std::move(p_handled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasCapabilities(
-std::move(p_capabilities), std::move(callback));
+      impl->HasCapabilities(        
+        std::move(p_capabilities), std::move(callback));
       return true;
     }
     case internal::kInputMethodTestInterface_ConfirmComposition_Name: {
@@ -8542,6 +8668,8 @@ std::move(p_capabilities), std::move(callback));
               internal::InputMethodTestInterface_ConfirmComposition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.7
       bool success = true;
       InputMethodTestInterface_ConfirmComposition_ParamsDataView input_data_view(params, message);
       
@@ -8567,6 +8695,8 @@ std::move(p_capabilities), std::move(callback));
               internal::InputMethodTestInterface_DeleteSurroundingText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.8
       bool success = true;
       uint32_t p_length_before_selection{};
       uint32_t p_length_after_selection{};
@@ -8588,9 +8718,9 @@ std::move(p_capabilities), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSurroundingText(
-std::move(p_length_before_selection), 
-std::move(p_length_after_selection), std::move(callback));
+      impl->DeleteSurroundingText(        
+        std::move(p_length_before_selection), 
+        std::move(p_length_after_selection), std::move(callback));
       return true;
     }
     case internal::kInputMethodTestInterface_InstallAndSwitchToInputMethod_Name: {
@@ -8600,6 +8730,8 @@ std::move(p_length_after_selection), std::move(callback));
               internal::InputMethodTestInterface_InstallAndSwitchToInputMethod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodTestInterface.9
       bool success = true;
       InputMethodPtr p_input_method{};
       InputMethodTestInterface_InstallAndSwitchToInputMethod_ParamsDataView input_data_view(params, message);
@@ -8618,8 +8750,8 @@ std::move(p_length_after_selection), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallAndSwitchToInputMethod(
-std::move(p_input_method), std::move(callback));
+      impl->InstallAndSwitchToInputMethod(        
+        std::move(p_input_method), std::move(callback));
       return true;
     }
   }
@@ -8797,6 +8929,9 @@ TestController::IPCStableHashFunction TestController::MessageToMethodInfo_(mojo:
     case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name: {
       return &TestController::SetAlmanacEndpointUrlForTesting_Sym::IPCStableHash;
     }
+    case internal::kTestController_IsToastShown_Name: {
+      return &TestController::IsToastShown_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -8896,6 +9031,8 @@ const char* TestController::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::TestController::GetAllOpenTabURLs";
       case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name:
             return "Receive crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting";
+      case internal::kTestController_IsToastShown_Name:
+            return "Receive crosapi::mojom::TestController::IsToastShown";
     }
   } else {
     switch (message.name()) {
@@ -8987,6 +9124,8 @@ const char* TestController::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::TestController::GetAllOpenTabURLs";
       case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name:
             return "Receive reply crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting";
+      case internal::kTestController_IsToastShown_Name:
+            return "Receive reply crosapi::mojom::TestController::IsToastShown";
     }
   }
   return "Receive unknown mojo message";
@@ -9569,6 +9708,19 @@ uint32_t TestController::SetAlmanacEndpointUrlForTesting_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::TestController::SetAlmanacEndpointUrlForTesting");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TestController::IsToastShown_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::TestController::IsToastShown");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -10165,6 +10317,22 @@ class TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   TestController::SetAlmanacEndpointUrlForTestingCallback callback_;
+};
+
+class TestController_IsToastShown_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  TestController_IsToastShown_ForwardToCallback(
+      TestController::IsToastShownCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  TestController_IsToastShown_ForwardToCallback(const TestController_IsToastShown_ForwardToCallback&) = delete;
+  TestController_IsToastShown_ForwardToCallback& operator=(const TestController_IsToastShown_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  TestController::IsToastShownCallback callback_;
 };
 
 TestControllerProxy::TestControllerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -12178,6 +12346,58 @@ void TestControllerProxy::SetAlmanacEndpointUrlForTesting(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void TestControllerProxy::IsToastShown(
+    const std::string& in_toast_id, IsToastShownCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::TestController::IsToastShown", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("toast_id"), in_toast_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_IsToastShown_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_IsToastShown_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->toast_id)::BaseType> toast_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_toast_id, toast_id_fragment);
+  params->toast_id.Set(
+      toast_id_fragment.is_null() ? nullptr : toast_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->toast_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null toast_id in TestController.IsToastShown request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("IsToastShown");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new TestController_IsToastShown_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class TestController_ClickElement_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static TestController::ClickElementCallback CreateCallback(
@@ -12236,6 +12456,8 @@ bool TestController_ClickElement_ForwardToCallback::Accept(
           internal::TestController_ClickElement_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.20
   bool success = true;
   bool p_success{};
   TestController_ClickElement_ResponseParamsDataView input_data_view(params, message);
@@ -12355,6 +12577,8 @@ bool TestController_DoesItemExistInShelf_ForwardToCallback::Accept(
           internal::TestController_DoesItemExistInShelf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.9
   bool success = true;
   bool p_exists{};
   TestController_DoesItemExistInShelf_ResponseParamsDataView input_data_view(params, message);
@@ -12474,6 +12698,8 @@ bool TestController_DoesElementExist_ForwardToCallback::Accept(
           internal::TestController_DoesElementExist_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.19
   bool success = true;
   bool p_exists{};
   TestController_DoesElementExist_ResponseParamsDataView input_data_view(params, message);
@@ -12593,6 +12819,8 @@ bool TestController_DoesWindowExist_ForwardToCallback::Accept(
           internal::TestController_DoesWindowExist_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.0
   bool success = true;
   bool p_exist{};
   TestController_DoesWindowExist_ResponseParamsDataView input_data_view(params, message);
@@ -12712,6 +12940,8 @@ bool TestController_EnterOverviewMode_ForwardToCallback::Accept(
           internal::TestController_EnterOverviewMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.2
   bool success = true;
   TestController_EnterOverviewMode_ResponseParamsDataView input_data_view(params, message);
   
@@ -12819,6 +13049,8 @@ bool TestController_ExitOverviewMode_ForwardToCallback::Accept(
           internal::TestController_ExitOverviewMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.3
   bool success = true;
   TestController_ExitOverviewMode_ResponseParamsDataView input_data_view(params, message);
   
@@ -12926,6 +13158,8 @@ bool TestController_EnterTabletMode_ForwardToCallback::Accept(
           internal::TestController_EnterTabletMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.4
   bool success = true;
   TestController_EnterTabletMode_ResponseParamsDataView input_data_view(params, message);
   
@@ -13033,6 +13267,8 @@ bool TestController_ExitTabletMode_ForwardToCallback::Accept(
           internal::TestController_ExitTabletMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.5
   bool success = true;
   TestController_ExitTabletMode_ResponseParamsDataView input_data_view(params, message);
   
@@ -13140,6 +13376,8 @@ bool TestController_GetContextMenuForShelfItem_ForwardToCallback::Accept(
           internal::TestController_GetContextMenuForShelfItem_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.13
   bool success = true;
   std::vector<std::string> p_items{};
   TestController_GetContextMenuForShelfItem_ResponseParamsDataView input_data_view(params, message);
@@ -13271,6 +13509,8 @@ bool TestController_GetMinimizeOnBackKeyWindowProperty_ForwardToCallback::Accept
           internal::TestController_GetMinimizeOnBackKeyWindowProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.10
   bool success = true;
   OptionalBoolean p_value{};
   TestController_GetMinimizeOnBackKeyWindowProperty_ResponseParamsDataView input_data_view(params, message);
@@ -13391,6 +13631,8 @@ bool TestController_GetWindowPositionInScreen_ForwardToCallback::Accept(
           internal::TestController_GetWindowPositionInScreen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.8
   bool success = true;
   std::optional<::gfx::Point> p_position{};
   TestController_GetWindowPositionInScreen_ResponseParamsDataView input_data_view(params, message);
@@ -13516,6 +13758,8 @@ bool TestController_PinOrUnpinItemInShelf_ForwardToCallback::Accept(
           internal::TestController_PinOrUnpinItemInShelf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.11
   bool success = true;
   bool p_success{};
   TestController_PinOrUnpinItemInShelf_ResponseParamsDataView input_data_view(params, message);
@@ -13635,6 +13879,8 @@ bool TestController_SelectContextMenuForShelfItem_ForwardToCallback::Accept(
           internal::TestController_SelectContextMenuForShelfItem_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.18
   bool success = true;
   bool p_success{};
   TestController_SelectContextMenuForShelfItem_ResponseParamsDataView input_data_view(params, message);
@@ -13754,6 +14000,8 @@ bool TestController_SelectItemInShelf_ForwardToCallback::Accept(
           internal::TestController_SelectItemInShelf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.12
   bool success = true;
   bool p_success{};
   TestController_SelectItemInShelf_ResponseParamsDataView input_data_view(params, message);
@@ -13873,6 +14121,8 @@ bool TestController_SendTouchEvent_ForwardToCallback::Accept(
           internal::TestController_SendTouchEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.7
   bool success = true;
   TestController_SendTouchEvent_ResponseParamsDataView input_data_view(params, message);
   
@@ -13980,6 +14230,8 @@ bool TestController_GetOpenAshBrowserWindows_ForwardToCallback::Accept(
           internal::TestController_GetOpenAshBrowserWindows_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.14
   bool success = true;
   uint32_t p_number{};
   TestController_GetOpenAshBrowserWindows_ResponseParamsDataView input_data_view(params, message);
@@ -14099,6 +14351,8 @@ bool TestController_CloseAllBrowserWindows_ForwardToCallback::Accept(
           internal::TestController_CloseAllBrowserWindows_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.15
   bool success = true;
   bool p_success{};
   TestController_CloseAllBrowserWindows_ResponseParamsDataView input_data_view(params, message);
@@ -14218,6 +14472,8 @@ bool TestController_TriggerTabScrubbing_ForwardToCallback::Accept(
           internal::TestController_TriggerTabScrubbing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.17
   bool success = true;
   bool p_scrubbing{};
   TestController_TriggerTabScrubbing_ResponseParamsDataView input_data_view(params, message);
@@ -14337,6 +14593,8 @@ bool TestController_SetSelectedSharesheetApp_ForwardToCallback::Accept(
           internal::TestController_SetSelectedSharesheetApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.21
   bool success = true;
   TestController_SetSelectedSharesheetApp_ResponseParamsDataView input_data_view(params, message);
   
@@ -14444,6 +14702,8 @@ bool TestController_GetAshVersion_ForwardToCallback::Accept(
           internal::TestController_GetAshVersion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.22
   bool success = true;
   std::string p_ash_version{};
   TestController_GetAshVersion_ResponseParamsDataView input_data_view(params, message);
@@ -14573,6 +14833,8 @@ bool TestController_BindTestShillController_ForwardToCallback::Accept(
           internal::TestController_BindTestShillController_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.23
   bool success = true;
   TestController_BindTestShillController_ResponseParamsDataView input_data_view(params, message);
   
@@ -14680,6 +14942,8 @@ bool TestController_CreateAndCancelPrintJob_ForwardToCallback::Accept(
           internal::TestController_CreateAndCancelPrintJob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.24
   bool success = true;
   TestController_CreateAndCancelPrintJob_ResponseParamsDataView input_data_view(params, message);
   
@@ -14787,6 +15051,8 @@ bool TestController_BindShillClientTestInterface_ForwardToCallback::Accept(
           internal::TestController_BindShillClientTestInterface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.25
   bool success = true;
   TestController_BindShillClientTestInterface_ResponseParamsDataView input_data_view(params, message);
   
@@ -14894,6 +15160,8 @@ bool TestController_GetSanitizedActiveUsername_ForwardToCallback::Accept(
           internal::TestController_GetSanitizedActiveUsername_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.26
   bool success = true;
   std::string p_sanitized_active_username{};
   TestController_GetSanitizedActiveUsername_ResponseParamsDataView input_data_view(params, message);
@@ -15023,6 +15291,8 @@ bool TestController_BindInputMethodTestInterface_ForwardToCallback::Accept(
           internal::TestController_BindInputMethodTestInterface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.27
   bool success = true;
   TestController_BindInputMethodTestInterface_ResponseParamsDataView input_data_view(params, message);
   
@@ -15130,6 +15400,8 @@ bool TestController_ReinitializeAppService_ForwardToCallback::Accept(
           internal::TestController_ReinitializeAppService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.31
   bool success = true;
   TestController_ReinitializeAppService_ResponseParamsDataView input_data_view(params, message);
   
@@ -15237,6 +15509,8 @@ bool TestController_GetShelfItemState_ForwardToCallback::Accept(
           internal::TestController_GetShelfItemState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.32
   bool success = true;
   uint32_t p_state{};
   TestController_GetShelfItemState_ResponseParamsDataView input_data_view(params, message);
@@ -15356,6 +15630,8 @@ bool TestController_GetTtsUtteranceQueueSize_ForwardToCallback::Accept(
           internal::TestController_GetTtsUtteranceQueueSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.33
   bool success = true;
   int32_t p_size{};
   TestController_GetTtsUtteranceQueueSize_ResponseParamsDataView input_data_view(params, message);
@@ -15475,6 +15751,8 @@ bool TestController_AreDesksBeingModified_ForwardToCallback::Accept(
           internal::TestController_AreDesksBeingModified_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.34
   bool success = true;
   bool p_are_desks_being_modified{};
   TestController_AreDesksBeingModified_ResponseParamsDataView input_data_view(params, message);
@@ -15594,6 +15872,8 @@ bool TestController_GetTtsVoices_ForwardToCallback::Accept(
           internal::TestController_GetTtsVoices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.35
   bool success = true;
   std::vector<::crosapi::mojom::TtsVoicePtr> p_voices{};
   TestController_GetTtsVoices_ResponseParamsDataView input_data_view(params, message);
@@ -15725,6 +16005,8 @@ bool TestController_IsSavedDeskStorageReady_ForwardToCallback::Accept(
           internal::TestController_IsSavedDeskStorageReady_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.37
   bool success = true;
   bool p_is_saved_desk_storage_ready{};
   TestController_IsSavedDeskStorageReady_ResponseParamsDataView input_data_view(params, message);
@@ -15844,6 +16126,8 @@ bool TestController_GetAppListItemAttributes_ForwardToCallback::Accept(
           internal::TestController_GetAppListItemAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.39
   bool success = true;
   AppListItemAttributesPtr p_attributes{};
   TestController_GetAppListItemAttributes_ResponseParamsDataView input_data_view(params, message);
@@ -15973,6 +16257,8 @@ bool TestController_SetAppListItemAttributes_ForwardToCallback::Accept(
           internal::TestController_SetAppListItemAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.40
   bool success = true;
   TestController_SetAppListItemAttributes_ResponseParamsDataView input_data_view(params, message);
   
@@ -16080,6 +16366,8 @@ bool TestController_CloseAllAshBrowserWindowsAndConfirm_ForwardToCallback::Accep
           internal::TestController_CloseAllAshBrowserWindowsAndConfirm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.41
   bool success = true;
   bool p_success{};
   TestController_CloseAllAshBrowserWindowsAndConfirm_ResponseParamsDataView input_data_view(params, message);
@@ -16199,6 +16487,8 @@ bool TestController_CheckAtLeastOneAshBrowserWindowOpen_ForwardToCallback::Accep
           internal::TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.42
   bool success = true;
   bool p_has_open_window{};
   TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParamsDataView input_data_view(params, message);
@@ -16318,6 +16608,8 @@ bool TestController_GetAllOpenTabURLs_ForwardToCallback::Accept(
           internal::TestController_GetAllOpenTabURLs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.43
   bool success = true;
   std::vector<::GURL> p_urls{};
   TestController_GetAllOpenTabURLs_ResponseParamsDataView input_data_view(params, message);
@@ -16449,6 +16741,8 @@ bool TestController_SetAlmanacEndpointUrlForTesting_ForwardToCallback::Accept(
           internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestController.44
   bool success = true;
   TestController_SetAlmanacEndpointUrlForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -16498,6 +16792,127 @@ void TestController_SetAlmanacEndpointUrlForTesting_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class TestController_IsToastShown_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static TestController::IsToastShownCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<TestController_IsToastShown_ProxyToResponder> proxy(
+        new TestController_IsToastShown_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&TestController_IsToastShown_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~TestController_IsToastShown_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  TestController_IsToastShown_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "TestController::IsToastShownCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_toast_shown);
+};
+
+bool TestController_IsToastShown_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::TestController_IsToastShown_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::TestController_IsToastShown_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for TestController.45
+  bool success = true;
+  bool p_toast_shown{};
+  TestController_IsToastShown_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_toast_shown = input_data_view.toast_shown();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        TestController::Name_, 45, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_toast_shown));
+  return true;
+}
+
+void TestController_IsToastShown_ProxyToResponder::Run(
+    bool in_toast_shown) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::TestController::IsToastShown", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("toast_shown"), in_toast_shown,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTestController_IsToastShown_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TestController_IsToastShown_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->toast_shown = in_toast_shown;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TestController::Name_);
+  message.set_method_name("IsToastShown");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool TestControllerStubDispatch::Accept(
@@ -16514,6 +16929,8 @@ bool TestControllerStubDispatch::Accept(
           reinterpret_cast<internal::TestController_ClickWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.1
       bool success = true;
       std::string p_window_id{};
       TestController_ClickWindow_ParamsDataView input_data_view(params, message);
@@ -16529,8 +16946,8 @@ bool TestControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClickWindow(
-std::move(p_window_id));
+      impl->ClickWindow(        
+        std::move(p_window_id));
       return true;
     }
     case internal::kTestController_DoesItemExistInShelf_Name: {
@@ -16588,6 +17005,8 @@ std::move(p_window_id));
           reinterpret_cast<internal::TestController_RegisterStandaloneBrowserTestController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.16
       bool success = true;
       ::mojo::PendingRemote<StandaloneBrowserTestController> p_controller{};
       TestController_RegisterStandaloneBrowserTestController_ParamsDataView input_data_view(params, message);
@@ -16605,8 +17024,8 @@ std::move(p_window_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterStandaloneBrowserTestController(
-std::move(p_controller));
+      impl->RegisterStandaloneBrowserTestController(        
+        std::move(p_controller));
       return true;
     }
     case internal::kTestController_TriggerTabScrubbing_Name: {
@@ -16640,6 +17059,8 @@ std::move(p_controller));
           reinterpret_cast<internal::TestController_ConnectToNetwork_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.28
       bool success = true;
       std::string p_service_path{};
       TestController_ConnectToNetwork_ParamsDataView input_data_view(params, message);
@@ -16655,8 +17076,8 @@ std::move(p_controller));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToNetwork(
-std::move(p_service_path));
+      impl->ConnectToNetwork(        
+        std::move(p_service_path));
       return true;
     }
     case internal::kTestController_DisconnectFromNetwork_Name: {
@@ -16666,6 +17087,8 @@ std::move(p_service_path));
           reinterpret_cast<internal::TestController_DisconnectFromNetwork_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.29
       bool success = true;
       std::string p_service_path{};
       TestController_DisconnectFromNetwork_ParamsDataView input_data_view(params, message);
@@ -16681,8 +17104,8 @@ std::move(p_service_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectFromNetwork(
-std::move(p_service_path));
+      impl->DisconnectFromNetwork(        
+        std::move(p_service_path));
       return true;
     }
     case internal::kTestController_LaunchAppFromAppList_Name: {
@@ -16692,6 +17115,8 @@ std::move(p_service_path));
           reinterpret_cast<internal::TestController_LaunchAppFromAppList_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.30
       bool success = true;
       std::string p_app_id{};
       TestController_LaunchAppFromAppList_ParamsDataView input_data_view(params, message);
@@ -16707,8 +17132,8 @@ std::move(p_service_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchAppFromAppList(
-std::move(p_app_id));
+      impl->LaunchAppFromAppList(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kTestController_ReinitializeAppService_Name: {
@@ -16733,6 +17158,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::TestController_TtsSpeak_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.36
       bool success = true;
       ::crosapi::mojom::TtsUtterancePtr p_utterance{};
       ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient> p_utterance_client{};
@@ -16753,9 +17180,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TtsSpeak(
-std::move(p_utterance), 
-std::move(p_utterance_client));
+      impl->TtsSpeak(        
+        std::move(p_utterance), 
+        std::move(p_utterance_client));
       return true;
     }
     case internal::kTestController_IsSavedDeskStorageReady_Name: {
@@ -16768,6 +17195,8 @@ std::move(p_utterance_client));
           reinterpret_cast<internal::TestController_SetAssistiveTechnologyEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestController.38
       bool success = true;
       AssistiveTechnologyType p_at_type{};
       bool p_enabled{};
@@ -16786,9 +17215,9 @@ std::move(p_utterance_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAssistiveTechnologyEnabled(
-std::move(p_at_type), 
-std::move(p_enabled));
+      impl->SetAssistiveTechnologyEnabled(        
+        std::move(p_at_type), 
+        std::move(p_enabled));
       return true;
     }
     case internal::kTestController_GetAppListItemAttributes_Name: {
@@ -16807,6 +17236,9 @@ std::move(p_enabled));
       break;
     }
     case internal::kTestController_SetAlmanacEndpointUrlForTesting_Name: {
+      break;
+    }
+    case internal::kTestController_IsToastShown_Name: {
       break;
     }
   }
@@ -16829,6 +17261,8 @@ bool TestControllerStubDispatch::AcceptWithResponder(
               internal::TestController_ClickElement_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.20
       bool success = true;
       std::string p_element_name{};
       TestController_ClickElement_ParamsDataView input_data_view(params, message);
@@ -16847,8 +17281,8 @@ bool TestControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClickElement(
-std::move(p_element_name), std::move(callback));
+      impl->ClickElement(        
+        std::move(p_element_name), std::move(callback));
       return true;
     }
     case internal::kTestController_ClickWindow_Name: {
@@ -16861,6 +17295,8 @@ std::move(p_element_name), std::move(callback));
               internal::TestController_DoesItemExistInShelf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.9
       bool success = true;
       std::string p_item_id{};
       TestController_DoesItemExistInShelf_ParamsDataView input_data_view(params, message);
@@ -16879,8 +17315,8 @@ std::move(p_element_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoesItemExistInShelf(
-std::move(p_item_id), std::move(callback));
+      impl->DoesItemExistInShelf(        
+        std::move(p_item_id), std::move(callback));
       return true;
     }
     case internal::kTestController_DoesElementExist_Name: {
@@ -16890,6 +17326,8 @@ std::move(p_item_id), std::move(callback));
               internal::TestController_DoesElementExist_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.19
       bool success = true;
       std::string p_element_name{};
       TestController_DoesElementExist_ParamsDataView input_data_view(params, message);
@@ -16908,8 +17346,8 @@ std::move(p_item_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoesElementExist(
-std::move(p_element_name), std::move(callback));
+      impl->DoesElementExist(        
+        std::move(p_element_name), std::move(callback));
       return true;
     }
     case internal::kTestController_DoesWindowExist_Name: {
@@ -16919,6 +17357,8 @@ std::move(p_element_name), std::move(callback));
               internal::TestController_DoesWindowExist_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.0
       bool success = true;
       std::string p_window_id{};
       TestController_DoesWindowExist_ParamsDataView input_data_view(params, message);
@@ -16937,8 +17377,8 @@ std::move(p_element_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoesWindowExist(
-std::move(p_window_id), std::move(callback));
+      impl->DoesWindowExist(        
+        std::move(p_window_id), std::move(callback));
       return true;
     }
     case internal::kTestController_EnterOverviewMode_Name: {
@@ -16948,6 +17388,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_EnterOverviewMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.2
       bool success = true;
       TestController_EnterOverviewMode_ParamsDataView input_data_view(params, message);
       
@@ -16973,6 +17415,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_ExitOverviewMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.3
       bool success = true;
       TestController_ExitOverviewMode_ParamsDataView input_data_view(params, message);
       
@@ -16998,6 +17442,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_EnterTabletMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.4
       bool success = true;
       TestController_EnterTabletMode_ParamsDataView input_data_view(params, message);
       
@@ -17023,6 +17469,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_ExitTabletMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.5
       bool success = true;
       TestController_ExitTabletMode_ParamsDataView input_data_view(params, message);
       
@@ -17048,6 +17496,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_GetContextMenuForShelfItem_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.13
       bool success = true;
       std::string p_item_id{};
       TestController_GetContextMenuForShelfItem_ParamsDataView input_data_view(params, message);
@@ -17066,8 +17516,8 @@ std::move(p_window_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetContextMenuForShelfItem(
-std::move(p_item_id), std::move(callback));
+      impl->GetContextMenuForShelfItem(        
+        std::move(p_item_id), std::move(callback));
       return true;
     }
     case internal::kTestController_GetMinimizeOnBackKeyWindowProperty_Name: {
@@ -17077,6 +17527,8 @@ std::move(p_item_id), std::move(callback));
               internal::TestController_GetMinimizeOnBackKeyWindowProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.10
       bool success = true;
       std::string p_window_id{};
       TestController_GetMinimizeOnBackKeyWindowProperty_ParamsDataView input_data_view(params, message);
@@ -17095,8 +17547,8 @@ std::move(p_item_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMinimizeOnBackKeyWindowProperty(
-std::move(p_window_id), std::move(callback));
+      impl->GetMinimizeOnBackKeyWindowProperty(        
+        std::move(p_window_id), std::move(callback));
       return true;
     }
     case internal::kTestController_GetWindowPositionInScreen_Name: {
@@ -17106,6 +17558,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_GetWindowPositionInScreen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.8
       bool success = true;
       std::string p_window_id{};
       TestController_GetWindowPositionInScreen_ParamsDataView input_data_view(params, message);
@@ -17124,8 +17578,8 @@ std::move(p_window_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWindowPositionInScreen(
-std::move(p_window_id), std::move(callback));
+      impl->GetWindowPositionInScreen(        
+        std::move(p_window_id), std::move(callback));
       return true;
     }
     case internal::kTestController_PinOrUnpinItemInShelf_Name: {
@@ -17135,6 +17589,8 @@ std::move(p_window_id), std::move(callback));
               internal::TestController_PinOrUnpinItemInShelf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.11
       bool success = true;
       std::string p_item_id{};
       bool p_pin{};
@@ -17156,9 +17612,9 @@ std::move(p_window_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PinOrUnpinItemInShelf(
-std::move(p_item_id), 
-std::move(p_pin), std::move(callback));
+      impl->PinOrUnpinItemInShelf(        
+        std::move(p_item_id), 
+        std::move(p_pin), std::move(callback));
       return true;
     }
     case internal::kTestController_SelectContextMenuForShelfItem_Name: {
@@ -17168,6 +17624,8 @@ std::move(p_pin), std::move(callback));
               internal::TestController_SelectContextMenuForShelfItem_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.18
       bool success = true;
       std::string p_item_id{};
       uint32_t p_index{};
@@ -17189,9 +17647,9 @@ std::move(p_pin), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectContextMenuForShelfItem(
-std::move(p_item_id), 
-std::move(p_index), std::move(callback));
+      impl->SelectContextMenuForShelfItem(        
+        std::move(p_item_id), 
+        std::move(p_index), std::move(callback));
       return true;
     }
     case internal::kTestController_SelectItemInShelf_Name: {
@@ -17201,6 +17659,8 @@ std::move(p_index), std::move(callback));
               internal::TestController_SelectItemInShelf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.12
       bool success = true;
       std::string p_item_id{};
       TestController_SelectItemInShelf_ParamsDataView input_data_view(params, message);
@@ -17219,8 +17679,8 @@ std::move(p_index), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectItemInShelf(
-std::move(p_item_id), std::move(callback));
+      impl->SelectItemInShelf(        
+        std::move(p_item_id), std::move(callback));
       return true;
     }
     case internal::kTestController_SendTouchEvent_Name: {
@@ -17230,6 +17690,8 @@ std::move(p_item_id), std::move(callback));
               internal::TestController_SendTouchEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.7
       bool success = true;
       std::string p_window_id{};
       TouchEventType p_type{};
@@ -17257,11 +17719,11 @@ std::move(p_item_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendTouchEvent(
-std::move(p_window_id), 
-std::move(p_type), 
-std::move(p_pointer_id), 
-std::move(p_location_in_window), std::move(callback));
+      impl->SendTouchEvent(        
+        std::move(p_window_id), 
+        std::move(p_type), 
+        std::move(p_pointer_id), 
+        std::move(p_location_in_window), std::move(callback));
       return true;
     }
     case internal::kTestController_GetOpenAshBrowserWindows_Name: {
@@ -17271,6 +17733,8 @@ std::move(p_location_in_window), std::move(callback));
               internal::TestController_GetOpenAshBrowserWindows_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.14
       bool success = true;
       TestController_GetOpenAshBrowserWindows_ParamsDataView input_data_view(params, message);
       
@@ -17296,6 +17760,8 @@ std::move(p_location_in_window), std::move(callback));
               internal::TestController_CloseAllBrowserWindows_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.15
       bool success = true;
       TestController_CloseAllBrowserWindows_ParamsDataView input_data_view(params, message);
       
@@ -17324,6 +17790,8 @@ std::move(p_location_in_window), std::move(callback));
               internal::TestController_TriggerTabScrubbing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.17
       bool success = true;
       float p_x_offset{};
       TestController_TriggerTabScrubbing_ParamsDataView input_data_view(params, message);
@@ -17342,8 +17810,8 @@ std::move(p_location_in_window), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerTabScrubbing(
-std::move(p_x_offset), std::move(callback));
+      impl->TriggerTabScrubbing(        
+        std::move(p_x_offset), std::move(callback));
       return true;
     }
     case internal::kTestController_SetSelectedSharesheetApp_Name: {
@@ -17353,6 +17821,8 @@ std::move(p_x_offset), std::move(callback));
               internal::TestController_SetSelectedSharesheetApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.21
       bool success = true;
       std::string p_app_id{};
       TestController_SetSelectedSharesheetApp_ParamsDataView input_data_view(params, message);
@@ -17371,8 +17841,8 @@ std::move(p_x_offset), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSelectedSharesheetApp(
-std::move(p_app_id), std::move(callback));
+      impl->SetSelectedSharesheetApp(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kTestController_GetAshVersion_Name: {
@@ -17382,6 +17852,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_GetAshVersion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.22
       bool success = true;
       TestController_GetAshVersion_ParamsDataView input_data_view(params, message);
       
@@ -17407,6 +17879,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_BindTestShillController_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.23
       bool success = true;
       ::mojo::PendingReceiver<TestShillController> p_test_shill_controller{};
       TestController_BindTestShillController_ParamsDataView input_data_view(params, message);
@@ -17427,8 +17901,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestShillController(
-std::move(p_test_shill_controller), std::move(callback));
+      impl->BindTestShillController(        
+        std::move(p_test_shill_controller), std::move(callback));
       return true;
     }
     case internal::kTestController_CreateAndCancelPrintJob_Name: {
@@ -17438,6 +17912,8 @@ std::move(p_test_shill_controller), std::move(callback));
               internal::TestController_CreateAndCancelPrintJob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.24
       bool success = true;
       std::string p_job_title{};
       TestController_CreateAndCancelPrintJob_ParamsDataView input_data_view(params, message);
@@ -17456,8 +17932,8 @@ std::move(p_test_shill_controller), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAndCancelPrintJob(
-std::move(p_job_title), std::move(callback));
+      impl->CreateAndCancelPrintJob(        
+        std::move(p_job_title), std::move(callback));
       return true;
     }
     case internal::kTestController_BindShillClientTestInterface_Name: {
@@ -17467,6 +17943,8 @@ std::move(p_job_title), std::move(callback));
               internal::TestController_BindShillClientTestInterface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.25
       bool success = true;
       ::mojo::PendingReceiver<ShillClientTestInterface> p_shill_client{};
       TestController_BindShillClientTestInterface_ParamsDataView input_data_view(params, message);
@@ -17487,8 +17965,8 @@ std::move(p_job_title), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindShillClientTestInterface(
-std::move(p_shill_client), std::move(callback));
+      impl->BindShillClientTestInterface(        
+        std::move(p_shill_client), std::move(callback));
       return true;
     }
     case internal::kTestController_GetSanitizedActiveUsername_Name: {
@@ -17498,6 +17976,8 @@ std::move(p_shill_client), std::move(callback));
               internal::TestController_GetSanitizedActiveUsername_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.26
       bool success = true;
       TestController_GetSanitizedActiveUsername_ParamsDataView input_data_view(params, message);
       
@@ -17523,6 +18003,8 @@ std::move(p_shill_client), std::move(callback));
               internal::TestController_BindInputMethodTestInterface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.27
       bool success = true;
       ::mojo::PendingReceiver<InputMethodTestInterface> p_test_input_method{};
       TestController_BindInputMethodTestInterface_ParamsDataView input_data_view(params, message);
@@ -17543,8 +18025,8 @@ std::move(p_shill_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInputMethodTestInterface(
-std::move(p_test_input_method), std::move(callback));
+      impl->BindInputMethodTestInterface(        
+        std::move(p_test_input_method), std::move(callback));
       return true;
     }
     case internal::kTestController_ConnectToNetwork_Name: {
@@ -17563,6 +18045,8 @@ std::move(p_test_input_method), std::move(callback));
               internal::TestController_ReinitializeAppService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.31
       bool success = true;
       TestController_ReinitializeAppService_ParamsDataView input_data_view(params, message);
       
@@ -17588,6 +18072,8 @@ std::move(p_test_input_method), std::move(callback));
               internal::TestController_GetShelfItemState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.32
       bool success = true;
       std::string p_app_id{};
       TestController_GetShelfItemState_ParamsDataView input_data_view(params, message);
@@ -17606,8 +18092,8 @@ std::move(p_test_input_method), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetShelfItemState(
-std::move(p_app_id), std::move(callback));
+      impl->GetShelfItemState(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kTestController_GetTtsUtteranceQueueSize_Name: {
@@ -17617,6 +18103,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_GetTtsUtteranceQueueSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.33
       bool success = true;
       TestController_GetTtsUtteranceQueueSize_ParamsDataView input_data_view(params, message);
       
@@ -17642,6 +18130,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_AreDesksBeingModified_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.34
       bool success = true;
       TestController_AreDesksBeingModified_ParamsDataView input_data_view(params, message);
       
@@ -17667,6 +18157,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_GetTtsVoices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.35
       bool success = true;
       TestController_GetTtsVoices_ParamsDataView input_data_view(params, message);
       
@@ -17695,6 +18187,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_IsSavedDeskStorageReady_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.37
       bool success = true;
       TestController_IsSavedDeskStorageReady_ParamsDataView input_data_view(params, message);
       
@@ -17723,6 +18217,8 @@ std::move(p_app_id), std::move(callback));
               internal::TestController_GetAppListItemAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.39
       bool success = true;
       std::string p_item_id{};
       TestController_GetAppListItemAttributes_ParamsDataView input_data_view(params, message);
@@ -17741,8 +18237,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAppListItemAttributes(
-std::move(p_item_id), std::move(callback));
+      impl->GetAppListItemAttributes(        
+        std::move(p_item_id), std::move(callback));
       return true;
     }
     case internal::kTestController_SetAppListItemAttributes_Name: {
@@ -17752,6 +18248,8 @@ std::move(p_item_id), std::move(callback));
               internal::TestController_SetAppListItemAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.40
       bool success = true;
       std::string p_item_id{};
       AppListItemAttributesPtr p_attributes{};
@@ -17773,9 +18271,9 @@ std::move(p_item_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAppListItemAttributes(
-std::move(p_item_id), 
-std::move(p_attributes), std::move(callback));
+      impl->SetAppListItemAttributes(        
+        std::move(p_item_id), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
     case internal::kTestController_CloseAllAshBrowserWindowsAndConfirm_Name: {
@@ -17785,6 +18283,8 @@ std::move(p_attributes), std::move(callback));
               internal::TestController_CloseAllAshBrowserWindowsAndConfirm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.41
       bool success = true;
       TestController_CloseAllAshBrowserWindowsAndConfirm_ParamsDataView input_data_view(params, message);
       
@@ -17810,6 +18310,8 @@ std::move(p_attributes), std::move(callback));
               internal::TestController_CheckAtLeastOneAshBrowserWindowOpen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.42
       bool success = true;
       TestController_CheckAtLeastOneAshBrowserWindowOpen_ParamsDataView input_data_view(params, message);
       
@@ -17835,6 +18337,8 @@ std::move(p_attributes), std::move(callback));
               internal::TestController_GetAllOpenTabURLs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.43
       bool success = true;
       TestController_GetAllOpenTabURLs_ParamsDataView input_data_view(params, message);
       
@@ -17860,6 +18364,8 @@ std::move(p_attributes), std::move(callback));
               internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestController.44
       bool success = true;
       std::optional<std::string> p_override{};
       TestController_SetAlmanacEndpointUrlForTesting_ParamsDataView input_data_view(params, message);
@@ -17878,8 +18384,39 @@ std::move(p_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlmanacEndpointUrlForTesting(
-std::move(p_override), std::move(callback));
+      impl->SetAlmanacEndpointUrlForTesting(        
+        std::move(p_override), std::move(callback));
+      return true;
+    }
+    case internal::kTestController_IsToastShown_Name: {
+
+      internal::TestController_IsToastShown_Params_Data* params =
+          reinterpret_cast<
+              internal::TestController_IsToastShown_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for TestController.45
+      bool success = true;
+      std::string p_toast_id{};
+      TestController_IsToastShown_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadToastId(&p_toast_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TestController::Name_, 45, false);
+        return false;
+      }
+      TestController::IsToastShownCallback callback =
+          TestController_IsToastShown_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsToastShown(        
+        std::move(p_toast_id), std::move(callback));
       return true;
     }
   }
@@ -17977,6 +18514,8 @@ static const mojo::internal::GenericValidationInfo kTestControllerValidationInfo
      &internal::TestController_GetAllOpenTabURLs_ResponseParams_Data::Validate},
     { &internal::TestController_SetAlmanacEndpointUrlForTesting_Params_Data::Validate,
      &internal::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::Validate},
+    { &internal::TestController_IsToastShown_Params_Data::Validate,
+     &internal::TestController_IsToastShown_ResponseParams_Data::Validate},
 };
 
 bool TestControllerRequestValidator::Accept(mojo::Message* message) {
@@ -18941,6 +19480,9 @@ void TestControllerInterceptorForTesting::GetAllOpenTabURLs(GetAllOpenTabURLsCal
 void TestControllerInterceptorForTesting::SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) {
   GetForwardingInterface()->SetAlmanacEndpointUrlForTesting(std::move(override), std::move(callback));
 }
+void TestControllerInterceptorForTesting::IsToastShown(const std::string& toast_id, IsToastShownCallback callback) {
+  GetForwardingInterface()->IsToastShown(std::move(toast_id), std::move(callback));
+}
 TestControllerAsyncWaiter::TestControllerAsyncWaiter(
     TestController* proxy) : proxy_(proxy) {}
 
@@ -19679,6 +20221,29 @@ void TestControllerAsyncWaiter::SetAlmanacEndpointUrlForTesting(
 }
 
 
+
+void TestControllerAsyncWaiter::IsToastShown(
+    const std::string& toast_id, bool* out_toast_shown) {
+  base::RunLoop loop;
+  proxy_->IsToastShown(std::move(toast_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_toast_shown
+,
+             bool toast_shown) {*out_toast_shown = std::move(toast_shown);
+            loop->Quit();
+          },
+          &loop,
+          out_toast_shown));
+  loop.Run();
+}
+
+bool TestControllerAsyncWaiter::IsToastShown(
+    const std::string& toast_id) {
+  bool async_wait_result;
+  IsToastShown(std::move(toast_id),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

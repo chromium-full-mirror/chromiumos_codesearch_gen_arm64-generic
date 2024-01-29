@@ -744,6 +744,8 @@ bool ContentIndexService_GetIconSizes_ForwardToCallback::Accept(
           internal::ContentIndexService_GetIconSizes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentIndexService.0
   bool success = true;
   std::vector<::gfx::Size> p_icon_sizes{};
   ContentIndexService_GetIconSizes_ResponseParamsDataView input_data_view(params, message);
@@ -875,6 +877,8 @@ bool ContentIndexService_CheckOfflineCapability_ForwardToCallback::Accept(
           internal::ContentIndexService_CheckOfflineCapability_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentIndexService.1
   bool success = true;
   bool p_is_offline_capable{};
   ContentIndexService_CheckOfflineCapability_ResponseParamsDataView input_data_view(params, message);
@@ -994,6 +998,8 @@ bool ContentIndexService_Add_ForwardToCallback::Accept(
           internal::ContentIndexService_Add_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentIndexService.2
   bool success = true;
   ContentIndexError p_error{};
   ContentIndexService_Add_ResponseParamsDataView input_data_view(params, message);
@@ -1114,6 +1120,8 @@ bool ContentIndexService_Delete_ForwardToCallback::Accept(
           internal::ContentIndexService_Delete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentIndexService.3
   bool success = true;
   ContentIndexError p_error{};
   ContentIndexService_Delete_ResponseParamsDataView input_data_view(params, message);
@@ -1234,6 +1242,8 @@ bool ContentIndexService_GetDescriptions_ForwardToCallback::Accept(
           internal::ContentIndexService_GetDescriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentIndexService.4
   bool success = true;
   ContentIndexError p_error{};
   std::vector<ContentDescriptionPtr> p_descriptions{};
@@ -1357,6 +1367,8 @@ bool ContentIndexServiceStubDispatch::AcceptWithResponder(
               internal::ContentIndexService_GetIconSizes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentIndexService.0
       bool success = true;
       ContentCategory p_category{};
       ContentIndexService_GetIconSizes_ParamsDataView input_data_view(params, message);
@@ -1375,8 +1387,8 @@ bool ContentIndexServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetIconSizes(
-std::move(p_category), std::move(callback));
+      impl->GetIconSizes(        
+        std::move(p_category), std::move(callback));
       return true;
     }
     case internal::kContentIndexService_CheckOfflineCapability_Name: {
@@ -1386,6 +1398,8 @@ std::move(p_category), std::move(callback));
               internal::ContentIndexService_CheckOfflineCapability_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentIndexService.1
       bool success = true;
       int64_t p_service_worker_registration_id{};
       ::GURL p_launch_url{};
@@ -1407,9 +1421,9 @@ std::move(p_category), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckOfflineCapability(
-std::move(p_service_worker_registration_id), 
-std::move(p_launch_url), std::move(callback));
+      impl->CheckOfflineCapability(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_launch_url), std::move(callback));
       return true;
     }
     case internal::kContentIndexService_Add_Name: {
@@ -1419,6 +1433,8 @@ std::move(p_launch_url), std::move(callback));
               internal::ContentIndexService_Add_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentIndexService.2
       bool success = true;
       int64_t p_service_worker_registration_id{};
       ContentDescriptionPtr p_description{};
@@ -1446,11 +1462,11 @@ std::move(p_launch_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Add(
-std::move(p_service_worker_registration_id), 
-std::move(p_description), 
-std::move(p_icon), 
-std::move(p_launchUrl), std::move(callback));
+      impl->Add(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_description), 
+        std::move(p_icon), 
+        std::move(p_launchUrl), std::move(callback));
       return true;
     }
     case internal::kContentIndexService_Delete_Name: {
@@ -1460,6 +1476,8 @@ std::move(p_launchUrl), std::move(callback));
               internal::ContentIndexService_Delete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentIndexService.3
       bool success = true;
       int64_t p_service_worker_registration_id{};
       std::string p_id{};
@@ -1481,9 +1499,9 @@ std::move(p_launchUrl), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Delete(
-std::move(p_service_worker_registration_id), 
-std::move(p_id), std::move(callback));
+      impl->Delete(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kContentIndexService_GetDescriptions_Name: {
@@ -1493,6 +1511,8 @@ std::move(p_id), std::move(callback));
               internal::ContentIndexService_GetDescriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentIndexService.4
       bool success = true;
       int64_t p_service_worker_registration_id{};
       ContentIndexService_GetDescriptions_ParamsDataView input_data_view(params, message);
@@ -1511,8 +1531,8 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDescriptions(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->GetDescriptions(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
   }

@@ -967,6 +967,8 @@ bool WatchTimeRecorderStubDispatch::Accept(
           reinterpret_cast<internal::WatchTimeRecorder_RecordWatchTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.0
       bool success = true;
       ::media::WatchTimeKey p_key{};
       ::base::TimeDelta p_watch_time{};
@@ -985,9 +987,9 @@ bool WatchTimeRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordWatchTime(
-std::move(p_key), 
-std::move(p_watch_time));
+      impl->RecordWatchTime(        
+        std::move(p_key), 
+        std::move(p_watch_time));
       return true;
     }
     case internal::kWatchTimeRecorder_FinalizeWatchTime_Name: {
@@ -997,6 +999,8 @@ std::move(p_watch_time));
           reinterpret_cast<internal::WatchTimeRecorder_FinalizeWatchTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.1
       bool success = true;
       std::vector<::media::WatchTimeKey> p_watch_time_keys{};
       WatchTimeRecorder_FinalizeWatchTime_ParamsDataView input_data_view(params, message);
@@ -1012,8 +1016,8 @@ std::move(p_watch_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FinalizeWatchTime(
-std::move(p_watch_time_keys));
+      impl->FinalizeWatchTime(        
+        std::move(p_watch_time_keys));
       return true;
     }
     case internal::kWatchTimeRecorder_OnError_Name: {
@@ -1023,6 +1027,8 @@ std::move(p_watch_time_keys));
           reinterpret_cast<internal::WatchTimeRecorder_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.2
       bool success = true;
       ::media::PipelineStatus p_status{};
       WatchTimeRecorder_OnError_ParamsDataView input_data_view(params, message);
@@ -1038,8 +1044,8 @@ std::move(p_watch_time_keys));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_status));
+      impl->OnError(        
+        std::move(p_status));
       return true;
     }
     case internal::kWatchTimeRecorder_UpdateSecondaryProperties_Name: {
@@ -1049,6 +1055,8 @@ std::move(p_status));
           reinterpret_cast<internal::WatchTimeRecorder_UpdateSecondaryProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.3
       bool success = true;
       SecondaryPlaybackPropertiesPtr p_secondary_properties{};
       WatchTimeRecorder_UpdateSecondaryProperties_ParamsDataView input_data_view(params, message);
@@ -1064,8 +1072,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSecondaryProperties(
-std::move(p_secondary_properties));
+      impl->UpdateSecondaryProperties(        
+        std::move(p_secondary_properties));
       return true;
     }
     case internal::kWatchTimeRecorder_SetAutoplayInitiated_Name: {
@@ -1075,6 +1083,8 @@ std::move(p_secondary_properties));
           reinterpret_cast<internal::WatchTimeRecorder_SetAutoplayInitiated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.4
       bool success = true;
       bool p_value{};
       WatchTimeRecorder_SetAutoplayInitiated_ParamsDataView input_data_view(params, message);
@@ -1090,8 +1100,8 @@ std::move(p_secondary_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAutoplayInitiated(
-std::move(p_value));
+      impl->SetAutoplayInitiated(        
+        std::move(p_value));
       return true;
     }
     case internal::kWatchTimeRecorder_OnDurationChanged_Name: {
@@ -1101,6 +1111,8 @@ std::move(p_value));
           reinterpret_cast<internal::WatchTimeRecorder_OnDurationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.5
       bool success = true;
       ::base::TimeDelta p_duration{};
       WatchTimeRecorder_OnDurationChanged_ParamsDataView input_data_view(params, message);
@@ -1116,8 +1128,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDurationChanged(
-std::move(p_duration));
+      impl->OnDurationChanged(        
+        std::move(p_duration));
       return true;
     }
     case internal::kWatchTimeRecorder_UpdateVideoDecodeStats_Name: {
@@ -1127,6 +1139,8 @@ std::move(p_duration));
           reinterpret_cast<internal::WatchTimeRecorder_UpdateVideoDecodeStats_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.6
       bool success = true;
       uint32_t p_frames_decoded{};
       uint32_t p_frames_dropped{};
@@ -1145,9 +1159,9 @@ std::move(p_duration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateVideoDecodeStats(
-std::move(p_frames_decoded), 
-std::move(p_frames_dropped));
+      impl->UpdateVideoDecodeStats(        
+        std::move(p_frames_decoded), 
+        std::move(p_frames_dropped));
       return true;
     }
     case internal::kWatchTimeRecorder_UpdateUnderflowCount_Name: {
@@ -1157,6 +1171,8 @@ std::move(p_frames_dropped));
           reinterpret_cast<internal::WatchTimeRecorder_UpdateUnderflowCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.7
       bool success = true;
       int32_t p_total_count{};
       WatchTimeRecorder_UpdateUnderflowCount_ParamsDataView input_data_view(params, message);
@@ -1172,8 +1188,8 @@ std::move(p_frames_dropped));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUnderflowCount(
-std::move(p_total_count));
+      impl->UpdateUnderflowCount(        
+        std::move(p_total_count));
       return true;
     }
     case internal::kWatchTimeRecorder_UpdateUnderflowDuration_Name: {
@@ -1183,6 +1199,8 @@ std::move(p_total_count));
           reinterpret_cast<internal::WatchTimeRecorder_UpdateUnderflowDuration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WatchTimeRecorder.8
       bool success = true;
       int32_t p_total_completed_count{};
       ::base::TimeDelta p_total_duration{};
@@ -1201,9 +1219,9 @@ std::move(p_total_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUnderflowDuration(
-std::move(p_total_completed_count), 
-std::move(p_total_duration));
+      impl->UpdateUnderflowDuration(        
+        std::move(p_total_completed_count), 
+        std::move(p_total_duration));
       return true;
     }
   }

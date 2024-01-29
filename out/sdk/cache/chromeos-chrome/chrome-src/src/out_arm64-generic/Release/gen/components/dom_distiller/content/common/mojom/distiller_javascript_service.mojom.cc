@@ -333,6 +333,8 @@ bool DistillerJavaScriptServiceStubDispatch::Accept(
           reinterpret_cast<internal::DistillerJavaScriptService_HandleDistillerOpenSettingsCall_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DistillerJavaScriptService.0
       bool success = true;
       DistillerJavaScriptService_HandleDistillerOpenSettingsCall_ParamsDataView input_data_view(params, message);
       
@@ -345,7 +347,7 @@ bool DistillerJavaScriptServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleDistillerOpenSettingsCall();
+      impl->HandleDistillerOpenSettingsCall(        );
       return true;
     }
     case internal::kDistillerJavaScriptService_HandleStoreThemePref_Name: {
@@ -355,6 +357,8 @@ bool DistillerJavaScriptServiceStubDispatch::Accept(
           reinterpret_cast<internal::DistillerJavaScriptService_HandleStoreThemePref_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DistillerJavaScriptService.1
       bool success = true;
       ::dom_distiller::mojom::Theme p_theme{};
       DistillerJavaScriptService_HandleStoreThemePref_ParamsDataView input_data_view(params, message);
@@ -370,8 +374,8 @@ bool DistillerJavaScriptServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleStoreThemePref(
-std::move(p_theme));
+      impl->HandleStoreThemePref(        
+        std::move(p_theme));
       return true;
     }
     case internal::kDistillerJavaScriptService_HandleStoreFontFamilyPref_Name: {
@@ -381,6 +385,8 @@ std::move(p_theme));
           reinterpret_cast<internal::DistillerJavaScriptService_HandleStoreFontFamilyPref_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DistillerJavaScriptService.2
       bool success = true;
       ::dom_distiller::mojom::FontFamily p_font_family{};
       DistillerJavaScriptService_HandleStoreFontFamilyPref_ParamsDataView input_data_view(params, message);
@@ -396,8 +402,8 @@ std::move(p_theme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleStoreFontFamilyPref(
-std::move(p_font_family));
+      impl->HandleStoreFontFamilyPref(        
+        std::move(p_font_family));
       return true;
     }
     case internal::kDistillerJavaScriptService_HandleStoreFontScalingPref_Name: {
@@ -407,6 +413,8 @@ std::move(p_font_family));
           reinterpret_cast<internal::DistillerJavaScriptService_HandleStoreFontScalingPref_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DistillerJavaScriptService.3
       bool success = true;
       float p_font_scale{};
       DistillerJavaScriptService_HandleStoreFontScalingPref_ParamsDataView input_data_view(params, message);
@@ -422,8 +430,8 @@ std::move(p_font_family));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleStoreFontScalingPref(
-std::move(p_font_scale));
+      impl->HandleStoreFontScalingPref(        
+        std::move(p_font_scale));
       return true;
     }
   }

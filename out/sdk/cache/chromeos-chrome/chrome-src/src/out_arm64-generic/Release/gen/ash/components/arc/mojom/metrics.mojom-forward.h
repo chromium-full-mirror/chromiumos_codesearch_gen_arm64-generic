@@ -63,8 +63,6 @@ enum class VpnServiceBuilderCompatApiId : int32_t;
 
 enum class MainAccountHashMigrationStatus : int32_t;
 
-enum class AndroidDataSubdirectory : int32_t;
-
 enum class WaylandTimingEvent : int32_t;
 
 enum class ArcKeyMintError : int32_t;

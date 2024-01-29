@@ -106,46 +106,25 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasColorAttachments()) {
-  if (!ToV8Traits<IDLSequence<IDLNullable<GPURenderPassColorAttachment>>>::ToV8(script_state, member_color_attachments_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLNullable<GPURenderPassColorAttachment>>>::ToV8(script_state, member_color_attachments_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasDepthStencilAttachment()) {
-  if (!ToV8Traits<GPURenderPassDepthStencilAttachment>::ToV8(script_state, member_depth_stencil_attachment_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPURenderPassDepthStencilAttachment>::ToV8(script_state, member_depth_stencil_attachment_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasMaxDrawCount()) {
-  if (!ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_max_draw_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_max_draw_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasOcclusionQuerySet()) {
-  if (!ToV8Traits<GPUQuerySet>::ToV8(script_state, member_occlusion_query_set_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUQuerySet>::ToV8(script_state, member_occlusion_query_set_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasTimestampWrites()) {
-  if (!ToV8Traits<GPURenderPassTimestampWrites>::ToV8(script_state, member_timestamp_writes_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPURenderPassTimestampWrites>::ToV8(script_state, member_timestamp_writes_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

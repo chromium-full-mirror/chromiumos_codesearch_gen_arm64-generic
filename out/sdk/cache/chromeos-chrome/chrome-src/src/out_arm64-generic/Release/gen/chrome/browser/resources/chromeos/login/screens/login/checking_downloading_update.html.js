@@ -58,7 +58,7 @@ found in the LICENSE file.
 <oobe-adaptive-dialog
   footer-shrinkable
   id="updating-dialog"
-  hidden="[[isCheckingOrUpdateCompleted_(checkingForUpdate,
+  hidden="[[isCheckingOrUpdateCompleted(checkingForUpdate,
                                                updateCompleted)]]"
   aria-live="polite"
 >
@@ -70,7 +70,7 @@ found in the LICENSE file.
       [[i18nDynamic(locale, 'cancelUpdateHint')]]
     </div>
     <div id="progress-message" class="progress-message">
-      [[progressMessage_]]
+      [[progressMessage]]
     </div>
   </div>
   <paper-progress

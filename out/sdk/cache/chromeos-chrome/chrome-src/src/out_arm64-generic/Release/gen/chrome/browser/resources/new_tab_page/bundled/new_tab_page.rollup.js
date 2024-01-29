@@ -34,7 +34,7 @@ class RealboxBrowserProxy {
 }
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-shrink:0;justify-content:center;width:32px}#container{align-items:center;aspect-ratio:1/1;border-radius:var(--cr-realbox-icon-border-radius,8px);display:flex;justify-content:center;overflow:hidden;position:relative;width:100%}:host([expanded-state-icons-chrome-refresh]) #container{border-radius:var(--cr-realbox-icon-border-radius,4px)}:host-context(cr-realbox-match[has-image]):host(:not([is-weather-answer])) #container{background-color:var(--cr-realbox-icon-container-bg-color,var(--container-bg-color))}:host-context(cr-realbox-match[is-rich-suggestion]:not([has-image])):host(:not([has-icon-container-background])) #container{background-color:var(--google-blue-600);border-radius:50%;height:24px;width:24px}:host([has-icon-container-background]:not([in-searchbox])) #container{background-color:var(--color-realbox-answer-icon-background)}:host([is-weather-answer]:not([in-searchbox])) #container{background-color:var(--color-realbox-results-background)}#image{display:none;height:100%;object-fit:contain;width:100%}:host-context(cr-realbox-match[has-image]) #image{display:initial}:host([is-answer]) #image{max-height:24px;max-width:24px}#imageOverlay{display:none}:host-context(cr-realbox-match[is-entity-suggestion][has-image]) #imageOverlay{background:#000;display:block;inset:0;opacity:.05;position:absolute}#icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:16px;background-color:var(--color-realbox-search-icon-background);background-position:center center;background-repeat:no-repeat;background-size:16px;height:24px;width:24px}:host-context(cr-realbox-match[has-image]) #icon{display:none}:host-context(cr-realbox-match[is-rich-suggestion]) #icon{background-color:#fff}:host([in-searchbox][background-image*='//resources/cr_components/omnibox/icons/google_g.svg']) #icon{background-size:24px}:host([in-searchbox][mask-image*='//resources/images/icon_search.svg']) #icon{-webkit-mask-size:20px}:host([in-searchbox][mask-image*='//resources/cr_components/omnibox/icons/search_cr23.svg']) #icon{-webkit-mask-size:20px}:host([has-icon-container-background]:not([in-searchbox])) #icon{background-color:var(--color-realbox-answer-icon-foreground)}</style>
+    return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-shrink:0;justify-content:center;width:32px}#container{align-items:center;aspect-ratio:1/1;border-radius:var(--cr-realbox-icon-border-radius,8px);display:flex;justify-content:center;overflow:hidden;position:relative;width:100%}:host([expanded-state-icons-chrome-refresh]) #container{border-radius:var(--cr-realbox-icon-border-radius,4px)}:host-context(cr-realbox-match[has-image]):host(:not([is-weather-answer])) #container{background-color:var(--cr-realbox-icon-container-bg-color,var(--container-bg-color))}:host-context(cr-realbox-match[is-rich-suggestion]:not([has-image])):host(:not([has-icon-container-background])) #container{background-color:var(--google-blue-600);border-radius:50%;height:24px;width:24px}:host([has-icon-container-background]:not([in-searchbox])) #container{background-color:var(--color-realbox-answer-icon-background)}:host([is-weather-answer]:not([in-searchbox])) #container{background-color:var(--color-realbox-results-background)}#image{display:none;height:100%;object-fit:contain;width:100%}:host-context(cr-realbox-match[has-image]) #image{display:initial}:host([is-answer]) #image{max-height:24px;max-width:24px}#imageOverlay{display:none}:host-context(cr-realbox-match[is-entity-suggestion][has-image]) #imageOverlay{background:#000;display:block;inset:0;opacity:.05;position:absolute}#icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:16px;background-color:var(--color-realbox-search-icon-background);background-position:center center;background-repeat:no-repeat;background-size:16px;height:24px;width:24px}:host-context(cr-realbox-match[has-image]) #icon{display:none}:host-context(cr-realbox-match[is-rich-suggestion]) #icon{background-color:#fff}:host([in-searchbox][background-image*='//resources/cr_components/omnibox/icons/google_g.svg']) #icon{background-size:24px}:host([in-searchbox]) #icon{-webkit-mask-size:20px;background-size:20px}:host([has-icon-container-background]:not([in-searchbox])) #icon{background-color:var(--color-realbox-answer-icon-foreground)}</style>
 <div id="container" style="--container-bg-color:[[containerBgColor_(match.imageDominantColor, imageLoading_) ]]">
   <img id="image" src="[[imageSrc_]]" on-load="onImageLoad_">
   <div id="imageOverlay"></div>
@@ -280,8 +280,8 @@ class RealboxIconElement extends PolymerElement {
 customElements.define(RealboxIconElement.is, RealboxIconElement);
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_--><style import="cr-shared-style">:host{--action-height:32px;border:solid 1px var(--google-grey-400);border-radius:calc(var(--action-height)/ 2);display:flex;height:var(--action-height);min-width:0;outline:0;padding-inline-end:16px;padding-inline-start:12px}:host-context([expanded-state-layout-chrome-refresh]){--action-height:28px;border:solid 1px var(--color-realbox-results-action-chip);border-radius:8px;padding-inline-end:8px;padding-inline-start:8px}.contents{align-items:center;display:flex;min-width:0}#action-icon{flex-shrink:0;height:var(--cr-icon-size);width:var(--cr-icon-size)}:host-context([expanded-state-layout-chrome-refresh]) #action-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:15px;background-color:var(--color-realbox-results-action-chip-icon);background-position:center center;background-repeat:no-repeat;height:16px;width:16px}#text{overflow:hidden;padding-inline-start:8px;text-overflow:ellipsis;white-space:nowrap}:host(:hover){background-color:var(--color-realbox-results-background-hovered)}:host-context(.focus-outline-visible):host(:focus){border:solid 1px transparent;box-shadow:inset 0 0 0 2px var(--google-blue-600)}:host-context([expanded-state-layout-chrome-refresh]):host(:focus){margin:2px;margin-inline-end:2px;border:solid 1px var(--color-realbox-results-action-chip);box-shadow:none}</style>
-<div class="contents" title="[[tooltip_]]" on-click="onActionClick_" on-keydown="onActionKeyDown_" on-mousedown="onActionMouseDown_">
+    return html `<!--_html_template_start_--><style import="cr-shared-style">:host{--action-height:32px;border:solid 1px var(--google-grey-400);border-radius:calc(var(--action-height)/ 2);display:flex;height:var(--action-height);min-width:0;outline:0;padding-inline-end:16px;padding-inline-start:12px}:host-context([expanded-state-layout-chrome-refresh]){--action-height:28px;border:solid 1px var(--color-realbox-results-action-chip);border-radius:8px;padding-inline-end:8px;padding-inline-start:8px}.contents{align-items:center;display:flex;min-width:0}#action-icon{flex-shrink:0;height:var(--cr-icon-size);width:var(--cr-icon-size)}:host-context([expanded-state-layout-chrome-refresh]) #action-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:15px;background-color:var(--color-realbox-results-action-chip-icon);background-position:center center;background-repeat:no-repeat;height:16px;width:16px}#text{overflow:hidden;padding-inline-start:8px;text-overflow:ellipsis;white-space:nowrap}:host(:hover){background-color:var(--color-realbox-results-button-hover)}:host-context(.focus-outline-visible):host(:focus){border:solid 1px transparent;box-shadow:inset 0 0 0 2px var(--google-blue-600)}:host-context([expanded-state-layout-chrome-refresh]):host(:focus){margin:2px;margin-inline-end:2px;border:solid 1px var(--color-realbox-results-action-chip);box-shadow:none}</style>
+<div class="contents" title="[[tooltip_]]">
   <div id="action-icon" style$="-webkit-mask-image: url([[action.iconUrl]])" hidden="[[!showCr23ActionIcon_()]]"></div>
   <img id="action-icon" src$="[[action.iconUrl]]" hidden="[[showCr23ActionIcon_()]]">
   <div id="text" inner-h-t-m-l="[[hintHtml_]]"></div>
@@ -373,6 +373,12 @@ class RealboxActionElement extends PolymerElement {
             },
         };
     }
+    ready() {
+        super.ready();
+        this.addEventListener('click', (event) => this.onActionClick_(event));
+        this.addEventListener('keydown', (event) => this.onActionKeyDown_(event));
+        this.addEventListener('mousedown', (event) => this.onActionMouseDown_(event));
+    }
     onActionClick_(e) {
         this.dispatchEvent(new CustomEvent('execute-action', {
             bubbles: true,
@@ -428,18 +434,43 @@ const styleMod = document.createElement('dom-module');
 styleMod.appendChild(html `
   <template>
     <style>
-.action-icon{--cr-icon-button-active-background-color:var(--color-new-tab-page-active-background);--cr-icon-button-fill-color:var(--color-realbox-results-icon);--cr-icon-button-focus-outline-color:var(--color-realbox-results-icon-focused-outline);--cr-icon-button-hover-background-color:var(--color-realbox-results-background-hovered);--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0;--cr-icon-button-size:24px}
+.action-icon{--cr-icon-button-active-background-color:var(--color-new-tab-page-active-background);--cr-icon-button-fill-color:var(--color-realbox-results-icon);--cr-icon-button-focus-outline-color:var(--color-realbox-results-icon-focused-outline);--cr-icon-button-hover-background-color:var(--color-realbox-results-button-hover);--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0;--cr-icon-button-size:24px}
     </style>
   </template>
 `.content);
 styleMod.register('realbox-dropdown-shared-style');
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]):host([side-type-class_=primary-side]) .container:not(.actions):hover{background-color:var(--color-realbox-results-background-hovered)}:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected]):not([side-type-class_=secondary-side])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator{display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-entity-suggestion][has-image]) #description{font-size:.875em}.match{font-weight:600}#description:has(.dim),.dim,:host([is-entity-suggestion]) #description{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}.container:hover #remove{display:inline-flex}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]){border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}</style>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container.underneath,:host([has-outset-action-focus-ring][inlined-actions]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]):host([side-type-class_=primary-side]) .container:not(.actions):hover{background-color:var(--color-realbox-results-background-hovered)}:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected]):not([side-type-class_=secondary-side])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator:not(.selected-within){display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-rich-suggestion]) #description{font-size:.875em}.match{font-weight:600}#description,.dim{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}.container:hover #remove{display:inline-flex}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]){border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}.icon-text-action-container{flex-grow:1;overflow:hidden}.icon-text-container{display:flex}:host([show-cr-non-inlined-hover-fill]) .container:not(.actions){border-top-right-radius:200px;border-bottom-right-radius:200px}:host([show-cr-non-inlined-hover-fill]) #focus-indicator{height:44px;top:0}:host([show-cr-non-inlined-hover-fill]) .actions{margin-inline-start:30px;padding-inline-start:10px;padding-bottom:6px;padding-top:6px;height:34px}</style>
 <div class="container" aria-hidden="true">
   <div id="focus-indicator"></div>
-  <cr-realbox-icon id="icon" match="[[match]]"></cr-realbox-icon>
-  <div id="text-container" class$="[[simplifiedClass_]]">
+  
+  <template is="dom-if" if="[[showCrNonInlinedHoverFill]]">
+    <div class="icon-text-action-container">
+      <div class="icon-text-container">
+        <cr-realbox-icon id="icon" match="[[match]]"></cr-realbox-icon>
+        <div id="text-container" class$="[[simplifiedClass_]]">
+          <span id="tail-suggest-prefix" hidden$="[[!tailSuggestPrefix_]]">
+            <span id="prefix">[[tailSuggestPrefix_]]</span>
+            <span id="ellipsis">...&nbsp</span>
+          </span>
+          <span id="contents" inner-h-t-m-l="[[contentsHtml_]]"></span>
+          <span id="separator" class="dim">[[separatorText_]]</span>
+          <span id="description" inner-h-t-m-l="[[descriptionHtml_]]"></span>
+        </div>
+      </div>
+      <div class="actions container" aria-hidden="true">
+        <template is="dom-repeat" items="[[match.actions]]">
+          <div id="actions-focus-border">
+            <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+            </cr-realbox-action>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+  <cr-realbox-icon id="icon" match="[[match]]" hidden="[[showCrNonInlinedHoverFill]]"></cr-realbox-icon>
+  <div id="text-container" class$="[[simplifiedClass_]]" hidden="[[showCrNonInlinedHoverFill]]">
     <span id="tail-suggest-prefix" hidden$="[[!tailSuggestPrefix_]]">
       <span id="prefix">[[tailSuggestPrefix_]]</span>
       
@@ -449,29 +480,41 @@ function getTemplate$5() {
     <span id="separator" class="dim">[[separatorText_]]</span>
     <span id="description" inner-h-t-m-l="[[descriptionHtml_]]"></span>
   </div>
-  <div class="actions container inlined" aria-hidden="true" hidden="[[!showActionsInlined_()]]">
-    <template is="dom-repeat" items="[[match.actions]]">
-      <div id="actions-focus-border" hidden="[[!expandedStateIconsChromeRefresh]]">
-        <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
-        </cr-realbox-action>
-      </div>
-      <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1" hidden="[[expandedStateIconsChromeRefresh]]">
-      </cr-realbox-action>
-    </template>
-  </div>
+  <template is="dom-if" if="[[showActionsInlined_()]]">
+    <div class="actions container inlined" aria-hidden="true">
+      <template is="dom-repeat" items="[[match.actions]]">
+        <template is="dom-if" if="[[expandedStateIconsChromeRefresh]]">
+          <div id="actions-focus-border">
+            <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+            </cr-realbox-action>
+          </div>
+        </template>
+        <template is="dom-if" if="[[!expandedStateIconsChromeRefresh]]">
+          <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+          </cr-realbox-action>
+      </template>
+      </template>
+    </div>
+  </template>
   <cr-icon-button id="remove" class="action-icon icon-clear" aria-label="[[removeButtonAriaLabel_]]" on-click="onRemoveButtonClick_" on-mousedown="onRemoveButtonMouseDown_" title="[[removeButtonTitle_]]" hidden$="[[!match.supportsDeletion]]" tabindex="2">
   </cr-icon-button>
 </div>
-<div class="actions container underneath" aria-hidden="true" hidden="[[!showActionsUnderneath_(match)]]">
-  <template is="dom-repeat" items="[[match.actions]]">
-    <div id="actions-focus-border" hidden="[[!expandedStateIconsChromeRefresh]]">
+<template is="dom-if" if="[[showActionsUnderneath_(match)]]">
+  <div class="actions container underneath" aria-hidden="true">
+    <template is="dom-repeat" items="[[match.actions]]">
+      <template is="dom-if" if="[[expandedStateIconsChromeRefresh]]">
+        <div id="actions-focus-border">
+          <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+          </cr-realbox-action>
+        </div>
+      </template>
+      <template is="dom-if" if="[[!expandedStateIconsChromeRefresh]]">
         <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
         </cr-realbox-action>
-    </div>
-    <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1" hidden="[[expandedStateIconsChromeRefresh]]">
-    </cr-realbox-action>
-  </template>
-</div>
+    </template>
+    </template>
+  </div>
+</template>
 <!--_html_template_end_-->`;
 }
 
@@ -535,6 +578,12 @@ class RealboxMatchElement extends PolymerElement {
                 computed: `computeHasImage_(match)`,
                 reflectToAttribute: true,
             },
+            /** Whether action chip is inlined. */
+            inlinedActions: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('omniboxActionsUISimplification'),
+                reflectToAttribute: true,
+            },
             /**
              * Whether the match is an entity suggestion (with or without an image).
              */
@@ -564,6 +613,11 @@ class RealboxMatchElement extends PolymerElement {
             realboxConsistentRowHeight: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('realboxCr23ConsistentRowHeight'),
+                reflectToAttribute: true,
+            },
+            showCrNonInlinedHoverFill: {
+                type: Boolean,
+                computed: 'computeShowCrNonInlinedHoverFill_(hasAction)',
                 reflectToAttribute: true,
             },
             sideType: Number,
@@ -759,17 +813,22 @@ class RealboxMatchElement extends PolymerElement {
             loadTimeData.getString('realboxSeparator') :
             '';
     }
+    computeShowCrNonInlinedHoverFill_() {
+        return !this.inlinedActions &&
+            loadTimeData.getBoolean('realboxCr23HoverFillShape') && this.hasAction;
+    }
     computeSideTypeClass_() {
         return sideTypeToClass(this.sideType);
     }
     showActionsInlined_() {
         // Always show inlined div when feature is enabled, so that it will
         // grow and push other elements like remove button to the right.
-        return loadTimeData.getBoolean('omniboxActionsUISimplification');
+        return this.inlinedActions && !this.showCrNonInlinedHoverFill &&
+            this.sideType === SideType.kDefaultPrimary;
     }
     showActionsUnderneath_(match) {
-        return match.actions.length > 0 &&
-            !loadTimeData.getBoolean('omniboxActionsUISimplification');
+        return match.actions.length > 0 && !this.inlinedActions &&
+            !this.showCrNonInlinedHoverFill;
     }
     /**
      * Decodes the AcMatchClassificationStyle enteries encoded in the given
@@ -817,11 +876,14 @@ class RealboxMatchElement extends PolymerElement {
         }, document.createElement('span'));
     }
     updateSelection(selection) {
-        this.$.remove.classList.toggle('selected', selection.state === SelectionLineState.kFocusedButtonRemoveSuggestion);
-        const actions = Array.from(this.shadowRoot.querySelectorAll('cr-realbox-action'));
-        actions.forEach((action, index) => {
+        this.$['focus-indicator'].classList.toggle('selected-within', selection.state !== SelectionLineState.kNormal &&
+            selection.line === this.matchIndex);
+        this.$.remove.classList.toggle('selected', selection.state === SelectionLineState.kFocusedButtonRemoveSuggestion &&
+            selection.line === this.matchIndex);
+        [...this.shadowRoot.querySelectorAll('cr-realbox-action')].forEach((action, index) => {
             action.classList.toggle('selected', selection.state === SelectionLineState.kFocusedButtonAction &&
-                selection.actionIndex === index);
+                selection.actionIndex === index &&
+                selection.line === this.matchIndex);
         });
     }
 }
@@ -1147,7 +1209,7 @@ function getTrustedScriptURL(literal) {
 }
 
 function getTemplate$4() {
-    return html `<!--_html_template_start_--><style include="cr-icons realbox-dropdown-shared-style">:host{user-select:none}#content{background-color:var(--color-realbox-results-background);border-radius:calc(.5 * var(--cr-realbox-height));box-shadow:var(--cr-realbox-shadow);display:flex;gap:16px;margin-bottom:8px;overflow:hidden;padding-bottom:18px;padding-top:var(--cr-realbox-height)}:host([expanded-state-layout-chrome-refresh]) #content{padding-bottom:8px}@media (forced-colors:active){#content{border:1px solid ActiveBorder}}.matches{display:contents}cr-realbox-match{color:var(--color-realbox-results-foreground)}.header{align-items:center;box-sizing:border-box;cursor:pointer;display:flex;font-size:inherit;font-weight:inherit;height:44px;margin-block-end:0;margin-block-start:0;outline:0;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px}.header .text{color:var(--color-realbox-results-foreground-dimmed);font-size:.875em;font-weight:500;overflow:hidden;padding-inline-end:6px;padding-inline-start:6px;text-overflow:ellipsis;white-space:nowrap}.header:focus-within:not(:focus) cr-icon-button{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected)}:host(:not([chrome-refresh-hover-shape])) cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}:host([chrome-refresh-hover-shape]) .secondary-side cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}@media (forced-colors:active){cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:Highlight}}.primary-side{flex:1;min-width:0}.secondary-side{display:var(--cr-realbox-secondary-side-display,none);min-width:0;padding-block-end:8px;padding-inline-end:16px;width:314px}.secondary-side .header{padding-inline-end:0;padding-inline-start:0}.secondary-side .matches{display:flex;gap:4px}</style>
+    return html `<!--_html_template_start_--><style include="cr-icons realbox-dropdown-shared-style">:host{user-select:none}#content{background-color:var(--color-realbox-results-background);border-radius:calc(.5 * var(--cr-realbox-height));box-shadow:var(--cr-realbox-shadow);display:flex;gap:16px;margin-bottom:8px;overflow:hidden;padding-bottom:18px;padding-top:var(--cr-realbox-height)}:host([expanded-state-layout-chrome-refresh]) #content{padding-bottom:8px}@media (forced-colors:active){#content{border:1px solid ActiveBorder}}.matches{display:contents}cr-realbox-match{color:var(--color-realbox-results-foreground)}.header{align-items:center;box-sizing:border-box;cursor:pointer;display:flex;font-size:inherit;font-weight:inherit;height:44px;margin-block-end:0;margin-block-start:0;outline:0;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px}.header .text{color:var(--color-realbox-results-foreground-dimmed);font-size:.875em;font-weight:500;overflow:hidden;padding-inline-end:1px;padding-inline-start:6px;text-overflow:ellipsis;white-space:nowrap}.header cr-icon-button{top:1px}.header:focus-within:not(:focus) cr-icon-button{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected)}:host(:not([chrome-refresh-hover-shape])) cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}:host([chrome-refresh-hover-shape]) .secondary-side cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}@media (forced-colors:active){cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:Highlight}}.primary-side{flex:1;min-width:0}.secondary-side{display:var(--cr-realbox-secondary-side-display,none);min-width:0;padding-block-end:8px;padding-inline-end:16px;width:314px}.secondary-side .header{padding-inline-end:0;padding-inline-start:0}.secondary-side .matches{display:flex;gap:4px}</style>
 <div id="content">
   <template is="dom-repeat" items="[[sideTypes_(showSecondarySide_)]]" as="side">
     <div class$="[[classForSide_(side)]]">
@@ -1308,11 +1370,16 @@ class RealboxDropdownElement extends PolymerElement {
     selectIndex(index) {
         this.selectedMatchIndex = index;
     }
-    updateSelection(selection) {
+    updateSelection(oldSelection, selection) {
         if (selection.state === SelectionLineState.kFocusedButtonHeader) {
             // TODO: Focus group header.
             this.unselect();
             return;
+        }
+        // If the updated selection is a new match, remove any remaining selection
+        // on the previously selected match.
+        if (oldSelection.line !== selection.line) {
+            this.selectableMatchElements[this.selectedMatchIndex]?.updateSelection(selection);
         }
         this.selectIndex(selection.line);
         this.selectableMatchElements[this.selectedMatchIndex]?.updateSelection(selection);
@@ -1518,7 +1585,7 @@ class RealboxDropdownElement extends PolymerElement {
 customElements.define(RealboxDropdownElement.is, RealboxDropdownElement);
 
 function getTemplate$3() {
-    return html `<!--_html_template_start_--><style include="cr-icons">:host{--cr-realbox-height:44px;--cr-realbox-min-width:var(--ntp-search-box-width);--cr-realbox-shadow:0 1px 6px 0 var(--color-realbox-shadow);--cr-realbox-width:var(--cr-realbox-min-width);--ntp-realbox-border-radius:calc(0.5 * var(--cr-realbox-height));--ntp-realbox-icon-width:26px;--ntp-realbox-inner-icon-margin:8px;--ntp-realbox-voice-icon-offset:16px;border-radius:var(--ntp-realbox-border-radius);box-shadow:var(--cr-realbox-shadow);font-size:16px;height:var(--cr-realbox-height);width:var(--cr-realbox-width)}:host([realbox-chrome-refresh-theming][dropdown-is-visible]){--cr-realbox-shadow:0 0 12px 4px var(--color-realbox-shadow)}:host([can-show-secondary-side][had-secondary-side]),:host([can-show-secondary-side][width-behavior_=wide]){--cr-realbox-width:746px}:host([can-show-secondary-side][width-behavior_=revert]:not([dropdown-is-visible])){--cr-realbox-width:var(--cr-realbox-min-width)}:host([is-tall_]){--cr-realbox-height:48px}:host([can-show-secondary-side][has-secondary-side]){--cr-realbox-secondary-side-display:block}:host([is-dark]){--cr-realbox-shadow:0 2px 6px 0 var(--color-realbox-shadow)}:host([realbox-lens-search-enabled_]){--ntp-realbox-voice-icon-offset:53px}@media (forced-colors:active){:host{border:1px solid ActiveBorder}}:host([dropdown-is-visible]){box-shadow:none}:host([match-searchbox]){box-shadow:none}:host([match-searchbox]:not([dropdown-is-visible]):hover){border:1px solid transparent;box-shadow:var(--cr-realbox-shadow)}:host([match-searchbox]:not([is-dark]):not([dropdown-is-visible]):not(:hover)){border:1px solid var(--color-realbox-border)}#inputWrapper{height:100%;position:relative}input{background-color:var(--color-realbox-background);border:none;border-radius:var(--ntp-realbox-border-radius);color:var(--color-realbox-foreground);font-family:inherit;font-size:inherit;height:100%;outline:0;padding-inline-end:calc(var(--ntp-realbox-voice-icon-offset) + var(--ntp-realbox-icon-width) + var(--ntp-realbox-inner-icon-margin));padding-inline-start:52px;position:relative;width:100%}:host([realbox-chrome-refresh-theming]) input::selection{background-color:var(--color-realbox-selection-background);color:var(--color-realbox-selection-foreground)}input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none}input::-webkit-search-cancel-button{appearance:none;margin:0}input::placeholder{color:var(--color-realbox-placeholder)}input:focus::placeholder{visibility:hidden}:host([dropdown-is-visible]) input,input:focus{background-color:var(--color-realbox-results-background)}input:hover{background-color:var(--color-realbox-background-hovered)}cr-realbox-icon{height:100%;left:12px;position:absolute;top:0}:host-context([dir=rtl]) cr-realbox-icon{left:unset;right:12px}.realbox-icon-button{background-color:transparent;background-position:center;background-repeat:no-repeat;background-size:21px 21px;border:none;border-radius:2px;cursor:pointer;height:100%;outline:0;padding:0;pointer-events:auto;position:absolute;right:16px;width:var(--ntp-realbox-icon-width)}:host([realbox-chrome-refresh-theming]) .realbox-icon-button{position:static}.realbox-icon-button-container{border-radius:2px;height:100%;position:absolute;right:16px;top:0;z-index:100}.realbox-icon-button-container.voice{right:var(--ntp-realbox-voice-icon-offset)}:host-context(.focus-outline-visible) .realbox-icon-button-container:focus-within{box-shadow:var(--ntp-focus-shadow)}:host(:not([realbox-chrome-refresh-theming])) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host(:not([realbox-chrome-refresh-theming])) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #lensSearchButton,:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #voiceSearchButton{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:21px 21px;background-color:var(--color-realbox-lens-voice-icon-background)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #voiceSearchButton{-webkit-mask-image:url(icons/googlemic_clr_24px.svg)}:host([realbox-chrome-refresh-theming][color-source-is-baseline]) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #lensSearchButton{-webkit-mask-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-chrome-refresh-theming][color-source-is-baseline]) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) #voiceSearchButton{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host([realbox-lens-search-enabled_]) #voiceSearchButton{right:var(--ntp-realbox-voice-icon-offset)}:host-context([dir=rtl]) .realbox-icon-button{left:16px;right:unset}:host-context([dir=rtl]) .realbox-icon-button-container{left:16px;right:unset}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) .realbox-icon-button-container.voice{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host-context(.focus-outline-visible) .realbox-icon-button:focus{box-shadow:var(--ntp-focus-shadow)}:-webkit-any(input,cr-realbox-icon,.realbox-icon-button){z-index:100}cr-realbox-dropdown{left:0;position:absolute;right:0;top:0;z-index:99}.truncate{overflow:hidden;text-overflow:ellipsis}</style>
+    return html `<!--_html_template_start_--><style include="cr-icons">:host{--cr-realbox-height:44px;--cr-realbox-min-width:var(--ntp-search-box-width);--cr-realbox-shadow:0 1px 6px 0 var(--color-realbox-shadow);--cr-realbox-width:var(--cr-realbox-min-width);--ntp-realbox-border-radius:calc(0.5 * var(--cr-realbox-height));--ntp-realbox-icon-width:26px;--ntp-realbox-inner-icon-margin:8px;--ntp-realbox-voice-icon-offset:16px;border-radius:var(--ntp-realbox-border-radius);box-shadow:var(--cr-realbox-shadow);font-size:16px;height:var(--cr-realbox-height);width:var(--cr-realbox-width)}:host([realbox-chrome-refresh-theming][dropdown-is-visible]){--cr-realbox-shadow:0 0 12px 4px var(--color-realbox-shadow)}:host([realbox-chrome-refresh-theming]:not([realbox-steady-state-shadow]):not([dropdown-is-visible])){--cr-realbox-shadow:none}:host([can-show-secondary-side][had-secondary-side]),:host([can-show-secondary-side][width-behavior_=wide]){--cr-realbox-width:746px}:host([can-show-secondary-side][width-behavior_=revert]:not([dropdown-is-visible])){--cr-realbox-width:var(--cr-realbox-min-width)}:host([is-tall_]){--cr-realbox-height:48px}:host([can-show-secondary-side][has-secondary-side]){--cr-realbox-secondary-side-display:block}:host([is-dark]){--cr-realbox-shadow:0 2px 6px 0 var(--color-realbox-shadow)}:host([realbox-lens-search-enabled_]){--ntp-realbox-voice-icon-offset:53px}@media (forced-colors:active){:host{border:1px solid ActiveBorder}}:host([dropdown-is-visible]){box-shadow:none}:host([match-searchbox]){box-shadow:none}:host([match-searchbox]:not([dropdown-is-visible]):hover){border:1px solid transparent;box-shadow:var(--cr-realbox-shadow)}:host([match-searchbox]:not([is-dark]):not([dropdown-is-visible]):not(:hover)){border:1px solid var(--color-realbox-border)}#inputWrapper{height:100%;position:relative}input{background-color:var(--color-realbox-background);border:none;border-radius:var(--ntp-realbox-border-radius);color:var(--color-realbox-foreground);font-family:inherit;font-size:inherit;height:100%;outline:0;padding-inline-end:calc(var(--ntp-realbox-voice-icon-offset) + var(--ntp-realbox-icon-width) + var(--ntp-realbox-inner-icon-margin));padding-inline-start:52px;position:relative;width:100%}:host([realbox-chrome-refresh-theming]) input::selection{background-color:var(--color-realbox-selection-background);color:var(--color-realbox-selection-foreground)}input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none}input::-webkit-search-cancel-button{appearance:none;margin:0}input::placeholder{color:var(--color-realbox-placeholder)}input:focus::placeholder{visibility:hidden}:host([dropdown-is-visible]) input,input:focus{background-color:var(--color-realbox-results-background)}:host([realbox-chrome-refresh-theming]:not([realbox-steady-state-shadow]):not([dropdown-is-visible])) input{background-color:var(--color-realbox-background)}:host([realbox-chrome-refresh-theming]:not([realbox-steady-state-shadow]):not([dropdown-is-visible])) input:hover,input:hover{background-color:var(--color-realbox-background-hovered)}cr-realbox-icon{height:100%;left:12px;position:absolute;top:0}:host-context([dir=rtl]) cr-realbox-icon{left:unset;right:12px}.realbox-icon-button{background-color:transparent;background-position:center;background-repeat:no-repeat;background-size:21px 21px;border:none;border-radius:2px;cursor:pointer;height:100%;outline:0;padding:0;pointer-events:auto;position:absolute;right:16px;width:var(--ntp-realbox-icon-width)}:host([realbox-chrome-refresh-theming]) .realbox-icon-button{position:static}.realbox-icon-button-container{border-radius:2px;height:100%;position:absolute;right:16px;top:0;z-index:100}.realbox-icon-button-container.voice{right:var(--ntp-realbox-voice-icon-offset)}:host-context(.focus-outline-visible) .realbox-icon-button-container:focus-within{box-shadow:var(--ntp-focus-shadow)}:host(:not([realbox-chrome-refresh-theming])) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host(:not([realbox-chrome-refresh-theming])) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #lensSearchButton,:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #voiceSearchButton{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:21px 21px;background-color:var(--color-realbox-lens-voice-icon-background)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #voiceSearchButton{-webkit-mask-image:url(icons/googlemic_clr_24px.svg)}:host([realbox-chrome-refresh-theming][color-source-is-baseline]) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #lensSearchButton{-webkit-mask-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-chrome-refresh-theming][color-source-is-baseline]) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) #voiceSearchButton{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host([realbox-lens-search-enabled_]) #voiceSearchButton{right:var(--ntp-realbox-voice-icon-offset)}:host-context([dir=rtl]) .realbox-icon-button{left:16px;right:unset}:host-context([dir=rtl]) .realbox-icon-button-container{left:16px;right:unset}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) .realbox-icon-button-container.voice{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host-context(.focus-outline-visible) .realbox-icon-button:focus{box-shadow:var(--ntp-focus-shadow)}:-webkit-any(input,cr-realbox-icon,.realbox-icon-button){z-index:100}cr-realbox-dropdown{left:0;position:absolute;right:0;top:0;z-index:99}.truncate{overflow:hidden;text-overflow:ellipsis}</style>
 <div id="inputWrapper" on-focusout="onInputWrapperFocusout_" on-keydown="onInputWrapperKeydown_">
   <input id="input" class="truncate" type="search" autocomplete="off" spellcheck="false" aria-live="[[inputAriaLive_]]" role="combobox" aria-expanded="[[dropdownIsVisible]]" aria-controls="matches" placeholder="$i18n{searchBoxHint}" on-copy="onInputCutCopy_" on-cut="onInputCutCopy_" on-focus="onInputFocus_" on-input="onInputInput_" on-keydown="onInputKeydown_" on-keyup="onInputKeyup_" on-mousedown="onInputMouseDown_" on-paste="onInputPaste_">
   <cr-realbox-icon id="icon" match="[[selectedMatch_]]" default-icon="[[realboxIcon_]]" in-searchbox>
@@ -1616,6 +1683,11 @@ class RealboxElement extends PolymerElement {
             realboxChromeRefreshTheming: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('realboxCr23Theming'),
+                reflectToAttribute: true,
+            },
+            realboxSteadyStateShadow: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23SteadyStateShadow'),
                 reflectToAttribute: true,
             },
             //========================================================================

@@ -5,11 +5,11 @@ import '//resources/polymer/v3_0/paper-styles/color.js';
 import '../cr_hidden_style.css.js';
 import '../cr_shared_vars.css.js';
 import './cr_radio_button_style.css.js';
-import { PaperRippleBehavior } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './cr_radio_button.html.js';
 import { CrRadioButtonMixin } from './cr_radio_button_mixin.js';
-const CrRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const CrRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 export class CrRadioButtonElement extends CrRadioButtonElementBase {
     static get is() {
         return 'cr-radio-button';
@@ -21,7 +21,7 @@ export class CrRadioButtonElement extends CrRadioButtonElementBase {
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');

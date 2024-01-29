@@ -30,13 +30,14 @@ blink.mojom.RuntimeFeatureSpec = { $: mojo.internal.Enum() };
 blink.mojom.RuntimeFeature = {
   
   kBlinkExtensionChromeOS: 0,
-  kBlinkExtensionDiagnostics: 1,
-  kDisableThirdPartyStoragePartitioning: 2,
-  kFedCmIdpSigninStatus: 3,
-  kOriginTrialsSampleAPIBrowserReadWrite: 4,
-  kTestFeature: 5,
+  kBlinkExtensionChromeOSKiosk: 1,
+  kBlinkExtensionDiagnostics: 2,
+  kDisableThirdPartyStoragePartitioning: 3,
+  kFedCmIdpSigninStatus: 4,
+  kOriginTrialsSampleAPIBrowserReadWrite: 5,
+  kTestFeature: 6,
   MIN_VALUE: 0,
-  MAX_VALUE: 5,
+  MAX_VALUE: 6,
 };
 
 

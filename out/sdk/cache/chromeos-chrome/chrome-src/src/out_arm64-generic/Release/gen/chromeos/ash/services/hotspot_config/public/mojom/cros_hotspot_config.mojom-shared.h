@@ -222,8 +222,10 @@ enum class DisableReason : int32_t {
   kSuspended = 6,
   
   kRestart = 7,
+  
+  kUpstreamNoInternet = 8,
   kMinValue = 0,
-  kMaxValue = 7,
+  kMaxValue = 8,
 };
 
  std::ostream& operator<<(std::ostream& os, DisableReason value);

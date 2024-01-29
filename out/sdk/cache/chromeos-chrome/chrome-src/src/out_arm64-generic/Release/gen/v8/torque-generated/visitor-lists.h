@@ -13,6 +13,7 @@ V(UNCOMPILED_DATA_WITH_PREPARSE_DATA_TYPE,UncompiledDataWithPreparseData)\
 V(UNCOMPILED_DATA_WITHOUT_PREPARSE_DATA_WITH_JOB_TYPE,UncompiledDataWithoutPreparseDataWithJob)\
 V(UNCOMPILED_DATA_WITH_PREPARSE_DATA_AND_JOB_TYPE,UncompiledDataWithPreparseDataAndJob)\
 V(ON_HEAP_BASIC_BLOCK_PROFILER_DATA_TYPE,OnHeapBasicBlockProfilerData)\
+V(DICTIONARY_TEMPLATE_INFO_TYPE,DictionaryTemplateInfo)\
 V(TURBOFAN_BITSET_TYPE_TYPE,TurbofanBitsetType)\
 V(TURBOFAN_UNION_TYPE_TYPE,TurbofanUnionType)\
 V(TURBOFAN_RANGE_TYPE_TYPE,TurbofanRangeType)\
@@ -68,6 +69,7 @@ V(UncompiledDataWithPreparseData)\
 V(UncompiledDataWithoutPreparseDataWithJob)\
 V(UncompiledDataWithPreparseDataAndJob)\
 V(OnHeapBasicBlockProfilerData)\
+V(DictionaryTemplateInfo)\
 V(TurbofanUnionType)\
 V(TurbofanHeapConstantType)\
 V(InternalClass)\

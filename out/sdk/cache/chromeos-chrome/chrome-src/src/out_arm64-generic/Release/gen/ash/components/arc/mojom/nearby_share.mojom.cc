@@ -327,6 +327,8 @@ bool NearbyShareSessionInstanceStubDispatch::Accept(
           reinterpret_cast<internal::NearbyShareSessionInstance_OnNearbyShareViewClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSessionInstance.0
       bool success = true;
       NearbyShareSessionInstance_OnNearbyShareViewClosed_ParamsDataView input_data_view(params, message);
       
@@ -339,7 +341,7 @@ bool NearbyShareSessionInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNearbyShareViewClosed();
+      impl->OnNearbyShareViewClosed(        );
       return true;
     }
   }
@@ -570,6 +572,8 @@ bool NearbyShareHost_StartNearbyShare_ForwardToCallback::Accept(
           internal::NearbyShareHost_StartNearbyShare_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareHost.0
   bool success = true;
   ::mojo::PendingRemote<NearbyShareSessionHost> p_host{};
   NearbyShareHost_StartNearbyShare_ResponseParamsDataView input_data_view(params, message);
@@ -667,6 +671,8 @@ bool NearbyShareHostStubDispatch::AcceptWithResponder(
               internal::NearbyShareHost_StartNearbyShare_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareHost.0
       bool success = true;
       uint32_t p_task_id{};
       ShareIntentInfoPtr p_info{};
@@ -693,10 +699,10 @@ bool NearbyShareHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartNearbyShare(
-std::move(p_task_id), 
-std::move(p_info), 
-std::move(p_instance), std::move(callback));
+      impl->StartNearbyShare(        
+        std::move(p_task_id), 
+        std::move(p_info), 
+        std::move(p_instance), std::move(callback));
       return true;
     }
   }
@@ -897,6 +903,8 @@ bool NearbyShareInstance_Init_ForwardToCallback::Accept(
           internal::NearbyShareInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareInstance.0
   bool success = true;
   NearbyShareInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -975,6 +983,8 @@ bool NearbyShareInstanceStubDispatch::AcceptWithResponder(
               internal::NearbyShareInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareInstance.0
       bool success = true;
       ::mojo::PendingRemote<NearbyShareHost> p_host_remote{};
       NearbyShareInstance_Init_ParamsDataView input_data_view(params, message);
@@ -995,8 +1005,8 @@ bool NearbyShareInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

@@ -229,6 +229,8 @@ bool NearbyMessageSender_SendMessage_ForwardToCallback::Accept(
           internal::NearbyMessageSender_SendMessage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyMessageSender.0
   bool success = true;
   bool p_success{};
   NearbyMessageSender_SendMessage_ResponseParamsDataView input_data_view(params, message);
@@ -319,6 +321,8 @@ bool NearbyMessageSenderStubDispatch::AcceptWithResponder(
               internal::NearbyMessageSender_SendMessage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyMessageSender.0
       bool success = true;
       std::string p_message{};
       NearbyMessageSender_SendMessage_ParamsDataView input_data_view(params, message);
@@ -337,8 +341,8 @@ bool NearbyMessageSenderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendMessage(
-std::move(p_message), std::move(callback));
+      impl->SendMessage(        
+        std::move(p_message), std::move(callback));
       return true;
     }
   }
@@ -482,6 +486,8 @@ bool NearbyMessageReceiverStubDispatch::Accept(
           reinterpret_cast<internal::NearbyMessageReceiver_OnMessageReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyMessageReceiver.0
       bool success = true;
       std::string p_message{};
       NearbyMessageReceiver_OnMessageReceived_ParamsDataView input_data_view(params, message);
@@ -497,8 +503,8 @@ bool NearbyMessageReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessageReceived(
-std::move(p_message));
+      impl->OnMessageReceived(        
+        std::move(p_message));
       return true;
     }
   }
@@ -729,6 +735,8 @@ bool NearbyFilePayloadHandler_RegisterPayloadFile_ForwardToCallback::Accept(
           internal::NearbyFilePayloadHandler_RegisterPayloadFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyFilePayloadHandler.0
   bool success = true;
   bool p_success{};
   NearbyFilePayloadHandler_RegisterPayloadFile_ResponseParamsDataView input_data_view(params, message);
@@ -819,6 +827,8 @@ bool NearbyFilePayloadHandlerStubDispatch::AcceptWithResponder(
               internal::NearbyFilePayloadHandler_RegisterPayloadFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyFilePayloadHandler.0
       bool success = true;
       int64_t p_payload_id{};
       ::ash::secure_channel::mojom::PayloadFilesPtr p_payload_files{};
@@ -845,10 +855,10 @@ bool NearbyFilePayloadHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterPayloadFile(
-std::move(p_payload_id), 
-std::move(p_payload_files), 
-std::move(p_listener), std::move(callback));
+      impl->RegisterPayloadFile(        
+        std::move(p_payload_id), 
+        std::move(p_payload_files), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
   }
@@ -1081,6 +1091,8 @@ bool NearbyConnector_Connect_ForwardToCallback::Accept(
           internal::NearbyConnector_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnector.0
   bool success = true;
   ::mojo::PendingRemote<NearbyMessageSender> p_message_sender{};
   ::mojo::PendingRemote<NearbyFilePayloadHandler> p_file_payload_handler{};
@@ -1185,6 +1197,8 @@ bool NearbyConnectorStubDispatch::AcceptWithResponder(
               internal::NearbyConnector_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnector.0
       bool success = true;
       std::vector<uint8_t> p_bluetooth_public_address{};
       std::vector<uint8_t> p_eid{};
@@ -1211,10 +1225,10 @@ bool NearbyConnectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_bluetooth_public_address), 
-std::move(p_eid), 
-std::move(p_message_receiver), std::move(callback));
+      impl->Connect(        
+        std::move(p_bluetooth_public_address), 
+        std::move(p_eid), 
+        std::move(p_message_receiver), std::move(callback));
       return true;
     }
   }

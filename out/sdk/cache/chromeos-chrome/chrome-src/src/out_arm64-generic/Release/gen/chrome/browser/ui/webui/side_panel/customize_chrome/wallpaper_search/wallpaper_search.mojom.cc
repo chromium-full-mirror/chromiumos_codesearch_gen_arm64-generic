@@ -181,15 +181,122 @@ bool Descriptors::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Inspiration::Inspiration()
+    : id(),
+      description(),
+      background_url(),
+      thumbnail_url() {}
+
+Inspiration::Inspiration(
+    const ::base::Token& id_in,
+    const std::string& description_in,
+    const ::GURL& background_url_in,
+    const ::GURL& thumbnail_url_in)
+    : id(std::move(id_in)),
+      description(std::move(description_in)),
+      background_url(std::move(background_url_in)),
+      thumbnail_url(std::move(thumbnail_url_in)) {}
+
+Inspiration::~Inspiration() = default;
+
+void Inspiration::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::base::Token&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "description"), this->description,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "background_url"), this->background_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "thumbnail_url"), this->thumbnail_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Inspiration::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+InspirationGroup::InspirationGroup()
+    : descriptors(),
+      inspirations() {}
+
+InspirationGroup::InspirationGroup(
+    ResultDescriptorsPtr descriptors_in,
+    std::vector<InspirationPtr> inspirations_in)
+    : descriptors(std::move(descriptors_in)),
+      inspirations(std::move(inspirations_in)) {}
+
+InspirationGroup::~InspirationGroup() = default;
+
+void InspirationGroup::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "descriptors"), this->descriptors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ResultDescriptorsPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "inspirations"), this->inspirations,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<InspirationPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool InspirationGroup::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 WallpaperSearchResult::WallpaperSearchResult()
     : id(),
-      image() {}
+      image(),
+      descriptors() {}
 
 WallpaperSearchResult::WallpaperSearchResult(
     const ::base::Token& id_in,
-    const std::string& image_in)
+    const std::string& image_in,
+    ResultDescriptorsPtr descriptors_in)
     : id(std::move(id_in)),
-      image(std::move(image_in)) {}
+      image(std::move(image_in)),
+      descriptors(std::move(descriptors_in)) {}
 
 WallpaperSearchResult::~WallpaperSearchResult() = default;
 
@@ -214,9 +321,82 @@ void WallpaperSearchResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "descriptors"), this->descriptors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ResultDescriptorsPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool WallpaperSearchResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ResultDescriptors::ResultDescriptors()
+    : subject(),
+      style(),
+      mood(),
+      color() {}
+
+ResultDescriptors::ResultDescriptors(
+    const std::optional<std::string>& subject_in,
+    const std::optional<std::string>& style_in,
+    const std::optional<std::string>& mood_in,
+    DescriptorDValuePtr color_in)
+    : subject(std::move(subject_in)),
+      style(std::move(style_in)),
+      mood(std::move(mood_in)),
+      color(std::move(color_in)) {}
+
+ResultDescriptors::~ResultDescriptors() = default;
+
+void ResultDescriptors::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "subject"), this->subject,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "style"), this->style,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mood"), this->mood,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "color"), this->color,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DescriptorDValuePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ResultDescriptors::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -249,6 +429,14 @@ void DescriptorDValue::set_hue(
   }
   data_.hue = hue;
 }
+void DescriptorDValue::set_name(
+    DescriptorDName name) {
+  if (tag_ != Tag::kName) {
+    DestroyActive();
+    tag_ = Tag::kName;
+  }
+  data_.name = name;
+}
 
 void DescriptorDValue::DestroyActive() {
   switch (tag_) {
@@ -258,6 +446,9 @@ void DescriptorDValue::DestroyActive() {
       delete data_.color;
       break;
     case Tag::kHue:
+
+      break;
+    case Tag::kName:
 
       break;
   }
@@ -394,6 +585,8 @@ bool WallpaperSearchHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperSearchHandlerFactory_CreateWallpaperSearchHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperSearchHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<WallpaperSearchClient> p_client{};
       ::mojo::PendingReceiver<WallpaperSearchHandler> p_handler{};
@@ -416,9 +609,9 @@ bool WallpaperSearchHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWallpaperSearchHandler(
-std::move(p_client), 
-std::move(p_handler));
+      impl->CreateWallpaperSearchHandler(        
+        std::move(p_client), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -460,6 +653,9 @@ WallpaperSearchHandler::IPCStableHashFunction WallpaperSearchHandler::MessageToM
     case internal::kWallpaperSearchHandler_GetDescriptors_Name: {
       return &WallpaperSearchHandler::GetDescriptors_Sym::IPCStableHash;
     }
+    case internal::kWallpaperSearchHandler_GetInspirations_Name: {
+      return &WallpaperSearchHandler::GetInspirations_Sym::IPCStableHash;
+    }
     case internal::kWallpaperSearchHandler_GetWallpaperSearchResults_Name: {
       return &WallpaperSearchHandler::GetWallpaperSearchResults_Sym::IPCStableHash;
     }
@@ -468,6 +664,9 @@ WallpaperSearchHandler::IPCStableHashFunction WallpaperSearchHandler::MessageToM
     }
     case internal::kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name: {
       return &WallpaperSearchHandler::SetBackgroundToHistoryImage_Sym::IPCStableHash;
+    }
+    case internal::kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name: {
+      return &WallpaperSearchHandler::SetBackgroundToInspirationImage_Sym::IPCStableHash;
     }
     case internal::kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name: {
       return &WallpaperSearchHandler::SetBackgroundToWallpaperSearchResult_Sym::IPCStableHash;
@@ -480,6 +679,9 @@ WallpaperSearchHandler::IPCStableHashFunction WallpaperSearchHandler::MessageToM
     }
     case internal::kWallpaperSearchHandler_OpenHelpArticle_Name: {
       return &WallpaperSearchHandler::OpenHelpArticle_Sym::IPCStableHash;
+    }
+    case internal::kWallpaperSearchHandler_LaunchHatsSurvey_Name: {
+      return &WallpaperSearchHandler::LaunchHatsSurvey_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -494,12 +696,16 @@ const char* WallpaperSearchHandler::MessageToMethodName_(mojo::Message& message)
     switch (message.name()) {
       case internal::kWallpaperSearchHandler_GetDescriptors_Name:
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetDescriptors";
+      case internal::kWallpaperSearchHandler_GetInspirations_Name:
+            return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetInspirations";
       case internal::kWallpaperSearchHandler_GetWallpaperSearchResults_Name:
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetWallpaperSearchResults";
       case internal::kWallpaperSearchHandler_SetResultRenderTime_Name:
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetResultRenderTime";
       case internal::kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name:
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToHistoryImage";
+      case internal::kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name:
+            return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToInspirationImage";
       case internal::kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name:
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToWallpaperSearchResult";
       case internal::kWallpaperSearchHandler_UpdateHistory_Name:
@@ -508,17 +714,23 @@ const char* WallpaperSearchHandler::MessageToMethodName_(mojo::Message& message)
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetUserFeedback";
       case internal::kWallpaperSearchHandler_OpenHelpArticle_Name:
             return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::OpenHelpArticle";
+      case internal::kWallpaperSearchHandler_LaunchHatsSurvey_Name:
+            return "Receive side_panel::customize_chrome::mojom::WallpaperSearchHandler::LaunchHatsSurvey";
     }
   } else {
     switch (message.name()) {
       case internal::kWallpaperSearchHandler_GetDescriptors_Name:
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetDescriptors";
+      case internal::kWallpaperSearchHandler_GetInspirations_Name:
+            return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetInspirations";
       case internal::kWallpaperSearchHandler_GetWallpaperSearchResults_Name:
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetWallpaperSearchResults";
       case internal::kWallpaperSearchHandler_SetResultRenderTime_Name:
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetResultRenderTime";
       case internal::kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name:
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToHistoryImage";
+      case internal::kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name:
+            return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToInspirationImage";
       case internal::kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name:
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToWallpaperSearchResult";
       case internal::kWallpaperSearchHandler_UpdateHistory_Name:
@@ -527,6 +739,8 @@ const char* WallpaperSearchHandler::MessageToMethodName_(mojo::Message& message)
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetUserFeedback";
       case internal::kWallpaperSearchHandler_OpenHelpArticle_Name:
             return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::OpenHelpArticle";
+      case internal::kWallpaperSearchHandler_LaunchHatsSurvey_Name:
+            return "Receive reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::LaunchHatsSurvey";
     }
   }
   return "Receive unknown mojo message";
@@ -550,6 +764,19 @@ uint32_t WallpaperSearchHandler::GetDescriptors_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetDescriptors");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WallpaperSearchHandler::GetInspirations_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetInspirations");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -589,6 +816,19 @@ uint32_t WallpaperSearchHandler::SetBackgroundToHistoryImage_Sym::IPCStableHash(
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToHistoryImage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WallpaperSearchHandler::SetBackgroundToInspirationImage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToInspirationImage");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -645,6 +885,19 @@ uint32_t WallpaperSearchHandler::OpenHelpArticle_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t WallpaperSearchHandler::LaunchHatsSurvey_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)side_panel::customize_chrome::mojom::WallpaperSearchHandler::LaunchHatsSurvey");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class WallpaperSearchHandler_GetDescriptors_ForwardToCallback
@@ -661,6 +914,22 @@ class WallpaperSearchHandler_GetDescriptors_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   WallpaperSearchHandler::GetDescriptorsCallback callback_;
+};
+
+class WallpaperSearchHandler_GetInspirations_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  WallpaperSearchHandler_GetInspirations_ForwardToCallback(
+      WallpaperSearchHandler::GetInspirationsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  WallpaperSearchHandler_GetInspirations_ForwardToCallback(const WallpaperSearchHandler_GetInspirations_ForwardToCallback&) = delete;
+  WallpaperSearchHandler_GetInspirations_ForwardToCallback& operator=(const WallpaperSearchHandler_GetInspirations_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  WallpaperSearchHandler::GetInspirationsCallback callback_;
 };
 
 class WallpaperSearchHandler_GetWallpaperSearchResults_ForwardToCallback
@@ -717,25 +986,50 @@ void WallpaperSearchHandlerProxy::GetDescriptors(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void WallpaperSearchHandlerProxy::GetInspirations(
+    GetInspirationsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetInspirations");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWallpaperSearchHandler_GetInspirations_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::customize_chrome::mojom::internal::WallpaperSearchHandler_GetInspirations_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WallpaperSearchHandler::Name_);
+  message.set_method_name("GetInspirations");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new WallpaperSearchHandler_GetInspirations_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void WallpaperSearchHandlerProxy::GetWallpaperSearchResults(
-    const std::string& in_descriptor_a, const std::optional<std::string>& in_descriptor_b, const std::optional<std::string>& in_descriptor_c, DescriptorDValuePtr in_descriptor_d_value, GetWallpaperSearchResultsCallback callback) {
+    ResultDescriptorsPtr in_result_descriptors, GetWallpaperSearchResultsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetWallpaperSearchResults", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_a"), in_descriptor_a,
-                        "<value of type const std::string&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_b"), in_descriptor_b,
-                        "<value of type const std::optional<std::string>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_c"), in_descriptor_c,
-                        "<value of type const std::optional<std::string>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("descriptor_d_value"), in_descriptor_d_value,
-                        "<value of type DescriptorDValuePtr>");
+           dict.AddItem("result_descriptors"), in_result_descriptors,
+                        "<value of type ResultDescriptorsPtr>");
    });
 #endif
 
@@ -757,35 +1051,16 @@ void WallpaperSearchHandlerProxy::GetWallpaperSearchResults(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_a)::BaseType> descriptor_a_fragment(
+      typename decltype(params->result_descriptors)::BaseType> result_descriptors_fragment(
           params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_a, descriptor_a_fragment);
-  params->descriptor_a.Set(
-      descriptor_a_fragment.is_null() ? nullptr : descriptor_a_fragment.data());
+  mojo::internal::Serialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+      in_result_descriptors, result_descriptors_fragment);
+  params->result_descriptors.Set(
+      result_descriptors_fragment.is_null() ? nullptr : result_descriptors_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->descriptor_a.is_null(),
+      params->result_descriptors.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null descriptor_a in WallpaperSearchHandler.GetWallpaperSearchResults request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_b)::BaseType> descriptor_b_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_b, descriptor_b_fragment);
-  params->descriptor_b.Set(
-      descriptor_b_fragment.is_null() ? nullptr : descriptor_b_fragment.data());
-  mojo::internal::MessageFragment<
-      typename decltype(params->descriptor_c)::BaseType> descriptor_c_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_descriptor_c, descriptor_c_fragment);
-  params->descriptor_c.Set(
-      descriptor_c_fragment.is_null() ? nullptr : descriptor_c_fragment.data());
-  mojo::internal::MessageFragment<decltype(params->descriptor_d_value)>
-      descriptor_d_value_fragment(params.message());
-  descriptor_d_value_fragment.Claim(&params->descriptor_d_value);
-  mojo::internal::Serialize<::side_panel::customize_chrome::mojom::DescriptorDValueDataView>(
-      in_descriptor_d_value, descriptor_d_value_fragment, true);
+      "null result_descriptors in WallpaperSearchHandler.GetWallpaperSearchResults request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WallpaperSearchHandler::Name_);
@@ -855,7 +1130,7 @@ void WallpaperSearchHandlerProxy::SetResultRenderTime(
 }
 
 void WallpaperSearchHandlerProxy::SetBackgroundToHistoryImage(
-    const ::base::Token& in_result_id) {
+    const ::base::Token& in_result_id, ResultDescriptorsPtr in_descriptors) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToHistoryImage", "input_parameters",
@@ -864,6 +1139,9 @@ void WallpaperSearchHandlerProxy::SetBackgroundToHistoryImage(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result_id"), in_result_id,
                         "<value of type const ::base::Token&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("descriptors"), in_descriptors,
+                        "<value of type ResultDescriptorsPtr>");
    });
 #endif
 
@@ -895,6 +1173,17 @@ void WallpaperSearchHandlerProxy::SetBackgroundToHistoryImage(
       params->result_id.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null result_id in WallpaperSearchHandler.SetBackgroundToHistoryImage request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->descriptors)::BaseType> descriptors_fragment(
+          params.message());
+  mojo::internal::Serialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+      in_descriptors, descriptors_fragment);
+  params->descriptors.Set(
+      descriptors_fragment.is_null() ? nullptr : descriptors_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->descriptors.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null descriptors in WallpaperSearchHandler.SetBackgroundToHistoryImage request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WallpaperSearchHandler::Name_);
@@ -905,8 +1194,73 @@ void WallpaperSearchHandlerProxy::SetBackgroundToHistoryImage(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void WallpaperSearchHandlerProxy::SetBackgroundToInspirationImage(
+    const ::base::Token& in_id, const ::GURL& in_background_url) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToInspirationImage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("id"), in_id,
+                        "<value of type const ::base::Token&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("background_url"), in_background_url,
+                        "<value of type const ::GURL&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::customize_chrome::mojom::internal::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->id)::BaseType> id_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
+      in_id, id_fragment);
+  params->id.Set(
+      id_fragment.is_null() ? nullptr : id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null id in WallpaperSearchHandler.SetBackgroundToInspirationImage request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->background_url)::BaseType> background_url_fragment(
+          params.message());
+  mojo::internal::Serialize<::url::mojom::UrlDataView>(
+      in_background_url, background_url_fragment);
+  params->background_url.Set(
+      background_url_fragment.is_null() ? nullptr : background_url_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->background_url.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null background_url in WallpaperSearchHandler.SetBackgroundToInspirationImage request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WallpaperSearchHandler::Name_);
+  message.set_method_name("SetBackgroundToInspirationImage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void WallpaperSearchHandlerProxy::SetBackgroundToWallpaperSearchResult(
-    const ::base::Token& in_result_id, double in_time) {
+    const ::base::Token& in_result_id, double in_time, ResultDescriptorsPtr in_descriptors) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send side_panel::customize_chrome::mojom::WallpaperSearchHandler::SetBackgroundToWallpaperSearchResult", "input_parameters",
@@ -918,6 +1272,9 @@ void WallpaperSearchHandlerProxy::SetBackgroundToWallpaperSearchResult(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("time"), in_time,
                         "<value of type double>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("descriptors"), in_descriptors,
+                        "<value of type ResultDescriptorsPtr>");
    });
 #endif
 
@@ -950,6 +1307,17 @@ void WallpaperSearchHandlerProxy::SetBackgroundToWallpaperSearchResult(
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null result_id in WallpaperSearchHandler.SetBackgroundToWallpaperSearchResult request");
   params->time = in_time;
+  mojo::internal::MessageFragment<
+      typename decltype(params->descriptors)::BaseType> descriptors_fragment(
+          params.message());
+  mojo::internal::Serialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+      in_descriptors, descriptors_fragment);
+  params->descriptors.Set(
+      descriptors_fragment.is_null() ? nullptr : descriptors_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->descriptors.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null descriptors in WallpaperSearchHandler.SetBackgroundToWallpaperSearchResult request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WallpaperSearchHandler::Name_);
@@ -1067,6 +1435,39 @@ void WallpaperSearchHandlerProxy::OpenHelpArticle(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void WallpaperSearchHandlerProxy::LaunchHatsSurvey(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send side_panel::customize_chrome::mojom::WallpaperSearchHandler::LaunchHatsSurvey");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWallpaperSearchHandler_LaunchHatsSurvey_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::customize_chrome::mojom::internal::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WallpaperSearchHandler::Name_);
+  message.set_method_name("LaunchHatsSurvey");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class WallpaperSearchHandler_GetDescriptors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static WallpaperSearchHandler::GetDescriptorsCallback CreateCallback(
@@ -1125,6 +1526,8 @@ bool WallpaperSearchHandler_GetDescriptors_ForwardToCallback::Accept(
           internal::WallpaperSearchHandler_GetDescriptors_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperSearchHandler.0
   bool success = true;
   DescriptorsPtr p_descriptors{};
   WallpaperSearchHandler_GetDescriptors_ResponseParamsDataView input_data_view(params, message);
@@ -1179,6 +1582,135 @@ void WallpaperSearchHandler_GetDescriptors_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WallpaperSearchHandler::Name_);
   message.set_method_name("GetDescriptors");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class WallpaperSearchHandler_GetInspirations_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static WallpaperSearchHandler::GetInspirationsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<WallpaperSearchHandler_GetInspirations_ProxyToResponder> proxy(
+        new WallpaperSearchHandler_GetInspirations_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&WallpaperSearchHandler_GetInspirations_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~WallpaperSearchHandler_GetInspirations_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  WallpaperSearchHandler_GetInspirations_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "WallpaperSearchHandler::GetInspirationsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::optional<std::vector<InspirationGroupPtr>> in_inspirationGroups);
+};
+
+bool WallpaperSearchHandler_GetInspirations_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::WallpaperSearchHandler_GetInspirations_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::WallpaperSearchHandler_GetInspirations_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for WallpaperSearchHandler.1
+  bool success = true;
+  std::optional<std::vector<InspirationGroupPtr>> p_inspirationGroups{};
+  WallpaperSearchHandler_GetInspirations_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadInspirationGroups(&p_inspirationGroups))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        WallpaperSearchHandler::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_inspirationGroups));
+  return true;
+}
+
+void WallpaperSearchHandler_GetInspirations_ProxyToResponder::Run(
+    std::optional<std::vector<InspirationGroupPtr>> in_inspirationGroups) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply side_panel::customize_chrome::mojom::WallpaperSearchHandler::GetInspirations", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("inspirationGroups"), in_inspirationGroups,
+                        "<value of type std::optional<std::vector<InspirationGroupPtr>>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWallpaperSearchHandler_GetInspirations_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::side_panel::customize_chrome::mojom::internal::WallpaperSearchHandler_GetInspirations_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->inspirationGroups)::BaseType>
+      inspirationGroups_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& inspirationGroups_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::side_panel::customize_chrome::mojom::InspirationGroupDataView>>(
+      in_inspirationGroups, inspirationGroups_fragment, &inspirationGroups_validate_params);
+  params->inspirationGroups.Set(
+      inspirationGroups_fragment.is_null() ? nullptr : inspirationGroups_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WallpaperSearchHandler::Name_);
+  message.set_method_name("GetInspirations");
 #endif
 
   message.set_request_id(request_id_);
@@ -1250,6 +1782,8 @@ bool WallpaperSearchHandler_GetWallpaperSearchResults_ForwardToCallback::Accept(
           internal::WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperSearchHandler.2
   bool success = true;
   WallpaperSearchStatus p_status{};
   std::vector<WallpaperSearchResultPtr> p_results{};
@@ -1263,7 +1797,7 @@ bool WallpaperSearchHandler_GetWallpaperSearchResults_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        WallpaperSearchHandler::Name_, 1, true);
+        WallpaperSearchHandler::Name_, 2, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1341,6 +1875,9 @@ bool WallpaperSearchHandlerStubDispatch::Accept(
     case internal::kWallpaperSearchHandler_GetDescriptors_Name: {
       break;
     }
+    case internal::kWallpaperSearchHandler_GetInspirations_Name: {
+      break;
+    }
     case internal::kWallpaperSearchHandler_GetWallpaperSearchResults_Name: {
       break;
     }
@@ -1351,6 +1888,8 @@ bool WallpaperSearchHandlerStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperSearchHandler_SetResultRenderTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperSearchHandler.3
       bool success = true;
       std::vector<::base::Token> p_result_ids{};
       double p_time{};
@@ -1364,14 +1903,14 @@ bool WallpaperSearchHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WallpaperSearchHandler::Name_, 2, false);
+            WallpaperSearchHandler::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetResultRenderTime(
-std::move(p_result_ids), 
-std::move(p_time));
+      impl->SetResultRenderTime(        
+        std::move(p_result_ids), 
+        std::move(p_time));
       return true;
     }
     case internal::kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name: {
@@ -1381,41 +1920,17 @@ std::move(p_time));
           reinterpret_cast<internal::WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperSearchHandler.4
       bool success = true;
       ::base::Token p_result_id{};
+      ResultDescriptorsPtr p_descriptors{};
       WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadResultId(&p_result_id))
         success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            WallpaperSearchHandler::Name_, 3, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetBackgroundToHistoryImage(
-std::move(p_result_id));
-      return true;
-    }
-    case internal::kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data* params =
-          reinterpret_cast<internal::WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::base::Token p_result_id{};
-      double p_time{};
-      WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadResultId(&p_result_id))
+      if (success && !input_data_view.ReadDescriptors(&p_descriptors))
         success = false;
-      if (success)
-        p_time = input_data_view.time();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1425,21 +1940,29 @@ std::move(p_result_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBackgroundToWallpaperSearchResult(
-std::move(p_result_id), 
-std::move(p_time));
+      impl->SetBackgroundToHistoryImage(        
+        std::move(p_result_id), 
+        std::move(p_descriptors));
       return true;
     }
-    case internal::kWallpaperSearchHandler_UpdateHistory_Name: {
+    case internal::kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name: {
 
       DCHECK(message->is_serialized());
-      internal::WallpaperSearchHandler_UpdateHistory_Params_Data* params =
-          reinterpret_cast<internal::WallpaperSearchHandler_UpdateHistory_Params_Data*>(
+      internal::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data* params =
+          reinterpret_cast<internal::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      WallpaperSearchHandler_UpdateHistory_ParamsDataView input_data_view(params, message);
       
+      // Validation for WallpaperSearchHandler.5
+      bool success = true;
+      ::base::Token p_id{};
+      ::GURL p_background_url{};
+      WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadId(&p_id))
+        success = false;
+      if (success && !input_data_view.ReadBackgroundUrl(&p_background_url))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1449,21 +1972,31 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateHistory();
+      impl->SetBackgroundToInspirationImage(        
+        std::move(p_id), 
+        std::move(p_background_url));
       return true;
     }
-    case internal::kWallpaperSearchHandler_SetUserFeedback_Name: {
+    case internal::kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name: {
 
       DCHECK(message->is_serialized());
-      internal::WallpaperSearchHandler_SetUserFeedback_Params_Data* params =
-          reinterpret_cast<internal::WallpaperSearchHandler_SetUserFeedback_Params_Data*>(
+      internal::WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data* params =
+          reinterpret_cast<internal::WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      UserFeedback p_selected_option{};
-      WallpaperSearchHandler_SetUserFeedback_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadSelectedOption(&p_selected_option))
+      // Validation for WallpaperSearchHandler.6
+      bool success = true;
+      ::base::Token p_result_id{};
+      double p_time{};
+      ResultDescriptorsPtr p_descriptors{};
+      WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadResultId(&p_result_id))
+        success = false;
+      if (success)
+        p_time = input_data_view.time();
+      if (success && !input_data_view.ReadDescriptors(&p_descriptors))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1474,19 +2007,23 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserFeedback(
-std::move(p_selected_option));
+      impl->SetBackgroundToWallpaperSearchResult(        
+        std::move(p_result_id), 
+        std::move(p_time), 
+        std::move(p_descriptors));
       return true;
     }
-    case internal::kWallpaperSearchHandler_OpenHelpArticle_Name: {
+    case internal::kWallpaperSearchHandler_UpdateHistory_Name: {
 
       DCHECK(message->is_serialized());
-      internal::WallpaperSearchHandler_OpenHelpArticle_Params_Data* params =
-          reinterpret_cast<internal::WallpaperSearchHandler_OpenHelpArticle_Params_Data*>(
+      internal::WallpaperSearchHandler_UpdateHistory_Params_Data* params =
+          reinterpret_cast<internal::WallpaperSearchHandler_UpdateHistory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperSearchHandler.7
       bool success = true;
-      WallpaperSearchHandler_OpenHelpArticle_ParamsDataView input_data_view(params, message);
+      WallpaperSearchHandler_UpdateHistory_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1497,7 +2034,83 @@ std::move(p_selected_option));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenHelpArticle();
+      impl->UpdateHistory(        );
+      return true;
+    }
+    case internal::kWallpaperSearchHandler_SetUserFeedback_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::WallpaperSearchHandler_SetUserFeedback_Params_Data* params =
+          reinterpret_cast<internal::WallpaperSearchHandler_SetUserFeedback_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for WallpaperSearchHandler.8
+      bool success = true;
+      UserFeedback p_selected_option{};
+      WallpaperSearchHandler_SetUserFeedback_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadSelectedOption(&p_selected_option))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WallpaperSearchHandler::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetUserFeedback(        
+        std::move(p_selected_option));
+      return true;
+    }
+    case internal::kWallpaperSearchHandler_OpenHelpArticle_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::WallpaperSearchHandler_OpenHelpArticle_Params_Data* params =
+          reinterpret_cast<internal::WallpaperSearchHandler_OpenHelpArticle_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for WallpaperSearchHandler.9
+      bool success = true;
+      WallpaperSearchHandler_OpenHelpArticle_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WallpaperSearchHandler::Name_, 9, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenHelpArticle(        );
+      return true;
+    }
+    case internal::kWallpaperSearchHandler_LaunchHatsSurvey_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data* params =
+          reinterpret_cast<internal::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for WallpaperSearchHandler.10
+      bool success = true;
+      WallpaperSearchHandler_LaunchHatsSurvey_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WallpaperSearchHandler::Name_, 10, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LaunchHatsSurvey(        );
       return true;
     }
   }
@@ -1520,6 +2133,8 @@ bool WallpaperSearchHandlerStubDispatch::AcceptWithResponder(
               internal::WallpaperSearchHandler_GetDescriptors_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperSearchHandler.0
       bool success = true;
       WallpaperSearchHandler_GetDescriptors_ParamsDataView input_data_view(params, message);
       
@@ -1538,28 +2153,18 @@ bool WallpaperSearchHandlerStubDispatch::AcceptWithResponder(
       impl->GetDescriptors(std::move(callback));
       return true;
     }
-    case internal::kWallpaperSearchHandler_GetWallpaperSearchResults_Name: {
+    case internal::kWallpaperSearchHandler_GetInspirations_Name: {
 
-      internal::WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data* params =
+      internal::WallpaperSearchHandler_GetInspirations_Params_Data* params =
           reinterpret_cast<
-              internal::WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data*>(
+              internal::WallpaperSearchHandler_GetInspirations_Params_Data*>(
                   message->mutable_payload());
       
-      bool success = true;
-      std::string p_descriptor_a{};
-      std::optional<std::string> p_descriptor_b{};
-      std::optional<std::string> p_descriptor_c{};
-      DescriptorDValuePtr p_descriptor_d_value{};
-      WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadDescriptorA(&p_descriptor_a))
-        success = false;
-      if (success && !input_data_view.ReadDescriptorB(&p_descriptor_b))
-        success = false;
-      if (success && !input_data_view.ReadDescriptorC(&p_descriptor_c))
-        success = false;
-      if (success && !input_data_view.ReadDescriptorDValue(&p_descriptor_d_value))
-        success = false;
+      // Validation for WallpaperSearchHandler.1
+      bool success = true;
+      WallpaperSearchHandler_GetInspirations_ParamsDataView input_data_view(params, message);
+      
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1567,22 +2172,52 @@ bool WallpaperSearchHandlerStubDispatch::AcceptWithResponder(
             WallpaperSearchHandler::Name_, 1, false);
         return false;
       }
+      WallpaperSearchHandler::GetInspirationsCallback callback =
+          WallpaperSearchHandler_GetInspirations_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetInspirations(std::move(callback));
+      return true;
+    }
+    case internal::kWallpaperSearchHandler_GetWallpaperSearchResults_Name: {
+
+      internal::WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data* params =
+          reinterpret_cast<
+              internal::WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for WallpaperSearchHandler.2
+      bool success = true;
+      ResultDescriptorsPtr p_result_descriptors{};
+      WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadResultDescriptors(&p_result_descriptors))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WallpaperSearchHandler::Name_, 2, false);
+        return false;
+      }
       WallpaperSearchHandler::GetWallpaperSearchResultsCallback callback =
           WallpaperSearchHandler_GetWallpaperSearchResults_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWallpaperSearchResults(
-std::move(p_descriptor_a), 
-std::move(p_descriptor_b), 
-std::move(p_descriptor_c), 
-std::move(p_descriptor_d_value), std::move(callback));
+      impl->GetWallpaperSearchResults(        
+        std::move(p_result_descriptors), std::move(callback));
       return true;
     }
     case internal::kWallpaperSearchHandler_SetResultRenderTime_Name: {
       break;
     }
     case internal::kWallpaperSearchHandler_SetBackgroundToHistoryImage_Name: {
+      break;
+    }
+    case internal::kWallpaperSearchHandler_SetBackgroundToInspirationImage_Name: {
       break;
     }
     case internal::kWallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Name: {
@@ -1597,6 +2232,9 @@ std::move(p_descriptor_d_value), std::move(callback));
     case internal::kWallpaperSearchHandler_OpenHelpArticle_Name: {
       break;
     }
+    case internal::kWallpaperSearchHandler_LaunchHatsSurvey_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1605,11 +2243,15 @@ namespace {
 static const mojo::internal::GenericValidationInfo kWallpaperSearchHandlerValidationInfo[] = {
     { &internal::WallpaperSearchHandler_GetDescriptors_Params_Data::Validate,
      &internal::WallpaperSearchHandler_GetDescriptors_ResponseParams_Data::Validate},
+    { &internal::WallpaperSearchHandler_GetInspirations_Params_Data::Validate,
+     &internal::WallpaperSearchHandler_GetInspirations_ResponseParams_Data::Validate},
     { &internal::WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data::Validate,
      &internal::WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParams_Data::Validate},
     { &internal::WallpaperSearchHandler_SetResultRenderTime_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data::Validate,
      nullptr /* no response */},
@@ -1618,6 +2260,8 @@ static const mojo::internal::GenericValidationInfo kWallpaperSearchHandlerValida
     { &internal::WallpaperSearchHandler_SetUserFeedback_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::WallpaperSearchHandler_OpenHelpArticle_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1754,6 +2398,8 @@ bool WallpaperSearchClientStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperSearchClient_SetHistory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperSearchClient.0
       bool success = true;
       std::vector<WallpaperSearchResultPtr> p_history{};
       WallpaperSearchClient_SetHistory_ParamsDataView input_data_view(params, message);
@@ -1769,8 +2415,8 @@ bool WallpaperSearchClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHistory(
-std::move(p_history));
+      impl->SetHistory(        
+        std::move(p_history));
       return true;
     }
   }
@@ -1863,6 +2509,42 @@ bool StructTraits<::side_panel::customize_chrome::mojom::Descriptors::DataView, 
 
 
 // static
+bool StructTraits<::side_panel::customize_chrome::mojom::Inspiration::DataView, ::side_panel::customize_chrome::mojom::InspirationPtr>::Read(
+    ::side_panel::customize_chrome::mojom::Inspiration::DataView input,
+    ::side_panel::customize_chrome::mojom::InspirationPtr* output) {
+  bool success = true;
+  ::side_panel::customize_chrome::mojom::InspirationPtr result(::side_panel::customize_chrome::mojom::Inspiration::New());
+  
+      if (success && !input.ReadId(&result->id))
+        success = false;
+      if (success && !input.ReadDescription(&result->description))
+        success = false;
+      if (success && !input.ReadBackgroundUrl(&result->background_url))
+        success = false;
+      if (success && !input.ReadThumbnailUrl(&result->thumbnail_url))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::side_panel::customize_chrome::mojom::InspirationGroup::DataView, ::side_panel::customize_chrome::mojom::InspirationGroupPtr>::Read(
+    ::side_panel::customize_chrome::mojom::InspirationGroup::DataView input,
+    ::side_panel::customize_chrome::mojom::InspirationGroupPtr* output) {
+  bool success = true;
+  ::side_panel::customize_chrome::mojom::InspirationGroupPtr result(::side_panel::customize_chrome::mojom::InspirationGroup::New());
+  
+      if (success && !input.ReadDescriptors(&result->descriptors))
+        success = false;
+      if (success && !input.ReadInspirations(&result->inspirations))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::side_panel::customize_chrome::mojom::WallpaperSearchResult::DataView, ::side_panel::customize_chrome::mojom::WallpaperSearchResultPtr>::Read(
     ::side_panel::customize_chrome::mojom::WallpaperSearchResult::DataView input,
     ::side_panel::customize_chrome::mojom::WallpaperSearchResultPtr* output) {
@@ -1872,6 +2554,28 @@ bool StructTraits<::side_panel::customize_chrome::mojom::WallpaperSearchResult::
       if (success && !input.ReadId(&result->id))
         success = false;
       if (success && !input.ReadImage(&result->image))
+        success = false;
+      if (success && !input.ReadDescriptors(&result->descriptors))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::side_panel::customize_chrome::mojom::ResultDescriptors::DataView, ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr>::Read(
+    ::side_panel::customize_chrome::mojom::ResultDescriptors::DataView input,
+    ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr* output) {
+  bool success = true;
+  ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr result(::side_panel::customize_chrome::mojom::ResultDescriptors::New());
+  
+      if (success && !input.ReadSubject(&result->subject))
+        success = false;
+      if (success && !input.ReadStyle(&result->style))
+        success = false;
+      if (success && !input.ReadMood(&result->mood))
+        success = false;
+      if (success && !input.ReadColor(&result->color))
         success = false;
   *output = std::move(result);
   return success;
@@ -1896,6 +2600,14 @@ bool UnionTraits<::side_panel::customize_chrome::mojom::DescriptorDValue::DataVi
     }
     case Tag::kHue: {
       *output = UnionType::NewHue(input.hue());
+      break;
+    }
+    case Tag::kName: {
+      ::side_panel::customize_chrome::mojom::DescriptorDName result_name;
+      if (!input.ReadName(&result_name))
+        return false;
+
+      *output = UnionType::NewName(result_name);
       break;
     }
     default:
@@ -1929,17 +2641,23 @@ WallpaperSearchHandlerFactoryAsyncWaiter::~WallpaperSearchHandlerFactoryAsyncWai
 void WallpaperSearchHandlerInterceptorForTesting::GetDescriptors(GetDescriptorsCallback callback) {
   GetForwardingInterface()->GetDescriptors(std::move(callback));
 }
-void WallpaperSearchHandlerInterceptorForTesting::GetWallpaperSearchResults(const std::string& descriptor_a, const std::optional<std::string>& descriptor_b, const std::optional<std::string>& descriptor_c, DescriptorDValuePtr descriptor_d_value, GetWallpaperSearchResultsCallback callback) {
-  GetForwardingInterface()->GetWallpaperSearchResults(std::move(descriptor_a), std::move(descriptor_b), std::move(descriptor_c), std::move(descriptor_d_value), std::move(callback));
+void WallpaperSearchHandlerInterceptorForTesting::GetInspirations(GetInspirationsCallback callback) {
+  GetForwardingInterface()->GetInspirations(std::move(callback));
+}
+void WallpaperSearchHandlerInterceptorForTesting::GetWallpaperSearchResults(ResultDescriptorsPtr result_descriptors, GetWallpaperSearchResultsCallback callback) {
+  GetForwardingInterface()->GetWallpaperSearchResults(std::move(result_descriptors), std::move(callback));
 }
 void WallpaperSearchHandlerInterceptorForTesting::SetResultRenderTime(const std::vector<::base::Token>& result_ids, double time) {
   GetForwardingInterface()->SetResultRenderTime(std::move(result_ids), std::move(time));
 }
-void WallpaperSearchHandlerInterceptorForTesting::SetBackgroundToHistoryImage(const ::base::Token& result_id) {
-  GetForwardingInterface()->SetBackgroundToHistoryImage(std::move(result_id));
+void WallpaperSearchHandlerInterceptorForTesting::SetBackgroundToHistoryImage(const ::base::Token& result_id, ResultDescriptorsPtr descriptors) {
+  GetForwardingInterface()->SetBackgroundToHistoryImage(std::move(result_id), std::move(descriptors));
 }
-void WallpaperSearchHandlerInterceptorForTesting::SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time) {
-  GetForwardingInterface()->SetBackgroundToWallpaperSearchResult(std::move(result_id), std::move(time));
+void WallpaperSearchHandlerInterceptorForTesting::SetBackgroundToInspirationImage(const ::base::Token& id, const ::GURL& background_url) {
+  GetForwardingInterface()->SetBackgroundToInspirationImage(std::move(id), std::move(background_url));
+}
+void WallpaperSearchHandlerInterceptorForTesting::SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time, ResultDescriptorsPtr descriptors) {
+  GetForwardingInterface()->SetBackgroundToWallpaperSearchResult(std::move(result_id), std::move(time), std::move(descriptors));
 }
 void WallpaperSearchHandlerInterceptorForTesting::UpdateHistory() {
   GetForwardingInterface()->UpdateHistory();
@@ -1949,6 +2667,9 @@ void WallpaperSearchHandlerInterceptorForTesting::SetUserFeedback(UserFeedback s
 }
 void WallpaperSearchHandlerInterceptorForTesting::OpenHelpArticle() {
   GetForwardingInterface()->OpenHelpArticle();
+}
+void WallpaperSearchHandlerInterceptorForTesting::LaunchHatsSurvey() {
+  GetForwardingInterface()->LaunchHatsSurvey();
 }
 WallpaperSearchHandlerAsyncWaiter::WallpaperSearchHandlerAsyncWaiter(
     WallpaperSearchHandler* proxy) : proxy_(proxy) {}
@@ -1978,10 +2699,33 @@ DescriptorsPtr WallpaperSearchHandlerAsyncWaiter::GetDescriptors(
   return async_wait_result;
 }
 
-void WallpaperSearchHandlerAsyncWaiter::GetWallpaperSearchResults(
-    const std::string& descriptor_a, const std::optional<std::string>& descriptor_b, const std::optional<std::string>& descriptor_c, DescriptorDValuePtr descriptor_d_value, WallpaperSearchStatus* out_status, std::vector<WallpaperSearchResultPtr>* out_results) {
+void WallpaperSearchHandlerAsyncWaiter::GetInspirations(
+    std::optional<std::vector<InspirationGroupPtr>>* out_inspirationGroups) {
   base::RunLoop loop;
-  proxy_->GetWallpaperSearchResults(std::move(descriptor_a),std::move(descriptor_b),std::move(descriptor_c),std::move(descriptor_d_value),
+  proxy_->GetInspirations(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::optional<std::vector<InspirationGroupPtr>>* out_inspirationGroups
+,
+             std::optional<std::vector<InspirationGroupPtr>> inspirationGroups) {*out_inspirationGroups = std::move(inspirationGroups);
+            loop->Quit();
+          },
+          &loop,
+          out_inspirationGroups));
+  loop.Run();
+}
+
+std::optional<std::vector<InspirationGroupPtr>> WallpaperSearchHandlerAsyncWaiter::GetInspirations(
+    ) {
+  std::optional<std::vector<InspirationGroupPtr>> async_wait_result;
+  GetInspirations(&async_wait_result);
+  return async_wait_result;
+}
+
+void WallpaperSearchHandlerAsyncWaiter::GetWallpaperSearchResults(
+    ResultDescriptorsPtr result_descriptors, WallpaperSearchStatus* out_status, std::vector<WallpaperSearchResultPtr>* out_results) {
+  base::RunLoop loop;
+  proxy_->GetWallpaperSearchResults(std::move(result_descriptors),
       base::BindOnce(
           [](base::RunLoop* loop,
              WallpaperSearchStatus* out_status

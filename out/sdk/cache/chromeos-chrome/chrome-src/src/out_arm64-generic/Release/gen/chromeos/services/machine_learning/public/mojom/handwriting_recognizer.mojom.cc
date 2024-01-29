@@ -753,6 +753,8 @@ bool HandwritingRecognizer_Recognize_ForwardToCallback::Accept(
           internal::HandwritingRecognizer_Recognize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HandwritingRecognizer.0
   bool success = true;
   HandwritingRecognizerResultPtr p_result{};
   HandwritingRecognizer_Recognize_ResponseParamsDataView input_data_view(params, message);
@@ -853,6 +855,8 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
               internal::HandwritingRecognizer_Recognize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HandwritingRecognizer.0
       bool success = true;
       HandwritingRecognitionQueryPtr p_query{};
       HandwritingRecognizer_Recognize_ParamsDataView input_data_view(params, message);
@@ -871,8 +875,8 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Recognize(
-std::move(p_query), std::move(callback));
+      impl->Recognize(        
+        std::move(p_query), std::move(callback));
       return true;
     }
   }

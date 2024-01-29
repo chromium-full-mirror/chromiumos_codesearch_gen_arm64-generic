@@ -79,32 +79,19 @@ ExecutionContext* execution_context = ExecutionContext::From(current_context);
 const bool is_cross_origin_isolated = execution_context->CrossOriginIsolatedCapabilityOrDisabledWebSecurity();
 v8::Local<v8::Value> v8_value;
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (is_cross_origin_isolated && RuntimeEnabledFeatures::ExperimentalJSProfilerMarkersEnabled()) {
   if (hasMarker()) {
-  if (!ToV8Traits<V8ProfilerMarker>::ToV8(script_state, member_marker_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8ProfilerMarker>::ToV8(script_state, member_marker_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasStackId()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_stack_id_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_stack_id_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasTimestamp()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_timestamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_timestamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

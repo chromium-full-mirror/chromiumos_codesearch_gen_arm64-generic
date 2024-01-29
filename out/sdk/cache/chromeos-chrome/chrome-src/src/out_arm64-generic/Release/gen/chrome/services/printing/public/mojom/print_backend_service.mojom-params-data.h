@@ -323,7 +323,7 @@ class  PrintBackendService_StartPrinting_ResponseParams_Data {
 
   mojo::internal::StructHeader header_;
   int32_t result_code;
-  uint8_t padfinal_[4];
+  int32_t job_id;
 
  private:
   friend class mojo::internal::MessageFragment<PrintBackendService_StartPrinting_ResponseParams_Data>;
@@ -905,6 +905,9 @@ class PrintBackendService_StartPrinting_ResponseParamsDataView {
   ::printing::mojom::ResultCode result_code() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::printing::mojom::ResultCode>(data_->result_code));
+  }
+  int32_t job_id() const {
+    return data_->job_id;
   }
  private:
   internal::PrintBackendService_StartPrinting_ResponseParams_Data* data_ = nullptr;

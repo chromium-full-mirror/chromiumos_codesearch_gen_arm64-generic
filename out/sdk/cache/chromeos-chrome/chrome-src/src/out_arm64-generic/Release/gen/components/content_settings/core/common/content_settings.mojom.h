@@ -34,8 +34,6 @@
 
 
 
-#include "mojo/public/cpp/bindings/lib/native_enum_serialization.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 #include "components/content_settings/core/common/content_settings_mojom_traits.h"
 
 

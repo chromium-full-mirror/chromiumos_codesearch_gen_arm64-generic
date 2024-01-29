@@ -5,6 +5,7 @@ import '../../elements/icons.html.js';
 import { assertInstanceof } from 'chrome://resources/js/assert.js';
 import { crInjectTypeAndInit } from '../../../common/js/cr_ui.js';
 import { queryDecoratedElement, queryRequiredElement } from '../../../common/js/dom_utils.js';
+import { FilesAppEntry } from '../../../common/js/files_app_entry_types.js';
 import { isDlpEnabled, isNewDirectoryTreeEnabled } from '../../../common/js/flags.js';
 import { str, strf } from '../../../common/js/translations.js';
 import { AllowedPaths } from '../../../common/js/volume_manager_types.js';
@@ -13,8 +14,7 @@ import { CloudPanelContainer } from '../../../containers/cloud_panel_container.j
 import { DirectoryTreeContainer } from '../../../containers/directory_tree_container.js';
 import { NudgeContainer } from '../../../containers/nudge_container.js';
 import { SearchContainer } from '../../../containers/search_container.js';
-import { FilesAppEntry } from '../../../externs/files_app_entry_interfaces.js';
-import { DialogType } from '../../../externs/ts/state.js';
+import { DialogType } from '../../../state/state.js';
 import { XfCloudPanel } from '../../../widgets/xf_cloud_panel.js';
 import { XfConflictDialog } from '../../../widgets/xf_conflict_dialog.js';
 import { XfDlpRestrictionDetailsDialog } from '../../../widgets/xf_dlp_restriction_details_dialog.js';
@@ -291,7 +291,7 @@ export class FileManagerUI {
         // Set the initial focus. When there is no focus, the active element is the
         // <body>.
         let targetElement = null;
-        if (this.dialogType_ == DialogType.SELECT_SAVEAS_FILE) {
+        if (this.dialogType_ === DialogType.SELECT_SAVEAS_FILE) {
             targetElement = this.dialogFooter.filenameInput;
         }
         else if (this.listContainer.currentListType !== ListType.UNINITIALIZED) {

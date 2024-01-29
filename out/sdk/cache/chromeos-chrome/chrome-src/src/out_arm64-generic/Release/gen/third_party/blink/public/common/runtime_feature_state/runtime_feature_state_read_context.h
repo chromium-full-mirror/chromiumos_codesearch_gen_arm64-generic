@@ -48,6 +48,10 @@ class BLINK_COMMON_EXPORT RuntimeFeatureStateReadContext {
     return IsEnabled(
         blink::mojom::RuntimeFeature::kBlinkExtensionChromeOS);
   }
+  bool IsBlinkExtensionChromeOSKioskEnabled() const {
+    return IsEnabled(
+        blink::mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk);
+  }
   bool IsBlinkExtensionDiagnosticsEnabled() const {
     return IsEnabled(
         blink::mojom::RuntimeFeature::kBlinkExtensionDiagnostics);

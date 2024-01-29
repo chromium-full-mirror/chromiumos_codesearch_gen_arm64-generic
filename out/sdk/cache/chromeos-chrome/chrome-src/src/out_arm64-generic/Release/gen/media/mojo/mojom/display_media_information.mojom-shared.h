@@ -145,6 +145,9 @@ static_assert(
     return mojo::internal::Deserialize<::media::mojom::CaptureHandleDataView>(
         pointer, output, message_);
   }
+  int32_t initial_zoom_level() const {
+    return data_->initial_zoom_level;
+  }
  private:
   internal::DisplayMediaInformation_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -234,6 +237,7 @@ struct Serializer<::media::mojom::DisplayMediaInformationDataView, MaybeConstUse
         in_capture_handle, capture_handle_fragment);
     fragment->capture_handle.Set(
         capture_handle_fragment.is_null() ? nullptr : capture_handle_fragment.data());
+    fragment->initial_zoom_level = Traits::initial_zoom_level(input);
   }
 
   static bool Deserialize(::media::mojom::internal::DisplayMediaInformation_Data* input,

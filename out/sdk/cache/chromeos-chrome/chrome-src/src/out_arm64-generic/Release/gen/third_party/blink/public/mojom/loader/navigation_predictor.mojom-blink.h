@@ -430,11 +430,8 @@ class PLATFORM_EXPORT AnchorElementMetrics {
   AnchorElementMetrics(
       uint32_t anchor_id,
       float ratio_area,
-      float ratio_visible_area,
       float ratio_distance_top_to_visible_top,
-      float ratio_distance_center_to_visible_top,
       float ratio_distance_root_top,
-      float ratio_distance_root_bottom,
       bool is_in_iframe,
       bool contains_image,
       bool is_same_host,
@@ -442,7 +439,6 @@ class PLATFORM_EXPORT AnchorElementMetrics {
       bool has_text_sibling,
       uint32_t font_size_px,
       uint32_t font_weight,
-      const ::blink::KURL& source_url,
       const ::blink::KURL& target_url,
       const ::gfx::Size& viewport_size);
 
@@ -526,15 +522,9 @@ class PLATFORM_EXPORT AnchorElementMetrics {
   
   float ratio_area;
   
-  float ratio_visible_area;
-  
   float ratio_distance_top_to_visible_top;
   
-  float ratio_distance_center_to_visible_top;
-  
   float ratio_distance_root_top;
-  
-  float ratio_distance_root_bottom;
   
   bool is_in_iframe;
   
@@ -549,8 +539,6 @@ class PLATFORM_EXPORT AnchorElementMetrics {
   uint32_t font_size_px;
   
   uint32_t font_weight;
-  
-  ::blink::KURL source_url;
   
   ::blink::KURL target_url;
   
@@ -1598,11 +1586,8 @@ AnchorElementMetricsPtr AnchorElementMetrics::Clone() const {
   return New(
       mojo::Clone(anchor_id),
       mojo::Clone(ratio_area),
-      mojo::Clone(ratio_visible_area),
       mojo::Clone(ratio_distance_top_to_visible_top),
-      mojo::Clone(ratio_distance_center_to_visible_top),
       mojo::Clone(ratio_distance_root_top),
-      mojo::Clone(ratio_distance_root_bottom),
       mojo::Clone(is_in_iframe),
       mojo::Clone(contains_image),
       mojo::Clone(is_same_host),
@@ -1610,7 +1595,6 @@ AnchorElementMetricsPtr AnchorElementMetrics::Clone() const {
       mojo::Clone(has_text_sibling),
       mojo::Clone(font_size_px),
       mojo::Clone(font_weight),
-      mojo::Clone(source_url),
       mojo::Clone(target_url),
       mojo::Clone(viewport_size)
   );
@@ -1622,15 +1606,9 @@ bool AnchorElementMetrics::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->ratio_area, other_struct.ratio_area))
     return false;
-  if (!mojo::Equals(this->ratio_visible_area, other_struct.ratio_visible_area))
-    return false;
   if (!mojo::Equals(this->ratio_distance_top_to_visible_top, other_struct.ratio_distance_top_to_visible_top))
     return false;
-  if (!mojo::Equals(this->ratio_distance_center_to_visible_top, other_struct.ratio_distance_center_to_visible_top))
-    return false;
   if (!mojo::Equals(this->ratio_distance_root_top, other_struct.ratio_distance_root_top))
-    return false;
-  if (!mojo::Equals(this->ratio_distance_root_bottom, other_struct.ratio_distance_root_bottom))
     return false;
   if (!mojo::Equals(this->is_in_iframe, other_struct.is_in_iframe))
     return false;
@@ -1645,8 +1623,6 @@ bool AnchorElementMetrics::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->font_size_px, other_struct.font_size_px))
     return false;
   if (!mojo::Equals(this->font_weight, other_struct.font_weight))
-    return false;
-  if (!mojo::Equals(this->source_url, other_struct.source_url))
     return false;
   if (!mojo::Equals(this->target_url, other_struct.target_url))
     return false;
@@ -1665,25 +1641,13 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.ratio_area < lhs.ratio_area)
     return false;
-  if (lhs.ratio_visible_area < rhs.ratio_visible_area)
-    return true;
-  if (rhs.ratio_visible_area < lhs.ratio_visible_area)
-    return false;
   if (lhs.ratio_distance_top_to_visible_top < rhs.ratio_distance_top_to_visible_top)
     return true;
   if (rhs.ratio_distance_top_to_visible_top < lhs.ratio_distance_top_to_visible_top)
     return false;
-  if (lhs.ratio_distance_center_to_visible_top < rhs.ratio_distance_center_to_visible_top)
-    return true;
-  if (rhs.ratio_distance_center_to_visible_top < lhs.ratio_distance_center_to_visible_top)
-    return false;
   if (lhs.ratio_distance_root_top < rhs.ratio_distance_root_top)
     return true;
   if (rhs.ratio_distance_root_top < lhs.ratio_distance_root_top)
-    return false;
-  if (lhs.ratio_distance_root_bottom < rhs.ratio_distance_root_bottom)
-    return true;
-  if (rhs.ratio_distance_root_bottom < lhs.ratio_distance_root_bottom)
     return false;
   if (lhs.is_in_iframe < rhs.is_in_iframe)
     return true;
@@ -1712,10 +1676,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.font_weight < rhs.font_weight)
     return true;
   if (rhs.font_weight < lhs.font_weight)
-    return false;
-  if (lhs.source_url < rhs.source_url)
-    return true;
-  if (rhs.source_url < lhs.source_url)
     return false;
   if (lhs.target_url < rhs.target_url)
     return true;
@@ -1996,29 +1956,14 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AnchorElementMetrics:
     return input->ratio_area;
   }
 
-  static decltype(::blink::mojom::blink::AnchorElementMetrics::ratio_visible_area) ratio_visible_area(
-      const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
-    return input->ratio_visible_area;
-  }
-
   static decltype(::blink::mojom::blink::AnchorElementMetrics::ratio_distance_top_to_visible_top) ratio_distance_top_to_visible_top(
       const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
     return input->ratio_distance_top_to_visible_top;
   }
 
-  static decltype(::blink::mojom::blink::AnchorElementMetrics::ratio_distance_center_to_visible_top) ratio_distance_center_to_visible_top(
-      const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
-    return input->ratio_distance_center_to_visible_top;
-  }
-
   static decltype(::blink::mojom::blink::AnchorElementMetrics::ratio_distance_root_top) ratio_distance_root_top(
       const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
     return input->ratio_distance_root_top;
-  }
-
-  static decltype(::blink::mojom::blink::AnchorElementMetrics::ratio_distance_root_bottom) ratio_distance_root_bottom(
-      const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
-    return input->ratio_distance_root_bottom;
   }
 
   static decltype(::blink::mojom::blink::AnchorElementMetrics::is_in_iframe) is_in_iframe(
@@ -2054,11 +1999,6 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AnchorElementMetrics:
   static decltype(::blink::mojom::blink::AnchorElementMetrics::font_weight) font_weight(
       const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
     return input->font_weight;
-  }
-
-  static const decltype(::blink::mojom::blink::AnchorElementMetrics::source_url)& source_url(
-      const ::blink::mojom::blink::AnchorElementMetricsPtr& input) {
-    return input->source_url;
   }
 
   static const decltype(::blink::mojom::blink::AnchorElementMetrics::target_url)& target_url(

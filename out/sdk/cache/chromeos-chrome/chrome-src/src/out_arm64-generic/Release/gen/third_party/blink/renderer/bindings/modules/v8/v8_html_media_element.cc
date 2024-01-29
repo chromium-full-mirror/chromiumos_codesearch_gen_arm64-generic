@@ -820,7 +820,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLMedia
 BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.webkitAudioDecodedByteCount.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPrefixedAudioDecodedByteCount);
 
@@ -839,7 +840,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLMedia
 BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.webkitVideoDecodedByteCount.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPrefixedVideoDecodedByteCount);
 
@@ -946,7 +948,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLMedia
 BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.remote.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_Remote_AttributeGetter);
 
@@ -989,22 +992,19 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLMedia
 BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.srcObject.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_SrcObject_AttributeGetter);
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLMediaElementSrcObject::srcObject(*blink_receiver);
-if (!ToV8Traits<IDLNullable<V8UnionMediaSourceHandleOrMediaStream>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionMediaSourceHandleOrMediaStream>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -1014,7 +1014,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLMedia
 BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.srcObject.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_SrcObject_AttributeSetter);
 
@@ -1108,7 +1109,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.canPlayType");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLMediaElement.canPlayType", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_CanPlayType_Method);
 
@@ -1151,7 +1153,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLMediaElement.captureStream");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_CaptureStream_Method);
 
@@ -1161,8 +1164,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLMediaElement_Cap
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
@@ -1236,8 +1238,7 @@ return;
 
 
 HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->playForBindings(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -1270,8 +1271,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_media_keys = NativeValueTraits<IDLNullable<MediaKeys>>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -1303,7 +1303,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kHTMLMediaElementSetSinkId);
 
@@ -1316,8 +1317,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLMediaElement* blink_receiver = V8HTMLMediaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_sink_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -1488,7 +1488,7 @@ void V8HTMLMediaElement::Impl::InstallContextDependentProperties(v8::Local<v8::C
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 const bool is_in_secure_context = execution_context->IsSecureContext();
 if (is_in_secure_context && feature_selector.IsAll()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {

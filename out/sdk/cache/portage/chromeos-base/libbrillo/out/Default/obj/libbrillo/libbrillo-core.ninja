@@ -1,104 +1,104 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_DBUS=true -DUSE_RTTI_FOR_TYPE_TAGS=1 -DUSE_ENTERPRISE_ROLLBACK_REVEN=false
-include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libbrillo-core
 
-build obj/libbrillo/brillo/libbrillo-core.asynchronous_signal_handler.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/asynchronous_signal_handler.cc
+build obj/libbrillo/brillo/libbrillo-core.asynchronous_signal_handler.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/asynchronous_signal_handler.cc
   source_file_part = asynchronous_signal_handler.cc
   source_name_part = asynchronous_signal_handler
-build obj/libbrillo/brillo/libbrillo-core.backoff_entry.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/backoff_entry.cc
+build obj/libbrillo/brillo/libbrillo-core.backoff_entry.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/backoff_entry.cc
   source_file_part = backoff_entry.cc
   source_name_part = backoff_entry
-build obj/libbrillo/brillo/libbrillo-core.cpuinfo.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/cpuinfo.cc
+build obj/libbrillo/brillo/libbrillo-core.cpuinfo.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/cpuinfo.cc
   source_file_part = cpuinfo.cc
   source_name_part = cpuinfo
-build obj/libbrillo/brillo/daemons/libbrillo-core.daemon.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/daemons/daemon.cc
+build obj/libbrillo/brillo/daemons/libbrillo-core.daemon.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/daemons/daemon.cc
   source_file_part = daemon.cc
   source_name_part = daemon
-build obj/libbrillo/brillo/libbrillo-core.data_encoding.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/data_encoding.cc
+build obj/libbrillo/brillo/libbrillo-core.data_encoding.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/data_encoding.cc
   source_file_part = data_encoding.cc
   source_name_part = data_encoding
-build obj/libbrillo/brillo/errors/libbrillo-core.error.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/errors/error.cc
+build obj/libbrillo/brillo/errors/libbrillo-core.error.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/errors/error.cc
   source_file_part = error.cc
   source_name_part = error
-build obj/libbrillo/brillo/errors/libbrillo-core.error_codes.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/errors/error_codes.cc
+build obj/libbrillo/brillo/errors/libbrillo-core.error_codes.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/errors/error_codes.cc
   source_file_part = error_codes.cc
   source_name_part = error_codes
-build obj/libbrillo/brillo/libbrillo-core.file_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/file_utils.cc
+build obj/libbrillo/brillo/libbrillo-core.file_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/file_utils.cc
   source_file_part = file_utils.cc
   source_name_part = file_utils
-build obj/libbrillo/brillo/files/libbrillo-core.file_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/files/file_util.cc
+build obj/libbrillo/brillo/files/libbrillo-core.file_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/files/file_util.cc
   source_file_part = file_util.cc
   source_name_part = file_util
-build obj/libbrillo/brillo/files/libbrillo-core.safe_fd.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/files/safe_fd.cc
+build obj/libbrillo/brillo/files/libbrillo-core.safe_fd.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/files/safe_fd.cc
   source_file_part = safe_fd.cc
   source_name_part = safe_fd
-build obj/libbrillo/brillo/libbrillo-core.flag_helper.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/flag_helper.cc
+build obj/libbrillo/brillo/libbrillo-core.flag_helper.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/flag_helper.cc
   source_file_part = flag_helper.cc
   source_name_part = flag_helper
-build obj/libbrillo/brillo/hash/libbrillo-core.MurmurHash3.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/hash/MurmurHash3.cc
+build obj/libbrillo/brillo/hash/libbrillo-core.MurmurHash3.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/hash/MurmurHash3.cc
   source_file_part = MurmurHash3.cc
   source_name_part = MurmurHash3
-build obj/libbrillo/brillo/libbrillo-core.kernel_config_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/kernel_config_utils.cc
+build obj/libbrillo/brillo/libbrillo-core.kernel_config_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/kernel_config_utils.cc
   source_file_part = kernel_config_utils.cc
   source_name_part = kernel_config_utils
-build obj/libbrillo/brillo/libbrillo-core.key_value_store.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/key_value_store.cc
+build obj/libbrillo/brillo/libbrillo-core.key_value_store.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/key_value_store.cc
   source_file_part = key_value_store.cc
   source_name_part = key_value_store
-build obj/libbrillo/brillo/message_loops/libbrillo-core.base_message_loop.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/message_loops/base_message_loop.cc
+build obj/libbrillo/brillo/message_loops/libbrillo-core.base_message_loop.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/message_loops/base_message_loop.cc
   source_file_part = base_message_loop.cc
   source_name_part = base_message_loop
-build obj/libbrillo/brillo/message_loops/libbrillo-core.message_loop.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/message_loops/message_loop.cc
+build obj/libbrillo/brillo/message_loops/libbrillo-core.message_loop.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/message_loops/message_loop.cc
   source_file_part = message_loop.cc
   source_name_part = message_loop
-build obj/libbrillo/brillo/message_loops/libbrillo-core.message_loop_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/message_loops/message_loop_utils.cc
+build obj/libbrillo/brillo/message_loops/libbrillo-core.message_loop_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/message_loops/message_loop_utils.cc
   source_file_part = message_loop_utils.cc
   source_name_part = message_loop_utils
-build obj/libbrillo/brillo/libbrillo-core.mime_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/mime_utils.cc
+build obj/libbrillo/brillo/libbrillo-core.mime_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/mime_utils.cc
   source_file_part = mime_utils.cc
   source_name_part = mime_utils
-build obj/libbrillo/brillo/libbrillo-core.osrelease_reader.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/osrelease_reader.cc
+build obj/libbrillo/brillo/libbrillo-core.osrelease_reader.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/osrelease_reader.cc
   source_file_part = osrelease_reader.cc
   source_name_part = osrelease_reader
-build obj/libbrillo/brillo/process/libbrillo-core.process.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/process/process.cc
+build obj/libbrillo/brillo/process/libbrillo-core.process.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/process/process.cc
   source_file_part = process.cc
   source_name_part = process
-build obj/libbrillo/brillo/process/libbrillo-core.process_reaper.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/process/process_reaper.cc
+build obj/libbrillo/brillo/process/libbrillo-core.process_reaper.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/process/process_reaper.cc
   source_file_part = process_reaper.cc
   source_name_part = process_reaper
-build obj/libbrillo/brillo/libbrillo-core.scoped_umask.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/scoped_umask.cc
+build obj/libbrillo/brillo/libbrillo-core.scoped_umask.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/scoped_umask.cc
   source_file_part = scoped_umask.cc
   source_name_part = scoped_umask
-build obj/libbrillo/brillo/libbrillo-core.secure_blob.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/secure_blob.cc
+build obj/libbrillo/brillo/libbrillo-core.secure_blob.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/secure_blob.cc
   source_file_part = secure_blob.cc
   source_name_part = secure_blob
-build obj/libbrillo/brillo/libbrillo-core.secure_string.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/secure_string.cc
+build obj/libbrillo/brillo/libbrillo-core.secure_string.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/secure_string.cc
   source_file_part = secure_string.cc
   source_name_part = secure_string
-build obj/libbrillo/brillo/strings/libbrillo-core.string_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/strings/string_utils.cc
+build obj/libbrillo/brillo/strings/libbrillo-core.string_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/strings/string_utils.cc
   source_file_part = string_utils.cc
   source_name_part = string_utils
-build obj/libbrillo/brillo/libbrillo-core.syslog_logging.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/syslog_logging.cc
+build obj/libbrillo/brillo/libbrillo-core.syslog_logging.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/syslog_logging.cc
   source_file_part = syslog_logging.cc
   source_name_part = syslog_logging
-build obj/libbrillo/brillo/timers/libbrillo-core.alarm_timer.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/timers/alarm_timer.cc
+build obj/libbrillo/brillo/timers/libbrillo-core.alarm_timer.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/timers/alarm_timer.cc
   source_file_part = alarm_timer.cc
   source_name_part = alarm_timer
-build obj/libbrillo/brillo/timezone/libbrillo-core.tzif_parser.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/timezone/tzif_parser.cc
+build obj/libbrillo/brillo/timezone/libbrillo-core.tzif_parser.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/timezone/tzif_parser.cc
   source_file_part = tzif_parser.cc
   source_name_part = tzif_parser
-build obj/libbrillo/brillo/libbrillo-core.tracing.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/tracing.cc
+build obj/libbrillo/brillo/libbrillo-core.tracing.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/tracing.cc
   source_file_part = tracing.cc
   source_name_part = tracing
-build obj/libbrillo/brillo/libbrillo-core.type_name_undecorate.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/type_name_undecorate.cc
+build obj/libbrillo/brillo/libbrillo-core.type_name_undecorate.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/type_name_undecorate.cc
   source_file_part = type_name_undecorate.cc
   source_name_part = type_name_undecorate
-build obj/libbrillo/brillo/libbrillo-core.url_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/url_utils.cc
+build obj/libbrillo/brillo/libbrillo-core.url_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/url_utils.cc
   source_file_part = url_utils.cc
   source_name_part = url_utils
-build obj/libbrillo/brillo/libbrillo-core.userdb_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/userdb_utils.cc
+build obj/libbrillo/brillo/libbrillo-core.userdb_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/userdb_utils.cc
   source_file_part = userdb_utils.cc
   source_name_part = userdb_utils
 

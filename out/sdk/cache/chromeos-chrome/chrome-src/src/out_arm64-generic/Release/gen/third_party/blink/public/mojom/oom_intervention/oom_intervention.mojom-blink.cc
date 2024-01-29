@@ -220,6 +220,8 @@ bool OomInterventionHostStubDispatch::Accept(
           reinterpret_cast<internal::OomInterventionHost_OnHighMemoryUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OomInterventionHost.0
       bool success = true;
       OomInterventionHost_OnHighMemoryUsage_ParamsDataView input_data_view(params, message);
       
@@ -232,7 +234,7 @@ bool OomInterventionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHighMemoryUsage();
+      impl->OnHighMemoryUsage(        );
       return true;
     }
   }
@@ -409,6 +411,8 @@ bool OomInterventionStubDispatch::Accept(
           reinterpret_cast<internal::OomIntervention_StartDetection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OomIntervention.0
       bool success = true;
       ::mojo::PendingRemote<OomInterventionHost> p_host{};
       DetectionArgsPtr p_detection_args{};
@@ -438,12 +442,12 @@ bool OomInterventionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDetection(
-std::move(p_host), 
-std::move(p_detection_args), 
-std::move(p_renderer_pause_enabled), 
-std::move(p_navigate_ads_enabled), 
-std::move(p_purge_v8_memory_enabled));
+      impl->StartDetection(        
+        std::move(p_host), 
+        std::move(p_detection_args), 
+        std::move(p_renderer_pause_enabled), 
+        std::move(p_navigate_ads_enabled), 
+        std::move(p_purge_v8_memory_enabled));
       return true;
     }
   }

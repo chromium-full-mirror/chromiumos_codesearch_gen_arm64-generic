@@ -456,6 +456,74 @@ StableCdmContext_AllocateSecureBuffer_ResponseParams_Data::StableCdmContext_Allo
 
 
 // static
+bool StableCdmContext_ParseEncryptedSliceHeader_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StableCdmContext_ParseEncryptedSliceHeader_Params_Data* object =
+      static_cast<const StableCdmContext_ParseEncryptedSliceHeader_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->stream_data, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& stream_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->stream_data, validation_context,
+                                         &stream_data_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StableCdmContext_ParseEncryptedSliceHeader_Params_Data::StableCdmContext_ParseEncryptedSliceHeader_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data* object =
+      static_cast<const StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->slice_header, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& slice_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->slice_header, validation_context,
+                                         &slice_header_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool StableVideoDecoder_GetSupportedConfigs_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

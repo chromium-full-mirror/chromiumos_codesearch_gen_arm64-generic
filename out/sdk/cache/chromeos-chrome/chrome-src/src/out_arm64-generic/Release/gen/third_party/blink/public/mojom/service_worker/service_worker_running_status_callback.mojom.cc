@@ -158,6 +158,8 @@ bool ServiceWorkerRunningStatusCallbackStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerRunningStatusCallback_OnStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRunningStatusCallback.0
       bool success = true;
       ::blink::EmbeddedWorkerStatus p_status{};
       ServiceWorkerRunningStatusCallback_OnStatusChanged_ParamsDataView input_data_view(params, message);
@@ -173,8 +175,8 @@ bool ServiceWorkerRunningStatusCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStatusChanged(
-std::move(p_status));
+      impl->OnStatusChanged(        
+        std::move(p_status));
       return true;
     }
   }

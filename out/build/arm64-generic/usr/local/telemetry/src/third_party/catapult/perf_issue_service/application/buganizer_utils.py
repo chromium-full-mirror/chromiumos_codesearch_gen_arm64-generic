@@ -72,15 +72,30 @@ def FindMonorailProject(buganizer_component_id):
 
 
 def FindBuganizerHotlists(monorail_labels):
+  '''Find the hotlist mappings for monorail labels.
+
+  Some of the Monorail labels are mapped to Buganizer hotlists. However,
+  some of them are not, and they will be copied over to a custome field
+  in Buganizer. For Fuchsia project, the custome field is 'Monorail labels',
+  for other project, the custome field is 'Chromium labels'.
+  Args:
+    monorail_labels: the labels in Monorail
+  Returns:
+    hotlists: the hotlists in Buganizer
+    extra_labels: the Monorail labels with no mapping in Buganizer
+  '''
   hotlists = []
+  extra_labels = []
   for label in monorail_labels:
     hotlist = _FindBuganizerHotlist(label)
     if hotlist:
       hotlists.append(hotlist)
+    else:
+      extra_labels.append(label)
   logging.debug(
-    '[PerfIssueService] labels (%s) -> hotlists (%s)',
-    monorail_labels, hotlists)
-  return hotlists
+    '[PerfIssueService] labels (%s) -> hotlists (%s). Leftover: %s',
+    monorail_labels, hotlists, extra_labels)
+  return hotlists, extra_labels
 
 
 def _FindBuganizerHotlist(monorail_label):
@@ -240,13 +255,47 @@ def FindBuganizerIdByMonorailId(monorail_project, monorail_id):
   After a monorail issue is migrated to buganizer, the buganizer id will
   be populated to the monorail issue record, in a property 'migratedId'.
   '''
-  client = monorail_client.MonorailClient()
+  logging.debug('Looking for b/ id for crbug %s in %s', monorail_id, monorail_project)
+  if int(monorail_id) < 2000000:
+    # This is a hack to handle the use case that:
+    #  - we have the monorail issue id in our database
+    #  - the issue is migrated to buganizer
+    #  - we need to update the issue but we don't know the id on buganizer
+    # Assuming all monorail id are less than 2000000, trying to access an
+    # issue using buganizer client and a monorail id means the project has
+    # been migrated.
+    # In this case, we should find the buganizer id first.
 
-  issue = client.GetIssue(
-    issue_id=monorail_id,
-    project=monorail_project)
-  buganizer_id = issue.get('migratedId', None)
-  logging.debug('Migrated ID %s found for %s/%s.',
-                buganizer_id, monorail_project, monorail_id)
+    client = monorail_client.MonorailClient()
+    issue = client.GetIssue(
+      issue_id=monorail_id,
+      project=monorail_project)
+    buganizer_id = issue.get('migrated_id', None)
+    logging.debug('Migrated ID %s found for %s/%s.',
+                  buganizer_id, monorail_project, monorail_id)
+    if not buganizer_id:
+      err_msg = 'Cannot find the migrated id for crbug %s in %s' % (
+        monorail_id, monorail_project)
+      logging.error(err_msg)
+    return buganizer_id
+  return monorail_id
 
-  return buganizer_id
+
+def GetCustomField(monorail_project):
+  '''Get the custom field name based on monorail project.
+
+  More context in FindBuganizerHotlists()
+  '''
+  if monorail_project == 'fuchsia':
+     return 'customfield1241047'
+  return 'customfield1223031'
+
+
+def GetCustomFieldId(monorail_project):
+  '''Get the custom field ID based on monorail project.
+
+  More context in FindBuganizerHotlists()
+  '''
+  if monorail_project == 'fuchsia':
+     return 1241047
+  return 1223031

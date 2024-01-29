@@ -161,6 +161,8 @@ bool BookmarksPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::BookmarksPageHandlerFactory_CreateBookmarksPageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<BookmarksPageHandler> p_handler{};
       BookmarksPageHandlerFactory_CreateBookmarksPageHandler_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool BookmarksPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBookmarksPageHandler(
-std::move(p_handler));
+      impl->CreateBookmarksPageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -1198,6 +1200,8 @@ bool BookmarksPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::BookmarksPageHandler_BookmarkCurrentTabInFolder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.0
       bool success = true;
       int64_t p_folder_id{};
       BookmarksPageHandler_BookmarkCurrentTabInFolder_ParamsDataView input_data_view(params, message);
@@ -1213,8 +1217,8 @@ bool BookmarksPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BookmarkCurrentTabInFolder(
-std::move(p_folder_id));
+      impl->BookmarkCurrentTabInFolder(        
+        std::move(p_folder_id));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteOpenInNewTabCommand_Name: {
@@ -1224,6 +1228,8 @@ std::move(p_folder_id));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteOpenInNewTabCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.1
       bool success = true;
       std::vector<int64_t> p_node_ids{};
       ActionSource p_source{};
@@ -1242,9 +1248,9 @@ std::move(p_folder_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteOpenInNewTabCommand(
-std::move(p_node_ids), 
-std::move(p_source));
+      impl->ExecuteOpenInNewTabCommand(        
+        std::move(p_node_ids), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteOpenInNewWindowCommand_Name: {
@@ -1254,6 +1260,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteOpenInNewWindowCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.2
       bool success = true;
       std::vector<int64_t> p_node_ids{};
       ActionSource p_source{};
@@ -1272,9 +1280,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteOpenInNewWindowCommand(
-std::move(p_node_ids), 
-std::move(p_source));
+      impl->ExecuteOpenInNewWindowCommand(        
+        std::move(p_node_ids), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteOpenInIncognitoWindowCommand_Name: {
@@ -1284,6 +1292,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteOpenInIncognitoWindowCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.3
       bool success = true;
       std::vector<int64_t> p_node_ids{};
       ActionSource p_source{};
@@ -1302,9 +1312,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteOpenInIncognitoWindowCommand(
-std::move(p_node_ids), 
-std::move(p_source));
+      impl->ExecuteOpenInIncognitoWindowCommand(        
+        std::move(p_node_ids), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteOpenInNewTabGroupCommand_Name: {
@@ -1314,6 +1324,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteOpenInNewTabGroupCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.4
       bool success = true;
       std::vector<int64_t> p_node_ids{};
       ActionSource p_source{};
@@ -1332,9 +1344,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteOpenInNewTabGroupCommand(
-std::move(p_node_ids), 
-std::move(p_source));
+      impl->ExecuteOpenInNewTabGroupCommand(        
+        std::move(p_node_ids), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteAddToBookmarksBarCommand_Name: {
@@ -1344,6 +1356,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteAddToBookmarksBarCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.5
       bool success = true;
       int64_t p_node_id{};
       ActionSource p_source{};
@@ -1362,9 +1376,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteAddToBookmarksBarCommand(
-std::move(p_node_id), 
-std::move(p_source));
+      impl->ExecuteAddToBookmarksBarCommand(        
+        std::move(p_node_id), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteRemoveFromBookmarksBarCommand_Name: {
@@ -1374,6 +1388,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteRemoveFromBookmarksBarCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.6
       bool success = true;
       int64_t p_node_id{};
       ActionSource p_source{};
@@ -1392,9 +1408,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteRemoveFromBookmarksBarCommand(
-std::move(p_node_id), 
-std::move(p_source));
+      impl->ExecuteRemoveFromBookmarksBarCommand(        
+        std::move(p_node_id), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ExecuteDeleteCommand_Name: {
@@ -1404,6 +1420,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ExecuteDeleteCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.7
       bool success = true;
       std::vector<int64_t> p_node_ids{};
       ActionSource p_source{};
@@ -1422,9 +1440,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteDeleteCommand(
-std::move(p_node_ids), 
-std::move(p_source));
+      impl->ExecuteDeleteCommand(        
+        std::move(p_node_ids), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_OpenBookmark_Name: {
@@ -1434,6 +1452,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_OpenBookmark_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.8
       bool success = true;
       int64_t p_node_id{};
       int32_t p_parent_folder_depth{};
@@ -1458,11 +1478,11 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenBookmark(
-std::move(p_node_id), 
-std::move(p_parent_folder_depth), 
-std::move(p_click_modifiers), 
-std::move(p_source));
+      impl->OpenBookmark(        
+        std::move(p_node_id), 
+        std::move(p_parent_folder_depth), 
+        std::move(p_click_modifiers), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_SetSortOrder_Name: {
@@ -1472,6 +1492,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_SetSortOrder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.9
       bool success = true;
       SortOrder p_sort_order{};
       BookmarksPageHandler_SetSortOrder_ParamsDataView input_data_view(params, message);
@@ -1487,8 +1509,8 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSortOrder(
-std::move(p_sort_order));
+      impl->SetSortOrder(        
+        std::move(p_sort_order));
       return true;
     }
     case internal::kBookmarksPageHandler_SetViewType_Name: {
@@ -1498,6 +1520,8 @@ std::move(p_sort_order));
           reinterpret_cast<internal::BookmarksPageHandler_SetViewType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.10
       bool success = true;
       ViewType p_view_type{};
       BookmarksPageHandler_SetViewType_ParamsDataView input_data_view(params, message);
@@ -1513,8 +1537,8 @@ std::move(p_sort_order));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetViewType(
-std::move(p_view_type));
+      impl->SetViewType(        
+        std::move(p_view_type));
       return true;
     }
     case internal::kBookmarksPageHandler_ShowContextMenu_Name: {
@@ -1524,6 +1548,8 @@ std::move(p_view_type));
           reinterpret_cast<internal::BookmarksPageHandler_ShowContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.11
       bool success = true;
       std::string p_id{};
       ::gfx::Point p_point{};
@@ -1545,10 +1571,10 @@ std::move(p_view_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenu(
-std::move(p_id), 
-std::move(p_point), 
-std::move(p_source));
+      impl->ShowContextMenu(        
+        std::move(p_id), 
+        std::move(p_point), 
+        std::move(p_source));
       return true;
     }
     case internal::kBookmarksPageHandler_ShowUI_Name: {
@@ -1558,6 +1584,8 @@ std::move(p_source));
           reinterpret_cast<internal::BookmarksPageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BookmarksPageHandler.12
       bool success = true;
       BookmarksPageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -1570,7 +1598,7 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
   }

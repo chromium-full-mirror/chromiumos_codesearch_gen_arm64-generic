@@ -143,6 +143,7 @@ class  ThemeObserverInterceptorForTesting : public ThemeObserver {
   void OnColorSchemeChanged(::ash::style::mojom::ColorScheme color_scheme) override;
   void OnSampleColorSchemesChanged(const std::vector<::ash::SampleColorScheme>& sample_color_schemes) override;
   void OnStaticColorChanged(std::optional<::SkColor> color) override;
+  void OnGeolocationPermissionForSystemServicesChanged(bool enabled) override;
 };
 class  ThemeObserverAsyncWaiter {
  public:
@@ -165,11 +166,13 @@ class  ThemeProviderInterceptorForTesting : public ThemeProvider {
   void SetColorModeAutoScheduleEnabled(bool enabled) override;
   void SetColorScheme(::ash::style::mojom::ColorScheme colorScheme) override;
   void SetStaticColor(::SkColor static_color) override;
+  void EnableGeolocationForSystemServices() override;
   void GetColorScheme(GetColorSchemeCallback callback) override;
   void GetStaticColor(GetStaticColorCallback callback) override;
   void GenerateSampleColorSchemes(GenerateSampleColorSchemesCallback callback) override;
   void IsColorModeAutoScheduleEnabled(IsColorModeAutoScheduleEnabledCallback callback) override;
   void IsDarkModeEnabled(IsDarkModeEnabledCallback callback) override;
+  void IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) override;
 };
 class  ThemeProviderAsyncWaiter {
  public:
@@ -194,6 +197,9 @@ class  ThemeProviderAsyncWaiter {
   void IsDarkModeEnabled(
       bool* out_dark_mode_enabled);
   bool IsDarkModeEnabled();
+  void IsGeolocationEnabledForSystemServices(
+      bool* out_geolocation_enabled);
+  bool IsGeolocationEnabledForSystemServices();
 
  private:
   ThemeProvider* const proxy_;
@@ -262,6 +268,7 @@ class  AmbientObserverInterceptorForTesting : public AmbientObserver {
   void OnAlbumsChanged(std::vector<AmbientModeAlbumPtr> albums) override;
   void OnPreviewsFetched(const std::vector<::GURL>& previews) override;
   void OnAmbientUiVisibilityChanged(::ash::AmbientUiVisibility visibility) override;
+  void OnGeolocationPermissionForSystemServicesChanged(bool enabled) override;
 };
 class  AmbientObserverAsyncWaiter {
  public:
@@ -292,6 +299,8 @@ class  AmbientProviderInterceptorForTesting : public AmbientProvider {
   void StartScreenSaverPreview() override;
   void ShouldShowTimeOfDayBanner(ShouldShowTimeOfDayBannerCallback callback) override;
   void HandleTimeOfDayBannerDismissed() override;
+  void IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) override;
+  void EnableGeolocationForSystemServices() override;
 };
 class  AmbientProviderAsyncWaiter {
  public:
@@ -307,6 +316,9 @@ class  AmbientProviderAsyncWaiter {
   void ShouldShowTimeOfDayBanner(
       bool* out_should_show_banner);
   bool ShouldShowTimeOfDayBanner();
+  void IsGeolocationEnabledForSystemServices(
+      bool* out_geolocation_enabled);
+  bool IsGeolocationEnabledForSystemServices();
 
  private:
   AmbientProvider* const proxy_;

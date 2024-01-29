@@ -13,49 +13,22 @@ import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/buttons/oobe_next_button.js';
 import '../../components/buttons/oobe_text_button.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { CrInputElement } from '//resources/cr_elements/cr_input/cr_input.js';
+import { assert } from '//resources/js/assert.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OobeModalDialog } from '../../components/dialogs/oobe_modal_dialog.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { addSubmitListener } from '../../login_ui_tools.js';
 import { getTemplate } from './saml_confirm_password.html.js';
-/**
- * UI mode for the dialog.
- * @enum {string}
- */
-const SamlConfirmPasswordState = {
-    PASSWORD: 'password',
-    PROGRESS: 'progress',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
+var SamlConfirmPasswordState;
+(function (SamlConfirmPasswordState) {
+    SamlConfirmPasswordState["PASSWORD"] = "password";
+    SamlConfirmPasswordState["PROGRESS"] = "progress";
+})(SamlConfirmPasswordState || (SamlConfirmPasswordState = {}));
 const SamlConfirmPasswordBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @typedef {{
- *   passwordInput:  CrInputElement,
- *   confirmPasswordInput: CrInputElement,
- *   cancelConfirmDlg: OobeModalDialog
- * }}
- */
-SamlConfirmPasswordBase.$;
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   email: string,
- *   manualPasswordInput: boolean,
- * }}
- */
-let SamlConfirmPasswordScreenData;
-/**
- * @polymer
- */
 class SamlConfirmPassword extends SamlConfirmPasswordBase {
     static get is() {
         return 'saml-confirm-password-element';
@@ -81,6 +54,7 @@ class SamlConfirmPassword extends SamlConfirmPasswordBase {
     get EXTERNAL_API() {
         return ['showPasswordStep'];
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
         return SamlConfirmPasswordState.PROGRESS;
     }
@@ -90,84 +64,104 @@ class SamlConfirmPassword extends SamlConfirmPasswordBase {
     ready() {
         super.ready();
         this.initializeLoginScreen('ConfirmSamlPasswordScreen');
-        addSubmitListener(this.$.passwordInput, this.submit_.bind(this));
-        addSubmitListener(this.$.confirmPasswordInput, this.submit_.bind(this));
+        addSubmitListener(this.getPasswordInput(), this.submit.bind(this));
+        addSubmitListener(this.getConfirmPasswordInput(), this.submit.bind(this));
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.SAML_PASSWORD_CONFIRM;
     }
     /**
      * Event handler that is invoked just before the screen is shown.
-     * @param {SamlConfirmPasswordScreenData} data Screen init payload
+     * @param data Screen init payload
      */
     onBeforeShow(data) {
-        this.reset_();
+        this.reset();
         this.email = data['email'];
         this.isManualInput = data['manualPasswordInput'];
     }
     showPasswordStep(retry) {
         if (retry) {
-            this.reset_();
-            this.$.passwordInput.invalid = true;
+            this.reset();
+            this.getPasswordInput().invalid = true;
         }
         this.setUIStep(SamlConfirmPasswordState.PASSWORD);
     }
-    resetFields_() {
-        this.$.passwordInput.invalid = false;
-        this.$.passwordInput.value = '';
+    resetFields() {
+        const passwordInput = this.getPasswordInput();
+        passwordInput.invalid = false;
+        passwordInput.value = '';
         if (this.isManualInput) {
-            this.shadowRoot.querySelector('#confirmPasswordInput').invalid = false;
-            this.shadowRoot.querySelector('#confirmPasswordInput').value = '';
+            const confirmPasswordInput = this.getConfirmPasswordInput();
+            confirmPasswordInput.invalid = false;
+            confirmPasswordInput.value = '';
         }
     }
-    reset_() {
-        if (this.$.cancelConfirmDlg.open) {
-            this.$.cancelConfirmDlg.hideDialog();
+    reset() {
+        const cancelConfirmDialog = this.getCancelConfirmDialog();
+        if (cancelConfirmDialog.open) {
+            cancelConfirmDialog.hideDialog();
         }
-        this.resetFields_();
+        this.resetFields();
     }
-    onCancel_() {
-        this.$.cancelConfirmDlg.showDialog();
+    onCancel() {
+        this.getCancelConfirmDialog().showDialog();
     }
-    onCancelNo_() {
-        this.$.cancelConfirmDlg.hideDialog();
+    onCancelNo() {
+        this.getCancelConfirmDialog().hideDialog();
     }
-    onCancelYes_() {
-        this.$.cancelConfirmDlg.hideDialog();
+    onCancelYes() {
+        this.getCancelConfirmDialog().hideDialog();
         this.userActed('cancel');
     }
-    submit_() {
-        if (!this.$.passwordInput.validate()) {
+    submit() {
+        const passwordInput = this.getPasswordInput();
+        if (!passwordInput.validate()) {
             return;
         }
         if (this.isManualInput) {
             // When using manual password entry, both passwords must match.
-            const confirmPasswordInput = this.shadowRoot.querySelector('#confirmPasswordInput');
+            const confirmPasswordInput = this.getConfirmPasswordInput();
             if (!confirmPasswordInput.validate()) {
                 return;
             }
-            if (confirmPasswordInput.value != this.$.passwordInput.value) {
-                this.$.passwordInput.invalid = true;
+            if (confirmPasswordInput.value != passwordInput.value) {
+                passwordInput.invalid = true;
                 confirmPasswordInput.invalid = true;
                 return;
             }
         }
         this.setUIStep(SamlConfirmPasswordState.PROGRESS);
-        this.userActed(['inputPassword', this.$.passwordInput.value]);
-        this.resetFields_();
+        this.userActed(['inputPassword', passwordInput.value]);
+        this.resetFields();
     }
-    subtitleText_(locale, manual) {
+    subtitleText(locale, manual) {
         const key = manual ? 'manualPasswordTitle' : 'confirmPasswordTitle';
-        return this.i18n(key);
+        return this.i18nDynamic(locale, key);
     }
-    passwordPlaceholder_(locale, manual) {
+    passwordPlaceholder(locale, manual) {
         const key = manual ? 'manualPasswordInputLabel' : 'confirmPasswordLabel';
-        return this.i18n(key);
+        return this.i18nDynamic(locale, key);
     }
-    passwordErrorText_(locale, manual) {
+    passwordErrorText(locale, manual) {
         const key = manual ? 'manualPasswordMismatch' : 'confirmPasswordIncorrectPassword';
-        return this.i18n(key);
+        return this.i18nDynamic(locale, key);
+    }
+    getPasswordInput() {
+        const passwordInput = this.shadowRoot?.querySelector('#passwordInput');
+        assert(passwordInput instanceof CrInputElement);
+        return passwordInput;
+    }
+    getConfirmPasswordInput() {
+        const confirmPasswordInput = this.shadowRoot?.querySelector('#confirmPasswordInput');
+        assert(confirmPasswordInput instanceof CrInputElement);
+        return confirmPasswordInput;
+    }
+    getCancelConfirmDialog() {
+        const cancelConfirmDialog = this.shadowRoot?.querySelector('#cancelConfirmDlg');
+        assert(cancelConfirmDialog instanceof OobeModalDialog);
+        return cancelConfirmDialog;
     }
 }
 customElements.define(SamlConfirmPassword.is, SamlConfirmPassword);

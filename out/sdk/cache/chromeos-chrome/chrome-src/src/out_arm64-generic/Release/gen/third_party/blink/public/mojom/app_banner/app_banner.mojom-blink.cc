@@ -249,6 +249,8 @@ bool AppBannerController_BannerPromptRequest_ForwardToCallback::Accept(
           internal::AppBannerController_BannerPromptRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppBannerController.0
   bool success = true;
   AppBannerPromptReply p_reply{};
   AppBannerController_BannerPromptRequest_ResponseParamsDataView input_data_view(params, message);
@@ -340,6 +342,8 @@ bool AppBannerControllerStubDispatch::AcceptWithResponder(
               internal::AppBannerController_BannerPromptRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppBannerController.0
       bool success = true;
       ::mojo::PendingRemote<AppBannerService> p_service{};
       ::mojo::PendingReceiver<AppBannerEvent> p_event_receiver{};
@@ -368,10 +372,10 @@ bool AppBannerControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BannerPromptRequest(
-std::move(p_service), 
-std::move(p_event_receiver), 
-std::move(p_platform), std::move(callback));
+      impl->BannerPromptRequest(        
+        std::move(p_service), 
+        std::move(p_event_receiver), 
+        std::move(p_platform), std::move(callback));
       return true;
     }
   }
@@ -568,6 +572,8 @@ bool AppBannerEventStubDispatch::Accept(
           reinterpret_cast<internal::AppBannerEvent_BannerAccepted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppBannerEvent.0
       bool success = true;
       WTF::String p_platform{};
       AppBannerEvent_BannerAccepted_ParamsDataView input_data_view(params, message);
@@ -583,8 +589,8 @@ bool AppBannerEventStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BannerAccepted(
-std::move(p_platform));
+      impl->BannerAccepted(        
+        std::move(p_platform));
       return true;
     }
     case internal::kAppBannerEvent_BannerDismissed_Name: {
@@ -594,6 +600,8 @@ std::move(p_platform));
           reinterpret_cast<internal::AppBannerEvent_BannerDismissed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppBannerEvent.1
       bool success = true;
       AppBannerEvent_BannerDismissed_ParamsDataView input_data_view(params, message);
       
@@ -606,7 +614,7 @@ std::move(p_platform));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BannerDismissed();
+      impl->BannerDismissed(        );
       return true;
     }
   }
@@ -749,6 +757,8 @@ bool AppBannerServiceStubDispatch::Accept(
           reinterpret_cast<internal::AppBannerService_DisplayAppBanner_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppBannerService.0
       bool success = true;
       AppBannerService_DisplayAppBanner_ParamsDataView input_data_view(params, message);
       
@@ -761,7 +771,7 @@ bool AppBannerServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayAppBanner();
+      impl->DisplayAppBanner(        );
       return true;
     }
   }

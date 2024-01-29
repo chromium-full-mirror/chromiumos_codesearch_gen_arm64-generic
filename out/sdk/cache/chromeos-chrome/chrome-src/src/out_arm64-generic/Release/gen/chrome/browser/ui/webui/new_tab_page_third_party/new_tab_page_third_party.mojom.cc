@@ -282,6 +282,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -304,9 +306,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -444,6 +446,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_UpdateTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_UpdateTheme_ParamsDataView input_data_view(params, message);
       
@@ -456,7 +460,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTheme();
+      impl->UpdateTheme(        );
       return true;
     }
   }
@@ -612,6 +616,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_SetTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       ThemePtr p_theme{};
       Page_SetTheme_ParamsDataView input_data_view(params, message);
@@ -627,8 +633,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTheme(
-std::move(p_theme));
+      impl->SetTheme(        
+        std::move(p_theme));
       return true;
     }
   }

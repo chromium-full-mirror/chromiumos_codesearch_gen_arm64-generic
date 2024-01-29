@@ -4,7 +4,7 @@
 import { getExtension } from '../../common/js/file_type.js';
 import { recordEnum } from '../../common/js/metrics.js';
 import { VolumeType } from '../../common/js/volume_manager_types.js';
-import { DialogType } from '../../externs/ts/state.js';
+import { DialogType } from '../../state/state.js';
 import { UMA_INDEX_KNOWN_EXTENSIONS } from './uma_enums.gen.js';
 /**
  * UMA exporter for Quick View.

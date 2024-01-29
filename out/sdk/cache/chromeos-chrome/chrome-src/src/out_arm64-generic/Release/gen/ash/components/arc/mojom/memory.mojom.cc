@@ -375,6 +375,8 @@ bool MemoryInstance_DropCaches_ForwardToCallback::Accept(
           internal::MemoryInstance_DropCaches_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MemoryInstance.0
   bool success = true;
   bool p_result{};
   MemoryInstance_DropCaches_ResponseParamsDataView input_data_view(params, message);
@@ -494,6 +496,8 @@ bool MemoryInstance_Reclaim_ForwardToCallback::Accept(
           internal::MemoryInstance_Reclaim_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MemoryInstance.3
   bool success = true;
   ReclaimResultPtr p_result{};
   MemoryInstance_Reclaim_ResponseParamsDataView input_data_view(params, message);
@@ -597,6 +601,8 @@ bool MemoryInstanceStubDispatch::AcceptWithResponder(
               internal::MemoryInstance_DropCaches_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MemoryInstance.0
       bool success = true;
       MemoryInstance_DropCaches_ParamsDataView input_data_view(params, message);
       
@@ -622,6 +628,8 @@ bool MemoryInstanceStubDispatch::AcceptWithResponder(
               internal::MemoryInstance_Reclaim_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MemoryInstance.3
       bool success = true;
       ReclaimRequestPtr p_request{};
       MemoryInstance_Reclaim_ParamsDataView input_data_view(params, message);
@@ -640,8 +648,8 @@ bool MemoryInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Reclaim(
-std::move(p_request), std::move(callback));
+      impl->Reclaim(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }

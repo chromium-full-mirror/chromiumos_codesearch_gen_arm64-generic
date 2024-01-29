@@ -458,7 +458,7 @@ class TrashDirectoryReader {
         }
         success(result);
         if (entriesToDelete.length > 0) {
-            startIOTask(chrome.fileManagerPrivate.IOTaskType.DELETE, entriesToDelete, {
+            startIOTask(chrome.fileManagerPrivate.IoTaskType.DELETE, entriesToDelete, {
                 showNotification: false,
                 destinationFolder: undefined,
                 password: undefined,

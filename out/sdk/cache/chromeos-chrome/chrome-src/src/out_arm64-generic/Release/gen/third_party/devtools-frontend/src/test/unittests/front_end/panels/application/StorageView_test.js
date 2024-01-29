@@ -29,7 +29,7 @@ describeWithMockConnection('StorageView', () => {
             assertNotNullOrUndefined(domStorageModel);
             assert.isEmpty(domStorageModel.storages());
             assertNotNullOrUndefined(storageKeyManager);
-            storageKeyManager.dispatchEventToListeners(SDK.StorageKeyManager.Events.StorageKeyAdded, testKey);
+            storageKeyManager.dispatchEventToListeners("StorageKeyAdded" /* SDK.StorageKeyManager.Events.StorageKeyAdded */, testKey);
             assertNotNullOrUndefined(domStorageModel.storageForId(testId));
             const dispatcherSpy = sinon.spy(domStorageModel, 'dispatchEventToListeners');
             const spyClearDataForStorageKey = sinon.stub(target.storageAgent(), 'invoke_clearDataForStorageKey');
@@ -37,14 +37,14 @@ describeWithMockConnection('StorageView', () => {
             // must be called 4 times, twice with DOMStorageRemoved for local and non-local storage and twice with DOMStorageAdded
             assert.isTrue(spyClearDataForStorageKey.calledOnce);
             assert.strictEqual(dispatcherSpy.callCount, 4);
-            sinon.assert.calledWith(dispatcherSpy, Resources.DOMStorageModel.Events.DOMStorageRemoved);
-            sinon.assert.calledWith(dispatcherSpy, Resources.DOMStorageModel.Events.DOMStorageAdded);
+            sinon.assert.calledWith(dispatcherSpy, "DOMStorageRemoved" /* Resources.DOMStorageModel.Events.DOMStorageRemoved */);
+            sinon.assert.calledWith(dispatcherSpy, "DOMStorageAdded" /* Resources.DOMStorageModel.Events.DOMStorageAdded */);
         });
         it('changes subtitle on MainStorageKeyChanged event', () => {
             assertNotNullOrUndefined(domStorageModel);
             assertNotNullOrUndefined(storageKeyManager);
             const view = new Resources.StorageView.StorageView();
-            storageKeyManager.dispatchEventToListeners(SDK.StorageKeyManager.Events.MainStorageKeyChanged, { mainStorageKey: testKey });
+            storageKeyManager.dispatchEventToListeners("MainStorageKeyChanged" /* SDK.StorageKeyManager.Events.MainStorageKeyChanged */, { mainStorageKey: testKey });
             const subtitle = view.element.shadowRoot?.querySelector('div.flex-auto')?.shadowRoot?.querySelector('div.report-subtitle');
             assert.strictEqual(subtitle?.textContent, testKey);
         });
@@ -74,7 +74,6 @@ describeWithMockConnection('StorageView', () => {
             assert.strictEqual(errorDiv.textContent, 'Number must be smaller than 9,000,000,000,000');
         });
         it('also clears cookies on clear', () => {
-            /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
             const cookieModel = target.model(SDK.CookieModel.CookieModel);
             const clearByOriginSpy = sinon.spy(target.storageAgent(), 'invoke_clearDataForOrigin');
             const cookieClearSpy = sinon.spy(cookieModel, 'clear');
@@ -86,7 +85,7 @@ describeWithMockConnection('StorageView', () => {
             const databaseModel = target.model(Resources.DatabaseModel.DatabaseModel);
             assertNotNullOrUndefined(databaseModel);
             const databaseRemoved = new Promise(resolve => {
-                databaseModel.addEventListener(Resources.DatabaseModel.Events.DatabasesRemoved, resolve);
+                databaseModel.addEventListener("DatabasesRemoved" /* Resources.DatabaseModel.Events.DatabasesRemoved */, resolve);
             });
             const testDatabase = new Resources.DatabaseModel.Database(databaseModel, 'test-id', 'test-domain', 'test-name', '1');
             databaseModel.enable();
@@ -106,7 +105,7 @@ describeWithMockConnection('StorageView', () => {
             };
             const databaseModel = target.model(Resources.DatabaseModel.DatabaseModel);
             assertNotNullOrUndefined(databaseModel);
-            const databaseRemoved = databaseModel.once(Resources.DatabaseModel.Events.DatabasesRemoved);
+            const databaseRemoved = databaseModel.once("DatabasesRemoved" /* Resources.DatabaseModel.Events.DatabasesRemoved */);
             const testDatabase = new Resources.DatabaseModel.Database(databaseModel, 'test-id', 'test-domain', 'test-name', '1');
             databaseModel.enable();
             databaseModel.addDatabase(testDatabase);
@@ -115,7 +114,7 @@ describeWithMockConnection('StorageView', () => {
                 .resolves({ storageKey: testKey, getError: () => undefined });
             dispatchEvent(target, 'Page.frameNavigated', { frame: FRAME });
             const actionDelegate = new Resources.StorageView.ActionDelegate();
-            actionDelegate.handleAction(UI.ActionRegistration.ActionCategory.RESOURCES, 'resources.clear');
+            actionDelegate.handleAction("RESOURCES" /* UI.ActionRegistration.ActionCategory.RESOURCES */, 'resources.clear');
             await databaseRemoved;
             assert.isEmpty(databaseModel.databases());
         });
@@ -155,7 +154,7 @@ describeWithMockConnection('StorageView', () => {
             sinon.stub(target.cacheStorageAgent(), 'invoke_requestCacheNames').resolves({ caches, getError: () => undefined });
             cacheStorageModel.enable();
             const cacheAddedPromise = new Promise(resolve => {
-                cacheStorageModel.addEventListener(SDK.ServiceWorkerCacheModel.Events.CacheAdded, () => {
+                cacheStorageModel.addEventListener("CacheAdded" /* SDK.ServiceWorkerCacheModel.Events.CacheAdded */, () => {
                     resolve();
                 });
             });

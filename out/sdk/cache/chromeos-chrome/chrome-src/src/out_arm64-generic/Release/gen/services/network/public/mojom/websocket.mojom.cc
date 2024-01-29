@@ -478,6 +478,8 @@ bool WebSocketAuthenticationHandler_OnAuthRequired_ForwardToCallback::Accept(
           internal::WebSocketAuthenticationHandler_OnAuthRequired_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebSocketAuthenticationHandler.0
   bool success = true;
   std::optional<::net::AuthCredentials> p_credentials{};
   WebSocketAuthenticationHandler_OnAuthRequired_ResponseParamsDataView input_data_view(params, message);
@@ -574,6 +576,8 @@ bool WebSocketAuthenticationHandlerStubDispatch::AcceptWithResponder(
               internal::WebSocketAuthenticationHandler_OnAuthRequired_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebSocketAuthenticationHandler.0
       bool success = true;
       ::net::AuthChallengeInfo p_info{};
       ::scoped_refptr<::net::HttpResponseHeaders> p_headers{};
@@ -598,10 +602,10 @@ bool WebSocketAuthenticationHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthRequired(
-std::move(p_info), 
-std::move(p_headers), 
-std::move(p_remote_endpoint), std::move(callback));
+      impl->OnAuthRequired(        
+        std::move(p_info), 
+        std::move(p_headers), 
+        std::move(p_remote_endpoint), std::move(callback));
       return true;
     }
   }
@@ -931,6 +935,8 @@ bool WebSocketHandshakeClientStubDispatch::Accept(
           reinterpret_cast<internal::WebSocketHandshakeClient_OnOpeningHandshakeStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketHandshakeClient.0
       bool success = true;
       WebSocketHandshakeRequestPtr p_request{};
       WebSocketHandshakeClient_OnOpeningHandshakeStarted_ParamsDataView input_data_view(params, message);
@@ -946,8 +952,8 @@ bool WebSocketHandshakeClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpeningHandshakeStarted(
-std::move(p_request));
+      impl->OnOpeningHandshakeStarted(        
+        std::move(p_request));
       return true;
     }
     case internal::kWebSocketHandshakeClient_OnFailure_Name: {
@@ -957,6 +963,8 @@ std::move(p_request));
           reinterpret_cast<internal::WebSocketHandshakeClient_OnFailure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketHandshakeClient.1
       bool success = true;
       std::string p_message{};
       int32_t p_net_error{};
@@ -978,10 +986,10 @@ std::move(p_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFailure(
-std::move(p_message), 
-std::move(p_net_error), 
-std::move(p_response_code));
+      impl->OnFailure(        
+        std::move(p_message), 
+        std::move(p_net_error), 
+        std::move(p_response_code));
       return true;
     }
     case internal::kWebSocketHandshakeClient_OnConnectionEstablished_Name: {
@@ -991,6 +999,8 @@ std::move(p_response_code));
           reinterpret_cast<internal::WebSocketHandshakeClient_OnConnectionEstablished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketHandshakeClient.2
       bool success = true;
       ::mojo::PendingRemote<WebSocket> p_socket{};
       ::mojo::PendingReceiver<WebSocketClient> p_client_receiver{};
@@ -1022,12 +1032,12 @@ std::move(p_response_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionEstablished(
-std::move(p_socket), 
-std::move(p_client_receiver), 
-std::move(p_response), 
-std::move(p_readable), 
-std::move(p_writable));
+      impl->OnConnectionEstablished(        
+        std::move(p_socket), 
+        std::move(p_client_receiver), 
+        std::move(p_response), 
+        std::move(p_readable), 
+        std::move(p_writable));
       return true;
     }
   }
@@ -1324,6 +1334,8 @@ bool WebSocketClientStubDispatch::Accept(
           reinterpret_cast<internal::WebSocketClient_OnDataFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketClient.0
       bool success = true;
       bool p_fin{};
       WebSocketMessageType p_type{};
@@ -1345,10 +1357,10 @@ bool WebSocketClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDataFrame(
-std::move(p_fin), 
-std::move(p_type), 
-std::move(p_data_length));
+      impl->OnDataFrame(        
+        std::move(p_fin), 
+        std::move(p_type), 
+        std::move(p_data_length));
       return true;
     }
     case internal::kWebSocketClient_OnDropChannel_Name: {
@@ -1358,6 +1370,8 @@ std::move(p_data_length));
           reinterpret_cast<internal::WebSocketClient_OnDropChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketClient.1
       bool success = true;
       bool p_was_clean{};
       uint16_t p_code{};
@@ -1379,10 +1393,10 @@ std::move(p_data_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDropChannel(
-std::move(p_was_clean), 
-std::move(p_code), 
-std::move(p_reason));
+      impl->OnDropChannel(        
+        std::move(p_was_clean), 
+        std::move(p_code), 
+        std::move(p_reason));
       return true;
     }
     case internal::kWebSocketClient_OnClosingHandshake_Name: {
@@ -1392,6 +1406,8 @@ std::move(p_reason));
           reinterpret_cast<internal::WebSocketClient_OnClosingHandshake_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketClient.2
       bool success = true;
       WebSocketClient_OnClosingHandshake_ParamsDataView input_data_view(params, message);
       
@@ -1404,7 +1420,7 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClosingHandshake();
+      impl->OnClosingHandshake(        );
       return true;
     }
   }
@@ -1693,6 +1709,8 @@ bool WebSocketStubDispatch::Accept(
           reinterpret_cast<internal::WebSocket_SendMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocket.0
       bool success = true;
       WebSocketMessageType p_type{};
       uint64_t p_data_length{};
@@ -1711,9 +1729,9 @@ bool WebSocketStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendMessage(
-std::move(p_type), 
-std::move(p_data_length));
+      impl->SendMessage(        
+        std::move(p_type), 
+        std::move(p_data_length));
       return true;
     }
     case internal::kWebSocket_StartReceiving_Name: {
@@ -1723,6 +1741,8 @@ std::move(p_data_length));
           reinterpret_cast<internal::WebSocket_StartReceiving_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocket.1
       bool success = true;
       WebSocket_StartReceiving_ParamsDataView input_data_view(params, message);
       
@@ -1735,7 +1755,7 @@ std::move(p_data_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartReceiving();
+      impl->StartReceiving(        );
       return true;
     }
     case internal::kWebSocket_StartClosingHandshake_Name: {
@@ -1745,6 +1765,8 @@ std::move(p_data_length));
           reinterpret_cast<internal::WebSocket_StartClosingHandshake_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocket.2
       bool success = true;
       uint16_t p_code{};
       std::string p_reason{};
@@ -1763,9 +1785,9 @@ std::move(p_data_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartClosingHandshake(
-std::move(p_code), 
-std::move(p_reason));
+      impl->StartClosingHandshake(        
+        std::move(p_code), 
+        std::move(p_reason));
       return true;
     }
   }

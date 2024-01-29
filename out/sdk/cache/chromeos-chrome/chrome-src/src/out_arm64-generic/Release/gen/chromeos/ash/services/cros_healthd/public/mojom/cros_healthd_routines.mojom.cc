@@ -948,6 +948,8 @@ bool CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback::Ac
           internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdRoutinesService.1
   bool success = true;
   ::ash::cros_healthd::mojom::SupportStatusPtr p_status{};
   CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView input_data_view(params, message);
@@ -1030,6 +1032,8 @@ bool CrosHealthdRoutinesServiceStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdRoutinesService.0
       bool success = true;
       RoutineArgumentPtr p_routine_argument{};
       ::mojo::PendingReceiver<RoutineControl> p_routine_receiver{};
@@ -1055,10 +1059,10 @@ bool CrosHealthdRoutinesServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRoutine(
-std::move(p_routine_argument), 
-std::move(p_routine_receiver), 
-std::move(p_routine_observer));
+      impl->CreateRoutine(        
+        std::move(p_routine_argument), 
+        std::move(p_routine_receiver), 
+        std::move(p_routine_observer));
       return true;
     }
     case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
@@ -1087,6 +1091,8 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
               internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdRoutinesService.1
       bool success = true;
       RoutineArgumentPtr p_routine_argument{};
       CrosHealthdRoutinesService_IsRoutineArgumentSupported_ParamsDataView input_data_view(params, message);
@@ -1105,8 +1111,8 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsRoutineArgumentSupported(
-std::move(p_routine_argument), std::move(callback));
+      impl->IsRoutineArgumentSupported(        
+        std::move(p_routine_argument), std::move(callback));
       return true;
     }
   }
@@ -1349,6 +1355,8 @@ bool RoutineControl_GetState_ForwardToCallback::Accept(
           internal::RoutineControl_GetState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RoutineControl.0
   bool success = true;
   RoutineStatePtr p_state{};
   RoutineControl_GetState_ResponseParamsDataView input_data_view(params, message);
@@ -1436,6 +1444,8 @@ bool RoutineControlStubDispatch::Accept(
           reinterpret_cast<internal::RoutineControl_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RoutineControl.1
       bool success = true;
       RoutineControl_Start_ParamsDataView input_data_view(params, message);
       
@@ -1448,7 +1458,7 @@ bool RoutineControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start();
+      impl->Start(        );
       return true;
     }
   }
@@ -1471,6 +1481,8 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
               internal::RoutineControl_GetState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RoutineControl.0
       bool success = true;
       RoutineControl_GetState_ParamsDataView input_data_view(params, message);
       
@@ -1635,6 +1647,8 @@ bool RoutineObserverStubDispatch::Accept(
           reinterpret_cast<internal::RoutineObserver_OnRoutineStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RoutineObserver.0
       bool success = true;
       RoutineStatePtr p_state{};
       RoutineObserver_OnRoutineStateChange_ParamsDataView input_data_view(params, message);
@@ -1650,8 +1664,8 @@ bool RoutineObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRoutineStateChange(
-std::move(p_state));
+      impl->OnRoutineStateChange(        
+        std::move(p_state));
       return true;
     }
   }

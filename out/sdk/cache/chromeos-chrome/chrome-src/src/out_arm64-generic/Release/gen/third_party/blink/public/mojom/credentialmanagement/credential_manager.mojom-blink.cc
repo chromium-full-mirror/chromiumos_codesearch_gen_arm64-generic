@@ -486,6 +486,8 @@ bool CredentialManager_Store_ForwardToCallback::Accept(
           internal::CredentialManager_Store_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CredentialManager.0
   bool success = true;
   CredentialManager_Store_ResponseParamsDataView input_data_view(params, message);
   
@@ -593,6 +595,8 @@ bool CredentialManager_PreventSilentAccess_ForwardToCallback::Accept(
           internal::CredentialManager_PreventSilentAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CredentialManager.1
   bool success = true;
   CredentialManager_PreventSilentAccess_ResponseParamsDataView input_data_view(params, message);
   
@@ -700,6 +704,8 @@ bool CredentialManager_Get_ForwardToCallback::Accept(
           internal::CredentialManager_Get_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CredentialManager.2
   bool success = true;
   CredentialManagerError p_error{};
   CredentialInfoPtr p_credential{};
@@ -811,6 +817,8 @@ bool CredentialManagerStubDispatch::AcceptWithResponder(
               internal::CredentialManager_Store_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CredentialManager.0
       bool success = true;
       CredentialInfoPtr p_credential{};
       CredentialManager_Store_ParamsDataView input_data_view(params, message);
@@ -829,8 +837,8 @@ bool CredentialManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Store(
-std::move(p_credential), std::move(callback));
+      impl->Store(        
+        std::move(p_credential), std::move(callback));
       return true;
     }
     case internal::kCredentialManager_PreventSilentAccess_Name: {
@@ -840,6 +848,8 @@ std::move(p_credential), std::move(callback));
               internal::CredentialManager_PreventSilentAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CredentialManager.1
       bool success = true;
       CredentialManager_PreventSilentAccess_ParamsDataView input_data_view(params, message);
       
@@ -865,6 +875,8 @@ std::move(p_credential), std::move(callback));
               internal::CredentialManager_Get_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CredentialManager.2
       bool success = true;
       CredentialMediationRequirement p_mediation{};
       bool p_include_passwords{};
@@ -889,10 +901,10 @@ std::move(p_credential), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Get(
-std::move(p_mediation), 
-std::move(p_include_passwords), 
-std::move(p_federations), std::move(callback));
+      impl->Get(        
+        std::move(p_mediation), 
+        std::move(p_include_passwords), 
+        std::move(p_federations), std::move(callback));
       return true;
     }
   }

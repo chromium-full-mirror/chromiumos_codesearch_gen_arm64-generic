@@ -162,6 +162,8 @@ bool NetworkChangeStubDispatch::Accept(
           reinterpret_cast<internal::NetworkChange_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkChange.0
       bool success = true;
       ::mojo::PendingRemote<NetworkChangeObserver> p_observer{};
       NetworkChange_AddObserver_ParamsDataView input_data_view(params, message);
@@ -179,8 +181,8 @@ bool NetworkChangeStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -349,6 +351,8 @@ bool NetworkChangeObserverStubDispatch::Accept(
           reinterpret_cast<internal::NetworkChangeObserver_OnNetworkChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkChangeObserver.0
       bool success = true;
       bool p_dns_changed{};
       bool p_ip_address_changed{};
@@ -379,13 +383,13 @@ bool NetworkChangeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkChanged(
-std::move(p_dns_changed), 
-std::move(p_ip_address_changed), 
-std::move(p_connection_type_changed), 
-std::move(p_new_connection_type), 
-std::move(p_connection_subtype_changed), 
-std::move(p_new_connection_subtype));
+      impl->OnNetworkChanged(        
+        std::move(p_dns_changed), 
+        std::move(p_ip_address_changed), 
+        std::move(p_connection_type_changed), 
+        std::move(p_new_connection_type), 
+        std::move(p_connection_subtype_changed), 
+        std::move(p_new_connection_subtype));
       return true;
     }
   }

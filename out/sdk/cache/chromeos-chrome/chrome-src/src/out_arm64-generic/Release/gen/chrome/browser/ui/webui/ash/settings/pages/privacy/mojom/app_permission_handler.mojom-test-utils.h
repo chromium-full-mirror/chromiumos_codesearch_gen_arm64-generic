@@ -17,6 +17,8 @@ class  AppPermissionsHandlerInterceptorForTesting : public AppPermissionsHandler
   virtual AppPermissionsHandler* GetForwardingInterface() = 0;
   void AddObserver(::mojo::PendingRemote<AppPermissionsObserver> observer) override;
   void GetApps(GetAppsCallback callback) override;
+  void GetSystemAppsThatUseCamera(GetSystemAppsThatUseCameraCallback callback) override;
+  void GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) override;
   void OpenNativeSettings(const std::string& app_id) override;
   void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) override;
 };
@@ -31,6 +33,12 @@ class  AppPermissionsHandlerAsyncWaiter {
   void GetApps(
       std::vector<AppPtr>* out_apps);
   std::vector<AppPtr> GetApps();
+  void GetSystemAppsThatUseCamera(
+      std::vector<AppPtr>* out_apps);
+  std::vector<AppPtr> GetSystemAppsThatUseCamera();
+  void GetSystemAppsThatUseMicrophone(
+      std::vector<AppPtr>* out_apps);
+  std::vector<AppPtr> GetSystemAppsThatUseMicrophone();
 
  private:
   AppPermissionsHandler* const proxy_;

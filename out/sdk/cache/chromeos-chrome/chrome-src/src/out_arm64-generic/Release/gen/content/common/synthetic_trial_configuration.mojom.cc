@@ -286,6 +286,8 @@ bool SyntheticTrialConfigurationStubDispatch::Accept(
           reinterpret_cast<internal::SyntheticTrialConfiguration_AddOrUpdateSyntheticTrialGroups_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyntheticTrialConfiguration.0
       bool success = true;
       std::vector<SyntheticTrialGroupPtr> p_groups{};
       SyntheticTrialConfiguration_AddOrUpdateSyntheticTrialGroups_ParamsDataView input_data_view(params, message);
@@ -301,8 +303,8 @@ bool SyntheticTrialConfigurationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddOrUpdateSyntheticTrialGroups(
-std::move(p_groups));
+      impl->AddOrUpdateSyntheticTrialGroups(        
+        std::move(p_groups));
       return true;
     }
     case internal::kSyntheticTrialConfiguration_RemoveSyntheticTrialGroups_Name: {
@@ -312,6 +314,8 @@ std::move(p_groups));
           reinterpret_cast<internal::SyntheticTrialConfiguration_RemoveSyntheticTrialGroups_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyntheticTrialConfiguration.1
       bool success = true;
       std::vector<SyntheticTrialGroupPtr> p_groups{};
       SyntheticTrialConfiguration_RemoveSyntheticTrialGroups_ParamsDataView input_data_view(params, message);
@@ -327,8 +331,8 @@ std::move(p_groups));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveSyntheticTrialGroups(
-std::move(p_groups));
+      impl->RemoveSyntheticTrialGroups(        
+        std::move(p_groups));
       return true;
     }
   }

@@ -228,6 +228,8 @@ bool CdmStorage_Open_ForwardToCallback::Accept(
           internal::CdmStorage_Open_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmStorage.0
   bool success = true;
   CdmStorage::Status p_status{};
   ::mojo::PendingAssociatedRemote<CdmFile> p_cdm_file{};
@@ -330,6 +332,8 @@ bool CdmStorageStubDispatch::AcceptWithResponder(
               internal::CdmStorage_Open_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmStorage.0
       bool success = true;
       std::string p_file_name{};
       CdmStorage_Open_ParamsDataView input_data_view(params, message);
@@ -348,8 +352,8 @@ bool CdmStorageStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Open(
-std::move(p_file_name), std::move(callback));
+      impl->Open(        
+        std::move(p_file_name), std::move(callback));
       return true;
     }
   }
@@ -627,6 +631,8 @@ bool CdmFile_Read_ForwardToCallback::Accept(
           internal::CdmFile_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFile.0
   bool success = true;
   CdmFile::Status p_status{};
   std::vector<uint8_t> p_data{};
@@ -767,6 +773,8 @@ bool CdmFile_Write_ForwardToCallback::Accept(
           internal::CdmFile_Write_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFile.1
   bool success = true;
   CdmFile::Status p_status{};
   CdmFile_Write_ResponseParamsDataView input_data_view(params, message);
@@ -861,6 +869,8 @@ bool CdmFileStubDispatch::AcceptWithResponder(
               internal::CdmFile_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFile.0
       bool success = true;
       CdmFile_Read_ParamsDataView input_data_view(params, message);
       
@@ -886,6 +896,8 @@ bool CdmFileStubDispatch::AcceptWithResponder(
               internal::CdmFile_Write_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFile.1
       bool success = true;
       std::vector<uint8_t> p_data{};
       CdmFile_Write_ParamsDataView input_data_view(params, message);
@@ -904,8 +916,8 @@ bool CdmFileStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Write(
-std::move(p_data), std::move(callback));
+      impl->Write(        
+        std::move(p_data), std::move(callback));
       return true;
     }
   }

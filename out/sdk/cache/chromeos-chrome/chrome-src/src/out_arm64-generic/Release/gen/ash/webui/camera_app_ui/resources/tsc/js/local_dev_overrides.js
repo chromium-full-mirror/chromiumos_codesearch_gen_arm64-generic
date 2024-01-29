@@ -22,7 +22,7 @@ export class ChromeHelperFake extends ChromeHelper {
         return false;
     }
     async initScreenStateMonitor(_onChange) {
-        return ScreenState.ON;
+        return ScreenState.kOn;
     }
     async initExternalScreenMonitor(_onChange) {
         return false;
@@ -102,12 +102,15 @@ export class ChromeHelperFake extends ChromeHelper {
         /* Do nothing. */
     }
     async startMonitorStorage(_onChange) {
-        return StorageMonitorStatus.NORMAL;
+        return StorageMonitorStatus.kNormal;
     }
     stopMonitorStorage() {
         /* Do nothing. */
     }
     openStorageManagement() {
+        /* Do nothing. */
+    }
+    openWifiDialog(_config) {
         /* Do nothing. */
     }
 }

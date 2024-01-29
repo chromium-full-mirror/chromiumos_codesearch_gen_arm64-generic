@@ -16,11 +16,8 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
       </div>
     </div>
 
-    
-    <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-    </iron-media-query>
     <template is="dom-if" if="[[!errorTitle_]]" restamp>
-      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_(isDarkModeActive_, isJellyEnabled_)]]" autoplay dynamic aria-hidden>
+      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_()]]" autoplay dynamic aria-hidden>
       </cros-lottie-renderer>
     </template>
 

@@ -4,10 +4,10 @@
 import '../../definitions/file_manager_private.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { assertEquals } from 'chrome://webui-test/chromeos/chai_assert.js';
-import { MockProgressCenter } from '../../background/js/mock_progress_center.js';
 import { installMockChrome } from '../../common/js/mock_chrome.js';
-import { MetadataModelInterface } from '../../externs/metadata_model.js';
+import { MockMetadataModel } from '../../foreground/js/metadata/mock_metadata.js';
 import { DriveSyncHandlerImpl } from './drive_sync_handler.js';
+import { MockProgressCenter } from './mock_progress_center.js';
 /**
  * Global progress center object.
  */
@@ -111,7 +111,7 @@ export function setUp() {
     progressCenter = new MockProgressCenter();
     // Create DriveSyncHandlerImpl.
     driveSyncHandler = new DriveSyncHandlerImpl(progressCenter);
-    driveSyncHandler.metadataModel = new MetadataModelInterface();
+    driveSyncHandler.metadataModel = new MockMetadataModel({});
 }
 // Test that in general case item IDs produced for errors are unique.
 export function testUniqueErrorIds() {

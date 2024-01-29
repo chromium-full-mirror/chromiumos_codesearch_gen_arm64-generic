@@ -149,6 +149,8 @@ bool KerberosInBrowserStubDispatch::Accept(
           reinterpret_cast<internal::KerberosInBrowser_ShowKerberosInBrowserDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KerberosInBrowser.0
       bool success = true;
       KerberosInBrowser_ShowKerberosInBrowserDialog_ParamsDataView input_data_view(params, message);
       
@@ -161,7 +163,7 @@ bool KerberosInBrowserStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowKerberosInBrowserDialog();
+      impl->ShowKerberosInBrowserDialog(        );
       return true;
     }
   }

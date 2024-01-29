@@ -319,6 +319,8 @@ bool ImageReleaseCallbackStubDispatch::Accept(
           reinterpret_cast<internal::ImageReleaseCallback_Release_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImageReleaseCallback.0
       bool success = true;
       ::gpu::SyncToken p_token{};
       ImageReleaseCallback_Release_ParamsDataView input_data_view(params, message);
@@ -334,8 +336,8 @@ bool ImageReleaseCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Release(
-std::move(p_token));
+      impl->Release(        
+        std::move(p_token));
       return true;
     }
   }

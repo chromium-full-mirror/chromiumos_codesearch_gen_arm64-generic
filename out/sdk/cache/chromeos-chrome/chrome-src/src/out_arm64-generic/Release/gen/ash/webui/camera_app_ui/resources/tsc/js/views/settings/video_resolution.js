@@ -40,7 +40,8 @@ export class VideoResolutionSettings extends BaseSettings {
         util.clearMenu(this.menu);
         for (const { deviceId, facing, options } of groups) {
             util.addTextItemToMenu(this.menu, '#resolution-label-template', util.getLabelFromFacing(facing));
-            if (options.length === 1) {
+            if (options.length === 1 &&
+                this.getSupportedConstFpsOptionsLength(options[0]) <= 1) {
                 util.addTextItemToMenu(this.menu, '#resolution-text-template', I18nString.LABEL_NO_RESOLUTION_OPTION);
             }
             else {
@@ -51,6 +52,12 @@ export class VideoResolutionSettings extends BaseSettings {
         }
         setupI18nElements(this.menu);
         this.menu.scrollTop = this.menuScrollTop;
+    }
+    getSupportedConstFpsOptionsLength(option) {
+        return option.fpsOptions
+            .filter((fpsOption) => fpsOption.constFps !== null &&
+            SUPPORTED_CONSTANT_FPS.includes(fpsOption.constFps))
+            .length;
     }
     addResolutionItem(deviceId, facing, option) {
         const optionElement = instantiateTemplate('#video-resolution-item-template');
@@ -68,11 +75,11 @@ export class VideoResolutionSettings extends BaseSettings {
         const deviceName = loadTimeData.getI18nMessage(util.getLabelFromFacing(facing));
         span.setAttribute('aria-label', `${deviceName} ${text}`);
         // Currently FPS buttons are only supported on external cameras.
-        const constFpsOptions = option.fpsOptions.filter((fpsOption) => SUPPORTED_CONSTANT_FPS.some((fps) => fps === fpsOption.constFps));
+        const constFpsOptionsLength = this.getSupportedConstFpsOptionsLength(option);
         let resolution = null;
         for (const fps of SUPPORTED_CONSTANT_FPS) {
             const fpsButton = dom.getFrom(optionElement, `.fps-${fps}`, HTMLButtonElement);
-            if (constFpsOptions.length <= 1) {
+            if (constFpsOptionsLength <= 1) {
                 fpsButton.classList.add('invisible');
                 fpsButton.hidden = true;
             }

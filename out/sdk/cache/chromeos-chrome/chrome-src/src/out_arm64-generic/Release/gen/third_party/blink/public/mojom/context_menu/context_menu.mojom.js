@@ -379,6 +379,7 @@
     this.x = 0;
     this.y = 0;
     this.hasImageContents = false;
+    this.isImageMediaPluginDocument = false;
     this.spellcheckEnabled = false;
     this.isEditable = false;
     this.openedFromHighlight = false;
@@ -469,6 +470,7 @@
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, url$.Url, false);
     if (err !== validator.validationError.NONE)
         return err;
+
 
 
 
@@ -591,12 +593,13 @@
         decoder.decodeStruct(codec.Int32);
     packed = decoder.readUint8();
     val.hasImageContents = (packed >> 0) & 1 ? true : false;
-    val.spellcheckEnabled = (packed >> 1) & 1 ? true : false;
-    val.isEditable = (packed >> 2) & 1 ? true : false;
-    val.openedFromHighlight = (packed >> 3) & 1 ? true : false;
-    val.form_control_type_$flag = (packed >> 4) & 1 ? true : false;
-    val.isContentEditableForAutofill = (packed >> 5) & 1 ? true : false;
-    val.isPasswordTypeByHeuristics = (packed >> 6) & 1 ? true : false;
+    val.isImageMediaPluginDocument = (packed >> 1) & 1 ? true : false;
+    val.spellcheckEnabled = (packed >> 2) & 1 ? true : false;
+    val.isEditable = (packed >> 3) & 1 ? true : false;
+    val.openedFromHighlight = (packed >> 4) & 1 ? true : false;
+    val.form_control_type_$flag = (packed >> 5) & 1 ? true : false;
+    val.isContentEditableForAutofill = (packed >> 6) & 1 ? true : false;
+    val.isPasswordTypeByHeuristics = (packed >> 7) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -668,12 +671,13 @@
     encoder.encodeStruct(codec.Int32, val.y);
     packed = 0;
     packed |= (val.hasImageContents & 1) << 0
-    packed |= (val.spellcheckEnabled & 1) << 1
-    packed |= (val.isEditable & 1) << 2
-    packed |= (val.openedFromHighlight & 1) << 3
-    packed |= (val.form_control_type_$flag & 1) << 4
-    packed |= (val.isContentEditableForAutofill & 1) << 5
-    packed |= (val.isPasswordTypeByHeuristics & 1) << 6
+    packed |= (val.isImageMediaPluginDocument & 1) << 1
+    packed |= (val.spellcheckEnabled & 1) << 2
+    packed |= (val.isEditable & 1) << 3
+    packed |= (val.openedFromHighlight & 1) << 4
+    packed |= (val.form_control_type_$flag & 1) << 5
+    packed |= (val.isContentEditableForAutofill & 1) << 6
+    packed |= (val.isPasswordTypeByHeuristics & 1) << 7
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

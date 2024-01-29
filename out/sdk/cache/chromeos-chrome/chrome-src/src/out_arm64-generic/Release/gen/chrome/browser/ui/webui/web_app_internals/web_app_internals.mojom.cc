@@ -844,6 +844,8 @@ bool WebAppInternalsHandler_GetDebugInfoAsJsonString_ForwardToCallback::Accept(
           internal::WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.0
   bool success = true;
   std::string p_result{};
   WebAppInternalsHandler_GetDebugInfoAsJsonString_ResponseParamsDataView input_data_view(params, message);
@@ -973,6 +975,8 @@ bool WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ForwardToCallback:
           internal::WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.1
   bool success = true;
   InstallIsolatedWebAppResultPtr p_result{};
   WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ResponseParamsDataView input_data_view(params, message);
@@ -1102,6 +1106,8 @@ bool WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Forw
           internal::WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.2
   bool success = true;
   InstallIsolatedWebAppResultPtr p_result{};
   WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseParamsDataView input_data_view(params, message);
@@ -1231,6 +1237,8 @@ bool WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ForwardToCallback::Acce
           internal::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.3
   bool success = true;
   std::string p_result{};
   WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParamsDataView input_data_view(params, message);
@@ -1360,6 +1368,8 @@ bool WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Forwa
           internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.4
   bool success = true;
   std::string p_result{};
   WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParamsDataView input_data_view(params, message);
@@ -1489,6 +1499,8 @@ bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ForwardToCallback::Ac
           internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.5
   bool success = true;
   std::string p_result{};
   WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParamsDataView input_data_view(params, message);
@@ -1618,6 +1630,8 @@ bool WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ForwardToCallback::A
           internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppInternalsHandler.6
   bool success = true;
   std::vector<IwaDevModeAppInfoPtr> p_apps{};
   WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1738,6 +1752,8 @@ bool WebAppInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::WebAppInternalsHandler_GetDebugInfoAsJsonString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.0
       bool success = true;
       WebAppInternalsHandler_GetDebugInfoAsJsonString_ParamsDataView input_data_view(params, message);
       
@@ -1763,6 +1779,8 @@ bool WebAppInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.1
       bool success = true;
       ::GURL p_url{};
       WebAppInternalsHandler_InstallIsolatedWebAppFromDevProxy_ParamsDataView input_data_view(params, message);
@@ -1781,8 +1799,8 @@ bool WebAppInternalsHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallIsolatedWebAppFromDevProxy(
-std::move(p_url), std::move(callback));
+      impl->InstallIsolatedWebAppFromDevProxy(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kWebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Name: {
@@ -1792,6 +1810,8 @@ std::move(p_url), std::move(callback));
               internal::WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.2
       bool success = true;
       WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ParamsDataView input_data_view(params, message);
       
@@ -1817,6 +1837,8 @@ std::move(p_url), std::move(callback));
               internal::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.3
       bool success = true;
       std::string p_app_id{};
       WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ParamsDataView input_data_view(params, message);
@@ -1835,8 +1857,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDevProxyIsolatedWebApp(
-std::move(p_app_id), std::move(callback));
+      impl->UpdateDevProxyIsolatedWebApp(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kWebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Name: {
@@ -1846,6 +1868,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.4
       bool success = true;
       std::string p_app_id{};
       WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ParamsDataView input_data_view(params, message);
@@ -1864,8 +1888,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectFileAndUpdateIsolatedWebAppFromDevBundle(
-std::move(p_app_id), std::move(callback));
+      impl->SelectFileAndUpdateIsolatedWebAppFromDevBundle(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kWebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Name: {
@@ -1875,6 +1899,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.5
       bool success = true;
       WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ParamsDataView input_data_view(params, message);
       
@@ -1900,6 +1926,8 @@ std::move(p_app_id), std::move(callback));
               internal::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppInternalsHandler.6
       bool success = true;
       WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ParamsDataView input_data_view(params, message);
       

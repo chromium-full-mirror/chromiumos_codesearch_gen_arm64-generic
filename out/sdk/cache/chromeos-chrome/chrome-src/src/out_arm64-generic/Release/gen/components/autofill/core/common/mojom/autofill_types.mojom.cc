@@ -839,6 +839,82 @@ bool FormFieldData::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+FormFieldData_FillData::FormFieldData_FillData()
+    : value(),
+      unique_renderer_id(),
+      is_autofilled(),
+      section(),
+      force_override() {}
+
+FormFieldData_FillData::FormFieldData_FillData(
+    const ::std::u16string& value_in,
+    ::autofill::FieldRendererId unique_renderer_id_in,
+    bool is_autofilled_in,
+    const ::autofill::Section& section_in,
+    bool force_override_in)
+    : value(std::move(value_in)),
+      unique_renderer_id(std::move(unique_renderer_id_in)),
+      is_autofilled(std::move(is_autofilled_in)),
+      section(std::move(section_in)),
+      force_override(std::move(force_override_in)) {}
+
+FormFieldData_FillData::~FormFieldData_FillData() = default;
+
+void FormFieldData_FillData::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "value"), this->value,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::std::u16string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "unique_renderer_id"), this->unique_renderer_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::autofill::FieldRendererId>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_autofilled"), this->is_autofilled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "section"), this->section,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::autofill::Section&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "force_override"), this->force_override,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FormFieldData_FillData::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ButtonTitleInfo::ButtonTitleInfo()
     : title(),
       type() {}
@@ -1051,6 +1127,46 @@ bool FormData::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+FormData_FillData::FormData_FillData()
+    : unique_renderer_id(),
+      fields() {}
+
+FormData_FillData::FormData_FillData(
+    ::autofill::FormRendererId unique_renderer_id_in,
+    std::vector<::autofill::FormFieldData::FillData> fields_in)
+    : unique_renderer_id(std::move(unique_renderer_id_in)),
+      fields(std::move(fields_in)) {}
+
+FormData_FillData::~FormData_FillData() = default;
+
+void FormData_FillData::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "unique_renderer_id"), this->unique_renderer_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::autofill::FormRendererId>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fields"), this->fields,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<::autofill::FormFieldData::FillData>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FormData_FillData::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 FormFieldDataPredictions::FormFieldDataPredictions()
     : host_form_signature(),
       signature(),
@@ -1069,7 +1185,7 @@ FormFieldDataPredictions::FormFieldDataPredictions(
     const std::string& host_form_signature_in,
     const std::string& signature_in,
     const std::string& heuristic_type_in,
-    const std::string& server_type_in,
+    const std::optional<std::string>& server_type_in,
     const std::string& html_type_in,
     const std::string& overall_type_in,
     const std::string& parseable_name_in,
@@ -1127,7 +1243,7 @@ void FormFieldDataPredictions::WriteIntoTrace(
     dict.AddItem(
       "server_type"), this->server_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1962,6 +2078,28 @@ bool StructTraits<::autofill::mojom::FormFieldData::DataView, ::autofill::mojom:
 
 
 // static
+bool StructTraits<::autofill::mojom::FormFieldData_FillData::DataView, ::autofill::mojom::FormFieldData_FillDataPtr>::Read(
+    ::autofill::mojom::FormFieldData_FillData::DataView input,
+    ::autofill::mojom::FormFieldData_FillDataPtr* output) {
+  bool success = true;
+  ::autofill::mojom::FormFieldData_FillDataPtr result(::autofill::mojom::FormFieldData_FillData::New());
+  
+      if (success && !input.ReadValue(&result->value))
+        success = false;
+      if (success && !input.ReadUniqueRendererId(&result->unique_renderer_id))
+        success = false;
+      if (success)
+        result->is_autofilled = input.is_autofilled();
+      if (success && !input.ReadSection(&result->section))
+        success = false;
+      if (success)
+        result->force_override = input.force_override();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::autofill::mojom::ButtonTitleInfo::DataView, ::autofill::mojom::ButtonTitleInfoPtr>::Read(
     ::autofill::mojom::ButtonTitleInfo::DataView input,
     ::autofill::mojom::ButtonTitleInfoPtr* output) {
@@ -2010,6 +2148,22 @@ bool StructTraits<::autofill::mojom::FormData::DataView, ::autofill::mojom::Form
         success = false;
       if (success)
         result->is_gaia_with_skip_save_password_form = input.is_gaia_with_skip_save_password_form();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::autofill::mojom::FormData_FillData::DataView, ::autofill::mojom::FormData_FillDataPtr>::Read(
+    ::autofill::mojom::FormData_FillData::DataView input,
+    ::autofill::mojom::FormData_FillDataPtr* output) {
+  bool success = true;
+  ::autofill::mojom::FormData_FillDataPtr result(::autofill::mojom::FormData_FillData::New());
+  
+      if (success && !input.ReadUniqueRendererId(&result->unique_renderer_id))
+        success = false;
+      if (success && !input.ReadFields(&result->fields))
+        success = false;
   *output = std::move(result);
   return success;
 }

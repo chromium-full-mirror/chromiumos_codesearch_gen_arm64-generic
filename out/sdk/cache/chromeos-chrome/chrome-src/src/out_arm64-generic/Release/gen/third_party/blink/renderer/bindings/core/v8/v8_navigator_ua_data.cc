@@ -11,6 +11,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigator_ua_data.h"
 
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "third_party/blink/renderer/bindings/core/v8/frozen_array.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
@@ -33,7 +34,7 @@ namespace blink {
 
 bool V8NavigatorUAData::IsExposed(ExecutionContext* execution_context) {
   
-return (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) && RuntimeEnabledFeatures::UserAgentClientHintEnabled();
+return execution_context->IsWindow() || execution_context->IsWorkerGlobalScope();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -84,22 +85,19 @@ BLINK_BINDINGS_TRACE_EVENT("NavigatorUAData.brands.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NavigatorUAData.brands.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNavigatorUAData_Brands);
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 NavigatorUAData* blink_receiver = V8NavigatorUAData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->brands();
-if (!ToV8Traits<IDLArray<NavigatorUABrandVersion>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<NavigatorUABrandVersion>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -112,7 +110,8 @@ BLINK_BINDINGS_TRACE_EVENT("NavigatorUAData.mobile.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NavigatorUAData.mobile.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNavigatorUAData_Mobile);
 
@@ -135,7 +134,8 @@ BLINK_BINDINGS_TRACE_EVENT("NavigatorUAData.platform.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NavigatorUAData.platform.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNavigatorUAData_Platform);
 
@@ -170,7 +170,8 @@ return;
 // [HighEntropy]
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NavigatorUAData.getHighEntropyValues", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNavigatorUAData_GetHighEntropyValues);
 
@@ -184,8 +185,7 @@ return;
 
 
 NavigatorUAData* blink_receiver = V8NavigatorUAData::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_hints = NativeValueTraits<IDLSequence<IDLString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -211,8 +211,7 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NavigatorUAData.toJ
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 NavigatorUAData* blink_receiver = V8NavigatorUAData::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->toJSON(script_state);
 bindings::V8SetReturnValue(info, return_value);

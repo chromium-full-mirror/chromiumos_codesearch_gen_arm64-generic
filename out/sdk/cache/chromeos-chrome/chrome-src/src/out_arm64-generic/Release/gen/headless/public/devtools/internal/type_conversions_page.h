@@ -1533,6 +1533,8 @@ struct FromValue<page::BackForwardCacheNotRestoredReason> {
       return page::BackForwardCacheNotRestoredReason::SMART_CARD;
     if (value.GetString() == "LiveMediaStreamTrack")
       return page::BackForwardCacheNotRestoredReason::LIVE_MEDIA_STREAM_TRACK;
+    if (value.GetString() == "UnloadHandler")
+      return page::BackForwardCacheNotRestoredReason::UNLOAD_HANDLER;
     if (value.GetString() == "ContentSecurityHandler")
       return page::BackForwardCacheNotRestoredReason::CONTENT_SECURITY_HANDLER;
     if (value.GetString() == "ContentWebAuthenticationAPI")
@@ -1801,6 +1803,8 @@ inline base::Value ToValue(const page::BackForwardCacheNotRestoredReason& value)
       return base::Value("SmartCard");
     case page::BackForwardCacheNotRestoredReason::LIVE_MEDIA_STREAM_TRACK:
       return base::Value("LiveMediaStreamTrack");
+    case page::BackForwardCacheNotRestoredReason::UNLOAD_HANDLER:
+      return base::Value("UnloadHandler");
     case page::BackForwardCacheNotRestoredReason::CONTENT_SECURITY_HANDLER:
       return base::Value("ContentSecurityHandler");
     case page::BackForwardCacheNotRestoredReason::CONTENT_WEB_AUTHENTICATIONAPI:

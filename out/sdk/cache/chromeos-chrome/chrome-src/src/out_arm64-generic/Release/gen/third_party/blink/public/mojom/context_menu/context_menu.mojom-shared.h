@@ -356,6 +356,9 @@ static_assert(
   bool has_image_contents() const {
     return data_->has_image_contents;
   }
+  bool is_image_media_plugin_document() const {
+    return data_->is_image_media_plugin_document;
+  }
   int32_t media_flags() const {
     return data_->media_flags;
   }
@@ -829,6 +832,7 @@ struct Serializer<::blink::mojom::UntrustworthyContextMenuParamsDataView, MaybeC
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null src_url in UntrustworthyContextMenuParams struct");
     fragment->has_image_contents = Traits::has_image_contents(input);
+    fragment->is_image_media_plugin_document = Traits::is_image_media_plugin_document(input);
     fragment->media_flags = Traits::media_flags(input);
     decltype(Traits::selection_text(input)) in_selection_text = Traits::selection_text(input);
     mojo::internal::MessageFragment<

@@ -429,6 +429,8 @@ bool GeolocationService_GetWifiAccessPoints_ForwardToCallback::Accept(
           internal::GeolocationService_GetWifiAccessPoints_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GeolocationService.0
   bool success = true;
   bool p_service_initialized{};
   bool p_data_available{};
@@ -552,6 +554,8 @@ bool GeolocationServiceStubDispatch::Accept(
           reinterpret_cast<internal::GeolocationService_TrackGeolocationAttempted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationService.1
       bool success = true;
       std::string p_origin{};
       GeolocationService_TrackGeolocationAttempted_ParamsDataView input_data_view(params, message);
@@ -567,8 +571,8 @@ bool GeolocationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TrackGeolocationAttempted(
-std::move(p_origin));
+      impl->TrackGeolocationAttempted(        
+        std::move(p_origin));
       return true;
     }
     case internal::kGeolocationService_TrackGeolocationRelinquished_Name: {
@@ -578,6 +582,8 @@ std::move(p_origin));
           reinterpret_cast<internal::GeolocationService_TrackGeolocationRelinquished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationService.2
       bool success = true;
       std::string p_origin{};
       GeolocationService_TrackGeolocationRelinquished_ParamsDataView input_data_view(params, message);
@@ -593,8 +599,8 @@ std::move(p_origin));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TrackGeolocationRelinquished(
-std::move(p_origin));
+      impl->TrackGeolocationRelinquished(        
+        std::move(p_origin));
       return true;
     }
   }
@@ -617,6 +623,8 @@ bool GeolocationServiceStubDispatch::AcceptWithResponder(
               internal::GeolocationService_GetWifiAccessPoints_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GeolocationService.0
       bool success = true;
       GeolocationService_GetWifiAccessPoints_ParamsDataView input_data_view(params, message);
       

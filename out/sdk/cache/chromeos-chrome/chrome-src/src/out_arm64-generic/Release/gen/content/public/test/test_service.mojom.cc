@@ -1142,6 +1142,8 @@ bool TestService_DoSomething_ForwardToCallback::Accept(
           internal::TestService_DoSomething_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.0
   bool success = true;
   TestService_DoSomething_ResponseParamsDataView input_data_view(params, message);
   
@@ -1249,6 +1251,8 @@ bool TestService_DoTerminateProcess_ForwardToCallback::Accept(
           internal::TestService_DoTerminateProcess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.1
   bool success = true;
   TestService_DoTerminateProcess_ResponseParamsDataView input_data_view(params, message);
   
@@ -1356,6 +1360,8 @@ bool TestService_DoCrashImmediately_ForwardToCallback::Accept(
           internal::TestService_DoCrashImmediately_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.2
   bool success = true;
   TestService_DoCrashImmediately_ResponseParamsDataView input_data_view(params, message);
   
@@ -1463,6 +1469,8 @@ bool TestService_CreateFolder_ForwardToCallback::Accept(
           internal::TestService_CreateFolder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.3
   bool success = true;
   bool p_succeeded{};
   TestService_CreateFolder_ResponseParamsDataView input_data_view(params, message);
@@ -1582,6 +1590,8 @@ bool TestService_GetRequestorName_ForwardToCallback::Accept(
           internal::TestService_GetRequestorName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.4
   bool success = true;
   std::string p_name{};
   TestService_GetRequestorName_ResponseParamsDataView input_data_view(params, message);
@@ -1711,6 +1721,8 @@ bool TestService_CreateReadOnlySharedMemoryRegion_ForwardToCallback::Accept(
           internal::TestService_CreateReadOnlySharedMemoryRegion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.5
   bool success = true;
   ::base::ReadOnlySharedMemoryRegion p_region{};
   TestService_CreateReadOnlySharedMemoryRegion_ResponseParamsDataView input_data_view(params, message);
@@ -1836,6 +1848,8 @@ bool TestService_CreateWritableSharedMemoryRegion_ForwardToCallback::Accept(
           internal::TestService_CreateWritableSharedMemoryRegion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.6
   bool success = true;
   ::base::WritableSharedMemoryRegion p_region{};
   TestService_CreateWritableSharedMemoryRegion_ResponseParamsDataView input_data_view(params, message);
@@ -1961,6 +1975,8 @@ bool TestService_CreateUnsafeSharedMemoryRegion_ForwardToCallback::Accept(
           internal::TestService_CreateUnsafeSharedMemoryRegion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.7
   bool success = true;
   ::base::UnsafeSharedMemoryRegion p_region{};
   TestService_CreateUnsafeSharedMemoryRegion_ResponseParamsDataView input_data_view(params, message);
@@ -2086,6 +2102,8 @@ bool TestService_CloneSharedMemoryContents_ForwardToCallback::Accept(
           internal::TestService_CloneSharedMemoryContents_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.8
   bool success = true;
   ::base::UnsafeSharedMemoryRegion p_new_region{};
   TestService_CloneSharedMemoryContents_ResponseParamsDataView input_data_view(params, message);
@@ -2215,6 +2233,8 @@ bool TestService_IsProcessSandboxed_ForwardToCallback::Accept(
           internal::TestService_IsProcessSandboxed_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.9
   bool success = true;
   bool p_is_sandboxed{};
   TestService_IsProcessSandboxed_ResponseParamsDataView input_data_view(params, message);
@@ -2334,6 +2354,8 @@ bool TestService_PseudonymizeString_ForwardToCallback::Accept(
           internal::TestService_PseudonymizeString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.10
   bool success = true;
   uint32_t p_result{};
   TestService_PseudonymizeString_ResponseParamsDataView input_data_view(params, message);
@@ -2453,6 +2475,8 @@ bool TestService_PassWriteableFile_ForwardToCallback::Accept(
           internal::TestService_PassWriteableFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TestService.11
   bool success = true;
   TestService_PassWriteableFile_ResponseParamsDataView input_data_view(params, message);
   
@@ -2551,6 +2575,8 @@ bool TestServiceStubDispatch::Accept(
           reinterpret_cast<internal::TestService_WriteToPreloadedPipe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestService.12
       bool success = true;
       TestService_WriteToPreloadedPipe_ParamsDataView input_data_view(params, message);
       
@@ -2563,7 +2589,7 @@ bool TestServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteToPreloadedPipe();
+      impl->WriteToPreloadedPipe(        );
       return true;
     }
   }
@@ -2586,6 +2612,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               internal::TestService_DoSomething_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.0
       bool success = true;
       TestService_DoSomething_ParamsDataView input_data_view(params, message);
       
@@ -2611,6 +2639,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               internal::TestService_DoTerminateProcess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.1
       bool success = true;
       TestService_DoTerminateProcess_ParamsDataView input_data_view(params, message);
       
@@ -2636,6 +2666,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               internal::TestService_DoCrashImmediately_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.2
       bool success = true;
       TestService_DoCrashImmediately_ParamsDataView input_data_view(params, message);
       
@@ -2661,6 +2693,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               internal::TestService_CreateFolder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.3
       bool success = true;
       TestService_CreateFolder_ParamsDataView input_data_view(params, message);
       
@@ -2686,6 +2720,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               internal::TestService_GetRequestorName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.4
       bool success = true;
       TestService_GetRequestorName_ParamsDataView input_data_view(params, message);
       
@@ -2711,6 +2747,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               internal::TestService_CreateReadOnlySharedMemoryRegion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.5
       bool success = true;
       std::string p_message{};
       TestService_CreateReadOnlySharedMemoryRegion_ParamsDataView input_data_view(params, message);
@@ -2729,8 +2767,8 @@ bool TestServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateReadOnlySharedMemoryRegion(
-std::move(p_message), std::move(callback));
+      impl->CreateReadOnlySharedMemoryRegion(        
+        std::move(p_message), std::move(callback));
       return true;
     }
     case internal::kTestService_CreateWritableSharedMemoryRegion_Name: {
@@ -2740,6 +2778,8 @@ std::move(p_message), std::move(callback));
               internal::TestService_CreateWritableSharedMemoryRegion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.6
       bool success = true;
       std::string p_message{};
       TestService_CreateWritableSharedMemoryRegion_ParamsDataView input_data_view(params, message);
@@ -2758,8 +2798,8 @@ std::move(p_message), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWritableSharedMemoryRegion(
-std::move(p_message), std::move(callback));
+      impl->CreateWritableSharedMemoryRegion(        
+        std::move(p_message), std::move(callback));
       return true;
     }
     case internal::kTestService_CreateUnsafeSharedMemoryRegion_Name: {
@@ -2769,6 +2809,8 @@ std::move(p_message), std::move(callback));
               internal::TestService_CreateUnsafeSharedMemoryRegion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.7
       bool success = true;
       std::string p_message{};
       TestService_CreateUnsafeSharedMemoryRegion_ParamsDataView input_data_view(params, message);
@@ -2787,8 +2829,8 @@ std::move(p_message), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUnsafeSharedMemoryRegion(
-std::move(p_message), std::move(callback));
+      impl->CreateUnsafeSharedMemoryRegion(        
+        std::move(p_message), std::move(callback));
       return true;
     }
     case internal::kTestService_CloneSharedMemoryContents_Name: {
@@ -2798,6 +2840,8 @@ std::move(p_message), std::move(callback));
               internal::TestService_CloneSharedMemoryContents_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.8
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_region{};
       TestService_CloneSharedMemoryContents_ParamsDataView input_data_view(params, message);
@@ -2816,8 +2860,8 @@ std::move(p_message), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloneSharedMemoryContents(
-std::move(p_region), std::move(callback));
+      impl->CloneSharedMemoryContents(        
+        std::move(p_region), std::move(callback));
       return true;
     }
     case internal::kTestService_IsProcessSandboxed_Name: {
@@ -2827,6 +2871,8 @@ std::move(p_region), std::move(callback));
               internal::TestService_IsProcessSandboxed_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.9
       bool success = true;
       TestService_IsProcessSandboxed_ParamsDataView input_data_view(params, message);
       
@@ -2852,6 +2898,8 @@ std::move(p_region), std::move(callback));
               internal::TestService_PseudonymizeString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.10
       bool success = true;
       std::string p_value{};
       TestService_PseudonymizeString_ParamsDataView input_data_view(params, message);
@@ -2870,8 +2918,8 @@ std::move(p_region), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PseudonymizeString(
-std::move(p_value), std::move(callback));
+      impl->PseudonymizeString(        
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kTestService_PassWriteableFile_Name: {
@@ -2881,6 +2929,8 @@ std::move(p_value), std::move(callback));
               internal::TestService_PassWriteableFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TestService.11
       bool success = true;
       ::base::File p_file{};
       TestService_PassWriteableFile_ParamsDataView input_data_view(params, message);
@@ -2899,8 +2949,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PassWriteableFile(
-std::move(p_file), std::move(callback));
+      impl->PassWriteableFile(        
+        std::move(p_file), std::move(callback));
       return true;
     }
     case internal::kTestService_WriteToPreloadedPipe_Name: {

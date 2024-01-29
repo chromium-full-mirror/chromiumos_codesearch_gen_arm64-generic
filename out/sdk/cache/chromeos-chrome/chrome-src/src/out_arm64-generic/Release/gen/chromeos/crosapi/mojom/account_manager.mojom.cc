@@ -753,6 +753,8 @@ bool AccountManagerObserverStubDispatch::Accept(
           reinterpret_cast<internal::AccountManagerObserver_OnTokenUpserted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountManagerObserver.0
       bool success = true;
       AccountPtr p_account{};
       AccountManagerObserver_OnTokenUpserted_ParamsDataView input_data_view(params, message);
@@ -768,8 +770,8 @@ bool AccountManagerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTokenUpserted(
-std::move(p_account));
+      impl->OnTokenUpserted(        
+        std::move(p_account));
       return true;
     }
     case internal::kAccountManagerObserver_OnAccountRemoved_Name: {
@@ -779,6 +781,8 @@ std::move(p_account));
           reinterpret_cast<internal::AccountManagerObserver_OnAccountRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountManagerObserver.1
       bool success = true;
       AccountPtr p_account{};
       AccountManagerObserver_OnAccountRemoved_ParamsDataView input_data_view(params, message);
@@ -794,8 +798,8 @@ std::move(p_account));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAccountRemoved(
-std::move(p_account));
+      impl->OnAccountRemoved(        
+        std::move(p_account));
       return true;
     }
     case internal::kAccountManagerObserver_OnAuthErrorChanged_Name: {
@@ -805,6 +809,8 @@ std::move(p_account));
           reinterpret_cast<internal::AccountManagerObserver_OnAuthErrorChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountManagerObserver.2
       bool success = true;
       AccountKeyPtr p_account{};
       GoogleServiceAuthErrorPtr p_error{};
@@ -823,9 +829,9 @@ std::move(p_account));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthErrorChanged(
-std::move(p_account), 
-std::move(p_error));
+      impl->OnAuthErrorChanged(        
+        std::move(p_account), 
+        std::move(p_error));
       return true;
     }
     case internal::kAccountManagerObserver_OnSigninDialogClosed_Name: {
@@ -835,6 +841,8 @@ std::move(p_error));
           reinterpret_cast<internal::AccountManagerObserver_OnSigninDialogClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountManagerObserver.3
       bool success = true;
       AccountManagerObserver_OnSigninDialogClosed_ParamsDataView input_data_view(params, message);
       
@@ -847,7 +855,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSigninDialogClosed();
+      impl->OnSigninDialogClosed(        );
       return true;
     }
   }
@@ -1703,6 +1711,8 @@ bool AccountManager_IsInitialized_ForwardToCallback::Accept(
           internal::AccountManager_IsInitialized_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.0
   bool success = true;
   bool p_is_initialized{};
   AccountManager_IsInitialized_ResponseParamsDataView input_data_view(params, message);
@@ -1822,6 +1832,8 @@ bool AccountManager_AddObserver_ForwardToCallback::Accept(
           internal::AccountManager_AddObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.1
   bool success = true;
   ::mojo::PendingReceiver<AccountManagerObserver> p_receiver{};
   AccountManager_AddObserver_ResponseParamsDataView input_data_view(params, message);
@@ -1948,6 +1960,8 @@ bool AccountManager_GetAccounts_ForwardToCallback::Accept(
           internal::AccountManager_GetAccounts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.2
   bool success = true;
   std::vector<AccountPtr> p_accounts{};
   AccountManager_GetAccounts_ResponseParamsDataView input_data_view(params, message);
@@ -2079,6 +2093,8 @@ bool AccountManager_ShowAddAccountDialog_ForwardToCallback::Accept(
           internal::AccountManager_ShowAddAccountDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.3
   bool success = true;
   AccountUpsertionResultPtr p_result{};
   AccountManager_ShowAddAccountDialog_ResponseParamsDataView input_data_view(params, message);
@@ -2208,6 +2224,8 @@ bool AccountManager_ShowReauthAccountDialog_ForwardToCallback::Accept(
           internal::AccountManager_ShowReauthAccountDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.4
   bool success = true;
   AccountUpsertionResultPtr p_result{};
   AccountManager_ShowReauthAccountDialog_ResponseParamsDataView input_data_view(params, message);
@@ -2333,6 +2351,8 @@ bool AccountManager_GetPersistentErrorForAccount_ForwardToCallback::Accept(
           internal::AccountManager_GetPersistentErrorForAccount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.6
   bool success = true;
   GoogleServiceAuthErrorPtr p_error{};
   AccountManager_GetPersistentErrorForAccount_ResponseParamsDataView input_data_view(params, message);
@@ -2462,6 +2482,8 @@ bool AccountManager_CreateAccessTokenFetcher_ForwardToCallback::Accept(
           internal::AccountManager_CreateAccessTokenFetcher_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccountManager.7
   bool success = true;
   ::mojo::PendingRemote<AccessTokenFetcher> p_access_token_fetcher{};
   AccountManager_CreateAccessTokenFetcher_ResponseParamsDataView input_data_view(params, message);
@@ -2558,6 +2580,8 @@ bool AccountManagerStubDispatch::Accept(
           reinterpret_cast<internal::AccountManager_ShowManageAccountsSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountManager.5
       bool success = true;
       AccountManager_ShowManageAccountsSettings_ParamsDataView input_data_view(params, message);
       
@@ -2570,7 +2594,7 @@ bool AccountManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowManageAccountsSettings();
+      impl->ShowManageAccountsSettings(        );
       return true;
     }
     case internal::kAccountManager_GetPersistentErrorForAccount_Name: {
@@ -2586,6 +2610,8 @@ bool AccountManagerStubDispatch::Accept(
           reinterpret_cast<internal::AccountManager_ReportAuthError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccountManager.8
       bool success = true;
       AccountKeyPtr p_account{};
       GoogleServiceAuthErrorPtr p_error{};
@@ -2604,9 +2630,9 @@ bool AccountManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAuthError(
-std::move(p_account), 
-std::move(p_error));
+      impl->ReportAuthError(        
+        std::move(p_account), 
+        std::move(p_error));
       return true;
     }
   }
@@ -2629,6 +2655,8 @@ bool AccountManagerStubDispatch::AcceptWithResponder(
               internal::AccountManager_IsInitialized_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.0
       bool success = true;
       AccountManager_IsInitialized_ParamsDataView input_data_view(params, message);
       
@@ -2654,6 +2682,8 @@ bool AccountManagerStubDispatch::AcceptWithResponder(
               internal::AccountManager_AddObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.1
       bool success = true;
       AccountManager_AddObserver_ParamsDataView input_data_view(params, message);
       
@@ -2679,6 +2709,8 @@ bool AccountManagerStubDispatch::AcceptWithResponder(
               internal::AccountManager_GetAccounts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.2
       bool success = true;
       AccountManager_GetAccounts_ParamsDataView input_data_view(params, message);
       
@@ -2704,6 +2736,8 @@ bool AccountManagerStubDispatch::AcceptWithResponder(
               internal::AccountManager_ShowAddAccountDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.3
       bool success = true;
       AccountAdditionOptionsPtr p_add_account_options{};
       AccountManager_ShowAddAccountDialog_ParamsDataView input_data_view(params, message);
@@ -2722,8 +2756,8 @@ bool AccountManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowAddAccountDialog(
-std::move(p_add_account_options), std::move(callback));
+      impl->ShowAddAccountDialog(        
+        std::move(p_add_account_options), std::move(callback));
       return true;
     }
     case internal::kAccountManager_ShowReauthAccountDialog_Name: {
@@ -2733,6 +2767,8 @@ std::move(p_add_account_options), std::move(callback));
               internal::AccountManager_ShowReauthAccountDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.4
       bool success = true;
       std::string p_email{};
       AccountManager_ShowReauthAccountDialog_ParamsDataView input_data_view(params, message);
@@ -2751,8 +2787,8 @@ std::move(p_add_account_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowReauthAccountDialog(
-std::move(p_email), std::move(callback));
+      impl->ShowReauthAccountDialog(        
+        std::move(p_email), std::move(callback));
       return true;
     }
     case internal::kAccountManager_ShowManageAccountsSettings_Name: {
@@ -2765,6 +2801,8 @@ std::move(p_email), std::move(callback));
               internal::AccountManager_GetPersistentErrorForAccount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.6
       bool success = true;
       AccountKeyPtr p_account{};
       AccountManager_GetPersistentErrorForAccount_ParamsDataView input_data_view(params, message);
@@ -2783,8 +2821,8 @@ std::move(p_email), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPersistentErrorForAccount(
-std::move(p_account), std::move(callback));
+      impl->GetPersistentErrorForAccount(        
+        std::move(p_account), std::move(callback));
       return true;
     }
     case internal::kAccountManager_CreateAccessTokenFetcher_Name: {
@@ -2794,6 +2832,8 @@ std::move(p_account), std::move(callback));
               internal::AccountManager_CreateAccessTokenFetcher_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccountManager.7
       bool success = true;
       AccountKeyPtr p_account_key{};
       std::string p_oauth_consumer_name{};
@@ -2815,9 +2855,9 @@ std::move(p_account), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAccessTokenFetcher(
-std::move(p_account_key), 
-std::move(p_oauth_consumer_name), std::move(callback));
+      impl->CreateAccessTokenFetcher(        
+        std::move(p_account_key), 
+        std::move(p_oauth_consumer_name), std::move(callback));
       return true;
     }
     case internal::kAccountManager_ReportAuthError_Name: {
@@ -3045,6 +3085,8 @@ bool AccessTokenFetcher_Start_ForwardToCallback::Accept(
           internal::AccessTokenFetcher_Start_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessTokenFetcher.0
   bool success = true;
   AccessTokenResultPtr p_result{};
   AccessTokenFetcher_Start_ResponseParamsDataView input_data_view(params, message);
@@ -3143,6 +3185,8 @@ bool AccessTokenFetcherStubDispatch::AcceptWithResponder(
               internal::AccessTokenFetcher_Start_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessTokenFetcher.0
       bool success = true;
       std::vector<std::string> p_scopes{};
       AccessTokenFetcher_Start_ParamsDataView input_data_view(params, message);
@@ -3161,8 +3205,8 @@ bool AccessTokenFetcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_scopes), std::move(callback));
+      impl->Start(        
+        std::move(p_scopes), std::move(callback));
       return true;
     }
   }

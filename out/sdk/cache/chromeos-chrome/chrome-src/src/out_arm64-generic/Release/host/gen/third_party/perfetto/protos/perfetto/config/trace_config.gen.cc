@@ -30,9 +30,12 @@
 #include "protos/perfetto/config/gpu/gpu_counter_config.gen.h"
 #include "protos/perfetto/config/ftrace/ftrace_config.gen.h"
 #include "protos/perfetto/config/etw/etw_config.gen.h"
+#include "protos/perfetto/config/chrome/v8_config.gen.h"
 #include "protos/perfetto/config/chrome/chrome_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_transactions_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_layers_config.gen.h"
+#include "protos/perfetto/config/android/protolog_config.gen.h"
+#include "protos/perfetto/common/protolog_common.gen.h"
 #include "protos/perfetto/config/android/packages_list_config.gen.h"
 #include "protos/perfetto/config/android/network_trace_config.gen.h"
 #include "protos/perfetto/config/android/android_sdk_sysprop_guard_config.gen.h"
@@ -76,13 +79,13 @@ bool TraceConfig::operator==(const TraceConfig& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(data_source_stop_timeout_ms_, other.data_source_stop_timeout_ms_)
    && ::protozero::internal::gen_helpers::EqualsField(notify_traceur_, other.notify_traceur_)
    && ::protozero::internal::gen_helpers::EqualsField(bugreport_score_, other.bugreport_score_)
+   && ::protozero::internal::gen_helpers::EqualsField(bugreport_filename_, other.bugreport_filename_)
    && ::protozero::internal::gen_helpers::EqualsField(trigger_config_, other.trigger_config_)
    && ::protozero::internal::gen_helpers::EqualsField(activate_triggers_, other.activate_triggers_)
    && ::protozero::internal::gen_helpers::EqualsField(incremental_state_config_, other.incremental_state_config_)
    && ::protozero::internal::gen_helpers::EqualsField(allow_user_build_tracing_, other.allow_user_build_tracing_)
    && ::protozero::internal::gen_helpers::EqualsField(unique_session_name_, other.unique_session_name_)
    && ::protozero::internal::gen_helpers::EqualsField(compression_type_, other.compression_type_)
-   && ::protozero::internal::gen_helpers::EqualsField(compress_from_cli_, other.compress_from_cli_)
    && ::protozero::internal::gen_helpers::EqualsField(incident_report_config_, other.incident_report_config_)
    && ::protozero::internal::gen_helpers::EqualsField(statsd_logging_, other.statsd_logging_)
    && ::protozero::internal::gen_helpers::EqualsField(trace_uuid_msb_, other.trace_uuid_msb_)
@@ -178,6 +181,9 @@ bool TraceConfig::ParseFromArray(const void* raw, size_t size) {
       case 30 /* bugreport_score */:
         field.get(&bugreport_score_);
         break;
+      case 38 /* bugreport_filename */:
+        ::protozero::internal::gen_helpers::DeserializeString(field, &bugreport_filename_);
+        break;
       case 17 /* trigger_config */:
         (*trigger_config_).ParseFromArray(field.data(), field.size());
         break;
@@ -196,9 +202,6 @@ bool TraceConfig::ParseFromArray(const void* raw, size_t size) {
         break;
       case 24 /* compression_type */:
         field.get(&compression_type_);
-        break;
-      case 37 /* compress_from_cli */:
-        field.get(&compress_from_cli_);
         break;
       case 25 /* incident_report_config */:
         (*incident_report_config_).ParseFromArray(field.data(), field.size());
@@ -342,6 +345,11 @@ void TraceConfig::Serialize(::protozero::Message* msg) const {
     ::protozero::internal::gen_helpers::SerializeVarInt(30, bugreport_score_, msg);
   }
 
+  // Field 38: bugreport_filename
+  if (_has_field_[38]) {
+    ::protozero::internal::gen_helpers::SerializeString(38, bugreport_filename_, msg);
+  }
+
   // Field 17: trigger_config
   if (_has_field_[17]) {
     (*trigger_config_).Serialize(msg->BeginNestedMessage<::protozero::Message>(17));
@@ -370,11 +378,6 @@ void TraceConfig::Serialize(::protozero::Message* msg) const {
   // Field 24: compression_type
   if (_has_field_[24]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(24, compression_type_, msg);
-  }
-
-  // Field 37: compress_from_cli
-  if (_has_field_[37]) {
-    ::protozero::internal::gen_helpers::SerializeTinyVarInt(37, compress_from_cli_, msg);
   }
 
   // Field 25: incident_report_config

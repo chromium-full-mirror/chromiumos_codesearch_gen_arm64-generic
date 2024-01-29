@@ -166,6 +166,8 @@ bool GoogleAccountsPrivateApiExtensionStubDispatch::Accept(
           reinterpret_cast<internal::GoogleAccountsPrivateApiExtension_SetConsentResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GoogleAccountsPrivateApiExtension.0
       bool success = true;
       std::string p_consent_result{};
       GoogleAccountsPrivateApiExtension_SetConsentResult_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool GoogleAccountsPrivateApiExtensionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetConsentResult(
-std::move(p_consent_result));
+      impl->SetConsentResult(        
+        std::move(p_consent_result));
       return true;
     }
   }

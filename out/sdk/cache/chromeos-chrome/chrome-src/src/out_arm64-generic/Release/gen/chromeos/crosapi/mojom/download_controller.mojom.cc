@@ -899,6 +899,8 @@ bool DownloadControllerClient_GetAllDownloads_ForwardToCallback::Accept(
           internal::DownloadControllerClient_GetAllDownloads_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DownloadControllerClient.5
   bool success = true;
   std::vector<DownloadItemPtr> p_downloads{};
   DownloadControllerClient_GetAllDownloads_ResponseParamsDataView input_data_view(params, message);
@@ -988,6 +990,8 @@ bool DownloadControllerClientStubDispatch::Accept(
           reinterpret_cast<internal::DownloadControllerClient_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadControllerClient.1
       bool success = true;
       std::string p_download_guid{};
       DownloadControllerClient_Pause_ParamsDataView input_data_view(params, message);
@@ -1003,8 +1007,8 @@ bool DownloadControllerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause(
-std::move(p_download_guid));
+      impl->Pause(        
+        std::move(p_download_guid));
       return true;
     }
     case internal::kDownloadControllerClient_Resume_Name: {
@@ -1014,6 +1018,8 @@ std::move(p_download_guid));
           reinterpret_cast<internal::DownloadControllerClient_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadControllerClient.2
       bool success = true;
       std::string p_download_guid{};
       bool p_user_resume{};
@@ -1032,9 +1038,9 @@ std::move(p_download_guid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume(
-std::move(p_download_guid), 
-std::move(p_user_resume));
+      impl->Resume(        
+        std::move(p_download_guid), 
+        std::move(p_user_resume));
       return true;
     }
     case internal::kDownloadControllerClient_Cancel_Name: {
@@ -1044,6 +1050,8 @@ std::move(p_user_resume));
           reinterpret_cast<internal::DownloadControllerClient_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadControllerClient.3
       bool success = true;
       std::string p_download_guid{};
       bool p_user_cancel{};
@@ -1062,9 +1070,9 @@ std::move(p_user_resume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel(
-std::move(p_download_guid), 
-std::move(p_user_cancel));
+      impl->Cancel(        
+        std::move(p_download_guid), 
+        std::move(p_user_cancel));
       return true;
     }
     case internal::kDownloadControllerClient_SetOpenWhenComplete_Name: {
@@ -1074,6 +1082,8 @@ std::move(p_user_cancel));
           reinterpret_cast<internal::DownloadControllerClient_SetOpenWhenComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadControllerClient.4
       bool success = true;
       std::string p_download_guid{};
       bool p_open_when_complete{};
@@ -1092,9 +1102,9 @@ std::move(p_user_cancel));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOpenWhenComplete(
-std::move(p_download_guid), 
-std::move(p_open_when_complete));
+      impl->SetOpenWhenComplete(        
+        std::move(p_download_guid), 
+        std::move(p_open_when_complete));
       return true;
     }
   }
@@ -1117,6 +1127,8 @@ bool DownloadControllerClientStubDispatch::AcceptWithResponder(
               internal::DownloadControllerClient_GetAllDownloads_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DownloadControllerClient.5
       bool success = true;
       DownloadControllerClient_GetAllDownloads_ParamsDataView input_data_view(params, message);
       
@@ -1506,6 +1518,8 @@ bool DownloadControllerStubDispatch::Accept(
           reinterpret_cast<internal::DownloadController_BindClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadController.3
       bool success = true;
       ::mojo::PendingRemote<DownloadControllerClient> p_client{};
       DownloadController_BindClient_ParamsDataView input_data_view(params, message);
@@ -1523,8 +1537,8 @@ bool DownloadControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindClient(
-std::move(p_client));
+      impl->BindClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kDownloadController_OnDownloadCreated_Name: {
@@ -1534,6 +1548,8 @@ std::move(p_client));
           reinterpret_cast<internal::DownloadController_OnDownloadCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadController.0
       bool success = true;
       DownloadItemPtr p_download{};
       DownloadController_OnDownloadCreated_ParamsDataView input_data_view(params, message);
@@ -1549,8 +1565,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDownloadCreated(
-std::move(p_download));
+      impl->OnDownloadCreated(        
+        std::move(p_download));
       return true;
     }
     case internal::kDownloadController_OnDownloadUpdated_Name: {
@@ -1560,6 +1576,8 @@ std::move(p_download));
           reinterpret_cast<internal::DownloadController_OnDownloadUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadController.1
       bool success = true;
       DownloadItemPtr p_download{};
       DownloadController_OnDownloadUpdated_ParamsDataView input_data_view(params, message);
@@ -1575,8 +1593,8 @@ std::move(p_download));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDownloadUpdated(
-std::move(p_download));
+      impl->OnDownloadUpdated(        
+        std::move(p_download));
       return true;
     }
     case internal::kDownloadController_OnDownloadDestroyed_Name: {
@@ -1586,6 +1604,8 @@ std::move(p_download));
           reinterpret_cast<internal::DownloadController_OnDownloadDestroyed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadController.2
       bool success = true;
       DownloadItemPtr p_download{};
       DownloadController_OnDownloadDestroyed_ParamsDataView input_data_view(params, message);
@@ -1601,8 +1621,8 @@ std::move(p_download));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDownloadDestroyed(
-std::move(p_download));
+      impl->OnDownloadDestroyed(        
+        std::move(p_download));
       return true;
     }
   }

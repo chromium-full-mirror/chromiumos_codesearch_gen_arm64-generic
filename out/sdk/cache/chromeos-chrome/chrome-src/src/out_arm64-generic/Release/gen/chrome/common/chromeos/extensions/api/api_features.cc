@@ -58,12 +58,31 @@ void AddChromeOSSystemExtensionsAPIFeatures(FeatureProvider* provider) {
   }
   {
     SimpleFeature* feature = new SimpleFeature();
+    feature->set_name("os.management.setAudioVolume");
+    feature->set_channel(version_info::Channel::STABLE);
+    feature->set_contexts({mojom::ContextType::kPrivilegedExtension});
+    feature->set_dependencies({"permission:os.management.audio"});
+    feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
+    provider->AddFeature("os.management.setAudioVolume", feature);
+  }
+  {
+    SimpleFeature* feature = new SimpleFeature();
     feature->set_name("os.telemetry");
     feature->set_channel(version_info::Channel::STABLE);
     feature->set_contexts({mojom::ContextType::kPrivilegedExtension});
     feature->set_dependencies({"permission:os.telemetry"});
     feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
     provider->AddFeature("os.telemetry", feature);
+  }
+  {
+    SimpleFeature* feature = new SimpleFeature();
+    feature->set_name("os.telemetry.getThermalInfo");
+    feature->set_channel(version_info::Channel::STABLE);
+    feature->set_contexts({mojom::ContextType::kPrivilegedExtension});
+    feature->set_dependencies({"permission:os.telemetry"});
+    feature->set_feature_flag("TelemetryExtensionPendingApprovalApi");
+    feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
+    provider->AddFeature("os.telemetry.getThermalInfo", feature);
   }
 
 }

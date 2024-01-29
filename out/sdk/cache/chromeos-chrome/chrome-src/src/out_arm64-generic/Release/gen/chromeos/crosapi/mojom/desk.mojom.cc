@@ -1083,6 +1083,8 @@ bool DeskEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::DeskEventObserver_OnDeskSwitched_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskEventObserver.0
       bool success = true;
       ::base::Uuid p_new_desk_id{};
       ::base::Uuid p_previous_desk_id{};
@@ -1101,9 +1103,9 @@ bool DeskEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeskSwitched(
-std::move(p_new_desk_id), 
-std::move(p_previous_desk_id));
+      impl->OnDeskSwitched(        
+        std::move(p_new_desk_id), 
+        std::move(p_previous_desk_id));
       return true;
     }
     case internal::kDeskEventObserver_OnDeskAdded_Name: {
@@ -1113,6 +1115,8 @@ std::move(p_previous_desk_id));
           reinterpret_cast<internal::DeskEventObserver_OnDeskAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskEventObserver.1
       bool success = true;
       ::base::Uuid p_new_desk_id{};
       bool p_from_undo{};
@@ -1131,9 +1135,9 @@ std::move(p_previous_desk_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeskAdded(
-std::move(p_new_desk_id), 
-std::move(p_from_undo));
+      impl->OnDeskAdded(        
+        std::move(p_new_desk_id), 
+        std::move(p_from_undo));
       return true;
     }
     case internal::kDeskEventObserver_OnDeskRemoved_Name: {
@@ -1143,6 +1147,8 @@ std::move(p_from_undo));
           reinterpret_cast<internal::DeskEventObserver_OnDeskRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskEventObserver.2
       bool success = true;
       ::base::Uuid p_removed_desk_id{};
       DeskEventObserver_OnDeskRemoved_ParamsDataView input_data_view(params, message);
@@ -1158,8 +1164,8 @@ std::move(p_from_undo));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeskRemoved(
-std::move(p_removed_desk_id));
+      impl->OnDeskRemoved(        
+        std::move(p_removed_desk_id));
       return true;
     }
   }
@@ -2355,6 +2361,8 @@ bool Desk_LaunchEmptyDesk_ForwardToCallback::Accept(
           internal::Desk_LaunchEmptyDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.0
   bool success = true;
   LaunchEmptyDeskResultPtr p_result{};
   Desk_LaunchEmptyDesk_ResponseParamsDataView input_data_view(params, message);
@@ -2482,6 +2490,8 @@ bool Desk_RemoveDesk_ForwardToCallback::Accept(
           internal::Desk_RemoveDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.1
   bool success = true;
   RemoveDeskResultPtr p_result{};
   Desk_RemoveDesk_ResponseParamsDataView input_data_view(params, message);
@@ -2609,6 +2619,8 @@ bool Desk_GetTemplateJson_ForwardToCallback::Accept(
           internal::Desk_GetTemplateJson_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.2
   bool success = true;
   GetTemplateJsonResultPtr p_result{};
   Desk_GetTemplateJson_ResponseParamsDataView input_data_view(params, message);
@@ -2736,6 +2748,8 @@ bool Desk_GetAllDesks_ForwardToCallback::Accept(
           internal::Desk_GetAllDesks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.3
   bool success = true;
   GetAllDesksResultPtr p_result{};
   Desk_GetAllDesks_ResponseParamsDataView input_data_view(params, message);
@@ -2863,6 +2877,8 @@ bool Desk_SaveActiveDesk_ForwardToCallback::Accept(
           internal::Desk_SaveActiveDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.4
   bool success = true;
   SaveActiveDeskResultPtr p_result{};
   Desk_SaveActiveDesk_ResponseParamsDataView input_data_view(params, message);
@@ -2990,6 +3006,8 @@ bool Desk_DeleteSavedDesk_ForwardToCallback::Accept(
           internal::Desk_DeleteSavedDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.5
   bool success = true;
   DeleteSavedDeskResultPtr p_result{};
   Desk_DeleteSavedDesk_ResponseParamsDataView input_data_view(params, message);
@@ -3117,6 +3135,8 @@ bool Desk_RecallSavedDesk_ForwardToCallback::Accept(
           internal::Desk_RecallSavedDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.6
   bool success = true;
   RecallSavedDeskResultPtr p_result{};
   Desk_RecallSavedDesk_ResponseParamsDataView input_data_view(params, message);
@@ -3244,6 +3264,8 @@ bool Desk_SetAllDesksProperty_ForwardToCallback::Accept(
           internal::Desk_SetAllDesksProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.7
   bool success = true;
   SetAllDesksPropertyResultPtr p_result{};
   Desk_SetAllDesksProperty_ResponseParamsDataView input_data_view(params, message);
@@ -3371,6 +3393,8 @@ bool Desk_GetSavedDesks_ForwardToCallback::Accept(
           internal::Desk_GetSavedDesks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.8
   bool success = true;
   GetSavedDesksResultPtr p_result{};
   Desk_GetSavedDesks_ResponseParamsDataView input_data_view(params, message);
@@ -3498,6 +3522,8 @@ bool Desk_GetActiveDesk_ForwardToCallback::Accept(
           internal::Desk_GetActiveDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.9
   bool success = true;
   GetActiveDeskResultPtr p_result{};
   Desk_GetActiveDesk_ResponseParamsDataView input_data_view(params, message);
@@ -3625,6 +3651,8 @@ bool Desk_SwitchDesk_ForwardToCallback::Accept(
           internal::Desk_SwitchDesk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.10
   bool success = true;
   SwitchDeskResultPtr p_result{};
   Desk_SwitchDesk_ResponseParamsDataView input_data_view(params, message);
@@ -3752,6 +3780,8 @@ bool Desk_GetDeskByID_ForwardToCallback::Accept(
           internal::Desk_GetDeskByID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Desk.11
   bool success = true;
   GetDeskByIDResultPtr p_result{};
   Desk_GetDeskByID_ResponseParamsDataView input_data_view(params, message);
@@ -3870,6 +3900,8 @@ bool DeskStubDispatch::Accept(
           reinterpret_cast<internal::Desk_AddDeskEventObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Desk.12
       bool success = true;
       ::mojo::PendingRemote<DeskEventObserver> p_observer{};
       Desk_AddDeskEventObserver_ParamsDataView input_data_view(params, message);
@@ -3887,8 +3919,8 @@ bool DeskStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDeskEventObserver(
-std::move(p_observer));
+      impl->AddDeskEventObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -3911,6 +3943,8 @@ bool DeskStubDispatch::AcceptWithResponder(
               internal::Desk_LaunchEmptyDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.0
       bool success = true;
       std::string p_desk_name{};
       Desk_LaunchEmptyDesk_ParamsDataView input_data_view(params, message);
@@ -3929,8 +3963,8 @@ bool DeskStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchEmptyDesk(
-std::move(p_desk_name), std::move(callback));
+      impl->LaunchEmptyDesk(        
+        std::move(p_desk_name), std::move(callback));
       return true;
     }
     case internal::kDesk_RemoveDesk_Name: {
@@ -3940,6 +3974,8 @@ std::move(p_desk_name), std::move(callback));
               internal::Desk_RemoveDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.1
       bool success = true;
       ::base::Uuid p_desk_uuid{};
       bool p_combine_desk{};
@@ -3965,10 +4001,10 @@ std::move(p_desk_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveDesk(
-std::move(p_desk_uuid), 
-std::move(p_combine_desk), 
-std::move(p_allow_undo), std::move(callback));
+      impl->RemoveDesk(        
+        std::move(p_desk_uuid), 
+        std::move(p_combine_desk), 
+        std::move(p_allow_undo), std::move(callback));
       return true;
     }
     case internal::kDesk_GetTemplateJson_Name: {
@@ -3978,6 +4014,8 @@ std::move(p_allow_undo), std::move(callback));
               internal::Desk_GetTemplateJson_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.2
       bool success = true;
       ::base::Uuid p_desk_template_uuid{};
       Desk_GetTemplateJson_ParamsDataView input_data_view(params, message);
@@ -3996,8 +4034,8 @@ std::move(p_allow_undo), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetTemplateJson(
-std::move(p_desk_template_uuid), std::move(callback));
+      impl->GetTemplateJson(        
+        std::move(p_desk_template_uuid), std::move(callback));
       return true;
     }
     case internal::kDesk_GetAllDesks_Name: {
@@ -4007,6 +4045,8 @@ std::move(p_desk_template_uuid), std::move(callback));
               internal::Desk_GetAllDesks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.3
       bool success = true;
       Desk_GetAllDesks_ParamsDataView input_data_view(params, message);
       
@@ -4032,6 +4072,8 @@ std::move(p_desk_template_uuid), std::move(callback));
               internal::Desk_SaveActiveDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.4
       bool success = true;
       Desk_SaveActiveDesk_ParamsDataView input_data_view(params, message);
       
@@ -4057,6 +4099,8 @@ std::move(p_desk_template_uuid), std::move(callback));
               internal::Desk_DeleteSavedDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.5
       bool success = true;
       ::base::Uuid p_saved_desk_uuid{};
       Desk_DeleteSavedDesk_ParamsDataView input_data_view(params, message);
@@ -4075,8 +4119,8 @@ std::move(p_desk_template_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSavedDesk(
-std::move(p_saved_desk_uuid), std::move(callback));
+      impl->DeleteSavedDesk(        
+        std::move(p_saved_desk_uuid), std::move(callback));
       return true;
     }
     case internal::kDesk_RecallSavedDesk_Name: {
@@ -4086,6 +4130,8 @@ std::move(p_saved_desk_uuid), std::move(callback));
               internal::Desk_RecallSavedDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.6
       bool success = true;
       ::base::Uuid p_saved_desk_uuid{};
       Desk_RecallSavedDesk_ParamsDataView input_data_view(params, message);
@@ -4104,8 +4150,8 @@ std::move(p_saved_desk_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecallSavedDesk(
-std::move(p_saved_desk_uuid), std::move(callback));
+      impl->RecallSavedDesk(        
+        std::move(p_saved_desk_uuid), std::move(callback));
       return true;
     }
     case internal::kDesk_SetAllDesksProperty_Name: {
@@ -4115,6 +4161,8 @@ std::move(p_saved_desk_uuid), std::move(callback));
               internal::Desk_SetAllDesksProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.7
       bool success = true;
       int32_t p_app_restore_window_id{};
       bool p_all_desk{};
@@ -4136,9 +4184,9 @@ std::move(p_saved_desk_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAllDesksProperty(
-std::move(p_app_restore_window_id), 
-std::move(p_all_desk), std::move(callback));
+      impl->SetAllDesksProperty(        
+        std::move(p_app_restore_window_id), 
+        std::move(p_all_desk), std::move(callback));
       return true;
     }
     case internal::kDesk_GetSavedDesks_Name: {
@@ -4148,6 +4196,8 @@ std::move(p_all_desk), std::move(callback));
               internal::Desk_GetSavedDesks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.8
       bool success = true;
       Desk_GetSavedDesks_ParamsDataView input_data_view(params, message);
       
@@ -4173,6 +4223,8 @@ std::move(p_all_desk), std::move(callback));
               internal::Desk_GetActiveDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.9
       bool success = true;
       Desk_GetActiveDesk_ParamsDataView input_data_view(params, message);
       
@@ -4198,6 +4250,8 @@ std::move(p_all_desk), std::move(callback));
               internal::Desk_SwitchDesk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.10
       bool success = true;
       ::base::Uuid p_desk_uuid{};
       Desk_SwitchDesk_ParamsDataView input_data_view(params, message);
@@ -4216,8 +4270,8 @@ std::move(p_all_desk), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SwitchDesk(
-std::move(p_desk_uuid), std::move(callback));
+      impl->SwitchDesk(        
+        std::move(p_desk_uuid), std::move(callback));
       return true;
     }
     case internal::kDesk_GetDeskByID_Name: {
@@ -4227,6 +4281,8 @@ std::move(p_desk_uuid), std::move(callback));
               internal::Desk_GetDeskByID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Desk.11
       bool success = true;
       ::base::Uuid p_desk_uuid{};
       Desk_GetDeskByID_ParamsDataView input_data_view(params, message);
@@ -4245,8 +4301,8 @@ std::move(p_desk_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeskByID(
-std::move(p_desk_uuid), std::move(callback));
+      impl->GetDeskByID(        
+        std::move(p_desk_uuid), std::move(callback));
       return true;
     }
     case internal::kDesk_AddDeskEventObserver_Name: {

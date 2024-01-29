@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "extensions/common/mojom/host_id.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/values.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -93,7 +94,7 @@ class  DispatchEventParams_Data {
   mojo::internal::StructHeader header_;
   int32_t worker_thread_id;
   int32_t event_id;
-  mojo::internal::Pointer<mojo::internal::String_Data> extension_id;
+  mojo::internal::Pointer<::extensions::mojom::internal::HostID_Data> host_id;
   mojo::internal::Pointer<mojo::internal::String_Data> event_name;
   uint8_t is_user_gesture : 1;
   uint8_t pad4_[7];

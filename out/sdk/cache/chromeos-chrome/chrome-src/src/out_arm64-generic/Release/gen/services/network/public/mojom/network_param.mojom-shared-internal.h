@@ -52,7 +52,6 @@ struct ProxyScheme_Data {
       case 3:
       case 4:
       case 5:
-      case 6:
         return true;
     }
     return false;

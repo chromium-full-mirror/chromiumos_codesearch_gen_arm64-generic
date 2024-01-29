@@ -373,6 +373,8 @@ bool SharedWorkerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::SharedWorkerFactory_CreateSharedWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerFactory.0
       bool success = true;
       ::blink::mojom::SharedWorkerInfoPtr p_info{};
       ::blink::SharedWorkerToken p_token{};
@@ -455,27 +457,27 @@ bool SharedWorkerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateSharedWorker(
-std::move(p_info), 
-std::move(p_token), 
-std::move(p_constructor_key), 
-std::move(p_is_constructor_secure_context), 
-std::move(p_user_agent), 
-std::move(p_ua_metadata), 
-std::move(p_pause_on_start), 
-std::move(p_devtools_worker_token), 
-std::move(p_renderer_preferences), 
-std::move(p_preference_watcher_receiver), 
-std::move(p_content_settings), 
-std::move(p_service_worker_container_info), 
-std::move(p_main_script_load_params), 
-std::move(p_subresource_loader_factories), 
-std::move(p_controller_info), 
-std::move(p_policy_container), 
-std::move(p_host), 
-std::move(p_shared_worker), 
-std::move(p_browser_interface_broker), 
-std::move(p_ukm_source_id));
+      impl->CreateSharedWorker(        
+        std::move(p_info), 
+        std::move(p_token), 
+        std::move(p_constructor_key), 
+        std::move(p_is_constructor_secure_context), 
+        std::move(p_user_agent), 
+        std::move(p_ua_metadata), 
+        std::move(p_pause_on_start), 
+        std::move(p_devtools_worker_token), 
+        std::move(p_renderer_preferences), 
+        std::move(p_preference_watcher_receiver), 
+        std::move(p_content_settings), 
+        std::move(p_service_worker_container_info), 
+        std::move(p_main_script_load_params), 
+        std::move(p_subresource_loader_factories), 
+        std::move(p_controller_info), 
+        std::move(p_policy_container), 
+        std::move(p_host), 
+        std::move(p_shared_worker), 
+        std::move(p_browser_interface_broker), 
+        std::move(p_ukm_source_id));
       return true;
     }
   }

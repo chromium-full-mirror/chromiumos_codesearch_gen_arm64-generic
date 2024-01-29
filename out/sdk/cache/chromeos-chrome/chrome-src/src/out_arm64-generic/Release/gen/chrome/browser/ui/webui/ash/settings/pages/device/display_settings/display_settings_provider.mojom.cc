@@ -46,13 +46,16 @@
 namespace ash::settings::mojom {
 DisplaySettingsValue::DisplaySettingsValue()
     : is_internal_display(),
-      display_id() {}
+      display_id(),
+      orientation() {}
 
 DisplaySettingsValue::DisplaySettingsValue(
     std::optional<bool> is_internal_display_in,
-    std::optional<int64_t> display_id_in)
+    std::optional<int64_t> display_id_in,
+    std::optional<DisplaySettingsOrientationOption> orientation_in)
     : is_internal_display(std::move(is_internal_display_in)),
-      display_id(std::move(display_id_in)) {}
+      display_id(std::move(display_id_in)),
+      orientation(std::move(orientation_in)) {}
 
 DisplaySettingsValue::~DisplaySettingsValue() = default;
 
@@ -73,6 +76,15 @@ void DisplaySettingsValue::WriteIntoTrace(
       "display_id"), this->display_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<int64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "orientation"), this->orientation,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<DisplaySettingsOrientationOption>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -196,6 +208,8 @@ bool TabletModeObserverStubDispatch::Accept(
           reinterpret_cast<internal::TabletModeObserver_OnTabletModeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TabletModeObserver.0
       bool success = true;
       bool p_is_tablet_mode{};
       TabletModeObserver_OnTabletModeChanged_ParamsDataView input_data_view(params, message);
@@ -211,8 +225,8 @@ bool TabletModeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTabletModeChanged(
-std::move(p_is_tablet_mode));
+      impl->OnTabletModeChanged(        
+        std::move(p_is_tablet_mode));
       return true;
     }
   }
@@ -350,6 +364,8 @@ bool DisplayConfigurationObserverStubDispatch::Accept(
           reinterpret_cast<internal::DisplayConfigurationObserver_OnDisplayConfigurationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayConfigurationObserver.0
       bool success = true;
       DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsDataView input_data_view(params, message);
       
@@ -362,7 +378,7 @@ bool DisplayConfigurationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDisplayConfigurationChanged();
+      impl->OnDisplayConfigurationChanged(        );
       return true;
     }
   }
@@ -717,6 +733,8 @@ bool DisplaySettingsProvider_ObserveTabletMode_ForwardToCallback::Accept(
           internal::DisplaySettingsProvider_ObserveTabletMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DisplaySettingsProvider.0
   bool success = true;
   bool p_is_tablet_mode{};
   DisplaySettingsProvider_ObserveTabletMode_ResponseParamsDataView input_data_view(params, message);
@@ -794,6 +812,8 @@ bool DisplaySettingsProviderStubDispatch::Accept(
           reinterpret_cast<internal::DisplaySettingsProvider_ObserveDisplayConfiguration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplaySettingsProvider.1
       bool success = true;
       ::mojo::PendingRemote<DisplayConfigurationObserver> p_observer{};
       DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsDataView input_data_view(params, message);
@@ -811,8 +831,8 @@ bool DisplaySettingsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveDisplayConfiguration(
-std::move(p_observer));
+      impl->ObserveDisplayConfiguration(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDisplaySettingsProvider_RecordChangingDisplaySettings_Name: {
@@ -822,6 +842,8 @@ std::move(p_observer));
           reinterpret_cast<internal::DisplaySettingsProvider_RecordChangingDisplaySettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplaySettingsProvider.2
       bool success = true;
       DisplaySettingsType p_type{};
       DisplaySettingsValuePtr p_value{};
@@ -840,9 +862,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordChangingDisplaySettings(
-std::move(p_type), 
-std::move(p_value));
+      impl->RecordChangingDisplaySettings(        
+        std::move(p_type), 
+        std::move(p_value));
       return true;
     }
   }
@@ -865,6 +887,8 @@ bool DisplaySettingsProviderStubDispatch::AcceptWithResponder(
               internal::DisplaySettingsProvider_ObserveTabletMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DisplaySettingsProvider.0
       bool success = true;
       ::mojo::PendingRemote<TabletModeObserver> p_observer{};
       DisplaySettingsProvider_ObserveTabletMode_ParamsDataView input_data_view(params, message);
@@ -885,8 +909,8 @@ bool DisplaySettingsProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveTabletMode(
-std::move(p_observer), std::move(callback));
+      impl->ObserveTabletMode(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kDisplaySettingsProvider_ObserveDisplayConfiguration_Name: {
@@ -938,6 +962,9 @@ bool StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView, ::ash:
       }
       if (success) {
         result->display_id = input.display_id();
+      }
+      if (success && !input.ReadOrientation(&result->orientation)) {
+        success = false;
       }
   *output = std::move(result);
   return success;

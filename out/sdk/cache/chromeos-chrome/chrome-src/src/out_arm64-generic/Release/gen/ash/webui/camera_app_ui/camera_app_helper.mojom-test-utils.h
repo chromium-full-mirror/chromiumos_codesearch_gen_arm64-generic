@@ -196,6 +196,7 @@ class  CameraAppHelperInterceptorForTesting : public CameraAppHelper {
   void StartStorageMonitor(::mojo::PendingRemote<StorageMonitor> monitor, StartStorageMonitorCallback callback) override;
   void StopStorageMonitor() override;
   void OpenStorageManagement() override;
+  void OpenWifiDialog(WifiConfigPtr config) override;
 };
 class  CameraAppHelperAsyncWaiter {
  public:

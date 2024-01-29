@@ -200,7 +200,7 @@ export class Group {
     /** Runs enqueued pending tasks whose dependencies are completed. */
     continue_() {
         // If all of the added tasks have finished, then call completion callbacks.
-        if (Object.keys(this.addedTasks_).length ==
+        if (Object.keys(this.addedTasks_).length ===
             Object.keys(this.finishedTasks_).length) {
             for (const callback of this.completionCallbacks_) {
                 callback();

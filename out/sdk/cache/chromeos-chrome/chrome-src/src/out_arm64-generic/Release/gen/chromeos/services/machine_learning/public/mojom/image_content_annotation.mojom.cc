@@ -464,6 +464,8 @@ bool ImageContentAnnotator_AnnotateRawImage_ForwardToCallback::Accept(
           internal::ImageContentAnnotator_AnnotateRawImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageContentAnnotator.0
   bool success = true;
   ImageAnnotationResultPtr p_result{};
   ImageContentAnnotator_AnnotateRawImage_ResponseParamsDataView input_data_view(params, message);
@@ -593,6 +595,8 @@ bool ImageContentAnnotator_AnnotateEncodedImage_ForwardToCallback::Accept(
           internal::ImageContentAnnotator_AnnotateEncodedImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageContentAnnotator.1
   bool success = true;
   ImageAnnotationResultPtr p_result{};
   ImageContentAnnotator_AnnotateEncodedImage_ResponseParamsDataView input_data_view(params, message);
@@ -696,6 +700,8 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
               internal::ImageContentAnnotator_AnnotateRawImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageContentAnnotator.0
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_rgb_bytes{};
       uint32_t p_width{};
@@ -723,11 +729,11 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnnotateRawImage(
-std::move(p_rgb_bytes), 
-std::move(p_width), 
-std::move(p_height), 
-std::move(p_line_stride), std::move(callback));
+      impl->AnnotateRawImage(        
+        std::move(p_rgb_bytes), 
+        std::move(p_width), 
+        std::move(p_height), 
+        std::move(p_line_stride), std::move(callback));
       return true;
     }
     case internal::kImageContentAnnotator_AnnotateEncodedImage_Name: {
@@ -737,6 +743,8 @@ std::move(p_line_stride), std::move(callback));
               internal::ImageContentAnnotator_AnnotateEncodedImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageContentAnnotator.1
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_encoded_image{};
       ImageContentAnnotator_AnnotateEncodedImage_ParamsDataView input_data_view(params, message);
@@ -755,8 +763,8 @@ std::move(p_line_stride), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnnotateEncodedImage(
-std::move(p_encoded_image), std::move(callback));
+      impl->AnnotateEncodedImage(        
+        std::move(p_encoded_image), std::move(callback));
       return true;
     }
   }

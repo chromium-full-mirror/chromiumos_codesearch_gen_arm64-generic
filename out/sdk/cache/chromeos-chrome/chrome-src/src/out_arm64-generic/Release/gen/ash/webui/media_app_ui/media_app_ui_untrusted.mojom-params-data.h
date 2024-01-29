@@ -40,6 +40,22 @@ class  UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data {
 };
 static_assert(sizeof(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data) == 24,
               "Bad sizeof(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params_Data)");
+class  OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PageMetadata_Data>>> page_metadata;
+
+ private:
+  friend class mojo::internal::MessageFragment<OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data>;
+
+  OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data();
+  ~OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data() = delete;
+};
+static_assert(sizeof(OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data) == 16,
+              "Bad sizeof(OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data)");
 class  OcrUntrustedPageHandler_ViewportUpdated_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -112,6 +128,32 @@ class UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsDataView {
 };
 
 
+class OcrUntrustedPageHandler_PageMetadataUpdated_ParamsDataView {
+ public:
+  OcrUntrustedPageHandler_PageMetadataUpdated_ParamsDataView() = default;
+
+  OcrUntrustedPageHandler_PageMetadataUpdated_ParamsDataView(
+      internal::OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPageMetadataDataView(
+      mojo::ArrayDataView<PageMetadataDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPageMetadata(UserType* output) {
+    
+    auto* pointer = data_->page_metadata.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::media_app_ui::mojom::PageMetadataDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView {
  public:
   OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView() = default;
@@ -166,6 +208,13 @@ class OcrUntrustedPage_SetViewport_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+
+inline void OcrUntrustedPageHandler_PageMetadataUpdated_ParamsDataView::GetPageMetadataDataView(
+    mojo::ArrayDataView<PageMetadataDataView>* output) {
+  auto pointer = data_->page_metadata.Get();
+  *output = mojo::ArrayDataView<PageMetadataDataView>(pointer, message_);
+}
 
 
 inline void OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView::GetViewportBoxDataView(

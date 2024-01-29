@@ -37,7 +37,11 @@
 namespace ash::personalization_app::mojom {
 class SeaPenThumbnailDataView;
 
+class SeaPenUserVisibleQueryDataView;
+
 class SeaPenTemplateQueryDataView;
+
+class SeaPenFeedbackMetadataDataView;
 
 class SeaPenQueryDataView;
 
@@ -55,8 +59,22 @@ struct MojomTypeTraits<::ash::personalization_app::mojom::SeaPenThumbnailDataVie
 };
 
 template <>
+struct MojomTypeTraits<::ash::personalization_app::mojom::SeaPenUserVisibleQueryDataView> {
+  using Data = ::ash::personalization_app::mojom::internal::SeaPenUserVisibleQuery_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::personalization_app::mojom::SeaPenTemplateQueryDataView> {
   using Data = ::ash::personalization_app::mojom::internal::SeaPenTemplateQuery_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::personalization_app::mojom::SeaPenFeedbackMetadataDataView> {
+  using Data = ::ash::personalization_app::mojom::internal::SeaPenFeedbackMetadata_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -81,11 +99,35 @@ enum class SeaPenTemplateId : int32_t {
   
   kMineral = 1,
   
-  kLandscape = 2,
+  kArt = 2,
   
-  kScifi = 3,
+  kCharacters = 3,
+  
+  kTerrain = 4,
+  
+  kCurious = 5,
+  
+  kDreamscapes = 6,
+  
+  kTranslucent = 7,
+  
+  kScifi = 8,
+  
+  kVcBackgroundSimple = 100,
+  
+  kVcBackgroundOffice = 101,
+  
+  kVcBackgroundTerrainVc = 102,
+  
+  kVcBackgroundCafe = 103,
+  
+  kVcBackgroundArt = 104,
+  
+  kVcBackgroundDreamscapesVc = 105,
+  
+  kVcBackgroundCharacters = 106,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 106,
 };
 
  std::ostream& operator<<(std::ostream& os, SeaPenTemplateId value);
@@ -105,15 +147,73 @@ enum class SeaPenTemplateChip : int32_t {
   
   kMineralColor = 3,
   
-  kLandscapeBiome = 4,
+  kScifiFeature = 4,
   
-  kLandscapeLighting = 5,
+  kScifiColor = 5,
   
-  kScifiFeature = 6,
+  kArtFeature = 6,
   
-  kScifiColor = 7,
+  kArtMovement = 7,
+  
+  kCharactersColor = 8,
+  
+  kCharactersSubjects = 9,
+  
+  kCharactersBackground = 10,
+  
+  kTerrainFeature = 11,
+  
+  kTerrainColor = 12,
+  
+  kCuriousSubject = 13,
+  
+  kCuriousFeature = 14,
+  
+  kCuriousColor = 15,
+  
+  kDreamscapesObject = 16,
+  
+  kDreamscapesMaterial = 17,
+  
+  kDreamscapesColors = 18,
+  
+  kTranslucentItem = 19,
+  
+  kTranslucentColor = 20,
+  
+  kVcBackgroundSimpleStyle = 21,
+  
+  kVcBackgroundSimpleTone = 22,
+  
+  kVcBackgroundOfficeStyle = 23,
+  
+  kVcBackgroundOfficeColor = 24,
+  
+  kVcBackgroundTerrainFeature = 25,
+  
+  kVcBackgroundTerrainColor = 26,
+  
+  kVcBackgroundCafeStyle = 27,
+  
+  kVcBackgroundCafeType = 28,
+  
+  kVcBackgroundArtFeature = 29,
+  
+  kVcBackgroundArtMovement = 30,
+  
+  kVcBackgroundDreamscapesObject = 31,
+  
+  kVcBackgroundDreamscapesMaterial = 32,
+  
+  kVcBackgroundDreamscapesColors = 33,
+  
+  kVcBackgroundCharactersColor = 34,
+  
+  kVcBackgroundCharactersSubjects = 35,
+  
+  kVcBackgroundCharactersBackground = 36,
   kMinValue = 0,
-  kMaxValue = 7,
+  kMaxValue = 36,
 };
 
  std::ostream& operator<<(std::ostream& os, SeaPenTemplateChip value);
@@ -143,7 +243,7 @@ enum class SeaPenTemplateOption : int32_t {
   
   kFlowerTypeDaisy = 8,
   
-  kFlowerTypeHydrangeas = 9,
+  kFlowerTypeHydrangea = 9,
   
   kFlowerColorPink = 10,
   
@@ -185,122 +285,1032 @@ enum class SeaPenTemplateOption : int32_t {
   
   kMineralNameLabradorite = 29,
   
-  kMineralNameLapisLazuli = 30,
+  kMineralNameMoonstone = 30,
   
-  kMineralNameMoonstone = 31,
+  kMineralNameOpal = 31,
   
-  kMineralNameOpal = 32,
+  kMineralNamePeridot = 32,
   
-  kMineralNamePeridot = 33,
+  kMineralNameRhondochrosite = 33,
   
-  kMineralNameRhondochrosite = 34,
+  kMineralNameRuby = 34,
   
-  kMineralNameRuby = 35,
+  kMineralNameSapphire = 35,
   
-  kMineralNameSapphire = 36,
+  kMineralNameQuartz = 36,
   
-  kMineralNameQuartz = 37,
+  kMineralNameTourmaline = 37,
   
-  kMineralNameTourmaline = 38,
+  kMineralColorWarm = 38,
   
-  kMineralColorWarm = 39,
+  kMineralColorCool = 39,
   
-  kMineralColorCool = 40,
+  kMineralColorNeutral = 40,
   
-  kMineralColorNeutral = 41,
+  kMineralColorPastel = 41,
   
-  kMineralColorPastel = 42,
+  kMineralColorMuted = 42,
   
-  kMineralColorMuted = 43,
+  kMineralColorVibrant = 43,
   
-  kMineralColorVibrant = 44,
+  kMineralColorEarthy = 44,
   
-  kMineralColorEarthy = 45,
+  kMineralColorMetallic = 45,
   
-  kMineralColorMetallic = 46,
+  kMineralColorNeon = 46,
   
-  kMineralColorNeon = 47,
+  kMineralColorTonal = 47,
   
-  kMineralColorTonal = 48,
+  kMineralColorGray = 48,
   
-  kMineralColorGray = 49,
+  kScifiFeatureStreet = 49,
   
-  kLandscapeBiomeTaiga = 50,
+  kScifiFeatureSkyline = 50,
   
-  kLandscapeBiomeDesert = 51,
+  kScifiFeatureSwamp = 51,
   
-  kLandscapeBiomeRainforest = 52,
+  kScifiFeatureTransport = 52,
   
-  kLandscapeBiomeTundra = 53,
+  kScifiFeatureBusStop = 53,
   
-  kLandscapeBiomeBeach = 54,
+  kScifiFeatureDesert = 54,
   
-  kLandscapeBiomeIcebergs = 55,
+  kScifiFeatureBeach = 55,
   
-  kLandscapeBiomeSwamp = 56,
+  kScifiFeatureMountains = 56,
   
-  kLandscapeBiomeGrassland = 57,
+  kScifiFeaturePark = 57,
   
-  kLandscapeBiomeForest = 58,
+  kScifiFeatureForest = 58,
   
-  kLandscapeLightingDiffuse = 59,
+  kScifiFeatureSmallTown = 59,
   
-  kLandscapeLightingNorthernLights = 60,
+  kScifiFeatureFarm = 60,
   
-  kLandscapeLightingSunRays = 61,
+  kScifiFeatureUnderwater = 61,
   
-  kLandscapeLightingGoldenHour = 62,
+  kScifiColorEarthy = 62,
   
-  kLandscapeLightingEarlyMorning = 63,
+  kScifiColorVibrant = 63,
   
-  kLandscapeLightingBlueHour = 64,
+  kScifiColorSilver = 64,
   
-  kLandscapeLightingMidday = 65,
+  kScifiColorEerie = 65,
   
-  kScifiFeatureStreet = 66,
+  kScifiColorComplementary = 66,
   
-  kScifiFeatureSkyline = 67,
+  kScifiColorNeutral = 67,
   
-  kScifiFeatureSwamp = 68,
+  kArtFeatureCanyon = 68,
   
-  kScifiFeatureTransport = 69,
+  kArtFeatureMountain = 69,
   
-  kScifiFeatureBusStop = 70,
+  kArtFeatureBeach = 70,
   
-  kScifiFeatureDesert = 71,
+  kArtFeatureCave = 71,
   
-  kScifiFeatureBeach = 72,
+  kArtFeatureCliff = 72,
   
-  kScifiFeatureMountains = 73,
+  kArtFeatureForest = 73,
   
-  kScifiFeaturePark = 74,
+  kArtFeatureGlacier = 74,
   
-  kScifiFeatureForest = 75,
+  kArtFeatureIsland = 75,
   
-  kScifiFeatureSmallTown = 76,
+  kArtFeatureJungle = 76,
   
-  kScifiFeatureFarm = 77,
+  kArtFeatureLake = 77,
   
-  kScifiFeatureUnderwater = 78,
+  kArtFeatureMeadow = 78,
   
-  kScifiColorEarthy = 79,
+  kArtFeatureOcean = 79,
   
-  kScifiColorVibrant = 80,
+  kArtFeatureRiver = 80,
   
-  kScifiColorSilver = 81,
+  kArtFeatureDune = 81,
   
-  kScifiColorEerie = 82,
+  kArtFeatureSwamp = 82,
   
-  kScifiColorComplementary = 83,
+  kArtFeatureValley = 83,
   
-  kScifiColorNeutral = 84,
+  kArtFeatureWaterfall = 84,
+  
+  kArtFeatureField = 85,
+  
+  kArtFeatureCityscape = 86,
+  
+  kArtFeatureVillage = 87,
+  
+  kArtMovementAvantGarde = 88,
+  
+  kArtMovementRealist = 89,
+  
+  kArtMovementExpressionist = 90,
+  
+  kArtMovementImpressionist = 91,
+  
+  kArtMovementPostImpressionist = 92,
+  
+  kArtMovementArtNouveau = 93,
+  
+  kArtMovementBaroque = 94,
+  
+  kArtMovementBauhaus = 95,
+  
+  kArtMovementClassicist = 96,
+  
+  kArtMovementWatercolor = 97,
+  
+  kArtMovementAbstract = 98,
+  
+  kArtMovementPointillist = 99,
+  
+  kArtMovementGraphicDesign = 100,
+  
+  kArtMovementModernArt = 101,
+  
+  kCharactersColorYellow = 102,
+  
+  kCharactersColorPink = 103,
+  
+  kCharactersColorRed = 104,
+  
+  kCharactersColorBlue = 105,
+  
+  kCharactersColorIndigo = 106,
+  
+  kCharactersColorGreen = 107,
+  
+  kCharactersColorCyan = 108,
+  
+  kCharactersColorPurple = 109,
+  
+  kCharactersColorBrown = 110,
+  
+  kCharactersColorGold = 111,
+  
+  kCharactersColorRust = 112,
+  
+  kCharactersColorOlive = 113,
+  
+  kCharactersColorGray = 114,
+  
+  kCharactersColorWhite = 115,
+  
+  kCharactersColorBeige = 116,
+  
+  kCharactersColorMagenta = 117,
+  
+  kCharactersColorNeonGreen = 118,
+  
+  kCharactersColorLightBlue = 119,
+  
+  kCharactersColorNeonPink = 120,
+  
+  kCharactersColorCoralPink = 121,
+  
+  kCharactersSubjectsLemons = 122,
+  
+  kCharactersSubjectsFlowers = 123,
+  
+  kCharactersSubjectsApples = 124,
+  
+  kCharactersSubjectsCherries = 125,
+  
+  kCharactersSubjectsOranges = 126,
+  
+  kCharactersSubjectsPineapples = 127,
+  
+  kCharactersSubjectsStrawberries = 128,
+  
+  kCharactersSubjectsWatermelons = 129,
+  
+  kCharactersSubjectsPotatoes = 130,
+  
+  kCharactersSubjectsSushi = 131,
+  
+  kCharactersSubjectsBaconAndEggs = 132,
+  
+  kCharactersSubjectsPizza = 133,
+  
+  kCharactersSubjectsHotDogs = 134,
+  
+  kCharactersSubjectsHamburgers = 135,
+  
+  kCharactersSubjectsRamen = 136,
+  
+  kCharactersSubjectsTacos = 137,
+  
+  kCharactersSubjectsBunnies = 138,
+  
+  kCharactersSubjectsCats = 139,
+  
+  kCharactersSubjectsDogs = 140,
+  
+  kCharactersSubjectsKoalas = 141,
+  
+  kCharactersSubjectsPandas = 142,
+  
+  kCharactersSubjectsPenguins = 143,
+  
+  kCharactersSubjectsPigs = 144,
+  
+  kCharactersSubjectsSloths = 145,
+  
+  kCharactersSubjectsPonies = 146,
+  
+  kCharactersSubjectsElephants = 147,
+  
+  kCharactersSubjectsFoxes = 148,
+  
+  kCharactersSubjectsOwls = 149,
+  
+  kCharactersSubjectsCrabs = 150,
+  
+  kCharactersSubjectsBees = 151,
+  
+  kCharactersSubjectsButterflies = 152,
+  
+  kCharactersSubjectsBicycles = 153,
+  
+  kCharactersSubjectsBoats = 154,
+  
+  kCharactersSubjectsBooks = 155,
+  
+  kCharactersSubjectsCutlery = 156,
+  
+  kCharactersSubjectsUmbrellas = 157,
+  
+  kCharactersSubjectsInstruments = 158,
+  
+  kCharactersBackgroundPurple = 159,
+  
+  kCharactersBackgroundBlue = 160,
+  
+  kCharactersBackgroundIndigo = 161,
+  
+  kCharactersBackgroundGreen = 162,
+  
+  kCharactersBackgroundCyan = 163,
+  
+  kCharactersBackgroundBrown = 164,
+  
+  kCharactersBackgroundGold = 165,
+  
+  kCharactersBackgroundRed = 166,
+  
+  kCharactersBackgroundRust = 167,
+  
+  kCharactersBackgroundOlive = 168,
+  
+  kCharactersBackgroundPink = 169,
+  
+  kCharactersBackgroundGray = 170,
+  
+  kCharactersBackgroundYellow = 171,
+  
+  kCharactersBackgroundWhite = 172,
+  
+  kCharactersBackgroundBeige = 173,
+  
+  kCharactersBackgroundMagenta = 174,
+  
+  kCharactersBackgroundNeonGreen = 175,
+  
+  kCharactersBackgroundLightBlue = 176,
+  
+  kCharactersBackgroundNeonPink = 177,
+  
+  kCharactersBackgroundCoralPink = 178,
+  
+  kTerrainFeatureSaltLake = 179,
+  
+  kTerrainFeatureRiver = 180,
+  
+  kTerrainFeatureNorthernLights = 181,
+  
+  kTerrainFeatureSandDunes = 182,
+  
+  kTerrainFeatureClayHills = 183,
+  
+  kTerrainFeatureSandyLagoon = 184,
+  
+  kTerrainFeatureMountains = 185,
+  
+  kTerrainFeatureBioluminescentBeach = 186,
+  
+  kTerrainFeatureFireflyForest = 187,
+  
+  kTerrainFeatureDifferentPlanet = 188,
+  
+  kTerrainColorPink = 189,
+  
+  kTerrainColorTeal = 190,
+  
+  kTerrainColorWhite = 191,
+  
+  kTerrainColorPurple = 192,
+  
+  kTerrainColorBlue = 193,
+  
+  kTerrainColorYellow = 194,
+  
+  kTerrainColorMaroonPink = 195,
+  
+  kTerrainColorBluePurple = 196,
+  
+  kTerrainColorPinkYellow = 197,
+  
+  kTerrainColorBluePink = 198,
+  
+  kCuriousSubjectCherryBlossoms = 199,
+  
+  kCuriousSubjectJasmineFlowers = 200,
+  
+  kCuriousSubjectDaisies = 201,
+  
+  kCuriousSubjectTulips = 202,
+  
+  kCuriousSubjectCarnations = 203,
+  
+  kCuriousSubjectDaffodils = 204,
+  
+  kCuriousSubjectForgetMeNots = 205,
+  
+  kCuriousSubjectSunflowers = 206,
+  
+  kCuriousSubjectBougainvilleas = 207,
+  
+  kCuriousSubjectAirPlants = 208,
+  
+  kCuriousSubjectSucculents = 209,
+  
+  kCuriousFeatureAlpineLake = 210,
+  
+  kCuriousFeatureGalaxy = 211,
+  
+  kCuriousFeatureSandDunes = 212,
+  
+  kCuriousFeatureSwamp = 213,
+  
+  kCuriousFeatureBeach = 214,
+  
+  kCuriousFeatureMountains = 215,
+  
+  kCuriousFeatureRiver = 216,
+  
+  kCuriousFeatureWaterfall = 217,
+  
+  kCuriousColorBlue = 218,
+  
+  kCuriousColorRed = 219,
+  
+  kCuriousColorYellow = 220,
+  
+  kCuriousColorGreen = 221,
+  
+  kCuriousColorPurple = 222,
+  
+  kCuriousColorOrange = 223,
+  
+  kCuriousColorPink = 224,
+  
+  kCuriousColorBrown = 225,
+  
+  kCuriousColorBlack = 226,
+  
+  kCuriousColorTurquoise = 227,
+  
+  kCuriousColorMagenta = 228,
+  
+  kCuriousColorLavender = 229,
+  
+  kCuriousColorMaroon = 230,
+  
+  kCuriousColorNavy = 231,
+  
+  kCuriousColorOlive = 232,
+  
+  kCuriousColorCoral = 233,
+  
+  kCuriousColorCream = 234,
+  
+  kCuriousColorIndigo = 235,
+  
+  kCuriousColorFuchsia = 236,
+  
+  kDreamscapesObjectBicycle = 237,
+  
+  kDreamscapesObjectCastle = 238,
+  
+  kDreamscapesObjectBuilding = 239,
+  
+  kDreamscapesObjectBoat = 240,
+  
+  kDreamscapesObjectLamp = 241,
+  
+  kDreamscapesObjectTable = 242,
+  
+  kDreamscapesObjectBridge = 243,
+  
+  kDreamscapesObjectLighthouse = 244,
+  
+  kDreamscapesObjectPagoda = 245,
+  
+  kDreamscapesObjectPalace = 246,
+  
+  kDreamscapesObjectTower = 247,
+  
+  kDreamscapesObjectChair = 248,
+  
+  kDreamscapesMaterialFlowers = 249,
+  
+  kDreamscapesMaterialSilk = 250,
+  
+  kDreamscapesMaterialFelt = 251,
+  
+  kDreamscapesMaterialBurlap = 252,
+  
+  kDreamscapesMaterialChiffon = 253,
+  
+  kDreamscapesMaterialCotton = 254,
+  
+  kDreamscapesMaterialFur = 255,
+  
+  kDreamscapesMaterialLace = 256,
+  
+  kDreamscapesMaterialLinen = 257,
+  
+  kDreamscapesMaterialOrganza = 258,
+  
+  kDreamscapesMaterialTulle = 259,
+  
+  kDreamscapesMaterialWool = 260,
+  
+  kDreamscapesMaterialYarn = 261,
+  
+  kDreamscapesMaterialFleece = 262,
+  
+  kDreamscapesMaterialClay = 263,
+  
+  kDreamscapesMaterialStone = 264,
+  
+  kDreamscapesMaterialWood = 265,
+  
+  kDreamscapesMaterialAmethyst = 266,
+  
+  kDreamscapesMaterialLapisLuzuli = 267,
+  
+  kDreamscapesMaterialObsidian = 268,
+  
+  kDreamscapesMaterialOpal = 269,
+  
+  kDreamscapesMaterialSapphire = 270,
+  
+  kDreamscapesColorsPinkPurple = 271,
+  
+  kDreamscapesColorsCoralTan = 272,
+  
+  kDreamscapesColorsCreamOrange = 273,
+  
+  kDreamscapesColorsBlueIndigo = 274,
+  
+  kDreamscapesColorsGreenTeal = 275,
+  
+  kDreamscapesColorsBurgundyMaroon = 276,
+  
+  kDreamscapesColorsYellowTeal = 277,
+  
+  kTranslucentItemApple = 278,
+  
+  kTranslucentItemAzalea = 279,
+  
+  kTranslucentItemBegonia = 280,
+  
+  kTranslucentItemBluebell = 281,
+  
+  kTranslucentItemCherryBlossom = 282,
+  
+  kTranslucentItemChrysanthemum = 283,
+  
+  kTranslucentItemClemati = 284,
+  
+  kTranslucentItemDaffodil = 285,
+  
+  kTranslucentItemDaisy = 286,
+  
+  kTranslucentItemDandelion = 287,
+  
+  kTranslucentItemRose = 288,
+  
+  kTranslucentItemDogwood = 289,
+  
+  kTranslucentItemHibiscus = 290,
+  
+  kTranslucentItemHydrangea = 291,
+  
+  kTranslucentItemLeaf = 292,
+  
+  kTranslucentItemLily = 293,
+  
+  kTranslucentItemPansy = 294,
+  
+  kTranslucentItemPear = 295,
+  
+  kTranslucentItemPeony = 296,
+  
+  kTranslucentItemPhilodendron = 297,
+  
+  kTranslucentItemPoppy = 298,
+  
+  kTranslucentItemSunflower = 299,
+  
+  kTranslucentItemPea = 300,
+  
+  kTranslucentItemTulip = 301,
+  
+  kTranslucentColorPink = 302,
+  
+  kTranslucentColorBlue = 303,
+  
+  kTranslucentColorIndigo = 304,
+  
+  kTranslucentColorGreen = 305,
+  
+  kTranslucentColorEmerald = 306,
+  
+  kTranslucentColorTeal = 307,
+  
+  kTranslucentColorCyan = 308,
+  
+  kTranslucentColorPurple = 309,
+  
+  kTranslucentColorGold = 310,
+  
+  kTranslucentColorRed = 311,
+  
+  kTranslucentColorRust = 312,
+  
+  kTranslucentColorOlive = 313,
+  
+  kTranslucentColorGray = 314,
+  
+  kTranslucentColorYellow = 315,
+  
+  kTranslucentColorViolet = 316,
+  
+  kTranslucentColorIvory = 317,
+  
+  kTranslucentColorMagenta = 318,
+  
+  kTranslucentColorPeach = 319,
+  
+  kTranslucentColorBlack = 320,
+  
+  kVcBackgroundSimpleStyleMinimal = 321,
+  
+  kVcBackgroundSimpleStyleZen = 322,
+  
+  kVcBackgroundSimpleStyleModern = 323,
+  
+  kVcBackgroundSimpleStyleMagical = 324,
+  
+  kVcBackgroundSimpleToneNeutral = 325,
+  
+  kVcBackgroundSimpleToneDark = 326,
+  
+  kVcBackgroundSimpleToneLight = 327,
+  
+  kVcBackgroundOfficeStyleModern = 328,
+  
+  kVcBackgroundOfficeStyleCreative = 329,
+  
+  kVcBackgroundOfficeStyleTraditional = 330,
+  
+  kVcBackgroundOfficeStyleFuturistic = 331,
+  
+  kVcBackgroundOfficeColorNeutral = 332,
+  
+  kVcBackgroundOfficeColorDark = 333,
+  
+  kVcBackgroundOfficeColorColorful = 334,
+  
+  kVcBackgroundOfficeColorEarthy = 335,
+  
+  kVcBackgroundTerrainFeatureSaltLake = 336,
+  
+  kVcBackgroundTerrainFeatureRiver = 337,
+  
+  kVcBackgroundTerrainFeatureNorthernLights = 338,
+  
+  kVcBackgroundTerrainFeatureSandDunes = 339,
+  
+  kVcBackgroundTerrainFeatureClayHills = 340,
+  
+  kVcBackgroundTerrainFeatureSandyLagoon = 341,
+  
+  kVcBackgroundTerrainFeatureMountains = 342,
+  
+  kVcBackgroundTerrainFeatureBioluminescentBeach = 343,
+  
+  kVcBackgroundTerrainFeatureFireflyForest = 344,
+  
+  kVcBackgroundTerrainFeatureDifferentPlanet = 345,
+  
+  kVcBackgroundTerrainColorPink = 346,
+  
+  kVcBackgroundTerrainColorTeal = 347,
+  
+  kVcBackgroundTerrainColorWhite = 348,
+  
+  kVcBackgroundTerrainColorPurple = 349,
+  
+  kVcBackgroundTerrainColorBlue = 350,
+  
+  kVcBackgroundTerrainColorYellow = 351,
+  
+  kVcBackgroundTerrainColorMaroonPink = 352,
+  
+  kVcBackgroundTerrainColorBluePurple = 353,
+  
+  kVcBackgroundTerrainColorPinkYellow = 354,
+  
+  kVcBackgroundTerrainColorBluePink = 355,
+  
+  kVcBackgroundCafeStyleCozy = 356,
+  
+  kVcBackgroundCafeStyleNeutral = 357,
+  
+  kVcBackgroundCafeStyleDistressed = 358,
+  
+  kVcBackgroundCafeStyleClassic = 359,
+  
+  kVcBackgroundCafeStyleRomantic = 360,
+  
+  kVcBackgroundCafeTypeCottage = 361,
+  
+  kVcBackgroundCafeTypeModern = 362,
+  
+  kVcBackgroundCafeTypeTeaHouse = 363,
+  
+  kVcBackgroundCafeTypeHighTea = 364,
+  
+  kVcBackgroundCafeTypeOutdoor = 365,
+  
+  kVcBackgroundArtFeatureCanyon = 366,
+  
+  kVcBackgroundArtFeatureMountain = 367,
+  
+  kVcBackgroundArtFeatureBeach = 368,
+  
+  kVcBackgroundArtFeatureCave = 369,
+  
+  kVcBackgroundArtFeatureCliff = 370,
+  
+  kVcBackgroundArtFeatureForest = 371,
+  
+  kVcBackgroundArtFeatureGlacier = 372,
+  
+  kVcBackgroundArtFeatureIsland = 373,
+  
+  kVcBackgroundArtFeatureJungle = 374,
+  
+  kVcBackgroundArtFeatureLake = 375,
+  
+  kVcBackgroundArtFeatureMeadow = 376,
+  
+  kVcBackgroundArtFeatureOcean = 377,
+  
+  kVcBackgroundArtFeatureRiver = 378,
+  
+  kVcBackgroundArtFeatureDune = 379,
+  
+  kVcBackgroundArtFeatureSwamp = 380,
+  
+  kVcBackgroundArtFeatureValley = 381,
+  
+  kVcBackgroundArtFeatureWaterfall = 382,
+  
+  kVcBackgroundArtFeatureField = 383,
+  
+  kVcBackgroundArtFeatureCityscape = 384,
+  
+  kVcBackgroundArtFeatureVillage = 385,
+  
+  kVcBackgroundArtMovementAvantGarde = 386,
+  
+  kVcBackgroundArtMovementRealist = 387,
+  
+  kVcBackgroundArtMovementExpressionist = 388,
+  
+  kVcBackgroundArtMovementImpressionist = 389,
+  
+  kVcBackgroundArtMovementPostImpressionist = 390,
+  
+  kVcBackgroundArtMovementArtNouveau = 391,
+  
+  kVcBackgroundArtMovementBaroque = 392,
+  
+  kVcBackgroundArtMovementBauhaus = 393,
+  
+  kVcBackgroundArtMovementClassicist = 394,
+  
+  kVcBackgroundArtMovementWatercolor = 395,
+  
+  kVcBackgroundArtMovementAbstract = 396,
+  
+  kVcBackgroundArtMovementPointillist = 397,
+  
+  kVcBackgroundArtMovementGraphicDesign = 398,
+  
+  kVcBackgroundArtMovementModernArt = 399,
+  
+  kVcBackgroundArtMovementAnime = 400,
+  
+  kVcBackgroundArtMovementPixelArt = 401,
+  
+  kVcBackgroundArtMovementCyberpunk = 402,
+  
+  kVcBackgroundDreamscapesObjectBicycle = 403,
+  
+  kVcBackgroundDreamscapesObjectCastle = 404,
+  
+  kVcBackgroundDreamscapesObjectBuilding = 405,
+  
+  kVcBackgroundDreamscapesObjectBoat = 406,
+  
+  kVcBackgroundDreamscapesObjectLamp = 407,
+  
+  kVcBackgroundDreamscapesObjectTable = 408,
+  
+  kVcBackgroundDreamscapesObjectBridge = 409,
+  
+  kVcBackgroundDreamscapesObjectLighthouse = 410,
+  
+  kVcBackgroundDreamscapesObjectPagoda = 411,
+  
+  kVcBackgroundDreamscapesObjectPalace = 412,
+  
+  kVcBackgroundDreamscapesObjectTower = 413,
+  
+  kVcBackgroundDreamscapesObjectChair = 414,
+  
+  kVcBackgroundDreamscapesMaterialFlowers = 415,
+  
+  kVcBackgroundDreamscapesMaterialSilk = 416,
+  
+  kVcBackgroundDreamscapesMaterialFelt = 417,
+  
+  kVcBackgroundDreamscapesMaterialBurlap = 418,
+  
+  kVcBackgroundDreamscapesMaterialChiffon = 419,
+  
+  kVcBackgroundDreamscapesMaterialCotton = 420,
+  
+  kVcBackgroundDreamscapesMaterialFur = 421,
+  
+  kVcBackgroundDreamscapesMaterialLace = 422,
+  
+  kVcBackgroundDreamscapesMaterialLinen = 423,
+  
+  kVcBackgroundDreamscapesMaterialOrganza = 424,
+  
+  kVcBackgroundDreamscapesMaterialTulle = 425,
+  
+  kVcBackgroundDreamscapesMaterialWool = 426,
+  
+  kVcBackgroundDreamscapesMaterialYarn = 427,
+  
+  kVcBackgroundDreamscapesMaterialFleece = 428,
+  
+  kVcBackgroundDreamscapesMaterialClay = 429,
+  
+  kVcBackgroundDreamscapesMaterialStone = 430,
+  
+  kVcBackgroundDreamscapesMaterialWood = 431,
+  
+  kVcBackgroundDreamscapesMaterialAmethyst = 432,
+  
+  kVcBackgroundDreamscapesMaterialLapisLuzuli = 433,
+  
+  kVcBackgroundDreamscapesMaterialObsidian = 434,
+  
+  kVcBackgroundDreamscapesMaterialOpal = 435,
+  
+  kVcBackgroundDreamscapesMaterialSapphire = 436,
+  
+  kVcBackgroundDreamscapesColorsPinkPurple = 437,
+  
+  kVcBackgroundDreamscapesColorsCoralTan = 438,
+  
+  kVcBackgroundDreamscapesColorsCreamOrange = 439,
+  
+  kVcBackgroundDreamscapesColorsBlueIndigo = 440,
+  
+  kVcBackgroundDreamscapesColorsGreenTeal = 441,
+  
+  kVcBackgroundDreamscapesColorsBurgundyMaroon = 442,
+  
+  kVcBackgroundDreamscapesColorsYellowTeal = 443,
+  
+  kVcBackgroundCharactersColorYellow = 444,
+  
+  kVcBackgroundCharactersColorPink = 445,
+  
+  kVcBackgroundCharactersColorRed = 446,
+  
+  kVcBackgroundCharactersColorBlue = 447,
+  
+  kVcBackgroundCharactersColorIndigo = 448,
+  
+  kVcBackgroundCharactersColorGreen = 449,
+  
+  kVcBackgroundCharactersColorCyan = 450,
+  
+  kVcBackgroundCharactersColorPurple = 451,
+  
+  kVcBackgroundCharactersColorBrown = 452,
+  
+  kVcBackgroundCharactersColorGold = 453,
+  
+  kVcBackgroundCharactersColorRust = 454,
+  
+  kVcBackgroundCharactersColorOlive = 455,
+  
+  kVcBackgroundCharactersColorGray = 456,
+  
+  kVcBackgroundCharactersColorWhite = 457,
+  
+  kVcBackgroundCharactersColorBeige = 458,
+  
+  kVcBackgroundCharactersColorMagenta = 459,
+  
+  kVcBackgroundCharactersColorNeonGreen = 460,
+  
+  kVcBackgroundCharactersColorLightBlue = 461,
+  
+  kVcBackgroundCharactersColorNeonPink = 462,
+  
+  kVcBackgroundCharactersColorCoralPink = 463,
+  
+  kVcBackgroundCharactersSubjectsLemons = 464,
+  
+  kVcBackgroundCharactersSubjectsFlowers = 465,
+  
+  kVcBackgroundCharactersSubjectsApples = 466,
+  
+  kVcBackgroundCharactersSubjectsCherries = 467,
+  
+  kVcBackgroundCharactersSubjectsOranges = 468,
+  
+  kVcBackgroundCharactersSubjectsPineapples = 469,
+  
+  kVcBackgroundCharactersSubjectsStrawberries = 470,
+  
+  kVcBackgroundCharactersSubjectsWatermelons = 471,
+  
+  kVcBackgroundCharactersSubjectsPotatoes = 472,
+  
+  kVcBackgroundCharactersSubjectsSushi = 473,
+  
+  kVcBackgroundCharactersSubjectsBaconAndEggs = 474,
+  
+  kVcBackgroundCharactersSubjectsPizza = 475,
+  
+  kVcBackgroundCharactersSubjectsHotDogs = 476,
+  
+  kVcBackgroundCharactersSubjectsHamburgers = 477,
+  
+  kVcBackgroundCharactersSubjectsRamen = 478,
+  
+  kVcBackgroundCharactersSubjectsTacos = 479,
+  
+  kVcBackgroundCharactersSubjectsBunnies = 480,
+  
+  kVcBackgroundCharactersSubjectsCats = 481,
+  
+  kVcBackgroundCharactersSubjectsDogs = 482,
+  
+  kVcBackgroundCharactersSubjectsKoalas = 483,
+  
+  kVcBackgroundCharactersSubjectsPandas = 484,
+  
+  kVcBackgroundCharactersSubjectsPenguins = 485,
+  
+  kVcBackgroundCharactersSubjectsPigs = 486,
+  
+  kVcBackgroundCharactersSubjectsSloths = 487,
+  
+  kVcBackgroundCharactersSubjectsPonies = 488,
+  
+  kVcBackgroundCharactersSubjectsElephants = 489,
+  
+  kVcBackgroundCharactersSubjectsFoxes = 490,
+  
+  kVcBackgroundCharactersSubjectsOwls = 491,
+  
+  kVcBackgroundCharactersSubjectsCrabs = 492,
+  
+  kVcBackgroundCharactersSubjectsBees = 493,
+  
+  kVcBackgroundCharactersSubjectsButterflies = 494,
+  
+  kVcBackgroundCharactersSubjectsBicycles = 495,
+  
+  kVcBackgroundCharactersSubjectsBoats = 496,
+  
+  kVcBackgroundCharactersSubjectsBooks = 497,
+  
+  kVcBackgroundCharactersSubjectsCutlery = 498,
+  
+  kVcBackgroundCharactersSubjectsUmbrellas = 499,
+  
+  kVcBackgroundCharactersSubjectsInstruments = 500,
+  
+  kVcBackgroundCharactersBackgroundPurple = 501,
+  
+  kVcBackgroundCharactersBackgroundBlue = 502,
+  
+  kVcBackgroundCharactersBackgroundIndigo = 503,
+  
+  kVcBackgroundCharactersBackgroundGreen = 504,
+  
+  kVcBackgroundCharactersBackgroundCyan = 505,
+  
+  kVcBackgroundCharactersBackgroundBrown = 506,
+  
+  kVcBackgroundCharactersBackgroundGold = 507,
+  
+  kVcBackgroundCharactersBackgroundRed = 508,
+  
+  kVcBackgroundCharactersBackgroundRust = 509,
+  
+  kVcBackgroundCharactersBackgroundOlive = 510,
+  
+  kVcBackgroundCharactersBackgroundPink = 511,
+  
+  kVcBackgroundCharactersBackgroundGray = 512,
+  
+  kVcBackgroundCharactersBackgroundYellow = 513,
+  
+  kVcBackgroundCharactersBackgroundWhite = 514,
+  
+  kVcBackgroundCharactersBackgroundBeige = 515,
+  
+  kVcBackgroundCharactersBackgroundMagenta = 516,
+  
+  kVcBackgroundCharactersBackgroundNeonGreen = 517,
+  
+  kVcBackgroundCharactersBackgroundLightBlue = 518,
+  
+  kVcBackgroundCharactersBackgroundNeonPink = 519,
+  
+  kVcBackgroundCharactersBackgroundCoralPink = 520,
   kMinValue = 0,
-  kMaxValue = 84,
+  kMaxValue = 520,
 };
 
  std::ostream& operator<<(std::ostream& os, SeaPenTemplateOption value);
 inline bool IsKnownEnumValue(SeaPenTemplateOption value) {
   return internal::SeaPenTemplateOption_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class MantaStatusCode : int32_t {
+  
+  kOk = 0,
+  
+  kGenericError = 1,
+  
+  kInvalidInput = 2,
+  
+  kResourceExhausted = 3,
+  
+  kBackendFailure = 4,
+  
+  kMalformedResponse = 5,
+  
+  kNoInternetConnection = 6,
+  
+  kUnsupportedLanguage = 7,
+  
+  kBlockedOutputs = 8,
+  
+  kRestrictedCountry = 9,
+  
+  kNoIdentityManager = 10,
+  
+  kPerUserQuotaExceeded = 11,
+  
+  kMax = 11,
+  kMinValue = 0,
+  kMaxValue = 11,
+};
+
+ std::ostream& operator<<(std::ostream& os, MantaStatusCode value);
+inline bool IsKnownEnumValue(MantaStatusCode value) {
+  return internal::MantaStatusCode_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -345,6 +1355,42 @@ class SeaPenThumbnailDataView {
 };
 
 
+class SeaPenUserVisibleQueryDataView {
+ public:
+  SeaPenUserVisibleQueryDataView() = default;
+
+  SeaPenUserVisibleQueryDataView(
+      internal::SeaPenUserVisibleQuery_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTextDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadText(UserType* output) {
+    
+    auto* pointer = data_->text.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTemplateTitleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTemplateTitle(UserType* output) {
+    
+    auto* pointer = data_->template_title.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SeaPenUserVisibleQuery_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class SeaPenTemplateQueryDataView {
  public:
   SeaPenTemplateQueryDataView() = default;
@@ -375,8 +1421,47 @@ class SeaPenTemplateQueryDataView {
     return mojo::internal::Deserialize<mojo::MapDataView<::ash::personalization_app::mojom::SeaPenTemplateChip, ::ash::personalization_app::mojom::SeaPenTemplateOption>>(
         pointer, output, message_);
   }
+  inline void GetUserVisibleQueryDataView(
+      SeaPenUserVisibleQueryDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUserVisibleQuery(UserType* output) {
+    
+    auto* pointer = data_->user_visible_query.Get();
+    return mojo::internal::Deserialize<::ash::personalization_app::mojom::SeaPenUserVisibleQueryDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::SeaPenTemplateQuery_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SeaPenFeedbackMetadataDataView {
+ public:
+  SeaPenFeedbackMetadataDataView() = default;
+
+  SeaPenFeedbackMetadataDataView(
+      internal::SeaPenFeedbackMetadata_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool is_positive() const {
+    return data_->is_positive;
+  }
+  inline void GetLogIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLogId(UserType* output) {
+    
+    auto* pointer = data_->log_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SeaPenFeedbackMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -444,6 +1529,10 @@ struct hash<::ash::personalization_app::mojom::SeaPenTemplateChip>
 template <>
 struct hash<::ash::personalization_app::mojom::SeaPenTemplateOption>
     : public mojo::internal::EnumHashImpl<::ash::personalization_app::mojom::SeaPenTemplateOption> {};
+
+template <>
+struct hash<::ash::personalization_app::mojom::MantaStatusCode>
+    : public mojo::internal::EnumHashImpl<::ash::personalization_app::mojom::MantaStatusCode> {};
 
 }  // namespace std
 
@@ -513,6 +1602,26 @@ struct Serializer<::ash::personalization_app::mojom::SeaPenTemplateOption, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::personalization_app::mojom::MantaStatusCode, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::personalization_app::mojom::MantaStatusCode, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::personalization_app::mojom::MantaStatusCode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::personalization_app::mojom::SeaPenThumbnailDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::personalization_app::mojom::SeaPenThumbnailDataView, UserType>;
@@ -555,6 +1664,59 @@ struct Serializer<::ash::personalization_app::mojom::SeaPenThumbnailDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::personalization_app::mojom::SeaPenUserVisibleQueryDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::personalization_app::mojom::SeaPenUserVisibleQueryDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::personalization_app::mojom::internal::SeaPenUserVisibleQuery_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::text(input)) in_text = Traits::text(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->text)::BaseType> text_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_text, text_fragment);
+    fragment->text.Set(
+        text_fragment.is_null() ? nullptr : text_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->text.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null text in SeaPenUserVisibleQuery struct");
+    decltype(Traits::template_title(input)) in_template_title = Traits::template_title(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->template_title)::BaseType> template_title_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_template_title, template_title_fragment);
+    fragment->template_title.Set(
+        template_title_fragment.is_null() ? nullptr : template_title_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->template_title.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null template_title in SeaPenUserVisibleQuery struct");
+  }
+
+  static bool Deserialize(::ash::personalization_app::mojom::internal::SeaPenUserVisibleQuery_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::personalization_app::mojom::SeaPenUserVisibleQueryDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::personalization_app::mojom::SeaPenTemplateQueryDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::personalization_app::mojom::SeaPenTemplateQueryDataView, UserType>;
@@ -581,6 +1743,18 @@ struct Serializer<::ash::personalization_app::mojom::SeaPenTemplateQueryDataView
         fragment->options.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null options in SeaPenTemplateQuery struct");
+    decltype(Traits::user_visible_query(input)) in_user_visible_query = Traits::user_visible_query(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->user_visible_query)::BaseType> user_visible_query_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::personalization_app::mojom::SeaPenUserVisibleQueryDataView>(
+        in_user_visible_query, user_visible_query_fragment);
+    fragment->user_visible_query.Set(
+        user_visible_query_fragment.is_null() ? nullptr : user_visible_query_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->user_visible_query.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null user_visible_query in SeaPenTemplateQuery struct");
   }
 
   static bool Deserialize(::ash::personalization_app::mojom::internal::SeaPenTemplateQuery_Data* input,
@@ -590,6 +1764,48 @@ struct Serializer<::ash::personalization_app::mojom::SeaPenTemplateQueryDataView
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::personalization_app::mojom::SeaPenTemplateQueryDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::personalization_app::mojom::SeaPenFeedbackMetadataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::personalization_app::mojom::SeaPenFeedbackMetadataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::personalization_app::mojom::internal::SeaPenFeedbackMetadata_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->is_positive = Traits::is_positive(input);
+    decltype(Traits::log_id(input)) in_log_id = Traits::log_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->log_id)::BaseType> log_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_log_id, log_id_fragment);
+    fragment->log_id.Set(
+        log_id_fragment.is_null() ? nullptr : log_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->log_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null log_id in SeaPenFeedbackMetadata struct");
+  }
+
+  static bool Deserialize(::ash::personalization_app::mojom::internal::SeaPenFeedbackMetadata_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::personalization_app::mojom::SeaPenFeedbackMetadataDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -681,10 +1897,34 @@ inline void SeaPenThumbnailDataView::GetImageDataView(
 }
 
 
+inline void SeaPenUserVisibleQueryDataView::GetTextDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->text.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void SeaPenUserVisibleQueryDataView::GetTemplateTitleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->template_title.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void SeaPenTemplateQueryDataView::GetOptionsDataView(
     mojo::MapDataView<SeaPenTemplateChip, SeaPenTemplateOption>* output) {
   auto pointer = data_->options.Get();
   *output = mojo::MapDataView<SeaPenTemplateChip, SeaPenTemplateOption>(pointer, message_);
+}
+inline void SeaPenTemplateQueryDataView::GetUserVisibleQueryDataView(
+    SeaPenUserVisibleQueryDataView* output) {
+  auto pointer = data_->user_visible_query.Get();
+  *output = SeaPenUserVisibleQueryDataView(pointer, message_);
+}
+
+
+inline void SeaPenFeedbackMetadataDataView::GetLogIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->log_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 
@@ -728,6 +1968,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::personalization_app::mojom::SeaPenTemplateOption> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::personalization_app::mojom::SeaPenTemplateOption value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::personalization_app::mojom::MantaStatusCode> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::personalization_app::mojom::MantaStatusCode value);
 };
 
 } // namespace perfetto

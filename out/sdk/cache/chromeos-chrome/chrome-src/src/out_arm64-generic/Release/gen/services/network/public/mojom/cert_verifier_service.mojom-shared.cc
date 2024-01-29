@@ -109,7 +109,7 @@ bool AdditionalCertificates_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -123,7 +123,7 @@ bool AdditionalCertificates_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& all_certificates_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->all_certificates, validation_context,
                                          &all_certificates_validate_params)) {
     return false;
@@ -134,14 +134,25 @@ bool AdditionalCertificates_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& trust_anchors_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->trust_anchors, validation_context,
                                          &trust_anchors_validate_params)) {
     return false;
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->distrusted_spkis, 3, validation_context)) {
+          object->trust_anchors_with_enforced_constraints, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& trust_anchors_with_enforced_constraints_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->trust_anchors_with_enforced_constraints, validation_context,
+                                         &trust_anchors_with_enforced_constraints_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->distrusted_spkis, 4, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& distrusted_spkis_validate_params =

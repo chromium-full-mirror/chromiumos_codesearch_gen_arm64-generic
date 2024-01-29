@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.placeholder{display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--sys-color-token-subtle)}
+`.placeholder{align-items:center;justify-content:center;font-size:13px;color:var(--sys-color-token-subtle);overflow:auto;& div{width:100%}}
 /*# sourceURL=reportingApiReportsView.css */
 `);
 

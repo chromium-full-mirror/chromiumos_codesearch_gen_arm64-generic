@@ -75,7 +75,6 @@ class BLINK_COMMON_EXPORT SameOriginBfcacheNotRestoredDetails {
 
   SameOriginBfcacheNotRestoredDetails(
       const std::string& url,
-      std::vector<std::string> reasons,
       std::vector<BackForwardCacheNotRestoredReasonsPtr> children);
 
 SameOriginBfcacheNotRestoredDetails(const SameOriginBfcacheNotRestoredDetails&) = delete;
@@ -158,8 +157,6 @@ SameOriginBfcacheNotRestoredDetails& operator=(const SameOriginBfcacheNotRestore
   
   std::string url;
   
-  std::vector<std::string> reasons;
-  
   std::vector<BackForwardCacheNotRestoredReasonsPtr> children;
 
   // Serialise this struct into a trace.
@@ -222,10 +219,10 @@ class BLINK_COMMON_EXPORT BackForwardCacheNotRestoredReasons {
   BackForwardCacheNotRestoredReasons();
 
   BackForwardCacheNotRestoredReasons(
-      BFCacheBlocked blocked,
       const std::optional<std::string>& src,
       const std::optional<std::string>& id,
       const std::optional<std::string>& name,
+      std::vector<std::string> reasons,
       SameOriginBfcacheNotRestoredDetailsPtr same_origin_details);
 
 BackForwardCacheNotRestoredReasons(const BackForwardCacheNotRestoredReasons&) = delete;
@@ -306,13 +303,13 @@ BackForwardCacheNotRestoredReasons& operator=(const BackForwardCacheNotRestoredR
   }
 
   
-  BFCacheBlocked blocked;
-  
   std::optional<std::string> src;
   
   std::optional<std::string> id;
   
   std::optional<std::string> name;
+  
+  std::vector<std::string> reasons;
   
   SameOriginBfcacheNotRestoredDetailsPtr same_origin_details;
 
@@ -349,7 +346,6 @@ template <typename StructPtrType>
 SameOriginBfcacheNotRestoredDetailsPtr SameOriginBfcacheNotRestoredDetails::Clone() const {
   return New(
       mojo::Clone(url),
-      mojo::Clone(reasons),
       mojo::Clone(children)
   );
 }
@@ -357,8 +353,6 @@ SameOriginBfcacheNotRestoredDetailsPtr SameOriginBfcacheNotRestoredDetails::Clon
 template <typename T, SameOriginBfcacheNotRestoredDetails::EnableIfSame<T>*>
 bool SameOriginBfcacheNotRestoredDetails::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->url, other_struct.url))
-    return false;
-  if (!mojo::Equals(this->reasons, other_struct.reasons))
     return false;
   if (!mojo::Equals(this->children, other_struct.children))
     return false;
@@ -371,10 +365,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.url < lhs.url)
     return false;
-  if (lhs.reasons < rhs.reasons)
-    return true;
-  if (rhs.reasons < lhs.reasons)
-    return false;
   if (lhs.children < rhs.children)
     return true;
   if (rhs.children < lhs.children)
@@ -384,23 +374,23 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 BackForwardCacheNotRestoredReasonsPtr BackForwardCacheNotRestoredReasons::Clone() const {
   return New(
-      mojo::Clone(blocked),
       mojo::Clone(src),
       mojo::Clone(id),
       mojo::Clone(name),
+      mojo::Clone(reasons),
       mojo::Clone(same_origin_details)
   );
 }
 
 template <typename T, BackForwardCacheNotRestoredReasons::EnableIfSame<T>*>
 bool BackForwardCacheNotRestoredReasons::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->blocked, other_struct.blocked))
-    return false;
   if (!mojo::Equals(this->src, other_struct.src))
     return false;
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->reasons, other_struct.reasons))
     return false;
   if (!mojo::Equals(this->same_origin_details, other_struct.same_origin_details))
     return false;
@@ -409,10 +399,6 @@ bool BackForwardCacheNotRestoredReasons::Equals(const T& other_struct) const {
 
 template <typename T, BackForwardCacheNotRestoredReasons::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.blocked < rhs.blocked)
-    return true;
-  if (rhs.blocked < lhs.blocked)
-    return false;
   if (lhs.src < rhs.src)
     return true;
   if (rhs.src < lhs.src)
@@ -424,6 +410,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.name < rhs.name)
     return true;
   if (rhs.name < lhs.name)
+    return false;
+  if (lhs.reasons < rhs.reasons)
+    return true;
+  if (rhs.reasons < lhs.reasons)
     return false;
   if (lhs.same_origin_details < rhs.same_origin_details)
     return true;
@@ -449,11 +439,6 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::SameOriginBfcacheNotRest
     return input->url;
   }
 
-  static const decltype(::blink::mojom::SameOriginBfcacheNotRestoredDetails::reasons)& reasons(
-      const ::blink::mojom::SameOriginBfcacheNotRestoredDetailsPtr& input) {
-    return input->reasons;
-  }
-
   static const decltype(::blink::mojom::SameOriginBfcacheNotRestoredDetails::children)& children(
       const ::blink::mojom::SameOriginBfcacheNotRestoredDetailsPtr& input) {
     return input->children;
@@ -469,11 +454,6 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::BackForwardCacheNotResto
   static bool IsNull(const ::blink::mojom::BackForwardCacheNotRestoredReasonsPtr& input) { return !input; }
   static void SetToNull(::blink::mojom::BackForwardCacheNotRestoredReasonsPtr* output) { output->reset(); }
 
-  static decltype(::blink::mojom::BackForwardCacheNotRestoredReasons::blocked) blocked(
-      const ::blink::mojom::BackForwardCacheNotRestoredReasonsPtr& input) {
-    return input->blocked;
-  }
-
   static const decltype(::blink::mojom::BackForwardCacheNotRestoredReasons::src)& src(
       const ::blink::mojom::BackForwardCacheNotRestoredReasonsPtr& input) {
     return input->src;
@@ -487,6 +467,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::BackForwardCacheNotResto
   static const decltype(::blink::mojom::BackForwardCacheNotRestoredReasons::name)& name(
       const ::blink::mojom::BackForwardCacheNotRestoredReasonsPtr& input) {
     return input->name;
+  }
+
+  static const decltype(::blink::mojom::BackForwardCacheNotRestoredReasons::reasons)& reasons(
+      const ::blink::mojom::BackForwardCacheNotRestoredReasonsPtr& input) {
+    return input->reasons;
   }
 
   static const decltype(::blink::mojom::BackForwardCacheNotRestoredReasons::same_origin_details)& same_origin_details(

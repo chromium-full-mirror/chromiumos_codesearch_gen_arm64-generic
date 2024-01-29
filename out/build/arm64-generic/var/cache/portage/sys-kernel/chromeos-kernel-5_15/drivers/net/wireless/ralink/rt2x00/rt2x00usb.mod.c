@@ -26,4 +26,4 @@ MODULE_INFO(retpoline, "Y");
 MODULE_INFO(depends, "rt2x00lib,mac80211");
 
 
-MODULE_INFO(srcversion, "B6D6E998F10E2B42CD4BEDA");
+MODULE_INFO(srcversion, "67B95EB46677EDF8BF2B462");

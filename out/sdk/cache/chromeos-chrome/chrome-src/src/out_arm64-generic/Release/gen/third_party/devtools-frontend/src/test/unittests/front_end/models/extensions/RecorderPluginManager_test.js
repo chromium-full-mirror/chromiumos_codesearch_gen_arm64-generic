@@ -7,8 +7,8 @@ describe('RecorderPluginManager', () => {
     it('emits events when the plugin list is modified', async () => {
         const manager = Extensions.RecorderPluginManager.RecorderPluginManager.instance();
         const events = [];
-        manager.addEventListener(Extensions.RecorderPluginManager.Events.PluginAdded, event => events.push({ event: 'pluginAdded', plugin: event.data }));
-        manager.addEventListener(Extensions.RecorderPluginManager.Events.PluginRemoved, event => events.push({ event: 'pluginRemoved', plugin: event.data }));
+        manager.addEventListener("pluginAdded" /* Extensions.RecorderPluginManager.Events.PluginAdded */, event => events.push({ event: 'pluginAdded', plugin: event.data }));
+        manager.addEventListener("pluginRemoved" /* Extensions.RecorderPluginManager.Events.PluginRemoved */, event => events.push({ event: 'pluginRemoved', plugin: event.data }));
         const plugin = new Extensions.RecorderExtensionEndpoint.RecorderExtensionEndpoint('test', new MessageChannel().port1, ['export'], 'application/javascript');
         manager.addPlugin(plugin);
         manager.removePlugin(plugin);

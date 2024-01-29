@@ -652,6 +652,8 @@ bool ParentAccess_GetWebsiteParentApproval_ForwardToCallback::Accept(
           internal::ParentAccess_GetWebsiteParentApproval_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccess.0
   bool success = true;
   ParentAccessResultPtr p_result{};
   ParentAccess_GetWebsiteParentApproval_ResponseParamsDataView input_data_view(params, message);
@@ -779,6 +781,8 @@ bool ParentAccess_GetExtensionParentApproval_ForwardToCallback::Accept(
           internal::ParentAccess_GetExtensionParentApproval_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccess.1
   bool success = true;
   ParentAccessResultPtr p_result{};
   ParentAccess_GetExtensionParentApproval_ResponseParamsDataView input_data_view(params, message);
@@ -880,6 +884,8 @@ bool ParentAccessStubDispatch::AcceptWithResponder(
               internal::ParentAccess_GetWebsiteParentApproval_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccess.0
       bool success = true;
       ::GURL p_url{};
       ::std::u16string p_child_display_name{};
@@ -904,10 +910,10 @@ bool ParentAccessStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWebsiteParentApproval(
-std::move(p_url), 
-std::move(p_child_display_name), 
-std::move(p_favicon), std::move(callback));
+      impl->GetWebsiteParentApproval(        
+        std::move(p_url), 
+        std::move(p_child_display_name), 
+        std::move(p_favicon), std::move(callback));
       return true;
     }
     case internal::kParentAccess_GetExtensionParentApproval_Name: {
@@ -917,6 +923,8 @@ std::move(p_favicon), std::move(callback));
               internal::ParentAccess_GetExtensionParentApproval_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccess.1
       bool success = true;
       ::std::u16string p_extension_name{};
       ::std::u16string p_child_display_name{};
@@ -947,12 +955,12 @@ std::move(p_favicon), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetExtensionParentApproval(
-std::move(p_extension_name), 
-std::move(p_child_display_name), 
-std::move(p_icon), 
-std::move(p_permissions), 
-std::move(p_requests_disabled), std::move(callback));
+      impl->GetExtensionParentApproval(        
+        std::move(p_extension_name), 
+        std::move(p_child_display_name), 
+        std::move(p_icon), 
+        std::move(p_permissions), 
+        std::move(p_requests_disabled), std::move(callback));
       return true;
     }
   }

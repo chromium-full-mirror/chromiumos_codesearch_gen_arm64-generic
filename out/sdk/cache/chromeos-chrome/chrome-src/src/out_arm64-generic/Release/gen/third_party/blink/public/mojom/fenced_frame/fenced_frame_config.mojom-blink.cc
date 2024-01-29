@@ -42,6 +42,7 @@
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-blink-import-headers.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-blink-test-utils.h"
 #include "mojo/public/cpp/bindings/lib/wtf_serialization.h"
+#include "third_party/blink/common/permissions_policy/permissions_policy_mojom_traits.h"
 
 
 namespace blink::mojom::blink {
@@ -177,6 +178,46 @@ bool SharedStorageBudgetMetadata::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ParentPermissionsInfo::ParentPermissionsInfo()
+    : parsed_permissions_policy(),
+      origin() {}
+
+ParentPermissionsInfo::ParentPermissionsInfo(
+    WTF::Vector<::blink::ParsedPermissionsPolicyDeclaration> parsed_permissions_policy_in,
+    const ::scoped_refptr<const ::blink::SecurityOrigin>& origin_in)
+    : parsed_permissions_policy(std::move(parsed_permissions_policy_in)),
+      origin(std::move(origin_in)) {}
+
+ParentPermissionsInfo::~ParentPermissionsInfo() = default;
+
+void ParentPermissionsInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "parsed_permissions_policy"), this->parsed_permissions_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<::blink::ParsedPermissionsPolicyDeclaration>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "origin"), this->origin,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::scoped_refptr<const ::blink::SecurityOrigin>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ParentPermissionsInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 FencedFrameConfig::FencedFrameConfig()
     : mapped_url(),
       container_size(),
@@ -187,7 +228,8 @@ FencedFrameConfig::FencedFrameConfig()
       shared_storage_budget_metadata(),
       urn_uuid(),
       mode(),
-      effective_enabled_permissions() {}
+      effective_enabled_permissions(),
+      parent_permissions_info() {}
 
 FencedFrameConfig::FencedFrameConfig(
     const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url_in,
@@ -199,7 +241,8 @@ FencedFrameConfig::FencedFrameConfig(
     const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata_in,
     const ::blink::KURL& urn_uuid_in,
     ::blink::FencedFrame::DeprecatedFencedFrameMode mode_in,
-    WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions_in)
+    WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions_in,
+    ParentPermissionsInfoPtr parent_permissions_info_in)
     : mapped_url(std::move(mapped_url_in)),
       container_size(std::move(container_size_in)),
       content_size(std::move(content_size_in)),
@@ -209,7 +252,8 @@ FencedFrameConfig::FencedFrameConfig(
       shared_storage_budget_metadata(std::move(shared_storage_budget_metadata_in)),
       urn_uuid(std::move(urn_uuid_in)),
       mode(std::move(mode_in)),
-      effective_enabled_permissions(std::move(effective_enabled_permissions_in)) {}
+      effective_enabled_permissions(std::move(effective_enabled_permissions_in)),
+      parent_permissions_info(std::move(parent_permissions_info_in)) {}
 
 FencedFrameConfig::~FencedFrameConfig() = default;
 
@@ -306,6 +350,15 @@ void FencedFrameConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "parent_permissions_info"), this->parent_permissions_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ParentPermissionsInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool FencedFrameConfig::Validate(
@@ -323,7 +376,9 @@ FencedFrameProperties::FencedFrameProperties()
       shared_storage_budget_metadata(),
       has_fenced_frame_reporting(),
       mode(),
-      effective_enabled_permissions() {}
+      effective_enabled_permissions(),
+      parent_permissions_info(),
+      can_disable_untrusted_network() {}
 
 FencedFrameProperties::FencedFrameProperties(
     const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url_in,
@@ -335,7 +390,9 @@ FencedFrameProperties::FencedFrameProperties(
     const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata_in,
     bool has_fenced_frame_reporting_in,
     ::blink::FencedFrame::DeprecatedFencedFrameMode mode_in,
-    WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions_in)
+    WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions_in,
+    ParentPermissionsInfoPtr parent_permissions_info_in,
+    bool can_disable_untrusted_network_in)
     : mapped_url(std::move(mapped_url_in)),
       container_size(std::move(container_size_in)),
       content_size(std::move(content_size_in)),
@@ -345,7 +402,9 @@ FencedFrameProperties::FencedFrameProperties(
       shared_storage_budget_metadata(std::move(shared_storage_budget_metadata_in)),
       has_fenced_frame_reporting(std::move(has_fenced_frame_reporting_in)),
       mode(std::move(mode_in)),
-      effective_enabled_permissions(std::move(effective_enabled_permissions_in)) {}
+      effective_enabled_permissions(std::move(effective_enabled_permissions_in)),
+      parent_permissions_info(std::move(parent_permissions_info_in)),
+      can_disable_untrusted_network(std::move(can_disable_untrusted_network_in)) {}
 
 FencedFrameProperties::~FencedFrameProperties() = default;
 
@@ -438,6 +497,24 @@ void FencedFrameProperties::WriteIntoTrace(
       "effective_enabled_permissions"), this->effective_enabled_permissions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "parent_permissions_info"), this->parent_permissions_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ParentPermissionsInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "can_disable_untrusted_network"), this->can_disable_untrusted_network,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -833,6 +910,22 @@ bool StructTraits<::blink::mojom::blink::SharedStorageBudgetMetadata::DataView, 
 
 
 // static
+bool StructTraits<::blink::mojom::blink::ParentPermissionsInfo::DataView, ::blink::mojom::blink::ParentPermissionsInfoPtr>::Read(
+    ::blink::mojom::blink::ParentPermissionsInfo::DataView input,
+    ::blink::mojom::blink::ParentPermissionsInfoPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::ParentPermissionsInfoPtr result(::blink::mojom::blink::ParentPermissionsInfo::New());
+  
+      if (success && !input.ReadParsedPermissionsPolicy(&result->parsed_permissions_policy))
+        success = false;
+      if (success && !input.ReadOrigin(&result->origin))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::blink::mojom::blink::FencedFrameConfig::DataView, ::blink::mojom::blink::FencedFrameConfigPtr>::Read(
     ::blink::mojom::blink::FencedFrameConfig::DataView input,
     ::blink::mojom::blink::FencedFrameConfigPtr* output) {
@@ -858,6 +951,8 @@ bool StructTraits<::blink::mojom::blink::FencedFrameConfig::DataView, ::blink::m
       if (success && !input.ReadMode(&result->mode))
         success = false;
       if (success && !input.ReadEffectiveEnabledPermissions(&result->effective_enabled_permissions))
+        success = false;
+      if (success && !input.ReadParentPermissionsInfo(&result->parent_permissions_info))
         success = false;
   *output = std::move(result);
   return success;
@@ -891,6 +986,10 @@ bool StructTraits<::blink::mojom::blink::FencedFrameProperties::DataView, ::blin
         success = false;
       if (success && !input.ReadEffectiveEnabledPermissions(&result->effective_enabled_permissions))
         success = false;
+      if (success && !input.ReadParentPermissionsInfo(&result->parent_permissions_info))
+        success = false;
+      if (success)
+        result->can_disable_untrusted_network = input.can_disable_untrusted_network();
   *output = std::move(result);
   return success;
 }

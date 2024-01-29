@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-init-0.0.26-r5146/work/chromeos-init-0.0.26 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-init-0.0.26-r5167/work/chromeos-init-0.0.26 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -19,6 +19,7 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build file_attrs_cleaner_lib: phony ./libfile_attrs_cleaner_lib.a
+build install_setuid_restriction: phony obj/init/install_setuid_restriction.stamp
 build libclobber: phony ./libclobber.a
 build libcrosstartup: phony ./libcrosstartup.a
 build process_killer_lib: phony ./libprocess_killer_lib.a
@@ -33,6 +34,7 @@ build init$:clobber-state: phony ./clobber-state
 build init$:cros_sysrq_init: phony ./cros_sysrq_init
 build init$:file_attrs_cleaner_lib: phony ./libfile_attrs_cleaner_lib.a
 build init$:file_attrs_cleaner_tool: phony ./file_attrs_cleaner_tool
+build init$:install_setuid_restriction: phony obj/init/install_setuid_restriction.stamp
 build init$:libclobber: phony ./libclobber.a
 build init$:libcrosstartup: phony ./libcrosstartup.a
 build init$:net_poll_tool: phony ./net_poll_tool
@@ -53,6 +55,7 @@ build all: phony $
     ./cros_sysrq_init $
     ./libfile_attrs_cleaner_lib.a $
     ./file_attrs_cleaner_tool $
+    obj/init/install_setuid_restriction.stamp $
     ./libclobber.a $
     ./libcrosstartup.a $
     ./net_poll_tool $

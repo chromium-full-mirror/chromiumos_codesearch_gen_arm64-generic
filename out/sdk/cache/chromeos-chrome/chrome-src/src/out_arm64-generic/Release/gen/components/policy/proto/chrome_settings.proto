@@ -509,7 +509,7 @@ message AllowOutdatedPluginsProto {
 //   True: Allow pages to show pop-ups during unloading
 //   False: Prevent pages from showing pop-ups during unloading
 //
-// Supported on: fuchsia
+// Supported on:
 message AllowPopupsDuringPageUnloadProto {
   optional PolicyOptions policy_options = 1;
   optional bool AllowPopupsDuringPageUnload = 2;
@@ -573,7 +573,7 @@ message AllowScreenWakeLocksProto {
 //   False: Do not allow pages to send synchronous XHR requests during page
 // dismissal
 //
-// Supported on: fuchsia
+// Supported on:
 message AllowSyncXHRInPageDismissalProto {
   optional PolicyOptions policy_options = 1;
   optional bool AllowSyncXHRInPageDismissal = 2;
@@ -1264,7 +1264,7 @@ message AssistantVoiceMatchEnabledDuringOobeProto {
 //   False: Do not allow using Google Assistant on the web
 //   None: Allow the user to decide
 //
-// Supported on: fuchsia
+// Supported on:
 message AssistantWebEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool AssistantWebEnabled = 2;
@@ -2875,6 +2875,26 @@ message CAHintCertificatesProto {
   optional StringList CAHintCertificates = 2;
 }
 
+// Use user-added TLS certificates from platform trust stores for server
+// authentication
+//
+// If enabled(or not set), user-added TLS certificates from platform trust
+// stores will be used in path-building for TLS server authentication.
+//
+// If disabled, user-added TLS certificates from platform trust stores will not
+// be used in path-building for TLS server authentication.
+//
+// Valid values:
+//   True: Import user-added TLS server certificates from platform trust stores.
+//   False: Do not import user-added TLS server certificates from platform trust
+// stores.
+//
+// Supported on: linux, mac, win
+message CAPlatformIntegrationEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool CAPlatformIntegrationEnabled = 2;
+}
+
 // Enable ToS during first-run for CCT
 //
 // This policy is deprecated, please use the ToSDialogBehavior policy instead.
@@ -2926,7 +2946,7 @@ message CCTToSDialogEnabledProto {
 //   True: Enable default CECPQ2 rollout process
 //   False: Disable CECPQ2
 //
-// Supported on: fuchsia
+// Supported on:
 message CECPQ2EnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool CECPQ2Enabled = 2;
@@ -3168,7 +3188,7 @@ message CertificateTransparencyEnforcementDisabledForUrlsProto {
 //   False: Chrome Apps may not be allowed to run, depending on the status of
 // the deprecation rollout.
 //
-// Supported on: fuchsia
+// Supported on:
 message ChromeAppsEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool ChromeAppsEnabled = 2;
@@ -3198,15 +3218,15 @@ message ChromeAppsEnabledProto {
 // release process.
 //
 // This policy is a temporary workaround in the event that enterprises
-// experience breakage due to this change. This policy will be removed
-// in version 122.
+// experience breakage due to this change. The last supported version of this
+// policy was version 121. It was removed in version 122.
 //
 // Valid values:
 //   True: Restore permissive behavior.
 //   False: Behavior changes may take effect depending on feature launch
 // process.
 //
-// Supported on: chrome_os, fuchsia, linux, mac, win
+// Supported on:
 message ChromeAppsWebViewPermissiveBehaviorAllowedProto {
   optional PolicyOptions policy_options = 1;
   optional bool ChromeAppsWebViewPermissiveBehaviorAllowed = 2;
@@ -4053,7 +4073,7 @@ message CompressionDictionaryTransportEnabledProto {
 // For detailed information on valid URL patterns, please see
 // https://support.google.com/chrome/a?p=url_blocklist_filter_format.
 //
-// Supported on: fuchsia
+// Supported on:
 message ContextAwareAccessSignalsAllowlistProto {
   optional PolicyOptions policy_options = 1;
   optional StringList ContextAwareAccessSignalsAllowlist = 2;
@@ -4195,6 +4215,9 @@ message CookiesSessionOnlyForUrlsProto {
 
 // Allows blocking copying to the clipboard on specified URLs
 //
+// This policy is deprecated and will eventually be replaced by
+// DataControlsRules.
+//
 // This policy blocks copying data to the clipboard on specific URLs.
 //
 // The enable and disable URL lists control which sites are allowed to write to
@@ -4326,33 +4349,32 @@ message CreatePasskeysInICloudKeychainProto {
   optional bool CreatePasskeysInICloudKeychain = 2;
 }
 
-// Create themes with AI
+// Settings for Create Themes with AI
 //
-// This policy allows you to control how your organization's data is handled
-// with Google Chrome's Create themes with AI. This policy will take precedence
-// over any future blanket policy.
+// Create Themes with AI lets users create custom themes/wallpapers by
+// preselecting from a list of options.
 //
-// Setting the policy to "Allowed" will allow feature use for organization.
+// 0 = Enable the feature for users, and send relevant data to Google to help
+// train or improve AI models. Relevant data may include prompts, inputs,
+// outputs, and source materials, depending on the feature. It may be reviewed
+// by humans for the sole purpose of improving AI models.
 //
-// Setting the policy to "Allow without data collection" will opt-out of
-// collecting enterprise data for model training. This setting also disables
-// data sharing via the in-feature Feedback dialog, and sending data for human
-// evaluation. As a result, Google does not use enterprise user content
-// (including prompts, inputs, outputs, and source materials) for model
-// training. This would ensure that Google does not use enterprise user data to
-// train or improve its AI models. Google does not save enterprise user content
-// including (prompts, sources, inputs or outputs). Note that these may be
-// stored up to 24 hours to keep situational context. This would ensure that
-// Google does not collect or store any data that is entered into or generated
-// by an AI feature. This includes user inputs, generated outputs, and user
-// feedback.
+// 0 is the default value, except when noted below.
 //
-// Setting the policy to "Disabled" will fully disable feature.
+// 1 = Enable the feature for users, but do not send data to Google to train or
+// improve AI models. 1 is the default value for Enterprise users managed by
+// Google Admin console.
+//
+// 2 = Disable the feature. 2 is the default value for Education accounts
+// managed by Google Workspace.
+//
+// For more information on data handling for generative AI features, please see
+// https://support.google.com/chrome/a?p=generative_ai_settings.
 //
 // Valid values:
-//   0: Allow feature use for organization
-//   1: Allow without data collection
-//   2: Fully disable feature
+//   0: Enable the feature and send data to help train AI models
+//   1: Enable the feature but don't send data to help train AI models
+//   2: Disable the feature
 //
 // Supported on: chrome_os, linux, mac, win
 message CreateThemesSettingsProto {
@@ -4658,6 +4680,70 @@ message DataCompressionProxyEnabledProto {
 // {
 //     "items": {
 //         "properties": {
+//             "and": {
+//                 "items": {
+//                     "id": "DataControlsCondition",
+//                     "properties": {
+//                         "and": {
+//                             "items": {
+//                                 "$ref": "DataControlsCondition"
+//                             },
+//                             "type": "array"
+//                         },
+//                         "destinations": {
+//                             "properties": {
+//                                 "incognito": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "os_clipboard": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "other_profile": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "urls": {
+//                                     "items": {
+//                                         "type": "string"
+//                                     },
+//                                     "type": "array"
+//                                 }
+//                             },
+//                             "type": "object"
+//                         },
+//                         "not": {
+//                             "$ref": "DataControlsCondition"
+//                         },
+//                         "or": {
+//                             "items": {
+//                                 "$ref": "DataControlsCondition"
+//                             },
+//                             "type": "array"
+//                         },
+//                         "sources": {
+//                             "properties": {
+//                                 "incognito": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "os_clipboard": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "other_profile": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "urls": {
+//                                     "items": {
+//                                         "type": "string"
+//                                     },
+//                                     "type": "array"
+//                                 }
+//                             },
+//                             "type": "object"
+//                         }
+//                     },
+//                     "type": "object"
+//                 },
+//                 "type": "array"
+//             },
 //             "description": {
 //                 "type": "string"
 //             },
@@ -4683,6 +4769,129 @@ message DataCompressionProxyEnabledProto {
 //             },
 //             "name": {
 //                 "type": "string"
+//             },
+//             "not": {
+//                 "properties": {
+//                     "and": {
+//                         "items": {
+//                             "$ref": "DataControlsCondition"
+//                         },
+//                         "type": "array"
+//                     },
+//                     "destinations": {
+//                         "properties": {
+//                             "incognito": {
+//                                 "type": "boolean"
+//                             },
+//                             "os_clipboard": {
+//                                 "type": "boolean"
+//                             },
+//                             "other_profile": {
+//                                 "type": "boolean"
+//                             },
+//                             "urls": {
+//                                 "items": {
+//                                     "type": "string"
+//                                 },
+//                                 "type": "array"
+//                             }
+//                         },
+//                         "type": "object"
+//                     },
+//                     "not": {
+//                         "$ref": "DataControlsCondition"
+//                     },
+//                     "or": {
+//                         "items": {
+//                             "$ref": "DataControlsCondition"
+//                         },
+//                         "type": "array"
+//                     },
+//                     "sources": {
+//                         "properties": {
+//                             "incognito": {
+//                                 "type": "boolean"
+//                             },
+//                             "os_clipboard": {
+//                                 "type": "boolean"
+//                             },
+//                             "other_profile": {
+//                                 "type": "boolean"
+//                             },
+//                             "urls": {
+//                                 "items": {
+//                                     "type": "string"
+//                                 },
+//                                 "type": "array"
+//                             }
+//                         },
+//                         "type": "object"
+//                     }
+//                 },
+//                 "type": "object"
+//             },
+//             "or": {
+//                 "items": {
+//                     "properties": {
+//                         "and": {
+//                             "items": {
+//                                 "$ref": "DataControlsCondition"
+//                             },
+//                             "type": "array"
+//                         },
+//                         "destinations": {
+//                             "properties": {
+//                                 "incognito": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "os_clipboard": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "other_profile": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "urls": {
+//                                     "items": {
+//                                         "type": "string"
+//                                     },
+//                                     "type": "array"
+//                                 }
+//                             },
+//                             "type": "object"
+//                         },
+//                         "not": {
+//                             "$ref": "DataControlsCondition"
+//                         },
+//                         "or": {
+//                             "items": {
+//                                 "$ref": "DataControlsCondition"
+//                             },
+//                             "type": "array"
+//                         },
+//                         "sources": {
+//                             "properties": {
+//                                 "incognito": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "os_clipboard": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "other_profile": {
+//                                     "type": "boolean"
+//                                 },
+//                                 "urls": {
+//                                     "items": {
+//                                         "type": "string"
+//                                     },
+//                                     "type": "array"
+//                                 }
+//                             },
+//                             "type": "object"
+//                         }
+//                     },
+//                     "type": "object"
+//                 },
+//                 "type": "array"
 //             },
 //             "restrictions": {
 //                 "items": {
@@ -5548,7 +5757,7 @@ message DefaultSearchProviderEncodingsProto {
 // Leaving DefaultSearchProviderIconURL unset means there's no icon for the
 // search provider.
 //
-// Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
+// Supported on:
 message DefaultSearchProviderIconURLProto {
   optional PolicyOptions policy_options = 1;
   optional string DefaultSearchProviderIconURL = 2;
@@ -5562,6 +5771,16 @@ message DefaultSearchProviderIconURLProto {
 // search requests use the POST method instead.)
 //
 // Leaving DefaultSearchProviderImageURL unset means no image search is used.
+//
+// If image search uses the GET method, then the URL must specify image
+// parameters using a valid combination of the following placeholders:
+// '{google:imageURL}',
+// '{google:imageOriginalHeight}',
+// '{google:imageOriginalWidth}',
+// '{google:processedImageDimensions}',
+// '{google:imageSearchSource}',
+// '{google:imageThumbnail}',
+// '{google:imageThumbnailBase64}'.
 //
 // Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
 message DefaultSearchProviderImageURLProto {
@@ -5579,6 +5798,16 @@ message DefaultSearchProviderImageURLProto {
 //
 // Leaving DefaultSearchProviderImageURLPostParams unset means image search
 // request is sent using the GET method.
+//
+// The URL must specify the image parameter using a valid combination of
+// the following placeholders depending on what the search provider supports:
+// '{google:imageURL}',
+// '{google:imageOriginalHeight}',
+// '{google:imageOriginalWidth}',
+// '{google:processedImageDimensions}',
+// '{google:imageSearchSource}',
+// '{google:imageThumbnail}',
+// '{google:imageThumbnailBase64}'.
 //
 // Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
 message DefaultSearchProviderImageURLPostParamsProto {
@@ -5635,7 +5864,7 @@ message DefaultSearchProviderInstantURLPostParamsProto {
 // Leaving DefaultSearchProviderKeyword unset means no keyword activates the
 // search provider.
 //
-// Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
+// Supported on: chrome_os, fuchsia, linux, mac, win
 message DefaultSearchProviderKeywordProto {
   optional PolicyOptions policy_options = 1;
   optional string DefaultSearchProviderKeyword = 2;
@@ -5664,7 +5893,7 @@ message DefaultSearchProviderNameProto {
 // Leaving DefaultSearchProviderNewTabURL unset means no new tab page is
 // provided.
 //
-// Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
+// Supported on: chrome_os, fuchsia, linux, mac, win
 message DefaultSearchProviderNewTabURLProto {
   optional PolicyOptions policy_options = 1;
   optional string DefaultSearchProviderNewTabURL = 2;
@@ -5929,6 +6158,27 @@ message DefaultWindowManagementSettingProto {
 message DefaultWindowPlacementSettingProto {
   optional PolicyOptions policy_options = 1;
   optional int64 DefaultWindowPlacementSetting = 2;
+}
+
+// Control the shortcut used to trigger the Delete "six pack" key
+//
+// This policy determines the behavior for remapping the Delete key within
+// the 'remap keys' subpage. The 'remap keys' subpage allows users to
+// customize keyboard keys. If enabled, this policy prevents users from
+// customizing these specific remappings. If the policy is not set,
+// search-based shortcuts will act as the default and allows users to
+// configure the shortcuts.
+//
+// Valid values:
+//   0: Setting a shortcut for the "Delete" action is disabled.
+//   1: Delete shortcut setting uses the shortcut that contains the alt modifier
+//   2: Delete shortcut setting uses the shortcut that contains the search
+// modifier
+//
+// Supported on: chrome_os
+message DeleteKeyModifierProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 DeleteKeyModifier = 2;
 }
 
 // Allow print job history to be deleted
@@ -6503,7 +6753,7 @@ message DiskCacheSizeProto {
 //           Calls are not denied on account of originating from non-allowlisted
 //           contexts. (Calls may still be denied for other reasons.)
 //
-// Supported on: fuchsia
+// Supported on:
 message DisplayCapturePermissionsPolicyEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool DisplayCapturePermissionsPolicyEnabled = 2;
@@ -6594,8 +6844,23 @@ message DnsOverHttpsTemplatesProto {
 // The URI template of the desired DNS-over-HTTPS resolver. To specify multiple
 // DNS-over-HTTPS resolvers, separate the corresponding URI templates with
 // spaces. This policy is very similar to DnsOverHttpsTemplates which it will
-// override if specified. In contrast to that it supports specifying identify
-// information.
+// override if specified.
+// In contrast to the DnsOverHttpsTemplates policy, this policy supports
+// specifying identity information.
+// Identifiers are specified using variable placeholders which are replaced with
+// user or device information in Google Chrome. The identifiers are not sent to
+// the DNS server in plain text; instead they are hashed with the SHA-256
+// algorithm and uppercase hex encoded.
+//
+// Identifiers are specified between curly brackets, preceded by the dollar
+// sign. For user identification, use the following placeholders USER_EMAIL,
+// USER_EMAIL_DOMAIN and USER_EMAIL_NAME. For device identification, use the
+// following placeholders DEVICE_DIRECTORY_ID, DEVICE_SERIAL_NUMBER,
+// DEVICE_ASSET_ID and DEVICE_ANNOTATED_LOCATION.
+//
+// Before version 122, device identifiers were not replaced for unaffiliated
+// users. Starting version 122, the device placeholders are replaced with the
+// value DEVICE_NOT_MANAGED, which is hashed and hex encoded.
 //
 // If the DnsOverHttpsMode is set to "secure" then either this policy or
 // DnsOverHttpsTemplates must be set and not empty.
@@ -6674,7 +6939,7 @@ message DomainReliabilityAllowedProto {
 //   True: Enable download bubble UI
 //   False: Disable download bubble UI
 //
-// Supported on: fuchsia
+// Supported on:
 message DownloadBubbleEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool DownloadBubbleEnabled = 2;
@@ -7548,7 +7813,7 @@ message EssentialSearchEnabledProto {
 //   None: Event.path API will be in the default status: available before M109,
 // and unavailable in M109 to 114.
 //
-// Supported on: fuchsia
+// Supported on:
 message EventPathEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool EventPathEnabled = 2;
@@ -7696,7 +7961,7 @@ message ExplicitlyAllowedNetworkPortsProto {
 //   False: Prevent installation and updates for extensions hosted outside of
 // Chrome Web Store
 //
-// Supported on: fuchsia
+// Supported on:
 message ExtensionAllowInsecureUpdatesProto {
   optional PolicyOptions policy_options = 1;
   optional bool ExtensionAllowInsecureUpdates = 2;
@@ -8355,6 +8620,46 @@ message ExternalStorageReadOnlyProto {
   optional bool ExternalStorageReadOnly = 2;
 }
 
+// Control the shortcut used to trigger F11
+//
+// This policy controls the selected shortcut option for remapping events to
+// F11 in the remap keys subpage. These settings are only applicable for
+// Google ChromeOS keyboards
+// and are disabled by default if the policy is unset. If you set this policy,
+// users cannot change or override it.
+//
+// Valid values:
+//   0: F11 settings are disabled
+//   1: F11 settings use the shortcut that contains the alt modifier
+//   2: F11 settings use the shortcut that contains the shift modifier
+//   3: F11 settings use the shortcut that contains the modifiers ctrl and shift
+//
+// Supported on: chrome_os
+message F11KeyModifierProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 F11KeyModifier = 2;
+}
+
+// Control the shortcut used to trigger F12
+//
+// This policy controls the selected shortcut option for remapping events to
+// F12 in the remap keys subpage. These settings are only applicable for
+// Google ChromeOS keyboards
+// and are disabled by default if the policy is unset. If you set this policy,
+// users cannot change or override it.
+//
+// Valid values:
+//   0: F12 settings are disabled
+//   1: F12 settings use the shortcut that contains the alt modifier
+//   2: F12 settings use the shortcut that contains the shift modifier
+//   3: F12 settings use the shortcut that contains the modifiers ctrl and shift
+//
+// Supported on: chrome_os
+message F12KeyModifierProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 F12KeyModifier = 2;
+}
+
 // Enable Fast Pair (fast Bluetooth pairing)
 //
 // Setting this policy will force Fast Pair to be enabled or disabled.
@@ -8551,7 +8856,7 @@ message FileSystemReadBlockedForUrlsProto {
 // asynchronously
 //   False: Disables any asynchronous methods of FileSystemSyncAccessHandle.
 //
-// Supported on: fuchsia
+// Supported on:
 message FileSystemSyncAccessHandleAsyncInterfaceEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool FileSystemSyncAccessHandleAsyncInterfaceEnabled = 2;
@@ -8796,6 +9101,80 @@ message FloatingAccessibilityMenuEnabledProto {
   optional bool FloatingAccessibilityMenuEnabled = 2;
 }
 
+// Floating SSO Service blocked domain list
+//
+// Configures a list of blocked cookie domains that will not be moved when a
+// user switches between Google ChromeOS devices, when the Floating SSO Service
+// is enabled.
+//
+// If a cookie is set for a domain which matches one of the provided filters,
+// the cookie is excluded from the move. Cookie domains are matched according to
+// "host" field rules outlined in
+// https://support.google.com/chrome/a?p=url_blocklist_filter_format, all other
+// fields are ignored. Wildcards, *, are allowed.
+//
+// The FloatingSsoDomainBlocklistExceptions policy takes precedence.
+//
+// Supported on: chrome_os
+message FloatingSsoDomainBlocklistProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList FloatingSsoDomainBlocklist = 2;
+}
+
+// Floating SSO Service domain blocklist exception list
+//
+// Configures the list of blocklist excepted cookie domains to be moved when a
+// user switches between Google ChromeOS devices, when the Floating SSO Service
+// is enabled.
+//
+// If a cookie is set for a domain which matches one of the provided filters,
+// the cookie is included into the move. Cookie domains are matched according to
+// "host" field rules outlined in
+// https://support.google.com/chrome/a?p=url_blocklist_filter_format, all other
+// fields are ignored. Wildcards, *, are allowed.
+//
+// Leaving the policy empty allows no exceptions to FloatingSsoDomainBlocklist.
+// To only allow a limited number of domains to be moved, block all domains by
+// setting the FloatingSsoDomainBlocklist policy to *, and configure the
+// blocklist exceptions here.
+//
+// Supported on: chrome_os
+message FloatingSsoDomainBlocklistExceptionsProto {
+  optional PolicyOptions policy_options = 1;
+  optional StringList FloatingSsoDomainBlocklistExceptions = 2;
+}
+
+// Enable Floating SSO Service
+//
+// When a user switches between Google ChromeOS devices, the Floating SSO
+// Service will restore the user's web service authentication state from the
+// previous device onto the new device. This is achieved by moving user's
+// cookies across devices.
+//
+// Setting the policy to Enabled will restore the user's web service
+// authentication state from the user's last used Google ChromeOS device
+// automatically upon login.
+// Setting the policy to Disabled or leaving it unset will not restore the
+// user's web service authentication state upon login on a different device.
+//
+// The web service domains blocked from being restored can be configured using
+// the FloatingSsoDomainBlocklist policy, while exceptions to that policy can be
+// configured using the FloatingSsoDomainBlocklistExceptions policy.
+// If both of these policies are unset, all web service authentications, except
+// Google authentications, will be moved.
+//
+// Valid values:
+//   True: Enable Floating SSO and move the user's web service authentications
+// to new device
+//   False: Disable Floating SSO and do not move the user's web service
+// authentications to new device
+//
+// Supported on: chrome_os
+message FloatingSsoEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool FloatingSsoEnabled = 2;
+}
+
 // Enable Floating Workspace Service
 //
 // When a user switches between Google ChromeOS devices, Floating Workspace
@@ -9019,7 +9398,7 @@ message ForceLogoutUnauthenticatedUserEnabledProto {
 //   2: The User-Agent string will freeze the major version as 99 and include
 // the browser's major version in the minor position.
 //
-// Supported on: fuchsia
+// Supported on:
 message ForceMajorVersionToMinorPositionInUserAgentProto {
   optional PolicyOptions policy_options = 1;
   optional int64 ForceMajorVersionToMinorPositionInUserAgent = 2;
@@ -9449,6 +9828,9 @@ message GloballyScopeHTTPAuthCacheEnabledProto {
 //
 // If set to Disabled, Google Search Side Panel is not available on any webpage.
 //
+// GenAI capabilities that are part of this feature are not available for
+// Educational or Enterprise accounts.
+//
 // Valid values:
 //   True: Enable Google Search Side Panel on all web pages
 //   False: Disable Google Search Side Panel on all web pages
@@ -9518,16 +9900,16 @@ message HSTSPolicyBypassListProto {
   optional StringList HSTSPolicyBypassList = 2;
 }
 
-// Use hardware acceleration when available
+// Use graphics acceleration when available
 //
-// Setting the policy to Enabled or leaving it unset turns on hardware
+// Setting the policy to Enabled or leaving it unset turns on graphics
 // acceleration, if available.
 //
-// Setting the policy to Disabled turns off hardware acceleration.
+// Setting the policy to Disabled turns off graphics acceleration.
 //
 // Valid values:
-//   True: Enable hardware acceleration
-//   False: Disable hardware acceleration
+//   True: Enable graphics acceleration
+//   False: Disable graphics acceleration
 //
 // Supported on: fuchsia, linux, mac, win
 message HardwareAccelerationModeEnabledProto {
@@ -9551,33 +9933,33 @@ message HeadlessModeProto {
   optional int64 HeadlessMode = 2;
 }
 
-// Allow help me write
+// Settings for Help Me Write
 //
-// This policy allows you to control how your organization's data is handled
-// with Google Chrome’s Help me write. This policy will take precedence over any
-// future blanket policy.
+// Help Me Write is an AI-based writing assistant for short-form content on the
+// web. Suggested content is based on prompts entered by the user and the
+// content of the web page.
 //
-// Setting the policy to "Allowed" will allow feature use for organization.
+// 0 = Enable the feature for users, and send relevant data to Google to help
+// train or improve AI models. Relevant data may include prompts, inputs,
+// outputs, and source materials, depending on the feature. It may be reviewed
+// by humans for the sole purpose of improving AI models.
 //
-// Setting the policy to "Allow without data collection" will opt-out of
-// collecting enterprise data for model training. This setting also disables
-// data sharing via the in-feature Feedback dialog, and sending data for human
-// evaluation. As a result, Google does not use enterprise user content
-// (including prompts, inputs, outputs, and source materials) for model
-// training. This would ensure that Google does not use enterprise user data to
-// train or improve its AI models. Google does not save enterprise user content
-// including (prompts, sources, inputs or outputs). Note that these may be
-// stored up to 24 hours to keep situational context. This would ensure that
-// Google does not collect or store any data that is entered into or generated
-// by an AI feature. This includes user inputs, generated outputs, and user
-// feedback.
+// 0 is the default value, except when noted below.
 //
-// Setting the policy to "Disabled" will fully disable feature.
+// 1 = Enable the feature for users, but do not send data to Google to train or
+// improve AI models. 1 is the default value for Enterprise users managed by
+// Google Admin console.
+//
+// 2 = Disable the feature. 2 is the default value for Education accounts
+// managed by Google Workspace.
+//
+// For more information on data handling for generative AI features, please see
+// https://support.google.com/chrome/a?p=generative_ai_settings.
 //
 // Valid values:
-//   0: Allow feature use for organization
-//   1: Allow without data collection
-//   2: Fully disable feature
+//   0: Enable the feature and send data to help train AI models
+//   1: Enable the feature but don't send data to help train AI models
+//   2: Disable the feature
 //
 // Supported on: chrome_os, linux, mac, win
 message HelpMeWriteSettingsProto {
@@ -9704,6 +10086,26 @@ message HindiInscriptLayoutEnabledProto {
 message HistoryClustersVisibleProto {
   optional PolicyOptions policy_options = 1;
   optional bool HistoryClustersVisible = 2;
+}
+
+// Control the shortcut used to trigger the Home/End "six pack" keys
+//
+// This policy determines the behavior for remapping the Home/End keys
+// within the 'remap keys' subpage. The 'remap keys' subpage allows users to
+// customize keyboard keys. If enabled, this policy prevents users from
+// customizing these specific remappings. If the policy is not set,
+// search-based shortcuts will act as the default and allows users to
+// configure the shortcuts.
+//
+// Valid values:
+//   0: Home/End settings are disabled
+//   1: Home/End settings use the shortcut that contains the alt modifier
+//   2: Home/End settings use the shortcut that contains the search modifier
+//
+// Supported on: chrome_os
+message HomeAndEndKeysModifierProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 HomeAndEndKeysModifier = 2;
 }
 
 // Use New Tab Page as homepage
@@ -10496,6 +10898,25 @@ message InsecurePrivateNetworkRequestsAllowedProto {
 message InsecurePrivateNetworkRequestsAllowedForUrlsProto {
   optional PolicyOptions policy_options = 1;
   optional StringList InsecurePrivateNetworkRequestsAllowedForUrls = 2;
+}
+
+// Control the shortcut used to trigger the Insert "six pack" key
+//
+// This policy determines the default behavior for remapping the Insert key
+// within the 'remap keys' subpage. The 'remap keys' subpage allows users to
+// customize keyboard keys. If enabled, this policy prevents users from
+// customizing these specific remappings. If the policy is not set,
+// search-based shortcuts will act as the default.
+//
+// Valid values:
+//   0: Setting a shortcut for the "Insert" action is disabled.
+//   2: Insert shortcut setting uses the shortcut that contains the search
+// modifier
+//
+// Supported on: chrome_os
+message InsertKeyModifierProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 InsertKeyModifier = 2;
 }
 
 // Enable insights extension for reporting usage metrics
@@ -11659,7 +12080,7 @@ message ListenToThisPageEnabledProto {
 //   True: Load the extension
 //   False: Apply default behavior
 //
-// Supported on: fuchsia
+// Supported on:
 message LoadCryptoTokenExtensionProto {
   optional PolicyOptions policy_options = 1;
   optional bool LoadCryptoTokenExtension = 2;
@@ -12164,8 +12585,8 @@ message MetricsReportingEnabledProto {
 // Setting the policy to 'allowed' lets the user set up the Cloud Upload flow
 // for Microsoft OneDrive and Microsoft 365 if they wish to.
 // After completing the setup process, files with matching file formats will by
-// default be moved to Microsoft OneDrive and handled by one of the Microsoft
-// 365 apps when the user attempts to open them.
+// default be moved to Microsoft OneDrive and handled by the Microsoft 365 app
+// when the user attempts to open them.
 //
 // Setting the policy to 'disallowed' prohibits the user from setting up the
 // Cloud Upload flow for Microsoft OneDrive and Microsoft 365 as described above
@@ -12173,8 +12594,8 @@ message MetricsReportingEnabledProto {
 //
 // Setting the policy to 'automated' sets up the Cloud Upload flow for Microsoft
 // OneDrive and Microsoft 365 automatically, so that files with matching file
-// formats will by default be moved to Microsoft OneDrive and handled by one of
-// the Microsoft 365 apps when the user attempts to open them.
+// formats will by default be moved to Microsoft OneDrive and handled by the
+// Microsoft 365 app when the user attempts to open them.
 //
 // Leaving the policy unset is functionally equivalent to setting it to
 // 'allowed' for regular users; for enterprise users unset policy defaults to
@@ -12197,7 +12618,7 @@ message MicrosoftOfficeCloudUploadProto {
 // Restricts accounts that can use the Microsoft OneDrive integration
 //
 // This policy allows admins to restrict which accounts are allowed to sign-in
-// for Microsoft OneDrive when the MicrosoftOneDriveMount is enabled.
+// for Microsoft OneDrive when the MicrosoftOneDriveMount policy is enabled.
 //
 // If this policy contains a value of 'common', any account can be used to sign-
 // in.
@@ -12205,7 +12626,7 @@ message MicrosoftOfficeCloudUploadProto {
 // If this policy contains a value of 'organizations', work or school accounts
 // can be used to sign-in.
 //
-// If this policy contains a value of 'consumer', personal Microsoft accounts
+// If this policy contains a value of 'consumers', personal Microsoft accounts
 // can be used to sign-in.
 //
 // If this policy contains domain names or tenant IDs, accounts from these
@@ -12217,8 +12638,11 @@ message MicrosoftOfficeCloudUploadProto {
 // 'common' was specified for regular users; for enterprise users it behaves as
 // if 'organizations' was specified.
 //
-// Changing the restriction might lead to users being signed out of their
-// Microsoft OneDrive account if it does not adhere to the new restrictions.
+// Changing restrictions might lead to users being signed out of their Microsoft
+// OneDrive account if it does not adhere to the new restrictions.
+//
+// Note: At this time only the first entry will be taken into account. Later
+// extensions will support multiple entries.
 //
 // Supported on: chrome_os
 message MicrosoftOneDriveAccountRestrictionsProto {
@@ -12240,11 +12664,16 @@ message MicrosoftOneDriveAccountRestrictionsProto {
 // Microsoft OneDrive.
 //
 // Setting the policy to 'automated' attempts to set up Microsoft OneDrive
-// automatically. In case of failure it falls back to showing the setup flow.
+// automatically. This requires the user to log in to Google ChromeOS with a
+// Microsoft account. In case of failure it falls back to showing the setup
+// flow.
 //
 // Leaving the policy unset is functionally equivalent to setting it to
 // 'allowed' for regular users; for enterprise users unset policy defaults to
 // 'disallowed'.
+//
+// It is possible to add further account restrict with the
+// MicrosoftOneDriveAccountRestrictions policy.
 //
 // Valid values:
 //   allowed: Allow setup of Microsoft OneDrive
@@ -14300,7 +14729,7 @@ message OverrideSecurityRestrictionsOnInsecureOriginProto {
 //   True: Allow new implementation
 //   False: Force old implementation
 //
-// Supported on: chrome_os
+// Supported on:
 message PPAPISharedImagesForVideoDecoderAllowedProto {
   optional PolicyOptions policy_options = 1;
   optional bool PPAPISharedImagesForVideoDecoderAllowed = 2;
@@ -14366,6 +14795,27 @@ message PPAPISharedImagesSwapChainAllowedProto {
 message PacHttpsUrlStrippingEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool PacHttpsUrlStrippingEnabled = 2;
+}
+
+// Control the shortcut used to trigger the PageUp/PageDown "six pack" keys
+//
+// This policy determines the behavior for remapping the PageUp/PageDown
+// keys within the 'remap keys' subpage. The 'remap keys' subpage allows users
+// to customize keyboard keys. If enabled, this policy prevents users from
+// customizing these specific remappings. If the policy is not set,
+// search-based shortcuts will act as the default and allows users to
+// configure the shortcuts.
+//
+// Valid values:
+//   0: PageUp/PageDown settings are disabled
+//   1: PageUp/PageDown settings use the shortcut that contains the alt modifier
+//   2: PageUp/PageDown settings use the shortcut that contains the search
+// modifier
+//
+// Supported on: chrome_os
+message PageUpAndPageDownKeysModifierProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 PageUpAndPageDownKeysModifier = 2;
 }
 
 // Allows users to track their packages on Chrome.
@@ -15020,7 +15470,7 @@ message PerAppTimeLimitsWhitelistProto {
 //   True: Enable persistent quota.
 //   False: Disable persistent quota.
 //
-// Supported on: fuchsia
+// Supported on:
 message PersistentQuotaEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool PersistentQuotaEnabled = 2;
@@ -15826,7 +16276,7 @@ message PreconfiguredDeskTemplatesProto {
 //   True: window.webkitStorageInfo will be available.
 //   False: window.webkitStorageInfo will be unavailable.
 //
-// Supported on: fuchsia
+// Supported on:
 message PrefixedStorageInfoEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool PrefixedStorageInfoEnabled = 2;
@@ -19250,7 +19700,7 @@ message SSLVersionMaxProto {
 //   tls1.1: TLS 1.1
 //   tls1.2: TLS 1.2
 //
-// Supported on: fuchsia
+// Supported on:
 message SSLVersionMinProto {
   optional PolicyOptions policy_options = 1;
   optional string SSLVersionMin = 2;
@@ -20250,6 +20700,8 @@ message SecondaryGoogleAccountSigninAllowedProto {
 // Add restrictions on a managed account's usage as a secondary account on
 // ChromeOS
 //
+// Removed in M122 - this is a server-side-only policy that never used the
+// ChromeOS policy infrastructure for its propagation.
 // If this policy is set to 'all' or not set, all usages of managed accounts are
 // allowed. This may result in a managed account being a secondary account,
 // which would only receive policies when the account is signed-in as a primary
@@ -20267,7 +20719,7 @@ message SecondaryGoogleAccountSigninAllowedProto {
 //   primary_account_signin: Block addition of a managed account as Secondary
 // Account on ChromeOS (in-session)
 //
-// Supported on: chrome_os
+// Supported on:
 message SecondaryGoogleAccountUsageProto {
   optional PolicyOptions policy_options = 1;
   optional string SecondaryGoogleAccountUsage = 2;
@@ -21609,7 +22061,7 @@ message SupervisedUserContentProviderEnabledProto {
 //   True: Enable creation of supervised users
 //   False: Disable creation of supervised users
 //
-// Supported on: fuchsia
+// Supported on:
 message SupervisedUserCreationEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool SupervisedUserCreationEnabled = 2;
@@ -21884,33 +22336,33 @@ message TabFreezingEnabledProto {
   optional bool TabFreezingEnabled = 2;
 }
 
-// Allow tab organizer
+// Settings for Tab Organizer
 //
-// This policy allows you to control how your organization's data is handled
-// with Google Chrome's Tab organizer. This policy will take precedence over any
-// future blanket policy.
+// Tab Organizer is an AI-based tool that automatically creates tab groups based
+// on a user's open tabs. Suggestions are based on open tabs (but not page
+// content).
 //
-// Setting the policy to "Allowed" will allow feature use for organization.
+// 0 = Enable the feature for users, and send relevant data to Google to help
+// train or improve AI models. Relevant data may include prompts, inputs,
+// outputs, and source materials, depending on the feature. It may be reviewed
+// by humans for the sole purpose of improving AI models.
 //
-// Setting the policy to "Allow without data collection" will opt-out of
-// collecting enterprise data for model training. This setting also disables
-// data sharing via the in-feature Feedback dialog, and sending data for human
-// evaluation. As a result, Google does not use enterprise user content
-// (including prompts, inputs, outputs, and source materials) for model
-// training. This would ensure that Google does not use enterprise user data to
-// train or improve its AI models. Google does not save enterprise user content
-// including (prompts, sources, inputs or outputs). Note that these may be
-// stored up to 24 hours to keep situational context. This would ensure that
-// Google does not collect or store any data that is entered into or generated
-// by an AI feature. This includes user inputs, generated outputs, and user
-// feedback.
+// 0 is the default value, except when noted below.
 //
-// Setting the policy to "Disabled" will fully disable feature.
+// 1 = Enable the feature for users, but do not send data to Google to train or
+// improve AI models. 1 is the default value for Enterprise users managed by
+// Google Admin console.
+//
+// 2 = Disable the feature. 2 is the default value for education accounts
+// managed by Google Workspace.
+//
+// For more information on data handling for generative AI features, please see
+// https://support.google.com/chrome/a?p=generative_ai_settings.
 //
 // Valid values:
-//   0: Allow feature use for organization
-//   1: Allow without data collection
-//   2: Fully disable feature
+//   0: Enable the feature and send data to help train AI models
+//   1: Enable the feature but don't send data to help train AI models
+//   2: Disable the feature
 //
 // Supported on: chrome_os, linux, mac, win
 message TabOrganizerSettingsProto {
@@ -22115,31 +22567,26 @@ message TotalMemoryLimitMbProto {
   optional int64 TotalMemoryLimitMb = 2;
 }
 
-// Enable virtual keyboard
+// Enable the touch virtual keyboard
 //
-// Controls the on-screen keyboard, acting as a supplementary policy to the
+// Controls the touch virtual keyboard, acting as a supplementary policy to the
 // VirtualKeyboardEnabled policy.
 //
-// If the VirtualKeyboardEnabled policy is True or if the Enable on-screen
-// keyboard ChromeOS setting is on, this policy has no effect.
+// If accessibility virtual keyboard is turned on, this policy has no effect.
 //
-// If the VirtualKeyboardEnabled policy is False or not set and the Enable on-
-// screen keyboard ChromeOS setting is off, this policy has the following
-// effect:
-// If this policy is not set, the on-screen keyboard is displayed when the
-// device is in tablet mode.
-// If this policy is set to True, the on-screen keyboard is always displayed.
-// If this policy is set to False, the on-screen keyboard is never displayed.
+// Otherwise, this policy has the following effect:
+// If this policy is not set, the virtual keyboard is displayed based on the
+// default system heuristics, such as whether there are keyboards attached.
+// If this policy is set to True, the virtual keyboard is always displayed.
+// If this policy is set to False, the virtual keyboard is never displayed.
 //
-// The on-screen keyboard may change to a compact layout depending on the input
+// The virtual keyboard may change to a compact layout depending on the input
 // method.
 //
-// If you set the policy, users can't change it.
-//
 // Valid values:
-//   True: Enable on-screen keyboard
-//   False: Disable on-screen keyboard
-//   None: Enable on-screen keyboard in tablet mode
+//   True: Enable touch virtual keyboard
+//   False: Disable touch virtual keyboard
+//   None: Enable touch virtual keyboard based on the default system heuristics
 //
 // Supported on: chrome_os
 message TouchVirtualKeyboardEnabledProto {
@@ -22455,7 +22902,7 @@ message UnsafelyTreatInsecureOriginAsSecureProto {
 // threshold.
 //   None: Default behavior for setTimeout() function nested clamp.
 //
-// Supported on: fuchsia
+// Supported on:
 message UnthrottledNestedTimeoutEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool UnthrottledNestedTimeoutEnabled = 2;
@@ -22525,7 +22972,7 @@ message UrlKeyedMetricsAllowedProto {
 //   True: Allow the browser to filter URL parameters.
 //   False: Disallow any filtering of URL parameters.
 //
-// Supported on: fuchsia
+// Supported on:
 message UrlParamFilterEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool UrlParamFilterEnabled = 2;
@@ -23273,19 +23720,30 @@ message VideoCaptureAllowedUrlsProto {
   optional StringList VideoCaptureAllowedUrls = 2;
 }
 
-// Enable on-screen keyboard
+// Enable the accessibility virtual keyboard
 //
-// Setting the policy to True keeps the on-screen keyboard on. Setting the
-// policy to False keeps the on-screen keyboard off unless other factors turn it
-// on. See the TouchVirtualKeyboardEnabled policy as an example of these
-// factors.
+// Enable the virtual keyboard accessibility feature.
 //
-// If you set the policy, users can't change it. If not set, the on-screen
-// keyboard is off at first, but users can turn it on any time.
+// If this policy is set to true, the accessibility virtual keyboard will always
+// be enabled.
+//
+// If this policy is set to false, the accessibility virtual keyboard will
+// always be disabled.
+//
+// If you set this policy, users cannot change or override it.
+//
+// If this policy is left unset, the accessibility virtual keyboard is disabled
+// initially but can be enabled by the user at any time by using the
+// accessibility settings.
+//
+// This policy does not affect whether the touch virtual keyboard is enabled.
+// For example, the touch virtual keyboard will still show up on a tablet device
+// even if this policy is set to false. Use the TouchVirtualKeyboardEnabled
+// policy to control the behavior of the touch virtual keyboard.
 //
 // Valid values:
-//   True: Enable on-screen keyboard
-//   False: Disable on-screen keyboard
+//   True: Enable accessibility virtual keyboard
+//   False: Disable accessibility virtual keyboard
 //   None: Allow the user to decide
 //
 // Supported on: chrome_os
@@ -23367,6 +23825,35 @@ message VirtualKeyboardFeaturesProto {
 message VirtualKeyboardResizesLayoutByDefaultProto {
   optional PolicyOptions policy_options = 1;
   optional bool VirtualKeyboardResizesLayoutByDefault = 2;
+}
+
+// Let the on-screen keyboard appear when appropriate.
+//
+// When the policy is set to True or unset, the on-screen keyboard can appear
+// when it predicts that the user is about to use it.
+//
+// When the policy to set to False, the on-screen keyboard only appears if the
+// user explicitly taps on an input field or if an application requests it.
+//
+// For example, suppose the user uses the virtual keyboard to type their
+// username in a two-stage login screen. When the login screen transitions to
+// the password stage, if the policy is True, the virtual keyboard may remain
+// visible, even though the user did not tap on the password input field. If the
+// policy is False, then the virtual keyboard will disappear.
+//
+// This policy does not apply if the virtual keyboard is disabled (e.g. using
+// the TouchVirtualKeyboardEnabled policy, or if the device is connected to a
+// physical keyboard).
+//
+// Valid values:
+//   True: Show the on-screen keyboard when appropriate.
+//   False: Only show the on-screen keyboard if the user or application requests
+// it.
+//
+// Supported on: chrome_os
+message VirtualKeyboardSmartVisibilityEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool VirtualKeyboardSmartVisibilityEnabled = 2;
 }
 
 // Specify VM CLI permission
@@ -23568,6 +24055,103 @@ message WallpaperImageProto {
 message WarnBeforeQuittingEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool WarnBeforeQuittingEnabled = 2;
+}
+
+// Allow detecting plain text entities in web pages.
+//
+// This policy decides if plain text entities are detected on webpages, letting
+// users trigger contextual actions by interacting with them.
+// The policy has multiple properties, one for each entity type.
+// The entity types are default, addresses ... .
+//
+// If the value for an entity is unset, the behavior of the default entity is
+// applied.
+// The default behavior for default is enabled.
+//
+// The values for each entity types are default, enabled,
+// disabled or longpressonly.
+// If the value is set to default, the behavior of the default entity is
+// applied.
+// If the value is set to enabled, entities are detected, underlines and
+// triggered either by one tap or long press.
+// If the value is set to disabled, entities are not detected and not
+// actionable.
+// If the value is set to longpressonly, entities are detected and only
+// actionable using long press.
+//
+// Value schema:
+// {
+//     "properties": {
+//         "addresses": {
+//             "enum": [
+//                 "default",
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         },
+//         "calendar": {
+//             "enum": [
+//                 "default",
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         },
+//         "default": {
+//             "enum": [
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         },
+//         "email": {
+//             "enum": [
+//                 "default",
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         },
+//         "package": {
+//             "enum": [
+//                 "default",
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         },
+//         "phonenumbers": {
+//             "enum": [
+//                 "default",
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         },
+//         "units": {
+//             "enum": [
+//                 "default",
+//                 "enabled",
+//                 "disabled",
+//                 "longpressonly"
+//             ],
+//             "type": "string"
+//         }
+//     },
+//     "type": "object"
+// }
+//
+// Supported on: ios
+message WebAnnotationsProto {
+  optional PolicyOptions policy_options = 1;
+  optional string WebAnnotations = 2;
 }
 
 // Configure list of force-installed Web Apps
@@ -24065,7 +24649,7 @@ message WebHidBlockedForUrlsProto {
 //   True: Allow WebRTC to use obsolete versions of the TLD/DTLS protocol
 //   False: Prevent WebRTC from using obsolete versions of TLS/DTLS
 //
-// Supported on: fuchsia
+// Supported on:
 message WebRtcAllowLegacyTLSProtocolsProto {
   optional PolicyOptions policy_options = 1;
   optional bool WebRtcAllowLegacyTLSProtocols = 2;
@@ -24233,7 +24817,7 @@ message WebSQLInThirdPartyContextEnabledProto {
 //   False: WebSQL in non-secure contexts will remain available until M109, then
 // unavailable starting M110.
 //
-// Supported on: fuchsia
+// Supported on:
 message WebSQLNonSecureContextEnabledProto {
   optional PolicyOptions policy_options = 1;
   optional bool WebSQLNonSecureContextEnabled = 2;
@@ -24617,6 +25201,7 @@ message ChromeSettingsSubProto1 {
   optional CACertificatesProto CACertificates = 151;
   optional CADistrustedCertificatesProto CADistrustedCertificates = 152;
   optional CAHintCertificatesProto CAHintCertificates = 153;
+  optional CAPlatformIntegrationEnabledProto CAPlatformIntegrationEnabled = 156;
   optional ChromeAppsWebViewPermissiveBehaviorAllowedProto ChromeAppsWebViewPermissiveBehaviorAllowed = 33;
   optional CloudAPAuthEnabledProto CloudAPAuthEnabled = 3;
   optional ColorCorrectionEnabledProto ColorCorrectionEnabled = 80;
@@ -24630,6 +25215,7 @@ message ChromeSettingsSubProto1 {
   optional DefaultMidiSettingProto DefaultMidiSetting = 88;
   optional DefaultThirdPartyStoragePartitioningSettingProto DefaultThirdPartyStoragePartitioningSetting = 50;
   optional DefaultWindowManagementSettingProto DefaultWindowManagementSetting = 27;
+  optional DeleteKeyModifierProto DeleteKeyModifier = 164;
   optional DeskAPIDeskSaveAndShareEnabledProto DeskAPIDeskSaveAndShareEnabled = 143;
   optional DomainReliabilityAllowedProto DomainReliabilityAllowed = 18;
   optional DriveFileSyncAvailableProto DriveFileSyncAvailable = 118;
@@ -24640,8 +25226,13 @@ message ChromeSettingsSubProto1 {
   optional ExtensionInstallTypeBlocklistProto ExtensionInstallTypeBlocklist = 139;
   optional ExtensionOAuthRedirectUrlsProto ExtensionOAuthRedirectUrls = 109;
   optional ExtensionUnpublishedAvailabilityProto ExtensionUnpublishedAvailability = 31;
+  optional F11KeyModifierProto F11KeyModifier = 160;
+  optional F12KeyModifierProto F12KeyModifier = 161;
   optional FeedbackSurveysEnabledProto FeedbackSurveysEnabled = 142;
   optional FileOrDirectoryPickerWithoutGestureAllowedForOriginsProto FileOrDirectoryPickerWithoutGestureAllowedForOrigins = 53;
+  optional FloatingSsoDomainBlocklistProto FloatingSsoDomainBlocklist = 158;
+  optional FloatingSsoDomainBlocklistExceptionsProto FloatingSsoDomainBlocklistExceptions = 159;
+  optional FloatingSsoEnabledProto FloatingSsoEnabled = 157;
   optional ForceEnablePepperVideoDecoderDevAPIProto ForceEnablePepperVideoDecoderDevAPI = 17;
   optional ForcePermissionPolicyUnloadDefaultEnabledProto ForcePermissionPolicyUnloadDefaultEnabled = 97;
   optional FullRestoreModeProto FullRestoreMode = 115;
@@ -24649,10 +25240,12 @@ message ChromeSettingsSubProto1 {
   optional GoogleSearchSidePanelEnabledProto GoogleSearchSidePanelEnabled = 67;
   optional GoogleWorkspaceCloudUploadProto GoogleWorkspaceCloudUpload = 106;
   optional HelpMeWriteSettingsProto HelpMeWriteSettings = 147;
+  optional HomeAndEndKeysModifierProto HomeAndEndKeysModifier = 165;
   optional HttpAllowlistProto HttpAllowlist = 42;
   optional HttpsUpgradesEnabledProto HttpsUpgradesEnabled = 43;
   optional IPv6ReachabilityOverrideEnabledProto IPv6ReachabilityOverrideEnabled = 132;
   optional InsecureHashesInTLSHandshakesEnabledProto InsecureHashesInTLSHandshakesEnabled = 55;
+  optional InsertKeyModifierProto InsertKeyModifier = 167;
   optional KerberosUseCustomPrefilledConfigProto KerberosUseCustomPrefilledConfig = 13;
   optional KioskTroubleshootingToolsEnabledProto KioskTroubleshootingToolsEnabled = 16;
   optional LacrosSelectionProto LacrosSelection = 5;
@@ -24672,6 +25265,7 @@ message ChromeSettingsSubProto1 {
   optional OutOfProcessSystemDnsResolutionEnabledProto OutOfProcessSystemDnsResolutionEnabled = 30;
   optional PPAPISharedImagesForVideoDecoderAllowedProto PPAPISharedImagesForVideoDecoderAllowed = 123;
   optional PPAPISharedImagesSwapChainAllowedProto PPAPISharedImagesSwapChainAllowed = 7;
+  optional PageUpAndPageDownKeysModifierProto PageUpAndPageDownKeysModifier = 166;
   optional ParcelTrackingEnabledProto ParcelTrackingEnabled = 140;
   optional PasswordSharingEnabledProto PasswordSharingEnabled = 130;
   optional PdfUseSkiaRendererEnabledProto PdfUseSkiaRendererEnabled = 68;
@@ -24724,7 +25318,9 @@ message ChromeSettingsSubProto1 {
   optional UserAvatarCustomizationSelectorsEnabledProto UserAvatarCustomizationSelectorsEnabled = 49;
   optional UserContextAwareAccessSignalsAllowlistProto UserContextAwareAccessSignalsAllowlist = 66;
   optional UserFeedbackWithLowLevelDebugDataAllowedProto UserFeedbackWithLowLevelDebugDataAllowed = 133;
+  optional VirtualKeyboardSmartVisibilityEnabledProto VirtualKeyboardSmartVisibilityEnabled = 162;
   optional WallpaperGooglePhotosIntegrationEnabledProto WallpaperGooglePhotosIntegrationEnabled = 37;
+  optional WebAnnotationsProto WebAnnotations = 163;
   optional WebRtcTextLogCollectionAllowedProto WebRtcTextLogCollectionAllowed = 38;
   optional WindowManagementAllowedForUrlsProto WindowManagementAllowedForUrls = 28;
   optional WindowManagementBlockedForUrlsProto WindowManagementBlockedForUrls = 29;

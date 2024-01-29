@@ -170,6 +170,8 @@ bool CustomizeColorSchemeModeHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CustomizeColorSchemeModeHandlerFactory_CreateCustomizeColorSchemeModeHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeColorSchemeModeHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<CustomizeColorSchemeModeClient> p_pending_client{};
       ::mojo::PendingReceiver<CustomizeColorSchemeModeHandler> p_pending_handler{};
@@ -192,9 +194,9 @@ bool CustomizeColorSchemeModeHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCustomizeColorSchemeModeHandler(
-std::move(p_pending_client), 
-std::move(p_pending_handler));
+      impl->CreateCustomizeColorSchemeModeHandler(        
+        std::move(p_pending_client), 
+        std::move(p_pending_handler));
       return true;
     }
   }
@@ -394,6 +396,8 @@ bool CustomizeColorSchemeModeHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CustomizeColorSchemeModeHandler_SetColorSchemeMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeColorSchemeModeHandler.0
       bool success = true;
       ColorSchemeMode p_colorSchemeMode{};
       CustomizeColorSchemeModeHandler_SetColorSchemeMode_ParamsDataView input_data_view(params, message);
@@ -409,8 +413,8 @@ bool CustomizeColorSchemeModeHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorSchemeMode(
-std::move(p_colorSchemeMode));
+      impl->SetColorSchemeMode(        
+        std::move(p_colorSchemeMode));
       return true;
     }
     case internal::kCustomizeColorSchemeModeHandler_InitializeColorSchemeMode_Name: {
@@ -420,6 +424,8 @@ std::move(p_colorSchemeMode));
           reinterpret_cast<internal::CustomizeColorSchemeModeHandler_InitializeColorSchemeMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeColorSchemeModeHandler.1
       bool success = true;
       CustomizeColorSchemeModeHandler_InitializeColorSchemeMode_ParamsDataView input_data_view(params, message);
       
@@ -432,7 +438,7 @@ std::move(p_colorSchemeMode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeColorSchemeMode();
+      impl->InitializeColorSchemeMode(        );
       return true;
     }
   }
@@ -584,6 +590,8 @@ bool CustomizeColorSchemeModeClientStubDispatch::Accept(
           reinterpret_cast<internal::CustomizeColorSchemeModeClient_SetColorSchemeMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeColorSchemeModeClient.0
       bool success = true;
       ColorSchemeMode p_colorSchemeMode{};
       CustomizeColorSchemeModeClient_SetColorSchemeMode_ParamsDataView input_data_view(params, message);
@@ -599,8 +607,8 @@ bool CustomizeColorSchemeModeClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorSchemeMode(
-std::move(p_colorSchemeMode));
+      impl->SetColorSchemeMode(        
+        std::move(p_colorSchemeMode));
       return true;
     }
   }

@@ -59,14 +59,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_transaction;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<SQLTransaction>::ToV8(script_state, arg1_transaction).ToLocal(&v8_arg1_transaction)) {
-  return v8::Nothing<bool>();
-}
+v8_arg1_transaction = ToV8Traits<SQLTransaction>::ToV8(script_state, arg1_transaction);
 argv[0] = v8_arg1_transaction;
 v8::Local<v8::Value> v8_arg2_error;
-if (!ToV8Traits<SQLError>::ToV8(script_state, arg2_error).ToLocal(&v8_arg2_error)) {
-  return v8::Nothing<bool>();
-}
+v8_arg2_error = ToV8Traits<SQLError>::ToV8(script_state, arg2_error);
 argv[1] = v8_arg2_error;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<bool>();

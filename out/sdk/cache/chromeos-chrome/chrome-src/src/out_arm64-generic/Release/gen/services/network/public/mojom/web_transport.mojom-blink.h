@@ -242,7 +242,7 @@ class BLINK_PLATFORM_EXPORT WebTransportClient
   virtual void OnReceivedResetStream(uint32_t stream_id, uint32_t stream_error_code) = 0;
 
   
-  virtual void OnClosed(WebTransportCloseInfoPtr close_info) = 0;
+  virtual void OnClosed(WebTransportCloseInfoPtr close_info, WebTransportStatsPtr final_stats) = 0;
 };
 
 class WebTransportHandshakeClientProxy;
@@ -291,7 +291,7 @@ class BLINK_PLATFORM_EXPORT WebTransportHandshakeClient
   virtual ~WebTransportHandshakeClient() = default;
 
   
-  virtual void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) = 0;
+  virtual void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, ::network::mojom::blink::HttpResponseHeadersPtr response_headers, WebTransportStatsPtr initial_stats) = 0;
 
   
   virtual void OnHandshakeFailed(WebTransportErrorPtr error) = 0;
@@ -349,7 +349,7 @@ class BLINK_PLATFORM_EXPORT WebTransportClientProxy
   
   void OnReceivedResetStream(uint32_t stream_id, uint32_t stream_error_code) final;
   
-  void OnClosed(WebTransportCloseInfoPtr close_info) final;
+  void OnClosed(WebTransportCloseInfoPtr close_info, WebTransportStatsPtr final_stats) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -364,7 +364,7 @@ class BLINK_PLATFORM_EXPORT WebTransportHandshakeClientProxy
 
   explicit WebTransportHandshakeClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) final;
+  void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, ::network::mojom::blink::HttpResponseHeadersPtr response_headers, WebTransportStatsPtr initial_stats) final;
   
   void OnHandshakeFailed(WebTransportErrorPtr error) final;
 

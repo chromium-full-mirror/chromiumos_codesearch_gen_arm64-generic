@@ -1,7 +1,8 @@
-import { dC as PaperRippleBehavior, w as assert, dD as validateExternalDriveName, bP as isSinglePartitionFormatEnabled, j as str, h as strf, c9 as bytesToString, bt as getTrustedHTML, a1 as XfBase } from './shared.rollup.js';
-import { html, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { dC as PaperRippleMixin, w as assert, dD as validateExternalDriveName, bP as isSinglePartitionFormatEnabled, j as str, h as strf, c9 as bytesToString, bt as getTrustedHTML, a1 as XfBase } from './shared.rollup.js';
+import { html, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { property, customElement, svg, html as html$1, css } from 'chrome://resources/mwc/lit/index.js';
 import 'chrome://resources/ash/common/load_time_data.m.js';
+import 'chrome://resources/js/cr.js';
 
 function getTemplate$3() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
@@ -34,7 +35,7 @@ function getTemplate$3() {
  * intentional.
  */
 const MOVE_THRESHOLD_PX = 5;
-const CrToggleElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrToggleElementBase = PaperRippleMixin(PolymerElement);
 class CrToggleElement extends CrToggleElementBase {
     constructor() {
         super(...arguments);
@@ -193,7 +194,7 @@ class CrToggleElement extends CrToggleElementBase {
             this.toggleState_(/* fromKeyboard= */ true);
         }
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.knob;
@@ -229,6 +230,9 @@ const template = html `
       </g>
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
+      </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
       </g>
       
         <g id="banner-warning">
@@ -998,7 +1002,7 @@ class FilesTooltip extends PolymerElement {
             if (this.offsetWidth > document.body.offsetWidth) {
                 left = 0;
             }
-            else if (document.dir == 'rtl') {
+            else if (document.dir === 'rtl') {
                 // Calculate position for rtl mode to align to the right of target.
                 const width = this.getBoundingClientRect().width;
                 const minLeft = rect.right - width;

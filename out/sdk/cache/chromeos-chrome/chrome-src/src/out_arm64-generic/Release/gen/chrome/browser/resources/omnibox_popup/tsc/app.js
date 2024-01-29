@@ -83,8 +83,8 @@ export class OmniboxPopupAppElement extends PolymerElement {
             // Ignore silently if mark 'ResultChanged' is missing.
             .catch(() => { });
     }
-    onUpdateSelection_(selection) {
-        this.$.matches.updateSelection(selection);
+    onUpdateSelection_(oldSelection, selection) {
+        this.$.matches.updateSelection(oldSelection, selection);
     }
 }
 customElements.define(OmniboxPopupAppElement.is, OmniboxPopupAppElement);

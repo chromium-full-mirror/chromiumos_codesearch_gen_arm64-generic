@@ -10,7 +10,7 @@
 
 #include "ui/chromeos/styles/cros_styles.h"
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "third_party/skia/include/core/SkColor.h"
 
 namespace cros_styles {
@@ -61,7 +61,7 @@ SkAlpha GetOpacity(OpacityName opacity_name, bool is_dark_mode) {
   }
 }
 
-absl::optional<SkColor> GetDebugColor(ColorName color_name, bool is_dark_mode) {
+std::optional<SkColor> GetDebugColor(ColorName color_name, bool is_dark_mode) {
   switch (color_name) {
     case ColorName::kColorProminent:
       return ResolveColor(ColorName::kColorProminentDebug, is_dark_mode);
@@ -82,7 +82,7 @@ absl::optional<SkColor> GetDebugColor(ColorName color_name, bool is_dark_mode) {
     case ColorName::kIconButtonPressedColor:
       return SkColorSetARGB(0x1D, 0x0, 0x0, 0x0);
     default:
-      return absl::nullopt;
+      return std::nullopt;
   }
 }
 

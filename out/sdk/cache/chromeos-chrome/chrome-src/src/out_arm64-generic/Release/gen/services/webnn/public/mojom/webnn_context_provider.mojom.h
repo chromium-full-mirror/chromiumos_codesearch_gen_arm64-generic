@@ -27,6 +27,7 @@
 #include "services/webnn/public/mojom/webnn_context_provider.mojom-shared.h"
 #include "services/webnn/public/mojom/webnn_context_provider.mojom-forward.h"
 #include "components/ml/webnn/features.mojom-forward.h"
+#include "services/webnn/public/mojom/webnn_error.mojom.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-forward.h"
 #include <string>
 #include <vector>
@@ -430,151 +431,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  Error {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<Error, T>::value>;
-  using DataView = ErrorDataView;
-  using Data_ = internal::Error_Data;
-  using Code = Error_Code;
-
-  template <typename... Args>
-  static ErrorPtr New(Args&&... args) {
-    return ErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static ErrorPtr From(const U& u) {
-    return mojo::TypeConverter<ErrorPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, Error>::Convert(*this);
-  }
-
-
-  Error();
-
-  Error(
-      Error::Code error_code,
-      const std::string& error_message);
-
-
-  ~Error();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = ErrorPtr>
-  ErrorPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, Error::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, Error::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, Error::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        Error::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        Error::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::Error_UnserializedMessageContext<
-            UserType, Error::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<Error::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return Error::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::Error_UnserializedMessageContext<
-            UserType, Error::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<Error::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  Error::Code error_code;
-  
-  std::string error_message;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, Error::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, Error::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, Error::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, Error::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
 class  CreateGraphResult {
  public:
   using DataView = CreateGraphResultDataView;
@@ -602,7 +458,7 @@ class  CreateGraphResult {
   // Construct an instance holding |error|.
   static CreateGraphResultPtr
   NewError(
-      ErrorPtr value) {
+      ::webnn::mojom::ErrorPtr value) {
     auto result = CreateGraphResultPtr(absl::in_place);
     result->set_error(std::move(value));
     return result;
@@ -665,14 +521,14 @@ class  CreateGraphResult {
   bool is_error() const { return tag_ == Tag::kError; }
 
   
-  ErrorPtr& get_error() const {
+  ::webnn::mojom::ErrorPtr& get_error() const {
     CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
   
   void set_error(
-      ErrorPtr error);
+      ::webnn::mojom::ErrorPtr error);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -692,7 +548,7 @@ class  CreateGraphResult {
     Union_() = default;
     ~Union_() = default;
     ::mojo::PendingRemote<::webnn::mojom::WebNNGraph>* graph_remote;
-    ErrorPtr* error;
+    ::webnn::mojom::ErrorPtr* error;
   };
 
   static bool Validate(const void* data,
@@ -732,7 +588,7 @@ class  CreateContextResult {
   // Construct an instance holding |error|.
   static CreateContextResultPtr
   NewError(
-      ErrorPtr value) {
+      ::webnn::mojom::ErrorPtr value) {
     auto result = CreateContextResultPtr(absl::in_place);
     result->set_error(std::move(value));
     return result;
@@ -795,14 +651,14 @@ class  CreateContextResult {
   bool is_error() const { return tag_ == Tag::kError; }
 
   
-  ErrorPtr& get_error() const {
+  ::webnn::mojom::ErrorPtr& get_error() const {
     CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
   
   void set_error(
-      ErrorPtr error);
+      ::webnn::mojom::ErrorPtr error);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -822,7 +678,7 @@ class  CreateContextResult {
     Union_() = default;
     ~Union_() = default;
     ::mojo::PendingRemote<WebNNContext>* context_remote;
-    ErrorPtr* error;
+    ::webnn::mojom::ErrorPtr* error;
   };
 
   static bool Validate(const void* data,
@@ -832,7 +688,6 @@ class  CreateContextResult {
   Tag tag_;
   Union_ data_;
 };
-
 
 
 template <typename UnionPtrType>
@@ -915,35 +770,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
-template <typename StructPtrType>
-ErrorPtr Error::Clone() const {
-  return New(
-      mojo::Clone(error_code),
-      mojo::Clone(error_message)
-  );
-}
-
-template <typename T, Error::EnableIfSame<T>*>
-bool Error::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->error_code, other_struct.error_code))
-    return false;
-  if (!mojo::Equals(this->error_message, other_struct.error_message))
-    return false;
-  return true;
-}
-
-template <typename T, Error::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.error_code < rhs.error_code)
-    return true;
-  if (rhs.error_code < lhs.error_code)
-    return false;
-  if (lhs.error_message < rhs.error_message)
-    return true;
-  if (rhs.error_message < lhs.error_message)
-    return false;
-  return false;
-}
 
 
 }  // webnn::mojom
@@ -963,26 +789,6 @@ struct  StructTraits<::webnn::mojom::CreateContextOptions::DataView,
   }
 
   static bool Read(::webnn::mojom::CreateContextOptions::DataView input, ::webnn::mojom::CreateContextOptionsPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::webnn::mojom::Error::DataView,
-                                         ::webnn::mojom::ErrorPtr> {
-  static bool IsNull(const ::webnn::mojom::ErrorPtr& input) { return !input; }
-  static void SetToNull(::webnn::mojom::ErrorPtr* output) { output->reset(); }
-
-  static decltype(::webnn::mojom::Error::error_code) error_code(
-      const ::webnn::mojom::ErrorPtr& input) {
-    return input->error_code;
-  }
-
-  static const decltype(::webnn::mojom::Error::error_message)& error_message(
-      const ::webnn::mojom::ErrorPtr& input) {
-    return input->error_message;
-  }
-
-  static bool Read(::webnn::mojom::Error::DataView input, ::webnn::mojom::ErrorPtr* output);
 };
 
 

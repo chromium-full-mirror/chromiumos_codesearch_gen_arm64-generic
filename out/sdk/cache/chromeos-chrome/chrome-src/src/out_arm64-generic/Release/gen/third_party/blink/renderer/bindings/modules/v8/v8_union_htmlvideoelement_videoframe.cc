@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionHTMLVideoElementOrVideoFrame::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionHTMLVideoElementOrVideoFrame::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kHTMLVideoElement: {
     return ToV8Traits<HTMLVideoElement>::ToV8(script_state, member_html_video_element_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionHTMLVideoElementOrVideoFrame::ToV8Value(ScriptS
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionHTMLVideoElementOrVideoFrame::Trace(Visitor* visitor) const {

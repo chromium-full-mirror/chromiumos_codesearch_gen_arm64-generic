@@ -62,7 +62,7 @@ content_type_ = ContentType::kString;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionMediaStreamTrackOrString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionMediaStreamTrackOrString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kMediaStreamTrack: {
     return ToV8Traits<MediaStreamTrack>::ToV8(script_state, member_media_stream_track_.Get());
@@ -73,7 +73,7 @@ v8::MaybeLocal<v8::Value> V8UnionMediaStreamTrackOrString::ToV8Value(ScriptState
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionMediaStreamTrackOrString::Trace(Visitor* visitor) const {

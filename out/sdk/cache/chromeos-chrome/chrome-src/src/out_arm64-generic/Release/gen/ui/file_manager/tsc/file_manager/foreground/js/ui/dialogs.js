@@ -155,7 +155,7 @@ export class BaseDialog {
         this.show_(title, onOk, onCancel, onShow);
     }
     findFocusableElements_(doc) {
-        let elements = Array.prototype.filter.call(doc.querySelectorAll('*'), function (n) {
+        let elements = Array.prototype.filter.call(doc.querySelectorAll('*'), (n) => {
             return n.tabIndex >= 0;
         });
         const iframes = doc.querySelectorAll('iframe');
@@ -216,13 +216,13 @@ export class BaseDialog {
             }
         }
         const self = this;
-        setTimeout(function () {
+        setTimeout(() => {
             // Check that hide() was not called in between.
             if (self.showing_) {
                 self.container.classList.add('shown');
                 self.initialFocusElement_.focus();
             }
-            setTimeout(function () {
+            setTimeout(() => {
                 if (onShow) {
                     onShow();
                 }
@@ -254,7 +254,7 @@ export class BaseDialog {
             this.document_.body.focus();
         }
         const self = this;
-        setTimeout(function () {
+        setTimeout(() => {
             // Wait until the transition is done before removing the dialog.
             // Check show() was not called in between.
             // It is also possible to show/hide/show/hide and have hide called twice

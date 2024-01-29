@@ -265,6 +265,8 @@ bool ShortcutInputObserverStubDispatch::Accept(
           reinterpret_cast<internal::ShortcutInputObserver_OnShortcutInputEventPressed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShortcutInputObserver.0
       bool success = true;
       ::ash::mojom::KeyEventPtr p_prerewritten_key_event{};
       ::ash::mojom::KeyEventPtr p_key_event{};
@@ -283,9 +285,9 @@ bool ShortcutInputObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShortcutInputEventPressed(
-std::move(p_prerewritten_key_event), 
-std::move(p_key_event));
+      impl->OnShortcutInputEventPressed(        
+        std::move(p_prerewritten_key_event), 
+        std::move(p_key_event));
       return true;
     }
     case internal::kShortcutInputObserver_OnShortcutInputEventReleased_Name: {
@@ -295,6 +297,8 @@ std::move(p_key_event));
           reinterpret_cast<internal::ShortcutInputObserver_OnShortcutInputEventReleased_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShortcutInputObserver.1
       bool success = true;
       ::ash::mojom::KeyEventPtr p_prerewritten_key_event{};
       ::ash::mojom::KeyEventPtr p_key_event{};
@@ -313,9 +317,9 @@ std::move(p_key_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShortcutInputEventReleased(
-std::move(p_prerewritten_key_event), 
-std::move(p_key_event));
+      impl->OnShortcutInputEventReleased(        
+        std::move(p_prerewritten_key_event), 
+        std::move(p_key_event));
       return true;
     }
   }
@@ -524,6 +528,8 @@ bool ShortcutInputProviderStubDispatch::Accept(
           reinterpret_cast<internal::ShortcutInputProvider_StartObservingShortcutInput_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShortcutInputProvider.0
       bool success = true;
       ::mojo::PendingRemote<ShortcutInputObserver> p_observer{};
       ShortcutInputProvider_StartObservingShortcutInput_ParamsDataView input_data_view(params, message);
@@ -541,8 +547,8 @@ bool ShortcutInputProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartObservingShortcutInput(
-std::move(p_observer));
+      impl->StartObservingShortcutInput(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShortcutInputProvider_StopObservingShortcutInput_Name: {
@@ -552,6 +558,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShortcutInputProvider_StopObservingShortcutInput_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShortcutInputProvider.1
       bool success = true;
       ShortcutInputProvider_StopObservingShortcutInput_ParamsDataView input_data_view(params, message);
       
@@ -564,7 +572,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopObservingShortcutInput();
+      impl->StopObservingShortcutInput(        );
       return true;
     }
   }

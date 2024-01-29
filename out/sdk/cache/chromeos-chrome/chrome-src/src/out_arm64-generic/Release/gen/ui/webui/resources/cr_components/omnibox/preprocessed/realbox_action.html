@@ -50,7 +50,7 @@
   }
 
   :host(:hover) {
-    background-color: var(--color-realbox-results-background-hovered);
+    background-color: var(--color-realbox-results-button-hover);
   }
 
   :host-context(.focus-outline-visible):host(:focus) {
@@ -66,9 +66,7 @@
   }
 
 </style>
-<div class="contents" title="[[tooltip_]]" on-click="onActionClick_"
-                     on-keydown="onActionKeyDown_"
-                     on-mousedown="onActionMouseDown_">
+<div class="contents" title="[[tooltip_]]">
   <div id="action-icon" style$="-webkit-mask-image: url([[action.iconUrl]])"
       hidden="[[!showCr23ActionIcon_()]]"></div>
   <img id="action-icon" src$="[[action.iconUrl]]"

@@ -575,6 +575,8 @@ bool SearchResultsPublisherStubDispatch::Accept(
           reinterpret_cast<internal::SearchResultsPublisher_OnSearchResultsReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SearchResultsPublisher.0
       bool success = true;
       SearchStatus p_status{};
       std::optional<std::vector<SearchResultPtr>> p_result{};
@@ -593,9 +595,9 @@ bool SearchResultsPublisherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSearchResultsReceived(
-std::move(p_status), 
-std::move(p_result));
+      impl->OnSearchResultsReceived(        
+        std::move(p_status), 
+        std::move(p_result));
       return true;
     }
   }
@@ -814,6 +816,8 @@ bool SearchController_Search_ForwardToCallback::Accept(
           internal::SearchController_Search_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SearchController.0
   bool success = true;
   ::mojo::PendingAssociatedReceiver<SearchResultsPublisher> p_publisher{};
   SearchController_Search_ResponseParamsDataView input_data_view(params, message);
@@ -911,6 +915,8 @@ bool SearchControllerStubDispatch::AcceptWithResponder(
               internal::SearchController_Search_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SearchController.0
       bool success = true;
       ::std::u16string p_query{};
       SearchController_Search_ParamsDataView input_data_view(params, message);
@@ -929,8 +935,8 @@ bool SearchControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Search(
-std::move(p_query), std::move(callback));
+      impl->Search(        
+        std::move(p_query), std::move(callback));
       return true;
     }
   }
@@ -1070,6 +1076,8 @@ bool SearchControllerRegistryStubDispatch::Accept(
           reinterpret_cast<internal::SearchControllerRegistry_RegisterSearchController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SearchControllerRegistry.0
       bool success = true;
       ::mojo::PendingRemote<SearchController> p_search_controller{};
       SearchControllerRegistry_RegisterSearchController_ParamsDataView input_data_view(params, message);
@@ -1087,8 +1095,8 @@ bool SearchControllerRegistryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterSearchController(
-std::move(p_search_controller));
+      impl->RegisterSearchController(        
+        std::move(p_search_controller));
       return true;
     }
   }
@@ -1245,6 +1253,8 @@ bool SearchResultConsumerStubDispatch::Accept(
           reinterpret_cast<internal::SearchResultConsumer_OnFaviconReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SearchResultConsumer.0
       bool success = true;
       ::gfx::ImageSkia p_favicon{};
       SearchResultConsumer_OnFaviconReceived_ParamsDataView input_data_view(params, message);
@@ -1260,8 +1270,8 @@ bool SearchResultConsumerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFaviconReceived(
-std::move(p_favicon));
+      impl->OnFaviconReceived(        
+        std::move(p_favicon));
       return true;
     }
   }

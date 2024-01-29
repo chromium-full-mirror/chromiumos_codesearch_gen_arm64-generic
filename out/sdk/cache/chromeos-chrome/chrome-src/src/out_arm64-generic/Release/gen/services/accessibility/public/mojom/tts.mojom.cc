@@ -470,6 +470,8 @@ bool TtsUtteranceClientStubDispatch::Accept(
           reinterpret_cast<internal::TtsUtteranceClient_OnEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsUtteranceClient.0
       bool success = true;
       TtsEventPtr p_event{};
       TtsUtteranceClient_OnEvent_ParamsDataView input_data_view(params, message);
@@ -485,8 +487,8 @@ bool TtsUtteranceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEvent(
-std::move(p_event));
+      impl->OnEvent(        
+        std::move(p_event));
       return true;
     }
   }
@@ -1017,6 +1019,8 @@ bool Tts_Speak_ForwardToCallback::Accept(
           internal::Tts_Speak_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Tts.0
   bool success = true;
   TtsSpeakResultPtr p_result{};
   Tts_Speak_ResponseParamsDataView input_data_view(params, message);
@@ -1146,6 +1150,8 @@ bool Tts_IsSpeaking_ForwardToCallback::Accept(
           internal::Tts_IsSpeaking_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Tts.4
   bool success = true;
   bool p_speaking{};
   Tts_IsSpeaking_ResponseParamsDataView input_data_view(params, message);
@@ -1265,6 +1271,8 @@ bool Tts_GetVoices_ForwardToCallback::Accept(
           internal::Tts_GetVoices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Tts.5
   bool success = true;
   std::vector<TtsVoicePtr> p_voices{};
   Tts_GetVoices_ResponseParamsDataView input_data_view(params, message);
@@ -1354,6 +1362,8 @@ bool TtsStubDispatch::Accept(
           reinterpret_cast<internal::Tts_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Tts.1
       bool success = true;
       Tts_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1366,7 +1376,7 @@ bool TtsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kTts_Pause_Name: {
@@ -1376,6 +1386,8 @@ bool TtsStubDispatch::Accept(
           reinterpret_cast<internal::Tts_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Tts.2
       bool success = true;
       Tts_Pause_ParamsDataView input_data_view(params, message);
       
@@ -1388,7 +1400,7 @@ bool TtsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kTts_Resume_Name: {
@@ -1398,6 +1410,8 @@ bool TtsStubDispatch::Accept(
           reinterpret_cast<internal::Tts_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Tts.3
       bool success = true;
       Tts_Resume_ParamsDataView input_data_view(params, message);
       
@@ -1410,7 +1424,7 @@ bool TtsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kTts_IsSpeaking_Name: {
@@ -1439,6 +1453,8 @@ bool TtsStubDispatch::AcceptWithResponder(
               internal::Tts_Speak_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Tts.0
       bool success = true;
       std::string p_utterance{};
       TtsOptionsPtr p_options{};
@@ -1460,9 +1476,9 @@ bool TtsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Speak(
-std::move(p_utterance), 
-std::move(p_options), std::move(callback));
+      impl->Speak(        
+        std::move(p_utterance), 
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kTts_Stop_Name: {
@@ -1481,6 +1497,8 @@ std::move(p_options), std::move(callback));
               internal::Tts_IsSpeaking_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Tts.4
       bool success = true;
       Tts_IsSpeaking_ParamsDataView input_data_view(params, message);
       
@@ -1506,6 +1524,8 @@ std::move(p_options), std::move(callback));
               internal::Tts_GetVoices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Tts.5
       bool success = true;
       Tts_GetVoices_ParamsDataView input_data_view(params, message);
       

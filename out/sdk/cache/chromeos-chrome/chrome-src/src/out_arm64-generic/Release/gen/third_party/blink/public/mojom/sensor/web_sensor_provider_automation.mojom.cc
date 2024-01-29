@@ -484,6 +484,8 @@ bool WebSensorProviderAutomation_CreateVirtualSensor_ForwardToCallback::Accept(
           internal::WebSensorProviderAutomation_CreateVirtualSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebSensorProviderAutomation.0
   bool success = true;
   ::device::mojom::CreateVirtualSensorResult p_result{};
   WebSensorProviderAutomation_CreateVirtualSensor_ResponseParamsDataView input_data_view(params, message);
@@ -604,6 +606,8 @@ bool WebSensorProviderAutomation_UpdateVirtualSensor_ForwardToCallback::Accept(
           internal::WebSensorProviderAutomation_UpdateVirtualSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebSensorProviderAutomation.1
   bool success = true;
   ::device::mojom::UpdateVirtualSensorResult p_result{};
   WebSensorProviderAutomation_UpdateVirtualSensor_ResponseParamsDataView input_data_view(params, message);
@@ -724,6 +728,8 @@ bool WebSensorProviderAutomation_RemoveVirtualSensor_ForwardToCallback::Accept(
           internal::WebSensorProviderAutomation_RemoveVirtualSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebSensorProviderAutomation.2
   bool success = true;
   WebSensorProviderAutomation_RemoveVirtualSensor_ResponseParamsDataView input_data_view(params, message);
   
@@ -831,6 +837,8 @@ bool WebSensorProviderAutomation_GetVirtualSensorInformation_ForwardToCallback::
           internal::WebSensorProviderAutomation_GetVirtualSensorInformation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebSensorProviderAutomation.3
   bool success = true;
   ::device::mojom::GetVirtualSensorInformationResultPtr p_result{};
   WebSensorProviderAutomation_GetVirtualSensorInformation_ResponseParamsDataView input_data_view(params, message);
@@ -938,6 +946,8 @@ bool WebSensorProviderAutomationStubDispatch::AcceptWithResponder(
               internal::WebSensorProviderAutomation_CreateVirtualSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebSensorProviderAutomation.0
       bool success = true;
       ::device::mojom::SensorType p_type{};
       ::device::mojom::VirtualSensorMetadataPtr p_metadata{};
@@ -959,9 +969,9 @@ bool WebSensorProviderAutomationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVirtualSensor(
-std::move(p_type), 
-std::move(p_metadata), std::move(callback));
+      impl->CreateVirtualSensor(        
+        std::move(p_type), 
+        std::move(p_metadata), std::move(callback));
       return true;
     }
     case internal::kWebSensorProviderAutomation_UpdateVirtualSensor_Name: {
@@ -971,6 +981,8 @@ std::move(p_metadata), std::move(callback));
               internal::WebSensorProviderAutomation_UpdateVirtualSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebSensorProviderAutomation.1
       bool success = true;
       ::device::mojom::SensorType p_type{};
       ::device::SensorReading p_reading{};
@@ -992,9 +1004,9 @@ std::move(p_metadata), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateVirtualSensor(
-std::move(p_type), 
-std::move(p_reading), std::move(callback));
+      impl->UpdateVirtualSensor(        
+        std::move(p_type), 
+        std::move(p_reading), std::move(callback));
       return true;
     }
     case internal::kWebSensorProviderAutomation_RemoveVirtualSensor_Name: {
@@ -1004,6 +1016,8 @@ std::move(p_reading), std::move(callback));
               internal::WebSensorProviderAutomation_RemoveVirtualSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebSensorProviderAutomation.2
       bool success = true;
       ::device::mojom::SensorType p_type{};
       WebSensorProviderAutomation_RemoveVirtualSensor_ParamsDataView input_data_view(params, message);
@@ -1022,8 +1036,8 @@ std::move(p_reading), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveVirtualSensor(
-std::move(p_type), std::move(callback));
+      impl->RemoveVirtualSensor(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kWebSensorProviderAutomation_GetVirtualSensorInformation_Name: {
@@ -1033,6 +1047,8 @@ std::move(p_type), std::move(callback));
               internal::WebSensorProviderAutomation_GetVirtualSensorInformation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebSensorProviderAutomation.3
       bool success = true;
       ::device::mojom::SensorType p_type{};
       WebSensorProviderAutomation_GetVirtualSensorInformation_ParamsDataView input_data_view(params, message);
@@ -1051,8 +1067,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVirtualSensorInformation(
-std::move(p_type), std::move(callback));
+      impl->GetVirtualSensorInformation(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }

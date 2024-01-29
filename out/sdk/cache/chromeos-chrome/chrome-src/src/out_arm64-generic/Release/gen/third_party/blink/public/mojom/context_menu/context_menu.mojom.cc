@@ -254,6 +254,7 @@ UntrustworthyContextMenuParams::UntrustworthyContextMenuParams()
       unfiltered_link_url(),
       src_url(),
       has_image_contents(),
+      is_image_media_plugin_document(),
       media_flags(),
       selection_text(),
       title_text(),
@@ -291,6 +292,7 @@ UntrustworthyContextMenuParams::UntrustworthyContextMenuParams(
     const ::GURL& unfiltered_link_url_in,
     const ::GURL& src_url_in,
     bool has_image_contents_in,
+    bool is_image_media_plugin_document_in,
     int32_t media_flags_in,
     const ::std::u16string& selection_text_in,
     const ::std::u16string& title_text_in,
@@ -326,6 +328,7 @@ UntrustworthyContextMenuParams::UntrustworthyContextMenuParams(
       unfiltered_link_url(std::move(unfiltered_link_url_in)),
       src_url(std::move(src_url_in)),
       has_image_contents(std::move(has_image_contents_in)),
+      is_image_media_plugin_document(std::move(is_image_media_plugin_document_in)),
       media_flags(std::move(media_flags_in)),
       selection_text(std::move(selection_text_in)),
       title_text(std::move(title_text_in)),
@@ -433,6 +436,15 @@ void UntrustworthyContextMenuParams::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_image_contents"), this->has_image_contents,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_image_media_plugin_document"), this->is_image_media_plugin_document,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -863,6 +875,8 @@ bool ContextMenuClientStubDispatch::Accept(
           reinterpret_cast<internal::ContextMenuClient_CustomContextMenuAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContextMenuClient.0
       bool success = true;
       uint32_t p_action{};
       ContextMenuClient_CustomContextMenuAction_ParamsDataView input_data_view(params, message);
@@ -878,8 +892,8 @@ bool ContextMenuClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CustomContextMenuAction(
-std::move(p_action));
+      impl->CustomContextMenuAction(        
+        std::move(p_action));
       return true;
     }
     case internal::kContextMenuClient_ContextMenuClosed_Name: {
@@ -889,6 +903,8 @@ std::move(p_action));
           reinterpret_cast<internal::ContextMenuClient_ContextMenuClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContextMenuClient.1
       bool success = true;
       ::GURL p_link_followed{};
       ContextMenuClient_ContextMenuClosed_ParamsDataView input_data_view(params, message);
@@ -904,8 +920,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContextMenuClosed(
-std::move(p_link_followed));
+      impl->ContextMenuClosed(        
+        std::move(p_link_followed));
       return true;
     }
   }
@@ -1037,6 +1053,8 @@ bool StructTraits<::blink::mojom::UntrustworthyContextMenuParams::DataView, ::bl
         success = false;
       if (success)
         result->has_image_contents = input.has_image_contents();
+      if (success)
+        result->is_image_media_plugin_document = input.is_image_media_plugin_document();
       if (success)
         result->media_flags = input.media_flags();
       if (success && !input.ReadSelectionText(&result->selection_text))

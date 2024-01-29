@@ -210,7 +210,7 @@ Params::CreateProperties Params::CreateProperties::Clone() const {
 // static
 bool Params::CreateProperties::Populate(
     const base::Value::Dict& dict, CreateProperties& out) {
-  out.type = context_menus::ItemType();
+  out.type = extensions::api::context_menus::ItemType();
   const base::Value* type_value = dict.Find("type");
   if (type_value) {
     {
@@ -218,13 +218,13 @@ bool Params::CreateProperties::Populate(
       if (!item_type_as_string) {
         return false;
       }
-      out.type = context_menus::ParseItemType(*item_type_as_string);
-      if (out.type == context_menus::ItemType()) {
+      out.type = extensions::api::context_menus::ParseItemType(*item_type_as_string);
+      if (out.type == extensions::api::context_menus::ItemType()) {
         return false;
       }
     }
     } else {
-    out.type = context_menus::ItemType();
+    out.type = extensions::api::context_menus::ItemType();
   }
 
   const base::Value* id_value = dict.Find("id");
@@ -277,8 +277,8 @@ bool Params::CreateProperties::Populate(
           if (!context_type_as_string) {
             return false;
           }
-          tmp = context_menus::ParseContextType(*context_type_as_string);
-          if (tmp == context_menus::ContextType()) {
+          tmp = extensions::api::context_menus::ParseContextType(*context_type_as_string);
+          if (tmp == extensions::api::context_menus::ContextType()) {
             return false;
           }
           out.contexts->push_back(tmp);
@@ -578,7 +578,7 @@ Params::UpdateProperties Params::UpdateProperties::Clone() const {
 // static
 bool Params::UpdateProperties::Populate(
     const base::Value::Dict& dict, UpdateProperties& out) {
-  out.type = context_menus::ItemType();
+  out.type = extensions::api::context_menus::ItemType();
   const base::Value* type_value = dict.Find("type");
   if (type_value) {
     {
@@ -586,13 +586,13 @@ bool Params::UpdateProperties::Populate(
       if (!item_type_as_string) {
         return false;
       }
-      out.type = context_menus::ParseItemType(*item_type_as_string);
-      if (out.type == context_menus::ItemType()) {
+      out.type = extensions::api::context_menus::ParseItemType(*item_type_as_string);
+      if (out.type == extensions::api::context_menus::ItemType()) {
         return false;
       }
     }
     } else {
-    out.type = context_menus::ItemType();
+    out.type = extensions::api::context_menus::ItemType();
   }
 
   const base::Value* title_value = dict.Find("title");
@@ -633,8 +633,8 @@ bool Params::UpdateProperties::Populate(
           if (!context_type_as_string) {
             return false;
           }
-          tmp = context_menus::ParseContextType(*context_type_as_string);
-          if (tmp == context_menus::ContextType()) {
+          tmp = extensions::api::context_menus::ParseContextType(*context_type_as_string);
+          if (tmp == extensions::api::context_menus::ContextType()) {
             return false;
           }
           out.contexts->push_back(tmp);

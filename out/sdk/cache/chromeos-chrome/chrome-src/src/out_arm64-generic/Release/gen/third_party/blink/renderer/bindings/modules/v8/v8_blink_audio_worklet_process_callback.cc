@@ -57,19 +57,13 @@ const int argc = 3;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_inputs;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_inputs).ToLocal(&v8_arg1_inputs)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_inputs = ToV8Traits<IDLAny>::ToV8(script_state, arg1_inputs);
 argv[0] = v8_arg1_inputs;
 v8::Local<v8::Value> v8_arg2_outputs;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_outputs).ToLocal(&v8_arg2_outputs)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg2_outputs = ToV8Traits<IDLAny>::ToV8(script_state, arg2_outputs);
 argv[1] = v8_arg2_outputs;
 v8::Local<v8::Value> v8_arg3_param_values;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg3_param_values).ToLocal(&v8_arg3_param_values)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg3_param_values = ToV8Traits<IDLAny>::ToV8(script_state, arg3_param_values);
 argv[2] = v8_arg3_param_values;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();
@@ -108,19 +102,13 @@ const int argc = 3;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_inputs;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_inputs).ToLocal(&v8_arg1_inputs)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_inputs = ToV8Traits<IDLAny>::ToV8(script_state, arg1_inputs);
 argv[0] = v8_arg1_inputs;
 v8::Local<v8::Value> v8_arg2_outputs;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_outputs).ToLocal(&v8_arg2_outputs)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg2_outputs = ToV8Traits<IDLAny>::ToV8(script_state, arg2_outputs);
 argv[1] = v8_arg2_outputs;
 v8::Local<v8::Value> v8_arg3_param_values;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg3_param_values).ToLocal(&v8_arg3_param_values)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg3_param_values = ToV8Traits<IDLAny>::ToV8(script_state, arg3_param_values);
 argv[2] = v8_arg3_param_values;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();

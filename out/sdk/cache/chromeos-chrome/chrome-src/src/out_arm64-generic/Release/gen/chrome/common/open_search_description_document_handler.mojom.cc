@@ -180,6 +180,8 @@ bool OpenSearchDescriptionDocumentHandlerStubDispatch::Accept(
           reinterpret_cast<internal::OpenSearchDescriptionDocumentHandler_PageHasOpenSearchDescriptionDocument_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OpenSearchDescriptionDocumentHandler.0
       bool success = true;
       ::GURL p_page_url{};
       ::GURL p_osdd_url{};
@@ -198,9 +200,9 @@ bool OpenSearchDescriptionDocumentHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PageHasOpenSearchDescriptionDocument(
-std::move(p_page_url), 
-std::move(p_osdd_url));
+      impl->PageHasOpenSearchDescriptionDocument(        
+        std::move(p_page_url), 
+        std::move(p_osdd_url));
       return true;
     }
   }

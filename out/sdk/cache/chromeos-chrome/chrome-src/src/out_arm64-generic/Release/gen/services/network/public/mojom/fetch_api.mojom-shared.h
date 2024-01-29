@@ -114,8 +114,10 @@ enum class RequestDestination : int32_t {
   kDictionary = 24,
   
   kSpeculationRules = 25,
+  
+  kJson = 26,
   kMinValue = 0,
-  kMaxValue = 25,
+  kMaxValue = 26,
 };
 
  std::ostream& operator<<(std::ostream& os, RequestDestination value);

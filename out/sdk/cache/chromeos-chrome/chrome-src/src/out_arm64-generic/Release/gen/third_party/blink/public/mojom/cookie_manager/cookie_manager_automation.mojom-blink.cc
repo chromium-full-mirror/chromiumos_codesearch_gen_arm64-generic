@@ -369,6 +369,8 @@ bool CookieManagerAutomation_DeleteAllCookies_ForwardToCallback::Accept(
           internal::CookieManagerAutomation_DeleteAllCookies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManagerAutomation.0
   bool success = true;
   CookieManagerAutomation_DeleteAllCookies_ResponseParamsDataView input_data_view(params, message);
   
@@ -476,6 +478,8 @@ bool CookieManagerAutomation_GetAllCookies_ForwardToCallback::Accept(
           internal::CookieManagerAutomation_GetAllCookies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManagerAutomation.1
   bool success = true;
   WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr> p_cookies{};
   CookieManagerAutomation_GetAllCookies_ResponseParamsDataView input_data_view(params, message);
@@ -607,6 +611,8 @@ bool CookieManagerAutomation_GetNamedCookie_ForwardToCallback::Accept(
           internal::CookieManagerAutomation_GetNamedCookie_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManagerAutomation.2
   bool success = true;
   ::network::mojom::blink::CookieWithAccessResultPtr p_cookie{};
   CookieManagerAutomation_GetNamedCookie_ResponseParamsDataView input_data_view(params, message);
@@ -709,6 +715,8 @@ bool CookieManagerAutomationStubDispatch::AcceptWithResponder(
               internal::CookieManagerAutomation_DeleteAllCookies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManagerAutomation.0
       bool success = true;
       CookieManagerAutomation_DeleteAllCookies_ParamsDataView input_data_view(params, message);
       
@@ -734,6 +742,8 @@ bool CookieManagerAutomationStubDispatch::AcceptWithResponder(
               internal::CookieManagerAutomation_GetAllCookies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManagerAutomation.1
       bool success = true;
       CookieManagerAutomation_GetAllCookies_ParamsDataView input_data_view(params, message);
       
@@ -759,6 +769,8 @@ bool CookieManagerAutomationStubDispatch::AcceptWithResponder(
               internal::CookieManagerAutomation_GetNamedCookie_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManagerAutomation.2
       bool success = true;
       WTF::String p_name{};
       CookieManagerAutomation_GetNamedCookie_ParamsDataView input_data_view(params, message);
@@ -777,8 +789,8 @@ bool CookieManagerAutomationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNamedCookie(
-std::move(p_name), std::move(callback));
+      impl->GetNamedCookie(        
+        std::move(p_name), std::move(callback));
       return true;
     }
   }

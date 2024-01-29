@@ -614,6 +614,8 @@ bool IppParser_ParseIpp_ForwardToCallback::Accept(
           internal::IppParser_ParseIpp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IppParser.0
   bool success = true;
   IppRequestPtr p_request{};
   IppParser_ParseIpp_ResponseParamsDataView input_data_view(params, message);
@@ -710,6 +712,8 @@ bool IppParserStubDispatch::AcceptWithResponder(
               internal::IppParser_ParseIpp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IppParser.0
       bool success = true;
       std::vector<uint8_t> p_to_parse{};
       IppParser_ParseIpp_ParamsDataView input_data_view(params, message);
@@ -728,8 +732,8 @@ bool IppParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseIpp(
-std::move(p_to_parse), std::move(callback));
+      impl->ParseIpp(        
+        std::move(p_to_parse), std::move(callback));
       return true;
     }
   }

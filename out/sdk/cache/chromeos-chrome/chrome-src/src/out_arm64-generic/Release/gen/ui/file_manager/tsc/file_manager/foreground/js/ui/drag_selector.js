@@ -109,7 +109,7 @@ export class DragSelector {
         // Collect items within the selection rect.
         const currentSelection = state.target.getHitElements(borderBounds.left, borderBounds.top, borderBounds.width, borderBounds.height);
         const pointedElements = state.target.getHitElements(pos.x, pos.y);
-        const leadIndex = pointedElements[0] != undefined ? pointedElements[0] : -1;
+        const leadIndex = pointedElements[0] !== undefined ? pointedElements[0] : -1;
         // Diff the selection between currentSelection and this.lastSelection_.
         const selectionFlag = [];
         for (const index of this.lastSelection_) {
@@ -136,20 +136,20 @@ export class DragSelector {
             // If the flag equals to (IN_LAST_SELECTION | IN_CURRENT_SELECTION),
             // this is included in both the last selection and the current selection.
             // We have nothing to do for this item.
-            if (flag == SelectionFlag.IN_LAST_SELECTION) {
+            if (flag === SelectionFlag.IN_LAST_SELECTION) {
                 // If the flag equals to IN_LAST_SELECTION,
                 // then the item is included in lastSelection but not in
                 // currentSelection. Revert the selection state to
                 // this.originalSelection_.
-                selectionModel.setIndexSelected(index, this.originalSelection_.indexOf(index) != -1);
+                selectionModel.setIndexSelected(index, this.originalSelection_.indexOf(index) !== -1);
             }
-            else if (flag == SelectionFlag.IN_CURRENT_SELECTION) {
+            else if (flag === SelectionFlag.IN_CURRENT_SELECTION) {
                 // If the flag equals to IN_CURRENT_SELECTION,
                 // this is included in currentSelection but not in lastSelection.
                 selectionModel.setIndexSelected(index, true);
             }
         }
-        if (leadIndex != -1) {
+        if (leadIndex !== -1) {
             selectionModel.leadIndex = leadIndex;
             selectionModel.anchorIndex = leadIndex;
         }

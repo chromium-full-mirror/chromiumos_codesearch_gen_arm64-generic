@@ -95,7 +95,7 @@ content_type_ = ContentType::kUnrestrictedDoubleSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionStringOrUnrestrictedDoubleSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionStringOrUnrestrictedDoubleSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kString: {
     return ToV8Traits<IDLString>::ToV8(script_state, member_string_);
@@ -106,7 +106,7 @@ v8::MaybeLocal<v8::Value> V8UnionStringOrUnrestrictedDoubleSequence::ToV8Value(S
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionStringOrUnrestrictedDoubleSequence::Trace(Visitor* visitor) const {

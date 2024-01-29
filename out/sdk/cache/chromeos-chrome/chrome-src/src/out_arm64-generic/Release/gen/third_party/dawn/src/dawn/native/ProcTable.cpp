@@ -103,6 +103,17 @@ namespace dawn::native {
         self->APIRequestDevice(descriptor_, callback_, userdata_);
     }
 
+    WGPUFuture NativeAdapterRequestDeviceF(WGPUAdapter cSelf, WGPUDeviceDescriptor const * options, WGPURequestDeviceCallbackInfo callbackInfo) {
+        auto self = FromAPI(cSelf);
+
+        auto options_ = reinterpret_cast<DeviceDescriptor const * >(options);
+        auto callbackInfo_ = *reinterpret_cast<RequestDeviceCallbackInfo*>(&callbackInfo);
+        // This method is specified to not use AutoLock in json script.
+
+        auto result =        self->APIRequestDeviceF(options_, callbackInfo_);
+        return *ToAPI(&result);
+    }
+
     void NativeAdapterReference(WGPUAdapter cSelf) {
         auto self = FromAPI(cSelf);
 
@@ -720,6 +731,18 @@ namespace dawn::native {
         self->APICreateComputePipelineAsync(descriptor_, callback_, userdata_);
     }
 
+    WGPUFuture NativeDeviceCreateComputePipelineAsyncF(WGPUDevice cSelf, WGPUComputePipelineDescriptor const * descriptor, WGPUCreateComputePipelineAsyncCallbackInfo callbackInfo) {
+        auto self = FromAPI(cSelf);
+
+        auto descriptor_ = reinterpret_cast<ComputePipelineDescriptor const * >(descriptor);
+        auto callbackInfo_ = *reinterpret_cast<CreateComputePipelineAsyncCallbackInfo*>(&callbackInfo);
+        auto device = self;
+        auto deviceLock(device->GetScopedLock());
+
+        auto result =        self->APICreateComputePipelineAsyncF(descriptor_, callbackInfo_);
+        return *ToAPI(&result);
+    }
+
     WGPUBuffer NativeDeviceCreateErrorBuffer(WGPUDevice cSelf, WGPUBufferDescriptor const * descriptor) {
         auto self = FromAPI(cSelf);
 
@@ -829,6 +852,18 @@ namespace dawn::native {
         auto deviceLock(device->GetScopedLock());
 
         self->APICreateRenderPipelineAsync(descriptor_, callback_, userdata_);
+    }
+
+    WGPUFuture NativeDeviceCreateRenderPipelineAsyncF(WGPUDevice cSelf, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallbackInfo callbackInfo) {
+        auto self = FromAPI(cSelf);
+
+        auto descriptor_ = reinterpret_cast<RenderPipelineDescriptor const * >(descriptor);
+        auto callbackInfo_ = *reinterpret_cast<CreateRenderPipelineAsyncCallbackInfo*>(&callbackInfo);
+        auto device = self;
+        auto deviceLock(device->GetScopedLock());
+
+        auto result =        self->APICreateRenderPipelineAsyncF(descriptor_, callbackInfo_);
+        return *ToAPI(&result);
     }
 
     WGPUSampler NativeDeviceCreateSampler(WGPUDevice cSelf, WGPUSamplerDescriptor const * descriptor) {
@@ -2105,6 +2140,17 @@ namespace dawn::native {
         self->APIRelease();
     }
 
+    WGPUTextureView NativeTextureCreateErrorView(WGPUTexture cSelf, WGPUTextureViewDescriptor const * descriptor) {
+        auto self = FromAPI(cSelf);
+
+        auto descriptor_ = reinterpret_cast<TextureViewDescriptor const * >(descriptor);
+        auto device = self->GetDevice();
+        auto deviceLock(device->GetScopedLock());
+
+        auto result =        self->APICreateErrorView(descriptor_);
+        return ToAPI(result);
+    }
+
     WGPUTextureView NativeTextureCreateView(WGPUTexture cSelf, WGPUTextureViewDescriptor const * descriptor) {
         auto self = FromAPI(cSelf);
 
@@ -2296,6 +2342,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeAdapterReference), "wgpuAdapterReference" },
             { reinterpret_cast<WGPUProc>(NativeAdapterRelease), "wgpuAdapterRelease" },
             { reinterpret_cast<WGPUProc>(NativeAdapterRequestDevice), "wgpuAdapterRequestDevice" },
+            { reinterpret_cast<WGPUProc>(NativeAdapterRequestDeviceF), "wgpuAdapterRequestDeviceF" },
             { reinterpret_cast<WGPUProc>(NativeBindGroupLayoutReference), "wgpuBindGroupLayoutReference" },
             { reinterpret_cast<WGPUProc>(NativeBindGroupLayoutRelease), "wgpuBindGroupLayoutRelease" },
             { reinterpret_cast<WGPUProc>(NativeBindGroupLayoutSetLabel), "wgpuBindGroupLayoutSetLabel" },
@@ -2357,6 +2404,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateCommandEncoder), "wgpuDeviceCreateCommandEncoder" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateComputePipeline), "wgpuDeviceCreateComputePipeline" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateComputePipelineAsync), "wgpuDeviceCreateComputePipelineAsync" },
+            { reinterpret_cast<WGPUProc>(NativeDeviceCreateComputePipelineAsyncF), "wgpuDeviceCreateComputePipelineAsyncF" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateErrorBuffer), "wgpuDeviceCreateErrorBuffer" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateErrorExternalTexture), "wgpuDeviceCreateErrorExternalTexture" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateErrorShaderModule), "wgpuDeviceCreateErrorShaderModule" },
@@ -2367,6 +2415,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateRenderBundleEncoder), "wgpuDeviceCreateRenderBundleEncoder" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateRenderPipeline), "wgpuDeviceCreateRenderPipeline" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateRenderPipelineAsync), "wgpuDeviceCreateRenderPipelineAsync" },
+            { reinterpret_cast<WGPUProc>(NativeDeviceCreateRenderPipelineAsyncF), "wgpuDeviceCreateRenderPipelineAsyncF" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateSampler), "wgpuDeviceCreateSampler" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateShaderModule), "wgpuDeviceCreateShaderModule" },
             { reinterpret_cast<WGPUProc>(NativeDeviceCreateSwapChain), "wgpuDeviceCreateSwapChain" },
@@ -2497,6 +2546,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeSwapChainPresent), "wgpuSwapChainPresent" },
             { reinterpret_cast<WGPUProc>(NativeSwapChainReference), "wgpuSwapChainReference" },
             { reinterpret_cast<WGPUProc>(NativeSwapChainRelease), "wgpuSwapChainRelease" },
+            { reinterpret_cast<WGPUProc>(NativeTextureCreateErrorView), "wgpuTextureCreateErrorView" },
             { reinterpret_cast<WGPUProc>(NativeTextureCreateView), "wgpuTextureCreateView" },
             { reinterpret_cast<WGPUProc>(NativeTextureDestroy), "wgpuTextureDestroy" },
             { reinterpret_cast<WGPUProc>(NativeTextureGetDepthOrArrayLayers), "wgpuTextureGetDepthOrArrayLayers" },
@@ -2596,6 +2646,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::adapterGetProperties, NativeAdapterGetProperties)
         , std::make_pair(&DawnProcTable::adapterHasFeature, NativeAdapterHasFeature)
         , std::make_pair(&DawnProcTable::adapterRequestDevice, NativeAdapterRequestDevice)
+        , std::make_pair(&DawnProcTable::adapterRequestDeviceF, NativeAdapterRequestDeviceF)
         , std::make_pair(&DawnProcTable::adapterReference, NativeAdapterReference)
         , std::make_pair(&DawnProcTable::adapterRelease, NativeAdapterRelease)
         , std::make_pair(&DawnProcTable::bindGroupSetLabel, NativeBindGroupSetLabel)
@@ -2659,6 +2710,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::deviceCreateCommandEncoder, NativeDeviceCreateCommandEncoder)
         , std::make_pair(&DawnProcTable::deviceCreateComputePipeline, NativeDeviceCreateComputePipeline)
         , std::make_pair(&DawnProcTable::deviceCreateComputePipelineAsync, NativeDeviceCreateComputePipelineAsync)
+        , std::make_pair(&DawnProcTable::deviceCreateComputePipelineAsyncF, NativeDeviceCreateComputePipelineAsyncF)
         , std::make_pair(&DawnProcTable::deviceCreateErrorBuffer, NativeDeviceCreateErrorBuffer)
         , std::make_pair(&DawnProcTable::deviceCreateErrorExternalTexture, NativeDeviceCreateErrorExternalTexture)
         , std::make_pair(&DawnProcTable::deviceCreateErrorShaderModule, NativeDeviceCreateErrorShaderModule)
@@ -2669,6 +2721,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::deviceCreateRenderBundleEncoder, NativeDeviceCreateRenderBundleEncoder)
         , std::make_pair(&DawnProcTable::deviceCreateRenderPipeline, NativeDeviceCreateRenderPipeline)
         , std::make_pair(&DawnProcTable::deviceCreateRenderPipelineAsync, NativeDeviceCreateRenderPipelineAsync)
+        , std::make_pair(&DawnProcTable::deviceCreateRenderPipelineAsyncF, NativeDeviceCreateRenderPipelineAsyncF)
         , std::make_pair(&DawnProcTable::deviceCreateSampler, NativeDeviceCreateSampler)
         , std::make_pair(&DawnProcTable::deviceCreateShaderModule, NativeDeviceCreateShaderModule)
         , std::make_pair(&DawnProcTable::deviceCreateSwapChain, NativeDeviceCreateSwapChain)
@@ -2799,6 +2852,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::swapChainPresent, NativeSwapChainPresent)
         , std::make_pair(&DawnProcTable::swapChainReference, NativeSwapChainReference)
         , std::make_pair(&DawnProcTable::swapChainRelease, NativeSwapChainRelease)
+        , std::make_pair(&DawnProcTable::textureCreateErrorView, NativeTextureCreateErrorView)
         , std::make_pair(&DawnProcTable::textureCreateView, NativeTextureCreateView)
         , std::make_pair(&DawnProcTable::textureDestroy, NativeTextureDestroy)
         , std::make_pair(&DawnProcTable::textureGetDepthOrArrayLayers, NativeTextureGetDepthOrArrayLayers)

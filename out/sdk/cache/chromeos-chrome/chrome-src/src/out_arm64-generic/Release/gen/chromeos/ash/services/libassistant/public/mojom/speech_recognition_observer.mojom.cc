@@ -418,6 +418,8 @@ bool SpeechRecognitionObserverStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionObserver_OnSpeechLevelUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionObserver.0
       bool success = true;
       float p_speech_level_in_decibels{};
       SpeechRecognitionObserver_OnSpeechLevelUpdated_ParamsDataView input_data_view(params, message);
@@ -433,8 +435,8 @@ bool SpeechRecognitionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechLevelUpdated(
-std::move(p_speech_level_in_decibels));
+      impl->OnSpeechLevelUpdated(        
+        std::move(p_speech_level_in_decibels));
       return true;
     }
     case internal::kSpeechRecognitionObserver_OnSpeechRecognitionStart_Name: {
@@ -444,6 +446,8 @@ std::move(p_speech_level_in_decibels));
           reinterpret_cast<internal::SpeechRecognitionObserver_OnSpeechRecognitionStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionObserver.1
       bool success = true;
       SpeechRecognitionObserver_OnSpeechRecognitionStart_ParamsDataView input_data_view(params, message);
       
@@ -456,7 +460,7 @@ std::move(p_speech_level_in_decibels));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRecognitionStart();
+      impl->OnSpeechRecognitionStart(        );
       return true;
     }
     case internal::kSpeechRecognitionObserver_OnIntermediateResult_Name: {
@@ -466,6 +470,8 @@ std::move(p_speech_level_in_decibels));
           reinterpret_cast<internal::SpeechRecognitionObserver_OnIntermediateResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionObserver.2
       bool success = true;
       std::string p_high_confidence_text{};
       std::string p_low_confidence_text{};
@@ -484,9 +490,9 @@ std::move(p_speech_level_in_decibels));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIntermediateResult(
-std::move(p_high_confidence_text), 
-std::move(p_low_confidence_text));
+      impl->OnIntermediateResult(        
+        std::move(p_high_confidence_text), 
+        std::move(p_low_confidence_text));
       return true;
     }
     case internal::kSpeechRecognitionObserver_OnSpeechRecognitionEnd_Name: {
@@ -496,6 +502,8 @@ std::move(p_low_confidence_text));
           reinterpret_cast<internal::SpeechRecognitionObserver_OnSpeechRecognitionEnd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionObserver.3
       bool success = true;
       SpeechRecognitionObserver_OnSpeechRecognitionEnd_ParamsDataView input_data_view(params, message);
       
@@ -508,7 +516,7 @@ std::move(p_low_confidence_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRecognitionEnd();
+      impl->OnSpeechRecognitionEnd(        );
       return true;
     }
     case internal::kSpeechRecognitionObserver_OnFinalResult_Name: {
@@ -518,6 +526,8 @@ std::move(p_low_confidence_text));
           reinterpret_cast<internal::SpeechRecognitionObserver_OnFinalResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionObserver.4
       bool success = true;
       std::string p_recognized_text{};
       SpeechRecognitionObserver_OnFinalResult_ParamsDataView input_data_view(params, message);
@@ -533,8 +543,8 @@ std::move(p_low_confidence_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFinalResult(
-std::move(p_recognized_text));
+      impl->OnFinalResult(        
+        std::move(p_recognized_text));
       return true;
     }
   }

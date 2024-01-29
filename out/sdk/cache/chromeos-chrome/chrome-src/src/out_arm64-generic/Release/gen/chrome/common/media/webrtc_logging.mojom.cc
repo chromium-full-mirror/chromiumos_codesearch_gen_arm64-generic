@@ -262,6 +262,8 @@ bool WebRtcLoggingClientStubDispatch::Accept(
           reinterpret_cast<internal::WebRtcLoggingClient_OnAddMessages_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebRtcLoggingClient.0
       bool success = true;
       std::vector<WebRtcLoggingMessagePtr> p_messages{};
       WebRtcLoggingClient_OnAddMessages_ParamsDataView input_data_view(params, message);
@@ -277,8 +279,8 @@ bool WebRtcLoggingClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAddMessages(
-std::move(p_messages));
+      impl->OnAddMessages(        
+        std::move(p_messages));
       return true;
     }
     case internal::kWebRtcLoggingClient_OnStopped_Name: {
@@ -288,6 +290,8 @@ std::move(p_messages));
           reinterpret_cast<internal::WebRtcLoggingClient_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebRtcLoggingClient.1
       bool success = true;
       WebRtcLoggingClient_OnStopped_ParamsDataView input_data_view(params, message);
       
@@ -300,7 +304,7 @@ std::move(p_messages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped();
+      impl->OnStopped(        );
       return true;
     }
   }
@@ -509,6 +513,8 @@ bool WebRtcLoggingAgentStubDispatch::Accept(
           reinterpret_cast<internal::WebRtcLoggingAgent_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebRtcLoggingAgent.0
       bool success = true;
       ::mojo::PendingRemote<WebRtcLoggingClient> p_client{};
       WebRtcLoggingAgent_Start_ParamsDataView input_data_view(params, message);
@@ -526,8 +532,8 @@ bool WebRtcLoggingAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_client));
+      impl->Start(        
+        std::move(p_client));
       return true;
     }
     case internal::kWebRtcLoggingAgent_Stop_Name: {
@@ -537,6 +543,8 @@ std::move(p_client));
           reinterpret_cast<internal::WebRtcLoggingAgent_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebRtcLoggingAgent.1
       bool success = true;
       WebRtcLoggingAgent_Stop_ParamsDataView input_data_view(params, message);
       
@@ -549,7 +557,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
   }

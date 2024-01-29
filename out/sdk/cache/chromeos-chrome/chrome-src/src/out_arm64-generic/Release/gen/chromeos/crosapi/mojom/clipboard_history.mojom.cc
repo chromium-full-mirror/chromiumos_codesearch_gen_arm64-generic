@@ -387,6 +387,8 @@ bool ClipboardHistoryStubDispatch::Accept(
           reinterpret_cast<internal::ClipboardHistory_ShowClipboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHistory.0
       bool success = true;
       ::gfx::Rect p_anchor_point{};
       ::ui::MenuSourceType p_menu_source_type{};
@@ -408,10 +410,10 @@ bool ClipboardHistoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowClipboard(
-std::move(p_anchor_point), 
-std::move(p_menu_source_type), 
-std::move(p_show_source));
+      impl->ShowClipboard(        
+        std::move(p_anchor_point), 
+        std::move(p_menu_source_type), 
+        std::move(p_show_source));
       return true;
     }
     case internal::kClipboardHistory_PasteClipboardItemById_Name: {
@@ -421,6 +423,8 @@ std::move(p_show_source));
           reinterpret_cast<internal::ClipboardHistory_PasteClipboardItemById_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHistory.1
       bool success = true;
       ::base::UnguessableToken p_item_id{};
       int32_t p_event_flags{};
@@ -442,10 +446,10 @@ std::move(p_show_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasteClipboardItemById(
-std::move(p_item_id), 
-std::move(p_event_flags), 
-std::move(p_paste_source));
+      impl->PasteClipboardItemById(        
+        std::move(p_item_id), 
+        std::move(p_event_flags), 
+        std::move(p_paste_source));
       return true;
     }
     case internal::kClipboardHistory_RegisterClient_Name: {
@@ -455,6 +459,8 @@ std::move(p_paste_source));
           reinterpret_cast<internal::ClipboardHistory_RegisterClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHistory.2
       bool success = true;
       ::mojo::PendingRemote<ClipboardHistoryClient> p_client{};
       ClipboardHistory_RegisterClient_ParamsDataView input_data_view(params, message);
@@ -472,8 +478,8 @@ std::move(p_paste_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterClient(
-std::move(p_client));
+      impl->RegisterClient(        
+        std::move(p_client));
       return true;
     }
   }
@@ -642,6 +648,8 @@ bool ClipboardHistoryClientStubDispatch::Accept(
           reinterpret_cast<internal::ClipboardHistoryClient_SetClipboardHistoryItemDescriptors_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHistoryClient.0
       bool success = true;
       std::vector<ClipboardHistoryItemDescriptorPtr> p_item_descriptors{};
       ClipboardHistoryClient_SetClipboardHistoryItemDescriptors_ParamsDataView input_data_view(params, message);
@@ -657,8 +665,8 @@ bool ClipboardHistoryClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClipboardHistoryItemDescriptors(
-std::move(p_item_descriptors));
+      impl->SetClipboardHistoryItemDescriptors(        
+        std::move(p_item_descriptors));
       return true;
     }
   }

@@ -87,7 +87,8 @@ BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.type.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NetworkInformation.type.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoType);
 
@@ -110,7 +111,8 @@ BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.downlinkMax.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NetworkInformation.downlinkMax.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoDownlinkMax);
 
@@ -131,7 +133,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_NetworkIn
 BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.onchange.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoOnChange);
 
@@ -149,7 +152,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_NetworkIn
 BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.onchange.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoOnChange);
 
@@ -168,7 +172,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_NetworkIn
 BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.ontypechange.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoOnTypeChange);
 
@@ -186,7 +191,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_NetworkIn
 BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.ontypechange.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoOnTypeChange);
 
@@ -207,7 +213,8 @@ BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.effectiveType.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NetworkInformation.effectiveType.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoEffectiveType);
 
@@ -230,7 +237,8 @@ BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.rtt.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NetworkInformation.rtt.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoRtt);
 
@@ -253,7 +261,8 @@ BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.downlink.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NetworkInformation.downlink.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoDownlink);
 
@@ -276,7 +285,8 @@ BLINK_BINDINGS_TRACE_EVENT("NetworkInformation.saveData.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("NetworkInformation.saveData.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNetInfoSaveData);
 

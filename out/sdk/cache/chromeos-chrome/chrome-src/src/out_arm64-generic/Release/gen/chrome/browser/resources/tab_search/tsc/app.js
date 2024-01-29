@@ -14,6 +14,7 @@ export class TabSearchAppElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.apiProxy_ = TabSearchApiProxyImpl.getInstance();
+        this.listenerIds_ = [];
     }
     static get is() {
         return 'tab-search-app';
@@ -22,7 +23,7 @@ export class TabSearchAppElement extends PolymerElement {
         return {
             selectedTabIndex_: {
                 type: Number,
-                value: loadTimeData.getInteger('tabIndex'),
+                value: () => loadTimeData.getInteger('tabIndex'),
             },
             tabNames_: {
                 type: Array,
@@ -44,11 +45,22 @@ export class TabSearchAppElement extends PolymerElement {
     static get template() {
         return getTemplate();
     }
+    connectedCallback() {
+        super.connectedCallback();
+        const callbackRouter = this.apiProxy_.getCallbackRouter();
+        this.listenerIds_.push(callbackRouter.tabSearchTabIndexChanged.addListener(this.onTabIndexChanged_.bind(this)));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.listenerIds_.forEach(id => this.apiProxy_.getCallbackRouter().removeListener(id));
+    }
+    onTabIndexChanged_(index) {
+        this.selectedTabIndex_ = index;
+    }
     onSelectedTabChanged_(event) {
         if (event.detail.value === 1) {
             const tabOrganizationPage = this.shadowRoot.querySelector('tab-organization-page');
             tabOrganizationPage.classList.toggle('changed-state', false);
-            tabOrganizationPage.updateContentsHeightAfterNextRender();
         }
         this.apiProxy_.setTabIndex(event.detail.value);
     }

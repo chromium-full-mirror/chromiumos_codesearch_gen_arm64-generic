@@ -584,6 +584,8 @@ bool ServiceManagerListenerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceManagerListener_OnInit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManagerListener.0
       bool success = true;
       WTF::Vector<RunningServiceInfoPtr> p_running_services{};
       ServiceManagerListener_OnInit_ParamsDataView input_data_view(params, message);
@@ -599,8 +601,8 @@ bool ServiceManagerListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInit(
-std::move(p_running_services));
+      impl->OnInit(        
+        std::move(p_running_services));
       return true;
     }
     case internal::kServiceManagerListener_OnServiceCreated_Name: {
@@ -610,6 +612,8 @@ std::move(p_running_services));
           reinterpret_cast<internal::ServiceManagerListener_OnServiceCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManagerListener.1
       bool success = true;
       RunningServiceInfoPtr p_service{};
       ServiceManagerListener_OnServiceCreated_ParamsDataView input_data_view(params, message);
@@ -625,8 +629,8 @@ std::move(p_running_services));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceCreated(
-std::move(p_service));
+      impl->OnServiceCreated(        
+        std::move(p_service));
       return true;
     }
     case internal::kServiceManagerListener_OnServiceStarted_Name: {
@@ -636,6 +640,8 @@ std::move(p_service));
           reinterpret_cast<internal::ServiceManagerListener_OnServiceStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManagerListener.2
       bool success = true;
       ::service_manager::mojom::blink::IdentityPtr p_identity{};
       uint32_t p_pid_deprecated{};
@@ -654,9 +660,9 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceStarted(
-std::move(p_identity), 
-std::move(p_pid_deprecated));
+      impl->OnServiceStarted(        
+        std::move(p_identity), 
+        std::move(p_pid_deprecated));
       return true;
     }
     case internal::kServiceManagerListener_OnServicePIDReceived_Name: {
@@ -666,6 +672,8 @@ std::move(p_pid_deprecated));
           reinterpret_cast<internal::ServiceManagerListener_OnServicePIDReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManagerListener.3
       bool success = true;
       ::service_manager::mojom::blink::IdentityPtr p_identity{};
       uint32_t p_pid{};
@@ -684,9 +692,9 @@ std::move(p_pid_deprecated));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServicePIDReceived(
-std::move(p_identity), 
-std::move(p_pid));
+      impl->OnServicePIDReceived(        
+        std::move(p_identity), 
+        std::move(p_pid));
       return true;
     }
     case internal::kServiceManagerListener_OnServiceFailedToStart_Name: {
@@ -696,6 +704,8 @@ std::move(p_pid));
           reinterpret_cast<internal::ServiceManagerListener_OnServiceFailedToStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManagerListener.4
       bool success = true;
       ::service_manager::mojom::blink::IdentityPtr p_identity{};
       ServiceManagerListener_OnServiceFailedToStart_ParamsDataView input_data_view(params, message);
@@ -711,8 +721,8 @@ std::move(p_pid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceFailedToStart(
-std::move(p_identity));
+      impl->OnServiceFailedToStart(        
+        std::move(p_identity));
       return true;
     }
     case internal::kServiceManagerListener_OnServiceStopped_Name: {
@@ -722,6 +732,8 @@ std::move(p_identity));
           reinterpret_cast<internal::ServiceManagerListener_OnServiceStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManagerListener.5
       bool success = true;
       ::service_manager::mojom::blink::IdentityPtr p_identity{};
       ServiceManagerListener_OnServiceStopped_ParamsDataView input_data_view(params, message);
@@ -737,8 +749,8 @@ std::move(p_identity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceStopped(
-std::move(p_identity));
+      impl->OnServiceStopped(        
+        std::move(p_identity));
       return true;
     }
   }
@@ -914,6 +926,8 @@ bool ServiceManagerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceManager_AddListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManager.0
       bool success = true;
       ::mojo::PendingRemote<ServiceManagerListener> p_listener{};
       ServiceManager_AddListener_ParamsDataView input_data_view(params, message);
@@ -931,8 +945,8 @@ bool ServiceManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddListener(
-std::move(p_listener));
+      impl->AddListener(        
+        std::move(p_listener));
       return true;
     }
   }

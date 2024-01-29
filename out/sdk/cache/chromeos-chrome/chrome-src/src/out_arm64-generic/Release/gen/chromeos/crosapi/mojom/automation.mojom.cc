@@ -557,6 +557,8 @@ bool AutomationClientStubDispatch::Accept(
           reinterpret_cast<internal::AutomationClient_PerformActionDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.2
       bool success = true;
       ::base::UnguessableToken p_tree_id{};
       int32_t p_automation_node_id{};
@@ -584,12 +586,12 @@ bool AutomationClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformActionDeprecated(
-std::move(p_tree_id), 
-std::move(p_automation_node_id), 
-std::move(p_action_type), 
-std::move(p_request_id), 
-std::move(p_optional_args));
+      impl->PerformActionDeprecated(        
+        std::move(p_tree_id), 
+        std::move(p_automation_node_id), 
+        std::move(p_action_type), 
+        std::move(p_request_id), 
+        std::move(p_optional_args));
       return true;
     }
     case internal::kAutomationClient_Enable_Name: {
@@ -599,6 +601,8 @@ std::move(p_optional_args));
           reinterpret_cast<internal::AutomationClient_Enable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.0
       bool success = true;
       AutomationClient_Enable_ParamsDataView input_data_view(params, message);
       
@@ -611,7 +615,7 @@ std::move(p_optional_args));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Enable();
+      impl->Enable(        );
       return true;
     }
     case internal::kAutomationClient_EnableTree_Name: {
@@ -621,6 +625,8 @@ std::move(p_optional_args));
           reinterpret_cast<internal::AutomationClient_EnableTree_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.1
       bool success = true;
       ::base::UnguessableToken p_token{};
       AutomationClient_EnableTree_ParamsDataView input_data_view(params, message);
@@ -636,8 +642,8 @@ std::move(p_optional_args));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableTree(
-std::move(p_token));
+      impl->EnableTree(        
+        std::move(p_token));
       return true;
     }
     case internal::kAutomationClient_Disable_Name: {
@@ -647,6 +653,8 @@ std::move(p_token));
           reinterpret_cast<internal::AutomationClient_Disable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.3
       bool success = true;
       AutomationClient_Disable_ParamsDataView input_data_view(params, message);
       
@@ -659,7 +667,7 @@ std::move(p_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Disable();
+      impl->Disable(        );
       return true;
     }
     case internal::kAutomationClient_PerformAction_Name: {
@@ -669,6 +677,8 @@ std::move(p_token));
           reinterpret_cast<internal::AutomationClient_PerformAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.4
       bool success = true;
       ::ui::AXActionData p_action_data{};
       AutomationClient_PerformAction_ParamsDataView input_data_view(params, message);
@@ -684,8 +694,8 @@ std::move(p_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformAction(
-std::move(p_action_data));
+      impl->PerformAction(        
+        std::move(p_action_data));
       return true;
     }
     case internal::kAutomationClient_NotifyAllAutomationExtensionsGone_Name: {
@@ -695,6 +705,8 @@ std::move(p_action_data));
           reinterpret_cast<internal::AutomationClient_NotifyAllAutomationExtensionsGone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.5
       bool success = true;
       AutomationClient_NotifyAllAutomationExtensionsGone_ParamsDataView input_data_view(params, message);
       
@@ -707,7 +719,7 @@ std::move(p_action_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyAllAutomationExtensionsGone();
+      impl->NotifyAllAutomationExtensionsGone(        );
       return true;
     }
     case internal::kAutomationClient_NotifyExtensionListenerAdded_Name: {
@@ -717,6 +729,8 @@ std::move(p_action_data));
           reinterpret_cast<internal::AutomationClient_NotifyExtensionListenerAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationClient.6
       bool success = true;
       AutomationClient_NotifyExtensionListenerAdded_ParamsDataView input_data_view(params, message);
       
@@ -729,7 +743,7 @@ std::move(p_action_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyExtensionListenerAdded();
+      impl->NotifyExtensionListenerAdded(        );
       return true;
     }
   }
@@ -1380,6 +1394,8 @@ bool AutomationStubDispatch::Accept(
           reinterpret_cast<internal::Automation_RegisterAutomationClientDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.0
       bool success = true;
       ::mojo::PendingRemote<AutomationClient> p_client{};
       ::base::UnguessableToken p_token{};
@@ -1400,9 +1416,9 @@ bool AutomationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterAutomationClientDeprecated(
-std::move(p_client), 
-std::move(p_token));
+      impl->RegisterAutomationClientDeprecated(        
+        std::move(p_client), 
+        std::move(p_token));
       return true;
     }
     case internal::kAutomation_ReceiveEventPrototypeDeprecated_Name: {
@@ -1412,6 +1428,8 @@ std::move(p_token));
           reinterpret_cast<internal::Automation_ReceiveEventPrototypeDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.1
       bool success = true;
       std::string p_event_bundle{};
       bool p_root{};
@@ -1436,11 +1454,11 @@ std::move(p_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveEventPrototypeDeprecated(
-std::move(p_event_bundle), 
-std::move(p_root), 
-std::move(p_token), 
-std::move(p_window_id));
+      impl->ReceiveEventPrototypeDeprecated(        
+        std::move(p_event_bundle), 
+        std::move(p_root), 
+        std::move(p_token), 
+        std::move(p_window_id));
       return true;
     }
     case internal::kAutomation_DispatchTreeDestroyedEvent_Name: {
@@ -1450,6 +1468,8 @@ std::move(p_window_id));
           reinterpret_cast<internal::Automation_DispatchTreeDestroyedEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.2
       bool success = true;
       ::base::UnguessableToken p_tree_id{};
       Automation_DispatchTreeDestroyedEvent_ParamsDataView input_data_view(params, message);
@@ -1465,8 +1485,8 @@ std::move(p_window_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchTreeDestroyedEvent(
-std::move(p_tree_id));
+      impl->DispatchTreeDestroyedEvent(        
+        std::move(p_tree_id));
       return true;
     }
     case internal::kAutomation_DispatchActionResult_Name: {
@@ -1476,6 +1496,8 @@ std::move(p_tree_id));
           reinterpret_cast<internal::Automation_DispatchActionResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.3
       bool success = true;
       ::ui::AXActionData p_data{};
       bool p_result{};
@@ -1494,9 +1516,9 @@ std::move(p_tree_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchActionResult(
-std::move(p_data), 
-std::move(p_result));
+      impl->DispatchActionResult(        
+        std::move(p_data), 
+        std::move(p_result));
       return true;
     }
     case internal::kAutomation_DispatchAccessibilityEvents_Name: {
@@ -1506,6 +1528,8 @@ std::move(p_result));
           reinterpret_cast<internal::Automation_DispatchAccessibilityEvents_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.4
       bool success = true;
       ::base::UnguessableToken p_tree_id{};
       std::vector<::ui::AXTreeUpdate> p_updates{};
@@ -1530,11 +1554,11 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchAccessibilityEvents(
-std::move(p_tree_id), 
-std::move(p_updates), 
-std::move(p_mouse_location), 
-std::move(p_events));
+      impl->DispatchAccessibilityEvents(        
+        std::move(p_tree_id), 
+        std::move(p_updates), 
+        std::move(p_mouse_location), 
+        std::move(p_events));
       return true;
     }
     case internal::kAutomation_DispatchAccessibilityLocationChange_Name: {
@@ -1544,6 +1568,8 @@ std::move(p_events));
           reinterpret_cast<internal::Automation_DispatchAccessibilityLocationChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Automation.5
       bool success = true;
       ::base::UnguessableToken p_tree_id{};
       int32_t p_node_id{};
@@ -1565,10 +1591,10 @@ std::move(p_events));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchAccessibilityLocationChange(
-std::move(p_tree_id), 
-std::move(p_node_id), 
-std::move(p_bounds));
+      impl->DispatchAccessibilityLocationChange(        
+        std::move(p_tree_id), 
+        std::move(p_node_id), 
+        std::move(p_bounds));
       return true;
     }
   }
@@ -1754,6 +1780,8 @@ bool AutomationFactoryStubDispatch::Accept(
           reinterpret_cast<internal::AutomationFactory_BindAutomation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutomationFactory.0
       bool success = true;
       ::mojo::PendingRemote<AutomationClient> p_automation_client{};
       ::mojo::PendingReceiver<Automation> p_automation{};
@@ -1776,9 +1804,9 @@ bool AutomationFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutomation(
-std::move(p_automation_client), 
-std::move(p_automation));
+      impl->BindAutomation(        
+        std::move(p_automation_client), 
+        std::move(p_automation));
       return true;
     }
   }

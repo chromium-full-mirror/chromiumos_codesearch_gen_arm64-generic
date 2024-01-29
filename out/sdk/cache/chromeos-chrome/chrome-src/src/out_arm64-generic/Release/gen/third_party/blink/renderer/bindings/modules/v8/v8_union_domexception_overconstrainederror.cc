@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionDOMExceptionOrOverconstrainedError::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionDOMExceptionOrOverconstrainedError::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kDOMException: {
     return ToV8Traits<DOMException>::ToV8(script_state, member_dom_exception_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionDOMExceptionOrOverconstrainedError::ToV8Value(S
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionDOMExceptionOrOverconstrainedError::Trace(Visitor* visitor) const {

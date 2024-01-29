@@ -28,6 +28,7 @@ namespace blink {
 class AbortSignal;
 class AuctionAdConfig;
 class AuctionAdInterestGroupSize;
+class AuctionReportBuyerDebugModeConfig;
 class AuctionReportBuyersConfig;
 class ExceptionState;
 class ProtectedAudiencePrivateAggregationConfig;
@@ -86,6 +87,25 @@ String getAuctionNonceOr(const String& fallback_value) const;
 String getAuctionNonceOr(String&& fallback_value) const;
 void setAuctionNonce(const String& value);
 void setAuctionNonce(String&& value);
+
+bool hasAuctionReportBuyerDebugModeConfig() const {
+  return has_auction_report_buyer_debug_mode_config_;
+}
+AuctionReportBuyerDebugModeConfig* auctionReportBuyerDebugModeConfig() const {
+  DCHECK(hasAuctionReportBuyerDebugModeConfig());
+return member_auction_report_buyer_debug_mode_config_.Get();
+}
+AuctionReportBuyerDebugModeConfig* getAuctionReportBuyerDebugModeConfigOr(AuctionReportBuyerDebugModeConfig* fallback_value) const {
+  if (!hasAuctionReportBuyerDebugModeConfig()) {
+  return fallback_value;
+}
+return member_auction_report_buyer_debug_mode_config_.Get();
+}
+void setAuctionReportBuyerDebugModeConfig(AuctionReportBuyerDebugModeConfig* value) {
+  member_auction_report_buyer_debug_mode_config_ = value;
+has_auction_report_buyer_debug_mode_config_ = true;
+DCHECK(member_auction_report_buyer_debug_mode_config_);
+}
 
 bool hasAuctionReportBuyerKeys() const {
   return has_auction_report_buyer_keys_;
@@ -209,6 +229,24 @@ Vector<String> getInterestGroupBuyersOr(const Vector<String>& fallback_value) co
 Vector<String> getInterestGroupBuyersOr(Vector<String>&& fallback_value) const;
 void setInterestGroupBuyers(const Vector<String>& value);
 void setInterestGroupBuyers(Vector<String>&& value);
+
+bool hasMaxTrustedScoringSignalsURLLength() const {
+  return has_max_trusted_scoring_signals_url_length_;
+}
+int32_t maxTrustedScoringSignalsURLLength() const {
+  DCHECK(hasMaxTrustedScoringSignalsURLLength());
+return member_max_trusted_scoring_signals_url_length_;
+}
+int32_t getMaxTrustedScoringSignalsURLLengthOr(int32_t fallback_value) const {
+  if (!hasMaxTrustedScoringSignalsURLLength()) {
+  return fallback_value;
+}
+return member_max_trusted_scoring_signals_url_length_;
+}
+void setMaxTrustedScoringSignalsURLLength(int32_t value) {
+  member_max_trusted_scoring_signals_url_length_ = value;
+has_max_trusted_scoring_signals_url_length_ = true;
+}
 
 bool hasPerBuyerCumulativeTimeouts() const {
   return !member_per_buyer_cumulative_timeouts_.IsEmpty();
@@ -543,12 +581,14 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 bool has_all_slots_requested_sizes_ = false;
 bool has_auction_nonce_ = false;
+bool has_auction_report_buyer_debug_mode_config_ = false;
 bool has_auction_report_buyer_keys_ = false;
 bool has_auction_report_buyers_ = false;
 bool has_component_auctions_ = false;
 bool has_decision_logic_url_ = false;
 bool has_decision_logic_url_deprecated_ = false;
 bool has_interest_group_buyers_ = false;
+bool has_max_trusted_scoring_signals_url_length_ = false;
 bool has_per_buyer_experiment_group_ids_ = false;
 bool has_per_buyer_group_limits_ = false;
 bool has_per_buyer_priority_signals_ = false;
@@ -566,6 +606,7 @@ bool has_trusted_scoring_signals_url_deprecated_ = false;
 ScriptPromise member_additional_bids_;
 HeapVector<Member<AuctionAdInterestGroupSize>> member_all_slots_requested_sizes_;
 String member_auction_nonce_;
+Member<AuctionReportBuyerDebugModeConfig> member_auction_report_buyer_debug_mode_config_;
 Vector<BigInt> member_auction_report_buyer_keys_;
 HeapVector<std::pair<String, Member<AuctionReportBuyersConfig>>> member_auction_report_buyers_;
 ScriptPromise member_auction_signals_;
@@ -575,6 +616,7 @@ String member_decision_logic_url_deprecated_;
 ScriptPromise member_direct_from_seller_signals_;
 ScriptPromise member_direct_from_seller_signals_header_ad_slot_;
 Vector<String> member_interest_group_buyers_;
+int32_t member_max_trusted_scoring_signals_url_length_;
 ScriptPromise member_per_buyer_cumulative_timeouts_;
 ScriptPromise member_per_buyer_currencies_;
 Vector<std::pair<String, uint16_t>> member_per_buyer_experiment_group_ids_;

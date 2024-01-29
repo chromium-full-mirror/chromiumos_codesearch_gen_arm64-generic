@@ -72,7 +72,7 @@ describeWithEnvironment('ThreadAppender', function () {
         const { entryTypeByLevel } = await renderThreadAppendersFromTrace(this, 'simple-js-program.json.gz');
         // This includes all tracks rendered by the ThreadAppender.
         assert.strictEqual(entryTypeByLevel.length, 12);
-        assert.isTrue(entryTypeByLevel.every(type => type === Timeline.TimelineFlameChartDataProvider.EntryType.TrackAppender));
+        assert.isTrue(entryTypeByLevel.every(type => type === "TrackAppender" /* Timeline.TimelineFlameChartDataProvider.EntryType.TrackAppender */));
     });
     it('creates a flamechart groups for track headers and titles', async function () {
         const { flameChartData } = await renderThreadAppendersFromTrace(this, 'cls-single-frame.json.gz');

@@ -869,6 +869,8 @@ bool TextClassifier_Annotate_ForwardToCallback::Accept(
           internal::TextClassifier_Annotate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextClassifier.0
   bool success = true;
   std::vector<TextAnnotationPtr> p_outputs{};
   TextClassifier_Annotate_ResponseParamsDataView input_data_view(params, message);
@@ -1000,6 +1002,8 @@ bool TextClassifier_FindLanguages_ForwardToCallback::Accept(
           internal::TextClassifier_FindLanguages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextClassifier.2
   bool success = true;
   std::vector<TextLanguagePtr> p_outputs{};
   TextClassifier_FindLanguages_ResponseParamsDataView input_data_view(params, message);
@@ -1131,6 +1135,8 @@ bool TextClassifier_REMOVED_1_ForwardToCallback::Accept(
           internal::TextClassifier_REMOVED_1_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextClassifier.1
   bool success = true;
   CodepointSpanPtr p_outputs{};
   TextClassifier_REMOVED_1_ResponseParamsDataView input_data_view(params, message);
@@ -1237,6 +1243,8 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
               internal::TextClassifier_Annotate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextClassifier.0
       bool success = true;
       TextAnnotationRequestPtr p_request{};
       TextClassifier_Annotate_ParamsDataView input_data_view(params, message);
@@ -1255,8 +1263,8 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Annotate(
-std::move(p_request), std::move(callback));
+      impl->Annotate(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kTextClassifier_FindLanguages_Name: {
@@ -1266,6 +1274,8 @@ std::move(p_request), std::move(callback));
               internal::TextClassifier_FindLanguages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextClassifier.2
       bool success = true;
       std::string p_text{};
       TextClassifier_FindLanguages_ParamsDataView input_data_view(params, message);
@@ -1284,8 +1294,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindLanguages(
-std::move(p_text), std::move(callback));
+      impl->FindLanguages(        
+        std::move(p_text), std::move(callback));
       return true;
     }
     case internal::kTextClassifier_REMOVED_1_Name: {
@@ -1295,6 +1305,8 @@ std::move(p_text), std::move(callback));
               internal::TextClassifier_REMOVED_1_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextClassifier.1
       bool success = true;
       REMOVED_TextSuggestSelectionRequestPtr p_request{};
       TextClassifier_REMOVED_1_ParamsDataView input_data_view(params, message);
@@ -1313,8 +1325,8 @@ std::move(p_text), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_1(
-std::move(p_request), std::move(callback));
+      impl->REMOVED_1(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }

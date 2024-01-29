@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "cbor", "version": "0.0.1", "revision": 407, "fullname": "chromeos-base/cbor", "fullnamerev": "chromeos-base/cbor-0.0.1-r407", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/platform/cbor"], "skip": false, "tainted": false, "ebuild_path": null}

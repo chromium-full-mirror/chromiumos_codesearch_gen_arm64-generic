@@ -10,5 +10,7 @@
 #include "mojo/public/mojom/base/token.mojom-import-headers.h"
 #include "skia/public/mojom/skcolor.mojom.h"
 #include "skia/public/mojom/skcolor.mojom-import-headers.h"
+#include "url/mojom/url.mojom.h"
+#include "url/mojom/url.mojom-import-headers.h"
 
 #endif  // CHROME_BROWSER_UI_WEBUI_SIDE_PANEL_CUSTOMIZE_CHROME_WALLPAPER_SEARCH_WALLPAPER_SEARCH_MOJOM_IMPORT_HEADERS_H_

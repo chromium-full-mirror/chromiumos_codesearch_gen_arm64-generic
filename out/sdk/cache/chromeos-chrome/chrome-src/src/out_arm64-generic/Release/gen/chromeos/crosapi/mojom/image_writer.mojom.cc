@@ -379,6 +379,8 @@ bool ImageWriterClientStubDispatch::Accept(
           reinterpret_cast<internal::ImageWriterClient_DispatchOnWriteProgressEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImageWriterClient.0
       bool success = true;
       Stage p_stage{};
       uint32_t p_percent_complete{};
@@ -397,9 +399,9 @@ bool ImageWriterClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchOnWriteProgressEvent(
-std::move(p_stage), 
-std::move(p_percent_complete));
+      impl->DispatchOnWriteProgressEvent(        
+        std::move(p_stage), 
+        std::move(p_percent_complete));
       return true;
     }
     case internal::kImageWriterClient_DispatchOnWriteCompleteEvent_Name: {
@@ -409,6 +411,8 @@ std::move(p_percent_complete));
           reinterpret_cast<internal::ImageWriterClient_DispatchOnWriteCompleteEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImageWriterClient.1
       bool success = true;
       ImageWriterClient_DispatchOnWriteCompleteEvent_ParamsDataView input_data_view(params, message);
       
@@ -421,7 +425,7 @@ std::move(p_percent_complete));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchOnWriteCompleteEvent();
+      impl->DispatchOnWriteCompleteEvent(        );
       return true;
     }
     case internal::kImageWriterClient_DispatchOnWriteErrorEvent_Name: {
@@ -431,6 +435,8 @@ std::move(p_percent_complete));
           reinterpret_cast<internal::ImageWriterClient_DispatchOnWriteErrorEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImageWriterClient.2
       bool success = true;
       Stage p_stage{};
       uint32_t p_percent_complete{};
@@ -452,10 +458,10 @@ std::move(p_percent_complete));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchOnWriteErrorEvent(
-std::move(p_stage), 
-std::move(p_percent_complete), 
-std::move(p_error));
+      impl->DispatchOnWriteErrorEvent(        
+        std::move(p_stage), 
+        std::move(p_percent_complete), 
+        std::move(p_error));
       return true;
     }
   }
@@ -995,6 +1001,8 @@ bool ImageWriter_ListRemovableStorageDevices_ForwardToCallback::Accept(
           internal::ImageWriter_ListRemovableStorageDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageWriter.0
   bool success = true;
   std::optional<std::vector<RemovableStorageDevicePtr>> p_devices{};
   ImageWriter_ListRemovableStorageDevices_ResponseParamsDataView input_data_view(params, message);
@@ -1122,6 +1130,8 @@ bool ImageWriter_DestroyPartitions_ForwardToCallback::Accept(
           internal::ImageWriter_DestroyPartitions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageWriter.1
   bool success = true;
   std::optional<std::string> p_error{};
   ImageWriter_DestroyPartitions_ResponseParamsDataView input_data_view(params, message);
@@ -1247,6 +1257,8 @@ bool ImageWriter_WriteFromUrl_ForwardToCallback::Accept(
           internal::ImageWriter_WriteFromUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageWriter.2
   bool success = true;
   std::optional<std::string> p_error{};
   ImageWriter_WriteFromUrl_ResponseParamsDataView input_data_view(params, message);
@@ -1372,6 +1384,8 @@ bool ImageWriter_WriteFromFile_ForwardToCallback::Accept(
           internal::ImageWriter_WriteFromFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageWriter.3
   bool success = true;
   std::optional<std::string> p_error{};
   ImageWriter_WriteFromFile_ResponseParamsDataView input_data_view(params, message);
@@ -1477,6 +1491,8 @@ bool ImageWriterStubDispatch::AcceptWithResponder(
               internal::ImageWriter_ListRemovableStorageDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageWriter.0
       bool success = true;
       ImageWriter_ListRemovableStorageDevices_ParamsDataView input_data_view(params, message);
       
@@ -1502,6 +1518,8 @@ bool ImageWriterStubDispatch::AcceptWithResponder(
               internal::ImageWriter_DestroyPartitions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageWriter.1
       bool success = true;
       std::string p_storage_unit_id{};
       ::mojo::PendingRemote<ImageWriterClient> p_remote_client{};
@@ -1525,9 +1543,9 @@ bool ImageWriterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyPartitions(
-std::move(p_storage_unit_id), 
-std::move(p_remote_client), std::move(callback));
+      impl->DestroyPartitions(        
+        std::move(p_storage_unit_id), 
+        std::move(p_remote_client), std::move(callback));
       return true;
     }
     case internal::kImageWriter_WriteFromUrl_Name: {
@@ -1537,6 +1555,8 @@ std::move(p_remote_client), std::move(callback));
               internal::ImageWriter_WriteFromUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageWriter.2
       bool success = true;
       std::string p_storage_unit_id{};
       ::GURL p_image_url{};
@@ -1566,11 +1586,11 @@ std::move(p_remote_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteFromUrl(
-std::move(p_storage_unit_id), 
-std::move(p_image_url), 
-std::move(p_image_hash), 
-std::move(p_remote_client), std::move(callback));
+      impl->WriteFromUrl(        
+        std::move(p_storage_unit_id), 
+        std::move(p_image_url), 
+        std::move(p_image_hash), 
+        std::move(p_remote_client), std::move(callback));
       return true;
     }
     case internal::kImageWriter_WriteFromFile_Name: {
@@ -1580,6 +1600,8 @@ std::move(p_remote_client), std::move(callback));
               internal::ImageWriter_WriteFromFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageWriter.3
       bool success = true;
       std::string p_storage_unit_id{};
       ::base::FilePath p_image_path{};
@@ -1606,10 +1628,10 @@ std::move(p_remote_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteFromFile(
-std::move(p_storage_unit_id), 
-std::move(p_image_path), 
-std::move(p_remote_client), std::move(callback));
+      impl->WriteFromFile(        
+        std::move(p_storage_unit_id), 
+        std::move(p_image_path), 
+        std::move(p_remote_client), std::move(callback));
       return true;
     }
   }

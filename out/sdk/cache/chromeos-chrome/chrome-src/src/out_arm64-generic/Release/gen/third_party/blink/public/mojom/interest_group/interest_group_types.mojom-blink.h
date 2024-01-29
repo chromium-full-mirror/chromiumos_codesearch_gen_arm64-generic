@@ -489,6 +489,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class PLATFORM_EXPORT AuctionReportBuyerDebugModeConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AuctionReportBuyerDebugModeConfig, T>::value>;
+  using DataView = AuctionReportBuyerDebugModeConfigDataView;
+  using Data_ = internal::AuctionReportBuyerDebugModeConfig_Data;
+
+  template <typename... Args>
+  static AuctionReportBuyerDebugModeConfigPtr New(Args&&... args) {
+    return AuctionReportBuyerDebugModeConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AuctionReportBuyerDebugModeConfigPtr From(const U& u) {
+    return mojo::TypeConverter<AuctionReportBuyerDebugModeConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AuctionReportBuyerDebugModeConfig>::Convert(*this);
+  }
+
+
+  AuctionReportBuyerDebugModeConfig();
+
+  AuctionReportBuyerDebugModeConfig(
+      bool is_enabled,
+      std::optional<uint64_t> debug_key);
+
+
+  ~AuctionReportBuyerDebugModeConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AuctionReportBuyerDebugModeConfigPtr>
+  AuctionReportBuyerDebugModeConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AuctionReportBuyerDebugModeConfig::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AuctionReportBuyerDebugModeConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AuctionReportBuyerDebugModeConfig_UnserializedMessageContext<
+            UserType, AuctionReportBuyerDebugModeConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AuctionReportBuyerDebugModeConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return AuctionReportBuyerDebugModeConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AuctionReportBuyerDebugModeConfig_UnserializedMessageContext<
+            UserType, AuctionReportBuyerDebugModeConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AuctionReportBuyerDebugModeConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool is_enabled;
+  
+  std::optional<uint64_t> debug_key;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 
@@ -1349,6 +1492,7 @@ class PLATFORM_EXPORT InterestGroup {
       const std::optional<::blink::KURL>& update_url,
       const std::optional<::blink::KURL>& trusted_bidding_signals_url,
       std::optional<WTF::Vector<WTF::String>> trusted_bidding_signals_keys,
+      int32_t max_trusted_bidding_signals_url_length,
       const WTF::String& user_bidding_signals,
       std::optional<WTF::Vector<InterestGroupAdPtr>> ads,
       std::optional<WTF::Vector<InterestGroupAdPtr>> ad_components,
@@ -1467,6 +1611,8 @@ InterestGroup& operator=(const InterestGroup&) = delete;
   std::optional<::blink::KURL> trusted_bidding_signals_url;
   
   std::optional<WTF::Vector<WTF::String>> trusted_bidding_signals_keys;
+  
+  int32_t max_trusted_bidding_signals_url_length;
   
   WTF::String user_bidding_signals;
   
@@ -2238,6 +2384,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class PLATFORM_EXPORT AuctionReportBuyersConfig {
  public:
   template <typename T>
@@ -2424,6 +2571,7 @@ class PLATFORM_EXPORT AuctionAdConfigNonSharedParams {
       uint16_t all_buyers_group_limit,
       std::optional<WTF::Vector<::absl::uint128>> auction_report_buyer_keys,
       std::optional<WTF::HashMap<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers,
+      AuctionReportBuyerDebugModeConfigPtr auction_report_buyer_debug_mode_config,
       SellerCapabilitiesPtr required_seller_capabilities,
       ::blink::mojom::blink::AdSizePtr requested_size,
       std::optional<WTF::Vector<::blink::mojom::blink::AdSizePtr>> all_slots_requested_sizes,
@@ -2538,6 +2686,8 @@ AuctionAdConfigNonSharedParams& operator=(const AuctionAdConfigNonSharedParams&)
   
   std::optional<WTF::HashMap<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers;
   
+  AuctionReportBuyerDebugModeConfigPtr auction_report_buyer_debug_mode_config;
+  
   SellerCapabilitiesPtr required_seller_capabilities;
   
   ::blink::mojom::blink::AdSizePtr requested_size;
@@ -2612,6 +2762,7 @@ class PLATFORM_EXPORT AuctionAdConfig {
       AuctionAdServerResponseConfigPtr server_response,
       const std::optional<::blink::KURL>& decision_logic_url,
       const std::optional<::blink::KURL>& trusted_scoring_signals_url,
+      int32_t max_trusted_scoring_signals_url_length,
       AuctionAdConfigNonSharedParamsPtr auction_ad_config_non_shared_params,
       AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr direct_from_seller_signals,
       bool expects_direct_from_seller_signals_header_ad_slot,
@@ -2708,6 +2859,8 @@ AuctionAdConfig& operator=(const AuctionAdConfig&) = delete;
   std::optional<::blink::KURL> decision_logic_url;
   
   std::optional<::blink::KURL> trusted_scoring_signals_url;
+  
+  int32_t max_trusted_scoring_signals_url_length;
   
   AuctionAdConfigNonSharedParamsPtr auction_ad_config_non_shared_params;
   
@@ -3044,6 +3197,7 @@ InterestGroupPtr InterestGroup::Clone() const {
       mojo::Clone(update_url),
       mojo::Clone(trusted_bidding_signals_url),
       mojo::Clone(trusted_bidding_signals_keys),
+      mojo::Clone(max_trusted_bidding_signals_url_length),
       mojo::Clone(user_bidding_signals),
       mojo::Clone(ads),
       mojo::Clone(ad_components),
@@ -3088,6 +3242,8 @@ bool InterestGroup::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->trusted_bidding_signals_url, other_struct.trusted_bidding_signals_url))
     return false;
   if (!mojo::Equals(this->trusted_bidding_signals_keys, other_struct.trusted_bidding_signals_keys))
+    return false;
+  if (!mojo::Equals(this->max_trusted_bidding_signals_url_length, other_struct.max_trusted_bidding_signals_url_length))
     return false;
   if (!mojo::Equals(this->user_bidding_signals, other_struct.user_bidding_signals))
     return false;
@@ -3173,6 +3329,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.trusted_bidding_signals_keys < rhs.trusted_bidding_signals_keys)
     return true;
   if (rhs.trusted_bidding_signals_keys < lhs.trusted_bidding_signals_keys)
+    return false;
+  if (lhs.max_trusted_bidding_signals_url_length < rhs.max_trusted_bidding_signals_url_length)
+    return true;
+  if (rhs.max_trusted_bidding_signals_url_length < lhs.max_trusted_bidding_signals_url_length)
     return false;
   if (lhs.user_bidding_signals < rhs.user_bidding_signals)
     return true;
@@ -3383,6 +3543,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+AuctionReportBuyerDebugModeConfigPtr AuctionReportBuyerDebugModeConfig::Clone() const {
+  return New(
+      mojo::Clone(is_enabled),
+      mojo::Clone(debug_key)
+  );
+}
+
+template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>*>
+bool AuctionReportBuyerDebugModeConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->is_enabled, other_struct.is_enabled))
+    return false;
+  if (!mojo::Equals(this->debug_key, other_struct.debug_key))
+    return false;
+  return true;
+}
+
+template <typename T, AuctionReportBuyerDebugModeConfig::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.is_enabled < rhs.is_enabled)
+    return true;
+  if (rhs.is_enabled < lhs.is_enabled)
+    return false;
+  if (lhs.debug_key < rhs.debug_key)
+    return true;
+  if (rhs.debug_key < lhs.debug_key)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 AuctionReportBuyersConfigPtr AuctionReportBuyersConfig::Clone() const {
   return New(
       mojo::Clone(bucket),
@@ -3429,6 +3618,7 @@ AuctionAdConfigNonSharedParamsPtr AuctionAdConfigNonSharedParams::Clone() const 
       mojo::Clone(all_buyers_group_limit),
       mojo::Clone(auction_report_buyer_keys),
       mojo::Clone(auction_report_buyers),
+      mojo::Clone(auction_report_buyer_debug_mode_config),
       mojo::Clone(required_seller_capabilities),
       mojo::Clone(requested_size),
       mojo::Clone(all_slots_requested_sizes),
@@ -3468,6 +3658,8 @@ bool AuctionAdConfigNonSharedParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->auction_report_buyer_keys, other_struct.auction_report_buyer_keys))
     return false;
   if (!mojo::Equals(this->auction_report_buyers, other_struct.auction_report_buyers))
+    return false;
+  if (!mojo::Equals(this->auction_report_buyer_debug_mode_config, other_struct.auction_report_buyer_debug_mode_config))
     return false;
   if (!mojo::Equals(this->required_seller_capabilities, other_struct.required_seller_capabilities))
     return false;
@@ -3544,6 +3736,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.auction_report_buyers < lhs.auction_report_buyers)
     return false;
+  if (lhs.auction_report_buyer_debug_mode_config < rhs.auction_report_buyer_debug_mode_config)
+    return true;
+  if (rhs.auction_report_buyer_debug_mode_config < lhs.auction_report_buyer_debug_mode_config)
+    return false;
   if (lhs.required_seller_capabilities < rhs.required_seller_capabilities)
     return true;
   if (rhs.required_seller_capabilities < lhs.required_seller_capabilities)
@@ -3573,6 +3769,7 @@ AuctionAdConfigPtr AuctionAdConfig::Clone() const {
       mojo::Clone(server_response),
       mojo::Clone(decision_logic_url),
       mojo::Clone(trusted_scoring_signals_url),
+      mojo::Clone(max_trusted_scoring_signals_url_length),
       mojo::Clone(auction_ad_config_non_shared_params),
       mojo::Clone(direct_from_seller_signals),
       mojo::Clone(expects_direct_from_seller_signals_header_ad_slot),
@@ -3595,6 +3792,8 @@ bool AuctionAdConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->decision_logic_url, other_struct.decision_logic_url))
     return false;
   if (!mojo::Equals(this->trusted_scoring_signals_url, other_struct.trusted_scoring_signals_url))
+    return false;
+  if (!mojo::Equals(this->max_trusted_scoring_signals_url_length, other_struct.max_trusted_scoring_signals_url_length))
     return false;
   if (!mojo::Equals(this->auction_ad_config_non_shared_params, other_struct.auction_ad_config_non_shared_params))
     return false;
@@ -3636,6 +3835,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.trusted_scoring_signals_url < rhs.trusted_scoring_signals_url)
     return true;
   if (rhs.trusted_scoring_signals_url < lhs.trusted_scoring_signals_url)
+    return false;
+  if (lhs.max_trusted_scoring_signals_url_length < rhs.max_trusted_scoring_signals_url_length)
+    return true;
+  if (rhs.max_trusted_scoring_signals_url_length < lhs.max_trusted_scoring_signals_url_length)
     return false;
   if (lhs.auction_ad_config_non_shared_params < rhs.auction_ad_config_non_shared_params)
     return true;
@@ -3857,6 +4060,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::InterestGroup::DataVi
     return input->trusted_bidding_signals_keys;
   }
 
+  static decltype(::blink::mojom::blink::InterestGroup::max_trusted_bidding_signals_url_length) max_trusted_bidding_signals_url_length(
+      const ::blink::mojom::blink::InterestGroupPtr& input) {
+    return input->max_trusted_bidding_signals_url_length;
+  }
+
   static const decltype(::blink::mojom::blink::InterestGroup::user_bidding_signals)& user_bidding_signals(
       const ::blink::mojom::blink::InterestGroupPtr& input) {
     return input->user_bidding_signals;
@@ -4022,6 +4230,26 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuctionAdServerRespon
 
 
 template <>
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::DataView,
+                                         ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr> {
+  static bool IsNull(const ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr* output) { output->reset(); }
+
+  static decltype(::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::is_enabled) is_enabled(
+      const ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr& input) {
+    return input->is_enabled;
+  }
+
+  static decltype(::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::debug_key) debug_key(
+      const ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr& input) {
+    return input->debug_key;
+  }
+
+  static bool Read(::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::DataView input, ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr* output);
+};
+
+
+template <>
 struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuctionReportBuyersConfig::DataView,
                                          ::blink::mojom::blink::AuctionReportBuyersConfigPtr> {
   static bool IsNull(const ::blink::mojom::blink::AuctionReportBuyersConfigPtr& input) { return !input; }
@@ -4122,6 +4350,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuctionAdConfigNonSha
     return input->auction_report_buyers;
   }
 
+  static const decltype(::blink::mojom::blink::AuctionAdConfigNonSharedParams::auction_report_buyer_debug_mode_config)& auction_report_buyer_debug_mode_config(
+      const ::blink::mojom::blink::AuctionAdConfigNonSharedParamsPtr& input) {
+    return input->auction_report_buyer_debug_mode_config;
+  }
+
   static const decltype(::blink::mojom::blink::AuctionAdConfigNonSharedParams::required_seller_capabilities)& required_seller_capabilities(
       const ::blink::mojom::blink::AuctionAdConfigNonSharedParamsPtr& input) {
     return input->required_seller_capabilities;
@@ -4175,6 +4408,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::AuctionAdConfig::Data
   static const decltype(::blink::mojom::blink::AuctionAdConfig::trusted_scoring_signals_url)& trusted_scoring_signals_url(
       const ::blink::mojom::blink::AuctionAdConfigPtr& input) {
     return input->trusted_scoring_signals_url;
+  }
+
+  static decltype(::blink::mojom::blink::AuctionAdConfig::max_trusted_scoring_signals_url_length) max_trusted_scoring_signals_url_length(
+      const ::blink::mojom::blink::AuctionAdConfigPtr& input) {
+    return input->max_trusted_scoring_signals_url_length;
   }
 
   static const decltype(::blink::mojom::blink::AuctionAdConfig::auction_ad_config_non_shared_params)& auction_ad_config_non_shared_params(

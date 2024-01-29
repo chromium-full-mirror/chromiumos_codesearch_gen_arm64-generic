@@ -29,6 +29,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include "protos/perfetto/trace/android/network_trace.pb.h"
+#include "protos/perfetto/trace/chrome/v8.pb.h"
 #include "protos/perfetto/trace/gpu/gpu_render_stage_event.pb.h"
 #include "protos/perfetto/trace/track_event/chrome_histogram_sample.pb.h"
 #include "protos/perfetto/trace/track_event/debug_annotation.pb.h"
@@ -196,6 +197,12 @@ class InternedData final :
     kUnsymbolizedSourceLocationsFieldNumber = 28,
     kDebugAnnotationStringValuesFieldNumber = 29,
     kPacketContextFieldNumber = 30,
+    kV8JsFunctionNameFieldNumber = 31,
+    kV8JsFunctionFieldNumber = 32,
+    kV8JsScriptFieldNumber = 33,
+    kV8WasmScriptFieldNumber = 34,
+    kV8IsolateFieldNumber = 35,
+    kProtologStringArgsFieldNumber = 36,
   };
   // repeated .perfetto.protos.EventCategory event_categories = 1;
   int event_categories_size() const;
@@ -593,6 +600,114 @@ class InternedData final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::NetworkPacketContext >&
       packet_context() const;
 
+  // repeated .perfetto.protos.InternedV8String v8_js_function_name = 31;
+  int v8_js_function_name_size() const;
+  private:
+  int _internal_v8_js_function_name_size() const;
+  public:
+  void clear_v8_js_function_name();
+  ::perfetto::protos::InternedV8String* mutable_v8_js_function_name(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8String >*
+      mutable_v8_js_function_name();
+  private:
+  const ::perfetto::protos::InternedV8String& _internal_v8_js_function_name(int index) const;
+  ::perfetto::protos::InternedV8String* _internal_add_v8_js_function_name();
+  public:
+  const ::perfetto::protos::InternedV8String& v8_js_function_name(int index) const;
+  ::perfetto::protos::InternedV8String* add_v8_js_function_name();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8String >&
+      v8_js_function_name() const;
+
+  // repeated .perfetto.protos.InternedV8JsFunction v8_js_function = 32;
+  int v8_js_function_size() const;
+  private:
+  int _internal_v8_js_function_size() const;
+  public:
+  void clear_v8_js_function();
+  ::perfetto::protos::InternedV8JsFunction* mutable_v8_js_function(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsFunction >*
+      mutable_v8_js_function();
+  private:
+  const ::perfetto::protos::InternedV8JsFunction& _internal_v8_js_function(int index) const;
+  ::perfetto::protos::InternedV8JsFunction* _internal_add_v8_js_function();
+  public:
+  const ::perfetto::protos::InternedV8JsFunction& v8_js_function(int index) const;
+  ::perfetto::protos::InternedV8JsFunction* add_v8_js_function();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsFunction >&
+      v8_js_function() const;
+
+  // repeated .perfetto.protos.InternedV8JsScript v8_js_script = 33;
+  int v8_js_script_size() const;
+  private:
+  int _internal_v8_js_script_size() const;
+  public:
+  void clear_v8_js_script();
+  ::perfetto::protos::InternedV8JsScript* mutable_v8_js_script(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsScript >*
+      mutable_v8_js_script();
+  private:
+  const ::perfetto::protos::InternedV8JsScript& _internal_v8_js_script(int index) const;
+  ::perfetto::protos::InternedV8JsScript* _internal_add_v8_js_script();
+  public:
+  const ::perfetto::protos::InternedV8JsScript& v8_js_script(int index) const;
+  ::perfetto::protos::InternedV8JsScript* add_v8_js_script();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsScript >&
+      v8_js_script() const;
+
+  // repeated .perfetto.protos.InternedV8WasmScript v8_wasm_script = 34;
+  int v8_wasm_script_size() const;
+  private:
+  int _internal_v8_wasm_script_size() const;
+  public:
+  void clear_v8_wasm_script();
+  ::perfetto::protos::InternedV8WasmScript* mutable_v8_wasm_script(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8WasmScript >*
+      mutable_v8_wasm_script();
+  private:
+  const ::perfetto::protos::InternedV8WasmScript& _internal_v8_wasm_script(int index) const;
+  ::perfetto::protos::InternedV8WasmScript* _internal_add_v8_wasm_script();
+  public:
+  const ::perfetto::protos::InternedV8WasmScript& v8_wasm_script(int index) const;
+  ::perfetto::protos::InternedV8WasmScript* add_v8_wasm_script();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8WasmScript >&
+      v8_wasm_script() const;
+
+  // repeated .perfetto.protos.InternedV8Isolate v8_isolate = 35;
+  int v8_isolate_size() const;
+  private:
+  int _internal_v8_isolate_size() const;
+  public:
+  void clear_v8_isolate();
+  ::perfetto::protos::InternedV8Isolate* mutable_v8_isolate(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8Isolate >*
+      mutable_v8_isolate();
+  private:
+  const ::perfetto::protos::InternedV8Isolate& _internal_v8_isolate(int index) const;
+  ::perfetto::protos::InternedV8Isolate* _internal_add_v8_isolate();
+  public:
+  const ::perfetto::protos::InternedV8Isolate& v8_isolate(int index) const;
+  ::perfetto::protos::InternedV8Isolate* add_v8_isolate();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8Isolate >&
+      v8_isolate() const;
+
+  // repeated .perfetto.protos.InternedString protolog_string_args = 36;
+  int protolog_string_args_size() const;
+  private:
+  int _internal_protolog_string_args_size() const;
+  public:
+  void clear_protolog_string_args();
+  ::perfetto::protos::InternedString* mutable_protolog_string_args(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedString >*
+      mutable_protolog_string_args();
+  private:
+  const ::perfetto::protos::InternedString& _internal_protolog_string_args(int index) const;
+  ::perfetto::protos::InternedString* _internal_add_protolog_string_args();
+  public:
+  const ::perfetto::protos::InternedString& protolog_string_args(int index) const;
+  ::perfetto::protos::InternedString* add_protolog_string_args();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedString >&
+      protolog_string_args() const;
+
   // @@protoc_insertion_point(class_scope:perfetto.protos.InternedData)
  private:
   class _Internal;
@@ -622,6 +737,12 @@ class InternedData final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::UnsymbolizedSourceLocation > unsymbolized_source_locations_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedString > debug_annotation_string_values_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::NetworkPacketContext > packet_context_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8String > v8_js_function_name_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsFunction > v8_js_function_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsScript > v8_js_script_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8WasmScript > v8_wasm_script_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8Isolate > v8_isolate_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedString > protolog_string_args_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_protos_2fperfetto_2ftrace_2finterned_5fdata_2finterned_5fdata_2eproto;
 };
@@ -1448,6 +1569,228 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::Netw
 InternedData::packet_context() const {
   // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.packet_context)
   return packet_context_;
+}
+
+// repeated .perfetto.protos.InternedV8String v8_js_function_name = 31;
+inline int InternedData::_internal_v8_js_function_name_size() const {
+  return v8_js_function_name_.size();
+}
+inline int InternedData::v8_js_function_name_size() const {
+  return _internal_v8_js_function_name_size();
+}
+inline ::perfetto::protos::InternedV8String* InternedData::mutable_v8_js_function_name(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.InternedData.v8_js_function_name)
+  return v8_js_function_name_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8String >*
+InternedData::mutable_v8_js_function_name() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.InternedData.v8_js_function_name)
+  return &v8_js_function_name_;
+}
+inline const ::perfetto::protos::InternedV8String& InternedData::_internal_v8_js_function_name(int index) const {
+  return v8_js_function_name_.Get(index);
+}
+inline const ::perfetto::protos::InternedV8String& InternedData::v8_js_function_name(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.InternedData.v8_js_function_name)
+  return _internal_v8_js_function_name(index);
+}
+inline ::perfetto::protos::InternedV8String* InternedData::_internal_add_v8_js_function_name() {
+  return v8_js_function_name_.Add();
+}
+inline ::perfetto::protos::InternedV8String* InternedData::add_v8_js_function_name() {
+  ::perfetto::protos::InternedV8String* _add = _internal_add_v8_js_function_name();
+  // @@protoc_insertion_point(field_add:perfetto.protos.InternedData.v8_js_function_name)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8String >&
+InternedData::v8_js_function_name() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.v8_js_function_name)
+  return v8_js_function_name_;
+}
+
+// repeated .perfetto.protos.InternedV8JsFunction v8_js_function = 32;
+inline int InternedData::_internal_v8_js_function_size() const {
+  return v8_js_function_.size();
+}
+inline int InternedData::v8_js_function_size() const {
+  return _internal_v8_js_function_size();
+}
+inline ::perfetto::protos::InternedV8JsFunction* InternedData::mutable_v8_js_function(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.InternedData.v8_js_function)
+  return v8_js_function_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsFunction >*
+InternedData::mutable_v8_js_function() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.InternedData.v8_js_function)
+  return &v8_js_function_;
+}
+inline const ::perfetto::protos::InternedV8JsFunction& InternedData::_internal_v8_js_function(int index) const {
+  return v8_js_function_.Get(index);
+}
+inline const ::perfetto::protos::InternedV8JsFunction& InternedData::v8_js_function(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.InternedData.v8_js_function)
+  return _internal_v8_js_function(index);
+}
+inline ::perfetto::protos::InternedV8JsFunction* InternedData::_internal_add_v8_js_function() {
+  return v8_js_function_.Add();
+}
+inline ::perfetto::protos::InternedV8JsFunction* InternedData::add_v8_js_function() {
+  ::perfetto::protos::InternedV8JsFunction* _add = _internal_add_v8_js_function();
+  // @@protoc_insertion_point(field_add:perfetto.protos.InternedData.v8_js_function)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsFunction >&
+InternedData::v8_js_function() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.v8_js_function)
+  return v8_js_function_;
+}
+
+// repeated .perfetto.protos.InternedV8JsScript v8_js_script = 33;
+inline int InternedData::_internal_v8_js_script_size() const {
+  return v8_js_script_.size();
+}
+inline int InternedData::v8_js_script_size() const {
+  return _internal_v8_js_script_size();
+}
+inline ::perfetto::protos::InternedV8JsScript* InternedData::mutable_v8_js_script(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.InternedData.v8_js_script)
+  return v8_js_script_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsScript >*
+InternedData::mutable_v8_js_script() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.InternedData.v8_js_script)
+  return &v8_js_script_;
+}
+inline const ::perfetto::protos::InternedV8JsScript& InternedData::_internal_v8_js_script(int index) const {
+  return v8_js_script_.Get(index);
+}
+inline const ::perfetto::protos::InternedV8JsScript& InternedData::v8_js_script(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.InternedData.v8_js_script)
+  return _internal_v8_js_script(index);
+}
+inline ::perfetto::protos::InternedV8JsScript* InternedData::_internal_add_v8_js_script() {
+  return v8_js_script_.Add();
+}
+inline ::perfetto::protos::InternedV8JsScript* InternedData::add_v8_js_script() {
+  ::perfetto::protos::InternedV8JsScript* _add = _internal_add_v8_js_script();
+  // @@protoc_insertion_point(field_add:perfetto.protos.InternedData.v8_js_script)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8JsScript >&
+InternedData::v8_js_script() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.v8_js_script)
+  return v8_js_script_;
+}
+
+// repeated .perfetto.protos.InternedV8WasmScript v8_wasm_script = 34;
+inline int InternedData::_internal_v8_wasm_script_size() const {
+  return v8_wasm_script_.size();
+}
+inline int InternedData::v8_wasm_script_size() const {
+  return _internal_v8_wasm_script_size();
+}
+inline ::perfetto::protos::InternedV8WasmScript* InternedData::mutable_v8_wasm_script(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.InternedData.v8_wasm_script)
+  return v8_wasm_script_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8WasmScript >*
+InternedData::mutable_v8_wasm_script() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.InternedData.v8_wasm_script)
+  return &v8_wasm_script_;
+}
+inline const ::perfetto::protos::InternedV8WasmScript& InternedData::_internal_v8_wasm_script(int index) const {
+  return v8_wasm_script_.Get(index);
+}
+inline const ::perfetto::protos::InternedV8WasmScript& InternedData::v8_wasm_script(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.InternedData.v8_wasm_script)
+  return _internal_v8_wasm_script(index);
+}
+inline ::perfetto::protos::InternedV8WasmScript* InternedData::_internal_add_v8_wasm_script() {
+  return v8_wasm_script_.Add();
+}
+inline ::perfetto::protos::InternedV8WasmScript* InternedData::add_v8_wasm_script() {
+  ::perfetto::protos::InternedV8WasmScript* _add = _internal_add_v8_wasm_script();
+  // @@protoc_insertion_point(field_add:perfetto.protos.InternedData.v8_wasm_script)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8WasmScript >&
+InternedData::v8_wasm_script() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.v8_wasm_script)
+  return v8_wasm_script_;
+}
+
+// repeated .perfetto.protos.InternedV8Isolate v8_isolate = 35;
+inline int InternedData::_internal_v8_isolate_size() const {
+  return v8_isolate_.size();
+}
+inline int InternedData::v8_isolate_size() const {
+  return _internal_v8_isolate_size();
+}
+inline ::perfetto::protos::InternedV8Isolate* InternedData::mutable_v8_isolate(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.InternedData.v8_isolate)
+  return v8_isolate_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8Isolate >*
+InternedData::mutable_v8_isolate() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.InternedData.v8_isolate)
+  return &v8_isolate_;
+}
+inline const ::perfetto::protos::InternedV8Isolate& InternedData::_internal_v8_isolate(int index) const {
+  return v8_isolate_.Get(index);
+}
+inline const ::perfetto::protos::InternedV8Isolate& InternedData::v8_isolate(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.InternedData.v8_isolate)
+  return _internal_v8_isolate(index);
+}
+inline ::perfetto::protos::InternedV8Isolate* InternedData::_internal_add_v8_isolate() {
+  return v8_isolate_.Add();
+}
+inline ::perfetto::protos::InternedV8Isolate* InternedData::add_v8_isolate() {
+  ::perfetto::protos::InternedV8Isolate* _add = _internal_add_v8_isolate();
+  // @@protoc_insertion_point(field_add:perfetto.protos.InternedData.v8_isolate)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedV8Isolate >&
+InternedData::v8_isolate() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.v8_isolate)
+  return v8_isolate_;
+}
+
+// repeated .perfetto.protos.InternedString protolog_string_args = 36;
+inline int InternedData::_internal_protolog_string_args_size() const {
+  return protolog_string_args_.size();
+}
+inline int InternedData::protolog_string_args_size() const {
+  return _internal_protolog_string_args_size();
+}
+inline ::perfetto::protos::InternedString* InternedData::mutable_protolog_string_args(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.InternedData.protolog_string_args)
+  return protolog_string_args_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedString >*
+InternedData::mutable_protolog_string_args() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.InternedData.protolog_string_args)
+  return &protolog_string_args_;
+}
+inline const ::perfetto::protos::InternedString& InternedData::_internal_protolog_string_args(int index) const {
+  return protolog_string_args_.Get(index);
+}
+inline const ::perfetto::protos::InternedString& InternedData::protolog_string_args(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.InternedData.protolog_string_args)
+  return _internal_protolog_string_args(index);
+}
+inline ::perfetto::protos::InternedString* InternedData::_internal_add_protolog_string_args() {
+  return protolog_string_args_.Add();
+}
+inline ::perfetto::protos::InternedString* InternedData::add_protolog_string_args() {
+  ::perfetto::protos::InternedString* _add = _internal_add_protolog_string_args();
+  // @@protoc_insertion_point(field_add:perfetto.protos.InternedData.protolog_string_args)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::InternedString >&
+InternedData::protolog_string_args() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.InternedData.protolog_string_args)
+  return protolog_string_args_;
 }
 
 #ifdef __GNUC__

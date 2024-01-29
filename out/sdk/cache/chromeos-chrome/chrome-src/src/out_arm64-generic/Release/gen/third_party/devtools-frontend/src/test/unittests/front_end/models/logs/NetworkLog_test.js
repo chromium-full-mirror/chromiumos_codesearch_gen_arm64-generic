@@ -31,7 +31,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request, existingInfo);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Other,
+                type: "other" /* SDK.NetworkRequest.InitiatorType.Other */,
                 url: Platform.DevToolsPath.EmptyUrlString,
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -52,7 +52,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Other,
+                type: "other" /* SDK.NetworkRequest.InitiatorType.Other */,
                 url: Platform.DevToolsPath.EmptyUrlString,
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -76,7 +76,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Redirect,
+                type: "redirect" /* SDK.NetworkRequest.InitiatorType.Redirect */,
                 url: url('http://localhost:3000/example.js'),
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -101,7 +101,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Parser,
+                type: "parser" /* SDK.NetworkRequest.InitiatorType.Parser */,
                 url: url('http://localhost:3000/example.js'),
                 lineNumber: 5,
                 columnNumber: 6,
@@ -133,7 +133,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Script,
+                type: "script" /* SDK.NetworkRequest.InitiatorType.Script */,
                 url: url('http://localhost:3000/example.js'),
                 lineNumber: 5,
                 columnNumber: 6,
@@ -176,7 +176,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Script,
+                type: "script" /* SDK.NetworkRequest.InitiatorType.Script */,
                 url: url('http://localhost:3000/example.js'),
                 lineNumber: 5,
                 columnNumber: 6,
@@ -199,7 +199,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Script,
+                type: "script" /* SDK.NetworkRequest.InitiatorType.Script */,
                 url: url('http://localhost:3000/example.js'),
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -221,7 +221,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Preload,
+                type: "preload" /* SDK.NetworkRequest.InitiatorType.Preload */,
                 url: Platform.DevToolsPath.EmptyUrlString,
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -247,7 +247,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.Preflight,
+                type: "preflight" /* SDK.NetworkRequest.InitiatorType.Preflight */,
                 url: Platform.DevToolsPath.EmptyUrlString,
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -270,7 +270,7 @@ describe('NetworkLog', () => {
             };
             const info = initiatorInfoForRequest(request);
             assert.deepEqual(info, {
-                type: SDK.NetworkRequest.InitiatorType.SignedExchange,
+                type: "signedExchange" /* SDK.NetworkRequest.InitiatorType.SignedExchange */,
                 url: url('http://localhost:3000/example.js'),
                 lineNumber: undefined,
                 columnNumber: undefined,
@@ -353,7 +353,7 @@ describeWithMockConnection('NetworkLog', () => {
         let removedRequest = null;
         networkLog.addEventListener(Logs.NetworkLog.Events.RequestRemoved, event => {
             assert.isNull(removedRequest, 'Request was removed multiple times.');
-            removedRequest = event.data;
+            removedRequest = event.data.request;
         });
         const request = {
             requestId: () => 'request-id',

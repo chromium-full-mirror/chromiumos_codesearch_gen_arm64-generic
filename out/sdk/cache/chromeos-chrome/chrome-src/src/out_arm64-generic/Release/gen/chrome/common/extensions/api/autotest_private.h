@@ -161,6 +161,8 @@ enum class WindowStateType {
   kFullscreen,
   kPrimarySnapped,
   kSecondarySnapped,
+  kPinned,
+  kTrustedPinned,
   kPip,
   kFloated,
   kMaxValue = kFloated,
@@ -2082,7 +2084,7 @@ struct LoginEventRecorderData {
   std::string name;
 
   // Number of frames actually shown for this animation.
-  int microsecnods_since_unix_epoch;
+  double microsecnods_since_unix_epoch;
 
 };
 
@@ -4747,6 +4749,30 @@ base::Value::List Create(const WakefulnessMode& mode);
 }  // namespace Results
 
 }  // namespace GetArcWakefulnessMode
+
+namespace SetDeviceLanguage {
+
+struct Params {
+  static std::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
+  ~Params();
+
+  std::string locale;
+
+
+ private:
+  Params();
+};
+
+namespace Results {
+
+base::Value::List Create();
+}  // namespace Results
+
+}  // namespace SetDeviceLanguage
 
 //
 // Events

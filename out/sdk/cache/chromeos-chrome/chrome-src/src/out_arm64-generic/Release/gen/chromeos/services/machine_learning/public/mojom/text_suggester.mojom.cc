@@ -496,6 +496,8 @@ bool TextSuggester_Suggest_ForwardToCallback::Accept(
           internal::TextSuggester_Suggest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextSuggester.0
   bool success = true;
   TextSuggesterResultPtr p_result{};
   TextSuggester_Suggest_ResponseParamsDataView input_data_view(params, message);
@@ -596,6 +598,8 @@ bool TextSuggesterStubDispatch::AcceptWithResponder(
               internal::TextSuggester_Suggest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextSuggester.0
       bool success = true;
       TextSuggesterQueryPtr p_query{};
       TextSuggester_Suggest_ParamsDataView input_data_view(params, message);
@@ -614,8 +618,8 @@ bool TextSuggesterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Suggest(
-std::move(p_query), std::move(callback));
+      impl->Suggest(        
+        std::move(p_query), std::move(callback));
       return true;
     }
   }

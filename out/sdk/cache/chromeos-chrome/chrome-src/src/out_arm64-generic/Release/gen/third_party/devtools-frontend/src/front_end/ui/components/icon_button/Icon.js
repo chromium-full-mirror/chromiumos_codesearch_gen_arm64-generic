@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 import * as ComponentHelpers from '../../../ui/components/helpers/helpers.js';
 import * as LitHtml from '../../../ui/lit-html/lit-html.js';
-import iconStyles from './icon.css.js';
-const IMAGES_URL = `${new URL('../../../Images/', import.meta.url)}`;
+import iconStyles from './icon.css.legacy.js';
 /**
- * A simple icon component to display SVG icons from the `front_end/Images/` folder.
+ * A simple icon component to display SVG icons from the `front_end/Images/src`
+ * folder (via the `--image-file-<name>` CSS variables).
  *
  * Usage is simple:
  *
@@ -42,7 +42,9 @@ const IMAGES_URL = `${new URL('../../../Images/', import.meta.url)}`;
  * the default dimensions are 14px times 14px, and the default `vertical-align` is
  * `baseline` (instead of `sub`).
  *
- * @attr name - The basename of the icon file (not including the `.svg` suffix).
+ * @attr name - The basename of the icon file (not including the `.svg` suffix). For
+ *              backwards compatibility we also support a full URL here, but that
+ *              should not be used in newly written code.
  * @prop {String} name - The `"name"` attribute is reflected as property.
  * @prop {IconData} data - Deprecated way to set dimensions, color and name at once.
  */
@@ -53,10 +55,20 @@ export class Icon extends HTMLElement {
     #icon;
     constructor() {
         super();
-        this.#shadowRoot = this.attachShadow({ mode: 'open' });
-        this.#icon = document.createElement('span');
-        this.#shadowRoot.appendChild(this.#icon);
         this.role = 'presentation';
+        this.#icon = document.createElement('span');
+        this.#shadowRoot = this.attachShadow({ mode: 'open' });
+        this.#shadowRoot.appendChild(this.#icon);
+        // TODO(bmeurer): Ideally we'd have a `connectedCallback()` that would just
+        // install the CSS via `adoptedStyleSheets`, but that throws when using the
+        // same `CSSStyleSheet` across two different documents (which happens in the
+        // case of undocked DevTools windows and using the DeviceMode). So the work-
+        // around for now is to use legacy CSS injected as a <style> tag into the
+        // ShadowRoot (which has been working well for the legacy UI components for
+        // a long time).
+        const styleElement = document.createElement('style');
+        styleElement.textContent = iconStyles.cssContent;
+        this.#shadowRoot.appendChild(styleElement);
     }
     /**
      * @deprecated use `name` and CSS instead.
@@ -108,9 +120,6 @@ export class Icon extends HTMLElement {
             this.setAttribute('name', name);
         }
     }
-    connectedCallback() {
-        this.#shadowRoot.adoptedStyleSheets = [iconStyles];
-    }
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) {
             return;
@@ -121,11 +130,8 @@ export class Icon extends HTMLElement {
                     this.#icon.style.removeProperty('--icon-url');
                 }
                 else {
-                    if (!newValue.endsWith('.svg')) {
-                        newValue = `${newValue}.svg`;
-                    }
-                    const url = new URL(newValue, IMAGES_URL);
-                    this.#icon.style.setProperty('--icon-url', `url(${url})`);
+                    const url = URL.canParse(newValue) ? `url(${newValue})` : `var(--image-file-${newValue})`;
+                    this.#icon.style.setProperty('--icon-url', url);
                 }
                 break;
             }

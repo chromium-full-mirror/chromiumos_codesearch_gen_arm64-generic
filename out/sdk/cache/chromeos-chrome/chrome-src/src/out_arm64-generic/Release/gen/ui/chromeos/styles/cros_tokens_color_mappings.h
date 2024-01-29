@@ -497,6 +497,8 @@ enum CrosSysColorIds : ui::ColorId {
   kCrosSysErrorContainer,
   kCrosSysOnErrorContainer,
   kCrosSysErrorHighlight,
+  kCrosSysInverseError,
+  kCrosSysInverseOnError,
   kCrosSysSurfaceVariant,
   kCrosSysOnSurfaceVariantLight,
   kCrosSysOnSurfaceVariantDark,

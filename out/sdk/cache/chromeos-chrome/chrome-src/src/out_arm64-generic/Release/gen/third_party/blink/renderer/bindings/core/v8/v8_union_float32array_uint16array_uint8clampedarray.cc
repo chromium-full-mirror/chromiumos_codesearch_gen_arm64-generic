@@ -57,7 +57,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kFloat32Array: {
     return ToV8Traits<NotShared<DOMFloat32Array>>::ToV8(script_state, member_float32_array_);
@@ -71,7 +71,7 @@ v8::MaybeLocal<v8::Value> V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray::T
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray::Trace(Visitor* visitor) const {

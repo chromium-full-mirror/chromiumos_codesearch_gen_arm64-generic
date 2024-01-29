@@ -359,6 +359,8 @@ bool CameraModuleCallbacksStubDispatch::Accept(
           reinterpret_cast<internal::CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraModuleCallbacks.0
       bool success = true;
       int32_t p_camera_id{};
       CameraDeviceStatus p_new_status{};
@@ -377,9 +379,9 @@ bool CameraModuleCallbacksStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CameraDeviceStatusChange(
-std::move(p_camera_id), 
-std::move(p_new_status));
+      impl->CameraDeviceStatusChange(        
+        std::move(p_camera_id), 
+        std::move(p_new_status));
       return true;
     }
     case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name: {
@@ -389,6 +391,8 @@ std::move(p_new_status));
           reinterpret_cast<internal::CameraModuleCallbacks_TorchModeStatusChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraModuleCallbacks.1
       bool success = true;
       int32_t p_camera_id{};
       TorchModeStatus p_new_status{};
@@ -407,9 +411,9 @@ std::move(p_new_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TorchModeStatusChange(
-std::move(p_camera_id), 
-std::move(p_new_status));
+      impl->TorchModeStatusChange(        
+        std::move(p_camera_id), 
+        std::move(p_new_status));
       return true;
     }
   }
@@ -918,6 +922,8 @@ bool VendorTagOps_GetTagCount_ForwardToCallback::Accept(
           internal::VendorTagOps_GetTagCount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VendorTagOps.0
   bool success = true;
   int32_t p_result{};
   VendorTagOps_GetTagCount_ResponseParamsDataView input_data_view(params, message);
@@ -1037,6 +1043,8 @@ bool VendorTagOps_GetAllTags_ForwardToCallback::Accept(
           internal::VendorTagOps_GetAllTags_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VendorTagOps.1
   bool success = true;
   std::vector<uint32_t> p_tag_array{};
   VendorTagOps_GetAllTags_ResponseParamsDataView input_data_view(params, message);
@@ -1168,6 +1176,8 @@ bool VendorTagOps_GetSectionName_ForwardToCallback::Accept(
           internal::VendorTagOps_GetSectionName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VendorTagOps.2
   bool success = true;
   std::optional<std::string> p_name{};
   VendorTagOps_GetSectionName_ResponseParamsDataView input_data_view(params, message);
@@ -1293,6 +1303,8 @@ bool VendorTagOps_GetTagName_ForwardToCallback::Accept(
           internal::VendorTagOps_GetTagName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VendorTagOps.3
   bool success = true;
   std::optional<std::string> p_name{};
   VendorTagOps_GetTagName_ResponseParamsDataView input_data_view(params, message);
@@ -1418,6 +1430,8 @@ bool VendorTagOps_GetTagType_ForwardToCallback::Accept(
           internal::VendorTagOps_GetTagType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VendorTagOps.4
   bool success = true;
   int32_t p_type{};
   VendorTagOps_GetTagType_ResponseParamsDataView input_data_view(params, message);
@@ -1520,6 +1534,8 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
               internal::VendorTagOps_GetTagCount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VendorTagOps.0
       bool success = true;
       VendorTagOps_GetTagCount_ParamsDataView input_data_view(params, message);
       
@@ -1545,6 +1561,8 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
               internal::VendorTagOps_GetAllTags_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VendorTagOps.1
       bool success = true;
       VendorTagOps_GetAllTags_ParamsDataView input_data_view(params, message);
       
@@ -1570,6 +1588,8 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
               internal::VendorTagOps_GetSectionName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VendorTagOps.2
       bool success = true;
       uint32_t p_tag{};
       VendorTagOps_GetSectionName_ParamsDataView input_data_view(params, message);
@@ -1588,8 +1608,8 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSectionName(
-std::move(p_tag), std::move(callback));
+      impl->GetSectionName(        
+        std::move(p_tag), std::move(callback));
       return true;
     }
     case internal::kVendorTagOps_GetTagName_Name: {
@@ -1599,6 +1619,8 @@ std::move(p_tag), std::move(callback));
               internal::VendorTagOps_GetTagName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VendorTagOps.3
       bool success = true;
       uint32_t p_tag{};
       VendorTagOps_GetTagName_ParamsDataView input_data_view(params, message);
@@ -1617,8 +1639,8 @@ std::move(p_tag), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetTagName(
-std::move(p_tag), std::move(callback));
+      impl->GetTagName(        
+        std::move(p_tag), std::move(callback));
       return true;
     }
     case internal::kVendorTagOps_GetTagType_Name: {
@@ -1628,6 +1650,8 @@ std::move(p_tag), std::move(callback));
               internal::VendorTagOps_GetTagType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VendorTagOps.4
       bool success = true;
       uint32_t p_tag{};
       VendorTagOps_GetTagType_ParamsDataView input_data_view(params, message);
@@ -1646,8 +1670,8 @@ std::move(p_tag), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetTagType(
-std::move(p_tag), std::move(callback));
+      impl->GetTagType(        
+        std::move(p_tag), std::move(callback));
       return true;
     }
   }
@@ -2409,6 +2433,8 @@ bool CameraModule_OpenDevice_ForwardToCallback::Accept(
           internal::CameraModule_OpenDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.0
   bool success = true;
   int32_t p_result{};
   CameraModule_OpenDevice_ResponseParamsDataView input_data_view(params, message);
@@ -2528,6 +2554,8 @@ bool CameraModule_GetNumberOfCameras_ForwardToCallback::Accept(
           internal::CameraModule_GetNumberOfCameras_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.1
   bool success = true;
   int32_t p_result{};
   CameraModule_GetNumberOfCameras_ResponseParamsDataView input_data_view(params, message);
@@ -2647,6 +2675,8 @@ bool CameraModule_GetCameraInfo_ForwardToCallback::Accept(
           internal::CameraModule_GetCameraInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.2
   bool success = true;
   int32_t p_result{};
   CameraInfoPtr p_camera_info{};
@@ -2780,6 +2810,8 @@ bool CameraModule_SetCallbacks_ForwardToCallback::Accept(
           internal::CameraModule_SetCallbacks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.3
   bool success = true;
   int32_t p_result{};
   CameraModule_SetCallbacks_ResponseParamsDataView input_data_view(params, message);
@@ -2899,6 +2931,8 @@ bool CameraModule_SetTorchMode_ForwardToCallback::Accept(
           internal::CameraModule_SetTorchMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.4
   bool success = true;
   int32_t p_result{};
   CameraModule_SetTorchMode_ResponseParamsDataView input_data_view(params, message);
@@ -3018,6 +3052,8 @@ bool CameraModule_Init_ForwardToCallback::Accept(
           internal::CameraModule_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.5
   bool success = true;
   int32_t p_result{};
   CameraModule_Init_ResponseParamsDataView input_data_view(params, message);
@@ -3137,6 +3173,8 @@ bool CameraModule_GetVendorTagOps_ForwardToCallback::Accept(
           internal::CameraModule_GetVendorTagOps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.6
   bool success = true;
   CameraModule_GetVendorTagOps_ResponseParamsDataView input_data_view(params, message);
   
@@ -3244,6 +3282,8 @@ bool CameraModule_SetCallbacksAssociated_ForwardToCallback::Accept(
           internal::CameraModule_SetCallbacksAssociated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraModule.7
   bool success = true;
   int32_t p_result{};
   CameraModule_SetCallbacksAssociated_ResponseParamsDataView input_data_view(params, message);
@@ -3355,6 +3395,8 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
               internal::CameraModule_OpenDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.0
       bool success = true;
       int32_t p_camera_id{};
       ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> p_device_ops_receiver{};
@@ -3378,9 +3420,9 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDevice(
-std::move(p_camera_id), 
-std::move(p_device_ops_receiver), std::move(callback));
+      impl->OpenDevice(        
+        std::move(p_camera_id), 
+        std::move(p_device_ops_receiver), std::move(callback));
       return true;
     }
     case internal::kCameraModule_GetNumberOfCameras_Name: {
@@ -3390,6 +3432,8 @@ std::move(p_device_ops_receiver), std::move(callback));
               internal::CameraModule_GetNumberOfCameras_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.1
       bool success = true;
       CameraModule_GetNumberOfCameras_ParamsDataView input_data_view(params, message);
       
@@ -3415,6 +3459,8 @@ std::move(p_device_ops_receiver), std::move(callback));
               internal::CameraModule_GetCameraInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.2
       bool success = true;
       int32_t p_camera_id{};
       CameraModule_GetCameraInfo_ParamsDataView input_data_view(params, message);
@@ -3433,8 +3479,8 @@ std::move(p_device_ops_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCameraInfo(
-std::move(p_camera_id), std::move(callback));
+      impl->GetCameraInfo(        
+        std::move(p_camera_id), std::move(callback));
       return true;
     }
     case internal::kCameraModule_SetCallbacks_Name: {
@@ -3444,6 +3490,8 @@ std::move(p_camera_id), std::move(callback));
               internal::CameraModule_SetCallbacks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.3
       bool success = true;
       ::mojo::PendingRemote<CameraModuleCallbacks> p_callbacks{};
       CameraModule_SetCallbacks_ParamsDataView input_data_view(params, message);
@@ -3464,8 +3512,8 @@ std::move(p_camera_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCallbacks(
-std::move(p_callbacks), std::move(callback));
+      impl->SetCallbacks(        
+        std::move(p_callbacks), std::move(callback));
       return true;
     }
     case internal::kCameraModule_SetTorchMode_Name: {
@@ -3475,6 +3523,8 @@ std::move(p_callbacks), std::move(callback));
               internal::CameraModule_SetTorchMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.4
       bool success = true;
       int32_t p_camera_id{};
       bool p_enabled{};
@@ -3496,9 +3546,9 @@ std::move(p_callbacks), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTorchMode(
-std::move(p_camera_id), 
-std::move(p_enabled), std::move(callback));
+      impl->SetTorchMode(        
+        std::move(p_camera_id), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kCameraModule_Init_Name: {
@@ -3508,6 +3558,8 @@ std::move(p_enabled), std::move(callback));
               internal::CameraModule_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.5
       bool success = true;
       CameraModule_Init_ParamsDataView input_data_view(params, message);
       
@@ -3533,6 +3585,8 @@ std::move(p_enabled), std::move(callback));
               internal::CameraModule_GetVendorTagOps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.6
       bool success = true;
       ::mojo::PendingReceiver<VendorTagOps> p_vendor_tag_ops_receiver{};
       CameraModule_GetVendorTagOps_ParamsDataView input_data_view(params, message);
@@ -3553,8 +3607,8 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVendorTagOps(
-std::move(p_vendor_tag_ops_receiver), std::move(callback));
+      impl->GetVendorTagOps(        
+        std::move(p_vendor_tag_ops_receiver), std::move(callback));
       return true;
     }
     case internal::kCameraModule_SetCallbacksAssociated_Name: {
@@ -3564,6 +3618,8 @@ std::move(p_vendor_tag_ops_receiver), std::move(callback));
               internal::CameraModule_SetCallbacksAssociated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraModule.7
       bool success = true;
       ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> p_callbacks{};
       CameraModule_SetCallbacksAssociated_ParamsDataView input_data_view(params, message);
@@ -3584,8 +3640,8 @@ std::move(p_vendor_tag_ops_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCallbacksAssociated(
-std::move(p_callbacks), std::move(callback));
+      impl->SetCallbacksAssociated(        
+        std::move(p_callbacks), std::move(callback));
       return true;
     }
   }

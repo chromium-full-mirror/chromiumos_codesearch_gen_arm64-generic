@@ -1856,6 +1856,8 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdBluetoothObserver.0
       bool success = true;
       CrosHealthdBluetoothObserver_OnAdapterAdded_ParamsDataView input_data_view(params, message);
       
@@ -1868,7 +1870,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdapterAdded();
+      impl->OnAdapterAdded(        );
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name: {
@@ -1878,6 +1880,8 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdBluetoothObserver.1
       bool success = true;
       CrosHealthdBluetoothObserver_OnAdapterRemoved_ParamsDataView input_data_view(params, message);
       
@@ -1890,7 +1894,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdapterRemoved();
+      impl->OnAdapterRemoved(        );
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name: {
@@ -1900,6 +1904,8 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdBluetoothObserver.2
       bool success = true;
       CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_ParamsDataView input_data_view(params, message);
       
@@ -1912,7 +1918,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdapterPropertyChanged();
+      impl->OnAdapterPropertyChanged(        );
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name: {
@@ -1922,6 +1928,8 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdBluetoothObserver.3
       bool success = true;
       CrosHealthdBluetoothObserver_OnDeviceAdded_ParamsDataView input_data_view(params, message);
       
@@ -1934,7 +1942,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceAdded();
+      impl->OnDeviceAdded(        );
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name: {
@@ -1944,6 +1952,8 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdBluetoothObserver.4
       bool success = true;
       CrosHealthdBluetoothObserver_OnDeviceRemoved_ParamsDataView input_data_view(params, message);
       
@@ -1956,7 +1966,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRemoved();
+      impl->OnDeviceRemoved(        );
       return true;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name: {
@@ -1966,6 +1976,8 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdBluetoothObserver.5
       bool success = true;
       CrosHealthdBluetoothObserver_OnDevicePropertyChanged_ParamsDataView input_data_view(params, message);
       
@@ -1978,7 +1990,7 @@ bool CrosHealthdBluetoothObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicePropertyChanged();
+      impl->OnDevicePropertyChanged(        );
       return true;
     }
   }
@@ -2194,6 +2206,8 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdLidObserver_OnLidClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdLidObserver.0
       bool success = true;
       CrosHealthdLidObserver_OnLidClosed_ParamsDataView input_data_view(params, message);
       
@@ -2206,7 +2220,7 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLidClosed();
+      impl->OnLidClosed(        );
       return true;
     }
     case internal::kCrosHealthdLidObserver_OnLidOpened_Name: {
@@ -2216,6 +2230,8 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdLidObserver_OnLidOpened_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdLidObserver.1
       bool success = true;
       CrosHealthdLidObserver_OnLidOpened_ParamsDataView input_data_view(params, message);
       
@@ -2228,7 +2244,7 @@ bool CrosHealthdLidObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLidOpened();
+      impl->OnLidOpened(        );
       return true;
     }
   }
@@ -2530,6 +2546,8 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdPowerObserver.0
       bool success = true;
       CrosHealthdPowerObserver_OnAcInserted_ParamsDataView input_data_view(params, message);
       
@@ -2542,7 +2560,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAcInserted();
+      impl->OnAcInserted(        );
       return true;
     }
     case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name: {
@@ -2552,6 +2570,8 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdPowerObserver.1
       bool success = true;
       CrosHealthdPowerObserver_OnAcRemoved_ParamsDataView input_data_view(params, message);
       
@@ -2564,7 +2584,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAcRemoved();
+      impl->OnAcRemoved(        );
       return true;
     }
     case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name: {
@@ -2574,6 +2594,8 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdPowerObserver.2
       bool success = true;
       CrosHealthdPowerObserver_OnOsSuspend_ParamsDataView input_data_view(params, message);
       
@@ -2586,7 +2608,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOsSuspend();
+      impl->OnOsSuspend(        );
       return true;
     }
     case internal::kCrosHealthdPowerObserver_OnOsResume_Name: {
@@ -2596,6 +2618,8 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdPowerObserver_OnOsResume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdPowerObserver.3
       bool success = true;
       CrosHealthdPowerObserver_OnOsResume_ParamsDataView input_data_view(params, message);
       
@@ -2608,7 +2632,7 @@ bool CrosHealthdPowerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOsResume();
+      impl->OnOsResume(        );
       return true;
     }
   }
@@ -2814,6 +2838,8 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdAudioObserver.0
       bool success = true;
       CrosHealthdAudioObserver_OnUnderrun_ParamsDataView input_data_view(params, message);
       
@@ -2826,7 +2852,7 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUnderrun();
+      impl->OnUnderrun(        );
       return true;
     }
     case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name: {
@@ -2836,6 +2862,8 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdAudioObserver.1
       bool success = true;
       CrosHealthdAudioObserver_OnSevereUnderrun_ParamsDataView input_data_view(params, message);
       
@@ -2848,7 +2876,7 @@ bool CrosHealthdAudioObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSevereUnderrun();
+      impl->OnSevereUnderrun(        );
       return true;
     }
   }
@@ -3150,6 +3178,8 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdThunderboltObserver.0
       bool success = true;
       CrosHealthdThunderboltObserver_OnAdd_ParamsDataView input_data_view(params, message);
       
@@ -3162,7 +3192,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdd();
+      impl->OnAdd(        );
       return true;
     }
     case internal::kCrosHealthdThunderboltObserver_OnRemove_Name: {
@@ -3172,6 +3202,8 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdThunderboltObserver.1
       bool success = true;
       CrosHealthdThunderboltObserver_OnRemove_ParamsDataView input_data_view(params, message);
       
@@ -3184,7 +3216,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemove();
+      impl->OnRemove(        );
       return true;
     }
     case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name: {
@@ -3194,6 +3226,8 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdThunderboltObserver.2
       bool success = true;
       CrosHealthdThunderboltObserver_OnAuthorized_ParamsDataView input_data_view(params, message);
       
@@ -3206,7 +3240,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthorized();
+      impl->OnAuthorized(        );
       return true;
     }
     case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name: {
@@ -3216,6 +3250,8 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdThunderboltObserver.3
       bool success = true;
       CrosHealthdThunderboltObserver_OnUnAuthorized_ParamsDataView input_data_view(params, message);
       
@@ -3228,7 +3264,7 @@ bool CrosHealthdThunderboltObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUnAuthorized();
+      impl->OnUnAuthorized(        );
       return true;
     }
   }
@@ -3470,6 +3506,8 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdUsbObserver_OnAdd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdUsbObserver.0
       bool success = true;
       UsbEventInfoPtr p_info{};
       CrosHealthdUsbObserver_OnAdd_ParamsDataView input_data_view(params, message);
@@ -3485,8 +3523,8 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdd(
-std::move(p_info));
+      impl->OnAdd(        
+        std::move(p_info));
       return true;
     }
     case internal::kCrosHealthdUsbObserver_OnRemove_Name: {
@@ -3496,6 +3534,8 @@ std::move(p_info));
           reinterpret_cast<internal::CrosHealthdUsbObserver_OnRemove_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdUsbObserver.1
       bool success = true;
       UsbEventInfoPtr p_info{};
       CrosHealthdUsbObserver_OnRemove_ParamsDataView input_data_view(params, message);
@@ -3511,8 +3551,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemove(
-std::move(p_info));
+      impl->OnRemove(        
+        std::move(p_info));
       return true;
     }
   }
@@ -3708,6 +3748,8 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdSdCardObserver_OnAdd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdSdCardObserver.0
       bool success = true;
       CrosHealthdSdCardObserver_OnAdd_ParamsDataView input_data_view(params, message);
       
@@ -3720,7 +3762,7 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdd();
+      impl->OnAdd(        );
       return true;
     }
     case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
@@ -3730,6 +3772,8 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdSdCardObserver_OnRemove_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdSdCardObserver.1
       bool success = true;
       CrosHealthdSdCardObserver_OnRemove_ParamsDataView input_data_view(params, message);
       
@@ -3742,7 +3786,7 @@ bool CrosHealthdSdCardObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemove();
+      impl->OnRemove(        );
       return true;
     }
   }
@@ -3901,6 +3945,8 @@ bool EventObserverStubDispatch::Accept(
           reinterpret_cast<internal::EventObserver_OnEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EventObserver.0
       bool success = true;
       EventInfoPtr p_info{};
       EventObserver_OnEvent_ParamsDataView input_data_view(params, message);
@@ -3916,8 +3962,8 @@ bool EventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEvent(
-std::move(p_info));
+      impl->OnEvent(        
+        std::move(p_info));
       return true;
     }
   }

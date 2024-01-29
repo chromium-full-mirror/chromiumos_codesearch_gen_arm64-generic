@@ -25,7 +25,6 @@ constexpr uint32_t kFrame_UndoCommitNavigation_Name = 5;
 constexpr uint32_t kFrame_GetInterfaceProvider_Name = 6;
 constexpr uint32_t kFrame_SnapshotAccessibilityTree_Name = 7;
 constexpr uint32_t kFrame_GetSerializedHtmlWithLocalLinks_Name = 8;
-constexpr uint32_t kFrame_SetResourceCache_Name = 9;
 constexpr uint32_t kFrameBindingsControl_AllowBindings_Name = 0;
 constexpr uint32_t kFrameBindingsControl_EnableMojoJsBindings_Name = 1;
 constexpr uint32_t kFrameBindingsControl_EnableMojoJsBindingsWithBroker_Name = 2;

@@ -276,6 +276,8 @@ bool URLLoaderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::URLLoaderFactory_CreateLoaderAndStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::blink::URLLoader> p_loader{};
       int32_t p_request_id{};
@@ -310,13 +312,13 @@ bool URLLoaderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateLoaderAndStart(
-std::move(p_loader), 
-std::move(p_request_id), 
-std::move(p_options), 
-std::move(p_request), 
-std::move(p_client), 
-std::move(p_traffic_annotation));
+      impl->CreateLoaderAndStart(        
+        std::move(p_loader), 
+        std::move(p_request_id), 
+        std::move(p_options), 
+        std::move(p_request), 
+        std::move(p_client), 
+        std::move(p_traffic_annotation));
       return true;
     }
     case internal::kURLLoaderFactory_Clone_Name: {
@@ -326,6 +328,8 @@ std::move(p_traffic_annotation));
           reinterpret_cast<internal::URLLoaderFactory_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderFactory.1
       bool success = true;
       ::mojo::PendingReceiver<URLLoaderFactory> p_factory{};
       URLLoaderFactory_Clone_ParamsDataView input_data_view(params, message);
@@ -343,8 +347,8 @@ std::move(p_traffic_annotation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_factory));
+      impl->Clone(        
+        std::move(p_factory));
       return true;
     }
   }

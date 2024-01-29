@@ -29,6 +29,7 @@ export class CustomizeChromeCombobox extends PolymerElement {
     }
     static get properties() {
         return {
+            defaultOptionLabel: String,
             expanded_: {
                 type: Boolean,
                 value: false,
@@ -37,6 +38,11 @@ export class CustomizeChromeCombobox extends PolymerElement {
             },
             expandedGroups_: Object,
             highlightedElement_: Object,
+            indentDefaultOption_: {
+                type: Boolean,
+                computed: 'computeIndentDefaultOption_(items)',
+                reflectToAttribute: true,
+            },
             items: {
                 type: Array,
                 value: () => [],
@@ -74,18 +80,43 @@ export class CustomizeChromeCombobox extends PolymerElement {
         this.domObserver_?.disconnect();
         this.domObserver_ = null;
     }
+    // The default option needs to be indented with extra padding if it sits
+    // right above an option that is not a group and does not have an image as
+    // these items have extra space for a checkmark icon.
+    computeIndentDefaultOption_() {
+        if (this.items.length === 0) {
+            return false;
+        }
+        const firstItem = this.items[0];
+        if ('items' in firstItem) {
+            // First item is a group, so not indented.
+            return false;
+        }
+        // Only indent if there is no image in the first item.
+        return !('imagePath' in firstItem);
+    }
     getAriaActiveDescendant_() {
         return this.highlightedElement_?.id;
+    }
+    getDefaultItemAriaSelected_() {
+        return this.value === undefined ? 'true' : 'false';
+    }
+    getGroupAriaExpanded_(groupIndex) {
+        return this.expandedGroups_[groupIndex] ? 'true' : 'false';
     }
     getGroupIcon_(groupIndex) {
         return this.expandedGroups_[groupIndex] ? 'cr:expand-less' :
             'cr:expand-more';
     }
     getInputLabel_() {
-        if (this.selectedElement_) {
+        if (this.selectedElement_ && this.selectedElement_.value &&
+            this.selectedElement_.value === this.value) {
             return this.selectedElement_.textContent;
         }
         return this.label;
+    }
+    getItemAriaSelected_(item) {
+        return this.isItemSelected_(item) ? 'true' : 'false';
     }
     highlightElement_(element, byKeyboard) {
         if (this.highlightedElement_) {
@@ -129,8 +160,13 @@ export class CustomizeChromeCombobox extends PolymerElement {
         if (!selectableTarget) {
             return;
         }
-        this.selectItem_(selectableTarget);
-        this.expanded_ = false;
+        if (this.selectedElement_ === selectableTarget) {
+            this.unselectSelectedItem_();
+        }
+        else {
+            this.selectItem_(selectableTarget);
+            this.expanded_ = false;
+        }
     }
     onDropdownPointerdown_(e) {
         /* Prevent the dropdown from gaining focus on pointerdown. The input should
@@ -218,7 +254,10 @@ export class CustomizeChromeCombobox extends PolymerElement {
         if (e.key === 'Enter' || e.key === 'Space') {
             e.preventDefault();
             e.stopPropagation();
-            if (this.selectItem_(this.highlightedElement_)) {
+            if (this.selectedElement_ === this.highlightedElement_) {
+                this.unselectSelectedItem_();
+            }
+            else if (this.selectItem_(this.highlightedElement_)) {
                 this.expanded_ = false;
             }
             return;
@@ -296,6 +335,13 @@ export class CustomizeChromeCombobox extends PolymerElement {
         item.toggleAttribute('selected', true);
         this.selectedElement_ = item;
         return true;
+    }
+    unselectSelectedItem_() {
+        if (!this.selectedElement_) {
+            return;
+        }
+        this.selectedElement_.removeAttribute('selected');
+        this.selectedElement_ = null;
     }
 }
 customElements.define(CustomizeChromeCombobox.is, CustomizeChromeCombobox);

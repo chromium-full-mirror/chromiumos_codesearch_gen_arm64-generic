@@ -15,7 +15,10 @@
 namespace protocol {
 namespace Storage {
 using SerializedStorageKey = String;
+using InterestGroupAuctionId = String;
 using InterestGroupAccessType = String;
+using InterestGroupAuctionEventType = String;
+using InterestGroupAuctionFetchType = String;
 using SharedStorageAccessType = String;
 class SharedStorageReportingMetadata;
 class SharedStorageUrlWithMetadata;
@@ -56,8 +59,23 @@ namespace InterestGroupAccessTypeEnum {
  extern const char Win[];
  extern const char AdditionalBid[];
  extern const char AdditionalBidWin[];
+ extern const char TopLevelBid[];
+ extern const char TopLevelAdditionalBid[];
  extern const char Clear[];
 } // namespace InterestGroupAccessTypeEnum
+
+namespace InterestGroupAuctionEventTypeEnum {
+ extern const char Started[];
+ extern const char ConfigResolved[];
+} // namespace InterestGroupAuctionEventTypeEnum
+
+namespace InterestGroupAuctionFetchTypeEnum {
+ extern const char BidderJs[];
+ extern const char BidderWasm[];
+ extern const char SellerJs[];
+ extern const char BidderTrustedSignals[];
+ extern const char SellerTrustedSignals[];
+} // namespace InterestGroupAuctionFetchTypeEnum
 
 namespace SharedStorageAccessTypeEnum {
  extern const char DocumentAddModule[];
@@ -1765,7 +1783,9 @@ public:
     void CacheStorageListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& databaseName, const String& objectStoreName);
     void IndexedDBListUpdated(const String& origin, const String& storageKey, const String& bucketId);
-    void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);
+    void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name, Maybe<String> componentSellerOrigin = Maybe<String>(), Maybe<double> bid = Maybe<double>(), Maybe<String> bidCurrency = Maybe<String>(), Maybe<String> uniqueAuctionId = Maybe<String>());
+    void InterestGroupAuctionEventOccurred(double eventTime, const String& type, const String& uniqueAuctionId, Maybe<String> parentAuctionId = Maybe<String>(), Maybe<protocol::DictionaryValue> auctionConfig = Maybe<protocol::DictionaryValue>());
+    void InterestGroupAuctionNetworkRequestCreated(const String& type, const String& requestId, std::unique_ptr<protocol::Array<String>> auctions);
     void SharedStorageAccessed(double accessTime, const String& type, const String& mainFrameId, const String& ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageAccessParams> params);
     void StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucketInfo);
     void StorageBucketDeleted(const String& bucketId);

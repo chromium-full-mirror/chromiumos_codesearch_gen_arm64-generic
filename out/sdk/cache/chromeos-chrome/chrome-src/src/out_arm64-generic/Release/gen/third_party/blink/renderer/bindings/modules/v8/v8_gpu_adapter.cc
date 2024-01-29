@@ -162,8 +162,7 @@ return;
 
 
 GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->requestAdapterInfo(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -193,8 +192,7 @@ return;
 
 
 GPUAdapter* blink_receiver = V8GPUAdapter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<GPUDeviceDescriptor>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_descriptor;
 if (info[0]->IsUndefined()) {
@@ -273,7 +271,7 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8GPUAdapter::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+if (RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"isCompatibilityMode", IsCompatibilityModeAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };

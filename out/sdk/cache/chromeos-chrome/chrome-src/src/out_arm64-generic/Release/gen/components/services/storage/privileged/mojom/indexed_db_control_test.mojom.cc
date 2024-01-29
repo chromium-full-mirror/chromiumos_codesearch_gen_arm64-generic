@@ -232,6 +232,8 @@ bool MockFailureInjector_FailOperation_ForwardToCallback::Accept(
           internal::MockFailureInjector_FailOperation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MockFailureInjector.0
   bool success = true;
   MockFailureInjector_FailOperation_ResponseParamsDataView input_data_view(params, message);
   
@@ -310,6 +312,8 @@ bool MockFailureInjectorStubDispatch::AcceptWithResponder(
               internal::MockFailureInjector_FailOperation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MockFailureInjector.0
       bool success = true;
       FailClass p_failure_class{};
       FailMethod p_failure_method{};
@@ -337,11 +341,11 @@ bool MockFailureInjectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FailOperation(
-std::move(p_failure_class), 
-std::move(p_failure_method), 
-std::move(p_instance_num), 
-std::move(p_call_num), std::move(callback));
+      impl->FailOperation(        
+        std::move(p_failure_class), 
+        std::move(p_failure_method), 
+        std::move(p_instance_num), 
+        std::move(p_call_num), std::move(callback));
       return true;
     }
   }
@@ -1619,6 +1623,8 @@ bool IndexedDBControlTest_GetBaseDataPathForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetBaseDataPathForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.0
   bool success = true;
   ::base::FilePath p_path{};
   IndexedDBControlTest_GetBaseDataPathForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -1748,6 +1754,8 @@ bool IndexedDBControlTest_GetFilePathForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetFilePathForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.1
   bool success = true;
   ::base::FilePath p_path{};
   IndexedDBControlTest_GetFilePathForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -1877,6 +1885,8 @@ bool IndexedDBControlTest_ResetCachesForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_ResetCachesForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.2
   bool success = true;
   IndexedDBControlTest_ResetCachesForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -1984,6 +1994,8 @@ bool IndexedDBControlTest_ForceSchemaDowngradeForTesting_ForwardToCallback::Acce
           internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.3
   bool success = true;
   bool p_downgraded{};
   IndexedDBControlTest_ForceSchemaDowngradeForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2103,6 +2115,8 @@ bool IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ForwardToCallback::Acc
           internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.4
   bool success = true;
   V2SchemaCorruptionStatus p_status{};
   IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2223,6 +2237,8 @@ bool IndexedDBControlTest_WriteToIndexedDBForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_WriteToIndexedDBForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.5
   bool success = true;
   IndexedDBControlTest_WriteToIndexedDBForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -2330,6 +2346,8 @@ bool IndexedDBControlTest_GetBlobCountForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetBlobCountForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.6
   bool success = true;
   int64_t p_num_blobs{};
   IndexedDBControlTest_GetBlobCountForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2449,6 +2467,8 @@ bool IndexedDBControlTest_GetNextBlobNumberForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetNextBlobNumberForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.7
   bool success = true;
   int64_t p_next_blob_number{};
   IndexedDBControlTest_GetNextBlobNumberForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2568,6 +2588,8 @@ bool IndexedDBControlTest_GetPathForBlobForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetPathForBlobForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.8
   bool success = true;
   ::base::FilePath p_path{};
   IndexedDBControlTest_GetPathForBlobForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2697,6 +2719,8 @@ bool IndexedDBControlTest_CompactBackingStoreForTesting_ForwardToCallback::Accep
           internal::IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.9
   bool success = true;
   IndexedDBControlTest_CompactBackingStoreForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -2804,6 +2828,8 @@ bool IndexedDBControlTest_GetUsageForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetUsageForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.10
   bool success = true;
   int64_t p_total_usage{};
   IndexedDBControlTest_GetUsageForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2923,6 +2949,8 @@ bool IndexedDBControlTest_GetDatabaseKeysForTesting_ForwardToCallback::Accept(
           internal::IndexedDBControlTest_GetDatabaseKeysForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.12
   bool success = true;
   std::string p_schema_version_key{};
   std::string p_data_version_key{};
@@ -3070,6 +3098,8 @@ bool IndexedDBControlTest_ForceInitializeFromFilesForTesting_ForwardToCallback::
           internal::IndexedDBControlTest_ForceInitializeFromFilesForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControlTest.13
   bool success = true;
   IndexedDBControlTest_ForceInitializeFromFilesForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -3165,6 +3195,8 @@ bool IndexedDBControlTestStubDispatch::Accept(
           reinterpret_cast<internal::IndexedDBControlTest_BindMockFailureSingletonForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.11
       bool success = true;
       ::mojo::PendingReceiver<MockFailureInjector> p_receiver{};
       IndexedDBControlTest_BindMockFailureSingletonForTesting_ParamsDataView input_data_view(params, message);
@@ -3182,8 +3214,8 @@ bool IndexedDBControlTestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMockFailureSingletonForTesting(
-std::move(p_receiver));
+      impl->BindMockFailureSingletonForTesting(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kIndexedDBControlTest_GetDatabaseKeysForTesting_Name: {
@@ -3212,6 +3244,8 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
               internal::IndexedDBControlTest_GetBaseDataPathForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.0
       bool success = true;
       IndexedDBControlTest_GetBaseDataPathForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3237,6 +3271,8 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
               internal::IndexedDBControlTest_GetFilePathForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.1
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_GetFilePathForTesting_ParamsDataView input_data_view(params, message);
@@ -3255,8 +3291,8 @@ bool IndexedDBControlTestStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFilePathForTesting(
-std::move(p_bucket_locator), std::move(callback));
+      impl->GetFilePathForTesting(        
+        std::move(p_bucket_locator), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_ResetCachesForTesting_Name: {
@@ -3266,6 +3302,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_ResetCachesForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.2
       bool success = true;
       IndexedDBControlTest_ResetCachesForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3291,6 +3329,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_ForceSchemaDowngradeForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.3
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_ForceSchemaDowngradeForTesting_ParamsDataView input_data_view(params, message);
@@ -3309,8 +3349,8 @@ std::move(p_bucket_locator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceSchemaDowngradeForTesting(
-std::move(p_bucket_locator), std::move(callback));
+      impl->ForceSchemaDowngradeForTesting(        
+        std::move(p_bucket_locator), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_HasV2SchemaCorruptionForTesting_Name: {
@@ -3320,6 +3360,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_HasV2SchemaCorruptionForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.4
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_HasV2SchemaCorruptionForTesting_ParamsDataView input_data_view(params, message);
@@ -3338,8 +3380,8 @@ std::move(p_bucket_locator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasV2SchemaCorruptionForTesting(
-std::move(p_bucket_locator), std::move(callback));
+      impl->HasV2SchemaCorruptionForTesting(        
+        std::move(p_bucket_locator), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_WriteToIndexedDBForTesting_Name: {
@@ -3349,6 +3391,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_WriteToIndexedDBForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.5
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       std::string p_key{};
@@ -3373,10 +3417,10 @@ std::move(p_bucket_locator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteToIndexedDBForTesting(
-std::move(p_bucket_locator), 
-std::move(p_key), 
-std::move(p_value), std::move(callback));
+      impl->WriteToIndexedDBForTesting(        
+        std::move(p_bucket_locator), 
+        std::move(p_key), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_GetBlobCountForTesting_Name: {
@@ -3386,6 +3430,8 @@ std::move(p_value), std::move(callback));
               internal::IndexedDBControlTest_GetBlobCountForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.6
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_GetBlobCountForTesting_ParamsDataView input_data_view(params, message);
@@ -3404,8 +3450,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBlobCountForTesting(
-std::move(p_bucket_locator), std::move(callback));
+      impl->GetBlobCountForTesting(        
+        std::move(p_bucket_locator), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_GetNextBlobNumberForTesting_Name: {
@@ -3415,6 +3461,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_GetNextBlobNumberForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.7
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       int64_t p_database_id{};
@@ -3436,9 +3484,9 @@ std::move(p_bucket_locator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNextBlobNumberForTesting(
-std::move(p_bucket_locator), 
-std::move(p_database_id), std::move(callback));
+      impl->GetNextBlobNumberForTesting(        
+        std::move(p_bucket_locator), 
+        std::move(p_database_id), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_GetPathForBlobForTesting_Name: {
@@ -3448,6 +3496,8 @@ std::move(p_database_id), std::move(callback));
               internal::IndexedDBControlTest_GetPathForBlobForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.8
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       int64_t p_database_id{};
@@ -3472,10 +3522,10 @@ std::move(p_database_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPathForBlobForTesting(
-std::move(p_bucket_locator), 
-std::move(p_database_id), 
-std::move(p_blob_number), std::move(callback));
+      impl->GetPathForBlobForTesting(        
+        std::move(p_bucket_locator), 
+        std::move(p_database_id), 
+        std::move(p_blob_number), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_CompactBackingStoreForTesting_Name: {
@@ -3485,6 +3535,8 @@ std::move(p_blob_number), std::move(callback));
               internal::IndexedDBControlTest_CompactBackingStoreForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.9
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBControlTest_CompactBackingStoreForTesting_ParamsDataView input_data_view(params, message);
@@ -3503,8 +3555,8 @@ std::move(p_blob_number), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompactBackingStoreForTesting(
-std::move(p_bucket_locator), std::move(callback));
+      impl->CompactBackingStoreForTesting(        
+        std::move(p_bucket_locator), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControlTest_GetUsageForTesting_Name: {
@@ -3514,6 +3566,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_GetUsageForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.10
       bool success = true;
       IndexedDBControlTest_GetUsageForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3542,6 +3596,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_GetDatabaseKeysForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.12
       bool success = true;
       IndexedDBControlTest_GetDatabaseKeysForTesting_ParamsDataView input_data_view(params, message);
       
@@ -3567,6 +3623,8 @@ std::move(p_bucket_locator), std::move(callback));
               internal::IndexedDBControlTest_ForceInitializeFromFilesForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControlTest.13
       bool success = true;
       IndexedDBControlTest_ForceInitializeFromFilesForTesting_ParamsDataView input_data_view(params, message);
       

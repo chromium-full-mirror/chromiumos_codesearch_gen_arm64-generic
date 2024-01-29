@@ -20,7 +20,6 @@ export class TestBrowserProxy {
      * @param args Arguments to be forwarded to the testing code, useful for
      *     checking whether the proxy method was called with the expected
      *     arguments.
-     * @return If set the result registered via |setResult[Mapper]For|.
      */
     methodCalled(methodName, ...args) {
         const methodData = this.resolverMap_.get(methodName);

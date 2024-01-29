@@ -71,16 +71,44 @@ class  WallpaperSearchHandler_GetDescriptors_ResponseParams_Data {
 };
 static_assert(sizeof(WallpaperSearchHandler_GetDescriptors_ResponseParams_Data) == 16,
               "Bad sizeof(WallpaperSearchHandler_GetDescriptors_ResponseParams_Data)");
+class  WallpaperSearchHandler_GetInspirations_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<WallpaperSearchHandler_GetInspirations_Params_Data>;
+
+  WallpaperSearchHandler_GetInspirations_Params_Data();
+  ~WallpaperSearchHandler_GetInspirations_Params_Data() = delete;
+};
+static_assert(sizeof(WallpaperSearchHandler_GetInspirations_Params_Data) == 8,
+              "Bad sizeof(WallpaperSearchHandler_GetInspirations_Params_Data)");
+class  WallpaperSearchHandler_GetInspirations_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::InspirationGroup_Data>>> inspirationGroups;
+
+ private:
+  friend class mojo::internal::MessageFragment<WallpaperSearchHandler_GetInspirations_ResponseParams_Data>;
+
+  WallpaperSearchHandler_GetInspirations_ResponseParams_Data();
+  ~WallpaperSearchHandler_GetInspirations_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(WallpaperSearchHandler_GetInspirations_ResponseParams_Data) == 16,
+              "Bad sizeof(WallpaperSearchHandler_GetInspirations_ResponseParams_Data)");
 class  WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> descriptor_a;
-  mojo::internal::Pointer<mojo::internal::String_Data> descriptor_b;
-  mojo::internal::Pointer<mojo::internal::String_Data> descriptor_c;
-  internal::DescriptorDValue_Data descriptor_d_value;
+  mojo::internal::Pointer<internal::ResultDescriptors_Data> result_descriptors;
 
  private:
   friend class mojo::internal::MessageFragment<WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data>;
@@ -88,7 +116,7 @@ class  WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data {
   WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data();
   ~WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data() = delete;
 };
-static_assert(sizeof(WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data) == 48,
+static_assert(sizeof(WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data) == 16,
               "Bad sizeof(WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data)");
 class  WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParams_Data {
  public:
@@ -132,6 +160,7 @@ class  WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> result_id;
+  mojo::internal::Pointer<internal::ResultDescriptors_Data> descriptors;
 
  private:
   friend class mojo::internal::MessageFragment<WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data>;
@@ -139,8 +168,25 @@ class  WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data {
   WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data();
   ~WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data() = delete;
 };
-static_assert(sizeof(WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data) == 16,
+static_assert(sizeof(WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data) == 24,
               "Bad sizeof(WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data)");
+class  WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> id;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> background_url;
+
+ private:
+  friend class mojo::internal::MessageFragment<WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data>;
+
+  WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data();
+  ~WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data() = delete;
+};
+static_assert(sizeof(WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data) == 24,
+              "Bad sizeof(WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data)");
 class  WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -149,6 +195,7 @@ class  WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> result_id;
   double time;
+  mojo::internal::Pointer<internal::ResultDescriptors_Data> descriptors;
 
  private:
   friend class mojo::internal::MessageFragment<WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data>;
@@ -156,7 +203,7 @@ class  WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data {
   WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data();
   ~WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data() = delete;
 };
-static_assert(sizeof(WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data) == 24,
+static_assert(sizeof(WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data) == 32,
               "Bad sizeof(WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data)");
 class  WallpaperSearchHandler_UpdateHistory_Params_Data {
  public:
@@ -205,6 +252,21 @@ class  WallpaperSearchHandler_OpenHelpArticle_Params_Data {
 };
 static_assert(sizeof(WallpaperSearchHandler_OpenHelpArticle_Params_Data) == 8,
               "Bad sizeof(WallpaperSearchHandler_OpenHelpArticle_Params_Data)");
+class  WallpaperSearchHandler_LaunchHatsSurvey_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<WallpaperSearchHandler_LaunchHatsSurvey_Params_Data>;
+
+  WallpaperSearchHandler_LaunchHatsSurvey_Params_Data();
+  ~WallpaperSearchHandler_LaunchHatsSurvey_Params_Data() = delete;
+};
+static_assert(sizeof(WallpaperSearchHandler_LaunchHatsSurvey_Params_Data) == 8,
+              "Bad sizeof(WallpaperSearchHandler_LaunchHatsSurvey_Params_Data)");
 class  WallpaperSearchClient_SetHistory_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -310,6 +372,57 @@ static_assert(
 };
 
 
+class WallpaperSearchHandler_GetInspirations_ParamsDataView {
+ public:
+  WallpaperSearchHandler_GetInspirations_ParamsDataView() = default;
+
+  WallpaperSearchHandler_GetInspirations_ParamsDataView(
+      internal::WallpaperSearchHandler_GetInspirations_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::WallpaperSearchHandler_GetInspirations_Params_Data* data_ = nullptr;
+};
+
+
+class WallpaperSearchHandler_GetInspirations_ResponseParamsDataView {
+ public:
+  WallpaperSearchHandler_GetInspirations_ResponseParamsDataView() = default;
+
+  WallpaperSearchHandler_GetInspirations_ResponseParamsDataView(
+      internal::WallpaperSearchHandler_GetInspirations_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInspirationGroupsDataView(
+      mojo::ArrayDataView<InspirationGroupDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInspirationGroups(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::side_panel::customize_chrome::mojom::InspirationGroupDataView>, UserType>(),
+    "Attempting to read the optional `inspirationGroups` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInspirationGroups` instead "
+    "of `ReadInspirationGroups if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->inspirationGroups.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::side_panel::customize_chrome::mojom::InspirationGroupDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WallpaperSearchHandler_GetInspirations_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView {
  public:
   WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView() = default;
@@ -320,74 +433,14 @@ class WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetDescriptorADataView(
-      mojo::StringDataView* output);
+  inline void GetResultDescriptorsDataView(
+      ResultDescriptorsDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorA(UserType* output) {
+  [[nodiscard]] bool ReadResultDescriptors(UserType* output) {
     
-    auto* pointer = data_->descriptor_a.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDescriptorBDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorB(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `descriptor_b` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDescriptorB` instead "
-    "of `ReadDescriptorB if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->descriptor_b.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDescriptorCDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorC(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `descriptor_c` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDescriptorC` instead "
-    "of `ReadDescriptorC if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->descriptor_c.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDescriptorDValueDataView(
-      DescriptorDValueDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDescriptorDValue(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::side_panel::customize_chrome::mojom::DescriptorDValueDataView, UserType>(),
-    "Attempting to read the optional `descriptor_d_value` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDescriptorDValue` instead "
-    "of `ReadDescriptorDValue if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = !data_->descriptor_d_value.is_null() ? &data_->descriptor_d_value : nullptr;
-    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::DescriptorDValueDataView>(
+    auto* pointer = data_->result_descriptors.Get();
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
         pointer, output, message_);
   }
  private:
@@ -481,8 +534,54 @@ class WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
         pointer, output, message_);
   }
+  inline void GetDescriptorsDataView(
+      ResultDescriptorsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescriptors(UserType* output) {
+    
+    auto* pointer = data_->descriptors.Get();
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsDataView {
+ public:
+  WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsDataView() = default;
+
+  WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsDataView(
+      internal::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      ::mojo_base::mojom::TokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
+        pointer, output, message_);
+  }
+  inline void GetBackgroundUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBackgroundUrl(UserType* output) {
+    
+    auto* pointer = data_->background_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -509,6 +608,16 @@ class WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsDataView
   }
   double time() const {
     return data_->time;
+  }
+  inline void GetDescriptorsDataView(
+      ResultDescriptorsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescriptors(UserType* output) {
+    
+    auto* pointer = data_->descriptors.Get();
+    return mojo::internal::Deserialize<::side_panel::customize_chrome::mojom::ResultDescriptorsDataView>(
+        pointer, output, message_);
   }
  private:
   internal::WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data* data_ = nullptr;
@@ -571,6 +680,21 @@ class WallpaperSearchHandler_OpenHelpArticle_ParamsDataView {
 };
 
 
+class WallpaperSearchHandler_LaunchHatsSurvey_ParamsDataView {
+ public:
+  WallpaperSearchHandler_LaunchHatsSurvey_ParamsDataView() = default;
+
+  WallpaperSearchHandler_LaunchHatsSurvey_ParamsDataView(
+      internal::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data* data_ = nullptr;
+};
+
+
 class WallpaperSearchClient_SetHistory_ParamsDataView {
  public:
   WallpaperSearchClient_SetHistory_ParamsDataView() = default;
@@ -607,25 +731,19 @@ inline void WallpaperSearchHandler_GetDescriptors_ResponseParamsDataView::GetDes
 }
 
 
-inline void WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView::GetDescriptorADataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->descriptor_a.Get();
-  *output = mojo::StringDataView(pointer, message_);
+
+
+inline void WallpaperSearchHandler_GetInspirations_ResponseParamsDataView::GetInspirationGroupsDataView(
+    mojo::ArrayDataView<InspirationGroupDataView>* output) {
+  auto pointer = data_->inspirationGroups.Get();
+  *output = mojo::ArrayDataView<InspirationGroupDataView>(pointer, message_);
 }
-inline void WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView::GetDescriptorBDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->descriptor_b.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView::GetDescriptorCDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->descriptor_c.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView::GetDescriptorDValueDataView(
-    DescriptorDValueDataView* output) {
-  auto pointer = &data_->descriptor_d_value;
-  *output = DescriptorDValueDataView(pointer, message_);
+
+
+inline void WallpaperSearchHandler_GetWallpaperSearchResults_ParamsDataView::GetResultDescriptorsDataView(
+    ResultDescriptorsDataView* output) {
+  auto pointer = data_->result_descriptors.Get();
+  *output = ResultDescriptorsDataView(pointer, message_);
 }
 
 
@@ -648,6 +766,23 @@ inline void WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsDataView::G
   auto pointer = data_->result_id.Get();
   *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
 }
+inline void WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsDataView::GetDescriptorsDataView(
+    ResultDescriptorsDataView* output) {
+  auto pointer = data_->descriptors.Get();
+  *output = ResultDescriptorsDataView(pointer, message_);
+}
+
+
+inline void WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsDataView::GetIdDataView(
+    ::mojo_base::mojom::TokenDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
+}
+inline void WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsDataView::GetBackgroundUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->background_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
 
 
 inline void WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsDataView::GetResultIdDataView(
@@ -655,6 +790,13 @@ inline void WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsDa
   auto pointer = data_->result_id.Get();
   *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
 }
+inline void WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsDataView::GetDescriptorsDataView(
+    ResultDescriptorsDataView* output) {
+  auto pointer = data_->descriptors.Get();
+  *output = ResultDescriptorsDataView(pointer, message_);
+}
+
+
 
 
 

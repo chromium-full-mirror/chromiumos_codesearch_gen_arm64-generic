@@ -276,6 +276,8 @@ bool AudioOutputDelegateStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputDelegate_RequestAudioFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputDelegate.0
       bool success = true;
       AudioOutputStreamType p_stream_type{};
       AudioOutputDelegate_RequestAudioFocus_ParamsDataView input_data_view(params, message);
@@ -291,8 +293,8 @@ bool AudioOutputDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAudioFocus(
-std::move(p_stream_type));
+      impl->RequestAudioFocus(        
+        std::move(p_stream_type));
       return true;
     }
     case internal::kAudioOutputDelegate_AbandonAudioFocusIfNeeded_Name: {
@@ -302,6 +304,8 @@ std::move(p_stream_type));
           reinterpret_cast<internal::AudioOutputDelegate_AbandonAudioFocusIfNeeded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputDelegate.1
       bool success = true;
       AudioOutputDelegate_AbandonAudioFocusIfNeeded_ParamsDataView input_data_view(params, message);
       
@@ -314,7 +318,7 @@ std::move(p_stream_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AbandonAudioFocusIfNeeded();
+      impl->AbandonAudioFocusIfNeeded(        );
       return true;
     }
     case internal::kAudioOutputDelegate_AddMediaSessionObserver_Name: {
@@ -324,6 +328,8 @@ std::move(p_stream_type));
           reinterpret_cast<internal::AudioOutputDelegate_AddMediaSessionObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputDelegate.2
       bool success = true;
       ::mojo::PendingRemote<::media_session::mojom::MediaSessionObserver> p_observer{};
       AudioOutputDelegate_AddMediaSessionObserver_ParamsDataView input_data_view(params, message);
@@ -341,8 +347,8 @@ std::move(p_stream_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMediaSessionObserver(
-std::move(p_observer));
+      impl->AddMediaSessionObserver(        
+        std::move(p_observer));
       return true;
     }
   }

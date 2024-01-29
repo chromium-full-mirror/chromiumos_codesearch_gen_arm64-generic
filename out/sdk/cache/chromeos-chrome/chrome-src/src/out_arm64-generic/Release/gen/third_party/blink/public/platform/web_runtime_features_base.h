@@ -43,8 +43,8 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeaturesBase {
   static bool IsAOMAriaRelationshipPropertiesEnabled();
   static void EnableAttributionReporting(bool);
   static bool IsAttributionReportingEnabled();
-  static void EnableAutoDisableAccessibilityV2(bool);
-  static bool IsAutoDisableAccessibilityV2Enabled();
+  static void EnableAttributionReportingCrossAppWeb(bool);
+  static bool IsAttributionReportingCrossAppWebEnabled();
   static void EnableAutomationControlled(bool);
   static bool IsAutomationControlledEnabled();
   static void EnableAutoplayIgnoresWebAudio(bool);
@@ -121,6 +121,8 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeaturesBase {
   static bool IsFileSystemEnabled();
   static void EnableFledge(bool);
   static bool IsFledgeEnabled();
+  static void EnableFledgeFeatureDetection(bool);
+  static bool IsFledgeFeatureDetectionEnabled();
   static void EnableForcedColors(bool);
   static bool IsForcedColorsEnabled();
   static void EnableFractionalScrollOffsets(bool);
@@ -139,6 +141,8 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeaturesBase {
   static bool IsLazyInitializeMediaControlsEnabled();
   static void EnableLazyLoadScrollMargin(bool);
   static bool IsLazyLoadScrollMarginEnabled();
+  static void EnableLockedMode(bool);
+  static bool IsLockedModeEnabled();
   static void EnableMachineLearningModelLoader(bool);
   static bool IsMachineLearningModelLoaderEnabled();
   static void EnableMachineLearningNeuralNetwork(bool);
@@ -275,6 +279,8 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeaturesBase {
   static bool IsWebGLImageChromiumEnabled();
   static void EnableWebGPUDeveloperFeatures(bool);
   static bool IsWebGPUDeveloperFeaturesEnabled();
+  static void EnableWebGPUExperimentalFeatures(bool);
+  static bool IsWebGPUExperimentalFeaturesEnabled();
   static void EnableWebHIDOnServiceWorkers(bool);
   static bool IsWebHIDOnServiceWorkersEnabled();
   static void EnableWebIdentityDigitalCredentials(bool);

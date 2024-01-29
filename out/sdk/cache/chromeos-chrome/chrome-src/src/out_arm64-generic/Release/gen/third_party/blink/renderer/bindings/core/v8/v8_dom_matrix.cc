@@ -914,7 +914,8 @@ DOMMatrix* return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 if (non_undefined_argument_length <= 0) {
   return_value = DOMMatrix::Create(execution_context, exception_state);
@@ -1295,8 +1296,8 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_transform_list = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1608,7 +1609,7 @@ void V8DOMMatrix::InstallContextDependentProperties(v8::Local<v8::Context> conte
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if (execution_context->IsWindow() && feature_selector.IsAll()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"setMatrixValue", SetMatrixValueOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

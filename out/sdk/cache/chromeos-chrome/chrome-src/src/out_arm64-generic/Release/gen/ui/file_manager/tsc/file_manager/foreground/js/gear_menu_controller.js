@@ -26,7 +26,7 @@ export class GearMenuController {
     onShowGearMenu_() {
         this.refreshRemainingSpace_();
         this.providersModel_.getMountableProviders().then(providers => {
-            const shouldHide = providers.length == 0;
+            const shouldHide = providers.length === 0;
             if (!shouldHide) {
                 // Trigger an update of the providers submenu.
                 this.providersMenu_.updateSubMenu();
@@ -58,13 +58,13 @@ export class GearMenuController {
         }
         // TODO(mtomasz): Add support for remaining space indication for provided
         // file systems.
-        if (currentVolumeInfo.volumeType == VolumeType.PROVIDED ||
-            currentVolumeInfo.volumeType == VolumeType.MEDIA_VIEW ||
-            currentVolumeInfo.volumeType == VolumeType.ARCHIVE) {
+        if (currentVolumeInfo.volumeType === VolumeType.PROVIDED ||
+            currentVolumeInfo.volumeType === VolumeType.MEDIA_VIEW ||
+            currentVolumeInfo.volumeType === VolumeType.ARCHIVE) {
             this.gearMenu_.setSpaceInfo(null, false);
             return;
         }
-        if (currentVolumeInfo.volumeType == VolumeType.DRIVE) {
+        if (currentVolumeInfo.volumeType === VolumeType.DRIVE) {
             this.gearMenu_.setSpaceInfo(getDriveQuotaMetadata(currentDirectory)
                 .then((quota) => {
                 if (!quota) {

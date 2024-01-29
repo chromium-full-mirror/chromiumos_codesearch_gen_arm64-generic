@@ -1326,6 +1326,8 @@ bool PaymentManager_DeletePaymentInstrument_ForwardToCallback::Accept(
           internal::PaymentManager_DeletePaymentInstrument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.1
   bool success = true;
   PaymentHandlerStatus p_status{};
   PaymentManager_DeletePaymentInstrument_ResponseParamsDataView input_data_view(params, message);
@@ -1446,6 +1448,8 @@ bool PaymentManager_GetPaymentInstrument_ForwardToCallback::Accept(
           internal::PaymentManager_GetPaymentInstrument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.2
   bool success = true;
   PaymentInstrumentPtr p_instrument{};
   PaymentHandlerStatus p_status{};
@@ -1584,6 +1588,8 @@ bool PaymentManager_KeysOfPaymentInstruments_ForwardToCallback::Accept(
           internal::PaymentManager_KeysOfPaymentInstruments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.3
   bool success = true;
   std::vector<std::string> p_keys{};
   PaymentHandlerStatus p_status{};
@@ -1724,6 +1730,8 @@ bool PaymentManager_HasPaymentInstrument_ForwardToCallback::Accept(
           internal::PaymentManager_HasPaymentInstrument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.4
   bool success = true;
   PaymentHandlerStatus p_status{};
   PaymentManager_HasPaymentInstrument_ResponseParamsDataView input_data_view(params, message);
@@ -1844,6 +1852,8 @@ bool PaymentManager_SetPaymentInstrument_ForwardToCallback::Accept(
           internal::PaymentManager_SetPaymentInstrument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.5
   bool success = true;
   PaymentHandlerStatus p_status{};
   PaymentManager_SetPaymentInstrument_ResponseParamsDataView input_data_view(params, message);
@@ -1964,6 +1974,8 @@ bool PaymentManager_ClearPaymentInstruments_ForwardToCallback::Accept(
           internal::PaymentManager_ClearPaymentInstruments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.6
   bool success = true;
   PaymentHandlerStatus p_status{};
   PaymentManager_ClearPaymentInstruments_ResponseParamsDataView input_data_view(params, message);
@@ -2084,6 +2096,8 @@ bool PaymentManager_EnableDelegations_ForwardToCallback::Accept(
           internal::PaymentManager_EnableDelegations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentManager.8
   bool success = true;
   PaymentHandlerStatus p_status{};
   PaymentManager_EnableDelegations_ResponseParamsDataView input_data_view(params, message);
@@ -2159,6 +2173,8 @@ bool PaymentManagerStubDispatch::Accept(
           reinterpret_cast<internal::PaymentManager_Init_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentManager.0
       bool success = true;
       ::GURL p_context_url{};
       std::string p_service_worker_scope{};
@@ -2177,9 +2193,9 @@ bool PaymentManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_context_url), 
-std::move(p_service_worker_scope));
+      impl->Init(        
+        std::move(p_context_url), 
+        std::move(p_service_worker_scope));
       return true;
     }
     case internal::kPaymentManager_DeletePaymentInstrument_Name: {
@@ -2207,6 +2223,8 @@ std::move(p_service_worker_scope));
           reinterpret_cast<internal::PaymentManager_SetUserHint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentManager.7
       bool success = true;
       std::string p_user_hint{};
       PaymentManager_SetUserHint_ParamsDataView input_data_view(params, message);
@@ -2222,8 +2240,8 @@ std::move(p_service_worker_scope));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserHint(
-std::move(p_user_hint));
+      impl->SetUserHint(        
+        std::move(p_user_hint));
       return true;
     }
     case internal::kPaymentManager_EnableDelegations_Name: {
@@ -2252,6 +2270,8 @@ bool PaymentManagerStubDispatch::AcceptWithResponder(
               internal::PaymentManager_DeletePaymentInstrument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.1
       bool success = true;
       std::string p_instrument_key{};
       PaymentManager_DeletePaymentInstrument_ParamsDataView input_data_view(params, message);
@@ -2270,8 +2290,8 @@ bool PaymentManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeletePaymentInstrument(
-std::move(p_instrument_key), std::move(callback));
+      impl->DeletePaymentInstrument(        
+        std::move(p_instrument_key), std::move(callback));
       return true;
     }
     case internal::kPaymentManager_GetPaymentInstrument_Name: {
@@ -2281,6 +2301,8 @@ std::move(p_instrument_key), std::move(callback));
               internal::PaymentManager_GetPaymentInstrument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.2
       bool success = true;
       std::string p_instrument_key{};
       PaymentManager_GetPaymentInstrument_ParamsDataView input_data_view(params, message);
@@ -2299,8 +2321,8 @@ std::move(p_instrument_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPaymentInstrument(
-std::move(p_instrument_key), std::move(callback));
+      impl->GetPaymentInstrument(        
+        std::move(p_instrument_key), std::move(callback));
       return true;
     }
     case internal::kPaymentManager_KeysOfPaymentInstruments_Name: {
@@ -2310,6 +2332,8 @@ std::move(p_instrument_key), std::move(callback));
               internal::PaymentManager_KeysOfPaymentInstruments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.3
       bool success = true;
       PaymentManager_KeysOfPaymentInstruments_ParamsDataView input_data_view(params, message);
       
@@ -2335,6 +2359,8 @@ std::move(p_instrument_key), std::move(callback));
               internal::PaymentManager_HasPaymentInstrument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.4
       bool success = true;
       std::string p_instrument_key{};
       PaymentManager_HasPaymentInstrument_ParamsDataView input_data_view(params, message);
@@ -2353,8 +2379,8 @@ std::move(p_instrument_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasPaymentInstrument(
-std::move(p_instrument_key), std::move(callback));
+      impl->HasPaymentInstrument(        
+        std::move(p_instrument_key), std::move(callback));
       return true;
     }
     case internal::kPaymentManager_SetPaymentInstrument_Name: {
@@ -2364,6 +2390,8 @@ std::move(p_instrument_key), std::move(callback));
               internal::PaymentManager_SetPaymentInstrument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.5
       bool success = true;
       std::string p_instrument_key{};
       PaymentInstrumentPtr p_instrument{};
@@ -2385,9 +2413,9 @@ std::move(p_instrument_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPaymentInstrument(
-std::move(p_instrument_key), 
-std::move(p_instrument), std::move(callback));
+      impl->SetPaymentInstrument(        
+        std::move(p_instrument_key), 
+        std::move(p_instrument), std::move(callback));
       return true;
     }
     case internal::kPaymentManager_ClearPaymentInstruments_Name: {
@@ -2397,6 +2425,8 @@ std::move(p_instrument), std::move(callback));
               internal::PaymentManager_ClearPaymentInstruments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.6
       bool success = true;
       PaymentManager_ClearPaymentInstruments_ParamsDataView input_data_view(params, message);
       
@@ -2425,6 +2455,8 @@ std::move(p_instrument), std::move(callback));
               internal::PaymentManager_EnableDelegations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentManager.8
       bool success = true;
       std::vector<PaymentDelegation> p_delegations{};
       PaymentManager_EnableDelegations_ParamsDataView input_data_view(params, message);
@@ -2443,8 +2475,8 @@ std::move(p_instrument), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableDelegations(
-std::move(p_delegations), std::move(callback));
+      impl->EnableDelegations(        
+        std::move(p_delegations), std::move(callback));
       return true;
     }
   }
@@ -2736,6 +2768,8 @@ bool PaymentHandlerResponseCallbackStubDispatch::Accept(
           reinterpret_cast<internal::PaymentHandlerResponseCallback_OnResponseForAbortPayment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentHandlerResponseCallback.0
       bool success = true;
       bool p_payment_aborted{};
       PaymentHandlerResponseCallback_OnResponseForAbortPayment_ParamsDataView input_data_view(params, message);
@@ -2751,8 +2785,8 @@ bool PaymentHandlerResponseCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResponseForAbortPayment(
-std::move(p_payment_aborted));
+      impl->OnResponseForAbortPayment(        
+        std::move(p_payment_aborted));
       return true;
     }
     case internal::kPaymentHandlerResponseCallback_OnResponseForCanMakePayment_Name: {
@@ -2762,6 +2796,8 @@ std::move(p_payment_aborted));
           reinterpret_cast<internal::PaymentHandlerResponseCallback_OnResponseForCanMakePayment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentHandlerResponseCallback.1
       bool success = true;
       CanMakePaymentResponsePtr p_response{};
       PaymentHandlerResponseCallback_OnResponseForCanMakePayment_ParamsDataView input_data_view(params, message);
@@ -2777,8 +2813,8 @@ std::move(p_payment_aborted));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResponseForCanMakePayment(
-std::move(p_response));
+      impl->OnResponseForCanMakePayment(        
+        std::move(p_response));
       return true;
     }
     case internal::kPaymentHandlerResponseCallback_OnResponseForPaymentRequest_Name: {
@@ -2788,6 +2824,8 @@ std::move(p_response));
           reinterpret_cast<internal::PaymentHandlerResponseCallback_OnResponseForPaymentRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentHandlerResponseCallback.2
       bool success = true;
       PaymentHandlerResponsePtr p_response{};
       PaymentHandlerResponseCallback_OnResponseForPaymentRequest_ParamsDataView input_data_view(params, message);
@@ -2803,8 +2841,8 @@ std::move(p_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResponseForPaymentRequest(
-std::move(p_response));
+      impl->OnResponseForPaymentRequest(        
+        std::move(p_response));
       return true;
     }
   }

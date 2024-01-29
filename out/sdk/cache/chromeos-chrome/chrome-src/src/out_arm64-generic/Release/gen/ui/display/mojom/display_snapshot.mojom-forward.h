@@ -22,7 +22,12 @@
 
 
 namespace display::mojom {
+class DisplaySnapshotColorInfoDataView;
+
 class DisplaySnapshotDataView;
+
+class DisplaySnapshotColorInfo;
+using DisplaySnapshotColorInfoPtr = mojo::StructPtr<DisplaySnapshotColorInfo>;
 
 class DisplaySnapshot;
 using DisplaySnapshotPtr = mojo::StructPtr<DisplaySnapshot>;

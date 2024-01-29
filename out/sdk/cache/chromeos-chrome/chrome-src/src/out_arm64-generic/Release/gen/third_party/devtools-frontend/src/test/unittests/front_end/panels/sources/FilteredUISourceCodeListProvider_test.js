@@ -22,7 +22,7 @@ const setUpEnvironmentWithUISourceCode = (url, resourceType, project) => {
 };
 describeWithEnvironment('FilteredUISourceCodeListProvider', () => {
     before(() => {
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.JUST_MY_CODE, '');
+        Root.Runtime.experiments.register("justMyCode" /* Root.Runtime.ExperimentName.JUST_MY_CODE */, '');
     });
     it('should exclude Fetch requests in the result', () => {
         const url = 'http://www.example.com/list-fetch.json';
@@ -61,13 +61,13 @@ describeWithEnvironment('FilteredUISourceCodeListProvider', () => {
         const resourceType = Common.ResourceType.resourceTypes.Script;
         const { workspace, project, uiSourceCode } = setUpEnvironmentWithUISourceCode(url, resourceType);
         // ignore the uiSourceCode
-        Root.Runtime.experiments.setEnabled(Root.Runtime.ExperimentName.JUST_MY_CODE, true);
+        Root.Runtime.experiments.setEnabled("justMyCode" /* Root.Runtime.ExperimentName.JUST_MY_CODE */, true);
         Bindings.IgnoreListManager.IgnoreListManager.instance().ignoreListUISourceCode(uiSourceCode);
         const filteredUISourceCodeListProvider = new Sources.FilteredUISourceCodeListProvider.FilteredUISourceCodeListProvider();
         filteredUISourceCodeListProvider.attach();
         const result = filteredUISourceCodeListProvider.itemCount();
         workspace.removeProject(project);
-        Root.Runtime.experiments.setEnabled(Root.Runtime.ExperimentName.JUST_MY_CODE, false);
+        Root.Runtime.experiments.setEnabled("justMyCode" /* Root.Runtime.ExperimentName.JUST_MY_CODE */, false);
         assert.strictEqual(result, 0);
     });
     it('should include Image requests in the result', () => {

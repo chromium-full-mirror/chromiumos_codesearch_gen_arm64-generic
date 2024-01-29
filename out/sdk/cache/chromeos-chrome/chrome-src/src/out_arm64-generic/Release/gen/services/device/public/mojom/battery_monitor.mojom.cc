@@ -210,6 +210,8 @@ bool BatteryMonitor_QueryNextStatus_ForwardToCallback::Accept(
           internal::BatteryMonitor_QueryNextStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BatteryMonitor.0
   bool success = true;
   ::device::mojom::BatteryStatusPtr p_status{};
   BatteryMonitor_QueryNextStatus_ResponseParamsDataView input_data_view(params, message);
@@ -310,6 +312,8 @@ bool BatteryMonitorStubDispatch::AcceptWithResponder(
               internal::BatteryMonitor_QueryNextStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BatteryMonitor.0
       bool success = true;
       BatteryMonitor_QueryNextStatus_ParamsDataView input_data_view(params, message);
       

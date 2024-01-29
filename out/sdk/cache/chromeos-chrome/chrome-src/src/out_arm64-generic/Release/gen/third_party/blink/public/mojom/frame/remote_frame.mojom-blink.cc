@@ -1662,6 +1662,8 @@ bool RemoteFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::RemoteFrameHost_SetInheritedEffectiveTouchAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.0
       bool success = true;
       ::cc::TouchAction p_touch_action{};
       RemoteFrameHost_SetInheritedEffectiveTouchAction_ParamsDataView input_data_view(params, message);
@@ -1677,8 +1679,8 @@ bool RemoteFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInheritedEffectiveTouchAction(
-std::move(p_touch_action));
+      impl->SetInheritedEffectiveTouchAction(        
+        std::move(p_touch_action));
       return true;
     }
     case internal::kRemoteFrameHost_UpdateRenderThrottlingStatus_Name: {
@@ -1688,6 +1690,8 @@ std::move(p_touch_action));
           reinterpret_cast<internal::RemoteFrameHost_UpdateRenderThrottlingStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.1
       bool success = true;
       bool p_is_throttled{};
       bool p_subtree_throttled{};
@@ -1709,10 +1713,10 @@ std::move(p_touch_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateRenderThrottlingStatus(
-std::move(p_is_throttled), 
-std::move(p_subtree_throttled), 
-std::move(p_display_locked));
+      impl->UpdateRenderThrottlingStatus(        
+        std::move(p_is_throttled), 
+        std::move(p_subtree_throttled), 
+        std::move(p_display_locked));
       return true;
     }
     case internal::kRemoteFrameHost_VisibilityChanged_Name: {
@@ -1722,6 +1726,8 @@ std::move(p_display_locked));
           reinterpret_cast<internal::RemoteFrameHost_VisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.2
       bool success = true;
       ::blink::mojom::blink::FrameVisibility p_visibility{};
       RemoteFrameHost_VisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -1737,8 +1743,8 @@ std::move(p_display_locked));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->VisibilityChanged(
-std::move(p_visibility));
+      impl->VisibilityChanged(        
+        std::move(p_visibility));
       return true;
     }
     case internal::kRemoteFrameHost_DidFocusFrame_Name: {
@@ -1748,6 +1754,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::RemoteFrameHost_DidFocusFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.3
       bool success = true;
       RemoteFrameHost_DidFocusFrame_ParamsDataView input_data_view(params, message);
       
@@ -1760,7 +1768,7 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFocusFrame();
+      impl->DidFocusFrame(        );
       return true;
     }
     case internal::kRemoteFrameHost_CheckCompleted_Name: {
@@ -1770,6 +1778,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::RemoteFrameHost_CheckCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.4
       bool success = true;
       RemoteFrameHost_CheckCompleted_ParamsDataView input_data_view(params, message);
       
@@ -1782,7 +1792,7 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckCompleted();
+      impl->CheckCompleted(        );
       return true;
     }
     case internal::kRemoteFrameHost_CapturePaintPreviewOfCrossProcessSubframe_Name: {
@@ -1792,6 +1802,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::RemoteFrameHost_CapturePaintPreviewOfCrossProcessSubframe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.5
       bool success = true;
       ::gfx::Rect p_clip_rect{};
       ::base::UnguessableToken p_guid{};
@@ -1810,9 +1822,9 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CapturePaintPreviewOfCrossProcessSubframe(
-std::move(p_clip_rect), 
-std::move(p_guid));
+      impl->CapturePaintPreviewOfCrossProcessSubframe(        
+        std::move(p_clip_rect), 
+        std::move(p_guid));
       return true;
     }
     case internal::kRemoteFrameHost_SetIsInert_Name: {
@@ -1822,6 +1834,8 @@ std::move(p_guid));
           reinterpret_cast<internal::RemoteFrameHost_SetIsInert_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.6
       bool success = true;
       bool p_inert{};
       RemoteFrameHost_SetIsInert_ParamsDataView input_data_view(params, message);
@@ -1837,8 +1851,8 @@ std::move(p_guid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsInert(
-std::move(p_inert));
+      impl->SetIsInert(        
+        std::move(p_inert));
       return true;
     }
     case internal::kRemoteFrameHost_DidChangeOpener_Name: {
@@ -1848,6 +1862,8 @@ std::move(p_inert));
           reinterpret_cast<internal::RemoteFrameHost_DidChangeOpener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.7
       bool success = true;
       std::optional<::blink::LocalFrameToken> p_opener_frame{};
       RemoteFrameHost_DidChangeOpener_ParamsDataView input_data_view(params, message);
@@ -1863,8 +1879,8 @@ std::move(p_inert));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeOpener(
-std::move(p_opener_frame));
+      impl->DidChangeOpener(        
+        std::move(p_opener_frame));
       return true;
     }
     case internal::kRemoteFrameHost_AdvanceFocus_Name: {
@@ -1874,6 +1890,8 @@ std::move(p_opener_frame));
           reinterpret_cast<internal::RemoteFrameHost_AdvanceFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.8
       bool success = true;
       ::blink::mojom::blink::FocusType p_focus_type{};
       ::blink::LocalFrameToken p_source_frame_token{};
@@ -1892,9 +1910,9 @@ std::move(p_opener_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdvanceFocus(
-std::move(p_focus_type), 
-std::move(p_source_frame_token));
+      impl->AdvanceFocus(        
+        std::move(p_focus_type), 
+        std::move(p_source_frame_token));
       return true;
     }
     case internal::kRemoteFrameHost_RouteMessageEvent_Name: {
@@ -1904,6 +1922,8 @@ std::move(p_source_frame_token));
           reinterpret_cast<internal::RemoteFrameHost_RouteMessageEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.9
       bool success = true;
       std::optional<::blink::LocalFrameToken> p_source_frame_token{};
       ::WTF::String p_source_origin{};
@@ -1928,11 +1948,11 @@ std::move(p_source_frame_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RouteMessageEvent(
-std::move(p_source_frame_token), 
-std::move(p_source_origin), 
-std::move(p_target_origin), 
-std::move(p_message));
+      impl->RouteMessageEvent(        
+        std::move(p_source_frame_token), 
+        std::move(p_source_origin), 
+        std::move(p_target_origin), 
+        std::move(p_message));
       return true;
     }
     case internal::kRemoteFrameHost_PrintCrossProcessSubframe_Name: {
@@ -1942,6 +1962,8 @@ std::move(p_message));
           reinterpret_cast<internal::RemoteFrameHost_PrintCrossProcessSubframe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.10
       bool success = true;
       ::gfx::Rect p_frame_content_rect{};
       int32_t p_document_cookie{};
@@ -1960,9 +1982,9 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintCrossProcessSubframe(
-std::move(p_frame_content_rect), 
-std::move(p_document_cookie));
+      impl->PrintCrossProcessSubframe(        
+        std::move(p_frame_content_rect), 
+        std::move(p_document_cookie));
       return true;
     }
     case internal::kRemoteFrameHost_Detach_Name: {
@@ -1972,6 +1994,8 @@ std::move(p_document_cookie));
           reinterpret_cast<internal::RemoteFrameHost_Detach_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.11
       bool success = true;
       RemoteFrameHost_Detach_ParamsDataView input_data_view(params, message);
       
@@ -1984,7 +2008,7 @@ std::move(p_document_cookie));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Detach();
+      impl->Detach(        );
       return true;
     }
     case internal::kRemoteFrameHost_UpdateViewportIntersection_Name: {
@@ -1994,6 +2018,8 @@ std::move(p_document_cookie));
           reinterpret_cast<internal::RemoteFrameHost_UpdateViewportIntersection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.12
       bool success = true;
       ::blink::mojom::blink::ViewportIntersectionStatePtr p_intersection_state{};
       std::optional<::blink::FrameVisualProperties> p_visual_properties{};
@@ -2012,9 +2038,9 @@ std::move(p_document_cookie));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateViewportIntersection(
-std::move(p_intersection_state), 
-std::move(p_visual_properties));
+      impl->UpdateViewportIntersection(        
+        std::move(p_intersection_state), 
+        std::move(p_visual_properties));
       return true;
     }
     case internal::kRemoteFrameHost_SynchronizeVisualProperties_Name: {
@@ -2024,6 +2050,8 @@ std::move(p_visual_properties));
           reinterpret_cast<internal::RemoteFrameHost_SynchronizeVisualProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.13
       bool success = true;
       ::blink::FrameVisualProperties p_properties{};
       RemoteFrameHost_SynchronizeVisualProperties_ParamsDataView input_data_view(params, message);
@@ -2039,8 +2067,8 @@ std::move(p_visual_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SynchronizeVisualProperties(
-std::move(p_properties));
+      impl->SynchronizeVisualProperties(        
+        std::move(p_properties));
       return true;
     }
     case internal::kRemoteFrameHost_OpenURL_Name: {
@@ -2050,6 +2078,8 @@ std::move(p_properties));
           reinterpret_cast<internal::RemoteFrameHost_OpenURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrameHost.14
       bool success = true;
       OpenURLParamsPtr p_params{};
       RemoteFrameHost_OpenURL_ParamsDataView input_data_view(params, message);
@@ -2065,8 +2095,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenURL(
-std::move(p_params));
+      impl->OpenURL(        
+        std::move(p_params));
       return true;
     }
   }
@@ -4477,6 +4507,8 @@ bool RemoteFrameStubDispatch::Accept(
           reinterpret_cast<internal::RemoteFrame_WillEnterFullscreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.0
       bool success = true;
       ::blink::mojom::blink::FullscreenOptionsPtr p_options{};
       RemoteFrame_WillEnterFullscreen_ParamsDataView input_data_view(params, message);
@@ -4492,8 +4524,8 @@ bool RemoteFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WillEnterFullscreen(
-std::move(p_options));
+      impl->WillEnterFullscreen(        
+        std::move(p_options));
       return true;
     }
     case internal::kRemoteFrame_EnforceInsecureNavigationsSet_Name: {
@@ -4503,6 +4535,8 @@ std::move(p_options));
           reinterpret_cast<internal::RemoteFrame_EnforceInsecureNavigationsSet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.1
       bool success = true;
       WTF::Vector<uint32_t> p_set{};
       RemoteFrame_EnforceInsecureNavigationsSet_ParamsDataView input_data_view(params, message);
@@ -4518,8 +4552,8 @@ std::move(p_options));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnforceInsecureNavigationsSet(
-std::move(p_set));
+      impl->EnforceInsecureNavigationsSet(        
+        std::move(p_set));
       return true;
     }
     case internal::kRemoteFrame_SetFrameOwnerProperties_Name: {
@@ -4529,6 +4563,8 @@ std::move(p_set));
           reinterpret_cast<internal::RemoteFrame_SetFrameOwnerProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.2
       bool success = true;
       ::blink::mojom::blink::FrameOwnerPropertiesPtr p_properties{};
       RemoteFrame_SetFrameOwnerProperties_ParamsDataView input_data_view(params, message);
@@ -4544,8 +4580,8 @@ std::move(p_set));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrameOwnerProperties(
-std::move(p_properties));
+      impl->SetFrameOwnerProperties(        
+        std::move(p_properties));
       return true;
     }
     case internal::kRemoteFrame_EnforceInsecureRequestPolicy_Name: {
@@ -4555,6 +4591,8 @@ std::move(p_properties));
           reinterpret_cast<internal::RemoteFrame_EnforceInsecureRequestPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.3
       bool success = true;
       ::blink::mojom::blink::InsecureRequestPolicy p_policy{};
       RemoteFrame_EnforceInsecureRequestPolicy_ParamsDataView input_data_view(params, message);
@@ -4570,8 +4608,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnforceInsecureRequestPolicy(
-std::move(p_policy));
+      impl->EnforceInsecureRequestPolicy(        
+        std::move(p_policy));
       return true;
     }
     case internal::kRemoteFrame_SetReplicatedOrigin_Name: {
@@ -4581,6 +4619,8 @@ std::move(p_policy));
           reinterpret_cast<internal::RemoteFrame_SetReplicatedOrigin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.4
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       bool p_is_potentially_trustworthy_unique_origin{};
@@ -4599,9 +4639,9 @@ std::move(p_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReplicatedOrigin(
-std::move(p_origin), 
-std::move(p_is_potentially_trustworthy_unique_origin));
+      impl->SetReplicatedOrigin(        
+        std::move(p_origin), 
+        std::move(p_is_potentially_trustworthy_unique_origin));
       return true;
     }
     case internal::kRemoteFrame_SetReplicatedIsAdFrame_Name: {
@@ -4611,6 +4651,8 @@ std::move(p_is_potentially_trustworthy_unique_origin));
           reinterpret_cast<internal::RemoteFrame_SetReplicatedIsAdFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.5
       bool success = true;
       bool p_is_ad_frame{};
       RemoteFrame_SetReplicatedIsAdFrame_ParamsDataView input_data_view(params, message);
@@ -4626,8 +4668,8 @@ std::move(p_is_potentially_trustworthy_unique_origin));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReplicatedIsAdFrame(
-std::move(p_is_ad_frame));
+      impl->SetReplicatedIsAdFrame(        
+        std::move(p_is_ad_frame));
       return true;
     }
     case internal::kRemoteFrame_SetReplicatedName_Name: {
@@ -4637,6 +4679,8 @@ std::move(p_is_ad_frame));
           reinterpret_cast<internal::RemoteFrame_SetReplicatedName_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.6
       bool success = true;
       WTF::String p_name{};
       WTF::String p_unique_name{};
@@ -4655,9 +4699,9 @@ std::move(p_is_ad_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReplicatedName(
-std::move(p_name), 
-std::move(p_unique_name));
+      impl->SetReplicatedName(        
+        std::move(p_name), 
+        std::move(p_unique_name));
       return true;
     }
     case internal::kRemoteFrame_DispatchLoadEventForFrameOwner_Name: {
@@ -4667,6 +4711,8 @@ std::move(p_unique_name));
           reinterpret_cast<internal::RemoteFrame_DispatchLoadEventForFrameOwner_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.7
       bool success = true;
       RemoteFrame_DispatchLoadEventForFrameOwner_ParamsDataView input_data_view(params, message);
       
@@ -4679,7 +4725,7 @@ std::move(p_unique_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchLoadEventForFrameOwner();
+      impl->DispatchLoadEventForFrameOwner(        );
       return true;
     }
     case internal::kRemoteFrame_SetNeedsOcclusionTracking_Name: {
@@ -4689,6 +4735,8 @@ std::move(p_unique_name));
           reinterpret_cast<internal::RemoteFrame_SetNeedsOcclusionTracking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.8
       bool success = true;
       bool p_needs_tracking{};
       RemoteFrame_SetNeedsOcclusionTracking_ParamsDataView input_data_view(params, message);
@@ -4704,8 +4752,8 @@ std::move(p_unique_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNeedsOcclusionTracking(
-std::move(p_needs_tracking));
+      impl->SetNeedsOcclusionTracking(        
+        std::move(p_needs_tracking));
       return true;
     }
     case internal::kRemoteFrame_Collapse_Name: {
@@ -4715,6 +4763,8 @@ std::move(p_needs_tracking));
           reinterpret_cast<internal::RemoteFrame_Collapse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.9
       bool success = true;
       bool p_collapsed{};
       RemoteFrame_Collapse_ParamsDataView input_data_view(params, message);
@@ -4730,8 +4780,8 @@ std::move(p_needs_tracking));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Collapse(
-std::move(p_collapsed));
+      impl->Collapse(        
+        std::move(p_collapsed));
       return true;
     }
     case internal::kRemoteFrame_Focus_Name: {
@@ -4741,6 +4791,8 @@ std::move(p_collapsed));
           reinterpret_cast<internal::RemoteFrame_Focus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.10
       bool success = true;
       RemoteFrame_Focus_ParamsDataView input_data_view(params, message);
       
@@ -4753,7 +4805,7 @@ std::move(p_collapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Focus();
+      impl->Focus(        );
       return true;
     }
     case internal::kRemoteFrame_SetHadStickyUserActivationBeforeNavigation_Name: {
@@ -4763,6 +4815,8 @@ std::move(p_collapsed));
           reinterpret_cast<internal::RemoteFrame_SetHadStickyUserActivationBeforeNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.11
       bool success = true;
       bool p_has_gesture{};
       RemoteFrame_SetHadStickyUserActivationBeforeNavigation_ParamsDataView input_data_view(params, message);
@@ -4778,8 +4832,8 @@ std::move(p_collapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHadStickyUserActivationBeforeNavigation(
-std::move(p_has_gesture));
+      impl->SetHadStickyUserActivationBeforeNavigation(        
+        std::move(p_has_gesture));
       return true;
     }
     case internal::kRemoteFrame_BubbleLogicalScroll_Name: {
@@ -4789,6 +4843,8 @@ std::move(p_has_gesture));
           reinterpret_cast<internal::RemoteFrame_BubbleLogicalScroll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.12
       bool success = true;
       ::blink::mojom::blink::ScrollDirection p_direction{};
       ::ui::ScrollGranularity p_granularity{};
@@ -4807,9 +4863,9 @@ std::move(p_has_gesture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BubbleLogicalScroll(
-std::move(p_direction), 
-std::move(p_granularity));
+      impl->BubbleLogicalScroll(        
+        std::move(p_direction), 
+        std::move(p_granularity));
       return true;
     }
     case internal::kRemoteFrame_UpdateUserActivationState_Name: {
@@ -4819,6 +4875,8 @@ std::move(p_granularity));
           reinterpret_cast<internal::RemoteFrame_UpdateUserActivationState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.13
       bool success = true;
       ::blink::mojom::blink::UserActivationUpdateType p_state_update_type{};
       ::blink::mojom::blink::UserActivationNotificationType p_notification_type{};
@@ -4837,9 +4895,9 @@ std::move(p_granularity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUserActivationState(
-std::move(p_state_update_type), 
-std::move(p_notification_type));
+      impl->UpdateUserActivationState(        
+        std::move(p_state_update_type), 
+        std::move(p_notification_type));
       return true;
     }
     case internal::kRemoteFrame_SetEmbeddingToken_Name: {
@@ -4849,6 +4907,8 @@ std::move(p_notification_type));
           reinterpret_cast<internal::RemoteFrame_SetEmbeddingToken_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.14
       bool success = true;
       ::base::UnguessableToken p_embedding_token{};
       RemoteFrame_SetEmbeddingToken_ParamsDataView input_data_view(params, message);
@@ -4864,8 +4924,8 @@ std::move(p_notification_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEmbeddingToken(
-std::move(p_embedding_token));
+      impl->SetEmbeddingToken(        
+        std::move(p_embedding_token));
       return true;
     }
     case internal::kRemoteFrame_SetPageFocus_Name: {
@@ -4875,6 +4935,8 @@ std::move(p_embedding_token));
           reinterpret_cast<internal::RemoteFrame_SetPageFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.15
       bool success = true;
       bool p_is_focused{};
       RemoteFrame_SetPageFocus_ParamsDataView input_data_view(params, message);
@@ -4890,8 +4952,8 @@ std::move(p_embedding_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPageFocus(
-std::move(p_is_focused));
+      impl->SetPageFocus(        
+        std::move(p_is_focused));
       return true;
     }
     case internal::kRemoteFrame_RenderFallbackContent_Name: {
@@ -4901,6 +4963,8 @@ std::move(p_is_focused));
           reinterpret_cast<internal::RemoteFrame_RenderFallbackContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.16
       bool success = true;
       RemoteFrame_RenderFallbackContent_ParamsDataView input_data_view(params, message);
       
@@ -4913,7 +4977,7 @@ std::move(p_is_focused));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenderFallbackContent();
+      impl->RenderFallbackContent(        );
       return true;
     }
     case internal::kRemoteFrame_AddResourceTimingFromChild_Name: {
@@ -4923,6 +4987,8 @@ std::move(p_is_focused));
           reinterpret_cast<internal::RemoteFrame_AddResourceTimingFromChild_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.17
       bool success = true;
       ::blink::mojom::blink::ResourceTimingInfoPtr p_timing{};
       RemoteFrame_AddResourceTimingFromChild_ParamsDataView input_data_view(params, message);
@@ -4938,8 +5004,8 @@ std::move(p_is_focused));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddResourceTimingFromChild(
-std::move(p_timing));
+      impl->AddResourceTimingFromChild(        
+        std::move(p_timing));
       return true;
     }
     case internal::kRemoteFrame_ScrollRectToVisible_Name: {
@@ -4949,6 +5015,8 @@ std::move(p_timing));
           reinterpret_cast<internal::RemoteFrame_ScrollRectToVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.18
       bool success = true;
       ::gfx::RectF p_rect{};
       ::blink::mojom::blink::ScrollIntoViewParamsPtr p_params{};
@@ -4967,9 +5035,9 @@ std::move(p_timing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScrollRectToVisible(
-std::move(p_rect), 
-std::move(p_params));
+      impl->ScrollRectToVisible(        
+        std::move(p_rect), 
+        std::move(p_params));
       return true;
     }
     case internal::kRemoteFrame_DidStartLoading_Name: {
@@ -4979,6 +5047,8 @@ std::move(p_params));
           reinterpret_cast<internal::RemoteFrame_DidStartLoading_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.19
       bool success = true;
       RemoteFrame_DidStartLoading_ParamsDataView input_data_view(params, message);
       
@@ -4991,7 +5061,7 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStartLoading();
+      impl->DidStartLoading(        );
       return true;
     }
     case internal::kRemoteFrame_DidStopLoading_Name: {
@@ -5001,6 +5071,8 @@ std::move(p_params));
           reinterpret_cast<internal::RemoteFrame_DidStopLoading_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.20
       bool success = true;
       RemoteFrame_DidStopLoading_ParamsDataView input_data_view(params, message);
       
@@ -5013,7 +5085,7 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStopLoading();
+      impl->DidStopLoading(        );
       return true;
     }
     case internal::kRemoteFrame_IntrinsicSizingInfoOfChildChanged_Name: {
@@ -5023,6 +5095,8 @@ std::move(p_params));
           reinterpret_cast<internal::RemoteFrame_IntrinsicSizingInfoOfChildChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.21
       bool success = true;
       ::blink::mojom::blink::IntrinsicSizingInfoPtr p_sizing_info{};
       RemoteFrame_IntrinsicSizingInfoOfChildChanged_ParamsDataView input_data_view(params, message);
@@ -5038,8 +5112,8 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IntrinsicSizingInfoOfChildChanged(
-std::move(p_sizing_info));
+      impl->IntrinsicSizingInfoOfChildChanged(        
+        std::move(p_sizing_info));
       return true;
     }
     case internal::kRemoteFrame_DidSetFramePolicyHeaders_Name: {
@@ -5049,6 +5123,8 @@ std::move(p_sizing_info));
           reinterpret_cast<internal::RemoteFrame_DidSetFramePolicyHeaders_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.22
       bool success = true;
       ::network::mojom::blink::WebSandboxFlags p_sandbox_flags{};
       WTF::Vector<::blink::ParsedPermissionsPolicyDeclaration> p_parsed_permissions_policy{};
@@ -5067,9 +5143,9 @@ std::move(p_sizing_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidSetFramePolicyHeaders(
-std::move(p_sandbox_flags), 
-std::move(p_parsed_permissions_policy));
+      impl->DidSetFramePolicyHeaders(        
+        std::move(p_sandbox_flags), 
+        std::move(p_parsed_permissions_policy));
       return true;
     }
     case internal::kRemoteFrame_DidUpdateFramePolicy_Name: {
@@ -5079,6 +5155,8 @@ std::move(p_parsed_permissions_policy));
           reinterpret_cast<internal::RemoteFrame_DidUpdateFramePolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.23
       bool success = true;
       ::blink::FramePolicy p_frame_policy{};
       RemoteFrame_DidUpdateFramePolicy_ParamsDataView input_data_view(params, message);
@@ -5094,8 +5172,8 @@ std::move(p_parsed_permissions_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidUpdateFramePolicy(
-std::move(p_frame_policy));
+      impl->DidUpdateFramePolicy(        
+        std::move(p_frame_policy));
       return true;
     }
     case internal::kRemoteFrame_UpdateOpener_Name: {
@@ -5105,6 +5183,8 @@ std::move(p_frame_policy));
           reinterpret_cast<internal::RemoteFrame_UpdateOpener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.24
       bool success = true;
       std::optional<::blink::FrameToken> p_opener_frame_token{};
       RemoteFrame_UpdateOpener_ParamsDataView input_data_view(params, message);
@@ -5120,8 +5200,8 @@ std::move(p_frame_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateOpener(
-std::move(p_opener_frame_token));
+      impl->UpdateOpener(        
+        std::move(p_opener_frame_token));
       return true;
     }
     case internal::kRemoteFrame_DetachAndDispose_Name: {
@@ -5131,6 +5211,8 @@ std::move(p_opener_frame_token));
           reinterpret_cast<internal::RemoteFrame_DetachAndDispose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.25
       bool success = true;
       RemoteFrame_DetachAndDispose_ParamsDataView input_data_view(params, message);
       
@@ -5143,7 +5225,7 @@ std::move(p_opener_frame_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetachAndDispose();
+      impl->DetachAndDispose(        );
       return true;
     }
     case internal::kRemoteFrame_EnableAutoResize_Name: {
@@ -5153,6 +5235,8 @@ std::move(p_opener_frame_token));
           reinterpret_cast<internal::RemoteFrame_EnableAutoResize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.26
       bool success = true;
       ::gfx::Size p_min_size{};
       ::gfx::Size p_max_size{};
@@ -5171,9 +5255,9 @@ std::move(p_opener_frame_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAutoResize(
-std::move(p_min_size), 
-std::move(p_max_size));
+      impl->EnableAutoResize(        
+        std::move(p_min_size), 
+        std::move(p_max_size));
       return true;
     }
     case internal::kRemoteFrame_DisableAutoResize_Name: {
@@ -5183,6 +5267,8 @@ std::move(p_max_size));
           reinterpret_cast<internal::RemoteFrame_DisableAutoResize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.27
       bool success = true;
       RemoteFrame_DisableAutoResize_ParamsDataView input_data_view(params, message);
       
@@ -5195,7 +5281,7 @@ std::move(p_max_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableAutoResize();
+      impl->DisableAutoResize(        );
       return true;
     }
     case internal::kRemoteFrame_DidUpdateVisualProperties_Name: {
@@ -5205,6 +5291,8 @@ std::move(p_max_size));
           reinterpret_cast<internal::RemoteFrame_DidUpdateVisualProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.28
       bool success = true;
       ::cc::RenderFrameMetadata p_metadata{};
       RemoteFrame_DidUpdateVisualProperties_ParamsDataView input_data_view(params, message);
@@ -5220,8 +5308,8 @@ std::move(p_max_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidUpdateVisualProperties(
-std::move(p_metadata));
+      impl->DidUpdateVisualProperties(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kRemoteFrame_SetFrameSinkId_Name: {
@@ -5231,6 +5319,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::RemoteFrame_SetFrameSinkId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.29
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       RemoteFrame_SetFrameSinkId_ParamsDataView input_data_view(params, message);
@@ -5246,8 +5336,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrameSinkId(
-std::move(p_frame_sink_id));
+      impl->SetFrameSinkId(        
+        std::move(p_frame_sink_id));
       return true;
     }
     case internal::kRemoteFrame_ChildProcessGone_Name: {
@@ -5257,6 +5347,8 @@ std::move(p_frame_sink_id));
           reinterpret_cast<internal::RemoteFrame_ChildProcessGone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.30
       bool success = true;
       RemoteFrame_ChildProcessGone_ParamsDataView input_data_view(params, message);
       
@@ -5269,7 +5361,7 @@ std::move(p_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChildProcessGone();
+      impl->ChildProcessGone(        );
       return true;
     }
     case internal::kRemoteFrame_CreateRemoteChild_Name: {
@@ -5279,6 +5371,8 @@ std::move(p_frame_sink_id));
           reinterpret_cast<internal::RemoteFrame_CreateRemoteChild_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.31
       bool success = true;
       ::blink::RemoteFrameToken p_token{};
       std::optional<::blink::FrameToken> p_opener_frame_token{};
@@ -5315,15 +5409,15 @@ std::move(p_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRemoteChild(
-std::move(p_token), 
-std::move(p_opener_frame_token), 
-std::move(p_tree_scope_type), 
-std::move(p_replication_state), 
-std::move(p_owner_properties), 
-std::move(p_is_loading), 
-std::move(p_devtools_frame_token), 
-std::move(p_remote_frame_interfaces));
+      impl->CreateRemoteChild(        
+        std::move(p_token), 
+        std::move(p_opener_frame_token), 
+        std::move(p_tree_scope_type), 
+        std::move(p_replication_state), 
+        std::move(p_owner_properties), 
+        std::move(p_is_loading), 
+        std::move(p_devtools_frame_token), 
+        std::move(p_remote_frame_interfaces));
       return true;
     }
     case internal::kRemoteFrame_CreateRemoteChildren_Name: {
@@ -5333,6 +5427,8 @@ std::move(p_remote_frame_interfaces));
           reinterpret_cast<internal::RemoteFrame_CreateRemoteChildren_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteFrame.32
       bool success = true;
       WTF::Vector<CreateRemoteChildParamsPtr> p_params{};
       RemoteFrame_CreateRemoteChildren_ParamsDataView input_data_view(params, message);
@@ -5348,8 +5444,8 @@ std::move(p_remote_frame_interfaces));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRemoteChildren(
-std::move(p_params));
+      impl->CreateRemoteChildren(        
+        std::move(p_params));
       return true;
     }
   }
@@ -5665,6 +5761,8 @@ bool RemoteMainFrameStubDispatch::Accept(
           reinterpret_cast<internal::RemoteMainFrame_UpdateTextAutosizerPageInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteMainFrame.0
       bool success = true;
       ::blink::mojom::blink::TextAutosizerPageInfoPtr p_page_info{};
       RemoteMainFrame_UpdateTextAutosizerPageInfo_ParamsDataView input_data_view(params, message);
@@ -5680,8 +5778,8 @@ bool RemoteMainFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTextAutosizerPageInfo(
-std::move(p_page_info));
+      impl->UpdateTextAutosizerPageInfo(        
+        std::move(p_page_info));
       return true;
     }
   }
@@ -6066,6 +6164,8 @@ bool RemoteMainFrameHost_UpdateTargetURL_ForwardToCallback::Accept(
           internal::RemoteMainFrameHost_UpdateTargetURL_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteMainFrameHost.2
   bool success = true;
   RemoteMainFrameHost_UpdateTargetURL_ResponseParamsDataView input_data_view(params, message);
   
@@ -6128,6 +6228,8 @@ bool RemoteMainFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::RemoteMainFrameHost_FocusPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteMainFrameHost.0
       bool success = true;
       RemoteMainFrameHost_FocusPage_ParamsDataView input_data_view(params, message);
       
@@ -6140,7 +6242,7 @@ bool RemoteMainFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusPage();
+      impl->FocusPage(        );
       return true;
     }
     case internal::kRemoteMainFrameHost_TakeFocus_Name: {
@@ -6150,6 +6252,8 @@ bool RemoteMainFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::RemoteMainFrameHost_TakeFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteMainFrameHost.1
       bool success = true;
       bool p_reverse{};
       RemoteMainFrameHost_TakeFocus_ParamsDataView input_data_view(params, message);
@@ -6165,8 +6269,8 @@ bool RemoteMainFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TakeFocus(
-std::move(p_reverse));
+      impl->TakeFocus(        
+        std::move(p_reverse));
       return true;
     }
     case internal::kRemoteMainFrameHost_UpdateTargetURL_Name: {
@@ -6179,6 +6283,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::RemoteMainFrameHost_RouteCloseEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteMainFrameHost.3
       bool success = true;
       RemoteMainFrameHost_RouteCloseEvent_ParamsDataView input_data_view(params, message);
       
@@ -6191,7 +6297,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RouteCloseEvent();
+      impl->RouteCloseEvent(        );
       return true;
     }
   }
@@ -6220,6 +6326,8 @@ bool RemoteMainFrameHostStubDispatch::AcceptWithResponder(
               internal::RemoteMainFrameHost_UpdateTargetURL_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteMainFrameHost.2
       bool success = true;
       ::blink::KURL p_url{};
       RemoteMainFrameHost_UpdateTargetURL_ParamsDataView input_data_view(params, message);
@@ -6238,8 +6346,8 @@ bool RemoteMainFrameHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTargetURL(
-std::move(p_url), std::move(callback));
+      impl->UpdateTargetURL(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kRemoteMainFrameHost_RouteCloseEvent_Name: {

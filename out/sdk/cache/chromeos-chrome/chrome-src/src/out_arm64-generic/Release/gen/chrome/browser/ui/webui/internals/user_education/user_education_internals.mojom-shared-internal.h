@@ -24,9 +24,59 @@ class ValidationContext;
 
 namespace mojom::user_education_internals {
 namespace internal {
+class FeaturePromoDemoPageData_Data;
 class FeaturePromoDemoPageInfo_Data;
 
 #pragma pack(push, 1)
+class  FeaturePromoDemoPageData_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<mojo::internal::String_Data> value;
+
+ private:
+  friend class mojo::internal::MessageFragment<FeaturePromoDemoPageData_Data>;
+
+  FeaturePromoDemoPageData_Data();
+  ~FeaturePromoDemoPageData_Data() = delete;
+};
+static_assert(sizeof(FeaturePromoDemoPageData_Data) == 24,
+              "Bad sizeof(FeaturePromoDemoPageData_Data)");
+// Used by FeaturePromoDemoPageData::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FeaturePromoDemoPageData_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FeaturePromoDemoPageData_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FeaturePromoDemoPageData_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FeaturePromoDemoPageData_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FeaturePromoDemoPageData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  FeaturePromoDemoPageInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -40,8 +90,10 @@ class  FeaturePromoDemoPageInfo_Data {
   int32_t added_milestone;
   uint8_t pad4_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> supported_platforms;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> required_features;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> instructions;
   mojo::internal::Pointer<mojo::internal::String_Data> followed_by_internal_name;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FeaturePromoDemoPageData_Data>>> data;
 
  private:
   friend class mojo::internal::MessageFragment<FeaturePromoDemoPageInfo_Data>;
@@ -49,7 +101,7 @@ class  FeaturePromoDemoPageInfo_Data {
   FeaturePromoDemoPageInfo_Data();
   ~FeaturePromoDemoPageInfo_Data() = delete;
 };
-static_assert(sizeof(FeaturePromoDemoPageInfo_Data) == 72,
+static_assert(sizeof(FeaturePromoDemoPageInfo_Data) == 88,
               "Bad sizeof(FeaturePromoDemoPageInfo_Data)");
 // Used by FeaturePromoDemoPageInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

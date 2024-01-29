@@ -168,6 +168,8 @@ bool AgentSchedulingGroupHostStubDispatch::Accept(
           reinterpret_cast<internal::AgentSchedulingGroupHost_DidUnloadRenderFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AgentSchedulingGroupHost.0
       bool success = true;
       ::blink::LocalFrameToken p_frame_token{};
       AgentSchedulingGroupHost_DidUnloadRenderFrame_ParamsDataView input_data_view(params, message);
@@ -183,8 +185,8 @@ bool AgentSchedulingGroupHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidUnloadRenderFrame(
-std::move(p_frame_token));
+      impl->DidUnloadRenderFrame(        
+        std::move(p_frame_token));
       return true;
     }
   }
@@ -566,6 +568,8 @@ bool AgentSchedulingGroupStubDispatch::Accept(
           reinterpret_cast<internal::AgentSchedulingGroup_BindAssociatedInterfaces_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AgentSchedulingGroup.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<AgentSchedulingGroupHost> p_remote_host{};
       ::mojo::PendingAssociatedReceiver<::content::mojom::RouteProvider> p_route_provider_receiver{};
@@ -588,9 +592,9 @@ bool AgentSchedulingGroupStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAssociatedInterfaces(
-std::move(p_remote_host), 
-std::move(p_route_provider_receiver));
+      impl->BindAssociatedInterfaces(        
+        std::move(p_remote_host), 
+        std::move(p_route_provider_receiver));
       return true;
     }
     case internal::kAgentSchedulingGroup_CreateView_Name: {
@@ -600,6 +604,8 @@ std::move(p_route_provider_receiver));
           reinterpret_cast<internal::AgentSchedulingGroup_CreateView_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AgentSchedulingGroup.1
       bool success = true;
       ::content::mojom::CreateViewParamsPtr p_params{};
       AgentSchedulingGroup_CreateView_ParamsDataView input_data_view(params, message);
@@ -615,8 +621,8 @@ std::move(p_route_provider_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateView(
-std::move(p_params));
+      impl->CreateView(        
+        std::move(p_params));
       return true;
     }
     case internal::kAgentSchedulingGroup_CreateFrame_Name: {
@@ -626,6 +632,8 @@ std::move(p_params));
           reinterpret_cast<internal::AgentSchedulingGroup_CreateFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AgentSchedulingGroup.2
       bool success = true;
       ::content::mojom::CreateFrameParamsPtr p_params{};
       AgentSchedulingGroup_CreateFrame_ParamsDataView input_data_view(params, message);
@@ -641,8 +649,8 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFrame(
-std::move(p_params));
+      impl->CreateFrame(        
+        std::move(p_params));
       return true;
     }
     case internal::kAgentSchedulingGroup_CreateSharedStorageWorkletService_Name: {
@@ -652,6 +660,8 @@ std::move(p_params));
           reinterpret_cast<internal::AgentSchedulingGroup_CreateSharedStorageWorkletService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AgentSchedulingGroup.3
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::SharedStorageWorkletService> p_receiver{};
       ::blink::mojom::WorkletGlobalScopeCreationParamsPtr p_global_scope_creation_params{};
@@ -672,9 +682,9 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateSharedStorageWorkletService(
-std::move(p_receiver), 
-std::move(p_global_scope_creation_params));
+      impl->CreateSharedStorageWorkletService(        
+        std::move(p_receiver), 
+        std::move(p_global_scope_creation_params));
       return true;
     }
   }

@@ -74,8 +74,6 @@ COMPONENT_EXPORT(TRACING_MOJOM) extern const char kSamplerProfilerSourceName[];
 
 COMPONENT_EXPORT(TRACING_MOJOM) extern const char kJavaHeapProfilerSourceName[];
 
-COMPONENT_EXPORT(TRACING_MOJOM) extern const char kReachedCodeProfilerSourceName[];
-
 COMPONENT_EXPORT(TRACING_MOJOM) extern const char kNativeHeapProfilerSourceName[];
 class ChunksToMove;
 using ChunksToMovePtr = mojo::InlinedStructPtr<ChunksToMove>;

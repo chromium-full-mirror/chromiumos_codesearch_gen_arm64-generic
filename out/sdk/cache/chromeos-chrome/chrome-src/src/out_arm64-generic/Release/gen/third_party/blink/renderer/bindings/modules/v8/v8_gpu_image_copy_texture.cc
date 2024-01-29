@@ -81,38 +81,21 @@ bool GPUImageCopyTexture::FillV8ObjectWithMembers(ScriptState* script_state, v8:
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAspect()) {
-  if (!ToV8Traits<V8GPUTextureAspect>::ToV8(script_state, member_aspect_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUTextureAspect>::ToV8(script_state, member_aspect_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasMipLevel()) {
-  if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_mip_level_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_mip_level_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasOrigin()) {
-  if (!ToV8Traits<V8UnionGPUOrigin3DDictOrUnsignedLongEnforceRangeSequence>::ToV8(script_state, member_origin_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionGPUOrigin3DDictOrUnsignedLongEnforceRangeSequence>::ToV8(script_state, member_origin_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasTexture()) {
-  if (!ToV8Traits<GPUTexture>::ToV8(script_state, member_texture_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUTexture>::ToV8(script_state, member_texture_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

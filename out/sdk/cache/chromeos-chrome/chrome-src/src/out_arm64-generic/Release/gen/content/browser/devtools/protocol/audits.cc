@@ -136,6 +136,7 @@ const char Form[] = "Form";
 const char Frame[] = "Frame";
 const char Image[] = "Image";
 const char Import[] = "Import";
+const char JSON[] = "JSON";
 const char Manifest[] = "Manifest";
 const char Ping[] = "Ping";
 const char PluginData[] = "PluginData";

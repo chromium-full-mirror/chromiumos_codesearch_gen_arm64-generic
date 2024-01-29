@@ -991,13 +991,23 @@ bool NativeGpuMemoryBufferHandle::Validate(
 }
 VideoFrameMetadata::VideoFrameMetadata()
     : protected_video(),
-      hw_protected() {}
+      hw_protected(),
+      needs_detiling() {}
 
 VideoFrameMetadata::VideoFrameMetadata(
     bool protected_video_in,
     bool hw_protected_in)
     : protected_video(std::move(protected_video_in)),
-      hw_protected(std::move(hw_protected_in)) {}
+      hw_protected(std::move(hw_protected_in)),
+      needs_detiling() {}
+
+VideoFrameMetadata::VideoFrameMetadata(
+    bool protected_video_in,
+    bool hw_protected_in,
+    bool needs_detiling_in)
+    : protected_video(std::move(protected_video_in)),
+      hw_protected(std::move(hw_protected_in)),
+      needs_detiling(std::move(needs_detiling_in)) {}
 
 VideoFrameMetadata::~VideoFrameMetadata() = default;
 
@@ -1016,6 +1026,15 @@ void VideoFrameMetadata::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "hw_protected"), this->hw_protected,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "needs_detiling"), this->needs_detiling,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -1502,6 +1521,8 @@ bool StructTraits<::media::stable::mojom::VideoFrameMetadata::DataView, ::media:
         result->protected_video = input.protected_video();
       if (success)
         result->hw_protected = input.hw_protected();
+      if (success)
+        result->needs_detiling = input.needs_detiling();
   *output = std::move(result);
   return success;
 }

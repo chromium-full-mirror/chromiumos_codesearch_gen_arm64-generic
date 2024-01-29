@@ -5,15 +5,19 @@
  * @fileoverview This component displays a list of weather units. It
  * behaviors similar to a radio button group, e.g. single selection.
  */
-import '../../css/common.css.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/cr_elements/cr_radio_button/cr_radio_button.js';
 import 'chrome://resources/cr_elements/cr_radio_group/cr_radio_group.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/cr_components/localized_link/localized_link.js';
+import '../geolocation_dialog.js';
 import { TemperatureUnit } from '../../personalization_app.mojom-webui.js';
+import { isCrosPrivacyHubLocationEnabled } from '../load_time_booleans.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
 import { inBetween } from '../utils.js';
-import { setTemperatureUnit } from './ambient_controller.js';
+import { enableGeolocationForSystemServices, initializeData, setTemperatureUnit } from './ambient_controller.js';
 import { getAmbientProvider } from './ambient_interface_provider.js';
+import { AmbientObserver } from './ambient_observer.js';
 import { getTemplate } from './ambient_weather_element.html.js';
 export class AmbientWeatherUnitElement extends WithPersonalizationStore {
     static get is() {
@@ -35,7 +39,24 @@ export class AmbientWeatherUnitElement extends WithPersonalizationStore {
                 type: String,
                 observer: 'onSelectedTemperatureUnitChanged_',
             },
+            geolocationPermissionEnabled_: {
+                type: Boolean,
+                value: null,
+            },
+            shouldShowGeolocationWarningText_: {
+                type: Boolean,
+                computed: 'computeShouldShowGeolocationWarningText_(' +
+                    'geolocationPermissionEnabled_),',
+                value: false,
+            },
         };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        AmbientObserver.initAmbientObserverIfNeeded();
+        this.watch('geolocationPermissionEnabled_', state => state.ambient.geolocationPermissionEnabled);
+        this.updateFromStore();
+        initializeData(getAmbientProvider(), this.getStore());
     }
     onSelectedTemperatureUnitChanged_(value) {
         const num = parseInt(value, 10);
@@ -45,6 +66,32 @@ export class AmbientWeatherUnitElement extends WithPersonalizationStore {
             return;
         }
         setTemperatureUnit(num, getAmbientProvider(), this.getStore());
+    }
+    computeShouldShowGeolocationWarningText_() {
+        // Warning text should be guarded with the Privacy Hub feature flag.
+        return isCrosPrivacyHubLocationEnabled() &&
+            this.geolocationPermissionEnabled_ === false;
+    }
+    openGeolocationDialog_(e) {
+        // A place holder href with the value "#" is used to have a compliant link.
+        // This prevents the browser from navigating the window to "#".
+        e.detail.event.preventDefault();
+        e.stopPropagation();
+        // Geolocation Dialog only exists in the Privacy Hub context.
+        if (!isCrosPrivacyHubLocationEnabled()) {
+            console.error('Geolocation Dialog triggered when the Privacy Hub flag is disabled');
+            return;
+        }
+        // Show the dialog to let users enable system location inline.
+        this.shouldShowGeolocationDialog_ = true;
+    }
+    onGeolocationDialogClose_() {
+        this.shouldShowGeolocationDialog_ = false;
+    }
+    // Callback for user clicking 'Allow' on the geolocation dialog.
+    onGeolocationEnabled_() {
+        // Enable system geolocation permission for all system services.
+        enableGeolocationForSystemServices(this.getStore());
     }
 }
 customElements.define(AmbientWeatherUnitElement.is, AmbientWeatherUnitElement);

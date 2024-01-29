@@ -231,6 +231,8 @@ bool DeviceOAuth2TokenService_FetchAccessTokenForDeviceAccount_ForwardToCallback
           internal::DeviceOAuth2TokenService_FetchAccessTokenForDeviceAccount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceOAuth2TokenService.0
   bool success = true;
   ::crosapi::mojom::AccessTokenResultPtr p_result{};
   DeviceOAuth2TokenService_FetchAccessTokenForDeviceAccount_ResponseParamsDataView input_data_view(params, message);
@@ -329,6 +331,8 @@ bool DeviceOAuth2TokenServiceStubDispatch::AcceptWithResponder(
               internal::DeviceOAuth2TokenService_FetchAccessTokenForDeviceAccount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceOAuth2TokenService.0
       bool success = true;
       std::vector<std::string> p_scopes{};
       DeviceOAuth2TokenService_FetchAccessTokenForDeviceAccount_ParamsDataView input_data_view(params, message);
@@ -347,8 +351,8 @@ bool DeviceOAuth2TokenServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchAccessTokenForDeviceAccount(
-std::move(p_scopes), std::move(callback));
+      impl->FetchAccessTokenForDeviceAccount(        
+        std::move(p_scopes), std::move(callback));
       return true;
     }
   }

@@ -1390,6 +1390,8 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kMaskMode";
     case CSSSampleId::kInsetArea:
       return "kInsetArea";
+    case CSSSampleId::kViewTransitionClass:
+      return "kViewTransitionClass";
     default:
       return nullptr;
   }

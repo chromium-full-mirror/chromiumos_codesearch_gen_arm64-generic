@@ -127,7 +127,7 @@ URLResponseHead::URLResponseHead(
     bool is_validated_in,
     bool was_fetched_via_cache_in,
     NavigationDeliveryType navigation_delivery_type_in,
-    ::network::mojom::blink::ProxyChainPtr proxy_chain_in,
+    const ::net::ProxyChain& proxy_chain_in,
     bool was_fetched_via_service_worker_in,
     ::network::mojom::blink::FetchResponseSource service_worker_response_source_in,
     WTF::Vector<::blink::KURL> url_list_via_service_worker_in,
@@ -433,7 +433,7 @@ void URLResponseHead::WriteIntoTrace(
     dict.AddItem(
       "proxy_chain"), this->proxy_chain,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::network::mojom::blink::ProxyChainPtr>"
+      "<value of type const ::net::ProxyChain&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

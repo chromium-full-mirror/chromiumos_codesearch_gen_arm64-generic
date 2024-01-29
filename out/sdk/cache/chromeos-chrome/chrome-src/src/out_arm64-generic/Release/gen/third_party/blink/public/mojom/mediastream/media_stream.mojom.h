@@ -83,6 +83,7 @@ class BLINK_COMMON_EXPORT MediaStreamDeviceObserver
     kOnDeviceRequestStateChangeMinVersion = 0,
     kOnDeviceCaptureConfigurationChangeMinVersion = 0,
     kOnDeviceCaptureHandleChangeMinVersion = 0,
+    kOnZoomLevelChangeMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -103,6 +104,9 @@ class BLINK_COMMON_EXPORT MediaStreamDeviceObserver
   struct OnDeviceCaptureHandleChange_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnZoomLevelChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~MediaStreamDeviceObserver() = default;
 
@@ -120,6 +124,9 @@ class BLINK_COMMON_EXPORT MediaStreamDeviceObserver
 
   
   virtual void OnDeviceCaptureHandleChange(const std::string& label, const ::blink::MediaStreamDevice& device) = 0;
+
+  
+  virtual void OnZoomLevelChange(const std::string& label, const ::blink::MediaStreamDevice& device, int32_t zoom_level) = 0;
 };
 
 class MediaStreamDispatcherHostProxy;
@@ -352,6 +359,8 @@ class BLINK_COMMON_EXPORT MediaStreamDeviceObserverProxy
   void OnDeviceCaptureConfigurationChange(const std::string& label, const ::blink::MediaStreamDevice& device) final;
   
   void OnDeviceCaptureHandleChange(const std::string& label, const ::blink::MediaStreamDevice& device) final;
+  
+  void OnZoomLevelChange(const std::string& label, const ::blink::MediaStreamDevice& device, int32_t zoom_level) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -734,8 +743,8 @@ class BLINK_COMMON_EXPORT CapturedWheelAction {
   CapturedWheelAction();
 
   CapturedWheelAction(
-      int32_t x,
-      int32_t y,
+      double relative_x,
+      double relative_y,
       int32_t wheel_delta_x,
       int32_t wheel_delta_y);
 
@@ -816,9 +825,9 @@ class BLINK_COMMON_EXPORT CapturedWheelAction {
   }
 
   
-  int32_t x;
+  double relative_x;
   
-  int32_t y;
+  double relative_y;
   
   int32_t wheel_delta_x;
   
@@ -2056,8 +2065,8 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 CapturedWheelActionPtr CapturedWheelAction::Clone() const {
   return New(
-      mojo::Clone(x),
-      mojo::Clone(y),
+      mojo::Clone(relative_x),
+      mojo::Clone(relative_y),
       mojo::Clone(wheel_delta_x),
       mojo::Clone(wheel_delta_y)
   );
@@ -2065,9 +2074,9 @@ CapturedWheelActionPtr CapturedWheelAction::Clone() const {
 
 template <typename T, CapturedWheelAction::EnableIfSame<T>*>
 bool CapturedWheelAction::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->x, other_struct.x))
+  if (!mojo::Equals(this->relative_x, other_struct.relative_x))
     return false;
-  if (!mojo::Equals(this->y, other_struct.y))
+  if (!mojo::Equals(this->relative_y, other_struct.relative_y))
     return false;
   if (!mojo::Equals(this->wheel_delta_x, other_struct.wheel_delta_x))
     return false;
@@ -2078,13 +2087,13 @@ bool CapturedWheelAction::Equals(const T& other_struct) const {
 
 template <typename T, CapturedWheelAction::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.x < rhs.x)
+  if (lhs.relative_x < rhs.relative_x)
     return true;
-  if (rhs.x < lhs.x)
+  if (rhs.relative_x < lhs.relative_x)
     return false;
-  if (lhs.y < rhs.y)
+  if (lhs.relative_y < rhs.relative_y)
     return true;
-  if (rhs.y < lhs.y)
+  if (rhs.relative_y < lhs.relative_y)
     return false;
   if (lhs.wheel_delta_x < rhs.wheel_delta_x)
     return true;
@@ -2355,14 +2364,14 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::CapturedWheelAction::Dat
   static bool IsNull(const ::blink::mojom::CapturedWheelActionPtr& input) { return !input; }
   static void SetToNull(::blink::mojom::CapturedWheelActionPtr* output) { output->reset(); }
 
-  static decltype(::blink::mojom::CapturedWheelAction::x) x(
+  static decltype(::blink::mojom::CapturedWheelAction::relative_x) relative_x(
       const ::blink::mojom::CapturedWheelActionPtr& input) {
-    return input->x;
+    return input->relative_x;
   }
 
-  static decltype(::blink::mojom::CapturedWheelAction::y) y(
+  static decltype(::blink::mojom::CapturedWheelAction::relative_y) relative_y(
       const ::blink::mojom::CapturedWheelActionPtr& input) {
-    return input->y;
+    return input->relative_y;
   }
 
   static decltype(::blink::mojom::CapturedWheelAction::wheel_delta_x) wheel_delta_x(

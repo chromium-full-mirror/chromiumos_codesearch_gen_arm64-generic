@@ -274,6 +274,10 @@ enum class Subpage : int32_t {
   
   kChromeVox = 1511,
   
+  kFaceGazeCursorSettings = 1512,
+  
+  kFaceGazeFacialExpressionsSettings = 1513,
+  
   kDetailedBuildInfo = 1701,
   
   kKerberosAccountsV2 = 1800,

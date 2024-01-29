@@ -1845,6 +1845,38 @@ Crosapi_BindCrosDisplayConfigController_Params_Data::Crosapi_BindCrosDisplayConf
 
 
 // static
+bool Crosapi_BindDebugInterfaceRegisterer_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindDebugInterfaceRegisterer_Params_Data* object =
+      static_cast<const Crosapi_BindDebugInterfaceRegisterer_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindDebugInterfaceRegisterer_Params_Data::Crosapi_BindDebugInterfaceRegisterer_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Crosapi_BindDesk_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2513,6 +2545,38 @@ bool Crosapi_BindExtensionPublisher_Params_Data::Validate(
 }
 
 Crosapi_BindExtensionPublisher_Params_Data::Crosapi_BindExtensionPublisher_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Crosapi_BindFileChangeServiceBridge_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindFileChangeServiceBridge_Params_Data* object =
+      static_cast<const Crosapi_BindFileChangeServiceBridge_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindFileChangeServiceBridge_Params_Data::Crosapi_BindFileChangeServiceBridge_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -3445,6 +3509,38 @@ Crosapi_BindNetworkingAttributes_Params_Data::Crosapi_BindNetworkingAttributes_P
 
 
 // static
+bool Crosapi_BindOneDriveNotificationService_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindOneDriveNotificationService_Params_Data* object =
+      static_cast<const Crosapi_BindOneDriveNotificationService_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindOneDriveNotificationService_Params_Data::Crosapi_BindOneDriveNotificationService_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Crosapi_BindParentAccess_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -3601,6 +3697,38 @@ bool Crosapi_BindPrefs_Params_Data::Validate(
 }
 
 Crosapi_BindPrefs_Params_Data::Crosapi_BindPrefs_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Crosapi_BindNonclosableAppToastService_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindNonclosableAppToastService_Params_Data* object =
+      static_cast<const Crosapi_BindNonclosableAppToastService_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindNonclosableAppToastService_Params_Data::Crosapi_BindNonclosableAppToastService_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

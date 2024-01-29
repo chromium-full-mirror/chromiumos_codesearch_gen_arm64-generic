@@ -514,7 +514,7 @@ const char* ToString(SharesheetLaunchSource as_enum);
 SharesheetLaunchSource ParseSharesheetLaunchSource(base::StringPiece as_string);
 std::u16string GetSharesheetLaunchSourceParseError(base::StringPiece as_string);
 
-enum class IOTaskState {
+enum class IoTaskState {
   kNone = 0,
   kQueued,
   kScanning,
@@ -528,11 +528,11 @@ enum class IOTaskState {
 };
 
 
-const char* ToString(IOTaskState as_enum);
-IOTaskState ParseIOTaskState(base::StringPiece as_string);
-std::u16string GetIOTaskStateParseError(base::StringPiece as_string);
+const char* ToString(IoTaskState as_enum);
+IoTaskState ParseIoTaskState(base::StringPiece as_string);
+std::u16string GetIoTaskStateParseError(base::StringPiece as_string);
 
-enum class IOTaskType {
+enum class IoTaskType {
   kNone = 0,
   kCopy,
   kDelete,
@@ -547,9 +547,9 @@ enum class IOTaskType {
 };
 
 
-const char* ToString(IOTaskType as_enum);
-IOTaskType ParseIOTaskType(base::StringPiece as_string);
-std::u16string GetIOTaskTypeParseError(base::StringPiece as_string);
+const char* ToString(IoTaskType as_enum);
+IoTaskType ParseIoTaskType(base::StringPiece as_string);
+std::u16string GetIoTaskTypeParseError(base::StringPiece as_string);
 
 enum class PolicyErrorType {
   kNone = 0,
@@ -3161,10 +3161,10 @@ struct ProgressStatus {
 
 
   // Type of the task sending the progress.
-  IOTaskType type;
+  IoTaskType type;
 
   // Current state of the task sending the progress.
-  IOTaskState state;
+  IoTaskState state;
 
   // Type of policy error that occurred, if any. Used only if Data Leak Prevention
   // or Enterprise Connectors policies apply.

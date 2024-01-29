@@ -44,24 +44,95 @@
 
 
 namespace on_device_model::mojom {
+ResponseChunk::ResponseChunk()
+    : text(),
+      ts_scores() {}
+
+ResponseChunk::ResponseChunk(
+    const std::string& text_in,
+    std::optional<std::vector<float>> ts_scores_in)
+    : text(std::move(text_in)),
+      ts_scores(std::move(ts_scores_in)) {}
+
+ResponseChunk::~ResponseChunk() = default;
+
+void ResponseChunk::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "text"), this->text,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ts_scores"), this->ts_scores,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::vector<float>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ResponseChunk::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ResponseSummary::ResponseSummary()
+    : ts_scores() {}
+
+ResponseSummary::ResponseSummary(
+    std::optional<std::vector<float>> ts_scores_in)
+    : ts_scores(std::move(ts_scores_in)) {}
+
+ResponseSummary::~ResponseSummary() = default;
+
+void ResponseSummary::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ts_scores"), this->ts_scores,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::vector<float>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ResponseSummary::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 InputOptions::InputOptions()
     : text(),
       max_tokens(),
       token_offset(),
       ignore_context(),
-      max_output_tokens() {}
+      max_output_tokens(),
+      ts_interval() {}
 
 InputOptions::InputOptions(
     const std::string& text_in,
     std::optional<uint32_t> max_tokens_in,
     std::optional<uint32_t> token_offset_in,
     bool ignore_context_in,
-    std::optional<uint32_t> max_output_tokens_in)
+    std::optional<uint32_t> max_output_tokens_in,
+    std::optional<uint32_t> ts_interval_in)
     : text(std::move(text_in)),
       max_tokens(std::move(max_tokens_in)),
       token_offset(std::move(token_offset_in)),
       ignore_context(std::move(ignore_context_in)),
-      max_output_tokens(std::move(max_output_tokens_in)) {}
+      max_output_tokens(std::move(max_output_tokens_in)),
+      ts_interval(std::move(ts_interval_in)) {}
 
 InputOptions::~InputOptions() = default;
 
@@ -107,6 +178,15 @@ void InputOptions::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_output_tokens"), this->max_output_tokens,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ts_interval"), this->ts_interval,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<uint32_t>>"
 #else
@@ -200,15 +280,15 @@ StreamingResponderProxy::StreamingResponderProxy(mojo::MessageReceiverWithRespon
 }
 
 void StreamingResponderProxy::OnResponse(
-    const std::string& in_text) {
+    ResponseChunkPtr in_chunk) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send on_device_model::mojom::StreamingResponder::OnResponse", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("text"), in_text,
-                        "<value of type const std::string&>");
+           dict.AddItem("chunk"), in_chunk,
+                        "<value of type ResponseChunkPtr>");
    });
 #endif
 
@@ -230,16 +310,16 @@ void StreamingResponderProxy::OnResponse(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->text)::BaseType> text_fragment(
+      typename decltype(params->chunk)::BaseType> chunk_fragment(
           params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_text, text_fragment);
-  params->text.Set(
-      text_fragment.is_null() ? nullptr : text_fragment.data());
+  mojo::internal::Serialize<::on_device_model::mojom::ResponseChunkDataView>(
+      in_chunk, chunk_fragment);
+  params->chunk.Set(
+      chunk_fragment.is_null() ? nullptr : chunk_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->text.is_null(),
+      params->chunk.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null text in StreamingResponder.OnResponse request");
+      "null chunk in StreamingResponder.OnResponse request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(StreamingResponder::Name_);
@@ -251,15 +331,15 @@ void StreamingResponderProxy::OnResponse(
 }
 
 void StreamingResponderProxy::OnComplete(
-    ResponseStatus in_status) {
+    ResponseSummaryPtr in_summary) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send on_device_model::mojom::StreamingResponder::OnComplete", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("status"), in_status,
-                        "<value of type ResponseStatus>");
+           dict.AddItem("summary"), in_summary,
+                        "<value of type ResponseSummaryPtr>");
    });
 #endif
 
@@ -280,8 +360,17 @@ void StreamingResponderProxy::OnComplete(
       ::on_device_model::mojom::internal::StreamingResponder_OnComplete_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::on_device_model::mojom::ResponseStatus>(
-      in_status, &params->status);
+  mojo::internal::MessageFragment<
+      typename decltype(params->summary)::BaseType> summary_fragment(
+          params.message());
+  mojo::internal::Serialize<::on_device_model::mojom::ResponseSummaryDataView>(
+      in_summary, summary_fragment);
+  params->summary.Set(
+      summary_fragment.is_null() ? nullptr : summary_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->summary.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null summary in StreamingResponder.OnComplete request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(StreamingResponder::Name_);
@@ -304,11 +393,13 @@ bool StreamingResponderStubDispatch::Accept(
           reinterpret_cast<internal::StreamingResponder_OnResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StreamingResponder.0
       bool success = true;
-      std::string p_text{};
+      ResponseChunkPtr p_chunk{};
       StreamingResponder_OnResponse_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadText(&p_text))
+      if (success && !input_data_view.ReadChunk(&p_chunk))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -319,8 +410,8 @@ bool StreamingResponderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResponse(
-std::move(p_text));
+      impl->OnResponse(        
+        std::move(p_chunk));
       return true;
     }
     case internal::kStreamingResponder_OnComplete_Name: {
@@ -330,11 +421,13 @@ std::move(p_text));
           reinterpret_cast<internal::StreamingResponder_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StreamingResponder.1
       bool success = true;
-      ResponseStatus p_status{};
+      ResponseSummaryPtr p_summary{};
       StreamingResponder_OnComplete_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadStatus(&p_status))
+      if (success && !input_data_view.ReadSummary(&p_summary))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -345,8 +438,8 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete(
-std::move(p_status));
+      impl->OnComplete(        
+        std::move(p_summary));
       return true;
     }
   }
@@ -497,6 +590,8 @@ bool ContextClientStubDispatch::Accept(
           reinterpret_cast<internal::ContextClient_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContextClient.0
       bool success = true;
       uint32_t p_tokens_processed{};
       ContextClient_OnComplete_ParamsDataView input_data_view(params, message);
@@ -512,8 +607,8 @@ bool ContextClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete(
-std::move(p_tokens_processed));
+      impl->OnComplete(        
+        std::move(p_tokens_processed));
       return true;
     }
   }
@@ -754,6 +849,8 @@ bool SessionStubDispatch::Accept(
           reinterpret_cast<internal::Session_AddContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Session.0
       bool success = true;
       InputOptionsPtr p_input{};
       ::mojo::PendingRemote<ContextClient> p_client{};
@@ -774,9 +871,9 @@ bool SessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddContext(
-std::move(p_input), 
-std::move(p_client));
+      impl->AddContext(        
+        std::move(p_input), 
+        std::move(p_client));
       return true;
     }
     case internal::kSession_Execute_Name: {
@@ -786,6 +883,8 @@ std::move(p_client));
           reinterpret_cast<internal::Session_Execute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Session.1
       bool success = true;
       InputOptionsPtr p_input{};
       ::mojo::PendingRemote<StreamingResponder> p_response{};
@@ -806,9 +905,9 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Execute(
-std::move(p_input), 
-std::move(p_response));
+      impl->Execute(        
+        std::move(p_input), 
+        std::move(p_response));
       return true;
     }
   }
@@ -964,6 +1063,8 @@ bool OnDeviceModelStubDispatch::Accept(
           reinterpret_cast<internal::OnDeviceModel_StartSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OnDeviceModel.0
       bool success = true;
       ::mojo::PendingReceiver<Session> p_session{};
       OnDeviceModel_StartSession_ParamsDataView input_data_view(params, message);
@@ -981,8 +1082,8 @@ bool OnDeviceModelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSession(
-std::move(p_session));
+      impl->StartSession(        
+        std::move(p_session));
       return true;
     }
   }
@@ -1025,6 +1126,36 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::on_device_model::mojom::ResponseChunk::DataView, ::on_device_model::mojom::ResponseChunkPtr>::Read(
+    ::on_device_model::mojom::ResponseChunk::DataView input,
+    ::on_device_model::mojom::ResponseChunkPtr* output) {
+  bool success = true;
+  ::on_device_model::mojom::ResponseChunkPtr result(::on_device_model::mojom::ResponseChunk::New());
+  
+      if (success && !input.ReadText(&result->text))
+        success = false;
+      if (success && !input.ReadTsScores(&result->ts_scores))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::on_device_model::mojom::ResponseSummary::DataView, ::on_device_model::mojom::ResponseSummaryPtr>::Read(
+    ::on_device_model::mojom::ResponseSummary::DataView input,
+    ::on_device_model::mojom::ResponseSummaryPtr* output) {
+  bool success = true;
+  ::on_device_model::mojom::ResponseSummaryPtr result(::on_device_model::mojom::ResponseSummary::New());
+  
+      if (success && !input.ReadTsScores(&result->ts_scores))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::on_device_model::mojom::InputOptions::DataView, ::on_device_model::mojom::InputOptionsPtr>::Read(
     ::on_device_model::mojom::InputOptions::DataView input,
     ::on_device_model::mojom::InputOptionsPtr* output) {
@@ -1044,6 +1175,9 @@ bool StructTraits<::on_device_model::mojom::InputOptions::DataView, ::on_device_
       if (success) {
         result->max_output_tokens = input.max_output_tokens();
       }
+      if (success) {
+        result->ts_interval = input.ts_interval();
+      }
   *output = std::move(result);
   return success;
 }
@@ -1058,11 +1192,11 @@ bool StructTraits<::on_device_model::mojom::InputOptions::DataView, ::on_device_
 namespace on_device_model::mojom {
 
 
-void StreamingResponderInterceptorForTesting::OnResponse(const std::string& text) {
-  GetForwardingInterface()->OnResponse(std::move(text));
+void StreamingResponderInterceptorForTesting::OnResponse(ResponseChunkPtr chunk) {
+  GetForwardingInterface()->OnResponse(std::move(chunk));
 }
-void StreamingResponderInterceptorForTesting::OnComplete(ResponseStatus status) {
-  GetForwardingInterface()->OnComplete(std::move(status));
+void StreamingResponderInterceptorForTesting::OnComplete(ResponseSummaryPtr summary) {
+  GetForwardingInterface()->OnComplete(std::move(summary));
 }
 StreamingResponderAsyncWaiter::StreamingResponderAsyncWaiter(
     StreamingResponder* proxy) : proxy_(proxy) {}

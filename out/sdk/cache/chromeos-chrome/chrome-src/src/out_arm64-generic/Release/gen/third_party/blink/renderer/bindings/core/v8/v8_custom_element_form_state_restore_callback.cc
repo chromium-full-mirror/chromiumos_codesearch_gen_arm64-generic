@@ -60,14 +60,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_value;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<V8UnionFileOrFormDataOrUSVString>::ToV8(script_state, arg1_value).ToLocal(&v8_arg1_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_value = ToV8Traits<V8UnionFileOrFormDataOrUSVString>::ToV8(script_state, arg1_value);
 argv[0] = v8_arg1_value;
 v8::Local<v8::Value> v8_arg2_mode;
-if (!ToV8Traits<V8FormStateRestoreMode>::ToV8(script_state, arg2_mode).ToLocal(&v8_arg2_mode)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_mode = ToV8Traits<V8FormStateRestoreMode>::ToV8(script_state, arg2_mode);
 argv[1] = v8_arg2_mode;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -106,14 +102,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_value;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<V8UnionFileOrFormDataOrUSVString>::ToV8(script_state, arg1_value).ToLocal(&v8_arg1_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_value = ToV8Traits<V8UnionFileOrFormDataOrUSVString>::ToV8(script_state, arg1_value);
 argv[0] = v8_arg1_value;
 v8::Local<v8::Value> v8_arg2_mode;
-if (!ToV8Traits<V8FormStateRestoreMode>::ToV8(script_state, arg2_mode).ToLocal(&v8_arg2_mode)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_mode = ToV8Traits<V8FormStateRestoreMode>::ToV8(script_state, arg2_mode);
 argv[1] = v8_arg2_mode;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

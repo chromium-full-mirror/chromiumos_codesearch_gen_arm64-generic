@@ -1,0 +1,17 @@
+crate_name = test_only_build_dep
+crate_type = rlib
+output_extension = .rlib
+output_dir = host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep
+rustflags = --edition=2021 -Dunsafe_op_in_unsafe_fn -Dwarnings -Cforce-unwind-tables=yes -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=x86_64-unknown-linux-gnu -Cembed-bitcode=no --cfg cr_rustc_revision=\"df0295f07175acc7325ce3ca4152eb05752af1f2-9-llvmorg-18-init-17730-gf670112a\" -Copt-level=3 -Zdwarf-version=5 -g
+rustenv = OUT_DIR=../../../../../../../../../../var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/host_for_rust_host_build_tools/gen/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep CARGO_MANIFEST_DIR=../../../../../../../home/chrome-bot/chrome_root/src/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep/crate
+label_name = testonly_build_dep
+target_out_dir = host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly
+target_output_name = test_only_build_dep_testonly_build_dep
+
+build host_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep/libtest_only_build_dep_testonly_build_dep.rlib: host_for_rust_host_build_tools_rust_rlib ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/tests/test_rlib_crate_testonly/crate/src/lib.rs | ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/tests/test_rlib_crate_testonly/crate/src/lib.rs || host_for_rust_host_build_tools/obj/build/rust/std/prebuilt_rustc_copy_to_sysroot.stamp host_for_rust_host_build_tools/obj/build/rust/std/std.stamp
+  source_file_part = lib.rs
+  source_name_part = lib
+  externs =
+  rustdeps = -Clink-arg=../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/x86_64-unknown-linux-gnu/libclang_rt.builtins.a
+  ldflags =
+  sources = ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/tests/test_rlib_crate_testonly/crate/src/lib.rs

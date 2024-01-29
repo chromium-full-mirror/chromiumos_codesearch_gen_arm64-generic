@@ -136,19 +136,17 @@ enum class ProxyScheme : int32_t {
   
   kInvalid = 0,
   
-  kDirect = 1,
+  kHttp = 1,
   
-  kHttp = 2,
+  kSocks4 = 2,
   
-  kSocks4 = 3,
+  kSocks5 = 3,
   
-  kSocks5 = 4,
+  kHttps = 4,
   
-  kHttps = 5,
-  
-  kQuic = 6,
+  kQuic = 5,
   kMinValue = 0,
-  kMaxValue = 6,
+  kMaxValue = 5,
 };
 
  std::ostream& operator<<(std::ostream& os, ProxyScheme value);

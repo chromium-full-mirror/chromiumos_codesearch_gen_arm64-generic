@@ -61,6 +61,12 @@ class RealboxActionElement extends PolymerElement {
             },
         };
     }
+    ready() {
+        super.ready();
+        this.addEventListener('click', (event) => this.onActionClick_(event));
+        this.addEventListener('keydown', (event) => this.onActionKeyDown_(event));
+        this.addEventListener('mousedown', (event) => this.onActionMouseDown_(event));
+    }
     onActionClick_(e) {
         this.dispatchEvent(new CustomEvent('execute-action', {
             bubbles: true,

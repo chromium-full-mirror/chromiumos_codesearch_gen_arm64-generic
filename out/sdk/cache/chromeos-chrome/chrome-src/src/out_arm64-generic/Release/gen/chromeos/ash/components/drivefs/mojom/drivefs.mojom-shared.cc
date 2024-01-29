@@ -596,6 +596,8 @@ NOINLINE static const char* QueryParameters_SortFieldToStringHelper(QueryParamet
       return "kLastViewedByMe";
     case QueryParameters_SortField::kFileSize:
       return "kFileSize";
+    case QueryParameters_SortField::kSharedWithMe:
+      return "kSharedWithMe";
     default:
       return nullptr;
   }
@@ -788,6 +790,7 @@ bool DriveFsConfiguration_Data::Validate(
     { 5, 40 },
     { 6, 40 },
     { 7, 40 },
+    { 8, 40 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -839,7 +842,7 @@ bool DriveFsConfiguration_Data::Validate(
 }
 
 DriveFsConfiguration_Data::DriveFsConfiguration_Data()
-    : header_({sizeof(*this), 7}) {}
+    : header_({sizeof(*this), 8}) {}
 
 
 // static
@@ -968,6 +971,40 @@ DialogReason_Data::DialogReason_Data()
 
 
 // static
+bool UserInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserInfo_Data* object =
+      static_cast<const UserInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->display_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->display_name, validation_context,
+                                         &display_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+UserInfo_Data::UserInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FileMetadata_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -983,6 +1020,7 @@ bool FileMetadata_Data::Validate(
     { 6, 144 },
     { 7, 152 },
     { 8, 152 },
+    { 9, 184 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -1109,12 +1147,32 @@ bool FileMetadata_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->shortcut_details, validation_context))
     return false;
+  if (object->header_.version < 9)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->modified_by_me_time, validation_context))
+    return false;
+  if (object->header_.version < 9)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->last_modifying_user, validation_context))
+    return false;
+  if (object->header_.version < 9)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->shared_with_me_time, validation_context))
+    return false;
+  if (object->header_.version < 9)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->sharing_user, validation_context))
+    return false;
 
   return true;
 }
 
 FileMetadata_Data::FileMetadata_Data()
-    : header_({sizeof(*this), 8}) {}
+    : header_({sizeof(*this), 9}) {}
 
 
 // static
@@ -1449,6 +1507,7 @@ bool QueryParameters_Data::Validate(
     { 3, 64 },
     { 4, 80 },
     { 5, 88 },
+    { 6, 96 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -1523,12 +1582,24 @@ bool QueryParameters_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->modified_time, validation_context))
     return false;
+  if (object->header_.version < 6)
+    return true;
+
+
+  if (!::drivefs::mojom::internal::QueryParameters_DateComparisonOperator_Data
+        ::Validate(object->viewed_time_operator, validation_context))
+    return false;
+  if (object->header_.version < 6)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->viewed_time, validation_context))
+    return false;
 
   return true;
 }
 
 QueryParameters_Data::QueryParameters_Data()
-    : header_({sizeof(*this), 5}) {}
+    : header_({sizeof(*this), 6}) {}
 
 
 // static

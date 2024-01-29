@@ -356,7 +356,7 @@ export function testShrinkWindowSizesTopMenu() {
     // it to force the resizing behavior.
     menubutton.showMenu(true);
     const shrunkPosition = topMenu.getBoundingClientRect();
-    assertTrue(shrunkPosition.height == (window.innerHeight - 2));
+    assertTrue(shrunkPosition.height === (window.innerHeight - 2));
 }
 /**
  * Tests that mousedown the menu button grabs focus.

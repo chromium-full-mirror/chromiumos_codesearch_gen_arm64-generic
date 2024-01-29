@@ -37,11 +37,11 @@ build obj/camera/tracing/_install_tracing_protos-0-install_config.stamp: stamp
 build obj/camera/tracing/all.stamp: stamp obj/camera/tracing/install_tracing_bin.stamp obj/camera/tracing/install_tracing_protos.stamp obj/camera/tracing/install_tracing_sql.stamp
 build obj/camera/tracing/install_tracing_bin.stamp: stamp
 rule __camera_tracing_install_tracing_protos___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/media-libs/cros-camera-tracing-0.0.1-r58/work/cros-camera-tracing-0.0.1/common-mk/file_generator_wrapper.py /build/arm64-generic/tmp/portage/media-libs/cros-camera-tracing-0.0.1-r58/work/cros-camera-tracing-0.0.1/camera/tracing/archive_proto.sh /build/arm64-generic/tmp/portage/media-libs/cros-camera-tracing-0.0.1-r58/work/cros-camera-tracing-0.0.1/camera/tracing/metrics protos /build/arm64-generic/var/cache/portage/media-libs/cros-camera-tracing/out/Default/gen/camera/tracing/protos.tar.gz
+  command = /usr/bin/env ../../../../../../../tmp/portage/media-libs/cros-camera-tracing-0.0.1-r62/work/cros-camera-tracing-0.0.1/common-mk/file_generator_wrapper.py /build/arm64-generic/tmp/portage/media-libs/cros-camera-tracing-0.0.1-r62/work/cros-camera-tracing-0.0.1/camera/tracing/archive_proto.sh /build/arm64-generic/tmp/portage/media-libs/cros-camera-tracing-0.0.1-r62/work/cros-camera-tracing-0.0.1/camera/tracing/metrics protos /build/arm64-generic/var/cache/portage/media-libs/cros-camera-tracing/out/Default/gen/camera/tracing/protos.tar.gz
   description = ACTION //camera/tracing:install_tracing_protos(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/camera/tracing/protos.tar.gz: __camera_tracing_install_tracing_protos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/media-libs/cros-camera-tracing-0.0.1-r58/work/cros-camera-tracing-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/media-libs/cros-camera-tracing-0.0.1-r58/work/cros-camera-tracing-0.0.1/camera/tracing/metrics/protos obj/camera/tracing/_install_tracing_protos-0-install_config.stamp
+build gen/camera/tracing/protos.tar.gz: __camera_tracing_install_tracing_protos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/media-libs/cros-camera-tracing-0.0.1-r62/work/cros-camera-tracing-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/media-libs/cros-camera-tracing-0.0.1-r62/work/cros-camera-tracing-0.0.1/camera/tracing/metrics/protos obj/camera/tracing/_install_tracing_protos-0-install_config.stamp
 
 build obj/camera/tracing/install_tracing_protos.stamp: stamp gen/camera/tracing/protos.tar.gz
 build obj/camera/tracing/install_tracing_sql.stamp: stamp

@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionWorkletAnimationEffectOrWorkletGroupEffect::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionWorkletAnimationEffectOrWorkletGroupEffect::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kWorkletAnimationEffect: {
     return ToV8Traits<WorkletAnimationEffect>::ToV8(script_state, member_worklet_animation_effect_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionWorkletAnimationEffectOrWorkletGroupEffect::ToV
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionWorkletAnimationEffectOrWorkletGroupEffect::Trace(Visitor* visitor) const {

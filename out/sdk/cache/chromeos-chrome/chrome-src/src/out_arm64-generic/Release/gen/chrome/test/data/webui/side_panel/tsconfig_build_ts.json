@@ -16,6 +16,12 @@
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
       ],
+      "//resources/cr_components/commerce/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/commerce/*"
+      ],
+      "chrome://resources/cr_components/commerce/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/commerce/*"
+      ],
       "//resources/cr_components/page_image_service/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/page_image_service/*"
       ],
@@ -127,6 +133,9 @@
     },
     {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/commerce/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/cr_components/page_image_service/tsconfig_build_ts.json"

@@ -19,10 +19,12 @@ namespace blink {
 
 void RuntimeFeatureStateContext::PopulateInitialValues() {
   // Write access implies read, so we are populating all inital values
-  initial_values_.reserve(6);
+  initial_values_.reserve(7);
 
   initial_values_.insert(
       {blink::mojom::RuntimeFeature::kBlinkExtensionChromeOS, false});
+  initial_values_.insert(
+      {blink::mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk, false});
   initial_values_.insert(
       {blink::mojom::RuntimeFeature::kBlinkExtensionDiagnostics, false});
   initial_values_.insert(

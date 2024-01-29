@@ -198,6 +198,8 @@ bool NativeMessagingPortStubDispatch::Accept(
           reinterpret_cast<internal::NativeMessagingPort_PostMessageToExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NativeMessagingPort.0
       bool success = true;
       std::string p_message{};
       NativeMessagingPort_PostMessageToExtension_ParamsDataView input_data_view(params, message);
@@ -213,8 +215,8 @@ bool NativeMessagingPortStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PostMessageToExtension(
-std::move(p_message));
+      impl->PostMessageToExtension(        
+        std::move(p_message));
       return true;
     }
   }
@@ -370,6 +372,8 @@ bool NativeMessagingHostStubDispatch::Accept(
           reinterpret_cast<internal::NativeMessagingHost_HandleMessageFromExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NativeMessagingHost.0
       bool success = true;
       std::string p_message{};
       NativeMessagingHost_HandleMessageFromExtension_ParamsDataView input_data_view(params, message);
@@ -385,8 +389,8 @@ bool NativeMessagingHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleMessageFromExtension(
-std::move(p_message));
+      impl->HandleMessageFromExtension(        
+        std::move(p_message));
       return true;
     }
   }

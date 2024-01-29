@@ -30,6 +30,8 @@
 #include "services/network/public/mojom/client_security_state.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-blink.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-blink-import-headers.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-blink.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/cookie_manager.mojom-blink.h"
 #include "services/network/public/mojom/cookie_manager.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/cookie_setting_overrides.mojom-blink.h"

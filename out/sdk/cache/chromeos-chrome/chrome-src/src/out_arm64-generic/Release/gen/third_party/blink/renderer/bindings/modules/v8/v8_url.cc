@@ -629,8 +629,8 @@ const int arg_count = std::min(info.Length(), 1);
 v8::Isolate* isolate = info.GetIsolate();
 do {  // Dummy loop for use of 'break'.
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (execution_context->IsWindow() || execution_context->IsDedicatedWorkerGlobalScope() || execution_context->IsSharedWorkerGlobalScope()) {
   if (arg_count == 1) {
@@ -792,7 +792,7 @@ void V8URL::Impl::InstallContextDependentProperties(v8::Local<v8::Context> conte
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((execution_context->IsWindow() || execution_context->IsDedicatedWorkerGlobalScope() || execution_context->IsSharedWorkerGlobalScope()) && feature_selector.IsAll()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"createObjectURL", CreateObjectURLStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

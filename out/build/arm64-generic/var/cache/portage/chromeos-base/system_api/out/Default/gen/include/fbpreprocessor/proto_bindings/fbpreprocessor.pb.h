@@ -139,6 +139,40 @@ inline bool WiFiDump_Vendor_Parse(absl::string_view name, WiFiDump_Vendor* value
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WiFiDump_Vendor>(
       WiFiDump_Vendor_descriptor(), name, value);
 }
+enum WiFiDump_Compression : int {
+  WiFiDump_Compression_COMPRESSION_UNSPECIFIED = 0,
+  WiFiDump_Compression_UNCOMPRESSED = 1,
+  WiFiDump_Compression_GZIP = 2,
+  WiFiDump_Compression_ZSTD = 3,
+  WiFiDump_Compression_WiFiDump_Compression_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  WiFiDump_Compression_WiFiDump_Compression_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool WiFiDump_Compression_IsValid(int value);
+constexpr WiFiDump_Compression WiFiDump_Compression_Compression_MIN = static_cast<WiFiDump_Compression>(0);
+constexpr WiFiDump_Compression WiFiDump_Compression_Compression_MAX = static_cast<WiFiDump_Compression>(3);
+constexpr int WiFiDump_Compression_Compression_ARRAYSIZE = 3 + 1;
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+WiFiDump_Compression_descriptor();
+template <typename T>
+const std::string& WiFiDump_Compression_Name(T value) {
+  static_assert(std::is_same<T, WiFiDump_Compression>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to Compression_Name().");
+  return WiFiDump_Compression_Name(static_cast<WiFiDump_Compression>(value));
+}
+template <>
+inline const std::string& WiFiDump_Compression_Name(WiFiDump_Compression value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<WiFiDump_Compression_descriptor,
+                                                 0, 3>(
+      static_cast<int>(value));
+}
+inline bool WiFiDump_Compression_Parse(absl::string_view name, WiFiDump_Compression* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WiFiDump_Compression>(
+      WiFiDump_Compression_descriptor(), name, value);
+}
 enum DebugDump_Type : int {
   DebugDump_Type_TYPE_UNSPECIFIED = 0,
   DebugDump_Type_WIFI = 1,
@@ -345,12 +379,35 @@ class WiFiDump final :
     return WiFiDump_Vendor_Parse(name, value);
   }
 
+  using Compression = WiFiDump_Compression;
+  static constexpr Compression COMPRESSION_UNSPECIFIED = WiFiDump_Compression_COMPRESSION_UNSPECIFIED;
+  static constexpr Compression UNCOMPRESSED = WiFiDump_Compression_UNCOMPRESSED;
+  static constexpr Compression GZIP = WiFiDump_Compression_GZIP;
+  static constexpr Compression ZSTD = WiFiDump_Compression_ZSTD;
+  static inline bool Compression_IsValid(int value) {
+    return WiFiDump_Compression_IsValid(value);
+  }
+  static constexpr Compression Compression_MIN = WiFiDump_Compression_Compression_MIN;
+  static constexpr Compression Compression_MAX = WiFiDump_Compression_Compression_MAX;
+  static constexpr int Compression_ARRAYSIZE = WiFiDump_Compression_Compression_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Compression_descriptor() {
+    return WiFiDump_Compression_descriptor();
+  }
+  template <typename T>
+  static inline const std::string& Compression_Name(T value) {
+    return WiFiDump_Compression_Name(value);
+  }
+  static inline bool Compression_Parse(absl::string_view name, Compression* value) {
+    return WiFiDump_Compression_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kDmpfileFieldNumber = 1,
     kStateFieldNumber = 2,
     kVendorFieldNumber = 3,
+    kCompressionFieldNumber = 4,
   };
   // string dmpfile = 1;
   void clear_dmpfile() ;
@@ -392,6 +449,16 @@ class WiFiDump final :
   void _internal_set_vendor(::fbpreprocessor::WiFiDump_Vendor value);
 
   public:
+  // .fbpreprocessor.WiFiDump.Compression compression = 4;
+  void clear_compression() ;
+  ::fbpreprocessor::WiFiDump_Compression compression() const;
+  void set_compression(::fbpreprocessor::WiFiDump_Compression value);
+
+  private:
+  ::fbpreprocessor::WiFiDump_Compression _internal_compression() const;
+  void _internal_set_compression(::fbpreprocessor::WiFiDump_Compression value);
+
+  public:
   // @@protoc_insertion_point(class_scope:fbpreprocessor.WiFiDump)
  private:
   class _Internal;
@@ -403,6 +470,7 @@ class WiFiDump final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dmpfile_;
     int state_;
     int vendor_;
+    int compression_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -869,6 +937,26 @@ inline void WiFiDump::_internal_set_vendor(::fbpreprocessor::WiFiDump_Vendor val
   _impl_.vendor_ = value;
 }
 
+// .fbpreprocessor.WiFiDump.Compression compression = 4;
+inline void WiFiDump::clear_compression() {
+  _impl_.compression_ = 0;
+}
+inline ::fbpreprocessor::WiFiDump_Compression WiFiDump::compression() const {
+  // @@protoc_insertion_point(field_get:fbpreprocessor.WiFiDump.compression)
+  return _internal_compression();
+}
+inline void WiFiDump::set_compression(::fbpreprocessor::WiFiDump_Compression value) {
+   _internal_set_compression(value);
+  // @@protoc_insertion_point(field_set:fbpreprocessor.WiFiDump.compression)
+}
+inline ::fbpreprocessor::WiFiDump_Compression WiFiDump::_internal_compression() const {
+  return static_cast<::fbpreprocessor::WiFiDump_Compression>(_impl_.compression_);
+}
+inline void WiFiDump::_internal_set_compression(::fbpreprocessor::WiFiDump_Compression value) {
+  ;
+  _impl_.compression_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // DebugDump
@@ -1053,6 +1141,12 @@ struct is_proto_enum<::fbpreprocessor::WiFiDump_Vendor> : std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::fbpreprocessor::WiFiDump_Vendor>() {
   return ::fbpreprocessor::WiFiDump_Vendor_descriptor();
+}
+template <>
+struct is_proto_enum<::fbpreprocessor::WiFiDump_Compression> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::fbpreprocessor::WiFiDump_Compression>() {
+  return ::fbpreprocessor::WiFiDump_Compression_descriptor();
 }
 template <>
 struct is_proto_enum<::fbpreprocessor::DebugDump_Type> : std::true_type {};

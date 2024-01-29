@@ -181,7 +181,7 @@ class TracingServiceState : public ::protozero::Message {
   }
 };
 
-class TracingServiceState_TracingSession_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TracingServiceState_TracingSession_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TracingServiceState_TracingSession_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TracingServiceState_TracingSession_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -202,6 +202,12 @@ class TracingServiceState_TracingSession_Decoder : public ::protozero::TypedProt
   uint32_t num_data_sources() const { return at<7>().as_uint32(); }
   bool has_start_realtime_ns() const { return at<8>().valid(); }
   int64_t start_realtime_ns() const { return at<8>().as_int64(); }
+  bool has_bugreport_score() const { return at<9>().valid(); }
+  int32_t bugreport_score() const { return at<9>().as_int32(); }
+  bool has_bugreport_filename() const { return at<10>().valid(); }
+  ::protozero::ConstChars bugreport_filename() const { return at<10>().as_string(); }
+  bool has_is_started() const { return at<11>().valid(); }
+  bool is_started() const { return at<11>().as_bool(); }
 };
 
 class TracingServiceState_TracingSession : public ::protozero::Message {
@@ -216,6 +222,9 @@ class TracingServiceState_TracingSession : public ::protozero::Message {
     kDurationMsFieldNumber = 6,
     kNumDataSourcesFieldNumber = 7,
     kStartRealtimeNsFieldNumber = 8,
+    kBugreportScoreFieldNumber = 9,
+    kBugreportFilenameFieldNumber = 10,
+    kIsStartedFieldNumber = 11,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TracingServiceState.TracingSession"; }
 
@@ -373,6 +382,66 @@ class TracingServiceState_TracingSession : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BugreportScore =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      TracingServiceState_TracingSession>;
+
+  static constexpr FieldMetadata_BugreportScore kBugreportScore{};
+  void set_bugreport_score(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BugreportScore::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BugreportFilename =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      TracingServiceState_TracingSession>;
+
+  static constexpr FieldMetadata_BugreportFilename kBugreportFilename{};
+  void set_bugreport_filename(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_BugreportFilename::kFieldId, data, size);
+  }
+  void set_bugreport_filename(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_BugreportFilename::kFieldId, chars.data, chars.size);
+  }
+  void set_bugreport_filename(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_BugreportFilename::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IsStarted =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TracingServiceState_TracingSession>;
+
+  static constexpr FieldMetadata_IsStarted kIsStarted{};
+  void set_is_started(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_IsStarted::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };

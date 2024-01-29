@@ -91,6 +91,7 @@ GpuPreferences::GpuPreferences()
       enable_webgpu(),
       enable_unsafe_webgpu(),
       enable_webgpu_developer_features(),
+      enable_webgpu_experimental_features(),
       use_webgpu_adapter(),
       use_webgpu_power_preference(),
       force_webgpu_compat(),
@@ -150,6 +151,7 @@ GpuPreferences::GpuPreferences(
     bool enable_webgpu_in,
     bool enable_unsafe_webgpu_in,
     bool enable_webgpu_developer_features_in,
+    bool enable_webgpu_experimental_features_in,
     WebGPUAdapterName use_webgpu_adapter_in,
     WebGPUPowerPreference use_webgpu_power_preference_in,
     bool force_webgpu_compat_in,
@@ -207,6 +209,7 @@ GpuPreferences::GpuPreferences(
       enable_webgpu(std::move(enable_webgpu_in)),
       enable_unsafe_webgpu(std::move(enable_unsafe_webgpu_in)),
       enable_webgpu_developer_features(std::move(enable_webgpu_developer_features_in)),
+      enable_webgpu_experimental_features(std::move(enable_webgpu_experimental_features_in)),
       use_webgpu_adapter(std::move(use_webgpu_adapter_in)),
       use_webgpu_power_preference(std::move(use_webgpu_power_preference_in)),
       force_webgpu_compat(std::move(force_webgpu_compat_in)),
@@ -640,6 +643,15 @@ void GpuPreferences::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "enable_webgpu_experimental_features"), this->enable_webgpu_experimental_features,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "use_webgpu_adapter"), this->use_webgpu_adapter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type WebGPUAdapterName>"
@@ -851,6 +863,8 @@ bool StructTraits<::gpu::mojom::GpuPreferences::DataView, ::gpu::mojom::GpuPrefe
         result->enable_unsafe_webgpu = input.enable_unsafe_webgpu();
       if (success)
         result->enable_webgpu_developer_features = input.enable_webgpu_developer_features();
+      if (success)
+        result->enable_webgpu_experimental_features = input.enable_webgpu_experimental_features();
       if (success && !input.ReadUseWebgpuAdapter(&result->use_webgpu_adapter))
         success = false;
       if (success && !input.ReadUseWebgpuPowerPreference(&result->use_webgpu_power_preference))

@@ -102,6 +102,8 @@ NOINLINE static const char* MediaStreamRequestResultToStringHelper(MediaStreamRe
       return "SYSTEM_PERMISSION_DENIED";
     case MediaStreamRequestResult::DEVICE_IN_USE:
       return "DEVICE_IN_USE";
+    case MediaStreamRequestResult::REQUEST_CANCELLED:
+      return "REQUEST_CANCELLED";
     case MediaStreamRequestResult::NUM_MEDIA_REQUEST_RESULTS:
       return "NUM_MEDIA_REQUEST_RESULTS";
     default:
@@ -208,8 +210,14 @@ NOINLINE static const char* CapturedSurfaceControlResultToStringHelper(CapturedS
       return "kUnknownError";
     case CapturedSurfaceControlResult::kNoPermissionError:
       return "kNoPermissionError";
+    case CapturedSurfaceControlResult::kCapturerNotFoundError:
+      return "kCapturerNotFoundError";
     case CapturedSurfaceControlResult::kCapturedSurfaceNotFoundError:
       return "kCapturedSurfaceNotFoundError";
+    case CapturedSurfaceControlResult::kDisallowedForSelfCaptureError:
+      return "kDisallowedForSelfCaptureError";
+    case CapturedSurfaceControlResult::kCapturerNotFocusedError:
+      return "kCapturerNotFocusedError";
     default:
       return nullptr;
   }
@@ -472,7 +480,7 @@ bool CapturedWheelAction_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -765,6 +773,47 @@ bool MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data::Validate
 }
 
 MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data::MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data* object =
+      static_cast<const MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->label, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& label_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->label, validation_context,
+                                         &label_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->device, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->device, validation_context))
+    return false;
+
+  return true;
+}
+
+MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

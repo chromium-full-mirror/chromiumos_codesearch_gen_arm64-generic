@@ -66,7 +66,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactory
   static constexpr base::Token Uuid_{ 8893406653349118663ULL,
                                       12106309839841680150ULL };
   static constexpr auto kServiceSandbox = sandbox::mojom::Sandbox::kGpu;
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -85,6 +85,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactory
     kGetScreenResolutionsMinVersion = 0,
     kGetAndroidHwKeyDataMinVersion = 1,
     kAllocateSecureBufferMinVersion = 2,
+    kParseEncryptedSliceHeaderMinVersion = 3,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -106,6 +107,9 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactory
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AllocateSecureBuffer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ParseEncryptedSliceHeader_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -138,6 +142,11 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactory
   using AllocateSecureBufferCallback = base::OnceCallback<void(::mojo::PlatformHandle)>;
   
   virtual void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) = 0;
+
+
+  using ParseEncryptedSliceHeaderCallback = base::OnceCallback<void(bool, const std::vector<uint8_t>&)>;
+  
+  virtual void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) = 0;
 };
 
 
@@ -160,6 +169,8 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) BrowserCdmFactoryProxy
   void GetAndroidHwKeyData(const std::vector<uint8_t>& key_id, const std::vector<uint8_t>& hw_identifier, GetAndroidHwKeyDataCallback callback) final;
   
   void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) final;
+  
+  void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

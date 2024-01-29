@@ -4,18 +4,20 @@
 /**
  * @fileoverview This component displays color mode settings.
  */
+import 'chrome://resources/ash/common/personalization/common.css.js';
+import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/polymer/v3_0/iron-a11y-keys/iron-a11y-keys.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/iron-iconset-svg/iron-iconset-svg.js';
-import 'chrome://resources/polymer/v3_0/iron-a11y-keys/iron-a11y-keys.js';
 import 'chrome://resources/polymer/v3_0/iron-selector/iron-selector.js';
-import '../../css/common.css.js';
-import '../../css/cros_button_style.css.js';
-import { isPersonalizationJellyEnabled } from '../load_time_booleans.js';
+import 'chrome://resources/cr_components/localized_link/localized_link.js';
+import '../geolocation_dialog.js';
+import { isCrosPrivacyHubLocationEnabled, isPersonalizationJellyEnabled } from '../load_time_booleans.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
 import { isSelectionEvent } from '../utils.js';
 import { getTemplate } from './personalization_theme_element.html.js';
-import { initializeData, setColorModeAutoSchedule, setColorModePref } from './theme_controller.js';
+import { enableGeolocationForSystemServices, initializeData, setColorModeAutoSchedule, setColorModePref } from './theme_controller.js';
 import { getThemeProvider } from './theme_interface_provider.js';
 import { ThemeObserver } from './theme_observer.js';
 export class PersonalizationThemeElement extends WithPersonalizationStore {
@@ -36,6 +38,10 @@ export class PersonalizationThemeElement extends WithPersonalizationStore {
                 type: Boolean,
                 value: null,
             },
+            geolocationPermissionEnabled_: {
+                type: Boolean,
+                value: null,
+            },
             isPersonalizationJellyEnabled_: {
                 type: Boolean,
                 value() {
@@ -46,6 +52,17 @@ export class PersonalizationThemeElement extends WithPersonalizationStore {
             selectedButton_: {
                 type: Object,
                 notify: true,
+            },
+            shouldShowGeolocationWarningText_: {
+                type: Boolean,
+                computed: 'computeShouldShowGeolocationWarningText_(' +
+                    'colorModeAutoScheduleEnabled_, ' +
+                    'geolocationPermissionEnabled_),',
+                value: false,
+            },
+            shouldShowGeolocationDialog_: {
+                type: Boolean,
+                value: false,
             },
         };
     }
@@ -58,6 +75,7 @@ export class PersonalizationThemeElement extends WithPersonalizationStore {
         ThemeObserver.initThemeObserverIfNeeded();
         this.watch('darkModeEnabled_', state => state.theme.darkModeEnabled);
         this.watch('colorModeAutoScheduleEnabled_', state => state.theme.colorModeAutoScheduleEnabled);
+        this.watch('geolocationPermissionEnabled_', state => state.theme.geolocationPermissionEnabled);
         this.updateFromStore();
         initializeData(getThemeProvider(), this.getStore());
     }
@@ -126,6 +144,32 @@ export class PersonalizationThemeElement extends WithPersonalizationStore {
         }
         setColorModeAutoSchedule(
         /*enabled=*/ true, getThemeProvider(), this.getStore());
+    }
+    computeShouldShowGeolocationWarningText_() {
+        return (isCrosPrivacyHubLocationEnabled() &&
+            this.colorModeAutoScheduleEnabled_ === true &&
+            this.geolocationPermissionEnabled_ === false);
+    }
+    openGeolocationDialog_(e) {
+        // A place holder href with the value "#" is used to have a compliant link.
+        // This prevents the browser from navigating the window to "#".
+        e.detail.event.preventDefault();
+        e.stopPropagation();
+        // Geolocation Dialog only exists in the Privacy Hub context.
+        if (!isCrosPrivacyHubLocationEnabled()) {
+            console.error('Geolocation Dialog triggered when the Privacy Hub flag is disabled');
+            return;
+        }
+        // Show the dialog to let users enable system location inline.
+        this.shouldShowGeolocationDialog_ = true;
+    }
+    onGeolocationDialogClose_() {
+        this.shouldShowGeolocationDialog_ = false;
+    }
+    // Callback for user clicking 'Allow' on the geolocation dialog.
+    onGeolocationEnabled_() {
+        // Enable system geolocation permission for all system services.
+        enableGeolocationForSystemServices(getThemeProvider(), this.getStore());
     }
 }
 customElements.define(PersonalizationThemeElement.is, PersonalizationThemeElement);

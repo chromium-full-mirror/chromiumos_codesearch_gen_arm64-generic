@@ -482,6 +482,8 @@ bool JpegEncodeAccelerator_Initialize_ForwardToCallback::Accept(
           internal::JpegEncodeAccelerator_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for JpegEncodeAccelerator.0
   bool success = true;
   bool p_success{};
   JpegEncodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -601,6 +603,8 @@ bool JpegEncodeAccelerator_EncodeWithFD_ForwardToCallback::Accept(
           internal::JpegEncodeAccelerator_EncodeWithFD_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for JpegEncodeAccelerator.1
   bool success = true;
   int32_t p_task_id{};
   uint32_t p_encoded_buffer_size{};
@@ -737,6 +741,8 @@ bool JpegEncodeAccelerator_EncodeWithDmaBuf_ForwardToCallback::Accept(
           internal::JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for JpegEncodeAccelerator.2
   bool success = true;
   uint32_t p_encoded_buffer_size{};
   ::chromeos_camera::JpegEncodeAccelerator::Status p_status{};
@@ -842,6 +848,8 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::JpegEncodeAccelerator_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for JpegEncodeAccelerator.0
       bool success = true;
       JpegEncodeAccelerator_Initialize_ParamsDataView input_data_view(params, message);
       
@@ -867,6 +875,8 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::JpegEncodeAccelerator_EncodeWithFD_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for JpegEncodeAccelerator.1
       bool success = true;
       int32_t p_task_id{};
       ::mojo::ScopedHandle p_input_fd{};
@@ -909,16 +919,16 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EncodeWithFD(
-std::move(p_task_id), 
-std::move(p_input_fd), 
-std::move(p_input_buffer_size), 
-std::move(p_coded_size_width), 
-std::move(p_coded_size_height), 
-std::move(p_exif_fd), 
-std::move(p_exif_buffer_size), 
-std::move(p_output_fd), 
-std::move(p_output_buffer_size), std::move(callback));
+      impl->EncodeWithFD(        
+        std::move(p_task_id), 
+        std::move(p_input_fd), 
+        std::move(p_input_buffer_size), 
+        std::move(p_coded_size_width), 
+        std::move(p_coded_size_height), 
+        std::move(p_exif_fd), 
+        std::move(p_exif_buffer_size), 
+        std::move(p_output_fd), 
+        std::move(p_output_buffer_size), std::move(callback));
       return true;
     }
     case internal::kJpegEncodeAccelerator_EncodeWithDmaBuf_Name: {
@@ -928,6 +938,8 @@ std::move(p_output_buffer_size), std::move(callback));
               internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for JpegEncodeAccelerator.2
       bool success = true;
       int32_t p_task_id{};
       uint32_t p_input_format{};
@@ -976,18 +988,18 @@ std::move(p_output_buffer_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EncodeWithDmaBuf(
-std::move(p_task_id), 
-std::move(p_input_format), 
-std::move(p_input_planes), 
-std::move(p_output_planes), 
-std::move(p_exif_handle), 
-std::move(p_exif_buffer_size), 
-std::move(p_coded_size_width), 
-std::move(p_coded_size_height), 
-std::move(p_quality), 
-std::move(p_has_input_modifier), 
-std::move(p_input_modifier), std::move(callback));
+      impl->EncodeWithDmaBuf(        
+        std::move(p_task_id), 
+        std::move(p_input_format), 
+        std::move(p_input_planes), 
+        std::move(p_output_planes), 
+        std::move(p_exif_handle), 
+        std::move(p_exif_buffer_size), 
+        std::move(p_coded_size_width), 
+        std::move(p_coded_size_height), 
+        std::move(p_quality), 
+        std::move(p_has_input_modifier), 
+        std::move(p_input_modifier), std::move(callback));
       return true;
     }
   }

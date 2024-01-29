@@ -33,7 +33,7 @@ export function getTemplate() {
   </div>
 
   <template is="dom-if" route-path="/manageAccessibility">
-    <os-settings-subpage page-title="$i18n{manageAccessibilityFeatures}" hide-close-button>
+    <os-settings-subpage page-title="$i18n{manageAccessibilityFeatures}" hide-back-button>
       <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
       </settings-toggle-button>
       <div class="hr" hidden="[[!hasScreenReader_]]"></div>
@@ -110,6 +110,18 @@ export function getTemplate() {
     <os-settings-subpage page-title="$i18n{manageSwitchAccessSettings}">
       <settings-switch-access-subpage prefs="{{prefs}}">
       </settings-switch-access-subpage>
+    </os-settings-subpage>
+  </template>
+  <template is="dom-if" route-path="/manageAccessibility/faceGazeCursor">
+    <os-settings-subpage page-title="$i18n{facegazeCursorSettings}">
+      <settings-facegaze-cursor-subpage prefs="{{prefs}}">
+      </settings-facegaze-cursor-subpage>
+    </os-settings-subpage>
+  </template>
+  <template is="dom-if" route-path="/manageAccessibility/faceGazeExpressions">
+    <os-settings-subpage page-title="$i18n{facegazeFacialExpressionSettings}">
+      <settings-facegaze-facial-expression-subpage prefs="{{prefs}}">
+      </settings-facegaze-facial-expression-subpage>
     </os-settings-subpage>
   </template>
 </os-settings-animated-pages>

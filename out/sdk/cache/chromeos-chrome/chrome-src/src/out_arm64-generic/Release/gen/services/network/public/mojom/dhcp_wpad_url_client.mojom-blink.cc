@@ -211,6 +211,8 @@ bool DhcpWpadUrlClient_GetPacUrl_ForwardToCallback::Accept(
           internal::DhcpWpadUrlClient_GetPacUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DhcpWpadUrlClient.0
   bool success = true;
   ::WTF::String p_url{};
   DhcpWpadUrlClient_GetPacUrl_ResponseParamsDataView input_data_view(params, message);
@@ -311,6 +313,8 @@ bool DhcpWpadUrlClientStubDispatch::AcceptWithResponder(
               internal::DhcpWpadUrlClient_GetPacUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DhcpWpadUrlClient.0
       bool success = true;
       DhcpWpadUrlClient_GetPacUrl_ParamsDataView input_data_view(params, message);
       

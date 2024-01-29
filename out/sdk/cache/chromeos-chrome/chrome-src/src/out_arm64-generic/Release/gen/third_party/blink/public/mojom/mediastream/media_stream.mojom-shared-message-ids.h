@@ -19,6 +19,7 @@ constexpr uint32_t kMediaStreamDeviceObserver_OnDeviceChanged_Name = 1;
 constexpr uint32_t kMediaStreamDeviceObserver_OnDeviceRequestStateChange_Name = 2;
 constexpr uint32_t kMediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Name = 3;
 constexpr uint32_t kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name = 4;
+constexpr uint32_t kMediaStreamDeviceObserver_OnZoomLevelChange_Name = 5;
 constexpr uint32_t kMediaStreamDispatcherHost_GenerateStreams_Name = 0;
 constexpr uint32_t kMediaStreamDispatcherHost_FocusCapturedSurface_Name = 1;
 constexpr uint32_t kMediaStreamDispatcherHost_CancelRequest_Name = 2;

@@ -465,6 +465,8 @@ bool ChromeFeatureFlagsInstanceStubDispatch::Accept(
           reinterpret_cast<internal::ChromeFeatureFlagsInstance_NotifyFeatureFlags_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeFeatureFlagsInstance.1
       bool success = true;
       FeatureFlagsPtr p_flags{};
       ChromeFeatureFlagsInstance_NotifyFeatureFlags_ParamsDataView input_data_view(params, message);
@@ -480,8 +482,8 @@ bool ChromeFeatureFlagsInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyFeatureFlags(
-std::move(p_flags));
+      impl->NotifyFeatureFlags(        
+        std::move(p_flags));
       return true;
     }
   }

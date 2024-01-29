@@ -41,11 +41,11 @@ build obj/camera/android/install_libcamera_client_include_camera.stamp: stamp
 build obj/camera/android/install_libcamera_metadata_include_system.stamp: stamp
 subninja obj/camera/android/libcros_camera_android_deps.ninja
 rule __camera_android_libcros_camera_android_deps_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/cros-camera-android-deps-0.0.1-r350/work/cros-camera-android-deps-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/cros-camera-android-deps/out/Default/obj/camera/android/libcros_camera_android_deps.pc --name=libcros_camera_android_deps --description=Android\$ dependencies\$ for\$ cros-camera --version=0.0.1 --libs=-lcros_camera_android_deps --cflags=-I/usr/include/android --cflags=-I/usr/include/android/hardware/libhardware/include --cflags=-I/usr/include/android/system/core/include
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/cros-camera-android-deps-0.0.1-r354/work/cros-camera-android-deps-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/cros-camera-android-deps/out/Default/obj/camera/android/libcros_camera_android_deps.pc --name=libcros_camera_android_deps --description=Android\$ dependencies\$ for\$ cros-camera --version=0.0.1 --libs=-lcros_camera_android_deps --cflags=-I/usr/include/android --cflags=-I/usr/include/android/hardware/libhardware/include --cflags=-I/usr/include/android/system/core/include
   description = ACTION //camera/android:libcros_camera_android_deps_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/camera/android/libcros_camera_android_deps.pc: __camera_android_libcros_camera_android_deps_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/cros-camera-android-deps-0.0.1-r350/work/cros-camera-android-deps-0.0.1/common-mk/generate-pc.py obj/camera/android/_libcros_camera_android_deps_pkg_config-install_config.stamp
+build obj/camera/android/libcros_camera_android_deps.pc: __camera_android_libcros_camera_android_deps_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/cros-camera-android-deps-0.0.1-r354/work/cros-camera-android-deps-0.0.1/common-mk/generate-pc.py obj/camera/android/_libcros_camera_android_deps_pkg_config-install_config.stamp
 
 build obj/camera/android/libcros_camera_android_deps_pkg_config.stamp: stamp obj/camera/android/libcros_camera_android_deps.pc
 build obj/common-mk/gn_root/root.stamp: stamp obj/camera/android/all.stamp

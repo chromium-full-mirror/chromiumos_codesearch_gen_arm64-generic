@@ -20,7 +20,7 @@ async function renderResponseHeaderSection(request) {
     Object.setPrototypeOf(request, SDK.NetworkRequest.NetworkRequest.prototype);
     component.data = {
         request,
-        toReveal: { section: NetworkForward.UIRequestLocation.UIHeaderSection.Response, header: 'highlighted-header' },
+        toReveal: { section: "Response" /* NetworkForward.UIRequestLocation.UIHeaderSection.Response */, header: 'highlighted-header' },
     };
     await coordinator.done();
     assertElement(component, HTMLElement);
@@ -399,7 +399,7 @@ describeWithEnvironment('ResponseHeaderSection', () => {
                 ],
             }];
         assert.isTrue(spy.calledOnceWith(JSON.stringify(expected, null, 2)));
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeaderEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeaderEdited));
     });
     it('can handle tab-character in header value', async () => {
         const headers = [
@@ -456,7 +456,7 @@ describeWithEnvironment('ResponseHeaderSection', () => {
                 ],
             }];
         assert.isTrue(spy.calledOnceWith(JSON.stringify(expected, null, 2)));
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeaderEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeaderEdited));
     });
     it('can remove header overrides', async () => {
         const headerOverridesFileContent = `[
@@ -510,7 +510,7 @@ describeWithEnvironment('ResponseHeaderSection', () => {
             }];
         assert.strictEqual(spy.callCount, 1);
         assert.isTrue(spy.calledOnceWith(JSON.stringify(expected, null, 2)));
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeaderRemoved));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeaderRemoved));
         rows = component.shadowRoot.querySelectorAll('devtools-header-section-row');
         assert.strictEqual(rows.length, 3);
         checkHeaderSectionRow(rows[0], 'added:', 'foo', true, false, true);
@@ -558,7 +558,7 @@ describeWithEnvironment('ResponseHeaderSection', () => {
         const expected = [];
         assert.strictEqual(spy.callCount, 1);
         assert.isTrue(spy.calledOnceWith(JSON.stringify(expected, null, 2)));
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeaderRemoved));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeaderRemoved));
     });
     it('can handle non-breaking spaces when removing header overrides', async () => {
         const headerOverridesFileContent = `[
@@ -648,7 +648,7 @@ describeWithEnvironment('ResponseHeaderSection', () => {
                 ],
             }];
         assert.isTrue(spy.getCall(-1).calledWith(JSON.stringify(expected, null, 2)));
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeaderAdded));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeaderAdded));
         await editHeaderRow(component, 1, "HeaderName" /* HeaderAttribute.HeaderName */, 'foo');
         expected = [{
                 applyTo: 'index.html',

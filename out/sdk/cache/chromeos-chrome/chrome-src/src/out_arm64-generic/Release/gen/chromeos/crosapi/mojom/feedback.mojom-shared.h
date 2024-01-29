@@ -83,8 +83,10 @@ enum class LacrosFeedbackSource : int32_t {
   kFeedbackSourceProfileErrorDialog = 10,
   
   kFeedbackSourceQuickOffice = 11,
+  
+  kFeedbackSourceAI = 12,
   kMinValue = 0,
-  kMaxValue = 11,
+  kMaxValue = 12,
   kDefaultValue = 2
 };
 
@@ -200,6 +202,27 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1 && !data_->autofill_metadata.is_null()
                     ? &data_->autofill_metadata : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::ValueDataView>(
+        pointer, output, message_);
+  }
+  inline void GetAiMetadataDataView(
+      ::mojo_base::mojom::ValueDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAiMetadata(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::ValueDataView, UserType>(),
+    "Attempting to read the optional `ai_metadata` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAiMetadata` instead "
+    "of `ReadAiMetadata if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 2 && !data_->ai_metadata.is_null()
+                    ? &data_->ai_metadata : nullptr;
     return mojo::internal::Deserialize<::mojo_base::mojom::ValueDataView>(
         pointer, output, message_);
   }
@@ -323,6 +346,12 @@ struct Serializer<::crosapi::mojom::FeedbackInfoDataView, MaybeConstUserType> {
     autofill_metadata_fragment.Claim(&fragment->autofill_metadata);
     mojo::internal::Serialize<::mojo_base::mojom::ValueDataView>(
         in_autofill_metadata, autofill_metadata_fragment, true);
+    decltype(Traits::ai_metadata(input)) in_ai_metadata = Traits::ai_metadata(input);
+    mojo::internal::MessageFragment<decltype(fragment->ai_metadata)>
+        ai_metadata_fragment(fragment.message());
+    ai_metadata_fragment.Claim(&fragment->ai_metadata);
+    mojo::internal::Serialize<::mojo_base::mojom::ValueDataView>(
+        in_ai_metadata, ai_metadata_fragment, true);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::FeedbackInfo_Data* input,
@@ -372,6 +401,12 @@ inline void FeedbackInfoDataView::GetAutofillMetadataDataView(
     ::mojo_base::mojom::ValueDataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? &data_->autofill_metadata : nullptr;
+  *output = ::mojo_base::mojom::ValueDataView(pointer, message_);
+}
+inline void FeedbackInfoDataView::GetAiMetadataDataView(
+    ::mojo_base::mojom::ValueDataView* output) {
+  auto pointer = data_->header_.version >= 2
+                 ? &data_->ai_metadata : nullptr;
   *output = ::mojo_base::mojom::ValueDataView(pointer, message_);
 }
 

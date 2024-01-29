@@ -46,6 +46,8 @@ NOINLINE static const char* CommandToStringHelper(Command value) {
       return "kOpenNTPAndStartCustomizeChromeTutorial";
     case Command::kStartPasswordManagerTutorial:
       return "kStartPasswordManagerTutorial";
+    case Command::kStartSavedTabGroupTutorial:
+      return "kStartSavedTabGroupTutorial";
     default:
       return nullptr;
   }

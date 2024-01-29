@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/shortcut_input_provider.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/shortcut_input_provider.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/shortcut_input_provider.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/shortcut_input_provider.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/shortcut_input_provider.mojom-shared.h

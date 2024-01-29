@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <sys/mount.h>
 #include <sys/stat.h>
+#include <sys/statfs.h>
 #include <sys/statvfs.h>
 #include <sys/types.h>
 
@@ -81,6 +82,27 @@ inline constexpr gid_t kDaemonStoreGid = 400;
 inline constexpr uid_t kChronosUid = 1000;
 inline constexpr gid_t kChronosGid = 1000;
 inline constexpr gid_t kChronosAccessGid = 1001;
+
+// exit codes as defined in fsck(8)
+enum {
+  FSCK_SUCCESS = 0,
+  FSCK_ERROR_CORRECTED = 1 << 0,
+  FSCK_SYSTEM_SHOULD_REBOOT = 1 << 1,
+  FSCK_ERRORS_LEFT_UNCORRECTED = 1 << 2,
+  FSCK_OPERATIONAL_ERROR = 1 << 3,
+  FSCK_USAGE_OR_SYNTAX_ERROR = 1 << 4,
+  FSCK_USER_CANCELLED = 1 << 5,
+  FSCK_SHARED_LIB_ERROR = 1 << 7,
+};
+
+// Fsck opions
+enum class FsckOption {
+  kPreen,
+  kFull,
+
+  // Must be the last item.
+  kMaxValue = kFull,
+};
 
 // Decoded content of /proc/<id>/mountinfo file that has format:
 // 36 35 98:0 /mnt1 /mnt2 rw,noatime master:1 - ext3 /dev/root .. // nocheck
@@ -665,6 +687,13 @@ class BRILLO_EXPORT Platform {
   // Copies from to to.
   virtual bool Copy(const base::FilePath& from, const base::FilePath& to);
 
+  // Calls statfs() on path.
+  //
+  // Parameters
+  //   path - path to statvfs on
+  //   fs - buffer to store result in
+  virtual bool StatFS(const base::FilePath& path, struct statfs* fs);
+
   // Calls statvfs() on path.
   //
   // Parameters
@@ -685,8 +714,7 @@ class BRILLO_EXPORT Platform {
   // Parameters
   //   filesystem - the filesystem to examine
   //   device - output: the device name that "filesystem" in mounted on
-  virtual bool FindFilesystemDevice(const base::FilePath& filesystem,
-                                    std::string* device);
+  virtual base::FilePath FindFilesystemDevice(const base::FilePath& filesystem);
 
   // Runs "tune2fs -l" with redirected output.
   //
@@ -838,6 +866,18 @@ class BRILLO_EXPORT Platform {
   virtual bool FormatExt4(const base::FilePath& file,
                           const std::vector<std::string>& opts,
                           uint64_t blocks);
+
+  // Fsck ext2/3/4 filesystems
+  // Run e2fsck and reports error.
+  // Return true when there are no error reported.
+  //
+  // Paratemers
+  //   file - Path to the file or device to be checked.
+  //   opts - fsck options.
+  //   err - error bit field returned by fsck, see fsck(8)
+  virtual bool Fsck(const base::FilePath& file,
+                    const FsckOption opts,
+                    int* err);
 
   // Tunes ext4 filesystem, adding features if needed.
   // Returns true if formatting succeeded.

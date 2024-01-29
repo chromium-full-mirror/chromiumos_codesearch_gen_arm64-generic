@@ -36,7 +36,8 @@ bool SysStats::operator==(const SysStats& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(devfreq_, other.devfreq_)
    && ::protozero::internal::gen_helpers::EqualsField(cpufreq_khz_, other.cpufreq_khz_)
    && ::protozero::internal::gen_helpers::EqualsField(buddy_info_, other.buddy_info_)
-   && ::protozero::internal::gen_helpers::EqualsField(disk_stat_, other.disk_stat_);
+   && ::protozero::internal::gen_helpers::EqualsField(disk_stat_, other.disk_stat_)
+   && ::protozero::internal::gen_helpers::EqualsField(psi_, other.psi_);
 }
 
 int SysStats::meminfo_size() const { return static_cast<int>(meminfo_.size()); }
@@ -63,6 +64,9 @@ SysStats_BuddyInfo* SysStats::add_buddy_info() { buddy_info_.emplace_back(); ret
 int SysStats::disk_stat_size() const { return static_cast<int>(disk_stat_.size()); }
 void SysStats::clear_disk_stat() { disk_stat_.clear(); }
 SysStats_DiskStat* SysStats::add_disk_stat() { disk_stat_.emplace_back(); return &disk_stat_.back(); }
+int SysStats::psi_size() const { return static_cast<int>(psi_.size()); }
+void SysStats::clear_psi() { psi_.clear(); }
+SysStats_PsiSample* SysStats::add_psi() { psi_.emplace_back(); return &psi_.back(); }
 bool SysStats::ParseFromArray(const void* raw, size_t size) {
   meminfo_.clear();
   vmstat_.clear();
@@ -73,6 +77,7 @@ bool SysStats::ParseFromArray(const void* raw, size_t size) {
   cpufreq_khz_.clear();
   buddy_info_.clear();
   disk_stat_.clear();
+  psi_.clear();
   unknown_fields_.clear();
   bool packed_error = false;
 
@@ -129,6 +134,10 @@ bool SysStats::ParseFromArray(const void* raw, size_t size) {
       case 13 /* disk_stat */:
         disk_stat_.emplace_back();
         disk_stat_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 14 /* psi */:
+        psi_.emplace_back();
+        psi_.back().ParseFromArray(field.data(), field.size());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -214,6 +223,75 @@ void SysStats::Serialize(::protozero::Message* msg) const {
   // Field 13: disk_stat
   for (auto& it : disk_stat_) {
     it.Serialize(msg->BeginNestedMessage<::protozero::Message>(13));
+  }
+
+  // Field 14: psi
+  for (auto& it : psi_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(14));
+  }
+
+  protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
+}
+
+
+SysStats_PsiSample::SysStats_PsiSample() = default;
+SysStats_PsiSample::~SysStats_PsiSample() = default;
+SysStats_PsiSample::SysStats_PsiSample(const SysStats_PsiSample&) = default;
+SysStats_PsiSample& SysStats_PsiSample::operator=(const SysStats_PsiSample&) = default;
+SysStats_PsiSample::SysStats_PsiSample(SysStats_PsiSample&&) noexcept = default;
+SysStats_PsiSample& SysStats_PsiSample::operator=(SysStats_PsiSample&&) = default;
+
+bool SysStats_PsiSample::operator==(const SysStats_PsiSample& other) const {
+  return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
+   && ::protozero::internal::gen_helpers::EqualsField(resource_, other.resource_)
+   && ::protozero::internal::gen_helpers::EqualsField(total_ns_, other.total_ns_);
+}
+
+bool SysStats_PsiSample::ParseFromArray(const void* raw, size_t size) {
+  unknown_fields_.clear();
+  bool packed_error = false;
+
+  ::protozero::ProtoDecoder dec(raw, size);
+  for (auto field = dec.ReadField(); field.valid(); field = dec.ReadField()) {
+    if (field.id() < _has_field_.size()) {
+      _has_field_.set(field.id());
+    }
+    switch (field.id()) {
+      case 1 /* resource */:
+        field.get(&resource_);
+        break;
+      case 2 /* total_ns */:
+        field.get(&total_ns_);
+        break;
+      default:
+        field.SerializeAndAppendTo(&unknown_fields_);
+        break;
+    }
+  }
+  return !packed_error && !dec.bytes_left();
+}
+
+std::string SysStats_PsiSample::SerializeAsString() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsString();
+}
+
+std::vector<uint8_t> SysStats_PsiSample::SerializeAsArray() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsArray();
+}
+
+void SysStats_PsiSample::Serialize(::protozero::Message* msg) const {
+  // Field 1: resource
+  if (_has_field_[1]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(1, resource_, msg);
+  }
+
+  // Field 2: total_ns
+  if (_has_field_[2]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(2, total_ns_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

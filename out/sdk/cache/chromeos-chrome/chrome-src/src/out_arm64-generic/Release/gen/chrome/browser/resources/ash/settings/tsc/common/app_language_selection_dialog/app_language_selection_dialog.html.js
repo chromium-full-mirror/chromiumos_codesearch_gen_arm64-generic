@@ -17,7 +17,7 @@ export function getTemplate() {
       </div>
       <iron-list id="suggestedItemsList" items="[[suggestedLanguages_]]" scroll-target="dialogBody">
         <template>
-          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" tab-index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
+          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
           </app-language-selection-item>
         </template>
       </iron-list>
@@ -28,7 +28,7 @@ export function getTemplate() {
       </div>
       <iron-list id="filteredItemsList" items="[[filteredLanguages_]]" scroll-target="dialog-body">
         <template>
-          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" tab-index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
+          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
           </app-language-selection-item>
         </template>
       </iron-list>

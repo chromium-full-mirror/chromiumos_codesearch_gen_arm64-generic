@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import 'chrome://shopping-insights-side-panel.top-chrome/app.js';
+import { BrowserProxyImpl } from 'chrome://resources/cr_components/commerce/browser_proxy.js';
+import { PageCallbackRouter, PriceInsightsInfo_PriceBucket } from 'chrome://resources/cr_components/commerce/shopping_service.mojom-webui.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { stringToMojoString16 } from 'chrome://resources/js/mojo_type_util.js';
-import { ShoppingServiceApiProxyImpl } from 'chrome://shopping-insights-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
-import { PageCallbackRouter, PriceInsightsInfo_PriceBucket } from 'chrome://shopping-insights-side-panel.top-chrome/shared/shopping_list.mojom-webui.js';
 import { assertEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { fakeMetricsPrivate } from 'chrome://webui-test/metrics_test_support.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
@@ -14,7 +14,7 @@ suite('PriceTrackingSectionTest', () => {
     let priceTrackingSection;
     let callbackRouter;
     let callbackRouterRemote;
-    const shoppingServiceApi = TestMock.fromClass(ShoppingServiceApiProxyImpl);
+    const shoppingServiceApi = TestMock.fromClass(BrowserProxyImpl);
     let metrics;
     const productInfo = {
         title: 'Product Foo',
@@ -73,7 +73,7 @@ suite('PriceTrackingSectionTest', () => {
         shoppingServiceApi.setResultFor('getCallbackRouter', callbackRouter);
         shoppingServiceApi.setResultFor('getParentBookmarkFolderNameForCurrentUrl', Promise.resolve({ name: stringToMojoString16('Parent folder') }));
         callbackRouterRemote = callbackRouter.$.bindNewPipeAndPassRemote();
-        ShoppingServiceApiProxyImpl.setInstance(shoppingServiceApi);
+        BrowserProxyImpl.setInstance(shoppingServiceApi);
         priceTrackingSection = document.createElement('price-tracking-section');
         priceTrackingSection.productInfo = productInfo;
         priceTrackingSection.priceInsightsInfo = priceInsights;
@@ -81,16 +81,14 @@ suite('PriceTrackingSectionTest', () => {
     });
     [true, false].forEach((tracked) => {
         test(`PriceTracking section rendering when tracked is ${tracked}`, async () => {
-            shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: tracked }));
+            priceTrackingSection.isProductTracked = tracked;
             document.body.appendChild(priceTrackingSection);
-            await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
             await flushTasks();
             checkPriceTrackingSectionRendering(tracked);
         });
         test(`Toggle price tracking when tracked is ${tracked}`, async () => {
-            shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: tracked }));
+            priceTrackingSection.isProductTracked = tracked;
             document.body.appendChild(priceTrackingSection);
-            await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
             await flushTasks();
             priceTrackingSection.$.toggle.click();
             const tracking = await shoppingServiceApi.whenCalled('setPriceTrackingStatusForCurrentUrl');
@@ -103,9 +101,8 @@ suite('PriceTrackingSectionTest', () => {
             }
         });
         test(`Ignore unrealted product tracking status change`, async () => {
-            shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: tracked }));
+            priceTrackingSection.isProductTracked = tracked;
             document.body.appendChild(priceTrackingSection);
-            await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
             await flushTasks();
             // Create a unrelated product.
             const otherProductInfo = {
@@ -133,9 +130,8 @@ suite('PriceTrackingSectionTest', () => {
         });
     });
     test(`Observe current product tracking status change`, async () => {
-        shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: false }));
+        priceTrackingSection.isProductTracked = false;
         document.body.appendChild(priceTrackingSection);
-        await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
         await flushTasks();
         callbackRouterRemote.priceTrackedForBookmark(bookmarkProductInfo);
         await flushTasks();
@@ -145,9 +141,8 @@ suite('PriceTrackingSectionTest', () => {
         checkPriceTrackingSectionRendering(false);
     });
     test(`Trigger bookmark editor`, async () => {
-        shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: true }));
+        priceTrackingSection.isProductTracked = true;
         document.body.appendChild(priceTrackingSection);
-        await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
         await flushTasks();
         checkPriceTrackingSectionRendering(true);
         const folder = priceTrackingSection.shadowRoot.querySelector('#toggleAnnotationButton');
@@ -157,9 +152,8 @@ suite('PriceTrackingSectionTest', () => {
             'EditedBookmarkFolderFromPriceInsightsSidePanel'));
     });
     test(`Render error message`, async () => {
-        shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: false }));
+        priceTrackingSection.isProductTracked = false;
         document.body.appendChild(priceTrackingSection);
-        await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
         await flushTasks();
         callbackRouterRemote.operationFailedForBookmark(bookmarkProductInfo, true);
         await flushTasks();
@@ -173,9 +167,8 @@ suite('PriceTrackingSectionTest', () => {
         assertEquals(priceTrackingSection.$.toggle.getAttribute('aria-pressed'), 'true');
     });
     test(`Observe product bookmark move event`, async () => {
-        shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: true }));
+        priceTrackingSection.isProductTracked = true;
         document.body.appendChild(priceTrackingSection);
-        await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
         await flushTasks();
         checkPriceTrackingSectionRendering(true);
         let expectedAnnotation = loadTimeData.getStringF('trackPriceSaveDescription');

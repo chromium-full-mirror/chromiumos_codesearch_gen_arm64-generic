@@ -714,6 +714,8 @@ bool GeolocationInternalsObserverStubDispatch::Accept(
           reinterpret_cast<internal::GeolocationInternalsObserver_OnDiagnosticsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationInternalsObserver.0
       bool success = true;
       GeolocationDiagnosticsPtr p_diagnostics{};
       GeolocationInternalsObserver_OnDiagnosticsChanged_ParamsDataView input_data_view(params, message);
@@ -729,8 +731,8 @@ bool GeolocationInternalsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiagnosticsChanged(
-std::move(p_diagnostics));
+      impl->OnDiagnosticsChanged(        
+        std::move(p_diagnostics));
       return true;
     }
     case internal::kGeolocationInternalsObserver_OnNetworkLocationRequested_Name: {
@@ -740,6 +742,8 @@ std::move(p_diagnostics));
           reinterpret_cast<internal::GeolocationInternalsObserver_OnNetworkLocationRequested_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationInternalsObserver.1
       bool success = true;
       std::vector<AccessPointDataPtr> p_access_point_data{};
       GeolocationInternalsObserver_OnNetworkLocationRequested_ParamsDataView input_data_view(params, message);
@@ -755,8 +759,8 @@ std::move(p_diagnostics));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkLocationRequested(
-std::move(p_access_point_data));
+      impl->OnNetworkLocationRequested(        
+        std::move(p_access_point_data));
       return true;
     }
     case internal::kGeolocationInternalsObserver_OnNetworkLocationReceived_Name: {
@@ -766,6 +770,8 @@ std::move(p_access_point_data));
           reinterpret_cast<internal::GeolocationInternalsObserver_OnNetworkLocationReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationInternalsObserver.2
       bool success = true;
       NetworkLocationResponsePtr p_response{};
       GeolocationInternalsObserver_OnNetworkLocationReceived_ParamsDataView input_data_view(params, message);
@@ -781,8 +787,8 @@ std::move(p_access_point_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkLocationReceived(
-std::move(p_response));
+      impl->OnNetworkLocationReceived(        
+        std::move(p_response));
       return true;
     }
   }
@@ -1005,6 +1011,8 @@ bool GeolocationInternals_AddInternalsObserver_ForwardToCallback::Accept(
           internal::GeolocationInternals_AddInternalsObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GeolocationInternals.0
   bool success = true;
   GeolocationDiagnosticsPtr p_diagnostics{};
   GeolocationInternals_AddInternalsObserver_ResponseParamsDataView input_data_view(params, message);
@@ -1101,6 +1109,8 @@ bool GeolocationInternalsStubDispatch::AcceptWithResponder(
               internal::GeolocationInternals_AddInternalsObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GeolocationInternals.0
       bool success = true;
       ::mojo::PendingRemote<GeolocationInternalsObserver> p_observer{};
       GeolocationInternals_AddInternalsObserver_ParamsDataView input_data_view(params, message);
@@ -1121,8 +1131,8 @@ bool GeolocationInternalsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddInternalsObserver(
-std::move(p_observer), std::move(callback));
+      impl->AddInternalsObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }

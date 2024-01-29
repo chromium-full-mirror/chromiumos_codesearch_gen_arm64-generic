@@ -13,37 +13,37 @@ export var Effect;
 (function (Effect) {
     Effect[Effect["MIN_VALUE"] = 0] = "MIN_VALUE";
     Effect[Effect["MAX_VALUE"] = 1] = "MAX_VALUE";
-    Effect[Effect["NO_EFFECT"] = 0] = "NO_EFFECT";
-    Effect[Effect["PORTRAIT_MODE"] = 1] = "PORTRAIT_MODE";
+    Effect[Effect["kNoEffect"] = 0] = "kNoEffect";
+    Effect[Effect["kPortraitMode"] = 1] = "kPortraitMode";
 })(Effect || (Effect = {}));
 export const StreamTypeSpec = { $: mojo.internal.Enum() };
 export var StreamType;
 (function (StreamType) {
     StreamType[StreamType["MIN_VALUE"] = 0] = "MIN_VALUE";
     StreamType[StreamType["MAX_VALUE"] = 4] = "MAX_VALUE";
-    StreamType[StreamType["PREVIEW_OUTPUT"] = 0] = "PREVIEW_OUTPUT";
-    StreamType[StreamType["JPEG_OUTPUT"] = 1] = "JPEG_OUTPUT";
-    StreamType[StreamType["JPEG_PORTRAIT_OUTPUT"] = 2] = "JPEG_PORTRAIT_OUTPUT";
-    StreamType[StreamType["RECORDIND_OUTPUT"] = 3] = "RECORDIND_OUTPUT";
-    StreamType[StreamType["UNKNOWN"] = 4] = "UNKNOWN";
+    StreamType[StreamType["kPreviewOutput"] = 0] = "kPreviewOutput";
+    StreamType[StreamType["kJpegOutput"] = 1] = "kJpegOutput";
+    StreamType[StreamType["kJpegPortraitOutput"] = 2] = "kJpegPortraitOutput";
+    StreamType[StreamType["kRecordingOutput"] = 3] = "kRecordingOutput";
+    StreamType[StreamType["kUnknown"] = 4] = "kUnknown";
 })(StreamType || (StreamType = {}));
 export const GetCameraAppDeviceStatusSpec = { $: mojo.internal.Enum() };
 export var GetCameraAppDeviceStatus;
 (function (GetCameraAppDeviceStatus) {
     GetCameraAppDeviceStatus[GetCameraAppDeviceStatus["MIN_VALUE"] = 0] = "MIN_VALUE";
     GetCameraAppDeviceStatus[GetCameraAppDeviceStatus["MAX_VALUE"] = 1] = "MAX_VALUE";
-    GetCameraAppDeviceStatus[GetCameraAppDeviceStatus["SUCCESS"] = 0] = "SUCCESS";
-    GetCameraAppDeviceStatus[GetCameraAppDeviceStatus["ERROR_INVALID_ID"] = 1] = "ERROR_INVALID_ID";
+    GetCameraAppDeviceStatus[GetCameraAppDeviceStatus["kSuccess"] = 0] = "kSuccess";
+    GetCameraAppDeviceStatus[GetCameraAppDeviceStatus["kErrorInvalidId"] = 1] = "kErrorInvalidId";
 })(GetCameraAppDeviceStatus || (GetCameraAppDeviceStatus = {}));
 export const CaptureIntentSpec = { $: mojo.internal.Enum() };
 export var CaptureIntent;
 (function (CaptureIntent) {
     CaptureIntent[CaptureIntent["MIN_VALUE"] = 0] = "MIN_VALUE";
     CaptureIntent[CaptureIntent["MAX_VALUE"] = 3] = "MAX_VALUE";
-    CaptureIntent[CaptureIntent["DEFAULT"] = 0] = "DEFAULT";
-    CaptureIntent[CaptureIntent["VIDEO_RECORD"] = 1] = "VIDEO_RECORD";
-    CaptureIntent[CaptureIntent["STILL_CAPTURE"] = 2] = "STILL_CAPTURE";
-    CaptureIntent[CaptureIntent["PORTRAIT_CAPTURE"] = 3] = "PORTRAIT_CAPTURE";
+    CaptureIntent[CaptureIntent["kDefault"] = 0] = "kDefault";
+    CaptureIntent[CaptureIntent["kVideoRecord"] = 1] = "kVideoRecord";
+    CaptureIntent[CaptureIntent["kStillCapture"] = 2] = "kStillCapture";
+    CaptureIntent[CaptureIntent["kPortraitCapture"] = 3] = "kPortraitCapture";
 })(CaptureIntent || (CaptureIntent = {}));
 export class CameraAppDeviceProviderPendingReceiver {
     constructor(handle) {

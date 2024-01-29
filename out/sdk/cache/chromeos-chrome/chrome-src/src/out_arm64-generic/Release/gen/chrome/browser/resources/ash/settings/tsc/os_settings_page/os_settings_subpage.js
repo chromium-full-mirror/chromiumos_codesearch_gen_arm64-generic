@@ -62,9 +62,10 @@ export class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
                 value: '',
             },
             /**
-             * Whether we should hide the "close" button to get to the previous page.
+             * Whether the back button, which goes to the previous page, should be
+             * hidden.
              */
-            hideCloseButton: {
+            hideBackButton: {
                 type: Boolean,
                 value: false,
             },
@@ -151,10 +152,10 @@ export class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
     }
     /** Focuses the back button when page is loaded. */
     focusBackButton() {
-        if (this.hideCloseButton) {
+        if (this.hideBackButton) {
             return;
         }
-        afterNextRender(this, () => focusWithoutInk(this.$.closeButton));
+        afterNextRender(this, () => focusWithoutInk(this.$.backButton));
     }
     currentRouteChanged(newRoute, oldRoute) {
         this.active_ = this.getAttribute('route-path') === newRoute.path;

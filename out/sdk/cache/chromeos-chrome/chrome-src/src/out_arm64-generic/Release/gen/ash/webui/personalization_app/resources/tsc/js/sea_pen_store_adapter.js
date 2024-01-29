@@ -1,9 +1,9 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { setSeaPenStore } from 'chrome://resources/ash/common/sea_pen/sea_pen_store.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { PersonalizationStore } from './personalization_store.js';
-import { setSeaPenStore } from './wallpaper/sea_pen/sea_pen_store.js';
 /**
  * An adapter class that implements all of the public methods/properties of
  * SeaPenStore type. Used to delegate state and events between Personalization

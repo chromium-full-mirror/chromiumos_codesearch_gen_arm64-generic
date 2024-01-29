@@ -10,10 +10,8 @@ import math
 import time
 
 from autotest_lib.client.common_lib import error
-from autotest_lib.client.common_lib.cros import cr50_utils
 from autotest_lib.server import autotest
 from autotest_lib.server.cros.faft.firmware_test import FirmwareTest
-from autotest_lib.server.cros.servo import chrome_ti50
 
 
 class firmware_Cr50DeepSleepStress(FirmwareTest):
@@ -139,8 +137,9 @@ class firmware_Cr50DeepSleepStress(FirmwareTest):
 
         for i in range(suspend_count):
             if not self._dut_is_responsive():
-                raise error.TestFail('Unable to ssh into DUT after %d resets' %
-                                     i)
+                raise error.TestFail(
+                        'Unable to ssh into DUT after %d resets: %s' %
+                        (i, self.gsc.get_debug_ap_state()))
             self.host.run('ls /dev/tpm0')
             # Power off the device
             self.set_ap_off_power_mode('shutdown')
@@ -175,7 +174,8 @@ class firmware_Cr50DeepSleepStress(FirmwareTest):
         @returns an error message
         """
         start_msg = ('' if self._dut_is_responsive() else
-                     'DUT unresponsive after suspend/resume')
+                     'DUT unresponsive after suspend/resume %s' %
+                     self.gsc.get_debug_ap_state())
         logging.info('SSH state afters suspend resume %r', start_msg or 'ok')
         if enable:
             self.gsc.ccd_enable()
@@ -280,8 +280,7 @@ class firmware_Cr50DeepSleepStress(FirmwareTest):
         @returns an error message with the flog difference, if there are new
                  entries.
         """
-        new_flog = cr50_utils.DumpFlog(self.host,
-                                self.gsc.NAME == chrome_ti50.CHIP_NAME).strip()
+        new_flog = self.gsc.get_flog()
         logging.info('New FLOG output:\n%s', new_flog)
         diff = difflib.unified_diff(original_flog.splitlines(),
                                     new_flog.splitlines())
@@ -313,8 +312,7 @@ class firmware_Cr50DeepSleepStress(FirmwareTest):
                                     'or "reboot"')
         if not suspend_count:
             raise error.TestFail('Need to provide non-zero suspend_count')
-        original_flog = cr50_utils.DumpFlog(self.host,
-                                self.gsc.NAME == chrome_ti50.CHIP_NAME).strip()
+        original_flog = self.gsc.get_flog()
         logging.debug('Initial FLOG output:\n%s', original_flog)
 
         suspend_type = reset_type

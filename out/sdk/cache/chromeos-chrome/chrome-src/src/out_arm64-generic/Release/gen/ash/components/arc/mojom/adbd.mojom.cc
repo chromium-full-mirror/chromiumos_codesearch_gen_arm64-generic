@@ -201,6 +201,8 @@ bool AdbdMonitorHostStubDispatch::Accept(
           reinterpret_cast<internal::AdbdMonitorHost_AdbdStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdbdMonitorHost.0
       bool success = true;
       AdbdMonitorHost_AdbdStarted_ParamsDataView input_data_view(params, message);
       
@@ -213,7 +215,7 @@ bool AdbdMonitorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdbdStarted();
+      impl->AdbdStarted(        );
       return true;
     }
     case internal::kAdbdMonitorHost_AdbdStopped_Name: {
@@ -223,6 +225,8 @@ bool AdbdMonitorHostStubDispatch::Accept(
           reinterpret_cast<internal::AdbdMonitorHost_AdbdStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AdbdMonitorHost.1
       bool success = true;
       AdbdMonitorHost_AdbdStopped_ParamsDataView input_data_view(params, message);
       
@@ -235,7 +239,7 @@ bool AdbdMonitorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdbdStopped();
+      impl->AdbdStopped(        );
       return true;
     }
   }
@@ -453,6 +457,8 @@ bool AdbdMonitorInstance_Init_ForwardToCallback::Accept(
           internal::AdbdMonitorInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AdbdMonitorInstance.0
   bool success = true;
   AdbdMonitorInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -531,6 +537,8 @@ bool AdbdMonitorInstanceStubDispatch::AcceptWithResponder(
               internal::AdbdMonitorInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AdbdMonitorInstance.0
       bool success = true;
       ::mojo::PendingRemote<AdbdMonitorHost> p_host_remote{};
       AdbdMonitorInstance_Init_ParamsDataView input_data_view(params, message);
@@ -551,8 +559,8 @@ bool AdbdMonitorInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

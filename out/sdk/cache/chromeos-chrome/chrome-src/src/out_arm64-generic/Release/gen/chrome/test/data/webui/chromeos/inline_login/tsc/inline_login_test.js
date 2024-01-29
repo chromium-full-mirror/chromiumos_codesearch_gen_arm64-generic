@@ -57,12 +57,6 @@ suite('InlineLoginTest', () => {
         assertEquals(fakeAuthenticationData.authMode, testAuthenticator.authMode);
         webUIListenerCallback('close-dialog');
         assertEquals(1, testBrowserProxy.getCallCount('dialogClose'));
-        const fakeLstFetchResults = '{result: "fakeLstFetchResults"}';
-        webUIListenerCallback('send-lst-fetch-results', fakeLstFetchResults);
-        assertEquals(1, testBrowserProxy.getCallCount('lstFetchResults'));
-        return testBrowserProxy.whenCalled('lstFetchResults').then(args => {
-            assertEquals(fakeLstFetchResults, args);
-        });
     });
     test('AuthenticatorCallbacks', async () => {
         const fakeUrl = 'www.google.com/fake';

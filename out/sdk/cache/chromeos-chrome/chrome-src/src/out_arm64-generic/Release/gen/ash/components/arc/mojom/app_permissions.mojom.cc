@@ -328,6 +328,8 @@ bool AppPermissionsInstanceStubDispatch::Accept(
           reinterpret_cast<internal::AppPermissionsInstance_GrantPermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsInstance.0
       bool success = true;
       std::string p_package_name{};
       AppPermission p_permission{};
@@ -346,9 +348,9 @@ bool AppPermissionsInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GrantPermission(
-std::move(p_package_name), 
-std::move(p_permission));
+      impl->GrantPermission(        
+        std::move(p_package_name), 
+        std::move(p_permission));
       return true;
     }
     case internal::kAppPermissionsInstance_RevokePermission_Name: {
@@ -358,6 +360,8 @@ std::move(p_permission));
           reinterpret_cast<internal::AppPermissionsInstance_RevokePermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppPermissionsInstance.1
       bool success = true;
       std::string p_package_name{};
       AppPermission p_permission{};
@@ -376,9 +380,9 @@ std::move(p_permission));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RevokePermission(
-std::move(p_package_name), 
-std::move(p_permission));
+      impl->RevokePermission(        
+        std::move(p_package_name), 
+        std::move(p_permission));
       return true;
     }
   }

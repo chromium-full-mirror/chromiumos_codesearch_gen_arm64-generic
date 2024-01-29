@@ -315,6 +315,8 @@ bool FederatedServiceStubDispatch::Accept(
           reinterpret_cast<internal::FederatedService_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FederatedService.0
       bool success = true;
       ::mojo::PendingReceiver<FederatedService> p_receiver{};
       FederatedService_Clone_ParamsDataView input_data_view(params, message);
@@ -332,8 +334,8 @@ bool FederatedServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kFederatedService_ReportExample_Name: {
@@ -343,6 +345,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::FederatedService_ReportExample_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FederatedService.1
       bool success = true;
       std::string p_client_name{};
       ::chromeos::federated::mojom::ExamplePtr p_example{};
@@ -361,9 +365,9 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportExample(
-std::move(p_client_name), 
-std::move(p_example));
+      impl->ReportExample(        
+        std::move(p_client_name), 
+        std::move(p_example));
       return true;
     }
     case internal::kFederatedService_StartScheduling_Name: {
@@ -373,6 +377,8 @@ std::move(p_example));
           reinterpret_cast<internal::FederatedService_StartScheduling_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FederatedService.2
       bool success = true;
       std::optional<base::flat_map<std::string, std::string>> p_client_launch_stage{};
       FederatedService_StartScheduling_ParamsDataView input_data_view(params, message);
@@ -388,8 +394,8 @@ std::move(p_example));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartScheduling(
-std::move(p_client_launch_stage));
+      impl->StartScheduling(        
+        std::move(p_client_launch_stage));
       return true;
     }
   }

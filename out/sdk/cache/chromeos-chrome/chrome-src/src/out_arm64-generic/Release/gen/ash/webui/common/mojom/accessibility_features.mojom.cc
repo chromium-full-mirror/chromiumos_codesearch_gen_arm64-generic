@@ -156,6 +156,8 @@ bool ForceHiddenElementsVisibleObserverStubDispatch::Accept(
           reinterpret_cast<internal::ForceHiddenElementsVisibleObserver_OnForceHiddenElementsVisibleChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ForceHiddenElementsVisibleObserver.0
       bool success = true;
       bool p_forceVisible{};
       ForceHiddenElementsVisibleObserver_OnForceHiddenElementsVisibleChange_ParamsDataView input_data_view(params, message);
@@ -171,8 +173,8 @@ bool ForceHiddenElementsVisibleObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnForceHiddenElementsVisibleChange(
-std::move(p_forceVisible));
+      impl->OnForceHiddenElementsVisibleChange(        
+        std::move(p_forceVisible));
       return true;
     }
   }
@@ -385,6 +387,8 @@ bool AccessibilityFeatures_ObserveForceHiddenElementsVisible_ForwardToCallback::
           internal::AccessibilityFeatures_ObserveForceHiddenElementsVisible_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityFeatures.0
   bool success = true;
   bool p_forceVisible{};
   AccessibilityFeatures_ObserveForceHiddenElementsVisible_ResponseParamsDataView input_data_view(params, message);
@@ -475,6 +479,8 @@ bool AccessibilityFeaturesStubDispatch::AcceptWithResponder(
               internal::AccessibilityFeatures_ObserveForceHiddenElementsVisible_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityFeatures.0
       bool success = true;
       ::mojo::PendingRemote<ForceHiddenElementsVisibleObserver> p_observer{};
       AccessibilityFeatures_ObserveForceHiddenElementsVisible_ParamsDataView input_data_view(params, message);
@@ -495,8 +501,8 @@ bool AccessibilityFeaturesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveForceHiddenElementsVisible(
-std::move(p_observer), std::move(callback));
+      impl->ObserveForceHiddenElementsVisible(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }

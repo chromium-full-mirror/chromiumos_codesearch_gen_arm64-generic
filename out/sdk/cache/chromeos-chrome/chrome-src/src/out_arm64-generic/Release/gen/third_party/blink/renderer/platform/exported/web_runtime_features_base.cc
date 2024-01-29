@@ -145,13 +145,13 @@ bool WebRuntimeFeaturesBase::IsAttributionReportingEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableAutoDisableAccessibilityV2(bool enable) {
-  RuntimeEnabledFeatures::SetAutoDisableAccessibilityV2Enabled(enable);
+void WebRuntimeFeaturesBase::EnableAttributionReportingCrossAppWeb(bool enable) {
+  RuntimeEnabledFeatures::SetAttributionReportingCrossAppWebEnabled(enable);
 }
 
 // static
-bool WebRuntimeFeaturesBase::IsAutoDisableAccessibilityV2Enabled() {
-  return RuntimeEnabledFeatures::AutoDisableAccessibilityV2Enabled();
+bool WebRuntimeFeaturesBase::IsAttributionReportingCrossAppWebEnabled() {
+  return RuntimeEnabledFeatures::AttributionReportingCrossAppWebEnabledByRuntimeFlag();
 }
 
 // static
@@ -535,6 +535,16 @@ bool WebRuntimeFeaturesBase::IsFledgeEnabled() {
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableFledgeFeatureDetection(bool enable) {
+  RuntimeEnabledFeatures::SetFledgeFeatureDetectionEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsFledgeFeatureDetectionEnabled() {
+  return RuntimeEnabledFeatures::FledgeFeatureDetectionEnabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableForcedColors(bool enable) {
   RuntimeEnabledFeatures::SetForcedColorsEnabled(enable);
 }
@@ -622,6 +632,16 @@ void WebRuntimeFeaturesBase::EnableLazyLoadScrollMargin(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsLazyLoadScrollMarginEnabled() {
   return RuntimeEnabledFeatures::LazyLoadScrollMarginEnabled();
+}
+
+// static
+void WebRuntimeFeaturesBase::EnableLockedMode(bool enable) {
+  RuntimeEnabledFeatures::SetLockedModeEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsLockedModeEnabled() {
+  return RuntimeEnabledFeatures::LockedModeEnabled();
 }
 
 // static
@@ -1302,6 +1322,16 @@ void WebRuntimeFeaturesBase::EnableWebGPUDeveloperFeatures(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsWebGPUDeveloperFeaturesEnabled() {
   return RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled();
+}
+
+// static
+void WebRuntimeFeaturesBase::EnableWebGPUExperimentalFeatures(bool enable) {
+  RuntimeEnabledFeatures::SetWebGPUExperimentalFeaturesEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsWebGPUExperimentalFeaturesEnabled() {
+  return RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled();
 }
 
 // static

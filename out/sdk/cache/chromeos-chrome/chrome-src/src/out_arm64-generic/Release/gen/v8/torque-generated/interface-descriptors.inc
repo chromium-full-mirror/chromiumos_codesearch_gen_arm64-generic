@@ -1267,7 +1267,7 @@ class StringFastLocaleCompareDescriptor : public StaticCallInterfaceDescriptor<S
 
 class JSToWasmHandleReturnsDescriptor : public StaticCallInterfaceDescriptor<JSToWasmHandleReturnsDescriptor> {
  public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kInstance, kResultArray, kWrapperBuffer)
+  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kTrustedData, kResultArray, kWrapperBuffer)
   DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::TaggedPointer(), MachineType::TaggedPointer(), MachineTypeOf<RawPtrT>::value)
   DECLARE_DEFAULT_DESCRIPTOR(JSToWasmHandleReturnsDescriptor)
 };
@@ -1345,28 +1345,35 @@ class WasmTableGrowDescriptor : public StaticCallInterfaceDescriptor<WasmTableGr
 class WasmTableGetDescriptor : public StaticCallInterfaceDescriptor<WasmTableGetDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kTableIndex, kIndex)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Int32T>::value)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Uint32T>::value)
   DECLARE_DEFAULT_DESCRIPTOR(WasmTableGetDescriptor)
 };
 
 class WasmTableSetDescriptor : public StaticCallInterfaceDescriptor<WasmTableSetDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kTableIndex, kIndex, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Int32T>::value, MachineType::AnyTagged())
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Uint32T>::value, MachineType::AnyTagged())
   DECLARE_DEFAULT_DESCRIPTOR(WasmTableSetDescriptor)
 };
 
 class WasmTableGetFuncRefDescriptor : public StaticCallInterfaceDescriptor<WasmTableGetFuncRefDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kTableIndex, kIndex)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Int32T>::value)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Uint32T>::value)
   DECLARE_DEFAULT_DESCRIPTOR(WasmTableGetFuncRefDescriptor)
+};
+
+class WasmFunctionTableGetDescriptor : public StaticCallInterfaceDescriptor<WasmFunctionTableGetDescriptor> {
+ public:
+  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kTableIndex, kIndex)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Int32T>::value)
+  DECLARE_DEFAULT_DESCRIPTOR(WasmFunctionTableGetDescriptor)
 };
 
 class WasmTableSetFuncRefDescriptor : public StaticCallInterfaceDescriptor<WasmTableSetFuncRefDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kTableIndex, kIndex, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Int32T>::value, MachineType::AnyTagged())
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineTypeOf<IntPtrT>::value, MachineTypeOf<Uint32T>::value, MachineType::AnyTagged())
   DECLARE_DEFAULT_DESCRIPTOR(WasmTableSetFuncRefDescriptor)
 };
 

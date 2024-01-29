@@ -64,6 +64,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_RecordClick_Name: {
       return &PageHandler::RecordClick_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_RecordDisabled_Name: {
+      return &PageHandler::RecordDisabled_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_RecordLayoutTypeShown_Name: {
       return &PageHandler::RecordLayoutTypeShown_Sym::IPCStableHash;
     }
@@ -91,6 +94,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive ntp::history_clusters_v2::mojom::PageHandler::ShowJourneysSidePanel";
       case internal::kPageHandler_RecordClick_Name:
             return "Receive ntp::history_clusters_v2::mojom::PageHandler::RecordClick";
+      case internal::kPageHandler_RecordDisabled_Name:
+            return "Receive ntp::history_clusters_v2::mojom::PageHandler::RecordDisabled";
       case internal::kPageHandler_RecordLayoutTypeShown_Name:
             return "Receive ntp::history_clusters_v2::mojom::PageHandler::RecordLayoutTypeShown";
       case internal::kPageHandler_UpdateClusterVisitsInteractionState_Name:
@@ -108,6 +113,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ntp::history_clusters_v2::mojom::PageHandler::ShowJourneysSidePanel";
       case internal::kPageHandler_RecordClick_Name:
             return "Receive reply ntp::history_clusters_v2::mojom::PageHandler::RecordClick";
+      case internal::kPageHandler_RecordDisabled_Name:
+            return "Receive reply ntp::history_clusters_v2::mojom::PageHandler::RecordDisabled";
       case internal::kPageHandler_RecordLayoutTypeShown_Name:
             return "Receive reply ntp::history_clusters_v2::mojom::PageHandler::RecordLayoutTypeShown";
       case internal::kPageHandler_UpdateClusterVisitsInteractionState_Name:
@@ -187,6 +194,19 @@ uint32_t PageHandler::RecordClick_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ntp::history_clusters_v2::mojom::PageHandler::RecordClick");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::RecordDisabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ntp::history_clusters_v2::mojom::PageHandler::RecordDisabled");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -501,6 +521,47 @@ void PageHandlerProxy::RecordClick(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageHandlerProxy::RecordDisabled(
+    int64_t in_cluster_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ntp::history_clusters_v2::mojom::PageHandler::RecordDisabled", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("cluster_id"), in_cluster_id,
+                        "<value of type int64_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_RecordDisabled_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ntp::history_clusters_v2::mojom::internal::PageHandler_RecordDisabled_Params_Data> params(
+          message);
+  params.Allocate();
+  params->cluster_id = in_cluster_id;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("RecordDisabled");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void PageHandlerProxy::RecordLayoutTypeShown(
     ::ntp::history_clusters::mojom::LayoutType in_layout_type, int64_t in_cluster_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -548,12 +609,15 @@ void PageHandlerProxy::RecordLayoutTypeShown(
 }
 
 void PageHandlerProxy::UpdateClusterVisitsInteractionState(
-    std::vector<::history_clusters::mojom::URLVisitPtr> in_visits, ::history_clusters::mojom::InteractionState in_state) {
+    int64_t in_cluster_id, std::vector<::history_clusters::mojom::URLVisitPtr> in_visits, ::history_clusters::mojom::InteractionState in_state) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ntp::history_clusters_v2::mojom::PageHandler::UpdateClusterVisitsInteractionState", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("cluster_id"), in_cluster_id,
+                        "<value of type int64_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("visits"), in_visits,
                         "<value of type std::vector<::history_clusters::mojom::URLVisitPtr>>");
@@ -580,6 +644,7 @@ void PageHandlerProxy::UpdateClusterVisitsInteractionState(
       ::ntp::history_clusters_v2::mojom::internal::PageHandler_UpdateClusterVisitsInteractionState_Params_Data> params(
           message);
   params.Allocate();
+  params->cluster_id = in_cluster_id;
   mojo::internal::MessageFragment<
       typename decltype(params->visits)::BaseType>
       visits_fragment(params.message());
@@ -662,6 +727,8 @@ bool PageHandler_GetClusters_ForwardToCallback::Accept(
           internal::PageHandler_GetClusters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::vector<::history_clusters::mojom::ClusterPtr> p_clusters{};
   PageHandler_GetClusters_ResponseParamsDataView input_data_view(params, message);
@@ -793,6 +860,8 @@ bool PageHandler_GetCartForCluster_ForwardToCallback::Accept(
           internal::PageHandler_GetCartForCluster_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   ::ntp::history_clusters::cart::mojom::CartPtr p_cart{};
   PageHandler_GetCartForCluster_ResponseParamsDataView input_data_view(params, message);
@@ -918,6 +987,8 @@ bool PageHandler_GetDiscountsForCluster_ForwardToCallback::Accept(
           internal::PageHandler_GetDiscountsForCluster_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   base::flat_map<::GURL, std::vector<::ntp::history_clusters::discount::mojom::DiscountPtr>> p_discounts{};
   PageHandler_GetDiscountsForCluster_ResponseParamsDataView input_data_view(params, message);
@@ -1013,6 +1084,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ShowJourneysSidePanel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       std::string p_query{};
       PageHandler_ShowJourneysSidePanel_ParamsDataView input_data_view(params, message);
@@ -1028,8 +1101,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowJourneysSidePanel(
-std::move(p_query));
+      impl->ShowJourneysSidePanel(        
+        std::move(p_query));
       return true;
     }
     case internal::kPageHandler_RecordClick_Name: {
@@ -1039,6 +1112,8 @@ std::move(p_query));
           reinterpret_cast<internal::PageHandler_RecordClick_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       int64_t p_cluster_id{};
       PageHandler_RecordClick_ParamsDataView input_data_view(params, message);
@@ -1054,8 +1129,36 @@ std::move(p_query));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordClick(
-std::move(p_cluster_id));
+      impl->RecordClick(        
+        std::move(p_cluster_id));
+      return true;
+    }
+    case internal::kPageHandler_RecordDisabled_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_RecordDisabled_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_RecordDisabled_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for PageHandler.5
+      bool success = true;
+      int64_t p_cluster_id{};
+      PageHandler_RecordDisabled_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_cluster_id = input_data_view.cluster_id();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RecordDisabled(        
+        std::move(p_cluster_id));
       return true;
     }
     case internal::kPageHandler_RecordLayoutTypeShown_Name: {
@@ -1065,6 +1168,8 @@ std::move(p_cluster_id));
           reinterpret_cast<internal::PageHandler_RecordLayoutTypeShown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       ::ntp::history_clusters::mojom::LayoutType p_layout_type{};
       int64_t p_cluster_id{};
@@ -1078,14 +1183,14 @@ std::move(p_cluster_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 5, false);
+            PageHandler::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordLayoutTypeShown(
-std::move(p_layout_type), 
-std::move(p_cluster_id));
+      impl->RecordLayoutTypeShown(        
+        std::move(p_layout_type), 
+        std::move(p_cluster_id));
       return true;
     }
     case internal::kPageHandler_UpdateClusterVisitsInteractionState_Name: {
@@ -1095,11 +1200,16 @@ std::move(p_cluster_id));
           reinterpret_cast<internal::PageHandler_UpdateClusterVisitsInteractionState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
+      int64_t p_cluster_id{};
       std::vector<::history_clusters::mojom::URLVisitPtr> p_visits{};
       ::history_clusters::mojom::InteractionState p_state{};
       PageHandler_UpdateClusterVisitsInteractionState_ParamsDataView input_data_view(params, message);
       
+      if (success)
+        p_cluster_id = input_data_view.cluster_id();
       if (success && !input_data_view.ReadVisits(&p_visits))
         success = false;
       if (success && !input_data_view.ReadState(&p_state))
@@ -1108,14 +1218,15 @@ std::move(p_cluster_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 6, false);
+            PageHandler::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateClusterVisitsInteractionState(
-std::move(p_visits), 
-std::move(p_state));
+      impl->UpdateClusterVisitsInteractionState(        
+        std::move(p_cluster_id), 
+        std::move(p_visits), 
+        std::move(p_state));
       return true;
     }
   }
@@ -1138,6 +1249,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetClusters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetClusters_ParamsDataView input_data_view(params, message);
       
@@ -1163,6 +1276,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetCartForCluster_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       ::history_clusters::mojom::ClusterPtr p_cluster{};
       PageHandler_GetCartForCluster_ParamsDataView input_data_view(params, message);
@@ -1181,8 +1296,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCartForCluster(
-std::move(p_cluster), std::move(callback));
+      impl->GetCartForCluster(        
+        std::move(p_cluster), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetDiscountsForCluster_Name: {
@@ -1192,6 +1307,8 @@ std::move(p_cluster), std::move(callback));
               internal::PageHandler_GetDiscountsForCluster_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ::history_clusters::mojom::ClusterPtr p_cluster{};
       PageHandler_GetDiscountsForCluster_ParamsDataView input_data_view(params, message);
@@ -1210,14 +1327,17 @@ std::move(p_cluster), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDiscountsForCluster(
-std::move(p_cluster), std::move(callback));
+      impl->GetDiscountsForCluster(        
+        std::move(p_cluster), std::move(callback));
       return true;
     }
     case internal::kPageHandler_ShowJourneysSidePanel_Name: {
       break;
     }
     case internal::kPageHandler_RecordClick_Name: {
+      break;
+    }
+    case internal::kPageHandler_RecordDisabled_Name: {
       break;
     }
     case internal::kPageHandler_RecordLayoutTypeShown_Name: {
@@ -1241,6 +1361,8 @@ static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] 
     { &internal::PageHandler_ShowJourneysSidePanel_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::PageHandler_RecordClick_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_RecordDisabled_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::PageHandler_RecordLayoutTypeShown_Params_Data::Validate,
      nullptr /* no response */},
@@ -1289,11 +1411,14 @@ void PageHandlerInterceptorForTesting::ShowJourneysSidePanel(const std::string& 
 void PageHandlerInterceptorForTesting::RecordClick(int64_t cluster_id) {
   GetForwardingInterface()->RecordClick(std::move(cluster_id));
 }
+void PageHandlerInterceptorForTesting::RecordDisabled(int64_t cluster_id) {
+  GetForwardingInterface()->RecordDisabled(std::move(cluster_id));
+}
 void PageHandlerInterceptorForTesting::RecordLayoutTypeShown(::ntp::history_clusters::mojom::LayoutType layout_type, int64_t cluster_id) {
   GetForwardingInterface()->RecordLayoutTypeShown(std::move(layout_type), std::move(cluster_id));
 }
-void PageHandlerInterceptorForTesting::UpdateClusterVisitsInteractionState(std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) {
-  GetForwardingInterface()->UpdateClusterVisitsInteractionState(std::move(visits), std::move(state));
+void PageHandlerInterceptorForTesting::UpdateClusterVisitsInteractionState(int64_t cluster_id, std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) {
+  GetForwardingInterface()->UpdateClusterVisitsInteractionState(std::move(cluster_id), std::move(visits), std::move(state));
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}

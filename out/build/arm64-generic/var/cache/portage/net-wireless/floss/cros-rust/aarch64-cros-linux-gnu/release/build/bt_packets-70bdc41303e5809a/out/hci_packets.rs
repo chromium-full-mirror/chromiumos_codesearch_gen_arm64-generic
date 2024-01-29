@@ -1352,6 +1352,7 @@ pub enum OpCode {
     ControllerDebugInfo = 0xfd5b,
     ControllerA2dpOpcode = 0xfd5d,
     ControllerBqr = 0xfd5e,
+    DynamicAudioBuffer = 0xfd5f,
     MsftOpcodeMediatek = 0xfd30,
     MsftOpcodeQualcomm = 0xfd70,
 }
@@ -1689,6 +1690,7 @@ impl TryFrom<u16> for OpCode {
             0xfd5b => Ok(OpCode::ControllerDebugInfo),
             0xfd5d => Ok(OpCode::ControllerA2dpOpcode),
             0xfd5e => Ok(OpCode::ControllerBqr),
+            0xfd5f => Ok(OpCode::DynamicAudioBuffer),
             0xfd30 => Ok(OpCode::MsftOpcodeMediatek),
             0xfd70 => Ok(OpCode::MsftOpcodeQualcomm),
             _ => Err(value),
@@ -2028,6 +2030,7 @@ impl From<&OpCode> for u16 {
             OpCode::ControllerDebugInfo => 0xfd5b,
             OpCode::ControllerA2dpOpcode => 0xfd5d,
             OpCode::ControllerBqr => 0xfd5e,
+            OpCode::DynamicAudioBuffer => 0xfd5f,
             OpCode::MsftOpcodeMediatek => 0xfd30,
             OpCode::MsftOpcodeQualcomm => 0xfd70,
         }
@@ -3603,7 +3606,8 @@ impl CommandData {
             | OpCode::LeEnergyInfo
             | OpCode::ControllerDebugInfo
             | OpCode::ControllerA2dpOpcode
-            | OpCode::ControllerBqr) if VendorCommandData::conforms(&payload) => {
+            | OpCode::ControllerBqr
+            | OpCode::DynamicAudioBuffer) if VendorCommandData::conforms(&payload) => {
                 let mut cell = Cell::new(payload);
                 let child_data = VendorCommandData::parse_inner(&mut cell, op_code)?;
                 CommandDataChild::VendorCommand(child_data)
@@ -11158,6 +11162,7 @@ pub enum VendorCommandDataChild {
     ControllerDebugInfo(ControllerDebugInfoData),
     ControllerA2DPOpcode(ControllerA2DPOpcodeData),
     ControllerBqr(ControllerBqrData),
+    DynamicAudioBuffer(DynamicAudioBufferData),
     Payload(Bytes),
     None,
 }
@@ -11171,6 +11176,7 @@ impl VendorCommandDataChild {
             VendorCommandDataChild::ControllerDebugInfo(value) => value.get_total_size(),
             VendorCommandDataChild::ControllerA2DPOpcode(value) => value.get_total_size(),
             VendorCommandDataChild::ControllerBqr(value) => value.get_total_size(),
+            VendorCommandDataChild::DynamicAudioBuffer(value) => value.get_total_size(),
             VendorCommandDataChild::Payload(bytes) => bytes.len(),
             VendorCommandDataChild::None => 0,
         }
@@ -11184,6 +11190,7 @@ pub enum VendorCommandChild {
     ControllerDebugInfo(ControllerDebugInfo),
     ControllerA2DPOpcode(ControllerA2DPOpcode),
     ControllerBqr(ControllerBqr),
+    DynamicAudioBuffer(DynamicAudioBuffer),
     Payload(Bytes),
     None,
 }
@@ -11250,6 +11257,13 @@ impl VendorCommandData {
                 let child_data = ControllerBqrData::parse_inner(&mut cell)?;
                 VendorCommandDataChild::ControllerBqr(child_data)
             }
+            (OpCode::DynamicAudioBuffer) if DynamicAudioBufferData::conforms(
+                &payload,
+            ) => {
+                let mut cell = Cell::new(payload);
+                let child_data = DynamicAudioBufferData::parse_inner(&mut cell)?;
+                VendorCommandDataChild::DynamicAudioBuffer(child_data)
+            }
             _ if !payload.is_empty() => {
                 VendorCommandDataChild::Payload(Bytes::copy_from_slice(payload))
             }
@@ -11266,6 +11280,7 @@ impl VendorCommandData {
             VendorCommandDataChild::ControllerDebugInfo(child) => child.write_to(buffer),
             VendorCommandDataChild::ControllerA2DPOpcode(child) => child.write_to(buffer),
             VendorCommandDataChild::ControllerBqr(child) => child.write_to(buffer),
+            VendorCommandDataChild::DynamicAudioBuffer(child) => child.write_to(buffer),
             VendorCommandDataChild::Payload(payload) => buffer.put_slice(payload),
             VendorCommandDataChild::None => {}
         }
@@ -11343,6 +11358,11 @@ impl VendorCommand {
             VendorCommandDataChild::ControllerBqr(_) => {
                 VendorCommandChild::ControllerBqr(
                     ControllerBqr::new(self.command.clone()).unwrap(),
+                )
+            }
+            VendorCommandDataChild::DynamicAudioBuffer(_) => {
+                VendorCommandChild::DynamicAudioBuffer(
+                    DynamicAudioBuffer::new(self.command.clone()).unwrap(),
                 )
             }
             VendorCommandDataChild::Payload(payload) => {
@@ -13582,6 +13602,7 @@ pub enum CommandCompleteDataChild {
     ControllerDebugInfoComplete(ControllerDebugInfoCompleteData),
     ControllerA2DPOpcodeComplete(ControllerA2DPOpcodeCompleteData),
     ControllerBqrComplete(ControllerBqrCompleteData),
+    DynamicAudioBufferComplete(DynamicAudioBufferCompleteData),
     MsftCommandComplete(MsftCommandCompleteData),
     Payload(Bytes),
     None,
@@ -14251,6 +14272,9 @@ impl CommandCompleteDataChild {
             CommandCompleteDataChild::ControllerBqrComplete(value) => {
                 value.get_total_size()
             }
+            CommandCompleteDataChild::DynamicAudioBufferComplete(value) => {
+                value.get_total_size()
+            }
             CommandCompleteDataChild::MsftCommandComplete(value) => {
                 value.get_total_size()
             }
@@ -14538,6 +14562,7 @@ pub enum CommandCompleteChild {
     ControllerDebugInfoComplete(ControllerDebugInfoComplete),
     ControllerA2DPOpcodeComplete(ControllerA2DPOpcodeComplete),
     ControllerBqrComplete(ControllerBqrComplete),
+    DynamicAudioBufferComplete(DynamicAudioBufferComplete),
     MsftCommandComplete(MsftCommandComplete),
     Payload(Bytes),
     None,
@@ -16603,6 +16628,13 @@ impl CommandCompleteData {
                 let child_data = ControllerBqrCompleteData::parse_inner(&mut cell)?;
                 CommandCompleteDataChild::ControllerBqrComplete(child_data)
             }
+            (OpCode::DynamicAudioBuffer) if DynamicAudioBufferCompleteData::conforms(
+                &payload,
+            ) => {
+                let mut cell = Cell::new(payload);
+                let child_data = DynamicAudioBufferCompleteData::parse_inner(&mut cell)?;
+                CommandCompleteDataChild::DynamicAudioBufferComplete(child_data)
+            }
             _ if !payload.is_empty() => {
                 CommandCompleteDataChild::Payload(Bytes::copy_from_slice(payload))
             }
@@ -17278,6 +17310,9 @@ impl CommandCompleteData {
                 child.write_to(buffer)
             }
             CommandCompleteDataChild::ControllerBqrComplete(child) => {
+                child.write_to(buffer)
+            }
+            CommandCompleteDataChild::DynamicAudioBufferComplete(child) => {
                 child.write_to(buffer)
             }
             CommandCompleteDataChild::MsftCommandComplete(child) => {
@@ -18595,6 +18630,11 @@ impl CommandComplete {
             CommandCompleteDataChild::ControllerBqrComplete(_) => {
                 CommandCompleteChild::ControllerBqrComplete(
                     ControllerBqrComplete::new(self.event.clone()).unwrap(),
+                )
+            }
+            CommandCompleteDataChild::DynamicAudioBufferComplete(_) => {
+                CommandCompleteChild::DynamicAudioBufferComplete(
+                    DynamicAudioBufferComplete::new(self.event.clone()).unwrap(),
                 )
             }
             CommandCompleteDataChild::MsftCommandComplete(_) => {
@@ -140748,9 +140788,35 @@ for LeGetVendorCapabilitiesComplete096 {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum LeGetVendorCapabilitiesComplete098DataChild {
+    LeGetVendorCapabilitiesComplete103(LeGetVendorCapabilitiesComplete103Data),
+    Payload(Bytes),
+    None,
+}
+impl LeGetVendorCapabilitiesComplete098DataChild {
+    fn get_total_size(&self) -> usize {
+        match self {
+            LeGetVendorCapabilitiesComplete098DataChild::LeGetVendorCapabilitiesComplete103(
+                value,
+            ) => value.get_total_size(),
+            LeGetVendorCapabilitiesComplete098DataChild::Payload(bytes) => bytes.len(),
+            LeGetVendorCapabilitiesComplete098DataChild::None => 0,
+        }
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum LeGetVendorCapabilitiesComplete098Child {
+    LeGetVendorCapabilitiesComplete103(LeGetVendorCapabilitiesComplete103),
+    Payload(Bytes),
+    None,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct LeGetVendorCapabilitiesComplete098Data {
     a2dp_source_offload_capability_mask: u32,
     bluetooth_quality_report_support: u8,
+    child: LeGetVendorCapabilitiesComplete098DataChild,
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -140781,6 +140847,7 @@ pub struct LeGetVendorCapabilitiesComplete098Builder {
     pub status: ErrorCode,
     pub total_num_of_advt_tracked: u16,
     pub version_supported: u16,
+    pub payload: Option<Bytes>,
 }
 impl LeGetVendorCapabilitiesComplete098Data {
     fn conforms(bytes: &[u8]) -> bool {
@@ -140808,20 +140875,40 @@ impl LeGetVendorCapabilitiesComplete098Data {
             });
         }
         let bluetooth_quality_report_support = bytes.get_mut().get_u8();
+        let payload = bytes.get();
+        bytes.get_mut().advance(payload.len());
+        let child = match () {
+            _ if !payload.is_empty() => {
+                LeGetVendorCapabilitiesComplete098DataChild::Payload(
+                    Bytes::copy_from_slice(payload),
+                )
+            }
+            _ => LeGetVendorCapabilitiesComplete098DataChild::None,
+        };
         Ok(Self {
             a2dp_source_offload_capability_mask,
             bluetooth_quality_report_support,
+            child,
         })
     }
     fn write_to(&self, buffer: &mut BytesMut) {
         buffer.put_u32_le(self.a2dp_source_offload_capability_mask);
         buffer.put_u8(self.bluetooth_quality_report_support);
+        match &self.child {
+            LeGetVendorCapabilitiesComplete098DataChild::LeGetVendorCapabilitiesComplete103(
+                child,
+            ) => child.write_to(buffer),
+            LeGetVendorCapabilitiesComplete098DataChild::Payload(payload) => {
+                buffer.put_slice(payload)
+            }
+            LeGetVendorCapabilitiesComplete098DataChild::None => {}
+        }
     }
     fn get_total_size(&self) -> usize {
         self.get_size()
     }
     fn get_size(&self) -> usize {
-        5
+        5 + self.child.get_total_size()
     }
 }
 impl Packet for LeGetVendorCapabilitiesComplete098 {
@@ -140890,6 +140977,23 @@ impl LeGetVendorCapabilitiesComplete098 {
     fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
         let data = EventData::parse_inner(&mut bytes)?;
         Self::new(data)
+    }
+    pub fn specialize(&self) -> LeGetVendorCapabilitiesComplete098Child {
+        match &self.legetvendorcapabilitiescomplete098.child {
+            LeGetVendorCapabilitiesComplete098DataChild::LeGetVendorCapabilitiesComplete103(
+                _,
+            ) => {
+                LeGetVendorCapabilitiesComplete098Child::LeGetVendorCapabilitiesComplete103(
+                    LeGetVendorCapabilitiesComplete103::new(self.event.clone()).unwrap(),
+                )
+            }
+            LeGetVendorCapabilitiesComplete098DataChild::Payload(payload) => {
+                LeGetVendorCapabilitiesComplete098Child::Payload(payload.clone())
+            }
+            LeGetVendorCapabilitiesComplete098DataChild::None => {
+                LeGetVendorCapabilitiesComplete098Child::None
+            }
+        }
     }
     fn new(event: EventData) -> Result<Self> {
         let commandcomplete = match &event.child {
@@ -141017,6 +141121,12 @@ impl LeGetVendorCapabilitiesComplete098Builder {
             a2dp_source_offload_capability_mask: self
                 .a2dp_source_offload_capability_mask,
             bluetooth_quality_report_support: self.bluetooth_quality_report_support,
+            child: match self.payload {
+                None => LeGetVendorCapabilitiesComplete098DataChild::None,
+                Some(bytes) => {
+                    LeGetVendorCapabilitiesComplete098DataChild::Payload(bytes)
+                }
+            },
         };
         let legetvendorcapabilitiescomplete096 = LeGetVendorCapabilitiesComplete096Data {
             le_address_generation_offloading_support: self
@@ -141094,6 +141204,450 @@ for LeGetVendorCapabilitiesComplete098 {
     fn from(
         builder: LeGetVendorCapabilitiesComplete098Builder,
     ) -> LeGetVendorCapabilitiesComplete098 {
+        builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum LeGetVendorCapabilitiesComplete103DataChild {
+    Payload(Bytes),
+    None,
+}
+impl LeGetVendorCapabilitiesComplete103DataChild {
+    fn get_total_size(&self) -> usize {
+        match self {
+            LeGetVendorCapabilitiesComplete103DataChild::Payload(bytes) => bytes.len(),
+            LeGetVendorCapabilitiesComplete103DataChild::None => 0,
+        }
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum LeGetVendorCapabilitiesComplete103Child {
+    Payload(Bytes),
+    None,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeGetVendorCapabilitiesComplete103Data {
+    dynamic_audio_buffer_support: u32,
+    child: LeGetVendorCapabilitiesComplete103DataChild,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeGetVendorCapabilitiesComplete103 {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    event: EventData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    commandcomplete: CommandCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    legetvendorcapabilitiescomplete: LeGetVendorCapabilitiesCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    legetvendorcapabilitiescomplete095: LeGetVendorCapabilitiesComplete095Data,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    legetvendorcapabilitiescomplete096: LeGetVendorCapabilitiesComplete096Data,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    legetvendorcapabilitiescomplete098: LeGetVendorCapabilitiesComplete098Data,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    legetvendorcapabilitiescomplete103: LeGetVendorCapabilitiesComplete103Data,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeGetVendorCapabilitiesComplete103Builder {
+    pub a2dp_source_offload_capability_mask: u32,
+    pub base_vendor_capabilities: BaseVendorCapabilities,
+    pub bluetooth_quality_report_support: u8,
+    pub debug_logging_supported: u8,
+    pub dynamic_audio_buffer_support: u32,
+    pub extended_scan_support: u8,
+    pub le_address_generation_offloading_support: u8,
+    pub num_hci_command_packets: u8,
+    pub status: ErrorCode,
+    pub total_num_of_advt_tracked: u16,
+    pub version_supported: u16,
+    pub payload: Option<Bytes>,
+}
+impl LeGetVendorCapabilitiesComplete103Data {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 4
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 4 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeGetVendorCapabilitiesComplete103".to_string(),
+                wanted: 4,
+                got: bytes.get().remaining(),
+            });
+        }
+        let dynamic_audio_buffer_support = bytes.get_mut().get_u32_le();
+        let payload = bytes.get();
+        bytes.get_mut().advance(payload.len());
+        let child = match () {
+            _ if !payload.is_empty() => {
+                LeGetVendorCapabilitiesComplete103DataChild::Payload(
+                    Bytes::copy_from_slice(payload),
+                )
+            }
+            _ => LeGetVendorCapabilitiesComplete103DataChild::None,
+        };
+        Ok(Self {
+            dynamic_audio_buffer_support,
+            child,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u32_le(self.dynamic_audio_buffer_support);
+        match &self.child {
+            LeGetVendorCapabilitiesComplete103DataChild::Payload(payload) => {
+                buffer.put_slice(payload)
+            }
+            LeGetVendorCapabilitiesComplete103DataChild::None => {}
+        }
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        4 + self.child.get_total_size()
+    }
+}
+impl Packet for LeGetVendorCapabilitiesComplete103 {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.event.get_size());
+        self.event.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for Bytes {
+    fn from(packet: LeGetVendorCapabilitiesComplete103) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for Vec<u8> {
+    fn from(packet: LeGetVendorCapabilitiesComplete103) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for Event {
+    fn from(packet: LeGetVendorCapabilitiesComplete103) -> Event {
+        Event::new(packet.event).unwrap()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for CommandComplete {
+    fn from(packet: LeGetVendorCapabilitiesComplete103) -> CommandComplete {
+        CommandComplete::new(packet.event).unwrap()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for LeGetVendorCapabilitiesComplete {
+    fn from(
+        packet: LeGetVendorCapabilitiesComplete103,
+    ) -> LeGetVendorCapabilitiesComplete {
+        LeGetVendorCapabilitiesComplete::new(packet.event).unwrap()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for LeGetVendorCapabilitiesComplete095 {
+    fn from(
+        packet: LeGetVendorCapabilitiesComplete103,
+    ) -> LeGetVendorCapabilitiesComplete095 {
+        LeGetVendorCapabilitiesComplete095::new(packet.event).unwrap()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for LeGetVendorCapabilitiesComplete096 {
+    fn from(
+        packet: LeGetVendorCapabilitiesComplete103,
+    ) -> LeGetVendorCapabilitiesComplete096 {
+        LeGetVendorCapabilitiesComplete096::new(packet.event).unwrap()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103> for LeGetVendorCapabilitiesComplete098 {
+    fn from(
+        packet: LeGetVendorCapabilitiesComplete103,
+    ) -> LeGetVendorCapabilitiesComplete098 {
+        LeGetVendorCapabilitiesComplete098::new(packet.event).unwrap()
+    }
+}
+impl TryFrom<Event> for LeGetVendorCapabilitiesComplete103 {
+    type Error = Error;
+    fn try_from(packet: Event) -> Result<LeGetVendorCapabilitiesComplete103> {
+        LeGetVendorCapabilitiesComplete103::new(packet.event)
+    }
+}
+impl LeGetVendorCapabilitiesComplete103 {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = EventData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    pub fn specialize(&self) -> LeGetVendorCapabilitiesComplete103Child {
+        match &self.legetvendorcapabilitiescomplete103.child {
+            LeGetVendorCapabilitiesComplete103DataChild::Payload(payload) => {
+                LeGetVendorCapabilitiesComplete103Child::Payload(payload.clone())
+            }
+            LeGetVendorCapabilitiesComplete103DataChild::None => {
+                LeGetVendorCapabilitiesComplete103Child::None
+            }
+        }
+    }
+    fn new(event: EventData) -> Result<Self> {
+        let commandcomplete = match &event.child {
+            EventDataChild::CommandComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(EventDataChild::CommandComplete),
+                    actual: format!("{:?}", & event.child),
+                });
+            }
+        };
+        let legetvendorcapabilitiescomplete = match &commandcomplete.child {
+            CommandCompleteDataChild::LeGetVendorCapabilitiesComplete(value) => {
+                value.clone()
+            }
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        CommandCompleteDataChild::LeGetVendorCapabilitiesComplete
+                    ),
+                    actual: format!("{:?}", & commandcomplete.child),
+                });
+            }
+        };
+        let legetvendorcapabilitiescomplete095 = match &legetvendorcapabilitiescomplete
+            .child
+        {
+            LeGetVendorCapabilitiesCompleteDataChild::LeGetVendorCapabilitiesComplete095(
+                value,
+            ) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        LeGetVendorCapabilitiesCompleteDataChild::LeGetVendorCapabilitiesComplete095
+                    ),
+                    actual: format!("{:?}", & legetvendorcapabilitiescomplete.child),
+                });
+            }
+        };
+        let legetvendorcapabilitiescomplete096 = match &legetvendorcapabilitiescomplete095
+            .child
+        {
+            LeGetVendorCapabilitiesComplete095DataChild::LeGetVendorCapabilitiesComplete096(
+                value,
+            ) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        LeGetVendorCapabilitiesComplete095DataChild::LeGetVendorCapabilitiesComplete096
+                    ),
+                    actual: format!("{:?}", & legetvendorcapabilitiescomplete095.child),
+                });
+            }
+        };
+        let legetvendorcapabilitiescomplete098 = match &legetvendorcapabilitiescomplete096
+            .child
+        {
+            LeGetVendorCapabilitiesComplete096DataChild::LeGetVendorCapabilitiesComplete098(
+                value,
+            ) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        LeGetVendorCapabilitiesComplete096DataChild::LeGetVendorCapabilitiesComplete098
+                    ),
+                    actual: format!("{:?}", & legetvendorcapabilitiescomplete096.child),
+                });
+            }
+        };
+        let legetvendorcapabilitiescomplete103 = match &legetvendorcapabilitiescomplete098
+            .child
+        {
+            LeGetVendorCapabilitiesComplete098DataChild::LeGetVendorCapabilitiesComplete103(
+                value,
+            ) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        LeGetVendorCapabilitiesComplete098DataChild::LeGetVendorCapabilitiesComplete103
+                    ),
+                    actual: format!("{:?}", & legetvendorcapabilitiescomplete098.child),
+                });
+            }
+        };
+        Ok(Self {
+            event,
+            commandcomplete,
+            legetvendorcapabilitiescomplete,
+            legetvendorcapabilitiescomplete095,
+            legetvendorcapabilitiescomplete096,
+            legetvendorcapabilitiescomplete098,
+            legetvendorcapabilitiescomplete103,
+        })
+    }
+    pub fn get_a2dp_source_offload_capability_mask(&self) -> u32 {
+        self.legetvendorcapabilitiescomplete098.a2dp_source_offload_capability_mask
+    }
+    pub fn get_base_vendor_capabilities(&self) -> &BaseVendorCapabilities {
+        &self.legetvendorcapabilitiescomplete.base_vendor_capabilities
+    }
+    pub fn get_bluetooth_quality_report_support(&self) -> u8 {
+        self.legetvendorcapabilitiescomplete098.bluetooth_quality_report_support
+    }
+    pub fn get_command_op_code(&self) -> OpCode {
+        self.commandcomplete.command_op_code
+    }
+    pub fn get_debug_logging_supported(&self) -> u8 {
+        self.legetvendorcapabilitiescomplete095.debug_logging_supported
+    }
+    pub fn get_dynamic_audio_buffer_support(&self) -> u32 {
+        self.legetvendorcapabilitiescomplete103.dynamic_audio_buffer_support
+    }
+    pub fn get_event_code(&self) -> EventCode {
+        self.event.event_code
+    }
+    pub fn get_extended_scan_support(&self) -> u8 {
+        self.legetvendorcapabilitiescomplete095.extended_scan_support
+    }
+    pub fn get_le_address_generation_offloading_support(&self) -> u8 {
+        self.legetvendorcapabilitiescomplete096.le_address_generation_offloading_support
+    }
+    pub fn get_num_hci_command_packets(&self) -> u8 {
+        self.commandcomplete.num_hci_command_packets
+    }
+    pub fn get_status(&self) -> ErrorCode {
+        self.legetvendorcapabilitiescomplete.status
+    }
+    pub fn get_total_num_of_advt_tracked(&self) -> u16 {
+        self.legetvendorcapabilitiescomplete095.total_num_of_advt_tracked
+    }
+    pub fn get_version_supported(&self) -> u16 {
+        self.legetvendorcapabilitiescomplete095.version_supported
+    }
+    pub fn get_payload(&self) -> &[u8] {
+        match &self.legetvendorcapabilitiescomplete103.child {
+            LeGetVendorCapabilitiesComplete103DataChild::Payload(bytes) => &bytes,
+            LeGetVendorCapabilitiesComplete103DataChild::None => &[],
+        }
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.legetvendorcapabilitiescomplete103.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.event.get_size()
+    }
+}
+impl LeGetVendorCapabilitiesComplete103Builder {
+    pub fn build(self) -> LeGetVendorCapabilitiesComplete103 {
+        let legetvendorcapabilitiescomplete103 = LeGetVendorCapabilitiesComplete103Data {
+            dynamic_audio_buffer_support: self.dynamic_audio_buffer_support,
+            child: match self.payload {
+                None => LeGetVendorCapabilitiesComplete103DataChild::None,
+                Some(bytes) => {
+                    LeGetVendorCapabilitiesComplete103DataChild::Payload(bytes)
+                }
+            },
+        };
+        let legetvendorcapabilitiescomplete098 = LeGetVendorCapabilitiesComplete098Data {
+            a2dp_source_offload_capability_mask: self
+                .a2dp_source_offload_capability_mask,
+            bluetooth_quality_report_support: self.bluetooth_quality_report_support,
+            child: LeGetVendorCapabilitiesComplete098DataChild::LeGetVendorCapabilitiesComplete103(
+                legetvendorcapabilitiescomplete103,
+            ),
+        };
+        let legetvendorcapabilitiescomplete096 = LeGetVendorCapabilitiesComplete096Data {
+            le_address_generation_offloading_support: self
+                .le_address_generation_offloading_support,
+            child: LeGetVendorCapabilitiesComplete096DataChild::LeGetVendorCapabilitiesComplete098(
+                legetvendorcapabilitiescomplete098,
+            ),
+        };
+        let legetvendorcapabilitiescomplete095 = LeGetVendorCapabilitiesComplete095Data {
+            debug_logging_supported: self.debug_logging_supported,
+            extended_scan_support: self.extended_scan_support,
+            total_num_of_advt_tracked: self.total_num_of_advt_tracked,
+            version_supported: self.version_supported,
+            child: LeGetVendorCapabilitiesComplete095DataChild::LeGetVendorCapabilitiesComplete096(
+                legetvendorcapabilitiescomplete096,
+            ),
+        };
+        let legetvendorcapabilitiescomplete = LeGetVendorCapabilitiesCompleteData {
+            base_vendor_capabilities: self.base_vendor_capabilities,
+            status: self.status,
+            child: LeGetVendorCapabilitiesCompleteDataChild::LeGetVendorCapabilitiesComplete095(
+                legetvendorcapabilitiescomplete095,
+            ),
+        };
+        let commandcomplete = CommandCompleteData {
+            command_op_code: OpCode::LeGetVendorCapabilities,
+            num_hci_command_packets: self.num_hci_command_packets,
+            child: CommandCompleteDataChild::LeGetVendorCapabilitiesComplete(
+                legetvendorcapabilitiescomplete,
+            ),
+        };
+        let event = EventData {
+            event_code: EventCode::CommandComplete,
+            child: EventDataChild::CommandComplete(commandcomplete),
+        };
+        LeGetVendorCapabilitiesComplete103::new(event).unwrap()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder> for Event {
+    fn from(builder: LeGetVendorCapabilitiesComplete103Builder) -> Event {
+        builder.build().into()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder> for CommandComplete {
+    fn from(builder: LeGetVendorCapabilitiesComplete103Builder) -> CommandComplete {
+        builder.build().into()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder>
+for LeGetVendorCapabilitiesComplete {
+    fn from(
+        builder: LeGetVendorCapabilitiesComplete103Builder,
+    ) -> LeGetVendorCapabilitiesComplete {
+        builder.build().into()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder>
+for LeGetVendorCapabilitiesComplete095 {
+    fn from(
+        builder: LeGetVendorCapabilitiesComplete103Builder,
+    ) -> LeGetVendorCapabilitiesComplete095 {
+        builder.build().into()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder>
+for LeGetVendorCapabilitiesComplete096 {
+    fn from(
+        builder: LeGetVendorCapabilitiesComplete103Builder,
+    ) -> LeGetVendorCapabilitiesComplete096 {
+        builder.build().into()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder>
+for LeGetVendorCapabilitiesComplete098 {
+    fn from(
+        builder: LeGetVendorCapabilitiesComplete103Builder,
+    ) -> LeGetVendorCapabilitiesComplete098 {
+        builder.build().into()
+    }
+}
+impl From<LeGetVendorCapabilitiesComplete103Builder>
+for LeGetVendorCapabilitiesComplete103 {
+    fn from(
+        builder: LeGetVendorCapabilitiesComplete103Builder,
+    ) -> LeGetVendorCapabilitiesComplete103 {
         builder.build().into()
     }
 }
@@ -158042,6 +158596,1545 @@ impl From<ControllerBqrCompleteBuilder> for ControllerBqrComplete {
         builder.build().into()
     }
 }
+#[repr(u64)]
+#[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(try_from = "u8", into = "u8"))]
+pub enum DabCommand {
+    GetAudioBufferTimeCapability = 0x1,
+    SetAudioBufferTime = 0x2,
+}
+impl TryFrom<u8> for DabCommand {
+    type Error = u8;
+    fn try_from(value: u8) -> std::result::Result<Self, Self::Error> {
+        match value {
+            0x1 => Ok(DabCommand::GetAudioBufferTimeCapability),
+            0x2 => Ok(DabCommand::SetAudioBufferTime),
+            _ => Err(value),
+        }
+    }
+}
+impl From<&DabCommand> for u8 {
+    fn from(value: &DabCommand) -> Self {
+        match value {
+            DabCommand::GetAudioBufferTimeCapability => 0x1,
+            DabCommand::SetAudioBufferTime => 0x2,
+        }
+    }
+}
+impl From<DabCommand> for u8 {
+    fn from(value: DabCommand) -> Self {
+        (&value).into()
+    }
+}
+impl From<DabCommand> for i16 {
+    fn from(value: DabCommand) -> Self {
+        u8::from(value) as Self
+    }
+}
+impl From<DabCommand> for i32 {
+    fn from(value: DabCommand) -> Self {
+        u8::from(value) as Self
+    }
+}
+impl From<DabCommand> for i64 {
+    fn from(value: DabCommand) -> Self {
+        u8::from(value) as Self
+    }
+}
+impl From<DabCommand> for u16 {
+    fn from(value: DabCommand) -> Self {
+        u8::from(value) as Self
+    }
+}
+impl From<DabCommand> for u32 {
+    fn from(value: DabCommand) -> Self {
+        u8::from(value) as Self
+    }
+}
+impl From<DabCommand> for u64 {
+    fn from(value: DabCommand) -> Self {
+        u8::from(value) as Self
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum DynamicAudioBufferDataChild {
+    DabGetAudioBufferTimeCapability(DabGetAudioBufferTimeCapabilityData),
+    DabSetAudioBufferTime(DabSetAudioBufferTimeData),
+    Payload(Bytes),
+    None,
+}
+impl DynamicAudioBufferDataChild {
+    fn get_total_size(&self) -> usize {
+        match self {
+            DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability(value) => {
+                value.get_total_size()
+            }
+            DynamicAudioBufferDataChild::DabSetAudioBufferTime(value) => {
+                value.get_total_size()
+            }
+            DynamicAudioBufferDataChild::Payload(bytes) => bytes.len(),
+            DynamicAudioBufferDataChild::None => 0,
+        }
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum DynamicAudioBufferChild {
+    DabGetAudioBufferTimeCapability(DabGetAudioBufferTimeCapability),
+    DabSetAudioBufferTime(DabSetAudioBufferTime),
+    Payload(Bytes),
+    None,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBufferData {
+    dab_command: DabCommand,
+    child: DynamicAudioBufferDataChild,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBuffer {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    command: CommandData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    vendorcommand: VendorCommandData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dynamicaudiobuffer: DynamicAudioBufferData,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBufferBuilder {
+    pub dab_command: DabCommand,
+    pub payload: Option<Bytes>,
+}
+impl DynamicAudioBufferData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 1
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "DynamicAudioBuffer".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let dab_command = DabCommand::try_from(bytes.get_mut().get_u8())
+            .map_err(|unknown_val| Error::InvalidEnumValueError {
+                obj: "DynamicAudioBuffer".to_string(),
+                field: "dab_command".to_string(),
+                value: unknown_val as u64,
+                type_: "DabCommand".to_string(),
+            })?;
+        let payload = bytes.get();
+        bytes.get_mut().advance(payload.len());
+        let child = match (dab_command) {
+            (DabCommand::GetAudioBufferTimeCapability) if DabGetAudioBufferTimeCapabilityData::conforms(
+                &payload,
+            ) => {
+                let mut cell = Cell::new(payload);
+                let child_data = DabGetAudioBufferTimeCapabilityData::parse_inner(
+                    &mut cell,
+                )?;
+                DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability(child_data)
+            }
+            (DabCommand::SetAudioBufferTime) if DabSetAudioBufferTimeData::conforms(
+                &payload,
+            ) => {
+                let mut cell = Cell::new(payload);
+                let child_data = DabSetAudioBufferTimeData::parse_inner(&mut cell)?;
+                DynamicAudioBufferDataChild::DabSetAudioBufferTime(child_data)
+            }
+            _ if !payload.is_empty() => {
+                DynamicAudioBufferDataChild::Payload(Bytes::copy_from_slice(payload))
+            }
+            _ => DynamicAudioBufferDataChild::None,
+        };
+        Ok(Self { dab_command, child })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u8(u8::from(self.dab_command));
+        match &self.child {
+            DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability(child) => {
+                child.write_to(buffer)
+            }
+            DynamicAudioBufferDataChild::DabSetAudioBufferTime(child) => {
+                child.write_to(buffer)
+            }
+            DynamicAudioBufferDataChild::Payload(payload) => buffer.put_slice(payload),
+            DynamicAudioBufferDataChild::None => {}
+        }
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        1 + self.child.get_total_size()
+    }
+}
+impl Packet for DynamicAudioBuffer {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.command.get_size());
+        self.command.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<DynamicAudioBuffer> for Bytes {
+    fn from(packet: DynamicAudioBuffer) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<DynamicAudioBuffer> for Vec<u8> {
+    fn from(packet: DynamicAudioBuffer) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<DynamicAudioBuffer> for Command {
+    fn from(packet: DynamicAudioBuffer) -> Command {
+        Command::new(packet.command).unwrap()
+    }
+}
+impl From<DynamicAudioBuffer> for VendorCommand {
+    fn from(packet: DynamicAudioBuffer) -> VendorCommand {
+        VendorCommand::new(packet.command).unwrap()
+    }
+}
+impl TryFrom<Command> for DynamicAudioBuffer {
+    type Error = Error;
+    fn try_from(packet: Command) -> Result<DynamicAudioBuffer> {
+        DynamicAudioBuffer::new(packet.command)
+    }
+}
+impl DynamicAudioBuffer {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = CommandData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    pub fn specialize(&self) -> DynamicAudioBufferChild {
+        match &self.dynamicaudiobuffer.child {
+            DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability(_) => {
+                DynamicAudioBufferChild::DabGetAudioBufferTimeCapability(
+                    DabGetAudioBufferTimeCapability::new(self.command.clone()).unwrap(),
+                )
+            }
+            DynamicAudioBufferDataChild::DabSetAudioBufferTime(_) => {
+                DynamicAudioBufferChild::DabSetAudioBufferTime(
+                    DabSetAudioBufferTime::new(self.command.clone()).unwrap(),
+                )
+            }
+            DynamicAudioBufferDataChild::Payload(payload) => {
+                DynamicAudioBufferChild::Payload(payload.clone())
+            }
+            DynamicAudioBufferDataChild::None => DynamicAudioBufferChild::None,
+        }
+    }
+    fn new(command: CommandData) -> Result<Self> {
+        let vendorcommand = match &command.child {
+            CommandDataChild::VendorCommand(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(CommandDataChild::VendorCommand),
+                    actual: format!("{:?}", & command.child),
+                });
+            }
+        };
+        let dynamicaudiobuffer = match &vendorcommand.child {
+            VendorCommandDataChild::DynamicAudioBuffer(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(VendorCommandDataChild::DynamicAudioBuffer),
+                    actual: format!("{:?}", & vendorcommand.child),
+                });
+            }
+        };
+        Ok(Self {
+            command,
+            vendorcommand,
+            dynamicaudiobuffer,
+        })
+    }
+    pub fn get_dab_command(&self) -> DabCommand {
+        self.dynamicaudiobuffer.dab_command
+    }
+    pub fn get_op_code(&self) -> OpCode {
+        self.command.op_code
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.dynamicaudiobuffer.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.command.get_size()
+    }
+}
+impl DynamicAudioBufferBuilder {
+    pub fn build(self) -> DynamicAudioBuffer {
+        let dynamicaudiobuffer = DynamicAudioBufferData {
+            dab_command: self.dab_command,
+            child: match self.payload {
+                None => DynamicAudioBufferDataChild::None,
+                Some(bytes) => DynamicAudioBufferDataChild::Payload(bytes),
+            },
+        };
+        let vendorcommand = VendorCommandData {
+            child: VendorCommandDataChild::DynamicAudioBuffer(dynamicaudiobuffer),
+        };
+        let command = CommandData {
+            op_code: OpCode::DynamicAudioBuffer,
+            child: CommandDataChild::VendorCommand(vendorcommand),
+        };
+        DynamicAudioBuffer::new(command).unwrap()
+    }
+}
+impl From<DynamicAudioBufferBuilder> for Command {
+    fn from(builder: DynamicAudioBufferBuilder) -> Command {
+        builder.build().into()
+    }
+}
+impl From<DynamicAudioBufferBuilder> for VendorCommand {
+    fn from(builder: DynamicAudioBufferBuilder) -> VendorCommand {
+        builder.build().into()
+    }
+}
+impl From<DynamicAudioBufferBuilder> for DynamicAudioBuffer {
+    fn from(builder: DynamicAudioBufferBuilder) -> DynamicAudioBuffer {
+        builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum DynamicAudioBufferCompleteDataChild {
+    DabGetAudioBufferTimeCapabilityComplete(DabGetAudioBufferTimeCapabilityCompleteData),
+    DabSetAudioBufferTimeComplete(DabSetAudioBufferTimeCompleteData),
+    Payload(Bytes),
+    None,
+}
+impl DynamicAudioBufferCompleteDataChild {
+    fn get_total_size(&self) -> usize {
+        match self {
+            DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete(
+                value,
+            ) => value.get_total_size(),
+            DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete(value) => {
+                value.get_total_size()
+            }
+            DynamicAudioBufferCompleteDataChild::Payload(bytes) => bytes.len(),
+            DynamicAudioBufferCompleteDataChild::None => 0,
+        }
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum DynamicAudioBufferCompleteChild {
+    DabGetAudioBufferTimeCapabilityComplete(DabGetAudioBufferTimeCapabilityComplete),
+    DabSetAudioBufferTimeComplete(DabSetAudioBufferTimeComplete),
+    Payload(Bytes),
+    None,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBufferCompleteData {
+    status: ErrorCode,
+    dab_command: DabCommand,
+    child: DynamicAudioBufferCompleteDataChild,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBufferComplete {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    event: EventData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    commandcomplete: CommandCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dynamicaudiobuffercomplete: DynamicAudioBufferCompleteData,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBufferCompleteBuilder {
+    pub dab_command: DabCommand,
+    pub num_hci_command_packets: u8,
+    pub status: ErrorCode,
+    pub payload: Option<Bytes>,
+}
+impl DynamicAudioBufferCompleteData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 2
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "DynamicAudioBufferComplete".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let status = ErrorCode::try_from(bytes.get_mut().get_u8())
+            .map_err(|unknown_val| Error::InvalidEnumValueError {
+                obj: "DynamicAudioBufferComplete".to_string(),
+                field: "status".to_string(),
+                value: unknown_val as u64,
+                type_: "ErrorCode".to_string(),
+            })?;
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "DynamicAudioBufferComplete".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let dab_command = DabCommand::try_from(bytes.get_mut().get_u8())
+            .map_err(|unknown_val| Error::InvalidEnumValueError {
+                obj: "DynamicAudioBufferComplete".to_string(),
+                field: "dab_command".to_string(),
+                value: unknown_val as u64,
+                type_: "DabCommand".to_string(),
+            })?;
+        let payload = bytes.get();
+        bytes.get_mut().advance(payload.len());
+        let child = match (dab_command) {
+            (DabCommand::GetAudioBufferTimeCapability) if DabGetAudioBufferTimeCapabilityCompleteData::conforms(
+                &payload,
+            ) => {
+                let mut cell = Cell::new(payload);
+                let child_data = DabGetAudioBufferTimeCapabilityCompleteData::parse_inner(
+                    &mut cell,
+                )?;
+                DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete(
+                    child_data,
+                )
+            }
+            (DabCommand::SetAudioBufferTime) if DabSetAudioBufferTimeCompleteData::conforms(
+                &payload,
+            ) => {
+                let mut cell = Cell::new(payload);
+                let child_data = DabSetAudioBufferTimeCompleteData::parse_inner(
+                    &mut cell,
+                )?;
+                DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete(
+                    child_data,
+                )
+            }
+            _ if !payload.is_empty() => {
+                DynamicAudioBufferCompleteDataChild::Payload(
+                    Bytes::copy_from_slice(payload),
+                )
+            }
+            _ => DynamicAudioBufferCompleteDataChild::None,
+        };
+        Ok(Self { status, dab_command, child })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u8(u8::from(self.status));
+        buffer.put_u8(u8::from(self.dab_command));
+        match &self.child {
+            DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete(
+                child,
+            ) => child.write_to(buffer),
+            DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete(child) => {
+                child.write_to(buffer)
+            }
+            DynamicAudioBufferCompleteDataChild::Payload(payload) => {
+                buffer.put_slice(payload)
+            }
+            DynamicAudioBufferCompleteDataChild::None => {}
+        }
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        2 + self.child.get_total_size()
+    }
+}
+impl Packet for DynamicAudioBufferComplete {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.event.get_size());
+        self.event.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<DynamicAudioBufferComplete> for Bytes {
+    fn from(packet: DynamicAudioBufferComplete) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<DynamicAudioBufferComplete> for Vec<u8> {
+    fn from(packet: DynamicAudioBufferComplete) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<DynamicAudioBufferComplete> for Event {
+    fn from(packet: DynamicAudioBufferComplete) -> Event {
+        Event::new(packet.event).unwrap()
+    }
+}
+impl From<DynamicAudioBufferComplete> for CommandComplete {
+    fn from(packet: DynamicAudioBufferComplete) -> CommandComplete {
+        CommandComplete::new(packet.event).unwrap()
+    }
+}
+impl TryFrom<Event> for DynamicAudioBufferComplete {
+    type Error = Error;
+    fn try_from(packet: Event) -> Result<DynamicAudioBufferComplete> {
+        DynamicAudioBufferComplete::new(packet.event)
+    }
+}
+impl DynamicAudioBufferComplete {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = EventData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    pub fn specialize(&self) -> DynamicAudioBufferCompleteChild {
+        match &self.dynamicaudiobuffercomplete.child {
+            DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete(
+                _,
+            ) => {
+                DynamicAudioBufferCompleteChild::DabGetAudioBufferTimeCapabilityComplete(
+                    DabGetAudioBufferTimeCapabilityComplete::new(self.event.clone())
+                        .unwrap(),
+                )
+            }
+            DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete(_) => {
+                DynamicAudioBufferCompleteChild::DabSetAudioBufferTimeComplete(
+                    DabSetAudioBufferTimeComplete::new(self.event.clone()).unwrap(),
+                )
+            }
+            DynamicAudioBufferCompleteDataChild::Payload(payload) => {
+                DynamicAudioBufferCompleteChild::Payload(payload.clone())
+            }
+            DynamicAudioBufferCompleteDataChild::None => {
+                DynamicAudioBufferCompleteChild::None
+            }
+        }
+    }
+    fn new(event: EventData) -> Result<Self> {
+        let commandcomplete = match &event.child {
+            EventDataChild::CommandComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(EventDataChild::CommandComplete),
+                    actual: format!("{:?}", & event.child),
+                });
+            }
+        };
+        let dynamicaudiobuffercomplete = match &commandcomplete.child {
+            CommandCompleteDataChild::DynamicAudioBufferComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        CommandCompleteDataChild::DynamicAudioBufferComplete
+                    ),
+                    actual: format!("{:?}", & commandcomplete.child),
+                });
+            }
+        };
+        Ok(Self {
+            event,
+            commandcomplete,
+            dynamicaudiobuffercomplete,
+        })
+    }
+    pub fn get_command_op_code(&self) -> OpCode {
+        self.commandcomplete.command_op_code
+    }
+    pub fn get_dab_command(&self) -> DabCommand {
+        self.dynamicaudiobuffercomplete.dab_command
+    }
+    pub fn get_event_code(&self) -> EventCode {
+        self.event.event_code
+    }
+    pub fn get_num_hci_command_packets(&self) -> u8 {
+        self.commandcomplete.num_hci_command_packets
+    }
+    pub fn get_status(&self) -> ErrorCode {
+        self.dynamicaudiobuffercomplete.status
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.dynamicaudiobuffercomplete.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.event.get_size()
+    }
+}
+impl DynamicAudioBufferCompleteBuilder {
+    pub fn build(self) -> DynamicAudioBufferComplete {
+        let dynamicaudiobuffercomplete = DynamicAudioBufferCompleteData {
+            dab_command: self.dab_command,
+            status: self.status,
+            child: match self.payload {
+                None => DynamicAudioBufferCompleteDataChild::None,
+                Some(bytes) => DynamicAudioBufferCompleteDataChild::Payload(bytes),
+            },
+        };
+        let commandcomplete = CommandCompleteData {
+            command_op_code: OpCode::DynamicAudioBuffer,
+            num_hci_command_packets: self.num_hci_command_packets,
+            child: CommandCompleteDataChild::DynamicAudioBufferComplete(
+                dynamicaudiobuffercomplete,
+            ),
+        };
+        let event = EventData {
+            event_code: EventCode::CommandComplete,
+            child: EventDataChild::CommandComplete(commandcomplete),
+        };
+        DynamicAudioBufferComplete::new(event).unwrap()
+    }
+}
+impl From<DynamicAudioBufferCompleteBuilder> for Event {
+    fn from(builder: DynamicAudioBufferCompleteBuilder) -> Event {
+        builder.build().into()
+    }
+}
+impl From<DynamicAudioBufferCompleteBuilder> for CommandComplete {
+    fn from(builder: DynamicAudioBufferCompleteBuilder) -> CommandComplete {
+        builder.build().into()
+    }
+}
+impl From<DynamicAudioBufferCompleteBuilder> for DynamicAudioBufferComplete {
+    fn from(builder: DynamicAudioBufferCompleteBuilder) -> DynamicAudioBufferComplete {
+        builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabGetAudioBufferTimeCapabilityData {}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabGetAudioBufferTimeCapability {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    command: CommandData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    vendorcommand: VendorCommandData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dynamicaudiobuffer: DynamicAudioBufferData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dabgetaudiobuffertimecapability: DabGetAudioBufferTimeCapabilityData,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabGetAudioBufferTimeCapabilityBuilder {}
+impl DabGetAudioBufferTimeCapabilityData {
+    fn conforms(bytes: &[u8]) -> bool {
+        true
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        Ok(Self {})
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {}
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        0
+    }
+}
+impl Packet for DabGetAudioBufferTimeCapability {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.command.get_size());
+        self.command.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<DabGetAudioBufferTimeCapability> for Bytes {
+    fn from(packet: DabGetAudioBufferTimeCapability) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<DabGetAudioBufferTimeCapability> for Vec<u8> {
+    fn from(packet: DabGetAudioBufferTimeCapability) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<DabGetAudioBufferTimeCapability> for Command {
+    fn from(packet: DabGetAudioBufferTimeCapability) -> Command {
+        Command::new(packet.command).unwrap()
+    }
+}
+impl From<DabGetAudioBufferTimeCapability> for VendorCommand {
+    fn from(packet: DabGetAudioBufferTimeCapability) -> VendorCommand {
+        VendorCommand::new(packet.command).unwrap()
+    }
+}
+impl From<DabGetAudioBufferTimeCapability> for DynamicAudioBuffer {
+    fn from(packet: DabGetAudioBufferTimeCapability) -> DynamicAudioBuffer {
+        DynamicAudioBuffer::new(packet.command).unwrap()
+    }
+}
+impl TryFrom<Command> for DabGetAudioBufferTimeCapability {
+    type Error = Error;
+    fn try_from(packet: Command) -> Result<DabGetAudioBufferTimeCapability> {
+        DabGetAudioBufferTimeCapability::new(packet.command)
+    }
+}
+impl DabGetAudioBufferTimeCapability {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = CommandData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    fn new(command: CommandData) -> Result<Self> {
+        let vendorcommand = match &command.child {
+            CommandDataChild::VendorCommand(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(CommandDataChild::VendorCommand),
+                    actual: format!("{:?}", & command.child),
+                });
+            }
+        };
+        let dynamicaudiobuffer = match &vendorcommand.child {
+            VendorCommandDataChild::DynamicAudioBuffer(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(VendorCommandDataChild::DynamicAudioBuffer),
+                    actual: format!("{:?}", & vendorcommand.child),
+                });
+            }
+        };
+        let dabgetaudiobuffertimecapability = match &dynamicaudiobuffer.child {
+            DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability(value) => {
+                value.clone()
+            }
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability
+                    ),
+                    actual: format!("{:?}", & dynamicaudiobuffer.child),
+                });
+            }
+        };
+        Ok(Self {
+            command,
+            vendorcommand,
+            dynamicaudiobuffer,
+            dabgetaudiobuffertimecapability,
+        })
+    }
+    pub fn get_dab_command(&self) -> DabCommand {
+        self.dynamicaudiobuffer.dab_command
+    }
+    pub fn get_op_code(&self) -> OpCode {
+        self.command.op_code
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.dabgetaudiobuffertimecapability.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.command.get_size()
+    }
+}
+impl DabGetAudioBufferTimeCapabilityBuilder {
+    pub fn build(self) -> DabGetAudioBufferTimeCapability {
+        let dabgetaudiobuffertimecapability = DabGetAudioBufferTimeCapabilityData {
+        };
+        let dynamicaudiobuffer = DynamicAudioBufferData {
+            dab_command: DabCommand::GetAudioBufferTimeCapability,
+            child: DynamicAudioBufferDataChild::DabGetAudioBufferTimeCapability(
+                dabgetaudiobuffertimecapability,
+            ),
+        };
+        let vendorcommand = VendorCommandData {
+            child: VendorCommandDataChild::DynamicAudioBuffer(dynamicaudiobuffer),
+        };
+        let command = CommandData {
+            op_code: OpCode::DynamicAudioBuffer,
+            child: CommandDataChild::VendorCommand(vendorcommand),
+        };
+        DabGetAudioBufferTimeCapability::new(command).unwrap()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityBuilder> for Command {
+    fn from(builder: DabGetAudioBufferTimeCapabilityBuilder) -> Command {
+        builder.build().into()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityBuilder> for VendorCommand {
+    fn from(builder: DabGetAudioBufferTimeCapabilityBuilder) -> VendorCommand {
+        builder.build().into()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityBuilder> for DynamicAudioBuffer {
+    fn from(builder: DabGetAudioBufferTimeCapabilityBuilder) -> DynamicAudioBuffer {
+        builder.build().into()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityBuilder> for DabGetAudioBufferTimeCapability {
+    fn from(
+        builder: DabGetAudioBufferTimeCapabilityBuilder,
+    ) -> DabGetAudioBufferTimeCapability {
+        builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DynamicAudioBufferCodecCapability {
+    pub default_time_ms: u16,
+    pub maximum_time_ms: u16,
+    pub minimum_time_ms: u16,
+}
+impl DynamicAudioBufferCodecCapability {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 6
+    }
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 2 {
+            return Err(Error::InvalidLengthError {
+                obj: "DynamicAudioBufferCodecCapability".to_string(),
+                wanted: 2,
+                got: bytes.get().remaining(),
+            });
+        }
+        let default_time_ms = bytes.get_mut().get_u16_le();
+        if bytes.get().remaining() < 2 {
+            return Err(Error::InvalidLengthError {
+                obj: "DynamicAudioBufferCodecCapability".to_string(),
+                wanted: 2,
+                got: bytes.get().remaining(),
+            });
+        }
+        let maximum_time_ms = bytes.get_mut().get_u16_le();
+        if bytes.get().remaining() < 2 {
+            return Err(Error::InvalidLengthError {
+                obj: "DynamicAudioBufferCodecCapability".to_string(),
+                wanted: 2,
+                got: bytes.get().remaining(),
+            });
+        }
+        let minimum_time_ms = bytes.get_mut().get_u16_le();
+        Ok(Self {
+            default_time_ms,
+            maximum_time_ms,
+            minimum_time_ms,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u16_le(self.default_time_ms);
+        buffer.put_u16_le(self.maximum_time_ms);
+        buffer.put_u16_le(self.minimum_time_ms);
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        6
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabGetAudioBufferTimeCapabilityCompleteData {
+    audio_codec_type_supported: u32,
+    audio_codec_capabilities: [DynamicAudioBufferCodecCapability; 32],
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabGetAudioBufferTimeCapabilityComplete {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    event: EventData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    commandcomplete: CommandCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dynamicaudiobuffercomplete: DynamicAudioBufferCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dabgetaudiobuffertimecapabilitycomplete: DabGetAudioBufferTimeCapabilityCompleteData,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabGetAudioBufferTimeCapabilityCompleteBuilder {
+    pub audio_codec_capabilities: [DynamicAudioBufferCodecCapability; 32],
+    pub audio_codec_type_supported: u32,
+    pub num_hci_command_packets: u8,
+    pub status: ErrorCode,
+}
+impl DabGetAudioBufferTimeCapabilityCompleteData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 196
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 4 {
+            return Err(Error::InvalidLengthError {
+                obj: "DabGetAudioBufferTimeCapabilityComplete".to_string(),
+                wanted: 4,
+                got: bytes.get().remaining(),
+            });
+        }
+        let audio_codec_type_supported = bytes.get_mut().get_u32_le();
+        if bytes.get().remaining() < 32 * 6 {
+            return Err(Error::InvalidLengthError {
+                obj: "DabGetAudioBufferTimeCapabilityComplete".to_string(),
+                wanted: 32 * 6,
+                got: bytes.get().remaining(),
+            });
+        }
+        let audio_codec_capabilities = (0..32)
+            .map(|_| DynamicAudioBufferCodecCapability::parse_inner(bytes))
+            .collect::<Result<Vec<_>>>()?
+            .try_into()
+            .map_err(|_| Error::InvalidPacketError)?;
+        Ok(Self {
+            audio_codec_type_supported,
+            audio_codec_capabilities,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u32_le(self.audio_codec_type_supported);
+        for elem in &self.audio_codec_capabilities {
+            elem.write_to(buffer);
+        }
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        196
+    }
+}
+impl Packet for DabGetAudioBufferTimeCapabilityComplete {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.event.get_size());
+        self.event.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityComplete> for Bytes {
+    fn from(packet: DabGetAudioBufferTimeCapabilityComplete) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityComplete> for Vec<u8> {
+    fn from(packet: DabGetAudioBufferTimeCapabilityComplete) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityComplete> for Event {
+    fn from(packet: DabGetAudioBufferTimeCapabilityComplete) -> Event {
+        Event::new(packet.event).unwrap()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityComplete> for CommandComplete {
+    fn from(packet: DabGetAudioBufferTimeCapabilityComplete) -> CommandComplete {
+        CommandComplete::new(packet.event).unwrap()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityComplete> for DynamicAudioBufferComplete {
+    fn from(
+        packet: DabGetAudioBufferTimeCapabilityComplete,
+    ) -> DynamicAudioBufferComplete {
+        DynamicAudioBufferComplete::new(packet.event).unwrap()
+    }
+}
+impl TryFrom<Event> for DabGetAudioBufferTimeCapabilityComplete {
+    type Error = Error;
+    fn try_from(packet: Event) -> Result<DabGetAudioBufferTimeCapabilityComplete> {
+        DabGetAudioBufferTimeCapabilityComplete::new(packet.event)
+    }
+}
+impl DabGetAudioBufferTimeCapabilityComplete {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = EventData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    fn new(event: EventData) -> Result<Self> {
+        let commandcomplete = match &event.child {
+            EventDataChild::CommandComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(EventDataChild::CommandComplete),
+                    actual: format!("{:?}", & event.child),
+                });
+            }
+        };
+        let dynamicaudiobuffercomplete = match &commandcomplete.child {
+            CommandCompleteDataChild::DynamicAudioBufferComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        CommandCompleteDataChild::DynamicAudioBufferComplete
+                    ),
+                    actual: format!("{:?}", & commandcomplete.child),
+                });
+            }
+        };
+        let dabgetaudiobuffertimecapabilitycomplete = match &dynamicaudiobuffercomplete
+            .child
+        {
+            DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete(
+                value,
+            ) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete
+                    ),
+                    actual: format!("{:?}", & dynamicaudiobuffercomplete.child),
+                });
+            }
+        };
+        Ok(Self {
+            event,
+            commandcomplete,
+            dynamicaudiobuffercomplete,
+            dabgetaudiobuffertimecapabilitycomplete,
+        })
+    }
+    pub fn get_audio_codec_capabilities(
+        &self,
+    ) -> &[DynamicAudioBufferCodecCapability; 32] {
+        &self.dabgetaudiobuffertimecapabilitycomplete.audio_codec_capabilities
+    }
+    pub fn get_audio_codec_type_supported(&self) -> u32 {
+        self.dabgetaudiobuffertimecapabilitycomplete.audio_codec_type_supported
+    }
+    pub fn get_command_op_code(&self) -> OpCode {
+        self.commandcomplete.command_op_code
+    }
+    pub fn get_dab_command(&self) -> DabCommand {
+        self.dynamicaudiobuffercomplete.dab_command
+    }
+    pub fn get_event_code(&self) -> EventCode {
+        self.event.event_code
+    }
+    pub fn get_num_hci_command_packets(&self) -> u8 {
+        self.commandcomplete.num_hci_command_packets
+    }
+    pub fn get_status(&self) -> ErrorCode {
+        self.dynamicaudiobuffercomplete.status
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.dabgetaudiobuffertimecapabilitycomplete.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.event.get_size()
+    }
+}
+impl DabGetAudioBufferTimeCapabilityCompleteBuilder {
+    pub fn build(self) -> DabGetAudioBufferTimeCapabilityComplete {
+        let dabgetaudiobuffertimecapabilitycomplete = DabGetAudioBufferTimeCapabilityCompleteData {
+            audio_codec_capabilities: self.audio_codec_capabilities,
+            audio_codec_type_supported: self.audio_codec_type_supported,
+        };
+        let dynamicaudiobuffercomplete = DynamicAudioBufferCompleteData {
+            dab_command: DabCommand::GetAudioBufferTimeCapability,
+            status: self.status,
+            child: DynamicAudioBufferCompleteDataChild::DabGetAudioBufferTimeCapabilityComplete(
+                dabgetaudiobuffertimecapabilitycomplete,
+            ),
+        };
+        let commandcomplete = CommandCompleteData {
+            command_op_code: OpCode::DynamicAudioBuffer,
+            num_hci_command_packets: self.num_hci_command_packets,
+            child: CommandCompleteDataChild::DynamicAudioBufferComplete(
+                dynamicaudiobuffercomplete,
+            ),
+        };
+        let event = EventData {
+            event_code: EventCode::CommandComplete,
+            child: EventDataChild::CommandComplete(commandcomplete),
+        };
+        DabGetAudioBufferTimeCapabilityComplete::new(event).unwrap()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityCompleteBuilder> for Event {
+    fn from(builder: DabGetAudioBufferTimeCapabilityCompleteBuilder) -> Event {
+        builder.build().into()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityCompleteBuilder> for CommandComplete {
+    fn from(builder: DabGetAudioBufferTimeCapabilityCompleteBuilder) -> CommandComplete {
+        builder.build().into()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityCompleteBuilder>
+for DynamicAudioBufferComplete {
+    fn from(
+        builder: DabGetAudioBufferTimeCapabilityCompleteBuilder,
+    ) -> DynamicAudioBufferComplete {
+        builder.build().into()
+    }
+}
+impl From<DabGetAudioBufferTimeCapabilityCompleteBuilder>
+for DabGetAudioBufferTimeCapabilityComplete {
+    fn from(
+        builder: DabGetAudioBufferTimeCapabilityCompleteBuilder,
+    ) -> DabGetAudioBufferTimeCapabilityComplete {
+        builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabSetAudioBufferTimeData {
+    buffer_time_ms: u16,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabSetAudioBufferTime {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    command: CommandData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    vendorcommand: VendorCommandData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dynamicaudiobuffer: DynamicAudioBufferData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dabsetaudiobuffertime: DabSetAudioBufferTimeData,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabSetAudioBufferTimeBuilder {
+    pub buffer_time_ms: u16,
+}
+impl DabSetAudioBufferTimeData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 2
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 2 {
+            return Err(Error::InvalidLengthError {
+                obj: "DabSetAudioBufferTime".to_string(),
+                wanted: 2,
+                got: bytes.get().remaining(),
+            });
+        }
+        let buffer_time_ms = bytes.get_mut().get_u16_le();
+        Ok(Self { buffer_time_ms })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u16_le(self.buffer_time_ms);
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        2
+    }
+}
+impl Packet for DabSetAudioBufferTime {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.command.get_size());
+        self.command.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<DabSetAudioBufferTime> for Bytes {
+    fn from(packet: DabSetAudioBufferTime) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<DabSetAudioBufferTime> for Vec<u8> {
+    fn from(packet: DabSetAudioBufferTime) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<DabSetAudioBufferTime> for Command {
+    fn from(packet: DabSetAudioBufferTime) -> Command {
+        Command::new(packet.command).unwrap()
+    }
+}
+impl From<DabSetAudioBufferTime> for VendorCommand {
+    fn from(packet: DabSetAudioBufferTime) -> VendorCommand {
+        VendorCommand::new(packet.command).unwrap()
+    }
+}
+impl From<DabSetAudioBufferTime> for DynamicAudioBuffer {
+    fn from(packet: DabSetAudioBufferTime) -> DynamicAudioBuffer {
+        DynamicAudioBuffer::new(packet.command).unwrap()
+    }
+}
+impl TryFrom<Command> for DabSetAudioBufferTime {
+    type Error = Error;
+    fn try_from(packet: Command) -> Result<DabSetAudioBufferTime> {
+        DabSetAudioBufferTime::new(packet.command)
+    }
+}
+impl DabSetAudioBufferTime {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = CommandData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    fn new(command: CommandData) -> Result<Self> {
+        let vendorcommand = match &command.child {
+            CommandDataChild::VendorCommand(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(CommandDataChild::VendorCommand),
+                    actual: format!("{:?}", & command.child),
+                });
+            }
+        };
+        let dynamicaudiobuffer = match &vendorcommand.child {
+            VendorCommandDataChild::DynamicAudioBuffer(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(VendorCommandDataChild::DynamicAudioBuffer),
+                    actual: format!("{:?}", & vendorcommand.child),
+                });
+            }
+        };
+        let dabsetaudiobuffertime = match &dynamicaudiobuffer.child {
+            DynamicAudioBufferDataChild::DabSetAudioBufferTime(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        DynamicAudioBufferDataChild::DabSetAudioBufferTime
+                    ),
+                    actual: format!("{:?}", & dynamicaudiobuffer.child),
+                });
+            }
+        };
+        Ok(Self {
+            command,
+            vendorcommand,
+            dynamicaudiobuffer,
+            dabsetaudiobuffertime,
+        })
+    }
+    pub fn get_buffer_time_ms(&self) -> u16 {
+        self.dabsetaudiobuffertime.buffer_time_ms
+    }
+    pub fn get_dab_command(&self) -> DabCommand {
+        self.dynamicaudiobuffer.dab_command
+    }
+    pub fn get_op_code(&self) -> OpCode {
+        self.command.op_code
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.dabsetaudiobuffertime.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.command.get_size()
+    }
+}
+impl DabSetAudioBufferTimeBuilder {
+    pub fn build(self) -> DabSetAudioBufferTime {
+        let dabsetaudiobuffertime = DabSetAudioBufferTimeData {
+            buffer_time_ms: self.buffer_time_ms,
+        };
+        let dynamicaudiobuffer = DynamicAudioBufferData {
+            dab_command: DabCommand::SetAudioBufferTime,
+            child: DynamicAudioBufferDataChild::DabSetAudioBufferTime(
+                dabsetaudiobuffertime,
+            ),
+        };
+        let vendorcommand = VendorCommandData {
+            child: VendorCommandDataChild::DynamicAudioBuffer(dynamicaudiobuffer),
+        };
+        let command = CommandData {
+            op_code: OpCode::DynamicAudioBuffer,
+            child: CommandDataChild::VendorCommand(vendorcommand),
+        };
+        DabSetAudioBufferTime::new(command).unwrap()
+    }
+}
+impl From<DabSetAudioBufferTimeBuilder> for Command {
+    fn from(builder: DabSetAudioBufferTimeBuilder) -> Command {
+        builder.build().into()
+    }
+}
+impl From<DabSetAudioBufferTimeBuilder> for VendorCommand {
+    fn from(builder: DabSetAudioBufferTimeBuilder) -> VendorCommand {
+        builder.build().into()
+    }
+}
+impl From<DabSetAudioBufferTimeBuilder> for DynamicAudioBuffer {
+    fn from(builder: DabSetAudioBufferTimeBuilder) -> DynamicAudioBuffer {
+        builder.build().into()
+    }
+}
+impl From<DabSetAudioBufferTimeBuilder> for DabSetAudioBufferTime {
+    fn from(builder: DabSetAudioBufferTimeBuilder) -> DabSetAudioBufferTime {
+        builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabSetAudioBufferTimeCompleteData {
+    current_buffer_time_ms: u16,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabSetAudioBufferTimeComplete {
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    event: EventData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    commandcomplete: CommandCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dynamicaudiobuffercomplete: DynamicAudioBufferCompleteData,
+    #[cfg_attr(feature = "serde", serde(flatten))]
+    dabsetaudiobuffertimecomplete: DabSetAudioBufferTimeCompleteData,
+}
+#[derive(Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct DabSetAudioBufferTimeCompleteBuilder {
+    pub current_buffer_time_ms: u16,
+    pub num_hci_command_packets: u8,
+    pub status: ErrorCode,
+}
+impl DabSetAudioBufferTimeCompleteData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 2
+    }
+    fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 2 {
+            return Err(Error::InvalidLengthError {
+                obj: "DabSetAudioBufferTimeComplete".to_string(),
+                wanted: 2,
+                got: bytes.get().remaining(),
+            });
+        }
+        let current_buffer_time_ms = bytes.get_mut().get_u16_le();
+        Ok(Self { current_buffer_time_ms })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u16_le(self.current_buffer_time_ms);
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        2
+    }
+}
+impl Packet for DabSetAudioBufferTimeComplete {
+    fn to_bytes(self) -> Bytes {
+        let mut buffer = BytesMut::with_capacity(self.event.get_size());
+        self.event.write_to(&mut buffer);
+        buffer.freeze()
+    }
+    fn to_vec(self) -> Vec<u8> {
+        self.to_bytes().to_vec()
+    }
+}
+impl From<DabSetAudioBufferTimeComplete> for Bytes {
+    fn from(packet: DabSetAudioBufferTimeComplete) -> Self {
+        packet.to_bytes()
+    }
+}
+impl From<DabSetAudioBufferTimeComplete> for Vec<u8> {
+    fn from(packet: DabSetAudioBufferTimeComplete) -> Self {
+        packet.to_vec()
+    }
+}
+impl From<DabSetAudioBufferTimeComplete> for Event {
+    fn from(packet: DabSetAudioBufferTimeComplete) -> Event {
+        Event::new(packet.event).unwrap()
+    }
+}
+impl From<DabSetAudioBufferTimeComplete> for CommandComplete {
+    fn from(packet: DabSetAudioBufferTimeComplete) -> CommandComplete {
+        CommandComplete::new(packet.event).unwrap()
+    }
+}
+impl From<DabSetAudioBufferTimeComplete> for DynamicAudioBufferComplete {
+    fn from(packet: DabSetAudioBufferTimeComplete) -> DynamicAudioBufferComplete {
+        DynamicAudioBufferComplete::new(packet.event).unwrap()
+    }
+}
+impl TryFrom<Event> for DabSetAudioBufferTimeComplete {
+    type Error = Error;
+    fn try_from(packet: Event) -> Result<DabSetAudioBufferTimeComplete> {
+        DabSetAudioBufferTimeComplete::new(packet.event)
+    }
+}
+impl DabSetAudioBufferTimeComplete {
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        let data = EventData::parse_inner(&mut bytes)?;
+        Self::new(data)
+    }
+    fn new(event: EventData) -> Result<Self> {
+        let commandcomplete = match &event.child {
+            EventDataChild::CommandComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(EventDataChild::CommandComplete),
+                    actual: format!("{:?}", & event.child),
+                });
+            }
+        };
+        let dynamicaudiobuffercomplete = match &commandcomplete.child {
+            CommandCompleteDataChild::DynamicAudioBufferComplete(value) => value.clone(),
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        CommandCompleteDataChild::DynamicAudioBufferComplete
+                    ),
+                    actual: format!("{:?}", & commandcomplete.child),
+                });
+            }
+        };
+        let dabsetaudiobuffertimecomplete = match &dynamicaudiobuffercomplete.child {
+            DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete(value) => {
+                value.clone()
+            }
+            _ => {
+                return Err(Error::InvalidChildError {
+                    expected: stringify!(
+                        DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete
+                    ),
+                    actual: format!("{:?}", & dynamicaudiobuffercomplete.child),
+                });
+            }
+        };
+        Ok(Self {
+            event,
+            commandcomplete,
+            dynamicaudiobuffercomplete,
+            dabsetaudiobuffertimecomplete,
+        })
+    }
+    pub fn get_command_op_code(&self) -> OpCode {
+        self.commandcomplete.command_op_code
+    }
+    pub fn get_current_buffer_time_ms(&self) -> u16 {
+        self.dabsetaudiobuffertimecomplete.current_buffer_time_ms
+    }
+    pub fn get_dab_command(&self) -> DabCommand {
+        self.dynamicaudiobuffercomplete.dab_command
+    }
+    pub fn get_event_code(&self) -> EventCode {
+        self.event.event_code
+    }
+    pub fn get_num_hci_command_packets(&self) -> u8 {
+        self.commandcomplete.num_hci_command_packets
+    }
+    pub fn get_status(&self) -> ErrorCode {
+        self.dynamicaudiobuffercomplete.status
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        self.dabsetaudiobuffertimecomplete.write_to(buffer)
+    }
+    pub fn get_size(&self) -> usize {
+        self.event.get_size()
+    }
+}
+impl DabSetAudioBufferTimeCompleteBuilder {
+    pub fn build(self) -> DabSetAudioBufferTimeComplete {
+        let dabsetaudiobuffertimecomplete = DabSetAudioBufferTimeCompleteData {
+            current_buffer_time_ms: self.current_buffer_time_ms,
+        };
+        let dynamicaudiobuffercomplete = DynamicAudioBufferCompleteData {
+            dab_command: DabCommand::SetAudioBufferTime,
+            status: self.status,
+            child: DynamicAudioBufferCompleteDataChild::DabSetAudioBufferTimeComplete(
+                dabsetaudiobuffertimecomplete,
+            ),
+        };
+        let commandcomplete = CommandCompleteData {
+            command_op_code: OpCode::DynamicAudioBuffer,
+            num_hci_command_packets: self.num_hci_command_packets,
+            child: CommandCompleteDataChild::DynamicAudioBufferComplete(
+                dynamicaudiobuffercomplete,
+            ),
+        };
+        let event = EventData {
+            event_code: EventCode::CommandComplete,
+            child: EventDataChild::CommandComplete(commandcomplete),
+        };
+        DabSetAudioBufferTimeComplete::new(event).unwrap()
+    }
+}
+impl From<DabSetAudioBufferTimeCompleteBuilder> for Event {
+    fn from(builder: DabSetAudioBufferTimeCompleteBuilder) -> Event {
+        builder.build().into()
+    }
+}
+impl From<DabSetAudioBufferTimeCompleteBuilder> for CommandComplete {
+    fn from(builder: DabSetAudioBufferTimeCompleteBuilder) -> CommandComplete {
+        builder.build().into()
+    }
+}
+impl From<DabSetAudioBufferTimeCompleteBuilder> for DynamicAudioBufferComplete {
+    fn from(
+        builder: DabSetAudioBufferTimeCompleteBuilder,
+    ) -> DynamicAudioBufferComplete {
+        builder.build().into()
+    }
+}
+impl From<DabSetAudioBufferTimeCompleteBuilder> for DabSetAudioBufferTimeComplete {
+    fn from(
+        builder: DabSetAudioBufferTimeCompleteBuilder,
+    ) -> DabSetAudioBufferTimeComplete {
+        builder.build().into()
+    }
+}
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct InquiryCompleteData {
@@ -158710,7 +160803,6 @@ impl From<ConnectionCompleteBuilder> for ConnectionComplete {
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "serde", serde(try_from = "u8", into = "u8"))]
 pub enum ConnectionRequestLinkType {
-    Unknown = 0xff,
     Sco = 0x0,
     Acl = 0x1,
     Esco = 0x2,
@@ -158719,7 +160811,6 @@ impl TryFrom<u8> for ConnectionRequestLinkType {
     type Error = u8;
     fn try_from(value: u8) -> std::result::Result<Self, Self::Error> {
         match value {
-            0xff => Ok(ConnectionRequestLinkType::Unknown),
             0x0 => Ok(ConnectionRequestLinkType::Sco),
             0x1 => Ok(ConnectionRequestLinkType::Acl),
             0x2 => Ok(ConnectionRequestLinkType::Esco),
@@ -158730,7 +160821,6 @@ impl TryFrom<u8> for ConnectionRequestLinkType {
 impl From<&ConnectionRequestLinkType> for u8 {
     fn from(value: &ConnectionRequestLinkType) -> Self {
         match value {
-            ConnectionRequestLinkType::Unknown => 0xff,
             ConnectionRequestLinkType::Sco => 0x0,
             ConnectionRequestLinkType::Acl => 0x1,
             ConnectionRequestLinkType::Esco => 0x2,
@@ -181813,6 +183903,268 @@ impl From<LeCsProcedureEnableCompleteBuilder> for LeMetaEvent {
 impl From<LeCsProcedureEnableCompleteBuilder> for LeCsProcedureEnableComplete {
     fn from(builder: LeCsProcedureEnableCompleteBuilder) -> LeCsProcedureEnableComplete {
         builder.build().into()
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeCsMode0InitatorData {
+    pub packet_quality: u8,
+    pub packet_rssi: u8,
+    pub packet_antenna: u8,
+    pub measured_freq_offset: u16,
+}
+impl LeCsMode0InitatorData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 5
+    }
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0InitatorData".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let packet_quality = bytes.get_mut().get_u8();
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0InitatorData".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let packet_rssi = bytes.get_mut().get_u8();
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0InitatorData".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let packet_antenna = bytes.get_mut().get_u8();
+        if bytes.get().remaining() < 2 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0InitatorData".to_string(),
+                wanted: 2,
+                got: bytes.get().remaining(),
+            });
+        }
+        let chunk = bytes.get_mut().get_u16_le();
+        let measured_freq_offset = (chunk & 0x7fff);
+        Ok(Self {
+            packet_quality,
+            packet_rssi,
+            packet_antenna,
+            measured_freq_offset,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u8(self.packet_quality);
+        buffer.put_u8(self.packet_rssi);
+        buffer.put_u8(self.packet_antenna);
+        if self.measured_freq_offset > 0x7fff {
+            panic!(
+                "Invalid value for {}::{}: {} > {}", "LeCsMode0InitatorData",
+                "measured_freq_offset", self.measured_freq_offset, 0x7fff
+            );
+        }
+        buffer.put_u16_le(self.measured_freq_offset);
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        5
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeCsMode0ReflectorData {
+    pub packet_quality: u8,
+    pub packet_rssi: u8,
+    pub packet_antenna: u8,
+}
+impl LeCsMode0ReflectorData {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 3
+    }
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0ReflectorData".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let packet_quality = bytes.get_mut().get_u8();
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0ReflectorData".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let packet_rssi = bytes.get_mut().get_u8();
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode0ReflectorData".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let packet_antenna = bytes.get_mut().get_u8();
+        Ok(Self {
+            packet_quality,
+            packet_rssi,
+            packet_antenna,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u8(self.packet_quality);
+        buffer.put_u8(self.packet_rssi);
+        buffer.put_u8(self.packet_antenna);
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        3
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeCsToneDataWithQuality {
+    pub i_sample: u16,
+    pub q_sample: u16,
+    pub tone_quality_indicator: u8,
+}
+impl LeCsToneDataWithQuality {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 4
+    }
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 3 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsToneDataWithQuality".to_string(),
+                wanted: 3,
+                got: bytes.get().remaining(),
+            });
+        }
+        let chunk = bytes.get_mut().get_uint_le(3) as u32;
+        let i_sample = (chunk & 0xfff) as u16;
+        let q_sample = ((chunk >> 12) & 0xfff) as u16;
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsToneDataWithQuality".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let tone_quality_indicator = bytes.get_mut().get_u8();
+        Ok(Self {
+            i_sample,
+            q_sample,
+            tone_quality_indicator,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        if self.i_sample > 0xfff {
+            panic!(
+                "Invalid value for {}::{}: {} > {}", "LeCsToneDataWithQuality",
+                "i_sample", self.i_sample, 0xfff
+            );
+        }
+        if self.q_sample > 0xfff {
+            panic!(
+                "Invalid value for {}::{}: {} > {}", "LeCsToneDataWithQuality",
+                "q_sample", self.q_sample, 0xfff
+            );
+        }
+        let value = (self.i_sample as u32) | ((self.q_sample as u32) << 12);
+        buffer.put_uint_le(value as u64, 3);
+        buffer.put_u8(self.tone_quality_indicator);
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        4
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LeCsMode2Data {
+    pub antenna_permutation_index: u8,
+    pub tone_data: Vec<LeCsToneDataWithQuality>,
+}
+impl LeCsMode2Data {
+    fn conforms(bytes: &[u8]) -> bool {
+        bytes.len() >= 2
+    }
+    pub fn parse(bytes: &[u8]) -> Result<Self> {
+        let mut cell = Cell::new(bytes);
+        let packet = Self::parse_inner(&mut cell)?;
+        Ok(packet)
+    }
+    fn parse_inner(mut bytes: &mut Cell<&[u8]>) -> Result<Self> {
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode2Data".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let tone_data_count = bytes.get_mut().get_u8() as usize;
+        if bytes.get().remaining() < 1 {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode2Data".to_string(),
+                wanted: 1,
+                got: bytes.get().remaining(),
+            });
+        }
+        let antenna_permutation_index = bytes.get_mut().get_u8();
+        if bytes.get().remaining() < tone_data_count * 4usize {
+            return Err(Error::InvalidLengthError {
+                obj: "LeCsMode2Data".to_string(),
+                wanted: tone_data_count * 4usize,
+                got: bytes.get().remaining(),
+            });
+        }
+        let tone_data = (0..tone_data_count)
+            .map(|_| LeCsToneDataWithQuality::parse_inner(bytes))
+            .collect::<Result<Vec<_>>>()?;
+        Ok(Self {
+            antenna_permutation_index,
+            tone_data,
+        })
+    }
+    fn write_to(&self, buffer: &mut BytesMut) {
+        buffer.put_u8(self.tone_data.len() as u8);
+        buffer.put_u8(self.antenna_permutation_index);
+        for elem in &self.tone_data {
+            elem.write_to(buffer);
+        }
+    }
+    fn get_total_size(&self) -> usize {
+        self.get_size()
+    }
+    fn get_size(&self) -> usize {
+        2 + self.tone_data.iter().map(|elem| elem.get_size()).sum::<usize>()
     }
 }
 #[repr(u64)]

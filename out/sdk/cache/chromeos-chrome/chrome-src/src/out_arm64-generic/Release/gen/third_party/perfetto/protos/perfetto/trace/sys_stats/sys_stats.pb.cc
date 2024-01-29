@@ -126,6 +126,20 @@ struct SysStats_DiskStatDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SysStats_DiskStatDefaultTypeInternal _SysStats_DiskStat_default_instance_;
+PROTOBUF_CONSTEXPR SysStats_PsiSample::SysStats_PsiSample(
+    ::_pbi::ConstantInitialized)
+  : total_ns_(uint64_t{0u})
+  , resource_(0)
+{}
+struct SysStats_PsiSampleDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SysStats_PsiSampleDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SysStats_PsiSampleDefaultTypeInternal() {}
+  union {
+    SysStats_PsiSample _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SysStats_PsiSampleDefaultTypeInternal _SysStats_PsiSample_default_instance_;
 PROTOBUF_CONSTEXPR SysStats::SysStats(
     ::_pbi::ConstantInitialized)
   : meminfo_()
@@ -137,6 +151,7 @@ PROTOBUF_CONSTEXPR SysStats::SysStats(
   , cpufreq_khz_()
   , buddy_info_()
   , disk_stat_()
+  , psi_()
   , num_forks_(uint64_t{0u})
   , num_irq_total_(uint64_t{0u})
   , num_softirq_total_(uint64_t{0u})
@@ -154,6 +169,89 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 }  // namespace perfetto
 namespace perfetto {
 namespace protos {
+bool SysStats_PsiSample_PsiResource_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SysStats_PsiSample_PsiResource_strings[7] = {};
+
+static const char SysStats_PsiSample_PsiResource_names[] =
+  "PSI_RESOURCE_CPU_FULL"
+  "PSI_RESOURCE_CPU_SOME"
+  "PSI_RESOURCE_IO_FULL"
+  "PSI_RESOURCE_IO_SOME"
+  "PSI_RESOURCE_MEMORY_FULL"
+  "PSI_RESOURCE_MEMORY_SOME"
+  "PSI_RESOURCE_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SysStats_PsiSample_PsiResource_entries[] = {
+  { {SysStats_PsiSample_PsiResource_names + 0, 21}, 2 },
+  { {SysStats_PsiSample_PsiResource_names + 21, 21}, 1 },
+  { {SysStats_PsiSample_PsiResource_names + 42, 20}, 4 },
+  { {SysStats_PsiSample_PsiResource_names + 62, 20}, 3 },
+  { {SysStats_PsiSample_PsiResource_names + 82, 24}, 6 },
+  { {SysStats_PsiSample_PsiResource_names + 106, 24}, 5 },
+  { {SysStats_PsiSample_PsiResource_names + 130, 24}, 0 },
+};
+
+static const int SysStats_PsiSample_PsiResource_entries_by_number[] = {
+  6, // 0 -> PSI_RESOURCE_UNSPECIFIED
+  1, // 1 -> PSI_RESOURCE_CPU_SOME
+  0, // 2 -> PSI_RESOURCE_CPU_FULL
+  3, // 3 -> PSI_RESOURCE_IO_SOME
+  2, // 4 -> PSI_RESOURCE_IO_FULL
+  5, // 5 -> PSI_RESOURCE_MEMORY_SOME
+  4, // 6 -> PSI_RESOURCE_MEMORY_FULL
+};
+
+const std::string& SysStats_PsiSample_PsiResource_Name(
+    SysStats_PsiSample_PsiResource value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SysStats_PsiSample_PsiResource_entries,
+          SysStats_PsiSample_PsiResource_entries_by_number,
+          7, SysStats_PsiSample_PsiResource_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SysStats_PsiSample_PsiResource_entries,
+      SysStats_PsiSample_PsiResource_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SysStats_PsiSample_PsiResource_strings[idx].get();
+}
+bool SysStats_PsiSample_PsiResource_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SysStats_PsiSample_PsiResource* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SysStats_PsiSample_PsiResource_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<SysStats_PsiSample_PsiResource>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_UNSPECIFIED;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_CPU_SOME;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_CPU_FULL;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_IO_SOME;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_IO_FULL;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_MEMORY_SOME;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PSI_RESOURCE_MEMORY_FULL;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PsiResource_MIN;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample::PsiResource_MAX;
+constexpr int SysStats_PsiSample::PsiResource_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 // ===================================================================
 
@@ -2196,6 +2294,239 @@ std::string SysStats_DiskStat::GetTypeName() const {
 
 // ===================================================================
 
+class SysStats_PsiSample::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SysStats_PsiSample>()._has_bits_);
+  static void set_has_resource(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_total_ns(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+SysStats_PsiSample::SysStats_PsiSample(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:perfetto.protos.SysStats.PsiSample)
+}
+SysStats_PsiSample::SysStats_PsiSample(const SysStats_PsiSample& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&total_ns_, &from.total_ns_,
+    static_cast<size_t>(reinterpret_cast<char*>(&resource_) -
+    reinterpret_cast<char*>(&total_ns_)) + sizeof(resource_));
+  // @@protoc_insertion_point(copy_constructor:perfetto.protos.SysStats.PsiSample)
+}
+
+inline void SysStats_PsiSample::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&total_ns_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&resource_) -
+    reinterpret_cast<char*>(&total_ns_)) + sizeof(resource_));
+}
+
+SysStats_PsiSample::~SysStats_PsiSample() {
+  // @@protoc_insertion_point(destructor:perfetto.protos.SysStats.PsiSample)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SysStats_PsiSample::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SysStats_PsiSample::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SysStats_PsiSample::Clear() {
+// @@protoc_insertion_point(message_clear_start:perfetto.protos.SysStats.PsiSample)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&total_ns_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&resource_) -
+        reinterpret_cast<char*>(&total_ns_)) + sizeof(resource_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SysStats_PsiSample::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .perfetto.protos.SysStats.PsiSample.PsiResource resource = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::perfetto::protos::SysStats_PsiSample_PsiResource_IsValid(val))) {
+            _internal_set_resource(static_cast<::perfetto::protos::SysStats_PsiSample_PsiResource>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 total_ns = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_total_ns(&has_bits);
+          total_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SysStats_PsiSample::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:perfetto.protos.SysStats.PsiSample)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .perfetto.protos.SysStats.PsiSample.PsiResource resource = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_resource(), target);
+  }
+
+  // optional uint64 total_ns = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_total_ns(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:perfetto.protos.SysStats.PsiSample)
+  return target;
+}
+
+size_t SysStats_PsiSample::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:perfetto.protos.SysStats.PsiSample)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional uint64 total_ns = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_total_ns());
+    }
+
+    // optional .perfetto.protos.SysStats.PsiSample.PsiResource resource = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_resource());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SysStats_PsiSample::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SysStats_PsiSample*>(
+      &from));
+}
+
+void SysStats_PsiSample::MergeFrom(const SysStats_PsiSample& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:perfetto.protos.SysStats.PsiSample)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      total_ns_ = from.total_ns_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      resource_ = from.resource_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SysStats_PsiSample::CopyFrom(const SysStats_PsiSample& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:perfetto.protos.SysStats.PsiSample)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SysStats_PsiSample::IsInitialized() const {
+  return true;
+}
+
+void SysStats_PsiSample::InternalSwap(SysStats_PsiSample* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SysStats_PsiSample, resource_)
+      + sizeof(SysStats_PsiSample::resource_)
+      - PROTOBUF_FIELD_OFFSET(SysStats_PsiSample, total_ns_)>(
+          reinterpret_cast<char*>(&total_ns_),
+          reinterpret_cast<char*>(&other->total_ns_));
+}
+
+std::string SysStats_PsiSample::GetTypeName() const {
+  return "perfetto.protos.SysStats.PsiSample";
+}
+
+
+// ===================================================================
+
 class SysStats::_Internal {
  public:
   using HasBits = decltype(std::declval<SysStats>()._has_bits_);
@@ -2224,7 +2555,8 @@ SysStats::SysStats(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   devfreq_(arena),
   cpufreq_khz_(arena),
   buddy_info_(arena),
-  disk_stat_(arena) {
+  disk_stat_(arena),
+  psi_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:perfetto.protos.SysStats)
 }
@@ -2239,7 +2571,8 @@ SysStats::SysStats(const SysStats& from)
       devfreq_(from.devfreq_),
       cpufreq_khz_(from.cpufreq_khz_),
       buddy_info_(from.buddy_info_),
-      disk_stat_(from.disk_stat_) {
+      disk_stat_(from.disk_stat_),
+      psi_(from.psi_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&num_forks_, &from.num_forks_,
     static_cast<size_t>(reinterpret_cast<char*>(&collection_end_timestamp_) -
@@ -2286,6 +2619,7 @@ void SysStats::Clear() {
   cpufreq_khz_.Clear();
   buddy_info_.Clear();
   disk_stat_.Clear();
+  psi_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     ::memset(&num_forks_, 0, static_cast<size_t>(
@@ -2459,6 +2793,19 @@ const char* SysStats::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
         } else
           goto handle_unusual;
         continue;
+      // repeated .perfetto.protos.SysStats.PsiSample psi = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_psi(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<114>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2584,6 +2931,14 @@ uint8_t* SysStats::_InternalSerialize(
         InternalWriteMessage(13, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .perfetto.protos.SysStats.PsiSample psi = 14;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_psi_size()); i < n; i++) {
+    const auto& repfield = this->_internal_psi(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(14, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2665,6 +3020,13 @@ size_t SysStats::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .perfetto.protos.SysStats.PsiSample psi = 14;
+  total_size += 1UL * this->_internal_psi_size();
+  for (const auto& msg : this->psi_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional uint64 num_forks = 4;
@@ -2717,6 +3079,7 @@ void SysStats::MergeFrom(const SysStats& from) {
   cpufreq_khz_.MergeFrom(from.cpufreq_khz_);
   buddy_info_.MergeFrom(from.buddy_info_);
   disk_stat_.MergeFrom(from.disk_stat_);
+  psi_.MergeFrom(from.psi_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -2760,6 +3123,7 @@ void SysStats::InternalSwap(SysStats* other) {
   cpufreq_khz_.InternalSwap(&other->cpufreq_khz_);
   buddy_info_.InternalSwap(&other->buddy_info_);
   disk_stat_.InternalSwap(&other->disk_stat_);
+  psi_.InternalSwap(&other->psi_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SysStats, collection_end_timestamp_)
       + sizeof(SysStats::collection_end_timestamp_)
@@ -2804,6 +3168,10 @@ Arena::CreateMaybeMessage< ::perfetto::protos::SysStats_BuddyInfo >(Arena* arena
 template<> PROTOBUF_NOINLINE ::perfetto::protos::SysStats_DiskStat*
 Arena::CreateMaybeMessage< ::perfetto::protos::SysStats_DiskStat >(Arena* arena) {
   return Arena::CreateMessageInternal< ::perfetto::protos::SysStats_DiskStat >(arena);
+}
+template<> PROTOBUF_NOINLINE ::perfetto::protos::SysStats_PsiSample*
+Arena::CreateMaybeMessage< ::perfetto::protos::SysStats_PsiSample >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::perfetto::protos::SysStats_PsiSample >(arena);
 }
 template<> PROTOBUF_NOINLINE ::perfetto::protos::SysStats*
 Arena::CreateMaybeMessage< ::perfetto::protos::SysStats >(Arena* arena) {

@@ -170,6 +170,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -192,9 +194,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -385,6 +387,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_OnSurveyLoaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_OnSurveyLoaded_ParamsDataView input_data_view(params, message);
       
@@ -397,7 +401,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSurveyLoaded();
+      impl->OnSurveyLoaded(        );
       return true;
     }
     case internal::kPageHandler_OnSurveyClosed_Name: {
@@ -407,6 +411,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_OnSurveyClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_OnSurveyClosed_ParamsDataView input_data_view(params, message);
       
@@ -419,7 +425,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSurveyClosed();
+      impl->OnSurveyClosed(        );
       return true;
     }
   }
@@ -628,6 +634,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_RequestSurvey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       std::string p_api_key{};
       std::string p_trigger_id{};
@@ -655,12 +663,12 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSurvey(
-std::move(p_api_key), 
-std::move(p_trigger_id), 
-std::move(p_enable_testing), 
-std::move(p_language_list), 
-std::move(p_product_specific_data_json));
+      impl->RequestSurvey(        
+        std::move(p_api_key), 
+        std::move(p_trigger_id), 
+        std::move(p_enable_testing), 
+        std::move(p_language_list), 
+        std::move(p_product_specific_data_json));
       return true;
     }
   }

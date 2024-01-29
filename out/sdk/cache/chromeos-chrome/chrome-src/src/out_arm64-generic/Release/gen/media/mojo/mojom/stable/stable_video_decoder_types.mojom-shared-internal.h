@@ -1177,6 +1177,7 @@ class  VideoFrameMetadata_Data {
   mojo::internal::StructHeader header_;
   uint8_t protected_video : 1;
   uint8_t hw_protected : 1;
+  uint8_t needs_detiling : 1;
   uint8_t padfinal_[7];
 
  private:

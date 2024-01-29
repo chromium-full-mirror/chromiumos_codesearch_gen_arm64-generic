@@ -17,6 +17,7 @@ namespace media::mojom::blink {
 class BLINK_PLATFORM_EXPORT MediaMetricsProviderInterceptorForTesting : public MediaMetricsProvider {
   virtual MediaMetricsProvider* GetForwardingInterface() = 0;
   void Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::blink::MediaStreamType stream_type) override;
+  void OnStarted(::media::mojom::blink::PipelineStatusPtr status) override;
   void OnError(::media::mojom::blink::PipelineStatusPtr status) override;
   void OnFallback(::media::mojom::blink::PipelineStatusPtr status) override;
   void SetHasPlayed() override;

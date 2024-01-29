@@ -1,20 +1,28 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentTopicsSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentTopicsSectionWrapper{width:100%}#currentTopicsHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentTopicsDescription{padding-block-end:var(--cr-section-vertical-padding)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-topics{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedTopicsDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}.no-blocked-topics{padding-inline-start:60px}#blockedTopicsList{padding:0 var(--cr-section-padding)}#footer{padding:16px var(--cr-section-padding)}a{color:var(--cr-link-color)}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentTopicsSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentTopicsDescriptionEmpty{align-items:center}#currentTopicsSectionWrapper{width:100%}#currentTopicsHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentTopicsDescription{padding-block-end:var(--cr-section-vertical-padding)}#disclaimer{padding:0 var(--cr-section-padding);padding-bottom:var(--cr-section-vertical-padding);color:var(--cr-secondary-text-color)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-topics{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedTopicsDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}#blockedTopicsDescriptionPTB{color:var(--cr-secondary-text-color)}.no-blocked-topics{padding-inline-start:60px}#blockedTopicsList{padding:0 var(--cr-section-padding)}#footer,#footerPTB{padding:16px var(--cr-section-padding)}a{color:var(--cr-link-color)}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}</style>
 
-<settings-toggle-button id="topicsToggle" pref="{{prefs.privacy_sandbox.m1.topics_enabled}}" label="$i18n{topicsPageToggleLabel}" sub-label="$i18n{topicsPageToggleSubLabel}" on-settings-boolean-control-change="onToggleChange_">
+<settings-toggle-button id="topicsToggle" pref="{{prefs.privacy_sandbox.m1.topics_enabled}}" label="$i18n{topicsPageToggleLabel}" sub-label="[[computeTopicsPageToggleSubLabel_(
+      isProactiveTopicsBlockingEnabled_)]]" on-settings-boolean-control-change="onToggleChange_">
 </settings-toggle-button>
+<template is="dom-if" if="[[isProactiveTopicsBlockingEnabled_]]">
+  <div id="disclaimer">
+    $i18n{topicsPageDisclaimer}
+  </div>
+</template>
 <template is="dom-if" if="[[!isTopicsPrefManaged_(
     prefs.privacy_sandbox.m1.topics_enabled.enforcement)]]" restamp>
   <div id="currentTopicsSection">
     <div id="currentTopicsSectionWrapper" class="hr">
       <h2 id="currentTopicsHeading">
-        $i18n{topicsPageCurrentTopicsHeading}
+       [[computeTopicsPageCurrentTopicsHeading_(
+          isProactiveTopicsBlockingEnabled_)]]
       </h2>
       <div id="currentTopicsDescription" class="cr-secondary-text">
-        $i18n{topicsPageCurrentTopicsDescription}
+        [[computeTopicsPageCurrentTopicsDescription_(
+            isProactiveTopicsBlockingEnabled_)]]
         
-        <button id="learnMoreLink" on-click="onLearnMoreClick_" aria-label="$i18n{topicsPageCurrentTopicsDescriptionLearnMoreA11yLabel}">
+        <button id="learnMoreLink" on-click="onLearnMoreClick_" aria-label="$i18n{topicsPageCurrentTopicsDescriptionLearnMoreA11yLabel}" hidden="[[isProactiveTopicsBlockingEnabled_]]">
           $i18n{topicsPageCurrentTopicsDescriptionLearnMoreLink}
         </button>
       </div>
@@ -27,7 +35,8 @@ export function getTemplate() {
             </template>
           </div>
           <div id="currentTopicsDescriptionEmpty" class="no-topics cr-secondary-text" hidden="[[!isTopicsListEmpty_(topicsList_.length)]]">
-            $i18n{topicsPageCurrentTopicsDescriptionEmpty}
+            [[computeTopicsPageCurrentTopicsDescriptionEmpty_(
+                isProactiveTopicsBlockingEnabled_)]]
           </div>
       </template>
       <div id="currentTopicsDescriptionDisabled" class="no-topics cr-secondary-text" hidden="[[prefs.privacy_sandbox.m1.topics_enabled.value]]">
@@ -37,11 +46,16 @@ export function getTemplate() {
   </div>
 </template>
 <cr-expand-button id="blockedTopicsRow" class="cr-row" expanded="{{blockedTopicsExpanded_}}">
-  $i18n{topicsPageBlockedTopicsHeading}
+  [[computeTopicsPageBlockedTopicsHeading_(isProactiveTopicsBlockingEnabled_)]]
+  <template is="dom-if" if="[[isProactiveTopicsBlockingEnabled_]]">
+    <div id="blockedTopicsDescriptionPTB">
+      $i18n{topicsPageBlockedTopicsDescriptionPTB}
+    </div>
+  </template>
 </cr-expand-button>
 <iron-collapse opened="[[blockedTopicsExpanded_]]">
-  <div id="blockedTopicsDescription" class$="[[getBlockedTopicsDescriptionClass_(blockedTopicsList_.length)]]">
-    [[computeBlockedTopicsDescription_(blockedTopicsList_.length)]]
+  <div id="blockedTopicsDescription" class$="[[getBlockedTopicsDescriptionClass_(blockedTopicsList_.length)]]" hidden="[[isProactiveTopicsBlockingEnabled_]]">
+      [[computeBlockedTopicsDescription_(blockedTopicsList_.length)]]
   </div>
   <div id="blockedTopicsList" role="region" aria-label="$i18n{topicsPageBlockedTopicsRegionA11yDescription}">
     <template is="dom-repeat" items="[[blockedTopicsList_]]">
@@ -50,10 +64,19 @@ export function getTemplate() {
     </template>
   </div>
 </iron-collapse>
-<div id="footer" class="cr-secondary-text hr">
+<div id="manageTopicsSection" class="hr">
+  <template is="dom-if" if="[[shouldShowManageTopics_(
+      isProactiveTopicsBlockingEnabled_)]]">
+    <cr-link-row id="privacySandboxManageTopicsLinkRow" label="$i18n{manageTopicsHeading}" sub-label="$i18n{manageTopicsDescription}" on-click="onPrivacySandboxManageTopicsClick_">
+    </cr-link-row>
+  </template>
+</div>
+<div id="footer" class="cr-secondary-text hr" hidden="[[isProactiveTopicsBlockingEnabled_]]">
   $i18nRaw{topicsPageFooter}
 </div>
-
+<div id="footerPTB" class="cr-secondary-text hr" hidden="[[!isProactiveTopicsBlockingEnabled_]]">
+  $i18nRaw{topicsPageFooterPTB}
+</div>
 <template is="dom-if" if="[[isLearnMoreDialogOpen_]]" restamp>
   <cr-dialog id="dialog" on-close="onCloseDialog_" show-on-attach>
     <div slot="title">$i18n{topicsPageLearnMoreHeading}</div>

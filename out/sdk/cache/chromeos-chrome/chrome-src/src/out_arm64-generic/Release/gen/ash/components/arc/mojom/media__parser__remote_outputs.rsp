@@ -1,0 +1,8 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/gfx.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_common.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_decode_accelerator.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_decoder.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_encode_accelerator.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_frame_pool.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_protected_buffer_allocator.mojom-module

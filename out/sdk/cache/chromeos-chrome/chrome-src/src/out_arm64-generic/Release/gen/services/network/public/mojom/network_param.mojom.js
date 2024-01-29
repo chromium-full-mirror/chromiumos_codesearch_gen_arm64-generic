@@ -35,14 +35,13 @@
 
   var ProxyScheme = {};
   ProxyScheme.kInvalid = 0;
-  ProxyScheme.kDirect = 1;
-  ProxyScheme.kHttp = 2;
-  ProxyScheme.kSocks4 = 3;
-  ProxyScheme.kSocks5 = 4;
-  ProxyScheme.kHttps = 5;
-  ProxyScheme.kQuic = 6;
+  ProxyScheme.kHttp = 1;
+  ProxyScheme.kSocks4 = 2;
+  ProxyScheme.kSocks5 = 3;
+  ProxyScheme.kHttps = 4;
+  ProxyScheme.kQuic = 5;
   ProxyScheme.MIN_VALUE = 0;
-  ProxyScheme.MAX_VALUE = 6;
+  ProxyScheme.MAX_VALUE = 5;
 
   ProxyScheme.isKnownEnumValue = function(value) {
     switch (value) {
@@ -52,7 +51,6 @@
     case 3:
     case 4:
     case 5:
-    case 6:
       return true;
     }
     return false;

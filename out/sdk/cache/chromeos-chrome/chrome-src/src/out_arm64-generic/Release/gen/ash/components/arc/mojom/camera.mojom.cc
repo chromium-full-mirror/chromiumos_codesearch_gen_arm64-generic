@@ -1018,6 +1018,8 @@ bool CameraService_Connect_ForwardToCallback::Accept(
           internal::CameraService_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.0
   bool success = true;
   int32_t p_result{};
   CameraService_Connect_ResponseParamsDataView input_data_view(params, message);
@@ -1137,6 +1139,8 @@ bool CameraService_Disconnect_ForwardToCallback::Accept(
           internal::CameraService_Disconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.1
   bool success = true;
   CameraService_Disconnect_ResponseParamsDataView input_data_view(params, message);
   
@@ -1244,6 +1248,8 @@ bool CameraService_StreamOn_ForwardToCallback::Accept(
           internal::CameraService_StreamOn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.2
   bool success = true;
   std::vector<::mojo::ScopedHandle> p_fds{};
   uint32_t p_buffer_size{};
@@ -1391,6 +1397,8 @@ bool CameraService_StreamOff_ForwardToCallback::Accept(
           internal::CameraService_StreamOff_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.3
   bool success = true;
   int32_t p_result{};
   CameraService_StreamOff_ResponseParamsDataView input_data_view(params, message);
@@ -1510,6 +1518,8 @@ bool CameraService_GetNextFrameBuffer_ForwardToCallback::Accept(
           internal::CameraService_GetNextFrameBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.4
   bool success = true;
   uint32_t p_buffer_id{};
   uint32_t p_data_size{};
@@ -1645,6 +1655,8 @@ bool CameraService_ReuseFrameBuffer_ForwardToCallback::Accept(
           internal::CameraService_ReuseFrameBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.5
   bool success = true;
   int32_t p_result{};
   CameraService_ReuseFrameBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -1764,6 +1776,8 @@ bool CameraService_GetDeviceSupportedFormats_ForwardToCallback::Accept(
           internal::CameraService_GetDeviceSupportedFormats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.6
   bool success = true;
   std::vector<CameraSupportedFormatPtr> p_supported_formats{};
   CameraService_GetDeviceSupportedFormats_ResponseParamsDataView input_data_view(params, message);
@@ -1895,6 +1909,8 @@ bool CameraService_GetCameraDeviceInfos_ForwardToCallback::Accept(
           internal::CameraService_GetCameraDeviceInfos_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraService.7
   bool success = true;
   std::vector<CameraDeviceInfoPtr> p_device_infos{};
   CameraService_GetCameraDeviceInfos_ResponseParamsDataView input_data_view(params, message);
@@ -2018,6 +2034,8 @@ bool CameraServiceStubDispatch::AcceptWithResponder(
               internal::CameraService_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.0
       bool success = true;
       std::string p_device_path{};
       CameraService_Connect_ParamsDataView input_data_view(params, message);
@@ -2036,8 +2054,8 @@ bool CameraServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_device_path), std::move(callback));
+      impl->Connect(        
+        std::move(p_device_path), std::move(callback));
       return true;
     }
     case internal::kCameraService_Disconnect_Name: {
@@ -2047,6 +2065,8 @@ std::move(p_device_path), std::move(callback));
               internal::CameraService_Disconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.1
       bool success = true;
       CameraService_Disconnect_ParamsDataView input_data_view(params, message);
       
@@ -2072,6 +2092,8 @@ std::move(p_device_path), std::move(callback));
               internal::CameraService_StreamOn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.2
       bool success = true;
       uint32_t p_width{};
       uint32_t p_height{};
@@ -2099,11 +2121,11 @@ std::move(p_device_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StreamOn(
-std::move(p_width), 
-std::move(p_height), 
-std::move(p_pixel_format), 
-std::move(p_frame_rate), std::move(callback));
+      impl->StreamOn(        
+        std::move(p_width), 
+        std::move(p_height), 
+        std::move(p_pixel_format), 
+        std::move(p_frame_rate), std::move(callback));
       return true;
     }
     case internal::kCameraService_StreamOff_Name: {
@@ -2113,6 +2135,8 @@ std::move(p_frame_rate), std::move(callback));
               internal::CameraService_StreamOff_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.3
       bool success = true;
       CameraService_StreamOff_ParamsDataView input_data_view(params, message);
       
@@ -2138,6 +2162,8 @@ std::move(p_frame_rate), std::move(callback));
               internal::CameraService_GetNextFrameBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.4
       bool success = true;
       CameraService_GetNextFrameBuffer_ParamsDataView input_data_view(params, message);
       
@@ -2163,6 +2189,8 @@ std::move(p_frame_rate), std::move(callback));
               internal::CameraService_ReuseFrameBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.5
       bool success = true;
       uint32_t p_buffer_id{};
       CameraService_ReuseFrameBuffer_ParamsDataView input_data_view(params, message);
@@ -2181,8 +2209,8 @@ std::move(p_frame_rate), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReuseFrameBuffer(
-std::move(p_buffer_id), std::move(callback));
+      impl->ReuseFrameBuffer(        
+        std::move(p_buffer_id), std::move(callback));
       return true;
     }
     case internal::kCameraService_GetDeviceSupportedFormats_Name: {
@@ -2192,6 +2220,8 @@ std::move(p_buffer_id), std::move(callback));
               internal::CameraService_GetDeviceSupportedFormats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.6
       bool success = true;
       std::string p_device_path{};
       CameraService_GetDeviceSupportedFormats_ParamsDataView input_data_view(params, message);
@@ -2210,8 +2240,8 @@ std::move(p_buffer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeviceSupportedFormats(
-std::move(p_device_path), std::move(callback));
+      impl->GetDeviceSupportedFormats(        
+        std::move(p_device_path), std::move(callback));
       return true;
     }
     case internal::kCameraService_GetCameraDeviceInfos_Name: {
@@ -2221,6 +2251,8 @@ std::move(p_device_path), std::move(callback));
               internal::CameraService_GetCameraDeviceInfos_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraService.7
       bool success = true;
       CameraService_GetCameraDeviceInfos_ParamsDataView input_data_view(params, message);
       
@@ -2587,6 +2619,8 @@ bool CameraHost_StartCameraService_ForwardToCallback::Accept(
           internal::CameraHost_StartCameraService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraHost.0
   bool success = true;
   ::mojo::PendingRemote<CameraService> p_service{};
   CameraHost_StartCameraService_ResponseParamsDataView input_data_view(params, message);
@@ -2713,6 +2747,8 @@ bool CameraHost_RegisterCameraHalClient_ForwardToCallback::Accept(
           internal::CameraHost_RegisterCameraHalClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraHost.2
   bool success = true;
   int32_t p_result{};
   CameraHost_RegisterCameraHalClient_ResponseParamsDataView input_data_view(params, message);
@@ -2790,6 +2826,8 @@ bool CameraHostStubDispatch::Accept(
           reinterpret_cast<internal::CameraHost_RegisterCameraHalClientLegacy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraHost.1
       bool success = true;
       ::mojo::PendingRemote<::cros::mojom::CameraHalClient> p_client{};
       CameraHost_RegisterCameraHalClientLegacy_ParamsDataView input_data_view(params, message);
@@ -2807,8 +2845,8 @@ bool CameraHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterCameraHalClientLegacy(
-std::move(p_client));
+      impl->RegisterCameraHalClientLegacy(        
+        std::move(p_client));
       return true;
     }
     case internal::kCameraHost_RegisterCameraHalClient_Name: {
@@ -2834,6 +2872,8 @@ bool CameraHostStubDispatch::AcceptWithResponder(
               internal::CameraHost_StartCameraService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraHost.0
       bool success = true;
       CameraHost_StartCameraService_ParamsDataView input_data_view(params, message);
       
@@ -2862,6 +2902,8 @@ bool CameraHostStubDispatch::AcceptWithResponder(
               internal::CameraHost_RegisterCameraHalClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraHost.2
       bool success = true;
       ::mojo::PendingRemote<::cros::mojom::CameraHalClient> p_client{};
       CameraHost_RegisterCameraHalClient_ParamsDataView input_data_view(params, message);
@@ -2882,8 +2924,8 @@ bool CameraHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterCameraHalClient(
-std::move(p_client), std::move(callback));
+      impl->RegisterCameraHalClient(        
+        std::move(p_client), std::move(callback));
       return true;
     }
   }
@@ -3088,6 +3130,8 @@ bool CameraInstance_Init_ForwardToCallback::Accept(
           internal::CameraInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraInstance.0
   bool success = true;
   CameraInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -3166,6 +3210,8 @@ bool CameraInstanceStubDispatch::AcceptWithResponder(
               internal::CameraInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraInstance.0
       bool success = true;
       ::mojo::PendingRemote<CameraHost> p_host_remote{};
       CameraInstance_Init_ParamsDataView input_data_view(params, message);
@@ -3186,8 +3232,8 @@ bool CameraInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

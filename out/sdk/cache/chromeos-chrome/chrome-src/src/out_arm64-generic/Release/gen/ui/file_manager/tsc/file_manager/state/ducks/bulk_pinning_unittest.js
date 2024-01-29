@@ -26,12 +26,12 @@ export async function testUpdateBulkPinProgress(done) {
     store.dispatch(updateBulkPinProgress(want));
     // Expect the bulk pin progress to be updated.
     const firstState = store.getState().bulkPinning;
-    assertDeepEquals(want, firstState, `1. ${JSON.stringify(want)} != ${JSON.stringify(firstState)}`);
+    assertDeepEquals(want, firstState, `1. ${JSON.stringify(want)} !== ${JSON.stringify(firstState)}`);
     // Dispatch another action to change the stage to `SYNCING`.
     want.stage = chrome.fileManagerPrivate.BulkPinStage.SYNCING;
     store.dispatch(updateBulkPinProgress(want));
     // Expect the bulk pin progress to equal the new state.
     const secondState = store.getState().bulkPinning;
-    assertDeepEquals(want, secondState, `2. ${JSON.stringify(want)} != ${JSON.stringify(secondState)}`);
+    assertDeepEquals(want, secondState, `2. ${JSON.stringify(want)} !== ${JSON.stringify(secondState)}`);
     done();
 }

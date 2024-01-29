@@ -348,6 +348,8 @@ bool FileSystemAccessCapacityAllocationHost_RequestCapacityChange_ForwardToCallb
           internal::FileSystemAccessCapacityAllocationHost_RequestCapacityChange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessCapacityAllocationHost.0
   bool success = true;
   int64_t p_granted_capacity_delta{};
   FileSystemAccessCapacityAllocationHost_RequestCapacityChange_ResponseParamsDataView input_data_view(params, message);
@@ -417,6 +419,8 @@ bool FileSystemAccessCapacityAllocationHost_RequestCapacityChange_HandleSyncResp
       reinterpret_cast<internal::FileSystemAccessCapacityAllocationHost_RequestCapacityChange_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessCapacityAllocationHost.0
   bool success = true;
   int64_t p_granted_capacity_delta{};
   FileSystemAccessCapacityAllocationHost_RequestCapacityChange_ResponseParamsDataView input_data_view(params, message);
@@ -450,6 +454,8 @@ bool FileSystemAccessCapacityAllocationHostStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessCapacityAllocationHost_OnContentsModified_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessCapacityAllocationHost.1
       bool success = true;
       FileSystemAccessCapacityAllocationHost_OnContentsModified_ParamsDataView input_data_view(params, message);
       
@@ -462,7 +468,7 @@ bool FileSystemAccessCapacityAllocationHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnContentsModified();
+      impl->OnContentsModified(        );
       return true;
     }
   }
@@ -485,6 +491,8 @@ bool FileSystemAccessCapacityAllocationHostStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessCapacityAllocationHost_RequestCapacityChange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessCapacityAllocationHost.0
       bool success = true;
       int64_t p_capacity_delta{};
       FileSystemAccessCapacityAllocationHost_RequestCapacityChange_ParamsDataView input_data_view(params, message);
@@ -503,8 +511,8 @@ bool FileSystemAccessCapacityAllocationHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestCapacityChange(
-std::move(p_capacity_delta), std::move(callback));
+      impl->RequestCapacityChange(        
+        std::move(p_capacity_delta), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessCapacityAllocationHost_OnContentsModified_Name: {

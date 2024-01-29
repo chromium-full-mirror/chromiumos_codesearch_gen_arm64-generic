@@ -149,6 +149,22 @@ class  PageHandler_RecordClick_Params_Data {
 };
 static_assert(sizeof(PageHandler_RecordClick_Params_Data) == 16,
               "Bad sizeof(PageHandler_RecordClick_Params_Data)");
+class  PageHandler_RecordDisabled_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int64_t cluster_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_RecordDisabled_Params_Data>;
+
+  PageHandler_RecordDisabled_Params_Data();
+  ~PageHandler_RecordDisabled_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_RecordDisabled_Params_Data) == 16,
+              "Bad sizeof(PageHandler_RecordDisabled_Params_Data)");
 class  PageHandler_RecordLayoutTypeShown_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -173,6 +189,7 @@ class  PageHandler_UpdateClusterVisitsInteractionState_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int64_t cluster_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::history_clusters::mojom::internal::URLVisit_Data>>> visits;
   int32_t state;
   uint8_t padfinal_[4];
@@ -183,7 +200,7 @@ class  PageHandler_UpdateClusterVisitsInteractionState_Params_Data {
   PageHandler_UpdateClusterVisitsInteractionState_Params_Data();
   ~PageHandler_UpdateClusterVisitsInteractionState_Params_Data() = delete;
 };
-static_assert(sizeof(PageHandler_UpdateClusterVisitsInteractionState_Params_Data) == 24,
+static_assert(sizeof(PageHandler_UpdateClusterVisitsInteractionState_Params_Data) == 32,
               "Bad sizeof(PageHandler_UpdateClusterVisitsInteractionState_Params_Data)");
 
 }  // namespace internal
@@ -388,6 +405,24 @@ class PageHandler_RecordClick_ParamsDataView {
 };
 
 
+class PageHandler_RecordDisabled_ParamsDataView {
+ public:
+  PageHandler_RecordDisabled_ParamsDataView() = default;
+
+  PageHandler_RecordDisabled_ParamsDataView(
+      internal::PageHandler_RecordDisabled_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int64_t cluster_id() const {
+    return data_->cluster_id;
+  }
+ private:
+  internal::PageHandler_RecordDisabled_Params_Data* data_ = nullptr;
+};
+
+
 class PageHandler_RecordLayoutTypeShown_ParamsDataView {
  public:
   PageHandler_RecordLayoutTypeShown_ParamsDataView() = default;
@@ -426,6 +461,9 @@ class PageHandler_UpdateClusterVisitsInteractionState_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  int64_t cluster_id() const {
+    return data_->cluster_id;
+  }
   inline void GetVisitsDataView(
       mojo::ArrayDataView<::history_clusters::mojom::URLVisitDataView>* output);
 
@@ -493,6 +531,8 @@ inline void PageHandler_ShowJourneysSidePanel_ParamsDataView::GetQueryDataView(
   auto pointer = data_->query.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

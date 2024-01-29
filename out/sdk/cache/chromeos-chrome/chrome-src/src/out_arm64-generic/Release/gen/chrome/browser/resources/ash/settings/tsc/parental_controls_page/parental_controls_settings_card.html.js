@@ -3,7 +3,7 @@ export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #parentalControlRowIcon{--iron-icon-fill-color:var(--cros-sys-primary)}cr-link-row{--cr-section-padding:0}</style>
 
 <settings-card header-text="$i18n{parentalControlsPageTitle}">
-  <div id="parentalControlsItem" class="settings-box two-line">
+  <div id="parentalControlsItem" class="settings-box two-line first">
     <template is="dom-if" if="[[isChild_]]">
       <cr-link-row on-click="handleFamilyLinkButtonClick_" start-icon="cr20:kite" label="$i18n{parentalControlsPageTitle}" sub-label="$i18n{parentalControlsPageViewSettingsLabel}" external>
       </cr-link-row>

@@ -53,11 +53,14 @@ PROTOBUF_CONSTEXPR TracingServiceState_TracingSession::TracingServiceState_Traci
   : buffer_size_kb_()
   , state_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , unique_session_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , bugreport_filename_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , id_(uint64_t{0u})
   , consumer_uid_(0)
   , duration_ms_(0u)
   , start_realtime_ns_(int64_t{0})
-  , num_data_sources_(0u){}
+  , num_data_sources_(0u)
+  , bugreport_score_(0)
+  , is_started_(false){}
 struct TracingServiceState_TracingSessionDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TracingServiceState_TracingSessionDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -691,10 +694,10 @@ class TracingServiceState_TracingSession::_Internal {
  public:
   using HasBits = decltype(std::declval<TracingServiceState_TracingSession>()._has_bits_);
   static void set_has_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_consumer_uid(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
   }
   static void set_has_state(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -703,13 +706,22 @@ class TracingServiceState_TracingSession::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_duration_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 32u;
   }
   static void set_has_num_data_sources(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
+    (*has_bits)[0] |= 128u;
   }
   static void set_has_start_realtime_ns(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_bugreport_score(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_bugreport_filename(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_is_started(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
   }
 };
 
@@ -741,9 +753,17 @@ TracingServiceState_TracingSession::TracingServiceState_TracingSession(const Tra
     unique_session_name_.Set(from._internal_unique_session_name(), 
       GetArenaForAllocation());
   }
+  bugreport_filename_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    bugreport_filename_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_bugreport_filename()) {
+    bugreport_filename_.Set(from._internal_bugreport_filename(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&num_data_sources_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(num_data_sources_));
+    static_cast<size_t>(reinterpret_cast<char*>(&is_started_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(is_started_));
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.TracingServiceState.TracingSession)
 }
 
@@ -756,10 +776,14 @@ unique_session_name_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   unique_session_name_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+bugreport_filename_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  bugreport_filename_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_data_sources_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(num_data_sources_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_started_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(is_started_));
 }
 
 TracingServiceState_TracingSession::~TracingServiceState_TracingSession() {
@@ -775,6 +799,7 @@ inline void TracingServiceState_TracingSession::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   state_.Destroy();
   unique_session_name_.Destroy();
+  bugreport_filename_.Destroy();
 }
 
 void TracingServiceState_TracingSession::SetCachedSize(int size) const {
@@ -789,18 +814,26 @@ void TracingServiceState_TracingSession::Clear() {
 
   buffer_size_kb_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       state_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       unique_session_name_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000004u) {
+      bugreport_filename_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x0000007cu) {
+  if (cached_has_bits & 0x000000f8u) {
     ::memset(&id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&num_data_sources_) -
         reinterpret_cast<char*>(&id_)) + sizeof(num_data_sources_));
+  }
+  if (cached_has_bits & 0x00000300u) {
+    ::memset(&bugreport_score_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&is_started_) -
+        reinterpret_cast<char*>(&bugreport_score_)) + sizeof(is_started_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -892,6 +925,33 @@ const char* TracingServiceState_TracingSession::_InternalParse(const char* ptr, 
         } else
           goto handle_unusual;
         continue;
+      // optional int32 bugreport_score = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _Internal::set_has_bugreport_score(&has_bits);
+          bugreport_score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string bugreport_filename = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          auto str = _internal_mutable_bugreport_filename();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool is_started = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _Internal::set_has_is_started(&has_bits);
+          is_started_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -924,13 +984,13 @@ uint8_t* TracingServiceState_TracingSession::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional uint64 id = 1;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
   }
 
   // optional int32 consumer_uid = 2;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_consumer_uid(), target);
   }
@@ -954,21 +1014,39 @@ uint8_t* TracingServiceState_TracingSession::_InternalSerialize(
   }
 
   // optional uint32 duration_ms = 6;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_duration_ms(), target);
   }
 
   // optional uint32 num_data_sources = 7;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_num_data_sources(), target);
   }
 
   // optional int64 start_realtime_ns = 8;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(8, this->_internal_start_realtime_ns(), target);
+  }
+
+  // optional int32 bugreport_score = 9;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_bugreport_score(), target);
+  }
+
+  // optional string bugreport_filename = 10;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_bugreport_filename(), target);
+  }
+
+  // optional bool is_started = 11;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_is_started(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -997,7 +1075,7 @@ size_t TracingServiceState_TracingSession::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional string state = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1012,29 +1090,48 @@ size_t TracingServiceState_TracingSession::ByteSizeLong() const {
           this->_internal_unique_session_name());
     }
 
-    // optional uint64 id = 1;
+    // optional string bugreport_filename = 10;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_bugreport_filename());
+    }
+
+    // optional uint64 id = 1;
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
     }
 
     // optional int32 consumer_uid = 2;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_consumer_uid());
     }
 
     // optional uint32 duration_ms = 6;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_duration_ms());
     }
 
     // optional int64 start_realtime_ns = 8;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_start_realtime_ns());
     }
 
     // optional uint32 num_data_sources = 7;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_num_data_sources());
+    }
+
+  }
+  if (cached_has_bits & 0x00000300u) {
+    // optional int32 bugreport_score = 9;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_bugreport_score());
+    }
+
+    // optional bool is_started = 11;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -1060,7 +1157,7 @@ void TracingServiceState_TracingSession::MergeFrom(const TracingServiceState_Tra
 
   buffer_size_kb_.MergeFrom(from.buffer_size_kb_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_state(from._internal_state());
     }
@@ -1068,19 +1165,31 @@ void TracingServiceState_TracingSession::MergeFrom(const TracingServiceState_Tra
       _internal_set_unique_session_name(from._internal_unique_session_name());
     }
     if (cached_has_bits & 0x00000004u) {
-      id_ = from.id_;
+      _internal_set_bugreport_filename(from._internal_bugreport_filename());
     }
     if (cached_has_bits & 0x00000008u) {
-      consumer_uid_ = from.consumer_uid_;
+      id_ = from.id_;
     }
     if (cached_has_bits & 0x00000010u) {
-      duration_ms_ = from.duration_ms_;
+      consumer_uid_ = from.consumer_uid_;
     }
     if (cached_has_bits & 0x00000020u) {
-      start_realtime_ns_ = from.start_realtime_ns_;
+      duration_ms_ = from.duration_ms_;
     }
     if (cached_has_bits & 0x00000040u) {
+      start_realtime_ns_ = from.start_realtime_ns_;
+    }
+    if (cached_has_bits & 0x00000080u) {
       num_data_sources_ = from.num_data_sources_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000300u) {
+    if (cached_has_bits & 0x00000100u) {
+      bugreport_score_ = from.bugreport_score_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      is_started_ = from.is_started_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1113,9 +1222,13 @@ void TracingServiceState_TracingSession::InternalSwap(TracingServiceState_Tracin
       &unique_session_name_, lhs_arena,
       &other->unique_session_name_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &bugreport_filename_, lhs_arena,
+      &other->bugreport_filename_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TracingServiceState_TracingSession, num_data_sources_)
-      + sizeof(TracingServiceState_TracingSession::num_data_sources_)
+      PROTOBUF_FIELD_OFFSET(TracingServiceState_TracingSession, is_started_)
+      + sizeof(TracingServiceState_TracingSession::is_started_)
       - PROTOBUF_FIELD_OFFSET(TracingServiceState_TracingSession, id_)>(
           reinterpret_cast<char*>(&id_),
           reinterpret_cast<char*>(&other->id_));

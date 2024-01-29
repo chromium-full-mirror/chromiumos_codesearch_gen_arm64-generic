@@ -105,6 +105,38 @@ bool IndexedDBClientStateChecker_DisallowInactiveClient_ResponseParams_Data::Val
 IndexedDBClientStateChecker_DisallowInactiveClient_ResponseParams_Data::IndexedDBClientStateChecker_DisallowInactiveClient_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool IndexedDBClientStateChecker_MakeClone_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const IndexedDBClientStateChecker_MakeClone_Params_Data* object =
+      static_cast<const IndexedDBClientStateChecker_MakeClone_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+IndexedDBClientStateChecker_MakeClone_Params_Data::IndexedDBClientStateChecker_MakeClone_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace storage

@@ -9,12 +9,12 @@ import '../../components/oobe_icons.html.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { sanitizeInnerHtml } from '//resources/ash/common/parse_html_subset.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { loadTimeData } from '//resources/js/load_time_data.js';
+import { sanitizeInnerHtml } from '//resources/js/parse_html_subset.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OobeModalDialog } from '../../components/dialogs/oobe_modal_dialog.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { CheckingDownloadingUpdate } from './checking_downloading_update.js';
@@ -22,36 +22,19 @@ import { getTemplate } from './update_required_card.html.js';
 /**
  * Possible UI states of the screen. Must be in the same order as
  * UpdateRequiredView::UIState enum values.
- * @enum {string}
  */
-const UpdateRequiredUIState = {
-    UPDATE_REQUIRED_MESSAGE: 'update-required-message',
-    UPDATE_PROCESS: 'update-process',
-    UPDATE_NEED_PERMISSION: 'update-need-permission',
-    UPDATE_COMPLETED_NEED_REBOOT: 'update-completed-need-reboot',
-    UPDATE_ERROR: 'update-error',
-    EOL_REACHED: 'eol',
-    UPDATE_NO_NETWORK: 'update-no-network',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
+var UpdateRequiredUiState;
+(function (UpdateRequiredUiState) {
+    UpdateRequiredUiState["UPDATE_REQUIRED_MESSAGE"] = "update-required-message";
+    UpdateRequiredUiState["UPDATE_PROCESS"] = "update-process";
+    UpdateRequiredUiState["UPDATE_NEED_PERMISSION"] = "update-need-permission";
+    UpdateRequiredUiState["UPDATE_COMPLETED_NEED_REBOOT"] = "update-completed-need-reboot";
+    UpdateRequiredUiState["UPDATE_ERROR"] = "update-error";
+    UpdateRequiredUiState["EOL_REACHED"] = "eol";
+    UpdateRequiredUiState["UPDATE_NO_NETWORK"] = "update-no-network";
+})(UpdateRequiredUiState || (UpdateRequiredUiState = {}));
 const UpdateRequiredBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @typedef {{
- *   confirmationDialog: OobeModalDialog,
- *   downloadingUpdate: CheckingDownloadingUpdate,
- * }}
- */
-UpdateRequiredBase.$;
-/**
- * @polymer
- */
-class UpdateRequired extends UpdateRequiredBase {
+export class UpdateRequired extends UpdateRequiredBase {
     static get is() {
         return 'update-required-card-element';
     }
@@ -63,15 +46,42 @@ class UpdateRequired extends UpdateRequiredBase {
             /**
              * Is device connected to network?
              */
-            isNetworkConnected: { type: Boolean, value: false },
-            updateProgressUnavailable: { type: Boolean, value: true },
-            updateProgressValue: { type: Number, value: 0 },
-            updateProgressMessage: { type: String, value: '' },
-            estimatedTimeLeftVisible: { type: Boolean, value: false },
-            enterpriseManager: { type: String, value: '' },
-            deviceName: { type: String, value: '' },
-            eolAdminMessage_: { type: String, value: '' },
-            usersDataPresent_: { type: Boolean, value: false },
+            isNetworkConnected: {
+                type: Boolean,
+                value: false,
+            },
+            updateProgressUnavailable: {
+                type: Boolean,
+                value: true,
+            },
+            updateProgressValue: {
+                type: Number,
+                value: 0,
+            },
+            updateProgressMessage: {
+                type: String,
+                value: '',
+            },
+            estimatedTimeLeftVisible: {
+                type: Boolean,
+                value: false,
+            },
+            enterpriseManager: {
+                type: String,
+                value: '',
+            },
+            deviceName: {
+                type: String,
+                value: '',
+            },
+            eolAdminMessage: {
+                type: String,
+                value: '',
+            },
+            usersDataPresent: {
+                type: Boolean,
+                value: false,
+            },
             /**
              * Estimated time left in seconds.
              */
@@ -81,8 +91,6 @@ class UpdateRequired extends UpdateRequiredBase {
             },
         };
     }
-    /** Overridden from LoginScreenBehavior. */
-    // clang-format off
     get EXTERNAL_API() {
         return [
             'setIsConnected',
@@ -97,169 +105,148 @@ class UpdateRequired extends UpdateRequiredBase {
             'setIsUserDataPresent',
         ];
     }
-    // clang-format on
     ready() {
         super.ready();
         this.initializeLoginScreen('UpdateRequiredScreen');
-        this.updateEolDeleteUsersDataMessage_();
+        this.updateEolDeleteUsersDataMessage();
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.BLOCKING;
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return UpdateRequiredUIState.UPDATE_REQUIRED_MESSAGE;
+        return UpdateRequiredUiState.UPDATE_REQUIRED_MESSAGE;
     }
     get UI_STEPS() {
-        return UpdateRequiredUIState;
+        return UpdateRequiredUiState;
     }
     onBeforeShow() {
-        this.$.downloadingUpdate.onBeforeShow();
+        const elem = this.shadowRoot?.querySelector('#downloadingUpdate');
+        if (elem instanceof CheckingDownloadingUpdate) {
+            elem.onBeforeShow();
+        }
     }
     /** Called after resources are updated. */
     updateLocalizedContent() {
         this.i18nUpdateLocale();
-        this.updateEolDeleteUsersDataMessage_();
+        this.updateEolDeleteUsersDataMessage();
     }
     /**
-     * @param {string} enterpriseManager Manager of device -could be a domain
+     * @param enterpriseManager Manager of device -could be a domain
      *    name or an email address.
      */
-    /** @param {string} device Device name */
     setEnterpriseAndDeviceName(enterpriseManager, device) {
         this.enterpriseManager = enterpriseManager;
         this.deviceName = device;
     }
     /**
-     * @param {string} eolMessage Not sanitized end of life message from policy
+     * @param eolMessage Not sanitized end of life message from policy
      */
     setEolMessage(eolMessage) {
-        this.eolAdminMessage_ = sanitizeInnerHtml(eolMessage).toString();
+        this.eolAdminMessage = sanitizeInnerHtml(eolMessage).toString();
     }
-    /** @param {boolean} connected */
     setIsConnected(connected) {
         this.isNetworkConnected = connected;
     }
     /**
-     * @param {boolean} unavailable
      */
     setUpdateProgressUnavailable(unavailable) {
         this.updateProgressUnavailable = unavailable;
     }
     /**
      * Sets update's progress bar value.
-     * @param {number} progress Percentage of the progress bar.
+     * @param progress Percentage of the progress bar.
      */
     setUpdateProgressValue(progress) {
         this.updateProgressValue = progress;
     }
     /**
      * Sets message below progress bar.
-     * @param {string} message Message that should be shown.
+     * @param message Message that should be shown.
      */
     setUpdateProgressMessage(message) {
         this.updateProgressMessage = message;
     }
     /**
      * Shows or hides downloading ETA message.
-     * @param {boolean} visible Are ETA message visible?
+     * @param visible Are ETA message visible?
      */
     setEstimatedTimeLeftVisible(visible) {
         this.estimatedTimeLeftVisible = visible;
     }
     /**
      * Sets estimated time left until download will complete.
-     * @param {number} seconds Time left in seconds.
+     * @param seconds Time left in seconds.
      */
     setEstimatedTimeLeft(seconds) {
         this.estimatedTimeLeft = seconds;
     }
     /**
      * Sets current UI state of the screen.
-     * @param {number} ui_state New UI state of the screen.
      */
-    setUIState(ui_state) {
-        this.setUIStep(Object.values(UpdateRequiredUIState)[ui_state]);
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    setUIState(uiState) {
+        this.setUIStep(Object.values(UpdateRequiredUiState)[uiState]);
     }
-    /** @param {boolean} data_present */
-    setIsUserDataPresent(data_present) {
-        this.usersDataPresent_ = data_present;
+    setIsUserDataPresent(dataPresent) {
+        this.usersDataPresent = dataPresent;
     }
-    /**
-     * @private
-     */
-    onSelectNetworkClicked_() {
+    onSelectNetworkClicked() {
         this.userActed('select-network');
     }
-    /**
-     * @private
-     */
-    onUpdateClicked_() {
+    onUpdateClicked() {
         this.userActed('update');
     }
-    /**
-     * @private
-     */
-    onFinishClicked_() {
+    onFinishClicked() {
         this.userActed('finish');
     }
-    /**
-     * @private
-     */
-    onCellularPermissionRejected_() {
+    onCellularPermissionRejected() {
         this.userActed('update-reject-cellular');
     }
-    /**
-     * @private
-     */
-    onCellularPermissionAccepted_() {
+    onCellularPermissionAccepted() {
         this.userActed('update-accept-cellular');
     }
     /**
      * Simple equality comparison function.
-     * @private
      */
-    eq_(one, another) {
+    eq(one, another) {
         return one === another;
     }
-    /**
-     * @private
-     */
-    isEmpty_(eolAdminMessage) {
+    isEmpty(eolAdminMessage) {
         return !eolAdminMessage || eolAdminMessage.trim().length == 0;
     }
-    /**
-     * @private
-     */
-    updateEolDeleteUsersDataMessage_() {
-        this.shadowRoot.querySelector('#deleteUsersDataMessage').innerHTML =
-            this.i18nAdvanced('eolDeleteUsersDataMessage', {
+    updateEolDeleteUsersDataMessage() {
+        const message = this.shadowRoot?.querySelector('#deleteUsersDataMessage');
+        if (message instanceof HTMLElement) {
+            message.innerHTML = this.i18nAdvanced('eolDeleteUsersDataMessage', {
                 substitutions: [loadTimeData.getString('deviceType')],
                 attrs: ['id'],
             });
-        const linkElement = this.shadowRoot.querySelector('#deleteDataLink');
-        linkElement.setAttribute('is', 'action-link');
-        linkElement.classList.add('oobe-local-link');
-        linkElement.addEventListener('click', () => this.showConfirmationDialog_());
+        }
+        const linkElement = this.shadowRoot?.querySelector('#deleteDataLink');
+        if (linkElement instanceof HTMLAnchorElement) {
+            linkElement.setAttribute('is', 'action-link');
+            linkElement.classList.add('oobe-local-link');
+            linkElement.addEventListener('click', () => this.showConfirmationDialog());
+        }
     }
-    /**
-     * @private
-     */
-    showConfirmationDialog_() {
-        this.$.confirmationDialog.showDialog();
+    showConfirmationDialog() {
+        const dialog = this.shadowRoot?.querySelector('#confirmationDialog');
+        if (dialog instanceof OobeModalDialog) {
+            dialog.showDialog();
+        }
     }
-    /**
-     * @private
-     */
-    hideConfirmationDialog_() {
-        this.$.confirmationDialog.hideDialog();
+    hideConfirmationDialog() {
+        const dialog = this.shadowRoot?.querySelector('#confirmationDialog');
+        if (dialog instanceof OobeModalDialog) {
+            dialog.hideDialog();
+        }
     }
-    /**
-     * @private
-     */
-    onDeleteUsersConfirmed_() {
+    onDeleteUsersConfirmed() {
         this.userActed('confirm-delete-users');
-        this.hideConfirmationDialog_();
+        this.hideConfirmationDialog();
     }
 }
 customElements.define(UpdateRequired.is, UpdateRequired);

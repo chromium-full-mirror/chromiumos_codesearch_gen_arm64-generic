@@ -156,6 +156,8 @@ bool WebCacheStubDispatch::Accept(
           reinterpret_cast<internal::WebCache_ClearCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebCache.0
       bool success = true;
       bool p_on_navigation{};
       WebCache_ClearCache_ParamsDataView input_data_view(params, message);
@@ -171,8 +173,8 @@ bool WebCacheStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearCache(
-std::move(p_on_navigation));
+      impl->ClearCache(        
+        std::move(p_on_navigation));
       return true;
     }
   }

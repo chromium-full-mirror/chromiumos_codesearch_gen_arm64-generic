@@ -1920,9 +1920,23 @@ struct PrepareAuthFactorProgressDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareAuthFactorProgressDefaultTypeInternal _PrepareAuthFactorProgress_default_instance_;
+PROTOBUF_CONSTEXPR AuthenticateStarted::AuthenticateStarted(
+    ::_pbi::ConstantInitialized)
+  : operation_id_(uint64_t{0u})
+  , _oneof_case_{}{}
+struct AuthenticateStartedDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthenticateStartedDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthenticateStartedDefaultTypeInternal() {}
+  union {
+    AuthenticateStarted _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateStartedDefaultTypeInternal _AuthenticateStarted_default_instance_;
 PROTOBUF_CONSTEXPR AuthenticateAuthFactorCompleted::AuthenticateAuthFactorCompleted(
     ::_pbi::ConstantInitialized)
   : error_info_(nullptr)
+  , operation_id_(uint64_t{0u})
   , error_(0)
 
   , _oneof_case_{}{}
@@ -1935,6 +1949,30 @@ struct AuthenticateAuthFactorCompletedDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateAuthFactorCompletedDefaultTypeInternal _AuthenticateAuthFactorCompleted_default_instance_;
+PROTOBUF_CONSTEXPR MountStarted::MountStarted(
+    ::_pbi::ConstantInitialized)
+  : operation_id_(uint64_t{0u}){}
+struct MountStartedDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MountStartedDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MountStartedDefaultTypeInternal() {}
+  union {
+    MountStarted _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MountStartedDefaultTypeInternal _MountStarted_default_instance_;
+PROTOBUF_CONSTEXPR MountCompleted::MountCompleted(
+    ::_pbi::ConstantInitialized)
+  : operation_id_(uint64_t{0u}){}
+struct MountCompletedDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MountCompletedDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MountCompletedDefaultTypeInternal() {}
+  union {
+    MountCompleted _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MountCompletedDefaultTypeInternal _MountCompleted_default_instance_;
 PROTOBUF_CONSTEXPR EvictedKeyRestored::EvictedKeyRestored(
     ::_pbi::ConstantInitialized)
   : eviction_id_(int64_t{0}){}
@@ -34125,6 +34163,273 @@ std::string PrepareAuthFactorProgress::GetTypeName() const {
 
 // ===================================================================
 
+class AuthenticateStarted::_Internal {
+ public:
+};
+
+AuthenticateStarted::AuthenticateStarted(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthenticateStarted)
+}
+AuthenticateStarted::AuthenticateStarted(const AuthenticateStarted& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  operation_id_ = from.operation_id_;
+  clear_has_auth_factor();
+  switch (from.auth_factor_case()) {
+    case kAuthFactorType: {
+      _internal_set_auth_factor_type(from._internal_auth_factor_type());
+      break;
+    }
+    case kUserCreation: {
+      _internal_set_user_creation(from._internal_user_creation());
+      break;
+    }
+    case AUTH_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.AuthenticateStarted)
+}
+
+inline void AuthenticateStarted::SharedCtor() {
+operation_id_ = uint64_t{0u};
+clear_has_auth_factor();
+}
+
+AuthenticateStarted::~AuthenticateStarted() {
+  // @@protoc_insertion_point(destructor:user_data_auth.AuthenticateStarted)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthenticateStarted::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_auth_factor()) {
+    clear_auth_factor();
+  }
+}
+
+void AuthenticateStarted::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AuthenticateStarted::clear_auth_factor() {
+// @@protoc_insertion_point(one_of_clear_start:user_data_auth.AuthenticateStarted)
+  switch (auth_factor_case()) {
+    case kAuthFactorType: {
+      // No need to clear
+      break;
+    }
+    case kUserCreation: {
+      // No need to clear
+      break;
+    }
+    case AUTH_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = AUTH_FACTOR_NOT_SET;
+}
+
+
+void AuthenticateStarted::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.AuthenticateStarted)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  operation_id_ = uint64_t{0u};
+  clear_auth_factor();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthenticateStarted::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint64 operation_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          operation_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorType auth_factor_type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_auth_factor_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool user_creation = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _internal_set_user_creation(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthenticateStarted::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.AuthenticateStarted)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 operation_id = 1;
+  if (this->_internal_operation_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_operation_id(), target);
+  }
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 2;
+  if (_internal_has_auth_factor_type()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_auth_factor_type(), target);
+  }
+
+  // bool user_creation = 3;
+  if (_internal_has_user_creation()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_user_creation(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.AuthenticateStarted)
+  return target;
+}
+
+size_t AuthenticateStarted::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.AuthenticateStarted)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 operation_id = 1;
+  if (this->_internal_operation_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_operation_id());
+  }
+
+  switch (auth_factor_case()) {
+    // .user_data_auth.AuthFactorType auth_factor_type = 2;
+    case kAuthFactorType: {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_auth_factor_type());
+      break;
+    }
+    // bool user_creation = 3;
+    case kUserCreation: {
+      total_size += 1 + 1;
+      break;
+    }
+    case AUTH_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthenticateStarted::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthenticateStarted*>(
+      &from));
+}
+
+void AuthenticateStarted::MergeFrom(const AuthenticateStarted& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.AuthenticateStarted)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_operation_id() != 0) {
+    _internal_set_operation_id(from._internal_operation_id());
+  }
+  switch (from.auth_factor_case()) {
+    case kAuthFactorType: {
+      _internal_set_auth_factor_type(from._internal_auth_factor_type());
+      break;
+    }
+    case kUserCreation: {
+      _internal_set_user_creation(from._internal_user_creation());
+      break;
+    }
+    case AUTH_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthenticateStarted::CopyFrom(const AuthenticateStarted& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.AuthenticateStarted)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthenticateStarted::IsInitialized() const {
+  return true;
+}
+
+void AuthenticateStarted::InternalSwap(AuthenticateStarted* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(operation_id_, other->operation_id_);
+  swap(auth_factor_, other->auth_factor_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string AuthenticateStarted::GetTypeName() const {
+  return "user_data_auth.AuthenticateStarted";
+}
+
+
+// ===================================================================
+
 class AuthenticateAuthFactorCompleted::_Internal {
  public:
   static const ::user_data_auth::CryptohomeErrorInfo& error_info(const AuthenticateAuthFactorCompleted* msg);
@@ -34148,7 +34453,9 @@ AuthenticateAuthFactorCompleted::AuthenticateAuthFactorCompleted(const Authentic
   } else {
     error_info_ = nullptr;
   }
-  error_ = from.error_;
+  ::memcpy(&operation_id_, &from.operation_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&error_) -
+    reinterpret_cast<char*>(&operation_id_)) + sizeof(error_));
   clear_has_auth_factor();
   switch (from.auth_factor_case()) {
     case kAuthFactorType: {
@@ -34224,7 +34531,9 @@ void AuthenticateAuthFactorCompleted::Clear() {
     delete error_info_;
   }
   error_info_ = nullptr;
-  error_ = 0;
+  ::memset(&operation_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&error_) -
+      reinterpret_cast<char*>(&operation_id_)) + sizeof(error_));
   clear_auth_factor();
   _internal_metadata_.Clear<std::string>();
 }
@@ -34265,6 +34574,14 @@ const char* AuthenticateAuthFactorCompleted::_InternalParse(const char* ptr, ::_
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _internal_set_user_creation(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint64 operation_id = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          operation_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -34325,6 +34642,12 @@ uint8_t* AuthenticateAuthFactorCompleted::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_user_creation(), target);
   }
 
+  // uint64 operation_id = 5;
+  if (this->_internal_operation_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_operation_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -34346,6 +34669,11 @@ size_t AuthenticateAuthFactorCompleted::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *error_info_);
+  }
+
+  // uint64 operation_id = 5;
+  if (this->_internal_operation_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_operation_id());
   }
 
   // .user_data_auth.CryptohomeErrorCode error = 1;
@@ -34393,6 +34721,9 @@ void AuthenticateAuthFactorCompleted::MergeFrom(const AuthenticateAuthFactorComp
   if (from._internal_has_error_info()) {
     _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
   }
+  if (from._internal_operation_id() != 0) {
+    _internal_set_operation_id(from._internal_operation_id());
+  }
   if (from._internal_error() != 0) {
     _internal_set_error(from._internal_error());
   }
@@ -34438,6 +34769,342 @@ void AuthenticateAuthFactorCompleted::InternalSwap(AuthenticateAuthFactorComplet
 
 std::string AuthenticateAuthFactorCompleted::GetTypeName() const {
   return "user_data_auth.AuthenticateAuthFactorCompleted";
+}
+
+
+// ===================================================================
+
+class MountStarted::_Internal {
+ public:
+};
+
+MountStarted::MountStarted(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.MountStarted)
+}
+MountStarted::MountStarted(const MountStarted& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  operation_id_ = from.operation_id_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.MountStarted)
+}
+
+inline void MountStarted::SharedCtor() {
+operation_id_ = uint64_t{0u};
+}
+
+MountStarted::~MountStarted() {
+  // @@protoc_insertion_point(destructor:user_data_auth.MountStarted)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void MountStarted::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void MountStarted::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void MountStarted::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.MountStarted)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  operation_id_ = uint64_t{0u};
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* MountStarted::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint64 operation_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          operation_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* MountStarted::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.MountStarted)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 operation_id = 1;
+  if (this->_internal_operation_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_operation_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.MountStarted)
+  return target;
+}
+
+size_t MountStarted::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.MountStarted)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 operation_id = 1;
+  if (this->_internal_operation_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_operation_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MountStarted::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const MountStarted*>(
+      &from));
+}
+
+void MountStarted::MergeFrom(const MountStarted& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.MountStarted)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_operation_id() != 0) {
+    _internal_set_operation_id(from._internal_operation_id());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void MountStarted::CopyFrom(const MountStarted& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.MountStarted)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MountStarted::IsInitialized() const {
+  return true;
+}
+
+void MountStarted::InternalSwap(MountStarted* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(operation_id_, other->operation_id_);
+}
+
+std::string MountStarted::GetTypeName() const {
+  return "user_data_auth.MountStarted";
+}
+
+
+// ===================================================================
+
+class MountCompleted::_Internal {
+ public:
+};
+
+MountCompleted::MountCompleted(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.MountCompleted)
+}
+MountCompleted::MountCompleted(const MountCompleted& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  operation_id_ = from.operation_id_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.MountCompleted)
+}
+
+inline void MountCompleted::SharedCtor() {
+operation_id_ = uint64_t{0u};
+}
+
+MountCompleted::~MountCompleted() {
+  // @@protoc_insertion_point(destructor:user_data_auth.MountCompleted)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void MountCompleted::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void MountCompleted::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void MountCompleted::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.MountCompleted)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  operation_id_ = uint64_t{0u};
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* MountCompleted::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint64 operation_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          operation_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* MountCompleted::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.MountCompleted)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 operation_id = 1;
+  if (this->_internal_operation_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_operation_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.MountCompleted)
+  return target;
+}
+
+size_t MountCompleted::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.MountCompleted)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 operation_id = 1;
+  if (this->_internal_operation_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_operation_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MountCompleted::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const MountCompleted*>(
+      &from));
+}
+
+void MountCompleted::MergeFrom(const MountCompleted& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.MountCompleted)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_operation_id() != 0) {
+    _internal_set_operation_id(from._internal_operation_id());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void MountCompleted::CopyFrom(const MountCompleted& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.MountCompleted)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MountCompleted::IsInitialized() const {
+  return true;
+}
+
+void MountCompleted::InternalSwap(MountCompleted* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(operation_id_, other->operation_id_);
+}
+
+std::string MountCompleted::GetTypeName() const {
+  return "user_data_auth.MountCompleted";
 }
 
 
@@ -35621,9 +36288,21 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::PrepareAuthFactorProgress*
 Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorProgress >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::PrepareAuthFactorProgress >(arena);
 }
+template<> PROTOBUF_NOINLINE ::user_data_auth::AuthenticateStarted*
+Arena::CreateMaybeMessage< ::user_data_auth::AuthenticateStarted >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::AuthenticateStarted >(arena);
+}
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthenticateAuthFactorCompleted*
 Arena::CreateMaybeMessage< ::user_data_auth::AuthenticateAuthFactorCompleted >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::AuthenticateAuthFactorCompleted >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::MountStarted*
+Arena::CreateMaybeMessage< ::user_data_auth::MountStarted >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::MountStarted >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::MountCompleted*
+Arena::CreateMaybeMessage< ::user_data_auth::MountCompleted >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::MountCompleted >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::EvictedKeyRestored*
 Arena::CreateMaybeMessage< ::user_data_auth::EvictedKeyRestored >(Arena* arena) {

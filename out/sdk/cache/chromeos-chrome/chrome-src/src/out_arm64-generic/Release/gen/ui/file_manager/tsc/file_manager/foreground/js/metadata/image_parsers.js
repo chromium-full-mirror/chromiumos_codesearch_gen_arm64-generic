@@ -46,12 +46,12 @@ export class PngParser extends SimpleImageParser {
     parseHeader(metadata, br) {
         br.setByteOrder(ByteOrder.BIG_ENDIAN);
         const signature = br.readString(8);
-        if (signature != '\x89PNG\x0D\x0A\x1A\x0A') {
+        if (signature !== '\x89PNG\x0D\x0A\x1A\x0A') {
             throw new Error('Invalid PNG signature: ' + signature);
         }
         br.seek(12);
         const ihdr = br.readString(4);
-        if (ihdr != 'IHDR') {
+        if (ihdr !== 'IHDR') {
             throw new Error('Missing IHDR chunk');
         }
         metadata.width = br.readScalar(4);
@@ -68,7 +68,7 @@ export class BmpParser extends SimpleImageParser {
     parseHeader(metadata, br) {
         br.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         const signature = br.readString(2);
-        if (signature != 'BM') {
+        if (signature !== 'BM') {
             throw new Error('Invalid BMP signature: ' + signature);
         }
         br.seek(18);
@@ -103,12 +103,12 @@ export class WebpParser extends SimpleImageParser {
     parseHeader(metadata, br) {
         br.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         const riffSignature = br.readString(4);
-        if (riffSignature != 'RIFF') {
+        if (riffSignature !== 'RIFF') {
             throw new Error('Invalid RIFF signature: ' + riffSignature);
         }
         br.seek(8);
         const webpSignature = br.readString(4);
-        if (webpSignature != 'WEBP') {
+        if (webpSignature !== 'WEBP') {
             throw new Error('Invalid WEBP signature: ' + webpSignature);
         }
         const chunkFormat = br.readString(4);
@@ -117,7 +117,7 @@ export class WebpParser extends SimpleImageParser {
             case 'VP8 ':
                 br.seek(23);
                 const lossySignature = br.readScalar(2) | (br.readScalar(1) << 16);
-                if (lossySignature != 0x2a019d) {
+                if (lossySignature !== 0x2a019d) {
                     throw new Error('Invalid VP8 lossy bitstream signature: ' + lossySignature);
                 }
                 {
@@ -130,7 +130,7 @@ export class WebpParser extends SimpleImageParser {
             case 'VP8L':
                 br.seek(20);
                 const losslessSignature = br.readScalar(1);
-                if (losslessSignature != 0x2f) {
+                if (losslessSignature !== 0x2f) {
                     throw new Error('Invalid VP8 lossless bitstream signature: ' + losslessSignature);
                 }
                 {

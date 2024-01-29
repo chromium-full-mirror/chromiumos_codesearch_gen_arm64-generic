@@ -30,6 +30,7 @@
 #include "mojo/public/mojom/base/read_only_file.mojom.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-forward.h"
+#include "ui/accessibility/ax_features.mojom-forward.h"
 #include <string>
 #include <vector>
 

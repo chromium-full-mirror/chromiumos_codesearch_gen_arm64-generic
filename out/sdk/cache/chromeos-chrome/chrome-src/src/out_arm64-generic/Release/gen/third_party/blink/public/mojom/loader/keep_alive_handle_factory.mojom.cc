@@ -161,6 +161,8 @@ bool KeepAliveHandleFactoryStubDispatch::Accept(
           reinterpret_cast<internal::KeepAliveHandleFactory_IssueKeepAliveHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeepAliveHandleFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::KeepAliveHandle> p_keep_alive_handle{};
       KeepAliveHandleFactory_IssueKeepAliveHandle_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool KeepAliveHandleFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IssueKeepAliveHandle(
-std::move(p_keep_alive_handle));
+      impl->IssueKeepAliveHandle(        
+        std::move(p_keep_alive_handle));
       return true;
     }
   }

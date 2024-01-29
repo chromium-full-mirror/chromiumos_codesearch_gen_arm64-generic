@@ -7,6 +7,7 @@
  * iron-iconset-svg because iron-iconset-svg is designed for small square icons
  * that may have multiple sizes, not large rectangular svgs.
  */
+import 'chrome://resources/ash/common/personalization/personalization_shared_icons.html.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './wallpaper_error_element.html.js';

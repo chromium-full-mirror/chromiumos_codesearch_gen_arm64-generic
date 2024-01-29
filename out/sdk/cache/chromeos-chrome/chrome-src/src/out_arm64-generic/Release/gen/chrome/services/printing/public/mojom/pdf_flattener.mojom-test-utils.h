@@ -27,8 +27,8 @@ class  PdfFlattenerAsyncWaiter {
 
   ~PdfFlattenerAsyncWaiter();
   void FlattenPdf(
-      ::base::ReadOnlySharedMemoryRegion src_pdf_region, ::base::ReadOnlySharedMemoryRegion* out_flattened_pdf_region);
-  ::base::ReadOnlySharedMemoryRegion FlattenPdf(::base::ReadOnlySharedMemoryRegion src_pdf_region);
+      ::base::ReadOnlySharedMemoryRegion src_pdf_region, FlattenPdfResultPtr* out_result);
+  FlattenPdfResultPtr FlattenPdf(::base::ReadOnlySharedMemoryRegion src_pdf_region);
 
  private:
   PdfFlattener* const proxy_;

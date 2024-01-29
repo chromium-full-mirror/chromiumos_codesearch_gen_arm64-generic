@@ -19,6 +19,12 @@
   var validator = mojo.internal;
 
   var exports = mojo.internal.exposeNamespace('extensions.mojom');
+  var host_id$ =
+      mojo.internal.exposeNamespace('extensions.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'extensions/common/mojom/host_id.mojom', 'host_id.mojom.js');
+  }
   var values$ =
       mojo.internal.exposeNamespace('mojoBase.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -145,7 +151,7 @@
   DispatchEventParams.prototype.initDefaults_ = function() {
     this.workerThreadId = 0;
     this.eventId = 0;
-    this.extensionId = null;
+    this.hostId = null;
     this.eventName = null;
     this.isUserGesture = false;
     this.filteringInfo = null;
@@ -172,8 +178,8 @@
 
 
 
-    // validate DispatchEventParams.extensionId
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    // validate DispatchEventParams.hostId
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, host_id$.HostID, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -205,8 +211,8 @@
         decoder.decodeStruct(codec.Int32);
     val.eventId =
         decoder.decodeStruct(codec.Int32);
-    val.extensionId =
-        decoder.decodeStruct(codec.String);
+    val.hostId =
+        decoder.decodeStructPointer(host_id$.HostID);
     val.eventName =
         decoder.decodeStruct(codec.String);
     packed = decoder.readUint8();
@@ -229,7 +235,7 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.workerThreadId);
     encoder.encodeStruct(codec.Int32, val.eventId);
-    encoder.encodeStruct(codec.String, val.extensionId);
+    encoder.encodeStructPointer(host_id$.HostID, val.hostId);
     encoder.encodeStruct(codec.String, val.eventName);
     packed = 0;
     packed |= (val.isUserGesture & 1) << 0

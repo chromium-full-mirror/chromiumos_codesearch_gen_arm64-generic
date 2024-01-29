@@ -280,7 +280,8 @@ void ConnectOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) 
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("AudioNode.connect", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeConnectToAudioNode);
 
@@ -330,7 +331,8 @@ void ConnectOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) 
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("AudioNode.connect", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeConnectToAudioParam);
 
@@ -430,7 +432,8 @@ void DisconnectOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeDisconnectFromAudioNode);
 
@@ -464,7 +467,8 @@ void DisconnectOperationOverload3(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeDisconnectFromAudioNode);
 
@@ -498,7 +502,8 @@ void DisconnectOperationOverload4(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeDisconnectFromAudioNode);
 
@@ -536,7 +541,8 @@ void DisconnectOperationOverload5(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeDisconnectFromAudioNode);
 
@@ -578,7 +584,8 @@ void DisconnectOperationOverload6(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeDisconnectFromAudioParam);
 
@@ -612,7 +619,8 @@ void DisconnectOperationOverload7(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAudioNodeDisconnectFromAudioParam);
 

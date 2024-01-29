@@ -1038,6 +1038,8 @@ bool FileSystemProvider_DeprecatedForwardOperation_ForwardToCallback::Accept(
           internal::FileSystemProvider_DeprecatedForwardOperation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProvider.1
   bool success = true;
   bool p_delivery_failure{};
   FileSystemProvider_DeprecatedForwardOperation_ResponseParamsDataView input_data_view(params, message);
@@ -1157,6 +1159,8 @@ bool FileSystemProvider_ForwardOperation_ForwardToCallback::Accept(
           internal::FileSystemProvider_ForwardOperation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProvider.2
   bool success = true;
   bool p_delivery_failure{};
   FileSystemProvider_ForwardOperation_ResponseParamsDataView input_data_view(params, message);
@@ -1276,6 +1280,8 @@ bool FileSystemProvider_ForwardRequest_ForwardToCallback::Accept(
           internal::FileSystemProvider_ForwardRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProvider.3
   bool success = true;
   FSPForwardResult p_result{};
   FileSystemProvider_ForwardRequest_ResponseParamsDataView input_data_view(params, message);
@@ -1351,6 +1357,8 @@ bool FileSystemProviderStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemProvider_DeprecatedDeprecatedForwardOperation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemProvider.0
       bool success = true;
       std::string p_provider{};
       int32_t p_histogram_value{};
@@ -1375,11 +1383,11 @@ bool FileSystemProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedDeprecatedForwardOperation(
-std::move(p_provider), 
-std::move(p_histogram_value), 
-std::move(p_event_name), 
-std::move(p_args));
+      impl->DeprecatedDeprecatedForwardOperation(        
+        std::move(p_provider), 
+        std::move(p_histogram_value), 
+        std::move(p_event_name), 
+        std::move(p_args));
       return true;
     }
     case internal::kFileSystemProvider_DeprecatedForwardOperation_Name: {
@@ -1398,6 +1406,8 @@ std::move(p_args));
           reinterpret_cast<internal::FileSystemProvider_CancelRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemProvider.4
       bool success = true;
       std::string p_provider{};
       std::optional<std::string> p_file_system_id{};
@@ -1419,10 +1429,10 @@ std::move(p_args));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelRequest(
-std::move(p_provider), 
-std::move(p_file_system_id), 
-std::move(p_request_id));
+      impl->CancelRequest(        
+        std::move(p_provider), 
+        std::move(p_file_system_id), 
+        std::move(p_request_id));
       return true;
     }
   }
@@ -1448,6 +1458,8 @@ bool FileSystemProviderStubDispatch::AcceptWithResponder(
               internal::FileSystemProvider_DeprecatedForwardOperation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProvider.1
       bool success = true;
       std::string p_provider{};
       int32_t p_histogram_value{};
@@ -1475,11 +1487,11 @@ bool FileSystemProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedForwardOperation(
-std::move(p_provider), 
-std::move(p_histogram_value), 
-std::move(p_event_name), 
-std::move(p_args), std::move(callback));
+      impl->DeprecatedForwardOperation(        
+        std::move(p_provider), 
+        std::move(p_histogram_value), 
+        std::move(p_event_name), 
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kFileSystemProvider_ForwardOperation_Name: {
@@ -1489,6 +1501,8 @@ std::move(p_args), std::move(callback));
               internal::FileSystemProvider_ForwardOperation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProvider.2
       bool success = true;
       std::string p_provider{};
       int32_t p_histogram_value{};
@@ -1516,11 +1530,11 @@ std::move(p_args), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForwardOperation(
-std::move(p_provider), 
-std::move(p_histogram_value), 
-std::move(p_event_name), 
-std::move(p_args), std::move(callback));
+      impl->ForwardOperation(        
+        std::move(p_provider), 
+        std::move(p_histogram_value), 
+        std::move(p_event_name), 
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kFileSystemProvider_ForwardRequest_Name: {
@@ -1530,6 +1544,8 @@ std::move(p_args), std::move(callback));
               internal::FileSystemProvider_ForwardRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProvider.3
       bool success = true;
       std::string p_provider{};
       std::optional<std::string> p_file_system_id{};
@@ -1563,13 +1579,13 @@ std::move(p_args), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForwardRequest(
-std::move(p_provider), 
-std::move(p_file_system_id), 
-std::move(p_request_id), 
-std::move(p_histogram_value), 
-std::move(p_event_name), 
-std::move(p_args), std::move(callback));
+      impl->ForwardRequest(        
+        std::move(p_provider), 
+        std::move(p_file_system_id), 
+        std::move(p_request_id), 
+        std::move(p_histogram_value), 
+        std::move(p_event_name), 
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kFileSystemProvider_CancelRequest_Name: {
@@ -2873,6 +2889,8 @@ bool FileSystemProviderService_Mount_ForwardToCallback::Accept(
           internal::FileSystemProviderService_Mount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.1
   bool success = true;
   std::string p_error{};
   FileSystemProviderService_Mount_ResponseParamsDataView input_data_view(params, message);
@@ -3002,6 +3020,8 @@ bool FileSystemProviderService_Unmount_ForwardToCallback::Accept(
           internal::FileSystemProviderService_Unmount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.2
   bool success = true;
   std::string p_error{};
   FileSystemProviderService_Unmount_ResponseParamsDataView input_data_view(params, message);
@@ -3131,6 +3151,8 @@ bool FileSystemProviderService_GetAll_ForwardToCallback::Accept(
           internal::FileSystemProviderService_GetAll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.3
   bool success = true;
   std::vector<FileSystemInfoPtr> p_infos{};
   FileSystemProviderService_GetAll_ResponseParamsDataView input_data_view(params, message);
@@ -3262,6 +3284,8 @@ bool FileSystemProviderService_Get_ForwardToCallback::Accept(
           internal::FileSystemProviderService_Get_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.4
   bool success = true;
   FileSystemInfoPtr p_info{};
   FileSystemProviderService_Get_ResponseParamsDataView input_data_view(params, message);
@@ -3387,6 +3411,8 @@ bool FileSystemProviderService_Notify_ForwardToCallback::Accept(
           internal::FileSystemProviderService_Notify_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.5
   bool success = true;
   std::string p_error{};
   FileSystemProviderService_Notify_ResponseParamsDataView input_data_view(params, message);
@@ -3516,6 +3542,8 @@ bool FileSystemProviderService_DeprecatedOperationFinished_ForwardToCallback::Ac
           internal::FileSystemProviderService_DeprecatedOperationFinished_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.6
   bool success = true;
   std::string p_error{};
   FileSystemProviderService_DeprecatedOperationFinished_ResponseParamsDataView input_data_view(params, message);
@@ -3645,6 +3673,8 @@ bool FileSystemProviderService_OperationFinished_ForwardToCallback::Accept(
           internal::FileSystemProviderService_OperationFinished_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.9
   bool success = true;
   std::string p_error{};
   FileSystemProviderService_OperationFinished_ResponseParamsDataView input_data_view(params, message);
@@ -3774,6 +3804,8 @@ bool FileSystemProviderService_MountFinished_ForwardToCallback::Accept(
           internal::FileSystemProviderService_MountFinished_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemProviderService.10
   bool success = true;
   std::string p_error{};
   FileSystemProviderService_MountFinished_ResponseParamsDataView input_data_view(params, message);
@@ -3858,6 +3890,8 @@ bool FileSystemProviderServiceStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemProviderService_RegisterFileSystemProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.0
       bool success = true;
       ::mojo::PendingRemote<FileSystemProvider> p_provider{};
       FileSystemProviderService_RegisterFileSystemProvider_ParamsDataView input_data_view(params, message);
@@ -3875,8 +3909,8 @@ bool FileSystemProviderServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFileSystemProvider(
-std::move(p_provider));
+      impl->RegisterFileSystemProvider(        
+        std::move(p_provider));
       return true;
     }
     case internal::kFileSystemProviderService_Mount_Name: {
@@ -3910,6 +3944,8 @@ std::move(p_provider));
           reinterpret_cast<internal::FileSystemProviderService_ExtensionLoadedDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.7
       bool success = true;
       bool p_configurable{};
       bool p_watchable{};
@@ -3940,13 +3976,13 @@ std::move(p_provider));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtensionLoadedDeprecated(
-std::move(p_configurable), 
-std::move(p_watchable), 
-std::move(p_multiple_mounts), 
-std::move(p_source), 
-std::move(p_extension_name), 
-std::move(p_extension_id));
+      impl->ExtensionLoadedDeprecated(        
+        std::move(p_configurable), 
+        std::move(p_watchable), 
+        std::move(p_multiple_mounts), 
+        std::move(p_source), 
+        std::move(p_extension_name), 
+        std::move(p_extension_id));
       return true;
     }
     case internal::kFileSystemProviderService_ExtensionLoaded_Name: {
@@ -3956,6 +3992,8 @@ std::move(p_extension_id));
           reinterpret_cast<internal::FileSystemProviderService_ExtensionLoaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.11
       bool success = true;
       bool p_configurable{};
       bool p_watchable{};
@@ -3992,15 +4030,15 @@ std::move(p_extension_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtensionLoaded(
-std::move(p_configurable), 
-std::move(p_watchable), 
-std::move(p_multiple_mounts), 
-std::move(p_source), 
-std::move(p_extension_name), 
-std::move(p_extension_id), 
-std::move(p_icon16x16), 
-std::move(p_icon32x32));
+      impl->ExtensionLoaded(        
+        std::move(p_configurable), 
+        std::move(p_watchable), 
+        std::move(p_multiple_mounts), 
+        std::move(p_source), 
+        std::move(p_extension_name), 
+        std::move(p_extension_id), 
+        std::move(p_icon16x16), 
+        std::move(p_icon32x32));
       return true;
     }
     case internal::kFileSystemProviderService_ExtensionUnloaded_Name: {
@@ -4010,6 +4048,8 @@ std::move(p_icon32x32));
           reinterpret_cast<internal::FileSystemProviderService_ExtensionUnloaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.8
       bool success = true;
       std::string p_id{};
       bool p_due_to_shutdown{};
@@ -4028,9 +4068,9 @@ std::move(p_icon32x32));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtensionUnloaded(
-std::move(p_id), 
-std::move(p_due_to_shutdown));
+      impl->ExtensionUnloaded(        
+        std::move(p_id), 
+        std::move(p_due_to_shutdown));
       return true;
     }
   }
@@ -4056,6 +4096,8 @@ bool FileSystemProviderServiceStubDispatch::AcceptWithResponder(
               internal::FileSystemProviderService_Mount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.1
       bool success = true;
       FileSystemMetadataPtr p_metadata{};
       bool p_persistent{};
@@ -4077,9 +4119,9 @@ bool FileSystemProviderServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Mount(
-std::move(p_metadata), 
-std::move(p_persistent), std::move(callback));
+      impl->Mount(        
+        std::move(p_metadata), 
+        std::move(p_persistent), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_Unmount_Name: {
@@ -4089,6 +4131,8 @@ std::move(p_persistent), std::move(callback));
               internal::FileSystemProviderService_Unmount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.2
       bool success = true;
       FileSystemIdPtr p_file_system_id{};
       FileSystemProviderService_Unmount_ParamsDataView input_data_view(params, message);
@@ -4107,8 +4151,8 @@ std::move(p_persistent), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Unmount(
-std::move(p_file_system_id), std::move(callback));
+      impl->Unmount(        
+        std::move(p_file_system_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_GetAll_Name: {
@@ -4118,6 +4162,8 @@ std::move(p_file_system_id), std::move(callback));
               internal::FileSystemProviderService_GetAll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.3
       bool success = true;
       std::string p_provider{};
       FileSystemProviderService_GetAll_ParamsDataView input_data_view(params, message);
@@ -4136,8 +4182,8 @@ std::move(p_file_system_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAll(
-std::move(p_provider), std::move(callback));
+      impl->GetAll(        
+        std::move(p_provider), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_Get_Name: {
@@ -4147,6 +4193,8 @@ std::move(p_provider), std::move(callback));
               internal::FileSystemProviderService_Get_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.4
       bool success = true;
       FileSystemIdPtr p_file_system_id{};
       FileSystemProviderService_Get_ParamsDataView input_data_view(params, message);
@@ -4165,8 +4213,8 @@ std::move(p_provider), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Get(
-std::move(p_file_system_id), std::move(callback));
+      impl->Get(        
+        std::move(p_file_system_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_Notify_Name: {
@@ -4176,6 +4224,8 @@ std::move(p_file_system_id), std::move(callback));
               internal::FileSystemProviderService_Notify_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.5
       bool success = true;
       FileSystemIdPtr p_file_system_id{};
       FSPWatcherPtr p_watcher{};
@@ -4203,11 +4253,11 @@ std::move(p_file_system_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Notify(
-std::move(p_file_system_id), 
-std::move(p_watcher), 
-std::move(p_type), 
-std::move(p_changes), std::move(callback));
+      impl->Notify(        
+        std::move(p_file_system_id), 
+        std::move(p_watcher), 
+        std::move(p_type), 
+        std::move(p_changes), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_DeprecatedOperationFinished_Name: {
@@ -4217,6 +4267,8 @@ std::move(p_changes), std::move(callback));
               internal::FileSystemProviderService_DeprecatedOperationFinished_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.6
       bool success = true;
       FSPOperationResponse p_response{};
       FileSystemIdPtr p_file_system_id{};
@@ -4244,11 +4296,11 @@ std::move(p_changes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedOperationFinished(
-std::move(p_response), 
-std::move(p_file_system_id), 
-std::move(p_request_id), 
-std::move(p_args), std::move(callback));
+      impl->DeprecatedOperationFinished(        
+        std::move(p_response), 
+        std::move(p_file_system_id), 
+        std::move(p_request_id), 
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_OperationFinished_Name: {
@@ -4258,6 +4310,8 @@ std::move(p_args), std::move(callback));
               internal::FileSystemProviderService_OperationFinished_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.9
       bool success = true;
       FSPOperationResponse p_response{};
       FileSystemIdPtr p_file_system_id{};
@@ -4285,11 +4339,11 @@ std::move(p_args), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OperationFinished(
-std::move(p_response), 
-std::move(p_file_system_id), 
-std::move(p_request_id), 
-std::move(p_args), std::move(callback));
+      impl->OperationFinished(        
+        std::move(p_response), 
+        std::move(p_file_system_id), 
+        std::move(p_request_id), 
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_MountFinished_Name: {
@@ -4299,6 +4353,8 @@ std::move(p_args), std::move(callback));
               internal::FileSystemProviderService_MountFinished_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemProviderService.10
       bool success = true;
       std::string p_extension_id{};
       int64_t p_request_id{};
@@ -4323,10 +4379,10 @@ std::move(p_args), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MountFinished(
-std::move(p_extension_id), 
-std::move(p_request_id), 
-std::move(p_args), std::move(callback));
+      impl->MountFinished(        
+        std::move(p_extension_id), 
+        std::move(p_request_id), 
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kFileSystemProviderService_ExtensionLoadedDeprecated_Name: {

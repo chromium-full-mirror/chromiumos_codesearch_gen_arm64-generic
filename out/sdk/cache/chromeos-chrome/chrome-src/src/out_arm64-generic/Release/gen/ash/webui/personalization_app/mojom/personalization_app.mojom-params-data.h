@@ -895,6 +895,23 @@ class  ThemeObserver_OnStaticColorChanged_Params_Data {
 };
 static_assert(sizeof(ThemeObserver_OnStaticColorChanged_Params_Data) == 16,
               "Bad sizeof(ThemeObserver_OnStaticColorChanged_Params_Data)");
+class  ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data>;
+
+  ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data();
+  ~ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data() = delete;
+};
+static_assert(sizeof(ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data) == 16,
+              "Bad sizeof(ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data)");
 class  ThemeProvider_SetThemeObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -978,6 +995,21 @@ class  ThemeProvider_SetStaticColor_Params_Data {
 };
 static_assert(sizeof(ThemeProvider_SetStaticColor_Params_Data) == 16,
               "Bad sizeof(ThemeProvider_SetStaticColor_Params_Data)");
+class  ThemeProvider_EnableGeolocationForSystemServices_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ThemeProvider_EnableGeolocationForSystemServices_Params_Data>;
+
+  ThemeProvider_EnableGeolocationForSystemServices_Params_Data();
+  ~ThemeProvider_EnableGeolocationForSystemServices_Params_Data() = delete;
+};
+static_assert(sizeof(ThemeProvider_EnableGeolocationForSystemServices_Params_Data) == 8,
+              "Bad sizeof(ThemeProvider_EnableGeolocationForSystemServices_Params_Data)");
 class  ThemeProvider_GetColorScheme_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1136,6 +1168,38 @@ class  ThemeProvider_IsDarkModeEnabled_ResponseParams_Data {
 };
 static_assert(sizeof(ThemeProvider_IsDarkModeEnabled_ResponseParams_Data) == 16,
               "Bad sizeof(ThemeProvider_IsDarkModeEnabled_ResponseParams_Data)");
+class  ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data>;
+
+  ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data();
+  ~ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data() = delete;
+};
+static_assert(sizeof(ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data) == 8,
+              "Bad sizeof(ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data)");
+class  ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t geolocation_enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data>;
+
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data();
+  ~ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data) == 16,
+              "Bad sizeof(ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data)");
 class  UserImageObserver_OnUserImageChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1492,6 +1556,23 @@ class  AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data {
 };
 static_assert(sizeof(AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data) == 16,
               "Bad sizeof(AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data)");
+class  AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data>;
+
+  AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data();
+  ~AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data() = delete;
+};
+static_assert(sizeof(AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data) == 16,
+              "Bad sizeof(AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data)");
 class  AmbientProvider_IsAmbientModeEnabled_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1736,6 +1817,53 @@ class  AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data {
 };
 static_assert(sizeof(AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data) == 8,
               "Bad sizeof(AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data)");
+class  AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data>;
+
+  AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data();
+  ~AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data() = delete;
+};
+static_assert(sizeof(AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data) == 8,
+              "Bad sizeof(AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data)");
+class  AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t geolocation_enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data>;
+
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data();
+  ~AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data) == 16,
+              "Bad sizeof(AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data)");
+class  AmbientProvider_EnableGeolocationForSystemServices_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AmbientProvider_EnableGeolocationForSystemServices_Params_Data>;
+
+  AmbientProvider_EnableGeolocationForSystemServices_Params_Data();
+  ~AmbientProvider_EnableGeolocationForSystemServices_Params_Data() = delete;
+};
+static_assert(sizeof(AmbientProvider_EnableGeolocationForSystemServices_Params_Data) == 8,
+              "Bad sizeof(AmbientProvider_EnableGeolocationForSystemServices_Params_Data)");
 class  KeyboardBacklightObserver_OnBacklightStateChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3167,6 +3295,24 @@ static_assert(
 };
 
 
+class ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView {
+ public:
+  ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView() = default;
+
+  ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView(
+      internal::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enabled() const {
+    return data_->enabled;
+  }
+ private:
+  internal::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* data_ = nullptr;
+};
+
+
 class ThemeProvider_SetThemeObserver_ParamsDataView {
  public:
   ThemeProvider_SetThemeObserver_ParamsDataView() = default;
@@ -3276,6 +3422,21 @@ class ThemeProvider_SetStaticColor_ParamsDataView {
  private:
   internal::ThemeProvider_SetStaticColor_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class ThemeProvider_EnableGeolocationForSystemServices_ParamsDataView {
+ public:
+  ThemeProvider_EnableGeolocationForSystemServices_ParamsDataView() = default;
+
+  ThemeProvider_EnableGeolocationForSystemServices_ParamsDataView(
+      internal::ThemeProvider_EnableGeolocationForSystemServices_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ThemeProvider_EnableGeolocationForSystemServices_Params_Data* data_ = nullptr;
 };
 
 
@@ -3474,6 +3635,39 @@ class ThemeProvider_IsDarkModeEnabled_ResponseParamsDataView {
   }
  private:
   internal::ThemeProvider_IsDarkModeEnabled_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsDataView {
+ public:
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsDataView() = default;
+
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsDataView(
+      internal::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data* data_ = nullptr;
+};
+
+
+class ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView {
+ public:
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView() = default;
+
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView(
+      internal::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool geolocation_enabled() const {
+    return data_->geolocation_enabled;
+  }
+ private:
+  internal::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -3949,6 +4143,24 @@ class AmbientObserver_OnAmbientUiVisibilityChanged_ParamsDataView {
 };
 
 
+class AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView {
+ public:
+  AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView() = default;
+
+  AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView(
+      internal::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enabled() const {
+    return data_->enabled;
+  }
+ private:
+  internal::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* data_ = nullptr;
+};
+
+
 class AmbientProvider_IsAmbientModeEnabled_ParamsDataView {
  public:
   AmbientProvider_IsAmbientModeEnabled_ParamsDataView() = default;
@@ -4247,6 +4459,54 @@ class AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data* data_ = nullptr;
+};
+
+
+class AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsDataView {
+ public:
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsDataView() = default;
+
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsDataView(
+      internal::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data* data_ = nullptr;
+};
+
+
+class AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView {
+ public:
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView() = default;
+
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView(
+      internal::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool geolocation_enabled() const {
+    return data_->geolocation_enabled;
+  }
+ private:
+  internal::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class AmbientProvider_EnableGeolocationForSystemServices_ParamsDataView {
+ public:
+  AmbientProvider_EnableGeolocationForSystemServices_ParamsDataView() = default;
+
+  AmbientProvider_EnableGeolocationForSystemServices_ParamsDataView(
+      internal::AmbientProvider_EnableGeolocationForSystemServices_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AmbientProvider_EnableGeolocationForSystemServices_Params_Data* data_ = nullptr;
 };
 
 
@@ -4668,11 +4928,15 @@ inline void ThemeObserver_OnStaticColorChanged_ParamsDataView::GetColorDataView(
 
 
 
+
+
 inline void ThemeProvider_SetStaticColor_ParamsDataView::GetStaticColorDataView(
     ::skia::mojom::SkColorDataView* output) {
   auto pointer = data_->static_color.Get();
   *output = ::skia::mojom::SkColorDataView(pointer, message_);
 }
+
+
 
 
 
@@ -4695,6 +4959,10 @@ inline void ThemeProvider_GenerateSampleColorSchemes_ResponseParamsDataView::Get
   auto pointer = data_->sample_color_schemes.Get();
   *output = mojo::ArrayDataView<SampleColorSchemeDataView>(pointer, message_);
 }
+
+
+
+
 
 
 
@@ -4800,11 +5068,19 @@ inline void AmbientObserver_OnPreviewsFetched_ParamsDataView::GetPreviewsDataVie
 
 
 
+
+
 inline void AmbientProvider_SetAlbumSelected_ParamsDataView::GetIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
+
+
 
 
 

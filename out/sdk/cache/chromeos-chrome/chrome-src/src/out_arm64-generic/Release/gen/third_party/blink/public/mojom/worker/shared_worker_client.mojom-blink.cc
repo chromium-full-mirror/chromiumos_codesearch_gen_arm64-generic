@@ -364,6 +364,8 @@ bool SharedWorkerClientStubDispatch::Accept(
           reinterpret_cast<internal::SharedWorkerClient_OnCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerClient.0
       bool success = true;
       ::blink::mojom::blink::SharedWorkerCreationContextType p_creation_context_type{};
       SharedWorkerClient_OnCreated_ParamsDataView input_data_view(params, message);
@@ -379,8 +381,8 @@ bool SharedWorkerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCreated(
-std::move(p_creation_context_type));
+      impl->OnCreated(        
+        std::move(p_creation_context_type));
       return true;
     }
     case internal::kSharedWorkerClient_OnConnected_Name: {
@@ -390,6 +392,8 @@ std::move(p_creation_context_type));
           reinterpret_cast<internal::SharedWorkerClient_OnConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerClient.1
       bool success = true;
       WTF::Vector<::blink::mojom::blink::WebFeature> p_features_used{};
       SharedWorkerClient_OnConnected_ParamsDataView input_data_view(params, message);
@@ -405,8 +409,8 @@ std::move(p_creation_context_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnected(
-std::move(p_features_used));
+      impl->OnConnected(        
+        std::move(p_features_used));
       return true;
     }
     case internal::kSharedWorkerClient_OnScriptLoadFailed_Name: {
@@ -416,6 +420,8 @@ std::move(p_features_used));
           reinterpret_cast<internal::SharedWorkerClient_OnScriptLoadFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerClient.2
       bool success = true;
       WTF::String p_error_message{};
       SharedWorkerClient_OnScriptLoadFailed_ParamsDataView input_data_view(params, message);
@@ -431,8 +437,8 @@ std::move(p_features_used));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScriptLoadFailed(
-std::move(p_error_message));
+      impl->OnScriptLoadFailed(        
+        std::move(p_error_message));
       return true;
     }
     case internal::kSharedWorkerClient_OnFeatureUsed_Name: {
@@ -442,6 +448,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::SharedWorkerClient_OnFeatureUsed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerClient.3
       bool success = true;
       ::blink::mojom::blink::WebFeature p_feature{};
       SharedWorkerClient_OnFeatureUsed_ParamsDataView input_data_view(params, message);
@@ -457,8 +465,8 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFeatureUsed(
-std::move(p_feature));
+      impl->OnFeatureUsed(        
+        std::move(p_feature));
       return true;
     }
   }

@@ -6,6 +6,8 @@
 
 #ifndef EXTENSIONS_COMMON_MOJOM_EVENT_DISPATCHER_MOJOM_IMPORT_HEADERS_H_
 #define EXTENSIONS_COMMON_MOJOM_EVENT_DISPATCHER_MOJOM_IMPORT_HEADERS_H_
+#include "extensions/common/mojom/host_id.mojom.h"
+#include "extensions/common/mojom/host_id.mojom-import-headers.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"

@@ -1495,6 +1495,8 @@ bool MediaSessionObserverStubDispatch::Accept(
           reinterpret_cast<internal::MediaSessionObserver_MediaSessionInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionObserver.0
       bool success = true;
       MediaSessionInfoPtr p_info{};
       MediaSessionObserver_MediaSessionInfoChanged_ParamsDataView input_data_view(params, message);
@@ -1510,8 +1512,8 @@ bool MediaSessionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaSessionInfoChanged(
-std::move(p_info));
+      impl->MediaSessionInfoChanged(        
+        std::move(p_info));
       return true;
     }
     case internal::kMediaSessionObserver_MediaSessionMetadataChanged_Name: {
@@ -1521,6 +1523,8 @@ std::move(p_info));
           reinterpret_cast<internal::MediaSessionObserver_MediaSessionMetadataChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionObserver.1
       bool success = true;
       MediaMetadataPtr p_metadata{};
       MediaSessionObserver_MediaSessionMetadataChanged_ParamsDataView input_data_view(params, message);
@@ -1536,8 +1540,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaSessionMetadataChanged(
-std::move(p_metadata));
+      impl->MediaSessionMetadataChanged(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kMediaSessionObserver_MediaSessionActionsChanged_Name: {
@@ -1547,6 +1551,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::MediaSessionObserver_MediaSessionActionsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionObserver.2
       bool success = true;
       WTF::Vector<MediaSessionAction> p_action{};
       MediaSessionObserver_MediaSessionActionsChanged_ParamsDataView input_data_view(params, message);
@@ -1562,8 +1568,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaSessionActionsChanged(
-std::move(p_action));
+      impl->MediaSessionActionsChanged(        
+        std::move(p_action));
       return true;
     }
     case internal::kMediaSessionObserver_MediaSessionImagesChanged_Name: {
@@ -1573,6 +1579,8 @@ std::move(p_action));
           reinterpret_cast<internal::MediaSessionObserver_MediaSessionImagesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionObserver.3
       bool success = true;
       WTF::HashMap<MediaSessionImageType, WTF::Vector<MediaImagePtr>> p_images{};
       MediaSessionObserver_MediaSessionImagesChanged_ParamsDataView input_data_view(params, message);
@@ -1588,8 +1596,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaSessionImagesChanged(
-std::move(p_images));
+      impl->MediaSessionImagesChanged(        
+        std::move(p_images));
       return true;
     }
     case internal::kMediaSessionObserver_MediaSessionPositionChanged_Name: {
@@ -1599,6 +1607,8 @@ std::move(p_images));
           reinterpret_cast<internal::MediaSessionObserver_MediaSessionPositionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionObserver.4
       bool success = true;
       MediaPositionPtr p_position{};
       MediaSessionObserver_MediaSessionPositionChanged_ParamsDataView input_data_view(params, message);
@@ -1614,8 +1624,8 @@ std::move(p_images));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaSessionPositionChanged(
-std::move(p_position));
+      impl->MediaSessionPositionChanged(        
+        std::move(p_position));
       return true;
     }
   }
@@ -3389,6 +3399,8 @@ bool MediaSession_GetMediaSessionInfo_ForwardToCallback::Accept(
           internal::MediaSession_GetMediaSessionInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaSession.0
   bool success = true;
   MediaSessionInfoPtr p_info{};
   MediaSession_GetMediaSessionInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3518,6 +3530,8 @@ bool MediaSession_GetDebugInfo_ForwardToCallback::Accept(
           internal::MediaSession_GetDebugInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaSession.1
   bool success = true;
   MediaSessionDebugInfoPtr p_info{};
   MediaSession_GetDebugInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3647,6 +3661,8 @@ bool MediaSession_GetMediaImageBitmap_ForwardToCallback::Accept(
           internal::MediaSession_GetMediaImageBitmap_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaSession.12
   bool success = true;
   MediaImageBitmapPtr p_image{};
   MediaSession_GetMediaImageBitmap_ResponseParamsDataView input_data_view(params, message);
@@ -3733,6 +3749,8 @@ bool MediaSessionStubDispatch::Accept(
           reinterpret_cast<internal::MediaSession_StartDucking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.2
       bool success = true;
       MediaSession_StartDucking_ParamsDataView input_data_view(params, message);
       
@@ -3745,7 +3763,7 @@ bool MediaSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDucking();
+      impl->StartDucking(        );
       return true;
     }
     case internal::kMediaSession_StopDucking_Name: {
@@ -3755,6 +3773,8 @@ bool MediaSessionStubDispatch::Accept(
           reinterpret_cast<internal::MediaSession_StopDucking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.3
       bool success = true;
       MediaSession_StopDucking_ParamsDataView input_data_view(params, message);
       
@@ -3767,7 +3787,7 @@ bool MediaSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopDucking();
+      impl->StopDucking(        );
       return true;
     }
     case internal::kMediaSession_Suspend_Name: {
@@ -3777,6 +3797,8 @@ bool MediaSessionStubDispatch::Accept(
           reinterpret_cast<internal::MediaSession_Suspend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.4
       bool success = true;
       MediaSession::SuspendType p_suspend_type{};
       MediaSession_Suspend_ParamsDataView input_data_view(params, message);
@@ -3792,8 +3814,8 @@ bool MediaSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Suspend(
-std::move(p_suspend_type));
+      impl->Suspend(        
+        std::move(p_suspend_type));
       return true;
     }
     case internal::kMediaSession_Resume_Name: {
@@ -3803,6 +3825,8 @@ std::move(p_suspend_type));
           reinterpret_cast<internal::MediaSession_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.5
       bool success = true;
       MediaSession::SuspendType p_suspend_type{};
       MediaSession_Resume_ParamsDataView input_data_view(params, message);
@@ -3818,8 +3842,8 @@ std::move(p_suspend_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume(
-std::move(p_suspend_type));
+      impl->Resume(        
+        std::move(p_suspend_type));
       return true;
     }
     case internal::kMediaSession_AddObserver_Name: {
@@ -3829,6 +3853,8 @@ std::move(p_suspend_type));
           reinterpret_cast<internal::MediaSession_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.6
       bool success = true;
       ::mojo::PendingRemote<MediaSessionObserver> p_observer{};
       MediaSession_AddObserver_ParamsDataView input_data_view(params, message);
@@ -3846,8 +3872,8 @@ std::move(p_suspend_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kMediaSession_PreviousTrack_Name: {
@@ -3857,6 +3883,8 @@ std::move(p_observer));
           reinterpret_cast<internal::MediaSession_PreviousTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.7
       bool success = true;
       MediaSession_PreviousTrack_ParamsDataView input_data_view(params, message);
       
@@ -3869,7 +3897,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviousTrack();
+      impl->PreviousTrack(        );
       return true;
     }
     case internal::kMediaSession_NextTrack_Name: {
@@ -3879,6 +3907,8 @@ std::move(p_observer));
           reinterpret_cast<internal::MediaSession_NextTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.8
       bool success = true;
       MediaSession_NextTrack_ParamsDataView input_data_view(params, message);
       
@@ -3891,7 +3921,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NextTrack();
+      impl->NextTrack(        );
       return true;
     }
     case internal::kMediaSession_Seek_Name: {
@@ -3901,6 +3931,8 @@ std::move(p_observer));
           reinterpret_cast<internal::MediaSession_Seek_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.9
       bool success = true;
       ::base::TimeDelta p_seek_time{};
       MediaSession_Seek_ParamsDataView input_data_view(params, message);
@@ -3916,8 +3948,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Seek(
-std::move(p_seek_time));
+      impl->Seek(        
+        std::move(p_seek_time));
       return true;
     }
     case internal::kMediaSession_Stop_Name: {
@@ -3927,6 +3959,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaSession_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.10
       bool success = true;
       MediaSession::SuspendType p_suspend_type{};
       MediaSession_Stop_ParamsDataView input_data_view(params, message);
@@ -3942,8 +3976,8 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop(
-std::move(p_suspend_type));
+      impl->Stop(        
+        std::move(p_suspend_type));
       return true;
     }
     case internal::kMediaSession_SkipAd_Name: {
@@ -3953,6 +3987,8 @@ std::move(p_suspend_type));
           reinterpret_cast<internal::MediaSession_SkipAd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.11
       bool success = true;
       MediaSession_SkipAd_ParamsDataView input_data_view(params, message);
       
@@ -3965,7 +4001,7 @@ std::move(p_suspend_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SkipAd();
+      impl->SkipAd(        );
       return true;
     }
     case internal::kMediaSession_GetMediaImageBitmap_Name: {
@@ -3978,6 +4014,8 @@ std::move(p_suspend_type));
           reinterpret_cast<internal::MediaSession_SeekTo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.13
       bool success = true;
       ::base::TimeDelta p_seek_time{};
       MediaSession_SeekTo_ParamsDataView input_data_view(params, message);
@@ -3993,8 +4031,8 @@ std::move(p_suspend_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SeekTo(
-std::move(p_seek_time));
+      impl->SeekTo(        
+        std::move(p_seek_time));
       return true;
     }
     case internal::kMediaSession_ScrubTo_Name: {
@@ -4004,6 +4042,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaSession_ScrubTo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.14
       bool success = true;
       ::base::TimeDelta p_seek_time{};
       MediaSession_ScrubTo_ParamsDataView input_data_view(params, message);
@@ -4019,8 +4059,8 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScrubTo(
-std::move(p_seek_time));
+      impl->ScrubTo(        
+        std::move(p_seek_time));
       return true;
     }
     case internal::kMediaSession_EnterPictureInPicture_Name: {
@@ -4030,6 +4070,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaSession_EnterPictureInPicture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.15
       bool success = true;
       MediaSession_EnterPictureInPicture_ParamsDataView input_data_view(params, message);
       
@@ -4042,7 +4084,7 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnterPictureInPicture();
+      impl->EnterPictureInPicture(        );
       return true;
     }
     case internal::kMediaSession_ExitPictureInPicture_Name: {
@@ -4052,6 +4094,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaSession_ExitPictureInPicture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.16
       bool success = true;
       MediaSession_ExitPictureInPicture_ParamsDataView input_data_view(params, message);
       
@@ -4064,7 +4108,7 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExitPictureInPicture();
+      impl->ExitPictureInPicture(        );
       return true;
     }
     case internal::kMediaSession_SetAudioSinkId_Name: {
@@ -4074,6 +4118,8 @@ std::move(p_seek_time));
           reinterpret_cast<internal::MediaSession_SetAudioSinkId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.17
       bool success = true;
       WTF::String p_id{};
       MediaSession_SetAudioSinkId_ParamsDataView input_data_view(params, message);
@@ -4089,8 +4135,8 @@ std::move(p_seek_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAudioSinkId(
-std::move(p_id));
+      impl->SetAudioSinkId(        
+        std::move(p_id));
       return true;
     }
     case internal::kMediaSession_ToggleMicrophone_Name: {
@@ -4100,6 +4146,8 @@ std::move(p_id));
           reinterpret_cast<internal::MediaSession_ToggleMicrophone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.18
       bool success = true;
       MediaSession_ToggleMicrophone_ParamsDataView input_data_view(params, message);
       
@@ -4112,7 +4160,7 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleMicrophone();
+      impl->ToggleMicrophone(        );
       return true;
     }
     case internal::kMediaSession_ToggleCamera_Name: {
@@ -4122,6 +4170,8 @@ std::move(p_id));
           reinterpret_cast<internal::MediaSession_ToggleCamera_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.19
       bool success = true;
       MediaSession_ToggleCamera_ParamsDataView input_data_view(params, message);
       
@@ -4134,7 +4184,7 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleCamera();
+      impl->ToggleCamera(        );
       return true;
     }
     case internal::kMediaSession_HangUp_Name: {
@@ -4144,6 +4194,8 @@ std::move(p_id));
           reinterpret_cast<internal::MediaSession_HangUp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.20
       bool success = true;
       MediaSession_HangUp_ParamsDataView input_data_view(params, message);
       
@@ -4156,7 +4208,7 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HangUp();
+      impl->HangUp(        );
       return true;
     }
     case internal::kMediaSession_Raise_Name: {
@@ -4166,6 +4218,8 @@ std::move(p_id));
           reinterpret_cast<internal::MediaSession_Raise_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.21
       bool success = true;
       MediaSession_Raise_ParamsDataView input_data_view(params, message);
       
@@ -4178,7 +4232,7 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Raise();
+      impl->Raise(        );
       return true;
     }
     case internal::kMediaSession_SetMute_Name: {
@@ -4188,6 +4242,8 @@ std::move(p_id));
           reinterpret_cast<internal::MediaSession_SetMute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.22
       bool success = true;
       bool p_mute{};
       MediaSession_SetMute_ParamsDataView input_data_view(params, message);
@@ -4203,8 +4259,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMute(
-std::move(p_mute));
+      impl->SetMute(        
+        std::move(p_mute));
       return true;
     }
     case internal::kMediaSession_RequestMediaRemoting_Name: {
@@ -4214,6 +4270,8 @@ std::move(p_mute));
           reinterpret_cast<internal::MediaSession_RequestMediaRemoting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.23
       bool success = true;
       MediaSession_RequestMediaRemoting_ParamsDataView input_data_view(params, message);
       
@@ -4226,7 +4284,7 @@ std::move(p_mute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestMediaRemoting();
+      impl->RequestMediaRemoting(        );
       return true;
     }
     case internal::kMediaSession_PreviousSlide_Name: {
@@ -4236,6 +4294,8 @@ std::move(p_mute));
           reinterpret_cast<internal::MediaSession_PreviousSlide_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.24
       bool success = true;
       MediaSession_PreviousSlide_ParamsDataView input_data_view(params, message);
       
@@ -4248,7 +4308,7 @@ std::move(p_mute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviousSlide();
+      impl->PreviousSlide(        );
       return true;
     }
     case internal::kMediaSession_NextSlide_Name: {
@@ -4258,6 +4318,8 @@ std::move(p_mute));
           reinterpret_cast<internal::MediaSession_NextSlide_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.25
       bool success = true;
       MediaSession_NextSlide_ParamsDataView input_data_view(params, message);
       
@@ -4270,7 +4332,7 @@ std::move(p_mute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NextSlide();
+      impl->NextSlide(        );
       return true;
     }
     case internal::kMediaSession_EnterAutoPictureInPicture_Name: {
@@ -4280,6 +4342,8 @@ std::move(p_mute));
           reinterpret_cast<internal::MediaSession_EnterAutoPictureInPicture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSession.26
       bool success = true;
       MediaSession_EnterAutoPictureInPicture_ParamsDataView input_data_view(params, message);
       
@@ -4292,7 +4356,7 @@ std::move(p_mute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnterAutoPictureInPicture();
+      impl->EnterAutoPictureInPicture(        );
       return true;
     }
   }
@@ -4315,6 +4379,8 @@ bool MediaSessionStubDispatch::AcceptWithResponder(
               internal::MediaSession_GetMediaSessionInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaSession.0
       bool success = true;
       MediaSession_GetMediaSessionInfo_ParamsDataView input_data_view(params, message);
       
@@ -4340,6 +4406,8 @@ bool MediaSessionStubDispatch::AcceptWithResponder(
               internal::MediaSession_GetDebugInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaSession.1
       bool success = true;
       MediaSession_GetDebugInfo_ParamsDataView input_data_view(params, message);
       
@@ -4395,6 +4463,8 @@ bool MediaSessionStubDispatch::AcceptWithResponder(
               internal::MediaSession_GetMediaImageBitmap_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaSession.12
       bool success = true;
       MediaImagePtr p_image{};
       int32_t p_minimum_size_px{};
@@ -4419,10 +4489,10 @@ bool MediaSessionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMediaImageBitmap(
-std::move(p_image), 
-std::move(p_minimum_size_px), 
-std::move(p_desired_size_px), std::move(callback));
+      impl->GetMediaImageBitmap(        
+        std::move(p_image), 
+        std::move(p_minimum_size_px), 
+        std::move(p_desired_size_px), std::move(callback));
       return true;
     }
     case internal::kMediaSession_SeekTo_Name: {

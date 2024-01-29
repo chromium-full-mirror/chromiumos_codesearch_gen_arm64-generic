@@ -240,6 +240,8 @@ bool WebLaunchServiceStubDispatch::Accept(
           reinterpret_cast<internal::WebLaunchService_SetLaunchFiles_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebLaunchService.0
       bool success = true;
       WTF::Vector<::blink::mojom::blink::FileSystemAccessEntryPtr> p_files{};
       WebLaunchService_SetLaunchFiles_ParamsDataView input_data_view(params, message);
@@ -255,8 +257,8 @@ bool WebLaunchServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLaunchFiles(
-std::move(p_files));
+      impl->SetLaunchFiles(        
+        std::move(p_files));
       return true;
     }
     case internal::kWebLaunchService_EnqueueLaunchParams_Name: {
@@ -266,6 +268,8 @@ std::move(p_files));
           reinterpret_cast<internal::WebLaunchService_EnqueueLaunchParams_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebLaunchService.1
       bool success = true;
       ::blink::KURL p_launch_url{};
       WebLaunchService_EnqueueLaunchParams_ParamsDataView input_data_view(params, message);
@@ -281,8 +285,8 @@ std::move(p_files));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnqueueLaunchParams(
-std::move(p_launch_url));
+      impl->EnqueueLaunchParams(        
+        std::move(p_launch_url));
       return true;
     }
   }

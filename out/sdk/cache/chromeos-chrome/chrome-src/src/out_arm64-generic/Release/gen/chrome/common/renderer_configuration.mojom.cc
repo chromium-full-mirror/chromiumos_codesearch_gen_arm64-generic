@@ -257,6 +257,8 @@ bool ChromeOSListenerStubDispatch::Accept(
           reinterpret_cast<internal::ChromeOSListener_MergeSessionComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeOSListener.0
       bool success = true;
       ChromeOSListener_MergeSessionComplete_ParamsDataView input_data_view(params, message);
       
@@ -269,7 +271,7 @@ bool ChromeOSListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MergeSessionComplete();
+      impl->MergeSessionComplete(        );
       return true;
     }
   }
@@ -501,6 +503,8 @@ bool RendererConfigurationStubDispatch::Accept(
           reinterpret_cast<internal::RendererConfiguration_SetInitialConfiguration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererConfiguration.0
       bool success = true;
       bool p_is_incognito_process{};
       ::mojo::PendingReceiver<ChromeOSListener> p_chromeos_listener{};
@@ -531,11 +535,11 @@ bool RendererConfigurationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInitialConfiguration(
-std::move(p_is_incognito_process), 
-std::move(p_chromeos_listener), 
-std::move(p_content_settings_manager), 
-std::move(p_bound_session_request_throttled_handler));
+      impl->SetInitialConfiguration(        
+        std::move(p_is_incognito_process), 
+        std::move(p_chromeos_listener), 
+        std::move(p_content_settings_manager), 
+        std::move(p_bound_session_request_throttled_handler));
       return true;
     }
     case internal::kRendererConfiguration_SetConfiguration_Name: {
@@ -545,6 +549,8 @@ std::move(p_bound_session_request_throttled_handler));
           reinterpret_cast<internal::RendererConfiguration_SetConfiguration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererConfiguration.1
       bool success = true;
       DynamicParamsPtr p_params{};
       RendererConfiguration_SetConfiguration_ParamsDataView input_data_view(params, message);
@@ -560,8 +566,8 @@ std::move(p_bound_session_request_throttled_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetConfiguration(
-std::move(p_params));
+      impl->SetConfiguration(        
+        std::move(p_params));
       return true;
     }
   }

@@ -1085,7 +1085,7 @@ void V8HTMLAnchorElement::InstallContextDependentProperties(v8::Local<v8::Contex
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::HrefTranslateEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kHrefTranslate)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"hrefTranslate", HrefTranslateAttributeGetCallback, HrefTranslateAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

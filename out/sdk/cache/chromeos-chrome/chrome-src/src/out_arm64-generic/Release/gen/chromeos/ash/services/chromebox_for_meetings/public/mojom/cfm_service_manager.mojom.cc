@@ -391,6 +391,8 @@ bool CfmServiceContext_ProvideAdaptor_ForwardToCallback::Accept(
           internal::CfmServiceContext_ProvideAdaptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CfmServiceContext.0
   bool success = true;
   bool p_success{};
   CfmServiceContext_ProvideAdaptor_ResponseParamsDataView input_data_view(params, message);
@@ -510,6 +512,8 @@ bool CfmServiceContext_RequestBindService_ForwardToCallback::Accept(
           internal::CfmServiceContext_RequestBindService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CfmServiceContext.1
   bool success = true;
   bool p_success{};
   CfmServiceContext_RequestBindService_ResponseParamsDataView input_data_view(params, message);
@@ -603,6 +607,8 @@ bool CfmServiceContextStubDispatch::AcceptWithResponder(
               internal::CfmServiceContext_ProvideAdaptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CfmServiceContext.0
       bool success = true;
       std::string p_interface_name{};
       ::mojo::PendingRemote<CfmServiceAdaptor> p_adaptor_remote{};
@@ -626,9 +632,9 @@ bool CfmServiceContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProvideAdaptor(
-std::move(p_interface_name), 
-std::move(p_adaptor_remote), std::move(callback));
+      impl->ProvideAdaptor(        
+        std::move(p_interface_name), 
+        std::move(p_adaptor_remote), std::move(callback));
       return true;
     }
     case internal::kCfmServiceContext_RequestBindService_Name: {
@@ -638,6 +644,8 @@ std::move(p_adaptor_remote), std::move(callback));
               internal::CfmServiceContext_RequestBindService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CfmServiceContext.1
       bool success = true;
       std::string p_interface_name{};
       ::mojo::ScopedMessagePipeHandle p_receiver_pipe{};
@@ -659,9 +667,9 @@ std::move(p_adaptor_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestBindService(
-std::move(p_interface_name), 
-std::move(p_receiver_pipe), std::move(callback));
+      impl->RequestBindService(        
+        std::move(p_interface_name), 
+        std::move(p_receiver_pipe), std::move(callback));
       return true;
     }
   }
@@ -802,6 +810,8 @@ bool CfmServiceAdaptorStubDispatch::Accept(
           reinterpret_cast<internal::CfmServiceAdaptor_OnBindService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CfmServiceAdaptor.0
       bool success = true;
       ::mojo::ScopedMessagePipeHandle p_receiver_pipe{};
       CfmServiceAdaptor_OnBindService_ParamsDataView input_data_view(params, message);
@@ -817,8 +827,8 @@ bool CfmServiceAdaptorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBindService(
-std::move(p_receiver_pipe));
+      impl->OnBindService(        
+        std::move(p_receiver_pipe));
       return true;
     }
   }

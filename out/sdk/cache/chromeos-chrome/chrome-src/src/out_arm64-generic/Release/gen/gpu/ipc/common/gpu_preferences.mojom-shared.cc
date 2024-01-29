@@ -217,7 +217,7 @@ bool GpuPreferences_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->enabled_dawn_features_list, 51, validation_context)) {
+          object->enabled_dawn_features_list, 52, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& enabled_dawn_features_list_validate_params =
@@ -228,7 +228,7 @@ bool GpuPreferences_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->disabled_dawn_features_list, 52, validation_context)) {
+          object->disabled_dawn_features_list, 53, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& disabled_dawn_features_list_validate_params =

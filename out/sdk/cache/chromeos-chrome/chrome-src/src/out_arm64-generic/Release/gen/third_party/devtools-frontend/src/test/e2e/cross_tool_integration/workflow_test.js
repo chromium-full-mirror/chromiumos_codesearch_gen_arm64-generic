@@ -18,42 +18,44 @@ const settings_helpers_js_1 = require("../helpers/settings-helpers.js");
         this.timeout(10000);
     }
     beforeEach(async function () {
-        await (0, cross_tool_helper_js_1.prepareForCrossToolScenario)();
+        await (0, helper_js_1.goToResource)('cross_tool/default.html');
+        await (0, helper_js_1.closeAllCloseableTabs)();
     });
     (0, mocha_extensions_js_1.it)('Console -> Sources', async () => {
         await (0, console_helpers_js_1.navigateToConsoleTab)();
         await (0, console_helpers_js_1.waitForConsoleInfoMessageAndClickOnLink)();
         await (0, helper_js_1.waitFor)('.panel[aria-label="sources"]');
     });
-    // Skip until flake is fixed
-    mocha_extensions_js_1.it.skip('[crbug.com/1342045]: Console -> Issues', async () => {
+    (0, mocha_extensions_js_1.it)('Console -> Issues', async () => {
         await (0, console_helpers_js_1.navigateToConsoleTab)();
-        await (0, console_helpers_js_1.navigateToIssuesPanelViaInfoBar)();
-        // Expand the first issue
-        await (0, helper_js_1.click)('li.issue.parent');
-        // Expand the affected resources
-        await (0, helper_js_1.click)('li.parent', { root: await (0, helper_js_1.waitFor)('ol.affected-resources') });
+        await (0, helper_js_1.click)('#console-issues-counter');
+        await (0, helper_js_1.waitFor)('[aria-label="Issues panel"]');
     });
     (0, mocha_extensions_js_1.it)('Elements -> Sources', async () => {
         await (0, elements_helpers_js_1.navigateToElementsTab)();
         await (0, elements_helpers_js_1.clickOnFirstLinkInStylesPanel)();
         await (0, helper_js_1.waitFor)('.panel[aria-label="sources"]');
     });
-    // Skip until flake is fixed
-    mocha_extensions_js_1.it.skip('[crbug.com/1375161]: Performance -> Sources', async () => {
+    (0, mocha_extensions_js_1.it)('Performance -> Sources', async () => {
         await (0, performance_helpers_js_1.navigateToPerformanceTab)();
         await (0, performance_helpers_js_1.startRecording)();
+        // Wait until we have collected a bit of trace data (indicated by the progress bar
+        // changing at least twice), to ensure that there's at least a single tick within
+        // `default.html` below.
+        const statusIndicator = await (0, helper_js_1.waitFor)('.timeline-status-dialog .progress .indicator');
+        const statusIndicatorValues = new Set();
+        do {
+            const indicatorValue = await statusIndicator.evaluate(n => Number(n.getAttribute('aria-valuenow')));
+            if (statusIndicatorValues.has(indicatorValue)) {
+                await (0, helper_js_1.timeout)(50);
+            }
+            else {
+                statusIndicatorValues.add(indicatorValue);
+            }
+        } while (statusIndicatorValues.size <= 2);
         await (0, performance_helpers_js_1.stopRecording)();
         await (0, performance_helpers_js_1.navigateToPerformanceSidebarTab)('Bottom-Up');
-        // Find the link pointing to default.html.
-        const link = await (0, helper_js_1.waitForFunction)(async () => {
-            const allLinks = await (0, helper_js_1.waitForMany)('.devtools-link', 1);
-            const linkText = await Promise.all(allLinks.map(link => link.evaluate(x => x.textContent)));
-            const linkIdx = linkText.findIndex(text => text?.startsWith('default.html'));
-            return linkIdx < 0 ? undefined : allLinks[linkIdx];
-        });
-        (0, helper_js_1.assertNotNullOrUndefined)(link);
-        await (0, helper_js_1.clickElement)(link);
+        await (0, helper_js_1.click)('.devtools-link[title*="default.html"]');
         await (0, helper_js_1.waitFor)('.panel[aria-label="sources"]');
     });
 });

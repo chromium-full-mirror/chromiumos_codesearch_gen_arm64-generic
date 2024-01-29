@@ -11,13 +11,16 @@ import { ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../c
 import { str, strf } from '../../common/js/translations.js';
 import { toFilesAppURL } from '../../common/js/url_constants.js';
 import { visitURL } from '../../common/js/util.js';
-import { ProgressCenter } from '../../externs/background/progress_center.js';
-import { MetadataModelInterface } from '../../externs/metadata_model.js';
 import { getStore } from '../../state/store.js';
 /**
  * Shorthand for metadata keys.
  */
-const { SYNC_STATUS, PROGRESS, SYNC_COMPLETED_TIME, AVAILABLE_OFFLINE, PINNED, CAN_PIN, } = chrome.fileManagerPrivate.EntryPropertyName;
+const SYNC_STATUS = 'syncStatus';
+const PROGRESS = 'progress';
+const SYNC_COMPLETED_TIME = 'syncCompletedTime';
+const AVAILABLE_OFFLINE = 'availableOffline';
+const PINNED = 'pinned';
+const CAN_PIN = 'canPin';
 /**
  * Shorthand for sync statuses.
  */
@@ -239,9 +242,9 @@ export class DriveSyncHandlerImpl extends EventTarget {
             // If offline, hide any sync progress notifications. When online again,
             // the Drive sync client may retry syncing and trigger
             // onFileTransfersUpdated events, causing it to be shown again.
-            if (state.type ==
+            if (state.type ===
                 chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE &&
-                state.reason ==
+                state.reason ===
                     chrome.fileManagerPrivate.DriveOfflineReason.NO_NETWORK) {
                 this.dispatchEvent(new Event(this.getCompletedEventName()));
             }

@@ -77,8 +77,8 @@ describeWithMockConnection('SharedStorageListTreeElement', function () {
         beforeEach(async () => {
             stubNoopSettings();
             target = targetFactory();
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL, '', false);
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE, '', false);
+            Root.Runtime.experiments.register("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */, '', false);
+            Root.Runtime.experiments.register("storageBucketsTree" /* Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE */, '', false);
             sharedStorageModel = target.model(Application.SharedStorageModel.SharedStorageModel);
             resourceTreeModel = target.model(SDK.ResourceTreeModel.ResourceTreeModel);
         });

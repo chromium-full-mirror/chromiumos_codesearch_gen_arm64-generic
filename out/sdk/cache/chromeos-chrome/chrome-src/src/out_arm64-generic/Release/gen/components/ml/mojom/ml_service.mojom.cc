@@ -228,6 +228,8 @@ bool MLService_CreateModelLoader_ForwardToCallback::Accept(
           internal::MLService_CreateModelLoader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MLService.0
   bool success = true;
   ::ml::model_loader::mojom::CreateModelLoaderResult p_result{};
   ::mojo::PendingRemote<::ml::model_loader::mojom::ModelLoader> p_remote{};
@@ -330,6 +332,8 @@ bool MLServiceStubDispatch::AcceptWithResponder(
               internal::MLService_CreateModelLoader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MLService.0
       bool success = true;
       ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr p_options{};
       MLService_CreateModelLoader_ParamsDataView input_data_view(params, message);
@@ -348,8 +352,8 @@ bool MLServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateModelLoader(
-std::move(p_options), std::move(callback));
+      impl->CreateModelLoader(        
+        std::move(p_options), std::move(callback));
       return true;
     }
   }

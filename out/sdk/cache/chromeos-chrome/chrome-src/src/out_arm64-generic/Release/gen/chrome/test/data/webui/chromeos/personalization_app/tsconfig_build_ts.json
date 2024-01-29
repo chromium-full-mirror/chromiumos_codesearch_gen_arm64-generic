@@ -83,6 +83,7 @@
     "preprocessed/sea_pen_recent_wallpapers_element_test.ts",
     "preprocessed/sea_pen_router_element_test.ts",
     "preprocessed/sea_pen_template_query_element_test.ts",
+    "preprocessed/sea_pen_templates_element_test.ts",
     "preprocessed/test_ambient_interface_provider.ts",
     "preprocessed/test_keyboard_backlight_interface_provider.ts",
     "preprocessed/test_personalization_store.ts",

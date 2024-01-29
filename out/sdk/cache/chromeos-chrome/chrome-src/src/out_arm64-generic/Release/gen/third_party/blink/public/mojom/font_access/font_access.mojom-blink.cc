@@ -282,6 +282,8 @@ bool FontAccessManager_EnumerateLocalFonts_ForwardToCallback::Accept(
           internal::FontAccessManager_EnumerateLocalFonts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontAccessManager.0
   bool success = true;
   FontEnumerationStatus p_enumeration_status{};
   ::base::ReadOnlySharedMemoryRegion p_enumeration_table{};
@@ -387,6 +389,8 @@ bool FontAccessManagerStubDispatch::AcceptWithResponder(
               internal::FontAccessManager_EnumerateLocalFonts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontAccessManager.0
       bool success = true;
       FontAccessManager_EnumerateLocalFonts_ParamsDataView input_data_view(params, message);
       

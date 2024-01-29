@@ -129,7 +129,7 @@ bool ProxyList_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& proxies_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->proxies, validation_context,
                                          &proxies_validate_params)) {
     return false;
@@ -171,35 +171,35 @@ bool ProxyRules_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->single_proxies, 5, validation_context)) {
+          object->single_proxies, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->single_proxies, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxies_for_http, 6, validation_context)) {
+          object->proxies_for_http, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->proxies_for_http, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxies_for_https, 7, validation_context)) {
+          object->proxies_for_https, 6, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->proxies_for_https, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxies_for_ftp, 8, validation_context)) {
+          object->proxies_for_ftp, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->proxies_for_ftp, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->fallback_proxies, 9, validation_context)) {
+          object->fallback_proxies, 8, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->fallback_proxies, validation_context))

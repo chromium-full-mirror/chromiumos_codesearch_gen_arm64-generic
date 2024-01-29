@@ -28,9 +28,17 @@ class DescriptorBDataView;
 
 class DescriptorsDataView;
 
+class InspirationDataView;
+
+class InspirationGroupDataView;
+
 class WallpaperSearchResultDataView;
 
+class ResultDescriptorsDataView;
+
 class DescriptorDValueDataView;
+
+enum class DescriptorDName : int32_t;
 
 enum class WallpaperSearchStatus : int32_t;
 
@@ -44,8 +52,17 @@ using DescriptorBPtr = mojo::InlinedStructPtr<DescriptorB>;
 class Descriptors;
 using DescriptorsPtr = mojo::StructPtr<Descriptors>;
 
+class Inspiration;
+using InspirationPtr = mojo::StructPtr<Inspiration>;
+
+class InspirationGroup;
+using InspirationGroupPtr = mojo::StructPtr<InspirationGroup>;
+
 class WallpaperSearchResult;
 using WallpaperSearchResultPtr = mojo::StructPtr<WallpaperSearchResult>;
+
+class ResultDescriptors;
+using ResultDescriptorsPtr = mojo::StructPtr<ResultDescriptors>;
 
 class DescriptorDValue;
 

@@ -187,20 +187,20 @@ export class ProfileView extends UI.View.SimpleView {
             deleteCallback: undefined,
             refreshCallback: undefined,
         });
-        this.dataGrid.addEventListener(DataGrid.DataGrid.Events.SortingChanged, this.sortProfile, this);
-        this.dataGrid.addEventListener(DataGrid.DataGrid.Events.SelectedNode, this.nodeSelected.bind(this, true));
-        this.dataGrid.addEventListener(DataGrid.DataGrid.Events.DeselectedNode, this.nodeSelected.bind(this, false));
+        this.dataGrid.addEventListener("SortingChanged" /* DataGrid.DataGrid.Events.SortingChanged */, this.sortProfile, this);
+        this.dataGrid.addEventListener("SelectedNode" /* DataGrid.DataGrid.Events.SelectedNode */, this.nodeSelected.bind(this, true));
+        this.dataGrid.addEventListener("DeselectedNode" /* DataGrid.DataGrid.Events.DeselectedNode */, this.nodeSelected.bind(this, false));
         this.dataGrid.setRowContextMenuCallback(this.populateContextMenu.bind(this));
         this.viewSelectComboBox = new UI.Toolbar.ToolbarComboBox(this.changeView.bind(this), i18nString(UIStrings.profileViewMode), undefined, 'profile-view.selected-view');
         this.focusButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.focusSelectedFunction), 'eye', undefined, 'profile-view.focus-selected-function');
         this.focusButton.setEnabled(false);
-        this.focusButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.focusClicked, this);
+        this.focusButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.focusClicked, this);
         this.excludeButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.excludeSelectedFunction), 'cross', undefined, 'profile-view.exclude-selected-function');
         this.excludeButton.setEnabled(false);
-        this.excludeButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.excludeClicked, this);
+        this.excludeButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.excludeClicked, this);
         this.resetButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.restoreAllFunctions), 'refresh', undefined, 'profile-view.restore-all-functions');
         this.resetButton.setEnabled(false);
-        this.resetButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.resetClicked, this);
+        this.resetButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.resetClicked, this);
         this.linkifierInternal = new Components.Linkifier.Linkifier(maxLinkLength);
     }
     static buildPopoverTable(entryInfo) {
@@ -274,7 +274,7 @@ export class ProfileView extends UI.View.SimpleView {
     }
     populateContextMenu(contextMenu, gridNode) {
         const node = gridNode;
-        if (node.linkElement && !contextMenu.containsTarget(node.linkElement)) {
+        if (node.linkElement) {
             contextMenu.appendApplicableItems(node.linkElement);
         }
     }
@@ -346,7 +346,7 @@ export class ProfileView extends UI.View.SimpleView {
         }
         this.dataProvider = this.createFlameChartDataProvider();
         this.flameChart = new CPUProfileFlameChart(this.searchableViewInternal, this.dataProvider);
-        this.flameChart.addEventListener(PerfUI.FlameChart.Events.EntryInvoked, event => {
+        this.flameChart.addEventListener("EntryInvoked" /* PerfUI.FlameChart.Events.EntryInvoked */, event => {
             void this.onEntryInvoked(event);
         });
     }

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18leak_detection_api.proto\x12\x30google.internal.identity.passwords.leak.check.v1\"\xe8\x03\n\x17LookupSingleLeakRequest\x12\x1c\n\x14username_hash_prefix\x18\x01 \x01(\x0c\x12#\n\x1busername_hash_prefix_length\x18\x02 \x01(\r\x12\x1d\n\x15\x65ncrypted_lookup_hash\x18\x03 \x01(\x0c\x12p\n\x0f\x63lient_use_case\x18\x04 \x01(\x0e\x32W.google.internal.identity.passwords.leak.check.v1.LookupSingleLeakRequest.ClientUseCase\"\xf8\x01\n\rClientUseCase\x12\x1f\n\x1b\x43LIENT_USE_CASE_UNSPECIFIED\x10\x00\x12\x18\n\x14\x43HROME_SIGN_IN_CHECK\x10\x05\x12&\n\"CHROME_BULK_SYNCED_PASSWORDS_CHECK\x10\x06\x12\x36\n2CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP\x10\x07\x12#\n\x1fIGA_BULK_SYNCED_PASSWORDS_CHECK\x10\x0b\x12\x15\n\x11\x43HROME_EDIT_CHECK\x10\x0f\"\x04\x08\x01\x10\x04\"\x04\x08\x08\x10\n\"\x04\x08\x0c\x10\x0e\"`\n\x18LookupSingleLeakResponse\x12#\n\x1b\x65ncrypted_leak_match_prefix\x18\x01 \x03(\x0c\x12\x1f\n\x17reencrypted_lookup_hash\x18\x02 \x01(\x0c\x42\x02H\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18leak_detection_api.proto\x12\x30google.internal.identity.passwords.leak.check.v1\"\xb2\x04\n\x17LookupSingleLeakRequest\x12\x1c\n\x14username_hash_prefix\x18\x01 \x01(\x0c\x12#\n\x1busername_hash_prefix_length\x18\x02 \x01(\r\x12\x1d\n\x15\x65ncrypted_lookup_hash\x18\x03 \x01(\x0c\x12p\n\x0f\x63lient_use_case\x18\x04 \x01(\x0e\x32W.google.internal.identity.passwords.leak.check.v1.LookupSingleLeakRequest.ClientUseCase\"\xc2\x02\n\rClientUseCase\x12\x1f\n\x1b\x43LIENT_USE_CASE_UNSPECIFIED\x10\x00\x12\x18\n\x14\x43HROME_SIGN_IN_CHECK\x10\x05\x12&\n\"CHROME_BULK_SYNCED_PASSWORDS_CHECK\x10\x06\x12\x41\n=CHROME_DESKTOP_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP\x10\x07\x12#\n\x1fIGA_BULK_SYNCED_PASSWORDS_CHECK\x10\x0b\x12\x15\n\x11\x43HROME_EDIT_CHECK\x10\x0f\x12=\n9CHROME_IOS_SIGNED_IN_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP\x10\x12\"\x04\x08\x01\x10\x04\"\x04\x08\x08\x10\n\"\x04\x08\x0c\x10\x0e\"`\n\x18LookupSingleLeakResponse\x12#\n\x1b\x65ncrypted_leak_match_prefix\x18\x01 \x03(\x0c\x12\x1f\n\x17reencrypted_lookup_hash\x18\x02 \x01(\x0c\x42\x02H\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'leak_detection_api_pb2', globals())
@@ -22,9 +22,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
   _LOOKUPSINGLELEAKREQUEST._serialized_start=79
-  _LOOKUPSINGLELEAKREQUEST._serialized_end=567
+  _LOOKUPSINGLELEAKREQUEST._serialized_end=641
   _LOOKUPSINGLELEAKREQUEST_CLIENTUSECASE._serialized_start=319
-  _LOOKUPSINGLELEAKREQUEST_CLIENTUSECASE._serialized_end=567
-  _LOOKUPSINGLELEAKRESPONSE._serialized_start=569
-  _LOOKUPSINGLELEAKRESPONSE._serialized_end=665
+  _LOOKUPSINGLELEAKREQUEST_CLIENTUSECASE._serialized_end=641
+  _LOOKUPSINGLELEAKRESPONSE._serialized_start=643
+  _LOOKUPSINGLELEAKRESPONSE._serialized_end=739
 # @@protoc_insertion_point(module_scope)

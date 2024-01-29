@@ -2925,7 +2925,6 @@ class  Vp9Metadata {
       bool temporal_up_switch,
       bool referenced_by_upper_spatial_layers,
       bool reference_lower_spatial_layers,
-      bool end_of_picture,
       uint8_t temporal_idx,
       uint8_t spatial_idx,
       std::vector<::gfx::Size> spatial_layer_resolutions,
@@ -3017,8 +3016,6 @@ class  Vp9Metadata {
   
   bool reference_lower_spatial_layers;
   
-  bool end_of_picture;
-  
   uint8_t temporal_idx;
   
   uint8_t spatial_idx;
@@ -3095,6 +3092,7 @@ class  BitstreamBufferMetadata {
       uint32_t payload_size_bytes,
       bool key_frame,
       ::base::TimeDelta timestamp,
+      bool end_of_picture,
       int32_t qp,
       CodecMetadataPtr codec_metadata,
       const std::optional<::gfx::Size>& encoded_size,
@@ -3183,6 +3181,8 @@ BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
   bool key_frame;
   
   ::base::TimeDelta timestamp;
+  
+  bool end_of_picture;
   
   int32_t qp;
   
@@ -3815,7 +3815,6 @@ Vp9MetadataPtr Vp9Metadata::Clone() const {
       mojo::Clone(temporal_up_switch),
       mojo::Clone(referenced_by_upper_spatial_layers),
       mojo::Clone(reference_lower_spatial_layers),
-      mojo::Clone(end_of_picture),
       mojo::Clone(temporal_idx),
       mojo::Clone(spatial_idx),
       mojo::Clone(spatial_layer_resolutions),
@@ -3834,8 +3833,6 @@ bool Vp9Metadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->referenced_by_upper_spatial_layers, other_struct.referenced_by_upper_spatial_layers))
     return false;
   if (!mojo::Equals(this->reference_lower_spatial_layers, other_struct.reference_lower_spatial_layers))
-    return false;
-  if (!mojo::Equals(this->end_of_picture, other_struct.end_of_picture))
     return false;
   if (!mojo::Equals(this->temporal_idx, other_struct.temporal_idx))
     return false;
@@ -3869,10 +3866,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.reference_lower_spatial_layers < rhs.reference_lower_spatial_layers)
     return true;
   if (rhs.reference_lower_spatial_layers < lhs.reference_lower_spatial_layers)
-    return false;
-  if (lhs.end_of_picture < rhs.end_of_picture)
-    return true;
-  if (rhs.end_of_picture < lhs.end_of_picture)
     return false;
   if (lhs.temporal_idx < rhs.temporal_idx)
     return true;
@@ -3928,6 +3921,7 @@ BitstreamBufferMetadataPtr BitstreamBufferMetadata::Clone() const {
       mojo::Clone(payload_size_bytes),
       mojo::Clone(key_frame),
       mojo::Clone(timestamp),
+      mojo::Clone(end_of_picture),
       mojo::Clone(qp),
       mojo::Clone(codec_metadata),
       mojo::Clone(encoded_size),
@@ -3942,6 +3936,8 @@ bool BitstreamBufferMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->key_frame, other_struct.key_frame))
     return false;
   if (!mojo::Equals(this->timestamp, other_struct.timestamp))
+    return false;
+  if (!mojo::Equals(this->end_of_picture, other_struct.end_of_picture))
     return false;
   if (!mojo::Equals(this->qp, other_struct.qp))
     return false;
@@ -3967,6 +3963,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.timestamp < rhs.timestamp)
     return true;
   if (rhs.timestamp < lhs.timestamp)
+    return false;
+  if (lhs.end_of_picture < rhs.end_of_picture)
+    return true;
+  if (rhs.end_of_picture < lhs.end_of_picture)
     return false;
   if (lhs.qp < rhs.qp)
     return true;
@@ -4374,11 +4374,6 @@ struct  StructTraits<::media::mojom::Vp9Metadata::DataView,
     return input->reference_lower_spatial_layers;
   }
 
-  static decltype(::media::mojom::Vp9Metadata::end_of_picture) end_of_picture(
-      const ::media::mojom::Vp9MetadataPtr& input) {
-    return input->end_of_picture;
-  }
-
   static decltype(::media::mojom::Vp9Metadata::temporal_idx) temporal_idx(
       const ::media::mojom::Vp9MetadataPtr& input) {
     return input->temporal_idx;
@@ -4447,6 +4442,11 @@ struct  StructTraits<::media::mojom::BitstreamBufferMetadata::DataView,
   static const decltype(::media::mojom::BitstreamBufferMetadata::timestamp)& timestamp(
       const ::media::mojom::BitstreamBufferMetadataPtr& input) {
     return input->timestamp;
+  }
+
+  static decltype(::media::mojom::BitstreamBufferMetadata::end_of_picture) end_of_picture(
+      const ::media::mojom::BitstreamBufferMetadataPtr& input) {
+    return input->end_of_picture;
   }
 
   static decltype(::media::mojom::BitstreamBufferMetadata::qp) qp(

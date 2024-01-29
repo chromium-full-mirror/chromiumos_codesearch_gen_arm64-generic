@@ -122,24 +122,26 @@ suite('<settings-internet-subpage>', () => {
             await waitAfterNextRender(deepLinkElement);
             assertEquals(deepLinkElement, getDeepActiveElement(), `Toggle WiFi should be focused for settingId=${WIFI_ON_OFF_SETTING}.`);
         });
-        test('Tether', async () => {
-            await initSubpage();
-            setNetworksForTest(NetworkType.kTether, [
-                OncMojo.getDefaultNetworkState(NetworkType.kTether, 'tether1'),
-                OncMojo.getDefaultNetworkState(NetworkType.kTether, 'tether2'),
-            ]);
-            await flushTasks();
-            assertEquals(2, internetSubpage.get('networkStateList_').length);
-            const toggle = internetSubpage.shadowRoot.querySelector('#deviceEnabledButton');
-            assertTrue(!!toggle);
-            assertFalse(toggle.disabled);
-            const networkList = internetSubpage.shadowRoot.querySelector('#networkList');
-            assertTrue(!!networkList);
-            assertEquals(2, networkList.networks.length);
-            const tetherToggle = internetSubpage.shadowRoot.querySelector('#tetherEnabledButton');
-            // No separate tether toggle when Celular is not available; the
-            // primary toggle enables or disables Tether in that case.
-            assertNull(tetherToggle);
+        [false, true].forEach(isInstantHotspotRebrandEnabled => {
+            test(`Tether with instant hotspot rebrand flag: ${isInstantHotspotRebrandEnabled}`, async () => {
+                await initSubpage();
+                setNetworksForTest(NetworkType.kTether, [
+                    OncMojo.getDefaultNetworkState(NetworkType.kTether, 'tether1'),
+                    OncMojo.getDefaultNetworkState(NetworkType.kTether, 'tether2'),
+                ]);
+                await flushTasks();
+                assertEquals(2, internetSubpage.get('networkStateList_').length);
+                const toggle = internetSubpage.shadowRoot.querySelector('#deviceEnabledButton');
+                assertTrue(!!toggle);
+                assertFalse(toggle.disabled);
+                const networkList = internetSubpage.shadowRoot.querySelector('#networkList');
+                assertTrue(!!networkList);
+                assertEquals(2, networkList.networks.length);
+                const tetherToggle = internetSubpage.shadowRoot.querySelector('#tetherEnabledButton');
+                // No separate tether toggle when Celular is not available; the
+                // primary toggle enables or disables Tether in that case.
+                assertNull(tetherToggle);
+            });
         });
         test('Deep link to tether on/off toggle w/o cellular', async () => {
             await initSubpage();
@@ -199,20 +201,35 @@ suite('<settings-internet-subpage>', () => {
             await waitAfterNextRender(deepLinkElement);
             assertEquals(deepLinkElement, getDeepActiveElement(), `Add cellular button should be focused for settingId=${ADD_ESIM_NETWORK_SETTING}.`);
         });
-        test('Tether plus Cellular', async () => {
-            await initSubpage();
-            addCellularNetworks();
-            await flushTasks();
-            assertEquals(3, internetSubpage.get('networkStateList_').length);
-            const toggle = internetSubpage.shadowRoot.querySelector('#deviceEnabledButton');
-            assertTrue(!!toggle);
-            assertFalse(toggle.disabled);
-            const cellularNetworkList = internetSubpage.shadowRoot
-                .querySelector('#cellularNetworkList');
-            assertTrue(!!cellularNetworkList);
-            assertEquals(3, cellularNetworkList.networks.length);
-            const tetherToggle = internetSubpage.shadowRoot.querySelector('#tetherEnabledButton');
-            assertNull(tetherToggle);
+        [false, true].forEach(isInstantHotspotRebrandEnabled => {
+            test(`Tether plus Cellular with instant hotspot rebrand flag: ${isInstantHotspotRebrandEnabled}`, async () => {
+                loadTimeData.overrideValues({
+                    'isInstantHotspotRebrandEnabled': isInstantHotspotRebrandEnabled,
+                });
+                await initSubpage();
+                addCellularNetworks();
+                await flushTasks();
+                if (!isInstantHotspotRebrandEnabled) {
+                    assertEquals(3, internetSubpage.get('networkStateList_').length);
+                }
+                else {
+                    assertEquals(1, internetSubpage.get('networkStateList_').length);
+                }
+                const toggle = internetSubpage.shadowRoot.querySelector('#deviceEnabledButton');
+                assertTrue(!!toggle);
+                assertFalse(toggle.disabled);
+                const cellularNetworkList = internetSubpage.shadowRoot
+                    .querySelector('#cellularNetworkList');
+                assertTrue(!!cellularNetworkList);
+                if (!isInstantHotspotRebrandEnabled) {
+                    assertEquals(3, internetSubpage.get('networkStateList_').length);
+                }
+                else {
+                    assertEquals(1, internetSubpage.get('networkStateList_').length);
+                }
+                const tetherToggle = internetSubpage.shadowRoot.querySelector('#tetherEnabledButton');
+                assertNull(tetherToggle);
+            });
         });
         test('No js error when previous route is null', async () => {
             // This is a test for regression here https://crbug.com/1213162.

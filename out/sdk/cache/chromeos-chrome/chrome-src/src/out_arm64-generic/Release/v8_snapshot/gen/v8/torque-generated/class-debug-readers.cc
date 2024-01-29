@@ -645,6 +645,23 @@ std::vector<std::unique_ptr<ObjectProperty>> TqFixedArray::GetProperties(d::Memo
   return result;
 }
 
+const char* TqTrustedObject::GetName() const {
+  return "v8::internal::TrustedObject";
+}
+
+void TqTrustedObject::Visit(TqObjectVisitor* visitor) const {
+  visitor->VisitTrustedObject(this);
+}
+
+bool TqTrustedObject::IsSuperclassOf(const TqObject* other) const {
+  return GetName() != other->GetName() && dynamic_cast<const TqTrustedObject*>(other) != nullptr;
+}
+
+std::vector<std::unique_ptr<ObjectProperty>> TqTrustedObject::GetProperties(d::MemoryAccessor accessor) const {
+  std::vector<std::unique_ptr<ObjectProperty>> result = TqHeapObject::GetProperties(accessor);
+  return result;
+}
+
 const char* TqWeakFixedArray::GetName() const {
   return "v8::internal::WeakFixedArray";
 }
@@ -2374,23 +2391,6 @@ std::vector<std::unique_ptr<ObjectProperty>> TqWeakArrayList::GetProperties(d::M
   return result;
 }
 
-const char* TqTrustedObject::GetName() const {
-  return "v8::internal::TrustedObject";
-}
-
-void TqTrustedObject::Visit(TqObjectVisitor* visitor) const {
-  visitor->VisitTrustedObject(this);
-}
-
-bool TqTrustedObject::IsSuperclassOf(const TqObject* other) const {
-  return GetName() != other->GetName() && dynamic_cast<const TqTrustedObject*>(other) != nullptr;
-}
-
-std::vector<std::unique_ptr<ObjectProperty>> TqTrustedObject::GetProperties(d::MemoryAccessor accessor) const {
-  std::vector<std::unique_ptr<ObjectProperty>> result = TqHeapObject::GetProperties(accessor);
-  return result;
-}
-
 const char* TqExposedTrustedObject::GetName() const {
   return "v8::internal::ExposedTrustedObject";
 }
@@ -2452,18 +2452,8 @@ Value<uintptr_t> TqBytecodeArray::GetConstantPoolValue(d::MemoryAccessor accesso
   return {validity, EnsureDecompressed(value, address_)};
 }
 
-uintptr_t TqBytecodeArray::GetHandlerTableAddress() const {
-  return address_ - i::kHeapObjectTag + 16;
-}
-
-Value<uintptr_t> TqBytecodeArray::GetHandlerTableValue(d::MemoryAccessor accessor) const {
-  i::Tagged_t value{};
-  d::MemoryAccessResult validity = accessor(GetHandlerTableAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
-  return {validity, EnsureDecompressed(value, address_)};
-}
-
 uintptr_t TqBytecodeArray::GetWrapperAddress() const {
-  return address_ - i::kHeapObjectTag + 20;
+  return address_ - i::kHeapObjectTag + 16;
 }
 
 Value<uintptr_t> TqBytecodeArray::GetWrapperValue(d::MemoryAccessor accessor) const {
@@ -2473,12 +2463,22 @@ Value<uintptr_t> TqBytecodeArray::GetWrapperValue(d::MemoryAccessor accessor) co
 }
 
 uintptr_t TqBytecodeArray::GetSourcePositionTableAddress() const {
-  return address_ - i::kHeapObjectTag + 24;
+  return address_ - i::kHeapObjectTag + 20;
 }
 
 Value<uintptr_t> TqBytecodeArray::GetSourcePositionTableValue(d::MemoryAccessor accessor) const {
   i::Tagged_t value{};
   d::MemoryAccessResult validity = accessor(GetSourcePositionTableAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+uintptr_t TqBytecodeArray::GetHandlerTableAddress() const {
+  return address_ - i::kHeapObjectTag + 24;
+}
+
+Value<uintptr_t> TqBytecodeArray::GetHandlerTableValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetHandlerTableAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
   return {validity, EnsureDecompressed(value, address_)};
 }
 
@@ -2512,24 +2512,39 @@ Value<int32_t /*Failing? Ensure constexpr type name is correct, and the necessar
   return {validity, value};
 }
 
+uintptr_t TqBytecodeArray::GetBytesAddress() const {
+  return address_ - i::kHeapObjectTag + 40;
+}
+
+Value<uint8_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/> TqBytecodeArray::GetBytesValue(d::MemoryAccessor accessor, size_t offset) const {
+  uint8_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/ value{};
+  d::MemoryAccessResult validity = accessor(GetBytesAddress() + offset * sizeof(value), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, value};
+}
+
 std::vector<std::unique_ptr<ObjectProperty>> TqBytecodeArray::GetProperties(d::MemoryAccessor accessor) const {
   std::vector<std::unique_ptr<ObjectProperty>> result = TqExposedTrustedObject::GetProperties(accessor);
   std::vector<std::unique_ptr<StructProperty>> length_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("length", "v8::internal::TaggedMember<v8::internal::Object>", GetLengthAddress(), 1, 4, std::move(length_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> constant_pool_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("constant_pool", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetConstantPoolAddress(), 1, 4, std::move(constant_pool_struct_field_list), d::PropertyKind::kSingle));
-  std::vector<std::unique_ptr<StructProperty>> handler_table_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("handler_table", "v8::internal::TaggedMember<v8::internal::ByteArray>", GetHandlerTableAddress(), 1, 4, std::move(handler_table_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> wrapper_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("wrapper", "v8::internal::TaggedMember<v8::internal::BytecodeWrapper>", GetWrapperAddress(), 1, 4, std::move(wrapper_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> source_position_table_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("source_position_table", "v8::internal::TaggedMember<v8::internal::HeapObject>", GetSourcePositionTableAddress(), 1, 4, std::move(source_position_table_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> handler_table_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("handler_table", "v8::internal::TaggedMember<v8::internal::Object>", GetHandlerTableAddress(), 1, 4, std::move(handler_table_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> frame_size_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("frame_size", CheckTypeName<int32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("int32_t"), GetFrameSizeAddress(), 1, 4, std::move(frame_size_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> parameter_size_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("parameter_size", CheckTypeName<int32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("int32_t"), GetParameterSizeAddress(), 1, 4, std::move(parameter_size_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> incoming_new_target_or_generator_register_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("incoming_new_target_or_generator_register", CheckTypeName<int32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("int32_t"), GetIncomingNewTargetOrGeneratorRegisterAddress(), 1, 4, std::move(incoming_new_target_or_generator_register_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> bytes_struct_field_list;
+  auto indexed_field_slice_bytes = TqDebugFieldSliceBytecodeArrayBytes(accessor, address_);
+  if (indexed_field_slice_bytes.validity == d::MemoryAccessResult::kOk) {
+    result.push_back(std::make_unique<ObjectProperty>("bytes", CheckTypeName<uint8_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("uint8_t"), address_ - i::kHeapObjectTag + std::get<1>(indexed_field_slice_bytes.value), std::get<2>(indexed_field_slice_bytes.value), 1, std::move(bytes_struct_field_list), GetArrayKind(indexed_field_slice_bytes.validity)));
+  }
   return result;
 }
 
@@ -5011,20 +5026,8 @@ bool TqJSGlobalProxy::IsSuperclassOf(const TqObject* other) const {
   return GetName() != other->GetName() && dynamic_cast<const TqJSGlobalProxy*>(other) != nullptr;
 }
 
-uintptr_t TqJSGlobalProxy::GetNativeContextAddress() const {
-  return address_ - i::kHeapObjectTag + 12;
-}
-
-Value<uintptr_t> TqJSGlobalProxy::GetNativeContextValue(d::MemoryAccessor accessor) const {
-  i::Tagged_t value{};
-  d::MemoryAccessResult validity = accessor(GetNativeContextAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
-  return {validity, EnsureDecompressed(value, address_)};
-}
-
 std::vector<std::unique_ptr<ObjectProperty>> TqJSGlobalProxy::GetProperties(d::MemoryAccessor accessor) const {
   std::vector<std::unique_ptr<ObjectProperty>> result = TqJSSpecialObject::GetProperties(accessor);
-  std::vector<std::unique_ptr<StructProperty>> native_context_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("native_context", "v8::internal::TaggedMember<v8::internal::Object>", GetNativeContextAddress(), 1, 4, std::move(native_context_struct_field_list), d::PropertyKind::kSingle));
   return result;
 }
 
@@ -5040,18 +5043,8 @@ bool TqJSGlobalObject::IsSuperclassOf(const TqObject* other) const {
   return GetName() != other->GetName() && dynamic_cast<const TqJSGlobalObject*>(other) != nullptr;
 }
 
-uintptr_t TqJSGlobalObject::GetNativeContextAddress() const {
-  return address_ - i::kHeapObjectTag + 12;
-}
-
-Value<uintptr_t> TqJSGlobalObject::GetNativeContextValue(d::MemoryAccessor accessor) const {
-  i::Tagged_t value{};
-  d::MemoryAccessResult validity = accessor(GetNativeContextAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
-  return {validity, EnsureDecompressed(value, address_)};
-}
-
 uintptr_t TqJSGlobalObject::GetGlobalProxyAddress() const {
-  return address_ - i::kHeapObjectTag + 16;
+  return address_ - i::kHeapObjectTag + 12;
 }
 
 Value<uintptr_t> TqJSGlobalObject::GetGlobalProxyValue(d::MemoryAccessor accessor) const {
@@ -5062,8 +5055,6 @@ Value<uintptr_t> TqJSGlobalObject::GetGlobalProxyValue(d::MemoryAccessor accesso
 
 std::vector<std::unique_ptr<ObjectProperty>> TqJSGlobalObject::GetProperties(d::MemoryAccessor accessor) const {
   std::vector<std::unique_ptr<ObjectProperty>> result = TqJSSpecialObject::GetProperties(accessor);
-  std::vector<std::unique_ptr<StructProperty>> native_context_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("native_context", "v8::internal::TaggedMember<v8::internal::NativeContext>", GetNativeContextAddress(), 1, 4, std::move(native_context_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> global_proxy_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("global_proxy", "v8::internal::TaggedMember<v8::internal::JSGlobalProxy>", GetGlobalProxyAddress(), 1, 4, std::move(global_proxy_struct_field_list), d::PropertyKind::kSingle));
   return result;
@@ -6563,6 +6554,16 @@ Value<uintptr_t> TqObjectBoilerplateDescription::GetFlagsValue(d::MemoryAccessor
   return {validity, EnsureDecompressed(value, address_)};
 }
 
+uintptr_t TqObjectBoilerplateDescription::GetRawEntriesAddress() const {
+  return address_ - i::kHeapObjectTag + 16;
+}
+
+Value<uintptr_t> TqObjectBoilerplateDescription::GetRawEntriesValue(d::MemoryAccessor accessor, size_t offset) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetRawEntriesAddress() + offset * sizeof(value), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
 std::vector<std::unique_ptr<ObjectProperty>> TqObjectBoilerplateDescription::GetProperties(d::MemoryAccessor accessor) const {
   std::vector<std::unique_ptr<ObjectProperty>> result = TqHeapObject::GetProperties(accessor);
   std::vector<std::unique_ptr<StructProperty>> capacity_struct_field_list;
@@ -6571,6 +6572,11 @@ std::vector<std::unique_ptr<ObjectProperty>> TqObjectBoilerplateDescription::Get
   result.push_back(std::make_unique<ObjectProperty>("backing_store_size", "v8::internal::TaggedMember<v8::internal::Object>", GetBackingStoreSizeAddress(), 1, 4, std::move(backing_store_size_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> flags_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("flags", "v8::internal::TaggedMember<v8::internal::Object>", GetFlagsAddress(), 1, 4, std::move(flags_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> raw_entries_struct_field_list;
+  auto indexed_field_slice_raw_entries = TqDebugFieldSliceObjectBoilerplateDescriptionRawEntries(accessor, address_);
+  if (indexed_field_slice_raw_entries.validity == d::MemoryAccessResult::kOk) {
+    result.push_back(std::make_unique<ObjectProperty>("raw_entries", "v8::internal::TaggedMember<v8::internal::Object>", address_ - i::kHeapObjectTag + std::get<1>(indexed_field_slice_raw_entries.value), std::get<2>(indexed_field_slice_raw_entries.value), 4, std::move(raw_entries_struct_field_list), GetArrayKind(indexed_field_slice_raw_entries.validity)));
+  }
   return result;
 }
 
@@ -8908,13 +8914,13 @@ Value<uintptr_t> TqModuleRequest::GetSpecifierValue(d::MemoryAccessor accessor) 
   return {validity, EnsureDecompressed(value, address_)};
 }
 
-uintptr_t TqModuleRequest::GetImportAssertionsAddress() const {
+uintptr_t TqModuleRequest::GetImportAttributesAddress() const {
   return address_ - i::kHeapObjectTag + 8;
 }
 
-Value<uintptr_t> TqModuleRequest::GetImportAssertionsValue(d::MemoryAccessor accessor) const {
+Value<uintptr_t> TqModuleRequest::GetImportAttributesValue(d::MemoryAccessor accessor) const {
   i::Tagged_t value{};
-  d::MemoryAccessResult validity = accessor(GetImportAssertionsAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  d::MemoryAccessResult validity = accessor(GetImportAttributesAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
   return {validity, EnsureDecompressed(value, address_)};
 }
 
@@ -8932,8 +8938,8 @@ std::vector<std::unique_ptr<ObjectProperty>> TqModuleRequest::GetProperties(d::M
   std::vector<std::unique_ptr<ObjectProperty>> result = TqStruct::GetProperties(accessor);
   std::vector<std::unique_ptr<StructProperty>> specifier_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("specifier", "v8::internal::TaggedMember<v8::internal::String>", GetSpecifierAddress(), 1, 4, std::move(specifier_struct_field_list), d::PropertyKind::kSingle));
-  std::vector<std::unique_ptr<StructProperty>> import_assertions_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("import_assertions", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetImportAssertionsAddress(), 1, 4, std::move(import_assertions_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> import_attributes_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("import_attributes", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetImportAttributesAddress(), 1, 4, std::move(import_attributes_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> position_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("position", "v8::internal::TaggedMember<v8::internal::Object>", GetPositionAddress(), 1, 4, std::move(position_struct_field_list), d::PropertyKind::kSingle));
   return result;
@@ -9913,6 +9919,47 @@ std::vector<std::unique_ptr<ObjectProperty>> TqObjectTemplateInfo::GetProperties
   data_struct_field_list.push_back(std::make_unique<StructProperty>("is_code_kind", CheckTypeName<bool /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("bool"), 0, 1, 2));
   data_struct_field_list.push_back(std::make_unique<StructProperty>("embedder_field_count", CheckTypeName<int32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("int32_t"), 0, 28, 3));
   result.push_back(std::make_unique<ObjectProperty>("data", "v8::internal::TaggedMember<v8::internal::Object>", GetDataAddress(), 1, 4, std::move(data_struct_field_list), d::PropertyKind::kSingle));
+  return result;
+}
+
+const char* TqDictionaryTemplateInfo::GetName() const {
+  return "v8::internal::DictionaryTemplateInfo";
+}
+
+void TqDictionaryTemplateInfo::Visit(TqObjectVisitor* visitor) const {
+  visitor->VisitDictionaryTemplateInfo(this);
+}
+
+bool TqDictionaryTemplateInfo::IsSuperclassOf(const TqObject* other) const {
+  return GetName() != other->GetName() && dynamic_cast<const TqDictionaryTemplateInfo*>(other) != nullptr;
+}
+
+uintptr_t TqDictionaryTemplateInfo::GetPropertyNamesAddress() const {
+  return address_ - i::kHeapObjectTag + 4;
+}
+
+Value<uintptr_t> TqDictionaryTemplateInfo::GetPropertyNamesValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetPropertyNamesAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+uintptr_t TqDictionaryTemplateInfo::GetFullyPopulatedMapAddress() const {
+  return address_ - i::kHeapObjectTag + 8;
+}
+
+Value<uintptr_t> TqDictionaryTemplateInfo::GetFullyPopulatedMapValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetFullyPopulatedMapAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+std::vector<std::unique_ptr<ObjectProperty>> TqDictionaryTemplateInfo::GetProperties(d::MemoryAccessor accessor) const {
+  std::vector<std::unique_ptr<ObjectProperty>> result = TqHeapObject::GetProperties(accessor);
+  std::vector<std::unique_ptr<StructProperty>> property_names_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("property_names", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetPropertyNamesAddress(), 1, 4, std::move(property_names_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> fully_populated_map_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("fully_populated_map", "v8::internal::TaggedMember<v8::internal::Object>", GetFullyPopulatedMapAddress(), 1, 4, std::move(fully_populated_map_struct_field_list), d::PropertyKind::kSingle));
   return result;
 }
 
@@ -12001,6 +12048,59 @@ std::vector<std::unique_ptr<ObjectProperty>> TqJSSegments::GetProperties(d::Memo
   return result;
 }
 
+const char* TqWasmInstanceObject::GetName() const {
+  return "v8::internal::WasmInstanceObject";
+}
+
+void TqWasmInstanceObject::Visit(TqObjectVisitor* visitor) const {
+  visitor->VisitWasmInstanceObject(this);
+}
+
+bool TqWasmInstanceObject::IsSuperclassOf(const TqObject* other) const {
+  return GetName() != other->GetName() && dynamic_cast<const TqWasmInstanceObject*>(other) != nullptr;
+}
+
+uintptr_t TqWasmInstanceObject::GetTrustedDataAddress() const {
+  return address_ - i::kHeapObjectTag + 12;
+}
+
+Value<IndirectPointerHandle /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/> TqWasmInstanceObject::GetTrustedDataValue(d::MemoryAccessor accessor) const {
+  IndirectPointerHandle /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/ value{};
+  d::MemoryAccessResult validity = accessor(GetTrustedDataAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, value};
+}
+
+uintptr_t TqWasmInstanceObject::GetModuleObjectAddress() const {
+  return address_ - i::kHeapObjectTag + 16;
+}
+
+Value<uintptr_t> TqWasmInstanceObject::GetModuleObjectValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetModuleObjectAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+uintptr_t TqWasmInstanceObject::GetExportsObjectAddress() const {
+  return address_ - i::kHeapObjectTag + 20;
+}
+
+Value<uintptr_t> TqWasmInstanceObject::GetExportsObjectValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetExportsObjectAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+std::vector<std::unique_ptr<ObjectProperty>> TqWasmInstanceObject::GetProperties(d::MemoryAccessor accessor) const {
+  std::vector<std::unique_ptr<ObjectProperty>> result = TqJSObject::GetProperties(accessor);
+  std::vector<std::unique_ptr<StructProperty>> trusted_data_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("trusted_data", CheckTypeName<IndirectPointerHandle /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("IndirectPointerHandle"), GetTrustedDataAddress(), 1, 4, std::move(trusted_data_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> module_object_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("module_object", "v8::internal::TaggedMember<v8::internal::WasmModuleObject>", GetModuleObjectAddress(), 1, 4, std::move(module_object_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> exports_object_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("exports_object", "v8::internal::TaggedMember<v8::internal::JSObject>", GetExportsObjectAddress(), 1, 4, std::move(exports_object_struct_field_list), d::PropertyKind::kSingle));
+  return result;
+}
+
 const char* TqWasmApiFunctionRef::GetName() const {
   return "v8::internal::WasmApiFunctionRef";
 }
@@ -12557,13 +12657,13 @@ Value<uintptr_t> TqWasmSuspenderObject::GetStateValue(d::MemoryAccessor accessor
   return {validity, EnsureDecompressed(value, address_)};
 }
 
-uintptr_t TqWasmSuspenderObject::GetWasmToJsCounterAddress() const {
+uintptr_t TqWasmSuspenderObject::GetHasJsFramesAddress() const {
   return address_ - i::kHeapObjectTag + 36;
 }
 
-Value<uint32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/> TqWasmSuspenderObject::GetWasmToJsCounterValue(d::MemoryAccessor accessor) const {
+Value<uint32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/> TqWasmSuspenderObject::GetHasJsFramesValue(d::MemoryAccessor accessor) const {
   uint32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/ value{};
-  d::MemoryAccessResult validity = accessor(GetWasmToJsCounterAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  d::MemoryAccessResult validity = accessor(GetHasJsFramesAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
   return {validity, value};
 }
 
@@ -12581,8 +12681,8 @@ std::vector<std::unique_ptr<ObjectProperty>> TqWasmSuspenderObject::GetPropertie
   result.push_back(std::make_unique<ObjectProperty>("reject", "v8::internal::TaggedMember<v8::internal::HeapObject>", GetRejectAddress(), 1, 4, std::move(reject_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> state_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("state", "v8::internal::TaggedMember<v8::internal::Object>", GetStateAddress(), 1, 4, std::move(state_struct_field_list), d::PropertyKind::kSingle));
-  std::vector<std::unique_ptr<StructProperty>> wasm_to_js_counter_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("wasm_to_js_counter", CheckTypeName<uint32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("uint32_t"), GetWasmToJsCounterAddress(), 1, 4, std::move(wasm_to_js_counter_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> has_js_frames_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("has_js_frames", CheckTypeName<uint32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("uint32_t"), GetHasJsFramesAddress(), 1, 4, std::move(has_js_frames_struct_field_list), d::PropertyKind::kSingle));
   return result;
 }
 
@@ -12708,13 +12808,13 @@ Value<uintptr_t> TqWasmTableObject::GetMaximumLengthValue(d::MemoryAccessor acce
   return {validity, EnsureDecompressed(value, address_)};
 }
 
-uintptr_t TqWasmTableObject::GetDispatchTablesAddress() const {
+uintptr_t TqWasmTableObject::GetUsesAddress() const {
   return address_ - i::kHeapObjectTag + 28;
 }
 
-Value<uintptr_t> TqWasmTableObject::GetDispatchTablesValue(d::MemoryAccessor accessor) const {
+Value<uintptr_t> TqWasmTableObject::GetUsesValue(d::MemoryAccessor accessor) const {
   i::Tagged_t value{};
-  d::MemoryAccessResult validity = accessor(GetDispatchTablesAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  d::MemoryAccessResult validity = accessor(GetUsesAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
   return {validity, EnsureDecompressed(value, address_)};
 }
 
@@ -12738,8 +12838,8 @@ std::vector<std::unique_ptr<ObjectProperty>> TqWasmTableObject::GetProperties(d:
   result.push_back(std::make_unique<ObjectProperty>("current_length", "v8::internal::TaggedMember<v8::internal::Object>", GetCurrentLengthAddress(), 1, 4, std::move(current_length_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> maximum_length_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("maximum_length", "v8::internal::TaggedMember<v8::internal::Object>", GetMaximumLengthAddress(), 1, 4, std::move(maximum_length_struct_field_list), d::PropertyKind::kSingle));
-  std::vector<std::unique_ptr<StructProperty>> dispatch_tables_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("dispatch_tables", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetDispatchTablesAddress(), 1, 4, std::move(dispatch_tables_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> uses_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("uses", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetUsesAddress(), 1, 4, std::move(uses_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> raw_type_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("raw_type", "v8::internal::TaggedMember<v8::internal::Object>", GetRawTypeAddress(), 1, 4, std::move(raw_type_struct_field_list), d::PropertyKind::kSingle));
   return result;

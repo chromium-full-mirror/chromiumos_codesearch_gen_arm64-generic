@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder.mojom-blink.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder_types.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder_types.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder_types.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder_types.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/mojo/mojom/stable/stable_video_decoder_types.mojom-blink.h

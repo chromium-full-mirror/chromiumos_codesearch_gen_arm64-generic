@@ -73,8 +73,10 @@ enum class PlaneConfig : int32_t {
   kY_UV = 2,
   
   kY_UV_A = 3,
+  
+  kY_U_V_A = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, PlaneConfig value);

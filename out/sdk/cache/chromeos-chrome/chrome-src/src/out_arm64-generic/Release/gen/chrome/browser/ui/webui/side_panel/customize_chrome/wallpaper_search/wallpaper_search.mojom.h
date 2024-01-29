@@ -28,6 +28,7 @@
 #include "chrome/browser/ui/webui/side_panel/customize_chrome/wallpaper_search/wallpaper_search.mojom-forward.h"
 #include "mojo/public/mojom/base/token.mojom.h"
 #include "skia/public/mojom/skcolor.mojom.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
@@ -117,19 +118,25 @@ class WallpaperSearchHandler
   using ResponseValidator_ = WallpaperSearchHandlerResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGetDescriptorsMinVersion = 0,
+    kGetInspirationsMinVersion = 0,
     kGetWallpaperSearchResultsMinVersion = 0,
     kSetResultRenderTimeMinVersion = 0,
     kSetBackgroundToHistoryImageMinVersion = 0,
+    kSetBackgroundToInspirationImageMinVersion = 0,
     kSetBackgroundToWallpaperSearchResultMinVersion = 0,
     kUpdateHistoryMinVersion = 0,
     kSetUserFeedbackMinVersion = 0,
     kOpenHelpArticleMinVersion = 0,
+    kLaunchHatsSurveyMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct GetDescriptors_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetInspirations_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetWallpaperSearchResults_Sym {
@@ -139,6 +146,9 @@ class WallpaperSearchHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetBackgroundToHistoryImage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetBackgroundToInspirationImage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetBackgroundToWallpaperSearchResult_Sym {
@@ -153,6 +163,9 @@ class WallpaperSearchHandler
   struct OpenHelpArticle_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct LaunchHatsSurvey_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WallpaperSearchHandler() = default;
 
@@ -162,18 +175,26 @@ class WallpaperSearchHandler
   virtual void GetDescriptors(GetDescriptorsCallback callback) = 0;
 
 
+  using GetInspirationsCallback = base::OnceCallback<void(std::optional<std::vector<InspirationGroupPtr>>)>;
+  
+  virtual void GetInspirations(GetInspirationsCallback callback) = 0;
+
+
   using GetWallpaperSearchResultsCallback = base::OnceCallback<void(WallpaperSearchStatus, std::vector<WallpaperSearchResultPtr>)>;
   
-  virtual void GetWallpaperSearchResults(const std::string& descriptor_a, const std::optional<std::string>& descriptor_b, const std::optional<std::string>& descriptor_c, DescriptorDValuePtr descriptor_d_value, GetWallpaperSearchResultsCallback callback) = 0;
+  virtual void GetWallpaperSearchResults(ResultDescriptorsPtr result_descriptors, GetWallpaperSearchResultsCallback callback) = 0;
 
   
   virtual void SetResultRenderTime(const std::vector<::base::Token>& result_ids, double time) = 0;
 
   
-  virtual void SetBackgroundToHistoryImage(const ::base::Token& result_id) = 0;
+  virtual void SetBackgroundToHistoryImage(const ::base::Token& result_id, ResultDescriptorsPtr descriptors) = 0;
 
   
-  virtual void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time) = 0;
+  virtual void SetBackgroundToInspirationImage(const ::base::Token& id, const ::GURL& background_url) = 0;
+
+  
+  virtual void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time, ResultDescriptorsPtr descriptors) = 0;
 
   
   virtual void UpdateHistory() = 0;
@@ -183,6 +204,9 @@ class WallpaperSearchHandler
 
   
   virtual void OpenHelpArticle() = 0;
+
+  
+  virtual void LaunchHatsSurvey() = 0;
 };
 
 class WallpaperSearchClientProxy;
@@ -256,19 +280,25 @@ class  WallpaperSearchHandlerProxy
   
   void GetDescriptors(GetDescriptorsCallback callback) final;
   
-  void GetWallpaperSearchResults(const std::string& descriptor_a, const std::optional<std::string>& descriptor_b, const std::optional<std::string>& descriptor_c, DescriptorDValuePtr descriptor_d_value, GetWallpaperSearchResultsCallback callback) final;
+  void GetInspirations(GetInspirationsCallback callback) final;
+  
+  void GetWallpaperSearchResults(ResultDescriptorsPtr result_descriptors, GetWallpaperSearchResultsCallback callback) final;
   
   void SetResultRenderTime(const std::vector<::base::Token>& result_ids, double time) final;
   
-  void SetBackgroundToHistoryImage(const ::base::Token& result_id) final;
+  void SetBackgroundToHistoryImage(const ::base::Token& result_id, ResultDescriptorsPtr descriptors) final;
   
-  void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time) final;
+  void SetBackgroundToInspirationImage(const ::base::Token& id, const ::GURL& background_url) final;
+  
+  void SetBackgroundToWallpaperSearchResult(const ::base::Token& result_id, double time, ResultDescriptorsPtr descriptors) final;
   
   void UpdateHistory() final;
   
   void SetUserFeedback(UserFeedback selected_option) final;
   
   void OpenHelpArticle() final;
+  
+  void LaunchHatsSurvey() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -579,6 +609,9 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
 class  DescriptorDValue {
  public:
   using DataView = DescriptorDValueDataView;
@@ -609,6 +642,14 @@ class  DescriptorDValue {
       float value) {
     auto result = DescriptorDValuePtr(absl::in_place);
     result->set_hue(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |name|.
+  static DescriptorDValuePtr
+  NewName(
+      DescriptorDName value) {
+    auto result = DescriptorDValuePtr(absl::in_place);
+    result->set_name(std::move(value));
     return result;
   }
 
@@ -677,6 +718,18 @@ class  DescriptorDValue {
   
   void set_hue(
       float hue);
+  
+  bool is_name() const { return tag_ == Tag::kName; }
+
+  
+  DescriptorDName get_name() const {
+    CHECK(tag_ == Tag::kName);
+    return data_.name;
+  }
+
+  
+  void set_name(
+      DescriptorDName name);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -697,6 +750,7 @@ class  DescriptorDValue {
     ~Union_() = default;
     ::SkColor* color;
     float hue;
+    DescriptorDName name;
   };
 
   static bool Validate(const void* data,
@@ -1003,6 +1057,300 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  Inspiration {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Inspiration, T>::value>;
+  using DataView = InspirationDataView;
+  using Data_ = internal::Inspiration_Data;
+
+  template <typename... Args>
+  static InspirationPtr New(Args&&... args) {
+    return InspirationPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static InspirationPtr From(const U& u) {
+    return mojo::TypeConverter<InspirationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Inspiration>::Convert(*this);
+  }
+
+
+  Inspiration();
+
+  Inspiration(
+      const ::base::Token& id,
+      const std::string& description,
+      const ::GURL& background_url,
+      const ::GURL& thumbnail_url);
+
+
+  ~Inspiration();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = InspirationPtr>
+  InspirationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Inspiration::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Inspiration::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Inspiration_UnserializedMessageContext<
+            UserType, Inspiration::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Inspiration::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Inspiration::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Inspiration_UnserializedMessageContext<
+            UserType, Inspiration::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Inspiration::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::base::Token id;
+  
+  std::string description;
+  
+  ::GURL background_url;
+  
+  ::GURL thumbnail_url;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Inspiration::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  InspirationGroup {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<InspirationGroup, T>::value>;
+  using DataView = InspirationGroupDataView;
+  using Data_ = internal::InspirationGroup_Data;
+
+  template <typename... Args>
+  static InspirationGroupPtr New(Args&&... args) {
+    return InspirationGroupPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static InspirationGroupPtr From(const U& u) {
+    return mojo::TypeConverter<InspirationGroupPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, InspirationGroup>::Convert(*this);
+  }
+
+
+  InspirationGroup();
+
+  InspirationGroup(
+      ResultDescriptorsPtr descriptors,
+      std::vector<InspirationPtr> inspirations);
+
+InspirationGroup(const InspirationGroup&) = delete;
+InspirationGroup& operator=(const InspirationGroup&) = delete;
+
+  ~InspirationGroup();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = InspirationGroupPtr>
+  InspirationGroupPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        InspirationGroup::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        InspirationGroup::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::InspirationGroup_UnserializedMessageContext<
+            UserType, InspirationGroup::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<InspirationGroup::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return InspirationGroup::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::InspirationGroup_UnserializedMessageContext<
+            UserType, InspirationGroup::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<InspirationGroup::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ResultDescriptorsPtr descriptors;
+  
+  std::vector<InspirationPtr> inspirations;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, InspirationGroup::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  WallpaperSearchResult {
  public:
   template <typename T>
@@ -1031,8 +1379,11 @@ class  WallpaperSearchResult {
 
   WallpaperSearchResult(
       const ::base::Token& id,
-      const std::string& image);
+      const std::string& image,
+      ResultDescriptorsPtr descriptors);
 
+WallpaperSearchResult(const WallpaperSearchResult&) = delete;
+WallpaperSearchResult& operator=(const WallpaperSearchResult&) = delete;
 
   ~WallpaperSearchResult();
 
@@ -1112,6 +1463,8 @@ class  WallpaperSearchResult {
   ::base::Token id;
   
   std::string image;
+  
+  ResultDescriptorsPtr descriptors;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1142,6 +1495,157 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  ResultDescriptors {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ResultDescriptors, T>::value>;
+  using DataView = ResultDescriptorsDataView;
+  using Data_ = internal::ResultDescriptors_Data;
+
+  template <typename... Args>
+  static ResultDescriptorsPtr New(Args&&... args) {
+    return ResultDescriptorsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ResultDescriptorsPtr From(const U& u) {
+    return mojo::TypeConverter<ResultDescriptorsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ResultDescriptors>::Convert(*this);
+  }
+
+
+  ResultDescriptors();
+
+  ResultDescriptors(
+      const std::optional<std::string>& subject,
+      const std::optional<std::string>& style,
+      const std::optional<std::string>& mood,
+      DescriptorDValuePtr color);
+
+ResultDescriptors(const ResultDescriptors&) = delete;
+ResultDescriptors& operator=(const ResultDescriptors&) = delete;
+
+  ~ResultDescriptors();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ResultDescriptorsPtr>
+  ResultDescriptorsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ResultDescriptors::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ResultDescriptors::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ResultDescriptors_UnserializedMessageContext<
+            UserType, ResultDescriptors::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ResultDescriptors::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ResultDescriptors::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ResultDescriptors_UnserializedMessageContext<
+            UserType, ResultDescriptors::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ResultDescriptors::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<std::string> subject;
+  
+  std::optional<std::string> style;
+  
+  std::optional<std::string> mood;
+  
+  DescriptorDValuePtr color;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ResultDescriptors::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename UnionPtrType>
 DescriptorDValuePtr DescriptorDValue::Clone() const {
   switch (tag_) {
@@ -1151,6 +1655,9 @@ DescriptorDValuePtr DescriptorDValue::Clone() const {
     case Tag::kHue:
       return NewHue(
           mojo::Clone(data_.hue));
+    case Tag::kName:
+      return NewName(
+          mojo::Clone(data_.name));
   }
   return nullptr;
 }
@@ -1167,6 +1674,8 @@ bool DescriptorDValue::Equals(const T& other) const {
       return mojo::Equals(*(data_.color), *(other.data_.color));
     case Tag::kHue:
       return mojo::Equals(data_.hue, other.data_.hue);
+    case Tag::kName:
+      return mojo::Equals(data_.name, other.data_.name);
   }
 
   return false;
@@ -1266,10 +1775,83 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+InspirationPtr Inspiration::Clone() const {
+  return New(
+      mojo::Clone(id),
+      mojo::Clone(description),
+      mojo::Clone(background_url),
+      mojo::Clone(thumbnail_url)
+  );
+}
+
+template <typename T, Inspiration::EnableIfSame<T>*>
+bool Inspiration::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->description, other_struct.description))
+    return false;
+  if (!mojo::Equals(this->background_url, other_struct.background_url))
+    return false;
+  if (!mojo::Equals(this->thumbnail_url, other_struct.thumbnail_url))
+    return false;
+  return true;
+}
+
+template <typename T, Inspiration::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
+    return false;
+  if (lhs.description < rhs.description)
+    return true;
+  if (rhs.description < lhs.description)
+    return false;
+  if (lhs.background_url < rhs.background_url)
+    return true;
+  if (rhs.background_url < lhs.background_url)
+    return false;
+  if (lhs.thumbnail_url < rhs.thumbnail_url)
+    return true;
+  if (rhs.thumbnail_url < lhs.thumbnail_url)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+InspirationGroupPtr InspirationGroup::Clone() const {
+  return New(
+      mojo::Clone(descriptors),
+      mojo::Clone(inspirations)
+  );
+}
+
+template <typename T, InspirationGroup::EnableIfSame<T>*>
+bool InspirationGroup::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->descriptors, other_struct.descriptors))
+    return false;
+  if (!mojo::Equals(this->inspirations, other_struct.inspirations))
+    return false;
+  return true;
+}
+
+template <typename T, InspirationGroup::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.descriptors < rhs.descriptors)
+    return true;
+  if (rhs.descriptors < lhs.descriptors)
+    return false;
+  if (lhs.inspirations < rhs.inspirations)
+    return true;
+  if (rhs.inspirations < lhs.inspirations)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 WallpaperSearchResultPtr WallpaperSearchResult::Clone() const {
   return New(
       mojo::Clone(id),
-      mojo::Clone(image)
+      mojo::Clone(image),
+      mojo::Clone(descriptors)
   );
 }
 
@@ -1278,6 +1860,8 @@ bool WallpaperSearchResult::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->image, other_struct.image))
+    return false;
+  if (!mojo::Equals(this->descriptors, other_struct.descriptors))
     return false;
   return true;
 }
@@ -1291,6 +1875,53 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.image < rhs.image)
     return true;
   if (rhs.image < lhs.image)
+    return false;
+  if (lhs.descriptors < rhs.descriptors)
+    return true;
+  if (rhs.descriptors < lhs.descriptors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ResultDescriptorsPtr ResultDescriptors::Clone() const {
+  return New(
+      mojo::Clone(subject),
+      mojo::Clone(style),
+      mojo::Clone(mood),
+      mojo::Clone(color)
+  );
+}
+
+template <typename T, ResultDescriptors::EnableIfSame<T>*>
+bool ResultDescriptors::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->subject, other_struct.subject))
+    return false;
+  if (!mojo::Equals(this->style, other_struct.style))
+    return false;
+  if (!mojo::Equals(this->mood, other_struct.mood))
+    return false;
+  if (!mojo::Equals(this->color, other_struct.color))
+    return false;
+  return true;
+}
+
+template <typename T, ResultDescriptors::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.subject < rhs.subject)
+    return true;
+  if (rhs.subject < lhs.subject)
+    return false;
+  if (lhs.style < rhs.style)
+    return true;
+  if (rhs.style < lhs.style)
+    return false;
+  if (lhs.mood < rhs.mood)
+    return true;
+  if (rhs.mood < lhs.mood)
+    return false;
+  if (lhs.color < rhs.color)
+    return true;
+  if (rhs.color < lhs.color)
     return false;
   return false;
 }
@@ -1367,6 +1998,56 @@ struct  StructTraits<::side_panel::customize_chrome::mojom::Descriptors::DataVie
 
 
 template <>
+struct  StructTraits<::side_panel::customize_chrome::mojom::Inspiration::DataView,
+                                         ::side_panel::customize_chrome::mojom::InspirationPtr> {
+  static bool IsNull(const ::side_panel::customize_chrome::mojom::InspirationPtr& input) { return !input; }
+  static void SetToNull(::side_panel::customize_chrome::mojom::InspirationPtr* output) { output->reset(); }
+
+  static const decltype(::side_panel::customize_chrome::mojom::Inspiration::id)& id(
+      const ::side_panel::customize_chrome::mojom::InspirationPtr& input) {
+    return input->id;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::Inspiration::description)& description(
+      const ::side_panel::customize_chrome::mojom::InspirationPtr& input) {
+    return input->description;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::Inspiration::background_url)& background_url(
+      const ::side_panel::customize_chrome::mojom::InspirationPtr& input) {
+    return input->background_url;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::Inspiration::thumbnail_url)& thumbnail_url(
+      const ::side_panel::customize_chrome::mojom::InspirationPtr& input) {
+    return input->thumbnail_url;
+  }
+
+  static bool Read(::side_panel::customize_chrome::mojom::Inspiration::DataView input, ::side_panel::customize_chrome::mojom::InspirationPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::side_panel::customize_chrome::mojom::InspirationGroup::DataView,
+                                         ::side_panel::customize_chrome::mojom::InspirationGroupPtr> {
+  static bool IsNull(const ::side_panel::customize_chrome::mojom::InspirationGroupPtr& input) { return !input; }
+  static void SetToNull(::side_panel::customize_chrome::mojom::InspirationGroupPtr* output) { output->reset(); }
+
+  static const decltype(::side_panel::customize_chrome::mojom::InspirationGroup::descriptors)& descriptors(
+      const ::side_panel::customize_chrome::mojom::InspirationGroupPtr& input) {
+    return input->descriptors;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::InspirationGroup::inspirations)& inspirations(
+      const ::side_panel::customize_chrome::mojom::InspirationGroupPtr& input) {
+    return input->inspirations;
+  }
+
+  static bool Read(::side_panel::customize_chrome::mojom::InspirationGroup::DataView input, ::side_panel::customize_chrome::mojom::InspirationGroupPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::side_panel::customize_chrome::mojom::WallpaperSearchResult::DataView,
                                          ::side_panel::customize_chrome::mojom::WallpaperSearchResultPtr> {
   static bool IsNull(const ::side_panel::customize_chrome::mojom::WallpaperSearchResultPtr& input) { return !input; }
@@ -1382,7 +2063,42 @@ struct  StructTraits<::side_panel::customize_chrome::mojom::WallpaperSearchResul
     return input->image;
   }
 
+  static const decltype(::side_panel::customize_chrome::mojom::WallpaperSearchResult::descriptors)& descriptors(
+      const ::side_panel::customize_chrome::mojom::WallpaperSearchResultPtr& input) {
+    return input->descriptors;
+  }
+
   static bool Read(::side_panel::customize_chrome::mojom::WallpaperSearchResult::DataView input, ::side_panel::customize_chrome::mojom::WallpaperSearchResultPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::side_panel::customize_chrome::mojom::ResultDescriptors::DataView,
+                                         ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr> {
+  static bool IsNull(const ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr& input) { return !input; }
+  static void SetToNull(::side_panel::customize_chrome::mojom::ResultDescriptorsPtr* output) { output->reset(); }
+
+  static const decltype(::side_panel::customize_chrome::mojom::ResultDescriptors::subject)& subject(
+      const ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr& input) {
+    return input->subject;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::ResultDescriptors::style)& style(
+      const ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr& input) {
+    return input->style;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::ResultDescriptors::mood)& mood(
+      const ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr& input) {
+    return input->mood;
+  }
+
+  static const decltype(::side_panel::customize_chrome::mojom::ResultDescriptors::color)& color(
+      const ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr& input) {
+    return input->color;
+  }
+
+  static bool Read(::side_panel::customize_chrome::mojom::ResultDescriptors::DataView input, ::side_panel::customize_chrome::mojom::ResultDescriptorsPtr* output);
 };
 
 
@@ -1402,6 +2118,10 @@ struct  UnionTraits<::side_panel::customize_chrome::mojom::DescriptorDValue::Dat
 
   static  float hue(const ::side_panel::customize_chrome::mojom::DescriptorDValuePtr& input) {
     return input->get_hue();
+  }
+
+  static  ::side_panel::customize_chrome::mojom::DescriptorDName name(const ::side_panel::customize_chrome::mojom::DescriptorDValuePtr& input) {
+    return input->get_name();
   }
 
   static bool Read(::side_panel::customize_chrome::mojom::DescriptorDValue::DataView input, ::side_panel::customize_chrome::mojom::DescriptorDValuePtr* output);

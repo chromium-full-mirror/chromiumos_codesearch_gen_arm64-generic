@@ -1,0 +1,24 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="diagnostics-shared">:host{--divider-horizontal-height:100%}</style>
+<div id="wifiInfoContainer">
+  <div class="horizontal-data-point-container">
+    <div class="data-point-container">
+      <data-point id="ipAddress" header="[[i18n('networkIpAddressLabel')]]" value="[[network.ipConfig.ipAddress]]" orientation="horizontal">
+      </data-point>
+      <data-point id="ssid" header="[[i18n('networkSsidLabel')]]" value="[[network.typeProperties.wifi.ssid]]" orientation="horizontal">
+      </data-point>
+      <data-point id="bssid" header="[[i18n('networkBssidLabel')]]" value="[[network.typeProperties.wifi.bssid]]" orientation="horizontal">
+      </data-point>
+    </div>
+    <div class="divider-horizontal"></div>
+    <div class="data-point-container">
+      <data-point id="security" header="[[i18n('networkSecurityLabel')]]" value="[[security]]" orientation="horizontal">
+      </data-point>
+      <data-point id="signalStrength" header="[[i18n('networkSignalStrengthLabel')]]" value="[[signalStrength]]" orientation="horizontal">
+      </data-point>
+      <data-point id="channel" header="[[i18n('networkChannelLabel')]]" value="[[getChannelDescription(
+            network.typeProperties.wifi.frequency)]]" orientation="horizontal">
+      </data-point>
+    </div>
+  </div>
+</div>
+<!--_html_template_end_-->`}

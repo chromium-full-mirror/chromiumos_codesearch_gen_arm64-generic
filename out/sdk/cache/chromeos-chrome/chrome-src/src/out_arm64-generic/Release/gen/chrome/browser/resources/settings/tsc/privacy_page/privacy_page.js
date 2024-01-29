@@ -14,7 +14,7 @@ import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_hidden_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import '../safety_hub/safety_hub_module.js';
 import '../settings_page/settings_animated_pages.js';
 import '../settings_page/settings_subpage.js';
@@ -119,6 +119,10 @@ export class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('enableWebBluetoothNewPermissionsBackend'),
             },
+            enableWebPrintingContentSetting_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('enableWebPrintingContentSetting'),
+            },
             showNotificationPermissionsReview_: {
                 type: Boolean,
                 value: false,
@@ -161,6 +165,10 @@ export class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
             blockMidiByDefault_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('blockMidiByDefault'),
+            },
+            isProactiveTopicsBlockingEnabled_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
             },
             focusConfig_: {
                 type: Object,
@@ -394,11 +402,6 @@ export class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     interactedWithPage_() {
         HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.USED_PRIVACY_CARD);
     }
-    computePrivacySandboxSublabel_() {
-        const enabled = this.getPref('privacy_sandbox.apis_enabled_v2').value;
-        return enabled ? this.i18n('privacySandboxTrialsEnabled') :
-            this.i18n('privacySandboxTrialsDisabled');
-    }
     computeAdPrivacySublabel_() {
         // When the privacy sandbox is restricted with a notice, the sublabel
         // wording indicates measurement only, rather than general ad privacy.
@@ -428,6 +431,10 @@ export class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     shouldShowAdPrivacy_() {
         return !this.isPrivacySandboxRestricted_ ||
             this.isPrivacySandboxRestrictedNoticeEnabled_;
+    }
+    shouldShowManageTopics_() {
+        return this.isProactiveTopicsBlockingEnabled_ &&
+            !this.isPrivacySandboxRestricted_;
     }
     onSafetyHubButtonClick_() {
         this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.NOTIFICATIONS);

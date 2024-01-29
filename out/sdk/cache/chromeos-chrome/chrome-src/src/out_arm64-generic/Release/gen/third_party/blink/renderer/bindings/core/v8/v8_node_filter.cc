@@ -155,9 +155,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_node;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<Node>::ToV8(script_state, arg1_node).ToLocal(&v8_arg1_node)) {
-  return v8::Nothing<uint16_t>();
-}
+v8_arg1_node = ToV8Traits<Node>::ToV8(script_state, arg1_node);
 argv[0] = v8_arg1_node;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<uint16_t>();

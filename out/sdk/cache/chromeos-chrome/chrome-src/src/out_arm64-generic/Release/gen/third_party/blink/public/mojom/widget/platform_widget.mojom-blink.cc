@@ -211,6 +211,8 @@ bool WidgetCompositor_VisualStateRequest_ForwardToCallback::Accept(
           internal::WidgetCompositor_VisualStateRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WidgetCompositor.0
   bool success = true;
   WidgetCompositor_VisualStateRequest_ResponseParamsDataView input_data_view(params, message);
   
@@ -289,6 +291,8 @@ bool WidgetCompositorStubDispatch::AcceptWithResponder(
               internal::WidgetCompositor_VisualStateRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WidgetCompositor.0
       bool success = true;
       WidgetCompositor_VisualStateRequest_ParamsDataView input_data_view(params, message);
       
@@ -1001,6 +1005,8 @@ bool WidgetHostStubDispatch::Accept(
           reinterpret_cast<internal::WidgetHost_SetCursor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.0
       bool success = true;
       ::ui::Cursor p_cursor{};
       WidgetHost_SetCursor_ParamsDataView input_data_view(params, message);
@@ -1016,8 +1022,8 @@ bool WidgetHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCursor(
-std::move(p_cursor));
+      impl->SetCursor(        
+        std::move(p_cursor));
       return true;
     }
     case internal::kWidgetHost_UpdateTooltipUnderCursor_Name: {
@@ -1027,6 +1033,8 @@ std::move(p_cursor));
           reinterpret_cast<internal::WidgetHost_UpdateTooltipUnderCursor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.1
       bool success = true;
       ::WTF::String p_tooltip_text{};
       ::base::i18n::TextDirection p_text_direction_hint{};
@@ -1045,9 +1053,9 @@ std::move(p_cursor));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTooltipUnderCursor(
-std::move(p_tooltip_text), 
-std::move(p_text_direction_hint));
+      impl->UpdateTooltipUnderCursor(        
+        std::move(p_tooltip_text), 
+        std::move(p_text_direction_hint));
       return true;
     }
     case internal::kWidgetHost_UpdateTooltipFromKeyboard_Name: {
@@ -1057,6 +1065,8 @@ std::move(p_text_direction_hint));
           reinterpret_cast<internal::WidgetHost_UpdateTooltipFromKeyboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.2
       bool success = true;
       ::WTF::String p_tooltip_text{};
       ::base::i18n::TextDirection p_text_direction_hint{};
@@ -1078,10 +1088,10 @@ std::move(p_text_direction_hint));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTooltipFromKeyboard(
-std::move(p_tooltip_text), 
-std::move(p_text_direction_hint), 
-std::move(p_bounds));
+      impl->UpdateTooltipFromKeyboard(        
+        std::move(p_tooltip_text), 
+        std::move(p_text_direction_hint), 
+        std::move(p_bounds));
       return true;
     }
     case internal::kWidgetHost_ClearKeyboardTriggeredTooltip_Name: {
@@ -1091,6 +1101,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::WidgetHost_ClearKeyboardTriggeredTooltip_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.3
       bool success = true;
       WidgetHost_ClearKeyboardTriggeredTooltip_ParamsDataView input_data_view(params, message);
       
@@ -1103,7 +1115,7 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearKeyboardTriggeredTooltip();
+      impl->ClearKeyboardTriggeredTooltip(        );
       return true;
     }
     case internal::kWidgetHost_TextInputStateChanged_Name: {
@@ -1113,6 +1125,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::WidgetHost_TextInputStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.4
       bool success = true;
       ::ui::mojom::blink::TextInputStatePtr p_state{};
       WidgetHost_TextInputStateChanged_ParamsDataView input_data_view(params, message);
@@ -1128,8 +1142,8 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TextInputStateChanged(
-std::move(p_state));
+      impl->TextInputStateChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kWidgetHost_SelectionBoundsChanged_Name: {
@@ -1139,6 +1153,8 @@ std::move(p_state));
           reinterpret_cast<internal::WidgetHost_SelectionBoundsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.5
       bool success = true;
       ::gfx::Rect p_anchor_rect{};
       ::base::i18n::TextDirection p_anchor_dir{};
@@ -1169,13 +1185,13 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectionBoundsChanged(
-std::move(p_anchor_rect), 
-std::move(p_anchor_dir), 
-std::move(p_focus_rect), 
-std::move(p_focus_dir), 
-std::move(p_bounding_box_rect), 
-std::move(p_is_anchor_first));
+      impl->SelectionBoundsChanged(        
+        std::move(p_anchor_rect), 
+        std::move(p_anchor_dir), 
+        std::move(p_focus_rect), 
+        std::move(p_focus_dir), 
+        std::move(p_bounding_box_rect), 
+        std::move(p_is_anchor_first));
       return true;
     }
     case internal::kWidgetHost_CreateFrameSink_Name: {
@@ -1185,6 +1201,8 @@ std::move(p_is_anchor_first));
           reinterpret_cast<internal::WidgetHost_CreateFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.6
       bool success = true;
       ::mojo::PendingReceiver<::viz::mojom::blink::CompositorFrameSink> p_compositor_frame_sink_receiver{};
       ::mojo::PendingRemote<::viz::mojom::blink::CompositorFrameSinkClient> p_compositor_frame_sink_client{};
@@ -1207,9 +1225,9 @@ std::move(p_is_anchor_first));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFrameSink(
-std::move(p_compositor_frame_sink_receiver), 
-std::move(p_compositor_frame_sink_client));
+      impl->CreateFrameSink(        
+        std::move(p_compositor_frame_sink_receiver), 
+        std::move(p_compositor_frame_sink_client));
       return true;
     }
     case internal::kWidgetHost_RegisterRenderFrameMetadataObserver_Name: {
@@ -1219,6 +1237,8 @@ std::move(p_compositor_frame_sink_client));
           reinterpret_cast<internal::WidgetHost_RegisterRenderFrameMetadataObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetHost.7
       bool success = true;
       ::mojo::PendingReceiver<::cc::mojom::blink::RenderFrameMetadataObserverClient> p_render_frame_metadata_observer_client_receiver{};
       ::mojo::PendingRemote<::cc::mojom::blink::RenderFrameMetadataObserver> p_render_frame_metadata_observer{};
@@ -1241,9 +1261,9 @@ std::move(p_compositor_frame_sink_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterRenderFrameMetadataObserver(
-std::move(p_render_frame_metadata_observer_client_receiver), 
-std::move(p_render_frame_metadata_observer));
+      impl->RegisterRenderFrameMetadataObserver(        
+        std::move(p_render_frame_metadata_observer_client_receiver), 
+        std::move(p_render_frame_metadata_observer));
       return true;
     }
   }
@@ -1974,6 +1994,8 @@ bool Widget_ForceRedraw_ForwardToCallback::Accept(
           internal::Widget_ForceRedraw_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Widget.0
   bool success = true;
   Widget_ForceRedraw_ResponseParamsDataView input_data_view(params, message);
   
@@ -2081,6 +2103,8 @@ bool Widget_UpdateScreenRects_ForwardToCallback::Accept(
           internal::Widget_UpdateScreenRects_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Widget.3
   bool success = true;
   Widget_UpdateScreenRects_ResponseParamsDataView input_data_view(params, message);
   
@@ -2146,6 +2170,8 @@ bool WidgetStubDispatch::Accept(
           reinterpret_cast<internal::Widget_GetWidgetInputHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Widget.1
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::WidgetInputHandler> p_request{};
       ::mojo::PendingRemote<::blink::mojom::blink::WidgetInputHandlerHost> p_host{};
@@ -2168,9 +2194,9 @@ bool WidgetStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWidgetInputHandler(
-std::move(p_request), 
-std::move(p_host));
+      impl->GetWidgetInputHandler(        
+        std::move(p_request), 
+        std::move(p_host));
       return true;
     }
     case internal::kWidget_UpdateVisualProperties_Name: {
@@ -2180,6 +2206,8 @@ std::move(p_host));
           reinterpret_cast<internal::Widget_UpdateVisualProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Widget.2
       bool success = true;
       ::blink::VisualProperties p_visual_properties{};
       Widget_UpdateVisualProperties_ParamsDataView input_data_view(params, message);
@@ -2195,8 +2223,8 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateVisualProperties(
-std::move(p_visual_properties));
+      impl->UpdateVisualProperties(        
+        std::move(p_visual_properties));
       return true;
     }
     case internal::kWidget_UpdateScreenRects_Name: {
@@ -2209,6 +2237,8 @@ std::move(p_visual_properties));
           reinterpret_cast<internal::Widget_WasHidden_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Widget.4
       bool success = true;
       Widget_WasHidden_ParamsDataView input_data_view(params, message);
       
@@ -2221,7 +2251,7 @@ std::move(p_visual_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WasHidden();
+      impl->WasHidden(        );
       return true;
     }
     case internal::kWidget_WasShown_Name: {
@@ -2231,6 +2261,8 @@ std::move(p_visual_properties));
           reinterpret_cast<internal::Widget_WasShown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Widget.5
       bool success = true;
       bool p_was_evicted{};
       ::blink::mojom::blink::RecordContentToVisibleTimeRequestPtr p_record_tab_switch_time_request{};
@@ -2249,9 +2281,9 @@ std::move(p_visual_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WasShown(
-std::move(p_was_evicted), 
-std::move(p_record_tab_switch_time_request));
+      impl->WasShown(        
+        std::move(p_was_evicted), 
+        std::move(p_record_tab_switch_time_request));
       return true;
     }
     case internal::kWidget_RequestSuccessfulPresentationTimeForNextFrame_Name: {
@@ -2261,6 +2293,8 @@ std::move(p_record_tab_switch_time_request));
           reinterpret_cast<internal::Widget_RequestSuccessfulPresentationTimeForNextFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Widget.6
       bool success = true;
       ::blink::mojom::blink::RecordContentToVisibleTimeRequestPtr p_visible_time_request{};
       Widget_RequestSuccessfulPresentationTimeForNextFrame_ParamsDataView input_data_view(params, message);
@@ -2276,8 +2310,8 @@ std::move(p_record_tab_switch_time_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSuccessfulPresentationTimeForNextFrame(
-std::move(p_visible_time_request));
+      impl->RequestSuccessfulPresentationTimeForNextFrame(        
+        std::move(p_visible_time_request));
       return true;
     }
     case internal::kWidget_CancelSuccessfulPresentationTimeRequest_Name: {
@@ -2287,6 +2321,8 @@ std::move(p_visible_time_request));
           reinterpret_cast<internal::Widget_CancelSuccessfulPresentationTimeRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Widget.7
       bool success = true;
       Widget_CancelSuccessfulPresentationTimeRequest_ParamsDataView input_data_view(params, message);
       
@@ -2299,7 +2335,7 @@ std::move(p_visible_time_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelSuccessfulPresentationTimeRequest();
+      impl->CancelSuccessfulPresentationTimeRequest(        );
       return true;
     }
   }
@@ -2322,6 +2358,8 @@ bool WidgetStubDispatch::AcceptWithResponder(
               internal::Widget_ForceRedraw_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Widget.0
       bool success = true;
       Widget_ForceRedraw_ParamsDataView input_data_view(params, message);
       
@@ -2353,6 +2391,8 @@ bool WidgetStubDispatch::AcceptWithResponder(
               internal::Widget_UpdateScreenRects_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Widget.3
       bool success = true;
       ::gfx::Rect p_widget_screen_rect{};
       ::gfx::Rect p_window_screen_rect{};
@@ -2374,9 +2414,9 @@ bool WidgetStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateScreenRects(
-std::move(p_widget_screen_rect), 
-std::move(p_window_screen_rect), std::move(callback));
+      impl->UpdateScreenRects(        
+        std::move(p_widget_screen_rect), 
+        std::move(p_window_screen_rect), std::move(callback));
       return true;
     }
     case internal::kWidget_WasHidden_Name: {

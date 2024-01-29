@@ -538,6 +538,20 @@ suite('<os-settings-menu>', () => {
             const internetMenuItem = getInternetMenuItem();
             assertEquals(vpnNetwork.name, internetMenuItem.sublabel);
         });
+        test('Instant hotspot available shows when no networks connect but hotspot is avaiable', async () => {
+            await createMenu();
+            // Add tether network state with connection state kNotConnected and
+            // enable tether device state. Thus "Instant hotspot available" should
+            // show as the description.
+            networkConfigRemote.addNetworksForTest([{
+                    ...tetherNetwork,
+                    connectionState: ConnectionStateType.kNotConnected,
+                }]);
+            networkConfigRemote.setNetworkTypeEnabledState(NetworkType.kTether, true);
+            await flushTasks();
+            const internetMenuItem = getInternetMenuItem();
+            assertEquals('Instant hotspot available', internetMenuItem.sublabel);
+        });
         test('Wifi internet description shows when no network connected and the device does not support mobile data', async () => {
             await createMenu();
             const internetMenuItem = getInternetMenuItem();
@@ -581,9 +595,20 @@ suite('<os-settings-menu>', () => {
             networkConfigRemote.removeNetworkForTest(tetherNetwork);
             await flushTasks();
             assertEquals(vpnNetwork.name, internetMenuItem.sublabel);
-            // Remove the VPN network, the default description "Wi-Fi, mobile
-            // data" should be shown.
+            // Remove the VPN network and enable Tether device state. Add Tether
+            // network with connection state kNotConnected. "Instant hotspot
+            // available" should be shown.
             networkConfigRemote.removeNetworkForTest(vpnNetwork);
+            networkConfigRemote.addNetworksForTest([{
+                    ...tetherNetwork,
+                    connectionState: ConnectionStateType.kNotConnected,
+                }]);
+            networkConfigRemote.setNetworkTypeEnabledState(NetworkType.kTether, true);
+            await flushTasks();
+            assertEquals('Instant hotspot available', internetMenuItem.sublabel);
+            // Remove the tether network, the default description "Wi-Fi, mobile
+            // data" should be shown.
+            networkConfigRemote.removeNetworkForTest(tetherNetwork);
             await flushTasks();
             assertEquals('Wi-Fi, mobile data', internetMenuItem.sublabel);
         });

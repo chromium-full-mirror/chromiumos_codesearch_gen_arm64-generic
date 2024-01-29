@@ -39,8 +39,14 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_pattern.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_rendering_context_2d_settings.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_text_rendering.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_webgpu_access_option.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_formatted_text.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_texture.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_texture_format.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_image_smoothing_quality.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_path_2d.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_union_canvasfilter_string.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_union_cssimagevalue_htmlcanvaselement_htmlimageelement_htmlvideoelement_imagebitmap_offscreencanvas_svgimageelement_videoframe.h"
@@ -63,9 +69,13 @@
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_gradient.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_pattern.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_rendering_context_2d.h"
+#include "third_party/blink/renderer/modules/canvas/canvas2d/mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/modules/canvas/canvas2d/mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/modules/canvas/canvas2d/mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/path_2d.h"
 #include "third_party/blink/renderer/modules/formatted_text/formatted_text.h"
 #include "third_party/blink/renderer/modules/webcodecs/video_frame.h"
+#include "third_party/blink/renderer/modules/webgpu/gpu_texture.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/idl_member_installer.h"
 #include "third_party/blink/renderer/platform/bindings/no_alloc_direct_call_exception_state.h"
@@ -97,7 +107,7 @@ return execution_context->IsWindow();
 const WrapperTypeInfo V8CanvasRenderingContext2D::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8CanvasRenderingContext2D::InstallInterfaceTemplate,
-    nullptr,
+    V8CanvasRenderingContext2D::InstallContextDependentProperties,
     "CanvasRenderingContext2D",
     nullptr,
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -223,22 +233,19 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRen
 BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.filter.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvas2DFilter);
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filter();
-if (!ToV8Traits<IDLNullable<V8UnionCanvasFilterOrString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionCanvasFilterOrString>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -248,7 +255,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRen
 BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.filter.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvas2DFilter);
 
@@ -264,8 +272,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8UnionCanvasFilterOrString>>::NativeValue(isolate, v8_property_value, exception_state);
@@ -319,7 +326,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRen
 BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.imageSmoothingQuality.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvas2DImageSmoothingQuality);
 
@@ -337,7 +345,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRen
 BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.imageSmoothingQuality.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvas2DImageSmoothingQuality);
 
@@ -383,8 +392,7 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("CanvasRenderingCont
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->strokeStyle(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -434,8 +442,7 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("CanvasRenderingCont
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->fillStyle(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -1535,8 +1542,7 @@ BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.beginLayer");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<BeginLayerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
@@ -1617,6 +1623,39 @@ if (!v8_fast_api_callback_options.fallback) {
 
 blink_receiver->beginPath();
 
+}
+
+void BeginWebGPUAccessOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_beginWebGPUAccess");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.beginWebGPUAccess");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CanvasRenderingContext2D";
+const char* const property_name = "beginWebGPUAccess";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_options = NativeValueTraits<CanvasWebGPUAccessOption>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->beginWebGPUAccess(arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
 void BezierCurveToOperationNoAllocDirectCallArg6(v8::Local<v8::Object> v8_arg0_receiver, double v8_arg1_cp_1_x, double v8_arg2_cp_1_y, double v8_arg3_cp_2_x, double v8_arg4_cp_2_y, double v8_arg5_x, double v8_arg6_y, v8::FastApiCallbackOptions& v8_arg_callback_options) {
@@ -2222,6 +2261,105 @@ auto&& return_value = blink_receiver->createLinearGradient(arg1_x_0, arg2_y_0, a
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
+void CreateMesh2DIndexBufferOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_createMesh2DIndexBuffer");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.createMesh2DIndexBuffer");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CanvasRenderingContext2D";
+const char* const property_name = "createMesh2DIndexBuffer";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_buffer = NativeValueTraits<NotShared<DOMUint16Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createMesh2DIndexBuffer(arg1_buffer, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void CreateMesh2DUVBufferOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_createMesh2DUVBuffer");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.createMesh2DUVBuffer");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CanvasRenderingContext2D";
+const char* const property_name = "createMesh2DUVBuffer";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_buffer = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createMesh2DUVBuffer(arg1_buffer, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void CreateMesh2DVertexBufferOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_createMesh2DVertexBuffer");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.createMesh2DVertexBuffer");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CanvasRenderingContext2D";
+const char* const property_name = "createMesh2DVertexBuffer";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_buffer = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createMesh2DVertexBuffer(arg1_buffer, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void CreatePatternOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_createPattern");
 BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.createPattern");
@@ -2614,6 +2752,53 @@ exception_state.ThrowTypeError("Overload resolution failed.");
 return;
 }
 
+void DrawMeshOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_drawMesh");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.drawMesh");
+
+
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("CanvasRenderingContext2D.drawMesh", info);
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CanvasRenderingContext2D";
+const char* const property_name = "drawMesh";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 4)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(4, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_vertex_buffer = NativeValueTraits<Mesh2DVertexBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_uv_buffer = NativeValueTraits<Mesh2DUVBuffer>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg3_index_buffer = NativeValueTraits<Mesh2DIndexBuffer>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg4_image = NativeValueTraits<V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 3, info[3], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->drawMesh(arg1_vertex_buffer, arg2_uv_buffer, arg3_index_buffer, arg4_image, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+
+}
+
 void EllipseOperationNoAllocDirectCallArg8(v8::Local<v8::Object> v8_arg0_receiver, double v8_arg1_x, double v8_arg2_y, double v8_arg3_radius_x, double v8_arg4_radius_y, double v8_arg5_rotation, double v8_arg6_start_angle, double v8_arg7_end_angle, bool v8_arg8_anticlockwise, v8::FastApiCallbackOptions& v8_arg_callback_options) {
   v8::Local<v8::Object> v8_receiver = v8_arg0_receiver;
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(v8_receiver);
@@ -2878,6 +3063,31 @@ const char* const class_like_name = "CanvasRenderingContext2D";
 const char* const property_name = "endLayer";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 blink_receiver->endLayer(exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+
+}
+
+void EndWebGPUAccessOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_endWebGPUAccess");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.endWebGPUAccess");
+
+
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CanvasRenderingContext2D";
+const char* const property_name = "endWebGPUAccess";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+blink_receiver->endWebGPUAccess(exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -3156,7 +3366,8 @@ BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.getContextAttributes");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGetCanvas2DContextAttributes);
 
@@ -3165,16 +3376,12 @@ UseCounter::Count(current_execution_context, WebFeature::kGetCanvas2DContextAttr
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getContextAttributes();
-if (!ToV8Traits<CanvasRenderingContext2DSettings>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<CanvasRenderingContext2DSettings>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -3308,18 +3515,32 @@ BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.getLineDash");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLineDash();
-if (!ToV8Traits<IDLSequence<IDLUnrestrictedDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<IDLUnrestrictedDouble>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
+}
+
+void GetTextureFormatOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CanvasRenderingContext2D_getTextureFormat");
+BLINK_BINDINGS_TRACE_EVENT("CanvasRenderingContext2D.getTextureFormat");
+
+
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasRenderingContext2D* blink_receiver = V8CanvasRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->getTextureFormat();
+bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
 void GetTransformOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -5259,6 +5480,17 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
+if (RuntimeEnabledFeatures::Canvas2dMeshEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"createMesh2DIndexBuffer", CreateMesh2DIndexBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"createMesh2DUVBuffer", CreateMesh2DUVBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"createMesh2DVertexBuffer", CreateMesh2DVertexBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"drawMesh", DrawMeshOperationCallback, 4, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
 if (RuntimeEnabledFeatures::FormattedTextEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"drawFormattedText", DrawFormattedTextOperationCallback, 3, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -5291,6 +5523,30 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8CanvasRenderingContext2D::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+ScriptState* script_state = ScriptState::From(context);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
+const bool is_in_secure_context = execution_context->IsSecureContext();
+if (is_in_secure_context && execution_context->IsWindow() && (feature_selector.IsAll() && RuntimeEnabledFeatures::CanvasWebGPUAccessEnabled())) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"beginWebGPUAccess", BeginWebGPUAccessOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"endWebGPUAccess", EndWebGPUAccessOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getTextureFormat", GetTextureFormatOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
+}
+
+
+}
 
 
 }  // namespace blink

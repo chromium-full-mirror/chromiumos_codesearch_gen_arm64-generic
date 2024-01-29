@@ -29,10 +29,6 @@ export class CertificatePasswordDecryptionDialogElement extends CertificatePassw
             },
         };
     }
-    connectedCallback() {
-        super.connectedCallback();
-        this.$.dialog.showModal();
-    }
     onCancelClick_() {
         this.$.dialog.close();
     }

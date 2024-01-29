@@ -17,12 +17,12 @@ describeWithMockConnection('Target', () => {
         subframeTarget = createTarget({ type: SDK.Target.Type.Frame, parentTarget: mainFrameTargetUnderTab });
     });
     it('has capabilities based on the type', () => {
-        assert.isTrue(tabTarget.hasAllCapabilities(SDK.Target.Capability.Target | SDK.Target.Capability.Tracing));
-        assert.isFalse(tabTarget.hasAllCapabilities(SDK.Target.Capability.DOM));
-        assert.isTrue(mainFrameTargetUnderTab.hasAllCapabilities(SDK.Target.Capability.Target | SDK.Target.Capability.DOM | SDK.Target.Capability.DeviceEmulation));
-        assert.isTrue(mainFrameTargetWithoutTab.hasAllCapabilities(SDK.Target.Capability.Target | SDK.Target.Capability.DOM | SDK.Target.Capability.DeviceEmulation));
-        assert.isTrue(subframeTarget.hasAllCapabilities(SDK.Target.Capability.Target | SDK.Target.Capability.DOM));
-        assert.isFalse(subframeTarget.hasAllCapabilities(SDK.Target.Capability.DeviceEmulation));
+        assert.isTrue(tabTarget.hasAllCapabilities(32 /* SDK.Target.Capability.Target */ | 128 /* SDK.Target.Capability.Tracing */));
+        assert.isFalse(tabTarget.hasAllCapabilities(2 /* SDK.Target.Capability.DOM */));
+        assert.isTrue(mainFrameTargetUnderTab.hasAllCapabilities(32 /* SDK.Target.Capability.Target */ | 2 /* SDK.Target.Capability.DOM */ | 4096 /* SDK.Target.Capability.DeviceEmulation */));
+        assert.isTrue(mainFrameTargetWithoutTab.hasAllCapabilities(32 /* SDK.Target.Capability.Target */ | 2 /* SDK.Target.Capability.DOM */ | 4096 /* SDK.Target.Capability.DeviceEmulation */));
+        assert.isTrue(subframeTarget.hasAllCapabilities(32 /* SDK.Target.Capability.Target */ | 2 /* SDK.Target.Capability.DOM */));
+        assert.isFalse(subframeTarget.hasAllCapabilities(4096 /* SDK.Target.Capability.DeviceEmulation */));
     });
     it('notifies about inspected URL change', () => {
         const inspectedURLChanged = sinon.spy(SDK.TargetManager.TargetManager.instance(), 'onInspectedURLChange');

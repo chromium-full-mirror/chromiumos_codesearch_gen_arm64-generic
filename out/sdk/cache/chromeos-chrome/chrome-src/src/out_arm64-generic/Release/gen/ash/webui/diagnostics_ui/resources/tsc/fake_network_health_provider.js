@@ -6,10 +6,6 @@ import { assert } from 'chrome://resources/js/assert.js';
 // Method names.
 export const ON_NETWORK_LIST_CHANGED_METHOD_NAME = 'NetworkListObserver_onNetworkListChanged';
 const ON_NETWORK_STATE_CHANGED_METHOD_NAME = 'NetworkStateObserver_onNetworkStateChanged';
-/**
- * @fileoverview
- * Implements a fake version of the NetworkHealthProvider mojo interface.
- */
 export class FakeNetworkHealthProvider {
     constructor() {
         this.observables = new FakeObservables();

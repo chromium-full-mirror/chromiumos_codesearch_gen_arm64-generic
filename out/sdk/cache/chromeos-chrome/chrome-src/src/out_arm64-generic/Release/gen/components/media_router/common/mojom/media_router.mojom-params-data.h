@@ -266,7 +266,7 @@ class  MediaRouteProvider_DiscoverSinksNow_Params_Data {
 };
 static_assert(sizeof(MediaRouteProvider_DiscoverSinksNow_Params_Data) == 8,
               "Bad sizeof(MediaRouteProvider_DiscoverSinksNow_Params_Data)");
-class  MediaRouteProvider_CreateMediaRouteController_Params_Data {
+class  MediaRouteProvider_BindMediaController_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -278,14 +278,14 @@ class  MediaRouteProvider_CreateMediaRouteController_Params_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<MediaRouteProvider_CreateMediaRouteController_Params_Data>;
+  friend class mojo::internal::MessageFragment<MediaRouteProvider_BindMediaController_Params_Data>;
 
-  MediaRouteProvider_CreateMediaRouteController_Params_Data();
-  ~MediaRouteProvider_CreateMediaRouteController_Params_Data() = delete;
+  MediaRouteProvider_BindMediaController_Params_Data();
+  ~MediaRouteProvider_BindMediaController_Params_Data() = delete;
 };
-static_assert(sizeof(MediaRouteProvider_CreateMediaRouteController_Params_Data) == 32,
-              "Bad sizeof(MediaRouteProvider_CreateMediaRouteController_Params_Data)");
-class  MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data {
+static_assert(sizeof(MediaRouteProvider_BindMediaController_Params_Data) == 32,
+              "Bad sizeof(MediaRouteProvider_BindMediaController_Params_Data)");
+class  MediaRouteProvider_BindMediaController_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -295,13 +295,13 @@ class  MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data {
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<MediaRouteProvider_BindMediaController_ResponseParams_Data>;
 
-  MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data();
-  ~MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data() = delete;
+  MediaRouteProvider_BindMediaController_ResponseParams_Data();
+  ~MediaRouteProvider_BindMediaController_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data) == 16,
-              "Bad sizeof(MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data)");
+static_assert(sizeof(MediaRouteProvider_BindMediaController_ResponseParams_Data) == 16,
+              "Bad sizeof(MediaRouteProvider_BindMediaController_ResponseParams_Data)");
 class  MediaRouteProvider_GetState_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1142,12 +1142,12 @@ class MediaRouteProvider_DiscoverSinksNow_ParamsDataView {
 };
 
 
-class MediaRouteProvider_CreateMediaRouteController_ParamsDataView {
+class MediaRouteProvider_BindMediaController_ParamsDataView {
  public:
-  MediaRouteProvider_CreateMediaRouteController_ParamsDataView() = default;
+  MediaRouteProvider_BindMediaController_ParamsDataView() = default;
 
-  MediaRouteProvider_CreateMediaRouteController_ParamsDataView(
-      internal::MediaRouteProvider_CreateMediaRouteController_Params_Data* data,
+  MediaRouteProvider_BindMediaController_ParamsDataView(
+      internal::MediaRouteProvider_BindMediaController_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1181,17 +1181,17 @@ class MediaRouteProvider_CreateMediaRouteController_ParamsDataView {
     return result;
   }
  private:
-  internal::MediaRouteProvider_CreateMediaRouteController_Params_Data* data_ = nullptr;
+  internal::MediaRouteProvider_BindMediaController_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class MediaRouteProvider_CreateMediaRouteController_ResponseParamsDataView {
+class MediaRouteProvider_BindMediaController_ResponseParamsDataView {
  public:
-  MediaRouteProvider_CreateMediaRouteController_ResponseParamsDataView() = default;
+  MediaRouteProvider_BindMediaController_ResponseParamsDataView() = default;
 
-  MediaRouteProvider_CreateMediaRouteController_ResponseParamsDataView(
-      internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data* data,
+  MediaRouteProvider_BindMediaController_ResponseParamsDataView(
+      internal::MediaRouteProvider_BindMediaController_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -1200,7 +1200,7 @@ class MediaRouteProvider_CreateMediaRouteController_ResponseParamsDataView {
     return data_->success;
   }
  private:
-  internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data* data_ = nullptr;
+  internal::MediaRouteProvider_BindMediaController_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1831,7 +1831,7 @@ inline void MediaRouteProvider_DetachRoute_ParamsDataView::GetRouteIdDataView(
 
 
 
-inline void MediaRouteProvider_CreateMediaRouteController_ParamsDataView::GetRouteIdDataView(
+inline void MediaRouteProvider_BindMediaController_ParamsDataView::GetRouteIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->route_id.Get();
   *output = mojo::StringDataView(pointer, message_);

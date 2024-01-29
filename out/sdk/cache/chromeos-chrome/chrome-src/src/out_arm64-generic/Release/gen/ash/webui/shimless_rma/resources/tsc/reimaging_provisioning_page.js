@@ -8,12 +8,14 @@ import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import './shimless_rma_shared.css.js';
 import './base_page.js';
 import './icons.html.js';
-import { I18nBehavior, I18nBehaviorInterface } from 'chrome://resources/ash/common/i18n_behavior.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { createCustomEvent, FATAL_HARDWARE_ERROR } from './events.js';
 import { getShimlessRmaService } from './mojo_interface_provider.js';
 import { getTemplate } from './reimaging_provisioning_page.html.js';
-import { ProvisioningError, ProvisioningObserverInterface, ProvisioningObserverReceiver, ProvisioningStatus, RmadErrorCode, ShimlessRmaServiceInterface, StateResult } from './shimless_rma.mojom-webui.js';
-import { disableNextButton, enableNextButton, executeThenTransitionState, focusPageTitle } from './shimless_rma_util.js';
+import { ProvisioningError, ProvisioningObserverReceiver, ProvisioningStatus, RmadErrorCode } from './shimless_rma.mojom-webui.js';
+import { executeThenTransitionState, focusPageTitle } from './shimless_rma_util.js';
 /**
  * @fileoverview
  * 'reimaging-provisioning-page' provisions the device then auto-transitions to
@@ -21,16 +23,9 @@ import { disableNextButton, enableNextButton, executeThenTransitionState, focusP
  */
 /**
  * The prefix for a `ProvisioningError` displayed on the Hardware Error page.
- * @type {number}
  */
 export const PROVISIONING_ERROR_CODE_PREFIX = 1000;
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const ReimagingProvisioningPageBase = mixinBehaviors([I18nBehavior], PolymerElement);
-/** @polymer */
+const ReimagingProvisioningPageBase = I18nMixin(PolymerElement);
 export class ReimagingProvisioningPage extends ReimagingProvisioningPageBase {
     static get is() {
         return 'reimaging-provisioning-page';
@@ -41,15 +36,12 @@ export class ReimagingProvisioningPage extends ReimagingProvisioningPageBase {
     static get properties() {
         return {
             /**
-             * Set by shimless_rma.js.
-             * @type {boolean}
+             * Set by shimless_rma.ts.
              */
             allButtonsDisabled: Boolean,
-            /** @protected {!ProvisioningStatus} */
             status: {
                 type: Object,
             },
-            /** @protected {boolean} */
             shouldShowSpinner: {
                 type: Boolean,
                 value: true,
@@ -58,40 +50,25 @@ export class ReimagingProvisioningPage extends ReimagingProvisioningPageBase {
     }
     constructor() {
         super();
-        /** @private {ShimlessRmaServiceInterface} */
         this.shimlessRmaService = getShimlessRmaService();
-        /** @private {ProvisioningObserverReceiver} */
-        this.provisioningObserverReceiver = new ProvisioningObserverReceiver(
-        /**
-         * @type {!ProvisioningObserverInterface}
-         */
-        (this));
+        this.provisioningObserverReceiver = new ProvisioningObserverReceiver(this);
         this.shimlessRmaService.observeProvisioningProgress(this.provisioningObserverReceiver.$.bindNewPipeAndPassRemote());
     }
-    /** @override */
     ready() {
         super.ready();
         focusPageTitle(this);
     }
     /**
      * Implements ProvisioningObserver.onProvisioningUpdated()
-     * @param {!ProvisioningStatus} status
-     * @param {number} progress
-     * @param {!ProvisioningError} error
-     * @protected
      */
-    onProvisioningUpdated(status, progress, error) {
+    onProvisioningUpdated(status, _progress, error) {
         const isErrorStatus = status === ProvisioningStatus.kFailedBlocking ||
             status === ProvisioningStatus.kFailedNonBlocking;
         const isWpError = isErrorStatus && error === ProvisioningError.kWpEnabled;
         if (isErrorStatus && !isWpError) {
-            this.dispatchEvent(new CustomEvent('fatal-hardware-error', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    rmadErrorCode: RmadErrorCode.kProvisioningFailed,
-                    fatalErrorCode: (PROVISIONING_ERROR_CODE_PREFIX + error),
-                },
+            this.dispatchEvent(createCustomEvent(FATAL_HARDWARE_ERROR, {
+                rmadErrorCode: RmadErrorCode.kProvisioningFailed,
+                fatalErrorCode: (PROVISIONING_ERROR_CODE_PREFIX + error),
             }));
         }
         this.status = status;
@@ -104,13 +81,14 @@ export class ReimagingProvisioningPage extends ReimagingProvisioningPageBase {
         this.shouldShowSpinner =
             isWpError || this.status === ProvisioningStatus.kInProgress;
         if (isWpError) {
-            const dialog = /** @type {!CrDialogElement} */ (this.shadowRoot.querySelector('#wpEnabledDialog'));
+            const dialog = this.shadowRoot.querySelector('#wpEnabledDialog');
+            assert(dialog);
             dialog.showModal();
         }
     }
-    /** @protected */
     onTryAgainButtonClick() {
-        const dialog = /** @type {!CrDialogElement} */ (this.shadowRoot.querySelector('#wpEnabledDialog'));
+        const dialog = this.shadowRoot.querySelector('#wpEnabledDialog');
+        assert(dialog);
         dialog.close();
         executeThenTransitionState(this, () => this.shimlessRmaService.retryProvisioning());
     }

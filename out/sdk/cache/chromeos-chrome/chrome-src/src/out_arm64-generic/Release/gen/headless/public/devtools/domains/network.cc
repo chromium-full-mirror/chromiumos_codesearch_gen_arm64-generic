@@ -321,8 +321,18 @@ void ExperimentalDomain::SearchInResponseBody(std::unique_ptr<SearchInResponseBo
 void ExperimentalDomain::SetBlockedURLs(std::unique_ptr<SetBlockedURLsParams> params, base::OnceCallback<void(std::unique_ptr<SetBlockedURLsResult>)> callback) {
   dispatcher_->SendMessage("Network.setBlockedURLs", params->Serialize(), base::BindOnce(&Domain::HandleSetBlockedURLsResponse, std::move(callback)));
 }
-void ExperimentalDomain::SetBypassServiceWorker(std::unique_ptr<SetBypassServiceWorkerParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassServiceWorkerResult>)> callback) {
+void Domain::SetBypassServiceWorker(std::unique_ptr<SetBypassServiceWorkerParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassServiceWorkerResult>)> callback) {
   dispatcher_->SendMessage("Network.setBypassServiceWorker", params->Serialize(), base::BindOnce(&Domain::HandleSetBypassServiceWorkerResponse, std::move(callback)));
+}
+
+void Domain::SetBypassServiceWorker(bool bypass, base::OnceClosure callback) {
+  std::unique_ptr<SetBypassServiceWorkerParams> params = SetBypassServiceWorkerParams::Builder()
+      .SetBypass(std::move(bypass))
+      .Build();
+  dispatcher_->SendMessage("Network.setBypassServiceWorker", params->Serialize(), std::move(callback));
+}
+void Domain::SetBypassServiceWorker(std::unique_ptr<SetBypassServiceWorkerParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Network.setBypassServiceWorker", params->Serialize(), std::move(callback));
 }
 void Domain::SetCacheDisabled(std::unique_ptr<SetCacheDisabledParams> params, base::OnceCallback<void(std::unique_ptr<SetCacheDisabledResult>)> callback) {
   dispatcher_->SendMessage("Network.setCacheDisabled", params->Serialize(), base::BindOnce(&Domain::HandleSetCacheDisabledResponse, std::move(callback)));

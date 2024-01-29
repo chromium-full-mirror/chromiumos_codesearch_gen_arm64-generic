@@ -37,6 +37,7 @@ class PrintServersConfig_Data;
 class PrintServer_Data;
 class CapabilitiesResponse_Data;
 class Policies_Data;
+class PrintJobUpdate_Data;
 class OAuthNotNeeded_Data;
 class OAuthError_Data;
 class OAuthAccessToken_Data;
@@ -778,6 +779,55 @@ struct Policies_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Policies_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PrintJobUpdate_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t status;
+  uint32_t pages_printed;
+
+ private:
+  friend class mojo::internal::MessageFragment<PrintJobUpdate_Data>;
+
+  PrintJobUpdate_Data();
+  ~PrintJobUpdate_Data() = delete;
+};
+static_assert(sizeof(PrintJobUpdate_Data) == 16,
+              "Bad sizeof(PrintJobUpdate_Data)");
+// Used by PrintJobUpdate::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PrintJobUpdate_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PrintJobUpdate_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PrintJobUpdate_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PrintJobUpdate_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PrintJobUpdate_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  OAuthNotNeeded_Data {
  public:
   static bool Validate(const void* data,

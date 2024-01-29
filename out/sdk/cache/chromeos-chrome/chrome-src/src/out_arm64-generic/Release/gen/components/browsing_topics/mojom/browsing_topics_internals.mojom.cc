@@ -1008,6 +1008,8 @@ bool PageHandler_GetBrowsingTopicsConfiguration_ForwardToCallback::Accept(
           internal::PageHandler_GetBrowsingTopicsConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   WebUIBrowsingTopicsConfigurationPtr p_config{};
   PageHandler_GetBrowsingTopicsConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -1137,6 +1139,8 @@ bool PageHandler_GetBrowsingTopicsState_ForwardToCallback::Accept(
           internal::PageHandler_GetBrowsingTopicsState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   WebUIGetBrowsingTopicsStateResultPtr p_result{};
   PageHandler_GetBrowsingTopicsState_ResponseParamsDataView input_data_view(params, message);
@@ -1264,6 +1268,8 @@ bool PageHandler_GetModelInfo_ForwardToCallback::Accept(
           internal::PageHandler_GetModelInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   WebUIGetModelInfoResultPtr p_result{};
   PageHandler_GetModelInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1391,6 +1397,8 @@ bool PageHandler_ClassifyHosts_ForwardToCallback::Accept(
           internal::PageHandler_ClassifyHosts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   std::vector<std::vector<WebUITopicPtr>> p_topics_for_hosts{};
   PageHandler_ClassifyHosts_ResponseParamsDataView input_data_view(params, message);
@@ -1502,6 +1510,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetBrowsingTopicsConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetBrowsingTopicsConfiguration_ParamsDataView input_data_view(params, message);
       
@@ -1527,6 +1537,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetBrowsingTopicsState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       bool p_calculate_now{};
       PageHandler_GetBrowsingTopicsState_ParamsDataView input_data_view(params, message);
@@ -1545,8 +1557,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBrowsingTopicsState(
-std::move(p_calculate_now), std::move(callback));
+      impl->GetBrowsingTopicsState(        
+        std::move(p_calculate_now), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetModelInfo_Name: {
@@ -1556,6 +1568,8 @@ std::move(p_calculate_now), std::move(callback));
               internal::PageHandler_GetModelInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_GetModelInfo_ParamsDataView input_data_view(params, message);
       
@@ -1581,6 +1595,8 @@ std::move(p_calculate_now), std::move(callback));
               internal::PageHandler_ClassifyHosts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       std::vector<std::string> p_hosts{};
       PageHandler_ClassifyHosts_ParamsDataView input_data_view(params, message);
@@ -1599,8 +1615,8 @@ std::move(p_calculate_now), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClassifyHosts(
-std::move(p_hosts), std::move(callback));
+      impl->ClassifyHosts(        
+        std::move(p_hosts), std::move(callback));
       return true;
     }
   }

@@ -172,7 +172,7 @@ class MetadataDispatcher {
 // a terrible name since we use it all over the chrome codebase to capture
 // the 'this' keyword in lambdas.
 const global = self;
-if (global.constructor.name == 'SharedWorkerGlobalScope') {
+if (global.constructor.name === 'SharedWorkerGlobalScope') {
     global.addEventListener('connect', e => {
         const port = e.ports[0];
         new MetadataDispatcher(port);

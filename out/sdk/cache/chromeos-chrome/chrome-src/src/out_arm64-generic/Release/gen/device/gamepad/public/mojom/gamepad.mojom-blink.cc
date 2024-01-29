@@ -1131,6 +1131,8 @@ bool GamepadObserverStubDispatch::Accept(
           reinterpret_cast<internal::GamepadObserver_GamepadConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GamepadObserver.0
       bool success = true;
       uint32_t p_index{};
       ::device::Gamepad p_gamepad{};
@@ -1149,9 +1151,9 @@ bool GamepadObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GamepadConnected(
-std::move(p_index), 
-std::move(p_gamepad));
+      impl->GamepadConnected(        
+        std::move(p_index), 
+        std::move(p_gamepad));
       return true;
     }
     case internal::kGamepadObserver_GamepadDisconnected_Name: {
@@ -1161,6 +1163,8 @@ std::move(p_gamepad));
           reinterpret_cast<internal::GamepadObserver_GamepadDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GamepadObserver.1
       bool success = true;
       uint32_t p_index{};
       ::device::Gamepad p_gamepad{};
@@ -1179,9 +1183,9 @@ std::move(p_gamepad));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GamepadDisconnected(
-std::move(p_index), 
-std::move(p_gamepad));
+      impl->GamepadDisconnected(        
+        std::move(p_index), 
+        std::move(p_gamepad));
       return true;
     }
     case internal::kGamepadObserver_GamepadChanged_Name: {
@@ -1191,6 +1195,8 @@ std::move(p_gamepad));
           reinterpret_cast<internal::GamepadObserver_GamepadChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GamepadObserver.2
       bool success = true;
       GamepadChangesPtr p_changes{};
       GamepadObserver_GamepadChanged_ParamsDataView input_data_view(params, message);
@@ -1206,8 +1212,8 @@ std::move(p_gamepad));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GamepadChanged(
-std::move(p_changes));
+      impl->GamepadChanged(        
+        std::move(p_changes));
       return true;
     }
   }
@@ -1683,6 +1689,8 @@ bool GamepadMonitor_GamepadStartPolling_ForwardToCallback::Accept(
           internal::GamepadMonitor_GamepadStartPolling_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GamepadMonitor.0
   bool success = true;
   ::base::ReadOnlySharedMemoryRegion p_memory_region{};
   GamepadMonitor_GamepadStartPolling_ResponseParamsDataView input_data_view(params, message);
@@ -1762,6 +1770,8 @@ bool GamepadMonitor_GamepadStartPolling_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GamepadMonitor_GamepadStartPolling_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GamepadMonitor.0
   bool success = true;
   ::base::ReadOnlySharedMemoryRegion p_memory_region{};
   GamepadMonitor_GamepadStartPolling_ResponseParamsDataView input_data_view(params, message);
@@ -1837,6 +1847,8 @@ bool GamepadMonitor_GamepadStopPolling_ForwardToCallback::Accept(
           internal::GamepadMonitor_GamepadStopPolling_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GamepadMonitor.1
   bool success = true;
   GamepadMonitor_GamepadStopPolling_ResponseParamsDataView input_data_view(params, message);
   
@@ -1894,6 +1906,8 @@ bool GamepadMonitor_GamepadStopPolling_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GamepadMonitor_GamepadStopPolling_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GamepadMonitor.1
   bool success = true;
   GamepadMonitor_GamepadStopPolling_ResponseParamsDataView input_data_view(params, message);
   
@@ -1926,6 +1940,8 @@ bool GamepadMonitorStubDispatch::Accept(
           reinterpret_cast<internal::GamepadMonitor_SetObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GamepadMonitor.2
       bool success = true;
       ::mojo::PendingRemote<GamepadObserver> p_gamepad_observer{};
       GamepadMonitor_SetObserver_ParamsDataView input_data_view(params, message);
@@ -1943,8 +1959,8 @@ bool GamepadMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetObserver(
-std::move(p_gamepad_observer));
+      impl->SetObserver(        
+        std::move(p_gamepad_observer));
       return true;
     }
   }
@@ -1967,6 +1983,8 @@ bool GamepadMonitorStubDispatch::AcceptWithResponder(
               internal::GamepadMonitor_GamepadStartPolling_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GamepadMonitor.0
       bool success = true;
       GamepadMonitor_GamepadStartPolling_ParamsDataView input_data_view(params, message);
       
@@ -1992,6 +2010,8 @@ bool GamepadMonitorStubDispatch::AcceptWithResponder(
               internal::GamepadMonitor_GamepadStopPolling_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GamepadMonitor.1
       bool success = true;
       GamepadMonitor_GamepadStopPolling_ParamsDataView input_data_view(params, message);
       
@@ -2307,6 +2327,8 @@ bool GamepadHapticsManager_PlayVibrationEffectOnce_ForwardToCallback::Accept(
           internal::GamepadHapticsManager_PlayVibrationEffectOnce_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GamepadHapticsManager.0
   bool success = true;
   GamepadHapticsResult p_result{};
   GamepadHapticsManager_PlayVibrationEffectOnce_ResponseParamsDataView input_data_view(params, message);
@@ -2427,6 +2449,8 @@ bool GamepadHapticsManager_ResetVibrationActuator_ForwardToCallback::Accept(
           internal::GamepadHapticsManager_ResetVibrationActuator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GamepadHapticsManager.1
   bool success = true;
   GamepadHapticsResult p_result{};
   GamepadHapticsManager_ResetVibrationActuator_ResponseParamsDataView input_data_view(params, message);
@@ -2521,6 +2545,8 @@ bool GamepadHapticsManagerStubDispatch::AcceptWithResponder(
               internal::GamepadHapticsManager_PlayVibrationEffectOnce_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GamepadHapticsManager.0
       bool success = true;
       uint32_t p_pad_index{};
       GamepadHapticEffectType p_type{};
@@ -2545,10 +2571,10 @@ bool GamepadHapticsManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PlayVibrationEffectOnce(
-std::move(p_pad_index), 
-std::move(p_type), 
-std::move(p_params), std::move(callback));
+      impl->PlayVibrationEffectOnce(        
+        std::move(p_pad_index), 
+        std::move(p_type), 
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kGamepadHapticsManager_ResetVibrationActuator_Name: {
@@ -2558,6 +2584,8 @@ std::move(p_params), std::move(callback));
               internal::GamepadHapticsManager_ResetVibrationActuator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GamepadHapticsManager.1
       bool success = true;
       uint32_t p_pad_index{};
       GamepadHapticsManager_ResetVibrationActuator_ParamsDataView input_data_view(params, message);
@@ -2576,8 +2604,8 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetVibrationActuator(
-std::move(p_pad_index), std::move(callback));
+      impl->ResetVibrationActuator(        
+        std::move(p_pad_index), std::move(callback));
       return true;
     }
   }

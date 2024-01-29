@@ -602,6 +602,8 @@ bool CrosHealthdServiceFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdServiceFactory_GetDiagnosticsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.0
       bool success = true;
       ::mojo::PendingReceiver<CrosHealthdDiagnosticsService> p_service{};
       CrosHealthdServiceFactory_GetDiagnosticsService_ParamsDataView input_data_view(params, message);
@@ -619,8 +621,8 @@ bool CrosHealthdServiceFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDiagnosticsService(
-std::move(p_service));
+      impl->GetDiagnosticsService(        
+        std::move(p_service));
       return true;
     }
     case internal::kCrosHealthdServiceFactory_GetEventService_Name: {
@@ -630,6 +632,8 @@ std::move(p_service));
           reinterpret_cast<internal::CrosHealthdServiceFactory_GetEventService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.1
       bool success = true;
       ::mojo::PendingReceiver<CrosHealthdEventService> p_service{};
       CrosHealthdServiceFactory_GetEventService_ParamsDataView input_data_view(params, message);
@@ -647,8 +651,8 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEventService(
-std::move(p_service));
+      impl->GetEventService(        
+        std::move(p_service));
       return true;
     }
     case internal::kCrosHealthdServiceFactory_GetProbeService_Name: {
@@ -658,6 +662,8 @@ std::move(p_service));
           reinterpret_cast<internal::CrosHealthdServiceFactory_GetProbeService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.2
       bool success = true;
       ::mojo::PendingReceiver<CrosHealthdProbeService> p_service{};
       CrosHealthdServiceFactory_GetProbeService_ParamsDataView input_data_view(params, message);
@@ -675,8 +681,8 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetProbeService(
-std::move(p_service));
+      impl->GetProbeService(        
+        std::move(p_service));
       return true;
     }
     case internal::kCrosHealthdServiceFactory_SendNetworkHealthService_Name: {
@@ -686,6 +692,8 @@ std::move(p_service));
           reinterpret_cast<internal::CrosHealthdServiceFactory_SendNetworkHealthService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.3
       bool success = true;
       ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService> p_remote{};
       CrosHealthdServiceFactory_SendNetworkHealthService_ParamsDataView input_data_view(params, message);
@@ -703,8 +711,8 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNetworkHealthService(
-std::move(p_remote));
+      impl->SendNetworkHealthService(        
+        std::move(p_remote));
       return true;
     }
     case internal::kCrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Name: {
@@ -714,6 +722,8 @@ std::move(p_remote));
           reinterpret_cast<internal::CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.4
       bool success = true;
       ::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines> p_network_diagnostics_routines{};
       CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_ParamsDataView input_data_view(params, message);
@@ -731,8 +741,8 @@ std::move(p_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNetworkDiagnosticsRoutines(
-std::move(p_network_diagnostics_routines));
+      impl->SendNetworkDiagnosticsRoutines(        
+        std::move(p_network_diagnostics_routines));
       return true;
     }
     case internal::kCrosHealthdServiceFactory_GetSystemService_Name: {
@@ -742,6 +752,8 @@ std::move(p_network_diagnostics_routines));
           reinterpret_cast<internal::CrosHealthdServiceFactory_GetSystemService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.5
       bool success = true;
       ::mojo::PendingReceiver<CrosHealthdSystemService> p_service{};
       CrosHealthdServiceFactory_GetSystemService_ParamsDataView input_data_view(params, message);
@@ -759,8 +771,8 @@ std::move(p_network_diagnostics_routines));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSystemService(
-std::move(p_service));
+      impl->GetSystemService(        
+        std::move(p_service));
       return true;
     }
     case internal::kCrosHealthdServiceFactory_SendChromiumDataCollector_Name: {
@@ -770,6 +782,8 @@ std::move(p_service));
           reinterpret_cast<internal::CrosHealthdServiceFactory_SendChromiumDataCollector_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdServiceFactory.6
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> p_remote{};
       CrosHealthdServiceFactory_SendChromiumDataCollector_ParamsDataView input_data_view(params, message);
@@ -787,8 +801,8 @@ std::move(p_service));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendChromiumDataCollector(
-std::move(p_remote));
+      impl->SendChromiumDataCollector(        
+        std::move(p_remote));
       return true;
     }
   }
@@ -4698,6 +4712,8 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ForwardToCallback::Accep
           internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.0
   bool success = true;
   std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> p_available_routines{};
   CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView input_data_view(params, message);
@@ -4829,6 +4845,8 @@ bool CrosHealthdDiagnosticsService_GetRoutineUpdate_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.1
   bool success = true;
   ::ash::cros_healthd::mojom::RoutineUpdatePtr p_routine_update{};
   CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView input_data_view(params, message);
@@ -4958,6 +4976,8 @@ bool CrosHealthdDiagnosticsService_RunUrandomRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.2
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5087,6 +5107,8 @@ bool CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ForwardToCallback::
           internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.3
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5216,6 +5238,8 @@ bool CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.4
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5345,6 +5369,8 @@ bool CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.5
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5474,6 +5500,8 @@ bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.6
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5603,6 +5631,8 @@ bool CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.7
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5732,6 +5762,8 @@ bool CrosHealthdDiagnosticsService_RunCpuStressRoutine_ForwardToCallback::Accept
           internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.8
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5861,6 +5893,8 @@ bool CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ForwardToCall
           internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.9
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5990,6 +6024,8 @@ bool CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToC
           internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.10
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6119,6 +6155,8 @@ bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.32
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6248,6 +6286,8 @@ bool CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ForwardToCallback::Acc
           internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.11
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6377,6 +6417,8 @@ bool CrosHealthdDiagnosticsService_RunDiskReadRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.12
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6506,6 +6548,8 @@ bool CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ForwardToCallback::Acce
           internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.13
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6635,6 +6679,8 @@ bool CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ForwardToCallback:
           internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.14
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6764,6 +6810,8 @@ bool CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.15
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6893,6 +6941,8 @@ bool CrosHealthdDiagnosticsService_RunMemoryRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.16
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7022,6 +7072,8 @@ bool CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ForwardToCallback::
           internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.17
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7151,6 +7203,8 @@ bool CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ForwardToCallback::A
           internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.18
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7280,6 +7334,8 @@ bool CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ForwardToCallbac
           internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.19
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7409,6 +7465,8 @@ bool CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ForwardToCa
           internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.20
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7538,6 +7596,8 @@ bool CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ForwardToCallbac
           internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.21
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7667,6 +7727,8 @@ bool CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ForwardToCallback::Accep
           internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.22
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7796,6 +7858,8 @@ bool CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.23
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -7925,6 +7989,8 @@ bool CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.24
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8054,6 +8120,8 @@ bool CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ForwardToCallback::Acc
           internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.25
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8183,6 +8251,8 @@ bool CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.26
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8312,6 +8382,8 @@ bool CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ForwardToCallback::Acc
           internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.27
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8441,6 +8513,8 @@ bool CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ForwardToCallback
           internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.28
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8570,6 +8644,8 @@ bool CrosHealthdDiagnosticsService_RunArcHttpRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.29
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8699,6 +8775,8 @@ bool CrosHealthdDiagnosticsService_RunArcPingRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.30
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8828,6 +8906,8 @@ bool CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ForwardToCallback:
           internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.31
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -8957,6 +9037,8 @@ bool CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ForwardToCallback::
           internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.33
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9086,6 +9168,8 @@ bool CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback::Acce
           internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.34
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9215,6 +9299,8 @@ bool CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback:
           internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.35
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9344,6 +9430,8 @@ bool CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ForwardToCallback::Ac
           internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.36
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9473,6 +9561,8 @@ bool CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallba
           internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.37
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9602,6 +9692,8 @@ bool CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback::Acc
           internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.38
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9731,6 +9823,8 @@ bool CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ForwardTo
           internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.39
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9860,6 +9954,8 @@ bool CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ForwardToCa
           internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.40
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -9989,6 +10085,8 @@ bool CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback::A
           internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.41
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10118,6 +10216,8 @@ bool CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallbac
           internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.42
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10247,6 +10347,8 @@ bool CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback
           internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.43
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10376,6 +10478,8 @@ bool CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback:
           internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.44
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10505,6 +10609,8 @@ bool CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ForwardToCallback::Acce
           internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.45
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10634,6 +10740,8 @@ bool CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ForwardToCallback::Acce
           internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.46
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10763,6 +10871,8 @@ bool CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ForwardToCallback::Acce
           internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.47
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -10892,6 +11002,8 @@ bool CrosHealthdDiagnosticsService_RunFanRoutine_ForwardToCallback::Accept(
           internal::CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdDiagnosticsService.48
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -11136,6 +11248,8 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
               internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.0
       bool success = true;
       CrosHealthdDiagnosticsService_GetAvailableRoutines_ParamsDataView input_data_view(params, message);
       
@@ -11161,6 +11275,8 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
               internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.1
       bool success = true;
       int32_t p_id{};
       ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum p_command{};
@@ -11185,10 +11301,10 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRoutineUpdate(
-std::move(p_id), 
-std::move(p_command), 
-std::move(p_include_output), std::move(callback));
+      impl->GetRoutineUpdate(        
+        std::move(p_id), 
+        std::move(p_command), 
+        std::move(p_include_output), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name: {
@@ -11198,6 +11314,8 @@ std::move(p_include_output), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.2
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunUrandomRoutine_ParamsDataView input_data_view(params, message);
@@ -11216,8 +11334,8 @@ std::move(p_include_output), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunUrandomRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunUrandomRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name: {
@@ -11227,6 +11345,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.3
       bool success = true;
       CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11252,6 +11372,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.4
       bool success = true;
       CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11277,6 +11399,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.5
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_percentage_used_threshold{};
       CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView input_data_view(params, message);
@@ -11295,8 +11419,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunSmartctlCheckRoutine(
-std::move(p_percentage_used_threshold), std::move(callback));
+      impl->RunSmartctlCheckRoutine(        
+        std::move(p_percentage_used_threshold), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name: {
@@ -11306,6 +11430,8 @@ std::move(p_percentage_used_threshold), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.6
       bool success = true;
       ::ash::cros_healthd::mojom::AcPowerStatusEnum p_expected_status{};
       std::optional<std::string> p_expected_power_type{};
@@ -11327,9 +11453,9 @@ std::move(p_percentage_used_threshold), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunAcPowerRoutine(
-std::move(p_expected_status), 
-std::move(p_expected_power_type), std::move(callback));
+      impl->RunAcPowerRoutine(        
+        std::move(p_expected_status), 
+        std::move(p_expected_power_type), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name: {
@@ -11339,6 +11465,8 @@ std::move(p_expected_power_type), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.7
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ParamsDataView input_data_view(params, message);
@@ -11357,8 +11485,8 @@ std::move(p_expected_power_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunCpuCacheRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunCpuCacheRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name: {
@@ -11368,6 +11496,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.8
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunCpuStressRoutine_ParamsDataView input_data_view(params, message);
@@ -11386,8 +11516,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunCpuStressRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunCpuStressRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
@@ -11397,6 +11527,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.9
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataView input_data_view(params, message);
@@ -11415,8 +11547,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunFloatingPointAccuracyRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunFloatingPointAccuracyRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
@@ -11426,6 +11558,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.10
       bool success = true;
       uint32_t p_wear_level_threshold{};
       CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
@@ -11444,8 +11578,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_RunNvmeWearLevelRoutine(
-std::move(p_wear_level_threshold), std::move(callback));
+      impl->DEPRECATED_RunNvmeWearLevelRoutine(        
+        std::move(p_wear_level_threshold), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
@@ -11455,6 +11589,8 @@ std::move(p_wear_level_threshold), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.32
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_wear_level_threshold{};
       CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
@@ -11473,8 +11609,8 @@ std::move(p_wear_level_threshold), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunNvmeWearLevelRoutine(
-std::move(p_wear_level_threshold), std::move(callback));
+      impl->RunNvmeWearLevelRoutine(        
+        std::move(p_wear_level_threshold), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name: {
@@ -11484,6 +11620,8 @@ std::move(p_wear_level_threshold), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.11
       bool success = true;
       ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum p_nvme_self_test_type{};
       CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView input_data_view(params, message);
@@ -11502,8 +11640,8 @@ std::move(p_wear_level_threshold), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunNvmeSelfTestRoutine(
-std::move(p_nvme_self_test_type), std::move(callback));
+      impl->RunNvmeSelfTestRoutine(        
+        std::move(p_nvme_self_test_type), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name: {
@@ -11513,6 +11651,8 @@ std::move(p_nvme_self_test_type), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.12
       bool success = true;
       ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum p_type{};
       uint32_t p_length_seconds{};
@@ -11537,10 +11677,10 @@ std::move(p_nvme_self_test_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunDiskReadRoutine(
-std::move(p_type), 
-std::move(p_length_seconds), 
-std::move(p_file_size_mb), std::move(callback));
+      impl->RunDiskReadRoutine(        
+        std::move(p_type), 
+        std::move(p_length_seconds), 
+        std::move(p_file_size_mb), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name: {
@@ -11550,6 +11690,8 @@ std::move(p_file_size_mb), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.13
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ParamsDataView input_data_view(params, message);
@@ -11568,8 +11710,8 @@ std::move(p_file_size_mb), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunPrimeSearchRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunPrimeSearchRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name: {
@@ -11579,6 +11721,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.14
       bool success = true;
       uint32_t p_length_seconds{};
       uint32_t p_maximum_discharge_percent_allowed{};
@@ -11600,9 +11744,9 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBatteryDischargeRoutine(
-std::move(p_length_seconds), 
-std::move(p_maximum_discharge_percent_allowed), std::move(callback));
+      impl->RunBatteryDischargeRoutine(        
+        std::move(p_length_seconds), 
+        std::move(p_maximum_discharge_percent_allowed), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name: {
@@ -11612,6 +11756,8 @@ std::move(p_maximum_discharge_percent_allowed), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.15
       bool success = true;
       uint32_t p_length_seconds{};
       uint32_t p_minimum_charge_percent_required{};
@@ -11633,9 +11779,9 @@ std::move(p_maximum_discharge_percent_allowed), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBatteryChargeRoutine(
-std::move(p_length_seconds), 
-std::move(p_minimum_charge_percent_required), std::move(callback));
+      impl->RunBatteryChargeRoutine(        
+        std::move(p_length_seconds), 
+        std::move(p_minimum_charge_percent_required), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name: {
@@ -11645,6 +11791,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.16
       bool success = true;
       std::optional<uint32_t> p_max_testing_mem_kib{};
       CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView input_data_view(params, message);
@@ -11664,8 +11812,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunMemoryRoutine(
-std::move(p_max_testing_mem_kib), std::move(callback));
+      impl->RunMemoryRoutine(        
+        std::move(p_max_testing_mem_kib), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name: {
@@ -11675,6 +11823,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.17
       bool success = true;
       CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11700,6 +11850,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.18
       bool success = true;
       CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11725,6 +11877,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.19
       bool success = true;
       CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11750,6 +11904,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.20
       bool success = true;
       CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11775,6 +11931,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.21
       bool success = true;
       CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11800,6 +11958,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.22
       bool success = true;
       CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11825,6 +11985,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.23
       bool success = true;
       CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11850,6 +12012,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.24
       bool success = true;
       CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11875,6 +12039,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.25
       bool success = true;
       CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11900,6 +12066,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.26
       bool success = true;
       CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11925,6 +12093,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.27
       bool success = true;
       CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ParamsDataView input_data_view(params, message);
       
@@ -11950,6 +12120,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.28
       bool success = true;
       std::optional<std::string> p_stun_server_hostname{};
       CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ParamsDataView input_data_view(params, message);
@@ -11968,8 +12140,8 @@ std::move(p_max_testing_mem_kib), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunVideoConferencingRoutine(
-std::move(p_stun_server_hostname), std::move(callback));
+      impl->RunVideoConferencingRoutine(        
+        std::move(p_stun_server_hostname), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name: {
@@ -11979,6 +12151,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.29
       bool success = true;
       CrosHealthdDiagnosticsService_RunArcHttpRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12004,6 +12178,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.30
       bool success = true;
       CrosHealthdDiagnosticsService_RunArcPingRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12029,6 +12205,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.31
       bool success = true;
       CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12054,6 +12232,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.33
       bool success = true;
       CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12079,6 +12259,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.34
       bool success = true;
       CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12104,6 +12286,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.35
       bool success = true;
       CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12129,6 +12313,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.36
       bool success = true;
       bool p_target_state{};
       CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView input_data_view(params, message);
@@ -12147,8 +12333,8 @@ std::move(p_stun_server_hostname), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunPrivacyScreenRoutine(
-std::move(p_target_state), std::move(callback));
+      impl->RunPrivacyScreenRoutine(        
+        std::move(p_target_state), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
@@ -12158,6 +12344,8 @@ std::move(p_target_state), std::move(callback));
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.37
       bool success = true;
       ::ash::cros_healthd::mojom::DEPRECATED_LedName p_name{};
       ::ash::cros_healthd::mojom::DEPRECATED_LedColor p_color{};
@@ -12184,10 +12372,10 @@ std::move(p_target_state), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_RunLedLitUpRoutine(
-std::move(p_name), 
-std::move(p_color), 
-std::move(p_replier), std::move(callback));
+      impl->DEPRECATED_RunLedLitUpRoutine(        
+        std::move(p_name), 
+        std::move(p_color), 
+        std::move(p_replier), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
@@ -12197,6 +12385,8 @@ std::move(p_replier), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.38
       bool success = true;
       CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12222,6 +12412,8 @@ std::move(p_replier), std::move(callback));
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.39
       bool success = true;
       uint64_t p_node_id{};
       uint8_t p_volume{};
@@ -12246,10 +12438,10 @@ std::move(p_replier), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_RunAudioSetVolumeRoutine(
-std::move(p_node_id), 
-std::move(p_volume), 
-std::move(p_mute_on), std::move(callback));
+      impl->DEPRECATED_RunAudioSetVolumeRoutine(        
+        std::move(p_node_id), 
+        std::move(p_volume), 
+        std::move(p_mute_on), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name: {
@@ -12259,6 +12451,8 @@ std::move(p_mute_on), std::move(callback));
               internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.40
       bool success = true;
       uint64_t p_node_id{};
       uint8_t p_gain{};
@@ -12283,10 +12477,10 @@ std::move(p_mute_on), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_RunAudioSetGainRoutine(
-std::move(p_node_id), 
-std::move(p_gain), 
-std::move(p_mute_on), std::move(callback));
+      impl->DEPRECATED_RunAudioSetGainRoutine(        
+        std::move(p_node_id), 
+        std::move(p_gain), 
+        std::move(p_mute_on), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
@@ -12296,6 +12490,8 @@ std::move(p_mute_on), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.41
       bool success = true;
       CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12321,6 +12517,8 @@ std::move(p_mute_on), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.42
       bool success = true;
       CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12346,6 +12544,8 @@ std::move(p_mute_on), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.43
       bool success = true;
       ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView input_data_view(params, message);
@@ -12364,8 +12564,8 @@ std::move(p_mute_on), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBluetoothScanningRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunBluetoothScanningRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
@@ -12375,6 +12575,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.44
       bool success = true;
       std::string p_peripheral_id{};
       CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView input_data_view(params, message);
@@ -12393,8 +12595,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBluetoothPairingRoutine(
-std::move(p_peripheral_id), std::move(callback));
+      impl->RunBluetoothPairingRoutine(        
+        std::move(p_peripheral_id), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name: {
@@ -12404,6 +12606,8 @@ std::move(p_peripheral_id), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.45
       bool success = true;
       uint32_t p_timeout_seconds{};
       CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ParamsDataView input_data_view(params, message);
@@ -12422,8 +12626,8 @@ std::move(p_peripheral_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunPowerButtonRoutine(
-std::move(p_timeout_seconds), std::move(callback));
+      impl->RunPowerButtonRoutine(        
+        std::move(p_timeout_seconds), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name: {
@@ -12433,6 +12637,8 @@ std::move(p_timeout_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.46
       bool success = true;
       CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12458,6 +12664,8 @@ std::move(p_timeout_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.47
       bool success = true;
       CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ParamsDataView input_data_view(params, message);
       
@@ -12483,6 +12691,8 @@ std::move(p_timeout_seconds), std::move(callback));
               internal::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdDiagnosticsService.48
       bool success = true;
       CrosHealthdDiagnosticsService_RunFanRoutine_ParamsDataView input_data_view(params, message);
       
@@ -13324,6 +13534,8 @@ bool CrosHealthdEventService_IsEventSupported_ForwardToCallback::Accept(
           internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdEventService.8
   bool success = true;
   ::ash::cros_healthd::mojom::SupportStatusPtr p_status{};
   CrosHealthdEventService_IsEventSupported_ResponseParamsDataView input_data_view(params, message);
@@ -13406,6 +13618,8 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.0
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView input_data_view(params, message);
@@ -13423,8 +13637,8 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddBluetoothObserver(
-std::move(p_observer));
+      impl->DEPRECATED_AddBluetoothObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
@@ -13434,6 +13648,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.1
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView input_data_view(params, message);
@@ -13451,8 +13667,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddLidObserver(
-std::move(p_observer));
+      impl->DEPRECATED_AddLidObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
@@ -13462,6 +13678,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.2
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView input_data_view(params, message);
@@ -13479,8 +13697,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddPowerObserver(
-std::move(p_observer));
+      impl->DEPRECATED_AddPowerObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_AddNetworkObserver_Name: {
@@ -13490,6 +13708,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_AddNetworkObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.3
       bool success = true;
       ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> p_observer{};
       CrosHealthdEventService_AddNetworkObserver_ParamsDataView input_data_view(params, message);
@@ -13507,8 +13727,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddNetworkObserver(
-std::move(p_observer));
+      impl->AddNetworkObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
@@ -13518,6 +13738,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.4
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView input_data_view(params, message);
@@ -13535,8 +13757,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddAudioObserver(
-std::move(p_observer));
+      impl->DEPRECATED_AddAudioObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
@@ -13546,6 +13768,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.5
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView input_data_view(params, message);
@@ -13563,8 +13787,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddThunderboltObserver(
-std::move(p_observer));
+      impl->DEPRECATED_AddThunderboltObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
@@ -13574,6 +13798,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.6
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView input_data_view(params, message);
@@ -13591,8 +13817,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddUsbObserver(
-std::move(p_observer));
+      impl->DEPRECATED_AddUsbObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_AddEventObserver_Name: {
@@ -13602,6 +13828,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHealthdEventService_AddEventObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.7
       bool success = true;
       ::ash::cros_healthd::mojom::EventCategoryEnum p_category{};
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> p_observer{};
@@ -13622,9 +13850,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddEventObserver(
-std::move(p_category), 
-std::move(p_observer));
+      impl->AddEventObserver(        
+        std::move(p_category), 
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHealthdEventService_IsEventSupported_Name: {
@@ -13674,6 +13902,8 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
               internal::CrosHealthdEventService_IsEventSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdEventService.8
       bool success = true;
       ::ash::cros_healthd::mojom::EventCategoryEnum p_category{};
       CrosHealthdEventService_IsEventSupported_ParamsDataView input_data_view(params, message);
@@ -13692,8 +13922,8 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsEventSupported(
-std::move(p_category), std::move(callback));
+      impl->IsEventSupported(        
+        std::move(p_category), std::move(callback));
       return true;
     }
   }
@@ -14085,6 +14315,8 @@ bool CrosHealthdProbeService_ProbeProcessInfo_ForwardToCallback::Accept(
           internal::CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdProbeService.0
   bool success = true;
   ::ash::cros_healthd::mojom::ProcessResultPtr p_process_info{};
   CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView input_data_view(params, message);
@@ -14212,6 +14444,8 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_ForwardToCallback::Accept(
           internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdProbeService.1
   bool success = true;
   ::ash::cros_healthd::mojom::TelemetryInfoPtr p_telemetry_info{};
   CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView input_data_view(params, message);
@@ -14341,6 +14575,8 @@ bool CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback::Accept(
           internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdProbeService.2
   bool success = true;
   ::ash::cros_healthd::mojom::MultipleProcessResultPtr p_multiple_process_info{};
   CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView input_data_view(params, message);
@@ -14447,6 +14683,8 @@ bool CrosHealthdProbeServiceStubDispatch::AcceptWithResponder(
               internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdProbeService.0
       bool success = true;
       uint32_t p_process_id{};
       CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView input_data_view(params, message);
@@ -14465,8 +14703,8 @@ bool CrosHealthdProbeServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProbeProcessInfo(
-std::move(p_process_id), std::move(callback));
+      impl->ProbeProcessInfo(        
+        std::move(p_process_id), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name: {
@@ -14476,6 +14714,8 @@ std::move(p_process_id), std::move(callback));
               internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdProbeService.1
       bool success = true;
       std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum> p_categories{};
       CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView input_data_view(params, message);
@@ -14494,8 +14734,8 @@ std::move(p_process_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProbeTelemetryInfo(
-std::move(p_categories), std::move(callback));
+      impl->ProbeTelemetryInfo(        
+        std::move(p_categories), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
@@ -14505,6 +14745,8 @@ std::move(p_categories), std::move(callback));
               internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdProbeService.2
       bool success = true;
       std::optional<std::vector<uint32_t>> p_process_ids{};
       bool p_ignore_single_process_error{};
@@ -14526,9 +14768,9 @@ std::move(p_categories), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProbeMultipleProcessInfo(
-std::move(p_process_ids), 
-std::move(p_ignore_single_process_error), std::move(callback));
+      impl->ProbeMultipleProcessInfo(        
+        std::move(p_process_ids), 
+        std::move(p_ignore_single_process_error), std::move(callback));
       return true;
     }
   }
@@ -14720,6 +14962,8 @@ bool CrosHealthdSystemService_GetServiceStatus_ForwardToCallback::Accept(
           internal::CrosHealthdSystemService_GetServiceStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHealthdSystemService.0
   bool success = true;
   ServiceStatusPtr p_response{};
   CrosHealthdSystemService_GetServiceStatus_ResponseParamsDataView input_data_view(params, message);
@@ -14820,6 +15064,8 @@ bool CrosHealthdSystemServiceStubDispatch::AcceptWithResponder(
               internal::CrosHealthdSystemService_GetServiceStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHealthdSystemService.0
       bool success = true;
       CrosHealthdSystemService_GetServiceStatus_ParamsDataView input_data_view(params, message);
       
@@ -15213,6 +15459,8 @@ bool WilcoEcServiceController_GetEcTelemetry_ForwardToCallback::Accept(
           internal::WilcoEcServiceController_GetEcTelemetry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WilcoEcServiceController.1
   bool success = true;
   ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr p_response{};
   WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView input_data_view(params, message);
@@ -15297,6 +15545,8 @@ bool WilcoEcServiceControllerStubDispatch::Accept(
           reinterpret_cast<internal::WilcoEcServiceController_AddEcObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoEcServiceController.0
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> p_observer{};
       WilcoEcServiceController_AddEcObserver_ParamsDataView input_data_view(params, message);
@@ -15314,8 +15564,8 @@ bool WilcoEcServiceControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddEcObserver(
-std::move(p_observer));
+      impl->AddEcObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kWilcoEcServiceController_GetEcTelemetry_Name: {
@@ -15328,6 +15578,8 @@ std::move(p_observer));
           reinterpret_cast<internal::WilcoEcServiceController_StartEcService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoEcServiceController.2
       bool success = true;
       WilcoEcServiceController_StartEcService_ParamsDataView input_data_view(params, message);
       
@@ -15340,7 +15592,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEcService();
+      impl->StartEcService(        );
       return true;
     }
     case internal::kWilcoEcServiceController_ShutdownEcService_Name: {
@@ -15350,6 +15602,8 @@ std::move(p_observer));
           reinterpret_cast<internal::WilcoEcServiceController_ShutdownEcService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoEcServiceController.3
       bool success = true;
       WilcoEcServiceController_ShutdownEcService_ParamsDataView input_data_view(params, message);
       
@@ -15362,7 +15616,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShutdownEcService();
+      impl->ShutdownEcService(        );
       return true;
     }
   }
@@ -15388,6 +15642,8 @@ bool WilcoEcServiceControllerStubDispatch::AcceptWithResponder(
               internal::WilcoEcServiceController_GetEcTelemetry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WilcoEcServiceController.1
       bool success = true;
       std::string p_payload_string{};
       WilcoEcServiceController_GetEcTelemetry_ParamsDataView input_data_view(params, message);
@@ -15406,8 +15662,8 @@ bool WilcoEcServiceControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEcTelemetry(
-std::move(p_payload_string), std::move(callback));
+      impl->GetEcTelemetry(        
+        std::move(p_payload_string), std::move(callback));
       return true;
     }
     case internal::kWilcoEcServiceController_StartEcService_Name: {

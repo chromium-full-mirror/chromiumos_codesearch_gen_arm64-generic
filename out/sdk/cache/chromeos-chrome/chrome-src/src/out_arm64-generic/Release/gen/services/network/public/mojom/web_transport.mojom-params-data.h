@@ -364,6 +364,7 @@ class  WebTransportClient_OnClosed_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::WebTransportCloseInfo_Data> close_info;
+  mojo::internal::Pointer<internal::WebTransportStats_Data> final_stats;
 
  private:
   friend class mojo::internal::MessageFragment<WebTransportClient_OnClosed_Params_Data>;
@@ -371,7 +372,7 @@ class  WebTransportClient_OnClosed_Params_Data {
   WebTransportClient_OnClosed_Params_Data();
   ~WebTransportClient_OnClosed_Params_Data() = delete;
 };
-static_assert(sizeof(WebTransportClient_OnClosed_Params_Data) == 16,
+static_assert(sizeof(WebTransportClient_OnClosed_Params_Data) == 24,
               "Bad sizeof(WebTransportClient_OnClosed_Params_Data)");
 class  WebTransportHandshakeClient_OnConnectionEstablished_Params_Data {
  public:
@@ -383,6 +384,7 @@ class  WebTransportHandshakeClient_OnConnectionEstablished_Params_Data {
   mojo::internal::Handle_Data client;
   uint8_t pad1_[4];
   mojo::internal::Pointer<::network::mojom::internal::HttpResponseHeaders_Data> response_headers;
+  mojo::internal::Pointer<internal::WebTransportStats_Data> initial_stats;
 
  private:
   friend class mojo::internal::MessageFragment<WebTransportHandshakeClient_OnConnectionEstablished_Params_Data>;
@@ -390,7 +392,7 @@ class  WebTransportHandshakeClient_OnConnectionEstablished_Params_Data {
   WebTransportHandshakeClient_OnConnectionEstablished_Params_Data();
   ~WebTransportHandshakeClient_OnConnectionEstablished_Params_Data() = delete;
 };
-static_assert(sizeof(WebTransportHandshakeClient_OnConnectionEstablished_Params_Data) == 32,
+static_assert(sizeof(WebTransportHandshakeClient_OnConnectionEstablished_Params_Data) == 40,
               "Bad sizeof(WebTransportHandshakeClient_OnConnectionEstablished_Params_Data)");
 class  WebTransportHandshakeClient_OnHandshakeFailed_Params_Data {
  public:
@@ -911,6 +913,16 @@ static_assert(
     return mojo::internal::Deserialize<::network::mojom::WebTransportCloseInfoDataView>(
         pointer, output, message_);
   }
+  inline void GetFinalStatsDataView(
+      WebTransportStatsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFinalStats(UserType* output) {
+    
+    auto* pointer = data_->final_stats.Get();
+    return mojo::internal::Deserialize<::network::mojom::WebTransportStatsDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::WebTransportClient_OnClosed_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -953,6 +965,16 @@ class WebTransportHandshakeClient_OnConnectionEstablished_ParamsDataView {
     
     auto* pointer = data_->response_headers.Get();
     return mojo::internal::Deserialize<::network::mojom::HttpResponseHeadersDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInitialStatsDataView(
+      WebTransportStatsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInitialStats(UserType* output) {
+    
+    auto* pointer = data_->initial_stats.Get();
+    return mojo::internal::Deserialize<::network::mojom::WebTransportStatsDataView>(
         pointer, output, message_);
   }
  private:
@@ -1066,12 +1088,22 @@ inline void WebTransportClient_OnClosed_ParamsDataView::GetCloseInfoDataView(
   auto pointer = data_->close_info.Get();
   *output = WebTransportCloseInfoDataView(pointer, message_);
 }
+inline void WebTransportClient_OnClosed_ParamsDataView::GetFinalStatsDataView(
+    WebTransportStatsDataView* output) {
+  auto pointer = data_->final_stats.Get();
+  *output = WebTransportStatsDataView(pointer, message_);
+}
 
 
 inline void WebTransportHandshakeClient_OnConnectionEstablished_ParamsDataView::GetResponseHeadersDataView(
     ::network::mojom::HttpResponseHeadersDataView* output) {
   auto pointer = data_->response_headers.Get();
   *output = ::network::mojom::HttpResponseHeadersDataView(pointer, message_);
+}
+inline void WebTransportHandshakeClient_OnConnectionEstablished_ParamsDataView::GetInitialStatsDataView(
+    WebTransportStatsDataView* output) {
+  auto pointer = data_->initial_stats.Get();
+  *output = WebTransportStatsDataView(pointer, message_);
 }
 
 

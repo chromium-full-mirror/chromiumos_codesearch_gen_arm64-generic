@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/file_path.mojom', '../../../mojo/public/mojom/base/file_path.mojom.js');
   }
+  var skcolorspace_primaries$ =
+      mojo.internal.exposeNamespace('skia.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'skia/public/mojom/skcolorspace_primaries.mojom', '../../../skia/public/mojom/skcolorspace_primaries.mojom.js');
+  }
   var display_constants$ =
       mojo.internal.exposeNamespace('display.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -58,6 +64,113 @@
 
 
 
+  function DisplaySnapshotColorInfo(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  DisplaySnapshotColorInfo.prototype.initDefaults_ = function() {
+    this.colorSpace = null;
+    this.edidPrimaries = null;
+    this.edidGamma = 0;
+    this.supportsColorTemperatureAdjustment = false;
+    this.hdrStaticMetadata = null;
+    this.bitsPerChannel = 0;
+  };
+  DisplaySnapshotColorInfo.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  DisplaySnapshotColorInfo.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 48}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DisplaySnapshotColorInfo.colorSpace
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, color_space$.ColorSpace, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate DisplaySnapshotColorInfo.edidPrimaries
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, skcolorspace_primaries$.SkColorSpacePrimaries, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate DisplaySnapshotColorInfo.hdrStaticMetadata
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, hdr_static_metadata$.HDRStaticMetadata, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    return validator.validationError.NONE;
+  };
+
+  DisplaySnapshotColorInfo.encodedSize = codec.kStructHeaderSize + 40;
+
+  DisplaySnapshotColorInfo.decode = function(decoder) {
+    var packed;
+    var val = new DisplaySnapshotColorInfo();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.colorSpace =
+        decoder.decodeStructPointer(color_space$.ColorSpace);
+    val.edidPrimaries =
+        decoder.decodeStructPointer(skcolorspace_primaries$.SkColorSpacePrimaries);
+    val.edidGamma =
+        decoder.decodeStruct(codec.Float);
+    packed = decoder.readUint8();
+    val.supportsColorTemperatureAdjustment = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.hdrStaticMetadata =
+        decoder.decodeStructPointer(hdr_static_metadata$.HDRStaticMetadata);
+    val.bitsPerChannel =
+        decoder.decodeStruct(codec.Uint32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  DisplaySnapshotColorInfo.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(DisplaySnapshotColorInfo.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(color_space$.ColorSpace, val.colorSpace);
+    encoder.encodeStructPointer(skcolorspace_primaries$.SkColorSpacePrimaries, val.edidPrimaries);
+    encoder.encodeStruct(codec.Float, val.edidGamma);
+    packed = 0;
+    packed |= (val.supportsColorTemperatureAdjustment & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStructPointer(hdr_static_metadata$.HDRStaticMetadata, val.hdrStaticMetadata);
+    encoder.encodeStruct(codec.Uint32, val.bitsPerChannel);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   function DisplaySnapshot(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -72,7 +185,6 @@
     this.isAspectPreservingScaling = false;
     this.hasOverscan = false;
     this.hasContentProtectionKey = false;
-    this.hasColorCorrectionMatrix = false;
     this.hasCurrentMode = false;
     this.hasNativeMode = false;
     this.type = 0;
@@ -81,20 +193,18 @@
     this.baseConnectorId = 0;
     this.pathTopology = null;
     this.privacyScreenState = 0;
-    this.bitsPerChannel = 0;
-    this.colorSpace = null;
-    this.hdrStaticMetadata = null;
+    this.panelOrientation = 0;
+    this.colorInfo = null;
     this.displayName = null;
     this.sysPath = null;
     this.modes = null;
-    this.panelOrientation = 0;
-    this.yearOfManufacture = 0;
     this.edid = null;
     this.currentModeIndex = 0;
     this.nativeModeIndex = 0;
     this.productCode = 0;
-    this.maximumCursorSize = null;
+    this.yearOfManufacture = 0;
     this.variableRefreshRateState = 0;
+    this.maximumCursorSize = null;
     this.vsyncRateMin = 0;
     this.drmFormatsAndModifiers = null;
   };
@@ -112,7 +222,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 184}
+      {version: 0, numBytes: 176}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -157,46 +267,38 @@
 
 
 
-
-    // validate DisplaySnapshot.colorSpace
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, color_space$.ColorSpace, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-
-    // validate DisplaySnapshot.hdrStaticMetadata
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, hdr_static_metadata$.HDRStaticMetadata, true);
+    // validate DisplaySnapshot.colorInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, DisplaySnapshotColorInfo, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DisplaySnapshot.displayName
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 88, false)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 80, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DisplaySnapshot.sysPath
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 96, file_path$.FilePath, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, file_path$.FilePath, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DisplaySnapshot.modes
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 104, 8, new codec.PointerTo(display_mode$.DisplayMode), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 96, 8, new codec.PointerTo(display_mode$.DisplayMode), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DisplaySnapshot.panelOrientation
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 112, display_constants$.PanelOrientation);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 68, display_constants$.PanelOrientation);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DisplaySnapshot.edid
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 120, 1, codec.Uint8, false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 104, 1, codec.Uint8, false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -208,27 +310,27 @@
 
 
     // validate DisplaySnapshot.maximumCursorSize
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 152, geometry$.Size, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 144, geometry$.Size, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate DisplaySnapshot.variableRefreshRateState
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 160, display_constants$.VariableRefreshRateState);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 140, display_constants$.VariableRefreshRateState);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate DisplaySnapshot.drmFormatsAndModifiers
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 168, false, codec.Uint32, new codec.ArrayOf(codec.Uint64), false);
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 160, false, codec.Uint32, new codec.ArrayOf(codec.Uint64), false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  DisplaySnapshot.encodedSize = codec.kStructHeaderSize + 176;
+  DisplaySnapshot.encodedSize = codec.kStructHeaderSize + 168;
 
   DisplaySnapshot.decode = function(decoder) {
     var packed;
@@ -247,9 +349,8 @@
     val.isAspectPreservingScaling = (packed >> 0) & 1 ? true : false;
     val.hasOverscan = (packed >> 1) & 1 ? true : false;
     val.hasContentProtectionKey = (packed >> 2) & 1 ? true : false;
-    val.hasColorCorrectionMatrix = (packed >> 3) & 1 ? true : false;
-    val.hasCurrentMode = (packed >> 4) & 1 ? true : false;
-    val.hasNativeMode = (packed >> 5) & 1 ? true : false;
+    val.hasCurrentMode = (packed >> 3) & 1 ? true : false;
+    val.hasNativeMode = (packed >> 4) & 1 ? true : false;
     decoder.skip(1);
     val.type =
         decoder.decodeStruct(new codec.Enum(display_constants$.DisplayConnectionType));
@@ -263,22 +364,16 @@
         decoder.decodeArrayPointer(codec.Uint64);
     val.privacyScreenState =
         decoder.decodeStruct(new codec.Enum(display_constants$.PrivacyScreenState));
-    val.bitsPerChannel =
-        decoder.decodeStruct(codec.Uint32);
-    val.colorSpace =
-        decoder.decodeStructPointer(color_space$.ColorSpace);
-    val.hdrStaticMetadata =
-        decoder.decodeStructPointer(hdr_static_metadata$.HDRStaticMetadata);
+    val.panelOrientation =
+        decoder.decodeStruct(new codec.Enum(display_constants$.PanelOrientation));
+    val.colorInfo =
+        decoder.decodeStructPointer(DisplaySnapshotColorInfo);
     val.displayName =
         decoder.decodeStruct(codec.String);
     val.sysPath =
         decoder.decodeStructPointer(file_path$.FilePath);
     val.modes =
         decoder.decodeArrayPointer(new codec.PointerTo(display_mode$.DisplayMode));
-    val.panelOrientation =
-        decoder.decodeStruct(new codec.Enum(display_constants$.PanelOrientation));
-    val.yearOfManufacture =
-        decoder.decodeStruct(codec.Int32);
     val.edid =
         decoder.decodeArrayPointer(codec.Uint8);
     val.currentModeIndex =
@@ -287,12 +382,18 @@
         decoder.decodeStruct(codec.Uint64);
     val.productCode =
         decoder.decodeStruct(codec.Int64);
-    val.maximumCursorSize =
-        decoder.decodeStructPointer(geometry$.Size);
+    val.yearOfManufacture =
+        decoder.decodeStruct(codec.Int32);
     val.variableRefreshRateState =
         decoder.decodeStruct(new codec.Enum(display_constants$.VariableRefreshRateState));
+    val.maximumCursorSize =
+        decoder.decodeStructPointer(geometry$.Size);
     val.vsyncRateMin =
         decoder.decodeStruct(codec.Uint16);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     val.drmFormatsAndModifiers =
@@ -312,9 +413,8 @@
     packed |= (val.isAspectPreservingScaling & 1) << 0
     packed |= (val.hasOverscan & 1) << 1
     packed |= (val.hasContentProtectionKey & 1) << 2
-    packed |= (val.hasColorCorrectionMatrix & 1) << 3
-    packed |= (val.hasCurrentMode & 1) << 4
-    packed |= (val.hasNativeMode & 1) << 5
+    packed |= (val.hasCurrentMode & 1) << 3
+    packed |= (val.hasNativeMode & 1) << 4
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.type);
@@ -323,24 +423,27 @@
     encoder.encodeStruct(codec.Uint64, val.baseConnectorId);
     encoder.encodeArrayPointer(codec.Uint64, val.pathTopology);
     encoder.encodeStruct(codec.Int32, val.privacyScreenState);
-    encoder.encodeStruct(codec.Uint32, val.bitsPerChannel);
-    encoder.encodeStructPointer(color_space$.ColorSpace, val.colorSpace);
-    encoder.encodeStructPointer(hdr_static_metadata$.HDRStaticMetadata, val.hdrStaticMetadata);
+    encoder.encodeStruct(codec.Int32, val.panelOrientation);
+    encoder.encodeStructPointer(DisplaySnapshotColorInfo, val.colorInfo);
     encoder.encodeStruct(codec.String, val.displayName);
     encoder.encodeStructPointer(file_path$.FilePath, val.sysPath);
     encoder.encodeArrayPointer(new codec.PointerTo(display_mode$.DisplayMode), val.modes);
-    encoder.encodeStruct(codec.Int32, val.panelOrientation);
-    encoder.encodeStruct(codec.Int32, val.yearOfManufacture);
     encoder.encodeArrayPointer(codec.Uint8, val.edid);
     encoder.encodeStruct(codec.Uint64, val.currentModeIndex);
     encoder.encodeStruct(codec.Uint64, val.nativeModeIndex);
     encoder.encodeStruct(codec.Int64, val.productCode);
-    encoder.encodeStructPointer(geometry$.Size, val.maximumCursorSize);
+    encoder.encodeStruct(codec.Int32, val.yearOfManufacture);
     encoder.encodeStruct(codec.Int32, val.variableRefreshRateState);
+    encoder.encodeStructPointer(geometry$.Size, val.maximumCursorSize);
     encoder.encodeStruct(codec.Uint16, val.vsyncRateMin);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeMapPointer(codec.Uint32, new codec.ArrayOf(codec.Uint64), val.drmFormatsAndModifiers);
   };
+  exports.DisplaySnapshotColorInfo = DisplaySnapshotColorInfo;
   exports.DisplaySnapshot = DisplaySnapshot;
 })();

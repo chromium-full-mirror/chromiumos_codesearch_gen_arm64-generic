@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom-shared-internal.h"
 #include "ui/display/mojom/display_constants.mojom-shared-internal.h"
 #include "ui/display/mojom/display_mode.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
@@ -30,9 +31,65 @@ class ValidationContext;
 
 namespace display::mojom {
 namespace internal {
+class DisplaySnapshotColorInfo_Data;
 class DisplaySnapshot_Data;
 
 #pragma pack(push, 1)
+class  DisplaySnapshotColorInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> color_space;
+  mojo::internal::Pointer<::skia::mojom::internal::SkColorSpacePrimaries_Data> edid_primaries;
+  float edid_gamma;
+  uint8_t supports_color_temperature_adjustment : 1;
+  uint8_t pad3_[3];
+  mojo::internal::Pointer<::gfx::mojom::internal::HDRStaticMetadata_Data> hdr_static_metadata;
+  uint32_t bits_per_channel;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<DisplaySnapshotColorInfo_Data>;
+
+  DisplaySnapshotColorInfo_Data();
+  ~DisplaySnapshotColorInfo_Data() = delete;
+};
+static_assert(sizeof(DisplaySnapshotColorInfo_Data) == 48,
+              "Bad sizeof(DisplaySnapshotColorInfo_Data)");
+// Used by DisplaySnapshotColorInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DisplaySnapshotColorInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DisplaySnapshotColorInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DisplaySnapshotColorInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DisplaySnapshotColorInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DisplaySnapshotColorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  DisplaySnapshot_Data {
  public:
   static bool Validate(const void* data,
@@ -46,32 +103,29 @@ class  DisplaySnapshot_Data {
   uint8_t is_aspect_preserving_scaling : 1;
   uint8_t has_overscan : 1;
   uint8_t has_content_protection_key : 1;
-  uint8_t has_color_correction_matrix : 1;
   uint8_t has_current_mode : 1;
   uint8_t has_native_mode : 1;
-  uint8_t pad9_[1];
+  uint8_t pad8_[1];
   int32_t type;
   mojo::internal::Pointer<::gfx::mojom::internal::Point_Data> origin;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> physical_size;
   uint64_t base_connector_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint64_t>> path_topology;
   int32_t privacy_screen_state;
-  uint32_t bits_per_channel;
-  mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> color_space;
-  mojo::internal::Pointer<::gfx::mojom::internal::HDRStaticMetadata_Data> hdr_static_metadata;
+  int32_t panel_orientation;
+  mojo::internal::Pointer<internal::DisplaySnapshotColorInfo_Data> color_info;
   mojo::internal::Pointer<mojo::internal::String_Data> display_name;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> sys_path;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::display::mojom::internal::DisplayMode_Data>>> modes;
-  int32_t panel_orientation;
-  int32_t year_of_manufacture;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> edid;
   uint64_t current_mode_index;
   uint64_t native_mode_index;
   int64_t product_code;
-  mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> maximum_cursor_size;
+  int32_t year_of_manufacture;
   int32_t variable_refresh_rate_state;
+  mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> maximum_cursor_size;
   uint16_t vsync_rate_min;
-  uint8_t pad30_[2];
+  uint8_t pad27_[6];
   mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, mojo::internal::Pointer<mojo::internal::Array_Data<uint64_t>>>> drm_formats_and_modifiers;
 
  private:
@@ -80,7 +134,7 @@ class  DisplaySnapshot_Data {
   DisplaySnapshot_Data();
   ~DisplaySnapshot_Data() = delete;
 };
-static_assert(sizeof(DisplaySnapshot_Data) == 184,
+static_assert(sizeof(DisplaySnapshot_Data) == 176,
               "Bad sizeof(DisplaySnapshot_Data)");
 // Used by DisplaySnapshot::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

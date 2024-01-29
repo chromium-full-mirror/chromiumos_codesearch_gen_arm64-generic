@@ -277,6 +277,8 @@ bool FileSystemAccessDataTransferToken_GetInternalId_ForwardToCallback::Accept(
           internal::FileSystemAccessDataTransferToken_GetInternalId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessDataTransferToken.0
   bool success = true;
   ::base::UnguessableToken p_id{};
   FileSystemAccessDataTransferToken_GetInternalId_ResponseParamsDataView input_data_view(params, message);
@@ -364,6 +366,8 @@ bool FileSystemAccessDataTransferTokenStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessDataTransferToken_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessDataTransferToken.1
       bool success = true;
       ::mojo::PendingReceiver<FileSystemAccessDataTransferToken> p_token_clone{};
       FileSystemAccessDataTransferToken_Clone_ParamsDataView input_data_view(params, message);
@@ -381,8 +385,8 @@ bool FileSystemAccessDataTransferTokenStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_token_clone));
+      impl->Clone(        
+        std::move(p_token_clone));
       return true;
     }
   }
@@ -405,6 +409,8 @@ bool FileSystemAccessDataTransferTokenStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessDataTransferToken_GetInternalId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessDataTransferToken.0
       bool success = true;
       FileSystemAccessDataTransferToken_GetInternalId_ParamsDataView input_data_view(params, message);
       

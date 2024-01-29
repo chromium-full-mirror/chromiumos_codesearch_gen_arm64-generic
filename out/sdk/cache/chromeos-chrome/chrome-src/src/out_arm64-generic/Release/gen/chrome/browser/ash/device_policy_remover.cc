@@ -477,6 +477,12 @@ void RemovePolicies(enterprise_management::ChromeDeviceSettingsProto* policies,
       case 1185:
         policies->clear_devicehardwarevideodecodingenabled();
         break;
+      case 1194:
+        policies->clear_deviceloginscreentouchvirtualkeyboardenabled();
+        break;
+      case 1195:
+        policies->clear_deviceextendedautoupdateenabled();
+        break;
     }
   }
 }

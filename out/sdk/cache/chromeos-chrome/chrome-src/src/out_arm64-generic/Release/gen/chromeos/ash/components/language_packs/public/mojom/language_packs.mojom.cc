@@ -628,6 +628,8 @@ bool LanguagePacks_GetPackInfo_ForwardToCallback::Accept(
           internal::LanguagePacks_GetPackInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LanguagePacks.0
   bool success = true;
   LanguagePackInfoPtr p_info{};
   LanguagePacks_GetPackInfo_ResponseParamsDataView input_data_view(params, message);
@@ -757,6 +759,8 @@ bool LanguagePacks_InstallPack_ForwardToCallback::Accept(
           internal::LanguagePacks_InstallPack_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LanguagePacks.1
   bool success = true;
   LanguagePackInfoPtr p_info{};
   LanguagePacks_InstallPack_ResponseParamsDataView input_data_view(params, message);
@@ -886,6 +890,8 @@ bool LanguagePacks_InstallBasePack_ForwardToCallback::Accept(
           internal::LanguagePacks_InstallBasePack_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LanguagePacks.2
   bool success = true;
   BasePackInfoPtr p_info{};
   LanguagePacks_InstallBasePack_ResponseParamsDataView input_data_view(params, message);
@@ -1015,6 +1021,8 @@ bool LanguagePacks_UninstallPack_ForwardToCallback::Accept(
           internal::LanguagePacks_UninstallPack_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LanguagePacks.3
   bool success = true;
   LanguagePacks_UninstallPack_ResponseParamsDataView input_data_view(params, message);
   
@@ -1102,6 +1110,8 @@ bool LanguagePacksStubDispatch::AcceptWithResponder(
               internal::LanguagePacks_GetPackInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LanguagePacks.0
       bool success = true;
       FeatureId p_feature_id{};
       std::string p_language{};
@@ -1123,9 +1133,9 @@ bool LanguagePacksStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPackInfo(
-std::move(p_feature_id), 
-std::move(p_language), std::move(callback));
+      impl->GetPackInfo(        
+        std::move(p_feature_id), 
+        std::move(p_language), std::move(callback));
       return true;
     }
     case internal::kLanguagePacks_InstallPack_Name: {
@@ -1135,6 +1145,8 @@ std::move(p_language), std::move(callback));
               internal::LanguagePacks_InstallPack_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LanguagePacks.1
       bool success = true;
       FeatureId p_feature_id{};
       std::string p_language{};
@@ -1156,9 +1168,9 @@ std::move(p_language), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallPack(
-std::move(p_feature_id), 
-std::move(p_language), std::move(callback));
+      impl->InstallPack(        
+        std::move(p_feature_id), 
+        std::move(p_language), std::move(callback));
       return true;
     }
     case internal::kLanguagePacks_InstallBasePack_Name: {
@@ -1168,6 +1180,8 @@ std::move(p_language), std::move(callback));
               internal::LanguagePacks_InstallBasePack_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LanguagePacks.2
       bool success = true;
       FeatureId p_feature_id{};
       LanguagePacks_InstallBasePack_ParamsDataView input_data_view(params, message);
@@ -1186,8 +1200,8 @@ std::move(p_language), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallBasePack(
-std::move(p_feature_id), std::move(callback));
+      impl->InstallBasePack(        
+        std::move(p_feature_id), std::move(callback));
       return true;
     }
     case internal::kLanguagePacks_UninstallPack_Name: {
@@ -1197,6 +1211,8 @@ std::move(p_feature_id), std::move(callback));
               internal::LanguagePacks_UninstallPack_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LanguagePacks.3
       bool success = true;
       FeatureId p_feature_id{};
       std::string p_language{};
@@ -1218,9 +1234,9 @@ std::move(p_feature_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UninstallPack(
-std::move(p_feature_id), 
-std::move(p_language), std::move(callback));
+      impl->UninstallPack(        
+        std::move(p_feature_id), 
+        std::move(p_language), std::move(callback));
       return true;
     }
   }

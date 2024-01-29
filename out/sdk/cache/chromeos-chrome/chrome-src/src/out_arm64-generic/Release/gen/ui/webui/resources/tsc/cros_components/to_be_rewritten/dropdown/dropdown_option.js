@@ -3,6 +3,7 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+import { css } from 'lit';
 import { MenuItem } from '../menu/menu_item';
 /**
  * A chromeOS compliant dropdown-option to use within dropdown.
@@ -12,6 +13,13 @@ export class DropdownOption extends MenuItem {
         super(...arguments);
         this.internalValue = null;
     }
+    static { this.styles = [
+        MenuItem.styles, css `
+      md-menu-item {
+        --md-menu-item-label-text-font: var(--cros-dropdown-option-text-font, var(--cros-button-2-font-family));
+      }
+    `
+    ]; }
     /** @nocollapse */
     static { this.properties = {
         ...MenuItem.properties,

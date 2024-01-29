@@ -288,9 +288,10 @@ class AlertGroupWorkflow:
     now = datetime.datetime.utcnow()
     issue = None
     canonical_group = None
+    logging.debug('Group status: %s. ID: %s', self._group.status, self._group.key)
     if self._group.status in {
         self._group.Status.triaged, self._group.Status.bisected,
-        self._group.Status.closed
+        self._group.Status.closed, self._group.Status.sandwiched
     }:
       project_name = self._group.bug.project or 'chromium'
       issue = perf_issue_service_client.GetIssue(
@@ -299,6 +300,7 @@ class AlertGroupWorkflow:
         issue['comments'] = perf_issue_service_client.GetIssueComments(
             self._group.bug.bug_id, project_name=project_name)
         canonical_group = self._FindCanonicalGroup(issue)
+        logging.debug('Update.issue: %s', issue)
     return self.GroupUpdate(now, anomalies, issue, canonical_group)
 
   def Process(self, update=None):
@@ -572,7 +574,7 @@ class AlertGroupWorkflow:
                    (_SANDWICH, execution['name'], results_dict['job_id'],
                     utils.TestPath(regression.test), results_dict['statistic']))
         label = 'Regression-Verification-Repro'
-        status = 'Available'
+        status = 'Untriaged'
         proceed_with_bisect = True
         if (update.issue
             and utils.DELAY_REPORTING_LABEL in update.issue.get('labels')):
@@ -1016,9 +1018,12 @@ class AlertGroupWorkflow:
       return None, []
 
     auto_triage_regressions = []
+    masters = set()
     for r in regressions:
       if r.auto_triage_enable:
         auto_triage_regressions.append(r)
+      if r.master_name:
+        masters.add(r.master_name)
 
     logging.info('auto_triage_enabled due to %s', auto_triage_regressions)
     template_args = self._GetTemplateArgs(regressions)
@@ -1032,17 +1037,17 @@ class AlertGroupWorkflow:
     try:
       # Add the public url only if at least one of the anomalies in the group are public
       if any(not r.test.get().internal_only for r in regressions):
-        skia_url_public = skia_helper.GetSkiaUrlForAlertGroup(
-            self._group.key.string_id(), False, self._group.project_id)
-        template_args['skia_url_text_public'] = skia_url_public
+        skia_urls_public = skia_helper.GetSkiaUrlsForAlertGroup(
+            self._group.key.string_id(), False, list(masters))
+        template_args['skia_urls_text_public'] = skia_urls_public
     except Exception:  #pylint: disable=broad-except
-      template_args['skia_url_text_public'] = ''
+      template_args['skia_urls_text_public'] = None
     try:
-      skia_url_internal = skia_helper.GetSkiaUrlForAlertGroup(
-          self._group.key.string_id(), True, self._group.project_id)
-      template_args['skia_url_text_internal'] = skia_url_internal
+      skia_urls_internal = skia_helper.GetSkiaUrlsForAlertGroup(
+          self._group.key.string_id(), True, list(masters))
+      template_args['skia_urls_text_internal'] = skia_urls_internal
     except Exception:  # pylint: disable=broad-except
-      template_args['skia_url_text_internal'] = ''
+      template_args['skia_urls_text_internal'] = None
 
     # Rendering issue's title and content
     title = _TEMPLATE_ISSUE_TITLE.render(template_args)

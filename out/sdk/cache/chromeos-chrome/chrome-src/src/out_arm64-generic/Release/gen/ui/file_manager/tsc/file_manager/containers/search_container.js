@@ -7,10 +7,10 @@ import { isEntryInsideDrive } from '../common/js/entry_utils.js';
 import { recordUserAction } from '../common/js/metrics.js';
 import { str, strf } from '../common/js/translations.js';
 import { RootType } from '../common/js/volume_manager_types.js';
-import { CurrentDirectory, PropStatus, SearchData, SearchLocation, SearchOptions, SearchRecency, State } from '../externs/ts/state.js';
 import { PathComponent } from '../foreground/js/path_component.js';
 import { changeDirectory } from '../state/ducks/current_directory.js';
 import { clearSearch, getDefaultSearchOptions, isSearchEmpty, updateSearch } from '../state/ducks/search.js';
+import { PropStatus, SearchLocation, SearchRecency } from '../state/state.js';
 import { getStore } from '../state/store.js';
 import { XfBreadcrumb } from '../widgets/xf_breadcrumb.js';
 import { OptionKind, SEARCH_OPTIONS_CHANGED, XfSearchOptionsElement } from '../widgets/xf_search_options.js';
@@ -30,7 +30,7 @@ var SearchInputState;
  * directory.
  */
 function isInRecent(dir) {
-    return dir?.rootType == RootType.RECENT;
+    return dir?.rootType === RootType.RECENT;
 }
 /**
  * Creates location options. These always consist of 'Everywhere' and the
@@ -135,27 +135,27 @@ function createFileCategoryOptions(state) {
         {
             value: chrome.fileManagerPrivate.FileCategory.ALL,
             text: str('SEARCH_OPTIONS_TYPES_ALL_TYPES'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.ALL,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.ALL,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.AUDIO,
             text: str('SEARCH_OPTIONS_TYPES_AUDIO'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.AUDIO,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.AUDIO,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.DOCUMENT,
             text: str('SEARCH_OPTIONS_TYPES_DOCUMENTS'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.DOCUMENT,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.DOCUMENT,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.IMAGE,
             text: str('SEARCH_OPTIONS_TYPES_IMAGES'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.IMAGE,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.IMAGE,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.VIDEO,
             text: str('SEARCH_OPTIONS_TYPES_VIDEOS'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.VIDEO,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.VIDEO,
         },
     ];
 }

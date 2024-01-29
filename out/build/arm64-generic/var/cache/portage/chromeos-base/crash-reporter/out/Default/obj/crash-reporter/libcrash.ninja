@@ -1,20 +1,20 @@
 defines = -DUSE_DIRENCRYPTION=true -DUSE_KVM_GUEST=false -DUSE_ARCPP=false -DUSE_ARCVM=false -DUSE_CHROMELESS_TTY=false -DUSE_FORCE_BREAKPAD=false -DUSE_HW_DETAILS=false -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4379/work/crash-reporter-0.0.1 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/session_manager-client -pthread
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4394/work/crash-reporter-0.0.1 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/session_manager-client -pthread
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libcrash
 
-build obj/crash-reporter/libcrash.crossystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4379/work/crash-reporter-0.0.1/crash-reporter/crossystem.cc
+build obj/crash-reporter/libcrash.crossystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4394/work/crash-reporter-0.0.1/crash-reporter/crossystem.cc
   source_file_part = crossystem.cc
   source_name_part = crossystem
-build obj/crash-reporter/libcrash.paths.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4379/work/crash-reporter-0.0.1/crash-reporter/paths.cc
+build obj/crash-reporter/libcrash.paths.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4394/work/crash-reporter-0.0.1/crash-reporter/paths.cc
   source_file_part = paths.cc
   source_name_part = paths
-build obj/crash-reporter/libcrash.util.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4379/work/crash-reporter-0.0.1/crash-reporter/util.cc
+build obj/crash-reporter/libcrash.util.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4394/work/crash-reporter-0.0.1/crash-reporter/util.cc
   source_file_part = util.cc
   source_name_part = util
-build obj/crash-reporter/libcrash.vm_support.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4379/work/crash-reporter-0.0.1/crash-reporter/vm_support.cc
+build obj/crash-reporter/libcrash.vm_support.o: cxx ../../../../../../../tmp/portage/chromeos-base/crash-reporter-0.0.1-r4394/work/crash-reporter-0.0.1/crash-reporter/vm_support.cc
   source_file_part = vm_support.cc
   source_name_part = vm_support
 

@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import '//resources/cr_elements/cr_shared_vars.css.js';
-import { PaperRippleBehavior } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './cr_chip.html.js';
-const CrChipElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrChipElementBase = PaperRippleMixin(PolymerElement);
 export class CrChip extends CrChipElementBase {
     static get is() {
         return 'cr-chip';
@@ -29,7 +29,7 @@ export class CrChip extends CrChipElementBase {
     onPointerDown_() {
         this.ensureRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('button');

@@ -1,0 +1,7 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/auction_network_events_handler.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/auction_shared_storage_host.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/auction_worklet_service.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/bidder_worklet.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/private_aggregation_request.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/reject_reason.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/services/auction_worklet/public/mojom/seller_worklet.mojom-module

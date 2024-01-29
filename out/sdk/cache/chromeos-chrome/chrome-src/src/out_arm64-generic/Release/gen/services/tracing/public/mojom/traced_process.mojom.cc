@@ -256,6 +256,8 @@ bool TracedProcess_ConnectToTracingService_ForwardToCallback::Accept(
           internal::TracedProcess_ConnectToTracingService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracedProcess.0
   bool success = true;
   TracedProcess_ConnectToTracingService_ResponseParamsDataView input_data_view(params, message);
   
@@ -334,6 +336,8 @@ bool TracedProcessStubDispatch::AcceptWithResponder(
               internal::TracedProcess_ConnectToTracingService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracedProcess.0
       bool success = true;
       ConnectToTracingRequestPtr p_request{};
       TracedProcess_ConnectToTracingService_ParamsDataView input_data_view(params, message);
@@ -352,8 +356,8 @@ bool TracedProcessStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToTracingService(
-std::move(p_request), std::move(callback));
+      impl->ConnectToTracingService(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }

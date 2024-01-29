@@ -111,42 +111,25 @@ bool VideoFrameCopyToOptions::FillV8ObjectWithMembers(ScriptState* script_state,
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (RuntimeEnabledFeatures::WebCodecsCopyToRGBEnabled()) {
   if (hasColorSpace()) {
-  if (!ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 if (RuntimeEnabledFeatures::WebCodecsCopyToRGBEnabled()) {
   if (hasFormat()) {
-  if (!ToV8Traits<V8VideoPixelFormat>::ToV8(script_state, member_format_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8VideoPixelFormat>::ToV8(script_state, member_format_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasLayout()) {
-  if (!ToV8Traits<IDLSequence<PlaneLayout>>::ToV8(script_state, member_layout_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<PlaneLayout>>::ToV8(script_state, member_layout_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasRect()) {
-  if (!ToV8Traits<DOMRectInit>::ToV8(script_state, member_rect_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<DOMRectInit>::ToV8(script_state, member_rect_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

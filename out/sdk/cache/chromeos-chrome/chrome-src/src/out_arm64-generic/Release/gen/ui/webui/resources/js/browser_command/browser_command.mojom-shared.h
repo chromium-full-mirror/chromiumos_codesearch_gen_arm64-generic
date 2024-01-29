@@ -79,8 +79,10 @@ enum class Command : int32_t {
   kOpenNTPAndStartCustomizeChromeTutorial = 9,
   
   kStartPasswordManagerTutorial = 10,
+  
+  kStartSavedTabGroupTutorial = 11,
   kMinValue = 0,
-  kMaxValue = 10,
+  kMaxValue = 11,
 };
 
  std::ostream& operator<<(std::ostream& os, Command value);

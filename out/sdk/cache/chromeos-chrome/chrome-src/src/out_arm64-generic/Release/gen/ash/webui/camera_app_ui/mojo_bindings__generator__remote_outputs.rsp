@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/camera_app_ui/camera_app_helper.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/camera_app_ui/camera_app_helper.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/camera_app_ui/camera_app_helper.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/camera_app_ui/camera_app_helper.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/camera_app_ui/camera_app_helper.mojom.h

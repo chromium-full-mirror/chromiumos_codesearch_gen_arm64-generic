@@ -9,17 +9,7 @@
 #include "settings_shared_resources.h"
 
 const webui::ResourcePath kSettingsSharedResources[] = {
-  {"shared/settings/controls/controlled_button.js", IDR_SETTINGS_SHARED_CONTROLS_CONTROLLED_BUTTON_JS},
-  {"shared/settings/controls/controlled_radio_button.js", IDR_SETTINGS_SHARED_CONTROLS_CONTROLLED_RADIO_BUTTON_JS},
   {"shared/settings/controls/extension_controlled_indicator.js", IDR_SETTINGS_SHARED_CONTROLS_EXTENSION_CONTROLLED_INDICATOR_JS},
-  {"shared/settings/controls/settings_dropdown_menu.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_DROPDOWN_MENU_JS},
-  {"shared/settings/controls/settings_radio_group.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_RADIO_GROUP_JS},
-  {"shared/settings/controls/settings_slider.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_SLIDER_JS},
-  {"shared/settings/controls/settings_toggle_button.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_TOGGLE_BUTTON_JS},
-  {"shared/settings/privacy_page/secure_dns.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_SECURE_DNS_JS},
-  {"shared/settings/privacy_page/secure_dns_input.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_SECURE_DNS_INPUT_JS},
-  {"shared/settings/privacy_page/secure_dns_dialog.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_SECURE_DNS_DIALOG_JS},
-  {"shared/settings/controls/password_prompt_dialog.js", IDR_SETTINGS_SHARED_CONTROLS_PASSWORD_PROMPT_DIALOG_JS},
   {"shared/settings/extension_control_browser_proxy.js", IDR_SETTINGS_SHARED_EXTENSION_CONTROL_BROWSER_PROXY_JS},
   {"shared/settings/lifetime_browser_proxy.js", IDR_SETTINGS_SHARED_LIFETIME_BROWSER_PROXY_JS},
   {"shared/settings/a11y_page/captions_browser_proxy.js", IDR_SETTINGS_SHARED_A11Y_PAGE_CAPTIONS_BROWSER_PROXY_JS},
@@ -30,17 +20,7 @@ const webui::ResourcePath kSettingsSharedResources[] = {
   {"shared/settings/people_page/profile_info_browser_proxy.js", IDR_SETTINGS_SHARED_PEOPLE_PAGE_PROFILE_INFO_BROWSER_PROXY_JS},
   {"shared/settings/people_page/sync_browser_proxy.js", IDR_SETTINGS_SHARED_PEOPLE_PAGE_SYNC_BROWSER_PROXY_JS},
   {"shared/settings/privacy_page/privacy_page_browser_proxy.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_PRIVACY_PAGE_BROWSER_PROXY_JS},
-  {"shared/settings/controls/controlled_button.html.js", IDR_SETTINGS_SHARED_CONTROLS_CONTROLLED_BUTTON_HTML_JS},
-  {"shared/settings/controls/controlled_radio_button.html.js", IDR_SETTINGS_SHARED_CONTROLS_CONTROLLED_RADIO_BUTTON_HTML_JS},
   {"shared/settings/controls/extension_controlled_indicator.html.js", IDR_SETTINGS_SHARED_CONTROLS_EXTENSION_CONTROLLED_INDICATOR_HTML_JS},
-  {"shared/settings/controls/settings_dropdown_menu.html.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_DROPDOWN_MENU_HTML_JS},
-  {"shared/settings/controls/settings_radio_group.html.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_RADIO_GROUP_HTML_JS},
-  {"shared/settings/controls/settings_slider.html.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_SLIDER_HTML_JS},
-  {"shared/settings/controls/settings_toggle_button.html.js", IDR_SETTINGS_SHARED_CONTROLS_SETTINGS_TOGGLE_BUTTON_HTML_JS},
-  {"shared/settings/privacy_page/secure_dns.html.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_SECURE_DNS_HTML_JS},
-  {"shared/settings/privacy_page/secure_dns_input.html.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_SECURE_DNS_INPUT_HTML_JS},
-  {"shared/settings/privacy_page/secure_dns_dialog.html.js", IDR_SETTINGS_SHARED_PRIVACY_PAGE_SECURE_DNS_DIALOG_HTML_JS},
-  {"shared/settings/controls/password_prompt_dialog.html.js", IDR_SETTINGS_SHARED_CONTROLS_PASSWORD_PROMPT_DIALOG_HTML_JS},
 };
 
 const size_t kSettingsSharedResourcesSize = std::size(kSettingsSharedResources);

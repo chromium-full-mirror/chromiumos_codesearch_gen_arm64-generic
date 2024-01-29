@@ -45,6 +45,7 @@
 #include "services/network/public/mojom/ip_address_space.mojom-forward.h"
 #include "services/network/public/mojom/network_interface.mojom.h"
 #include "services/network/public/mojom/proxy_config.mojom-forward.h"
+#include "services/network/public/mojom/network_annotation_monitor.mojom-forward.h"
 #include "services/network/public/mojom/network_interface_change_listener.mojom-forward.h"
 #include "services/network/public/mojom/network_param.mojom.h"
 #include "services/network/public/mojom/network_quality_estimator_manager.mojom-forward.h"
@@ -56,7 +57,6 @@
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-forward.h"
 #include "services/network/public/mojom/url_response_head.mojom-forward.h"
 #include "services/network/public/mojom/client_security_state.mojom-forward.h"
-#include "services/network/public/mojom/cookie_encryption_provider.mojom-forward.h"
 #include "url/mojom/origin.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include "services/network/public/mojom/ct_log_info.mojom-forward.h"
@@ -114,7 +114,7 @@ class NetworkService
     kSetUpHttpAuthMinVersion = 0,
     kConfigureHttpAuthPrefsMinVersion = 0,
     kSetRawHeadersAccessMinVersion = 0,
-    kSetMaxConnectionsPerProxyMinVersion = 0,
+    kSetMaxConnectionsPerProxyChainMinVersion = 0,
     kGetNetworkChangeManagerMinVersion = 0,
     kGetNetworkQualityEstimatorManagerMinVersion = 0,
     kGetDnsConfigChangeManagerMinVersion = 0,
@@ -138,7 +138,7 @@ class NetworkService
     kParseHeadersMinVersion = 0,
     kEnableDataUseUpdatesMinVersion = 0,
     kSetIPv6ReachabilityOverrideMinVersion = 0,
-    kSetCookieEncryptionProviderMinVersion = 0,
+    kSetNetworkAnnotationMonitorMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -174,7 +174,7 @@ class NetworkService
   struct SetRawHeadersAccess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetMaxConnectionsPerProxy_Sym {
+  struct SetMaxConnectionsPerProxyChain_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetNetworkChangeManager_Sym {
@@ -246,7 +246,7 @@ class NetworkService
   struct SetIPv6ReachabilityOverride_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetCookieEncryptionProvider_Sym {
+  struct SetNetworkAnnotationMonitor_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -283,7 +283,7 @@ class NetworkService
   virtual void SetRawHeadersAccess(int32_t process_id, const std::vector<::url::Origin>& origins) = 0;
 
   
-  virtual void SetMaxConnectionsPerProxy(int32_t max_connections) = 0;
+  virtual void SetMaxConnectionsPerProxyChain(int32_t max_connections) = 0;
 
   
   virtual void GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::NetworkChangeManager> network_change_manager) = 0;
@@ -367,7 +367,7 @@ class NetworkService
   virtual void SetIPv6ReachabilityOverride(bool reachability_override) = 0;
 
   
-  virtual void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> provider) = 0;
+  virtual void SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor> remote) = 0;
 };
 
 
@@ -399,7 +399,7 @@ class  NetworkServiceProxy
   
   void SetRawHeadersAccess(int32_t process_id, const std::vector<::url::Origin>& origins) final;
   
-  void SetMaxConnectionsPerProxy(int32_t max_connections) final;
+  void SetMaxConnectionsPerProxyChain(int32_t max_connections) final;
   
   void GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::NetworkChangeManager> network_change_manager) final;
   
@@ -447,7 +447,7 @@ class  NetworkServiceProxy
   
   void SetIPv6ReachabilityOverride(bool reachability_override) final;
   
-  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> provider) final;
+  void SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor> remote) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

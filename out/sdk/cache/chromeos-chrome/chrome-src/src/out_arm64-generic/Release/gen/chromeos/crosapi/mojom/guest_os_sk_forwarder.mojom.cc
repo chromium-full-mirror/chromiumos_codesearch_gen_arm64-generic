@@ -162,6 +162,8 @@ bool GuestOsSkForwarderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::GuestOsSkForwarderFactory_BindGuestOsSkForwarder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GuestOsSkForwarderFactory.0
       bool success = true;
       ::mojo::PendingRemote<GuestOsSkForwarder> p_remote{};
       GuestOsSkForwarderFactory_BindGuestOsSkForwarder_ParamsDataView input_data_view(params, message);
@@ -179,8 +181,8 @@ bool GuestOsSkForwarderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGuestOsSkForwarder(
-std::move(p_remote));
+      impl->BindGuestOsSkForwarder(        
+        std::move(p_remote));
       return true;
     }
   }
@@ -399,6 +401,8 @@ bool GuestOsSkForwarder_ForwardRequest_ForwardToCallback::Accept(
           internal::GuestOsSkForwarder_ForwardRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GuestOsSkForwarder.0
   bool success = true;
   std::string p_response{};
   GuestOsSkForwarder_ForwardRequest_ResponseParamsDataView input_data_view(params, message);
@@ -499,6 +503,8 @@ bool GuestOsSkForwarderStubDispatch::AcceptWithResponder(
               internal::GuestOsSkForwarder_ForwardRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GuestOsSkForwarder.0
       bool success = true;
       std::string p_message{};
       GuestOsSkForwarder_ForwardRequest_ParamsDataView input_data_view(params, message);
@@ -517,8 +523,8 @@ bool GuestOsSkForwarderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForwardRequest(
-std::move(p_message), std::move(callback));
+      impl->ForwardRequest(        
+        std::move(p_message), std::move(callback));
       return true;
     }
   }

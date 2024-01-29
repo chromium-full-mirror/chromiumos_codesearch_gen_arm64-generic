@@ -419,6 +419,8 @@ bool TcpSocketFactory_CreateTCPServerSocket_ForwardToCallback::Accept(
           internal::TcpSocketFactory_CreateTCPServerSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TcpSocketFactory.0
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr_out{};
@@ -552,6 +554,8 @@ bool TcpSocketFactory_CreateTCPConnectedSocket_ForwardToCallback::Accept(
           internal::TcpSocketFactory_CreateTCPConnectedSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TcpSocketFactory.1
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr{};
@@ -691,6 +695,8 @@ bool TcpSocketFactoryStubDispatch::AcceptWithResponder(
               internal::TcpSocketFactory_CreateTCPServerSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TcpSocketFactory.0
       bool success = true;
       ::net::IPAddress p_local_addr{};
       ::ash::nearby::TcpServerSocketPort p_port{};
@@ -723,12 +729,12 @@ bool TcpSocketFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTCPServerSocket(
-std::move(p_local_addr), 
-std::move(p_port), 
-std::move(p_backlog), 
-std::move(p_traffic_annotation), 
-std::move(p_socket), std::move(callback));
+      impl->CreateTCPServerSocket(        
+        std::move(p_local_addr), 
+        std::move(p_port), 
+        std::move(p_backlog), 
+        std::move(p_traffic_annotation), 
+        std::move(p_socket), std::move(callback));
       return true;
     }
     case internal::kTcpSocketFactory_CreateTCPConnectedSocket_Name: {
@@ -738,6 +744,8 @@ std::move(p_socket), std::move(callback));
               internal::TcpSocketFactory_CreateTCPConnectedSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TcpSocketFactory.1
       bool success = true;
       ::base::TimeDelta p_timeout{};
       std::optional<::net::IPEndPoint> p_local_addr{};
@@ -778,14 +786,14 @@ std::move(p_socket), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTCPConnectedSocket(
-std::move(p_timeout), 
-std::move(p_local_addr), 
-std::move(p_remote_addr_list), 
-std::move(p_tcp_connected_socket_options), 
-std::move(p_traffic_annotation), 
-std::move(p_socket), 
-std::move(p_observer), std::move(callback));
+      impl->CreateTCPConnectedSocket(        
+        std::move(p_timeout), 
+        std::move(p_local_addr), 
+        std::move(p_remote_addr_list), 
+        std::move(p_tcp_connected_socket_options), 
+        std::move(p_traffic_annotation), 
+        std::move(p_socket), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }

@@ -523,6 +523,8 @@ bool DeviceSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::DeviceSettingsObserver_UpdateDeviceSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsObserver.0
       bool success = true;
       DeviceSettingsPtr p_device_settings{};
       DeviceSettingsObserver_UpdateDeviceSettings_ParamsDataView input_data_view(params, message);
@@ -538,8 +540,8 @@ bool DeviceSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDeviceSettings(
-std::move(p_device_settings));
+      impl->UpdateDeviceSettings(        
+        std::move(p_device_settings));
       return true;
     }
   }
@@ -1016,6 +1018,8 @@ bool DeviceSettingsService_GetDevicePolicy_ForwardToCallback::Accept(
           internal::DeviceSettingsService_GetDevicePolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSettingsService.2
   bool success = true;
   ::base::Value::Dict p_device_policy{};
   ::base::Value::Dict p_legend_data{};
@@ -1163,6 +1167,8 @@ bool DeviceSettingsService_GetDevicePolicyDeprecated_ForwardToCallback::Accept(
           internal::DeviceSettingsService_GetDevicePolicyDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSettingsService.1
   bool success = true;
   ::base::Value p_device_policy{};
   ::base::Value p_legend_data{};
@@ -1306,6 +1312,8 @@ bool DeviceSettingsService_GetDeviceReportSources_ForwardToCallback::Accept(
           internal::DeviceSettingsService_GetDeviceReportSources_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSettingsService.3
   bool success = true;
   ::base::Value::List p_report_sources{};
   bool p_plugin_vm_data_collection_enabled{};
@@ -1443,6 +1451,8 @@ bool DeviceSettingsService_IsDeviceDeprovisioned_ForwardToCallback::Accept(
           internal::DeviceSettingsService_IsDeviceDeprovisioned_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSettingsService.4
   bool success = true;
   bool p_is_deprovisioned{};
   DeviceSettingsService_IsDeviceDeprovisioned_ResponseParamsDataView input_data_view(params, message);
@@ -1517,6 +1527,8 @@ bool DeviceSettingsServiceStubDispatch::Accept(
           reinterpret_cast<internal::DeviceSettingsService_AddDeviceSettingsObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsService.0
       bool success = true;
       ::mojo::PendingRemote<DeviceSettingsObserver> p_observer{};
       DeviceSettingsService_AddDeviceSettingsObserver_ParamsDataView input_data_view(params, message);
@@ -1534,8 +1546,8 @@ bool DeviceSettingsServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDeviceSettingsObserver(
-std::move(p_observer));
+      impl->AddDeviceSettingsObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDeviceSettingsService_GetDevicePolicy_Name: {
@@ -1573,6 +1585,8 @@ bool DeviceSettingsServiceStubDispatch::AcceptWithResponder(
               internal::DeviceSettingsService_GetDevicePolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsService.2
       bool success = true;
       DeviceSettingsService_GetDevicePolicy_ParamsDataView input_data_view(params, message);
       
@@ -1598,6 +1612,8 @@ bool DeviceSettingsServiceStubDispatch::AcceptWithResponder(
               internal::DeviceSettingsService_GetDevicePolicyDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsService.1
       bool success = true;
       DeviceSettingsService_GetDevicePolicyDeprecated_ParamsDataView input_data_view(params, message);
       
@@ -1623,6 +1639,8 @@ bool DeviceSettingsServiceStubDispatch::AcceptWithResponder(
               internal::DeviceSettingsService_GetDeviceReportSources_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsService.3
       bool success = true;
       DeviceSettingsService_GetDeviceReportSources_ParamsDataView input_data_view(params, message);
       
@@ -1648,6 +1666,8 @@ bool DeviceSettingsServiceStubDispatch::AcceptWithResponder(
               internal::DeviceSettingsService_IsDeviceDeprovisioned_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsService.4
       bool success = true;
       DeviceSettingsService_IsDeviceDeprovisioned_ParamsDataView input_data_view(params, message);
       

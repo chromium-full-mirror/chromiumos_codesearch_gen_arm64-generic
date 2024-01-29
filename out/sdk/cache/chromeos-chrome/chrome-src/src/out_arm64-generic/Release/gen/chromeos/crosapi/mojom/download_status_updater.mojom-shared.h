@@ -27,6 +27,7 @@
 #include "mojo/public/mojom/base/string16.mojom-shared.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-shared.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared.h"
+#include "ui/gfx/image/mojom/image.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -36,6 +37,8 @@
 
 
 namespace crosapi::mojom {
+class DownloadProgressDataView;
+
 class DownloadStatusDataView;
 
 
@@ -44,6 +47,13 @@ class DownloadStatusDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::DownloadProgressDataView> {
+  using Data = ::crosapi::mojom::internal::DownloadProgress_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::crosapi::mojom::DownloadStatusDataView> {
@@ -80,6 +90,33 @@ using DownloadStatusUpdaterAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<DownloadStatusUpdaterInterfaceBase>;
 
 
+class DownloadProgressDataView {
+ public:
+  DownloadProgressDataView() = default;
+
+  DownloadProgressDataView(
+      internal::DownloadProgress_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool loop() const {
+    return data_->loop;
+  }
+  int64_t received_bytes() const {
+    return data_->received_bytes;
+  }
+  int64_t total_bytes() const {
+    return data_->total_bytes;
+  }
+  bool visible() const {
+    return data_->visible;
+  }
+ private:
+  internal::DownloadProgress_Data* data_ = nullptr;
+};
+
+
 class DownloadStatusDataView {
  public:
   DownloadStatusDataView() = default;
@@ -110,22 +147,22 @@ class DownloadStatusDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::crosapi::mojom::DownloadState>(data_->state));
   }
-  std::optional<int64_t> received_bytes() const {
+  std::optional<int64_t> received_bytes_deprecated() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
 
-    return data_->received_bytes_$flag
-        ? absl::make_optional(data_->received_bytes_$value)
+    return data_->received_bytes_deprecated_$flag
+        ? absl::make_optional(data_->received_bytes_deprecated_$value)
         : absl::nullopt;
   }
-  std::optional<int64_t> total_bytes() const {
+  std::optional<int64_t> total_bytes_deprecated() const {
     if (data_->header_.version < 1) {
       return absl::nullopt;
     }
 
-    return data_->total_bytes_$flag
-        ? absl::make_optional(data_->total_bytes_$value)
+    return data_->total_bytes_deprecated_$flag
+        ? absl::make_optional(data_->total_bytes_deprecated_$value)
         : absl::nullopt;
   }
   inline void GetTargetFilePathDataView(
@@ -218,6 +255,48 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
+  inline void GetImageDataView(
+      ::gfx::mojom::ImageSkiaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadImage(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::gfx::mojom::ImageSkiaDataView, UserType>(),
+    "Attempting to read the optional `image` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadImage` instead "
+    "of `ReadImage if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 4
+                    ? data_->image.Get() : nullptr;
+    return mojo::internal::Deserialize<::gfx::mojom::ImageSkiaDataView>(
+        pointer, output, message_);
+  }
+  inline void GetProgressDataView(
+      DownloadProgressDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProgress(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::crosapi::mojom::DownloadProgressDataView, UserType>(),
+    "Attempting to read the optional `progress` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadProgress` instead "
+    "of `ReadProgress if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 5
+                    ? data_->progress.Get() : nullptr;
+    return mojo::internal::Deserialize<::crosapi::mojom::DownloadProgressDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::DownloadStatus_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -231,6 +310,39 @@ namespace std {
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::DownloadProgressDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::DownloadProgressDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::DownloadProgress_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->loop = Traits::loop(input);
+    fragment->received_bytes = Traits::received_bytes(input);
+    fragment->total_bytes = Traits::total_bytes(input);
+    fragment->visible = Traits::visible(input);
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::DownloadProgress_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::DownloadProgressDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -260,13 +372,13 @@ struct Serializer<::crosapi::mojom::DownloadStatusDataView, MaybeConstUserType> 
         "null guid in DownloadStatus struct");
     mojo::internal::Serialize<::crosapi::mojom::DownloadState>(
         Traits::state(input), &fragment->state);
-    fragment->received_bytes_$flag = Traits::received_bytes(input).has_value();
-    if (Traits::received_bytes(input).has_value()) {
-      fragment->received_bytes_$value = Traits::received_bytes(input).value();
+    fragment->received_bytes_deprecated_$flag = Traits::received_bytes_deprecated(input).has_value();
+    if (Traits::received_bytes_deprecated(input).has_value()) {
+      fragment->received_bytes_deprecated_$value = Traits::received_bytes_deprecated(input).value();
     }
-    fragment->total_bytes_$flag = Traits::total_bytes(input).has_value();
-    if (Traits::total_bytes(input).has_value()) {
-      fragment->total_bytes_$value = Traits::total_bytes(input).value();
+    fragment->total_bytes_deprecated_$flag = Traits::total_bytes_deprecated(input).has_value();
+    if (Traits::total_bytes_deprecated(input).has_value()) {
+      fragment->total_bytes_deprecated_$value = Traits::total_bytes_deprecated(input).value();
     }
     decltype(Traits::target_file_path(input)) in_target_file_path = Traits::target_file_path(input);
     mojo::internal::MessageFragment<
@@ -304,6 +416,22 @@ struct Serializer<::crosapi::mojom::DownloadStatusDataView, MaybeConstUserType> 
         in_status_text, status_text_fragment);
     fragment->status_text.Set(
         status_text_fragment.is_null() ? nullptr : status_text_fragment.data());
+    decltype(Traits::image(input)) in_image = Traits::image(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->image)::BaseType> image_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::ImageSkiaDataView>(
+        in_image, image_fragment);
+    fragment->image.Set(
+        image_fragment.is_null() ? nullptr : image_fragment.data());
+    decltype(Traits::progress(input)) in_progress = Traits::progress(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->progress)::BaseType> progress_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::crosapi::mojom::DownloadProgressDataView>(
+        in_progress, progress_fragment);
+    fragment->progress.Set(
+        progress_fragment.is_null() ? nullptr : progress_fragment.data());
   }
 
   static bool Deserialize(::crosapi::mojom::internal::DownloadStatus_Data* input,
@@ -323,6 +451,8 @@ struct Serializer<::crosapi::mojom::DownloadStatusDataView, MaybeConstUserType> 
 
 
 namespace crosapi::mojom {
+
+
 
 inline void DownloadStatusDataView::GetGuidDataView(
     mojo::StringDataView* output) {
@@ -346,6 +476,18 @@ inline void DownloadStatusDataView::GetStatusTextDataView(
   auto pointer = data_->header_.version >= 3
                  ? data_->status_text.Get() : nullptr;
   *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
+inline void DownloadStatusDataView::GetImageDataView(
+    ::gfx::mojom::ImageSkiaDataView* output) {
+  auto pointer = data_->header_.version >= 4
+                 ? data_->image.Get() : nullptr;
+  *output = ::gfx::mojom::ImageSkiaDataView(pointer, message_);
+}
+inline void DownloadStatusDataView::GetProgressDataView(
+    DownloadProgressDataView* output) {
+  auto pointer = data_->header_.version >= 5
+                 ? data_->progress.Get() : nullptr;
+  *output = DownloadProgressDataView(pointer, message_);
 }
 
 

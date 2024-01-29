@@ -725,6 +725,25 @@ has_torch_ = true;
 DCHECK(member_torch_);
 }
 
+bool hasVoiceIsolation() const {
+  return has_voice_isolation_;
+}
+V8UnionBooleanOrConstrainBooleanParameters* voiceIsolation() const {
+  DCHECK(hasVoiceIsolation());
+return member_voice_isolation_.Get();
+}
+V8UnionBooleanOrConstrainBooleanParameters* getVoiceIsolationOr(V8UnionBooleanOrConstrainBooleanParameters* fallback_value) const {
+  if (!hasVoiceIsolation()) {
+  return fallback_value;
+}
+return member_voice_isolation_.Get();
+}
+void setVoiceIsolation(V8UnionBooleanOrConstrainBooleanParameters* value) {
+  member_voice_isolation_ = value;
+has_voice_isolation_ = true;
+DCHECK(member_voice_isolation_);
+}
+
 bool hasWhiteBalanceMode() const {
   return has_white_balance_mode_;
 }
@@ -832,6 +851,7 @@ bool has_sharpness_ = false;
 bool has_suppress_local_audio_playback_ = false;
 bool has_tilt_ = false;
 bool has_torch_ = false;
+bool has_voice_isolation_ = false;
 bool has_white_balance_mode_ = false;
 bool has_width_ = false;
 bool has_zoom_ = false;
@@ -872,6 +892,7 @@ Member<V8UnionConstrainDoubleRangeOrDouble> member_sharpness_;
 Member<V8UnionBooleanOrConstrainBooleanParameters> member_suppress_local_audio_playback_;
 Member<V8UnionBooleanOrConstrainDoubleRangeOrDouble> member_tilt_;
 Member<V8UnionBooleanOrConstrainBooleanParameters> member_torch_;
+Member<V8UnionBooleanOrConstrainBooleanParameters> member_voice_isolation_;
 Member<V8UnionConstrainDOMStringParametersOrStringOrStringSequence> member_white_balance_mode_;
 Member<V8UnionConstrainLongRangeOrLong> member_width_;
 Member<V8UnionBooleanOrConstrainDoubleRangeOrDouble> member_zoom_;

@@ -458,6 +458,8 @@ bool CookieStore_AddSubscriptions_ForwardToCallback::Accept(
           internal::CookieStore_AddSubscriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieStore.0
   bool success = true;
   bool p_success{};
   CookieStore_AddSubscriptions_ResponseParamsDataView input_data_view(params, message);
@@ -577,6 +579,8 @@ bool CookieStore_RemoveSubscriptions_ForwardToCallback::Accept(
           internal::CookieStore_RemoveSubscriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieStore.1
   bool success = true;
   bool p_success{};
   CookieStore_RemoveSubscriptions_ResponseParamsDataView input_data_view(params, message);
@@ -696,6 +700,8 @@ bool CookieStore_GetSubscriptions_ForwardToCallback::Accept(
           internal::CookieStore_GetSubscriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieStore.2
   bool success = true;
   std::vector<CookieChangeSubscriptionPtr> p_subscriptions{};
   bool p_success{};
@@ -812,6 +818,8 @@ bool CookieStoreStubDispatch::AcceptWithResponder(
               internal::CookieStore_AddSubscriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieStore.0
       bool success = true;
       int64_t p_service_worker_registration_id{};
       std::vector<CookieChangeSubscriptionPtr> p_subscription{};
@@ -833,9 +841,9 @@ bool CookieStoreStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSubscriptions(
-std::move(p_service_worker_registration_id), 
-std::move(p_subscription), std::move(callback));
+      impl->AddSubscriptions(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_subscription), std::move(callback));
       return true;
     }
     case internal::kCookieStore_RemoveSubscriptions_Name: {
@@ -845,6 +853,8 @@ std::move(p_subscription), std::move(callback));
               internal::CookieStore_RemoveSubscriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieStore.1
       bool success = true;
       int64_t p_service_worker_registration_id{};
       std::vector<CookieChangeSubscriptionPtr> p_subscription{};
@@ -866,9 +876,9 @@ std::move(p_subscription), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveSubscriptions(
-std::move(p_service_worker_registration_id), 
-std::move(p_subscription), std::move(callback));
+      impl->RemoveSubscriptions(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_subscription), std::move(callback));
       return true;
     }
     case internal::kCookieStore_GetSubscriptions_Name: {
@@ -878,6 +888,8 @@ std::move(p_subscription), std::move(callback));
               internal::CookieStore_GetSubscriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieStore.2
       bool success = true;
       int64_t p_service_worker_registration_id{};
       CookieStore_GetSubscriptions_ParamsDataView input_data_view(params, message);
@@ -896,8 +908,8 @@ std::move(p_subscription), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSubscriptions(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->GetSubscriptions(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
   }

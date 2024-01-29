@@ -298,6 +298,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -320,9 +322,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -1101,6 +1103,8 @@ bool PageHandler_GetReadLaterEntries_ForwardToCallback::Accept(
           internal::PageHandler_GetReadLaterEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   ReadLaterEntriesByStatusPtr p_entries{};
   PageHandler_GetReadLaterEntries_ResponseParamsDataView input_data_view(params, message);
@@ -1188,6 +1192,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_OpenURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       ::GURL p_url{};
       bool p_mark_as_read{};
@@ -1209,10 +1215,10 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenURL(
-std::move(p_url), 
-std::move(p_mark_as_read), 
-std::move(p_click_modifiers));
+      impl->OpenURL(        
+        std::move(p_url), 
+        std::move(p_mark_as_read), 
+        std::move(p_click_modifiers));
       return true;
     }
     case internal::kPageHandler_UpdateReadStatus_Name: {
@@ -1222,6 +1228,8 @@ std::move(p_click_modifiers));
           reinterpret_cast<internal::PageHandler_UpdateReadStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ::GURL p_url{};
       bool p_read{};
@@ -1240,9 +1248,9 @@ std::move(p_click_modifiers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateReadStatus(
-std::move(p_url), 
-std::move(p_read));
+      impl->UpdateReadStatus(        
+        std::move(p_url), 
+        std::move(p_read));
       return true;
     }
     case internal::kPageHandler_MarkCurrentTabAsRead_Name: {
@@ -1252,6 +1260,8 @@ std::move(p_read));
           reinterpret_cast<internal::PageHandler_MarkCurrentTabAsRead_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_MarkCurrentTabAsRead_ParamsDataView input_data_view(params, message);
       
@@ -1264,7 +1274,7 @@ std::move(p_read));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MarkCurrentTabAsRead();
+      impl->MarkCurrentTabAsRead(        );
       return true;
     }
     case internal::kPageHandler_AddCurrentTab_Name: {
@@ -1274,6 +1284,8 @@ std::move(p_read));
           reinterpret_cast<internal::PageHandler_AddCurrentTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_AddCurrentTab_ParamsDataView input_data_view(params, message);
       
@@ -1286,7 +1298,7 @@ std::move(p_read));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCurrentTab();
+      impl->AddCurrentTab(        );
       return true;
     }
     case internal::kPageHandler_RemoveEntry_Name: {
@@ -1296,6 +1308,8 @@ std::move(p_read));
           reinterpret_cast<internal::PageHandler_RemoveEntry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       ::GURL p_url{};
       PageHandler_RemoveEntry_ParamsDataView input_data_view(params, message);
@@ -1311,8 +1325,8 @@ std::move(p_read));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveEntry(
-std::move(p_url));
+      impl->RemoveEntry(        
+        std::move(p_url));
       return true;
     }
     case internal::kPageHandler_ShowContextMenuForURL_Name: {
@@ -1322,6 +1336,8 @@ std::move(p_url));
           reinterpret_cast<internal::PageHandler_ShowContextMenuForURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       ::GURL p_url{};
       int32_t p_x{};
@@ -1343,10 +1359,10 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenuForURL(
-std::move(p_url), 
-std::move(p_x), 
-std::move(p_y));
+      impl->ShowContextMenuForURL(        
+        std::move(p_url), 
+        std::move(p_x), 
+        std::move(p_y));
       return true;
     }
     case internal::kPageHandler_UpdateCurrentPageActionButtonState_Name: {
@@ -1356,6 +1372,8 @@ std::move(p_y));
           reinterpret_cast<internal::PageHandler_UpdateCurrentPageActionButtonState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_UpdateCurrentPageActionButtonState_ParamsDataView input_data_view(params, message);
       
@@ -1368,7 +1386,7 @@ std::move(p_y));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCurrentPageActionButtonState();
+      impl->UpdateCurrentPageActionButtonState(        );
       return true;
     }
     case internal::kPageHandler_ShowUI_Name: {
@@ -1378,6 +1396,8 @@ std::move(p_y));
           reinterpret_cast<internal::PageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       PageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -1390,7 +1410,7 @@ std::move(p_y));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
     case internal::kPageHandler_CloseUI_Name: {
@@ -1400,6 +1420,8 @@ std::move(p_y));
           reinterpret_cast<internal::PageHandler_CloseUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       PageHandler_CloseUI_ParamsDataView input_data_view(params, message);
       
@@ -1412,7 +1434,7 @@ std::move(p_y));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseUI();
+      impl->CloseUI(        );
       return true;
     }
   }
@@ -1435,6 +1457,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetReadLaterEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetReadLaterEntries_ParamsDataView input_data_view(params, message);
       
@@ -1701,6 +1725,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_ItemsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       ReadLaterEntriesByStatusPtr p_entries{};
       Page_ItemsChanged_ParamsDataView input_data_view(params, message);
@@ -1716,8 +1742,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ItemsChanged(
-std::move(p_entries));
+      impl->ItemsChanged(        
+        std::move(p_entries));
       return true;
     }
     case internal::kPage_CurrentPageActionButtonStateChanged_Name: {
@@ -1727,6 +1753,8 @@ std::move(p_entries));
           reinterpret_cast<internal::Page_CurrentPageActionButtonStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       CurrentPageActionButtonState p_state{};
       Page_CurrentPageActionButtonStateChanged_ParamsDataView input_data_view(params, message);
@@ -1742,8 +1770,8 @@ std::move(p_entries));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CurrentPageActionButtonStateChanged(
-std::move(p_state));
+      impl->CurrentPageActionButtonStateChanged(        
+        std::move(p_state));
       return true;
     }
   }

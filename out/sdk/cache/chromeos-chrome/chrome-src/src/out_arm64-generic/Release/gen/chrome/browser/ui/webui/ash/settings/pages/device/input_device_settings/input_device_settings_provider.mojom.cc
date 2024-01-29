@@ -322,6 +322,8 @@ bool KeyboardSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardSettingsObserver_OnKeyboardListUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardSettingsObserver.0
       bool success = true;
       std::vector<::ash::mojom::KeyboardPtr> p_keyboards{};
       KeyboardSettingsObserver_OnKeyboardListUpdated_ParamsDataView input_data_view(params, message);
@@ -337,8 +339,8 @@ bool KeyboardSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardListUpdated(
-std::move(p_keyboards));
+      impl->OnKeyboardListUpdated(        
+        std::move(p_keyboards));
       return true;
     }
     case internal::kKeyboardSettingsObserver_OnKeyboardPoliciesUpdated_Name: {
@@ -348,6 +350,8 @@ std::move(p_keyboards));
           reinterpret_cast<internal::KeyboardSettingsObserver_OnKeyboardPoliciesUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardSettingsObserver.1
       bool success = true;
       ::ash::mojom::KeyboardPoliciesPtr p_policies{};
       KeyboardSettingsObserver_OnKeyboardPoliciesUpdated_ParamsDataView input_data_view(params, message);
@@ -363,8 +367,8 @@ std::move(p_keyboards));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardPoliciesUpdated(
-std::move(p_policies));
+      impl->OnKeyboardPoliciesUpdated(        
+        std::move(p_policies));
       return true;
     }
   }
@@ -527,6 +531,8 @@ bool TouchpadSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::TouchpadSettingsObserver_OnTouchpadListUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TouchpadSettingsObserver.0
       bool success = true;
       std::vector<::ash::mojom::TouchpadPtr> p_touchpads{};
       TouchpadSettingsObserver_OnTouchpadListUpdated_ParamsDataView input_data_view(params, message);
@@ -542,8 +548,8 @@ bool TouchpadSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTouchpadListUpdated(
-std::move(p_touchpads));
+      impl->OnTouchpadListUpdated(        
+        std::move(p_touchpads));
       return true;
     }
   }
@@ -701,6 +707,8 @@ bool PointingStickSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::PointingStickSettingsObserver_OnPointingStickListUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PointingStickSettingsObserver.0
       bool success = true;
       std::vector<::ash::mojom::PointingStickPtr> p_pointSticks{};
       PointingStickSettingsObserver_OnPointingStickListUpdated_ParamsDataView input_data_view(params, message);
@@ -716,8 +724,8 @@ bool PointingStickSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPointingStickListUpdated(
-std::move(p_pointSticks));
+      impl->OnPointingStickListUpdated(        
+        std::move(p_pointSticks));
       return true;
     }
   }
@@ -946,6 +954,8 @@ bool MouseSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::MouseSettingsObserver_OnMouseListUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MouseSettingsObserver.0
       bool success = true;
       std::vector<::ash::mojom::MousePtr> p_mice{};
       MouseSettingsObserver_OnMouseListUpdated_ParamsDataView input_data_view(params, message);
@@ -961,8 +971,8 @@ bool MouseSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMouseListUpdated(
-std::move(p_mice));
+      impl->OnMouseListUpdated(        
+        std::move(p_mice));
       return true;
     }
     case internal::kMouseSettingsObserver_OnMousePoliciesUpdated_Name: {
@@ -972,6 +982,8 @@ std::move(p_mice));
           reinterpret_cast<internal::MouseSettingsObserver_OnMousePoliciesUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MouseSettingsObserver.1
       bool success = true;
       ::ash::mojom::MousePoliciesPtr p_policies{};
       MouseSettingsObserver_OnMousePoliciesUpdated_ParamsDataView input_data_view(params, message);
@@ -987,8 +999,8 @@ std::move(p_mice));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMousePoliciesUpdated(
-std::move(p_policies));
+      impl->OnMousePoliciesUpdated(        
+        std::move(p_policies));
       return true;
     }
   }
@@ -1147,6 +1159,8 @@ bool ButtonPressObserverStubDispatch::Accept(
           reinterpret_cast<internal::ButtonPressObserver_OnButtonPressed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ButtonPressObserver.0
       bool success = true;
       ::ash::mojom::ButtonPtr p_button{};
       ButtonPressObserver_OnButtonPressed_ParamsDataView input_data_view(params, message);
@@ -1162,8 +1176,8 @@ bool ButtonPressObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnButtonPressed(
-std::move(p_button));
+      impl->OnButtonPressed(        
+        std::move(p_button));
       return true;
     }
   }
@@ -1321,6 +1335,8 @@ bool GraphicsTabletSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::GraphicsTabletSettingsObserver_OnGraphicsTabletListUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphicsTabletSettingsObserver.0
       bool success = true;
       std::vector<::ash::mojom::GraphicsTabletPtr> p_graphics_tablets{};
       GraphicsTabletSettingsObserver_OnGraphicsTabletListUpdated_ParamsDataView input_data_view(params, message);
@@ -1336,8 +1352,8 @@ bool GraphicsTabletSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGraphicsTabletListUpdated(
-std::move(p_graphics_tablets));
+      impl->OnGraphicsTabletListUpdated(        
+        std::move(p_graphics_tablets));
       return true;
     }
   }
@@ -2623,6 +2639,8 @@ bool InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ForwardTo
           internal::InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDeviceSettingsProvider.14
   bool success = true;
   std::vector<ActionChoicePtr> p_options{};
   InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ResponseParamsDataView input_data_view(params, message);
@@ -2754,6 +2772,8 @@ bool InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_
           internal::InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDeviceSettingsProvider.15
   bool success = true;
   std::vector<ActionChoicePtr> p_options{};
   InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ResponseParamsDataView input_data_view(params, message);
@@ -2885,6 +2905,8 @@ bool InputDeviceSettingsProvider_HasLauncherButton_ForwardToCallback::Accept(
           internal::InputDeviceSettingsProvider_HasLauncherButton_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDeviceSettingsProvider.16
   bool success = true;
   bool p_has_launcher_button{};
   InputDeviceSettingsProvider_HasLauncherButton_ResponseParamsDataView input_data_view(params, message);
@@ -2959,6 +2981,8 @@ bool InputDeviceSettingsProviderStubDispatch::Accept(
           reinterpret_cast<internal::InputDeviceSettingsProvider_ObserveKeyboardSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.0
       bool success = true;
       ::mojo::PendingRemote<KeyboardSettingsObserver> p_observer{};
       InputDeviceSettingsProvider_ObserveKeyboardSettings_ParamsDataView input_data_view(params, message);
@@ -2976,8 +3000,8 @@ bool InputDeviceSettingsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveKeyboardSettings(
-std::move(p_observer));
+      impl->ObserveKeyboardSettings(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_ObserveTouchpadSettings_Name: {
@@ -2987,6 +3011,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDeviceSettingsProvider_ObserveTouchpadSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.1
       bool success = true;
       ::mojo::PendingRemote<TouchpadSettingsObserver> p_observer{};
       InputDeviceSettingsProvider_ObserveTouchpadSettings_ParamsDataView input_data_view(params, message);
@@ -3004,8 +3030,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveTouchpadSettings(
-std::move(p_observer));
+      impl->ObserveTouchpadSettings(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_ObservePointingStickSettings_Name: {
@@ -3015,6 +3041,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDeviceSettingsProvider_ObservePointingStickSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.2
       bool success = true;
       ::mojo::PendingRemote<PointingStickSettingsObserver> p_observer{};
       InputDeviceSettingsProvider_ObservePointingStickSettings_ParamsDataView input_data_view(params, message);
@@ -3032,8 +3060,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObservePointingStickSettings(
-std::move(p_observer));
+      impl->ObservePointingStickSettings(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_ObserveMouseSettings_Name: {
@@ -3043,6 +3071,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDeviceSettingsProvider_ObserveMouseSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.3
       bool success = true;
       ::mojo::PendingRemote<MouseSettingsObserver> p_observer{};
       InputDeviceSettingsProvider_ObserveMouseSettings_ParamsDataView input_data_view(params, message);
@@ -3060,8 +3090,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveMouseSettings(
-std::move(p_observer));
+      impl->ObserveMouseSettings(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_ObserveGraphicsTabletSettings_Name: {
@@ -3071,6 +3101,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDeviceSettingsProvider_ObserveGraphicsTabletSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.4
       bool success = true;
       ::mojo::PendingRemote<GraphicsTabletSettingsObserver> p_observer{};
       InputDeviceSettingsProvider_ObserveGraphicsTabletSettings_ParamsDataView input_data_view(params, message);
@@ -3088,8 +3120,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveGraphicsTabletSettings(
-std::move(p_observer));
+      impl->ObserveGraphicsTabletSettings(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_ObserveButtonPresses_Name: {
@@ -3099,6 +3131,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDeviceSettingsProvider_ObserveButtonPresses_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.5
       bool success = true;
       ::mojo::PendingRemote<ButtonPressObserver> p_observer{};
       InputDeviceSettingsProvider_ObserveButtonPresses_ParamsDataView input_data_view(params, message);
@@ -3116,8 +3150,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveButtonPresses(
-std::move(p_observer));
+      impl->ObserveButtonPresses(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_RestoreDefaultKeyboardRemappings_Name: {
@@ -3127,6 +3161,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDeviceSettingsProvider_RestoreDefaultKeyboardRemappings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.6
       bool success = true;
       uint32_t p_device_id{};
       InputDeviceSettingsProvider_RestoreDefaultKeyboardRemappings_ParamsDataView input_data_view(params, message);
@@ -3142,8 +3178,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreDefaultKeyboardRemappings(
-std::move(p_device_id));
+      impl->RestoreDefaultKeyboardRemappings(        
+        std::move(p_device_id));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_SetKeyboardSettings_Name: {
@@ -3153,6 +3189,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::InputDeviceSettingsProvider_SetKeyboardSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.7
       bool success = true;
       uint32_t p_device_id{};
       ::ash::mojom::KeyboardSettingsPtr p_settings{};
@@ -3171,9 +3209,9 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetKeyboardSettings(
-std::move(p_device_id), 
-std::move(p_settings));
+      impl->SetKeyboardSettings(        
+        std::move(p_device_id), 
+        std::move(p_settings));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_SetPointingStickSettings_Name: {
@@ -3183,6 +3221,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputDeviceSettingsProvider_SetPointingStickSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.8
       bool success = true;
       uint32_t p_device_id{};
       ::ash::mojom::PointingStickSettingsPtr p_settings{};
@@ -3201,9 +3241,9 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPointingStickSettings(
-std::move(p_device_id), 
-std::move(p_settings));
+      impl->SetPointingStickSettings(        
+        std::move(p_device_id), 
+        std::move(p_settings));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_SetMouseSettings_Name: {
@@ -3213,6 +3253,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputDeviceSettingsProvider_SetMouseSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.9
       bool success = true;
       uint32_t p_device_id{};
       ::ash::mojom::MouseSettingsPtr p_settings{};
@@ -3231,9 +3273,9 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMouseSettings(
-std::move(p_device_id), 
-std::move(p_settings));
+      impl->SetMouseSettings(        
+        std::move(p_device_id), 
+        std::move(p_settings));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_SetTouchpadSettings_Name: {
@@ -3243,6 +3285,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputDeviceSettingsProvider_SetTouchpadSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.10
       bool success = true;
       uint32_t p_device_id{};
       ::ash::mojom::TouchpadSettingsPtr p_settings{};
@@ -3261,9 +3305,9 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTouchpadSettings(
-std::move(p_device_id), 
-std::move(p_settings));
+      impl->SetTouchpadSettings(        
+        std::move(p_device_id), 
+        std::move(p_settings));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_SetGraphicsTabletSettings_Name: {
@@ -3273,6 +3317,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputDeviceSettingsProvider_SetGraphicsTabletSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.11
       bool success = true;
       uint32_t p_device_id{};
       ::ash::mojom::GraphicsTabletSettingsPtr p_settings{};
@@ -3291,9 +3337,9 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetGraphicsTabletSettings(
-std::move(p_device_id), 
-std::move(p_settings));
+      impl->SetGraphicsTabletSettings(        
+        std::move(p_device_id), 
+        std::move(p_settings));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_StartObserving_Name: {
@@ -3303,6 +3349,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputDeviceSettingsProvider_StartObserving_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.12
       bool success = true;
       uint32_t p_device_id{};
       InputDeviceSettingsProvider_StartObserving_ParamsDataView input_data_view(params, message);
@@ -3318,8 +3366,8 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartObserving(
-std::move(p_device_id));
+      impl->StartObserving(        
+        std::move(p_device_id));
       return true;
     }
     case internal::kInputDeviceSettingsProvider_StopObserving_Name: {
@@ -3329,6 +3377,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::InputDeviceSettingsProvider_StopObserving_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.13
       bool success = true;
       InputDeviceSettingsProvider_StopObserving_ParamsDataView input_data_view(params, message);
       
@@ -3341,7 +3391,7 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopObserving();
+      impl->StopObserving(        );
       return true;
     }
     case internal::kInputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Name: {
@@ -3415,6 +3465,8 @@ bool InputDeviceSettingsProviderStubDispatch::AcceptWithResponder(
               internal::InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.14
       bool success = true;
       InputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_ParamsDataView input_data_view(params, message);
       
@@ -3440,6 +3492,8 @@ bool InputDeviceSettingsProviderStubDispatch::AcceptWithResponder(
               internal::InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.15
       bool success = true;
       InputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_ParamsDataView input_data_view(params, message);
       
@@ -3465,6 +3519,8 @@ bool InputDeviceSettingsProviderStubDispatch::AcceptWithResponder(
               internal::InputDeviceSettingsProvider_HasLauncherButton_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDeviceSettingsProvider.16
       bool success = true;
       InputDeviceSettingsProvider_HasLauncherButton_ParamsDataView input_data_view(params, message);
       

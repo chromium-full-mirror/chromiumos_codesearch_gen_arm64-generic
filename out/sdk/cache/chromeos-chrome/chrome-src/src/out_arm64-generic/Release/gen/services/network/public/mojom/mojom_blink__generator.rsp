@@ -11,6 +11,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/key_pinning.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/mdns_responder.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/net_log.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/network_annotation_monitor.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/network_context.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/network_quality_estimator_manager.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/network_service.mojom

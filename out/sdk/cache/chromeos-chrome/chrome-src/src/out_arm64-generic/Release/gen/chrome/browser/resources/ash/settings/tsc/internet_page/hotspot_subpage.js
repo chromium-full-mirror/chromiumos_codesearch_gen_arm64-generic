@@ -7,7 +7,7 @@
  */
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import '../settings_shared.css.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import { getHotspotConfig } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.js';
 import { HotspotAllowStatus, HotspotState, SetHotspotConfigResult } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';

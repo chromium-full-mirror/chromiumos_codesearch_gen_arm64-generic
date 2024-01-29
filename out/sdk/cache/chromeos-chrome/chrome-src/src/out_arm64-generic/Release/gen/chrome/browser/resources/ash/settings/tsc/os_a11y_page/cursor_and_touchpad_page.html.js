@@ -31,12 +31,12 @@ export function getTemplate() {
   <iron-collapse opened="[[prefs.settings.a11y.face_gaze.enabled.value]]">
     <div>
       
-      <cr-link-row id="faceGazeCursorControlButton" class="sub-item" label="$i18n{accessibilityFaceGazeSettings}" sub-label="$i18n{accessibilityFaceGazeSettingsDescription}">
+      <cr-link-row id="faceGazeCursorControlButton" class="sub-item" label="$i18n{accessibilityFaceGazeSettings}" sub-label="$i18n{accessibilityFaceGazeSettingsDescription}" on-click="onFaceGazeCursorSettingsClick_">
       </cr-link-row>
     </div>
     <div>
       
-      <cr-link-row id="faceGazeFacialExpressionsButton" class="sub-item" label="$i18n{accessibilityFaceGazeFacialExpressionsSettings}" sub-label="$i18n{accessibilityFaceGazeFacialExpressionsSettingsDescription}">
+      <cr-link-row id="faceGazeFacialExpressionsButton" class="sub-item" label="$i18n{accessibilityFaceGazeFacialExpressionsSettings}" sub-label="$i18n{accessibilityFaceGazeFacialExpressionsSettingsDescription}" on-click="onFaceGazeFacialExpressionsSettingsClick_">
       </cr-link-row>
     </div>
   </iron-collapse>

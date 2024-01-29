@@ -575,7 +575,7 @@ struct zwp_linux_buffer_params_v1_listener {
 	 * dmabuf(s).
 	 *
 	 * Upon receiving this event, the client should destroy the
-	 * zlinux_dmabuf_params object.
+	 * zwp_linux_buffer_params_v1 object.
 	 * @param buffer the newly created wl_buffer
 	 */
 	void (*created)(void *data,
@@ -589,7 +589,7 @@ struct zwp_linux_buffer_params_v1_listener {
 	 * not been fulfilled.
 	 *
 	 * Upon receiving this event, the client should destroy the
-	 * zlinux_buffer_params object.
+	 * zwp_linux_buffer_params_v1 object.
 	 */
 	void (*failed)(void *data,
 		       struct zwp_linux_buffer_params_v1 *zwp_linux_buffer_params_v1);

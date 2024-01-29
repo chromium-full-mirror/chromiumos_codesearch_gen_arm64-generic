@@ -279,6 +279,8 @@ bool FirewallHoleFactory_OpenFirewallHole_ForwardToCallback::Accept(
           internal::FirewallHoleFactory_OpenFirewallHole_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FirewallHoleFactory.0
   bool success = true;
   ::mojo::PendingRemote<FirewallHole> p_firewall_hole{};
   FirewallHoleFactory_OpenFirewallHole_ResponseParamsDataView input_data_view(params, message);
@@ -372,6 +374,8 @@ bool FirewallHoleFactoryStubDispatch::AcceptWithResponder(
               internal::FirewallHoleFactory_OpenFirewallHole_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FirewallHoleFactory.0
       bool success = true;
       ::ash::nearby::TcpServerSocketPort p_port{};
       FirewallHoleFactory_OpenFirewallHole_ParamsDataView input_data_view(params, message);
@@ -390,8 +394,8 @@ bool FirewallHoleFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFirewallHole(
-std::move(p_port), std::move(callback));
+      impl->OpenFirewallHole(        
+        std::move(p_port), std::move(callback));
       return true;
     }
   }

@@ -485,6 +485,8 @@ bool FileSystemAccessObserverStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessObserver_OnFileChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessObserver.0
       bool success = true;
       WTF::Vector<FileSystemAccessChangePtr> p_changes{};
       FileSystemAccessObserver_OnFileChanges_ParamsDataView input_data_view(params, message);
@@ -500,8 +502,8 @@ bool FileSystemAccessObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFileChanges(
-std::move(p_changes));
+      impl->OnFileChanges(        
+        std::move(p_changes));
       return true;
     }
   }

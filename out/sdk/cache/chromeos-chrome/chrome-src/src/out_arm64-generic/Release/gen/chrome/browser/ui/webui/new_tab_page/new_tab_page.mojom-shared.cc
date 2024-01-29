@@ -36,6 +36,8 @@ NOINLINE static const char* NtpBackgroundImageSourceToStringHelper(NtpBackground
       return "kUploadedImage";
     case NtpBackgroundImageSource::kWallpaperSearch:
       return "kWallpaperSearch";
+    case NtpBackgroundImageSource::kWallpaperSearchInspiration:
+      return "kWallpaperSearchInspiration";
     default:
       return nullptr;
   }
@@ -565,7 +567,7 @@ bool Theme_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->most_visited, 14, validation_context)) {
+          object->most_visited, 13, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->most_visited, validation_context))

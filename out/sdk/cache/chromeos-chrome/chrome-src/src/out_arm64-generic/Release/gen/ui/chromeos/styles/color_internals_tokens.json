@@ -743,6 +743,22 @@
             }
         },
         {
+            "token_name": "cros.sys.inverse-error",
+            "css_variable": "--cros-sys-inverse_error",
+            "mode_values": {
+                "light": "cros.ref.error80",
+                "dark": "cros.ref.error40"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-on-error",
+            "css_variable": "--cros-sys-inverse_on_error",
+            "mode_values": {
+                "light": "cros.ref.error20",
+                "dark": "cros.ref.error100"
+            }
+        },
+        {
             "token_name": "cros.sys.surface-variant",
             "css_variable": "--cros-sys-surface_variant",
             "mode_values": {

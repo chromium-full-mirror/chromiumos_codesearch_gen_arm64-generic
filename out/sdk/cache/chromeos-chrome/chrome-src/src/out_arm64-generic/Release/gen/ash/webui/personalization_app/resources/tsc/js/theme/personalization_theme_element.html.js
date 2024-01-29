@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cros-button-style">#themeLabel>h2{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font)}cr-button{background-color:var(--cros-tab-slider-track-color);border:0;display:flex;flex-flow:column nowrap;height:60px;padding-bottom:8px;padding-top:8px;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}cr-button[aria-checked=true] .text{color:var(--cros-button-label-color-primary)!important}cr-button[aria-checked=true] iron-icon{--iron-icon-fill-color:var(--cros-button-label-color-primary)!important}cr-button .text,cr-button:hover .text{color:var(--cros-text-color-secondary);font:var(--personalization-app-label-font);padding-top:4px}cr-button iron-icon,cr-button:hover iron-icon{--iron-icon-fill-color:var(--cros-text-color-secondary)}cr-button:hover{background-color:rgba(var(--cros-ripple-color-rgb),var(--cros-button-primary-ripple-opacity))}:host-context(body.jelly-enabled) cr-button:hover{--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) #selector>cr-button[aria-checked=true]:hover::part(hoverBackground){--hover-bg-color:var(--cros-sys-hover_on_prominent);background-color:var(--hover-bg-color);display:block}#selector>cr-button[aria-checked=true]{background-color:var(--cros-button-background-color-primary)}#selector{display:grid;gap:8px;grid-template-columns:auto auto auto}</style>
+    return html `<!--_html_template_start_--><style include="cros-button-style">#themeLabel>h2{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font)}cr-button{background-color:var(--cros-tab-slider-track-color);border:0;display:flex;flex-flow:column nowrap;height:60px;padding-bottom:8px;padding-top:8px;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}cr-button[aria-checked=true] .text{color:var(--cros-button-label-color-primary)!important}cr-button[aria-checked=true] iron-icon{--iron-icon-fill-color:var(--cros-button-label-color-primary)!important}cr-button .text,cr-button:hover .text{color:var(--cros-text-color-secondary);font:var(--personalization-app-label-font);padding-top:4px}cr-button iron-icon,cr-button:hover iron-icon{--iron-icon-fill-color:var(--cros-text-color-secondary)}cr-button:hover{background-color:rgba(var(--cros-ripple-color-rgb),var(--cros-button-primary-ripple-opacity))}:host-context(body.jelly-enabled) cr-button:hover{--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) #selector>cr-button[aria-checked=true]:hover::part(hoverBackground){--hover-bg-color:var(--cros-sys-hover_on_prominent);background-color:var(--hover-bg-color);display:block}#selector>cr-button[aria-checked=true]{background-color:var(--cros-button-background-color-primary)}#selector{display:grid;gap:8px;grid-template-columns:auto auto auto}#geolocationWarningDiv{display:flex;width:inherit;margin-top:5px}#warningIcon{margin-inline-end:5px;min-width:var(--iron-icon-width)}</style>
 <div id="container">
   <template is="dom-if" if="[[!isPersonalizationJellyEnabled_]]">
     <div id="themeLabel">
@@ -26,6 +26,18 @@ export function getTemplate() {
       <div class="text">$i18n{autoColorMode}</div>
     </cr-button>
   </iron-selector>
+  <template is="dom-if" if="[[shouldShowGeolocationWarningText_]]" restamp>
+    <div id="geolocationWarningDiv">
+      <iron-icon id="warningIcon" icon="cr20:warning"></iron-icon>
+      <localized-link on-link-clicked="openGeolocationDialog_" localized-string="$i18n{geolocationWarningTextForWallpaper}">
+      </localized-link>
+    </div>
+  </template>
 </div>
+
+<template is="dom-if" if="[[shouldShowGeolocationDialog_]]" restamp>
+  <geolocation-dialog id="geolocationDialog" on-geolocation-enabled="onGeolocationEnabled_" on-close="onGeolocationDialogClose_">
+  </geolocation-dialog>
+</template>
 <!--_html_template_end_-->`;
 }

@@ -296,6 +296,8 @@ bool SharedDictionaryAccessObserverStubDispatch::Accept(
           reinterpret_cast<internal::SharedDictionaryAccessObserver_OnSharedDictionaryAccessed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedDictionaryAccessObserver.0
       bool success = true;
       SharedDictionaryAccessDetailsPtr p_details{};
       SharedDictionaryAccessObserver_OnSharedDictionaryAccessed_ParamsDataView input_data_view(params, message);
@@ -311,8 +313,8 @@ bool SharedDictionaryAccessObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSharedDictionaryAccessed(
-std::move(p_details));
+      impl->OnSharedDictionaryAccessed(        
+        std::move(p_details));
       return true;
     }
     case internal::kSharedDictionaryAccessObserver_Clone_Name: {
@@ -322,6 +324,8 @@ std::move(p_details));
           reinterpret_cast<internal::SharedDictionaryAccessObserver_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedDictionaryAccessObserver.1
       bool success = true;
       ::mojo::PendingReceiver<SharedDictionaryAccessObserver> p_observer{};
       SharedDictionaryAccessObserver_Clone_ParamsDataView input_data_view(params, message);
@@ -339,8 +343,8 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_observer));
+      impl->Clone(        
+        std::move(p_observer));
       return true;
     }
   }

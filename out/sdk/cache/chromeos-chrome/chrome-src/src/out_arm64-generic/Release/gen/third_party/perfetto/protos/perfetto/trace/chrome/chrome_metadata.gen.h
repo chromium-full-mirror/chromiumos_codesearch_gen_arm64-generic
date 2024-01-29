@@ -20,6 +20,7 @@ class BackgroundTracingMetadata_TriggerRule;
 class BackgroundTracingMetadata_TriggerRule_NamedRule;
 class BackgroundTracingMetadata_TriggerRule_HistogramRule;
 class ChromeMetadataPacket;
+class ChromeMetadataPacket_FinchHash;
 enum BackgroundTracingMetadata_TriggerRule_TriggerType : int;
 enum BackgroundTracingMetadata_TriggerRule_NamedRule_EventType : int;
 }  // namespace perfetto
@@ -259,10 +260,12 @@ class PERFETTO_EXPORT_COMPONENT BackgroundTracingMetadata_TriggerRule_HistogramR
 
 class PERFETTO_EXPORT_COMPONENT ChromeMetadataPacket : public ::protozero::CppMessageObj {
  public:
+  using FinchHash = ChromeMetadataPacket_FinchHash;
   enum FieldNumbers {
     kBackgroundTracingMetadataFieldNumber = 1,
     kChromeVersionCodeFieldNumber = 2,
     kEnabledCategoriesFieldNumber = 3,
+    kFieldTrialHashesFieldNumber = 4,
   };
 
   ChromeMetadataPacket();
@@ -291,16 +294,64 @@ class PERFETTO_EXPORT_COMPONENT ChromeMetadataPacket : public ::protozero::CppMe
   const std::string& enabled_categories() const { return enabled_categories_; }
   void set_enabled_categories(const std::string& value) { enabled_categories_ = value; _has_field_.set(3); }
 
+  const std::vector<ChromeMetadataPacket_FinchHash>& field_trial_hashes() const { return field_trial_hashes_; }
+  std::vector<ChromeMetadataPacket_FinchHash>* mutable_field_trial_hashes() { return &field_trial_hashes_; }
+  int field_trial_hashes_size() const;
+  void clear_field_trial_hashes();
+  ChromeMetadataPacket_FinchHash* add_field_trial_hashes();
+
  private:
   ::protozero::CopyablePtr<BackgroundTracingMetadata> background_tracing_metadata_;
   int32_t chrome_version_code_{};
   std::string enabled_categories_{};
+  std::vector<ChromeMetadataPacket_FinchHash> field_trial_hashes_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT ChromeMetadataPacket_FinchHash : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kNameFieldNumber = 1,
+    kGroupFieldNumber = 2,
+  };
+
+  ChromeMetadataPacket_FinchHash();
+  ~ChromeMetadataPacket_FinchHash() override;
+  ChromeMetadataPacket_FinchHash(ChromeMetadataPacket_FinchHash&&) noexcept;
+  ChromeMetadataPacket_FinchHash& operator=(ChromeMetadataPacket_FinchHash&&);
+  ChromeMetadataPacket_FinchHash(const ChromeMetadataPacket_FinchHash&);
+  ChromeMetadataPacket_FinchHash& operator=(const ChromeMetadataPacket_FinchHash&);
+  bool operator==(const ChromeMetadataPacket_FinchHash&) const;
+  bool operator!=(const ChromeMetadataPacket_FinchHash& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_name() const { return _has_field_[1]; }
+  uint32_t name() const { return name_; }
+  void set_name(uint32_t value) { name_ = value; _has_field_.set(1); }
+
+  bool has_group() const { return _has_field_[2]; }
+  uint32_t group() const { return group_; }
+  void set_group(uint32_t value) { group_ = value; _has_field_.set(2); }
+
+ private:
+  uint32_t name_{};
+  uint32_t group_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
 };
 
 }  // namespace perfetto

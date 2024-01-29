@@ -1059,6 +1059,8 @@ bool SessionStorageControl_BindNamespace_ForwardToCallback::Accept(
           internal::SessionStorageControl_BindNamespace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.0
   bool success = true;
   bool p_success{};
   SessionStorageControl_BindNamespace_ResponseParamsDataView input_data_view(params, message);
@@ -1178,6 +1180,8 @@ bool SessionStorageControl_BindStorageArea_ForwardToCallback::Accept(
           internal::SessionStorageControl_BindStorageArea_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.1
   bool success = true;
   bool p_success{};
   SessionStorageControl_BindStorageArea_ResponseParamsDataView input_data_view(params, message);
@@ -1297,6 +1301,8 @@ bool SessionStorageControl_GetUsage_ForwardToCallback::Accept(
           internal::SessionStorageControl_GetUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.2
   bool success = true;
   std::vector<SessionStorageUsageInfoPtr> p_info{};
   SessionStorageControl_GetUsage_ResponseParamsDataView input_data_view(params, message);
@@ -1428,6 +1434,8 @@ bool SessionStorageControl_DeleteStorage_ForwardToCallback::Accept(
           internal::SessionStorageControl_DeleteStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.3
   bool success = true;
   SessionStorageControl_DeleteStorage_ResponseParamsDataView input_data_view(params, message);
   
@@ -1535,6 +1543,8 @@ bool SessionStorageControl_CleanUpStorage_ForwardToCallback::Accept(
           internal::SessionStorageControl_CleanUpStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.4
   bool success = true;
   SessionStorageControl_CleanUpStorage_ResponseParamsDataView input_data_view(params, message);
   
@@ -1642,6 +1652,8 @@ bool SessionStorageControl_ScavengeUnusedNamespaces_ForwardToCallback::Accept(
           internal::SessionStorageControl_ScavengeUnusedNamespaces_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.5
   bool success = true;
   SessionStorageControl_ScavengeUnusedNamespaces_ResponseParamsDataView input_data_view(params, message);
   
@@ -1749,6 +1761,8 @@ bool SessionStorageControl_Flush_ForwardToCallback::Accept(
           internal::SessionStorageControl_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SessionStorageControl.6
   bool success = true;
   SessionStorageControl_Flush_ResponseParamsDataView input_data_view(params, message);
   
@@ -1832,6 +1846,8 @@ bool SessionStorageControlStubDispatch::Accept(
           reinterpret_cast<internal::SessionStorageControl_PurgeMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.7
       bool success = true;
       SessionStorageControl_PurgeMemory_ParamsDataView input_data_view(params, message);
       
@@ -1844,7 +1860,7 @@ bool SessionStorageControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PurgeMemory();
+      impl->PurgeMemory(        );
       return true;
     }
     case internal::kSessionStorageControl_CreateNamespace_Name: {
@@ -1854,6 +1870,8 @@ bool SessionStorageControlStubDispatch::Accept(
           reinterpret_cast<internal::SessionStorageControl_CreateNamespace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.8
       bool success = true;
       std::string p_namespace_id{};
       SessionStorageControl_CreateNamespace_ParamsDataView input_data_view(params, message);
@@ -1869,8 +1887,8 @@ bool SessionStorageControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNamespace(
-std::move(p_namespace_id));
+      impl->CreateNamespace(        
+        std::move(p_namespace_id));
       return true;
     }
     case internal::kSessionStorageControl_CloneNamespace_Name: {
@@ -1880,6 +1898,8 @@ std::move(p_namespace_id));
           reinterpret_cast<internal::SessionStorageControl_CloneNamespace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.9
       bool success = true;
       std::string p_namespace_id_to_clone{};
       std::string p_clone_namespace_id{};
@@ -1901,10 +1921,10 @@ std::move(p_namespace_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloneNamespace(
-std::move(p_namespace_id_to_clone), 
-std::move(p_clone_namespace_id), 
-std::move(p_clone_type));
+      impl->CloneNamespace(        
+        std::move(p_namespace_id_to_clone), 
+        std::move(p_clone_namespace_id), 
+        std::move(p_clone_type));
       return true;
     }
     case internal::kSessionStorageControl_DeleteNamespace_Name: {
@@ -1914,6 +1934,8 @@ std::move(p_clone_type));
           reinterpret_cast<internal::SessionStorageControl_DeleteNamespace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.10
       bool success = true;
       std::string p_namespace_id{};
       bool p_should_persist{};
@@ -1932,9 +1954,9 @@ std::move(p_clone_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteNamespace(
-std::move(p_namespace_id), 
-std::move(p_should_persist));
+      impl->DeleteNamespace(        
+        std::move(p_namespace_id), 
+        std::move(p_should_persist));
       return true;
     }
   }
@@ -1957,6 +1979,8 @@ bool SessionStorageControlStubDispatch::AcceptWithResponder(
               internal::SessionStorageControl_BindNamespace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.0
       bool success = true;
       std::string p_namespace_id{};
       ::mojo::PendingReceiver<::blink::mojom::SessionStorageNamespace> p_receiver{};
@@ -1980,9 +2004,9 @@ bool SessionStorageControlStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNamespace(
-std::move(p_namespace_id), 
-std::move(p_receiver), std::move(callback));
+      impl->BindNamespace(        
+        std::move(p_namespace_id), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kSessionStorageControl_BindStorageArea_Name: {
@@ -1992,6 +2016,8 @@ std::move(p_receiver), std::move(callback));
               internal::SessionStorageControl_BindStorageArea_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.1
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       std::string p_namespace_id{};
@@ -2018,10 +2044,10 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindStorageArea(
-std::move(p_storage_key), 
-std::move(p_namespace_id), 
-std::move(p_receiver), std::move(callback));
+      impl->BindStorageArea(        
+        std::move(p_storage_key), 
+        std::move(p_namespace_id), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kSessionStorageControl_GetUsage_Name: {
@@ -2031,6 +2057,8 @@ std::move(p_receiver), std::move(callback));
               internal::SessionStorageControl_GetUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.2
       bool success = true;
       SessionStorageControl_GetUsage_ParamsDataView input_data_view(params, message);
       
@@ -2056,6 +2084,8 @@ std::move(p_receiver), std::move(callback));
               internal::SessionStorageControl_DeleteStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.3
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       std::string p_namespace_id{};
@@ -2077,9 +2107,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteStorage(
-std::move(p_storage_key), 
-std::move(p_namespace_id), std::move(callback));
+      impl->DeleteStorage(        
+        std::move(p_storage_key), 
+        std::move(p_namespace_id), std::move(callback));
       return true;
     }
     case internal::kSessionStorageControl_CleanUpStorage_Name: {
@@ -2089,6 +2119,8 @@ std::move(p_namespace_id), std::move(callback));
               internal::SessionStorageControl_CleanUpStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.4
       bool success = true;
       SessionStorageControl_CleanUpStorage_ParamsDataView input_data_view(params, message);
       
@@ -2114,6 +2146,8 @@ std::move(p_namespace_id), std::move(callback));
               internal::SessionStorageControl_ScavengeUnusedNamespaces_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.5
       bool success = true;
       SessionStorageControl_ScavengeUnusedNamespaces_ParamsDataView input_data_view(params, message);
       
@@ -2139,6 +2173,8 @@ std::move(p_namespace_id), std::move(callback));
               internal::SessionStorageControl_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SessionStorageControl.6
       bool success = true;
       SessionStorageControl_Flush_ParamsDataView input_data_view(params, message);
       

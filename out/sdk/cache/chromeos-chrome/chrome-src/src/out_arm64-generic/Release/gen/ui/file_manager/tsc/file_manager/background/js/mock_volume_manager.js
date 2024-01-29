@@ -3,27 +3,24 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
 import { isComputersRoot, isFakeEntry, isSameEntry, isTeamDriveRoot } from '../../common/js/entry_utils.js';
-import { FilesEventTarget } from '../../common/js/files_event_target.js';
-import { MockEntry, MockFileSystem } from '../../common/js/mock_entry.js';
+import { MockFileSystem } from '../../common/js/mock_entry.js';
 import { str } from '../../common/js/translations.js';
 import { FileSystemType, getRootTypeFromVolumeType, RootType, Source, VolumeType } from '../../common/js/volume_manager_types.js';
-import { EntryLocation } from '../../externs/entry_location.js';
-import { FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
-import { EntryLocationImpl } from './entry_location_impl.js';
-import { VolumeInfoImpl } from './volume_info_impl.js';
-import { VolumeInfoListImpl } from './volume_info_list_impl.js';
+import { EntryLocation } from './entry_location_impl.js';
+import { VolumeInfo } from './volume_info.js';
+import { VolumeInfoList } from './volume_info_list.js';
+import { VolumeManager } from './volume_manager.js';
 import { volumeManagerFactory } from './volume_manager_factory.js';
-import { VolumeManagerImpl } from './volume_manager_impl.js';
 export const fakeMyFilesVolumeId = VolumeType.DOWNLOADS + ':test_mount_path';
 export const fakeDriveVolumeId = VolumeType.DRIVE + ':test_mount_path';
 let volumeManagerInstance = null;
 /**
  * Mock class for VolumeManager.
  */
-export class MockVolumeManager extends FilesEventTarget {
+export class MockVolumeManager extends VolumeManager {
     constructor() {
         super();
-        this.volumeInfoList = new VolumeInfoListImpl();
+        this.volumeInfoList = new VolumeInfoList();
         this.driveConnectionState = {
             type: chrome.fileManagerPrivate.DriveConnectionStateType.ONLINE,
         };
@@ -91,7 +88,7 @@ export class MockVolumeManager extends FilesEventTarget {
         if (isFakeEntry(entry)) {
             const isReadOnly = entry.rootType !== RootType.RECENT &&
                 entry.rootType !== RootType.TRASH;
-            return new EntryLocationImpl(this.volumeInfoList.item(0), entry.rootType, /* isRootType= */ true, isReadOnly);
+            return new EntryLocation(this.volumeInfoList.item(0), entry.rootType, /* isRootType= */ true, isReadOnly);
         }
         if (entry.filesystem?.name === fakeDriveVolumeId) {
             const volumeInfo = this.volumeInfoList.item(0);
@@ -120,7 +117,7 @@ export class MockVolumeManager extends FilesEventTarget {
             else if (/^\/\.(files|shortcut-targets)-by-id/.test(entry.fullPath)) {
                 rootType = RootType.DRIVE_SHARED_WITH_ME;
             }
-            return new EntryLocationImpl(volumeInfo, rootType, isRootEntry, true);
+            return new EntryLocation(volumeInfo, rootType, isRootEntry, true);
         }
         const volumeInfo = this.getVolumeInfo(entry);
         // For filtered out volumes, its volume info won't exist in the volume info
@@ -131,7 +128,7 @@ export class MockVolumeManager extends FilesEventTarget {
         assert(volumeInfo.volumeType);
         const rootType = getRootTypeFromVolumeType(volumeInfo.volumeType);
         const isRootEntry = isSameEntry(entry, volumeInfo.fileSystem.root);
-        return new EntryLocationImpl(volumeInfo, rootType, isRootEntry, false);
+        return new EntryLocation(volumeInfo, rootType, isRootEntry, false);
     }
     /**
      * @param volumeType Volume type.
@@ -179,7 +176,7 @@ export class MockVolumeManager extends FilesEventTarget {
         }
         // If there's no label set it to volumeId to make it shorter to write
         // tests.
-        const volumeInfo = new VolumeInfoImpl(type, volumeId, fileSystem, '', // error
+        const volumeInfo = new VolumeInfo(type, volumeId, fileSystem, '', // error
         '', // deviceType
         devicePath || '', // devicePath
         false, // isReadOnly
@@ -187,7 +184,6 @@ export class MockVolumeManager extends FilesEventTarget {
         { isCurrentProfile: true, displayName: '' }, // profile
         label || volumeId, // label
         providerId, // providerId
-        false, // hasMedia
         false, // configurable
         false, // watchable
         source, // source
@@ -227,18 +223,6 @@ export class MockVolumeManager extends FilesEventTarget {
     }
     isAllowedVolume(_volumeInfo) {
         return true;
-    }
-    getVolumeInfo(entry) {
-        return VolumeManagerImpl.prototype.getVolumeInfo.call(this, entry);
-    }
-    getDefaultDisplayRoot(callback) {
-        VolumeManagerImpl.prototype.getDefaultDisplayRoot.call(this, callback);
-    }
-    findByDevicePath(devicePath) {
-        return VolumeManagerImpl.prototype.findByDevicePath.call(this, devicePath);
-    }
-    async whenVolumeInfoReady(volumeId) {
-        return VolumeManagerImpl.prototype.whenVolumeInfoReady.call(this, volumeId);
     }
     /**
      * Used to window.webkitResolveLocalFileSystemURL for testing. This

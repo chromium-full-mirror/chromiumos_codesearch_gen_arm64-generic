@@ -16,7 +16,7 @@ export function ImageLoaderUtil() { }
 ImageLoaderUtil.shouldProcess = function (width, height, request) {
     const targetDimensions = ImageLoaderUtil.resizeDimensions(width, height, request);
     // Dimensions has to be adjusted.
-    if (targetDimensions.width != width || targetDimensions.height != height) {
+    if (targetDimensions.width !== width || targetDimensions.height !== height) {
         return true;
     }
     // Orientation has to be adjusted.

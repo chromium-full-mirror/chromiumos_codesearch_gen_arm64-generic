@@ -122,13 +122,16 @@ bool ModelAssets::Validate(
 }
 LoadModelParams::LoadModelParams()
     : assets(),
-      max_tokens() {}
+      max_tokens(),
+      ts_dimension() {}
 
 LoadModelParams::LoadModelParams(
     ::on_device_model::ModelAssets assets_in,
-    uint32_t max_tokens_in)
+    uint32_t max_tokens_in,
+    std::optional<uint32_t> ts_dimension_in)
     : assets(std::move(assets_in)),
-      max_tokens(std::move(max_tokens_in)) {}
+      max_tokens(std::move(max_tokens_in)),
+      ts_dimension(std::move(ts_dimension_in)) {}
 
 LoadModelParams::~LoadModelParams() = default;
 
@@ -149,6 +152,15 @@ void LoadModelParams::WriteIntoTrace(
       "max_tokens"), this->max_tokens,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ts_dimension"), this->ts_dimension,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -423,6 +435,8 @@ bool OnDeviceModelService_LoadModel_ForwardToCallback::Accept(
           internal::OnDeviceModelService_LoadModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OnDeviceModelService.0
   bool success = true;
   ::on_device_model::mojom::LoadModelResult p_result{};
   OnDeviceModelService_LoadModel_ResponseParamsDataView input_data_view(params, message);
@@ -543,6 +557,8 @@ bool OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback::Accept
           internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OnDeviceModelService.1
   bool success = true;
   ::on_device_model::mojom::PerformanceClass p_performance_class{};
   OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView input_data_view(params, message);
@@ -637,6 +653,8 @@ bool OnDeviceModelServiceStubDispatch::AcceptWithResponder(
               internal::OnDeviceModelService_LoadModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OnDeviceModelService.0
       bool success = true;
       LoadModelParamsPtr p_params{};
       ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> p_model{};
@@ -660,9 +678,9 @@ bool OnDeviceModelServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadModel(
-std::move(p_params), 
-std::move(p_model), std::move(callback));
+      impl->LoadModel(        
+        std::move(p_params), 
+        std::move(p_model), std::move(callback));
       return true;
     }
     case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
@@ -672,6 +690,8 @@ std::move(p_model), std::move(callback));
               internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OnDeviceModelService.1
       bool success = true;
       OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView input_data_view(params, message);
       
@@ -752,6 +772,9 @@ bool StructTraits<::on_device_model::mojom::LoadModelParams::DataView, ::on_devi
         success = false;
       if (success)
         result->max_tokens = input.max_tokens();
+      if (success) {
+        result->ts_dimension = input.ts_dimension();
+      }
   *output = std::move(result);
   return success;
 }

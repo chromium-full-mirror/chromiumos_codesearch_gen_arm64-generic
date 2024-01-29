@@ -88,6 +88,28 @@ inline bool IsKnownEnumValue(DisplaySettingsType value) {
   return internal::DisplaySettingsType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class DisplaySettingsOrientationOption : int32_t {
+  
+  kAuto = 0,
+  
+  k0Degree = 1,
+  
+  k90Degree = 2,
+  
+  k180Degree = 3,
+  
+  k270Degree = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, DisplaySettingsOrientationOption value);
+inline bool IsKnownEnumValue(DisplaySettingsOrientationOption value) {
+  return internal::DisplaySettingsOrientationOption_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class TabletModeObserverInterfaceBase {};
 
@@ -143,6 +165,23 @@ class DisplaySettingsValueDataView {
         ? absl::make_optional(data_->display_id_$value)
         : absl::nullopt;
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrientation(UserType* output) const {
+    if (!data_->orientation_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::ash::settings::mojom::DisplaySettingsOrientationOption>(
+        data_->orientation_$value, &output->emplace());
+  }
+  std::optional<DisplaySettingsOrientationOption> orientation() const {
+    if (!data_->orientation_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::settings::mojom::DisplaySettingsOrientationOption>(data_->orientation_$value));
+  }
  private:
   internal::DisplaySettingsValue_Data* data_ = nullptr;
 };
@@ -155,6 +194,10 @@ namespace std {
 template <>
 struct hash<::ash::settings::mojom::DisplaySettingsType>
     : public mojo::internal::EnumHashImpl<::ash::settings::mojom::DisplaySettingsType> {};
+
+template <>
+struct hash<::ash::settings::mojom::DisplaySettingsOrientationOption>
+    : public mojo::internal::EnumHashImpl<::ash::settings::mojom::DisplaySettingsOrientationOption> {};
 
 }  // namespace std
 
@@ -184,6 +227,26 @@ struct Serializer<::ash::settings::mojom::DisplaySettingsType, MaybeConstUserTyp
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::settings::mojom::DisplaySettingsOrientationOption, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::settings::mojom::DisplaySettingsOrientationOption, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::settings::mojom::DisplaySettingsOrientationOption>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::settings::mojom::DisplaySettingsValueDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::settings::mojom::DisplaySettingsValueDataView, UserType>;
@@ -201,6 +264,14 @@ struct Serializer<::ash::settings::mojom::DisplaySettingsValueDataView, MaybeCon
     fragment->display_id_$flag = Traits::display_id(input).has_value();
     if (Traits::display_id(input).has_value()) {
       fragment->display_id_$value = Traits::display_id(input).value();
+    }
+    fragment->orientation_$flag = Traits::orientation(input).has_value();
+    if (Traits::orientation(input).has_value()) {
+      mojo::internal::Serialize<::ash::settings::mojom::DisplaySettingsOrientationOption>(
+          Traits::orientation(input).value(), &fragment->orientation_$value);
+    } else {
+      fragment->orientation_$value =
+          static_cast<int32_t>(::ash::settings::mojom::DisplaySettingsOrientationOption::kMinValue);
     }
   }
 
@@ -235,6 +306,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::settings::mojom::DisplaySettingsType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::settings::mojom::DisplaySettingsOrientationOption> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsOrientationOption value);
 };
 
 } // namespace perfetto

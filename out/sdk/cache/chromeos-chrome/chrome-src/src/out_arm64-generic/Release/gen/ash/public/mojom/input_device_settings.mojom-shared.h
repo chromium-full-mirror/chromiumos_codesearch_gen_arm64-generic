@@ -45,6 +45,8 @@ class InputDeviceSettingsPolicyDataView;
 
 class InputDeviceSettingsFkeyPolicyDataView;
 
+class InputDeviceSettingsSixPackKeyPolicyDataView;
+
 class KeyboardPoliciesDataView;
 
 class MousePoliciesDataView;
@@ -101,6 +103,13 @@ struct MojomTypeTraits<::ash::mojom::InputDeviceSettingsPolicyDataView> {
 template <>
 struct MojomTypeTraits<::ash::mojom::InputDeviceSettingsFkeyPolicyDataView> {
   using Data = ::ash::mojom::internal::InputDeviceSettingsFkeyPolicy_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView> {
+  using Data = ::ash::mojom::internal::InputDeviceSettingsSixPackKeyPolicy_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -353,6 +362,24 @@ inline bool IsKnownEnumValue(CustomizableButton value) {
 }
 
 
+enum class MouseButtonConfig : int32_t {
+  
+  kNoConfig = 0,
+  
+  kFiveKey = 1,
+  
+  kLogitechSixKey = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, MouseButtonConfig value);
+inline bool IsKnownEnumValue(MouseButtonConfig value) {
+  return internal::MouseButtonConfig_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class StaticShortcutAction : int32_t {
   
   kDisable = 0,
@@ -549,6 +576,41 @@ class InputDeviceSettingsFkeyPolicyDataView {
 };
 
 
+class InputDeviceSettingsSixPackKeyPolicyDataView {
+ public:
+  InputDeviceSettingsSixPackKeyPolicyDataView() = default;
+
+  InputDeviceSettingsSixPackKeyPolicyDataView(
+      internal::InputDeviceSettingsSixPackKeyPolicy_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPolicyStatus(UserType* output) const {
+    auto data_value = data_->policy_status;
+    return mojo::internal::Deserialize<::ash::mojom::PolicyStatus>(
+        data_value, output);
+  }
+  PolicyStatus policy_status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::mojom::PolicyStatus>(data_->policy_status));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadValue(UserType* output) const {
+    auto data_value = data_->value;
+    return mojo::internal::Deserialize<::ui::mojom::SixPackShortcutModifier>(
+        data_value, output);
+  }
+  ::ui::mojom::SixPackShortcutModifier value() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ui::mojom::SixPackShortcutModifier>(data_->value));
+  }
+ private:
+  internal::InputDeviceSettingsSixPackKeyPolicy_Data* data_ = nullptr;
+};
+
+
 class KeyboardPoliciesDataView {
  public:
   KeyboardPoliciesDataView() = default;
@@ -599,24 +661,124 @@ static_assert(
     return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsPolicyDataView>(
         pointer, output, message_);
   }
-  inline void GetExtendedFkeysPolicyDataView(
+  inline void GetF11KeyPolicyDataView(
       InputDeviceSettingsFkeyPolicyDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadExtendedFkeysPolicy(UserType* output) {
+  [[nodiscard]] bool ReadF11KeyPolicy(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::ash::mojom::InputDeviceSettingsFkeyPolicyDataView, UserType>(),
-    "Attempting to read the optional `extended_fkeys_policy` field into a type which "
+    "Attempting to read the optional `f11_key_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadExtendedFkeysPolicy` instead "
-    "of `ReadExtendedFkeysPolicy if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadF11KeyPolicy` instead "
+    "of `ReadF11KeyPolicy if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->extended_fkeys_policy.Get();
+    auto* pointer = data_->f11_key_policy.Get();
     return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsFkeyPolicyDataView>(
+        pointer, output, message_);
+  }
+  inline void GetF12KeyPolicyDataView(
+      InputDeviceSettingsFkeyPolicyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadF12KeyPolicy(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::mojom::InputDeviceSettingsFkeyPolicyDataView, UserType>(),
+    "Attempting to read the optional `f12_key_policy` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadF12KeyPolicy` instead "
+    "of `ReadF12KeyPolicy if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->f12_key_policy.Get();
+    return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsFkeyPolicyDataView>(
+        pointer, output, message_);
+  }
+  inline void GetHomeAndEndKeysPolicyDataView(
+      InputDeviceSettingsSixPackKeyPolicyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHomeAndEndKeysPolicy(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
+    "Attempting to read the optional `home_and_end_keys_policy` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadHomeAndEndKeysPolicy` instead "
+    "of `ReadHomeAndEndKeysPolicy if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->home_and_end_keys_policy.Get();
+    return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPageUpAndPageDownKeysPolicyDataView(
+      InputDeviceSettingsSixPackKeyPolicyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPageUpAndPageDownKeysPolicy(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
+    "Attempting to read the optional `page_up_and_page_down_keys_policy` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPageUpAndPageDownKeysPolicy` instead "
+    "of `ReadPageUpAndPageDownKeysPolicy if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->page_up_and_page_down_keys_policy.Get();
+    return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDeleteKeyPolicyDataView(
+      InputDeviceSettingsSixPackKeyPolicyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeleteKeyPolicy(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
+    "Attempting to read the optional `delete_key_policy` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDeleteKeyPolicy` instead "
+    "of `ReadDeleteKeyPolicy if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->delete_key_policy.Get();
+    return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInsertKeyPolicyDataView(
+      InputDeviceSettingsSixPackKeyPolicyDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInsertKeyPolicy(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
+    "Attempting to read the optional `insert_key_policy` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInsertKeyPolicy` instead "
+    "of `ReadInsertKeyPolicy if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->insert_key_policy.Get();
+    return mojo::internal::Deserialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
         pointer, output, message_);
   }
  private:
@@ -874,6 +1036,16 @@ class MouseDataView {
   CustomizationRestriction customization_restriction() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::mojom::CustomizationRestriction>(data_->customization_restriction));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadMouseButtonConfig(UserType* output) const {
+    auto data_value = data_->mouse_button_config;
+    return mojo::internal::Deserialize<::ash::mojom::MouseButtonConfig>(
+        data_value, output);
+  }
+  MouseButtonConfig mouse_button_config() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::mojom::MouseButtonConfig>(data_->mouse_button_config));
   }
   inline void GetSettingsDataView(
       MouseSettingsDataView* output);
@@ -1467,6 +1639,10 @@ struct hash<::ash::mojom::CustomizableButton>
     : public mojo::internal::EnumHashImpl<::ash::mojom::CustomizableButton> {};
 
 template <>
+struct hash<::ash::mojom::MouseButtonConfig>
+    : public mojo::internal::EnumHashImpl<::ash::mojom::MouseButtonConfig> {};
+
+template <>
 struct hash<::ash::mojom::StaticShortcutAction>
     : public mojo::internal::EnumHashImpl<::ash::mojom::StaticShortcutAction> {};
 
@@ -1553,6 +1729,26 @@ struct Serializer<::ash::mojom::CustomizableButton, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::mojom::CustomizableButton>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::mojom::MouseButtonConfig, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::mojom::MouseButtonConfig, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::mojom::MouseButtonConfig>(input)), output);
   }
 };
 
@@ -1708,6 +1904,39 @@ struct Serializer<::ash::mojom::InputDeviceSettingsFkeyPolicyDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::mojom::internal::InputDeviceSettingsSixPackKeyPolicy_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::mojom::PolicyStatus>(
+        Traits::policy_status(input), &fragment->policy_status);
+    mojo::internal::Serialize<::ui::mojom::SixPackShortcutModifier>(
+        Traits::value(input), &fragment->value);
+  }
+
+  static bool Deserialize(::ash::mojom::internal::InputDeviceSettingsSixPackKeyPolicy_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::mojom::KeyboardPoliciesDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::mojom::KeyboardPoliciesDataView, UserType>;
@@ -1734,14 +1963,54 @@ struct Serializer<::ash::mojom::KeyboardPoliciesDataView, MaybeConstUserType> {
         in_enable_meta_fkey_rewrites_policy, enable_meta_fkey_rewrites_policy_fragment);
     fragment->enable_meta_fkey_rewrites_policy.Set(
         enable_meta_fkey_rewrites_policy_fragment.is_null() ? nullptr : enable_meta_fkey_rewrites_policy_fragment.data());
-    decltype(Traits::extended_fkeys_policy(input)) in_extended_fkeys_policy = Traits::extended_fkeys_policy(input);
+    decltype(Traits::f11_key_policy(input)) in_f11_key_policy = Traits::f11_key_policy(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->extended_fkeys_policy)::BaseType> extended_fkeys_policy_fragment(
+        typename decltype(fragment->f11_key_policy)::BaseType> f11_key_policy_fragment(
             fragment.message());
     mojo::internal::Serialize<::ash::mojom::InputDeviceSettingsFkeyPolicyDataView>(
-        in_extended_fkeys_policy, extended_fkeys_policy_fragment);
-    fragment->extended_fkeys_policy.Set(
-        extended_fkeys_policy_fragment.is_null() ? nullptr : extended_fkeys_policy_fragment.data());
+        in_f11_key_policy, f11_key_policy_fragment);
+    fragment->f11_key_policy.Set(
+        f11_key_policy_fragment.is_null() ? nullptr : f11_key_policy_fragment.data());
+    decltype(Traits::f12_key_policy(input)) in_f12_key_policy = Traits::f12_key_policy(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->f12_key_policy)::BaseType> f12_key_policy_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::mojom::InputDeviceSettingsFkeyPolicyDataView>(
+        in_f12_key_policy, f12_key_policy_fragment);
+    fragment->f12_key_policy.Set(
+        f12_key_policy_fragment.is_null() ? nullptr : f12_key_policy_fragment.data());
+    decltype(Traits::home_and_end_keys_policy(input)) in_home_and_end_keys_policy = Traits::home_and_end_keys_policy(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->home_and_end_keys_policy)::BaseType> home_and_end_keys_policy_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        in_home_and_end_keys_policy, home_and_end_keys_policy_fragment);
+    fragment->home_and_end_keys_policy.Set(
+        home_and_end_keys_policy_fragment.is_null() ? nullptr : home_and_end_keys_policy_fragment.data());
+    decltype(Traits::page_up_and_page_down_keys_policy(input)) in_page_up_and_page_down_keys_policy = Traits::page_up_and_page_down_keys_policy(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->page_up_and_page_down_keys_policy)::BaseType> page_up_and_page_down_keys_policy_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        in_page_up_and_page_down_keys_policy, page_up_and_page_down_keys_policy_fragment);
+    fragment->page_up_and_page_down_keys_policy.Set(
+        page_up_and_page_down_keys_policy_fragment.is_null() ? nullptr : page_up_and_page_down_keys_policy_fragment.data());
+    decltype(Traits::delete_key_policy(input)) in_delete_key_policy = Traits::delete_key_policy(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->delete_key_policy)::BaseType> delete_key_policy_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        in_delete_key_policy, delete_key_policy_fragment);
+    fragment->delete_key_policy.Set(
+        delete_key_policy_fragment.is_null() ? nullptr : delete_key_policy_fragment.data());
+    decltype(Traits::insert_key_policy(input)) in_insert_key_policy = Traits::insert_key_policy(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->insert_key_policy)::BaseType> insert_key_policy_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView>(
+        in_insert_key_policy, insert_key_policy_fragment);
+    fragment->insert_key_policy.Set(
+        insert_key_policy_fragment.is_null() ? nullptr : insert_key_policy_fragment.data());
   }
 
   static bool Deserialize(::ash::mojom::internal::KeyboardPolicies_Data* input,
@@ -2002,6 +2271,8 @@ struct Serializer<::ash::mojom::MouseDataView, MaybeConstUserType> {
         "null device_key in Mouse struct");
     mojo::internal::Serialize<::ash::mojom::CustomizationRestriction>(
         Traits::customization_restriction(input), &fragment->customization_restriction);
+    mojo::internal::Serialize<::ash::mojom::MouseButtonConfig>(
+        Traits::mouse_button_config(input), &fragment->mouse_button_config);
     decltype(Traits::settings(input)) in_settings = Traits::settings(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->settings)::BaseType> settings_fragment(
@@ -2680,6 +2951,8 @@ namespace ash::mojom {
 
 
 
+
+
 inline void KeyboardPoliciesDataView::GetTopRowAreFkeysPolicyDataView(
     InputDeviceSettingsPolicyDataView* output) {
   auto pointer = data_->top_row_are_fkeys_policy.Get();
@@ -2690,10 +2963,35 @@ inline void KeyboardPoliciesDataView::GetEnableMetaFkeyRewritesPolicyDataView(
   auto pointer = data_->enable_meta_fkey_rewrites_policy.Get();
   *output = InputDeviceSettingsPolicyDataView(pointer, message_);
 }
-inline void KeyboardPoliciesDataView::GetExtendedFkeysPolicyDataView(
+inline void KeyboardPoliciesDataView::GetF11KeyPolicyDataView(
     InputDeviceSettingsFkeyPolicyDataView* output) {
-  auto pointer = data_->extended_fkeys_policy.Get();
+  auto pointer = data_->f11_key_policy.Get();
   *output = InputDeviceSettingsFkeyPolicyDataView(pointer, message_);
+}
+inline void KeyboardPoliciesDataView::GetF12KeyPolicyDataView(
+    InputDeviceSettingsFkeyPolicyDataView* output) {
+  auto pointer = data_->f12_key_policy.Get();
+  *output = InputDeviceSettingsFkeyPolicyDataView(pointer, message_);
+}
+inline void KeyboardPoliciesDataView::GetHomeAndEndKeysPolicyDataView(
+    InputDeviceSettingsSixPackKeyPolicyDataView* output) {
+  auto pointer = data_->home_and_end_keys_policy.Get();
+  *output = InputDeviceSettingsSixPackKeyPolicyDataView(pointer, message_);
+}
+inline void KeyboardPoliciesDataView::GetPageUpAndPageDownKeysPolicyDataView(
+    InputDeviceSettingsSixPackKeyPolicyDataView* output) {
+  auto pointer = data_->page_up_and_page_down_keys_policy.Get();
+  *output = InputDeviceSettingsSixPackKeyPolicyDataView(pointer, message_);
+}
+inline void KeyboardPoliciesDataView::GetDeleteKeyPolicyDataView(
+    InputDeviceSettingsSixPackKeyPolicyDataView* output) {
+  auto pointer = data_->delete_key_policy.Get();
+  *output = InputDeviceSettingsSixPackKeyPolicyDataView(pointer, message_);
+}
+inline void KeyboardPoliciesDataView::GetInsertKeyPolicyDataView(
+    InputDeviceSettingsSixPackKeyPolicyDataView* output) {
+  auto pointer = data_->insert_key_policy.Get();
+  *output = InputDeviceSettingsSixPackKeyPolicyDataView(pointer, message_);
 }
 
 
@@ -2905,6 +3203,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::mojom::CustomizableButton> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::mojom::CustomizableButton value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::mojom::MouseButtonConfig> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::mojom::MouseButtonConfig value);
 };
 
 } // namespace perfetto

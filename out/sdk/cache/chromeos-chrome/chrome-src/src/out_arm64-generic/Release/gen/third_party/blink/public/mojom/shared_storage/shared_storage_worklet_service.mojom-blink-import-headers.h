@@ -18,6 +18,8 @@
 #include "third_party/blink/public/mojom/use_counter/metrics/web_feature.mojom-blink-import-headers.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-blink.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-blink-import-headers.h"
+#include "third_party/blink/public/mojom/devtools/console_message.mojom-blink.h"
+#include "third_party/blink/public/mojom/devtools/console_message.mojom-blink-import-headers.h"
 #include "url/mojom/url.mojom-blink.h"
 #include "url/mojom/url.mojom-blink-import-headers.h"
 

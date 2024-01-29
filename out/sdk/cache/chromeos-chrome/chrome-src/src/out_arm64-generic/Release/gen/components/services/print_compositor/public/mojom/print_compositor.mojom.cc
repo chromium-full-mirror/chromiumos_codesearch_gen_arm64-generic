@@ -76,6 +76,9 @@ PrintCompositor::IPCStableHashFunction PrintCompositor::MessageToMethodInfo_(moj
     case internal::kPrintCompositor_SetUserAgent_Name: {
       return &PrintCompositor::SetUserAgent_Sym::IPCStableHash;
     }
+    case internal::kPrintCompositor_SetTitle_Name: {
+      return &PrintCompositor::SetTitle_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -105,6 +108,8 @@ const char* PrintCompositor::MessageToMethodName_(mojo::Message& message) {
             return "Receive printing::mojom::PrintCompositor::SetWebContentsURL";
       case internal::kPrintCompositor_SetUserAgent_Name:
             return "Receive printing::mojom::PrintCompositor::SetUserAgent";
+      case internal::kPrintCompositor_SetTitle_Name:
+            return "Receive printing::mojom::PrintCompositor::SetTitle";
     }
   } else {
     switch (message.name()) {
@@ -126,6 +131,8 @@ const char* PrintCompositor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply printing::mojom::PrintCompositor::SetWebContentsURL";
       case internal::kPrintCompositor_SetUserAgent_Name:
             return "Receive reply printing::mojom::PrintCompositor::SetUserAgent";
+      case internal::kPrintCompositor_SetTitle_Name:
+            return "Receive reply printing::mojom::PrintCompositor::SetTitle";
     }
   }
   return "Receive unknown mojo message";
@@ -253,6 +260,19 @@ uint32_t PrintCompositor::SetUserAgent_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)printing::mojom::PrintCompositor::SetUserAgent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PrintCompositor::SetTitle_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)printing::mojom::PrintCompositor::SetTitle");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -826,6 +846,57 @@ void PrintCompositorProxy::SetUserAgent(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void PrintCompositorProxy::SetTitle(
+    const std::string& in_title) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send printing::mojom::PrintCompositor::SetTitle", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("title"), in_title,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPrintCompositor_SetTitle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::printing::mojom::internal::PrintCompositor_SetTitle_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->title)::BaseType> title_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_title, title_fragment);
+  params->title.Set(
+      title_fragment.is_null() ? nullptr : title_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->title.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null title in PrintCompositor.SetTitle request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PrintCompositor::Name_);
+  message.set_method_name("SetTitle");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class PrintCompositor_CompositePage_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static PrintCompositor::CompositePageCallback CreateCallback(
@@ -884,6 +955,8 @@ bool PrintCompositor_CompositePage_ForwardToCallback::Accept(
           internal::PrintCompositor_CompositePage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintCompositor.3
   bool success = true;
   PrintCompositor::Status p_status{};
   ::base::ReadOnlySharedMemoryRegion p_document_region{};
@@ -1018,6 +1091,8 @@ bool PrintCompositor_CompositeDocument_ForwardToCallback::Accept(
           internal::PrintCompositor_CompositeDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintCompositor.4
   bool success = true;
   PrintCompositor::Status p_status{};
   ::base::ReadOnlySharedMemoryRegion p_document_region{};
@@ -1152,6 +1227,8 @@ bool PrintCompositor_PrepareToCompositeDocument_ForwardToCallback::Accept(
           internal::PrintCompositor_PrepareToCompositeDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintCompositor.5
   bool success = true;
   PrintCompositor::Status p_status{};
   PrintCompositor_PrepareToCompositeDocument_ResponseParamsDataView input_data_view(params, message);
@@ -1272,6 +1349,8 @@ bool PrintCompositor_FinishDocumentComposition_ForwardToCallback::Accept(
           internal::PrintCompositor_FinishDocumentComposition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintCompositor.6
   bool success = true;
   PrintCompositor::Status p_status{};
   ::base::ReadOnlySharedMemoryRegion p_document_region{};
@@ -1361,6 +1440,8 @@ bool PrintCompositorStubDispatch::Accept(
           reinterpret_cast<internal::PrintCompositor_NotifyUnavailableSubframe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.0
       bool success = true;
       uint64_t p_frame_guid{};
       PrintCompositor_NotifyUnavailableSubframe_ParamsDataView input_data_view(params, message);
@@ -1376,8 +1457,8 @@ bool PrintCompositorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyUnavailableSubframe(
-std::move(p_frame_guid));
+      impl->NotifyUnavailableSubframe(        
+        std::move(p_frame_guid));
       return true;
     }
     case internal::kPrintCompositor_AddSubframeContent_Name: {
@@ -1387,6 +1468,8 @@ std::move(p_frame_guid));
           reinterpret_cast<internal::PrintCompositor_AddSubframeContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.1
       bool success = true;
       uint64_t p_frame_guid{};
       ::base::ReadOnlySharedMemoryRegion p_serialized_content{};
@@ -1408,10 +1491,10 @@ std::move(p_frame_guid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSubframeContent(
-std::move(p_frame_guid), 
-std::move(p_serialized_content), 
-std::move(p_subframe_content_info));
+      impl->AddSubframeContent(        
+        std::move(p_frame_guid), 
+        std::move(p_serialized_content), 
+        std::move(p_subframe_content_info));
       return true;
     }
     case internal::kPrintCompositor_SetAccessibilityTree_Name: {
@@ -1421,6 +1504,8 @@ std::move(p_subframe_content_info));
           reinterpret_cast<internal::PrintCompositor_SetAccessibilityTree_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.2
       bool success = true;
       ::ui::AXTreeUpdate p_accessibility_tree{};
       PrintCompositor_SetAccessibilityTree_ParamsDataView input_data_view(params, message);
@@ -1436,8 +1521,8 @@ std::move(p_subframe_content_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAccessibilityTree(
-std::move(p_accessibility_tree));
+      impl->SetAccessibilityTree(        
+        std::move(p_accessibility_tree));
       return true;
     }
     case internal::kPrintCompositor_CompositePage_Name: {
@@ -1459,6 +1544,8 @@ std::move(p_accessibility_tree));
           reinterpret_cast<internal::PrintCompositor_SetWebContentsURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.7
       bool success = true;
       ::GURL p_url{};
       PrintCompositor_SetWebContentsURL_ParamsDataView input_data_view(params, message);
@@ -1474,8 +1561,8 @@ std::move(p_accessibility_tree));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWebContentsURL(
-std::move(p_url));
+      impl->SetWebContentsURL(        
+        std::move(p_url));
       return true;
     }
     case internal::kPrintCompositor_SetUserAgent_Name: {
@@ -1485,6 +1572,8 @@ std::move(p_url));
           reinterpret_cast<internal::PrintCompositor_SetUserAgent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.8
       bool success = true;
       std::string p_user_agent{};
       PrintCompositor_SetUserAgent_ParamsDataView input_data_view(params, message);
@@ -1500,8 +1589,36 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserAgent(
-std::move(p_user_agent));
+      impl->SetUserAgent(        
+        std::move(p_user_agent));
+      return true;
+    }
+    case internal::kPrintCompositor_SetTitle_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PrintCompositor_SetTitle_Params_Data* params =
+          reinterpret_cast<internal::PrintCompositor_SetTitle_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for PrintCompositor.9
+      bool success = true;
+      std::string p_title{};
+      PrintCompositor_SetTitle_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadTitle(&p_title))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PrintCompositor::Name_, 9, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetTitle(        
+        std::move(p_title));
       return true;
     }
   }
@@ -1533,6 +1650,8 @@ bool PrintCompositorStubDispatch::AcceptWithResponder(
               internal::PrintCompositor_CompositePage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.3
       bool success = true;
       uint64_t p_frame_guid{};
       ::base::ReadOnlySharedMemoryRegion p_sk_region{};
@@ -1557,10 +1676,10 @@ bool PrintCompositorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompositePage(
-std::move(p_frame_guid), 
-std::move(p_sk_region), 
-std::move(p_subframe_content_info), std::move(callback));
+      impl->CompositePage(        
+        std::move(p_frame_guid), 
+        std::move(p_sk_region), 
+        std::move(p_subframe_content_info), std::move(callback));
       return true;
     }
     case internal::kPrintCompositor_CompositeDocument_Name: {
@@ -1570,6 +1689,8 @@ std::move(p_subframe_content_info), std::move(callback));
               internal::PrintCompositor_CompositeDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.4
       bool success = true;
       uint64_t p_frame_guid{};
       ::base::ReadOnlySharedMemoryRegion p_sk_region{};
@@ -1597,11 +1718,11 @@ std::move(p_subframe_content_info), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompositeDocument(
-std::move(p_frame_guid), 
-std::move(p_sk_region), 
-std::move(p_subframe_content_info), 
-std::move(p_document_type), std::move(callback));
+      impl->CompositeDocument(        
+        std::move(p_frame_guid), 
+        std::move(p_sk_region), 
+        std::move(p_subframe_content_info), 
+        std::move(p_document_type), std::move(callback));
       return true;
     }
     case internal::kPrintCompositor_PrepareToCompositeDocument_Name: {
@@ -1611,6 +1732,8 @@ std::move(p_document_type), std::move(callback));
               internal::PrintCompositor_PrepareToCompositeDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.5
       bool success = true;
       PrintCompositor::DocumentType p_document_type{};
       PrintCompositor_PrepareToCompositeDocument_ParamsDataView input_data_view(params, message);
@@ -1629,8 +1752,8 @@ std::move(p_document_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepareToCompositeDocument(
-std::move(p_document_type), std::move(callback));
+      impl->PrepareToCompositeDocument(        
+        std::move(p_document_type), std::move(callback));
       return true;
     }
     case internal::kPrintCompositor_FinishDocumentComposition_Name: {
@@ -1640,6 +1763,8 @@ std::move(p_document_type), std::move(callback));
               internal::PrintCompositor_FinishDocumentComposition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintCompositor.6
       bool success = true;
       uint32_t p_pages_count{};
       PrintCompositor_FinishDocumentComposition_ParamsDataView input_data_view(params, message);
@@ -1658,14 +1783,17 @@ std::move(p_document_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FinishDocumentComposition(
-std::move(p_pages_count), std::move(callback));
+      impl->FinishDocumentComposition(        
+        std::move(p_pages_count), std::move(callback));
       return true;
     }
     case internal::kPrintCompositor_SetWebContentsURL_Name: {
       break;
     }
     case internal::kPrintCompositor_SetUserAgent_Name: {
+      break;
+    }
+    case internal::kPrintCompositor_SetTitle_Name: {
       break;
     }
   }
@@ -1691,6 +1819,8 @@ static const mojo::internal::GenericValidationInfo kPrintCompositorValidationInf
     { &internal::PrintCompositor_SetWebContentsURL_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::PrintCompositor_SetUserAgent_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PrintCompositor_SetTitle_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1746,6 +1876,9 @@ void PrintCompositorInterceptorForTesting::SetWebContentsURL(const ::GURL& url) 
 }
 void PrintCompositorInterceptorForTesting::SetUserAgent(const std::string& user_agent) {
   GetForwardingInterface()->SetUserAgent(std::move(user_agent));
+}
+void PrintCompositorInterceptorForTesting::SetTitle(const std::string& title) {
+  GetForwardingInterface()->SetTitle(std::move(title));
 }
 PrintCompositorAsyncWaiter::PrintCompositorAsyncWaiter(
     PrintCompositor* proxy) : proxy_(proxy) {}

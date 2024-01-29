@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5637/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5665/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
@@ -725,6 +725,18 @@ std::string GetProtoDebugStringWithIndent(const KnowledgeFactorHashInfo& value,
     base::StringAppendF(
         &output, "%s",
         base::HexEncode(value.salt().data(), value.salt().size()).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_should_generate_key_store(); }) {
+      if (!value.has_should_generate_key_store()) {
+        return;
+      }
+    }
+    output += indent + "  should_generate_key_store: ";
+    base::StringAppendF(&output, "%s",
+                        value.should_generate_key_store() ? "true" : "false");
     output += "\n";
   }(value, indent_size, indent, output);
   output += indent + "}";

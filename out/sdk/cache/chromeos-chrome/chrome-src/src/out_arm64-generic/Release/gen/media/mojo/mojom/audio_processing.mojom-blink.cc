@@ -488,6 +488,8 @@ bool AudioProcessorControls_GetStats_ForwardToCallback::Accept(
           internal::AudioProcessorControls_GetStats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioProcessorControls.0
   bool success = true;
   ::media::AudioProcessingStats p_stats{};
   AudioProcessorControls_GetStats_ResponseParamsDataView input_data_view(params, message);
@@ -575,6 +577,8 @@ bool AudioProcessorControlsStubDispatch::Accept(
           reinterpret_cast<internal::AudioProcessorControls_SetPreferredNumCaptureChannels_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioProcessorControls.1
       bool success = true;
       int32_t p_num_preferred_channels{};
       AudioProcessorControls_SetPreferredNumCaptureChannels_ParamsDataView input_data_view(params, message);
@@ -590,8 +594,8 @@ bool AudioProcessorControlsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPreferredNumCaptureChannels(
-std::move(p_num_preferred_channels));
+      impl->SetPreferredNumCaptureChannels(        
+        std::move(p_num_preferred_channels));
       return true;
     }
   }
@@ -614,6 +618,8 @@ bool AudioProcessorControlsStubDispatch::AcceptWithResponder(
               internal::AudioProcessorControls_GetStats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioProcessorControls.0
       bool success = true;
       AudioProcessorControls_GetStats_ParamsDataView input_data_view(params, message);
       

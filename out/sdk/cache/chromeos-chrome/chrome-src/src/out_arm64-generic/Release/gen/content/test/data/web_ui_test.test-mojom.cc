@@ -295,6 +295,8 @@ bool WebUIMojoTestCache_GetAll_ForwardToCallback::Accept(
           internal::WebUIMojoTestCache_GetAll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebUIMojoTestCache.1
   bool success = true;
   std::vector<::content::mojom::CacheItemPtr> p_items{};
   WebUIMojoTestCache_GetAll_ResponseParamsDataView input_data_view(params, message);
@@ -381,6 +383,8 @@ bool WebUIMojoTestCacheStubDispatch::Accept(
           reinterpret_cast<internal::WebUIMojoTestCache_Put_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebUIMojoTestCache.0
       bool success = true;
       ::GURL p_url{};
       std::string p_contents{};
@@ -399,9 +403,9 @@ bool WebUIMojoTestCacheStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Put(
-std::move(p_url), 
-std::move(p_contents));
+      impl->Put(        
+        std::move(p_url), 
+        std::move(p_contents));
       return true;
     }
     case internal::kWebUIMojoTestCache_GetAll_Name: {
@@ -430,6 +434,8 @@ bool WebUIMojoTestCacheStubDispatch::AcceptWithResponder(
               internal::WebUIMojoTestCache_GetAll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebUIMojoTestCache.1
       bool success = true;
       WebUIMojoTestCache_GetAll_ParamsDataView input_data_view(params, message);
       

@@ -11,9 +11,12 @@
 const webui::ResourcePath kCommerceInternalsResources[] = {
   {"commerce_internals.css", IDR_COMMERCE_INTERNALS_COMMERCE_INTERNALS_CSS},
   {"commerce_internals.html", IDR_COMMERCE_INTERNALS_COMMERCE_INTERNALS_HTML},
+  {"view_product.html", IDR_COMMERCE_INTERNALS_VIEW_PRODUCT_HTML},
   {"commerce_internals.js", IDR_COMMERCE_INTERNALS_COMMERCE_INTERNALS_JS},
   {"commerce_internals_api_proxy.js", IDR_COMMERCE_INTERNALS_COMMERCE_INTERNALS_API_PROXY_JS},
+  {"view_product.js", IDR_COMMERCE_INTERNALS_VIEW_PRODUCT_JS},
   {"commerce_internals.mojom-webui.js", IDR_COMMERCE_INTERNALS_COMMERCE_INTERNALS_MOJOM_WEBUI_JS},
+  {"shopping_service.mojom-webui.js", IDR_COMMERCE_INTERNALS_SHOPPING_SERVICE_MOJOM_WEBUI_JS},
 };
 
 const size_t kCommerceInternalsResourcesSize = std::size(kCommerceInternalsResources);

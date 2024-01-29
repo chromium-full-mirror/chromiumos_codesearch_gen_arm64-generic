@@ -1,0 +1,4 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/performance_manager/public/mojom/coordination_unit.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/performance_manager/public/mojom/lifecycle.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/performance_manager/public/mojom/v8_contexts.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/performance_manager/public/mojom/web_memory.mojom-shared-message-ids.h

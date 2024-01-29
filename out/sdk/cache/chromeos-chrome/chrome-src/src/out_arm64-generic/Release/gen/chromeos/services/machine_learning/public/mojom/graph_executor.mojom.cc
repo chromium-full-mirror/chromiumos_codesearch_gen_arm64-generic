@@ -246,6 +246,8 @@ bool GraphExecutor_Execute_ForwardToCallback::Accept(
           internal::GraphExecutor_Execute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GraphExecutor.0
   bool success = true;
   ExecuteResult p_result{};
   std::optional<std::vector<::chromeos::machine_learning::mojom::TensorPtr>> p_outputs{};
@@ -353,6 +355,8 @@ bool GraphExecutorStubDispatch::AcceptWithResponder(
               internal::GraphExecutor_Execute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GraphExecutor.0
       bool success = true;
       base::flat_map<std::string, ::chromeos::machine_learning::mojom::TensorPtr> p_inputs{};
       std::vector<std::string> p_output_names{};
@@ -374,9 +378,9 @@ bool GraphExecutorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Execute(
-std::move(p_inputs), 
-std::move(p_output_names), std::move(callback));
+      impl->Execute(        
+        std::move(p_inputs), 
+        std::move(p_output_names), std::move(callback));
       return true;
     }
   }

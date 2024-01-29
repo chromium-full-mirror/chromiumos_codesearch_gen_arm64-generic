@@ -4,10 +4,11 @@
 import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import { getTrustedHTML } from 'chrome://resources/js/static_types.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chromeos/chai_assert.js';
-import { EntryLocation } from '../externs/entry_location.js';
-import { PropStatus, State } from '../externs/ts/state.js';
+import { EntryLocation } from '../background/js/entry_location_impl.js';
+import { RootType } from '../common/js/volume_manager_types.js';
 import { clearSearch, getDefaultSearchOptions, updateSearch } from '../state/ducks/search.js';
 import { waitDeepEquals } from '../state/for_tests.js';
+import { PropStatus } from '../state/state.js';
 import { getEmptyState, getStore } from '../state/store.js';
 import { SearchContainer } from './search_container.js';
 class TestA11yAnnouncer {
@@ -37,7 +38,7 @@ function setupSearchContainer() {
     if (searchContainer === undefined) {
         const volumeManager = {
             getLocationInfo: (_entry) => {
-                return new EntryLocation();
+                return new EntryLocation(null, RootType.DOWNLOADS, true, true);
             },
         };
         searchContainer = new SearchContainer(volumeManager, document.querySelector('#search-wrapper'), document.querySelector('#options-container'), document.querySelector('#path-container'), a11y);

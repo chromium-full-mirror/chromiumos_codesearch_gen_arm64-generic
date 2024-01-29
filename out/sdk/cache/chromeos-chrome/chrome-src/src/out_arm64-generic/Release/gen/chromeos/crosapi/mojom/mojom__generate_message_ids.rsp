@@ -18,6 +18,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/content_protection.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/cros_display_config.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/crosapi.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/debug_interface.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/desk.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/desk_profiles.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/desk_template.mojom
@@ -41,6 +42,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/eye_dropper.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/feedback.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/field_trial.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/file_change_service_bridge.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/file_manager.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/file_system_access_cloud_identifier.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/file_system_provider.mojom
@@ -73,8 +75,10 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/network_settings_service.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/networking_attributes.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/networking_private.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/nonclosable_app_toast_service.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/notification.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/nullable_primitives.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/one_drive_notification_service.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/parent_access.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/passkeys.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/crosapi/mojom/policy_namespace.mojom

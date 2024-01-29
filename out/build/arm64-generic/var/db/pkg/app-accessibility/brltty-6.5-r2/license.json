@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-accessibility", "name": "brltty", "version": "6.5", "revision": 2, "fullname": "app-accessibility/brltty", "fullnamerev": "app-accessibility/brltty-6.5-r2", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://brltty.app/"], "skip": false, "tainted": false, "ebuild_path": null}

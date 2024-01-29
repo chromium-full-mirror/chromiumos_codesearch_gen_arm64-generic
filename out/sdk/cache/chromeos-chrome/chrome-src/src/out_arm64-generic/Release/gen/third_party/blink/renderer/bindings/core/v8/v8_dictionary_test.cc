@@ -84,17 +84,13 @@ BLINK_BINDINGS_TRACE_EVENT("DictionaryTest.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->get(isolate);
-if (!ToV8Traits<InternalDictionary>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<InternalDictionary>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -109,17 +105,13 @@ BLINK_BINDINGS_TRACE_EVENT("DictionaryTest.getDerived");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getDerived(isolate);
-if (!ToV8Traits<InternalDictionaryDerived>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<InternalDictionaryDerived>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -134,17 +126,13 @@ BLINK_BINDINGS_TRACE_EVENT("DictionaryTest.getDerivedDerived");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 DictionaryTest* blink_receiver = V8DictionaryTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getDerivedDerived(isolate);
-if (!ToV8Traits<InternalDictionaryDerivedDerived>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<InternalDictionaryDerivedDerived>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

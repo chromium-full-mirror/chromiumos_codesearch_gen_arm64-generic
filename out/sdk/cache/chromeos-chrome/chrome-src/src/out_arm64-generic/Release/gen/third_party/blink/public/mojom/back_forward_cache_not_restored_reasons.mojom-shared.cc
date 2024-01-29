@@ -21,32 +21,6 @@
 namespace blink {
 namespace mojom {
 
-NOINLINE static const char* BFCacheBlockedToStringHelper(BFCacheBlocked value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case BFCacheBlocked::kYes:
-      return "kYes";
-    case BFCacheBlocked::kNo:
-      return "kNo";
-    case BFCacheBlocked::kMasked:
-      return "kMasked";
-    default:
-      return nullptr;
-  }
-}
-
-std::string BFCacheBlockedToString(BFCacheBlocked value) {
-  const char *str = BFCacheBlockedToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown BFCacheBlocked value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, BFCacheBlocked value) {
-  return os << BFCacheBlockedToString(value);
-}
-
 namespace internal {
 
 
@@ -57,7 +31,7 @@ bool SameOriginBfcacheNotRestoredDetails_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -78,18 +52,7 @@ bool SameOriginBfcacheNotRestoredDetails_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->reasons, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& reasons_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-  if (!mojo::internal::ValidateContainer(object->reasons, validation_context,
-                                         &reasons_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->children, 3, validation_context)) {
+          object->children, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& children_validate_params =
@@ -122,11 +85,6 @@ bool BackForwardCacheNotRestoredReasons_Data::Validate(
   [[maybe_unused]] const BackForwardCacheNotRestoredReasons_Data* object =
       static_cast<const BackForwardCacheNotRestoredReasons_Data*>(data);
 
-
-  if (!::blink::mojom::internal::BFCacheBlocked_Data
-        ::Validate(object->blocked, validation_context))
-    return false;
-
   constexpr const mojo::internal::ContainerValidateParams& src_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->src, validation_context,
@@ -148,6 +106,17 @@ bool BackForwardCacheNotRestoredReasons_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->reasons, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& reasons_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->reasons, validation_context,
+                                         &reasons_validate_params)) {
+    return false;
+  }
+
   if (!mojo::internal::ValidateStruct(object->same_origin_details, validation_context))
     return false;
 
@@ -160,13 +129,3 @@ BackForwardCacheNotRestoredReasons_Data::BackForwardCacheNotRestoredReasons_Data
 }  // namespace internal
 }  // namespace mojom
 }  // namespace blink
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::blink::mojom::BFCacheBlocked>::WriteIntoTrace(
-   perfetto::TracedValue context, ::blink::mojom::BFCacheBlocked value) {
-  return std::move(context).WriteString(::blink::mojom::BFCacheBlockedToString(value));
-}
-
-} // namespace perfetto

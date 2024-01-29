@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-flow:column nowrap;height:100%;justify-content:center;width:100%}p{font:var(--cros-body-1-font);margin:24px 12px 0 12px;max-width:316px}:host-context(body.jelly-enabled) p{margin-top:0;position:relative;top:-12px}iron-icon[icon='personalization-illo:wallpaper_error']{--iron-icon-width:400px;--iron-icon-height:177px;top:-24px}:host-context(body.jelly-enabled) #wallpaperError,:host-context(body:not(.jelly-enabled)) #wallpaperErrorJelly{display:none}</style>
+    return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-flow:column nowrap;height:100%;justify-content:center;width:100%}p{font:var(--cros-body-1-font);margin:24px 12px 0 12px;max-width:316px}:host-context(body.jelly-enabled) p{margin-top:0;position:relative;top:-12px}iron-icon[icon='personalization-shared-illo:network_error']{--iron-icon-width:400px;--iron-icon-height:177px;top:-24px}:host-context(body.jelly-enabled) #wallpaperError,:host-context(body:not(.jelly-enabled)) #wallpaperErrorJelly{display:none}</style>
 <svg id="wallpaperError" width="380" height="140" viewBox="0 0 380 140" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0)">
     <rect width="380" height="140"></rect>
@@ -25,7 +25,7 @@ export function getTemplate() {
     </clipPath>
   </defs>
 </svg>
-<iron-icon id="wallpaperErrorJelly" icon="personalization-illo:wallpaper_error"></iron-icon>
+<iron-icon id="wallpaperErrorJelly" icon="personalization-shared-illo:network_error"></iron-icon>
 <p>$i18n{wallpaperNetworkError}</p>
 <!--_html_template_end_-->`;
 }

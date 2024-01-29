@@ -86,7 +86,7 @@ content_type_ = ContentType::kUnsignedLongEnforceRangeSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kGPUExtent3DDict: {
     return ToV8Traits<GPUExtent3DDict>::ToV8(script_state, member_gpu_extent_3d_dict_.Get());
@@ -97,7 +97,7 @@ v8::MaybeLocal<v8::Value> V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequen
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence::Trace(Visitor* visitor) const {

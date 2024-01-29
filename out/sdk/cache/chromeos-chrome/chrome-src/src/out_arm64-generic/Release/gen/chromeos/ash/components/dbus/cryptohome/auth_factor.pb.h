@@ -2448,6 +2448,7 @@ class KnowledgeFactorHashInfo final :
   enum : int {
     kSaltFieldNumber = 2,
     kAlgorithmFieldNumber = 1,
+    kShouldGenerateKeyStoreFieldNumber = 3,
   };
   // bytes salt = 2;
   void clear_salt();
@@ -2472,6 +2473,15 @@ class KnowledgeFactorHashInfo final :
   void _internal_set_algorithm(::cryptohome::KnowledgeFactorHashAlgorithm value);
   public:
 
+  // bool should_generate_key_store = 3;
+  void clear_should_generate_key_store();
+  bool should_generate_key_store() const;
+  void set_should_generate_key_store(bool value);
+  private:
+  bool _internal_should_generate_key_store() const;
+  void _internal_set_should_generate_key_store(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.KnowledgeFactorHashInfo)
  private:
   class _Internal;
@@ -2481,6 +2491,7 @@ class KnowledgeFactorHashInfo final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr salt_;
   int algorithm_;
+  bool should_generate_key_store_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_5ffactor_2eproto;
 };
@@ -4862,6 +4873,26 @@ inline void KnowledgeFactorHashInfo::set_allocated_salt(std::string* salt) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.KnowledgeFactorHashInfo.salt)
+}
+
+// bool should_generate_key_store = 3;
+inline void KnowledgeFactorHashInfo::clear_should_generate_key_store() {
+  should_generate_key_store_ = false;
+}
+inline bool KnowledgeFactorHashInfo::_internal_should_generate_key_store() const {
+  return should_generate_key_store_;
+}
+inline bool KnowledgeFactorHashInfo::should_generate_key_store() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.KnowledgeFactorHashInfo.should_generate_key_store)
+  return _internal_should_generate_key_store();
+}
+inline void KnowledgeFactorHashInfo::_internal_set_should_generate_key_store(bool value) {
+  
+  should_generate_key_store_ = value;
+}
+inline void KnowledgeFactorHashInfo::set_should_generate_key_store(bool value) {
+  _internal_set_should_generate_key_store(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.KnowledgeFactorHashInfo.should_generate_key_store)
 }
 
 // -------------------------------------------------------------------

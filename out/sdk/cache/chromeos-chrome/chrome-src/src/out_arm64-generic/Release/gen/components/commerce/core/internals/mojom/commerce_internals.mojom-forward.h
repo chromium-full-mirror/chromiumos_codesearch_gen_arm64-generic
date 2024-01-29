@@ -26,11 +26,16 @@ class EligibleEntryDataView;
 
 class ShoppingListEligibleDetailDataView;
 
+class SubscriptionDataView;
+
 class EligibleEntry;
 using EligibleEntryPtr = mojo::InlinedStructPtr<EligibleEntry>;
 
 class ShoppingListEligibleDetail;
 using ShoppingListEligibleDetailPtr = mojo::StructPtr<ShoppingListEligibleDetail>;
+
+class Subscription;
+using SubscriptionPtr = mojo::StructPtr<Subscription>;
 
 class CommerceInternalsHandlerFactory;
 

@@ -1723,6 +1723,8 @@ bool DrmDevice_TakeDisplayControl_ForwardToCallback::Accept(
           internal::DrmDevice_TakeDisplayControl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.3
   bool success = true;
   bool p_success{};
   DrmDevice_TakeDisplayControl_ResponseParamsDataView input_data_view(params, message);
@@ -1842,6 +1844,8 @@ bool DrmDevice_RelinquishDisplayControl_ForwardToCallback::Accept(
           internal::DrmDevice_RelinquishDisplayControl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.4
   bool success = true;
   bool p_success{};
   DrmDevice_RelinquishDisplayControl_ResponseParamsDataView input_data_view(params, message);
@@ -1961,6 +1965,8 @@ bool DrmDevice_RefreshNativeDisplays_ForwardToCallback::Accept(
           internal::DrmDevice_RefreshNativeDisplays_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.5
   bool success = true;
   std::vector<::std::unique_ptr<::display::DisplaySnapshot>> p_display_snapshots{};
   DrmDevice_RefreshNativeDisplays_ResponseParamsDataView input_data_view(params, message);
@@ -2092,6 +2098,8 @@ bool DrmDevice_ShouldDisplayEventTriggerConfiguration_ForwardToCallback::Accept(
           internal::DrmDevice_ShouldDisplayEventTriggerConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.8
   bool success = true;
   bool p_should_trigger{};
   DrmDevice_ShouldDisplayEventTriggerConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -2211,6 +2219,8 @@ bool DrmDevice_ConfigureNativeDisplays_ForwardToCallback::Accept(
           internal::DrmDevice_ConfigureNativeDisplays_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.9
   bool success = true;
   bool p_config_success{};
   DrmDevice_ConfigureNativeDisplays_ResponseParamsDataView input_data_view(params, message);
@@ -2330,6 +2340,8 @@ bool DrmDevice_SetHdcpKeyProp_ForwardToCallback::Accept(
           internal::DrmDevice_SetHdcpKeyProp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.10
   bool success = true;
   int64_t p_display_id{};
   bool p_success{};
@@ -2457,6 +2469,8 @@ bool DrmDevice_GetHDCPState_ForwardToCallback::Accept(
           internal::DrmDevice_GetHDCPState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.11
   bool success = true;
   int64_t p_display_id{};
   bool p_success{};
@@ -2602,6 +2616,8 @@ bool DrmDevice_SetHDCPState_ForwardToCallback::Accept(
           internal::DrmDevice_SetHDCPState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.12
   bool success = true;
   int64_t p_display_id{};
   bool p_success{};
@@ -2729,6 +2745,8 @@ bool DrmDevice_SetPrivacyScreen_ForwardToCallback::Accept(
           internal::DrmDevice_SetPrivacyScreen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DrmDevice.18
   bool success = true;
   bool p_success{};
   DrmDevice_SetPrivacyScreen_ResponseParamsDataView input_data_view(params, message);
@@ -2803,6 +2821,8 @@ bool DrmDeviceStubDispatch::Accept(
           reinterpret_cast<internal::DrmDevice_CreateWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.0
       bool success = true;
       ::gfx::AcceleratedWidget p_widget{};
       ::gfx::Rect p_initial_bounds{};
@@ -2821,9 +2841,9 @@ bool DrmDeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWindow(
-std::move(p_widget), 
-std::move(p_initial_bounds));
+      impl->CreateWindow(        
+        std::move(p_widget), 
+        std::move(p_initial_bounds));
       return true;
     }
     case internal::kDrmDevice_DestroyWindow_Name: {
@@ -2833,6 +2853,8 @@ std::move(p_initial_bounds));
           reinterpret_cast<internal::DrmDevice_DestroyWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.1
       bool success = true;
       ::gfx::AcceleratedWidget p_widget{};
       DrmDevice_DestroyWindow_ParamsDataView input_data_view(params, message);
@@ -2848,8 +2870,8 @@ std::move(p_initial_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyWindow(
-std::move(p_widget));
+      impl->DestroyWindow(        
+        std::move(p_widget));
       return true;
     }
     case internal::kDrmDevice_SetWindowBounds_Name: {
@@ -2859,6 +2881,8 @@ std::move(p_widget));
           reinterpret_cast<internal::DrmDevice_SetWindowBounds_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.2
       bool success = true;
       ::gfx::AcceleratedWidget p_widget{};
       ::gfx::Rect p_bounds{};
@@ -2877,9 +2901,9 @@ std::move(p_widget));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWindowBounds(
-std::move(p_widget), 
-std::move(p_bounds));
+      impl->SetWindowBounds(        
+        std::move(p_widget), 
+        std::move(p_bounds));
       return true;
     }
     case internal::kDrmDevice_TakeDisplayControl_Name: {
@@ -2898,6 +2922,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::DrmDevice_AddGraphicsDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.6
       bool success = true;
       ::base::FilePath p_path{};
       ::mojo::PlatformHandle p_fd_mojo_handle{};
@@ -2916,9 +2942,9 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddGraphicsDevice(
-std::move(p_path), 
-std::move(p_fd_mojo_handle));
+      impl->AddGraphicsDevice(        
+        std::move(p_path), 
+        std::move(p_fd_mojo_handle));
       return true;
     }
     case internal::kDrmDevice_RemoveGraphicsDevice_Name: {
@@ -2928,6 +2954,8 @@ std::move(p_fd_mojo_handle));
           reinterpret_cast<internal::DrmDevice_RemoveGraphicsDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.7
       bool success = true;
       ::base::FilePath p_path{};
       DrmDevice_RemoveGraphicsDevice_ParamsDataView input_data_view(params, message);
@@ -2943,8 +2971,8 @@ std::move(p_fd_mojo_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveGraphicsDevice(
-std::move(p_path));
+      impl->RemoveGraphicsDevice(        
+        std::move(p_path));
       return true;
     }
     case internal::kDrmDevice_ShouldDisplayEventTriggerConfiguration_Name: {
@@ -2969,6 +2997,8 @@ std::move(p_path));
           reinterpret_cast<internal::DrmDevice_SetColorTemperatureAdjustment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.13
       bool success = true;
       int64_t p_display_id{};
       ::display::ColorTemperatureAdjustment p_cta{};
@@ -2987,9 +3017,9 @@ std::move(p_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorTemperatureAdjustment(
-std::move(p_display_id), 
-std::move(p_cta));
+      impl->SetColorTemperatureAdjustment(        
+        std::move(p_display_id), 
+        std::move(p_cta));
       return true;
     }
     case internal::kDrmDevice_SetColorCalibration_Name: {
@@ -2999,6 +3029,8 @@ std::move(p_cta));
           reinterpret_cast<internal::DrmDevice_SetColorCalibration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.14
       bool success = true;
       int64_t p_display_id{};
       ::display::ColorCalibration p_calibration{};
@@ -3017,9 +3049,9 @@ std::move(p_cta));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorCalibration(
-std::move(p_display_id), 
-std::move(p_calibration));
+      impl->SetColorCalibration(        
+        std::move(p_display_id), 
+        std::move(p_calibration));
       return true;
     }
     case internal::kDrmDevice_SetGammaAdjustment_Name: {
@@ -3029,6 +3061,8 @@ std::move(p_calibration));
           reinterpret_cast<internal::DrmDevice_SetGammaAdjustment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.15
       bool success = true;
       int64_t p_display_id{};
       ::display::GammaAdjustment p_adjustment{};
@@ -3047,9 +3081,9 @@ std::move(p_calibration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetGammaAdjustment(
-std::move(p_display_id), 
-std::move(p_adjustment));
+      impl->SetGammaAdjustment(        
+        std::move(p_display_id), 
+        std::move(p_adjustment));
       return true;
     }
     case internal::kDrmDevice_SetColorMatrix_Name: {
@@ -3059,6 +3093,8 @@ std::move(p_adjustment));
           reinterpret_cast<internal::DrmDevice_SetColorMatrix_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.16
       bool success = true;
       int64_t p_display_id{};
       std::vector<float> p_color_matrix{};
@@ -3077,9 +3113,9 @@ std::move(p_adjustment));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorMatrix(
-std::move(p_display_id), 
-std::move(p_color_matrix));
+      impl->SetColorMatrix(        
+        std::move(p_display_id), 
+        std::move(p_color_matrix));
       return true;
     }
     case internal::kDrmDevice_SetGammaCorrection_Name: {
@@ -3089,6 +3125,8 @@ std::move(p_color_matrix));
           reinterpret_cast<internal::DrmDevice_SetGammaCorrection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.17
       bool success = true;
       int64_t p_display_id{};
       ::display::GammaCurve p_degamma{};
@@ -3110,10 +3148,10 @@ std::move(p_color_matrix));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetGammaCorrection(
-std::move(p_display_id), 
-std::move(p_degamma), 
-std::move(p_gamma));
+      impl->SetGammaCorrection(        
+        std::move(p_display_id), 
+        std::move(p_degamma), 
+        std::move(p_gamma));
       return true;
     }
     case internal::kDrmDevice_SetPrivacyScreen_Name: {
@@ -3126,6 +3164,8 @@ std::move(p_gamma));
           reinterpret_cast<internal::DrmDevice_GetDeviceCursor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DrmDevice.19
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::ui::ozone::mojom::DeviceCursor> p_cursor{};
       DrmDevice_GetDeviceCursor_ParamsDataView input_data_view(params, message);
@@ -3143,8 +3183,8 @@ std::move(p_gamma));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeviceCursor(
-std::move(p_cursor));
+      impl->GetDeviceCursor(        
+        std::move(p_cursor));
       return true;
     }
   }
@@ -3176,6 +3216,8 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
               internal::DrmDevice_TakeDisplayControl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.3
       bool success = true;
       DrmDevice_TakeDisplayControl_ParamsDataView input_data_view(params, message);
       
@@ -3201,6 +3243,8 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
               internal::DrmDevice_RelinquishDisplayControl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.4
       bool success = true;
       DrmDevice_RelinquishDisplayControl_ParamsDataView input_data_view(params, message);
       
@@ -3226,6 +3270,8 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
               internal::DrmDevice_RefreshNativeDisplays_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.5
       bool success = true;
       DrmDevice_RefreshNativeDisplays_ParamsDataView input_data_view(params, message);
       
@@ -3257,6 +3303,8 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
               internal::DrmDevice_ShouldDisplayEventTriggerConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.8
       bool success = true;
       base::flat_map<std::string, std::string> p_event_props{};
       DrmDevice_ShouldDisplayEventTriggerConfiguration_ParamsDataView input_data_view(params, message);
@@ -3275,8 +3323,8 @@ bool DrmDeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShouldDisplayEventTriggerConfiguration(
-std::move(p_event_props), std::move(callback));
+      impl->ShouldDisplayEventTriggerConfiguration(        
+        std::move(p_event_props), std::move(callback));
       return true;
     }
     case internal::kDrmDevice_ConfigureNativeDisplays_Name: {
@@ -3286,6 +3334,8 @@ std::move(p_event_props), std::move(callback));
               internal::DrmDevice_ConfigureNativeDisplays_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.9
       bool success = true;
       std::vector<::display::DisplayConfigurationParams> p_config_requests{};
       uint32_t p_modeset_flag{};
@@ -3307,9 +3357,9 @@ std::move(p_event_props), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureNativeDisplays(
-std::move(p_config_requests), 
-std::move(p_modeset_flag), std::move(callback));
+      impl->ConfigureNativeDisplays(        
+        std::move(p_config_requests), 
+        std::move(p_modeset_flag), std::move(callback));
       return true;
     }
     case internal::kDrmDevice_SetHdcpKeyProp_Name: {
@@ -3319,6 +3369,8 @@ std::move(p_modeset_flag), std::move(callback));
               internal::DrmDevice_SetHdcpKeyProp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.10
       bool success = true;
       int64_t p_display_id{};
       std::string p_key{};
@@ -3340,9 +3392,9 @@ std::move(p_modeset_flag), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHdcpKeyProp(
-std::move(p_display_id), 
-std::move(p_key), std::move(callback));
+      impl->SetHdcpKeyProp(        
+        std::move(p_display_id), 
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kDrmDevice_GetHDCPState_Name: {
@@ -3352,6 +3404,8 @@ std::move(p_key), std::move(callback));
               internal::DrmDevice_GetHDCPState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.11
       bool success = true;
       int64_t p_display_id{};
       DrmDevice_GetHDCPState_ParamsDataView input_data_view(params, message);
@@ -3370,8 +3424,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHDCPState(
-std::move(p_display_id), std::move(callback));
+      impl->GetHDCPState(        
+        std::move(p_display_id), std::move(callback));
       return true;
     }
     case internal::kDrmDevice_SetHDCPState_Name: {
@@ -3381,6 +3435,8 @@ std::move(p_display_id), std::move(callback));
               internal::DrmDevice_SetHDCPState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.12
       bool success = true;
       int64_t p_display_id{};
       ::display::HDCPState p_state{};
@@ -3405,10 +3461,10 @@ std::move(p_display_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHDCPState(
-std::move(p_display_id), 
-std::move(p_state), 
-std::move(p_protection_method), std::move(callback));
+      impl->SetHDCPState(        
+        std::move(p_display_id), 
+        std::move(p_state), 
+        std::move(p_protection_method), std::move(callback));
       return true;
     }
     case internal::kDrmDevice_SetColorTemperatureAdjustment_Name: {
@@ -3433,6 +3489,8 @@ std::move(p_protection_method), std::move(callback));
               internal::DrmDevice_SetPrivacyScreen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DrmDevice.18
       bool success = true;
       int64_t p_display_id{};
       bool p_enabled{};
@@ -3454,9 +3512,9 @@ std::move(p_protection_method), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPrivacyScreen(
-std::move(p_display_id), 
-std::move(p_enabled), std::move(callback));
+      impl->SetPrivacyScreen(        
+        std::move(p_display_id), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kDrmDevice_GetDeviceCursor_Name: {

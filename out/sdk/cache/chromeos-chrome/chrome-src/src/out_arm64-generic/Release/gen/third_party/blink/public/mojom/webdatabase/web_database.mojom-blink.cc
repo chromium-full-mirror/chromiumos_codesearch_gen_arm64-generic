@@ -270,6 +270,8 @@ bool WebDatabaseStubDispatch::Accept(
           reinterpret_cast<internal::WebDatabase_UpdateSize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebDatabase.0
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::WTF::String p_name{};
@@ -291,10 +293,10 @@ bool WebDatabaseStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSize(
-std::move(p_origin), 
-std::move(p_name), 
-std::move(p_size));
+      impl->UpdateSize(        
+        std::move(p_origin), 
+        std::move(p_name), 
+        std::move(p_size));
       return true;
     }
     case internal::kWebDatabase_CloseImmediately_Name: {
@@ -304,6 +306,8 @@ std::move(p_size));
           reinterpret_cast<internal::WebDatabase_CloseImmediately_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebDatabase.1
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::WTF::String p_name{};
@@ -322,9 +326,9 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseImmediately(
-std::move(p_origin), 
-std::move(p_name));
+      impl->CloseImmediately(        
+        std::move(p_origin), 
+        std::move(p_name));
       return true;
     }
   }
@@ -1716,6 +1720,8 @@ bool WebDatabaseHost_OpenFile_ForwardToCallback::Accept(
           internal::WebDatabaseHost_OpenFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.0
   bool success = true;
   ::base::File p_file{};
   WebDatabaseHost_OpenFile_ResponseParamsDataView input_data_view(params, message);
@@ -1791,6 +1797,8 @@ bool WebDatabaseHost_OpenFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebDatabaseHost_OpenFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.0
   bool success = true;
   ::base::File p_file{};
   WebDatabaseHost_OpenFile_ResponseParamsDataView input_data_view(params, message);
@@ -1866,6 +1874,8 @@ bool WebDatabaseHost_DeleteFile_ForwardToCallback::Accept(
           internal::WebDatabaseHost_DeleteFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.1
   bool success = true;
   int32_t p_sqlite_error_code{};
   WebDatabaseHost_DeleteFile_ResponseParamsDataView input_data_view(params, message);
@@ -1935,6 +1945,8 @@ bool WebDatabaseHost_DeleteFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebDatabaseHost_DeleteFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.1
   bool success = true;
   int32_t p_sqlite_error_code{};
   WebDatabaseHost_DeleteFile_ResponseParamsDataView input_data_view(params, message);
@@ -2010,6 +2022,8 @@ bool WebDatabaseHost_GetFileAttributes_ForwardToCallback::Accept(
           internal::WebDatabaseHost_GetFileAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.2
   bool success = true;
   int32_t p_attributes{};
   WebDatabaseHost_GetFileAttributes_ResponseParamsDataView input_data_view(params, message);
@@ -2079,6 +2093,8 @@ bool WebDatabaseHost_GetFileAttributes_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebDatabaseHost_GetFileAttributes_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.2
   bool success = true;
   int32_t p_attributes{};
   WebDatabaseHost_GetFileAttributes_ResponseParamsDataView input_data_view(params, message);
@@ -2154,6 +2170,8 @@ bool WebDatabaseHost_SetFileSize_ForwardToCallback::Accept(
           internal::WebDatabaseHost_SetFileSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.3
   bool success = true;
   bool p_success{};
   WebDatabaseHost_SetFileSize_ResponseParamsDataView input_data_view(params, message);
@@ -2223,6 +2241,8 @@ bool WebDatabaseHost_SetFileSize_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebDatabaseHost_SetFileSize_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.3
   bool success = true;
   bool p_success{};
   WebDatabaseHost_SetFileSize_ResponseParamsDataView input_data_view(params, message);
@@ -2298,6 +2318,8 @@ bool WebDatabaseHost_GetSpaceAvailable_ForwardToCallback::Accept(
           internal::WebDatabaseHost_GetSpaceAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.4
   bool success = true;
   int64_t p_space_available{};
   WebDatabaseHost_GetSpaceAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -2367,6 +2389,8 @@ bool WebDatabaseHost_GetSpaceAvailable_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebDatabaseHost_GetSpaceAvailable_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebDatabaseHost.4
   bool success = true;
   int64_t p_space_available{};
   WebDatabaseHost_GetSpaceAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -2412,6 +2436,8 @@ bool WebDatabaseHostStubDispatch::Accept(
           reinterpret_cast<internal::WebDatabaseHost_Opened_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.5
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::WTF::String p_database_name{};
@@ -2433,10 +2459,10 @@ bool WebDatabaseHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Opened(
-std::move(p_origin), 
-std::move(p_database_name), 
-std::move(p_database_description));
+      impl->Opened(        
+        std::move(p_origin), 
+        std::move(p_database_name), 
+        std::move(p_database_description));
       return true;
     }
     case internal::kWebDatabaseHost_Modified_Name: {
@@ -2446,6 +2472,8 @@ std::move(p_database_description));
           reinterpret_cast<internal::WebDatabaseHost_Modified_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.6
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::WTF::String p_database_name{};
@@ -2464,9 +2492,9 @@ std::move(p_database_description));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Modified(
-std::move(p_origin), 
-std::move(p_database_name));
+      impl->Modified(        
+        std::move(p_origin), 
+        std::move(p_database_name));
       return true;
     }
     case internal::kWebDatabaseHost_Closed_Name: {
@@ -2476,6 +2504,8 @@ std::move(p_database_name));
           reinterpret_cast<internal::WebDatabaseHost_Closed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.7
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::WTF::String p_database_name{};
@@ -2494,9 +2524,9 @@ std::move(p_database_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Closed(
-std::move(p_origin), 
-std::move(p_database_name));
+      impl->Closed(        
+        std::move(p_origin), 
+        std::move(p_database_name));
       return true;
     }
     case internal::kWebDatabaseHost_HandleSqliteError_Name: {
@@ -2506,6 +2536,8 @@ std::move(p_database_name));
           reinterpret_cast<internal::WebDatabaseHost_HandleSqliteError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.8
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::WTF::String p_database_name{};
@@ -2527,10 +2559,10 @@ std::move(p_database_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleSqliteError(
-std::move(p_origin), 
-std::move(p_database_name), 
-std::move(p_error));
+      impl->HandleSqliteError(        
+        std::move(p_origin), 
+        std::move(p_database_name), 
+        std::move(p_error));
       return true;
     }
   }
@@ -2553,6 +2585,8 @@ bool WebDatabaseHostStubDispatch::AcceptWithResponder(
               internal::WebDatabaseHost_OpenFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.0
       bool success = true;
       ::WTF::String p_vfs_file_name{};
       int32_t p_desired_flags{};
@@ -2574,9 +2608,9 @@ bool WebDatabaseHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFile(
-std::move(p_vfs_file_name), 
-std::move(p_desired_flags), std::move(callback));
+      impl->OpenFile(        
+        std::move(p_vfs_file_name), 
+        std::move(p_desired_flags), std::move(callback));
       return true;
     }
     case internal::kWebDatabaseHost_DeleteFile_Name: {
@@ -2586,6 +2620,8 @@ std::move(p_desired_flags), std::move(callback));
               internal::WebDatabaseHost_DeleteFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.1
       bool success = true;
       ::WTF::String p_vfs_file_name{};
       bool p_sync_dir{};
@@ -2607,9 +2643,9 @@ std::move(p_desired_flags), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteFile(
-std::move(p_vfs_file_name), 
-std::move(p_sync_dir), std::move(callback));
+      impl->DeleteFile(        
+        std::move(p_vfs_file_name), 
+        std::move(p_sync_dir), std::move(callback));
       return true;
     }
     case internal::kWebDatabaseHost_GetFileAttributes_Name: {
@@ -2619,6 +2655,8 @@ std::move(p_sync_dir), std::move(callback));
               internal::WebDatabaseHost_GetFileAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.2
       bool success = true;
       ::WTF::String p_vfs_file_name{};
       WebDatabaseHost_GetFileAttributes_ParamsDataView input_data_view(params, message);
@@ -2637,8 +2675,8 @@ std::move(p_sync_dir), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileAttributes(
-std::move(p_vfs_file_name), std::move(callback));
+      impl->GetFileAttributes(        
+        std::move(p_vfs_file_name), std::move(callback));
       return true;
     }
     case internal::kWebDatabaseHost_SetFileSize_Name: {
@@ -2648,6 +2686,8 @@ std::move(p_vfs_file_name), std::move(callback));
               internal::WebDatabaseHost_SetFileSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.3
       bool success = true;
       ::WTF::String p_vfs_file_name{};
       int64_t p_expected_size{};
@@ -2669,9 +2709,9 @@ std::move(p_vfs_file_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFileSize(
-std::move(p_vfs_file_name), 
-std::move(p_expected_size), std::move(callback));
+      impl->SetFileSize(        
+        std::move(p_vfs_file_name), 
+        std::move(p_expected_size), std::move(callback));
       return true;
     }
     case internal::kWebDatabaseHost_GetSpaceAvailable_Name: {
@@ -2681,6 +2721,8 @@ std::move(p_expected_size), std::move(callback));
               internal::WebDatabaseHost_GetSpaceAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebDatabaseHost.4
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       WebDatabaseHost_GetSpaceAvailable_ParamsDataView input_data_view(params, message);
@@ -2699,8 +2741,8 @@ std::move(p_expected_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSpaceAvailable(
-std::move(p_origin), std::move(callback));
+      impl->GetSpaceAvailable(        
+        std::move(p_origin), std::move(callback));
       return true;
     }
     case internal::kWebDatabaseHost_Opened_Name: {

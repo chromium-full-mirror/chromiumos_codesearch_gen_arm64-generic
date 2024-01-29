@@ -557,6 +557,8 @@ bool LoggerStubDispatch::Accept(
           reinterpret_cast<internal::Logger_LogInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Logger.0
       bool success = true;
       LogCategory p_category{};
       std::string p_component{};
@@ -587,13 +589,13 @@ bool LoggerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogInfo(
-std::move(p_category), 
-std::move(p_component), 
-std::move(p_message), 
-std::move(p_sink_id), 
-std::move(p_media_source), 
-std::move(p_session_id));
+      impl->LogInfo(        
+        std::move(p_category), 
+        std::move(p_component), 
+        std::move(p_message), 
+        std::move(p_sink_id), 
+        std::move(p_media_source), 
+        std::move(p_session_id));
       return true;
     }
     case internal::kLogger_LogWarning_Name: {
@@ -603,6 +605,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::Logger_LogWarning_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Logger.1
       bool success = true;
       LogCategory p_category{};
       std::string p_component{};
@@ -633,13 +637,13 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogWarning(
-std::move(p_category), 
-std::move(p_component), 
-std::move(p_message), 
-std::move(p_sink_id), 
-std::move(p_media_source), 
-std::move(p_session_id));
+      impl->LogWarning(        
+        std::move(p_category), 
+        std::move(p_component), 
+        std::move(p_message), 
+        std::move(p_sink_id), 
+        std::move(p_media_source), 
+        std::move(p_session_id));
       return true;
     }
     case internal::kLogger_LogError_Name: {
@@ -649,6 +653,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::Logger_LogError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Logger.2
       bool success = true;
       LogCategory p_category{};
       std::string p_component{};
@@ -679,13 +685,13 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogError(
-std::move(p_category), 
-std::move(p_component), 
-std::move(p_message), 
-std::move(p_sink_id), 
-std::move(p_media_source), 
-std::move(p_session_id));
+      impl->LogError(        
+        std::move(p_category), 
+        std::move(p_component), 
+        std::move(p_message), 
+        std::move(p_sink_id), 
+        std::move(p_media_source), 
+        std::move(p_session_id));
       return true;
     }
     case internal::kLogger_BindReceiver_Name: {
@@ -695,6 +701,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::Logger_BindReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Logger.3
       bool success = true;
       ::mojo::PendingReceiver<Logger> p_receiver{};
       Logger_BindReceiver_ParamsDataView input_data_view(params, message);
@@ -712,8 +720,8 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindReceiver(
-std::move(p_receiver));
+      impl->BindReceiver(        
+        std::move(p_receiver));
       return true;
     }
   }

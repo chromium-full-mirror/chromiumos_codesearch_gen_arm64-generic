@@ -11,7 +11,6 @@ import { ProgressItemState } from '../../common/js/progress_center_common.js';
 import { LEGACY_FILES_EXTENSION_ID } from '../../common/js/url_constants.js';
 import { descriptorEqual } from '../../common/js/util.js';
 import { RootType, VolumeError, VolumeType } from '../../common/js/volume_manager_types.js';
-import { EntryLocation } from '../../externs/entry_location.js';
 import { USER_CANCELLED, XfPasswordDialog } from '../../widgets/xf_password_dialog.js';
 import { DirectoryModel } from './directory_model.js';
 import { FileManager } from './file_manager.js';

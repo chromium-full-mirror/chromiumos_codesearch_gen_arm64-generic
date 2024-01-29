@@ -423,6 +423,8 @@ bool AttributionDataHostStubDispatch::Accept(
           reinterpret_cast<internal::AttributionDataHost_SourceDataAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionDataHost.0
       bool success = true;
       ::attribution_reporting::SuitableOrigin p_reporting_origin{mojo::internal::DefaultConstructTag()};
       ::attribution_reporting::SourceRegistration p_data{mojo::internal::DefaultConstructTag()};
@@ -441,9 +443,9 @@ bool AttributionDataHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SourceDataAvailable(
-std::move(p_reporting_origin), 
-std::move(p_data));
+      impl->SourceDataAvailable(        
+        std::move(p_reporting_origin), 
+        std::move(p_data));
       return true;
     }
     case internal::kAttributionDataHost_TriggerDataAvailable_Name: {
@@ -453,6 +455,8 @@ std::move(p_data));
           reinterpret_cast<internal::AttributionDataHost_TriggerDataAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionDataHost.1
       bool success = true;
       ::attribution_reporting::SuitableOrigin p_reporting_origin{mojo::internal::DefaultConstructTag()};
       ::attribution_reporting::TriggerRegistration p_data{};
@@ -474,10 +478,10 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerDataAvailable(
-std::move(p_reporting_origin), 
-std::move(p_data), 
-std::move(p_verifications));
+      impl->TriggerDataAvailable(        
+        std::move(p_reporting_origin), 
+        std::move(p_data), 
+        std::move(p_verifications));
       return true;
     }
     case internal::kAttributionDataHost_OsSourceDataAvailable_Name: {
@@ -487,6 +491,8 @@ std::move(p_verifications));
           reinterpret_cast<internal::AttributionDataHost_OsSourceDataAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionDataHost.2
       bool success = true;
       ::std::vector<::attribution_reporting::OsRegistrationItem> p_registration{};
       AttributionDataHost_OsSourceDataAvailable_ParamsDataView input_data_view(params, message);
@@ -502,8 +508,8 @@ std::move(p_verifications));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OsSourceDataAvailable(
-std::move(p_registration));
+      impl->OsSourceDataAvailable(        
+        std::move(p_registration));
       return true;
     }
     case internal::kAttributionDataHost_OsTriggerDataAvailable_Name: {
@@ -513,6 +519,8 @@ std::move(p_registration));
           reinterpret_cast<internal::AttributionDataHost_OsTriggerDataAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionDataHost.3
       bool success = true;
       ::std::vector<::attribution_reporting::OsRegistrationItem> p_registration{};
       AttributionDataHost_OsTriggerDataAvailable_ParamsDataView input_data_view(params, message);
@@ -528,8 +536,8 @@ std::move(p_registration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OsTriggerDataAvailable(
-std::move(p_registration));
+      impl->OsTriggerDataAvailable(        
+        std::move(p_registration));
       return true;
     }
   }

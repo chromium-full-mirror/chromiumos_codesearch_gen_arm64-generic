@@ -1267,6 +1267,8 @@ bool AutofillDriverStubDispatch::Accept(
           reinterpret_cast<internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.0
       bool success = true;
       std::optional<::autofill::FormData> p_form{};
       AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView input_data_view(params, message);
@@ -1282,8 +1284,8 @@ bool AutofillDriverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFormToBeProbablySubmitted(
-std::move(p_form));
+      impl->SetFormToBeProbablySubmitted(        
+        std::move(p_form));
       return true;
     }
     case internal::kAutofillDriver_FormsSeen_Name: {
@@ -1293,6 +1295,8 @@ std::move(p_form));
           reinterpret_cast<internal::AutofillDriver_FormsSeen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.1
       bool success = true;
       std::vector<::autofill::FormData> p_updated_forms{};
       std::vector<::autofill::FormRendererId> p_removed_forms{};
@@ -1311,9 +1315,9 @@ std::move(p_form));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FormsSeen(
-std::move(p_updated_forms), 
-std::move(p_removed_forms));
+      impl->FormsSeen(        
+        std::move(p_updated_forms), 
+        std::move(p_removed_forms));
       return true;
     }
     case internal::kAutofillDriver_FormSubmitted_Name: {
@@ -1323,6 +1327,8 @@ std::move(p_removed_forms));
           reinterpret_cast<internal::AutofillDriver_FormSubmitted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.2
       bool success = true;
       ::autofill::FormData p_form{};
       bool p_known_success{};
@@ -1344,10 +1350,10 @@ std::move(p_removed_forms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FormSubmitted(
-std::move(p_form), 
-std::move(p_known_success), 
-std::move(p_source));
+      impl->FormSubmitted(        
+        std::move(p_form), 
+        std::move(p_known_success), 
+        std::move(p_source));
       return true;
     }
     case internal::kAutofillDriver_TextFieldDidChange_Name: {
@@ -1357,6 +1363,8 @@ std::move(p_source));
           reinterpret_cast<internal::AutofillDriver_TextFieldDidChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.3
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1381,11 +1389,11 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TextFieldDidChange(
-std::move(p_form), 
-std::move(p_field), 
-std::move(p_bounding_box), 
-std::move(p_timestamp));
+      impl->TextFieldDidChange(        
+        std::move(p_form), 
+        std::move(p_field), 
+        std::move(p_bounding_box), 
+        std::move(p_timestamp));
       return true;
     }
     case internal::kAutofillDriver_TextFieldDidScroll_Name: {
@@ -1395,6 +1403,8 @@ std::move(p_timestamp));
           reinterpret_cast<internal::AutofillDriver_TextFieldDidScroll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.4
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1416,10 +1426,10 @@ std::move(p_timestamp));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TextFieldDidScroll(
-std::move(p_form), 
-std::move(p_field), 
-std::move(p_bounding_box));
+      impl->TextFieldDidScroll(        
+        std::move(p_form), 
+        std::move(p_field), 
+        std::move(p_bounding_box));
       return true;
     }
     case internal::kAutofillDriver_SelectControlDidChange_Name: {
@@ -1429,6 +1439,8 @@ std::move(p_bounding_box));
           reinterpret_cast<internal::AutofillDriver_SelectControlDidChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.5
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1450,10 +1462,10 @@ std::move(p_bounding_box));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectControlDidChange(
-std::move(p_form), 
-std::move(p_field), 
-std::move(p_bounding_box));
+      impl->SelectControlDidChange(        
+        std::move(p_form), 
+        std::move(p_field), 
+        std::move(p_bounding_box));
       return true;
     }
     case internal::kAutofillDriver_SelectOrSelectListFieldOptionsDidChange_Name: {
@@ -1463,6 +1475,8 @@ std::move(p_bounding_box));
           reinterpret_cast<internal::AutofillDriver_SelectOrSelectListFieldOptionsDidChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.6
       bool success = true;
       ::autofill::FormData p_form{};
       AutofillDriver_SelectOrSelectListFieldOptionsDidChange_ParamsDataView input_data_view(params, message);
@@ -1478,8 +1492,8 @@ std::move(p_bounding_box));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectOrSelectListFieldOptionsDidChange(
-std::move(p_form));
+      impl->SelectOrSelectListFieldOptionsDidChange(        
+        std::move(p_form));
       return true;
     }
     case internal::kAutofillDriver_AskForValuesToFill_Name: {
@@ -1489,6 +1503,8 @@ std::move(p_form));
           reinterpret_cast<internal::AutofillDriver_AskForValuesToFill_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.7
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1513,11 +1529,11 @@ std::move(p_form));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AskForValuesToFill(
-std::move(p_form), 
-std::move(p_field), 
-std::move(p_bounding_box), 
-std::move(p_trigger_source));
+      impl->AskForValuesToFill(        
+        std::move(p_form), 
+        std::move(p_field), 
+        std::move(p_bounding_box), 
+        std::move(p_trigger_source));
       return true;
     }
     case internal::kAutofillDriver_HidePopup_Name: {
@@ -1527,6 +1543,8 @@ std::move(p_trigger_source));
           reinterpret_cast<internal::AutofillDriver_HidePopup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.8
       bool success = true;
       AutofillDriver_HidePopup_ParamsDataView input_data_view(params, message);
       
@@ -1539,7 +1557,7 @@ std::move(p_trigger_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HidePopup();
+      impl->HidePopup(        );
       return true;
     }
     case internal::kAutofillDriver_FocusNoLongerOnForm_Name: {
@@ -1549,6 +1567,8 @@ std::move(p_trigger_source));
           reinterpret_cast<internal::AutofillDriver_FocusNoLongerOnForm_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.9
       bool success = true;
       bool p_had_interacted_form{};
       AutofillDriver_FocusNoLongerOnForm_ParamsDataView input_data_view(params, message);
@@ -1564,8 +1584,8 @@ std::move(p_trigger_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusNoLongerOnForm(
-std::move(p_had_interacted_form));
+      impl->FocusNoLongerOnForm(        
+        std::move(p_had_interacted_form));
       return true;
     }
     case internal::kAutofillDriver_FocusOnFormField_Name: {
@@ -1575,6 +1595,8 @@ std::move(p_had_interacted_form));
           reinterpret_cast<internal::AutofillDriver_FocusOnFormField_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.10
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1596,10 +1618,10 @@ std::move(p_had_interacted_form));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusOnFormField(
-std::move(p_form), 
-std::move(p_field), 
-std::move(p_bounding_box));
+      impl->FocusOnFormField(        
+        std::move(p_form), 
+        std::move(p_field), 
+        std::move(p_bounding_box));
       return true;
     }
     case internal::kAutofillDriver_DidFillAutofillFormData_Name: {
@@ -1609,6 +1631,8 @@ std::move(p_bounding_box));
           reinterpret_cast<internal::AutofillDriver_DidFillAutofillFormData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.11
       bool success = true;
       ::autofill::FormData p_form{};
       ::base::TimeTicks p_timestamp{};
@@ -1627,9 +1651,9 @@ std::move(p_bounding_box));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFillAutofillFormData(
-std::move(p_form), 
-std::move(p_timestamp));
+      impl->DidFillAutofillFormData(        
+        std::move(p_form), 
+        std::move(p_timestamp));
       return true;
     }
     case internal::kAutofillDriver_DidEndTextFieldEditing_Name: {
@@ -1639,6 +1663,8 @@ std::move(p_timestamp));
           reinterpret_cast<internal::AutofillDriver_DidEndTextFieldEditing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.12
       bool success = true;
       AutofillDriver_DidEndTextFieldEditing_ParamsDataView input_data_view(params, message);
       
@@ -1651,7 +1677,7 @@ std::move(p_timestamp));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidEndTextFieldEditing();
+      impl->DidEndTextFieldEditing(        );
       return true;
     }
     case internal::kAutofillDriver_JavaScriptChangedAutofilledValue_Name: {
@@ -1661,6 +1687,8 @@ std::move(p_timestamp));
           reinterpret_cast<internal::AutofillDriver_JavaScriptChangedAutofilledValue_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillDriver.13
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1682,10 +1710,10 @@ std::move(p_timestamp));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JavaScriptChangedAutofilledValue(
-std::move(p_form), 
-std::move(p_field), 
-std::move(p_old_value));
+      impl->JavaScriptChangedAutofilledValue(        
+        std::move(p_form), 
+        std::move(p_field), 
+        std::move(p_old_value));
       return true;
     }
   }
@@ -2839,6 +2867,8 @@ bool PasswordManagerDriverStubDispatch::Accept(
           reinterpret_cast<internal::PasswordManagerDriver_PasswordFormsParsed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.0
       bool success = true;
       std::vector<::autofill::FormData> p_forms_data{};
       PasswordManagerDriver_PasswordFormsParsed_ParamsDataView input_data_view(params, message);
@@ -2854,8 +2884,8 @@ bool PasswordManagerDriverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasswordFormsParsed(
-std::move(p_forms_data));
+      impl->PasswordFormsParsed(        
+        std::move(p_forms_data));
       return true;
     }
     case internal::kPasswordManagerDriver_PasswordFormsRendered_Name: {
@@ -2865,6 +2895,8 @@ std::move(p_forms_data));
           reinterpret_cast<internal::PasswordManagerDriver_PasswordFormsRendered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.1
       bool success = true;
       std::vector<::autofill::FormData> p_visible_forms_data{};
       PasswordManagerDriver_PasswordFormsRendered_ParamsDataView input_data_view(params, message);
@@ -2880,8 +2912,8 @@ std::move(p_forms_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasswordFormsRendered(
-std::move(p_visible_forms_data));
+      impl->PasswordFormsRendered(        
+        std::move(p_visible_forms_data));
       return true;
     }
     case internal::kPasswordManagerDriver_PasswordFormSubmitted_Name: {
@@ -2891,6 +2923,8 @@ std::move(p_visible_forms_data));
           reinterpret_cast<internal::PasswordManagerDriver_PasswordFormSubmitted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.2
       bool success = true;
       ::autofill::FormData p_form_data{};
       PasswordManagerDriver_PasswordFormSubmitted_ParamsDataView input_data_view(params, message);
@@ -2906,8 +2940,8 @@ std::move(p_visible_forms_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasswordFormSubmitted(
-std::move(p_form_data));
+      impl->PasswordFormSubmitted(        
+        std::move(p_form_data));
       return true;
     }
     case internal::kPasswordManagerDriver_InformAboutUserInput_Name: {
@@ -2917,6 +2951,8 @@ std::move(p_form_data));
           reinterpret_cast<internal::PasswordManagerDriver_InformAboutUserInput_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.3
       bool success = true;
       ::autofill::FormData p_form_data{};
       PasswordManagerDriver_InformAboutUserInput_ParamsDataView input_data_view(params, message);
@@ -2932,8 +2968,8 @@ std::move(p_form_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InformAboutUserInput(
-std::move(p_form_data));
+      impl->InformAboutUserInput(        
+        std::move(p_form_data));
       return true;
     }
     case internal::kPasswordManagerDriver_DynamicFormSubmission_Name: {
@@ -2943,6 +2979,8 @@ std::move(p_form_data));
           reinterpret_cast<internal::PasswordManagerDriver_DynamicFormSubmission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.4
       bool success = true;
       ::autofill::mojom::SubmissionIndicatorEvent p_submission_indication_event{};
       PasswordManagerDriver_DynamicFormSubmission_ParamsDataView input_data_view(params, message);
@@ -2958,8 +2996,8 @@ std::move(p_form_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DynamicFormSubmission(
-std::move(p_submission_indication_event));
+      impl->DynamicFormSubmission(        
+        std::move(p_submission_indication_event));
       return true;
     }
     case internal::kPasswordManagerDriver_PasswordFormCleared_Name: {
@@ -2969,6 +3007,8 @@ std::move(p_submission_indication_event));
           reinterpret_cast<internal::PasswordManagerDriver_PasswordFormCleared_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.5
       bool success = true;
       ::autofill::FormData p_form_data{};
       PasswordManagerDriver_PasswordFormCleared_ParamsDataView input_data_view(params, message);
@@ -2984,8 +3024,8 @@ std::move(p_submission_indication_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasswordFormCleared(
-std::move(p_form_data));
+      impl->PasswordFormCleared(        
+        std::move(p_form_data));
       return true;
     }
     case internal::kPasswordManagerDriver_RecordSavePasswordProgress_Name: {
@@ -2995,6 +3035,8 @@ std::move(p_form_data));
           reinterpret_cast<internal::PasswordManagerDriver_RecordSavePasswordProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.6
       bool success = true;
       std::string p_log{};
       PasswordManagerDriver_RecordSavePasswordProgress_ParamsDataView input_data_view(params, message);
@@ -3010,8 +3052,8 @@ std::move(p_form_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordSavePasswordProgress(
-std::move(p_log));
+      impl->RecordSavePasswordProgress(        
+        std::move(p_log));
       return true;
     }
     case internal::kPasswordManagerDriver_UserModifiedPasswordField_Name: {
@@ -3021,6 +3063,8 @@ std::move(p_log));
           reinterpret_cast<internal::PasswordManagerDriver_UserModifiedPasswordField_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.7
       bool success = true;
       PasswordManagerDriver_UserModifiedPasswordField_ParamsDataView input_data_view(params, message);
       
@@ -3033,7 +3077,7 @@ std::move(p_log));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UserModifiedPasswordField();
+      impl->UserModifiedPasswordField(        );
       return true;
     }
     case internal::kPasswordManagerDriver_UserModifiedNonPasswordField_Name: {
@@ -3043,6 +3087,8 @@ std::move(p_log));
           reinterpret_cast<internal::PasswordManagerDriver_UserModifiedNonPasswordField_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.8
       bool success = true;
       ::autofill::FieldRendererId p_renderer_id{};
       ::std::u16string p_value{};
@@ -3067,11 +3113,11 @@ std::move(p_log));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UserModifiedNonPasswordField(
-std::move(p_renderer_id), 
-std::move(p_value), 
-std::move(p_autocomplete_attribute_has_username), 
-std::move(p_is_likely_otp));
+      impl->UserModifiedNonPasswordField(        
+        std::move(p_renderer_id), 
+        std::move(p_value), 
+        std::move(p_autocomplete_attribute_has_username), 
+        std::move(p_is_likely_otp));
       return true;
     }
     case internal::kPasswordManagerDriver_ShowPasswordSuggestions_Name: {
@@ -3081,6 +3127,8 @@ std::move(p_is_likely_otp));
           reinterpret_cast<internal::PasswordManagerDriver_ShowPasswordSuggestions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.9
       bool success = true;
       ::autofill::FieldRendererId p_element_id{};
       ::autofill::FormData p_form{};
@@ -3117,15 +3165,15 @@ std::move(p_is_likely_otp));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowPasswordSuggestions(
-std::move(p_element_id), 
-std::move(p_form), 
-std::move(p_username_field_index), 
-std::move(p_password_field_index), 
-std::move(p_text_direction), 
-std::move(p_typed_username), 
-std::move(p_options), 
-std::move(p_bounds));
+      impl->ShowPasswordSuggestions(        
+        std::move(p_element_id), 
+        std::move(p_form), 
+        std::move(p_username_field_index), 
+        std::move(p_password_field_index), 
+        std::move(p_text_direction), 
+        std::move(p_typed_username), 
+        std::move(p_options), 
+        std::move(p_bounds));
       return true;
     }
     case internal::kPasswordManagerDriver_CheckSafeBrowsingReputation_Name: {
@@ -3135,6 +3183,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::PasswordManagerDriver_CheckSafeBrowsingReputation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.10
       bool success = true;
       ::GURL p_form_action{};
       ::GURL p_frame_url{};
@@ -3153,9 +3203,9 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckSafeBrowsingReputation(
-std::move(p_form_action), 
-std::move(p_frame_url));
+      impl->CheckSafeBrowsingReputation(        
+        std::move(p_form_action), 
+        std::move(p_frame_url));
       return true;
     }
     case internal::kPasswordManagerDriver_FocusedInputChanged_Name: {
@@ -3165,6 +3215,8 @@ std::move(p_frame_url));
           reinterpret_cast<internal::PasswordManagerDriver_FocusedInputChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.11
       bool success = true;
       ::autofill::FieldRendererId p_focused_field_id{};
       ::autofill::mojom::FocusedFieldType p_focused_field_type{};
@@ -3183,9 +3235,9 @@ std::move(p_frame_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusedInputChanged(
-std::move(p_focused_field_id), 
-std::move(p_focused_field_type));
+      impl->FocusedInputChanged(        
+        std::move(p_focused_field_id), 
+        std::move(p_focused_field_type));
       return true;
     }
     case internal::kPasswordManagerDriver_LogFirstFillingResult_Name: {
@@ -3195,6 +3247,8 @@ std::move(p_focused_field_type));
           reinterpret_cast<internal::PasswordManagerDriver_LogFirstFillingResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordManagerDriver.12
       bool success = true;
       ::autofill::FormRendererId p_form_renderer_id{};
       int32_t p_result{};
@@ -3213,9 +3267,9 @@ std::move(p_focused_field_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogFirstFillingResult(
-std::move(p_form_renderer_id), 
-std::move(p_result));
+      impl->LogFirstFillingResult(        
+        std::move(p_form_renderer_id), 
+        std::move(p_result));
       return true;
     }
   }
@@ -3859,6 +3913,8 @@ bool PasswordGenerationDriverStubDispatch::Accept(
           reinterpret_cast<internal::PasswordGenerationDriver_AutomaticGenerationAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.0
       bool success = true;
       ::autofill::password_generation::PasswordGenerationUIData p_password_generation_ui_data{};
       PasswordGenerationDriver_AutomaticGenerationAvailable_ParamsDataView input_data_view(params, message);
@@ -3874,8 +3930,8 @@ bool PasswordGenerationDriverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AutomaticGenerationAvailable(
-std::move(p_password_generation_ui_data));
+      impl->AutomaticGenerationAvailable(        
+        std::move(p_password_generation_ui_data));
       return true;
     }
     case internal::kPasswordGenerationDriver_ShowPasswordEditingPopup_Name: {
@@ -3885,6 +3941,8 @@ std::move(p_password_generation_ui_data));
           reinterpret_cast<internal::PasswordGenerationDriver_ShowPasswordEditingPopup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.1
       bool success = true;
       ::gfx::RectF p_bounds{};
       ::autofill::FormData p_form_data{};
@@ -3909,11 +3967,11 @@ std::move(p_password_generation_ui_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowPasswordEditingPopup(
-std::move(p_bounds), 
-std::move(p_form_data), 
-std::move(p_field_renderer_id), 
-std::move(p_password_value));
+      impl->ShowPasswordEditingPopup(        
+        std::move(p_bounds), 
+        std::move(p_form_data), 
+        std::move(p_field_renderer_id), 
+        std::move(p_password_value));
       return true;
     }
     case internal::kPasswordGenerationDriver_PasswordGenerationRejectedByTyping_Name: {
@@ -3923,6 +3981,8 @@ std::move(p_password_value));
           reinterpret_cast<internal::PasswordGenerationDriver_PasswordGenerationRejectedByTyping_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.2
       bool success = true;
       PasswordGenerationDriver_PasswordGenerationRejectedByTyping_ParamsDataView input_data_view(params, message);
       
@@ -3935,7 +3995,7 @@ std::move(p_password_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasswordGenerationRejectedByTyping();
+      impl->PasswordGenerationRejectedByTyping(        );
       return true;
     }
     case internal::kPasswordGenerationDriver_PresaveGeneratedPassword_Name: {
@@ -3945,6 +4005,8 @@ std::move(p_password_value));
           reinterpret_cast<internal::PasswordGenerationDriver_PresaveGeneratedPassword_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.3
       bool success = true;
       ::autofill::FormData p_form_data{};
       ::std::u16string p_password_value{};
@@ -3963,9 +4025,9 @@ std::move(p_password_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PresaveGeneratedPassword(
-std::move(p_form_data), 
-std::move(p_password_value));
+      impl->PresaveGeneratedPassword(        
+        std::move(p_form_data), 
+        std::move(p_password_value));
       return true;
     }
     case internal::kPasswordGenerationDriver_PasswordNoLongerGenerated_Name: {
@@ -3975,6 +4037,8 @@ std::move(p_password_value));
           reinterpret_cast<internal::PasswordGenerationDriver_PasswordNoLongerGenerated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.4
       bool success = true;
       ::autofill::FormData p_form_data{};
       PasswordGenerationDriver_PasswordNoLongerGenerated_ParamsDataView input_data_view(params, message);
@@ -3990,8 +4054,8 @@ std::move(p_password_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasswordNoLongerGenerated(
-std::move(p_form_data));
+      impl->PasswordNoLongerGenerated(        
+        std::move(p_form_data));
       return true;
     }
     case internal::kPasswordGenerationDriver_FrameWasScrolled_Name: {
@@ -4001,6 +4065,8 @@ std::move(p_form_data));
           reinterpret_cast<internal::PasswordGenerationDriver_FrameWasScrolled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.5
       bool success = true;
       PasswordGenerationDriver_FrameWasScrolled_ParamsDataView input_data_view(params, message);
       
@@ -4013,7 +4079,7 @@ std::move(p_form_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameWasScrolled();
+      impl->FrameWasScrolled(        );
       return true;
     }
     case internal::kPasswordGenerationDriver_GenerationElementLostFocus_Name: {
@@ -4023,6 +4089,8 @@ std::move(p_form_data));
           reinterpret_cast<internal::PasswordGenerationDriver_GenerationElementLostFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationDriver.6
       bool success = true;
       PasswordGenerationDriver_GenerationElementLostFocus_ParamsDataView input_data_view(params, message);
       
@@ -4035,7 +4103,7 @@ std::move(p_form_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerationElementLostFocus();
+      impl->GenerationElementLostFocus(        );
       return true;
     }
   }

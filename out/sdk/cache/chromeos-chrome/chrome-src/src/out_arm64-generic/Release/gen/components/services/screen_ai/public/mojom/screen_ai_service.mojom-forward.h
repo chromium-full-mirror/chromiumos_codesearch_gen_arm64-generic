@@ -7,7 +7,7 @@
 #ifndef COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_FORWARD_H_
 #define COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -28,6 +28,8 @@ class LineBoxDataView;
 
 class WordBoxDataView;
 
+
+enum class Direction : int32_t;
 class VisualAnnotation;
 using VisualAnnotationPtr = mojo::StructPtr<VisualAnnotation>;
 
@@ -35,7 +37,7 @@ class LineBox;
 using LineBoxPtr = mojo::StructPtr<LineBox>;
 
 class WordBox;
-using WordBoxPtr = mojo::InlinedStructPtr<WordBox>;
+using WordBoxPtr = mojo::StructPtr<WordBox>;
 
 class ScreenAIAnnotator;
 

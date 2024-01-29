@@ -166,6 +166,8 @@ bool ManifestUrlChangeObserverStubDispatch::Accept(
           reinterpret_cast<internal::ManifestUrlChangeObserver_ManifestUrlChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ManifestUrlChangeObserver.0
       bool success = true;
       ::GURL p_manifest_url{};
       ManifestUrlChangeObserver_ManifestUrlChanged_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool ManifestUrlChangeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ManifestUrlChanged(
-std::move(p_manifest_url));
+      impl->ManifestUrlChanged(        
+        std::move(p_manifest_url));
       return true;
     }
   }

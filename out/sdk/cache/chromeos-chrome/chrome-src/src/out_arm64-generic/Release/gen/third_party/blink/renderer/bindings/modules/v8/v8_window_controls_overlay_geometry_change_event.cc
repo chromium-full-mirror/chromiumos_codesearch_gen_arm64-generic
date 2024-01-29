@@ -34,7 +34,7 @@ namespace blink {
 
 bool V8WindowControlsOverlayGeometryChangeEvent::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAppWindowControlsOverlayEnabled(execution_context);
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due

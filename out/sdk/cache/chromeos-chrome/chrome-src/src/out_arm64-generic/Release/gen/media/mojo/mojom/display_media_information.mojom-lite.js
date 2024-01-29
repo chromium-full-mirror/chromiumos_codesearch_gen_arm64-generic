@@ -104,6 +104,14 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'initialZoomLevel', 12,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
     [[0, 32],]);
 
@@ -122,6 +130,8 @@ media.mojom.DisplayMediaInformation = class {
     this.cursor;
     /** @export { (media.mojom.CaptureHandle|undefined) } */
     this.captureHandle;
+    /** @export { !number } */
+    this.initialZoomLevel;
   }
 };
 

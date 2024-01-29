@@ -94,6 +94,13 @@ class OnHeapBasicBlockProfilerData::BodyDescriptor final : public SuffixRangeBod
   }
 
 };
+class DictionaryTemplateInfo::BodyDescriptor final : public SuffixRangeWeakBodyDescriptor<4> {
+ public:
+  static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {
+    return 12;
+  }
+
+};
 class TurbofanBitsetType::BodyDescriptor final : public DataOnlyBodyDescriptor {
  public:
   static inline int SizeOf(Tagged<Map> map, Tagged<HeapObject> raw_object) {

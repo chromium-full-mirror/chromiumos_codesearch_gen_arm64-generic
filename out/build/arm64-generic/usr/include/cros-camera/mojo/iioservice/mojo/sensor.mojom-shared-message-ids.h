@@ -33,6 +33,7 @@ constexpr uint32_t kSensorDevice_StartReadingEvents_Name = 15;
 constexpr uint32_t kSensorDeviceSamplesObserver_OnSampleUpdated_Name = 0;
 constexpr uint32_t kSensorDeviceSamplesObserver_OnErrorOccurred_Name = 1;
 constexpr uint32_t kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name = 0;
+constexpr uint32_t kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name = 1;
 constexpr uint32_t kSensorDeviceEventsObserver_OnEventUpdated_Name = 0;
 constexpr uint32_t kSensorDeviceEventsObserver_OnErrorOccurred_Name = 1;
 

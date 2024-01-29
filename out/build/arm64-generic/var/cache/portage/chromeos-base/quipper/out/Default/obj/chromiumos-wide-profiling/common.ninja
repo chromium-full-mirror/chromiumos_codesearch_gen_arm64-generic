@@ -1,81 +1,81 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/compat/cros -I../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling -Igen
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/compat/cros -I../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libcommon
 
 build obj/chromiumos-wide-profiling/common.inputdeps.stamp: stamp obj/chromiumos-wide-profiling/perf_data_proto_gen.stamp obj/chromiumos-wide-profiling/perf_parser_options_proto_gen.stamp obj/chromiumos-wide-profiling/perf_stat_proto_gen.stamp
-build obj/chromiumos-wide-profiling/libcommon.address_mapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/address_mapper.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.address_mapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/address_mapper.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = address_mapper.cc
   source_name_part = address_mapper
-build obj/chromiumos-wide-profiling/libcommon.binary_data_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/binary_data_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.binary_data_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/binary_data_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = binary_data_utils.cc
   source_name_part = binary_data_utils
-build obj/chromiumos-wide-profiling/libcommon.buffer_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/buffer_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.buffer_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/buffer_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = buffer_reader.cc
   source_name_part = buffer_reader
-build obj/chromiumos-wide-profiling/libcommon.buffer_writer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/buffer_writer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.buffer_writer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/buffer_writer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = buffer_writer.cc
   source_name_part = buffer_writer
-build obj/chromiumos-wide-profiling/compat/libcommon.log_level.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/compat/log_level.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/compat/libcommon.log_level.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/compat/log_level.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = log_level.cc
   source_name_part = log_level
-build obj/chromiumos-wide-profiling/libcommon.data_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/data_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.data_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/data_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = data_reader.cc
   source_name_part = data_reader
-build obj/chromiumos-wide-profiling/libcommon.data_writer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/data_writer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.data_writer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/data_writer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = data_writer.cc
   source_name_part = data_writer
-build obj/chromiumos-wide-profiling/libcommon.dso.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/dso.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.dso.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/dso.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = dso.cc
   source_name_part = dso
-build obj/chromiumos-wide-profiling/libcommon.file_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/file_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.file_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/file_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = file_reader.cc
   source_name_part = file_reader
-build obj/chromiumos-wide-profiling/libcommon.file_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/file_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.file_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/file_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = file_utils.cc
   source_name_part = file_utils
-build obj/chromiumos-wide-profiling/libcommon.huge_page_deducer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/huge_page_deducer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.huge_page_deducer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/huge_page_deducer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = huge_page_deducer.cc
   source_name_part = huge_page_deducer
-build obj/chromiumos-wide-profiling/libcommon.perf_buildid.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_buildid.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_buildid.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_buildid.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_buildid.cc
   source_name_part = perf_buildid
-build obj/chromiumos-wide-profiling/libcommon.perf_data_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_data_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_data_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_data_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_data_utils.cc
   source_name_part = perf_data_utils
-build obj/chromiumos-wide-profiling/libcommon.perf_option_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_option_parser.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_option_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_option_parser.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_option_parser.cc
   source_name_part = perf_option_parser
-build obj/chromiumos-wide-profiling/libcommon.perf_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_parser.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_parser.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_parser.cc
   source_name_part = perf_parser
-build obj/chromiumos-wide-profiling/libcommon.perf_protobuf_io.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_protobuf_io.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_protobuf_io.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_protobuf_io.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_protobuf_io.cc
   source_name_part = perf_protobuf_io
-build obj/chromiumos-wide-profiling/libcommon.perf_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_reader.cc
   source_name_part = perf_reader
-build obj/chromiumos-wide-profiling/libcommon.perf_recorder.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_recorder.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_recorder.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_recorder.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_recorder.cc
   source_name_part = perf_recorder
-build obj/chromiumos-wide-profiling/libcommon.perf_serializer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_serializer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_serializer.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_serializer.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_serializer.cc
   source_name_part = perf_serializer
-build obj/chromiumos-wide-profiling/libcommon.perf_stat_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_stat_parser.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.perf_stat_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_stat_parser.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = perf_stat_parser.cc
   source_name_part = perf_stat_parser
-build obj/chromiumos-wide-profiling/libcommon.run_command.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/run_command.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.run_command.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/run_command.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = run_command.cc
   source_name_part = run_command
-build obj/chromiumos-wide-profiling/libcommon.sample_info_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/sample_info_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.sample_info_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/sample_info_reader.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = sample_info_reader.cc
   source_name_part = sample_info_reader
-build obj/chromiumos-wide-profiling/libcommon.scoped_temp_path.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/scoped_temp_path.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.scoped_temp_path.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/scoped_temp_path.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = scoped_temp_path.cc
   source_name_part = scoped_temp_path
-build obj/chromiumos-wide-profiling/libcommon.string_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2984/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/string_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
+build obj/chromiumos-wide-profiling/libcommon.string_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/string_utils.cc || obj/chromiumos-wide-profiling/common.inputdeps.stamp
   source_file_part = string_utils.cc
   source_name_part = string_utils
 

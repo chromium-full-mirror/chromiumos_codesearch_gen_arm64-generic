@@ -250,23 +250,23 @@ class AndroidLogTable : public macros_internal::MacroTable {
         tag_(ColumnStorage<ColumnType::tag::stored_type>::Create<false>()),
         msg_(ColumnStorage<ColumnType::msg::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::prio::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::prio::stored_type>(
           ColumnFlag::prio),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::tag::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::tag::stored_type>(
           ColumnFlag::tag),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::msg::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::msg::stored_type>(
           ColumnFlag::msg),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -627,15 +627,15 @@ class AndroidDumpstateTable : public macros_internal::MacroTable {
         service_(ColumnStorage<ColumnType::service::stored_type>::Create<false>()),
         line_(ColumnStorage<ColumnType::line::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::section::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::section::stored_type>(
           ColumnFlag::section),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::service::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::service::stored_type>(
           ColumnFlag::service),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::line::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::line::stored_type>(
           ColumnFlag::line),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1236,63 +1236,63 @@ class AndroidGameInterventionListTable : public macros_internal::MacroTable {
         battery_mode_use_angle_(ColumnStorage<ColumnType::battery_mode_use_angle::stored_type>::Create<false>()),
         battery_mode_fps_(ColumnStorage<ColumnType::battery_mode_fps::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::package_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::package_name::stored_type>(
           ColumnFlag::package_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::current_mode::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::current_mode::stored_type>(
           ColumnFlag::current_mode),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::standard_mode_supported::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::standard_mode_supported::stored_type>(
           ColumnFlag::standard_mode_supported),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::standard_mode_downscale::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::standard_mode_downscale::stored_type>(
           ColumnFlag::standard_mode_downscale),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::standard_mode_use_angle::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::standard_mode_use_angle::stored_type>(
           ColumnFlag::standard_mode_use_angle),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::standard_mode_fps::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::standard_mode_fps::stored_type>(
           ColumnFlag::standard_mode_fps),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_mode_supported::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_mode_supported::stored_type>(
           ColumnFlag::perf_mode_supported),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_mode_downscale::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_mode_downscale::stored_type>(
           ColumnFlag::perf_mode_downscale),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_mode_use_angle::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_mode_use_angle::stored_type>(
           ColumnFlag::perf_mode_use_angle),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_mode_fps::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_mode_fps::stored_type>(
           ColumnFlag::perf_mode_fps),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::battery_mode_supported::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::battery_mode_supported::stored_type>(
           ColumnFlag::battery_mode_supported),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::battery_mode_downscale::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::battery_mode_downscale::stored_type>(
           ColumnFlag::battery_mode_downscale),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::battery_mode_use_angle::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::battery_mode_use_angle::stored_type>(
           ColumnFlag::battery_mode_use_angle),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::battery_mode_fps::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::battery_mode_fps::stored_type>(
           ColumnFlag::battery_mode_fps),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

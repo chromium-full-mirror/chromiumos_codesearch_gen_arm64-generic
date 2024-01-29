@@ -928,6 +928,8 @@ bool FontService_MatchFamilyName_ForwardToCallback::Accept(
           internal::FontService_MatchFamilyName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontService.0
   bool success = true;
   FontIdentityPtr p_identity{};
   std::string p_family_name{};
@@ -1089,6 +1091,8 @@ bool FontService_OpenStream_ForwardToCallback::Accept(
           internal::FontService_OpenStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontService.1
   bool success = true;
   ::base::File p_font_handle{};
   FontService_OpenStream_ResponseParamsDataView input_data_view(params, message);
@@ -1214,6 +1218,8 @@ bool FontService_FallbackFontForCharacter_ForwardToCallback::Accept(
           internal::FontService_FallbackFontForCharacter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontService.2
   bool success = true;
   FontIdentityPtr p_identity{};
   std::string p_family_name{};
@@ -1373,6 +1379,8 @@ bool FontService_FontRenderStyleForStrike_ForwardToCallback::Accept(
           internal::FontService_FontRenderStyleForStrike_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontService.3
   bool success = true;
   FontRenderStylePtr p_font_render_style{};
   FontService_FontRenderStyleForStrike_ResponseParamsDataView input_data_view(params, message);
@@ -1498,6 +1506,8 @@ bool FontService_MatchFontByPostscriptNameOrFullFontName_ForwardToCallback::Acce
           internal::FontService_MatchFontByPostscriptNameOrFullFontName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontService.4
   bool success = true;
   FontIdentityPtr p_identity{};
   FontService_MatchFontByPostscriptNameOrFullFontName_ResponseParamsDataView input_data_view(params, message);
@@ -1623,6 +1633,8 @@ bool FontService_MatchFontWithFallback_ForwardToCallback::Accept(
           internal::FontService_MatchFontWithFallback_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontService.5
   bool success = true;
   ::base::File p_font_file_handle{};
   FontService_MatchFontWithFallback_ResponseParamsDataView input_data_view(params, message);
@@ -1734,6 +1746,8 @@ bool FontServiceStubDispatch::AcceptWithResponder(
               internal::FontService_MatchFamilyName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontService.0
       bool success = true;
       std::string p_family_name{};
       TypefaceStylePtr p_style{};
@@ -1755,9 +1769,9 @@ bool FontServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MatchFamilyName(
-std::move(p_family_name), 
-std::move(p_style), std::move(callback));
+      impl->MatchFamilyName(        
+        std::move(p_family_name), 
+        std::move(p_style), std::move(callback));
       return true;
     }
     case internal::kFontService_OpenStream_Name: {
@@ -1767,6 +1781,8 @@ std::move(p_style), std::move(callback));
               internal::FontService_OpenStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontService.1
       bool success = true;
       uint32_t p_id_number{};
       FontService_OpenStream_ParamsDataView input_data_view(params, message);
@@ -1785,8 +1801,8 @@ std::move(p_style), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenStream(
-std::move(p_id_number), std::move(callback));
+      impl->OpenStream(        
+        std::move(p_id_number), std::move(callback));
       return true;
     }
     case internal::kFontService_FallbackFontForCharacter_Name: {
@@ -1796,6 +1812,8 @@ std::move(p_id_number), std::move(callback));
               internal::FontService_FallbackFontForCharacter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontService.2
       bool success = true;
       uint32_t p_character{};
       std::string p_locale{};
@@ -1817,9 +1835,9 @@ std::move(p_id_number), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FallbackFontForCharacter(
-std::move(p_character), 
-std::move(p_locale), std::move(callback));
+      impl->FallbackFontForCharacter(        
+        std::move(p_character), 
+        std::move(p_locale), std::move(callback));
       return true;
     }
     case internal::kFontService_FontRenderStyleForStrike_Name: {
@@ -1829,6 +1847,8 @@ std::move(p_locale), std::move(callback));
               internal::FontService_FontRenderStyleForStrike_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontService.3
       bool success = true;
       std::string p_family{};
       uint32_t p_size{};
@@ -1859,12 +1879,12 @@ std::move(p_locale), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FontRenderStyleForStrike(
-std::move(p_family), 
-std::move(p_size), 
-std::move(p_is_italic), 
-std::move(p_is_bold), 
-std::move(p_device_scale_factor), std::move(callback));
+      impl->FontRenderStyleForStrike(        
+        std::move(p_family), 
+        std::move(p_size), 
+        std::move(p_is_italic), 
+        std::move(p_is_bold), 
+        std::move(p_device_scale_factor), std::move(callback));
       return true;
     }
     case internal::kFontService_MatchFontByPostscriptNameOrFullFontName_Name: {
@@ -1874,6 +1894,8 @@ std::move(p_device_scale_factor), std::move(callback));
               internal::FontService_MatchFontByPostscriptNameOrFullFontName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontService.4
       bool success = true;
       std::string p_postscript_name_or_full_font_name{};
       FontService_MatchFontByPostscriptNameOrFullFontName_ParamsDataView input_data_view(params, message);
@@ -1892,8 +1914,8 @@ std::move(p_device_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MatchFontByPostscriptNameOrFullFontName(
-std::move(p_postscript_name_or_full_font_name), std::move(callback));
+      impl->MatchFontByPostscriptNameOrFullFontName(        
+        std::move(p_postscript_name_or_full_font_name), std::move(callback));
       return true;
     }
     case internal::kFontService_MatchFontWithFallback_Name: {
@@ -1903,6 +1925,8 @@ std::move(p_postscript_name_or_full_font_name), std::move(callback));
               internal::FontService_MatchFontWithFallback_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontService.5
       bool success = true;
       std::string p_family{};
       bool p_is_bold{};
@@ -1933,12 +1957,12 @@ std::move(p_postscript_name_or_full_font_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MatchFontWithFallback(
-std::move(p_family), 
-std::move(p_is_bold), 
-std::move(p_is_italic), 
-std::move(p_charset), 
-std::move(p_fallback_family_type), std::move(callback));
+      impl->MatchFontWithFallback(        
+        std::move(p_family), 
+        std::move(p_is_bold), 
+        std::move(p_is_italic), 
+        std::move(p_charset), 
+        std::move(p_fallback_family_type), std::move(callback));
       return true;
     }
   }

@@ -1375,6 +1375,9 @@ static_assert(
   bool hw_protected() const {
     return data_->hw_protected;
   }
+  bool needs_detiling() const {
+    return data_->needs_detiling;
+  }
   bool is_webgpu_compatible() const {
     return data_->is_webgpu_compatible;
   }
@@ -3156,6 +3159,7 @@ struct Serializer<::media::mojom::VideoFrameMetadataDataView, MaybeConstUserType
     fragment->wants_promotion_hint = Traits::wants_promotion_hint(input);
     fragment->protected_video = Traits::protected_video(input);
     fragment->hw_protected = Traits::hw_protected(input);
+    fragment->needs_detiling = Traits::needs_detiling(input);
     fragment->is_webgpu_compatible = Traits::is_webgpu_compatible(input);
     decltype(Traits::overlay_plane_id(input)) in_overlay_plane_id = Traits::overlay_plane_id(input);
     mojo::internal::MessageFragment<

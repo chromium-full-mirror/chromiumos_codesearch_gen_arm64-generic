@@ -417,238 +417,121 @@ bool InternalDictionary::FillV8ObjectWithMembers(ScriptState* script_state, v8::
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAnyMember()) {
-  if (!ToV8Traits<IDLAny>::ToV8(script_state, member_any_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLAny>::ToV8(script_state, member_any_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasBooleanMember()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_boolean_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_boolean_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasByteStringMember()) {
-  if (!ToV8Traits<IDLByteString>::ToV8(script_state, member_byte_string_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLByteString>::ToV8(script_state, member_byte_string_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasCallbackFunctionMember()) {
-  if (!ToV8Traits<V8TestCallback>::ToV8(script_state, member_callback_function_member_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8TestCallback>::ToV8(script_state, member_callback_function_member_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasDoubleMember()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_double_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_double_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasDoubleOrStringMember()) {
-  if (!ToV8Traits<V8UnionDoubleOrString>::ToV8(script_state, member_double_or_string_member_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionDoubleOrString>::ToV8(script_state, member_double_or_string_member_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasDoubleOrStringSequenceMember()) {
-  if (!ToV8Traits<IDLSequence<V8UnionDoubleOrString>>::ToV8(script_state, member_double_or_string_sequence_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<V8UnionDoubleOrString>>::ToV8(script_state, member_double_or_string_sequence_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 if (hasElementMember()) {
-  if (!ToV8Traits<Element>::ToV8(script_state, member_element_member_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<Element>::ToV8(script_state, member_element_member_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
 }
 if (hasElementOrNullMember()) {
-  if (!ToV8Traits<IDLNullable<Element>>::ToV8(script_state, member_element_or_null_member_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<Element>>::ToV8(script_state, member_element_or_null_member_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
 }
 if (hasEnumMember()) {
-  if (!ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
 }
 if (hasEnumMemberWithDefault()) {
-  if (!ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_with_default_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_with_default_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
 }
 if (hasEnumOrNullMember()) {
-  if (!ToV8Traits<IDLNullable<V8InternalEnum>>::ToV8(script_state, member_enum_or_null_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<V8InternalEnum>>::ToV8(script_state, member_enum_or_null_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
 }
 if (hasEventTargetOrNullMember()) {
-  if (!ToV8Traits<IDLNullable<EventTarget>>::ToV8(script_state, member_event_target_or_null_member_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<EventTarget>>::ToV8(script_state, member_event_target_or_null_member_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
 }
 if (hasInternalEnumOrInternalEnumSequenceMember()) {
-  if (!ToV8Traits<V8UnionInternalEnumOrInternalEnumSequence>::ToV8(script_state, member_internal_enum_or_internal_enum_sequence_member_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionInternalEnumOrInternalEnumSequence>::ToV8(script_state, member_internal_enum_or_internal_enum_sequence_member_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
 }
 if (hasLongMember()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
 }
 if (hasLongMemberWithClamp()) {
-  if (!ToV8Traits<IDLLongClamp>::ToV8(script_state, member_long_member_with_clamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLongClamp>::ToV8(script_state, member_long_member_with_clamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
 }
 if (hasLongMemberWithDefault()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_with_default_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_with_default_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
 }
 if (hasLongMemberWithEnforceRange()) {
-  if (!ToV8Traits<IDLLongEnforceRange>::ToV8(script_state, member_long_member_with_enforce_range_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLongEnforceRange>::ToV8(script_state, member_long_member_with_enforce_range_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
 }
 if (hasLongOrNullMember()) {
-  if (!ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
 }
 if (hasLongOrNullMemberWithDefault()) {
-  if (!ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_with_default_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_with_default_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
 }
 if (hasObjectMember()) {
-  if (!ToV8Traits<IDLObject>::ToV8(script_state, member_object_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLObject>::ToV8(script_state, member_object_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
 }
 if (hasObjectOrNullMemberWithDefault()) {
-  if (!ToV8Traits<IDLNullable<IDLObject>>::ToV8(script_state, member_object_or_null_member_with_default_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLObject>>::ToV8(script_state, member_object_or_null_member_with_default_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
 }
 if (hasStringMember()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_string_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_string_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
 }
 if (hasStringMemberWithDefault()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_string_member_with_default_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_string_member_with_default_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
 }
 if (hasStringSequenceMember()) {
-  if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
 }
 if (hasStringSequenceMemberWithDefault()) {
-  if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_with_default_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_with_default_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
 }
 if (hasStringSequenceOrNullMember()) {
-  if (!ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, member_string_sequence_or_null_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, member_string_sequence_or_null_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
 }
 if (hasUnrestrictedDoubleMember()) {
-  if (!ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_unrestricted_double_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_unrestricted_double_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
 }
 if (hasUsvStringMember()) {
-  if (!ToV8Traits<IDLUSVString>::ToV8(script_state, member_usv_string_member_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_usv_string_member_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

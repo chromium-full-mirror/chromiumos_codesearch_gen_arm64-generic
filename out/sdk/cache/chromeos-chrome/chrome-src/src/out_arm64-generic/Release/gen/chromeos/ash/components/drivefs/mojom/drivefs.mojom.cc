@@ -52,7 +52,9 @@ DriveFsConfiguration::DriveFsConfiguration()
       enable_experimental_mirroring(false),
       enable_verbose_logging(false),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in)
@@ -63,7 +65,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(false),
       enable_verbose_logging(false),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -75,7 +79,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(false),
       enable_verbose_logging(false),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -88,7 +94,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(false),
       enable_verbose_logging(false),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -102,7 +110,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(false),
       enable_verbose_logging(false),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -117,7 +127,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(std::move(enable_experimental_mirroring_in)),
       enable_verbose_logging(false),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -133,7 +145,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(std::move(enable_experimental_mirroring_in)),
       enable_verbose_logging(std::move(enable_verbose_logging_in)),
       enable_cros_network(false),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -150,7 +164,9 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(std::move(enable_experimental_mirroring_in)),
       enable_verbose_logging(std::move(enable_verbose_logging_in)),
       enable_cros_network(std::move(enable_cros_network_in)),
-      cse_support(CSESupport::kNone) {}
+      cse_support(CSESupport::kNone),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
@@ -168,7 +184,31 @@ DriveFsConfiguration::DriveFsConfiguration(
       enable_experimental_mirroring(std::move(enable_experimental_mirroring_in)),
       enable_verbose_logging(std::move(enable_verbose_logging_in)),
       enable_cros_network(std::move(enable_cros_network_in)),
-      cse_support(std::move(cse_support_in)) {}
+      cse_support(std::move(cse_support_in)),
+      fetch_modifying_user_metadata(false),
+      fetch_sharing_user_metadata(false) {}
+
+DriveFsConfiguration::DriveFsConfiguration(
+    const std::string& user_email_in,
+    const std::optional<std::string>& access_token_in,
+    bool enable_metrics_in,
+    const std::optional<std::string>& lost_and_found_directory_name_in,
+    bool enable_experimental_mirroring_in,
+    bool enable_verbose_logging_in,
+    bool enable_cros_network_in,
+    CSESupport cse_support_in,
+    bool fetch_modifying_user_metadata_in,
+    bool fetch_sharing_user_metadata_in)
+    : user_email(std::move(user_email_in)),
+      access_token(std::move(access_token_in)),
+      enable_metrics(std::move(enable_metrics_in)),
+      lost_and_found_directory_name(std::move(lost_and_found_directory_name_in)),
+      enable_experimental_mirroring(std::move(enable_experimental_mirroring_in)),
+      enable_verbose_logging(std::move(enable_verbose_logging_in)),
+      enable_cros_network(std::move(enable_cros_network_in)),
+      cse_support(std::move(cse_support_in)),
+      fetch_modifying_user_metadata(std::move(fetch_modifying_user_metadata_in)),
+      fetch_sharing_user_metadata(std::move(fetch_sharing_user_metadata_in)) {}
 
 DriveFsConfiguration::~DriveFsConfiguration() = default;
 
@@ -243,6 +283,24 @@ void DriveFsConfiguration::WriteIntoTrace(
       "cse_support"), this->cse_support,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type CSESupport>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fetch_modifying_user_metadata"), this->fetch_modifying_user_metadata,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fetch_sharing_user_metadata"), this->fetch_sharing_user_metadata,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -415,6 +473,38 @@ bool DialogReason::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+UserInfo::UserInfo()
+    : display_name() {}
+
+UserInfo::UserInfo(
+    const std::string& display_name_in)
+    : display_name(std::move(display_name_in)) {}
+
+UserInfo::~UserInfo() = default;
+size_t UserInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->display_name);
+  return seed;
+}
+
+void UserInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "display_name"), this->display_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool UserInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 FileMetadata::FileMetadata()
     : type(),
       size(),
@@ -439,7 +529,11 @@ FileMetadata::FileMetadata()
       item_id(),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -481,7 +575,11 @@ FileMetadata::FileMetadata(
       item_id(),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -524,7 +622,11 @@ FileMetadata::FileMetadata(
       item_id(),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -568,7 +670,11 @@ FileMetadata::FileMetadata(
       item_id(),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -613,7 +719,11 @@ FileMetadata::FileMetadata(
       item_id(),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -659,7 +769,11 @@ FileMetadata::FileMetadata(
       item_id(),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -706,7 +820,11 @@ FileMetadata::FileMetadata(
       item_id(std::move(item_id_in)),
       shared_drive_quota(),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -754,7 +872,11 @@ FileMetadata::FileMetadata(
       item_id(std::move(item_id_in)),
       shared_drive_quota(std::move(shared_drive_quota_in)),
       shortcut_details(),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -803,7 +925,11 @@ FileMetadata::FileMetadata(
       item_id(std::move(item_id_in)),
       shared_drive_quota(std::move(shared_drive_quota_in)),
       shortcut_details(std::move(shortcut_details_in)),
-      trashed(false) {}
+      trashed(false),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
 
 FileMetadata::FileMetadata(
     FileMetadata::Type type_in,
@@ -853,7 +979,69 @@ FileMetadata::FileMetadata(
       item_id(std::move(item_id_in)),
       shared_drive_quota(std::move(shared_drive_quota_in)),
       shortcut_details(std::move(shortcut_details_in)),
-      trashed(std::move(trashed_in)) {}
+      trashed(std::move(trashed_in)),
+      modified_by_me_time(),
+      last_modifying_user(),
+      shared_with_me_time(),
+      sharing_user() {}
+
+FileMetadata::FileMetadata(
+    FileMetadata::Type type_in,
+    int64_t size_in,
+    const std::string& content_mime_type_in,
+    const std::string& custom_icon_url_in,
+    const std::string& alternate_url_in,
+    const std::string& download_url_in,
+    ::base::Time modification_time_in,
+    ::base::Time last_viewed_by_me_time_in,
+    bool available_offline_in,
+    bool dirty_in,
+    bool pinned_in,
+    bool shared_in,
+    bool starred_in,
+    ImageMetadataPtr image_metadata_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    CapabilitiesPtr capabilities_in,
+    FolderFeaturePtr folder_feature_in,
+    QuickAccessPtr quick_access_in,
+    int64_t stable_id_in,
+    FileMetadata::CanPinStatus can_pin_in,
+    const std::optional<std::string>& item_id_in,
+    SharedDriveQuotaPtr shared_drive_quota_in,
+    ShortcutDetailsPtr shortcut_details_in,
+    bool trashed_in,
+    std::optional<::base::Time> modified_by_me_time_in,
+    UserInfoPtr last_modifying_user_in,
+    std::optional<::base::Time> shared_with_me_time_in,
+    UserInfoPtr sharing_user_in)
+    : type(std::move(type_in)),
+      size(std::move(size_in)),
+      content_mime_type(std::move(content_mime_type_in)),
+      custom_icon_url(std::move(custom_icon_url_in)),
+      alternate_url(std::move(alternate_url_in)),
+      download_url(std::move(download_url_in)),
+      modification_time(std::move(modification_time_in)),
+      last_viewed_by_me_time(std::move(last_viewed_by_me_time_in)),
+      available_offline(std::move(available_offline_in)),
+      dirty(std::move(dirty_in)),
+      pinned(std::move(pinned_in)),
+      shared(std::move(shared_in)),
+      starred(std::move(starred_in)),
+      image_metadata(std::move(image_metadata_in)),
+      deprecated_thumbnail(std::move(deprecated_thumbnail_in)),
+      capabilities(std::move(capabilities_in)),
+      folder_feature(std::move(folder_feature_in)),
+      quick_access(std::move(quick_access_in)),
+      stable_id(std::move(stable_id_in)),
+      can_pin(std::move(can_pin_in)),
+      item_id(std::move(item_id_in)),
+      shared_drive_quota(std::move(shared_drive_quota_in)),
+      shortcut_details(std::move(shortcut_details_in)),
+      trashed(std::move(trashed_in)),
+      modified_by_me_time(std::move(modified_by_me_time_in)),
+      last_modifying_user(std::move(last_modifying_user_in)),
+      shared_with_me_time(std::move(shared_with_me_time_in)),
+      sharing_user(std::move(sharing_user_in)) {}
 
 FileMetadata::~FileMetadata() = default;
 
@@ -1072,6 +1260,42 @@ void FileMetadata::WriteIntoTrace(
       "trashed"), this->trashed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "modified_by_me_time"), this->modified_by_me_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::Time>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "last_modifying_user"), this->last_modifying_user,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type UserInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "shared_with_me_time"), this->shared_with_me_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::Time>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sharing_user"), this->sharing_user,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type UserInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1750,7 +1974,9 @@ QueryParameters::QueryParameters()
       my_drive_results_only(false),
       modified_time_operator(),
       modified_time(),
-      parent_stable_id(0) {}
+      parent_stable_id(0),
+      viewed_time_operator(),
+      viewed_time() {}
 
 QueryParameters::QueryParameters(
     int32_t page_size_in,
@@ -1776,7 +2002,9 @@ QueryParameters::QueryParameters(
       my_drive_results_only(false),
       modified_time_operator(),
       modified_time(),
-      parent_stable_id(0) {}
+      parent_stable_id(0),
+      viewed_time_operator(),
+      viewed_time() {}
 
 QueryParameters::QueryParameters(
     int32_t page_size_in,
@@ -1803,7 +2031,9 @@ QueryParameters::QueryParameters(
       my_drive_results_only(false),
       modified_time_operator(),
       modified_time(),
-      parent_stable_id(0) {}
+      parent_stable_id(0),
+      viewed_time_operator(),
+      viewed_time() {}
 
 QueryParameters::QueryParameters(
     int32_t page_size_in,
@@ -1831,7 +2061,9 @@ QueryParameters::QueryParameters(
       my_drive_results_only(false),
       modified_time_operator(),
       modified_time(),
-      parent_stable_id(0) {}
+      parent_stable_id(0),
+      viewed_time_operator(),
+      viewed_time() {}
 
 QueryParameters::QueryParameters(
     int32_t page_size_in,
@@ -1860,7 +2092,9 @@ QueryParameters::QueryParameters(
       my_drive_results_only(std::move(my_drive_results_only_in)),
       modified_time_operator(),
       modified_time(),
-      parent_stable_id(0) {}
+      parent_stable_id(0),
+      viewed_time_operator(),
+      viewed_time() {}
 
 QueryParameters::QueryParameters(
     int32_t page_size_in,
@@ -1891,7 +2125,9 @@ QueryParameters::QueryParameters(
       my_drive_results_only(std::move(my_drive_results_only_in)),
       modified_time_operator(std::move(modified_time_operator_in)),
       modified_time(std::move(modified_time_in)),
-      parent_stable_id(0) {}
+      parent_stable_id(0),
+      viewed_time_operator(),
+      viewed_time() {}
 
 QueryParameters::QueryParameters(
     int32_t page_size_in,
@@ -1923,7 +2159,45 @@ QueryParameters::QueryParameters(
       my_drive_results_only(std::move(my_drive_results_only_in)),
       modified_time_operator(std::move(modified_time_operator_in)),
       modified_time(std::move(modified_time_in)),
-      parent_stable_id(std::move(parent_stable_id_in)) {}
+      parent_stable_id(std::move(parent_stable_id_in)),
+      viewed_time_operator(),
+      viewed_time() {}
+
+QueryParameters::QueryParameters(
+    int32_t page_size_in,
+    QueryParameters::QuerySource query_source_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
+    bool shared_with_me_in,
+    bool available_offline_in,
+    QueryParameters::SortField sort_field_in,
+    QueryParameters::SortDirection sort_direction_in,
+    QueryKind query_kind_in,
+    std::optional<std::vector<std::string>> mime_types_in,
+    bool my_drive_results_only_in,
+    QueryParameters::DateComparisonOperator modified_time_operator_in,
+    std::optional<::base::Time> modified_time_in,
+    int64_t parent_stable_id_in,
+    QueryParameters::DateComparisonOperator viewed_time_operator_in,
+    std::optional<::base::Time> viewed_time_in)
+    : page_size(std::move(page_size_in)),
+      query_source(std::move(query_source_in)),
+      title(std::move(title_in)),
+      text_content(std::move(text_content_in)),
+      mime_type(std::move(mime_type_in)),
+      shared_with_me(std::move(shared_with_me_in)),
+      available_offline(std::move(available_offline_in)),
+      sort_field(std::move(sort_field_in)),
+      sort_direction(std::move(sort_direction_in)),
+      query_kind(std::move(query_kind_in)),
+      mime_types(std::move(mime_types_in)),
+      my_drive_results_only(std::move(my_drive_results_only_in)),
+      modified_time_operator(std::move(modified_time_operator_in)),
+      modified_time(std::move(modified_time_in)),
+      parent_stable_id(std::move(parent_stable_id_in)),
+      viewed_time_operator(std::move(viewed_time_operator_in)),
+      viewed_time(std::move(viewed_time_in)) {}
 
 QueryParameters::~QueryParameters() = default;
 
@@ -2061,6 +2335,24 @@ void QueryParameters::WriteIntoTrace(
       "parent_stable_id"), this->parent_stable_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type int64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "viewed_time_operator"), this->viewed_time_operator,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type QueryParameters::DateComparisonOperator>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "viewed_time"), this->viewed_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2712,6 +3004,8 @@ bool DriveFsBootstrapStubDispatch::Accept(
           reinterpret_cast<internal::DriveFsBootstrap_Init_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsBootstrap.0
       bool success = true;
       DriveFsConfigurationPtr p_config{};
       ::mojo::PendingReceiver<DriveFs> p_drive_fs{};
@@ -2737,10 +3031,10 @@ bool DriveFsBootstrapStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_config), 
-std::move(p_drive_fs), 
-std::move(p_delegate));
+      impl->Init(        
+        std::move(p_config), 
+        std::move(p_drive_fs), 
+        std::move(p_delegate));
       return true;
     }
   }
@@ -5521,6 +5815,8 @@ bool DriveFs_GetMetadata_ForwardToCallback::Accept(
           internal::DriveFs_GetMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.0
   bool success = true;
   ::drive::FileError p_error{};
   FileMetadataPtr p_metadata{};
@@ -5655,6 +5951,8 @@ bool DriveFs_SetPinned_ForwardToCallback::Accept(
           internal::DriveFs_SetPinned_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.1
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_SetPinned_ResponseParamsDataView input_data_view(params, message);
@@ -5775,6 +6073,8 @@ bool DriveFs_ResetCache_ForwardToCallback::Accept(
           internal::DriveFs_ResetCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.3
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_ResetCache_ResponseParamsDataView input_data_view(params, message);
@@ -5895,6 +6195,8 @@ bool DriveFs_GetThumbnail_ForwardToCallback::Accept(
           internal::DriveFs_GetThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.4
   bool success = true;
   std::optional<std::vector<uint8_t>> p_thumbnail{};
   DriveFs_GetThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -6022,6 +6324,8 @@ bool DriveFs_CopyFile_ForwardToCallback::Accept(
           internal::DriveFs_CopyFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.5
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_CopyFile_ResponseParamsDataView input_data_view(params, message);
@@ -6142,6 +6446,8 @@ bool DriveFs_SendNativeMessageRequest_ForwardToCallback::Accept(
           internal::DriveFs_SendNativeMessageRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.9
   bool success = true;
   ::drive::FileError p_error{};
   std::string p_response{};
@@ -6280,6 +6586,8 @@ bool DriveFs_SetStartupArguments_ForwardToCallback::Accept(
           internal::DriveFs_SetStartupArguments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.10
   bool success = true;
   bool p_success{};
   DriveFs_SetStartupArguments_ResponseParamsDataView input_data_view(params, message);
@@ -6399,6 +6707,8 @@ bool DriveFs_GetStartupArguments_ForwardToCallback::Accept(
           internal::DriveFs_GetStartupArguments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.11
   bool success = true;
   std::string p_arguments{};
   DriveFs_GetStartupArguments_ResponseParamsDataView input_data_view(params, message);
@@ -6528,6 +6838,8 @@ bool DriveFs_LocateFilesByItemIds_ForwardToCallback::Accept(
           internal::DriveFs_LocateFilesByItemIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.18
   bool success = true;
   std::optional<std::vector<FilePathOrErrorPtr>> p_response{};
   DriveFs_LocateFilesByItemIds_ResponseParamsDataView input_data_view(params, message);
@@ -6655,6 +6967,8 @@ bool DriveFs_GetQuotaUsage_ForwardToCallback::Accept(
           internal::DriveFs_GetQuotaUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.19
   bool success = true;
   ::drive::FileError p_error{};
   QuotaUsagePtr p_quota{};
@@ -6793,6 +7107,8 @@ bool DriveFs_ToggleMirroring_ForwardToCallback::Accept(
           internal::DriveFs_ToggleMirroring_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.20
   bool success = true;
   MirrorSyncStatus p_status{};
   DriveFs_ToggleMirroring_ResponseParamsDataView input_data_view(params, message);
@@ -6913,6 +7229,8 @@ bool DriveFs_ToggleSyncForPath_ForwardToCallback::Accept(
           internal::DriveFs_ToggleSyncForPath_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.21
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_ToggleSyncForPath_ResponseParamsDataView input_data_view(params, message);
@@ -7033,6 +7351,8 @@ bool DriveFs_GetSyncingPaths_ForwardToCallback::Accept(
           internal::DriveFs_GetSyncingPaths_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.22
   bool success = true;
   ::drive::FileError p_error{};
   std::vector<::base::FilePath> p_paths{};
@@ -7173,6 +7493,8 @@ bool DriveFs_GetPooledQuotaUsage_ForwardToCallback::Accept(
           internal::DriveFs_GetPooledQuotaUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.24
   bool success = true;
   ::drive::FileError p_error{};
   PooledQuotaUsagePtr p_quota{};
@@ -7311,6 +7633,8 @@ bool DriveFs_SetPinnedByStableId_ForwardToCallback::Accept(
           internal::DriveFs_SetPinnedByStableId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.25
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_SetPinnedByStableId_ResponseParamsDataView input_data_view(params, message);
@@ -7431,6 +7755,8 @@ bool DriveFs_GetMetadataByStableId_ForwardToCallback::Accept(
           internal::DriveFs_GetMetadataByStableId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.26
   bool success = true;
   ::drive::FileError p_error{};
   FileMetadataPtr p_metadata{};
@@ -7565,6 +7891,8 @@ bool DriveFs_SetDocsOfflineEnabled_ForwardToCallback::Accept(
           internal::DriveFs_SetDocsOfflineEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.28
   bool success = true;
   ::drive::FileError p_error{};
   DocsOfflineEnableStatus p_status{};
@@ -7694,6 +8022,8 @@ bool DriveFs_GetOfflineFilesSpaceUsage_ForwardToCallback::Accept(
           internal::DriveFs_GetOfflineFilesSpaceUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.29
   bool success = true;
   ::drive::FileError p_error{};
   int64_t p_space_used{};
@@ -7822,6 +8152,8 @@ bool DriveFs_ClearOfflineFiles_ForwardToCallback::Accept(
           internal::DriveFs_ClearOfflineFiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.30
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_ClearOfflineFiles_ResponseParamsDataView input_data_view(params, message);
@@ -7942,6 +8274,8 @@ bool DriveFs_ImmediatelyUpload_ForwardToCallback::Accept(
           internal::DriveFs_ImmediatelyUpload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.31
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_ImmediatelyUpload_ResponseParamsDataView input_data_view(params, message);
@@ -8062,6 +8396,8 @@ bool DriveFs_UpdateFromPairedDoc_ForwardToCallback::Accept(
           internal::DriveFs_UpdateFromPairedDoc_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.32
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_UpdateFromPairedDoc_ResponseParamsDataView input_data_view(params, message);
@@ -8182,6 +8518,8 @@ bool DriveFs_GetItemFromCloudStore_ForwardToCallback::Accept(
           internal::DriveFs_GetItemFromCloudStore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.33
   bool success = true;
   ::drive::FileError p_error{};
   DriveFs_GetItemFromCloudStore_ResponseParamsDataView input_data_view(params, message);
@@ -8302,6 +8640,8 @@ bool DriveFs_GetDocsOfflineStats_ForwardToCallback::Accept(
           internal::DriveFs_GetDocsOfflineStats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFs.34
   bool success = true;
   ::drive::FileError p_error{};
   DocsOfflineStatsPtr p_counts{};
@@ -8401,6 +8741,8 @@ bool DriveFsStubDispatch::Accept(
           reinterpret_cast<internal::DriveFs_UpdateNetworkState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.2
       bool success = true;
       bool p_pause_syncing{};
       bool p_is_offline{};
@@ -8419,9 +8761,9 @@ bool DriveFsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateNetworkState(
-std::move(p_pause_syncing), 
-std::move(p_is_offline));
+      impl->UpdateNetworkState(        
+        std::move(p_pause_syncing), 
+        std::move(p_is_offline));
       return true;
     }
     case internal::kDriveFs_ResetCache_Name: {
@@ -8440,6 +8782,8 @@ std::move(p_is_offline));
           reinterpret_cast<internal::DriveFs_StartSearchQuery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.6
       bool success = true;
       ::mojo::PendingReceiver<SearchQuery> p_query{};
       QueryParametersPtr p_query_params{};
@@ -8460,9 +8804,9 @@ std::move(p_is_offline));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSearchQuery(
-std::move(p_query), 
-std::move(p_query_params));
+      impl->StartSearchQuery(        
+        std::move(p_query), 
+        std::move(p_query_params));
       return true;
     }
     case internal::kDriveFs_FetchAllChangeLogs_Name: {
@@ -8472,6 +8816,8 @@ std::move(p_query_params));
           reinterpret_cast<internal::DriveFs_FetchAllChangeLogs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.7
       bool success = true;
       DriveFs_FetchAllChangeLogs_ParamsDataView input_data_view(params, message);
       
@@ -8484,7 +8830,7 @@ std::move(p_query_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchAllChangeLogs();
+      impl->FetchAllChangeLogs(        );
       return true;
     }
     case internal::kDriveFs_FetchChangeLog_Name: {
@@ -8494,6 +8840,8 @@ std::move(p_query_params));
           reinterpret_cast<internal::DriveFs_FetchChangeLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.8
       bool success = true;
       std::vector<FetchChangeLogOptionsPtr> p_options{};
       DriveFs_FetchChangeLog_ParamsDataView input_data_view(params, message);
@@ -8509,8 +8857,8 @@ std::move(p_query_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchChangeLog(
-std::move(p_options));
+      impl->FetchChangeLog(        
+        std::move(p_options));
       return true;
     }
     case internal::kDriveFs_SendNativeMessageRequest_Name: {
@@ -8529,6 +8877,8 @@ std::move(p_options));
           reinterpret_cast<internal::DriveFs_SetTracingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.12
       bool success = true;
       bool p_enabled{};
       DriveFs_SetTracingEnabled_ParamsDataView input_data_view(params, message);
@@ -8544,8 +8894,8 @@ std::move(p_options));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTracingEnabled(
-std::move(p_enabled));
+      impl->SetTracingEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDriveFs_SetNetworkingEnabled_Name: {
@@ -8555,6 +8905,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DriveFs_SetNetworkingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.13
       bool success = true;
       bool p_enabled{};
       DriveFs_SetNetworkingEnabled_ParamsDataView input_data_view(params, message);
@@ -8570,8 +8922,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNetworkingEnabled(
-std::move(p_enabled));
+      impl->SetNetworkingEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDriveFs_ForcePauseSyncing_Name: {
@@ -8581,6 +8933,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DriveFs_ForcePauseSyncing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.14
       bool success = true;
       bool p_enable{};
       DriveFs_ForcePauseSyncing_ParamsDataView input_data_view(params, message);
@@ -8596,8 +8950,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForcePauseSyncing(
-std::move(p_enable));
+      impl->ForcePauseSyncing(        
+        std::move(p_enable));
       return true;
     }
     case internal::kDriveFs_DumpAccountSettings_Name: {
@@ -8607,6 +8961,8 @@ std::move(p_enable));
           reinterpret_cast<internal::DriveFs_DumpAccountSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.15
       bool success = true;
       DriveFs_DumpAccountSettings_ParamsDataView input_data_view(params, message);
       
@@ -8619,7 +8975,7 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DumpAccountSettings();
+      impl->DumpAccountSettings(        );
       return true;
     }
     case internal::kDriveFs_LoadAccountSettings_Name: {
@@ -8629,6 +8985,8 @@ std::move(p_enable));
           reinterpret_cast<internal::DriveFs_LoadAccountSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.16
       bool success = true;
       DriveFs_LoadAccountSettings_ParamsDataView input_data_view(params, message);
       
@@ -8641,7 +8999,7 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadAccountSettings();
+      impl->LoadAccountSettings(        );
       return true;
     }
     case internal::kDriveFs_CreateNativeHostSession_Name: {
@@ -8651,6 +9009,8 @@ std::move(p_enable));
           reinterpret_cast<internal::DriveFs_CreateNativeHostSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.17
       bool success = true;
       ::drivefs::mojom::ExtensionConnectionParamsPtr p_params{};
       ::mojo::PendingReceiver<::drivefs::mojom::NativeMessagingHost> p_host{};
@@ -8676,10 +9036,10 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNativeHostSession(
-std::move(p_params), 
-std::move(p_host), 
-std::move(p_port));
+      impl->CreateNativeHostSession(        
+        std::move(p_params), 
+        std::move(p_host), 
+        std::move(p_port));
       return true;
     }
     case internal::kDriveFs_LocateFilesByItemIds_Name: {
@@ -8704,6 +9064,8 @@ std::move(p_port));
           reinterpret_cast<internal::DriveFs_PollHostedFilePinStates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.23
       bool success = true;
       DriveFs_PollHostedFilePinStates_ParamsDataView input_data_view(params, message);
       
@@ -8716,7 +9078,7 @@ std::move(p_port));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PollHostedFilePinStates();
+      impl->PollHostedFilePinStates(        );
       return true;
     }
     case internal::kDriveFs_GetPooledQuotaUsage_Name: {
@@ -8735,6 +9097,8 @@ std::move(p_port));
           reinterpret_cast<internal::DriveFs_CancelUploadByPath_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFs.27
       bool success = true;
       ::base::FilePath p_path{};
       DriveFs::CancelUploadMode p_cancel_mode{};
@@ -8753,9 +9117,9 @@ std::move(p_port));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelUploadByPath(
-std::move(p_path), 
-std::move(p_cancel_mode));
+      impl->CancelUploadByPath(        
+        std::move(p_path), 
+        std::move(p_cancel_mode));
       return true;
     }
     case internal::kDriveFs_SetDocsOfflineEnabled_Name: {
@@ -8799,6 +9163,8 @@ bool DriveFsStubDispatch::AcceptWithResponder(
               internal::DriveFs_GetMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.0
       bool success = true;
       ::base::FilePath p_path{};
       DriveFs_GetMetadata_ParamsDataView input_data_view(params, message);
@@ -8817,8 +9183,8 @@ bool DriveFsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMetadata(
-std::move(p_path), std::move(callback));
+      impl->GetMetadata(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDriveFs_SetPinned_Name: {
@@ -8828,6 +9194,8 @@ std::move(p_path), std::move(callback));
               internal::DriveFs_SetPinned_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.1
       bool success = true;
       ::base::FilePath p_path{};
       bool p_pinned{};
@@ -8849,9 +9217,9 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPinned(
-std::move(p_path), 
-std::move(p_pinned), std::move(callback));
+      impl->SetPinned(        
+        std::move(p_path), 
+        std::move(p_pinned), std::move(callback));
       return true;
     }
     case internal::kDriveFs_UpdateNetworkState_Name: {
@@ -8864,6 +9232,8 @@ std::move(p_pinned), std::move(callback));
               internal::DriveFs_ResetCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.3
       bool success = true;
       DriveFs_ResetCache_ParamsDataView input_data_view(params, message);
       
@@ -8889,6 +9259,8 @@ std::move(p_pinned), std::move(callback));
               internal::DriveFs_GetThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.4
       bool success = true;
       ::base::FilePath p_path{};
       bool p_crop_to_square{};
@@ -8910,9 +9282,9 @@ std::move(p_pinned), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetThumbnail(
-std::move(p_path), 
-std::move(p_crop_to_square), std::move(callback));
+      impl->GetThumbnail(        
+        std::move(p_path), 
+        std::move(p_crop_to_square), std::move(callback));
       return true;
     }
     case internal::kDriveFs_CopyFile_Name: {
@@ -8922,6 +9294,8 @@ std::move(p_crop_to_square), std::move(callback));
               internal::DriveFs_CopyFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.5
       bool success = true;
       ::base::FilePath p_source{};
       ::base::FilePath p_target{};
@@ -8943,9 +9317,9 @@ std::move(p_crop_to_square), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyFile(
-std::move(p_source), 
-std::move(p_target), std::move(callback));
+      impl->CopyFile(        
+        std::move(p_source), 
+        std::move(p_target), std::move(callback));
       return true;
     }
     case internal::kDriveFs_StartSearchQuery_Name: {
@@ -8964,6 +9338,8 @@ std::move(p_target), std::move(callback));
               internal::DriveFs_SendNativeMessageRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.9
       bool success = true;
       std::string p_request{};
       DriveFs_SendNativeMessageRequest_ParamsDataView input_data_view(params, message);
@@ -8982,8 +9358,8 @@ std::move(p_target), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNativeMessageRequest(
-std::move(p_request), std::move(callback));
+      impl->SendNativeMessageRequest(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kDriveFs_SetStartupArguments_Name: {
@@ -8993,6 +9369,8 @@ std::move(p_request), std::move(callback));
               internal::DriveFs_SetStartupArguments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.10
       bool success = true;
       std::string p_arguments{};
       DriveFs_SetStartupArguments_ParamsDataView input_data_view(params, message);
@@ -9011,8 +9389,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetStartupArguments(
-std::move(p_arguments), std::move(callback));
+      impl->SetStartupArguments(        
+        std::move(p_arguments), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetStartupArguments_Name: {
@@ -9022,6 +9400,8 @@ std::move(p_arguments), std::move(callback));
               internal::DriveFs_GetStartupArguments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.11
       bool success = true;
       DriveFs_GetStartupArguments_ParamsDataView input_data_view(params, message);
       
@@ -9065,6 +9445,8 @@ std::move(p_arguments), std::move(callback));
               internal::DriveFs_LocateFilesByItemIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.18
       bool success = true;
       std::vector<std::string> p_item_ids{};
       DriveFs_LocateFilesByItemIds_ParamsDataView input_data_view(params, message);
@@ -9083,8 +9465,8 @@ std::move(p_arguments), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LocateFilesByItemIds(
-std::move(p_item_ids), std::move(callback));
+      impl->LocateFilesByItemIds(        
+        std::move(p_item_ids), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetQuotaUsage_Name: {
@@ -9094,6 +9476,8 @@ std::move(p_item_ids), std::move(callback));
               internal::DriveFs_GetQuotaUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.19
       bool success = true;
       DriveFs_GetQuotaUsage_ParamsDataView input_data_view(params, message);
       
@@ -9119,6 +9503,8 @@ std::move(p_item_ids), std::move(callback));
               internal::DriveFs_ToggleMirroring_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.20
       bool success = true;
       bool p_enabled{};
       DriveFs_ToggleMirroring_ParamsDataView input_data_view(params, message);
@@ -9137,8 +9523,8 @@ std::move(p_item_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleMirroring(
-std::move(p_enabled), std::move(callback));
+      impl->ToggleMirroring(        
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kDriveFs_ToggleSyncForPath_Name: {
@@ -9148,6 +9534,8 @@ std::move(p_enabled), std::move(callback));
               internal::DriveFs_ToggleSyncForPath_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.21
       bool success = true;
       ::base::FilePath p_path{};
       MirrorPathStatus p_status{};
@@ -9169,9 +9557,9 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleSyncForPath(
-std::move(p_path), 
-std::move(p_status), std::move(callback));
+      impl->ToggleSyncForPath(        
+        std::move(p_path), 
+        std::move(p_status), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetSyncingPaths_Name: {
@@ -9181,6 +9569,8 @@ std::move(p_status), std::move(callback));
               internal::DriveFs_GetSyncingPaths_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.22
       bool success = true;
       DriveFs_GetSyncingPaths_ParamsDataView input_data_view(params, message);
       
@@ -9209,6 +9599,8 @@ std::move(p_status), std::move(callback));
               internal::DriveFs_GetPooledQuotaUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.24
       bool success = true;
       DriveFs_GetPooledQuotaUsage_ParamsDataView input_data_view(params, message);
       
@@ -9234,6 +9626,8 @@ std::move(p_status), std::move(callback));
               internal::DriveFs_SetPinnedByStableId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.25
       bool success = true;
       int64_t p_stable_id{};
       bool p_pinned{};
@@ -9255,9 +9649,9 @@ std::move(p_status), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPinnedByStableId(
-std::move(p_stable_id), 
-std::move(p_pinned), std::move(callback));
+      impl->SetPinnedByStableId(        
+        std::move(p_stable_id), 
+        std::move(p_pinned), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetMetadataByStableId_Name: {
@@ -9267,6 +9661,8 @@ std::move(p_pinned), std::move(callback));
               internal::DriveFs_GetMetadataByStableId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.26
       bool success = true;
       int64_t p_stable_id{};
       DriveFs_GetMetadataByStableId_ParamsDataView input_data_view(params, message);
@@ -9285,8 +9681,8 @@ std::move(p_pinned), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMetadataByStableId(
-std::move(p_stable_id), std::move(callback));
+      impl->GetMetadataByStableId(        
+        std::move(p_stable_id), std::move(callback));
       return true;
     }
     case internal::kDriveFs_CancelUploadByPath_Name: {
@@ -9299,6 +9695,8 @@ std::move(p_stable_id), std::move(callback));
               internal::DriveFs_SetDocsOfflineEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.28
       bool success = true;
       bool p_enabled{};
       DriveFs_SetDocsOfflineEnabled_ParamsDataView input_data_view(params, message);
@@ -9317,8 +9715,8 @@ std::move(p_stable_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDocsOfflineEnabled(
-std::move(p_enabled), std::move(callback));
+      impl->SetDocsOfflineEnabled(        
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetOfflineFilesSpaceUsage_Name: {
@@ -9328,6 +9726,8 @@ std::move(p_enabled), std::move(callback));
               internal::DriveFs_GetOfflineFilesSpaceUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.29
       bool success = true;
       DriveFs_GetOfflineFilesSpaceUsage_ParamsDataView input_data_view(params, message);
       
@@ -9353,6 +9753,8 @@ std::move(p_enabled), std::move(callback));
               internal::DriveFs_ClearOfflineFiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.30
       bool success = true;
       DriveFs_ClearOfflineFiles_ParamsDataView input_data_view(params, message);
       
@@ -9378,6 +9780,8 @@ std::move(p_enabled), std::move(callback));
               internal::DriveFs_ImmediatelyUpload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.31
       bool success = true;
       ::base::FilePath p_path{};
       DriveFs_ImmediatelyUpload_ParamsDataView input_data_view(params, message);
@@ -9396,8 +9800,8 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImmediatelyUpload(
-std::move(p_path), std::move(callback));
+      impl->ImmediatelyUpload(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDriveFs_UpdateFromPairedDoc_Name: {
@@ -9407,6 +9811,8 @@ std::move(p_path), std::move(callback));
               internal::DriveFs_UpdateFromPairedDoc_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.32
       bool success = true;
       ::base::FilePath p_path{};
       DriveFs_UpdateFromPairedDoc_ParamsDataView input_data_view(params, message);
@@ -9425,8 +9831,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateFromPairedDoc(
-std::move(p_path), std::move(callback));
+      impl->UpdateFromPairedDoc(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetItemFromCloudStore_Name: {
@@ -9436,6 +9842,8 @@ std::move(p_path), std::move(callback));
               internal::DriveFs_GetItemFromCloudStore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.33
       bool success = true;
       ::base::FilePath p_path{};
       DriveFs_GetItemFromCloudStore_ParamsDataView input_data_view(params, message);
@@ -9454,8 +9862,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetItemFromCloudStore(
-std::move(p_path), std::move(callback));
+      impl->GetItemFromCloudStore(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDriveFs_GetDocsOfflineStats_Name: {
@@ -9465,6 +9873,8 @@ std::move(p_path), std::move(callback));
               internal::DriveFs_GetDocsOfflineStats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFs.34
       bool success = true;
       DriveFs_GetDocsOfflineStats_ParamsDataView input_data_view(params, message);
       
@@ -11063,6 +11473,8 @@ bool DriveFsDelegate_GetAccessToken_ForwardToCallback::Accept(
           internal::DriveFsDelegate_GetAccessToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsDelegate.0
   bool success = true;
   AccessTokenStatus p_status{};
   std::string p_access_token{};
@@ -11201,6 +11613,8 @@ bool DriveFsDelegate_ConnectToExtension_ForwardToCallback::Accept(
           internal::DriveFsDelegate_ConnectToExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsDelegate.10
   bool success = true;
   ::drivefs::mojom::ExtensionConnectionStatus p_error{};
   DriveFsDelegate_ConnectToExtension_ResponseParamsDataView input_data_view(params, message);
@@ -11321,6 +11735,8 @@ bool DriveFsDelegate_DisplayConfirmDialog_ForwardToCallback::Accept(
           internal::DriveFsDelegate_DisplayConfirmDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsDelegate.11
   bool success = true;
   DialogResult p_result{};
   DriveFsDelegate_DisplayConfirmDialog_ResponseParamsDataView input_data_view(params, message);
@@ -11441,6 +11857,8 @@ bool DriveFsDelegate_GetMachineRootID_ForwardToCallback::Accept(
           internal::DriveFsDelegate_GetMachineRootID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsDelegate.13
   bool success = true;
   std::string p_doc_id{};
   DriveFsDelegate_GetMachineRootID_ResponseParamsDataView input_data_view(params, message);
@@ -11570,6 +11988,8 @@ bool DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback::Accept(
           internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsDelegate.17
   bool success = true;
   AccessTokenStatus p_status{};
   AccessTokenPtr p_access_token{};
@@ -11662,6 +12082,8 @@ bool DriveFsDelegateStubDispatch::Accept(
           reinterpret_cast<internal::DriveFsDelegate_OnMounted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.1
       bool success = true;
       DriveFsDelegate_OnMounted_ParamsDataView input_data_view(params, message);
       
@@ -11674,7 +12096,7 @@ bool DriveFsDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMounted();
+      impl->OnMounted(        );
       return true;
     }
     case internal::kDriveFsDelegate_OnMountFailed_Name: {
@@ -11684,6 +12106,8 @@ bool DriveFsDelegateStubDispatch::Accept(
           reinterpret_cast<internal::DriveFsDelegate_OnMountFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.2
       bool success = true;
       std::optional<::base::TimeDelta> p_retry_delay{};
       DriveFsDelegate_OnMountFailed_ParamsDataView input_data_view(params, message);
@@ -11699,8 +12123,8 @@ bool DriveFsDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMountFailed(
-std::move(p_retry_delay));
+      impl->OnMountFailed(        
+        std::move(p_retry_delay));
       return true;
     }
     case internal::kDriveFsDelegate_OnUnmounted_Name: {
@@ -11710,6 +12134,8 @@ std::move(p_retry_delay));
           reinterpret_cast<internal::DriveFsDelegate_OnUnmounted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.3
       bool success = true;
       std::optional<::base::TimeDelta> p_retry_delay{};
       DriveFsDelegate_OnUnmounted_ParamsDataView input_data_view(params, message);
@@ -11725,8 +12151,8 @@ std::move(p_retry_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUnmounted(
-std::move(p_retry_delay));
+      impl->OnUnmounted(        
+        std::move(p_retry_delay));
       return true;
     }
     case internal::kDriveFsDelegate_OnSyncingStatusUpdate_Name: {
@@ -11736,6 +12162,8 @@ std::move(p_retry_delay));
           reinterpret_cast<internal::DriveFsDelegate_OnSyncingStatusUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.4
       bool success = true;
       SyncingStatusPtr p_status{};
       DriveFsDelegate_OnSyncingStatusUpdate_ParamsDataView input_data_view(params, message);
@@ -11751,8 +12179,8 @@ std::move(p_retry_delay));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSyncingStatusUpdate(
-std::move(p_status));
+      impl->OnSyncingStatusUpdate(        
+        std::move(p_status));
       return true;
     }
     case internal::kDriveFsDelegate_OnFilesChanged_Name: {
@@ -11762,6 +12190,8 @@ std::move(p_status));
           reinterpret_cast<internal::DriveFsDelegate_OnFilesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.5
       bool success = true;
       std::vector<FileChangePtr> p_changes{};
       DriveFsDelegate_OnFilesChanged_ParamsDataView input_data_view(params, message);
@@ -11777,8 +12207,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFilesChanged(
-std::move(p_changes));
+      impl->OnFilesChanged(        
+        std::move(p_changes));
       return true;
     }
     case internal::kDriveFsDelegate_OnError_Name: {
@@ -11788,6 +12218,8 @@ std::move(p_changes));
           reinterpret_cast<internal::DriveFsDelegate_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.6
       bool success = true;
       DriveErrorPtr p_error{};
       DriveFsDelegate_OnError_ParamsDataView input_data_view(params, message);
@@ -11803,8 +12235,8 @@ std::move(p_changes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_error));
       return true;
     }
     case internal::kDriveFsDelegate_OnTeamDrivesListReady_Name: {
@@ -11814,6 +12246,8 @@ std::move(p_error));
           reinterpret_cast<internal::DriveFsDelegate_OnTeamDrivesListReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.7
       bool success = true;
       std::vector<std::string> p_team_drive_ids{};
       DriveFsDelegate_OnTeamDrivesListReady_ParamsDataView input_data_view(params, message);
@@ -11829,8 +12263,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTeamDrivesListReady(
-std::move(p_team_drive_ids));
+      impl->OnTeamDrivesListReady(        
+        std::move(p_team_drive_ids));
       return true;
     }
     case internal::kDriveFsDelegate_OnTeamDriveChanged_Name: {
@@ -11840,6 +12274,8 @@ std::move(p_team_drive_ids));
           reinterpret_cast<internal::DriveFsDelegate_OnTeamDriveChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.8
       bool success = true;
       std::string p_team_drive_id{};
       DriveFsDelegate::CreateOrDelete p_change_type{};
@@ -11858,9 +12294,9 @@ std::move(p_team_drive_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTeamDriveChanged(
-std::move(p_team_drive_id), 
-std::move(p_change_type));
+      impl->OnTeamDriveChanged(        
+        std::move(p_team_drive_id), 
+        std::move(p_change_type));
       return true;
     }
     case internal::kDriveFsDelegate_OnHeartbeat_Name: {
@@ -11870,6 +12306,8 @@ std::move(p_change_type));
           reinterpret_cast<internal::DriveFsDelegate_OnHeartbeat_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.9
       bool success = true;
       DriveFsDelegate_OnHeartbeat_ParamsDataView input_data_view(params, message);
       
@@ -11882,7 +12320,7 @@ std::move(p_change_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHeartbeat();
+      impl->OnHeartbeat(        );
       return true;
     }
     case internal::kDriveFsDelegate_ConnectToExtension_Name: {
@@ -11898,6 +12336,8 @@ std::move(p_change_type));
           reinterpret_cast<internal::DriveFsDelegate_ExecuteHttpRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.12
       bool success = true;
       HttpRequestPtr p_request{};
       ::mojo::PendingRemote<HttpDelegate> p_delegate{};
@@ -11918,9 +12358,9 @@ std::move(p_change_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteHttpRequest(
-std::move(p_request), 
-std::move(p_delegate));
+      impl->ExecuteHttpRequest(        
+        std::move(p_request), 
+        std::move(p_delegate));
       return true;
     }
     case internal::kDriveFsDelegate_GetMachineRootID_Name: {
@@ -11933,6 +12373,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::DriveFsDelegate_PersistMachineRootID_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.14
       bool success = true;
       std::string p_doc_id{};
       DriveFsDelegate_PersistMachineRootID_ParamsDataView input_data_view(params, message);
@@ -11948,8 +12390,8 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PersistMachineRootID(
-std::move(p_doc_id));
+      impl->PersistMachineRootID(        
+        std::move(p_doc_id));
       return true;
     }
     case internal::kDriveFsDelegate_OnMirrorSyncingStatusUpdate_Name: {
@@ -11959,6 +12401,8 @@ std::move(p_doc_id));
           reinterpret_cast<internal::DriveFsDelegate_OnMirrorSyncingStatusUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.15
       bool success = true;
       SyncingStatusPtr p_status{};
       DriveFsDelegate_OnMirrorSyncingStatusUpdate_ParamsDataView input_data_view(params, message);
@@ -11974,8 +12418,8 @@ std::move(p_doc_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMirrorSyncingStatusUpdate(
-std::move(p_status));
+      impl->OnMirrorSyncingStatusUpdate(        
+        std::move(p_status));
       return true;
     }
     case internal::kDriveFsDelegate_OnItemProgress_Name: {
@@ -11985,6 +12429,8 @@ std::move(p_status));
           reinterpret_cast<internal::DriveFsDelegate_OnItemProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.16
       bool success = true;
       ProgressEventPtr p_progress_event{};
       DriveFsDelegate_OnItemProgress_ParamsDataView input_data_view(params, message);
@@ -12000,8 +12446,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnItemProgress(
-std::move(p_progress_event));
+      impl->OnItemProgress(        
+        std::move(p_progress_event));
       return true;
     }
     case internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name: {
@@ -12027,6 +12473,8 @@ bool DriveFsDelegateStubDispatch::AcceptWithResponder(
               internal::DriveFsDelegate_GetAccessToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.0
       bool success = true;
       std::string p_client_id{};
       std::string p_app_id{};
@@ -12051,10 +12499,10 @@ bool DriveFsDelegateStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAccessToken(
-std::move(p_client_id), 
-std::move(p_app_id), 
-std::move(p_scopes), std::move(callback));
+      impl->GetAccessToken(        
+        std::move(p_client_id), 
+        std::move(p_app_id), 
+        std::move(p_scopes), std::move(callback));
       return true;
     }
     case internal::kDriveFsDelegate_OnMounted_Name: {
@@ -12091,6 +12539,8 @@ std::move(p_scopes), std::move(callback));
               internal::DriveFsDelegate_ConnectToExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.10
       bool success = true;
       ::drivefs::mojom::ExtensionConnectionParamsPtr p_params{};
       ::mojo::PendingReceiver<::drivefs::mojom::NativeMessagingPort> p_port{};
@@ -12119,10 +12569,10 @@ std::move(p_scopes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToExtension(
-std::move(p_params), 
-std::move(p_port), 
-std::move(p_host), std::move(callback));
+      impl->ConnectToExtension(        
+        std::move(p_params), 
+        std::move(p_port), 
+        std::move(p_host), std::move(callback));
       return true;
     }
     case internal::kDriveFsDelegate_DisplayConfirmDialog_Name: {
@@ -12132,6 +12582,8 @@ std::move(p_host), std::move(callback));
               internal::DriveFsDelegate_DisplayConfirmDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.11
       bool success = true;
       DialogReasonPtr p_reason{};
       DriveFsDelegate_DisplayConfirmDialog_ParamsDataView input_data_view(params, message);
@@ -12150,8 +12602,8 @@ std::move(p_host), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayConfirmDialog(
-std::move(p_reason), std::move(callback));
+      impl->DisplayConfirmDialog(        
+        std::move(p_reason), std::move(callback));
       return true;
     }
     case internal::kDriveFsDelegate_ExecuteHttpRequest_Name: {
@@ -12164,6 +12616,8 @@ std::move(p_reason), std::move(callback));
               internal::DriveFsDelegate_GetMachineRootID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.13
       bool success = true;
       DriveFsDelegate_GetMachineRootID_ParamsDataView input_data_view(params, message);
       
@@ -12198,6 +12652,8 @@ std::move(p_reason), std::move(callback));
               internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsDelegate.17
       bool success = true;
       std::string p_client_id{};
       std::string p_app_id{};
@@ -12222,10 +12678,10 @@ std::move(p_reason), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAccessTokenWithExpiry(
-std::move(p_client_id), 
-std::move(p_app_id), 
-std::move(p_scopes), std::move(callback));
+      impl->GetAccessTokenWithExpiry(        
+        std::move(p_client_id), 
+        std::move(p_app_id), 
+        std::move(p_scopes), std::move(callback));
       return true;
     }
   }
@@ -12447,6 +12903,8 @@ bool SearchQuery_GetNextPage_ForwardToCallback::Accept(
           internal::SearchQuery_GetNextPage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SearchQuery.0
   bool success = true;
   ::drive::FileError p_error{};
   std::optional<std::vector<QueryItemPtr>> p_results{};
@@ -12554,6 +13012,8 @@ bool SearchQueryStubDispatch::AcceptWithResponder(
               internal::SearchQuery_GetNextPage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SearchQuery.0
       bool success = true;
       SearchQuery_GetNextPage_ParamsDataView input_data_view(params, message);
       
@@ -12916,6 +13376,8 @@ bool HttpDelegateStubDispatch::Accept(
           reinterpret_cast<internal::HttpDelegate_GetRequestBody_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HttpDelegate.0
       bool success = true;
       ::mojo::ScopedDataPipeProducerHandle p_request_body{};
       HttpDelegate_GetRequestBody_ParamsDataView input_data_view(params, message);
@@ -12931,8 +13393,8 @@ bool HttpDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRequestBody(
-std::move(p_request_body));
+      impl->GetRequestBody(        
+        std::move(p_request_body));
       return true;
     }
     case internal::kHttpDelegate_OnReceiveResponse_Name: {
@@ -12942,6 +13404,8 @@ std::move(p_request_body));
           reinterpret_cast<internal::HttpDelegate_OnReceiveResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HttpDelegate.1
       bool success = true;
       HttpResponsePtr p_response{};
       HttpDelegate_OnReceiveResponse_ParamsDataView input_data_view(params, message);
@@ -12957,8 +13421,8 @@ std::move(p_request_body));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceiveResponse(
-std::move(p_response));
+      impl->OnReceiveResponse(        
+        std::move(p_response));
       return true;
     }
     case internal::kHttpDelegate_OnReceiveBody_Name: {
@@ -12968,6 +13432,8 @@ std::move(p_response));
           reinterpret_cast<internal::HttpDelegate_OnReceiveBody_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HttpDelegate.2
       bool success = true;
       ::mojo::ScopedDataPipeConsumerHandle p_response_body{};
       HttpDelegate_OnReceiveBody_ParamsDataView input_data_view(params, message);
@@ -12983,8 +13449,8 @@ std::move(p_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceiveBody(
-std::move(p_response_body));
+      impl->OnReceiveBody(        
+        std::move(p_response_body));
       return true;
     }
     case internal::kHttpDelegate_OnRequestComplete_Name: {
@@ -12994,6 +13460,8 @@ std::move(p_response_body));
           reinterpret_cast<internal::HttpDelegate_OnRequestComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HttpDelegate.3
       bool success = true;
       HttpCompletionStatusPtr p_status{};
       HttpDelegate_OnRequestComplete_ParamsDataView input_data_view(params, message);
@@ -13009,8 +13477,8 @@ std::move(p_response_body));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRequestComplete(
-std::move(p_status));
+      impl->OnRequestComplete(        
+        std::move(p_status));
       return true;
     }
   }
@@ -13090,6 +13558,10 @@ bool StructTraits<::drivefs::mojom::DriveFsConfiguration::DataView, ::drivefs::m
         result->enable_cros_network = input.enable_cros_network();
       if (success && !input.ReadCseSupport(&result->cse_support))
         success = false;
+      if (success)
+        result->fetch_modifying_user_metadata = input.fetch_modifying_user_metadata();
+      if (success)
+        result->fetch_sharing_user_metadata = input.fetch_sharing_user_metadata();
   *output = std::move(result);
   return success;
 }
@@ -13141,6 +13613,20 @@ bool StructTraits<::drivefs::mojom::DialogReason::DataView, ::drivefs::mojom::Di
       if (success && !input.ReadType(&result->type))
         success = false;
       if (success && !input.ReadPath(&result->path))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::drivefs::mojom::UserInfo::DataView, ::drivefs::mojom::UserInfoPtr>::Read(
+    ::drivefs::mojom::UserInfo::DataView input,
+    ::drivefs::mojom::UserInfoPtr* output) {
+  bool success = true;
+  ::drivefs::mojom::UserInfoPtr result(::drivefs::mojom::UserInfo::New());
+  
+      if (success && !input.ReadDisplayName(&result->display_name))
         success = false;
   *output = std::move(result);
   return success;
@@ -13202,6 +13688,14 @@ bool StructTraits<::drivefs::mojom::FileMetadata::DataView, ::drivefs::mojom::Fi
         success = false;
       if (success)
         result->trashed = input.trashed();
+      if (success && !input.ReadModifiedByMeTime(&result->modified_by_me_time))
+        success = false;
+      if (success && !input.ReadLastModifyingUser(&result->last_modifying_user))
+        success = false;
+      if (success && !input.ReadSharedWithMeTime(&result->shared_with_me_time))
+        success = false;
+      if (success && !input.ReadSharingUser(&result->sharing_user))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -13430,6 +13924,10 @@ bool StructTraits<::drivefs::mojom::QueryParameters::DataView, ::drivefs::mojom:
         success = false;
       if (success)
         result->parent_stable_id = input.parent_stable_id();
+      if (success && !input.ReadViewedTimeOperator(&result->viewed_time_operator))
+        success = false;
+      if (success && !input.ReadViewedTime(&result->viewed_time))
+        success = false;
   *output = std::move(result);
   return success;
 }

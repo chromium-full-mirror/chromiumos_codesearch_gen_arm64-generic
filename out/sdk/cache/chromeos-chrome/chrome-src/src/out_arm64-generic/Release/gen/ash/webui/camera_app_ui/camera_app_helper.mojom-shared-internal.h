@@ -28,6 +28,7 @@ class ValidationContext;
 
 namespace ash::camera_app::mojom {
 namespace internal {
+class WifiConfig_Data;
 
 struct ScreenState_Data {
  public:
@@ -38,6 +39,87 @@ struct ScreenState_Data {
       case 0:
       case 1:
       case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WifiSecurityType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WifiEapMethod_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct WifiEapPhase2Method_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
         return true;
     }
     return false;
@@ -184,6 +266,63 @@ struct DocumentOutputFormat_Data {
 };
 
 #pragma pack(push, 1)
+class  WifiConfig_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> ssid;
+  int32_t security;
+  uint8_t eap_method_$flag : 1;
+  uint8_t eap_phase2_method_$flag : 1;
+  uint8_t pad3_[3];
+  mojo::internal::Pointer<mojo::internal::String_Data> password;
+  int32_t eap_method_$value;
+  int32_t eap_phase2_method_$value;
+  mojo::internal::Pointer<mojo::internal::String_Data> eap_identity;
+  mojo::internal::Pointer<mojo::internal::String_Data> eap_anonymous_identity;
+
+ private:
+  friend class mojo::internal::MessageFragment<WifiConfig_Data>;
+
+  WifiConfig_Data();
+  ~WifiConfig_Data() = delete;
+};
+static_assert(sizeof(WifiConfig_Data) == 56,
+              "Bad sizeof(WifiConfig_Data)");
+// Used by WifiConfig::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct WifiConfig_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  WifiConfig_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~WifiConfig_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<WifiConfig_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    WifiConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

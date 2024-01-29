@@ -213,8 +213,8 @@ suite('DestinationDialogCrosTest', function () {
         flush();
         // Throbber should show while DestinationStore is still searching.
         const throbber = dialog.shadowRoot.querySelector('.throbber-container');
-        assertTrue(throbber !== null);
-        assertFalse(throbber?.hidden, 'Loading UI should display while DestinationStore is searching');
+        assertTrue(!!throbber);
+        assertFalse(throbber.hidden, 'Loading UI should display while DestinationStore is searching');
         // Manage printers button hidden when there are valid destinations.
         const managePrintersButton = dialog.shadowRoot.querySelector('cr-button:not(.cancel-button)');
         assertTrue(isVisible(managePrintersButton));
@@ -334,19 +334,19 @@ suite('DestinationDialogCrosTest', function () {
         flush();
         // Dialog should be visible with loading UI displayed.
         const throbber = dialog.shadowRoot.querySelector('.throbber-container');
-        assertTrue(throbber !== null);
-        assertFalse(throbber?.hidden, 'Loading UI should display while timer is running and ' +
+        assertTrue(!!throbber);
+        assertFalse(throbber.hidden, 'Loading UI should display while timer is running and ' +
             'destinations have not loaded');
         // Move timer forward to clear delay.
         mockTimer.tick(DESTINATION_DIALOG_CROS_LOADING_TIMER_IN_MS);
         // Dialog should be visible with loading UI displayed.
-        assertFalse(throbber?.hidden, 'Loading UI should display while destinations have not loaded');
+        assertFalse(throbber.hidden, 'Loading UI should display while destinations have not loaded');
         // Get destinations.
         await nativeLayer.whenCalled('getPrinters');
         flush();
         // Loading UI should be hidden. Destination list and search box should
         // be visible.
-        assertTrue(throbber?.hidden, 'Loading UI should be hidden after timer is cleared and ' +
+        assertTrue(throbber.hidden, 'Loading UI should be hidden after timer is cleared and ' +
             'destinations have loaded');
         assertTrue(isChildVisible(dialog, '#printList'), 'Destination list should display');
         assertTrue(isChildVisible(dialog, 'print-preview-search-box'), 'Search-box should display');

@@ -1,0 +1,6 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/common/alternative_error_page_override_info.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/common/drop_data.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/common/extra_mojo_js_features.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/common/resource_usage_reporter.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/common/webplugininfo.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/common/window_container_type.mojom-module

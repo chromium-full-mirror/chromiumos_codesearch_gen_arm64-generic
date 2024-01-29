@@ -58,7 +58,7 @@ export class TaskHistory extends EventTarget {
             return;
         }
         for (const key in changes) {
-            if (key == STORAGE_KEY_LAST_EXECUTED_TIME) {
+            if (key === STORAGE_KEY_LAST_EXECUTED_TIME) {
                 this.lastExecutedTime_ = changes[key]?.newValue;
                 dispatchSimpleEvent(this, EventType.UPDATE);
             }

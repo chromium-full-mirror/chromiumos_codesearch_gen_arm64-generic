@@ -434,6 +434,8 @@ bool InSessionAuth_RequestToken_ForwardToCallback::Accept(
           internal::InSessionAuth_RequestToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InSessionAuth.0
   bool success = true;
   RequestTokenReplyPtr p_reply{};
   InSessionAuth_RequestToken_ResponseParamsDataView input_data_view(params, message);
@@ -559,6 +561,8 @@ bool InSessionAuth_CheckToken_ForwardToCallback::Accept(
           internal::InSessionAuth_CheckToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InSessionAuth.1
   bool success = true;
   bool p_valid{};
   InSessionAuth_CheckToken_ResponseParamsDataView input_data_view(params, message);
@@ -639,6 +643,8 @@ bool InSessionAuthStubDispatch::Accept(
           reinterpret_cast<internal::InSessionAuth_InvalidateToken_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InSessionAuth.2
       bool success = true;
       std::string p_token{};
       InSessionAuth_InvalidateToken_ParamsDataView input_data_view(params, message);
@@ -654,8 +660,8 @@ bool InSessionAuthStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InvalidateToken(
-std::move(p_token));
+      impl->InvalidateToken(        
+        std::move(p_token));
       return true;
     }
   }
@@ -678,6 +684,8 @@ bool InSessionAuthStubDispatch::AcceptWithResponder(
               internal::InSessionAuth_RequestToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InSessionAuth.0
       bool success = true;
       Reason p_reason{};
       std::optional<std::string> p_prompt{};
@@ -699,9 +707,9 @@ bool InSessionAuthStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestToken(
-std::move(p_reason), 
-std::move(p_prompt), std::move(callback));
+      impl->RequestToken(        
+        std::move(p_reason), 
+        std::move(p_prompt), std::move(callback));
       return true;
     }
     case internal::kInSessionAuth_CheckToken_Name: {
@@ -711,6 +719,8 @@ std::move(p_prompt), std::move(callback));
               internal::InSessionAuth_CheckToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InSessionAuth.1
       bool success = true;
       Reason p_reason{};
       std::string p_token{};
@@ -732,9 +742,9 @@ std::move(p_prompt), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckToken(
-std::move(p_reason), 
-std::move(p_token), std::move(callback));
+      impl->CheckToken(        
+        std::move(p_reason), 
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kInSessionAuth_InvalidateToken_Name: {

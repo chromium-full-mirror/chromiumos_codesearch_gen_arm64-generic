@@ -87,6 +87,24 @@ has_registry_ = true;
 DCHECK(member_registry_);
 }
 
+bool hasSerializable() const {
+  return has_serializable_;
+}
+bool serializable() const {
+  DCHECK(hasSerializable());
+return member_serializable_;
+}
+bool getSerializableOr(bool fallback_value) const {
+  if (!hasSerializable()) {
+  return fallback_value;
+}
+return member_serializable_;
+}
+void setSerializable(bool value) {
+  member_serializable_ = value;
+has_serializable_ = true;
+}
+
 bool hasSlotAssignment() const {
   return has_slot_assignment_;
 }
@@ -133,11 +151,13 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 bool has_delegates_focus_ = false;
 bool has_registry_ = false;
+bool has_serializable_ = false;
 bool has_slot_assignment_ = false;
 
 bool member_delegates_focus_;
 V8ShadowRootMode member_mode_{static_cast<V8ShadowRootMode::Enum>(0)};
 Member<CustomElementRegistry> member_registry_;
+bool member_serializable_;
 V8SlotAssignmentMode member_slot_assignment_{static_cast<V8SlotAssignmentMode::Enum>(0)};
 
 

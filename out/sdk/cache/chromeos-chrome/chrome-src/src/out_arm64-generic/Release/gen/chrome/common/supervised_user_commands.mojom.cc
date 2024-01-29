@@ -333,6 +333,8 @@ bool SupervisedUserCommands_RequestUrlAccessRemote_ForwardToCallback::Accept(
           internal::SupervisedUserCommands_RequestUrlAccessRemote_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SupervisedUserCommands.1
   bool success = true;
   bool p_request_issued{};
   SupervisedUserCommands_RequestUrlAccessRemote_ResponseParamsDataView input_data_view(params, message);
@@ -452,6 +454,8 @@ bool SupervisedUserCommands_RequestUrlAccessLocal_ForwardToCallback::Accept(
           internal::SupervisedUserCommands_RequestUrlAccessLocal_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SupervisedUserCommands.2
   bool success = true;
   bool p_request_issued{};
   SupervisedUserCommands_RequestUrlAccessLocal_ResponseParamsDataView input_data_view(params, message);
@@ -526,6 +530,8 @@ bool SupervisedUserCommandsStubDispatch::Accept(
           reinterpret_cast<internal::SupervisedUserCommands_GoBack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupervisedUserCommands.0
       bool success = true;
       SupervisedUserCommands_GoBack_ParamsDataView input_data_view(params, message);
       
@@ -538,7 +544,7 @@ bool SupervisedUserCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GoBack();
+      impl->GoBack(        );
       return true;
     }
     case internal::kSupervisedUserCommands_RequestUrlAccessRemote_Name: {
@@ -570,6 +576,8 @@ bool SupervisedUserCommandsStubDispatch::AcceptWithResponder(
               internal::SupervisedUserCommands_RequestUrlAccessRemote_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SupervisedUserCommands.1
       bool success = true;
       SupervisedUserCommands_RequestUrlAccessRemote_ParamsDataView input_data_view(params, message);
       
@@ -595,6 +603,8 @@ bool SupervisedUserCommandsStubDispatch::AcceptWithResponder(
               internal::SupervisedUserCommands_RequestUrlAccessLocal_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SupervisedUserCommands.2
       bool success = true;
       SupervisedUserCommands_RequestUrlAccessLocal_ParamsDataView input_data_view(params, message);
       

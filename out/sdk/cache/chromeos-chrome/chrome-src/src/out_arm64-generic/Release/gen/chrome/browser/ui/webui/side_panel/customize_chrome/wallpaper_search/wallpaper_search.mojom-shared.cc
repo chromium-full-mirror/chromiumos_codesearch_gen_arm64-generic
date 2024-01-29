@@ -22,6 +22,28 @@ namespace side_panel {
 namespace customize_chrome {
 namespace mojom {
 
+NOINLINE static const char* DescriptorDNameToStringHelper(DescriptorDName value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DescriptorDName::kYellow:
+      return "kYellow";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DescriptorDNameToString(DescriptorDName value) {
+  const char *str = DescriptorDNameToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DescriptorDName value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DescriptorDName value) {
+  return os << DescriptorDNameToString(value);
+}
+
 NOINLINE static const char* WallpaperSearchStatusToStringHelper(WallpaperSearchStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -116,6 +138,14 @@ bool DescriptorDValue_Data::Validate(
     }
     case DescriptorDValue_Tag::kHue: {
 
+      return true;
+    }
+    case DescriptorDValue_Tag::kName: {
+
+
+      if (!::side_panel::customize_chrome::mojom::internal::DescriptorDName_Data
+            ::Validate(object->data.f_name, validation_context))
+        return false;
       return true;
     }
     default: {
@@ -277,13 +307,109 @@ Descriptors_Data::Descriptors_Data()
 
 
 // static
-bool WallpaperSearchResult_Data::Validate(
+bool Inspiration_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Inspiration_Data* object =
+      static_cast<const Inspiration_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->description, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& description_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->description, validation_context,
+                                         &description_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->background_url, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->background_url, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->thumbnail_url, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->thumbnail_url, validation_context))
+    return false;
+
+  return true;
+}
+
+Inspiration_Data::Inspiration_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool InspirationGroup_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
           data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InspirationGroup_Data* object =
+      static_cast<const InspirationGroup_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->descriptors, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->descriptors, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->inspirations, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& inspirations_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->inspirations, validation_context,
+                                         &inspirations_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+InspirationGroup_Data::InspirationGroup_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WallpaperSearchResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -310,10 +436,60 @@ bool WallpaperSearchResult_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidateStruct(object->descriptors, validation_context))
+    return false;
+
   return true;
 }
 
 WallpaperSearchResult_Data::WallpaperSearchResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ResultDescriptors_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ResultDescriptors_Data* object =
+      static_cast<const ResultDescriptors_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& subject_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->subject, validation_context,
+                                         &subject_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& style_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->style, validation_context,
+                                         &style_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& mood_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->mood, validation_context,
+                                         &mood_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateInlinedUnion(object->color, validation_context))
+    return false;
+
+  return true;
+}
+
+ResultDescriptors_Data::ResultDescriptors_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -408,13 +584,66 @@ WallpaperSearchHandler_GetDescriptors_ResponseParams_Data::WallpaperSearchHandle
 
 
 // static
+bool WallpaperSearchHandler_GetInspirations_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WallpaperSearchHandler_GetInspirations_Params_Data* object =
+      static_cast<const WallpaperSearchHandler_GetInspirations_Params_Data*>(data);
+
+  return true;
+}
+
+WallpaperSearchHandler_GetInspirations_Params_Data::WallpaperSearchHandler_GetInspirations_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WallpaperSearchHandler_GetInspirations_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WallpaperSearchHandler_GetInspirations_ResponseParams_Data* object =
+      static_cast<const WallpaperSearchHandler_GetInspirations_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& inspirationGroups_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->inspirationGroups, validation_context,
+                                         &inspirationGroups_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WallpaperSearchHandler_GetInspirations_ResponseParams_Data::WallpaperSearchHandler_GetInspirations_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -424,31 +653,10 @@ bool WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data::Validate(
       static_cast<const WallpaperSearchHandler_GetWallpaperSearchResults_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->descriptor_a, 1, validation_context)) {
+          object->result_descriptors, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_a_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_a, validation_context,
-                                         &descriptor_a_validate_params)) {
-    return false;
-  }
-
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_b_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_b, validation_context,
-                                         &descriptor_b_validate_params)) {
-    return false;
-  }
-
-  constexpr const mojo::internal::ContainerValidateParams& descriptor_c_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->descriptor_c, validation_context,
-                                         &descriptor_c_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidateInlinedUnion(object->descriptor_d_value, validation_context))
+  if (!mojo::internal::ValidateStruct(object->result_descriptors, validation_context))
     return false;
 
   return true;
@@ -538,7 +746,7 @@ bool WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -554,10 +762,54 @@ bool WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->result_id, validation_context))
     return false;
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->descriptors, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->descriptors, validation_context))
+    return false;
+
   return true;
 }
 
 WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data::WallpaperSearchHandler_SetBackgroundToHistoryImage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data* object =
+      static_cast<const WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->background_url, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->background_url, validation_context))
+    return false;
+
+  return true;
+}
+
+WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data::WallpaperSearchHandler_SetBackgroundToInspirationImage_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -568,7 +820,7 @@ bool WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data::Va
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -582,6 +834,13 @@ bool WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params_Data::Va
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->result_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->descriptors, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->descriptors, validation_context))
     return false;
 
   return true;
@@ -666,6 +925,29 @@ WallpaperSearchHandler_OpenHelpArticle_Params_Data::WallpaperSearchHandler_OpenH
 
 
 // static
+bool WallpaperSearchHandler_LaunchHatsSurvey_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WallpaperSearchHandler_LaunchHatsSurvey_Params_Data* object =
+      static_cast<const WallpaperSearchHandler_LaunchHatsSurvey_Params_Data*>(data);
+
+  return true;
+}
+
+WallpaperSearchHandler_LaunchHatsSurvey_Params_Data::WallpaperSearchHandler_LaunchHatsSurvey_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool WallpaperSearchClient_SetHistory_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -702,6 +984,16 @@ WallpaperSearchClient_SetHistory_Params_Data::WallpaperSearchClient_SetHistory_P
 }  // namespace mojom
 }  // namespace customize_chrome
 }  // namespace side_panel
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::side_panel::customize_chrome::mojom::DescriptorDName>::WriteIntoTrace(
+   perfetto::TracedValue context, ::side_panel::customize_chrome::mojom::DescriptorDName value) {
+  return std::move(context).WriteString(::side_panel::customize_chrome::mojom::DescriptorDNameToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto {
 

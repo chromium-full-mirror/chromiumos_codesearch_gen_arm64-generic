@@ -334,6 +334,8 @@ bool ObbMounterHost_MountObb_ForwardToCallback::Accept(
           internal::ObbMounterHost_MountObb_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ObbMounterHost.0
   bool success = true;
   bool p_success{};
   ObbMounterHost_MountObb_ResponseParamsDataView input_data_view(params, message);
@@ -453,6 +455,8 @@ bool ObbMounterHost_UnmountObb_ForwardToCallback::Accept(
           internal::ObbMounterHost_UnmountObb_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ObbMounterHost.1
   bool success = true;
   bool p_success{};
   ObbMounterHost_UnmountObb_ResponseParamsDataView input_data_view(params, message);
@@ -546,6 +550,8 @@ bool ObbMounterHostStubDispatch::AcceptWithResponder(
               internal::ObbMounterHost_MountObb_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ObbMounterHost.0
       bool success = true;
       std::string p_obb_file{};
       std::string p_target_path{};
@@ -570,10 +576,10 @@ bool ObbMounterHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MountObb(
-std::move(p_obb_file), 
-std::move(p_target_path), 
-std::move(p_owner_gid), std::move(callback));
+      impl->MountObb(        
+        std::move(p_obb_file), 
+        std::move(p_target_path), 
+        std::move(p_owner_gid), std::move(callback));
       return true;
     }
     case internal::kObbMounterHost_UnmountObb_Name: {
@@ -583,6 +589,8 @@ std::move(p_owner_gid), std::move(callback));
               internal::ObbMounterHost_UnmountObb_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ObbMounterHost.1
       bool success = true;
       std::string p_target_path{};
       ObbMounterHost_UnmountObb_ParamsDataView input_data_view(params, message);
@@ -601,8 +609,8 @@ std::move(p_owner_gid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnmountObb(
-std::move(p_target_path), std::move(callback));
+      impl->UnmountObb(        
+        std::move(p_target_path), std::move(callback));
       return true;
     }
   }
@@ -805,6 +813,8 @@ bool ObbMounterInstance_Init_ForwardToCallback::Accept(
           internal::ObbMounterInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ObbMounterInstance.1
   bool success = true;
   ObbMounterInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -883,6 +893,8 @@ bool ObbMounterInstanceStubDispatch::AcceptWithResponder(
               internal::ObbMounterInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ObbMounterInstance.1
       bool success = true;
       ::mojo::PendingRemote<ObbMounterHost> p_host_remote{};
       ObbMounterInstance_Init_ParamsDataView input_data_view(params, message);
@@ -903,8 +915,8 @@ bool ObbMounterInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

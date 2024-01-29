@@ -19,12 +19,6 @@
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
       ],
-      "//resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
       ],
@@ -46,9 +40,6 @@
   "references": [
     {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
-    },
-    {
-      "path": "../../cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../js/tsconfig_build_ts.json"

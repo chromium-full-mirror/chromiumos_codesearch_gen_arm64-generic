@@ -24,6 +24,8 @@ namespace mojom {
 NOINLINE static const char* TabOrganizationStateToStringHelper(TabOrganizationState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
+    case TabOrganizationState::kInitializing:
+      return "kInitializing";
     case TabOrganizationState::kNotStarted:
       return "kNotStarted";
     case TabOrganizationState::kInProgress:
@@ -977,7 +979,7 @@ PageHandler_RemoveTabFromOrganization_Params_Data::PageHandler_RemoveTabFromOrga
 
 
 // static
-bool PageHandler_ResetSession_Params_Data::Validate(
+bool PageHandler_RestartSession_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -989,13 +991,13 @@ bool PageHandler_ResetSession_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_ResetSession_Params_Data* object =
-      static_cast<const PageHandler_ResetSession_Params_Data*>(data);
+  [[maybe_unused]] const PageHandler_RestartSession_Params_Data* object =
+      static_cast<const PageHandler_RestartSession_Params_Data*>(data);
 
   return true;
 }
 
-PageHandler_ResetSession_Params_Data::PageHandler_ResetSession_Params_Data()
+PageHandler_RestartSession_Params_Data::PageHandler_RestartSession_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1351,6 +1353,29 @@ bool Page_TabsRemoved_Params_Data::Validate(
 }
 
 Page_TabsRemoved_Params_Data::Page_TabsRemoved_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Page_TabSearchTabIndexChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Page_TabSearchTabIndexChanged_Params_Data* object =
+      static_cast<const Page_TabSearchTabIndexChanged_Params_Data*>(data);
+
+  return true;
+}
+
+Page_TabSearchTabIndexChanged_Params_Data::Page_TabSearchTabIndexChanged_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

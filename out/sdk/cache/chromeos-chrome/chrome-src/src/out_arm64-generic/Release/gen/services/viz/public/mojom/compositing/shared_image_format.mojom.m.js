@@ -26,8 +26,9 @@ export const PlaneConfig = {
   kY_V_U: 1,
   kY_UV: 2,
   kY_UV_A: 3,
+  kY_U_V_A: 4,
   MIN_VALUE: 0,
-  MAX_VALUE: 3,
+  MAX_VALUE: 4,
 };
 
 /**

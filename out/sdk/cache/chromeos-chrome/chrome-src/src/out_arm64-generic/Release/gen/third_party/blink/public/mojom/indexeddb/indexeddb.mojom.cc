@@ -1714,6 +1714,8 @@ bool IDBFactoryClientStubDispatch::Accept(
           reinterpret_cast<internal::IDBFactoryClient_Error_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactoryClient.0
       bool success = true;
       IDBException p_code{};
       ::std::u16string p_message{};
@@ -1732,9 +1734,9 @@ bool IDBFactoryClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Error(
-std::move(p_code), 
-std::move(p_message));
+      impl->Error(        
+        std::move(p_code), 
+        std::move(p_message));
       return true;
     }
     case internal::kIDBFactoryClient_Blocked_Name: {
@@ -1744,6 +1746,8 @@ std::move(p_message));
           reinterpret_cast<internal::IDBFactoryClient_Blocked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactoryClient.1
       bool success = true;
       int64_t p_existing_version{};
       IDBFactoryClient_Blocked_ParamsDataView input_data_view(params, message);
@@ -1759,8 +1763,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Blocked(
-std::move(p_existing_version));
+      impl->Blocked(        
+        std::move(p_existing_version));
       return true;
     }
     case internal::kIDBFactoryClient_UpgradeNeeded_Name: {
@@ -1770,6 +1774,8 @@ std::move(p_existing_version));
           reinterpret_cast<internal::IDBFactoryClient_UpgradeNeeded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactoryClient.2
       bool success = true;
       ::mojo::PendingAssociatedRemote<IDBDatabase> p_pending_database{};
       int64_t p_old_version{};
@@ -1799,12 +1805,12 @@ std::move(p_existing_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpgradeNeeded(
-std::move(p_pending_database), 
-std::move(p_old_version), 
-std::move(p_data_loss), 
-std::move(p_data_loss_message), 
-std::move(p_db_metadata));
+      impl->UpgradeNeeded(        
+        std::move(p_pending_database), 
+        std::move(p_old_version), 
+        std::move(p_data_loss), 
+        std::move(p_data_loss_message), 
+        std::move(p_db_metadata));
       return true;
     }
     case internal::kIDBFactoryClient_OpenSuccess_Name: {
@@ -1814,6 +1820,8 @@ std::move(p_db_metadata));
           reinterpret_cast<internal::IDBFactoryClient_OpenSuccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactoryClient.3
       bool success = true;
       ::mojo::PendingAssociatedRemote<IDBDatabase> p_pending_database{};
       ::blink::IndexedDBDatabaseMetadata p_metadata{};
@@ -1834,9 +1842,9 @@ std::move(p_db_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenSuccess(
-std::move(p_pending_database), 
-std::move(p_metadata));
+      impl->OpenSuccess(        
+        std::move(p_pending_database), 
+        std::move(p_metadata));
       return true;
     }
     case internal::kIDBFactoryClient_DeleteSuccess_Name: {
@@ -1846,6 +1854,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::IDBFactoryClient_DeleteSuccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactoryClient.4
       bool success = true;
       int64_t p_old_version{};
       IDBFactoryClient_DeleteSuccess_ParamsDataView input_data_view(params, message);
@@ -1861,8 +1871,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSuccess(
-std::move(p_old_version));
+      impl->DeleteSuccess(        
+        std::move(p_old_version));
       return true;
     }
   }
@@ -2226,6 +2236,8 @@ bool IDBDatabaseCallbacksStubDispatch::Accept(
           reinterpret_cast<internal::IDBDatabaseCallbacks_ForcedClose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseCallbacks.0
       bool success = true;
       IDBDatabaseCallbacks_ForcedClose_ParamsDataView input_data_view(params, message);
       
@@ -2238,7 +2250,7 @@ bool IDBDatabaseCallbacksStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForcedClose();
+      impl->ForcedClose(        );
       return true;
     }
     case internal::kIDBDatabaseCallbacks_VersionChange_Name: {
@@ -2248,6 +2260,8 @@ bool IDBDatabaseCallbacksStubDispatch::Accept(
           reinterpret_cast<internal::IDBDatabaseCallbacks_VersionChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseCallbacks.1
       bool success = true;
       int64_t p_old_version{};
       int64_t p_new_version{};
@@ -2266,9 +2280,9 @@ bool IDBDatabaseCallbacksStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->VersionChange(
-std::move(p_old_version), 
-std::move(p_new_version));
+      impl->VersionChange(        
+        std::move(p_old_version), 
+        std::move(p_new_version));
       return true;
     }
     case internal::kIDBDatabaseCallbacks_Abort_Name: {
@@ -2278,6 +2292,8 @@ std::move(p_new_version));
           reinterpret_cast<internal::IDBDatabaseCallbacks_Abort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseCallbacks.2
       bool success = true;
       int64_t p_transaction_id{};
       IDBException p_code{};
@@ -2299,10 +2315,10 @@ std::move(p_new_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort(
-std::move(p_transaction_id), 
-std::move(p_code), 
-std::move(p_message));
+      impl->Abort(        
+        std::move(p_transaction_id), 
+        std::move(p_code), 
+        std::move(p_message));
       return true;
     }
     case internal::kIDBDatabaseCallbacks_Complete_Name: {
@@ -2312,6 +2328,8 @@ std::move(p_message));
           reinterpret_cast<internal::IDBDatabaseCallbacks_Complete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseCallbacks.3
       bool success = true;
       int64_t p_transaction_id{};
       IDBDatabaseCallbacks_Complete_ParamsDataView input_data_view(params, message);
@@ -2327,8 +2345,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Complete(
-std::move(p_transaction_id));
+      impl->Complete(        
+        std::move(p_transaction_id));
       return true;
     }
   }
@@ -2788,6 +2806,8 @@ bool IDBCursor_Advance_ForwardToCallback::Accept(
           internal::IDBCursor_Advance_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBCursor.0
   bool success = true;
   IDBCursorResultPtr p_result{};
   IDBCursor_Advance_ResponseParamsDataView input_data_view(params, message);
@@ -2915,6 +2935,8 @@ bool IDBCursor_Continue_ForwardToCallback::Accept(
           internal::IDBCursor_Continue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBCursor.1
   bool success = true;
   IDBCursorResultPtr p_result{};
   IDBCursor_Continue_ResponseParamsDataView input_data_view(params, message);
@@ -3042,6 +3064,8 @@ bool IDBCursor_Prefetch_ForwardToCallback::Accept(
           internal::IDBCursor_Prefetch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBCursor.2
   bool success = true;
   IDBCursorResultPtr p_result{};
   IDBCursor_Prefetch_ResponseParamsDataView input_data_view(params, message);
@@ -3133,6 +3157,8 @@ bool IDBCursorStubDispatch::Accept(
           reinterpret_cast<internal::IDBCursor_PrefetchReset_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBCursor.3
       bool success = true;
       int32_t p_used_prefetches{};
       IDBCursor_PrefetchReset_ParamsDataView input_data_view(params, message);
@@ -3148,8 +3174,8 @@ bool IDBCursorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrefetchReset(
-std::move(p_used_prefetches));
+      impl->PrefetchReset(        
+        std::move(p_used_prefetches));
       return true;
     }
   }
@@ -3172,6 +3198,8 @@ bool IDBCursorStubDispatch::AcceptWithResponder(
               internal::IDBCursor_Advance_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBCursor.0
       bool success = true;
       uint32_t p_count{};
       IDBCursor_Advance_ParamsDataView input_data_view(params, message);
@@ -3190,8 +3218,8 @@ bool IDBCursorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Advance(
-std::move(p_count), std::move(callback));
+      impl->Advance(        
+        std::move(p_count), std::move(callback));
       return true;
     }
     case internal::kIDBCursor_Continue_Name: {
@@ -3201,6 +3229,8 @@ std::move(p_count), std::move(callback));
               internal::IDBCursor_Continue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBCursor.1
       bool success = true;
       ::blink::IndexedDBKey p_key{};
       ::blink::IndexedDBKey p_primary_key{};
@@ -3222,9 +3252,9 @@ std::move(p_count), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Continue(
-std::move(p_key), 
-std::move(p_primary_key), std::move(callback));
+      impl->Continue(        
+        std::move(p_key), 
+        std::move(p_primary_key), std::move(callback));
       return true;
     }
     case internal::kIDBCursor_Prefetch_Name: {
@@ -3234,6 +3264,8 @@ std::move(p_primary_key), std::move(callback));
               internal::IDBCursor_Prefetch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBCursor.2
       bool success = true;
       int32_t p_count{};
       IDBCursor_Prefetch_ParamsDataView input_data_view(params, message);
@@ -3252,8 +3284,8 @@ std::move(p_primary_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Prefetch(
-std::move(p_count), std::move(callback));
+      impl->Prefetch(        
+        std::move(p_count), std::move(callback));
       return true;
     }
     case internal::kIDBCursor_PrefetchReset_Name: {
@@ -3720,6 +3752,8 @@ bool IDBTransaction_Put_ForwardToCallback::Accept(
           internal::IDBTransaction_Put_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBTransaction.2
   bool success = true;
   IDBTransactionPutResultPtr p_result{};
   IDBTransaction_Put_ResponseParamsDataView input_data_view(params, message);
@@ -3802,6 +3836,8 @@ bool IDBTransactionStubDispatch::Accept(
           reinterpret_cast<internal::IDBTransaction_CreateObjectStore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBTransaction.0
       bool success = true;
       int64_t p_object_store_id{};
       ::std::u16string p_name{};
@@ -3826,11 +3862,11 @@ bool IDBTransactionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateObjectStore(
-std::move(p_object_store_id), 
-std::move(p_name), 
-std::move(p_key_path), 
-std::move(p_auto_increment));
+      impl->CreateObjectStore(        
+        std::move(p_object_store_id), 
+        std::move(p_name), 
+        std::move(p_key_path), 
+        std::move(p_auto_increment));
       return true;
     }
     case internal::kIDBTransaction_DeleteObjectStore_Name: {
@@ -3840,6 +3876,8 @@ std::move(p_auto_increment));
           reinterpret_cast<internal::IDBTransaction_DeleteObjectStore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBTransaction.1
       bool success = true;
       int64_t p_object_store_id{};
       IDBTransaction_DeleteObjectStore_ParamsDataView input_data_view(params, message);
@@ -3855,8 +3893,8 @@ std::move(p_auto_increment));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteObjectStore(
-std::move(p_object_store_id));
+      impl->DeleteObjectStore(        
+        std::move(p_object_store_id));
       return true;
     }
     case internal::kIDBTransaction_Put_Name: {
@@ -3869,6 +3907,8 @@ std::move(p_object_store_id));
           reinterpret_cast<internal::IDBTransaction_Commit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBTransaction.3
       bool success = true;
       int64_t p_num_errors_handled{};
       IDBTransaction_Commit_ParamsDataView input_data_view(params, message);
@@ -3884,8 +3924,8 @@ std::move(p_object_store_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Commit(
-std::move(p_num_errors_handled));
+      impl->Commit(        
+        std::move(p_num_errors_handled));
       return true;
     }
   }
@@ -3914,6 +3954,8 @@ bool IDBTransactionStubDispatch::AcceptWithResponder(
               internal::IDBTransaction_Put_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBTransaction.2
       bool success = true;
       int64_t p_object_store_id{};
       IDBValuePtr p_value{};
@@ -3944,12 +3986,12 @@ bool IDBTransactionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Put(
-std::move(p_object_store_id), 
-std::move(p_value), 
-std::move(p_key), 
-std::move(p_mode), 
-std::move(p_index_keys), std::move(callback));
+      impl->Put(        
+        std::move(p_object_store_id), 
+        std::move(p_value), 
+        std::move(p_key), 
+        std::move(p_mode), 
+        std::move(p_index_keys), std::move(callback));
       return true;
     }
     case internal::kIDBTransaction_Commit_Name: {
@@ -4248,6 +4290,8 @@ bool IDBDatabaseGetAllResultSinkStubDispatch::Accept(
           reinterpret_cast<internal::IDBDatabaseGetAllResultSink_ReceiveValues_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseGetAllResultSink.0
       bool success = true;
       std::vector<IDBReturnValuePtr> p_values{};
       IDBDatabaseGetAllResultSink_ReceiveValues_ParamsDataView input_data_view(params, message);
@@ -4263,8 +4307,8 @@ bool IDBDatabaseGetAllResultSinkStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveValues(
-std::move(p_values));
+      impl->ReceiveValues(        
+        std::move(p_values));
       return true;
     }
     case internal::kIDBDatabaseGetAllResultSink_ReceiveKeys_Name: {
@@ -4274,6 +4318,8 @@ std::move(p_values));
           reinterpret_cast<internal::IDBDatabaseGetAllResultSink_ReceiveKeys_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseGetAllResultSink.1
       bool success = true;
       std::vector<::blink::IndexedDBKey> p_keys{};
       IDBDatabaseGetAllResultSink_ReceiveKeys_ParamsDataView input_data_view(params, message);
@@ -4289,8 +4335,8 @@ std::move(p_values));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveKeys(
-std::move(p_keys));
+      impl->ReceiveKeys(        
+        std::move(p_keys));
       return true;
     }
     case internal::kIDBDatabaseGetAllResultSink_OnError_Name: {
@@ -4300,6 +4346,8 @@ std::move(p_keys));
           reinterpret_cast<internal::IDBDatabaseGetAllResultSink_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabaseGetAllResultSink.2
       bool success = true;
       IDBErrorPtr p_error{};
       IDBDatabaseGetAllResultSink_OnError_ParamsDataView input_data_view(params, message);
@@ -4315,8 +4363,8 @@ std::move(p_keys));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_error));
       return true;
     }
   }
@@ -5915,6 +5963,8 @@ bool IDBDatabase_Get_ForwardToCallback::Accept(
           internal::IDBDatabase_Get_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.3
   bool success = true;
   IDBDatabaseGetResultPtr p_result{};
   IDBDatabase_Get_ResponseParamsDataView input_data_view(params, message);
@@ -6042,6 +6092,8 @@ bool IDBDatabase_GetAll_ForwardToCallback::Accept(
           internal::IDBDatabase_GetAll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.4
   bool success = true;
   ::mojo::PendingReceiver<IDBDatabaseGetAllResultSink> p_receiver{};
   IDBDatabase_GetAll_ResponseParamsDataView input_data_view(params, message);
@@ -6168,6 +6220,8 @@ bool IDBDatabase_OpenCursor_ForwardToCallback::Accept(
           internal::IDBDatabase_OpenCursor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.7
   bool success = true;
   IDBDatabaseOpenCursorResultPtr p_result{};
   IDBDatabase_OpenCursor_ResponseParamsDataView input_data_view(params, message);
@@ -6295,6 +6349,8 @@ bool IDBDatabase_Count_ForwardToCallback::Accept(
           internal::IDBDatabase_Count_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.8
   bool success = true;
   bool p_success{};
   uint32_t p_count{};
@@ -6422,6 +6478,8 @@ bool IDBDatabase_DeleteRange_ForwardToCallback::Accept(
           internal::IDBDatabase_DeleteRange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.9
   bool success = true;
   bool p_success{};
   IDBDatabase_DeleteRange_ResponseParamsDataView input_data_view(params, message);
@@ -6541,6 +6599,8 @@ bool IDBDatabase_GetKeyGeneratorCurrentNumber_ForwardToCallback::Accept(
           internal::IDBDatabase_GetKeyGeneratorCurrentNumber_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.10
   bool success = true;
   int64_t p_result{};
   IDBErrorPtr p_error{};
@@ -6674,6 +6734,8 @@ bool IDBDatabase_Clear_ForwardToCallback::Accept(
           internal::IDBDatabase_Clear_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBDatabase.11
   bool success = true;
   bool p_success{};
   IDBDatabase_Clear_ResponseParamsDataView input_data_view(params, message);
@@ -6748,6 +6810,8 @@ bool IDBDatabaseStubDispatch::Accept(
           reinterpret_cast<internal::IDBDatabase_RenameObjectStore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.0
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -6769,10 +6833,10 @@ bool IDBDatabaseStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenameObjectStore(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_new_name));
+      impl->RenameObjectStore(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_new_name));
       return true;
     }
     case internal::kIDBDatabase_CreateTransaction_Name: {
@@ -6782,6 +6846,8 @@ std::move(p_new_name));
           reinterpret_cast<internal::IDBDatabase_CreateTransaction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.1
       bool success = true;
       ::mojo::PendingAssociatedReceiver<IDBTransaction> p_transaction_receiver{};
       int64_t p_transaction_id{};
@@ -6811,12 +6877,12 @@ std::move(p_new_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTransaction(
-std::move(p_transaction_receiver), 
-std::move(p_transaction_id), 
-std::move(p_object_store_ids), 
-std::move(p_mode), 
-std::move(p_durability));
+      impl->CreateTransaction(        
+        std::move(p_transaction_receiver), 
+        std::move(p_transaction_id), 
+        std::move(p_object_store_ids), 
+        std::move(p_mode), 
+        std::move(p_durability));
       return true;
     }
     case internal::kIDBDatabase_VersionChangeIgnored_Name: {
@@ -6826,6 +6892,8 @@ std::move(p_durability));
           reinterpret_cast<internal::IDBDatabase_VersionChangeIgnored_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.2
       bool success = true;
       IDBDatabase_VersionChangeIgnored_ParamsDataView input_data_view(params, message);
       
@@ -6838,7 +6906,7 @@ std::move(p_durability));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->VersionChangeIgnored();
+      impl->VersionChangeIgnored(        );
       return true;
     }
     case internal::kIDBDatabase_Get_Name: {
@@ -6854,6 +6922,8 @@ std::move(p_durability));
           reinterpret_cast<internal::IDBDatabase_SetIndexKeys_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.5
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -6878,11 +6948,11 @@ std::move(p_durability));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIndexKeys(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_primary_key), 
-std::move(p_index_keys));
+      impl->SetIndexKeys(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_primary_key), 
+        std::move(p_index_keys));
       return true;
     }
     case internal::kIDBDatabase_SetIndexesReady_Name: {
@@ -6892,6 +6962,8 @@ std::move(p_index_keys));
           reinterpret_cast<internal::IDBDatabase_SetIndexesReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.6
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -6913,10 +6985,10 @@ std::move(p_index_keys));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIndexesReady(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_ids));
+      impl->SetIndexesReady(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_ids));
       return true;
     }
     case internal::kIDBDatabase_OpenCursor_Name: {
@@ -6941,6 +7013,8 @@ std::move(p_index_ids));
           reinterpret_cast<internal::IDBDatabase_CreateIndex_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.12
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -6974,14 +7048,14 @@ std::move(p_index_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateIndex(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id), 
-std::move(p_name), 
-std::move(p_key_path), 
-std::move(p_unique), 
-std::move(p_multi_entry));
+      impl->CreateIndex(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id), 
+        std::move(p_name), 
+        std::move(p_key_path), 
+        std::move(p_unique), 
+        std::move(p_multi_entry));
       return true;
     }
     case internal::kIDBDatabase_DeleteIndex_Name: {
@@ -6991,6 +7065,8 @@ std::move(p_multi_entry));
           reinterpret_cast<internal::IDBDatabase_DeleteIndex_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.13
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7012,10 +7088,10 @@ std::move(p_multi_entry));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteIndex(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id));
+      impl->DeleteIndex(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id));
       return true;
     }
     case internal::kIDBDatabase_RenameIndex_Name: {
@@ -7025,6 +7101,8 @@ std::move(p_index_id));
           reinterpret_cast<internal::IDBDatabase_RenameIndex_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.14
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7049,11 +7127,11 @@ std::move(p_index_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenameIndex(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id), 
-std::move(p_new_name));
+      impl->RenameIndex(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id), 
+        std::move(p_new_name));
       return true;
     }
     case internal::kIDBDatabase_Abort_Name: {
@@ -7063,6 +7141,8 @@ std::move(p_new_name));
           reinterpret_cast<internal::IDBDatabase_Abort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.15
       bool success = true;
       int64_t p_transaction_id{};
       IDBDatabase_Abort_ParamsDataView input_data_view(params, message);
@@ -7078,8 +7158,8 @@ std::move(p_new_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort(
-std::move(p_transaction_id));
+      impl->Abort(        
+        std::move(p_transaction_id));
       return true;
     }
     case internal::kIDBDatabase_DidBecomeInactive_Name: {
@@ -7089,6 +7169,8 @@ std::move(p_transaction_id));
           reinterpret_cast<internal::IDBDatabase_DidBecomeInactive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.16
       bool success = true;
       IDBDatabase_DidBecomeInactive_ParamsDataView input_data_view(params, message);
       
@@ -7101,7 +7183,7 @@ std::move(p_transaction_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidBecomeInactive();
+      impl->DidBecomeInactive(        );
       return true;
     }
   }
@@ -7133,6 +7215,8 @@ bool IDBDatabaseStubDispatch::AcceptWithResponder(
               internal::IDBDatabase_Get_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.3
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7163,12 +7247,12 @@ bool IDBDatabaseStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Get(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id), 
-std::move(p_key_range), 
-std::move(p_key_only), std::move(callback));
+      impl->Get(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id), 
+        std::move(p_key_range), 
+        std::move(p_key_only), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_GetAll_Name: {
@@ -7178,6 +7262,8 @@ std::move(p_key_only), std::move(callback));
               internal::IDBDatabase_GetAll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.4
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7211,13 +7297,13 @@ std::move(p_key_only), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAll(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id), 
-std::move(p_key_range), 
-std::move(p_key_only), 
-std::move(p_max_count), std::move(callback));
+      impl->GetAll(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id), 
+        std::move(p_key_range), 
+        std::move(p_key_only), 
+        std::move(p_max_count), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_SetIndexKeys_Name: {
@@ -7233,6 +7319,8 @@ std::move(p_max_count), std::move(callback));
               internal::IDBDatabase_OpenCursor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.7
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7269,14 +7357,14 @@ std::move(p_max_count), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenCursor(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id), 
-std::move(p_key_range), 
-std::move(p_direction), 
-std::move(p_key_only), 
-std::move(p_task_type), std::move(callback));
+      impl->OpenCursor(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id), 
+        std::move(p_key_range), 
+        std::move(p_direction), 
+        std::move(p_key_only), 
+        std::move(p_task_type), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_Count_Name: {
@@ -7286,6 +7374,8 @@ std::move(p_task_type), std::move(callback));
               internal::IDBDatabase_Count_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.8
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7313,11 +7403,11 @@ std::move(p_task_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Count(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_index_id), 
-std::move(p_key_range), std::move(callback));
+      impl->Count(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_index_id), 
+        std::move(p_key_range), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_DeleteRange_Name: {
@@ -7327,6 +7417,8 @@ std::move(p_key_range), std::move(callback));
               internal::IDBDatabase_DeleteRange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.9
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7351,10 +7443,10 @@ std::move(p_key_range), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteRange(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), 
-std::move(p_key_range), std::move(callback));
+      impl->DeleteRange(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), 
+        std::move(p_key_range), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_GetKeyGeneratorCurrentNumber_Name: {
@@ -7364,6 +7456,8 @@ std::move(p_key_range), std::move(callback));
               internal::IDBDatabase_GetKeyGeneratorCurrentNumber_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.10
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7385,9 +7479,9 @@ std::move(p_key_range), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetKeyGeneratorCurrentNumber(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), std::move(callback));
+      impl->GetKeyGeneratorCurrentNumber(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_Clear_Name: {
@@ -7397,6 +7491,8 @@ std::move(p_object_store_id), std::move(callback));
               internal::IDBDatabase_Clear_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBDatabase.11
       bool success = true;
       int64_t p_transaction_id{};
       int64_t p_object_store_id{};
@@ -7418,9 +7514,9 @@ std::move(p_object_store_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clear(
-std::move(p_transaction_id), 
-std::move(p_object_store_id), std::move(callback));
+      impl->Clear(        
+        std::move(p_transaction_id), 
+        std::move(p_object_store_id), std::move(callback));
       return true;
     }
     case internal::kIDBDatabase_CreateIndex_Name: {
@@ -7845,6 +7941,8 @@ bool IDBFactory_GetDatabaseInfo_ForwardToCallback::Accept(
           internal::IDBFactory_GetDatabaseInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IDBFactory.0
   bool success = true;
   std::vector<IDBNameAndVersionPtr> p_names_and_versions{};
   IDBErrorPtr p_error{};
@@ -7948,6 +8046,8 @@ bool IDBFactoryStubDispatch::Accept(
           reinterpret_cast<internal::IDBFactory_Open_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactory.1
       bool success = true;
       ::mojo::PendingAssociatedRemote<IDBFactoryClient> p_client{};
       ::mojo::PendingAssociatedRemote<IDBDatabaseCallbacks> p_database_callbacks{};
@@ -7984,13 +8084,13 @@ bool IDBFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Open(
-std::move(p_client), 
-std::move(p_database_callbacks), 
-std::move(p_name), 
-std::move(p_version), 
-std::move(p_version_change_transaction_receiver), 
-std::move(p_transaction_id));
+      impl->Open(        
+        std::move(p_client), 
+        std::move(p_database_callbacks), 
+        std::move(p_name), 
+        std::move(p_version), 
+        std::move(p_version_change_transaction_receiver), 
+        std::move(p_transaction_id));
       return true;
     }
     case internal::kIDBFactory_DeleteDatabase_Name: {
@@ -8000,6 +8100,8 @@ std::move(p_transaction_id));
           reinterpret_cast<internal::IDBFactory_DeleteDatabase_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IDBFactory.2
       bool success = true;
       ::mojo::PendingAssociatedRemote<IDBFactoryClient> p_client{};
       ::std::u16string p_name{};
@@ -8023,10 +8125,10 @@ std::move(p_transaction_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteDatabase(
-std::move(p_client), 
-std::move(p_name), 
-std::move(p_force_close));
+      impl->DeleteDatabase(        
+        std::move(p_client), 
+        std::move(p_name), 
+        std::move(p_force_close));
       return true;
     }
   }
@@ -8049,6 +8151,8 @@ bool IDBFactoryStubDispatch::AcceptWithResponder(
               internal::IDBFactory_GetDatabaseInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IDBFactory.0
       bool success = true;
       IDBFactory_GetDatabaseInfo_ParamsDataView input_data_view(params, message);
       

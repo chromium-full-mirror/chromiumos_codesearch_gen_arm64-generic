@@ -2960,6 +2960,10 @@ base::Value::List Create();
 
 }  // namespace RemoveMultipleExtensions
 
+namespace DismissSafetyHubExtensionsMenuNotification {
+
+}  // namespace DismissSafetyHubExtensionsMenuNotification
+
 //
 // Events
 //

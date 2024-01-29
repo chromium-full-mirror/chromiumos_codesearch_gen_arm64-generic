@@ -596,6 +596,8 @@ bool AudioLogStubDispatch::Accept(
           reinterpret_cast<internal::AudioLog_OnCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.0
       bool success = true;
       ::media::AudioParameters p_params{};
       WTF::String p_device_id{};
@@ -614,9 +616,9 @@ bool AudioLogStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCreated(
-std::move(p_params), 
-std::move(p_device_id));
+      impl->OnCreated(        
+        std::move(p_params), 
+        std::move(p_device_id));
       return true;
     }
     case internal::kAudioLog_OnStarted_Name: {
@@ -626,6 +628,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioLog_OnStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.1
       bool success = true;
       AudioLog_OnStarted_ParamsDataView input_data_view(params, message);
       
@@ -638,7 +642,7 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStarted();
+      impl->OnStarted(        );
       return true;
     }
     case internal::kAudioLog_OnStopped_Name: {
@@ -648,6 +652,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioLog_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.2
       bool success = true;
       AudioLog_OnStopped_ParamsDataView input_data_view(params, message);
       
@@ -660,7 +666,7 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped();
+      impl->OnStopped(        );
       return true;
     }
     case internal::kAudioLog_OnClosed_Name: {
@@ -670,6 +676,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioLog_OnClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.3
       bool success = true;
       AudioLog_OnClosed_ParamsDataView input_data_view(params, message);
       
@@ -682,7 +690,7 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClosed();
+      impl->OnClosed(        );
       return true;
     }
     case internal::kAudioLog_OnError_Name: {
@@ -692,6 +700,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioLog_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.4
       bool success = true;
       AudioLog_OnError_ParamsDataView input_data_view(params, message);
       
@@ -704,7 +714,7 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError();
+      impl->OnError(        );
       return true;
     }
     case internal::kAudioLog_OnSetVolume_Name: {
@@ -714,6 +724,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioLog_OnSetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.5
       bool success = true;
       double p_volume{};
       AudioLog_OnSetVolume_ParamsDataView input_data_view(params, message);
@@ -729,8 +741,8 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSetVolume(
-std::move(p_volume));
+      impl->OnSetVolume(        
+        std::move(p_volume));
       return true;
     }
     case internal::kAudioLog_OnProcessingStateChanged_Name: {
@@ -740,6 +752,8 @@ std::move(p_volume));
           reinterpret_cast<internal::AudioLog_OnProcessingStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.6
       bool success = true;
       WTF::String p_message{};
       AudioLog_OnProcessingStateChanged_ParamsDataView input_data_view(params, message);
@@ -755,8 +769,8 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProcessingStateChanged(
-std::move(p_message));
+      impl->OnProcessingStateChanged(        
+        std::move(p_message));
       return true;
     }
     case internal::kAudioLog_OnLogMessage_Name: {
@@ -766,6 +780,8 @@ std::move(p_message));
           reinterpret_cast<internal::AudioLog_OnLogMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLog.7
       bool success = true;
       WTF::String p_message{};
       AudioLog_OnLogMessage_ParamsDataView input_data_view(params, message);
@@ -781,8 +797,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLogMessage(
-std::move(p_message));
+      impl->OnLogMessage(        
+        std::move(p_message));
       return true;
     }
   }
@@ -977,6 +993,8 @@ bool AudioLogFactoryStubDispatch::Accept(
           reinterpret_cast<internal::AudioLogFactory_CreateAudioLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioLogFactory.0
       bool success = true;
       AudioLogComponent p_component{};
       int32_t p_component_id{};
@@ -1000,10 +1018,10 @@ bool AudioLogFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAudioLog(
-std::move(p_component), 
-std::move(p_component_id), 
-std::move(p_audio_log_receiver));
+      impl->CreateAudioLog(        
+        std::move(p_component), 
+        std::move(p_component_id), 
+        std::move(p_audio_log_receiver));
       return true;
     }
   }

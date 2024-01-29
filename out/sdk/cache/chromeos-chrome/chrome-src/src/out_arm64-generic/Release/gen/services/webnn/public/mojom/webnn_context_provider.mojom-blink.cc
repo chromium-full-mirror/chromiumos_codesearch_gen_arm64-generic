@@ -77,51 +77,6 @@ bool CreateContextOptions::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-Error::Error()
-    : error_code(),
-      error_message() {}
-
-Error::Error(
-    Error::Code error_code_in,
-    const WTF::String& error_message_in)
-    : error_code(std::move(error_code_in)),
-      error_message(std::move(error_message_in)) {}
-
-Error::~Error() = default;
-size_t Error::Hash(size_t seed) const {
-  seed = mojo::internal::WTFHash(seed, this->error_code);
-  seed = mojo::internal::WTFHash(seed, this->error_message);
-  return seed;
-}
-
-void Error::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "error_code"), this->error_code,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type Error::Code>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "error_message"), this->error_message,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const WTF::String&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool Error::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 CreateGraphResult::CreateGraphResult() : tag_(Tag::kGraphRemote) {
   data_.graph_remote = new ::mojo::PendingRemote<::webnn::mojom::blink::WebNNGraph>;
 }
@@ -143,13 +98,13 @@ void CreateGraphResult::set_graph_remote(
   }
 }
 void CreateGraphResult::set_error(
-    ErrorPtr error) {
+    ::webnn::mojom::blink::ErrorPtr error) {
   if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
     tag_ = Tag::kError;
-    data_.error = new ErrorPtr(
+    data_.error = new ::webnn::mojom::blink::ErrorPtr(
         std::move(error));
   }
 }
@@ -194,13 +149,13 @@ void CreateContextResult::set_context_remote(
   }
 }
 void CreateContextResult::set_error(
-    ErrorPtr error) {
+    ::webnn::mojom::blink::ErrorPtr error) {
   if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
     tag_ = Tag::kError;
-    data_.error = new ErrorPtr(
+    data_.error = new ::webnn::mojom::blink::ErrorPtr(
         std::move(error));
   }
 }
@@ -506,6 +461,8 @@ bool WebNNContext_CreateGraph_ForwardToCallback::Accept(
           internal::WebNNContext_CreateGraph_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebNNContext.0
   bool success = true;
   CreateGraphResultPtr p_result{};
   WebNNContext_CreateGraph_ResponseParamsDataView input_data_view(params, message);
@@ -583,6 +540,8 @@ bool WebNNContext_CreateGraph_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebNNContext_CreateGraph_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebNNContext.0
   bool success = true;
   CreateGraphResultPtr p_result{};
   WebNNContext_CreateGraph_ResponseParamsDataView input_data_view(params, message);
@@ -629,6 +588,8 @@ bool WebNNContextStubDispatch::AcceptWithResponder(
               internal::WebNNContext_CreateGraph_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebNNContext.0
       bool success = true;
       ::webnn::mojom::blink::GraphInfoPtr p_graph_info{};
       WebNNContext_CreateGraph_ParamsDataView input_data_view(params, message);
@@ -647,8 +608,8 @@ bool WebNNContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGraph(
-std::move(p_graph_info), std::move(callback));
+      impl->CreateGraph(        
+        std::move(p_graph_info), std::move(callback));
       return true;
     }
   }
@@ -952,6 +913,8 @@ bool WebNNContextProvider_CreateWebNNContext_ForwardToCallback::Accept(
           internal::WebNNContextProvider_CreateWebNNContext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebNNContextProvider.0
   bool success = true;
   CreateContextResultPtr p_result{};
   WebNNContextProvider_CreateWebNNContext_ResponseParamsDataView input_data_view(params, message);
@@ -1029,6 +992,8 @@ bool WebNNContextProvider_CreateWebNNContext_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebNNContextProvider_CreateWebNNContext_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebNNContextProvider.0
   bool success = true;
   CreateContextResultPtr p_result{};
   WebNNContextProvider_CreateWebNNContext_ResponseParamsDataView input_data_view(params, message);
@@ -1075,6 +1040,8 @@ bool WebNNContextProviderStubDispatch::AcceptWithResponder(
               internal::WebNNContextProvider_CreateWebNNContext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebNNContextProvider.0
       bool success = true;
       CreateContextOptionsPtr p_options{};
       WebNNContextProvider_CreateWebNNContext_ParamsDataView input_data_view(params, message);
@@ -1093,8 +1060,8 @@ bool WebNNContextProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWebNNContext(
-std::move(p_options), std::move(callback));
+      impl->CreateWebNNContext(        
+        std::move(p_options), std::move(callback));
       return true;
     }
   }
@@ -1132,22 +1099,6 @@ bool StructTraits<::webnn::mojom::blink::CreateContextOptions::DataView, ::webnn
   ::webnn::mojom::blink::CreateContextOptionsPtr result(::webnn::mojom::blink::CreateContextOptions::New());
   
       if (success && !input.ReadPowerPreference(&result->power_preference))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::webnn::mojom::blink::Error::DataView, ::webnn::mojom::blink::ErrorPtr>::Read(
-    ::webnn::mojom::blink::Error::DataView input,
-    ::webnn::mojom::blink::ErrorPtr* output) {
-  bool success = true;
-  ::webnn::mojom::blink::ErrorPtr result(::webnn::mojom::blink::Error::New());
-  
-      if (success && !input.ReadErrorCode(&result->error_code))
-        success = false;
-      if (success && !input.ReadErrorMessage(&result->error_message))
         success = false;
   *output = std::move(result);
   return success;

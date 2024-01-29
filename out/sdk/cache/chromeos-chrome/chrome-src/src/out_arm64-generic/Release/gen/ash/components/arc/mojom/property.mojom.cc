@@ -271,6 +271,8 @@ bool PropertyInstance_GetGcaMigrationProperty_ForwardToCallback::Accept(
           internal::PropertyInstance_GetGcaMigrationProperty_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PropertyInstance.1
   bool success = true;
   std::optional<std::string> p_value{};
   PropertyInstance_GetGcaMigrationProperty_ResponseParamsDataView input_data_view(params, message);
@@ -354,6 +356,8 @@ bool PropertyInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PropertyInstance_SetMinimizeOnBackButton_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PropertyInstance.2
       bool success = true;
       bool p_enable{};
       PropertyInstance_SetMinimizeOnBackButton_ParamsDataView input_data_view(params, message);
@@ -369,8 +373,8 @@ bool PropertyInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMinimizeOnBackButton(
-std::move(p_enable));
+      impl->SetMinimizeOnBackButton(        
+        std::move(p_enable));
       return true;
     }
   }
@@ -393,6 +397,8 @@ bool PropertyInstanceStubDispatch::AcceptWithResponder(
               internal::PropertyInstance_GetGcaMigrationProperty_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PropertyInstance.1
       bool success = true;
       PropertyInstance_GetGcaMigrationProperty_ParamsDataView input_data_view(params, message);
       

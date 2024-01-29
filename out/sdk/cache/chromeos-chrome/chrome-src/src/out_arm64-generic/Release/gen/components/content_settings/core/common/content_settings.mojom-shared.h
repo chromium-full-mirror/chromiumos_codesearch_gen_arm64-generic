@@ -29,8 +29,6 @@
 
 
 
-#include "mojo/public/cpp/bindings/native_enum.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 
@@ -93,7 +91,6 @@ struct MojomTypeTraits<::content_settings::mojom::RendererContentSettingRulesDat
 
 
 namespace content_settings::mojom {
-using ContentSettingsType = mojo::NativeEnum;
 
 
 enum class ContentSetting : int32_t {

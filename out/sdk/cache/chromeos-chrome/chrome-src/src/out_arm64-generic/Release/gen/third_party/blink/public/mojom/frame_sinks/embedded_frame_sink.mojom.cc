@@ -166,6 +166,8 @@ bool SurfaceEmbedderStubDispatch::Accept(
           reinterpret_cast<internal::SurfaceEmbedder_SetLocalSurfaceId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SurfaceEmbedder.0
       bool success = true;
       ::viz::LocalSurfaceId p_local_surface_id{};
       SurfaceEmbedder_SetLocalSurfaceId_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool SurfaceEmbedderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLocalSurfaceId(
-std::move(p_local_surface_id));
+      impl->SetLocalSurfaceId(        
+        std::move(p_local_surface_id));
       return true;
     }
   }
@@ -333,6 +335,8 @@ bool EmbeddedFrameSinkClientStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedFrameSinkClient_BindSurfaceEmbedder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkClient.0
       bool success = true;
       ::mojo::PendingReceiver<SurfaceEmbedder> p_embedder{};
       EmbeddedFrameSinkClient_BindSurfaceEmbedder_ParamsDataView input_data_view(params, message);
@@ -350,8 +354,8 @@ bool EmbeddedFrameSinkClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSurfaceEmbedder(
-std::move(p_embedder));
+      impl->BindSurfaceEmbedder(        
+        std::move(p_embedder));
       return true;
     }
   }
@@ -1145,6 +1149,8 @@ bool EmbeddedFrameSinkProviderStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_RegisterEmbeddedFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.0
       bool success = true;
       ::viz::FrameSinkId p_parent_frame_sink_id{};
       ::viz::FrameSinkId p_frame_sink_id{};
@@ -1168,10 +1174,10 @@ bool EmbeddedFrameSinkProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterEmbeddedFrameSink(
-std::move(p_parent_frame_sink_id), 
-std::move(p_frame_sink_id), 
-std::move(p_client));
+      impl->RegisterEmbeddedFrameSink(        
+        std::move(p_parent_frame_sink_id), 
+        std::move(p_frame_sink_id), 
+        std::move(p_client));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_RegisterEmbeddedFrameSinkBundle_Name: {
@@ -1181,6 +1187,8 @@ std::move(p_client));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_RegisterEmbeddedFrameSinkBundle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.1
       bool success = true;
       ::viz::FrameSinkBundleId p_bundle_id{};
       ::mojo::PendingReceiver<::viz::mojom::FrameSinkBundle> p_receiver{};
@@ -1206,10 +1214,10 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterEmbeddedFrameSinkBundle(
-std::move(p_bundle_id), 
-std::move(p_receiver), 
-std::move(p_client));
+      impl->RegisterEmbeddedFrameSinkBundle(        
+        std::move(p_bundle_id), 
+        std::move(p_receiver), 
+        std::move(p_client));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_CreateCompositorFrameSink_Name: {
@@ -1219,6 +1227,8 @@ std::move(p_client));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_CreateCompositorFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.2
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       ::mojo::PendingRemote<::viz::mojom::CompositorFrameSinkClient> p_client{};
@@ -1244,10 +1254,10 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCompositorFrameSink(
-std::move(p_frame_sink_id), 
-std::move(p_client), 
-std::move(p_sink));
+      impl->CreateCompositorFrameSink(        
+        std::move(p_frame_sink_id), 
+        std::move(p_client), 
+        std::move(p_sink));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_CreateBundledCompositorFrameSink_Name: {
@@ -1257,6 +1267,8 @@ std::move(p_sink));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_CreateBundledCompositorFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.3
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       ::viz::FrameSinkBundleId p_bundle_id{};
@@ -1285,11 +1297,11 @@ std::move(p_sink));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBundledCompositorFrameSink(
-std::move(p_frame_sink_id), 
-std::move(p_bundle_id), 
-std::move(p_client), 
-std::move(p_sink));
+      impl->CreateBundledCompositorFrameSink(        
+        std::move(p_frame_sink_id), 
+        std::move(p_bundle_id), 
+        std::move(p_client), 
+        std::move(p_sink));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_CreateSimpleCompositorFrameSink_Name: {
@@ -1299,6 +1311,8 @@ std::move(p_sink));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_CreateSimpleCompositorFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.4
       bool success = true;
       ::viz::FrameSinkId p_parent_frame_sink_id{};
       ::viz::FrameSinkId p_frame_sink_id{};
@@ -1332,12 +1346,12 @@ std::move(p_sink));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateSimpleCompositorFrameSink(
-std::move(p_parent_frame_sink_id), 
-std::move(p_frame_sink_id), 
-std::move(p_surface_client), 
-std::move(p_client), 
-std::move(p_sink));
+      impl->CreateSimpleCompositorFrameSink(        
+        std::move(p_parent_frame_sink_id), 
+        std::move(p_frame_sink_id), 
+        std::move(p_surface_client), 
+        std::move(p_client), 
+        std::move(p_sink));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_ConnectToEmbedder_Name: {
@@ -1347,6 +1361,8 @@ std::move(p_sink));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_ConnectToEmbedder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.5
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       ::mojo::PendingReceiver<SurfaceEmbedder> p_embedder{};
@@ -1367,9 +1383,9 @@ std::move(p_sink));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToEmbedder(
-std::move(p_frame_sink_id), 
-std::move(p_embedder));
+      impl->ConnectToEmbedder(        
+        std::move(p_frame_sink_id), 
+        std::move(p_embedder));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_RegisterFrameSinkHierarchy_Name: {
@@ -1379,6 +1395,8 @@ std::move(p_embedder));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_RegisterFrameSinkHierarchy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.6
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       EmbeddedFrameSinkProvider_RegisterFrameSinkHierarchy_ParamsDataView input_data_view(params, message);
@@ -1394,8 +1412,8 @@ std::move(p_embedder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFrameSinkHierarchy(
-std::move(p_frame_sink_id));
+      impl->RegisterFrameSinkHierarchy(        
+        std::move(p_frame_sink_id));
       return true;
     }
     case internal::kEmbeddedFrameSinkProvider_UnregisterFrameSinkHierarchy_Name: {
@@ -1405,6 +1423,8 @@ std::move(p_frame_sink_id));
           reinterpret_cast<internal::EmbeddedFrameSinkProvider_UnregisterFrameSinkHierarchy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedFrameSinkProvider.7
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       EmbeddedFrameSinkProvider_UnregisterFrameSinkHierarchy_ParamsDataView input_data_view(params, message);
@@ -1420,8 +1440,8 @@ std::move(p_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnregisterFrameSinkHierarchy(
-std::move(p_frame_sink_id));
+      impl->UnregisterFrameSinkHierarchy(        
+        std::move(p_frame_sink_id));
       return true;
     }
   }

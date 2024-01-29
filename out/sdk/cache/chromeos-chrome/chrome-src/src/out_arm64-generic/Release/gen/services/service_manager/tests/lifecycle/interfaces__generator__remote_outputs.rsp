@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/service_manager/tests/lifecycle/lifecycle.test-mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/service_manager/tests/lifecycle/lifecycle.test-mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/service_manager/tests/lifecycle/lifecycle.test-mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/service_manager/tests/lifecycle/lifecycle.test-mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/service_manager/tests/lifecycle/lifecycle.test-mojom.h

@@ -549,6 +549,8 @@ bool PageHandler_GetDeviceTrustState_ForwardToCallback::Accept(
           internal::PageHandler_GetDeviceTrustState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   DeviceTrustStatePtr p_state{};
   PageHandler_GetDeviceTrustState_ResponseParamsDataView input_data_view(params, message);
@@ -678,6 +680,8 @@ bool PageHandler_DeleteDeviceTrustKey_ForwardToCallback::Accept(
           internal::PageHandler_DeleteDeviceTrustKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   PageHandler_DeleteDeviceTrustKey_ResponseParamsDataView input_data_view(params, message);
   
@@ -759,6 +763,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetDeviceTrustState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetDeviceTrustState_ParamsDataView input_data_view(params, message);
       
@@ -784,6 +790,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_DeleteDeviceTrustKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_DeleteDeviceTrustKey_ParamsDataView input_data_view(params, message);
       

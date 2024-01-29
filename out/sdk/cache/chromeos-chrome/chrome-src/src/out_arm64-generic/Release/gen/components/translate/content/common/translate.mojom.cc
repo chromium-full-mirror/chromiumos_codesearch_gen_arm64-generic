@@ -469,6 +469,8 @@ bool TranslateAgent_TranslateFrame_ForwardToCallback::Accept(
           internal::TranslateAgent_TranslateFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TranslateAgent.0
   bool success = true;
   bool p_cancelled{};
   std::string p_original_lang{};
@@ -591,6 +593,8 @@ bool TranslateAgentStubDispatch::Accept(
           reinterpret_cast<internal::TranslateAgent_RevertTranslation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TranslateAgent.1
       bool success = true;
       TranslateAgent_RevertTranslation_ParamsDataView input_data_view(params, message);
       
@@ -603,7 +607,7 @@ bool TranslateAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RevertTranslation();
+      impl->RevertTranslation(        );
       return true;
     }
   }
@@ -626,6 +630,8 @@ bool TranslateAgentStubDispatch::AcceptWithResponder(
               internal::TranslateAgent_TranslateFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TranslateAgent.0
       bool success = true;
       std::string p_translate_script{};
       std::string p_source_lang{};
@@ -650,10 +656,10 @@ bool TranslateAgentStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TranslateFrame(
-std::move(p_translate_script), 
-std::move(p_source_lang), 
-std::move(p_target_lang), std::move(callback));
+      impl->TranslateFrame(        
+        std::move(p_translate_script), 
+        std::move(p_source_lang), 
+        std::move(p_target_lang), std::move(callback));
       return true;
     }
     case internal::kTranslateAgent_RevertTranslation_Name: {
@@ -930,6 +936,8 @@ bool ContentTranslateDriver_GetLanguageDetectionModel_ForwardToCallback::Accept(
           internal::ContentTranslateDriver_GetLanguageDetectionModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentTranslateDriver.1
   bool success = true;
   ::base::File p_model_file{};
   ContentTranslateDriver_GetLanguageDetectionModel_ResponseParamsDataView input_data_view(params, message);
@@ -1010,6 +1018,8 @@ bool ContentTranslateDriverStubDispatch::Accept(
           reinterpret_cast<internal::ContentTranslateDriver_RegisterPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentTranslateDriver.0
       bool success = true;
       ::mojo::PendingRemote<TranslateAgent> p_translate_agent{};
       ::translate::LanguageDetectionDetails p_details{};
@@ -1033,10 +1043,10 @@ bool ContentTranslateDriverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterPage(
-std::move(p_translate_agent), 
-std::move(p_details), 
-std::move(p_translation_critiera_met));
+      impl->RegisterPage(        
+        std::move(p_translate_agent), 
+        std::move(p_details), 
+        std::move(p_translation_critiera_met));
       return true;
     }
     case internal::kContentTranslateDriver_GetLanguageDetectionModel_Name: {
@@ -1065,6 +1075,8 @@ bool ContentTranslateDriverStubDispatch::AcceptWithResponder(
               internal::ContentTranslateDriver_GetLanguageDetectionModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentTranslateDriver.1
       bool success = true;
       ContentTranslateDriver_GetLanguageDetectionModel_ParamsDataView input_data_view(params, message);
       

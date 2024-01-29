@@ -145,13 +145,13 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
     kDataSourceStopTimeoutMsFieldNumber = 23,
     kNotifyTraceurFieldNumber = 16,
     kBugreportScoreFieldNumber = 30,
+    kBugreportFilenameFieldNumber = 38,
     kTriggerConfigFieldNumber = 17,
     kActivateTriggersFieldNumber = 18,
     kIncrementalStateConfigFieldNumber = 21,
     kAllowUserBuildTracingFieldNumber = 19,
     kUniqueSessionNameFieldNumber = 22,
     kCompressionTypeFieldNumber = 24,
-    kCompressFromCliFieldNumber = 37,
     kIncidentReportConfigFieldNumber = 25,
     kStatsdLoggingFieldNumber = 31,
     kTraceUuidMsbFieldNumber = 27,
@@ -261,6 +261,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   int32_t bugreport_score() const { return bugreport_score_; }
   void set_bugreport_score(int32_t value) { bugreport_score_ = value; _has_field_.set(30); }
 
+  bool has_bugreport_filename() const { return _has_field_[38]; }
+  const std::string& bugreport_filename() const { return bugreport_filename_; }
+  void set_bugreport_filename(const std::string& value) { bugreport_filename_ = value; _has_field_.set(38); }
+
   bool has_trigger_config() const { return _has_field_[17]; }
   const TraceConfig_TriggerConfig& trigger_config() const { return *trigger_config_; }
   TraceConfig_TriggerConfig* mutable_trigger_config() { _has_field_.set(17); return trigger_config_.get(); }
@@ -287,10 +291,6 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   bool has_compression_type() const { return _has_field_[24]; }
   TraceConfig_CompressionType compression_type() const { return compression_type_; }
   void set_compression_type(TraceConfig_CompressionType value) { compression_type_ = value; _has_field_.set(24); }
-
-  bool has_compress_from_cli() const { return _has_field_[37]; }
-  bool compress_from_cli() const { return compress_from_cli_; }
-  void set_compress_from_cli(bool value) { compress_from_cli_ = value; _has_field_.set(37); }
 
   bool has_incident_report_config() const { return _has_field_[25]; }
   const TraceConfig_IncidentReportConfig& incident_report_config() const { return *incident_report_config_; }
@@ -341,13 +341,13 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   uint32_t data_source_stop_timeout_ms_{};
   bool notify_traceur_{};
   int32_t bugreport_score_{};
+  std::string bugreport_filename_{};
   ::protozero::CopyablePtr<TraceConfig_TriggerConfig> trigger_config_;
   std::vector<std::string> activate_triggers_;
   ::protozero::CopyablePtr<TraceConfig_IncrementalStateConfig> incremental_state_config_;
   bool allow_user_build_tracing_{};
   std::string unique_session_name_{};
   TraceConfig_CompressionType compression_type_{};
-  bool compress_from_cli_{};
   ::protozero::CopyablePtr<TraceConfig_IncidentReportConfig> incident_report_config_;
   TraceConfig_StatsdLogging statsd_logging_{};
   int64_t trace_uuid_msb_{};
@@ -360,7 +360,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<38> _has_field_{};
+  std::bitset<39> _has_field_{};
 };
 
 

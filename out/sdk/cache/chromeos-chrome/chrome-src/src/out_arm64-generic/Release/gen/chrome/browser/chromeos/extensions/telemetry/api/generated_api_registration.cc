@@ -241,6 +241,11 @@ void ChromeOSGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* r
       OsManagementSetAudioGainFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<OsManagementSetAudioVolumeFunction>,
+      OsManagementSetAudioVolumeFunction::static_function_name(),
+      OsManagementSetAudioVolumeFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<OsTelemetryGetAudioInfoFunction>,
       OsTelemetryGetAudioInfoFunction::static_function_name(),
       OsTelemetryGetAudioInfoFunction::static_histogram_value(),
@@ -309,6 +314,11 @@ void ChromeOSGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* r
       &NewExtensionFunction<OsTelemetryGetDisplayInfoFunction>,
       OsTelemetryGetDisplayInfoFunction::static_function_name(),
       OsTelemetryGetDisplayInfoFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<OsTelemetryGetThermalInfoFunction>,
+      OsTelemetryGetThermalInfoFunction::static_function_name(),
+      OsTelemetryGetThermalInfoFunction::static_histogram_value(),
     },
   };
   for (const auto& entry : kEntries) {

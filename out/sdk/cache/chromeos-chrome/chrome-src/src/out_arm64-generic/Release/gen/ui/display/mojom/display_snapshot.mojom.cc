@@ -44,6 +44,94 @@
 
 
 namespace display::mojom {
+DisplaySnapshotColorInfo::DisplaySnapshotColorInfo()
+    : color_space(),
+      edid_primaries(),
+      edid_gamma(),
+      hdr_static_metadata(),
+      supports_color_temperature_adjustment(),
+      bits_per_channel() {}
+
+DisplaySnapshotColorInfo::DisplaySnapshotColorInfo(
+    const ::gfx::ColorSpace& color_space_in,
+    const ::SkColorSpacePrimaries& edid_primaries_in,
+    float edid_gamma_in,
+    const std::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata_in,
+    bool supports_color_temperature_adjustment_in,
+    uint32_t bits_per_channel_in)
+    : color_space(std::move(color_space_in)),
+      edid_primaries(std::move(edid_primaries_in)),
+      edid_gamma(std::move(edid_gamma_in)),
+      hdr_static_metadata(std::move(hdr_static_metadata_in)),
+      supports_color_temperature_adjustment(std::move(supports_color_temperature_adjustment_in)),
+      bits_per_channel(std::move(bits_per_channel_in)) {}
+
+DisplaySnapshotColorInfo::~DisplaySnapshotColorInfo() = default;
+
+void DisplaySnapshotColorInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "color_space"), this->color_space,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::ColorSpace&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "edid_primaries"), this->edid_primaries,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::SkColorSpacePrimaries&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "edid_gamma"), this->edid_gamma,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hdr_static_metadata"), this->hdr_static_metadata,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::gfx::HDRStaticMetadata>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "supports_color_temperature_adjustment"), this->supports_color_temperature_adjustment,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bits_per_channel"), this->bits_per_channel,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DisplaySnapshotColorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 DisplaySnapshot::DisplaySnapshot()
     : display_id(),
       port_display_id(),
@@ -58,10 +146,7 @@ DisplaySnapshot::DisplaySnapshot()
       has_overscan(),
       privacy_screen_state(),
       has_content_protection_key(),
-      has_color_correction_matrix(),
-      color_space(),
-      bits_per_channel(),
-      hdr_static_metadata(),
+      color_info(),
       display_name(),
       sys_path(),
       modes(),
@@ -92,10 +177,7 @@ DisplaySnapshot::DisplaySnapshot(
     bool has_overscan_in,
     ::display::PrivacyScreenState privacy_screen_state_in,
     bool has_content_protection_key_in,
-    bool has_color_correction_matrix_in,
-    const ::gfx::ColorSpace& color_space_in,
-    uint32_t bits_per_channel_in,
-    const std::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata_in,
+    const ::display::DisplaySnapshot::ColorInfo& color_info_in,
     const std::string& display_name_in,
     const ::base::FilePath& sys_path_in,
     std::vector<::std::unique_ptr<::display::DisplayMode>> modes_in,
@@ -124,10 +206,7 @@ DisplaySnapshot::DisplaySnapshot(
       has_overscan(std::move(has_overscan_in)),
       privacy_screen_state(std::move(privacy_screen_state_in)),
       has_content_protection_key(std::move(has_content_protection_key_in)),
-      has_color_correction_matrix(std::move(has_color_correction_matrix_in)),
-      color_space(std::move(color_space_in)),
-      bits_per_channel(std::move(bits_per_channel_in)),
-      hdr_static_metadata(std::move(hdr_static_metadata_in)),
+      color_info(std::move(color_info_in)),
       display_name(std::move(display_name_in)),
       sys_path(std::move(sys_path_in)),
       modes(std::move(modes_in)),
@@ -268,36 +347,9 @@ void DisplaySnapshot::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "has_color_correction_matrix"), this->has_color_correction_matrix,
+      "color_info"), this->color_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "color_space"), this->color_space,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::gfx::ColorSpace&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "bits_per_channel"), this->bits_per_channel,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint32_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "hdr_static_metadata"), this->hdr_static_metadata,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<::gfx::HDRStaticMetadata>&>"
+      "<value of type const ::display::DisplaySnapshot::ColorInfo&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -453,6 +505,30 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::display::mojom::DisplaySnapshotColorInfo::DataView, ::display::mojom::DisplaySnapshotColorInfoPtr>::Read(
+    ::display::mojom::DisplaySnapshotColorInfo::DataView input,
+    ::display::mojom::DisplaySnapshotColorInfoPtr* output) {
+  bool success = true;
+  ::display::mojom::DisplaySnapshotColorInfoPtr result(::display::mojom::DisplaySnapshotColorInfo::New());
+  
+      if (success && !input.ReadColorSpace(&result->color_space))
+        success = false;
+      if (success && !input.ReadEdidPrimaries(&result->edid_primaries))
+        success = false;
+      if (success)
+        result->edid_gamma = input.edid_gamma();
+      if (success && !input.ReadHdrStaticMetadata(&result->hdr_static_metadata))
+        success = false;
+      if (success)
+        result->supports_color_temperature_adjustment = input.supports_color_temperature_adjustment();
+      if (success)
+        result->bits_per_channel = input.bits_per_channel();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::display::mojom::DisplaySnapshot::DataView, ::display::mojom::DisplaySnapshotPtr>::Read(
     ::display::mojom::DisplaySnapshot::DataView input,
     ::display::mojom::DisplaySnapshotPtr* output) {
@@ -485,13 +561,7 @@ bool StructTraits<::display::mojom::DisplaySnapshot::DataView, ::display::mojom:
         success = false;
       if (success)
         result->has_content_protection_key = input.has_content_protection_key();
-      if (success)
-        result->has_color_correction_matrix = input.has_color_correction_matrix();
-      if (success && !input.ReadColorSpace(&result->color_space))
-        success = false;
-      if (success)
-        result->bits_per_channel = input.bits_per_channel();
-      if (success && !input.ReadHdrStaticMetadata(&result->hdr_static_metadata))
+      if (success && !input.ReadColorInfo(&result->color_info))
         success = false;
       if (success && !input.ReadDisplayName(&result->display_name))
         success = false;

@@ -1,5 +1,5 @@
 /* Checking macros for poll functions.
-   Copyright (C) 2012-2022 Free Software Foundation, Inc.
+   Copyright (C) 2012-2023 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -44,6 +44,30 @@ __FORTIFY_PRECONDITIONS
 __FORTIFY_FUNCTION_END
 
 #ifdef __USE_GNU
+# ifdef __USE_TIME_BITS64
+extern int __REDIRECT (__ppoll64_alias, (struct pollfd *__fds, nfds_t __nfds,
+				       const struct timespec *__timeout,
+				       const __sigset_t *__ss), __ppoll64);
+extern int __ppoll64_chk (struct pollfd *__fds, nfds_t __nfds,
+			  const struct timespec *__timeout,
+			  const __sigset_t *__ss, __SIZE_TYPE__ __fdslen)
+    __attr_access ((__write_only__, 1, 2));
+extern int __REDIRECT (__ppoll64_chk_warn, (struct pollfd *__fds, nfds_t __n,
+					    const struct timespec *__timeout,
+					    const __sigset_t *__ss,
+					    __SIZE_TYPE__ __fdslen),
+		       __ppoll64_chk)
+  __warnattr ("ppoll called with fds buffer too small file nfds entries");
+
+__fortify_function __fortified_attr_access (__write_only__, 1, 2) int
+ppoll (struct pollfd *__fds, nfds_t __nfds, const struct timespec *__timeout,
+       const __sigset_t *__ss)
+{
+  return __glibc_fortify (ppoll64, __nfds, sizeof (*__fds),
+			  __glibc_objsize (__fds),
+			  __fds, __nfds, __timeout, __ss);
+}
+# else
 extern int __REDIRECT (__ppoll_alias, (struct pollfd *__fds, nfds_t __nfds,
 				       const struct timespec *__timeout,
 				       const __sigset_t *__ss), ppoll);
@@ -67,6 +91,7 @@ __FORTIFY_PRECONDITIONS
   return __ppoll_alias (__fds, __nfds, __timeout, __ss);
 }
 __FORTIFY_FUNCTION_END
+# endif
 #endif
 
 __END_DECLS

@@ -187,6 +187,7 @@ export function getTemplate() {
         </cr-link-row>
     </template>
 
+    <cr-link-row id="v8-setting-link" class="hr" on-click="onV8SettingsClick_" label="$i18n{securityV8LinkTitle}" sub-label="$i18n{securityV8LinkDescription}" role-description="$i18n{subpageArrowRoleDescription}" external></cr-link-row>
     <template is="dom-if" if="[[enableSecurityKeysSubpage_]]">
         <cr-link-row id="security-keys-subpage-trigger" class="hr" label="$i18n{securityKeysTitle}" sub-label="$i18n{securityKeysDesc}" on-click="onSecurityKeysClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
     </template>

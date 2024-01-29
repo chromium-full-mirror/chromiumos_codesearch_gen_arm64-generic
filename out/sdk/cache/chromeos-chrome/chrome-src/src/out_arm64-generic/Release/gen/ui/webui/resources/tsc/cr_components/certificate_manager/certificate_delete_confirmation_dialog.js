@@ -28,10 +28,6 @@ export class CertificateDeleteConfirmationDialogElement extends CertificateDelet
             certificateType: String,
         };
     }
-    connectedCallback() {
-        super.connectedCallback();
-        this.$.dialog.showModal();
-    }
     getTitleText_() {
         const getString = (localizedMessageId) => loadTimeData.getStringF(localizedMessageId, this.model.name);
         switch (this.certificateType) {

@@ -54,7 +54,7 @@ found in the LICENSE file.
   <div slot="bottom-buttons">
     <oobe-text-button
       inverse
-      on-click="onUpdateClicked_"
+      on-click="onUpdateClicked"
       class="focus-on-show"
       text-key="updateButtonCaption"
     >
@@ -74,14 +74,14 @@ found in the LICENSE file.
   <div slot="bottom-buttons">
     <oobe-text-button
       inverse
-      on-click="onSelectNetworkClicked_"
+      on-click="onSelectNetworkClicked"
       class="focus-on-show"
       text-key="selectNetworkButtonCaption"
     >
     </oobe-text-button>
     <oobe-text-button
       inverse
-      on-click="onUpdateClicked_"
+      on-click="onUpdateClicked"
       id="update-button"
       text-key="updateButtonCaption"
     >
@@ -94,7 +94,7 @@ found in the LICENSE file.
   aria-label$="[[i18nDynamic(locale, 'updateScreenAccessibleTitle')]]"
   for-step="update-process, update-completed-need-reboot"
   checking-for-update="[[updateProgressUnavailable]]"
-  update-completed="[[eq_(uiStep, 'update-completed-need-reboot')]]"
+  update-completed="[[eq(uiStep, 'update-completed-need-reboot')]]"
   progress-value="[[updateProgressValue]]"
   has-estimate="[[estimatedTimeLeftVisible]]"
   estimated-time-left="[[estimatedTimeLeft]]"
@@ -123,7 +123,7 @@ found in the LICENSE file.
   <div slot="bottom-buttons" class="layout horizontal end-justified">
     <oobe-text-button
       inverse
-      on-click="onCellularPermissionAccepted_"
+      on-click="onCellularPermissionAccepted"
       class="focus-on-show"
       text-key="AcceptUpdateOverCellularButton"
       id="cellular-permission-accept-button"
@@ -151,7 +151,7 @@ found in the LICENSE file.
   <div slot="bottom-buttons">
     <oobe-text-button
       inverse
-      on-click="onSelectNetworkClicked_"
+      on-click="onSelectNetworkClicked"
       id="select-network-button"
       text-key="selectNetworkButtonCaption"
       class="focus-on-show"
@@ -172,17 +172,17 @@ found in the LICENSE file.
   </h1>
   <div slot="subtitle">
     <div>[[i18nDynamic(locale, 'eolMessage', deviceName)]]</div>
-    <div id="deleteDataMessageContainer" hidden="[[!usersDataPresent_]]">
+    <div id="deleteDataMessageContainer" hidden="[[!usersDataPresent]]">
       <span id="deleteUsersDataMessage"></span>
     </div>
-    <div id="noUsersDataMessage" hidden="[[usersDataPresent_]]">
+    <div id="noUsersDataMessage" hidden="[[usersDataPresent]]">
       [[i18nDynamic(locale, 'eolNoUsersDataMessage', deviceName)]]
     </div>
   </div>
   <div slot="content" class="flex layout vertical">
-    <div id="adminMessageContainer" hidden="[[isEmpty_(eolAdminMessage_)]]">
+    <div id="adminMessageContainer" hidden="[[isEmpty(eolAdminMessage)]]">
       <div class="bold">[[i18nDynamic(locale, 'eolAdminMessageTitle')]]</div>
-      <div id="adminMessage">[[eolAdminMessage_]]</div>
+      <div id="adminMessage">[[eolAdminMessage]]</div>
     </div>
     <div class="flex layout vertical center-justified center">
       <!-- Use lock image indicating that end-of-life has been reached and
@@ -206,13 +206,13 @@ found in the LICENSE file.
     <oobe-text-button
       id="cancelDelete"
       class="focus-on-show"
-      on-click="hideConfirmationDialog_"
+    on-click="hideConfirmationDialog"
       text-key="eolDeleteUsersDataCancel"
     >
     </oobe-text-button>
     <oobe-text-button
       inverse
-      on-click="onDeleteUsersConfirmed_"
+      on-click="onDeleteUsersConfirmed"
       id="confirmDelete"
       text-key="eolDeleteUsersDataConfirm"
     >

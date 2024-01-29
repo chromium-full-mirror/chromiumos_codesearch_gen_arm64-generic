@@ -987,6 +987,22 @@ class  CameraAppHelper_OpenStorageManagement_Params_Data {
 };
 static_assert(sizeof(CameraAppHelper_OpenStorageManagement_Params_Data) == 8,
               "Bad sizeof(CameraAppHelper_OpenStorageManagement_Params_Data)");
+class  CameraAppHelper_OpenWifiDialog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::WifiConfig_Data> config;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAppHelper_OpenWifiDialog_Params_Data>;
+
+  CameraAppHelper_OpenWifiDialog_Params_Data();
+  ~CameraAppHelper_OpenWifiDialog_Params_Data() = delete;
+};
+static_assert(sizeof(CameraAppHelper_OpenWifiDialog_Params_Data) == 16,
+              "Bad sizeof(CameraAppHelper_OpenWifiDialog_Params_Data)");
 
 }  // namespace internal
 
@@ -2288,6 +2304,32 @@ class CameraAppHelper_OpenStorageManagement_ParamsDataView {
 };
 
 
+class CameraAppHelper_OpenWifiDialog_ParamsDataView {
+ public:
+  CameraAppHelper_OpenWifiDialog_ParamsDataView() = default;
+
+  CameraAppHelper_OpenWifiDialog_ParamsDataView(
+      internal::CameraAppHelper_OpenWifiDialog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      WifiConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::ash::camera_app::mojom::WifiConfigDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CameraAppHelper_OpenWifiDialog_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -2500,6 +2542,13 @@ inline void CameraAppHelper_ConvertToPdf_ResponseParamsDataView::GetPdfDataDataV
 
 
 
+
+
+inline void CameraAppHelper_OpenWifiDialog_ParamsDataView::GetConfigDataView(
+    WifiConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = WifiConfigDataView(pointer, message_);
+}
 
 
 

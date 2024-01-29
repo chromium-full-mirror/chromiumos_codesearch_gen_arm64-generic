@@ -3,8 +3,35 @@
 #include "torque-generated/class-verifiers.h"
 #include "src/objects/instance-type-inl.h"
 
+#include "src/objects/torque-defined-classes.h"
+
 namespace v8 {
 namespace internal {
+
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/arguments.tq?l=27&c=1
+class TorqueGeneratedSloppyArgumentsElementsAsserts {
+  static constexpr int kStartOfStrongFieldsOffset = FixedArrayBase::kHeaderSize;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/arguments.tq?l=29&c=3
+  static constexpr int kContextOffset = FixedArrayBase::kHeaderSize;
+  static constexpr int kContextOffsetEnd = kContextOffset + kTaggedSize - 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/arguments.tq?l=30&c=3
+  static constexpr int kArgumentsOffset = kContextOffsetEnd + 1;
+  static constexpr int kArgumentsOffsetEnd = kArgumentsOffset + kTaggedSize - 1;
+  static constexpr int kHeaderSize = kArgumentsOffsetEnd + 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/arguments.tq?l=31&c=3
+  static constexpr int kMappedEntriesOffset = kArgumentsOffsetEnd + 1;
+  static constexpr int kMappedEntriesOffsetEnd = kMappedEntriesOffset + 0 - 1;
+  static constexpr int kEndOfStrongFieldsOffset = kMappedEntriesOffsetEnd + 1;
+  static constexpr int kStartOfWeakFieldsOffset = kMappedEntriesOffsetEnd + 1;
+  static constexpr int kEndOfWeakFieldsOffset = kMappedEntriesOffsetEnd + 1;
+
+  static_assert(kContextOffset == SloppyArgumentsElements::kContextOffset,
+                "Values of SloppyArgumentsElements::kContextOffset defined in Torque and C++ do not match");
+  static_assert(kArgumentsOffset == SloppyArgumentsElements::kArgumentsOffset,
+                "Values of SloppyArgumentsElements::kArgumentsOffset defined in Torque and C++ do not match");
+  static_assert(kMappedEntriesOffset == SloppyArgumentsElements::kMappedEntriesOffset,
+                "Values of SloppyArgumentsElements::kMappedEntriesOffset defined in Torque and C++ do not match");
+};
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/descriptor-array.tq?l=31&c=1
 bool IsStrongDescriptorArray_NonInline(Tagged<HeapObject> o) {
@@ -174,7 +201,7 @@ void TorqueGeneratedSortState<SortState, HeapObject>::SortStateVerify(Isolate* i
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=230&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
 bool IsWasmStringViewIter_NonInline(Tagged<HeapObject> o) {
   return IsWasmStringViewIter(o);
 }

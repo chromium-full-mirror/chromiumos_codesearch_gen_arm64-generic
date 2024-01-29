@@ -53,6 +53,13 @@ export class SettingsSearchEngineListDialogElement extends SettingsSearchEngineL
         const searchEngine = this.searchEngines.find(engine => engine.id === parseInt(this.selectedEngineId_));
         assert(searchEngine);
         this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex, ChoiceMadeLocation.SEARCH_SETTINGS);
+        this.dispatchEvent(new CustomEvent('search-engine-changed', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                searchEngine: searchEngine,
+            },
+        }));
         this.$.dialog.close();
     }
     onCancelClick_() {

@@ -25,6 +25,7 @@ constexpr uint32_t kCdmFactoryDaemon_RemovedMethod5_Name = 5;
 constexpr uint32_t kCdmFactoryDaemon_GetHdcp14Key_Name = 6;
 constexpr uint32_t kCdmFactoryDaemon_GetAndroidHwKeyData_Name = 7;
 constexpr uint32_t kCdmFactoryDaemon_AllocateSecureBuffer_Name = 8;
+constexpr uint32_t kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name = 9;
 
 }  // namespace internal
 

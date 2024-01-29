@@ -888,6 +888,8 @@ bool DigitalGoodsInstance_GetDetails_ForwardToCallback::Accept(
           internal::DigitalGoodsInstance_GetDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DigitalGoodsInstance.0
   bool success = true;
   ::payments::mojom::BillingResponseCode p_code{};
   std::vector<::payments::mojom::ItemDetailsPtr> p_item_details_list{};
@@ -1028,6 +1030,8 @@ bool DigitalGoodsInstance_Acknowledge_ForwardToCallback::Accept(
           internal::DigitalGoodsInstance_Acknowledge_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DigitalGoodsInstance.1
   bool success = true;
   ::payments::mojom::BillingResponseCode p_code{};
   DigitalGoodsInstance_Acknowledge_ResponseParamsDataView input_data_view(params, message);
@@ -1148,6 +1152,8 @@ bool DigitalGoodsInstance_DeprecatedListPurchases_ForwardToCallback::Accept(
           internal::DigitalGoodsInstance_DeprecatedListPurchases_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DigitalGoodsInstance.2
   bool success = true;
   ::payments::mojom::BillingResponseCode p_code{};
   std::vector<PurchaseDetailsPtr> p_purchase_details_list{};
@@ -1288,6 +1294,8 @@ bool DigitalGoodsInstance_ListPurchases_ForwardToCallback::Accept(
           internal::DigitalGoodsInstance_ListPurchases_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DigitalGoodsInstance.3
   bool success = true;
   ::payments::mojom::BillingResponseCode p_code{};
   std::vector<::payments::mojom::PurchaseReferencePtr> p_purchase_reference_list{};
@@ -1428,6 +1436,8 @@ bool DigitalGoodsInstance_ListPurchaseHistory_ForwardToCallback::Accept(
           internal::DigitalGoodsInstance_ListPurchaseHistory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DigitalGoodsInstance.4
   bool success = true;
   ::payments::mojom::BillingResponseCode p_code{};
   std::vector<::payments::mojom::PurchaseReferencePtr> p_purchase_reference_list{};
@@ -1568,6 +1578,8 @@ bool DigitalGoodsInstance_Consume_ForwardToCallback::Accept(
           internal::DigitalGoodsInstance_Consume_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DigitalGoodsInstance.5
   bool success = true;
   ::payments::mojom::BillingResponseCode p_code{};
   DigitalGoodsInstance_Consume_ResponseParamsDataView input_data_view(params, message);
@@ -1674,6 +1686,8 @@ bool DigitalGoodsInstanceStubDispatch::AcceptWithResponder(
               internal::DigitalGoodsInstance_GetDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DigitalGoodsInstance.0
       bool success = true;
       std::string p_package_name{};
       std::string p_scope{};
@@ -1698,10 +1712,10 @@ bool DigitalGoodsInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDetails(
-std::move(p_package_name), 
-std::move(p_scope), 
-std::move(p_item_ids), std::move(callback));
+      impl->GetDetails(        
+        std::move(p_package_name), 
+        std::move(p_scope), 
+        std::move(p_item_ids), std::move(callback));
       return true;
     }
     case internal::kDigitalGoodsInstance_Acknowledge_Name: {
@@ -1711,6 +1725,8 @@ std::move(p_item_ids), std::move(callback));
               internal::DigitalGoodsInstance_Acknowledge_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DigitalGoodsInstance.1
       bool success = true;
       std::string p_package_name{};
       std::string p_scope{};
@@ -1738,11 +1754,11 @@ std::move(p_item_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Acknowledge(
-std::move(p_package_name), 
-std::move(p_scope), 
-std::move(p_purchase_token), 
-std::move(p_make_available_again), std::move(callback));
+      impl->Acknowledge(        
+        std::move(p_package_name), 
+        std::move(p_scope), 
+        std::move(p_purchase_token), 
+        std::move(p_make_available_again), std::move(callback));
       return true;
     }
     case internal::kDigitalGoodsInstance_DeprecatedListPurchases_Name: {
@@ -1752,6 +1768,8 @@ std::move(p_make_available_again), std::move(callback));
               internal::DigitalGoodsInstance_DeprecatedListPurchases_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DigitalGoodsInstance.2
       bool success = true;
       std::string p_package_name{};
       std::string p_scope{};
@@ -1773,9 +1791,9 @@ std::move(p_make_available_again), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedListPurchases(
-std::move(p_package_name), 
-std::move(p_scope), std::move(callback));
+      impl->DeprecatedListPurchases(        
+        std::move(p_package_name), 
+        std::move(p_scope), std::move(callback));
       return true;
     }
     case internal::kDigitalGoodsInstance_ListPurchases_Name: {
@@ -1785,6 +1803,8 @@ std::move(p_scope), std::move(callback));
               internal::DigitalGoodsInstance_ListPurchases_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DigitalGoodsInstance.3
       bool success = true;
       std::string p_package_name{};
       std::string p_scope{};
@@ -1806,9 +1826,9 @@ std::move(p_scope), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListPurchases(
-std::move(p_package_name), 
-std::move(p_scope), std::move(callback));
+      impl->ListPurchases(        
+        std::move(p_package_name), 
+        std::move(p_scope), std::move(callback));
       return true;
     }
     case internal::kDigitalGoodsInstance_ListPurchaseHistory_Name: {
@@ -1818,6 +1838,8 @@ std::move(p_scope), std::move(callback));
               internal::DigitalGoodsInstance_ListPurchaseHistory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DigitalGoodsInstance.4
       bool success = true;
       std::string p_package_name{};
       std::string p_scope{};
@@ -1839,9 +1861,9 @@ std::move(p_scope), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListPurchaseHistory(
-std::move(p_package_name), 
-std::move(p_scope), std::move(callback));
+      impl->ListPurchaseHistory(        
+        std::move(p_package_name), 
+        std::move(p_scope), std::move(callback));
       return true;
     }
     case internal::kDigitalGoodsInstance_Consume_Name: {
@@ -1851,6 +1873,8 @@ std::move(p_scope), std::move(callback));
               internal::DigitalGoodsInstance_Consume_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DigitalGoodsInstance.5
       bool success = true;
       std::string p_package_name{};
       std::string p_scope{};
@@ -1875,10 +1899,10 @@ std::move(p_scope), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Consume(
-std::move(p_package_name), 
-std::move(p_scope), 
-std::move(p_purchase_token), std::move(callback));
+      impl->Consume(        
+        std::move(p_package_name), 
+        std::move(p_scope), 
+        std::move(p_purchase_token), std::move(callback));
       return true;
     }
   }

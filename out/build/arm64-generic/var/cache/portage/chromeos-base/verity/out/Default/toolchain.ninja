@@ -40,5 +40,6 @@ build obj/verity/all.stamp: stamp obj/verity/install_fls_header.stamp obj/verity
 build obj/verity/install_fls_header.stamp: stamp
 build obj/verity/install_headers.stamp: stamp
 build obj/verity/install_pkg_config.stamp: stamp
+build obj/verity/install_subtool.stamp: stamp
 subninja obj/verity/libdm-bht.ninja
 subninja obj/verity/verity.ninja

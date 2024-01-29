@@ -64,6 +64,8 @@ NOINLINE static const char* ResourceTypeToStringHelper(ResourceType value) {
       return "kNavigationPreloadMainFrame";
     case ResourceType::kNavigationPreloadSubFrame:
       return "kNavigationPreloadSubFrame";
+    case ResourceType::kJson:
+      return "kJson";
     default:
       return nullptr;
   }

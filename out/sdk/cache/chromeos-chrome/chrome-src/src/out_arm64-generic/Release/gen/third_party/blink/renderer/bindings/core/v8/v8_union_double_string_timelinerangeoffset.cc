@@ -138,7 +138,7 @@ void V8UnionDoubleOrStringOrTimelineRangeOffset::Set(const V8UnionStringOrTimeli
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionDoubleOrStringOrTimelineRangeOffset::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionDoubleOrStringOrTimelineRangeOffset::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kDouble: {
     return ToV8Traits<IDLDouble>::ToV8(script_state, member_double_);
@@ -152,7 +152,7 @@ v8::MaybeLocal<v8::Value> V8UnionDoubleOrStringOrTimelineRangeOffset::ToV8Value(
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionDoubleOrStringOrTimelineRangeOffset::Trace(Visitor* visitor) const {

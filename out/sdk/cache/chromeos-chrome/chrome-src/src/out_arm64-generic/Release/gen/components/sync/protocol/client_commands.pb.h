@@ -325,7 +325,6 @@ class ClientCommand final :
     kSetSyncPollIntervalFieldNumber = 1,
     kSetSyncLongPollIntervalFieldNumber = 2,
     kMaxCommitBatchSizeFieldNumber = 3,
-    kSessionsCommitDelaySecondsFieldNumber = 4,
     kThrottleDelaySecondsFieldNumber = 5,
     kClientInvalidationHintBufferSizeFieldNumber = 6,
     kGuRetryDelaySecondsFieldNumber = 7,
@@ -388,19 +387,6 @@ class ClientCommand final :
   private:
   int32_t _internal_max_commit_batch_size() const;
   void _internal_set_max_commit_batch_size(int32_t value);
-  public:
-
-  // optional int32 sessions_commit_delay_seconds = 4;
-  bool has_sessions_commit_delay_seconds() const;
-  private:
-  bool _internal_has_sessions_commit_delay_seconds() const;
-  public:
-  void clear_sessions_commit_delay_seconds();
-  int32_t sessions_commit_delay_seconds() const;
-  void set_sessions_commit_delay_seconds(int32_t value);
-  private:
-  int32_t _internal_sessions_commit_delay_seconds() const;
-  void _internal_set_sessions_commit_delay_seconds(int32_t value);
   public:
 
   // optional int32 throttle_delay_seconds = 5;
@@ -494,7 +480,6 @@ class ClientCommand final :
   int32_t set_sync_poll_interval_;
   int32_t set_sync_long_poll_interval_;
   int32_t max_commit_batch_size_;
-  int32_t sessions_commit_delay_seconds_;
   int32_t throttle_delay_seconds_;
   int32_t client_invalidation_hint_buffer_size_;
   int32_t gu_retry_delay_seconds_;
@@ -658,37 +643,9 @@ inline void ClientCommand::set_max_commit_batch_size(int32_t value) {
   // @@protoc_insertion_point(field_set:sync_pb.ClientCommand.max_commit_batch_size)
 }
 
-// optional int32 sessions_commit_delay_seconds = 4;
-inline bool ClientCommand::_internal_has_sessions_commit_delay_seconds() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
-  return value;
-}
-inline bool ClientCommand::has_sessions_commit_delay_seconds() const {
-  return _internal_has_sessions_commit_delay_seconds();
-}
-inline void ClientCommand::clear_sessions_commit_delay_seconds() {
-  sessions_commit_delay_seconds_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline int32_t ClientCommand::_internal_sessions_commit_delay_seconds() const {
-  return sessions_commit_delay_seconds_;
-}
-inline int32_t ClientCommand::sessions_commit_delay_seconds() const {
-  // @@protoc_insertion_point(field_get:sync_pb.ClientCommand.sessions_commit_delay_seconds)
-  return _internal_sessions_commit_delay_seconds();
-}
-inline void ClientCommand::_internal_set_sessions_commit_delay_seconds(int32_t value) {
-  _has_bits_[0] |= 0x00000008u;
-  sessions_commit_delay_seconds_ = value;
-}
-inline void ClientCommand::set_sessions_commit_delay_seconds(int32_t value) {
-  _internal_set_sessions_commit_delay_seconds(value);
-  // @@protoc_insertion_point(field_set:sync_pb.ClientCommand.sessions_commit_delay_seconds)
-}
-
 // optional int32 throttle_delay_seconds = 5;
 inline bool ClientCommand::_internal_has_throttle_delay_seconds() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool ClientCommand::has_throttle_delay_seconds() const {
@@ -696,7 +653,7 @@ inline bool ClientCommand::has_throttle_delay_seconds() const {
 }
 inline void ClientCommand::clear_throttle_delay_seconds() {
   throttle_delay_seconds_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline int32_t ClientCommand::_internal_throttle_delay_seconds() const {
   return throttle_delay_seconds_;
@@ -706,7 +663,7 @@ inline int32_t ClientCommand::throttle_delay_seconds() const {
   return _internal_throttle_delay_seconds();
 }
 inline void ClientCommand::_internal_set_throttle_delay_seconds(int32_t value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
   throttle_delay_seconds_ = value;
 }
 inline void ClientCommand::set_throttle_delay_seconds(int32_t value) {
@@ -716,7 +673,7 @@ inline void ClientCommand::set_throttle_delay_seconds(int32_t value) {
 
 // optional int32 client_invalidation_hint_buffer_size = 6 [deprecated = true];
 inline bool ClientCommand::_internal_has_client_invalidation_hint_buffer_size() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool ClientCommand::has_client_invalidation_hint_buffer_size() const {
@@ -724,7 +681,7 @@ inline bool ClientCommand::has_client_invalidation_hint_buffer_size() const {
 }
 inline void ClientCommand::clear_client_invalidation_hint_buffer_size() {
   client_invalidation_hint_buffer_size_ = 0;
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline int32_t ClientCommand::_internal_client_invalidation_hint_buffer_size() const {
   return client_invalidation_hint_buffer_size_;
@@ -734,7 +691,7 @@ inline int32_t ClientCommand::client_invalidation_hint_buffer_size() const {
   return _internal_client_invalidation_hint_buffer_size();
 }
 inline void ClientCommand::_internal_set_client_invalidation_hint_buffer_size(int32_t value) {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000010u;
   client_invalidation_hint_buffer_size_ = value;
 }
 inline void ClientCommand::set_client_invalidation_hint_buffer_size(int32_t value) {
@@ -744,7 +701,7 @@ inline void ClientCommand::set_client_invalidation_hint_buffer_size(int32_t valu
 
 // optional int32 gu_retry_delay_seconds = 7;
 inline bool ClientCommand::_internal_has_gu_retry_delay_seconds() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool ClientCommand::has_gu_retry_delay_seconds() const {
@@ -752,7 +709,7 @@ inline bool ClientCommand::has_gu_retry_delay_seconds() const {
 }
 inline void ClientCommand::clear_gu_retry_delay_seconds() {
   gu_retry_delay_seconds_ = 0;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline int32_t ClientCommand::_internal_gu_retry_delay_seconds() const {
   return gu_retry_delay_seconds_;
@@ -762,7 +719,7 @@ inline int32_t ClientCommand::gu_retry_delay_seconds() const {
   return _internal_gu_retry_delay_seconds();
 }
 inline void ClientCommand::_internal_set_gu_retry_delay_seconds(int32_t value) {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
   gu_retry_delay_seconds_ = value;
 }
 inline void ClientCommand::set_gu_retry_delay_seconds(int32_t value) {
@@ -812,7 +769,7 @@ ClientCommand::custom_nudge_delays() const {
 
 // optional int32 extension_types_max_tokens = 9;
 inline bool ClientCommand::_internal_has_extension_types_max_tokens() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool ClientCommand::has_extension_types_max_tokens() const {
@@ -820,7 +777,7 @@ inline bool ClientCommand::has_extension_types_max_tokens() const {
 }
 inline void ClientCommand::clear_extension_types_max_tokens() {
   extension_types_max_tokens_ = 0;
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline int32_t ClientCommand::_internal_extension_types_max_tokens() const {
   return extension_types_max_tokens_;
@@ -830,7 +787,7 @@ inline int32_t ClientCommand::extension_types_max_tokens() const {
   return _internal_extension_types_max_tokens();
 }
 inline void ClientCommand::_internal_set_extension_types_max_tokens(int32_t value) {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000040u;
   extension_types_max_tokens_ = value;
 }
 inline void ClientCommand::set_extension_types_max_tokens(int32_t value) {
@@ -840,7 +797,7 @@ inline void ClientCommand::set_extension_types_max_tokens(int32_t value) {
 
 // optional int32 extension_types_refill_interval_seconds = 10;
 inline bool ClientCommand::_internal_has_extension_types_refill_interval_seconds() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool ClientCommand::has_extension_types_refill_interval_seconds() const {
@@ -848,7 +805,7 @@ inline bool ClientCommand::has_extension_types_refill_interval_seconds() const {
 }
 inline void ClientCommand::clear_extension_types_refill_interval_seconds() {
   extension_types_refill_interval_seconds_ = 0;
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline int32_t ClientCommand::_internal_extension_types_refill_interval_seconds() const {
   return extension_types_refill_interval_seconds_;
@@ -858,7 +815,7 @@ inline int32_t ClientCommand::extension_types_refill_interval_seconds() const {
   return _internal_extension_types_refill_interval_seconds();
 }
 inline void ClientCommand::_internal_set_extension_types_refill_interval_seconds(int32_t value) {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000080u;
   extension_types_refill_interval_seconds_ = value;
 }
 inline void ClientCommand::set_extension_types_refill_interval_seconds(int32_t value) {
@@ -868,7 +825,7 @@ inline void ClientCommand::set_extension_types_refill_interval_seconds(int32_t v
 
 // optional int32 extension_types_depleted_quota_nudge_delay_seconds = 11;
 inline bool ClientCommand::_internal_has_extension_types_depleted_quota_nudge_delay_seconds() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool ClientCommand::has_extension_types_depleted_quota_nudge_delay_seconds() const {
@@ -876,7 +833,7 @@ inline bool ClientCommand::has_extension_types_depleted_quota_nudge_delay_second
 }
 inline void ClientCommand::clear_extension_types_depleted_quota_nudge_delay_seconds() {
   extension_types_depleted_quota_nudge_delay_seconds_ = 0;
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline int32_t ClientCommand::_internal_extension_types_depleted_quota_nudge_delay_seconds() const {
   return extension_types_depleted_quota_nudge_delay_seconds_;
@@ -886,7 +843,7 @@ inline int32_t ClientCommand::extension_types_depleted_quota_nudge_delay_seconds
   return _internal_extension_types_depleted_quota_nudge_delay_seconds();
 }
 inline void ClientCommand::_internal_set_extension_types_depleted_quota_nudge_delay_seconds(int32_t value) {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000100u;
   extension_types_depleted_quota_nudge_delay_seconds_ = value;
 }
 inline void ClientCommand::set_extension_types_depleted_quota_nudge_delay_seconds(int32_t value) {

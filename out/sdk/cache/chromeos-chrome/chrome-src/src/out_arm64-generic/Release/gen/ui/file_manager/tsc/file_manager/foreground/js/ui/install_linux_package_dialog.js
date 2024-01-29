@@ -144,7 +144,8 @@ export class InstallLinuxPackageDialog extends FileManagerDialogBase {
      * notification, rather than the file manager.
      */
     onInstallLinuxPackage_(status) {
-        if (status == chrome.fileManagerPrivate.InstallLinuxPackageStatus.STARTED) {
+        if (status ===
+            chrome.fileManagerPrivate.InstallLinuxPackageStatus.STARTED) {
             this.text.textContent = str('INSTALL_LINUX_PACKAGE_INSTALLATION_STARTED');
             return;
         }

@@ -468,6 +468,8 @@ bool Service_OnStart_ForwardToCallback::Accept(
           internal::Service_OnStart_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Service.0
   bool success = true;
   ::mojo::PendingReceiver<::service_manager::mojom::Connector> p_connector_receiver{};
   ::mojo::PendingAssociatedReceiver<::service_manager::mojom::ServiceControl> p_control_receiver{};
@@ -609,6 +611,8 @@ bool Service_OnBindInterface_ForwardToCallback::Accept(
           internal::Service_OnBindInterface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Service.1
   bool success = true;
   Service_OnBindInterface_ResponseParamsDataView input_data_view(params, message);
   
@@ -677,6 +681,8 @@ bool ServiceStubDispatch::Accept(
           reinterpret_cast<internal::Service_CreatePackagedServiceInstance_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Service.2
       bool success = true;
       ::service_manager::Identity p_identity{};
       ::mojo::PendingReceiver<Service> p_receiver{};
@@ -702,10 +708,10 @@ bool ServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePackagedServiceInstance(
-std::move(p_identity), 
-std::move(p_receiver), 
-std::move(p_metadata));
+      impl->CreatePackagedServiceInstance(        
+        std::move(p_identity), 
+        std::move(p_receiver), 
+        std::move(p_metadata));
       return true;
     }
   }
@@ -728,6 +734,8 @@ bool ServiceStubDispatch::AcceptWithResponder(
               internal::Service_OnStart_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Service.0
       bool success = true;
       ::service_manager::Identity p_identity{};
       Service_OnStart_ParamsDataView input_data_view(params, message);
@@ -746,8 +754,8 @@ bool ServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStart(
-std::move(p_identity), std::move(callback));
+      impl->OnStart(        
+        std::move(p_identity), std::move(callback));
       return true;
     }
     case internal::kService_OnBindInterface_Name: {
@@ -757,6 +765,8 @@ std::move(p_identity), std::move(callback));
               internal::Service_OnBindInterface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Service.1
       bool success = true;
       ::service_manager::BindSourceInfo p_source{};
       std::string p_interface_name{};
@@ -781,10 +791,10 @@ std::move(p_identity), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBindInterface(
-std::move(p_source), 
-std::move(p_interface_name), 
-std::move(p_interface_pipe), std::move(callback));
+      impl->OnBindInterface(        
+        std::move(p_source), 
+        std::move(p_interface_name), 
+        std::move(p_interface_pipe), std::move(callback));
       return true;
     }
     case internal::kService_CreatePackagedServiceInstance_Name: {

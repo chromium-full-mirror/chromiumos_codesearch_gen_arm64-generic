@@ -342,6 +342,8 @@ bool DemuxerStream_Initialize_ForwardToCallback::Accept(
           internal::DemuxerStream_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DemuxerStream.0
   bool success = true;
   DemuxerStream::Type p_type{};
   ::mojo::ScopedDataPipeConsumerHandle p_pipe{};
@@ -503,6 +505,8 @@ bool DemuxerStream_Read_ForwardToCallback::Accept(
           internal::DemuxerStream_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DemuxerStream.1
   bool success = true;
   DemuxerStream::Status p_status{};
   WTF::Vector<::media::mojom::blink::DecoderBufferPtr> p_batch_buffers{};
@@ -632,6 +636,8 @@ bool DemuxerStreamStubDispatch::Accept(
           reinterpret_cast<internal::DemuxerStream_EnableBitstreamConverter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DemuxerStream.2
       bool success = true;
       DemuxerStream_EnableBitstreamConverter_ParamsDataView input_data_view(params, message);
       
@@ -644,7 +650,7 @@ bool DemuxerStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableBitstreamConverter();
+      impl->EnableBitstreamConverter(        );
       return true;
     }
   }
@@ -667,6 +673,8 @@ bool DemuxerStreamStubDispatch::AcceptWithResponder(
               internal::DemuxerStream_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DemuxerStream.0
       bool success = true;
       DemuxerStream_Initialize_ParamsDataView input_data_view(params, message);
       
@@ -692,6 +700,8 @@ bool DemuxerStreamStubDispatch::AcceptWithResponder(
               internal::DemuxerStream_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DemuxerStream.1
       bool success = true;
       uint32_t p_count{};
       DemuxerStream_Read_ParamsDataView input_data_view(params, message);
@@ -710,8 +720,8 @@ bool DemuxerStreamStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_count), std::move(callback));
+      impl->Read(        
+        std::move(p_count), std::move(callback));
       return true;
     }
     case internal::kDemuxerStream_EnableBitstreamConverter_Name: {

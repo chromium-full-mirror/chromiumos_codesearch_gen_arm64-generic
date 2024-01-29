@@ -3968,6 +3968,38 @@ struct WebFeature_Data {
       case 4759:
       case 4760:
       case 4761:
+      case 4762:
+      case 4763:
+      case 4764:
+      case 4765:
+      case 4766:
+      case 4767:
+      case 4768:
+      case 4769:
+      case 4770:
+      case 4771:
+      case 4772:
+      case 4773:
+      case 4774:
+      case 4775:
+      case 4776:
+      case 4777:
+      case 4778:
+      case 4779:
+      case 4780:
+      case 4781:
+      case 4782:
+      case 4783:
+      case 4784:
+      case 4785:
+      case 4786:
+      case 4787:
+      case 4788:
+      case 4789:
+      case 4790:
+      case 4791:
+      case 4792:
+      case 4793:
         return true;
     }
     return false;

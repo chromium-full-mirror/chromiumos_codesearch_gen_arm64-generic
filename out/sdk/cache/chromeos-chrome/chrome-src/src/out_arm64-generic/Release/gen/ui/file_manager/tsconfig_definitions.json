@@ -45,7 +45,6 @@
     }
   },
   "files": [
-    "../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/file_manager/file_manager/externs/search_item.js",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/file_manager/file_manager/externs/quick_view.js"
   ]
 }

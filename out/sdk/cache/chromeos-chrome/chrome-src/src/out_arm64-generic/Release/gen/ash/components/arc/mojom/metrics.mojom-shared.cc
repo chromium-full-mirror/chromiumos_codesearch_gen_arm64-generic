@@ -647,34 +647,6 @@ std::ostream& operator<<(std::ostream& os, MainAccountHashMigrationStatus value)
   return os << MainAccountHashMigrationStatusToString(value);
 }
 
-NOINLINE static const char* AndroidDataSubdirectoryToStringHelper(AndroidDataSubdirectory value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case AndroidDataSubdirectory::kUserInstalledAppDir:
-      return "kUserInstalledAppDir";
-    case AndroidDataSubdirectory::kInternalDataDir:
-      return "kInternalDataDir";
-    case AndroidDataSubdirectory::kExternalDataRootUserDir:
-      return "kExternalDataRootUserDir";
-    case AndroidDataSubdirectory::kDEStorageRootUserDir:
-      return "kDEStorageRootUserDir";
-    default:
-      return nullptr;
-  }
-}
-
-std::string AndroidDataSubdirectoryToString(AndroidDataSubdirectory value) {
-  const char *str = AndroidDataSubdirectoryToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown AndroidDataSubdirectory value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, AndroidDataSubdirectory value) {
-  return os << AndroidDataSubdirectoryToString(value);
-}
-
 NOINLINE static const char* WaylandTimingEventToStringHelper(WaylandTimingEvent value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -1604,110 +1576,6 @@ MetricsHost_ReportWaylandLateTimingEvent_Params_Data::MetricsHost_ReportWaylandL
 
 
 // static
-bool MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data* object =
-      static_cast<const MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data*>(data);
-
-  return true;
-}
-
-MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data* object =
-      static_cast<const MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data*>(data);
-
-  return true;
-}
-
-MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data* object =
-      static_cast<const MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->duration, 4, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->duration, validation_context))
-    return false;
-
-  return true;
-}
-
-MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data* object =
-      static_cast<const MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data*>(data);
-
-
-  if (!::arc::mojom::internal::AndroidDataSubdirectory_Data
-        ::Validate(object->target, validation_context))
-    return false;
-
-  return true;
-}
-
-MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool MetricsHost_ReportWebViewProcessStarted_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1829,6 +1697,40 @@ bool MetricsHost_ReportArcKeyMintError_Params_Data::Validate(
 }
 
 MetricsHost_ReportArcKeyMintError_Params_Data::MetricsHost_ReportArcKeyMintError_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MetricsHost_ReportDragResizeLatency_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MetricsHost_ReportDragResizeLatency_Params_Data* object =
+      static_cast<const MetricsHost_ReportDragResizeLatency_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->durations, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& durations_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->durations, validation_context,
+                                         &durations_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+MetricsHost_ReportDragResizeLatency_Params_Data::MetricsHost_ReportDragResizeLatency_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2106,16 +2008,6 @@ namespace perfetto {
 void TraceFormatTraits<::arc::mojom::MainAccountHashMigrationStatus>::WriteIntoTrace(
    perfetto::TracedValue context, ::arc::mojom::MainAccountHashMigrationStatus value) {
   return std::move(context).WriteString(::arc::mojom::MainAccountHashMigrationStatusToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::arc::mojom::AndroidDataSubdirectory>::WriteIntoTrace(
-   perfetto::TracedValue context, ::arc::mojom::AndroidDataSubdirectory value) {
-  return std::move(context).WriteString(::arc::mojom::AndroidDataSubdirectoryToString(value));
 }
 
 } // namespace perfetto

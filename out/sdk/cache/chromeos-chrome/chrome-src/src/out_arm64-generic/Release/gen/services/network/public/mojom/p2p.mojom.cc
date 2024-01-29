@@ -288,6 +288,8 @@ bool P2PNetworkNotificationClientStubDispatch::Accept(
           reinterpret_cast<internal::P2PNetworkNotificationClient_NetworkListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PNetworkNotificationClient.0
       bool success = true;
       std::vector<::net::NetworkInterface> p_networks{};
       ::net::IPAddress p_default_ipv4_local_address{};
@@ -309,10 +311,10 @@ bool P2PNetworkNotificationClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NetworkListChanged(
-std::move(p_networks), 
-std::move(p_default_ipv4_local_address), 
-std::move(p_default_ipv6_local_address));
+      impl->NetworkListChanged(        
+        std::move(p_networks), 
+        std::move(p_default_ipv4_local_address), 
+        std::move(p_default_ipv6_local_address));
       return true;
     }
   }
@@ -832,6 +834,8 @@ bool P2PSocketManager_GetHostAddress_ForwardToCallback::Accept(
           internal::P2PSocketManager_GetHostAddress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for P2PSocketManager.1
   bool success = true;
   std::vector<::net::IPAddress> p_addresses{};
   P2PSocketManager_GetHostAddress_ResponseParamsDataView input_data_view(params, message);
@@ -963,6 +967,8 @@ bool P2PSocketManager_GetHostAddressWithFamily_ForwardToCallback::Accept(
           internal::P2PSocketManager_GetHostAddressWithFamily_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for P2PSocketManager.2
   bool success = true;
   std::vector<::net::IPAddress> p_addresses{};
   P2PSocketManager_GetHostAddressWithFamily_ResponseParamsDataView input_data_view(params, message);
@@ -1049,6 +1055,8 @@ bool P2PSocketManagerStubDispatch::Accept(
           reinterpret_cast<internal::P2PSocketManager_StartNetworkNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocketManager.0
       bool success = true;
       ::mojo::PendingRemote<P2PNetworkNotificationClient> p_client{};
       P2PSocketManager_StartNetworkNotifications_ParamsDataView input_data_view(params, message);
@@ -1066,8 +1074,8 @@ bool P2PSocketManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartNetworkNotifications(
-std::move(p_client));
+      impl->StartNetworkNotifications(        
+        std::move(p_client));
       return true;
     }
     case internal::kP2PSocketManager_GetHostAddress_Name: {
@@ -1083,6 +1091,8 @@ std::move(p_client));
           reinterpret_cast<internal::P2PSocketManager_CreateSocket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocketManager.3
       bool success = true;
       ::network::P2PSocketType p_type{};
       ::net::IPEndPoint p_local_address{};
@@ -1120,14 +1130,14 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateSocket(
-std::move(p_type), 
-std::move(p_local_address), 
-std::move(p_port_range), 
-std::move(p_remote_address), 
-std::move(p_traffic_annotation), 
-std::move(p_client), 
-std::move(p_socket));
+      impl->CreateSocket(        
+        std::move(p_type), 
+        std::move(p_local_address), 
+        std::move(p_port_range), 
+        std::move(p_remote_address), 
+        std::move(p_traffic_annotation), 
+        std::move(p_client), 
+        std::move(p_socket));
       return true;
     }
   }
@@ -1153,6 +1163,8 @@ bool P2PSocketManagerStubDispatch::AcceptWithResponder(
               internal::P2PSocketManager_GetHostAddress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for P2PSocketManager.1
       bool success = true;
       std::string p_host_name{};
       bool p_enable_mdns{};
@@ -1174,9 +1186,9 @@ bool P2PSocketManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHostAddress(
-std::move(p_host_name), 
-std::move(p_enable_mdns), std::move(callback));
+      impl->GetHostAddress(        
+        std::move(p_host_name), 
+        std::move(p_enable_mdns), std::move(callback));
       return true;
     }
     case internal::kP2PSocketManager_GetHostAddressWithFamily_Name: {
@@ -1186,6 +1198,8 @@ std::move(p_enable_mdns), std::move(callback));
               internal::P2PSocketManager_GetHostAddressWithFamily_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for P2PSocketManager.2
       bool success = true;
       std::string p_host_name{};
       int32_t p_address_family{};
@@ -1210,10 +1224,10 @@ std::move(p_enable_mdns), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHostAddressWithFamily(
-std::move(p_host_name), 
-std::move(p_address_family), 
-std::move(p_enable_mdns), std::move(callback));
+      impl->GetHostAddressWithFamily(        
+        std::move(p_host_name), 
+        std::move(p_address_family), 
+        std::move(p_enable_mdns), std::move(callback));
       return true;
     }
     case internal::kP2PSocketManager_CreateSocket_Name: {
@@ -1519,6 +1533,8 @@ bool P2PSocketStubDispatch::Accept(
           reinterpret_cast<internal::P2PSocket_Send_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocket.0
       bool success = true;
       ::base::span<const ::uint8_t> p_data{};
       ::network::P2PPacketInfo p_packet_info{};
@@ -1537,9 +1553,9 @@ bool P2PSocketStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Send(
-std::move(p_data), 
-std::move(p_packet_info));
+      impl->Send(        
+        std::move(p_data), 
+        std::move(p_packet_info));
       return true;
     }
     case internal::kP2PSocket_SendBatch_Name: {
@@ -1549,6 +1565,8 @@ std::move(p_packet_info));
           reinterpret_cast<internal::P2PSocket_SendBatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocket.1
       bool success = true;
       std::vector<P2PSendPacketPtr> p_packet_batch{};
       P2PSocket_SendBatch_ParamsDataView input_data_view(params, message);
@@ -1564,8 +1582,8 @@ std::move(p_packet_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendBatch(
-std::move(p_packet_batch));
+      impl->SendBatch(        
+        std::move(p_packet_batch));
       return true;
     }
     case internal::kP2PSocket_SetOption_Name: {
@@ -1575,6 +1593,8 @@ std::move(p_packet_batch));
           reinterpret_cast<internal::P2PSocket_SetOption_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocket.2
       bool success = true;
       ::network::P2PSocketOption p_option{};
       int32_t p_value{};
@@ -1593,9 +1613,9 @@ std::move(p_packet_batch));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOption(
-std::move(p_option), 
-std::move(p_value));
+      impl->SetOption(        
+        std::move(p_option), 
+        std::move(p_value));
       return true;
     }
   }
@@ -1992,6 +2012,8 @@ bool P2PSocketClientStubDispatch::Accept(
           reinterpret_cast<internal::P2PSocketClient_SocketCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocketClient.0
       bool success = true;
       ::net::IPEndPoint p_local_address{};
       ::net::IPEndPoint p_remote_address{};
@@ -2010,9 +2032,9 @@ bool P2PSocketClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SocketCreated(
-std::move(p_local_address), 
-std::move(p_remote_address));
+      impl->SocketCreated(        
+        std::move(p_local_address), 
+        std::move(p_remote_address));
       return true;
     }
     case internal::kP2PSocketClient_SendComplete_Name: {
@@ -2022,6 +2044,8 @@ std::move(p_remote_address));
           reinterpret_cast<internal::P2PSocketClient_SendComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocketClient.1
       bool success = true;
       ::network::P2PSendPacketMetrics p_send_metrics{};
       P2PSocketClient_SendComplete_ParamsDataView input_data_view(params, message);
@@ -2037,8 +2061,8 @@ std::move(p_remote_address));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendComplete(
-std::move(p_send_metrics));
+      impl->SendComplete(        
+        std::move(p_send_metrics));
       return true;
     }
     case internal::kP2PSocketClient_SendBatchComplete_Name: {
@@ -2048,6 +2072,8 @@ std::move(p_send_metrics));
           reinterpret_cast<internal::P2PSocketClient_SendBatchComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocketClient.2
       bool success = true;
       std::vector<::network::P2PSendPacketMetrics> p_send_metrics_batch{};
       P2PSocketClient_SendBatchComplete_ParamsDataView input_data_view(params, message);
@@ -2063,8 +2089,8 @@ std::move(p_send_metrics));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendBatchComplete(
-std::move(p_send_metrics_batch));
+      impl->SendBatchComplete(        
+        std::move(p_send_metrics_batch));
       return true;
     }
     case internal::kP2PSocketClient_DataReceived_Name: {
@@ -2074,6 +2100,8 @@ std::move(p_send_metrics_batch));
           reinterpret_cast<internal::P2PSocketClient_DataReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PSocketClient.3
       bool success = true;
       std::vector<P2PReceivedPacketPtr> p_packets{};
       P2PSocketClient_DataReceived_ParamsDataView input_data_view(params, message);
@@ -2089,8 +2117,8 @@ std::move(p_send_metrics_batch));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DataReceived(
-std::move(p_packets));
+      impl->DataReceived(        
+        std::move(p_packets));
       return true;
     }
   }

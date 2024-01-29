@@ -40,6 +40,21 @@ class  UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data {
 };
 static_assert(sizeof(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data) == 24,
               "Bad sizeof(UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data)");
+class  UntrustedPageHandlerFactory_ShouldShowUI_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<UntrustedPageHandlerFactory_ShouldShowUI_Params_Data>;
+
+  UntrustedPageHandlerFactory_ShouldShowUI_Params_Data();
+  ~UntrustedPageHandlerFactory_ShouldShowUI_Params_Data() = delete;
+};
+static_assert(sizeof(UntrustedPageHandlerFactory_ShouldShowUI_Params_Data) == 8,
+              "Bad sizeof(UntrustedPageHandlerFactory_ShouldShowUI_Params_Data)");
 class  UntrustedPageHandler_OnCopy_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -121,6 +136,23 @@ class  UntrustedPageHandler_OnFontSizeChange_Params_Data {
 };
 static_assert(sizeof(UntrustedPageHandler_OnFontSizeChange_Params_Data) == 16,
               "Bad sizeof(UntrustedPageHandler_OnFontSizeChange_Params_Data)");
+class  UntrustedPageHandler_OnLinksEnabledChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<UntrustedPageHandler_OnLinksEnabledChanged_Params_Data>;
+
+  UntrustedPageHandler_OnLinksEnabledChanged_Params_Data();
+  ~UntrustedPageHandler_OnLinksEnabledChanged_Params_Data() = delete;
+};
+static_assert(sizeof(UntrustedPageHandler_OnLinksEnabledChanged_Params_Data) == 16,
+              "Bad sizeof(UntrustedPageHandler_OnLinksEnabledChanged_Params_Data)");
 class  UntrustedPageHandler_OnColorChange_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -353,10 +385,13 @@ class  UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data {
   int32_t letter_spacing;
   mojo::internal::Pointer<mojo::internal::String_Data> font;
   double font_size;
+  uint8_t links_enabled : 1;
+  uint8_t pad4_[3];
   int32_t color;
-  int32_t granularity;
   double speech_rate;
   mojo::internal::Pointer<::mojo_base::mojom::internal::DictionaryValue_Data> voices;
+  int32_t granularity;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data>;
@@ -364,7 +399,7 @@ class  UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data {
   UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data();
   ~UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data() = delete;
 };
-static_assert(sizeof(UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data) == 56,
+static_assert(sizeof(UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data) == 64,
               "Bad sizeof(UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data)");
 class  UntrustedPage_ScreenAIServiceReady_Params_Data {
  public:
@@ -416,6 +451,21 @@ class UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsDataView {
  private:
   internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class UntrustedPageHandlerFactory_ShouldShowUI_ParamsDataView {
+ public:
+  UntrustedPageHandlerFactory_ShouldShowUI_ParamsDataView() = default;
+
+  UntrustedPageHandlerFactory_ShouldShowUI_ParamsDataView(
+      internal::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data* data_ = nullptr;
 };
 
 
@@ -525,6 +575,24 @@ class UntrustedPageHandler_OnFontSizeChange_ParamsDataView {
   }
  private:
   internal::UntrustedPageHandler_OnFontSizeChange_Params_Data* data_ = nullptr;
+};
+
+
+class UntrustedPageHandler_OnLinksEnabledChanged_ParamsDataView {
+ public:
+  UntrustedPageHandler_OnLinksEnabledChanged_ParamsDataView() = default;
+
+  UntrustedPageHandler_OnLinksEnabledChanged_ParamsDataView(
+      internal::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enabled() const {
+    return data_->enabled;
+  }
+ private:
+  internal::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data* data_ = nullptr;
 };
 
 
@@ -949,6 +1017,9 @@ class UntrustedPage_OnSettingsRestoredFromPrefs_ParamsDataView {
   double font_size() const {
     return data_->font_size;
   }
+  bool links_enabled() const {
+    return data_->links_enabled;
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadColor(UserType* output) const {
     auto data_value = data_->color;
@@ -1010,11 +1081,15 @@ class UntrustedPage_ScreenAIServiceReady_ParamsDataView {
 
 
 
+
+
 inline void UntrustedPageHandler_OnFontChange_ParamsDataView::GetFontDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->font.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

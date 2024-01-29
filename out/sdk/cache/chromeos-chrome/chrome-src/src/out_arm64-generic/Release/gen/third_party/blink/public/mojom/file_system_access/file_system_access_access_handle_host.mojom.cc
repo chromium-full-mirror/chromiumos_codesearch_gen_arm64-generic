@@ -271,6 +271,8 @@ bool FileSystemAccessAccessHandleHost_Close_ForwardToCallback::Accept(
           internal::FileSystemAccessAccessHandleHost_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessAccessHandleHost.0
   bool success = true;
   FileSystemAccessAccessHandleHost_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -328,6 +330,8 @@ bool FileSystemAccessAccessHandleHost_Close_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileSystemAccessAccessHandleHost_Close_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessAccessHandleHost.0
   bool success = true;
   FileSystemAccessAccessHandleHost_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -370,6 +374,8 @@ bool FileSystemAccessAccessHandleHostStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessAccessHandleHost_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessAccessHandleHost.0
       bool success = true;
       FileSystemAccessAccessHandleHost_Close_ParamsDataView input_data_view(params, message);
       

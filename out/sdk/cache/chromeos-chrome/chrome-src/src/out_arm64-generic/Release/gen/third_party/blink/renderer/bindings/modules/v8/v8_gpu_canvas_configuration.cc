@@ -106,64 +106,35 @@ bool GPUCanvasConfiguration::FillV8ObjectWithMembers(ScriptState* script_state, 
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAlphaMode()) {
-  if (!ToV8Traits<V8GPUCanvasAlphaMode>::ToV8(script_state, member_alpha_mode_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUCanvasAlphaMode>::ToV8(script_state, member_alpha_mode_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasColorSpace()) {
-  if (!ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasDevice()) {
-  if (!ToV8Traits<GPUDevice>::ToV8(script_state, member_device_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<GPUDevice>::ToV8(script_state, member_device_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasFormat()) {
-  if (!ToV8Traits<V8GPUTextureFormat>::ToV8(script_state, member_format_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUTextureFormat>::ToV8(script_state, member_format_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (RuntimeEnabledFeatures::CanvasHDREnabled()) {
   if (hasHdrOptions()) {
-  if (!ToV8Traits<CanvasHighDynamicRangeOptions>::ToV8(script_state, member_hdr_options_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<CanvasHighDynamicRangeOptions>::ToV8(script_state, member_hdr_options_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasUsage()) {
-  if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasViewFormats()) {
-  if (!ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

@@ -228,6 +228,8 @@ bool VideoDecodePerfHistory_GetPerfInfo_ForwardToCallback::Accept(
           internal::VideoDecodePerfHistory_GetPerfInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecodePerfHistory.0
   bool success = true;
   bool p_is_smooth{};
   bool p_is_power_efficient{};
@@ -326,6 +328,8 @@ bool VideoDecodePerfHistoryStubDispatch::AcceptWithResponder(
               internal::VideoDecodePerfHistory_GetPerfInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecodePerfHistory.0
       bool success = true;
       ::media::mojom::PredictionFeaturesPtr p_features{};
       VideoDecodePerfHistory_GetPerfInfo_ParamsDataView input_data_view(params, message);
@@ -344,8 +348,8 @@ bool VideoDecodePerfHistoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPerfInfo(
-std::move(p_features), std::move(callback));
+      impl->GetPerfInfo(        
+        std::move(p_features), std::move(callback));
       return true;
     }
   }

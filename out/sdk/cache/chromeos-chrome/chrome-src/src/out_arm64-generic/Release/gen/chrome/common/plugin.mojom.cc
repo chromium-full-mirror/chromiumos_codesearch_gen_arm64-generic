@@ -354,6 +354,8 @@ bool PluginHostStubDispatch::Accept(
           reinterpret_cast<internal::PluginHost_CouldNotLoadPlugin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PluginHost.0
       bool success = true;
       ::base::FilePath p_file_path{};
       PluginHost_CouldNotLoadPlugin_ParamsDataView input_data_view(params, message);
@@ -369,8 +371,8 @@ bool PluginHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CouldNotLoadPlugin(
-std::move(p_file_path));
+      impl->CouldNotLoadPlugin(        
+        std::move(p_file_path));
       return true;
     }
     case internal::kPluginHost_OpenPDF_Name: {
@@ -380,6 +382,8 @@ std::move(p_file_path));
           reinterpret_cast<internal::PluginHost_OpenPDF_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PluginHost.1
       bool success = true;
       ::GURL p_url{};
       PluginHost_OpenPDF_ParamsDataView input_data_view(params, message);
@@ -395,8 +399,8 @@ std::move(p_file_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenPDF(
-std::move(p_url));
+      impl->OpenPDF(        
+        std::move(p_url));
       return true;
     }
   }
@@ -571,6 +575,8 @@ bool PluginAuthHostStubDispatch::Accept(
           reinterpret_cast<internal::PluginAuthHost_BlockedUnauthorizedPlugin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PluginAuthHost.0
       bool success = true;
       ::std::u16string p_name{};
       std::string p_group_id{};
@@ -589,9 +595,9 @@ bool PluginAuthHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BlockedUnauthorizedPlugin(
-std::move(p_name), 
-std::move(p_group_id));
+      impl->BlockedUnauthorizedPlugin(        
+        std::move(p_name), 
+        std::move(p_group_id));
       return true;
     }
   }
@@ -952,6 +958,8 @@ bool PluginInfoHost_GetPluginInfo_ForwardToCallback::Accept(
           internal::PluginInfoHost_GetPluginInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PluginInfoHost.0
   bool success = true;
   PluginInfoPtr p_plugin_info{};
   PluginInfoHost_GetPluginInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1031,6 +1039,8 @@ bool PluginInfoHost_GetPluginInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PluginInfoHost_GetPluginInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PluginInfoHost.0
   bool success = true;
   PluginInfoPtr p_plugin_info{};
   PluginInfoHost_GetPluginInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1077,6 +1087,8 @@ bool PluginInfoHostStubDispatch::AcceptWithResponder(
               internal::PluginInfoHost_GetPluginInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PluginInfoHost.0
       bool success = true;
       ::GURL p_url{};
       ::url::Origin p_origin{};
@@ -1101,10 +1113,10 @@ bool PluginInfoHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPluginInfo(
-std::move(p_url), 
-std::move(p_origin), 
-std::move(p_mime_type), std::move(callback));
+      impl->GetPluginInfo(        
+        std::move(p_url), 
+        std::move(p_origin), 
+        std::move(p_mime_type), std::move(callback));
       return true;
     }
   }

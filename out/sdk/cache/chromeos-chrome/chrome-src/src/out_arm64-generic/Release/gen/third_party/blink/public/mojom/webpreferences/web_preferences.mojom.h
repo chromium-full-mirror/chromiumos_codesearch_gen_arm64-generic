@@ -118,7 +118,7 @@ class BLINK_COMMON_EXPORT WebPreferences {
       bool privileged_webgl_extensions_enabled,
       bool webgl_errors_to_console_enabled,
       bool hide_scrollbars,
-      bool enable_webkit_scrollbar_styling,
+      bool prefers_default_scrollbar_styles,
       bool accelerated_2d_canvas_enabled,
       bool canvas_2d_layers_enabled,
       bool antialiased_2d_canvas_disabled,
@@ -367,7 +367,7 @@ class BLINK_COMMON_EXPORT WebPreferences {
   
   bool hide_scrollbars;
   
-  bool enable_webkit_scrollbar_styling;
+  bool prefers_default_scrollbar_styles;
   
   bool accelerated_2d_canvas_enabled;
   
@@ -626,7 +626,7 @@ WebPreferencesPtr WebPreferences::Clone() const {
       mojo::Clone(privileged_webgl_extensions_enabled),
       mojo::Clone(webgl_errors_to_console_enabled),
       mojo::Clone(hide_scrollbars),
-      mojo::Clone(enable_webkit_scrollbar_styling),
+      mojo::Clone(prefers_default_scrollbar_styles),
       mojo::Clone(accelerated_2d_canvas_enabled),
       mojo::Clone(canvas_2d_layers_enabled),
       mojo::Clone(antialiased_2d_canvas_disabled),
@@ -803,7 +803,7 @@ bool WebPreferences::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->hide_scrollbars, other_struct.hide_scrollbars))
     return false;
-  if (!mojo::Equals(this->enable_webkit_scrollbar_styling, other_struct.enable_webkit_scrollbar_styling))
+  if (!mojo::Equals(this->prefers_default_scrollbar_styles, other_struct.prefers_default_scrollbar_styles))
     return false;
   if (!mojo::Equals(this->accelerated_2d_canvas_enabled, other_struct.accelerated_2d_canvas_enabled))
     return false;
@@ -1152,9 +1152,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.hide_scrollbars < lhs.hide_scrollbars)
     return false;
-  if (lhs.enable_webkit_scrollbar_styling < rhs.enable_webkit_scrollbar_styling)
+  if (lhs.prefers_default_scrollbar_styles < rhs.prefers_default_scrollbar_styles)
     return true;
-  if (rhs.enable_webkit_scrollbar_styling < lhs.enable_webkit_scrollbar_styling)
+  if (rhs.prefers_default_scrollbar_styles < lhs.prefers_default_scrollbar_styles)
     return false;
   if (lhs.accelerated_2d_canvas_enabled < rhs.accelerated_2d_canvas_enabled)
     return true;
@@ -1738,9 +1738,9 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPreferences::DataView
     return input->hide_scrollbars;
   }
 
-  static decltype(::blink::mojom::WebPreferences::enable_webkit_scrollbar_styling) enable_webkit_scrollbar_styling(
+  static decltype(::blink::mojom::WebPreferences::prefers_default_scrollbar_styles) prefers_default_scrollbar_styles(
       const ::blink::mojom::WebPreferencesPtr& input) {
-    return input->enable_webkit_scrollbar_styling;
+    return input->prefers_default_scrollbar_styles;
   }
 
   static decltype(::blink::mojom::WebPreferences::accelerated_2d_canvas_enabled) accelerated_2d_canvas_enabled(

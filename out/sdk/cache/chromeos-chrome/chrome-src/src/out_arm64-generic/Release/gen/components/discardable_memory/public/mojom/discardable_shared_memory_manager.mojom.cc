@@ -283,6 +283,8 @@ bool DiscardableSharedMemoryManager_AllocateLockedDiscardableSharedMemory_Forwar
           internal::DiscardableSharedMemoryManager_AllocateLockedDiscardableSharedMemory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscardableSharedMemoryManager.0
   bool success = true;
   ::base::UnsafeSharedMemoryRegion p_region{};
   DiscardableSharedMemoryManager_AllocateLockedDiscardableSharedMemory_ResponseParamsDataView input_data_view(params, message);
@@ -366,6 +368,8 @@ bool DiscardableSharedMemoryManagerStubDispatch::Accept(
           reinterpret_cast<internal::DiscardableSharedMemoryManager_DeletedDiscardableSharedMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DiscardableSharedMemoryManager.1
       bool success = true;
       int32_t p_id{};
       DiscardableSharedMemoryManager_DeletedDiscardableSharedMemory_ParamsDataView input_data_view(params, message);
@@ -381,8 +385,8 @@ bool DiscardableSharedMemoryManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeletedDiscardableSharedMemory(
-std::move(p_id));
+      impl->DeletedDiscardableSharedMemory(        
+        std::move(p_id));
       return true;
     }
   }
@@ -405,6 +409,8 @@ bool DiscardableSharedMemoryManagerStubDispatch::AcceptWithResponder(
               internal::DiscardableSharedMemoryManager_AllocateLockedDiscardableSharedMemory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscardableSharedMemoryManager.0
       bool success = true;
       uint32_t p_size{};
       int32_t p_id{};
@@ -426,9 +432,9 @@ bool DiscardableSharedMemoryManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllocateLockedDiscardableSharedMemory(
-std::move(p_size), 
-std::move(p_id), std::move(callback));
+      impl->AllocateLockedDiscardableSharedMemory(        
+        std::move(p_size), 
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kDiscardableSharedMemoryManager_DeletedDiscardableSharedMemory_Name: {

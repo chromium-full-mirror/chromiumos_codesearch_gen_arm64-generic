@@ -2694,8 +2694,8 @@ RequestDetails RequestDetails::Clone() const {
 // static
 bool RequestDetails::Populate(
     const base::Value::Dict& dict, RequestDetails& out, std::u16string& error) {
-  out.frame_type = extension_types::FrameType();
-  out.document_lifecycle = extension_types::DocumentLifecycle();
+  out.frame_type = extensions::api::extension_types::FrameType();
+  out.document_lifecycle = extensions::api::extension_types::DocumentLifecycle();
   const base::Value* request_id_value = dict.Find("requestId");
   if (!request_id_value) {
     DCHECK(error.empty());
@@ -2797,15 +2797,15 @@ bool RequestDetails::Populate(
         error = u"'FrameType': expected string, got " + UTF8ToUTF16(base::Value::GetTypeName((*frame_type_value).type()));
         return false;
       }
-      out.frame_type = extension_types::ParseFrameType(*frame_type_as_string);
-      if (out.frame_type == extension_types::FrameType()) {
+      out.frame_type = extensions::api::extension_types::ParseFrameType(*frame_type_as_string);
+      if (out.frame_type == extensions::api::extension_types::FrameType()) {
         DCHECK(error.empty());
-        error = u"'FrameType': " + extension_types::GetFrameTypeParseError(*frame_type_as_string);
+        error = u"'FrameType': " + extensions::api::extension_types::GetFrameTypeParseError(*frame_type_as_string);
         return false;
       }
     }
     } else {
-    out.frame_type = extension_types::FrameType();
+    out.frame_type = extensions::api::extension_types::FrameType();
   }
 
   const base::Value* document_lifecycle_value = dict.Find("documentLifecycle");
@@ -2817,15 +2817,15 @@ bool RequestDetails::Populate(
         error = u"'DocumentLifecycle': expected string, got " + UTF8ToUTF16(base::Value::GetTypeName((*document_lifecycle_value).type()));
         return false;
       }
-      out.document_lifecycle = extension_types::ParseDocumentLifecycle(*document_lifecycle_as_string);
-      if (out.document_lifecycle == extension_types::DocumentLifecycle()) {
+      out.document_lifecycle = extensions::api::extension_types::ParseDocumentLifecycle(*document_lifecycle_as_string);
+      if (out.document_lifecycle == extensions::api::extension_types::DocumentLifecycle()) {
         DCHECK(error.empty());
-        error = u"'DocumentLifecycle': " + extension_types::GetDocumentLifecycleParseError(*document_lifecycle_as_string);
+        error = u"'DocumentLifecycle': " + extensions::api::extension_types::GetDocumentLifecycleParseError(*document_lifecycle_as_string);
         return false;
       }
     }
     } else {
-    out.document_lifecycle = extension_types::DocumentLifecycle();
+    out.document_lifecycle = extensions::api::extension_types::DocumentLifecycle();
   }
 
   const base::Value* parent_frame_id_value = dict.Find("parentFrameId");
@@ -2952,11 +2952,11 @@ base::Value::Dict RequestDetails::ToValue() const {
     to_value_result.Set("documentId", *this->document_id);
 
   }
-  if (this->frame_type != extension_types::FrameType()) {
+  if (this->frame_type != extensions::api::extension_types::FrameType()) {
     to_value_result.Set("frameType", extension_types::ToString(this->frame_type));
 
   }
-  if (this->document_lifecycle != extension_types::DocumentLifecycle()) {
+  if (this->document_lifecycle != extensions::api::extension_types::DocumentLifecycle()) {
     to_value_result.Set("documentLifecycle", extension_types::ToString(this->document_lifecycle));
 
   }

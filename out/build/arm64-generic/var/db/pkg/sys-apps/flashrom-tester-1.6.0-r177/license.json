@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "flashrom-tester", "version": "1.6.0", "revision": 177, "fullname": "sys-apps/flashrom-tester", "fullnamerev": "sys-apps/flashrom-tester-1.6.0-r177", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.flashrom.org/Flashrom"], "skip": false, "tainted": false, "ebuild_path": null}

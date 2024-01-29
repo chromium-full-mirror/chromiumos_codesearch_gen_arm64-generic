@@ -294,6 +294,8 @@ bool DeskProfileObserverStubDispatch::Accept(
           reinterpret_cast<internal::DeskProfileObserver_OnProfileUpsert_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskProfileObserver.0
       bool success = true;
       std::vector<LacrosProfileSummaryPtr> p_profiles{};
       DeskProfileObserver_OnProfileUpsert_ParamsDataView input_data_view(params, message);
@@ -309,8 +311,8 @@ bool DeskProfileObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProfileUpsert(
-std::move(p_profiles));
+      impl->OnProfileUpsert(        
+        std::move(p_profiles));
       return true;
     }
     case internal::kDeskProfileObserver_OnProfileRemoved_Name: {
@@ -320,6 +322,8 @@ std::move(p_profiles));
           reinterpret_cast<internal::DeskProfileObserver_OnProfileRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskProfileObserver.1
       bool success = true;
       uint64_t p_profile_id{};
       DeskProfileObserver_OnProfileRemoved_ParamsDataView input_data_view(params, message);
@@ -335,8 +339,8 @@ std::move(p_profiles));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProfileRemoved(
-std::move(p_profile_id));
+      impl->OnProfileRemoved(        
+        std::move(p_profile_id));
       return true;
     }
   }

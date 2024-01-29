@@ -20,6 +20,7 @@ constexpr uint32_t kBrowserCdmFactory_GetHwConfigData_Name = 2;
 constexpr uint32_t kBrowserCdmFactory_GetScreenResolutions_Name = 3;
 constexpr uint32_t kBrowserCdmFactory_GetAndroidHwKeyData_Name = 4;
 constexpr uint32_t kBrowserCdmFactory_AllocateSecureBuffer_Name = 5;
+constexpr uint32_t kBrowserCdmFactory_ParseEncryptedSliceHeader_Name = 6;
 
 }  // namespace internal
 

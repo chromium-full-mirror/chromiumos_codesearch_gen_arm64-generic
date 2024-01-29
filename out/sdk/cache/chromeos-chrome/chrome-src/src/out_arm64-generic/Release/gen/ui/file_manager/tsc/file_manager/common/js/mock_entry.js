@@ -44,7 +44,7 @@ export class MockFileSystem {
             let path;
             let metadata;
             let content;
-            if (typeof (entry) == 'string') {
+            if (typeof (entry) === 'string') {
                 path = entry;
             }
             else {

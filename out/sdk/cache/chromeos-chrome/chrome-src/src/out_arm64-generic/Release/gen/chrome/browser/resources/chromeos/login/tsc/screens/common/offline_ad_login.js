@@ -77,7 +77,7 @@ OfflineAdLoginBase.$;
 /**
  * @polymer
  */
-class OfflineAdLogin extends OfflineAdLoginBase {
+export class OfflineAdLogin extends OfflineAdLoginBase {
     static get is() {
         return 'offline-ad-login-element';
     }
@@ -183,6 +183,7 @@ class OfflineAdLogin extends OfflineAdLoginBase {
     }
     constructor() {
         super();
+        this.machineName = '';
         /**
          * Used for 'More options' dialog.
          * @private {string}
@@ -427,6 +428,10 @@ class OfflineAdLogin extends OfflineAdLoginBase {
         this.backToUnlockButtonVisible_ = true;
         this.setUIStep(ADLoginStep.CREDS);
         this.focus();
+    }
+    // TODO(b/314761865): Remove this method once this file is migrated to TS.
+    setUIStep(step) {
+        super.setUIStep(step);
     }
     /** @private */
     onBackToUnlock_() {

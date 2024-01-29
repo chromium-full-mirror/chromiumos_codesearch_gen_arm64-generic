@@ -464,6 +464,8 @@ bool ClientCertificateResponderStubDispatch::Accept(
           reinterpret_cast<internal::ClientCertificateResponder_ContinueWithCertificate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClientCertificateResponder.0
       bool success = true;
       ::scoped_refptr<::net::X509Certificate> p_x509_certificate{};
       std::string p_provider_name{};
@@ -490,11 +492,11 @@ bool ClientCertificateResponderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContinueWithCertificate(
-std::move(p_x509_certificate), 
-std::move(p_provider_name), 
-std::move(p_algorithm_preferences), 
-std::move(p_ssl_private_key));
+      impl->ContinueWithCertificate(        
+        std::move(p_x509_certificate), 
+        std::move(p_provider_name), 
+        std::move(p_algorithm_preferences), 
+        std::move(p_ssl_private_key));
       return true;
     }
     case internal::kClientCertificateResponder_ContinueWithoutCertificate_Name: {
@@ -504,6 +506,8 @@ std::move(p_ssl_private_key));
           reinterpret_cast<internal::ClientCertificateResponder_ContinueWithoutCertificate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClientCertificateResponder.1
       bool success = true;
       ClientCertificateResponder_ContinueWithoutCertificate_ParamsDataView input_data_view(params, message);
       
@@ -516,7 +520,7 @@ std::move(p_ssl_private_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContinueWithoutCertificate();
+      impl->ContinueWithoutCertificate(        );
       return true;
     }
     case internal::kClientCertificateResponder_CancelRequest_Name: {
@@ -526,6 +530,8 @@ std::move(p_ssl_private_key));
           reinterpret_cast<internal::ClientCertificateResponder_CancelRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClientCertificateResponder.2
       bool success = true;
       ClientCertificateResponder_CancelRequest_ParamsDataView input_data_view(params, message);
       
@@ -538,7 +544,7 @@ std::move(p_ssl_private_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelRequest();
+      impl->CancelRequest(        );
       return true;
     }
   }
@@ -772,6 +778,8 @@ bool SSLPrivateKey_Sign_ForwardToCallback::Accept(
           internal::SSLPrivateKey_Sign_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SSLPrivateKey.0
   bool success = true;
   int32_t p_net_error{};
   std::vector<uint8_t> p_signature{};
@@ -882,6 +890,8 @@ bool SSLPrivateKeyStubDispatch::AcceptWithResponder(
               internal::SSLPrivateKey_Sign_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SSLPrivateKey.0
       bool success = true;
       uint16_t p_algorithm{};
       std::vector<uint8_t> p_input{};
@@ -903,9 +913,9 @@ bool SSLPrivateKeyStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Sign(
-std::move(p_algorithm), 
-std::move(p_input), std::move(callback));
+      impl->Sign(        
+        std::move(p_algorithm), 
+        std::move(p_input), std::move(callback));
       return true;
     }
   }
@@ -1045,6 +1055,8 @@ bool AuthChallengeResponderStubDispatch::Accept(
           reinterpret_cast<internal::AuthChallengeResponder_OnAuthCredentials_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthChallengeResponder.0
       bool success = true;
       std::optional<::net::AuthCredentials> p_credentials{};
       AuthChallengeResponder_OnAuthCredentials_ParamsDataView input_data_view(params, message);
@@ -1060,8 +1072,8 @@ bool AuthChallengeResponderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthCredentials(
-std::move(p_credentials));
+      impl->OnAuthCredentials(        
+        std::move(p_credentials));
       return true;
     }
   }
@@ -2082,6 +2094,8 @@ bool URLLoaderNetworkServiceObserver_OnSSLCertificateError_ForwardToCallback::Ac
           internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for URLLoaderNetworkServiceObserver.0
   bool success = true;
   int32_t p_net_error{};
   URLLoaderNetworkServiceObserver_OnSSLCertificateError_ResponseParamsDataView input_data_view(params, message);
@@ -2201,6 +2215,8 @@ bool URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Fo
           internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for URLLoaderNetworkServiceObserver.3
   bool success = true;
   bool p_permission_granted{};
   URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_ResponseParamsDataView input_data_view(params, message);
@@ -2320,6 +2336,8 @@ bool URLLoaderNetworkServiceObserver_OnClearSiteData_ForwardToCallback::Accept(
           internal::URLLoaderNetworkServiceObserver_OnClearSiteData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for URLLoaderNetworkServiceObserver.4
   bool success = true;
   URLLoaderNetworkServiceObserver_OnClearSiteData_ResponseParamsDataView input_data_view(params, message);
   
@@ -2427,6 +2445,8 @@ bool URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ForwardToCallback::Acc
           internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for URLLoaderNetworkServiceObserver.5
   bool success = true;
   URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ResponseParamsDataView input_data_view(params, message);
   
@@ -2534,6 +2554,8 @@ bool URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ForwardToCall
           internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for URLLoaderNetworkServiceObserver.7
   bool success = true;
   URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ResponseParamsDataView input_data_view(params, message);
   
@@ -2599,6 +2621,8 @@ bool URLLoaderNetworkServiceObserverStubDispatch::Accept(
           reinterpret_cast<internal::URLLoaderNetworkServiceObserver_OnCertificateRequested_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.1
       bool success = true;
       std::optional<::base::UnguessableToken> p_window_id{};
       ::scoped_refptr<::net::SSLCertRequestInfo> p_cert_info{};
@@ -2622,10 +2646,10 @@ bool URLLoaderNetworkServiceObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCertificateRequested(
-std::move(p_window_id), 
-std::move(p_cert_info), 
-std::move(p_cert_responder));
+      impl->OnCertificateRequested(        
+        std::move(p_window_id), 
+        std::move(p_cert_info), 
+        std::move(p_cert_responder));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnAuthRequired_Name: {
@@ -2635,6 +2659,8 @@ std::move(p_cert_responder));
           reinterpret_cast<internal::URLLoaderNetworkServiceObserver_OnAuthRequired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.2
       bool success = true;
       std::optional<::base::UnguessableToken> p_window_id{};
       uint32_t p_request_id{};
@@ -2670,14 +2696,14 @@ std::move(p_cert_responder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthRequired(
-std::move(p_window_id), 
-std::move(p_request_id), 
-std::move(p_url), 
-std::move(p_first_auth_attempt), 
-std::move(p_auth_info), 
-std::move(p_head_headers), 
-std::move(p_auth_challenge_responder));
+      impl->OnAuthRequired(        
+        std::move(p_window_id), 
+        std::move(p_request_id), 
+        std::move(p_url), 
+        std::move(p_first_auth_attempt), 
+        std::move(p_auth_info), 
+        std::move(p_head_headers), 
+        std::move(p_auth_challenge_responder));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Name: {
@@ -2696,6 +2722,8 @@ std::move(p_auth_challenge_responder));
           reinterpret_cast<internal::URLLoaderNetworkServiceObserver_OnDataUseUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.6
       bool success = true;
       int32_t p_network_traffic_annotation_id_hash{};
       int64_t p_recv_bytes{};
@@ -2717,10 +2745,10 @@ std::move(p_auth_challenge_responder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDataUseUpdate(
-std::move(p_network_traffic_annotation_id_hash), 
-std::move(p_recv_bytes), 
-std::move(p_sent_bytes));
+      impl->OnDataUseUpdate(        
+        std::move(p_network_traffic_annotation_id_hash), 
+        std::move(p_recv_bytes), 
+        std::move(p_sent_bytes));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Name: {
@@ -2733,6 +2761,8 @@ std::move(p_sent_bytes));
           reinterpret_cast<internal::URLLoaderNetworkServiceObserver_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.8
       bool success = true;
       ::mojo::PendingReceiver<URLLoaderNetworkServiceObserver> p_listener{};
       URLLoaderNetworkServiceObserver_Clone_ParamsDataView input_data_view(params, message);
@@ -2750,8 +2780,8 @@ std::move(p_sent_bytes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_listener));
+      impl->Clone(        
+        std::move(p_listener));
       return true;
     }
   }
@@ -2774,6 +2804,8 @@ bool URLLoaderNetworkServiceObserverStubDispatch::AcceptWithResponder(
               internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.0
       bool success = true;
       ::GURL p_url{};
       int32_t p_net_error{};
@@ -2801,11 +2833,11 @@ bool URLLoaderNetworkServiceObserverStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSSLCertificateError(
-std::move(p_url), 
-std::move(p_net_error), 
-std::move(p_ssl_info), 
-std::move(p_fatal), std::move(callback));
+      impl->OnSSLCertificateError(        
+        std::move(p_url), 
+        std::move(p_net_error), 
+        std::move(p_ssl_info), 
+        std::move(p_fatal), std::move(callback));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnCertificateRequested_Name: {
@@ -2821,6 +2853,8 @@ std::move(p_fatal), std::move(callback));
               internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.3
       bool success = true;
       ::GURL p_url{};
       ::net::IPAddress p_ip_address{};
@@ -2848,11 +2882,11 @@ std::move(p_fatal), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrivateNetworkAccessPermissionRequired(
-std::move(p_url), 
-std::move(p_ip_address), 
-std::move(p_private_network_device_id), 
-std::move(p_private_network_device_name), std::move(callback));
+      impl->OnPrivateNetworkAccessPermissionRequired(        
+        std::move(p_url), 
+        std::move(p_ip_address), 
+        std::move(p_private_network_device_id), 
+        std::move(p_private_network_device_name), std::move(callback));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnClearSiteData_Name: {
@@ -2862,6 +2896,8 @@ std::move(p_private_network_device_name), std::move(callback));
               internal::URLLoaderNetworkServiceObserver_OnClearSiteData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.4
       bool success = true;
       ::GURL p_url{};
       std::string p_header_value{};
@@ -2892,12 +2928,12 @@ std::move(p_private_network_device_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClearSiteData(
-std::move(p_url), 
-std::move(p_header_value), 
-std::move(p_load_flags), 
-std::move(p_cookie_partition_key), 
-std::move(p_partitioned_state_allowed_only), std::move(callback));
+      impl->OnClearSiteData(        
+        std::move(p_url), 
+        std::move(p_header_value), 
+        std::move(p_load_flags), 
+        std::move(p_cookie_partition_key), 
+        std::move(p_partitioned_state_allowed_only), std::move(callback));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Name: {
@@ -2907,6 +2943,8 @@ std::move(p_partitioned_state_allowed_only), std::move(callback));
               internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.5
       bool success = true;
       LoadInfoPtr p_info{};
       URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ParamsDataView input_data_view(params, message);
@@ -2925,8 +2963,8 @@ std::move(p_partitioned_state_allowed_only), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLoadingStateUpdate(
-std::move(p_info), std::move(callback));
+      impl->OnLoadingStateUpdate(        
+        std::move(p_info), std::move(callback));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_OnDataUseUpdate_Name: {
@@ -2939,6 +2977,8 @@ std::move(p_info), std::move(callback));
               internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for URLLoaderNetworkServiceObserver.7
       bool success = true;
       ::url::Origin p_request_origin{};
       std::vector<SharedStorageOperationPtr> p_operations{};
@@ -2960,9 +3000,9 @@ std::move(p_info), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSharedStorageHeaderReceived(
-std::move(p_request_origin), 
-std::move(p_operations), std::move(callback));
+      impl->OnSharedStorageHeaderReceived(        
+        std::move(p_request_origin), 
+        std::move(p_operations), std::move(callback));
       return true;
     }
     case internal::kURLLoaderNetworkServiceObserver_Clone_Name: {

@@ -1117,6 +1117,8 @@ bool WebTransport_SendDatagram_ForwardToCallback::Accept(
           internal::WebTransport_SendDatagram_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebTransport.0
   bool success = true;
   bool p_result{};
   WebTransport_SendDatagram_ResponseParamsDataView input_data_view(params, message);
@@ -1236,6 +1238,8 @@ bool WebTransport_CreateStream_ForwardToCallback::Accept(
           internal::WebTransport_CreateStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebTransport.1
   bool success = true;
   bool p_succeeded{};
   uint32_t p_stream_id{};
@@ -1363,6 +1367,8 @@ bool WebTransport_AcceptBidirectionalStream_ForwardToCallback::Accept(
           internal::WebTransport_AcceptBidirectionalStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebTransport.2
   bool success = true;
   uint32_t p_stream_id{};
   ::mojo::ScopedDataPipeConsumerHandle p_readable{};
@@ -1508,6 +1514,8 @@ bool WebTransport_AcceptUnidirectionalStream_ForwardToCallback::Accept(
           internal::WebTransport_AcceptUnidirectionalStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebTransport.3
   bool success = true;
   uint32_t p_stream_id{};
   ::mojo::ScopedDataPipeConsumerHandle p_readable{};
@@ -1640,6 +1648,8 @@ bool WebTransport_GetStats_ForwardToCallback::Accept(
           internal::WebTransport_GetStats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebTransport.8
   bool success = true;
   WebTransportStatsPtr p_stats{};
   WebTransport_GetStats_ResponseParamsDataView input_data_view(params, message);
@@ -1732,6 +1742,8 @@ bool WebTransportStubDispatch::Accept(
           reinterpret_cast<internal::WebTransport_SendFin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransport.4
       bool success = true;
       uint32_t p_stream_id{};
       WebTransport_SendFin_ParamsDataView input_data_view(params, message);
@@ -1747,8 +1759,8 @@ bool WebTransportStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendFin(
-std::move(p_stream_id));
+      impl->SendFin(        
+        std::move(p_stream_id));
       return true;
     }
     case internal::kWebTransport_AbortStream_Name: {
@@ -1758,6 +1770,8 @@ std::move(p_stream_id));
           reinterpret_cast<internal::WebTransport_AbortStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransport.5
       bool success = true;
       uint32_t p_stream_id{};
       uint8_t p_code{};
@@ -1776,9 +1790,9 @@ std::move(p_stream_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AbortStream(
-std::move(p_stream_id), 
-std::move(p_code));
+      impl->AbortStream(        
+        std::move(p_stream_id), 
+        std::move(p_code));
       return true;
     }
     case internal::kWebTransport_StopSending_Name: {
@@ -1788,6 +1802,8 @@ std::move(p_code));
           reinterpret_cast<internal::WebTransport_StopSending_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransport.6
       bool success = true;
       uint32_t p_stream_id{};
       uint8_t p_code{};
@@ -1806,9 +1822,9 @@ std::move(p_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopSending(
-std::move(p_stream_id), 
-std::move(p_code));
+      impl->StopSending(        
+        std::move(p_stream_id), 
+        std::move(p_code));
       return true;
     }
     case internal::kWebTransport_SetOutgoingDatagramExpirationDuration_Name: {
@@ -1818,6 +1834,8 @@ std::move(p_code));
           reinterpret_cast<internal::WebTransport_SetOutgoingDatagramExpirationDuration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransport.7
       bool success = true;
       ::base::TimeDelta p_duration{};
       WebTransport_SetOutgoingDatagramExpirationDuration_ParamsDataView input_data_view(params, message);
@@ -1833,8 +1851,8 @@ std::move(p_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutgoingDatagramExpirationDuration(
-std::move(p_duration));
+      impl->SetOutgoingDatagramExpirationDuration(        
+        std::move(p_duration));
       return true;
     }
     case internal::kWebTransport_GetStats_Name: {
@@ -1847,6 +1865,8 @@ std::move(p_duration));
           reinterpret_cast<internal::WebTransport_Close_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransport.9
       bool success = true;
       WebTransportCloseInfoPtr p_close_info{};
       WebTransport_Close_ParamsDataView input_data_view(params, message);
@@ -1862,8 +1882,8 @@ std::move(p_duration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Close(
-std::move(p_close_info));
+      impl->Close(        
+        std::move(p_close_info));
       return true;
     }
   }
@@ -1886,6 +1906,8 @@ bool WebTransportStubDispatch::AcceptWithResponder(
               internal::WebTransport_SendDatagram_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebTransport.0
       bool success = true;
       ::base::span<const ::uint8_t> p_data{};
       WebTransport_SendDatagram_ParamsDataView input_data_view(params, message);
@@ -1904,8 +1926,8 @@ bool WebTransportStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendDatagram(
-std::move(p_data), std::move(callback));
+      impl->SendDatagram(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kWebTransport_CreateStream_Name: {
@@ -1915,6 +1937,8 @@ std::move(p_data), std::move(callback));
               internal::WebTransport_CreateStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebTransport.1
       bool success = true;
       ::mojo::ScopedDataPipeConsumerHandle p_readable{};
       ::mojo::ScopedDataPipeProducerHandle p_writable{};
@@ -1936,9 +1960,9 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateStream(
-std::move(p_readable), 
-std::move(p_writable), std::move(callback));
+      impl->CreateStream(        
+        std::move(p_readable), 
+        std::move(p_writable), std::move(callback));
       return true;
     }
     case internal::kWebTransport_AcceptBidirectionalStream_Name: {
@@ -1948,6 +1972,8 @@ std::move(p_writable), std::move(callback));
               internal::WebTransport_AcceptBidirectionalStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebTransport.2
       bool success = true;
       WebTransport_AcceptBidirectionalStream_ParamsDataView input_data_view(params, message);
       
@@ -1973,6 +1999,8 @@ std::move(p_writable), std::move(callback));
               internal::WebTransport_AcceptUnidirectionalStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebTransport.3
       bool success = true;
       WebTransport_AcceptUnidirectionalStream_ParamsDataView input_data_view(params, message);
       
@@ -2010,6 +2038,8 @@ std::move(p_writable), std::move(callback));
               internal::WebTransport_GetStats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebTransport.8
       bool success = true;
       WebTransport_GetStats_ParamsDataView input_data_view(params, message);
       
@@ -2455,7 +2485,7 @@ void WebTransportClientProxy::OnReceivedResetStream(
 }
 
 void WebTransportClientProxy::OnClosed(
-    WebTransportCloseInfoPtr in_close_info) {
+    WebTransportCloseInfoPtr in_close_info, WebTransportStatsPtr in_final_stats) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::WebTransportClient::OnClosed", "input_parameters",
@@ -2464,6 +2494,9 @@ void WebTransportClientProxy::OnClosed(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("close_info"), in_close_info,
                         "<value of type WebTransportCloseInfoPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("final_stats"), in_final_stats,
+                        "<value of type WebTransportStatsPtr>");
    });
 #endif
 
@@ -2491,6 +2524,17 @@ void WebTransportClientProxy::OnClosed(
       in_close_info, close_info_fragment);
   params->close_info.Set(
       close_info_fragment.is_null() ? nullptr : close_info_fragment.data());
+  mojo::internal::MessageFragment<
+      typename decltype(params->final_stats)::BaseType> final_stats_fragment(
+          params.message());
+  mojo::internal::Serialize<::network::mojom::WebTransportStatsDataView>(
+      in_final_stats, final_stats_fragment);
+  params->final_stats.Set(
+      final_stats_fragment.is_null() ? nullptr : final_stats_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->final_stats.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null final_stats in WebTransportClient.OnClosed request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebTransportClient::Name_);
@@ -2513,6 +2557,8 @@ bool WebTransportClientStubDispatch::Accept(
           reinterpret_cast<internal::WebTransportClient_OnDatagramReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportClient.0
       bool success = true;
       ::base::span<const ::uint8_t> p_data{};
       WebTransportClient_OnDatagramReceived_ParamsDataView input_data_view(params, message);
@@ -2528,8 +2574,8 @@ bool WebTransportClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDatagramReceived(
-std::move(p_data));
+      impl->OnDatagramReceived(        
+        std::move(p_data));
       return true;
     }
     case internal::kWebTransportClient_OnIncomingStreamClosed_Name: {
@@ -2539,6 +2585,8 @@ std::move(p_data));
           reinterpret_cast<internal::WebTransportClient_OnIncomingStreamClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportClient.1
       bool success = true;
       uint32_t p_stream_id{};
       bool p_fin_received{};
@@ -2557,9 +2605,9 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIncomingStreamClosed(
-std::move(p_stream_id), 
-std::move(p_fin_received));
+      impl->OnIncomingStreamClosed(        
+        std::move(p_stream_id), 
+        std::move(p_fin_received));
       return true;
     }
     case internal::kWebTransportClient_OnOutgoingStreamClosed_Name: {
@@ -2569,6 +2617,8 @@ std::move(p_fin_received));
           reinterpret_cast<internal::WebTransportClient_OnOutgoingStreamClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportClient.2
       bool success = true;
       uint32_t p_stream_id{};
       WebTransportClient_OnOutgoingStreamClosed_ParamsDataView input_data_view(params, message);
@@ -2584,8 +2634,8 @@ std::move(p_fin_received));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOutgoingStreamClosed(
-std::move(p_stream_id));
+      impl->OnOutgoingStreamClosed(        
+        std::move(p_stream_id));
       return true;
     }
     case internal::kWebTransportClient_OnReceivedStopSending_Name: {
@@ -2595,6 +2645,8 @@ std::move(p_stream_id));
           reinterpret_cast<internal::WebTransportClient_OnReceivedStopSending_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportClient.3
       bool success = true;
       uint32_t p_stream_id{};
       uint32_t p_stream_error_code{};
@@ -2613,9 +2665,9 @@ std::move(p_stream_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceivedStopSending(
-std::move(p_stream_id), 
-std::move(p_stream_error_code));
+      impl->OnReceivedStopSending(        
+        std::move(p_stream_id), 
+        std::move(p_stream_error_code));
       return true;
     }
     case internal::kWebTransportClient_OnReceivedResetStream_Name: {
@@ -2625,6 +2677,8 @@ std::move(p_stream_error_code));
           reinterpret_cast<internal::WebTransportClient_OnReceivedResetStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportClient.4
       bool success = true;
       uint32_t p_stream_id{};
       uint32_t p_stream_error_code{};
@@ -2643,9 +2697,9 @@ std::move(p_stream_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceivedResetStream(
-std::move(p_stream_id), 
-std::move(p_stream_error_code));
+      impl->OnReceivedResetStream(        
+        std::move(p_stream_id), 
+        std::move(p_stream_error_code));
       return true;
     }
     case internal::kWebTransportClient_OnClosed_Name: {
@@ -2655,11 +2709,16 @@ std::move(p_stream_error_code));
           reinterpret_cast<internal::WebTransportClient_OnClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportClient.5
       bool success = true;
       WebTransportCloseInfoPtr p_close_info{};
+      WebTransportStatsPtr p_final_stats{};
       WebTransportClient_OnClosed_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCloseInfo(&p_close_info))
+        success = false;
+      if (success && !input_data_view.ReadFinalStats(&p_final_stats))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -2670,8 +2729,9 @@ std::move(p_stream_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClosed(
-std::move(p_close_info));
+      impl->OnClosed(        
+        std::move(p_close_info), 
+        std::move(p_final_stats));
       return true;
     }
   }
@@ -2810,7 +2870,7 @@ WebTransportHandshakeClientProxy::WebTransportHandshakeClientProxy(mojo::Message
 }
 
 void WebTransportHandshakeClientProxy::OnConnectionEstablished(
-    ::mojo::PendingRemote<WebTransport> in_transport, ::mojo::PendingReceiver<WebTransportClient> in_client, ::network::mojom::blink::HttpResponseHeadersPtr in_response_headers) {
+    ::mojo::PendingRemote<WebTransport> in_transport, ::mojo::PendingReceiver<WebTransportClient> in_client, ::network::mojom::blink::HttpResponseHeadersPtr in_response_headers, WebTransportStatsPtr in_initial_stats) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::WebTransportHandshakeClient::OnConnectionEstablished", "input_parameters",
@@ -2825,6 +2885,9 @@ void WebTransportHandshakeClientProxy::OnConnectionEstablished(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response_headers"), in_response_headers,
                         "<value of type ::network::mojom::blink::HttpResponseHeadersPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("initial_stats"), in_initial_stats,
+                        "<value of type WebTransportStatsPtr>");
    });
 #endif
 
@@ -2868,6 +2931,17 @@ void WebTransportHandshakeClientProxy::OnConnectionEstablished(
       params->response_headers.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null response_headers in WebTransportHandshakeClient.OnConnectionEstablished request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->initial_stats)::BaseType> initial_stats_fragment(
+          params.message());
+  mojo::internal::Serialize<::network::mojom::WebTransportStatsDataView>(
+      in_initial_stats, initial_stats_fragment);
+  params->initial_stats.Set(
+      initial_stats_fragment.is_null() ? nullptr : initial_stats_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->initial_stats.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null initial_stats in WebTransportHandshakeClient.OnConnectionEstablished request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebTransportHandshakeClient::Name_);
@@ -2937,10 +3011,13 @@ bool WebTransportHandshakeClientStubDispatch::Accept(
           reinterpret_cast<internal::WebTransportHandshakeClient_OnConnectionEstablished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportHandshakeClient.0
       bool success = true;
       ::mojo::PendingRemote<WebTransport> p_transport{};
       ::mojo::PendingReceiver<WebTransportClient> p_client{};
       ::network::mojom::blink::HttpResponseHeadersPtr p_response_headers{};
+      WebTransportStatsPtr p_initial_stats{};
       WebTransportHandshakeClient_OnConnectionEstablished_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2953,6 +3030,8 @@ bool WebTransportHandshakeClientStubDispatch::Accept(
       }
       if (success && !input_data_view.ReadResponseHeaders(&p_response_headers))
         success = false;
+      if (success && !input_data_view.ReadInitialStats(&p_initial_stats))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -2962,10 +3041,11 @@ bool WebTransportHandshakeClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionEstablished(
-std::move(p_transport), 
-std::move(p_client), 
-std::move(p_response_headers));
+      impl->OnConnectionEstablished(        
+        std::move(p_transport), 
+        std::move(p_client), 
+        std::move(p_response_headers), 
+        std::move(p_initial_stats));
       return true;
     }
     case internal::kWebTransportHandshakeClient_OnHandshakeFailed_Name: {
@@ -2975,6 +3055,8 @@ std::move(p_response_headers));
           reinterpret_cast<internal::WebTransportHandshakeClient_OnHandshakeFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportHandshakeClient.1
       bool success = true;
       WebTransportErrorPtr p_error{};
       WebTransportHandshakeClient_OnHandshakeFailed_ParamsDataView input_data_view(params, message);
@@ -2990,8 +3072,8 @@ std::move(p_response_headers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHandshakeFailed(
-std::move(p_error));
+      impl->OnHandshakeFailed(        
+        std::move(p_error));
       return true;
     }
   }
@@ -3294,8 +3376,8 @@ void WebTransportClientInterceptorForTesting::OnReceivedStopSending(uint32_t str
 void WebTransportClientInterceptorForTesting::OnReceivedResetStream(uint32_t stream_id, uint32_t stream_error_code) {
   GetForwardingInterface()->OnReceivedResetStream(std::move(stream_id), std::move(stream_error_code));
 }
-void WebTransportClientInterceptorForTesting::OnClosed(WebTransportCloseInfoPtr close_info) {
-  GetForwardingInterface()->OnClosed(std::move(close_info));
+void WebTransportClientInterceptorForTesting::OnClosed(WebTransportCloseInfoPtr close_info, WebTransportStatsPtr final_stats) {
+  GetForwardingInterface()->OnClosed(std::move(close_info), std::move(final_stats));
 }
 WebTransportClientAsyncWaiter::WebTransportClientAsyncWaiter(
     WebTransportClient* proxy) : proxy_(proxy) {}
@@ -3305,8 +3387,8 @@ WebTransportClientAsyncWaiter::~WebTransportClientAsyncWaiter() = default;
 
 
 
-void WebTransportHandshakeClientInterceptorForTesting::OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, ::network::mojom::blink::HttpResponseHeadersPtr response_headers) {
-  GetForwardingInterface()->OnConnectionEstablished(std::move(transport), std::move(client), std::move(response_headers));
+void WebTransportHandshakeClientInterceptorForTesting::OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, ::network::mojom::blink::HttpResponseHeadersPtr response_headers, WebTransportStatsPtr initial_stats) {
+  GetForwardingInterface()->OnConnectionEstablished(std::move(transport), std::move(client), std::move(response_headers), std::move(initial_stats));
 }
 void WebTransportHandshakeClientInterceptorForTesting::OnHandshakeFailed(WebTransportErrorPtr error) {
   GetForwardingInterface()->OnHandshakeFailed(std::move(error));

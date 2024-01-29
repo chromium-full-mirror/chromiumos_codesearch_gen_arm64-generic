@@ -3,24 +3,18 @@
 // found in the LICENSE file.
 import './shimless_rma_shared.css.js';
 import './base_page.js';
-import { I18nBehavior, I18nBehaviorInterface } from 'chrome://resources/ash/common/i18n_behavior.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getShimlessRmaService } from './mojo_interface_provider.js';
-import { HardwareWriteProtectionStateObserverInterface, HardwareWriteProtectionStateObserverReceiver, ShimlessRmaServiceInterface, StateResult } from './shimless_rma.mojom-webui.js';
-import { disableNextButton, enableNextButton, executeThenTransitionState, focusPageTitle } from './shimless_rma_util.js';
+import { HardwareWriteProtectionStateObserverReceiver } from './shimless_rma.mojom-webui.js';
+import { executeThenTransitionState, focusPageTitle } from './shimless_rma_util.js';
 import { getTemplate } from './wrapup_wait_for_manual_wp_enable_page.html.js';
 /**
  * @fileoverview
  * 'wrapup-wait-for-manual-wp-enable-page' wait for the manual HWWP enable to be
  * completed.
  */
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const WrapupWaitForManualWpEnablePageBase = mixinBehaviors([I18nBehavior], PolymerElement);
-/** @polymer */
+const WrapupWaitForManualWpEnablePageBase = I18nMixin(PolymerElement);
 export class WrapupWaitForManualWpEnablePage extends WrapupWaitForManualWpEnablePageBase {
     static get is() {
         return 'wrapup-wait-for-manual-wp-enable-page';
@@ -30,30 +24,16 @@ export class WrapupWaitForManualWpEnablePage extends WrapupWaitForManualWpEnable
     }
     constructor() {
         super();
-        /** @private {ShimlessRmaServiceInterface} */
         this.shimlessRmaService = getShimlessRmaService();
-        /**
-         * Receiver responsible for observing hardware write protection state.
-         * @private {
-         *  ?HardwareWriteProtectionStateObserverReceiver}
-         */
-        this.hardwareWriteProtectionStateObserverReceiver =
-            new HardwareWriteProtectionStateObserverReceiver(
-            /**
-             * @type {!HardwareWriteProtectionStateObserverInterface}
-             */
-            (this));
+        // Receiver responsible for observing hardware write protection state.
+        this.hardwareWriteProtectionStateObserverReceiver = new HardwareWriteProtectionStateObserverReceiver(this);
         this.shimlessRmaService.observeHardwareWriteProtectionState(this.hardwareWriteProtectionStateObserverReceiver.$
             .bindNewPipeAndPassRemote());
     }
-    /** @override */
     ready() {
         super.ready();
         focusPageTitle(this);
     }
-    /**
-     * @param {boolean} enabled
-     */
     onHardwareWriteProtectionStateChanged(enabled) {
         if (enabled) {
             executeThenTransitionState(this, () => this.shimlessRmaService.writeProtectManuallyEnabled());

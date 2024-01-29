@@ -25,6 +25,7 @@
 
 #include "services/webnn/public/mojom/webnn_graph.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-shared.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -84,6 +85,8 @@ class GatherDataView;
 
 class GemmDataView;
 
+class HardSigmoidDataView;
+
 class LayerNormalizationDataView;
 
 class LeakyReluDataView;
@@ -102,6 +105,8 @@ class SoftmaxDataView;
 
 class SoftplusDataView;
 
+class SoftsignDataView;
+
 class SplitDataView;
 
 class TanhDataView;
@@ -117,6 +122,7 @@ class GraphInfoDataView;
 class PaddingModeDataView;
 class ActivationDataView;
 class OperationDataView;
+class ComputeResultDataView;
 
 
 }  // webnn::mojom
@@ -300,6 +306,13 @@ struct MojomTypeTraits<::webnn::mojom::GemmDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::webnn::mojom::HardSigmoidDataView> {
+  using Data = ::webnn::mojom::internal::HardSigmoid_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::webnn::mojom::LayerNormalizationDataView> {
   using Data = ::webnn::mojom::internal::LayerNormalization_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -358,6 +371,13 @@ struct MojomTypeTraits<::webnn::mojom::SoftmaxDataView> {
 template <>
 struct MojomTypeTraits<::webnn::mojom::SoftplusDataView> {
   using Data = ::webnn::mojom::internal::Softplus_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::webnn::mojom::SoftsignDataView> {
+  using Data = ::webnn::mojom::internal::Softsign_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -425,6 +445,13 @@ struct MojomTypeTraits<::webnn::mojom::OperationDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
+template <>
+struct MojomTypeTraits<::webnn::mojom::ComputeResultDataView> {
+  using Data = ::webnn::mojom::internal::ComputeResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -444,24 +471,6 @@ enum class InputOperandLayout : int32_t {
  std::ostream& operator<<(std::ostream& os, InputOperandLayout value);
 inline bool IsKnownEnumValue(InputOperandLayout value) {
   return internal::InputOperandLayout_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
-enum class ComputeResult : int32_t {
-  
-  kOk = 0,
-  
-  kInvalidInputs = 1,
-  
-  kUnknownError = 2,
-  kMinValue = 0,
-  kMaxValue = 2,
-};
-
- std::ostream& operator<<(std::ostream& os, ComputeResult value);
-inline bool IsKnownEnumValue(ComputeResult value) {
-  return internal::ComputeResult_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -1641,6 +1650,33 @@ class GemmDataView {
 };
 
 
+class HardSigmoidDataView {
+ public:
+  HardSigmoidDataView() = default;
+
+  HardSigmoidDataView(
+      internal::HardSigmoid_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t input_operand_id() const {
+    return data_->input_operand_id;
+  }
+  uint64_t output_operand_id() const {
+    return data_->output_operand_id;
+  }
+  float alpha() const {
+    return data_->alpha;
+  }
+  float beta() const {
+    return data_->beta;
+  }
+ private:
+  internal::HardSigmoid_Data* data_ = nullptr;
+};
+
+
 class LayerNormalizationDataView {
  public:
   LayerNormalizationDataView() = default;
@@ -1868,6 +1904,27 @@ class SoftplusDataView {
   }
  private:
   internal::Softplus_Data* data_ = nullptr;
+};
+
+
+class SoftsignDataView {
+ public:
+  SoftsignDataView() = default;
+
+  SoftsignDataView(
+      internal::Softsign_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t input_operand_id() const {
+    return data_->input_operand_id;
+  }
+  uint64_t output_operand_id() const {
+    return data_->output_operand_id;
+  }
+ private:
+  internal::Softsign_Data* data_ = nullptr;
 };
 
 
@@ -2221,6 +2278,17 @@ class ActivationDataView {
     return mojo::internal::Deserialize<::webnn::mojom::EluDataView>(
         data_->data.f_elu.Get(), output, message_);
   }
+  bool is_hard_sigmoid() const { return data_->tag == Tag::kHardSigmoid; }
+  inline void GetHardSigmoidDataView(
+      HardSigmoidDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHardSigmoid(UserType* output) const {
+    
+    CHECK(is_hard_sigmoid());
+    return mojo::internal::Deserialize<::webnn::mojom::HardSigmoidDataView>(
+        data_->data.f_hard_sigmoid.Get(), output, message_);
+  }
   bool is_leaky_relu() const { return data_->tag == Tag::kLeakyRelu; }
   inline void GetLeakyReluDataView(
       LeakyReluDataView* output) const;
@@ -2286,6 +2354,17 @@ class ActivationDataView {
     CHECK(is_softplus());
     return mojo::internal::Deserialize<::webnn::mojom::SoftplusDataView>(
         data_->data.f_softplus.Get(), output, message_);
+  }
+  bool is_softsign() const { return data_->tag == Tag::kSoftsign; }
+  inline void GetSoftsignDataView(
+      SoftsignDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSoftsign(UserType* output) const {
+    
+    CHECK(is_softsign());
+    return mojo::internal::Deserialize<::webnn::mojom::SoftsignDataView>(
+        data_->data.f_softsign.Get(), output, message_);
   }
   bool is_tanh() const { return data_->tag == Tag::kTanh; }
   inline void GetTanhDataView(
@@ -2444,6 +2523,17 @@ class OperationDataView {
     CHECK(is_gemm());
     return mojo::internal::Deserialize<::webnn::mojom::GemmDataView>(
         data_->data.f_gemm.Get(), output, message_);
+  }
+  bool is_hard_sigmoid() const { return data_->tag == Tag::kHardSigmoid; }
+  inline void GetHardSigmoidDataView(
+      HardSigmoidDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHardSigmoid(UserType* output) const {
+    
+    CHECK(is_hard_sigmoid());
+    return mojo::internal::Deserialize<::webnn::mojom::HardSigmoidDataView>(
+        data_->data.f_hard_sigmoid.Get(), output, message_);
   }
   bool is_layer_normalization() const { return data_->tag == Tag::kLayerNormalization; }
   inline void GetLayerNormalizationDataView(
@@ -2621,6 +2711,17 @@ class OperationDataView {
     return mojo::internal::Deserialize<::webnn::mojom::SoftplusDataView>(
         data_->data.f_softplus.Get(), output, message_);
   }
+  bool is_softsign() const { return data_->tag == Tag::kSoftsign; }
+  inline void GetSoftsignDataView(
+      SoftsignDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSoftsign(UserType* output) const {
+    
+    CHECK(is_softsign());
+    return mojo::internal::Deserialize<::webnn::mojom::SoftsignDataView>(
+        data_->data.f_softsign.Get(), output, message_);
+  }
   bool is_split() const { return data_->tag == Tag::kSplit; }
   inline void GetSplitDataView(
       SplitDataView* output) const;
@@ -2673,6 +2774,54 @@ class OperationDataView {
 
 
 
+class ComputeResultDataView {
+ public:
+  using Tag = internal::ComputeResult_Data::ComputeResult_Tag;
+
+  ComputeResultDataView() = default;
+
+  ComputeResultDataView(
+      internal::ComputeResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_named_outputs() const { return data_->tag == Tag::kNamedOutputs; }
+  inline void GetNamedOutputsDataView(
+      mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNamedOutputs(UserType* output) const {
+    
+    CHECK(is_named_outputs());
+    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>>(
+        data_->data.f_named_outputs.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  inline void GetErrorDataView(
+      ::webnn::mojom::ErrorDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::webnn::mojom::ErrorDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::ComputeResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 }  // webnn::mojom
 
 namespace std {
@@ -2680,10 +2829,6 @@ namespace std {
 template <>
 struct hash<::webnn::mojom::InputOperandLayout>
     : public mojo::internal::EnumHashImpl<::webnn::mojom::InputOperandLayout> {};
-
-template <>
-struct hash<::webnn::mojom::ComputeResult>
-    : public mojo::internal::EnumHashImpl<::webnn::mojom::ComputeResult> {};
 
 template <>
 struct hash<::webnn::mojom::Operand_DataType>
@@ -2740,26 +2885,6 @@ struct Serializer<::webnn::mojom::InputOperandLayout, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::webnn::mojom::InputOperandLayout>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::webnn::mojom::ComputeResult, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::webnn::mojom::ComputeResult, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::webnn::mojom::ComputeResult>(input)), output);
   }
 };
 
@@ -4017,6 +4142,39 @@ struct Serializer<::webnn::mojom::GemmDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::webnn::mojom::HardSigmoidDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::webnn::mojom::HardSigmoidDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::webnn::mojom::internal::HardSigmoid_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->input_operand_id = Traits::input_operand_id(input);
+    fragment->output_operand_id = Traits::output_operand_id(input);
+    fragment->alpha = Traits::alpha(input);
+    fragment->beta = Traits::beta(input);
+  }
+
+  static bool Deserialize(::webnn::mojom::internal::HardSigmoid_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::webnn::mojom::HardSigmoidDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::webnn::mojom::LayerNormalizationDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::webnn::mojom::LayerNormalizationDataView, UserType>;
@@ -4314,6 +4472,37 @@ struct Serializer<::webnn::mojom::SoftplusDataView, MaybeConstUserType> {
       return CallSetToNullIfExists<Traits>(output);
 
     ::webnn::mojom::SoftplusDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::webnn::mojom::SoftsignDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::webnn::mojom::SoftsignDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::webnn::mojom::internal::Softsign_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->input_operand_id = Traits::input_operand_id(input);
+    fragment->output_operand_id = Traits::output_operand_id(input);
+  }
+
+  static bool Deserialize(::webnn::mojom::internal::Softsign_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::webnn::mojom::SoftsignDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -4792,6 +4981,22 @@ struct Serializer<::webnn::mojom::ActivationDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::webnn::mojom::ActivationDataView::Tag::kHardSigmoid: {
+        decltype(Traits::hard_sigmoid(input))
+            in_hard_sigmoid = Traits::hard_sigmoid(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_hard_sigmoid)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::webnn::mojom::HardSigmoidDataView>(
+            in_hard_sigmoid, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null hard_sigmoid in Activation union");
+        fragment->data.f_hard_sigmoid.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
       case ::webnn::mojom::ActivationDataView::Tag::kLeakyRelu: {
         decltype(Traits::leaky_relu(input))
             in_leaky_relu = Traits::leaky_relu(input);
@@ -4885,6 +5090,22 @@ struct Serializer<::webnn::mojom::ActivationDataView, MaybeConstUserType> {
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null softplus in Activation union");
         fragment->data.f_softplus.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::webnn::mojom::ActivationDataView::Tag::kSoftsign: {
+        decltype(Traits::softsign(input))
+            in_softsign = Traits::softsign(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_softsign)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::webnn::mojom::SoftsignDataView>(
+            in_softsign, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null softsign in Activation union");
+        fragment->data.f_softsign.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -5118,6 +5339,22 @@ struct Serializer<::webnn::mojom::OperationDataView, MaybeConstUserType> {
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null gemm in Operation union");
         fragment->data.f_gemm.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::webnn::mojom::OperationDataView::Tag::kHardSigmoid: {
+        decltype(Traits::hard_sigmoid(input))
+            in_hard_sigmoid = Traits::hard_sigmoid(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_hard_sigmoid)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::webnn::mojom::HardSigmoidDataView>(
+            in_hard_sigmoid, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null hard_sigmoid in Operation union");
+        fragment->data.f_hard_sigmoid.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -5377,6 +5614,22 @@ struct Serializer<::webnn::mojom::OperationDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::webnn::mojom::OperationDataView::Tag::kSoftsign: {
+        decltype(Traits::softsign(input))
+            in_softsign = Traits::softsign(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_softsign)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::webnn::mojom::SoftsignDataView>(
+            in_softsign, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null softsign in Operation union");
+        fragment->data.f_softsign.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
       case ::webnn::mojom::OperationDataView::Tag::kSplit: {
         decltype(Traits::split(input))
             in_split = Traits::split(input);
@@ -5451,6 +5704,81 @@ struct Serializer<::webnn::mojom::OperationDataView, MaybeConstUserType> {
       return CallSetToNullIfExists<Traits>(output);
 
     ::webnn::mojom::OperationDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::webnn::mojom::ComputeResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::webnn::mojom::ComputeResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::webnn::mojom::internal::ComputeResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::webnn::mojom::ComputeResultDataView::Tag::kNamedOutputs: {
+        decltype(Traits::named_outputs(input))
+            in_named_outputs = Traits::named_outputs(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_named_outputs)::BaseType>
+            value_fragment(fragment.message());
+        constexpr const mojo::internal::ContainerValidateParams& named_outputs_validate_params =
+            mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+        mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>>(
+            in_named_outputs, value_fragment, &named_outputs_validate_params);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null named_outputs in ComputeResult union");
+        fragment->data.f_named_outputs.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::webnn::mojom::ComputeResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::webnn::mojom::ErrorDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in ComputeResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::webnn::mojom::internal::ComputeResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::webnn::mojom::ComputeResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -5612,11 +5940,15 @@ inline void SliceDataView::GetStartsAndSizesDataView(
 
 
 
+
+
 inline void LayerNormalizationDataView::GetAxesDataView(
     mojo::ArrayDataView<uint32_t>* output) {
   auto pointer = data_->axes.Get();
   *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
 }
+
+
 
 
 
@@ -5723,6 +6055,11 @@ inline void ActivationDataView::GetEluDataView(
   CHECK(is_elu());
   *output = EluDataView(data_->data.f_elu.Get(), message_);
 }
+inline void ActivationDataView::GetHardSigmoidDataView(
+    HardSigmoidDataView* output) const {
+  CHECK(is_hard_sigmoid());
+  *output = HardSigmoidDataView(data_->data.f_hard_sigmoid.Get(), message_);
+}
 inline void ActivationDataView::GetLeakyReluDataView(
     LeakyReluDataView* output) const {
   CHECK(is_leaky_relu());
@@ -5752,6 +6089,11 @@ inline void ActivationDataView::GetSoftplusDataView(
     SoftplusDataView* output) const {
   CHECK(is_softplus());
   *output = SoftplusDataView(data_->data.f_softplus.Get(), message_);
+}
+inline void ActivationDataView::GetSoftsignDataView(
+    SoftsignDataView* output) const {
+  CHECK(is_softsign());
+  *output = SoftsignDataView(data_->data.f_softsign.Get(), message_);
 }
 inline void ActivationDataView::GetTanhDataView(
     TanhDataView* output) const {
@@ -5813,6 +6155,11 @@ inline void OperationDataView::GetGemmDataView(
     GemmDataView* output) const {
   CHECK(is_gemm());
   *output = GemmDataView(data_->data.f_gemm.Get(), message_);
+}
+inline void OperationDataView::GetHardSigmoidDataView(
+    HardSigmoidDataView* output) const {
+  CHECK(is_hard_sigmoid());
+  *output = HardSigmoidDataView(data_->data.f_hard_sigmoid.Get(), message_);
 }
 inline void OperationDataView::GetLayerNormalizationDataView(
     LayerNormalizationDataView* output) const {
@@ -5894,6 +6241,11 @@ inline void OperationDataView::GetSoftplusDataView(
   CHECK(is_softplus());
   *output = SoftplusDataView(data_->data.f_softplus.Get(), message_);
 }
+inline void OperationDataView::GetSoftsignDataView(
+    SoftsignDataView* output) const {
+  CHECK(is_softsign());
+  *output = SoftsignDataView(data_->data.f_softsign.Get(), message_);
+}
 inline void OperationDataView::GetSplitDataView(
     SplitDataView* output) const {
   CHECK(is_split());
@@ -5915,6 +6267,17 @@ inline void OperationDataView::GetWhereDataView(
   *output = WhereDataView(data_->data.f_where.Get(), message_);
 }
 
+inline void ComputeResultDataView::GetNamedOutputsDataView(
+    mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>* output) const {
+  CHECK(is_named_outputs());
+  *output = mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>(data_->data.f_named_outputs.Get(), message_);
+}
+inline void ComputeResultDataView::GetErrorDataView(
+    ::webnn::mojom::ErrorDataView* output) const {
+  CHECK(is_error());
+  *output = ::webnn::mojom::ErrorDataView(data_->data.f_error.Get(), message_);
+}
+
 
 }  // webnn::mojom
 
@@ -5926,15 +6289,6 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::webnn::mojom::InputOperandLayout> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::webnn::mojom::InputOperandLayout value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::webnn::mojom::ComputeResult> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::webnn::mojom::ComputeResult value);
 };
 
 } // namespace perfetto

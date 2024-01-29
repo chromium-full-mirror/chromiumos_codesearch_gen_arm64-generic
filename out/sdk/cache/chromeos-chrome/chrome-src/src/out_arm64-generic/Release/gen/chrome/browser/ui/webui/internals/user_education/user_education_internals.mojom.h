@@ -71,8 +71,11 @@ class UserEducationInternalsPageHandler
   enum MethodMinVersions : uint32_t {
     kGetTutorialsMinVersion = 0,
     kStartTutorialMinVersion = 0,
+    kGetSessionDataMinVersion = 0,
     kGetFeaturePromosMinVersion = 0,
     kShowFeaturePromoMinVersion = 0,
+    kClearFeaturePromoDataMinVersion = 0,
+    kClearSessionDataMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -84,10 +87,19 @@ class UserEducationInternalsPageHandler
   struct StartTutorial_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetSessionData_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct GetFeaturePromos_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ShowFeaturePromo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ClearFeaturePromoData_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ClearSessionData_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -104,6 +116,11 @@ class UserEducationInternalsPageHandler
   virtual void StartTutorial(const std::string& tutorial_id, StartTutorialCallback callback) = 0;
 
 
+  using GetSessionDataCallback = base::OnceCallback<void(std::vector<FeaturePromoDemoPageDataPtr>)>;
+  
+  virtual void GetSessionData(GetSessionDataCallback callback) = 0;
+
+
   using GetFeaturePromosCallback = base::OnceCallback<void(std::vector<FeaturePromoDemoPageInfoPtr>)>;
   
   virtual void GetFeaturePromos(GetFeaturePromosCallback callback) = 0;
@@ -112,6 +129,16 @@ class UserEducationInternalsPageHandler
   using ShowFeaturePromoCallback = base::OnceCallback<void(const std::string&)>;
   
   virtual void ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) = 0;
+
+
+  using ClearFeaturePromoDataCallback = base::OnceCallback<void(const std::string&)>;
+  
+  virtual void ClearFeaturePromoData(const std::string& feature_name, ClearFeaturePromoDataCallback callback) = 0;
+
+
+  using ClearSessionDataCallback = base::OnceCallback<void(const std::string&)>;
+  
+  virtual void ClearSessionData(ClearSessionDataCallback callback) = 0;
 };
 
 
@@ -127,9 +154,15 @@ class  UserEducationInternalsPageHandlerProxy
   
   void StartTutorial(const std::string& tutorial_id, StartTutorialCallback callback) final;
   
+  void GetSessionData(GetSessionDataCallback callback) final;
+  
   void GetFeaturePromos(GetFeaturePromosCallback callback) final;
   
   void ShowFeaturePromo(const std::string& feature_name, ShowFeaturePromoCallback callback) final;
+  
+  void ClearFeaturePromoData(const std::string& feature_name, ClearFeaturePromoDataCallback callback) final;
+  
+  void ClearSessionData(ClearSessionDataCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -188,6 +221,151 @@ class  UserEducationInternalsPageHandlerResponseValidator : public mojo::Message
 
 
 
+class  FeaturePromoDemoPageData {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FeaturePromoDemoPageData, T>::value>;
+  using DataView = FeaturePromoDemoPageDataDataView;
+  using Data_ = internal::FeaturePromoDemoPageData_Data;
+
+  template <typename... Args>
+  static FeaturePromoDemoPageDataPtr New(Args&&... args) {
+    return FeaturePromoDemoPageDataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FeaturePromoDemoPageDataPtr From(const U& u) {
+    return mojo::TypeConverter<FeaturePromoDemoPageDataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FeaturePromoDemoPageData>::Convert(*this);
+  }
+
+
+  FeaturePromoDemoPageData();
+
+  FeaturePromoDemoPageData(
+      const std::string& name,
+      const std::string& value);
+
+
+  ~FeaturePromoDemoPageData();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FeaturePromoDemoPageDataPtr>
+  FeaturePromoDemoPageDataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FeaturePromoDemoPageData::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FeaturePromoDemoPageData::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FeaturePromoDemoPageData_UnserializedMessageContext<
+            UserType, FeaturePromoDemoPageData::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FeaturePromoDemoPageData::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FeaturePromoDemoPageData::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FeaturePromoDemoPageData_UnserializedMessageContext<
+            UserType, FeaturePromoDemoPageData::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FeaturePromoDemoPageData::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  std::string value;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 
 
@@ -224,9 +402,13 @@ class  FeaturePromoDemoPageInfo {
       const std::string& type,
       int32_t added_milestone,
       std::vector<std::string> supported_platforms,
+      std::vector<std::string> required_features,
       std::vector<std::string> instructions,
-      const std::string& followed_by_internal_name);
+      const std::string& followed_by_internal_name,
+      std::vector<FeaturePromoDemoPageDataPtr> data);
 
+FeaturePromoDemoPageInfo(const FeaturePromoDemoPageInfo&) = delete;
+FeaturePromoDemoPageInfo& operator=(const FeaturePromoDemoPageInfo&) = delete;
 
   ~FeaturePromoDemoPageInfo();
 
@@ -315,9 +497,13 @@ class  FeaturePromoDemoPageInfo {
   
   std::vector<std::string> supported_platforms;
   
+  std::vector<std::string> required_features;
+  
   std::vector<std::string> instructions;
   
   std::string followed_by_internal_name;
+  
+  std::vector<FeaturePromoDemoPageDataPtr> data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -349,6 +535,35 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
+FeaturePromoDemoPageDataPtr FeaturePromoDemoPageData::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(value)
+  );
+}
+
+template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>*>
+bool FeaturePromoDemoPageData::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->value, other_struct.value))
+    return false;
+  return true;
+}
+
+template <typename T, FeaturePromoDemoPageData::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.value < rhs.value)
+    return true;
+  if (rhs.value < lhs.value)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 FeaturePromoDemoPageInfoPtr FeaturePromoDemoPageInfo::Clone() const {
   return New(
       mojo::Clone(display_title),
@@ -357,8 +572,10 @@ FeaturePromoDemoPageInfoPtr FeaturePromoDemoPageInfo::Clone() const {
       mojo::Clone(type),
       mojo::Clone(added_milestone),
       mojo::Clone(supported_platforms),
+      mojo::Clone(required_features),
       mojo::Clone(instructions),
-      mojo::Clone(followed_by_internal_name)
+      mojo::Clone(followed_by_internal_name),
+      mojo::Clone(data)
   );
 }
 
@@ -376,9 +593,13 @@ bool FeaturePromoDemoPageInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->supported_platforms, other_struct.supported_platforms))
     return false;
+  if (!mojo::Equals(this->required_features, other_struct.required_features))
+    return false;
   if (!mojo::Equals(this->instructions, other_struct.instructions))
     return false;
   if (!mojo::Equals(this->followed_by_internal_name, other_struct.followed_by_internal_name))
+    return false;
+  if (!mojo::Equals(this->data, other_struct.data))
     return false;
   return true;
 }
@@ -409,6 +630,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.supported_platforms < lhs.supported_platforms)
     return false;
+  if (lhs.required_features < rhs.required_features)
+    return true;
+  if (rhs.required_features < lhs.required_features)
+    return false;
   if (lhs.instructions < rhs.instructions)
     return true;
   if (rhs.instructions < lhs.instructions)
@@ -417,6 +642,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.followed_by_internal_name < lhs.followed_by_internal_name)
     return false;
+  if (lhs.data < rhs.data)
+    return true;
+  if (rhs.data < lhs.data)
+    return false;
   return false;
 }
 
@@ -424,6 +653,26 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // mojom::user_education_internals
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageData::DataView,
+                                         ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr> {
+  static bool IsNull(const ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr& input) { return !input; }
+  static void SetToNull(::mojom::user_education_internals::FeaturePromoDemoPageDataPtr* output) { output->reset(); }
+
+  static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageData::name)& name(
+      const ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr& input) {
+    return input->name;
+  }
+
+  static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageData::value)& value(
+      const ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr& input) {
+    return input->value;
+  }
+
+  static bool Read(::mojom::user_education_internals::FeaturePromoDemoPageData::DataView input, ::mojom::user_education_internals::FeaturePromoDemoPageDataPtr* output);
+};
 
 
 template <>
@@ -462,6 +711,11 @@ struct  StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfo
     return input->supported_platforms;
   }
 
+  static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::required_features)& required_features(
+      const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
+    return input->required_features;
+  }
+
   static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::instructions)& instructions(
       const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
     return input->instructions;
@@ -470,6 +724,11 @@ struct  StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfo
   static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::followed_by_internal_name)& followed_by_internal_name(
       const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
     return input->followed_by_internal_name;
+  }
+
+  static const decltype(::mojom::user_education_internals::FeaturePromoDemoPageInfo::data)& data(
+      const ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr& input) {
+    return input->data;
   }
 
   static bool Read(::mojom::user_education_internals::FeaturePromoDemoPageInfo::DataView input, ::mojom::user_education_internals::FeaturePromoDemoPageInfoPtr* output);

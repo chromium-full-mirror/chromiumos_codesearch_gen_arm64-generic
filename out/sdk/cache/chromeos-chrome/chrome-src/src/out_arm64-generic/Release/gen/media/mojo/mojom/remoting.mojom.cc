@@ -170,6 +170,8 @@ bool RemoterFactoryStubDispatch::Accept(
           reinterpret_cast<internal::RemoterFactory_Create_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoterFactory.0
       bool success = true;
       ::mojo::PendingRemote<RemotingSource> p_source{};
       ::mojo::PendingReceiver<Remoter> p_remoter{};
@@ -192,9 +194,9 @@ bool RemoterFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_source), 
-std::move(p_remoter));
+      impl->Create(        
+        std::move(p_source), 
+        std::move(p_remoter));
       return true;
     }
   }
@@ -465,6 +467,8 @@ bool RemotingDataStreamSender_SendFrame_ForwardToCallback::Accept(
           internal::RemotingDataStreamSender_SendFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemotingDataStreamSender.0
   bool success = true;
   RemotingDataStreamSender_SendFrame_ResponseParamsDataView input_data_view(params, message);
   
@@ -530,6 +534,8 @@ bool RemotingDataStreamSenderStubDispatch::Accept(
           reinterpret_cast<internal::RemotingDataStreamSender_CancelInFlightData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingDataStreamSender.1
       bool success = true;
       RemotingDataStreamSender_CancelInFlightData_ParamsDataView input_data_view(params, message);
       
@@ -542,7 +548,7 @@ bool RemotingDataStreamSenderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelInFlightData();
+      impl->CancelInFlightData(        );
       return true;
     }
   }
@@ -565,6 +571,8 @@ bool RemotingDataStreamSenderStubDispatch::AcceptWithResponder(
               internal::RemotingDataStreamSender_SendFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemotingDataStreamSender.0
       bool success = true;
       ::media::mojom::DecoderBufferPtr p_frame{};
       RemotingDataStreamSender_SendFrame_ParamsDataView input_data_view(params, message);
@@ -583,8 +591,8 @@ bool RemotingDataStreamSenderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendFrame(
-std::move(p_frame), std::move(callback));
+      impl->SendFrame(        
+        std::move(p_frame), std::move(callback));
       return true;
     }
     case internal::kRemotingDataStreamSender_CancelInFlightData_Name: {
@@ -1095,6 +1103,8 @@ bool Remoter_EstimateTransmissionCapacity_ForwardToCallback::Accept(
           internal::Remoter_EstimateTransmissionCapacity_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Remoter.5
   bool success = true;
   double p_rate{};
   Remoter_EstimateTransmissionCapacity_ResponseParamsDataView input_data_view(params, message);
@@ -1169,6 +1179,8 @@ bool RemoterStubDispatch::Accept(
           reinterpret_cast<internal::Remoter_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remoter.0
       bool success = true;
       Remoter_Start_ParamsDataView input_data_view(params, message);
       
@@ -1181,7 +1193,7 @@ bool RemoterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start();
+      impl->Start(        );
       return true;
     }
     case internal::kRemoter_StartWithPermissionAlreadyGranted_Name: {
@@ -1191,6 +1203,8 @@ bool RemoterStubDispatch::Accept(
           reinterpret_cast<internal::Remoter_StartWithPermissionAlreadyGranted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remoter.1
       bool success = true;
       Remoter_StartWithPermissionAlreadyGranted_ParamsDataView input_data_view(params, message);
       
@@ -1203,7 +1217,7 @@ bool RemoterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartWithPermissionAlreadyGranted();
+      impl->StartWithPermissionAlreadyGranted(        );
       return true;
     }
     case internal::kRemoter_StartDataStreams_Name: {
@@ -1213,6 +1227,8 @@ bool RemoterStubDispatch::Accept(
           reinterpret_cast<internal::Remoter_StartDataStreams_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remoter.2
       bool success = true;
       ::mojo::ScopedDataPipeConsumerHandle p_audio_pipe{};
       ::mojo::ScopedDataPipeConsumerHandle p_video_pipe{};
@@ -1241,11 +1257,11 @@ bool RemoterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDataStreams(
-std::move(p_audio_pipe), 
-std::move(p_video_pipe), 
-std::move(p_audio_sender), 
-std::move(p_video_sender));
+      impl->StartDataStreams(        
+        std::move(p_audio_pipe), 
+        std::move(p_video_pipe), 
+        std::move(p_audio_sender), 
+        std::move(p_video_sender));
       return true;
     }
     case internal::kRemoter_Stop_Name: {
@@ -1255,6 +1271,8 @@ std::move(p_video_sender));
           reinterpret_cast<internal::Remoter_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remoter.3
       bool success = true;
       ::media::mojom::RemotingStopReason p_reason{};
       Remoter_Stop_ParamsDataView input_data_view(params, message);
@@ -1270,8 +1288,8 @@ std::move(p_video_sender));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop(
-std::move(p_reason));
+      impl->Stop(        
+        std::move(p_reason));
       return true;
     }
     case internal::kRemoter_SendMessageToSink_Name: {
@@ -1281,6 +1299,8 @@ std::move(p_reason));
           reinterpret_cast<internal::Remoter_SendMessageToSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remoter.4
       bool success = true;
       std::vector<uint8_t> p_message{};
       Remoter_SendMessageToSink_ParamsDataView input_data_view(params, message);
@@ -1296,8 +1316,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendMessageToSink(
-std::move(p_message));
+      impl->SendMessageToSink(        
+        std::move(p_message));
       return true;
     }
     case internal::kRemoter_EstimateTransmissionCapacity_Name: {
@@ -1338,6 +1358,8 @@ bool RemoterStubDispatch::AcceptWithResponder(
               internal::Remoter_EstimateTransmissionCapacity_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Remoter.5
       bool success = true;
       Remoter_EstimateTransmissionCapacity_ParamsDataView input_data_view(params, message);
       
@@ -1810,6 +1832,8 @@ bool RemotingSourceStubDispatch::Accept(
           reinterpret_cast<internal::RemotingSource_OnSinkAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSource.0
       bool success = true;
       ::media::mojom::RemotingSinkMetadataPtr p_metadata{};
       RemotingSource_OnSinkAvailable_ParamsDataView input_data_view(params, message);
@@ -1825,8 +1849,8 @@ bool RemotingSourceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSinkAvailable(
-std::move(p_metadata));
+      impl->OnSinkAvailable(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kRemotingSource_OnSinkGone_Name: {
@@ -1836,6 +1860,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::RemotingSource_OnSinkGone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSource.1
       bool success = true;
       RemotingSource_OnSinkGone_ParamsDataView input_data_view(params, message);
       
@@ -1848,7 +1874,7 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSinkGone();
+      impl->OnSinkGone(        );
       return true;
     }
     case internal::kRemotingSource_OnStarted_Name: {
@@ -1858,6 +1884,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::RemotingSource_OnStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSource.2
       bool success = true;
       RemotingSource_OnStarted_ParamsDataView input_data_view(params, message);
       
@@ -1870,7 +1898,7 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStarted();
+      impl->OnStarted(        );
       return true;
     }
     case internal::kRemotingSource_OnStartFailed_Name: {
@@ -1880,6 +1908,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::RemotingSource_OnStartFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSource.3
       bool success = true;
       ::media::mojom::RemotingStartFailReason p_reason{};
       RemotingSource_OnStartFailed_ParamsDataView input_data_view(params, message);
@@ -1895,8 +1925,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStartFailed(
-std::move(p_reason));
+      impl->OnStartFailed(        
+        std::move(p_reason));
       return true;
     }
     case internal::kRemotingSource_OnMessageFromSink_Name: {
@@ -1906,6 +1936,8 @@ std::move(p_reason));
           reinterpret_cast<internal::RemotingSource_OnMessageFromSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSource.4
       bool success = true;
       std::vector<uint8_t> p_message{};
       RemotingSource_OnMessageFromSink_ParamsDataView input_data_view(params, message);
@@ -1921,8 +1953,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessageFromSink(
-std::move(p_message));
+      impl->OnMessageFromSink(        
+        std::move(p_message));
       return true;
     }
     case internal::kRemotingSource_OnStopped_Name: {
@@ -1932,6 +1964,8 @@ std::move(p_message));
           reinterpret_cast<internal::RemotingSource_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSource.5
       bool success = true;
       ::media::mojom::RemotingStopReason p_reason{};
       RemotingSource_OnStopped_ParamsDataView input_data_view(params, message);
@@ -1947,8 +1981,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped(
-std::move(p_reason));
+      impl->OnStopped(        
+        std::move(p_reason));
       return true;
     }
   }
@@ -2400,6 +2434,8 @@ bool RemoteeStubDispatch::Accept(
           reinterpret_cast<internal::Remotee_OnRemotingSinkReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remotee.0
       bool success = true;
       ::mojo::PendingRemote<RemotingSink> p_sink{};
       Remotee_OnRemotingSinkReady_ParamsDataView input_data_view(params, message);
@@ -2417,8 +2453,8 @@ bool RemoteeStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemotingSinkReady(
-std::move(p_sink));
+      impl->OnRemotingSinkReady(        
+        std::move(p_sink));
       return true;
     }
     case internal::kRemotee_SendMessageToSource_Name: {
@@ -2428,6 +2464,8 @@ std::move(p_sink));
           reinterpret_cast<internal::Remotee_SendMessageToSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remotee.1
       bool success = true;
       std::vector<uint8_t> p_message{};
       Remotee_SendMessageToSource_ParamsDataView input_data_view(params, message);
@@ -2443,8 +2481,8 @@ std::move(p_sink));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendMessageToSource(
-std::move(p_message));
+      impl->SendMessageToSource(        
+        std::move(p_message));
       return true;
     }
     case internal::kRemotee_StartDataStreams_Name: {
@@ -2454,6 +2492,8 @@ std::move(p_message));
           reinterpret_cast<internal::Remotee_StartDataStreams_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remotee.2
       bool success = true;
       ::mojo::PendingRemote<RemotingDataStreamReceiver> p_audio_stream{};
       ::mojo::PendingRemote<RemotingDataStreamReceiver> p_video_stream{};
@@ -2476,9 +2516,9 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDataStreams(
-std::move(p_audio_stream), 
-std::move(p_video_stream));
+      impl->StartDataStreams(        
+        std::move(p_audio_stream), 
+        std::move(p_video_stream));
       return true;
     }
     case internal::kRemotee_OnFlushUntil_Name: {
@@ -2488,6 +2528,8 @@ std::move(p_video_stream));
           reinterpret_cast<internal::Remotee_OnFlushUntil_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remotee.3
       bool success = true;
       uint32_t p_audio_frame_count{};
       uint32_t p_video_frame_count{};
@@ -2506,9 +2548,9 @@ std::move(p_video_stream));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFlushUntil(
-std::move(p_audio_frame_count), 
-std::move(p_video_frame_count));
+      impl->OnFlushUntil(        
+        std::move(p_audio_frame_count), 
+        std::move(p_video_frame_count));
       return true;
     }
     case internal::kRemotee_OnVideoNaturalSizeChange_Name: {
@@ -2518,6 +2560,8 @@ std::move(p_video_frame_count));
           reinterpret_cast<internal::Remotee_OnVideoNaturalSizeChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Remotee.4
       bool success = true;
       ::gfx::Size p_size{};
       Remotee_OnVideoNaturalSizeChange_ParamsDataView input_data_view(params, message);
@@ -2533,8 +2577,8 @@ std::move(p_video_frame_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoNaturalSizeChange(
-std::move(p_size));
+      impl->OnVideoNaturalSizeChange(        
+        std::move(p_size));
       return true;
     }
   }
@@ -2712,6 +2756,8 @@ bool RemotingSinkStubDispatch::Accept(
           reinterpret_cast<internal::RemotingSink_OnMessageFromSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingSink.0
       bool success = true;
       std::vector<uint8_t> p_message{};
       RemotingSink_OnMessageFromSource_ParamsDataView input_data_view(params, message);
@@ -2727,8 +2773,8 @@ bool RemotingSinkStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessageFromSource(
-std::move(p_message));
+      impl->OnMessageFromSource(        
+        std::move(p_message));
       return true;
     }
   }
@@ -3015,6 +3061,8 @@ bool RemotingDataStreamReceiverStubDispatch::Accept(
           reinterpret_cast<internal::RemotingDataStreamReceiver_InitializeDataPipe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingDataStreamReceiver.0
       bool success = true;
       ::mojo::ScopedDataPipeConsumerHandle p_data_pipe{};
       RemotingDataStreamReceiver_InitializeDataPipe_ParamsDataView input_data_view(params, message);
@@ -3030,8 +3078,8 @@ bool RemotingDataStreamReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeDataPipe(
-std::move(p_data_pipe));
+      impl->InitializeDataPipe(        
+        std::move(p_data_pipe));
       return true;
     }
     case internal::kRemotingDataStreamReceiver_ReceiveFrame_Name: {
@@ -3041,6 +3089,8 @@ std::move(p_data_pipe));
           reinterpret_cast<internal::RemotingDataStreamReceiver_ReceiveFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingDataStreamReceiver.1
       bool success = true;
       uint32_t p_frame_count{};
       ::media::mojom::DecoderBufferPtr p_buffer{};
@@ -3059,9 +3109,9 @@ std::move(p_data_pipe));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveFrame(
-std::move(p_frame_count), 
-std::move(p_buffer));
+      impl->ReceiveFrame(        
+        std::move(p_frame_count), 
+        std::move(p_buffer));
       return true;
     }
     case internal::kRemotingDataStreamReceiver_FlushUntil_Name: {
@@ -3071,6 +3121,8 @@ std::move(p_buffer));
           reinterpret_cast<internal::RemotingDataStreamReceiver_FlushUntil_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemotingDataStreamReceiver.2
       bool success = true;
       uint32_t p_frame_count{};
       RemotingDataStreamReceiver_FlushUntil_ParamsDataView input_data_view(params, message);
@@ -3086,8 +3138,8 @@ std::move(p_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FlushUntil(
-std::move(p_frame_count));
+      impl->FlushUntil(        
+        std::move(p_frame_count));
       return true;
     }
   }

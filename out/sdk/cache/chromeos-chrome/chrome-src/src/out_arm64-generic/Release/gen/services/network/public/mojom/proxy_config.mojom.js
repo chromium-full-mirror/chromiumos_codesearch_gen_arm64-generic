@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/big_string.mojom', '../../../../mojo/public/mojom/base/big_string.mojom.js');
   }
+  var network_param$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/network_param.mojom', 'network_param.mojom.js');
+  }
 
 
   var ProxyRulesType = {};
@@ -169,7 +175,7 @@
 
 
     // validate ProxyList.proxies
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.ArrayOf(codec.String), false, [0, 0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.ProxyChain), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -184,7 +190,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.proxies =
-        decoder.decodeArrayPointer(new codec.ArrayOf(codec.String));
+        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.ProxyChain));
     return val;
   };
 
@@ -192,7 +198,7 @@
     var packed;
     encoder.writeUint32(ProxyList.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.ArrayOf(codec.String), val.proxies);
+    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.ProxyChain), val.proxies);
   };
   function ProxyRules(values) {
     this.initDefaults_();
@@ -203,7 +209,6 @@
   ProxyRules.prototype.initDefaults_ = function() {
     this.bypassRules = null;
     this.reverseBypass = false;
-    this.restrictToNetworkServiceProxyAllowList = false;
     this.type = 0;
     this.singleProxies = null;
     this.proxiesForHttp = null;
@@ -236,7 +241,6 @@
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, ProxyBypassRules, false);
     if (err !== validator.validationError.NONE)
         return err;
-
 
 
 
@@ -289,7 +293,6 @@
         decoder.decodeStructPointer(ProxyBypassRules);
     packed = decoder.readUint8();
     val.reverseBypass = (packed >> 0) & 1 ? true : false;
-    val.restrictToNetworkServiceProxyAllowList = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -315,7 +318,6 @@
     encoder.encodeStructPointer(ProxyBypassRules, val.bypassRules);
     packed = 0;
     packed |= (val.reverseBypass & 1) << 0
-    packed |= (val.restrictToNetworkServiceProxyAllowList & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

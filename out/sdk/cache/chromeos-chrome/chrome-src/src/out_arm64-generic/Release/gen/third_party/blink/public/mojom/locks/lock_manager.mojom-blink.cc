@@ -324,6 +324,8 @@ bool LockRequestStubDispatch::Accept(
           reinterpret_cast<internal::LockRequest_Granted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LockRequest.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<LockHandle> p_lock_handle{};
       LockRequest_Granted_ParamsDataView input_data_view(params, message);
@@ -341,8 +343,8 @@ bool LockRequestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Granted(
-std::move(p_lock_handle));
+      impl->Granted(        
+        std::move(p_lock_handle));
       return true;
     }
     case internal::kLockRequest_Failed_Name: {
@@ -352,6 +354,8 @@ std::move(p_lock_handle));
           reinterpret_cast<internal::LockRequest_Failed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LockRequest.1
       bool success = true;
       LockRequest_Failed_ParamsDataView input_data_view(params, message);
       
@@ -364,7 +368,7 @@ std::move(p_lock_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Failed();
+      impl->Failed(        );
       return true;
     }
   }
@@ -659,6 +663,8 @@ bool LockManager_QueryState_ForwardToCallback::Accept(
           internal::LockManager_QueryState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LockManager.1
   bool success = true;
   WTF::Vector<LockInfoPtr> p_requested{};
   WTF::Vector<LockInfoPtr> p_held{};
@@ -765,6 +771,8 @@ bool LockManagerStubDispatch::Accept(
           reinterpret_cast<internal::LockManager_RequestLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LockManager.0
       bool success = true;
       WTF::String p_name{};
       LockMode p_mode{};
@@ -791,11 +799,11 @@ bool LockManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestLock(
-std::move(p_name), 
-std::move(p_mode), 
-std::move(p_wait), 
-std::move(p_request));
+      impl->RequestLock(        
+        std::move(p_name), 
+        std::move(p_mode), 
+        std::move(p_wait), 
+        std::move(p_request));
       return true;
     }
     case internal::kLockManager_QueryState_Name: {
@@ -824,6 +832,8 @@ bool LockManagerStubDispatch::AcceptWithResponder(
               internal::LockManager_QueryState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LockManager.1
       bool success = true;
       LockManager_QueryState_ParamsDataView input_data_view(params, message);
       

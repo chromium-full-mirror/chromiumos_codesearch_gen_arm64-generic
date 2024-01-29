@@ -16,7 +16,7 @@ namespace content::mojom {
 
 class CONTENT_EXPORT ChildHistogramFetcherFactoryInterceptorForTesting : public ChildHistogramFetcherFactory {
   virtual ChildHistogramFetcherFactory* GetForwardingInterface() = 0;
-  void CreateFetcher(::base::WritableSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) override;
+  void CreateFetcher(::base::UnsafeSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) override;
 };
 class CONTENT_EXPORT ChildHistogramFetcherFactoryAsyncWaiter {
  public:

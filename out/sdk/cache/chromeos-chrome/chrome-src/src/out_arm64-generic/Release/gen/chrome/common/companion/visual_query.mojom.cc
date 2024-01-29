@@ -306,6 +306,8 @@ bool VisualSuggestionsResultHandlerStubDispatch::Accept(
           reinterpret_cast<internal::VisualSuggestionsResultHandler_HandleClassification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VisualSuggestionsResultHandler.0
       bool success = true;
       std::vector<VisualQuerySuggestionPtr> p_results{};
       ClassificationStatsPtr p_stats{};
@@ -324,9 +326,9 @@ bool VisualSuggestionsResultHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleClassification(
-std::move(p_results), 
-std::move(p_stats));
+      impl->HandleClassification(        
+        std::move(p_results), 
+        std::move(p_stats));
       return true;
     }
   }
@@ -505,6 +507,8 @@ bool VisualSuggestionsRequestHandlerStubDispatch::Accept(
           reinterpret_cast<internal::VisualSuggestionsRequestHandler_StartVisualClassification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VisualSuggestionsRequestHandler.0
       bool success = true;
       ::base::File p_visual_model_file{};
       std::string p_config_proto{};
@@ -528,10 +532,10 @@ bool VisualSuggestionsRequestHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartVisualClassification(
-std::move(p_visual_model_file), 
-std::move(p_config_proto), 
-std::move(p_result_handler));
+      impl->StartVisualClassification(        
+        std::move(p_visual_model_file), 
+        std::move(p_config_proto), 
+        std::move(p_result_handler));
       return true;
     }
   }
@@ -731,6 +735,8 @@ bool VisualSuggestionsModelProvider_GetModelWithMetadata_ForwardToCallback::Acce
           internal::VisualSuggestionsModelProvider_GetModelWithMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VisualSuggestionsModelProvider.0
   bool success = true;
   ::base::File p_visual_model_file{};
   std::string p_config_proto{};
@@ -849,6 +855,8 @@ bool VisualSuggestionsModelProviderStubDispatch::AcceptWithResponder(
               internal::VisualSuggestionsModelProvider_GetModelWithMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VisualSuggestionsModelProvider.0
       bool success = true;
       VisualSuggestionsModelProvider_GetModelWithMetadata_ParamsDataView input_data_view(params, message);
       

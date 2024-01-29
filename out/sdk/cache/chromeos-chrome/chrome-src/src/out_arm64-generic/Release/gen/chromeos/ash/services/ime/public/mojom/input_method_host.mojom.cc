@@ -2003,6 +2003,8 @@ bool InputMethodHost_RequestSuggestions_ForwardToCallback::Accept(
           internal::InputMethodHost_RequestSuggestions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodHost.7
   bool success = true;
   SuggestionsResponsePtr p_response{};
   InputMethodHost_RequestSuggestions_ResponseParamsDataView input_data_view(params, message);
@@ -2087,6 +2089,8 @@ bool InputMethodHostStubDispatch::Accept(
           reinterpret_cast<internal::InputMethodHost_CommitText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.0
       bool success = true;
       ::std::u16string p_text{};
       CommitTextCursorBehavior p_cursor_behavior{};
@@ -2105,9 +2109,9 @@ bool InputMethodHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CommitText(
-std::move(p_text), 
-std::move(p_cursor_behavior));
+      impl->CommitText(        
+        std::move(p_text), 
+        std::move(p_cursor_behavior));
       return true;
     }
     case internal::kInputMethodHost_DEPRECATED_SetComposition_Name: {
@@ -2117,6 +2121,8 @@ std::move(p_cursor_behavior));
           reinterpret_cast<internal::InputMethodHost_DEPRECATED_SetComposition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.1
       bool success = true;
       ::std::u16string p_text{};
       std::vector<CompositionSpanPtr> p_spans{};
@@ -2135,9 +2141,9 @@ std::move(p_cursor_behavior));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_SetComposition(
-std::move(p_text), 
-std::move(p_spans));
+      impl->DEPRECATED_SetComposition(        
+        std::move(p_text), 
+        std::move(p_spans));
       return true;
     }
     case internal::kInputMethodHost_SetComposition_Name: {
@@ -2147,6 +2153,8 @@ std::move(p_spans));
           reinterpret_cast<internal::InputMethodHost_SetComposition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.12
       bool success = true;
       ::std::u16string p_text{};
       std::vector<CompositionSpanPtr> p_spans{};
@@ -2168,10 +2176,10 @@ std::move(p_spans));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetComposition(
-std::move(p_text), 
-std::move(p_spans), 
-std::move(p_new_cursor_position));
+      impl->SetComposition(        
+        std::move(p_text), 
+        std::move(p_spans), 
+        std::move(p_new_cursor_position));
       return true;
     }
     case internal::kInputMethodHost_SetCompositionRange_Name: {
@@ -2181,6 +2189,8 @@ std::move(p_new_cursor_position));
           reinterpret_cast<internal::InputMethodHost_SetCompositionRange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.2
       bool success = true;
       uint32_t p_start_index{};
       uint32_t p_end_index{};
@@ -2199,9 +2209,9 @@ std::move(p_new_cursor_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCompositionRange(
-std::move(p_start_index), 
-std::move(p_end_index));
+      impl->SetCompositionRange(        
+        std::move(p_start_index), 
+        std::move(p_end_index));
       return true;
     }
     case internal::kInputMethodHost_FinishComposition_Name: {
@@ -2211,6 +2221,8 @@ std::move(p_end_index));
           reinterpret_cast<internal::InputMethodHost_FinishComposition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.3
       bool success = true;
       InputMethodHost_FinishComposition_ParamsDataView input_data_view(params, message);
       
@@ -2223,7 +2235,7 @@ std::move(p_end_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FinishComposition();
+      impl->FinishComposition(        );
       return true;
     }
     case internal::kInputMethodHost_DeleteSurroundingText_Name: {
@@ -2233,6 +2245,8 @@ std::move(p_end_index));
           reinterpret_cast<internal::InputMethodHost_DeleteSurroundingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.4
       bool success = true;
       uint32_t p_num_before_cursor{};
       uint32_t p_num_after_cursor{};
@@ -2251,9 +2265,9 @@ std::move(p_end_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSurroundingText(
-std::move(p_num_before_cursor), 
-std::move(p_num_after_cursor));
+      impl->DeleteSurroundingText(        
+        std::move(p_num_before_cursor), 
+        std::move(p_num_after_cursor));
       return true;
     }
     case internal::kInputMethodHost_ReplaceSurroundingText_Name: {
@@ -2263,6 +2277,8 @@ std::move(p_num_after_cursor));
           reinterpret_cast<internal::InputMethodHost_ReplaceSurroundingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.16
       bool success = true;
       uint32_t p_num_before_cursor{};
       uint32_t p_num_after_cursor{};
@@ -2284,10 +2300,10 @@ std::move(p_num_after_cursor));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReplaceSurroundingText(
-std::move(p_num_before_cursor), 
-std::move(p_num_after_cursor), 
-std::move(p_text));
+      impl->ReplaceSurroundingText(        
+        std::move(p_num_before_cursor), 
+        std::move(p_num_after_cursor), 
+        std::move(p_text));
       return true;
     }
     case internal::kInputMethodHost_HandleAutocorrect_Name: {
@@ -2297,6 +2313,8 @@ std::move(p_text));
           reinterpret_cast<internal::InputMethodHost_HandleAutocorrect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.5
       bool success = true;
       AutocorrectSpanPtr p_autocorrect_span{};
       InputMethodHost_HandleAutocorrect_ParamsDataView input_data_view(params, message);
@@ -2312,8 +2330,8 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAutocorrect(
-std::move(p_autocorrect_span));
+      impl->HandleAutocorrect(        
+        std::move(p_autocorrect_span));
       return true;
     }
     case internal::kInputMethodHost_DisplaySuggestions_Name: {
@@ -2323,6 +2341,8 @@ std::move(p_autocorrect_span));
           reinterpret_cast<internal::InputMethodHost_DisplaySuggestions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.6
       bool success = true;
       std::vector<::ash::ime::AssistiveSuggestion> p_suggestions{};
       std::optional<::ash::ime::SuggestionsTextContext> p_context{};
@@ -2341,9 +2361,9 @@ std::move(p_autocorrect_span));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplaySuggestions(
-std::move(p_suggestions), 
-std::move(p_context));
+      impl->DisplaySuggestions(        
+        std::move(p_suggestions), 
+        std::move(p_context));
       return true;
     }
     case internal::kInputMethodHost_UpdateCandidatesWindow_Name: {
@@ -2353,6 +2373,8 @@ std::move(p_context));
           reinterpret_cast<internal::InputMethodHost_UpdateCandidatesWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.9
       bool success = true;
       CandidatesWindowPtr p_window{};
       InputMethodHost_UpdateCandidatesWindow_ParamsDataView input_data_view(params, message);
@@ -2368,8 +2390,8 @@ std::move(p_context));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCandidatesWindow(
-std::move(p_window));
+      impl->UpdateCandidatesWindow(        
+        std::move(p_window));
       return true;
     }
     case internal::kInputMethodHost_RequestSuggestions_Name: {
@@ -2382,6 +2404,8 @@ std::move(p_window));
           reinterpret_cast<internal::InputMethodHost_UpdateQuickSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.13
       bool success = true;
       ::ash::ime::mojom::InputMethodQuickSettingsPtr p_settings{};
       InputMethodHost_UpdateQuickSettings_ParamsDataView input_data_view(params, message);
@@ -2397,8 +2421,8 @@ std::move(p_window));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateQuickSettings(
-std::move(p_settings));
+      impl->UpdateQuickSettings(        
+        std::move(p_settings));
       return true;
     }
     case internal::kInputMethodHost_RecordUkm_Name: {
@@ -2408,6 +2432,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputMethodHost_RecordUkm_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.8
       bool success = true;
       UkmEntryPtr p_entry{};
       InputMethodHost_RecordUkm_ParamsDataView input_data_view(params, message);
@@ -2423,8 +2449,8 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordUkm(
-std::move(p_entry));
+      impl->RecordUkm(        
+        std::move(p_entry));
       return true;
     }
     case internal::kInputMethodHost_DEPRECATED_ReportKoreanAction_Name: {
@@ -2434,6 +2460,8 @@ std::move(p_entry));
           reinterpret_cast<internal::InputMethodHost_DEPRECATED_ReportKoreanAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.10
       bool success = true;
       KoreanAction p_action{};
       InputMethodHost_DEPRECATED_ReportKoreanAction_ParamsDataView input_data_view(params, message);
@@ -2449,8 +2477,8 @@ std::move(p_entry));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ReportKoreanAction(
-std::move(p_action));
+      impl->DEPRECATED_ReportKoreanAction(        
+        std::move(p_action));
       return true;
     }
     case internal::kInputMethodHost_DEPRECATED_ReportKoreanSettings_Name: {
@@ -2460,6 +2488,8 @@ std::move(p_action));
           reinterpret_cast<internal::InputMethodHost_DEPRECATED_ReportKoreanSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.11
       bool success = true;
       ::ash::ime::mojom::KoreanSettingsPtr p_settings{};
       InputMethodHost_DEPRECATED_ReportKoreanSettings_ParamsDataView input_data_view(params, message);
@@ -2475,8 +2505,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ReportKoreanSettings(
-std::move(p_settings));
+      impl->DEPRECATED_ReportKoreanSettings(        
+        std::move(p_settings));
       return true;
     }
     case internal::kInputMethodHost_DEPRECATED_ReportSuggestionOpportunity_Name: {
@@ -2486,6 +2516,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputMethodHost_DEPRECATED_ReportSuggestionOpportunity_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.14
       bool success = true;
       ::ash::ime::AssistiveSuggestionMode p_mode{};
       InputMethodHost_DEPRECATED_ReportSuggestionOpportunity_ParamsDataView input_data_view(params, message);
@@ -2501,8 +2533,8 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ReportSuggestionOpportunity(
-std::move(p_mode));
+      impl->DEPRECATED_ReportSuggestionOpportunity(        
+        std::move(p_mode));
       return true;
     }
     case internal::kInputMethodHost_ReportHistogramSample_Name: {
@@ -2512,6 +2544,8 @@ std::move(p_mode));
           reinterpret_cast<internal::InputMethodHost_ReportHistogramSample_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.15
       bool success = true;
       ::base::Histogram* p_histogram{};
       uint16_t p_value{};
@@ -2530,9 +2564,9 @@ std::move(p_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportHistogramSample(
-std::move(p_histogram), 
-std::move(p_value));
+      impl->ReportHistogramSample(        
+        std::move(p_histogram), 
+        std::move(p_value));
       return true;
     }
   }
@@ -2585,6 +2619,8 @@ bool InputMethodHostStubDispatch::AcceptWithResponder(
               internal::InputMethodHost_RequestSuggestions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodHost.7
       bool success = true;
       SuggestionsRequestPtr p_request{};
       InputMethodHost_RequestSuggestions_ParamsDataView input_data_view(params, message);
@@ -2603,8 +2639,8 @@ bool InputMethodHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSuggestions(
-std::move(p_request), std::move(callback));
+      impl->RequestSuggestions(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kInputMethodHost_UpdateQuickSettings_Name: {

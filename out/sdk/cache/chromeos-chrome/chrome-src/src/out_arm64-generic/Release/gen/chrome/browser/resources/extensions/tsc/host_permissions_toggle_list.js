@@ -14,7 +14,7 @@ import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_
 import { getTemplate } from './host_permissions_toggle_list.html.js';
 import { UserAction } from './item_util.js';
 import { getMatchingUserSpecifiedSites } from './runtime_hosts_dialog.js';
-import { SiteSettingsMixin } from './site_settings_mixin.js';
+import { SiteSettingsMixin } from './site_permissions/site_settings_mixin.js';
 import { getFaviconUrl } from './url_util.js';
 const ExtensionsHostPermissionsToggleListElementBase = SiteSettingsMixin(PolymerElement);
 export class ExtensionsHostPermissionsToggleListElement extends ExtensionsHostPermissionsToggleListElementBase {

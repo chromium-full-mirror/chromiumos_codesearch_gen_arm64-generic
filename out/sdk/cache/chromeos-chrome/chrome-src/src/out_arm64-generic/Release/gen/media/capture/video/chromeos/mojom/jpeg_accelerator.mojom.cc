@@ -227,6 +227,8 @@ bool JpegAcceleratorProviderStubDispatch::Accept(
           reinterpret_cast<internal::JpegAcceleratorProvider_GetJpegEncodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for JpegAcceleratorProvider.0
       bool success = true;
       ::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> p_jea{};
       JpegAcceleratorProvider_GetJpegEncodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -244,8 +246,8 @@ bool JpegAcceleratorProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetJpegEncodeAccelerator(
-std::move(p_jea));
+      impl->GetJpegEncodeAccelerator(        
+        std::move(p_jea));
       return true;
     }
     case internal::kJpegAcceleratorProvider_GetMjpegDecodeAccelerator_Name: {
@@ -255,6 +257,8 @@ std::move(p_jea));
           reinterpret_cast<internal::JpegAcceleratorProvider_GetMjpegDecodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for JpegAcceleratorProvider.1
       bool success = true;
       ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> p_jda{};
       JpegAcceleratorProvider_GetMjpegDecodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -272,8 +276,8 @@ std::move(p_jea));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMjpegDecodeAccelerator(
-std::move(p_jda));
+      impl->GetMjpegDecodeAccelerator(        
+        std::move(p_jda));
       return true;
     }
   }

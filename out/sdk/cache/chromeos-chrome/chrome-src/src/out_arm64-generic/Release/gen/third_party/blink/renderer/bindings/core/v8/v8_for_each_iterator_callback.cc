@@ -57,19 +57,13 @@ const int argc = 3;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_value;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_value).ToLocal(&v8_arg1_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_value = ToV8Traits<IDLAny>::ToV8(script_state, arg1_value);
 argv[0] = v8_arg1_value;
 v8::Local<v8::Value> v8_arg2_key;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_key).ToLocal(&v8_arg2_key)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_key = ToV8Traits<IDLAny>::ToV8(script_state, arg2_key);
 argv[1] = v8_arg2_key;
 v8::Local<v8::Value> v8_arg3_obj;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg3_obj).ToLocal(&v8_arg3_obj)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_obj = ToV8Traits<IDLAny>::ToV8(script_state, arg3_obj);
 argv[2] = v8_arg3_obj;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -108,19 +102,13 @@ const int argc = 3;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_value;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_value).ToLocal(&v8_arg1_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_value = ToV8Traits<IDLAny>::ToV8(script_state, arg1_value);
 argv[0] = v8_arg1_value;
 v8::Local<v8::Value> v8_arg2_key;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_key).ToLocal(&v8_arg2_key)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_key = ToV8Traits<IDLAny>::ToV8(script_state, arg2_key);
 argv[1] = v8_arg2_key;
 v8::Local<v8::Value> v8_arg3_obj;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg3_obj).ToLocal(&v8_arg3_obj)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_obj = ToV8Traits<IDLAny>::ToV8(script_state, arg3_obj);
 argv[2] = v8_arg3_obj;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

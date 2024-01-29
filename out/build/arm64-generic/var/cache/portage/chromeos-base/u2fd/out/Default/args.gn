@@ -11,8 +11,8 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/u2fd"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/u2fd-0.0.1-r2150/work/u2fd-0.0.1"
-libbase_ver = "1241304"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/u2fd-0.0.1-r2174/work/u2fd-0.0.1"
+libbase_ver = "1252475"
 enable_exceptions = false
 external_cflags = [
   "-Os",
@@ -37,7 +37,7 @@ external_cxxflags = [
   "-fdata-sections",
 ]
 external_cppflags = [
-  "-DVCSID=\"0.0.1-r2150-46620bd1d7f35a58bee208f65b2c7a0425b34010\"",
+  "-DVCSID=\"0.0.1-r2174-01ca8c12d43f091ca9e4130b616e68f5e9496a16\"",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",
   "-D_LARGEFILE64_SOURCE",
@@ -186,7 +186,7 @@ use = {
   proto_force_optimize_speed = false
   qualcomm_camx = false
   qrtr = false
-  report_requisition = false
+  reven_oobe_config = false
   reven_partition_migration = false
   secagentd_min_core_btf = false
   selinux = false

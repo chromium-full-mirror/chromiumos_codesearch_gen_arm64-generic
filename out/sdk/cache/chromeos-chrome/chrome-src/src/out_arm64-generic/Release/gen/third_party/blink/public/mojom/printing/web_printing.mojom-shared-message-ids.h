@@ -14,7 +14,7 @@ namespace blink::mojom {
 namespace internal {
 
 
-constexpr uint32_t kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name = 0;
+constexpr uint32_t kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name = 0;
 constexpr uint32_t kWebPrinter_FetchAttributes_Name = 0;
 constexpr uint32_t kWebPrinter_Print_Name = 1;
 constexpr uint32_t kWebPrintingService_GetPrinters_Name = 0;

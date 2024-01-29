@@ -175,6 +175,8 @@ bool FaceDetectionProviderStubDispatch::Accept(
           reinterpret_cast<internal::FaceDetectionProvider_CreateFaceDetection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FaceDetectionProvider.0
       bool success = true;
       ::mojo::PendingReceiver<::shape_detection::mojom::FaceDetection> p_receiver{};
       ::shape_detection::mojom::FaceDetectorOptionsPtr p_options{};
@@ -195,9 +197,9 @@ bool FaceDetectionProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFaceDetection(
-std::move(p_receiver), 
-std::move(p_options));
+      impl->CreateFaceDetection(        
+        std::move(p_receiver), 
+        std::move(p_options));
       return true;
     }
   }

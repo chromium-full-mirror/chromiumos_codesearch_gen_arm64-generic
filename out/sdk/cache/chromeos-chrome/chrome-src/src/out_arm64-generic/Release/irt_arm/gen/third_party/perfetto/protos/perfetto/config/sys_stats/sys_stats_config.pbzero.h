@@ -60,7 +60,7 @@ const char* SysStatsConfig_StatCounters_Name(::perfetto::protos::pbzero::SysStat
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class SysStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/10, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class SysStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   SysStatsConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit SysStatsConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -85,6 +85,8 @@ class SysStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD
   uint32_t buddyinfo_period_ms() const { return at<9>().as_uint32(); }
   bool has_diskstat_period_ms() const { return at<10>().valid(); }
   uint32_t diskstat_period_ms() const { return at<10>().as_uint32(); }
+  bool has_psi_period_ms() const { return at<11>().valid(); }
+  uint32_t psi_period_ms() const { return at<11>().as_uint32(); }
 };
 
 class SysStatsConfig : public ::protozero::Message {
@@ -101,6 +103,7 @@ class SysStatsConfig : public ::protozero::Message {
     kCpufreqPeriodMsFieldNumber = 8,
     kBuddyinfoPeriodMsFieldNumber = 9,
     kDiskstatPeriodMsFieldNumber = 10,
+    kPsiPeriodMsFieldNumber = 11,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.SysStatsConfig"; }
 
@@ -288,6 +291,24 @@ class SysStatsConfig : public ::protozero::Message {
   static constexpr FieldMetadata_DiskstatPeriodMs kDiskstatPeriodMs{};
   void set_diskstat_period_ms(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_DiskstatPeriodMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PsiPeriodMs =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      SysStatsConfig>;
+
+  static constexpr FieldMetadata_PsiPeriodMs kPsiPeriodMs{};
+  void set_psi_period_ms(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PsiPeriodMs::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<

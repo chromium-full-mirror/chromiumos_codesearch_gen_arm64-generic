@@ -263,6 +263,8 @@ bool WilcoEcObserverStubDispatch::Accept(
           reinterpret_cast<internal::WilcoEcObserver_OnEcEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WilcoEcObserver.0
       bool success = true;
       EcEventPtr p_ec_event{};
       WilcoEcObserver_OnEcEvent_ParamsDataView input_data_view(params, message);
@@ -278,8 +280,8 @@ bool WilcoEcObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEcEvent(
-std::move(p_ec_event));
+      impl->OnEcEvent(        
+        std::move(p_ec_event));
       return true;
     }
   }

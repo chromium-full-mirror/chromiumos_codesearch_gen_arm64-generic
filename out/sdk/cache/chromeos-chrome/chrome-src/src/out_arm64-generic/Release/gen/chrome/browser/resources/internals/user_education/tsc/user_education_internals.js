@@ -2,13 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import 'chrome://resources/cr_components/help_bubble/help_bubble.js';
+import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
 import 'chrome://resources/cr_elements/cr_hidden_style.css.js';
+import 'chrome://resources/cr_elements/cr_menu_selector/cr_menu_selector.js';
+import 'chrome://resources/cr_elements/cr_nav_menu_item_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/cr_elements/cr_toolbar/cr_toolbar.js';
 import 'chrome://resources/cr_elements/cr_toolbar/cr_toolbar_search_field.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
+import 'chrome://resources/polymer/v3_0/iron-location/iron-location.js';
 import './user_education_internals_card.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
 import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
@@ -39,6 +44,13 @@ class UserEducationInternalsElement extends UserEducationInternalsElementBase {
             featurePromos_: Array,
             featurePromoErrorMessage_: String,
             narrow_: Boolean,
+            /**
+             * Indicates if the list of promo data is expanded or collapsed.
+             */
+            sessionExpanded_: {
+                type: Boolean,
+                value: false,
+            },
         };
     }
     constructor() {
@@ -50,9 +62,6 @@ class UserEducationInternalsElement extends UserEducationInternalsElementBase {
     ready() {
         super.ready();
         ColorChangeUpdater.forDocument().start();
-        this.handler_.getTutorials().then(({ tutorialInfos }) => {
-            this.tutorials_ = tutorialInfos;
-        });
         // There is a self-referential demo IPH for showing a help bubble in a
         // WebUI (specifically, this WebUI). Because of that, the target anchor for
         // the help bubble needs to be registered.
@@ -64,6 +73,12 @@ class UserEducationInternalsElement extends UserEducationInternalsElementBase {
             this.registerHelpBubble('kWebUIIPHDemoElementIdentifier', ['#IPH_WebUiHelpBubbleTest', '#launch']);
         }, {
             once: true,
+        });
+        this.handler_.getTutorials().then(({ tutorialInfos }) => {
+            this.tutorials_ = tutorialInfos;
+        });
+        this.handler_.getSessionData().then(({ sessionData }) => {
+            this.sessionData_ = sessionData;
         });
         this.handler_.getFeaturePromos().then(({ featurePromos }) => {
             this.featurePromos_ = featurePromos;
@@ -92,11 +107,52 @@ class UserEducationInternalsElement extends UserEducationInternalsElementBase {
             }
         });
     }
+    clearPromoData_(e) {
+        const id = e.detail;
+        this.featurePromoErrorMessage_ = '';
+        this.handler_.clearFeaturePromoData(id).then(({ errorMessage }) => {
+            this.featurePromoErrorMessage_ = errorMessage;
+            if (errorMessage !== '') {
+                this.$.errorMessageToast.show();
+            }
+            else {
+                this.handler_.getFeaturePromos().then(({ featurePromos }) => {
+                    this.featurePromos_ = featurePromos;
+                });
+            }
+        });
+    }
+    clearSessionData_() {
+        this.handler_.clearSessionData().then(({ errorMessage }) => {
+            this.featurePromoErrorMessage_ = errorMessage;
+            if (errorMessage !== '') {
+                this.$.errorMessageToast.show();
+            }
+            else {
+                this.handler_.getSessionData().then(({ sessionData }) => {
+                    this.sessionData_ = sessionData;
+                });
+            }
+        });
+    }
     promoFilter_(promo, filter) {
         return filter === '' || promo.displayTitle.toLowerCase().includes(filter) ||
             promo.displayDescription.toLowerCase().includes(filter) ||
             promo.instructions.find((instruction) => instruction.toLowerCase().includes(filter)) ||
             promo.supportedPlatforms.find((platform) => platform.toLowerCase().includes(filter));
+    }
+    /**
+     * Prevent clicks on sidebar items from navigating.
+     */
+    onLinkClick_(event) {
+        event.preventDefault();
+    }
+    onSelectorActivate_(event) {
+        const url = event.detail.selected;
+        this.$.menu.selected = url;
+        const idx = url.lastIndexOf('#');
+        const el = this.$.content.querySelector(url.substring(idx));
+        el?.scrollIntoView(true);
     }
 }
 customElements.define(UserEducationInternalsElement.is, UserEducationInternalsElement);

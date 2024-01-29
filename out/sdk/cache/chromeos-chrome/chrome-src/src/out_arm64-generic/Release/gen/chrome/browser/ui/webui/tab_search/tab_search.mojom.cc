@@ -938,6 +938,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -960,9 +962,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -1028,8 +1030,8 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_RemoveTabFromOrganization_Name: {
       return &PageHandler::RemoveTabFromOrganization_Sym::IPCStableHash;
     }
-    case internal::kPageHandler_ResetSession_Name: {
-      return &PageHandler::ResetSession_Sym::IPCStableHash;
+    case internal::kPageHandler_RestartSession_Name: {
+      return &PageHandler::RestartSession_Sym::IPCStableHash;
     }
     case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name: {
       return &PageHandler::SaveRecentlyClosedExpandedPref_Sym::IPCStableHash;
@@ -1090,8 +1092,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive tab_search::mojom::PageHandler::RequestTabOrganization";
       case internal::kPageHandler_RemoveTabFromOrganization_Name:
             return "Receive tab_search::mojom::PageHandler::RemoveTabFromOrganization";
-      case internal::kPageHandler_ResetSession_Name:
-            return "Receive tab_search::mojom::PageHandler::ResetSession";
+      case internal::kPageHandler_RestartSession_Name:
+            return "Receive tab_search::mojom::PageHandler::RestartSession";
       case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name:
             return "Receive tab_search::mojom::PageHandler::SaveRecentlyClosedExpandedPref";
       case internal::kPageHandler_SetTabIndex_Name:
@@ -1133,8 +1135,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply tab_search::mojom::PageHandler::RequestTabOrganization";
       case internal::kPageHandler_RemoveTabFromOrganization_Name:
             return "Receive reply tab_search::mojom::PageHandler::RemoveTabFromOrganization";
-      case internal::kPageHandler_ResetSession_Name:
-            return "Receive reply tab_search::mojom::PageHandler::ResetSession";
+      case internal::kPageHandler_RestartSession_Name:
+            return "Receive reply tab_search::mojom::PageHandler::RestartSession";
       case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name:
             return "Receive reply tab_search::mojom::PageHandler::SaveRecentlyClosedExpandedPref";
       case internal::kPageHandler_SetTabIndex_Name:
@@ -1286,7 +1288,7 @@ uint32_t PageHandler::RemoveTabFromOrganization_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PageHandler::ResetSession_Sym::IPCStableHash() {
+uint32_t PageHandler::RestartSession_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1294,7 +1296,7 @@ uint32_t PageHandler::ResetSession_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)tab_search::mojom::PageHandler::ResetSession");
+          "(Impl)tab_search::mojom::PageHandler::RestartSession");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1880,10 +1882,10 @@ void PageHandlerProxy::RemoveTabFromOrganization(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void PageHandlerProxy::ResetSession(
+void PageHandlerProxy::RestartSession(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::ResetSession");
+  TRACE_EVENT0("mojom", "Send tab_search::mojom::PageHandler::RestartSession");
 #endif
 
   const bool kExpectsResponse = false;
@@ -1898,15 +1900,15 @@ void PageHandlerProxy::ResetSession(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPageHandler_ResetSession_Name, kFlags, 0, 0, nullptr);
+      internal::kPageHandler_RestartSession_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::tab_search::mojom::internal::PageHandler_ResetSession_Params_Data> params(
+      ::tab_search::mojom::internal::PageHandler_RestartSession_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
-  message.set_method_name("ResetSession");
+  message.set_method_name("RestartSession");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2341,6 +2343,8 @@ bool PageHandler_GetProfileData_ForwardToCallback::Accept(
           internal::PageHandler_GetProfileData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   ProfileDataPtr p_profile_data{};
   PageHandler_GetProfileData_ResponseParamsDataView input_data_view(params, message);
@@ -2470,6 +2474,8 @@ bool PageHandler_GetTabOrganizationSession_ForwardToCallback::Accept(
           internal::PageHandler_GetTabOrganizationSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   TabOrganizationSessionPtr p_session{};
   PageHandler_GetTabOrganizationSession_ResponseParamsDataView input_data_view(params, message);
@@ -2554,6 +2560,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_CloseTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       int32_t p_tab_id{};
       PageHandler_CloseTab_ParamsDataView input_data_view(params, message);
@@ -2569,8 +2577,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseTab(
-std::move(p_tab_id));
+      impl->CloseTab(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kPageHandler_AcceptTabOrganization_Name: {
@@ -2580,6 +2588,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::PageHandler_AcceptTabOrganization_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       int32_t p_session_id{};
       int32_t p_organization_id{};
@@ -2604,11 +2614,11 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcceptTabOrganization(
-std::move(p_session_id), 
-std::move(p_organization_id), 
-std::move(p_name), 
-std::move(p_tabs));
+      impl->AcceptTabOrganization(        
+        std::move(p_session_id), 
+        std::move(p_organization_id), 
+        std::move(p_name), 
+        std::move(p_tabs));
       return true;
     }
     case internal::kPageHandler_RejectTabOrganization_Name: {
@@ -2618,6 +2628,8 @@ std::move(p_tabs));
           reinterpret_cast<internal::PageHandler_RejectTabOrganization_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       int32_t p_session_id{};
       int32_t p_organization_id{};
@@ -2636,9 +2648,9 @@ std::move(p_tabs));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RejectTabOrganization(
-std::move(p_session_id), 
-std::move(p_organization_id));
+      impl->RejectTabOrganization(        
+        std::move(p_session_id), 
+        std::move(p_organization_id));
       return true;
     }
     case internal::kPageHandler_GetProfileData_Name: {
@@ -2654,6 +2666,8 @@ std::move(p_organization_id));
           reinterpret_cast<internal::PageHandler_SwitchToTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       SwitchToTabInfoPtr p_switch_to_tab_info{};
       PageHandler_SwitchToTab_ParamsDataView input_data_view(params, message);
@@ -2669,8 +2683,8 @@ std::move(p_organization_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SwitchToTab(
-std::move(p_switch_to_tab_info));
+      impl->SwitchToTab(        
+        std::move(p_switch_to_tab_info));
       return true;
     }
     case internal::kPageHandler_OpenRecentlyClosedEntry_Name: {
@@ -2680,6 +2694,8 @@ std::move(p_switch_to_tab_info));
           reinterpret_cast<internal::PageHandler_OpenRecentlyClosedEntry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       int32_t p_session_id{};
       PageHandler_OpenRecentlyClosedEntry_ParamsDataView input_data_view(params, message);
@@ -2695,8 +2711,8 @@ std::move(p_switch_to_tab_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenRecentlyClosedEntry(
-std::move(p_session_id));
+      impl->OpenRecentlyClosedEntry(        
+        std::move(p_session_id));
       return true;
     }
     case internal::kPageHandler_RequestTabOrganization_Name: {
@@ -2706,6 +2722,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_RequestTabOrganization_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_RequestTabOrganization_ParamsDataView input_data_view(params, message);
       
@@ -2718,7 +2736,7 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestTabOrganization();
+      impl->RequestTabOrganization(        );
       return true;
     }
     case internal::kPageHandler_RemoveTabFromOrganization_Name: {
@@ -2728,6 +2746,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_RemoveTabFromOrganization_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       int32_t p_session_id{};
       int32_t p_organization_id{};
@@ -2749,21 +2769,23 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveTabFromOrganization(
-std::move(p_session_id), 
-std::move(p_organization_id), 
-std::move(p_tab));
+      impl->RemoveTabFromOrganization(        
+        std::move(p_session_id), 
+        std::move(p_organization_id), 
+        std::move(p_tab));
       return true;
     }
-    case internal::kPageHandler_ResetSession_Name: {
+    case internal::kPageHandler_RestartSession_Name: {
 
       DCHECK(message->is_serialized());
-      internal::PageHandler_ResetSession_Params_Data* params =
-          reinterpret_cast<internal::PageHandler_ResetSession_Params_Data*>(
+      internal::PageHandler_RestartSession_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_RestartSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
-      PageHandler_ResetSession_ParamsDataView input_data_view(params, message);
+      PageHandler_RestartSession_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -2774,7 +2796,7 @@ std::move(p_tab));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetSession();
+      impl->RestartSession(        );
       return true;
     }
     case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name: {
@@ -2784,6 +2806,8 @@ std::move(p_tab));
           reinterpret_cast<internal::PageHandler_SaveRecentlyClosedExpandedPref_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       bool p_expanded{};
       PageHandler_SaveRecentlyClosedExpandedPref_ParamsDataView input_data_view(params, message);
@@ -2799,8 +2823,8 @@ std::move(p_tab));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SaveRecentlyClosedExpandedPref(
-std::move(p_expanded));
+      impl->SaveRecentlyClosedExpandedPref(        
+        std::move(p_expanded));
       return true;
     }
     case internal::kPageHandler_SetTabIndex_Name: {
@@ -2810,6 +2834,8 @@ std::move(p_expanded));
           reinterpret_cast<internal::PageHandler_SetTabIndex_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       int32_t p_index{};
       PageHandler_SetTabIndex_ParamsDataView input_data_view(params, message);
@@ -2825,8 +2851,8 @@ std::move(p_expanded));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTabIndex(
-std::move(p_index));
+      impl->SetTabIndex(        
+        std::move(p_index));
       return true;
     }
     case internal::kPageHandler_StartTabGroupTutorial_Name: {
@@ -2836,6 +2862,8 @@ std::move(p_index));
           reinterpret_cast<internal::PageHandler_StartTabGroupTutorial_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       PageHandler_StartTabGroupTutorial_ParamsDataView input_data_view(params, message);
       
@@ -2848,7 +2876,7 @@ std::move(p_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartTabGroupTutorial();
+      impl->StartTabGroupTutorial(        );
       return true;
     }
     case internal::kPageHandler_TriggerFeedback_Name: {
@@ -2858,6 +2886,8 @@ std::move(p_index));
           reinterpret_cast<internal::PageHandler_TriggerFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       int32_t p_session_id{};
       PageHandler_TriggerFeedback_ParamsDataView input_data_view(params, message);
@@ -2873,8 +2903,8 @@ std::move(p_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerFeedback(
-std::move(p_session_id));
+      impl->TriggerFeedback(        
+        std::move(p_session_id));
       return true;
     }
     case internal::kPageHandler_TriggerSync_Name: {
@@ -2884,6 +2914,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_TriggerSync_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.14
       bool success = true;
       PageHandler_TriggerSync_ParamsDataView input_data_view(params, message);
       
@@ -2896,7 +2928,7 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerSync();
+      impl->TriggerSync(        );
       return true;
     }
     case internal::kPageHandler_TriggerSignIn_Name: {
@@ -2906,6 +2938,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_TriggerSignIn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.15
       bool success = true;
       PageHandler_TriggerSignIn_ParamsDataView input_data_view(params, message);
       
@@ -2918,7 +2952,7 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerSignIn();
+      impl->TriggerSignIn(        );
       return true;
     }
     case internal::kPageHandler_OpenHelpPage_Name: {
@@ -2928,6 +2962,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_OpenHelpPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.16
       bool success = true;
       PageHandler_OpenHelpPage_ParamsDataView input_data_view(params, message);
       
@@ -2940,7 +2976,7 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenHelpPage();
+      impl->OpenHelpPage(        );
       return true;
     }
     case internal::kPageHandler_OpenSyncSettings_Name: {
@@ -2950,6 +2986,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_OpenSyncSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.17
       bool success = true;
       PageHandler_OpenSyncSettings_ParamsDataView input_data_view(params, message);
       
@@ -2962,7 +3000,7 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenSyncSettings();
+      impl->OpenSyncSettings(        );
       return true;
     }
     case internal::kPageHandler_SetUserFeedback_Name: {
@@ -2972,6 +3010,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PageHandler_SetUserFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.18
       bool success = true;
       int32_t p_session_id{};
       int32_t p_organization_id{};
@@ -2993,10 +3033,10 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserFeedback(
-std::move(p_session_id), 
-std::move(p_organization_id), 
-std::move(p_feedback));
+      impl->SetUserFeedback(        
+        std::move(p_session_id), 
+        std::move(p_organization_id), 
+        std::move(p_feedback));
       return true;
     }
     case internal::kPageHandler_ShowUI_Name: {
@@ -3006,6 +3046,8 @@ std::move(p_feedback));
           reinterpret_cast<internal::PageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.19
       bool success = true;
       PageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -3018,7 +3060,7 @@ std::move(p_feedback));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
   }
@@ -3050,6 +3092,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetProfileData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_GetProfileData_ParamsDataView input_data_view(params, message);
       
@@ -3075,6 +3119,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetTabOrganizationSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_GetTabOrganizationSession_ParamsDataView input_data_view(params, message);
       
@@ -3105,7 +3151,7 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
     case internal::kPageHandler_RemoveTabFromOrganization_Name: {
       break;
     }
-    case internal::kPageHandler_ResetSession_Name: {
+    case internal::kPageHandler_RestartSession_Name: {
       break;
     }
     case internal::kPageHandler_SaveRecentlyClosedExpandedPref_Name: {
@@ -3162,7 +3208,7 @@ static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] 
      nullptr /* no response */},
     { &internal::PageHandler_RemoveTabFromOrganization_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::PageHandler_ResetSession_Params_Data::Validate,
+    { &internal::PageHandler_RestartSession_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::PageHandler_SaveRecentlyClosedExpandedPref_Params_Data::Validate,
      nullptr /* no response */},
@@ -3212,6 +3258,9 @@ Page::IPCStableHashFunction Page::MessageToMethodInfo_(mojo::Message& message) {
     case internal::kPage_TabsRemoved_Name: {
       return &Page::TabsRemoved_Sym::IPCStableHash;
     }
+    case internal::kPage_TabSearchTabIndexChanged_Name: {
+      return &Page::TabSearchTabIndexChanged_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -3231,6 +3280,8 @@ const char* Page::MessageToMethodName_(mojo::Message& message) {
             return "Receive tab_search::mojom::Page::TabUpdated";
       case internal::kPage_TabsRemoved_Name:
             return "Receive tab_search::mojom::Page::TabsRemoved";
+      case internal::kPage_TabSearchTabIndexChanged_Name:
+            return "Receive tab_search::mojom::Page::TabSearchTabIndexChanged";
     }
   } else {
     switch (message.name()) {
@@ -3242,6 +3293,8 @@ const char* Page::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply tab_search::mojom::Page::TabUpdated";
       case internal::kPage_TabsRemoved_Name:
             return "Receive reply tab_search::mojom::Page::TabsRemoved";
+      case internal::kPage_TabSearchTabIndexChanged_Name:
+            return "Receive reply tab_search::mojom::Page::TabSearchTabIndexChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -3304,6 +3357,19 @@ uint32_t Page::TabsRemoved_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)tab_search::mojom::Page::TabsRemoved");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Page::TabSearchTabIndexChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)tab_search::mojom::Page::TabSearchTabIndexChanged");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3518,6 +3584,47 @@ void PageProxy::TabsRemoved(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageProxy::TabSearchTabIndexChanged(
+    int32_t in_index) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send tab_search::mojom::Page::TabSearchTabIndexChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("index"), in_index,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPage_TabSearchTabIndexChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::tab_search::mojom::internal::Page_TabSearchTabIndexChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->index = in_index;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Page::Name_);
+  message.set_method_name("TabSearchTabIndexChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool PageStubDispatch::Accept(
     Page* impl,
@@ -3530,6 +3637,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_TabOrganizationSessionUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       TabOrganizationSessionPtr p_session{};
       Page_TabOrganizationSessionUpdated_ParamsDataView input_data_view(params, message);
@@ -3545,8 +3654,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabOrganizationSessionUpdated(
-std::move(p_session));
+      impl->TabOrganizationSessionUpdated(        
+        std::move(p_session));
       return true;
     }
     case internal::kPage_TabsChanged_Name: {
@@ -3556,6 +3665,8 @@ std::move(p_session));
           reinterpret_cast<internal::Page_TabsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       ProfileDataPtr p_profile_tabs{};
       Page_TabsChanged_ParamsDataView input_data_view(params, message);
@@ -3571,8 +3682,8 @@ std::move(p_session));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabsChanged(
-std::move(p_profile_tabs));
+      impl->TabsChanged(        
+        std::move(p_profile_tabs));
       return true;
     }
     case internal::kPage_TabUpdated_Name: {
@@ -3582,6 +3693,8 @@ std::move(p_profile_tabs));
           reinterpret_cast<internal::Page_TabUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       TabUpdateInfoPtr p_tabUpdateInfo{};
       Page_TabUpdated_ParamsDataView input_data_view(params, message);
@@ -3597,8 +3710,8 @@ std::move(p_profile_tabs));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabUpdated(
-std::move(p_tabUpdateInfo));
+      impl->TabUpdated(        
+        std::move(p_tabUpdateInfo));
       return true;
     }
     case internal::kPage_TabsRemoved_Name: {
@@ -3608,6 +3721,8 @@ std::move(p_tabUpdateInfo));
           reinterpret_cast<internal::Page_TabsRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.3
       bool success = true;
       TabsRemovedInfoPtr p_tabsRemovedInfo{};
       Page_TabsRemoved_ParamsDataView input_data_view(params, message);
@@ -3623,8 +3738,36 @@ std::move(p_tabUpdateInfo));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabsRemoved(
-std::move(p_tabsRemovedInfo));
+      impl->TabsRemoved(        
+        std::move(p_tabsRemovedInfo));
+      return true;
+    }
+    case internal::kPage_TabSearchTabIndexChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Page_TabSearchTabIndexChanged_Params_Data* params =
+          reinterpret_cast<internal::Page_TabSearchTabIndexChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Page.4
+      bool success = true;
+      int32_t p_index{};
+      Page_TabSearchTabIndexChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_index = input_data_view.index();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Page::Name_, 4, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->TabSearchTabIndexChanged(        
+        std::move(p_index));
       return true;
     }
   }
@@ -3652,6 +3795,9 @@ bool PageStubDispatch::AcceptWithResponder(
     case internal::kPage_TabsRemoved_Name: {
       break;
     }
+    case internal::kPage_TabSearchTabIndexChanged_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -3665,6 +3811,8 @@ static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
     { &internal::Page_TabUpdated_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::Page_TabsRemoved_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Page_TabSearchTabIndexChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3958,8 +4106,8 @@ void PageHandlerInterceptorForTesting::RequestTabOrganization() {
 void PageHandlerInterceptorForTesting::RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) {
   GetForwardingInterface()->RemoveTabFromOrganization(std::move(session_id), std::move(organization_id), std::move(tab));
 }
-void PageHandlerInterceptorForTesting::ResetSession() {
-  GetForwardingInterface()->ResetSession();
+void PageHandlerInterceptorForTesting::RestartSession() {
+  GetForwardingInterface()->RestartSession();
 }
 void PageHandlerInterceptorForTesting::SaveRecentlyClosedExpandedPref(bool expanded) {
   GetForwardingInterface()->SaveRecentlyClosedExpandedPref(std::move(expanded));
@@ -4056,6 +4204,9 @@ void PageInterceptorForTesting::TabUpdated(TabUpdateInfoPtr tabUpdateInfo) {
 }
 void PageInterceptorForTesting::TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) {
   GetForwardingInterface()->TabsRemoved(std::move(tabsRemovedInfo));
+}
+void PageInterceptorForTesting::TabSearchTabIndexChanged(int32_t index) {
+  GetForwardingInterface()->TabSearchTabIndexChanged(std::move(index));
 }
 PageAsyncWaiter::PageAsyncWaiter(
     Page* proxy) : proxy_(proxy) {}

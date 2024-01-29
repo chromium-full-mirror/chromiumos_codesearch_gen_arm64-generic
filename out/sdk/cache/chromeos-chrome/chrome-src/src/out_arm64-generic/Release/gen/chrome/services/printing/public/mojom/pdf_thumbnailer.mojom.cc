@@ -367,6 +367,8 @@ bool PdfThumbnailer_GetThumbnail_ForwardToCallback::Accept(
           internal::PdfThumbnailer_GetThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PdfThumbnailer.0
   bool success = true;
   ::SkBitmap p_bitmap{};
   PdfThumbnailer_GetThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -450,6 +452,8 @@ bool PdfThumbnailerStubDispatch::Accept(
           reinterpret_cast<internal::PdfThumbnailer_SetUseSkiaRendererPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfThumbnailer.1
       bool success = true;
       bool p_use_skia{};
       PdfThumbnailer_SetUseSkiaRendererPolicy_ParamsDataView input_data_view(params, message);
@@ -465,8 +469,8 @@ bool PdfThumbnailerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUseSkiaRendererPolicy(
-std::move(p_use_skia));
+      impl->SetUseSkiaRendererPolicy(        
+        std::move(p_use_skia));
       return true;
     }
   }
@@ -489,6 +493,8 @@ bool PdfThumbnailerStubDispatch::AcceptWithResponder(
               internal::PdfThumbnailer_GetThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PdfThumbnailer.0
       bool success = true;
       ThumbParamsPtr p_params{};
       ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
@@ -510,9 +516,9 @@ bool PdfThumbnailerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetThumbnail(
-std::move(p_params), 
-std::move(p_pdf_region), std::move(callback));
+      impl->GetThumbnail(        
+        std::move(p_params), 
+        std::move(p_pdf_region), std::move(callback));
       return true;
     }
     case internal::kPdfThumbnailer_SetUseSkiaRendererPolicy_Name: {

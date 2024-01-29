@@ -116,6 +116,7 @@ CORE_EXPORT extern const char Form[];
 CORE_EXPORT extern const char Frame[];
 CORE_EXPORT extern const char Image[];
 CORE_EXPORT extern const char Import[];
+CORE_EXPORT extern const char JSON[];
 CORE_EXPORT extern const char Manifest[];
 CORE_EXPORT extern const char Ping[];
 CORE_EXPORT extern const char PluginData[];

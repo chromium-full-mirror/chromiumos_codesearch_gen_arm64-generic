@@ -213,6 +213,8 @@ bool CastMessageChannelStubDispatch::Accept(
           reinterpret_cast<internal::CastMessageChannel_OnMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CastMessageChannel.0
       bool success = true;
       CastMessagePtr p_message{};
       CastMessageChannel_OnMessage_ParamsDataView input_data_view(params, message);
@@ -228,8 +230,8 @@ bool CastMessageChannelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessage(
-std::move(p_message));
+      impl->OnMessage(        
+        std::move(p_message));
       return true;
     }
   }

@@ -17,6 +17,7 @@ namespace internal {
 constexpr uint32_t kRendererHost_GetBrowserHistogram_Name = 0;
 constexpr uint32_t kRendererHost_SuddenTerminationChanged_Name = 1;
 constexpr uint32_t kRendererHost_RecordUserMetricsAction_Name = 2;
+constexpr uint32_t kRendererHost_HasGpuProcess_Name = 3;
 
 }  // namespace internal
 

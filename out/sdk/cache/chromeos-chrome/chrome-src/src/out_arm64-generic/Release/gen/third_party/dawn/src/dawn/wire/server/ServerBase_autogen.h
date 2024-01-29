@@ -309,7 +309,6 @@ namespace dawn::wire::server {
             return mKnownTextureView;
         }
 
-
       private:
         // Implementation of the ObjectIdResolver interface
         WireResult GetFromId(ObjectId id, WGPUAdapter* out) const final {
@@ -625,7 +624,6 @@ namespace dawn::wire::server {
         KnownObjects<WGPUSwapChain> mKnownSwapChain;
         KnownObjects<WGPUTexture> mKnownTexture;
         KnownObjects<WGPUTextureView> mKnownTextureView;
-
     };
 
 }  // namespace dawn::wire::server

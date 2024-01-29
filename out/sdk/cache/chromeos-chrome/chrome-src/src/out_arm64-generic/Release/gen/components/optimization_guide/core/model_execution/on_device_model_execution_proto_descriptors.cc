@@ -28,32 +28,6 @@ return GetProtoValue(casted_msg.quality_data(), proto_field, index+1);
 }
 }
 
-if (msg.GetTypeName() == "optimization_guide.proto.ComposePriorResponse") {
-const optimization_guide::proto::ComposePriorResponse casted_msg = static_cast<const optimization_guide::proto::ComposePriorResponse&>(msg);
-switch (tag_number) {
-case 1: {
-proto::Value value;
-value.set_string_value(casted_msg.response_text());
-return value;
-}
-case 2: {
-proto::Value value;
-value.set_int32_value(static_cast<int32_t>(casted_msg.tone()));
-return value;
-}
-case 3: {
-proto::Value value;
-value.set_int32_value(static_cast<int32_t>(casted_msg.length()));
-return value;
-}
-case 4: {
-proto::Value value;
-value.set_boolean_value(casted_msg.regenerate_requested_since());
-return value;
-}
-}
-}
-
 if (msg.GetTypeName() == "optimization_guide.proto.ComposePageMetadata") {
 const optimization_guide::proto::ComposePageMetadata casted_msg = static_cast<const optimization_guide::proto::ComposePageMetadata&>(msg);
 switch (tag_number) {
@@ -222,18 +196,6 @@ return std::nullopt;
       }
   if (proto_name == "optimization_guide.proto.ComposeLoggingData") {
 switch(proto_field.proto_descriptors(index).tag_number()) {
-
-    default:
-      return std::nullopt;
-
-    }}
-if (proto_name == "optimization_guide.proto.ComposePriorResponse") {
-switch(proto_field.proto_descriptors(index).tag_number()) {
-case 1: {
-proto::Any any;
-any.set_type_url("type.googleapis.com/optimization_guide.proto.ComposePriorResponse");
-optimization_guide::proto::ComposePriorResponse response_value;
-response_value.set_response_text(value);response_value.SerializeToString(any.mutable_value());return any;}
 
     default:
       return std::nullopt;

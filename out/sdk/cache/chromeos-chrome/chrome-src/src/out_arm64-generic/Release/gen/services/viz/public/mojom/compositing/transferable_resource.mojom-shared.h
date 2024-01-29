@@ -172,6 +172,9 @@ class TransferableResourceDataView {
     return mojo::internal::Deserialize<::gfx::mojom::HDRMetadataDataView>(
         pointer, output, message_);
   }
+  bool needs_detiling() const {
+    return data_->needs_detiling;
+  }
   inline void GetYcbcrInfoDataView(
       ::gpu::mojom::VulkanYCbCrInfoDataView* output);
 
@@ -320,6 +323,7 @@ struct Serializer<::viz::mojom::TransferableResourceDataView, MaybeConstUserType
         fragment->hdr_metadata.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null hdr_metadata in TransferableResource struct");
+    fragment->needs_detiling = Traits::needs_detiling(input);
     decltype(Traits::ycbcr_info(input)) in_ycbcr_info = Traits::ycbcr_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->ycbcr_info)::BaseType> ycbcr_info_fragment(

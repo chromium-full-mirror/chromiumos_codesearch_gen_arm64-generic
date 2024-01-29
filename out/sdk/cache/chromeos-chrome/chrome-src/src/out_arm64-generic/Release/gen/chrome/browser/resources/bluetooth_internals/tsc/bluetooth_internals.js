@@ -156,6 +156,21 @@ function setupAdapterSystem(response) {
             }
         });
     });
+    // 
+    adapterPage.pageDiv.addEventListener('restart-bluetooth-click', function () {
+        const restartBluetoothBtn = document.querySelector('#restart-bluetooth-btn');
+        restartBluetoothBtn.textContent = 'Restarting system Bluetooth..';
+        BluetoothInternalsHandler.getRemote()
+            .restartSystemBluetooth()
+            .catch((e) => {
+            console.error('Failed to restart system Bluetooth');
+        })
+            .finally(() => {
+            restartBluetoothBtn.textContent = 'Restart system Bluetooth';
+            restartBluetoothBtn.disabled = false;
+        });
+    });
+    // 
 }
 function setupDeviceSystem(response) {
     // Hook up device collection events.

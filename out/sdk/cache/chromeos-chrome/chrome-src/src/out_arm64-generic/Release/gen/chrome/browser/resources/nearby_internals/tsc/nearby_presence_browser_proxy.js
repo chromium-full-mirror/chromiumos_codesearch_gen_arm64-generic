@@ -37,6 +37,13 @@ export class NearbyPresenceBrowserProxy {
     connectToPresenceDevice(endpointId) {
         chrome.send('ConnectToPresenceDevice', [endpointId]);
     }
+    /**
+     * Triggers sending a PushNotification message for the 'NearbyPresenceService'
+     * to reload credentials.
+     */
+    sendUpdateCredentialsPushNotificationMessage() {
+        chrome.send('SendUpdateCredentialsMessage');
+    }
     static getInstance() {
         return instance || (instance = new NearbyPresenceBrowserProxy());
     }

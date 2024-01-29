@@ -1213,106 +1213,106 @@ std::u16string GetSharesheetLaunchSourceParseError(base::StringPiece enum_string
 }
 
 
-const char* ToString(IOTaskState enum_param) {
+const char* ToString(IoTaskState enum_param) {
   switch (enum_param) {
-    case IOTaskState::kQueued:
+    case IoTaskState::kQueued:
       return "queued";
-    case IOTaskState::kScanning:
+    case IoTaskState::kScanning:
       return "scanning";
-    case IOTaskState::kInProgress:
+    case IoTaskState::kInProgress:
       return "in_progress";
-    case IOTaskState::kPaused:
+    case IoTaskState::kPaused:
       return "paused";
-    case IOTaskState::kSuccess:
+    case IoTaskState::kSuccess:
       return "success";
-    case IOTaskState::kError:
+    case IoTaskState::kError:
       return "error";
-    case IOTaskState::kNeedPassword:
+    case IoTaskState::kNeedPassword:
       return "need_password";
-    case IOTaskState::kCancelled:
+    case IoTaskState::kCancelled:
       return "cancelled";
-    case IOTaskState::kNone:
+    case IoTaskState::kNone:
       return "";
   }
   NOTREACHED();
   return "";
 }
 
-IOTaskState ParseIOTaskState(base::StringPiece enum_string) {
+IoTaskState ParseIoTaskState(base::StringPiece enum_string) {
   if (enum_string == "queued")
-    return IOTaskState::kQueued;
+    return IoTaskState::kQueued;
   if (enum_string == "scanning")
-    return IOTaskState::kScanning;
+    return IoTaskState::kScanning;
   if (enum_string == "in_progress")
-    return IOTaskState::kInProgress;
+    return IoTaskState::kInProgress;
   if (enum_string == "paused")
-    return IOTaskState::kPaused;
+    return IoTaskState::kPaused;
   if (enum_string == "success")
-    return IOTaskState::kSuccess;
+    return IoTaskState::kSuccess;
   if (enum_string == "error")
-    return IOTaskState::kError;
+    return IoTaskState::kError;
   if (enum_string == "need_password")
-    return IOTaskState::kNeedPassword;
+    return IoTaskState::kNeedPassword;
   if (enum_string == "cancelled")
-    return IOTaskState::kCancelled;
-  return IOTaskState::kNone;
+    return IoTaskState::kCancelled;
+  return IoTaskState::kNone;
 }
 
-std::u16string GetIOTaskStateParseError(base::StringPiece enum_string) {
+std::u16string GetIoTaskStateParseError(base::StringPiece enum_string) {
   return u"expected \"queued\" or \"scanning\" or \"in_progress\" or \"paused\" or \"success\" or \"error\" or \"need_password\" or \"cancelled\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
-const char* ToString(IOTaskType enum_param) {
+const char* ToString(IoTaskType enum_param) {
   switch (enum_param) {
-    case IOTaskType::kCopy:
+    case IoTaskType::kCopy:
       return "copy";
-    case IOTaskType::kDelete:
+    case IoTaskType::kDelete:
       return "delete";
-    case IOTaskType::kEmptyTrash:
+    case IoTaskType::kEmptyTrash:
       return "empty_trash";
-    case IOTaskType::kExtract:
+    case IoTaskType::kExtract:
       return "extract";
-    case IOTaskType::kMove:
+    case IoTaskType::kMove:
       return "move";
-    case IOTaskType::kRestore:
+    case IoTaskType::kRestore:
       return "restore";
-    case IOTaskType::kRestoreToDestination:
+    case IoTaskType::kRestoreToDestination:
       return "restore_to_destination";
-    case IOTaskType::kTrash:
+    case IoTaskType::kTrash:
       return "trash";
-    case IOTaskType::kZip:
+    case IoTaskType::kZip:
       return "zip";
-    case IOTaskType::kNone:
+    case IoTaskType::kNone:
       return "";
   }
   NOTREACHED();
   return "";
 }
 
-IOTaskType ParseIOTaskType(base::StringPiece enum_string) {
+IoTaskType ParseIoTaskType(base::StringPiece enum_string) {
   if (enum_string == "copy")
-    return IOTaskType::kCopy;
+    return IoTaskType::kCopy;
   if (enum_string == "delete")
-    return IOTaskType::kDelete;
+    return IoTaskType::kDelete;
   if (enum_string == "empty_trash")
-    return IOTaskType::kEmptyTrash;
+    return IoTaskType::kEmptyTrash;
   if (enum_string == "extract")
-    return IOTaskType::kExtract;
+    return IoTaskType::kExtract;
   if (enum_string == "move")
-    return IOTaskType::kMove;
+    return IoTaskType::kMove;
   if (enum_string == "restore")
-    return IOTaskType::kRestore;
+    return IoTaskType::kRestore;
   if (enum_string == "restore_to_destination")
-    return IOTaskType::kRestoreToDestination;
+    return IoTaskType::kRestoreToDestination;
   if (enum_string == "trash")
-    return IOTaskType::kTrash;
+    return IoTaskType::kTrash;
   if (enum_string == "zip")
-    return IOTaskType::kZip;
-  return IOTaskType::kNone;
+    return IoTaskType::kZip;
+  return IoTaskType::kNone;
 }
 
-std::u16string GetIOTaskTypeParseError(base::StringPiece enum_string) {
+std::u16string GetIoTaskTypeParseError(base::StringPiece enum_string) {
   return u"expected \"copy\" or \"delete\" or \"empty_trash\" or \"extract\" or \"move\" or \"restore\" or \"restore_to_destination\" or \"trash\" or \"zip\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
@@ -8389,8 +8389,8 @@ bool ProgressStatus::Populate(
     if (!io_task_type_as_string) {
       return false;
     }
-    out.type = ParseIOTaskType(*io_task_type_as_string);
-    if (out.type == IOTaskType()) {
+    out.type = ParseIoTaskType(*io_task_type_as_string);
+    if (out.type == IoTaskType()) {
       return false;
     }
   }
@@ -8404,8 +8404,8 @@ bool ProgressStatus::Populate(
     if (!io_task_state_as_string) {
       return false;
     }
-    out.state = ParseIOTaskState(*io_task_state_as_string);
-    if (out.state == IOTaskState()) {
+    out.state = ParseIoTaskState(*io_task_state_as_string);
+    if (out.state == IoTaskState()) {
       return false;
     }
   }

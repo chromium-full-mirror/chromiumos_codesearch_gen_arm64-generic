@@ -33,7 +33,8 @@ bool SysStatsConfig::operator==(const SysStatsConfig& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(devfreq_period_ms_, other.devfreq_period_ms_)
    && ::protozero::internal::gen_helpers::EqualsField(cpufreq_period_ms_, other.cpufreq_period_ms_)
    && ::protozero::internal::gen_helpers::EqualsField(buddyinfo_period_ms_, other.buddyinfo_period_ms_)
-   && ::protozero::internal::gen_helpers::EqualsField(diskstat_period_ms_, other.diskstat_period_ms_);
+   && ::protozero::internal::gen_helpers::EqualsField(diskstat_period_ms_, other.diskstat_period_ms_)
+   && ::protozero::internal::gen_helpers::EqualsField(psi_period_ms_, other.psi_period_ms_);
 }
 
 bool SysStatsConfig::ParseFromArray(const void* raw, size_t size) {
@@ -81,6 +82,9 @@ bool SysStatsConfig::ParseFromArray(const void* raw, size_t size) {
         break;
       case 10 /* diskstat_period_ms */:
         field.get(&diskstat_period_ms_);
+        break;
+      case 11 /* psi_period_ms */:
+        field.get(&psi_period_ms_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -151,6 +155,11 @@ void SysStatsConfig::Serialize(::protozero::Message* msg) const {
   // Field 10: diskstat_period_ms
   if (_has_field_[10]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(10, diskstat_period_ms_, msg);
+  }
+
+  // Field 11: psi_period_ms
+  if (_has_field_[11]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(11, psi_period_ms_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

@@ -46,8 +46,8 @@ export const EffectSpec = { $: mojo.internal.Enum() };
  */
 export const Effect = {
   
-  NO_EFFECT: 0,
-  PORTRAIT_MODE: 1,
+  kNoEffect: 0,
+  kPortraitMode: 1,
   MIN_VALUE: 0,
   MAX_VALUE: 1,
 };
@@ -62,11 +62,11 @@ export const StreamTypeSpec = { $: mojo.internal.Enum() };
  */
 export const StreamType = {
   
-  PREVIEW_OUTPUT: 0,
-  JPEG_OUTPUT: 1,
-  JPEG_PORTRAIT_OUTPUT: 2,
-  RECORDIND_OUTPUT: 3,
-  UNKNOWN: 4,
+  kPreviewOutput: 0,
+  kJpegOutput: 1,
+  kJpegPortraitOutput: 2,
+  kRecordingOutput: 3,
+  kUnknown: 4,
   MIN_VALUE: 0,
   MAX_VALUE: 4,
 };
@@ -81,8 +81,8 @@ export const GetCameraAppDeviceStatusSpec = { $: mojo.internal.Enum() };
  */
 export const GetCameraAppDeviceStatus = {
   
-  SUCCESS: 0,
-  ERROR_INVALID_ID: 1,
+  kSuccess: 0,
+  kErrorInvalidId: 1,
   MIN_VALUE: 0,
   MAX_VALUE: 1,
 };
@@ -97,10 +97,10 @@ export const CaptureIntentSpec = { $: mojo.internal.Enum() };
  */
 export const CaptureIntent = {
   
-  DEFAULT: 0,
-  VIDEO_RECORD: 1,
-  STILL_CAPTURE: 2,
-  PORTRAIT_CAPTURE: 3,
+  kDefault: 0,
+  kVideoRecord: 1,
+  kStillCapture: 2,
+  kPortraitCapture: 3,
   MIN_VALUE: 0,
   MAX_VALUE: 3,
 };

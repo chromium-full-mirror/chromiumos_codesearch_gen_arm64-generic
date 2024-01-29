@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-go", "name": "gcp", "version": "0.0.1", "revision": 0, "fullname": "dev-go/gcp", "fullnamerev": "dev-go/gcp-0.0.1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://code.googlesource.com/gocloud"], "skip": false, "tainted": false, "ebuild_path": null}

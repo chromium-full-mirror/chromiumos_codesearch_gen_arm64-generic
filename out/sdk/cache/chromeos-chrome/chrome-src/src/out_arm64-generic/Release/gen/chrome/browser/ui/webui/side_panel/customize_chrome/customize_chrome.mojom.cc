@@ -601,6 +601,8 @@ bool CustomizeChromePageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CustomizeChromePageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<CustomizeChromePage> p_page{};
       ::mojo::PendingReceiver<CustomizeChromePageHandler> p_handler{};
@@ -623,9 +625,9 @@ bool CustomizeChromePageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -1899,6 +1901,8 @@ bool CustomizeChromePageHandler_GetBackgroundCollections_ForwardToCallback::Acce
           internal::CustomizeChromePageHandler_GetBackgroundCollections_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CustomizeChromePageHandler.2
   bool success = true;
   std::vector<BackgroundCollectionPtr> p_collections{};
   CustomizeChromePageHandler_GetBackgroundCollections_ResponseParamsDataView input_data_view(params, message);
@@ -2030,6 +2034,8 @@ bool CustomizeChromePageHandler_GetBackgroundImages_ForwardToCallback::Accept(
           internal::CustomizeChromePageHandler_GetBackgroundImages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CustomizeChromePageHandler.3
   bool success = true;
   std::vector<CollectionImagePtr> p_images{};
   CustomizeChromePageHandler_GetBackgroundImages_ResponseParamsDataView input_data_view(params, message);
@@ -2161,6 +2167,8 @@ bool CustomizeChromePageHandler_ChooseLocalCustomBackground_ForwardToCallback::A
           internal::CustomizeChromePageHandler_ChooseLocalCustomBackground_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CustomizeChromePageHandler.9
   bool success = true;
   bool p_success{};
   CustomizeChromePageHandler_ChooseLocalCustomBackground_ResponseParamsDataView input_data_view(params, message);
@@ -2235,6 +2243,8 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CustomizeChromePageHandler_SetMostVisitedSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.0
       bool success = true;
       bool p_custom_links_enabled{};
       bool p_shortcuts_visible{};
@@ -2253,9 +2263,9 @@ bool CustomizeChromePageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMostVisitedSettings(
-std::move(p_custom_links_enabled), 
-std::move(p_shortcuts_visible));
+      impl->SetMostVisitedSettings(        
+        std::move(p_custom_links_enabled), 
+        std::move(p_shortcuts_visible));
       return true;
     }
     case internal::kCustomizeChromePageHandler_UpdateMostVisitedSettings_Name: {
@@ -2265,6 +2275,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::CustomizeChromePageHandler_UpdateMostVisitedSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.1
       bool success = true;
       CustomizeChromePageHandler_UpdateMostVisitedSettings_ParamsDataView input_data_view(params, message);
       
@@ -2277,7 +2289,7 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateMostVisitedSettings();
+      impl->UpdateMostVisitedSettings(        );
       return true;
     }
     case internal::kCustomizeChromePageHandler_GetBackgroundCollections_Name: {
@@ -2293,6 +2305,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::CustomizeChromePageHandler_UpdateModulesSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.4
       bool success = true;
       CustomizeChromePageHandler_UpdateModulesSettings_ParamsDataView input_data_view(params, message);
       
@@ -2305,7 +2319,7 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateModulesSettings();
+      impl->UpdateModulesSettings(        );
       return true;
     }
     case internal::kCustomizeChromePageHandler_UpdateTheme_Name: {
@@ -2315,6 +2329,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::CustomizeChromePageHandler_UpdateTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.5
       bool success = true;
       CustomizeChromePageHandler_UpdateTheme_ParamsDataView input_data_view(params, message);
       
@@ -2327,7 +2343,7 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTheme();
+      impl->UpdateTheme(        );
       return true;
     }
     case internal::kCustomizeChromePageHandler_SetDefaultColor_Name: {
@@ -2337,6 +2353,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::CustomizeChromePageHandler_SetDefaultColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.6
       bool success = true;
       CustomizeChromePageHandler_SetDefaultColor_ParamsDataView input_data_view(params, message);
       
@@ -2349,7 +2367,7 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDefaultColor();
+      impl->SetDefaultColor(        );
       return true;
     }
     case internal::kCustomizeChromePageHandler_SetFollowDeviceTheme_Name: {
@@ -2359,6 +2377,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::CustomizeChromePageHandler_SetFollowDeviceTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.7
       bool success = true;
       bool p_follow{};
       CustomizeChromePageHandler_SetFollowDeviceTheme_ParamsDataView input_data_view(params, message);
@@ -2374,8 +2394,8 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFollowDeviceTheme(
-std::move(p_follow));
+      impl->SetFollowDeviceTheme(        
+        std::move(p_follow));
       return true;
     }
     case internal::kCustomizeChromePageHandler_RemoveBackgroundImage_Name: {
@@ -2385,6 +2405,8 @@ std::move(p_follow));
           reinterpret_cast<internal::CustomizeChromePageHandler_RemoveBackgroundImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.8
       bool success = true;
       CustomizeChromePageHandler_RemoveBackgroundImage_ParamsDataView input_data_view(params, message);
       
@@ -2397,7 +2419,7 @@ std::move(p_follow));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveBackgroundImage();
+      impl->RemoveBackgroundImage(        );
       return true;
     }
     case internal::kCustomizeChromePageHandler_ChooseLocalCustomBackground_Name: {
@@ -2410,6 +2432,8 @@ std::move(p_follow));
           reinterpret_cast<internal::CustomizeChromePageHandler_SetBackgroundImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.10
       bool success = true;
       std::string p_attribution_1{};
       std::string p_attribution_2{};
@@ -2440,13 +2464,13 @@ std::move(p_follow));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBackgroundImage(
-std::move(p_attribution_1), 
-std::move(p_attribution_2), 
-std::move(p_attribution_url), 
-std::move(p_image_url), 
-std::move(p_thumbnail_url), 
-std::move(p_collection_id));
+      impl->SetBackgroundImage(        
+        std::move(p_attribution_1), 
+        std::move(p_attribution_2), 
+        std::move(p_attribution_url), 
+        std::move(p_image_url), 
+        std::move(p_thumbnail_url), 
+        std::move(p_collection_id));
       return true;
     }
     case internal::kCustomizeChromePageHandler_SetDailyRefreshCollectionId_Name: {
@@ -2456,6 +2480,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::CustomizeChromePageHandler_SetDailyRefreshCollectionId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.11
       bool success = true;
       std::string p_collection_id{};
       CustomizeChromePageHandler_SetDailyRefreshCollectionId_ParamsDataView input_data_view(params, message);
@@ -2471,8 +2497,8 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDailyRefreshCollectionId(
-std::move(p_collection_id));
+      impl->SetDailyRefreshCollectionId(        
+        std::move(p_collection_id));
       return true;
     }
     case internal::kCustomizeChromePageHandler_OpenChromeWebStore_Name: {
@@ -2482,6 +2508,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::CustomizeChromePageHandler_OpenChromeWebStore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.12
       bool success = true;
       CustomizeChromePageHandler_OpenChromeWebStore_ParamsDataView input_data_view(params, message);
       
@@ -2494,7 +2522,7 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChromeWebStore();
+      impl->OpenChromeWebStore(        );
       return true;
     }
     case internal::kCustomizeChromePageHandler_OpenThirdPartyThemePage_Name: {
@@ -2504,6 +2532,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::CustomizeChromePageHandler_OpenThirdPartyThemePage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.13
       bool success = true;
       std::string p_theme_id{};
       CustomizeChromePageHandler_OpenThirdPartyThemePage_ParamsDataView input_data_view(params, message);
@@ -2519,8 +2549,8 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenThirdPartyThemePage(
-std::move(p_theme_id));
+      impl->OpenThirdPartyThemePage(        
+        std::move(p_theme_id));
       return true;
     }
     case internal::kCustomizeChromePageHandler_SetModulesVisible_Name: {
@@ -2530,6 +2560,8 @@ std::move(p_theme_id));
           reinterpret_cast<internal::CustomizeChromePageHandler_SetModulesVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.14
       bool success = true;
       bool p_visible{};
       CustomizeChromePageHandler_SetModulesVisible_ParamsDataView input_data_view(params, message);
@@ -2545,8 +2577,8 @@ std::move(p_theme_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModulesVisible(
-std::move(p_visible));
+      impl->SetModulesVisible(        
+        std::move(p_visible));
       return true;
     }
     case internal::kCustomizeChromePageHandler_SetModuleDisabled_Name: {
@@ -2556,6 +2588,8 @@ std::move(p_visible));
           reinterpret_cast<internal::CustomizeChromePageHandler_SetModuleDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.15
       bool success = true;
       std::string p_module_id{};
       bool p_disabled{};
@@ -2574,9 +2608,9 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModuleDisabled(
-std::move(p_module_id), 
-std::move(p_disabled));
+      impl->SetModuleDisabled(        
+        std::move(p_module_id), 
+        std::move(p_disabled));
       return true;
     }
     case internal::kCustomizeChromePageHandler_UpdateScrollToSection_Name: {
@@ -2586,6 +2620,8 @@ std::move(p_disabled));
           reinterpret_cast<internal::CustomizeChromePageHandler_UpdateScrollToSection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.16
       bool success = true;
       CustomizeChromePageHandler_UpdateScrollToSection_ParamsDataView input_data_view(params, message);
       
@@ -2598,7 +2634,7 @@ std::move(p_disabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateScrollToSection();
+      impl->UpdateScrollToSection(        );
       return true;
     }
   }
@@ -2627,6 +2663,8 @@ bool CustomizeChromePageHandlerStubDispatch::AcceptWithResponder(
               internal::CustomizeChromePageHandler_GetBackgroundCollections_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.2
       bool success = true;
       CustomizeChromePageHandler_GetBackgroundCollections_ParamsDataView input_data_view(params, message);
       
@@ -2652,6 +2690,8 @@ bool CustomizeChromePageHandlerStubDispatch::AcceptWithResponder(
               internal::CustomizeChromePageHandler_GetBackgroundImages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.3
       bool success = true;
       std::string p_collection_id{};
       CustomizeChromePageHandler_GetBackgroundImages_ParamsDataView input_data_view(params, message);
@@ -2670,8 +2710,8 @@ bool CustomizeChromePageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBackgroundImages(
-std::move(p_collection_id), std::move(callback));
+      impl->GetBackgroundImages(        
+        std::move(p_collection_id), std::move(callback));
       return true;
     }
     case internal::kCustomizeChromePageHandler_UpdateModulesSettings_Name: {
@@ -2696,6 +2736,8 @@ std::move(p_collection_id), std::move(callback));
               internal::CustomizeChromePageHandler_ChooseLocalCustomBackground_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePageHandler.9
       bool success = true;
       CustomizeChromePageHandler_ChooseLocalCustomBackground_ParamsDataView input_data_view(params, message);
       
@@ -3116,6 +3158,8 @@ bool CustomizeChromePageStubDispatch::Accept(
           reinterpret_cast<internal::CustomizeChromePage_SetModulesSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePage.0
       bool success = true;
       std::vector<ModuleSettingsPtr> p_modules_settings{};
       bool p_managed{};
@@ -3137,10 +3181,10 @@ bool CustomizeChromePageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModulesSettings(
-std::move(p_modules_settings), 
-std::move(p_managed), 
-std::move(p_visible));
+      impl->SetModulesSettings(        
+        std::move(p_modules_settings), 
+        std::move(p_managed), 
+        std::move(p_visible));
       return true;
     }
     case internal::kCustomizeChromePage_SetMostVisitedSettings_Name: {
@@ -3150,6 +3194,8 @@ std::move(p_visible));
           reinterpret_cast<internal::CustomizeChromePage_SetMostVisitedSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePage.1
       bool success = true;
       bool p_custom_links_enabled{};
       bool p_visible{};
@@ -3168,9 +3214,9 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMostVisitedSettings(
-std::move(p_custom_links_enabled), 
-std::move(p_visible));
+      impl->SetMostVisitedSettings(        
+        std::move(p_custom_links_enabled), 
+        std::move(p_visible));
       return true;
     }
     case internal::kCustomizeChromePage_SetTheme_Name: {
@@ -3180,6 +3226,8 @@ std::move(p_visible));
           reinterpret_cast<internal::CustomizeChromePage_SetTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePage.2
       bool success = true;
       ThemePtr p_theme{};
       CustomizeChromePage_SetTheme_ParamsDataView input_data_view(params, message);
@@ -3195,8 +3243,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTheme(
-std::move(p_theme));
+      impl->SetTheme(        
+        std::move(p_theme));
       return true;
     }
     case internal::kCustomizeChromePage_ScrollToSection_Name: {
@@ -3206,6 +3254,8 @@ std::move(p_theme));
           reinterpret_cast<internal::CustomizeChromePage_ScrollToSection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomizeChromePage.3
       bool success = true;
       CustomizeChromeSection p_section{};
       CustomizeChromePage_ScrollToSection_ParamsDataView input_data_view(params, message);
@@ -3221,8 +3271,8 @@ std::move(p_theme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScrollToSection(
-std::move(p_section));
+      impl->ScrollToSection(        
+        std::move(p_section));
       return true;
     }
   }

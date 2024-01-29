@@ -604,6 +604,8 @@ bool Sensor_GetDefaultConfiguration_ForwardToCallback::Accept(
           internal::Sensor_GetDefaultConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Sensor.0
   bool success = true;
   ::device::PlatformSensorConfiguration p_configuration{};
   Sensor_GetDefaultConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -733,6 +735,8 @@ bool Sensor_AddConfiguration_ForwardToCallback::Accept(
           internal::Sensor_AddConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Sensor.1
   bool success = true;
   bool p_success{};
   Sensor_AddConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -813,6 +817,8 @@ bool SensorStubDispatch::Accept(
           reinterpret_cast<internal::Sensor_RemoveConfiguration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Sensor.2
       bool success = true;
       ::device::PlatformSensorConfiguration p_configuration{};
       Sensor_RemoveConfiguration_ParamsDataView input_data_view(params, message);
@@ -828,8 +834,8 @@ bool SensorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveConfiguration(
-std::move(p_configuration));
+      impl->RemoveConfiguration(        
+        std::move(p_configuration));
       return true;
     }
     case internal::kSensor_Suspend_Name: {
@@ -839,6 +845,8 @@ std::move(p_configuration));
           reinterpret_cast<internal::Sensor_Suspend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Sensor.3
       bool success = true;
       Sensor_Suspend_ParamsDataView input_data_view(params, message);
       
@@ -851,7 +859,7 @@ std::move(p_configuration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Suspend();
+      impl->Suspend(        );
       return true;
     }
     case internal::kSensor_Resume_Name: {
@@ -861,6 +869,8 @@ std::move(p_configuration));
           reinterpret_cast<internal::Sensor_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Sensor.4
       bool success = true;
       Sensor_Resume_ParamsDataView input_data_view(params, message);
       
@@ -873,7 +883,7 @@ std::move(p_configuration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kSensor_ConfigureReadingChangeNotifications_Name: {
@@ -883,6 +893,8 @@ std::move(p_configuration));
           reinterpret_cast<internal::Sensor_ConfigureReadingChangeNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Sensor.5
       bool success = true;
       bool p_enabled{};
       Sensor_ConfigureReadingChangeNotifications_ParamsDataView input_data_view(params, message);
@@ -898,8 +910,8 @@ std::move(p_configuration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureReadingChangeNotifications(
-std::move(p_enabled));
+      impl->ConfigureReadingChangeNotifications(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -922,6 +934,8 @@ bool SensorStubDispatch::AcceptWithResponder(
               internal::Sensor_GetDefaultConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Sensor.0
       bool success = true;
       Sensor_GetDefaultConfiguration_ParamsDataView input_data_view(params, message);
       
@@ -947,6 +961,8 @@ bool SensorStubDispatch::AcceptWithResponder(
               internal::Sensor_AddConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Sensor.1
       bool success = true;
       ::device::PlatformSensorConfiguration p_configuration{};
       Sensor_AddConfiguration_ParamsDataView input_data_view(params, message);
@@ -965,8 +981,8 @@ bool SensorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddConfiguration(
-std::move(p_configuration), std::move(callback));
+      impl->AddConfiguration(        
+        std::move(p_configuration), std::move(callback));
       return true;
     }
     case internal::kSensor_RemoveConfiguration_Name: {
@@ -1167,6 +1183,8 @@ bool SensorClientStubDispatch::Accept(
           reinterpret_cast<internal::SensorClient_RaiseError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorClient.0
       bool success = true;
       SensorClient_RaiseError_ParamsDataView input_data_view(params, message);
       
@@ -1179,7 +1197,7 @@ bool SensorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RaiseError();
+      impl->RaiseError(        );
       return true;
     }
     case internal::kSensorClient_SensorReadingChanged_Name: {
@@ -1189,6 +1207,8 @@ bool SensorClientStubDispatch::Accept(
           reinterpret_cast<internal::SensorClient_SensorReadingChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorClient.1
       bool success = true;
       SensorClient_SensorReadingChanged_ParamsDataView input_data_view(params, message);
       
@@ -1201,7 +1221,7 @@ bool SensorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SensorReadingChanged();
+      impl->SensorReadingChanged(        );
       return true;
     }
   }

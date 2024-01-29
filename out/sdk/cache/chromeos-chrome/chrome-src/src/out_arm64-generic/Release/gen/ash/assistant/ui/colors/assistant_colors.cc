@@ -8,7 +8,7 @@
 
 #include "ash/assistant/ui/colors/assistant_colors.h"
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "third_party/skia/include/core/SkColor.h"
 
 namespace assistant_colors {
@@ -39,10 +39,10 @@ SkAlpha GetOpacity(OpacityName opacity_name, bool is_dark_mode) {
   }
 }
 
-absl::optional<SkColor> GetDebugColor(ColorName color_name, bool is_dark_mode) {
+std::optional<SkColor> GetDebugColor(ColorName color_name, bool is_dark_mode) {
   switch (color_name) {
     default:
-      return absl::nullopt;
+      return std::nullopt;
   }
 }
 

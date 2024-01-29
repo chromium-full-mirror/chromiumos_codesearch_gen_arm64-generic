@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionDocumentOrElement::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionDocumentOrElement::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kDocument: {
     return ToV8Traits<Document>::ToV8(script_state, member_document_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionDocumentOrElement::ToV8Value(ScriptState* scrip
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionDocumentOrElement::Trace(Visitor* visitor) const {

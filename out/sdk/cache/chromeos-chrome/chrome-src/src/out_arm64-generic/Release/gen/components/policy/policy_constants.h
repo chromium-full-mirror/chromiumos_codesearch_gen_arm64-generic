@@ -126,7 +126,6 @@ extern const char kCastReceiverName[];
 extern const char kCertificateTransparencyEnforcementDisabledForCas[];
 extern const char kCertificateTransparencyEnforcementDisabledForLegacyCas[];
 extern const char kCertificateTransparencyEnforcementDisabledForUrls[];
-extern const char kChromeAppsWebViewPermissiveBehaviorAllowed[];
 extern const char kChromeOsLockOnIdleSuspend[];
 extern const char kChromeOsMultiProfileUserBehavior[];
 extern const char kChromeOsReleaseChannel[];
@@ -183,7 +182,6 @@ extern const char kDefaultSearchProviderAlternateURLs[];
 extern const char kDefaultSearchProviderContextMenuAccessAllowed[];
 extern const char kDefaultSearchProviderEnabled[];
 extern const char kDefaultSearchProviderEncodings[];
-extern const char kDefaultSearchProviderIconURL[];
 extern const char kDefaultSearchProviderImageURL[];
 extern const char kDefaultSearchProviderImageURLPostParams[];
 extern const char kDefaultSearchProviderKeyword[];
@@ -201,6 +199,7 @@ extern const char kDefaultWebHidGuardSetting[];
 extern const char kDefaultWebUsbGuardSetting[];
 extern const char kDefaultWindowManagementSetting[];
 extern const char kDefaultWindowPlacementSetting[];
+extern const char kDeleteKeyModifier[];
 extern const char kDeletePrintJobHistoryAllowed[];
 extern const char kDeskAPIDeskSaveAndShareEnabled[];
 extern const char kDeskAPIThirdPartyAccessEnabled[];
@@ -241,7 +240,7 @@ extern const char kDeviceDockMacAddressSource[];
 extern const char kDeviceEncryptedReportingPipelineEnabled[];
 extern const char kDeviceEphemeralNetworkPoliciesEnabled[];
 extern const char kDeviceEphemeralUsersEnabled[];
-extern const char kDeviceExtendedFkeysModifier[];
+extern const char kDeviceExtendedAutoUpdateEnabled[];
 extern const char kDeviceExternalPrintServers[];
 extern const char kDeviceExternalPrintServersAllowlist[];
 extern const char kDeviceFamilyLinkAccountsAllowed[];
@@ -291,6 +290,7 @@ extern const char kDeviceLoginScreenShowOptionsInSystemTrayMenu[];
 extern const char kDeviceLoginScreenSpokenFeedbackEnabled[];
 extern const char kDeviceLoginScreenStickyKeysEnabled[];
 extern const char kDeviceLoginScreenSystemInfoEnforced[];
+extern const char kDeviceLoginScreenTouchVirtualKeyboardEnabled[];
 extern const char kDeviceLoginScreenVirtualKeyboardEnabled[];
 extern const char kDeviceLoginScreenWebHidAllowDevicesForUrls[];
 extern const char kDeviceLoginScreenWebUILazyLoading[];
@@ -406,6 +406,8 @@ extern const char kExternalPrintServers[];
 extern const char kExternalPrintServersAllowlist[];
 extern const char kExternalStorageDisabled[];
 extern const char kExternalStorageReadOnly[];
+extern const char kF11KeyModifier[];
+extern const char kF12KeyModifier[];
 extern const char kFastPairEnabled[];
 extern const char kFeedbackSurveysEnabled[];
 extern const char kFetchKeepaliveDurationSecondsOnShutdown[];
@@ -417,6 +419,9 @@ extern const char kFileSystemWriteBlockedForUrls[];
 extern const char kFirstPartySetsEnabled[];
 extern const char kFirstPartySetsOverrides[];
 extern const char kFloatingAccessibilityMenuEnabled[];
+extern const char kFloatingSsoDomainBlocklist[];
+extern const char kFloatingSsoDomainBlocklistExceptions[];
+extern const char kFloatingSsoEnabled[];
 extern const char kFloatingWorkspaceEnabled[];
 extern const char kFloatingWorkspaceV2Enabled[];
 extern const char kForceGoogleSafeSearch[];
@@ -448,6 +453,7 @@ extern const char kHideWebStoreIcon[];
 extern const char kHighContrastEnabled[];
 extern const char kHighEfficiencyModeEnabled[];
 extern const char kHistoryClustersVisible[];
+extern const char kHomeAndEndKeysModifier[];
 extern const char kHomepageIsNewTabPage[];
 extern const char kHomepageLocation[];
 extern const char kHttpAllowlist[];
@@ -471,6 +477,7 @@ extern const char kInsecureFormsWarningsEnabled[];
 extern const char kInsecureHashesInTLSHandshakesEnabled[];
 extern const char kInsecurePrivateNetworkRequestsAllowed[];
 extern const char kInsecurePrivateNetworkRequestsAllowedForUrls[];
+extern const char kInsertKeyModifier[];
 extern const char kInsightsExtensionEnabled[];
 extern const char kInstantTetheringAllowed[];
 extern const char kIntensiveWakeUpThrottlingEnabled[];
@@ -559,7 +566,7 @@ extern const char kOpenNetworkConfiguration[];
 extern const char kOriginAgentClusterDefaultEnabled[];
 extern const char kOsColorMode[];
 extern const char kOverrideSecurityRestrictionsOnInsecureOrigin[];
-extern const char kPPAPISharedImagesForVideoDecoderAllowed[];
+extern const char kPageUpAndPageDownKeysModifier[];
 extern const char kParentAccessCodeConfig[];
 extern const char kPasswordDismissCompromisedAlertEnabled[];
 extern const char kPasswordLeakDetectionEnabled[];
@@ -764,7 +771,6 @@ extern const char kScreensaverLockScreenImages[];
 extern const char kScrollToTextFragmentEnabled[];
 extern const char kSearchSuggestEnabled[];
 extern const char kSecondaryGoogleAccountSigninAllowed[];
-extern const char kSecondaryGoogleAccountUsage[];
 extern const char kSecurityKeyPermitAttestation[];
 extern const char kSecurityTokenSessionBehavior[];
 extern const char kSecurityTokenSessionNotificationSeconds[];
@@ -857,6 +863,7 @@ extern const char kVideoCaptureAllowed[];
 extern const char kVideoCaptureAllowedUrls[];
 extern const char kVirtualKeyboardEnabled[];
 extern const char kVirtualKeyboardFeatures[];
+extern const char kVirtualKeyboardSmartVisibilityEnabled[];
 extern const char kVirtualMachinesAllowed[];
 extern const char kVmManagementCliAllowed[];
 extern const char kVoiceInteractionContextEnabled[];
@@ -908,6 +915,7 @@ extern const char kDefaultSearchProvider[];
 extern const char kDisplay[];
 extern const char kDrive[];
 extern const char kExtensions[];
+extern const char kFloatingSso[];
 extern const char kGoogleCast[];
 extern const char kHomepage[];
 extern const char kImageSettings[];
@@ -990,7 +998,7 @@ struct IntegerPolicyAccess {
   const em::IntegerPolicyProto& (*get_proto)(
       const em::CloudPolicySettings& policy);
 };
-extern const std::array<IntegerPolicyAccess, 100> kIntegerPolicyAccess;
+extern const std::array<IntegerPolicyAccess, 106> kIntegerPolicyAccess;
 
 // Read access to the protobufs of all supported string user policies.
 struct StringPolicyAccess {
@@ -1001,7 +1009,7 @@ struct StringPolicyAccess {
       const em::CloudPolicySettings& policy);
   const StringPolicyType type;
 };
-extern const std::array<StringPolicyAccess, 120> kStringPolicyAccess;
+extern const std::array<StringPolicyAccess, 118> kStringPolicyAccess;
 
 // Read access to the protobufs of all supported stringlist user policies.
 struct StringListPolicyAccess {
@@ -1011,7 +1019,7 @@ struct StringListPolicyAccess {
   const em::StringListPolicyProto& (*get_proto)(
       const em::CloudPolicySettings& policy);
 };
-extern const std::array<StringListPolicyAccess, 125> kStringListPolicyAccess;
+extern const std::array<StringListPolicyAccess, 127> kStringListPolicyAccess;
 
 constexpr int64_t kDevicePolicyExternalDataResourceCacheSize = 24068672;
 

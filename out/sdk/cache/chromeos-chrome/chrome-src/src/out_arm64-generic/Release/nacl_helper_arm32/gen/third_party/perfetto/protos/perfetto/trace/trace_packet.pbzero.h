@@ -20,6 +20,7 @@ class AndroidCameraFrameEvent;
 class AndroidCameraSessionStats;
 class AndroidEnergyEstimationBreakdown;
 class AndroidGameInterventionList;
+class AndroidInputEvent;
 class AndroidLogPacket;
 class AndroidSystemProperty;
 class BatteryCounters;
@@ -58,6 +59,8 @@ class ProcessStats;
 class ProcessTree;
 class ProfilePacket;
 class ProfiledFrameSymbols;
+class ProtoLogMessage;
+class ProtoLogViewerConfig;
 class ShellHandlerMappings;
 class ShellTransition;
 class SmapsPacket;
@@ -81,6 +84,11 @@ class TransactionTraceEntry;
 class TranslationTable;
 class Trigger;
 class UiState;
+class V8CodeMove;
+class V8InternalCode;
+class V8JsCode;
+class V8RegExpCode;
+class V8WasmCode;
 class VulkanApiEvent;
 class VulkanMemoryEvent;
 
@@ -252,8 +260,24 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes shell_transition() const { return at<96>().as_bytes(); }
   bool has_shell_handler_mappings() const { return at<97>().valid(); }
   ::protozero::ConstBytes shell_handler_mappings() const { return at<97>().as_bytes(); }
+  bool has_protolog_message() const { return at<104>().valid(); }
+  ::protozero::ConstBytes protolog_message() const { return at<104>().as_bytes(); }
+  bool has_protolog_viewer_config() const { return at<105>().valid(); }
+  ::protozero::ConstBytes protolog_viewer_config() const { return at<105>().as_bytes(); }
   bool has_etw_events() const { return at<95>().valid(); }
   ::protozero::ConstBytes etw_events() const { return at<95>().as_bytes(); }
+  bool has_v8_js_code() const { return at<99>().valid(); }
+  ::protozero::ConstBytes v8_js_code() const { return at<99>().as_bytes(); }
+  bool has_v8_internal_code() const { return at<100>().valid(); }
+  ::protozero::ConstBytes v8_internal_code() const { return at<100>().as_bytes(); }
+  bool has_v8_wasm_code() const { return at<101>().valid(); }
+  ::protozero::ConstBytes v8_wasm_code() const { return at<101>().as_bytes(); }
+  bool has_v8_reg_exp_code() const { return at<102>().valid(); }
+  ::protozero::ConstBytes v8_reg_exp_code() const { return at<102>().as_bytes(); }
+  bool has_v8_code_move() const { return at<103>().valid(); }
+  ::protozero::ConstBytes v8_code_move() const { return at<103>().as_bytes(); }
+  bool has_android_input_event() const { return at<106>().valid(); }
+  ::protozero::ConstBytes android_input_event() const { return at<106>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
   ::protozero::ConstBytes for_testing() const { return at<900>().as_bytes(); }
   bool has_trusted_uid() const { return at<3>().valid(); }
@@ -349,7 +373,15 @@ class TracePacket : public ::protozero::Message {
     kSurfaceflingerTransactionsFieldNumber = 94,
     kShellTransitionFieldNumber = 96,
     kShellHandlerMappingsFieldNumber = 97,
+    kProtologMessageFieldNumber = 104,
+    kProtologViewerConfigFieldNumber = 105,
     kEtwEventsFieldNumber = 95,
+    kV8JsCodeFieldNumber = 99,
+    kV8InternalCodeFieldNumber = 100,
+    kV8WasmCodeFieldNumber = 101,
+    kV8RegExpCodeFieldNumber = 102,
+    kV8CodeMoveFieldNumber = 103,
+    kAndroidInputEventFieldNumber = 106,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -1339,6 +1371,34 @@ class TracePacket : public ::protozero::Message {
   }
 
 
+  using FieldMetadata_ProtologMessage =
+    ::protozero::proto_utils::FieldMetadata<
+      104,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ProtoLogMessage,
+      TracePacket>;
+
+  static constexpr FieldMetadata_ProtologMessage kProtologMessage{};
+  template <typename T = ProtoLogMessage> T* set_protolog_message() {
+    return BeginNestedMessage<T>(104);
+  }
+
+
+  using FieldMetadata_ProtologViewerConfig =
+    ::protozero::proto_utils::FieldMetadata<
+      105,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ProtoLogViewerConfig,
+      TracePacket>;
+
+  static constexpr FieldMetadata_ProtologViewerConfig kProtologViewerConfig{};
+  template <typename T = ProtoLogViewerConfig> T* set_protolog_viewer_config() {
+    return BeginNestedMessage<T>(105);
+  }
+
+
   using FieldMetadata_EtwEvents =
     ::protozero::proto_utils::FieldMetadata<
       95,
@@ -1350,6 +1410,90 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_EtwEvents kEtwEvents{};
   template <typename T = EtwTraceEventBundle> T* set_etw_events() {
     return BeginNestedMessage<T>(95);
+  }
+
+
+  using FieldMetadata_V8JsCode =
+    ::protozero::proto_utils::FieldMetadata<
+      99,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8JsCode,
+      TracePacket>;
+
+  static constexpr FieldMetadata_V8JsCode kV8JsCode{};
+  template <typename T = V8JsCode> T* set_v8_js_code() {
+    return BeginNestedMessage<T>(99);
+  }
+
+
+  using FieldMetadata_V8InternalCode =
+    ::protozero::proto_utils::FieldMetadata<
+      100,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8InternalCode,
+      TracePacket>;
+
+  static constexpr FieldMetadata_V8InternalCode kV8InternalCode{};
+  template <typename T = V8InternalCode> T* set_v8_internal_code() {
+    return BeginNestedMessage<T>(100);
+  }
+
+
+  using FieldMetadata_V8WasmCode =
+    ::protozero::proto_utils::FieldMetadata<
+      101,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8WasmCode,
+      TracePacket>;
+
+  static constexpr FieldMetadata_V8WasmCode kV8WasmCode{};
+  template <typename T = V8WasmCode> T* set_v8_wasm_code() {
+    return BeginNestedMessage<T>(101);
+  }
+
+
+  using FieldMetadata_V8RegExpCode =
+    ::protozero::proto_utils::FieldMetadata<
+      102,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8RegExpCode,
+      TracePacket>;
+
+  static constexpr FieldMetadata_V8RegExpCode kV8RegExpCode{};
+  template <typename T = V8RegExpCode> T* set_v8_reg_exp_code() {
+    return BeginNestedMessage<T>(102);
+  }
+
+
+  using FieldMetadata_V8CodeMove =
+    ::protozero::proto_utils::FieldMetadata<
+      103,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8CodeMove,
+      TracePacket>;
+
+  static constexpr FieldMetadata_V8CodeMove kV8CodeMove{};
+  template <typename T = V8CodeMove> T* set_v8_code_move() {
+    return BeginNestedMessage<T>(103);
+  }
+
+
+  using FieldMetadata_AndroidInputEvent =
+    ::protozero::proto_utils::FieldMetadata<
+      106,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      AndroidInputEvent,
+      TracePacket>;
+
+  static constexpr FieldMetadata_AndroidInputEvent kAndroidInputEvent{};
+  template <typename T = AndroidInputEvent> T* set_android_input_event() {
+    return BeginNestedMessage<T>(106);
   }
 
 

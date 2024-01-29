@@ -219,6 +219,8 @@ bool WebSensorProvider_GetSensor_ForwardToCallback::Accept(
           internal::WebSensorProvider_GetSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebSensorProvider.0
   bool success = true;
   ::device::mojom::SensorCreationResult p_result{};
   ::device::mojom::SensorInitParamsPtr p_init_params{};
@@ -324,6 +326,8 @@ bool WebSensorProviderStubDispatch::AcceptWithResponder(
               internal::WebSensorProvider_GetSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebSensorProvider.0
       bool success = true;
       ::device::mojom::SensorType p_type{};
       WebSensorProvider_GetSensor_ParamsDataView input_data_view(params, message);
@@ -342,8 +346,8 @@ bool WebSensorProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSensor(
-std::move(p_type), std::move(callback));
+      impl->GetSensor(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }

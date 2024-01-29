@@ -42,8 +42,8 @@ describeWithEnvironment('SourceFrame', () => {
         assert.strictEqual(sourceFrame.textEditor.state.selection.main.to, 3);
     });
     it('shows self-XSS warning which the user can disable', async () => {
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.SELF_XSS_WARNING);
-        const setting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, Common.Settings.SettingStorageType.Synced);
+        Root.Runtime.experiments.enableForTest("selfXssWarning" /* Root.Runtime.ExperimentName.SELF_XSS_WARNING */);
+        const setting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, "Synced" /* Common.Settings.SettingStorageType.Synced */);
         assert.isFalse(setting.get());
         const sourceFrame = await createSourceFrame('Example');
         const codeMirror = sourceFrame.element.querySelector('devtools-text-editor')?.shadowRoot?.querySelector('.cm-content') || null;

@@ -166,6 +166,8 @@ bool PrerenderMessagesStubDispatch::Accept(
           reinterpret_cast<internal::PrerenderMessages_SetIsPrerendering_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrerenderMessages.0
       bool success = true;
       std::string p_histogram_prefix{};
       PrerenderMessages_SetIsPrerendering_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool PrerenderMessagesStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsPrerendering(
-std::move(p_histogram_prefix));
+      impl->SetIsPrerendering(        
+        std::move(p_histogram_prefix));
       return true;
     }
   }

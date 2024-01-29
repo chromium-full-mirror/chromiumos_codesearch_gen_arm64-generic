@@ -148,6 +148,8 @@ bool AuthenticationStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::AuthenticationStateObserver_OnAuthenticationError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthenticationStateObserver.0
       bool success = true;
       AuthenticationStateObserver_OnAuthenticationError_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool AuthenticationStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthenticationError();
+      impl->OnAuthenticationError(        );
       return true;
     }
   }

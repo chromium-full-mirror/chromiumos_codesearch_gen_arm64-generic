@@ -1,48 +1,30 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="diagnostics-shared">
-  :host {
-    --divider-horizontal-height: 100%;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="diagnostics-shared">:host{--divider-horizontal-height:100%}</style>
 <div id="cellularInfoContainer">
   <div class="horizontal-data-point-container">
     <div class="data-point-container">
-      <data-point id="ipAddress" header="[[i18n('networkIpAddressLabel')]]"
-        value="[[network.ipConfig.ipAddress]]"
-        orientation="horizontal">
+      <data-point id="ipAddress" header="[[i18n('networkIpAddressLabel')]]" value="[[network.ipConfig.ipAddress]]" orientation="horizontal">
       </data-point>
-      <data-point id="technology" header="[[i18n('networkTechnologyLabel')]]"
-          value="[[computeNetworkTechnologyText(
-            network.typeProperties.cellular.networkTechnology)]]"
-          orientation="horizontal">
+      <data-point id="technology" header="[[i18n('networkTechnologyLabel')]]" value="[[computeNetworkTechnologyText(
+            network.typeProperties.cellular.networkTechnology)]]" orientation="horizontal">
       </data-point>
-      <data-point id="roaming" header="[[i18n('networkRoamingStateLabel')]]"
-          value="[[computeRoamingText(
+      <data-point id="roaming" header="[[i18n('networkRoamingStateLabel')]]" value="[[computeRoamingText(
               network.typeProperties.cellular.roaming,
-              network.typeProperties.cellular.roamingState)]]"
-          orientation="horizontal">
+              network.typeProperties.cellular.roamingState)]]" orientation="horizontal">
       </data-point>
-      <data-point id="signalStrength" header="[[i18n('networkSignalStrengthLabel')]]"
-          value="[[computeSignalStrength(
-            network.typeProperties.cellular.signalStrength)]]"
-          orientation="horizontal">
+      <data-point id="signalStrength" header="[[i18n('networkSignalStrengthLabel')]]" value="[[computeSignalStrength(
+            network.typeProperties.cellular.signalStrength)]]" orientation="horizontal">
       </data-point>
     </div>
     <div class="divider-horizontal"></div>
     <div class="data-point-container">
-      <data-point id="simLocked" header="[[i18n('networkSimLockStatusLabel')]]"
-        value="[[computeSimLockedText(
-            network.typeProperties.cellular.simLocked)]]"
-        orientation="horizontal">
+      <data-point id="simLocked" header="[[i18n('networkSimLockStatusLabel')]]" value="[[computeSimLockedText(
+            network.typeProperties.cellular.simLocked)]]" orientation="horizontal">
       </data-point>
-      <data-point id="iccid" header="[[i18n('networkIccidLabel')]]"
-          value="[[network.typeProperties.cellular.iccid]]"
-          orientation="horizontal">
+      <data-point id="iccid" header="[[i18n('networkIccidLabel')]]" value="[[network.typeProperties.cellular.iccid]]" orientation="horizontal">
       </data-point>
-      <data-point id="eid" header="[[i18n('networkEidLabel')]]"
-          value="[[network.typeProperties.cellular.eid]]"
-          orientation="horizontal">
+      <data-point id="eid" header="[[i18n('networkEidLabel')]]" value="[[network.typeProperties.cellular.eid]]" orientation="horizontal">
       </data-point>
     </div>
   </div>

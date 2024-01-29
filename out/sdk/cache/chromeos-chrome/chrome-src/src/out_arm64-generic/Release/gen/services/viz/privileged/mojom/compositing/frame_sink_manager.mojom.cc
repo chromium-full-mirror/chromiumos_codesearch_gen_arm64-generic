@@ -2172,6 +2172,8 @@ bool FrameSinkManager_DestroyCompositorFrameSink_ForwardToCallback::Accept(
           internal::FrameSinkManager_DestroyCompositorFrameSink_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameSinkManager.6
   bool success = true;
   FrameSinkManager_DestroyCompositorFrameSink_ResponseParamsDataView input_data_view(params, message);
   
@@ -2229,6 +2231,8 @@ bool FrameSinkManager_DestroyCompositorFrameSink_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FrameSinkManager_DestroyCompositorFrameSink_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FrameSinkManager.6
   bool success = true;
   FrameSinkManager_DestroyCompositorFrameSink_ResponseParamsDataView input_data_view(params, message);
   
@@ -2300,6 +2304,8 @@ bool FrameSinkManager_EvictBackBuffer_ForwardToCallback::Accept(
           internal::FrameSinkManager_EvictBackBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameSinkManager.17
   bool success = true;
   FrameSinkManager_EvictBackBuffer_ResponseParamsDataView input_data_view(params, message);
   
@@ -2357,6 +2363,8 @@ bool FrameSinkManager_EvictBackBuffer_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FrameSinkManager_EvictBackBuffer_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FrameSinkManager.17
   bool success = true;
   FrameSinkManager_EvictBackBuffer_ResponseParamsDataView input_data_view(params, message);
   
@@ -2428,6 +2436,8 @@ bool FrameSinkManager_StopFrameCountingForTest_ForwardToCallback::Accept(
           internal::FrameSinkManager_StopFrameCountingForTest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameSinkManager.20
   bool success = true;
   FrameCountingDataPtr p_data{};
   FrameSinkManager_StopFrameCountingForTest_ResponseParamsDataView input_data_view(params, message);
@@ -2508,6 +2518,8 @@ bool FrameSinkManagerStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkManager_RegisterFrameSinkId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.0
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       bool p_report_activation{};
@@ -2526,9 +2538,9 @@ bool FrameSinkManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFrameSinkId(
-std::move(p_frame_sink_id), 
-std::move(p_report_activation));
+      impl->RegisterFrameSinkId(        
+        std::move(p_frame_sink_id), 
+        std::move(p_report_activation));
       return true;
     }
     case internal::kFrameSinkManager_InvalidateFrameSinkId_Name: {
@@ -2538,6 +2550,8 @@ std::move(p_report_activation));
           reinterpret_cast<internal::FrameSinkManager_InvalidateFrameSinkId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.1
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       FrameSinkManager_InvalidateFrameSinkId_ParamsDataView input_data_view(params, message);
@@ -2553,8 +2567,8 @@ std::move(p_report_activation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InvalidateFrameSinkId(
-std::move(p_frame_sink_id));
+      impl->InvalidateFrameSinkId(        
+        std::move(p_frame_sink_id));
       return true;
     }
     case internal::kFrameSinkManager_SetFrameSinkDebugLabel_Name: {
@@ -2564,6 +2578,8 @@ std::move(p_frame_sink_id));
           reinterpret_cast<internal::FrameSinkManager_SetFrameSinkDebugLabel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.2
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       std::string p_debug_label{};
@@ -2582,9 +2598,9 @@ std::move(p_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrameSinkDebugLabel(
-std::move(p_frame_sink_id), 
-std::move(p_debug_label));
+      impl->SetFrameSinkDebugLabel(        
+        std::move(p_frame_sink_id), 
+        std::move(p_debug_label));
       return true;
     }
     case internal::kFrameSinkManager_CreateRootCompositorFrameSink_Name: {
@@ -2594,6 +2610,8 @@ std::move(p_debug_label));
           reinterpret_cast<internal::FrameSinkManager_CreateRootCompositorFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.3
       bool success = true;
       RootCompositorFrameSinkParamsPtr p_params{};
       FrameSinkManager_CreateRootCompositorFrameSink_ParamsDataView input_data_view(params, message);
@@ -2609,8 +2627,8 @@ std::move(p_debug_label));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRootCompositorFrameSink(
-std::move(p_params));
+      impl->CreateRootCompositorFrameSink(        
+        std::move(p_params));
       return true;
     }
     case internal::kFrameSinkManager_CreateFrameSinkBundle_Name: {
@@ -2620,6 +2638,8 @@ std::move(p_params));
           reinterpret_cast<internal::FrameSinkManager_CreateFrameSinkBundle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.4
       bool success = true;
       ::viz::FrameSinkBundleId p_bundle_id{};
       ::mojo::PendingReceiver<::viz::mojom::FrameSinkBundle> p_receiver{};
@@ -2645,10 +2665,10 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFrameSinkBundle(
-std::move(p_bundle_id), 
-std::move(p_receiver), 
-std::move(p_client));
+      impl->CreateFrameSinkBundle(        
+        std::move(p_bundle_id), 
+        std::move(p_receiver), 
+        std::move(p_client));
       return true;
     }
     case internal::kFrameSinkManager_CreateCompositorFrameSink_Name: {
@@ -2658,6 +2678,8 @@ std::move(p_client));
           reinterpret_cast<internal::FrameSinkManager_CreateCompositorFrameSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.5
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       std::optional<::viz::FrameSinkBundleId> p_bundle_id{};
@@ -2686,11 +2708,11 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCompositorFrameSink(
-std::move(p_frame_sink_id), 
-std::move(p_bundle_id), 
-std::move(p_compositor_frame_sink), 
-std::move(p_compositor_frame_sink_client));
+      impl->CreateCompositorFrameSink(        
+        std::move(p_frame_sink_id), 
+        std::move(p_bundle_id), 
+        std::move(p_compositor_frame_sink), 
+        std::move(p_compositor_frame_sink_client));
       return true;
     }
     case internal::kFrameSinkManager_DestroyCompositorFrameSink_Name: {
@@ -2703,6 +2725,8 @@ std::move(p_compositor_frame_sink_client));
           reinterpret_cast<internal::FrameSinkManager_RegisterFrameSinkHierarchy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.7
       bool success = true;
       ::viz::FrameSinkId p_parent_frame_sink_id{};
       ::viz::FrameSinkId p_child_frame_sink_id{};
@@ -2721,9 +2745,9 @@ std::move(p_compositor_frame_sink_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFrameSinkHierarchy(
-std::move(p_parent_frame_sink_id), 
-std::move(p_child_frame_sink_id));
+      impl->RegisterFrameSinkHierarchy(        
+        std::move(p_parent_frame_sink_id), 
+        std::move(p_child_frame_sink_id));
       return true;
     }
     case internal::kFrameSinkManager_UnregisterFrameSinkHierarchy_Name: {
@@ -2733,6 +2757,8 @@ std::move(p_child_frame_sink_id));
           reinterpret_cast<internal::FrameSinkManager_UnregisterFrameSinkHierarchy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.8
       bool success = true;
       ::viz::FrameSinkId p_parent_frame_sink_id{};
       ::viz::FrameSinkId p_child_frame_sink_id{};
@@ -2751,9 +2777,9 @@ std::move(p_child_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnregisterFrameSinkHierarchy(
-std::move(p_parent_frame_sink_id), 
-std::move(p_child_frame_sink_id));
+      impl->UnregisterFrameSinkHierarchy(        
+        std::move(p_parent_frame_sink_id), 
+        std::move(p_child_frame_sink_id));
       return true;
     }
     case internal::kFrameSinkManager_AddVideoDetectorObserver_Name: {
@@ -2763,6 +2789,8 @@ std::move(p_child_frame_sink_id));
           reinterpret_cast<internal::FrameSinkManager_AddVideoDetectorObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.9
       bool success = true;
       ::mojo::PendingRemote<::viz::mojom::VideoDetectorObserver> p_observer{};
       FrameSinkManager_AddVideoDetectorObserver_ParamsDataView input_data_view(params, message);
@@ -2780,8 +2808,8 @@ std::move(p_child_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVideoDetectorObserver(
-std::move(p_observer));
+      impl->AddVideoDetectorObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kFrameSinkManager_CreateVideoCapturer_Name: {
@@ -2791,6 +2819,8 @@ std::move(p_observer));
           reinterpret_cast<internal::FrameSinkManager_CreateVideoCapturer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.10
       bool success = true;
       ::mojo::PendingReceiver<::viz::mojom::FrameSinkVideoCapturer> p_receiver{};
       FrameSinkManager_CreateVideoCapturer_ParamsDataView input_data_view(params, message);
@@ -2808,8 +2838,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVideoCapturer(
-std::move(p_receiver));
+      impl->CreateVideoCapturer(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kFrameSinkManager_EvictSurfaces_Name: {
@@ -2819,6 +2849,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::FrameSinkManager_EvictSurfaces_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.11
       bool success = true;
       std::vector<::viz::SurfaceId> p_surface_ids{};
       FrameSinkManager_EvictSurfaces_ParamsDataView input_data_view(params, message);
@@ -2834,8 +2866,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EvictSurfaces(
-std::move(p_surface_ids));
+      impl->EvictSurfaces(        
+        std::move(p_surface_ids));
       return true;
     }
     case internal::kFrameSinkManager_Throttle_Name: {
@@ -2845,6 +2877,8 @@ std::move(p_surface_ids));
           reinterpret_cast<internal::FrameSinkManager_Throttle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.12
       bool success = true;
       std::vector<::viz::FrameSinkId> p_frame_sink_ids{};
       ::base::TimeDelta p_interval{};
@@ -2863,9 +2897,9 @@ std::move(p_surface_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Throttle(
-std::move(p_frame_sink_ids), 
-std::move(p_interval));
+      impl->Throttle(        
+        std::move(p_frame_sink_ids), 
+        std::move(p_interval));
       return true;
     }
     case internal::kFrameSinkManager_StartThrottlingAllFrameSinks_Name: {
@@ -2875,6 +2909,8 @@ std::move(p_interval));
           reinterpret_cast<internal::FrameSinkManager_StartThrottlingAllFrameSinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.13
       bool success = true;
       ::base::TimeDelta p_interval{};
       FrameSinkManager_StartThrottlingAllFrameSinks_ParamsDataView input_data_view(params, message);
@@ -2890,8 +2926,8 @@ std::move(p_interval));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartThrottlingAllFrameSinks(
-std::move(p_interval));
+      impl->StartThrottlingAllFrameSinks(        
+        std::move(p_interval));
       return true;
     }
     case internal::kFrameSinkManager_StopThrottlingAllFrameSinks_Name: {
@@ -2901,6 +2937,8 @@ std::move(p_interval));
           reinterpret_cast<internal::FrameSinkManager_StopThrottlingAllFrameSinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.14
       bool success = true;
       FrameSinkManager_StopThrottlingAllFrameSinks_ParamsDataView input_data_view(params, message);
       
@@ -2913,7 +2951,7 @@ std::move(p_interval));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopThrottlingAllFrameSinks();
+      impl->StopThrottlingAllFrameSinks(        );
       return true;
     }
     case internal::kFrameSinkManager_RequestCopyOfOutput_Name: {
@@ -2923,6 +2961,8 @@ std::move(p_interval));
           reinterpret_cast<internal::FrameSinkManager_RequestCopyOfOutput_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.15
       bool success = true;
       ::viz::SurfaceId p_surface_id{};
       ::std::unique_ptr<::viz::CopyOutputRequest> p_request{};
@@ -2944,10 +2984,10 @@ std::move(p_interval));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestCopyOfOutput(
-std::move(p_surface_id), 
-std::move(p_request), 
-std::move(p_capture_exact_surface_id));
+      impl->RequestCopyOfOutput(        
+        std::move(p_surface_id), 
+        std::move(p_request), 
+        std::move(p_capture_exact_surface_id));
       return true;
     }
     case internal::kFrameSinkManager_CacheBackBuffer_Name: {
@@ -2957,6 +2997,8 @@ std::move(p_capture_exact_surface_id));
           reinterpret_cast<internal::FrameSinkManager_CacheBackBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.16
       bool success = true;
       uint32_t p_cache_id{};
       ::viz::FrameSinkId p_root_frame_sink_id{};
@@ -2975,9 +3017,9 @@ std::move(p_capture_exact_surface_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CacheBackBuffer(
-std::move(p_cache_id), 
-std::move(p_root_frame_sink_id));
+      impl->CacheBackBuffer(        
+        std::move(p_cache_id), 
+        std::move(p_root_frame_sink_id));
       return true;
     }
     case internal::kFrameSinkManager_EvictBackBuffer_Name: {
@@ -2990,6 +3032,8 @@ std::move(p_root_frame_sink_id));
           reinterpret_cast<internal::FrameSinkManager_UpdateDebugRendererSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.18
       bool success = true;
       ::viz::DebugRendererSettings p_debug_settings{};
       FrameSinkManager_UpdateDebugRendererSettings_ParamsDataView input_data_view(params, message);
@@ -3005,8 +3049,8 @@ std::move(p_root_frame_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDebugRendererSettings(
-std::move(p_debug_settings));
+      impl->UpdateDebugRendererSettings(        
+        std::move(p_debug_settings));
       return true;
     }
     case internal::kFrameSinkManager_StartFrameCountingForTest_Name: {
@@ -3016,6 +3060,8 @@ std::move(p_debug_settings));
           reinterpret_cast<internal::FrameSinkManager_StartFrameCountingForTest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.19
       bool success = true;
       ::base::TimeTicks p_start_time{};
       ::base::TimeDelta p_bucket_size{};
@@ -3034,9 +3080,9 @@ std::move(p_debug_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartFrameCountingForTest(
-std::move(p_start_time), 
-std::move(p_bucket_size));
+      impl->StartFrameCountingForTest(        
+        std::move(p_start_time), 
+        std::move(p_bucket_size));
       return true;
     }
     case internal::kFrameSinkManager_StopFrameCountingForTest_Name: {
@@ -3080,6 +3126,8 @@ bool FrameSinkManagerStubDispatch::AcceptWithResponder(
               internal::FrameSinkManager_DestroyCompositorFrameSink_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.6
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       FrameSinkManager_DestroyCompositorFrameSink_ParamsDataView input_data_view(params, message);
@@ -3098,8 +3146,8 @@ bool FrameSinkManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyCompositorFrameSink(
-std::move(p_frame_sink_id), std::move(callback));
+      impl->DestroyCompositorFrameSink(        
+        std::move(p_frame_sink_id), std::move(callback));
       return true;
     }
     case internal::kFrameSinkManager_RegisterFrameSinkHierarchy_Name: {
@@ -3139,6 +3187,8 @@ std::move(p_frame_sink_id), std::move(callback));
               internal::FrameSinkManager_EvictBackBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.17
       bool success = true;
       uint32_t p_cache_id{};
       FrameSinkManager_EvictBackBuffer_ParamsDataView input_data_view(params, message);
@@ -3157,8 +3207,8 @@ std::move(p_frame_sink_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EvictBackBuffer(
-std::move(p_cache_id), std::move(callback));
+      impl->EvictBackBuffer(        
+        std::move(p_cache_id), std::move(callback));
       return true;
     }
     case internal::kFrameSinkManager_UpdateDebugRendererSettings_Name: {
@@ -3174,6 +3224,8 @@ std::move(p_cache_id), std::move(callback));
               internal::FrameSinkManager_StopFrameCountingForTest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameSinkManager.20
       bool success = true;
       FrameSinkManager_StopFrameCountingForTest_ParamsDataView input_data_view(params, message);
       
@@ -3549,6 +3601,8 @@ bool FrameSinkManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkManagerClient_OnFirstSurfaceActivation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManagerClient.0
       bool success = true;
       ::viz::SurfaceInfo p_surface_info{};
       FrameSinkManagerClient_OnFirstSurfaceActivation_ParamsDataView input_data_view(params, message);
@@ -3564,8 +3618,8 @@ bool FrameSinkManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFirstSurfaceActivation(
-std::move(p_surface_info));
+      impl->OnFirstSurfaceActivation(        
+        std::move(p_surface_info));
       return true;
     }
     case internal::kFrameSinkManagerClient_OnAggregatedHitTestRegionListUpdated_Name: {
@@ -3575,6 +3629,8 @@ std::move(p_surface_info));
           reinterpret_cast<internal::FrameSinkManagerClient_OnAggregatedHitTestRegionListUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManagerClient.1
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       std::vector<::viz::AggregatedHitTestRegion> p_hit_test_data{};
@@ -3593,9 +3649,9 @@ std::move(p_surface_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAggregatedHitTestRegionListUpdated(
-std::move(p_frame_sink_id), 
-std::move(p_hit_test_data));
+      impl->OnAggregatedHitTestRegionListUpdated(        
+        std::move(p_frame_sink_id), 
+        std::move(p_hit_test_data));
       return true;
     }
     case internal::kFrameSinkManagerClient_OnFrameTokenChanged_Name: {
@@ -3605,6 +3661,8 @@ std::move(p_hit_test_data));
           reinterpret_cast<internal::FrameSinkManagerClient_OnFrameTokenChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkManagerClient.2
       bool success = true;
       ::viz::FrameSinkId p_frame_sink_id{};
       uint32_t p_frame_token{};
@@ -3626,10 +3684,10 @@ std::move(p_hit_test_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameTokenChanged(
-std::move(p_frame_sink_id), 
-std::move(p_frame_token), 
-std::move(p_activation_time));
+      impl->OnFrameTokenChanged(        
+        std::move(p_frame_sink_id), 
+        std::move(p_frame_token), 
+        std::move(p_activation_time));
       return true;
     }
   }

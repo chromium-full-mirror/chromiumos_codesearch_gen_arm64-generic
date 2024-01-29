@@ -42,6 +42,7 @@ class AuctionAdConfigBuyerTimeouts_Data;
 class AdCurrency_Data;
 class AuctionAdConfigBuyerCurrencies_Data;
 class AuctionAdServerResponseConfig_Data;
+class AuctionReportBuyerDebugModeConfig_Data;
 class AuctionReportBuyersConfig_Data;
 class AuctionAdConfigNonSharedParams_Data;
 class AuctionAdConfig_Data;
@@ -560,7 +561,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) InterestGroup_Data {
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::url::mojom::internal::Origin_Data>, mojo::internal::Pointer<internal::SellerCapabilities_Data>>> seller_capabilities;
   mojo::internal::Pointer<internal::SellerCapabilities_Data> all_sellers_capabilities;
   int32_t trusted_bidding_signals_slot_size_mode;
-  uint8_t pad10_[4];
+  int32_t max_trusted_bidding_signals_url_length;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> bidding_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> bidding_wasm_helper_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> update_url;
@@ -909,6 +910,57 @@ struct AuctionAdServerResponseConfig_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     AuctionAdServerResponseConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionReportBuyerDebugModeConfig_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t is_enabled : 1;
+  uint8_t debug_key_$flag : 1;
+  uint8_t pad1_[7];
+  uint64_t debug_key_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<AuctionReportBuyerDebugModeConfig_Data>;
+
+  AuctionReportBuyerDebugModeConfig_Data();
+  ~AuctionReportBuyerDebugModeConfig_Data() = delete;
+};
+static_assert(sizeof(AuctionReportBuyerDebugModeConfig_Data) == 24,
+              "Bad sizeof(AuctionReportBuyerDebugModeConfig_Data)");
+// Used by AuctionReportBuyerDebugModeConfig::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AuctionReportBuyerDebugModeConfig_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AuctionReportBuyerDebugModeConfig_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AuctionReportBuyerDebugModeConfig_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AuctionReportBuyerDebugModeConfig_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AuctionReportBuyerDebugModeConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionReportBuyersConfig_Data {
  public:
   static bool Validate(const void* data,
@@ -980,6 +1032,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfigNonShare
   uint8_t pad12_[6];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::mojo_base::mojom::internal::Uint128_Data>>> auction_report_buyer_keys;
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<internal::AuctionReportBuyersConfig_Data>>> auction_report_buyers;
+  mojo::internal::Pointer<internal::AuctionReportBuyerDebugModeConfig_Data> auction_report_buyer_debug_mode_config;
   mojo::internal::Pointer<internal::SellerCapabilities_Data> required_seller_capabilities;
   mojo::internal::Pointer<::blink::mojom::internal::AdSize_Data> requested_size;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::blink::mojom::internal::AdSize_Data>>> all_slots_requested_sizes;
@@ -992,7 +1045,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfigNonShare
   AuctionAdConfigNonSharedParams_Data();
   ~AuctionAdConfigNonSharedParams_Data() = delete;
 };
-static_assert(sizeof(AuctionAdConfigNonSharedParams_Data) == 216,
+static_assert(sizeof(AuctionAdConfigNonSharedParams_Data) == 224,
               "Bad sizeof(AuctionAdConfigNonSharedParams_Data)");
 // Used by AuctionAdConfigNonSharedParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1036,16 +1089,17 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfig_Data {
   mojo::internal::Pointer<internal::AuctionAdServerResponseConfig_Data> server_response;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> decision_logic_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> trusted_scoring_signals_url;
-  mojo::internal::Pointer<internal::AuctionAdConfigNonSharedParams_Data> auction_ad_config_non_shared_params;
-  internal::AuctionAdConfigMaybePromiseDirectFromSellerSignals_Data direct_from_seller_signals;
+  int32_t max_trusted_scoring_signals_url_length;
   uint8_t expects_direct_from_seller_signals_header_ad_slot : 1;
   uint8_t has_seller_experiment_group_id : 1;
   uint8_t has_all_buyer_experiment_group_id : 1;
   uint8_t expects_additional_bids : 1;
-  uint8_t pad9_[1];
+  uint8_t pad8_[1];
   uint16_t seller_experiment_group_id;
+  mojo::internal::Pointer<internal::AuctionAdConfigNonSharedParams_Data> auction_ad_config_non_shared_params;
+  internal::AuctionAdConfigMaybePromiseDirectFromSellerSignals_Data direct_from_seller_signals;
   int16_t all_buyer_experiment_group_id;
-  uint8_t pad11_[2];
+  uint8_t pad12_[6];
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::url::mojom::internal::Origin_Data>, uint16_t>> per_buyer_experiment_group_ids;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> aggregation_coordinator_origin;
 
@@ -1055,7 +1109,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfig_Data {
   AuctionAdConfig_Data();
   ~AuctionAdConfig_Data() = delete;
 };
-static_assert(sizeof(AuctionAdConfig_Data) == 88,
+static_assert(sizeof(AuctionAdConfig_Data) == 96,
               "Bad sizeof(AuctionAdConfig_Data)");
 // Used by AuctionAdConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

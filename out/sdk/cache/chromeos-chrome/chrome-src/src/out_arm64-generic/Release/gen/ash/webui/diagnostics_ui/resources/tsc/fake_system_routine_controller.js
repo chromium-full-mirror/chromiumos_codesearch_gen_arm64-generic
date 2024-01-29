@@ -5,10 +5,6 @@ import { FakeMethodResolver } from 'chrome://resources/ash/common/fake_method_re
 import { assert } from 'chrome://resources/js/assert.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
 import { RoutineType, StandardRoutineResult } from './system_routine_controller.mojom-webui.js';
-/**
- * @fileoverview
- * Implements a fake version of the SystemRoutineController mojo interface.
- */
 export class FakeSystemRoutineController {
     constructor() {
         this.methods = new FakeMethodResolver();

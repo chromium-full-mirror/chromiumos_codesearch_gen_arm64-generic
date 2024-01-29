@@ -102,7 +102,7 @@ void V8UnionCSSNumericValueOrStringOrUnrestrictedDouble::Set(const V8UnionCSSNum
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionCSSNumericValueOrStringOrUnrestrictedDouble::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionCSSNumericValueOrStringOrUnrestrictedDouble::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kCSSNumericValue: {
     return ToV8Traits<CSSNumericValue>::ToV8(script_state, member_css_numeric_value_.Get());
@@ -116,7 +116,7 @@ v8::MaybeLocal<v8::Value> V8UnionCSSNumericValueOrStringOrUnrestrictedDouble::To
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionCSSNumericValueOrStringOrUnrestrictedDouble::Trace(Visitor* visitor) const {

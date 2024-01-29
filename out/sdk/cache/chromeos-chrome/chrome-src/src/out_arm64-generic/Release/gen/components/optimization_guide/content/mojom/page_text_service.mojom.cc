@@ -264,6 +264,8 @@ bool PageTextConsumerStubDispatch::Accept(
           reinterpret_cast<internal::PageTextConsumer_OnTextDumpChunk_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageTextConsumer.0
       bool success = true;
       ::std::u16string p_chunk{};
       PageTextConsumer_OnTextDumpChunk_ParamsDataView input_data_view(params, message);
@@ -279,8 +281,8 @@ bool PageTextConsumerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTextDumpChunk(
-std::move(p_chunk));
+      impl->OnTextDumpChunk(        
+        std::move(p_chunk));
       return true;
     }
     case internal::kPageTextConsumer_OnChunksEnd_Name: {
@@ -290,6 +292,8 @@ std::move(p_chunk));
           reinterpret_cast<internal::PageTextConsumer_OnChunksEnd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageTextConsumer.1
       bool success = true;
       PageTextConsumer_OnChunksEnd_ParamsDataView input_data_view(params, message);
       
@@ -302,7 +306,7 @@ std::move(p_chunk));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnChunksEnd();
+      impl->OnChunksEnd(        );
       return true;
     }
   }
@@ -472,6 +476,8 @@ bool PageTextServiceStubDispatch::Accept(
           reinterpret_cast<internal::PageTextService_RequestPageTextDump_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageTextService.0
       bool success = true;
       PageTextDumpRequestPtr p_request{};
       ::mojo::PendingRemote<PageTextConsumer> p_consumer{};
@@ -492,9 +498,9 @@ bool PageTextServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPageTextDump(
-std::move(p_request), 
-std::move(p_consumer));
+      impl->RequestPageTextDump(        
+        std::move(p_request), 
+        std::move(p_consumer));
       return true;
     }
   }

@@ -322,6 +322,8 @@ bool PdfListenerStubDispatch::Accept(
           reinterpret_cast<internal::PdfListener_SetCaretPosition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfListener.0
       bool success = true;
       ::gfx::PointF p_position{};
       PdfListener_SetCaretPosition_ParamsDataView input_data_view(params, message);
@@ -337,8 +339,8 @@ bool PdfListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCaretPosition(
-std::move(p_position));
+      impl->SetCaretPosition(        
+        std::move(p_position));
       return true;
     }
     case internal::kPdfListener_MoveRangeSelectionExtent_Name: {
@@ -348,6 +350,8 @@ std::move(p_position));
           reinterpret_cast<internal::PdfListener_MoveRangeSelectionExtent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfListener.1
       bool success = true;
       ::gfx::PointF p_extent{};
       PdfListener_MoveRangeSelectionExtent_ParamsDataView input_data_view(params, message);
@@ -363,8 +367,8 @@ std::move(p_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveRangeSelectionExtent(
-std::move(p_extent));
+      impl->MoveRangeSelectionExtent(        
+        std::move(p_extent));
       return true;
     }
     case internal::kPdfListener_SetSelectionBounds_Name: {
@@ -374,6 +378,8 @@ std::move(p_extent));
           reinterpret_cast<internal::PdfListener_SetSelectionBounds_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfListener.2
       bool success = true;
       ::gfx::PointF p_base{};
       ::gfx::PointF p_extent{};
@@ -392,9 +398,9 @@ std::move(p_extent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSelectionBounds(
-std::move(p_base), 
-std::move(p_extent));
+      impl->SetSelectionBounds(        
+        std::move(p_base), 
+        std::move(p_extent));
       return true;
     }
   }
@@ -899,6 +905,8 @@ bool PdfServiceStubDispatch::Accept(
           reinterpret_cast<internal::PdfService_SetListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfService.0
       bool success = true;
       ::mojo::PendingRemote<PdfListener> p_client{};
       PdfService_SetListener_ParamsDataView input_data_view(params, message);
@@ -916,8 +924,8 @@ bool PdfServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetListener(
-std::move(p_client));
+      impl->SetListener(        
+        std::move(p_client));
       return true;
     }
     case internal::kPdfService_UpdateContentRestrictions_Name: {
@@ -927,6 +935,8 @@ std::move(p_client));
           reinterpret_cast<internal::PdfService_UpdateContentRestrictions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfService.1
       bool success = true;
       int32_t p_restrictions{};
       PdfService_UpdateContentRestrictions_ParamsDataView input_data_view(params, message);
@@ -942,8 +952,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateContentRestrictions(
-std::move(p_restrictions));
+      impl->UpdateContentRestrictions(        
+        std::move(p_restrictions));
       return true;
     }
     case internal::kPdfService_HasUnsupportedFeature_Name: {
@@ -953,6 +963,8 @@ std::move(p_restrictions));
           reinterpret_cast<internal::PdfService_HasUnsupportedFeature_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfService.2
       bool success = true;
       PdfService_HasUnsupportedFeature_ParamsDataView input_data_view(params, message);
       
@@ -965,7 +977,7 @@ std::move(p_restrictions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasUnsupportedFeature();
+      impl->HasUnsupportedFeature(        );
       return true;
     }
     case internal::kPdfService_SaveUrlAs_Name: {
@@ -975,6 +987,8 @@ std::move(p_restrictions));
           reinterpret_cast<internal::PdfService_SaveUrlAs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfService.3
       bool success = true;
       ::GURL p_url{};
       ::network::mojom::ReferrerPolicy p_policy{};
@@ -993,9 +1007,9 @@ std::move(p_restrictions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SaveUrlAs(
-std::move(p_url), 
-std::move(p_policy));
+      impl->SaveUrlAs(        
+        std::move(p_url), 
+        std::move(p_policy));
       return true;
     }
     case internal::kPdfService_SelectionChanged_Name: {
@@ -1005,6 +1019,8 @@ std::move(p_policy));
           reinterpret_cast<internal::PdfService_SelectionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfService.4
       bool success = true;
       ::gfx::PointF p_left{};
       int32_t p_left_height{};
@@ -1029,11 +1045,11 @@ std::move(p_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectionChanged(
-std::move(p_left), 
-std::move(p_left_height), 
-std::move(p_right), 
-std::move(p_right_height));
+      impl->SelectionChanged(        
+        std::move(p_left), 
+        std::move(p_left_height), 
+        std::move(p_right), 
+        std::move(p_right_height));
       return true;
     }
     case internal::kPdfService_SetPluginCanSave_Name: {
@@ -1043,6 +1059,8 @@ std::move(p_right_height));
           reinterpret_cast<internal::PdfService_SetPluginCanSave_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfService.5
       bool success = true;
       bool p_can_save{};
       PdfService_SetPluginCanSave_ParamsDataView input_data_view(params, message);
@@ -1058,8 +1076,8 @@ std::move(p_right_height));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPluginCanSave(
-std::move(p_can_save));
+      impl->SetPluginCanSave(        
+        std::move(p_can_save));
       return true;
     }
   }

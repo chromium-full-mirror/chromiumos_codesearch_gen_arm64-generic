@@ -360,6 +360,9 @@ export class Service {
     updateSiteAccess(site, updates) {
         return chrome.developerPrivate.updateSiteAccess(site, updates);
     }
+    dismissSafetyHubExtensionsMenuNotification() {
+        chrome.developerPrivate.dismissSafetyHubExtensionsMenuNotification();
+    }
     static getInstance() {
         return instance || (instance = new Service());
     }

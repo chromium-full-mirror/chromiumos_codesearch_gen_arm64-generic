@@ -244,7 +244,7 @@ const char* TraceConfig_BufferConfig_FillPolicy_Name(::perfetto::protos::pbzero:
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/37, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/38, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -289,6 +289,8 @@ class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   bool notify_traceur() const { return at<16>().as_bool(); }
   bool has_bugreport_score() const { return at<30>().valid(); }
   int32_t bugreport_score() const { return at<30>().as_int32(); }
+  bool has_bugreport_filename() const { return at<38>().valid(); }
+  ::protozero::ConstChars bugreport_filename() const { return at<38>().as_string(); }
   bool has_trigger_config() const { return at<17>().valid(); }
   ::protozero::ConstBytes trigger_config() const { return at<17>().as_bytes(); }
   bool has_activate_triggers() const { return at<18>().valid(); }
@@ -301,8 +303,6 @@ class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstChars unique_session_name() const { return at<22>().as_string(); }
   bool has_compression_type() const { return at<24>().valid(); }
   int32_t compression_type() const { return at<24>().as_int32(); }
-  bool has_compress_from_cli() const { return at<37>().valid(); }
-  bool compress_from_cli() const { return at<37>().as_bool(); }
   bool has_incident_report_config() const { return at<25>().valid(); }
   ::protozero::ConstBytes incident_report_config() const { return at<25>().as_bytes(); }
   bool has_statsd_logging() const { return at<31>().valid(); }
@@ -343,13 +343,13 @@ class TraceConfig : public ::protozero::Message {
     kDataSourceStopTimeoutMsFieldNumber = 23,
     kNotifyTraceurFieldNumber = 16,
     kBugreportScoreFieldNumber = 30,
+    kBugreportFilenameFieldNumber = 38,
     kTriggerConfigFieldNumber = 17,
     kActivateTriggersFieldNumber = 18,
     kIncrementalStateConfigFieldNumber = 21,
     kAllowUserBuildTracingFieldNumber = 19,
     kUniqueSessionNameFieldNumber = 22,
     kCompressionTypeFieldNumber = 24,
-    kCompressFromCliFieldNumber = 37,
     kIncidentReportConfigFieldNumber = 25,
     kStatsdLoggingFieldNumber = 31,
     kTraceUuidMsbFieldNumber = 27,
@@ -738,6 +738,30 @@ class TraceConfig : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
+  using FieldMetadata_BugreportFilename =
+    ::protozero::proto_utils::FieldMetadata<
+      38,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      TraceConfig>;
+
+  static constexpr FieldMetadata_BugreportFilename kBugreportFilename{};
+  void set_bugreport_filename(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_BugreportFilename::kFieldId, data, size);
+  }
+  void set_bugreport_filename(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_BugreportFilename::kFieldId, chars.data, chars.size);
+  }
+  void set_bugreport_filename(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_BugreportFilename::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
   using FieldMetadata_TriggerConfig =
     ::protozero::proto_utils::FieldMetadata<
       17,
@@ -847,24 +871,6 @@ class TraceConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kEnum>
-        ::Append(*this, field_id, value);
-  }
-
-  using FieldMetadata_CompressFromCli =
-    ::protozero::proto_utils::FieldMetadata<
-      37,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kBool,
-      bool,
-      TraceConfig>;
-
-  static constexpr FieldMetadata_CompressFromCli kCompressFromCli{};
-  void set_compress_from_cli(bool value) {
-    static constexpr uint32_t field_id = FieldMetadata_CompressFromCli::kFieldId;
-    // Call the appropriate protozero::Message::Append(field_id, ...)
-    // method based on the type of the field.
-    ::protozero::internal::FieldWriter<
-      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 

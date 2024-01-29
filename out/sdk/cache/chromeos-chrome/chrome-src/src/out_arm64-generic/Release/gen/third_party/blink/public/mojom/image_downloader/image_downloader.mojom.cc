@@ -254,6 +254,8 @@ bool ImageDownloader_DownloadImage_ForwardToCallback::Accept(
           internal::ImageDownloader_DownloadImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageDownloader.0
   bool success = true;
   int32_t p_http_status_code{};
   std::vector<::SkBitmap> p_images{};
@@ -384,6 +386,8 @@ bool ImageDownloaderStubDispatch::AcceptWithResponder(
               internal::ImageDownloader_DownloadImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageDownloader.0
       bool success = true;
       ::GURL p_url{};
       bool p_is_favicon{};
@@ -414,12 +418,12 @@ bool ImageDownloaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadImage(
-std::move(p_url), 
-std::move(p_is_favicon), 
-std::move(p_preferred_size), 
-std::move(p_max_bitmap_size), 
-std::move(p_bypass_cache), std::move(callback));
+      impl->DownloadImage(        
+        std::move(p_url), 
+        std::move(p_is_favicon), 
+        std::move(p_preferred_size), 
+        std::move(p_max_bitmap_size), 
+        std::move(p_bypass_cache), std::move(callback));
       return true;
     }
   }

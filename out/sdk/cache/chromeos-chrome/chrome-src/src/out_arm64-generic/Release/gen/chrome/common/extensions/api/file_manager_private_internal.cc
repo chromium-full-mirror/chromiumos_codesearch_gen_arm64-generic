@@ -411,8 +411,8 @@ bool SearchFilesParams::Populate(
     if (!search_type_as_string) {
       return false;
     }
-    out.types = file_manager_private::ParseSearchType(*search_type_as_string);
-    if (out.types == file_manager_private::SearchType()) {
+    out.types = extensions::api::file_manager_private::ParseSearchType(*search_type_as_string);
+    if (out.types == extensions::api::file_manager_private::SearchType()) {
       return false;
     }
   }
@@ -450,8 +450,8 @@ bool SearchFilesParams::Populate(
     if (!file_category_as_string) {
       return false;
     }
-    out.category = file_manager_private::ParseFileCategory(*file_category_as_string);
-    if (out.category == file_manager_private::FileCategory()) {
+    out.category = extensions::api::file_manager_private::ParseFileCategory(*file_category_as_string);
+    if (out.category == extensions::api::file_manager_private::FileCategory()) {
       return false;
     }
   }
@@ -696,8 +696,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
           if (!entry_property_name_as_string) {
             return std::nullopt;
           }
-          tmp = file_manager_private::ParseEntryPropertyName(*entry_property_name_as_string);
-          if (tmp == file_manager_private::EntryPropertyName()) {
+          tmp = extensions::api::file_manager_private::ParseEntryPropertyName(*entry_property_name_as_string);
+          if (tmp == extensions::api::file_manager_private::EntryPropertyName()) {
             return std::nullopt;
           }
           params.names.push_back(tmp);
@@ -1732,8 +1732,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!source_restriction_as_string) {
         return std::nullopt;
       }
-      params.restriction = file_manager_private::ParseSourceRestriction(*source_restriction_as_string);
-      if (params.restriction == file_manager_private::SourceRestriction()) {
+      params.restriction = extensions::api::file_manager_private::ParseSourceRestriction(*source_restriction_as_string);
+      if (params.restriction == extensions::api::file_manager_private::SourceRestriction()) {
         return std::nullopt;
       }
     }
@@ -1780,8 +1780,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!file_category_as_string) {
         return std::nullopt;
       }
-      params.file_category = file_manager_private::ParseFileCategory(*file_category_as_string);
-      if (params.file_category == file_manager_private::FileCategory()) {
+      params.file_category = extensions::api::file_manager_private::ParseFileCategory(*file_category_as_string);
+      if (params.file_category == extensions::api::file_manager_private::FileCategory()) {
         return std::nullopt;
       }
     }
@@ -2207,8 +2207,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!sharesheet_launch_source_as_string) {
         return std::nullopt;
       }
-      params.launch_source = file_manager_private::ParseSharesheetLaunchSource(*sharesheet_launch_source_as_string);
-      if (params.launch_source == file_manager_private::SharesheetLaunchSource()) {
+      params.launch_source = extensions::api::file_manager_private::ParseSharesheetLaunchSource(*sharesheet_launch_source_as_string);
+      if (params.launch_source == extensions::api::file_manager_private::SharesheetLaunchSource()) {
         return std::nullopt;
       }
     }
@@ -2326,8 +2326,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!io_task_type_as_string) {
         return std::nullopt;
       }
-      params.type = file_manager_private::ParseIOTaskType(*io_task_type_as_string);
-      if (params.type == file_manager_private::IOTaskType()) {
+      params.type = extensions::api::file_manager_private::ParseIoTaskType(*io_task_type_as_string);
+      if (params.type == extensions::api::file_manager_private::IoTaskType()) {
         return std::nullopt;
       }
     }

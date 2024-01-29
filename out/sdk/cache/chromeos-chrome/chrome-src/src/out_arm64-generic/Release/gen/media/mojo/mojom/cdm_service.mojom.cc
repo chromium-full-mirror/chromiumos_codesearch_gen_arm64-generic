@@ -170,6 +170,8 @@ bool CdmServiceStubDispatch::Accept(
           reinterpret_cast<internal::CdmService_CreateCdmFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmService.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::CdmFactory> p_factory{};
       ::mojo::PendingRemote<::media::mojom::FrameInterfaceFactory> p_frame_interfaces{};
@@ -192,9 +194,9 @@ bool CdmServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCdmFactory(
-std::move(p_factory), 
-std::move(p_frame_interfaces));
+      impl->CreateCdmFactory(        
+        std::move(p_factory), 
+        std::move(p_frame_interfaces));
       return true;
     }
   }
@@ -359,6 +361,8 @@ bool CdmServiceBrokerStubDispatch::Accept(
           reinterpret_cast<internal::CdmServiceBroker_GetService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmServiceBroker.0
       bool success = true;
       ::base::FilePath p_cdm_path{};
       ::mojo::PendingReceiver<CdmService> p_receiver{};
@@ -379,9 +383,9 @@ bool CdmServiceBrokerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetService(
-std::move(p_cdm_path), 
-std::move(p_receiver));
+      impl->GetService(        
+        std::move(p_cdm_path), 
+        std::move(p_receiver));
       return true;
     }
   }

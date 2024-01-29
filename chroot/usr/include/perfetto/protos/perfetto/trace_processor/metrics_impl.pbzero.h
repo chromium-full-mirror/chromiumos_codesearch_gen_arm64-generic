@@ -17,7 +17,6 @@ namespace protos {
 namespace pbzero {
 
 class RepeatedBuilderResult;
-class RepeatedBuilderResult_Value;
 class SingleBuilderResult;
 
 class SingleBuilderResult_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
@@ -111,102 +110,78 @@ class SingleBuilderResult : public ::protozero::Message {
   }
 };
 
-class RepeatedBuilderResult_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class RepeatedBuilderResult_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   RepeatedBuilderResult_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit RepeatedBuilderResult_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit RepeatedBuilderResult_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
-  bool has_value() const { return at<1>().valid(); }
-  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> value() const { return GetRepeated<::protozero::ConstBytes>(1); }
+  bool has_int_values() const { return at<1>().valid(); }
+  ::protozero::PackedRepeatedFieldIterator<::protozero::proto_utils::ProtoWireType::kFixed64, int64_t> int_values(bool* parse_error_ptr) const { return GetPackedRepeated<::protozero::proto_utils::ProtoWireType::kFixed64, int64_t>(1, parse_error_ptr); }
+  bool has_double_values() const { return at<2>().valid(); }
+  ::protozero::PackedRepeatedFieldIterator<::protozero::proto_utils::ProtoWireType::kFixed64, double> double_values(bool* parse_error_ptr) const { return GetPackedRepeated<::protozero::proto_utils::ProtoWireType::kFixed64, double>(2, parse_error_ptr); }
+  bool has_string_values() const { return at<3>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstChars> string_values() const { return GetRepeated<::protozero::ConstChars>(3); }
+  bool has_byte_values() const { return at<4>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> byte_values() const { return GetRepeated<::protozero::ConstBytes>(4); }
 };
 
 class RepeatedBuilderResult : public ::protozero::Message {
  public:
   using Decoder = RepeatedBuilderResult_Decoder;
   enum : int32_t {
-    kValueFieldNumber = 1,
+    kIntValuesFieldNumber = 1,
+    kDoubleValuesFieldNumber = 2,
+    kStringValuesFieldNumber = 3,
+    kByteValuesFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.RepeatedBuilderResult"; }
 
-  using Value = ::perfetto::protos::pbzero::RepeatedBuilderResult_Value;
 
-  using FieldMetadata_Value =
+  using FieldMetadata_IntValues =
     ::protozero::proto_utils::FieldMetadata<
       1,
-      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
-      ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      RepeatedBuilderResult_Value,
+      ::protozero::proto_utils::RepetitionType::kRepeatedPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kSfixed64,
+      int64_t,
       RepeatedBuilderResult>;
 
-  static constexpr FieldMetadata_Value kValue{};
-  template <typename T = RepeatedBuilderResult_Value> T* add_value() {
-    return BeginNestedMessage<T>(1);
+  static constexpr FieldMetadata_IntValues kIntValues{};
+  void set_int_values(const ::protozero::PackedFixedSizeInt<int64_t>& packed_buffer) {
+    AppendBytes(FieldMetadata_IntValues::kFieldId, packed_buffer.data(),
+                packed_buffer.size());
   }
 
-};
-
-class RepeatedBuilderResult_Value_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
- public:
-  RepeatedBuilderResult_Value_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit RepeatedBuilderResult_Value_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit RepeatedBuilderResult_Value_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
-  bool has_int_value() const { return at<1>().valid(); }
-  int64_t int_value() const { return at<1>().as_int64(); }
-  bool has_string_value() const { return at<2>().valid(); }
-  ::protozero::ConstChars string_value() const { return at<2>().as_string(); }
-  bool has_double_value() const { return at<3>().valid(); }
-  double double_value() const { return at<3>().as_double(); }
-  bool has_bytes_value() const { return at<4>().valid(); }
-  ::protozero::ConstBytes bytes_value() const { return at<4>().as_bytes(); }
-};
-
-class RepeatedBuilderResult_Value : public ::protozero::Message {
- public:
-  using Decoder = RepeatedBuilderResult_Value_Decoder;
-  enum : int32_t {
-    kIntValueFieldNumber = 1,
-    kStringValueFieldNumber = 2,
-    kDoubleValueFieldNumber = 3,
-    kBytesValueFieldNumber = 4,
-  };
-  static constexpr const char* GetName() { return ".perfetto.protos.RepeatedBuilderResult.Value"; }
-
-
-  using FieldMetadata_IntValue =
-    ::protozero::proto_utils::FieldMetadata<
-      1,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kInt64,
-      int64_t,
-      RepeatedBuilderResult_Value>;
-
-  static constexpr FieldMetadata_IntValue kIntValue{};
-  void set_int_value(int64_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_IntValue::kFieldId;
-    // Call the appropriate protozero::Message::Append(field_id, ...)
-    // method based on the type of the field.
-    ::protozero::internal::FieldWriter<
-      ::protozero::proto_utils::ProtoSchemaType::kInt64>
-        ::Append(*this, field_id, value);
-  }
-
-  using FieldMetadata_StringValue =
+  using FieldMetadata_DoubleValues =
     ::protozero::proto_utils::FieldMetadata<
       2,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::RepetitionType::kRepeatedPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      RepeatedBuilderResult>;
+
+  static constexpr FieldMetadata_DoubleValues kDoubleValues{};
+  void set_double_values(const ::protozero::PackedFixedSizeInt<double>& packed_buffer) {
+    AppendBytes(FieldMetadata_DoubleValues::kFieldId, packed_buffer.data(),
+                packed_buffer.size());
+  }
+
+  using FieldMetadata_StringValues =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
       ::protozero::proto_utils::ProtoSchemaType::kString,
       std::string,
-      RepeatedBuilderResult_Value>;
+      RepeatedBuilderResult>;
 
-  static constexpr FieldMetadata_StringValue kStringValue{};
-  void set_string_value(const char* data, size_t size) {
-    AppendBytes(FieldMetadata_StringValue::kFieldId, data, size);
+  static constexpr FieldMetadata_StringValues kStringValues{};
+  void add_string_values(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_StringValues::kFieldId, data, size);
   }
-  void set_string_value(::protozero::ConstChars chars) {
-    AppendBytes(FieldMetadata_StringValue::kFieldId, chars.data, chars.size);
+  void add_string_values(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_StringValues::kFieldId, chars.data, chars.size);
   }
-  void set_string_value(std::string value) {
-    static constexpr uint32_t field_id = FieldMetadata_StringValue::kFieldId;
+  void add_string_values(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_StringValues::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -214,41 +189,23 @@ class RepeatedBuilderResult_Value : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
-  using FieldMetadata_DoubleValue =
-    ::protozero::proto_utils::FieldMetadata<
-      3,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kDouble,
-      double,
-      RepeatedBuilderResult_Value>;
-
-  static constexpr FieldMetadata_DoubleValue kDoubleValue{};
-  void set_double_value(double value) {
-    static constexpr uint32_t field_id = FieldMetadata_DoubleValue::kFieldId;
-    // Call the appropriate protozero::Message::Append(field_id, ...)
-    // method based on the type of the field.
-    ::protozero::internal::FieldWriter<
-      ::protozero::proto_utils::ProtoSchemaType::kDouble>
-        ::Append(*this, field_id, value);
-  }
-
-  using FieldMetadata_BytesValue =
+  using FieldMetadata_ByteValues =
     ::protozero::proto_utils::FieldMetadata<
       4,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
       ::protozero::proto_utils::ProtoSchemaType::kBytes,
       std::string,
-      RepeatedBuilderResult_Value>;
+      RepeatedBuilderResult>;
 
-  static constexpr FieldMetadata_BytesValue kBytesValue{};
-  void set_bytes_value(const uint8_t* data, size_t size) {
-    AppendBytes(FieldMetadata_BytesValue::kFieldId, data, size);
+  static constexpr FieldMetadata_ByteValues kByteValues{};
+  void add_byte_values(const uint8_t* data, size_t size) {
+    AppendBytes(FieldMetadata_ByteValues::kFieldId, data, size);
   }
-  void set_bytes_value(::protozero::ConstBytes bytes) {
-    AppendBytes(FieldMetadata_BytesValue::kFieldId, bytes.data, bytes.size);
+  void add_byte_values(::protozero::ConstBytes bytes) {
+    AppendBytes(FieldMetadata_ByteValues::kFieldId, bytes.data, bytes.size);
   }
-  void set_bytes_value(std::string value) {
-    static constexpr uint32_t field_id = FieldMetadata_BytesValue::kFieldId;
+  void add_byte_values(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_ByteValues::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<

@@ -32,6 +32,8 @@ NOINLINE static const char* PlaneConfigToStringHelper(PlaneConfig value) {
       return "kY_UV";
     case PlaneConfig::kY_UV_A:
       return "kY_UV_A";
+    case PlaneConfig::kY_U_V_A:
+      return "kY_U_V_A";
     default:
       return nullptr;
   }

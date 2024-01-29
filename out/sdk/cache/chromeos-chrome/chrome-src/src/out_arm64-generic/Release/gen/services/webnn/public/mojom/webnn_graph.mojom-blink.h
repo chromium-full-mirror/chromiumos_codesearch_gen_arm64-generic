@@ -27,6 +27,7 @@
 #include "services/webnn/public/mojom/webnn_graph.mojom-shared.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-blink.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
 #include "mojo/public/cpp/bindings/lib/wtf_hash_util.h"
@@ -91,9 +92,9 @@ class WebNNGraph
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs);
+  virtual bool Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResultPtr* out_result);
 
-  using ComputeCallback = base::OnceCallback<void(ComputeResult, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>)>;
+  using ComputeCallback = base::OnceCallback<void(ComputeResultPtr)>;
   
   virtual void Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeCallback callback) = 0;
 };
@@ -107,7 +108,7 @@ class  WebNNGraphProxy
 
   explicit WebNNGraphProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  bool Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs) final;
+  bool Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResultPtr* out_result) final;
   
   void Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeCallback callback) final;
 
@@ -2054,6 +2055,156 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  HardSigmoid {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<HardSigmoid, T>::value>;
+  using DataView = HardSigmoidDataView;
+  using Data_ = internal::HardSigmoid_Data;
+
+  template <typename... Args>
+  static HardSigmoidPtr New(Args&&... args) {
+    return HardSigmoidPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static HardSigmoidPtr From(const U& u) {
+    return mojo::TypeConverter<HardSigmoidPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, HardSigmoid>::Convert(*this);
+  }
+
+
+  HardSigmoid();
+
+  HardSigmoid(
+      uint64_t input_operand_id,
+      uint64_t output_operand_id,
+      float alpha,
+      float beta);
+
+
+  ~HardSigmoid();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = HardSigmoidPtr>
+  HardSigmoidPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        HardSigmoid::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        HardSigmoid::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::HardSigmoid_UnserializedMessageContext<
+            UserType, HardSigmoid::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<HardSigmoid::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return HardSigmoid::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::HardSigmoid_UnserializedMessageContext<
+            UserType, HardSigmoid::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<HardSigmoid::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t input_operand_id;
+  
+  uint64_t output_operand_id;
+  
+  float alpha;
+  
+  float beta;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, HardSigmoid::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  LeakyRelu {
  public:
@@ -3222,6 +3373,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  Softsign {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Softsign, T>::value>;
+  using DataView = SoftsignDataView;
+  using Data_ = internal::Softsign_Data;
+
+  template <typename... Args>
+  static SoftsignPtr New(Args&&... args) {
+    return SoftsignPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SoftsignPtr From(const U& u) {
+    return mojo::TypeConverter<SoftsignPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Softsign>::Convert(*this);
+  }
+
+
+  Softsign();
+
+  Softsign(
+      uint64_t input_operand_id,
+      uint64_t output_operand_id);
+
+
+  ~Softsign();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SoftsignPtr>
+  SoftsignPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Softsign::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Softsign::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Softsign_UnserializedMessageContext<
+            UserType, Softsign::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Softsign::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return Softsign::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Softsign_UnserializedMessageContext<
+            UserType, Softsign::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Softsign::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t input_operand_id;
+  
+  uint64_t output_operand_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Softsign::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  Tanh {
  public:
@@ -3725,6 +4020,14 @@ class  Activation {
     result->set_elu(std::move(value));
     return result;
   }
+  // Construct an instance holding |hard_sigmoid|.
+  static ActivationPtr
+  NewHardSigmoid(
+      HardSigmoidPtr value) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_hard_sigmoid(std::move(value));
+    return result;
+  }
   // Construct an instance holding |leaky_relu|.
   static ActivationPtr
   NewLeakyRelu(
@@ -3771,6 +4074,14 @@ class  Activation {
       SoftplusPtr value) {
     auto result = ActivationPtr(absl::in_place);
     result->set_softplus(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |softsign|.
+  static ActivationPtr
+  NewSoftsign(
+      SoftsignPtr value) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_softsign(std::move(value));
     return result;
   }
   // Construct an instance holding |tanh|.
@@ -3849,6 +4160,18 @@ class  Activation {
   void set_elu(
       EluPtr elu);
   
+  bool is_hard_sigmoid() const { return tag_ == Tag::kHardSigmoid; }
+
+  
+  HardSigmoidPtr& get_hard_sigmoid() const {
+    CHECK(tag_ == Tag::kHardSigmoid);
+    return *(data_.hard_sigmoid);
+  }
+
+  
+  void set_hard_sigmoid(
+      HardSigmoidPtr hard_sigmoid);
+  
   bool is_leaky_relu() const { return tag_ == Tag::kLeakyRelu; }
 
   
@@ -3921,6 +4244,18 @@ class  Activation {
   void set_softplus(
       SoftplusPtr softplus);
   
+  bool is_softsign() const { return tag_ == Tag::kSoftsign; }
+
+  
+  SoftsignPtr& get_softsign() const {
+    CHECK(tag_ == Tag::kSoftsign);
+    return *(data_.softsign);
+  }
+
+  
+  void set_softsign(
+      SoftsignPtr softsign);
+  
   bool is_tanh() const { return tag_ == Tag::kTanh; }
 
   
@@ -3952,12 +4287,14 @@ class  Activation {
     ~Union_() = default;
     ClampPtr* clamp;
     EluPtr* elu;
+    HardSigmoidPtr* hard_sigmoid;
     LeakyReluPtr* leaky_relu;
     LinearPtr* linear;
     ReluPtr* relu;
     SigmoidPtr* sigmoid;
     SoftmaxPtr* softmax;
     SoftplusPtr* softplus;
+    SoftsignPtr* softsign;
     TanhPtr* tanh;
   };
 
@@ -4073,6 +4410,14 @@ class  Operation {
       GemmPtr value) {
     auto result = OperationPtr(absl::in_place);
     result->set_gemm(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |hard_sigmoid|.
+  static OperationPtr
+  NewHardSigmoid(
+      HardSigmoidPtr value) {
+    auto result = OperationPtr(absl::in_place);
+    result->set_hard_sigmoid(std::move(value));
     return result;
   }
   // Construct an instance holding |layer_normalization|.
@@ -4201,6 +4546,14 @@ class  Operation {
       SoftplusPtr value) {
     auto result = OperationPtr(absl::in_place);
     result->set_softplus(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |softsign|.
+  static OperationPtr
+  NewSoftsign(
+      SoftsignPtr value) {
+    auto result = OperationPtr(absl::in_place);
+    result->set_softsign(std::move(value));
     return result;
   }
   // Construct an instance holding |split|.
@@ -4410,6 +4763,18 @@ class  Operation {
   void set_gemm(
       GemmPtr gemm);
   
+  bool is_hard_sigmoid() const { return tag_ == Tag::kHardSigmoid; }
+
+  
+  HardSigmoidPtr& get_hard_sigmoid() const {
+    CHECK(tag_ == Tag::kHardSigmoid);
+    return *(data_.hard_sigmoid);
+  }
+
+  
+  void set_hard_sigmoid(
+      HardSigmoidPtr hard_sigmoid);
+  
   bool is_layer_normalization() const { return tag_ == Tag::kLayerNormalization; }
 
   
@@ -4602,6 +4967,18 @@ class  Operation {
   void set_softplus(
       SoftplusPtr softplus);
   
+  bool is_softsign() const { return tag_ == Tag::kSoftsign; }
+
+  
+  SoftsignPtr& get_softsign() const {
+    CHECK(tag_ == Tag::kSoftsign);
+    return *(data_.softsign);
+  }
+
+  
+  void set_softsign(
+      SoftsignPtr softsign);
+  
   bool is_split() const { return tag_ == Tag::kSplit; }
 
   
@@ -4678,6 +5055,7 @@ class  Operation {
     ExpandPtr* expand;
     GatherPtr* gather;
     GemmPtr* gemm;
+    HardSigmoidPtr* hard_sigmoid;
     LayerNormalizationPtr* layer_normalization;
     InstanceNormalizationPtr* instance_normalization;
     LeakyReluPtr* leaky_relu;
@@ -4694,10 +5072,141 @@ class  Operation {
     SlicePtr* slice;
     SoftmaxPtr* softmax;
     SoftplusPtr* softplus;
+    SoftsignPtr* softsign;
     SplitPtr* split;
     TanhPtr* tanh;
     TransposePtr* transpose;
     WherePtr* where;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  ComputeResult {
+ public:
+  using DataView = ComputeResultDataView;
+  using Data_ = internal::ComputeResult_Data;
+  using Tag = Data_::ComputeResult_Tag;
+
+  template <typename... Args>
+  static ComputeResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |named_outputs|.
+  static ComputeResultPtr
+  NewNamedOutputs(
+      WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> value) {
+    auto result = ComputeResultPtr(absl::in_place);
+    result->set_named_outputs(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static ComputeResultPtr
+  NewError(
+      ::webnn::mojom::blink::ErrorPtr value) {
+    auto result = ComputeResultPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static ComputeResultPtr From(const U& u) {
+    return mojo::TypeConverter<ComputeResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ComputeResult>::Convert(*this);
+  }
+
+  ComputeResult();
+  ~ComputeResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ComputeResult(const ComputeResult& other) = delete;
+  ComputeResult& operator=(const ComputeResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = ComputeResultPtr>
+  ComputeResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ComputeResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ComputeResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_named_outputs() const { return tag_ == Tag::kNamedOutputs; }
+
+  
+  WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>& get_named_outputs() const {
+    CHECK(tag_ == Tag::kNamedOutputs);
+    return *(data_.named_outputs);
+  }
+
+  
+  void set_named_outputs(
+      WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_outputs);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  ::webnn::mojom::blink::ErrorPtr& get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      ::webnn::mojom::blink::ErrorPtr error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ComputeResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<ComputeResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>* named_outputs;
+    ::webnn::mojom::blink::ErrorPtr* error;
   };
 
   static bool Validate(const void* data,
@@ -6599,6 +7108,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  LayerNormalization {
  public:
   template <typename T>
@@ -6749,6 +7259,7 @@ template <typename T, LayerNormalization::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -7402,6 +7913,9 @@ ActivationPtr Activation::Clone() const {
     case Tag::kElu:
       return NewElu(
           mojo::Clone(*data_.elu));
+    case Tag::kHardSigmoid:
+      return NewHardSigmoid(
+          mojo::Clone(*data_.hard_sigmoid));
     case Tag::kLeakyRelu:
       return NewLeakyRelu(
           mojo::Clone(*data_.leaky_relu));
@@ -7420,6 +7934,9 @@ ActivationPtr Activation::Clone() const {
     case Tag::kSoftplus:
       return NewSoftplus(
           mojo::Clone(*data_.softplus));
+    case Tag::kSoftsign:
+      return NewSoftsign(
+          mojo::Clone(*data_.softsign));
     case Tag::kTanh:
       return NewTanh(
           mojo::Clone(*data_.tanh));
@@ -7439,6 +7956,8 @@ bool Activation::Equals(const T& other) const {
       return mojo::Equals(*(data_.clamp), *(other.data_.clamp));
     case Tag::kElu:
       return mojo::Equals(*(data_.elu), *(other.data_.elu));
+    case Tag::kHardSigmoid:
+      return mojo::Equals(*(data_.hard_sigmoid), *(other.data_.hard_sigmoid));
     case Tag::kLeakyRelu:
       return mojo::Equals(*(data_.leaky_relu), *(other.data_.leaky_relu));
     case Tag::kLinear:
@@ -7451,6 +7970,8 @@ bool Activation::Equals(const T& other) const {
       return mojo::Equals(*(data_.softmax), *(other.data_.softmax));
     case Tag::kSoftplus:
       return mojo::Equals(*(data_.softplus), *(other.data_.softplus));
+    case Tag::kSoftsign:
+      return mojo::Equals(*(data_.softsign), *(other.data_.softsign));
     case Tag::kTanh:
       return mojo::Equals(*(data_.tanh), *(other.data_.tanh));
   }
@@ -7493,6 +8014,9 @@ OperationPtr Operation::Clone() const {
     case Tag::kGemm:
       return NewGemm(
           mojo::Clone(*data_.gemm));
+    case Tag::kHardSigmoid:
+      return NewHardSigmoid(
+          mojo::Clone(*data_.hard_sigmoid));
     case Tag::kLayerNormalization:
       return NewLayerNormalization(
           mojo::Clone(*data_.layer_normalization));
@@ -7541,6 +8065,9 @@ OperationPtr Operation::Clone() const {
     case Tag::kSoftplus:
       return NewSoftplus(
           mojo::Clone(*data_.softplus));
+    case Tag::kSoftsign:
+      return NewSoftsign(
+          mojo::Clone(*data_.softsign));
     case Tag::kSplit:
       return NewSplit(
           mojo::Clone(*data_.split));
@@ -7587,6 +8114,8 @@ bool Operation::Equals(const T& other) const {
       return mojo::Equals(*(data_.gather), *(other.data_.gather));
     case Tag::kGemm:
       return mojo::Equals(*(data_.gemm), *(other.data_.gemm));
+    case Tag::kHardSigmoid:
+      return mojo::Equals(*(data_.hard_sigmoid), *(other.data_.hard_sigmoid));
     case Tag::kLayerNormalization:
       return mojo::Equals(*(data_.layer_normalization), *(other.data_.layer_normalization));
     case Tag::kInstanceNormalization:
@@ -7619,6 +8148,8 @@ bool Operation::Equals(const T& other) const {
       return mojo::Equals(*(data_.softmax), *(other.data_.softmax));
     case Tag::kSoftplus:
       return mojo::Equals(*(data_.softplus), *(other.data_.softplus));
+    case Tag::kSoftsign:
+      return mojo::Equals(*(data_.softsign), *(other.data_.softsign));
     case Tag::kSplit:
       return mojo::Equals(*(data_.split), *(other.data_.split));
     case Tag::kTanh:
@@ -7627,6 +8158,35 @@ bool Operation::Equals(const T& other) const {
       return mojo::Equals(*(data_.transpose), *(other.data_.transpose));
     case Tag::kWhere:
       return mojo::Equals(*(data_.where), *(other.data_.where));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+ComputeResultPtr ComputeResult::Clone() const {
+  switch (tag_) {
+    case Tag::kNamedOutputs:
+      return NewNamedOutputs(
+          mojo::Clone(*data_.named_outputs));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, ComputeResult>::value>::type*>
+bool ComputeResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kNamedOutputs:
+      return mojo::Equals(*(data_.named_outputs), *(other.data_.named_outputs));
+    case Tag::kError:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
   return false;
@@ -8693,6 +9253,49 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+HardSigmoidPtr HardSigmoid::Clone() const {
+  return New(
+      mojo::Clone(input_operand_id),
+      mojo::Clone(output_operand_id),
+      mojo::Clone(alpha),
+      mojo::Clone(beta)
+  );
+}
+
+template <typename T, HardSigmoid::EnableIfSame<T>*>
+bool HardSigmoid::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_operand_id, other_struct.input_operand_id))
+    return false;
+  if (!mojo::Equals(this->output_operand_id, other_struct.output_operand_id))
+    return false;
+  if (!mojo::Equals(this->alpha, other_struct.alpha))
+    return false;
+  if (!mojo::Equals(this->beta, other_struct.beta))
+    return false;
+  return true;
+}
+
+template <typename T, HardSigmoid::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_operand_id < rhs.input_operand_id)
+    return true;
+  if (rhs.input_operand_id < lhs.input_operand_id)
+    return false;
+  if (lhs.output_operand_id < rhs.output_operand_id)
+    return true;
+  if (rhs.output_operand_id < lhs.output_operand_id)
+    return false;
+  if (lhs.alpha < rhs.alpha)
+    return true;
+  if (rhs.alpha < lhs.alpha)
+    return false;
+  if (lhs.beta < rhs.beta)
+    return true;
+  if (rhs.beta < lhs.beta)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 LayerNormalizationPtr LayerNormalization::Clone() const {
   return New(
       mojo::Clone(input_operand_id),
@@ -9013,6 +9616,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.steepness < rhs.steepness)
     return true;
   if (rhs.steepness < lhs.steepness)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+SoftsignPtr Softsign::Clone() const {
+  return New(
+      mojo::Clone(input_operand_id),
+      mojo::Clone(output_operand_id)
+  );
+}
+
+template <typename T, Softsign::EnableIfSame<T>*>
+bool Softsign::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_operand_id, other_struct.input_operand_id))
+    return false;
+  if (!mojo::Equals(this->output_operand_id, other_struct.output_operand_id))
+    return false;
+  return true;
+}
+
+template <typename T, Softsign::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_operand_id < rhs.input_operand_id)
+    return true;
+  if (rhs.input_operand_id < lhs.input_operand_id)
+    return false;
+  if (lhs.output_operand_id < rhs.output_operand_id)
+    return true;
+  if (rhs.output_operand_id < lhs.output_operand_id)
     return false;
   return false;
 }
@@ -10008,6 +10640,36 @@ struct  StructTraits<::webnn::mojom::blink::Gemm::DataView,
 
 
 template <>
+struct  StructTraits<::webnn::mojom::blink::HardSigmoid::DataView,
+                                         ::webnn::mojom::blink::HardSigmoidPtr> {
+  static bool IsNull(const ::webnn::mojom::blink::HardSigmoidPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::blink::HardSigmoidPtr* output) { output->reset(); }
+
+  static decltype(::webnn::mojom::blink::HardSigmoid::input_operand_id) input_operand_id(
+      const ::webnn::mojom::blink::HardSigmoidPtr& input) {
+    return input->input_operand_id;
+  }
+
+  static decltype(::webnn::mojom::blink::HardSigmoid::output_operand_id) output_operand_id(
+      const ::webnn::mojom::blink::HardSigmoidPtr& input) {
+    return input->output_operand_id;
+  }
+
+  static decltype(::webnn::mojom::blink::HardSigmoid::alpha) alpha(
+      const ::webnn::mojom::blink::HardSigmoidPtr& input) {
+    return input->alpha;
+  }
+
+  static decltype(::webnn::mojom::blink::HardSigmoid::beta) beta(
+      const ::webnn::mojom::blink::HardSigmoidPtr& input) {
+    return input->beta;
+  }
+
+  static bool Read(::webnn::mojom::blink::HardSigmoid::DataView input, ::webnn::mojom::blink::HardSigmoidPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::webnn::mojom::blink::LayerNormalization::DataView,
                                          ::webnn::mojom::blink::LayerNormalizationPtr> {
   static bool IsNull(const ::webnn::mojom::blink::LayerNormalizationPtr& input) { return !input; }
@@ -10233,6 +10895,26 @@ struct  StructTraits<::webnn::mojom::blink::Softplus::DataView,
 
 
 template <>
+struct  StructTraits<::webnn::mojom::blink::Softsign::DataView,
+                                         ::webnn::mojom::blink::SoftsignPtr> {
+  static bool IsNull(const ::webnn::mojom::blink::SoftsignPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::blink::SoftsignPtr* output) { output->reset(); }
+
+  static decltype(::webnn::mojom::blink::Softsign::input_operand_id) input_operand_id(
+      const ::webnn::mojom::blink::SoftsignPtr& input) {
+    return input->input_operand_id;
+  }
+
+  static decltype(::webnn::mojom::blink::Softsign::output_operand_id) output_operand_id(
+      const ::webnn::mojom::blink::SoftsignPtr& input) {
+    return input->output_operand_id;
+  }
+
+  static bool Read(::webnn::mojom::blink::Softsign::DataView input, ::webnn::mojom::blink::SoftsignPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::webnn::mojom::blink::Split::DataView,
                                          ::webnn::mojom::blink::SplitPtr> {
   static bool IsNull(const ::webnn::mojom::blink::SplitPtr& input) { return !input; }
@@ -10450,6 +11132,10 @@ struct  UnionTraits<::webnn::mojom::blink::Activation::DataView,
     return input->get_elu();
   }
 
+  static const ::webnn::mojom::blink::HardSigmoidPtr& hard_sigmoid(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_hard_sigmoid();
+  }
+
   static const ::webnn::mojom::blink::LeakyReluPtr& leaky_relu(const ::webnn::mojom::blink::ActivationPtr& input) {
     return input->get_leaky_relu();
   }
@@ -10472,6 +11158,10 @@ struct  UnionTraits<::webnn::mojom::blink::Activation::DataView,
 
   static const ::webnn::mojom::blink::SoftplusPtr& softplus(const ::webnn::mojom::blink::ActivationPtr& input) {
     return input->get_softplus();
+  }
+
+  static const ::webnn::mojom::blink::SoftsignPtr& softsign(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_softsign();
   }
 
   static const ::webnn::mojom::blink::TanhPtr& tanh(const ::webnn::mojom::blink::ActivationPtr& input) {
@@ -10534,6 +11224,10 @@ struct  UnionTraits<::webnn::mojom::blink::Operation::DataView,
 
   static const ::webnn::mojom::blink::GemmPtr& gemm(const ::webnn::mojom::blink::OperationPtr& input) {
     return input->get_gemm();
+  }
+
+  static const ::webnn::mojom::blink::HardSigmoidPtr& hard_sigmoid(const ::webnn::mojom::blink::OperationPtr& input) {
+    return input->get_hard_sigmoid();
   }
 
   static const ::webnn::mojom::blink::LayerNormalizationPtr& layer_normalization(const ::webnn::mojom::blink::OperationPtr& input) {
@@ -10600,6 +11294,10 @@ struct  UnionTraits<::webnn::mojom::blink::Operation::DataView,
     return input->get_softplus();
   }
 
+  static const ::webnn::mojom::blink::SoftsignPtr& softsign(const ::webnn::mojom::blink::OperationPtr& input) {
+    return input->get_softsign();
+  }
+
   static const ::webnn::mojom::blink::SplitPtr& split(const ::webnn::mojom::blink::OperationPtr& input) {
     return input->get_split();
   }
@@ -10617,6 +11315,28 @@ struct  UnionTraits<::webnn::mojom::blink::Operation::DataView,
   }
 
   static bool Read(::webnn::mojom::blink::Operation::DataView input, ::webnn::mojom::blink::OperationPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::webnn::mojom::blink::ComputeResult::DataView,
+                                        ::webnn::mojom::blink::ComputeResultPtr> {
+  static bool IsNull(const ::webnn::mojom::blink::ComputeResultPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::blink::ComputeResultPtr* output) { output->reset(); }
+
+  static ::webnn::mojom::blink::ComputeResult::Tag GetTag(const ::webnn::mojom::blink::ComputeResultPtr& input) {
+    return input->which();
+  }
+
+  static  WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>& named_outputs( ::webnn::mojom::blink::ComputeResultPtr& input) {
+    return input->get_named_outputs();
+  }
+
+  static const ::webnn::mojom::blink::ErrorPtr& error(const ::webnn::mojom::blink::ComputeResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::webnn::mojom::blink::ComputeResult::DataView input, ::webnn::mojom::blink::ComputeResultPtr* output);
 };
 
 }  // namespace mojo

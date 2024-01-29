@@ -741,6 +741,13 @@ namespace dawn::wire::server {
         return WireResult::Success;
     }
 
+    WireResult Server::DoTextureCreateErrorView(WGPUTexture self, WGPUTextureViewDescriptor const * descriptor, WGPUTextureView* result) {
+        *result =
+        mProcs.textureCreateErrorView(self, descriptor);
+        DAWN_ASSERT(*result != nullptr);
+        return WireResult::Success;
+    }
+
     WireResult Server::DoTextureCreateView(WGPUTexture self, WGPUTextureViewDescriptor const * descriptor, WGPUTextureView* result) {
         *result =
         mProcs.textureCreateView(self, descriptor);
@@ -775,7 +782,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.adapterRelease(obj->handle);
                 }
                 AdapterObjects().Free(objectId);
@@ -787,7 +793,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.bindGroupRelease(obj->handle);
                 }
@@ -801,7 +806,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.bindGroupLayoutRelease(obj->handle);
                 }
                 BindGroupLayoutObjects().Free(objectId);
@@ -813,7 +817,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.bufferRelease(obj->handle);
                 }
@@ -827,7 +830,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.commandBufferRelease(obj->handle);
                 }
                 CommandBufferObjects().Free(objectId);
@@ -839,7 +841,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.commandEncoderRelease(obj->handle);
                 }
@@ -853,7 +854,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.computePassEncoderRelease(obj->handle);
                 }
                 ComputePassEncoderObjects().Free(objectId);
@@ -866,7 +866,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.computePipelineRelease(obj->handle);
                 }
                 ComputePipelineObjects().Free(objectId);
@@ -878,7 +877,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
                     if (obj->handle != nullptr) {
                         ClearDeviceCallbacks(obj->handle);
                     }
@@ -895,7 +893,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.externalTextureRelease(obj->handle);
                 }
                 ExternalTextureObjects().Free(objectId);
@@ -907,7 +904,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.instanceRelease(obj->handle);
                 }
@@ -921,7 +917,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.pipelineLayoutRelease(obj->handle);
                 }
                 PipelineLayoutObjects().Free(objectId);
@@ -933,7 +928,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.querySetRelease(obj->handle);
                 }
@@ -947,7 +941,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.queueRelease(obj->handle);
                 }
                 QueueObjects().Free(objectId);
@@ -959,7 +952,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.renderBundleRelease(obj->handle);
                 }
@@ -973,7 +965,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.renderBundleEncoderRelease(obj->handle);
                 }
                 RenderBundleEncoderObjects().Free(objectId);
@@ -985,7 +976,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.renderPassEncoderRelease(obj->handle);
                 }
@@ -999,7 +989,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.renderPipelineRelease(obj->handle);
                 }
                 RenderPipelineObjects().Free(objectId);
@@ -1011,7 +1000,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.samplerRelease(obj->handle);
                 }
@@ -1025,7 +1013,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.shaderModuleRelease(obj->handle);
                 }
                 ShaderModuleObjects().Free(objectId);
@@ -1037,7 +1024,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.surfaceRelease(obj->handle);
                 }
@@ -1051,7 +1037,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.swapChainRelease(obj->handle);
                 }
                 SwapChainObjects().Free(objectId);
@@ -1064,7 +1049,6 @@ namespace dawn::wire::server {
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
 
-
                     mProcs.textureRelease(obj->handle);
                 }
                 TextureObjects().Free(objectId);
@@ -1076,7 +1060,6 @@ namespace dawn::wire::server {
 
                 if (obj->state == AllocationState::Allocated) {
                     DAWN_ASSERT(obj->handle != nullptr);
-
 
                     mProcs.textureViewRelease(obj->handle);
                 }

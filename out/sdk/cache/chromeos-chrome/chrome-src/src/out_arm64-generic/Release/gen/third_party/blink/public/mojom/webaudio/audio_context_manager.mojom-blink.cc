@@ -218,6 +218,8 @@ bool AudioContextManagerStubDispatch::Accept(
           reinterpret_cast<internal::AudioContextManager_AudioContextAudiblePlaybackStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioContextManager.0
       bool success = true;
       int32_t p_id{};
       AudioContextManager_AudioContextAudiblePlaybackStarted_ParamsDataView input_data_view(params, message);
@@ -233,8 +235,8 @@ bool AudioContextManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AudioContextAudiblePlaybackStarted(
-std::move(p_id));
+      impl->AudioContextAudiblePlaybackStarted(        
+        std::move(p_id));
       return true;
     }
     case internal::kAudioContextManager_AudioContextAudiblePlaybackStopped_Name: {
@@ -244,6 +246,8 @@ std::move(p_id));
           reinterpret_cast<internal::AudioContextManager_AudioContextAudiblePlaybackStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioContextManager.1
       bool success = true;
       int32_t p_id{};
       AudioContextManager_AudioContextAudiblePlaybackStopped_ParamsDataView input_data_view(params, message);
@@ -259,8 +263,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AudioContextAudiblePlaybackStopped(
-std::move(p_id));
+      impl->AudioContextAudiblePlaybackStopped(        
+        std::move(p_id));
       return true;
     }
   }

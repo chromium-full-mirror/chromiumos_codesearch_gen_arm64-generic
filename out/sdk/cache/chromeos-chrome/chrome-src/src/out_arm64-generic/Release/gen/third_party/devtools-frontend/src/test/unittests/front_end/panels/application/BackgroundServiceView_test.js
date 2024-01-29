@@ -22,13 +22,13 @@ describeWithMockConnection('BackgroundServiceView', () => {
         UI.ActionRegistration.maybeRemoveActionExtension('background-service.toggle-recording');
         UI.ActionRegistration.registerActionExtension({
             actionId: 'background-service.toggle-recording',
-            category: UI.ActionRegistration.ActionCategory.BACKGROUND_SERVICES,
+            category: "BACKGROUND_SERVICES" /* UI.ActionRegistration.ActionCategory.BACKGROUND_SERVICES */,
             title: () => 'mock',
             toggleable: true,
         });
         sinon.stub(UI.ShortcutRegistry.ShortcutRegistry, 'instance').returns({
             shortcutTitleForAction: () => { },
-            shortcutsForAction: () => [new UI.KeyboardShortcut.KeyboardShortcut([{ key: 0, name: '' }], '', UI.KeyboardShortcut.Type.DefaultShortcut)],
+            shortcutsForAction: () => [new UI.KeyboardShortcut.KeyboardShortcut([{ key: 0, name: '' }], '', "DefaultShortcut" /* UI.KeyboardShortcut.Type.DefaultShortcut */)],
         });
         assertNotNullOrUndefined(backgroundServiceModel);
         view = new Resources.BackgroundServiceView.BackgroundServiceView(serviceName, backgroundServiceModel);
@@ -56,9 +56,9 @@ describeWithMockConnection('BackgroundServiceView', () => {
         const dataRow = view.getDataGrid().dataTableBody.getElementsByClassName('data-grid-data-grid-node')[0];
         const expectedData = ['Event1', testKey, 'Instance1'];
         const actualData = [
-            dataRow.getElementsByClassName('eventName-column')[0].textContent,
-            dataRow.getElementsByClassName('storageKey-column')[0].textContent,
-            dataRow.getElementsByClassName('instanceId-column')[0].textContent,
+            dataRow.getElementsByClassName('event-name-column')[0].textContent,
+            dataRow.getElementsByClassName('storage-key-column')[0].textContent,
+            dataRow.getElementsByClassName('instance-id-column')[0].textContent,
         ];
         assert.deepEqual(actualData, expectedData);
     });

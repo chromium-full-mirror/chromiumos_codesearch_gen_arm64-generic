@@ -167,6 +167,8 @@ bool ProxyLookupClientStubDispatch::Accept(
           reinterpret_cast<internal::ProxyLookupClient_OnProxyLookupComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyLookupClient.0
       bool success = true;
       int32_t p_net_error{};
       ::proxy_resolver::mojom::blink::ProxyInfoPtr p_proxy_info{};
@@ -185,9 +187,9 @@ bool ProxyLookupClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProxyLookupComplete(
-std::move(p_net_error), 
-std::move(p_proxy_info));
+      impl->OnProxyLookupComplete(        
+        std::move(p_net_error), 
+        std::move(p_proxy_info));
       return true;
     }
   }

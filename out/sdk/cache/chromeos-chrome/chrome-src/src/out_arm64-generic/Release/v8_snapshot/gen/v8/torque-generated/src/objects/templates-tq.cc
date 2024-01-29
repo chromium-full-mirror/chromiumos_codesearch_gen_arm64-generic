@@ -62,5 +62,19 @@ void TorqueGeneratedObjectTemplateInfo<ObjectTemplateInfo, TemplateInfo>::Object
 
 
 #endif  // VERIFY_HEAP
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+bool IsDictionaryTemplateInfo_NonInline(Tagged<HeapObject> o) {
+  return IsDictionaryTemplateInfo(o);
+}
+
+#ifdef VERIFY_HEAP
+
+template <>
+void TorqueGeneratedDictionaryTemplateInfo<DictionaryTemplateInfo, HeapObject>::DictionaryTemplateInfoVerify(Isolate* isolate) {
+  TorqueGeneratedClassVerifiers::DictionaryTemplateInfoVerify(DictionaryTemplateInfo::cast(*this), isolate);
+}
+
+
+#endif  // VERIFY_HEAP
 } // namespace internal
 } // namespace v8

@@ -614,6 +614,8 @@ bool VideoDecoder_Initialize_ForwardToCallback::Accept(
           internal::VideoDecoder_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecoder.0
   bool success = true;
   ::media::DecoderStatus p_status{};
   VideoDecoder_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -734,6 +736,8 @@ bool VideoDecoder_Decode_ForwardToCallback::Accept(
           internal::VideoDecoder_Decode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecoder.1
   bool success = true;
   ::media::DecoderStatus p_status{};
   VideoDecoder_Decode_ResponseParamsDataView input_data_view(params, message);
@@ -854,6 +858,8 @@ bool VideoDecoder_Reset_ForwardToCallback::Accept(
           internal::VideoDecoder_Reset_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecoder.2
   bool success = true;
   VideoDecoder_Reset_ResponseParamsDataView input_data_view(params, message);
   
@@ -925,6 +931,8 @@ bool VideoDecoderStubDispatch::Accept(
           reinterpret_cast<internal::VideoDecoder_ReleaseVideoFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecoder.3
       bool success = true;
       int32_t p_video_frame_id{};
       VideoDecoder_ReleaseVideoFrame_ParamsDataView input_data_view(params, message);
@@ -940,8 +948,8 @@ bool VideoDecoderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReleaseVideoFrame(
-std::move(p_video_frame_id));
+      impl->ReleaseVideoFrame(        
+        std::move(p_video_frame_id));
       return true;
     }
   }
@@ -964,6 +972,8 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
               internal::VideoDecoder_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecoder.0
       bool success = true;
       VideoDecoderConfigPtr p_config{};
       ::mojo::PendingRemote<VideoDecoderClient> p_client{};
@@ -992,10 +1002,10 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_config), 
-std::move(p_client), 
-std::move(p_video_frame_pool), std::move(callback));
+      impl->Initialize(        
+        std::move(p_config), 
+        std::move(p_client), 
+        std::move(p_video_frame_pool), std::move(callback));
       return true;
     }
     case internal::kVideoDecoder_Decode_Name: {
@@ -1005,6 +1015,8 @@ std::move(p_video_frame_pool), std::move(callback));
               internal::VideoDecoder_Decode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecoder.1
       bool success = true;
       DecoderBufferPtr p_buffer{};
       VideoDecoder_Decode_ParamsDataView input_data_view(params, message);
@@ -1023,8 +1035,8 @@ std::move(p_video_frame_pool), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decode(
-std::move(p_buffer), std::move(callback));
+      impl->Decode(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kVideoDecoder_Reset_Name: {
@@ -1034,6 +1046,8 @@ std::move(p_buffer), std::move(callback));
               internal::VideoDecoder_Reset_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecoder.2
       bool success = true;
       VideoDecoder_Reset_ParamsDataView input_data_view(params, message);
       
@@ -1272,6 +1286,8 @@ bool VideoDecoderClientStubDispatch::Accept(
           reinterpret_cast<internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecoderClient.0
       bool success = true;
       int32_t p_video_frame_id{};
       ::gfx::Rect p_visible_rect{};
@@ -1293,10 +1309,10 @@ bool VideoDecoderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoFrameDecoded(
-std::move(p_video_frame_id), 
-std::move(p_visible_rect), 
-std::move(p_timestamp));
+      impl->OnVideoFrameDecoded(        
+        std::move(p_video_frame_id), 
+        std::move(p_visible_rect), 
+        std::move(p_timestamp));
       return true;
     }
     case internal::kVideoDecoderClient_OnError_Name: {
@@ -1306,6 +1322,8 @@ std::move(p_timestamp));
           reinterpret_cast<internal::VideoDecoderClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecoderClient.1
       bool success = true;
       ::media::DecoderStatus p_status{};
       VideoDecoderClient_OnError_ParamsDataView input_data_view(params, message);
@@ -1321,8 +1339,8 @@ std::move(p_timestamp));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_status));
+      impl->OnError(        
+        std::move(p_status));
       return true;
     }
   }

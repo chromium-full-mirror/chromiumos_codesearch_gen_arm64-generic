@@ -25,6 +25,29 @@ namespace internal {
 
 
 // static
+bool DownloadProgress_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DownloadProgress_Data* object =
+      static_cast<const DownloadProgress_Data*>(data);
+
+  return true;
+}
+
+DownloadProgress_Data::DownloadProgress_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool DownloadStatus_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -35,6 +58,8 @@ bool DownloadStatus_Data::Validate(
     { 1, 48 },
     { 2, 56 },
     { 3, 64 },
+    { 4, 72 },
+    { 5, 80 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -76,12 +101,22 @@ bool DownloadStatus_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->status_text, validation_context))
     return false;
+  if (object->header_.version < 4)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->image, validation_context))
+    return false;
+  if (object->header_.version < 5)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->progress, validation_context))
+    return false;
 
   return true;
 }
 
 DownloadStatus_Data::DownloadStatus_Data()
-    : header_({sizeof(*this), 3}) {}
+    : header_({sizeof(*this), 5}) {}
 
 
 // static

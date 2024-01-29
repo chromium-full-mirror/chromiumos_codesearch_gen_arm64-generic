@@ -41,6 +41,7 @@
 
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-test-utils.h"
+#include "third_party/blink/common/permissions_policy/permissions_policy_mojom_traits.h"
 #include "third_party/blink/public/common/messaging/cloneable_message_mojom_traits.h"
 
 
@@ -505,6 +506,8 @@ bool SharedStorageWorkletHost_SelectURL_ForwardToCallback::Accept(
           internal::SharedStorageWorkletHost_SelectURL_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletHost.0
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -656,6 +659,8 @@ bool SharedStorageWorkletHost_Run_ForwardToCallback::Accept(
           internal::SharedStorageWorkletHost_Run_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletHost.1
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -767,6 +772,8 @@ bool SharedStorageWorkletHostStubDispatch::AcceptWithResponder(
               internal::SharedStorageWorkletHost_SelectURL_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletHost.0
       bool success = true;
       std::string p_name{};
       std::vector<SharedStorageUrlWithMetadataPtr> p_urls_with_metadata{};
@@ -800,13 +807,13 @@ bool SharedStorageWorkletHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectURL(
-std::move(p_name), 
-std::move(p_urls_with_metadata), 
-std::move(p_serialized_data), 
-std::move(p_keep_alive_after_operation), 
-std::move(p_context_id), 
-std::move(p_aggregation_coordinator_origin), std::move(callback));
+      impl->SelectURL(        
+        std::move(p_name), 
+        std::move(p_urls_with_metadata), 
+        std::move(p_serialized_data), 
+        std::move(p_keep_alive_after_operation), 
+        std::move(p_context_id), 
+        std::move(p_aggregation_coordinator_origin), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletHost_Run_Name: {
@@ -816,6 +823,8 @@ std::move(p_aggregation_coordinator_origin), std::move(callback));
               internal::SharedStorageWorkletHost_Run_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletHost.1
       bool success = true;
       std::string p_name{};
       ::blink::CloneableMessage p_serialized_data{};
@@ -846,12 +855,12 @@ std::move(p_aggregation_coordinator_origin), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Run(
-std::move(p_name), 
-std::move(p_serialized_data), 
-std::move(p_keep_alive_after_operation), 
-std::move(p_context_id), 
-std::move(p_aggregation_coordinator_origin), std::move(callback));
+      impl->Run(        
+        std::move(p_name), 
+        std::move(p_serialized_data), 
+        std::move(p_keep_alive_after_operation), 
+        std::move(p_context_id), 
+        std::move(p_aggregation_coordinator_origin), std::move(callback));
       return true;
     }
   }
@@ -1450,6 +1459,8 @@ bool SharedStorageDocumentService_CreateWorklet_ForwardToCallback::Accept(
           internal::SharedStorageDocumentService_CreateWorklet_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageDocumentService.0
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1587,6 +1598,8 @@ bool SharedStorageDocumentService_SharedStorageSet_ForwardToCallback::Accept(
           internal::SharedStorageDocumentService_SharedStorageSet_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageDocumentService.1
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1724,6 +1737,8 @@ bool SharedStorageDocumentService_SharedStorageAppend_ForwardToCallback::Accept(
           internal::SharedStorageDocumentService_SharedStorageAppend_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageDocumentService.2
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1861,6 +1876,8 @@ bool SharedStorageDocumentService_SharedStorageDelete_ForwardToCallback::Accept(
           internal::SharedStorageDocumentService_SharedStorageDelete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageDocumentService.3
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1998,6 +2015,8 @@ bool SharedStorageDocumentService_SharedStorageClear_ForwardToCallback::Accept(
           internal::SharedStorageDocumentService_SharedStorageClear_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageDocumentService.4
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -2118,6 +2137,8 @@ bool SharedStorageDocumentServiceStubDispatch::AcceptWithResponder(
               internal::SharedStorageDocumentService_CreateWorklet_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageDocumentService.0
       bool success = true;
       ::GURL p_script_source_url{};
       std::vector<::blink::mojom::OriginTrialFeature> p_origin_trial_features{};
@@ -2144,10 +2165,10 @@ bool SharedStorageDocumentServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWorklet(
-std::move(p_script_source_url), 
-std::move(p_origin_trial_features), 
-std::move(p_worklet_host), std::move(callback));
+      impl->CreateWorklet(        
+        std::move(p_script_source_url), 
+        std::move(p_origin_trial_features), 
+        std::move(p_worklet_host), std::move(callback));
       return true;
     }
     case internal::kSharedStorageDocumentService_SharedStorageSet_Name: {
@@ -2157,6 +2178,8 @@ std::move(p_worklet_host), std::move(callback));
               internal::SharedStorageDocumentService_SharedStorageSet_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageDocumentService.1
       bool success = true;
       ::std::u16string p_key{};
       ::std::u16string p_value{};
@@ -2181,10 +2204,10 @@ std::move(p_worklet_host), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageSet(
-std::move(p_key), 
-std::move(p_value), 
-std::move(p_ignore_if_present), std::move(callback));
+      impl->SharedStorageSet(        
+        std::move(p_key), 
+        std::move(p_value), 
+        std::move(p_ignore_if_present), std::move(callback));
       return true;
     }
     case internal::kSharedStorageDocumentService_SharedStorageAppend_Name: {
@@ -2194,6 +2217,8 @@ std::move(p_ignore_if_present), std::move(callback));
               internal::SharedStorageDocumentService_SharedStorageAppend_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageDocumentService.2
       bool success = true;
       ::std::u16string p_key{};
       ::std::u16string p_value{};
@@ -2215,9 +2240,9 @@ std::move(p_ignore_if_present), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageAppend(
-std::move(p_key), 
-std::move(p_value), std::move(callback));
+      impl->SharedStorageAppend(        
+        std::move(p_key), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kSharedStorageDocumentService_SharedStorageDelete_Name: {
@@ -2227,6 +2252,8 @@ std::move(p_value), std::move(callback));
               internal::SharedStorageDocumentService_SharedStorageDelete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageDocumentService.3
       bool success = true;
       ::std::u16string p_key{};
       SharedStorageDocumentService_SharedStorageDelete_ParamsDataView input_data_view(params, message);
@@ -2245,8 +2272,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageDelete(
-std::move(p_key), std::move(callback));
+      impl->SharedStorageDelete(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kSharedStorageDocumentService_SharedStorageClear_Name: {
@@ -2256,6 +2283,8 @@ std::move(p_key), std::move(callback));
               internal::SharedStorageDocumentService_SharedStorageClear_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageDocumentService.4
       bool success = true;
       SharedStorageDocumentService_SharedStorageClear_ParamsDataView input_data_view(params, message);
       

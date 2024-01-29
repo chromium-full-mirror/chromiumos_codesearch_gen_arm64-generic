@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/interfaces/bindings/tests/struct_with_traits.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/interfaces/bindings/tests/struct_with_traits.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/interfaces/bindings/tests/struct_with_traits.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/interfaces/bindings/tests/struct_with_traits.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/interfaces/bindings/tests/struct_with_traits.mojom-shared.h

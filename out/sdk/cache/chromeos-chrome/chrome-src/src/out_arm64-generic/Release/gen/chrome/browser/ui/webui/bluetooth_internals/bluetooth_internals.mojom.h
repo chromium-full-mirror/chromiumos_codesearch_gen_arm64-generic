@@ -120,6 +120,7 @@ class BluetoothInternalsHandler
     kCheckSystemPermissionsMinVersion = 0,
     kRequestSystemPermissionsMinVersion = 0,
     kRequestLocationServicesMinVersion = 0,
+    kRestartSystemBluetoothMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -138,6 +139,9 @@ class BluetoothInternalsHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RequestLocationServices_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RestartSystemBluetooth_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -167,6 +171,11 @@ class BluetoothInternalsHandler
   using RequestLocationServicesCallback = base::OnceCallback<void()>;
   
   virtual void RequestLocationServices(RequestLocationServicesCallback callback) = 0;
+
+
+  using RestartSystemBluetoothCallback = base::OnceCallback<void()>;
+  
+  virtual void RestartSystemBluetooth(RestartSystemBluetoothCallback callback) = 0;
 };
 
 
@@ -202,6 +211,8 @@ class  BluetoothInternalsHandlerProxy
   void RequestSystemPermissions(RequestSystemPermissionsCallback callback) final;
   
   void RequestLocationServices(RequestLocationServicesCallback callback) final;
+  
+  void RestartSystemBluetooth(RestartSystemBluetoothCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

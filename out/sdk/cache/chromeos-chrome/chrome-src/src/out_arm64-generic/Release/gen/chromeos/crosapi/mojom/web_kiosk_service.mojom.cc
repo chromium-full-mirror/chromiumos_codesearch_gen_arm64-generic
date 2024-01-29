@@ -316,6 +316,8 @@ bool WebKioskInstaller_GetWebKioskInstallState_ForwardToCallback::Accept(
           internal::WebKioskInstaller_GetWebKioskInstallState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebKioskInstaller.0
   bool success = true;
   WebKioskInstallState p_state{};
   std::optional<std::string> p_app_id{};
@@ -450,6 +452,8 @@ bool WebKioskInstaller_InstallWebKiosk_ForwardToCallback::Accept(
           internal::WebKioskInstaller_InstallWebKiosk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebKioskInstaller.1
   bool success = true;
   std::optional<std::string> p_app_id{};
   WebKioskInstaller_InstallWebKiosk_ResponseParamsDataView input_data_view(params, message);
@@ -549,6 +553,8 @@ bool WebKioskInstallerStubDispatch::AcceptWithResponder(
               internal::WebKioskInstaller_GetWebKioskInstallState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebKioskInstaller.0
       bool success = true;
       ::GURL p_url{};
       WebKioskInstaller_GetWebKioskInstallState_ParamsDataView input_data_view(params, message);
@@ -567,8 +573,8 @@ bool WebKioskInstallerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWebKioskInstallState(
-std::move(p_url), std::move(callback));
+      impl->GetWebKioskInstallState(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kWebKioskInstaller_InstallWebKiosk_Name: {
@@ -578,6 +584,8 @@ std::move(p_url), std::move(callback));
               internal::WebKioskInstaller_InstallWebKiosk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebKioskInstaller.1
       bool success = true;
       ::GURL p_url{};
       WebKioskInstaller_InstallWebKiosk_ParamsDataView input_data_view(params, message);
@@ -596,8 +604,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallWebKiosk(
-std::move(p_url), std::move(callback));
+      impl->InstallWebKiosk(        
+        std::move(p_url), std::move(callback));
       return true;
     }
   }
@@ -739,6 +747,8 @@ bool WebKioskServiceStubDispatch::Accept(
           reinterpret_cast<internal::WebKioskService_BindInstaller_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebKioskService.0
       bool success = true;
       ::mojo::PendingRemote<WebKioskInstaller> p_installer{};
       WebKioskService_BindInstaller_ParamsDataView input_data_view(params, message);
@@ -756,8 +766,8 @@ bool WebKioskServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInstaller(
-std::move(p_installer));
+      impl->BindInstaller(        
+        std::move(p_installer));
       return true;
     }
   }

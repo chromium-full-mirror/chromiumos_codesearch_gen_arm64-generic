@@ -28,7 +28,17 @@ enum class WebPrintingSides : int32_t;
 
 enum class WebPrintColorMode : int32_t;
 
+enum class WebPrintingOrientationRequested : int32_t;
+
+enum class WebPrinterState : int32_t;
+
+enum class WebPrinterStateReason : int32_t;
+
 enum class WebPrintJobState : int32_t;
+
+enum class GetPrintersError : int32_t;
+
+enum class WebPrinterFetchError : int32_t;
 
 enum class WebPrintError : int32_t;
 class WebPrintJobStateObserverInterfaceBase;
@@ -44,7 +54,12 @@ namespace blink::mojom::blink {
 using WebPrintingMultipleDocumentHandling = WebPrintingMultipleDocumentHandling;
 using WebPrintingSides = WebPrintingSides;
 using WebPrintColorMode = WebPrintColorMode;
+using WebPrintingOrientationRequested = WebPrintingOrientationRequested;
+using WebPrinterState = WebPrinterState;
+using WebPrinterStateReason = WebPrinterStateReason;
 using WebPrintJobState = WebPrintJobState;
+using GetPrintersError = GetPrintersError;
+using WebPrinterFetchError = WebPrinterFetchError;
 using WebPrintError = WebPrintError;
 using WebPrintJobStateObserverInterfaceBase = WebPrintJobStateObserverInterfaceBase;
 using WebPrinterInterfaceBase = WebPrinterInterfaceBase;
@@ -61,8 +76,19 @@ using WebPrinterAttributesPtr = mojo::StructPtr<WebPrinterAttributes>;
 class WebPrintJobTemplateAttributes;
 using WebPrintJobTemplateAttributesPtr = mojo::StructPtr<WebPrintJobTemplateAttributes>;
 
+class WebPrintJobUpdate;
+using WebPrintJobUpdatePtr = mojo::InlinedStructPtr<WebPrintJobUpdate>;
+
 class WebPrintJobInfo;
 using WebPrintJobInfoPtr = mojo::StructPtr<WebPrintJobInfo>;
+
+class GetPrintersResult;
+
+using GetPrintersResultPtr = mojo::StructPtr<GetPrintersResult>;
+
+class WebPrinterFetchResult;
+
+using WebPrinterFetchResultPtr = mojo::StructPtr<WebPrinterFetchResult>;
 
 class WebPrintResult;
 

@@ -1697,6 +1697,77 @@ bool Gemm::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+HardSigmoid::HardSigmoid()
+    : input_operand_id(),
+      output_operand_id(),
+      alpha(0.2f),
+      beta(0.5f) {}
+
+HardSigmoid::HardSigmoid(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    float alpha_in,
+    float beta_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      alpha(std::move(alpha_in)),
+      beta(std::move(beta_in)) {}
+
+HardSigmoid::~HardSigmoid() = default;
+size_t HardSigmoid::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->input_operand_id);
+  seed = mojo::internal::Hash(seed, this->output_operand_id);
+  seed = mojo::internal::Hash(seed, this->alpha);
+  seed = mojo::internal::Hash(seed, this->beta);
+  return seed;
+}
+
+void HardSigmoid::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "alpha"), this->alpha,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "beta"), this->beta,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool HardSigmoid::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 LayerNormalization::LayerNormalization()
     : input_operand_id(),
       output_operand_id(),
@@ -2210,6 +2281,51 @@ bool Softplus::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Softsign::Softsign()
+    : input_operand_id(),
+      output_operand_id() {}
+
+Softsign::Softsign(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+Softsign::~Softsign() = default;
+size_t Softsign::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->input_operand_id);
+  seed = mojo::internal::Hash(seed, this->output_operand_id);
+  return seed;
+}
+
+void Softsign::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Softsign::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 Split::Split()
     : input_operand_id(),
       output_operand_ids(),
@@ -2711,6 +2827,17 @@ void Activation::set_elu(
         std::move(elu));
   }
 }
+void Activation::set_hard_sigmoid(
+    HardSigmoidPtr hard_sigmoid) {
+  if (tag_ == Tag::kHardSigmoid) {
+    *(data_.hard_sigmoid) = std::move(hard_sigmoid);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kHardSigmoid;
+    data_.hard_sigmoid = new HardSigmoidPtr(
+        std::move(hard_sigmoid));
+  }
+}
 void Activation::set_leaky_relu(
     LeakyReluPtr leaky_relu) {
   if (tag_ == Tag::kLeakyRelu) {
@@ -2777,6 +2904,17 @@ void Activation::set_softplus(
         std::move(softplus));
   }
 }
+void Activation::set_softsign(
+    SoftsignPtr softsign) {
+  if (tag_ == Tag::kSoftsign) {
+    *(data_.softsign) = std::move(softsign);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSoftsign;
+    data_.softsign = new SoftsignPtr(
+        std::move(softsign));
+  }
+}
 void Activation::set_tanh(
     TanhPtr tanh) {
   if (tag_ == Tag::kTanh) {
@@ -2799,6 +2937,10 @@ void Activation::DestroyActive() {
     case Tag::kElu:
 
       delete data_.elu;
+      break;
+    case Tag::kHardSigmoid:
+
+      delete data_.hard_sigmoid;
       break;
     case Tag::kLeakyRelu:
 
@@ -2824,6 +2966,10 @@ void Activation::DestroyActive() {
 
       delete data_.softplus;
       break;
+    case Tag::kSoftsign:
+
+      delete data_.softsign;
+      break;
     case Tag::kTanh:
 
       delete data_.tanh;
@@ -2838,6 +2984,8 @@ size_t Activation::Hash(size_t seed) const {
       return mojo::internal::Hash(seed, data_.clamp);
     case Tag::kElu:
       return mojo::internal::Hash(seed, data_.elu);
+    case Tag::kHardSigmoid:
+      return mojo::internal::Hash(seed, data_.hard_sigmoid);
     case Tag::kLeakyRelu:
       return mojo::internal::Hash(seed, data_.leaky_relu);
     case Tag::kLinear:
@@ -2850,6 +2998,8 @@ size_t Activation::Hash(size_t seed) const {
       return mojo::internal::Hash(seed, data_.softmax);
     case Tag::kSoftplus:
       return mojo::internal::Hash(seed, data_.softplus);
+    case Tag::kSoftsign:
+      return mojo::internal::Hash(seed, data_.softsign);
     case Tag::kTanh:
       return mojo::internal::Hash(seed, data_.tanh);
     default:
@@ -2991,6 +3141,17 @@ void Operation::set_gemm(
     tag_ = Tag::kGemm;
     data_.gemm = new GemmPtr(
         std::move(gemm));
+  }
+}
+void Operation::set_hard_sigmoid(
+    HardSigmoidPtr hard_sigmoid) {
+  if (tag_ == Tag::kHardSigmoid) {
+    *(data_.hard_sigmoid) = std::move(hard_sigmoid);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kHardSigmoid;
+    data_.hard_sigmoid = new HardSigmoidPtr(
+        std::move(hard_sigmoid));
   }
 }
 void Operation::set_layer_normalization(
@@ -3169,6 +3330,17 @@ void Operation::set_softplus(
         std::move(softplus));
   }
 }
+void Operation::set_softsign(
+    SoftsignPtr softsign) {
+  if (tag_ == Tag::kSoftsign) {
+    *(data_.softsign) = std::move(softsign);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSoftsign;
+    data_.softsign = new SoftsignPtr(
+        std::move(softsign));
+  }
+}
 void Operation::set_split(
     SplitPtr split) {
   if (tag_ == Tag::kSplit) {
@@ -3261,6 +3433,10 @@ void Operation::DestroyActive() {
 
       delete data_.gemm;
       break;
+    case Tag::kHardSigmoid:
+
+      delete data_.hard_sigmoid;
+      break;
     case Tag::kLayerNormalization:
 
       delete data_.layer_normalization;
@@ -3325,6 +3501,10 @@ void Operation::DestroyActive() {
 
       delete data_.softplus;
       break;
+    case Tag::kSoftsign:
+
+      delete data_.softsign;
+      break;
     case Tag::kSplit:
 
       delete data_.split;
@@ -3345,6 +3525,57 @@ void Operation::DestroyActive() {
 }
 
 bool Operation::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+ComputeResult::ComputeResult() : tag_(Tag::kNamedOutputs) {
+  data_.named_outputs = new base::flat_map<std::string, ::mojo_base::BigBuffer>;
+}
+
+ComputeResult::~ComputeResult() {
+  DestroyActive();
+}
+
+
+void ComputeResult::set_named_outputs(
+    base::flat_map<std::string, ::mojo_base::BigBuffer> named_outputs) {
+  if (tag_ == Tag::kNamedOutputs) {
+    *(data_.named_outputs) = std::move(named_outputs);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNamedOutputs;
+    data_.named_outputs = new base::flat_map<std::string, ::mojo_base::BigBuffer>(
+        std::move(named_outputs));
+  }
+}
+void ComputeResult::set_error(
+    ::webnn::mojom::ErrorPtr error) {
+  if (tag_ == Tag::kError) {
+    *(data_.error) = std::move(error);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kError;
+    data_.error = new ::webnn::mojom::ErrorPtr(
+        std::move(error));
+  }
+}
+
+void ComputeResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kNamedOutputs:
+
+      delete data_.named_outputs;
+      break;
+    case Tag::kError:
+
+      delete data_.error;
+      break;
+  }
+}
+
+bool ComputeResult::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -3403,7 +3634,7 @@ uint32_t WebNNGraph::Compute_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool WebNNGraph::Compute(base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_named_outputs) {
+bool WebNNGraph::Compute(base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs, ComputeResultPtr* out_result) {
   NOTREACHED();
   return false;
 }
@@ -3411,8 +3642,8 @@ class WebNNGraph_Compute_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   WebNNGraph_Compute_HandleSyncResponse(
-      bool* result, ComputeResult* out_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_named_outputs)
-      : result_(result), out_result_(out_result), out_named_outputs_(out_named_outputs) {
+      bool* result, ComputeResultPtr* out_result)
+      : result_(result), out_result_(out_result) {
     DCHECK(!*result_);
   }
 
@@ -3422,8 +3653,7 @@ class WebNNGraph_Compute_HandleSyncResponse
   bool Accept(mojo::Message* message) override;
  private:
   bool* result_;
-  ComputeResult* out_result_;
-  std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_named_outputs_;};
+  ComputeResultPtr* out_result_;};
 
 class WebNNGraph_Compute_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -3445,7 +3675,7 @@ WebNNGraphProxy::WebNNGraphProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 bool WebNNGraphProxy::Compute(
-    base::flat_map<std::string, ::mojo_base::BigBuffer> param_named_inputs, ComputeResult* out_param_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_param_named_outputs) {
+    base::flat_map<std::string, ::mojo_base::BigBuffer> param_named_inputs, ComputeResultPtr* out_param_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call webnn::mojom::WebNNGraph::Compute (sync)", "input_parameters",
@@ -3499,7 +3729,7 @@ bool WebNNGraphProxy::Compute(
   bool result = false;
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WebNNGraph_Compute_HandleSyncResponse(
-          &result, out_param_result, out_param_named_outputs));
+          &result, out_param_result));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_END1(
@@ -3508,10 +3738,7 @@ bool WebNNGraphProxy::Compute(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), out_param_result,
-                        "<value of type ComputeResult>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("named_outputs"), out_param_named_outputs,
-                        "<value of type std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>>");
+                        "<value of type ComputeResultPtr>");
    });
 #endif
   return result;
@@ -3616,7 +3843,7 @@ class WebNNGraph_Compute_ProxyToResponder : public ::mojo::internal::ProxyToResp
 #endif
 
   void Run(
-      ComputeResult in_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>> in_named_outputs);
+      ComputeResultPtr in_result);
 };
 
 bool WebNNGraph_Compute_ForwardToCallback::Accept(
@@ -3628,14 +3855,13 @@ bool WebNNGraph_Compute_ForwardToCallback::Accept(
           internal::WebNNGraph_Compute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebNNGraph.0
   bool success = true;
-  ComputeResult p_result{};
-  std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>> p_named_outputs{};
+  ComputeResultPtr p_result{};
   WebNNGraph_Compute_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (success && !input_data_view.ReadNamedOutputs(&p_named_outputs))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -3646,13 +3872,12 @@ bool WebNNGraph_Compute_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_result), 
-std::move(p_named_outputs));
+std::move(p_result));
   return true;
 }
 
 void WebNNGraph_Compute_ProxyToResponder::Run(
-    ComputeResult in_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>> in_named_outputs) {
+    ComputeResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply webnn::mojom::WebNNGraph::Compute", "async_response_parameters",
@@ -3660,10 +3885,7 @@ void WebNNGraph_Compute_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type ComputeResult>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("named_outputs"), in_named_outputs,
-                        "<value of type std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>>");
+                        "<value of type ComputeResultPtr>");
    });
 #endif
   
@@ -3678,17 +3900,15 @@ void WebNNGraph_Compute_ProxyToResponder::Run(
       ::webnn::mojom::internal::WebNNGraph_Compute_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::webnn::mojom::ComputeResult>(
-      in_result, &params->result);
-  mojo::internal::MessageFragment<
-      typename decltype(params->named_outputs)::BaseType>
-      named_outputs_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& named_outputs_validate_params =
-      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-  mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::BigBufferDataView>>(
-      in_named_outputs, named_outputs_fragment, &named_outputs_validate_params);
-  params->named_outputs.Set(
-      named_outputs_fragment.is_null() ? nullptr : named_outputs_fragment.data());
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::webnn::mojom::ComputeResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(WebNNGraph::Name_);
@@ -3714,14 +3934,13 @@ bool WebNNGraph_Compute_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebNNGraph_Compute_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebNNGraph.0
   bool success = true;
-  ComputeResult p_result{};
-  std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>> p_named_outputs{};
+  ComputeResultPtr p_result{};
   WebNNGraph_Compute_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (success && !input_data_view.ReadNamedOutputs(&p_named_outputs))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -3731,7 +3950,6 @@ bool WebNNGraph_Compute_HandleSyncResponse::Accept(
     return false;
   }
   *out_result_ = std::move(p_result);
-  *out_named_outputs_ = std::move(p_named_outputs);
   *result_ = true;
   return true;
 }
@@ -3764,6 +3982,8 @@ bool WebNNGraphStubDispatch::AcceptWithResponder(
               internal::WebNNGraph_Compute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebNNGraph.0
       bool success = true;
       base::flat_map<std::string, ::mojo_base::BigBuffer> p_named_inputs{};
       WebNNGraph_Compute_ParamsDataView input_data_view(params, message);
@@ -3782,8 +4002,8 @@ bool WebNNGraphStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Compute(
-std::move(p_named_inputs), std::move(callback));
+      impl->Compute(        
+        std::move(p_named_inputs), std::move(callback));
       return true;
     }
   }
@@ -4316,6 +4536,26 @@ bool StructTraits<::webnn::mojom::Gemm::DataView, ::webnn::mojom::GemmPtr>::Read
 
 
 // static
+bool StructTraits<::webnn::mojom::HardSigmoid::DataView, ::webnn::mojom::HardSigmoidPtr>::Read(
+    ::webnn::mojom::HardSigmoid::DataView input,
+    ::webnn::mojom::HardSigmoidPtr* output) {
+  bool success = true;
+  ::webnn::mojom::HardSigmoidPtr result(::webnn::mojom::HardSigmoid::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success)
+        result->alpha = input.alpha();
+      if (success)
+        result->beta = input.beta();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::webnn::mojom::LayerNormalization::DataView, ::webnn::mojom::LayerNormalizationPtr>::Read(
     ::webnn::mojom::LayerNormalization::DataView input,
     ::webnn::mojom::LayerNormalizationPtr* output) {
@@ -4474,6 +4714,22 @@ bool StructTraits<::webnn::mojom::Softplus::DataView, ::webnn::mojom::SoftplusPt
         result->output_operand_id = input.output_operand_id();
       if (success)
         result->steepness = input.steepness();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::Softsign::DataView, ::webnn::mojom::SoftsignPtr>::Read(
+    ::webnn::mojom::Softsign::DataView input,
+    ::webnn::mojom::SoftsignPtr* output) {
+  bool success = true;
+  ::webnn::mojom::SoftsignPtr result(::webnn::mojom::Softsign::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
   *output = std::move(result);
   return success;
 }
@@ -4671,6 +4927,15 @@ bool UnionTraits<::webnn::mojom::Activation::DataView, ::webnn::mojom::Activatio
           std::move(result_elu));
       break;
     }
+    case Tag::kHardSigmoid: {
+      ::webnn::mojom::HardSigmoidPtr result_hard_sigmoid;
+      if (!input.ReadHardSigmoid(&result_hard_sigmoid))
+        return false;
+
+      *output = UnionType::NewHardSigmoid(
+          std::move(result_hard_sigmoid));
+      break;
+    }
     case Tag::kLeakyRelu: {
       ::webnn::mojom::LeakyReluPtr result_leaky_relu;
       if (!input.ReadLeakyRelu(&result_leaky_relu))
@@ -4723,6 +4988,15 @@ bool UnionTraits<::webnn::mojom::Activation::DataView, ::webnn::mojom::Activatio
 
       *output = UnionType::NewSoftplus(
           std::move(result_softplus));
+      break;
+    }
+    case Tag::kSoftsign: {
+      ::webnn::mojom::SoftsignPtr result_softsign;
+      if (!input.ReadSoftsign(&result_softsign))
+        return false;
+
+      *output = UnionType::NewSoftsign(
+          std::move(result_softsign));
       break;
     }
     case Tag::kTanh: {
@@ -4846,6 +5120,15 @@ bool UnionTraits<::webnn::mojom::Operation::DataView, ::webnn::mojom::OperationP
 
       *output = UnionType::NewGemm(
           std::move(result_gemm));
+      break;
+    }
+    case Tag::kHardSigmoid: {
+      ::webnn::mojom::HardSigmoidPtr result_hard_sigmoid;
+      if (!input.ReadHardSigmoid(&result_hard_sigmoid))
+        return false;
+
+      *output = UnionType::NewHardSigmoid(
+          std::move(result_hard_sigmoid));
       break;
     }
     case Tag::kLayerNormalization: {
@@ -4992,6 +5275,15 @@ bool UnionTraits<::webnn::mojom::Operation::DataView, ::webnn::mojom::OperationP
           std::move(result_softplus));
       break;
     }
+    case Tag::kSoftsign: {
+      ::webnn::mojom::SoftsignPtr result_softsign;
+      if (!input.ReadSoftsign(&result_softsign))
+        return false;
+
+      *output = UnionType::NewSoftsign(
+          std::move(result_softsign));
+      break;
+    }
     case Tag::kSplit: {
       ::webnn::mojom::SplitPtr result_split;
       if (!input.ReadSplit(&result_split))
@@ -5035,6 +5327,39 @@ bool UnionTraits<::webnn::mojom::Operation::DataView, ::webnn::mojom::OperationP
   return true;
 }
 
+// static
+bool UnionTraits<::webnn::mojom::ComputeResult::DataView, ::webnn::mojom::ComputeResultPtr>::Read(
+    ::webnn::mojom::ComputeResult::DataView input,
+    ::webnn::mojom::ComputeResultPtr* output) {
+  using UnionType = ::webnn::mojom::ComputeResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kNamedOutputs: {
+      base::flat_map<std::string, ::mojo_base::BigBuffer> result_named_outputs;
+      if (!input.ReadNamedOutputs(&result_named_outputs))
+        return false;
+
+      *output = UnionType::NewNamedOutputs(
+          std::move(result_named_outputs));
+      break;
+    }
+    case Tag::kError: {
+      ::webnn::mojom::ErrorPtr result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(
+          std::move(result_error));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
 }  // namespace mojo
 
 
@@ -5054,26 +5379,27 @@ WebNNGraphAsyncWaiter::WebNNGraphAsyncWaiter(
 WebNNGraphAsyncWaiter::~WebNNGraphAsyncWaiter() = default;
 
 void WebNNGraphAsyncWaiter::Compute(
-    base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_named_outputs) {
+    base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs, ComputeResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->Compute(std::move(named_inputs),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ComputeResult* out_result
+             ComputeResultPtr* out_result
 ,
-             std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_named_outputs
-,
-             ComputeResult result,
-             std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>> named_outputs) {*out_result = std::move(result);*out_named_outputs = std::move(named_outputs);
+             ComputeResultPtr result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
-          out_result,
-          out_named_outputs));
+          out_result));
   loop.Run();
 }
 
-
+ComputeResultPtr WebNNGraphAsyncWaiter::Compute(
+    base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs) {
+  ComputeResultPtr async_wait_result;
+  Compute(std::move(named_inputs),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

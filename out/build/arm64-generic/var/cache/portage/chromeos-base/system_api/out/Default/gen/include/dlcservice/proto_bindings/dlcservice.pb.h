@@ -779,6 +779,7 @@ class DlcState final :
     kIdFieldNumber = 2,
     kRootPathFieldNumber = 3,
     kLastErrorCodeFieldNumber = 5,
+    kImagePathFieldNumber = 7,
     kStateFieldNumber = 1,
     kIsVerifiedFieldNumber = 6,
     kProgressFieldNumber = 4,
@@ -843,6 +844,26 @@ class DlcState final :
   std::string* _internal_mutable_last_error_code();
 
   public:
+  // string image_path = 7;
+  void clear_image_path() ;
+  const std::string& image_path() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_image_path(Arg_&& arg, Args_... args);
+  std::string* mutable_image_path();
+  PROTOBUF_NODISCARD std::string* release_image_path();
+  void set_allocated_image_path(std::string* ptr);
+
+  private:
+  const std::string& _internal_image_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_image_path(
+      const std::string& value);
+  std::string* _internal_mutable_image_path();
+
+  public:
   // .dlcservice.DlcState.State state = 1;
   void clear_state() ;
   ::dlcservice::DlcState_State state() const;
@@ -884,6 +905,7 @@ class DlcState final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr root_path_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_error_code_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr image_path_;
     int state_;
     bool is_verified_;
     double progress_;
@@ -1463,6 +1485,53 @@ inline bool DlcState::_internal_is_verified() const {
 inline void DlcState::_internal_set_is_verified(bool value) {
   ;
   _impl_.is_verified_ = value;
+}
+
+// string image_path = 7;
+inline void DlcState::clear_image_path() {
+  _impl_.image_path_.ClearToEmpty();
+}
+inline const std::string& DlcState::image_path() const {
+  // @@protoc_insertion_point(field_get:dlcservice.DlcState.image_path)
+  return _internal_image_path();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void DlcState::set_image_path(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.image_path_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:dlcservice.DlcState.image_path)
+}
+inline std::string* DlcState::mutable_image_path() {
+  std::string* _s = _internal_mutable_image_path();
+  // @@protoc_insertion_point(field_mutable:dlcservice.DlcState.image_path)
+  return _s;
+}
+inline const std::string& DlcState::_internal_image_path() const {
+  return _impl_.image_path_.Get();
+}
+inline void DlcState::_internal_set_image_path(const std::string& value) {
+  ;
+
+
+  _impl_.image_path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DlcState::_internal_mutable_image_path() {
+  ;
+  return _impl_.image_path_.Mutable( GetArenaForAllocation());
+}
+inline std::string* DlcState::release_image_path() {
+  // @@protoc_insertion_point(field_release:dlcservice.DlcState.image_path)
+  return _impl_.image_path_.Release();
+}
+inline void DlcState::set_allocated_image_path(std::string* value) {
+  _impl_.image_path_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.image_path_.IsDefault()) {
+          _impl_.image_path_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:dlcservice.DlcState.image_path)
 }
 
 #ifdef __GNUC__

@@ -391,6 +391,8 @@ bool CdmDocumentService_ChallengePlatform_ForwardToCallback::Accept(
           internal::CdmDocumentService_ChallengePlatform_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmDocumentService.0
   bool success = true;
   bool p_success{};
   WTF::String p_signed_data{};
@@ -564,6 +566,8 @@ bool CdmDocumentService_GetStorageId_ForwardToCallback::Accept(
           internal::CdmDocumentService_GetStorageId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmDocumentService.1
   bool success = true;
   uint32_t p_version{};
   WTF::Vector<uint8_t> p_storage_id{};
@@ -703,6 +707,8 @@ bool CdmDocumentService_IsVerifiedAccessEnabled_ForwardToCallback::Accept(
           internal::CdmDocumentService_IsVerifiedAccessEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmDocumentService.2
   bool success = true;
   bool p_enabled{};
   CdmDocumentService_IsVerifiedAccessEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -799,6 +805,8 @@ bool CdmDocumentServiceStubDispatch::AcceptWithResponder(
               internal::CdmDocumentService_ChallengePlatform_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmDocumentService.0
       bool success = true;
       WTF::String p_service_id{};
       WTF::String p_challenge{};
@@ -820,9 +828,9 @@ bool CdmDocumentServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChallengePlatform(
-std::move(p_service_id), 
-std::move(p_challenge), std::move(callback));
+      impl->ChallengePlatform(        
+        std::move(p_service_id), 
+        std::move(p_challenge), std::move(callback));
       return true;
     }
     case internal::kCdmDocumentService_GetStorageId_Name: {
@@ -832,6 +840,8 @@ std::move(p_challenge), std::move(callback));
               internal::CdmDocumentService_GetStorageId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmDocumentService.1
       bool success = true;
       uint32_t p_version{};
       CdmDocumentService_GetStorageId_ParamsDataView input_data_view(params, message);
@@ -850,8 +860,8 @@ std::move(p_challenge), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStorageId(
-std::move(p_version), std::move(callback));
+      impl->GetStorageId(        
+        std::move(p_version), std::move(callback));
       return true;
     }
     case internal::kCdmDocumentService_IsVerifiedAccessEnabled_Name: {
@@ -861,6 +871,8 @@ std::move(p_version), std::move(callback));
               internal::CdmDocumentService_IsVerifiedAccessEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmDocumentService.2
       bool success = true;
       CdmDocumentService_IsVerifiedAccessEnabled_ParamsDataView input_data_view(params, message);
       

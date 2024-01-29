@@ -333,6 +333,8 @@ bool PopupMenuClientStubDispatch::Accept(
           reinterpret_cast<internal::PopupMenuClient_DidAcceptIndices_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PopupMenuClient.0
       bool success = true;
       std::vector<int32_t> p_indices{};
       PopupMenuClient_DidAcceptIndices_ParamsDataView input_data_view(params, message);
@@ -348,8 +350,8 @@ bool PopupMenuClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidAcceptIndices(
-std::move(p_indices));
+      impl->DidAcceptIndices(        
+        std::move(p_indices));
       return true;
     }
     case internal::kPopupMenuClient_DidCancel_Name: {
@@ -359,6 +361,8 @@ std::move(p_indices));
           reinterpret_cast<internal::PopupMenuClient_DidCancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PopupMenuClient.1
       bool success = true;
       PopupMenuClient_DidCancel_ParamsDataView input_data_view(params, message);
       
@@ -371,7 +375,7 @@ std::move(p_indices));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCancel();
+      impl->DidCancel(        );
       return true;
     }
   }

@@ -135,6 +135,8 @@ export function getTemplate() {
       </site-details-permission>
       <site-details-permission category="[[contentSettingsTypesEnum_.SERIAL_PORTS]]" icon="settings:serial-port" label="$i18n{siteSettingsSerialPorts}" chooser-type="[[chooserTypeEnum_.SERIAL_PORTS]]">
       </site-details-permission>
+      <site-details-permission category="[[contentSettingsTypesEnum_.WEB_PRINTING]]" icon="settings:printer" label="$i18n{siteSettingsWebPrinting}">
+      </site-details-permission>
       <template is="dom-if" if="[[enableWebBluetoothNewPermissionsBackend_]]">
         <site-details-permission category="[[contentSettingsTypesEnum_.BLUETOOTH_DEVICES]]" icon="settings:bluetooth" chooser-type="[[chooserTypeEnum_.BLUETOOTH_DEVICES]]" label="$i18n{siteSettingsBluetoothDevices}">
         </site-details-permission>
@@ -156,6 +158,8 @@ export function getTemplate() {
         </site-details-permission>
       </template>
       <site-details-permission category="[[contentSettingsTypesEnum_.MIXEDSCRIPT]]" icon="settings:insecure-content" label="$i18n{siteSettingsInsecureContent}">
+      </site-details-permission>
+      <site-details-permission category="[[contentSettingsTypesEnum_.JAVASCRIPT_JIT]]" icon="settings:lock-outline" label="$i18n{siteSettingsJavascriptJit}">
       </site-details-permission>
       <site-details-permission category="[[contentSettingsTypesEnum_.FEDERATED_IDENTITY_API]]" icon="settings:federated-identity-api" label="$i18n{siteSettingsFederatedIdentityApi}">
       </site-details-permission>

@@ -6,14 +6,14 @@ import 'chrome://bookmarks-side-panel.top-chrome/power_bookmarks_list.js';
 import { ActionSource } from 'chrome://bookmarks-side-panel.top-chrome/bookmarks.mojom-webui.js';
 import { BookmarksApiProxyImpl } from 'chrome://bookmarks-side-panel.top-chrome/bookmarks_api_proxy.js';
 import { ACTION_BUTTON_TRACK_IMAGE, ACTION_BUTTON_UNTRACK_IMAGE, LOCAL_STORAGE_EXPAND_STATUS_KEY } from 'chrome://bookmarks-side-panel.top-chrome/commerce/shopping_list.js';
-import { ShoppingServiceApiProxyImpl } from 'chrome://bookmarks-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
+import { BrowserProxyImpl } from 'chrome://resources/cr_components/commerce/browser_proxy.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { fakeMetricsPrivate } from 'chrome://webui-test/metrics_test_support.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { isVisible } from 'chrome://webui-test/test_util.js';
 import { TestBookmarksApiProxy } from '../test_bookmarks_api_proxy.js';
-import { TestShoppingServiceApiProxy } from './test_shopping_service_api_proxy.js';
+import { TestBrowserProxy } from './test_shopping_service_api_proxy.js';
 suite('SidePanelShoppingListTest', () => {
     let shoppingList;
     let bookmarksApi;
@@ -76,6 +76,7 @@ suite('SidePanelShoppingListTest', () => {
             assertEquals(priceElements[1].textContent, product.info.previousPrice);
         }
         const actionButton = element.querySelector('.action-button');
+        assertTrue(!!actionButton);
         assertEquals(actionButton.getAttribute('iron-icon'), ACTION_BUTTON_UNTRACK_IMAGE);
         assertEquals(actionButton.getAttribute('title'), loadTimeData.getString('shoppingListUntrackPriceButtonDescription'));
     }
@@ -94,8 +95,8 @@ suite('SidePanelShoppingListTest', () => {
         metrics = fakeMetricsPrivate();
         bookmarksApi = new TestBookmarksApiProxy();
         BookmarksApiProxyImpl.setInstance(bookmarksApi);
-        shoppingServiceApi = new TestShoppingServiceApiProxy();
-        ShoppingServiceApiProxyImpl.setInstance(shoppingServiceApi);
+        shoppingServiceApi = new TestBrowserProxy();
+        BrowserProxyImpl.setInstance(shoppingServiceApi);
         shoppingList = document.createElement('shopping-list');
         shoppingList.productInfos = products.slice();
         document.body.appendChild(shoppingList);

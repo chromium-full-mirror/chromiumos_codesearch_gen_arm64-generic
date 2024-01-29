@@ -62,7 +62,7 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
         // 2 navigations to go to chrome://terms and back testing bfcache
         // 1 refresh after auditing to reset state
         chai_1.assert.strictEqual(numNavigations, 5);
-        chai_1.assert.strictEqual(lhr.lighthouseVersion, '11.4.0');
+        chai_1.assert.strictEqual(lhr.lighthouseVersion, '11.5.0');
         chai_1.assert.match(lhr.finalUrl, /^https:\/\/localhost:[0-9]+\/test\/e2e\/resources\/lighthouse\/hello.html/);
         chai_1.assert.strictEqual(lhr.configSettings.throttlingMethod, 'simulate');
         chai_1.assert.strictEqual(lhr.configSettings.disableStorageReset, false);
@@ -79,7 +79,7 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
             devicePixelRatio: 1.75,
         });
         const { auditResults, erroredAudits, failedAudits } = (0, lighthouse_helpers_js_1.getAuditsBreakdown)(lhr, ['max-potential-fid']);
-        chai_1.assert.strictEqual(auditResults.length, 190);
+        chai_1.assert.strictEqual(auditResults.length, 191);
         chai_1.assert.deepStrictEqual(erroredAudits, []);
         chai_1.assert.deepStrictEqual(failedAudits.map(audit => audit.id), [
             'installable-manifest',
@@ -141,7 +141,7 @@ const lighthouse_helpers_js_1 = require("../helpers/lighthouse-helpers.js");
             'max-potential-fid',
         ];
         const { auditResults, erroredAudits, failedAudits } = (0, lighthouse_helpers_js_1.getAuditsBreakdown)(lhr, flakyAudits);
-        chai_1.assert.strictEqual(auditResults.length, 167);
+        chai_1.assert.strictEqual(auditResults.length, 168);
         chai_1.assert.deepStrictEqual(erroredAudits, []);
         chai_1.assert.deepStrictEqual(failedAudits.map(audit => audit.id), [
             'installable-manifest',

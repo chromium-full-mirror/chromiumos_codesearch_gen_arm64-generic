@@ -135,7 +135,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCRtpRec
 BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.playoutDelayHint.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpReceiver_PlayoutDelayHint_AttributeGetter);
 
@@ -153,7 +154,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCRtpRec
 BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.playoutDelayHint.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpReceiver_PlayoutDelayHint_AttributeSetter);
 
@@ -188,7 +190,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.createEncodedStreams");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpReceiver_CreateEncodedStreams_Method);
 
@@ -197,10 +200,8 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpReceiver_Creat
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
@@ -211,9 +212,7 @@ auto&& return_value = blink_receiver->createEncodedStreams(script_state, excepti
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<RTCInsertableStreams>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<RTCInsertableStreams>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -228,10 +227,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.getContributingSources");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
@@ -243,9 +240,7 @@ auto&& return_value = blink_receiver->getContributingSources(script_state, excep
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLSequence<RTCRtpContributingSource>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<RTCRtpContributingSource>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -260,17 +255,13 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.getParameters");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getParameters();
-if (!ToV8Traits<RTCRtpReceiveParameters>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<RTCRtpReceiveParameters>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -298,8 +289,7 @@ return;
 
 
 RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->getStats(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -316,10 +306,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.getSynchronizationSources");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCRtpReceiver* blink_receiver = V8RTCRtpReceiver::ToWrappableUnsafe(isolate, v8_receiver);
@@ -331,9 +319,7 @@ auto&& return_value = blink_receiver->getSynchronizationSources(script_state, ex
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLSequence<RTCRtpSynchronizationSource>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<RTCRtpSynchronizationSource>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -346,7 +332,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpReceiver.getCapabilities");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("RTCRtpReceiver.getCapabilities", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpReceiver_GetCapabilities_Method);
 
@@ -363,8 +350,6 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_kind;
 if (LIKELY(info[0]->IsString())) {
@@ -380,9 +365,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = RTCRtpReceiver::getCapabilities(script_state, arg1_kind);
-if (!ToV8Traits<IDLNullable<RTCRtpCapabilities>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<RTCRtpCapabilities>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

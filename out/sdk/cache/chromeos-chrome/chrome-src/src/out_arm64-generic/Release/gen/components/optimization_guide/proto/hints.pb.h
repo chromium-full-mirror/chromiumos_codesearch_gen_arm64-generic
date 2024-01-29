@@ -79,6 +79,12 @@ extern OptimizationFilterDefaultTypeInternal _OptimizationFilter_default_instanc
 class PageHint;
 struct PageHintDefaultTypeInternal;
 extern PageHintDefaultTypeInternal _PageHint_default_instance_;
+class PageInsightsHubRequestContextMetadata;
+struct PageInsightsHubRequestContextMetadataDefaultTypeInternal;
+extern PageInsightsHubRequestContextMetadataDefaultTypeInternal _PageInsightsHubRequestContextMetadata_default_instance_;
+class RequestContextMetadata;
+struct RequestContextMetadataDefaultTypeInternal;
+extern RequestContextMetadataDefaultTypeInternal _RequestContextMetadata_default_instance_;
 class UrlInfo;
 struct UrlInfoDefaultTypeInternal;
 extern UrlInfoDefaultTypeInternal _UrlInfo_default_instance_;
@@ -99,6 +105,8 @@ template<> ::optimization_guide::proto::MatchedHintInfo* Arena::CreateMaybeMessa
 template<> ::optimization_guide::proto::Optimization* Arena::CreateMaybeMessage<::optimization_guide::proto::Optimization>(Arena*);
 template<> ::optimization_guide::proto::OptimizationFilter* Arena::CreateMaybeMessage<::optimization_guide::proto::OptimizationFilter>(Arena*);
 template<> ::optimization_guide::proto::PageHint* Arena::CreateMaybeMessage<::optimization_guide::proto::PageHint>(Arena*);
+template<> ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* Arena::CreateMaybeMessage<::optimization_guide::proto::PageInsightsHubRequestContextMetadata>(Arena*);
+template<> ::optimization_guide::proto::RequestContextMetadata* Arena::CreateMaybeMessage<::optimization_guide::proto::RequestContextMetadata>(Arena*);
 template<> ::optimization_guide::proto::UrlInfo* Arena::CreateMaybeMessage<::optimization_guide::proto::UrlInfo>(Arena*);
 template<> ::optimization_guide::proto::Version* Arena::CreateMaybeMessage<::optimization_guide::proto::Version>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1013,6 +1021,7 @@ class GetHintsRequest final :
     kLocaleFieldNumber = 7,
     kHashedHostsFieldNumber = 8,
     kOriginInfoFieldNumber = 9,
+    kContextMetadataFieldNumber = 11,
     kContextFieldNumber = 3,
   };
   // repeated .optimization_guide.proto.HostInfo hosts = 1;
@@ -1139,6 +1148,24 @@ class GetHintsRequest final :
       ::optimization_guide::proto::OriginInfo* origin_info);
   ::optimization_guide::proto::OriginInfo* unsafe_arena_release_origin_info();
 
+  // optional .optimization_guide.proto.RequestContextMetadata context_metadata = 11;
+  bool has_context_metadata() const;
+  private:
+  bool _internal_has_context_metadata() const;
+  public:
+  void clear_context_metadata();
+  const ::optimization_guide::proto::RequestContextMetadata& context_metadata() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::RequestContextMetadata* release_context_metadata();
+  ::optimization_guide::proto::RequestContextMetadata* mutable_context_metadata();
+  void set_allocated_context_metadata(::optimization_guide::proto::RequestContextMetadata* context_metadata);
+  private:
+  const ::optimization_guide::proto::RequestContextMetadata& _internal_context_metadata() const;
+  ::optimization_guide::proto::RequestContextMetadata* _internal_mutable_context_metadata();
+  public:
+  void unsafe_arena_set_allocated_context_metadata(
+      ::optimization_guide::proto::RequestContextMetadata* context_metadata);
+  ::optimization_guide::proto::RequestContextMetadata* unsafe_arena_release_context_metadata();
+
   // optional .optimization_guide.proto.RequestContext context = 3;
   bool has_context() const;
   private:
@@ -1168,7 +1195,289 @@ class GetHintsRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr locale_;
   ::optimization_guide::proto::HashedHostInfos* hashed_hosts_;
   ::optimization_guide::proto::OriginInfo* origin_info_;
+  ::optimization_guide::proto::RequestContextMetadata* context_metadata_;
   int context_;
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fhints_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RequestContextMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.RequestContextMetadata) */ {
+ public:
+  inline RequestContextMetadata() : RequestContextMetadata(nullptr) {}
+  ~RequestContextMetadata() override;
+  explicit PROTOBUF_CONSTEXPR RequestContextMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RequestContextMetadata(const RequestContextMetadata& from);
+  RequestContextMetadata(RequestContextMetadata&& from) noexcept
+    : RequestContextMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline RequestContextMetadata& operator=(const RequestContextMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RequestContextMetadata& operator=(RequestContextMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RequestContextMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  enum MetadataCase {
+    kPageInsightsHubMetadata = 1,
+    METADATA_NOT_SET = 0,
+  };
+
+  static inline const RequestContextMetadata* internal_default_instance() {
+    return reinterpret_cast<const RequestContextMetadata*>(
+               &_RequestContextMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(RequestContextMetadata& a, RequestContextMetadata& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(RequestContextMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RequestContextMetadata* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RequestContextMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RequestContextMetadata>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RequestContextMetadata& from);
+  void MergeFrom(const RequestContextMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RequestContextMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.RequestContextMetadata";
+  }
+  protected:
+  explicit RequestContextMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPageInsightsHubMetadataFieldNumber = 1,
+  };
+  // .optimization_guide.proto.PageInsightsHubRequestContextMetadata page_insights_hub_metadata = 1;
+  bool has_page_insights_hub_metadata() const;
+  private:
+  bool _internal_has_page_insights_hub_metadata() const;
+  public:
+  void clear_page_insights_hub_metadata();
+  const ::optimization_guide::proto::PageInsightsHubRequestContextMetadata& page_insights_hub_metadata() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* release_page_insights_hub_metadata();
+  ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* mutable_page_insights_hub_metadata();
+  void set_allocated_page_insights_hub_metadata(::optimization_guide::proto::PageInsightsHubRequestContextMetadata* page_insights_hub_metadata);
+  private:
+  const ::optimization_guide::proto::PageInsightsHubRequestContextMetadata& _internal_page_insights_hub_metadata() const;
+  ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* _internal_mutable_page_insights_hub_metadata();
+  public:
+  void unsafe_arena_set_allocated_page_insights_hub_metadata(
+      ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* page_insights_hub_metadata);
+  ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* unsafe_arena_release_page_insights_hub_metadata();
+
+  void clear_metadata();
+  MetadataCase metadata_case() const;
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.RequestContextMetadata)
+ private:
+  class _Internal;
+  void set_has_page_insights_hub_metadata();
+
+  inline bool has_metadata() const;
+  inline void clear_has_metadata();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  union MetadataUnion {
+    constexpr MetadataUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* page_insights_hub_metadata_;
+  } metadata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fhints_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PageInsightsHubRequestContextMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:optimization_guide.proto.PageInsightsHubRequestContextMetadata) */ {
+ public:
+  inline PageInsightsHubRequestContextMetadata() : PageInsightsHubRequestContextMetadata(nullptr) {}
+  ~PageInsightsHubRequestContextMetadata() override;
+  explicit PROTOBUF_CONSTEXPR PageInsightsHubRequestContextMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PageInsightsHubRequestContextMetadata(const PageInsightsHubRequestContextMetadata& from);
+  PageInsightsHubRequestContextMetadata(PageInsightsHubRequestContextMetadata&& from) noexcept
+    : PageInsightsHubRequestContextMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline PageInsightsHubRequestContextMetadata& operator=(const PageInsightsHubRequestContextMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PageInsightsHubRequestContextMetadata& operator=(PageInsightsHubRequestContextMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const PageInsightsHubRequestContextMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PageInsightsHubRequestContextMetadata* internal_default_instance() {
+    return reinterpret_cast<const PageInsightsHubRequestContextMetadata*>(
+               &_PageInsightsHubRequestContextMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(PageInsightsHubRequestContextMetadata& a, PageInsightsHubRequestContextMetadata& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(PageInsightsHubRequestContextMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PageInsightsHubRequestContextMetadata* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PageInsightsHubRequestContextMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PageInsightsHubRequestContextMetadata>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PageInsightsHubRequestContextMetadata& from);
+  void MergeFrom(const PageInsightsHubRequestContextMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PageInsightsHubRequestContextMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "optimization_guide.proto.PageInsightsHubRequestContextMetadata";
+  }
+  protected:
+  explicit PageInsightsHubRequestContextMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:optimization_guide.proto.PageInsightsHubRequestContextMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fhints_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1219,7 +1528,7 @@ class GetHintsResponse final :
                &_GetHintsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(GetHintsResponse& a, GetHintsResponse& b) {
     a.Swap(&b);
@@ -1409,7 +1718,7 @@ class Optimization final :
                &_Optimization_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(Optimization& a, Optimization& b) {
     a.Swap(&b);
@@ -1616,7 +1925,7 @@ class PageHint final :
                &_PageHint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(PageHint& a, PageHint& b) {
     a.Swap(&b);
@@ -1780,7 +2089,7 @@ class Hint final :
                &_Hint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(Hint& a, Hint& b) {
     a.Swap(&b);
@@ -2019,7 +2328,7 @@ class BloomFilter final :
                &_BloomFilter_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(BloomFilter& a, BloomFilter& b) {
     a.Swap(&b);
@@ -2193,7 +2502,7 @@ class OptimizationFilter final :
                &_OptimizationFilter_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(OptimizationFilter& a, OptimizationFilter& b) {
     a.Swap(&b);
@@ -2434,7 +2743,7 @@ class Configuration final :
                &_Configuration_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(Configuration& a, Configuration& b) {
     a.Swap(&b);
@@ -2617,7 +2926,7 @@ class Version final :
                &_Version_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(Version& a, Version& b) {
     a.Swap(&b);
@@ -3443,7 +3752,7 @@ GetHintsRequest::mutable_supported_key_representations() {
 
 // optional .optimization_guide.proto.RequestContext context = 3;
 inline bool GetHintsRequest::_internal_has_context() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool GetHintsRequest::has_context() const {
@@ -3451,7 +3760,7 @@ inline bool GetHintsRequest::has_context() const {
 }
 inline void GetHintsRequest::clear_context() {
   context_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::optimization_guide::proto::RequestContext GetHintsRequest::_internal_context() const {
   return static_cast< ::optimization_guide::proto::RequestContext >(context_);
@@ -3462,12 +3771,102 @@ inline ::optimization_guide::proto::RequestContext GetHintsRequest::context() co
 }
 inline void GetHintsRequest::_internal_set_context(::optimization_guide::proto::RequestContext value) {
   assert(::optimization_guide::proto::RequestContext_IsValid(value));
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   context_ = value;
 }
 inline void GetHintsRequest::set_context(::optimization_guide::proto::RequestContext value) {
   _internal_set_context(value);
   // @@protoc_insertion_point(field_set:optimization_guide.proto.GetHintsRequest.context)
+}
+
+// optional .optimization_guide.proto.RequestContextMetadata context_metadata = 11;
+inline bool GetHintsRequest::_internal_has_context_metadata() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  PROTOBUF_ASSUME(!value || context_metadata_ != nullptr);
+  return value;
+}
+inline bool GetHintsRequest::has_context_metadata() const {
+  return _internal_has_context_metadata();
+}
+inline void GetHintsRequest::clear_context_metadata() {
+  if (context_metadata_ != nullptr) context_metadata_->Clear();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const ::optimization_guide::proto::RequestContextMetadata& GetHintsRequest::_internal_context_metadata() const {
+  const ::optimization_guide::proto::RequestContextMetadata* p = context_metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::optimization_guide::proto::RequestContextMetadata&>(
+      ::optimization_guide::proto::_RequestContextMetadata_default_instance_);
+}
+inline const ::optimization_guide::proto::RequestContextMetadata& GetHintsRequest::context_metadata() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.GetHintsRequest.context_metadata)
+  return _internal_context_metadata();
+}
+inline void GetHintsRequest::unsafe_arena_set_allocated_context_metadata(
+    ::optimization_guide::proto::RequestContextMetadata* context_metadata) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(context_metadata_);
+  }
+  context_metadata_ = context_metadata;
+  if (context_metadata) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.GetHintsRequest.context_metadata)
+}
+inline ::optimization_guide::proto::RequestContextMetadata* GetHintsRequest::release_context_metadata() {
+  _has_bits_[0] &= ~0x00000008u;
+  ::optimization_guide::proto::RequestContextMetadata* temp = context_metadata_;
+  context_metadata_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::optimization_guide::proto::RequestContextMetadata* GetHintsRequest::unsafe_arena_release_context_metadata() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.GetHintsRequest.context_metadata)
+  _has_bits_[0] &= ~0x00000008u;
+  ::optimization_guide::proto::RequestContextMetadata* temp = context_metadata_;
+  context_metadata_ = nullptr;
+  return temp;
+}
+inline ::optimization_guide::proto::RequestContextMetadata* GetHintsRequest::_internal_mutable_context_metadata() {
+  _has_bits_[0] |= 0x00000008u;
+  if (context_metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::optimization_guide::proto::RequestContextMetadata>(GetArenaForAllocation());
+    context_metadata_ = p;
+  }
+  return context_metadata_;
+}
+inline ::optimization_guide::proto::RequestContextMetadata* GetHintsRequest::mutable_context_metadata() {
+  ::optimization_guide::proto::RequestContextMetadata* _msg = _internal_mutable_context_metadata();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.GetHintsRequest.context_metadata)
+  return _msg;
+}
+inline void GetHintsRequest::set_allocated_context_metadata(::optimization_guide::proto::RequestContextMetadata* context_metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete context_metadata_;
+  }
+  if (context_metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(context_metadata);
+    if (message_arena != submessage_arena) {
+      context_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, context_metadata, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  context_metadata_ = context_metadata;
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.GetHintsRequest.context_metadata)
 }
 
 // optional string locale = 7;
@@ -3624,6 +4023,97 @@ inline void GetHintsRequest::set_allocated_origin_info(::optimization_guide::pro
   origin_info_ = origin_info;
   // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.GetHintsRequest.origin_info)
 }
+
+// -------------------------------------------------------------------
+
+// RequestContextMetadata
+
+// .optimization_guide.proto.PageInsightsHubRequestContextMetadata page_insights_hub_metadata = 1;
+inline bool RequestContextMetadata::_internal_has_page_insights_hub_metadata() const {
+  return metadata_case() == kPageInsightsHubMetadata;
+}
+inline bool RequestContextMetadata::has_page_insights_hub_metadata() const {
+  return _internal_has_page_insights_hub_metadata();
+}
+inline void RequestContextMetadata::set_has_page_insights_hub_metadata() {
+  _oneof_case_[0] = kPageInsightsHubMetadata;
+}
+inline void RequestContextMetadata::clear_page_insights_hub_metadata() {
+  if (_internal_has_page_insights_hub_metadata()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete metadata_.page_insights_hub_metadata_;
+    }
+    clear_has_metadata();
+  }
+}
+inline ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* RequestContextMetadata::release_page_insights_hub_metadata() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.RequestContextMetadata.page_insights_hub_metadata)
+  if (_internal_has_page_insights_hub_metadata()) {
+    clear_has_metadata();
+    ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* temp = metadata_.page_insights_hub_metadata_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    metadata_.page_insights_hub_metadata_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::optimization_guide::proto::PageInsightsHubRequestContextMetadata& RequestContextMetadata::_internal_page_insights_hub_metadata() const {
+  return _internal_has_page_insights_hub_metadata()
+      ? *metadata_.page_insights_hub_metadata_
+      : reinterpret_cast< ::optimization_guide::proto::PageInsightsHubRequestContextMetadata&>(::optimization_guide::proto::_PageInsightsHubRequestContextMetadata_default_instance_);
+}
+inline const ::optimization_guide::proto::PageInsightsHubRequestContextMetadata& RequestContextMetadata::page_insights_hub_metadata() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.RequestContextMetadata.page_insights_hub_metadata)
+  return _internal_page_insights_hub_metadata();
+}
+inline ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* RequestContextMetadata::unsafe_arena_release_page_insights_hub_metadata() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.RequestContextMetadata.page_insights_hub_metadata)
+  if (_internal_has_page_insights_hub_metadata()) {
+    clear_has_metadata();
+    ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* temp = metadata_.page_insights_hub_metadata_;
+    metadata_.page_insights_hub_metadata_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void RequestContextMetadata::unsafe_arena_set_allocated_page_insights_hub_metadata(::optimization_guide::proto::PageInsightsHubRequestContextMetadata* page_insights_hub_metadata) {
+  clear_metadata();
+  if (page_insights_hub_metadata) {
+    set_has_page_insights_hub_metadata();
+    metadata_.page_insights_hub_metadata_ = page_insights_hub_metadata;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.RequestContextMetadata.page_insights_hub_metadata)
+}
+inline ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* RequestContextMetadata::_internal_mutable_page_insights_hub_metadata() {
+  if (!_internal_has_page_insights_hub_metadata()) {
+    clear_metadata();
+    set_has_page_insights_hub_metadata();
+    metadata_.page_insights_hub_metadata_ = CreateMaybeMessage< ::optimization_guide::proto::PageInsightsHubRequestContextMetadata >(GetArenaForAllocation());
+  }
+  return metadata_.page_insights_hub_metadata_;
+}
+inline ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* RequestContextMetadata::mutable_page_insights_hub_metadata() {
+  ::optimization_guide::proto::PageInsightsHubRequestContextMetadata* _msg = _internal_mutable_page_insights_hub_metadata();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.RequestContextMetadata.page_insights_hub_metadata)
+  return _msg;
+}
+
+inline bool RequestContextMetadata::has_metadata() const {
+  return metadata_case() != METADATA_NOT_SET;
+}
+inline void RequestContextMetadata::clear_has_metadata() {
+  _oneof_case_[0] = METADATA_NOT_SET;
+}
+inline RequestContextMetadata::MetadataCase RequestContextMetadata::metadata_case() const {
+  return RequestContextMetadata::MetadataCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// PageInsightsHubRequestContextMetadata
 
 // -------------------------------------------------------------------
 
@@ -5151,6 +5641,10 @@ inline void Version::set_hint_source(::optimization_guide::proto::HintSource val
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

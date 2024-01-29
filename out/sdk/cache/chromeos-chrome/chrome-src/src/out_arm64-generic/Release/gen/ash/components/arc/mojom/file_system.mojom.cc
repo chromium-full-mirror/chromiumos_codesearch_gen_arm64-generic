@@ -2265,6 +2265,8 @@ bool FileSystemHost_GetFileName_ForwardToCallback::Accept(
           internal::FileSystemHost_GetFileName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.1
   bool success = true;
   std::optional<std::string> p_name{};
   FileSystemHost_GetFileName_ResponseParamsDataView input_data_view(params, message);
@@ -2390,6 +2392,8 @@ bool FileSystemHost_GetFileSize_ForwardToCallback::Accept(
           internal::FileSystemHost_GetFileSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.2
   bool success = true;
   int64_t p_size{};
   FileSystemHost_GetFileSize_ResponseParamsDataView input_data_view(params, message);
@@ -2509,6 +2513,8 @@ bool FileSystemHost_GetLastModified_ForwardToCallback::Accept(
           internal::FileSystemHost_GetLastModified_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.11
   bool success = true;
   std::optional<::base::Time> p_last_modified{};
   FileSystemHost_GetLastModified_ResponseParamsDataView input_data_view(params, message);
@@ -2634,6 +2640,8 @@ bool FileSystemHost_GetFileType_ForwardToCallback::Accept(
           internal::FileSystemHost_GetFileType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.3
   bool success = true;
   std::optional<std::string> p_mime_type{};
   FileSystemHost_GetFileType_ResponseParamsDataView input_data_view(params, message);
@@ -2759,6 +2767,8 @@ bool FileSystemHost_GetVirtualFileId_ForwardToCallback::Accept(
           internal::FileSystemHost_GetVirtualFileId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.9
   bool success = true;
   std::optional<std::string> p_id{};
   FileSystemHost_GetVirtualFileId_ResponseParamsDataView input_data_view(params, message);
@@ -2884,6 +2894,8 @@ bool FileSystemHost_HandleIdReleased_ForwardToCallback::Accept(
           internal::FileSystemHost_HandleIdReleased_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.10
   bool success = true;
   bool p_success{};
   FileSystemHost_HandleIdReleased_ResponseParamsDataView input_data_view(params, message);
@@ -3003,6 +3015,8 @@ bool FileSystemHost_OpenFileToRead_ForwardToCallback::Accept(
           internal::FileSystemHost_OpenFileToRead_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.4
   bool success = true;
   ::mojo::ScopedHandle p_fd{};
   FileSystemHost_OpenFileToRead_ResponseParamsDataView input_data_view(params, message);
@@ -3123,6 +3137,8 @@ bool FileSystemHost_SelectFiles_ForwardToCallback::Accept(
           internal::FileSystemHost_SelectFiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.5
   bool success = true;
   SelectFilesResultPtr p_result{};
   FileSystemHost_SelectFiles_ResponseParamsDataView input_data_view(params, message);
@@ -3252,6 +3268,8 @@ bool FileSystemHost_OnFileSelectorEvent_ForwardToCallback::Accept(
           internal::FileSystemHost_OnFileSelectorEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.7
   bool success = true;
   FileSystemHost_OnFileSelectorEvent_ResponseParamsDataView input_data_view(params, message);
   
@@ -3359,6 +3377,8 @@ bool FileSystemHost_GetFileSelectorElements_ForwardToCallback::Accept(
           internal::FileSystemHost_GetFileSelectorElements_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemHost.8
   bool success = true;
   FileSelectorElementsPtr p_elements{};
   FileSystemHost_GetFileSelectorElements_ResponseParamsDataView input_data_view(params, message);
@@ -3455,6 +3475,8 @@ bool FileSystemHostStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemHost_OnDocumentChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.0
       bool success = true;
       int64_t p_watcher_id{};
       ::storage::WatcherManager::ChangeType p_type{};
@@ -3473,9 +3495,9 @@ bool FileSystemHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDocumentChanged(
-std::move(p_watcher_id), 
-std::move(p_type));
+      impl->OnDocumentChanged(        
+        std::move(p_watcher_id), 
+        std::move(p_type));
       return true;
     }
     case internal::kFileSystemHost_OnRootsChanged_Name: {
@@ -3485,6 +3507,8 @@ std::move(p_type));
           reinterpret_cast<internal::FileSystemHost_OnRootsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.6
       bool success = true;
       FileSystemHost_OnRootsChanged_ParamsDataView input_data_view(params, message);
       
@@ -3497,7 +3521,7 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRootsChanged();
+      impl->OnRootsChanged(        );
       return true;
     }
     case internal::kFileSystemHost_GetVirtualFileId_Name: {
@@ -3525,6 +3549,8 @@ std::move(p_type));
           reinterpret_cast<internal::FileSystemHost_OnMediaStoreUriAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.12
       bool success = true;
       ::GURL p_uri{};
       MediaStoreMetadataPtr p_metadata{};
@@ -3543,9 +3569,9 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaStoreUriAdded(
-std::move(p_uri), 
-std::move(p_metadata));
+      impl->OnMediaStoreUriAdded(        
+        std::move(p_uri), 
+        std::move(p_metadata));
       return true;
     }
   }
@@ -3568,6 +3594,8 @@ bool FileSystemHostStubDispatch::AcceptWithResponder(
               internal::FileSystemHost_GetFileName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.1
       bool success = true;
       std::string p_url{};
       FileSystemHost_GetFileName_ParamsDataView input_data_view(params, message);
@@ -3586,8 +3614,8 @@ bool FileSystemHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileName(
-std::move(p_url), std::move(callback));
+      impl->GetFileName(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_GetFileSize_Name: {
@@ -3597,6 +3625,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemHost_GetFileSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.2
       bool success = true;
       std::string p_url{};
       FileSystemHost_GetFileSize_ParamsDataView input_data_view(params, message);
@@ -3615,8 +3645,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileSize(
-std::move(p_url), std::move(callback));
+      impl->GetFileSize(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_GetLastModified_Name: {
@@ -3626,6 +3656,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemHost_GetLastModified_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.11
       bool success = true;
       ::GURL p_url{};
       FileSystemHost_GetLastModified_ParamsDataView input_data_view(params, message);
@@ -3644,8 +3676,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLastModified(
-std::move(p_url), std::move(callback));
+      impl->GetLastModified(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_GetFileType_Name: {
@@ -3655,6 +3687,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemHost_GetFileType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.3
       bool success = true;
       std::string p_url{};
       FileSystemHost_GetFileType_ParamsDataView input_data_view(params, message);
@@ -3673,8 +3707,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileType(
-std::move(p_url), std::move(callback));
+      impl->GetFileType(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_OnDocumentChanged_Name: {
@@ -3690,6 +3724,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemHost_GetVirtualFileId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.9
       bool success = true;
       std::string p_url{};
       FileSystemHost_GetVirtualFileId_ParamsDataView input_data_view(params, message);
@@ -3708,8 +3744,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVirtualFileId(
-std::move(p_url), std::move(callback));
+      impl->GetVirtualFileId(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_HandleIdReleased_Name: {
@@ -3719,6 +3755,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemHost_HandleIdReleased_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.10
       bool success = true;
       std::string p_id{};
       FileSystemHost_HandleIdReleased_ParamsDataView input_data_view(params, message);
@@ -3737,8 +3775,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleIdReleased(
-std::move(p_id), std::move(callback));
+      impl->HandleIdReleased(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_OpenFileToRead_Name: {
@@ -3748,6 +3786,8 @@ std::move(p_id), std::move(callback));
               internal::FileSystemHost_OpenFileToRead_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.4
       bool success = true;
       std::string p_url{};
       FileSystemHost_OpenFileToRead_ParamsDataView input_data_view(params, message);
@@ -3766,8 +3806,8 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFileToRead(
-std::move(p_url), std::move(callback));
+      impl->OpenFileToRead(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_SelectFiles_Name: {
@@ -3777,6 +3817,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemHost_SelectFiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.5
       bool success = true;
       SelectFilesRequestPtr p_request{};
       FileSystemHost_SelectFiles_ParamsDataView input_data_view(params, message);
@@ -3795,8 +3837,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectFiles(
-std::move(p_request), std::move(callback));
+      impl->SelectFiles(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_OnFileSelectorEvent_Name: {
@@ -3806,6 +3848,8 @@ std::move(p_request), std::move(callback));
               internal::FileSystemHost_OnFileSelectorEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.7
       bool success = true;
       FileSelectorEventPtr p_event{};
       FileSystemHost_OnFileSelectorEvent_ParamsDataView input_data_view(params, message);
@@ -3824,8 +3868,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFileSelectorEvent(
-std::move(p_event), std::move(callback));
+      impl->OnFileSelectorEvent(        
+        std::move(p_event), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_GetFileSelectorElements_Name: {
@@ -3835,6 +3879,8 @@ std::move(p_event), std::move(callback));
               internal::FileSystemHost_GetFileSelectorElements_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemHost.8
       bool success = true;
       GetFileSelectorElementsRequestPtr p_request{};
       FileSystemHost_GetFileSelectorElements_ParamsDataView input_data_view(params, message);
@@ -3853,8 +3899,8 @@ std::move(p_event), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileSelectorElements(
-std::move(p_request), std::move(callback));
+      impl->GetFileSelectorElements(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kFileSystemHost_OnMediaStoreUriAdded_Name: {
@@ -6281,6 +6327,8 @@ bool FileSystemInstance_AddWatcher_ForwardToCallback::Accept(
           internal::FileSystemInstance_AddWatcher_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.6
   bool success = true;
   int64_t p_watcher_id{};
   FileSystemInstance_AddWatcher_ResponseParamsDataView input_data_view(params, message);
@@ -6400,6 +6448,8 @@ bool FileSystemInstance_GetChildDocuments_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetChildDocuments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.4
   bool success = true;
   std::optional<std::vector<DocumentPtr>> p_documents{};
   FileSystemInstance_GetChildDocuments_ResponseParamsDataView input_data_view(params, message);
@@ -6527,6 +6577,8 @@ bool FileSystemInstance_GetDocument_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.3
   bool success = true;
   DocumentPtr p_document{};
   FileSystemInstance_GetDocument_ResponseParamsDataView input_data_view(params, message);
@@ -6652,6 +6704,8 @@ bool FileSystemInstance_GetFileSize_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetFileSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.1
   bool success = true;
   int64_t p_size{};
   FileSystemInstance_GetFileSize_ResponseParamsDataView input_data_view(params, message);
@@ -6771,6 +6825,8 @@ bool FileSystemInstance_GetMimeType_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetMimeType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.8
   bool success = true;
   std::optional<std::string> p_mime_type{};
   FileSystemInstance_GetMimeType_ResponseParamsDataView input_data_view(params, message);
@@ -6896,6 +6952,8 @@ bool FileSystemInstance_GetRecentDocuments_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetRecentDocuments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.9
   bool success = true;
   std::optional<std::vector<DocumentPtr>> p_documents{};
   FileSystemInstance_GetRecentDocuments_ResponseParamsDataView input_data_view(params, message);
@@ -7023,6 +7081,8 @@ bool FileSystemInstance_GetRoots_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetRoots_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.12
   bool success = true;
   std::optional<std::vector<RootPtr>> p_roots{};
   FileSystemInstance_GetRoots_ResponseParamsDataView input_data_view(params, message);
@@ -7150,6 +7210,8 @@ bool FileSystemInstance_GetRootSize_ForwardToCallback::Accept(
           internal::FileSystemInstance_GetRootSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.22
   bool success = true;
   RootSizePtr p_root_size{};
   FileSystemInstance_GetRootSize_ResponseParamsDataView input_data_view(params, message);
@@ -7275,6 +7337,8 @@ bool FileSystemInstance_DeleteDocument_ForwardToCallback::Accept(
           internal::FileSystemInstance_DeleteDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.13
   bool success = true;
   bool p_success{};
   FileSystemInstance_DeleteDocument_ResponseParamsDataView input_data_view(params, message);
@@ -7394,6 +7458,8 @@ bool FileSystemInstance_RenameDocument_ForwardToCallback::Accept(
           internal::FileSystemInstance_RenameDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.14
   bool success = true;
   DocumentPtr p_document{};
   FileSystemInstance_RenameDocument_ResponseParamsDataView input_data_view(params, message);
@@ -7519,6 +7585,8 @@ bool FileSystemInstance_CreateDocument_ForwardToCallback::Accept(
           internal::FileSystemInstance_CreateDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.15
   bool success = true;
   DocumentPtr p_document{};
   FileSystemInstance_CreateDocument_ResponseParamsDataView input_data_view(params, message);
@@ -7644,6 +7712,8 @@ bool FileSystemInstance_CopyDocument_ForwardToCallback::Accept(
           internal::FileSystemInstance_CopyDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.16
   bool success = true;
   DocumentPtr p_document{};
   FileSystemInstance_CopyDocument_ResponseParamsDataView input_data_view(params, message);
@@ -7769,6 +7839,8 @@ bool FileSystemInstance_MoveDocument_ForwardToCallback::Accept(
           internal::FileSystemInstance_MoveDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.17
   bool success = true;
   DocumentPtr p_document{};
   FileSystemInstance_MoveDocument_ResponseParamsDataView input_data_view(params, message);
@@ -7894,6 +7966,8 @@ bool FileSystemInstance_Init_ForwardToCallback::Accept(
           internal::FileSystemInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.10
   bool success = true;
   FileSystemInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -8001,6 +8075,8 @@ bool FileSystemInstance_OpenThumbnail_ForwardToCallback::Accept(
           internal::FileSystemInstance_OpenThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.21
   bool success = true;
   ::mojo::ScopedHandle p_fd{};
   FileSystemInstance_OpenThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -8121,6 +8197,8 @@ bool FileSystemInstance_OpenFileSessionToWrite_ForwardToCallback::Accept(
           internal::FileSystemInstance_OpenFileSessionToWrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.25
   bool success = true;
   FileSessionPtr p_file_session{};
   FileSystemInstance_OpenFileSessionToWrite_ResponseParamsDataView input_data_view(params, message);
@@ -8246,6 +8324,8 @@ bool FileSystemInstance_OpenFileSessionToRead_ForwardToCallback::Accept(
           internal::FileSystemInstance_OpenFileSessionToRead_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.26
   bool success = true;
   FileSessionPtr p_file_session{};
   FileSystemInstance_OpenFileSessionToRead_ResponseParamsDataView input_data_view(params, message);
@@ -8371,6 +8451,8 @@ bool FileSystemInstance_RemoveWatcher_ForwardToCallback::Accept(
           internal::FileSystemInstance_RemoveWatcher_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.7
   bool success = true;
   bool p_success{};
   FileSystemInstance_RemoveWatcher_ResponseParamsDataView input_data_view(params, message);
@@ -8490,6 +8572,8 @@ bool FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_ForwardToCallback::Acc
           internal::FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.11
   bool success = true;
   FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_ResponseParamsDataView input_data_view(params, message);
   
@@ -8597,6 +8681,8 @@ bool FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_ForwardToCallback::A
           internal::FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemInstance.23
   bool success = true;
   FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_ResponseParamsDataView input_data_view(params, message);
   
@@ -8704,6 +8790,8 @@ bool FileSystemInstanceStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemInstance_CloseFileSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.24
       bool success = true;
       std::string p_url_id{};
       std::string p_error_message{};
@@ -8722,9 +8810,9 @@ bool FileSystemInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseFileSession(
-std::move(p_url_id), 
-std::move(p_error_message));
+      impl->CloseFileSession(        
+        std::move(p_url_id), 
+        std::move(p_error_message));
       return true;
     }
     case internal::kFileSystemInstance_OpenFileSessionToWrite_Name: {
@@ -8743,6 +8831,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::FileSystemInstance_RequestMediaScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.0
       bool success = true;
       std::vector<std::string> p_paths{};
       FileSystemInstance_RequestMediaScan_ParamsDataView input_data_view(params, message);
@@ -8758,8 +8848,8 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestMediaScan(
-std::move(p_paths));
+      impl->RequestMediaScan(        
+        std::move(p_paths));
       return true;
     }
     case internal::kFileSystemInstance_ReindexDirectory_Name: {
@@ -8769,6 +8859,8 @@ std::move(p_paths));
           reinterpret_cast<internal::FileSystemInstance_ReindexDirectory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.19
       bool success = true;
       std::string p_directory_path{};
       FileSystemInstance_ReindexDirectory_ParamsDataView input_data_view(params, message);
@@ -8784,8 +8876,8 @@ std::move(p_paths));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReindexDirectory(
-std::move(p_directory_path));
+      impl->ReindexDirectory(        
+        std::move(p_directory_path));
       return true;
     }
     case internal::kFileSystemInstance_RequestFileRemovalScan_Name: {
@@ -8795,6 +8887,8 @@ std::move(p_directory_path));
           reinterpret_cast<internal::FileSystemInstance_RequestFileRemovalScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.20
       bool success = true;
       std::vector<std::string> p_directory_paths{};
       FileSystemInstance_RequestFileRemovalScan_ParamsDataView input_data_view(params, message);
@@ -8810,8 +8904,8 @@ std::move(p_directory_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestFileRemovalScan(
-std::move(p_directory_paths));
+      impl->RequestFileRemovalScan(        
+        std::move(p_directory_paths));
       return true;
     }
     case internal::kFileSystemInstance_DEPRECATED_OpenUrlsWithPermission_Name: {
@@ -8840,6 +8934,8 @@ bool FileSystemInstanceStubDispatch::AcceptWithResponder(
               internal::FileSystemInstance_AddWatcher_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.6
       bool success = true;
       std::string p_authority{};
       std::string p_document_id{};
@@ -8861,9 +8957,9 @@ bool FileSystemInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddWatcher(
-std::move(p_authority), 
-std::move(p_document_id), std::move(callback));
+      impl->AddWatcher(        
+        std::move(p_authority), 
+        std::move(p_document_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_GetChildDocuments_Name: {
@@ -8873,6 +8969,8 @@ std::move(p_document_id), std::move(callback));
               internal::FileSystemInstance_GetChildDocuments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.4
       bool success = true;
       std::string p_authority{};
       std::string p_parent_document_id{};
@@ -8894,9 +8992,9 @@ std::move(p_document_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetChildDocuments(
-std::move(p_authority), 
-std::move(p_parent_document_id), std::move(callback));
+      impl->GetChildDocuments(        
+        std::move(p_authority), 
+        std::move(p_parent_document_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_GetDocument_Name: {
@@ -8906,6 +9004,8 @@ std::move(p_parent_document_id), std::move(callback));
               internal::FileSystemInstance_GetDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.3
       bool success = true;
       std::string p_authority{};
       std::string p_document_id{};
@@ -8927,9 +9027,9 @@ std::move(p_parent_document_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDocument(
-std::move(p_authority), 
-std::move(p_document_id), std::move(callback));
+      impl->GetDocument(        
+        std::move(p_authority), 
+        std::move(p_document_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_GetFileSize_Name: {
@@ -8939,6 +9039,8 @@ std::move(p_document_id), std::move(callback));
               internal::FileSystemInstance_GetFileSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.1
       bool success = true;
       std::string p_url{};
       FileSystemInstance_GetFileSize_ParamsDataView input_data_view(params, message);
@@ -8957,8 +9059,8 @@ std::move(p_document_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileSize(
-std::move(p_url), std::move(callback));
+      impl->GetFileSize(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_GetMimeType_Name: {
@@ -8968,6 +9070,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemInstance_GetMimeType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.8
       bool success = true;
       std::string p_url{};
       FileSystemInstance_GetMimeType_ParamsDataView input_data_view(params, message);
@@ -8986,8 +9090,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMimeType(
-std::move(p_url), std::move(callback));
+      impl->GetMimeType(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_GetRecentDocuments_Name: {
@@ -8997,6 +9101,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemInstance_GetRecentDocuments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.9
       bool success = true;
       std::string p_authority{};
       std::string p_root_id{};
@@ -9018,9 +9124,9 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRecentDocuments(
-std::move(p_authority), 
-std::move(p_root_id), std::move(callback));
+      impl->GetRecentDocuments(        
+        std::move(p_authority), 
+        std::move(p_root_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_GetRoots_Name: {
@@ -9030,6 +9136,8 @@ std::move(p_root_id), std::move(callback));
               internal::FileSystemInstance_GetRoots_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.12
       bool success = true;
       FileSystemInstance_GetRoots_ParamsDataView input_data_view(params, message);
       
@@ -9055,6 +9163,8 @@ std::move(p_root_id), std::move(callback));
               internal::FileSystemInstance_GetRootSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.22
       bool success = true;
       std::string p_authority{};
       std::string p_root_id{};
@@ -9076,9 +9186,9 @@ std::move(p_root_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRootSize(
-std::move(p_authority), 
-std::move(p_root_id), std::move(callback));
+      impl->GetRootSize(        
+        std::move(p_authority), 
+        std::move(p_root_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_DeleteDocument_Name: {
@@ -9088,6 +9198,8 @@ std::move(p_root_id), std::move(callback));
               internal::FileSystemInstance_DeleteDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.13
       bool success = true;
       std::string p_authority{};
       std::string p_document_id{};
@@ -9109,9 +9221,9 @@ std::move(p_root_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteDocument(
-std::move(p_authority), 
-std::move(p_document_id), std::move(callback));
+      impl->DeleteDocument(        
+        std::move(p_authority), 
+        std::move(p_document_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_RenameDocument_Name: {
@@ -9121,6 +9233,8 @@ std::move(p_document_id), std::move(callback));
               internal::FileSystemInstance_RenameDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.14
       bool success = true;
       std::string p_authority{};
       std::string p_document_id{};
@@ -9145,10 +9259,10 @@ std::move(p_document_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenameDocument(
-std::move(p_authority), 
-std::move(p_document_id), 
-std::move(p_display_name), std::move(callback));
+      impl->RenameDocument(        
+        std::move(p_authority), 
+        std::move(p_document_id), 
+        std::move(p_display_name), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_CreateDocument_Name: {
@@ -9158,6 +9272,8 @@ std::move(p_display_name), std::move(callback));
               internal::FileSystemInstance_CreateDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.15
       bool success = true;
       std::string p_authority{};
       std::string p_parent_document_id{};
@@ -9185,11 +9301,11 @@ std::move(p_display_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDocument(
-std::move(p_authority), 
-std::move(p_parent_document_id), 
-std::move(p_mime_type), 
-std::move(p_display_name), std::move(callback));
+      impl->CreateDocument(        
+        std::move(p_authority), 
+        std::move(p_parent_document_id), 
+        std::move(p_mime_type), 
+        std::move(p_display_name), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_CopyDocument_Name: {
@@ -9199,6 +9315,8 @@ std::move(p_display_name), std::move(callback));
               internal::FileSystemInstance_CopyDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.16
       bool success = true;
       std::string p_authority{};
       std::string p_source_document_id{};
@@ -9223,10 +9341,10 @@ std::move(p_display_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyDocument(
-std::move(p_authority), 
-std::move(p_source_document_id), 
-std::move(p_target_parent_document_id), std::move(callback));
+      impl->CopyDocument(        
+        std::move(p_authority), 
+        std::move(p_source_document_id), 
+        std::move(p_target_parent_document_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_MoveDocument_Name: {
@@ -9236,6 +9354,8 @@ std::move(p_target_parent_document_id), std::move(callback));
               internal::FileSystemInstance_MoveDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.17
       bool success = true;
       std::string p_authority{};
       std::string p_source_document_id{};
@@ -9263,11 +9383,11 @@ std::move(p_target_parent_document_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveDocument(
-std::move(p_authority), 
-std::move(p_source_document_id), 
-std::move(p_source_parent_document_id), 
-std::move(p_target_parent_document_id), std::move(callback));
+      impl->MoveDocument(        
+        std::move(p_authority), 
+        std::move(p_source_document_id), 
+        std::move(p_source_parent_document_id), 
+        std::move(p_target_parent_document_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_Init_Name: {
@@ -9277,6 +9397,8 @@ std::move(p_target_parent_document_id), std::move(callback));
               internal::FileSystemInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.10
       bool success = true;
       ::mojo::PendingRemote<FileSystemHost> p_host_remote{};
       FileSystemInstance_Init_ParamsDataView input_data_view(params, message);
@@ -9297,8 +9419,8 @@ std::move(p_target_parent_document_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_OpenThumbnail_Name: {
@@ -9308,6 +9430,8 @@ std::move(p_host_remote), std::move(callback));
               internal::FileSystemInstance_OpenThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.21
       bool success = true;
       std::string p_url{};
       ::gfx::Size p_size_hint{};
@@ -9329,9 +9453,9 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenThumbnail(
-std::move(p_url), 
-std::move(p_size_hint), std::move(callback));
+      impl->OpenThumbnail(        
+        std::move(p_url), 
+        std::move(p_size_hint), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_CloseFileSession_Name: {
@@ -9344,6 +9468,8 @@ std::move(p_size_hint), std::move(callback));
               internal::FileSystemInstance_OpenFileSessionToWrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.25
       bool success = true;
       ::GURL p_url{};
       FileSystemInstance_OpenFileSessionToWrite_ParamsDataView input_data_view(params, message);
@@ -9362,8 +9488,8 @@ std::move(p_size_hint), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFileSessionToWrite(
-std::move(p_url), std::move(callback));
+      impl->OpenFileSessionToWrite(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_OpenFileSessionToRead_Name: {
@@ -9373,6 +9499,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemInstance_OpenFileSessionToRead_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.26
       bool success = true;
       ::GURL p_url{};
       FileSystemInstance_OpenFileSessionToRead_ParamsDataView input_data_view(params, message);
@@ -9391,8 +9519,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFileSessionToRead(
-std::move(p_url), std::move(callback));
+      impl->OpenFileSessionToRead(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_RemoveWatcher_Name: {
@@ -9402,6 +9530,8 @@ std::move(p_url), std::move(callback));
               internal::FileSystemInstance_RemoveWatcher_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.7
       bool success = true;
       int64_t p_watcher_id{};
       FileSystemInstance_RemoveWatcher_ParamsDataView input_data_view(params, message);
@@ -9420,8 +9550,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveWatcher(
-std::move(p_watcher_id), std::move(callback));
+      impl->RemoveWatcher(        
+        std::move(p_watcher_id), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_RequestMediaScan_Name: {
@@ -9440,6 +9570,8 @@ std::move(p_watcher_id), std::move(callback));
               internal::FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.11
       bool success = true;
       OpenUrlsRequestPtr p_request{};
       FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_ParamsDataView input_data_view(params, message);
@@ -9458,8 +9590,8 @@ std::move(p_watcher_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_OpenUrlsWithPermission(
-std::move(p_request), std::move(callback));
+      impl->DEPRECATED_OpenUrlsWithPermission(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kFileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_Name: {
@@ -9469,6 +9601,8 @@ std::move(p_request), std::move(callback));
               internal::FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemInstance.23
       bool success = true;
       OpenUrlsRequestPtr p_request{};
       ::arc::mojom::WindowInfoPtr p_window_info{};
@@ -9490,9 +9624,9 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlsWithPermissionAndWindowInfo(
-std::move(p_request), 
-std::move(p_window_info), std::move(callback));
+      impl->OpenUrlsWithPermissionAndWindowInfo(        
+        std::move(p_request), 
+        std::move(p_window_info), std::move(callback));
       return true;
     }
   }

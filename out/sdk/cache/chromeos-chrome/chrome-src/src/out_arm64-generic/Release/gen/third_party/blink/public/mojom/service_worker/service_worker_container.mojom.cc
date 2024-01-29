@@ -863,6 +863,8 @@ bool ServiceWorkerContainerHost_Register_ForwardToCallback::Accept(
           internal::ServiceWorkerContainerHost_Register_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerContainerHost.0
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
   std::optional<std::string> p_error_msg{};
@@ -1011,6 +1013,8 @@ bool ServiceWorkerContainerHost_GetRegistration_ForwardToCallback::Accept(
           internal::ServiceWorkerContainerHost_GetRegistration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerContainerHost.1
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
   std::optional<std::string> p_error_msg{};
@@ -1159,6 +1163,8 @@ bool ServiceWorkerContainerHost_GetRegistrations_ForwardToCallback::Accept(
           internal::ServiceWorkerContainerHost_GetRegistrations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerContainerHost.2
   bool success = true;
   ::blink::mojom::ServiceWorkerErrorType p_error{};
   std::optional<std::string> p_error_msg{};
@@ -1309,6 +1315,8 @@ bool ServiceWorkerContainerHost_GetRegistrationForReady_ForwardToCallback::Accep
           internal::ServiceWorkerContainerHost_GetRegistrationForReady_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerContainerHost.3
   bool success = true;
   ::blink::mojom::ServiceWorkerRegistrationObjectInfoPtr p_registration{};
   ServiceWorkerContainerHost_GetRegistrationForReady_ResponseParamsDataView input_data_view(params, message);
@@ -1434,6 +1442,8 @@ bool ServiceWorkerContainerHost_EnsureFileAccess_ForwardToCallback::Accept(
           internal::ServiceWorkerContainerHost_EnsureFileAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerContainerHost.7
   bool success = true;
   ServiceWorkerContainerHost_EnsureFileAccess_ResponseParamsDataView input_data_view(params, message);
   
@@ -1508,6 +1518,8 @@ bool ServiceWorkerContainerHostStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerContainerHost_EnsureControllerServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.4
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::ControllerServiceWorker> p_receiver{};
       ControllerServiceWorkerPurpose p_purpose{};
@@ -1528,9 +1540,9 @@ bool ServiceWorkerContainerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnsureControllerServiceWorker(
-std::move(p_receiver), 
-std::move(p_purpose));
+      impl->EnsureControllerServiceWorker(        
+        std::move(p_receiver), 
+        std::move(p_purpose));
       return true;
     }
     case internal::kServiceWorkerContainerHost_CloneContainerHost_Name: {
@@ -1540,6 +1552,8 @@ std::move(p_purpose));
           reinterpret_cast<internal::ServiceWorkerContainerHost_CloneContainerHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.5
       bool success = true;
       ::mojo::PendingReceiver<ServiceWorkerContainerHost> p_container_host{};
       ServiceWorkerContainerHost_CloneContainerHost_ParamsDataView input_data_view(params, message);
@@ -1557,8 +1571,8 @@ std::move(p_purpose));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloneContainerHost(
-std::move(p_container_host));
+      impl->CloneContainerHost(        
+        std::move(p_container_host));
       return true;
     }
     case internal::kServiceWorkerContainerHost_HintToUpdateServiceWorker_Name: {
@@ -1568,6 +1582,8 @@ std::move(p_container_host));
           reinterpret_cast<internal::ServiceWorkerContainerHost_HintToUpdateServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.6
       bool success = true;
       ServiceWorkerContainerHost_HintToUpdateServiceWorker_ParamsDataView input_data_view(params, message);
       
@@ -1580,7 +1596,7 @@ std::move(p_container_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HintToUpdateServiceWorker();
+      impl->HintToUpdateServiceWorker(        );
       return true;
     }
     case internal::kServiceWorkerContainerHost_EnsureFileAccess_Name: {
@@ -1593,6 +1609,8 @@ std::move(p_container_host));
           reinterpret_cast<internal::ServiceWorkerContainerHost_OnExecutionReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.8
       bool success = true;
       ServiceWorkerContainerHost_OnExecutionReady_ParamsDataView input_data_view(params, message);
       
@@ -1605,7 +1623,7 @@ std::move(p_container_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnExecutionReady();
+      impl->OnExecutionReady(        );
       return true;
     }
   }
@@ -1628,6 +1646,8 @@ bool ServiceWorkerContainerHostStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerContainerHost_Register_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.0
       bool success = true;
       ::GURL p_script_url{};
       ::blink::mojom::ServiceWorkerRegistrationOptionsPtr p_options{};
@@ -1652,10 +1672,10 @@ bool ServiceWorkerContainerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_script_url), 
-std::move(p_options), 
-std::move(p_outside_fetch_client_settings_object), std::move(callback));
+      impl->Register(        
+        std::move(p_script_url), 
+        std::move(p_options), 
+        std::move(p_outside_fetch_client_settings_object), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerContainerHost_GetRegistration_Name: {
@@ -1665,6 +1685,8 @@ std::move(p_outside_fetch_client_settings_object), std::move(callback));
               internal::ServiceWorkerContainerHost_GetRegistration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.1
       bool success = true;
       ::GURL p_client_url{};
       ServiceWorkerContainerHost_GetRegistration_ParamsDataView input_data_view(params, message);
@@ -1683,8 +1705,8 @@ std::move(p_outside_fetch_client_settings_object), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRegistration(
-std::move(p_client_url), std::move(callback));
+      impl->GetRegistration(        
+        std::move(p_client_url), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerContainerHost_GetRegistrations_Name: {
@@ -1694,6 +1716,8 @@ std::move(p_client_url), std::move(callback));
               internal::ServiceWorkerContainerHost_GetRegistrations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.2
       bool success = true;
       ServiceWorkerContainerHost_GetRegistrations_ParamsDataView input_data_view(params, message);
       
@@ -1719,6 +1743,8 @@ std::move(p_client_url), std::move(callback));
               internal::ServiceWorkerContainerHost_GetRegistrationForReady_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.3
       bool success = true;
       ServiceWorkerContainerHost_GetRegistrationForReady_ParamsDataView input_data_view(params, message);
       
@@ -1753,6 +1779,8 @@ std::move(p_client_url), std::move(callback));
               internal::ServiceWorkerContainerHost_EnsureFileAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainerHost.7
       bool success = true;
       std::vector<::base::FilePath> p_files{};
       ServiceWorkerContainerHost_EnsureFileAccess_ParamsDataView input_data_view(params, message);
@@ -1771,8 +1799,8 @@ std::move(p_client_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnsureFileAccess(
-std::move(p_files), std::move(callback));
+      impl->EnsureFileAccess(        
+        std::move(p_files), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerContainerHost_OnExecutionReady_Name: {
@@ -2086,6 +2114,8 @@ bool ServiceWorkerContainerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerContainer_SetController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainer.0
       bool success = true;
       ::blink::mojom::ControllerServiceWorkerInfoPtr p_controller_info{};
       bool p_should_notify_controllerchange{};
@@ -2104,9 +2134,9 @@ bool ServiceWorkerContainerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetController(
-std::move(p_controller_info), 
-std::move(p_should_notify_controllerchange));
+      impl->SetController(        
+        std::move(p_controller_info), 
+        std::move(p_should_notify_controllerchange));
       return true;
     }
     case internal::kServiceWorkerContainer_PostMessageToClient_Name: {
@@ -2116,6 +2146,8 @@ std::move(p_should_notify_controllerchange));
           reinterpret_cast<internal::ServiceWorkerContainer_PostMessageToClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainer.1
       bool success = true;
       ::blink::mojom::ServiceWorkerObjectInfoPtr p_source{};
       ::blink::TransferableMessage p_message{};
@@ -2134,9 +2166,9 @@ std::move(p_should_notify_controllerchange));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PostMessageToClient(
-std::move(p_source), 
-std::move(p_message));
+      impl->PostMessageToClient(        
+        std::move(p_source), 
+        std::move(p_message));
       return true;
     }
     case internal::kServiceWorkerContainer_CountFeature_Name: {
@@ -2146,6 +2178,8 @@ std::move(p_message));
           reinterpret_cast<internal::ServiceWorkerContainer_CountFeature_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerContainer.2
       bool success = true;
       ::blink::mojom::WebFeature p_feature{};
       ServiceWorkerContainer_CountFeature_ParamsDataView input_data_view(params, message);
@@ -2161,8 +2195,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CountFeature(
-std::move(p_feature));
+      impl->CountFeature(        
+        std::move(p_feature));
       return true;
     }
   }

@@ -62,8 +62,9 @@ export const RequestDestination = {
   kWebIdentity: 23,
   kDictionary: 24,
   kSpeculationRules: 25,
+  kJson: 26,
   MIN_VALUE: 0,
-  MAX_VALUE: 25,
+  MAX_VALUE: 26,
 };
 
 /**

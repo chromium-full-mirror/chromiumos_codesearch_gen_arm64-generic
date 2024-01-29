@@ -1,7 +1,7 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { FilesAppEntry } from '../../common/js/files_app_entry_types.js';
 import { DirectoryModel } from './directory_model.js';
 /**
  * Return DirectoryEntry of the first root directory (all volume display root

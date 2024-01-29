@@ -330,5 +330,47 @@ const memory_helpers_js_1 = require("../helpers/memory-helpers.js");
             chai_1.assert.strictEqual(linkText, entry.link);
         }
     });
+    async function runJSSetTest() {
+        await (0, memory_helpers_js_1.navigateToMemoryTab)();
+        await (0, memory_helpers_js_1.takeHeapSnapshot)();
+        await (0, memory_helpers_js_1.waitForNonEmptyHeapSnapshotData)();
+        await (0, memory_helpers_js_1.setSearchFilter)('Retainer');
+        await (0, memory_helpers_js_1.waitForSearchResultNumber)(4);
+        await (0, memory_helpers_js_1.findSearchResult)('Retainer()');
+        await (0, memory_helpers_js_1.focusTableRow)('Retainer()');
+        await (0, memory_helpers_js_1.expandFocusedRow)();
+        await (0, memory_helpers_js_1.focusTableRow)('customProperty');
+        const sizesForSet = await (0, memory_helpers_js_1.getSizesFromSelectedRow)();
+        await (0, memory_helpers_js_1.expandFocusedRow)();
+        await (0, memory_helpers_js_1.focusTableRow)('(internal array)[]');
+        const sizesForBackingStorage = await (0, memory_helpers_js_1.getSizesFromSelectedRow)();
+        return { sizesForSet, sizesForBackingStorage };
+    }
+    (0, mocha_extensions_js_1.it)('Does not include backing store size in the shallow size of a JS Set', async () => {
+        await (0, helper_js_1.goToResource)('memory/set.html');
+        await (0, helper_js_1.disableExperiment)('heapSnapshotTreatBackingStoreAsContainingObject');
+        const sizes = await runJSSetTest();
+        // The Set object is small, regardless of the contained content.
+        chai_1.assert.isTrue(sizes.sizesForSet.shallowSize <= 100);
+        // The Set retains its backing storage.
+        chai_1.assert.isTrue(sizes.sizesForSet.retainedSize >= sizes.sizesForSet.shallowSize + sizes.sizesForBackingStorage.retainedSize);
+        // The backing storage contains 100 items, which occupy at least one pointer per item.
+        chai_1.assert.isTrue(sizes.sizesForBackingStorage.shallowSize >= 400);
+        // The backing storage retains 100 strings, which occupy at least 16 bytes each.
+        chai_1.assert.isTrue(sizes.sizesForBackingStorage.retainedSize >= sizes.sizesForBackingStorage.shallowSize + 1600);
+    });
+    (0, mocha_extensions_js_1.it)('Includes backing store size in the shallow size of a JS Set', async () => {
+        await (0, helper_js_1.goToResource)('memory/set.html');
+        await (0, helper_js_1.enableExperiment)('heapSnapshotTreatBackingStoreAsContainingObject');
+        const sizes = await runJSSetTest();
+        // The Set is reported as containing at least 100 pointers.
+        chai_1.assert.isTrue(sizes.sizesForSet.shallowSize >= 400);
+        // The Set retains its backing storage.
+        chai_1.assert.isTrue(sizes.sizesForSet.retainedSize >= sizes.sizesForSet.shallowSize + sizes.sizesForBackingStorage.retainedSize);
+        // The backing storage is reported as zero size.
+        chai_1.assert.strictEqual(sizes.sizesForBackingStorage.shallowSize, 0);
+        // The backing storage retains 100 strings, which occupy at least 16 bytes each.
+        chai_1.assert.isTrue(sizes.sizesForBackingStorage.retainedSize >= 1600);
+    });
 });
 //# sourceMappingURL=memory_test.js.map

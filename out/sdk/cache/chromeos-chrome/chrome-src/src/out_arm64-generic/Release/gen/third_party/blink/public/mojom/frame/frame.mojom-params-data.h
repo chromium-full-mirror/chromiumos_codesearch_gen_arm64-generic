@@ -562,6 +562,22 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_UpdateTi
 };
 static_assert(sizeof(LocalFrameHost_UpdateTitle_Params_Data) == 24,
               "Bad sizeof(LocalFrameHost_UpdateTitle_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_UpdateAppTitle_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> app_title;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrameHost_UpdateAppTitle_Params_Data>;
+
+  LocalFrameHost_UpdateAppTitle_Params_Data();
+  ~LocalFrameHost_UpdateAppTitle_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrameHost_UpdateAppTitle_Params_Data) == 16,
+              "Bad sizeof(LocalFrameHost_UpdateAppTitle_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_UpdateUserActivationState_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1214,6 +1230,36 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendFenc
 };
 static_assert(sizeof(LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data) == 16,
               "Bad sizeof(LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data>;
+
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data();
+  ~LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data) == 8,
+              "Bad sizeof(LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data>;
+
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data();
+  ~LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data) == 8,
+              "Bad sizeof(LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendLegacyTechEvent_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3695,6 +3741,32 @@ static_assert(
 };
 
 
+class LocalFrameHost_UpdateAppTitle_ParamsDataView {
+ public:
+  LocalFrameHost_UpdateAppTitle_ParamsDataView() = default;
+
+  LocalFrameHost_UpdateAppTitle_ParamsDataView(
+      internal::LocalFrameHost_UpdateAppTitle_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetAppTitleDataView(
+      ::mojo_base::mojom::String16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAppTitle(UserType* output) {
+    
+    auto* pointer = data_->app_title.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::LocalFrameHost_UpdateAppTitle_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class LocalFrameHost_UpdateUserActivationState_ParamsDataView {
  public:
   LocalFrameHost_UpdateUserActivationState_ParamsDataView() = default;
@@ -4872,6 +4944,36 @@ class LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataView {
  private:
   internal::LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ParamsDataView {
+ public:
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ParamsDataView() = default;
+
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ParamsDataView(
+      internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data* data_ = nullptr;
+};
+
+
+class LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParamsDataView {
+ public:
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParamsDataView() = default;
+
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParamsDataView(
+      internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -7795,6 +7897,13 @@ inline void LocalFrameHost_UpdateTitle_ParamsDataView::GetTitleDataView(
 }
 
 
+inline void LocalFrameHost_UpdateAppTitle_ParamsDataView::GetAppTitleDataView(
+    ::mojo_base::mojom::String16DataView* output) {
+  auto pointer = data_->app_title.Get();
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
+
+
 
 
 
@@ -8054,6 +8163,10 @@ inline void LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataV
   auto pointer = data_->destination_url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
 }
+
+
+
+
 
 
 inline void LocalFrameHost_SendLegacyTechEvent_ParamsDataView::GetTypeDataView(

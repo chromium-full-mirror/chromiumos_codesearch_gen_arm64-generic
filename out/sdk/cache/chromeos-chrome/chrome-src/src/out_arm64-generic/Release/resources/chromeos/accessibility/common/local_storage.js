@@ -1,16 +1,13 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Class to handle accessing/storing/caching local storage data.
- */
 export class LocalStorage {
     values_ = null;
     keyCallbacks_ = {};
     static instance;
     constructor(onInit) {
-        chrome.storage.local.get(undefined /* get all values */, values => this.onInitialGet_(values, onInit));
-        chrome.storage.local.onChanged.addListener(updates => this.update_(updates));
+        chrome.storage.local.get(undefined /* get all values */, (values) => this.onInitialGet_(values, onInit));
+        chrome.storage.local.onChanged.addListener((updates) => this.update_(updates));
     }
     // ========== Static methods ==========
     static async init() {

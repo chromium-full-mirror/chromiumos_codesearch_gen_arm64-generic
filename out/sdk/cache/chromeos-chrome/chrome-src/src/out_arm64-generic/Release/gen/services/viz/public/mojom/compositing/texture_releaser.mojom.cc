@@ -170,6 +170,8 @@ bool TextureReleaserStubDispatch::Accept(
           reinterpret_cast<internal::TextureReleaser_Release_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextureReleaser.0
       bool success = true;
       ::gpu::SyncToken p_sync_token{};
       bool p_is_lost{};
@@ -188,9 +190,9 @@ bool TextureReleaserStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Release(
-std::move(p_sync_token), 
-std::move(p_is_lost));
+      impl->Release(        
+        std::move(p_sync_token), 
+        std::move(p_is_lost));
       return true;
     }
   }

@@ -42,10 +42,19 @@ export function staticColorSelectedReducer(state, action, _) {
             return state;
     }
 }
+export function geolocationPermissionEnabledReducer(state, action, _) {
+    switch (action.name) {
+        case ThemeActionName.SET_GEOLOCATION_PERMISSION_ENABLED:
+            return action.enabled;
+        default:
+            return state;
+    }
+}
 export const themeReducers = {
     colorModeAutoScheduleEnabled: colorModeAutoScheduleEnabledReducer,
     darkModeEnabled: darkModeEnabledReducer,
     colorSchemeSelected: colorSchemeSelectedReducer,
     sampleColorSchemes: sampleColorSchemesReducer,
     staticColorSelected: staticColorSelectedReducer,
+    geolocationPermissionEnabled: geolocationPermissionEnabledReducer,
 };

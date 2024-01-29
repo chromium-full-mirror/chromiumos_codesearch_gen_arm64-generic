@@ -10,7 +10,6 @@ import { isSinglePartitionFormatEnabled } from '../../common/js/flags.js';
 import { waitUntil } from '../../common/js/test_error_reporting.js';
 import { str } from '../../common/js/translations.js';
 import { RootType, VolumeType } from '../../common/js/volume_manager_types.js';
-import { FileData, State, Volume } from '../../externs/ts/state.js';
 import { ICON_TYPES } from '../../foreground/js/constants.js';
 import { convertEntryToFileData } from '../ducks/all_entries.js';
 import { createFakeVolumeMetadata, setUpFileManagerOnWindow, setupStore, waitDeepEquals } from '../for_tests.js';

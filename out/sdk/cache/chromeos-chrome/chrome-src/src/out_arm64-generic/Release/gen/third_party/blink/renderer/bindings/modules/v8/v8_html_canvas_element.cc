@@ -181,7 +181,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.captureStream");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLCanvasElement.captureStream", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvasCaptureStream);
 
@@ -199,8 +200,7 @@ const char* const property_name = "captureStream";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   return_value = HTMLCanvasElementCapture::captureStream(script_state, *blink_receiver, exception_state);
@@ -260,7 +260,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.getContext");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLCanvasElement.getContext", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kHTMLCanvasGetContext);
 
@@ -277,10 +278,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_context_id = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -300,9 +299,7 @@ auto&& return_value = HTMLCanvasElementModule::getContext(*blink_receiver, arg1_
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLNullable<V8UnionCanvasRenderingContext2DOrGPUCanvasContextOrImageBitmapRenderingContextOrWebGL2RenderingContextOrWebGLRenderingContext>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionCanvasRenderingContext2DOrGPUCanvasContextOrImageBitmapRenderingContextOrWebGL2RenderingContextOrWebGLRenderingContext>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -315,7 +312,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.toBlob");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLCanvasElement.toBlob", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvasToBlob);
 
@@ -374,7 +372,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.toDataURL");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLCanvasElement.toDataURL", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvasToDataURL);
 
@@ -424,7 +423,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLCanvasElement.transferControlToOffscreen");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kOffscreenCanvas);
 
@@ -434,8 +434,7 @@ UseCounter::Count(current_execution_context, WebFeature::kOffscreenCanvas);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLCanvasElement* blink_receiver = V8HTMLCanvasElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;

@@ -62,8 +62,7 @@ class CONTENT_EXPORT RenderMessageFilter
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    0, 
-    1
+    0
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -77,16 +76,12 @@ class CONTENT_EXPORT RenderMessageFilter
   using ResponseValidator_ = RenderMessageFilterResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGenerateFrameRoutingIDMinVersion = 0,
-    kHasGpuProcessMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct GenerateFrameRoutingID_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct HasGpuProcess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -100,15 +95,6 @@ class CONTENT_EXPORT RenderMessageFilter
   using GenerateFrameRoutingIDCallback = base::OnceCallback<void(int32_t, const ::blink::LocalFrameToken&, const ::base::UnguessableToken&, const ::blink::DocumentToken&)>;
   
   virtual void GenerateFrameRoutingID(GenerateFrameRoutingIDCallback callback) = 0;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool HasGpuProcess(bool* out_has_gpu_process);
-
-  using HasGpuProcessCallback = base::OnceCallback<void(bool)>;
-  
-  virtual void HasGpuProcess(HasGpuProcessCallback callback) = 0;
 };
 
 
@@ -123,10 +109,6 @@ class CONTENT_EXPORT RenderMessageFilterProxy
   bool GenerateFrameRoutingID(int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token) final;
   
   void GenerateFrameRoutingID(GenerateFrameRoutingIDCallback callback) final;
-  
-  bool HasGpuProcess(bool* out_has_gpu_process) final;
-  
-  void HasGpuProcess(HasGpuProcessCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

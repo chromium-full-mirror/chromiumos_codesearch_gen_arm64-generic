@@ -1,61 +1,3 @@
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Exif marks.
- */
-var ExifMark;
-(function (ExifMark) {
-    // Start of "stream" (the actual image data).
-    ExifMark[ExifMark["SOS"] = 65498] = "SOS";
-    // Start of "frame".
-    ExifMark[ExifMark["SOF"] = 65472] = "SOF";
-    // Start of image data.
-    ExifMark[ExifMark["SOI"] = 65496] = "SOI";
-    // End of image data.
-    ExifMark[ExifMark["EOI"] = 65497] = "EOI";
-    // APP0 block, most commonly JFIF data.
-    ExifMark[ExifMark["APP0"] = 65504] = "APP0";
-    // Start of exif block.
-    ExifMark[ExifMark["EXIF"] = 65505] = "EXIF";
-})(ExifMark || (ExifMark = {}));
-/**
- * Exif align.
- */
-var ExifAlign;
-(function (ExifAlign) {
-    // Indicates little endian exif data.
-    ExifAlign[ExifAlign["LITTLE"] = 18761] = "LITTLE";
-    // Indicates big endian exif data.
-    ExifAlign[ExifAlign["BIG"] = 19789] = "BIG";
-})(ExifAlign || (ExifAlign = {}));
-/**
- * Exif tag.
- */
-var ExifTag;
-(function (ExifTag) {
-    // First directory containing TIFF data.
-    ExifTag[ExifTag["TIFF"] = 42] = "TIFF";
-    // Pointer from TIFF to the GPS directory.
-    ExifTag[ExifTag["GPSDATA"] = 34853] = "GPSDATA";
-    // Pointer from TIFF to the EXIF IFD.
-    ExifTag[ExifTag["EXIFDATA"] = 34665] = "EXIFDATA";
-    // Pointer from TIFF to thumbnail.
-    ExifTag[ExifTag["JPG_THUMB_OFFSET"] = 513] = "JPG_THUMB_OFFSET";
-    // Length of thumbnail data.
-    ExifTag[ExifTag["JPG_THUMB_LENGTH"] = 514] = "JPG_THUMB_LENGTH";
-    ExifTag[ExifTag["IMAGE_WIDTH"] = 256] = "IMAGE_WIDTH";
-    ExifTag[ExifTag["IMAGE_HEIGHT"] = 257] = "IMAGE_HEIGHT";
-    ExifTag[ExifTag["COMPRESSION"] = 258] = "COMPRESSION";
-    ExifTag[ExifTag["MAKE"] = 271] = "MAKE";
-    ExifTag[ExifTag["MODEL"] = 272] = "MODEL";
-    ExifTag[ExifTag["ORIENTATION"] = 274] = "ORIENTATION";
-    ExifTag[ExifTag["DATETIME"] = 306] = "DATETIME";
-    ExifTag[ExifTag["X_DIMENSION"] = 40962] = "X_DIMENSION";
-    ExifTag[ExifTag["Y_DIMENSION"] = 40963] = "Y_DIMENSION";
-    ExifTag[ExifTag["SOFTWARE"] = 305] = "SOFTWARE";
-})(ExifTag || (ExifTag = {}));
-
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -126,7 +68,7 @@ class ByteReader {
         const codes = [];
         for (let i = 0; i < size; ++i) {
             const code = dataView.getUint8(pos + i);
-            if (code == 0) {
+            if (code === 0) {
                 break;
             }
             codes.push(code);
@@ -151,13 +93,13 @@ class ByteReader {
         let littleEndian = false;
         let start = 0;
         if (bom) {
-            littleEndian = (dataView.getUint8(pos) == 0xFF);
+            littleEndian = (dataView.getUint8(pos) === 0xFF);
             start = 2;
         }
         const codes = [];
         for (let i = start; i < size; i += 2) {
             const code = dataView.getUint16(pos + i, littleEndian);
-            if (code == 0) {
+            if (code === 0) {
                 break;
             }
             codes.push(code);
@@ -273,7 +215,7 @@ class ByteReader {
      * @param order Byte order. Either LITTLE_ENDIAN or BIG_ENDIAN.
      */
     setByteOrder(order) {
-        this.littleEndian_ = order == ByteOrder.LITTLE_ENDIAN;
+        this.littleEndian_ = order === ByteOrder.LITTLE_ENDIAN;
     }
     /**
      * Throw an error if the reader is at an invalid position, or if a read a read
@@ -286,7 +228,7 @@ class ByteReader {
      * @param end Maximum position to read from.
      */
     validateRead(size, end) {
-        if (typeof end == 'undefined') {
+        if (typeof end === 'undefined') {
             end = this.view_.byteLength;
         }
         ByteReader.validateRead(this.pos_, size, end);
@@ -301,7 +243,7 @@ class ByteReader {
         this.validateRead(width, end);
         const method = WIDTH_TO_DATA_VIEW_METHOD[width][signed ? 1 : 0];
         let rv;
-        if (method == 'getInt8' || method == 'getUint8') {
+        if (method === 'getInt8' || method === 'getUint8') {
             rv = this.view_[method](this.pos_);
         }
         else {
@@ -411,10 +353,10 @@ class ByteReader {
     seek(pos, seekStart = SeekOrigin.SEEK_BEG, end) {
         end = end || this.view_.byteLength;
         let newPos;
-        if (seekStart == SeekOrigin.SEEK_CUR) {
+        if (seekStart === SeekOrigin.SEEK_CUR) {
             newPos = this.pos_ + pos;
         }
-        else if (seekStart == SeekOrigin.SEEK_END) {
+        else if (seekStart === SeekOrigin.SEEK_END) {
             newPos = end + pos;
         }
         else {
@@ -445,7 +387,7 @@ class ByteReader {
      */
     popSeek() {
         const lastSeek = this.seekStack_.pop();
-        if (lastSeek != undefined) {
+        if (lastSeek !== undefined) {
             this.seek(lastSeek);
         }
     }
@@ -480,6 +422,64 @@ const WIDTH_TO_DATA_VIEW_METHOD = {
     2: ['getUint16', 'getInt16'],
     4: ['getUint32', 'getInt32'],
 };
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Exif marks.
+ */
+var ExifMark;
+(function (ExifMark) {
+    // Start of "stream" (the actual image data).
+    ExifMark[ExifMark["SOS"] = 65498] = "SOS";
+    // Start of "frame".
+    ExifMark[ExifMark["SOF"] = 65472] = "SOF";
+    // Start of image data.
+    ExifMark[ExifMark["SOI"] = 65496] = "SOI";
+    // End of image data.
+    ExifMark[ExifMark["EOI"] = 65497] = "EOI";
+    // APP0 block, most commonly JFIF data.
+    ExifMark[ExifMark["APP0"] = 65504] = "APP0";
+    // Start of exif block.
+    ExifMark[ExifMark["EXIF"] = 65505] = "EXIF";
+})(ExifMark || (ExifMark = {}));
+/**
+ * Exif align.
+ */
+var ExifAlign;
+(function (ExifAlign) {
+    // Indicates little endian exif data.
+    ExifAlign[ExifAlign["LITTLE"] = 18761] = "LITTLE";
+    // Indicates big endian exif data.
+    ExifAlign[ExifAlign["BIG"] = 19789] = "BIG";
+})(ExifAlign || (ExifAlign = {}));
+/**
+ * Exif tag.
+ */
+var ExifTag;
+(function (ExifTag) {
+    // First directory containing TIFF data.
+    ExifTag[ExifTag["TIFF"] = 42] = "TIFF";
+    // Pointer from TIFF to the GPS directory.
+    ExifTag[ExifTag["GPSDATA"] = 34853] = "GPSDATA";
+    // Pointer from TIFF to the EXIF IFD.
+    ExifTag[ExifTag["EXIFDATA"] = 34665] = "EXIFDATA";
+    // Pointer from TIFF to thumbnail.
+    ExifTag[ExifTag["JPG_THUMB_OFFSET"] = 513] = "JPG_THUMB_OFFSET";
+    // Length of thumbnail data.
+    ExifTag[ExifTag["JPG_THUMB_LENGTH"] = 514] = "JPG_THUMB_LENGTH";
+    ExifTag[ExifTag["IMAGE_WIDTH"] = 256] = "IMAGE_WIDTH";
+    ExifTag[ExifTag["IMAGE_HEIGHT"] = 257] = "IMAGE_HEIGHT";
+    ExifTag[ExifTag["COMPRESSION"] = 258] = "COMPRESSION";
+    ExifTag[ExifTag["MAKE"] = 271] = "MAKE";
+    ExifTag[ExifTag["MODEL"] = 272] = "MODEL";
+    ExifTag[ExifTag["ORIENTATION"] = 274] = "ORIENTATION";
+    ExifTag[ExifTag["DATETIME"] = 306] = "DATETIME";
+    ExifTag[ExifTag["X_DIMENSION"] = 40962] = "X_DIMENSION";
+    ExifTag[ExifTag["Y_DIMENSION"] = 40963] = "Y_DIMENSION";
+    ExifTag[ExifTag["SOFTWARE"] = 305] = "SOFTWARE";
+})(ExifTag || (ExifTag = {}));
 
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -1057,7 +1057,7 @@ class Id3Parser extends MetadataParser {
         frame.pictureType = reader.readScalar(1, false, end);
         frame.description =
             this.readString_(reader, frame.encoding, end - reader.tell());
-        if (frame.format == '-->') {
+        if (frame.format === '-->') {
             frame.imageUrl = reader.readNullTerminatedString(end - reader.tell());
         }
         else {
@@ -1077,7 +1077,7 @@ class Id3Parser extends MetadataParser {
         frame.pictureType = reader.readScalar(1, false, end);
         frame.description =
             this.readString_(reader, frame.encoding, end - reader.tell());
-        if (frame.mime == '-->') {
+        if (frame.mime === '-->') {
             frame.imageUrl = reader.readNullTerminatedString(end - reader.tell());
         }
         else {
@@ -1102,9 +1102,9 @@ class Id3Parser extends MetadataParser {
         };
         reader.pushSeek(reader.tell(), SeekOrigin.SEEK_BEG);
         const position = reader.tell();
-        frame.name = (majorVersion == 2) ? reader.readNullTerminatedString(3) :
+        frame.name = (majorVersion === 2) ? reader.readNullTerminatedString(3) :
             reader.readNullTerminatedString(4);
-        if (frame.name == '') {
+        if (frame.name === '') {
             return null;
         }
         this.vlog('Found frame ' + (frame.name) + ' at position ' + position);
@@ -1129,7 +1129,7 @@ class Id3Parser extends MetadataParser {
         if (handler) {
             handler.call(this, reader, majorVersion, frame, reader.tell() + frame.size);
         }
-        else if (frame.name.charAt(0) == 'T' || frame.name.charAt(0) == 'W') {
+        else if (frame.name.charAt(0) === 'T' || frame.name.charAt(0) === 'W') {
             this.readTextFrame_(reader, majorVersion, frame, reader.tell() + frame.size);
         }
         reader.popSeek();
@@ -1147,7 +1147,7 @@ class Id3Parser extends MetadataParser {
         // last 128 bytes should be placed ID3v1 tag if available.
         const reader = await MetadataParser.readFileBytes(file, file.size - 128, file.size);
         // Attempts to extract ID3v1 tag from 128 bytes long ByteBuffer
-        if (reader.readString(3) == 'TAG') {
+        if (reader.readString(3) === 'TAG') {
             this.vlog('id3v1 found');
             const title = reader.readNullTerminatedString(30).trim();
             if (title.length > 0) {
@@ -1192,12 +1192,12 @@ class Id3Parser extends MetadataParser {
         // Extract all ID3v2 frames
         reader = await MetadataParser.readFileBytes(file, 10, 10 + id3v2.size);
         if ((id3v2.majorVersion > 2) &&
-            ((id3v2.flags & Id3Parser.V2.FLAG_EXTENDED_HEADER) != 0)) {
+            ((id3v2.flags & Id3Parser.V2.FLAG_EXTENDED_HEADER) !== 0)) {
             // Skip extended header if found
-            if (id3v2.majorVersion == 3) {
+            if (id3v2.majorVersion === 3) {
                 reader.seek(reader.readScalar(4, false) - 4);
             }
-            else if (id3v2.majorVersion == 4) {
+            else if (id3v2.majorVersion === 4) {
                 reader.seek(Id3Parser.readSynchSafe_(reader, 4) - 4);
             }
         }
@@ -1555,12 +1555,12 @@ class PngParser extends SimpleImageParser {
     parseHeader(metadata, br) {
         br.setByteOrder(ByteOrder.BIG_ENDIAN);
         const signature = br.readString(8);
-        if (signature != '\x89PNG\x0D\x0A\x1A\x0A') {
+        if (signature !== '\x89PNG\x0D\x0A\x1A\x0A') {
             throw new Error('Invalid PNG signature: ' + signature);
         }
         br.seek(12);
         const ihdr = br.readString(4);
-        if (ihdr != 'IHDR') {
+        if (ihdr !== 'IHDR') {
             throw new Error('Missing IHDR chunk');
         }
         metadata.width = br.readScalar(4);
@@ -1577,7 +1577,7 @@ class BmpParser extends SimpleImageParser {
     parseHeader(metadata, br) {
         br.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         const signature = br.readString(2);
-        if (signature != 'BM') {
+        if (signature !== 'BM') {
             throw new Error('Invalid BMP signature: ' + signature);
         }
         br.seek(18);
@@ -1612,12 +1612,12 @@ class WebpParser extends SimpleImageParser {
     parseHeader(metadata, br) {
         br.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         const riffSignature = br.readString(4);
-        if (riffSignature != 'RIFF') {
+        if (riffSignature !== 'RIFF') {
             throw new Error('Invalid RIFF signature: ' + riffSignature);
         }
         br.seek(8);
         const webpSignature = br.readString(4);
-        if (webpSignature != 'WEBP') {
+        if (webpSignature !== 'WEBP') {
             throw new Error('Invalid WEBP signature: ' + webpSignature);
         }
         const chunkFormat = br.readString(4);
@@ -1626,7 +1626,7 @@ class WebpParser extends SimpleImageParser {
             case 'VP8 ':
                 br.seek(23);
                 const lossySignature = br.readScalar(2) | (br.readScalar(1) << 16);
-                if (lossySignature != 0x2a019d) {
+                if (lossySignature !== 0x2a019d) {
                     throw new Error('Invalid VP8 lossy bitstream signature: ' + lossySignature);
                 }
                 {
@@ -1639,7 +1639,7 @@ class WebpParser extends SimpleImageParser {
             case 'VP8L':
                 br.seek(20);
                 const losslessSignature = br.readScalar(1);
-                if (losslessSignature != 0x2f) {
+                if (losslessSignature !== 0x2f) {
                     throw new Error('Invalid VP8 lossless bitstream signature: ' + losslessSignature);
                 }
                 {
@@ -1728,7 +1728,7 @@ class MpegParser extends MetadataParser {
                     return null;
                 }
                 atom = atom.parent;
-                if (atom.name == name) {
+                if (atom.name === name) {
                     return atom;
                 }
             }
@@ -1738,7 +1738,7 @@ class MpegParser extends MetadataParser {
         }
         function parseMvhd(br, atom) {
             const version = br.readScalar(4, false, atom.end);
-            const offset = (version == 0) ? 8 : 16;
+            const offset = (version === 0) ? 8 : 16;
             br.seek(offset, SeekOrigin.SEEK_CUR);
             const timescale = br.readScalar(4, false, atom.end);
             const duration = br.readScalar(4, false, atom.end);
@@ -1754,7 +1754,7 @@ class MpegParser extends MetadataParser {
         }
         function parseStsd(br, atom) {
             const track = findParentAtom(atom, 'trak');
-            if (track && track.trackType == 'vide') {
+            if (track && track.trackType === 'vide') {
                 br.seek(40, SeekOrigin.SEEK_CUR);
                 metadata.width = br.readScalar(2, false, atom.end);
                 metadata.height = br.readScalar(2, false, atom.end);
@@ -1857,7 +1857,7 @@ class MpegParser extends MetadataParser {
      */
     parseMpegAtomsInRange(parser, br, parentAtom, filePos) {
         let count = 0;
-        for (let offset = parentAtom.start; offset != parentAtom.end;) {
+        for (let offset = parentAtom.start; offset !== parentAtom.end;) {
             if (count++ > 100) {
                 // Most likely we are looping through a corrupt file.
                 throw new Error('too many child atoms in ' + parentAtom.name + ' @' + offset);
@@ -1911,7 +1911,7 @@ class MpegParser extends MetadataParser {
             const bufLength = buf.byteLength;
             // Check the available data size. It should be either exactly
             // what we requested or HEADER_SIZE bytes less (for the last atom).
-            if (bufLength != atomEnd && bufLength != size) {
+            if (bufLength !== atomEnd && bufLength !== size) {
                 throw new Error('Read failure @' + filePos + ', ' +
                     'requested ' + size + ', read ' + bufLength);
             }
@@ -1920,7 +1920,7 @@ class MpegParser extends MetadataParser {
                 this.applyParser(rootParser[name], br, { start: 0, end: atomEnd, name: name }, filePos);
             }
             filePos += bufLength;
-            if (bufLength == size) {
+            if (bufLength === size) {
                 // The previous read returned everything we asked for, including
                 // the next atom header at the end of the buffer.
                 // Parse this header and schedule the next read.
@@ -2119,7 +2119,7 @@ class MetadataDispatcher {
 // a terrible name since we use it all over the chrome codebase to capture
 // the 'this' keyword in lambdas.
 const global = self;
-if (global.constructor.name == 'SharedWorkerGlobalScope') {
+if (global.constructor.name === 'SharedWorkerGlobalScope') {
     global.addEventListener('connect', e => {
         const port = e.ports[0];
         new MetadataDispatcher(port);

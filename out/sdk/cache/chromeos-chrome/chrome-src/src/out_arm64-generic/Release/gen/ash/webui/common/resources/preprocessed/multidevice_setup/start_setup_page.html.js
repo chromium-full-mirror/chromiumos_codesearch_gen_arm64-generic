@@ -3,14 +3,12 @@ export function getTemplate() {
   return html`<!--_html_template_start_--><style include="multidevice-setup-shared">
   #singleDeviceName {
     color: var(--cros-sys-on_surface);
+    font: var(--cros-body-2-font);
+    font-family: var(--cros-font-family-google-sans);
   }
 
   .offline-device-name {
     color: var(--cros-sys-on_surface_variant);
-  }
-
-  :host-context(body.jelly-enabled) #singleDeviceName,
-                                    .offline-device-name {
     font: var(--cros-body-2-font);
     font-family: var(--cros-font-family-google-sans);
   }
@@ -77,12 +75,9 @@ export function getTemplate() {
 
   #feature-details-container {
     color: var(--cros-sys-on_surface);
-    padding-top: 40px;
-  }
-
-  :host-context(body.jelly-enabled) #feature-details-container {
     font: var(--cros-body-1-font);
     font-family: var(--cros-font-family-google-sans);
+    padding-top: 40px;
   }
 
   .feature-detail:not(:last-of-type) {
@@ -116,13 +111,8 @@ export function getTemplate() {
     icon-name="google-g">
   <span slot="message">
     <div id="animation-container">
-      <!-- TODO(b/279667779): Remove iron-media-query and dark mode check when
-                              Jelly is fully launched. -->
-      <iron-media-query query="(prefers-color-scheme: dark)"
-          query-matches="{{isDarkModeActive_}}">
-      </iron-media-query>
       <cros-lottie-renderer id="multideviceSetupAnimation"
-          asset-url="[[getAnimationUrl_(isDarkModeActive_, isJellyEnabled_)]]"
+          asset-url="[[getAnimationUrl_()]]"
           autoplay="true" dynamic="true" aria-hidden="true">
       </cros-lottie-renderer>
     </div>

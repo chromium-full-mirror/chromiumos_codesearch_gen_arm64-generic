@@ -1,4 +1,4 @@
-import { html, PolymerElement, Polymer, useShadow, dom, dashToCamelCase, mixinBehaviors, Base, dedupingMixin, afterNextRender, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, PolymerElement, Polymer, useShadow, dom, dashToCamelCase, dedupingMixin, Base, afterNextRender, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, mixinBehaviors } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
@@ -240,8 +240,8 @@ styleMod$7.appendChild(html `
 `.content);
 styleMod$7.register('cr-shared-style');
 
-function getTemplate$V() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+function getTemplate$W() {
+    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
             var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
@@ -264,7 +264,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -2706,128 +2706,128 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
 
-function getTemplate$U() {
+  return PaperRippleMixin;
+});
+
+function getTemplate$V() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -2857,13 +2857,13 @@ function getTemplate$U() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -3023,7 +3023,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -3448,7 +3448,7 @@ Polymer({
   }
 });
 
-function getTemplate$T() {
+function getTemplate$U() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -3500,13 +3500,13 @@ function getTemplate$T() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -3932,6 +3932,9 @@ const template$6 = html `
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
       </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
+      </g>
       
         <g id="banner-warning">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
@@ -4183,7 +4186,7 @@ const template$6 = html `
 `;
 document.head.appendChild(template$6.content);
 
-function getTemplate$S() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -4223,7 +4226,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -4860,7 +4863,7 @@ function getTrustedHTML(literal) {
     return staticPolicy.createHTML('', literal);
 }
 
-function getTemplate$R() {
+function getTemplate$S() {
     return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
@@ -4904,7 +4907,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return 'cr-a11y-announcer';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$S();
     }
     disconnectedCallback() {
         if (this.currentTimeout_ !== null) {
@@ -5291,7 +5294,7 @@ class PluralStringProxyImpl {
 }
 let instance$6 = null;
 
-function getTemplate$Q() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#checkupContent{margin-top:16px}#checkupStatus{align-items:center;display:flex;min-height:72px}#illustartion{align-items:center;background-color:var(--google-grey-50);border-top-left-radius:inherit;border-top-right-radius:inherit;display:flex;height:120px;justify-content:center}@media (prefers-color-scheme:dark){#illustartion{background-color:#1f1f1f}}#bannerImage{height:96px}#spinner{--paper-spinner-stroke-width:2px;height:16px;line-height:100%;margin-inline-start:20px;width:16px}#labelWrapper{flex:1;margin-inline-end:var(--control-label-spacing);margin-inline-start:20px}#refreshButton{margin-inline-end:10px}#retryButton{margin-inline-end:20px}cr-link-row[non-clickable]::part(icon){display:none}cr-link-row{--cr-link-row-start-icon-color:var(--google-green-700);--cr-link-row-icon-width:16px}cr-link-row[show-yellow-icon]{--cr-link-row-start-icon-color:var(--google-yellow-700)}cr-link-row[show-red-icon]{--cr-link-row-start-icon-color:var(--google-red-600)}@media (prefers-color-scheme:dark){cr-link-row{--cr-link-row-start-icon-color:var(--google-green-300)}cr-link-row[show-yellow-icon]{--cr-link-row-start-icon-color:var(--google-yellow-300)}cr-link-row[show-red-icon]{--cr-link-row-start-icon-color:var(--google-red-300)}}#checkupResult,#weakRow{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
 <h2 class="page-title">$i18n{checkupTitle}</h2>
 <div id="checkupContent" class="card">
@@ -5750,7 +5753,7 @@ class CheckupSectionElement extends CheckupSectionElementBase {
         return 'checkup-section';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -6488,7 +6491,7 @@ class FocusRow {
     }
 }
 
-function getTemplate$P() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
             var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
                 var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
@@ -6577,7 +6580,7 @@ class CrActionMenuElement extends PolymerElement {
         return 'cr-action-menu';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -6863,11 +6866,12 @@ class CrActionMenuElement extends PolymerElement {
 }
 customElements.define(CrActionMenuElement.is, CrActionMenuElement);
 
-function getTemplate$O() {
+function getTemplate$P() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
+    </cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -6884,7 +6888,7 @@ class CrExpandButtonElement extends PolymerElement {
         return 'cr-expand-button';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -6897,7 +6901,6 @@ class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -6919,13 +6922,12 @@ class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
-                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
-                observer: 'onIconChange_',
             },
+            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -6936,7 +6938,10 @@ class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
+        return [
+            'updateAriaExpanded_(disabled, expanded)',
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
     }
     ready() {
         super.ready();
@@ -6961,14 +6966,8 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
     updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
@@ -7392,7 +7391,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$N() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
     <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
@@ -7447,7 +7446,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -7714,7 +7713,7 @@ styleMod$4.appendChild(html `
 `.content);
 styleMod$4.register('cr-input-style');
 
-function getTemplate$M() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -7757,7 +7756,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -7983,7 +7982,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$L() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">textarea{display:block;resize:none}#input-container{background-color:var(--cr-input-background-color)}:host([autogrow][has-max-height]) #input-container{box-sizing:content-box;max-height:var(--cr-textarea-autogrow-max-height);min-height:1lh}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}:host-context([chrome-refresh-2023]) #input{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#footerContainer{border-top:0;display:var(--cr-textarea-footer-display,none);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:space-between;line-height:var(--cr-form-field-label-line-height);margin:8px 0;min-height:0;padding:0;white-space:var(--cr-input-error-white-space)}:host([invalid]) #footerContainer,:host([invalid]) #label{color:var(--cr-input-error-color)}#mirror{display:none}:host([autogrow]) #mirror{display:block;visibility:hidden;white-space:pre-wrap;word-wrap:break-word}:host([autogrow]) #mirror,:host([autogrow]) textarea{border:0;box-sizing:border-box;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px)}:host([autogrow]) textarea{height:100%;left:0;overflow:hidden;position:absolute;resize:none;top:0;width:100%}:host([autogrow][has-max-height]) #mirror,:host([autogrow][has-max-height]) textarea{overflow-x:hidden;overflow-y:auto}:host-context([chrome-refresh-2023]) textarea{position:relative;z-index:1}:host-context([chrome-refresh-2023]):host([autogrow]) textarea{position:absolute}:host-context([chrome-refresh-2023]) #mirror{font-size:12px;line-height:16px}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
@@ -8020,7 +8019,7 @@ class CrTextareaElement extends PolymerElement {
         return 'cr-textarea';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -8391,7 +8390,7 @@ const UserUtilMixin = dedupingMixin((superClass) => {
     return UserUtilMixin;
 });
 
-function getTemplate$K() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style md-select">cr-input:not(:first-of-type){margin-top:var(--cr-form-field-bottom-spacing)}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:32px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}cr-input{--cr-input-error-display:none}cr-textarea{--settings-textarea-footer-display:flex}.md-select{--md-select-width:100%;margin-bottom:var(--cr-form-field-bottom-spacing);margin-top:2px}#websiteInput[show-error-message]{--cr-input-error-display:block}#usernameInput[invalid]{--cr-input-error-display:block}#viewExistingPasswordLink{color:var(--cr-link-color);display:block;font-size:var(--cr-form-field-label-font-size);line-height:1;width:fit-content}#footnote{margin-inline-start:2px;margin-top:16px}.divider{border-top:var(--cr-separator-line);margin:var(--cr-form-field-bottom-spacing) 0}cr-textarea{--cr-textarea-footer-display:flex;--cr-textarea-autogrow-max-height:20lh}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" id="title" class="dialog-title">
@@ -8406,15 +8405,15 @@ function getTemplate$K() {
         $i18n{addPasswordStoreOptionDevice}
       </option>
     </select>
-    <cr-input id="websiteInput" label="$i18n{websiteLabel}" autofocus required placeholder="example.com" value="{{website_}}" invalid="[[isWebsiteInputInvalid_(websiteErrorMessage_)]]" show-error-message$="[[showWebsiteError_(websiteErrorMessage_)]]" error-message="[[websiteErrorMessage_]]" on-input="validateWebsite_" on-blur="onWebsiteInputBlur_">
+    <cr-input id="websiteInput" label="$i18n{websiteLabel}" autofocus required placeholder="example.com" value="{{website_}}" invalid="[[isWebsiteInputInvalid_(websiteErrorMessage_)]]" show-error-message$="[[showWebsiteError_(websiteErrorMessage_)]]" error-message="[[websiteErrorMessage_]]" spellcheck="false" on-input="validateWebsite_" on-blur="onWebsiteInputBlur_">
     </cr-input>
-    <cr-input id="usernameInput" label="$i18n{usernameLabel}" value="{{username_}}" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]" error-message="[[usernameErrorMessage_]]">
+    <cr-input id="usernameInput" label="$i18n{usernameLabel}" value="{{username_}}" spellcheck="false" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]" error-message="[[usernameErrorMessage_]]">
     </cr-input>
     <a id="viewExistingPasswordLink" is="action-link" href="/" on-click="onViewExistingPasswordClick_" aria-description="[[getViewExistingPasswordAriaDescription_(
           urlCollection_, username_)]]" hidden="[[!doesUsernameExistAlready_(usernameErrorMessage_)]]">
       $i18n{viewExistingPassword}
     </a>
-    <cr-input id="passwordInput" label="$i18n{passwordLabel}" type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[isPasswordInvalid_]]" on-blur="onPasswordInput_" on-input="onPasswordInput_" required class="password-input">
+    <cr-input id="passwordInput" label="$i18n{passwordLabel}" type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[isPasswordInvalid_]]" on-blur="onPasswordInput_" on-input="onPasswordInput_" required class="password-input" spellcheck="false">
       <cr-icon-button id="showPasswordButton" slot="inline-suffix" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowHidePasswordButtonClick">
       </cr-icon-button>
     </cr-input>
@@ -8520,7 +8519,7 @@ class AddPasswordDialogElement extends AddPasswordDialogElementBase {
         return 'add-password-dialog';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -8726,7 +8725,7 @@ class AddPasswordDialogElement extends AddPasswordDialogElementBase {
 }
 customElements.define(AddPasswordDialogElement.is, AddPasswordDialogElement);
 
-function getTemplate$J() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">cr-input:not(:first-of-type){margin-top:var(--cr-form-field-bottom-spacing)}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:32px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}cr-input{--cr-input-error-display:none}cr-textarea{--cr-textarea-footer-display:flex;--cr-textarea-autogrow-max-height:20lh}#usernameInput[invalid]{--cr-input-error-display:block}#passwordNote,#usernameInput{margin-top:var(--cr-form-field-bottom-spacing)}#viewExistingPasswordLink{color:var(--cr-link-color);display:block;font-size:var(--cr-form-field-label-font-size);line-height:1;width:fit-content}#footnote{margin-inline-start:2px;margin-top:16px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" id="title" class="dialog-title">
@@ -8741,13 +8740,13 @@ function getTemplate$J() {
         </a>
       </div>
     </template>
-    <cr-input id="usernameInput" label="$i18n{usernameLabel}" autofocus value="{{username_}}" error-message="[[usernameErrorMessage_]]" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]">
+    <cr-input id="usernameInput" label="$i18n{usernameLabel}" autofocus value="{{username_}}" error-message="[[usernameErrorMessage_]]" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]" spellcheck="false">
     </cr-input>
     <a id="viewExistingPasswordLink" is="action-link" href="/" on-click="onViewExistingPasswordClick_" aria-description="[[getViewExistingPasswordAriaDescription_(
           conflictingUsernames_, username_)]]" hidden="[[!showRedirect_(showRedirect, usernameErrorMessage_)]]">
       $i18n{viewExistingPassword}
     </a>
-    <cr-input id="passwordInput" label="$i18n{passwordLabel}" required type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[!password_.length]]" class="password-input">
+    <cr-input id="passwordInput" label="$i18n{passwordLabel}" required type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[!password_.length]]" class="password-input" spellcheck="false">
       <cr-icon-button id="showPasswordButton" slot="inline-suffix" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowHidePasswordButtonClick">
       </cr-icon-button>
     </cr-input>
@@ -8802,7 +8801,7 @@ class EditPasswordDialogElement extends EditPasswordDialogElementBase {
         return 'edit-password-dialog';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -8941,7 +8940,7 @@ class EditPasswordDialogElement extends EditPasswordDialogElementBase {
 }
 customElements.define(EditPasswordDialogElement.is, EditPasswordDialogElement);
 
-function getTemplate$I() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">a[href]{color:var(--cr-link-color)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate ignore-enter-key>
   <div slot="title" class="dialog-title">
@@ -8979,7 +8978,7 @@ class DeletePasswordDisclaimerDialogElement extends DeletePasswordDisclaimerDial
         return 'delete-password-disclaimer-dialog';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -9031,7 +9030,7 @@ class DeletePasswordDisclaimerDialogElement extends DeletePasswordDisclaimerDial
 }
 customElements.define(DeletePasswordDisclaimerDialogElement.is, DeletePasswordDisclaimerDialogElement);
 
-function getTemplate$H() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">[[getDisclaimerTitle_(origin)]]</div>
   <div slot="body">[[getDisclaimerDescription_()]]</div>
@@ -9056,7 +9055,7 @@ class EditPasswordDisclaimerDialogElement extends EditPasswordDisclaimerDialogEl
         return 'edit-password-disclaimer-dialog';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -9355,7 +9354,7 @@ function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma 
     return getImageSet(faviconUrl.toString());
 }
 
-function getTemplate$G() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--site-favicon-height:16px;--site-favicon-width:16px;overflow:hidden}#downloadedFavicon,#favicon{background-size:contain;height:var(--site-favicon-height);width:var(--site-favicon-width)}#downloadedFavicon{display:block}</style>
 <div id="favicon" style="background-image:[[getBackgroundImage_(domain) ]]" hidden="[[showDownloadedIcon_]]">
 </div>
@@ -9384,7 +9383,7 @@ class SiteFaviconElement extends PolymerElement {
         return 'site-favicon';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -9446,7 +9445,7 @@ class OpenWindowProxyImpl {
 }
 let instance$3 = null;
 
-function getTemplate$F() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host{display:flex;flex-direction:column}site-favicon{padding-inline-end:20px}#list-item{align-items:center;display:flex;padding:16px 20px}#credentialInfo{display:grid;flex:2}#insecurePassword{background-color:transparent;border:none;color:var(--cr-secondary-text-color);font-size:inherit;margin-bottom:2px;margin-inline-start:4px;max-width:10ch}#usernameContainer{display:flex}#username{max-width:200px}#changeButton{align-items:flex-end;display:flex;flex-direction:column;margin-inline-start:var(--cr-icon-button-margin-start)}#change-password-link-icon{--iron-icon-width:16px;margin-inline-start:10px}#separator{margin-inline-start:56px}#alreadyChanged{color:var(--cr-link-color);flex:1;margin-top:8px;text-align:end}#changePasswordButton{height:auto;padding:3px 16px}</style>
 <div id="separator" class="hr" hidden="[[first]]"></div>
 <div id="list-item" focus-row-container>
@@ -9511,7 +9510,7 @@ class CheckupListItemElement extends CheckupListItemElementBase {
         return 'checkup-list-item';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -9705,11 +9704,32 @@ const PrefsMixin = dedupingMixin((superClass) => {
                 this.splice(`prefs.${key}.value`, index, 1);
             }
         }
+        /**
+         * Updates the entry in the pref dictionary to the new key value pair.
+         * Asserts if the pref itself is not found or is not a dictionary type.
+         */
+        setPrefDictEntry(prefPath, key, value) {
+            const pref = this.getPref(prefPath);
+            assert(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            pref.value[key] = value;
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
+        /**
+         * Deletes the given key from the pref dictionary if it is
+         * found. Asserts if the pref itself is not found or is not a dictionary
+         * type.
+         */
+        deletePrefDictEntry(prefPath, key) {
+            const pref = this.getPref(prefPath);
+            assert(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            delete pref.value[key];
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
     }
     return PrefsMixin;
 });
 
-function getTemplate$E() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host(:not(.multi-card)){background-color:var(--cr-card-background-color);box-shadow:var(--cr-card-shadow);height:100%}#header{align-items:center;display:flex;padding-top:28px}#title{font-family:Roboto;font-size:14px;font-style:normal;font-weight:500;line-height:20px}#body{margin-top:40px;padding-inline-end:20px;padding-inline-start:20px}#expandMutedCompromisedCredentialsButton,#subtitle{color:var(--cr-secondary-text-color);font-weight:500}#description{margin-top:12px}#backButton{--cr-icon-button-margin-end:6px;--cr-icon-button-margin-start:0px}#insecureCredentials{margin-top:24px}.reuse-title{margin-inline-start:20px;margin-top:24px}iron-icon.policy-disabled{margin-inline-start:var(--cr-controlled-by-spacing)}</style>
 <div id="header">
   <cr-icon-button class="icon-arrow-back" id="backButton" on-click="navigateBack_" aria-label="$i18n{backToCheckup}">
@@ -9797,7 +9817,7 @@ class CheckupDetailsSectionElement extends CheckupDetailsSectionElementBase {
         return 'checkup-details-section';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -10617,7 +10637,7 @@ Polymer({
   }
 });
 
-function getTemplate$D() {
+function getTemplate$E() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -10634,7 +10654,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -10658,13 +10678,13 @@ const styleMod$2 = document.createElement('dom-module');
 styleMod$2.appendChild(html `
   <template>
     <style>
-.card{margin-bottom:44px}.credential-container{padding:12px var(--cr-form-field-bottom-spacing) var(--cr-section-padding)}.row-container{display:flex;margin-top:16px}.column-container{flex:50%;max-width:50%}.button-container{border-top:var(--cr-separator-line);display:flex;margin-top:12px;padding:var(--cr-form-field-bottom-spacing) var(--cr-section-padding)}a.site-link{max-width:324px}.cr-form-field-label{margin-bottom:8px}.card-title{color:var(--cr-secondary-text-color);margin:5px 0}.edit-button{margin-inline-end:var(--cr-button-edge-spacing)}
+.card{margin-bottom:44px}.credential-container{padding:12px var(--cr-form-field-bottom-spacing) var(--cr-section-padding)}.row-container{display:flex;margin-top:16px}.column-container{flex:50%;max-width:50%}.button-container{border-top:var(--cr-separator-line);display:flex;margin-top:12px;padding:var(--cr-form-field-bottom-spacing) var(--cr-section-padding)}a.site-link{max-width:324px}.cr-form-field-label{margin-bottom:8px}.card-title{color:var(--cr-secondary-text-color);margin:5px 0}.edit-button{margin-inline-end:var(--cr-button-edge-spacing)}:host-context([chrome-refresh-2023]) #domainLabel{color:var(--cr-input-label-color);font-size:11px;line-height:16px}
     </style>
   </template>
 `.content);
 styleMod$2.register('credential-details-card');
 
-function getTemplate$C() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -10717,13 +10737,13 @@ function getTemplate$C() {
  *  --cr-checkbox-size
  *  --cr-checkbox-unchecked-box-color
  */
-const CrCheckboxElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrCheckboxElementBase = PaperRippleMixin(PolymerElement);
 class CrCheckboxElement extends CrCheckboxElementBase {
     static get is() {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -10834,7 +10854,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         // :host shouldn't have a tabindex because it's set on #checkbox.
         this.removeAttribute('tabindex');
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.checkbox;
@@ -10847,7 +10867,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
 }
 customElements.define(CrCheckboxElement.is, CrCheckboxElement);
 
-function getTemplate$B() {
+function getTemplate$C() {
     return html `<!--_html_template_start_--><style include="cr-shared-style shared-style">cr-checkbox{display:flex;padding:10px 8px}#avatar{border-radius:50%;height:20px;margin-inline-end:16px;width:20px}.cr-row{padding:0}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title" class="dialog-title">
@@ -10899,7 +10919,7 @@ class MultiStoreDeletePasswordDialogElement extends MultiStoreDeletePasswordDial
         return 'multi-store-delete-password-dialog';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -10990,24 +11010,26 @@ var PasswordSharingActions;
     PasswordSharingActions[PasswordSharingActions["FAMILY_PICKER_CANCELED"] = 9] = "FAMILY_PICKER_CANCELED";
     PasswordSharingActions[PasswordSharingActions["FAMILY_PICKER_VIEW_FAMILY_CLICKED"] = 10] = "FAMILY_PICKER_VIEW_FAMILY_CLICKED";
     PasswordSharingActions[PasswordSharingActions["CONFIRMATION_DIALOG_SHARING_CANCELED"] = 11] = "CONFIRMATION_DIALOG_SHARING_CANCELED";
-    PasswordSharingActions[PasswordSharingActions["CONFIRMATION_DIALOG_LEARN_MORE_CLICKED"] = 12] = "CONFIRMATION_DIALOG_LEARN_MORE_CLICKED";
+    /*  Deprecated in M122 (b/317798360).
+    CONFIRMATION_DIALOG_LEARN_MORE_CLICKED = 12,
+    */
     PasswordSharingActions[PasswordSharingActions["CONFIRMATION_DIALOG_CHANGE_PASSWORD_CLICKED"] = 13] = "CONFIRMATION_DIALOG_CHANGE_PASSWORD_CLICKED";
     PasswordSharingActions[PasswordSharingActions["DIALOG_HEADER_HELP_ICON_BUTTON_CLICKED"] = 14] = "DIALOG_HEADER_HELP_ICON_BUTTON_CLICKED";
     // Must be last.
     PasswordSharingActions[PasswordSharingActions["COUNT"] = 15] = "COUNT";
-    // LINT.ThenChange(//tools/metrics/histograms/enums.xml)
+    // LINT.ThenChange(//tools/metrics/histograms/metadata/password/enums.xml)
 })(PasswordSharingActions || (PasswordSharingActions = {}));
 function recordPasswordSharingInteraction(interaction) {
     chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PasswordSharingDesktop.UserAction', interaction, PasswordSharingActions.COUNT);
 }
 
-function getTemplate$A() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style include="shared-style">:host{align-items:center;display:grid;grid-template-columns:1fr auto;line-height:normal}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:20px;--cr-icon-button-margin-start:0;--cr-icon-button-margin-end:0}</style>
 
 <span class="text-elide">
   <slot></slot>
 </span>
-<cr-icon-button iron-icon="cr:help-outline" id="helpButton" title="$i18n{help}" on-click="onHelpClick_">
+<cr-icon-button iron-icon="cr:help-outline" id="helpButton" title="$i18n{help}" on-click="onHelpClick_" dir="ltr">
 </cr-icon-button>
 <!--_html_template_end_-->`;
 }
@@ -11020,7 +11042,7 @@ class SharePasswordDialogHeaderElement extends PolymerElement {
         return 'share-password-dialog-header';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -11041,8 +11063,8 @@ class SharePasswordDialogHeaderElement extends PolymerElement {
 }
 customElements.define(SharePasswordDialogHeaderElement.is, SharePasswordDialogHeaderElement);
 
-function getTemplate$z() {
-    return html `<!--_html_template_start_--><style include="shared-style">:host{margin-top:8px;padding:8px 24px 8px 8px;border:.5px solid var(--cr-separator-color);border-radius:25px;display:grid;grid-template-columns:auto min-content;column-gap:12px;cursor:pointer}:host([disabled]){cursor:initial}:host([disabled])>.content{opacity:var(--cr-disabled-opacity)}:host(:not([disabled]):not([selected]):is(:hover,:focus)){background:var(--google-grey-100)}:host([selected]){border-color:var(--google-blue-300);background:var(--google-blue-50)}#checkbox{opacity:0;margin:auto;--cr-checkbox-ripple-size:36px}:host(:not([disabled]):is(:hover,:focus)) #checkbox,:host([selected]) #checkbox{opacity:100}:host(:not([disabled]):is(:hover,:focus)) #avatar,:host([selected]) #avatar{opacity:0}.content{display:grid;grid-template-columns:32px auto;column-gap:12px}#avatar{position:absolute;border-radius:50%;height:32px;margin-inline-end:8px;width:32px}.user-data{margin-block:auto}#name{font-size:100%;color:var(--cr-primary-text-color);line-height:normal}#email{font-size:85%;color:var(--cr-secondary-text-color);line-height:normal}.disabled-info{margin-inline-start:auto}#notAvailable{font-size:85%;margin-top:.15rem;white-space:nowrap}cr-tooltip-icon{--cr-icon-size:16px;margin-inline-end:4px}.avatar-checkbox{width:32px;height:32px;margin-block:auto}cr-checkbox::part(label-container){clip:rect(0,0,0,0);display:block;position:fixed}@media (prefers-color-scheme:dark){:host(:not([disabled]):not([selected]):is(:hover,:focus)){background:var(--google-grey-900)}:host([selected]){background:#004a77;border-color:var(--google-blue-600)}}</style>
+function getTemplate$A() {
+    return html `<!--_html_template_start_--><style include="shared-style">:host{margin-top:8px;padding:8px 24px 8px 8px;border:.5px solid var(--cr-separator-color);border-radius:25px;display:grid;grid-template-columns:auto min-content;column-gap:12px;cursor:pointer}:host([disabled]){cursor:initial}:host([disabled])>.content{opacity:var(--cr-disabled-opacity)}:host(:not([disabled]):not([selected]):is(:hover,:focus)){background:var(--google-grey-100)}:host([selected]){border-color:var(--google-blue-300);background:var(--google-blue-50)}#checkbox{opacity:0;margin:auto;--cr-checkbox-ripple-size:36px}:host(:not([disabled]):is(:hover,:focus)) #checkbox,:host([selected]) #checkbox{opacity:100}:host(:not([disabled]):is(:hover,:focus)) #avatar,:host([selected]) #avatar{opacity:0}.content{display:grid;grid-template-columns:32px auto;column-gap:12px}#avatar{position:absolute;border-radius:50%;height:32px;margin-inline-end:8px;width:32px}.user-data{margin-block:auto}#name{font-size:100%;color:var(--cr-primary-text-color);line-height:normal}#email{font-size:85%;color:var(--cr-secondary-text-color);line-height:normal}.disabled-info{margin-inline-start:auto}#notAvailable{font-size:85%;margin-top:.15rem;white-space:nowrap}cr-tooltip-icon{--cr-icon-size:16px;margin-inline-end:4px}.avatar-checkbox{position:relative;width:32px;height:32px;margin-block:auto}cr-checkbox::part(label-container){clip:rect(0,0,0,0);display:block;position:fixed}@media (prefers-color-scheme:dark){:host(:not([disabled]):not([selected]):is(:hover,:focus)){background:var(--google-grey-900)}:host([selected]){background:#004a77;border-color:var(--google-blue-600)}}</style>
 
 <div class="content">
   <div class="flex-centered avatar-checkbox">
@@ -11058,7 +11080,7 @@ function getTemplate$z() {
 </div>
 <template is="dom-if" if="[[disabled]]" restamp>
   <div id="disabled-info" class="flex-centered">
-    <cr-tooltip-icon tooltip-text="$i18n{sharePasswordMemeberUnavailable}" icon-class="cr:info-outline" icon-aria-label="$i18n{sharePasswordMemeberUnavailable}">
+    <cr-tooltip-icon tooltip-text="$i18n{sharePasswordMemeberUnavailable}" icon-class="cr:info-outline" icon-aria-label="[[recipient.displayName]], $i18n{sharePasswordMemeberUnavailable}">
     </cr-tooltip-icon>
     <span id="notAvailable">$i18n{sharePasswordNotAvailable}</span>
   </div>
@@ -11074,7 +11096,7 @@ class SharePasswordRecipientElement extends PolymerElement {
         return 'share-password-recipient';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -11121,7 +11143,7 @@ class SharePasswordRecipientElement extends PolymerElement {
 }
 customElements.define(SharePasswordRecipientElement.is, SharePasswordRecipientElement);
 
-function getTemplate$y() {
+function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="shared-style">a[href]{color:var(--cr-link-color)}#avatar{border-radius:50%;height:32px;margin-inline-end:8px;width:32px}#userAccount{color:var(--cr-secondary-text-color)}#description{padding-bottom:8px}div[slot=footer]{background:var(--google-grey-100);border-top:none;padding:8px 16px}@media (prefers-color-scheme:dark){div[slot=footer]{background:var(--google-grey-900)}}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -11134,7 +11156,7 @@ function getTemplate$y() {
     <div id="description" inner-h-t-m-l="[[i18nAdvanced('sharePasswordFamilyPickerDescription')]]">
     </div>
     <template is="dom-repeat" items="[[eligibleRecipients_]]">
-      <share-password-recipient recipient="[[item]]" on-change="recipientSelected_">
+      <share-password-recipient recipient="[[item]]" selected="[[shouldPreselectFirstEntry_(index)]]" on-change="recipientSelected_">
       </share-password-recipient>
     </template>
     <template is="dom-repeat" items="[[ineligibleRecipients_]]">
@@ -11170,12 +11192,15 @@ class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMixin(Pol
         return 'share-password-family-picker-dialog';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$z();
     }
     static get properties() {
         return {
             dialogTitle: String,
-            members: Array,
+            members: {
+                type: Array,
+                value: [],
+            },
             selectedRecipients: {
                 type: Array,
                 value: [],
@@ -11191,6 +11216,14 @@ class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMixin(Pol
                 computed: 'computeIneligible_(members)',
             },
         };
+    }
+    ready() {
+        super.ready();
+        // Pre-select the member if they are eligible for sharing and there are no
+        // other members in the group.
+        if (this.members.length === 1 && this.computeEligible_().length === 1) {
+            this.selectedRecipients = this.members;
+        }
     }
     computeEligible_() {
         const eligibleMembers = this.members.filter(member => member.isEligible);
@@ -11208,6 +11241,11 @@ class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMixin(Pol
                 .from(this.shadowRoot.querySelectorAll('share-password-recipient'))
                 .filter(item => item.selected)
                 .map(item => item.recipient);
+    }
+    // Should only be called for eligible recipients.
+    shouldPreselectFirstEntry_(index) {
+        // Only pre-select the first entry when there is only single group member.
+        return index === 0 && this.members.length === 1;
     }
     onViewFamilyClick_() {
         recordPasswordSharingInteraction(PasswordSharingActions.FAMILY_PICKER_VIEW_FAMILY_CLICKED);
@@ -11228,7 +11266,7 @@ class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMixin(Pol
 }
 customElements.define(SharePasswordFamilyPickerDialogElement.is, SharePasswordFamilyPickerDialogElement);
 
-function getTemplate$x() {
+function getTemplate$y() {
     return html `<!--_html_template_start_--><style include="shared-style">paper-spinner-lite{display:flex;margin-inline:auto;margin-block:40px 56px}</style>
 
 <cr-dialog close-text="$i18n{close}" show-on-attach>
@@ -11248,7 +11286,7 @@ class SharePasswordLoadingDialogElement extends PolymerElement {
         return 'share-password-loading-dialog';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$y();
     }
     static get properties() {
         return { dialogTitle: { type: String } };
@@ -11256,7 +11294,7 @@ class SharePasswordLoadingDialogElement extends PolymerElement {
 }
 customElements.define(SharePasswordLoadingDialogElement.is, SharePasswordLoadingDialogElement);
 
-function getTemplate$w() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">
     <share-password-dialog-header id="header" is-error>
@@ -11286,7 +11324,7 @@ class SharePasswordErrorDialogElement extends I18nMixin(PolymerElement) {
         return 'share-password-error-dialog';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$x();
     }
     onClickCancel_() {
         recordPasswordSharingInteraction(PasswordSharingActions.ERROR_DIALOG_CANCELED);
@@ -11299,7 +11337,7 @@ class SharePasswordErrorDialogElement extends I18nMixin(PolymerElement) {
 }
 customElements.define(SharePasswordErrorDialogElement.is, SharePasswordErrorDialogElement);
 
-function getTemplate$v() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><style>#description{margin-top:16px}a[href]{color:var(--cr-link-color)}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -11333,7 +11371,7 @@ class SharePasswordNoOtherFamilyMembersDialogElement extends I18nMixin(PolymerEl
         return 'share-password-no-other-family-members-dialog';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -11353,7 +11391,7 @@ class SharePasswordNoOtherFamilyMembersDialogElement extends I18nMixin(PolymerEl
 }
 customElements.define(SharePasswordNoOtherFamilyMembersDialogElement.is, SharePasswordNoOtherFamilyMembersDialogElement);
 
-function getTemplate$u() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style>#description{margin-top:16px}a[href]{color:var(--cr-link-color)}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -11387,7 +11425,7 @@ class SharePasswordNotFamilyMemberDialogElement extends I18nMixin(PolymerElement
         return 'share-password-not-family-member-dialog';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -11407,7 +11445,7 @@ class SharePasswordNotFamilyMemberDialogElement extends I18nMixin(PolymerElement
 }
 customElements.define(SharePasswordNotFamilyMemberDialogElement.is, SharePasswordNotFamilyMemberDialogElement);
 
-function getTemplate$t() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--divider-thickness_:2px;--group-size_:60px;border-radius:50%;overflow:hidden;height:var(--group-size_);width:var(--group-size_);display:flex;gap:var(--divider-thickness_);background-color:#fff}.inner-container{display:flex;flex-direction:column;gap:var(--divider-thickness_);flex:1}#more,img{overflow:hidden;object-fit:cover;flex:1;width:100%;background-color:var(--google-grey-800);color:#fff;display:flex}#more>span{cursor:default;user-select:none;margin-inline-start:5px;margin-block-start:4px}@media (prefers-color-scheme:dark){:host{background-color:var(--google-grey-900)}}</style>
 
 <div class="inner-container" hidden="[[isMembersCountLessThan_(2, members)]]">
@@ -11437,7 +11475,7 @@ class SharePasswordGroupAvatarElement extends PolymerElement {
         return 'share-password-group-avatar';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -11459,18 +11497,18 @@ class SharePasswordGroupAvatarElement extends PolymerElement {
 }
 customElements.define(SharePasswordGroupAvatarElement.is, SharePasswordGroupAvatarElement);
 
-function getTemplate$s() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style">a[href]{color:var(--cr-link-color)}cr-dialog{--cr-dialog-width:320px;--cr-dialog-body-padding-horizontal:16px}.animation-container{height:95px;position:relative;--avatar-radius:30px;--avatar-size_:calc(var(--avatar-radius) * 2)}#favicon,#lock,#progress,#recipientAvatar,#senderAvatar{position:absolute;animation-fill-mode:forwards}#recipientAvatar,#senderAvatar{top:50%;right:50%;transform:translate(50%,-50%);animation-delay:.35s;animation-duration:4.65s;animation-timing-function:ease-in}#senderAvatar{border-radius:50%;height:var(--avatar-size_);width:var(--avatar-size_);z-index:1;animation-name:slideLeft}@keyframes slideLeft{100%{right:calc(50% + var(--avatar-radius) - 4px);z-index:2}10%,90%{right:calc(50% + 78px)}}#recipientAvatar{z-index:2;animation-name:slideRight}@keyframes slideRight{100%{z-index:1;right:calc(50% - var(--avatar-radius) + 4px)}10%,90%{right:calc(50% - 78px)}}#lock{z-index:3;background-color:var(--cr-dialog-background-color,#fff);top:50%;right:50%;width:24px;height:24px;opacity:0;transform:translate(50%,-50%) scale(.5);animation-delay:.8s;animation-duration:4s;animation-timing-function:ease-in;animation-name:lockOpacity}@keyframes lockOpacity{100%{opacity:0;transform:translate(50%,-50%) scale(0)}3%,95%{opacity:1;transform:translate(50%,-50%) scale(1)}}#favicon{--site-favicon-height:22px;--site-favicon-width:22px;background:#fff;z-index:3;border:4px solid #fff;border-radius:7px;top:calc(50% + var(--avatar-radius) - 10px);right:50%;opacity:0;transform:translate(50%,0) scale(0);animation-delay:5s;animation-duration:.15s;animation-timing-function:ease-out;animation-fill-mode:forwards;animation-name:faviconOpacity}@keyframes faviconOpacity{100%{opacity:1;transform:translate(50%,0) scale(1)}}#progress{z-index:0;display:flex;overflow:hidden;top:50%;left:calc(50% - 47px);width:0;animation-delay:1s;animation-duration:3.5s;animation-timing-function:linear;animation-name:progressWidth}@keyframes progressWidth{100%{width:95px;opacity:0}1%,99%{opacity:1}}#description{margin-top:16px}div[slot=footer]{background:var(--google-grey-100);border-top:none;padding:8px 16px}#footerDescription{color:var(--cr-secondary-text-color)}[canceled]>#favicon,[canceled]>#lock,[canceled]>#progress,[canceled]>#recipientAvatar{display:none}[canceled]>#senderAvatar{top:50%;right:50%;transform:translate(50%,-50%);animation:none}@media (prefers-color-scheme:dark){#lock{background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}div[slot=footer]{background:var(--google-grey-900)}#favicon{border-color:var(--google-grey-900);background:var(--google-grey-900)}}</style>
+function getTemplate$t() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style">a[href]{color:var(--cr-link-color)}cr-dialog{--cr-dialog-width:320px;--cr-dialog-body-padding-horizontal:16px}.animation-container{height:95px;position:relative;--avatar-radius:30px;--avatar-size_:calc(var(--avatar-radius) * 2)}#favicon,#lock,#progress,#recipientAvatar,#senderAvatar{position:absolute}#recipientAvatar,#senderAvatar{top:50%;right:50%;transform:translate(50%,-50%);transition:right .5s cubic-bezier(.7,0,.45,1.45)}#senderAvatar{border-radius:50%;height:var(--avatar-size_);width:var(--avatar-size_);z-index:1}#recipientAvatar{z-index:2}#lock{z-index:3;background-color:var(--cr-dialog-background-color,#fff);top:50%;right:50%;width:24px;height:24px;opacity:0;transform:translate(50%,-50%) scale(.5);transition:opacity .15s ease-in .5s,transform .15s ease-in .5s}#favicon{--site-favicon-height:22px;--site-favicon-width:22px;background:#fff;z-index:3;border:4px solid #fff;border-radius:7px;top:calc(50% + var(--avatar-radius) - 10px);right:50%;opacity:0;transform:translate(50%,0) scale(0);transition:opacity .15s ease-in .5s,transform .15s ease-in .5s}#progress{z-index:0;display:flex;overflow:hidden;top:50%;left:calc(50% - 47px);width:0;transition:all 4.1s linear .5s,opacity .15s ease-in .5s}.loading #senderAvatar{right:calc(50% + 78px)}.loading #recipientAvatar{right:calc(50% - 78px)}.loading #progress{opacity:1;width:95px}.loading #lock{opacity:1;transform:translate(50%,-50%) scale(1)}[success] #senderAvatar{right:calc(50% + var(--avatar-radius) - 4px);z-index:2}[success] #recipientAvatar{z-index:1;right:calc(50% - var(--avatar-radius) + 4px)}[success] #lock,[success] #progress{opacity:0;transition-delay:0s}[success] #favicon{opacity:1;transform:translate(50%,0) scale(1)}[canceled] #progress{opacity:0;transition:none}[canceled] #senderAvatar{z-index:2}[canceled] #recipientAvatar{z-index:1}[canceled] #lock,[canceled] #recipientAvatar,[canceled] #senderAvatar{transition-property:transform,opacity,right;transition-timing-function:cubic-bezier(.7,-.45,.45,1);transition-duration:.5s;transition-delay:0s}#description{margin-top:16px}div[slot=footer]{background:var(--google-grey-100);border-top:none;padding:8px 16px}#footerDescription{color:var(--cr-secondary-text-color)}@media (prefers-color-scheme:dark){#lock{background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}div[slot=footer]{background:var(--google-grey-900)}#favicon{border-color:var(--google-grey-900);background:var(--google-grey-900)}}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach no-cancel>
   <div slot="title">
-    <share-password-dialog-header id="header">
+    <share-password-dialog-header id="header" aria-live="polite">
       [[getDialogTitle_(dialogStage_)]]
     </share-password-dialog-header>
   </div>
   <div slot="body">
-    <div class="animation-container" canceled$="[[isStage_(dialogStageEnum_.CANCELED, dialogStage_)]]">
-      <img id="senderAvatar" src="[[avatarImage]]" draggable="false" alt="">
+    <div class="animation-container" id="animation" canceled$="[[isStage_(dialogStageEnum_.CANCELED, dialogStage_)]]" success$="[[isStage_(dialogStageEnum_.SUCCESS, dialogStage_)]]">
+      <img id="senderAvatar" src="[[avatarImage]]" draggable="false" aria-hidden="true">
       <share-password-group-avatar members="[[recipients]]" id="recipientAvatar">
       </share-password-group-avatar>
       <div id="lock">
@@ -11482,7 +11520,7 @@ function getTemplate$s() {
       <site-favicon id="favicon" url="[[iconUrl]]" domain="[[passwordName]]" aria-hidden="true">
       </site-favicon>
     </div>
-    <div id="description" on-click="onDescriptionClick_" hidden$="[[!isStage_(dialogStageEnum_.SUCCESS, dialogStage_)]]" inner-h-t-m-l="[[getSuccessDescription_(recipients)]]">
+    <div id="description" hidden$="[[!isStage_(dialogStageEnum_.SUCCESS, dialogStage_)]]" inner-h-t-m-l="[[getSuccessDescription_(recipients)]]">
     </div>
   </div>
   <div slot="button-container">
@@ -11521,11 +11559,14 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
         return 'share-password-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$t();
     }
     static get properties() {
         return {
-            dialogStage_: Number,
+            dialogStage_: {
+                type: Number,
+                observer: 'stateChange_',
+            },
             password: Object,
             passwordName: String,
             iconUrl: String,
@@ -11542,6 +11583,10 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
     }
     ready() {
         super.ready();
+        // Start the animation after all elements have been loaded.
+        setTimeout(() => {
+            this.$.animation.classList.add('loading');
+        }, 0);
         // The user has 5 seconds to cancel the share action while loading/sharing
         // animation is in progress.
         setTimeout(() => {
@@ -11554,6 +11599,13 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
     }
     isStage_(stage) {
         return this.dialogStage_ === stage;
+    }
+    stateChange_() {
+        // Force the screen reader to focus on the updated dialog header.
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+        this.$.dialog.focus();
     }
     getDialogTitle_() {
         switch (this.dialogStage_) {
@@ -11572,7 +11624,6 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
             return this.i18nAdvanced('sharePasswordConfirmationDescriptionMultipleRecipients', {
                 substitutions: [
                     this.passwordName,
-                    this.i18n('passwordSharingLearnMoreURL'),
                 ],
             });
         }
@@ -11580,7 +11631,6 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
             substitutions: [
                 this.recipients[0].displayName,
                 this.passwordName,
-                this.i18n('passwordSharingLearnMoreURL'),
             ],
         });
     }
@@ -11603,12 +11653,6 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
             ],
         });
     }
-    onDescriptionClick_(e) {
-        const element = e.target;
-        if (element.tagName === 'A') {
-            recordPasswordSharingInteraction(PasswordSharingActions.CONFIRMATION_DIALOG_LEARN_MORE_CLICKED);
-        }
-    }
     onFooterClick_(e) {
         const element = e.target;
         if (element.tagName === 'A') {
@@ -11625,11 +11669,12 @@ class SharePasswordConfirmationDialogElement extends SharePasswordConfirmationDi
         }
         recordPasswordSharingInteraction(PasswordSharingActions.CONFIRMATION_DIALOG_SHARING_CANCELED);
         this.dialogStage_ = ConfirmationDialogStage.CANCELED;
+        this.$.animation.classList.remove('loading');
     }
 }
 customElements.define(SharePasswordConfirmationDialogElement.is, SharePasswordConfirmationDialogElement);
 
-function getTemplate$r() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><template is="dom-if" if="[[isState_(flowStateEnum_.FETCHING, flowState)]]" restamp>
   <share-password-loading-dialog on-close="onDialogClose_" dialog-title="[[getShareDialogTitle_(passwordName)]]">
   </share-password-loading-dialog>
@@ -11690,7 +11735,7 @@ class SharePasswordFlowElement extends SharePasswordFlowElementBase {
         return 'share-password-flow';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -11754,6 +11799,256 @@ class SharePasswordFlowElement extends SharePasswordFlowElementBase {
 }
 customElements.define(SharePasswordFlowElement.is, SharePasswordFlowElement);
 
+function getTemplate$r() {
+    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#checkbox{--cr-checkbox-size:14px;--cr-checkbox-border-size:1px;--cr-checkbox-ripple-size:36px;flex-grow:0;margin-inline-end:8px}site-favicon{height:16px;padding-inline-end:8px;width:16px}#container{align-items:center;display:grid;flex-grow:1;grid-template-columns:auto 125px;padding-inline-end:8px;width:100%}.url-username-group{column-gap:16px;display:grid;grid-template-columns:fit-content(50%) 1fr;padding-inline-end:16px;width:100%}#website{color:var(--cr-primary-text-color)}#password{background-color:transparent;border:none;color:var(--cr-secondary-text-color)}#password:disabled{flex:none;font-family:inherit;margin-inline-start:auto;text-overflow:clip;width:50px}cr-icon-button{--cr-icon-button-margin-start:8px}cr-checkbox::part(label-container){clip:rect(0,0,0,0);display:block;position:fixed}</style>
+<div class="flex-centered">
+  <cr-checkbox id="checkbox" checked="{{checked}}">
+    [[url]], [[username]]
+  </cr-checkbox>
+  <div id="container" class$="[[getElementClass_(first)]]">
+    <div class="flex-centered">
+      <site-favicon domain="[[url]]" aria-hidden="true">
+      </site-favicon>
+      <div class="url-username-group">
+        <div id="website" class="text-elide">[[url]]</div>
+        <div id="username" class="text-elide">[[username]]</div>
+      </div>
+    </div>
+    <div class="flex-centered">
+      <input id="password" readonly="readonly" class="text-elide password-input" type="[[getPasswordInputType(isPasswordVisible)]]" disabled$="[[!isPasswordVisible]]" value="[[getPasswordValue_(isPasswordVisible, password)]]">
+      <cr-icon-button id="showPasswordButton" title="[[getShowHideButtonLabel(isPasswordVisible)]]" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" on-click="onShowHidePasswordButtonClick" aria-label="[[getShowHidePasswordButtonA11yLabel_(isPasswordVisible)]]">
+      </cr-icon-button>
+    </div>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview PasswordPreviewItem represents one row in a list of passwords.
+ */
+const PasswordPreviewItemElementBase = I18nMixin(ShowPasswordMixin(PolymerElement));
+class PasswordPreviewItemElement extends PasswordPreviewItemElementBase {
+    static get is() {
+        return 'password-preview-item';
+    }
+    static get template() {
+        return getTemplate$r();
+    }
+    static get properties() {
+        return {
+            passwordId: Number,
+            url: String,
+            username: String,
+            password: String,
+            first: Boolean,
+            checked: {
+                type: Boolean,
+                value: true,
+            },
+        };
+    }
+    getElementClass_() {
+        return this.first ? '' : 'hr';
+    }
+    getPasswordValue_() {
+        return this.isPasswordVisible ? this.password : ' '.repeat(10);
+    }
+    getShowHidePasswordButtonA11yLabel_() {
+        return this.i18n(this.isPasswordVisible ? 'hidePasswordA11yLabel' :
+            'showPasswordA11yLabel', this.username, this.url);
+    }
+}
+customElements.define(PasswordPreviewItemElement.is, PasswordPreviewItemElement);
+
+function getTemplate$q() {
+    return html `<!--_html_template_start_--><style include="shared-style">#avatar{border-radius:50%;height:16px;margin-inline-end:10px;width:16px}#passwords{margin-bottom:4px;margin-top:16px}div[slot=body]{max-height:60vh}</style>
+<cr-dialog id="dialog">
+  <div slot="title" class="dialog-title">$i18n{movePasswordsTitle}</div>
+  <div slot="body">
+    <div>$i18n{movePasswordsDescription}</div>
+    <div id="passwords">
+      <dom-repeat items="[[passwords]]">
+        <template>
+          <password-preview-item password-id="[[item.id]]" url="[[getUrl_(item)]]" username="[[item.username]]" password="[[item.password]]" first="[[!index]]" on-change="passwordSelected_">
+          </password-preview-item>
+        </template>
+      </dom-repeat>
+    </div>
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancel" class="cancel-button" on-click="onCancel_" autofocus>
+      $i18n{cancel}
+    </cr-button>
+    <cr-button id="move" class="action-button" on-click="onMoveButtonClick_" disabled="[[!selectedPasswordIds_.length]]">
+      $i18n{movePasswordsButton}
+    </cr-button>
+  </div>
+  <div slot="footer" class="flex-centered">
+    <img id="avatar" src="[[avatarImage]]">
+    <div id="accountEmail" class="label">[[accountEmail]]</div>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * This should be kept in sync with the enum in
+ * components/password_manager/core/browser/password_manager_metrics_util.h.
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ * @enum {number}
+ */
+var MoveToAccountStoreTrigger;
+(function (MoveToAccountStoreTrigger) {
+    // LINT.IfChange
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["SUCCESSFUL_LOGIN_WITH_PROFILE_STORE_PASSWORD"] = 0] = "SUCCESSFUL_LOGIN_WITH_PROFILE_STORE_PASSWORD";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["EXPLICITLY_TRIGGERED_IN_SETTINGS"] = 1] = "EXPLICITLY_TRIGGERED_IN_SETTINGS";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS"] = 2] = "EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["USER_OPTED_IN_AFTER_SAVING_LOCALLY"] = 3] = "USER_OPTED_IN_AFTER_SAVING_LOCALLY";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["EXPLICITLY_TRIGGERED_FOR_SINGLE_PASSWORD_IN_DETAILS_IN_SETTINGS"] = 4] = "EXPLICITLY_TRIGGERED_FOR_SINGLE_PASSWORD_IN_DETAILS_IN_SETTINGS";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["COUNT"] = 5] = "COUNT";
+    // LINT.ThenChange(//tools/metrics/histograms/metadata/password/enums.xml)
+})(MoveToAccountStoreTrigger || (MoveToAccountStoreTrigger = {}));
+const MovePasswordsDialogElementBase$1 = UserUtilMixin(PolymerElement);
+class MovePasswordsDialogElement extends MovePasswordsDialogElementBase$1 {
+    static get is() {
+        return 'move-passwords-dialog';
+    }
+    static get template() {
+        return getTemplate$q();
+    }
+    static get properties() {
+        return {
+            /**
+             * Password groups displayed in the UI.
+             */
+            passwords: {
+                type: Array,
+                value: () => [],
+            },
+            selectedPasswordIds_: {
+                type: Array,
+                value: () => [],
+            },
+            trigger: {
+                type: MoveToAccountStoreTrigger,
+                value: MoveToAccountStoreTrigger
+                    .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS,
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        chrome.metricsPrivate.recordEnumerationValue('PasswordManager.AccountStorage.MoveToAccountStoreFlowOffered', this.trigger, MoveToAccountStoreTrigger.COUNT);
+        this.selectedPasswordIds_ = this.passwords.map(item => item.id);
+        PasswordManagerImpl.getInstance()
+            .requestCredentialsDetails(this.selectedPasswordIds_)
+            .then(entries => {
+            this.passwords = entries;
+            this.$.dialog.showModal();
+        })
+            .catch(() => {
+            this.$.dialog.close();
+            this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+        });
+    }
+    onCancel_() {
+        this.$.dialog.cancel();
+    }
+    onMoveButtonClick_() {
+        assert(this.isOptedInForAccountStorage);
+        PasswordManagerImpl.getInstance().movePasswordsToAccount(this.selectedPasswordIds_);
+        this.$.dialog.close();
+    }
+    getUrl_(password) {
+        assert(password.affiliatedDomains);
+        assert(password.affiliatedDomains.length > 0);
+        return password.affiliatedDomains[0].name;
+    }
+    passwordSelected_() {
+        this.selectedPasswordIds_ =
+            Array.from(this.shadowRoot.querySelectorAll('password-preview-item'))
+                .filter(item => item.checked)
+                .map(item => item.passwordId);
+    }
+}
+customElements.define(MovePasswordsDialogElement.is, MovePasswordsDialogElement);
+
+function getTemplate$p() {
+    return html `<!--_html_template_start_--><style include="shared-style">#avatar{border-radius:50%;height:16px;margin-inline-end:10px;width:16px}div[slot=body]{max-height:60vh}</style>
+<cr-dialog id="dialog">
+  <div id="title" slot="title" class="dialog-title">
+    $i18n{moveSinglePasswordTitle}
+  </div>
+  <div id="body" slot="body">
+    <div id="description">$i18n{moveSinglePasswordDescription}</div>
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancel" class="cancel-button" on-click="onCancel_" autofocus>
+      $i18n{cancel}
+    </cr-button>
+    <cr-button id="move" class="action-button" on-click="onMoveButtonClick_" disabled="[[!selectedPasswordIds_.length]]">
+        $i18n{moveSinglePasswordButton}
+    </cr-button>
+  </div>
+  <div slot="footer" class="flex-centered">
+    <img id="avatar" src="[[avatarImage]]">
+    <div id="accountEmail" class="label">[[accountEmail]]</div>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const MovePasswordsDialogElementBase = UserUtilMixin(I18nMixin(PolymerElement));
+class MoveSinglePasswordDialogElement extends MovePasswordsDialogElementBase {
+    static get is() {
+        return 'move-single-password-dialog';
+    }
+    static get template() {
+        return getTemplate$p();
+    }
+    static get properties() {
+        return {
+            /**
+             * Password UI entry.
+             */
+            password: Object,
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        chrome.metricsPrivate.recordEnumerationValue('PasswordManager.AccountStorage.MoveToAccountStoreFlowOffered', MoveToAccountStoreTrigger
+            .EXPLICITLY_TRIGGERED_FOR_SINGLE_PASSWORD_IN_DETAILS_IN_SETTINGS, MoveToAccountStoreTrigger.COUNT);
+        this.$.dialog.showModal();
+    }
+    onCancel_() {
+        this.$.dialog.cancel();
+    }
+    onMoveButtonClick_() {
+        assert(this.isOptedInForAccountStorage);
+        PasswordManagerImpl.getInstance().movePasswordsToAccount([this.password.id]);
+        this.dispatchEvent(new CustomEvent('password-moved', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                accountEmail: this.accountEmail,
+            },
+        }));
+        this.$.dialog.close();
+    }
+}
+customElements.define(MoveSinglePasswordDialogElement.is, MoveSinglePasswordDialogElement);
+
 const template$2 = html `<iron-iconset-svg name="iph" size="24">
   <svg>
     <defs>
@@ -11778,7 +12073,7 @@ const template$2 = html `<iron-iconset-svg name="iph" size="24">
 `;
 document.head.appendChild(template$2.content);
 
-function getTemplate$q() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><link rel="stylesheet" href="chrome://theme/colors.css?sets=ui,chrome&shadow_host=true">
 <style include="cr-hidden-style">:host{--help-bubble-background:var(--color-feature-promo-bubble-background,
         var(--google-blue-700));--help-bubble-foreground:var(--color-feature-promo-bubble-foreground,
@@ -12249,7 +12544,7 @@ class HelpBubbleElement extends PolymerElement {
         return 'help-bubble';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -13348,9 +13643,9 @@ function clampPadding(n = 0) {
     return Math.max(0, Math.min(20, n));
 }
 
-function getTemplate$p() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
-                credential-details-card">#passwordButtons{display:flex}.share-button-container{margin-inline-start:auto;display:flex}cr-tooltip-icon{margin-block:auto;margin-inline-end:16px}</style>
+                credential-details-card cr-icons">.share-button-container{margin-inline-start:auto;display:flex}cr-tooltip-icon{margin-block:auto;margin-inline-end:16px}#uploadSinglePassword{width:16px;height:16px;vertical-align:text-bottom;margin-inline-end:8px}.move-password-container{display:flex;margin-top:4px;margin-bottom:10px;padding:0 var(--cr-form-field-bottom-spacing);align-items:center}</style>
 <div class="card" aria-label="[[getAriaLabelForPasswordCard_(password)]]" role="region">
   <div class="credential-container">
     <div class="row-container">
@@ -13374,12 +13669,10 @@ function getTemplate$p() {
     <div class="row-container">
       <div class="column-container">
         <cr-input id="passwordValue" label="[[getPasswordLabel_(password)]]" value="[[getPasswordValue_(password)]]" class="input-field password-input" type="[[getPasswordType_(password, isPasswordVisible)]]" readonly="readonly" aria-disabled="true">
-          <div id="passwordButtons" slot="inline-suffix" hidden="[[isFederated_(password)]]">
-            <cr-icon-button id="showPasswordButton" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowPasswordClick_">
-            </cr-icon-button>
-            <cr-icon-button id="copyPasswordButton" class="icon-copy-content" title="$i18n{copyPassword}" on-click="onCopyPasswordClick_">
-            </cr-icon-button>
-          </div>
+          <cr-icon-button id="showPasswordButton" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowPasswordClick_" slot="inline-suffix" hidden="[[isFederated_(password)]]">
+          </cr-icon-button>
+          <cr-icon-button id="copyPasswordButton" class="icon-copy-content" title="$i18n{copyPassword}" on-click="onCopyPasswordClick_" slot="inline-suffix" hidden="[[isFederated_(password)]]">
+          </cr-icon-button>
         </cr-input>
       </div>
       <div class="column-container">
@@ -13390,6 +13683,14 @@ function getTemplate$p() {
       </div>
     </div>
   </div>
+  <template is="dom-if" if="[[showMovePasswordEntry_(password.storedIn, isUsingAccountStore)]]" restamp>
+    <div class="move-password-container">
+      <iron-icon id="uploadSinglePassword" icon="passwords-icon:upload">
+      </iron-icon>
+      <div class="cr-primary-text" on-click="movePasswordClicked_" inner-h-t-m-l="[[computeMovePasswordText_()]]">
+      </div>
+    </div>
+  </template>
   <div class="button-container">
     <cr-button id="editButton" hidden="[[isFederated_(password)]]" class="edit-button" on-click="onEditClicked_" aria-label="[[getAriaLabelForEditButton_(password)]]">
       $i18n{editPassword}
@@ -13421,6 +13722,10 @@ function getTemplate$p() {
 <cr-toast id="toast" duration="5000">
   <span>[[toastMessage_]]</span>
 </cr-toast>
+<template is="dom-if" if="[[showMovePasswordDialog_]]" restamp>
+  <move-single-password-dialog on-close="onMovePasswordDialogClose_" id="movePasswordsDialog" password="[[password]]">
+  </move-single-password-dialog>
+</template>
 <!--_html_template_end_-->`;
 }
 
@@ -13434,7 +13739,7 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
         return 'password-details-card';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -13450,6 +13755,7 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
             },
             showEditPasswordDialog_: Boolean,
             showDeletePasswordDialog_: Boolean,
+            showMovePasswordDialog_: Boolean,
             showShareButton_: {
                 type: Boolean,
                 computed: 'computeShowShareButton_(enableSendPasswords_, ' +
@@ -13471,6 +13777,13 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
                     return loadTimeData.getBoolean('enableSendPasswords');
                 },
             },
+            enableButterOnDesktopFollowup_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
+                },
+            },
+            isUsingAccountStore: Boolean,
         };
     }
     isFederated_() {
@@ -13542,6 +13855,9 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
     }
     onShareFlowDone_() {
         this.showShareFlow_ = false;
+        setTimeout(() => {
+            this.$.shareButton.focus();
+        }, 0);
     }
     extendAuthValidity_() {
         PasswordManagerImpl.getInstance().extendAuthValidity();
@@ -13582,6 +13898,21 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
             this.i18n('passwordDetailsCardDeleteButtonAriaLabel', this.getCredentialTypeString_(), this.password.username) :
             this.i18n('passwordDetailsCardDeleteButtonNoUsernameAriaLabel', this.getCredentialTypeString_());
     }
+    computeMovePasswordText_() {
+        return this.i18nAdvanced('moveSinglePassword');
+    }
+    movePasswordClicked_(e) {
+        e.preventDefault();
+        this.showMovePasswordDialog_ = true;
+    }
+    showMovePasswordEntry_() {
+        return this.enableButterOnDesktopFollowup_ && this.isUsingAccountStore &&
+            this.password.storedIn ===
+                chrome.passwordsPrivate.PasswordStoreSet.DEVICE;
+    }
+    onMovePasswordDialogClose_() {
+        this.showMovePasswordDialog_ = false;
+    }
     maybeRegisterSharingHelpBubble() {
         if (!this.showShareButton_ && !this.passwordSharingDisabled_) {
             return;
@@ -13591,7 +13922,7 @@ class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
 }
 customElements.define(PasswordDetailsCardElement.is, PasswordDetailsCardElement);
 
-function getTemplate$o() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">cr-input:not(:first-of-type){margin-top:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-error-display:none}#usernameInput[invalid]{--cr-input-error-display:block}#displayNameInput{margin-top:var(--cr-form-field-bottom-spacing)}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" id="title" class="dialog-title">
@@ -13632,7 +13963,7 @@ class EditPasskeyDialogElement extends EditPasskeyDialogElementBase {
         return 'edit-passkey-dialog';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -13662,7 +13993,7 @@ class EditPasskeyDialogElement extends EditPasskeyDialogElementBase {
 }
 customElements.define(EditPasskeyDialogElement.is, EditPasskeyDialogElement);
 
-function getTemplate$n() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">a[href]{color:var(--cr-link-color)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-enter-key show-on-attach>
   <div slot="title" class="dialog-title">
@@ -13692,7 +14023,7 @@ class DeletePasskeyDialogElement extends DeletePasskeyDialogElementBase {
         return 'delete-passkey-dialog';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -13727,7 +14058,7 @@ class DeletePasskeyDialogElement extends DeletePasskeyDialogElementBase {
 }
 customElements.define(DeletePasskeyDialogElement.is, DeletePasskeyDialogElement);
 
-function getTemplate$m() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
                 credential-details-card cr-icons"></style>
 <div class="card" aria-label="[[getAriaLabelForPasswordCard_(passkey)]]" role="region">
@@ -13793,7 +14124,7 @@ class PasskeyDetailsCardElement extends PasskeyDetailsCardElementBase {
         return 'passkey-details-card';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -13852,7 +14183,7 @@ class PasskeyDetailsCardElement extends PasskeyDetailsCardElementBase {
 }
 customElements.define(PasskeyDetailsCardElement.is, PasskeyDetailsCardElement);
 
-function getTemplate$l() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#header{align-items:center;display:grid;grid-template-columns:auto auto 1fr;margin-bottom:28px}#backButton{--cr-icon-button-margin-end:6px;--cr-icon-button-margin-start:0px}#favicon{min-width:20px;padding-inline-end:12px;--site-favicon-height:20px;--site-favicon-width:20px}#title{line-height:normal}</style>
 <div id="header">
   <cr-icon-button class="icon-arrow-back" id="backButton" on-click="navigateBack_" aria-label="$i18n{backToPasswords}">
@@ -13868,7 +14199,7 @@ function getTemplate$l() {
       <passkey-details-card passkey="[[item]]"></passkey-details-card>
     </template>
     <template is="dom-if" if="[[!item.isPasskey]]">
-      <password-details-card password="[[item]]" prefs="{{prefs}}" group-name="[[selectedGroup_.name]]" icon-url="[[selectedGroup_.iconUrl]]">
+      <password-details-card password="[[item]]" prefs="{{prefs}}" group-name="[[selectedGroup_.name]]" icon-url="[[selectedGroup_.iconUrl]]" is-using-account-store="[[isAccountStoreUser]]">
       </password-details-card>
     </template>
   </template>
@@ -13879,7 +14210,7 @@ function getTemplate$l() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const PasswordDetailsSectionElementBase = PrefsMixin(RouteObserverMixin(PolymerElement));
+const PasswordDetailsSectionElementBase = PrefsMixin(UserUtilMixin(RouteObserverMixin(PolymerElement)));
 class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
     constructor() {
         super(...arguments);
@@ -13889,7 +14220,7 @@ class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
         return 'password-details-section';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -14022,8 +14353,12 @@ class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
         }
         assert(matchingGroup);
         const newIds = matchingGroup.entries.map(entry => entry.id);
-        // If ids match, don't do anything.
-        if (currentIds.sort().toString() === newIds.sort().toString()) {
+        const currentStores = this.selectedGroup_.entries.map(entry => entry.storedIn);
+        const newStores = matchingGroup.entries.map(entry => entry.storedIn);
+        // If ids match and stores used for entries haven't changed, don't do
+        // anything.
+        if (currentIds.sort().toString() === newIds.sort().toString() &&
+            currentStores.sort().toString() === newStores.sort().toString()) {
             return;
         }
         this.updateShownCredentials(matchingGroup)
@@ -14045,7 +14380,7 @@ class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
 }
 customElements.define(PasswordDetailsSectionElement.is, PasswordDetailsSectionElement);
 
-function getTemplate$k() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style iron-flex">#tryAgainButton{margin-inline-start:8px}cr-link-row[hide-icon]::part(icon){display:none}#exportPasswordsButton{height:auto;margin-inline-start:16px;padding:3px 16px}</style>
 
 <cr-link-row class="cr-row" non-clickable label="$i18n{exportPasswords}" sub-label="$i18n{exportPasswordsDescription}" hide-icon>
@@ -14106,7 +14441,7 @@ class PasswordsExporterElement extends PasswordsExporterElementBase {
         return 'passwords-exporter';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -16900,7 +17235,7 @@ class SearchableLabelElement extends PolymerElement {
 }
 customElements.define(SearchableLabelElement.is, SearchableLabelElement);
 
-function getTemplate$j() {
+function getTemplate$h() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#container:hover{background-color:var(--cr-hover-background-color);border-radius:inherit;cursor:pointer;--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}#borderPart{display:grid;flex:1;grid-template-columns:auto 1fr;min-height:var(--section-min-height)}#favicon{margin-inline-end:20px;margin-inline-start:20px}.label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#numberOfAccounts{margin-inline-start:8px}#endIcons{--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px;justify-self:end}paper-tooltip{overflow:hidden;white-space:nowrap}span{color:var(--cr-secondary-text-color)}</style>
 <div id="container" class="flex-centered">
   
@@ -16915,7 +17250,8 @@ function getTemplate$j() {
     </div>
 
     <div id="endIcons">
-      <iron-icon id="localPasswordsIcon" icon="cr20:cloud-off" hidden="[[!shouldShowDeviceOnlyCredentialsIcon_()]]"></iron-icon>
+      <iron-icon id="localPasswordsIcon" icon="cr20:cloud-off" hidden="[[!shouldShowDeviceOnlyCredentialsIcon_(isAccountStoreUser, item.entries)]]">
+      </iron-icon>
       <cr-icon-button id="seePasswordDetails" class="subpage-arrow" aria-label="[[getAriaLabel_(item)]]">
       </cr-icon-button>
     </div>
@@ -16934,7 +17270,7 @@ class PasswordListItemElement extends PasswordListItemElementBase {
         return 'password-list-item';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -17041,7 +17377,7 @@ class PasswordListItemElement extends PasswordListItemElementBase {
 }
 customElements.define(PasswordListItemElement.is, PasswordListItemElement);
 
-function getTemplate$i() {
+function getTemplate$g() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog">
   <div slot="title" class="dialog-title">[[getTitle_()]]</div>
   <div slot="body">
@@ -17065,7 +17401,7 @@ class AuthTimedOutDialogElement extends AuthTimedOutDialogElementBase {
         return 'auth-timed-out-dialog';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$g();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -17080,180 +17416,8 @@ class AuthTimedOutDialogElement extends AuthTimedOutDialogElementBase {
 }
 customElements.define(AuthTimedOutDialogElement.is, AuthTimedOutDialogElement);
 
-function getTemplate$h() {
-    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#checkbox{--cr-checkbox-size:14px;--cr-checkbox-border-size:1px;--cr-checkbox-ripple-size:36px;flex-grow:0;margin-inline-end:8px}site-favicon{height:16px;padding-inline-end:8px;width:16px}#container{align-items:center;display:grid;flex-grow:1;grid-template-columns:auto 125px;padding-inline-end:8px;width:100%}.url-username-group{column-gap:16px;display:grid;grid-template-columns:fit-content(50%) 1fr;padding-inline-end:16px;width:100%}#website{color:var(--cr-primary-text-color)}#password{background-color:transparent;border:none;color:var(--cr-secondary-text-color)}#password:disabled{flex:none;font-family:inherit;margin-inline-start:auto;text-overflow:clip;width:50px}cr-icon-button{--cr-icon-button-margin-start:8px}cr-checkbox::part(label-container){clip:rect(0,0,0,0);display:block;position:fixed}</style>
-<div class="flex-centered">
-  <cr-checkbox id="checkbox" checked="{{checked}}">
-    [[url]], [[username]]
-  </cr-checkbox>
-  <div id="container" class$="[[getElementClass_(first)]]">
-    <div class="flex-centered">
-      <site-favicon domain="[[url]]" aria-hidden="true">
-      </site-favicon>
-      <div class="url-username-group">
-        <div id="website" class="text-elide">[[url]]</div>
-        <div id="username" class="text-elide">[[username]]</div>
-      </div>
-    </div>
-    <div class="flex-centered">
-      <input id="password" readonly="readonly" class="text-elide password-input" type="[[getPasswordInputType(isPasswordVisible)]]" disabled$="[[!isPasswordVisible]]" value="[[getPasswordValue_(isPasswordVisible, password)]]">
-      <cr-icon-button id="showPasswordButton" title="[[getShowHideButtonLabel(isPasswordVisible)]]" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" on-click="onShowHidePasswordButtonClick" aria-label="[[getShowHidePasswordButtonA11yLabel_(isPasswordVisible)]]">
-      </cr-icon-button>
-    </div>
-  </div>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview PasswordPreviewItem represents one row in a list of passwords.
- */
-const PasswordPreviewItemElementBase = I18nMixin(ShowPasswordMixin(PolymerElement));
-class PasswordPreviewItemElement extends PasswordPreviewItemElementBase {
-    static get is() {
-        return 'password-preview-item';
-    }
-    static get template() {
-        return getTemplate$h();
-    }
-    static get properties() {
-        return {
-            passwordId: Number,
-            url: String,
-            username: String,
-            password: String,
-            first: Boolean,
-            checked: {
-                type: Boolean,
-                value: true,
-            },
-        };
-    }
-    getElementClass_() {
-        return this.first ? '' : 'hr';
-    }
-    getPasswordValue_() {
-        return this.isPasswordVisible ? this.password : ' '.repeat(10);
-    }
-    getShowHidePasswordButtonA11yLabel_() {
-        return this.i18n(this.isPasswordVisible ? 'hidePasswordA11yLabel' :
-            'showPasswordA11yLabel', this.username, this.url);
-    }
-}
-customElements.define(PasswordPreviewItemElement.is, PasswordPreviewItemElement);
-
-function getTemplate$g() {
-    return html `<!--_html_template_start_--><style include="shared-style">#avatar{border-radius:50%;height:16px;margin-inline-end:10px;width:16px}#passwords{margin-bottom:4px;margin-top:16px}div[slot=body]{max-height:60vh}</style>
-<cr-dialog id="dialog">
-  <div slot="title" class="dialog-title">$i18n{movePasswordsTitle}</div>
-  <div slot="body">
-    <div>$i18n{movePasswordsDescription}</div>
-    <div id="passwords">
-      <dom-repeat items="[[passwords]]">
-        <template>
-          <password-preview-item password-id="[[item.id]]" url="[[getUrl_(item)]]" username="[[item.username]]" password="[[item.password]]" first="[[!index]]" on-change="passwordSelected_">
-          </password-preview-item>
-        </template>
-      </dom-repeat>
-    </div>
-  </div>
-  <div slot="button-container">
-    <cr-button id="cancel" class="cancel-button" on-click="onCancel_" autofocus>
-      $i18n{cancel}
-    </cr-button>
-    <cr-button id="move" class="action-button" on-click="onMoveButtonClick_" disabled="[[!selectedPasswordIds_.length]]">
-      $i18n{movePasswordsButton}
-    </cr-button>
-  </div>
-  <div slot="footer" class="flex-centered">
-    <img id="avatar" src="[[avatarImage]]">
-    <div id="accountEmail" class="label">[[accountEmail]]</div>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * This should be kept in sync with the enum in
- * components/password_manager/core/browser/password_manager_metrics_util.h.
- * These values are persisted to logs. Entries should not be renumbered and
- * numeric values should never be reused.
- * @enum {number}
- */
-const MoveToAccountStoreTrigger = {
-    SUCCESSFUL_LOGIN_WITH_PROFILE_STORE_PASSWORD: 0,
-    EXPLICITLY_TRIGGERED_IN_SETTINGS: 1,
-    EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS: 2,
-    COUNT: 3,
-};
-const MovePasswordsDialogElementBase = UserUtilMixin(PolymerElement);
-class MovePasswordsDialogElement extends MovePasswordsDialogElementBase {
-    static get is() {
-        return 'move-passwords-dialog';
-    }
-    static get template() {
-        return getTemplate$g();
-    }
-    static get properties() {
-        return {
-            /**
-             * Password groups displayed in the UI.
-             */
-            passwords: {
-                type: Array,
-                value: () => [],
-            },
-            selectedPasswordIds_: {
-                type: Array,
-                valie: () => [],
-            },
-        };
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        chrome.metricsPrivate.recordEnumerationValue('PasswordManager.AccountStorage.MoveToAccountStoreFlowOffered', MoveToAccountStoreTrigger
-            .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS, MoveToAccountStoreTrigger.COUNT);
-        this.selectedPasswordIds_ = this.passwords.map(item => item.id);
-        PasswordManagerImpl.getInstance()
-            .requestCredentialsDetails(this.selectedPasswordIds_)
-            .then(entries => {
-            this.passwords = entries;
-            this.$.dialog.showModal();
-        })
-            .catch(() => {
-            this.$.dialog.close();
-        });
-    }
-    onCancel_() {
-        this.$.dialog.cancel();
-    }
-    onMoveButtonClick_() {
-        assert(this.isOptedInForAccountStorage);
-        PasswordManagerImpl.getInstance().movePasswordsToAccount(this.selectedPasswordIds_);
-        this.$.dialog.close();
-    }
-    getUrl_(password) {
-        assert(password.affiliatedDomains);
-        assert(password.affiliatedDomains.length > 0);
-        return password.affiliatedDomains[0].name;
-    }
-    passwordSelected_() {
-        this.selectedPasswordIds_ =
-            Array.from(this.shadowRoot.querySelectorAll('password-preview-item'))
-                .filter(item => item.checked)
-                .map(item => item.passwordId);
-    }
-}
-customElements.define(MovePasswordsDialogElement.is, MovePasswordsDialogElement);
-
 function getTemplate$f() {
-    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host{align-items:center;display:flex}#image{height:120px;width:248px}a[href]{color:var(--cr-link-color)}#promoContent{display:flex;flex:1;flex-direction:column;justify-content:center;margin-block:10px;margin-inline-end:6px;margin-inline-start:24px}#actionButton{margin-top:6px;width:fit-content}#closeButton{margin-bottom:auto}</style>
+    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">:host{align-items:center;display:flex}#image{height:120px;width:248px}a[href]{color:var(--cr-link-color)}#promoContent{display:flex;flex:1;flex-direction:column;justify-content:center;margin-block:10px;margin-inline-end:6px;margin-inline-start:24px}#actionButton{margin-top:6px;width:fit-content}#closeButton{margin-top:10px;margin-right:10px;margin-bottom:auto}</style>
 <picture id="image">
   
   
@@ -17304,6 +17468,7 @@ var PromoCardId;
     PromoCardId["SHORTCUT"] = "password_shortcut_promo";
     PromoCardId["ACCESS_ON_ANY_DEVICE"] = "access_on_any_device_promo";
     PromoCardId["RELAUNCH_CHROME"] = "relaunch_chrome_promo";
+    PromoCardId["MOVE_PASSWORDS"] = "move_passwords_promo";
 })(PromoCardId || (PromoCardId = {}));
 /**
  * These values are persisted to logs. Entries should not be renumbered and
@@ -17318,8 +17483,9 @@ var PromoCardMetricId;
     PromoCardMetricId[PromoCardMetricId["SHORTCUT"] = 2] = "SHORTCUT";
     PromoCardMetricId[PromoCardMetricId["UNUSED_ACCESS_ON_ANY_DEVICE"] = 3] = "UNUSED_ACCESS_ON_ANY_DEVICE";
     PromoCardMetricId[PromoCardMetricId["RELAUNCH_CHROME"] = 4] = "RELAUNCH_CHROME";
+    PromoCardMetricId[PromoCardMetricId["MOVE_PASSWORDS"] = 5] = "MOVE_PASSWORDS";
     // Must be last.
-    PromoCardMetricId[PromoCardMetricId["COUNT"] = 5] = "COUNT";
+    PromoCardMetricId[PromoCardMetricId["COUNT"] = 6] = "COUNT";
 })(PromoCardMetricId || (PromoCardMetricId = {}));
 function recordPromoCardAction(card) {
     chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PromoCard.ActionButtonClicked', card, PromoCardMetricId.COUNT);
@@ -17371,6 +17537,10 @@ class PromoCardElement extends PolymerElement {
                 chrome.send('restartBrowser');
                 recordPromoCardAction(PromoCardMetricId.RELAUNCH_CHROME);
                 break;
+            case PromoCardId.MOVE_PASSWORDS:
+                this.dispatchEvent(new CustomEvent('move-passwords-clicked', { bubbles: true, composed: true }));
+                recordPromoCardAction(PromoCardMetricId.MOVE_PASSWORDS);
+                return;
             default:
                 assertNotReached();
         }
@@ -17388,8 +17558,8 @@ customElements.define(PromoCardElement.is, PromoCardElement);
 
 function getTemplate$e() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style iron-flex">#header{align-items:center;display:flex}a[href]{color:var(--cr-link-color)}#addPasswordButton{height:auto;padding:3px 16px}#passwords{margin-top:20px}promo-card{margin-bottom:24px;margin-top:24px}password-list-item:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}password-list-item:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
-<template is="dom-if" if="[[promoCard_]]" restamp>
-  <promo-card id="promoCard" class="card" promo-card="[[promoCard_]]" on-promo-closed="onPromoClosed_">
+<template is="dom-if" if="[[shouldShowPromoCard_]]" restamp>
+  <promo-card id="promoCard" class="card" promo-card="[[promoCard_]]" on-promo-closed="onPromoClosed_" on-move-passwords-clicked="onMovePasswordsClicked_">
   </promo-card>
 </template>
 <div id="header">
@@ -17422,7 +17592,7 @@ function getTemplate$e() {
   </auth-timed-out-dialog>
 </template>
 <template is="dom-if" if="[[showMovePasswordsDialog_]]" restamp>
-  <move-passwords-dialog on-close="onMovePasswordsDialogClose_" id="movePasswordsDialog" passwords="[[passwordsOnDevice_]]">
+  <move-passwords-dialog on-close="onMovePasswordsDialogClose_" id="movePasswordsDialog" passwords="[[passwordsOnDevice_]]" trigger="[[getMovePasswordsDialogTrigger_()]]">
   </move-passwords-dialog>
 </template>
 <!--_html_template_end_-->`;
@@ -17478,7 +17648,7 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
                     'isSyncingPasswords, accountEmail)',
             },
             passwordsOnDevice_: {
-                type: Number,
+                type: Array,
                 computed: 'computePasswordsOnDevice_(groups_)',
             },
             showMovePasswords_: {
@@ -17499,6 +17669,17 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
                 computed: 'computePasswordManagerDisabled_(' +
                     'prefs.credentials_enable_service.enforcement, ' +
                     'prefs.credentials_enable_service.value)',
+            },
+            enableButterOnDesktopFollowup_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
+                },
+            },
+            shouldShowPromoCard_: {
+                type: Boolean,
+                computed: 'computeShouldShowPromoCard_(' +
+                    'promoCard_, isAccountStoreUser, passwordsOnDevice_)',
             },
             /**
              * The element to return focus to, when moving from details page to
@@ -17597,7 +17778,11 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
             .filter(entry => localStorage.includes(entry.storedIn));
     }
     computeShowMovePasswords_() {
-        // TODO(crbug.com/1420548): Check for conflicts if needed.
+        // Should not show the old entry to move passwords if followup for the
+        // butter on desktop feature is enabled.
+        if (this.enableButterOnDesktopFollowup_) {
+            return false;
+        }
         return this.computePasswordsOnDevice_().length > 0 &&
             this.isAccountStoreUser && !this.searchTerm_;
     }
@@ -17662,6 +17847,10 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
     showNoPasswordsFound_() {
         return this.hideGroupsList_() && this.groups_.length > 0;
     }
+    getMovePasswordsDialogTrigger_() {
+        return MoveToAccountStoreTrigger
+            .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS;
+    }
     onPasswordDetailsShown_(e) {
         this.activeListItem_ = e.detail;
     }
@@ -17691,6 +17880,20 @@ class PasswordsSectionElement extends PasswordsSectionElementBase {
             }
             return doesNameMatchA ? -1 : 1;
         };
+    }
+    computeShouldShowPromoCard_() {
+        if (!this.promoCard_) {
+            return false;
+        }
+        if (this.promoCard_.id !== PromoCardId.MOVE_PASSWORDS) {
+            return true;
+        }
+        // Check if there are local passwords and they can be moved to account.
+        if (this.computePasswordsOnDevice_().length === 0 ||
+            !this.isAccountStoreUser) {
+            return false;
+        }
+        return true;
     }
 }
 customElements.define(PasswordsSectionElement.is, PasswordsSectionElement);
@@ -17726,7 +17929,7 @@ function getTemplate$d() {
  * intentional.
  */
 const MOVE_THRESHOLD_PX = 5;
-const CrToggleElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrToggleElementBase = PaperRippleMixin(PolymerElement);
 class CrToggleElement extends CrToggleElementBase {
     constructor() {
         super(...arguments);
@@ -17885,7 +18088,7 @@ class CrToggleElement extends CrToggleElementBase {
             this.toggleState_(/* fromKeyboard= */ true);
         }
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.knob;
@@ -18293,7 +18496,7 @@ const styleMod$1 = document.createElement('dom-module');
 styleMod$1.appendChild(html `
   <template>
     <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
@@ -18365,7 +18568,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
 customElements.define(ExtensionControlledIndicatorElement.is, ExtensionControlledIndicatorElement);
 
 function getTemplate$9() {
-    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#blockedSitesTitle{margin-top:28px}.blocked-site-content{border-top:var(--cr-separator-line);flex:1;min-height:var(--section-min-height)}.blocked-site-content[first]{border-top:none}#blockedSitesHeader,.favicon{margin-inline-end:20px;margin-inline-start:20px}.site-url{flex:1}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px}@media all and (display-mode:standalone){#addShortcutBanner{display:none}}pref-toggle-button:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}cr-link-row:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
+    return html `<!--_html_template_start_--><style include="shared-style cr-shared-style">#blockedSitesTitle{margin-top:28px}.blocked-site-content{border-top:var(--cr-separator-line);flex:1;min-height:var(--section-min-height)}.blocked-site-content[first]{border-top:none}#blockedSitesHeader,.favicon{margin-inline-end:20px;margin-inline-start:20px}.site-url{flex:1}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-start:0px;--cr-icon-button-margin-end:10px}@media all and (display-mode:standalone){#addShortcutBanner{display:none}}pref-toggle-button:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}cr-link-row:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}cr-link-row[hide-icon]::part(icon){display:none}</style>
 <h2 class="page-title">$i18n{settings}</h2>
 <div class="card">
   <pref-toggle-button id="passwordToggle" no-extension-indicator label="$i18n{savePasswordsLabel}" pref="{{prefs.credentials_enable_service}}">
@@ -18384,6 +18587,13 @@ function getTemplate$9() {
   <template is="dom-if" if="[[isEligibleForAccountStorage]]">
     <pref-toggle-button id="accountStorageToggle" class="hr" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
     </pref-toggle-button>
+  </template>
+  <template is="dom-if" if="[[shouldShowMovePasswordsEntry_(isAccountStoreUser, passwordsOnDevice_)]]" restamp>
+    <cr-link-row class="cr-row" non-clickable label="[[movePasswordsLabel_]]" sub-label="$i18n{movePasswordsInSettingsSubLabel}" hide-icon>
+      <cr-button id="movePasswordsButton" on-click="onMovePasswordsClicked_">
+          $i18n{moveSinglePasswordButton}
+      </cr-button>
+    </cr-link-row>
   </template>
   <cr-link-row id="trustedVaultBanner" class="cr-row" label="[[getTrustedVaultBannerTitle_(trustedVaultBannerState_)]]" sub-label="[[getTrustedVaultBannerDescription_(trustedVaultBannerState_)]]" hidden$="[[shouldHideTrustedVaultBanner_(trustedVaultBannerState_)]]" button-aria-description="$i18n{opensInNewTab}" on-click="onTrustedVaultBannerClick_" external>
   </cr-link-row>
@@ -18424,6 +18634,10 @@ function getTemplate$9() {
     </div>
   </div>
 </div>
+<template is="dom-if" if="[[showMovePasswordsDialog_]]" restamp>
+  <move-passwords-dialog on-close="onMovePasswordsDialogClose_" id="movePasswordsDialog" passwords="[[passwordsOnDevice_]]" trigger="[[getMovePasswordsDialogTrigger_()]]">
+  </move-passwords-dialog>
+</template>
 <!--_html_template_end_-->`;
 }
 
@@ -18436,6 +18650,7 @@ const SettingsSectionElementBase = HelpBubbleMixin(RouteObserverMixin(PrefsMixin
 class SettingsSectionElement extends SettingsSectionElementBase {
     constructor() {
         super(...arguments);
+        this.passwordsOnDevice_ = [];
         this.setBlockedSitesListListener_ = null;
         this.setCredentialsChangedListener_ = null;
     }
@@ -18485,6 +18700,10 @@ class SettingsSectionElement extends SettingsSectionElementBase {
                     return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
                 },
             },
+            showMovePasswordsDialog_: Boolean,
+            passwordsOnDevice_: {
+                type: Array,
+            },
         };
     }
     ready() {
@@ -18493,6 +18712,7 @@ class SettingsSectionElement extends SettingsSectionElementBase {
     }
     connectedCallback() {
         super.connectedCallback();
+        this.updatePasswordsOnDevice_();
         this.setBlockedSitesListListener_ = blockedSites => {
             this.blockedSites_ = blockedSites;
         };
@@ -18501,6 +18721,7 @@ class SettingsSectionElement extends SettingsSectionElementBase {
         this.setCredentialsChangedListener_ =
             (passwords) => {
                 this.hasPasswordsToExport_ = passwords.length > 0;
+                this.updatePasswordsOnDevice_();
             };
         PasswordManagerImpl.getInstance().getSavedPasswordList().then(this.setCredentialsChangedListener_);
         PasswordManagerImpl.getInstance().addSavedPasswordListChangedListener(this.setCredentialsChangedListener_);
@@ -18614,6 +18835,34 @@ class SettingsSectionElement extends SettingsSectionElementBase {
         return pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED &&
             !pref.value;
     }
+    onMovePasswordsClicked_(e) {
+        e.preventDefault();
+        this.showMovePasswordsDialog_ = true;
+    }
+    onMovePasswordsDialogClose_() {
+        this.showMovePasswordsDialog_ = false;
+    }
+    getMovePasswordsDialogTrigger_() {
+        return MoveToAccountStoreTrigger
+            .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS;
+    }
+    shouldShowMovePasswordsEntry_() {
+        return this.enableButterOnDesktopFollowup_ && this.isAccountStoreUser &&
+            this.passwordsOnDevice_.length > 0;
+    }
+    async updatePasswordsOnDevice_() {
+        const groups = await PasswordManagerImpl.getInstance().getCredentialGroups();
+        const localStorage = [
+            chrome.passwordsPrivate.PasswordStoreSet.DEVICE_AND_ACCOUNT,
+            chrome.passwordsPrivate.PasswordStoreSet.DEVICE,
+        ];
+        this.passwordsOnDevice_ =
+            groups.map(group => group.entries)
+                .flat()
+                .filter(entry => localStorage.includes(entry.storedIn));
+        this.movePasswordsLabel_ =
+            await PluralStringProxyImpl.getInstance().getPluralString('deviceOnlyPasswordsIconTooltip', this.passwordsOnDevice_.length);
+    }
 }
 customElements.define(SettingsSectionElement.is, SettingsSectionElement);
 
@@ -18718,10 +18967,10 @@ styleMod.register('cr-nav-menu-item-style');
 const template = html `<iron-iconset-svg name="passwords-icon" size="20">
   <svg>
     <defs>
-      <g id="password"><path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path></g>
       <g id="passkey"><path d="M9 10c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm0-4.5c.83 0 1.5.67 1.5 1.5S9.83 8.5 9 8.5 7.5 7.83 7.5 7 8.17 5.5 9 5.5zm6.5 7.5v-.13a2.497 2.497 0 001.75-2.37 2.5 2.5 0 00-5 0c0 1.12.74 2.05 1.75 2.37V16l1 1 1.5-1.5-.75-.75.75-.75-1-1zm-.75-1.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM4.5 14.09c0-.18.09-.34.22-.42C6.02 12.9 7.5 12.5 9 12.5c.88 0 1.75.15 2.58.42-.39-.5-.65-1.09-.76-1.73A9.94 9.94 0 009 11c-1.84 0-3.56.5-5.03 1.37-.61.35-.97 1.02-.97 1.72V16h9.5v-1.5h-8v-.41z"></path></g>
       <g id="checkup"><path d="M3.83333 14.3333V4.33329H5.16667V6.33329H10.5V4.33329H11.8333V8.33329H13.1667V4.33329C13.1667 3.59996 12.5667 2.99996 11.8333 2.99996H9.71333C9.43333 2.22663 8.7 1.66663 7.83333 1.66663C6.96667 1.66663 6.23333 2.22663 5.95333 2.99996H3.83333C3.1 2.99996 2.5 3.59996 2.5 4.33329V14.3333C2.5 15.0666 3.1 15.6666 3.83333 15.6666H7.16667V14.3333H3.83333ZM7.83333 2.99996C8.2 2.99996 8.5 3.29996 8.5 3.66663C8.5 4.03329 8.2 4.33329 7.83333 4.33329C7.46667 4.33329 7.16667 4.03329 7.16667 3.66663C7.16667 3.29996 7.46667 2.99996 7.83333 2.99996ZM14.8333 10.3333L13.8333 9.33329L10.1733 13L8.16667 11L7.16667 12L10.1733 15L14.8333 10.3333Z"></path></g>
       <g id="settings"><path d="M12.9669 8.49998C12.9669 8.71598 12.9509 8.92398 12.9269 9.12398L14.2629 10.18C14.3909 10.276 14.4229 10.444 14.3429 10.588L13.0629 12.804C12.9829 12.948 12.8149 13.004 12.6709 12.948L11.0789 12.308C10.7509 12.556 10.3909 12.772 9.9989 12.932L9.7589 14.628C9.7429 14.788 9.6069 14.9 9.4469 14.9H6.8869C6.7269 14.9 6.5989 14.788 6.5669 14.628L6.3269 12.932C5.9349 12.772 5.5829 12.564 5.2469 12.308L3.6549 12.948C3.5109 12.996 3.3429 12.948 3.2629 12.804L1.9829 10.588C1.9109 10.452 1.9429 10.276 2.0629 10.18L3.4149 9.12398C3.3829 8.92398 3.3669 8.70798 3.3669 8.49998C3.3669 8.29198 3.3909 8.07598 3.4229 7.87598L2.0709 6.81998C1.9429 6.72398 1.9109 6.55598 1.9909 6.41198L3.2709 4.19598C3.3509 4.05198 3.5189 3.99598 3.6629 4.05198L5.2549 4.69198C5.5829 4.44398 5.9429 4.22798 6.3349 4.06798L6.5749 2.37198C6.5989 2.21198 6.7269 2.09998 6.8869 2.09998H9.4469C9.6069 2.09998 9.7429 2.21198 9.7669 2.37198L10.0069 4.06798C10.3989 4.22798 10.7509 4.43598 11.0869 4.69198L12.6789 4.05198C12.8229 4.00398 12.9909 4.05198 13.0709 4.19598L14.3509 6.41198C14.4229 6.54798 14.3909 6.72398 14.2709 6.81998L12.9189 7.87598C12.9509 8.07598 12.9669 8.28398 12.9669 8.49998ZM5.7669 8.49998C5.7669 9.81998 6.8469 10.9 8.1669 10.9C9.4869 10.9 10.5669 9.81998 10.5669 8.49998C10.5669 7.17998 9.4869 6.09998 8.1669 6.09998C6.8469 6.09998 5.7669 7.17998 5.7669 8.49998Z"></path></g>
+      <g id="upload"><path d="M5.417 16.667c-1.264 0 -2.348 -0.438 -3.25 -1.313 -0.889 -0.875 -1.333 -1.944 -1.333 -3.208 0 -1.083 0.327 -2.048 0.979 -2.896S3.319 7.861 4.375 7.625c0.347 -1.278 1.042 -2.313 2.083 -3.104C7.5 3.729 8.681 3.333 10 3.333c1.625 0 3 0.569 4.125 1.708C15.264 6.167 15.833 7.542 15.833 9.167c0.958 0.111 1.75 0.528 2.375 1.25 0.639 0.708 0.958 1.542 0.958 2.5 0 1.042 -0.368 1.931 -1.104 2.667 -0.723 0.723 -1.604 1.083 -2.646 1.083H10.833a1.658 1.658 0 0 1 -1.188 -0.479A1.658 1.658 0 0 1 9.167 15v-4.292L7.833 12 6.667 10.833l3.333 -3.333 3.333 3.333 -1.167 1.167 -1.333 -1.292V15h4.583c0.583 0 1.077 -0.202 1.479 -0.604 0.403 -0.403 0.604 -0.896 0.604 -1.479s-0.202 -1.077 -0.604 -1.479C16.493 11.035 16 10.833 15.417 10.833H14.167v-1.667c0 -1.153 -0.41 -2.132 -1.229 -2.938C12.132 5.41 11.152 5 10 5s-2.139 0.41 -2.958 1.229C6.236 7.035 5.833 8.014 5.833 9.167h-0.417c-0.806 0 -1.493 0.285 -2.063 0.854A2.81 2.81 0 0 0 2.5 12.083c0 0.806 0.285 1.493 0.854 2.063A2.81 2.81 0 0 0 5.417 15H7.5v1.667H5.417Z" fill="#444746"></path></g>
     </defs>
   </svg>
 </iron-iconset-svg>
@@ -18733,7 +18982,7 @@ function getTemplate$8() {
 <div role="navigation">
   <cr-menu-selector id="menu" attr-for-selected="path" selected-attribute="selected" on-iron-activate="onSelectorActivate_" selected="[[getSelectedPage_(selectedPage_)]]">
     <a id="passwords" role="menuitem" class="cr-nav-menu-item" path="passwords" href="/passwords" on-click="onItemClick_">
-      <iron-icon icon="passwords-icon:password"></iron-icon>
+      <iron-icon icon="cr20:password"></iron-icon>
       $i18n{passwords}
       <paper-ripple></paper-ripple>
     </a>
@@ -19119,7 +19368,7 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
 
 function getTemplate$6() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
-                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+                var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -19129,7 +19378,7 @@ function getTemplate$6() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -19171,7 +19420,6 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'showingSearchChanged_',
                 reflectToAttribute: true,
             },
             disabled: {
@@ -19243,29 +19491,22 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
     onSearchTermKeydown_(e) {
         if (e.key === 'Escape') {
             this.showingSearch = false;
+            this.setValue('');
+            this.getSearchInput().blur();
         }
     }
     showSearch_(e) {
         if (e.target !== this.shadowRoot.querySelector('#clearSearch')) {
             this.showingSearch = true;
         }
+        if (this.narrow) {
+            this.focus_();
+        }
     }
     clearSearch_() {
         this.setValue('');
         this.focus_();
         this.spinnerActive = false;
-    }
-    showingSearchChanged_(_current, previous) {
-        // Prevent unnecessary 'search-changed' event from firing on startup.
-        if (previous === undefined) {
-            return;
-        }
-        if (this.showingSearch) {
-            this.focus_();
-            return;
-        }
-        this.setValue('');
-        this.getSearchInput().blur();
     }
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
@@ -19387,11 +19628,11 @@ customElements.define(CrToolbarElement.is, CrToolbarElement);
 
 function getTemplate$4() {
     return html `<!--_html_template_start_--><style include="shared-style">cr-toolbar{min-height:56px;--cr-toolbar-center-basis:var(--password-manager-main-basis);--cr-toolbar-header-white-space:nowrap}cr-toolbar:not([narrow]){--cr-toolbar-left-spacer-width:var(--side-bar-width)}#product-logo{height:24px;margin-inline-end:16px;margin-top:6px;width:24px}</style>
-<cr-toolbar id="mainToolbar" on-keydown="onKeyDown_" page-name="[[pageName]]" clear-label="$i18n{clearSearch}" search-prompt="$i18n{searchPrompt}" menu-label="$i18n{menuButtonLabel}" autofocus on-search-changed="onSearchChanged_" role="banner" show-menu="[[narrow]]" narrow="[[narrow]]" narrow-threshold="980">
+<cr-toolbar id="mainToolbar" on-keydown="onKeyDown_" page-name="[[pageName]]" clear-label="$i18n{clearSearch}" search-prompt="$i18n{searchPrompt}" menu-label="$i18n{menuButtonLabel}" autofocus on-search-changed="onSearchChanged_" role="banner" show-menu="[[narrow]]" narrow="[[narrow]]" narrow-threshold="1036">
   <picture slot="product-logo">
     <img id="product-logo" srcset="chrome://password-manager/images/password_manager_logo.svg" role="presentation">
   </picture>
-  <cr-icon-button id="helpButton" iron-icon="cr:help-outline" title="$i18n{help}" on-click="onHelpClick_">
+  <cr-icon-button id="helpButton" iron-icon="cr:help-outline" title="$i18n{help}" on-click="onHelpClick_" dir="ltr">
   </cr-icon-button>
 </cr-toolbar>
 <!--_html_template_end_-->`;
@@ -19649,7 +19890,7 @@ const FindShortcutMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$3() {
-    return html `<!--_html_template_start_--><style include="cr-page-host-style cr-shared-style shared-style">:host{display:flex;flex-direction:column;height:100%}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}#content,#sidebar,#space-holder{flex:1 1 0}#sidebar{height:100%;position:sticky;top:0;z-index:1}#content{flex-basis:var(--password-manager-main-basis);height:100%}#checkupDetails{height:100%}checkup-details-section{height:auto!important;min-height:100%}password-details-section,passwords-section,settings-section{padding-bottom:28px}@media (max-width:980px){#content{min-width:auto;padding:0 3px}}#cr-container-shadow-top{z-index:2}#removalNotification{display:flex;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}password-manager-side-bar{min-width:var(--side-bar-width)}</style>
+    return html `<!--_html_template_start_--><style include="cr-page-host-style cr-shared-style shared-style">:host{display:flex;flex-direction:column;height:100%}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}#content,#sidebar,#space-holder{flex:1 1 0}#space-holder{min-width:56px}#sidebar{height:100%;position:sticky;top:0;z-index:1}#content{flex-basis:var(--password-manager-main-basis);height:100%}#checkupDetails{height:100%}checkup-details-section{height:auto!important;min-height:100%}password-details-section,passwords-section,settings-section{padding-bottom:28px}@media (max-width:1036px){#content{min-width:auto;padding:0 3px}}@media not (max-width:1036px){#content *{min-width:680px}}#cr-container-shadow-top{z-index:2}#removalNotification{display:flex;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}password-manager-side-bar{min-width:var(--side-bar-width)}</style>
 <settings-prefs id="prefs" prefs="{{prefs_}}"></settings-prefs>
 <password-manager-toolbar id="toolbar" narrow="[[narrow_]]" page-name="[[pageTitle_]]" on-search-enter-click="onSearchEnterClick_">
 </password-manager-toolbar>
@@ -19665,7 +19906,7 @@ function getTemplate$3() {
     </settings-section>
     <div id="passwordDetails" path="password-details">
       <template is="dom-if" restamp if="[[showPage(selectedPage_, pagesValueEnum_.PASSWORD_DETAILS)]]">
-        <password-details-section class="cr-centered-card-container" on-password-removed="onPasswordRemoved_" prefs="{{prefs_}}" on-passkey-removed="onPasskeyRemoved_">
+        <password-details-section class="cr-centered-card-container" on-password-removed="onPasswordRemoved_" prefs="{{prefs_}}" on-passkey-removed="onPasskeyRemoved_" on-password-moved="onPasswordMoved_">
         </password-details-section>
       </template>
     </div>
@@ -19686,11 +19927,11 @@ function getTemplate$3() {
     </template>
   </div>
 </cr-drawer>
-<iron-media-query query="(max-width: 980px)" query-matches="{{narrow_}}">
+<iron-media-query query="(max-width: 1036px)" query-matches="{{narrow_}}">
 </iron-media-query>
 <iron-media-query query="(max-width: 1200px)" query-matches="{{collapsed_}}">
 </iron-media-query>
-<cr-toast id="removalToast" duration="5000">
+<cr-toast id="toast" duration="5000">
   <span id="removalNotification">[[toastMessage_]]</span>
   <cr-button id="undo-removal" aria-label="$i18n{undoDescription}" on-click="onUndoButtonClick_" hidden$="[[!showUndo_]]">
     $i18n{undoRemovePassword}
@@ -19875,16 +20116,22 @@ class PasswordManagerAppElement extends PasswordManagerAppElementBase {
         // TODO(crbug.com/1350947): Show different message if account store user.
         this.showUndo_ = true;
         this.toastMessage_ = this.i18n('passwordDeleted');
-        this.$.removalToast.show();
+        this.$.toast.show();
     }
     onPasskeyRemoved_() {
         this.showUndo_ = false;
         this.toastMessage_ = this.i18n('passkeyDeleted');
-        this.$.removalToast.show();
+        this.$.toast.show();
+    }
+    onPasswordMoved_(event) {
+        this.showUndo_ = false;
+        this.toastMessage_ =
+            this.i18n('passwordMovedToastMessage', event.detail.accountEmail);
+        this.$.toast.show();
     }
     onUndoButtonClick_() {
         PasswordManagerImpl.getInstance().undoRemoveSavedPasswordOrException();
-        this.$.removalToast.hide();
+        this.$.toast.hide();
     }
     onSearchEnterClick_() {
         this.$.passwords.focusFirstResult();
@@ -19916,10 +20163,10 @@ class PasswordManagerAppElement extends PasswordManagerAppElementBase {
 customElements.define(PasswordManagerAppElement.is, PasswordManagerAppElement);
 
 function getTemplate$2() {
-    return html `<!--_html_template_start_--><style include="cr-input-style cr-shared-style shared-style"></style>
+    return html `<!--_html_template_start_--><style include="cr-input-style cr-shared-style shared-style credential-details-card"></style>
 
 <cr-input value="[[value]]" id="inputValue" readonly="readonly" class="input-field" label="[[label]]" placeholder="[[placeholder]]" aria-disabled="true">
-  <cr-icon-button id="copyButton" class="icon-copy-content" slot="inline-suffix" title="[[copyButtonLabel]]" on-click="onCopyValueClick_">
+  <cr-icon-button id="copyButton" class="icon-copy-content" slot="inline-suffix" title="[[copyButtonLabel]]" on-click="onCopyValueClick_" hidden="[[!value]]">
   </cr-icon-button>
 </cr-input>
 
@@ -19988,11 +20235,11 @@ class CredentialFieldElement extends PolymerElement {
 customElements.define(CredentialFieldElement.is, CredentialFieldElement);
 
 function getTemplate$1() {
-    return html `<!--_html_template_start_--><style include="cr-input-style cr-shared-style">#noteField{background:var(--cr-input-background-color);border-radius:10px;display:flex;flex-direction:column;padding:10px 12px}#noteValue{border:0;color:var(--cr-primary-text-color);flex:1;opacity:var(--cr-input-readonly-opacity,.6);overflow:hidden;padding:0;resize:none;text-overflow:ellipsis;white-space:pre-line}#noteValue[limit-note]{max-height:3lh}#showMore{color:var(--cr-link-color)}#noteValue,#showMore{font-family:inherit;letter-spacing:.15px;line-height:20px}.cr-form-field-label{margin-bottom:8px}</style>
+    return html `<!--_html_template_start_--><style include="cr-input-style cr-shared-style">#noteField{background:var(--cr-input-background-color);border-radius:10px;display:flex;flex-direction:column;padding:10px 12px}#noteValue{border:0;color:var(--cr-input-color);flex:1;opacity:var(--cr-input-readonly-opacity,.6);overflow:hidden;padding:0;resize:none;text-overflow:ellipsis;white-space:pre-line}#noteValue[limit-note]{max-height:3lh}#noteValue[empty]{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}#showMore{color:var(--cr-link-color)}#noteValue,#showMore{font-family:inherit;letter-spacing:.15px;font-size:inherit}.cr-form-field-label{margin-bottom:8px}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}</style>
 
-<div class="cr-form-field-label">$i18n{noteLabel}</div>
+<div id="label" class="cr-form-field-label">$i18n{noteLabel}</div>
 <div id="noteField" class="input-field">
-  <div id="noteValue" role="textbox" limit-note$="[[!showNoteFully_]]">
+  <div id="noteValue" role="textbox" limit-note$="[[!showNoteFully_]]" empty$="[[noteIsEmpty_(note)]]">
     <span>[[getNoteValue_(note)]]</span>
   </div>
   <a id="showMore" href="/" on-click="onshowMoreClick_" hidden="[[isNoteFullyVisible_(showNoteFully_, note)]]">
@@ -20025,6 +20272,9 @@ class CredentialNoteElement extends CredentialNoteElementBase {
     }
     getNoteValue_() {
         return !this.note ? this.i18n('emptyNote') : this.note;
+    }
+    noteIsEmpty_() {
+        return !this.note;
     }
     isNoteFullyVisible_() {
         return this.showNoteFully_ ||

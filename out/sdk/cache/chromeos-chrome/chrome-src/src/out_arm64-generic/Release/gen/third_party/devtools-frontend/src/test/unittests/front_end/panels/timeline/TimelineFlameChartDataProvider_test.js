@@ -84,8 +84,8 @@ describeWithEnvironment('TimelineFlameChartDataProvider', function () {
         const framesLevel = framesTrack.startLevel;
         const screenshotsLevel = framesLevel + 1;
         // The frames track first shows the frames, and then shows screenhots just below it.
-        assert.strictEqual(dataProvider.getEntryTypeForLevel(framesLevel), Timeline.TimelineFlameChartDataProvider.EntryType.Frame);
-        assert.strictEqual(dataProvider.getEntryTypeForLevel(screenshotsLevel), Timeline.TimelineFlameChartDataProvider.EntryType.Screenshot);
+        assert.strictEqual(dataProvider.getEntryTypeForLevel(framesLevel), "Frame" /* Timeline.TimelineFlameChartDataProvider.EntryType.Frame */);
+        assert.strictEqual(dataProvider.getEntryTypeForLevel(screenshotsLevel), "Screenshot" /* Timeline.TimelineFlameChartDataProvider.EntryType.Screenshot */);
         // There are 5 screenshots in this trace, so we expect there to be 5 events on the screenshots track level.
         const eventsOnScreenshotsLevel = dataProvider.timelineData().entryLevels.filter(e => e === screenshotsLevel);
         assert.lengthOf(eventsOnScreenshotsLevel, 5);

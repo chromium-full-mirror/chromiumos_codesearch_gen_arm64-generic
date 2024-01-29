@@ -5,14 +5,12 @@ import { assertInstanceof, assertNotReached } from 'chrome://resources/ash/commo
 import { getMimeType, startIOTask } from '../../common/js/api.js';
 import { unwrapEntry } from '../../common/js/entry_utils.js';
 import { getDefaultTask } from '../../common/js/file_tasks.js';
+import { FilesAppDirEntry, FilesAppEntry } from '../../common/js/files_app_entry_types.js';
 import { recordDirectoryListLoadWithTolerance, startInterval } from '../../common/js/metrics.js';
 import { str, strf } from '../../common/js/translations.js';
 import { checkAPIError } from '../../common/js/util.js';
-import { Crostini } from '../../externs/background/crostini.js';
-import { ProgressCenter } from '../../externs/background/progress_center.js';
-import { FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
-import { FileData, FileKey, FileTasks as StoreFileTasks, PropStatus, State } from '../../externs/ts/state.js';
 import { fetchFileTasks } from '../../state/ducks/current_directory.js';
+import { PropStatus } from '../../state/state.js';
 import { getFilesData, getStore, waitForState } from '../../state/store.js';
 import { XfPasswordDialog } from '../../widgets/xf_password_dialog.js';
 import { DirectoryModel } from './directory_model.js';
@@ -128,13 +126,13 @@ export class TaskController {
                         const match = /\.(\w+)$/g.exec(selection.entries[i].toURL());
                         if (match) {
                             const ext = match[1].toUpperCase();
-                            if (extensions.indexOf(ext) == -1) {
+                            if (extensions.indexOf(ext) === -1) {
                                 extensions.push(ext);
                             }
                         }
                     }
                     let format = '';
-                    if (extensions.length == 1) {
+                    if (extensions.length === 1) {
                         format = extensions[0];
                     }
                     // Change default was clicked. We should open "change default"
@@ -191,10 +189,10 @@ export class TaskController {
         const combobutton = this.ui_.taskMenuButton;
         const tasks = fileTasks.getAnnotatedTasks();
         combobutton.hidden =
-            tasks.length == 0 || fileTasks.entries.some(e => e.isDirectory);
+            tasks.length === 0 || fileTasks.entries.some(e => e.isDirectory);
         // Even if the task menu button is hidden, we still update the items if
         // tasks exist since they are used for the right-click context menu.
-        if (tasks.length == 0) {
+        if (tasks.length === 0) {
             return;
         }
         combobutton.clear();
@@ -439,8 +437,8 @@ export class TaskController {
             }
         }
         this.canExecuteDefaultTask_ =
-            defaultTask != null && !defaultTask.isDlpBlocked;
-        this.shouldHideDefaultTask_ = defaultTask == null;
+            defaultTask !== null && !defaultTask.isDlpBlocked;
+        this.shouldHideDefaultTask_ = defaultTask === null;
         this.defaultTaskCommand_.canExecuteChange(this.ui_.listContainer.element);
         this.canExecuteOpenActions_ =
             taskCount > 1 || (taskCount === 1 && !defaultTask);
@@ -471,16 +469,16 @@ export class TaskController {
         // TaskController only manages IOTasks related to zip extract that were
         // started in this window.
         if (!(this.extractTasks_.has(taskId) &&
-            event.type === chrome.fileManagerPrivate.IOTaskType.EXTRACT)) {
+            event.type === chrome.fileManagerPrivate.IoTaskType.EXTRACT)) {
             return;
         }
         switch (event.state) {
-            case chrome.fileManagerPrivate.IOTaskState.SUCCESS:
-            case chrome.fileManagerPrivate.IOTaskState.CANCELLED:
-            case chrome.fileManagerPrivate.IOTaskState.ERROR:
+            case chrome.fileManagerPrivate.IoTaskState.SUCCESS:
+            case chrome.fileManagerPrivate.IoTaskState.CANCELLED:
+            case chrome.fileManagerPrivate.IoTaskState.ERROR:
                 this.deleteExtractTaskDetails_(taskId);
                 break;
-            case chrome.fileManagerPrivate.IOTaskState.NEED_PASSWORD:
+            case chrome.fileManagerPrivate.IoTaskState.NEED_PASSWORD:
                 this.handleMissingPassword_(taskId);
                 break;
         }
@@ -503,7 +501,7 @@ export class TaskController {
      */
     async startExtractTask_(entries, params) {
         try {
-            const taskId = await startIOTask(chrome.fileManagerPrivate.IOTaskType.EXTRACT, entries, params);
+            const taskId = await startIOTask(chrome.fileManagerPrivate.IoTaskType.EXTRACT, entries, params);
             this.extractTasks_.set(taskId, { entries, params });
         }
         catch (error) {
@@ -542,7 +540,7 @@ export class TaskController {
             // that's encrypted.
             const selectionEntries = existingOperation['entries'];
             const params = existingOperation['params'];
-            if (selectionEntries.length == 1) {
+            if (selectionEntries.length === 1) {
                 this.startGetPasswordThenExtractTask_(selectionEntries[0], params);
             }
             else {

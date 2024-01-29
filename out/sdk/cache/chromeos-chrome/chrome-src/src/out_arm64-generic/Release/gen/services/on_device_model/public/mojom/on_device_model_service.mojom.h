@@ -354,7 +354,8 @@ class  LoadModelParams {
 
   LoadModelParams(
       ::on_device_model::ModelAssets assets,
-      uint32_t max_tokens);
+      uint32_t max_tokens,
+      std::optional<uint32_t> ts_dimension);
 
 LoadModelParams(const LoadModelParams&) = delete;
 LoadModelParams& operator=(const LoadModelParams&) = delete;
@@ -432,6 +433,8 @@ LoadModelParams& operator=(const LoadModelParams&) = delete;
   ::on_device_model::ModelAssets assets;
   
   uint32_t max_tokens;
+  
+  std::optional<uint32_t> ts_dimension;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -516,7 +519,8 @@ template <typename StructPtrType>
 LoadModelParamsPtr LoadModelParams::Clone() const {
   return New(
       mojo::Clone(assets),
-      mojo::Clone(max_tokens)
+      mojo::Clone(max_tokens),
+      mojo::Clone(ts_dimension)
   );
 }
 
@@ -525,6 +529,8 @@ bool LoadModelParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->assets, other_struct.assets))
     return false;
   if (!mojo::Equals(this->max_tokens, other_struct.max_tokens))
+    return false;
+  if (!mojo::Equals(this->ts_dimension, other_struct.ts_dimension))
     return false;
   return true;
 }
@@ -538,6 +544,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.max_tokens < rhs.max_tokens)
     return true;
   if (rhs.max_tokens < lhs.max_tokens)
+    return false;
+  if (lhs.ts_dimension < rhs.ts_dimension)
+    return true;
+  if (rhs.ts_dimension < lhs.ts_dimension)
     return false;
   return false;
 }
@@ -597,6 +607,11 @@ struct  StructTraits<::on_device_model::mojom::LoadModelParams::DataView,
   static decltype(::on_device_model::mojom::LoadModelParams::max_tokens) max_tokens(
       const ::on_device_model::mojom::LoadModelParamsPtr& input) {
     return input->max_tokens;
+  }
+
+  static decltype(::on_device_model::mojom::LoadModelParams::ts_dimension) ts_dimension(
+      const ::on_device_model::mojom::LoadModelParamsPtr& input) {
+    return input->ts_dimension;
   }
 
   static bool Read(::on_device_model::mojom::LoadModelParams::DataView input, ::on_device_model::mojom::LoadModelParamsPtr* output);

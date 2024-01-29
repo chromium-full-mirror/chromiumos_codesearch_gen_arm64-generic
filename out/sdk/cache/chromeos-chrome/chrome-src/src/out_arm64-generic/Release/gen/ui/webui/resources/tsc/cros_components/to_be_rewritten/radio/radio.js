@@ -6,9 +6,7 @@
 import '@material/web/radio/radio.js';
 import { css, html, LitElement } from 'lit';
 /**
- * A chromeOS compliant radio button.
- * See spec
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2673%3A11119
+ * A ChromeOS compliant radio button.
  */
 export class Radio extends LitElement {
     /** @nocollapse */

@@ -238,6 +238,8 @@ bool UsbDeviceManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::UsbDeviceManagerClient_OnDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManagerClient.0
       bool success = true;
       ::device::mojom::blink::UsbDeviceInfoPtr p_device_info{};
       UsbDeviceManagerClient_OnDeviceAdded_ParamsDataView input_data_view(params, message);
@@ -253,8 +255,8 @@ bool UsbDeviceManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceAdded(
-std::move(p_device_info));
+      impl->OnDeviceAdded(        
+        std::move(p_device_info));
       return true;
     }
     case internal::kUsbDeviceManagerClient_OnDeviceRemoved_Name: {
@@ -264,6 +266,8 @@ std::move(p_device_info));
           reinterpret_cast<internal::UsbDeviceManagerClient_OnDeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManagerClient.1
       bool success = true;
       ::device::mojom::blink::UsbDeviceInfoPtr p_device_info{};
       UsbDeviceManagerClient_OnDeviceRemoved_ParamsDataView input_data_view(params, message);
@@ -279,8 +283,8 @@ std::move(p_device_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRemoved(
-std::move(p_device_info));
+      impl->OnDeviceRemoved(        
+        std::move(p_device_info));
       return true;
     }
   }

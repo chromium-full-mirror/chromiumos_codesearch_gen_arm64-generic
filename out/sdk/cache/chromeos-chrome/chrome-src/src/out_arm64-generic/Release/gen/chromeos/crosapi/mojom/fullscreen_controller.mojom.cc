@@ -210,6 +210,8 @@ bool FullscreenControllerClient_ShouldExitFullscreenBeforeLock_ForwardToCallback
           internal::FullscreenControllerClient_ShouldExitFullscreenBeforeLock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FullscreenControllerClient.0
   bool success = true;
   bool p_should_exit_fullscreen{};
   FullscreenControllerClient_ShouldExitFullscreenBeforeLock_ResponseParamsDataView input_data_view(params, message);
@@ -300,6 +302,8 @@ bool FullscreenControllerClientStubDispatch::AcceptWithResponder(
               internal::FullscreenControllerClient_ShouldExitFullscreenBeforeLock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FullscreenControllerClient.0
       bool success = true;
       FullscreenControllerClient_ShouldExitFullscreenBeforeLock_ParamsDataView input_data_view(params, message);
       
@@ -455,6 +459,8 @@ bool FullscreenControllerStubDispatch::Accept(
           reinterpret_cast<internal::FullscreenController_AddClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FullscreenController.0
       bool success = true;
       ::mojo::PendingRemote<FullscreenControllerClient> p_client{};
       FullscreenController_AddClient_ParamsDataView input_data_view(params, message);
@@ -472,8 +478,8 @@ bool FullscreenControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddClient(
-std::move(p_client));
+      impl->AddClient(        
+        std::move(p_client));
       return true;
     }
   }

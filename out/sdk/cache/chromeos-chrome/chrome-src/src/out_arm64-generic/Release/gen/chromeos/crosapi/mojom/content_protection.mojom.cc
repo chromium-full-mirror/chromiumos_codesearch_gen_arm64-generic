@@ -666,6 +666,8 @@ bool ContentProtection_QueryWindowStatus_ForwardToCallback::Accept(
           internal::ContentProtection_QueryWindowStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentProtection.0
   bool success = true;
   ContentProtectionWindowStatusPtr p_status{};
   ContentProtection_QueryWindowStatus_ResponseParamsDataView input_data_view(params, message);
@@ -791,6 +793,8 @@ bool ContentProtection_EnableWindowProtection_ForwardToCallback::Accept(
           internal::ContentProtection_EnableWindowProtection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentProtection.1
   bool success = true;
   bool p_success{};
   ContentProtection_EnableWindowProtection_ResponseParamsDataView input_data_view(params, message);
@@ -910,6 +914,8 @@ bool ContentProtection_GetSystemSalt_ForwardToCallback::Accept(
           internal::ContentProtection_GetSystemSalt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentProtection.2
   bool success = true;
   std::string p_salt{};
   ContentProtection_GetSystemSalt_ResponseParamsDataView input_data_view(params, message);
@@ -1039,6 +1045,8 @@ bool ContentProtection_ChallengePlatform_ForwardToCallback::Accept(
           internal::ContentProtection_ChallengePlatform_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentProtection.3
   bool success = true;
   ChallengePlatformResultPtr p_result{};
   ContentProtection_ChallengePlatform_ResponseParamsDataView input_data_view(params, message);
@@ -1164,6 +1172,8 @@ bool ContentProtection_IsVerifiedAccessEnabled_ForwardToCallback::Accept(
           internal::ContentProtection_IsVerifiedAccessEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentProtection.4
   bool success = true;
   bool p_enabled{};
   ContentProtection_IsVerifiedAccessEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1266,6 +1276,8 @@ bool ContentProtectionStubDispatch::AcceptWithResponder(
               internal::ContentProtection_QueryWindowStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentProtection.0
       bool success = true;
       std::string p_window_id{};
       ContentProtection_QueryWindowStatus_ParamsDataView input_data_view(params, message);
@@ -1284,8 +1296,8 @@ bool ContentProtectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueryWindowStatus(
-std::move(p_window_id), std::move(callback));
+      impl->QueryWindowStatus(        
+        std::move(p_window_id), std::move(callback));
       return true;
     }
     case internal::kContentProtection_EnableWindowProtection_Name: {
@@ -1295,6 +1307,8 @@ std::move(p_window_id), std::move(callback));
               internal::ContentProtection_EnableWindowProtection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentProtection.1
       bool success = true;
       std::string p_window_id{};
       uint32_t p_desired_protection_mask{};
@@ -1316,9 +1330,9 @@ std::move(p_window_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableWindowProtection(
-std::move(p_window_id), 
-std::move(p_desired_protection_mask), std::move(callback));
+      impl->EnableWindowProtection(        
+        std::move(p_window_id), 
+        std::move(p_desired_protection_mask), std::move(callback));
       return true;
     }
     case internal::kContentProtection_GetSystemSalt_Name: {
@@ -1328,6 +1342,8 @@ std::move(p_desired_protection_mask), std::move(callback));
               internal::ContentProtection_GetSystemSalt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentProtection.2
       bool success = true;
       ContentProtection_GetSystemSalt_ParamsDataView input_data_view(params, message);
       
@@ -1353,6 +1369,8 @@ std::move(p_desired_protection_mask), std::move(callback));
               internal::ContentProtection_ChallengePlatform_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentProtection.3
       bool success = true;
       std::string p_service_id{};
       std::string p_challenge{};
@@ -1374,9 +1392,9 @@ std::move(p_desired_protection_mask), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChallengePlatform(
-std::move(p_service_id), 
-std::move(p_challenge), std::move(callback));
+      impl->ChallengePlatform(        
+        std::move(p_service_id), 
+        std::move(p_challenge), std::move(callback));
       return true;
     }
     case internal::kContentProtection_IsVerifiedAccessEnabled_Name: {
@@ -1386,6 +1404,8 @@ std::move(p_challenge), std::move(callback));
               internal::ContentProtection_IsVerifiedAccessEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentProtection.4
       bool success = true;
       ContentProtection_IsVerifiedAccessEnabled_ParamsDataView input_data_view(params, message);
       

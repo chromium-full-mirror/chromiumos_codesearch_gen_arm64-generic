@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-libs/libtextclassifier-0.0.1-r424/work/libtextclassifier-0.0.1/platform2"
+    },
+    {
+      "src_path": "src/third_party/libtextclassifier",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-libs/libtextclassifier-0.0.1-r424/work/libtextclassifier-0.0.1/platform2/libtextclassifier"
+    }
+  ]
+}

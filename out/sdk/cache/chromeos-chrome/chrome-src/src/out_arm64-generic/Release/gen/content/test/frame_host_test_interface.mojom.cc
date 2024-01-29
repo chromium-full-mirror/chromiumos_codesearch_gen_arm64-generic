@@ -180,6 +180,8 @@ bool FrameHostTestInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::FrameHostTestInterface_Ping_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameHostTestInterface.0
       bool success = true;
       ::GURL p_source_url{};
       std::string p_source_event{};
@@ -198,9 +200,9 @@ bool FrameHostTestInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Ping(
-std::move(p_source_url), 
-std::move(p_source_event));
+      impl->Ping(        
+        std::move(p_source_url), 
+        std::move(p_source_event));
       return true;
     }
   }

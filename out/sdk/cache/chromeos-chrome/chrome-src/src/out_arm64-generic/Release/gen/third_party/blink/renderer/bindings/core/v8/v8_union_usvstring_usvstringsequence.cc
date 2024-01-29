@@ -95,7 +95,7 @@ content_type_ = ContentType::kUSVStringSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionUSVStringOrUSVStringSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionUSVStringOrUSVStringSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kUSVString: {
     return ToV8Traits<IDLUSVString>::ToV8(script_state, member_usv_string_);
@@ -106,7 +106,7 @@ v8::MaybeLocal<v8::Value> V8UnionUSVStringOrUSVStringSequence::ToV8Value(ScriptS
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionUSVStringOrUSVStringSequence::Trace(Visitor* visitor) const {

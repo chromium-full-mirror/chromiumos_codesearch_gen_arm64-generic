@@ -221,7 +221,7 @@ class  PageHandler_RemoveTabFromOrganization_Params_Data {
 };
 static_assert(sizeof(PageHandler_RemoveTabFromOrganization_Params_Data) == 24,
               "Bad sizeof(PageHandler_RemoveTabFromOrganization_Params_Data)");
-class  PageHandler_ResetSession_Params_Data {
+class  PageHandler_RestartSession_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -229,13 +229,13 @@ class  PageHandler_ResetSession_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<PageHandler_ResetSession_Params_Data>;
+  friend class mojo::internal::MessageFragment<PageHandler_RestartSession_Params_Data>;
 
-  PageHandler_ResetSession_Params_Data();
-  ~PageHandler_ResetSession_Params_Data() = delete;
+  PageHandler_RestartSession_Params_Data();
+  ~PageHandler_RestartSession_Params_Data() = delete;
 };
-static_assert(sizeof(PageHandler_ResetSession_Params_Data) == 8,
-              "Bad sizeof(PageHandler_ResetSession_Params_Data)");
+static_assert(sizeof(PageHandler_RestartSession_Params_Data) == 8,
+              "Bad sizeof(PageHandler_RestartSession_Params_Data)");
 class  PageHandler_SaveRecentlyClosedExpandedPref_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -460,6 +460,23 @@ class  Page_TabsRemoved_Params_Data {
 };
 static_assert(sizeof(Page_TabsRemoved_Params_Data) == 16,
               "Bad sizeof(Page_TabsRemoved_Params_Data)");
+class  Page_TabSearchTabIndexChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t index;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Page_TabSearchTabIndexChanged_Params_Data>;
+
+  Page_TabSearchTabIndexChanged_Params_Data();
+  ~Page_TabSearchTabIndexChanged_Params_Data() = delete;
+};
+static_assert(sizeof(Page_TabSearchTabIndexChanged_Params_Data) == 16,
+              "Bad sizeof(Page_TabSearchTabIndexChanged_Params_Data)");
 
 }  // namespace internal
 
@@ -752,18 +769,18 @@ class PageHandler_RemoveTabFromOrganization_ParamsDataView {
 };
 
 
-class PageHandler_ResetSession_ParamsDataView {
+class PageHandler_RestartSession_ParamsDataView {
  public:
-  PageHandler_ResetSession_ParamsDataView() = default;
+  PageHandler_RestartSession_ParamsDataView() = default;
 
-  PageHandler_ResetSession_ParamsDataView(
-      internal::PageHandler_ResetSession_Params_Data* data,
+  PageHandler_RestartSession_ParamsDataView(
+      internal::PageHandler_RestartSession_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::PageHandler_ResetSession_Params_Data* data_ = nullptr;
+  internal::PageHandler_RestartSession_Params_Data* data_ = nullptr;
 };
 
 
@@ -1046,6 +1063,24 @@ class Page_TabsRemoved_ParamsDataView {
 };
 
 
+class Page_TabSearchTabIndexChanged_ParamsDataView {
+ public:
+  Page_TabSearchTabIndexChanged_ParamsDataView() = default;
+
+  Page_TabSearchTabIndexChanged_ParamsDataView(
+      internal::Page_TabSearchTabIndexChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t index() const {
+    return data_->index;
+  }
+ private:
+  internal::Page_TabSearchTabIndexChanged_Params_Data* data_ = nullptr;
+};
+
+
 
 
 
@@ -1147,6 +1182,8 @@ inline void Page_TabsRemoved_ParamsDataView::GetTabsRemovedInfoDataView(
   auto pointer = data_->tabsRemovedInfo.Get();
   *output = TabsRemovedInfoDataView(pointer, message_);
 }
+
+
 
 
 

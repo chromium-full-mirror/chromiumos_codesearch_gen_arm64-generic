@@ -1,7 +1,6 @@
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { ExifEntry } from '../../../externs/exif_entry.js';
 import { ByteOrder, ByteReader, SeekOrigin } from './byte_reader.js';
 import { ExifAlign, ExifMark, ExifTag } from './exif_constants.js';
 import { ImageParser } from './metadata_parser.js';

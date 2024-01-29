@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
-                credential-details-card">#passwordButtons{display:flex}.share-button-container{margin-inline-start:auto;display:flex}cr-tooltip-icon{margin-block:auto;margin-inline-end:16px}</style>
+                credential-details-card cr-icons">.share-button-container{margin-inline-start:auto;display:flex}cr-tooltip-icon{margin-block:auto;margin-inline-end:16px}#uploadSinglePassword{width:16px;height:16px;vertical-align:text-bottom;margin-inline-end:8px}.move-password-container{display:flex;margin-top:4px;margin-bottom:10px;padding:0 var(--cr-form-field-bottom-spacing);align-items:center}</style>
 <div class="card" aria-label="[[getAriaLabelForPasswordCard_(password)]]" role="region">
   <div class="credential-container">
     <div class="row-container">
@@ -25,12 +25,10 @@ export function getTemplate() {
     <div class="row-container">
       <div class="column-container">
         <cr-input id="passwordValue" label="[[getPasswordLabel_(password)]]" value="[[getPasswordValue_(password)]]" class="input-field password-input" type="[[getPasswordType_(password, isPasswordVisible)]]" readonly="readonly" aria-disabled="true">
-          <div id="passwordButtons" slot="inline-suffix" hidden="[[isFederated_(password)]]">
-            <cr-icon-button id="showPasswordButton" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowPasswordClick_">
-            </cr-icon-button>
-            <cr-icon-button id="copyPasswordButton" class="icon-copy-content" title="$i18n{copyPassword}" on-click="onCopyPasswordClick_">
-            </cr-icon-button>
-          </div>
+          <cr-icon-button id="showPasswordButton" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowPasswordClick_" slot="inline-suffix" hidden="[[isFederated_(password)]]">
+          </cr-icon-button>
+          <cr-icon-button id="copyPasswordButton" class="icon-copy-content" title="$i18n{copyPassword}" on-click="onCopyPasswordClick_" slot="inline-suffix" hidden="[[isFederated_(password)]]">
+          </cr-icon-button>
         </cr-input>
       </div>
       <div class="column-container">
@@ -41,6 +39,14 @@ export function getTemplate() {
       </div>
     </div>
   </div>
+  <template is="dom-if" if="[[showMovePasswordEntry_(password.storedIn, isUsingAccountStore)]]" restamp>
+    <div class="move-password-container">
+      <iron-icon id="uploadSinglePassword" icon="passwords-icon:upload">
+      </iron-icon>
+      <div class="cr-primary-text" on-click="movePasswordClicked_" inner-h-t-m-l="[[computeMovePasswordText_()]]">
+      </div>
+    </div>
+  </template>
   <div class="button-container">
     <cr-button id="editButton" hidden="[[isFederated_(password)]]" class="edit-button" on-click="onEditClicked_" aria-label="[[getAriaLabelForEditButton_(password)]]">
       $i18n{editPassword}
@@ -72,5 +78,9 @@ export function getTemplate() {
 <cr-toast id="toast" duration="5000">
   <span>[[toastMessage_]]</span>
 </cr-toast>
+<template is="dom-if" if="[[showMovePasswordDialog_]]" restamp>
+  <move-single-password-dialog on-close="onMovePasswordDialogClose_" id="movePasswordsDialog" password="[[password]]">
+  </move-single-password-dialog>
+</template>
 <!--_html_template_end_-->`;
 }

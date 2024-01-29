@@ -1264,6 +1264,8 @@ bool WallpaperObserverStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperObserver_OnWallpaperPreviewEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperObserver.0
       bool success = true;
       WallpaperObserver_OnWallpaperPreviewEnded_ParamsDataView input_data_view(params, message);
       
@@ -1276,7 +1278,7 @@ bool WallpaperObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWallpaperPreviewEnded();
+      impl->OnWallpaperPreviewEnded(        );
       return true;
     }
     case internal::kWallpaperObserver_OnAttributionChanged_Name: {
@@ -1286,6 +1288,8 @@ bool WallpaperObserverStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperObserver_OnAttributionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperObserver.1
       bool success = true;
       CurrentAttributionPtr p_attribution{};
       WallpaperObserver_OnAttributionChanged_ParamsDataView input_data_view(params, message);
@@ -1301,8 +1305,8 @@ bool WallpaperObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAttributionChanged(
-std::move(p_attribution));
+      impl->OnAttributionChanged(        
+        std::move(p_attribution));
       return true;
     }
     case internal::kWallpaperObserver_OnWallpaperChanged_Name: {
@@ -1312,6 +1316,8 @@ std::move(p_attribution));
           reinterpret_cast<internal::WallpaperObserver_OnWallpaperChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperObserver.2
       bool success = true;
       CurrentWallpaperPtr p_image{};
       WallpaperObserver_OnWallpaperChanged_ParamsDataView input_data_view(params, message);
@@ -1327,8 +1333,8 @@ std::move(p_attribution));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWallpaperChanged(
-std::move(p_image));
+      impl->OnWallpaperChanged(        
+        std::move(p_image));
       return true;
     }
   }
@@ -3408,6 +3414,8 @@ bool WallpaperProvider_FetchCollections_ForwardToCallback::Accept(
           internal::WallpaperProvider_FetchCollections_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.2
   bool success = true;
   std::optional<std::vector<::backdrop::Collection>> p_collections{};
   WallpaperProvider_FetchCollections_ResponseParamsDataView input_data_view(params, message);
@@ -3535,6 +3543,8 @@ bool WallpaperProvider_FetchImagesForCollection_ForwardToCallback::Accept(
           internal::WallpaperProvider_FetchImagesForCollection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.3
   bool success = true;
   std::optional<std::vector<::backdrop::Image>> p_images{};
   WallpaperProvider_FetchImagesForCollection_ResponseParamsDataView input_data_view(params, message);
@@ -3662,6 +3672,8 @@ bool WallpaperProvider_FetchGooglePhotosAlbums_ForwardToCallback::Accept(
           internal::WallpaperProvider_FetchGooglePhotosAlbums_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.4
   bool success = true;
   FetchGooglePhotosAlbumsResponsePtr p_response{};
   WallpaperProvider_FetchGooglePhotosAlbums_ResponseParamsDataView input_data_view(params, message);
@@ -3791,6 +3803,8 @@ bool WallpaperProvider_FetchGooglePhotosSharedAlbums_ForwardToCallback::Accept(
           internal::WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.5
   bool success = true;
   FetchGooglePhotosAlbumsResponsePtr p_response{};
   WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParamsDataView input_data_view(params, message);
@@ -3920,6 +3934,8 @@ bool WallpaperProvider_FetchGooglePhotosEnabled_ForwardToCallback::Accept(
           internal::WallpaperProvider_FetchGooglePhotosEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.6
   bool success = true;
   GooglePhotosEnablementState p_state{};
   WallpaperProvider_FetchGooglePhotosEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -4040,6 +4056,8 @@ bool WallpaperProvider_FetchGooglePhotosPhotos_ForwardToCallback::Accept(
           internal::WallpaperProvider_FetchGooglePhotosPhotos_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.7
   bool success = true;
   FetchGooglePhotosPhotosResponsePtr p_response{};
   WallpaperProvider_FetchGooglePhotosPhotos_ResponseParamsDataView input_data_view(params, message);
@@ -4169,6 +4187,8 @@ bool WallpaperProvider_GetLocalImages_ForwardToCallback::Accept(
           internal::WallpaperProvider_GetLocalImages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.8
   bool success = true;
   std::optional<std::vector<::base::FilePath>> p_images{};
   WallpaperProvider_GetLocalImages_ResponseParamsDataView input_data_view(params, message);
@@ -4296,6 +4316,8 @@ bool WallpaperProvider_GetDefaultImageThumbnail_ForwardToCallback::Accept(
           internal::WallpaperProvider_GetDefaultImageThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.9
   bool success = true;
   ::GURL p_data{};
   WallpaperProvider_GetDefaultImageThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -4425,6 +4447,8 @@ bool WallpaperProvider_GetLocalImageThumbnail_ForwardToCallback::Accept(
           internal::WallpaperProvider_GetLocalImageThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.10
   bool success = true;
   ::GURL p_data{};
   WallpaperProvider_GetLocalImageThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -4554,6 +4578,8 @@ bool WallpaperProvider_SelectWallpaper_ForwardToCallback::Accept(
           internal::WallpaperProvider_SelectWallpaper_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.12
   bool success = true;
   bool p_success{};
   WallpaperProvider_SelectWallpaper_ResponseParamsDataView input_data_view(params, message);
@@ -4673,6 +4699,8 @@ bool WallpaperProvider_SelectDefaultImage_ForwardToCallback::Accept(
           internal::WallpaperProvider_SelectDefaultImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.13
   bool success = true;
   bool p_success{};
   WallpaperProvider_SelectDefaultImage_ResponseParamsDataView input_data_view(params, message);
@@ -4792,6 +4820,8 @@ bool WallpaperProvider_SelectLocalImage_ForwardToCallback::Accept(
           internal::WallpaperProvider_SelectLocalImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.14
   bool success = true;
   bool p_success{};
   WallpaperProvider_SelectLocalImage_ResponseParamsDataView input_data_view(params, message);
@@ -4911,6 +4941,8 @@ bool WallpaperProvider_SelectGooglePhotosPhoto_ForwardToCallback::Accept(
           internal::WallpaperProvider_SelectGooglePhotosPhoto_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.15
   bool success = true;
   bool p_success{};
   WallpaperProvider_SelectGooglePhotosPhoto_ResponseParamsDataView input_data_view(params, message);
@@ -5030,6 +5062,8 @@ bool WallpaperProvider_SelectGooglePhotosAlbum_ForwardToCallback::Accept(
           internal::WallpaperProvider_SelectGooglePhotosAlbum_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.16
   bool success = true;
   bool p_success{};
   WallpaperProvider_SelectGooglePhotosAlbum_ResponseParamsDataView input_data_view(params, message);
@@ -5149,6 +5183,8 @@ bool WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ForwardToCallback::Acc
           internal::WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.17
   bool success = true;
   std::string p_album_id{};
   WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParamsDataView input_data_view(params, message);
@@ -5278,6 +5314,8 @@ bool WallpaperProvider_SetDailyRefreshCollectionId_ForwardToCallback::Accept(
           internal::WallpaperProvider_SetDailyRefreshCollectionId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.19
   bool success = true;
   bool p_success{};
   WallpaperProvider_SetDailyRefreshCollectionId_ResponseParamsDataView input_data_view(params, message);
@@ -5397,6 +5435,8 @@ bool WallpaperProvider_GetDailyRefreshCollectionId_ForwardToCallback::Accept(
           internal::WallpaperProvider_GetDailyRefreshCollectionId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.20
   bool success = true;
   std::string p_collection_id{};
   WallpaperProvider_GetDailyRefreshCollectionId_ResponseParamsDataView input_data_view(params, message);
@@ -5526,6 +5566,8 @@ bool WallpaperProvider_UpdateDailyRefreshWallpaper_ForwardToCallback::Accept(
           internal::WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.21
   bool success = true;
   bool p_success{};
   WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParamsDataView input_data_view(params, message);
@@ -5645,6 +5687,8 @@ bool WallpaperProvider_IsInTabletMode_ForwardToCallback::Accept(
           internal::WallpaperProvider_IsInTabletMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.22
   bool success = true;
   bool p_tablet_mode{};
   WallpaperProvider_IsInTabletMode_ResponseParamsDataView input_data_view(params, message);
@@ -5764,6 +5808,8 @@ bool WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ForwardToCallback::Acc
           internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperProvider.25
   bool success = true;
   bool p_should_show_dialog{};
   WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsDataView input_data_view(params, message);
@@ -5838,6 +5884,8 @@ bool WallpaperProviderStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperProvider_MakeTransparent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.0
       bool success = true;
       WallpaperProvider_MakeTransparent_ParamsDataView input_data_view(params, message);
       
@@ -5850,7 +5898,7 @@ bool WallpaperProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MakeTransparent();
+      impl->MakeTransparent(        );
       return true;
     }
     case internal::kWallpaperProvider_MakeOpaque_Name: {
@@ -5860,6 +5908,8 @@ bool WallpaperProviderStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperProvider_MakeOpaque_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.1
       bool success = true;
       WallpaperProvider_MakeOpaque_ParamsDataView input_data_view(params, message);
       
@@ -5872,7 +5922,7 @@ bool WallpaperProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MakeOpaque();
+      impl->MakeOpaque(        );
       return true;
     }
     case internal::kWallpaperProvider_FetchCollections_Name: {
@@ -5909,6 +5959,8 @@ bool WallpaperProviderStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperProvider_SetWallpaperObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.11
       bool success = true;
       ::mojo::PendingRemote<WallpaperObserver> p_observer{};
       WallpaperProvider_SetWallpaperObserver_ParamsDataView input_data_view(params, message);
@@ -5926,8 +5978,8 @@ bool WallpaperProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWallpaperObserver(
-std::move(p_observer));
+      impl->SetWallpaperObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kWallpaperProvider_SelectWallpaper_Name: {
@@ -5955,6 +6007,8 @@ std::move(p_observer));
           reinterpret_cast<internal::WallpaperProvider_SetCurrentWallpaperLayout_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.18
       bool success = true;
       ::ash::WallpaperLayout p_layout{};
       WallpaperProvider_SetCurrentWallpaperLayout_ParamsDataView input_data_view(params, message);
@@ -5970,8 +6024,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCurrentWallpaperLayout(
-std::move(p_layout));
+      impl->SetCurrentWallpaperLayout(        
+        std::move(p_layout));
       return true;
     }
     case internal::kWallpaperProvider_SetDailyRefreshCollectionId_Name: {
@@ -5993,6 +6047,8 @@ std::move(p_layout));
           reinterpret_cast<internal::WallpaperProvider_ConfirmPreviewWallpaper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.23
       bool success = true;
       WallpaperProvider_ConfirmPreviewWallpaper_ParamsDataView input_data_view(params, message);
       
@@ -6005,7 +6061,7 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfirmPreviewWallpaper();
+      impl->ConfirmPreviewWallpaper(        );
       return true;
     }
     case internal::kWallpaperProvider_CancelPreviewWallpaper_Name: {
@@ -6015,6 +6071,8 @@ std::move(p_layout));
           reinterpret_cast<internal::WallpaperProvider_CancelPreviewWallpaper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.24
       bool success = true;
       WallpaperProvider_CancelPreviewWallpaper_ParamsDataView input_data_view(params, message);
       
@@ -6027,7 +6085,7 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPreviewWallpaper();
+      impl->CancelPreviewWallpaper(        );
       return true;
     }
     case internal::kWallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Name: {
@@ -6059,6 +6117,8 @@ bool WallpaperProviderStubDispatch::AcceptWithResponder(
               internal::WallpaperProvider_FetchCollections_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.2
       bool success = true;
       WallpaperProvider_FetchCollections_ParamsDataView input_data_view(params, message);
       
@@ -6084,6 +6144,8 @@ bool WallpaperProviderStubDispatch::AcceptWithResponder(
               internal::WallpaperProvider_FetchImagesForCollection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.3
       bool success = true;
       std::string p_collection_id{};
       WallpaperProvider_FetchImagesForCollection_ParamsDataView input_data_view(params, message);
@@ -6102,8 +6164,8 @@ bool WallpaperProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchImagesForCollection(
-std::move(p_collection_id), std::move(callback));
+      impl->FetchImagesForCollection(        
+        std::move(p_collection_id), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_FetchGooglePhotosAlbums_Name: {
@@ -6113,6 +6175,8 @@ std::move(p_collection_id), std::move(callback));
               internal::WallpaperProvider_FetchGooglePhotosAlbums_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.4
       bool success = true;
       std::optional<std::string> p_resume_token{};
       WallpaperProvider_FetchGooglePhotosAlbums_ParamsDataView input_data_view(params, message);
@@ -6131,8 +6195,8 @@ std::move(p_collection_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchGooglePhotosAlbums(
-std::move(p_resume_token), std::move(callback));
+      impl->FetchGooglePhotosAlbums(        
+        std::move(p_resume_token), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_FetchGooglePhotosSharedAlbums_Name: {
@@ -6142,6 +6206,8 @@ std::move(p_resume_token), std::move(callback));
               internal::WallpaperProvider_FetchGooglePhotosSharedAlbums_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.5
       bool success = true;
       std::optional<std::string> p_resume_token{};
       WallpaperProvider_FetchGooglePhotosSharedAlbums_ParamsDataView input_data_view(params, message);
@@ -6160,8 +6226,8 @@ std::move(p_resume_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchGooglePhotosSharedAlbums(
-std::move(p_resume_token), std::move(callback));
+      impl->FetchGooglePhotosSharedAlbums(        
+        std::move(p_resume_token), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_FetchGooglePhotosEnabled_Name: {
@@ -6171,6 +6237,8 @@ std::move(p_resume_token), std::move(callback));
               internal::WallpaperProvider_FetchGooglePhotosEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.6
       bool success = true;
       WallpaperProvider_FetchGooglePhotosEnabled_ParamsDataView input_data_view(params, message);
       
@@ -6196,6 +6264,8 @@ std::move(p_resume_token), std::move(callback));
               internal::WallpaperProvider_FetchGooglePhotosPhotos_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.7
       bool success = true;
       std::optional<std::string> p_item_id{};
       std::optional<std::string> p_album_id{};
@@ -6220,10 +6290,10 @@ std::move(p_resume_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchGooglePhotosPhotos(
-std::move(p_item_id), 
-std::move(p_album_id), 
-std::move(p_resume_token), std::move(callback));
+      impl->FetchGooglePhotosPhotos(        
+        std::move(p_item_id), 
+        std::move(p_album_id), 
+        std::move(p_resume_token), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_GetLocalImages_Name: {
@@ -6233,6 +6303,8 @@ std::move(p_resume_token), std::move(callback));
               internal::WallpaperProvider_GetLocalImages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.8
       bool success = true;
       WallpaperProvider_GetLocalImages_ParamsDataView input_data_view(params, message);
       
@@ -6258,6 +6330,8 @@ std::move(p_resume_token), std::move(callback));
               internal::WallpaperProvider_GetDefaultImageThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.9
       bool success = true;
       WallpaperProvider_GetDefaultImageThumbnail_ParamsDataView input_data_view(params, message);
       
@@ -6283,6 +6357,8 @@ std::move(p_resume_token), std::move(callback));
               internal::WallpaperProvider_GetLocalImageThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.10
       bool success = true;
       ::base::FilePath p_file_path{};
       WallpaperProvider_GetLocalImageThumbnail_ParamsDataView input_data_view(params, message);
@@ -6301,8 +6377,8 @@ std::move(p_resume_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLocalImageThumbnail(
-std::move(p_file_path), std::move(callback));
+      impl->GetLocalImageThumbnail(        
+        std::move(p_file_path), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_SetWallpaperObserver_Name: {
@@ -6315,6 +6391,8 @@ std::move(p_file_path), std::move(callback));
               internal::WallpaperProvider_SelectWallpaper_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.12
       bool success = true;
       uint64_t p_unit_id{};
       bool p_preview_mode{};
@@ -6336,9 +6414,9 @@ std::move(p_file_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectWallpaper(
-std::move(p_unit_id), 
-std::move(p_preview_mode), std::move(callback));
+      impl->SelectWallpaper(        
+        std::move(p_unit_id), 
+        std::move(p_preview_mode), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_SelectDefaultImage_Name: {
@@ -6348,6 +6426,8 @@ std::move(p_preview_mode), std::move(callback));
               internal::WallpaperProvider_SelectDefaultImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.13
       bool success = true;
       WallpaperProvider_SelectDefaultImage_ParamsDataView input_data_view(params, message);
       
@@ -6373,6 +6453,8 @@ std::move(p_preview_mode), std::move(callback));
               internal::WallpaperProvider_SelectLocalImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.14
       bool success = true;
       ::base::FilePath p_path{};
       ::ash::WallpaperLayout p_layout{};
@@ -6397,10 +6479,10 @@ std::move(p_preview_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectLocalImage(
-std::move(p_path), 
-std::move(p_layout), 
-std::move(p_preview_mode), std::move(callback));
+      impl->SelectLocalImage(        
+        std::move(p_path), 
+        std::move(p_layout), 
+        std::move(p_preview_mode), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_SelectGooglePhotosPhoto_Name: {
@@ -6410,6 +6492,8 @@ std::move(p_preview_mode), std::move(callback));
               internal::WallpaperProvider_SelectGooglePhotosPhoto_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.15
       bool success = true;
       std::string p_id{};
       ::ash::WallpaperLayout p_layout{};
@@ -6434,10 +6518,10 @@ std::move(p_preview_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectGooglePhotosPhoto(
-std::move(p_id), 
-std::move(p_layout), 
-std::move(p_preview_mode), std::move(callback));
+      impl->SelectGooglePhotosPhoto(        
+        std::move(p_id), 
+        std::move(p_layout), 
+        std::move(p_preview_mode), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_SelectGooglePhotosAlbum_Name: {
@@ -6447,6 +6531,8 @@ std::move(p_preview_mode), std::move(callback));
               internal::WallpaperProvider_SelectGooglePhotosAlbum_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.16
       bool success = true;
       std::string p_id{};
       WallpaperProvider_SelectGooglePhotosAlbum_ParamsDataView input_data_view(params, message);
@@ -6465,8 +6551,8 @@ std::move(p_preview_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectGooglePhotosAlbum(
-std::move(p_id), std::move(callback));
+      impl->SelectGooglePhotosAlbum(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_Name: {
@@ -6476,6 +6562,8 @@ std::move(p_id), std::move(callback));
               internal::WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.17
       bool success = true;
       WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ParamsDataView input_data_view(params, message);
       
@@ -6504,6 +6592,8 @@ std::move(p_id), std::move(callback));
               internal::WallpaperProvider_SetDailyRefreshCollectionId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.19
       bool success = true;
       std::string p_collection_id{};
       WallpaperProvider_SetDailyRefreshCollectionId_ParamsDataView input_data_view(params, message);
@@ -6522,8 +6612,8 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDailyRefreshCollectionId(
-std::move(p_collection_id), std::move(callback));
+      impl->SetDailyRefreshCollectionId(        
+        std::move(p_collection_id), std::move(callback));
       return true;
     }
     case internal::kWallpaperProvider_GetDailyRefreshCollectionId_Name: {
@@ -6533,6 +6623,8 @@ std::move(p_collection_id), std::move(callback));
               internal::WallpaperProvider_GetDailyRefreshCollectionId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.20
       bool success = true;
       WallpaperProvider_GetDailyRefreshCollectionId_ParamsDataView input_data_view(params, message);
       
@@ -6558,6 +6650,8 @@ std::move(p_collection_id), std::move(callback));
               internal::WallpaperProvider_UpdateDailyRefreshWallpaper_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.21
       bool success = true;
       WallpaperProvider_UpdateDailyRefreshWallpaper_ParamsDataView input_data_view(params, message);
       
@@ -6583,6 +6677,8 @@ std::move(p_collection_id), std::move(callback));
               internal::WallpaperProvider_IsInTabletMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.22
       bool success = true;
       WallpaperProvider_IsInTabletMode_ParamsDataView input_data_view(params, message);
       
@@ -6614,6 +6710,8 @@ std::move(p_collection_id), std::move(callback));
               internal::WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperProvider.25
       bool success = true;
       WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsDataView input_data_view(params, message);
       
@@ -6721,6 +6819,9 @@ ThemeObserver::IPCStableHashFunction ThemeObserver::MessageToMethodInfo_(mojo::M
     case internal::kThemeObserver_OnStaticColorChanged_Name: {
       return &ThemeObserver::OnStaticColorChanged_Sym::IPCStableHash;
     }
+    case internal::kThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Name: {
+      return &ThemeObserver::OnGeolocationPermissionForSystemServicesChanged_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -6742,6 +6843,8 @@ const char* ThemeObserver::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::ThemeObserver::OnSampleColorSchemesChanged";
       case internal::kThemeObserver_OnStaticColorChanged_Name:
             return "Receive ash::personalization_app::mojom::ThemeObserver::OnStaticColorChanged";
+      case internal::kThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Name:
+            return "Receive ash::personalization_app::mojom::ThemeObserver::OnGeolocationPermissionForSystemServicesChanged";
     }
   } else {
     switch (message.name()) {
@@ -6755,6 +6858,8 @@ const char* ThemeObserver::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::ThemeObserver::OnSampleColorSchemesChanged";
       case internal::kThemeObserver_OnStaticColorChanged_Name:
             return "Receive reply ash::personalization_app::mojom::ThemeObserver::OnStaticColorChanged";
+      case internal::kThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Name:
+            return "Receive reply ash::personalization_app::mojom::ThemeObserver::OnGeolocationPermissionForSystemServicesChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -6830,6 +6935,19 @@ uint32_t ThemeObserver::OnStaticColorChanged_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::personalization_app::mojom::ThemeObserver::OnStaticColorChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ThemeObserver::OnGeolocationPermissionForSystemServicesChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::ThemeObserver::OnGeolocationPermissionForSystemServicesChanged");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -7064,6 +7182,47 @@ void ThemeObserverProxy::OnStaticColorChanged(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void ThemeObserverProxy::OnGeolocationPermissionForSystemServicesChanged(
+    bool in_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::personalization_app::mojom::ThemeObserver::OnGeolocationPermissionForSystemServicesChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enabled"), in_enabled,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->enabled = in_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ThemeObserver::Name_);
+  message.set_method_name("OnGeolocationPermissionForSystemServicesChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool ThemeObserverStubDispatch::Accept(
     ThemeObserver* impl,
@@ -7076,6 +7235,8 @@ bool ThemeObserverStubDispatch::Accept(
           reinterpret_cast<internal::ThemeObserver_OnColorModeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeObserver.0
       bool success = true;
       bool p_dark_mode_enabled{};
       ThemeObserver_OnColorModeChanged_ParamsDataView input_data_view(params, message);
@@ -7091,8 +7252,8 @@ bool ThemeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnColorModeChanged(
-std::move(p_dark_mode_enabled));
+      impl->OnColorModeChanged(        
+        std::move(p_dark_mode_enabled));
       return true;
     }
     case internal::kThemeObserver_OnColorModeAutoScheduleChanged_Name: {
@@ -7102,6 +7263,8 @@ std::move(p_dark_mode_enabled));
           reinterpret_cast<internal::ThemeObserver_OnColorModeAutoScheduleChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeObserver.1
       bool success = true;
       bool p_enabled{};
       ThemeObserver_OnColorModeAutoScheduleChanged_ParamsDataView input_data_view(params, message);
@@ -7117,8 +7280,8 @@ std::move(p_dark_mode_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnColorModeAutoScheduleChanged(
-std::move(p_enabled));
+      impl->OnColorModeAutoScheduleChanged(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kThemeObserver_OnColorSchemeChanged_Name: {
@@ -7128,6 +7291,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::ThemeObserver_OnColorSchemeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeObserver.2
       bool success = true;
       ::ash::style::mojom::ColorScheme p_color_scheme{};
       ThemeObserver_OnColorSchemeChanged_ParamsDataView input_data_view(params, message);
@@ -7143,8 +7308,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnColorSchemeChanged(
-std::move(p_color_scheme));
+      impl->OnColorSchemeChanged(        
+        std::move(p_color_scheme));
       return true;
     }
     case internal::kThemeObserver_OnSampleColorSchemesChanged_Name: {
@@ -7154,6 +7319,8 @@ std::move(p_color_scheme));
           reinterpret_cast<internal::ThemeObserver_OnSampleColorSchemesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeObserver.3
       bool success = true;
       std::vector<::ash::SampleColorScheme> p_sample_color_schemes{};
       ThemeObserver_OnSampleColorSchemesChanged_ParamsDataView input_data_view(params, message);
@@ -7169,8 +7336,8 @@ std::move(p_color_scheme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSampleColorSchemesChanged(
-std::move(p_sample_color_schemes));
+      impl->OnSampleColorSchemesChanged(        
+        std::move(p_sample_color_schemes));
       return true;
     }
     case internal::kThemeObserver_OnStaticColorChanged_Name: {
@@ -7180,6 +7347,8 @@ std::move(p_sample_color_schemes));
           reinterpret_cast<internal::ThemeObserver_OnStaticColorChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeObserver.4
       bool success = true;
       std::optional<::SkColor> p_color{};
       ThemeObserver_OnStaticColorChanged_ParamsDataView input_data_view(params, message);
@@ -7195,8 +7364,36 @@ std::move(p_sample_color_schemes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStaticColorChanged(
-std::move(p_color));
+      impl->OnStaticColorChanged(        
+        std::move(p_color));
+      return true;
+    }
+    case internal::kThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* params =
+          reinterpret_cast<internal::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for ThemeObserver.5
+      bool success = true;
+      bool p_enabled{};
+      ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_enabled = input_data_view.enabled();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ThemeObserver::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnGeolocationPermissionForSystemServicesChanged(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -7227,6 +7424,9 @@ bool ThemeObserverStubDispatch::AcceptWithResponder(
     case internal::kThemeObserver_OnStaticColorChanged_Name: {
       break;
     }
+    case internal::kThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -7242,6 +7442,8 @@ static const mojo::internal::GenericValidationInfo kThemeObserverValidationInfo[
     { &internal::ThemeObserver_OnSampleColorSchemesChanged_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::ThemeObserver_OnStaticColorChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::ThemeObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -7270,6 +7472,9 @@ ThemeProvider::IPCStableHashFunction ThemeProvider::MessageToMethodInfo_(mojo::M
     case internal::kThemeProvider_SetStaticColor_Name: {
       return &ThemeProvider::SetStaticColor_Sym::IPCStableHash;
     }
+    case internal::kThemeProvider_EnableGeolocationForSystemServices_Name: {
+      return &ThemeProvider::EnableGeolocationForSystemServices_Sym::IPCStableHash;
+    }
     case internal::kThemeProvider_GetColorScheme_Name: {
       return &ThemeProvider::GetColorScheme_Sym::IPCStableHash;
     }
@@ -7284,6 +7489,9 @@ ThemeProvider::IPCStableHashFunction ThemeProvider::MessageToMethodInfo_(mojo::M
     }
     case internal::kThemeProvider_IsDarkModeEnabled_Name: {
       return &ThemeProvider::IsDarkModeEnabled_Sym::IPCStableHash;
+    }
+    case internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name: {
+      return &ThemeProvider::IsGeolocationEnabledForSystemServices_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -7306,6 +7514,8 @@ const char* ThemeProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::ThemeProvider::SetColorScheme";
       case internal::kThemeProvider_SetStaticColor_Name:
             return "Receive ash::personalization_app::mojom::ThemeProvider::SetStaticColor";
+      case internal::kThemeProvider_EnableGeolocationForSystemServices_Name:
+            return "Receive ash::personalization_app::mojom::ThemeProvider::EnableGeolocationForSystemServices";
       case internal::kThemeProvider_GetColorScheme_Name:
             return "Receive ash::personalization_app::mojom::ThemeProvider::GetColorScheme";
       case internal::kThemeProvider_GetStaticColor_Name:
@@ -7316,6 +7526,8 @@ const char* ThemeProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::ThemeProvider::IsColorModeAutoScheduleEnabled";
       case internal::kThemeProvider_IsDarkModeEnabled_Name:
             return "Receive ash::personalization_app::mojom::ThemeProvider::IsDarkModeEnabled";
+      case internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name:
+            return "Receive ash::personalization_app::mojom::ThemeProvider::IsGeolocationEnabledForSystemServices";
     }
   } else {
     switch (message.name()) {
@@ -7329,6 +7541,8 @@ const char* ThemeProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::ThemeProvider::SetColorScheme";
       case internal::kThemeProvider_SetStaticColor_Name:
             return "Receive reply ash::personalization_app::mojom::ThemeProvider::SetStaticColor";
+      case internal::kThemeProvider_EnableGeolocationForSystemServices_Name:
+            return "Receive reply ash::personalization_app::mojom::ThemeProvider::EnableGeolocationForSystemServices";
       case internal::kThemeProvider_GetColorScheme_Name:
             return "Receive reply ash::personalization_app::mojom::ThemeProvider::GetColorScheme";
       case internal::kThemeProvider_GetStaticColor_Name:
@@ -7339,6 +7553,8 @@ const char* ThemeProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::ThemeProvider::IsColorModeAutoScheduleEnabled";
       case internal::kThemeProvider_IsDarkModeEnabled_Name:
             return "Receive reply ash::personalization_app::mojom::ThemeProvider::IsDarkModeEnabled";
+      case internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name:
+            return "Receive reply ash::personalization_app::mojom::ThemeProvider::IsGeolocationEnabledForSystemServices";
     }
   }
   return "Receive unknown mojo message";
@@ -7418,6 +7634,19 @@ uint32_t ThemeProvider::SetStaticColor_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t ThemeProvider::EnableGeolocationForSystemServices_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::ThemeProvider::EnableGeolocationForSystemServices");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t ThemeProvider::GetColorScheme_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -7479,6 +7708,19 @@ uint32_t ThemeProvider::IsDarkModeEnabled_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::personalization_app::mojom::ThemeProvider::IsDarkModeEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ThemeProvider::IsGeolocationEnabledForSystemServices_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::ThemeProvider::IsGeolocationEnabledForSystemServices");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -7563,6 +7805,22 @@ class ThemeProvider_IsDarkModeEnabled_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   ThemeProvider::IsDarkModeEnabledCallback callback_;
+};
+
+class ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback(
+      ThemeProvider::IsGeolocationEnabledForSystemServicesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback(const ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback&) = delete;
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback& operator=(const ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  ThemeProvider::IsGeolocationEnabledForSystemServicesCallback callback_;
 };
 
 ThemeProviderProxy::ThemeProviderProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -7790,6 +8048,39 @@ void ThemeProviderProxy::SetStaticColor(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void ThemeProviderProxy::EnableGeolocationForSystemServices(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::EnableGeolocationForSystemServices");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kThemeProvider_EnableGeolocationForSystemServices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::ThemeProvider_EnableGeolocationForSystemServices_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ThemeProvider::Name_);
+  message.set_method_name("EnableGeolocationForSystemServices");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void ThemeProviderProxy::GetColorScheme(
     GetColorSchemeCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7959,6 +8250,40 @@ void ThemeProviderProxy::IsDarkModeEnabled(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void ThemeProviderProxy::IsGeolocationEnabledForSystemServices(
+    IsGeolocationEnabledForSystemServicesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::ThemeProvider::IsGeolocationEnabledForSystemServices");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ThemeProvider::Name_);
+  message.set_method_name("IsGeolocationEnabledForSystemServices");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class ThemeProvider_GetColorScheme_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static ThemeProvider::GetColorSchemeCallback CreateCallback(
@@ -8017,6 +8342,8 @@ bool ThemeProvider_GetColorScheme_ForwardToCallback::Accept(
           internal::ThemeProvider_GetColorScheme_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThemeProvider.6
   bool success = true;
   ::ash::style::mojom::ColorScheme p_color_scheme{};
   ThemeProvider_GetColorScheme_ResponseParamsDataView input_data_view(params, message);
@@ -8027,7 +8354,7 @@ bool ThemeProvider_GetColorScheme_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ThemeProvider::Name_, 5, true);
+        ThemeProvider::Name_, 6, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8137,6 +8464,8 @@ bool ThemeProvider_GetStaticColor_ForwardToCallback::Accept(
           internal::ThemeProvider_GetStaticColor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThemeProvider.7
   bool success = true;
   std::optional<::SkColor> p_static_color{};
   ThemeProvider_GetStaticColor_ResponseParamsDataView input_data_view(params, message);
@@ -8147,7 +8476,7 @@ bool ThemeProvider_GetStaticColor_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ThemeProvider::Name_, 6, true);
+        ThemeProvider::Name_, 7, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8262,6 +8591,8 @@ bool ThemeProvider_GenerateSampleColorSchemes_ForwardToCallback::Accept(
           internal::ThemeProvider_GenerateSampleColorSchemes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThemeProvider.8
   bool success = true;
   std::vector<::ash::SampleColorScheme> p_sample_color_schemes{};
   ThemeProvider_GenerateSampleColorSchemes_ResponseParamsDataView input_data_view(params, message);
@@ -8272,7 +8603,7 @@ bool ThemeProvider_GenerateSampleColorSchemes_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ThemeProvider::Name_, 7, true);
+        ThemeProvider::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8393,6 +8724,8 @@ bool ThemeProvider_IsColorModeAutoScheduleEnabled_ForwardToCallback::Accept(
           internal::ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThemeProvider.9
   bool success = true;
   bool p_enabled{};
   ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -8403,7 +8736,7 @@ bool ThemeProvider_IsColorModeAutoScheduleEnabled_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ThemeProvider::Name_, 8, true);
+        ThemeProvider::Name_, 9, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8512,6 +8845,8 @@ bool ThemeProvider_IsDarkModeEnabled_ForwardToCallback::Accept(
           internal::ThemeProvider_IsDarkModeEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThemeProvider.10
   bool success = true;
   bool p_dark_mode_enabled{};
   ThemeProvider_IsDarkModeEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -8522,7 +8857,7 @@ bool ThemeProvider_IsDarkModeEnabled_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        ThemeProvider::Name_, 9, true);
+        ThemeProvider::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8573,6 +8908,127 @@ void ThemeProvider_IsDarkModeEnabled_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static ThemeProvider::IsGeolocationEnabledForSystemServicesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder> proxy(
+        new ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "ThemeProvider::IsGeolocationEnabledForSystemServicesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_geolocation_enabled);
+};
+
+bool ThemeProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for ThemeProvider.11
+  bool success = true;
+  bool p_geolocation_enabled{};
+  ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_geolocation_enabled = input_data_view.geolocation_enabled();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        ThemeProvider::Name_, 11, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_geolocation_enabled));
+  return true;
+}
+
+void ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder::Run(
+    bool in_geolocation_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::personalization_app::mojom::ThemeProvider::IsGeolocationEnabledForSystemServices", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("geolocation_enabled"), in_geolocation_enabled,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->geolocation_enabled = in_geolocation_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ThemeProvider::Name_);
+  message.set_method_name("IsGeolocationEnabledForSystemServices");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ThemeProviderStubDispatch::Accept(
@@ -8586,6 +9042,8 @@ bool ThemeProviderStubDispatch::Accept(
           reinterpret_cast<internal::ThemeProvider_SetThemeObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.0
       bool success = true;
       ::mojo::PendingRemote<ThemeObserver> p_observer{};
       ThemeProvider_SetThemeObserver_ParamsDataView input_data_view(params, message);
@@ -8603,8 +9061,8 @@ bool ThemeProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetThemeObserver(
-std::move(p_observer));
+      impl->SetThemeObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kThemeProvider_SetColorModePref_Name: {
@@ -8614,6 +9072,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ThemeProvider_SetColorModePref_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.1
       bool success = true;
       bool p_dark_mode_enabled{};
       ThemeProvider_SetColorModePref_ParamsDataView input_data_view(params, message);
@@ -8629,8 +9089,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorModePref(
-std::move(p_dark_mode_enabled));
+      impl->SetColorModePref(        
+        std::move(p_dark_mode_enabled));
       return true;
     }
     case internal::kThemeProvider_SetColorModeAutoScheduleEnabled_Name: {
@@ -8640,6 +9100,8 @@ std::move(p_dark_mode_enabled));
           reinterpret_cast<internal::ThemeProvider_SetColorModeAutoScheduleEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.2
       bool success = true;
       bool p_enabled{};
       ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsDataView input_data_view(params, message);
@@ -8655,8 +9117,8 @@ std::move(p_dark_mode_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorModeAutoScheduleEnabled(
-std::move(p_enabled));
+      impl->SetColorModeAutoScheduleEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kThemeProvider_SetColorScheme_Name: {
@@ -8666,6 +9128,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::ThemeProvider_SetColorScheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.3
       bool success = true;
       ::ash::style::mojom::ColorScheme p_colorScheme{};
       ThemeProvider_SetColorScheme_ParamsDataView input_data_view(params, message);
@@ -8681,8 +9145,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetColorScheme(
-std::move(p_colorScheme));
+      impl->SetColorScheme(        
+        std::move(p_colorScheme));
       return true;
     }
     case internal::kThemeProvider_SetStaticColor_Name: {
@@ -8692,6 +9156,8 @@ std::move(p_colorScheme));
           reinterpret_cast<internal::ThemeProvider_SetStaticColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.4
       bool success = true;
       ::SkColor p_static_color{};
       ThemeProvider_SetStaticColor_ParamsDataView input_data_view(params, message);
@@ -8707,8 +9173,32 @@ std::move(p_colorScheme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetStaticColor(
-std::move(p_static_color));
+      impl->SetStaticColor(        
+        std::move(p_static_color));
+      return true;
+    }
+    case internal::kThemeProvider_EnableGeolocationForSystemServices_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ThemeProvider_EnableGeolocationForSystemServices_Params_Data* params =
+          reinterpret_cast<internal::ThemeProvider_EnableGeolocationForSystemServices_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for ThemeProvider.5
+      bool success = true;
+      ThemeProvider_EnableGeolocationForSystemServices_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ThemeProvider::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->EnableGeolocationForSystemServices(        );
       return true;
     }
     case internal::kThemeProvider_GetColorScheme_Name: {
@@ -8724,6 +9214,9 @@ std::move(p_static_color));
       break;
     }
     case internal::kThemeProvider_IsDarkModeEnabled_Name: {
+      break;
+    }
+    case internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name: {
       break;
     }
   }
@@ -8754,6 +9247,9 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
     case internal::kThemeProvider_SetStaticColor_Name: {
       break;
     }
+    case internal::kThemeProvider_EnableGeolocationForSystemServices_Name: {
+      break;
+    }
     case internal::kThemeProvider_GetColorScheme_Name: {
 
       internal::ThemeProvider_GetColorScheme_Params_Data* params =
@@ -8761,6 +9257,8 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
               internal::ThemeProvider_GetColorScheme_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.6
       bool success = true;
       ThemeProvider_GetColorScheme_ParamsDataView input_data_view(params, message);
       
@@ -8768,7 +9266,7 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ThemeProvider::Name_, 5, false);
+            ThemeProvider::Name_, 6, false);
         return false;
       }
       ThemeProvider::GetColorSchemeCallback callback =
@@ -8786,6 +9284,8 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
               internal::ThemeProvider_GetStaticColor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.7
       bool success = true;
       ThemeProvider_GetStaticColor_ParamsDataView input_data_view(params, message);
       
@@ -8793,7 +9293,7 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ThemeProvider::Name_, 6, false);
+            ThemeProvider::Name_, 7, false);
         return false;
       }
       ThemeProvider::GetStaticColorCallback callback =
@@ -8811,6 +9311,8 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
               internal::ThemeProvider_GenerateSampleColorSchemes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.8
       bool success = true;
       ThemeProvider_GenerateSampleColorSchemes_ParamsDataView input_data_view(params, message);
       
@@ -8818,7 +9320,7 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ThemeProvider::Name_, 7, false);
+            ThemeProvider::Name_, 8, false);
         return false;
       }
       ThemeProvider::GenerateSampleColorSchemesCallback callback =
@@ -8836,6 +9338,8 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
               internal::ThemeProvider_IsColorModeAutoScheduleEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.9
       bool success = true;
       ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsDataView input_data_view(params, message);
       
@@ -8843,7 +9347,7 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ThemeProvider::Name_, 8, false);
+            ThemeProvider::Name_, 9, false);
         return false;
       }
       ThemeProvider::IsColorModeAutoScheduleEnabledCallback callback =
@@ -8861,6 +9365,8 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
               internal::ThemeProvider_IsDarkModeEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThemeProvider.10
       bool success = true;
       ThemeProvider_IsDarkModeEnabled_ParamsDataView input_data_view(params, message);
       
@@ -8868,7 +9374,7 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ThemeProvider::Name_, 9, false);
+            ThemeProvider::Name_, 10, false);
         return false;
       }
       ThemeProvider::IsDarkModeEnabledCallback callback =
@@ -8877,6 +9383,33 @@ bool ThemeProviderStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->IsDarkModeEnabled(std::move(callback));
+      return true;
+    }
+    case internal::kThemeProvider_IsGeolocationEnabledForSystemServices_Name: {
+
+      internal::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data* params =
+          reinterpret_cast<
+              internal::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for ThemeProvider.11
+      bool success = true;
+      ThemeProvider_IsGeolocationEnabledForSystemServices_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ThemeProvider::Name_, 11, false);
+        return false;
+      }
+      ThemeProvider::IsGeolocationEnabledForSystemServicesCallback callback =
+          ThemeProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsGeolocationEnabledForSystemServices(std::move(callback));
       return true;
     }
   }
@@ -8895,6 +9428,8 @@ static const mojo::internal::GenericValidationInfo kThemeProviderValidationInfo[
      nullptr /* no response */},
     { &internal::ThemeProvider_SetStaticColor_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::ThemeProvider_EnableGeolocationForSystemServices_Params_Data::Validate,
+     nullptr /* no response */},
     { &internal::ThemeProvider_GetColorScheme_Params_Data::Validate,
      &internal::ThemeProvider_GetColorScheme_ResponseParams_Data::Validate},
     { &internal::ThemeProvider_GetStaticColor_Params_Data::Validate,
@@ -8905,6 +9440,8 @@ static const mojo::internal::GenericValidationInfo kThemeProviderValidationInfo[
      &internal::ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParams_Data::Validate},
     { &internal::ThemeProvider_IsDarkModeEnabled_Params_Data::Validate,
      &internal::ThemeProvider_IsDarkModeEnabled_ResponseParams_Data::Validate},
+    { &internal::ThemeProvider_IsGeolocationEnabledForSystemServices_Params_Data::Validate,
+     &internal::ThemeProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data::Validate},
 };
 
 bool ThemeProviderRequestValidator::Accept(mojo::Message* message) {
@@ -9229,6 +9766,8 @@ bool UserImageObserverStubDispatch::Accept(
           reinterpret_cast<internal::UserImageObserver_OnUserImageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserImageObserver.0
       bool success = true;
       UserImagePtr p_user_image{};
       UserImageObserver_OnUserImageChanged_ParamsDataView input_data_view(params, message);
@@ -9244,8 +9783,8 @@ bool UserImageObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUserImageChanged(
-std::move(p_user_image));
+      impl->OnUserImageChanged(        
+        std::move(p_user_image));
       return true;
     }
     case internal::kUserImageObserver_OnUserProfileImageUpdated_Name: {
@@ -9255,6 +9794,8 @@ std::move(p_user_image));
           reinterpret_cast<internal::UserImageObserver_OnUserProfileImageUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserImageObserver.1
       bool success = true;
       ::GURL p_profile_image{};
       UserImageObserver_OnUserProfileImageUpdated_ParamsDataView input_data_view(params, message);
@@ -9270,8 +9811,8 @@ std::move(p_user_image));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUserProfileImageUpdated(
-std::move(p_profile_image));
+      impl->OnUserProfileImageUpdated(        
+        std::move(p_profile_image));
       return true;
     }
     case internal::kUserImageObserver_OnCameraPresenceCheckDone_Name: {
@@ -9281,6 +9822,8 @@ std::move(p_profile_image));
           reinterpret_cast<internal::UserImageObserver_OnCameraPresenceCheckDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserImageObserver.2
       bool success = true;
       bool p_is_camera_present{};
       UserImageObserver_OnCameraPresenceCheckDone_ParamsDataView input_data_view(params, message);
@@ -9296,8 +9839,8 @@ std::move(p_profile_image));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCameraPresenceCheckDone(
-std::move(p_is_camera_present));
+      impl->OnCameraPresenceCheckDone(        
+        std::move(p_is_camera_present));
       return true;
     }
     case internal::kUserImageObserver_OnIsEnterpriseManagedChanged_Name: {
@@ -9307,6 +9850,8 @@ std::move(p_is_camera_present));
           reinterpret_cast<internal::UserImageObserver_OnIsEnterpriseManagedChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserImageObserver.3
       bool success = true;
       bool p_is_enterprise_managed{};
       UserImageObserver_OnIsEnterpriseManagedChanged_ParamsDataView input_data_view(params, message);
@@ -9322,8 +9867,8 @@ std::move(p_is_camera_present));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIsEnterpriseManagedChanged(
-std::move(p_is_enterprise_managed));
+      impl->OnIsEnterpriseManagedChanged(        
+        std::move(p_is_enterprise_managed));
       return true;
     }
   }
@@ -9963,6 +10508,8 @@ bool UserProvider_GetUserInfo_ForwardToCallback::Accept(
           internal::UserProvider_GetUserInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserProvider.1
   bool success = true;
   ::ash::personalization_app::UserDisplayInfo p_user_info{};
   UserProvider_GetUserInfo_ResponseParamsDataView input_data_view(params, message);
@@ -10092,6 +10639,8 @@ bool UserProvider_GetDefaultUserImages_ForwardToCallback::Accept(
           internal::UserProvider_GetDefaultUserImages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UserProvider.2
   bool success = true;
   std::vector<::ash::default_user_image::DefaultUserImage> p_default_user_images{};
   UserProvider_GetDefaultUserImages_ResponseParamsDataView input_data_view(params, message);
@@ -10178,6 +10727,8 @@ bool UserProviderStubDispatch::Accept(
           reinterpret_cast<internal::UserProvider_SetUserImageObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserProvider.0
       bool success = true;
       ::mojo::PendingRemote<UserImageObserver> p_observer{};
       UserProvider_SetUserImageObserver_ParamsDataView input_data_view(params, message);
@@ -10195,8 +10746,8 @@ bool UserProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserImageObserver(
-std::move(p_observer));
+      impl->SetUserImageObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kUserProvider_GetUserInfo_Name: {
@@ -10212,6 +10763,8 @@ std::move(p_observer));
           reinterpret_cast<internal::UserProvider_SelectDefaultImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserProvider.3
       bool success = true;
       int32_t p_index{};
       UserProvider_SelectDefaultImage_ParamsDataView input_data_view(params, message);
@@ -10227,8 +10780,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectDefaultImage(
-std::move(p_index));
+      impl->SelectDefaultImage(        
+        std::move(p_index));
       return true;
     }
     case internal::kUserProvider_SelectProfileImage_Name: {
@@ -10238,6 +10791,8 @@ std::move(p_index));
           reinterpret_cast<internal::UserProvider_SelectProfileImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserProvider.4
       bool success = true;
       UserProvider_SelectProfileImage_ParamsDataView input_data_view(params, message);
       
@@ -10250,7 +10805,7 @@ std::move(p_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectProfileImage();
+      impl->SelectProfileImage(        );
       return true;
     }
     case internal::kUserProvider_SelectCameraImage_Name: {
@@ -10260,6 +10815,8 @@ std::move(p_index));
           reinterpret_cast<internal::UserProvider_SelectCameraImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserProvider.5
       bool success = true;
       ::mojo_base::BigBuffer p_data{};
       UserProvider_SelectCameraImage_ParamsDataView input_data_view(params, message);
@@ -10275,8 +10832,8 @@ std::move(p_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectCameraImage(
-std::move(p_data));
+      impl->SelectCameraImage(        
+        std::move(p_data));
       return true;
     }
     case internal::kUserProvider_SelectImageFromDisk_Name: {
@@ -10286,6 +10843,8 @@ std::move(p_data));
           reinterpret_cast<internal::UserProvider_SelectImageFromDisk_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserProvider.6
       bool success = true;
       UserProvider_SelectImageFromDisk_ParamsDataView input_data_view(params, message);
       
@@ -10298,7 +10857,7 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectImageFromDisk();
+      impl->SelectImageFromDisk(        );
       return true;
     }
     case internal::kUserProvider_SelectLastExternalUserImage_Name: {
@@ -10308,6 +10867,8 @@ std::move(p_data));
           reinterpret_cast<internal::UserProvider_SelectLastExternalUserImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserProvider.7
       bool success = true;
       UserProvider_SelectLastExternalUserImage_ParamsDataView input_data_view(params, message);
       
@@ -10320,7 +10881,7 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectLastExternalUserImage();
+      impl->SelectLastExternalUserImage(        );
       return true;
     }
   }
@@ -10346,6 +10907,8 @@ bool UserProviderStubDispatch::AcceptWithResponder(
               internal::UserProvider_GetUserInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserProvider.1
       bool success = true;
       UserProvider_GetUserInfo_ParamsDataView input_data_view(params, message);
       
@@ -10371,6 +10934,8 @@ bool UserProviderStubDispatch::AcceptWithResponder(
               internal::UserProvider_GetDefaultUserImages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UserProvider.2
       bool success = true;
       UserProvider_GetDefaultUserImages_ParamsDataView input_data_view(params, message);
       
@@ -10466,6 +11031,9 @@ AmbientObserver::IPCStableHashFunction AmbientObserver::MessageToMethodInfo_(moj
     case internal::kAmbientObserver_OnAmbientUiVisibilityChanged_Name: {
       return &AmbientObserver::OnAmbientUiVisibilityChanged_Sym::IPCStableHash;
     }
+    case internal::kAmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Name: {
+      return &AmbientObserver::OnGeolocationPermissionForSystemServicesChanged_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -10493,6 +11061,8 @@ const char* AmbientObserver::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::AmbientObserver::OnPreviewsFetched";
       case internal::kAmbientObserver_OnAmbientUiVisibilityChanged_Name:
             return "Receive ash::personalization_app::mojom::AmbientObserver::OnAmbientUiVisibilityChanged";
+      case internal::kAmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Name:
+            return "Receive ash::personalization_app::mojom::AmbientObserver::OnGeolocationPermissionForSystemServicesChanged";
     }
   } else {
     switch (message.name()) {
@@ -10512,6 +11082,8 @@ const char* AmbientObserver::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::AmbientObserver::OnPreviewsFetched";
       case internal::kAmbientObserver_OnAmbientUiVisibilityChanged_Name:
             return "Receive reply ash::personalization_app::mojom::AmbientObserver::OnAmbientUiVisibilityChanged";
+      case internal::kAmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Name:
+            return "Receive reply ash::personalization_app::mojom::AmbientObserver::OnGeolocationPermissionForSystemServicesChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -10626,6 +11198,19 @@ uint32_t AmbientObserver::OnAmbientUiVisibilityChanged_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::personalization_app::mojom::AmbientObserver::OnAmbientUiVisibilityChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AmbientObserver::OnGeolocationPermissionForSystemServicesChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::AmbientObserver::OnGeolocationPermissionForSystemServicesChanged");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -10992,6 +11577,47 @@ void AmbientObserverProxy::OnAmbientUiVisibilityChanged(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void AmbientObserverProxy::OnGeolocationPermissionForSystemServicesChanged(
+    bool in_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::personalization_app::mojom::AmbientObserver::OnGeolocationPermissionForSystemServicesChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enabled"), in_enabled,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->enabled = in_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AmbientObserver::Name_);
+  message.set_method_name("OnGeolocationPermissionForSystemServicesChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool AmbientObserverStubDispatch::Accept(
     AmbientObserver* impl,
@@ -11004,6 +11630,8 @@ bool AmbientObserverStubDispatch::Accept(
           reinterpret_cast<internal::AmbientObserver_OnAmbientModeEnabledChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.0
       bool success = true;
       bool p_ambient_mode_enabled{};
       AmbientObserver_OnAmbientModeEnabledChanged_ParamsDataView input_data_view(params, message);
@@ -11019,8 +11647,8 @@ bool AmbientObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAmbientModeEnabledChanged(
-std::move(p_ambient_mode_enabled));
+      impl->OnAmbientModeEnabledChanged(        
+        std::move(p_ambient_mode_enabled));
       return true;
     }
     case internal::kAmbientObserver_OnAmbientThemeChanged_Name: {
@@ -11030,6 +11658,8 @@ std::move(p_ambient_mode_enabled));
           reinterpret_cast<internal::AmbientObserver_OnAmbientThemeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.1
       bool success = true;
       AmbientTheme p_ambient_theme{};
       AmbientObserver_OnAmbientThemeChanged_ParamsDataView input_data_view(params, message);
@@ -11045,8 +11675,8 @@ std::move(p_ambient_mode_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAmbientThemeChanged(
-std::move(p_ambient_theme));
+      impl->OnAmbientThemeChanged(        
+        std::move(p_ambient_theme));
       return true;
     }
     case internal::kAmbientObserver_OnTopicSourceChanged_Name: {
@@ -11056,6 +11686,8 @@ std::move(p_ambient_theme));
           reinterpret_cast<internal::AmbientObserver_OnTopicSourceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.2
       bool success = true;
       TopicSource p_topic_source{};
       AmbientObserver_OnTopicSourceChanged_ParamsDataView input_data_view(params, message);
@@ -11071,8 +11703,8 @@ std::move(p_ambient_theme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTopicSourceChanged(
-std::move(p_topic_source));
+      impl->OnTopicSourceChanged(        
+        std::move(p_topic_source));
       return true;
     }
     case internal::kAmbientObserver_OnScreenSaverDurationChanged_Name: {
@@ -11082,6 +11714,8 @@ std::move(p_topic_source));
           reinterpret_cast<internal::AmbientObserver_OnScreenSaverDurationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.3
       bool success = true;
       uint32_t p_minutes{};
       AmbientObserver_OnScreenSaverDurationChanged_ParamsDataView input_data_view(params, message);
@@ -11097,8 +11731,8 @@ std::move(p_topic_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenSaverDurationChanged(
-std::move(p_minutes));
+      impl->OnScreenSaverDurationChanged(        
+        std::move(p_minutes));
       return true;
     }
     case internal::kAmbientObserver_OnTemperatureUnitChanged_Name: {
@@ -11108,6 +11742,8 @@ std::move(p_minutes));
           reinterpret_cast<internal::AmbientObserver_OnTemperatureUnitChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.4
       bool success = true;
       ::ash::AmbientModeTemperatureUnit p_temperature_unit{};
       AmbientObserver_OnTemperatureUnitChanged_ParamsDataView input_data_view(params, message);
@@ -11123,8 +11759,8 @@ std::move(p_minutes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTemperatureUnitChanged(
-std::move(p_temperature_unit));
+      impl->OnTemperatureUnitChanged(        
+        std::move(p_temperature_unit));
       return true;
     }
     case internal::kAmbientObserver_OnAlbumsChanged_Name: {
@@ -11134,6 +11770,8 @@ std::move(p_temperature_unit));
           reinterpret_cast<internal::AmbientObserver_OnAlbumsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.5
       bool success = true;
       std::vector<AmbientModeAlbumPtr> p_albums{};
       AmbientObserver_OnAlbumsChanged_ParamsDataView input_data_view(params, message);
@@ -11149,8 +11787,8 @@ std::move(p_temperature_unit));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAlbumsChanged(
-std::move(p_albums));
+      impl->OnAlbumsChanged(        
+        std::move(p_albums));
       return true;
     }
     case internal::kAmbientObserver_OnPreviewsFetched_Name: {
@@ -11160,6 +11798,8 @@ std::move(p_albums));
           reinterpret_cast<internal::AmbientObserver_OnPreviewsFetched_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.6
       bool success = true;
       std::vector<::GURL> p_previews{};
       AmbientObserver_OnPreviewsFetched_ParamsDataView input_data_view(params, message);
@@ -11175,8 +11815,8 @@ std::move(p_albums));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPreviewsFetched(
-std::move(p_previews));
+      impl->OnPreviewsFetched(        
+        std::move(p_previews));
       return true;
     }
     case internal::kAmbientObserver_OnAmbientUiVisibilityChanged_Name: {
@@ -11186,6 +11826,8 @@ std::move(p_previews));
           reinterpret_cast<internal::AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientObserver.7
       bool success = true;
       ::ash::AmbientUiVisibility p_visibility{};
       AmbientObserver_OnAmbientUiVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -11201,8 +11843,36 @@ std::move(p_previews));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAmbientUiVisibilityChanged(
-std::move(p_visibility));
+      impl->OnAmbientUiVisibilityChanged(        
+        std::move(p_visibility));
+      return true;
+    }
+    case internal::kAmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data* params =
+          reinterpret_cast<internal::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for AmbientObserver.8
+      bool success = true;
+      bool p_enabled{};
+      AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_enabled = input_data_view.enabled();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AmbientObserver::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnGeolocationPermissionForSystemServicesChanged(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -11242,6 +11912,9 @@ bool AmbientObserverStubDispatch::AcceptWithResponder(
     case internal::kAmbientObserver_OnAmbientUiVisibilityChanged_Name: {
       break;
     }
+    case internal::kAmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -11263,6 +11936,8 @@ static const mojo::internal::GenericValidationInfo kAmbientObserverValidationInf
     { &internal::AmbientObserver_OnPreviewsFetched_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AmbientObserver_OnAmbientUiVisibilityChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AmbientObserver_OnGeolocationPermissionForSystemServicesChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -11315,6 +11990,12 @@ AmbientProvider::IPCStableHashFunction AmbientProvider::MessageToMethodInfo_(moj
     case internal::kAmbientProvider_HandleTimeOfDayBannerDismissed_Name: {
       return &AmbientProvider::HandleTimeOfDayBannerDismissed_Sym::IPCStableHash;
     }
+    case internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name: {
+      return &AmbientProvider::IsGeolocationEnabledForSystemServices_Sym::IPCStableHash;
+    }
+    case internal::kAmbientProvider_EnableGeolocationForSystemServices_Name: {
+      return &AmbientProvider::EnableGeolocationForSystemServices_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -11352,6 +12033,10 @@ const char* AmbientProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::AmbientProvider::ShouldShowTimeOfDayBanner";
       case internal::kAmbientProvider_HandleTimeOfDayBannerDismissed_Name:
             return "Receive ash::personalization_app::mojom::AmbientProvider::HandleTimeOfDayBannerDismissed";
+      case internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name:
+            return "Receive ash::personalization_app::mojom::AmbientProvider::IsGeolocationEnabledForSystemServices";
+      case internal::kAmbientProvider_EnableGeolocationForSystemServices_Name:
+            return "Receive ash::personalization_app::mojom::AmbientProvider::EnableGeolocationForSystemServices";
     }
   } else {
     switch (message.name()) {
@@ -11381,6 +12066,10 @@ const char* AmbientProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::AmbientProvider::ShouldShowTimeOfDayBanner";
       case internal::kAmbientProvider_HandleTimeOfDayBannerDismissed_Name:
             return "Receive reply ash::personalization_app::mojom::AmbientProvider::HandleTimeOfDayBannerDismissed";
+      case internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name:
+            return "Receive reply ash::personalization_app::mojom::AmbientProvider::IsGeolocationEnabledForSystemServices";
+      case internal::kAmbientProvider_EnableGeolocationForSystemServices_Name:
+            return "Receive reply ash::personalization_app::mojom::AmbientProvider::EnableGeolocationForSystemServices";
     }
   }
   return "Receive unknown mojo message";
@@ -11564,6 +12253,32 @@ uint32_t AmbientProvider::HandleTimeOfDayBannerDismissed_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AmbientProvider::IsGeolocationEnabledForSystemServices_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::AmbientProvider::IsGeolocationEnabledForSystemServices");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AmbientProvider::EnableGeolocationForSystemServices_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::AmbientProvider::EnableGeolocationForSystemServices");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class AmbientProvider_IsAmbientModeEnabled_ForwardToCallback
@@ -11596,6 +12311,22 @@ class AmbientProvider_ShouldShowTimeOfDayBanner_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   AmbientProvider::ShouldShowTimeOfDayBannerCallback callback_;
+};
+
+class AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback(
+      AmbientProvider::IsGeolocationEnabledForSystemServicesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback(const AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback&) = delete;
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback& operator=(const AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  AmbientProvider::IsGeolocationEnabledForSystemServicesCallback callback_;
 };
 
 AmbientProviderProxy::AmbientProviderProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -12115,6 +12846,73 @@ void AmbientProviderProxy::HandleTimeOfDayBannerDismissed(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void AmbientProviderProxy::IsGeolocationEnabledForSystemServices(
+    IsGeolocationEnabledForSystemServicesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::IsGeolocationEnabledForSystemServices");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AmbientProvider::Name_);
+  message.set_method_name("IsGeolocationEnabledForSystemServices");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AmbientProviderProxy::EnableGeolocationForSystemServices(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::AmbientProvider::EnableGeolocationForSystemServices");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAmbientProvider_EnableGeolocationForSystemServices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::AmbientProvider_EnableGeolocationForSystemServices_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AmbientProvider::Name_);
+  message.set_method_name("EnableGeolocationForSystemServices");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class AmbientProvider_IsAmbientModeEnabled_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static AmbientProvider::IsAmbientModeEnabledCallback CreateCallback(
@@ -12173,6 +12971,8 @@ bool AmbientProvider_IsAmbientModeEnabled_ForwardToCallback::Accept(
           internal::AmbientProvider_IsAmbientModeEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AmbientProvider.0
   bool success = true;
   bool p_enabled{};
   AmbientProvider_IsAmbientModeEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -12292,6 +13092,8 @@ bool AmbientProvider_ShouldShowTimeOfDayBanner_ForwardToCallback::Accept(
           internal::AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AmbientProvider.11
   bool success = true;
   bool p_should_show_banner{};
   AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsDataView input_data_view(params, message);
@@ -12353,6 +13155,127 @@ void AmbientProvider_ShouldShowTimeOfDayBanner_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static AmbientProvider::IsGeolocationEnabledForSystemServicesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder> proxy(
+        new AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "AmbientProvider::IsGeolocationEnabledForSystemServicesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_geolocation_enabled);
+};
+
+bool AmbientProvider_IsGeolocationEnabledForSystemServices_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for AmbientProvider.13
+  bool success = true;
+  bool p_geolocation_enabled{};
+  AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_geolocation_enabled = input_data_view.geolocation_enabled();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        AmbientProvider::Name_, 13, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_geolocation_enabled));
+  return true;
+}
+
+void AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder::Run(
+    bool in_geolocation_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::personalization_app::mojom::AmbientProvider::IsGeolocationEnabledForSystemServices", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("geolocation_enabled"), in_geolocation_enabled,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->geolocation_enabled = in_geolocation_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AmbientProvider::Name_);
+  message.set_method_name("IsGeolocationEnabledForSystemServices");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool AmbientProviderStubDispatch::Accept(
@@ -12369,6 +13292,8 @@ bool AmbientProviderStubDispatch::Accept(
           reinterpret_cast<internal::AmbientProvider_SetAmbientModeEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.1
       bool success = true;
       bool p_enabled{};
       AmbientProvider_SetAmbientModeEnabled_ParamsDataView input_data_view(params, message);
@@ -12384,8 +13309,8 @@ bool AmbientProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAmbientModeEnabled(
-std::move(p_enabled));
+      impl->SetAmbientModeEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kAmbientProvider_SetAmbientObserver_Name: {
@@ -12395,6 +13320,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::AmbientProvider_SetAmbientObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.2
       bool success = true;
       ::mojo::PendingRemote<AmbientObserver> p_observer{};
       AmbientProvider_SetAmbientObserver_ParamsDataView input_data_view(params, message);
@@ -12412,8 +13339,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAmbientObserver(
-std::move(p_observer));
+      impl->SetAmbientObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAmbientProvider_SetAmbientTheme_Name: {
@@ -12423,6 +13350,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AmbientProvider_SetAmbientTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.3
       bool success = true;
       AmbientTheme p_ambient_theme{};
       AmbientProvider_SetAmbientTheme_ParamsDataView input_data_view(params, message);
@@ -12438,8 +13367,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAmbientTheme(
-std::move(p_ambient_theme));
+      impl->SetAmbientTheme(        
+        std::move(p_ambient_theme));
       return true;
     }
     case internal::kAmbientProvider_SetScreenSaverDuration_Name: {
@@ -12449,6 +13378,8 @@ std::move(p_ambient_theme));
           reinterpret_cast<internal::AmbientProvider_SetScreenSaverDuration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.4
       bool success = true;
       int32_t p_minutes{};
       AmbientProvider_SetScreenSaverDuration_ParamsDataView input_data_view(params, message);
@@ -12464,8 +13395,8 @@ std::move(p_ambient_theme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScreenSaverDuration(
-std::move(p_minutes));
+      impl->SetScreenSaverDuration(        
+        std::move(p_minutes));
       return true;
     }
     case internal::kAmbientProvider_SetTopicSource_Name: {
@@ -12475,6 +13406,8 @@ std::move(p_minutes));
           reinterpret_cast<internal::AmbientProvider_SetTopicSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.5
       bool success = true;
       TopicSource p_topic_source{};
       AmbientProvider_SetTopicSource_ParamsDataView input_data_view(params, message);
@@ -12490,8 +13423,8 @@ std::move(p_minutes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTopicSource(
-std::move(p_topic_source));
+      impl->SetTopicSource(        
+        std::move(p_topic_source));
       return true;
     }
     case internal::kAmbientProvider_SetTemperatureUnit_Name: {
@@ -12501,6 +13434,8 @@ std::move(p_topic_source));
           reinterpret_cast<internal::AmbientProvider_SetTemperatureUnit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.6
       bool success = true;
       ::ash::AmbientModeTemperatureUnit p_temperature_unit{};
       AmbientProvider_SetTemperatureUnit_ParamsDataView input_data_view(params, message);
@@ -12516,8 +13451,8 @@ std::move(p_topic_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTemperatureUnit(
-std::move(p_temperature_unit));
+      impl->SetTemperatureUnit(        
+        std::move(p_temperature_unit));
       return true;
     }
     case internal::kAmbientProvider_SetAlbumSelected_Name: {
@@ -12527,6 +13462,8 @@ std::move(p_temperature_unit));
           reinterpret_cast<internal::AmbientProvider_SetAlbumSelected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.7
       bool success = true;
       std::string p_id{};
       TopicSource p_topic_source{};
@@ -12548,10 +13485,10 @@ std::move(p_temperature_unit));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlbumSelected(
-std::move(p_id), 
-std::move(p_topic_source), 
-std::move(p_selected));
+      impl->SetAlbumSelected(        
+        std::move(p_id), 
+        std::move(p_topic_source), 
+        std::move(p_selected));
       return true;
     }
     case internal::kAmbientProvider_SetPageViewed_Name: {
@@ -12561,6 +13498,8 @@ std::move(p_selected));
           reinterpret_cast<internal::AmbientProvider_SetPageViewed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.8
       bool success = true;
       AmbientProvider_SetPageViewed_ParamsDataView input_data_view(params, message);
       
@@ -12573,7 +13512,7 @@ std::move(p_selected));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPageViewed();
+      impl->SetPageViewed(        );
       return true;
     }
     case internal::kAmbientProvider_FetchSettingsAndAlbums_Name: {
@@ -12583,6 +13522,8 @@ std::move(p_selected));
           reinterpret_cast<internal::AmbientProvider_FetchSettingsAndAlbums_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.9
       bool success = true;
       AmbientProvider_FetchSettingsAndAlbums_ParamsDataView input_data_view(params, message);
       
@@ -12595,7 +13536,7 @@ std::move(p_selected));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FetchSettingsAndAlbums();
+      impl->FetchSettingsAndAlbums(        );
       return true;
     }
     case internal::kAmbientProvider_StartScreenSaverPreview_Name: {
@@ -12605,6 +13546,8 @@ std::move(p_selected));
           reinterpret_cast<internal::AmbientProvider_StartScreenSaverPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.10
       bool success = true;
       AmbientProvider_StartScreenSaverPreview_ParamsDataView input_data_view(params, message);
       
@@ -12617,7 +13560,7 @@ std::move(p_selected));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartScreenSaverPreview();
+      impl->StartScreenSaverPreview(        );
       return true;
     }
     case internal::kAmbientProvider_ShouldShowTimeOfDayBanner_Name: {
@@ -12630,6 +13573,8 @@ std::move(p_selected));
           reinterpret_cast<internal::AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.12
       bool success = true;
       AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsDataView input_data_view(params, message);
       
@@ -12642,7 +13587,34 @@ std::move(p_selected));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleTimeOfDayBannerDismissed();
+      impl->HandleTimeOfDayBannerDismissed(        );
+      return true;
+    }
+    case internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name: {
+      break;
+    }
+    case internal::kAmbientProvider_EnableGeolocationForSystemServices_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AmbientProvider_EnableGeolocationForSystemServices_Params_Data* params =
+          reinterpret_cast<internal::AmbientProvider_EnableGeolocationForSystemServices_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for AmbientProvider.14
+      bool success = true;
+      AmbientProvider_EnableGeolocationForSystemServices_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AmbientProvider::Name_, 14, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->EnableGeolocationForSystemServices(        );
       return true;
     }
   }
@@ -12665,6 +13637,8 @@ bool AmbientProviderStubDispatch::AcceptWithResponder(
               internal::AmbientProvider_IsAmbientModeEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.0
       bool success = true;
       AmbientProvider_IsAmbientModeEnabled_ParamsDataView input_data_view(params, message);
       
@@ -12720,6 +13694,8 @@ bool AmbientProviderStubDispatch::AcceptWithResponder(
               internal::AmbientProvider_ShouldShowTimeOfDayBanner_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AmbientProvider.11
       bool success = true;
       AmbientProvider_ShouldShowTimeOfDayBanner_ParamsDataView input_data_view(params, message);
       
@@ -12739,6 +13715,36 @@ bool AmbientProviderStubDispatch::AcceptWithResponder(
       return true;
     }
     case internal::kAmbientProvider_HandleTimeOfDayBannerDismissed_Name: {
+      break;
+    }
+    case internal::kAmbientProvider_IsGeolocationEnabledForSystemServices_Name: {
+
+      internal::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data* params =
+          reinterpret_cast<
+              internal::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for AmbientProvider.13
+      bool success = true;
+      AmbientProvider_IsGeolocationEnabledForSystemServices_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AmbientProvider::Name_, 13, false);
+        return false;
+      }
+      AmbientProvider::IsGeolocationEnabledForSystemServicesCallback callback =
+          AmbientProvider_IsGeolocationEnabledForSystemServices_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsGeolocationEnabledForSystemServices(std::move(callback));
+      return true;
+    }
+    case internal::kAmbientProvider_EnableGeolocationForSystemServices_Name: {
       break;
     }
   }
@@ -12772,6 +13778,10 @@ static const mojo::internal::GenericValidationInfo kAmbientProviderValidationInf
     { &internal::AmbientProvider_ShouldShowTimeOfDayBanner_Params_Data::Validate,
      &internal::AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParams_Data::Validate},
     { &internal::AmbientProvider_HandleTimeOfDayBannerDismissed_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AmbientProvider_IsGeolocationEnabledForSystemServices_Params_Data::Validate,
+     &internal::AmbientProvider_IsGeolocationEnabledForSystemServices_ResponseParams_Data::Validate},
+    { &internal::AmbientProvider_EnableGeolocationForSystemServices_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -12975,6 +13985,8 @@ bool KeyboardBacklightObserverStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardBacklightObserver_OnBacklightStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightObserver.0
       bool success = true;
       CurrentBacklightStatePtr p_currentBacklightState{};
       KeyboardBacklightObserver_OnBacklightStateChanged_ParamsDataView input_data_view(params, message);
@@ -12990,8 +14002,8 @@ bool KeyboardBacklightObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBacklightStateChanged(
-std::move(p_currentBacklightState));
+      impl->OnBacklightStateChanged(        
+        std::move(p_currentBacklightState));
       return true;
     }
     case internal::kKeyboardBacklightObserver_OnWallpaperColorChanged_Name: {
@@ -13001,6 +14013,8 @@ std::move(p_currentBacklightState));
           reinterpret_cast<internal::KeyboardBacklightObserver_OnWallpaperColorChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightObserver.1
       bool success = true;
       ::SkColor p_wallpaper_color{};
       KeyboardBacklightObserver_OnWallpaperColorChanged_ParamsDataView input_data_view(params, message);
@@ -13016,8 +14030,8 @@ std::move(p_currentBacklightState));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWallpaperColorChanged(
-std::move(p_wallpaper_color));
+      impl->OnWallpaperColorChanged(        
+        std::move(p_wallpaper_color));
       return true;
     }
   }
@@ -13469,6 +14483,8 @@ bool KeyboardBacklightProvider_ShouldShowNudge_ForwardToCallback::Accept(
           internal::KeyboardBacklightProvider_ShouldShowNudge_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyboardBacklightProvider.3
   bool success = true;
   bool p_should_show_nudge{};
   KeyboardBacklightProvider_ShouldShowNudge_ResponseParamsDataView input_data_view(params, message);
@@ -13543,6 +14559,8 @@ bool KeyboardBacklightProviderStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardBacklightProvider_SetKeyboardBacklightObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightProvider.0
       bool success = true;
       ::mojo::PendingRemote<KeyboardBacklightObserver> p_observer{};
       KeyboardBacklightProvider_SetKeyboardBacklightObserver_ParamsDataView input_data_view(params, message);
@@ -13560,8 +14578,8 @@ bool KeyboardBacklightProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetKeyboardBacklightObserver(
-std::move(p_observer));
+      impl->SetKeyboardBacklightObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kKeyboardBacklightProvider_SetBacklightColor_Name: {
@@ -13571,6 +14589,8 @@ std::move(p_observer));
           reinterpret_cast<internal::KeyboardBacklightProvider_SetBacklightColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightProvider.1
       bool success = true;
       BacklightColor p_backlight_color{};
       KeyboardBacklightProvider_SetBacklightColor_ParamsDataView input_data_view(params, message);
@@ -13586,8 +14606,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBacklightColor(
-std::move(p_backlight_color));
+      impl->SetBacklightColor(        
+        std::move(p_backlight_color));
       return true;
     }
     case internal::kKeyboardBacklightProvider_SetBacklightZoneColor_Name: {
@@ -13597,6 +14617,8 @@ std::move(p_backlight_color));
           reinterpret_cast<internal::KeyboardBacklightProvider_SetBacklightZoneColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightProvider.2
       bool success = true;
       int32_t p_zone{};
       BacklightColor p_backlight_color{};
@@ -13615,9 +14637,9 @@ std::move(p_backlight_color));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBacklightZoneColor(
-std::move(p_zone), 
-std::move(p_backlight_color));
+      impl->SetBacklightZoneColor(        
+        std::move(p_zone), 
+        std::move(p_backlight_color));
       return true;
     }
     case internal::kKeyboardBacklightProvider_ShouldShowNudge_Name: {
@@ -13630,6 +14652,8 @@ std::move(p_backlight_color));
           reinterpret_cast<internal::KeyboardBacklightProvider_HandleNudgeShown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightProvider.4
       bool success = true;
       KeyboardBacklightProvider_HandleNudgeShown_ParamsDataView input_data_view(params, message);
       
@@ -13642,7 +14666,7 @@ std::move(p_backlight_color));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleNudgeShown();
+      impl->HandleNudgeShown(        );
       return true;
     }
   }
@@ -13674,6 +14698,8 @@ bool KeyboardBacklightProviderStubDispatch::AcceptWithResponder(
               internal::KeyboardBacklightProvider_ShouldShowNudge_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyboardBacklightProvider.3
       bool success = true;
       KeyboardBacklightProvider_ShouldShowNudge_ParamsDataView input_data_view(params, message);
       
@@ -14682,6 +15708,9 @@ void ThemeObserverInterceptorForTesting::OnSampleColorSchemesChanged(const std::
 void ThemeObserverInterceptorForTesting::OnStaticColorChanged(std::optional<::SkColor> color) {
   GetForwardingInterface()->OnStaticColorChanged(std::move(color));
 }
+void ThemeObserverInterceptorForTesting::OnGeolocationPermissionForSystemServicesChanged(bool enabled) {
+  GetForwardingInterface()->OnGeolocationPermissionForSystemServicesChanged(std::move(enabled));
+}
 ThemeObserverAsyncWaiter::ThemeObserverAsyncWaiter(
     ThemeObserver* proxy) : proxy_(proxy) {}
 
@@ -14705,6 +15734,9 @@ void ThemeProviderInterceptorForTesting::SetColorScheme(::ash::style::mojom::Col
 void ThemeProviderInterceptorForTesting::SetStaticColor(::SkColor static_color) {
   GetForwardingInterface()->SetStaticColor(std::move(static_color));
 }
+void ThemeProviderInterceptorForTesting::EnableGeolocationForSystemServices() {
+  GetForwardingInterface()->EnableGeolocationForSystemServices();
+}
 void ThemeProviderInterceptorForTesting::GetColorScheme(GetColorSchemeCallback callback) {
   GetForwardingInterface()->GetColorScheme(std::move(callback));
 }
@@ -14719,6 +15751,9 @@ void ThemeProviderInterceptorForTesting::IsColorModeAutoScheduleEnabled(IsColorM
 }
 void ThemeProviderInterceptorForTesting::IsDarkModeEnabled(IsDarkModeEnabledCallback callback) {
   GetForwardingInterface()->IsDarkModeEnabled(std::move(callback));
+}
+void ThemeProviderInterceptorForTesting::IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) {
+  GetForwardingInterface()->IsGeolocationEnabledForSystemServices(std::move(callback));
 }
 ThemeProviderAsyncWaiter::ThemeProviderAsyncWaiter(
     ThemeProvider* proxy) : proxy_(proxy) {}
@@ -14837,6 +15872,29 @@ bool ThemeProviderAsyncWaiter::IsDarkModeEnabled(
     ) {
   bool async_wait_result;
   IsDarkModeEnabled(&async_wait_result);
+  return async_wait_result;
+}
+
+void ThemeProviderAsyncWaiter::IsGeolocationEnabledForSystemServices(
+    bool* out_geolocation_enabled) {
+  base::RunLoop loop;
+  proxy_->IsGeolocationEnabledForSystemServices(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_geolocation_enabled
+,
+             bool geolocation_enabled) {*out_geolocation_enabled = std::move(geolocation_enabled);
+            loop->Quit();
+          },
+          &loop,
+          out_geolocation_enabled));
+  loop.Run();
+}
+
+bool ThemeProviderAsyncWaiter::IsGeolocationEnabledForSystemServices(
+    ) {
+  bool async_wait_result;
+  IsGeolocationEnabledForSystemServices(&async_wait_result);
   return async_wait_result;
 }
 
@@ -14965,6 +16023,9 @@ void AmbientObserverInterceptorForTesting::OnPreviewsFetched(const std::vector<:
 void AmbientObserverInterceptorForTesting::OnAmbientUiVisibilityChanged(::ash::AmbientUiVisibility visibility) {
   GetForwardingInterface()->OnAmbientUiVisibilityChanged(std::move(visibility));
 }
+void AmbientObserverInterceptorForTesting::OnGeolocationPermissionForSystemServicesChanged(bool enabled) {
+  GetForwardingInterface()->OnGeolocationPermissionForSystemServicesChanged(std::move(enabled));
+}
 AmbientObserverAsyncWaiter::AmbientObserverAsyncWaiter(
     AmbientObserver* proxy) : proxy_(proxy) {}
 
@@ -15011,6 +16072,12 @@ void AmbientProviderInterceptorForTesting::ShouldShowTimeOfDayBanner(ShouldShowT
 }
 void AmbientProviderInterceptorForTesting::HandleTimeOfDayBannerDismissed() {
   GetForwardingInterface()->HandleTimeOfDayBannerDismissed();
+}
+void AmbientProviderInterceptorForTesting::IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) {
+  GetForwardingInterface()->IsGeolocationEnabledForSystemServices(std::move(callback));
+}
+void AmbientProviderInterceptorForTesting::EnableGeolocationForSystemServices() {
+  GetForwardingInterface()->EnableGeolocationForSystemServices();
 }
 AmbientProviderAsyncWaiter::AmbientProviderAsyncWaiter(
     AmbientProvider* proxy) : proxy_(proxy) {}
@@ -15060,6 +16127,29 @@ bool AmbientProviderAsyncWaiter::ShouldShowTimeOfDayBanner(
     ) {
   bool async_wait_result;
   ShouldShowTimeOfDayBanner(&async_wait_result);
+  return async_wait_result;
+}
+
+void AmbientProviderAsyncWaiter::IsGeolocationEnabledForSystemServices(
+    bool* out_geolocation_enabled) {
+  base::RunLoop loop;
+  proxy_->IsGeolocationEnabledForSystemServices(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_geolocation_enabled
+,
+             bool geolocation_enabled) {*out_geolocation_enabled = std::move(geolocation_enabled);
+            loop->Quit();
+          },
+          &loop,
+          out_geolocation_enabled));
+  loop.Run();
+}
+
+bool AmbientProviderAsyncWaiter::IsGeolocationEnabledForSystemServices(
+    ) {
+  bool async_wait_result;
+  IsGeolocationEnabledForSystemServices(&async_wait_result);
   return async_wait_result;
 }
 

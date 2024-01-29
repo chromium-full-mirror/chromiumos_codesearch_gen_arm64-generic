@@ -1303,6 +1303,8 @@ bool Device_GetInfo_ForwardToCallback::Accept(
           internal::Device_GetInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.1
   bool success = true;
   DeviceInfoPtr p_info{};
   Device_GetInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1428,6 +1430,8 @@ bool Device_GetServices_ForwardToCallback::Accept(
           internal::Device_GetServices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.2
   bool success = true;
   std::vector<ServiceInfoPtr> p_services{};
   Device_GetServices_ResponseParamsDataView input_data_view(params, message);
@@ -1559,6 +1563,8 @@ bool Device_GetCharacteristics_ForwardToCallback::Accept(
           internal::Device_GetCharacteristics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.3
   bool success = true;
   std::optional<std::vector<CharacteristicInfoPtr>> p_characteristics{};
   Device_GetCharacteristics_ResponseParamsDataView input_data_view(params, message);
@@ -1686,6 +1692,8 @@ bool Device_ReadValueForCharacteristic_ForwardToCallback::Accept(
           internal::Device_ReadValueForCharacteristic_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.4
   bool success = true;
   GattResult p_result{};
   std::optional<std::vector<uint8_t>> p_value{};
@@ -1822,6 +1830,8 @@ bool Device_WriteValueForCharacteristic_ForwardToCallback::Accept(
           internal::Device_WriteValueForCharacteristic_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.5
   bool success = true;
   GattResult p_result{};
   Device_WriteValueForCharacteristic_ResponseParamsDataView input_data_view(params, message);
@@ -1942,6 +1952,8 @@ bool Device_GetDescriptors_ForwardToCallback::Accept(
           internal::Device_GetDescriptors_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.6
   bool success = true;
   std::optional<std::vector<DescriptorInfoPtr>> p_descriptors{};
   Device_GetDescriptors_ResponseParamsDataView input_data_view(params, message);
@@ -2069,6 +2081,8 @@ bool Device_ReadValueForDescriptor_ForwardToCallback::Accept(
           internal::Device_ReadValueForDescriptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.7
   bool success = true;
   GattResult p_result{};
   std::optional<std::vector<uint8_t>> p_value{};
@@ -2205,6 +2219,8 @@ bool Device_WriteValueForDescriptor_ForwardToCallback::Accept(
           internal::Device_WriteValueForDescriptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.8
   bool success = true;
   GattResult p_result{};
   Device_WriteValueForDescriptor_ResponseParamsDataView input_data_view(params, message);
@@ -2280,6 +2296,8 @@ bool DeviceStubDispatch::Accept(
           reinterpret_cast<internal::Device_Disconnect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Device.0
       bool success = true;
       Device_Disconnect_ParamsDataView input_data_view(params, message);
       
@@ -2292,7 +2310,7 @@ bool DeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Disconnect();
+      impl->Disconnect(        );
       return true;
     }
     case internal::kDevice_GetInfo_Name: {
@@ -2342,6 +2360,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               internal::Device_GetInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.1
       bool success = true;
       Device_GetInfo_ParamsDataView input_data_view(params, message);
       
@@ -2367,6 +2387,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               internal::Device_GetServices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.2
       bool success = true;
       Device_GetServices_ParamsDataView input_data_view(params, message);
       
@@ -2392,6 +2414,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               internal::Device_GetCharacteristics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.3
       bool success = true;
       std::string p_service_id{};
       Device_GetCharacteristics_ParamsDataView input_data_view(params, message);
@@ -2410,8 +2434,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCharacteristics(
-std::move(p_service_id), std::move(callback));
+      impl->GetCharacteristics(        
+        std::move(p_service_id), std::move(callback));
       return true;
     }
     case internal::kDevice_ReadValueForCharacteristic_Name: {
@@ -2421,6 +2445,8 @@ std::move(p_service_id), std::move(callback));
               internal::Device_ReadValueForCharacteristic_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.4
       bool success = true;
       std::string p_service_id{};
       std::string p_characteristic_id{};
@@ -2442,9 +2468,9 @@ std::move(p_service_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadValueForCharacteristic(
-std::move(p_service_id), 
-std::move(p_characteristic_id), std::move(callback));
+      impl->ReadValueForCharacteristic(        
+        std::move(p_service_id), 
+        std::move(p_characteristic_id), std::move(callback));
       return true;
     }
     case internal::kDevice_WriteValueForCharacteristic_Name: {
@@ -2454,6 +2480,8 @@ std::move(p_characteristic_id), std::move(callback));
               internal::Device_WriteValueForCharacteristic_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.5
       bool success = true;
       std::string p_service_id{};
       std::string p_characteristic_id{};
@@ -2478,10 +2506,10 @@ std::move(p_characteristic_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteValueForCharacteristic(
-std::move(p_service_id), 
-std::move(p_characteristic_id), 
-std::move(p_value), std::move(callback));
+      impl->WriteValueForCharacteristic(        
+        std::move(p_service_id), 
+        std::move(p_characteristic_id), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kDevice_GetDescriptors_Name: {
@@ -2491,6 +2519,8 @@ std::move(p_value), std::move(callback));
               internal::Device_GetDescriptors_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.6
       bool success = true;
       std::string p_service_id{};
       std::string p_characteristic_id{};
@@ -2512,9 +2542,9 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDescriptors(
-std::move(p_service_id), 
-std::move(p_characteristic_id), std::move(callback));
+      impl->GetDescriptors(        
+        std::move(p_service_id), 
+        std::move(p_characteristic_id), std::move(callback));
       return true;
     }
     case internal::kDevice_ReadValueForDescriptor_Name: {
@@ -2524,6 +2554,8 @@ std::move(p_characteristic_id), std::move(callback));
               internal::Device_ReadValueForDescriptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.7
       bool success = true;
       std::string p_service_id{};
       std::string p_characteristic_id{};
@@ -2548,10 +2580,10 @@ std::move(p_characteristic_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadValueForDescriptor(
-std::move(p_service_id), 
-std::move(p_characteristic_id), 
-std::move(p_descriptor_id), std::move(callback));
+      impl->ReadValueForDescriptor(        
+        std::move(p_service_id), 
+        std::move(p_characteristic_id), 
+        std::move(p_descriptor_id), std::move(callback));
       return true;
     }
     case internal::kDevice_WriteValueForDescriptor_Name: {
@@ -2561,6 +2593,8 @@ std::move(p_descriptor_id), std::move(callback));
               internal::Device_WriteValueForDescriptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.8
       bool success = true;
       std::string p_service_id{};
       std::string p_characteristic_id{};
@@ -2588,11 +2622,11 @@ std::move(p_descriptor_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteValueForDescriptor(
-std::move(p_service_id), 
-std::move(p_characteristic_id), 
-std::move(p_descriptor_id), 
-std::move(p_value), std::move(callback));
+      impl->WriteValueForDescriptor(        
+        std::move(p_service_id), 
+        std::move(p_characteristic_id), 
+        std::move(p_descriptor_id), 
+        std::move(p_value), std::move(callback));
       return true;
     }
   }

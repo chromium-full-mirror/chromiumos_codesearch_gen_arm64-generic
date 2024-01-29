@@ -264,7 +264,7 @@ class StableCdmContext
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 3731126798984954291ULL,
                                       10122949601059379008ULL };
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -282,6 +282,7 @@ class StableCdmContext
     kGetHwConfigDataMinVersion = 1,
     kGetScreenResolutionsMinVersion = 1,
     kAllocateSecureBufferMinVersion = 2,
+    kParseEncryptedSliceHeaderMinVersion = 3,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -300,6 +301,9 @@ class StableCdmContext
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AllocateSecureBuffer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ParseEncryptedSliceHeader_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -327,6 +331,11 @@ class StableCdmContext
   using AllocateSecureBufferCallback = base::OnceCallback<void(::mojo::PlatformHandle)>;
   
   virtual void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) = 0;
+
+
+  using ParseEncryptedSliceHeaderCallback = base::OnceCallback<void(bool, const WTF::Vector<uint8_t>&)>;
+  
+  virtual void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const WTF::Vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) = 0;
 };
 
 class StableVideoDecoderProxy;
@@ -626,6 +635,8 @@ class  StableCdmContextProxy
   void GetScreenResolutions(GetScreenResolutionsCallback callback) final;
   
   void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) final;
+  
+  void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const WTF::Vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -4,7 +4,7 @@ export function getTemplate() {
 <div role="navigation">
   <cr-menu-selector id="menu" attr-for-selected="path" selected-attribute="selected" on-iron-activate="onSelectorActivate_" selected="[[getSelectedPage_(selectedPage_)]]">
     <a id="passwords" role="menuitem" class="cr-nav-menu-item" path="passwords" href="/passwords" on-click="onItemClick_">
-      <iron-icon icon="passwords-icon:password"></iron-icon>
+      <iron-icon icon="cr20:password"></iron-icon>
       $i18n{passwords}
       <paper-ripple></paper-ripple>
     </a>

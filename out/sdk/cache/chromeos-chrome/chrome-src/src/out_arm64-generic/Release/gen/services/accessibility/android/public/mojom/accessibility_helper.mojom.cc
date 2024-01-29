@@ -1697,6 +1697,8 @@ bool AccessibilityHelperHostStubDispatch::Accept(
           reinterpret_cast<internal::AccessibilityHelperHost_OnAccessibilityEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperHost.1
       bool success = true;
       AccessibilityEventDataPtr p_event_data{};
       AccessibilityHelperHost_OnAccessibilityEvent_ParamsDataView input_data_view(params, message);
@@ -1712,8 +1714,8 @@ bool AccessibilityHelperHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAccessibilityEvent(
-std::move(p_event_data));
+      impl->OnAccessibilityEvent(        
+        std::move(p_event_data));
       return true;
     }
     case internal::kAccessibilityHelperHost_OnNotificationStateChanged_Name: {
@@ -1723,6 +1725,8 @@ std::move(p_event_data));
           reinterpret_cast<internal::AccessibilityHelperHost_OnNotificationStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperHost.2
       bool success = true;
       std::string p_notification_key{};
       AccessibilityNotificationStateType p_state{};
@@ -1741,9 +1745,9 @@ std::move(p_event_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNotificationStateChanged(
-std::move(p_notification_key), 
-std::move(p_state));
+      impl->OnNotificationStateChanged(        
+        std::move(p_notification_key), 
+        std::move(p_state));
       return true;
     }
     case internal::kAccessibilityHelperHost_OnToggleNativeChromeVoxArcSupport_Name: {
@@ -1753,6 +1757,8 @@ std::move(p_state));
           reinterpret_cast<internal::AccessibilityHelperHost_OnToggleNativeChromeVoxArcSupport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperHost.3
       bool success = true;
       bool p_enabled{};
       AccessibilityHelperHost_OnToggleNativeChromeVoxArcSupport_ParamsDataView input_data_view(params, message);
@@ -1768,8 +1774,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnToggleNativeChromeVoxArcSupport(
-std::move(p_enabled));
+      impl->OnToggleNativeChromeVoxArcSupport(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -2439,6 +2445,8 @@ bool AccessibilityHelperInstance_Init_ForwardToCallback::Accept(
           internal::AccessibilityHelperInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityHelperInstance.7
   bool success = true;
   AccessibilityHelperInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -2546,6 +2554,8 @@ bool AccessibilityHelperInstance_PerformAction_ForwardToCallback::Accept(
           internal::AccessibilityHelperInstance_PerformAction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityHelperInstance.4
   bool success = true;
   bool p_result{};
   AccessibilityHelperInstance_PerformAction_ResponseParamsDataView input_data_view(params, message);
@@ -2665,6 +2675,8 @@ bool AccessibilityHelperInstance_RefreshWithExtraData_ForwardToCallback::Accept(
           internal::AccessibilityHelperInstance_RefreshWithExtraData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityHelperInstance.9
   bool success = true;
   std::optional<::gfx::Rect> p_text_location{};
   AccessibilityHelperInstance_RefreshWithExtraData_ResponseParamsDataView input_data_view(params, message);
@@ -2790,6 +2802,8 @@ bool AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Fo
           internal::AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityHelperInstance.12
   bool success = true;
   SetNativeChromeVoxResponse p_response{};
   AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_ResponseParamsDataView input_data_view(params, message);
@@ -2868,6 +2882,8 @@ bool AccessibilityHelperInstanceStubDispatch::Accept(
           reinterpret_cast<internal::AccessibilityHelperInstance_SetFilter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.2
       bool success = true;
       AccessibilityFilterType p_filter_type{};
       AccessibilityHelperInstance_SetFilter_ParamsDataView input_data_view(params, message);
@@ -2883,8 +2899,8 @@ bool AccessibilityHelperInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFilter(
-std::move(p_filter_type));
+      impl->SetFilter(        
+        std::move(p_filter_type));
       return true;
     }
     case internal::kAccessibilityHelperInstance_PerformAction_Name: {
@@ -2897,6 +2913,8 @@ std::move(p_filter_type));
           reinterpret_cast<internal::AccessibilityHelperInstance_SetExploreByTouchEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.8
       bool success = true;
       bool p_enabled{};
       AccessibilityHelperInstance_SetExploreByTouchEnabled_ParamsDataView input_data_view(params, message);
@@ -2912,8 +2930,8 @@ std::move(p_filter_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExploreByTouchEnabled(
-std::move(p_enabled));
+      impl->SetExploreByTouchEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kAccessibilityHelperInstance_RefreshWithExtraData_Name: {
@@ -2926,6 +2944,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::AccessibilityHelperInstance_RequestSendAccessibilityTree_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.11
       bool success = true;
       AccessibilityWindowKeyPtr p_window{};
       AccessibilityHelperInstance_RequestSendAccessibilityTree_ParamsDataView input_data_view(params, message);
@@ -2941,8 +2961,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSendAccessibilityTree(
-std::move(p_window));
+      impl->RequestSendAccessibilityTree(        
+        std::move(p_window));
       return true;
     }
     case internal::kAccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Name: {
@@ -2968,6 +2988,8 @@ bool AccessibilityHelperInstanceStubDispatch::AcceptWithResponder(
               internal::AccessibilityHelperInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.7
       bool success = true;
       ::mojo::PendingRemote<AccessibilityHelperHost> p_host_remote{};
       AccessibilityHelperInstance_Init_ParamsDataView input_data_view(params, message);
@@ -2988,8 +3010,8 @@ bool AccessibilityHelperInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kAccessibilityHelperInstance_SetFilter_Name: {
@@ -3002,6 +3024,8 @@ std::move(p_host_remote), std::move(callback));
               internal::AccessibilityHelperInstance_PerformAction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.4
       bool success = true;
       AccessibilityActionDataPtr p_action_data{};
       AccessibilityHelperInstance_PerformAction_ParamsDataView input_data_view(params, message);
@@ -3020,8 +3044,8 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformAction(
-std::move(p_action_data), std::move(callback));
+      impl->PerformAction(        
+        std::move(p_action_data), std::move(callback));
       return true;
     }
     case internal::kAccessibilityHelperInstance_SetExploreByTouchEnabled_Name: {
@@ -3034,6 +3058,8 @@ std::move(p_action_data), std::move(callback));
               internal::AccessibilityHelperInstance_RefreshWithExtraData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.9
       bool success = true;
       AccessibilityActionDataPtr p_refresh_data{};
       AccessibilityHelperInstance_RefreshWithExtraData_ParamsDataView input_data_view(params, message);
@@ -3052,8 +3078,8 @@ std::move(p_action_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RefreshWithExtraData(
-std::move(p_refresh_data), std::move(callback));
+      impl->RefreshWithExtraData(        
+        std::move(p_refresh_data), std::move(callback));
       return true;
     }
     case internal::kAccessibilityHelperInstance_RequestSendAccessibilityTree_Name: {
@@ -3066,6 +3092,8 @@ std::move(p_refresh_data), std::move(callback));
               internal::AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityHelperInstance.12
       bool success = true;
       bool p_enabled{};
       AccessibilityHelperInstance_SetNativeChromeVoxArcSupportForFocusedWindow_ParamsDataView input_data_view(params, message);
@@ -3084,8 +3112,8 @@ std::move(p_refresh_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNativeChromeVoxArcSupportForFocusedWindow(
-std::move(p_enabled), std::move(callback));
+      impl->SetNativeChromeVoxArcSupportForFocusedWindow(        
+        std::move(p_enabled), std::move(callback));
       return true;
     }
   }

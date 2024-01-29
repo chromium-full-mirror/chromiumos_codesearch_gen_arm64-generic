@@ -219,6 +219,8 @@ bool SearchMetricsReporter_OnSearchPerformed_ForwardToCallback::Accept(
           internal::SearchMetricsReporter_OnSearchPerformed_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SearchMetricsReporter.0
   bool success = true;
   SearchMetricsReporter_OnSearchPerformed_ResponseParamsDataView input_data_view(params, message);
   
@@ -297,6 +299,8 @@ bool SearchMetricsReporterStubDispatch::AcceptWithResponder(
               internal::SearchMetricsReporter_OnSearchPerformed_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SearchMetricsReporter.0
       bool success = true;
       ::ash::local_search_service::IndexId p_index_id{};
       SearchMetricsReporter_OnSearchPerformed_ParamsDataView input_data_view(params, message);
@@ -315,8 +319,8 @@ bool SearchMetricsReporterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSearchPerformed(
-std::move(p_index_id), std::move(callback));
+      impl->OnSearchPerformed(        
+        std::move(p_index_id), std::move(callback));
       return true;
     }
   }
@@ -532,6 +536,8 @@ bool LocalSearchService_BindIndex_ForwardToCallback::Accept(
           internal::LocalSearchService_BindIndex_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalSearchService.0
   bool success = true;
   std::optional<std::string> p_error{};
   LocalSearchService_BindIndex_ResponseParamsDataView input_data_view(params, message);
@@ -628,6 +634,8 @@ bool LocalSearchServiceStubDispatch::AcceptWithResponder(
               internal::LocalSearchService_BindIndex_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalSearchService.0
       bool success = true;
       ::ash::local_search_service::IndexId p_index_id{};
       ::ash::local_search_service::Backend p_backend{};
@@ -659,11 +667,11 @@ bool LocalSearchServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindIndex(
-std::move(p_index_id), 
-std::move(p_backend), 
-std::move(p_index_receiver), 
-std::move(p_reporter_remote), std::move(callback));
+      impl->BindIndex(        
+        std::move(p_index_id), 
+        std::move(p_backend), 
+        std::move(p_index_receiver), 
+        std::move(p_reporter_remote), std::move(callback));
       return true;
     }
   }

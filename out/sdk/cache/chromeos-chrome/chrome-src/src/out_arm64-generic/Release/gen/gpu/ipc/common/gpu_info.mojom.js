@@ -79,7 +79,6 @@
   VideoCodecProfile.HEVCPROFILE_MAIN10 = 17;
   VideoCodecProfile.HEVCPROFILE_MAIN_STILL_PICTURE = 18;
   VideoCodecProfile.DOLBYVISION_PROFILE0 = 19;
-  VideoCodecProfile.DOLBYVISION_PROFILE4 = 20;
   VideoCodecProfile.DOLBYVISION_PROFILE5 = 21;
   VideoCodecProfile.DOLBYVISION_PROFILE7 = 22;
   VideoCodecProfile.THEORAPROFILE_ANY = 23;
@@ -137,7 +136,6 @@
     case 17:
     case 18:
     case 19:
-    case 20:
     case 21:
     case 22:
     case 23:

@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export var ChannelBand;(function(ChannelBand){ChannelBand[ChannelBand["UNKNOWN"]=0]="UNKNOWN";ChannelBand[ChannelBand["FIVE_GHZ"]=1]="FIVE_GHZ";ChannelBand[ChannelBand["TWO_DOT_FOUR_GHZ"]=2]="TWO_DOT_FOUR_GHZ"})(ChannelBand||(ChannelBand={}));export var NavigationView;(function(NavigationView){NavigationView[NavigationView["SYSTEM"]=0]="SYSTEM";NavigationView[NavigationView["CONNECTIVITY"]=1]="CONNECTIVITY";NavigationView[NavigationView["INPUT"]=2]="INPUT";NavigationView[NavigationView["MAX_VALUE"]=3]="MAX_VALUE"})(NavigationView||(NavigationView={}));

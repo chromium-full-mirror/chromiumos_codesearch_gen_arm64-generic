@@ -1045,7 +1045,9 @@ zaura_surface_set_parent(struct zaura_surface *zaura_surface, struct zaura_surfa
 /**
  * @ingroup iface_zaura_surface
  *
- * Set the frame colors.
+ * Set the frame colors. This must be set before the initial
+ * commit first, otherwise the subsequent request may not be
+ * fulfilled.
  */
 static inline void
 zaura_surface_set_frame_colors(struct zaura_surface *zaura_surface, uint32_t active_color, uint32_t inactive_color)
@@ -2493,8 +2495,10 @@ zaura_toplevel_set_restore_info_with_window_id_source(struct zaura_toplevel *zau
  * @ingroup iface_zaura_toplevel
  *
  * Clients are allowed to request a particular decoration for a
- * zaura_toplevel. The server is not required to honor this request. See
- * decoration_type for available options. Available since M105.
+ * zaura_toplevel. The server is not required to honor this
+ * request. See decoration_type for available options. This must
+ * be set before the initial commit first, otherwise the
+ * subsequent request may not be fulfilled. Available since M105.
  */
 static inline void
 zaura_toplevel_set_decoration(struct zaura_toplevel *zaura_toplevel, uint32_t type)

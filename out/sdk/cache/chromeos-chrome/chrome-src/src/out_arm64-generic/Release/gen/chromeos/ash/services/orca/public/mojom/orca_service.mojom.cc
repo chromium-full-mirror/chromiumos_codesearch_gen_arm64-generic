@@ -1477,6 +1477,8 @@ bool EditorClient_GetPresetTextQueries_ForwardToCallback::Accept(
           internal::EditorClient_GetPresetTextQueries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EditorClient.0
   bool success = true;
   std::vector<PresetTextQueryPtr> p_text_queries{};
   EditorClient_GetPresetTextQueries_ResponseParamsDataView input_data_view(params, message);
@@ -1608,6 +1610,8 @@ bool EditorClient_RequestPresetRewrite_ForwardToCallback::Accept(
           internal::EditorClient_RequestPresetRewrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EditorClient.1
   bool success = true;
   TextQueryResponsePtr p_response{};
   EditorClient_RequestPresetRewrite_ResponseParamsDataView input_data_view(params, message);
@@ -1735,6 +1739,8 @@ bool EditorClient_RequestFreeformRewrite_ForwardToCallback::Accept(
           internal::EditorClient_RequestFreeformRewrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EditorClient.2
   bool success = true;
   TextQueryResponsePtr p_response{};
   EditorClient_RequestFreeformRewrite_ResponseParamsDataView input_data_view(params, message);
@@ -1862,6 +1868,8 @@ bool EditorClient_RequestFreeformWrite_ForwardToCallback::Accept(
           internal::EditorClient_RequestFreeformWrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EditorClient.3
   bool success = true;
   TextQueryResponsePtr p_response{};
   EditorClient_RequestFreeformWrite_ResponseParamsDataView input_data_view(params, message);
@@ -1989,6 +1997,8 @@ bool EditorClient_PreviewFeedback_ForwardToCallback::Accept(
           internal::EditorClient_PreviewFeedback_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EditorClient.12
   bool success = true;
   base::flat_map<std::string, std::string> p_preview{};
   EditorClient_PreviewFeedback_ResponseParamsDataView input_data_view(params, message);
@@ -2087,6 +2097,8 @@ bool EditorClientStubDispatch::Accept(
           reinterpret_cast<internal::EditorClient_InsertText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.4
       bool success = true;
       std::string p_text{};
       EditorClient_InsertText_ParamsDataView input_data_view(params, message);
@@ -2102,8 +2114,8 @@ bool EditorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InsertText(
-std::move(p_text));
+      impl->InsertText(        
+        std::move(p_text));
       return true;
     }
     case internal::kEditorClient_ApproveConsent_Name: {
@@ -2113,6 +2125,8 @@ std::move(p_text));
           reinterpret_cast<internal::EditorClient_ApproveConsent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.5
       bool success = true;
       EditorClient_ApproveConsent_ParamsDataView input_data_view(params, message);
       
@@ -2125,7 +2139,7 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApproveConsent();
+      impl->ApproveConsent(        );
       return true;
     }
     case internal::kEditorClient_DeclineConsent_Name: {
@@ -2135,6 +2149,8 @@ std::move(p_text));
           reinterpret_cast<internal::EditorClient_DeclineConsent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.6
       bool success = true;
       EditorClient_DeclineConsent_ParamsDataView input_data_view(params, message);
       
@@ -2147,7 +2163,7 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeclineConsent();
+      impl->DeclineConsent(        );
       return true;
     }
     case internal::kEditorClient_DismissConsent_Name: {
@@ -2157,6 +2173,8 @@ std::move(p_text));
           reinterpret_cast<internal::EditorClient_DismissConsent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.7
       bool success = true;
       EditorClient_DismissConsent_ParamsDataView input_data_view(params, message);
       
@@ -2169,7 +2187,7 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissConsent();
+      impl->DismissConsent(        );
       return true;
     }
     case internal::kEditorClient_OpenUrlInNewWindow_Name: {
@@ -2179,6 +2197,8 @@ std::move(p_text));
           reinterpret_cast<internal::EditorClient_OpenUrlInNewWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.8
       bool success = true;
       ::GURL p_url{};
       EditorClient_OpenUrlInNewWindow_ParamsDataView input_data_view(params, message);
@@ -2194,8 +2214,8 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlInNewWindow(
-std::move(p_url));
+      impl->OpenUrlInNewWindow(        
+        std::move(p_url));
       return true;
     }
     case internal::kEditorClient_ShowUI_Name: {
@@ -2205,6 +2225,8 @@ std::move(p_url));
           reinterpret_cast<internal::EditorClient_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.9
       bool success = true;
       EditorClient_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -2217,7 +2239,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
     case internal::kEditorClient_CloseUI_Name: {
@@ -2227,6 +2249,8 @@ std::move(p_url));
           reinterpret_cast<internal::EditorClient_CloseUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.10
       bool success = true;
       EditorClient_CloseUI_ParamsDataView input_data_view(params, message);
       
@@ -2239,7 +2263,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseUI();
+      impl->CloseUI(        );
       return true;
     }
     case internal::kEditorClient_AppendText_Name: {
@@ -2249,6 +2273,8 @@ std::move(p_url));
           reinterpret_cast<internal::EditorClient_AppendText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.11
       bool success = true;
       std::string p_text{};
       EditorClient_AppendText_ParamsDataView input_data_view(params, message);
@@ -2264,8 +2290,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AppendText(
-std::move(p_text));
+      impl->AppendText(        
+        std::move(p_text));
       return true;
     }
     case internal::kEditorClient_PreviewFeedback_Name: {
@@ -2278,6 +2304,8 @@ std::move(p_text));
           reinterpret_cast<internal::EditorClient_SubmitFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClient.13
       bool success = true;
       std::string p_result_id{};
       std::string p_user_description{};
@@ -2296,9 +2324,9 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitFeedback(
-std::move(p_result_id), 
-std::move(p_user_description));
+      impl->SubmitFeedback(        
+        std::move(p_result_id), 
+        std::move(p_user_description));
       return true;
     }
   }
@@ -2321,6 +2349,8 @@ bool EditorClientStubDispatch::AcceptWithResponder(
               internal::EditorClient_GetPresetTextQueries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EditorClient.0
       bool success = true;
       EditorClient_GetPresetTextQueries_ParamsDataView input_data_view(params, message);
       
@@ -2346,6 +2376,8 @@ bool EditorClientStubDispatch::AcceptWithResponder(
               internal::EditorClient_RequestPresetRewrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EditorClient.1
       bool success = true;
       std::string p_text_query_id{};
       std::optional<std::string> p_text_override{};
@@ -2367,9 +2399,9 @@ bool EditorClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPresetRewrite(
-std::move(p_text_query_id), 
-std::move(p_text_override), std::move(callback));
+      impl->RequestPresetRewrite(        
+        std::move(p_text_query_id), 
+        std::move(p_text_override), std::move(callback));
       return true;
     }
     case internal::kEditorClient_RequestFreeformRewrite_Name: {
@@ -2379,6 +2411,8 @@ std::move(p_text_override), std::move(callback));
               internal::EditorClient_RequestFreeformRewrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EditorClient.2
       bool success = true;
       std::string p_input{};
       std::optional<std::string> p_text_override{};
@@ -2400,9 +2434,9 @@ std::move(p_text_override), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestFreeformRewrite(
-std::move(p_input), 
-std::move(p_text_override), std::move(callback));
+      impl->RequestFreeformRewrite(        
+        std::move(p_input), 
+        std::move(p_text_override), std::move(callback));
       return true;
     }
     case internal::kEditorClient_RequestFreeformWrite_Name: {
@@ -2412,6 +2446,8 @@ std::move(p_text_override), std::move(callback));
               internal::EditorClient_RequestFreeformWrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EditorClient.3
       bool success = true;
       std::string p_input{};
       EditorClient_RequestFreeformWrite_ParamsDataView input_data_view(params, message);
@@ -2430,8 +2466,8 @@ std::move(p_text_override), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestFreeformWrite(
-std::move(p_input), std::move(callback));
+      impl->RequestFreeformWrite(        
+        std::move(p_input), std::move(callback));
       return true;
     }
     case internal::kEditorClient_InsertText_Name: {
@@ -2465,6 +2501,8 @@ std::move(p_input), std::move(callback));
               internal::EditorClient_PreviewFeedback_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EditorClient.12
       bool success = true;
       std::string p_result_id{};
       EditorClient_PreviewFeedback_ParamsDataView input_data_view(params, message);
@@ -2483,8 +2521,8 @@ std::move(p_input), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviewFeedback(
-std::move(p_result_id), std::move(callback));
+      impl->PreviewFeedback(        
+        std::move(p_result_id), std::move(callback));
       return true;
     }
     case internal::kEditorClient_SubmitFeedback_Name: {
@@ -2652,6 +2690,8 @@ bool EditorClientConnectorStubDispatch::Accept(
           reinterpret_cast<internal::EditorClientConnector_BindEditorClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorClientConnector.0
       bool success = true;
       ::mojo::PendingReceiver<EditorClient> p_editor_client{};
       EditorClientConnector_BindEditorClient_ParamsDataView input_data_view(params, message);
@@ -2669,8 +2709,8 @@ bool EditorClientConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEditorClient(
-std::move(p_editor_client));
+      impl->BindEditorClient(        
+        std::move(p_editor_client));
       return true;
     }
   }
@@ -2826,6 +2866,8 @@ bool EditorEventSinkStubDispatch::Accept(
           reinterpret_cast<internal::EditorEventSink_OnContextUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorEventSink.0
       bool success = true;
       ContextPtr p_context{};
       EditorEventSink_OnContextUpdated_ParamsDataView input_data_view(params, message);
@@ -2841,8 +2883,8 @@ bool EditorEventSinkStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnContextUpdated(
-std::move(p_context));
+      impl->OnContextUpdated(        
+        std::move(p_context));
       return true;
     }
   }
@@ -3352,6 +3394,8 @@ bool TextActuatorStubDispatch::Accept(
           reinterpret_cast<internal::TextActuator_InsertText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.0
       bool success = true;
       std::string p_text{};
       TextActuator_InsertText_ParamsDataView input_data_view(params, message);
@@ -3367,8 +3411,8 @@ bool TextActuatorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InsertText(
-std::move(p_text));
+      impl->InsertText(        
+        std::move(p_text));
       return true;
     }
     case internal::kTextActuator_ApproveConsent_Name: {
@@ -3378,6 +3422,8 @@ std::move(p_text));
           reinterpret_cast<internal::TextActuator_ApproveConsent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.1
       bool success = true;
       TextActuator_ApproveConsent_ParamsDataView input_data_view(params, message);
       
@@ -3390,7 +3436,7 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApproveConsent();
+      impl->ApproveConsent(        );
       return true;
     }
     case internal::kTextActuator_DeclineConsent_Name: {
@@ -3400,6 +3446,8 @@ std::move(p_text));
           reinterpret_cast<internal::TextActuator_DeclineConsent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.2
       bool success = true;
       TextActuator_DeclineConsent_ParamsDataView input_data_view(params, message);
       
@@ -3412,7 +3460,7 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeclineConsent();
+      impl->DeclineConsent(        );
       return true;
     }
     case internal::kTextActuator_OpenUrlInNewWindow_Name: {
@@ -3422,6 +3470,8 @@ std::move(p_text));
           reinterpret_cast<internal::TextActuator_OpenUrlInNewWindow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.3
       bool success = true;
       ::GURL p_url{};
       TextActuator_OpenUrlInNewWindow_ParamsDataView input_data_view(params, message);
@@ -3437,8 +3487,8 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlInNewWindow(
-std::move(p_url));
+      impl->OpenUrlInNewWindow(        
+        std::move(p_url));
       return true;
     }
     case internal::kTextActuator_ShowUI_Name: {
@@ -3448,6 +3498,8 @@ std::move(p_url));
           reinterpret_cast<internal::TextActuator_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.4
       bool success = true;
       TextActuator_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -3460,7 +3512,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
     case internal::kTextActuator_CloseUI_Name: {
@@ -3470,6 +3522,8 @@ std::move(p_url));
           reinterpret_cast<internal::TextActuator_CloseUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.5
       bool success = true;
       TextActuator_CloseUI_ParamsDataView input_data_view(params, message);
       
@@ -3482,7 +3536,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseUI();
+      impl->CloseUI(        );
       return true;
     }
     case internal::kTextActuator_SubmitFeedback_Name: {
@@ -3492,6 +3546,8 @@ std::move(p_url));
           reinterpret_cast<internal::TextActuator_SubmitFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextActuator.6
       bool success = true;
       std::string p_description{};
       TextActuator_SubmitFeedback_ParamsDataView input_data_view(params, message);
@@ -3507,8 +3563,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitFeedback(
-std::move(p_description));
+      impl->SubmitFeedback(        
+        std::move(p_description));
       return true;
     }
   }
@@ -3756,6 +3812,8 @@ bool TextQueryProvider_Process_ForwardToCallback::Accept(
           internal::TextQueryProvider_Process_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextQueryProvider.0
   bool success = true;
   TextQueryResponsePtr p_response{};
   TextQueryProvider_Process_ResponseParamsDataView input_data_view(params, message);
@@ -3854,6 +3912,8 @@ bool TextQueryProviderStubDispatch::AcceptWithResponder(
               internal::TextQueryProvider_Process_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextQueryProvider.0
       bool success = true;
       TextQueryRequestPtr p_request{};
       TextQueryProvider_Process_ParamsDataView input_data_view(params, message);
@@ -3872,8 +3932,8 @@ bool TextQueryProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Process(
-std::move(p_request), std::move(callback));
+      impl->Process(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }
@@ -4039,6 +4099,8 @@ bool OrcaServiceStubDispatch::Accept(
           reinterpret_cast<internal::OrcaService_BindEditor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OrcaService.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<TextActuator> p_text_actuator{};
       ::mojo::PendingAssociatedRemote<TextQueryProvider> p_text_query_provider{};
@@ -4071,11 +4133,11 @@ bool OrcaServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEditor(
-std::move(p_text_actuator), 
-std::move(p_text_query_provider), 
-std::move(p_client_connector), 
-std::move(p_event_sink));
+      impl->BindEditor(        
+        std::move(p_text_actuator), 
+        std::move(p_text_query_provider), 
+        std::move(p_client_connector), 
+        std::move(p_event_sink));
       return true;
     }
   }

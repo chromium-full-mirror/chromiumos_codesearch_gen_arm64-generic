@@ -199,6 +199,16 @@ class  FeedbackInfo {
       const std::string& extra_diagnostics,
       std::optional<::base::Value> autofill_metadata);
 
+  FeedbackInfo(
+      const ::GURL& page_url,
+      LacrosFeedbackSource source,
+      const std::string& description_template,
+      const std::string& description_placeholder_text,
+      const std::string& category_tag,
+      const std::string& extra_diagnostics,
+      std::optional<::base::Value> autofill_metadata,
+      std::optional<::base::Value> ai_metadata);
+
 FeedbackInfo(const FeedbackInfo&) = delete;
 FeedbackInfo& operator=(const FeedbackInfo&) = delete;
 
@@ -290,6 +300,8 @@ FeedbackInfo& operator=(const FeedbackInfo&) = delete;
   std::string extra_diagnostics;
   
   std::optional<::base::Value> autofill_metadata;
+  
+  std::optional<::base::Value> ai_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -329,7 +341,8 @@ FeedbackInfoPtr FeedbackInfo::Clone() const {
       mojo::Clone(description_placeholder_text),
       mojo::Clone(category_tag),
       mojo::Clone(extra_diagnostics),
-      mojo::Clone(autofill_metadata)
+      mojo::Clone(autofill_metadata),
+      mojo::Clone(ai_metadata)
   );
 }
 
@@ -348,6 +361,8 @@ bool FeedbackInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->extra_diagnostics, other_struct.extra_diagnostics))
     return false;
   if (!mojo::Equals(this->autofill_metadata, other_struct.autofill_metadata))
+    return false;
+  if (!mojo::Equals(this->ai_metadata, other_struct.ai_metadata))
     return false;
   return true;
 }
@@ -381,6 +396,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.autofill_metadata < rhs.autofill_metadata)
     return true;
   if (rhs.autofill_metadata < lhs.autofill_metadata)
+    return false;
+  if (lhs.ai_metadata < rhs.ai_metadata)
+    return true;
+  if (rhs.ai_metadata < lhs.ai_metadata)
     return false;
   return false;
 }
@@ -430,6 +449,11 @@ struct  StructTraits<::crosapi::mojom::FeedbackInfo::DataView,
   static const decltype(::crosapi::mojom::FeedbackInfo::autofill_metadata)& autofill_metadata(
       const ::crosapi::mojom::FeedbackInfoPtr& input) {
     return input->autofill_metadata;
+  }
+
+  static const decltype(::crosapi::mojom::FeedbackInfo::ai_metadata)& ai_metadata(
+      const ::crosapi::mojom::FeedbackInfoPtr& input) {
+    return input->ai_metadata;
   }
 
   static bool Read(::crosapi::mojom::FeedbackInfo::DataView input, ::crosapi::mojom::FeedbackInfoPtr* output);

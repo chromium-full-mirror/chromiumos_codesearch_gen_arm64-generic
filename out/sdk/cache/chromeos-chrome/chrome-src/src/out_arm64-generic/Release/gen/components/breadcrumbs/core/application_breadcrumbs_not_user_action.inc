@@ -28,6 +28,8 @@ const char* const kNotUserTriggeredActions[] = {
   "ClearBrowsingData_SameSiteNoneData",
   "Commerce.PriceInsights.NavigationClosedSidePanel",
   "Commerce.PriceTracking.EmailConsentDialog.Shown",
+  "Commerce.PriceTracking.IOS.Track.Failure",
+  "Commerce.PriceTracking.IOS.Untrack.Failure",
   "Commerce.PriceTracking.PushNotification.Received",
   "CustomTabsRemoteViewsShown",
   "CustomTabsRemoteViewsUpdated",

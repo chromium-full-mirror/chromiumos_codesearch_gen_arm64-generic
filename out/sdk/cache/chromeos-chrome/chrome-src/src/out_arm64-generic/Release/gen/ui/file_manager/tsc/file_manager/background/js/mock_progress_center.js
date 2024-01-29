@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ProgressCenterItem, ProgressItemState } from '../../common/js/progress_center_common.js';
-import { ProgressCenter } from '../../externs/background/progress_center.js';
+import { ProgressCenter } from './progress_center.js';
 /**
- * Mock implementation of {ProgressCenter} for tests.
- * @final
+ * Mock implementation of ProgressCenter for tests.
  */
-export class MockProgressCenter {
+export class MockProgressCenter extends ProgressCenter {
     constructor() {
+        super(...arguments);
         /**
          * Items stored in the progress center.
          */
@@ -44,6 +44,6 @@ export class MockProgressCenter {
      * @param state State to filter by.
      */
     getItemsByState(state) {
-        return Object.values(this.items).filter(item => item.state == state);
+        return Object.values(this.items).filter(item => item.state === state);
     }
 }

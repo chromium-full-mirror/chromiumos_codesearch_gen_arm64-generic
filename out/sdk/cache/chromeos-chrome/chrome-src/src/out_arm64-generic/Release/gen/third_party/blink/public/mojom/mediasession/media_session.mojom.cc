@@ -317,6 +317,8 @@ bool MediaSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::MediaSessionClient_DidReceiveAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionClient.0
       bool success = true;
       ::media_session::mojom::MediaSessionAction p_action{};
       MediaSessionActionDetailsPtr p_details{};
@@ -335,9 +337,9 @@ bool MediaSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidReceiveAction(
-std::move(p_action), 
-std::move(p_details));
+      impl->DidReceiveAction(        
+        std::move(p_action), 
+        std::move(p_details));
       return true;
     }
   }
@@ -932,6 +934,8 @@ bool MediaSessionServiceStubDispatch::Accept(
           reinterpret_cast<internal::MediaSessionService_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.0
       bool success = true;
       ::mojo::PendingRemote<MediaSessionClient> p_client{};
       MediaSessionService_SetClient_ParamsDataView input_data_view(params, message);
@@ -949,8 +953,8 @@ bool MediaSessionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kMediaSessionService_SetPlaybackState_Name: {
@@ -960,6 +964,8 @@ std::move(p_client));
           reinterpret_cast<internal::MediaSessionService_SetPlaybackState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.1
       bool success = true;
       MediaSessionPlaybackState p_state{};
       MediaSessionService_SetPlaybackState_ParamsDataView input_data_view(params, message);
@@ -975,8 +981,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPlaybackState(
-std::move(p_state));
+      impl->SetPlaybackState(        
+        std::move(p_state));
       return true;
     }
     case internal::kMediaSessionService_SetPositionState_Name: {
@@ -986,6 +992,8 @@ std::move(p_state));
           reinterpret_cast<internal::MediaSessionService_SetPositionState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.2
       bool success = true;
       std::optional<::media_session::MediaPosition> p_position{};
       MediaSessionService_SetPositionState_ParamsDataView input_data_view(params, message);
@@ -1001,8 +1009,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPositionState(
-std::move(p_position));
+      impl->SetPositionState(        
+        std::move(p_position));
       return true;
     }
     case internal::kMediaSessionService_SetMetadata_Name: {
@@ -1012,6 +1020,8 @@ std::move(p_position));
           reinterpret_cast<internal::MediaSessionService_SetMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.3
       bool success = true;
       SpecMediaMetadataPtr p_metadata{};
       MediaSessionService_SetMetadata_ParamsDataView input_data_view(params, message);
@@ -1027,8 +1037,8 @@ std::move(p_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMetadata(
-std::move(p_metadata));
+      impl->SetMetadata(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kMediaSessionService_SetMicrophoneState_Name: {
@@ -1038,6 +1048,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::MediaSessionService_SetMicrophoneState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.4
       bool success = true;
       ::media_session::mojom::MicrophoneState p_microphone_state{};
       MediaSessionService_SetMicrophoneState_ParamsDataView input_data_view(params, message);
@@ -1053,8 +1065,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMicrophoneState(
-std::move(p_microphone_state));
+      impl->SetMicrophoneState(        
+        std::move(p_microphone_state));
       return true;
     }
     case internal::kMediaSessionService_SetCameraState_Name: {
@@ -1064,6 +1076,8 @@ std::move(p_microphone_state));
           reinterpret_cast<internal::MediaSessionService_SetCameraState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.5
       bool success = true;
       ::media_session::mojom::CameraState p_camera_state{};
       MediaSessionService_SetCameraState_ParamsDataView input_data_view(params, message);
@@ -1079,8 +1093,8 @@ std::move(p_microphone_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCameraState(
-std::move(p_camera_state));
+      impl->SetCameraState(        
+        std::move(p_camera_state));
       return true;
     }
     case internal::kMediaSessionService_EnableAction_Name: {
@@ -1090,6 +1104,8 @@ std::move(p_camera_state));
           reinterpret_cast<internal::MediaSessionService_EnableAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.6
       bool success = true;
       ::media_session::mojom::MediaSessionAction p_action{};
       MediaSessionService_EnableAction_ParamsDataView input_data_view(params, message);
@@ -1105,8 +1121,8 @@ std::move(p_camera_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAction(
-std::move(p_action));
+      impl->EnableAction(        
+        std::move(p_action));
       return true;
     }
     case internal::kMediaSessionService_DisableAction_Name: {
@@ -1116,6 +1132,8 @@ std::move(p_action));
           reinterpret_cast<internal::MediaSessionService_DisableAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaSessionService.7
       bool success = true;
       ::media_session::mojom::MediaSessionAction p_action{};
       MediaSessionService_DisableAction_ParamsDataView input_data_view(params, message);
@@ -1131,8 +1149,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableAction(
-std::move(p_action));
+      impl->DisableAction(        
+        std::move(p_action));
       return true;
     }
   }

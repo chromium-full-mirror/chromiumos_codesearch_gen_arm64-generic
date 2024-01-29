@@ -66,7 +66,7 @@ export class GearMenu {
             console.warn('Failed get space info', error);
             return;
         }
-        if (this.spaceInfoPromise_ != spaceInfoPromise) {
+        if (this.spaceInfoPromise_ !== spaceInfoPromise) {
             return;
         }
         this.volumeSpaceInnerBar_.removeAttribute('pending');

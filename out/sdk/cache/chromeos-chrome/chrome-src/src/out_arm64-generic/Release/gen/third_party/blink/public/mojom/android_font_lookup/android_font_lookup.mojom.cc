@@ -524,6 +524,8 @@ bool AndroidFontLookup_GetUniqueNameLookupTable_ForwardToCallback::Accept(
           internal::AndroidFontLookup_GetUniqueNameLookupTable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AndroidFontLookup.0
   bool success = true;
   std::vector<std::string> p_unique_font_names{};
   AndroidFontLookup_GetUniqueNameLookupTable_ResponseParamsDataView input_data_view(params, message);
@@ -605,6 +607,8 @@ bool AndroidFontLookup_GetUniqueNameLookupTable_HandleSyncResponse::Accept(
       reinterpret_cast<internal::AndroidFontLookup_GetUniqueNameLookupTable_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for AndroidFontLookup.0
   bool success = true;
   std::vector<std::string> p_unique_font_names{};
   AndroidFontLookup_GetUniqueNameLookupTable_ResponseParamsDataView input_data_view(params, message);
@@ -680,6 +684,8 @@ bool AndroidFontLookup_MatchLocalFontByUniqueName_ForwardToCallback::Accept(
           internal::AndroidFontLookup_MatchLocalFontByUniqueName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AndroidFontLookup.1
   bool success = true;
   ::base::File p_font_file_handle{};
   AndroidFontLookup_MatchLocalFontByUniqueName_ResponseParamsDataView input_data_view(params, message);
@@ -755,6 +761,8 @@ bool AndroidFontLookup_MatchLocalFontByUniqueName_HandleSyncResponse::Accept(
       reinterpret_cast<internal::AndroidFontLookup_MatchLocalFontByUniqueName_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for AndroidFontLookup.1
   bool success = true;
   ::base::File p_font_file_handle{};
   AndroidFontLookup_MatchLocalFontByUniqueName_ResponseParamsDataView input_data_view(params, message);
@@ -830,6 +838,8 @@ bool AndroidFontLookup_FetchAllFontFiles_ForwardToCallback::Accept(
           internal::AndroidFontLookup_FetchAllFontFiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AndroidFontLookup.2
   bool success = true;
   base::flat_map<std::string, ::base::File> p_font_files{};
   AndroidFontLookup_FetchAllFontFiles_ResponseParamsDataView input_data_view(params, message);
@@ -938,6 +948,8 @@ bool AndroidFontLookupStubDispatch::AcceptWithResponder(
               internal::AndroidFontLookup_GetUniqueNameLookupTable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AndroidFontLookup.0
       bool success = true;
       AndroidFontLookup_GetUniqueNameLookupTable_ParamsDataView input_data_view(params, message);
       
@@ -963,6 +975,8 @@ bool AndroidFontLookupStubDispatch::AcceptWithResponder(
               internal::AndroidFontLookup_MatchLocalFontByUniqueName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AndroidFontLookup.1
       bool success = true;
       std::string p_font_unique_name{};
       AndroidFontLookup_MatchLocalFontByUniqueName_ParamsDataView input_data_view(params, message);
@@ -981,8 +995,8 @@ bool AndroidFontLookupStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MatchLocalFontByUniqueName(
-std::move(p_font_unique_name), std::move(callback));
+      impl->MatchLocalFontByUniqueName(        
+        std::move(p_font_unique_name), std::move(callback));
       return true;
     }
     case internal::kAndroidFontLookup_FetchAllFontFiles_Name: {
@@ -992,6 +1006,8 @@ std::move(p_font_unique_name), std::move(callback));
               internal::AndroidFontLookup_FetchAllFontFiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AndroidFontLookup.2
       bool success = true;
       AndroidFontLookup_FetchAllFontFiles_ParamsDataView input_data_view(params, message);
       

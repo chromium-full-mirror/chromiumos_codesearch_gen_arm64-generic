@@ -77,7 +77,7 @@ export const DisableReasonSpec = { $: mojo.internal.Enum() };
 export var DisableReason;
 (function (DisableReason) {
     DisableReason[DisableReason["MIN_VALUE"] = 0] = "MIN_VALUE";
-    DisableReason[DisableReason["MAX_VALUE"] = 7] = "MAX_VALUE";
+    DisableReason[DisableReason["MAX_VALUE"] = 8] = "MAX_VALUE";
     DisableReason[DisableReason["kAutoDisabled"] = 0] = "kAutoDisabled";
     DisableReason[DisableReason["kInternalError"] = 1] = "kInternalError";
     DisableReason[DisableReason["kUserInitiated"] = 2] = "kUserInitiated";
@@ -86,6 +86,7 @@ export var DisableReason;
     DisableReason[DisableReason["kUpstreamNetworkNotAvailable"] = 5] = "kUpstreamNetworkNotAvailable";
     DisableReason[DisableReason["kSuspended"] = 6] = "kSuspended";
     DisableReason[DisableReason["kRestart"] = 7] = "kRestart";
+    DisableReason[DisableReason["kUpstreamNoInternet"] = 8] = "kUpstreamNoInternet";
 })(DisableReason || (DisableReason = {}));
 export class CrosHotspotConfigPendingReceiver {
     constructor(handle) {

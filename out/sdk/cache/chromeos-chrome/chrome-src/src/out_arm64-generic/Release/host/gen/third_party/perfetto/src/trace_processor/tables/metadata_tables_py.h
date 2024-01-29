@@ -342,39 +342,39 @@ class ProcessTable : public macros_internal::MacroTable {
         cmdline_(ColumnStorage<ColumnType::cmdline::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::pid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::pid::stored_type>(
           ColumnFlag::pid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::start_ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::start_ts::stored_type>(
           ColumnFlag::start_ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::end_ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::end_ts::stored_type>(
           ColumnFlag::end_ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_upid::stored_type>(
           ColumnFlag::parent_upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::android_appid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::android_appid::stored_type>(
           ColumnFlag::android_appid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cmdline::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cmdline::stored_type>(
           ColumnFlag::cmdline),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -876,27 +876,27 @@ class ThreadTable : public macros_internal::MacroTable {
         upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()),
         is_main_thread_(ColumnStorage<ColumnType::is_main_thread::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::tid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::tid::stored_type>(
           ColumnFlag::tid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::start_ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::start_ts::stored_type>(
           ColumnFlag::start_ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::end_ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::end_ts::stored_type>(
           ColumnFlag::end_ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::is_main_thread::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::is_main_thread::stored_type>(
           ColumnFlag::is_main_thread),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1149,7 +1149,7 @@ class ArgTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t arg_set_id = static_cast<uint32_t>(Column::Flag::kSorted) | ColumnType::arg_set_id::default_flags();
+    static constexpr uint32_t arg_set_id = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::arg_set_id::default_flags();
     static constexpr uint32_t flat_key = ColumnType::flat_key::default_flags();
     static constexpr uint32_t key = ColumnType::key::default_flags();
     static constexpr uint32_t int_value = ColumnType::int_value::default_flags();
@@ -1367,31 +1367,31 @@ class ArgTable : public macros_internal::MacroTable {
         real_value_(ColumnStorage<ColumnType::real_value::stored_type>::Create<false>()),
         value_type_(ColumnStorage<ColumnType::value_type::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::flat_key::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::flat_key::stored_type>(
           ColumnFlag::flat_key),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::key::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::key::stored_type>(
           ColumnFlag::key),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::int_value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::int_value::stored_type>(
           ColumnFlag::int_value),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::string_value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::string_value::stored_type>(
           ColumnFlag::string_value),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::real_value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::real_value::stored_type>(
           ColumnFlag::real_value),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::value_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::value_type::stored_type>(
           ColumnFlag::value_type),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1834,23 +1834,23 @@ class ClockSnapshotTable : public macros_internal::MacroTable {
         clock_value_(ColumnStorage<ColumnType::clock_value::stored_type>::Create<false>()),
         snapshot_id_(ColumnStorage<ColumnType::snapshot_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::clock_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::clock_id::stored_type>(
           ColumnFlag::clock_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::clock_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::clock_name::stored_type>(
           ColumnFlag::clock_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::clock_value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::clock_value::stored_type>(
           ColumnFlag::clock_value),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::snapshot_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::snapshot_id::stored_type>(
           ColumnFlag::snapshot_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2188,11 +2188,11 @@ class CpuTable : public macros_internal::MacroTable {
         cluster_id_(ColumnStorage<ColumnType::cluster_id::stored_type>::Create<false>()),
         processor_(ColumnStorage<ColumnType::processor::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cluster_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cluster_id::stored_type>(
           ColumnFlag::cluster_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::processor::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::processor::stored_type>(
           ColumnFlag::processor),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2476,11 +2476,11 @@ class CpuFreqTable : public macros_internal::MacroTable {
         cpu_id_(ColumnStorage<ColumnType::cpu_id::stored_type>::Create<false>()),
         freq_(ColumnStorage<ColumnType::freq::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu_id::stored_type>(
           ColumnFlag::cpu_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::freq::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::freq::stored_type>(
           ColumnFlag::freq),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2764,11 +2764,11 @@ class ExpMissingChromeProcTable : public macros_internal::MacroTable {
         upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()),
         reliable_from_(ColumnStorage<ColumnType::reliable_from::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::reliable_from::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::reliable_from::stored_type>(
           ColumnFlag::reliable_from),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3121,23 +3121,23 @@ class FiledescriptorTable : public macros_internal::MacroTable {
         upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()),
         path_(ColumnStorage<ColumnType::path::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ufd::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ufd::stored_type>(
           ColumnFlag::ufd),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::fd::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::fd::stored_type>(
           ColumnFlag::fd),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
           ColumnFlag::path),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3521,19 +3521,19 @@ class MetadataTable : public macros_internal::MacroTable {
         int_value_(ColumnStorage<ColumnType::int_value::stored_type>::Create<false>()),
         str_value_(ColumnStorage<ColumnType::str_value::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::key_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::key_type::stored_type>(
           ColumnFlag::key_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::int_value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::int_value::stored_type>(
           ColumnFlag::int_value),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::str_value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::str_value::stored_type>(
           ColumnFlag::str_value),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3744,7 +3744,7 @@ class RawTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t ts = static_cast<uint32_t>(Column::Flag::kSorted) | ColumnType::ts::default_flags();
+    static constexpr uint32_t ts = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::ts::default_flags();
     static constexpr uint32_t name = ColumnType::name::default_flags();
     static constexpr uint32_t cpu = ColumnType::cpu::default_flags();
     static constexpr uint32_t utid = ColumnType::utid::default_flags();
@@ -3945,27 +3945,27 @@ class RawTable : public macros_internal::MacroTable {
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()),
         common_flags_(ColumnStorage<ColumnType::common_flags::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::common_flags::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::common_flags::stored_type>(
           ColumnFlag::common_flags),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

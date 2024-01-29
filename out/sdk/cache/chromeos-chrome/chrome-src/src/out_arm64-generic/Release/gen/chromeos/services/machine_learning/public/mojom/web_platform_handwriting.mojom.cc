@@ -589,6 +589,8 @@ bool HandwritingRecognizer_GetPrediction_ForwardToCallback::Accept(
           internal::HandwritingRecognizer_GetPrediction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HandwritingRecognizer.0
   bool success = true;
   std::optional<std::vector<HandwritingPredictionPtr>> p_prediction{};
   HandwritingRecognizer_GetPrediction_ResponseParamsDataView input_data_view(params, message);
@@ -687,6 +689,8 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
               internal::HandwritingRecognizer_GetPrediction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HandwritingRecognizer.0
       bool success = true;
       std::vector<HandwritingStrokePtr> p_strokes{};
       HandwritingHintsPtr p_hints{};
@@ -708,9 +712,9 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPrediction(
-std::move(p_strokes), 
-std::move(p_hints), std::move(callback));
+      impl->GetPrediction(        
+        std::move(p_strokes), 
+        std::move(p_hints), std::move(callback));
       return true;
     }
   }

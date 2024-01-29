@@ -1,7 +1,7 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { RectUtil } from '../common/rect_util.js';
+import { RectUtil } from '/common/rect_util.js';
 import { MenuManager } from './menu_manager.js';
 import { SwitchAccess } from './switch_access.js';
 import { ErrorType, Mode } from './switch_access_constants.js';

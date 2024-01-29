@@ -100,19 +100,19 @@ describe('Settings instance', () => {
         const dummyStorage = new SettingsStorage({});
         Common.Settings.registerSettingExtension({
             settingName: 'staticSyncedSetting',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
-            storageType: Common.Settings.SettingStorageType.Synced,
+            storageType: "Synced" /* Common.Settings.SettingStorageType.Synced */,
         });
         const settings = Common.Settings.Settings.instance({ forceNew: true, syncedStorage, globalStorage: dummyStorage, localStorage: dummyStorage });
-        const dynamicSetting = settings.createSetting('dynamicSyncedSetting', 'default val', Common.Settings.SettingStorageType.Synced);
+        const dynamicSetting = settings.createSetting('dynamicSyncedSetting', 'default val', "Synced" /* Common.Settings.SettingStorageType.Synced */);
         dynamicSetting.set('foo value');
         const staticSetting = settings.moduleSetting('staticSyncedSetting');
         staticSetting.set(true);
-        assert.isFalse(dummyStorage.has('dynamicSyncedSetting'));
-        assert.isFalse(dummyStorage.has('staticSyncedSetting'));
-        assert.strictEqual(syncedStorage.get('dynamicSyncedSetting'), '"foo value"');
-        assert.strictEqual(syncedStorage.get('staticSyncedSetting'), 'true');
+        assert.isFalse(dummyStorage.has('dynamic-synced-setting'));
+        assert.isFalse(dummyStorage.has('static-synced-setting'));
+        assert.strictEqual(syncedStorage.get('dynamic-synced-setting'), '"foo value"');
+        assert.strictEqual(syncedStorage.get('static-synced-setting'), 'true');
     });
     it('registers settings with the backing store when creating them', () => {
         const registeredSettings = new Set();
@@ -123,16 +123,16 @@ describe('Settings instance', () => {
         const storage = new SettingsStorage({}, mockBackingStore, '__prefix__.');
         Common.Settings.registerSettingExtension({
             settingName: 'staticGlobalSetting',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
-            storageType: Common.Settings.SettingStorageType.Global,
+            storageType: "Global" /* Common.Settings.SettingStorageType.Global */,
         });
         const settings = Common.Settings.Settings.instance({ forceNew: true, syncedStorage: storage, globalStorage: storage, localStorage: storage });
-        settings.createSetting('dynamicLocalSetting', 42, Common.Settings.SettingStorageType.Local);
-        settings.createSetting('dynamicSyncedSetting', 'foo', Common.Settings.SettingStorageType.Synced);
-        assert.isTrue(registeredSettings.has('__prefix__.staticGlobalSetting'));
-        assert.isTrue(registeredSettings.has('__prefix__.dynamicLocalSetting'));
-        assert.isTrue(registeredSettings.has('__prefix__.dynamicSyncedSetting'));
+        settings.createSetting('dynamicLocalSetting', 42, "Local" /* Common.Settings.SettingStorageType.Local */);
+        settings.createSetting('dynamicSyncedSetting', 'foo', "Synced" /* Common.Settings.SettingStorageType.Synced */);
+        assert.isTrue(registeredSettings.has('__prefix__.static-global-setting'));
+        assert.isTrue(registeredSettings.has('__prefix__.dynamic-local-setting'));
+        assert.isTrue(registeredSettings.has('__prefix__.dynamic-synced-setting'));
     });
     describe('forceGet', () => {
         it('triggers a setting changed event in case the value in the backing store got updated and we update the cached value', async () => {
@@ -145,7 +145,7 @@ describe('Settings instance', () => {
                 globalStorage: settingsStorage,
                 localStorage: settingsStorage,
             });
-            const testSetting = settings.createSetting('test', 'default val', Common.Settings.SettingStorageType.Global);
+            const testSetting = settings.createSetting('test', 'default val', "Global" /* Common.Settings.SettingStorageType.Global */);
             const changes = [];
             testSetting.addChangeListener((event) => {
                 changes.push(event.data);
@@ -161,15 +161,19 @@ describe('Settings instance', () => {
 });
 describe('VersionController', () => {
     let settings;
-    let settingsStorage;
+    let syncedStorage;
+    let globalStorage;
+    let localStorage;
     beforeEach(() => {
         const mockStore = new MockStore();
-        settingsStorage = new Common.Settings.SettingsStorage({}, mockStore);
+        syncedStorage = new Common.Settings.SettingsStorage({}, mockStore);
+        globalStorage = new Common.Settings.SettingsStorage({}, mockStore);
+        localStorage = new Common.Settings.SettingsStorage({}, mockStore);
         settings = Common.Settings.Settings.instance({
             forceNew: true,
-            syncedStorage: settingsStorage,
-            globalStorage: settingsStorage,
-            localStorage: settingsStorage,
+            syncedStorage,
+            globalStorage,
+            localStorage,
         });
     });
     afterEach(() => {
@@ -177,14 +181,14 @@ describe('VersionController', () => {
     });
     describe('updateVersion', () => {
         it('initializes version settings with the current version if the setting doesn\'t exist yet', () => {
-            assert.isFalse(settingsStorage.has(VersionController.GLOBAL_VERSION_SETTING_NAME));
-            assert.isFalse(settingsStorage.has(VersionController.SYNCED_VERSION_SETTING_NAME));
-            assert.isFalse(settingsStorage.has(VersionController.LOCAL_VERSION_SETTING_NAME));
+            assert.isFalse(globalStorage.has(VersionController.GLOBAL_VERSION_SETTING_NAME));
+            assert.isFalse(syncedStorage.has(VersionController.SYNCED_VERSION_SETTING_NAME));
+            assert.isFalse(localStorage.has(VersionController.LOCAL_VERSION_SETTING_NAME));
             new VersionController().updateVersion();
             const currentVersion = VersionController.CURRENT_VERSION.toString();
-            assert.strictEqual(settingsStorage.get(VersionController.GLOBAL_VERSION_SETTING_NAME), currentVersion);
-            assert.strictEqual(settingsStorage.get(VersionController.SYNCED_VERSION_SETTING_NAME), currentVersion);
-            assert.strictEqual(settingsStorage.get(VersionController.LOCAL_VERSION_SETTING_NAME), currentVersion);
+            assert.strictEqual(globalStorage.get(VersionController.GLOBAL_VERSION_SETTING_NAME), currentVersion);
+            assert.strictEqual(syncedStorage.get(VersionController.SYNCED_VERSION_SETTING_NAME), currentVersion);
+            assert.strictEqual(localStorage.get(VersionController.LOCAL_VERSION_SETTING_NAME), currentVersion);
         });
         function spyAllUpdateMethods(versionController) {
             const spies = [];
@@ -204,9 +208,9 @@ describe('VersionController', () => {
         });
         it('does not run any update* methods if all version settings are already current', () => {
             const currentVersion = VersionController.CURRENT_VERSION.toString();
-            settingsStorage.set(VersionController.GLOBAL_VERSION_SETTING_NAME, currentVersion);
-            settingsStorage.set(VersionController.SYNCED_VERSION_SETTING_NAME, currentVersion);
-            settingsStorage.set(VersionController.LOCAL_VERSION_SETTING_NAME, currentVersion);
+            globalStorage.set(VersionController.GLOBAL_VERSION_SETTING_NAME, currentVersion);
+            syncedStorage.set(VersionController.SYNCED_VERSION_SETTING_NAME, currentVersion);
+            localStorage.set(VersionController.LOCAL_VERSION_SETTING_NAME, currentVersion);
             const versionController = new VersionController();
             const spies = spyAllUpdateMethods(versionController);
             versionController.updateVersion();
@@ -217,9 +221,9 @@ describe('VersionController', () => {
         it('runs correct update* methods if the local bucket lags behind', () => {
             const currentVersion = VersionController.CURRENT_VERSION.toString();
             const localVersion = (VersionController.CURRENT_VERSION - 3).toString();
-            settingsStorage.set(VersionController.GLOBAL_VERSION_SETTING_NAME, currentVersion);
-            settingsStorage.set(VersionController.SYNCED_VERSION_SETTING_NAME, currentVersion);
-            settingsStorage.set(VersionController.LOCAL_VERSION_SETTING_NAME, localVersion);
+            globalStorage.set(VersionController.GLOBAL_VERSION_SETTING_NAME, currentVersion);
+            syncedStorage.set(VersionController.SYNCED_VERSION_SETTING_NAME, currentVersion);
+            localStorage.set(VersionController.LOCAL_VERSION_SETTING_NAME, localVersion);
             const versionController = new VersionController();
             const spies = spyAllUpdateMethods(versionController);
             versionController.updateVersion();
@@ -235,9 +239,9 @@ describe('VersionController', () => {
         it('runs correct update* methods if the synced bucket runs ahead', () => {
             const currentVersion = VersionController.CURRENT_VERSION.toString();
             const oldVersion = (VersionController.CURRENT_VERSION - 1).toString();
-            settingsStorage.set(VersionController.GLOBAL_VERSION_SETTING_NAME, oldVersion);
-            settingsStorage.set(VersionController.SYNCED_VERSION_SETTING_NAME, currentVersion);
-            settingsStorage.set(VersionController.LOCAL_VERSION_SETTING_NAME, oldVersion);
+            globalStorage.set(VersionController.GLOBAL_VERSION_SETTING_NAME, oldVersion);
+            syncedStorage.set(VersionController.SYNCED_VERSION_SETTING_NAME, currentVersion);
+            localStorage.set(VersionController.LOCAL_VERSION_SETTING_NAME, oldVersion);
             const versionController = new VersionController();
             const spies = spyAllUpdateMethods(versionController);
             versionController.updateVersion();
@@ -379,6 +383,50 @@ describe('VersionController', () => {
             const showThirdPartyIssuesSetting = settings.createLocalSetting('showThirdPartyIssues', false);
             versionController.updateVersionFrom35To36();
             assert.isTrue(showThirdPartyIssuesSetting.get());
+        });
+    });
+    describe('updateVersionFrom36To37', () => {
+        it('updates all keys to kebab case', () => {
+            const versionController = new VersionController();
+            settings.globalStorage.set('globalSetting1', '');
+            settings.globalStorage.set('globalSetting2', '');
+            settings.localStorage.set('localSetting', '');
+            settings.syncedStorage.set('syncedSetting', '');
+            versionController.updateVersionFrom36To37();
+            assert.deepEqual(settings.globalStorage.keys(), ['global-setting-1', 'global-setting-2']);
+            assert.deepEqual(settings.localStorage.keys(), ['local-setting']);
+            assert.deepEqual(settings.syncedStorage.keys(), ['synced-setting']);
+        });
+        it('update data grid column weights value', () => {
+            const versionController = new VersionController();
+            settings.globalStorage.set('dataGrid-foo-columnWeights', JSON.stringify({
+                columnOne: 1,
+                columnTwo: 2,
+            }));
+            versionController.updateVersionFrom36To37();
+            const setting = settings.createSetting('data-grid-foo-column-weights', {});
+            assert.deepEqual(setting.get(), { 'column-one': 1, 'column-two': 2 });
+        });
+        it('update view manager settings values', () => {
+            const versionController = new VersionController();
+            settings.globalStorage.set('viewsLocationOverride', JSON.stringify({
+                somePanel: 'main',
+                other_panel: 'drawer',
+            }));
+            settings.globalStorage.set('closeableTabs', JSON.stringify({
+                somePanel: false,
+                other_panel: true,
+            }));
+            settings.globalStorage.set('main-tabOrder', JSON.stringify({
+                somePanel: 2,
+                other_panel: 1,
+            }));
+            settings.globalStorage.set('main-selectedTab', JSON.stringify('somePanel'));
+            versionController.updateVersionFrom36To37();
+            assert.deepEqual(settings.createSetting('views-location-override', {}).get(), { 'some-panel': 'main', 'other-panel': 'drawer' });
+            assert.deepEqual(settings.createSetting('closeable-tabs', {}).get(), { 'some-panel': false, 'other-panel': true });
+            assert.deepEqual(settings.createSetting('main-tab-order', {}).get(), { 'some-panel': 2, 'other-panel': 1 });
+            assert.deepEqual(settings.createSetting('main-selected-tab', '').get(), 'some-panel');
         });
     });
 });

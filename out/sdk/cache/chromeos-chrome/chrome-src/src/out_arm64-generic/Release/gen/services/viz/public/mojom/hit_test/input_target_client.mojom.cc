@@ -232,6 +232,8 @@ bool InputTargetClient_FrameSinkIdAt_ForwardToCallback::Accept(
           internal::InputTargetClient_FrameSinkIdAt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputTargetClient.0
   bool success = true;
   ::viz::FrameSinkId p_id{};
   ::gfx::PointF p_local_point{};
@@ -350,6 +352,8 @@ bool InputTargetClientStubDispatch::AcceptWithResponder(
               internal::InputTargetClient_FrameSinkIdAt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputTargetClient.0
       bool success = true;
       ::gfx::PointF p_point{};
       uint64_t p_trace_id{};
@@ -371,9 +375,9 @@ bool InputTargetClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameSinkIdAt(
-std::move(p_point), 
-std::move(p_trace_id), std::move(callback));
+      impl->FrameSinkIdAt(        
+        std::move(p_point), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
   }

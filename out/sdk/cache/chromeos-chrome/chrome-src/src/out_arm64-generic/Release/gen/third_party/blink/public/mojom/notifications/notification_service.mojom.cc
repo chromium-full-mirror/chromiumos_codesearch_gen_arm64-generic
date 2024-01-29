@@ -333,6 +333,8 @@ bool NonPersistentNotificationListener_OnClick_ForwardToCallback::Accept(
           internal::NonPersistentNotificationListener_OnClick_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NonPersistentNotificationListener.1
   bool success = true;
   NonPersistentNotificationListener_OnClick_ResponseParamsDataView input_data_view(params, message);
   
@@ -440,6 +442,8 @@ bool NonPersistentNotificationListener_OnClose_ForwardToCallback::Accept(
           internal::NonPersistentNotificationListener_OnClose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NonPersistentNotificationListener.2
   bool success = true;
   NonPersistentNotificationListener_OnClose_ResponseParamsDataView input_data_view(params, message);
   
@@ -502,6 +506,8 @@ bool NonPersistentNotificationListenerStubDispatch::Accept(
           reinterpret_cast<internal::NonPersistentNotificationListener_OnShow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NonPersistentNotificationListener.0
       bool success = true;
       NonPersistentNotificationListener_OnShow_ParamsDataView input_data_view(params, message);
       
@@ -514,7 +520,7 @@ bool NonPersistentNotificationListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShow();
+      impl->OnShow(        );
       return true;
     }
     case internal::kNonPersistentNotificationListener_OnClick_Name: {
@@ -546,6 +552,8 @@ bool NonPersistentNotificationListenerStubDispatch::AcceptWithResponder(
               internal::NonPersistentNotificationListener_OnClick_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NonPersistentNotificationListener.1
       bool success = true;
       NonPersistentNotificationListener_OnClick_ParamsDataView input_data_view(params, message);
       
@@ -571,6 +579,8 @@ bool NonPersistentNotificationListenerStubDispatch::AcceptWithResponder(
               internal::NonPersistentNotificationListener_OnClose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NonPersistentNotificationListener.2
       bool success = true;
       NonPersistentNotificationListener_OnClose_ParamsDataView input_data_view(params, message);
       
@@ -1299,6 +1309,8 @@ bool NotificationService_GetPermissionStatus_ForwardToCallback::Accept(
           internal::NotificationService_GetPermissionStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NotificationService.0
   bool success = true;
   ::blink::mojom::PermissionStatus p_status{};
   NotificationService_GetPermissionStatus_ResponseParamsDataView input_data_view(params, message);
@@ -1369,6 +1381,8 @@ bool NotificationService_GetPermissionStatus_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NotificationService_GetPermissionStatus_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NotificationService.0
   bool success = true;
   ::blink::mojom::PermissionStatus p_status{};
   NotificationService_GetPermissionStatus_ResponseParamsDataView input_data_view(params, message);
@@ -1444,6 +1458,8 @@ bool NotificationService_DisplayPersistentNotification_ForwardToCallback::Accept
           internal::NotificationService_DisplayPersistentNotification_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NotificationService.3
   bool success = true;
   PersistentNotificationError p_error{};
   NotificationService_DisplayPersistentNotification_ResponseParamsDataView input_data_view(params, message);
@@ -1564,6 +1580,8 @@ bool NotificationService_GetNotifications_ForwardToCallback::Accept(
           internal::NotificationService_GetNotifications_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NotificationService.5
   bool success = true;
   std::vector<std::string> p_notification_ids{};
   std::vector<::blink::PlatformNotificationData> p_notification_datas{};
@@ -1673,6 +1691,8 @@ bool NotificationServiceStubDispatch::Accept(
           reinterpret_cast<internal::NotificationService_DisplayNonPersistentNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationService.1
       bool success = true;
       std::string p_token{};
       ::blink::PlatformNotificationData p_notification_data{};
@@ -1699,11 +1719,11 @@ bool NotificationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayNonPersistentNotification(
-std::move(p_token), 
-std::move(p_notification_data), 
-std::move(p_notification_resources), 
-std::move(p_event_listener));
+      impl->DisplayNonPersistentNotification(        
+        std::move(p_token), 
+        std::move(p_notification_data), 
+        std::move(p_notification_resources), 
+        std::move(p_event_listener));
       return true;
     }
     case internal::kNotificationService_CloseNonPersistentNotification_Name: {
@@ -1713,6 +1733,8 @@ std::move(p_event_listener));
           reinterpret_cast<internal::NotificationService_CloseNonPersistentNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationService.2
       bool success = true;
       std::string p_token{};
       NotificationService_CloseNonPersistentNotification_ParamsDataView input_data_view(params, message);
@@ -1728,8 +1750,8 @@ std::move(p_event_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseNonPersistentNotification(
-std::move(p_token));
+      impl->CloseNonPersistentNotification(        
+        std::move(p_token));
       return true;
     }
     case internal::kNotificationService_DisplayPersistentNotification_Name: {
@@ -1742,6 +1764,8 @@ std::move(p_token));
           reinterpret_cast<internal::NotificationService_ClosePersistentNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationService.4
       bool success = true;
       std::string p_notification_id{};
       NotificationService_ClosePersistentNotification_ParamsDataView input_data_view(params, message);
@@ -1757,8 +1781,8 @@ std::move(p_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClosePersistentNotification(
-std::move(p_notification_id));
+      impl->ClosePersistentNotification(        
+        std::move(p_notification_id));
       return true;
     }
     case internal::kNotificationService_GetNotifications_Name: {
@@ -1784,6 +1808,8 @@ bool NotificationServiceStubDispatch::AcceptWithResponder(
               internal::NotificationService_GetPermissionStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NotificationService.0
       bool success = true;
       NotificationService_GetPermissionStatus_ParamsDataView input_data_view(params, message);
       
@@ -1815,6 +1841,8 @@ bool NotificationServiceStubDispatch::AcceptWithResponder(
               internal::NotificationService_DisplayPersistentNotification_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NotificationService.3
       bool success = true;
       int64_t p_service_worker_registration_id{};
       ::blink::PlatformNotificationData p_notification_data{};
@@ -1839,10 +1867,10 @@ bool NotificationServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayPersistentNotification(
-std::move(p_service_worker_registration_id), 
-std::move(p_notification_data), 
-std::move(p_notification_resources), std::move(callback));
+      impl->DisplayPersistentNotification(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_notification_data), 
+        std::move(p_notification_resources), std::move(callback));
       return true;
     }
     case internal::kNotificationService_ClosePersistentNotification_Name: {
@@ -1855,6 +1883,8 @@ std::move(p_notification_resources), std::move(callback));
               internal::NotificationService_GetNotifications_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NotificationService.5
       bool success = true;
       int64_t p_service_worker_registration_id{};
       std::string p_filter_tag{};
@@ -1879,10 +1909,10 @@ std::move(p_notification_resources), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNotifications(
-std::move(p_service_worker_registration_id), 
-std::move(p_filter_tag), 
-std::move(p_include_triggered), std::move(callback));
+      impl->GetNotifications(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_filter_tag), 
+        std::move(p_include_triggered), std::move(callback));
       return true;
     }
   }

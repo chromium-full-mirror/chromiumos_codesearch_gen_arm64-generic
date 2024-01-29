@@ -59,7 +59,7 @@ class NetHost
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 34;
+  static constexpr uint32_t Version_ = 35;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -92,6 +92,7 @@ class NetHost
     kStopLohsMinVersion = 25,
     kNotifyAndroidWifiMulticastLockChangeMinVersion = 32,
     kNotifySocketConnectionEventMinVersion = 34,
+    kNotifyARCVPNSocketConnectionEventMinVersion = 35,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -155,6 +156,9 @@ class NetHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct NotifySocketConnectionEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct NotifyARCVPNSocketConnectionEvent_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -239,6 +243,9 @@ class NetHost
 
   
   virtual void NotifySocketConnectionEvent(SocketConnectionEventPtr msg) = 0;
+
+  
+  virtual void NotifyARCVPNSocketConnectionEvent(SocketConnectionEventPtr msg) = 0;
 };
 
 class NetInstanceProxy;
@@ -406,6 +413,8 @@ class  NetHostProxy
   void NotifyAndroidWifiMulticastLockChange(bool is_held) final;
   
   void NotifySocketConnectionEvent(SocketConnectionEventPtr msg) final;
+  
+  void NotifyARCVPNSocketConnectionEvent(SocketConnectionEventPtr msg) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

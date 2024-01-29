@@ -371,6 +371,8 @@ bool GuestViewHost_AttachToEmbedderFrame_ForwardToCallback::Accept(
           internal::GuestViewHost_AttachToEmbedderFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GuestViewHost.0
   bool success = true;
   GuestViewHost_AttachToEmbedderFrame_ResponseParamsDataView input_data_view(params, message);
   
@@ -436,6 +438,8 @@ bool GuestViewHostStubDispatch::Accept(
           reinterpret_cast<internal::GuestViewHost_ViewCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GuestViewHost.1
       bool success = true;
       int32_t p_view_instance_id{};
       std::string p_view_type{};
@@ -459,10 +463,10 @@ bool GuestViewHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ViewCreated(
-std::move(p_view_instance_id), 
-std::move(p_view_type), 
-std::move(p_keep_alive_handle_receiver));
+      impl->ViewCreated(        
+        std::move(p_view_instance_id), 
+        std::move(p_view_type), 
+        std::move(p_keep_alive_handle_receiver));
       return true;
     }
   }
@@ -485,6 +489,8 @@ bool GuestViewHostStubDispatch::AcceptWithResponder(
               internal::GuestViewHost_AttachToEmbedderFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GuestViewHost.0
       bool success = true;
       int32_t p_element_instance_id{};
       int32_t p_guest_instance_id{};
@@ -509,10 +515,10 @@ bool GuestViewHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AttachToEmbedderFrame(
-std::move(p_element_instance_id), 
-std::move(p_guest_instance_id), 
-std::move(p_params), std::move(callback));
+      impl->AttachToEmbedderFrame(        
+        std::move(p_element_instance_id), 
+        std::move(p_guest_instance_id), 
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kGuestViewHost_ViewCreated_Name: {

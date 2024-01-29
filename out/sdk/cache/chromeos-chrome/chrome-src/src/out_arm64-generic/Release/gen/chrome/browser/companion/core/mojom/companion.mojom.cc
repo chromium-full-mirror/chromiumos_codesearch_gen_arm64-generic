@@ -372,6 +372,8 @@ bool CompanionPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CompanionPageHandlerFactory_CreateCompanionPageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<CompanionPageHandler> p_handler{};
       ::mojo::PendingRemote<CompanionPage> p_page{};
@@ -394,9 +396,9 @@ bool CompanionPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCompanionPageHandler(
-std::move(p_handler), 
-std::move(p_page));
+      impl->CreateCompanionPageHandler(        
+        std::move(p_handler), 
+        std::move(p_page));
       return true;
     }
   }
@@ -1371,6 +1373,8 @@ bool CompanionPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CompanionPageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.0
       bool success = true;
       CompanionPageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -1383,7 +1387,7 @@ bool CompanionPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
     case internal::kCompanionPageHandler_OnPromoAction_Name: {
@@ -1393,6 +1397,8 @@ bool CompanionPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CompanionPageHandler_OnPromoAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.1
       bool success = true;
       PromoType p_promo_type{};
       PromoAction p_promo_action{};
@@ -1411,9 +1417,9 @@ bool CompanionPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPromoAction(
-std::move(p_promo_type), 
-std::move(p_promo_action));
+      impl->OnPromoAction(        
+        std::move(p_promo_type), 
+        std::move(p_promo_action));
       return true;
     }
     case internal::kCompanionPageHandler_OnRegionSearchClicked_Name: {
@@ -1423,6 +1429,8 @@ std::move(p_promo_action));
           reinterpret_cast<internal::CompanionPageHandler_OnRegionSearchClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.2
       bool success = true;
       CompanionPageHandler_OnRegionSearchClicked_ParamsDataView input_data_view(params, message);
       
@@ -1435,7 +1443,7 @@ std::move(p_promo_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRegionSearchClicked();
+      impl->OnRegionSearchClicked(        );
       return true;
     }
     case internal::kCompanionPageHandler_OnExpsOptInStatusAvailable_Name: {
@@ -1445,6 +1453,8 @@ std::move(p_promo_action));
           reinterpret_cast<internal::CompanionPageHandler_OnExpsOptInStatusAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.3
       bool success = true;
       bool p_is_exps_opted_in{};
       CompanionPageHandler_OnExpsOptInStatusAvailable_ParamsDataView input_data_view(params, message);
@@ -1460,8 +1470,8 @@ std::move(p_promo_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnExpsOptInStatusAvailable(
-std::move(p_is_exps_opted_in));
+      impl->OnExpsOptInStatusAvailable(        
+        std::move(p_is_exps_opted_in));
       return true;
     }
     case internal::kCompanionPageHandler_OnOpenInNewTabButtonURLChanged_Name: {
@@ -1471,6 +1481,8 @@ std::move(p_is_exps_opted_in));
           reinterpret_cast<internal::CompanionPageHandler_OnOpenInNewTabButtonURLChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.4
       bool success = true;
       ::GURL p_url_to_open{};
       CompanionPageHandler_OnOpenInNewTabButtonURLChanged_ParamsDataView input_data_view(params, message);
@@ -1486,8 +1498,8 @@ std::move(p_is_exps_opted_in));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenInNewTabButtonURLChanged(
-std::move(p_url_to_open));
+      impl->OnOpenInNewTabButtonURLChanged(        
+        std::move(p_url_to_open));
       return true;
     }
     case internal::kCompanionPageHandler_RecordUiSurfaceShown_Name: {
@@ -1497,6 +1509,8 @@ std::move(p_url_to_open));
           reinterpret_cast<internal::CompanionPageHandler_RecordUiSurfaceShown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.5
       bool success = true;
       UiSurface p_ui_surface{};
       int32_t p_ui_surface_position{};
@@ -1521,11 +1535,11 @@ std::move(p_url_to_open));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordUiSurfaceShown(
-std::move(p_ui_surface), 
-std::move(p_ui_surface_position), 
-std::move(p_child_element_available_count), 
-std::move(p_child_element_shown_count));
+      impl->RecordUiSurfaceShown(        
+        std::move(p_ui_surface), 
+        std::move(p_ui_surface_position), 
+        std::move(p_child_element_available_count), 
+        std::move(p_child_element_shown_count));
       return true;
     }
     case internal::kCompanionPageHandler_RecordUiSurfaceClicked_Name: {
@@ -1535,6 +1549,8 @@ std::move(p_child_element_shown_count));
           reinterpret_cast<internal::CompanionPageHandler_RecordUiSurfaceClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.6
       bool success = true;
       UiSurface p_ui_surface{};
       int32_t p_click_position{};
@@ -1553,9 +1569,9 @@ std::move(p_child_element_shown_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordUiSurfaceClicked(
-std::move(p_ui_surface), 
-std::move(p_click_position));
+      impl->RecordUiSurfaceClicked(        
+        std::move(p_ui_surface), 
+        std::move(p_click_position));
       return true;
     }
     case internal::kCompanionPageHandler_OnCqCandidatesAvailable_Name: {
@@ -1565,6 +1581,8 @@ std::move(p_click_position));
           reinterpret_cast<internal::CompanionPageHandler_OnCqCandidatesAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.7
       bool success = true;
       std::vector<std::string> p_text_directives{};
       CompanionPageHandler_OnCqCandidatesAvailable_ParamsDataView input_data_view(params, message);
@@ -1580,8 +1598,8 @@ std::move(p_click_position));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCqCandidatesAvailable(
-std::move(p_text_directives));
+      impl->OnCqCandidatesAvailable(        
+        std::move(p_text_directives));
       return true;
     }
     case internal::kCompanionPageHandler_OnPhFeedback_Name: {
@@ -1591,6 +1609,8 @@ std::move(p_text_directives));
           reinterpret_cast<internal::CompanionPageHandler_OnPhFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.8
       bool success = true;
       PhFeedback p_ph_feedback{};
       CompanionPageHandler_OnPhFeedback_ParamsDataView input_data_view(params, message);
@@ -1606,8 +1626,8 @@ std::move(p_text_directives));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPhFeedback(
-std::move(p_ph_feedback));
+      impl->OnPhFeedback(        
+        std::move(p_ph_feedback));
       return true;
     }
     case internal::kCompanionPageHandler_OnCqJumptagClicked_Name: {
@@ -1617,6 +1637,8 @@ std::move(p_ph_feedback));
           reinterpret_cast<internal::CompanionPageHandler_OnCqJumptagClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.9
       bool success = true;
       std::string p_text_directive{};
       CompanionPageHandler_OnCqJumptagClicked_ParamsDataView input_data_view(params, message);
@@ -1632,8 +1654,8 @@ std::move(p_ph_feedback));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCqJumptagClicked(
-std::move(p_text_directive));
+      impl->OnCqJumptagClicked(        
+        std::move(p_text_directive));
       return true;
     }
     case internal::kCompanionPageHandler_OpenUrlInBrowser_Name: {
@@ -1643,6 +1665,8 @@ std::move(p_text_directive));
           reinterpret_cast<internal::CompanionPageHandler_OpenUrlInBrowser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.10
       bool success = true;
       std::optional<::GURL> p_url_to_open{};
       bool p_use_new_tab{};
@@ -1661,9 +1685,9 @@ std::move(p_text_directive));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlInBrowser(
-std::move(p_url_to_open), 
-std::move(p_use_new_tab));
+      impl->OpenUrlInBrowser(        
+        std::move(p_url_to_open), 
+        std::move(p_use_new_tab));
       return true;
     }
     case internal::kCompanionPageHandler_OnLoadingState_Name: {
@@ -1673,6 +1697,8 @@ std::move(p_use_new_tab));
           reinterpret_cast<internal::CompanionPageHandler_OnLoadingState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.11
       bool success = true;
       LoadingState p_state{};
       CompanionPageHandler_OnLoadingState_ParamsDataView input_data_view(params, message);
@@ -1688,8 +1714,8 @@ std::move(p_use_new_tab));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLoadingState(
-std::move(p_state));
+      impl->OnLoadingState(        
+        std::move(p_state));
       return true;
     }
     case internal::kCompanionPageHandler_RefreshCompanionPage_Name: {
@@ -1699,6 +1725,8 @@ std::move(p_state));
           reinterpret_cast<internal::CompanionPageHandler_RefreshCompanionPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.12
       bool success = true;
       CompanionPageHandler_RefreshCompanionPage_ParamsDataView input_data_view(params, message);
       
@@ -1711,7 +1739,7 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RefreshCompanionPage();
+      impl->RefreshCompanionPage(        );
       return true;
     }
     case internal::kCompanionPageHandler_OnServerSideUrlFilterEvent_Name: {
@@ -1721,6 +1749,8 @@ std::move(p_state));
           reinterpret_cast<internal::CompanionPageHandler_OnServerSideUrlFilterEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPageHandler.13
       bool success = true;
       CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsDataView input_data_view(params, message);
       
@@ -1733,7 +1763,7 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServerSideUrlFilterEvent();
+      impl->OnServerSideUrlFilterEvent(        );
       return true;
     }
   }
@@ -2481,6 +2511,8 @@ bool CompanionPageStubDispatch::Accept(
           reinterpret_cast<internal::CompanionPage_LoadCompanionPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.0
       bool success = true;
       ::GURL p_new_url{};
       CompanionPage_LoadCompanionPage_ParamsDataView input_data_view(params, message);
@@ -2496,8 +2528,8 @@ bool CompanionPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadCompanionPage(
-std::move(p_new_url));
+      impl->LoadCompanionPage(        
+        std::move(p_new_url));
       return true;
     }
     case internal::kCompanionPage_UpdateCompanionPage_Name: {
@@ -2507,6 +2539,8 @@ std::move(p_new_url));
           reinterpret_cast<internal::CompanionPage_UpdateCompanionPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.1
       bool success = true;
       std::string p_companion_update_proto{};
       CompanionPage_UpdateCompanionPage_ParamsDataView input_data_view(params, message);
@@ -2522,8 +2556,8 @@ std::move(p_new_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCompanionPage(
-std::move(p_companion_update_proto));
+      impl->UpdateCompanionPage(        
+        std::move(p_companion_update_proto));
       return true;
     }
     case internal::kCompanionPage_OnImageQuery_Name: {
@@ -2533,6 +2567,8 @@ std::move(p_companion_update_proto));
           reinterpret_cast<internal::CompanionPage_OnImageQuery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.2
       bool success = true;
       ImageQueryPtr p_image_query{};
       CompanionPage_OnImageQuery_ParamsDataView input_data_view(params, message);
@@ -2548,8 +2584,8 @@ std::move(p_companion_update_proto));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImageQuery(
-std::move(p_image_query));
+      impl->OnImageQuery(        
+        std::move(p_image_query));
       return true;
     }
     case internal::kCompanionPage_OnCqFindTextResultsAvailable_Name: {
@@ -2559,6 +2595,8 @@ std::move(p_image_query));
           reinterpret_cast<internal::CompanionPage_OnCqFindTextResultsAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.3
       bool success = true;
       std::vector<std::string> p_text_directives{};
       std::vector<bool> p_results{};
@@ -2577,9 +2615,9 @@ std::move(p_image_query));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCqFindTextResultsAvailable(
-std::move(p_text_directives), 
-std::move(p_results));
+      impl->OnCqFindTextResultsAvailable(        
+        std::move(p_text_directives), 
+        std::move(p_results));
       return true;
     }
     case internal::kCompanionPage_OnDeviceVisualClassificationResult_Name: {
@@ -2589,6 +2627,8 @@ std::move(p_results));
           reinterpret_cast<internal::CompanionPage_OnDeviceVisualClassificationResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.4
       bool success = true;
       std::vector<VisualSearchResultPtr> p_results{};
       CompanionPage_OnDeviceVisualClassificationResult_ParamsDataView input_data_view(params, message);
@@ -2604,8 +2644,8 @@ std::move(p_results));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceVisualClassificationResult(
-std::move(p_results));
+      impl->OnDeviceVisualClassificationResult(        
+        std::move(p_results));
       return true;
     }
     case internal::kCompanionPage_OnNavigationError_Name: {
@@ -2615,6 +2655,8 @@ std::move(p_results));
           reinterpret_cast<internal::CompanionPage_OnNavigationError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.5
       bool success = true;
       CompanionPage_OnNavigationError_ParamsDataView input_data_view(params, message);
       
@@ -2627,7 +2669,7 @@ std::move(p_results));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNavigationError();
+      impl->OnNavigationError(        );
       return true;
     }
     case internal::kCompanionPage_NotifyLinkOpen_Name: {
@@ -2637,6 +2679,8 @@ std::move(p_results));
           reinterpret_cast<internal::CompanionPage_NotifyLinkOpen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.6
       bool success = true;
       ::GURL p_opened_url{};
       LinkOpenMetadataPtr p_metadata{};
@@ -2655,9 +2699,9 @@ std::move(p_results));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyLinkOpen(
-std::move(p_opened_url), 
-std::move(p_metadata));
+      impl->NotifyLinkOpen(        
+        std::move(p_opened_url), 
+        std::move(p_metadata));
       return true;
     }
     case internal::kCompanionPage_UpdatePageContent_Name: {
@@ -2667,6 +2711,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::CompanionPage_UpdatePageContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompanionPage.7
       bool success = true;
       std::string p_page_title{};
       std::string p_inner_html{};
@@ -2685,9 +2731,9 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePageContent(
-std::move(p_page_title), 
-std::move(p_inner_html));
+      impl->UpdatePageContent(        
+        std::move(p_page_title), 
+        std::move(p_inner_html));
       return true;
     }
   }

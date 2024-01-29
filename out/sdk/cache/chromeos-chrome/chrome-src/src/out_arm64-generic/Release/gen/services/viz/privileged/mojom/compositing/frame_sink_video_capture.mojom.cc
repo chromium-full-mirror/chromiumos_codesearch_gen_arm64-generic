@@ -310,6 +310,8 @@ bool FrameSinkVideoConsumerFrameCallbacksStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkVideoConsumerFrameCallbacks_Done_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumerFrameCallbacks.0
       bool success = true;
       FrameSinkVideoConsumerFrameCallbacks_Done_ParamsDataView input_data_view(params, message);
       
@@ -322,7 +324,7 @@ bool FrameSinkVideoConsumerFrameCallbacksStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Done();
+      impl->Done(        );
       return true;
     }
     case internal::kFrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_Name: {
@@ -332,6 +334,8 @@ bool FrameSinkVideoConsumerFrameCallbacksStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumerFrameCallbacks.1
       bool success = true;
       ::media::VideoCaptureFeedback p_feedback{};
       FrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_ParamsDataView input_data_view(params, message);
@@ -347,8 +351,8 @@ bool FrameSinkVideoConsumerFrameCallbacksStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProvideFeedback(
-std::move(p_feedback));
+      impl->ProvideFeedback(        
+        std::move(p_feedback));
       return true;
     }
   }
@@ -782,6 +786,8 @@ bool FrameSinkVideoConsumerStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkVideoConsumer_OnFrameCaptured_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumer.0
       bool success = true;
       ::media::mojom::VideoBufferHandlePtr p_data{};
       ::media::mojom::VideoFrameInfoPtr p_info{};
@@ -808,11 +814,11 @@ bool FrameSinkVideoConsumerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameCaptured(
-std::move(p_data), 
-std::move(p_info), 
-std::move(p_content_rect), 
-std::move(p_callbacks));
+      impl->OnFrameCaptured(        
+        std::move(p_data), 
+        std::move(p_info), 
+        std::move(p_content_rect), 
+        std::move(p_callbacks));
       return true;
     }
     case internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name: {
@@ -822,6 +828,8 @@ std::move(p_callbacks));
           reinterpret_cast<internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumer.1
       bool success = true;
       uint32_t p_sub_capture_target_version{};
       FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_ParamsDataView input_data_view(params, message);
@@ -837,8 +845,8 @@ std::move(p_callbacks));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewSubCaptureTargetVersion(
-std::move(p_sub_capture_target_version));
+      impl->OnNewSubCaptureTargetVersion(        
+        std::move(p_sub_capture_target_version));
       return true;
     }
     case internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name: {
@@ -848,6 +856,8 @@ std::move(p_sub_capture_target_version));
           reinterpret_cast<internal::FrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumer.2
       bool success = true;
       FrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_ParamsDataView input_data_view(params, message);
       
@@ -860,7 +870,7 @@ std::move(p_sub_capture_target_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameWithEmptyRegionCapture();
+      impl->OnFrameWithEmptyRegionCapture(        );
       return true;
     }
     case internal::kFrameSinkVideoConsumer_OnStopped_Name: {
@@ -870,6 +880,8 @@ std::move(p_sub_capture_target_version));
           reinterpret_cast<internal::FrameSinkVideoConsumer_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumer.3
       bool success = true;
       FrameSinkVideoConsumer_OnStopped_ParamsDataView input_data_view(params, message);
       
@@ -882,7 +894,7 @@ std::move(p_sub_capture_target_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped();
+      impl->OnStopped(        );
       return true;
     }
     case internal::kFrameSinkVideoConsumer_OnLog_Name: {
@@ -892,6 +904,8 @@ std::move(p_sub_capture_target_version));
           reinterpret_cast<internal::FrameSinkVideoConsumer_OnLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoConsumer.4
       bool success = true;
       std::string p_message{};
       FrameSinkVideoConsumer_OnLog_ParamsDataView input_data_view(params, message);
@@ -907,8 +921,8 @@ std::move(p_sub_capture_target_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLog(
-std::move(p_message));
+      impl->OnLog(        
+        std::move(p_message));
       return true;
     }
   }
@@ -1685,6 +1699,8 @@ bool FrameSinkVideoCapturerStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkVideoCapturer_SetFormat_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.0
       bool success = true;
       ::media::VideoPixelFormat p_format{};
       FrameSinkVideoCapturer_SetFormat_ParamsDataView input_data_view(params, message);
@@ -1700,8 +1716,8 @@ bool FrameSinkVideoCapturerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFormat(
-std::move(p_format));
+      impl->SetFormat(        
+        std::move(p_format));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_SetMinCapturePeriod_Name: {
@@ -1711,6 +1727,8 @@ std::move(p_format));
           reinterpret_cast<internal::FrameSinkVideoCapturer_SetMinCapturePeriod_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.1
       bool success = true;
       ::base::TimeDelta p_min_period{};
       FrameSinkVideoCapturer_SetMinCapturePeriod_ParamsDataView input_data_view(params, message);
@@ -1726,8 +1744,8 @@ std::move(p_format));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMinCapturePeriod(
-std::move(p_min_period));
+      impl->SetMinCapturePeriod(        
+        std::move(p_min_period));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_SetMinSizeChangePeriod_Name: {
@@ -1737,6 +1755,8 @@ std::move(p_min_period));
           reinterpret_cast<internal::FrameSinkVideoCapturer_SetMinSizeChangePeriod_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.2
       bool success = true;
       ::base::TimeDelta p_min_period{};
       FrameSinkVideoCapturer_SetMinSizeChangePeriod_ParamsDataView input_data_view(params, message);
@@ -1752,8 +1772,8 @@ std::move(p_min_period));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMinSizeChangePeriod(
-std::move(p_min_period));
+      impl->SetMinSizeChangePeriod(        
+        std::move(p_min_period));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_SetResolutionConstraints_Name: {
@@ -1763,6 +1783,8 @@ std::move(p_min_period));
           reinterpret_cast<internal::FrameSinkVideoCapturer_SetResolutionConstraints_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.3
       bool success = true;
       ::gfx::Size p_min_size{};
       ::gfx::Size p_max_size{};
@@ -1784,10 +1806,10 @@ std::move(p_min_period));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetResolutionConstraints(
-std::move(p_min_size), 
-std::move(p_max_size), 
-std::move(p_use_fixed_aspect_ratio));
+      impl->SetResolutionConstraints(        
+        std::move(p_min_size), 
+        std::move(p_max_size), 
+        std::move(p_use_fixed_aspect_ratio));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_SetAutoThrottlingEnabled_Name: {
@@ -1797,6 +1819,8 @@ std::move(p_use_fixed_aspect_ratio));
           reinterpret_cast<internal::FrameSinkVideoCapturer_SetAutoThrottlingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.4
       bool success = true;
       bool p_enabled{};
       FrameSinkVideoCapturer_SetAutoThrottlingEnabled_ParamsDataView input_data_view(params, message);
@@ -1812,8 +1836,8 @@ std::move(p_use_fixed_aspect_ratio));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAutoThrottlingEnabled(
-std::move(p_enabled));
+      impl->SetAutoThrottlingEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_ChangeTarget_Name: {
@@ -1823,6 +1847,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::FrameSinkVideoCapturer_ChangeTarget_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.5
       bool success = true;
       std::optional<::viz::VideoCaptureTarget> p_target{};
       uint32_t p_sub_capture_target_version{};
@@ -1841,9 +1867,9 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangeTarget(
-std::move(p_target), 
-std::move(p_sub_capture_target_version));
+      impl->ChangeTarget(        
+        std::move(p_target), 
+        std::move(p_sub_capture_target_version));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_Start_Name: {
@@ -1853,6 +1879,8 @@ std::move(p_sub_capture_target_version));
           reinterpret_cast<internal::FrameSinkVideoCapturer_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.6
       bool success = true;
       ::mojo::PendingRemote<FrameSinkVideoConsumer> p_consumer{};
       BufferFormatPreference p_buffer_format_preference{};
@@ -1873,9 +1901,9 @@ std::move(p_sub_capture_target_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_consumer), 
-std::move(p_buffer_format_preference));
+      impl->Start(        
+        std::move(p_consumer), 
+        std::move(p_buffer_format_preference));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_Stop_Name: {
@@ -1885,6 +1913,8 @@ std::move(p_buffer_format_preference));
           reinterpret_cast<internal::FrameSinkVideoCapturer_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.7
       bool success = true;
       FrameSinkVideoCapturer_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1897,7 +1927,7 @@ std::move(p_buffer_format_preference));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kFrameSinkVideoCapturer_RequestRefreshFrame_Name: {
@@ -1907,6 +1937,8 @@ std::move(p_buffer_format_preference));
           reinterpret_cast<internal::FrameSinkVideoCapturer_RequestRefreshFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.8
       bool success = true;
       FrameSinkVideoCapturer_RequestRefreshFrame_ParamsDataView input_data_view(params, message);
       
@@ -1919,7 +1951,7 @@ std::move(p_buffer_format_preference));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestRefreshFrame();
+      impl->RequestRefreshFrame(        );
       return true;
     }
     case internal::kFrameSinkVideoCapturer_CreateOverlay_Name: {
@@ -1929,6 +1961,8 @@ std::move(p_buffer_format_preference));
           reinterpret_cast<internal::FrameSinkVideoCapturer_CreateOverlay_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCapturer.9
       bool success = true;
       int32_t p_stacking_index{};
       ::mojo::PendingReceiver<FrameSinkVideoCaptureOverlay> p_receiver{};
@@ -1949,9 +1983,9 @@ std::move(p_buffer_format_preference));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateOverlay(
-std::move(p_stacking_index), 
-std::move(p_receiver));
+      impl->CreateOverlay(        
+        std::move(p_stacking_index), 
+        std::move(p_receiver));
       return true;
     }
   }
@@ -2308,6 +2342,8 @@ bool FrameSinkVideoCaptureOverlayStubDispatch::Accept(
           reinterpret_cast<internal::FrameSinkVideoCaptureOverlay_SetImageAndBounds_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCaptureOverlay.0
       bool success = true;
       ::SkBitmap p_image{};
       ::gfx::RectF p_bounds{};
@@ -2326,9 +2362,9 @@ bool FrameSinkVideoCaptureOverlayStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetImageAndBounds(
-std::move(p_image), 
-std::move(p_bounds));
+      impl->SetImageAndBounds(        
+        std::move(p_image), 
+        std::move(p_bounds));
       return true;
     }
     case internal::kFrameSinkVideoCaptureOverlay_SetBounds_Name: {
@@ -2338,6 +2374,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::FrameSinkVideoCaptureOverlay_SetBounds_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCaptureOverlay.1
       bool success = true;
       ::gfx::RectF p_bounds{};
       FrameSinkVideoCaptureOverlay_SetBounds_ParamsDataView input_data_view(params, message);
@@ -2353,8 +2391,8 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBounds(
-std::move(p_bounds));
+      impl->SetBounds(        
+        std::move(p_bounds));
       return true;
     }
     case internal::kFrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Name: {
@@ -2364,6 +2402,8 @@ std::move(p_bounds));
           reinterpret_cast<internal::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameSinkVideoCaptureOverlay.2
       bool success = true;
       ::gfx::Point p_coordinates{};
       FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_ParamsDataView input_data_view(params, message);
@@ -2379,8 +2419,8 @@ std::move(p_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCapturedMouseEvent(
-std::move(p_coordinates));
+      impl->OnCapturedMouseEvent(        
+        std::move(p_coordinates));
       return true;
     }
   }

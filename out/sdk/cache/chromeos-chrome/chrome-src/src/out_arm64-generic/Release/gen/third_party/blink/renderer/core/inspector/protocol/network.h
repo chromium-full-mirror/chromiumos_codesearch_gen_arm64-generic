@@ -1516,6 +1516,9 @@ public:
     String getMimeType() { return m_mimeType; }
     void setMimeType(const String& value) { m_mimeType = value; }
 
+    String getCharset() { return m_charset; }
+    void setCharset(const String& value) { m_charset = value; }
+
     bool hasRequestHeaders() { return m_requestHeaders.has_value(); }
     protocol::Network::Headers* getRequestHeaders(protocol::Network::Headers* defaultValue) {
        return m_requestHeaders.has_value() ? &m_requestHeaders.value() : defaultValue;
@@ -1628,11 +1631,12 @@ public:
             StatusTextSet = 1 << 3,
             HeadersSet = 1 << 4,
             MimeTypeSet = 1 << 5,
-            ConnectionReusedSet = 1 << 6,
-            ConnectionIdSet = 1 << 7,
-            EncodedDataLengthSet = 1 << 8,
-            SecurityStateSet = 1 << 9,
-            AllFieldsSet = (UrlSet | StatusSet | StatusTextSet | HeadersSet | MimeTypeSet | ConnectionReusedSet | ConnectionIdSet | EncodedDataLengthSet | SecurityStateSet | 0)};
+            CharsetSet = 1 << 6,
+            ConnectionReusedSet = 1 << 7,
+            ConnectionIdSet = 1 << 8,
+            EncodedDataLengthSet = 1 << 9,
+            SecurityStateSet = 1 << 10,
+            AllFieldsSet = (UrlSet | StatusSet | StatusTextSet | HeadersSet | MimeTypeSet | CharsetSet | ConnectionReusedSet | ConnectionIdSet | EncodedDataLengthSet | SecurityStateSet | 0)};
 
 
         ResponseBuilder<STATE | UrlSet>& setUrl(const String& value)
@@ -1674,6 +1678,13 @@ public:
             static_assert(!(STATE & MimeTypeSet), "property mimeType should not be set yet");
             m_result->setMimeType(value);
             return castState<MimeTypeSet>();
+        }
+
+        ResponseBuilder<STATE | CharsetSet>& setCharset(const String& value)
+        {
+            static_assert(!(STATE & CharsetSet), "property charset should not be set yet");
+            m_result->setCharset(value);
+            return castState<CharsetSet>();
         }
 
         ResponseBuilder<STATE>& setRequestHeaders(std::unique_ptr<protocol::Network::Headers> value)
@@ -1834,6 +1845,7 @@ private:
     std::unique_ptr<protocol::Network::Headers> m_headers;
     Maybe<String> m_headersText;
     String m_mimeType;
+    String m_charset;
     Maybe<protocol::Network::Headers> m_requestHeaders;
     Maybe<String> m_requestHeadersText;
     bool m_connectionReused;

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nqchrome/browser/new_tab_page/modules/history_clusters/ranking/history_clusters_module_ranking_model_metadata.proto\x12\x12new_tab_page.proto\"\x8b\x01\n)HistoryClustersModuleRankingModelMetadata\x12\x0f\n\x07version\x18\x01 \x01(\x05\x12M\n\x07signals\x18\x02 \x03(\x0e\x32<.new_tab_page.proto.HistoryClustersModuleRankingModelSignals*\xcb\x03\n(HistoryClustersModuleRankingModelSignals\x12\x39\n5HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN\x10\x00\x12\x43\n?HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT\x10\x01\x12?\n;HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_BOOSTED_CATEGORY\x10\x02\x12\x39\n5HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE\x10\x03\x12\x34\n0HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS\x10\x04\x12\x34\n0HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS\x10\x05\x12\x37\n3HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS\x10\x06\x42\x02H\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nqchrome/browser/new_tab_page/modules/history_clusters/ranking/history_clusters_module_ranking_model_metadata.proto\x12\x12new_tab_page.proto\"\x8b\x01\n)HistoryClustersModuleRankingModelMetadata\x12\x0f\n\x07version\x18\x01 \x01(\x05\x12M\n\x07signals\x18\x02 \x03(\x0e\x32<.new_tab_page.proto.HistoryClustersModuleRankingModelSignals*\xb3\x04\n(HistoryClustersModuleRankingModelSignals\x12\x39\n5HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN\x10\x00\x12\x43\n?HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT\x10\x01\x12?\n;HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_BOOSTED_CATEGORY\x10\x02\x12\x39\n5HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE\x10\x03\x12\x34\n0HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS\x10\x04\x12\x34\n0HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS\x10\x05\x12\x37\n3HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS\x10\x06\x12\x32\n.HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN\x10\x07\x12\x32\n.HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED\x10\x08\x42\x02H\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chrome.browser.new_tab_page.modules.history_clusters.ranking.history_clusters_module_ranking_model_metadata_pb2', globals())
@@ -22,7 +22,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
   _HISTORYCLUSTERSMODULERANKINGMODELSIGNALS._serialized_start=280
-  _HISTORYCLUSTERSMODULERANKINGMODELSIGNALS._serialized_end=739
+  _HISTORYCLUSTERSMODULERANKINGMODELSIGNALS._serialized_end=843
   _HISTORYCLUSTERSMODULERANKINGMODELMETADATA._serialized_start=138
   _HISTORYCLUSTERSMODULERANKINGMODELMETADATA._serialized_end=277
 # @@protoc_insertion_point(module_scope)

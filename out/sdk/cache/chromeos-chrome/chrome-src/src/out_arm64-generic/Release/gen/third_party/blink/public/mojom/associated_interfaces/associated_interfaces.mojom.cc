@@ -226,6 +226,8 @@ bool AssociatedInterfaceProviderStubDispatch::Accept(
           reinterpret_cast<internal::AssociatedInterfaceProvider_GetAssociatedInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssociatedInterfaceProvider.0
       bool success = true;
       std::string p_name{};
       ::mojo::PendingAssociatedReceiver<AssociatedInterface> p_receiver{};
@@ -246,9 +248,9 @@ bool AssociatedInterfaceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAssociatedInterface(
-std::move(p_name), 
-std::move(p_receiver));
+      impl->GetAssociatedInterface(        
+        std::move(p_name), 
+        std::move(p_receiver));
       return true;
     }
   }

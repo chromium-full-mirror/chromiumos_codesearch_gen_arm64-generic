@@ -507,6 +507,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'enableWebgpuExperimentalFeatures', 36,
+        5,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'useWebgpuAdapter', 48,
         0,
         gpu.mojom.WebGPUAdapterNameSpec.$,
@@ -524,7 +532,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'forceWebgpuCompat', 36,
-        5,
+        6,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -556,7 +564,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enablePerfDataCollection', 36,
-        6,
+        7,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -571,15 +579,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'enableNativeGpuMemoryBuffers', 36,
-        7,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'enableChromeosDirectVideoDecoder', 37,
+        'enableNativeGpuMemoryBuffers', 37,
         0,
         mojo.internal.Bool,
         false,
@@ -587,8 +587,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'forceSeparateEglDisplayForWebglTesting', 37,
+        'enableChromeosDirectVideoDecoder', 37,
         1,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'forceSeparateEglDisplayForWebglTesting', 37,
+        2,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -696,6 +704,8 @@ gpu.mojom.GpuPreferences = class {
     this.enableUnsafeWebgpu;
     /** @export { !boolean } */
     this.enableWebgpuDeveloperFeatures;
+    /** @export { !boolean } */
+    this.enableWebgpuExperimentalFeatures;
     /** @export { !gpu.mojom.WebGPUAdapterName } */
     this.useWebgpuAdapter;
     /** @export { !gpu.mojom.WebGPUPowerPreference } */

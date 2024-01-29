@@ -377,6 +377,8 @@ bool FirewallHoleServiceDeprecated_OpenTCPFirewallHole_ForwardToCallback::Accept
           internal::FirewallHoleServiceDeprecated_OpenTCPFirewallHole_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FirewallHoleServiceDeprecated.0
   bool success = true;
   ::mojo::PendingRemote<FirewallHoleDeprecated> p_firewall_hole{};
   FirewallHoleServiceDeprecated_OpenTCPFirewallHole_ResponseParamsDataView input_data_view(params, message);
@@ -499,6 +501,8 @@ bool FirewallHoleServiceDeprecated_OpenUDPFirewallHole_ForwardToCallback::Accept
           internal::FirewallHoleServiceDeprecated_OpenUDPFirewallHole_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FirewallHoleServiceDeprecated.1
   bool success = true;
   ::mojo::PendingRemote<FirewallHoleDeprecated> p_firewall_hole{};
   FirewallHoleServiceDeprecated_OpenUDPFirewallHole_ResponseParamsDataView input_data_view(params, message);
@@ -595,6 +599,8 @@ bool FirewallHoleServiceDeprecatedStubDispatch::AcceptWithResponder(
               internal::FirewallHoleServiceDeprecated_OpenTCPFirewallHole_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FirewallHoleServiceDeprecated.0
       bool success = true;
       std::string p_interface_name{};
       uint16_t p_port{};
@@ -616,9 +622,9 @@ bool FirewallHoleServiceDeprecatedStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenTCPFirewallHole(
-std::move(p_interface_name), 
-std::move(p_port), std::move(callback));
+      impl->OpenTCPFirewallHole(        
+        std::move(p_interface_name), 
+        std::move(p_port), std::move(callback));
       return true;
     }
     case internal::kFirewallHoleServiceDeprecated_OpenUDPFirewallHole_Name: {
@@ -628,6 +634,8 @@ std::move(p_port), std::move(callback));
               internal::FirewallHoleServiceDeprecated_OpenUDPFirewallHole_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FirewallHoleServiceDeprecated.1
       bool success = true;
       std::string p_interface_name{};
       uint16_t p_port{};
@@ -649,9 +657,9 @@ std::move(p_port), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUDPFirewallHole(
-std::move(p_interface_name), 
-std::move(p_port), std::move(callback));
+      impl->OpenUDPFirewallHole(        
+        std::move(p_interface_name), 
+        std::move(p_port), std::move(callback));
       return true;
     }
   }

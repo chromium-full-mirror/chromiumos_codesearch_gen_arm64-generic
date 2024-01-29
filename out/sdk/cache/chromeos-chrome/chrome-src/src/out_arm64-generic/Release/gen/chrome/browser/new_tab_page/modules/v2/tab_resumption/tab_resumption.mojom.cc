@@ -210,6 +210,8 @@ bool PageHandler_GetTabs_ForwardToCallback::Accept(
           internal::PageHandler_GetTabs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::vector<::history::mojom::TabPtr> p_tabs{};
   PageHandler_GetTabs_ResponseParamsDataView input_data_view(params, message);
@@ -312,6 +314,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetTabs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetTabs_ParamsDataView input_data_view(params, message);
       

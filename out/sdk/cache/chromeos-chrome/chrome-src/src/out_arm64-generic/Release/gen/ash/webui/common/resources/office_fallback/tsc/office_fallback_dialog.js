@@ -3,16 +3,12 @@
 // found in the LICENSE file.
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import './strings.m.js';
-import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { DialogChoice } from './office_fallback.mojom-webui.js';
 import { OfficeFallbackBrowserProxy } from './office_fallback_browser_proxy.js';
 import { getTemplate } from './office_fallback_dialog.html.js';
 window.addEventListener('load', () => {
-    const jellyEnabled = loadTimeData.getBoolean('isJellyEnabled');
-    const theme = jellyEnabled ? 'refresh23' : 'legacy';
-    document.documentElement.setAttribute('theme', theme);
     ColorChangeUpdater.forDocument().start();
 });
 /**
@@ -46,6 +42,7 @@ export class OfficeFallbackElement extends HTMLElement {
         quickOfficeButton.addEventListener('click', () => this.onQuickOfficeButtonClick());
         tryAgainButton.addEventListener('click', () => this.onTryAgainButtonClick());
         cancelButton.addEventListener('click', () => this.onCancelButtonClick());
+        document.addEventListener('keydown', this.onKeyDown.bind(this));
     }
     /**
      * Initialises the class members based off the given dialog arguments.
@@ -87,6 +84,15 @@ export class OfficeFallbackElement extends HTMLElement {
     }
     onCancelButtonClick() {
         this.proxy.handler.close(DialogChoice.kCancel);
+    }
+    onKeyDown(e) {
+        if (e.key === 'Escape') {
+            // Handle Escape as a "cancel".
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            this.onCancelButtonClick();
+            return;
+        }
     }
 }
 customElements.define('office-fallback', OfficeFallbackElement);

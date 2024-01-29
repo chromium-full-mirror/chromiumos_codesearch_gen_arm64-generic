@@ -52,8 +52,6 @@
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/test_util.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/trusted_html.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mocha_adapter.js",
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/bluetooth_internals/bluetooth_internals_test.js",
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/bluetooth_internals/test_utils.js",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_timeticks.d.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/dom_automation_controller.d.ts",

@@ -424,6 +424,8 @@ bool ScreenCaptureHost_RequestPermission_ForwardToCallback::Accept(
           internal::ScreenCaptureHost_RequestPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenCaptureHost.0
   bool success = true;
   bool p_granted{};
   ScreenCaptureHost_RequestPermission_ResponseParamsDataView input_data_view(params, message);
@@ -543,6 +545,8 @@ bool ScreenCaptureHost_OpenSession_ForwardToCallback::Accept(
           internal::ScreenCaptureHost_OpenSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenCaptureHost.1
   bool success = true;
   ::mojo::PendingRemote<ScreenCaptureSession> p_session{};
   ScreenCaptureHost_OpenSession_ResponseParamsDataView input_data_view(params, message);
@@ -623,6 +627,8 @@ bool ScreenCaptureHostStubDispatch::Accept(
           reinterpret_cast<internal::ScreenCaptureHost_TestModeAcceptPermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureHost.2
       bool success = true;
       std::string p_package_name{};
       ScreenCaptureHost_TestModeAcceptPermission_ParamsDataView input_data_view(params, message);
@@ -638,8 +644,8 @@ bool ScreenCaptureHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TestModeAcceptPermission(
-std::move(p_package_name));
+      impl->TestModeAcceptPermission(        
+        std::move(p_package_name));
       return true;
     }
     case internal::kScreenCaptureHost_OpenSession_Name: {
@@ -665,6 +671,8 @@ bool ScreenCaptureHostStubDispatch::AcceptWithResponder(
               internal::ScreenCaptureHost_RequestPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureHost.0
       bool success = true;
       std::string p_display_name{};
       std::string p_package_name{};
@@ -686,9 +694,9 @@ bool ScreenCaptureHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPermission(
-std::move(p_display_name), 
-std::move(p_package_name), std::move(callback));
+      impl->RequestPermission(        
+        std::move(p_display_name), 
+        std::move(p_package_name), std::move(callback));
       return true;
     }
     case internal::kScreenCaptureHost_TestModeAcceptPermission_Name: {
@@ -701,6 +709,8 @@ std::move(p_package_name), std::move(callback));
               internal::ScreenCaptureHost_OpenSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureHost.1
       bool success = true;
       ::mojo::PendingRemote<ScreenCaptureSessionNotifier> p_notifier{};
       std::string p_package_name{};
@@ -727,10 +737,10 @@ std::move(p_package_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenSession(
-std::move(p_notifier), 
-std::move(p_package_name), 
-std::move(p_size), std::move(callback));
+      impl->OpenSession(        
+        std::move(p_notifier), 
+        std::move(p_package_name), 
+        std::move(p_size), std::move(callback));
       return true;
     }
   }
@@ -1035,6 +1045,8 @@ bool ScreenCaptureSession_SetOutputBufferDeprecated_ForwardToCallback::Accept(
           internal::ScreenCaptureSession_SetOutputBufferDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenCaptureSession.0
   bool success = true;
   ScreenCaptureSession_SetOutputBufferDeprecated_ResponseParamsDataView input_data_view(params, message);
   
@@ -1142,6 +1154,8 @@ bool ScreenCaptureSession_SetOutputBuffer_ForwardToCallback::Accept(
           internal::ScreenCaptureSession_SetOutputBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenCaptureSession.1
   bool success = true;
   ScreenCaptureSession_SetOutputBuffer_ResponseParamsDataView input_data_view(params, message);
   
@@ -1223,6 +1237,8 @@ bool ScreenCaptureSessionStubDispatch::AcceptWithResponder(
               internal::ScreenCaptureSession_SetOutputBufferDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureSession.0
       bool success = true;
       ::mojo::ScopedHandle p_graphics_buffer{};
       uint32_t p_stride{};
@@ -1244,9 +1260,9 @@ bool ScreenCaptureSessionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutputBufferDeprecated(
-std::move(p_graphics_buffer), 
-std::move(p_stride), std::move(callback));
+      impl->SetOutputBufferDeprecated(        
+        std::move(p_graphics_buffer), 
+        std::move(p_stride), std::move(callback));
       return true;
     }
     case internal::kScreenCaptureSession_SetOutputBuffer_Name: {
@@ -1256,6 +1272,8 @@ std::move(p_stride), std::move(callback));
               internal::ScreenCaptureSession_SetOutputBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureSession.1
       bool success = true;
       ::mojo::ScopedHandle p_graphics_buffer{};
       ::gfx::BufferFormat p_buffer_format{};
@@ -1283,11 +1301,11 @@ std::move(p_stride), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutputBuffer(
-std::move(p_graphics_buffer), 
-std::move(p_buffer_format), 
-std::move(p_buffer_format_modifier), 
-std::move(p_stride), std::move(callback));
+      impl->SetOutputBuffer(        
+        std::move(p_graphics_buffer), 
+        std::move(p_buffer_format), 
+        std::move(p_buffer_format_modifier), 
+        std::move(p_stride), std::move(callback));
       return true;
     }
   }
@@ -1490,6 +1508,8 @@ bool ScreenCaptureInstance_Init_ForwardToCallback::Accept(
           internal::ScreenCaptureInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenCaptureInstance.0
   bool success = true;
   ScreenCaptureInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1568,6 +1588,8 @@ bool ScreenCaptureInstanceStubDispatch::AcceptWithResponder(
               internal::ScreenCaptureInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureInstance.0
       bool success = true;
       ::mojo::PendingRemote<ScreenCaptureHost> p_host_remote{};
       ScreenCaptureInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1588,8 +1610,8 @@ bool ScreenCaptureInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }
@@ -1715,6 +1737,8 @@ bool ScreenCaptureSessionNotifierStubDispatch::Accept(
           reinterpret_cast<internal::ScreenCaptureSessionNotifier_ForceUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenCaptureSessionNotifier.0
       bool success = true;
       ScreenCaptureSessionNotifier_ForceUpdate_ParamsDataView input_data_view(params, message);
       
@@ -1727,7 +1751,7 @@ bool ScreenCaptureSessionNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceUpdate();
+      impl->ForceUpdate(        );
       return true;
     }
   }

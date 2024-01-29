@@ -20,6 +20,17 @@ export var DisplaySettingsType;
     DisplaySettingsType[DisplaySettingsType["kUnifiedMode"] = 9] = "kUnifiedMode";
     DisplaySettingsType[DisplaySettingsType["kPrimaryDisplay"] = 10] = "kPrimaryDisplay";
 })(DisplaySettingsType || (DisplaySettingsType = {}));
+export const DisplaySettingsOrientationOptionSpec = { $: mojo.internal.Enum() };
+export var DisplaySettingsOrientationOption;
+(function (DisplaySettingsOrientationOption) {
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["MAX_VALUE"] = 4] = "MAX_VALUE";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["kAuto"] = 0] = "kAuto";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k0Degree"] = 1] = "k0Degree";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k90Degree"] = 2] = "k90Degree";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k180Degree"] = 3] = "k180Degree";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k270Degree"] = 4] = "k270Degree";
+})(DisplaySettingsOrientationOption || (DisplaySettingsOrientationOption = {}));
 export class TabletModeObserverPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -284,6 +295,15 @@ mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
     mojo.internal.StructField('display_id_$value', 8, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0, {
         isPrimary: false,
         originalFieldName: "displayId",
+    }),
+    mojo.internal.StructField('orientation_$flag', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "orientation_$value",
+        originalFieldName: "orientation",
+    }),
+    mojo.internal.StructField('orientation_$value', 4, 0, DisplaySettingsOrientationOptionSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "orientation",
     }),
 ], [[0, 24],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [

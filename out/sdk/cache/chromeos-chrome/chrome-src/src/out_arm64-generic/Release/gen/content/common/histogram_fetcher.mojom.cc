@@ -104,7 +104,7 @@ ChildHistogramFetcherFactoryProxy::ChildHistogramFetcherFactoryProxy(mojo::Messa
 }
 
 void ChildHistogramFetcherFactoryProxy::CreateFetcher(
-    ::base::WritableSharedMemoryRegion in_shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> in_child_histogram_fetcher) {
+    ::base::UnsafeSharedMemoryRegion in_shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> in_child_histogram_fetcher) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content::mojom::ChildHistogramFetcherFactory::CreateFetcher", "input_parameters",
@@ -112,7 +112,7 @@ void ChildHistogramFetcherFactoryProxy::CreateFetcher(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("shared_memory"), in_shared_memory,
-                        "<value of type ::base::WritableSharedMemoryRegion>");
+                        "<value of type ::base::UnsafeSharedMemoryRegion>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("child_histogram_fetcher"), in_child_histogram_fetcher,
                         "<value of type ::mojo::PendingReceiver<ChildHistogramFetcher>>");
@@ -139,7 +139,7 @@ void ChildHistogramFetcherFactoryProxy::CreateFetcher(
   mojo::internal::MessageFragment<
       typename decltype(params->shared_memory)::BaseType> shared_memory_fragment(
           params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::WritableSharedMemoryRegionDataView>(
+  mojo::internal::Serialize<::mojo_base::mojom::UnsafeSharedMemoryRegionDataView>(
       in_shared_memory, shared_memory_fragment);
   params->shared_memory.Set(
       shared_memory_fragment.is_null() ? nullptr : shared_memory_fragment.data());
@@ -171,8 +171,10 @@ bool ChildHistogramFetcherFactoryStubDispatch::Accept(
           reinterpret_cast<internal::ChildHistogramFetcherFactory_CreateFetcher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildHistogramFetcherFactory.0
       bool success = true;
-      ::base::WritableSharedMemoryRegion p_shared_memory{};
+      ::base::UnsafeSharedMemoryRegion p_shared_memory{};
       ::mojo::PendingReceiver<ChildHistogramFetcher> p_child_histogram_fetcher{};
       ChildHistogramFetcherFactory_CreateFetcher_ParamsDataView input_data_view(params, message);
       
@@ -191,9 +193,9 @@ bool ChildHistogramFetcherFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFetcher(
-std::move(p_shared_memory), 
-std::move(p_child_histogram_fetcher));
+      impl->CreateFetcher(        
+        std::move(p_shared_memory), 
+        std::move(p_child_histogram_fetcher));
       return true;
     }
   }
@@ -472,6 +474,8 @@ bool ChildHistogramFetcher_GetChildNonPersistentHistogramData_ForwardToCallback:
           internal::ChildHistogramFetcher_GetChildNonPersistentHistogramData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChildHistogramFetcher.0
   bool success = true;
   std::vector<std::string> p_deltas{};
   ChildHistogramFetcher_GetChildNonPersistentHistogramData_ResponseParamsDataView input_data_view(params, message);
@@ -603,6 +607,8 @@ bool ChildHistogramFetcher_Ping_ForwardToCallback::Accept(
           internal::ChildHistogramFetcher_Ping_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChildHistogramFetcher.1
   bool success = true;
   ChildHistogramFetcher_Ping_ResponseParamsDataView input_data_view(params, message);
   
@@ -684,6 +690,8 @@ bool ChildHistogramFetcherStubDispatch::AcceptWithResponder(
               internal::ChildHistogramFetcher_GetChildNonPersistentHistogramData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChildHistogramFetcher.0
       bool success = true;
       ChildHistogramFetcher_GetChildNonPersistentHistogramData_ParamsDataView input_data_view(params, message);
       
@@ -709,6 +717,8 @@ bool ChildHistogramFetcherStubDispatch::AcceptWithResponder(
               internal::ChildHistogramFetcher_Ping_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChildHistogramFetcher.1
       bool success = true;
       UmaPingCallSource p_call_source{};
       ChildHistogramFetcher_Ping_ParamsDataView input_data_view(params, message);
@@ -727,8 +737,8 @@ bool ChildHistogramFetcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Ping(
-std::move(p_call_source), std::move(callback));
+      impl->Ping(        
+        std::move(p_call_source), std::move(callback));
       return true;
     }
   }
@@ -769,7 +779,7 @@ namespace mojo {
 namespace content::mojom {
 
 
-void ChildHistogramFetcherFactoryInterceptorForTesting::CreateFetcher(::base::WritableSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) {
+void ChildHistogramFetcherFactoryInterceptorForTesting::CreateFetcher(::base::UnsafeSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) {
   GetForwardingInterface()->CreateFetcher(std::move(shared_memory), std::move(child_histogram_fetcher));
 }
 ChildHistogramFetcherFactoryAsyncWaiter::ChildHistogramFetcherFactoryAsyncWaiter(

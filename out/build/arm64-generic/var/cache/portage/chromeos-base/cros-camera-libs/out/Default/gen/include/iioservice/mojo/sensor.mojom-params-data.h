@@ -493,6 +493,23 @@ class  SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data {
 };
 static_assert(sizeof(SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data) == 24,
               "Bad sizeof(SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data)");
+class  SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t iio_device_id;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data>;
+
+  SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data();
+  ~SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data() = delete;
+};
+static_assert(sizeof(SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data) == 16,
+              "Bad sizeof(SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data)");
 class  SensorDeviceEventsObserver_OnEventUpdated_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1249,6 +1266,24 @@ class SensorServiceNewDevicesObserver_OnNewDeviceAdded_ParamsDataView {
 };
 
 
+class SensorServiceNewDevicesObserver_OnDeviceRemoved_ParamsDataView {
+ public:
+  SensorServiceNewDevicesObserver_OnDeviceRemoved_ParamsDataView() = default;
+
+  SensorServiceNewDevicesObserver_OnDeviceRemoved_ParamsDataView(
+      internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t iio_device_id() const {
+    return data_->iio_device_id;
+  }
+ private:
+  internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data* data_ = nullptr;
+};
+
+
 class SensorDeviceEventsObserver_OnEventUpdated_ParamsDataView {
  public:
   SensorDeviceEventsObserver_OnEventUpdated_ParamsDataView() = default;
@@ -1450,6 +1485,8 @@ inline void SensorServiceNewDevicesObserver_OnNewDeviceAdded_ParamsDataView::Get
   auto pointer = data_->types.Get();
   *output = mojo::ArrayDataView<DeviceType>(pointer, message_);
 }
+
+
 
 
 inline void SensorDeviceEventsObserver_OnEventUpdated_ParamsDataView::GetIioEventDataView(

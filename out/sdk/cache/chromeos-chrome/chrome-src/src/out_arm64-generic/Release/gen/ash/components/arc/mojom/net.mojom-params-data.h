@@ -512,6 +512,22 @@ class  NetHost_NotifySocketConnectionEvent_Params_Data {
 };
 static_assert(sizeof(NetHost_NotifySocketConnectionEvent_Params_Data) == 16,
               "Bad sizeof(NetHost_NotifySocketConnectionEvent_Params_Data)");
+class  NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::SocketConnectionEvent_Data> msg;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data>;
+
+  NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data();
+  ~NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data() = delete;
+};
+static_assert(sizeof(NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data) == 16,
+              "Bad sizeof(NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data)");
 class  NetInstance_Init_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1452,6 +1468,32 @@ class NetHost_NotifySocketConnectionEvent_ParamsDataView {
 };
 
 
+class NetHost_NotifyARCVPNSocketConnectionEvent_ParamsDataView {
+ public:
+  NetHost_NotifyARCVPNSocketConnectionEvent_ParamsDataView() = default;
+
+  NetHost_NotifyARCVPNSocketConnectionEvent_ParamsDataView(
+      internal::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMsgDataView(
+      SocketConnectionEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMsg(UserType* output) {
+    
+    auto* pointer = data_->msg.Get();
+    return mojo::internal::Deserialize<::arc::mojom::SocketConnectionEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class NetInstance_Init_ParamsDataView {
  public:
   NetInstance_Init_ParamsDataView() = default;
@@ -1928,6 +1970,13 @@ inline void NetHost_StartLohs_ParamsDataView::GetConfigDataView(
 
 
 inline void NetHost_NotifySocketConnectionEvent_ParamsDataView::GetMsgDataView(
+    SocketConnectionEventDataView* output) {
+  auto pointer = data_->msg.Get();
+  *output = SocketConnectionEventDataView(pointer, message_);
+}
+
+
+inline void NetHost_NotifyARCVPNSocketConnectionEvent_ParamsDataView::GetMsgDataView(
     SocketConnectionEventDataView* output) {
   auto pointer = data_->msg.Get();
   *output = SocketConnectionEventDataView(pointer, message_);

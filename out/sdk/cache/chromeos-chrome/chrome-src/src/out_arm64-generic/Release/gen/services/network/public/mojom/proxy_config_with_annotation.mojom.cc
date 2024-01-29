@@ -41,6 +41,7 @@
 
 #include "services/network/public/mojom/proxy_config_with_annotation.mojom-import-headers.h"
 #include "services/network/public/mojom/proxy_config_with_annotation.mojom-test-utils.h"
+#include "net/cert/cert_verify_result.h"
 
 
 namespace network::mojom {
@@ -321,6 +322,8 @@ bool ProxyConfigClient_FlushProxyConfig_ForwardToCallback::Accept(
           internal::ProxyConfigClient_FlushProxyConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProxyConfigClient.1
   bool success = true;
   ProxyConfigClient_FlushProxyConfig_ResponseParamsDataView input_data_view(params, message);
   
@@ -383,6 +386,8 @@ bool ProxyConfigClientStubDispatch::Accept(
           reinterpret_cast<internal::ProxyConfigClient_OnProxyConfigUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyConfigClient.0
       bool success = true;
       ::net::ProxyConfigWithAnnotation p_proxy_config{};
       ProxyConfigClient_OnProxyConfigUpdated_ParamsDataView input_data_view(params, message);
@@ -398,8 +403,8 @@ bool ProxyConfigClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProxyConfigUpdated(
-std::move(p_proxy_config));
+      impl->OnProxyConfigUpdated(        
+        std::move(p_proxy_config));
       return true;
     }
     case internal::kProxyConfigClient_FlushProxyConfig_Name: {
@@ -428,6 +433,8 @@ bool ProxyConfigClientStubDispatch::AcceptWithResponder(
               internal::ProxyConfigClient_FlushProxyConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProxyConfigClient.1
       bool success = true;
       ProxyConfigClient_FlushProxyConfig_ParamsDataView input_data_view(params, message);
       
@@ -571,6 +578,8 @@ bool ProxyConfigPollerClientStubDispatch::Accept(
           reinterpret_cast<internal::ProxyConfigPollerClient_OnLazyProxyConfigPoll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyConfigPollerClient.0
       bool success = true;
       ProxyConfigPollerClient_OnLazyProxyConfigPoll_ParamsDataView input_data_view(params, message);
       
@@ -583,7 +592,7 @@ bool ProxyConfigPollerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLazyProxyConfigPoll();
+      impl->OnLazyProxyConfigPoll(        );
       return true;
     }
   }
@@ -804,6 +813,8 @@ bool ProxyErrorClientStubDispatch::Accept(
           reinterpret_cast<internal::ProxyErrorClient_OnPACScriptError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyErrorClient.0
       bool success = true;
       int32_t p_line_number{};
       std::string p_details{};
@@ -822,9 +833,9 @@ bool ProxyErrorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPACScriptError(
-std::move(p_line_number), 
-std::move(p_details));
+      impl->OnPACScriptError(        
+        std::move(p_line_number), 
+        std::move(p_details));
       return true;
     }
     case internal::kProxyErrorClient_OnRequestMaybeFailedDueToProxySettings_Name: {
@@ -834,6 +845,8 @@ std::move(p_details));
           reinterpret_cast<internal::ProxyErrorClient_OnRequestMaybeFailedDueToProxySettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProxyErrorClient.1
       bool success = true;
       int32_t p_net_error{};
       ProxyErrorClient_OnRequestMaybeFailedDueToProxySettings_ParamsDataView input_data_view(params, message);
@@ -849,8 +862,8 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRequestMaybeFailedDueToProxySettings(
-std::move(p_net_error));
+      impl->OnRequestMaybeFailedDueToProxySettings(        
+        std::move(p_net_error));
       return true;
     }
   }

@@ -89,14 +89,9 @@ ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::WebTransportCustomCertificatesEnabled(execution_context)) {
   if (hasServerCertificateHashes()) {
   v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLSequence<WebTransportHash>>::ToV8(script_state, member_server_certificate_hashes_).ToLocal(&v8_value)) {
-  return false;
-}
+v8_value = ToV8Traits<IDLSequence<WebTransportHash>>::ToV8(script_state, member_server_certificate_hashes_);
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 return true;

@@ -35,7 +35,7 @@ describeWithEnvironment('GPUTrackAppender', function () {
             // One levels should be taken: 1 for the GPU tasks.
             const levelCount = 1;
             assert.strictEqual(entryTypeByLevel.length, levelCount);
-            const allEntriesAreTrackAppender = entryTypeByLevel.every(type => type === Timeline.TimelineFlameChartDataProvider.EntryType.TrackAppender);
+            const allEntriesAreTrackAppender = entryTypeByLevel.every(type => type === "TrackAppender" /* Timeline.TimelineFlameChartDataProvider.EntryType.TrackAppender */);
             assert.isTrue(allEntriesAreTrackAppender);
         });
         it('creates a flamechart group for the GPU track', () => {

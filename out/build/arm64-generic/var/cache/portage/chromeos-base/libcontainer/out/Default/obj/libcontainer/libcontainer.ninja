@@ -1,23 +1,23 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_device_mapper=true
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1883/work/libcontainer-0.0.1 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/chromeos
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1887/work/libcontainer-0.0.1 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/chromeos
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libcontainer
 
-build obj/libcontainer/libcontainer.cgroup.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1883/work/libcontainer-0.0.1/libcontainer/cgroup.cc
+build obj/libcontainer/libcontainer.cgroup.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1887/work/libcontainer-0.0.1/libcontainer/cgroup.cc
   source_file_part = cgroup.cc
   source_name_part = cgroup
-build obj/libcontainer/libcontainer.config.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1883/work/libcontainer-0.0.1/libcontainer/config.cc
+build obj/libcontainer/libcontainer.config.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1887/work/libcontainer-0.0.1/libcontainer/config.cc
   source_file_part = config.cc
   source_name_part = config
-build obj/libcontainer/libcontainer.container.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1883/work/libcontainer-0.0.1/libcontainer/container.cc
+build obj/libcontainer/libcontainer.container.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1887/work/libcontainer-0.0.1/libcontainer/container.cc
   source_file_part = container.cc
   source_name_part = container
-build obj/libcontainer/libcontainer.libcontainer.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1883/work/libcontainer-0.0.1/libcontainer/libcontainer.cc
+build obj/libcontainer/libcontainer.libcontainer.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1887/work/libcontainer-0.0.1/libcontainer/libcontainer.cc
   source_file_part = libcontainer.cc
   source_name_part = libcontainer
-build obj/libcontainer/libcontainer.libcontainer_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1883/work/libcontainer-0.0.1/libcontainer/libcontainer_util.cc
+build obj/libcontainer/libcontainer.libcontainer_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/libcontainer-0.0.1-r1887/work/libcontainer-0.0.1/libcontainer/libcontainer_util.cc
   source_file_part = libcontainer_util.cc
   source_name_part = libcontainer_util
 

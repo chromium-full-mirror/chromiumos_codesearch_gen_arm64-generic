@@ -296,10 +296,70 @@ enum VmstatCounters : int32_t {
   VMSTAT_SWAP_RA = 126,
   VMSTAT_SWAP_RA_HIT = 127,
   VMSTAT_WORKINGSET_RESTORE = 128,
+  VMSTAT_ALLOCSTALL_DEVICE = 129,
+  VMSTAT_ALLOCSTALL_DMA32 = 130,
+  VMSTAT_BALLOON_DEFLATE = 131,
+  VMSTAT_BALLOON_INFLATE = 132,
+  VMSTAT_BALLOON_MIGRATE = 133,
+  VMSTAT_CMA_ALLOC_FAIL = 134,
+  VMSTAT_CMA_ALLOC_SUCCESS = 135,
+  VMSTAT_NR_FILE_HUGEPAGES = 136,
+  VMSTAT_NR_FILE_PMDMAPPED = 137,
+  VMSTAT_NR_FOLL_PIN_ACQUIRED = 138,
+  VMSTAT_NR_FOLL_PIN_RELEASED = 139,
+  VMSTAT_NR_SEC_PAGE_TABLE_PAGES = 140,
+  VMSTAT_NR_SHADOW_CALL_STACK = 141,
+  VMSTAT_NR_SWAPCACHED = 142,
+  VMSTAT_NR_THROTTLED_WRITTEN = 143,
+  VMSTAT_PGALLOC_DEVICE = 144,
+  VMSTAT_PGALLOC_DMA32 = 145,
+  VMSTAT_PGDEMOTE_DIRECT = 146,
+  VMSTAT_PGDEMOTE_KSWAPD = 147,
+  VMSTAT_PGREUSE = 148,
+  VMSTAT_PGSCAN_ANON = 149,
+  VMSTAT_PGSCAN_FILE = 150,
+  VMSTAT_PGSKIP_DEVICE = 151,
+  VMSTAT_PGSKIP_DMA32 = 152,
+  VMSTAT_PGSTEAL_ANON = 153,
+  VMSTAT_PGSTEAL_FILE = 154,
+  VMSTAT_THP_COLLAPSE_ALLOC = 155,
+  VMSTAT_THP_COLLAPSE_ALLOC_FAILED = 156,
+  VMSTAT_THP_DEFERRED_SPLIT_PAGE = 157,
+  VMSTAT_THP_FAULT_ALLOC = 158,
+  VMSTAT_THP_FAULT_FALLBACK = 159,
+  VMSTAT_THP_FAULT_FALLBACK_CHARGE = 160,
+  VMSTAT_THP_FILE_ALLOC = 161,
+  VMSTAT_THP_FILE_FALLBACK = 162,
+  VMSTAT_THP_FILE_FALLBACK_CHARGE = 163,
+  VMSTAT_THP_FILE_MAPPED = 164,
+  VMSTAT_THP_MIGRATION_FAIL = 165,
+  VMSTAT_THP_MIGRATION_SPLIT = 166,
+  VMSTAT_THP_MIGRATION_SUCCESS = 167,
+  VMSTAT_THP_SCAN_EXCEED_NONE_PTE = 168,
+  VMSTAT_THP_SCAN_EXCEED_SHARE_PTE = 169,
+  VMSTAT_THP_SCAN_EXCEED_SWAP_PTE = 170,
+  VMSTAT_THP_SPLIT_PAGE = 171,
+  VMSTAT_THP_SPLIT_PAGE_FAILED = 172,
+  VMSTAT_THP_SPLIT_PMD = 173,
+  VMSTAT_THP_SWPOUT = 174,
+  VMSTAT_THP_SWPOUT_FALLBACK = 175,
+  VMSTAT_THP_ZERO_PAGE_ALLOC = 176,
+  VMSTAT_THP_ZERO_PAGE_ALLOC_FAILED = 177,
+  VMSTAT_VMA_LOCK_ABORT = 178,
+  VMSTAT_VMA_LOCK_MISS = 179,
+  VMSTAT_VMA_LOCK_RETRY = 180,
+  VMSTAT_VMA_LOCK_SUCCESS = 181,
+  VMSTAT_WORKINGSET_ACTIVATE_ANON = 182,
+  VMSTAT_WORKINGSET_ACTIVATE_FILE = 183,
+  VMSTAT_WORKINGSET_NODES = 184,
+  VMSTAT_WORKINGSET_REFAULT_ANON = 185,
+  VMSTAT_WORKINGSET_REFAULT_FILE = 186,
+  VMSTAT_WORKINGSET_RESTORE_ANON = 187,
+  VMSTAT_WORKINGSET_RESTORE_FILE = 188,
 };
 
 constexpr VmstatCounters VmstatCounters_MIN = VmstatCounters::VMSTAT_UNSPECIFIED;
-constexpr VmstatCounters VmstatCounters_MAX = VmstatCounters::VMSTAT_WORKINGSET_RESTORE;
+constexpr VmstatCounters VmstatCounters_MAX = VmstatCounters::VMSTAT_WORKINGSET_RESTORE_FILE;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -691,6 +751,186 @@ const char* VmstatCounters_Name(::perfetto::protos::pbzero::VmstatCounters value
 
   case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_RESTORE:
     return "VMSTAT_WORKINGSET_RESTORE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_ALLOCSTALL_DEVICE:
+    return "VMSTAT_ALLOCSTALL_DEVICE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_ALLOCSTALL_DMA32:
+    return "VMSTAT_ALLOCSTALL_DMA32";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_BALLOON_DEFLATE:
+    return "VMSTAT_BALLOON_DEFLATE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_BALLOON_INFLATE:
+    return "VMSTAT_BALLOON_INFLATE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_BALLOON_MIGRATE:
+    return "VMSTAT_BALLOON_MIGRATE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_CMA_ALLOC_FAIL:
+    return "VMSTAT_CMA_ALLOC_FAIL";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_CMA_ALLOC_SUCCESS:
+    return "VMSTAT_CMA_ALLOC_SUCCESS";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_FILE_HUGEPAGES:
+    return "VMSTAT_NR_FILE_HUGEPAGES";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_FILE_PMDMAPPED:
+    return "VMSTAT_NR_FILE_PMDMAPPED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_FOLL_PIN_ACQUIRED:
+    return "VMSTAT_NR_FOLL_PIN_ACQUIRED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_FOLL_PIN_RELEASED:
+    return "VMSTAT_NR_FOLL_PIN_RELEASED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_SEC_PAGE_TABLE_PAGES:
+    return "VMSTAT_NR_SEC_PAGE_TABLE_PAGES";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_SHADOW_CALL_STACK:
+    return "VMSTAT_NR_SHADOW_CALL_STACK";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_SWAPCACHED:
+    return "VMSTAT_NR_SWAPCACHED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_NR_THROTTLED_WRITTEN:
+    return "VMSTAT_NR_THROTTLED_WRITTEN";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGALLOC_DEVICE:
+    return "VMSTAT_PGALLOC_DEVICE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGALLOC_DMA32:
+    return "VMSTAT_PGALLOC_DMA32";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGDEMOTE_DIRECT:
+    return "VMSTAT_PGDEMOTE_DIRECT";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGDEMOTE_KSWAPD:
+    return "VMSTAT_PGDEMOTE_KSWAPD";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGREUSE:
+    return "VMSTAT_PGREUSE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGSCAN_ANON:
+    return "VMSTAT_PGSCAN_ANON";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGSCAN_FILE:
+    return "VMSTAT_PGSCAN_FILE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGSKIP_DEVICE:
+    return "VMSTAT_PGSKIP_DEVICE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGSKIP_DMA32:
+    return "VMSTAT_PGSKIP_DMA32";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGSTEAL_ANON:
+    return "VMSTAT_PGSTEAL_ANON";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_PGSTEAL_FILE:
+    return "VMSTAT_PGSTEAL_FILE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_COLLAPSE_ALLOC:
+    return "VMSTAT_THP_COLLAPSE_ALLOC";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_COLLAPSE_ALLOC_FAILED:
+    return "VMSTAT_THP_COLLAPSE_ALLOC_FAILED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_DEFERRED_SPLIT_PAGE:
+    return "VMSTAT_THP_DEFERRED_SPLIT_PAGE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FAULT_ALLOC:
+    return "VMSTAT_THP_FAULT_ALLOC";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FAULT_FALLBACK:
+    return "VMSTAT_THP_FAULT_FALLBACK";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FAULT_FALLBACK_CHARGE:
+    return "VMSTAT_THP_FAULT_FALLBACK_CHARGE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FILE_ALLOC:
+    return "VMSTAT_THP_FILE_ALLOC";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FILE_FALLBACK:
+    return "VMSTAT_THP_FILE_FALLBACK";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FILE_FALLBACK_CHARGE:
+    return "VMSTAT_THP_FILE_FALLBACK_CHARGE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_FILE_MAPPED:
+    return "VMSTAT_THP_FILE_MAPPED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_MIGRATION_FAIL:
+    return "VMSTAT_THP_MIGRATION_FAIL";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_MIGRATION_SPLIT:
+    return "VMSTAT_THP_MIGRATION_SPLIT";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_MIGRATION_SUCCESS:
+    return "VMSTAT_THP_MIGRATION_SUCCESS";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SCAN_EXCEED_NONE_PTE:
+    return "VMSTAT_THP_SCAN_EXCEED_NONE_PTE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SCAN_EXCEED_SHARE_PTE:
+    return "VMSTAT_THP_SCAN_EXCEED_SHARE_PTE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SCAN_EXCEED_SWAP_PTE:
+    return "VMSTAT_THP_SCAN_EXCEED_SWAP_PTE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SPLIT_PAGE:
+    return "VMSTAT_THP_SPLIT_PAGE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SPLIT_PAGE_FAILED:
+    return "VMSTAT_THP_SPLIT_PAGE_FAILED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SPLIT_PMD:
+    return "VMSTAT_THP_SPLIT_PMD";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SWPOUT:
+    return "VMSTAT_THP_SWPOUT";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_SWPOUT_FALLBACK:
+    return "VMSTAT_THP_SWPOUT_FALLBACK";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_ZERO_PAGE_ALLOC:
+    return "VMSTAT_THP_ZERO_PAGE_ALLOC";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_THP_ZERO_PAGE_ALLOC_FAILED:
+    return "VMSTAT_THP_ZERO_PAGE_ALLOC_FAILED";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_VMA_LOCK_ABORT:
+    return "VMSTAT_VMA_LOCK_ABORT";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_VMA_LOCK_MISS:
+    return "VMSTAT_VMA_LOCK_MISS";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_VMA_LOCK_RETRY:
+    return "VMSTAT_VMA_LOCK_RETRY";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_VMA_LOCK_SUCCESS:
+    return "VMSTAT_VMA_LOCK_SUCCESS";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_ACTIVATE_ANON:
+    return "VMSTAT_WORKINGSET_ACTIVATE_ANON";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_ACTIVATE_FILE:
+    return "VMSTAT_WORKINGSET_ACTIVATE_FILE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_NODES:
+    return "VMSTAT_WORKINGSET_NODES";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_REFAULT_ANON:
+    return "VMSTAT_WORKINGSET_REFAULT_ANON";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_REFAULT_FILE:
+    return "VMSTAT_WORKINGSET_REFAULT_FILE";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_RESTORE_ANON:
+    return "VMSTAT_WORKINGSET_RESTORE_ANON";
+
+  case ::perfetto::protos::pbzero::VmstatCounters::VMSTAT_WORKINGSET_RESTORE_FILE:
+    return "VMSTAT_WORKINGSET_RESTORE_FILE";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }

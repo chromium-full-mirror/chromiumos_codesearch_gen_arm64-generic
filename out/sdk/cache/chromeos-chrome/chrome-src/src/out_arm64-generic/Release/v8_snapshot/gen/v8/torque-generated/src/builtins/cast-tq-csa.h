@@ -570,6 +570,9 @@ TNode<BoolT> Is_WasmApiFunctionRef_Object_0(compiler::CodeAssemblerState* state_
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/cast.tq?l=846&c=10
 TNode<BoolT> Is_WasmExportedFunctionData_Object_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o);
 
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/cast.tq?l=846&c=10
+TNode<BoolT> Is_WasmInstanceObject_Object_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o);
+
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/cast.tq?l=840&c=3
 TNode<NumberDictionary> Cast_NumberDictionary_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError);
 
@@ -617,6 +620,9 @@ TNode<WasmApiFunctionRef> Cast_WasmApiFunctionRef_1(compiler::CodeAssemblerState
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/cast.tq?l=840&c=3
 TNode<WasmExportedFunctionData> Cast_WasmExportedFunctionData_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/cast.tq?l=840&c=3
+TNode<WasmInstanceObject> Cast_WasmInstanceObject_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/cast.tq?l=846&c=10
 TNode<BoolT> Is_ScopeInfo_Object_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o);

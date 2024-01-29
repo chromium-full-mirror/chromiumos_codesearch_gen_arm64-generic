@@ -180,101 +180,56 @@ bool RTCConfiguration::FillV8ObjectWithMembers(ScriptState* script_state, v8::Lo
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasBundlePolicy()) {
-  if (!ToV8Traits<V8RTCBundlePolicy>::ToV8(script_state, member_bundle_policy_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RTCBundlePolicy>::ToV8(script_state, member_bundle_policy_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasCertificates()) {
-  if (!ToV8Traits<IDLSequence<RTCCertificate>>::ToV8(script_state, member_certificates_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<RTCCertificate>>::ToV8(script_state, member_certificates_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasEncodedInsertableStreams()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_encoded_insertable_streams_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_encoded_insertable_streams_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasIceCandidatePoolSize()) {
-  if (!ToV8Traits<IDLOctetEnforceRange>::ToV8(script_state, member_ice_candidate_pool_size_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLOctetEnforceRange>::ToV8(script_state, member_ice_candidate_pool_size_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasIceServers()) {
-  if (!ToV8Traits<IDLSequence<RTCIceServer>>::ToV8(script_state, member_ice_servers_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<RTCIceServer>>::ToV8(script_state, member_ice_servers_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasIceTransportPolicy()) {
-  if (!ToV8Traits<V8RTCIceTransportPolicy>::ToV8(script_state, member_ice_transport_policy_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RTCIceTransportPolicy>::ToV8(script_state, member_ice_transport_policy_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasIceTransports()) {
-  if (!ToV8Traits<V8RTCIceTransportPolicy>::ToV8(script_state, member_ice_transports_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RTCIceTransportPolicy>::ToV8(script_state, member_ice_transports_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::RtcAudioJitterBufferMaxPacketsEnabled(execution_context)) {
   if (hasRtcAudioJitterBufferFastAccelerate()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_rtc_audio_jitter_buffer_fast_accelerate_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_rtc_audio_jitter_buffer_fast_accelerate_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
 }
 }
 if (RuntimeEnabledFeatures::RtcAudioJitterBufferMaxPacketsEnabled(execution_context)) {
   if (hasRtcAudioJitterBufferMaxPackets()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_rtc_audio_jitter_buffer_max_packets_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_rtc_audio_jitter_buffer_max_packets_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
 }
 }
 if (RuntimeEnabledFeatures::RtcAudioJitterBufferMaxPacketsEnabled(execution_context)) {
   if (hasRtcAudioJitterBufferMinDelayMs()) {
-  if (!ToV8Traits<IDLLong>::ToV8(script_state, member_rtc_audio_jitter_buffer_min_delay_ms_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_rtc_audio_jitter_buffer_min_delay_ms_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasRtcpMuxPolicy()) {
-  if (!ToV8Traits<V8RTCRtcpMuxPolicy>::ToV8(script_state, member_rtcp_mux_policy_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8RTCRtcpMuxPolicy>::ToV8(script_state, member_rtcp_mux_policy_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

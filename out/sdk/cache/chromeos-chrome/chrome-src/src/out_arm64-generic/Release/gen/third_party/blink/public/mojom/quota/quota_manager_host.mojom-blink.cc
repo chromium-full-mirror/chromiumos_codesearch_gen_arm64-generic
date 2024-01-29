@@ -149,6 +149,8 @@ bool QuotaChangeListenerStubDispatch::Accept(
           reinterpret_cast<internal::QuotaChangeListener_OnQuotaChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for QuotaChangeListener.0
       bool success = true;
       QuotaChangeListener_OnQuotaChange_ParamsDataView input_data_view(params, message);
       
@@ -161,7 +163,7 @@ bool QuotaChangeListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnQuotaChange();
+      impl->OnQuotaChange(        );
       return true;
     }
   }
@@ -444,6 +446,8 @@ bool QuotaManagerHost_AddChangeListener_ForwardToCallback::Accept(
           internal::QuotaManagerHost_AddChangeListener_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaManagerHost.0
   bool success = true;
   QuotaManagerHost_AddChangeListener_ResponseParamsDataView input_data_view(params, message);
   
@@ -551,6 +555,8 @@ bool QuotaManagerHost_QueryStorageUsageAndQuota_ForwardToCallback::Accept(
           internal::QuotaManagerHost_QueryStorageUsageAndQuota_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaManagerHost.1
   bool success = true;
   ::blink::mojom::blink::QuotaStatusCode p_error{};
   int64_t p_current_usage{};
@@ -679,6 +685,8 @@ bool QuotaManagerHostStubDispatch::AcceptWithResponder(
               internal::QuotaManagerHost_AddChangeListener_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaManagerHost.0
       bool success = true;
       ::mojo::PendingRemote<QuotaChangeListener> p_listener{};
       QuotaManagerHost_AddChangeListener_ParamsDataView input_data_view(params, message);
@@ -699,8 +707,8 @@ bool QuotaManagerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddChangeListener(
-std::move(p_listener), std::move(callback));
+      impl->AddChangeListener(        
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kQuotaManagerHost_QueryStorageUsageAndQuota_Name: {
@@ -710,6 +718,8 @@ std::move(p_listener), std::move(callback));
               internal::QuotaManagerHost_QueryStorageUsageAndQuota_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaManagerHost.1
       bool success = true;
       QuotaManagerHost_QueryStorageUsageAndQuota_ParamsDataView input_data_view(params, message);
       

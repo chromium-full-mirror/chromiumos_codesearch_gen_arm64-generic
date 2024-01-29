@@ -693,6 +693,8 @@ bool Renderer_Initialize_ForwardToCallback::Accept(
           internal::Renderer_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.0
   bool success = true;
   bool p_success{};
   Renderer_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -812,6 +814,8 @@ bool Renderer_Flush_ForwardToCallback::Accept(
           internal::Renderer_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.1
   bool success = true;
   Renderer_Flush_ResponseParamsDataView input_data_view(params, message);
   
@@ -919,6 +923,8 @@ bool Renderer_SetCdm_ForwardToCallback::Accept(
           internal::Renderer_SetCdm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.5
   bool success = true;
   bool p_success{};
   Renderer_SetCdm_ResponseParamsDataView input_data_view(params, message);
@@ -999,6 +1005,8 @@ bool RendererStubDispatch::Accept(
           reinterpret_cast<internal::Renderer_StartPlayingFrom_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.2
       bool success = true;
       ::base::TimeDelta p_time{};
       Renderer_StartPlayingFrom_ParamsDataView input_data_view(params, message);
@@ -1014,8 +1022,8 @@ bool RendererStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPlayingFrom(
-std::move(p_time));
+      impl->StartPlayingFrom(        
+        std::move(p_time));
       return true;
     }
     case internal::kRenderer_SetPlaybackRate_Name: {
@@ -1025,6 +1033,8 @@ std::move(p_time));
           reinterpret_cast<internal::Renderer_SetPlaybackRate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.3
       bool success = true;
       double p_playback_rate{};
       Renderer_SetPlaybackRate_ParamsDataView input_data_view(params, message);
@@ -1040,8 +1050,8 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPlaybackRate(
-std::move(p_playback_rate));
+      impl->SetPlaybackRate(        
+        std::move(p_playback_rate));
       return true;
     }
     case internal::kRenderer_SetVolume_Name: {
@@ -1051,6 +1061,8 @@ std::move(p_playback_rate));
           reinterpret_cast<internal::Renderer_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.4
       bool success = true;
       float p_volume{};
       Renderer_SetVolume_ParamsDataView input_data_view(params, message);
@@ -1066,8 +1078,8 @@ std::move(p_playback_rate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
     case internal::kRenderer_SetCdm_Name: {
@@ -1093,6 +1105,8 @@ bool RendererStubDispatch::AcceptWithResponder(
               internal::Renderer_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<RendererClient> p_client{};
       std::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> p_streams{};
@@ -1119,10 +1133,10 @@ bool RendererStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_client), 
-std::move(p_streams), 
-std::move(p_media_url_params), std::move(callback));
+      impl->Initialize(        
+        std::move(p_client), 
+        std::move(p_streams), 
+        std::move(p_media_url_params), std::move(callback));
       return true;
     }
     case internal::kRenderer_Flush_Name: {
@@ -1132,6 +1146,8 @@ std::move(p_media_url_params), std::move(callback));
               internal::Renderer_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.1
       bool success = true;
       Renderer_Flush_ParamsDataView input_data_view(params, message);
       
@@ -1166,6 +1182,8 @@ std::move(p_media_url_params), std::move(callback));
               internal::Renderer_SetCdm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.5
       bool success = true;
       std::optional<::base::UnguessableToken> p_cdm_id{};
       Renderer_SetCdm_ParamsDataView input_data_view(params, message);
@@ -1184,8 +1202,8 @@ std::move(p_media_url_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCdm(
-std::move(p_cdm_id), std::move(callback));
+      impl->SetCdm(        
+        std::move(p_cdm_id), std::move(callback));
       return true;
     }
   }
@@ -1965,6 +1983,8 @@ bool RendererClientStubDispatch::Accept(
           reinterpret_cast<internal::RendererClient_OnTimeUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.0
       bool success = true;
       ::base::TimeDelta p_time{};
       ::base::TimeDelta p_max_time{};
@@ -1986,10 +2006,10 @@ bool RendererClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTimeUpdate(
-std::move(p_time), 
-std::move(p_max_time), 
-std::move(p_capture_time));
+      impl->OnTimeUpdate(        
+        std::move(p_time), 
+        std::move(p_max_time), 
+        std::move(p_capture_time));
       return true;
     }
     case internal::kRendererClient_OnBufferingStateChange_Name: {
@@ -1999,6 +2019,8 @@ std::move(p_capture_time));
           reinterpret_cast<internal::RendererClient_OnBufferingStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.1
       bool success = true;
       ::media::mojom::blink::BufferingState p_state{};
       ::media::mojom::blink::BufferingStateChangeReason p_reason{};
@@ -2017,9 +2039,9 @@ std::move(p_capture_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferingStateChange(
-std::move(p_state), 
-std::move(p_reason));
+      impl->OnBufferingStateChange(        
+        std::move(p_state), 
+        std::move(p_reason));
       return true;
     }
     case internal::kRendererClient_OnEnded_Name: {
@@ -2029,6 +2051,8 @@ std::move(p_reason));
           reinterpret_cast<internal::RendererClient_OnEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.2
       bool success = true;
       RendererClient_OnEnded_ParamsDataView input_data_view(params, message);
       
@@ -2041,7 +2065,7 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnded();
+      impl->OnEnded(        );
       return true;
     }
     case internal::kRendererClient_OnError_Name: {
@@ -2051,6 +2075,8 @@ std::move(p_reason));
           reinterpret_cast<internal::RendererClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.3
       bool success = true;
       ::media::mojom::blink::PipelineStatusPtr p_status{};
       RendererClient_OnError_ParamsDataView input_data_view(params, message);
@@ -2066,8 +2092,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_status));
+      impl->OnError(        
+        std::move(p_status));
       return true;
     }
     case internal::kRendererClient_OnAudioConfigChange_Name: {
@@ -2077,6 +2103,8 @@ std::move(p_status));
           reinterpret_cast<internal::RendererClient_OnAudioConfigChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.4
       bool success = true;
       ::media::mojom::blink::AudioDecoderConfigPtr p_config{};
       RendererClient_OnAudioConfigChange_ParamsDataView input_data_view(params, message);
@@ -2092,8 +2120,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAudioConfigChange(
-std::move(p_config));
+      impl->OnAudioConfigChange(        
+        std::move(p_config));
       return true;
     }
     case internal::kRendererClient_OnVideoConfigChange_Name: {
@@ -2103,6 +2131,8 @@ std::move(p_config));
           reinterpret_cast<internal::RendererClient_OnVideoConfigChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.5
       bool success = true;
       ::media::mojom::blink::VideoDecoderConfigPtr p_config{};
       RendererClient_OnVideoConfigChange_ParamsDataView input_data_view(params, message);
@@ -2118,8 +2148,8 @@ std::move(p_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoConfigChange(
-std::move(p_config));
+      impl->OnVideoConfigChange(        
+        std::move(p_config));
       return true;
     }
     case internal::kRendererClient_OnVideoNaturalSizeChange_Name: {
@@ -2129,6 +2159,8 @@ std::move(p_config));
           reinterpret_cast<internal::RendererClient_OnVideoNaturalSizeChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.6
       bool success = true;
       ::gfx::Size p_size{};
       RendererClient_OnVideoNaturalSizeChange_ParamsDataView input_data_view(params, message);
@@ -2144,8 +2176,8 @@ std::move(p_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoNaturalSizeChange(
-std::move(p_size));
+      impl->OnVideoNaturalSizeChange(        
+        std::move(p_size));
       return true;
     }
     case internal::kRendererClient_OnVideoOpacityChange_Name: {
@@ -2155,6 +2187,8 @@ std::move(p_size));
           reinterpret_cast<internal::RendererClient_OnVideoOpacityChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.7
       bool success = true;
       bool p_opaque{};
       RendererClient_OnVideoOpacityChange_ParamsDataView input_data_view(params, message);
@@ -2170,8 +2204,8 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoOpacityChange(
-std::move(p_opaque));
+      impl->OnVideoOpacityChange(        
+        std::move(p_opaque));
       return true;
     }
     case internal::kRendererClient_OnStatisticsUpdate_Name: {
@@ -2181,6 +2215,8 @@ std::move(p_opaque));
           reinterpret_cast<internal::RendererClient_OnStatisticsUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.8
       bool success = true;
       ::media::mojom::blink::PipelineStatisticsPtr p_stats{};
       RendererClient_OnStatisticsUpdate_ParamsDataView input_data_view(params, message);
@@ -2196,8 +2232,8 @@ std::move(p_opaque));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStatisticsUpdate(
-std::move(p_stats));
+      impl->OnStatisticsUpdate(        
+        std::move(p_stats));
       return true;
     }
     case internal::kRendererClient_OnWaiting_Name: {
@@ -2207,6 +2243,8 @@ std::move(p_stats));
           reinterpret_cast<internal::RendererClient_OnWaiting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererClient.9
       bool success = true;
       ::media::mojom::blink::WaitingReason p_reason{};
       RendererClient_OnWaiting_ParamsDataView input_data_view(params, message);
@@ -2222,8 +2260,8 @@ std::move(p_stats));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWaiting(
-std::move(p_reason));
+      impl->OnWaiting(        
+        std::move(p_reason));
       return true;
     }
   }

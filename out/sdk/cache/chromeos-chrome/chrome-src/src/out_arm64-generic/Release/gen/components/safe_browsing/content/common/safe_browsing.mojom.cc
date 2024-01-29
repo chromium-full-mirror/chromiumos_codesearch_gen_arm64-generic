@@ -539,6 +539,8 @@ bool SafeBrowsing_CreateCheckerAndCheck_ForwardToCallback::Accept(
           internal::SafeBrowsing_CreateCheckerAndCheck_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeBrowsing.0
   bool success = true;
   ::mojo::PendingReceiver<::safe_browsing::mojom::UrlCheckNotifier> p_slow_check_notifier{};
   bool p_proceed{};
@@ -635,6 +637,8 @@ bool SafeBrowsingStubDispatch::Accept(
           reinterpret_cast<internal::SafeBrowsing_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SafeBrowsing.1
       bool success = true;
       ::mojo::PendingReceiver<SafeBrowsing> p_receiver{};
       SafeBrowsing_Clone_ParamsDataView input_data_view(params, message);
@@ -652,8 +656,8 @@ bool SafeBrowsingStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -676,6 +680,8 @@ bool SafeBrowsingStubDispatch::AcceptWithResponder(
               internal::SafeBrowsing_CreateCheckerAndCheck_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeBrowsing.0
       bool success = true;
       std::optional<::blink::LocalFrameToken> p_frame_token{};
       ::mojo::PendingReceiver<::safe_browsing::mojom::SafeBrowsingUrlChecker> p_receiver{};
@@ -720,16 +726,16 @@ bool SafeBrowsingStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCheckerAndCheck(
-std::move(p_frame_token), 
-std::move(p_receiver), 
-std::move(p_url), 
-std::move(p_method), 
-std::move(p_headers), 
-std::move(p_load_flags), 
-std::move(p_request_destination), 
-std::move(p_has_user_gesture), 
-std::move(p_originated_from_service_worker), std::move(callback));
+      impl->CreateCheckerAndCheck(        
+        std::move(p_frame_token), 
+        std::move(p_receiver), 
+        std::move(p_url), 
+        std::move(p_method), 
+        std::move(p_headers), 
+        std::move(p_load_flags), 
+        std::move(p_request_destination), 
+        std::move(p_has_user_gesture), 
+        std::move(p_originated_from_service_worker), std::move(callback));
       return true;
     }
     case internal::kSafeBrowsing_Clone_Name: {
@@ -922,6 +928,8 @@ bool ThreatReporter_GetThreatDOMDetails_ForwardToCallback::Accept(
           internal::ThreatReporter_GetThreatDOMDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThreatReporter.0
   bool success = true;
   std::vector<ThreatDOMDetailsNodePtr> p_nodes{};
   ThreatReporter_GetThreatDOMDetails_ResponseParamsDataView input_data_view(params, message);
@@ -1024,6 +1032,8 @@ bool ThreatReporterStubDispatch::AcceptWithResponder(
               internal::ThreatReporter_GetThreatDOMDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThreatReporter.0
       bool success = true;
       ThreatReporter_GetThreatDOMDetails_ParamsDataView input_data_view(params, message);
       
@@ -1245,6 +1255,8 @@ bool PhishingDetector_StartPhishingDetection_ForwardToCallback::Accept(
           internal::PhishingDetector_StartPhishingDetection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhishingDetector.0
   bool success = true;
   PhishingDetectorResult p_result{};
   std::string p_request_proto{};
@@ -1354,6 +1366,8 @@ bool PhishingDetectorStubDispatch::AcceptWithResponder(
               internal::PhishingDetector_StartPhishingDetection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhishingDetector.0
       bool success = true;
       ::GURL p_url{};
       PhishingDetector_StartPhishingDetection_ParamsDataView input_data_view(params, message);
@@ -1372,8 +1386,8 @@ bool PhishingDetectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPhishingDetection(
-std::move(p_url), std::move(callback));
+      impl->StartPhishingDetection(        
+        std::move(p_url), std::move(callback));
       return true;
     }
   }
@@ -1862,6 +1876,8 @@ bool PhishingModelSetter_SetTestObserver_ForwardToCallback::Accept(
           internal::PhishingModelSetter_SetTestObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhishingModelSetter.4
   bool success = true;
   PhishingModelSetter_SetTestObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -1924,6 +1940,8 @@ bool PhishingModelSetterStubDispatch::Accept(
           reinterpret_cast<internal::PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhishingModelSetter.0
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_region{};
       ::base::File p_tflite_model{};
@@ -1945,10 +1963,10 @@ bool PhishingModelSetterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetImageEmbeddingAndPhishingFlatBufferModel(
-std::move(p_region), 
-std::move(p_tflite_model), 
-std::move(p_image_embedding_model));
+      impl->SetImageEmbeddingAndPhishingFlatBufferModel(        
+        std::move(p_region), 
+        std::move(p_tflite_model), 
+        std::move(p_image_embedding_model));
       return true;
     }
     case internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name: {
@@ -1958,6 +1976,8 @@ std::move(p_image_embedding_model));
           reinterpret_cast<internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhishingModelSetter.1
       bool success = true;
       ::base::File p_image_embedding_model{};
       PhishingModelSetter_AttachImageEmbeddingModel_ParamsDataView input_data_view(params, message);
@@ -1973,8 +1993,8 @@ std::move(p_image_embedding_model));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AttachImageEmbeddingModel(
-std::move(p_image_embedding_model));
+      impl->AttachImageEmbeddingModel(        
+        std::move(p_image_embedding_model));
       return true;
     }
     case internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name: {
@@ -1984,6 +2004,8 @@ std::move(p_image_embedding_model));
           reinterpret_cast<internal::PhishingModelSetter_SetPhishingFlatBufferModel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhishingModelSetter.2
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_region{};
       ::base::File p_tflite_model{};
@@ -2002,9 +2024,9 @@ std::move(p_image_embedding_model));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPhishingFlatBufferModel(
-std::move(p_region), 
-std::move(p_tflite_model));
+      impl->SetPhishingFlatBufferModel(        
+        std::move(p_region), 
+        std::move(p_tflite_model));
       return true;
     }
     case internal::kPhishingModelSetter_ClearScorer_Name: {
@@ -2014,6 +2036,8 @@ std::move(p_tflite_model));
           reinterpret_cast<internal::PhishingModelSetter_ClearScorer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhishingModelSetter.3
       bool success = true;
       PhishingModelSetter_ClearScorer_ParamsDataView input_data_view(params, message);
       
@@ -2026,7 +2050,7 @@ std::move(p_tflite_model));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearScorer();
+      impl->ClearScorer(        );
       return true;
     }
     case internal::kPhishingModelSetter_SetTestObserver_Name: {
@@ -2064,6 +2088,8 @@ bool PhishingModelSetterStubDispatch::AcceptWithResponder(
               internal::PhishingModelSetter_SetTestObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhishingModelSetter.4
       bool success = true;
       ::mojo::PendingRemote<PhishingModelSetterTestObserver> p_observer{};
       PhishingModelSetter_SetTestObserver_ParamsDataView input_data_view(params, message);
@@ -2084,8 +2110,8 @@ bool PhishingModelSetterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTestObserver(
-std::move(p_observer), std::move(callback));
+      impl->SetTestObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }
@@ -2219,6 +2245,8 @@ bool PhishingModelSetterTestObserverStubDispatch::Accept(
           reinterpret_cast<internal::PhishingModelSetterTestObserver_PhishingModelUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PhishingModelSetterTestObserver.0
       bool success = true;
       PhishingModelSetterTestObserver_PhishingModelUpdated_ParamsDataView input_data_view(params, message);
       
@@ -2231,7 +2259,7 @@ bool PhishingModelSetterTestObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PhishingModelUpdated();
+      impl->PhishingModelUpdated(        );
       return true;
     }
   }
@@ -2449,6 +2477,8 @@ bool PhishingImageEmbedderDetector_StartImageEmbedding_ForwardToCallback::Accept
           internal::PhishingImageEmbedderDetector_StartImageEmbedding_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PhishingImageEmbedderDetector.0
   bool success = true;
   PhishingImageEmbeddingResult p_result{};
   std::string p_image_embedding_request_proto{};
@@ -2558,6 +2588,8 @@ bool PhishingImageEmbedderDetectorStubDispatch::AcceptWithResponder(
               internal::PhishingImageEmbedderDetector_StartImageEmbedding_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PhishingImageEmbedderDetector.0
       bool success = true;
       ::GURL p_url{};
       PhishingImageEmbedderDetector_StartImageEmbedding_ParamsDataView input_data_view(params, message);
@@ -2576,8 +2608,8 @@ bool PhishingImageEmbedderDetectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartImageEmbedding(
-std::move(p_url), std::move(callback));
+      impl->StartImageEmbedding(        
+        std::move(p_url), std::move(callback));
       return true;
     }
   }
@@ -2811,6 +2843,8 @@ bool ExtensionWebRequestReporterStubDispatch::Accept(
           reinterpret_cast<internal::ExtensionWebRequestReporter_SendWebRequestData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ExtensionWebRequestReporter.0
       bool success = true;
       std::string p_origin_extension_id{};
       ::GURL p_telemetry_url{};
@@ -2835,11 +2869,11 @@ bool ExtensionWebRequestReporterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendWebRequestData(
-std::move(p_origin_extension_id), 
-std::move(p_telemetry_url), 
-std::move(p_protocol_type), 
-std::move(p_contact_initiator_type));
+      impl->SendWebRequestData(        
+        std::move(p_origin_extension_id), 
+        std::move(p_telemetry_url), 
+        std::move(p_protocol_type), 
+        std::move(p_contact_initiator_type));
       return true;
     }
     case internal::kExtensionWebRequestReporter_Clone_Name: {
@@ -2849,6 +2883,8 @@ std::move(p_contact_initiator_type));
           reinterpret_cast<internal::ExtensionWebRequestReporter_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ExtensionWebRequestReporter.1
       bool success = true;
       ::mojo::PendingReceiver<ExtensionWebRequestReporter> p_receiver{};
       ExtensionWebRequestReporter_Clone_ParamsDataView input_data_view(params, message);
@@ -2866,8 +2902,8 @@ std::move(p_contact_initiator_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }

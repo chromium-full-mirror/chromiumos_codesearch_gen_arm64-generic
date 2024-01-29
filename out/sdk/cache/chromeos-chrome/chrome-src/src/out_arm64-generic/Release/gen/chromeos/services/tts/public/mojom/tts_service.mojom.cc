@@ -362,6 +362,8 @@ bool TtsService_BindPlaybackTtsStream_ForwardToCallback::Accept(
           internal::TtsService_BindPlaybackTtsStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TtsService.1
   bool success = true;
   AudioParametersPtr p_audio_parameters{};
   TtsService_BindPlaybackTtsStream_ResponseParamsDataView input_data_view(params, message);
@@ -446,6 +448,8 @@ bool TtsServiceStubDispatch::Accept(
           reinterpret_cast<internal::TtsService_BindGoogleTtsStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsService.0
       bool success = true;
       ::mojo::PendingReceiver<GoogleTtsStream> p_receiver{};
       ::mojo::PendingRemote<::media::mojom::AudioStreamFactory> p_stream_factory{};
@@ -468,9 +472,9 @@ bool TtsServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGoogleTtsStream(
-std::move(p_receiver), 
-std::move(p_stream_factory));
+      impl->BindGoogleTtsStream(        
+        std::move(p_receiver), 
+        std::move(p_stream_factory));
       return true;
     }
     case internal::kTtsService_BindPlaybackTtsStream_Name: {
@@ -499,6 +503,8 @@ bool TtsServiceStubDispatch::AcceptWithResponder(
               internal::TtsService_BindPlaybackTtsStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TtsService.1
       bool success = true;
       ::mojo::PendingReceiver<PlaybackTtsStream> p_receiver{};
       ::mojo::PendingRemote<::media::mojom::AudioStreamFactory> p_stream_factory{};
@@ -527,10 +533,10 @@ bool TtsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPlaybackTtsStream(
-std::move(p_receiver), 
-std::move(p_stream_factory), 
-std::move(p_desired_audio_parameters), std::move(callback));
+      impl->BindPlaybackTtsStream(        
+        std::move(p_receiver), 
+        std::move(p_stream_factory), 
+        std::move(p_desired_audio_parameters), std::move(callback));
       return true;
     }
   }
@@ -1168,6 +1174,8 @@ bool GoogleTtsStream_InstallVoice_ForwardToCallback::Accept(
           internal::GoogleTtsStream_InstallVoice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GoogleTtsStream.0
   bool success = true;
   bool p_success{};
   GoogleTtsStream_InstallVoice_ResponseParamsDataView input_data_view(params, message);
@@ -1287,6 +1295,8 @@ bool GoogleTtsStream_SelectVoice_ForwardToCallback::Accept(
           internal::GoogleTtsStream_SelectVoice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GoogleTtsStream.1
   bool success = true;
   bool p_success{};
   GoogleTtsStream_SelectVoice_ResponseParamsDataView input_data_view(params, message);
@@ -1406,6 +1416,8 @@ bool GoogleTtsStream_Speak_ForwardToCallback::Accept(
           internal::GoogleTtsStream_Speak_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GoogleTtsStream.2
   bool success = true;
   ::mojo::PendingReceiver<TtsEventObserver> p_event_observer{};
   GoogleTtsStream_Speak_ResponseParamsDataView input_data_view(params, message);
@@ -1496,6 +1508,8 @@ bool GoogleTtsStreamStubDispatch::Accept(
           reinterpret_cast<internal::GoogleTtsStream_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.3
       bool success = true;
       GoogleTtsStream_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1508,7 +1522,7 @@ bool GoogleTtsStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kGoogleTtsStream_SetVolume_Name: {
@@ -1518,6 +1532,8 @@ bool GoogleTtsStreamStubDispatch::Accept(
           reinterpret_cast<internal::GoogleTtsStream_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.4
       bool success = true;
       float p_volume{};
       GoogleTtsStream_SetVolume_ParamsDataView input_data_view(params, message);
@@ -1533,8 +1549,8 @@ bool GoogleTtsStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
     case internal::kGoogleTtsStream_Pause_Name: {
@@ -1544,6 +1560,8 @@ std::move(p_volume));
           reinterpret_cast<internal::GoogleTtsStream_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.5
       bool success = true;
       GoogleTtsStream_Pause_ParamsDataView input_data_view(params, message);
       
@@ -1556,7 +1574,7 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kGoogleTtsStream_Resume_Name: {
@@ -1566,6 +1584,8 @@ std::move(p_volume));
           reinterpret_cast<internal::GoogleTtsStream_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.6
       bool success = true;
       GoogleTtsStream_Resume_ParamsDataView input_data_view(params, message);
       
@@ -1578,7 +1598,7 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
   }
@@ -1601,6 +1621,8 @@ bool GoogleTtsStreamStubDispatch::AcceptWithResponder(
               internal::GoogleTtsStream_InstallVoice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.0
       bool success = true;
       std::string p_voice_name{};
       std::vector<uint8_t> p_voice_bytes{};
@@ -1622,9 +1644,9 @@ bool GoogleTtsStreamStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallVoice(
-std::move(p_voice_name), 
-std::move(p_voice_bytes), std::move(callback));
+      impl->InstallVoice(        
+        std::move(p_voice_name), 
+        std::move(p_voice_bytes), std::move(callback));
       return true;
     }
     case internal::kGoogleTtsStream_SelectVoice_Name: {
@@ -1634,6 +1656,8 @@ std::move(p_voice_bytes), std::move(callback));
               internal::GoogleTtsStream_SelectVoice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.1
       bool success = true;
       std::string p_voice_name{};
       GoogleTtsStream_SelectVoice_ParamsDataView input_data_view(params, message);
@@ -1652,8 +1676,8 @@ std::move(p_voice_bytes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectVoice(
-std::move(p_voice_name), std::move(callback));
+      impl->SelectVoice(        
+        std::move(p_voice_name), std::move(callback));
       return true;
     }
     case internal::kGoogleTtsStream_Speak_Name: {
@@ -1663,6 +1687,8 @@ std::move(p_voice_name), std::move(callback));
               internal::GoogleTtsStream_Speak_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GoogleTtsStream.2
       bool success = true;
       std::vector<uint8_t> p_text_jspb{};
       std::vector<uint8_t> p_speaker_params_jspb{};
@@ -1684,9 +1710,9 @@ std::move(p_voice_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Speak(
-std::move(p_text_jspb), 
-std::move(p_speaker_params_jspb), std::move(callback));
+      impl->Speak(        
+        std::move(p_text_jspb), 
+        std::move(p_speaker_params_jspb), std::move(callback));
       return true;
     }
     case internal::kGoogleTtsStream_Stop_Name: {
@@ -2199,6 +2225,8 @@ bool PlaybackTtsStream_Play_ForwardToCallback::Accept(
           internal::PlaybackTtsStream_Play_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PlaybackTtsStream.0
   bool success = true;
   ::mojo::PendingReceiver<TtsEventObserver> p_event_observer{};
   PlaybackTtsStream_Play_ResponseParamsDataView input_data_view(params, message);
@@ -2283,6 +2311,8 @@ bool PlaybackTtsStreamStubDispatch::Accept(
           reinterpret_cast<internal::PlaybackTtsStream_SendAudioBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackTtsStream.1
       bool success = true;
       std::vector<float> p_frames_buffer{};
       int32_t p_char_index{};
@@ -2304,10 +2334,10 @@ bool PlaybackTtsStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendAudioBuffer(
-std::move(p_frames_buffer), 
-std::move(p_char_index), 
-std::move(p_last_buffer));
+      impl->SendAudioBuffer(        
+        std::move(p_frames_buffer), 
+        std::move(p_char_index), 
+        std::move(p_last_buffer));
       return true;
     }
     case internal::kPlaybackTtsStream_Stop_Name: {
@@ -2317,6 +2347,8 @@ std::move(p_last_buffer));
           reinterpret_cast<internal::PlaybackTtsStream_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackTtsStream.2
       bool success = true;
       PlaybackTtsStream_Stop_ParamsDataView input_data_view(params, message);
       
@@ -2329,7 +2361,7 @@ std::move(p_last_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kPlaybackTtsStream_SetVolume_Name: {
@@ -2339,6 +2371,8 @@ std::move(p_last_buffer));
           reinterpret_cast<internal::PlaybackTtsStream_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackTtsStream.3
       bool success = true;
       float p_volume{};
       PlaybackTtsStream_SetVolume_ParamsDataView input_data_view(params, message);
@@ -2354,8 +2388,8 @@ std::move(p_last_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
     case internal::kPlaybackTtsStream_Pause_Name: {
@@ -2365,6 +2399,8 @@ std::move(p_volume));
           reinterpret_cast<internal::PlaybackTtsStream_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackTtsStream.4
       bool success = true;
       PlaybackTtsStream_Pause_ParamsDataView input_data_view(params, message);
       
@@ -2377,7 +2413,7 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kPlaybackTtsStream_Resume_Name: {
@@ -2387,6 +2423,8 @@ std::move(p_volume));
           reinterpret_cast<internal::PlaybackTtsStream_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackTtsStream.5
       bool success = true;
       PlaybackTtsStream_Resume_ParamsDataView input_data_view(params, message);
       
@@ -2399,7 +2437,7 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
   }
@@ -2422,6 +2460,8 @@ bool PlaybackTtsStreamStubDispatch::AcceptWithResponder(
               internal::PlaybackTtsStream_Play_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PlaybackTtsStream.0
       bool success = true;
       PlaybackTtsStream_Play_ParamsDataView input_data_view(params, message);
       
@@ -2755,6 +2795,8 @@ bool TtsEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::TtsEventObserver_OnStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsEventObserver.0
       bool success = true;
       TtsEventObserver_OnStart_ParamsDataView input_data_view(params, message);
       
@@ -2767,7 +2809,7 @@ bool TtsEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStart();
+      impl->OnStart(        );
       return true;
     }
     case internal::kTtsEventObserver_OnTimepoint_Name: {
@@ -2777,6 +2819,8 @@ bool TtsEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::TtsEventObserver_OnTimepoint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsEventObserver.1
       bool success = true;
       int32_t p_char_index{};
       TtsEventObserver_OnTimepoint_ParamsDataView input_data_view(params, message);
@@ -2792,8 +2836,8 @@ bool TtsEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTimepoint(
-std::move(p_char_index));
+      impl->OnTimepoint(        
+        std::move(p_char_index));
       return true;
     }
     case internal::kTtsEventObserver_OnEnd_Name: {
@@ -2803,6 +2847,8 @@ std::move(p_char_index));
           reinterpret_cast<internal::TtsEventObserver_OnEnd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsEventObserver.2
       bool success = true;
       TtsEventObserver_OnEnd_ParamsDataView input_data_view(params, message);
       
@@ -2815,7 +2861,7 @@ std::move(p_char_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnd();
+      impl->OnEnd(        );
       return true;
     }
     case internal::kTtsEventObserver_OnError_Name: {
@@ -2825,6 +2871,8 @@ std::move(p_char_index));
           reinterpret_cast<internal::TtsEventObserver_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsEventObserver.3
       bool success = true;
       TtsEventObserver_OnError_ParamsDataView input_data_view(params, message);
       
@@ -2837,7 +2885,7 @@ std::move(p_char_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError();
+      impl->OnError(        );
       return true;
     }
   }

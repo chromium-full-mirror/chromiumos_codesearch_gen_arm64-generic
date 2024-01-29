@@ -693,7 +693,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'ratioVisibleArea', 8,
+        'ratioDistanceTopToVisibleTop', 8,
         0,
         mojo.internal.Float,
         0,
@@ -701,7 +701,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'ratioDistanceTopToVisibleTop', 12,
+        'ratioDistanceRootTop', 12,
         0,
         mojo.internal.Float,
         0,
@@ -709,31 +709,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'ratioDistanceCenterToVisibleTop', 16,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'ratioDistanceRootTop', 20,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'ratioDistanceRootBottom', 24,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'isInIframe', 28,
+        'isInIframe', 16,
         0,
         mojo.internal.Bool,
         false,
@@ -741,7 +717,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'containsImage', 28,
+        'containsImage', 16,
         1,
         mojo.internal.Bool,
         false,
@@ -749,7 +725,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isSameHost', 28,
+        'isSameHost', 16,
         2,
         mojo.internal.Bool,
         false,
@@ -757,7 +733,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isUrlIncrementedByOne', 28,
+        'isUrlIncrementedByOne', 16,
         3,
         mojo.internal.Bool,
         false,
@@ -765,7 +741,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasTextSibling', 28,
+        'hasTextSibling', 16,
         4,
         mojo.internal.Bool,
         false,
@@ -773,7 +749,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'fontSizePx', 32,
+        'fontSizePx', 20,
         0,
         mojo.internal.Uint32,
         0,
@@ -781,7 +757,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'fontWeight', 36,
+        'fontWeight', 24,
         0,
         mojo.internal.Uint32,
         0,
@@ -789,7 +765,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'sourceUrl', 40,
+        'targetUrl', 32,
         0,
         url.mojom.UrlSpec.$,
         null,
@@ -797,15 +773,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'targetUrl', 48,
-        0,
-        url.mojom.UrlSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'viewportSize', 56,
+        'viewportSize', 40,
         0,
         gfx.mojom.SizeSpec.$,
         null,
@@ -813,7 +781,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 72],]);
+    [[0, 56],]);
 
 
 
@@ -827,15 +795,9 @@ blink.mojom.AnchorElementMetrics = class {
     /** @export { !number } */
     this.ratioArea;
     /** @export { !number } */
-    this.ratioVisibleArea;
-    /** @export { !number } */
     this.ratioDistanceTopToVisibleTop;
     /** @export { !number } */
-    this.ratioDistanceCenterToVisibleTop;
-    /** @export { !number } */
     this.ratioDistanceRootTop;
-    /** @export { !number } */
-    this.ratioDistanceRootBottom;
     /** @export { !boolean } */
     this.isInIframe;
     /** @export { !boolean } */
@@ -850,8 +812,6 @@ blink.mojom.AnchorElementMetrics = class {
     this.fontSizePx;
     /** @export { !number } */
     this.fontWeight;
-    /** @export { !url.mojom.Url } */
-    this.sourceUrl;
     /** @export { !url.mojom.Url } */
     this.targetUrl;
     /** @export { !gfx.mojom.Size } */

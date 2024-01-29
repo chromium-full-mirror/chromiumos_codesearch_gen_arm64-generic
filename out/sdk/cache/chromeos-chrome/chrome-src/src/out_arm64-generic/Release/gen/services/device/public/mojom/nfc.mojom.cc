@@ -836,6 +836,8 @@ bool NFC_Push_ForwardToCallback::Accept(
           internal::NFC_Push_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NFC.1
   bool success = true;
   NDEFErrorPtr p_error{};
   NFC_Push_ResponseParamsDataView input_data_view(params, message);
@@ -961,6 +963,8 @@ bool NFC_MakeReadOnly_ForwardToCallback::Accept(
           internal::NFC_MakeReadOnly_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NFC.3
   bool success = true;
   NDEFErrorPtr p_error{};
   NFC_MakeReadOnly_ResponseParamsDataView input_data_view(params, message);
@@ -1086,6 +1090,8 @@ bool NFC_Watch_ForwardToCallback::Accept(
           internal::NFC_Watch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NFC.5
   bool success = true;
   NDEFErrorPtr p_error{};
   NFC_Watch_ResponseParamsDataView input_data_view(params, message);
@@ -1166,6 +1172,8 @@ bool NFCStubDispatch::Accept(
           reinterpret_cast<internal::NFC_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFC.0
       bool success = true;
       ::mojo::PendingRemote<NFCClient> p_client{};
       NFC_SetClient_ParamsDataView input_data_view(params, message);
@@ -1183,8 +1191,8 @@ bool NFCStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kNFC_Push_Name: {
@@ -1197,6 +1205,8 @@ std::move(p_client));
           reinterpret_cast<internal::NFC_CancelPush_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFC.2
       bool success = true;
       NFC_CancelPush_ParamsDataView input_data_view(params, message);
       
@@ -1209,7 +1219,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPush();
+      impl->CancelPush(        );
       return true;
     }
     case internal::kNFC_MakeReadOnly_Name: {
@@ -1222,6 +1232,8 @@ std::move(p_client));
           reinterpret_cast<internal::NFC_CancelMakeReadOnly_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFC.4
       bool success = true;
       NFC_CancelMakeReadOnly_ParamsDataView input_data_view(params, message);
       
@@ -1234,7 +1246,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelMakeReadOnly();
+      impl->CancelMakeReadOnly(        );
       return true;
     }
     case internal::kNFC_Watch_Name: {
@@ -1247,6 +1259,8 @@ std::move(p_client));
           reinterpret_cast<internal::NFC_CancelWatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFC.6
       bool success = true;
       uint32_t p_id{};
       NFC_CancelWatch_ParamsDataView input_data_view(params, message);
@@ -1262,8 +1276,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelWatch(
-std::move(p_id));
+      impl->CancelWatch(        
+        std::move(p_id));
       return true;
     }
   }
@@ -1289,6 +1303,8 @@ bool NFCStubDispatch::AcceptWithResponder(
               internal::NFC_Push_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NFC.1
       bool success = true;
       NDEFMessagePtr p_message{};
       NDEFWriteOptionsPtr p_options{};
@@ -1310,9 +1326,9 @@ bool NFCStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Push(
-std::move(p_message), 
-std::move(p_options), std::move(callback));
+      impl->Push(        
+        std::move(p_message), 
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kNFC_CancelPush_Name: {
@@ -1325,6 +1341,8 @@ std::move(p_options), std::move(callback));
               internal::NFC_MakeReadOnly_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NFC.3
       bool success = true;
       NFC_MakeReadOnly_ParamsDataView input_data_view(params, message);
       
@@ -1353,6 +1371,8 @@ std::move(p_options), std::move(callback));
               internal::NFC_Watch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NFC.5
       bool success = true;
       uint32_t p_id{};
       NFC_Watch_ParamsDataView input_data_view(params, message);
@@ -1371,8 +1391,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Watch(
-std::move(p_id), std::move(callback));
+      impl->Watch(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kNFC_CancelWatch_Name: {
@@ -1628,6 +1648,8 @@ bool NFCClientStubDispatch::Accept(
           reinterpret_cast<internal::NFCClient_OnWatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFCClient.0
       bool success = true;
       std::vector<uint32_t> p_watch_ids{};
       std::optional<std::string> p_serial_number{};
@@ -1649,10 +1671,10 @@ bool NFCClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWatch(
-std::move(p_watch_ids), 
-std::move(p_serial_number), 
-std::move(p_message));
+      impl->OnWatch(        
+        std::move(p_watch_ids), 
+        std::move(p_serial_number), 
+        std::move(p_message));
       return true;
     }
     case internal::kNFCClient_OnError_Name: {
@@ -1662,6 +1684,8 @@ std::move(p_message));
           reinterpret_cast<internal::NFCClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFCClient.1
       bool success = true;
       NDEFErrorPtr p_error{};
       NFCClient_OnError_ParamsDataView input_data_view(params, message);
@@ -1677,8 +1701,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_error));
       return true;
     }
   }

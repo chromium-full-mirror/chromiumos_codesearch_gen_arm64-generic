@@ -28,7 +28,6 @@ export class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'showingSearchChanged_',
                 reflectToAttribute: true,
             },
             disabled: {
@@ -100,29 +99,22 @@ export class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase
     onSearchTermKeydown_(e) {
         if (e.key === 'Escape') {
             this.showingSearch = false;
+            this.setValue('');
+            this.getSearchInput().blur();
         }
     }
     showSearch_(e) {
         if (e.target !== this.shadowRoot.querySelector('#clearSearch')) {
             this.showingSearch = true;
         }
+        if (this.narrow) {
+            this.focus_();
+        }
     }
     clearSearch_() {
         this.setValue('');
         this.focus_();
         this.spinnerActive = false;
-    }
-    showingSearchChanged_(_current, previous) {
-        // Prevent unnecessary 'search-changed' event from firing on startup.
-        if (previous === undefined) {
-            return;
-        }
-        if (this.showingSearch) {
-            this.focus_();
-            return;
-        }
-        this.setValue('');
-        this.getSearchInput().blur();
     }
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);

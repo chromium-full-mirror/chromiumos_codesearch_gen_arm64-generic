@@ -577,12 +577,6 @@ void FontVariantNumeric::ApplyValue(StyleResolverState& state, const CSSValue& v
  // font-variant-position
 
 
-CSSExposure FontVariantPosition::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::FontVariantPositionEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* FontVariantPosition::GetPropertyName() const {
   return "font-variant-position";
@@ -15247,6 +15241,44 @@ SetViewTimelineName(state.ParentStyle()->ViewTimelineName());
 void ViewTimelineName::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
 SetViewTimelineName(StyleBuilderConverter::ConvertViewTimelineName(state, value));
+}
+
+ // view-transition-class
+
+
+CSSExposure ViewTransitionClass::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSViewTransitionClassEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* ViewTransitionClass::GetPropertyName() const {
+  return "view-transition-class";
+}
+
+const WTF::AtomicString& ViewTransitionClass::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("view-transition-class"));
+  return name;
+}
+
+const char* ViewTransitionClass::GetJSPropertyName() const {
+  return "viewTransitionClass";
+}
+
+
+
+void ViewTransitionClass::ApplyInitial(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetViewTransitionClass(ComputedStyleInitialValues::InitialViewTransitionClass());
+}
+void ViewTransitionClass::ApplyInherit(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetViewTransitionClass(state.ParentStyle()->ViewTransitionClass());
+}
+void ViewTransitionClass::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  state.StyleBuilder().
+SetViewTransitionClass(StyleBuilderConverter::ConvertViewTransitionClass(state, value));
 }
 
  // view-transition-name

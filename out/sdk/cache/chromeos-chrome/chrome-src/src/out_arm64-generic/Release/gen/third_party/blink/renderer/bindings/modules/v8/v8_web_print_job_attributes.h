@@ -47,6 +47,42 @@ String getJobNameOr(String&& fallback_value) const;
 void setJobName(const String& value);
 void setJobName(String&& value);
 
+bool hasJobPages() const {
+  return has_job_pages_;
+}
+uint32_t jobPages() const {
+  DCHECK(hasJobPages());
+return member_job_pages_;
+}
+uint32_t getJobPagesOr(uint32_t fallback_value) const {
+  if (!hasJobPages()) {
+  return fallback_value;
+}
+return member_job_pages_;
+}
+void setJobPages(uint32_t value) {
+  member_job_pages_ = value;
+has_job_pages_ = true;
+}
+
+bool hasJobPagesCompleted() const {
+  return has_job_pages_completed_;
+}
+uint32_t jobPagesCompleted() const {
+  DCHECK(hasJobPagesCompleted());
+return member_job_pages_completed_;
+}
+uint32_t getJobPagesCompletedOr(uint32_t fallback_value) const {
+  if (!hasJobPagesCompleted()) {
+  return fallback_value;
+}
+return member_job_pages_completed_;
+}
+void setJobPagesCompleted(uint32_t value) {
+  member_job_pages_completed_ = value;
+has_job_pages_completed_ = true;
+}
+
 bool hasJobState() const {
   return has_job_state_;
 }
@@ -89,9 +125,13 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
 bool has_job_name_ = false;
+bool has_job_pages_ = false;
+bool has_job_pages_completed_ = false;
 bool has_job_state_ = false;
 
 String member_job_name_;
+uint32_t member_job_pages_;
+uint32_t member_job_pages_completed_;
 V8WebPrintJobState member_job_state_{static_cast<V8WebPrintJobState::Enum>(0)};
 
 

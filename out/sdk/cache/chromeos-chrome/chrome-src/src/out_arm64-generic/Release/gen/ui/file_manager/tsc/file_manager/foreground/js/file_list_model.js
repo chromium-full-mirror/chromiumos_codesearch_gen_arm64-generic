@@ -7,7 +7,6 @@ import { compareLabel, compareName } from '../../common/js/entry_utils.js';
 import { FileExtensionType, getType, isImage, isRaw } from '../../common/js/file_type.js';
 import { getRecentDateBucket, getTranslationKeyForDateBucket } from '../../common/js/recent_date_bucket.js';
 import { collator, str, strf } from '../../common/js/translations.js';
-import { EntryLocation } from '../../externs/entry_location.js';
 import { MetadataItem } from './metadata/metadata_item.js';
 import { MetadataModel } from './metadata/metadata_model.js';
 export const GROUP_BY_FIELD_MODIFICATION_TIME = 'modificationTime';

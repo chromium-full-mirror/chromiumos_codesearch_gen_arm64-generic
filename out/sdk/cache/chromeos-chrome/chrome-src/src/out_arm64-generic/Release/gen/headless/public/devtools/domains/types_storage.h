@@ -4434,6 +4434,113 @@ class HEADLESS_EXPORT SetInterestGroupTrackingResult {
 };
 
 
+// Parameters for the SetInterestGroupAuctionTracking command.
+class HEADLESS_EXPORT SetInterestGroupAuctionTrackingParams {
+ public:
+  static std::unique_ptr<SetInterestGroupAuctionTrackingParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  SetInterestGroupAuctionTrackingParams(const SetInterestGroupAuctionTrackingParams&) = delete;
+  SetInterestGroupAuctionTrackingParams& operator=(const SetInterestGroupAuctionTrackingParams&) = delete;
+
+  ~SetInterestGroupAuctionTrackingParams() { }
+
+
+  bool GetEnable() const { return enable_; }
+  void SetEnable(bool value) { enable_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<SetInterestGroupAuctionTrackingParams> Clone() const;
+
+  template<int STATE>
+  class SetInterestGroupAuctionTrackingParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kEnableSet = 1 << 1,
+      kAllRequiredFieldsSet = (kEnableSet | 0)
+    };
+
+    SetInterestGroupAuctionTrackingParamsBuilder<STATE | kEnableSet>& SetEnable(bool value) {
+      static_assert(!(STATE & kEnableSet), "property enable should not have already been set");
+      result_->SetEnable(value);
+      return CastState<kEnableSet>();
+    }
+
+    std::unique_ptr<SetInterestGroupAuctionTrackingParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class SetInterestGroupAuctionTrackingParams;
+    SetInterestGroupAuctionTrackingParamsBuilder() : result_(new SetInterestGroupAuctionTrackingParams()) { }
+
+    template<int STEP> SetInterestGroupAuctionTrackingParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<SetInterestGroupAuctionTrackingParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<SetInterestGroupAuctionTrackingParams> result_;
+  };
+
+  static SetInterestGroupAuctionTrackingParamsBuilder<0> Builder() {
+    return SetInterestGroupAuctionTrackingParamsBuilder<0>();
+  }
+
+ private:
+  SetInterestGroupAuctionTrackingParams() { }
+
+  bool enable_;
+};
+
+
+// Result for the SetInterestGroupAuctionTracking command.
+class HEADLESS_EXPORT SetInterestGroupAuctionTrackingResult {
+ public:
+  static std::unique_ptr<SetInterestGroupAuctionTrackingResult> Parse(const base::Value& value, ErrorReporter* errors);
+
+  SetInterestGroupAuctionTrackingResult(const SetInterestGroupAuctionTrackingResult&) = delete;
+  SetInterestGroupAuctionTrackingResult& operator=(const SetInterestGroupAuctionTrackingResult&) = delete;
+
+  ~SetInterestGroupAuctionTrackingResult() { }
+
+
+  base::Value Serialize() const;
+  std::unique_ptr<SetInterestGroupAuctionTrackingResult> Clone() const;
+
+  template<int STATE>
+  class SetInterestGroupAuctionTrackingResultBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+      kAllRequiredFieldsSet = (0)
+    };
+
+    std::unique_ptr<SetInterestGroupAuctionTrackingResult> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class SetInterestGroupAuctionTrackingResult;
+    SetInterestGroupAuctionTrackingResultBuilder() : result_(new SetInterestGroupAuctionTrackingResult()) { }
+
+    template<int STEP> SetInterestGroupAuctionTrackingResultBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<SetInterestGroupAuctionTrackingResultBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<SetInterestGroupAuctionTrackingResult> result_;
+  };
+
+  static SetInterestGroupAuctionTrackingResultBuilder<0> Builder() {
+    return SetInterestGroupAuctionTrackingResultBuilder<0>();
+  }
+
+ private:
+  SetInterestGroupAuctionTrackingResult() { }
+
+};
+
+
 // Parameters for the GetSharedStorageMetadata command.
 class HEADLESS_EXPORT GetSharedStorageMetadataParams {
  public:
@@ -6192,6 +6299,26 @@ class HEADLESS_EXPORT InterestGroupAccessedParams {
   std::string GetName() const { return name_; }
   void SetName(const std::string& value) { name_ = value; }
 
+  // For topLevelBid/topLevelAdditionalBid, and when appropriate,
+  // win and additionalBidWin
+  bool HasComponentSellerOrigin() const { return !!component_seller_origin_; }
+  std::string GetComponentSellerOrigin() const { DCHECK(HasComponentSellerOrigin()); return component_seller_origin_.value(); }
+  void SetComponentSellerOrigin(const std::string& value) { component_seller_origin_ = value; }
+
+  // For bid or somethingBid event, if done locally and not on a server.
+  bool HasBid() const { return !!bid_; }
+  double GetBid() const { DCHECK(HasBid()); return bid_.value(); }
+  void SetBid(double value) { bid_ = value; }
+
+  bool HasBidCurrency() const { return !!bid_currency_; }
+  std::string GetBidCurrency() const { DCHECK(HasBidCurrency()); return bid_currency_.value(); }
+  void SetBidCurrency(const std::string& value) { bid_currency_ = value; }
+
+  // For non-global events --- links to interestGroupAuctionEvent
+  bool HasUniqueAuctionId() const { return !!unique_auction_id_; }
+  std::string GetUniqueAuctionId() const { DCHECK(HasUniqueAuctionId()); return unique_auction_id_.value(); }
+  void SetUniqueAuctionId(const std::string& value) { unique_auction_id_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<InterestGroupAccessedParams> Clone() const;
 
@@ -6231,6 +6358,26 @@ class HEADLESS_EXPORT InterestGroupAccessedParams {
       return CastState<kNameSet>();
     }
 
+    InterestGroupAccessedParamsBuilder<STATE>& SetComponentSellerOrigin(const std::string& value) {
+      result_->SetComponentSellerOrigin(value);
+      return *this;
+    }
+
+    InterestGroupAccessedParamsBuilder<STATE>& SetBid(double value) {
+      result_->SetBid(value);
+      return *this;
+    }
+
+    InterestGroupAccessedParamsBuilder<STATE>& SetBidCurrency(const std::string& value) {
+      result_->SetBidCurrency(value);
+      return *this;
+    }
+
+    InterestGroupAccessedParamsBuilder<STATE>& SetUniqueAuctionId(const std::string& value) {
+      result_->SetUniqueAuctionId(value);
+      return *this;
+    }
+
     std::unique_ptr<InterestGroupAccessedParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -6258,6 +6405,197 @@ class HEADLESS_EXPORT InterestGroupAccessedParams {
   ::headless::storage::InterestGroupAccessType type_;
   std::string owner_origin_;
   std::string name_;
+  absl::optional<std::string> component_seller_origin_;
+  absl::optional<double> bid_;
+  absl::optional<std::string> bid_currency_;
+  absl::optional<std::string> unique_auction_id_;
+};
+
+
+// Parameters for the InterestGroupAuctionEventOccurred event.
+class HEADLESS_EXPORT InterestGroupAuctionEventOccurredParams {
+ public:
+  static std::unique_ptr<InterestGroupAuctionEventOccurredParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  InterestGroupAuctionEventOccurredParams(const InterestGroupAuctionEventOccurredParams&) = delete;
+  InterestGroupAuctionEventOccurredParams& operator=(const InterestGroupAuctionEventOccurredParams&) = delete;
+
+  ~InterestGroupAuctionEventOccurredParams() { }
+
+
+  double GetEventTime() const { return event_time_; }
+  void SetEventTime(double value) { event_time_ = value; }
+
+  ::headless::storage::InterestGroupAuctionEventType GetType() const { return type_; }
+  void SetType(::headless::storage::InterestGroupAuctionEventType value) { type_ = value; }
+
+  std::string GetUniqueAuctionId() const { return unique_auction_id_; }
+  void SetUniqueAuctionId(const std::string& value) { unique_auction_id_ = value; }
+
+  // Set for child auctions.
+  bool HasParentAuctionId() const { return !!parent_auction_id_; }
+  std::string GetParentAuctionId() const { DCHECK(HasParentAuctionId()); return parent_auction_id_.value(); }
+  void SetParentAuctionId(const std::string& value) { parent_auction_id_ = value; }
+
+  // Set for started and configResolved
+  bool HasAuctionConfig() const { return !!auction_config_; }
+  const base::Value* GetAuctionConfig() const { DCHECK(HasAuctionConfig()); return auction_config_.value().get(); }
+  void SetAuctionConfig(std::unique_ptr<base::Value> value) { auction_config_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<InterestGroupAuctionEventOccurredParams> Clone() const;
+
+  template<int STATE>
+  class InterestGroupAuctionEventOccurredParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kEventTimeSet = 1 << 1,
+    kTypeSet = 1 << 2,
+    kUniqueAuctionIdSet = 1 << 3,
+      kAllRequiredFieldsSet = (kEventTimeSet | kTypeSet | kUniqueAuctionIdSet | 0)
+    };
+
+    InterestGroupAuctionEventOccurredParamsBuilder<STATE | kEventTimeSet>& SetEventTime(double value) {
+      static_assert(!(STATE & kEventTimeSet), "property eventTime should not have already been set");
+      result_->SetEventTime(value);
+      return CastState<kEventTimeSet>();
+    }
+
+    InterestGroupAuctionEventOccurredParamsBuilder<STATE | kTypeSet>& SetType(::headless::storage::InterestGroupAuctionEventType value) {
+      static_assert(!(STATE & kTypeSet), "property type should not have already been set");
+      result_->SetType(value);
+      return CastState<kTypeSet>();
+    }
+
+    InterestGroupAuctionEventOccurredParamsBuilder<STATE | kUniqueAuctionIdSet>& SetUniqueAuctionId(const std::string& value) {
+      static_assert(!(STATE & kUniqueAuctionIdSet), "property uniqueAuctionId should not have already been set");
+      result_->SetUniqueAuctionId(value);
+      return CastState<kUniqueAuctionIdSet>();
+    }
+
+    InterestGroupAuctionEventOccurredParamsBuilder<STATE>& SetParentAuctionId(const std::string& value) {
+      result_->SetParentAuctionId(value);
+      return *this;
+    }
+
+    InterestGroupAuctionEventOccurredParamsBuilder<STATE>& SetAuctionConfig(std::unique_ptr<base::Value> value) {
+      result_->SetAuctionConfig(std::move(value));
+      return *this;
+    }
+
+    std::unique_ptr<InterestGroupAuctionEventOccurredParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class InterestGroupAuctionEventOccurredParams;
+    InterestGroupAuctionEventOccurredParamsBuilder() : result_(new InterestGroupAuctionEventOccurredParams()) { }
+
+    template<int STEP> InterestGroupAuctionEventOccurredParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<InterestGroupAuctionEventOccurredParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<InterestGroupAuctionEventOccurredParams> result_;
+  };
+
+  static InterestGroupAuctionEventOccurredParamsBuilder<0> Builder() {
+    return InterestGroupAuctionEventOccurredParamsBuilder<0>();
+  }
+
+ private:
+  InterestGroupAuctionEventOccurredParams() { }
+
+  double event_time_;
+  ::headless::storage::InterestGroupAuctionEventType type_;
+  std::string unique_auction_id_;
+  absl::optional<std::string> parent_auction_id_;
+  absl::optional<std::unique_ptr<base::Value>> auction_config_;
+};
+
+
+// Parameters for the InterestGroupAuctionNetworkRequestCreated event.
+class HEADLESS_EXPORT InterestGroupAuctionNetworkRequestCreatedParams {
+ public:
+  static std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  InterestGroupAuctionNetworkRequestCreatedParams(const InterestGroupAuctionNetworkRequestCreatedParams&) = delete;
+  InterestGroupAuctionNetworkRequestCreatedParams& operator=(const InterestGroupAuctionNetworkRequestCreatedParams&) = delete;
+
+  ~InterestGroupAuctionNetworkRequestCreatedParams() { }
+
+
+  ::headless::storage::InterestGroupAuctionFetchType GetType() const { return type_; }
+  void SetType(::headless::storage::InterestGroupAuctionFetchType value) { type_ = value; }
+
+  std::string GetRequestId() const { return request_id_; }
+  void SetRequestId(const std::string& value) { request_id_ = value; }
+
+  // This is the set of the auctions using the worklet that issued this
+  // request.  In the case of trusted signals, it's possible that only some of
+  // them actually care about the keys being queried.
+  const std::vector<std::string>* GetAuctions() const { return &auctions_; }
+  void SetAuctions(std::vector<std::string> value) { auctions_ = std::move(value); }
+
+  base::Value Serialize() const;
+  std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> Clone() const;
+
+  template<int STATE>
+  class InterestGroupAuctionNetworkRequestCreatedParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kTypeSet = 1 << 1,
+    kRequestIdSet = 1 << 2,
+    kAuctionsSet = 1 << 3,
+      kAllRequiredFieldsSet = (kTypeSet | kRequestIdSet | kAuctionsSet | 0)
+    };
+
+    InterestGroupAuctionNetworkRequestCreatedParamsBuilder<STATE | kTypeSet>& SetType(::headless::storage::InterestGroupAuctionFetchType value) {
+      static_assert(!(STATE & kTypeSet), "property type should not have already been set");
+      result_->SetType(value);
+      return CastState<kTypeSet>();
+    }
+
+    InterestGroupAuctionNetworkRequestCreatedParamsBuilder<STATE | kRequestIdSet>& SetRequestId(const std::string& value) {
+      static_assert(!(STATE & kRequestIdSet), "property requestId should not have already been set");
+      result_->SetRequestId(value);
+      return CastState<kRequestIdSet>();
+    }
+
+    InterestGroupAuctionNetworkRequestCreatedParamsBuilder<STATE | kAuctionsSet>& SetAuctions(std::vector<std::string> value) {
+      static_assert(!(STATE & kAuctionsSet), "property auctions should not have already been set");
+      result_->SetAuctions(std::move(value));
+      return CastState<kAuctionsSet>();
+    }
+
+    std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class InterestGroupAuctionNetworkRequestCreatedParams;
+    InterestGroupAuctionNetworkRequestCreatedParamsBuilder() : result_(new InterestGroupAuctionNetworkRequestCreatedParams()) { }
+
+    template<int STEP> InterestGroupAuctionNetworkRequestCreatedParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<InterestGroupAuctionNetworkRequestCreatedParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<InterestGroupAuctionNetworkRequestCreatedParams> result_;
+  };
+
+  static InterestGroupAuctionNetworkRequestCreatedParamsBuilder<0> Builder() {
+    return InterestGroupAuctionNetworkRequestCreatedParamsBuilder<0>();
+  }
+
+ private:
+  InterestGroupAuctionNetworkRequestCreatedParams() { }
+
+  ::headless::storage::InterestGroupAuctionFetchType type_;
+  std::string request_id_;
+  std::vector<std::string> auctions_;
 };
 
 

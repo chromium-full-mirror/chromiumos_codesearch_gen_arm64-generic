@@ -79,6 +79,8 @@ class PatchPanelInterface {
       const patchpanel::NotifyAndroidInteractiveStateRequest& in_request) = 0;
   virtual patchpanel::NotifySocketConnectionEventResponse NotifySocketConnectionEvent(
       const patchpanel::NotifySocketConnectionEventRequest& in_request) = 0;
+  virtual patchpanel::NotifyARCVPNSocketConnectionEventResponse NotifyARCVPNSocketConnectionEvent(
+      const patchpanel::NotifyARCVPNSocketConnectionEventRequest& in_request) = 0;
   virtual patchpanel::SetFeatureFlagResponse SetFeatureFlag(
       const patchpanel::SetFeatureFlagRequest& in_request) = 0;
 };
@@ -198,6 +200,10 @@ class PatchPanelAdaptor {
         "NotifySocketConnectionEvent",
         base::Unretained(interface_),
         &PatchPanelInterface::NotifySocketConnectionEvent);
+    itf->AddSimpleMethodHandler(
+        "NotifyARCVPNSocketConnectionEvent",
+        base::Unretained(interface_),
+        &PatchPanelInterface::NotifyARCVPNSocketConnectionEvent);
     itf->AddSimpleMethodHandler(
         "SetFeatureFlag",
         base::Unretained(interface_),
@@ -340,6 +346,10 @@ class PatchPanelAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"NotifySocketConnectionEvent\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"NotifyARCVPNSocketConnectionEvent\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

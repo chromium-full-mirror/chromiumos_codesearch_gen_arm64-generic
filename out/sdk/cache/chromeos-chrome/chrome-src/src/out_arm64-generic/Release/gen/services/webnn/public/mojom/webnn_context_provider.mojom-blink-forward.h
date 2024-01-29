@@ -23,8 +23,6 @@
 namespace webnn::mojom {
 
 enum class PowerPreference : int32_t;
-
-enum class Error_Code : int32_t;
 class WebNNContextInterfaceBase;
 class WebNNContextProviderInterfaceBase;
 
@@ -39,9 +37,6 @@ using WebNNContextInterfaceBase = WebNNContextInterfaceBase;
 using WebNNContextProviderInterfaceBase = WebNNContextProviderInterfaceBase;
 class CreateContextOptions;
 using CreateContextOptionsPtr = mojo::InlinedStructPtr<CreateContextOptions>;
-
-class Error;
-using ErrorPtr = mojo::InlinedStructPtr<Error>;
 
 class CreateGraphResult;
 

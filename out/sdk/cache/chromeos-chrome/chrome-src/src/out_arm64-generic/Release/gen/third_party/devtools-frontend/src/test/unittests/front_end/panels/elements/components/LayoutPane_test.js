@@ -5,11 +5,10 @@ import * as Common from '../../../../../../front_end/core/common/common.js';
 import { assertNotNullOrUndefined } from '../../../../../../front_end/core/platform/platform.js';
 import * as SDK from '../../../../../../front_end/core/sdk/sdk.js';
 import * as ElementsComponents from '../../../../../../front_end/panels/elements/components/components.js';
+import * as Coordinator from '../../../../../../front_end/ui/components/render_coordinator/render_coordinator.js';
 import { assertElement, assertShadowRoot, renderElementIntoDOM } from '../../../helpers/DOMHelpers.js';
 import { createTarget } from '../../../helpers/EnvironmentHelpers.js';
 import { describeWithMockConnection } from '../../../helpers/MockConnection.js';
-import { TestRevealer } from '../../../helpers/RevealerHelpers.js';
-import * as Coordinator from '../../../../../../front_end/ui/components/render_coordinator/render_coordinator.js';
 const { assert } = chai;
 const coordinator = Coordinator.RenderCoordinator.RenderCoordinator.instance();
 describeWithMockConnection('LayoutPane', async () => {
@@ -27,7 +26,7 @@ describeWithMockConnection('LayoutPane', async () => {
         const dummyStorage = new Common.Settings.SettingsStorage({});
         Common.Settings.registerSettingExtension({
             settingName: 'showUAShadowDOM',
-            settingType: Common.Settings.SettingType.BOOLEAN,
+            settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
             defaultValue: false,
         });
         Common.Settings.Settings.instance({
@@ -139,15 +138,13 @@ describeWithMockConnection('LayoutPane', async () => {
         ]);
         const node = makeNode(ID_1);
         sinon.stub(domModel, 'nodeForId').withArgs(ID_1).returns(node);
-        const revealer = sinon.stub().resolves();
-        TestRevealer.install(revealer);
+        const reveal = sinon.stub(Common.Revealer.RevealerRegistry.prototype, 'reveal').resolves();
         const component = await renderComponent();
         assertShadowRoot(component.shadowRoot);
-        const button = component.shadowRoot.querySelector('devtools-icon.show-element');
+        const button = component.shadowRoot.querySelector('.show-element');
         assertElement(button, HTMLElement);
         button.click();
-        assert.isTrue(revealer.calledOnceWith(node));
-        TestRevealer.reset();
+        assert.isTrue(reveal.calledOnceWith(node, false));
     });
     it('expands/collapses <details> using ArrowLeft/ArrowRight keys', async () => {
         const component = await renderComponent();
@@ -170,9 +167,9 @@ describeWithMockConnection('LayoutPane', async () => {
         await new Promise(resolve => setTimeout(resolve, 0));
         assert.strictEqual(render.called, inScope);
     };
-    it('updates UI on in scope grid overlay update event', updatesUiOnEvent(SDK.OverlayModel.Events.PersistentGridOverlayStateChanged, true));
-    it('does not update UI on out of scope grid overlay update event', updatesUiOnEvent(SDK.OverlayModel.Events.PersistentGridOverlayStateChanged, false));
-    it('updates UI on in scope flex overlay update event', updatesUiOnEvent(SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged, true));
-    it('does not update UI on out of scope flex overlay update event', updatesUiOnEvent(SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged, false));
+    it('updates UI on in scope grid overlay update event', updatesUiOnEvent("PersistentGridOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentGridOverlayStateChanged */, true));
+    it('does not update UI on out of scope grid overlay update event', updatesUiOnEvent("PersistentGridOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentGridOverlayStateChanged */, false));
+    it('updates UI on in scope flex overlay update event', updatesUiOnEvent("PersistentFlexContainerOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged */, true));
+    it('does not update UI on out of scope flex overlay update event', updatesUiOnEvent("PersistentFlexContainerOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged */, false));
 });
 //# sourceMappingURL=LayoutPane_test.js.map

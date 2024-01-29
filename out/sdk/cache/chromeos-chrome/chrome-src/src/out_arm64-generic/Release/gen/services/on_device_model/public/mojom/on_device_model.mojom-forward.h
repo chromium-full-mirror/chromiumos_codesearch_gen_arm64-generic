@@ -22,14 +22,22 @@
 
 
 namespace on_device_model::mojom {
+class ResponseChunkDataView;
+
+class ResponseSummaryDataView;
+
 class InputOptionsDataView;
 
-
-enum class ResponseStatus : int32_t;
 
 enum class PerformanceClass : int32_t;
 
 enum class LoadModelResult : int32_t;
+class ResponseChunk;
+using ResponseChunkPtr = mojo::StructPtr<ResponseChunk>;
+
+class ResponseSummary;
+using ResponseSummaryPtr = mojo::StructPtr<ResponseSummary>;
+
 class InputOptions;
 using InputOptionsPtr = mojo::StructPtr<InputOptions>;
 

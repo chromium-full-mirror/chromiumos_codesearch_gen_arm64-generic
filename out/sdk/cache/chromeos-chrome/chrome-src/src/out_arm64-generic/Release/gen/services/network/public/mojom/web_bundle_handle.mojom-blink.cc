@@ -299,6 +299,8 @@ bool WebBundleHandleStubDispatch::Accept(
           reinterpret_cast<internal::WebBundleHandle_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBundleHandle.0
       bool success = true;
       ::mojo::PendingReceiver<WebBundleHandle> p_receiver{};
       WebBundleHandle_Clone_ParamsDataView input_data_view(params, message);
@@ -316,8 +318,8 @@ bool WebBundleHandleStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kWebBundleHandle_OnWebBundleError_Name: {
@@ -327,6 +329,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::WebBundleHandle_OnWebBundleError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBundleHandle.1
       bool success = true;
       WebBundleErrorType p_type{};
       WTF::String p_message{};
@@ -345,9 +349,9 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWebBundleError(
-std::move(p_type), 
-std::move(p_message));
+      impl->OnWebBundleError(        
+        std::move(p_type), 
+        std::move(p_message));
       return true;
     }
     case internal::kWebBundleHandle_OnWebBundleLoadFinished_Name: {
@@ -357,6 +361,8 @@ std::move(p_message));
           reinterpret_cast<internal::WebBundleHandle_OnWebBundleLoadFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBundleHandle.2
       bool success = true;
       bool p_success{};
       WebBundleHandle_OnWebBundleLoadFinished_ParamsDataView input_data_view(params, message);
@@ -372,8 +378,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWebBundleLoadFinished(
-std::move(p_success));
+      impl->OnWebBundleLoadFinished(        
+        std::move(p_success));
       return true;
     }
   }

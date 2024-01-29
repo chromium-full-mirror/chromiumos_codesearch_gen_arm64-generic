@@ -1333,6 +1333,36 @@ LocalFrameHost_UpdateTitle_Params_Data::LocalFrameHost_UpdateTitle_Params_Data()
 
 
 // static
+bool LocalFrameHost_UpdateAppTitle_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrameHost_UpdateAppTitle_Params_Data* object =
+      static_cast<const LocalFrameHost_UpdateAppTitle_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->app_title, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->app_title, validation_context))
+    return false;
+
+  return true;
+}
+
+LocalFrameHost_UpdateAppTitle_Params_Data::LocalFrameHost_UpdateAppTitle_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool LocalFrameHost_UpdateUserActivationState_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2580,6 +2610,52 @@ bool LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::Valid
 }
 
 LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data* object =
+      static_cast<const LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data*>(data);
+
+  return true;
+}
+
+LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data* object =
+      static_cast<const LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

@@ -5,7 +5,7 @@ WireResult HandleAdapterGetInstance(DeserializeBuffer* deserializeBuffer);
 WireResult DoAdapterGetInstance(WGPUAdapter self, WGPUInstance* result);
 WireResult HandleAdapterRequestDevice(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoAdapterRequestDevice(Known<WGPUAdapter> adapterId, uint64_t requestSerial, ObjectHandle deviceObjectHandle, WGPUDeviceDescriptor const * descriptor);
+WireResult DoAdapterRequestDevice(Known<WGPUAdapter> adapterId, ObjectHandle eventManagerHandle, WGPUFuture future, ObjectHandle deviceObjectHandle, WGPUDeviceDescriptor const * descriptor);
 WireResult HandleBindGroupLayoutSetLabel(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoBindGroupLayoutSetLabel(WGPUBindGroupLayout self, char const * label);
@@ -17,7 +17,7 @@ WireResult HandleBufferDestroy(DeserializeBuffer* deserializeBuffer);
 WireResult DoBufferDestroy(WGPUBuffer self);
 WireResult HandleBufferMapAsync(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoBufferMapAsync(Known<WGPUBuffer> bufferId, WGPUFuture future, WGPUMapModeFlags mode, uint64_t offset, uint64_t size);
+WireResult DoBufferMapAsync(Known<WGPUBuffer> bufferId, ObjectHandle eventManagerHandle, WGPUFuture future, WGPUMapModeFlags mode, uint64_t offset, uint64_t size);
 WireResult HandleBufferSetLabel(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoBufferSetLabel(WGPUBuffer self, char const * label);
@@ -134,7 +134,7 @@ WireResult HandleDeviceCreateComputePipeline(DeserializeBuffer* deserializeBuffe
 WireResult DoDeviceCreateComputePipeline(WGPUDevice self, WGPUComputePipelineDescriptor const * descriptor, WGPUComputePipeline* result);
 WireResult HandleDeviceCreateComputePipelineAsync(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoDeviceCreateComputePipelineAsync(Known<WGPUDevice> deviceId, uint64_t requestSerial, ObjectHandle pipelineObjectHandle, WGPUComputePipelineDescriptor const * descriptor);
+WireResult DoDeviceCreateComputePipelineAsync(Known<WGPUDevice> deviceId, ObjectHandle eventManagerHandle, WGPUFuture future, ObjectHandle pipelineObjectHandle, WGPUComputePipelineDescriptor const * descriptor);
 WireResult HandleDeviceCreateErrorBuffer(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoDeviceCreateErrorBuffer(WGPUDevice self, WGPUBufferDescriptor const * descriptor, WGPUBuffer* result);
@@ -164,7 +164,7 @@ WireResult HandleDeviceCreateRenderPipeline(DeserializeBuffer* deserializeBuffer
 WireResult DoDeviceCreateRenderPipeline(WGPUDevice self, WGPURenderPipelineDescriptor const * descriptor, WGPURenderPipeline* result);
 WireResult HandleDeviceCreateRenderPipelineAsync(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoDeviceCreateRenderPipelineAsync(Known<WGPUDevice> deviceId, uint64_t requestSerial, ObjectHandle pipelineObjectHandle, WGPURenderPipelineDescriptor const * descriptor);
+WireResult DoDeviceCreateRenderPipelineAsync(Known<WGPUDevice> deviceId, ObjectHandle eventManagerHandle, WGPUFuture future, ObjectHandle pipelineObjectHandle, WGPURenderPipelineDescriptor const * descriptor);
 WireResult HandleDeviceCreateSampler(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoDeviceCreateSampler(WGPUDevice self, WGPUSamplerDescriptor const * descriptor, WGPUSampler* result);
@@ -224,7 +224,7 @@ WireResult HandleInstanceProcessEvents(DeserializeBuffer* deserializeBuffer);
 WireResult DoInstanceProcessEvents(WGPUInstance self);
 WireResult HandleInstanceRequestAdapter(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoInstanceRequestAdapter(Known<WGPUInstance> instanceId, WGPUFuture future, ObjectHandle adapterObjectHandle, WGPURequestAdapterOptions const * options);
+WireResult DoInstanceRequestAdapter(Known<WGPUInstance> instanceId, ObjectHandle eventManagerHandle, WGPUFuture future, ObjectHandle adapterObjectHandle, WGPURequestAdapterOptions const * options);
 WireResult HandlePipelineLayoutSetLabel(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoPipelineLayoutSetLabel(WGPUPipelineLayout self, char const * label);
@@ -242,7 +242,7 @@ WireResult HandleQueueCopyTextureForBrowser(DeserializeBuffer* deserializeBuffer
 WireResult DoQueueCopyTextureForBrowser(WGPUQueue self, WGPUImageCopyTexture const * source, WGPUImageCopyTexture const * destination, WGPUExtent3D const * copySize, WGPUCopyTextureForBrowserOptions const * options);
 WireResult HandleQueueOnSubmittedWorkDone(DeserializeBuffer* deserializeBuffer);
 
-WireResult DoQueueOnSubmittedWorkDone(Known<WGPUQueue> queueId, WGPUFuture future);
+WireResult DoQueueOnSubmittedWorkDone(Known<WGPUQueue> queueId, ObjectHandle eventManagerHandle, WGPUFuture future);
 WireResult HandleQueueSetLabel(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoQueueSetLabel(WGPUQueue self, char const * label);
@@ -387,6 +387,9 @@ WireResult DoSwapChainGetCurrentTextureView(WGPUSwapChain self, WGPUTextureView*
 WireResult HandleSwapChainPresent(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoSwapChainPresent(WGPUSwapChain self);
+WireResult HandleTextureCreateErrorView(DeserializeBuffer* deserializeBuffer);
+
+WireResult DoTextureCreateErrorView(WGPUTexture self, WGPUTextureViewDescriptor const * descriptor, WGPUTextureView* result);
 WireResult HandleTextureCreateView(DeserializeBuffer* deserializeBuffer);
 
 WireResult DoTextureCreateView(WGPUTexture self, WGPUTextureViewDescriptor const * descriptor, WGPUTextureView* result);

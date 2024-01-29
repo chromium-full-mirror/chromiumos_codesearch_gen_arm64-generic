@@ -20,8 +20,8 @@ import './load_error.js';
 import './options_dialog.js';
 import './shared_vars.css.js';
 import './sidebar.js';
-import './site_permissions.js';
-import './site_permissions_by_site.js';
+import './site_permissions/site_permissions.js';
+import './site_permissions/site_permissions_by_site.js';
 import './toolbar.js';
 // 
 import './kiosk_dialog.js';
@@ -468,6 +468,10 @@ export class ExtensionsManagerElement extends ExtensionsManagerElementBase {
         const toPage = newPage.page;
         let data;
         let activityLogPlaceholder;
+        if (toPage === Page.LIST) {
+            // Dismiss menu notifications for extensions module of Safety Hub.
+            this.delegate.dismissSafetyHubExtensionsMenuNotification();
+        }
         if (newPage.extensionId) {
             data = this.getData_(newPage.extensionId);
             if (!data) {

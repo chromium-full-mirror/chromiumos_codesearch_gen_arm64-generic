@@ -253,6 +253,59 @@ DAWN_DECLARE_UNUSED WireResult WGPUAdapterPropertiesDeserialize(
 }
 DAWN_UNUSED_FUNC(WGPUAdapterPropertiesDeserialize);
 
+struct WGPUAdapterPropertiesD3DTransfer {
+    static_assert(0 <= 1,
+                  "Record must be at most one of is_cmd, extensible, and chained.");
+    WGPUChainedStructTransfer chain;
+
+    uint32_t shaderModel;
+};
+
+static_assert(offsetof(WGPUAdapterPropertiesD3DTransfer, chain) == 0);
+
+DAWN_DECLARE_UNUSED size_t WGPUAdapterPropertiesD3DGetExtraRequiredSize(const WGPUAdapterPropertiesD3D& record) {
+    DAWN_UNUSED(record);
+    size_t result = 0;
+
+    return result;
+}
+// GetExtraRequiredSize isn't used for structures that are value members of other structures
+// because we assume they cannot contain pointers themselves.
+DAWN_UNUSED_FUNC(WGPUAdapterPropertiesD3DGetExtraRequiredSize);
+
+DAWN_DECLARE_UNUSED WireResult WGPUAdapterPropertiesD3DSerialize(
+    const WGPUAdapterPropertiesD3D& record,
+    WGPUAdapterPropertiesD3DTransfer* transfer,
+    SerializeBuffer* buffer, const ObjectIdProvider& provider) {
+    DAWN_UNUSED(buffer);
+
+    DAWN_ASSERT(transfer->chain.sType == WGPUSType_AdapterPropertiesD3D);
+    DAWN_ASSERT(transfer->chain.hasNext == (record.chain.next != nullptr));
+
+    transfer->shaderModel = record.shaderModel;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPUAdapterPropertiesD3DSerialize);
+
+DAWN_DECLARE_UNUSED WireResult WGPUAdapterPropertiesD3DDeserialize(
+    WGPUAdapterPropertiesD3D* record,
+    const volatile WGPUAdapterPropertiesD3DTransfer* transfer,
+    DeserializeBuffer* deserializeBuffer,
+    DeserializeAllocator* allocator, const ObjectIdResolver& resolver) {
+    DAWN_UNUSED(allocator);
+
+
+    DAWN_ASSERT(record->chain.sType == WGPUSType_AdapterPropertiesD3D);
+    DAWN_ASSERT(record->chain.next == nullptr);
+
+    static_assert(sizeof(record->shaderModel) >= sizeof(transfer->shaderModel), "Deserialize assignment may not narrow.");
+    record->shaderModel = transfer->shaderModel;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPUAdapterPropertiesD3DDeserialize);
+
 struct WGPUBindGroupEntryTransfer {
     static_assert(0 <= 1,
                   "Record must be at most one of is_cmd, extensible, and chained.");
@@ -1356,6 +1409,136 @@ DAWN_DECLARE_UNUSED WireResult WGPUCopyTextureForBrowserOptionsDeserialize(
     return WireResult::Success;
 }
 DAWN_UNUSED_FUNC(WGPUCopyTextureForBrowserOptionsDeserialize);
+
+struct WGPUCreateComputePipelineAsyncCallbackInfoTransfer {
+    static_assert(0 <= 1,
+                  "Record must be at most one of is_cmd, extensible, and chained.");
+    bool hasNextInChain;
+
+    WGPUCallbackMode mode;
+};
+
+
+DAWN_DECLARE_UNUSED size_t WGPUCreateComputePipelineAsyncCallbackInfoGetExtraRequiredSize(const WGPUCreateComputePipelineAsyncCallbackInfo& record) {
+    DAWN_UNUSED(record);
+    size_t result = 0;
+
+    if (record.nextInChain != nullptr) {
+        result += GetChainedStructExtraRequiredSize(record.nextInChain);
+    }
+    return result;
+}
+// GetExtraRequiredSize isn't used for structures that are value members of other structures
+// because we assume they cannot contain pointers themselves.
+DAWN_UNUSED_FUNC(WGPUCreateComputePipelineAsyncCallbackInfoGetExtraRequiredSize);
+
+DAWN_DECLARE_UNUSED WireResult WGPUCreateComputePipelineAsyncCallbackInfoSerialize(
+    const WGPUCreateComputePipelineAsyncCallbackInfo& record,
+    WGPUCreateComputePipelineAsyncCallbackInfoTransfer* transfer,
+    SerializeBuffer* buffer, const ObjectIdProvider& provider) {
+    DAWN_UNUSED(buffer);
+
+    if (record.nextInChain != nullptr) {
+        transfer->hasNextInChain = true;
+        WIRE_TRY(SerializeChainedStruct(record.nextInChain, buffer, provider));
+    } else {
+        transfer->hasNextInChain = false;
+    }
+
+    transfer->mode = record.mode;
+    if (record.callback != nullptr) return WireResult::FatalError;
+    if (record.userdata != nullptr) return WireResult::FatalError;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPUCreateComputePipelineAsyncCallbackInfoSerialize);
+
+DAWN_DECLARE_UNUSED WireResult WGPUCreateComputePipelineAsyncCallbackInfoDeserialize(
+    WGPUCreateComputePipelineAsyncCallbackInfo* record,
+    const volatile WGPUCreateComputePipelineAsyncCallbackInfoTransfer* transfer,
+    DeserializeBuffer* deserializeBuffer,
+    DeserializeAllocator* allocator, const ObjectIdResolver& resolver) {
+    DAWN_UNUSED(allocator);
+
+
+    record->nextInChain = nullptr;
+    if (transfer->hasNextInChain) {
+        WIRE_TRY(DeserializeChainedStruct(&record->nextInChain, deserializeBuffer, allocator, resolver));
+    }
+
+    static_assert(sizeof(record->mode) >= sizeof(transfer->mode), "Deserialize assignment may not narrow.");
+    record->mode = transfer->mode;
+    record->callback = nullptr;
+    record->userdata = nullptr;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPUCreateComputePipelineAsyncCallbackInfoDeserialize);
+
+struct WGPUCreateRenderPipelineAsyncCallbackInfoTransfer {
+    static_assert(0 <= 1,
+                  "Record must be at most one of is_cmd, extensible, and chained.");
+    bool hasNextInChain;
+
+    WGPUCallbackMode mode;
+};
+
+
+DAWN_DECLARE_UNUSED size_t WGPUCreateRenderPipelineAsyncCallbackInfoGetExtraRequiredSize(const WGPUCreateRenderPipelineAsyncCallbackInfo& record) {
+    DAWN_UNUSED(record);
+    size_t result = 0;
+
+    if (record.nextInChain != nullptr) {
+        result += GetChainedStructExtraRequiredSize(record.nextInChain);
+    }
+    return result;
+}
+// GetExtraRequiredSize isn't used for structures that are value members of other structures
+// because we assume they cannot contain pointers themselves.
+DAWN_UNUSED_FUNC(WGPUCreateRenderPipelineAsyncCallbackInfoGetExtraRequiredSize);
+
+DAWN_DECLARE_UNUSED WireResult WGPUCreateRenderPipelineAsyncCallbackInfoSerialize(
+    const WGPUCreateRenderPipelineAsyncCallbackInfo& record,
+    WGPUCreateRenderPipelineAsyncCallbackInfoTransfer* transfer,
+    SerializeBuffer* buffer, const ObjectIdProvider& provider) {
+    DAWN_UNUSED(buffer);
+
+    if (record.nextInChain != nullptr) {
+        transfer->hasNextInChain = true;
+        WIRE_TRY(SerializeChainedStruct(record.nextInChain, buffer, provider));
+    } else {
+        transfer->hasNextInChain = false;
+    }
+
+    transfer->mode = record.mode;
+    if (record.callback != nullptr) return WireResult::FatalError;
+    if (record.userdata != nullptr) return WireResult::FatalError;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPUCreateRenderPipelineAsyncCallbackInfoSerialize);
+
+DAWN_DECLARE_UNUSED WireResult WGPUCreateRenderPipelineAsyncCallbackInfoDeserialize(
+    WGPUCreateRenderPipelineAsyncCallbackInfo* record,
+    const volatile WGPUCreateRenderPipelineAsyncCallbackInfoTransfer* transfer,
+    DeserializeBuffer* deserializeBuffer,
+    DeserializeAllocator* allocator, const ObjectIdResolver& resolver) {
+    DAWN_UNUSED(allocator);
+
+
+    record->nextInChain = nullptr;
+    if (transfer->hasNextInChain) {
+        WIRE_TRY(DeserializeChainedStruct(&record->nextInChain, deserializeBuffer, allocator, resolver));
+    }
+
+    static_assert(sizeof(record->mode) >= sizeof(transfer->mode), "Deserialize assignment may not narrow.");
+    record->mode = transfer->mode;
+    record->callback = nullptr;
+    record->userdata = nullptr;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPUCreateRenderPipelineAsyncCallbackInfoDeserialize);
 
 struct WGPUDawnAdapterPropertiesPowerPreferenceTransfer {
     static_assert(0 <= 1,
@@ -3785,6 +3968,71 @@ DAWN_DECLARE_UNUSED WireResult WGPURequestAdapterOptionsDeserialize(
     return WireResult::Success;
 }
 DAWN_UNUSED_FUNC(WGPURequestAdapterOptionsDeserialize);
+
+struct WGPURequestDeviceCallbackInfoTransfer {
+    static_assert(0 <= 1,
+                  "Record must be at most one of is_cmd, extensible, and chained.");
+    bool hasNextInChain;
+
+    WGPUCallbackMode mode;
+};
+
+
+DAWN_DECLARE_UNUSED size_t WGPURequestDeviceCallbackInfoGetExtraRequiredSize(const WGPURequestDeviceCallbackInfo& record) {
+    DAWN_UNUSED(record);
+    size_t result = 0;
+
+    if (record.nextInChain != nullptr) {
+        result += GetChainedStructExtraRequiredSize(record.nextInChain);
+    }
+    return result;
+}
+// GetExtraRequiredSize isn't used for structures that are value members of other structures
+// because we assume they cannot contain pointers themselves.
+DAWN_UNUSED_FUNC(WGPURequestDeviceCallbackInfoGetExtraRequiredSize);
+
+DAWN_DECLARE_UNUSED WireResult WGPURequestDeviceCallbackInfoSerialize(
+    const WGPURequestDeviceCallbackInfo& record,
+    WGPURequestDeviceCallbackInfoTransfer* transfer,
+    SerializeBuffer* buffer, const ObjectIdProvider& provider) {
+    DAWN_UNUSED(buffer);
+
+    if (record.nextInChain != nullptr) {
+        transfer->hasNextInChain = true;
+        WIRE_TRY(SerializeChainedStruct(record.nextInChain, buffer, provider));
+    } else {
+        transfer->hasNextInChain = false;
+    }
+
+    transfer->mode = record.mode;
+    if (record.callback != nullptr) return WireResult::FatalError;
+    if (record.userdata != nullptr) return WireResult::FatalError;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPURequestDeviceCallbackInfoSerialize);
+
+DAWN_DECLARE_UNUSED WireResult WGPURequestDeviceCallbackInfoDeserialize(
+    WGPURequestDeviceCallbackInfo* record,
+    const volatile WGPURequestDeviceCallbackInfoTransfer* transfer,
+    DeserializeBuffer* deserializeBuffer,
+    DeserializeAllocator* allocator, const ObjectIdResolver& resolver) {
+    DAWN_UNUSED(allocator);
+
+
+    record->nextInChain = nullptr;
+    if (transfer->hasNextInChain) {
+        WIRE_TRY(DeserializeChainedStruct(&record->nextInChain, deserializeBuffer, allocator, resolver));
+    }
+
+    static_assert(sizeof(record->mode) >= sizeof(transfer->mode), "Deserialize assignment may not narrow.");
+    record->mode = transfer->mode;
+    record->callback = nullptr;
+    record->userdata = nullptr;
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(WGPURequestDeviceCallbackInfoDeserialize);
 
 struct WGPUSamplerBindingLayoutTransfer {
     static_assert(0 <= 1,
@@ -9002,6 +9250,13 @@ size_t GetChainedStructExtraRequiredSize(WGPUChainedStructOut* chainedStruct) {
                 chainedStruct = typedStruct.chain.next;
                 break;
             }
+            case WGPUSType_AdapterPropertiesD3D: {
+                const auto& typedStruct = *reinterpret_cast<WGPUAdapterPropertiesD3D const *>(chainedStruct);
+                result += WireAlignSizeof<WGPUAdapterPropertiesD3DTransfer>();
+                result += WGPUAdapterPropertiesD3DGetExtraRequiredSize(typedStruct);
+                chainedStruct = typedStruct.chain.next;
+                break;
+            }
             // Explicitly list the Invalid enum. MSVC complains about no case labels.
             case WGPUSType_Invalid:
             default:
@@ -9038,6 +9293,16 @@ size_t GetChainedStructExtraRequiredSize(WGPUChainedStructOut* chainedStruct) {
                 transfer->chain.hasNext = chainedStruct->next != nullptr;
 
                 WIRE_TRY(WGPUAdapterPropertiesMemoryHeapsSerialize(*reinterpret_cast<WGPUAdapterPropertiesMemoryHeaps const*>(chainedStruct), transfer, buffer, provider));
+
+                chainedStruct = chainedStruct->next;
+            } break;
+            case WGPUSType_AdapterPropertiesD3D: {
+                WGPUAdapterPropertiesD3DTransfer* transfer;
+                WIRE_TRY(buffer->Next(&transfer));
+                transfer->chain.sType = chainedStruct->sType;
+                transfer->chain.hasNext = chainedStruct->next != nullptr;
+
+                WIRE_TRY(WGPUAdapterPropertiesD3DSerialize(*reinterpret_cast<WGPUAdapterPropertiesD3D const*>(chainedStruct), transfer, buffer, provider));
 
                 chainedStruct = chainedStruct->next;
             } break;
@@ -9103,6 +9368,22 @@ WireResult DeserializeChainedStruct(WGPUChainedStructOut** outChainNext,
                 outChainNext = &outStruct->chain.next;
 
                 WIRE_TRY(WGPUAdapterPropertiesMemoryHeapsDeserialize(outStruct, transfer, deserializeBuffer, allocator, resolver));
+
+                hasNext = transfer->chain.hasNext;
+            } break;
+            case WGPUSType_AdapterPropertiesD3D: {
+                const volatile WGPUAdapterPropertiesD3DTransfer* transfer;
+                WIRE_TRY(deserializeBuffer->Read(&transfer));
+
+                WGPUAdapterPropertiesD3D* outStruct;
+                WIRE_TRY(GetSpace(allocator, 1u, &outStruct));
+                outStruct->chain.sType = sType;
+                outStruct->chain.next = nullptr;
+
+                *outChainNext = &outStruct->chain;
+                outChainNext = &outStruct->chain.next;
+
+                WIRE_TRY(WGPUAdapterPropertiesD3DDeserialize(outStruct, transfer, deserializeBuffer, allocator, resolver));
 
                 hasNext = transfer->chain.hasNext;
             } break;
@@ -9198,7 +9479,8 @@ struct AdapterRequestDeviceTransfer : CmdHeader {
     WireCmd commandId;
 
     ObjectId adapterId;
-    uint64_t requestSerial;
+    ObjectHandle eventManagerHandle;
+    WGPUFutureTransfer future;
     ObjectHandle deviceObjectHandle;
 };
 
@@ -9209,6 +9491,9 @@ DAWN_DECLARE_UNUSED size_t AdapterRequestDeviceGetExtraRequiredSize(const Adapte
     DAWN_UNUSED(record);
     size_t result = 0;
 
+    {
+        result += WGPUFutureGetExtraRequiredSize(record.future);
+    }
     {
         auto memberLength = 1u;
         auto size = WireAlignSizeofN<WGPUDeviceDescriptorTransfer>(memberLength);
@@ -9233,7 +9518,8 @@ DAWN_DECLARE_UNUSED WireResult AdapterRequestDeviceSerialize(
 
 
     transfer->adapterId = record.adapterId;
-    transfer->requestSerial = record.requestSerial;
+    transfer->eventManagerHandle = record.eventManagerHandle;
+    WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->deviceObjectHandle = record.deviceObjectHandle;
     {
         auto memberLength = 1u;
@@ -9262,8 +9548,10 @@ DAWN_DECLARE_UNUSED WireResult AdapterRequestDeviceDeserialize(
 
     static_assert(sizeof(record->adapterId) >= sizeof(transfer->adapterId), "Deserialize assignment may not narrow.");
     record->adapterId = transfer->adapterId;
-    static_assert(sizeof(record->requestSerial) >= sizeof(transfer->requestSerial), "Deserialize assignment may not narrow.");
-    record->requestSerial = transfer->requestSerial;
+    static_assert(sizeof(record->eventManagerHandle) >= sizeof(transfer->eventManagerHandle), "Deserialize assignment may not narrow.");
+    record->eventManagerHandle = transfer->eventManagerHandle;
+    static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
+    memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->deviceObjectHandle) >= sizeof(transfer->deviceObjectHandle), "Deserialize assignment may not narrow.");
     record->deviceObjectHandle = transfer->deviceObjectHandle;
     {
@@ -9498,6 +9786,7 @@ struct BufferMapAsyncTransfer : CmdHeader {
     WireCmd commandId;
 
     ObjectId bufferId;
+    ObjectHandle eventManagerHandle;
     WGPUFutureTransfer future;
     WGPUMapModeFlags mode;
     uint64_t offset;
@@ -9529,6 +9818,7 @@ DAWN_DECLARE_UNUSED WireResult BufferMapAsyncSerialize(
 
 
     transfer->bufferId = record.bufferId;
+    transfer->eventManagerHandle = record.eventManagerHandle;
     WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->mode = record.mode;
     transfer->offset = record.offset;
@@ -9550,6 +9840,8 @@ DAWN_DECLARE_UNUSED WireResult BufferMapAsyncDeserialize(
 
     static_assert(sizeof(record->bufferId) >= sizeof(transfer->bufferId), "Deserialize assignment may not narrow.");
     record->bufferId = transfer->bufferId;
+    static_assert(sizeof(record->eventManagerHandle) >= sizeof(transfer->eventManagerHandle), "Deserialize assignment may not narrow.");
+    record->eventManagerHandle = transfer->eventManagerHandle;
     static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
     memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->mode) >= sizeof(transfer->mode), "Deserialize assignment may not narrow.");
@@ -12638,7 +12930,8 @@ struct DeviceCreateComputePipelineAsyncTransfer : CmdHeader {
     WireCmd commandId;
 
     ObjectId deviceId;
-    uint64_t requestSerial;
+    ObjectHandle eventManagerHandle;
+    WGPUFutureTransfer future;
     ObjectHandle pipelineObjectHandle;
 };
 
@@ -12649,6 +12942,9 @@ DAWN_DECLARE_UNUSED size_t DeviceCreateComputePipelineAsyncGetExtraRequiredSize(
     DAWN_UNUSED(record);
     size_t result = 0;
 
+    {
+        result += WGPUFutureGetExtraRequiredSize(record.future);
+    }
     {
         auto memberLength = 1u;
         auto size = WireAlignSizeofN<WGPUComputePipelineDescriptorTransfer>(memberLength);
@@ -12673,7 +12969,8 @@ DAWN_DECLARE_UNUSED WireResult DeviceCreateComputePipelineAsyncSerialize(
 
 
     transfer->deviceId = record.deviceId;
-    transfer->requestSerial = record.requestSerial;
+    transfer->eventManagerHandle = record.eventManagerHandle;
+    WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->pipelineObjectHandle = record.pipelineObjectHandle;
     {
         auto memberLength = 1u;
@@ -12702,8 +12999,10 @@ DAWN_DECLARE_UNUSED WireResult DeviceCreateComputePipelineAsyncDeserialize(
 
     static_assert(sizeof(record->deviceId) >= sizeof(transfer->deviceId), "Deserialize assignment may not narrow.");
     record->deviceId = transfer->deviceId;
-    static_assert(sizeof(record->requestSerial) >= sizeof(transfer->requestSerial), "Deserialize assignment may not narrow.");
-    record->requestSerial = transfer->requestSerial;
+    static_assert(sizeof(record->eventManagerHandle) >= sizeof(transfer->eventManagerHandle), "Deserialize assignment may not narrow.");
+    record->eventManagerHandle = transfer->eventManagerHandle;
+    static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
+    memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->pipelineObjectHandle) >= sizeof(transfer->pipelineObjectHandle), "Deserialize assignment may not narrow.");
     record->pipelineObjectHandle = transfer->pipelineObjectHandle;
     {
@@ -13516,7 +13815,8 @@ struct DeviceCreateRenderPipelineAsyncTransfer : CmdHeader {
     WireCmd commandId;
 
     ObjectId deviceId;
-    uint64_t requestSerial;
+    ObjectHandle eventManagerHandle;
+    WGPUFutureTransfer future;
     ObjectHandle pipelineObjectHandle;
 };
 
@@ -13527,6 +13827,9 @@ DAWN_DECLARE_UNUSED size_t DeviceCreateRenderPipelineAsyncGetExtraRequiredSize(c
     DAWN_UNUSED(record);
     size_t result = 0;
 
+    {
+        result += WGPUFutureGetExtraRequiredSize(record.future);
+    }
     {
         auto memberLength = 1u;
         auto size = WireAlignSizeofN<WGPURenderPipelineDescriptorTransfer>(memberLength);
@@ -13551,7 +13854,8 @@ DAWN_DECLARE_UNUSED WireResult DeviceCreateRenderPipelineAsyncSerialize(
 
 
     transfer->deviceId = record.deviceId;
-    transfer->requestSerial = record.requestSerial;
+    transfer->eventManagerHandle = record.eventManagerHandle;
+    WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->pipelineObjectHandle = record.pipelineObjectHandle;
     {
         auto memberLength = 1u;
@@ -13580,8 +13884,10 @@ DAWN_DECLARE_UNUSED WireResult DeviceCreateRenderPipelineAsyncDeserialize(
 
     static_assert(sizeof(record->deviceId) >= sizeof(transfer->deviceId), "Deserialize assignment may not narrow.");
     record->deviceId = transfer->deviceId;
-    static_assert(sizeof(record->requestSerial) >= sizeof(transfer->requestSerial), "Deserialize assignment may not narrow.");
-    record->requestSerial = transfer->requestSerial;
+    static_assert(sizeof(record->eventManagerHandle) >= sizeof(transfer->eventManagerHandle), "Deserialize assignment may not narrow.");
+    record->eventManagerHandle = transfer->eventManagerHandle;
+    static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
+    memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->pipelineObjectHandle) >= sizeof(transfer->pipelineObjectHandle), "Deserialize assignment may not narrow.");
     record->pipelineObjectHandle = transfer->pipelineObjectHandle;
     {
@@ -14940,6 +15246,7 @@ struct InstanceRequestAdapterTransfer : CmdHeader {
     WireCmd commandId;
 
     ObjectId instanceId;
+    ObjectHandle eventManagerHandle;
     WGPUFutureTransfer future;
     ObjectHandle adapterObjectHandle;
     bool has_options;
@@ -14979,6 +15286,7 @@ DAWN_DECLARE_UNUSED WireResult InstanceRequestAdapterSerialize(
 
 
     transfer->instanceId = record.instanceId;
+    transfer->eventManagerHandle = record.eventManagerHandle;
     WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->adapterObjectHandle = record.adapterObjectHandle;
     bool has_options = record.options != nullptr;
@@ -15010,6 +15318,8 @@ DAWN_DECLARE_UNUSED WireResult InstanceRequestAdapterDeserialize(
 
     static_assert(sizeof(record->instanceId) >= sizeof(transfer->instanceId), "Deserialize assignment may not narrow.");
     record->instanceId = transfer->instanceId;
+    static_assert(sizeof(record->eventManagerHandle) >= sizeof(transfer->eventManagerHandle), "Deserialize assignment may not narrow.");
+    record->eventManagerHandle = transfer->eventManagerHandle;
     static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
     memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->adapterObjectHandle) >= sizeof(transfer->adapterObjectHandle), "Deserialize assignment may not narrow.");
@@ -15610,6 +15920,7 @@ struct QueueOnSubmittedWorkDoneTransfer : CmdHeader {
     WireCmd commandId;
 
     ObjectId queueId;
+    ObjectHandle eventManagerHandle;
     WGPUFutureTransfer future;
 };
 
@@ -15638,6 +15949,7 @@ DAWN_DECLARE_UNUSED WireResult QueueOnSubmittedWorkDoneSerialize(
 
 
     transfer->queueId = record.queueId;
+    transfer->eventManagerHandle = record.eventManagerHandle;
     WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
 
     return WireResult::Success;
@@ -15656,6 +15968,8 @@ DAWN_DECLARE_UNUSED WireResult QueueOnSubmittedWorkDoneDeserialize(
 
     static_assert(sizeof(record->queueId) >= sizeof(transfer->queueId), "Deserialize assignment may not narrow.");
     record->queueId = transfer->queueId;
+    static_assert(sizeof(record->eventManagerHandle) >= sizeof(transfer->eventManagerHandle), "Deserialize assignment may not narrow.");
+    record->eventManagerHandle = transfer->eventManagerHandle;
     static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
     memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
 
@@ -19071,6 +19385,99 @@ DAWN_DECLARE_UNUSED WireResult SwapChainPresentDeserialize(
 }
 DAWN_UNUSED_FUNC(SwapChainPresentDeserialize);
 
+struct TextureCreateErrorViewTransfer : CmdHeader {
+    static_assert(1 <= 1,
+                  "Record must be at most one of is_cmd, extensible, and chained.");
+    WireCmd commandId;
+
+    ObjectId self;
+    bool has_descriptor;
+    ObjectHandle result;
+};
+
+static_assert(offsetof(TextureCreateErrorViewTransfer, commandSize) == 0);
+static_assert(offsetof(TextureCreateErrorViewTransfer, commandId) == sizeof(CmdHeader));
+
+DAWN_DECLARE_UNUSED size_t TextureCreateErrorViewGetExtraRequiredSize(const TextureCreateErrorViewCmd& record) {
+    DAWN_UNUSED(record);
+    size_t result = 0;
+
+    if (record.descriptor != nullptr) {
+        auto memberLength = 1u;
+        auto size = WireAlignSizeofN<WGPUTextureViewDescriptorTransfer>(memberLength);
+        DAWN_ASSERT(size);
+        result += *size;
+        for (decltype(memberLength) i = 0; i < memberLength; ++i) {
+            result += WGPUTextureViewDescriptorGetExtraRequiredSize(record.descriptor[i]);
+        }
+    }
+    return result;
+}
+// GetExtraRequiredSize isn't used for structures that are value members of other structures
+// because we assume they cannot contain pointers themselves.
+DAWN_UNUSED_FUNC(TextureCreateErrorViewGetExtraRequiredSize);
+
+DAWN_DECLARE_UNUSED WireResult TextureCreateErrorViewSerialize(
+    const TextureCreateErrorViewCmd& record,
+    TextureCreateErrorViewTransfer* transfer,
+    SerializeBuffer* buffer, const ObjectIdProvider& provider) {
+    DAWN_UNUSED(buffer);
+    transfer->commandId = WireCmd::TextureCreateErrorView;
+
+
+    WIRE_TRY(provider.GetId(record.self, &transfer->self));
+    transfer->result = record.result;
+    bool has_descriptor = record.descriptor != nullptr;
+    transfer->has_descriptor = has_descriptor;
+    if (has_descriptor) {
+        auto memberLength = 1u;
+
+        WGPUTextureViewDescriptorTransfer* memberBuffer;
+        WIRE_TRY(buffer->NextN(memberLength, &memberBuffer));
+
+        for (decltype(memberLength) i = 0; i < memberLength; ++i) {
+            WIRE_TRY(WGPUTextureViewDescriptorSerialize(record.descriptor[i], &memberBuffer[i], buffer, provider));
+        }
+    }
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(TextureCreateErrorViewSerialize);
+
+DAWN_DECLARE_UNUSED WireResult TextureCreateErrorViewDeserialize(
+    TextureCreateErrorViewCmd* record,
+    const volatile TextureCreateErrorViewTransfer* transfer,
+    DeserializeBuffer* deserializeBuffer,
+    DeserializeAllocator* allocator, const ObjectIdResolver& resolver) {
+    DAWN_UNUSED(allocator);
+
+    DAWN_ASSERT(transfer->commandId == WireCmd::TextureCreateErrorView);
+    record->selfId = transfer->self;
+
+
+    WIRE_TRY(resolver.GetFromId(transfer->self, &record->self));
+    static_assert(sizeof(record->result) >= sizeof(transfer->result), "Deserialize assignment may not narrow.");
+    record->result = transfer->result;
+    bool has_descriptor = transfer->has_descriptor;
+    record->descriptor = nullptr;
+    if (has_descriptor) {
+        auto memberLength = 1u;
+        const volatile WGPUTextureViewDescriptorTransfer* memberBuffer;
+        WIRE_TRY(deserializeBuffer->ReadN(memberLength, &memberBuffer));
+
+        WGPUTextureViewDescriptor* copiedMembers;
+        WIRE_TRY(GetSpace(allocator, memberLength, &copiedMembers));
+        record->descriptor = copiedMembers;
+
+        for (decltype(memberLength) i = 0; i < memberLength; ++i) {
+            WIRE_TRY(WGPUTextureViewDescriptorDeserialize(&copiedMembers[i], &memberBuffer[i], deserializeBuffer, allocator, resolver));
+        }
+    }
+
+    return WireResult::Success;
+}
+DAWN_UNUSED_FUNC(TextureCreateErrorViewDeserialize);
+
 struct TextureCreateViewTransfer : CmdHeader {
     static_assert(1 <= 1,
                   "Record must be at most one of is_cmd, extensible, and chained.");
@@ -19378,8 +19785,8 @@ struct ReturnAdapterRequestDeviceCallbackTransfer : CmdHeader {
                   "Record must be at most one of is_cmd, extensible, and chained.");
     ReturnWireCmd commandId;
 
-    ObjectHandle adapter;
-    uint64_t requestSerial;
+    ObjectHandle eventManager;
+    WGPUFutureTransfer future;
     WGPURequestDeviceStatus status;
     uint64_t messageStrlen;
     bool has_message;
@@ -19394,6 +19801,9 @@ DAWN_DECLARE_UNUSED size_t ReturnAdapterRequestDeviceCallbackGetExtraRequiredSiz
     DAWN_UNUSED(record);
     size_t result = 0;
 
+    {
+        result += WGPUFutureGetExtraRequiredSize(record.future);
+    }
     if (record.message != nullptr) {
         result += Align(std::strlen(record.message), kWireBufferAlignment);
     }
@@ -19426,8 +19836,8 @@ DAWN_DECLARE_UNUSED WireResult ReturnAdapterRequestDeviceCallbackSerialize(
     transfer->commandId = ReturnWireCmd::AdapterRequestDeviceCallback;
 
 
-    transfer->adapter = record.adapter;
-    transfer->requestSerial = record.requestSerial;
+    transfer->eventManager = record.eventManager;
+    WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->status = record.status;
     transfer->featuresCount = record.featuresCount;
     bool has_message = record.message != nullptr;
@@ -19476,10 +19886,10 @@ DAWN_DECLARE_UNUSED WireResult ReturnAdapterRequestDeviceCallbackDeserialize(
     DAWN_ASSERT(transfer->commandId == ReturnWireCmd::AdapterRequestDeviceCallback);
 
 
-    static_assert(sizeof(record->adapter) >= sizeof(transfer->adapter), "Deserialize assignment may not narrow.");
-    record->adapter = transfer->adapter;
-    static_assert(sizeof(record->requestSerial) >= sizeof(transfer->requestSerial), "Deserialize assignment may not narrow.");
-    record->requestSerial = transfer->requestSerial;
+    static_assert(sizeof(record->eventManager) >= sizeof(transfer->eventManager), "Deserialize assignment may not narrow.");
+    record->eventManager = transfer->eventManager;
+    static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
+    memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->status) >= sizeof(transfer->status), "Deserialize assignment may not narrow.");
     record->status = transfer->status;
     static_assert(sizeof(record->featuresCount) >= sizeof(transfer->featuresCount), "Deserialize assignment may not narrow.");
@@ -19541,9 +19951,9 @@ struct ReturnBufferMapAsyncCallbackTransfer : CmdHeader {
                   "Record must be at most one of is_cmd, extensible, and chained.");
     ReturnWireCmd commandId;
 
-    ObjectHandle buffer;
+    ObjectHandle eventManager;
     WGPUFutureTransfer future;
-    uint32_t status;
+    WGPUBufferMapAsyncStatus status;
     uint64_t readDataUpdateInfoLength;
 };
 
@@ -19571,7 +19981,7 @@ DAWN_DECLARE_UNUSED WireResult ReturnBufferMapAsyncCallbackSerialize(
     transfer->commandId = ReturnWireCmd::BufferMapAsyncCallback;
 
 
-    transfer->buffer = record.buffer;
+    transfer->eventManager = record.eventManager;
     WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->status = record.status;
     transfer->readDataUpdateInfoLength = record.readDataUpdateInfoLength;
@@ -19590,8 +20000,8 @@ DAWN_DECLARE_UNUSED WireResult ReturnBufferMapAsyncCallbackDeserialize(
     DAWN_ASSERT(transfer->commandId == ReturnWireCmd::BufferMapAsyncCallback);
 
 
-    static_assert(sizeof(record->buffer) >= sizeof(transfer->buffer), "Deserialize assignment may not narrow.");
-    record->buffer = transfer->buffer;
+    static_assert(sizeof(record->eventManager) >= sizeof(transfer->eventManager), "Deserialize assignment may not narrow.");
+    record->eventManager = transfer->eventManager;
     static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
     memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->status) >= sizeof(transfer->status), "Deserialize assignment may not narrow.");
@@ -19622,8 +20032,8 @@ struct ReturnDeviceCreateComputePipelineAsyncCallbackTransfer : CmdHeader {
                   "Record must be at most one of is_cmd, extensible, and chained.");
     ReturnWireCmd commandId;
 
-    ObjectHandle device;
-    uint64_t requestSerial;
+    ObjectHandle eventManager;
+    WGPUFutureTransfer future;
     WGPUCreatePipelineAsyncStatus status;
     uint64_t messageStrlen;
 };
@@ -19635,6 +20045,9 @@ DAWN_DECLARE_UNUSED size_t ReturnDeviceCreateComputePipelineAsyncCallbackGetExtr
     DAWN_UNUSED(record);
     size_t result = 0;
 
+    {
+        result += WGPUFutureGetExtraRequiredSize(record.future);
+    }
     DAWN_ASSERT(record.message != nullptr);
     result += Align(std::strlen(record.message), kWireBufferAlignment);
     return result;
@@ -19651,8 +20064,8 @@ DAWN_DECLARE_UNUSED WireResult ReturnDeviceCreateComputePipelineAsyncCallbackSer
     transfer->commandId = ReturnWireCmd::DeviceCreateComputePipelineAsyncCallback;
 
 
-    transfer->device = record.device;
-    transfer->requestSerial = record.requestSerial;
+    transfer->eventManager = record.eventManager;
+    WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->status = record.status;
     {
         transfer->messageStrlen = std::strlen(record.message);
@@ -19676,10 +20089,10 @@ DAWN_DECLARE_UNUSED WireResult ReturnDeviceCreateComputePipelineAsyncCallbackDes
     DAWN_ASSERT(transfer->commandId == ReturnWireCmd::DeviceCreateComputePipelineAsyncCallback);
 
 
-    static_assert(sizeof(record->device) >= sizeof(transfer->device), "Deserialize assignment may not narrow.");
-    record->device = transfer->device;
-    static_assert(sizeof(record->requestSerial) >= sizeof(transfer->requestSerial), "Deserialize assignment may not narrow.");
-    record->requestSerial = transfer->requestSerial;
+    static_assert(sizeof(record->eventManager) >= sizeof(transfer->eventManager), "Deserialize assignment may not narrow.");
+    record->eventManager = transfer->eventManager;
+    static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
+    memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->status) >= sizeof(transfer->status), "Deserialize assignment may not narrow.");
     record->status = transfer->status;
     {
@@ -19708,8 +20121,8 @@ struct ReturnDeviceCreateRenderPipelineAsyncCallbackTransfer : CmdHeader {
                   "Record must be at most one of is_cmd, extensible, and chained.");
     ReturnWireCmd commandId;
 
-    ObjectHandle device;
-    uint64_t requestSerial;
+    ObjectHandle eventManager;
+    WGPUFutureTransfer future;
     WGPUCreatePipelineAsyncStatus status;
     uint64_t messageStrlen;
 };
@@ -19721,6 +20134,9 @@ DAWN_DECLARE_UNUSED size_t ReturnDeviceCreateRenderPipelineAsyncCallbackGetExtra
     DAWN_UNUSED(record);
     size_t result = 0;
 
+    {
+        result += WGPUFutureGetExtraRequiredSize(record.future);
+    }
     DAWN_ASSERT(record.message != nullptr);
     result += Align(std::strlen(record.message), kWireBufferAlignment);
     return result;
@@ -19737,8 +20153,8 @@ DAWN_DECLARE_UNUSED WireResult ReturnDeviceCreateRenderPipelineAsyncCallbackSeri
     transfer->commandId = ReturnWireCmd::DeviceCreateRenderPipelineAsyncCallback;
 
 
-    transfer->device = record.device;
-    transfer->requestSerial = record.requestSerial;
+    transfer->eventManager = record.eventManager;
+    WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->status = record.status;
     {
         transfer->messageStrlen = std::strlen(record.message);
@@ -19762,10 +20178,10 @@ DAWN_DECLARE_UNUSED WireResult ReturnDeviceCreateRenderPipelineAsyncCallbackDese
     DAWN_ASSERT(transfer->commandId == ReturnWireCmd::DeviceCreateRenderPipelineAsyncCallback);
 
 
-    static_assert(sizeof(record->device) >= sizeof(transfer->device), "Deserialize assignment may not narrow.");
-    record->device = transfer->device;
-    static_assert(sizeof(record->requestSerial) >= sizeof(transfer->requestSerial), "Deserialize assignment may not narrow.");
-    record->requestSerial = transfer->requestSerial;
+    static_assert(sizeof(record->eventManager) >= sizeof(transfer->eventManager), "Deserialize assignment may not narrow.");
+    record->eventManager = transfer->eventManager;
+    static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
+    memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->status) >= sizeof(transfer->status), "Deserialize assignment may not narrow.");
     record->status = transfer->status;
     {
@@ -20126,7 +20542,7 @@ struct ReturnInstanceRequestAdapterCallbackTransfer : CmdHeader {
                   "Record must be at most one of is_cmd, extensible, and chained.");
     ReturnWireCmd commandId;
 
-    ObjectHandle instance;
+    ObjectHandle eventManager;
     WGPUFutureTransfer future;
     WGPURequestAdapterStatus status;
     uint64_t messageStrlen;
@@ -20187,7 +20603,7 @@ DAWN_DECLARE_UNUSED WireResult ReturnInstanceRequestAdapterCallbackSerialize(
     transfer->commandId = ReturnWireCmd::InstanceRequestAdapterCallback;
 
 
-    transfer->instance = record.instance;
+    transfer->eventManager = record.eventManager;
     WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->status = record.status;
     transfer->featuresCount = record.featuresCount;
@@ -20249,8 +20665,8 @@ DAWN_DECLARE_UNUSED WireResult ReturnInstanceRequestAdapterCallbackDeserialize(
     DAWN_ASSERT(transfer->commandId == ReturnWireCmd::InstanceRequestAdapterCallback);
 
 
-    static_assert(sizeof(record->instance) >= sizeof(transfer->instance), "Deserialize assignment may not narrow.");
-    record->instance = transfer->instance;
+    static_assert(sizeof(record->eventManager) >= sizeof(transfer->eventManager), "Deserialize assignment may not narrow.");
+    record->eventManager = transfer->eventManager;
     static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
     memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->status) >= sizeof(transfer->status), "Deserialize assignment may not narrow.");
@@ -20329,7 +20745,7 @@ struct ReturnQueueWorkDoneCallbackTransfer : CmdHeader {
                   "Record must be at most one of is_cmd, extensible, and chained.");
     ReturnWireCmd commandId;
 
-    ObjectHandle queue;
+    ObjectHandle eventManager;
     WGPUFutureTransfer future;
     WGPUQueueWorkDoneStatus status;
 };
@@ -20358,7 +20774,7 @@ DAWN_DECLARE_UNUSED WireResult ReturnQueueWorkDoneCallbackSerialize(
     transfer->commandId = ReturnWireCmd::QueueWorkDoneCallback;
 
 
-    transfer->queue = record.queue;
+    transfer->eventManager = record.eventManager;
     WIRE_TRY(WGPUFutureSerialize(record.future, &transfer->future, buffer));
     transfer->status = record.status;
 
@@ -20376,8 +20792,8 @@ DAWN_DECLARE_UNUSED WireResult ReturnQueueWorkDoneCallbackDeserialize(
     DAWN_ASSERT(transfer->commandId == ReturnWireCmd::QueueWorkDoneCallback);
 
 
-    static_assert(sizeof(record->queue) >= sizeof(transfer->queue), "Deserialize assignment may not narrow.");
-    record->queue = transfer->queue;
+    static_assert(sizeof(record->eventManager) >= sizeof(transfer->eventManager), "Deserialize assignment may not narrow.");
+    record->eventManager = transfer->eventManager;
     static_assert(sizeof(record->future) == sizeof(transfer->future), "Deserialize memcpy size must match.");
     memcpy(&record->future, const_cast<const WGPUFutureTransfer*>(&transfer->future), sizeof(WGPUFutureTransfer));
     static_assert(sizeof(record->status) >= sizeof(transfer->status), "Deserialize assignment may not narrow.");
@@ -24769,6 +25185,37 @@ WireResult SwapChainPresentCmd::Deserialize(
     return SwapChainPresentDeserialize(this, transfer, deserializeBuffer, allocator, resolver);
 }
 WireResult SwapChainPresentCmd::Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator) {
+    ErrorObjectIdResolver resolver;
+    return Deserialize(deserializeBuffer, allocator, resolver);
+}
+
+size_t TextureCreateErrorViewCmd::GetRequiredSize() const {
+    return WireAlignSizeof<TextureCreateErrorViewTransfer>() + TextureCreateErrorViewGetExtraRequiredSize(*this);
+}
+
+WireResult TextureCreateErrorViewCmd::Serialize(
+    size_t commandSize,
+    SerializeBuffer* serializeBuffer,
+    const ObjectIdProvider& provider) const {
+    TextureCreateErrorViewTransfer* transfer;
+    WIRE_TRY(serializeBuffer->Next(&transfer));
+    transfer->commandSize = commandSize;
+    return (TextureCreateErrorViewSerialize(*this, transfer, serializeBuffer, provider));
+}
+WireResult TextureCreateErrorViewCmd::Serialize(size_t commandSize, SerializeBuffer* serializeBuffer) const {
+    ErrorObjectIdProvider provider;
+    return Serialize(commandSize, serializeBuffer, provider);
+}
+
+WireResult TextureCreateErrorViewCmd::Deserialize(
+    DeserializeBuffer* deserializeBuffer,
+    DeserializeAllocator* allocator,
+    const ObjectIdResolver& resolver) {
+    const volatile TextureCreateErrorViewTransfer* transfer;
+    WIRE_TRY(deserializeBuffer->Read(&transfer));
+    return TextureCreateErrorViewDeserialize(this, transfer, deserializeBuffer, allocator, resolver);
+}
+WireResult TextureCreateErrorViewCmd::Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator) {
     ErrorObjectIdResolver resolver;
     return Deserialize(deserializeBuffer, allocator, resolver);
 }

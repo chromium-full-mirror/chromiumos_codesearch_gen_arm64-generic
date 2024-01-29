@@ -161,6 +161,8 @@ bool AcceleratorFactoryStubDispatch::Accept(
           reinterpret_cast<internal::AcceleratorFactory_CreateJpegDecodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> p_jda{};
       AcceleratorFactory_CreateJpegDecodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool AcceleratorFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateJpegDecodeAccelerator(
-std::move(p_jda));
+      impl->CreateJpegDecodeAccelerator(        
+        std::move(p_jda));
       return true;
     }
   }
@@ -594,6 +596,8 @@ bool VideoCaptureServiceStubDispatch::Accept(
           reinterpret_cast<internal::VideoCaptureService_InjectGpuDependencies_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoCaptureService.0
       bool success = true;
       ::mojo::PendingRemote<AcceleratorFactory> p_accelerator_factory{};
       VideoCaptureService_InjectGpuDependencies_ParamsDataView input_data_view(params, message);
@@ -611,8 +615,8 @@ bool VideoCaptureServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectGpuDependencies(
-std::move(p_accelerator_factory));
+      impl->InjectGpuDependencies(        
+        std::move(p_accelerator_factory));
       return true;
     }
     case internal::kVideoCaptureService_ConnectToCameraAppDeviceBridge_Name: {
@@ -622,6 +626,8 @@ std::move(p_accelerator_factory));
           reinterpret_cast<internal::VideoCaptureService_ConnectToCameraAppDeviceBridge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoCaptureService.1
       bool success = true;
       ::mojo::PendingReceiver<::cros::mojom::CameraAppDeviceBridge> p_receiver{};
       VideoCaptureService_ConnectToCameraAppDeviceBridge_ParamsDataView input_data_view(params, message);
@@ -639,8 +645,8 @@ std::move(p_accelerator_factory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToCameraAppDeviceBridge(
-std::move(p_receiver));
+      impl->ConnectToCameraAppDeviceBridge(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kVideoCaptureService_BindVideoCaptureDeviceFactory_Name: {
@@ -650,6 +656,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::VideoCaptureService_BindVideoCaptureDeviceFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoCaptureService.2
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VideoCaptureDeviceFactory> p_receiver{};
       VideoCaptureService_BindVideoCaptureDeviceFactory_ParamsDataView input_data_view(params, message);
@@ -667,8 +675,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVideoCaptureDeviceFactory(
-std::move(p_receiver));
+      impl->BindVideoCaptureDeviceFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kVideoCaptureService_ConnectToVideoSourceProvider_Name: {
@@ -678,6 +686,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::VideoCaptureService_ConnectToVideoSourceProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoCaptureService.3
       bool success = true;
       ::mojo::PendingReceiver<::video_capture::mojom::VideoSourceProvider> p_receiver{};
       VideoCaptureService_ConnectToVideoSourceProvider_ParamsDataView input_data_view(params, message);
@@ -695,8 +705,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToVideoSourceProvider(
-std::move(p_receiver));
+      impl->ConnectToVideoSourceProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kVideoCaptureService_BindControlsForTesting_Name: {
@@ -706,6 +716,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::VideoCaptureService_BindControlsForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoCaptureService.4
       bool success = true;
       ::mojo::PendingReceiver<::video_capture::mojom::TestingControls> p_receiver{};
       VideoCaptureService_BindControlsForTesting_ParamsDataView input_data_view(params, message);
@@ -723,8 +735,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindControlsForTesting(
-std::move(p_receiver));
+      impl->BindControlsForTesting(        
+        std::move(p_receiver));
       return true;
     }
   }

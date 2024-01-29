@@ -23,5 +23,5 @@ MODULE_INFO(intree, "Y");
 MODULE_INFO(retpoline, "Y");
 #endif
 
-MODULE_INFO(depends, "mt76,mac80211");
+MODULE_INFO(depends, "mt76");
 

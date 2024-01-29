@@ -17,7 +17,6 @@ import '../settings_vars.css.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { flush, microTask, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { loadTimeData } from '../i18n_setup.js';
 import { getTemplate } from './address_edit_dialog.html.js';
 import * as uiComponents from './address_edit_dialog_components.js';
 const SANCTOINED_COUNTRY_CODES = Object.freeze(['CU', 'IR', 'KP', 'SD', 'SY']);
@@ -63,15 +62,6 @@ export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogE
             accountAddressSourceNotice_: {
                 type: String,
                 computed: 'getAccountAddressSourceNotice_(address, accountInfo)',
-            },
-            /**
-             * True if honorifics are enabled.
-             */
-            showHonorific_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('showHonorific');
-                },
             },
         };
     }
@@ -127,10 +117,6 @@ export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogE
             const skipValidation = !this.isAccountAddress_;
             this.components_ = [];
             for (const row of format.components) {
-                // If this is the name field, add a honorific title row before it.
-                if (row.row[0].field === FieldType.NAME_FULL && this.showHonorific_) {
-                    this.components_.push([new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, FieldType.NAME_HONORIFIC_PREFIX, this.i18n('honorificLabel'), 'long')]);
-                }
                 this.components_.push(row.row.map(component => new uiComponents.AddressComponentUi(this.addressFields_, this.originalAddressFields_, component.field, component.fieldName, component.isLongField ? 'long' : '', component.field === FieldType.ADDRESS_HOME_STREET_ADDRESS, skipValidation, component.isRequired)));
             }
             // Phone and email do not come in the address format as fields, but
@@ -221,8 +207,7 @@ export class SettingsAddressEditDialogElement extends SettingsAddressEditDialogE
             return this.address.metadata !== undefined &&
                 this.address.metadata.source === AddressSource.ACCOUNT;
         }
-        return this.accountInfo !== undefined &&
-            this.accountInfo.isEligibleForAddressAccountStorage;
+        return !!this.accountInfo?.isEligibleForAddressAccountStorage;
     }
     getAccountAddressSourceNotice_() {
         if (this.accountInfo) {

@@ -161,6 +161,8 @@ bool MojoFileSystemAccessTestStubDispatch::Accept(
           reinterpret_cast<internal::MojoFileSystemAccessTest_ResolveTransferToken_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MojoFileSystemAccessTest.0
       bool success = true;
       ::mojo::ScopedHandle p_h{};
       MojoFileSystemAccessTest_ResolveTransferToken_ParamsDataView input_data_view(params, message);
@@ -176,8 +178,8 @@ bool MojoFileSystemAccessTestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveTransferToken(
-std::move(p_h));
+      impl->ResolveTransferToken(        
+        std::move(p_h));
       return true;
     }
   }

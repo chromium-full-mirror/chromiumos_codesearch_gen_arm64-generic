@@ -20,6 +20,10 @@
     --cr-realbox-shadow: 0 0 12px 4px var(--color-realbox-shadow)
   }
 
+  :host([realbox-chrome-refresh-theming]:not([realbox-steady-state-shadow]):not([dropdown-is-visible])) {
+    --cr-realbox-shadow: none;
+  }
+
   /**
    * Maintain a larger width if the secondary side can be shown and was at any
    * point available to be shown.
@@ -134,6 +138,11 @@
     background-color: var(--color-realbox-results-background);
   }
 
+  :host([realbox-chrome-refresh-theming]:not([realbox-steady-state-shadow]):not([dropdown-is-visible])) input {
+    background-color: var(--color-realbox-background);
+  }
+
+  :host([realbox-chrome-refresh-theming]:not([realbox-steady-state-shadow]):not([dropdown-is-visible])) input:hover,
   input:hover {
     background-color: var(--color-realbox-background-hovered);
   }

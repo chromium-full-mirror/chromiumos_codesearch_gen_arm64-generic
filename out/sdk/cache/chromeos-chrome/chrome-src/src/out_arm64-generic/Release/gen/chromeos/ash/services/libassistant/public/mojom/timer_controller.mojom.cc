@@ -481,6 +481,8 @@ bool TimerControllerStubDispatch::Accept(
           reinterpret_cast<internal::TimerController_AddTimeToTimer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimerController.0
       bool success = true;
       std::string p_id{};
       ::base::TimeDelta p_duration{};
@@ -499,9 +501,9 @@ bool TimerControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddTimeToTimer(
-std::move(p_id), 
-std::move(p_duration));
+      impl->AddTimeToTimer(        
+        std::move(p_id), 
+        std::move(p_duration));
       return true;
     }
     case internal::kTimerController_PauseTimer_Name: {
@@ -511,6 +513,8 @@ std::move(p_duration));
           reinterpret_cast<internal::TimerController_PauseTimer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimerController.1
       bool success = true;
       std::string p_id{};
       TimerController_PauseTimer_ParamsDataView input_data_view(params, message);
@@ -526,8 +530,8 @@ std::move(p_duration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PauseTimer(
-std::move(p_id));
+      impl->PauseTimer(        
+        std::move(p_id));
       return true;
     }
     case internal::kTimerController_RemoveTimer_Name: {
@@ -537,6 +541,8 @@ std::move(p_id));
           reinterpret_cast<internal::TimerController_RemoveTimer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimerController.2
       bool success = true;
       std::string p_id{};
       TimerController_RemoveTimer_ParamsDataView input_data_view(params, message);
@@ -552,8 +558,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveTimer(
-std::move(p_id));
+      impl->RemoveTimer(        
+        std::move(p_id));
       return true;
     }
     case internal::kTimerController_ResumeTimer_Name: {
@@ -563,6 +569,8 @@ std::move(p_id));
           reinterpret_cast<internal::TimerController_ResumeTimer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimerController.3
       bool success = true;
       std::string p_id{};
       TimerController_ResumeTimer_ParamsDataView input_data_view(params, message);
@@ -578,8 +586,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResumeTimer(
-std::move(p_id));
+      impl->ResumeTimer(        
+        std::move(p_id));
       return true;
     }
   }
@@ -752,6 +760,8 @@ bool TimerDelegateStubDispatch::Accept(
           reinterpret_cast<internal::TimerDelegate_OnTimerStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimerDelegate.0
       bool success = true;
       std::vector<::ash::assistant::AssistantTimer> p_timers{};
       TimerDelegate_OnTimerStateChanged_ParamsDataView input_data_view(params, message);
@@ -767,8 +777,8 @@ bool TimerDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTimerStateChanged(
-std::move(p_timers));
+      impl->OnTimerStateChanged(        
+        std::move(p_timers));
       return true;
     }
   }

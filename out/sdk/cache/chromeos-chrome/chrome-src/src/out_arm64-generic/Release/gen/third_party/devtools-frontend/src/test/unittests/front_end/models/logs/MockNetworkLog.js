@@ -24,7 +24,7 @@ export class MockNetworkLog extends Common.ObjectWrapper.ObjectWrapper {
     }
     addRequest(mockRequest) {
         this.mockRequests.push(mockRequest);
-        this.dispatchEventToListeners(Logs.NetworkLog.Events.RequestAdded, mockRequest);
+        this.dispatchEventToListeners(Logs.NetworkLog.Events.RequestAdded, { request: mockRequest });
     }
 }
 //# sourceMappingURL=MockNetworkLog.js.map

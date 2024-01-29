@@ -743,6 +743,8 @@ bool CrosHotspotConfig_GetHotspotInfo_ForwardToCallback::Accept(
           internal::CrosHotspotConfig_GetHotspotInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHotspotConfig.2
   bool success = true;
   HotspotInfoPtr p_hotspot_info{};
   CrosHotspotConfig_GetHotspotInfo_ResponseParamsDataView input_data_view(params, message);
@@ -872,6 +874,8 @@ bool CrosHotspotConfig_SetHotspotConfig_ForwardToCallback::Accept(
           internal::CrosHotspotConfig_SetHotspotConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHotspotConfig.3
   bool success = true;
   SetHotspotConfigResult p_result{};
   CrosHotspotConfig_SetHotspotConfig_ResponseParamsDataView input_data_view(params, message);
@@ -992,6 +996,8 @@ bool CrosHotspotConfig_EnableHotspot_ForwardToCallback::Accept(
           internal::CrosHotspotConfig_EnableHotspot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHotspotConfig.4
   bool success = true;
   HotspotControlResult p_result{};
   CrosHotspotConfig_EnableHotspot_ResponseParamsDataView input_data_view(params, message);
@@ -1112,6 +1118,8 @@ bool CrosHotspotConfig_DisableHotspot_ForwardToCallback::Accept(
           internal::CrosHotspotConfig_DisableHotspot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosHotspotConfig.5
   bool success = true;
   HotspotControlResult p_result{};
   CrosHotspotConfig_DisableHotspot_ResponseParamsDataView input_data_view(params, message);
@@ -1187,6 +1195,8 @@ bool CrosHotspotConfigStubDispatch::Accept(
           reinterpret_cast<internal::CrosHotspotConfig_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfig.0
       bool success = true;
       ::mojo::PendingRemote<CrosHotspotConfigObserver> p_observer{};
       CrosHotspotConfig_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1204,8 +1214,8 @@ bool CrosHotspotConfigStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHotspotConfig_ObserveEnabledStateChanges_Name: {
@@ -1215,6 +1225,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosHotspotConfig_ObserveEnabledStateChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfig.1
       bool success = true;
       ::mojo::PendingRemote<HotspotEnabledStateObserver> p_observer{};
       CrosHotspotConfig_ObserveEnabledStateChanges_ParamsDataView input_data_view(params, message);
@@ -1232,8 +1244,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveEnabledStateChanges(
-std::move(p_observer));
+      impl->ObserveEnabledStateChanges(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosHotspotConfig_GetHotspotInfo_Name: {
@@ -1274,6 +1286,8 @@ bool CrosHotspotConfigStubDispatch::AcceptWithResponder(
               internal::CrosHotspotConfig_GetHotspotInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfig.2
       bool success = true;
       CrosHotspotConfig_GetHotspotInfo_ParamsDataView input_data_view(params, message);
       
@@ -1299,6 +1313,8 @@ bool CrosHotspotConfigStubDispatch::AcceptWithResponder(
               internal::CrosHotspotConfig_SetHotspotConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfig.3
       bool success = true;
       HotspotConfigPtr p_config{};
       CrosHotspotConfig_SetHotspotConfig_ParamsDataView input_data_view(params, message);
@@ -1317,8 +1333,8 @@ bool CrosHotspotConfigStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHotspotConfig(
-std::move(p_config), std::move(callback));
+      impl->SetHotspotConfig(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kCrosHotspotConfig_EnableHotspot_Name: {
@@ -1328,6 +1344,8 @@ std::move(p_config), std::move(callback));
               internal::CrosHotspotConfig_EnableHotspot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfig.4
       bool success = true;
       CrosHotspotConfig_EnableHotspot_ParamsDataView input_data_view(params, message);
       
@@ -1353,6 +1371,8 @@ std::move(p_config), std::move(callback));
               internal::CrosHotspotConfig_DisableHotspot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfig.5
       bool success = true;
       CrosHotspotConfig_DisableHotspot_ParamsDataView input_data_view(params, message);
       
@@ -1504,6 +1524,8 @@ bool CrosHotspotConfigObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosHotspotConfigObserver_OnHotspotInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosHotspotConfigObserver.0
       bool success = true;
       CrosHotspotConfigObserver_OnHotspotInfoChanged_ParamsDataView input_data_view(params, message);
       
@@ -1516,7 +1538,7 @@ bool CrosHotspotConfigObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHotspotInfoChanged();
+      impl->OnHotspotInfoChanged(        );
       return true;
     }
   }
@@ -1716,6 +1738,8 @@ bool HotspotEnabledStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::HotspotEnabledStateObserver_OnHotspotTurnedOn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HotspotEnabledStateObserver.0
       bool success = true;
       HotspotEnabledStateObserver_OnHotspotTurnedOn_ParamsDataView input_data_view(params, message);
       
@@ -1728,7 +1752,7 @@ bool HotspotEnabledStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHotspotTurnedOn();
+      impl->OnHotspotTurnedOn(        );
       return true;
     }
     case internal::kHotspotEnabledStateObserver_OnHotspotTurnedOff_Name: {
@@ -1738,6 +1762,8 @@ bool HotspotEnabledStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::HotspotEnabledStateObserver_OnHotspotTurnedOff_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HotspotEnabledStateObserver.1
       bool success = true;
       DisableReason p_reason{};
       HotspotEnabledStateObserver_OnHotspotTurnedOff_ParamsDataView input_data_view(params, message);
@@ -1753,8 +1779,8 @@ bool HotspotEnabledStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHotspotTurnedOff(
-std::move(p_reason));
+      impl->OnHotspotTurnedOff(        
+        std::move(p_reason));
       return true;
     }
   }

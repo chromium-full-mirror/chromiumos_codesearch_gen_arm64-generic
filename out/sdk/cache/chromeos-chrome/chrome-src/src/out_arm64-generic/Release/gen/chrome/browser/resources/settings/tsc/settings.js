@@ -2,11 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './settings_ui/settings_ui.js';
-export { ControlledRadioButtonElement } from '/shared/settings/controls/controlled_radio_button.js';
 export { ExtensionControlledIndicatorElement } from '/shared/settings/controls/extension_controlled_indicator.js';
 export { DEFAULT_CHECKED_VALUE, DEFAULT_UNCHECKED_VALUE } from '/shared/settings/controls/settings_boolean_control_mixin.js';
-export { SettingsDropdownMenuElement } from '/shared/settings/controls/settings_dropdown_menu.js';
-export { SettingsToggleButtonElement } from '/shared/settings/controls/settings_toggle_button.js';
 export { ExtensionControlBrowserProxyImpl } from '/shared/settings/extension_control_browser_proxy.js';
 export { LifetimeBrowserProxyImpl } from '/shared/settings/lifetime_browser_proxy.js';
 export { ProfileInfoBrowserProxyImpl } from '/shared/settings/people_page/profile_info_browser_proxy.js';
@@ -32,6 +29,9 @@ export { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js'
 export { PluralStringProxyImpl as SettingsPluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
 export { getTrustedHTML } from 'chrome://resources/js/static_types.js';
 export { SettingsAboutPageElement } from './about_page/about_page.js';
+export { ControlledRadioButtonElement } from './controls/controlled_radio_button.js';
+export { SettingsDropdownMenuElement } from './controls/settings_dropdown_menu.js';
+export { SettingsToggleButtonElement } from './controls/settings_toggle_button.js';
 // clang-format off
 // 
 export { AboutPageBrowserProxyImpl, UpdateStatus } from './about_page/about_page_browser_proxy.js';
@@ -102,4 +102,5 @@ export { SettingsMenuElement } from './settings_menu/settings_menu.js';
 export { SettingsSectionElement } from './settings_page/settings_section.js';
 export { SettingsUiElement } from './settings_ui/settings_ui.js';
 export { SiteFaviconElement } from './site_favicon.js';
+export { convertDateToWindowsEpoch } from './time.js';
 export { TooltipMixin } from './tooltip_mixin.js';

@@ -84,7 +84,7 @@ WebPreferences::WebPreferences()
       privileged_webgl_extensions_enabled(),
       webgl_errors_to_console_enabled(),
       hide_scrollbars(),
-      enable_webkit_scrollbar_styling(),
+      prefers_default_scrollbar_styles(),
       accelerated_2d_canvas_enabled(),
       canvas_2d_layers_enabled(),
       antialiased_2d_canvas_disabled(),
@@ -219,7 +219,7 @@ WebPreferences::WebPreferences(
     bool privileged_webgl_extensions_enabled_in,
     bool webgl_errors_to_console_enabled_in,
     bool hide_scrollbars_in,
-    bool enable_webkit_scrollbar_styling_in,
+    bool prefers_default_scrollbar_styles_in,
     bool accelerated_2d_canvas_enabled_in,
     bool canvas_2d_layers_enabled_in,
     bool antialiased_2d_canvas_disabled_in,
@@ -352,7 +352,7 @@ WebPreferences::WebPreferences(
       privileged_webgl_extensions_enabled(std::move(privileged_webgl_extensions_enabled_in)),
       webgl_errors_to_console_enabled(std::move(webgl_errors_to_console_enabled_in)),
       hide_scrollbars(std::move(hide_scrollbars_in)),
-      enable_webkit_scrollbar_styling(std::move(enable_webkit_scrollbar_styling_in)),
+      prefers_default_scrollbar_styles(std::move(prefers_default_scrollbar_styles_in)),
       accelerated_2d_canvas_enabled(std::move(accelerated_2d_canvas_enabled_in)),
       canvas_2d_layers_enabled(std::move(canvas_2d_layers_enabled_in)),
       antialiased_2d_canvas_disabled(std::move(antialiased_2d_canvas_disabled_in)),
@@ -805,7 +805,7 @@ void WebPreferences::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "enable_webkit_scrollbar_styling"), this->enable_webkit_scrollbar_styling,
+      "prefers_default_scrollbar_styles"), this->prefers_default_scrollbar_styles,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -1750,7 +1750,7 @@ bool StructTraits<::blink::mojom::WebPreferences::DataView, ::blink::mojom::WebP
       if (success)
         result->hide_scrollbars = input.hide_scrollbars();
       if (success)
-        result->enable_webkit_scrollbar_styling = input.enable_webkit_scrollbar_styling();
+        result->prefers_default_scrollbar_styles = input.prefers_default_scrollbar_styles();
       if (success)
         result->accelerated_2d_canvas_enabled = input.accelerated_2d_canvas_enabled();
       if (success)

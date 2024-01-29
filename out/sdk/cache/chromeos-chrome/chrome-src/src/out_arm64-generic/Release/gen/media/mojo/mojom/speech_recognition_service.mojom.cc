@@ -246,6 +246,8 @@ bool AudioSourceSpeechRecognitionContext_BindAudioSourceFetcher_ForwardToCallbac
           internal::AudioSourceSpeechRecognitionContext_BindAudioSourceFetcher_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioSourceSpeechRecognitionContext.0
   bool success = true;
   bool p_is_multichannel_supported{};
   AudioSourceSpeechRecognitionContext_BindAudioSourceFetcher_ResponseParamsDataView input_data_view(params, message);
@@ -336,6 +338,8 @@ bool AudioSourceSpeechRecognitionContextStubDispatch::AcceptWithResponder(
               internal::AudioSourceSpeechRecognitionContext_BindAudioSourceFetcher_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioSourceSpeechRecognitionContext.0
       bool success = true;
       ::mojo::PendingReceiver<AudioSourceFetcher> p_fetcher_receiver{};
       ::mojo::PendingRemote<::media::mojom::SpeechRecognitionRecognizerClient> p_client{};
@@ -364,10 +368,10 @@ bool AudioSourceSpeechRecognitionContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAudioSourceFetcher(
-std::move(p_fetcher_receiver), 
-std::move(p_client), 
-std::move(p_options), std::move(callback));
+      impl->BindAudioSourceFetcher(        
+        std::move(p_fetcher_receiver), 
+        std::move(p_client), 
+        std::move(p_options), std::move(callback));
       return true;
     }
   }
@@ -807,6 +811,8 @@ bool SpeechRecognitionServiceStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionService_BindSpeechRecognitionContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionService.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::SpeechRecognitionContext> p_context{};
       SpeechRecognitionService_BindSpeechRecognitionContext_ParamsDataView input_data_view(params, message);
@@ -824,8 +830,8 @@ bool SpeechRecognitionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSpeechRecognitionContext(
-std::move(p_context));
+      impl->BindSpeechRecognitionContext(        
+        std::move(p_context));
       return true;
     }
     case internal::kSpeechRecognitionService_BindAudioSourceSpeechRecognitionContext_Name: {
@@ -835,6 +841,8 @@ std::move(p_context));
           reinterpret_cast<internal::SpeechRecognitionService_BindAudioSourceSpeechRecognitionContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionService.1
       bool success = true;
       ::mojo::PendingReceiver<AudioSourceSpeechRecognitionContext> p_context{};
       SpeechRecognitionService_BindAudioSourceSpeechRecognitionContext_ParamsDataView input_data_view(params, message);
@@ -852,8 +860,8 @@ std::move(p_context));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAudioSourceSpeechRecognitionContext(
-std::move(p_context));
+      impl->BindAudioSourceSpeechRecognitionContext(        
+        std::move(p_context));
       return true;
     }
     case internal::kSpeechRecognitionService_SetSodaPaths_Name: {
@@ -863,6 +871,8 @@ std::move(p_context));
           reinterpret_cast<internal::SpeechRecognitionService_SetSodaPaths_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionService.2
       bool success = true;
       ::base::FilePath p_binary_path{};
       base::flat_map<std::string, ::base::FilePath> p_config_paths{};
@@ -884,10 +894,10 @@ std::move(p_context));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSodaPaths(
-std::move(p_binary_path), 
-std::move(p_config_paths), 
-std::move(p_primary_language_name));
+      impl->SetSodaPaths(        
+        std::move(p_binary_path), 
+        std::move(p_config_paths), 
+        std::move(p_primary_language_name));
       return true;
     }
     case internal::kSpeechRecognitionService_SetSodaParams_Name: {
@@ -897,6 +907,8 @@ std::move(p_primary_language_name));
           reinterpret_cast<internal::SpeechRecognitionService_SetSodaParams_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionService.3
       bool success = true;
       bool p_mask_offensive_words{};
       SpeechRecognitionService_SetSodaParams_ParamsDataView input_data_view(params, message);
@@ -912,8 +924,8 @@ std::move(p_primary_language_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSodaParams(
-std::move(p_mask_offensive_words));
+      impl->SetSodaParams(        
+        std::move(p_mask_offensive_words));
       return true;
     }
     case internal::kSpeechRecognitionService_SetSodaConfigPaths_Name: {
@@ -923,6 +935,8 @@ std::move(p_mask_offensive_words));
           reinterpret_cast<internal::SpeechRecognitionService_SetSodaConfigPaths_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionService.4
       bool success = true;
       base::flat_map<std::string, ::base::FilePath> p_config_paths{};
       SpeechRecognitionService_SetSodaConfigPaths_ParamsDataView input_data_view(params, message);
@@ -938,8 +952,8 @@ std::move(p_mask_offensive_words));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSodaConfigPaths(
-std::move(p_config_paths));
+      impl->SetSodaConfigPaths(        
+        std::move(p_config_paths));
       return true;
     }
   }
@@ -1191,6 +1205,8 @@ bool AudioSourceFetcherStubDispatch::Accept(
           reinterpret_cast<internal::AudioSourceFetcher_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioSourceFetcher.0
       bool success = true;
       ::mojo::PendingRemote<::media::mojom::AudioStreamFactory> p_factory{};
       std::string p_device_id{};
@@ -1214,10 +1230,10 @@ bool AudioSourceFetcherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_factory), 
-std::move(p_device_id), 
-std::move(p_audio_parameters));
+      impl->Start(        
+        std::move(p_factory), 
+        std::move(p_device_id), 
+        std::move(p_audio_parameters));
       return true;
     }
     case internal::kAudioSourceFetcher_Stop_Name: {
@@ -1227,6 +1243,8 @@ std::move(p_audio_parameters));
           reinterpret_cast<internal::AudioSourceFetcher_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioSourceFetcher.1
       bool success = true;
       AudioSourceFetcher_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1239,7 +1257,7 @@ std::move(p_audio_parameters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
   }

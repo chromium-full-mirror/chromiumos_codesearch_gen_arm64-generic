@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-lang", "name": "perl", "version": "5.38.0", "revision": 1, "fullname": "dev-lang/perl", "fullnamerev": "dev-lang/perl-5.38.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://www.perl.org/"], "skip": false, "tainted": false, "ebuild_path": null}

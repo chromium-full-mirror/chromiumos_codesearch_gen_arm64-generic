@@ -1218,6 +1218,8 @@ bool KeymasterHost_GetServer_ForwardToCallback::Accept(
           internal::KeymasterHost_GetServer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterHost.0
   bool success = true;
   ::mojo::PendingRemote<KeymasterServer> p_server_remote{};
   KeymasterHost_GetServer_ResponseParamsDataView input_data_view(params, message);
@@ -1311,6 +1313,8 @@ bool KeymasterHostStubDispatch::AcceptWithResponder(
               internal::KeymasterHost_GetServer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterHost.0
       bool success = true;
       KeymasterHost_GetServer_ParamsDataView input_data_view(params, message);
       
@@ -1527,6 +1531,8 @@ bool KeymasterInstance_Init_ForwardToCallback::Accept(
           internal::KeymasterInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterInstance.0
   bool success = true;
   KeymasterInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1605,6 +1611,8 @@ bool KeymasterInstanceStubDispatch::AcceptWithResponder(
               internal::KeymasterInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterInstance.0
       bool success = true;
       ::mojo::PendingRemote<KeymasterHost> p_host_remote{};
       KeymasterInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1625,8 +1633,8 @@ bool KeymasterInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }
@@ -2931,6 +2939,8 @@ bool KeymasterServer_AddRngEntropy_ForwardToCallback::Accept(
           internal::KeymasterServer_AddRngEntropy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.1
   bool success = true;
   int32_t p_error{};
   KeymasterServer_AddRngEntropy_ResponseParamsDataView input_data_view(params, message);
@@ -3050,6 +3060,8 @@ bool KeymasterServer_GetKeyCharacteristics_ForwardToCallback::Accept(
           internal::KeymasterServer_GetKeyCharacteristics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.2
   bool success = true;
   GetKeyCharacteristicsResultPtr p_response{};
   KeymasterServer_GetKeyCharacteristics_ResponseParamsDataView input_data_view(params, message);
@@ -3179,6 +3191,8 @@ bool KeymasterServer_GenerateKey_ForwardToCallback::Accept(
           internal::KeymasterServer_GenerateKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.3
   bool success = true;
   GenerateKeyResultPtr p_response{};
   KeymasterServer_GenerateKey_ResponseParamsDataView input_data_view(params, message);
@@ -3308,6 +3322,8 @@ bool KeymasterServer_ImportKey_ForwardToCallback::Accept(
           internal::KeymasterServer_ImportKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.4
   bool success = true;
   ImportKeyResultPtr p_response{};
   KeymasterServer_ImportKey_ResponseParamsDataView input_data_view(params, message);
@@ -3437,6 +3453,8 @@ bool KeymasterServer_ExportKey_ForwardToCallback::Accept(
           internal::KeymasterServer_ExportKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.5
   bool success = true;
   ExportKeyResultPtr p_response{};
   KeymasterServer_ExportKey_ResponseParamsDataView input_data_view(params, message);
@@ -3566,6 +3584,8 @@ bool KeymasterServer_AttestKey_ForwardToCallback::Accept(
           internal::KeymasterServer_AttestKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.6
   bool success = true;
   AttestKeyResultPtr p_result{};
   KeymasterServer_AttestKey_ResponseParamsDataView input_data_view(params, message);
@@ -3695,6 +3715,8 @@ bool KeymasterServer_UpgradeKey_ForwardToCallback::Accept(
           internal::KeymasterServer_UpgradeKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.7
   bool success = true;
   UpgradeKeyResultPtr p_response{};
   KeymasterServer_UpgradeKey_ResponseParamsDataView input_data_view(params, message);
@@ -3824,6 +3846,8 @@ bool KeymasterServer_DeleteKey_ForwardToCallback::Accept(
           internal::KeymasterServer_DeleteKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.8
   bool success = true;
   int32_t p_error{};
   KeymasterServer_DeleteKey_ResponseParamsDataView input_data_view(params, message);
@@ -3943,6 +3967,8 @@ bool KeymasterServer_DeleteAllKeys_ForwardToCallback::Accept(
           internal::KeymasterServer_DeleteAllKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.9
   bool success = true;
   int32_t p_error{};
   KeymasterServer_DeleteAllKeys_ResponseParamsDataView input_data_view(params, message);
@@ -4062,6 +4088,8 @@ bool KeymasterServer_Begin_ForwardToCallback::Accept(
           internal::KeymasterServer_Begin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.10
   bool success = true;
   BeginResultPtr p_result{};
   KeymasterServer_Begin_ResponseParamsDataView input_data_view(params, message);
@@ -4191,6 +4219,8 @@ bool KeymasterServer_Update_ForwardToCallback::Accept(
           internal::KeymasterServer_Update_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.11
   bool success = true;
   UpdateResultPtr p_response{};
   KeymasterServer_Update_ResponseParamsDataView input_data_view(params, message);
@@ -4320,6 +4350,8 @@ bool KeymasterServer_Finish_ForwardToCallback::Accept(
           internal::KeymasterServer_Finish_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.12
   bool success = true;
   FinishResultPtr p_response{};
   KeymasterServer_Finish_ResponseParamsDataView input_data_view(params, message);
@@ -4449,6 +4481,8 @@ bool KeymasterServer_Abort_ForwardToCallback::Accept(
           internal::KeymasterServer_Abort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeymasterServer.13
   bool success = true;
   int32_t p_error{};
   KeymasterServer_Abort_ResponseParamsDataView input_data_view(params, message);
@@ -4523,6 +4557,8 @@ bool KeymasterServerStubDispatch::Accept(
           reinterpret_cast<internal::KeymasterServer_SetSystemVersion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.0
       bool success = true;
       uint32_t p_os_version{};
       uint32_t p_os_patchlevel{};
@@ -4541,9 +4577,9 @@ bool KeymasterServerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSystemVersion(
-std::move(p_os_version), 
-std::move(p_os_patchlevel));
+      impl->SetSystemVersion(        
+        std::move(p_os_version), 
+        std::move(p_os_patchlevel));
       return true;
     }
     case internal::kKeymasterServer_AddRngEntropy_Name: {
@@ -4608,6 +4644,8 @@ bool KeymasterServerStubDispatch::AcceptWithResponder(
               internal::KeymasterServer_AddRngEntropy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.1
       bool success = true;
       std::vector<uint8_t> p_data{};
       KeymasterServer_AddRngEntropy_ParamsDataView input_data_view(params, message);
@@ -4626,8 +4664,8 @@ bool KeymasterServerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddRngEntropy(
-std::move(p_data), std::move(callback));
+      impl->AddRngEntropy(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_GetKeyCharacteristics_Name: {
@@ -4637,6 +4675,8 @@ std::move(p_data), std::move(callback));
               internal::KeymasterServer_GetKeyCharacteristics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.2
       bool success = true;
       GetKeyCharacteristicsRequestPtr p_request{};
       KeymasterServer_GetKeyCharacteristics_ParamsDataView input_data_view(params, message);
@@ -4655,8 +4695,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetKeyCharacteristics(
-std::move(p_request), std::move(callback));
+      impl->GetKeyCharacteristics(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_GenerateKey_Name: {
@@ -4666,6 +4706,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_GenerateKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.3
       bool success = true;
       std::vector<KeyParameterPtr> p_key_params{};
       KeymasterServer_GenerateKey_ParamsDataView input_data_view(params, message);
@@ -4684,8 +4726,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateKey(
-std::move(p_key_params), std::move(callback));
+      impl->GenerateKey(        
+        std::move(p_key_params), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_ImportKey_Name: {
@@ -4695,6 +4737,8 @@ std::move(p_key_params), std::move(callback));
               internal::KeymasterServer_ImportKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.4
       bool success = true;
       ImportKeyRequestPtr p_request{};
       KeymasterServer_ImportKey_ParamsDataView input_data_view(params, message);
@@ -4713,8 +4757,8 @@ std::move(p_key_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImportKey(
-std::move(p_request), std::move(callback));
+      impl->ImportKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_ExportKey_Name: {
@@ -4724,6 +4768,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_ExportKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.5
       bool success = true;
       ExportKeyRequestPtr p_request{};
       KeymasterServer_ExportKey_ParamsDataView input_data_view(params, message);
@@ -4742,8 +4788,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExportKey(
-std::move(p_request), std::move(callback));
+      impl->ExportKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_AttestKey_Name: {
@@ -4753,6 +4799,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_AttestKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.6
       bool success = true;
       AttestKeyRequestPtr p_request{};
       KeymasterServer_AttestKey_ParamsDataView input_data_view(params, message);
@@ -4771,8 +4819,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AttestKey(
-std::move(p_request), std::move(callback));
+      impl->AttestKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_UpgradeKey_Name: {
@@ -4782,6 +4830,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_UpgradeKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.7
       bool success = true;
       UpgradeKeyRequestPtr p_request{};
       KeymasterServer_UpgradeKey_ParamsDataView input_data_view(params, message);
@@ -4800,8 +4850,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpgradeKey(
-std::move(p_request), std::move(callback));
+      impl->UpgradeKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_DeleteKey_Name: {
@@ -4811,6 +4861,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_DeleteKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.8
       bool success = true;
       std::vector<uint8_t> p_key_blob{};
       KeymasterServer_DeleteKey_ParamsDataView input_data_view(params, message);
@@ -4829,8 +4881,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteKey(
-std::move(p_key_blob), std::move(callback));
+      impl->DeleteKey(        
+        std::move(p_key_blob), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_DeleteAllKeys_Name: {
@@ -4840,6 +4892,8 @@ std::move(p_key_blob), std::move(callback));
               internal::KeymasterServer_DeleteAllKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.9
       bool success = true;
       KeymasterServer_DeleteAllKeys_ParamsDataView input_data_view(params, message);
       
@@ -4865,6 +4919,8 @@ std::move(p_key_blob), std::move(callback));
               internal::KeymasterServer_Begin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.10
       bool success = true;
       BeginRequestPtr p_request{};
       KeymasterServer_Begin_ParamsDataView input_data_view(params, message);
@@ -4883,8 +4939,8 @@ std::move(p_key_blob), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Begin(
-std::move(p_request), std::move(callback));
+      impl->Begin(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_Update_Name: {
@@ -4894,6 +4950,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_Update_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.11
       bool success = true;
       UpdateRequestPtr p_request{};
       KeymasterServer_Update_ParamsDataView input_data_view(params, message);
@@ -4912,8 +4970,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_request), std::move(callback));
+      impl->Update(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_Finish_Name: {
@@ -4923,6 +4981,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_Finish_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.12
       bool success = true;
       FinishRequestPtr p_request{};
       KeymasterServer_Finish_ParamsDataView input_data_view(params, message);
@@ -4941,8 +5001,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Finish(
-std::move(p_request), std::move(callback));
+      impl->Finish(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeymasterServer_Abort_Name: {
@@ -4952,6 +5012,8 @@ std::move(p_request), std::move(callback));
               internal::KeymasterServer_Abort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeymasterServer.13
       bool success = true;
       uint64_t p_op_handle{};
       KeymasterServer_Abort_ParamsDataView input_data_view(params, message);
@@ -4970,8 +5032,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort(
-std::move(p_op_handle), std::move(callback));
+      impl->Abort(        
+        std::move(p_op_handle), std::move(callback));
       return true;
     }
   }

@@ -125,14 +125,12 @@ auto return_value = blink_receiver->FastGetAttribute(html_names::kShadowrootmode
 
 // [ReflectOnly]
 const AtomicString reflect_value(return_value.LowerASCII());
-if (reflect_value.IsNull()) {
-  // Null string to IDL null.
-} else if (reflect_value == keywords::kOpen || reflect_value == keywords::kClosed) {
+if (reflect_value == keywords::kOpen || reflect_value == keywords::kClosed) {
   return_value = reflect_value;
 } else {
-  return_value = g_null_atom;
+  return_value = g_empty_atom;
 }  
-bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
+bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
 void ShadowRootModeAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -140,21 +138,17 @@ void ShadowRootModeAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLTemplateElement_shadowRootMode_Setter");
 BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.shadowRootMode.set");
 
+
+
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLTemplateElement";
 const char* const property_name = "shadowRootMode";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLString>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
@@ -196,6 +190,43 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 blink_receiver->SetBooleanAttribute(html_names::kParsepartsAttr, arg1_value);
+
+}
+
+void SerializableAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLTemplateElement_serializable_Getter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.serializable.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastHasAttribute(html_names::kSerializableAttr);
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+void SerializableAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLTemplateElement_serializable_Setter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLTemplateElement.serializable.set");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTemplateElement* blink_receiver = V8HTMLTemplateElement::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Value> v8_property_value = info[0];
+const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
+const char* const class_like_name = "HTMLTemplateElement";
+const char* const property_name = "serializable";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+auto&& arg1_value = NativeValueTraits<IDLBoolean>::NativeValue(isolate, v8_property_value, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->SetBooleanAttribute(html_names::kSerializableAttr, arg1_value);
 
 }
 
@@ -258,7 +289,6 @@ void V8HTMLTemplateElement::InstallUnconditionalProperties(v8::Isolate* isolate,
 {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"content", ContentAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"shadowRoot", ShadowRootAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"shadowRootMode", ShadowRootModeAttributeGetCallback, ShadowRootModeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -277,9 +307,25 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 void V8HTMLTemplateElement::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
+if (RuntimeEnabledFeatures::DeprecatedTemplateShadowRootEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"shadowRoot", ShadowRootAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
 if (RuntimeEnabledFeatures::DOMPartsAPIEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"parseparts", ParsepartsAttributeGetCallback, ParsepartsAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::ElementGetHTMLEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"serializable", SerializableAttributeGetCallback, SerializableAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

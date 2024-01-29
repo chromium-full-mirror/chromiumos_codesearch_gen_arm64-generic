@@ -19,8 +19,8 @@ describeWithMockConnection('NavigatorView', () => {
     let target;
     let workspace;
     beforeEach(() => {
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.AUTHORED_DEPLOYED_GROUPING, '');
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.JUST_MY_CODE, '');
+        Root.Runtime.experiments.register("authoredDeployedGrouping" /* Root.Runtime.ExperimentName.AUTHORED_DEPLOYED_GROUPING */, '');
+        Root.Runtime.experiments.register("justMyCode" /* Root.Runtime.ExperimentName.JUST_MY_CODE */, '');
         setMockConnectionResponseHandler('Page.getResourceTree', async () => {
             return {
                 frameTree: null,

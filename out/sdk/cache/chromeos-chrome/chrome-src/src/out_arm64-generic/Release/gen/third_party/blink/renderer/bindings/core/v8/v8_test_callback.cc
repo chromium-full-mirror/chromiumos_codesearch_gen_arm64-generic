@@ -57,14 +57,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_message_1;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_message_1).ToLocal(&v8_arg1_message_1)) {
-  return v8::Nothing<String>();
-}
+v8_arg1_message_1 = ToV8Traits<IDLString>::ToV8(script_state, arg1_message_1);
 argv[0] = v8_arg1_message_1;
 v8::Local<v8::Value> v8_arg2_message_2;
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg2_message_2).ToLocal(&v8_arg2_message_2)) {
-  return v8::Nothing<String>();
-}
+v8_arg2_message_2 = ToV8Traits<IDLString>::ToV8(script_state, arg2_message_2);
 argv[1] = v8_arg2_message_2;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<String>();
@@ -103,14 +99,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_message_1;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_message_1).ToLocal(&v8_arg1_message_1)) {
-  return v8::Nothing<String>();
-}
+v8_arg1_message_1 = ToV8Traits<IDLString>::ToV8(script_state, arg1_message_1);
 argv[0] = v8_arg1_message_1;
 v8::Local<v8::Value> v8_arg2_message_2;
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg2_message_2).ToLocal(&v8_arg2_message_2)) {
-  return v8::Nothing<String>();
-}
+v8_arg2_message_2 = ToV8Traits<IDLString>::ToV8(script_state, arg2_message_2);
 argv[1] = v8_arg2_message_2;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<String>();

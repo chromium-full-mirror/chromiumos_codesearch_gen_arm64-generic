@@ -18,6 +18,8 @@ constexpr uint32_t kCommerceInternalsHandlerFactory_CreateCommerceInternalsHandl
 constexpr uint32_t kCommerceInternalsHandler_GetIsShoppingListEligible_Name = 0;
 constexpr uint32_t kCommerceInternalsHandler_GetShoppingListEligibleDetails_Name = 1;
 constexpr uint32_t kCommerceInternalsHandler_ResetPriceTrackingEmailPref_Name = 2;
+constexpr uint32_t kCommerceInternalsHandler_GetProductInfoForUrl_Name = 3;
+constexpr uint32_t kCommerceInternalsHandler_GetSubscriptionDetails_Name = 4;
 constexpr uint32_t kCommerceInternalsPage_OnShoppingListEligibilityChanged_Name = 0;
 
 }  // namespace internal

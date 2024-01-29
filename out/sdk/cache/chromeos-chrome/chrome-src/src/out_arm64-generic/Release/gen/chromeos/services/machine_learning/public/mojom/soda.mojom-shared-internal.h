@@ -26,6 +26,7 @@ class ValidationContext;
 
 namespace chromeos::machine_learning::mojom {
 namespace internal {
+class SodaMultilangConfig_Data;
 class SodaConfig_Data;
 class TimingInfo_Data;
 class EndpointerEvent_Data;
@@ -33,6 +34,7 @@ class PartialResult_Data;
 class HypothesisPartInResult_Data;
 class FinalResult_Data;
 class AudioLevelEvent_Data;
+class LangIdEvent_Data;
 class SpeechRecognizerEvent_Data;
 
 struct OptionalBool_Data {
@@ -136,6 +138,32 @@ struct EndpointReason_Data {
   }
 };
 
+struct AsrSwitchResult_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -175,6 +203,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SpeechRecognizerEvent_Data {
     kEndpointerEvent,
     
     kFinalResult,
+    
+    kLangidEvent,
   };
 
   // A note on layout:
@@ -186,6 +216,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SpeechRecognizerEvent_Data {
     mojo::internal::Pointer<internal::PartialResult_Data> f_partial_result;
     mojo::internal::Pointer<internal::EndpointerEvent_Data> f_endpointer_event;
     mojo::internal::Pointer<internal::FinalResult_Data> f_final_result;
+    mojo::internal::Pointer<internal::LangIdEvent_Data> f_langid_event;
     uint64_t unknown;
   };
 
@@ -195,6 +226,56 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SpeechRecognizerEvent_Data {
 };
 static_assert(sizeof(SpeechRecognizerEvent_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(SpeechRecognizerEvent_Data)");
+class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SodaMultilangConfig_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t rewind_when_switching_language : 1;
+  uint8_t pad0_[7];
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> locale_to_language_pack_map;
+
+ private:
+  friend class mojo::internal::MessageFragment<SodaMultilangConfig_Data>;
+
+  SodaMultilangConfig_Data();
+  ~SodaMultilangConfig_Data() = delete;
+};
+static_assert(sizeof(SodaMultilangConfig_Data) == 24,
+              "Bad sizeof(SodaMultilangConfig_Data)");
+// Used by SodaMultilangConfig::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SodaMultilangConfig_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SodaMultilangConfig_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SodaMultilangConfig_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SodaMultilangConfig_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SodaMultilangConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SodaConfig_Data {
  public:
   static bool Validate(const void* data,
@@ -211,7 +292,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SodaConfig_Data {
   uint8_t mask_offensive_words : 1;
   uint8_t speaker_change_detection : 1;
   uint8_t include_logging_output : 1;
-  uint8_t padfinal_[7];
+  uint8_t pad9_[7];
+  mojo::internal::Pointer<internal::SodaMultilangConfig_Data> multi_lang_config;
 
  private:
   friend class mojo::internal::MessageFragment<SodaConfig_Data>;
@@ -219,7 +301,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) SodaConfig_Data {
   SodaConfig_Data();
   ~SodaConfig_Data() = delete;
 };
-static_assert(sizeof(SodaConfig_Data) == 56,
+static_assert(sizeof(SodaConfig_Data) == 64,
               "Bad sizeof(SodaConfig_Data)");
 // Used by SodaConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -557,6 +639,56 @@ struct AudioLevelEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     AudioLevelEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) LangIdEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> language;
+  int32_t confidence_level;
+  int32_t asr_switch_result;
+
+ private:
+  friend class mojo::internal::MessageFragment<LangIdEvent_Data>;
+
+  LangIdEvent_Data();
+  ~LangIdEvent_Data() = delete;
+};
+static_assert(sizeof(LangIdEvent_Data) == 24,
+              "Bad sizeof(LangIdEvent_Data)");
+// Used by LangIdEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LangIdEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LangIdEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LangIdEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LangIdEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LangIdEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

@@ -163,13 +163,14 @@ bool OptimizationTarget_IsValid(int value) {
     case 38:
     case 39:
     case 40:
+    case 41:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationTarget_strings[40] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationTarget_strings[41] = {};
 
 static const char OptimizationTarget_names[] =
   "OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION"
@@ -190,6 +191,7 @@ static const char OptimizationTarget_names[] =
   "OPTIMIZATION_TARGET_PAINFUL_PAGE_LOAD"
   "OPTIMIZATION_TARGET_PRELOADING_HEURISTICS"
   "OPTIMIZATION_TARGET_SEGMENTATION_ADAPTIVE_TOOLBAR"
+  "OPTIMIZATION_TARGET_SEGMENTATION_ANDROID_HOME_MODULE_RANKER"
   "OPTIMIZATION_TARGET_SEGMENTATION_BOTTOM_TOOLBAR"
   "OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT"
   "OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID"
@@ -232,71 +234,73 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OptimizationTarget_ent
   { {OptimizationTarget_names + 670, 37}, 1 },
   { {OptimizationTarget_names + 707, 41}, 39 },
   { {OptimizationTarget_names + 748, 49}, 28 },
-  { {OptimizationTarget_names + 797, 47}, 35 },
-  { {OptimizationTarget_names + 844, 59}, 16 },
-  { {OptimizationTarget_names + 903, 53}, 11 },
-  { {OptimizationTarget_names + 956, 56}, 22 },
-  { {OptimizationTarget_names + 1012, 51}, 38 },
-  { {OptimizationTarget_names + 1063, 48}, 27 },
-  { {OptimizationTarget_names + 1111, 38}, 10 },
-  { {OptimizationTarget_names + 1149, 42}, 17 },
-  { {OptimizationTarget_names + 1191, 50}, 37 },
-  { {OptimizationTarget_names + 1241, 40}, 4 },
-  { {OptimizationTarget_names + 1281, 44}, 12 },
-  { {OptimizationTarget_names + 1325, 44}, 23 },
-  { {OptimizationTarget_names + 1369, 38}, 5 },
-  { {OptimizationTarget_names + 1407, 46}, 21 },
-  { {OptimizationTarget_names + 1453, 57}, 29 },
-  { {OptimizationTarget_names + 1510, 38}, 6 },
-  { {OptimizationTarget_names + 1548, 35}, 19 },
-  { {OptimizationTarget_names + 1583, 33}, 33 },
-  { {OptimizationTarget_names + 1616, 31}, 40 },
-  { {OptimizationTarget_names + 1647, 27}, 0 },
-  { {OptimizationTarget_names + 1674, 48}, 34 },
-  { {OptimizationTarget_names + 1722, 46}, 32 },
+  { {OptimizationTarget_names + 797, 59}, 41 },
+  { {OptimizationTarget_names + 856, 47}, 35 },
+  { {OptimizationTarget_names + 903, 59}, 16 },
+  { {OptimizationTarget_names + 962, 53}, 11 },
+  { {OptimizationTarget_names + 1015, 56}, 22 },
+  { {OptimizationTarget_names + 1071, 51}, 38 },
+  { {OptimizationTarget_names + 1122, 48}, 27 },
+  { {OptimizationTarget_names + 1170, 38}, 10 },
+  { {OptimizationTarget_names + 1208, 42}, 17 },
+  { {OptimizationTarget_names + 1250, 50}, 37 },
+  { {OptimizationTarget_names + 1300, 40}, 4 },
+  { {OptimizationTarget_names + 1340, 44}, 12 },
+  { {OptimizationTarget_names + 1384, 44}, 23 },
+  { {OptimizationTarget_names + 1428, 38}, 5 },
+  { {OptimizationTarget_names + 1466, 46}, 21 },
+  { {OptimizationTarget_names + 1512, 57}, 29 },
+  { {OptimizationTarget_names + 1569, 38}, 6 },
+  { {OptimizationTarget_names + 1607, 35}, 19 },
+  { {OptimizationTarget_names + 1642, 33}, 33 },
+  { {OptimizationTarget_names + 1675, 31}, 40 },
+  { {OptimizationTarget_names + 1706, 27}, 0 },
+  { {OptimizationTarget_names + 1733, 48}, 34 },
+  { {OptimizationTarget_names + 1781, 46}, 32 },
 };
 
 static const int OptimizationTarget_entries_by_number[] = {
-  37, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
+  38, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
   15, // 1 -> OPTIMIZATION_TARGET_PAINFUL_PAGE_LOAD
   5, // 2 -> OPTIMIZATION_TARGET_LANGUAGE_DETECTION
   12, // 3 -> OPTIMIZATION_TARGET_PAGE_TOPICS
-  27, // 4 -> OPTIMIZATION_TARGET_SEGMENTATION_NEW_TAB
-  30, // 5 -> OPTIMIZATION_TARGET_SEGMENTATION_SHARE
-  33, // 6 -> OPTIMIZATION_TARGET_SEGMENTATION_VOICE
+  28, // 4 -> OPTIMIZATION_TARGET_SEGMENTATION_NEW_TAB
+  31, // 5 -> OPTIMIZATION_TARGET_SEGMENTATION_SHARE
+  34, // 6 -> OPTIMIZATION_TARGET_SEGMENTATION_VOICE
   6, // 7 -> OPTIMIZATION_TARGET_MODEL_VALIDATION
   11, // 8 -> OPTIMIZATION_TARGET_PAGE_ENTITIES
   8, // 9 -> OPTIMIZATION_TARGET_NOTIFICATION_PERMISSION_PREDICTIONS
-  24, // 10 -> OPTIMIZATION_TARGET_SEGMENTATION_DUMMY
-  20, // 11 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID
-  28, // 12 -> OPTIMIZATION_TARGET_SEGMENTATION_QUERY_TILES
+  25, // 10 -> OPTIMIZATION_TARGET_SEGMENTATION_DUMMY
+  21, // 11 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID
+  29, // 12 -> OPTIMIZATION_TARGET_SEGMENTATION_QUERY_TILES
   14, // 13 -> OPTIMIZATION_TARGET_PAGE_VISIBILITY
   13, // 15 -> OPTIMIZATION_TARGET_PAGE_TOPICS_V2
-  19, // 16 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT
-  25, // 17 -> OPTIMIZATION_TARGET_SEGMENTATION_FEED_USER
+  20, // 16 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT
+  26, // 17 -> OPTIMIZATION_TARGET_SEGMENTATION_FEED_USER
   3, // 18 -> OPTIMIZATION_TARGET_CONTEXTUAL_PAGE_ACTION_PRICE_TRACKING
-  34, // 19 -> OPTIMIZATION_TARGET_TEXT_CLASSIFIER
+  35, // 19 -> OPTIMIZATION_TARGET_TEXT_CLASSIFIER
   4, // 20 -> OPTIMIZATION_TARGET_GEOLOCATION_PERMISSION_PREDICTIONS
-  31, // 21 -> OPTIMIZATION_TARGET_SEGMENTATION_SHOPPING_USER
-  21, // 22 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID_V2
-  29, // 23 -> OPTIMIZATION_TARGET_SEGMENTATION_SEARCH_USER
+  32, // 21 -> OPTIMIZATION_TARGET_SEGMENTATION_SHOPPING_USER
+  22, // 22 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID_V2
+  30, // 23 -> OPTIMIZATION_TARGET_SEGMENTATION_SEARCH_USER
   9, // 24 -> OPTIMIZATION_TARGET_OMNIBOX_ON_DEVICE_TAIL_SUGGEST
   1, // 25 -> OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING
   10, // 26 -> OPTIMIZATION_TARGET_OMNIBOX_URL_SCORING
-  23, // 27 -> OPTIMIZATION_TARGET_SEGMENTATION_DEVICE_SWITCHER
+  24, // 27 -> OPTIMIZATION_TARGET_SEGMENTATION_DEVICE_SWITCHER
   17, // 28 -> OPTIMIZATION_TARGET_SEGMENTATION_ADAPTIVE_TOOLBAR
-  32, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
+  33, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
   2, // 30 -> OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING_IMAGE_EMBEDDER
   7, // 31 -> OPTIMIZATION_TARGET_NEW_TAB_PAGE_HISTORY_CLUSTERS_MODULE_RANKING
-  39, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
-  35, // 33 -> OPTIMIZATION_TARGET_TEXT_EMBEDDER
-  38, // 34 -> OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION
-  18, // 35 -> OPTIMIZATION_TARGET_SEGMENTATION_BOTTOM_TOOLBAR
+  40, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
+  36, // 33 -> OPTIMIZATION_TARGET_TEXT_EMBEDDER
+  39, // 34 -> OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION
+  19, // 35 -> OPTIMIZATION_TARGET_SEGMENTATION_BOTTOM_TOOLBAR
   0, // 36 -> OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION
-  26, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
-  22, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
+  27, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
+  23, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
   16, // 39 -> OPTIMIZATION_TARGET_PRELOADING_HEURISTICS
-  36, // 40 -> OPTIMIZATION_TARGET_TEXT_SAFETY
+  37, // 40 -> OPTIMIZATION_TARGET_TEXT_SAFETY
+  18, // 41 -> OPTIMIZATION_TARGET_SEGMENTATION_ANDROID_HOME_MODULE_RANKER
 };
 
 const std::string& OptimizationTarget_Name(
@@ -305,12 +309,12 @@ const std::string& OptimizationTarget_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           OptimizationTarget_entries,
           OptimizationTarget_entries_by_number,
-          40, OptimizationTarget_strings);
+          41, OptimizationTarget_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       OptimizationTarget_entries,
       OptimizationTarget_entries_by_number,
-      40, value);
+      41, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      OptimizationTarget_strings[idx].get();
 }
@@ -318,7 +322,7 @@ bool OptimizationTarget_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptimizationTarget* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OptimizationTarget_entries, 40, name, &int_value);
+      OptimizationTarget_entries, 41, name, &int_value);
   if (success) {
     *value = static_cast<OptimizationTarget>(int_value);
   }

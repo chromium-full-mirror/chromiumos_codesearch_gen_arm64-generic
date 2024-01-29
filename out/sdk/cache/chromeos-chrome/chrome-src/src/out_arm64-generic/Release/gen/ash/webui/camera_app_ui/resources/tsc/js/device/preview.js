@@ -537,7 +537,7 @@ export class Preview {
             // in the metadata, which may happen if there is no face detected.
             updateFace(faceMode, faceRects);
         };
-        this.metadataObserver = await deviceOperator.addMetadataObserver(deviceId, callback, StreamType.PREVIEW_OUTPUT);
+        this.metadataObserver = await deviceOperator.addMetadataObserver(deviceId, callback, StreamType.kPreviewOutput);
     }
     /**
      * Hides display preview metadata on preview screen.

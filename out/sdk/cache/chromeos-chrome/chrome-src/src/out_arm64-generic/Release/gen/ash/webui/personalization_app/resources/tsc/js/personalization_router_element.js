@@ -8,13 +8,13 @@
 import 'chrome://resources/polymer/v3_0/iron-location/iron-location.js';
 import 'chrome://resources/polymer/v3_0/iron-location/iron-query-params.js';
 import { assert } from 'chrome://resources/ash/common/assert.js';
+import { isSeaPenEnabled } from 'chrome://resources/ash/common/sea_pen/load_time_booleans.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { TopicSource } from '../personalization_app.mojom-webui.js';
 import { isAmbientModeAllowed } from './load_time_booleans.js';
 import { logPersonalizationPathUMA } from './personalization_metrics_logger.js';
 import { getTemplate } from './personalization_router_element.html.js';
-import { isSeaPenEnabled } from './wallpaper/sea_pen/load_time_booleans.js';
 import { WallpaperObserver } from './wallpaper/wallpaper_observer.js';
 export var Paths;
 (function (Paths) {
@@ -201,6 +201,9 @@ export class PersonalizationRouterElement extends PolymerElement {
                 document.title = loadTimeData.getString('avatarLabel');
                 break;
         }
+    }
+    onRefuseSeaPenTermsOfService_() {
+        this.goToRoute(Paths.COLLECTIONS);
     }
 }
 customElements.define(PersonalizationRouterElement.is, PersonalizationRouterElement);

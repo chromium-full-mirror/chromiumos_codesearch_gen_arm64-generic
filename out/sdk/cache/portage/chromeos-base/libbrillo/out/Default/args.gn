@@ -12,8 +12,8 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/libbrillo"
 platform2_root =
-    "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1"
-libbase_ver = "1241304"
+    "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1"
+libbase_ver = "1252475"
 enable_exceptions = false
 external_cflags = [
   "-O2",
@@ -172,7 +172,7 @@ use = {
   proto_force_optimize_speed = false
   qualcomm_camx = false
   qrtr = false
-  report_requisition = false
+  reven_oobe_config = false
   reven_partition_migration = false
   secagentd_min_core_btf = false
   selinux = false

@@ -210,6 +210,8 @@ bool SandboxStatusService_GetSandboxStatus_ForwardToCallback::Accept(
           internal::SandboxStatusService_GetSandboxStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SandboxStatusService.0
   bool success = true;
   int32_t p_status{};
   SandboxStatusService_GetSandboxStatus_ResponseParamsDataView input_data_view(params, message);
@@ -300,6 +302,8 @@ bool SandboxStatusServiceStubDispatch::AcceptWithResponder(
               internal::SandboxStatusService_GetSandboxStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SandboxStatusService.0
       bool success = true;
       SandboxStatusService_GetSandboxStatus_ParamsDataView input_data_view(params, message);
       

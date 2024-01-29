@@ -29,9 +29,9 @@ describeWithLocale('propertyRuleIssue', () => {
         const propertyRuleIssues = IssuesManager.PropertyRuleIssue.PropertyRuleIssue.fromInspectorIssue(mockModel, issue);
         assert.lengthOf(propertyRuleIssues, 1);
         const propertyRuleIssue = propertyRuleIssues[0];
-        assert.strictEqual(propertyRuleIssue.getCategory(), IssuesManager.Issue.IssueCategory.Other);
+        assert.strictEqual(propertyRuleIssue.getCategory(), "Other" /* IssuesManager.Issue.IssueCategory.Other */);
         assert.deepStrictEqual(propertyRuleIssue.sources(), [issueDetails.sourceCodeLocation]);
-        assert.strictEqual(propertyRuleIssue.getKind(), IssuesManager.Issue.IssueKind.PageError);
+        assert.strictEqual(propertyRuleIssue.getKind(), "PageError" /* IssuesManager.Issue.IssueKind.PageError */);
         assert.isNotNull(propertyRuleIssue.getDescription());
         assert.strictEqual(propertyRuleIssue.getPropertyName(), 'initial-value');
     });

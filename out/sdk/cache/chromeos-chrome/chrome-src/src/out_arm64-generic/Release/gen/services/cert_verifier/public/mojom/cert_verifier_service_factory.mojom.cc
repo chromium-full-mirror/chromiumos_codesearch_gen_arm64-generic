@@ -41,7 +41,6 @@
 
 #include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-import-headers.h"
 #include "services/cert_verifier/public/mojom/cert_verifier_service_factory.mojom-test-utils.h"
-#include "net/cert/cert_verify_result.h"
 
 
 namespace cert_verifier::mojom {
@@ -744,6 +743,8 @@ bool CertVerifierServiceFactory_UpdateCRLSet_ForwardToCallback::Accept(
           internal::CertVerifierServiceFactory_UpdateCRLSet_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertVerifierServiceFactory.1
   bool success = true;
   CertVerifierServiceFactory_UpdateCRLSet_ResponseParamsDataView input_data_view(params, message);
   
@@ -851,6 +852,8 @@ bool CertVerifierServiceFactory_UpdateCtLogList_ForwardToCallback::Accept(
           internal::CertVerifierServiceFactory_UpdateCtLogList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertVerifierServiceFactory.2
   bool success = true;
   CertVerifierServiceFactory_UpdateCtLogList_ResponseParamsDataView input_data_view(params, message);
   
@@ -958,6 +961,8 @@ bool CertVerifierServiceFactory_UpdateChromeRootStore_ForwardToCallback::Accept(
           internal::CertVerifierServiceFactory_UpdateChromeRootStore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertVerifierServiceFactory.3
   bool success = true;
   CertVerifierServiceFactory_UpdateChromeRootStore_ResponseParamsDataView input_data_view(params, message);
   
@@ -1065,6 +1070,8 @@ bool CertVerifierServiceFactory_GetChromeRootStoreInfo_ForwardToCallback::Accept
           internal::CertVerifierServiceFactory_GetChromeRootStoreInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertVerifierServiceFactory.4
   bool success = true;
   ChromeRootStoreInfoPtr p_root_store_info{};
   CertVerifierServiceFactory_GetChromeRootStoreInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1149,6 +1156,8 @@ bool CertVerifierServiceFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CertVerifierServiceFactory_GetNewCertVerifier_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierService> p_receiver{};
       ::mojo::PendingReceiver<::cert_verifier::mojom::CertVerifierServiceUpdater> p_updater{};
@@ -1179,11 +1188,11 @@ bool CertVerifierServiceFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNewCertVerifier(
-std::move(p_receiver), 
-std::move(p_updater), 
-std::move(p_client), 
-std::move(p_creation_params));
+      impl->GetNewCertVerifier(        
+        std::move(p_receiver), 
+        std::move(p_updater), 
+        std::move(p_client), 
+        std::move(p_creation_params));
       return true;
     }
     case internal::kCertVerifierServiceFactory_UpdateCRLSet_Name: {
@@ -1221,6 +1230,8 @@ bool CertVerifierServiceFactoryStubDispatch::AcceptWithResponder(
               internal::CertVerifierServiceFactory_UpdateCRLSet_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceFactory.1
       bool success = true;
       ::mojo_base::BigBuffer p_crl_set{};
       CertVerifierServiceFactory_UpdateCRLSet_ParamsDataView input_data_view(params, message);
@@ -1239,8 +1250,8 @@ bool CertVerifierServiceFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCRLSet(
-std::move(p_crl_set), std::move(callback));
+      impl->UpdateCRLSet(        
+        std::move(p_crl_set), std::move(callback));
       return true;
     }
     case internal::kCertVerifierServiceFactory_UpdateCtLogList_Name: {
@@ -1250,6 +1261,8 @@ std::move(p_crl_set), std::move(callback));
               internal::CertVerifierServiceFactory_UpdateCtLogList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceFactory.2
       bool success = true;
       std::vector<::network::mojom::CTLogInfoPtr> p_log_list{};
       ::base::Time p_update_time{};
@@ -1271,9 +1284,9 @@ std::move(p_crl_set), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCtLogList(
-std::move(p_log_list), 
-std::move(p_update_time), std::move(callback));
+      impl->UpdateCtLogList(        
+        std::move(p_log_list), 
+        std::move(p_update_time), std::move(callback));
       return true;
     }
     case internal::kCertVerifierServiceFactory_UpdateChromeRootStore_Name: {
@@ -1283,6 +1296,8 @@ std::move(p_update_time), std::move(callback));
               internal::CertVerifierServiceFactory_UpdateChromeRootStore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceFactory.3
       bool success = true;
       ChromeRootStorePtr p_new_root_store{};
       CertVerifierServiceFactory_UpdateChromeRootStore_ParamsDataView input_data_view(params, message);
@@ -1301,8 +1316,8 @@ std::move(p_update_time), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateChromeRootStore(
-std::move(p_new_root_store), std::move(callback));
+      impl->UpdateChromeRootStore(        
+        std::move(p_new_root_store), std::move(callback));
       return true;
     }
     case internal::kCertVerifierServiceFactory_GetChromeRootStoreInfo_Name: {
@@ -1312,6 +1327,8 @@ std::move(p_new_root_store), std::move(callback));
               internal::CertVerifierServiceFactory_GetChromeRootStoreInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceFactory.4
       bool success = true;
       CertVerifierServiceFactory_GetChromeRootStoreInfo_ParamsDataView input_data_view(params, message);
       

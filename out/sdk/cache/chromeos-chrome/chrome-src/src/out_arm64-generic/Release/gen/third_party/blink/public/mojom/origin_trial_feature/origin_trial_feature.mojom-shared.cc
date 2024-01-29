@@ -44,6 +44,8 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kBackForwardCacheNotRestoredReasons";
     case OriginTrialFeature::kCacheStorageCodeCacheHint:
       return "kCacheStorageCodeCacheHint";
+    case OriginTrialFeature::kCapturedSurfaceControl:
+      return "kCapturedSurfaceControl";
     case OriginTrialFeature::kCompressionDictionaryTransport:
       return "kCompressionDictionaryTransport";
     case OriginTrialFeature::kComputePressure:
@@ -52,6 +54,8 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kCoopRestrictProperties";
     case OriginTrialFeature::kDatabase:
       return "kDatabase";
+    case OriginTrialFeature::kDeprecateUnloadOptOut:
+      return "kDeprecateUnloadOptOut";
     case OriginTrialFeature::kDigitalGoods:
       return "kDigitalGoods";
     case OriginTrialFeature::kDisableDifferentOriginSubframeDialogSuppression:
@@ -88,10 +92,6 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kHrefTranslate";
     case OriginTrialFeature::kJavaScriptCompileHintsMagicRuntime:
       return "kJavaScriptCompileHintsMagicRuntime";
-    case OriginTrialFeature::kLongAnimationFrameMonitoring:
-      return "kLongAnimationFrameMonitoring";
-    case OriginTrialFeature::kLongAnimationFrameTiming:
-      return "kLongAnimationFrameTiming";
     case OriginTrialFeature::kMediaCaptureBackgroundBlur:
       return "kMediaCaptureBackgroundBlur";
     case OriginTrialFeature::kMediaCaptureConfigurationChange:
@@ -196,20 +196,18 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kSpeculationRulesRelativeToDocument";
     case OriginTrialFeature::kStorageAccessAPIBeyondCookies:
       return "kStorageAccessAPIBeyondCookies";
-    case OriginTrialFeature::kStorageBuckets:
-      return "kStorageBuckets";
     case OriginTrialFeature::kTextFragmentIdentifiers:
       return "kTextFragmentIdentifiers";
     case OriginTrialFeature::kTopicsAPI:
       return "kTopicsAPI";
     case OriginTrialFeature::kTopicsDocumentAPI:
       return "kTopicsDocumentAPI";
+    case OriginTrialFeature::kTopLevelTpcd:
+      return "kTopLevelTpcd";
     case OriginTrialFeature::kTouchEventFeatureDetection:
       return "kTouchEventFeatureDetection";
     case OriginTrialFeature::kTpcd:
       return "kTpcd";
-    case OriginTrialFeature::kTpcd1p:
-      return "kTpcd1p";
     case OriginTrialFeature::kUnrestrictedSharedArrayBuffer:
       return "kUnrestrictedSharedArrayBuffer";
     case OriginTrialFeature::kWebAppDarkMode:
@@ -226,10 +224,6 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kWebAppTabStripCustomizations";
     case OriginTrialFeature::kWebAppUrlHandling:
       return "kWebAppUrlHandling";
-    case OriginTrialFeature::kWebAppWindowControlsOverlay:
-      return "kWebAppWindowControlsOverlay";
-    case OriginTrialFeature::kWebAssemblyGC:
-      return "kWebAssemblyGC";
     case OriginTrialFeature::kWebAssemblyJSStringBuiltins:
       return "kWebAssemblyJSStringBuiltins";
     case OriginTrialFeature::kWebTransportCustomCertificates:

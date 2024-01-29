@@ -146,7 +146,6 @@ PROTOBUF_CONSTEXPR ClientToServerMessage::ClientToServerMessage(
   , bag_of_chips_(nullptr)
   , client_status_(nullptr)
   , clear_server_data_(nullptr)
-  , sync_problem_detected_(false)
   , protocol_version_(99)
   , message_contents_(1)
 {}
@@ -2640,10 +2639,10 @@ class ClientToServerMessage::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_protocol_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 1024u;
   }
   static void set_has_message_contents(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 2048u;
   }
   static const ::sync_pb::CommitMessage& commit(const ClientToServerMessage* msg);
   static void set_has_commit(HasBits* has_bits) {
@@ -2655,9 +2654,6 @@ class ClientToServerMessage::_Internal {
   }
   static void set_has_store_birthday(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static void set_has_sync_problem_detected(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
   }
   static const ::sync_pb::DebugInfo& debug_info(const ClientToServerMessage* msg);
   static void set_has_debug_info(HasBits* has_bits) {
@@ -2682,7 +2678,7 @@ class ClientToServerMessage::_Internal {
     (*has_bits)[0] |= 512u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00001001) ^ 0x00001001) != 0;
+    return ((has_bits[0] & 0x00000801) ^ 0x00000801) != 0;
   }
 };
 
@@ -2786,9 +2782,9 @@ ClientToServerMessage::ClientToServerMessage(const ClientToServerMessage& from)
   } else {
     clear_server_data_ = nullptr;
   }
-  ::memcpy(&sync_problem_detected_, &from.sync_problem_detected_,
+  ::memcpy(&protocol_version_, &from.protocol_version_,
     static_cast<size_t>(reinterpret_cast<char*>(&message_contents_) -
-    reinterpret_cast<char*>(&sync_problem_detected_)) + sizeof(message_contents_));
+    reinterpret_cast<char*>(&protocol_version_)) + sizeof(message_contents_));
   // @@protoc_insertion_point(copy_constructor:sync_pb.ClientToServerMessage)
 }
 
@@ -2811,8 +2807,8 @@ invalidator_client_id_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&commit_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&sync_problem_detected_) -
-    reinterpret_cast<char*>(&commit_)) + sizeof(sync_problem_detected_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&clear_server_data_) -
+    reinterpret_cast<char*>(&commit_)) + sizeof(clear_server_data_));
 protocol_version_ = 99;
 message_contents_ = 1;
 }
@@ -2881,7 +2877,7 @@ void ClientToServerMessage::Clear() {
       bag_of_chips_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000300u) {
+  if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(client_status_ != nullptr);
       client_status_->Clear();
@@ -2890,9 +2886,6 @@ void ClientToServerMessage::Clear() {
       GOOGLE_DCHECK(clear_server_data_ != nullptr);
       clear_server_data_->Clear();
     }
-  }
-  if (cached_has_bits & 0x00001c00u) {
-    sync_problem_detected_ = false;
     protocol_version_ = 99;
     message_contents_ = 1;
   }
@@ -2959,15 +2952,6 @@ const char* ClientToServerMessage::_InternalParse(const char* ptr, ::_pbi::Parse
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_store_birthday();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional bool sync_problem_detected = 8 [default = false];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          _Internal::set_has_sync_problem_detected(&has_bits);
-          sync_problem_detected_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3060,13 +3044,13 @@ uint8_t* ClientToServerMessage::_InternalSerialize(
   }
 
   // optional int32 protocol_version = 2 [default = 99];
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_protocol_version(), target);
   }
 
   // required .sync_pb.ClientToServerMessage.Contents message_contents = 3;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_message_contents(), target);
@@ -3090,12 +3074,6 @@ uint8_t* ClientToServerMessage::_InternalSerialize(
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
         7, this->_internal_store_birthday(), target);
-  }
-
-  // optional bool sync_problem_detected = 8 [default = false];
-  if (cached_has_bits & 0x00000400u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_sync_problem_detected(), target);
   }
 
   // optional .sync_pb.DebugInfo debug_info = 10;
@@ -3169,7 +3147,7 @@ size_t ClientToServerMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:sync_pb.ClientToServerMessage)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00001001) ^ 0x00001001) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00000801) ^ 0x00000801) == 0) {  // All required fields are present.
     // required string share = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -3238,7 +3216,7 @@ size_t ClientToServerMessage::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00000700u) {
     // optional .sync_pb.ClientStatus client_status = 13;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
@@ -3253,13 +3231,8 @@ size_t ClientToServerMessage::ByteSizeLong() const {
           *clear_server_data_);
     }
 
-    // optional bool sync_problem_detected = 8 [default = false];
-    if (cached_has_bits & 0x00000400u) {
-      total_size += 1 + 1;
-    }
-
     // optional int32 protocol_version = 2 [default = 99];
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_protocol_version());
     }
 
@@ -3311,7 +3284,7 @@ void ClientToServerMessage::MergeFrom(const ClientToServerMessage& from) {
       _internal_mutable_bag_of_chips()->::sync_pb::ChipBag::MergeFrom(from._internal_bag_of_chips());
     }
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_mutable_client_status()->::sync_pb::ClientStatus::MergeFrom(from._internal_client_status());
     }
@@ -3319,12 +3292,9 @@ void ClientToServerMessage::MergeFrom(const ClientToServerMessage& from) {
       _internal_mutable_clear_server_data()->::sync_pb::ClearServerDataMessage::MergeFrom(from._internal_clear_server_data());
     }
     if (cached_has_bits & 0x00000400u) {
-      sync_problem_detected_ = from.sync_problem_detected_;
-    }
-    if (cached_has_bits & 0x00000800u) {
       protocol_version_ = from.protocol_version_;
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       message_contents_ = from.message_contents_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -3373,8 +3343,8 @@ void ClientToServerMessage::InternalSwap(ClientToServerMessage* other) {
       &other->invalidator_client_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ClientToServerMessage, sync_problem_detected_)
-      + sizeof(ClientToServerMessage::sync_problem_detected_)
+      PROTOBUF_FIELD_OFFSET(ClientToServerMessage, clear_server_data_)
+      + sizeof(ClientToServerMessage::clear_server_data_)
       - PROTOBUF_FIELD_OFFSET(ClientToServerMessage, commit_)>(
           reinterpret_cast<char*>(&commit_),
           reinterpret_cast<char*>(&other->commit_));

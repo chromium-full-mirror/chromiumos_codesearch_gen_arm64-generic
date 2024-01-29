@@ -1725,6 +1725,8 @@ bool CrosDisplayConfigController_GetDisplayLayoutInfo_ForwardToCallback::Accept(
           internal::CrosDisplayConfigController_GetDisplayLayoutInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDisplayConfigController.1
   bool success = true;
   DisplayLayoutInfoPtr p_info{};
   CrosDisplayConfigController_GetDisplayLayoutInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1854,6 +1856,8 @@ bool CrosDisplayConfigController_SetDisplayLayoutInfo_ForwardToCallback::Accept(
           internal::CrosDisplayConfigController_SetDisplayLayoutInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDisplayConfigController.2
   bool success = true;
   DisplayConfigResult p_result{};
   CrosDisplayConfigController_SetDisplayLayoutInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1974,6 +1978,8 @@ bool CrosDisplayConfigController_GetDisplayUnitInfoList_ForwardToCallback::Accep
           internal::CrosDisplayConfigController_GetDisplayUnitInfoList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDisplayConfigController.3
   bool success = true;
   std::vector<DisplayUnitInfoPtr> p_info_list{};
   CrosDisplayConfigController_GetDisplayUnitInfoList_ResponseParamsDataView input_data_view(params, message);
@@ -2105,6 +2111,8 @@ bool CrosDisplayConfigController_SetDisplayProperties_ForwardToCallback::Accept(
           internal::CrosDisplayConfigController_SetDisplayProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDisplayConfigController.4
   bool success = true;
   DisplayConfigResult p_result{};
   CrosDisplayConfigController_SetDisplayProperties_ResponseParamsDataView input_data_view(params, message);
@@ -2225,6 +2233,8 @@ bool CrosDisplayConfigController_OverscanCalibration_ForwardToCallback::Accept(
           internal::CrosDisplayConfigController_OverscanCalibration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDisplayConfigController.6
   bool success = true;
   DisplayConfigResult p_result{};
   CrosDisplayConfigController_OverscanCalibration_ResponseParamsDataView input_data_view(params, message);
@@ -2345,6 +2355,8 @@ bool CrosDisplayConfigController_TouchCalibration_ForwardToCallback::Accept(
           internal::CrosDisplayConfigController_TouchCalibration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDisplayConfigController.7
   bool success = true;
   DisplayConfigResult p_result{};
   CrosDisplayConfigController_TouchCalibration_ResponseParamsDataView input_data_view(params, message);
@@ -2420,6 +2432,8 @@ bool CrosDisplayConfigControllerStubDispatch::Accept(
           reinterpret_cast<internal::CrosDisplayConfigController_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<CrosDisplayConfigObserver> p_observer{};
       CrosDisplayConfigController_AddObserver_ParamsDataView input_data_view(params, message);
@@ -2437,8 +2451,8 @@ bool CrosDisplayConfigControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosDisplayConfigController_GetDisplayLayoutInfo_Name: {
@@ -2460,6 +2474,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosDisplayConfigController_SetUnifiedDesktopEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.5
       bool success = true;
       bool p_enabled{};
       CrosDisplayConfigController_SetUnifiedDesktopEnabled_ParamsDataView input_data_view(params, message);
@@ -2475,8 +2491,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUnifiedDesktopEnabled(
-std::move(p_enabled));
+      impl->SetUnifiedDesktopEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kCrosDisplayConfigController_OverscanCalibration_Name: {
@@ -2492,6 +2508,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CrosDisplayConfigController_HighlightDisplay_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.8
       bool success = true;
       int64_t p_id{};
       CrosDisplayConfigController_HighlightDisplay_ParamsDataView input_data_view(params, message);
@@ -2507,8 +2525,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HighlightDisplay(
-std::move(p_id));
+      impl->HighlightDisplay(        
+        std::move(p_id));
       return true;
     }
     case internal::kCrosDisplayConfigController_DragDisplayDelta_Name: {
@@ -2518,6 +2536,8 @@ std::move(p_id));
           reinterpret_cast<internal::CrosDisplayConfigController_DragDisplayDelta_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.9
       bool success = true;
       int64_t p_display_id{};
       int32_t p_delta_x{};
@@ -2539,10 +2559,10 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DragDisplayDelta(
-std::move(p_display_id), 
-std::move(p_delta_x), 
-std::move(p_delta_y));
+      impl->DragDisplayDelta(        
+        std::move(p_display_id), 
+        std::move(p_delta_x), 
+        std::move(p_delta_y));
       return true;
     }
   }
@@ -2568,6 +2588,8 @@ bool CrosDisplayConfigControllerStubDispatch::AcceptWithResponder(
               internal::CrosDisplayConfigController_GetDisplayLayoutInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.1
       bool success = true;
       CrosDisplayConfigController_GetDisplayLayoutInfo_ParamsDataView input_data_view(params, message);
       
@@ -2593,6 +2615,8 @@ bool CrosDisplayConfigControllerStubDispatch::AcceptWithResponder(
               internal::CrosDisplayConfigController_SetDisplayLayoutInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.2
       bool success = true;
       DisplayLayoutInfoPtr p_info{};
       CrosDisplayConfigController_SetDisplayLayoutInfo_ParamsDataView input_data_view(params, message);
@@ -2611,8 +2635,8 @@ bool CrosDisplayConfigControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisplayLayoutInfo(
-std::move(p_info), std::move(callback));
+      impl->SetDisplayLayoutInfo(        
+        std::move(p_info), std::move(callback));
       return true;
     }
     case internal::kCrosDisplayConfigController_GetDisplayUnitInfoList_Name: {
@@ -2622,6 +2646,8 @@ std::move(p_info), std::move(callback));
               internal::CrosDisplayConfigController_GetDisplayUnitInfoList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.3
       bool success = true;
       bool p_single_unified{};
       CrosDisplayConfigController_GetDisplayUnitInfoList_ParamsDataView input_data_view(params, message);
@@ -2640,8 +2666,8 @@ std::move(p_info), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDisplayUnitInfoList(
-std::move(p_single_unified), std::move(callback));
+      impl->GetDisplayUnitInfoList(        
+        std::move(p_single_unified), std::move(callback));
       return true;
     }
     case internal::kCrosDisplayConfigController_SetDisplayProperties_Name: {
@@ -2651,6 +2677,8 @@ std::move(p_single_unified), std::move(callback));
               internal::CrosDisplayConfigController_SetDisplayProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.4
       bool success = true;
       std::string p_id{};
       DisplayConfigPropertiesPtr p_properties{};
@@ -2675,10 +2703,10 @@ std::move(p_single_unified), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisplayProperties(
-std::move(p_id), 
-std::move(p_properties), 
-std::move(p_source), std::move(callback));
+      impl->SetDisplayProperties(        
+        std::move(p_id), 
+        std::move(p_properties), 
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kCrosDisplayConfigController_SetUnifiedDesktopEnabled_Name: {
@@ -2691,6 +2719,8 @@ std::move(p_source), std::move(callback));
               internal::CrosDisplayConfigController_OverscanCalibration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.6
       bool success = true;
       std::string p_display_id{};
       DisplayConfigOperation p_op{};
@@ -2715,10 +2745,10 @@ std::move(p_source), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OverscanCalibration(
-std::move(p_display_id), 
-std::move(p_op), 
-std::move(p_delta), std::move(callback));
+      impl->OverscanCalibration(        
+        std::move(p_display_id), 
+        std::move(p_op), 
+        std::move(p_delta), std::move(callback));
       return true;
     }
     case internal::kCrosDisplayConfigController_TouchCalibration_Name: {
@@ -2728,6 +2758,8 @@ std::move(p_delta), std::move(callback));
               internal::CrosDisplayConfigController_TouchCalibration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigController.7
       bool success = true;
       std::string p_display_id{};
       DisplayConfigOperation p_op{};
@@ -2752,10 +2784,10 @@ std::move(p_delta), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TouchCalibration(
-std::move(p_display_id), 
-std::move(p_op), 
-std::move(p_calibration), std::move(callback));
+      impl->TouchCalibration(        
+        std::move(p_display_id), 
+        std::move(p_op), 
+        std::move(p_calibration), std::move(callback));
       return true;
     }
     case internal::kCrosDisplayConfigController_HighlightDisplay_Name: {
@@ -2906,6 +2938,8 @@ bool CrosDisplayConfigObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosDisplayConfigObserver_OnDisplayConfigChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosDisplayConfigObserver.0
       bool success = true;
       CrosDisplayConfigObserver_OnDisplayConfigChanged_ParamsDataView input_data_view(params, message);
       
@@ -2918,7 +2952,7 @@ bool CrosDisplayConfigObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDisplayConfigChanged();
+      impl->OnDisplayConfigChanged(        );
       return true;
     }
   }

@@ -591,6 +591,8 @@ bool BackgroundFetchRegistrationObserverStubDispatch::Accept(
           reinterpret_cast<internal::BackgroundFetchRegistrationObserver_OnProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationObserver.0
       bool success = true;
       uint64_t p_upload_total{};
       uint64_t p_uploaded{};
@@ -621,13 +623,13 @@ bool BackgroundFetchRegistrationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProgress(
-std::move(p_upload_total), 
-std::move(p_uploaded), 
-std::move(p_download_total), 
-std::move(p_downloaded), 
-std::move(p_result), 
-std::move(p_failure_reason));
+      impl->OnProgress(        
+        std::move(p_upload_total), 
+        std::move(p_uploaded), 
+        std::move(p_download_total), 
+        std::move(p_downloaded), 
+        std::move(p_result), 
+        std::move(p_failure_reason));
       return true;
     }
     case internal::kBackgroundFetchRegistrationObserver_OnRecordsUnavailable_Name: {
@@ -637,6 +639,8 @@ std::move(p_failure_reason));
           reinterpret_cast<internal::BackgroundFetchRegistrationObserver_OnRecordsUnavailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationObserver.1
       bool success = true;
       BackgroundFetchRegistrationObserver_OnRecordsUnavailable_ParamsDataView input_data_view(params, message);
       
@@ -649,7 +653,7 @@ std::move(p_failure_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRecordsUnavailable();
+      impl->OnRecordsUnavailable(        );
       return true;
     }
     case internal::kBackgroundFetchRegistrationObserver_OnRequestCompleted_Name: {
@@ -659,6 +663,8 @@ std::move(p_failure_reason));
           reinterpret_cast<internal::BackgroundFetchRegistrationObserver_OnRequestCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationObserver.2
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request{};
       ::blink::mojom::blink::FetchAPIResponsePtr p_response{};
@@ -677,9 +683,9 @@ std::move(p_failure_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRequestCompleted(
-std::move(p_request), 
-std::move(p_response));
+      impl->OnRequestCompleted(        
+        std::move(p_request), 
+        std::move(p_response));
       return true;
     }
   }
@@ -1205,6 +1211,8 @@ bool BackgroundFetchService_Fetch_ForwardToCallback::Accept(
           internal::BackgroundFetchService_Fetch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchService.0
   bool success = true;
   BackgroundFetchError p_error{};
   BackgroundFetchRegistrationPtr p_registration{};
@@ -1339,6 +1347,8 @@ bool BackgroundFetchService_GetRegistration_ForwardToCallback::Accept(
           internal::BackgroundFetchService_GetRegistration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchService.1
   bool success = true;
   BackgroundFetchError p_error{};
   BackgroundFetchRegistrationPtr p_registration{};
@@ -1473,6 +1483,8 @@ bool BackgroundFetchService_GetDeveloperIds_ForwardToCallback::Accept(
           internal::BackgroundFetchService_GetDeveloperIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchService.2
   bool success = true;
   BackgroundFetchError p_error{};
   WTF::Vector<WTF::String> p_developer_ids{};
@@ -1613,6 +1625,8 @@ bool BackgroundFetchService_GetIconDisplaySize_ForwardToCallback::Accept(
           internal::BackgroundFetchService_GetIconDisplaySize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchService.3
   bool success = true;
   ::gfx::Size p_icon_size_pixels{};
   BackgroundFetchService_GetIconDisplaySize_ResponseParamsDataView input_data_view(params, message);
@@ -1722,6 +1736,8 @@ bool BackgroundFetchServiceStubDispatch::AcceptWithResponder(
               internal::BackgroundFetchService_Fetch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchService.0
       bool success = true;
       int64_t p_service_worker_registration_id{};
       WTF::String p_developer_id{};
@@ -1755,13 +1771,13 @@ bool BackgroundFetchServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Fetch(
-std::move(p_service_worker_registration_id), 
-std::move(p_developer_id), 
-std::move(p_requests), 
-std::move(p_options), 
-std::move(p_icon), 
-std::move(p_ukm_data), std::move(callback));
+      impl->Fetch(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_developer_id), 
+        std::move(p_requests), 
+        std::move(p_options), 
+        std::move(p_icon), 
+        std::move(p_ukm_data), std::move(callback));
       return true;
     }
     case internal::kBackgroundFetchService_GetRegistration_Name: {
@@ -1771,6 +1787,8 @@ std::move(p_ukm_data), std::move(callback));
               internal::BackgroundFetchService_GetRegistration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchService.1
       bool success = true;
       int64_t p_service_worker_registration_id{};
       WTF::String p_developer_id{};
@@ -1792,9 +1810,9 @@ std::move(p_ukm_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRegistration(
-std::move(p_service_worker_registration_id), 
-std::move(p_developer_id), std::move(callback));
+      impl->GetRegistration(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_developer_id), std::move(callback));
       return true;
     }
     case internal::kBackgroundFetchService_GetDeveloperIds_Name: {
@@ -1804,6 +1822,8 @@ std::move(p_developer_id), std::move(callback));
               internal::BackgroundFetchService_GetDeveloperIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchService.2
       bool success = true;
       int64_t p_service_worker_registration_id{};
       BackgroundFetchService_GetDeveloperIds_ParamsDataView input_data_view(params, message);
@@ -1822,8 +1842,8 @@ std::move(p_developer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeveloperIds(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->GetDeveloperIds(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
     case internal::kBackgroundFetchService_GetIconDisplaySize_Name: {
@@ -1833,6 +1853,8 @@ std::move(p_service_worker_registration_id), std::move(callback));
               internal::BackgroundFetchService_GetIconDisplaySize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchService.3
       bool success = true;
       BackgroundFetchService_GetIconDisplaySize_ParamsDataView input_data_view(params, message);
       
@@ -2300,6 +2322,8 @@ bool BackgroundFetchRegistrationService_UpdateUI_ForwardToCallback::Accept(
           internal::BackgroundFetchRegistrationService_UpdateUI_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchRegistrationService.0
   bool success = true;
   BackgroundFetchError p_error{};
   BackgroundFetchRegistrationService_UpdateUI_ResponseParamsDataView input_data_view(params, message);
@@ -2420,6 +2444,8 @@ bool BackgroundFetchRegistrationService_Abort_ForwardToCallback::Accept(
           internal::BackgroundFetchRegistrationService_Abort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchRegistrationService.1
   bool success = true;
   BackgroundFetchError p_error{};
   BackgroundFetchRegistrationService_Abort_ResponseParamsDataView input_data_view(params, message);
@@ -2540,6 +2566,8 @@ bool BackgroundFetchRegistrationService_MatchRequests_ForwardToCallback::Accept(
           internal::BackgroundFetchRegistrationService_MatchRequests_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BackgroundFetchRegistrationService.2
   bool success = true;
   WTF::Vector<BackgroundFetchSettledFetchPtr> p_fetches{};
   BackgroundFetchRegistrationService_MatchRequests_ResponseParamsDataView input_data_view(params, message);
@@ -2635,6 +2663,8 @@ bool BackgroundFetchRegistrationServiceStubDispatch::Accept(
           reinterpret_cast<internal::BackgroundFetchRegistrationService_AddRegistrationObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationService.3
       bool success = true;
       ::mojo::PendingRemote<BackgroundFetchRegistrationObserver> p_observer{};
       BackgroundFetchRegistrationService_AddRegistrationObserver_ParamsDataView input_data_view(params, message);
@@ -2652,8 +2682,8 @@ bool BackgroundFetchRegistrationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddRegistrationObserver(
-std::move(p_observer));
+      impl->AddRegistrationObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -2676,6 +2706,8 @@ bool BackgroundFetchRegistrationServiceStubDispatch::AcceptWithResponder(
               internal::BackgroundFetchRegistrationService_UpdateUI_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationService.0
       bool success = true;
       WTF::String p_title{};
       ::SkBitmap p_icon{};
@@ -2697,9 +2729,9 @@ bool BackgroundFetchRegistrationServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUI(
-std::move(p_title), 
-std::move(p_icon), std::move(callback));
+      impl->UpdateUI(        
+        std::move(p_title), 
+        std::move(p_icon), std::move(callback));
       return true;
     }
     case internal::kBackgroundFetchRegistrationService_Abort_Name: {
@@ -2709,6 +2741,8 @@ std::move(p_icon), std::move(callback));
               internal::BackgroundFetchRegistrationService_Abort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationService.1
       bool success = true;
       BackgroundFetchRegistrationService_Abort_ParamsDataView input_data_view(params, message);
       
@@ -2734,6 +2768,8 @@ std::move(p_icon), std::move(callback));
               internal::BackgroundFetchRegistrationService_MatchRequests_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BackgroundFetchRegistrationService.2
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request_to_match{};
       ::blink::mojom::blink::CacheQueryOptionsPtr p_cache_query_options{};
@@ -2758,10 +2794,10 @@ std::move(p_icon), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MatchRequests(
-std::move(p_request_to_match), 
-std::move(p_cache_query_options), 
-std::move(p_match_all), std::move(callback));
+      impl->MatchRequests(        
+        std::move(p_request_to_match), 
+        std::move(p_cache_query_options), 
+        std::move(p_match_all), std::move(callback));
       return true;
     }
     case internal::kBackgroundFetchRegistrationService_AddRegistrationObserver_Name: {

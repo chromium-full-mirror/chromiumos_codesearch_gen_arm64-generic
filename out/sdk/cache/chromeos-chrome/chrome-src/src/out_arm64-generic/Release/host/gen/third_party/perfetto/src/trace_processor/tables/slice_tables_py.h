@@ -120,7 +120,7 @@ class SliceTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t ts = static_cast<uint32_t>(Column::Flag::kSorted) | ColumnType::ts::default_flags();
+    static constexpr uint32_t ts = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::ts::default_flags();
     static constexpr uint32_t dur = ColumnType::dur::default_flags();
     static constexpr uint32_t track_id = ColumnType::track_id::default_flags();
     static constexpr uint32_t category = ColumnType::category::default_flags();
@@ -457,59 +457,59 @@ class SliceTable : public macros_internal::MacroTable {
         thread_instruction_count_(ColumnStorage<ColumnType::thread_instruction_count::stored_type>::Create<false>()),
         thread_instruction_delta_(ColumnStorage<ColumnType::thread_instruction_delta::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::dur::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::dur::stored_type>(
           ColumnFlag::dur),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
           ColumnFlag::track_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::category::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::category::stored_type>(
           ColumnFlag::category),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::depth::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::depth::stored_type>(
           ColumnFlag::depth),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::stack_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::stack_id::stored_type>(
           ColumnFlag::stack_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_stack_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_stack_id::stored_type>(
           ColumnFlag::parent_stack_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
           ColumnFlag::parent_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::thread_ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::thread_ts::stored_type>(
           ColumnFlag::thread_ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::thread_dur::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::thread_dur::stored_type>(
           ColumnFlag::thread_dur),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::thread_instruction_count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::thread_instruction_count::stored_type>(
           ColumnFlag::thread_instruction_count),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::thread_instruction_delta::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::thread_instruction_delta::stored_type>(
           ColumnFlag::thread_instruction_delta),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1477,47 +1477,47 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
         prediction_type_(ColumnStorage<ColumnType::prediction_type::stored_type>::Create<false>()),
         jank_tag_(ColumnStorage<ColumnType::jank_tag::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
           ColumnFlag::display_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
           ColumnFlag::surface_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
           ColumnFlag::layer_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::present_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::present_type::stored_type>(
           ColumnFlag::present_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::on_time_finish::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::on_time_finish::stored_type>(
           ColumnFlag::on_time_finish),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::gpu_composition::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::gpu_composition::stored_type>(
           ColumnFlag::gpu_composition),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::jank_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::jank_type::stored_type>(
           ColumnFlag::jank_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::jank_severity_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::jank_severity_type::stored_type>(
           ColumnFlag::jank_severity_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::prediction_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::prediction_type::stored_type>(
           ColumnFlag::prediction_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::jank_tag::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::jank_tag::stored_type>(
           ColumnFlag::jank_tag),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1997,47 +1997,47 @@ class ActualFrameTimelineSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::jank_tag::stored_type> jank_tag)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
           ColumnFlag::display_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
           ColumnFlag::surface_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
           ColumnFlag::layer_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::present_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::present_type::stored_type>(
           ColumnFlag::present_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::on_time_finish::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::on_time_finish::stored_type>(
           ColumnFlag::on_time_finish),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::gpu_composition::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::gpu_composition::stored_type>(
           ColumnFlag::gpu_composition),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::jank_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::jank_type::stored_type>(
           ColumnFlag::jank_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::jank_severity_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::jank_severity_type::stored_type>(
           ColumnFlag::jank_severity_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::prediction_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::prediction_type::stored_type>(
           ColumnFlag::prediction_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::jank_tag::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::jank_tag::stored_type>(
           ColumnFlag::jank_tag),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(display_frame_token.size() == parent_overlay.size());
@@ -2592,19 +2592,19 @@ class ExpectedFrameTimelineSliceTable : public macros_internal::MacroTable {
         upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()),
         layer_name_(ColumnStorage<ColumnType::layer_name::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
           ColumnFlag::display_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
           ColumnFlag::surface_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
           ColumnFlag::layer_name),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2944,19 +2944,19 @@ class ExpectedFrameTimelineSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::layer_name::stored_type> layer_name)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::display_frame_token::stored_type>(
           ColumnFlag::display_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::surface_frame_token::stored_type>(
           ColumnFlag::surface_frame_token),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
           ColumnFlag::layer_name),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(display_frame_token.size() == parent_overlay.size());
@@ -3078,8 +3078,8 @@ class ExperimentalFlatSliceTable : public macros_internal::MacroTable {
     static constexpr uint32_t name = ColumnType::name::default_flags();
     static constexpr uint32_t arg_set_id = ColumnType::arg_set_id::default_flags();
     static constexpr uint32_t source_id = ColumnType::source_id::default_flags();
-    static constexpr uint32_t start_bound = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::start_bound::default_flags();
-    static constexpr uint32_t end_bound = static_cast<uint32_t>(Column::Flag::kHidden) | ColumnType::end_bound::default_flags();
+    static constexpr uint32_t start_bound = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::start_bound::default_flags();
+    static constexpr uint32_t end_bound = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::end_bound::default_flags();
   };
 
   class RowNumber;
@@ -3323,39 +3323,39 @@ class ExperimentalFlatSliceTable : public macros_internal::MacroTable {
         start_bound_(ColumnStorage<ColumnType::start_bound::stored_type>::Create<false>()),
         end_bound_(ColumnStorage<ColumnType::end_bound::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::dur::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::dur::stored_type>(
           ColumnFlag::dur),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
           ColumnFlag::track_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::category::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::category::stored_type>(
           ColumnFlag::category),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::source_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::source_id::stored_type>(
           ColumnFlag::source_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::start_bound::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::start_bound::stored_type>(
           ColumnFlag::start_bound),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::end_bound::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::end_bound::stored_type>(
           ColumnFlag::end_bound),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -4233,47 +4233,47 @@ class GpuSliceTable : public macros_internal::MacroTable {
         hw_queue_id_(ColumnStorage<ColumnType::hw_queue_id::stored_type>::Create<false>()),
         render_subpasses_(ColumnStorage<ColumnType::render_subpasses::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
           ColumnFlag::context_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_target::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_target::stored_type>(
           ColumnFlag::render_target),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_target_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_target_name::stored_type>(
           ColumnFlag::render_target_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_pass::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_pass::stored_type>(
           ColumnFlag::render_pass),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_pass_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_pass_name::stored_type>(
           ColumnFlag::render_pass_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::command_buffer::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::command_buffer::stored_type>(
           ColumnFlag::command_buffer),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::command_buffer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::command_buffer_name::stored_type>(
           ColumnFlag::command_buffer_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::frame_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::frame_id::stored_type>(
           ColumnFlag::frame_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::submission_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::submission_id::stored_type>(
           ColumnFlag::submission_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::hw_queue_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::hw_queue_id::stored_type>(
           ColumnFlag::hw_queue_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_subpasses::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_subpasses::stored_type>(
           ColumnFlag::render_subpasses),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -4753,47 +4753,47 @@ class GpuSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::render_subpasses::stored_type> render_subpasses)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
           ColumnFlag::context_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_target::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_target::stored_type>(
           ColumnFlag::render_target),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_target_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_target_name::stored_type>(
           ColumnFlag::render_target_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_pass::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_pass::stored_type>(
           ColumnFlag::render_pass),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_pass_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_pass_name::stored_type>(
           ColumnFlag::render_pass_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::command_buffer::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::command_buffer::stored_type>(
           ColumnFlag::command_buffer),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::command_buffer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::command_buffer_name::stored_type>(
           ColumnFlag::command_buffer_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::frame_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::frame_id::stored_type>(
           ColumnFlag::frame_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::submission_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::submission_id::stored_type>(
           ColumnFlag::submission_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::hw_queue_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::hw_queue_id::stored_type>(
           ColumnFlag::hw_queue_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::render_subpasses::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::render_subpasses::stored_type>(
           ColumnFlag::render_subpasses),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(context_id.size() == parent_overlay.size());
@@ -5371,23 +5371,23 @@ class GraphicsFrameSliceTable : public macros_internal::MacroTable {
         acquire_to_latch_time_(ColumnStorage<ColumnType::acquire_to_latch_time::stored_type>::Create<false>()),
         latch_to_present_time_(ColumnStorage<ColumnType::latch_to_present_time::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::frame_number::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::frame_number::stored_type>(
           ColumnFlag::frame_number),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
           ColumnFlag::layer_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::queue_to_acquire_time::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::queue_to_acquire_time::stored_type>(
           ColumnFlag::queue_to_acquire_time),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::acquire_to_latch_time::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::acquire_to_latch_time::stored_type>(
           ColumnFlag::acquire_to_latch_time),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::latch_to_present_time::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::latch_to_present_time::stored_type>(
           ColumnFlag::latch_to_present_time),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -5747,23 +5747,23 @@ class GraphicsFrameSliceTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::latch_to_present_time::stored_type> latch_to_present_time)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::frame_number::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::frame_number::stored_type>(
           ColumnFlag::frame_number),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::layer_name::stored_type>(
           ColumnFlag::layer_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::queue_to_acquire_time::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::queue_to_acquire_time::stored_type>(
           ColumnFlag::queue_to_acquire_time),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::acquire_to_latch_time::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::acquire_to_latch_time::stored_type>(
           ColumnFlag::acquire_to_latch_time),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::latch_to_present_time::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::latch_to_present_time::stored_type>(
           ColumnFlag::latch_to_present_time),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(frame_number.size() == parent_overlay.size());

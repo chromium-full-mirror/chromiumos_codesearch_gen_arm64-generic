@@ -1145,7 +1145,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'allCertificates', 0,
         0,
-        mojo.internal.Array(network_mojom_X509CertificateSpec.$, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false /* nullable */,
         0,
@@ -1153,21 +1153,37 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'trustAnchors', 8,
         0,
-        mojo.internal.Array(network_mojom_X509CertificateSpec.$, false),
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false /* nullable */,
         0,
       ),
       mojo.internal.StructField(
-        'distrustedSpkis', 16,
+        'trustAnchorsWithEnforcedConstraints', 16,
         0,
         mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
         null,
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'distrustedSpkis', 24,
+        0,
+        mojo.internal.Array(mojo.internal.Array(mojo.internal.Uint8, false), false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'includeSystemTrustStore', 32,
+        0,
+        mojo.internal.Bool,
+        true,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 48],]);
 
 
 
@@ -1176,12 +1192,16 @@ mojo.internal.Struct(
  */
 export class AdditionalCertificates {
   constructor() {
-    /** @type { !Array<!network_mojom_X509Certificate> } */
+    /** @type { !Array<!Array<!number>> } */
     this.allCertificates;
-    /** @type { !Array<!network_mojom_X509Certificate> } */
+    /** @type { !Array<!Array<!number>> } */
     this.trustAnchors;
     /** @type { !Array<!Array<!number>> } */
+    this.trustAnchorsWithEnforcedConstraints;
+    /** @type { !Array<!Array<!number>> } */
     this.distrustedSpkis;
+    /** @type { !boolean } */
+    this.includeSystemTrustStore;
   }
 }
 

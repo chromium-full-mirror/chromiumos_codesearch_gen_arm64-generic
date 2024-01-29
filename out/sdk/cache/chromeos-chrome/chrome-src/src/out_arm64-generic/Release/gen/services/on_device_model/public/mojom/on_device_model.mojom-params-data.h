@@ -28,7 +28,7 @@ class  StreamingResponder_OnResponse_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> text;
+  mojo::internal::Pointer<internal::ResponseChunk_Data> chunk;
 
  private:
   friend class mojo::internal::MessageFragment<StreamingResponder_OnResponse_Params_Data>;
@@ -44,8 +44,7 @@ class  StreamingResponder_OnComplete_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t status;
-  uint8_t padfinal_[4];
+  mojo::internal::Pointer<internal::ResponseSummary_Data> summary;
 
  private:
   friend class mojo::internal::MessageFragment<StreamingResponder_OnComplete_Params_Data>;
@@ -137,14 +136,14 @@ class StreamingResponder_OnResponse_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetTextDataView(
-      mojo::StringDataView* output);
+  inline void GetChunkDataView(
+      ResponseChunkDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadChunk(UserType* output) {
     
-    auto* pointer = data_->text.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    auto* pointer = data_->chunk.Get();
+    return mojo::internal::Deserialize<::on_device_model::mojom::ResponseChunkDataView>(
         pointer, output, message_);
   }
  private:
@@ -160,21 +159,22 @@ class StreamingResponder_OnComplete_ParamsDataView {
   StreamingResponder_OnComplete_ParamsDataView(
       internal::StreamingResponder_OnComplete_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetSummaryDataView(
+      ResponseSummaryDataView* output);
+
   template <typename UserType>
-  [[nodiscard]] bool ReadStatus(UserType* output) const {
-    auto data_value = data_->status;
-    return mojo::internal::Deserialize<::on_device_model::mojom::ResponseStatus>(
-        data_value, output);
-  }
-  ResponseStatus status() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::on_device_model::mojom::ResponseStatus>(data_->status));
+  [[nodiscard]] bool ReadSummary(UserType* output) {
+    
+    auto* pointer = data_->summary.Get();
+    return mojo::internal::Deserialize<::on_device_model::mojom::ResponseSummaryDataView>(
+        pointer, output, message_);
   }
  private:
   internal::StreamingResponder_OnComplete_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -290,13 +290,18 @@ class OnDeviceModel_StartSession_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
-inline void StreamingResponder_OnResponse_ParamsDataView::GetTextDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->text.Get();
-  *output = mojo::StringDataView(pointer, message_);
+inline void StreamingResponder_OnResponse_ParamsDataView::GetChunkDataView(
+    ResponseChunkDataView* output) {
+  auto pointer = data_->chunk.Get();
+  *output = ResponseChunkDataView(pointer, message_);
 }
 
 
+inline void StreamingResponder_OnComplete_ParamsDataView::GetSummaryDataView(
+    ResponseSummaryDataView* output) {
+  auto pointer = data_->summary.Get();
+  *output = ResponseSummaryDataView(pointer, message_);
+}
 
 
 

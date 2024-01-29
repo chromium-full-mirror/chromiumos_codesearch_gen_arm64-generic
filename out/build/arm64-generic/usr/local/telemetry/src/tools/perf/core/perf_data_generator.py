@@ -98,7 +98,6 @@ class TEST_TYPES(object):
 # The perf data will be handled on a separated 'processor' VM.
 # This list will be removed or replace by an opt-out list.
 LIGHTWEIGHT_TESTERS = [
-    'android-go-perf',
     'android-pixel2-perf',
     'android-pixel2_webview-perf',
     'linux-perf',
@@ -550,49 +549,6 @@ BUILDERS = {
         },
         'perf_trigger': False,
     },
-    'android-go-perf': {
-        'tests': [{
-            'name': 'performance_test_suite',
-            'isolate': 'performance_test_suite_android_clank_monochrome',
-        }],
-        'platform':
-        'android-chrome',
-        'dimension': {
-            'device_os': 'OMB1.180119.001',
-            'device_type': 'gobo',
-            'device_os_flavor': 'google',
-            'pool': 'chrome.tests.perf',
-            'os': 'Android',
-        },
-    },
-    'android-go-perf-pgo': {
-        'tests': [{
-            'name': 'performance_test_suite',
-            'isolate': 'performance_test_suite_android_clank_monochrome',
-        }],
-        'platform':
-        'android-chrome',
-        'dimension': {
-            'device_os': 'OMB1.180119.001',
-            'device_type': 'gobo',
-            'device_os_flavor': 'google',
-            'pool': 'chrome.tests.perf',
-            'os': 'Android',
-        },
-    },
-    'android-go_webview-perf': {
-        'tests': [{
-            'isolate': 'performance_webview_test_suite',
-        }],
-        'platform': 'android-webview-google',
-        'dimension': {
-            'pool': 'chrome.tests.perf-webview',
-            'os': 'Android',
-            'device_type': 'gobo',
-            'device_os': 'OMB1.180119.001',
-            'device_os_flavor': 'google',
-        },
-    },
     'android-pixel2_webview-perf': {
         'tests': [{
             'isolate': 'performance_webview_test_suite',
@@ -665,10 +621,10 @@ BUILDERS = {
     'android-pixel4-perf': {
         'tests': [{
             'isolate':
-            'performance_test_suite_android_clank_trichrome_bundle',
+            'performance_test_suite_android_clank_trichrome_chrome_google_64_32_bundle',
         }],
         'platform':
-        'android-trichrome-bundle',
+        'android-trichrome-chrome-google-64-32-bundle',
         'dimension': {
             'pool': 'chrome.tests.perf',
             'os': 'Android',
@@ -680,10 +636,10 @@ BUILDERS = {
     'android-pixel4-perf-pgo': {
         'tests': [{
             'isolate':
-            'performance_test_suite_android_clank_trichrome_bundle',
+            'performance_test_suite_android_clank_trichrome_chrome_google_64_32_bundle',
         }],
         'platform':
-        'android-trichrome-bundle',
+        'android-trichrome-chrome-google-64-32-bundle',
         'dimension': {
             'pool': 'chrome.tests.perf',
             'os': 'Android',
@@ -695,10 +651,10 @@ BUILDERS = {
     'android-pixel6-perf': {
         'tests': [{
             'isolate':
-            'performance_test_suite_android_clank_trichrome_bundle',
+            'performance_test_suite_android_clank_trichrome_chrome_google_64_32_bundle',
         }],
         'platform':
-        'android-trichrome-bundle',
+        'android-trichrome-chrome-google-64-32-bundle',
         'dimension': {
             'pool': 'chrome.tests.perf',
             'os': 'Android',
@@ -710,10 +666,10 @@ BUILDERS = {
     'android-pixel6-perf-pgo': {
         'tests': [{
             'isolate':
-            'performance_test_suite_android_clank_trichrome_bundle',
+            'performance_test_suite_android_clank_trichrome_chrome_google_64_32_bundle',
         }],
         'platform':
-        'android-trichrome-bundle',
+        'android-trichrome-chrome-google-64-32-bundle',
         'dimension': {
             'pool': 'chrome.tests.perf',
             'os': 'Android',
@@ -725,10 +681,10 @@ BUILDERS = {
     'android-pixel6-pro-perf': {
         'tests': [{
             'isolate':
-            'performance_test_suite_android_clank_trichrome_bundle',
+            'performance_test_suite_android_clank_trichrome_chrome_google_64_32_bundle',
         }],
         'platform':
-        'android-trichrome-bundle',
+        'android-trichrome-chrome-google-64-32-bundle',
         'dimension': {
             'pool': 'chrome.tests.perf',
             'os': 'Android',
@@ -740,10 +696,10 @@ BUILDERS = {
     'android-pixel6-pro-perf-pgo': {
         'tests': [{
             'isolate':
-            'performance_test_suite_android_clank_trichrome_bundle',
+            'performance_test_suite_android_clank_trichrome_chrome_google_64_32_bundle',
         }],
         'platform':
-        'android-trichrome-bundle',
+        'android-trichrome-chrome-google-64-32-bundle',
         'dimension': {
             'pool': 'chrome.tests.perf',
             'os': 'Android',
@@ -835,9 +791,9 @@ BUILDERS = {
             # version ever changes or becomes inconsistent. It is important
             # that bots are homogeneous. See crbug.com/988045 for history.
             'os':
-            'Windows-10-18363.476',
+            'Windows-10-18363.476|Windows-10-18363.1621',
             'gpu':
-            '8086:1616-20.19.15.5070',
+            '8086:1616-20.19.15.5070|8086:1616-10.0.18362.1',
             'synthetic_product_name':
             'HP Laptop 15-bs1xx [Type1ProductConfigId] (HP)'
         },
@@ -857,8 +813,8 @@ BUILDERS = {
         64,
         'dimension': {
             'pool': 'chrome.tests.perf',
-            'os': 'Windows-10-18363.476',
-            'gpu': '8086:1616-20.19.15.5070',
+            'os': 'Windows-10-18363.476|Windows-10-18363.1621',
+            'gpu': '8086:1616-20.19.15.5070|8086:1616-10.0.18362.1',
         },
     },
     'win-10-perf': {

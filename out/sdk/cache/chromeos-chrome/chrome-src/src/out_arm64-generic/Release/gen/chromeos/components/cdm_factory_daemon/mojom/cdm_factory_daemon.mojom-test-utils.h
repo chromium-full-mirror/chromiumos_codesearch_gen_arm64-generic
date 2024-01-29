@@ -44,6 +44,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) CdmFactoryDaemonInterceptorForTesting
   void GetHdcp14Key(GetHdcp14KeyCallback callback) override;
   void GetAndroidHwKeyData(const std::vector<uint8_t>& key_id, const std::vector<uint8_t>& hw_identifier, GetAndroidHwKeyDataCallback callback) override;
   void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) override;
+  void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) override;
 };
 class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) CdmFactoryDaemonAsyncWaiter {
  public:
@@ -68,6 +69,9 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) CdmFactoryDaemonAsyncWaiter {
   void AllocateSecureBuffer(
       uint32_t size, ::mojo::PlatformHandle* out_fd);
   ::mojo::PlatformHandle AllocateSecureBuffer(uint32_t size);
+  void ParseEncryptedSliceHeader(
+      uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, bool* out_success, std::vector<uint8_t>* out_slice_header);
+  
 
  private:
   CdmFactoryDaemon* const proxy_;

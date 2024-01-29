@@ -284,6 +284,8 @@ bool RemovableStorageWriterStubDispatch::Accept(
           reinterpret_cast<internal::RemovableStorageWriter_Write_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemovableStorageWriter.0
       bool success = true;
       ::base::FilePath p_source{};
       ::base::FilePath p_target{};
@@ -307,10 +309,10 @@ bool RemovableStorageWriterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Write(
-std::move(p_source), 
-std::move(p_target), 
-std::move(p_client));
+      impl->Write(        
+        std::move(p_source), 
+        std::move(p_target), 
+        std::move(p_client));
       return true;
     }
     case internal::kRemovableStorageWriter_Verify_Name: {
@@ -320,6 +322,8 @@ std::move(p_client));
           reinterpret_cast<internal::RemovableStorageWriter_Verify_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemovableStorageWriter.1
       bool success = true;
       ::base::FilePath p_source{};
       ::base::FilePath p_target{};
@@ -343,10 +347,10 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Verify(
-std::move(p_source), 
-std::move(p_target), 
-std::move(p_client));
+      impl->Verify(        
+        std::move(p_source), 
+        std::move(p_target), 
+        std::move(p_client));
       return true;
     }
   }
@@ -564,6 +568,8 @@ bool RemovableStorageWriterClientStubDispatch::Accept(
           reinterpret_cast<internal::RemovableStorageWriterClient_Progress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemovableStorageWriterClient.0
       bool success = true;
       int64_t p_progress{};
       RemovableStorageWriterClient_Progress_ParamsDataView input_data_view(params, message);
@@ -579,8 +585,8 @@ bool RemovableStorageWriterClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Progress(
-std::move(p_progress));
+      impl->Progress(        
+        std::move(p_progress));
       return true;
     }
     case internal::kRemovableStorageWriterClient_Complete_Name: {
@@ -590,6 +596,8 @@ std::move(p_progress));
           reinterpret_cast<internal::RemovableStorageWriterClient_Complete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemovableStorageWriterClient.1
       bool success = true;
       std::optional<std::string> p_error{};
       RemovableStorageWriterClient_Complete_ParamsDataView input_data_view(params, message);
@@ -605,8 +613,8 @@ std::move(p_progress));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Complete(
-std::move(p_error));
+      impl->Complete(        
+        std::move(p_error));
       return true;
     }
   }

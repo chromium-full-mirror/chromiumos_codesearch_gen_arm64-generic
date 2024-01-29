@@ -225,6 +225,8 @@ bool BlobReaderClientStubDispatch::Accept(
           reinterpret_cast<internal::BlobReaderClient_OnCalculatedSize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobReaderClient.0
       bool success = true;
       uint64_t p_total_size{};
       uint64_t p_expected_content_size{};
@@ -243,9 +245,9 @@ bool BlobReaderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCalculatedSize(
-std::move(p_total_size), 
-std::move(p_expected_content_size));
+      impl->OnCalculatedSize(        
+        std::move(p_total_size), 
+        std::move(p_expected_content_size));
       return true;
     }
     case internal::kBlobReaderClient_OnComplete_Name: {
@@ -255,6 +257,8 @@ std::move(p_expected_content_size));
           reinterpret_cast<internal::BlobReaderClient_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobReaderClient.1
       bool success = true;
       int32_t p_status{};
       uint64_t p_data_length{};
@@ -273,9 +277,9 @@ std::move(p_expected_content_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete(
-std::move(p_status), 
-std::move(p_data_length));
+      impl->OnComplete(        
+        std::move(p_status), 
+        std::move(p_data_length));
       return true;
     }
   }
@@ -1078,6 +1082,8 @@ bool Blob_ReadSideData_ForwardToCallback::Accept(
           internal::Blob_ReadSideData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Blob.5
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_data{};
   Blob_ReadSideData_ResponseParamsDataView input_data_view(params, message);
@@ -1201,6 +1207,8 @@ bool Blob_CaptureSnapshot_ForwardToCallback::Accept(
           internal::Blob_CaptureSnapshot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Blob.6
   bool success = true;
   uint64_t p_length{};
   std::optional<::base::Time> p_modification_time{};
@@ -1284,6 +1292,8 @@ bool Blob_CaptureSnapshot_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Blob_CaptureSnapshot_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Blob.6
   bool success = true;
   uint64_t p_length{};
   std::optional<::base::Time> p_modification_time{};
@@ -1363,6 +1373,8 @@ bool Blob_GetInternalUUID_ForwardToCallback::Accept(
           internal::Blob_GetInternalUUID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Blob.7
   bool success = true;
   std::string p_uuid{};
   Blob_GetInternalUUID_ResponseParamsDataView input_data_view(params, message);
@@ -1447,6 +1459,8 @@ bool BlobStubDispatch::Accept(
           reinterpret_cast<internal::Blob_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Blob.0
       bool success = true;
       ::mojo::PendingReceiver<Blob> p_blob{};
       Blob_Clone_ParamsDataView input_data_view(params, message);
@@ -1464,8 +1478,8 @@ bool BlobStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_blob));
+      impl->Clone(        
+        std::move(p_blob));
       return true;
     }
     case internal::kBlob_AsDataPipeGetter_Name: {
@@ -1475,6 +1489,8 @@ std::move(p_blob));
           reinterpret_cast<internal::Blob_AsDataPipeGetter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Blob.1
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::DataPipeGetter> p_data_pipe_getter{};
       Blob_AsDataPipeGetter_ParamsDataView input_data_view(params, message);
@@ -1492,8 +1508,8 @@ std::move(p_blob));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AsDataPipeGetter(
-std::move(p_data_pipe_getter));
+      impl->AsDataPipeGetter(        
+        std::move(p_data_pipe_getter));
       return true;
     }
     case internal::kBlob_ReadAll_Name: {
@@ -1503,6 +1519,8 @@ std::move(p_data_pipe_getter));
           reinterpret_cast<internal::Blob_ReadAll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Blob.2
       bool success = true;
       ::mojo::ScopedDataPipeProducerHandle p_pipe{};
       ::mojo::PendingRemote<BlobReaderClient> p_client{};
@@ -1523,9 +1541,9 @@ std::move(p_data_pipe_getter));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadAll(
-std::move(p_pipe), 
-std::move(p_client));
+      impl->ReadAll(        
+        std::move(p_pipe), 
+        std::move(p_client));
       return true;
     }
     case internal::kBlob_ReadRange_Name: {
@@ -1535,6 +1553,8 @@ std::move(p_client));
           reinterpret_cast<internal::Blob_ReadRange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Blob.3
       bool success = true;
       uint64_t p_offset{};
       uint64_t p_length{};
@@ -1561,11 +1581,11 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadRange(
-std::move(p_offset), 
-std::move(p_length), 
-std::move(p_pipe), 
-std::move(p_client));
+      impl->ReadRange(        
+        std::move(p_offset), 
+        std::move(p_length), 
+        std::move(p_pipe), 
+        std::move(p_client));
       return true;
     }
     case internal::kBlob_Load_Name: {
@@ -1575,6 +1595,8 @@ std::move(p_client));
           reinterpret_cast<internal::Blob_Load_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Blob.4
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::URLLoader> p_loader{};
       std::string p_request_method{};
@@ -1603,11 +1625,11 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Load(
-std::move(p_loader), 
-std::move(p_request_method), 
-std::move(p_headers), 
-std::move(p_client));
+      impl->Load(        
+        std::move(p_loader), 
+        std::move(p_request_method), 
+        std::move(p_headers), 
+        std::move(p_client));
       return true;
     }
     case internal::kBlob_ReadSideData_Name: {
@@ -1654,6 +1676,8 @@ bool BlobStubDispatch::AcceptWithResponder(
               internal::Blob_ReadSideData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Blob.5
       bool success = true;
       Blob_ReadSideData_ParamsDataView input_data_view(params, message);
       
@@ -1679,6 +1703,8 @@ bool BlobStubDispatch::AcceptWithResponder(
               internal::Blob_CaptureSnapshot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Blob.6
       bool success = true;
       Blob_CaptureSnapshot_ParamsDataView input_data_view(params, message);
       
@@ -1704,6 +1730,8 @@ bool BlobStubDispatch::AcceptWithResponder(
               internal::Blob_GetInternalUUID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Blob.7
       bool success = true;
       Blob_GetInternalUUID_ParamsDataView input_data_view(params, message);
       

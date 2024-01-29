@@ -4,11 +4,11 @@
 /**
  * @fileoverview Handle processing for richly editable text.
  */
-import { AutomationPredicate } from '../../../common/automation_predicate.js';
-import { AutomationUtil } from '../../../common/automation_util.js';
-import { constants } from '../../../common/constants.js';
-import { Cursor } from '../../../common/cursors/cursor.js';
-import { CursorRange } from '../../../common/cursors/range.js';
+import { AutomationPredicate } from '/common/automation_predicate.js';
+import { AutomationUtil } from '/common/automation_util.js';
+import { constants } from '/common/constants.js';
+import { Cursor } from '/common/cursors/cursor.js';
+import { CursorRange } from '/common/cursors/range.js';
 import { NavBraille } from '../../common/braille/nav_braille.js';
 import { Msgs } from '../../common/msgs.js';
 import { SettingsManager } from '../../common/settings_manager.js';
@@ -34,7 +34,7 @@ var StateType = chrome.automation.StateType;
  * A |ChromeVoxEditableTextBase| that implements text editing feedback
  * for automation tree text fields using anchor and focus selection.
  */
-export class AutomationRichEditableText extends AutomationEditableText {
+export class RichEditableText extends AutomationEditableText {
     startLine_;
     endLine_;
     line_;
@@ -102,13 +102,10 @@ export class AutomationRichEditableText extends AutomationEditableText {
         this.endLine_ = endLine;
         const baseLineOnStart = prevEndLine.isSameLineAndSelection(endLine);
         const isSameSelection = baseLineOnStart && prevStartLine.isSameLineAndSelection(startLine);
-        let cur;
-        if (isSameSelection && this.line_) {
+        const cur = new EditableLine(root.selectionStartObject, root.selectionStartOffset, root.selectionEndObject, root.selectionEndOffset, baseLineOnStart);
+        if (isSameSelection && this.line_ && this.line_.text === cur.text) {
             // Nothing changed, return.
             return;
-        }
-        else {
-            cur = new EditableLine(root.selectionStartObject, root.selectionStartOffset, root.selectionEndObject, root.selectionEndOffset, baseLineOnStart);
         }
         const prev = this.line_;
         this.line_ = cur;
@@ -120,6 +117,7 @@ export class AutomationRichEditableText extends AutomationEditableText {
         // CommandHandler). We use the speech end callback to trigger additional
         // speech.
         // Also, skip speech based on the predicate.
+        // TODO(b/314203187): Not null asserted, check that this is correct.
         if (ChromeVoxState.instance.isReadingContinuously ||
             AutomationPredicate.shouldOnlyOutputSelectionChangeInBraille(this.node_)) {
             this.updateIntraLineState_(cur);
@@ -466,7 +464,7 @@ export class AutomationRichEditableText extends AutomationEditableText {
     changed(evt) {
         // This path does not use the Output module to synthesize speech.
         Output.forceModeForNextSpeechUtterance(undefined);
-        AutomationEditableText.prototype.changed.call(this, evt);
+        ChromeVoxEditableTextBase.prototype.changed.call(this, evt);
     }
     updateIntraLineState_(cur) {
         let text = cur.text;

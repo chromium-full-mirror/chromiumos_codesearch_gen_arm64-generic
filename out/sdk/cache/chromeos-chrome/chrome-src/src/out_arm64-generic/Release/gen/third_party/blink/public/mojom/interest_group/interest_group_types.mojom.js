@@ -404,6 +404,7 @@
     this.sellerCapabilities = null;
     this.allSellersCapabilities = null;
     this.trustedBiddingSignalsSlotSizeMode = InterestGroup.TrustedBiddingSignalsSlotSizeMode.kNone;
+    this.maxTrustedBiddingSignalsUrlLength = 0;
     this.biddingUrl = null;
     this.biddingWasmHelperUrl = null;
     this.updateUrl = null;
@@ -525,6 +526,7 @@
         return err;
 
 
+
     // validate InterestGroup.userBiddingSignals
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 120, true)
     if (err !== validator.validationError.NONE)
@@ -607,10 +609,8 @@
         decoder.decodeStructPointer(SellerCapabilities);
     val.trustedBiddingSignalsSlotSizeMode =
         decoder.decodeStruct(new codec.Enum(InterestGroup.TrustedBiddingSignalsSlotSizeMode));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.maxTrustedBiddingSignalsUrlLength =
+        decoder.decodeStruct(codec.Int32);
     val.biddingUrl =
         decoder.decodeStructPointer(url$.Url);
     val.biddingWasmHelperUrl =
@@ -660,10 +660,7 @@
     encoder.encodeMapPointer(new codec.PointerTo(origin$.Origin), new codec.PointerTo(SellerCapabilities), val.sellerCapabilities);
     encoder.encodeStructPointer(SellerCapabilities, val.allSellersCapabilities);
     encoder.encodeStruct(codec.Int32, val.trustedBiddingSignalsSlotSizeMode);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.maxTrustedBiddingSignalsUrlLength);
     encoder.encodeStructPointer(url$.Url, val.biddingUrl);
     encoder.encodeStructPointer(url$.Url, val.biddingWasmHelperUrl);
     encoder.encodeStructPointer(url$.Url, val.updateUrl);
@@ -1074,6 +1071,82 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(uuid$.Uuid, val.requestId);
   };
+  function AuctionReportBuyerDebugModeConfig(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  AuctionReportBuyerDebugModeConfig.prototype.initDefaults_ = function() {
+    this.isEnabled = false;
+    this.debug_key_$flag = false;
+    this.debug_key_$value = 0;
+  };
+  AuctionReportBuyerDebugModeConfig.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  AuctionReportBuyerDebugModeConfig.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    return validator.validationError.NONE;
+  };
+
+  AuctionReportBuyerDebugModeConfig.encodedSize = codec.kStructHeaderSize + 16;
+
+  AuctionReportBuyerDebugModeConfig.decode = function(decoder) {
+    var packed;
+    var val = new AuctionReportBuyerDebugModeConfig();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.isEnabled = (packed >> 0) & 1 ? true : false;
+    val.debug_key_$flag = (packed >> 1) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.debug_key_$value =
+        decoder.decodeStruct(codec.Uint64);
+    return val;
+  };
+
+  AuctionReportBuyerDebugModeConfig.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(AuctionReportBuyerDebugModeConfig.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.isEnabled & 1) << 0
+    packed |= (val.debug_key_$flag & 1) << 1
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Uint64, val.debug_key_$value);
+  };
   function AuctionReportBuyersConfig(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1187,6 +1260,7 @@
     this.allBuyersGroupLimit = 65535;
     this.auctionReportBuyerKeys = null;
     this.auctionReportBuyers = null;
+    this.auctionReportBuyerDebugModeConfig = null;
     this.requiredSellerCapabilities = null;
     this.requestedSize = null;
     this.allSlotsRequestedSizes = null;
@@ -1207,7 +1281,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 216}
+      {version: 0, numBytes: 224}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1299,39 +1373,45 @@
         return err;
 
 
+    // validate AuctionAdConfigNonSharedParams.auctionReportBuyerDebugModeConfig
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 168, AuctionReportBuyerDebugModeConfig, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate AuctionAdConfigNonSharedParams.requiredSellerCapabilities
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 168, SellerCapabilities, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 176, SellerCapabilities, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AuctionAdConfigNonSharedParams.requestedSize
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 176, ad_display_size$.AdSize, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 184, ad_display_size$.AdSize, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AuctionAdConfigNonSharedParams.allSlotsRequestedSizes
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 184, 8, new codec.PointerTo(ad_display_size$.AdSize), true, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 192, 8, new codec.PointerTo(ad_display_size$.AdSize), true, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AuctionAdConfigNonSharedParams.auctionNonce
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 192, uuid$.Uuid, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 200, uuid$.Uuid, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AuctionAdConfigNonSharedParams.componentAuctions
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 200, 8, new codec.PointerTo(AuctionAdConfig), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 208, 8, new codec.PointerTo(AuctionAdConfig), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  AuctionAdConfigNonSharedParams.encodedSize = codec.kStructHeaderSize + 208;
+  AuctionAdConfigNonSharedParams.encodedSize = codec.kStructHeaderSize + 216;
 
   AuctionAdConfigNonSharedParams.decode = function(decoder) {
     var packed;
@@ -1374,6 +1454,8 @@
         decoder.decodeArrayPointer(new codec.PointerTo(int128$.Uint128));
     val.auctionReportBuyers =
         decoder.decodeMapPointer(new codec.Enum(AuctionAdConfigNonSharedParams.BuyerReportType), new codec.PointerTo(AuctionReportBuyersConfig));
+    val.auctionReportBuyerDebugModeConfig =
+        decoder.decodeStructPointer(AuctionReportBuyerDebugModeConfig);
     val.requiredSellerCapabilities =
         decoder.decodeStructPointer(SellerCapabilities);
     val.requestedSize =
@@ -1412,6 +1494,7 @@
     encoder.skip(1);
     encoder.encodeArrayPointer(new codec.PointerTo(int128$.Uint128), val.auctionReportBuyerKeys);
     encoder.encodeMapPointer(new codec.Enum(AuctionAdConfigNonSharedParams.BuyerReportType), new codec.PointerTo(AuctionReportBuyersConfig), val.auctionReportBuyers);
+    encoder.encodeStructPointer(AuctionReportBuyerDebugModeConfig, val.auctionReportBuyerDebugModeConfig);
     encoder.encodeStructPointer(SellerCapabilities, val.requiredSellerCapabilities);
     encoder.encodeStructPointer(ad_display_size$.AdSize, val.requestedSize);
     encoder.encodeArrayPointer(new codec.PointerTo(ad_display_size$.AdSize), val.allSlotsRequestedSizes);
@@ -1429,13 +1512,14 @@
     this.serverResponse = null;
     this.decisionLogicUrl = null;
     this.trustedScoringSignalsUrl = null;
-    this.auctionAdConfigNonSharedParams = null;
-    this.directFromSellerSignals = null;
+    this.maxTrustedScoringSignalsUrlLength = 0;
     this.expectsDirectFromSellerSignalsHeaderAdSlot = false;
     this.hasSellerExperimentGroupId = false;
     this.hasAllBuyerExperimentGroupId = false;
     this.expectsAdditionalBids = false;
     this.sellerExperimentGroupId = 0;
+    this.auctionAdConfigNonSharedParams = null;
+    this.directFromSellerSignals = null;
     this.allBuyerExperimentGroupId = 0;
     this.perBuyerExperimentGroupIds = null;
     this.aggregationCoordinatorOrigin = null;
@@ -1454,7 +1538,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 88}
+      {version: 0, numBytes: 96}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1485,14 +1569,15 @@
         return err;
 
 
+
     // validate AuctionAdConfig.auctionAdConfigNonSharedParams
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, AuctionAdConfigNonSharedParams, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, AuctionAdConfigNonSharedParams, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AuctionAdConfig.directFromSellerSignals
-    err = messageValidator.validateUnion(offset + codec.kStructHeaderSize + 40, AuctionAdConfigMaybePromiseDirectFromSellerSignals, false);
+    err = messageValidator.validateUnion(offset + codec.kStructHeaderSize + 48, AuctionAdConfigMaybePromiseDirectFromSellerSignals, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1503,21 +1588,21 @@
 
 
     // validate AuctionAdConfig.perBuyerExperimentGroupIds
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 64, false, new codec.PointerTo(origin$.Origin), codec.Uint16, false);
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 72, false, new codec.PointerTo(origin$.Origin), codec.Uint16, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate AuctionAdConfig.aggregationCoordinatorOrigin
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, origin$.Origin, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, origin$.Origin, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  AuctionAdConfig.encodedSize = codec.kStructHeaderSize + 80;
+  AuctionAdConfig.encodedSize = codec.kStructHeaderSize + 88;
 
   AuctionAdConfig.decode = function(decoder) {
     var packed;
@@ -1532,10 +1617,8 @@
         decoder.decodeStructPointer(url$.Url);
     val.trustedScoringSignalsUrl =
         decoder.decodeStructPointer(url$.Url);
-    val.auctionAdConfigNonSharedParams =
-        decoder.decodeStructPointer(AuctionAdConfigNonSharedParams);
-    val.directFromSellerSignals =
-        decoder.decodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals);
+    val.maxTrustedScoringSignalsUrlLength =
+        decoder.decodeStruct(codec.Int32);
     packed = decoder.readUint8();
     val.expectsDirectFromSellerSignalsHeaderAdSlot = (packed >> 0) & 1 ? true : false;
     val.hasSellerExperimentGroupId = (packed >> 1) & 1 ? true : false;
@@ -1544,8 +1627,16 @@
     decoder.skip(1);
     val.sellerExperimentGroupId =
         decoder.decodeStruct(codec.Uint16);
+    val.auctionAdConfigNonSharedParams =
+        decoder.decodeStructPointer(AuctionAdConfigNonSharedParams);
+    val.directFromSellerSignals =
+        decoder.decodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals);
     val.allBuyerExperimentGroupId =
         decoder.decodeStruct(codec.Int16);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     val.perBuyerExperimentGroupIds =
@@ -1563,8 +1654,7 @@
     encoder.encodeStructPointer(AuctionAdServerResponseConfig, val.serverResponse);
     encoder.encodeStructPointer(url$.Url, val.decisionLogicUrl);
     encoder.encodeStructPointer(url$.Url, val.trustedScoringSignalsUrl);
-    encoder.encodeStructPointer(AuctionAdConfigNonSharedParams, val.auctionAdConfigNonSharedParams);
-    encoder.encodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals, val.directFromSellerSignals);
+    encoder.encodeStruct(codec.Int32, val.maxTrustedScoringSignalsUrlLength);
     packed = 0;
     packed |= (val.expectsDirectFromSellerSignalsHeaderAdSlot & 1) << 0
     packed |= (val.hasSellerExperimentGroupId & 1) << 1
@@ -1573,7 +1663,13 @@
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(codec.Uint16, val.sellerExperimentGroupId);
+    encoder.encodeStructPointer(AuctionAdConfigNonSharedParams, val.auctionAdConfigNonSharedParams);
+    encoder.encodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals, val.directFromSellerSignals);
     encoder.encodeStruct(codec.Int16, val.allBuyerExperimentGroupId);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeMapPointer(new codec.PointerTo(origin$.Origin), codec.Uint16, val.perBuyerExperimentGroupIds);
@@ -2336,6 +2432,7 @@
   exports.AdCurrency = AdCurrency;
   exports.AuctionAdConfigBuyerCurrencies = AuctionAdConfigBuyerCurrencies;
   exports.AuctionAdServerResponseConfig = AuctionAdServerResponseConfig;
+  exports.AuctionReportBuyerDebugModeConfig = AuctionReportBuyerDebugModeConfig;
   exports.AuctionReportBuyersConfig = AuctionReportBuyersConfig;
   exports.AuctionAdConfigNonSharedParams = AuctionAdConfigNonSharedParams;
   exports.AuctionAdConfig = AuctionAdConfig;

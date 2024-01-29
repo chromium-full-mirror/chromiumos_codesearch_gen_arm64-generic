@@ -36,24 +36,25 @@ import * as i18n from '../../core/i18n/i18n.js';
 import * as Platform from '../../core/platform/platform.js';
 import * as Root from '../../core/root/root.js';
 import * as SDK from '../../core/sdk/sdk.js';
+import * as IssuesManager from '../../models/issues_manager/issues_manager.js';
 import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as LegacyWrapper from '../../ui/components/legacy_wrapper/legacy_wrapper.js';
 import * as SourceFrame from '../../ui/legacy/components/source_frame/source_frame.js';
 import * as UI from '../../ui/legacy/legacy.js';
 import { ApplicationPanelTreeElement, ExpandableApplicationPanelTreeElement } from './ApplicationPanelTreeElement.js';
-import { AppManifestView, Events as AppManifestViewEvents } from './AppManifestView.js';
+import { AppManifestView } from './AppManifestView.js';
 import { BackForwardCacheTreeElement } from './BackForwardCacheTreeElement.js';
 import { BackgroundServiceModel } from './BackgroundServiceModel.js';
 import { BackgroundServiceView } from './BackgroundServiceView.js';
 import { BounceTrackingMitigationsTreeElement } from './BounceTrackingMitigationsTreeElement.js';
 import * as ApplicationComponents from './components/components.js';
-import { DatabaseModel, Events as DatabaseModelEvents } from './DatabaseModel.js';
-import { DatabaseQueryView, Events as DatabaseQueryViewEvents } from './DatabaseQueryView.js';
+import { DatabaseModel } from './DatabaseModel.js';
+import { DatabaseQueryView } from './DatabaseQueryView.js';
 import { DatabaseTableView } from './DatabaseTableView.js';
-import { DOMStorageModel, Events as DOMStorageModelEvents } from './DOMStorageModel.js';
+import { DOMStorageModel } from './DOMStorageModel.js';
 import { Events as IndexedDBModelEvents, IndexedDBModel, } from './IndexedDBModel.js';
 import { IDBDatabaseView, IDBDataView } from './IndexedDBViews.js';
-import { Events as InterestGroupModelEvents, InterestGroupStorageModel } from './InterestGroupStorageModel.js';
+import { InterestGroupStorageModel } from './InterestGroupStorageModel.js';
 import { InterestGroupTreeElement } from './InterestGroupTreeElement.js';
 import { OpenedWindowDetailsView, WorkerDetailsView } from './OpenedWindowDetailsView.js';
 import { PreloadingSummaryTreeElement, } from './PreloadingTreeElement.js';
@@ -62,7 +63,7 @@ import resourcesSidebarStyles from './resourcesSidebar.css.js';
 import { ServiceWorkerCacheTreeElement } from './ServiceWorkerCacheTreeElement.js';
 import { ServiceWorkersView } from './ServiceWorkersView.js';
 import { SharedStorageListTreeElement } from './SharedStorageListTreeElement.js';
-import { Events as SharedStorageModelEvents, SharedStorageModel, } from './SharedStorageModel.js';
+import { SharedStorageModel, } from './SharedStorageModel.js';
 import { SharedStorageTreeElement } from './SharedStorageTreeElement.js';
 import { StorageBucketsTreeParentElement } from './StorageBucketsTreeElement.js';
 import { StorageView } from './StorageView.js';
@@ -190,6 +191,11 @@ const UIStrings = {
      * @description Application sidebar panel
      */
     applicationSidebarPanel: 'Application panel sidebar',
+    /**
+     *@description Tooltip in Application Panel Sidebar of the Application panel
+     *@example {https://example.com} PH1
+     */
+    thirdPartyPhaseout: 'Cookies from {PH1} may have been blocked due to third-party cookie phaseout.',
 };
 const str_ = i18n.i18n.registerUIStrings('panels/application/ApplicationPanelSidebar.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
@@ -198,15 +204,6 @@ function assertNotMainTarget(targetId) {
         throw new Error('Unexpected main target id');
     }
 }
-export var SharedStorageTreeElementDispatcher;
-(function (SharedStorageTreeElementDispatcher) {
-    // TODO(crbug.com/1167717): Make this a const enum.
-    // eslint-disable-next-line rulesdir/const_enum
-    let Events;
-    (function (Events) {
-        Events["SharedStorageTreeElementAdded"] = "SharedStorageTreeElementAdded";
-    })(Events = SharedStorageTreeElementDispatcher.Events || (SharedStorageTreeElementDispatcher.Events = {}));
-})(SharedStorageTreeElementDispatcher || (SharedStorageTreeElementDispatcher = {}));
 export class ApplicationPanelSidebar extends UI.Widget.VBox {
     panel;
     sidebarTree;
@@ -303,7 +300,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         storageTreeElement.appendChild(this.sharedStorageListTreeElement);
         this.cacheStorageListTreeElement = new ServiceWorkerCacheTreeElement(panel);
         storageTreeElement.appendChild(this.cacheStorageListTreeElement);
-        if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE)) {
+        if (Root.Runtime.experiments.isEnabled("storageBucketsTree" /* Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE */)) {
             this.storageBucketsTreeElement = new StorageBucketsTreeParentElement(panel);
             storageTreeElement.appendChild(this.storageBucketsTreeElement);
         }
@@ -328,7 +325,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         this.periodicBackgroundSyncTreeElement =
             new BackgroundServiceTreeElement(panel, "periodicBackgroundSync" /* Protocol.BackgroundService.ServiceName.PeriodicBackgroundSync */);
         backgroundServiceTreeElement.appendChild(this.periodicBackgroundSyncTreeElement);
-        if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL)) {
+        if (Root.Runtime.experiments.isEnabled("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */)) {
             this.preloadingSummaryTreeElement = new PreloadingSummaryTreeElement(panel);
             backgroundServiceTreeElement.appendChild(this.preloadingSummaryTreeElement);
             this.preloadingSummaryTreeElement.constructChildren(panel);
@@ -400,12 +397,12 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         this.target = target;
         this.databaseModel = target.model(DatabaseModel);
         if (this.databaseModel) {
-            this.databaseModel.addEventListener(DatabaseModelEvents.DatabaseAdded, this.databaseAdded, this);
-            this.databaseModel.addEventListener(DatabaseModelEvents.DatabasesRemoved, this.resetWebSQL, this);
+            this.databaseModel.addEventListener("DatabaseAdded" /* DatabaseModelEvents.DatabaseAdded */, this.databaseAdded, this);
+            this.databaseModel.addEventListener("DatabasesRemoved" /* DatabaseModelEvents.DatabasesRemoved */, this.resetWebSQL, this);
         }
         const interestGroupModel = target.model(InterestGroupStorageModel);
         if (interestGroupModel) {
-            interestGroupModel.addEventListener(InterestGroupModelEvents.InterestGroupAccess, this.interestGroupAccess, this);
+            interestGroupModel.addEventListener("InterestGroupAccess" /* InterestGroupModelEvents.InterestGroupAccess */, this.interestGroupAccess, this);
         }
         const resourceTreeModel = target.model(SDK.ResourceTreeModel.ResourceTreeModel);
         if (!resourceTreeModel) {
@@ -428,13 +425,13 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
             resourceTreeModel.removeEventListener(SDK.ResourceTreeModel.Events.WillLoadCachedResources, this.resetWithFrames, this);
         }
         if (this.databaseModel) {
-            this.databaseModel.removeEventListener(DatabaseModelEvents.DatabaseAdded, this.databaseAdded, this);
-            this.databaseModel.removeEventListener(DatabaseModelEvents.DatabasesRemoved, this.resetWebSQL, this);
+            this.databaseModel.removeEventListener("DatabaseAdded" /* DatabaseModelEvents.DatabaseAdded */, this.databaseAdded, this);
+            this.databaseModel.removeEventListener("DatabasesRemoved" /* DatabaseModelEvents.DatabasesRemoved */, this.resetWebSQL, this);
             this.databaseModel = null;
         }
         const interestGroupModel = target.model(InterestGroupStorageModel);
         if (interestGroupModel) {
-            interestGroupModel.removeEventListener(InterestGroupModelEvents.InterestGroupAccess, this.interestGroupAccess, this);
+            interestGroupModel.removeEventListener("InterestGroupAccess" /* InterestGroupModelEvents.InterestGroupAccess */, this.interestGroupAccess, this);
         }
         this.resetWithFrames();
     }
@@ -461,7 +458,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         this.periodicBackgroundSyncTreeElement.initialize(backgroundServiceModel);
         this.pushMessagingTreeElement.initialize(backgroundServiceModel);
         this.storageBucketsTreeElement?.initialize();
-        if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL)) {
+        if (Root.Runtime.experiments.isEnabled("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */)) {
             const preloadingModel = this.target?.model(SDK.PreloadingModel.PreloadingModel);
             if (preloadingModel) {
                 this.preloadingSummaryTreeElement?.initialize(preloadingModel);
@@ -471,13 +468,13 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
     domStorageModelAdded(model) {
         model.enable();
         model.storages().forEach(this.addDOMStorage.bind(this));
-        model.addEventListener(DOMStorageModelEvents.DOMStorageAdded, this.domStorageAdded, this);
-        model.addEventListener(DOMStorageModelEvents.DOMStorageRemoved, this.domStorageRemoved, this);
+        model.addEventListener("DOMStorageAdded" /* DOMStorageModelEvents.DOMStorageAdded */, this.domStorageAdded, this);
+        model.addEventListener("DOMStorageRemoved" /* DOMStorageModelEvents.DOMStorageRemoved */, this.domStorageRemoved, this);
     }
     domStorageModelRemoved(model) {
         model.storages().forEach(this.removeDOMStorage.bind(this));
-        model.removeEventListener(DOMStorageModelEvents.DOMStorageAdded, this.domStorageAdded, this);
-        model.removeEventListener(DOMStorageModelEvents.DOMStorageRemoved, this.domStorageRemoved, this);
+        model.removeEventListener("DOMStorageAdded" /* DOMStorageModelEvents.DOMStorageAdded */, this.domStorageAdded, this);
+        model.removeEventListener("DOMStorageRemoved" /* DOMStorageModelEvents.DOMStorageRemoved */, this.domStorageRemoved, this);
     }
     indexedDBModelAdded(model) {
         model.enable();
@@ -488,29 +485,29 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
     }
     interestGroupModelAdded(model) {
         model.enable();
-        model.addEventListener(InterestGroupModelEvents.InterestGroupAccess, this.interestGroupAccess, this);
+        model.addEventListener("InterestGroupAccess" /* InterestGroupModelEvents.InterestGroupAccess */, this.interestGroupAccess, this);
     }
     interestGroupModelRemoved(model) {
         model.disable();
-        model.removeEventListener(InterestGroupModelEvents.InterestGroupAccess, this.interestGroupAccess, this);
+        model.removeEventListener("InterestGroupAccess" /* InterestGroupModelEvents.InterestGroupAccess */, this.interestGroupAccess, this);
     }
     async sharedStorageModelAdded(model) {
         await model.enable();
         for (const storage of model.storages()) {
             await this.addSharedStorage(storage);
         }
-        model.addEventListener(SharedStorageModelEvents.SharedStorageAdded, this.sharedStorageAdded, this);
-        model.addEventListener(SharedStorageModelEvents.SharedStorageRemoved, this.sharedStorageRemoved, this);
-        model.addEventListener(SharedStorageModelEvents.SharedStorageAccess, this.sharedStorageAccess, this);
+        model.addEventListener("SharedStorageAdded" /* SharedStorageModelEvents.SharedStorageAdded */, this.sharedStorageAdded, this);
+        model.addEventListener("SharedStorageRemoved" /* SharedStorageModelEvents.SharedStorageRemoved */, this.sharedStorageRemoved, this);
+        model.addEventListener("SharedStorageAccess" /* SharedStorageModelEvents.SharedStorageAccess */, this.sharedStorageAccess, this);
     }
     sharedStorageModelRemoved(model) {
         model.disable();
         for (const storage of model.storages()) {
             this.removeSharedStorage(storage);
         }
-        model.removeEventListener(SharedStorageModelEvents.SharedStorageAdded, this.sharedStorageAdded, this);
-        model.removeEventListener(SharedStorageModelEvents.SharedStorageRemoved, this.sharedStorageRemoved, this);
-        model.removeEventListener(SharedStorageModelEvents.SharedStorageAccess, this.sharedStorageAccess, this);
+        model.removeEventListener("SharedStorageAdded" /* SharedStorageModelEvents.SharedStorageAdded */, this.sharedStorageAdded, this);
+        model.removeEventListener("SharedStorageRemoved" /* SharedStorageModelEvents.SharedStorageRemoved */, this.sharedStorageRemoved, this);
+        model.removeEventListener("SharedStorageAccess" /* SharedStorageModelEvents.SharedStorageAccess */, this.sharedStorageAccess, this);
     }
     storageBucketsModelAdded(model) {
         model.enable();
@@ -524,7 +521,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
     }
     resetWebSQL() {
         for (const queryView of this.databaseQueryViews.values()) {
-            queryView.removeEventListener(DatabaseQueryViewEvents.SchemaUpdated, event => {
+            queryView.removeEventListener("SchemaUpdated" /* DatabaseQueryViewEvents.SchemaUpdated */, event => {
                 void this.updateDatabaseTables(event);
             }, this);
         }
@@ -597,7 +594,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         const domain = parsedURL.securityOrigin();
         if (!this.domains[domain]) {
             this.domains[domain] = true;
-            const cookieDomainTreeElement = new CookieTreeElement(this.panel, frame, domain);
+            const cookieDomainTreeElement = new CookieTreeElement(this.panel, frame, parsedURL);
             this.cookieListTreeElement.appendChild(cookieDomainTreeElement);
         }
     }
@@ -652,7 +649,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         }
         this.sharedStorageTreeElements.set(sharedStorage.securityOrigin, sharedStorageTreeElement);
         this.sharedStorageListTreeElement.appendChild(sharedStorageTreeElement);
-        this.sharedStorageTreeElementDispatcher.dispatchEventToListeners(SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded, { origin: sharedStorage.securityOrigin });
+        this.sharedStorageTreeElementDispatcher.dispatchEventToListeners("SharedStorageTreeElementAdded" /* SharedStorageTreeElementDispatcher.Events.SharedStorageTreeElementAdded */, { origin: sharedStorage.securityOrigin });
     }
     sharedStorageRemoved(event) {
         this.removeSharedStorage(event.data);
@@ -711,7 +708,7 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
             if (!view) {
                 view = new DatabaseQueryView(database);
                 this.databaseQueryViews.set(database, view);
-                view.addEventListener(DatabaseQueryViewEvents.SchemaUpdated, event => {
+                view.addEventListener("SchemaUpdated" /* DatabaseQueryViewEvents.SchemaUpdated */, event => {
                     void this.updateDatabaseTables(event);
                 }, this);
             }
@@ -949,7 +946,7 @@ export class AppManifestTreeElement extends ApplicationPanelTreeElement {
         const handleExpansion = (hasManifest) => {
             this.setExpandable(hasManifest);
         };
-        this.view.addEventListener(AppManifestViewEvents.ManifestDetected, event => handleExpansion(event.data));
+        this.view.addEventListener("ManifestDetected" /* AppManifestViewEvents.ManifestDetected */, event => handleExpansion(event.data));
     }
     get itemURL() {
         return 'manifest://';
@@ -1465,12 +1462,18 @@ export class DOMStorageTreeElement extends ApplicationPanelTreeElement {
 export class CookieTreeElement extends ApplicationPanelTreeElement {
     target;
     cookieDomainInternal;
-    constructor(storagePanel, frame, cookieDomain) {
-        super(storagePanel, cookieDomain ? cookieDomain : i18nString(UIStrings.localFiles), false);
+    constructor(storagePanel, frame, cookieUrl) {
+        super(storagePanel, cookieUrl.securityOrigin() || i18nString(UIStrings.localFiles), false);
         this.target = frame.resourceTreeModel().target();
-        this.cookieDomainInternal = cookieDomain;
-        this.tooltip = i18nString(UIStrings.cookiesUsedByFramesFromS, { PH1: cookieDomain });
+        this.cookieDomainInternal = cookieUrl.securityOrigin();
+        this.tooltip = i18nString(UIStrings.cookiesUsedByFramesFromS, { PH1: this.cookieDomainInternal });
         const icon = IconButton.Icon.create('cookie');
+        // Note that we cannot use `cookieDomainInternal` here since it contains scheme.
+        if (IssuesManager.RelatedIssue.hasThirdPartyPhaseoutCookieIssueForDomain(cookieUrl.domain())) {
+            icon.name = 'warning-filled';
+            icon.classList.add('warn-icon');
+            this.tooltip = i18nString(UIStrings.thirdPartyPhaseout, { PH1: this.cookieDomainInternal });
+        }
         this.setLeadingIcons([icon]);
     }
     get itemURL() {
@@ -1545,13 +1548,13 @@ export class ResourcesSection {
         this.treeElementForFrameId = new Map();
         this.treeElementForTargetId = new Map();
         const frameManager = SDK.FrameManager.FrameManager.instance();
-        frameManager.addEventListener(SDK.FrameManager.Events.FrameAddedToTarget, event => this.frameAdded(event.data.frame), this);
-        frameManager.addEventListener(SDK.FrameManager.Events.FrameRemoved, event => this.frameDetached(event.data.frameId), this);
-        frameManager.addEventListener(SDK.FrameManager.Events.FrameNavigated, event => this.frameNavigated(event.data.frame), this);
-        frameManager.addEventListener(SDK.FrameManager.Events.ResourceAdded, event => this.resourceAdded(event.data.resource), this);
-        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.ChildTargetManager.ChildTargetManager, SDK.ChildTargetManager.Events.TargetCreated, this.windowOpened, this, { scoped: true });
-        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.ChildTargetManager.ChildTargetManager, SDK.ChildTargetManager.Events.TargetInfoChanged, this.windowChanged, this, { scoped: true });
-        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.ChildTargetManager.ChildTargetManager, SDK.ChildTargetManager.Events.TargetDestroyed, this.windowDestroyed, this, { scoped: true });
+        frameManager.addEventListener("FrameAddedToTarget" /* SDK.FrameManager.Events.FrameAddedToTarget */, event => this.frameAdded(event.data.frame), this);
+        frameManager.addEventListener("FrameRemoved" /* SDK.FrameManager.Events.FrameRemoved */, event => this.frameDetached(event.data.frameId), this);
+        frameManager.addEventListener("FrameNavigated" /* SDK.FrameManager.Events.FrameNavigated */, event => this.frameNavigated(event.data.frame), this);
+        frameManager.addEventListener("ResourceAdded" /* SDK.FrameManager.Events.ResourceAdded */, event => this.resourceAdded(event.data.resource), this);
+        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.ChildTargetManager.ChildTargetManager, "TargetCreated" /* SDK.ChildTargetManager.Events.TargetCreated */, this.windowOpened, this, { scoped: true });
+        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.ChildTargetManager.ChildTargetManager, "TargetInfoChanged" /* SDK.ChildTargetManager.Events.TargetInfoChanged */, this.windowChanged, this, { scoped: true });
+        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.ChildTargetManager.ChildTargetManager, "TargetDestroyed" /* SDK.ChildTargetManager.Events.TargetDestroyed */, this.windowDestroyed, this, { scoped: true });
         SDK.TargetManager.TargetManager.instance().observeTargets(this, { scoped: true });
     }
     initialize() {

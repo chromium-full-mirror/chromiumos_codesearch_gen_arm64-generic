@@ -263,6 +263,8 @@ bool ProcessMetadataStubDispatch::Accept(
           reinterpret_cast<internal::ProcessMetadata_SetPID_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessMetadata.0
       bool success = true;
       ::mojo_base::mojom::blink::ProcessIdPtr p_pid{};
       ProcessMetadata_SetPID_ParamsDataView input_data_view(params, message);
@@ -278,8 +280,8 @@ bool ProcessMetadataStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPID(
-std::move(p_pid));
+      impl->SetPID(        
+        std::move(p_pid));
       return true;
     }
   }
@@ -869,6 +871,8 @@ bool Connector_BindInterface_ForwardToCallback::Accept(
           internal::Connector_BindInterface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Connector.0
   bool success = true;
   ConnectResult p_result{};
   IdentityPtr p_identity{};
@@ -1003,6 +1007,8 @@ bool Connector_QueryService_ForwardToCallback::Accept(
           internal::Connector_QueryService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Connector.1
   bool success = true;
   ServiceInfoPtr p_info{};
   Connector_QueryService_ResponseParamsDataView input_data_view(params, message);
@@ -1128,6 +1134,8 @@ bool Connector_WarmService_ForwardToCallback::Accept(
           internal::Connector_WarmService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Connector.2
   bool success = true;
   ConnectResult p_result{};
   IdentityPtr p_identity{};
@@ -1262,6 +1270,8 @@ bool Connector_RegisterServiceInstance_ForwardToCallback::Accept(
           internal::Connector_RegisterServiceInstance_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Connector.3
   bool success = true;
   ConnectResult p_result{};
   Connector_RegisterServiceInstance_ResponseParamsDataView input_data_view(params, message);
@@ -1349,6 +1359,8 @@ bool ConnectorStubDispatch::Accept(
           reinterpret_cast<internal::Connector_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Connector.4
       bool success = true;
       ::mojo::PendingReceiver<Connector> p_receiver{};
       Connector_Clone_ParamsDataView input_data_view(params, message);
@@ -1366,8 +1378,8 @@ bool ConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -1390,6 +1402,8 @@ bool ConnectorStubDispatch::AcceptWithResponder(
               internal::Connector_BindInterface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Connector.0
       bool success = true;
       ::service_manager::mojom::blink::ServiceFilterPtr p_filter{};
       WTF::String p_interface_name{};
@@ -1417,11 +1431,11 @@ bool ConnectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInterface(
-std::move(p_filter), 
-std::move(p_interface_name), 
-std::move(p_interface_pipe), 
-std::move(p_priority), std::move(callback));
+      impl->BindInterface(        
+        std::move(p_filter), 
+        std::move(p_interface_name), 
+        std::move(p_interface_pipe), 
+        std::move(p_priority), std::move(callback));
       return true;
     }
     case internal::kConnector_QueryService_Name: {
@@ -1431,6 +1445,8 @@ std::move(p_priority), std::move(callback));
               internal::Connector_QueryService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Connector.1
       bool success = true;
       WTF::String p_service_name{};
       Connector_QueryService_ParamsDataView input_data_view(params, message);
@@ -1449,8 +1465,8 @@ std::move(p_priority), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueryService(
-std::move(p_service_name), std::move(callback));
+      impl->QueryService(        
+        std::move(p_service_name), std::move(callback));
       return true;
     }
     case internal::kConnector_WarmService_Name: {
@@ -1460,6 +1476,8 @@ std::move(p_service_name), std::move(callback));
               internal::Connector_WarmService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Connector.2
       bool success = true;
       ::service_manager::mojom::blink::ServiceFilterPtr p_filter{};
       Connector_WarmService_ParamsDataView input_data_view(params, message);
@@ -1478,8 +1496,8 @@ std::move(p_service_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WarmService(
-std::move(p_filter), std::move(callback));
+      impl->WarmService(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kConnector_RegisterServiceInstance_Name: {
@@ -1489,6 +1507,8 @@ std::move(p_filter), std::move(callback));
               internal::Connector_RegisterServiceInstance_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Connector.3
       bool success = true;
       IdentityPtr p_identity{};
       ::mojo::ScopedMessagePipeHandle p_service{};
@@ -1515,10 +1535,10 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterServiceInstance(
-std::move(p_identity), 
-std::move(p_service), 
-std::move(p_metadata_receiver), std::move(callback));
+      impl->RegisterServiceInstance(        
+        std::move(p_identity), 
+        std::move(p_service), 
+        std::move(p_metadata_receiver), std::move(callback));
       return true;
     }
     case internal::kConnector_Clone_Name: {

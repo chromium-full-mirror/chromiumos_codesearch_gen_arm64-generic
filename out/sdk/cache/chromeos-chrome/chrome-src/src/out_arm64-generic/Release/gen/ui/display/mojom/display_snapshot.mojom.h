@@ -27,6 +27,7 @@
 #include "ui/display/mojom/display_snapshot.mojom-shared.h"
 #include "ui/display/mojom/display_snapshot.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom.h"
 #include "ui/display/mojom/display_constants.mojom.h"
 #include "ui/display/mojom/display_mode.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
@@ -47,6 +48,162 @@ namespace display::mojom {
 
 
 
+
+
+
+
+
+
+class  DisplaySnapshotColorInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DisplaySnapshotColorInfo, T>::value>;
+  using DataView = DisplaySnapshotColorInfoDataView;
+  using Data_ = internal::DisplaySnapshotColorInfo_Data;
+
+  template <typename... Args>
+  static DisplaySnapshotColorInfoPtr New(Args&&... args) {
+    return DisplaySnapshotColorInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DisplaySnapshotColorInfoPtr From(const U& u) {
+    return mojo::TypeConverter<DisplaySnapshotColorInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DisplaySnapshotColorInfo>::Convert(*this);
+  }
+
+
+  DisplaySnapshotColorInfo();
+
+  DisplaySnapshotColorInfo(
+      const ::gfx::ColorSpace& color_space,
+      const ::SkColorSpacePrimaries& edid_primaries,
+      float edid_gamma,
+      const std::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata,
+      bool supports_color_temperature_adjustment,
+      uint32_t bits_per_channel);
+
+
+  ~DisplaySnapshotColorInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DisplaySnapshotColorInfoPtr>
+  DisplaySnapshotColorInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DisplaySnapshotColorInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DisplaySnapshotColorInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DisplaySnapshotColorInfo_UnserializedMessageContext<
+            UserType, DisplaySnapshotColorInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DisplaySnapshotColorInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DisplaySnapshotColorInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DisplaySnapshotColorInfo_UnserializedMessageContext<
+            UserType, DisplaySnapshotColorInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DisplaySnapshotColorInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::gfx::ColorSpace color_space;
+  
+  ::SkColorSpacePrimaries edid_primaries;
+  
+  float edid_gamma;
+  
+  std::optional<::gfx::HDRStaticMetadata> hdr_static_metadata;
+  
+  bool supports_color_temperature_adjustment;
+  
+  uint32_t bits_per_channel;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -92,10 +249,7 @@ class  DisplaySnapshot {
       bool has_overscan,
       ::display::PrivacyScreenState privacy_screen_state,
       bool has_content_protection_key,
-      bool has_color_correction_matrix,
-      const ::gfx::ColorSpace& color_space,
-      uint32_t bits_per_channel,
-      const std::optional<::gfx::HDRStaticMetadata>& hdr_static_metadata,
+      const ::display::DisplaySnapshot::ColorInfo& color_info,
       const std::string& display_name,
       const ::base::FilePath& sys_path,
       std::vector<::std::unique_ptr<::display::DisplayMode>> modes,
@@ -216,13 +370,7 @@ DisplaySnapshot& operator=(const DisplaySnapshot&) = delete;
   
   bool has_content_protection_key;
   
-  bool has_color_correction_matrix;
-  
-  ::gfx::ColorSpace color_space;
-  
-  uint32_t bits_per_channel;
-  
-  std::optional<::gfx::HDRStaticMetadata> hdr_static_metadata;
+  ::display::DisplaySnapshot::ColorInfo color_info;
   
   std::string display_name;
   
@@ -284,6 +432,63 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
+DisplaySnapshotColorInfoPtr DisplaySnapshotColorInfo::Clone() const {
+  return New(
+      mojo::Clone(color_space),
+      mojo::Clone(edid_primaries),
+      mojo::Clone(edid_gamma),
+      mojo::Clone(hdr_static_metadata),
+      mojo::Clone(supports_color_temperature_adjustment),
+      mojo::Clone(bits_per_channel)
+  );
+}
+
+template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>*>
+bool DisplaySnapshotColorInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->color_space, other_struct.color_space))
+    return false;
+  if (!mojo::Equals(this->edid_primaries, other_struct.edid_primaries))
+    return false;
+  if (!mojo::Equals(this->edid_gamma, other_struct.edid_gamma))
+    return false;
+  if (!mojo::Equals(this->hdr_static_metadata, other_struct.hdr_static_metadata))
+    return false;
+  if (!mojo::Equals(this->supports_color_temperature_adjustment, other_struct.supports_color_temperature_adjustment))
+    return false;
+  if (!mojo::Equals(this->bits_per_channel, other_struct.bits_per_channel))
+    return false;
+  return true;
+}
+
+template <typename T, DisplaySnapshotColorInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.color_space < rhs.color_space)
+    return true;
+  if (rhs.color_space < lhs.color_space)
+    return false;
+  if (lhs.edid_primaries < rhs.edid_primaries)
+    return true;
+  if (rhs.edid_primaries < lhs.edid_primaries)
+    return false;
+  if (lhs.edid_gamma < rhs.edid_gamma)
+    return true;
+  if (rhs.edid_gamma < lhs.edid_gamma)
+    return false;
+  if (lhs.hdr_static_metadata < rhs.hdr_static_metadata)
+    return true;
+  if (rhs.hdr_static_metadata < lhs.hdr_static_metadata)
+    return false;
+  if (lhs.supports_color_temperature_adjustment < rhs.supports_color_temperature_adjustment)
+    return true;
+  if (rhs.supports_color_temperature_adjustment < lhs.supports_color_temperature_adjustment)
+    return false;
+  if (lhs.bits_per_channel < rhs.bits_per_channel)
+    return true;
+  if (rhs.bits_per_channel < lhs.bits_per_channel)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 DisplaySnapshotPtr DisplaySnapshot::Clone() const {
   return New(
       mojo::Clone(display_id),
@@ -299,10 +504,7 @@ DisplaySnapshotPtr DisplaySnapshot::Clone() const {
       mojo::Clone(has_overscan),
       mojo::Clone(privacy_screen_state),
       mojo::Clone(has_content_protection_key),
-      mojo::Clone(has_color_correction_matrix),
-      mojo::Clone(color_space),
-      mojo::Clone(bits_per_channel),
-      mojo::Clone(hdr_static_metadata),
+      mojo::Clone(color_info),
       mojo::Clone(display_name),
       mojo::Clone(sys_path),
       mojo::Clone(modes),
@@ -349,13 +551,7 @@ bool DisplaySnapshot::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->has_content_protection_key, other_struct.has_content_protection_key))
     return false;
-  if (!mojo::Equals(this->has_color_correction_matrix, other_struct.has_color_correction_matrix))
-    return false;
-  if (!mojo::Equals(this->color_space, other_struct.color_space))
-    return false;
-  if (!mojo::Equals(this->bits_per_channel, other_struct.bits_per_channel))
-    return false;
-  if (!mojo::Equals(this->hdr_static_metadata, other_struct.hdr_static_metadata))
+  if (!mojo::Equals(this->color_info, other_struct.color_info))
     return false;
   if (!mojo::Equals(this->display_name, other_struct.display_name))
     return false;
@@ -444,21 +640,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.has_content_protection_key < lhs.has_content_protection_key)
     return false;
-  if (lhs.has_color_correction_matrix < rhs.has_color_correction_matrix)
+  if (lhs.color_info < rhs.color_info)
     return true;
-  if (rhs.has_color_correction_matrix < lhs.has_color_correction_matrix)
-    return false;
-  if (lhs.color_space < rhs.color_space)
-    return true;
-  if (rhs.color_space < lhs.color_space)
-    return false;
-  if (lhs.bits_per_channel < rhs.bits_per_channel)
-    return true;
-  if (rhs.bits_per_channel < lhs.bits_per_channel)
-    return false;
-  if (lhs.hdr_static_metadata < rhs.hdr_static_metadata)
-    return true;
-  if (rhs.hdr_static_metadata < lhs.hdr_static_metadata)
+  if (rhs.color_info < lhs.color_info)
     return false;
   if (lhs.display_name < rhs.display_name)
     return true;
@@ -527,6 +711,46 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // display::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::display::mojom::DisplaySnapshotColorInfo::DataView,
+                                         ::display::mojom::DisplaySnapshotColorInfoPtr> {
+  static bool IsNull(const ::display::mojom::DisplaySnapshotColorInfoPtr& input) { return !input; }
+  static void SetToNull(::display::mojom::DisplaySnapshotColorInfoPtr* output) { output->reset(); }
+
+  static const decltype(::display::mojom::DisplaySnapshotColorInfo::color_space)& color_space(
+      const ::display::mojom::DisplaySnapshotColorInfoPtr& input) {
+    return input->color_space;
+  }
+
+  static const decltype(::display::mojom::DisplaySnapshotColorInfo::edid_primaries)& edid_primaries(
+      const ::display::mojom::DisplaySnapshotColorInfoPtr& input) {
+    return input->edid_primaries;
+  }
+
+  static decltype(::display::mojom::DisplaySnapshotColorInfo::edid_gamma) edid_gamma(
+      const ::display::mojom::DisplaySnapshotColorInfoPtr& input) {
+    return input->edid_gamma;
+  }
+
+  static const decltype(::display::mojom::DisplaySnapshotColorInfo::hdr_static_metadata)& hdr_static_metadata(
+      const ::display::mojom::DisplaySnapshotColorInfoPtr& input) {
+    return input->hdr_static_metadata;
+  }
+
+  static decltype(::display::mojom::DisplaySnapshotColorInfo::supports_color_temperature_adjustment) supports_color_temperature_adjustment(
+      const ::display::mojom::DisplaySnapshotColorInfoPtr& input) {
+    return input->supports_color_temperature_adjustment;
+  }
+
+  static decltype(::display::mojom::DisplaySnapshotColorInfo::bits_per_channel) bits_per_channel(
+      const ::display::mojom::DisplaySnapshotColorInfoPtr& input) {
+    return input->bits_per_channel;
+  }
+
+  static bool Read(::display::mojom::DisplaySnapshotColorInfo::DataView input, ::display::mojom::DisplaySnapshotColorInfoPtr* output);
+};
 
 
 template <>
@@ -600,24 +824,9 @@ struct  StructTraits<::display::mojom::DisplaySnapshot::DataView,
     return input->has_content_protection_key;
   }
 
-  static decltype(::display::mojom::DisplaySnapshot::has_color_correction_matrix) has_color_correction_matrix(
+  static const decltype(::display::mojom::DisplaySnapshot::color_info)& color_info(
       const ::display::mojom::DisplaySnapshotPtr& input) {
-    return input->has_color_correction_matrix;
-  }
-
-  static const decltype(::display::mojom::DisplaySnapshot::color_space)& color_space(
-      const ::display::mojom::DisplaySnapshotPtr& input) {
-    return input->color_space;
-  }
-
-  static decltype(::display::mojom::DisplaySnapshot::bits_per_channel) bits_per_channel(
-      const ::display::mojom::DisplaySnapshotPtr& input) {
-    return input->bits_per_channel;
-  }
-
-  static const decltype(::display::mojom::DisplaySnapshot::hdr_static_metadata)& hdr_static_metadata(
-      const ::display::mojom::DisplaySnapshotPtr& input) {
-    return input->hdr_static_metadata;
+    return input->color_info;
   }
 
   static const decltype(::display::mojom::DisplaySnapshot::display_name)& display_name(

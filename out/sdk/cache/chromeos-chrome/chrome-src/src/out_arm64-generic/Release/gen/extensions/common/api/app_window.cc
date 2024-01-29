@@ -477,20 +477,40 @@ bool Bounds::Populate(
   if (!set_position_value) {
     return false;
   }
+  {
+    if (!(*set_position_value).is_dict() || !(*set_position_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* set_size_value = dict.Find("setSize");
   if (!set_size_value) {
     return false;
+  }
+  {
+    if (!(*set_size_value).is_dict() || !(*set_size_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* set_minimum_size_value = dict.Find("setMinimumSize");
   if (!set_minimum_size_value) {
     return false;
   }
+  {
+    if (!(*set_minimum_size_value).is_dict() || !(*set_minimum_size_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* set_maximum_size_value = dict.Find("setMaximumSize");
   if (!set_maximum_size_value) {
     return false;
+  }
+  {
+    if (!(*set_maximum_size_value).is_dict() || !(*set_maximum_size_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   return true;
@@ -877,7 +897,7 @@ bool CreateWindowOptions::Populate(
     const base::Value::Dict& dict, CreateWindowOptions& out) {
   out.type = WindowType();
   out.state = State();
-  out.lock_screen_action = app_runtime::ActionType();
+  out.lock_screen_action = extensions::api::app_runtime::ActionType();
   const base::Value* id_value = dict.Find("id");
   if (id_value) {
     {
@@ -1248,13 +1268,13 @@ bool CreateWindowOptions::Populate(
       if (!action_type_as_string) {
         return false;
       }
-      out.lock_screen_action = app_runtime::ParseActionType(*action_type_as_string);
-      if (out.lock_screen_action == app_runtime::ActionType()) {
+      out.lock_screen_action = extensions::api::app_runtime::ParseActionType(*action_type_as_string);
+      if (out.lock_screen_action == extensions::api::app_runtime::ActionType()) {
         return false;
       }
     }
     } else {
-    out.lock_screen_action = app_runtime::ActionType();
+    out.lock_screen_action = extensions::api::app_runtime::ActionType();
   }
 
   return true;
@@ -1408,7 +1428,7 @@ base::Value::Dict CreateWindowOptions::ToValue() const {
     to_value_result.Set("visibleOnAllWorkspaces", *this->visible_on_all_workspaces);
 
   }
-  if (this->lock_screen_action != app_runtime::ActionType()) {
+  if (this->lock_screen_action != extensions::api::app_runtime::ActionType()) {
     to_value_result.Set("lockScreenAction", app_runtime::ToString(this->lock_screen_action));
 
   }
@@ -1521,85 +1541,170 @@ bool AppWindow::Populate(
   if (!focus_value) {
     return false;
   }
+  {
+    if (!(*focus_value).is_dict() || !(*focus_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* fullscreen_value = dict.Find("fullscreen");
   if (!fullscreen_value) {
     return false;
+  }
+  {
+    if (!(*fullscreen_value).is_dict() || !(*fullscreen_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* is_fullscreen_value = dict.Find("isFullscreen");
   if (!is_fullscreen_value) {
     return false;
   }
+  {
+    if (!(*is_fullscreen_value).is_dict() || !(*is_fullscreen_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* minimize_value = dict.Find("minimize");
   if (!minimize_value) {
     return false;
+  }
+  {
+    if (!(*minimize_value).is_dict() || !(*minimize_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* is_minimized_value = dict.Find("isMinimized");
   if (!is_minimized_value) {
     return false;
   }
+  {
+    if (!(*is_minimized_value).is_dict() || !(*is_minimized_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* maximize_value = dict.Find("maximize");
   if (!maximize_value) {
     return false;
+  }
+  {
+    if (!(*maximize_value).is_dict() || !(*maximize_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* is_maximized_value = dict.Find("isMaximized");
   if (!is_maximized_value) {
     return false;
   }
+  {
+    if (!(*is_maximized_value).is_dict() || !(*is_maximized_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* restore_value = dict.Find("restore");
   if (!restore_value) {
     return false;
+  }
+  {
+    if (!(*restore_value).is_dict() || !(*restore_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* move_to_value = dict.Find("moveTo");
   if (!move_to_value) {
     return false;
   }
+  {
+    if (!(*move_to_value).is_dict() || !(*move_to_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* resize_to_value = dict.Find("resizeTo");
   if (!resize_to_value) {
     return false;
+  }
+  {
+    if (!(*resize_to_value).is_dict() || !(*resize_to_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* draw_attention_value = dict.Find("drawAttention");
   if (!draw_attention_value) {
     return false;
   }
+  {
+    if (!(*draw_attention_value).is_dict() || !(*draw_attention_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* clear_attention_value = dict.Find("clearAttention");
   if (!clear_attention_value) {
     return false;
+  }
+  {
+    if (!(*clear_attention_value).is_dict() || !(*clear_attention_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* close_value = dict.Find("close");
   if (!close_value) {
     return false;
   }
+  {
+    if (!(*close_value).is_dict() || !(*close_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* show_value = dict.Find("show");
   if (!show_value) {
     return false;
+  }
+  {
+    if (!(*show_value).is_dict() || !(*show_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* hide_value = dict.Find("hide");
   if (!hide_value) {
     return false;
   }
+  {
+    if (!(*hide_value).is_dict() || !(*hide_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* set_icon_value = dict.Find("setIcon");
   if (!set_icon_value) {
     return false;
   }
+  {
+    if (!(*set_icon_value).is_dict() || !(*set_icon_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* is_always_on_top_value = dict.Find("isAlwaysOnTop");
   if (!is_always_on_top_value) {
     return false;
+  }
+  {
+    if (!(*is_always_on_top_value).is_dict() || !(*is_always_on_top_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* has_frame_color_value = dict.Find("hasFrameColor");
@@ -1642,15 +1747,30 @@ bool AppWindow::Populate(
   if (!set_always_on_top_value) {
     return false;
   }
+  {
+    if (!(*set_always_on_top_value).is_dict() || !(*set_always_on_top_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* alpha_enabled_value = dict.Find("alphaEnabled");
   if (!alpha_enabled_value) {
     return false;
   }
+  {
+    if (!(*alpha_enabled_value).is_dict() || !(*alpha_enabled_value).GetDict().empty()) {
+      return false;
+    }
+  }
 
   const base::Value* set_visible_on_all_workspaces_value = dict.Find("setVisibleOnAllWorkspaces");
   if (!set_visible_on_all_workspaces_value) {
     return false;
+  }
+  {
+    if (!(*set_visible_on_all_workspaces_value).is_dict() || !(*set_visible_on_all_workspaces_value).GetDict().empty()) {
+      return false;
+    }
   }
 
   const base::Value* content_window_value = dict.Find("contentWindow");

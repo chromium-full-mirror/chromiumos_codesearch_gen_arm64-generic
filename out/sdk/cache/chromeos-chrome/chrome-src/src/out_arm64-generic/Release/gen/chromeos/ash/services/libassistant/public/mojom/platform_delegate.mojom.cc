@@ -491,6 +491,8 @@ bool PlatformDelegateStubDispatch::Accept(
           reinterpret_cast<internal::PlatformDelegate_BindAudioStreamFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlatformDelegate.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioStreamFactory> p_receiver{};
       PlatformDelegate_BindAudioStreamFactory_ParamsDataView input_data_view(params, message);
@@ -508,8 +510,8 @@ bool PlatformDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAudioStreamFactory(
-std::move(p_receiver));
+      impl->BindAudioStreamFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPlatformDelegate_BindAudioDecoderFactory_Name: {
@@ -519,6 +521,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PlatformDelegate_BindAudioDecoderFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlatformDelegate.1
       bool success = true;
       ::mojo::PendingReceiver<::ash::assistant::mojom::AssistantAudioDecoderFactory> p_receiver{};
       PlatformDelegate_BindAudioDecoderFactory_ParamsDataView input_data_view(params, message);
@@ -536,8 +540,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAudioDecoderFactory(
-std::move(p_receiver));
+      impl->BindAudioDecoderFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPlatformDelegate_BindAssistantVolumeControl_Name: {
@@ -547,6 +551,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PlatformDelegate_BindAssistantVolumeControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlatformDelegate.2
       bool success = true;
       ::mojo::PendingReceiver<::ash::mojom::AssistantVolumeControl> p_receiver{};
       PlatformDelegate_BindAssistantVolumeControl_ParamsDataView input_data_view(params, message);
@@ -564,8 +570,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAssistantVolumeControl(
-std::move(p_receiver));
+      impl->BindAssistantVolumeControl(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPlatformDelegate_BindBatteryMonitor_Name: {
@@ -575,6 +581,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PlatformDelegate_BindBatteryMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlatformDelegate.3
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::BatteryMonitor> p_receiver{};
       PlatformDelegate_BindBatteryMonitor_ParamsDataView input_data_view(params, message);
@@ -592,8 +600,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBatteryMonitor(
-std::move(p_receiver));
+      impl->BindBatteryMonitor(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPlatformDelegate_BindNetworkConfig_Name: {
@@ -603,6 +611,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PlatformDelegate_BindNetworkConfig_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlatformDelegate.4
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::network_config::mojom::CrosNetworkConfig> p_receiver{};
       PlatformDelegate_BindNetworkConfig_ParamsDataView input_data_view(params, message);
@@ -620,8 +630,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNetworkConfig(
-std::move(p_receiver));
+      impl->BindNetworkConfig(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPlatformDelegate_BindWakeLockProvider_Name: {
@@ -631,6 +641,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PlatformDelegate_BindWakeLockProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlatformDelegate.5
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::WakeLockProvider> p_receiver{};
       PlatformDelegate_BindWakeLockProvider_ParamsDataView input_data_view(params, message);
@@ -648,8 +660,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWakeLockProvider(
-std::move(p_receiver));
+      impl->BindWakeLockProvider(        
+        std::move(p_receiver));
       return true;
     }
   }

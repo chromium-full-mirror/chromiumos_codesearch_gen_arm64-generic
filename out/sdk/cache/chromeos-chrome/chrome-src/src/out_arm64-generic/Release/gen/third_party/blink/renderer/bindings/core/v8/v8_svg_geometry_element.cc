@@ -104,7 +104,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGeometryElement.getPointAtLength");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGGeometryElement.getPointAtLength", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGGeometryElement_GetPointAtLength_Method);
 
@@ -143,7 +144,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGeometryElement.getTotalLength");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGGeometryElement.getTotalLength", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGGeometryElement_GetTotalLength_Method);
 
@@ -174,7 +176,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGeometryElement.isPointInFill");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGGeometryElement.isPointInFill", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGGeometryElement_IsPointInFill_Method);
 
@@ -210,7 +213,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGGeometryElement.isPointInStroke");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGGeometryElement.isPointInStroke", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGGeometryElement_IsPointInStroke_Method);
 

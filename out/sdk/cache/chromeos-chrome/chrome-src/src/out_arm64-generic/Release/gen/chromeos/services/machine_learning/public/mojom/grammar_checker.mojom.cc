@@ -423,6 +423,8 @@ bool GrammarChecker_Check_ForwardToCallback::Accept(
           internal::GrammarChecker_Check_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GrammarChecker.0
   bool success = true;
   GrammarCheckerResultPtr p_result{};
   GrammarChecker_Check_ResponseParamsDataView input_data_view(params, message);
@@ -523,6 +525,8 @@ bool GrammarCheckerStubDispatch::AcceptWithResponder(
               internal::GrammarChecker_Check_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GrammarChecker.0
       bool success = true;
       GrammarCheckerQueryPtr p_query{};
       GrammarChecker_Check_ParamsDataView input_data_view(params, message);
@@ -541,8 +545,8 @@ bool GrammarCheckerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Check(
-std::move(p_query), std::move(callback));
+      impl->Check(        
+        std::move(p_query), std::move(callback));
       return true;
     }
   }

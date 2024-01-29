@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionEncodedAudioChunkOrEncodedVideoChunk::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionEncodedAudioChunkOrEncodedVideoChunk::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kEncodedAudioChunk: {
     return ToV8Traits<EncodedAudioChunk>::ToV8(script_state, member_encoded_audio_chunk_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionEncodedAudioChunkOrEncodedVideoChunk::ToV8Value
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionEncodedAudioChunkOrEncodedVideoChunk::Trace(Visitor* visitor) const {

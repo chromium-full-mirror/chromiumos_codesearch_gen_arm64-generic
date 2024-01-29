@@ -381,6 +381,8 @@ bool SpellCheckerStubDispatch::Accept(
           reinterpret_cast<internal::SpellChecker_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpellChecker.0
       bool success = true;
       std::vector<SpellCheckBDictLanguagePtr> p_dictionaries{};
       std::vector<std::string> p_custom_words{};
@@ -402,10 +404,10 @@ bool SpellCheckerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_dictionaries), 
-std::move(p_custom_words), 
-std::move(p_enable));
+      impl->Initialize(        
+        std::move(p_dictionaries), 
+        std::move(p_custom_words), 
+        std::move(p_enable));
       return true;
     }
     case internal::kSpellChecker_CustomDictionaryChanged_Name: {
@@ -415,6 +417,8 @@ std::move(p_enable));
           reinterpret_cast<internal::SpellChecker_CustomDictionaryChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpellChecker.1
       bool success = true;
       std::vector<std::string> p_words_added{};
       std::vector<std::string> p_words_removed{};
@@ -433,9 +437,9 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CustomDictionaryChanged(
-std::move(p_words_added), 
-std::move(p_words_removed));
+      impl->CustomDictionaryChanged(        
+        std::move(p_words_added), 
+        std::move(p_words_removed));
       return true;
     }
   }
@@ -578,6 +582,8 @@ bool SpellCheckInitializationHostStubDispatch::Accept(
           reinterpret_cast<internal::SpellCheckInitializationHost_RequestDictionary_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpellCheckInitializationHost.0
       bool success = true;
       SpellCheckInitializationHost_RequestDictionary_ParamsDataView input_data_view(params, message);
       
@@ -590,7 +596,7 @@ bool SpellCheckInitializationHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestDictionary();
+      impl->RequestDictionary(        );
       return true;
     }
   }
@@ -883,6 +889,8 @@ bool SpellCheckHost_CallSpellingService_ForwardToCallback::Accept(
           internal::SpellCheckHost_CallSpellingService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpellCheckHost.1
   bool success = true;
   bool p_success{};
   std::vector<::SpellCheckResult> p_results{};
@@ -977,6 +985,8 @@ bool SpellCheckHostStubDispatch::Accept(
           reinterpret_cast<internal::SpellCheckHost_NotifyChecked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpellCheckHost.0
       bool success = true;
       ::std::u16string p_word{};
       bool p_misspelled{};
@@ -995,9 +1005,9 @@ bool SpellCheckHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyChecked(
-std::move(p_word), 
-std::move(p_misspelled));
+      impl->NotifyChecked(        
+        std::move(p_word), 
+        std::move(p_misspelled));
       return true;
     }
     case internal::kSpellCheckHost_CallSpellingService_Name: {
@@ -1026,6 +1036,8 @@ bool SpellCheckHostStubDispatch::AcceptWithResponder(
               internal::SpellCheckHost_CallSpellingService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpellCheckHost.1
       bool success = true;
       ::std::u16string p_text{};
       SpellCheckHost_CallSpellingService_ParamsDataView input_data_view(params, message);
@@ -1044,8 +1056,8 @@ bool SpellCheckHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CallSpellingService(
-std::move(p_text), std::move(callback));
+      impl->CallSpellingService(        
+        std::move(p_text), std::move(callback));
       return true;
     }
   }

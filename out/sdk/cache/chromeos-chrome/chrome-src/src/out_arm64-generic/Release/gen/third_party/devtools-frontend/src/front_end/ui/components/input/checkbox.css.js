@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`input[type="checkbox"]{width:12px;height:12px;accent-color:var(--color-checkbox-accent-color)}
+`input[type="checkbox"]{width:12px;height:12px;accent-color:var(--sys-color-primary-bright);color:var(--sys-color-on-primary)}
 /*# sourceURL=checkbox.css */
 `);
 

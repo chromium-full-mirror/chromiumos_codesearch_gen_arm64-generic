@@ -43,6 +43,8 @@ class AuctionAdConfigBuyerCurrenciesDataView;
 
 class AuctionAdServerResponseConfigDataView;
 
+class AuctionReportBuyerDebugModeConfigDataView;
+
 class AuctionReportBuyersConfigDataView;
 
 class AuctionAdConfigNonSharedParamsDataView;
@@ -93,6 +95,9 @@ using AuctionAdConfigBuyerCurrenciesPtr = mojo::StructPtr<AuctionAdConfigBuyerCu
 
 class AuctionAdServerResponseConfig;
 using AuctionAdServerResponseConfigPtr = mojo::StructPtr<AuctionAdServerResponseConfig>;
+
+class AuctionReportBuyerDebugModeConfig;
+using AuctionReportBuyerDebugModeConfigPtr = mojo::InlinedStructPtr<AuctionReportBuyerDebugModeConfig>;
 
 class AuctionReportBuyersConfig;
 using AuctionReportBuyersConfigPtr = mojo::StructPtr<AuctionReportBuyersConfig>;

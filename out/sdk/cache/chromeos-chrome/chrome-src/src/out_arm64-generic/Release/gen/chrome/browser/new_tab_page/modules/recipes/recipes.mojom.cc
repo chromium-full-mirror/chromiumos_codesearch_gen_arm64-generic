@@ -654,6 +654,8 @@ bool RecipesHandler_GetPrimaryTask_ForwardToCallback::Accept(
           internal::RecipesHandler_GetPrimaryTask_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RecipesHandler.0
   bool success = true;
   TaskPtr p_task{};
   RecipesHandler_GetPrimaryTask_ResponseParamsDataView input_data_view(params, message);
@@ -737,6 +739,8 @@ bool RecipesHandlerStubDispatch::Accept(
           reinterpret_cast<internal::RecipesHandler_DismissTask_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecipesHandler.1
       bool success = true;
       std::string p_task_name{};
       RecipesHandler_DismissTask_ParamsDataView input_data_view(params, message);
@@ -752,8 +756,8 @@ bool RecipesHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissTask(
-std::move(p_task_name));
+      impl->DismissTask(        
+        std::move(p_task_name));
       return true;
     }
     case internal::kRecipesHandler_RestoreTask_Name: {
@@ -763,6 +767,8 @@ std::move(p_task_name));
           reinterpret_cast<internal::RecipesHandler_RestoreTask_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecipesHandler.2
       bool success = true;
       std::string p_task_name{};
       RecipesHandler_RestoreTask_ParamsDataView input_data_view(params, message);
@@ -778,8 +784,8 @@ std::move(p_task_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreTask(
-std::move(p_task_name));
+      impl->RestoreTask(        
+        std::move(p_task_name));
       return true;
     }
     case internal::kRecipesHandler_OnRecipeClicked_Name: {
@@ -789,6 +795,8 @@ std::move(p_task_name));
           reinterpret_cast<internal::RecipesHandler_OnRecipeClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecipesHandler.3
       bool success = true;
       uint32_t p_index{};
       RecipesHandler_OnRecipeClicked_ParamsDataView input_data_view(params, message);
@@ -804,8 +812,8 @@ std::move(p_task_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRecipeClicked(
-std::move(p_index));
+      impl->OnRecipeClicked(        
+        std::move(p_index));
       return true;
     }
     case internal::kRecipesHandler_OnRelatedSearchClicked_Name: {
@@ -815,6 +823,8 @@ std::move(p_index));
           reinterpret_cast<internal::RecipesHandler_OnRelatedSearchClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RecipesHandler.4
       bool success = true;
       uint32_t p_index{};
       RecipesHandler_OnRelatedSearchClicked_ParamsDataView input_data_view(params, message);
@@ -830,8 +840,8 @@ std::move(p_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRelatedSearchClicked(
-std::move(p_index));
+      impl->OnRelatedSearchClicked(        
+        std::move(p_index));
       return true;
     }
   }
@@ -854,6 +864,8 @@ bool RecipesHandlerStubDispatch::AcceptWithResponder(
               internal::RecipesHandler_GetPrimaryTask_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RecipesHandler.0
       bool success = true;
       RecipesHandler_GetPrimaryTask_ParamsDataView input_data_view(params, message);
       

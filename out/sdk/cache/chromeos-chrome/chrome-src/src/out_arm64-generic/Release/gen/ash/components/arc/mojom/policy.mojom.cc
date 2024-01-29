@@ -456,6 +456,8 @@ bool PolicyHost_GetPolicies_ForwardToCallback::Accept(
           internal::PolicyHost_GetPolicies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PolicyHost.0
   bool success = true;
   std::string p_policies{};
   PolicyHost_GetPolicies_ResponseParamsDataView input_data_view(params, message);
@@ -585,6 +587,8 @@ bool PolicyHost_ReportCompliance_ForwardToCallback::Accept(
           internal::PolicyHost_ReportCompliance_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PolicyHost.1
   bool success = true;
   std::string p_response{};
   PolicyHost_ReportCompliance_ResponseParamsDataView input_data_view(params, message);
@@ -675,6 +679,8 @@ bool PolicyHostStubDispatch::Accept(
           reinterpret_cast<internal::PolicyHost_ReportDPCVersion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyHost.7
       bool success = true;
       std::string p_version{};
       PolicyHost_ReportDPCVersion_ParamsDataView input_data_view(params, message);
@@ -690,8 +696,8 @@ bool PolicyHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportDPCVersion(
-std::move(p_version));
+      impl->ReportDPCVersion(        
+        std::move(p_version));
       return true;
     }
     case internal::kPolicyHost_ReportPlayStoreLocalPolicySet_Name: {
@@ -701,6 +707,8 @@ std::move(p_version));
           reinterpret_cast<internal::PolicyHost_ReportPlayStoreLocalPolicySet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyHost.8
       bool success = true;
       ::base::Time p_time{};
       std::vector<std::string> p_package_names{};
@@ -719,9 +727,9 @@ std::move(p_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportPlayStoreLocalPolicySet(
-std::move(p_time), 
-std::move(p_package_names));
+      impl->ReportPlayStoreLocalPolicySet(        
+        std::move(p_time), 
+        std::move(p_package_names));
       return true;
     }
   }
@@ -744,6 +752,8 @@ bool PolicyHostStubDispatch::AcceptWithResponder(
               internal::PolicyHost_GetPolicies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PolicyHost.0
       bool success = true;
       PolicyHost_GetPolicies_ParamsDataView input_data_view(params, message);
       
@@ -769,6 +779,8 @@ bool PolicyHostStubDispatch::AcceptWithResponder(
               internal::PolicyHost_ReportCompliance_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PolicyHost.1
       bool success = true;
       std::string p_request{};
       PolicyHost_ReportCompliance_ParamsDataView input_data_view(params, message);
@@ -787,8 +799,8 @@ bool PolicyHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportCompliance(
-std::move(p_request), std::move(callback));
+      impl->ReportCompliance(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kPolicyHost_ReportDPCVersion_Name: {
@@ -1147,6 +1159,8 @@ bool PolicyInstance_Init_ForwardToCallback::Accept(
           internal::PolicyInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PolicyInstance.2
   bool success = true;
   PolicyInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1254,6 +1268,8 @@ bool PolicyInstance_OnCommandReceived_ForwardToCallback::Accept(
           internal::PolicyInstance_OnCommandReceived_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PolicyInstance.3
   bool success = true;
   CommandResultType p_result{};
   PolicyInstance_OnCommandReceived_ResponseParamsDataView input_data_view(params, message);
@@ -1332,6 +1348,8 @@ bool PolicyInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PolicyInstance_OnPolicyUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyInstance.1
       bool success = true;
       PolicyInstance_OnPolicyUpdated_ParamsDataView input_data_view(params, message);
       
@@ -1344,7 +1362,7 @@ bool PolicyInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPolicyUpdated();
+      impl->OnPolicyUpdated(        );
       return true;
     }
     case internal::kPolicyInstance_OnCommandReceived_Name: {
@@ -1370,6 +1388,8 @@ bool PolicyInstanceStubDispatch::AcceptWithResponder(
               internal::PolicyInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PolicyInstance.2
       bool success = true;
       ::mojo::PendingRemote<PolicyHost> p_host_remote{};
       PolicyInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1390,8 +1410,8 @@ bool PolicyInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kPolicyInstance_OnPolicyUpdated_Name: {
@@ -1404,6 +1424,8 @@ std::move(p_host_remote), std::move(callback));
               internal::PolicyInstance_OnCommandReceived_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PolicyInstance.3
       bool success = true;
       std::string p_command{};
       PolicyInstance_OnCommandReceived_ParamsDataView input_data_view(params, message);
@@ -1422,8 +1444,8 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCommandReceived(
-std::move(p_command), std::move(callback));
+      impl->OnCommandReceived(        
+        std::move(p_command), std::move(callback));
       return true;
     }
   }

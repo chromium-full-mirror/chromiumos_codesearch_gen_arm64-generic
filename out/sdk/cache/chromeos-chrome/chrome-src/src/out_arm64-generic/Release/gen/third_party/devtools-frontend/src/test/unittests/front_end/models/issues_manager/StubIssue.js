@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 // eslint-disable-next-line rulesdir/es_modules_import
-import { Issue, IssueCategory, IssueKind, } from '../../../../../front_end/models/issues_manager/Issue.js';
+import { Issue, } from '../../../../../front_end/models/issues_manager/Issue.js';
 export class StubIssue extends Issue {
     requestIds;
     cookieNames;
@@ -10,15 +10,17 @@ export class StubIssue extends Issue {
     locations = [];
     mockIssueId;
     mockIssueCategory;
-    constructor(code, requestIds, cookieNames, issueKind = IssueKind.Improvement) {
+    constructor(code, requestIds, cookieNames, issueKind = "Improvement" /* IssueKind.Improvement */) {
         super(code);
         this.requestIds = requestIds;
         this.cookieNames = cookieNames;
         this.issueKind = issueKind;
     }
     getDescription() {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return {};
+        return {
+            file: '',
+            links: [],
+        };
     }
     primaryKey() {
         return `${this.code()}-(${this.cookieNames.join(';')})-(${this.requestIds.join(';')})`;
@@ -29,7 +31,7 @@ export class StubIssue extends Issue {
         });
     }
     getCategory() {
-        return this.mockIssueCategory ? this.mockIssueCategory : IssueCategory.Other;
+        return this.mockIssueCategory ? this.mockIssueCategory : "Other" /* IssueCategory.Other */;
     }
     sources() {
         return this.locations;
@@ -66,7 +68,7 @@ export class StubIssue extends Issue {
     }
     static createCookieIssue(code) {
         const issue = new StubIssue(code, [], []);
-        issue.mockIssueCategory = IssueCategory.Cookie;
+        issue.mockIssueCategory = "Cookie" /* IssueCategory.Cookie */;
         return issue;
     }
 }

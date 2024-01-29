@@ -57,7 +57,7 @@ const getFieldValuesTextContent = async () => {
         });
     });
     // Update and reactivate when the whole FrameDetailsView is a custom component
-    (0, mocha_extensions_js_1.it)('shows details for a frame when clicked on in the frame tree', async () => {
+    mocha_extensions_js_1.it.skip('[crbug.com/1519420]: shows details for a frame when clicked on in the frame tree', async () => {
         const { target } = (0, helper_js_1.getBrowserAndPages)();
         await (0, application_helpers_js_1.navigateToApplicationTab)(target, 'frame-tree');
         await (0, helper_js_1.click)('#tab-resources');
@@ -245,7 +245,7 @@ const getFieldValuesTextContent = async () => {
         chai_1.assert.deepEqual(fieldValuesTextContent, expected);
     });
     // Update and reactivate when the whole FrameDetailsView is a custom component
-    (0, mocha_extensions_js_1.it)('can handle when JS writes to frame', async () => {
+    mocha_extensions_js_1.it.skip('[crbug.com/1519420]: can handle when JS writes to frame', async () => {
         (0, events_js_1.expectError)('Request CacheStorage.requestCacheNames failed. {"code":-32602,"message":"Invalid security origin"}');
         const { target } = (0, helper_js_1.getBrowserAndPages)();
         await (0, helper_js_1.goToResource)('application/main-frame.html');

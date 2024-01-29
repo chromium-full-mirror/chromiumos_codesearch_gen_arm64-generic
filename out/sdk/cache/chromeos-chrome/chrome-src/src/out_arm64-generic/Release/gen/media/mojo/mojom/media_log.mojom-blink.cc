@@ -167,6 +167,8 @@ bool MediaLogStubDispatch::Accept(
           reinterpret_cast<internal::MediaLog_AddLogRecord_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaLog.0
       bool success = true;
       ::media::mojom::blink::MediaLogRecordPtr p_event{};
       MediaLog_AddLogRecord_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool MediaLogStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLogRecord(
-std::move(p_event));
+      impl->AddLogRecord(        
+        std::move(p_event));
       return true;
     }
   }

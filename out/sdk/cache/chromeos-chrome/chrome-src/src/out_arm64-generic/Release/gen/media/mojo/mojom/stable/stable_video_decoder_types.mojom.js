@@ -134,7 +134,7 @@
   VideoCodecProfile.kHEVCProfileMainStillPicture = 18;
   VideoCodecProfile.kHEVCProfileMax = 18;
   VideoCodecProfile.kDolbyVisionProfile0 = 19;
-  VideoCodecProfile.kDolbyVisionProfile4 = 20;
+  VideoCodecProfile.kDeprecatedDolbyVisionProfile4 = 20;
   VideoCodecProfile.kDolbyVisionProfile5 = 21;
   VideoCodecProfile.kDolbyVisionProfile7 = 22;
   VideoCodecProfile.kTheoraProfileMin = 23;
@@ -1921,6 +1921,7 @@
   VideoFrameMetadata.prototype.initDefaults_ = function() {
     this.protectedVideo = false;
     this.hwProtected = false;
+    this.needsDetiling = false;
   };
   VideoFrameMetadata.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1936,11 +1937,13 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 16}
+      {version: 0, numBytes: 16},
+      {version: 1, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
+
 
 
 
@@ -1957,6 +1960,7 @@
     packed = decoder.readUint8();
     val.protectedVideo = (packed >> 0) & 1 ? true : false;
     val.hwProtected = (packed >> 1) & 1 ? true : false;
+    val.needsDetiling = (packed >> 2) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1970,10 +1974,11 @@
   VideoFrameMetadata.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(VideoFrameMetadata.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(1);
     packed = 0;
     packed |= (val.protectedVideo & 1) << 0
     packed |= (val.hwProtected & 1) << 1
+    packed |= (val.needsDetiling & 1) << 2
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

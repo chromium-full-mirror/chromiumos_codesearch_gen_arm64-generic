@@ -1661,6 +1661,8 @@ bool KeyMintHost_GetServer_ForwardToCallback::Accept(
           internal::KeyMintHost_GetServer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintHost.0
   bool success = true;
   ::mojo::PendingRemote<KeyMintServer> p_server_remote{};
   KeyMintHost_GetServer_ResponseParamsDataView input_data_view(params, message);
@@ -1754,6 +1756,8 @@ bool KeyMintHostStubDispatch::AcceptWithResponder(
               internal::KeyMintHost_GetServer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintHost.0
       bool success = true;
       KeyMintHost_GetServer_ParamsDataView input_data_view(params, message);
       
@@ -1970,6 +1974,8 @@ bool KeyMintInstance_Init_ForwardToCallback::Accept(
           internal::KeyMintInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintInstance.0
   bool success = true;
   KeyMintInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -2048,6 +2054,8 @@ bool KeyMintInstanceStubDispatch::AcceptWithResponder(
               internal::KeyMintInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintInstance.0
       bool success = true;
       ::mojo::PendingRemote<KeyMintHost> p_host_remote{};
       KeyMintInstance_Init_ParamsDataView input_data_view(params, message);
@@ -2068,8 +2076,8 @@ bool KeyMintInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }
@@ -4178,6 +4186,8 @@ bool KeyMintServer_AddRngEntropy_ForwardToCallback::Accept(
           internal::KeyMintServer_AddRngEntropy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.1
   bool success = true;
   int32_t p_error{};
   KeyMintServer_AddRngEntropy_ResponseParamsDataView input_data_view(params, message);
@@ -4297,6 +4307,8 @@ bool KeyMintServer_GenerateKey_ForwardToCallback::Accept(
           internal::KeyMintServer_GenerateKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.2
   bool success = true;
   KeyCreationResultOrErrorPtr p_response{};
   KeyMintServer_GenerateKey_ResponseParamsDataView input_data_view(params, message);
@@ -4424,6 +4436,8 @@ bool KeyMintServer_ImportKey_ForwardToCallback::Accept(
           internal::KeyMintServer_ImportKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.3
   bool success = true;
   KeyCreationResultOrErrorPtr p_response{};
   KeyMintServer_ImportKey_ResponseParamsDataView input_data_view(params, message);
@@ -4551,6 +4565,8 @@ bool KeyMintServer_ImportWrappedKey_ForwardToCallback::Accept(
           internal::KeyMintServer_ImportWrappedKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.4
   bool success = true;
   KeyCreationResultOrErrorPtr p_response{};
   KeyMintServer_ImportWrappedKey_ResponseParamsDataView input_data_view(params, message);
@@ -4678,6 +4694,8 @@ bool KeyMintServer_UpgradeKey_ForwardToCallback::Accept(
           internal::KeyMintServer_UpgradeKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.5
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_UpgradeKey_ResponseParamsDataView input_data_view(params, message);
@@ -4805,6 +4823,8 @@ bool KeyMintServer_DeleteKey_ForwardToCallback::Accept(
           internal::KeyMintServer_DeleteKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.6
   bool success = true;
   int32_t p_error{};
   KeyMintServer_DeleteKey_ResponseParamsDataView input_data_view(params, message);
@@ -4924,6 +4944,8 @@ bool KeyMintServer_DeleteAllKeys_ForwardToCallback::Accept(
           internal::KeyMintServer_DeleteAllKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.7
   bool success = true;
   int32_t p_error{};
   KeyMintServer_DeleteAllKeys_ResponseParamsDataView input_data_view(params, message);
@@ -5043,6 +5065,8 @@ bool KeyMintServer_DestroyAttestationIds_ForwardToCallback::Accept(
           internal::KeyMintServer_DestroyAttestationIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.8
   bool success = true;
   int32_t p_error{};
   KeyMintServer_DestroyAttestationIds_ResponseParamsDataView input_data_view(params, message);
@@ -5162,6 +5186,8 @@ bool KeyMintServer_Begin_ForwardToCallback::Accept(
           internal::KeyMintServer_Begin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.9
   bool success = true;
   BeginResultOrErrorPtr p_response{};
   KeyMintServer_Begin_ResponseParamsDataView input_data_view(params, message);
@@ -5289,6 +5315,8 @@ bool KeyMintServer_DeviceLocked_ForwardToCallback::Accept(
           internal::KeyMintServer_DeviceLocked_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.10
   bool success = true;
   int32_t p_error{};
   KeyMintServer_DeviceLocked_ResponseParamsDataView input_data_view(params, message);
@@ -5408,6 +5436,8 @@ bool KeyMintServer_EarlyBootEnded_ForwardToCallback::Accept(
           internal::KeyMintServer_EarlyBootEnded_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.11
   bool success = true;
   int32_t p_error{};
   KeyMintServer_EarlyBootEnded_ResponseParamsDataView input_data_view(params, message);
@@ -5527,6 +5557,8 @@ bool KeyMintServer_ConvertStorageKeyToEphemeral_ForwardToCallback::Accept(
           internal::KeyMintServer_ConvertStorageKeyToEphemeral_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.12
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_ConvertStorageKeyToEphemeral_ResponseParamsDataView input_data_view(params, message);
@@ -5654,6 +5686,8 @@ bool KeyMintServer_GetKeyCharacteristics_ForwardToCallback::Accept(
           internal::KeyMintServer_GetKeyCharacteristics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.13
   bool success = true;
   KeyCharacteristicsArrayOrErrorPtr p_response{};
   KeyMintServer_GetKeyCharacteristics_ResponseParamsDataView input_data_view(params, message);
@@ -5781,6 +5815,8 @@ bool KeyMintServer_GetRootOfTrustChallenge_ForwardToCallback::Accept(
           internal::KeyMintServer_GetRootOfTrustChallenge_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.14
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_GetRootOfTrustChallenge_ResponseParamsDataView input_data_view(params, message);
@@ -5908,6 +5944,8 @@ bool KeyMintServer_GetRootOfTrust_ForwardToCallback::Accept(
           internal::KeyMintServer_GetRootOfTrust_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.15
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_GetRootOfTrust_ResponseParamsDataView input_data_view(params, message);
@@ -6035,6 +6073,8 @@ bool KeyMintServer_SendRootOfTrust_ForwardToCallback::Accept(
           internal::KeyMintServer_SendRootOfTrust_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.16
   bool success = true;
   int32_t p_error{};
   KeyMintServer_SendRootOfTrust_ResponseParamsDataView input_data_view(params, message);
@@ -6154,6 +6194,8 @@ bool KeyMintServer_UpdateAad_ForwardToCallback::Accept(
           internal::KeyMintServer_UpdateAad_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.17
   bool success = true;
   int32_t p_error{};
   KeyMintServer_UpdateAad_ResponseParamsDataView input_data_view(params, message);
@@ -6273,6 +6315,8 @@ bool KeyMintServer_Update_ForwardToCallback::Accept(
           internal::KeyMintServer_Update_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.18
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_Update_ResponseParamsDataView input_data_view(params, message);
@@ -6400,6 +6444,8 @@ bool KeyMintServer_Finish_ForwardToCallback::Accept(
           internal::KeyMintServer_Finish_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.19
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_Finish_ResponseParamsDataView input_data_view(params, message);
@@ -6527,6 +6573,8 @@ bool KeyMintServer_Abort_ForwardToCallback::Accept(
           internal::KeyMintServer_Abort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.20
   bool success = true;
   int32_t p_error{};
   KeyMintServer_Abort_ResponseParamsDataView input_data_view(params, message);
@@ -6646,6 +6694,8 @@ bool KeyMintServer_GetSharedSecretParameters_ForwardToCallback::Accept(
           internal::KeyMintServer_GetSharedSecretParameters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.21
   bool success = true;
   SharedSecretParametersOrErrorPtr p_response{};
   KeyMintServer_GetSharedSecretParameters_ResponseParamsDataView input_data_view(params, message);
@@ -6773,6 +6823,8 @@ bool KeyMintServer_ComputeSharedSecret_ForwardToCallback::Accept(
           internal::KeyMintServer_ComputeSharedSecret_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.22
   bool success = true;
   ByteArrayOrErrorPtr p_response{};
   KeyMintServer_ComputeSharedSecret_ResponseParamsDataView input_data_view(params, message);
@@ -6900,6 +6952,8 @@ bool KeyMintServer_GenerateTimeStamp_ForwardToCallback::Accept(
           internal::KeyMintServer_GenerateTimeStamp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyMintServer.23
   bool success = true;
   TimeStampTokenOrErrorPtr p_response{};
   KeyMintServer_GenerateTimeStamp_ResponseParamsDataView input_data_view(params, message);
@@ -6982,6 +7036,8 @@ bool KeyMintServerStubDispatch::Accept(
           reinterpret_cast<internal::KeyMintServer_SetSystemVersion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.0
       bool success = true;
       uint32_t p_android_version{};
       uint32_t p_android_patchlevel{};
@@ -7000,9 +7056,9 @@ bool KeyMintServerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSystemVersion(
-std::move(p_android_version), 
-std::move(p_android_patchlevel));
+      impl->SetSystemVersion(        
+        std::move(p_android_version), 
+        std::move(p_android_patchlevel));
       return true;
     }
     case internal::kKeyMintServer_AddRngEntropy_Name: {
@@ -7097,6 +7153,8 @@ bool KeyMintServerStubDispatch::AcceptWithResponder(
               internal::KeyMintServer_AddRngEntropy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.1
       bool success = true;
       std::vector<uint8_t> p_data{};
       KeyMintServer_AddRngEntropy_ParamsDataView input_data_view(params, message);
@@ -7115,8 +7173,8 @@ bool KeyMintServerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddRngEntropy(
-std::move(p_data), std::move(callback));
+      impl->AddRngEntropy(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_GenerateKey_Name: {
@@ -7126,6 +7184,8 @@ std::move(p_data), std::move(callback));
               internal::KeyMintServer_GenerateKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.2
       bool success = true;
       GenerateKeyRequestPtr p_request{};
       KeyMintServer_GenerateKey_ParamsDataView input_data_view(params, message);
@@ -7144,8 +7204,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateKey(
-std::move(p_request), std::move(callback));
+      impl->GenerateKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_ImportKey_Name: {
@@ -7155,6 +7215,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_ImportKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.3
       bool success = true;
       ImportKeyRequestPtr p_request{};
       KeyMintServer_ImportKey_ParamsDataView input_data_view(params, message);
@@ -7173,8 +7235,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImportKey(
-std::move(p_request), std::move(callback));
+      impl->ImportKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_ImportWrappedKey_Name: {
@@ -7184,6 +7246,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_ImportWrappedKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.4
       bool success = true;
       ImportWrappedKeyRequestPtr p_request{};
       KeyMintServer_ImportWrappedKey_ParamsDataView input_data_view(params, message);
@@ -7202,8 +7266,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImportWrappedKey(
-std::move(p_request), std::move(callback));
+      impl->ImportWrappedKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_UpgradeKey_Name: {
@@ -7213,6 +7277,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_UpgradeKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.5
       bool success = true;
       UpgradeKeyRequestPtr p_request{};
       KeyMintServer_UpgradeKey_ParamsDataView input_data_view(params, message);
@@ -7231,8 +7297,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpgradeKey(
-std::move(p_request), std::move(callback));
+      impl->UpgradeKey(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_DeleteKey_Name: {
@@ -7242,6 +7308,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_DeleteKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.6
       bool success = true;
       std::vector<uint8_t> p_key_blob{};
       KeyMintServer_DeleteKey_ParamsDataView input_data_view(params, message);
@@ -7260,8 +7328,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteKey(
-std::move(p_key_blob), std::move(callback));
+      impl->DeleteKey(        
+        std::move(p_key_blob), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_DeleteAllKeys_Name: {
@@ -7271,6 +7339,8 @@ std::move(p_key_blob), std::move(callback));
               internal::KeyMintServer_DeleteAllKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.7
       bool success = true;
       KeyMintServer_DeleteAllKeys_ParamsDataView input_data_view(params, message);
       
@@ -7296,6 +7366,8 @@ std::move(p_key_blob), std::move(callback));
               internal::KeyMintServer_DestroyAttestationIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.8
       bool success = true;
       KeyMintServer_DestroyAttestationIds_ParamsDataView input_data_view(params, message);
       
@@ -7321,6 +7393,8 @@ std::move(p_key_blob), std::move(callback));
               internal::KeyMintServer_Begin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.9
       bool success = true;
       BeginRequestPtr p_request{};
       KeyMintServer_Begin_ParamsDataView input_data_view(params, message);
@@ -7339,8 +7413,8 @@ std::move(p_key_blob), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Begin(
-std::move(p_request), std::move(callback));
+      impl->Begin(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_DeviceLocked_Name: {
@@ -7350,6 +7424,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_DeviceLocked_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.10
       bool success = true;
       bool p_password_only{};
       TimeStampTokenPtr p_timestamp_token{};
@@ -7371,9 +7447,9 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeviceLocked(
-std::move(p_password_only), 
-std::move(p_timestamp_token), std::move(callback));
+      impl->DeviceLocked(        
+        std::move(p_password_only), 
+        std::move(p_timestamp_token), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_EarlyBootEnded_Name: {
@@ -7383,6 +7459,8 @@ std::move(p_timestamp_token), std::move(callback));
               internal::KeyMintServer_EarlyBootEnded_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.11
       bool success = true;
       KeyMintServer_EarlyBootEnded_ParamsDataView input_data_view(params, message);
       
@@ -7408,6 +7486,8 @@ std::move(p_timestamp_token), std::move(callback));
               internal::KeyMintServer_ConvertStorageKeyToEphemeral_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.12
       bool success = true;
       std::vector<uint8_t> p_storage_key_blob{};
       KeyMintServer_ConvertStorageKeyToEphemeral_ParamsDataView input_data_view(params, message);
@@ -7426,8 +7506,8 @@ std::move(p_timestamp_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConvertStorageKeyToEphemeral(
-std::move(p_storage_key_blob), std::move(callback));
+      impl->ConvertStorageKeyToEphemeral(        
+        std::move(p_storage_key_blob), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_GetKeyCharacteristics_Name: {
@@ -7437,6 +7517,8 @@ std::move(p_storage_key_blob), std::move(callback));
               internal::KeyMintServer_GetKeyCharacteristics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.13
       bool success = true;
       GetKeyCharacteristicsRequestPtr p_request{};
       KeyMintServer_GetKeyCharacteristics_ParamsDataView input_data_view(params, message);
@@ -7455,8 +7537,8 @@ std::move(p_storage_key_blob), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetKeyCharacteristics(
-std::move(p_request), std::move(callback));
+      impl->GetKeyCharacteristics(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_GetRootOfTrustChallenge_Name: {
@@ -7466,6 +7548,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_GetRootOfTrustChallenge_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.14
       bool success = true;
       KeyMintServer_GetRootOfTrustChallenge_ParamsDataView input_data_view(params, message);
       
@@ -7491,6 +7575,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_GetRootOfTrust_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.15
       bool success = true;
       std::vector<uint8_t> p_challenge{};
       KeyMintServer_GetRootOfTrust_ParamsDataView input_data_view(params, message);
@@ -7509,8 +7595,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRootOfTrust(
-std::move(p_challenge), std::move(callback));
+      impl->GetRootOfTrust(        
+        std::move(p_challenge), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_SendRootOfTrust_Name: {
@@ -7520,6 +7606,8 @@ std::move(p_challenge), std::move(callback));
               internal::KeyMintServer_SendRootOfTrust_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.16
       bool success = true;
       std::vector<uint8_t> p_root_of_trust{};
       KeyMintServer_SendRootOfTrust_ParamsDataView input_data_view(params, message);
@@ -7538,8 +7626,8 @@ std::move(p_challenge), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendRootOfTrust(
-std::move(p_root_of_trust), std::move(callback));
+      impl->SendRootOfTrust(        
+        std::move(p_root_of_trust), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_UpdateAad_Name: {
@@ -7549,6 +7637,8 @@ std::move(p_root_of_trust), std::move(callback));
               internal::KeyMintServer_UpdateAad_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.17
       bool success = true;
       UpdateRequestPtr p_request{};
       KeyMintServer_UpdateAad_ParamsDataView input_data_view(params, message);
@@ -7567,8 +7657,8 @@ std::move(p_root_of_trust), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateAad(
-std::move(p_request), std::move(callback));
+      impl->UpdateAad(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_Update_Name: {
@@ -7578,6 +7668,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_Update_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.18
       bool success = true;
       UpdateRequestPtr p_request{};
       KeyMintServer_Update_ParamsDataView input_data_view(params, message);
@@ -7596,8 +7688,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_request), std::move(callback));
+      impl->Update(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_Finish_Name: {
@@ -7607,6 +7699,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_Finish_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.19
       bool success = true;
       FinishRequestPtr p_request{};
       KeyMintServer_Finish_ParamsDataView input_data_view(params, message);
@@ -7625,8 +7719,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Finish(
-std::move(p_request), std::move(callback));
+      impl->Finish(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_Abort_Name: {
@@ -7636,6 +7730,8 @@ std::move(p_request), std::move(callback));
               internal::KeyMintServer_Abort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.20
       bool success = true;
       uint64_t p_op_handle{};
       KeyMintServer_Abort_ParamsDataView input_data_view(params, message);
@@ -7654,8 +7750,8 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort(
-std::move(p_op_handle), std::move(callback));
+      impl->Abort(        
+        std::move(p_op_handle), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_GetSharedSecretParameters_Name: {
@@ -7665,6 +7761,8 @@ std::move(p_op_handle), std::move(callback));
               internal::KeyMintServer_GetSharedSecretParameters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.21
       bool success = true;
       KeyMintServer_GetSharedSecretParameters_ParamsDataView input_data_view(params, message);
       
@@ -7690,6 +7788,8 @@ std::move(p_op_handle), std::move(callback));
               internal::KeyMintServer_ComputeSharedSecret_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.22
       bool success = true;
       std::vector<SharedSecretParametersPtr> p_secret_params{};
       KeyMintServer_ComputeSharedSecret_ParamsDataView input_data_view(params, message);
@@ -7708,8 +7808,8 @@ std::move(p_op_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ComputeSharedSecret(
-std::move(p_secret_params), std::move(callback));
+      impl->ComputeSharedSecret(        
+        std::move(p_secret_params), std::move(callback));
       return true;
     }
     case internal::kKeyMintServer_GenerateTimeStamp_Name: {
@@ -7719,6 +7819,8 @@ std::move(p_secret_params), std::move(callback));
               internal::KeyMintServer_GenerateTimeStamp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyMintServer.23
       bool success = true;
       uint64_t p_challenge{};
       KeyMintServer_GenerateTimeStamp_ParamsDataView input_data_view(params, message);
@@ -7737,8 +7839,8 @@ std::move(p_secret_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateTimeStamp(
-std::move(p_challenge), std::move(callback));
+      impl->GenerateTimeStamp(        
+        std::move(p_challenge), std::move(callback));
       return true;
     }
   }

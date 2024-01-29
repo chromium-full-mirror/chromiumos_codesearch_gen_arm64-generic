@@ -1481,6 +1481,8 @@ bool DeviceServiceStubDispatch::Accept(
           reinterpret_cast<internal::DeviceService_BindDevicePostureProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.0
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> p_receiver{};
       DeviceService_BindDevicePostureProvider_ParamsDataView input_data_view(params, message);
@@ -1498,8 +1500,8 @@ bool DeviceServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDevicePostureProvider(
-std::move(p_receiver));
+      impl->BindDevicePostureProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindFingerprint_Name: {
@@ -1509,6 +1511,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindFingerprint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.1
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::Fingerprint> p_receiver{};
       DeviceService_BindFingerprint_ParamsDataView input_data_view(params, message);
@@ -1526,8 +1530,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFingerprint(
-std::move(p_receiver));
+      impl->BindFingerprint(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindGeolocationConfig_Name: {
@@ -1537,6 +1541,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindGeolocationConfig_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.2
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationConfig> p_receiver{};
       DeviceService_BindGeolocationConfig_ParamsDataView input_data_view(params, message);
@@ -1554,8 +1560,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGeolocationConfig(
-std::move(p_receiver));
+      impl->BindGeolocationConfig(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindGeolocationContext_Name: {
@@ -1565,6 +1571,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindGeolocationContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.3
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationContext> p_receiver{};
       DeviceService_BindGeolocationContext_ParamsDataView input_data_view(params, message);
@@ -1582,8 +1590,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGeolocationContext(
-std::move(p_receiver));
+      impl->BindGeolocationContext(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindGeolocationControl_Name: {
@@ -1593,6 +1601,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindGeolocationControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.4
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationControl> p_receiver{};
       DeviceService_BindGeolocationControl_ParamsDataView input_data_view(params, message);
@@ -1610,8 +1620,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGeolocationControl(
-std::move(p_receiver));
+      impl->BindGeolocationControl(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindGeolocationInternals_Name: {
@@ -1621,6 +1631,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindGeolocationInternals_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.5
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationInternals> p_receiver{};
       DeviceService_BindGeolocationInternals_ParamsDataView input_data_view(params, message);
@@ -1638,8 +1650,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGeolocationInternals(
-std::move(p_receiver));
+      impl->BindGeolocationInternals(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindInputDeviceManager_Name: {
@@ -1649,6 +1661,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindInputDeviceManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.6
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::InputDeviceManager> p_receiver{};
       DeviceService_BindInputDeviceManager_ParamsDataView input_data_view(params, message);
@@ -1666,8 +1680,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInputDeviceManager(
-std::move(p_receiver));
+      impl->BindInputDeviceManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindBatteryMonitor_Name: {
@@ -1677,6 +1691,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindBatteryMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.7
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::BatteryMonitor> p_receiver{};
       DeviceService_BindBatteryMonitor_ParamsDataView input_data_view(params, message);
@@ -1694,8 +1710,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBatteryMonitor(
-std::move(p_receiver));
+      impl->BindBatteryMonitor(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindPressureManager_Name: {
@@ -1705,6 +1721,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindPressureManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.8
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::PressureManager> p_receiver{};
       DeviceService_BindPressureManager_ParamsDataView input_data_view(params, message);
@@ -1722,8 +1740,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPressureManager(
-std::move(p_receiver));
+      impl->BindPressureManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindVibrationManager_Name: {
@@ -1733,6 +1751,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindVibrationManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.9
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::VibrationManager> p_receiver{};
       DeviceService_BindVibrationManager_ParamsDataView input_data_view(params, message);
@@ -1750,8 +1770,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVibrationManager(
-std::move(p_receiver));
+      impl->BindVibrationManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindHidManager_Name: {
@@ -1761,6 +1781,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindHidManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.10
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::HidManager> p_receiver{};
       DeviceService_BindHidManager_ParamsDataView input_data_view(params, message);
@@ -1778,8 +1800,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindHidManager(
-std::move(p_receiver));
+      impl->BindHidManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindMtpManager_Name: {
@@ -1789,6 +1811,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindMtpManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.11
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::MtpManager> p_receiver{};
       DeviceService_BindMtpManager_ParamsDataView input_data_view(params, message);
@@ -1806,8 +1830,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMtpManager(
-std::move(p_receiver));
+      impl->BindMtpManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindPowerMonitor_Name: {
@@ -1817,6 +1841,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindPowerMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.12
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::PowerMonitor> p_receiver{};
       DeviceService_BindPowerMonitor_ParamsDataView input_data_view(params, message);
@@ -1834,8 +1860,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPowerMonitor(
-std::move(p_receiver));
+      impl->BindPowerMonitor(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindPublicIpAddressGeolocationProvider_Name: {
@@ -1845,6 +1871,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindPublicIpAddressGeolocationProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.13
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::PublicIpAddressGeolocationProvider> p_receiver{};
       DeviceService_BindPublicIpAddressGeolocationProvider_ParamsDataView input_data_view(params, message);
@@ -1862,8 +1890,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPublicIpAddressGeolocationProvider(
-std::move(p_receiver));
+      impl->BindPublicIpAddressGeolocationProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindScreenOrientationListener_Name: {
@@ -1873,6 +1901,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindScreenOrientationListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.14
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::ScreenOrientationListener> p_receiver{};
       DeviceService_BindScreenOrientationListener_ParamsDataView input_data_view(params, message);
@@ -1890,8 +1920,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindScreenOrientationListener(
-std::move(p_receiver));
+      impl->BindScreenOrientationListener(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindSensorProvider_Name: {
@@ -1901,6 +1931,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindSensorProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.15
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::SensorProvider> p_receiver{};
       DeviceService_BindSensorProvider_ParamsDataView input_data_view(params, message);
@@ -1918,8 +1950,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSensorProvider(
-std::move(p_receiver));
+      impl->BindSensorProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindSerialPortManager_Name: {
@@ -1929,6 +1961,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindSerialPortManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.16
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::SerialPortManager> p_receiver{};
       DeviceService_BindSerialPortManager_ParamsDataView input_data_view(params, message);
@@ -1946,8 +1980,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSerialPortManager(
-std::move(p_receiver));
+      impl->BindSerialPortManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindTimeZoneMonitor_Name: {
@@ -1957,6 +1991,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindTimeZoneMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.17
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::TimeZoneMonitor> p_receiver{};
       DeviceService_BindTimeZoneMonitor_ParamsDataView input_data_view(params, message);
@@ -1974,8 +2010,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTimeZoneMonitor(
-std::move(p_receiver));
+      impl->BindTimeZoneMonitor(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindWakeLockProvider_Name: {
@@ -1985,6 +2021,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindWakeLockProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.18
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::WakeLockProvider> p_receiver{};
       DeviceService_BindWakeLockProvider_ParamsDataView input_data_view(params, message);
@@ -2002,8 +2040,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWakeLockProvider(
-std::move(p_receiver));
+      impl->BindWakeLockProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindUsbDeviceManager_Name: {
@@ -2013,6 +2051,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindUsbDeviceManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.19
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::UsbDeviceManager> p_receiver{};
       DeviceService_BindUsbDeviceManager_ParamsDataView input_data_view(params, message);
@@ -2030,8 +2070,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUsbDeviceManager(
-std::move(p_receiver));
+      impl->BindUsbDeviceManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDeviceService_BindUsbDeviceManagerTest_Name: {
@@ -2041,6 +2081,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DeviceService_BindUsbDeviceManagerTest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.20
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::UsbDeviceManagerTest> p_receiver{};
       DeviceService_BindUsbDeviceManagerTest_ParamsDataView input_data_view(params, message);
@@ -2058,8 +2100,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUsbDeviceManagerTest(
-std::move(p_receiver));
+      impl->BindUsbDeviceManagerTest(        
+        std::move(p_receiver));
       return true;
     }
   }

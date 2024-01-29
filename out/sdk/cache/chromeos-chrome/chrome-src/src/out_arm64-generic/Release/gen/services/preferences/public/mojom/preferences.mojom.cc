@@ -368,6 +368,8 @@ bool ResetOnLoadObserverStubDispatch::Accept(
           reinterpret_cast<internal::ResetOnLoadObserver_OnResetOnLoad_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResetOnLoadObserver.0
       bool success = true;
       ResetOnLoadObserver_OnResetOnLoad_ParamsDataView input_data_view(params, message);
       
@@ -380,7 +382,7 @@ bool ResetOnLoadObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResetOnLoad();
+      impl->OnResetOnLoad(        );
       return true;
     }
   }

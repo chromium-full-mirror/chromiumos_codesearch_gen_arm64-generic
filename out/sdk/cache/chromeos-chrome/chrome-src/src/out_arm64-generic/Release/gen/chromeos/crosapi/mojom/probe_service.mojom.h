@@ -924,6 +924,154 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  ProbeThermalSensorInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ProbeThermalSensorInfo, T>::value>;
+  using DataView = ProbeThermalSensorInfoDataView;
+  using Data_ = internal::ProbeThermalSensorInfo_Data;
+
+  template <typename... Args>
+  static ProbeThermalSensorInfoPtr New(Args&&... args) {
+    return ProbeThermalSensorInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ProbeThermalSensorInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ProbeThermalSensorInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ProbeThermalSensorInfo>::Convert(*this);
+  }
+
+
+  ProbeThermalSensorInfo();
+
+  ProbeThermalSensorInfo(
+      const std::string& name,
+      double temperature_celsius,
+      ProbeThermalSensorSource source);
+
+
+  ~ProbeThermalSensorInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ProbeThermalSensorInfoPtr>
+  ProbeThermalSensorInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ProbeThermalSensorInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ProbeThermalSensorInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ProbeThermalSensorInfo_UnserializedMessageContext<
+            UserType, ProbeThermalSensorInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ProbeThermalSensorInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ProbeThermalSensorInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ProbeThermalSensorInfo_UnserializedMessageContext<
+            UserType, ProbeThermalSensorInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ProbeThermalSensorInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  double temperature_celsius;
+  
+  ProbeThermalSensorSource source;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 class  ProbeOemData {
  public:
@@ -3262,6 +3410,136 @@ class  ProbeDisplayResult {
     Union_() = default;
     ~Union_() = default;
     ProbeDisplayInfoPtr* display_info;
+    ProbeErrorPtr* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  ProbeThermalResult {
+ public:
+  using DataView = ProbeThermalResultDataView;
+  using Data_ = internal::ProbeThermalResult_Data;
+  using Tag = Data_::ProbeThermalResult_Tag;
+
+  template <typename... Args>
+  static ProbeThermalResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |thermal_info|.
+  static ProbeThermalResultPtr
+  NewThermalInfo(
+      ProbeThermalInfoPtr value) {
+    auto result = ProbeThermalResultPtr(absl::in_place);
+    result->set_thermal_info(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static ProbeThermalResultPtr
+  NewError(
+      ProbeErrorPtr value) {
+    auto result = ProbeThermalResultPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static ProbeThermalResultPtr From(const U& u) {
+    return mojo::TypeConverter<ProbeThermalResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ProbeThermalResult>::Convert(*this);
+  }
+
+  ProbeThermalResult();
+  ~ProbeThermalResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ProbeThermalResult(const ProbeThermalResult& other) = delete;
+  ProbeThermalResult& operator=(const ProbeThermalResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = ProbeThermalResultPtr>
+  ProbeThermalResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ProbeThermalResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ProbeThermalResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_thermal_info() const { return tag_ == Tag::kThermalInfo; }
+
+  
+  ProbeThermalInfoPtr& get_thermal_info() const {
+    CHECK(tag_ == Tag::kThermalInfo);
+    return *(data_.thermal_info);
+  }
+
+  
+  void set_thermal_info(
+      ProbeThermalInfoPtr thermal_info);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  ProbeErrorPtr& get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      ProbeErrorPtr error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ProbeThermalResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<ProbeThermalResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ProbeThermalInfoPtr* thermal_info;
     ProbeErrorPtr* error;
   };
 
@@ -7169,6 +7447,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class  ProbeThermalInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ProbeThermalInfo, T>::value>;
+  using DataView = ProbeThermalInfoDataView;
+  using Data_ = internal::ProbeThermalInfo_Data;
+
+  template <typename... Args>
+  static ProbeThermalInfoPtr New(Args&&... args) {
+    return ProbeThermalInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ProbeThermalInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ProbeThermalInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ProbeThermalInfo>::Convert(*this);
+  }
+
+
+  ProbeThermalInfo();
+
+  explicit ProbeThermalInfo(
+      std::vector<ProbeThermalSensorInfoPtr> thermal_sensors);
+
+ProbeThermalInfo(const ProbeThermalInfo&) = delete;
+ProbeThermalInfo& operator=(const ProbeThermalInfo&) = delete;
+
+  ~ProbeThermalInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ProbeThermalInfoPtr>
+  ProbeThermalInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ProbeThermalInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ProbeThermalInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ProbeThermalInfo_UnserializedMessageContext<
+            UserType, ProbeThermalInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ProbeThermalInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ProbeThermalInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ProbeThermalInfo_UnserializedMessageContext<
+            UserType, ProbeThermalInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ProbeThermalInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<ProbeThermalSensorInfoPtr> thermal_sensors;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ProbeThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  ProbeTelemetryInfo {
  public:
   template <typename T>
@@ -7260,6 +7681,25 @@ class  ProbeTelemetryInfo {
       ProbeAudioResultPtr audio_result,
       ProbeBusResultPtr bus_result,
       ProbeDisplayResultPtr display_result);
+
+  ProbeTelemetryInfo(
+      ProbeBatteryResultPtr battery_result,
+      ProbeNonRemovableBlockDeviceResultPtr block_device_result,
+      ProbeCachedVpdResultPtr vpd_result,
+      ProbeCpuResultPtr cpu_result,
+      ProbeTimezoneResultPtr timezone_result,
+      ProbeMemoryResultPtr memory_result,
+      ProbeBacklightResultPtr backlight_result,
+      ProbeFanResultPtr fan_result,
+      ProbeStatefulPartitionResultPtr stateful_partition_result,
+      ProbeBluetoothResultPtr bluetooth_result,
+      ProbeSystemResultPtr system_result,
+      ProbeNetworkResultPtr network_result,
+      ProbeTpmResultPtr tpm_result,
+      ProbeAudioResultPtr audio_result,
+      ProbeBusResultPtr bus_result,
+      ProbeDisplayResultPtr display_result,
+      ProbeThermalResultPtr thermal_result);
 
 ProbeTelemetryInfo(const ProbeTelemetryInfo&) = delete;
 ProbeTelemetryInfo& operator=(const ProbeTelemetryInfo&) = delete;
@@ -7370,6 +7810,8 @@ ProbeTelemetryInfo& operator=(const ProbeTelemetryInfo&) = delete;
   ProbeBusResultPtr bus_result;
   
   ProbeDisplayResultPtr display_result;
+  
+  ProbeThermalResultPtr thermal_result;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -7888,6 +8330,35 @@ bool ProbeDisplayResult::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kDisplayInfo:
       return mojo::Equals(*(data_.display_info), *(other.data_.display_info));
+    case Tag::kError:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+ProbeThermalResultPtr ProbeThermalResult::Clone() const {
+  switch (tag_) {
+    case Tag::kThermalInfo:
+      return NewThermalInfo(
+          mojo::Clone(*data_.thermal_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, ProbeThermalResult>::value>::type*>
+bool ProbeThermalResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kThermalInfo:
+      return mojo::Equals(*(data_.thermal_info), *(other.data_.thermal_info));
     case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
@@ -9381,6 +9852,64 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ProbeThermalSensorInfoPtr ProbeThermalSensorInfo::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(temperature_celsius),
+      mojo::Clone(source)
+  );
+}
+
+template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>*>
+bool ProbeThermalSensorInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->temperature_celsius, other_struct.temperature_celsius))
+    return false;
+  if (!mojo::Equals(this->source, other_struct.source))
+    return false;
+  return true;
+}
+
+template <typename T, ProbeThermalSensorInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.temperature_celsius < rhs.temperature_celsius)
+    return true;
+  if (rhs.temperature_celsius < lhs.temperature_celsius)
+    return false;
+  if (lhs.source < rhs.source)
+    return true;
+  if (rhs.source < lhs.source)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ProbeThermalInfoPtr ProbeThermalInfo::Clone() const {
+  return New(
+      mojo::Clone(thermal_sensors)
+  );
+}
+
+template <typename T, ProbeThermalInfo::EnableIfSame<T>*>
+bool ProbeThermalInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->thermal_sensors, other_struct.thermal_sensors))
+    return false;
+  return true;
+}
+
+template <typename T, ProbeThermalInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.thermal_sensors < rhs.thermal_sensors)
+    return true;
+  if (rhs.thermal_sensors < lhs.thermal_sensors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ProbeTelemetryInfoPtr ProbeTelemetryInfo::Clone() const {
   return New(
       mojo::Clone(battery_result),
@@ -9398,7 +9927,8 @@ ProbeTelemetryInfoPtr ProbeTelemetryInfo::Clone() const {
       mojo::Clone(tpm_result),
       mojo::Clone(audio_result),
       mojo::Clone(bus_result),
-      mojo::Clone(display_result)
+      mojo::Clone(display_result),
+      mojo::Clone(thermal_result)
   );
 }
 
@@ -9435,6 +9965,8 @@ bool ProbeTelemetryInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->bus_result, other_struct.bus_result))
     return false;
   if (!mojo::Equals(this->display_result, other_struct.display_result))
+    return false;
+  if (!mojo::Equals(this->thermal_result, other_struct.thermal_result))
     return false;
   return true;
 }
@@ -9504,6 +10036,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.display_result < rhs.display_result)
     return true;
   if (rhs.display_result < lhs.display_result)
+    return false;
+  if (lhs.thermal_result < rhs.thermal_result)
+    return true;
+  if (rhs.thermal_result < lhs.thermal_result)
     return false;
   return false;
 }
@@ -10577,6 +11113,46 @@ struct  StructTraits<::crosapi::mojom::ProbeDisplayInfo::DataView,
 
 
 template <>
+struct  StructTraits<::crosapi::mojom::ProbeThermalSensorInfo::DataView,
+                                         ::crosapi::mojom::ProbeThermalSensorInfoPtr> {
+  static bool IsNull(const ::crosapi::mojom::ProbeThermalSensorInfoPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ProbeThermalSensorInfoPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::ProbeThermalSensorInfo::name)& name(
+      const ::crosapi::mojom::ProbeThermalSensorInfoPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::crosapi::mojom::ProbeThermalSensorInfo::temperature_celsius) temperature_celsius(
+      const ::crosapi::mojom::ProbeThermalSensorInfoPtr& input) {
+    return input->temperature_celsius;
+  }
+
+  static decltype(::crosapi::mojom::ProbeThermalSensorInfo::source) source(
+      const ::crosapi::mojom::ProbeThermalSensorInfoPtr& input) {
+    return input->source;
+  }
+
+  static bool Read(::crosapi::mojom::ProbeThermalSensorInfo::DataView input, ::crosapi::mojom::ProbeThermalSensorInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::ProbeThermalInfo::DataView,
+                                         ::crosapi::mojom::ProbeThermalInfoPtr> {
+  static bool IsNull(const ::crosapi::mojom::ProbeThermalInfoPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ProbeThermalInfoPtr* output) { output->reset(); }
+
+  static const decltype(::crosapi::mojom::ProbeThermalInfo::thermal_sensors)& thermal_sensors(
+      const ::crosapi::mojom::ProbeThermalInfoPtr& input) {
+    return input->thermal_sensors;
+  }
+
+  static bool Read(::crosapi::mojom::ProbeThermalInfo::DataView input, ::crosapi::mojom::ProbeThermalInfoPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::crosapi::mojom::ProbeTelemetryInfo::DataView,
                                          ::crosapi::mojom::ProbeTelemetryInfoPtr> {
   static bool IsNull(const ::crosapi::mojom::ProbeTelemetryInfoPtr& input) { return !input; }
@@ -10660,6 +11236,11 @@ struct  StructTraits<::crosapi::mojom::ProbeTelemetryInfo::DataView,
   static const decltype(::crosapi::mojom::ProbeTelemetryInfo::display_result)& display_result(
       const ::crosapi::mojom::ProbeTelemetryInfoPtr& input) {
     return input->display_result;
+  }
+
+  static const decltype(::crosapi::mojom::ProbeTelemetryInfo::thermal_result)& thermal_result(
+      const ::crosapi::mojom::ProbeTelemetryInfoPtr& input) {
+    return input->thermal_result;
   }
 
   static bool Read(::crosapi::mojom::ProbeTelemetryInfo::DataView input, ::crosapi::mojom::ProbeTelemetryInfoPtr* output);
@@ -11052,6 +11633,28 @@ struct  UnionTraits<::crosapi::mojom::ProbeDisplayResult::DataView,
   }
 
   static bool Read(::crosapi::mojom::ProbeDisplayResult::DataView input, ::crosapi::mojom::ProbeDisplayResultPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::crosapi::mojom::ProbeThermalResult::DataView,
+                                        ::crosapi::mojom::ProbeThermalResultPtr> {
+  static bool IsNull(const ::crosapi::mojom::ProbeThermalResultPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::ProbeThermalResultPtr* output) { output->reset(); }
+
+  static ::crosapi::mojom::ProbeThermalResult::Tag GetTag(const ::crosapi::mojom::ProbeThermalResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::crosapi::mojom::ProbeThermalInfoPtr& thermal_info(const ::crosapi::mojom::ProbeThermalResultPtr& input) {
+    return input->get_thermal_info();
+  }
+
+  static const ::crosapi::mojom::ProbeErrorPtr& error(const ::crosapi::mojom::ProbeThermalResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::crosapi::mojom::ProbeThermalResult::DataView input, ::crosapi::mojom::ProbeThermalResultPtr* output);
 };
 
 }  // namespace mojo

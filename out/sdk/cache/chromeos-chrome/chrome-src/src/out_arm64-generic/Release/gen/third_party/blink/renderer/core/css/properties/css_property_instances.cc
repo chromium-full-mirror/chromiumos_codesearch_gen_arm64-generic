@@ -2218,6 +2218,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyviewtimelinename_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::ViewTransitionClass property)
+    : csspropertyviewtransitionclass_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyviewtransitionclass_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::ViewTransitionName property)
     : csspropertyviewtransitionname_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -3987,6 +3992,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::ViewTimelineAxis csspropertyviewtimelineaxis_;
   ::blink::css_longhand::ViewTimelineInset csspropertyviewtimelineinset_;
   ::blink::css_longhand::ViewTimelineName csspropertyviewtimelinename_;
+  ::blink::css_longhand::ViewTransitionClass csspropertyviewtransitionclass_;
   ::blink::css_longhand::ViewTransitionName csspropertyviewtransitionname_;
   ::blink::css_longhand::Visibility csspropertyvisibility_;
   ::blink::css_longhand::WebkitBorderHorizontalSpacing csspropertywebkitborderhorizontalspacing_;
@@ -4696,6 +4702,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::ViewTimelineAxis(),
   ::blink::css_longhand::ViewTimelineInset(),
   ::blink::css_longhand::ViewTimelineName(),
+  ::blink::css_longhand::ViewTransitionClass(),
   ::blink::css_longhand::ViewTransitionName(),
   ::blink::css_longhand::Visibility(),
   ::blink::css_longhand::WebkitBorderHorizontalSpacing(),
@@ -5406,6 +5413,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kViewTimelineAxis.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kViewTimelineInset.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kViewTimelineName.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kViewTransitionClass.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kViewTransitionName.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kVisibility.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kWebkitBorderHorizontalSpacing.
@@ -6149,6 +6157,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kViewTimelineAxis.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kViewTimelineInset.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kViewTimelineName.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kViewTransitionClass.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kViewTransitionName.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kVisibility.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kWebkitBorderHorizontalSpacing.

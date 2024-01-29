@@ -678,6 +678,8 @@ bool Device_GetPhotoState_ForwardToCallback::Accept(
           internal::Device_GetPhotoState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.3
   bool success = true;
   ::media::mojom::PhotoStatePtr p_capabilities{};
   Device_GetPhotoState_ResponseParamsDataView input_data_view(params, message);
@@ -803,6 +805,8 @@ bool Device_SetPhotoOptions_ForwardToCallback::Accept(
           internal::Device_SetPhotoOptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.4
   bool success = true;
   bool p_success{};
   Device_SetPhotoOptions_ResponseParamsDataView input_data_view(params, message);
@@ -922,6 +926,8 @@ bool Device_TakePhoto_ForwardToCallback::Accept(
           internal::Device_TakePhoto_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Device.5
   bool success = true;
   ::media::mojom::BlobPtr p_blob{};
   Device_TakePhoto_ResponseParamsDataView input_data_view(params, message);
@@ -1002,6 +1008,8 @@ bool DeviceStubDispatch::Accept(
           reinterpret_cast<internal::Device_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Device.0
       bool success = true;
       ::media::VideoCaptureParams p_requested_settings{};
       ::mojo::PendingRemote<::video_capture::mojom::VideoFrameHandler> p_handler{};
@@ -1022,9 +1030,9 @@ bool DeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_requested_settings), 
-std::move(p_handler));
+      impl->Start(        
+        std::move(p_requested_settings), 
+        std::move(p_handler));
       return true;
     }
     case internal::kDevice_MaybeSuspend_Name: {
@@ -1034,6 +1042,8 @@ std::move(p_handler));
           reinterpret_cast<internal::Device_MaybeSuspend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Device.1
       bool success = true;
       Device_MaybeSuspend_ParamsDataView input_data_view(params, message);
       
@@ -1046,7 +1056,7 @@ std::move(p_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeSuspend();
+      impl->MaybeSuspend(        );
       return true;
     }
     case internal::kDevice_Resume_Name: {
@@ -1056,6 +1066,8 @@ std::move(p_handler));
           reinterpret_cast<internal::Device_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Device.2
       bool success = true;
       Device_Resume_ParamsDataView input_data_view(params, message);
       
@@ -1068,7 +1080,7 @@ std::move(p_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kDevice_GetPhotoState_Name: {
@@ -1087,6 +1099,8 @@ std::move(p_handler));
           reinterpret_cast<internal::Device_ProcessFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Device.6
       bool success = true;
       ::media::VideoCaptureFeedback p_feedback{};
       Device_ProcessFeedback_ParamsDataView input_data_view(params, message);
@@ -1102,8 +1116,8 @@ std::move(p_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessFeedback(
-std::move(p_feedback));
+      impl->ProcessFeedback(        
+        std::move(p_feedback));
       return true;
     }
     case internal::kDevice_RequestRefreshFrame_Name: {
@@ -1113,6 +1127,8 @@ std::move(p_feedback));
           reinterpret_cast<internal::Device_RequestRefreshFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Device.7
       bool success = true;
       Device_RequestRefreshFrame_ParamsDataView input_data_view(params, message);
       
@@ -1125,7 +1141,7 @@ std::move(p_feedback));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestRefreshFrame();
+      impl->RequestRefreshFrame(        );
       return true;
     }
   }
@@ -1157,6 +1173,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               internal::Device_GetPhotoState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.3
       bool success = true;
       Device_GetPhotoState_ParamsDataView input_data_view(params, message);
       
@@ -1182,6 +1200,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               internal::Device_SetPhotoOptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.4
       bool success = true;
       ::media::mojom::PhotoSettingsPtr p_settings{};
       Device_SetPhotoOptions_ParamsDataView input_data_view(params, message);
@@ -1200,8 +1220,8 @@ bool DeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPhotoOptions(
-std::move(p_settings), std::move(callback));
+      impl->SetPhotoOptions(        
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kDevice_TakePhoto_Name: {
@@ -1211,6 +1231,8 @@ std::move(p_settings), std::move(callback));
               internal::Device_TakePhoto_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Device.5
       bool success = true;
       Device_TakePhoto_ParamsDataView input_data_view(params, message);
       

@@ -72,20 +72,20 @@ class BLINK_COMMON_EXPORT WebPrintJobStateObserver
   using RequestValidator_ = WebPrintJobStateObserverRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kOnWebPrintJobStateChangedMinVersion = 0,
+    kOnWebPrintJobUpdateMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct OnWebPrintJobStateChanged_Sym {
+  struct OnWebPrintJobUpdate_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WebPrintJobStateObserver() = default;
 
   
-  virtual void OnWebPrintJobStateChanged(WebPrintJobState state) = 0;
+  virtual void OnWebPrintJobUpdate(WebPrintJobUpdatePtr update) = 0;
 };
 
 class WebPrinterProxy;
@@ -135,7 +135,7 @@ class BLINK_COMMON_EXPORT WebPrinter
   virtual ~WebPrinter() = default;
 
 
-  using FetchAttributesCallback = base::OnceCallback<void(WebPrinterAttributesPtr)>;
+  using FetchAttributesCallback = base::OnceCallback<void(WebPrinterFetchResultPtr)>;
   
   virtual void FetchAttributes(FetchAttributesCallback callback) = 0;
 
@@ -188,7 +188,7 @@ class BLINK_COMMON_EXPORT WebPrintingService
   virtual ~WebPrintingService() = default;
 
 
-  using GetPrintersCallback = base::OnceCallback<void(std::vector<WebPrinterInfoPtr>)>;
+  using GetPrintersCallback = base::OnceCallback<void(GetPrintersResultPtr)>;
   
   virtual void GetPrinters(GetPrintersCallback callback) = 0;
 };
@@ -202,7 +202,7 @@ class BLINK_COMMON_EXPORT WebPrintJobStateObserverProxy
 
   explicit WebPrintJobStateObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnWebPrintJobStateChanged(WebPrintJobState state) final;
+  void OnWebPrintJobUpdate(WebPrintJobUpdatePtr update) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -534,6 +534,410 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class BLINK_COMMON_EXPORT WebPrintJobUpdate {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<WebPrintJobUpdate, T>::value>;
+  using DataView = WebPrintJobUpdateDataView;
+  using Data_ = internal::WebPrintJobUpdate_Data;
+
+  template <typename... Args>
+  static WebPrintJobUpdatePtr New(Args&&... args) {
+    return WebPrintJobUpdatePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static WebPrintJobUpdatePtr From(const U& u) {
+    return mojo::TypeConverter<WebPrintJobUpdatePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, WebPrintJobUpdate>::Convert(*this);
+  }
+
+
+  WebPrintJobUpdate();
+
+  WebPrintJobUpdate(
+      WebPrintJobState state,
+      uint32_t pages_printed);
+
+
+  ~WebPrintJobUpdate();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = WebPrintJobUpdatePtr>
+  WebPrintJobUpdatePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        WebPrintJobUpdate::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        WebPrintJobUpdate::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::WebPrintJobUpdate_UnserializedMessageContext<
+            UserType, WebPrintJobUpdate::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<WebPrintJobUpdate::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return WebPrintJobUpdate::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::WebPrintJobUpdate_UnserializedMessageContext<
+            UserType, WebPrintJobUpdate::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<WebPrintJobUpdate::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  WebPrintJobState state;
+  
+  uint32_t pages_printed;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, WebPrintJobUpdate::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class BLINK_COMMON_EXPORT GetPrintersResult {
+ public:
+  using DataView = GetPrintersResultDataView;
+  using Data_ = internal::GetPrintersResult_Data;
+  using Tag = Data_::GetPrintersResult_Tag;
+
+  template <typename... Args>
+  static GetPrintersResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |printers|.
+  static GetPrintersResultPtr
+  NewPrinters(
+      std::vector<WebPrinterInfoPtr> value) {
+    auto result = GetPrintersResultPtr(absl::in_place);
+    result->set_printers(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static GetPrintersResultPtr
+  NewError(
+      GetPrintersError value) {
+    auto result = GetPrintersResultPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static GetPrintersResultPtr From(const U& u) {
+    return mojo::TypeConverter<GetPrintersResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, GetPrintersResult>::Convert(*this);
+  }
+
+  GetPrintersResult();
+  ~GetPrintersResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  GetPrintersResult(const GetPrintersResult& other) = delete;
+  GetPrintersResult& operator=(const GetPrintersResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = GetPrintersResultPtr>
+  GetPrintersResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, GetPrintersResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, GetPrintersResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_printers() const { return tag_ == Tag::kPrinters; }
+
+  
+  std::vector<WebPrinterInfoPtr>& get_printers() const {
+    CHECK(tag_ == Tag::kPrinters);
+    return *(data_.printers);
+  }
+
+  
+  void set_printers(
+      std::vector<WebPrinterInfoPtr> printers);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  GetPrintersError get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return data_.error;
+  }
+
+  
+  void set_error(
+      GetPrintersError error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        GetPrintersResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<GetPrintersResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    std::vector<WebPrinterInfoPtr>* printers;
+    GetPrintersError error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class BLINK_COMMON_EXPORT WebPrinterFetchResult {
+ public:
+  using DataView = WebPrinterFetchResultDataView;
+  using Data_ = internal::WebPrinterFetchResult_Data;
+  using Tag = Data_::WebPrinterFetchResult_Tag;
+
+  template <typename... Args>
+  static WebPrinterFetchResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |printer_attributes|.
+  static WebPrinterFetchResultPtr
+  NewPrinterAttributes(
+      WebPrinterAttributesPtr value) {
+    auto result = WebPrinterFetchResultPtr(absl::in_place);
+    result->set_printer_attributes(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static WebPrinterFetchResultPtr
+  NewError(
+      WebPrinterFetchError value) {
+    auto result = WebPrinterFetchResultPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static WebPrinterFetchResultPtr From(const U& u) {
+    return mojo::TypeConverter<WebPrinterFetchResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, WebPrinterFetchResult>::Convert(*this);
+  }
+
+  WebPrinterFetchResult();
+  ~WebPrinterFetchResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  WebPrinterFetchResult(const WebPrinterFetchResult& other) = delete;
+  WebPrinterFetchResult& operator=(const WebPrinterFetchResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = WebPrinterFetchResultPtr>
+  WebPrinterFetchResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, WebPrinterFetchResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, WebPrinterFetchResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_printer_attributes() const { return tag_ == Tag::kPrinterAttributes; }
+
+  
+  WebPrinterAttributesPtr& get_printer_attributes() const {
+    CHECK(tag_ == Tag::kPrinterAttributes);
+    return *(data_.printer_attributes);
+  }
+
+  
+  void set_printer_attributes(
+      WebPrinterAttributesPtr printer_attributes);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  WebPrinterFetchError get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return data_.error;
+  }
+
+  
+  void set_error(
+      WebPrinterFetchError error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        WebPrinterFetchResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<WebPrinterFetchResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    WebPrinterAttributesPtr* printer_attributes;
+    WebPrinterFetchError error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
 
 class BLINK_COMMON_EXPORT WebPrintResult {
  public:
@@ -839,10 +1243,15 @@ class BLINK_COMMON_EXPORT WebPrinterAttributes {
       WebPrintingRangePtr copies_supported,
       WebPrintingMultipleDocumentHandling multiple_document_handling_default,
       std::vector<WebPrintingMultipleDocumentHandling> multiple_document_handling_supported,
+      WebPrintingOrientationRequested orientation_requested_default,
+      std::vector<WebPrintingOrientationRequested> orientation_requested_supported,
       const ::gfx::Size& printer_resolution_default,
       std::vector<::gfx::Size> printer_resolution_supported,
       WebPrintColorMode print_color_mode_default,
       std::vector<WebPrintColorMode> print_color_mode_supported,
+      ipp_pstate_t printer_state,
+      const std::string& printer_state_message,
+      std::vector<::printing::PrinterStatus::PrinterReason::Reason> printer_state_reasons,
       std::optional<::printing::mojom::DuplexMode> sides_default,
       std::vector<::printing::mojom::DuplexMode> sides_supported);
 
@@ -932,6 +1341,10 @@ WebPrinterAttributes& operator=(const WebPrinterAttributes&) = delete;
   
   std::vector<WebPrintingMultipleDocumentHandling> multiple_document_handling_supported;
   
+  WebPrintingOrientationRequested orientation_requested_default;
+  
+  std::vector<WebPrintingOrientationRequested> orientation_requested_supported;
+  
   ::gfx::Size printer_resolution_default;
   
   std::vector<::gfx::Size> printer_resolution_supported;
@@ -939,6 +1352,12 @@ WebPrinterAttributes& operator=(const WebPrinterAttributes&) = delete;
   WebPrintColorMode print_color_mode_default;
   
   std::vector<WebPrintColorMode> print_color_mode_supported;
+  
+  ipp_pstate_t printer_state;
+  
+  std::string printer_state_message;
+  
+  std::vector<::printing::PrinterStatus::PrinterReason::Reason> printer_state_reasons;
   
   std::optional<::printing::mojom::DuplexMode> sides_default;
   
@@ -1007,6 +1426,7 @@ class BLINK_COMMON_EXPORT WebPrintJobTemplateAttributes {
       const std::string& job_name,
       uint32_t copies,
       std::optional<WebPrintingMultipleDocumentHandling> multiple_document_handling,
+      std::optional<WebPrintingOrientationRequested> orientation_requested,
       const std::optional<::gfx::Size>& printer_resolution,
       std::optional<WebPrintColorMode> print_color_mode,
       std::optional<::printing::mojom::DuplexMode> sides);
@@ -1093,6 +1513,8 @@ class BLINK_COMMON_EXPORT WebPrintJobTemplateAttributes {
   
   std::optional<WebPrintingMultipleDocumentHandling> multiple_document_handling;
   
+  std::optional<WebPrintingOrientationRequested> orientation_requested;
+  
   std::optional<::gfx::Size> printer_resolution;
   
   std::optional<WebPrintColorMode> print_color_mode;
@@ -1132,6 +1554,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class BLINK_COMMON_EXPORT WebPrintJobInfo {
  public:
   template <typename T>
@@ -1160,6 +1583,7 @@ class BLINK_COMMON_EXPORT WebPrintJobInfo {
 
   WebPrintJobInfo(
       const std::string& job_name,
+      uint32_t job_pages,
       ::mojo::PendingReceiver<WebPrintJobStateObserver> observer);
 
 WebPrintJobInfo(const WebPrintJobInfo&) = delete;
@@ -1237,6 +1661,8 @@ WebPrintJobInfo& operator=(const WebPrintJobInfo&) = delete;
   
   std::string job_name;
   
+  uint32_t job_pages;
+  
   ::mojo::PendingReceiver<WebPrintJobStateObserver> observer;
 
   // Serialise this struct into a trace.
@@ -1268,6 +1694,64 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+template <typename UnionPtrType>
+GetPrintersResultPtr GetPrintersResult::Clone() const {
+  switch (tag_) {
+    case Tag::kPrinters:
+      return NewPrinters(
+          mojo::Clone(*data_.printers));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, GetPrintersResult>::value>::type*>
+bool GetPrintersResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kPrinters:
+      return mojo::Equals(*(data_.printers), *(other.data_.printers));
+    case Tag::kError:
+      return mojo::Equals(data_.error, other.data_.error);
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+WebPrinterFetchResultPtr WebPrinterFetchResult::Clone() const {
+  switch (tag_) {
+    case Tag::kPrinterAttributes:
+      return NewPrinterAttributes(
+          mojo::Clone(*data_.printer_attributes));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, WebPrinterFetchResult>::value>::type*>
+bool WebPrinterFetchResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kPrinterAttributes:
+      return mojo::Equals(*(data_.printer_attributes), *(other.data_.printer_attributes));
+    case Tag::kError:
+      return mojo::Equals(data_.error, other.data_.error);
+  }
+
+  return false;
+}
 template <typename UnionPtrType>
 WebPrintResultPtr WebPrintResult::Clone() const {
   switch (tag_) {
@@ -1362,10 +1846,15 @@ WebPrinterAttributesPtr WebPrinterAttributes::Clone() const {
       mojo::Clone(copies_supported),
       mojo::Clone(multiple_document_handling_default),
       mojo::Clone(multiple_document_handling_supported),
+      mojo::Clone(orientation_requested_default),
+      mojo::Clone(orientation_requested_supported),
       mojo::Clone(printer_resolution_default),
       mojo::Clone(printer_resolution_supported),
       mojo::Clone(print_color_mode_default),
       mojo::Clone(print_color_mode_supported),
+      mojo::Clone(printer_state),
+      mojo::Clone(printer_state_message),
+      mojo::Clone(printer_state_reasons),
       mojo::Clone(sides_default),
       mojo::Clone(sides_supported)
   );
@@ -1381,6 +1870,10 @@ bool WebPrinterAttributes::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->multiple_document_handling_supported, other_struct.multiple_document_handling_supported))
     return false;
+  if (!mojo::Equals(this->orientation_requested_default, other_struct.orientation_requested_default))
+    return false;
+  if (!mojo::Equals(this->orientation_requested_supported, other_struct.orientation_requested_supported))
+    return false;
   if (!mojo::Equals(this->printer_resolution_default, other_struct.printer_resolution_default))
     return false;
   if (!mojo::Equals(this->printer_resolution_supported, other_struct.printer_resolution_supported))
@@ -1388,6 +1881,12 @@ bool WebPrinterAttributes::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->print_color_mode_default, other_struct.print_color_mode_default))
     return false;
   if (!mojo::Equals(this->print_color_mode_supported, other_struct.print_color_mode_supported))
+    return false;
+  if (!mojo::Equals(this->printer_state, other_struct.printer_state))
+    return false;
+  if (!mojo::Equals(this->printer_state_message, other_struct.printer_state_message))
+    return false;
+  if (!mojo::Equals(this->printer_state_reasons, other_struct.printer_state_reasons))
     return false;
   if (!mojo::Equals(this->sides_default, other_struct.sides_default))
     return false;
@@ -1414,6 +1913,14 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.multiple_document_handling_supported < lhs.multiple_document_handling_supported)
     return false;
+  if (lhs.orientation_requested_default < rhs.orientation_requested_default)
+    return true;
+  if (rhs.orientation_requested_default < lhs.orientation_requested_default)
+    return false;
+  if (lhs.orientation_requested_supported < rhs.orientation_requested_supported)
+    return true;
+  if (rhs.orientation_requested_supported < lhs.orientation_requested_supported)
+    return false;
   if (lhs.printer_resolution_default < rhs.printer_resolution_default)
     return true;
   if (rhs.printer_resolution_default < lhs.printer_resolution_default)
@@ -1429,6 +1936,18 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.print_color_mode_supported < rhs.print_color_mode_supported)
     return true;
   if (rhs.print_color_mode_supported < lhs.print_color_mode_supported)
+    return false;
+  if (lhs.printer_state < rhs.printer_state)
+    return true;
+  if (rhs.printer_state < lhs.printer_state)
+    return false;
+  if (lhs.printer_state_message < rhs.printer_state_message)
+    return true;
+  if (rhs.printer_state_message < lhs.printer_state_message)
+    return false;
+  if (lhs.printer_state_reasons < rhs.printer_state_reasons)
+    return true;
+  if (rhs.printer_state_reasons < lhs.printer_state_reasons)
     return false;
   if (lhs.sides_default < rhs.sides_default)
     return true;
@@ -1446,6 +1965,7 @@ WebPrintJobTemplateAttributesPtr WebPrintJobTemplateAttributes::Clone() const {
       mojo::Clone(job_name),
       mojo::Clone(copies),
       mojo::Clone(multiple_document_handling),
+      mojo::Clone(orientation_requested),
       mojo::Clone(printer_resolution),
       mojo::Clone(print_color_mode),
       mojo::Clone(sides)
@@ -1459,6 +1979,8 @@ bool WebPrintJobTemplateAttributes::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->copies, other_struct.copies))
     return false;
   if (!mojo::Equals(this->multiple_document_handling, other_struct.multiple_document_handling))
+    return false;
+  if (!mojo::Equals(this->orientation_requested, other_struct.orientation_requested))
     return false;
   if (!mojo::Equals(this->printer_resolution, other_struct.printer_resolution))
     return false;
@@ -1483,6 +2005,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.multiple_document_handling < lhs.multiple_document_handling)
     return false;
+  if (lhs.orientation_requested < rhs.orientation_requested)
+    return true;
+  if (rhs.orientation_requested < lhs.orientation_requested)
+    return false;
   if (lhs.printer_resolution < rhs.printer_resolution)
     return true;
   if (rhs.printer_resolution < lhs.printer_resolution)
@@ -1498,9 +2024,39 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+WebPrintJobUpdatePtr WebPrintJobUpdate::Clone() const {
+  return New(
+      mojo::Clone(state),
+      mojo::Clone(pages_printed)
+  );
+}
+
+template <typename T, WebPrintJobUpdate::EnableIfSame<T>*>
+bool WebPrintJobUpdate::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  if (!mojo::Equals(this->pages_printed, other_struct.pages_printed))
+    return false;
+  return true;
+}
+
+template <typename T, WebPrintJobUpdate::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  if (lhs.pages_printed < rhs.pages_printed)
+    return true;
+  if (rhs.pages_printed < lhs.pages_printed)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 WebPrintJobInfoPtr WebPrintJobInfo::Clone() const {
   return New(
       mojo::Clone(job_name),
+      mojo::Clone(job_pages),
       mojo::Clone(observer)
   );
 }
@@ -1508,6 +2064,8 @@ WebPrintJobInfoPtr WebPrintJobInfo::Clone() const {
 template <typename T, WebPrintJobInfo::EnableIfSame<T>*>
 bool WebPrintJobInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->job_name, other_struct.job_name))
+    return false;
+  if (!mojo::Equals(this->job_pages, other_struct.job_pages))
     return false;
   if (!mojo::Equals(this->observer, other_struct.observer))
     return false;
@@ -1519,6 +2077,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.job_name < rhs.job_name)
     return true;
   if (rhs.job_name < lhs.job_name)
+    return false;
+  if (lhs.job_pages < rhs.job_pages)
+    return true;
+  if (rhs.job_pages < lhs.job_pages)
     return false;
   if (lhs.observer < rhs.observer)
     return true;
@@ -1599,6 +2161,16 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrinterAttributes::Da
     return input->multiple_document_handling_supported;
   }
 
+  static decltype(::blink::mojom::WebPrinterAttributes::orientation_requested_default) orientation_requested_default(
+      const ::blink::mojom::WebPrinterAttributesPtr& input) {
+    return input->orientation_requested_default;
+  }
+
+  static const decltype(::blink::mojom::WebPrinterAttributes::orientation_requested_supported)& orientation_requested_supported(
+      const ::blink::mojom::WebPrinterAttributesPtr& input) {
+    return input->orientation_requested_supported;
+  }
+
   static const decltype(::blink::mojom::WebPrinterAttributes::printer_resolution_default)& printer_resolution_default(
       const ::blink::mojom::WebPrinterAttributesPtr& input) {
     return input->printer_resolution_default;
@@ -1617,6 +2189,21 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrinterAttributes::Da
   static const decltype(::blink::mojom::WebPrinterAttributes::print_color_mode_supported)& print_color_mode_supported(
       const ::blink::mojom::WebPrinterAttributesPtr& input) {
     return input->print_color_mode_supported;
+  }
+
+  static decltype(::blink::mojom::WebPrinterAttributes::printer_state) printer_state(
+      const ::blink::mojom::WebPrinterAttributesPtr& input) {
+    return input->printer_state;
+  }
+
+  static const decltype(::blink::mojom::WebPrinterAttributes::printer_state_message)& printer_state_message(
+      const ::blink::mojom::WebPrinterAttributesPtr& input) {
+    return input->printer_state_message;
+  }
+
+  static const decltype(::blink::mojom::WebPrinterAttributes::printer_state_reasons)& printer_state_reasons(
+      const ::blink::mojom::WebPrinterAttributesPtr& input) {
+    return input->printer_state_reasons;
   }
 
   static decltype(::blink::mojom::WebPrinterAttributes::sides_default) sides_default(
@@ -1654,6 +2241,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrintJobTemplateAttri
     return input->multiple_document_handling;
   }
 
+  static decltype(::blink::mojom::WebPrintJobTemplateAttributes::orientation_requested) orientation_requested(
+      const ::blink::mojom::WebPrintJobTemplateAttributesPtr& input) {
+    return input->orientation_requested;
+  }
+
   static const decltype(::blink::mojom::WebPrintJobTemplateAttributes::printer_resolution)& printer_resolution(
       const ::blink::mojom::WebPrintJobTemplateAttributesPtr& input) {
     return input->printer_resolution;
@@ -1674,6 +2266,26 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrintJobTemplateAttri
 
 
 template <>
+struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrintJobUpdate::DataView,
+                                         ::blink::mojom::WebPrintJobUpdatePtr> {
+  static bool IsNull(const ::blink::mojom::WebPrintJobUpdatePtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::WebPrintJobUpdatePtr* output) { output->reset(); }
+
+  static decltype(::blink::mojom::WebPrintJobUpdate::state) state(
+      const ::blink::mojom::WebPrintJobUpdatePtr& input) {
+    return input->state;
+  }
+
+  static decltype(::blink::mojom::WebPrintJobUpdate::pages_printed) pages_printed(
+      const ::blink::mojom::WebPrintJobUpdatePtr& input) {
+    return input->pages_printed;
+  }
+
+  static bool Read(::blink::mojom::WebPrintJobUpdate::DataView input, ::blink::mojom::WebPrintJobUpdatePtr* output);
+};
+
+
+template <>
 struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrintJobInfo::DataView,
                                          ::blink::mojom::WebPrintJobInfoPtr> {
   static bool IsNull(const ::blink::mojom::WebPrintJobInfoPtr& input) { return !input; }
@@ -1684,12 +2296,61 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrintJobInfo::DataVie
     return input->job_name;
   }
 
+  static decltype(::blink::mojom::WebPrintJobInfo::job_pages) job_pages(
+      const ::blink::mojom::WebPrintJobInfoPtr& input) {
+    return input->job_pages;
+  }
+
   static  decltype(::blink::mojom::WebPrintJobInfo::observer)& observer(
        ::blink::mojom::WebPrintJobInfoPtr& input) {
     return input->observer;
   }
 
   static bool Read(::blink::mojom::WebPrintJobInfo::DataView input, ::blink::mojom::WebPrintJobInfoPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::GetPrintersResult::DataView,
+                                        ::blink::mojom::GetPrintersResultPtr> {
+  static bool IsNull(const ::blink::mojom::GetPrintersResultPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::GetPrintersResultPtr* output) { output->reset(); }
+
+  static ::blink::mojom::GetPrintersResult::Tag GetTag(const ::blink::mojom::GetPrintersResultPtr& input) {
+    return input->which();
+  }
+
+  static  std::vector<::blink::mojom::WebPrinterInfoPtr>& printers( ::blink::mojom::GetPrintersResultPtr& input) {
+    return input->get_printers();
+  }
+
+  static  ::blink::mojom::GetPrintersError error(const ::blink::mojom::GetPrintersResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::blink::mojom::GetPrintersResult::DataView input, ::blink::mojom::GetPrintersResultPtr* output);
+};
+
+
+template <>
+struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::WebPrinterFetchResult::DataView,
+                                        ::blink::mojom::WebPrinterFetchResultPtr> {
+  static bool IsNull(const ::blink::mojom::WebPrinterFetchResultPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::WebPrinterFetchResultPtr* output) { output->reset(); }
+
+  static ::blink::mojom::WebPrinterFetchResult::Tag GetTag(const ::blink::mojom::WebPrinterFetchResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::blink::mojom::WebPrinterAttributesPtr& printer_attributes(const ::blink::mojom::WebPrinterFetchResultPtr& input) {
+    return input->get_printer_attributes();
+  }
+
+  static  ::blink::mojom::WebPrinterFetchError error(const ::blink::mojom::WebPrinterFetchResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::blink::mojom::WebPrinterFetchResult::DataView input, ::blink::mojom::WebPrinterFetchResultPtr* output);
 };
 
 

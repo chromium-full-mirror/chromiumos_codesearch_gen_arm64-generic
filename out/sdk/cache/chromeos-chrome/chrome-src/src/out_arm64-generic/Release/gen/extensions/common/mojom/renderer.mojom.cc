@@ -2004,6 +2004,8 @@ bool Renderer_SuspendExtension_ForwardToCallback::Accept(
           internal::Renderer_SuspendExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.4
   bool success = true;
   Renderer_SuspendExtension_ResponseParamsDataView input_data_view(params, message);
   
@@ -2111,6 +2113,8 @@ bool Renderer_ShouldSuspend_ForwardToCallback::Accept(
           internal::Renderer_ShouldSuspend_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.12
   bool success = true;
   Renderer_ShouldSuspend_ResponseParamsDataView input_data_view(params, message);
   
@@ -2218,6 +2222,8 @@ bool Renderer_TransferBlobs_ForwardToCallback::Accept(
           internal::Renderer_TransferBlobs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.13
   bool success = true;
   Renderer_TransferBlobs_ResponseParamsDataView input_data_view(params, message);
   
@@ -2280,6 +2286,8 @@ bool RendererStubDispatch::Accept(
           reinterpret_cast<internal::Renderer_ActivateExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.0
       bool success = true;
       std::string p_extension_id{};
       Renderer_ActivateExtension_ParamsDataView input_data_view(params, message);
@@ -2295,8 +2303,8 @@ bool RendererStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivateExtension(
-std::move(p_extension_id));
+      impl->ActivateExtension(        
+        std::move(p_extension_id));
       return true;
     }
     case internal::kRenderer_SetActivityLoggingEnabled_Name: {
@@ -2306,6 +2314,8 @@ std::move(p_extension_id));
           reinterpret_cast<internal::Renderer_SetActivityLoggingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.1
       bool success = true;
       bool p_enabled{};
       Renderer_SetActivityLoggingEnabled_ParamsDataView input_data_view(params, message);
@@ -2321,8 +2331,8 @@ std::move(p_extension_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetActivityLoggingEnabled(
-std::move(p_enabled));
+      impl->SetActivityLoggingEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kRenderer_LoadExtensions_Name: {
@@ -2332,6 +2342,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::Renderer_LoadExtensions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.2
       bool success = true;
       std::vector<ExtensionLoadedParamsPtr> p_params{};
       Renderer_LoadExtensions_ParamsDataView input_data_view(params, message);
@@ -2347,8 +2359,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadExtensions(
-std::move(p_params));
+      impl->LoadExtensions(        
+        std::move(p_params));
       return true;
     }
     case internal::kRenderer_UnloadExtension_Name: {
@@ -2358,6 +2370,8 @@ std::move(p_params));
           reinterpret_cast<internal::Renderer_UnloadExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.3
       bool success = true;
       std::string p_extension_id{};
       Renderer_UnloadExtension_ParamsDataView input_data_view(params, message);
@@ -2373,8 +2387,8 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnloadExtension(
-std::move(p_extension_id));
+      impl->UnloadExtension(        
+        std::move(p_extension_id));
       return true;
     }
     case internal::kRenderer_SuspendExtension_Name: {
@@ -2387,6 +2401,8 @@ std::move(p_extension_id));
           reinterpret_cast<internal::Renderer_CancelSuspendExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.5
       bool success = true;
       std::string p_extension_id{};
       Renderer_CancelSuspendExtension_ParamsDataView input_data_view(params, message);
@@ -2402,8 +2418,8 @@ std::move(p_extension_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelSuspendExtension(
-std::move(p_extension_id));
+      impl->CancelSuspendExtension(        
+        std::move(p_extension_id));
       return true;
     }
     case internal::kRenderer_SetDeveloperMode_Name: {
@@ -2413,6 +2429,8 @@ std::move(p_extension_id));
           reinterpret_cast<internal::Renderer_SetDeveloperMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.6
       bool success = true;
       bool p_developer_mode_only{};
       Renderer_SetDeveloperMode_ParamsDataView input_data_view(params, message);
@@ -2428,8 +2446,8 @@ std::move(p_extension_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeveloperMode(
-std::move(p_developer_mode_only));
+      impl->SetDeveloperMode(        
+        std::move(p_developer_mode_only));
       return true;
     }
     case internal::kRenderer_SetSessionInfo_Name: {
@@ -2439,6 +2457,8 @@ std::move(p_developer_mode_only));
           reinterpret_cast<internal::Renderer_SetSessionInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.7
       bool success = true;
       version_info::Channel p_channel{};
       ::extensions::mojom::FeatureSessionType p_session{};
@@ -2460,10 +2480,10 @@ std::move(p_developer_mode_only));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSessionInfo(
-std::move(p_channel), 
-std::move(p_session), 
-std::move(p_is_lock_screen_context));
+      impl->SetSessionInfo(        
+        std::move(p_channel), 
+        std::move(p_session), 
+        std::move(p_is_lock_screen_context));
       return true;
     }
     case internal::kRenderer_SetSystemFont_Name: {
@@ -2473,6 +2493,8 @@ std::move(p_is_lock_screen_context));
           reinterpret_cast<internal::Renderer_SetSystemFont_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.8
       bool success = true;
       std::string p_font_family{};
       std::string p_font_size{};
@@ -2491,9 +2513,9 @@ std::move(p_is_lock_screen_context));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSystemFont(
-std::move(p_font_family), 
-std::move(p_font_size));
+      impl->SetSystemFont(        
+        std::move(p_font_family), 
+        std::move(p_font_size));
       return true;
     }
     case internal::kRenderer_SetWebViewPartitionID_Name: {
@@ -2503,6 +2525,8 @@ std::move(p_font_size));
           reinterpret_cast<internal::Renderer_SetWebViewPartitionID_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.9
       bool success = true;
       std::string p_partition_id{};
       Renderer_SetWebViewPartitionID_ParamsDataView input_data_view(params, message);
@@ -2518,8 +2542,8 @@ std::move(p_font_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWebViewPartitionID(
-std::move(p_partition_id));
+      impl->SetWebViewPartitionID(        
+        std::move(p_partition_id));
       return true;
     }
     case internal::kRenderer_SetScriptingAllowlist_Name: {
@@ -2529,6 +2553,8 @@ std::move(p_partition_id));
           reinterpret_cast<internal::Renderer_SetScriptingAllowlist_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.10
       bool success = true;
       std::vector<std::string> p_extension_ids{};
       Renderer_SetScriptingAllowlist_ParamsDataView input_data_view(params, message);
@@ -2544,8 +2570,8 @@ std::move(p_partition_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScriptingAllowlist(
-std::move(p_extension_ids));
+      impl->SetScriptingAllowlist(        
+        std::move(p_extension_ids));
       return true;
     }
     case internal::kRenderer_UpdateUserScriptWorld_Name: {
@@ -2555,6 +2581,8 @@ std::move(p_extension_ids));
           reinterpret_cast<internal::Renderer_UpdateUserScriptWorld_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.11
       bool success = true;
       UserScriptWorldInfoPtr p_info{};
       Renderer_UpdateUserScriptWorld_ParamsDataView input_data_view(params, message);
@@ -2570,8 +2598,8 @@ std::move(p_extension_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUserScriptWorld(
-std::move(p_info));
+      impl->UpdateUserScriptWorld(        
+        std::move(p_info));
       return true;
     }
     case internal::kRenderer_ShouldSuspend_Name: {
@@ -2587,6 +2615,8 @@ std::move(p_info));
           reinterpret_cast<internal::Renderer_UpdatePermissions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.14
       bool success = true;
       std::string p_extension_id{};
       ::extensions::PermissionSet p_active_permissions{};
@@ -2617,13 +2647,13 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePermissions(
-std::move(p_extension_id), 
-std::move(p_active_permissions), 
-std::move(p_withheld_permissions), 
-std::move(p_policy_blocked_hosts), 
-std::move(p_policy_allowed_hosts), 
-std::move(p_uses_default_policy_host_restrictions));
+      impl->UpdatePermissions(        
+        std::move(p_extension_id), 
+        std::move(p_active_permissions), 
+        std::move(p_withheld_permissions), 
+        std::move(p_policy_blocked_hosts), 
+        std::move(p_policy_allowed_hosts), 
+        std::move(p_uses_default_policy_host_restrictions));
       return true;
     }
     case internal::kRenderer_UpdateDefaultPolicyHostRestrictions_Name: {
@@ -2633,6 +2663,8 @@ std::move(p_uses_default_policy_host_restrictions));
           reinterpret_cast<internal::Renderer_UpdateDefaultPolicyHostRestrictions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.15
       bool success = true;
       ::extensions::URLPatternSet p_default_policy_blocked_hosts{};
       ::extensions::URLPatternSet p_default_policy_allowed_hosts{};
@@ -2651,9 +2683,9 @@ std::move(p_uses_default_policy_host_restrictions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDefaultPolicyHostRestrictions(
-std::move(p_default_policy_blocked_hosts), 
-std::move(p_default_policy_allowed_hosts));
+      impl->UpdateDefaultPolicyHostRestrictions(        
+        std::move(p_default_policy_blocked_hosts), 
+        std::move(p_default_policy_allowed_hosts));
       return true;
     }
     case internal::kRenderer_UpdateUserHostRestrictions_Name: {
@@ -2663,6 +2695,8 @@ std::move(p_default_policy_allowed_hosts));
           reinterpret_cast<internal::Renderer_UpdateUserHostRestrictions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.16
       bool success = true;
       ::extensions::URLPatternSet p_user_blocked_hosts{};
       ::extensions::URLPatternSet p_user_allowed_hosts{};
@@ -2681,9 +2715,9 @@ std::move(p_default_policy_allowed_hosts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUserHostRestrictions(
-std::move(p_user_blocked_hosts), 
-std::move(p_user_allowed_hosts));
+      impl->UpdateUserHostRestrictions(        
+        std::move(p_user_blocked_hosts), 
+        std::move(p_user_allowed_hosts));
       return true;
     }
     case internal::kRenderer_UpdateTabSpecificPermissions_Name: {
@@ -2693,6 +2727,8 @@ std::move(p_user_allowed_hosts));
           reinterpret_cast<internal::Renderer_UpdateTabSpecificPermissions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.17
       bool success = true;
       std::string p_extension_id{};
       ::extensions::URLPatternSet p_new_hosts{};
@@ -2717,11 +2753,11 @@ std::move(p_user_allowed_hosts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTabSpecificPermissions(
-std::move(p_extension_id), 
-std::move(p_new_hosts), 
-std::move(p_tab_id), 
-std::move(p_update_origin_allowlist));
+      impl->UpdateTabSpecificPermissions(        
+        std::move(p_extension_id), 
+        std::move(p_new_hosts), 
+        std::move(p_tab_id), 
+        std::move(p_update_origin_allowlist));
       return true;
     }
     case internal::kRenderer_UpdateUserScripts_Name: {
@@ -2731,6 +2767,8 @@ std::move(p_update_origin_allowlist));
           reinterpret_cast<internal::Renderer_UpdateUserScripts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.18
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_region{};
       ::extensions::mojom::HostIDPtr p_owner{};
@@ -2749,9 +2787,9 @@ std::move(p_update_origin_allowlist));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUserScripts(
-std::move(p_region), 
-std::move(p_owner));
+      impl->UpdateUserScripts(        
+        std::move(p_region), 
+        std::move(p_owner));
       return true;
     }
     case internal::kRenderer_ClearTabSpecificPermissions_Name: {
@@ -2761,6 +2799,8 @@ std::move(p_owner));
           reinterpret_cast<internal::Renderer_ClearTabSpecificPermissions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.19
       bool success = true;
       std::vector<std::string> p_extension_ids{};
       int32_t p_tab_id{};
@@ -2782,10 +2822,10 @@ std::move(p_owner));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearTabSpecificPermissions(
-std::move(p_extension_ids), 
-std::move(p_tab_id), 
-std::move(p_update_origin_allowlist));
+      impl->ClearTabSpecificPermissions(        
+        std::move(p_extension_ids), 
+        std::move(p_tab_id), 
+        std::move(p_update_origin_allowlist));
       return true;
     }
     case internal::kRenderer_WatchPages_Name: {
@@ -2795,6 +2835,8 @@ std::move(p_update_origin_allowlist));
           reinterpret_cast<internal::Renderer_WatchPages_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.20
       bool success = true;
       std::vector<std::string> p_css_selectors{};
       Renderer_WatchPages_ParamsDataView input_data_view(params, message);
@@ -2810,8 +2852,8 @@ std::move(p_update_origin_allowlist));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WatchPages(
-std::move(p_css_selectors));
+      impl->WatchPages(        
+        std::move(p_css_selectors));
       return true;
     }
   }
@@ -2846,6 +2888,8 @@ bool RendererStubDispatch::AcceptWithResponder(
               internal::Renderer_SuspendExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.4
       bool success = true;
       std::string p_extension_id{};
       Renderer_SuspendExtension_ParamsDataView input_data_view(params, message);
@@ -2864,8 +2908,8 @@ bool RendererStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SuspendExtension(
-std::move(p_extension_id), std::move(callback));
+      impl->SuspendExtension(        
+        std::move(p_extension_id), std::move(callback));
       return true;
     }
     case internal::kRenderer_CancelSuspendExtension_Name: {
@@ -2896,6 +2940,8 @@ std::move(p_extension_id), std::move(callback));
               internal::Renderer_ShouldSuspend_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.12
       bool success = true;
       Renderer_ShouldSuspend_ParamsDataView input_data_view(params, message);
       
@@ -2921,6 +2967,8 @@ std::move(p_extension_id), std::move(callback));
               internal::Renderer_TransferBlobs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.13
       bool success = true;
       Renderer_TransferBlobs_ParamsDataView input_data_view(params, message);
       

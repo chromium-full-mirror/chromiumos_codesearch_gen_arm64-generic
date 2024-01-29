@@ -251,6 +251,8 @@ bool CacheStorageObserverStubDispatch::Accept(
           reinterpret_cast<internal::CacheStorageObserver_OnCacheListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CacheStorageObserver.0
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       CacheStorageObserver_OnCacheListChanged_ParamsDataView input_data_view(params, message);
@@ -266,8 +268,8 @@ bool CacheStorageObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCacheListChanged(
-std::move(p_bucket_locator));
+      impl->OnCacheListChanged(        
+        std::move(p_bucket_locator));
       return true;
     }
     case internal::kCacheStorageObserver_OnCacheContentChanged_Name: {
@@ -277,6 +279,8 @@ std::move(p_bucket_locator));
           reinterpret_cast<internal::CacheStorageObserver_OnCacheContentChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CacheStorageObserver.1
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       std::string p_cache_name{};
@@ -295,9 +299,9 @@ std::move(p_bucket_locator));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCacheContentChanged(
-std::move(p_bucket_locator), 
-std::move(p_cache_name));
+      impl->OnCacheContentChanged(        
+        std::move(p_bucket_locator), 
+        std::move(p_cache_name));
       return true;
     }
   }
@@ -816,6 +820,8 @@ bool CacheStorageControl_GetAllStorageKeysInfo_ForwardToCallback::Accept(
           internal::CacheStorageControl_GetAllStorageKeysInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageControl.2
   bool success = true;
   std::vector<::storage::mojom::StorageUsageInfoPtr> p_usage_info{};
   CacheStorageControl_GetAllStorageKeysInfo_ResponseParamsDataView input_data_view(params, message);
@@ -902,6 +908,8 @@ bool CacheStorageControlStubDispatch::Accept(
           reinterpret_cast<internal::CacheStorageControl_AddReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CacheStorageControl.0
       bool success = true;
       ::network::CrossOriginEmbedderPolicy p_policy{};
       ::mojo::PendingRemote<::network::mojom::CrossOriginEmbedderPolicyReporter> p_coep_reporter{};
@@ -933,12 +941,12 @@ bool CacheStorageControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddReceiver(
-std::move(p_policy), 
-std::move(p_coep_reporter), 
-std::move(p_bucket_locator), 
-std::move(p_owner), 
-std::move(p_receiver));
+      impl->AddReceiver(        
+        std::move(p_policy), 
+        std::move(p_coep_reporter), 
+        std::move(p_bucket_locator), 
+        std::move(p_owner), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kCacheStorageControl_DeleteForStorageKey_Name: {
@@ -948,6 +956,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::CacheStorageControl_DeleteForStorageKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CacheStorageControl.1
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       CacheStorageControl_DeleteForStorageKey_ParamsDataView input_data_view(params, message);
@@ -963,8 +973,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteForStorageKey(
-std::move(p_storage_key));
+      impl->DeleteForStorageKey(        
+        std::move(p_storage_key));
       return true;
     }
     case internal::kCacheStorageControl_GetAllStorageKeysInfo_Name: {
@@ -977,6 +987,8 @@ std::move(p_storage_key));
           reinterpret_cast<internal::CacheStorageControl_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CacheStorageControl.3
       bool success = true;
       ::mojo::PendingRemote<CacheStorageObserver> p_observer{};
       CacheStorageControl_AddObserver_ParamsDataView input_data_view(params, message);
@@ -994,8 +1006,8 @@ std::move(p_storage_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCacheStorageControl_ApplyPolicyUpdates_Name: {
@@ -1005,6 +1017,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CacheStorageControl_ApplyPolicyUpdates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CacheStorageControl.4
       bool success = true;
       std::vector<::storage::mojom::StoragePolicyUpdatePtr> p_policy_updates{};
       CacheStorageControl_ApplyPolicyUpdates_ParamsDataView input_data_view(params, message);
@@ -1020,8 +1034,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyPolicyUpdates(
-std::move(p_policy_updates));
+      impl->ApplyPolicyUpdates(        
+        std::move(p_policy_updates));
       return true;
     }
   }
@@ -1050,6 +1064,8 @@ bool CacheStorageControlStubDispatch::AcceptWithResponder(
               internal::CacheStorageControl_GetAllStorageKeysInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageControl.2
       bool success = true;
       CacheStorageControl_GetAllStorageKeysInfo_ParamsDataView input_data_view(params, message);
       

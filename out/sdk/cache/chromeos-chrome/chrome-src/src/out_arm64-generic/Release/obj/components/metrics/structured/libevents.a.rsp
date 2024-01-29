@@ -1,1 +1,1 @@
-obj/components/metrics/structured/events/delegating_events_processor.o obj/components/metrics/structured/events/event.o obj/components/metrics/structured/events/structured_metrics_client.o
+obj/components/metrics/structured/events/event.o obj/components/metrics/structured/events/structured_metrics_client.o

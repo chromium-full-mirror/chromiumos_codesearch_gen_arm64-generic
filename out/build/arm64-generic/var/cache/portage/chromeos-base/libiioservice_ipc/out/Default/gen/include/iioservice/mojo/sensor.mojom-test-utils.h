@@ -115,6 +115,7 @@ class  SensorDeviceSamplesObserverAsyncWaiter {
 class  SensorServiceNewDevicesObserverInterceptorForTesting : public SensorServiceNewDevicesObserver {
   virtual SensorServiceNewDevicesObserver* GetForwardingInterface() = 0;
   void OnNewDeviceAdded(int32_t iio_device_id, const std::vector<DeviceType>& types) override;
+  void OnDeviceRemoved(int32_t iio_device_id) override;
 };
 class  SensorServiceNewDevicesObserverAsyncWaiter {
  public:

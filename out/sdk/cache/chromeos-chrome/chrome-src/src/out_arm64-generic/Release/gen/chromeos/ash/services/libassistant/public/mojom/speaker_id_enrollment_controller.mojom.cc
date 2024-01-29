@@ -397,6 +397,8 @@ bool SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_ForwardToCallbac
           internal::SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpeakerIdEnrollmentController.2
   bool success = true;
   SpeakerIdEnrollmentStatusPtr p_status{};
   SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_ResponseParamsDataView input_data_view(params, message);
@@ -481,6 +483,8 @@ bool SpeakerIdEnrollmentControllerStubDispatch::Accept(
           reinterpret_cast<internal::SpeakerIdEnrollmentController_StartSpeakerIdEnrollment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentController.0
       bool success = true;
       std::string p_user_gaia_id{};
       bool p_skip_cloud_enrollment{};
@@ -504,10 +508,10 @@ bool SpeakerIdEnrollmentControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSpeakerIdEnrollment(
-std::move(p_user_gaia_id), 
-std::move(p_skip_cloud_enrollment), 
-std::move(p_client));
+      impl->StartSpeakerIdEnrollment(        
+        std::move(p_user_gaia_id), 
+        std::move(p_skip_cloud_enrollment), 
+        std::move(p_client));
       return true;
     }
     case internal::kSpeakerIdEnrollmentController_StopSpeakerIdEnrollment_Name: {
@@ -517,6 +521,8 @@ std::move(p_client));
           reinterpret_cast<internal::SpeakerIdEnrollmentController_StopSpeakerIdEnrollment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentController.1
       bool success = true;
       SpeakerIdEnrollmentController_StopSpeakerIdEnrollment_ParamsDataView input_data_view(params, message);
       
@@ -529,7 +535,7 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopSpeakerIdEnrollment();
+      impl->StopSpeakerIdEnrollment(        );
       return true;
     }
     case internal::kSpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_Name: {
@@ -561,6 +567,8 @@ bool SpeakerIdEnrollmentControllerStubDispatch::AcceptWithResponder(
               internal::SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentController.2
       bool success = true;
       std::string p_user_gaia_id{};
       SpeakerIdEnrollmentController_GetSpeakerIdEnrollmentStatus_ParamsDataView input_data_view(params, message);
@@ -579,8 +587,8 @@ bool SpeakerIdEnrollmentControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSpeakerIdEnrollmentStatus(
-std::move(p_user_gaia_id), std::move(callback));
+      impl->GetSpeakerIdEnrollmentStatus(        
+        std::move(p_user_gaia_id), std::move(callback));
       return true;
     }
   }
@@ -869,6 +877,8 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeakerIdEnrollmentClient_OnListeningHotword_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentClient.0
       bool success = true;
       SpeakerIdEnrollmentClient_OnListeningHotword_ParamsDataView input_data_view(params, message);
       
@@ -881,7 +891,7 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnListeningHotword();
+      impl->OnListeningHotword(        );
       return true;
     }
     case internal::kSpeakerIdEnrollmentClient_OnProcessingHotword_Name: {
@@ -891,6 +901,8 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeakerIdEnrollmentClient_OnProcessingHotword_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentClient.1
       bool success = true;
       SpeakerIdEnrollmentClient_OnProcessingHotword_ParamsDataView input_data_view(params, message);
       
@@ -903,7 +915,7 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProcessingHotword();
+      impl->OnProcessingHotword(        );
       return true;
     }
     case internal::kSpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentDone_Name: {
@@ -913,6 +925,8 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentClient.2
       bool success = true;
       SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentDone_ParamsDataView input_data_view(params, message);
       
@@ -925,7 +939,7 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeakerIdEnrollmentDone();
+      impl->OnSpeakerIdEnrollmentDone(        );
       return true;
     }
     case internal::kSpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentFailure_Name: {
@@ -935,6 +949,8 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentFailure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeakerIdEnrollmentClient.3
       bool success = true;
       SpeakerIdEnrollmentClient_OnSpeakerIdEnrollmentFailure_ParamsDataView input_data_view(params, message);
       
@@ -947,7 +963,7 @@ bool SpeakerIdEnrollmentClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeakerIdEnrollmentFailure();
+      impl->OnSpeakerIdEnrollmentFailure(        );
       return true;
     }
   }

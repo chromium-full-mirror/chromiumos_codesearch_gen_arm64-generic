@@ -396,6 +396,8 @@ bool HelpBubbleHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<HelpBubbleClient> p_client{};
       ::mojo::PendingReceiver<HelpBubbleHandler> p_handler{};
@@ -418,9 +420,9 @@ bool HelpBubbleHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateHelpBubbleHandler(
-std::move(p_client), 
-std::move(p_handler));
+      impl->CreateHelpBubbleHandler(        
+        std::move(p_client), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -901,6 +903,8 @@ bool HelpBubbleHandlerStubDispatch::Accept(
           reinterpret_cast<internal::HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleHandler.0
       bool success = true;
       std::string p_native_identifier{};
       bool p_visible{};
@@ -922,10 +926,10 @@ bool HelpBubbleHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HelpBubbleAnchorVisibilityChanged(
-std::move(p_native_identifier), 
-std::move(p_visible), 
-std::move(p_rect));
+      impl->HelpBubbleAnchorVisibilityChanged(        
+        std::move(p_native_identifier), 
+        std::move(p_visible), 
+        std::move(p_rect));
       return true;
     }
     case internal::kHelpBubbleHandler_HelpBubbleAnchorActivated_Name: {
@@ -935,6 +939,8 @@ std::move(p_rect));
           reinterpret_cast<internal::HelpBubbleHandler_HelpBubbleAnchorActivated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleHandler.1
       bool success = true;
       std::string p_native_identifier{};
       HelpBubbleHandler_HelpBubbleAnchorActivated_ParamsDataView input_data_view(params, message);
@@ -950,8 +956,8 @@ std::move(p_rect));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HelpBubbleAnchorActivated(
-std::move(p_native_identifier));
+      impl->HelpBubbleAnchorActivated(        
+        std::move(p_native_identifier));
       return true;
     }
     case internal::kHelpBubbleHandler_HelpBubbleAnchorCustomEvent_Name: {
@@ -961,6 +967,8 @@ std::move(p_native_identifier));
           reinterpret_cast<internal::HelpBubbleHandler_HelpBubbleAnchorCustomEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleHandler.2
       bool success = true;
       std::string p_native_identifier{};
       std::string p_custom_event_name{};
@@ -979,9 +987,9 @@ std::move(p_native_identifier));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HelpBubbleAnchorCustomEvent(
-std::move(p_native_identifier), 
-std::move(p_custom_event_name));
+      impl->HelpBubbleAnchorCustomEvent(        
+        std::move(p_native_identifier), 
+        std::move(p_custom_event_name));
       return true;
     }
     case internal::kHelpBubbleHandler_HelpBubbleButtonPressed_Name: {
@@ -991,6 +999,8 @@ std::move(p_custom_event_name));
           reinterpret_cast<internal::HelpBubbleHandler_HelpBubbleButtonPressed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleHandler.3
       bool success = true;
       std::string p_native_identifier{};
       uint8_t p_button_index{};
@@ -1009,9 +1019,9 @@ std::move(p_custom_event_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HelpBubbleButtonPressed(
-std::move(p_native_identifier), 
-std::move(p_button_index));
+      impl->HelpBubbleButtonPressed(        
+        std::move(p_native_identifier), 
+        std::move(p_button_index));
       return true;
     }
     case internal::kHelpBubbleHandler_HelpBubbleClosed_Name: {
@@ -1021,6 +1031,8 @@ std::move(p_button_index));
           reinterpret_cast<internal::HelpBubbleHandler_HelpBubbleClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleHandler.4
       bool success = true;
       std::string p_native_identifier{};
       HelpBubbleClosedReason p_reason{};
@@ -1039,9 +1051,9 @@ std::move(p_button_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HelpBubbleClosed(
-std::move(p_native_identifier), 
-std::move(p_reason));
+      impl->HelpBubbleClosed(        
+        std::move(p_native_identifier), 
+        std::move(p_reason));
       return true;
     }
   }
@@ -1434,6 +1446,8 @@ bool HelpBubbleClientStubDispatch::Accept(
           reinterpret_cast<internal::HelpBubbleClient_ShowHelpBubble_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleClient.0
       bool success = true;
       HelpBubbleParamsPtr p_params{};
       HelpBubbleClient_ShowHelpBubble_ParamsDataView input_data_view(params, message);
@@ -1449,8 +1463,8 @@ bool HelpBubbleClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowHelpBubble(
-std::move(p_params));
+      impl->ShowHelpBubble(        
+        std::move(p_params));
       return true;
     }
     case internal::kHelpBubbleClient_ToggleFocusForAccessibility_Name: {
@@ -1460,6 +1474,8 @@ std::move(p_params));
           reinterpret_cast<internal::HelpBubbleClient_ToggleFocusForAccessibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleClient.1
       bool success = true;
       std::string p_native_identifier{};
       HelpBubbleClient_ToggleFocusForAccessibility_ParamsDataView input_data_view(params, message);
@@ -1475,8 +1491,8 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleFocusForAccessibility(
-std::move(p_native_identifier));
+      impl->ToggleFocusForAccessibility(        
+        std::move(p_native_identifier));
       return true;
     }
     case internal::kHelpBubbleClient_HideHelpBubble_Name: {
@@ -1486,6 +1502,8 @@ std::move(p_native_identifier));
           reinterpret_cast<internal::HelpBubbleClient_HideHelpBubble_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleClient.2
       bool success = true;
       std::string p_native_identifier{};
       HelpBubbleClient_HideHelpBubble_ParamsDataView input_data_view(params, message);
@@ -1501,8 +1519,8 @@ std::move(p_native_identifier));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideHelpBubble(
-std::move(p_native_identifier));
+      impl->HideHelpBubble(        
+        std::move(p_native_identifier));
       return true;
     }
     case internal::kHelpBubbleClient_ExternalHelpBubbleUpdated_Name: {
@@ -1512,6 +1530,8 @@ std::move(p_native_identifier));
           reinterpret_cast<internal::HelpBubbleClient_ExternalHelpBubbleUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HelpBubbleClient.3
       bool success = true;
       std::string p_native_identifier{};
       bool p_shown{};
@@ -1530,9 +1550,9 @@ std::move(p_native_identifier));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExternalHelpBubbleUpdated(
-std::move(p_native_identifier), 
-std::move(p_shown));
+      impl->ExternalHelpBubbleUpdated(        
+        std::move(p_native_identifier), 
+        std::move(p_shown));
       return true;
     }
   }

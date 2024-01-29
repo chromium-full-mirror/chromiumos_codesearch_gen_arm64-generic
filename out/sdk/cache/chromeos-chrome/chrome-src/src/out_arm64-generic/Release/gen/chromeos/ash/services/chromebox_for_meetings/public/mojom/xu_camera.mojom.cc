@@ -911,6 +911,8 @@ bool XuCamera_GetUnitId_ForwardToCallback::Accept(
           internal::XuCamera_GetUnitId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XuCamera.0
   bool success = true;
   uint8_t p_error_code{};
   uint8_t p_unit_id{};
@@ -1038,6 +1040,8 @@ bool XuCamera_MapCtrl_ForwardToCallback::Accept(
           internal::XuCamera_MapCtrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XuCamera.1
   bool success = true;
   uint8_t p_error_code{};
   XuCamera_MapCtrl_ResponseParamsDataView input_data_view(params, message);
@@ -1157,6 +1161,8 @@ bool XuCamera_GetCtrl_ForwardToCallback::Accept(
           internal::XuCamera_GetCtrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XuCamera.2
   bool success = true;
   uint8_t p_error_code{};
   std::vector<uint8_t> p_data{};
@@ -1296,6 +1302,8 @@ bool XuCamera_SetCtrl_ForwardToCallback::Accept(
           internal::XuCamera_SetCtrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XuCamera.3
   bool success = true;
   uint8_t p_error_code{};
   XuCamera_SetCtrl_ResponseParamsDataView input_data_view(params, message);
@@ -1395,6 +1403,8 @@ bool XuCameraStubDispatch::AcceptWithResponder(
               internal::XuCamera_GetUnitId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XuCamera.0
       bool success = true;
       WebcamIdPtr p_id{};
       std::vector<uint8_t> p_guid{};
@@ -1416,9 +1426,9 @@ bool XuCameraStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUnitId(
-std::move(p_id), 
-std::move(p_guid), std::move(callback));
+      impl->GetUnitId(        
+        std::move(p_id), 
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kXuCamera_MapCtrl_Name: {
@@ -1428,6 +1438,8 @@ std::move(p_guid), std::move(callback));
               internal::XuCamera_MapCtrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XuCamera.1
       bool success = true;
       WebcamIdPtr p_id{};
       ControlMappingPtr p_mapping_ctrl{};
@@ -1449,9 +1461,9 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MapCtrl(
-std::move(p_id), 
-std::move(p_mapping_ctrl), std::move(callback));
+      impl->MapCtrl(        
+        std::move(p_id), 
+        std::move(p_mapping_ctrl), std::move(callback));
       return true;
     }
     case internal::kXuCamera_GetCtrl_Name: {
@@ -1461,6 +1473,8 @@ std::move(p_mapping_ctrl), std::move(callback));
               internal::XuCamera_GetCtrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XuCamera.2
       bool success = true;
       WebcamIdPtr p_id{};
       CtrlTypePtr p_ctrl{};
@@ -1485,10 +1499,10 @@ std::move(p_mapping_ctrl), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCtrl(
-std::move(p_id), 
-std::move(p_ctrl), 
-std::move(p_fn), std::move(callback));
+      impl->GetCtrl(        
+        std::move(p_id), 
+        std::move(p_ctrl), 
+        std::move(p_fn), std::move(callback));
       return true;
     }
     case internal::kXuCamera_SetCtrl_Name: {
@@ -1498,6 +1512,8 @@ std::move(p_fn), std::move(callback));
               internal::XuCamera_SetCtrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XuCamera.3
       bool success = true;
       WebcamIdPtr p_id{};
       CtrlTypePtr p_ctrl{};
@@ -1522,10 +1538,10 @@ std::move(p_fn), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCtrl(
-std::move(p_id), 
-std::move(p_ctrl), 
-std::move(p_data), std::move(callback));
+      impl->SetCtrl(        
+        std::move(p_id), 
+        std::move(p_ctrl), 
+        std::move(p_data), std::move(callback));
       return true;
     }
   }

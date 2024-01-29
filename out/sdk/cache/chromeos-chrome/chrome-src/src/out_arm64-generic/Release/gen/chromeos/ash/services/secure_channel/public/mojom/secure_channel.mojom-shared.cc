@@ -148,6 +148,98 @@ std::ostream& operator<<(std::ostream& os, ConnectionMedium value) {
   return os << ConnectionMediumToString(value);
 }
 
+NOINLINE static const char* DiscoveryResultToStringHelper(DiscoveryResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DiscoveryResult::kFailure:
+      return "kFailure";
+    case DiscoveryResult::kSuccess:
+      return "kSuccess";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DiscoveryResultToString(DiscoveryResult value) {
+  const char *str = DiscoveryResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DiscoveryResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DiscoveryResult value) {
+  return os << DiscoveryResultToString(value);
+}
+
+NOINLINE static const char* DiscoveryErrorCodeToStringHelper(DiscoveryErrorCode value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DiscoveryErrorCode::kBluetoothTurnedOff:
+      return "kBluetoothTurnedOff";
+    case DiscoveryErrorCode::kFilterCreationFailed:
+      return "kFilterCreationFailed";
+    case DiscoveryErrorCode::kErrorStartingDiscovery:
+      return "kErrorStartingDiscovery";
+    case DiscoveryErrorCode::kBleSessionInvalidated:
+      return "kBleSessionInvalidated";
+    case DiscoveryErrorCode::kDeviceNotInScanRequest:
+      return "kDeviceNotInScanRequest";
+    case DiscoveryErrorCode::kTimeout:
+      return "kTimeout";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DiscoveryErrorCodeToString(DiscoveryErrorCode value) {
+  const char *str = DiscoveryErrorCodeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DiscoveryErrorCode value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DiscoveryErrorCode value) {
+  return os << DiscoveryErrorCodeToString(value);
+}
+
+NOINLINE static const char* SecureChannelStateToStringHelper(SecureChannelState value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SecureChannelState::kGeneratingSessionKeys:
+      return "kGeneratingSessionKeys";
+    case SecureChannelState::kSendingHello:
+      return "kSendingHello";
+    case SecureChannelState::kSentHello:
+      return "kSentHello";
+    case SecureChannelState::kReceivedResponderAuth:
+      return "kReceivedResponderAuth";
+    case SecureChannelState::kValidatedResponderAuth:
+      return "kValidatedResponderAuth";
+    case SecureChannelState::kSentInitiatorAuth:
+      return "kSentInitiatorAuth";
+    case SecureChannelState::kAuthenticationSuccess:
+      return "kAuthenticationSuccess";
+    case SecureChannelState::kAuthenticationFailure:
+      return "kAuthenticationFailure";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SecureChannelStateToString(SecureChannelState value) {
+  const char *str = SecureChannelStateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SecureChannelState value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SecureChannelState value) {
+  return os << SecureChannelStateToString(value);
+}
+
 namespace internal {
 
 
@@ -498,6 +590,100 @@ ConnectionDelegate_OnConnection_Params_Data::ConnectionDelegate_OnConnection_Par
 
 
 // static
+bool SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data* object =
+      static_cast<const SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data*>(data);
+
+
+  if (!::ash::secure_channel::mojom::internal::DiscoveryResult_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+
+  if (!::ash::secure_channel::mojom::internal::DiscoveryErrorCode_Data
+        ::Validate(object->error_code_$value, validation_context))
+    return false;
+
+  return true;
+}
+
+SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data* object =
+      static_cast<const SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data*>(data);
+
+
+  if (!::ash::secure_channel::mojom::internal::NearbyConnectionStep_Data
+        ::Validate(object->step, validation_context))
+    return false;
+
+
+  if (!::ash::secure_channel::mojom::internal::NearbyConnectionStepResult_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  return true;
+}
+
+SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data* object =
+      static_cast<const SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data*>(data);
+
+
+  if (!::ash::secure_channel::mojom::internal::SecureChannelState_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool SecureChannel_ListenForConnectionFromDevice_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -571,7 +757,7 @@ bool SecureChannel_InitiateConnectionToDevice_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -620,6 +806,11 @@ bool SecureChannel_InitiateConnectionToDevice_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->delegate,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterface(object->secure_channel_structured_metrics_logger,
                                                  validation_context)) {
     return false;
   }
@@ -763,6 +954,36 @@ namespace perfetto {
 void TraceFormatTraits<::ash::secure_channel::mojom::ConnectionMedium>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::secure_channel::mojom::ConnectionMedium value) {
   return std::move(context).WriteString(::ash::secure_channel::mojom::ConnectionMediumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::secure_channel::mojom::DiscoveryResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::secure_channel::mojom::DiscoveryResult value) {
+  return std::move(context).WriteString(::ash::secure_channel::mojom::DiscoveryResultToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::secure_channel::mojom::DiscoveryErrorCode>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::secure_channel::mojom::DiscoveryErrorCode value) {
+  return std::move(context).WriteString(::ash::secure_channel::mojom::DiscoveryErrorCodeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::secure_channel::mojom::SecureChannelState>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::secure_channel::mojom::SecureChannelState value) {
+  return std::move(context).WriteString(::ash::secure_channel::mojom::SecureChannelStateToString(value));
 }
 
 } // namespace perfetto

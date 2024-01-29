@@ -753,6 +753,8 @@ bool SettingsController_GetSettings_ForwardToCallback::Accept(
           internal::SettingsController_GetSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SettingsController.6
   bool success = true;
   std::string p_result{};
   SettingsController_GetSettings_ResponseParamsDataView input_data_view(params, message);
@@ -882,6 +884,8 @@ bool SettingsController_UpdateSettings_ForwardToCallback::Accept(
           internal::SettingsController_UpdateSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SettingsController.7
   bool success = true;
   std::string p_result{};
   SettingsController_UpdateSettings_ResponseParamsDataView input_data_view(params, message);
@@ -966,6 +970,8 @@ bool SettingsControllerStubDispatch::Accept(
           reinterpret_cast<internal::SettingsController_SetAuthenticationTokens_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SettingsController.0
       bool success = true;
       std::vector<AuthenticationTokenPtr> p_tokens{};
       SettingsController_SetAuthenticationTokens_ParamsDataView input_data_view(params, message);
@@ -981,8 +987,8 @@ bool SettingsControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAuthenticationTokens(
-std::move(p_tokens));
+      impl->SetAuthenticationTokens(        
+        std::move(p_tokens));
       return true;
     }
     case internal::kSettingsController_SetListeningEnabled_Name: {
@@ -992,6 +998,8 @@ std::move(p_tokens));
           reinterpret_cast<internal::SettingsController_SetListeningEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SettingsController.1
       bool success = true;
       bool p_value{};
       SettingsController_SetListeningEnabled_ParamsDataView input_data_view(params, message);
@@ -1007,8 +1015,8 @@ std::move(p_tokens));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetListeningEnabled(
-std::move(p_value));
+      impl->SetListeningEnabled(        
+        std::move(p_value));
       return true;
     }
     case internal::kSettingsController_SetLocale_Name: {
@@ -1018,6 +1026,8 @@ std::move(p_value));
           reinterpret_cast<internal::SettingsController_SetLocale_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SettingsController.2
       bool success = true;
       std::string p_locale{};
       SettingsController_SetLocale_ParamsDataView input_data_view(params, message);
@@ -1033,8 +1043,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLocale(
-std::move(p_locale));
+      impl->SetLocale(        
+        std::move(p_locale));
       return true;
     }
     case internal::kSettingsController_SetSpokenFeedbackEnabled_Name: {
@@ -1044,6 +1054,8 @@ std::move(p_locale));
           reinterpret_cast<internal::SettingsController_SetSpokenFeedbackEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SettingsController.3
       bool success = true;
       bool p_value{};
       SettingsController_SetSpokenFeedbackEnabled_ParamsDataView input_data_view(params, message);
@@ -1059,8 +1071,8 @@ std::move(p_locale));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSpokenFeedbackEnabled(
-std::move(p_value));
+      impl->SetSpokenFeedbackEnabled(        
+        std::move(p_value));
       return true;
     }
     case internal::kSettingsController_SetDarkModeEnabled_Name: {
@@ -1070,6 +1082,8 @@ std::move(p_value));
           reinterpret_cast<internal::SettingsController_SetDarkModeEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SettingsController.4
       bool success = true;
       bool p_value{};
       SettingsController_SetDarkModeEnabled_ParamsDataView input_data_view(params, message);
@@ -1085,8 +1099,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDarkModeEnabled(
-std::move(p_value));
+      impl->SetDarkModeEnabled(        
+        std::move(p_value));
       return true;
     }
     case internal::kSettingsController_SetHotwordEnabled_Name: {
@@ -1096,6 +1110,8 @@ std::move(p_value));
           reinterpret_cast<internal::SettingsController_SetHotwordEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SettingsController.5
       bool success = true;
       bool p_value{};
       SettingsController_SetHotwordEnabled_ParamsDataView input_data_view(params, message);
@@ -1111,8 +1127,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHotwordEnabled(
-std::move(p_value));
+      impl->SetHotwordEnabled(        
+        std::move(p_value));
       return true;
     }
     case internal::kSettingsController_GetSettings_Name: {
@@ -1159,6 +1175,8 @@ bool SettingsControllerStubDispatch::AcceptWithResponder(
               internal::SettingsController_GetSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SettingsController.6
       bool success = true;
       std::string p_selector{};
       bool p_include_header{};
@@ -1180,9 +1198,9 @@ bool SettingsControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSettings(
-std::move(p_selector), 
-std::move(p_include_header), std::move(callback));
+      impl->GetSettings(        
+        std::move(p_selector), 
+        std::move(p_include_header), std::move(callback));
       return true;
     }
     case internal::kSettingsController_UpdateSettings_Name: {
@@ -1192,6 +1210,8 @@ std::move(p_include_header), std::move(callback));
               internal::SettingsController_UpdateSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SettingsController.7
       bool success = true;
       std::string p_settings{};
       SettingsController_UpdateSettings_ParamsDataView input_data_view(params, message);
@@ -1210,8 +1230,8 @@ std::move(p_include_header), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSettings(
-std::move(p_settings), std::move(callback));
+      impl->UpdateSettings(        
+        std::move(p_settings), std::move(callback));
       return true;
     }
   }

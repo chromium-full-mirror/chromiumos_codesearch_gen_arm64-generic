@@ -59,7 +59,7 @@ class TelemetryManagementService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 6209077279699714181ULL,
                                       10700628641207468626ULL };
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -73,6 +73,7 @@ class TelemetryManagementService
   using ResponseValidator_ = TelemetryManagementServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kSetAudioGainMinVersion = 0,
+    kSetAudioVolumeMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -81,13 +82,21 @@ class TelemetryManagementService
   struct SetAudioGain_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetAudioVolume_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~TelemetryManagementService() = default;
 
 
-  using SetAudioGainCallback = base::OnceCallback<void()>;
+  using SetAudioGainCallback = base::OnceCallback<void(bool)>;
   
   virtual void SetAudioGain(uint64_t node_id, int32_t gain, SetAudioGainCallback callback) = 0;
+
+
+  using SetAudioVolumeCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void SetAudioVolume(uint64_t node_id, int32_t volume, bool is_muted, SetAudioVolumeCallback callback) = 0;
 };
 
 
@@ -100,6 +109,8 @@ class  TelemetryManagementServiceProxy
   explicit TelemetryManagementServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void SetAudioGain(uint64_t node_id, int32_t gain, SetAudioGainCallback callback) final;
+  
+  void SetAudioVolume(uint64_t node_id, int32_t volume, bool is_muted, SetAudioVolumeCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

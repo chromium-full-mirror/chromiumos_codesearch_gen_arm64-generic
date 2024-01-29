@@ -148,11 +148,11 @@ export class DefaultTaskDialog extends FileManagerDialogBase {
     }
     onContainerKeyDown(event) {
         // Handle Escape.
-        if (event.keyCode == 27) {
+        if (event.keyCode === 27) {
             this.hide();
             event.preventDefault();
         }
-        else if (event.keyCode == 32 || event.keyCode == 13) {
+        else if (event.keyCode === 32 || event.keyCode === 13) {
             this.onSelected_();
             event.preventDefault();
         }

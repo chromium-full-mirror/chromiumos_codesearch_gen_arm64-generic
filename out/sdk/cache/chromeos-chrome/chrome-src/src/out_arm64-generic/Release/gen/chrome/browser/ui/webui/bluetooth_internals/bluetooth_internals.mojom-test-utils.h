@@ -38,6 +38,7 @@ class  BluetoothInternalsHandlerInterceptorForTesting : public BluetoothInternal
   void CheckSystemPermissions(CheckSystemPermissionsCallback callback) override;
   void RequestSystemPermissions(RequestSystemPermissionsCallback callback) override;
   void RequestLocationServices(RequestLocationServicesCallback callback) override;
+  void RestartSystemBluetooth(RestartSystemBluetoothCallback callback) override;
 };
 class  BluetoothInternalsHandlerAsyncWaiter {
  public:
@@ -60,6 +61,9 @@ class  BluetoothInternalsHandlerAsyncWaiter {
       );
   
   void RequestLocationServices(
+      );
+  
+  void RestartSystemBluetooth(
       );
   
 

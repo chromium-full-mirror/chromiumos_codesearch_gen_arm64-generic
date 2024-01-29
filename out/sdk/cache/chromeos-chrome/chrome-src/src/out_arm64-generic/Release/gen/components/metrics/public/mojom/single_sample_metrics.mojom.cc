@@ -191,6 +191,8 @@ bool SingleSampleMetricsProviderStubDispatch::Accept(
           reinterpret_cast<internal::SingleSampleMetricsProvider_AcquireSingleSampleMetric_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SingleSampleMetricsProvider.0
       bool success = true;
       std::string p_histogram_name{};
       int32_t p_min{};
@@ -223,13 +225,13 @@ bool SingleSampleMetricsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcquireSingleSampleMetric(
-std::move(p_histogram_name), 
-std::move(p_min), 
-std::move(p_max), 
-std::move(p_bucket_count), 
-std::move(p_flags), 
-std::move(p_receiver));
+      impl->AcquireSingleSampleMetric(        
+        std::move(p_histogram_name), 
+        std::move(p_min), 
+        std::move(p_max), 
+        std::move(p_bucket_count), 
+        std::move(p_flags), 
+        std::move(p_receiver));
       return true;
     }
   }
@@ -375,6 +377,8 @@ bool SingleSampleMetricStubDispatch::Accept(
           reinterpret_cast<internal::SingleSampleMetric_SetSample_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SingleSampleMetric.0
       bool success = true;
       int32_t p_sample{};
       SingleSampleMetric_SetSample_ParamsDataView input_data_view(params, message);
@@ -390,8 +394,8 @@ bool SingleSampleMetricStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSample(
-std::move(p_sample));
+      impl->SetSample(        
+        std::move(p_sample));
       return true;
     }
   }

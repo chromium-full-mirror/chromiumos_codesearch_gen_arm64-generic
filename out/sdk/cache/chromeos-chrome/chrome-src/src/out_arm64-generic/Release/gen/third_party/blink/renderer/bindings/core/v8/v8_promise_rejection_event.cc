@@ -95,8 +95,7 @@ BLINK_BINDINGS_TRACE_EVENT("PromiseRejectionEvent.promise.get");
 
 
 PromiseRejectionEvent* blink_receiver = V8PromiseRejectionEvent::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->promise(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -113,8 +112,7 @@ BLINK_BINDINGS_TRACE_EVENT("PromiseRejectionEvent.reason.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 PromiseRejectionEvent* blink_receiver = V8PromiseRejectionEvent::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->reason(script_state);
 bindings::V8SetReturnValue(info, return_value);

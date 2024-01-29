@@ -6,6 +6,8 @@
 
 #ifndef COMPONENTS_CONTENT_SETTINGS_COMMON_CONTENT_SETTINGS_MANAGER_MOJOM_IMPORT_HEADERS_H_
 #define COMPONENTS_CONTENT_SETTINGS_COMMON_CONTENT_SETTINGS_MANAGER_MOJOM_IMPORT_HEADERS_H_
+#include "components/content_settings/core/common/content_settings_types.mojom.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-import-headers.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
 #include "components/content_settings/core/common/content_settings.mojom-import-headers.h"
 #include "services/network/public/mojom/site_for_cookies.mojom.h"

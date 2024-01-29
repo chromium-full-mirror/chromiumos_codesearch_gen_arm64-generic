@@ -1,0 +1,15 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/mojo_capability_control_test_interfaces.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/mojo_capability_control_test_interfaces.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/mojo_capability_control_test_interfaces.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/mojo_capability_control_test_interfaces.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/mojo_capability_control_test_interfaces.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/test_service.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/test_service.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/test_service.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/test_service.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/public/test/test_service.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/test/frame_host_test_interface.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/test/frame_host_test_interface.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/test/frame_host_test_interface.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/test/frame_host_test_interface.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/test/frame_host_test_interface.mojom.h

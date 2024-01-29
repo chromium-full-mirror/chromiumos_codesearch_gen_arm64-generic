@@ -5,7 +5,7 @@ import 'chrome://settings/lazy_load.js';
 import 'chrome://settings/settings.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { MEMORY_SAVER_MODE_PREF, MemorySaverModeExceptionListAction, MemorySaverModeState, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF } from 'chrome://settings/settings.js';
+import { convertDateToWindowsEpoch, MEMORY_SAVER_MODE_PREF, MemorySaverModeExceptionListAction, MemorySaverModeState, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF } from 'chrome://settings/settings.js';
 import { assertDeepEquals, assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { eventToPromise } from 'chrome://webui-test/test_util.js';
@@ -30,9 +30,9 @@ const memorySaverModeMockPrefs = {
 function tabDiscardingMockPrefs() {
     return {
         tab_discarding: {
-            exceptions: {
-                type: chrome.settingsPrivate.PrefType.LIST,
-                value: [],
+            exceptions_with_time: {
+                type: chrome.settingsPrivate.PrefType.DICTIONARY,
+                value: {},
             },
             exceptions_managed: {
                 enforcement: chrome.settingsPrivate.Enforcement.ENFORCED,
@@ -208,7 +208,7 @@ suite('TabDiscardExceptionList', function () {
         if (managedRules) {
             performancePage.setPrefValue(TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, managedRules);
         }
-        performancePage.setPrefValue(TAB_DISCARD_EXCEPTIONS_PREF, rules);
+        performancePage.setPrefValue(TAB_DISCARD_EXCEPTIONS_PREF, Object.fromEntries(rules.map(r => [r, convertDateToWindowsEpoch()])));
         flush();
         assertExceptionListEquals([...managedRules ?? [], ...rules]);
     }

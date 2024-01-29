@@ -373,6 +373,8 @@ bool PartitionStubDispatch::Accept(
           reinterpret_cast<internal::Partition_BindOriginContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Partition.0
       bool success = true;
       ::url::Origin p_origin{};
       ::mojo::PendingReceiver<::storage::mojom::OriginContext> p_receiver{};
@@ -393,9 +395,9 @@ bool PartitionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindOriginContext(
-std::move(p_origin), 
-std::move(p_receiver));
+      impl->BindOriginContext(        
+        std::move(p_origin), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kPartition_BindSessionStorageControl_Name: {
@@ -405,6 +407,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Partition_BindSessionStorageControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Partition.1
       bool success = true;
       ::mojo::PendingReceiver<::storage::mojom::SessionStorageControl> p_receiver{};
       Partition_BindSessionStorageControl_ParamsDataView input_data_view(params, message);
@@ -422,8 +426,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSessionStorageControl(
-std::move(p_receiver));
+      impl->BindSessionStorageControl(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPartition_BindLocalStorageControl_Name: {
@@ -433,6 +437,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Partition_BindLocalStorageControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Partition.2
       bool success = true;
       ::mojo::PendingReceiver<::storage::mojom::LocalStorageControl> p_receiver{};
       Partition_BindLocalStorageControl_ParamsDataView input_data_view(params, message);
@@ -450,8 +456,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLocalStorageControl(
-std::move(p_receiver));
+      impl->BindLocalStorageControl(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPartition_BindServiceWorkerStorageControl_Name: {
@@ -461,6 +467,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Partition_BindServiceWorkerStorageControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Partition.3
       bool success = true;
       ::mojo::PendingReceiver<::storage::mojom::ServiceWorkerStorageControl> p_receiver{};
       Partition_BindServiceWorkerStorageControl_ParamsDataView input_data_view(params, message);
@@ -478,8 +486,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindServiceWorkerStorageControl(
-std::move(p_receiver));
+      impl->BindServiceWorkerStorageControl(        
+        std::move(p_receiver));
       return true;
     }
   }

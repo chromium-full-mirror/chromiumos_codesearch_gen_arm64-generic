@@ -26,8 +26,6 @@ NOINLINE static const char* ProxySchemeToStringHelper(ProxyScheme value) {
   switch(value) {
     case ProxyScheme::kInvalid:
       return "kInvalid";
-    case ProxyScheme::kDirect:
-      return "kDirect";
     case ProxyScheme::kHttp:
       return "kHttp";
     case ProxyScheme::kSocks4:

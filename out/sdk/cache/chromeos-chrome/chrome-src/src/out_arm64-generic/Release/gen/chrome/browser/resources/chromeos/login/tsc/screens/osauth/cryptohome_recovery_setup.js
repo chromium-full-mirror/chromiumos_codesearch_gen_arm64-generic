@@ -7,31 +7,21 @@ import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { getTemplate } from './cryptohome_recovery_setup.html.js';
 /**
  * UI mode for the dialog.
- * @enum {string}
  */
-const CryptohomeRecoverySetupUIState = {
-    LOADING: 'loading',
-    ERROR: 'error',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var CryptohomeRecoverySetupUIState;
+(function (CryptohomeRecoverySetupUIState) {
+    CryptohomeRecoverySetupUIState["LOADING"] = "loading";
+    CryptohomeRecoverySetupUIState["ERROR"] = "error";
+})(CryptohomeRecoverySetupUIState || (CryptohomeRecoverySetupUIState = {}));
 const CryptohomeRecoverySetupBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @polymer
- */
 class CryptohomeRecoverySetup extends CryptohomeRecoverySetupBase {
     static get is() {
         return 'cryptohome-recovery-setup-element';
@@ -42,6 +32,7 @@ class CryptohomeRecoverySetup extends CryptohomeRecoverySetupBase {
     static get properties() {
         return {};
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
         return CryptohomeRecoverySetupUIState.LOADING;
     }
@@ -54,7 +45,6 @@ class CryptohomeRecoverySetup extends CryptohomeRecoverySetupBase {
             'onSetupFailed',
         ];
     }
-    /** @override */
     ready() {
         super.ready();
         this.initializeLoginScreen('CryptohomeRecoverySetupScreen');
@@ -76,16 +66,14 @@ class CryptohomeRecoverySetup extends CryptohomeRecoverySetupBase {
     }
     /**
      * Skip button click handler.
-     * @private
      */
-    onSkip_() {
+    onSkip() {
         this.userActed('skip');
     }
     /**
      * Retry button click handler.
-     * @private
      */
-    onRetry_() {
+    onRetry() {
         this.userActed('retry');
     }
 }

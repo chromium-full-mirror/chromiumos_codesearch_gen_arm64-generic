@@ -220,6 +220,12 @@ class LoadModelParamsDataView {
   uint32_t max_tokens() const {
     return data_->max_tokens;
   }
+  std::optional<uint32_t> ts_dimension() const {
+
+    return data_->ts_dimension_$flag
+        ? absl::make_optional(data_->ts_dimension_$value)
+        : absl::nullopt;
+  }
  private:
   internal::LoadModelParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -330,6 +336,10 @@ struct Serializer<::on_device_model::mojom::LoadModelParamsDataView, MaybeConstU
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null assets in LoadModelParams struct");
     fragment->max_tokens = Traits::max_tokens(input);
+    fragment->ts_dimension_$flag = Traits::ts_dimension(input).has_value();
+    if (Traits::ts_dimension(input).has_value()) {
+      fragment->ts_dimension_$value = Traits::ts_dimension(input).value();
+    }
   }
 
   static bool Deserialize(::on_device_model::mojom::internal::LoadModelParams_Data* input,

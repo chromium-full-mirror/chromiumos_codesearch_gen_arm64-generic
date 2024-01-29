@@ -405,6 +405,8 @@ bool SpeculationHostStubDispatch::Accept(
           reinterpret_cast<internal::SpeculationHost_UpdateSpeculationCandidates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeculationHost.0
       bool success = true;
       WTF::Vector<SpeculationCandidatePtr> p_candidates{};
       SpeculationHost_UpdateSpeculationCandidates_ParamsDataView input_data_view(params, message);
@@ -420,8 +422,8 @@ bool SpeculationHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSpeculationCandidates(
-std::move(p_candidates));
+      impl->UpdateSpeculationCandidates(        
+        std::move(p_candidates));
       return true;
     }
     case internal::kSpeculationHost_EnableNoVarySearchSupport_Name: {
@@ -431,6 +433,8 @@ std::move(p_candidates));
           reinterpret_cast<internal::SpeculationHost_EnableNoVarySearchSupport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeculationHost.1
       bool success = true;
       SpeculationHost_EnableNoVarySearchSupport_ParamsDataView input_data_view(params, message);
       
@@ -443,7 +447,7 @@ std::move(p_candidates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableNoVarySearchSupport();
+      impl->EnableNoVarySearchSupport(        );
       return true;
     }
     case internal::kSpeculationHost_InitiatePreview_Name: {
@@ -453,6 +457,8 @@ std::move(p_candidates));
           reinterpret_cast<internal::SpeculationHost_InitiatePreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeculationHost.2
       bool success = true;
       ::blink::KURL p_url{};
       SpeculationHost_InitiatePreview_ParamsDataView input_data_view(params, message);
@@ -468,8 +474,8 @@ std::move(p_candidates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitiatePreview(
-std::move(p_url));
+      impl->InitiatePreview(        
+        std::move(p_url));
       return true;
     }
   }

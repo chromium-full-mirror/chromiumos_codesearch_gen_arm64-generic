@@ -674,7 +674,7 @@ class CORE_EXPORT OldPageInfo {
   OldPageInfo();
 
   OldPageInfo(
-      int32_t routing_id_for_old_main_frame,
+      const ::blink::LocalFrameToken& frame_token_for_old_main_frame,
       ::blink::mojom::blink::PageLifecycleStatePtr new_lifecycle_state_for_old_page);
 
 OldPageInfo(const OldPageInfo&) = delete;
@@ -699,7 +699,6 @@ OldPageInfo& operator=(const OldPageInfo&) = delete;
 
   template <typename T, OldPageInfo::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static WTF::Vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -756,7 +755,7 @@ OldPageInfo& operator=(const OldPageInfo&) = delete;
   }
 
   
-  int32_t routing_id_for_old_main_frame;
+  ::blink::LocalFrameToken frame_token_for_old_main_frame;
   
   ::blink::mojom::blink::PageLifecycleStatePtr new_lifecycle_state_for_old_page;
 
@@ -1466,14 +1465,14 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 OldPageInfoPtr OldPageInfo::Clone() const {
   return New(
-      mojo::Clone(routing_id_for_old_main_frame),
+      mojo::Clone(frame_token_for_old_main_frame),
       mojo::Clone(new_lifecycle_state_for_old_page)
   );
 }
 
 template <typename T, OldPageInfo::EnableIfSame<T>*>
 bool OldPageInfo::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->routing_id_for_old_main_frame, other_struct.routing_id_for_old_main_frame))
+  if (!mojo::Equals(this->frame_token_for_old_main_frame, other_struct.frame_token_for_old_main_frame))
     return false;
   if (!mojo::Equals(this->new_lifecycle_state_for_old_page, other_struct.new_lifecycle_state_for_old_page))
     return false;
@@ -1482,9 +1481,9 @@ bool OldPageInfo::Equals(const T& other_struct) const {
 
 template <typename T, OldPageInfo::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.routing_id_for_old_main_frame < rhs.routing_id_for_old_main_frame)
+  if (lhs.frame_token_for_old_main_frame < rhs.frame_token_for_old_main_frame)
     return true;
-  if (rhs.routing_id_for_old_main_frame < lhs.routing_id_for_old_main_frame)
+  if (rhs.frame_token_for_old_main_frame < lhs.frame_token_for_old_main_frame)
     return false;
   if (lhs.new_lifecycle_state_for_old_page < rhs.new_lifecycle_state_for_old_page)
     return true;
@@ -2161,9 +2160,9 @@ struct CORE_EXPORT StructTraits<::blink::mojom::blink::OldPageInfo::DataView,
   static bool IsNull(const ::blink::mojom::blink::OldPageInfoPtr& input) { return !input; }
   static void SetToNull(::blink::mojom::blink::OldPageInfoPtr* output) { output->reset(); }
 
-  static decltype(::blink::mojom::blink::OldPageInfo::routing_id_for_old_main_frame) routing_id_for_old_main_frame(
+  static const decltype(::blink::mojom::blink::OldPageInfo::frame_token_for_old_main_frame)& frame_token_for_old_main_frame(
       const ::blink::mojom::blink::OldPageInfoPtr& input) {
-    return input->routing_id_for_old_main_frame;
+    return input->frame_token_for_old_main_frame;
   }
 
   static const decltype(::blink::mojom::blink::OldPageInfo::new_lifecycle_state_for_old_page)& new_lifecycle_state_for_old_page(

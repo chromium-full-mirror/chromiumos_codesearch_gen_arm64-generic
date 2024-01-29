@@ -70,7 +70,7 @@ describeWithEnvironment('TimelineFlameChartView', function () {
         flameChartView.setModel(performanceModel, traceParsedData);
         assert.isFalse(flameChartView.isNetworkTrackShownForTests());
     });
-    it('Adds Hidden Ancestors Arrow as a decoration when TreeModified event is dispatched on a node', async function () {
+    it('Adds Hidden Descendants Arrow as a decoration when a Context Menu action is applied on a node', async function () {
         const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'load-simple.json.gz');
         const mockViewDelegate = new MockViewDelegate();
         const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
@@ -85,7 +85,8 @@ describeWithEnvironment('TimelineFlameChartView', function () {
         // Find the first node that has children to collapse and is visible in the timeline
         const nodeOfGroup = flameChartView.getMainDataProvider().groupTreeEvents(mainTrack);
         const firstNodeWithChildren = nodeOfGroup?.find(node => {
-            const childrenAmount = traceParsedData.Renderer.entryToNode.get(node)?.children.length;
+            const childrenAmount = traceParsedData.Renderer.entryToNode.get(node)
+                ?.children.length;
             if (!childrenAmount) {
                 return false;
             }
@@ -95,21 +96,53 @@ describeWithEnvironment('TimelineFlameChartView', function () {
         if (!node) {
             throw new Error('Could not find a visible node with children');
         }
-        // Dispatch a TreeModified event that should apply COLLAPSE_FUNCTION action to the node.
-        // This action will hide all the children of the passed node and add HIDDEN_ANCESTORS_ARROW decoration to it.
-        flameChartView.getMainFlameChart().dispatchEventToListeners(PerfUI.FlameChart.Events.TreeModified, {
-            group: mainTrack,
-            node: node?.id,
-            action: "COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */,
-        });
+        // Apply COLLAPSE_FUNCTION action to the node. This action will hide all the children of the passed node and add HIDDEN_DESCENDANTS_ARROW decoration to it.
+        flameChartView.getMainFlameChart().modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */, node?.id);
         const decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
         assert.deepEqual(decorationsForEntry, [
             {
-                type: "HIDDEN_ANCESTORS_ARROW" /* PerfUI.FlameChart.FlameChartDecorationType.HIDDEN_ANCESTORS_ARROW */,
+                type: "HIDDEN_DESCENDANTS_ARROW" /* PerfUI.FlameChart.FlameChartDecorationType.HIDDEN_DESCENDANTS_ARROW */,
             },
         ]);
     });
-    it('Removes Hidden Ancestors Arrow as a decoration when Reset Children event is dispatched on a node', async function () {
+    it('Adds Hidden Descendants Arrow as a decoration when a Context Menu action is applied on a selected node with a key shorcut event', async function () {
+        const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'load-simple.json.gz');
+        const mockViewDelegate = new MockViewDelegate();
+        const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
+        flameChartView.setModel(performanceModel, traceParsedData);
+        // Find the main track to later collapse entries of
+        const mainTrack = flameChartView.getMainFlameChart().timelineData()?.groups.find(group => {
+            return group.name === 'Main — http://localhost:8080/';
+        });
+        if (!mainTrack) {
+            throw new Error('Could not find main track');
+        }
+        // Find the first node that has children to collapse and is visible in the timeline
+        const nodeOfGroup = flameChartView.getMainDataProvider().groupTreeEvents(mainTrack);
+        const firstNodeWithChildren = nodeOfGroup?.find(node => {
+            const childrenAmount = traceParsedData.Renderer.entryToNode.get(node)
+                ?.children.length;
+            if (!childrenAmount) {
+                return false;
+            }
+            return childrenAmount > 0 && node.cat === 'devtools.timeline';
+        });
+        const node = traceParsedData.Renderer.entryToNode.get(firstNodeWithChildren);
+        if (!node) {
+            throw new Error('Could not find a visible node with children');
+        }
+        flameChartView.getMainFlameChart().setSelectedEntry(node?.id);
+        // Dispatch a shortcut keydown event that applies 'Hide Children' Context menu action
+        const event = new KeyboardEvent('keydown', { key: 'c' });
+        flameChartView.getMainFlameChart().getCanvas().dispatchEvent(event);
+        const decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
+        assert.deepEqual(decorationsForEntry, [
+            {
+                type: "HIDDEN_DESCENDANTS_ARROW" /* PerfUI.FlameChart.FlameChartDecorationType.HIDDEN_DESCENDANTS_ARROW */,
+            },
+        ]);
+    });
+    it('Removes Hidden Descendants Arrow as a decoration when Reset Children action is applied on a node', async function () {
         const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'load-simple.json.gz');
         const mockViewDelegate = new MockViewDelegate();
         const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
@@ -135,17 +168,13 @@ describeWithEnvironment('TimelineFlameChartView', function () {
         if (!node) {
             throw new Error('Could not find a visible node with children');
         }
-        // Dispatch a TreeModified event that should apply COLLAPSE_FUNCTION action to the node.
-        // This action will hide all the children of the passed node and add HIDDEN_ANCESTORS_ARROW decoration to it.
-        flameChartView.getMainFlameChart().dispatchEventToListeners(PerfUI.FlameChart.Events.TreeModified, {
-            group: mainTrack,
-            node: node?.id,
-            action: "COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */,
-        });
+        // Apply COLLAPSE_FUNCTION Context Menu action to the node.
+        // This action will hide all the children of the passed node and add HIDDEN_DESCENDANTS_ARROW decoration to it.
+        flameChartView.getMainFlameChart().modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */, node?.id);
         let decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
         assert.deepEqual(decorationsForEntry, [
             {
-                type: "HIDDEN_ANCESTORS_ARROW" /* PerfUI.FlameChart.FlameChartDecorationType.HIDDEN_ANCESTORS_ARROW */,
+                type: "HIDDEN_DESCENDANTS_ARROW" /* PerfUI.FlameChart.FlameChartDecorationType.HIDDEN_DESCENDANTS_ARROW */,
             },
         ]);
         mainTrack = flameChartView.getMainFlameChart().timelineData()?.groups.find(group => {
@@ -154,16 +183,168 @@ describeWithEnvironment('TimelineFlameChartView', function () {
         if (!mainTrack) {
             throw new Error('Could not find main track');
         }
-        // Dispatch a TreeModified event that should apply RESET_CHILDREN action to the node.
-        // This action will eveal all of the hidden children of the passed node and remove HIDDEN_ANCESTORS_ARROW decoration from it.
-        flameChartView.getMainFlameChart().dispatchEventToListeners(PerfUI.FlameChart.Events.TreeModified, {
-            group: mainTrack,
-            node: node?.id,
-            action: "RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterUndoAction.RESET_CHILDREN */,
-        });
+        // Apply a RESET_CHILDREN action that will reveal all of the hidden children of the passed node and remove HIDDEN_DESCENDANTS_ARROW decoration from it.
+        flameChartView.getMainFlameChart().modifyTree("RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterUndoAction.RESET_CHILDREN */, node?.id);
         // No decorations should exist on the node
         decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
         assert.isUndefined(decorationsForEntry);
+    });
+    it('When an entry has no children, correctly show only Hide as a possible Context Menu action', async function () {
+        const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'recursive-blocking-js.json.gz');
+        const mockViewDelegate = new MockViewDelegate();
+        const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
+        flameChartView.setModel(performanceModel, traceParsedData);
+        // Find the Main track to later collapse entries of
+        const mainTrack = flameChartView.getMainFlameChart().timelineData()?.groups.find(group => {
+            return group.name === 'Main — http://127.0.0.1:8080/';
+        });
+        if (!mainTrack) {
+            throw new Error('Could not find main track');
+        }
+        /** Part of this stack looks roughly like so (with some events omitted):
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * == now ==      == updateCounters ==  <-- ID=245
+         *
+         * In this test we want to test that the Context Menu option available
+         * for an entry with no children and a parent is to hide given entry only.
+         * Since there are no children to hide, we don't want to show 'hide children' option.
+         *
+         * To chieve that, we will dispatch the context menu on the 'updateCounters' function that does not have children.
+         * The ID of 'updateCounters' is 245.
+         **/
+        const iDOfNodeWithNoChildren = 245;
+        // Highlight the node to make the Context Menu dispatch on this node
+        flameChartView.getMainFlameChart().highlightEntry(iDOfNodeWithNoChildren);
+        // The mouse event passed to the Context Menu is used to indicate where the menu should appear. Since we don't need it to actually appear for this test, pass an empty event.
+        flameChartView.getMainFlameChart().onContextMenu(new Event(''));
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.length, 2);
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(0)?.buildDescriptor().label, 'Hide function');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(1)?.buildDescriptor().label, 'Reset trace');
+    });
+    it('When an entry has children, correctly show only Hide and Hide Children as possible Context Menu actions', async function () {
+        const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'recursive-blocking-js.json.gz');
+        const mockViewDelegate = new MockViewDelegate();
+        const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
+        flameChartView.setModel(performanceModel, traceParsedData);
+        // Find the Main track to later collapse entries of
+        const mainTrack = flameChartView.getMainFlameChart().timelineData()?.groups.find(group => {
+            return group.name === 'Main — http://127.0.0.1:8080/';
+        });
+        if (!mainTrack) {
+            throw new Error('Could not find main track');
+        }
+        /** Part of this stack looks roughly like so (with some events omitted):
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * ===== wait =====   ===== wait =====  <-- ID=204
+         * = now =  = now =   = now =  = now =
+         *
+         * In this test we want to test that the Context Menu option available
+         * for an entry with children and a parent is to hide given entry, and hide children only.
+         * Since there are no repeating children to hide, we don't want to show 'hide repeating children' option.
+         *
+         * To chieve that, we will dispatch the context menu on the 'wait' function that has only non-repeating children.
+         * The ID of the first 'wait' is 204.
+         **/
+        const iDOfNodeWithNoChildren = 204;
+        // Highlight the node to make the Context Menu dispatch on this node
+        flameChartView.getMainFlameChart().highlightEntry(iDOfNodeWithNoChildren);
+        // The mouse event passed to the Context Menu is used to indicate where the menu should appear. Since we don't need it to actually appear for this test, pass an empty event.
+        flameChartView.getMainFlameChart().onContextMenu(new Event(''));
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.length, 3);
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(0)?.buildDescriptor().label, 'Hide function');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(1)?.buildDescriptor().label, 'Hide children');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(2)?.buildDescriptor().label, 'Reset trace');
+    });
+    it('When an entry has repeating children, correctly show only Hide, Hide Children and Hide repeating children as possible Context Menu actions', async function () {
+        const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'recursive-blocking-js.json.gz');
+        const mockViewDelegate = new MockViewDelegate();
+        const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
+        flameChartView.setModel(performanceModel, traceParsedData);
+        // Find the Main track to later collapse entries of
+        const mainTrack = flameChartView.getMainFlameChart().timelineData()?.groups.find(group => {
+            return group.name === 'Main — http://127.0.0.1:8080/';
+        });
+        if (!mainTrack) {
+            throw new Error('Could not find main track');
+        }
+        /** Part of this stack looks roughly like so (with some events omitted):
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo =============== <-- ID=200
+         * =============== foo ===============
+         * =============== foo ===============
+         * ===== wait =====   ===== wait =====
+         * = now =  = now =   = now =  = now =
+         *
+         * In this test we want to test that the Context Menu option available
+         * for an entry with children repeating children and a parent is to hide given entry, hide children and hide repeating children.
+         *
+         * To chieve that, we will dispatch the context menu on the 'foo' function that has child 'foo' calls.
+         * The ID of the a matching 'foo' is 200.
+         **/
+        const iDOfNodeWithNoChildren = 200;
+        // Highlight the node to make the Context Menu dispatch on this node
+        flameChartView.getMainFlameChart().highlightEntry(iDOfNodeWithNoChildren);
+        // The mouse event passed to the Context Menu is used to indicate where the menu should appear. Since we don't need it to actually appear for this test, pass an empty event.
+        flameChartView.getMainFlameChart().onContextMenu(new Event(''));
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.length, 4);
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(0)?.buildDescriptor().label, 'Hide function');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(1)?.buildDescriptor().label, 'Hide children');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(2)?.buildDescriptor().label, 'Hide repeating children');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(3)?.buildDescriptor().label, 'Reset trace');
+    });
+    it('When an entry does not have a parent and has children, correctly show only Hide Children as a possible Context Menu action', async function () {
+        const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'recursive-blocking-js.json.gz');
+        const mockViewDelegate = new MockViewDelegate();
+        const flameChartView = new Timeline.TimelineFlameChartView.TimelineFlameChartView(mockViewDelegate);
+        flameChartView.setModel(performanceModel, traceParsedData);
+        // Find the Main track to later collapse entries of
+        const mainTrack = flameChartView.getMainFlameChart().timelineData()?.groups.find(group => {
+            return group.name === 'Main — http://127.0.0.1:8080/';
+        });
+        if (!mainTrack) {
+            throw new Error('Could not find main track');
+        }
+        /** Part of this stack looks roughly like so (with some events omitted):
+         * =============== Task ============== <-- ID=62
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * =============== foo ===============
+         * ===== wait =====   ===== wait =====
+         * = now =  = now =   = now =  = now =
+         *
+         * In this test we want to test that the Context Menu option available for an entry with no parent is only to hide children.
+         * If an entry has no parent, we don't want to show an option to hide the entry since when an entry is hidden,
+         * it is indicated by adding a decoration to the parent and if there is no parent, there is no way to show it is hidden.
+         *
+         * To chieve that, we will dispatch the context menu on the 'Task' function that is on the top of the stack and has no parent.
+         * The ID of the a matching 'Task' is 62.
+         **/
+        const iDOfNodeWithNoChildren = 62;
+        // Highlight the node to make the Context Menu dispatch on this node
+        flameChartView.getMainFlameChart().highlightEntry(iDOfNodeWithNoChildren);
+        // The mouse event passed to the Context Menu is used to indicate where the menu should appear. Since we don't need it to actually appear for this test, pass an empty event.
+        flameChartView.getMainFlameChart().onContextMenu(new Event(''));
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.length, 2);
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(0)?.buildDescriptor().label, 'Hide children');
+        assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(1)?.buildDescriptor().label, 'Reset trace');
     });
 });
 //# sourceMappingURL=TimelineFlameChartView_test.js.map

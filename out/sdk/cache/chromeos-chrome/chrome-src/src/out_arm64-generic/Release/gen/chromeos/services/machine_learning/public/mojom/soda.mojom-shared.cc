@@ -128,6 +128,34 @@ std::ostream& operator<<(std::ostream& os, EndpointReason value) {
   return os << EndpointReasonToString(value);
 }
 
+NOINLINE static const char* AsrSwitchResultToStringHelper(AsrSwitchResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AsrSwitchResult::DEFAULT_NO_SWITCH:
+      return "DEFAULT_NO_SWITCH";
+    case AsrSwitchResult::SWITCH_SUCCEEDED:
+      return "SWITCH_SUCCEEDED";
+    case AsrSwitchResult::SWITCH_FAILED:
+      return "SWITCH_FAILED";
+    case AsrSwitchResult::SWITCH_SKIPPED_NO_LP:
+      return "SWITCH_SKIPPED_NO_LP";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AsrSwitchResultToString(AsrSwitchResult value) {
+  const char *str = AsrSwitchResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AsrSwitchResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AsrSwitchResult value) {
+  return os << AsrSwitchResultToString(value);
+}
+
 namespace internal {
 // static
 bool SpeechRecognizerEvent_Data::Validate(
@@ -196,6 +224,16 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
+    case SpeechRecognizerEvent_Tag::kLangidEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_langid_event, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_langid_event, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -206,6 +244,40 @@ bool SpeechRecognizerEvent_Data::Validate(
     }
   }
 }
+
+
+// static
+bool SodaMultilangConfig_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SodaMultilangConfig_Data* object =
+      static_cast<const SodaMultilangConfig_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->locale_to_language_pack_map, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& locale_to_language_pack_map_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  if (!mojo::internal::ValidateContainer(object->locale_to_language_pack_map, validation_context,
+                                         &locale_to_language_pack_map_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+SodaMultilangConfig_Data::SodaMultilangConfig_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -221,6 +293,7 @@ bool SodaConfig_Data::Validate(
     { 4, 56 },
     { 5, 56 },
     { 6, 56 },
+    { 7, 64 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -278,12 +351,17 @@ bool SodaConfig_Data::Validate(
   if (!::chromeos::machine_learning::mojom::internal::SodaRecognitionMode_Data
         ::Validate(object->recognition_mode, validation_context))
     return false;
+  if (object->header_.version < 7)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->multi_lang_config, validation_context))
+    return false;
 
   return true;
 }
 
 SodaConfig_Data::SodaConfig_Data()
-    : header_({sizeof(*this), 6}) {}
+    : header_({sizeof(*this), 7}) {}
 
 
 // static
@@ -543,6 +621,45 @@ AudioLevelEvent_Data::AudioLevelEvent_Data()
 
 
 // static
+bool LangIdEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LangIdEvent_Data* object =
+      static_cast<const LangIdEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->language, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& language_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->language, validation_context,
+                                         &language_validate_params)) {
+    return false;
+  }
+
+
+  if (!::chromeos::machine_learning::mojom::internal::AsrSwitchResult_Data
+        ::Validate(object->asr_switch_result, validation_context))
+    return false;
+
+  return true;
+}
+
+LangIdEvent_Data::LangIdEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool SodaClient_OnStart_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -761,6 +878,16 @@ namespace perfetto {
 void TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointReason>::WriteIntoTrace(
    perfetto::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::EndpointReasonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::chromeos::machine_learning::mojom::AsrSwitchResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::AsrSwitchResult value) {
+  return std::move(context).WriteString(::chromeos::machine_learning::mojom::AsrSwitchResultToString(value));
 }
 
 } // namespace perfetto

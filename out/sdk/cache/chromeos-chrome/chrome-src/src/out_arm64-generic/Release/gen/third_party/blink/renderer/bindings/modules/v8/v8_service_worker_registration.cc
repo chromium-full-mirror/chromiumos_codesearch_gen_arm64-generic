@@ -244,7 +244,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ServiceWo
 BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.periodicSync.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPeriodicBackgroundSync);
 
@@ -263,7 +264,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ServiceWo
 BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.sync.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBackgroundSync);
 
@@ -314,8 +316,7 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerRegistration.paymentManager.get");
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
@@ -369,8 +370,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<GetNotificationOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_filter;
@@ -418,8 +418,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_title = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -466,8 +465,7 @@ return;
 
 
 ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->unregister(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -500,8 +498,7 @@ return;
 
 
 ServiceWorkerRegistration* blink_receiver = V8ServiceWorkerRegistration::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->update(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -593,7 +590,7 @@ void V8ServiceWorkerRegistration::InstallContextDependentProperties(v8::Local<v8
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) && (feature_selector.IsAll() && RuntimeEnabledFeatures::BackgroundFetchEnabled())) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"backgroundFetch", BackgroundFetchAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

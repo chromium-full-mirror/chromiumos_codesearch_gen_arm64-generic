@@ -8,9 +8,8 @@ import { FakeUsersPrivate } from '../fake_users_private.js';
 suite('<settings-users-add-user-dialog>', () => {
     let dialog = null;
     setup(() => {
+        chrome.usersPrivate = new FakeUsersPrivate();
         dialog = document.createElement('settings-users-add-user-dialog');
-        // @ts-ignore:next-line - Overriding private member for test
-        dialog.usersPrivate_ = new FakeUsersPrivate();
         document.body.appendChild(dialog);
         dialog.open();
     });

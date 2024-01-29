@@ -130,7 +130,7 @@ describeWithDevtoolsExtension('Extensions', {}, context => {
         assert.strictEqual(manager.plugins().length, 1);
         assert.strictEqual(manager.views().length, 1);
         const plugin = manager.plugins()[0];
-        const onceShowRequested = manager.once(Extensions.RecorderPluginManager.Events.ShowViewRequested);
+        const onceShowRequested = manager.once("showViewRequested" /* Extensions.RecorderPluginManager.Events.ShowViewRequested */);
         await plugin.replay({
             name: 'test',
             steps: [],
@@ -154,7 +154,7 @@ describeWithDevtoolsExtension('Extensions', {}, context => {
         assert.strictEqual(manager.plugins().length, 1);
         assert.strictEqual(manager.views().length, 1);
         const events = [];
-        manager.addEventListener(Extensions.RecorderPluginManager.Events.ShowViewRequested, event => {
+        manager.addEventListener("showViewRequested" /* Extensions.RecorderPluginManager.Events.ShowViewRequested */, event => {
             events.push(event);
         });
         view?.show();
@@ -181,7 +181,7 @@ describeWithDevtoolsExtension('Extensions', {}, context => {
         await context.chrome.devtools?.recorder.registerRecorderExtensionPlugin(extensionPlugin, 'Replay');
         const manager = Extensions.RecorderPluginManager.RecorderPluginManager.instance();
         const plugin = manager.plugins()[0];
-        const onceShowRequested = manager.once(Extensions.RecorderPluginManager.Events.ShowViewRequested);
+        const onceShowRequested = manager.once("showViewRequested" /* Extensions.RecorderPluginManager.Events.ShowViewRequested */);
         await plugin.replay({
             name: 'test',
             steps: [],
@@ -408,7 +408,7 @@ describeWithDevtoolsExtension('Runtime hosts policy', { hostsPolicy }, context =
     });
     function createRequest(networkManager, frameId, requestId, url) {
         const request = SDK.NetworkRequest.NetworkRequest.create(requestId, url, url, frameId, null, null, undefined);
-        const dataProvider = () => Promise.resolve(new SDK.ContentData.ContentData('content', false, request.resourceType(), request.mimeType));
+        const dataProvider = () => Promise.resolve(new SDK.ContentData.ContentData('content', false, request.mimeType));
         request.setContentDataProvider(dataProvider);
         networkManager.dispatchEventToListeners(SDK.NetworkManager.Events.RequestStarted, { request, originalRequest: null });
         request.finished = true;
@@ -510,6 +510,62 @@ describe('ExtensionServer', () => {
         for (const url of allowedUrls) {
             assert.isTrue(Extensions.ExtensionServer.ExtensionServer.canInspectURL(url), url);
         }
+    });
+});
+function assertIsStatus(value) {
+    if (value && typeof value === 'object' && 'code' in value) {
+        assert.isTrue(value.code === 'OK' || Boolean(value.isError), `Value ${value} is not a status code`);
+    }
+    else {
+        assert.fail(`Value ${value} is not a status code`);
+    }
+}
+describeWithDevtoolsExtension('Wasm extension API', {}, context => {
+    let stopId;
+    beforeEach(() => {
+        const target = createTarget();
+        target.setInspectedURL('http://example.com');
+        const targetManager = target.targetManager();
+        const resourceMapping = new Bindings.ResourceMapping.ResourceMapping(targetManager, Workspace.Workspace.WorkspaceImpl.instance());
+        Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance({ forceNew: true, resourceMapping, targetManager });
+        const callFrame = sinon.createStubInstance(SDK.DebuggerModel.CallFrame);
+        callFrame.debuggerModel = new SDK.DebuggerModel.DebuggerModel(target);
+        sinon.stub(callFrame, 'id').get(() => '0');
+        sinon.stub(callFrame.debuggerModel.agent, 'invoke_evaluateOnCallFrame')
+            .returns(Promise.resolve({ result: { type: "undefined" /* Protocol.Runtime.RemoteObjectType.Undefined */ }, getError: () => undefined }));
+        stopId = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance().pluginManager.stopIdForCallFrame(callFrame);
+    });
+    function captureError(expectedMessage) {
+        const original = console.error;
+        return sinon.stub(console, 'error').callsFake((message, ...args) => {
+            if (expectedMessage !== message) {
+                original(message, ...args);
+            }
+        });
+    }
+    it('getWasmGlobal does not block on invalid indices', async () => {
+        const log = captureError('Extension server error: Invalid argument global: No global with index 0');
+        const result = await context.chrome.devtools?.languageServices.getWasmGlobal(0, stopId);
+        assertIsStatus(result);
+        assert.isTrue(log.calledOnce);
+        assert.strictEqual(result.code, 'E_BADARG');
+        assert.strictEqual(result.details[0], 'global');
+    });
+    it('getWasmLocal does not block on invalid indices', async () => {
+        const log = captureError('Extension server error: Invalid argument local: No local with index 0');
+        const result = await context.chrome.devtools?.languageServices.getWasmLocal(0, stopId);
+        assertIsStatus(result);
+        assert.isTrue(log.calledOnce);
+        assert.strictEqual(result.code, 'E_BADARG');
+        assert.strictEqual(result.details[0], 'local');
+    });
+    it('getWasmOp does not block on invalid indices', async () => {
+        const log = captureError('Extension server error: Invalid argument op: No operand with index 0');
+        const result = await context.chrome.devtools?.languageServices.getWasmOp(0, stopId);
+        assertIsStatus(result);
+        assert.isTrue(log.calledOnce);
+        assert.strictEqual(result.code, 'E_BADARG');
+        assert.strictEqual(result.details[0], 'op');
     });
 });
 //# sourceMappingURL=ExtensionServer_test.js.map

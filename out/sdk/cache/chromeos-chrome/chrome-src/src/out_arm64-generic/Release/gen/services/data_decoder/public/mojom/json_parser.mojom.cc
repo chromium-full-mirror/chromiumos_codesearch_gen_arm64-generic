@@ -232,6 +232,8 @@ bool JsonParser_Parse_ForwardToCallback::Accept(
           internal::JsonParser_Parse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for JsonParser.0
   bool success = true;
   std::optional<::base::Value> p_result{};
   std::optional<std::string> p_error{};
@@ -340,6 +342,8 @@ bool JsonParserStubDispatch::AcceptWithResponder(
               internal::JsonParser_Parse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for JsonParser.0
       bool success = true;
       std::string p_json{};
       uint32_t p_options{};
@@ -361,9 +365,9 @@ bool JsonParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Parse(
-std::move(p_json), 
-std::move(p_options), std::move(callback));
+      impl->Parse(        
+        std::move(p_json), 
+        std::move(p_options), std::move(callback));
       return true;
     }
   }

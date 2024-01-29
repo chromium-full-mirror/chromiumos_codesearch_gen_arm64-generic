@@ -99,6 +99,16 @@ UnpackedPtr<AdapterProperties> Unpack<AdapterProperties>(typename UnpackedPtr<Ad
                 );
                 break;
             }
+            case STypeFor<AdapterPropertiesD3D>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, AdapterPropertiesD3D>::Type;
+                std::get<ExtPtrType>(result.mUnpacked) =
+                    static_cast<ExtPtrType>(next);
+                result.mBitset.set(
+                    detail::UnpackedPtrIndexOf<UnpackedPtr<AdapterProperties>, ExtPtrType>
+                );
+                break;
+            }
             default: {
                 using Unpacker =
                     AdditionalExtensionUnpacker<
@@ -138,6 +148,20 @@ ResultOrError<UnpackedPtr<AdapterProperties>> ValidateAndUnpack<AdapterPropertie
             case STypeFor<AdapterPropertiesMemoryHeaps>: {
                 using ExtPtrType =
                     typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, AdapterPropertiesMemoryHeaps>::Type;
+                auto& member = std::get<ExtPtrType>(result.mUnpacked);
+                if (member != nullptr) {
+                    duplicate = true;
+                } else {
+                    member = static_cast<ExtPtrType>(next);
+                    result.mBitset.set(
+                        detail::UnpackedPtrIndexOf<UnpackedPtr<AdapterProperties>, ExtPtrType>
+                    );
+                }
+                break;
+            }
+            case STypeFor<AdapterPropertiesD3D>: {
+                using ExtPtrType =
+                    typename detail::PtrTypeFor<UnpackedPtr<AdapterProperties>, AdapterPropertiesD3D>::Type;
                 auto& member = std::get<ExtPtrType>(result.mUnpacked);
                 if (member != nullptr) {
                     duplicate = true;
@@ -771,6 +795,118 @@ ResultOrError<UnpackedPtr<CopyTextureForBrowserOptions>> ValidateAndUnpack<CopyT
             return DAWN_VALIDATION_ERROR(
                 "Duplicate chained struct of type %s found on %s chain.",
                 next->sType, "CopyTextureForBrowserOptions"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<CreateComputePipelineAsyncCallbackInfo> Unpack<CreateComputePipelineAsyncCallbackInfo>(typename UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>::PtrType chain) {
+    UnpackedPtr<CreateComputePipelineAsyncCallbackInfo> result(chain);
+    for (typename UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CreateComputePipelineAsyncCallbackInfo,
+                        UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>,
+                        detail::AdditionalExtensions<CreateComputePipelineAsyncCallbackInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>> ValidateAndUnpack<CreateComputePipelineAsyncCallbackInfo>(
+    typename UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>::PtrType chain) {
+    UnpackedPtr<CreateComputePipelineAsyncCallbackInfo> result(chain);
+    for (typename UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CreateComputePipelineAsyncCallbackInfo,
+                        UnpackedPtr<CreateComputePipelineAsyncCallbackInfo>,
+                        detail::AdditionalExtensions<CreateComputePipelineAsyncCallbackInfo>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "CreateComputePipelineAsyncCallbackInfo"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "CreateComputePipelineAsyncCallbackInfo"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo> Unpack<CreateRenderPipelineAsyncCallbackInfo>(typename UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>::PtrType chain) {
+    UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo> result(chain);
+    for (typename UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CreateRenderPipelineAsyncCallbackInfo,
+                        UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>,
+                        detail::AdditionalExtensions<CreateRenderPipelineAsyncCallbackInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>> ValidateAndUnpack<CreateRenderPipelineAsyncCallbackInfo>(
+    typename UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>::PtrType chain) {
+    UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo> result(chain);
+    for (typename UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        CreateRenderPipelineAsyncCallbackInfo,
+                        UnpackedPtr<CreateRenderPipelineAsyncCallbackInfo>,
+                        detail::AdditionalExtensions<CreateRenderPipelineAsyncCallbackInfo>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "CreateRenderPipelineAsyncCallbackInfo"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "CreateRenderPipelineAsyncCallbackInfo"
             );
         }
     }
@@ -1539,6 +1675,62 @@ ResultOrError<UnpackedPtr<RequestAdapterOptions>> ValidateAndUnpack<RequestAdapt
             return DAWN_VALIDATION_ERROR(
                 "Duplicate chained struct of type %s found on %s chain.",
                 next->sType, "RequestAdapterOptions"
+            );
+        }
+    }
+    return result;
+}
+template <>
+UnpackedPtr<RequestDeviceCallbackInfo> Unpack<RequestDeviceCallbackInfo>(typename UnpackedPtr<RequestDeviceCallbackInfo>::PtrType chain) {
+    UnpackedPtr<RequestDeviceCallbackInfo> result(chain);
+    for (typename UnpackedPtr<RequestDeviceCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RequestDeviceCallbackInfo,
+                        UnpackedPtr<RequestDeviceCallbackInfo>,
+                        detail::AdditionalExtensions<RequestDeviceCallbackInfo>::List>;
+                Unpacker::Unpack(result.mUnpacked, result.mBitset, next, nullptr);
+                break;
+            }
+        }
+    }
+    return result;
+}
+template <>
+ResultOrError<UnpackedPtr<RequestDeviceCallbackInfo>> ValidateAndUnpack<RequestDeviceCallbackInfo>(
+    typename UnpackedPtr<RequestDeviceCallbackInfo>::PtrType chain) {
+    UnpackedPtr<RequestDeviceCallbackInfo> result(chain);
+    for (typename UnpackedPtr<RequestDeviceCallbackInfo>::ChainType next = chain->nextInChain;
+         next != nullptr;
+         next = next->nextInChain) {
+        bool duplicate = false;
+        switch (next->sType) {
+            default: {
+                using Unpacker =
+                    AdditionalExtensionUnpacker<
+                        RequestDeviceCallbackInfo,
+                        UnpackedPtr<RequestDeviceCallbackInfo>,
+                        detail::AdditionalExtensions<RequestDeviceCallbackInfo>::List>;
+                if (!Unpacker::Unpack(result.mUnpacked,
+                                      result.mBitset,
+                                      next,
+                                      &duplicate)) {
+                    return DAWN_VALIDATION_ERROR(
+                        "Unexpected chained struct of type %s found on %s chain.",
+                        next->sType, "RequestDeviceCallbackInfo"
+                    );
+                }
+                break;
+            }
+        }
+        if (duplicate) {
+            return DAWN_VALIDATION_ERROR(
+                "Duplicate chained struct of type %s found on %s chain.",
+                next->sType, "RequestDeviceCallbackInfo"
             );
         }
     }

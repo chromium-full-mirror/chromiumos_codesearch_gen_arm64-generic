@@ -34,7 +34,7 @@ export class LoadImageResponse {
         if (status === LoadImageResponseStatus.ERROR) {
             return;
         }
-        // Response result defined only when status == SUCCESS.
+        // Response result defined only when status === SUCCESS.
         assert(opt_result);
         /** @type {number|undefined} */
         this.width = opt_result.width;
@@ -68,7 +68,7 @@ export class LoadImageResponse {
         if (!response || response.status === LoadImageResponseStatus.ERROR) {
             return null;
         }
-        // Response result defined only when status == SUCCESS.
+        // Response result defined only when status === SUCCESS.
         assert(response.width);
         assert(response.height);
         assert(response.data);

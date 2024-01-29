@@ -1,13 +1,13 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { AutomationPredicate } from '../common/automation_predicate.js';
-import { AutomationUtil } from '../common/automation_util.js';
-import { constants } from '../common/constants.js';
-import { NodeNavigationUtils } from '../common/node_navigation_utils.js';
-import { NodeUtils } from '../common/node_utils.js';
-import { ParagraphUtils } from '../common/paragraph_utils.js';
-import { WordUtils } from '../common/word_utils.js';
+import { AutomationPredicate } from '/common/automation_predicate.js';
+import { AutomationUtil } from '/common/automation_util.js';
+import { constants } from '/common/constants.js';
+import { NodeNavigationUtils } from '/common/node_navigation_utils.js';
+import { NodeUtils } from '/common/node_utils.js';
+import { ParagraphUtils } from '/common/paragraph_utils.js';
+import { WordUtils } from '/common/word_utils.js';
 import { InputHandler } from './input_handler.js';
 import { MetricsUtils } from './metrics_utils.js';
 import { PrefsManager } from './prefs_manager.js';
@@ -337,7 +337,6 @@ export class SelectToSpeak {
         let selectedNode = firstPosition.node;
         // If the method is set, a user requested the speech.
         const userRequested = method !== null;
-        /**@type {number} */
         const methodNumber = method !== null ? method : -1;
         // Certain nodes such as omnibox store text value in the value property,
         // instead of the name property. The getNodeName method in ParagraphUtils
@@ -1046,11 +1045,6 @@ export class SelectToSpeak {
                     this.onNodeGroupSpeakingCompleted_();
                     break;
                 case chrome.tts.EventType.WORD:
-                    // The Closure compiler doesn't realize that we did a !nodeGroup
-                    // earlier so we check again here.
-                    if (!nodeGroup) {
-                        break;
-                    }
                     this.onTtsWordEvent_(event, nodeGroup);
                     break;
                 default:

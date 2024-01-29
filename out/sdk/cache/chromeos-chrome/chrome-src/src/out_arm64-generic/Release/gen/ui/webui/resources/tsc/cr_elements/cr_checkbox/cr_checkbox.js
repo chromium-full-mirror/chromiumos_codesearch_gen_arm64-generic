@@ -26,10 +26,10 @@
  */
 import '//resources/polymer/v3_0/paper-styles/color.js';
 import '../cr_shared_vars.css.js';
-import { PaperRippleBehavior } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './cr_checkbox.html.js';
-const CrCheckboxElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrCheckboxElementBase = PaperRippleMixin(PolymerElement);
 export class CrCheckboxElement extends CrCheckboxElementBase {
     static get is() {
         return 'cr-checkbox';
@@ -146,7 +146,7 @@ export class CrCheckboxElement extends CrCheckboxElementBase {
         // :host shouldn't have a tabindex because it's set on #checkbox.
         this.removeAttribute('tabindex');
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.checkbox;

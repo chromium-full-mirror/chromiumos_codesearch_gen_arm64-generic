@@ -273,6 +273,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -290,8 +292,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page));
+      impl->CreatePageHandler(        
+        std::move(p_page));
       return true;
     }
   }
@@ -479,6 +481,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_UpdateResults_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       std::string p_query{};
       std::vector<std::string> p_keywords{};
@@ -500,10 +504,10 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateResults(
-std::move(p_query), 
-std::move(p_keywords), 
-std::move(p_results));
+      impl->UpdateResults(        
+        std::move(p_query), 
+        std::move(p_keywords), 
+        std::move(p_results));
       return true;
     }
   }

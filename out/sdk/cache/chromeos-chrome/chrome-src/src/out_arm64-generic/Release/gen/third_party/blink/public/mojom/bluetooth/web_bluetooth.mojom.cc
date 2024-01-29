@@ -2318,6 +2318,8 @@ bool WebBluetoothService_GetAvailability_ForwardToCallback::Accept(
           internal::WebBluetoothService_GetAvailability_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.0
   bool success = true;
   bool p_is_available{};
   WebBluetoothService_GetAvailability_ResponseParamsDataView input_data_view(params, message);
@@ -2437,6 +2439,8 @@ bool WebBluetoothService_RequestDevice_ForwardToCallback::Accept(
           internal::WebBluetoothService_RequestDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.1
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothDevicePtr p_device{};
@@ -2571,6 +2575,8 @@ bool WebBluetoothService_GetDevices_ForwardToCallback::Accept(
           internal::WebBluetoothService_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.2
   bool success = true;
   std::vector<WebBluetoothDevicePtr> p_devices{};
   WebBluetoothService_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -2702,6 +2708,8 @@ bool WebBluetoothService_ForgetDevice_ForwardToCallback::Accept(
           internal::WebBluetoothService_ForgetDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.3
   bool success = true;
   WebBluetoothService_ForgetDevice_ResponseParamsDataView input_data_view(params, message);
   
@@ -2809,6 +2817,8 @@ bool WebBluetoothService_RemoteServerConnect_ForwardToCallback::Accept(
           internal::WebBluetoothService_RemoteServerConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.4
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothService_RemoteServerConnect_ResponseParamsDataView input_data_view(params, message);
@@ -2929,6 +2939,8 @@ bool WebBluetoothService_RemoteServerGetPrimaryServices_ForwardToCallback::Accep
           internal::WebBluetoothService_RemoteServerGetPrimaryServices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.6
   bool success = true;
   WebBluetoothResult p_result{};
   std::optional<std::vector<WebBluetoothRemoteGATTServicePtr>> p_services{};
@@ -3065,6 +3077,8 @@ bool WebBluetoothService_RemoteServiceGetCharacteristics_ForwardToCallback::Acce
           internal::WebBluetoothService_RemoteServiceGetCharacteristics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.7
   bool success = true;
   WebBluetoothResult p_result{};
   std::optional<std::vector<WebBluetoothRemoteGATTCharacteristicPtr>> p_characteristics{};
@@ -3201,6 +3215,8 @@ bool WebBluetoothService_RemoteCharacteristicReadValue_ForwardToCallback::Accept
           internal::WebBluetoothService_RemoteCharacteristicReadValue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.8
   bool success = true;
   WebBluetoothResult p_result{};
   std::optional<std::vector<uint8_t>> p_value{};
@@ -3337,6 +3353,8 @@ bool WebBluetoothService_RemoteCharacteristicWriteValue_ForwardToCallback::Accep
           internal::WebBluetoothService_RemoteCharacteristicWriteValue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.9
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothService_RemoteCharacteristicWriteValue_ResponseParamsDataView input_data_view(params, message);
@@ -3457,6 +3475,8 @@ bool WebBluetoothService_RemoteCharacteristicStartNotifications_ForwardToCallbac
           internal::WebBluetoothService_RemoteCharacteristicStartNotifications_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.10
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothService_RemoteCharacteristicStartNotifications_ResponseParamsDataView input_data_view(params, message);
@@ -3577,6 +3597,8 @@ bool WebBluetoothService_RemoteCharacteristicStopNotifications_ForwardToCallback
           internal::WebBluetoothService_RemoteCharacteristicStopNotifications_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.11
   bool success = true;
   WebBluetoothService_RemoteCharacteristicStopNotifications_ResponseParamsDataView input_data_view(params, message);
   
@@ -3684,6 +3706,8 @@ bool WebBluetoothService_RemoteCharacteristicGetDescriptors_ForwardToCallback::A
           internal::WebBluetoothService_RemoteCharacteristicGetDescriptors_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.12
   bool success = true;
   WebBluetoothResult p_result{};
   std::optional<std::vector<WebBluetoothRemoteGATTDescriptorPtr>> p_descriptors{};
@@ -3820,6 +3844,8 @@ bool WebBluetoothService_RemoteDescriptorReadValue_ForwardToCallback::Accept(
           internal::WebBluetoothService_RemoteDescriptorReadValue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.13
   bool success = true;
   WebBluetoothResult p_result{};
   std::optional<std::vector<uint8_t>> p_value{};
@@ -3956,6 +3982,8 @@ bool WebBluetoothService_RemoteDescriptorWriteValue_ForwardToCallback::Accept(
           internal::WebBluetoothService_RemoteDescriptorWriteValue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.14
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothService_RemoteDescriptorWriteValue_ResponseParamsDataView input_data_view(params, message);
@@ -4076,6 +4104,8 @@ bool WebBluetoothService_RequestScanningStart_ForwardToCallback::Accept(
           internal::WebBluetoothService_RequestScanningStart_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.15
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothService_RequestScanningStart_ResponseParamsDataView input_data_view(params, message);
@@ -4196,6 +4226,8 @@ bool WebBluetoothService_WatchAdvertisementsForDevice_ForwardToCallback::Accept(
           internal::WebBluetoothService_WatchAdvertisementsForDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebBluetoothService.16
   bool success = true;
   WebBluetoothResult p_result{};
   WebBluetoothService_WatchAdvertisementsForDevice_ResponseParamsDataView input_data_view(params, message);
@@ -4286,6 +4318,8 @@ bool WebBluetoothServiceStubDispatch::Accept(
           reinterpret_cast<internal::WebBluetoothService_RemoteServerDisconnect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.5
       bool success = true;
       ::blink::WebBluetoothDeviceId p_device_id{};
       WebBluetoothService_RemoteServerDisconnect_ParamsDataView input_data_view(params, message);
@@ -4301,8 +4335,8 @@ bool WebBluetoothServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteServerDisconnect(
-std::move(p_device_id));
+      impl->RemoteServerDisconnect(        
+        std::move(p_device_id));
       return true;
     }
     case internal::kWebBluetoothService_RemoteServerGetPrimaryServices_Name: {
@@ -4358,6 +4392,8 @@ bool WebBluetoothServiceStubDispatch::AcceptWithResponder(
               internal::WebBluetoothService_GetAvailability_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.0
       bool success = true;
       WebBluetoothService_GetAvailability_ParamsDataView input_data_view(params, message);
       
@@ -4383,6 +4419,8 @@ bool WebBluetoothServiceStubDispatch::AcceptWithResponder(
               internal::WebBluetoothService_RequestDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.1
       bool success = true;
       WebBluetoothRequestDeviceOptionsPtr p_options{};
       WebBluetoothService_RequestDevice_ParamsDataView input_data_view(params, message);
@@ -4401,8 +4439,8 @@ bool WebBluetoothServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestDevice(
-std::move(p_options), std::move(callback));
+      impl->RequestDevice(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_GetDevices_Name: {
@@ -4412,6 +4450,8 @@ std::move(p_options), std::move(callback));
               internal::WebBluetoothService_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.2
       bool success = true;
       WebBluetoothService_GetDevices_ParamsDataView input_data_view(params, message);
       
@@ -4437,6 +4477,8 @@ std::move(p_options), std::move(callback));
               internal::WebBluetoothService_ForgetDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.3
       bool success = true;
       ::blink::WebBluetoothDeviceId p_device_id{};
       WebBluetoothService_ForgetDevice_ParamsDataView input_data_view(params, message);
@@ -4455,8 +4497,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForgetDevice(
-std::move(p_device_id), std::move(callback));
+      impl->ForgetDevice(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteServerConnect_Name: {
@@ -4466,6 +4508,8 @@ std::move(p_device_id), std::move(callback));
               internal::WebBluetoothService_RemoteServerConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.4
       bool success = true;
       ::blink::WebBluetoothDeviceId p_device_id{};
       ::mojo::PendingAssociatedRemote<WebBluetoothServerClient> p_client{};
@@ -4489,9 +4533,9 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteServerConnect(
-std::move(p_device_id), 
-std::move(p_client), std::move(callback));
+      impl->RemoteServerConnect(        
+        std::move(p_device_id), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteServerDisconnect_Name: {
@@ -4504,6 +4548,8 @@ std::move(p_client), std::move(callback));
               internal::WebBluetoothService_RemoteServerGetPrimaryServices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.6
       bool success = true;
       ::blink::WebBluetoothDeviceId p_device_id{};
       WebBluetoothGATTQueryQuantity p_quantity{};
@@ -4528,10 +4574,10 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteServerGetPrimaryServices(
-std::move(p_device_id), 
-std::move(p_quantity), 
-std::move(p_services_uuid), std::move(callback));
+      impl->RemoteServerGetPrimaryServices(        
+        std::move(p_device_id), 
+        std::move(p_quantity), 
+        std::move(p_services_uuid), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteServiceGetCharacteristics_Name: {
@@ -4541,6 +4587,8 @@ std::move(p_services_uuid), std::move(callback));
               internal::WebBluetoothService_RemoteServiceGetCharacteristics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.7
       bool success = true;
       std::string p_service_instance_id{};
       WebBluetoothGATTQueryQuantity p_quantity{};
@@ -4565,10 +4613,10 @@ std::move(p_services_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteServiceGetCharacteristics(
-std::move(p_service_instance_id), 
-std::move(p_quantity), 
-std::move(p_characteristics_uuid), std::move(callback));
+      impl->RemoteServiceGetCharacteristics(        
+        std::move(p_service_instance_id), 
+        std::move(p_quantity), 
+        std::move(p_characteristics_uuid), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteCharacteristicReadValue_Name: {
@@ -4578,6 +4626,8 @@ std::move(p_characteristics_uuid), std::move(callback));
               internal::WebBluetoothService_RemoteCharacteristicReadValue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.8
       bool success = true;
       std::string p_characteristic_instance_id{};
       WebBluetoothService_RemoteCharacteristicReadValue_ParamsDataView input_data_view(params, message);
@@ -4596,8 +4646,8 @@ std::move(p_characteristics_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteCharacteristicReadValue(
-std::move(p_characteristic_instance_id), std::move(callback));
+      impl->RemoteCharacteristicReadValue(        
+        std::move(p_characteristic_instance_id), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteCharacteristicWriteValue_Name: {
@@ -4607,6 +4657,8 @@ std::move(p_characteristic_instance_id), std::move(callback));
               internal::WebBluetoothService_RemoteCharacteristicWriteValue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.9
       bool success = true;
       std::string p_characteristic_instance_id{};
       std::vector<uint8_t> p_value{};
@@ -4631,10 +4683,10 @@ std::move(p_characteristic_instance_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteCharacteristicWriteValue(
-std::move(p_characteristic_instance_id), 
-std::move(p_value), 
-std::move(p_write_type), std::move(callback));
+      impl->RemoteCharacteristicWriteValue(        
+        std::move(p_characteristic_instance_id), 
+        std::move(p_value), 
+        std::move(p_write_type), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteCharacteristicStartNotifications_Name: {
@@ -4644,6 +4696,8 @@ std::move(p_write_type), std::move(callback));
               internal::WebBluetoothService_RemoteCharacteristicStartNotifications_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.10
       bool success = true;
       std::string p_characteristic_instance_id{};
       ::mojo::PendingAssociatedRemote<WebBluetoothCharacteristicClient> p_client{};
@@ -4667,9 +4721,9 @@ std::move(p_write_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteCharacteristicStartNotifications(
-std::move(p_characteristic_instance_id), 
-std::move(p_client), std::move(callback));
+      impl->RemoteCharacteristicStartNotifications(        
+        std::move(p_characteristic_instance_id), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteCharacteristicStopNotifications_Name: {
@@ -4679,6 +4733,8 @@ std::move(p_client), std::move(callback));
               internal::WebBluetoothService_RemoteCharacteristicStopNotifications_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.11
       bool success = true;
       std::string p_characteristic_instance_id{};
       WebBluetoothService_RemoteCharacteristicStopNotifications_ParamsDataView input_data_view(params, message);
@@ -4697,8 +4753,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteCharacteristicStopNotifications(
-std::move(p_characteristic_instance_id), std::move(callback));
+      impl->RemoteCharacteristicStopNotifications(        
+        std::move(p_characteristic_instance_id), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteCharacteristicGetDescriptors_Name: {
@@ -4708,6 +4764,8 @@ std::move(p_characteristic_instance_id), std::move(callback));
               internal::WebBluetoothService_RemoteCharacteristicGetDescriptors_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.12
       bool success = true;
       std::string p_characteristics_instance_id{};
       WebBluetoothGATTQueryQuantity p_quantity{};
@@ -4732,10 +4790,10 @@ std::move(p_characteristic_instance_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteCharacteristicGetDescriptors(
-std::move(p_characteristics_instance_id), 
-std::move(p_quantity), 
-std::move(p_descriptor_uuid), std::move(callback));
+      impl->RemoteCharacteristicGetDescriptors(        
+        std::move(p_characteristics_instance_id), 
+        std::move(p_quantity), 
+        std::move(p_descriptor_uuid), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteDescriptorReadValue_Name: {
@@ -4745,6 +4803,8 @@ std::move(p_descriptor_uuid), std::move(callback));
               internal::WebBluetoothService_RemoteDescriptorReadValue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.13
       bool success = true;
       std::string p_descriptor_instance_id{};
       WebBluetoothService_RemoteDescriptorReadValue_ParamsDataView input_data_view(params, message);
@@ -4763,8 +4823,8 @@ std::move(p_descriptor_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteDescriptorReadValue(
-std::move(p_descriptor_instance_id), std::move(callback));
+      impl->RemoteDescriptorReadValue(        
+        std::move(p_descriptor_instance_id), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RemoteDescriptorWriteValue_Name: {
@@ -4774,6 +4834,8 @@ std::move(p_descriptor_instance_id), std::move(callback));
               internal::WebBluetoothService_RemoteDescriptorWriteValue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.14
       bool success = true;
       std::string p_descriptor_instance_id{};
       std::vector<uint8_t> p_value{};
@@ -4795,9 +4857,9 @@ std::move(p_descriptor_instance_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteDescriptorWriteValue(
-std::move(p_descriptor_instance_id), 
-std::move(p_value), std::move(callback));
+      impl->RemoteDescriptorWriteValue(        
+        std::move(p_descriptor_instance_id), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_RequestScanningStart_Name: {
@@ -4807,6 +4869,8 @@ std::move(p_value), std::move(callback));
               internal::WebBluetoothService_RequestScanningStart_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.15
       bool success = true;
       ::mojo::PendingAssociatedRemote<WebBluetoothAdvertisementClient> p_client{};
       WebBluetoothRequestLEScanOptionsPtr p_options{};
@@ -4830,9 +4894,9 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestScanningStart(
-std::move(p_client), 
-std::move(p_options), std::move(callback));
+      impl->RequestScanningStart(        
+        std::move(p_client), 
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kWebBluetoothService_WatchAdvertisementsForDevice_Name: {
@@ -4842,6 +4906,8 @@ std::move(p_options), std::move(callback));
               internal::WebBluetoothService_WatchAdvertisementsForDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebBluetoothService.16
       bool success = true;
       ::blink::WebBluetoothDeviceId p_device_id{};
       ::mojo::PendingAssociatedRemote<WebBluetoothAdvertisementClient> p_client{};
@@ -4865,9 +4931,9 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WatchAdvertisementsForDevice(
-std::move(p_device_id), 
-std::move(p_client), std::move(callback));
+      impl->WatchAdvertisementsForDevice(        
+        std::move(p_device_id), 
+        std::move(p_client), std::move(callback));
       return true;
     }
   }
@@ -5025,6 +5091,8 @@ bool WebBluetoothServerClientStubDispatch::Accept(
           reinterpret_cast<internal::WebBluetoothServerClient_GATTServerDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBluetoothServerClient.0
       bool success = true;
       WebBluetoothServerClient_GATTServerDisconnected_ParamsDataView input_data_view(params, message);
       
@@ -5037,7 +5105,7 @@ bool WebBluetoothServerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GATTServerDisconnected();
+      impl->GATTServerDisconnected(        );
       return true;
     }
   }
@@ -5195,6 +5263,8 @@ bool WebBluetoothCharacteristicClientStubDispatch::Accept(
           reinterpret_cast<internal::WebBluetoothCharacteristicClient_RemoteCharacteristicValueChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBluetoothCharacteristicClient.0
       bool success = true;
       std::vector<uint8_t> p_value{};
       WebBluetoothCharacteristicClient_RemoteCharacteristicValueChanged_ParamsDataView input_data_view(params, message);
@@ -5210,8 +5280,8 @@ bool WebBluetoothCharacteristicClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoteCharacteristicValueChanged(
-std::move(p_value));
+      impl->RemoteCharacteristicValueChanged(        
+        std::move(p_value));
       return true;
     }
   }
@@ -5367,6 +5437,8 @@ bool WebBluetoothAdvertisementClientStubDispatch::Accept(
           reinterpret_cast<internal::WebBluetoothAdvertisementClient_AdvertisingEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebBluetoothAdvertisementClient.0
       bool success = true;
       WebBluetoothAdvertisingEventPtr p_result{};
       WebBluetoothAdvertisementClient_AdvertisingEvent_ParamsDataView input_data_view(params, message);
@@ -5382,8 +5454,8 @@ bool WebBluetoothAdvertisementClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdvertisingEvent(
-std::move(p_result));
+      impl->AdvertisingEvent(        
+        std::move(p_result));
       return true;
     }
   }

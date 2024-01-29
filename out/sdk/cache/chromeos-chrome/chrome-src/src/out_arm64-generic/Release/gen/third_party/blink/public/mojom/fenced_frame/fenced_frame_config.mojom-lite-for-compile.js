@@ -13,6 +13,7 @@ goog.require('mojo.internal');
 
 goog.require('blink.mojom.PermissionsPolicyFeature');
 goog.require('url.mojom.Origin');
+goog.require('blink.mojom.ParsedPermissionsPolicyDeclaration');
 goog.require('network.mojom.SchemefulSite');
 goog.require('gfx.mojom.Size');
 goog.require('url.mojom.Url');
@@ -127,6 +128,14 @@ goog.provide('blink.mojom.SharedStorageBudgetMetadataSpec');
  * @export
  */
 blink.mojom.SharedStorageBudgetMetadataSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.ParentPermissionsInfoSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.ParentPermissionsInfoSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('blink.mojom.FencedFrameConfigSpec');
@@ -332,6 +341,45 @@ blink.mojom.SharedStorageBudgetMetadata = class {
 
 
 mojo.internal.Struct(
+    blink.mojom.ParentPermissionsInfoSpec.$,
+    'ParentPermissionsInfo',
+    [
+      mojo.internal.StructField(
+        'parsedPermissionsPolicy', 0,
+        0,
+        mojo.internal.Array(blink.mojom.ParsedPermissionsPolicyDeclarationSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'origin', 8,
+        0,
+        url.mojom.OriginSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('blink.mojom.ParentPermissionsInfo');
+
+/** @record */
+blink.mojom.ParentPermissionsInfo = class {
+  constructor() {
+    /** @export { !Array<!blink.mojom.ParsedPermissionsPolicyDeclaration> } */
+    this.parsedPermissionsPolicy;
+    /** @export { !url.mojom.Origin } */
+    this.origin;
+  }
+};
+
+
+
+mojo.internal.Struct(
     blink.mojom.FencedFrameConfigSpec.$,
     'FencedFrameConfig',
     [
@@ -415,8 +463,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'parentPermissionsInfo', 136,
+        0,
+        blink.mojom.ParentPermissionsInfoSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 144],]);
+    [[0, 152],]);
 
 
 
@@ -445,6 +501,8 @@ blink.mojom.FencedFrameConfig = class {
     this.mode;
     /** @export { !Array<!blink.mojom.PermissionsPolicyFeature> } */
     this.effectiveEnabledPermissions;
+    /** @export { (blink.mojom.ParentPermissionsInfo|undefined) } */
+    this.parentPermissionsInfo;
   }
 };
 
@@ -534,8 +592,24 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'parentPermissionsInfo', 128,
+        0,
+        blink.mojom.ParentPermissionsInfoSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'canDisableUntrustedNetwork', 112,
+        1,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 136],]);
+    [[0, 144],]);
 
 
 
@@ -564,6 +638,10 @@ blink.mojom.FencedFrameProperties = class {
     this.mode;
     /** @export { !Array<!blink.mojom.PermissionsPolicyFeature> } */
     this.effectiveEnabledPermissions;
+    /** @export { (blink.mojom.ParentPermissionsInfo|undefined) } */
+    this.parentPermissionsInfo;
+    /** @export { !boolean } */
+    this.canDisableUntrustedNetwork;
   }
 };
 

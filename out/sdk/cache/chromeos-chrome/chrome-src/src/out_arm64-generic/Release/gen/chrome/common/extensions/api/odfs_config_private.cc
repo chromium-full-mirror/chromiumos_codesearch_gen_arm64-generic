@@ -236,6 +236,15 @@ base::Value::List Results::Create(const AccountRestrictionsInfo& restrictions) {
 }
 }  // namespace GetAccountRestrictions
 
+namespace ShowAutomatedMountError {
+
+base::Value::List Results::Create() {
+  base::Value::List create_results;
+
+  return create_results;
+}
+}  // namespace ShowAutomatedMountError
+
 //
 // Events
 //

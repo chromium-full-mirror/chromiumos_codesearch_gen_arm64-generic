@@ -36,9 +36,10 @@ rule copy
 build obj/common-mk/gn_root/root.stamp: stamp obj/verity/all.stamp
 build obj/verity/_libdm-bht-install_config.stamp: stamp
 build obj/verity/_verity-install_config.stamp: stamp
-build obj/verity/all.stamp: stamp obj/verity/install_fls_header.stamp obj/verity/install_headers.stamp obj/verity/install_pkg_config.stamp ./lib/libdm-bht.so ./verity
+build obj/verity/all.stamp: stamp obj/verity/install_fls_header.stamp obj/verity/install_headers.stamp obj/verity/install_pkg_config.stamp ./lib/libdm-bht.so ./verity obj/verity/install_subtool.stamp
 build obj/verity/install_fls_header.stamp: stamp
 build obj/verity/install_headers.stamp: stamp
 build obj/verity/install_pkg_config.stamp: stamp
+build obj/verity/install_subtool.stamp: stamp
 subninja obj/verity/libdm-bht.ninja
 subninja obj/verity/verity.ninja

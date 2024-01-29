@@ -4,7 +4,7 @@
 import 'chrome://bookmarks-side-panel.top-chrome/power_bookmarks_list.js';
 import { SortOrder, ViewType } from 'chrome://bookmarks-side-panel.top-chrome/bookmarks.mojom-webui.js';
 import { BookmarksApiProxyImpl } from 'chrome://bookmarks-side-panel.top-chrome/bookmarks_api_proxy.js';
-import { ShoppingServiceApiProxyImpl } from 'chrome://bookmarks-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
+import { BrowserProxyImpl } from 'chrome://resources/cr_components/commerce/browser_proxy.js';
 import { PageImageServiceBrowserProxy } from 'chrome://resources/cr_components/page_image_service/browser_proxy.js';
 import { PageImageServiceHandlerRemote } from 'chrome://resources/cr_components/page_image_service/page_image_service.mojom-webui.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -12,7 +12,7 @@ import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.m
 import { assertEquals, assertFalse, assertNotEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks, waitAfterNextRender } from 'chrome://webui-test/polymer_test_util.js';
 import { TestMock } from 'chrome://webui-test/test_mock.js';
-import { TestShoppingServiceApiProxy } from './commerce/test_shopping_service_api_proxy.js';
+import { TestBrowserProxy } from './commerce/test_shopping_service_api_proxy.js';
 import { TestBookmarksApiProxy } from './test_bookmarks_api_proxy.js';
 suite('SidePanelPowerBookmarksListTest', () => {
     let powerBookmarksList;
@@ -104,8 +104,8 @@ suite('SidePanelPowerBookmarksListTest', () => {
         bookmarksApi = new TestBookmarksApiProxy();
         bookmarksApi.setFolders(structuredClone(folders));
         BookmarksApiProxyImpl.setInstance(bookmarksApi);
-        shoppingServiceApi = new TestShoppingServiceApiProxy();
-        ShoppingServiceApiProxyImpl.setInstance(shoppingServiceApi);
+        shoppingServiceApi = new TestBrowserProxy();
+        BrowserProxyImpl.setInstance(shoppingServiceApi);
         imageServiceHandler = TestMock.fromClass(PageImageServiceHandlerRemote);
         PageImageServiceBrowserProxy.setInstance(new PageImageServiceBrowserProxy(imageServiceHandler));
         imageServiceHandler.setResultFor('getPageImageUrl', Promise.resolve({

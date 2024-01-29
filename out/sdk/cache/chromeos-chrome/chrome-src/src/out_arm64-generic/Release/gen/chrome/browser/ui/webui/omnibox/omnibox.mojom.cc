@@ -1395,6 +1395,8 @@ bool OmniboxPageHandler_GetMlModelVersion_ForwardToCallback::Accept(
           internal::OmniboxPageHandler_GetMlModelVersion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OmniboxPageHandler.2
   bool success = true;
   int32_t p_version{};
   OmniboxPageHandler_GetMlModelVersion_ResponseParamsDataView input_data_view(params, message);
@@ -1514,6 +1516,8 @@ bool OmniboxPageHandler_StartMl_ForwardToCallback::Accept(
           internal::OmniboxPageHandler_StartMl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OmniboxPageHandler.3
   bool success = true;
   float p_score{};
   OmniboxPageHandler_StartMl_ResponseParamsDataView input_data_view(params, message);
@@ -1588,6 +1592,8 @@ bool OmniboxPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::OmniboxPageHandler_SetClientPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OmniboxPageHandler.0
       bool success = true;
       ::mojo::PendingRemote<OmniboxPage> p_page{};
       OmniboxPageHandler_SetClientPage_ParamsDataView input_data_view(params, message);
@@ -1605,8 +1611,8 @@ bool OmniboxPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClientPage(
-std::move(p_page));
+      impl->SetClientPage(        
+        std::move(p_page));
       return true;
     }
     case internal::kOmniboxPageHandler_StartOmniboxQuery_Name: {
@@ -1616,6 +1622,8 @@ std::move(p_page));
           reinterpret_cast<internal::OmniboxPageHandler_StartOmniboxQuery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OmniboxPageHandler.1
       bool success = true;
       std::string p_input_string{};
       bool p_reset_autocomplete_controller{};
@@ -1652,15 +1660,15 @@ std::move(p_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartOmniboxQuery(
-std::move(p_input_string), 
-std::move(p_reset_autocomplete_controller), 
-std::move(p_cursor_position), 
-std::move(p_zero_suggest), 
-std::move(p_prevent_inline_autocomplete), 
-std::move(p_prefer_keyword), 
-std::move(p_current_url), 
-std::move(p_page_classification));
+      impl->StartOmniboxQuery(        
+        std::move(p_input_string), 
+        std::move(p_reset_autocomplete_controller), 
+        std::move(p_cursor_position), 
+        std::move(p_zero_suggest), 
+        std::move(p_prevent_inline_autocomplete), 
+        std::move(p_prefer_keyword), 
+        std::move(p_current_url), 
+        std::move(p_page_classification));
       return true;
     }
     case internal::kOmniboxPageHandler_GetMlModelVersion_Name: {
@@ -1695,6 +1703,8 @@ bool OmniboxPageHandlerStubDispatch::AcceptWithResponder(
               internal::OmniboxPageHandler_GetMlModelVersion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OmniboxPageHandler.2
       bool success = true;
       OmniboxPageHandler_GetMlModelVersion_ParamsDataView input_data_view(params, message);
       
@@ -1720,6 +1730,8 @@ bool OmniboxPageHandlerStubDispatch::AcceptWithResponder(
               internal::OmniboxPageHandler_StartMl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OmniboxPageHandler.3
       bool success = true;
       SignalsPtr p_signals{};
       OmniboxPageHandler_StartMl_ParamsDataView input_data_view(params, message);
@@ -1738,8 +1750,8 @@ bool OmniboxPageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartMl(
-std::move(p_signals), std::move(callback));
+      impl->StartMl(        
+        std::move(p_signals), std::move(callback));
       return true;
     }
   }
@@ -2152,6 +2164,8 @@ bool OmniboxPageStubDispatch::Accept(
           reinterpret_cast<internal::OmniboxPage_HandleNewAutocompleteQuery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OmniboxPage.0
       bool success = true;
       AutocompleteControllerType p_autocomplete_controller_type{};
       std::string p_input_text{};
@@ -2170,9 +2184,9 @@ bool OmniboxPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleNewAutocompleteQuery(
-std::move(p_autocomplete_controller_type), 
-std::move(p_input_text));
+      impl->HandleNewAutocompleteQuery(        
+        std::move(p_autocomplete_controller_type), 
+        std::move(p_input_text));
       return true;
     }
     case internal::kOmniboxPage_HandleNewAutocompleteResponse_Name: {
@@ -2182,6 +2196,8 @@ std::move(p_input_text));
           reinterpret_cast<internal::OmniboxPage_HandleNewAutocompleteResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OmniboxPage.1
       bool success = true;
       AutocompleteControllerType p_autocomplete_controller_type{};
       OmniboxResponsePtr p_response{};
@@ -2200,9 +2216,9 @@ std::move(p_input_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleNewAutocompleteResponse(
-std::move(p_autocomplete_controller_type), 
-std::move(p_response));
+      impl->HandleNewAutocompleteResponse(        
+        std::move(p_autocomplete_controller_type), 
+        std::move(p_response));
       return true;
     }
     case internal::kOmniboxPage_HandleNewMlResponse_Name: {
@@ -2212,6 +2228,8 @@ std::move(p_response));
           reinterpret_cast<internal::OmniboxPage_HandleNewMlResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OmniboxPage.2
       bool success = true;
       AutocompleteControllerType p_autocomplete_controller_type{};
       std::string p_input_text{};
@@ -2233,10 +2251,10 @@ std::move(p_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleNewMlResponse(
-std::move(p_autocomplete_controller_type), 
-std::move(p_input_text), 
-std::move(p_matches));
+      impl->HandleNewMlResponse(        
+        std::move(p_autocomplete_controller_type), 
+        std::move(p_input_text), 
+        std::move(p_matches));
       return true;
     }
     case internal::kOmniboxPage_HandleAnswerImageData_Name: {
@@ -2246,6 +2264,8 @@ std::move(p_matches));
           reinterpret_cast<internal::OmniboxPage_HandleAnswerImageData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OmniboxPage.3
       bool success = true;
       AutocompleteControllerType p_autocomplete_controller_type{};
       std::string p_image_url{};
@@ -2267,10 +2287,10 @@ std::move(p_matches));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAnswerImageData(
-std::move(p_autocomplete_controller_type), 
-std::move(p_image_url), 
-std::move(p_image_data));
+      impl->HandleAnswerImageData(        
+        std::move(p_autocomplete_controller_type), 
+        std::move(p_image_url), 
+        std::move(p_image_data));
       return true;
     }
   }

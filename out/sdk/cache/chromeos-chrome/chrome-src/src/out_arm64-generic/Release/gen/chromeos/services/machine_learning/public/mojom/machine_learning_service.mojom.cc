@@ -1344,6 +1344,8 @@ bool MachineLearningService_LoadBuiltinModel_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadBuiltinModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.0
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadBuiltinModel_ResponseParamsDataView input_data_view(params, message);
@@ -1464,6 +1466,8 @@ bool MachineLearningService_LoadFlatBufferModel_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadFlatBufferModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.1
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadFlatBufferModel_ResponseParamsDataView input_data_view(params, message);
@@ -1584,6 +1588,8 @@ bool MachineLearningService_LoadTextClassifier_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadTextClassifier_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.2
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadTextClassifier_ResponseParamsDataView input_data_view(params, message);
@@ -1704,6 +1710,8 @@ bool MachineLearningService_LoadHandwritingModel_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadHandwritingModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.3
   bool success = true;
   ::chromeos::machine_learning::mojom::LoadHandwritingModelResult p_result{};
   MachineLearningService_LoadHandwritingModel_ResponseParamsDataView input_data_view(params, message);
@@ -1824,6 +1832,8 @@ bool MachineLearningService_LoadSpeechRecognizer_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadSpeechRecognizer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.6
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadSpeechRecognizer_ResponseParamsDataView input_data_view(params, message);
@@ -1944,6 +1954,8 @@ bool MachineLearningService_LoadGrammarChecker_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadGrammarChecker_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.7
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadGrammarChecker_ResponseParamsDataView input_data_view(params, message);
@@ -2064,6 +2076,8 @@ bool MachineLearningService_LoadTextSuggester_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadTextSuggester_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.8
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadTextSuggester_ResponseParamsDataView input_data_view(params, message);
@@ -2184,6 +2198,8 @@ bool MachineLearningService_LoadWebPlatformHandwritingModel_ForwardToCallback::A
           internal::MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.9
   bool success = true;
   ::chromeos::machine_learning::mojom::LoadHandwritingModelResult p_result{};
   MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParamsDataView input_data_view(params, message);
@@ -2304,6 +2320,8 @@ bool MachineLearningService_LoadDocumentScanner_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadDocumentScanner_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.10
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadDocumentScanner_ResponseParamsDataView input_data_view(params, message);
@@ -2424,6 +2442,8 @@ bool MachineLearningService_CreateWebPlatformModelLoader_ForwardToCallback::Acce
           internal::MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.11
   bool success = true;
   ::ml::model_loader::mojom::CreateModelLoaderResult p_result{};
   MachineLearningService_CreateWebPlatformModelLoader_ResponseParamsDataView input_data_view(params, message);
@@ -2544,6 +2564,8 @@ bool MachineLearningService_LoadImageAnnotator_ForwardToCallback::Accept(
           internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.12
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_LoadImageAnnotator_ResponseParamsDataView input_data_view(params, message);
@@ -2664,6 +2686,8 @@ bool MachineLearningService_REMOVED_4_ForwardToCallback::Accept(
           internal::MachineLearningService_REMOVED_4_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MachineLearningService.4
   bool success = true;
   LoadModelResult p_result{};
   MachineLearningService_REMOVED_4_ResponseParamsDataView input_data_view(params, message);
@@ -2739,6 +2763,8 @@ bool MachineLearningServiceStubDispatch::Accept(
           reinterpret_cast<internal::MachineLearningService_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.5
       bool success = true;
       ::mojo::PendingReceiver<MachineLearningService> p_receiver{};
       MachineLearningService_Clone_ParamsDataView input_data_view(params, message);
@@ -2756,8 +2782,8 @@ bool MachineLearningServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kMachineLearningService_LoadBuiltinModel_Name: {
@@ -2819,6 +2845,8 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
               internal::MachineLearningService_LoadBuiltinModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.0
       bool success = true;
       ::chromeos::machine_learning::mojom::BuiltinModelSpecPtr p_spec{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> p_receiver{};
@@ -2842,9 +2870,9 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadBuiltinModel(
-std::move(p_spec), 
-std::move(p_receiver), std::move(callback));
+      impl->LoadBuiltinModel(        
+        std::move(p_spec), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadFlatBufferModel_Name: {
@@ -2854,6 +2882,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_LoadFlatBufferModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.1
       bool success = true;
       ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr p_spec{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> p_receiver{};
@@ -2877,9 +2907,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadFlatBufferModel(
-std::move(p_spec), 
-std::move(p_receiver), std::move(callback));
+      impl->LoadFlatBufferModel(        
+        std::move(p_spec), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadTextClassifier_Name: {
@@ -2889,6 +2919,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_LoadTextClassifier_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.2
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> p_receiver{};
       MachineLearningService_LoadTextClassifier_ParamsDataView input_data_view(params, message);
@@ -2909,8 +2941,8 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadTextClassifier(
-std::move(p_receiver), std::move(callback));
+      impl->LoadTextClassifier(        
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadHandwritingModel_Name: {
@@ -2920,6 +2952,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_LoadHandwritingModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.3
       bool success = true;
       ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr p_spec{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> p_receiver{};
@@ -2943,9 +2977,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadHandwritingModel(
-std::move(p_spec), 
-std::move(p_receiver), std::move(callback));
+      impl->LoadHandwritingModel(        
+        std::move(p_spec), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadSpeechRecognizer_Name: {
@@ -2955,6 +2989,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_LoadSpeechRecognizer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.6
       bool success = true;
       ::chromeos::machine_learning::mojom::SodaConfigPtr p_config{};
       ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> p_soda_client{};
@@ -2983,10 +3019,10 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadSpeechRecognizer(
-std::move(p_config), 
-std::move(p_soda_client), 
-std::move(p_soda_recognizer), std::move(callback));
+      impl->LoadSpeechRecognizer(        
+        std::move(p_config), 
+        std::move(p_soda_client), 
+        std::move(p_soda_recognizer), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadGrammarChecker_Name: {
@@ -2996,6 +3032,8 @@ std::move(p_soda_recognizer), std::move(callback));
               internal::MachineLearningService_LoadGrammarChecker_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.7
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> p_receiver{};
       MachineLearningService_LoadGrammarChecker_ParamsDataView input_data_view(params, message);
@@ -3016,8 +3054,8 @@ std::move(p_soda_recognizer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadGrammarChecker(
-std::move(p_receiver), std::move(callback));
+      impl->LoadGrammarChecker(        
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadTextSuggester_Name: {
@@ -3027,6 +3065,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_LoadTextSuggester_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.8
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> p_receiver{};
       ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr p_spec{};
@@ -3050,9 +3090,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadTextSuggester(
-std::move(p_receiver), 
-std::move(p_spec), std::move(callback));
+      impl->LoadTextSuggester(        
+        std::move(p_receiver), 
+        std::move(p_spec), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name: {
@@ -3062,6 +3102,8 @@ std::move(p_spec), std::move(callback));
               internal::MachineLearningService_LoadWebPlatformHandwritingModel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.9
       bool success = true;
       ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr p_constraint{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> p_receiver{};
@@ -3085,9 +3127,9 @@ std::move(p_spec), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadWebPlatformHandwritingModel(
-std::move(p_constraint), 
-std::move(p_receiver), std::move(callback));
+      impl->LoadWebPlatformHandwritingModel(        
+        std::move(p_constraint), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadDocumentScanner_Name: {
@@ -3097,6 +3139,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_LoadDocumentScanner_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.10
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> p_receiver{};
       ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr p_config{};
@@ -3120,9 +3164,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadDocumentScanner(
-std::move(p_receiver), 
-std::move(p_config), std::move(callback));
+      impl->LoadDocumentScanner(        
+        std::move(p_receiver), 
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name: {
@@ -3132,6 +3176,8 @@ std::move(p_config), std::move(callback));
               internal::MachineLearningService_CreateWebPlatformModelLoader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.11
       bool success = true;
       ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> p_receiver{};
       ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr p_options{};
@@ -3155,9 +3201,9 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWebPlatformModelLoader(
-std::move(p_receiver), 
-std::move(p_options), std::move(callback));
+      impl->CreateWebPlatformModelLoader(        
+        std::move(p_receiver), 
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_LoadImageAnnotator_Name: {
@@ -3167,6 +3213,8 @@ std::move(p_options), std::move(callback));
               internal::MachineLearningService_LoadImageAnnotator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.12
       bool success = true;
       ::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr p_config{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> p_receiver{};
@@ -3190,9 +3238,9 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadImageAnnotator(
-std::move(p_config), 
-std::move(p_receiver), std::move(callback));
+      impl->LoadImageAnnotator(        
+        std::move(p_config), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kMachineLearningService_REMOVED_4_Name: {
@@ -3202,6 +3250,8 @@ std::move(p_receiver), std::move(callback));
               internal::MachineLearningService_REMOVED_4_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MachineLearningService.4
       bool success = true;
       ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr p_spec{};
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> p_receiver{};
@@ -3225,9 +3275,9 @@ std::move(p_receiver), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_4(
-std::move(p_spec), 
-std::move(p_receiver), std::move(callback));
+      impl->REMOVED_4(        
+        std::move(p_spec), 
+        std::move(p_receiver), std::move(callback));
       return true;
     }
   }

@@ -1,11 +1,11 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { SeaPenActionName } from 'chrome://resources/ash/common/sea_pen/sea_pen_actions.js';
+import { seaPenReducer } from 'chrome://resources/ash/common/sea_pen/sea_pen_reducer.js';
 import { isImageDataUrl, isNonEmptyArray, isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { kDefaultImageSymbol } from './constants.js';
-import { SeaPenActionName } from './sea_pen/sea_pen_actions.js';
-import { seaPenReducer } from './sea_pen/sea_pen_reducer.js';
 import { findAlbumById, isDefaultImage, isImageEqualToSelected } from './utils.js';
 import { WallpaperActionName } from './wallpaper_actions.js';
 import { DailyRefreshType } from './wallpaper_state.js';

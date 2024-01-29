@@ -298,6 +298,7 @@ suite('NewTabPageModulesModulesV2Test', () => {
             await waitAfterNextRender(modulesElement);
             if (undoStrategy === UndoStrategy.BUTTON_ACTIVATION) {
                 const undoButton = modulesElement.shadowRoot.querySelector('#undoButton');
+                assertTrue(!!undoButton);
                 undoButton.click();
             }
             else if (undoStrategy === UndoStrategy.SHORTCUT_KEY) {
@@ -354,6 +355,7 @@ suite('NewTabPageModulesModulesV2Test', () => {
             await waitAfterNextRender(modulesElement);
             if (undoStrategy === UndoStrategy.BUTTON_ACTIVATION) {
                 const undoButton = modulesElement.shadowRoot.querySelector('#undoButton');
+                assertTrue(!!undoButton);
                 undoButton.click();
             }
             else if (undoStrategy === UndoStrategy.SHORTCUT_KEY) {

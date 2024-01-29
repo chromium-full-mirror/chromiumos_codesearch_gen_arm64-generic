@@ -104,17 +104,17 @@ describeWithMockConnection('IssuesManager', () => {
         assert.deepStrictEqual(issueCodes, ['AllowedStubIssue1', 'StubIssue2', 'AllowedStubIssue3', 'StubIssue4']);
     });
     it('reports issue counts by kind', () => {
-        const issue1 = new StubIssue('StubIssue1', ['id1'], [], IssuesManager.Issue.IssueKind.Improvement);
-        const issue2 = new StubIssue('StubIssue1', ['id2'], [], IssuesManager.Issue.IssueKind.Improvement);
-        const issue3 = new StubIssue('StubIssue1', ['id3'], [], IssuesManager.Issue.IssueKind.BreakingChange);
+        const issue1 = new StubIssue('StubIssue1', ['id1'], [], "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */);
+        const issue2 = new StubIssue('StubIssue1', ['id2'], [], "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */);
+        const issue3 = new StubIssue('StubIssue1', ['id3'], [], "BreakingChange" /* IssuesManager.Issue.IssueKind.BreakingChange */);
         const issuesManager = new IssuesManager.IssuesManager.IssuesManager();
         issuesManager.addIssue(model, issue1);
         issuesManager.addIssue(model, issue2);
         issuesManager.addIssue(model, issue3);
         assert.deepStrictEqual(issuesManager.numberOfIssues(), 3);
-        assert.deepStrictEqual(issuesManager.numberOfIssues(IssuesManager.Issue.IssueKind.Improvement), 2);
-        assert.deepStrictEqual(issuesManager.numberOfIssues(IssuesManager.Issue.IssueKind.BreakingChange), 1);
-        assert.deepStrictEqual(issuesManager.numberOfIssues(IssuesManager.Issue.IssueKind.PageError), 0);
+        assert.deepStrictEqual(issuesManager.numberOfIssues("Improvement" /* IssuesManager.Issue.IssueKind.Improvement */), 2);
+        assert.deepStrictEqual(issuesManager.numberOfIssues("BreakingChange" /* IssuesManager.Issue.IssueKind.BreakingChange */), 1);
+        assert.deepStrictEqual(issuesManager.numberOfIssues("PageError" /* IssuesManager.Issue.IssueKind.PageError */), 0);
     });
     describe('instance', () => {
         it('throws an Error if its not the first instance created with "ensureFirst" set', () => {

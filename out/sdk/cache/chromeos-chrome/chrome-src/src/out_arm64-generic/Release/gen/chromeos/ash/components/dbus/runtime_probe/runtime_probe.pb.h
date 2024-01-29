@@ -7352,6 +7352,7 @@ class ProbeSsfcComponentsResponse final :
     kApI2CFieldNumber = 11,
     kEcI2CFieldNumber = 12,
     kTcpcFieldNumber = 13,
+    kTouchscreenFieldNumber = 14,
     kProbeConfigChecksumFieldNumber = 2,
     kErrorFieldNumber = 1,
   };
@@ -7409,6 +7410,24 @@ class ProbeSsfcComponentsResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc >&
       tcpc() const;
 
+  // repeated .runtime_probe.InputDevice touchscreen = 14;
+  int touchscreen_size() const;
+  private:
+  int _internal_touchscreen_size() const;
+  public:
+  void clear_touchscreen();
+  ::runtime_probe::InputDevice* mutable_touchscreen(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice >*
+      mutable_touchscreen();
+  private:
+  const ::runtime_probe::InputDevice& _internal_touchscreen(int index) const;
+  ::runtime_probe::InputDevice* _internal_add_touchscreen();
+  public:
+  const ::runtime_probe::InputDevice& touchscreen(int index) const;
+  ::runtime_probe::InputDevice* add_touchscreen();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice >&
+      touchscreen() const;
+
   // string probe_config_checksum = 2;
   void clear_probe_config_checksum();
   const std::string& probe_config_checksum() const;
@@ -7442,6 +7461,7 @@ class ProbeSsfcComponentsResponse final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::ApI2c > ap_i2c_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::EcI2c > ec_i2c_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc > tcpc_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice > touchscreen_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr probe_config_checksum_;
   int error_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -15271,6 +15291,46 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc >&
 ProbeSsfcComponentsResponse::tcpc() const {
   // @@protoc_insertion_point(field_list:runtime_probe.ProbeSsfcComponentsResponse.tcpc)
   return tcpc_;
+}
+
+// repeated .runtime_probe.InputDevice touchscreen = 14;
+inline int ProbeSsfcComponentsResponse::_internal_touchscreen_size() const {
+  return touchscreen_.size();
+}
+inline int ProbeSsfcComponentsResponse::touchscreen_size() const {
+  return _internal_touchscreen_size();
+}
+inline void ProbeSsfcComponentsResponse::clear_touchscreen() {
+  touchscreen_.Clear();
+}
+inline ::runtime_probe::InputDevice* ProbeSsfcComponentsResponse::mutable_touchscreen(int index) {
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ProbeSsfcComponentsResponse.touchscreen)
+  return touchscreen_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice >*
+ProbeSsfcComponentsResponse::mutable_touchscreen() {
+  // @@protoc_insertion_point(field_mutable_list:runtime_probe.ProbeSsfcComponentsResponse.touchscreen)
+  return &touchscreen_;
+}
+inline const ::runtime_probe::InputDevice& ProbeSsfcComponentsResponse::_internal_touchscreen(int index) const {
+  return touchscreen_.Get(index);
+}
+inline const ::runtime_probe::InputDevice& ProbeSsfcComponentsResponse::touchscreen(int index) const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ProbeSsfcComponentsResponse.touchscreen)
+  return _internal_touchscreen(index);
+}
+inline ::runtime_probe::InputDevice* ProbeSsfcComponentsResponse::_internal_add_touchscreen() {
+  return touchscreen_.Add();
+}
+inline ::runtime_probe::InputDevice* ProbeSsfcComponentsResponse::add_touchscreen() {
+  ::runtime_probe::InputDevice* _add = _internal_add_touchscreen();
+  // @@protoc_insertion_point(field_add:runtime_probe.ProbeSsfcComponentsResponse.touchscreen)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::InputDevice >&
+ProbeSsfcComponentsResponse::touchscreen() const {
+  // @@protoc_insertion_point(field_list:runtime_probe.ProbeSsfcComponentsResponse.touchscreen)
+  return touchscreen_;
 }
 
 #ifdef __GNUC__

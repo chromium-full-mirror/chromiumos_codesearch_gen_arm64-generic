@@ -390,6 +390,8 @@ bool VideoEncoderMetricsProviderStubDispatch::Accept(
           reinterpret_cast<internal::VideoEncoderMetricsProvider_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncoderMetricsProvider.0
       bool success = true;
       uint64_t p_encoder_id{};
       VideoEncoderUseCase p_encoder_use_case{};
@@ -420,13 +422,13 @@ bool VideoEncoderMetricsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_encoder_id), 
-std::move(p_encoder_use_case), 
-std::move(p_profile), 
-std::move(p_encode_size), 
-std::move(p_is_hardware_encoder), 
-std::move(p_svc_mode));
+      impl->Initialize(        
+        std::move(p_encoder_id), 
+        std::move(p_encoder_use_case), 
+        std::move(p_profile), 
+        std::move(p_encode_size), 
+        std::move(p_is_hardware_encoder), 
+        std::move(p_svc_mode));
       return true;
     }
     case internal::kVideoEncoderMetricsProvider_SetEncodedFrameCount_Name: {
@@ -436,6 +438,8 @@ std::move(p_svc_mode));
           reinterpret_cast<internal::VideoEncoderMetricsProvider_SetEncodedFrameCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncoderMetricsProvider.1
       bool success = true;
       uint64_t p_encoder_id{};
       uint64_t p_num_encoded_frames{};
@@ -454,9 +458,9 @@ std::move(p_svc_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEncodedFrameCount(
-std::move(p_encoder_id), 
-std::move(p_num_encoded_frames));
+      impl->SetEncodedFrameCount(        
+        std::move(p_encoder_id), 
+        std::move(p_num_encoded_frames));
       return true;
     }
     case internal::kVideoEncoderMetricsProvider_SetError_Name: {
@@ -466,6 +470,8 @@ std::move(p_num_encoded_frames));
           reinterpret_cast<internal::VideoEncoderMetricsProvider_SetError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncoderMetricsProvider.2
       bool success = true;
       uint64_t p_encoder_id{};
       ::media::EncoderStatus p_status{};
@@ -484,9 +490,9 @@ std::move(p_num_encoded_frames));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetError(
-std::move(p_encoder_id), 
-std::move(p_status));
+      impl->SetError(        
+        std::move(p_encoder_id), 
+        std::move(p_status));
       return true;
     }
     case internal::kVideoEncoderMetricsProvider_Complete_Name: {
@@ -496,6 +502,8 @@ std::move(p_status));
           reinterpret_cast<internal::VideoEncoderMetricsProvider_Complete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncoderMetricsProvider.3
       bool success = true;
       uint64_t p_encoder_id{};
       VideoEncoderMetricsProvider_Complete_ParamsDataView input_data_view(params, message);
@@ -511,8 +519,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Complete(
-std::move(p_encoder_id));
+      impl->Complete(        
+        std::move(p_encoder_id));
       return true;
     }
   }

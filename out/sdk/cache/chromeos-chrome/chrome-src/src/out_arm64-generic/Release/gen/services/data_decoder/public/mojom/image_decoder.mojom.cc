@@ -387,6 +387,8 @@ bool ImageDecoder_DecodeImage_ForwardToCallback::Accept(
           internal::ImageDecoder_DecodeImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageDecoder.0
   bool success = true;
   ::base::TimeDelta p_decoding_duration{};
   ::SkBitmap p_decoded_image{};
@@ -530,6 +532,8 @@ bool ImageDecoder_DecodeAnimation_ForwardToCallback::Accept(
           internal::ImageDecoder_DecodeAnimation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageDecoder.1
   bool success = true;
   std::vector<AnimationFramePtr> p_decoded_image{};
   ImageDecoder_DecodeAnimation_ResponseParamsDataView input_data_view(params, message);
@@ -635,6 +639,8 @@ bool ImageDecoderStubDispatch::AcceptWithResponder(
               internal::ImageDecoder_DecodeImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageDecoder.0
       bool success = true;
       ::mojo_base::BigBuffer p_encoded_data{};
       ImageCodec p_codec{};
@@ -665,12 +671,12 @@ bool ImageDecoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecodeImage(
-std::move(p_encoded_data), 
-std::move(p_codec), 
-std::move(p_shrink_to_fit), 
-std::move(p_max_size_in_bytes), 
-std::move(p_desired_image_frame_size), std::move(callback));
+      impl->DecodeImage(        
+        std::move(p_encoded_data), 
+        std::move(p_codec), 
+        std::move(p_shrink_to_fit), 
+        std::move(p_max_size_in_bytes), 
+        std::move(p_desired_image_frame_size), std::move(callback));
       return true;
     }
     case internal::kImageDecoder_DecodeAnimation_Name: {
@@ -680,6 +686,8 @@ std::move(p_desired_image_frame_size), std::move(callback));
               internal::ImageDecoder_DecodeAnimation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageDecoder.1
       bool success = true;
       ::mojo_base::BigBuffer p_encoded_data{};
       bool p_shrink_to_fit{};
@@ -704,10 +712,10 @@ std::move(p_desired_image_frame_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecodeAnimation(
-std::move(p_encoded_data), 
-std::move(p_shrink_to_fit), 
-std::move(p_max_size_in_bytes), std::move(callback));
+      impl->DecodeAnimation(        
+        std::move(p_encoded_data), 
+        std::move(p_shrink_to_fit), 
+        std::move(p_max_size_in_bytes), std::move(callback));
       return true;
     }
   }

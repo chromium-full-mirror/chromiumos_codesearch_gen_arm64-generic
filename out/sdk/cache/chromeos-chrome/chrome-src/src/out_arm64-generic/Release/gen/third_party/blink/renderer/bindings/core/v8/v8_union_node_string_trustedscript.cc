@@ -101,7 +101,7 @@ void V8UnionNodeOrStringOrTrustedScript::Set(const V8UnionStringOrTrustedScript*
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionNodeOrStringOrTrustedScript::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionNodeOrStringOrTrustedScript::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kNode: {
     return ToV8Traits<Node>::ToV8(script_state, member_node_.Get());
@@ -115,7 +115,7 @@ v8::MaybeLocal<v8::Value> V8UnionNodeOrStringOrTrustedScript::ToV8Value(ScriptSt
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionNodeOrStringOrTrustedScript::Trace(Visitor* visitor) const {

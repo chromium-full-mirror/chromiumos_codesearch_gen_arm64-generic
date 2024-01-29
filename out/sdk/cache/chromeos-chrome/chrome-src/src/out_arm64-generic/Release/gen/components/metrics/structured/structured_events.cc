@@ -25,9 +25,45 @@ MonitorInfo& MonitorInfo::SetDisplayName(const std::string& value) {
   return *this;
 }
 
-MonitorInfo& MonitorInfo::SetProductCode(const std::string& value) {
-  AddMetric("ProductCode", Event::MetricType::kRawString,
+MonitorInfo& MonitorInfo::SetManufacturerId(const std::string& value) {
+  AddMetric("ManufacturerId", Event::MetricType::kRawString,
             base::Value(value));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetProductId(const int64_t value) {
+  AddMetric("ProductId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetNativeModeSize(const std::string& value) {
+  AddMetric("NativeModeSize", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetNativeModeRefreshRate(const double value) {
+  AddMetric("NativeModeRefreshRate", Event::MetricType::kDouble,
+            base::Value(value));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetPhysicalSize(const std::string& value) {
+  AddMetric("PhysicalSize", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetConnectionType(const std::string& value) {
+  AddMetric("ConnectionType", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+MonitorInfo& MonitorInfo::SetIsVrrCapable(const int64_t value) {
+  AddMetric("IsVrrCapable", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
   return *this;
 }
 
@@ -1619,8 +1655,8 @@ SessionEnd& SessionEnd::SetTrigger(const int64_t value) {
   return *this;
 }
 
-SessionEnd& SessionEnd::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+SessionEnd& SessionEnd::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1661,8 +1697,8 @@ Impression& Impression::SetVeContext(const int64_t value) {
   return *this;
 }
 
-Impression& Impression::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+Impression& Impression::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1697,8 +1733,8 @@ Click& Click::SetContext(const int64_t value) {
   return *this;
 }
 
-Click& Click::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+Click& Click::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1733,8 +1769,8 @@ Hover& Hover::SetContext(const int64_t value) {
   return *this;
 }
 
-Hover& Hover::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+Hover& Hover::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1769,8 +1805,8 @@ Drag& Drag::SetContext(const int64_t value) {
   return *this;
 }
 
-Drag& Drag::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+Drag& Drag::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1799,8 +1835,8 @@ Change& Change::SetContext(const int64_t value) {
   return *this;
 }
 
-Change& Change::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+Change& Change::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1829,8 +1865,8 @@ KeyDown& KeyDown::SetContext(const int64_t value) {
   return *this;
 }
 
-KeyDown& KeyDown::SetTimeSinceLastAction(const int64_t value) {
-  AddMetric("TimeSinceLastAction", Event::MetricType::kLong,
+KeyDown& KeyDown::SetTimeSinceSessionStart(const int64_t value) {
+  AddMetric("TimeSinceSessionStart", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -1952,6 +1988,18 @@ TestEventSeven::~TestEventSeven() = default;
 TestEventSeven& TestEventSeven::SetTestMetricSeven(const double value) {
   AddMetric("TestMetricSeven", Event::MetricType::kDouble,
             base::Value(value));
+  return *this;
+}
+
+TestEnum::TestEnum() :
+  ::metrics::structured::Event("TestProjectSix",
+                               "TestEnum",
+                               false) {}
+TestEnum::~TestEnum() = default;
+
+TestEnum& TestEnum::SetTestEnumMetric(const Enum1 value) {
+  AddMetric("TestEnumMetric", Event::MetricType::kInt,
+            base::Value((int) value));
   return *this;
 }
 

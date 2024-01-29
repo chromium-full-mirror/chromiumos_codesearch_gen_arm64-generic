@@ -18,7 +18,6 @@ export class EmojiErrorComponent extends PolymerElement {
         return {
             status: { type: Status },
             errorMessage: { type: String },
-            jellySupport: { type: Boolean, value: false },
         };
     }
     isGifInHttpErrorState(status) {

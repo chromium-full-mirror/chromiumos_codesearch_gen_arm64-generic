@@ -350,6 +350,8 @@ bool DedicatedWorkerHostFactoryClientStubDispatch::Accept(
           reinterpret_cast<internal::DedicatedWorkerHostFactoryClient_OnWorkerHostCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DedicatedWorkerHostFactoryClient.0
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::BrowserInterfaceBroker> p_browser_interface_broker{};
       ::mojo::PendingRemote<::blink::mojom::blink::DedicatedWorkerHost> p_host{};
@@ -372,9 +374,9 @@ bool DedicatedWorkerHostFactoryClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWorkerHostCreated(
-std::move(p_browser_interface_broker), 
-std::move(p_host));
+      impl->OnWorkerHostCreated(        
+        std::move(p_browser_interface_broker), 
+        std::move(p_host));
       return true;
     }
     case internal::kDedicatedWorkerHostFactoryClient_OnScriptLoadStarted_Name: {
@@ -384,6 +386,8 @@ std::move(p_host));
           reinterpret_cast<internal::DedicatedWorkerHostFactoryClient_OnScriptLoadStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DedicatedWorkerHostFactoryClient.1
       bool success = true;
       ::blink::mojom::blink::ServiceWorkerContainerInfoForClientPtr p_service_worker_container_info{};
       ::blink::mojom::blink::WorkerMainScriptLoadParamsPtr p_main_script_load_params{};
@@ -418,13 +422,13 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScriptLoadStarted(
-std::move(p_service_worker_container_info), 
-std::move(p_main_script_load_params), 
-std::move(p_subresource_loader_factories), 
-std::move(p_subresource_loader_updater), 
-std::move(p_controller_info), 
-std::move(p_back_forward_cache_controller_host));
+      impl->OnScriptLoadStarted(        
+        std::move(p_service_worker_container_info), 
+        std::move(p_main_script_load_params), 
+        std::move(p_subresource_loader_factories), 
+        std::move(p_subresource_loader_updater), 
+        std::move(p_controller_info), 
+        std::move(p_back_forward_cache_controller_host));
       return true;
     }
     case internal::kDedicatedWorkerHostFactoryClient_OnScriptLoadStartFailed_Name: {
@@ -434,6 +438,8 @@ std::move(p_back_forward_cache_controller_host));
           reinterpret_cast<internal::DedicatedWorkerHostFactoryClient_OnScriptLoadStartFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DedicatedWorkerHostFactoryClient.2
       bool success = true;
       DedicatedWorkerHostFactoryClient_OnScriptLoadStartFailed_ParamsDataView input_data_view(params, message);
       
@@ -446,7 +452,7 @@ std::move(p_back_forward_cache_controller_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScriptLoadStartFailed();
+      impl->OnScriptLoadStartFailed(        );
       return true;
     }
   }
@@ -824,6 +830,8 @@ bool DedicatedWorkerHostFactory_CreateWorkerHost_ForwardToCallback::Accept(
           internal::DedicatedWorkerHostFactory_CreateWorkerHost_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DedicatedWorkerHostFactory.0
   bool success = true;
   ::network::CrossOriginEmbedderPolicy p_parent_coep{};
   ::mojo::PendingRemote<::blink::mojom::blink::BackForwardCacheControllerHost> p_back_forward_cache_controller_host{};
@@ -922,6 +930,8 @@ bool DedicatedWorkerHostFactoryStubDispatch::Accept(
           reinterpret_cast<internal::DedicatedWorkerHostFactory_CreateWorkerHostAndStartScriptLoad_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DedicatedWorkerHostFactory.1
       bool success = true;
       ::blink::DedicatedWorkerToken p_token{};
       ::blink::KURL p_script_url{};
@@ -956,13 +966,13 @@ bool DedicatedWorkerHostFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWorkerHostAndStartScriptLoad(
-std::move(p_token), 
-std::move(p_script_url), 
-std::move(p_credentials_mode), 
-std::move(p_outside_fetch_client_settings_object), 
-std::move(p_blob_url_token), 
-std::move(p_client));
+      impl->CreateWorkerHostAndStartScriptLoad(        
+        std::move(p_token), 
+        std::move(p_script_url), 
+        std::move(p_credentials_mode), 
+        std::move(p_outside_fetch_client_settings_object), 
+        std::move(p_blob_url_token), 
+        std::move(p_client));
       return true;
     }
   }
@@ -985,6 +995,8 @@ bool DedicatedWorkerHostFactoryStubDispatch::AcceptWithResponder(
               internal::DedicatedWorkerHostFactory_CreateWorkerHost_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DedicatedWorkerHostFactory.0
       bool success = true;
       ::blink::DedicatedWorkerToken p_token{};
       ::blink::KURL p_script_url{};
@@ -1016,11 +1028,11 @@ bool DedicatedWorkerHostFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWorkerHost(
-std::move(p_token), 
-std::move(p_script_url), 
-std::move(p_browser_interface_broker), 
-std::move(p_host), std::move(callback));
+      impl->CreateWorkerHost(        
+        std::move(p_token), 
+        std::move(p_script_url), 
+        std::move(p_browser_interface_broker), 
+        std::move(p_host), std::move(callback));
       return true;
     }
     case internal::kDedicatedWorkerHostFactory_CreateWorkerHostAndStartScriptLoad_Name: {

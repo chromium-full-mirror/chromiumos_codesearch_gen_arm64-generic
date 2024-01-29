@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "libcontainer", "version": "1.1.7", "revision": 1, "fullname": "dev-go/libcontainer", "fullnamerev": "dev-go/libcontainer-1.1.7-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/opencontainers/runc/libcontainer"], "skip": false, "tainted": false, "ebuild_path": null}

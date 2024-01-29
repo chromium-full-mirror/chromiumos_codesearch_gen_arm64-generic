@@ -889,19 +889,39 @@ std::size_t align_of() {
 } // namespace rust
 
 namespace fontations_ffi {
+  struct ColorStop;
   struct Metrics;
   struct BridgeLocalizedName;
   struct SkiaDesignCoordinate;
   struct BridgeScalerMetrics;
   struct PaletteOverride;
+  struct ClipBox;
+  struct Transform;
+  struct FillLinearParams;
+  struct FillRadialParams;
+  struct FillSweepParams;
   struct BridgeFontRef;
+  struct BridgeOutlineCollection;
   struct BridgeLocalizedStrings;
   struct BridgeNormalizedCoords;
+  struct BridgeColorStops;
   using PathWrapper = ::fontations_ffi::PathWrapper;
   using AxisWrapper = ::fontations_ffi::AxisWrapper;
+  using ColorPainterWrapper = ::fontations_ffi::ColorPainterWrapper;
 }
 
 namespace fontations_ffi {
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$ColorStop
+#define CXXBRIDGE1_STRUCT_fontations_ffi$ColorStop
+struct ColorStop final {
+  float stop;
+  ::std::uint16_t palette_index;
+  float alpha;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$ColorStop
+
 #ifndef CXXBRIDGE1_STRUCT_fontations_ffi$Metrics
 #define CXXBRIDGE1_STRUCT_fontations_ffi$Metrics
 struct Metrics final {
@@ -960,6 +980,70 @@ struct PaletteOverride final {
 };
 #endif // CXXBRIDGE1_STRUCT_fontations_ffi$PaletteOverride
 
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$ClipBox
+#define CXXBRIDGE1_STRUCT_fontations_ffi$ClipBox
+struct ClipBox final {
+  float x_min;
+  float y_min;
+  float x_max;
+  float y_max;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$ClipBox
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$Transform
+#define CXXBRIDGE1_STRUCT_fontations_ffi$Transform
+struct Transform final {
+  float xx;
+  float xy;
+  float yx;
+  float yy;
+  float dx;
+  float dy;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$Transform
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$FillLinearParams
+#define CXXBRIDGE1_STRUCT_fontations_ffi$FillLinearParams
+struct FillLinearParams final {
+  float x0;
+  float y0;
+  float x1;
+  float y1;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$FillLinearParams
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$FillRadialParams
+#define CXXBRIDGE1_STRUCT_fontations_ffi$FillRadialParams
+struct FillRadialParams final {
+  float x0;
+  float y0;
+  float r0;
+  float x1;
+  float y1;
+  float r1;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$FillRadialParams
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$FillSweepParams
+#define CXXBRIDGE1_STRUCT_fontations_ffi$FillSweepParams
+struct FillSweepParams final {
+  float x0;
+  float y0;
+  float start_angle;
+  float end_angle;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$FillSweepParams
+
 #ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
 #define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
 struct BridgeFontRef final : public ::rust::Opaque {
@@ -973,6 +1057,20 @@ private:
   };
 };
 #endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeOutlineCollection
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeOutlineCollection
+struct BridgeOutlineCollection final : public ::rust::Opaque {
+  ~BridgeOutlineCollection() = delete;
+
+private:
+  friend ::rust::layout;
+  struct layout {
+    static ::std::size_t size() noexcept;
+    static ::std::size_t align() noexcept;
+  };
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeOutlineCollection
 
 #ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedStrings
 #define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedStrings
@@ -1002,13 +1100,29 @@ private:
 };
 #endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeNormalizedCoords
 
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeColorStops
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeColorStops
+struct BridgeColorStops final : public ::rust::Opaque {
+  ~BridgeColorStops() = delete;
+
+private:
+  friend ::rust::layout;
+  struct layout {
+    static ::std::size_t size() noexcept;
+    static ::std::size_t align() noexcept;
+  };
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeColorStops
+
 ::rust::Box<::fontations_ffi::BridgeFontRef> make_font_ref(::rust::Slice<::std::uint8_t const> font_data, ::std::uint32_t index) noexcept;
 
 bool font_ref_is_valid(::fontations_ffi::BridgeFontRef const &bridge_font_ref) noexcept;
 
+::rust::Box<::fontations_ffi::BridgeOutlineCollection> get_outline_collection(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
+
 ::std::uint16_t lookup_glyph_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t codepoint) noexcept;
 
-bool get_path(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::fontations_ffi::PathWrapper &path_wrapper, ::fontations_ffi::BridgeScalerMetrics &scaler_metrics) noexcept;
+bool get_path(::fontations_ffi::BridgeOutlineCollection const &outlines, ::std::uint16_t glyph_id, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::fontations_ffi::PathWrapper &path_wrapper, ::fontations_ffi::BridgeScalerMetrics &scaler_metrics) noexcept;
 
 float advance_width_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::std::uint16_t glyph_id) noexcept;
 
@@ -1028,6 +1142,12 @@ bool postscript_name(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::St
 // palette entries merged with overrides.
 ::rust::Vec<::std::uint32_t> resolve_palette(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t base_palette, ::rust::Slice<::fontations_ffi::PaletteOverride const> palette_overrides) noexcept;
 
+bool has_colrv1_glyph(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id) noexcept;
+
+bool has_colrv0_glyph(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id) noexcept;
+
+bool get_colrv1_clip_box(::fontations_ffi::BridgeFontRef const &font_ref, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::std::uint16_t glyph_id, float size, ::fontations_ffi::ClipBox &clip_box) noexcept;
+
 ::std::size_t table_data(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t tag, ::std::size_t offset, ::rust::Slice<::std::uint8_t > data) noexcept;
 
 ::std::uint16_t table_tags(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::Slice<::std::uint32_t > tags) noexcept;
@@ -1041,4 +1161,10 @@ bool postscript_name(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::St
 bool localized_name_next(::fontations_ffi::BridgeLocalizedStrings &bridge_localized_strings, ::fontations_ffi::BridgeLocalizedName &out_localized_name) noexcept;
 
 ::rust::Box<::fontations_ffi::BridgeNormalizedCoords> resolve_into_normalized_coords(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::Slice<::fontations_ffi::SkiaDesignCoordinate const> design_coords) noexcept;
+
+bool draw_colr_glyph(::fontations_ffi::BridgeFontRef const &font_ref, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::std::uint16_t glyph_id, ::fontations_ffi::ColorPainterWrapper &color_painter) noexcept;
+
+bool next_color_stop(::fontations_ffi::BridgeColorStops &color_stops, ::fontations_ffi::ColorStop &stop) noexcept;
+
+::std::size_t num_color_stops(::fontations_ffi::BridgeColorStops const &color_stops) noexcept;
 } // namespace fontations_ffi

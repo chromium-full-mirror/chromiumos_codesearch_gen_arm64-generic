@@ -491,6 +491,14 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
+        'enableWebgpuExperimentalFeatures', 36,
+        5,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
         'useWebgpuAdapter', 48,
         0,
         WebGPUAdapterNameSpec.$,
@@ -508,7 +516,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'forceWebgpuCompat', 36,
-        5,
+        6,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -540,7 +548,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enablePerfDataCollection', 36,
-        6,
+        7,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -555,8 +563,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'enableNativeGpuMemoryBuffers', 36,
-        7,
+        'enableNativeGpuMemoryBuffers', 37,
+        0,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -564,7 +572,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enableChromeosDirectVideoDecoder', 37,
-        0,
+        1,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -572,7 +580,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'forceSeparateEglDisplayForWebglTesting', 37,
-        1,
+        2,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -680,6 +688,8 @@ export class GpuPreferences {
     this.enableUnsafeWebgpu;
     /** @type { !boolean } */
     this.enableWebgpuDeveloperFeatures;
+    /** @type { !boolean } */
+    this.enableWebgpuExperimentalFeatures;
     /** @type { !WebGPUAdapterName } */
     this.useWebgpuAdapter;
     /** @type { !WebGPUPowerPreference } */

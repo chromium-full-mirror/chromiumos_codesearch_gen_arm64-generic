@@ -32,6 +32,7 @@ class DriveFsConfiguration_Data;
 class AccessToken_Data;
 class DriveError_Data;
 class DialogReason_Data;
+class UserInfo_Data;
 class FileMetadata_Data;
 class ShortcutDetails_Data;
 class ImageMetadata_Data;
@@ -575,6 +576,7 @@ struct QueryParameters_SortField_Data {
       case 1:
       case 2:
       case 3:
+      case 4:
         return true;
     }
     return false;
@@ -755,7 +757,9 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) DriveFsConfiguration_Data {
   uint8_t enable_experimental_mirroring : 1;
   uint8_t enable_verbose_logging : 1;
   uint8_t enable_cros_network : 1;
-  uint8_t pad5_[3];
+  uint8_t fetch_modifying_user_metadata : 1;
+  uint8_t fetch_sharing_user_metadata : 1;
+  uint8_t pad7_[3];
   int32_t cse_support;
   mojo::internal::Pointer<mojo::internal::String_Data> lost_and_found_directory_name;
 
@@ -950,6 +954,54 @@ struct DialogReason_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DialogReason_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) UserInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> display_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserInfo_Data>;
+
+  UserInfo_Data();
+  ~UserInfo_Data() = delete;
+};
+static_assert(sizeof(UserInfo_Data) == 16,
+              "Bad sizeof(UserInfo_Data)");
+// Used by UserInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UserInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UserInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UserInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UserInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UserInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) FileMetadata_Data {
  public:
   static bool Validate(const void* data,
@@ -982,6 +1034,10 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) FileMetadata_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> item_id;
   mojo::internal::Pointer<internal::SharedDriveQuota_Data> shared_drive_quota;
   mojo::internal::Pointer<internal::ShortcutDetails_Data> shortcut_details;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> modified_by_me_time;
+  mojo::internal::Pointer<internal::UserInfo_Data> last_modifying_user;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> shared_with_me_time;
+  mojo::internal::Pointer<internal::UserInfo_Data> sharing_user;
 
  private:
   friend class mojo::internal::MessageFragment<FileMetadata_Data>;
@@ -989,7 +1045,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) FileMetadata_Data {
   FileMetadata_Data();
   ~FileMetadata_Data() = delete;
 };
-static_assert(sizeof(FileMetadata_Data) == 152,
+static_assert(sizeof(FileMetadata_Data) == 184,
               "Bad sizeof(FileMetadata_Data)");
 // Used by FileMetadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -1553,9 +1609,10 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) QueryParameters_Data {
   int32_t query_kind;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> mime_types;
   int32_t modified_time_operator;
-  uint8_t pad12_[4];
+  int32_t viewed_time_operator;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> modified_time;
   int64_t parent_stable_id;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> viewed_time;
 
  private:
   friend class mojo::internal::MessageFragment<QueryParameters_Data>;
@@ -1563,7 +1620,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) QueryParameters_Data {
   QueryParameters_Data();
   ~QueryParameters_Data() = delete;
 };
-static_assert(sizeof(QueryParameters_Data) == 88,
+static_assert(sizeof(QueryParameters_Data) == 96,
               "Bad sizeof(QueryParameters_Data)");
 // Used by QueryParameters::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

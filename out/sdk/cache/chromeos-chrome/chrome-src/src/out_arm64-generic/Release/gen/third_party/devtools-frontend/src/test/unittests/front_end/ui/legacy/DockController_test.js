@@ -8,9 +8,9 @@ import { deinitializeGlobalVars, initializeGlobalVars } from '../../helpers/Envi
 const { assert } = chai;
 async function registerDockingSettings(currentValue) {
     Common.Settings.registerSettingsForTest([{
-            category: Common.Settings.SettingCategory.GLOBAL,
+            category: "GLOBAL" /* Common.Settings.SettingCategory.GLOBAL */,
             settingName: 'currentDockState',
-            settingType: Common.Settings.SettingType.ENUM,
+            settingType: "enum" /* Common.Settings.SettingType.ENUM */,
             defaultValue: currentValue,
             options: [
                 {

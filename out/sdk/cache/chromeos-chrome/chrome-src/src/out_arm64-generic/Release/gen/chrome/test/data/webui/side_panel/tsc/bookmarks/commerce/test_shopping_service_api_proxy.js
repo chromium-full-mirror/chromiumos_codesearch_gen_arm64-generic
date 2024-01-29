@@ -1,9 +1,9 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { PageCallbackRouter, PriceInsightsInfo_PriceBucket } from 'chrome://bookmarks-side-panel.top-chrome/shared/shopping_list.mojom-webui.js';
-import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
-export class TestShoppingServiceApiProxy extends TestBrowserProxy {
+import { PageCallbackRouter, PriceInsightsInfo_PriceBucket } from 'chrome://resources/cr_components/commerce/shopping_service.mojom-webui.js';
+import { TestBrowserProxy as BaseTestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
+export class TestBrowserProxy extends BaseTestBrowserProxy {
     callbackRouter;
     callbackRouterRemote;
     products_ = [];
@@ -90,20 +90,23 @@ export class TestShoppingServiceApiProxy extends TestBrowserProxy {
         this.methodCalled('showFeedback');
     }
     isShoppingListEligible() {
-        return this.methodCalled('isShoppingListEligible');
+        this.methodCalled('isShoppingListEligible');
+        return Promise.resolve({ eligible: false });
     }
     getShoppingCollectionBookmarkFolderId() {
         this.methodCalled('getShoppingCollectionBookmarkFolderId');
         return Promise.resolve({ collectionId: this.shoppingCollectionId_ });
     }
     getPriceTrackingStatusForCurrentUrl() {
-        return this.methodCalled('getPriceTrackingStatusForCurrentUrl');
+        this.methodCalled('getPriceTrackingStatusForCurrentUrl');
+        return Promise.resolve({ tracked: false });
     }
     setPriceTrackingStatusForCurrentUrl(track) {
         this.methodCalled('setPriceTrackingStatusForCurrentUrl', track);
     }
     getParentBookmarkFolderNameForCurrentUrl() {
-        return this.methodCalled('getParentBookmarkFolderNameForCurrentUrl');
+        this.methodCalled('getParentBookmarkFolderNameForCurrentUrl');
+        return Promise.resolve({ name: { data: [] } });
     }
     showBookmarkEditorForCurrentUrl() {
         this.methodCalled('showBookmarkEditorForCurrentUrl');

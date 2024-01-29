@@ -34,12 +34,21 @@
 
 
 namespace ash::media_app_ui::mojom {
+class PageMetadataDataView;
+
 
 
 }  // ash::media_app_ui::mojom
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::ash::media_app_ui::mojom::PageMetadataDataView> {
+  using Data = ::ash::media_app_ui::mojom::internal::PageMetadata_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -79,6 +88,42 @@ using OcrUntrustedPageAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<OcrUntrustedPageInterfaceBase>;
 
 
+class PageMetadataDataView {
+ public:
+  PageMetadataDataView() = default;
+
+  PageMetadataDataView(
+      internal::PageMetadata_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRectDataView(
+      ::gfx::mojom::RectFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRect(UserType* output) {
+    
+    auto* pointer = data_->rect.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectFDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageMetadata_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // ash::media_app_ui::mojom
 
 namespace std {
@@ -87,10 +132,75 @@ namespace std {
 
 namespace mojo {
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::media_app_ui::mojom::PageMetadataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::media_app_ui::mojom::PageMetadataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::media_app_ui::mojom::internal::PageMetadata_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::id(input)) in_id = Traits::id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->id)::BaseType> id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_id, id_fragment);
+    fragment->id.Set(
+        id_fragment.is_null() ? nullptr : id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null id in PageMetadata struct");
+    decltype(Traits::rect(input)) in_rect = Traits::rect(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->rect)::BaseType> rect_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
+        in_rect, rect_fragment);
+    fragment->rect.Set(
+        rect_fragment.is_null() ? nullptr : rect_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->rect.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null rect in PageMetadata struct");
+  }
+
+  static bool Deserialize(::ash::media_app_ui::mojom::internal::PageMetadata_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::media_app_ui::mojom::PageMetadataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace ash::media_app_ui::mojom {
+
+inline void PageMetadataDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PageMetadataDataView::GetRectDataView(
+    ::gfx::mojom::RectFDataView* output) {
+  auto pointer = data_->rect.Get();
+  *output = ::gfx::mojom::RectFDataView(pointer, message_);
+}
+
 
 
 }  // ash::media_app_ui::mojom

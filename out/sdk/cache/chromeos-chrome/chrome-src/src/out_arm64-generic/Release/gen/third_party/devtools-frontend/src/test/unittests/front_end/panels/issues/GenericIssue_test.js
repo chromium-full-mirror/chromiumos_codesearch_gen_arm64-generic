@@ -36,9 +36,9 @@ describeWithLocale('GenericIssue', async () => {
         const genericIssues = IssuesManager.GenericIssue.GenericIssue.fromInspectorIssue(mockModel, issue);
         assert.strictEqual(genericIssues.length, 1);
         const genericIssue = genericIssues[0];
-        assert.strictEqual(genericIssue.getCategory(), IssuesManager.Issue.IssueCategory.Generic);
+        assert.strictEqual(genericIssue.getCategory(), "Generic" /* IssuesManager.Issue.IssueCategory.Generic */);
         assert.strictEqual(genericIssue.primaryKey(), `GenericIssue::CrossOriginPortalPostMessageError-(${'main'})-(1)-(attribute)-(no-request)`);
-        assert.strictEqual(genericIssue.getKind(), IssuesManager.Issue.IssueKind.Improvement);
+        assert.strictEqual(genericIssue.getKind(), "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */);
         assert.isNotNull(genericIssue.getDescription());
     });
     it('adds a cross origin portal post message issue without details', () => {
@@ -55,9 +55,9 @@ describeWithLocale('GenericIssue', async () => {
         const genericIssues = IssuesManager.GenericIssue.GenericIssue.fromInspectorIssue(mockModel, issue);
         assert.strictEqual(genericIssues.length, 1);
         const genericIssue = genericIssues[0];
-        assert.strictEqual(genericIssue.getCategory(), IssuesManager.Issue.IssueCategory.Generic);
+        assert.strictEqual(genericIssue.getCategory(), "Generic" /* IssuesManager.Issue.IssueCategory.Generic */);
         assert.strictEqual(genericIssue.primaryKey(), 'GenericIssue::ResponseWasBlockedByORB-(undefined)-(undefined)-(undefined)-(blabla)');
-        assert.strictEqual(genericIssue.getKind(), IssuesManager.Issue.IssueKind.Improvement);
+        assert.strictEqual(genericIssue.getKind(), "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */);
         assert.isNotNull(genericIssue.getDescription());
     });
 });

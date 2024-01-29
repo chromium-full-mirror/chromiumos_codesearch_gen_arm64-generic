@@ -4,7 +4,7 @@ export function getTemplate() {
 <cr-link-row embedded no-hover label="$i18n{appManagementAppLanguageLabel}" sub-label="[[getSelectedLocale_(app)]]" on-click="onClick_">
 </cr-link-row>
 <template is="dom-if" if="[[showSelectLanguageDialog_]]" restamp>
-  <app-language-selection-dialog app="[[app]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_">
+  <app-language-selection-dialog app="[[app]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_" entry-point="[[getDialogEntryPoint_()]]">
   </app-language-selection-dialog>
 </template>
 <!--_html_template_end_-->`;

@@ -547,3 +547,60 @@ inline TorqueGeneratedObjectTemplateInfo<D, P>::TorqueGeneratedObjectTemplateInf
     : P(ptr) {
   SLOW_DCHECK(IsObjectTemplateInfo_NonInline(*this));
 }
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+template<class D, class P>
+Tagged<FixedArray> TorqueGeneratedDictionaryTemplateInfo<D, P>::property_names() const {
+  PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
+  return TorqueGeneratedDictionaryTemplateInfo::property_names(cage_base);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+template<class D, class P>
+Tagged<FixedArray> TorqueGeneratedDictionaryTemplateInfo<D, P>::property_names(PtrComprCageBase cage_base) const {
+  Tagged<FixedArray> value = TaggedField<Tagged<FixedArray>>::load(cage_base, *this, kPropertyNamesOffset);
+  DCHECK(IsFixedArray(value));
+  return value;
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+template<class D, class P>
+void TorqueGeneratedDictionaryTemplateInfo<D, P>::set_property_names(Tagged<FixedArray> value, WriteBarrierMode mode) {
+  SLOW_DCHECK(IsFixedArray(value));
+  WRITE_FIELD(*this, kPropertyNamesOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kPropertyNamesOffset, value, mode);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+template<class D, class P>
+MaybeObject TorqueGeneratedDictionaryTemplateInfo<D, P>::fully_populated_map() const {
+  PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
+  return TorqueGeneratedDictionaryTemplateInfo::fully_populated_map(cage_base);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+template<class D, class P>
+MaybeObject TorqueGeneratedDictionaryTemplateInfo<D, P>::fully_populated_map(PtrComprCageBase cage_base) const {
+  MaybeObject value = TaggedField<MaybeObject>::load(cage_base, *this, kFullyPopulatedMapOffset);
+  DCHECK(value.IsCleared() || (value.IsWeak() && IsMap(value.GetHeapObjectOrSmi())));
+  return value;
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+template<class D, class P>
+void TorqueGeneratedDictionaryTemplateInfo<D, P>::set_fully_populated_map(MaybeObject value, WriteBarrierMode mode) {
+  SLOW_DCHECK(value.IsCleared() || (value.IsWeak() && IsMap(value.GetHeapObjectOrSmi())));
+  RELAXED_WRITE_WEAK_FIELD(*this, kFullyPopulatedMapOffset, value);
+  CONDITIONAL_WEAK_WRITE_BARRIER(*this, kFullyPopulatedMapOffset, value, mode);
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+template<class D, class P>
+Tagged<D> TorqueGeneratedDictionaryTemplateInfo<D, P>::cast(Tagged<Object> object) {
+    return Tagged<D>(D(object.ptr()));
+}
+
+template<class D, class P>
+inline TorqueGeneratedDictionaryTemplateInfo<D, P>::TorqueGeneratedDictionaryTemplateInfo(Address ptr)
+    : P(ptr) {
+  SLOW_DCHECK(IsDictionaryTemplateInfo_NonInline(*this));
+}

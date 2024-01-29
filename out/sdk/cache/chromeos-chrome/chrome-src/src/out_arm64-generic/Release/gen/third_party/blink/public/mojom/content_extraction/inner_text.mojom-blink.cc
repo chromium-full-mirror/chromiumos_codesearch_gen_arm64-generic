@@ -359,6 +359,8 @@ bool InnerTextAgent_GetInnerText_ForwardToCallback::Accept(
           internal::InnerTextAgent_GetInnerText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InnerTextAgent.0
   bool success = true;
   InnerTextFramePtr p_frame{};
   InnerTextAgent_GetInnerText_ResponseParamsDataView input_data_view(params, message);
@@ -459,6 +461,8 @@ bool InnerTextAgentStubDispatch::AcceptWithResponder(
               internal::InnerTextAgent_GetInnerText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InnerTextAgent.0
       bool success = true;
       InnerTextParamsPtr p_params{};
       InnerTextAgent_GetInnerText_ParamsDataView input_data_view(params, message);
@@ -477,8 +481,8 @@ bool InnerTextAgentStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetInnerText(
-std::move(p_params), std::move(callback));
+      impl->GetInnerText(        
+        std::move(p_params), std::move(callback));
       return true;
     }
   }

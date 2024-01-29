@@ -33,7 +33,8 @@ namespace blink {
 
 bool V8PaymentManager::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::PaymentAppEnabled();
+const bool is_in_secure_context = execution_context->IsSecureContext();
+return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::PaymentAppEnabled();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -82,7 +83,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaymentMa
 BLINK_BINDINGS_TRACE_EVENT("PaymentManager.instruments.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPaymentInstruments);
 
@@ -160,8 +162,7 @@ return;
 
 
 PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_delegations = NativeValueTraits<IDLSequence<V8PaymentDelegation>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

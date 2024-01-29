@@ -228,6 +228,8 @@ bool AccessibilityFileLoader_Load_ForwardToCallback::Accept(
           internal::AccessibilityFileLoader_Load_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityFileLoader.0
   bool success = true;
   ::base::File p_file{};
   AccessibilityFileLoader_Load_ResponseParamsDataView input_data_view(params, message);
@@ -324,6 +326,8 @@ bool AccessibilityFileLoaderStubDispatch::AcceptWithResponder(
               internal::AccessibilityFileLoader_Load_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityFileLoader.0
       bool success = true;
       ::base::FilePath p_path{};
       AccessibilityFileLoader_Load_ParamsDataView input_data_view(params, message);
@@ -342,8 +346,8 @@ bool AccessibilityFileLoaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Load(
-std::move(p_path), std::move(callback));
+      impl->Load(        
+        std::move(p_path), std::move(callback));
       return true;
     }
   }

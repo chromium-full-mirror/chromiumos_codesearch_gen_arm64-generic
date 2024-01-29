@@ -1,30 +1,30 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1 -I/build/arm64-generic/usr/include -Igen
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -pthread -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -DPROTOBUF_USE_DLLS
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libmodemloggerd
 
 build obj/modemloggerd/libmodemloggerd.inputdeps.stamp: stamp obj/modemloggerd/modemloggerd-protos_gen.stamp obj/modemloggerd/modemloggerd_adaptors.stamp
-build obj/modemloggerd/libmodemloggerd.adaptor_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/adaptor_factory.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.adaptor_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/adaptor_factory.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = adaptor_factory.cc
   source_name_part = adaptor_factory
-build obj/modemloggerd/libmodemloggerd.daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/daemon.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/daemon.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = daemon.cc
   source_name_part = daemon
-build obj/modemloggerd/libmodemloggerd.logging_prefs.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/logging_prefs.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.logging_prefs.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/logging_prefs.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = logging_prefs.cc
   source_name_part = logging_prefs
-build obj/modemloggerd/libmodemloggerd.manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/manager.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/manager.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = manager.cc
   source_name_part = manager
-build obj/modemloggerd/libmodemloggerd.manager_dbus_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/manager_dbus_adaptor.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.manager_dbus_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/manager_dbus_adaptor.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = manager_dbus_adaptor.cc
   source_name_part = manager_dbus_adaptor
-build obj/modemloggerd/libmodemloggerd.modem.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/modem.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.modem.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/modem.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = modem.cc
   source_name_part = modem
-build obj/modemloggerd/libmodemloggerd.modem_dbus_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r13/work/modemloggerd-dev-0.0.1/modemloggerd/modem_dbus_adaptor.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
+build obj/modemloggerd/libmodemloggerd.modem_dbus_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/modemloggerd-dev-0.0.1-r21/work/modemloggerd-dev-0.0.1/modemloggerd/modem_dbus_adaptor.cc || obj/modemloggerd/libmodemloggerd.inputdeps.stamp
   source_file_part = modem_dbus_adaptor.cc
   source_name_part = modem_dbus_adaptor
 

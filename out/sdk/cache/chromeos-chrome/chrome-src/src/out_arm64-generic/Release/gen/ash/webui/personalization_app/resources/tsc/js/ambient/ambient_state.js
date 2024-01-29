@@ -12,5 +12,6 @@ export function emptyState() {
         topicSource: null,
         ambientUiVisibility: null,
         shouldShowTimeOfDayBanner: false,
+        geolocationPermissionEnabled: null,
     };
 }

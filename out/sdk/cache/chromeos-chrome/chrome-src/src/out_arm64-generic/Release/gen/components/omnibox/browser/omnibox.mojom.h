@@ -200,7 +200,7 @@ class Page
   virtual void AutocompleteResultChanged(AutocompleteResultPtr result) = 0;
 
   
-  virtual void UpdateSelection(OmniboxPopupSelectionPtr selection) = 0;
+  virtual void UpdateSelection(OmniboxPopupSelectionPtr old_selection, OmniboxPopupSelectionPtr selection) = 0;
 };
 
 
@@ -247,7 +247,7 @@ class  PageProxy
   
   void AutocompleteResultChanged(AutocompleteResultPtr result) final;
   
-  void UpdateSelection(OmniboxPopupSelectionPtr selection) final;
+  void UpdateSelection(OmniboxPopupSelectionPtr old_selection, OmniboxPopupSelectionPtr selection) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

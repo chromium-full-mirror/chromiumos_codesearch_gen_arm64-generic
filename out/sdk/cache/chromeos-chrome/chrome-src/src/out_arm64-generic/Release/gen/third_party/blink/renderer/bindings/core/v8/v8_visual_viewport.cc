@@ -11,6 +11,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_visual_viewport.h"
 
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "third_party/blink/renderer/bindings/core/v8/frozen_array.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
@@ -87,7 +88,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.offsetLeft.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.offsetLeft.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_OffsetLeft_AttributeGetter);
 
@@ -110,7 +112,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.offsetTop.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.offsetTop.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_OffsetTop_AttributeGetter);
 
@@ -133,7 +136,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.pageLeft.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.pageLeft.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_PageLeft_AttributeGetter);
 
@@ -156,7 +160,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.pageTop.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.pageTop.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_PageTop_AttributeGetter);
 
@@ -179,7 +184,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.width.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.width.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Width_AttributeGetter);
 
@@ -202,7 +208,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.height.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.height.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Height_AttributeGetter);
 
@@ -225,7 +232,8 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.scale.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("VisualViewport.scale.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8VisualViewport_Scale_AttributeGetter);
 
@@ -247,17 +255,13 @@ BLINK_BINDINGS_TRACE_EVENT("VisualViewport.segments.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 DOMVisualViewport* blink_receiver = V8VisualViewport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->segments();
-if (!ToV8Traits<IDLNullable<IDLArray<DOMRect>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<IDLArray<DOMRect>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

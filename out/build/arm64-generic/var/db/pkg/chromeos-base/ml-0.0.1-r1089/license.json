@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "ml", "version": "0.0.1", "revision": 1089, "fullname": "chromeos-base/ml", "fullnamerev": "chromeos-base/ml-0.0.1-r1089", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/platform2/+/main/ml"], "skip": false, "tainted": false, "ebuild_path": null}

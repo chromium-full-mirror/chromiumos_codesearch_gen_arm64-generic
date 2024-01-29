@@ -570,7 +570,8 @@ PROTOBUF_CONSTEXPR ClientDownloadRequest_ArchiveSummary::ClientDownloadRequest_A
   : parser_status_(0)
 
   , file_count_(0)
-  , directory_count_(0){}
+  , directory_count_(0)
+  , is_encrypted_(false){}
 struct ClientDownloadRequest_ArchiveSummaryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ClientDownloadRequest_ArchiveSummaryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3990,18 +3991,20 @@ bool ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_IsValid(int v
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_strings[6] = {};
 
 static const char ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names[] =
   "BUBBLE_MAINPAGE"
   "BUBBLE_SUBPAGE"
   "DOWNLOADS_PAGE"
+  "DOWNLOAD_NOTIFICATION"
   "DOWNLOAD_PROMPT"
   "SURFACE_UNSPECIFIED";
 
@@ -4009,16 +4012,18 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingRepo
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 0, 15}, 1 },
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 15, 14}, 2 },
   { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 29, 14}, 3 },
-  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 43, 15}, 4 },
-  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 58, 19}, 0 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 43, 21}, 5 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 64, 15}, 4 },
+  { {ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_names + 79, 19}, 0 },
 };
 
 static const int ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries_by_number[] = {
-  4, // 0 -> SURFACE_UNSPECIFIED
+  5, // 0 -> SURFACE_UNSPECIFIED
   0, // 1 -> BUBBLE_MAINPAGE
   1, // 2 -> BUBBLE_SUBPAGE
   2, // 3 -> DOWNLOADS_PAGE
-  3, // 4 -> DOWNLOAD_PROMPT
+  4, // 4 -> DOWNLOAD_PROMPT
+  3, // 5 -> DOWNLOAD_NOTIFICATION
 };
 
 const std::string& ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Name(
@@ -4027,12 +4032,12 @@ const std::string& ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries,
           ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries_by_number,
-          5, ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_strings);
+          6, ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries,
       ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_strings[idx].get();
 }
@@ -4040,7 +4045,7 @@ bool ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries, 5, name, &int_value);
+      ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface>(int_value);
   }
@@ -4052,6 +4057,7 @@ constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSa
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction::BUBBLE_SUBPAGE;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction::DOWNLOADS_PAGE;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction::DOWNLOAD_PROMPT;
+constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction::DOWNLOAD_NOTIFICATION;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction::Surface_MIN;
 constexpr ClientSafeBrowsingReportRequest_DownloadWarningAction_Surface ClientSafeBrowsingReportRequest_DownloadWarningAction::Surface_MAX;
 constexpr int ClientSafeBrowsingReportRequest_DownloadWarningAction::Surface_ARRAYSIZE;
@@ -4781,13 +4787,14 @@ bool ClientSafeBrowsingReportRequest_UrlRequestDestination_IsValid(int value) {
     case 24:
     case 25:
     case 26:
+    case 27:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_UrlRequestDestination_strings[27] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_UrlRequestDestination_strings[28] = {};
 
 static const char ClientSafeBrowsingReportRequest_UrlRequestDestination_names[] =
   "AUDIO"
@@ -4801,6 +4808,7 @@ static const char ClientSafeBrowsingReportRequest_UrlRequestDestination_names[] 
   "FRAME"
   "IFRAME"
   "IMAGE"
+  "JSON"
   "MANIFEST"
   "OBJECT"
   "PAINT_WORKLET"
@@ -4830,26 +4838,27 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingRepo
   { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 62, 5}, 7 },
   { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 67, 6}, 8 },
   { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 73, 5}, 9 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 78, 8}, 10 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 86, 6}, 11 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 92, 13}, 12 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 105, 6}, 13 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 111, 31}, 0 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 142, 6}, 14 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 148, 14}, 15 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 162, 13}, 16 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 175, 17}, 26 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 192, 5}, 17 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 197, 5}, 18 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 202, 5}, 19 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 207, 10}, 20 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 217, 12}, 24 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 229, 6}, 21 },
-  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 235, 4}, 22 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 78, 4}, 27 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 82, 8}, 10 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 90, 6}, 11 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 96, 13}, 12 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 109, 6}, 13 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 115, 31}, 0 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 146, 6}, 14 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 152, 14}, 15 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 166, 13}, 16 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 179, 17}, 26 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 196, 5}, 17 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 201, 5}, 18 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 206, 5}, 19 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 211, 10}, 20 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 221, 12}, 24 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 233, 6}, 21 },
+  { {ClientSafeBrowsingReportRequest_UrlRequestDestination_names + 239, 4}, 22 },
 };
 
 static const int ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_by_number[] = {
-  15, // 0 -> REQUEST_DESTINATION_UNSPECIFIED
+  16, // 0 -> REQUEST_DESTINATION_UNSPECIFIED
   5, // 1 -> EMPTY
   0, // 2 -> AUDIO
   1, // 3 -> AUDIO_WORKLET
@@ -4859,23 +4868,24 @@ static const int ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_b
   8, // 7 -> FRAME
   9, // 8 -> IFRAME
   10, // 9 -> IMAGE
-  11, // 10 -> MANIFEST
-  12, // 11 -> OBJECT
-  13, // 12 -> PAINT_WORKLET
-  14, // 13 -> REPORT
-  16, // 14 -> SCRIPT
-  17, // 15 -> SERVICE_WORKER
-  18, // 16 -> SHARED_WORKER
-  20, // 17 -> STYLE
-  21, // 18 -> TRACK
-  22, // 19 -> VIDEO
-  23, // 20 -> WEB_BUNDLE
-  25, // 21 -> WORKER
-  26, // 22 -> XSLT
+  12, // 10 -> MANIFEST
+  13, // 11 -> OBJECT
+  14, // 12 -> PAINT_WORKLET
+  15, // 13 -> REPORT
+  17, // 14 -> SCRIPT
+  18, // 15 -> SERVICE_WORKER
+  19, // 16 -> SHARED_WORKER
+  21, // 17 -> STYLE
+  22, // 18 -> TRACK
+  23, // 19 -> VIDEO
+  24, // 20 -> WEB_BUNDLE
+  26, // 21 -> WORKER
+  27, // 22 -> XSLT
   6, // 23 -> FENCED_FRAME
-  24, // 24 -> WEB_IDENTITY
+  25, // 24 -> WEB_IDENTITY
   2, // 25 -> DICTIONARY
-  19, // 26 -> SPECULATION_RULES
+  20, // 26 -> SPECULATION_RULES
+  11, // 27 -> JSON
 };
 
 const std::string& ClientSafeBrowsingReportRequest_UrlRequestDestination_Name(
@@ -4884,12 +4894,12 @@ const std::string& ClientSafeBrowsingReportRequest_UrlRequestDestination_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientSafeBrowsingReportRequest_UrlRequestDestination_entries,
           ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_by_number,
-          27, ClientSafeBrowsingReportRequest_UrlRequestDestination_strings);
+          28, ClientSafeBrowsingReportRequest_UrlRequestDestination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientSafeBrowsingReportRequest_UrlRequestDestination_entries,
       ClientSafeBrowsingReportRequest_UrlRequestDestination_entries_by_number,
-      27, value);
+      28, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientSafeBrowsingReportRequest_UrlRequestDestination_strings[idx].get();
 }
@@ -4897,7 +4907,7 @@ bool ClientSafeBrowsingReportRequest_UrlRequestDestination_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_UrlRequestDestination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientSafeBrowsingReportRequest_UrlRequestDestination_entries, 27, name, &int_value);
+      ClientSafeBrowsingReportRequest_UrlRequestDestination_entries, 28, name, &int_value);
   if (success) {
     *value = static_cast<ClientSafeBrowsingReportRequest_UrlRequestDestination>(int_value);
   }
@@ -4931,6 +4941,7 @@ constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsi
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::WEB_IDENTITY;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::DICTIONARY;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::SPECULATION_RULES;
+constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::JSON;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::UrlRequestDestination_MIN;
 constexpr ClientSafeBrowsingReportRequest_UrlRequestDestination ClientSafeBrowsingReportRequest::UrlRequestDestination_MAX;
 constexpr int ClientSafeBrowsingReportRequest::UrlRequestDestination_ARRAYSIZE;
@@ -16721,6 +16732,9 @@ class ClientDownloadRequest_ArchiveSummary::_Internal {
   static void set_has_directory_count(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_is_encrypted(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 ClientDownloadRequest_ArchiveSummary::ClientDownloadRequest_ArchiveSummary(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -16734,16 +16748,16 @@ ClientDownloadRequest_ArchiveSummary::ClientDownloadRequest_ArchiveSummary(const
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&parser_status_, &from.parser_status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&directory_count_) -
-    reinterpret_cast<char*>(&parser_status_)) + sizeof(directory_count_));
+    static_cast<size_t>(reinterpret_cast<char*>(&is_encrypted_) -
+    reinterpret_cast<char*>(&parser_status_)) + sizeof(is_encrypted_));
   // @@protoc_insertion_point(copy_constructor:safe_browsing.ClientDownloadRequest.ArchiveSummary)
 }
 
 inline void ClientDownloadRequest_ArchiveSummary::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&parser_status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&directory_count_) -
-    reinterpret_cast<char*>(&parser_status_)) + sizeof(directory_count_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_encrypted_) -
+    reinterpret_cast<char*>(&parser_status_)) + sizeof(is_encrypted_));
 }
 
 ClientDownloadRequest_ArchiveSummary::~ClientDownloadRequest_ArchiveSummary() {
@@ -16770,10 +16784,10 @@ void ClientDownloadRequest_ArchiveSummary::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     ::memset(&parser_status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&directory_count_) -
-        reinterpret_cast<char*>(&parser_status_)) + sizeof(directory_count_));
+        reinterpret_cast<char*>(&is_encrypted_) -
+        reinterpret_cast<char*>(&parser_status_)) + sizeof(is_encrypted_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -16813,6 +16827,15 @@ const char* ClientDownloadRequest_ArchiveSummary::_InternalParse(const char* ptr
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_directory_count(&has_bits);
           directory_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool is_encrypted = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_is_encrypted(&has_bits);
+          is_encrypted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -16867,6 +16890,12 @@ uint8_t* ClientDownloadRequest_ArchiveSummary::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_directory_count(), target);
   }
 
+  // optional bool is_encrypted = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_is_encrypted(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -16884,7 +16913,7 @@ size_t ClientDownloadRequest_ArchiveSummary::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional .safe_browsing.ClientDownloadRequest.ArchiveSummary.Status parser_status = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -16899,6 +16928,11 @@ size_t ClientDownloadRequest_ArchiveSummary::ByteSizeLong() const {
     // optional int32 directory_count = 3;
     if (cached_has_bits & 0x00000004u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_directory_count());
+    }
+
+    // optional bool is_encrypted = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -16923,7 +16957,7 @@ void ClientDownloadRequest_ArchiveSummary::MergeFrom(const ClientDownloadRequest
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       parser_status_ = from.parser_status_;
     }
@@ -16932,6 +16966,9 @@ void ClientDownloadRequest_ArchiveSummary::MergeFrom(const ClientDownloadRequest
     }
     if (cached_has_bits & 0x00000004u) {
       directory_count_ = from.directory_count_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      is_encrypted_ = from.is_encrypted_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -16954,8 +16991,8 @@ void ClientDownloadRequest_ArchiveSummary::InternalSwap(ClientDownloadRequest_Ar
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ClientDownloadRequest_ArchiveSummary, directory_count_)
-      + sizeof(ClientDownloadRequest_ArchiveSummary::directory_count_)
+      PROTOBUF_FIELD_OFFSET(ClientDownloadRequest_ArchiveSummary, is_encrypted_)
+      + sizeof(ClientDownloadRequest_ArchiveSummary::is_encrypted_)
       - PROTOBUF_FIELD_OFFSET(ClientDownloadRequest_ArchiveSummary, parser_status_)>(
           reinterpret_cast<char*>(&parser_status_),
           reinterpret_cast<char*>(&other->parser_status_));
@@ -34236,7 +34273,7 @@ const char* ClientSafeBrowsingReportRequest::_InternalParse(const char* ptr, ::_
         } else
           goto handle_unusual;
         continue;
-      // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28;
+      // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28 [deprecated = true];
       case 28:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
           ptr = ctx->ParseMessage(_internal_mutable_hash_real_time_experiment_details(), ptr);
@@ -34464,7 +34501,7 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
         InternalWriteMessage(27, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28;
+  // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28 [deprecated = true];
   if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(28, _Internal::hash_real_time_experiment_details(this),
@@ -34640,7 +34677,7 @@ size_t ClientSafeBrowsingReportRequest::ByteSizeLong() const {
           *population_);
     }
 
-    // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28;
+    // optional .safe_browsing.ClientSafeBrowsingReportRequest.HashRealTimeExperimentDetails hash_real_time_experiment_details = 28 [deprecated = true];
     if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(

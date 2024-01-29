@@ -397,7 +397,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_WorkerGlo
 BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.caches.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGlobalCacheStorage);
 
@@ -522,7 +523,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_WorkerGlo
 BLINK_BINDINGS_TRACE_EVENT("WorkerGlobalScope.fonts.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kDocumentFonts);
 
@@ -683,8 +685,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image_bitmap = NativeValueTraits<V8UnionBlobOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -731,8 +732,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_image_bitmap = NativeValueTraits<V8UnionBlobOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -832,8 +832,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_input = NativeValueTraits<V8UnionRequestOrUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -944,8 +943,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_e = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -973,8 +971,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handler = NativeValueTraits<V8Function>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -1014,8 +1011,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
@@ -1047,8 +1043,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 const int arg_count = std::min(info.Length(), 3);
 do {  // Dummy loop for use of 'break'.
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) {
   if (arg_count == 3) {
@@ -1122,8 +1118,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handler = NativeValueTraits<V8Function>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -1163,8 +1158,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
@@ -1196,8 +1190,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 const int arg_count = std::min(info.Length(), 3);
 do {  // Dummy loop for use of 'break'.
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) {
   if (arg_count == 3) {
@@ -1275,8 +1269,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 WorkerGlobalScope* blink_receiver = V8WorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_value = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -1395,7 +1388,7 @@ void V8WorkerGlobalScope::Impl::InstallContextDependentProperties(v8::Local<v8::
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 const bool is_in_secure_context = execution_context->IsSecureContext();
 if (is_in_secure_context && feature_selector.IsAll()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {

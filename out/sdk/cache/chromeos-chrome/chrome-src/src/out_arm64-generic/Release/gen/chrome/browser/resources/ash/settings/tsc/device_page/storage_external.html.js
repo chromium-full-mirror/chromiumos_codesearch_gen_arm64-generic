@@ -1,7 +1,8 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}</style>
-<div class="settings-box first">
+    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}#androidAppsExternalDrivesNoteContainer{padding-top:10px;padding-bottom:10px}</style>
+
+<div id="androidAppsExternalDrivesNoteContainer" class="settings-box first">
   <localized-link localized-string="[[i18nAdvanced('storageAndroidAppsExternalDrivesNote')]]">
   </localized-link>
 </div>

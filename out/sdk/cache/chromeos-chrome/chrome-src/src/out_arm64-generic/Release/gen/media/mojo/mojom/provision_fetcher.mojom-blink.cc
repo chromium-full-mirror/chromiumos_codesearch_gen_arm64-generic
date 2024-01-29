@@ -243,6 +243,8 @@ bool ProvisionFetcher_Retrieve_ForwardToCallback::Accept(
           internal::ProvisionFetcher_Retrieve_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProvisionFetcher.0
   bool success = true;
   bool p_result{};
   WTF::String p_response{};
@@ -351,6 +353,8 @@ bool ProvisionFetcherStubDispatch::AcceptWithResponder(
               internal::ProvisionFetcher_Retrieve_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProvisionFetcher.0
       bool success = true;
       ::blink::KURL p_default_url{};
       WTF::String p_request_data{};
@@ -372,9 +376,9 @@ bool ProvisionFetcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Retrieve(
-std::move(p_default_url), 
-std::move(p_request_data), std::move(callback));
+      impl->Retrieve(        
+        std::move(p_default_url), 
+        std::move(p_request_data), std::move(callback));
       return true;
     }
   }

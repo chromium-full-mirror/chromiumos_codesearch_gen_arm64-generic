@@ -1,13 +1,13 @@
 {
   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDltVl1k15pjRzuZfMc3B69inxwm2bZeZ2O8/zFO+NluHnBm3GJ3fzdOoFGJd+M16I8p7zxxQyHeDMfWYASyCeB8XnUEDKjqNLQfCnncsANzHsYoEbYj2nEUML2P13b9q+AAvpCBpAJ4cZp81e9n1y/vbSXHE4385cgkKueItzikQIDAQAB",
   "manifest_version": 2,
-  "name": "__MSG_CHROMEVOX_NAME__",
-  "version": "122.0.6226.0",
-  "description": "__MSG_CHROMEVOX_DESCRIPTION__",
-  "incognito": "split",
   "background": {
     "page": "chromevox/background/background.html"
   },
+  "name": "__MSG_CHROMEVOX_NAME__",
+  "version": "123.0.6268.0",
+  "description": "__MSG_CHROMEVOX_DESCRIPTION__",
+  "incognito": "split",
   "bluetooth": {},
   "permissions": [
     "accessibilityPrivate",

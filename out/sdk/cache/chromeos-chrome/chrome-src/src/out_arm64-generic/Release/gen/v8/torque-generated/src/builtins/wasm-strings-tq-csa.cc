@@ -82,7 +82,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=8&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=9&c=1
 void Trap_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, MessageTemplate p_error) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -230,7 +230,7 @@ TF_BUILTIN(WebAssemblyStringFromWtf16Array, CodeStubAssembler) {
   }
 }
 
-TF_BUILTIN(WebAssemblyStringFromWtf8Array, CodeStubAssembler) {
+TF_BUILTIN(WebAssemblyStringFromUtf8Array, CodeStubAssembler) {
   compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
   TNode<Word32T> argc = UncheckedParameter<Word32T>(Descriptor::kJSActualArgumentsCount);
   TNode<IntPtrT> arguments_length(ChangeInt32ToIntPtr(UncheckedCast<Int32T>(argc)));
@@ -270,9 +270,72 @@ TF_BUILTIN(WebAssemblyStringFromWtf8Array, CodeStubAssembler) {
     tmp9 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp8});
     tmp10 = ToInteger_Inline_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
     tmp11 = CodeStubAssembler(state_).ChangeNumberToUint32(TNode<Number>{tmp10});
-    tmp12 = CodeStubAssembler(state_).SmiConstant(unibrow::Utf8Variant::kWtf8);
+    tmp12 = CodeStubAssembler(state_).SmiConstant(unibrow::Utf8Variant::kLossyUtf8);
     tmp13 = ca_.CallBuiltin<PrimitiveHeapObject>(Builtin::kWasmStringNewWtf8Array, TNode<Object>(), tmp7, tmp11, tmp3, tmp12);
     arguments.PopAndReturn(tmp13);
+  }
+}
+
+TF_BUILTIN(WebAssemblyStringIntoUtf8Array, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<Word32T> argc = UncheckedParameter<Word32T>(Descriptor::kJSActualArgumentsCount);
+  TNode<IntPtrT> arguments_length(ChangeInt32ToIntPtr(UncheckedCast<Int32T>(argc)));
+  TNode<RawPtrT> arguments_frame = UncheckedCast<RawPtrT>(LoadFramePointer());
+  TorqueStructArguments torque_arguments(GetFrameArguments(arguments_frame, arguments_length, FrameArgumentsArgcType::kCountIncludesReceiver));
+  CodeStubArguments arguments(this, torque_arguments);
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<Object> tmp1;
+  TNode<String> tmp2;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp1 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp0});
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = Cast_String_1(state_, TNode<Context>{parameter0}, TNode<Object>{tmp1}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    Trap_0(state_, TNode<Context>{parameter0}, MessageTemplate::kWasmTrapIllegalCast);
+  }
+
+  TNode<IntPtrT> tmp4;
+  TNode<Object> tmp5;
+  TNode<Smi> tmp6;
+  TNode<WasmArray> tmp7;
+  TNode<IntPtrT> tmp8;
+  TNode<Object> tmp9;
+  TNode<Number> tmp10;
+  TNode<Uint32T> tmp11;
+  TNode<Smi> tmp12;
+  TNode<Number> tmp13;
+  TNode<Number> tmp14;
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    tmp4 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x1ull));
+    tmp5 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp4});
+    tmp6 = SmiConstant_0(state_, IntegerLiteral(false, 0x8ull));
+    tmp7 = TORQUE_CAST(CodeStubAssembler(state_).CallRuntime(Runtime::kWasmCastToSpecialPrimitiveArray, parameter0, tmp5, tmp6)); 
+    tmp8 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x2ull));
+    tmp9 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp8});
+    tmp10 = ToInteger_Inline_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
+    tmp11 = CodeStubAssembler(state_).ChangeNumberToUint32(TNode<Number>{tmp10});
+    tmp12 = CodeStubAssembler(state_).SmiConstant(unibrow::Utf8Variant::kLossyUtf8);
+    tmp13 = CodeStubAssembler(state_).ChangeUint32ToTagged(TNode<Uint32T>{tmp11});
+    tmp14 = TORQUE_CAST(CodeStubAssembler(state_).CallRuntime(Runtime::kWasmStringEncodeWtf8Array, parameter0, tmp12, tmp2, tmp7, tmp13)); 
+    arguments.PopAndReturn(tmp14);
   }
 }
 
@@ -612,6 +675,49 @@ TF_BUILTIN(WebAssemblyStringLength, CodeStubAssembler) {
   if (block5.is_used()) {
     ca_.Bind(&block5);
     tmp4 = CodeStubAssembler(state_).LoadStringLengthAsSmi(TNode<String>{tmp2});
+    arguments.PopAndReturn(tmp4);
+  }
+}
+
+TF_BUILTIN(WebAssemblyStringMeasureUtf8, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<Word32T> argc = UncheckedParameter<Word32T>(Descriptor::kJSActualArgumentsCount);
+  TNode<IntPtrT> arguments_length(ChangeInt32ToIntPtr(UncheckedCast<Int32T>(argc)));
+  TNode<RawPtrT> arguments_frame = UncheckedCast<RawPtrT>(LoadFramePointer());
+  TorqueStructArguments torque_arguments(GetFrameArguments(arguments_frame, arguments_length, FrameArgumentsArgcType::kCountIncludesReceiver));
+  CodeStubArguments arguments(this, torque_arguments);
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<Object> tmp1;
+  TNode<String> tmp2;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp1 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp0});
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = Cast_String_1(state_, TNode<Context>{parameter0}, TNode<Object>{tmp1}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    Trap_0(state_, TNode<Context>{parameter0}, MessageTemplate::kWasmTrapIllegalCast);
+  }
+
+  TNode<Number> tmp4;
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    tmp4 = TORQUE_CAST(CodeStubAssembler(state_).CallRuntime(Runtime::kWasmStringMeasureWtf8, parameter0, tmp2)); 
     arguments.PopAndReturn(tmp4);
   }
 }
@@ -1031,7 +1137,7 @@ TF_BUILTIN(WebAssemblyStringCompare, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=23&c=10
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=24&c=10
 TNode<BoolT> Is_String_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1078,7 +1184,7 @@ TNode<BoolT> Is_String_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Conte
   return TNode<BoolT>{phi_bb1_2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=102&c=12
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=120&c=12
 TNode<Smi> SmiTag_char16_0(compiler::CodeAssemblerState* state_, TNode<Uint16T> p_value) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

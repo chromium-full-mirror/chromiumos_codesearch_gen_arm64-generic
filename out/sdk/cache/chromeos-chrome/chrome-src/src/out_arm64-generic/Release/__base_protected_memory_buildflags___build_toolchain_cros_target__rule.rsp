@@ -1,0 +1,1 @@
+--flags PROTECTED_MEMORY_ENABLED=false

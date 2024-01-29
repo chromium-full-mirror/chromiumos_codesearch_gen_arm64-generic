@@ -293,6 +293,8 @@ bool ShapeDetectionServiceStubDispatch::Accept(
           reinterpret_cast<internal::ShapeDetectionService_BindBarcodeDetectionProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShapeDetectionService.0
       bool success = true;
       ::mojo::PendingReceiver<::shape_detection::mojom::BarcodeDetectionProvider> p_receiver{};
       ShapeDetectionService_BindBarcodeDetectionProvider_ParamsDataView input_data_view(params, message);
@@ -310,8 +312,8 @@ bool ShapeDetectionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBarcodeDetectionProvider(
-std::move(p_receiver));
+      impl->BindBarcodeDetectionProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kShapeDetectionService_BindFaceDetectionProvider_Name: {
@@ -321,6 +323,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ShapeDetectionService_BindFaceDetectionProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShapeDetectionService.1
       bool success = true;
       ::mojo::PendingReceiver<::shape_detection::mojom::FaceDetectionProvider> p_receiver{};
       ShapeDetectionService_BindFaceDetectionProvider_ParamsDataView input_data_view(params, message);
@@ -338,8 +342,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFaceDetectionProvider(
-std::move(p_receiver));
+      impl->BindFaceDetectionProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kShapeDetectionService_BindTextDetection_Name: {
@@ -349,6 +353,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ShapeDetectionService_BindTextDetection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShapeDetectionService.2
       bool success = true;
       ::mojo::PendingReceiver<::shape_detection::mojom::TextDetection> p_receiver{};
       ShapeDetectionService_BindTextDetection_ParamsDataView input_data_view(params, message);
@@ -366,8 +372,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTextDetection(
-std::move(p_receiver));
+      impl->BindTextDetection(        
+        std::move(p_receiver));
       return true;
     }
   }

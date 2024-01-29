@@ -43,7 +43,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClientInterceptorForTesting
   void SharedStorageEntries(::mojo::PendingRemote<SharedStorageEntriesListener> listener) override;
   void SharedStorageLength(SharedStorageLengthCallback callback) override;
   void SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) override;
-  void ConsoleLog(const std::string& message) override;
+  void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const std::string& message) override;
   void RecordUseCounters(const std::vector<::blink::mojom::WebFeature>& features) override;
 };
 class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClientAsyncWaiter {

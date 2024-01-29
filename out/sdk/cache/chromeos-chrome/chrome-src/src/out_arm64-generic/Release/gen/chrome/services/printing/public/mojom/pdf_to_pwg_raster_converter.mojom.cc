@@ -393,6 +393,8 @@ bool PdfToPwgRasterConverter_Convert_ForwardToCallback::Accept(
           internal::PdfToPwgRasterConverter_Convert_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PdfToPwgRasterConverter.0
   bool success = true;
   ::base::ReadOnlySharedMemoryRegion p_pwg_raster_region{};
   uint32_t p_page_count{};
@@ -484,6 +486,8 @@ bool PdfToPwgRasterConverterStubDispatch::Accept(
           reinterpret_cast<internal::PdfToPwgRasterConverter_SetUseSkiaRendererPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfToPwgRasterConverter.1
       bool success = true;
       bool p_use_skia{};
       PdfToPwgRasterConverter_SetUseSkiaRendererPolicy_ParamsDataView input_data_view(params, message);
@@ -499,8 +503,8 @@ bool PdfToPwgRasterConverterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUseSkiaRendererPolicy(
-std::move(p_use_skia));
+      impl->SetUseSkiaRendererPolicy(        
+        std::move(p_use_skia));
       return true;
     }
   }
@@ -523,6 +527,8 @@ bool PdfToPwgRasterConverterStubDispatch::AcceptWithResponder(
               internal::PdfToPwgRasterConverter_Convert_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PdfToPwgRasterConverter.0
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
       ::printing::PdfRenderSettings p_pdf_settings{};
@@ -547,10 +553,10 @@ bool PdfToPwgRasterConverterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Convert(
-std::move(p_pdf_region), 
-std::move(p_pdf_settings), 
-std::move(p_pwg_raster_settings), std::move(callback));
+      impl->Convert(        
+        std::move(p_pdf_region), 
+        std::move(p_pdf_settings), 
+        std::move(p_pwg_raster_settings), std::move(callback));
       return true;
     }
     case internal::kPdfToPwgRasterConverter_SetUseSkiaRendererPolicy_Name: {

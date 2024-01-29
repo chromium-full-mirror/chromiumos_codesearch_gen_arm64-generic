@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/adapter.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/adapter.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/adapter.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/adapter.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/adapter.mojom-shared.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/device.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/device.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/device.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/device.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/device/bluetooth/public/mojom/device.mojom-shared.h

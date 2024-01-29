@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom-shared-internal.h"
+#include "components/viz/service/debugger/mojom/viz_debugger.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/values.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-shared-internal.h"
 #include "services/viz/public/mojom/compositing/compositing_mode_watcher.mojom-shared-internal.h"

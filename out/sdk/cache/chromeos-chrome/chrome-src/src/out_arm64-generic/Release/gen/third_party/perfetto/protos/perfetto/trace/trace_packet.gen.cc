@@ -47,6 +47,7 @@
 #include "protos/perfetto/trace/profiling/profile_packet.gen.h"
 #include "protos/perfetto/trace/profiling/profile_common.gen.h"
 #include "protos/perfetto/common/perf_events.gen.h"
+#include "protos/perfetto/trace/chrome/v8.gen.h"
 #include "protos/perfetto/trace/system_info/cpu_info.gen.h"
 #include "protos/perfetto/trace/system_info.gen.h"
 #include "protos/perfetto/trace/sys_stats/sys_stats.gen.h"
@@ -149,6 +150,7 @@
 #include "protos/perfetto/trace/etw/etw.gen.h"
 #include "protos/perfetto/trace/clock_snapshot.gen.h"
 #include "protos/perfetto/common/builtin_clock.gen.h"
+#include "protos/perfetto/trace/chrome/v8.gen.h"
 #include "protos/perfetto/trace/chrome/chrome_trace_event.gen.h"
 #include "protos/perfetto/trace/chrome/chrome_metadata.gen.h"
 #include "protos/perfetto/trace/chrome/chrome_benchmark_metadata.gen.h"
@@ -156,6 +158,8 @@
 #include "protos/perfetto/trace/android/surfaceflinger_common.gen.h"
 #include "protos/perfetto/trace/android/surfaceflinger_layers.gen.h"
 #include "protos/perfetto/trace/android/shell_transition.gen.h"
+#include "protos/perfetto/trace/android/protolog.gen.h"
+#include "protos/perfetto/common/protolog_common.gen.h"
 #include "protos/perfetto/trace/android/packages_list.gen.h"
 #include "protos/perfetto/trace/android/network_trace.gen.h"
 #include "protos/perfetto/trace/android/initial_display_state.gen.h"
@@ -166,6 +170,7 @@
 #include "protos/perfetto/trace/android/android_system_property.gen.h"
 #include "protos/perfetto/trace/android/android_log.gen.h"
 #include "protos/perfetto/common/android_log_constants.gen.h"
+#include "protos/perfetto/trace/android/android_input_event.gen.h"
 #include "protos/perfetto/trace/android/android_game_intervention_list.gen.h"
 #include "protos/perfetto/trace/extension_descriptor.gen.h"
 #include "protos/perfetto/common/descriptor.gen.h"
@@ -189,9 +194,11 @@
 #include "protos/perfetto/config/gpu/gpu_counter_config.gen.h"
 #include "protos/perfetto/config/ftrace/ftrace_config.gen.h"
 #include "protos/perfetto/config/etw/etw_config.gen.h"
+#include "protos/perfetto/config/chrome/v8_config.gen.h"
 #include "protos/perfetto/config/chrome/chrome_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_transactions_config.gen.h"
 #include "protos/perfetto/config/android/surfaceflinger_layers_config.gen.h"
+#include "protos/perfetto/config/android/protolog_config.gen.h"
 #include "protos/perfetto/config/android/packages_list_config.gen.h"
 #include "protos/perfetto/config/android/network_trace_config.gen.h"
 #include "protos/perfetto/config/android/android_sdk_sysprop_guard_config.gen.h"
@@ -281,7 +288,15 @@ bool TracePacket::operator==(const TracePacket& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_transactions_, other.surfaceflinger_transactions_)
    && ::protozero::internal::gen_helpers::EqualsField(shell_transition_, other.shell_transition_)
    && ::protozero::internal::gen_helpers::EqualsField(shell_handler_mappings_, other.shell_handler_mappings_)
+   && ::protozero::internal::gen_helpers::EqualsField(protolog_message_, other.protolog_message_)
+   && ::protozero::internal::gen_helpers::EqualsField(protolog_viewer_config_, other.protolog_viewer_config_)
    && ::protozero::internal::gen_helpers::EqualsField(etw_events_, other.etw_events_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_js_code_, other.v8_js_code_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_internal_code_, other.v8_internal_code_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_wasm_code_, other.v8_wasm_code_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_reg_exp_code_, other.v8_reg_exp_code_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_code_move_, other.v8_code_move_)
+   && ::protozero::internal::gen_helpers::EqualsField(android_input_event_, other.android_input_event_)
    && ::protozero::internal::gen_helpers::EqualsField(for_testing_, other.for_testing_)
    && ::protozero::internal::gen_helpers::EqualsField(trusted_uid_, other.trusted_uid_)
    && ::protozero::internal::gen_helpers::EqualsField(trusted_packet_sequence_id_, other.trusted_packet_sequence_id_)
@@ -506,8 +521,32 @@ bool TracePacket::ParseFromArray(const void* raw, size_t size) {
       case 97 /* shell_handler_mappings */:
         (*shell_handler_mappings_).ParseFromArray(field.data(), field.size());
         break;
+      case 104 /* protolog_message */:
+        (*protolog_message_).ParseFromArray(field.data(), field.size());
+        break;
+      case 105 /* protolog_viewer_config */:
+        (*protolog_viewer_config_).ParseFromArray(field.data(), field.size());
+        break;
       case 95 /* etw_events */:
         (*etw_events_).ParseFromArray(field.data(), field.size());
+        break;
+      case 99 /* v8_js_code */:
+        (*v8_js_code_).ParseFromArray(field.data(), field.size());
+        break;
+      case 100 /* v8_internal_code */:
+        (*v8_internal_code_).ParseFromArray(field.data(), field.size());
+        break;
+      case 101 /* v8_wasm_code */:
+        (*v8_wasm_code_).ParseFromArray(field.data(), field.size());
+        break;
+      case 102 /* v8_reg_exp_code */:
+        (*v8_reg_exp_code_).ParseFromArray(field.data(), field.size());
+        break;
+      case 103 /* v8_code_move */:
+        (*v8_code_move_).ParseFromArray(field.data(), field.size());
+        break;
+      case 106 /* android_input_event */:
+        (*android_input_event_).ParseFromArray(field.data(), field.size());
         break;
       case 900 /* for_testing */:
         (*for_testing_).ParseFromArray(field.data(), field.size());
@@ -898,9 +937,49 @@ void TracePacket::Serialize(::protozero::Message* msg) const {
     (*shell_handler_mappings_).Serialize(msg->BeginNestedMessage<::protozero::Message>(97));
   }
 
+  // Field 104: protolog_message
+  if (_has_field_[104]) {
+    (*protolog_message_).Serialize(msg->BeginNestedMessage<::protozero::Message>(104));
+  }
+
+  // Field 105: protolog_viewer_config
+  if (_has_field_[105]) {
+    (*protolog_viewer_config_).Serialize(msg->BeginNestedMessage<::protozero::Message>(105));
+  }
+
   // Field 95: etw_events
   if (_has_field_[95]) {
     (*etw_events_).Serialize(msg->BeginNestedMessage<::protozero::Message>(95));
+  }
+
+  // Field 99: v8_js_code
+  if (_has_field_[99]) {
+    (*v8_js_code_).Serialize(msg->BeginNestedMessage<::protozero::Message>(99));
+  }
+
+  // Field 100: v8_internal_code
+  if (_has_field_[100]) {
+    (*v8_internal_code_).Serialize(msg->BeginNestedMessage<::protozero::Message>(100));
+  }
+
+  // Field 101: v8_wasm_code
+  if (_has_field_[101]) {
+    (*v8_wasm_code_).Serialize(msg->BeginNestedMessage<::protozero::Message>(101));
+  }
+
+  // Field 102: v8_reg_exp_code
+  if (_has_field_[102]) {
+    (*v8_reg_exp_code_).Serialize(msg->BeginNestedMessage<::protozero::Message>(102));
+  }
+
+  // Field 103: v8_code_move
+  if (_has_field_[103]) {
+    (*v8_code_move_).Serialize(msg->BeginNestedMessage<::protozero::Message>(103));
+  }
+
+  // Field 106: android_input_event
+  if (_has_field_[106]) {
+    (*android_input_event_).Serialize(msg->BeginNestedMessage<::protozero::Message>(106));
   }
 
   // Field 900: for_testing

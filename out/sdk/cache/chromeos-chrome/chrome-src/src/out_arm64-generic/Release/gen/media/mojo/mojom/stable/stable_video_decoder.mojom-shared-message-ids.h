@@ -24,6 +24,7 @@ constexpr uint32_t kStableCdmContext_RegisterEventCallback_Name = 1;
 constexpr uint32_t kStableCdmContext_GetHwConfigData_Name = 2;
 constexpr uint32_t kStableCdmContext_GetScreenResolutions_Name = 3;
 constexpr uint32_t kStableCdmContext_AllocateSecureBuffer_Name = 4;
+constexpr uint32_t kStableCdmContext_ParseEncryptedSliceHeader_Name = 5;
 constexpr uint32_t kStableVideoDecoder_GetSupportedConfigs_Name = 0;
 constexpr uint32_t kStableVideoDecoder_Construct_Name = 1;
 constexpr uint32_t kStableVideoDecoder_Initialize_Name = 2;

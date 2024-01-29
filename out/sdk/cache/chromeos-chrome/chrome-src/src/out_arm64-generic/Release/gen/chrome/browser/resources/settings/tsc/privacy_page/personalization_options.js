@@ -9,7 +9,7 @@
 import '//resources/cr_elements/cr_button/cr_button.js';
 import '//resources/cr_elements/cr_toggle/cr_toggle.js';
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import '../people_page/signout_dialog.js';
 // 
 import '../settings_shared.css.js';
@@ -19,13 +19,16 @@ import { focusWithoutInk } from '//resources/js/focus_without_ink.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { StatusAction } from '/shared/settings/people_page/sync_browser_proxy.js';
 import { PrivacyPageBrowserProxyImpl } from '/shared/settings/privacy_page/privacy_page_browser_proxy.js';
+import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from '../i18n_setup.js';
 import { RelaunchMixin, RestartType } from '../relaunch_mixin.js';
 import { Router } from '../router.js';
 import { getTemplate } from './personalization_options.html.js';
-const SettingsPersonalizationOptionsElementBase = RelaunchMixin(WebUiListenerMixin(I18nMixin(PrefsMixin(PolymerElement))));
+const SettingsPersonalizationOptionsElementBase = HelpBubbleMixin(RelaunchMixin(WebUiListenerMixin(I18nMixin(PrefsMixin(PolymerElement)))));
+// browser_element_identifiers constants
+const ANONYMIZED_URL_COLLECTION_ID = 'kAnonymizedUrlCollectionPersonalizationSettingId';
 export class SettingsPersonalizationOptionsElement extends SettingsPersonalizationOptionsElementBase {
     constructor() {
         super(...arguments);
@@ -91,6 +94,7 @@ export class SettingsPersonalizationOptionsElement extends SettingsPersonalizati
     ready() {
         super.ready();
         // 
+        this.registerHelpBubble(ANONYMIZED_URL_COLLECTION_ID, this.$.urlCollectionToggle.getBubbleAnchor(), { anchorPaddingTop: 10 });
     }
     // 
     /**

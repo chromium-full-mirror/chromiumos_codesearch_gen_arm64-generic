@@ -451,6 +451,8 @@ bool WakeLockProvider_GetActiveWakeLocksForTests_ForwardToCallback::Accept(
           internal::WakeLockProvider_GetActiveWakeLocksForTests_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WakeLockProvider.3
   bool success = true;
   int32_t p_count{};
   WakeLockProvider_GetActiveWakeLocksForTests_ResponseParamsDataView input_data_view(params, message);
@@ -525,6 +527,8 @@ bool WakeLockProviderStubDispatch::Accept(
           reinterpret_cast<internal::WakeLockProvider_GetWakeLockContextForID_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLockProvider.0
       bool success = true;
       int32_t p_context_id{};
       ::mojo::PendingReceiver<::device::mojom::blink::WakeLockContext> p_context{};
@@ -545,9 +549,9 @@ bool WakeLockProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWakeLockContextForID(
-std::move(p_context_id), 
-std::move(p_context));
+      impl->GetWakeLockContextForID(        
+        std::move(p_context_id), 
+        std::move(p_context));
       return true;
     }
     case internal::kWakeLockProvider_GetWakeLockWithoutContext_Name: {
@@ -557,6 +561,8 @@ std::move(p_context));
           reinterpret_cast<internal::WakeLockProvider_GetWakeLockWithoutContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLockProvider.1
       bool success = true;
       ::device::mojom::blink::WakeLockType p_type{};
       ::device::mojom::blink::WakeLockReason p_reason{};
@@ -583,11 +589,11 @@ std::move(p_context));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWakeLockWithoutContext(
-std::move(p_type), 
-std::move(p_reason), 
-std::move(p_description), 
-std::move(p_wake_lock));
+      impl->GetWakeLockWithoutContext(        
+        std::move(p_type), 
+        std::move(p_reason), 
+        std::move(p_description), 
+        std::move(p_wake_lock));
       return true;
     }
     case internal::kWakeLockProvider_NotifyOnWakeLockDeactivation_Name: {
@@ -597,6 +603,8 @@ std::move(p_wake_lock));
           reinterpret_cast<internal::WakeLockProvider_NotifyOnWakeLockDeactivation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLockProvider.2
       bool success = true;
       ::device::mojom::blink::WakeLockType p_type{};
       ::mojo::PendingRemote<WakeLockObserver> p_observer{};
@@ -617,9 +625,9 @@ std::move(p_wake_lock));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyOnWakeLockDeactivation(
-std::move(p_type), 
-std::move(p_observer));
+      impl->NotifyOnWakeLockDeactivation(        
+        std::move(p_type), 
+        std::move(p_observer));
       return true;
     }
     case internal::kWakeLockProvider_GetActiveWakeLocksForTests_Name: {
@@ -654,6 +662,8 @@ bool WakeLockProviderStubDispatch::AcceptWithResponder(
               internal::WakeLockProvider_GetActiveWakeLocksForTests_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WakeLockProvider.3
       bool success = true;
       ::device::mojom::blink::WakeLockType p_type{};
       WakeLockProvider_GetActiveWakeLocksForTests_ParamsDataView input_data_view(params, message);
@@ -672,8 +682,8 @@ bool WakeLockProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetActiveWakeLocksForTests(
-std::move(p_type), std::move(callback));
+      impl->GetActiveWakeLocksForTests(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }
@@ -814,6 +824,8 @@ bool WakeLockObserverStubDispatch::Accept(
           reinterpret_cast<internal::WakeLockObserver_OnWakeLockDeactivated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WakeLockObserver.0
       bool success = true;
       ::device::mojom::blink::WakeLockType p_type{};
       WakeLockObserver_OnWakeLockDeactivated_ParamsDataView input_data_view(params, message);
@@ -829,8 +841,8 @@ bool WakeLockObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWakeLockDeactivated(
-std::move(p_type));
+      impl->OnWakeLockDeactivated(        
+        std::move(p_type));
       return true;
     }
   }

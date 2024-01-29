@@ -10,6 +10,8 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "ui/webui/resources/cr_components/commerce/shopping_service.mojom-shared-internal.h"
+#include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -26,6 +28,7 @@ namespace commerce::mojom {
 namespace internal {
 class EligibleEntry_Data;
 class ShoppingListEligibleDetail_Data;
+class Subscription_Data;
 
 #pragma pack(push, 1)
 class  EligibleEntry_Data {
@@ -132,6 +135,55 @@ struct ShoppingListEligibleDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ShoppingListEligibleDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Subscription_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t cluster_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::shopping_service::mojom::internal::BookmarkProductInfo_Data>>> product_infos;
+
+ private:
+  friend class mojo::internal::MessageFragment<Subscription_Data>;
+
+  Subscription_Data();
+  ~Subscription_Data() = delete;
+};
+static_assert(sizeof(Subscription_Data) == 24,
+              "Bad sizeof(Subscription_Data)");
+// Used by Subscription::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Subscription_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Subscription_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Subscription_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Subscription_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Subscription_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

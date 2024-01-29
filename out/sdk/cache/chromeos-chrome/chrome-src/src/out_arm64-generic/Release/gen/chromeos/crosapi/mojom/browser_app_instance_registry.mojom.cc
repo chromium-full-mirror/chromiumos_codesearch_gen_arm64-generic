@@ -842,6 +842,8 @@ bool BrowserAppInstanceRegistryStubDispatch::Accept(
           reinterpret_cast<internal::BrowserAppInstanceRegistry_OnBrowserWindowAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.0
       bool success = true;
       ::apps::BrowserWindowInstanceUpdate p_update{};
       BrowserAppInstanceRegistry_OnBrowserWindowAdded_ParamsDataView input_data_view(params, message);
@@ -857,8 +859,8 @@ bool BrowserAppInstanceRegistryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserWindowAdded(
-std::move(p_update));
+      impl->OnBrowserWindowAdded(        
+        std::move(p_update));
       return true;
     }
     case internal::kBrowserAppInstanceRegistry_OnBrowserWindowUpdated_Name: {
@@ -868,6 +870,8 @@ std::move(p_update));
           reinterpret_cast<internal::BrowserAppInstanceRegistry_OnBrowserWindowUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.1
       bool success = true;
       ::apps::BrowserWindowInstanceUpdate p_update{};
       BrowserAppInstanceRegistry_OnBrowserWindowUpdated_ParamsDataView input_data_view(params, message);
@@ -883,8 +887,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserWindowUpdated(
-std::move(p_update));
+      impl->OnBrowserWindowUpdated(        
+        std::move(p_update));
       return true;
     }
     case internal::kBrowserAppInstanceRegistry_OnBrowserWindowRemoved_Name: {
@@ -894,6 +898,8 @@ std::move(p_update));
           reinterpret_cast<internal::BrowserAppInstanceRegistry_OnBrowserWindowRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.2
       bool success = true;
       ::apps::BrowserWindowInstanceUpdate p_update{};
       BrowserAppInstanceRegistry_OnBrowserWindowRemoved_ParamsDataView input_data_view(params, message);
@@ -909,8 +915,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserWindowRemoved(
-std::move(p_update));
+      impl->OnBrowserWindowRemoved(        
+        std::move(p_update));
       return true;
     }
     case internal::kBrowserAppInstanceRegistry_OnBrowserAppAdded_Name: {
@@ -920,6 +926,8 @@ std::move(p_update));
           reinterpret_cast<internal::BrowserAppInstanceRegistry_OnBrowserAppAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.3
       bool success = true;
       ::apps::BrowserAppInstanceUpdate p_update{};
       BrowserAppInstanceRegistry_OnBrowserAppAdded_ParamsDataView input_data_view(params, message);
@@ -935,8 +943,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserAppAdded(
-std::move(p_update));
+      impl->OnBrowserAppAdded(        
+        std::move(p_update));
       return true;
     }
     case internal::kBrowserAppInstanceRegistry_OnBrowserAppUpdated_Name: {
@@ -946,6 +954,8 @@ std::move(p_update));
           reinterpret_cast<internal::BrowserAppInstanceRegistry_OnBrowserAppUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.4
       bool success = true;
       ::apps::BrowserAppInstanceUpdate p_update{};
       BrowserAppInstanceRegistry_OnBrowserAppUpdated_ParamsDataView input_data_view(params, message);
@@ -961,8 +971,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserAppUpdated(
-std::move(p_update));
+      impl->OnBrowserAppUpdated(        
+        std::move(p_update));
       return true;
     }
     case internal::kBrowserAppInstanceRegistry_OnBrowserAppRemoved_Name: {
@@ -972,6 +982,8 @@ std::move(p_update));
           reinterpret_cast<internal::BrowserAppInstanceRegistry_OnBrowserAppRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.5
       bool success = true;
       ::apps::BrowserAppInstanceUpdate p_update{};
       BrowserAppInstanceRegistry_OnBrowserAppRemoved_ParamsDataView input_data_view(params, message);
@@ -987,8 +999,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserAppRemoved(
-std::move(p_update));
+      impl->OnBrowserAppRemoved(        
+        std::move(p_update));
       return true;
     }
     case internal::kBrowserAppInstanceRegistry_RegisterController_Name: {
@@ -998,6 +1010,8 @@ std::move(p_update));
           reinterpret_cast<internal::BrowserAppInstanceRegistry_RegisterController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceRegistry.6
       bool success = true;
       ::mojo::PendingRemote<BrowserAppInstanceController> p_controller{};
       BrowserAppInstanceRegistry_RegisterController_ParamsDataView input_data_view(params, message);
@@ -1015,8 +1029,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterController(
-std::move(p_controller));
+      impl->RegisterController(        
+        std::move(p_controller));
       return true;
     }
   }
@@ -1203,6 +1217,8 @@ bool BrowserAppInstanceControllerStubDispatch::Accept(
           reinterpret_cast<internal::BrowserAppInstanceController_ActivateTabInstance_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserAppInstanceController.0
       bool success = true;
       ::base::UnguessableToken p_id{};
       BrowserAppInstanceController_ActivateTabInstance_ParamsDataView input_data_view(params, message);
@@ -1218,8 +1234,8 @@ bool BrowserAppInstanceControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivateTabInstance(
-std::move(p_id));
+      impl->ActivateTabInstance(        
+        std::move(p_id));
       return true;
     }
   }

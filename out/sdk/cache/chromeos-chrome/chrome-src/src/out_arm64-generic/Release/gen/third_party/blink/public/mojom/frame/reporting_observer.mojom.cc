@@ -291,6 +291,8 @@ bool ReportingObserverStubDispatch::Accept(
           reinterpret_cast<internal::ReportingObserver_Notify_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReportingObserver.0
       bool success = true;
       ReportPtr p_report{};
       ReportingObserver_Notify_ParamsDataView input_data_view(params, message);
@@ -306,8 +308,8 @@ bool ReportingObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Notify(
-std::move(p_report));
+      impl->Notify(        
+        std::move(p_report));
       return true;
     }
   }

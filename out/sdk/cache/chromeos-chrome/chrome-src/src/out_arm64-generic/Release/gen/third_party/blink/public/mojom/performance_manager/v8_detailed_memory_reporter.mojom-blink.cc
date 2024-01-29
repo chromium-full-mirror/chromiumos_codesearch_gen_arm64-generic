@@ -428,6 +428,8 @@ bool V8DetailedMemoryReporter_GetV8MemoryUsage_ForwardToCallback::Accept(
           internal::V8DetailedMemoryReporter_GetV8MemoryUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for V8DetailedMemoryReporter.0
   bool success = true;
   PerProcessV8MemoryUsagePtr p_memory_usage{};
   V8DetailedMemoryReporter_GetV8MemoryUsage_ResponseParamsDataView input_data_view(params, message);
@@ -528,6 +530,8 @@ bool V8DetailedMemoryReporterStubDispatch::AcceptWithResponder(
               internal::V8DetailedMemoryReporter_GetV8MemoryUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for V8DetailedMemoryReporter.0
       bool success = true;
       V8DetailedMemoryReporter::Mode p_mode{};
       V8DetailedMemoryReporter_GetV8MemoryUsage_ParamsDataView input_data_view(params, message);
@@ -546,8 +550,8 @@ bool V8DetailedMemoryReporterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetV8MemoryUsage(
-std::move(p_mode), std::move(callback));
+      impl->GetV8MemoryUsage(        
+        std::move(p_mode), std::move(callback));
       return true;
     }
   }

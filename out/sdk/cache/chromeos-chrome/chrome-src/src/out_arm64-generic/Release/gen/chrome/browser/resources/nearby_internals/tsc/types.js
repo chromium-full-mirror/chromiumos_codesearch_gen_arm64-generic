@@ -11,7 +11,6 @@ export var FeatureValues;
     FeatureValues[FeatureValues["NEARBY_CONNECTIONS"] = 1] = "NEARBY_CONNECTIONS";
     FeatureValues[FeatureValues["NEARBY_PRESENCE"] = 2] = "NEARBY_PRESENCE";
     FeatureValues[FeatureValues["FAST_PAIR"] = 3] = "FAST_PAIR";
-    FeatureValues[FeatureValues["PUSH_NOTIFICATION"] = 4] = "PUSH_NOTIFICATION";
 })(FeatureValues || (FeatureValues = {}));
 /**
  * Enum of values to use for the action select dropdown. If a new action is
@@ -26,6 +25,7 @@ export var ActionValues;
     ActionValues[ActionValues["RESET_NEARBY_SHARE"] = 4] = "RESET_NEARBY_SHARE";
     ActionValues[ActionValues["ADD_PUSH_NOTIFICATION_CLIENT"] = 5] = "ADD_PUSH_NOTIFICATION_CLIENT";
     ActionValues[ActionValues["SHOW_RECEIVED_NOTIFICATION"] = 6] = "SHOW_RECEIVED_NOTIFICATION";
+    ActionValues[ActionValues["SEND_UPDATE_CREDENTIALS_MESSAGE"] = 7] = "SEND_UPDATE_CREDENTIALS_MESSAGE";
 })(ActionValues || (ActionValues = {}));
 /**
  * Severity enum based on LogMessage format. Needs to stay in sync with the

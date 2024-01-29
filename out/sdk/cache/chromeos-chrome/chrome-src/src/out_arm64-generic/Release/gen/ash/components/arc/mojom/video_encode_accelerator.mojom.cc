@@ -1100,6 +1100,8 @@ bool VideoEncodeAccelerator_GetSupportedProfiles_ForwardToCallback::Accept(
           internal::VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEncodeAccelerator.0
   bool success = true;
   std::vector<::media::VideoEncodeAccelerator::SupportedProfile> p_profiles{};
   VideoEncodeAccelerator_GetSupportedProfiles_ResponseParamsDataView input_data_view(params, message);
@@ -1231,6 +1233,8 @@ bool VideoEncodeAccelerator_Initialize_ForwardToCallback::Accept(
           internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEncodeAccelerator.9
   bool success = true;
   VideoEncodeAccelerator::Result p_result{};
   VideoEncodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -1351,6 +1355,8 @@ bool VideoEncodeAccelerator_Encode_ForwardToCallback::Accept(
           internal::VideoEncodeAccelerator_Encode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEncodeAccelerator.8
   bool success = true;
   VideoEncodeAccelerator_Encode_ResponseParamsDataView input_data_view(params, message);
   
@@ -1458,6 +1464,8 @@ bool VideoEncodeAccelerator_UseBitstreamBuffer_ForwardToCallback::Accept(
           internal::VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEncodeAccelerator.3
   bool success = true;
   uint32_t p_payload_size{};
   bool p_key_frame{};
@@ -1593,6 +1601,8 @@ bool VideoEncodeAccelerator_Flush_ForwardToCallback::Accept(
           internal::VideoEncodeAccelerator_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEncodeAccelerator.5
   bool success = true;
   bool p_flush_done{};
   VideoEncodeAccelerator_Flush_ResponseParamsDataView input_data_view(params, message);
@@ -1679,6 +1689,8 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.10
       bool success = true;
       ::media::Bitrate p_bitrate{};
       uint32_t p_framerate{};
@@ -1697,9 +1709,9 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestEncodingParametersChange(
-std::move(p_bitrate), 
-std::move(p_framerate));
+      impl->RequestEncodingParametersChange(        
+        std::move(p_bitrate), 
+        std::move(p_framerate));
       return true;
     }
     case internal::kVideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Name: {
@@ -1709,6 +1721,8 @@ std::move(p_framerate));
           reinterpret_cast<internal::VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.4
       bool success = true;
       uint32_t p_bitrate{};
       uint32_t p_framerate{};
@@ -1727,9 +1741,9 @@ std::move(p_framerate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestEncodingParametersChangeDeprecated(
-std::move(p_bitrate), 
-std::move(p_framerate));
+      impl->RequestEncodingParametersChangeDeprecated(        
+        std::move(p_bitrate), 
+        std::move(p_framerate));
       return true;
     }
     case internal::kVideoEncodeAccelerator_Flush_Name: {
@@ -1755,6 +1769,8 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::VideoEncodeAccelerator_GetSupportedProfiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.0
       bool success = true;
       VideoEncodeAccelerator_GetSupportedProfiles_ParamsDataView input_data_view(params, message);
       
@@ -1780,6 +1796,8 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::VideoEncodeAccelerator_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.9
       bool success = true;
       ::media::VideoEncodeAccelerator::Config p_config{};
       ::mojo::PendingRemote<VideoEncodeClient> p_client{};
@@ -1803,9 +1821,9 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_config), 
-std::move(p_client), std::move(callback));
+      impl->Initialize(        
+        std::move(p_config), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kVideoEncodeAccelerator_Encode_Name: {
@@ -1815,6 +1833,8 @@ std::move(p_client), std::move(callback));
               internal::VideoEncodeAccelerator_Encode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.8
       bool success = true;
       ::media::VideoPixelFormat p_format{};
       ::mojo::ScopedHandle p_frame_fd{};
@@ -1845,12 +1865,12 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Encode(
-std::move(p_format), 
-std::move(p_frame_fd), 
-std::move(p_planes), 
-std::move(p_timestamp), 
-std::move(p_force_keyframe), std::move(callback));
+      impl->Encode(        
+        std::move(p_format), 
+        std::move(p_frame_fd), 
+        std::move(p_planes), 
+        std::move(p_timestamp), 
+        std::move(p_force_keyframe), std::move(callback));
       return true;
     }
     case internal::kVideoEncodeAccelerator_UseBitstreamBuffer_Name: {
@@ -1860,6 +1880,8 @@ std::move(p_force_keyframe), std::move(callback));
               internal::VideoEncodeAccelerator_UseBitstreamBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.3
       bool success = true;
       ::mojo::ScopedHandle p_shmem_fd{};
       uint32_t p_offset{};
@@ -1884,10 +1906,10 @@ std::move(p_force_keyframe), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UseBitstreamBuffer(
-std::move(p_shmem_fd), 
-std::move(p_offset), 
-std::move(p_size), std::move(callback));
+      impl->UseBitstreamBuffer(        
+        std::move(p_shmem_fd), 
+        std::move(p_offset), 
+        std::move(p_size), std::move(callback));
       return true;
     }
     case internal::kVideoEncodeAccelerator_RequestEncodingParametersChange_Name: {
@@ -1903,6 +1925,8 @@ std::move(p_size), std::move(callback));
               internal::VideoEncodeAccelerator_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEncodeAccelerator.5
       bool success = true;
       VideoEncodeAccelerator_Flush_ParamsDataView input_data_view(params, message);
       
@@ -2148,6 +2172,8 @@ bool VideoEncodeClientStubDispatch::Accept(
           reinterpret_cast<internal::VideoEncodeClient_RequireBitstreamBuffers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncodeClient.0
       bool success = true;
       uint32_t p_input_count{};
       ::gfx::Size p_input_coded_size{};
@@ -2169,10 +2195,10 @@ bool VideoEncodeClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequireBitstreamBuffers(
-std::move(p_input_count), 
-std::move(p_input_coded_size), 
-std::move(p_output_buffer_size));
+      impl->RequireBitstreamBuffers(        
+        std::move(p_input_count), 
+        std::move(p_input_coded_size), 
+        std::move(p_output_buffer_size));
       return true;
     }
     case internal::kVideoEncodeClient_NotifyError_Name: {
@@ -2182,6 +2208,8 @@ std::move(p_output_buffer_size));
           reinterpret_cast<internal::VideoEncodeClient_NotifyError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEncodeClient.2
       bool success = true;
       VideoEncodeAccelerator::Error p_error{};
       VideoEncodeClient_NotifyError_ParamsDataView input_data_view(params, message);
@@ -2197,8 +2225,8 @@ std::move(p_output_buffer_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyError(
-std::move(p_error));
+      impl->NotifyError(        
+        std::move(p_error));
       return true;
     }
   }

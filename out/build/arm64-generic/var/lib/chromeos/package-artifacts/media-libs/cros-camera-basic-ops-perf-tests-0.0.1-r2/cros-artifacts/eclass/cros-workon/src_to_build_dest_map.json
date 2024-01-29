@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../platform2",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/media-libs/cros-camera-basic-ops-perf-tests-0.0.1-r2/work/cros-camera-basic-ops-perf-tests-0.0.1"
-    }
-  ]
-}

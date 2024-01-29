@@ -711,8 +711,15 @@ class OldPageInfoDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t routing_id_for_old_main_frame() const {
-    return data_->routing_id_for_old_main_frame;
+  inline void GetFrameTokenForOldMainFrameDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrameTokenForOldMainFrame(UserType* output) {
+    
+    auto* pointer = data_->frame_token_for_old_main_frame.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
   }
   inline void GetNewLifecycleStateForOldPageDataView(
       ::blink::mojom::PageLifecycleStateDataView* output);
@@ -1731,7 +1738,18 @@ struct Serializer<::blink::mojom::OldPageInfoDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->routing_id_for_old_main_frame = Traits::routing_id_for_old_main_frame(input);
+    decltype(Traits::frame_token_for_old_main_frame(input)) in_frame_token_for_old_main_frame = Traits::frame_token_for_old_main_frame(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->frame_token_for_old_main_frame)::BaseType> frame_token_for_old_main_frame_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+        in_frame_token_for_old_main_frame, frame_token_for_old_main_frame_fragment);
+    fragment->frame_token_for_old_main_frame.Set(
+        frame_token_for_old_main_frame_fragment.is_null() ? nullptr : frame_token_for_old_main_frame_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->frame_token_for_old_main_frame.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null frame_token_for_old_main_frame in OldPageInfo struct");
     decltype(Traits::new_lifecycle_state_for_old_page(input)) in_new_lifecycle_state_for_old_page = Traits::new_lifecycle_state_for_old_page(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->new_lifecycle_state_for_old_page)::BaseType> new_lifecycle_state_for_old_page_fragment(
@@ -2318,6 +2336,11 @@ inline void NavigationTimingDataView::GetFetchStartDataView(
 }
 
 
+inline void OldPageInfoDataView::GetFrameTokenForOldMainFrameDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->frame_token_for_old_main_frame.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
 inline void OldPageInfoDataView::GetNewLifecycleStateForOldPageDataView(
     ::blink::mojom::PageLifecycleStateDataView* output) {
   auto pointer = data_->new_lifecycle_state_for_old_page.Get();

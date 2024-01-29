@@ -443,7 +443,7 @@ class WebAppFileHandlerAcceptProto final :
   std::string* _internal_add_file_extensions();
   public:
 
-  // required string mimetype = 1;
+  // optional string mimetype = 1;
   bool has_mimetype() const;
   private:
   bool _internal_has_mimetype() const;
@@ -656,7 +656,7 @@ class WebAppFileHandlerProto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::WebAppIconInfo >&
       downloaded_icons() const;
 
-  // required string action = 1;
+  // optional string action = 1;
   bool has_action() const;
   private:
   bool _internal_has_action() const;
@@ -692,7 +692,7 @@ class WebAppFileHandlerProto final :
   std::string* _internal_mutable_display_name();
   public:
 
-  // required .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
+  // optional .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
   bool has_launch_type() const;
   private:
   bool _internal_has_launch_type() const;
@@ -708,9 +708,6 @@ class WebAppFileHandlerProto final :
   // @@protoc_insertion_point(class_scope:web_app.WebAppFileHandlerProto)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -839,7 +836,7 @@ class WebAppProtocolHandler final :
     kProtocolFieldNumber = 1,
     kUrlFieldNumber = 2,
   };
-  // required string protocol = 1;
+  // optional string protocol = 1;
   bool has_protocol() const;
   private:
   bool _internal_has_protocol() const;
@@ -857,7 +854,7 @@ class WebAppProtocolHandler final :
   std::string* _internal_mutable_protocol();
   public:
 
-  // required string url = 2;
+  // optional string url = 2;
   bool has_url() const;
   private:
   bool _internal_has_url() const;
@@ -878,9 +875,6 @@ class WebAppProtocolHandler final :
   // @@protoc_insertion_point(class_scope:web_app.WebAppProtocolHandler)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -1006,7 +1000,7 @@ class WebAppUrlHandlerProto final :
     kOriginFieldNumber = 1,
     kHasOriginWildcardFieldNumber = 2,
   };
-  // required string origin = 1;
+  // optional string origin = 1;
   bool has_origin() const;
   private:
   bool _internal_has_origin() const;
@@ -1024,7 +1018,7 @@ class WebAppUrlHandlerProto final :
   std::string* _internal_mutable_origin();
   public:
 
-  // required bool has_origin_wildcard = 2;
+  // optional bool has_origin_wildcard = 2;
   bool has_has_origin_wildcard() const;
   private:
   bool _internal_has_has_origin_wildcard() const;
@@ -1040,9 +1034,6 @@ class WebAppUrlHandlerProto final :
   // @@protoc_insertion_point(class_scope:web_app.WebAppUrlHandlerProto)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -1168,7 +1159,7 @@ class WebAppScopeExtensionProto final :
     kOriginFieldNumber = 1,
     kHasOriginWildcardFieldNumber = 2,
   };
-  // required string origin = 1;
+  // optional string origin = 1;
   bool has_origin() const;
   private:
   bool _internal_has_origin() const;
@@ -1186,7 +1177,7 @@ class WebAppScopeExtensionProto final :
   std::string* _internal_mutable_origin();
   public:
 
-  // required bool has_origin_wildcard = 2;
+  // optional bool has_origin_wildcard = 2;
   bool has_has_origin_wildcard() const;
   private:
   bool _internal_has_has_origin_wildcard() const;
@@ -1202,9 +1193,6 @@ class WebAppScopeExtensionProto final :
   // @@protoc_insertion_point(class_scope:web_app.WebAppScopeExtensionProto)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -1339,7 +1327,7 @@ class SourcesProto final :
     kOneDriveIntegrationFieldNumber = 10,
     kApsDefaultFieldNumber = 11,
   };
-  // required bool system = 1;
+  // optional bool system = 1;
   bool has_system() const;
   private:
   bool _internal_has_system() const;
@@ -1352,7 +1340,7 @@ class SourcesProto final :
   void _internal_set_system(bool value);
   public:
 
-  // required bool policy = 2;
+  // optional bool policy = 2;
   bool has_policy() const;
   private:
   bool _internal_has_policy() const;
@@ -1365,7 +1353,7 @@ class SourcesProto final :
   void _internal_set_policy(bool value);
   public:
 
-  // required bool web_app_store = 3;
+  // optional bool web_app_store = 3;
   bool has_web_app_store() const;
   private:
   bool _internal_has_web_app_store() const;
@@ -1378,7 +1366,7 @@ class SourcesProto final :
   void _internal_set_web_app_store(bool value);
   public:
 
-  // required bool sync = 4;
+  // optional bool sync = 4;
   bool has_sync() const;
   private:
   bool _internal_has_sync() const;
@@ -1391,7 +1379,7 @@ class SourcesProto final :
   void _internal_set_sync(bool value);
   public:
 
-  // required bool default = 5;
+  // optional bool default = 5;
   bool has_default_() const;
   private:
   bool _internal_has_default_() const;
@@ -1485,9 +1473,6 @@ class SourcesProto final :
   // @@protoc_insertion_point(class_scope:web_app.SourcesProto)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -1620,13 +1605,13 @@ class ChromeOSDataProto final :
 
   enum : int {
     kShowInLauncherFieldNumber = 1,
-    kShowInSearchFieldNumber = 2,
+    kShowInSearchAndShelfFieldNumber = 2,
     kShowInManagementFieldNumber = 3,
     kIsDisabledFieldNumber = 4,
     kOemInstalledFieldNumber = 5,
     kHandlesFileOpenIntentsFieldNumber = 6,
   };
-  // required bool show_in_launcher = 1;
+  // optional bool show_in_launcher = 1;
   bool has_show_in_launcher() const;
   private:
   bool _internal_has_show_in_launcher() const;
@@ -1639,20 +1624,20 @@ class ChromeOSDataProto final :
   void _internal_set_show_in_launcher(bool value);
   public:
 
-  // required bool show_in_search = 2;
-  bool has_show_in_search() const;
+  // optional bool show_in_search_and_shelf = 2;
+  bool has_show_in_search_and_shelf() const;
   private:
-  bool _internal_has_show_in_search() const;
+  bool _internal_has_show_in_search_and_shelf() const;
   public:
-  void clear_show_in_search();
-  bool show_in_search() const;
-  void set_show_in_search(bool value);
+  void clear_show_in_search_and_shelf();
+  bool show_in_search_and_shelf() const;
+  void set_show_in_search_and_shelf(bool value);
   private:
-  bool _internal_show_in_search() const;
-  void _internal_set_show_in_search(bool value);
+  bool _internal_show_in_search_and_shelf() const;
+  void _internal_set_show_in_search_and_shelf(bool value);
   public:
 
-  // required bool show_in_management = 3;
+  // optional bool show_in_management = 3;
   bool has_show_in_management() const;
   private:
   bool _internal_has_show_in_management() const;
@@ -1665,7 +1650,7 @@ class ChromeOSDataProto final :
   void _internal_set_show_in_management(bool value);
   public:
 
-  // required bool is_disabled = 4;
+  // optional bool is_disabled = 4;
   bool has_is_disabled() const;
   private:
   bool _internal_has_is_disabled() const;
@@ -1708,16 +1693,13 @@ class ChromeOSDataProto final :
  private:
   class _Internal;
 
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   bool show_in_launcher_;
-  bool show_in_search_;
+  bool show_in_search_and_shelf_;
   bool show_in_management_;
   bool is_disabled_;
   bool oem_installed_;
@@ -2040,7 +2022,7 @@ class WebAppShortcutsMenuItemInfoProto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::sync_pb::WebAppIconInfo >&
       shortcut_manifest_icons_monochrome() const;
 
-  // required string name = 1;
+  // optional string name = 1;
   bool has_name() const;
   private:
   bool _internal_has_name() const;
@@ -2058,7 +2040,7 @@ class WebAppShortcutsMenuItemInfoProto final :
   std::string* _internal_mutable_name();
   public:
 
-  // required string url = 2;
+  // optional string url = 2;
   bool has_url() const;
   private:
   bool _internal_has_url() const;
@@ -2079,9 +2061,6 @@ class WebAppShortcutsMenuItemInfoProto final :
   // @@protoc_insertion_point(class_scope:web_app.WebAppShortcutsMenuItemInfoProto)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -4471,7 +4450,7 @@ class WebAppProto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::web_app::WebAppScopeExtensionProto >&
       scope_extensions_validated() const;
 
-  // required string name = 2;
+  // optional string name = 2;
   bool has_name() const;
   private:
   bool _internal_has_name() const;
@@ -4615,7 +4594,7 @@ class WebAppProto final :
   std::string* _internal_mutable_lock_screen_start_url();
   public:
 
-  // required .sync_pb.WebAppSpecifics sync_data = 1;
+  // optional .sync_pb.WebAppSpecifics sync_data = 1;
   bool has_sync_data() const;
   private:
   bool _internal_has_sync_data() const;
@@ -4633,7 +4612,7 @@ class WebAppProto final :
       ::sync_pb::WebAppSpecifics* sync_data);
   ::sync_pb::WebAppSpecifics* unsafe_arena_release_sync_data();
 
-  // required .web_app.SourcesProto sources = 7;
+  // optional .web_app.SourcesProto sources = 7;
   bool has_sources() const;
   private:
   bool _internal_has_sources() const;
@@ -4808,7 +4787,7 @@ class WebAppProto final :
   void _internal_set_theme_color(uint32_t value);
   public:
 
-  // required bool is_locally_installed = 8;
+  // optional bool is_locally_installed = 8;
   bool has_is_locally_installed() const;
   private:
   bool _internal_has_is_locally_installed() const;
@@ -5176,9 +5155,6 @@ class WebAppProto final :
  private:
   class _Internal;
 
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
@@ -5261,7 +5237,7 @@ class WebAppProto final :
 #endif  // __GNUC__
 // WebAppFileHandlerAcceptProto
 
-// required string mimetype = 1;
+// optional string mimetype = 1;
 inline bool WebAppFileHandlerAcceptProto::_internal_has_mimetype() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -5408,7 +5384,7 @@ WebAppFileHandlerAcceptProto::mutable_file_extensions() {
 
 // WebAppFileHandlerProto
 
-// required string action = 1;
+// optional string action = 1;
 inline bool WebAppFileHandlerProto::_internal_has_action() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -5621,7 +5597,7 @@ inline void WebAppFileHandlerProto::set_allocated_display_name(std::string* disp
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppFileHandlerProto.display_name)
 }
 
-// required .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
+// optional .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
 inline bool WebAppFileHandlerProto::_internal_has_launch_type() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
@@ -5654,7 +5630,7 @@ inline void WebAppFileHandlerProto::set_launch_type(::web_app::WebAppFileHandler
 
 // WebAppProtocolHandler
 
-// required string protocol = 1;
+// optional string protocol = 1;
 inline bool WebAppProtocolHandler::_internal_has_protocol() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -5722,7 +5698,7 @@ inline void WebAppProtocolHandler::set_allocated_protocol(std::string* protocol)
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppProtocolHandler.protocol)
 }
 
-// required string url = 2;
+// optional string url = 2;
 inline bool WebAppProtocolHandler::_internal_has_url() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -5794,7 +5770,7 @@ inline void WebAppProtocolHandler::set_allocated_url(std::string* url) {
 
 // WebAppUrlHandlerProto
 
-// required string origin = 1;
+// optional string origin = 1;
 inline bool WebAppUrlHandlerProto::_internal_has_origin() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -5862,7 +5838,7 @@ inline void WebAppUrlHandlerProto::set_allocated_origin(std::string* origin) {
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppUrlHandlerProto.origin)
 }
 
-// required bool has_origin_wildcard = 2;
+// optional bool has_origin_wildcard = 2;
 inline bool WebAppUrlHandlerProto::_internal_has_has_origin_wildcard() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -5894,7 +5870,7 @@ inline void WebAppUrlHandlerProto::set_has_origin_wildcard(bool value) {
 
 // WebAppScopeExtensionProto
 
-// required string origin = 1;
+// optional string origin = 1;
 inline bool WebAppScopeExtensionProto::_internal_has_origin() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -5962,7 +5938,7 @@ inline void WebAppScopeExtensionProto::set_allocated_origin(std::string* origin)
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppScopeExtensionProto.origin)
 }
 
-// required bool has_origin_wildcard = 2;
+// optional bool has_origin_wildcard = 2;
 inline bool WebAppScopeExtensionProto::_internal_has_has_origin_wildcard() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -5994,7 +5970,7 @@ inline void WebAppScopeExtensionProto::set_has_origin_wildcard(bool value) {
 
 // SourcesProto
 
-// required bool system = 1;
+// optional bool system = 1;
 inline bool SourcesProto::_internal_has_system() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -6022,7 +5998,7 @@ inline void SourcesProto::set_system(bool value) {
   // @@protoc_insertion_point(field_set:web_app.SourcesProto.system)
 }
 
-// required bool policy = 2;
+// optional bool policy = 2;
 inline bool SourcesProto::_internal_has_policy() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -6050,7 +6026,7 @@ inline void SourcesProto::set_policy(bool value) {
   // @@protoc_insertion_point(field_set:web_app.SourcesProto.policy)
 }
 
-// required bool web_app_store = 3;
+// optional bool web_app_store = 3;
 inline bool SourcesProto::_internal_has_web_app_store() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
@@ -6078,7 +6054,7 @@ inline void SourcesProto::set_web_app_store(bool value) {
   // @@protoc_insertion_point(field_set:web_app.SourcesProto.web_app_store)
 }
 
-// required bool sync = 4;
+// optional bool sync = 4;
 inline bool SourcesProto::_internal_has_sync() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -6106,7 +6082,7 @@ inline void SourcesProto::set_sync(bool value) {
   // @@protoc_insertion_point(field_set:web_app.SourcesProto.sync)
 }
 
-// required bool default = 5;
+// optional bool default = 5;
 inline bool SourcesProto::_internal_has_default_() const {
   bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
@@ -6306,7 +6282,7 @@ inline void SourcesProto::set_aps_default(bool value) {
 
 // ChromeOSDataProto
 
-// required bool show_in_launcher = 1;
+// optional bool show_in_launcher = 1;
 inline bool ChromeOSDataProto::_internal_has_show_in_launcher() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -6334,35 +6310,35 @@ inline void ChromeOSDataProto::set_show_in_launcher(bool value) {
   // @@protoc_insertion_point(field_set:web_app.ChromeOSDataProto.show_in_launcher)
 }
 
-// required bool show_in_search = 2;
-inline bool ChromeOSDataProto::_internal_has_show_in_search() const {
+// optional bool show_in_search_and_shelf = 2;
+inline bool ChromeOSDataProto::_internal_has_show_in_search_and_shelf() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool ChromeOSDataProto::has_show_in_search() const {
-  return _internal_has_show_in_search();
+inline bool ChromeOSDataProto::has_show_in_search_and_shelf() const {
+  return _internal_has_show_in_search_and_shelf();
 }
-inline void ChromeOSDataProto::clear_show_in_search() {
-  show_in_search_ = false;
+inline void ChromeOSDataProto::clear_show_in_search_and_shelf() {
+  show_in_search_and_shelf_ = false;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline bool ChromeOSDataProto::_internal_show_in_search() const {
-  return show_in_search_;
+inline bool ChromeOSDataProto::_internal_show_in_search_and_shelf() const {
+  return show_in_search_and_shelf_;
 }
-inline bool ChromeOSDataProto::show_in_search() const {
-  // @@protoc_insertion_point(field_get:web_app.ChromeOSDataProto.show_in_search)
-  return _internal_show_in_search();
+inline bool ChromeOSDataProto::show_in_search_and_shelf() const {
+  // @@protoc_insertion_point(field_get:web_app.ChromeOSDataProto.show_in_search_and_shelf)
+  return _internal_show_in_search_and_shelf();
 }
-inline void ChromeOSDataProto::_internal_set_show_in_search(bool value) {
+inline void ChromeOSDataProto::_internal_set_show_in_search_and_shelf(bool value) {
   _has_bits_[0] |= 0x00000002u;
-  show_in_search_ = value;
+  show_in_search_and_shelf_ = value;
 }
-inline void ChromeOSDataProto::set_show_in_search(bool value) {
-  _internal_set_show_in_search(value);
-  // @@protoc_insertion_point(field_set:web_app.ChromeOSDataProto.show_in_search)
+inline void ChromeOSDataProto::set_show_in_search_and_shelf(bool value) {
+  _internal_set_show_in_search_and_shelf(value);
+  // @@protoc_insertion_point(field_set:web_app.ChromeOSDataProto.show_in_search_and_shelf)
 }
 
-// required bool show_in_management = 3;
+// optional bool show_in_management = 3;
 inline bool ChromeOSDataProto::_internal_has_show_in_management() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
@@ -6390,7 +6366,7 @@ inline void ChromeOSDataProto::set_show_in_management(bool value) {
   // @@protoc_insertion_point(field_set:web_app.ChromeOSDataProto.show_in_management)
 }
 
-// required bool is_disabled = 4;
+// optional bool is_disabled = 4;
 inline bool ChromeOSDataProto::_internal_has_is_disabled() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -6569,7 +6545,7 @@ inline void ClientDataProto::set_allocated_system_web_app_data(::ash::SystemWebA
 
 // WebAppShortcutsMenuItemInfoProto
 
-// required string name = 1;
+// optional string name = 1;
 inline bool WebAppShortcutsMenuItemInfoProto::_internal_has_name() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -6637,7 +6613,7 @@ inline void WebAppShortcutsMenuItemInfoProto::set_allocated_name(std::string* na
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppShortcutsMenuItemInfoProto.name)
 }
 
-// required string url = 2;
+// optional string url = 2;
 inline bool WebAppShortcutsMenuItemInfoProto::_internal_has_url() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -8483,7 +8459,7 @@ inline void GeneratedIconFix::set_attempt_count(uint32_t value) {
 
 // WebAppProto
 
-// required .sync_pb.WebAppSpecifics sync_data = 1;
+// optional .sync_pb.WebAppSpecifics sync_data = 1;
 inline bool WebAppProto::_internal_has_sync_data() const {
   bool value = (_has_bits_[0] & 0x00000100u) != 0;
   PROTOBUF_ASSUME(!value || sync_data_ != nullptr);
@@ -8570,7 +8546,7 @@ inline void WebAppProto::set_allocated_sync_data(::sync_pb::WebAppSpecifics* syn
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppProto.sync_data)
 }
 
-// required string name = 2;
+// optional string name = 2;
 inline bool WebAppProto::_internal_has_name() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -8831,7 +8807,7 @@ inline void WebAppProto::set_allocated_scope(std::string* scope) {
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppProto.scope)
 }
 
-// required .web_app.SourcesProto sources = 7;
+// optional .web_app.SourcesProto sources = 7;
 inline bool WebAppProto::_internal_has_sources() const {
   bool value = (_has_bits_[0] & 0x00000200u) != 0;
   PROTOBUF_ASSUME(!value || sources_ != nullptr);
@@ -8921,7 +8897,7 @@ inline void WebAppProto::set_allocated_sources(::web_app::SourcesProto* sources)
   // @@protoc_insertion_point(field_set_allocated:web_app.WebAppProto.sources)
 }
 
-// required bool is_locally_installed = 8;
+// optional bool is_locally_installed = 8;
 inline bool WebAppProto::_internal_has_is_locally_installed() const {
   bool value = (_has_bits_[0] & 0x00080000u) != 0;
   return value;

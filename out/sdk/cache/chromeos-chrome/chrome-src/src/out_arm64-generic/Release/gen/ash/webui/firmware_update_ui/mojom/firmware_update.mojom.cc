@@ -358,6 +358,8 @@ bool UpdateObserverStubDispatch::Accept(
           reinterpret_cast<internal::UpdateObserver_OnUpdateListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UpdateObserver.0
       bool success = true;
       std::vector<FirmwareUpdatePtr> p_firmware_updates{};
       UpdateObserver_OnUpdateListChanged_ParamsDataView input_data_view(params, message);
@@ -373,8 +375,8 @@ bool UpdateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUpdateListChanged(
-std::move(p_firmware_updates));
+      impl->OnUpdateListChanged(        
+        std::move(p_firmware_updates));
       return true;
     }
   }
@@ -530,6 +532,8 @@ bool DeviceRequestObserverStubDispatch::Accept(
           reinterpret_cast<internal::DeviceRequestObserver_OnDeviceRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceRequestObserver.0
       bool success = true;
       DeviceRequestPtr p_request{};
       DeviceRequestObserver_OnDeviceRequest_ParamsDataView input_data_view(params, message);
@@ -545,8 +549,8 @@ bool DeviceRequestObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRequest(
-std::move(p_request));
+      impl->OnDeviceRequest(        
+        std::move(p_request));
       return true;
     }
   }
@@ -702,6 +706,8 @@ bool UpdateProgressObserverStubDispatch::Accept(
           reinterpret_cast<internal::UpdateProgressObserver_OnStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UpdateProgressObserver.0
       bool success = true;
       InstallationProgressPtr p_update{};
       UpdateProgressObserver_OnStatusChanged_ParamsDataView input_data_view(params, message);
@@ -717,8 +723,8 @@ bool UpdateProgressObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStatusChanged(
-std::move(p_update));
+      impl->OnStatusChanged(        
+        std::move(p_update));
       return true;
     }
   }
@@ -1072,6 +1078,8 @@ bool UpdateProvider_PrepareForUpdate_ForwardToCallback::Accept(
           internal::UpdateProvider_PrepareForUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UpdateProvider.1
   bool success = true;
   ::mojo::PendingRemote<InstallController> p_controller{};
   UpdateProvider_PrepareForUpdate_ResponseParamsDataView input_data_view(params, message);
@@ -1194,6 +1202,8 @@ bool UpdateProvider_FetchInProgressUpdate_ForwardToCallback::Accept(
           internal::UpdateProvider_FetchInProgressUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UpdateProvider.2
   bool success = true;
   FirmwareUpdatePtr p_update{};
   UpdateProvider_FetchInProgressUpdate_ResponseParamsDataView input_data_view(params, message);
@@ -1274,6 +1284,8 @@ bool UpdateProviderStubDispatch::Accept(
           reinterpret_cast<internal::UpdateProvider_ObservePeripheralUpdates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UpdateProvider.0
       bool success = true;
       ::mojo::PendingRemote<UpdateObserver> p_observer{};
       UpdateProvider_ObservePeripheralUpdates_ParamsDataView input_data_view(params, message);
@@ -1291,8 +1303,8 @@ bool UpdateProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObservePeripheralUpdates(
-std::move(p_observer));
+      impl->ObservePeripheralUpdates(        
+        std::move(p_observer));
       return true;
     }
     case internal::kUpdateProvider_PrepareForUpdate_Name: {
@@ -1324,6 +1336,8 @@ bool UpdateProviderStubDispatch::AcceptWithResponder(
               internal::UpdateProvider_PrepareForUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UpdateProvider.1
       bool success = true;
       std::string p_device_id{};
       UpdateProvider_PrepareForUpdate_ParamsDataView input_data_view(params, message);
@@ -1342,8 +1356,8 @@ bool UpdateProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepareForUpdate(
-std::move(p_device_id), std::move(callback));
+      impl->PrepareForUpdate(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kUpdateProvider_FetchInProgressUpdate_Name: {
@@ -1353,6 +1367,8 @@ std::move(p_device_id), std::move(callback));
               internal::UpdateProvider_FetchInProgressUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UpdateProvider.2
       bool success = true;
       UpdateProvider_FetchInProgressUpdate_ParamsDataView input_data_view(params, message);
       
@@ -1662,6 +1678,8 @@ bool InstallControllerStubDispatch::Accept(
           reinterpret_cast<internal::InstallController_BeginUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InstallController.0
       bool success = true;
       std::string p_device_id{};
       ::base::FilePath p_filepath{};
@@ -1680,9 +1698,9 @@ bool InstallControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeginUpdate(
-std::move(p_device_id), 
-std::move(p_filepath));
+      impl->BeginUpdate(        
+        std::move(p_device_id), 
+        std::move(p_filepath));
       return true;
     }
     case internal::kInstallController_AddDeviceRequestObserver_Name: {
@@ -1692,6 +1710,8 @@ std::move(p_filepath));
           reinterpret_cast<internal::InstallController_AddDeviceRequestObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InstallController.1
       bool success = true;
       ::mojo::PendingRemote<DeviceRequestObserver> p_observer{};
       InstallController_AddDeviceRequestObserver_ParamsDataView input_data_view(params, message);
@@ -1709,8 +1729,8 @@ std::move(p_filepath));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDeviceRequestObserver(
-std::move(p_observer));
+      impl->AddDeviceRequestObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInstallController_AddUpdateProgressObserver_Name: {
@@ -1720,6 +1740,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InstallController_AddUpdateProgressObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InstallController.2
       bool success = true;
       ::mojo::PendingRemote<UpdateProgressObserver> p_observer{};
       InstallController_AddUpdateProgressObserver_ParamsDataView input_data_view(params, message);
@@ -1737,8 +1759,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddUpdateProgressObserver(
-std::move(p_observer));
+      impl->AddUpdateProgressObserver(        
+        std::move(p_observer));
       return true;
     }
   }

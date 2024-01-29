@@ -52,8 +52,8 @@
 
 
   var Effect = {};
-  Effect.NO_EFFECT = 0;
-  Effect.PORTRAIT_MODE = 1;
+  Effect.kNoEffect = 0;
+  Effect.kPortraitMode = 1;
   Effect.MIN_VALUE = 0;
   Effect.MAX_VALUE = 1;
 
@@ -78,11 +78,11 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
   var StreamType = {};
-  StreamType.PREVIEW_OUTPUT = 0;
-  StreamType.JPEG_OUTPUT = 1;
-  StreamType.JPEG_PORTRAIT_OUTPUT = 2;
-  StreamType.RECORDIND_OUTPUT = 3;
-  StreamType.UNKNOWN = 4;
+  StreamType.kPreviewOutput = 0;
+  StreamType.kJpegOutput = 1;
+  StreamType.kJpegPortraitOutput = 2;
+  StreamType.kRecordingOutput = 3;
+  StreamType.kUnknown = 4;
   StreamType.MIN_VALUE = 0;
   StreamType.MAX_VALUE = 4;
 
@@ -110,8 +110,8 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
   var GetCameraAppDeviceStatus = {};
-  GetCameraAppDeviceStatus.SUCCESS = 0;
-  GetCameraAppDeviceStatus.ERROR_INVALID_ID = 1;
+  GetCameraAppDeviceStatus.kSuccess = 0;
+  GetCameraAppDeviceStatus.kErrorInvalidId = 1;
   GetCameraAppDeviceStatus.MIN_VALUE = 0;
   GetCameraAppDeviceStatus.MAX_VALUE = 1;
 
@@ -136,10 +136,10 @@
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
   var CaptureIntent = {};
-  CaptureIntent.DEFAULT = 0;
-  CaptureIntent.VIDEO_RECORD = 1;
-  CaptureIntent.STILL_CAPTURE = 2;
-  CaptureIntent.PORTRAIT_CAPTURE = 3;
+  CaptureIntent.kDefault = 0;
+  CaptureIntent.kVideoRecord = 1;
+  CaptureIntent.kStillCapture = 2;
+  CaptureIntent.kPortraitCapture = 3;
   CaptureIntent.MIN_VALUE = 0;
   CaptureIntent.MAX_VALUE = 3;
 

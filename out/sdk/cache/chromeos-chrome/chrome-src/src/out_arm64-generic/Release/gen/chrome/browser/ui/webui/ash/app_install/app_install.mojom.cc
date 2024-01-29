@@ -225,6 +225,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -242,8 +244,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -619,6 +621,8 @@ bool PageHandler_GetDialogArgs_ForwardToCallback::Accept(
           internal::PageHandler_GetDialogArgs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   DialogArgsPtr p_args{};
   PageHandler_GetDialogArgs_ResponseParamsDataView input_data_view(params, message);
@@ -748,6 +752,8 @@ bool PageHandler_InstallApp_ForwardToCallback::Accept(
           internal::PageHandler_InstallApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   bool p_installed{};
   PageHandler_InstallApp_ResponseParamsDataView input_data_view(params, message);
@@ -825,6 +831,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_CloseDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_CloseDialog_ParamsDataView input_data_view(params, message);
       
@@ -837,7 +845,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseDialog();
+      impl->CloseDialog(        );
       return true;
     }
     case internal::kPageHandler_InstallApp_Name: {
@@ -850,6 +858,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_LaunchApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_LaunchApp_ParamsDataView input_data_view(params, message);
       
@@ -862,7 +872,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchApp();
+      impl->LaunchApp(        );
       return true;
     }
   }
@@ -885,6 +895,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetDialogArgs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetDialogArgs_ParamsDataView input_data_view(params, message);
       
@@ -913,6 +925,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_InstallApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_InstallApp_ParamsDataView input_data_view(params, message);
       

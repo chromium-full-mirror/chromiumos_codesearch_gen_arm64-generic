@@ -837,6 +837,18 @@ export class StableCdmContextInterface {
    */
 
   allocateSecureBuffer(size) {}
+  
+  /**
+   * @param { !bigint } secureHandle
+   * @param { !number } offset
+   * @param { !Array<!number> } streamData
+   * @return {!Promise<{
+        success: !boolean,
+        sliceHeader: !Array<!number>,
+   *  }>}
+   */
+
+  parseEncryptedSliceHeader(secureHandle, offset, streamData) {}
 }
 
 /**
@@ -952,6 +964,32 @@ export class StableCdmContextRemote {
           size
         ]);
   }
+
+  
+  /**
+   * @param { !bigint } secureHandle
+   * @param { !number } offset
+   * @param { !Array<!number> } streamData
+   * @return {!Promise<{
+        success: !boolean,
+        sliceHeader: !Array<!number>,
+   *  }>}
+   */
+
+  parseEncryptedSliceHeader(
+      secureHandle,
+      offset,
+      streamData) {
+    return this.proxy.sendMessage(
+        5,
+        StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+        StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+        [
+          secureHandle,
+          offset,
+          streamData
+        ]);
+  }
 }
 
 /**
@@ -999,6 +1037,11 @@ export class StableCdmContextReceiver {
         StableCdmContext_AllocateSecureBuffer_ParamsSpec.$,
         StableCdmContext_AllocateSecureBuffer_ResponseParamsSpec.$,
         impl.allocateSecureBuffer.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+        StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+        impl.parseEncryptedSliceHeader.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1105,6 +1148,18 @@ export class StableCdmContextCallbackRouter {
         StableCdmContext_AllocateSecureBuffer_ParamsSpec.$,
         StableCdmContext_AllocateSecureBuffer_ResponseParamsSpec.$,
         this.allocateSecureBuffer.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.parseEncryptedSliceHeader =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+        StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+        this.parseEncryptedSliceHeader.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -2044,6 +2099,18 @@ export const StableCdmContext_AllocateSecureBuffer_ResponseParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const StableVideoDecoder_GetSupportedConfigs_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2541,6 +2608,94 @@ export class StableCdmContext_AllocateSecureBuffer_ResponseParams {
   constructor() {
     /** @type { (MojoHandle|undefined) } */
     this.secureBuffer;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    StableCdmContext_ParseEncryptedSliceHeader_ParamsSpec.$,
+    'StableCdmContext_ParseEncryptedSliceHeader_Params',
+    [
+      mojo.internal.StructField(
+        'secureHandle', 0,
+        0,
+        mojo.internal.Uint64,
+        BigInt(0),
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'offset', 8,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'streamData', 16,
+        0,
+        mojo.internal.Array(mojo.internal.Uint8, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+/**
+ * @record
+ */
+export class StableCdmContext_ParseEncryptedSliceHeader_Params {
+  constructor() {
+    /** @type { !bigint } */
+    this.secureHandle;
+    /** @type { !number } */
+    this.offset;
+    /** @type { !Array<!number> } */
+    this.streamData;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsSpec.$,
+    'StableCdmContext_ParseEncryptedSliceHeader_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'success', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'sliceHeader', 8,
+        0,
+        mojo.internal.Array(mojo.internal.Uint8, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class StableCdmContext_ParseEncryptedSliceHeader_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.success;
+    /** @type { !Array<!number> } */
+    this.sliceHeader;
   }
 }
 

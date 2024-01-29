@@ -65,24 +65,6 @@ struct MojomTypeTraits<::blink::mojom::BackForwardCacheNotRestoredReasonsDataVie
 namespace blink::mojom {
 
 
-enum class BFCacheBlocked : int32_t {
-  
-  kYes = 0,
-  
-  kNo = 1,
-  
-  kMasked = 2,
-  kMinValue = 0,
-  kMaxValue = 2,
-};
-
-COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, BFCacheBlocked value);
-inline bool IsKnownEnumValue(BFCacheBlocked value) {
-  return internal::BFCacheBlocked_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
 class SameOriginBfcacheNotRestoredDetailsDataView {
  public:
   SameOriginBfcacheNotRestoredDetailsDataView() = default;
@@ -101,16 +83,6 @@ class SameOriginBfcacheNotRestoredDetailsDataView {
     
     auto* pointer = data_->url.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetReasonsDataView(
-      mojo::ArrayDataView<mojo::StringDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadReasons(UserType* output) {
-    
-    auto* pointer = data_->reasons.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
   inline void GetChildrenDataView(
@@ -139,16 +111,6 @@ class BackForwardCacheNotRestoredReasonsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadBlocked(UserType* output) const {
-    auto data_value = data_->blocked;
-    return mojo::internal::Deserialize<::blink::mojom::BFCacheBlocked>(
-        data_value, output);
-  }
-  BFCacheBlocked blocked() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::BFCacheBlocked>(data_->blocked));
-  }
   inline void GetSrcDataView(
       mojo::StringDataView* output);
 
@@ -209,6 +171,16 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetReasonsDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadReasons(UserType* output) {
+    
+    auto* pointer = data_->reasons.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
   inline void GetSameOriginDetailsDataView(
       SameOriginBfcacheNotRestoredDetailsDataView* output);
 
@@ -239,33 +211,9 @@ static_assert(
 
 namespace std {
 
-template <>
-struct hash<::blink::mojom::BFCacheBlocked>
-    : public mojo::internal::EnumHashImpl<::blink::mojom::BFCacheBlocked> {};
-
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::BFCacheBlocked, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::blink::mojom::BFCacheBlocked, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::blink::mojom::BFCacheBlocked>(input)), output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -293,20 +241,6 @@ struct Serializer<::blink::mojom::SameOriginBfcacheNotRestoredDetailsDataView, M
         fragment->url.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null url in SameOriginBfcacheNotRestoredDetails struct");
-    decltype(Traits::reasons(input)) in_reasons = Traits::reasons(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->reasons)::BaseType>
-        reasons_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& reasons_validate_params =
-        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
-        in_reasons, reasons_fragment, &reasons_validate_params);
-    fragment->reasons.Set(
-        reasons_fragment.is_null() ? nullptr : reasons_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->reasons.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null reasons in SameOriginBfcacheNotRestoredDetails struct");
     decltype(Traits::children(input)) in_children = Traits::children(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->children)::BaseType>
@@ -350,8 +284,6 @@ struct Serializer<::blink::mojom::BackForwardCacheNotRestoredReasonsDataView, Ma
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::blink::mojom::BFCacheBlocked>(
-        Traits::blocked(input), &fragment->blocked);
     decltype(Traits::src(input)) in_src = Traits::src(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->src)::BaseType> src_fragment(
@@ -376,6 +308,20 @@ struct Serializer<::blink::mojom::BackForwardCacheNotRestoredReasonsDataView, Ma
         in_name, name_fragment);
     fragment->name.Set(
         name_fragment.is_null() ? nullptr : name_fragment.data());
+    decltype(Traits::reasons(input)) in_reasons = Traits::reasons(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->reasons)::BaseType>
+        reasons_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& reasons_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_reasons, reasons_fragment, &reasons_validate_params);
+    fragment->reasons.Set(
+        reasons_fragment.is_null() ? nullptr : reasons_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->reasons.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null reasons in BackForwardCacheNotRestoredReasons struct");
     decltype(Traits::same_origin_details(input)) in_same_origin_details = Traits::same_origin_details(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->same_origin_details)::BaseType> same_origin_details_fragment(
@@ -409,11 +355,6 @@ inline void SameOriginBfcacheNotRestoredDetailsDataView::GetUrlDataView(
   auto pointer = data_->url.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void SameOriginBfcacheNotRestoredDetailsDataView::GetReasonsDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
-  auto pointer = data_->reasons.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
-}
 inline void SameOriginBfcacheNotRestoredDetailsDataView::GetChildrenDataView(
     mojo::ArrayDataView<BackForwardCacheNotRestoredReasonsDataView>* output) {
   auto pointer = data_->children.Get();
@@ -436,6 +377,11 @@ inline void BackForwardCacheNotRestoredReasonsDataView::GetNameDataView(
   auto pointer = data_->name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void BackForwardCacheNotRestoredReasonsDataView::GetReasonsDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->reasons.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
 inline void BackForwardCacheNotRestoredReasonsDataView::GetSameOriginDetailsDataView(
     SameOriginBfcacheNotRestoredDetailsDataView* output) {
   auto pointer = data_->same_origin_details.Get();
@@ -448,14 +394,5 @@ inline void BackForwardCacheNotRestoredReasonsDataView::GetSameOriginDetailsData
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
-
-namespace perfetto {
-
-template <>
-struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::BFCacheBlocked> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::BFCacheBlocked value);
-};
-
-} // namespace perfetto
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_BACK_FORWARD_CACHE_NOT_RESTORED_REASONS_MOJOM_SHARED_H_

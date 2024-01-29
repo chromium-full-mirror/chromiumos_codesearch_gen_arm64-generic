@@ -95,6 +95,9 @@ class AudioDeviceDescriptionDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  bool is_system_default() const {
+    return data_->is_system_default;
+  }
  private:
   internal::AudioDeviceDescription_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -159,6 +162,7 @@ struct Serializer<::audio::mojom::AudioDeviceDescriptionDataView, MaybeConstUser
         fragment->group_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null group_id in AudioDeviceDescription struct");
+    fragment->is_system_default = Traits::is_system_default(input);
   }
 
   static bool Deserialize(::audio::mojom::internal::AudioDeviceDescription_Data* input,

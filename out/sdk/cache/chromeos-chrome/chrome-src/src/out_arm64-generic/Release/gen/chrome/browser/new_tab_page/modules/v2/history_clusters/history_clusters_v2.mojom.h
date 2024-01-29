@@ -79,6 +79,7 @@ class PageHandler
     kGetDiscountsForClusterMinVersion = 0,
     kShowJourneysSidePanelMinVersion = 0,
     kRecordClickMinVersion = 0,
+    kRecordDisabledMinVersion = 0,
     kRecordLayoutTypeShownMinVersion = 0,
     kUpdateClusterVisitsInteractionStateMinVersion = 0,
   };
@@ -99,6 +100,9 @@ class PageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RecordClick_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RecordDisabled_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RecordLayoutTypeShown_Sym {
@@ -132,10 +136,13 @@ class PageHandler
   virtual void RecordClick(int64_t cluster_id) = 0;
 
   
+  virtual void RecordDisabled(int64_t cluster_id) = 0;
+
+  
   virtual void RecordLayoutTypeShown(::ntp::history_clusters::mojom::LayoutType layout_type, int64_t cluster_id) = 0;
 
   
-  virtual void UpdateClusterVisitsInteractionState(std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) = 0;
+  virtual void UpdateClusterVisitsInteractionState(int64_t cluster_id, std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) = 0;
 };
 
 
@@ -157,9 +164,11 @@ class  PageHandlerProxy
   
   void RecordClick(int64_t cluster_id) final;
   
+  void RecordDisabled(int64_t cluster_id) final;
+  
   void RecordLayoutTypeShown(::ntp::history_clusters::mojom::LayoutType layout_type, int64_t cluster_id) final;
   
-  void UpdateClusterVisitsInteractionState(std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) final;
+  void UpdateClusterVisitsInteractionState(int64_t cluster_id, std::vector<::history_clusters::mojom::URLVisitPtr> visits, ::history_clusters::mojom::InteractionState state) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

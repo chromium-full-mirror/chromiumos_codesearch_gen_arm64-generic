@@ -83,6 +83,7 @@ class PrintCompositor
     kFinishDocumentCompositionMinVersion = 0,
     kSetWebContentsURLMinVersion = 0,
     kSetUserAgentMinVersion = 0,
+    kSetTitleMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -113,6 +114,9 @@ class PrintCompositor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetUserAgent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetTitle_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -156,6 +160,9 @@ class PrintCompositor
 
   
   virtual void SetUserAgent(const std::string& user_agent) = 0;
+
+  
+  virtual void SetTitle(const std::string& title) = 0;
 };
 
 
@@ -184,6 +191,8 @@ class  PrintCompositorProxy
   void SetWebContentsURL(const ::GURL& url) final;
   
   void SetUserAgent(const std::string& user_agent) final;
+  
+  void SetTitle(const std::string& title) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

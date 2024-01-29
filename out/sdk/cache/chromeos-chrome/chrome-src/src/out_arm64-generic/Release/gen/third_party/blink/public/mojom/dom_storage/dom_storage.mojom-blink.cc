@@ -171,6 +171,8 @@ bool DomStorageProviderStubDispatch::Accept(
           reinterpret_cast<internal::DomStorageProvider_BindDomStorage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomStorageProvider.0
       bool success = true;
       ::mojo::PendingReceiver<DomStorage> p_receiver{};
       ::mojo::PendingRemote<DomStorageClient> p_client{};
@@ -193,9 +195,9 @@ bool DomStorageProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDomStorage(
-std::move(p_receiver), 
-std::move(p_client));
+      impl->BindDomStorage(        
+        std::move(p_receiver), 
+        std::move(p_client));
       return true;
     }
   }
@@ -562,6 +564,8 @@ bool DomStorageStubDispatch::Accept(
           reinterpret_cast<internal::DomStorage_OpenLocalStorage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomStorage.0
       bool success = true;
       ::blink::BlinkStorageKey p_storage_key{};
       ::blink::LocalFrameToken p_local_frame_token{};
@@ -585,10 +589,10 @@ bool DomStorageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenLocalStorage(
-std::move(p_storage_key), 
-std::move(p_local_frame_token), 
-std::move(p_area));
+      impl->OpenLocalStorage(        
+        std::move(p_storage_key), 
+        std::move(p_local_frame_token), 
+        std::move(p_area));
       return true;
     }
     case internal::kDomStorage_BindSessionStorageNamespace_Name: {
@@ -598,6 +602,8 @@ std::move(p_area));
           reinterpret_cast<internal::DomStorage_BindSessionStorageNamespace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomStorage.1
       bool success = true;
       WTF::String p_namespace_id{};
       ::mojo::PendingReceiver<::blink::mojom::blink::SessionStorageNamespace> p_receiver{};
@@ -618,9 +624,9 @@ std::move(p_area));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSessionStorageNamespace(
-std::move(p_namespace_id), 
-std::move(p_receiver));
+      impl->BindSessionStorageNamespace(        
+        std::move(p_namespace_id), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kDomStorage_BindSessionStorageArea_Name: {
@@ -630,6 +636,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DomStorage_BindSessionStorageArea_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomStorage.2
       bool success = true;
       ::blink::BlinkStorageKey p_storage_key{};
       ::blink::LocalFrameToken p_local_frame_token{};
@@ -656,11 +664,11 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSessionStorageArea(
-std::move(p_storage_key), 
-std::move(p_local_frame_token), 
-std::move(p_namespace_id), 
-std::move(p_session_namespace));
+      impl->BindSessionStorageArea(        
+        std::move(p_storage_key), 
+        std::move(p_local_frame_token), 
+        std::move(p_namespace_id), 
+        std::move(p_session_namespace));
       return true;
     }
   }
@@ -808,6 +816,8 @@ bool DomStorageClientStubDispatch::Accept(
           reinterpret_cast<internal::DomStorageClient_ResetStorageAreaAndNamespaceConnections_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DomStorageClient.0
       bool success = true;
       DomStorageClient_ResetStorageAreaAndNamespaceConnections_ParamsDataView input_data_view(params, message);
       
@@ -820,7 +830,7 @@ bool DomStorageClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetStorageAreaAndNamespaceConnections();
+      impl->ResetStorageAreaAndNamespaceConnections(        );
       return true;
     }
   }

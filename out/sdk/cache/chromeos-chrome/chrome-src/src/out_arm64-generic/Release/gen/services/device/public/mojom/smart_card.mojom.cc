@@ -1050,6 +1050,8 @@ bool SmartCardTransaction_EndTransaction_ForwardToCallback::Accept(
           internal::SmartCardTransaction_EndTransaction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardTransaction.0
   bool success = true;
   SmartCardResultPtr p_result{};
   SmartCardTransaction_EndTransaction_ResponseParamsDataView input_data_view(params, message);
@@ -1148,6 +1150,8 @@ bool SmartCardTransactionStubDispatch::AcceptWithResponder(
               internal::SmartCardTransaction_EndTransaction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardTransaction.0
       bool success = true;
       SmartCardDisposition p_disposition{};
       SmartCardTransaction_EndTransaction_ParamsDataView input_data_view(params, message);
@@ -1166,8 +1170,8 @@ bool SmartCardTransactionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EndTransaction(
-std::move(p_disposition), std::move(callback));
+      impl->EndTransaction(        
+        std::move(p_disposition), std::move(callback));
       return true;
     }
   }
@@ -1865,6 +1869,8 @@ bool SmartCardConnection_Disconnect_ForwardToCallback::Accept(
           internal::SmartCardConnection_Disconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.0
   bool success = true;
   SmartCardResultPtr p_result{};
   SmartCardConnection_Disconnect_ResponseParamsDataView input_data_view(params, message);
@@ -1992,6 +1998,8 @@ bool SmartCardConnection_Transmit_ForwardToCallback::Accept(
           internal::SmartCardConnection_Transmit_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.1
   bool success = true;
   SmartCardDataResultPtr p_result{};
   SmartCardConnection_Transmit_ResponseParamsDataView input_data_view(params, message);
@@ -2119,6 +2127,8 @@ bool SmartCardConnection_Control_ForwardToCallback::Accept(
           internal::SmartCardConnection_Control_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.2
   bool success = true;
   SmartCardDataResultPtr p_result{};
   SmartCardConnection_Control_ResponseParamsDataView input_data_view(params, message);
@@ -2246,6 +2256,8 @@ bool SmartCardConnection_GetAttrib_ForwardToCallback::Accept(
           internal::SmartCardConnection_GetAttrib_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.3
   bool success = true;
   SmartCardDataResultPtr p_result{};
   SmartCardConnection_GetAttrib_ResponseParamsDataView input_data_view(params, message);
@@ -2373,6 +2385,8 @@ bool SmartCardConnection_SetAttrib_ForwardToCallback::Accept(
           internal::SmartCardConnection_SetAttrib_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.4
   bool success = true;
   SmartCardResultPtr p_result{};
   SmartCardConnection_SetAttrib_ResponseParamsDataView input_data_view(params, message);
@@ -2500,6 +2514,8 @@ bool SmartCardConnection_Status_ForwardToCallback::Accept(
           internal::SmartCardConnection_Status_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.5
   bool success = true;
   SmartCardStatusResultPtr p_result{};
   SmartCardConnection_Status_ResponseParamsDataView input_data_view(params, message);
@@ -2627,6 +2643,8 @@ bool SmartCardConnection_BeginTransaction_ForwardToCallback::Accept(
           internal::SmartCardConnection_BeginTransaction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardConnection.6
   bool success = true;
   SmartCardTransactionResultPtr p_result{};
   SmartCardConnection_BeginTransaction_ResponseParamsDataView input_data_view(params, message);
@@ -2743,6 +2761,8 @@ bool SmartCardConnectionStubDispatch::AcceptWithResponder(
               internal::SmartCardConnection_Disconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.0
       bool success = true;
       SmartCardDisposition p_disposition{};
       SmartCardConnection_Disconnect_ParamsDataView input_data_view(params, message);
@@ -2761,8 +2781,8 @@ bool SmartCardConnectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Disconnect(
-std::move(p_disposition), std::move(callback));
+      impl->Disconnect(        
+        std::move(p_disposition), std::move(callback));
       return true;
     }
     case internal::kSmartCardConnection_Transmit_Name: {
@@ -2772,6 +2792,8 @@ std::move(p_disposition), std::move(callback));
               internal::SmartCardConnection_Transmit_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.1
       bool success = true;
       SmartCardProtocol p_protocol{};
       std::vector<uint8_t> p_data{};
@@ -2793,9 +2815,9 @@ std::move(p_disposition), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Transmit(
-std::move(p_protocol), 
-std::move(p_data), std::move(callback));
+      impl->Transmit(        
+        std::move(p_protocol), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kSmartCardConnection_Control_Name: {
@@ -2805,6 +2827,8 @@ std::move(p_data), std::move(callback));
               internal::SmartCardConnection_Control_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.2
       bool success = true;
       uint32_t p_control_code{};
       std::vector<uint8_t> p_data{};
@@ -2826,9 +2850,9 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Control(
-std::move(p_control_code), 
-std::move(p_data), std::move(callback));
+      impl->Control(        
+        std::move(p_control_code), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kSmartCardConnection_GetAttrib_Name: {
@@ -2838,6 +2862,8 @@ std::move(p_data), std::move(callback));
               internal::SmartCardConnection_GetAttrib_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.3
       bool success = true;
       uint32_t p_id{};
       SmartCardConnection_GetAttrib_ParamsDataView input_data_view(params, message);
@@ -2856,8 +2882,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAttrib(
-std::move(p_id), std::move(callback));
+      impl->GetAttrib(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kSmartCardConnection_SetAttrib_Name: {
@@ -2867,6 +2893,8 @@ std::move(p_id), std::move(callback));
               internal::SmartCardConnection_SetAttrib_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.4
       bool success = true;
       uint32_t p_id{};
       std::vector<uint8_t> p_data{};
@@ -2888,9 +2916,9 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAttrib(
-std::move(p_id), 
-std::move(p_data), std::move(callback));
+      impl->SetAttrib(        
+        std::move(p_id), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kSmartCardConnection_Status_Name: {
@@ -2900,6 +2928,8 @@ std::move(p_data), std::move(callback));
               internal::SmartCardConnection_Status_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.5
       bool success = true;
       SmartCardConnection_Status_ParamsDataView input_data_view(params, message);
       
@@ -2925,6 +2955,8 @@ std::move(p_data), std::move(callback));
               internal::SmartCardConnection_BeginTransaction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardConnection.6
       bool success = true;
       SmartCardConnection_BeginTransaction_ParamsDataView input_data_view(params, message);
       
@@ -3421,6 +3453,8 @@ bool SmartCardContext_ListReaders_ForwardToCallback::Accept(
           internal::SmartCardContext_ListReaders_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardContext.0
   bool success = true;
   SmartCardListReadersResultPtr p_result{};
   SmartCardContext_ListReaders_ResponseParamsDataView input_data_view(params, message);
@@ -3548,6 +3582,8 @@ bool SmartCardContext_GetStatusChange_ForwardToCallback::Accept(
           internal::SmartCardContext_GetStatusChange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardContext.1
   bool success = true;
   SmartCardStatusChangeResultPtr p_result{};
   SmartCardContext_GetStatusChange_ResponseParamsDataView input_data_view(params, message);
@@ -3675,6 +3711,8 @@ bool SmartCardContext_Cancel_ForwardToCallback::Accept(
           internal::SmartCardContext_Cancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardContext.2
   bool success = true;
   SmartCardResultPtr p_result{};
   SmartCardContext_Cancel_ResponseParamsDataView input_data_view(params, message);
@@ -3802,6 +3840,8 @@ bool SmartCardContext_Connect_ForwardToCallback::Accept(
           internal::SmartCardContext_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardContext.3
   bool success = true;
   SmartCardConnectResultPtr p_result{};
   SmartCardContext_Connect_ResponseParamsDataView input_data_view(params, message);
@@ -3909,6 +3949,8 @@ bool SmartCardContextStubDispatch::AcceptWithResponder(
               internal::SmartCardContext_ListReaders_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardContext.0
       bool success = true;
       SmartCardContext_ListReaders_ParamsDataView input_data_view(params, message);
       
@@ -3934,6 +3976,8 @@ bool SmartCardContextStubDispatch::AcceptWithResponder(
               internal::SmartCardContext_GetStatusChange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardContext.1
       bool success = true;
       ::base::TimeDelta p_timeout{};
       std::vector<SmartCardReaderStateInPtr> p_reader_states{};
@@ -3955,9 +3999,9 @@ bool SmartCardContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStatusChange(
-std::move(p_timeout), 
-std::move(p_reader_states), std::move(callback));
+      impl->GetStatusChange(        
+        std::move(p_timeout), 
+        std::move(p_reader_states), std::move(callback));
       return true;
     }
     case internal::kSmartCardContext_Cancel_Name: {
@@ -3967,6 +4011,8 @@ std::move(p_reader_states), std::move(callback));
               internal::SmartCardContext_Cancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardContext.2
       bool success = true;
       SmartCardContext_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -3992,6 +4038,8 @@ std::move(p_reader_states), std::move(callback));
               internal::SmartCardContext_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardContext.3
       bool success = true;
       std::string p_reader{};
       SmartCardShareMode p_share_mode{};
@@ -4016,10 +4064,10 @@ std::move(p_reader_states), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_reader), 
-std::move(p_share_mode), 
-std::move(p_preferred_protocols), std::move(callback));
+      impl->Connect(        
+        std::move(p_reader), 
+        std::move(p_share_mode), 
+        std::move(p_preferred_protocols), std::move(callback));
       return true;
     }
   }
@@ -4213,6 +4261,8 @@ bool SmartCardContextFactory_CreateContext_ForwardToCallback::Accept(
           internal::SmartCardContextFactory_CreateContext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardContextFactory.0
   bool success = true;
   SmartCardCreateContextResultPtr p_result{};
   SmartCardContextFactory_CreateContext_ResponseParamsDataView input_data_view(params, message);
@@ -4311,6 +4361,8 @@ bool SmartCardContextFactoryStubDispatch::AcceptWithResponder(
               internal::SmartCardContextFactory_CreateContext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardContextFactory.0
       bool success = true;
       SmartCardContextFactory_CreateContext_ParamsDataView input_data_view(params, message);
       

@@ -133,7 +133,7 @@ void V8UnionCSSKeywordValueOrCSSNumericValueOrString::Set(const V8UnionCSSNumeri
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionCSSKeywordValueOrCSSNumericValueOrString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionCSSKeywordValueOrCSSNumericValueOrString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kCSSKeywordValue: {
     return ToV8Traits<CSSKeywordValue>::ToV8(script_state, member_css_keyword_value_.Get());
@@ -147,7 +147,7 @@ v8::MaybeLocal<v8::Value> V8UnionCSSKeywordValueOrCSSNumericValueOrString::ToV8V
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionCSSKeywordValueOrCSSNumericValueOrString::Trace(Visitor* visitor) const {

@@ -53,8 +53,12 @@ bool TelemetryManagementService_SetAudioGain_ResponseParams_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -67,6 +71,52 @@ bool TelemetryManagementService_SetAudioGain_ResponseParams_Data::Validate(
 }
 
 TelemetryManagementService_SetAudioGain_ResponseParams_Data::TelemetryManagementService_SetAudioGain_ResponseParams_Data()
+    : header_({sizeof(*this), 2}) {}
+
+
+// static
+bool TelemetryManagementService_SetAudioVolume_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TelemetryManagementService_SetAudioVolume_Params_Data* object =
+      static_cast<const TelemetryManagementService_SetAudioVolume_Params_Data*>(data);
+
+  return true;
+}
+
+TelemetryManagementService_SetAudioVolume_Params_Data::TelemetryManagementService_SetAudioVolume_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TelemetryManagementService_SetAudioVolume_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TelemetryManagementService_SetAudioVolume_ResponseParams_Data* object =
+      static_cast<const TelemetryManagementService_SetAudioVolume_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+TelemetryManagementService_SetAudioVolume_ResponseParams_Data::TelemetryManagementService_SetAudioVolume_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

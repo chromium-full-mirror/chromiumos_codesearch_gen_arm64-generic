@@ -162,14 +162,14 @@ bool ReadAnythingTheme_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->foreground_color, 3, validation_context)) {
+          object->foreground_color, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->foreground_color, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->background_color, 4, validation_context)) {
+          object->background_color, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->background_color, validation_context))
@@ -230,6 +230,29 @@ bool UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validat
 }
 
 UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UntrustedPageHandlerFactory_ShouldShowUI_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UntrustedPageHandlerFactory_ShouldShowUI_Params_Data* object =
+      static_cast<const UntrustedPageHandlerFactory_ShouldShowUI_Params_Data*>(data);
+
+  return true;
+}
+
+UntrustedPageHandlerFactory_ShouldShowUI_Params_Data::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -366,6 +389,29 @@ bool UntrustedPageHandler_OnFontSizeChange_Params_Data::Validate(
 }
 
 UntrustedPageHandler_OnFontSizeChange_Params_Data::UntrustedPageHandler_OnFontSizeChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UntrustedPageHandler_OnLinksEnabledChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UntrustedPageHandler_OnLinksEnabledChanged_Params_Data* object =
+      static_cast<const UntrustedPageHandler_OnLinksEnabledChanged_Params_Data*>(data);
+
+  return true;
+}
+
+UntrustedPageHandler_OnLinksEnabledChanged_Params_Data::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -796,7 +842,7 @@ bool UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -832,7 +878,7 @@ bool UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->voices, 7, validation_context)) {
+          object->voices, 8, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->voices, validation_context))

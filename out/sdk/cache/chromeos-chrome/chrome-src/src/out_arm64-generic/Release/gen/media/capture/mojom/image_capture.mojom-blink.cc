@@ -1984,6 +1984,8 @@ bool ImageCapture_GetPhotoState_ForwardToCallback::Accept(
           internal::ImageCapture_GetPhotoState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageCapture.0
   bool success = true;
   PhotoStatePtr p_state{};
   ImageCapture_GetPhotoState_ResponseParamsDataView input_data_view(params, message);
@@ -2113,6 +2115,8 @@ bool ImageCapture_SetPhotoOptions_ForwardToCallback::Accept(
           internal::ImageCapture_SetPhotoOptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageCapture.1
   bool success = true;
   bool p_success{};
   ImageCapture_SetPhotoOptions_ResponseParamsDataView input_data_view(params, message);
@@ -2232,6 +2236,8 @@ bool ImageCapture_TakePhoto_ForwardToCallback::Accept(
           internal::ImageCapture_TakePhoto_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageCapture.2
   bool success = true;
   BlobPtr p_blob{};
   ImageCapture_TakePhoto_ResponseParamsDataView input_data_view(params, message);
@@ -2338,6 +2344,8 @@ bool ImageCaptureStubDispatch::AcceptWithResponder(
               internal::ImageCapture_GetPhotoState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageCapture.0
       bool success = true;
       WTF::String p_source_id{};
       ImageCapture_GetPhotoState_ParamsDataView input_data_view(params, message);
@@ -2356,8 +2364,8 @@ bool ImageCaptureStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPhotoState(
-std::move(p_source_id), std::move(callback));
+      impl->GetPhotoState(        
+        std::move(p_source_id), std::move(callback));
       return true;
     }
     case internal::kImageCapture_SetPhotoOptions_Name: {
@@ -2367,6 +2375,8 @@ std::move(p_source_id), std::move(callback));
               internal::ImageCapture_SetPhotoOptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageCapture.1
       bool success = true;
       WTF::String p_source_id{};
       PhotoSettingsPtr p_settings{};
@@ -2388,9 +2398,9 @@ std::move(p_source_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPhotoOptions(
-std::move(p_source_id), 
-std::move(p_settings), std::move(callback));
+      impl->SetPhotoOptions(        
+        std::move(p_source_id), 
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kImageCapture_TakePhoto_Name: {
@@ -2400,6 +2410,8 @@ std::move(p_settings), std::move(callback));
               internal::ImageCapture_TakePhoto_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageCapture.2
       bool success = true;
       WTF::String p_source_id{};
       ImageCapture_TakePhoto_ParamsDataView input_data_view(params, message);
@@ -2418,8 +2430,8 @@ std::move(p_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TakePhoto(
-std::move(p_source_id), std::move(callback));
+      impl->TakePhoto(        
+        std::move(p_source_id), std::move(callback));
       return true;
     }
   }

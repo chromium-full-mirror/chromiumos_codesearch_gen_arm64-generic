@@ -171,8 +171,7 @@ BLINK_BINDINGS_TRACE_EVENT("GPUDevice.lost.get");
 
 
 GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->lost(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -451,8 +450,7 @@ return;
 
 
 GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_descriptor = NativeValueTraits<GPUComputePipelineDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -580,8 +578,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_descriptor = NativeValueTraits<GPURenderPipelineDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -619,8 +616,7 @@ return;
 
 
 GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_descriptor = NativeValueTraits<GPURenderPipelineDescriptor>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -802,8 +798,7 @@ return;
 
 
 GPUDevice* blink_receiver = V8GPUDevice::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->popErrorScope(script_state);
 bindings::V8SetReturnValue(info, return_value);

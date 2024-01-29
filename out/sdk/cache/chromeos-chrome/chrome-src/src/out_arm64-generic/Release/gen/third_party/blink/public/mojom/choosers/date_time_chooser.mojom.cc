@@ -421,6 +421,8 @@ bool DateTimeChooser_OpenDateTimeDialog_ForwardToCallback::Accept(
           internal::DateTimeChooser_OpenDateTimeDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DateTimeChooser.0
   bool success = true;
   bool p_success{};
   double p_dialog_value{};
@@ -506,6 +508,8 @@ bool DateTimeChooserStubDispatch::Accept(
           reinterpret_cast<internal::DateTimeChooser_CloseDateTimeDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DateTimeChooser.1
       bool success = true;
       DateTimeChooser_CloseDateTimeDialog_ParamsDataView input_data_view(params, message);
       
@@ -518,7 +522,7 @@ bool DateTimeChooserStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseDateTimeDialog();
+      impl->CloseDateTimeDialog(        );
       return true;
     }
   }
@@ -541,6 +545,8 @@ bool DateTimeChooserStubDispatch::AcceptWithResponder(
               internal::DateTimeChooser_OpenDateTimeDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DateTimeChooser.0
       bool success = true;
       DateTimeDialogValuePtr p_value{};
       DateTimeChooser_OpenDateTimeDialog_ParamsDataView input_data_view(params, message);
@@ -559,8 +565,8 @@ bool DateTimeChooserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDateTimeDialog(
-std::move(p_value), std::move(callback));
+      impl->OpenDateTimeDialog(        
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kDateTimeChooser_CloseDateTimeDialog_Name: {

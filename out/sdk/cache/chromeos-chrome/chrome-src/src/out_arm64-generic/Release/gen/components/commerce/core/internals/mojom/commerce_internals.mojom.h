@@ -26,6 +26,8 @@
 #include "components/commerce/core/internals/mojom/commerce_internals.mojom-features.h"
 #include "components/commerce/core/internals/mojom/commerce_internals.mojom-shared.h"
 #include "components/commerce/core/internals/mojom/commerce_internals.mojom-forward.h"
+#include "ui/webui/resources/cr_components/commerce/shopping_service.mojom.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
@@ -117,6 +119,8 @@ class CommerceInternalsHandler
     kGetIsShoppingListEligibleMinVersion = 0,
     kGetShoppingListEligibleDetailsMinVersion = 0,
     kResetPriceTrackingEmailPrefMinVersion = 0,
+    kGetProductInfoForUrlMinVersion = 0,
+    kGetSubscriptionDetailsMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -129,6 +133,12 @@ class CommerceInternalsHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ResetPriceTrackingEmailPref_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetProductInfoForUrl_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetSubscriptionDetails_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -146,6 +156,16 @@ class CommerceInternalsHandler
 
   
   virtual void ResetPriceTrackingEmailPref() = 0;
+
+
+  using GetProductInfoForUrlCallback = base::OnceCallback<void(::shopping_service::mojom::ProductInfoPtr)>;
+  
+  virtual void GetProductInfoForUrl(const ::GURL& url, GetProductInfoForUrlCallback callback) = 0;
+
+
+  using GetSubscriptionDetailsCallback = base::OnceCallback<void(std::vector<SubscriptionPtr>)>;
+  
+  virtual void GetSubscriptionDetails(GetSubscriptionDetailsCallback callback) = 0;
 };
 
 class CommerceInternalsPageProxy;
@@ -222,6 +242,10 @@ class  CommerceInternalsHandlerProxy
   void GetShoppingListEligibleDetails(GetShoppingListEligibleDetailsCallback callback) final;
   
   void ResetPriceTrackingEmailPref() final;
+  
+  void GetProductInfoForUrl(const ::GURL& url, GetProductInfoForUrlCallback callback) final;
+  
+  void GetSubscriptionDetails(GetSubscriptionDetailsCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -533,6 +557,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  ShoppingListEligibleDetail {
  public:
   template <typename T>
@@ -690,6 +715,151 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  Subscription {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Subscription, T>::value>;
+  using DataView = SubscriptionDataView;
+  using Data_ = internal::Subscription_Data;
+
+  template <typename... Args>
+  static SubscriptionPtr New(Args&&... args) {
+    return SubscriptionPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SubscriptionPtr From(const U& u) {
+    return mojo::TypeConverter<SubscriptionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Subscription>::Convert(*this);
+  }
+
+
+  Subscription();
+
+  Subscription(
+      uint64_t cluster_id,
+      std::vector<::shopping_service::mojom::BookmarkProductInfoPtr> product_infos);
+
+Subscription(const Subscription&) = delete;
+Subscription& operator=(const Subscription&) = delete;
+
+  ~Subscription();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SubscriptionPtr>
+  SubscriptionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Subscription::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Subscription::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Subscription_UnserializedMessageContext<
+            UserType, Subscription::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Subscription::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Subscription::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Subscription_UnserializedMessageContext<
+            UserType, Subscription::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Subscription::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t cluster_id;
+  
+  std::vector<::shopping_service::mojom::BookmarkProductInfoPtr> product_infos;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Subscription::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 EligibleEntryPtr EligibleEntry::Clone() const {
   return New(
@@ -783,6 +953,35 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+SubscriptionPtr Subscription::Clone() const {
+  return New(
+      mojo::Clone(cluster_id),
+      mojo::Clone(product_infos)
+  );
+}
+
+template <typename T, Subscription::EnableIfSame<T>*>
+bool Subscription::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->cluster_id, other_struct.cluster_id))
+    return false;
+  if (!mojo::Equals(this->product_infos, other_struct.product_infos))
+    return false;
+  return true;
+}
+
+template <typename T, Subscription::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.cluster_id < rhs.cluster_id)
+    return true;
+  if (rhs.cluster_id < lhs.cluster_id)
+    return false;
+  if (lhs.product_infos < rhs.product_infos)
+    return true;
+  if (rhs.product_infos < lhs.product_infos)
+    return false;
+  return false;
+}
 
 
 }  // commerce::mojom
@@ -852,6 +1051,26 @@ struct  StructTraits<::commerce::mojom::ShoppingListEligibleDetail::DataView,
   }
 
   static bool Read(::commerce::mojom::ShoppingListEligibleDetail::DataView input, ::commerce::mojom::ShoppingListEligibleDetailPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::commerce::mojom::Subscription::DataView,
+                                         ::commerce::mojom::SubscriptionPtr> {
+  static bool IsNull(const ::commerce::mojom::SubscriptionPtr& input) { return !input; }
+  static void SetToNull(::commerce::mojom::SubscriptionPtr* output) { output->reset(); }
+
+  static decltype(::commerce::mojom::Subscription::cluster_id) cluster_id(
+      const ::commerce::mojom::SubscriptionPtr& input) {
+    return input->cluster_id;
+  }
+
+  static const decltype(::commerce::mojom::Subscription::product_infos)& product_infos(
+      const ::commerce::mojom::SubscriptionPtr& input) {
+    return input->product_infos;
+  }
+
+  static bool Read(::commerce::mojom::Subscription::DataView input, ::commerce::mojom::SubscriptionPtr* output);
 };
 
 }  // namespace mojo

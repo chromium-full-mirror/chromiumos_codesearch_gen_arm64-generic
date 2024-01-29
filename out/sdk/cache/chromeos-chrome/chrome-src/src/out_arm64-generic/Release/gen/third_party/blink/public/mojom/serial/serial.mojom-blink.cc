@@ -746,6 +746,8 @@ bool SerialService_GetPorts_ForwardToCallback::Accept(
           internal::SerialService_GetPorts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SerialService.1
   bool success = true;
   WTF::Vector<SerialPortInfoPtr> p_ports{};
   SerialService_GetPorts_ResponseParamsDataView input_data_view(params, message);
@@ -877,6 +879,8 @@ bool SerialService_RequestPort_ForwardToCallback::Accept(
           internal::SerialService_RequestPort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SerialService.2
   bool success = true;
   SerialPortInfoPtr p_port{};
   SerialService_RequestPort_ResponseParamsDataView input_data_view(params, message);
@@ -1002,6 +1006,8 @@ bool SerialService_OpenPort_ForwardToCallback::Accept(
           internal::SerialService_OpenPort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SerialService.3
   bool success = true;
   ::mojo::PendingRemote<::device::mojom::blink::SerialPort> p_port{};
   SerialService_OpenPort_ResponseParamsDataView input_data_view(params, message);
@@ -1124,6 +1130,8 @@ bool SerialService_ForgetPort_ForwardToCallback::Accept(
           internal::SerialService_ForgetPort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SerialService.4
   bool success = true;
   SerialService_ForgetPort_ResponseParamsDataView input_data_view(params, message);
   
@@ -1186,6 +1194,8 @@ bool SerialServiceStubDispatch::Accept(
           reinterpret_cast<internal::SerialService_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SerialService.0
       bool success = true;
       ::mojo::PendingRemote<SerialServiceClient> p_client{};
       SerialService_SetClient_ParamsDataView input_data_view(params, message);
@@ -1203,8 +1213,8 @@ bool SerialServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kSerialService_GetPorts_Name: {
@@ -1242,6 +1252,8 @@ bool SerialServiceStubDispatch::AcceptWithResponder(
               internal::SerialService_GetPorts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SerialService.1
       bool success = true;
       SerialService_GetPorts_ParamsDataView input_data_view(params, message);
       
@@ -1267,6 +1279,8 @@ bool SerialServiceStubDispatch::AcceptWithResponder(
               internal::SerialService_RequestPort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SerialService.2
       bool success = true;
       WTF::Vector<SerialPortFilterPtr> p_filters{};
       WTF::Vector<::bluetooth::mojom::blink::UUIDPtr> p_allowed_bluetooth_service_class_ids{};
@@ -1288,9 +1302,9 @@ bool SerialServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPort(
-std::move(p_filters), 
-std::move(p_allowed_bluetooth_service_class_ids), std::move(callback));
+      impl->RequestPort(        
+        std::move(p_filters), 
+        std::move(p_allowed_bluetooth_service_class_ids), std::move(callback));
       return true;
     }
     case internal::kSerialService_OpenPort_Name: {
@@ -1300,6 +1314,8 @@ std::move(p_allowed_bluetooth_service_class_ids), std::move(callback));
               internal::SerialService_OpenPort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SerialService.3
       bool success = true;
       ::base::UnguessableToken p_token{};
       ::device::mojom::blink::SerialConnectionOptionsPtr p_options{};
@@ -1326,10 +1342,10 @@ std::move(p_allowed_bluetooth_service_class_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenPort(
-std::move(p_token), 
-std::move(p_options), 
-std::move(p_client), std::move(callback));
+      impl->OpenPort(        
+        std::move(p_token), 
+        std::move(p_options), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kSerialService_ForgetPort_Name: {
@@ -1339,6 +1355,8 @@ std::move(p_client), std::move(callback));
               internal::SerialService_ForgetPort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SerialService.4
       bool success = true;
       ::base::UnguessableToken p_token{};
       SerialService_ForgetPort_ParamsDataView input_data_view(params, message);
@@ -1357,8 +1375,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForgetPort(
-std::move(p_token), std::move(callback));
+      impl->ForgetPort(        
+        std::move(p_token), std::move(callback));
       return true;
     }
   }
@@ -1581,6 +1599,8 @@ bool SerialServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::SerialServiceClient_OnPortAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SerialServiceClient.0
       bool success = true;
       SerialPortInfoPtr p_port_info{};
       SerialServiceClient_OnPortAdded_ParamsDataView input_data_view(params, message);
@@ -1596,8 +1616,8 @@ bool SerialServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPortAdded(
-std::move(p_port_info));
+      impl->OnPortAdded(        
+        std::move(p_port_info));
       return true;
     }
     case internal::kSerialServiceClient_OnPortRemoved_Name: {
@@ -1607,6 +1627,8 @@ std::move(p_port_info));
           reinterpret_cast<internal::SerialServiceClient_OnPortRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SerialServiceClient.1
       bool success = true;
       SerialPortInfoPtr p_port_info{};
       SerialServiceClient_OnPortRemoved_ParamsDataView input_data_view(params, message);
@@ -1622,8 +1644,8 @@ std::move(p_port_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPortRemoved(
-std::move(p_port_info));
+      impl->OnPortRemoved(        
+        std::move(p_port_info));
       return true;
     }
   }

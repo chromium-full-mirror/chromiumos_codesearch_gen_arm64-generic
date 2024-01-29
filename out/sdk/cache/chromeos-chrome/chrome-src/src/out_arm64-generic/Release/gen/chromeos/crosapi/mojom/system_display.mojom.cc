@@ -599,6 +599,8 @@ bool DisplayChangeObserverStubDispatch::Accept(
           reinterpret_cast<internal::DisplayChangeObserver_OnCrosapiDisplayChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayChangeObserver.0
       bool success = true;
       DisplayChangeObserver_OnCrosapiDisplayChanged_ParamsDataView input_data_view(params, message);
       
@@ -611,7 +613,7 @@ bool DisplayChangeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCrosapiDisplayChanged();
+      impl->OnCrosapiDisplayChanged(        );
       return true;
     }
   }
@@ -886,6 +888,8 @@ bool SystemDisplayDeprecated_GetDisplayUnitInfoList_ForwardToCallback::Accept(
           internal::SystemDisplayDeprecated_GetDisplayUnitInfoList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemDisplayDeprecated.0
   bool success = true;
   std::vector<SysDisplayUnitInfoPtr> p_info_list{};
   SystemDisplayDeprecated_GetDisplayUnitInfoList_ResponseParamsDataView input_data_view(params, message);
@@ -975,6 +979,8 @@ bool SystemDisplayDeprecatedStubDispatch::Accept(
           reinterpret_cast<internal::SystemDisplayDeprecated_AddDisplayChangeObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemDisplayDeprecated.1
       bool success = true;
       ::mojo::PendingRemote<DisplayChangeObserver> p_observer{};
       SystemDisplayDeprecated_AddDisplayChangeObserver_ParamsDataView input_data_view(params, message);
@@ -992,8 +998,8 @@ bool SystemDisplayDeprecatedStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDisplayChangeObserver(
-std::move(p_observer));
+      impl->AddDisplayChangeObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -1016,6 +1022,8 @@ bool SystemDisplayDeprecatedStubDispatch::AcceptWithResponder(
               internal::SystemDisplayDeprecated_GetDisplayUnitInfoList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemDisplayDeprecated.0
       bool success = true;
       bool p_single_unified{};
       SystemDisplayDeprecated_GetDisplayUnitInfoList_ParamsDataView input_data_view(params, message);
@@ -1034,8 +1042,8 @@ bool SystemDisplayDeprecatedStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDisplayUnitInfoList(
-std::move(p_single_unified), std::move(callback));
+      impl->GetDisplayUnitInfoList(        
+        std::move(p_single_unified), std::move(callback));
       return true;
     }
     case internal::kSystemDisplayDeprecated_AddDisplayChangeObserver_Name: {

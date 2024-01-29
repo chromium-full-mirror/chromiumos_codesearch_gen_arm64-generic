@@ -450,6 +450,8 @@ bool PageMetricsHost_OnGetMark_ForwardToCallback::Accept(
           internal::PageMetricsHost_OnGetMark_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageMetricsHost.1
   bool success = true;
   std::optional<::base::TimeDelta> p_marked_time{};
   PageMetricsHost_OnGetMark_ResponseParamsDataView input_data_view(params, message);
@@ -530,6 +532,8 @@ bool PageMetricsHostStubDispatch::Accept(
           reinterpret_cast<internal::PageMetricsHost_OnPageRemoteCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageMetricsHost.0
       bool success = true;
       ::mojo::PendingRemote<PageMetrics> p_page{};
       PageMetricsHost_OnPageRemoteCreated_ParamsDataView input_data_view(params, message);
@@ -547,8 +551,8 @@ bool PageMetricsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPageRemoteCreated(
-std::move(p_page));
+      impl->OnPageRemoteCreated(        
+        std::move(p_page));
       return true;
     }
     case internal::kPageMetricsHost_OnGetMark_Name: {
@@ -561,6 +565,8 @@ std::move(p_page));
           reinterpret_cast<internal::PageMetricsHost_OnClearMark_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageMetricsHost.2
       bool success = true;
       std::string p_name{};
       PageMetricsHost_OnClearMark_ParamsDataView input_data_view(params, message);
@@ -576,8 +582,8 @@ std::move(p_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClearMark(
-std::move(p_name));
+      impl->OnClearMark(        
+        std::move(p_name));
       return true;
     }
     case internal::kPageMetricsHost_OnUmaReportTime_Name: {
@@ -587,6 +593,8 @@ std::move(p_name));
           reinterpret_cast<internal::PageMetricsHost_OnUmaReportTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageMetricsHost.3
       bool success = true;
       std::string p_name{};
       ::base::TimeDelta p_time{};
@@ -605,9 +613,9 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUmaReportTime(
-std::move(p_name), 
-std::move(p_time));
+      impl->OnUmaReportTime(        
+        std::move(p_name), 
+        std::move(p_time));
       return true;
     }
   }
@@ -633,6 +641,8 @@ bool PageMetricsHostStubDispatch::AcceptWithResponder(
               internal::PageMetricsHost_OnGetMark_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageMetricsHost.1
       bool success = true;
       std::string p_name{};
       PageMetricsHost_OnGetMark_ParamsDataView input_data_view(params, message);
@@ -651,8 +661,8 @@ bool PageMetricsHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGetMark(
-std::move(p_name), std::move(callback));
+      impl->OnGetMark(        
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kPageMetricsHost_OnClearMark_Name: {
@@ -941,6 +951,8 @@ bool PageMetrics_OnGetMark_ForwardToCallback::Accept(
           internal::PageMetrics_OnGetMark_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageMetrics.0
   bool success = true;
   std::optional<::base::TimeDelta> p_marked_time{};
   PageMetrics_OnGetMark_ResponseParamsDataView input_data_view(params, message);
@@ -1024,6 +1036,8 @@ bool PageMetricsStubDispatch::Accept(
           reinterpret_cast<internal::PageMetrics_OnClearMark_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageMetrics.1
       bool success = true;
       std::string p_name{};
       PageMetrics_OnClearMark_ParamsDataView input_data_view(params, message);
@@ -1039,8 +1053,8 @@ bool PageMetricsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClearMark(
-std::move(p_name));
+      impl->OnClearMark(        
+        std::move(p_name));
       return true;
     }
   }
@@ -1063,6 +1077,8 @@ bool PageMetricsStubDispatch::AcceptWithResponder(
               internal::PageMetrics_OnGetMark_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageMetrics.0
       bool success = true;
       std::string p_name{};
       PageMetrics_OnGetMark_ParamsDataView input_data_view(params, message);
@@ -1081,8 +1097,8 @@ bool PageMetricsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGetMark(
-std::move(p_name), std::move(callback));
+      impl->OnGetMark(        
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kPageMetrics_OnClearMark_Name: {

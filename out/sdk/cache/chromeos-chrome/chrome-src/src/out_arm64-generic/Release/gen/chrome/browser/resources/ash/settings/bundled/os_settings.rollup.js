@@ -1,6 +1,6 @@
 import './strings.m.js';
-import { a as assertNotReached, cf as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, cg as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a5 as MultiDeviceBrowserProxyImpl, j as Router, ch as isAdvancedRoute, ci as NETWORK_SECTION_PATH, cj as BLUETOOTH_SECTION_PATH, ck as MULTI_DEVICE_SECTION_PATH, cl as PEOPLE_SECTION_PATH, cm as KERBEROS_SECTION_PATH, cn as DEVICE_SECTION_PATH, co as PERSONALIZATION_SECTION_PATH, cp as PRIVACY_AND_SECURITY_SECTION_PATH, cq as APPS_SECTION_PATH, cr as ACCESSIBILITY_SECTION_PATH, cs as SYSTEM_PREFERENCES_SECTION_PATH, ct as SEARCH_AND_ASSISTANT_SECTION_PATH, cu as DATE_AND_TIME_SECTION_PATH, cv as LANGUAGES_AND_INPUT_SECTION_PATH, cw as FILES_SECTION_PATH, cx as PRINTING_SECTION_PATH, cy as CROSTINI_SECTION_PATH, cz as RESET_SECTION_PATH, ar as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cA as getDeviceName, ay as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cB as KeyboardSettingsObserverReceiver, cC as MouseSettingsObserverReceiver, cD as PointingStickSettingsObserverReceiver, cE as TouchpadSettingsObserverReceiver, cF as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cG as getDisplayApi, cH as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cI as PaperRippleBehavior, G as GeolocationAccessLevel, u as focusWithoutInk, cJ as getDeviceStateChangesToAnnounce, K as getInstance, cK as CrLinkRowElement, cL as Fkey, cM as ExtendedFkeysModifier, cN as TopRowActionKey, cO as MetaKey, cP as ModifierKey, cQ as SixPackShortcutModifier, cR as SixPackKey, cS as PolicyStatus, i as RouteOriginMixin, n as Section$1, cT as isInputDeviceSettingsSplitEnabled, cU as isExternalStorageEnabled, cV as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, z as I18nBehavior, cW as Button, cX as ButtonState, a0 as focusWithoutInk$1, E as assert$1, cY as assertNotReached$1, a2 as mojoString16ToString, a6 as getEuicc, a8 as getPendingESimProfiles, cZ as hasActiveCellularNetwork, a3 as CellularSetupPageName, c_ as getESimProfile, c$ as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d0 as NetworkConfigElementBehavior, d1 as htmlEscape, r as recordSettingChange, a4 as ESimManagerListenerBehavior, Y as InternetPageBrowserProxyImpl, a7 as getSimSlotCount, d2 as isConnectedToNonCellularNetwork, d3 as getNumESimProfiles, ax as MultiDeviceFeature, av as LockStateMixin, aE as recordLockScreenProgress, aF as LockScreenProgress, d4 as LockScreenUnlockType, au as fireAuthTokenInvalidEvent, d5 as PhoneHubPermissionsSetupFlowScreens, d6 as PhoneHubPermissionsSetupAction, d7 as PhoneHubPermissionsSetupFeatureCombination, d8 as getNearbyShareSettings, d9 as observeNearbyShareSettings, aw as MultiDeviceFeatureMixin, da as PhoneHubFeatureAccessStatus, a9 as MultiDeviceFeatureState, db as OsBluetoothDevicesSubpageBrowserProxyImpl, dc as ButtonState$1, dd as ButtonName, F as FocusRowMixin, de as DeviceItemState, aK as CrScrollableMixin, df as PairingAuthType, dg as recordBluetoothUiSurfaceMetrics, dh as BluetoothUiSurface, y as isChild, as as ParentalControlsBrowserProxyImpl, ac as getImage, at as assertInstanceof, di as isAccountManagerEnabled, aH as SyncBrowserProxyImpl, dj as AUTH_TOKEN_INVALID_EVENT_TYPE, dk as PrivacyHubNavigationOrigin, dl as shouldShowQuickAnswersSettings, dm as isAssistantAllowed, dn as isGuest, dp as isPowerwashAllowed, dq as shouldShowStartup, dr as getTrustedScriptURL, ds as isAboutRoute, dt as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, du as isBasicRoute, dv as CrSearchFieldMixin, dw as SectionSpec, dx as SubpageSpec, dy as SettingSpec, s as sanitizeInnerHtml, dz as OpenWindowProxyImpl, dA as recordSearch, a$ as FindShortcutMixin, dB as CrContainerShadowMixin, dC as setGlobalScrollTarget, dD as recordPageFocus, dE as recordPageBlur, dF as recordClick, dG as recordNavigation, dH as getPrefPolicyFields, dI as settingsAreEqual, aG as PluralStringProxyImpl, dJ as CustomizationRestriction, dK as SimulateRightClickModifier, dL as recordSavedDevicesUiEventMetrics, dM as FastPairSavedDevicesUiEvent, dN as ColorChangeUpdater } from './shared.rollup.js';
-export { dY as ApnDetailDialog, aU as AppManagementBrowserProxy, ab as AppManagementComponentBrowserProxy, dZ as AppManagementFileHandlingItemElement, ek as AppManagementStore, aX as AppManagementStoreMixin, bh as AppManagementSupportedLinksItemElement, d_ as AppManagementToggleRowElement, am as BrowserChannel, af as ChromeVoxSubpageBrowserProxyImpl, f4 as ConfirmationDialogType, dU as ControlledButtonElement, dV as ControlledRadioButtonElement, aD as CrActionMenuElement, aA as CrButtonElement, e3 as CrCardRadioButtonElement, e2 as CrCheckboxElement, aB as CrDialogElement, aC as CrIconButtonElement, az as CrInputElement, eb as CrPolicyIndicatorElement, e4 as CrRadioButtonElement, e5 as CrRadioGroupElement, e6 as CrSearchFieldElement, e7 as CrSearchableDropDownElement, e1 as CrSettingsPrefs, e8 as CrSliderElement, e9 as CrTextareaElement, ea as CrToastElement, aa as CrToggleElement, ec as CrTooltipIconElement, ao as DeviceNameBrowserProxyImpl, aq as DeviceNameState, e_ as FastPairSavedDevicesOptInStatus, e$ as GoogleDriveBrowserProxy, f0 as GoogleDrivePageCallbackRouter, f1 as GoogleDrivePageHandlerRemote, f2 as GoogleDrivePageRemote, eo as IdleBehavior, em as LacrosExtensionControlBrowserProxyImpl, en as LacrosExtensionControlledIndicatorElement, ep as LidClosedBehavior, L as LifetimeBrowserProxyImpl, d$ as LocalizedLinkElement, f8 as MetricsConsentBrowserProxyImpl, eP as NearbyAccountManagerBrowserProxyImpl, dR as NearbyProgressElement, eQ as NearbyShareConfirmPageElement, eW as NearbyShareDataUsage, eR as NearbyShareHighVisibilityPageElement, eq as NoteAppLockScreenSupport, aW as OneDriveBrowserProxy, f5 as OneDrivePageCallbackRouter, f6 as OneDrivePageHandlerRemote, f7 as OneDrivePageRemote, cd as OsResetBrowserProxyImpl, eZ as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aI as PageStatus, eN as PhoneHubFeatureAccessProhibitedReason, eO as PhoneHubPermissionsSetupMode, eX as PluginVmBrowserProxyImpl, aR as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fe as Route, fb as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ah as SelectToSpeakSubpageBrowserProxyImpl, ap as SetDeviceNameResult, fc as SettingsCardElement, dW as SettingsDropdownMenuElement, c6 as SettingsGoogleDriveSubpageElement, e0 as SettingsPrefsElement, fa as SettingsPrivacyHubAppPermissionRow, dX as SettingsSliderElement, ad as SettingsToggleButtonElement, f3 as Stage, aJ as StatusAction, es as StorageSpaceState, aj as SwitchAccessSubpageBrowserProxyImpl, ak as TextToSpeechSubpageBrowserProxyImpl, al as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eH as Vkey, ed as addApp, eJ as appNotificationHandlerMojom, eK as appPermissionHandlerMojom, ee as changeApp, fd as createRouterForTesting, eV as dataUsageStringToEnum, et as fakeGraphicsTabletButtonActions, eu as fakeGraphicsTablets, ev as fakeKeyboards, ew as fakeKeyboards2, ex as fakeMice, ey as fakeMice2, ez as fakeMouseButtonActions, eA as fakePointingSticks, eB as fakePointingSticks2, eC as fakeStyluses, eD as fakeTouchpads, eE as fakeTouchpads2, dO as getContactManager, eS as getReceiveManager, bb as getShortcutInputProvider, dS as nearbyShareMojom, dP as observeContactManager, eT as observeReceiveManager, ei as reduceAction, ef as removeApp, el as resetGlobalScrollTargetForTesting, eY as setAppNotificationProviderForTesting, f9 as setAppPermissionProviderForTesting, dQ as setContactManagerForTesting, er as setDisplayApiForTesting, eF as setInputDeviceSettingsProviderForTesting, dT as setNearbyShareSettingsForTesting, eU as setReceiveManagerForTesting, eI as setUserActionRecorderForTesting, eL as settingMojom, eG as setupFakeInputDeviceSettingsProvider, ej as updateApps, eg as updateSelectedAppId, eh as updateSubAppToParentAppId, eM as userActionRecorderMojom } from './shared.rollup.js';
+import { a as assertNotReached, ch as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ci as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cj as isAdvancedRoute, ck as NETWORK_SECTION_PATH, cl as BLUETOOTH_SECTION_PATH, cm as MULTI_DEVICE_SECTION_PATH, cn as PEOPLE_SECTION_PATH, co as KERBEROS_SECTION_PATH, cp as DEVICE_SECTION_PATH, cq as PERSONALIZATION_SECTION_PATH, cr as PRIVACY_AND_SECURITY_SECTION_PATH, cs as APPS_SECTION_PATH, ct as ACCESSIBILITY_SECTION_PATH, cu as SYSTEM_PREFERENCES_SECTION_PATH, cv as SEARCH_AND_ASSISTANT_SECTION_PATH, cw as DATE_AND_TIME_SECTION_PATH, cx as LANGUAGES_AND_INPUT_SECTION_PATH, cy as FILES_SECTION_PATH, cz as PRINTING_SECTION_PATH, cA as CROSTINI_SECTION_PATH, cB as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cC as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cD as KeyboardSettingsObserverReceiver, cE as MouseSettingsObserverReceiver, cF as PointingStickSettingsObserverReceiver, cG as TouchpadSettingsObserverReceiver, cH as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cI as getDisplayApi, cJ as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cK as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cL as getDeviceStateChangesToAnnounce, K as getInstance, cM as CrLinkRowElement, cN as Fkey, cO as ExtendedFkeysModifier, cP as TopRowActionKey, cQ as MetaKey, cR as ModifierKey, cS as SixPackShortcutModifier, cT as SixPackKey, cU as PolicyStatus, i as RouteOriginMixin, n as Section$1, cV as isInputDeviceSettingsSplitEnabled, cW as isExternalStorageEnabled, cX as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, cY as Button, cZ as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, c_ as hasActiveCellularNetwork, a2 as CellularSetupPageName, c$ as getESimProfile, d0 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d1 as NetworkConfigElementBehavior, z as I18nBehavior, d2 as assertNotReached$1, E as assert$1, d3 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d4 as isConnectedToNonCellularNetwork, d5 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, d6 as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, d7 as PhoneHubPermissionsSetupFlowScreens, d8 as PhoneHubPermissionsSetupAction, d9 as PhoneHubPermissionsSetupFeatureCombination, da as getNearbyShareSettings, db as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, dc as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dd as OsBluetoothDevicesSubpageBrowserProxyImpl, de as ButtonState$1, df as ButtonName, F as FocusRowMixin, dg as DeviceItemState, aJ as CrScrollableMixin, dh as PairingAuthType, di as recordBluetoothUiSurfaceMetrics, dj as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dk as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dl as AUTH_TOKEN_INVALID_EVENT_TYPE, dm as PrivacyHubNavigationOrigin, dn as shouldShowQuickAnswersSettings, dp as isAssistantAllowed, dq as isGuest, dr as isPowerwashAllowed, ds as shouldShowStartup, dt as getTrustedScriptURL, du as isAboutRoute, dv as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dw as isBasicRoute, dx as CrSearchFieldMixin, dy as SectionSpec, dz as SubpageSpec, dA as SettingSpec, s as sanitizeInnerHtml, dB as OpenWindowProxyImpl, dC as recordSearch, a$ as FindShortcutMixin, dD as CrContainerShadowMixin, dE as setGlobalScrollTarget, dF as recordPageFocus, dG as recordPageBlur, dH as recordClick, dI as recordNavigation, dJ as getPrefPolicyFields$1, dK as settingsAreEqual, aF as PluralStringProxyImpl, dL as CustomizationRestriction, dM as SimulateRightClickModifier, dN as recordSavedDevicesUiEventMetrics, dO as FastPairSavedDevicesUiEvent, dP as ColorChangeUpdater } from './shared.rollup.js';
+export { dZ as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, d_ as AppManagementFileHandlingItemElement, el as AppManagementStore, aV as AppManagementStoreMixin, bg as AppManagementSupportedLinksItemElement, d$ as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fa as ConfirmationDialogType, ep as ControlledButtonElement, eq as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e4 as CrCardRadioButtonElement, e3 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ec as CrPolicyIndicatorElement, e5 as CrRadioButtonElement, e6 as CrRadioGroupElement, e7 as CrSearchFieldElement, e8 as CrSearchableDropDownElement, e2 as CrSettingsPrefs, e9 as CrSliderElement, ea as CrTextareaElement, eb as CrToastElement, a9 as CrToggleElement, ed as CrTooltipIconElement, dW as DEFAULT_CHECKED_VALUE, dX as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, dY as ExtensionControlBrowserProxyImpl, er as ExtensionControlledIndicatorElement, f4 as FastPairSavedDevicesOptInStatus, f5 as GoogleDriveBrowserProxy, f6 as GoogleDrivePageCallbackRouter, f7 as GoogleDrivePageHandlerRemote, f8 as GoogleDrivePageRemote, eu as IdleBehavior, en as LacrosExtensionControlBrowserProxyImpl, eo as LacrosExtensionControlledIndicatorElement, ev as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e0 as LocalizedLinkElement, fe as MetricsConsentBrowserProxyImpl, eV as NearbyAccountManagerBrowserProxyImpl, dT as NearbyProgressElement, eW as NearbyShareConfirmPageElement, f0 as NearbyShareDataUsage, eX as NearbyShareHighVisibilityPageElement, ew as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, fb as OneDrivePageCallbackRouter, fc as OneDrivePageHandlerRemote, fd as OneDrivePageRemote, cf as OsResetBrowserProxyImpl, f3 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eT as PhoneHubFeatureAccessProhibitedReason, eU as PhoneHubPermissionsSetupMode, f1 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fm as Route, fj as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fk as SettingsCardElement, es as SettingsDropdownMenuElement, c8 as SettingsGoogleDriveSubpageElement, e1 as SettingsPrefsElement, fg as SettingsPrivacyHubAppPermissionRow, fh as SettingsPrivacyHubSystemServiceRow, fi as SettingsSearchEngineElement, et as SettingsSliderElement, af as SettingsToggleButtonElement, f9 as Stage, aI as StatusAction, ey as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eN as Vkey, ee as addApp, eP as appNotificationHandlerMojom, eQ as appPermissionHandlerMojom, ef as changeApp, fl as createRouterForTesting, e$ as dataUsageStringToEnum, ez as fakeGraphicsTabletButtonActions, eA as fakeGraphicsTablets, eB as fakeKeyboards, eC as fakeKeyboards2, eD as fakeMice, eE as fakeMice2, eF as fakeMouseButtonActions, eG as fakePointingSticks, eH as fakePointingSticks2, eI as fakeStyluses, eJ as fakeTouchpads, eK as fakeTouchpads2, dQ as getContactManager, eY as getReceiveManager, bb as getShortcutInputProvider, dU as nearbyShareMojom, dR as observeContactManager, eZ as observeReceiveManager, ej as reduceAction, eg as removeApp, em as resetGlobalScrollTargetForTesting, f2 as setAppNotificationProviderForTesting, ff as setAppPermissionProviderForTesting, dS as setContactManagerForTesting, ex as setDisplayApiForTesting, eL as setInputDeviceSettingsProviderForTesting, dV as setNearbyShareSettingsForTesting, e_ as setReceiveManagerForTesting, eO as setUserActionRecorderForTesting, eR as settingMojom, eM as setupFakeInputDeviceSettingsProvider, ek as updateApps, eh as updateSelectedAppId, ei as updateSubAppToParentAppId, eS as userActionRecorderMojom } from './shared.rollup.js';
 import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
@@ -11,10 +11,10 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { ActivationResult, ActivationDelegateReceiver, CarrierPortalStatus } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-webui.js';
 import { getCellularSetupRemote, getESimManagerRemote } from 'chrome://resources/ash/common/cellular_setup/mojo_interface_provider.js';
-import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { ProfileInstallResult, ESimOperationResult, ProfileState, ProfileInstallMethod } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { getHotspotConfig } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.js';
 import { WiFiBand, WiFiSecurityMode, SetHotspotConfigResult, HotspotState, HotspotAllowStatus, CrosHotspotConfigObserverReceiver } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
+import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { FactorObserverReceiver, AuthFactorConfig, AuthFactor, PinFactorEditor, ConfigureResult } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
 import { Visibility } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
@@ -768,10 +768,17 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
         const cellularDeviceState = deviceStateList.find(deviceState => deviceState.type === NetworkType.kCellular);
         this.isDeviceCellularCapable_ = !!cellularDeviceState;
     }
+    async isInstantHotspotAvailable_() {
+        const { result: deviceStateList } = await this.networkConfig_.getDeviceStateList();
+        const tetherDeviceState = deviceStateList.find(deviceState => deviceState.type === NetworkType.kTether);
+        return !!tetherDeviceState;
+    }
     /**
      * Updates the "Internet" menu item description to one of the followings:
      * - If there are networks connected, show the name of one connected network
      *   with the priority: Ethernet, Wi-Fi, mobile(Cellular, Tether) and VPN.
+     * - If there is no networks connected but instant hotspot is available, show
+     * "Instant hotspot available".
      * - If there is no networks connected and mobile data is not supported, show
      * "Wi-Fi".
      * - If there is no networks connected but mobile data is supported, show
@@ -794,8 +801,12 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
             this.internetMenuItemDescription_ = prioritizedConnectedNetwork.name;
             return;
         }
-        // TODO(b/310253896): Check if there are available instant hotspot, if
-        // there're, show "Instant hotspot available".
+        const tetherNetworkState = networkStateList.find(networkState => networkState.type === NetworkType.kTether);
+        if (tetherNetworkState && await this.isInstantHotspotAvailable_()) {
+            this.internetMenuItemDescription_ =
+                this.i18n('internetMenuItemDescriptionInstantHotspotAvailable');
+            return;
+        }
         if (this.isDeviceCellularCapable_) {
             this.internetMenuItemDescription_ =
                 this.i18n('internetMenuItemDescriptionWifiAndMobileData');
@@ -1461,9 +1472,9 @@ function getTemplate$1t() {
 <div id="deviceSounds">
   <h2>$i18n{deviceSoundsTitle}</h2>
   <div id="deviceSoundsSection" class="subsection">
-    <settings-toggle-button id="lowBatterySoundToggle" pref="{{prefs.ash.low_battery_sound.enabled}}" label="$i18n{lowBatterySoundLabel}" deep-link-focus-id$="[[Setting.kLowBatterySound]]" hidden$="[[!systemSoundsEnabled_]]">
+    <settings-toggle-button id="lowBatterySoundToggle" pref="{{prefs.ash.low_battery_sound.enabled}}" label="$i18n{lowBatterySoundLabel}" deep-link-focus-id$="[[Setting.kLowBatterySound]]" hidden$="[[powerSoundsHidden_]]">
     </settings-toggle-button>
-    <settings-toggle-button id="chargingSoundsToggle" pref="{{prefs.ash.charging_sounds.enabled}}" label="$i18n{chargingSoundsLabel}" deep-link-focus-id$="[[Setting.kChargingSounds]]" hidden$="[[!systemSoundsEnabled_]]">
+    <settings-toggle-button id="chargingSoundsToggle" pref="{{prefs.ash.charging_sounds.enabled}}" label="$i18n{chargingSoundsLabel}" deep-link-focus-id$="[[Setting.kChargingSounds]]" hidden$="[[powerSoundsHidden_]]">
     </settings-toggle-button>
     <div class="settings-box start-padding continuation">
       <div id="deviceStartupSoundEnabledLabel" class="start settings-box-text">
@@ -1774,12 +1785,9 @@ class SettingsAudioElement extends SettingsAudioElementBase {
             outputVolume_: {
                 type: Number,
             },
-            systemSoundsEnabled_: {
+            powerSoundsHidden_: {
                 type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('areSystemSoundsEnabled');
-                },
-                readOnly: true,
+                computed: 'computePowerSoundsHidden_(batteryStatus_)',
             },
             startupSoundEnabled_: {
                 type: Boolean,
@@ -1821,6 +1829,7 @@ class SettingsAudioElement extends SettingsAudioElementBase {
         this.addWebUiListener('startup-sound-setting-retrieved', (startupSoundEnabled) => {
             this.startupSoundEnabled_ = startupSoundEnabled;
         });
+        this.addWebUiListener('battery-status-changed', this.set.bind(this, 'batteryStatus_'));
     }
     /**
      * AudioSystemPropertiesObserverInterface override
@@ -2024,16 +2033,24 @@ class SettingsAudioElement extends SettingsAudioElementBase {
     toggleStartupSoundEnabled_(e) {
         this.audioAndCaptionsBrowserProxy_.setStartupSoundEnabled(e.detail);
     }
+    computePowerSoundsHidden_() {
+        if (!loadTimeData.getBoolean('areSystemSoundsEnabled')) {
+            return true;
+        }
+        return !this.batteryStatus_?.present;
+    }
 }
 customElements.define(SettingsAudioElement.is, SettingsAudioElement);
 
 function getTemplate$1s() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+
     <template is="dom-repeat" items="[[tabNames]]">
       <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
         <div class="tab-icon" style$="[[getIconStyle_(index)]]">
         </div>
         [[item]]
+        <div class="tab-indicator-background"></div>
         <div class="tab-indicator"></div>
       </div>
     </template>
@@ -2569,6 +2586,9 @@ const LayoutMixin = dedupingMixin((superClass) => {
                     value: false,
                 },
             };
+        }
+        getDisplayLayoutMapForTesting() {
+            return this.displayLayoutMap_;
         }
         initializeDisplayLayout(displays, layouts) {
             this.dragLayoutId_ = '';
@@ -3607,7 +3627,7 @@ const DEFAULT_CUSTOM_END_TIME = 6 * 60;
 function modulo(x, y) {
     return ((x % y) + y) % y;
 }
-const SettingsSchedulerSliderElementBase = mixinBehaviors([IronResizableBehavior, PaperRippleBehavior], PrefsMixin(I18nMixin(PolymerElement)));
+const SettingsSchedulerSliderElementBase = mixinBehaviors([IronResizableBehavior], PaperRippleMixin(PrefsMixin(I18nMixin(PolymerElement))));
 class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase {
     static get is() {
         return 'settings-scheduler-slider';
@@ -4056,7 +4076,7 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
         }
     }
     /**
-     * Overrides _createRipple() from PaperRippleBehavior to create the ripple
+     * Overrides _createRipple() from PaperRippleMixin to create the ripple
      * only on a knob if it's focused, or on a dummy hidden element so that it
      * doesn't show.
      */
@@ -4067,7 +4087,7 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
         }
         else {
             // We can't just skip the ripple creation and return early with null here.
-            // The code inherited from PaperRippleBehavior expects that this function
+            // The code inherited from PaperRippleMixin expects that this function
             // returns a ripple element. So to avoid crashes, we'll setup the ripple
             // to be created under a hidden element.
             this._rippleContainer = this.$.dummyRippleContainer;
@@ -4177,6 +4197,17 @@ var DisplaySettingsType;
     DisplaySettingsType[DisplaySettingsType["kUnifiedMode"] = 9] = "kUnifiedMode";
     DisplaySettingsType[DisplaySettingsType["kPrimaryDisplay"] = 10] = "kPrimaryDisplay";
 })(DisplaySettingsType || (DisplaySettingsType = {}));
+const DisplaySettingsOrientationOptionSpec = { $: mojo.internal.Enum() };
+var DisplaySettingsOrientationOption;
+(function (DisplaySettingsOrientationOption) {
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["MAX_VALUE"] = 4] = "MAX_VALUE";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["kAuto"] = 0] = "kAuto";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k0Degree"] = 1] = "k0Degree";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k90Degree"] = 2] = "k90Degree";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k180Degree"] = 3] = "k180Degree";
+    DisplaySettingsOrientationOption[DisplaySettingsOrientationOption["k270Degree"] = 4] = "k270Degree";
+})(DisplaySettingsOrientationOption || (DisplaySettingsOrientationOption = {}));
 class TabletModeObserverPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -4439,6 +4470,15 @@ mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
         isPrimary: false,
         originalFieldName: "displayId",
     }),
+    mojo.internal.StructField('orientation_$flag', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "orientation_$value",
+        originalFieldName: "orientation",
+    }),
+    mojo.internal.StructField('orientation_$value', 4, 0, DisplaySettingsOrientationOptionSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "orientation",
+    }),
 ], [[0, 24],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
@@ -4466,6 +4506,8 @@ var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
     DisplayConfigurationObserverReceiver: DisplayConfigurationObserverReceiver,
     DisplayConfigurationObserverRemote: DisplayConfigurationObserverRemote,
     DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec: DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec,
+    get DisplaySettingsOrientationOption () { return DisplaySettingsOrientationOption; },
+    DisplaySettingsOrientationOptionSpec: DisplaySettingsOrientationOptionSpec,
     DisplaySettingsProvider: DisplaySettingsProvider,
     DisplaySettingsProviderCallbackRouter: DisplaySettingsProviderCallbackRouter,
     DisplaySettingsProviderPendingReceiver: DisplaySettingsProviderPendingReceiver,
@@ -5853,7 +5895,20 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.selectedDisplay.id, properties)
             .then(() => this.setPropertiesCallback_());
-        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOrientation, { isInternalDisplay: this.selectedDisplay.isInternal });
+        let orientation = DisplaySettingsOrientationOption.k0Degree;
+        if (value === -1) {
+            orientation = DisplaySettingsOrientationOption.kAuto;
+        }
+        else if (value === 90) {
+            orientation = DisplaySettingsOrientationOption.k90Degree;
+        }
+        else if (value === 180) {
+            orientation = DisplaySettingsOrientationOption.k180Degree;
+        }
+        else if (value === 270) {
+            orientation = DisplaySettingsOrientationOption.k270Degree;
+        }
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kOrientation, { isInternalDisplay: this.selectedDisplay.isInternal, orientation });
     }
     onMirroredClick_(event) {
         // Blur the control so that when the transition animation completes and
@@ -6815,7 +6870,7 @@ function getTemplate$1h() {
  * 'per-device-keyboard-settings-remap-keys' displays the remapped keys and
  * allow users to configure their keyboard remapped keys for each keyboard.
  */
-function getFkeyPrefPolicyFields(policy) {
+function getPrefPolicyFields(policy) {
     if (policy) {
         const enforcement = policy.policyStatus === PolicyStatus.kManaged ?
             chrome.settingsPrivate.Enforcement.ENFORCED :
@@ -7136,17 +7191,20 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         });
         if (this.isAltClickAndSixPackCustomizationEnabled) {
             this.setSixPackKeyRemappings();
+            // Potentially overrides some/all "six pack" settings based on
+            // the keyboard policies.
+            this.setSixPackKeyRemappingsForPolicies();
         }
         if (this.shouldShowFkeys()) {
             this.set('f11KeyPref.value', searchedKeyboard.settings?.f11);
             this.set('f12KeyPref.value', searchedKeyboard.settings?.f12);
             this.f11KeyPref = {
                 ...this.f11KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f11KeyPolicy),
             };
             this.f12KeyPref = {
                 ...this.f12KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f12KeyPolicy),
             };
         }
         this.isInitialized = true;
@@ -7166,6 +7224,28 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
             return;
         }
         this.initializeKeyboard();
+    }
+    setSixPackKeyRemappingsForPolicies() {
+        const homeAndEndPrefPolicyFields = getPrefPolicyFields(this.keyboardPolicies?.homeAndEndKeysPolicy);
+        this.homePref = { ...this.homePref, ...homeAndEndPrefPolicyFields };
+        this.endPref = { ...this.endPref, ...homeAndEndPrefPolicyFields };
+        const pageUpAndPageDownPrefPolicyFields = getPrefPolicyFields(this.keyboardPolicies?.pageUpAndPageDownKeysPolicy);
+        this.pageUpPref = {
+            ...this.pageUpPref,
+            ...pageUpAndPageDownPrefPolicyFields,
+        };
+        this.pageDownPref = {
+            ...this.pageDownPref,
+            ...pageUpAndPageDownPrefPolicyFields,
+        };
+        this.deletePref = {
+            ...this.deletePref,
+            ...getPrefPolicyFields(this.keyboardPolicies?.deleteKeyPolicy),
+        };
+        this.insertPref = {
+            ...this.insertPref,
+            ...getPrefPolicyFields(this.keyboardPolicies?.insertKeyPolicy),
+        };
     }
     /**
      * Sets all prefs to the "identity" value which so they can be updated by the
@@ -7298,9 +7378,11 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         return this.i18n('remapKeyboardKeysDescription', keyboardName);
     }
     setSixPackKeyRemappings() {
-        Object
-            .entries(this.keyboard.settings.sixPackKeyRemappings)
-            .forEach(([key, modifier]) => {
+        const sixPackKeyRemappings = this.keyboard.settings?.sixPackKeyRemappings;
+        if (!sixPackKeyRemappings) {
+            return;
+        }
+        Object.entries(sixPackKeyRemappings).forEach(([key, modifier]) => {
             switch (key) {
                 case SixPackKey.DELETE:
                     this.set('deletePref.value', modifier);
@@ -7342,13 +7424,14 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         if (this.shouldShowFkeys()) {
             this.f11KeyPref = {
                 ...this.f11KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f11KeyPolicy),
             };
             this.f12KeyPref = {
                 ...this.f12KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f12KeyPolicy),
             };
         }
+        this.setSixPackKeyRemappingsForPolicies();
     }
 }
 customElements.define(SettingsPerDeviceKeyboardRemapKeysElement.is, SettingsPerDeviceKeyboardRemapKeysElement);
@@ -7516,7 +7599,7 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
 customElements.define(SettingsPerDeviceTouchpadElement.is, SettingsPerDeviceTouchpadElement);
 
 function getTemplate$1d() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.restore-defaults-button{border-radius:16px;height:32px;margin-inline:16px}.restore-defaults-icon{--iron-icon-fill-color:currentColor;margin-inline-end:8px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-link-row:not(:last-of-type){border-bottom:var(--cr-separator-line)}.restore-defaults-button{border-radius:16px;height:32px;margin-inline:16px}.restore-defaults-icon{--iron-icon-fill-color:currentColor;margin-inline-end:8px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div id="main" route-path="default">
@@ -7524,49 +7607,51 @@ function getTemplate$1d() {
       <template is="dom-if" if="[[showPointersRow_(hasMouse_, hasPointingStick_,
                                 hasTouchpad_, isDeviceSettingsSplitEnabled_)]]">
         <cr-link-row id="pointersRow" start-icon="[[rowIcons_.pointingStick]]" label="[[getPointersTitle_(hasMouse_, hasPointingStick_,
-                                      hasTouchpad_)]]" on-click="onPointersClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
+                                      hasTouchpad_)]]" on-click="onPointersClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        </cr-link-row>
       </template>
       <template is="dom-if" if="[[showPerDeviceMouseRow_(mice,
                                       isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row class="hr" id="perDeviceMouseRow" start-icon="[[rowIcons_.mouse]]" label="$i18n{mouseTitle}" on-click="onPerDeviceMouseClick_" aria-label="$i18n{mouseTitle}" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="perDeviceMouseRow" start-icon="[[rowIcons_.mouse]]" label="$i18n{mouseTitle}" on-click="onPerDeviceMouseClick_" aria-label="$i18n{mouseTitle}" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showPerDeviceTouchpadRow_(touchpads,
                                           isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row class="hr" id="perDeviceTouchpadRow" start-icon="[[rowIcons_.touchpad]]" aria-label="$i18n{touchpadTitle}" label="$i18n{touchpadTitle}" on-click="onPerDeviceTouchpadClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="perDeviceTouchpadRow" start-icon="[[rowIcons_.touchpad]]" aria-label="$i18n{touchpadTitle}" label="$i18n{touchpadTitle}" on-click="onPerDeviceTouchpadClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showPerDevicePointingStickRow_(pointingSticks,
                                               isDeviceSettingsSplitEnabled_)]]">
-        <cr-link-row class="hr" id="perDevicePointingStickRow" start-icon="[[rowIcons_.pointingStick]]" aria-label="$i18n{pointingStickTitle}" label="$i18n{pointingStickTitle}" on-click="onPerDevicePointingStickClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="perDevicePointingStickRow" start-icon="[[rowIcons_.pointingStick]]" aria-label="$i18n{pointingStickTitle}" label="$i18n{pointingStickTitle}" on-click="onPerDevicePointingStickClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[isDeviceSettingsSplitEnabled_]]">
-        <cr-link-row id="perDeviceKeyboardRow" class="hr" start-icon="[[rowIcons_.keyboardAndInputs]]" label="$i18n{keyboardTitle}" aria-label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onPerDeviceKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="perDeviceKeyboardRow" start-icon="[[rowIcons_.keyboardAndInputs]]" label="$i18n{keyboardTitle}" aria-label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onPerDeviceKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[!isDeviceSettingsSplitEnabled_]]">
-        <cr-link-row id="keyboardRow" class="hr" start-icon="[[rowIcons_.keyboardAndInputs]]" label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
+        <cr-link-row id="keyboardRow" start-icon="[[rowIcons_.keyboardAndInputs]]" label="$i18n{keyboardTitle}" sub-label="[[inputMethodDisplayName_]]" on-click="onKeyboardClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        </cr-link-row>
       </template>
       <template is="dom-if" if="[[hasStylus_]]">
-        <cr-link-row class="hr" id="stylusRow" start-icon="[[rowIcons_.stylus]]" label="$i18n{stylusTitle}" on-click="onStylusClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="stylusRow" start-icon="[[rowIcons_.stylus]]" label="$i18n{stylusTitle}" on-click="onStylusClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showGraphicsTabletRow_(graphicsTablets,
           isPeripheralCustomizationEnabled)]]">
-        <cr-link-row class="hr" id="tabletRow" start-icon="[[rowIcons_.tablet]]" label="$i18n{tabletTitle}" on-click="onGraphicsTabletClick" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="tabletRow" start-icon="[[rowIcons_.tablet]]" label="$i18n{tabletTitle}" on-click="onGraphicsTabletClick" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
-      <cr-link-row class="hr" id="displayRow" start-icon="[[rowIcons_.display]]" label="$i18n{displayTitle}" on-click="onDisplayClick_" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="displayRow" start-icon="[[rowIcons_.display]]" label="$i18n{displayTitle}" on-click="onDisplayClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
-      <cr-link-row class="hr" id="audioRow" start-icon="[[rowIcons_.audio]]" label="$i18n{audioTitle}" on-click="onAudioClick_" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="audioRow" start-icon="[[rowIcons_.audio]]" label="$i18n{audioTitle}" on-click="onAudioClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
         <template is="dom-if" if="[[!hideStorageInfo_]]">
-          <cr-link-row id="storageRow" class="hr" label="$i18n{storageTitle}" on-click="onStorageClick_" role-description="$i18n{subpageArrowRoleDescription}">
+          <cr-link-row id="storageRow" label="$i18n{storageTitle}" on-click="onStorageClick_" role-description="$i18n{subpageArrowRoleDescription}">
           </cr-link-row>
         </template>
-        <cr-link-row id="powerRow" class="hr" label="$i18n{powerTitle}" on-click="onPowerClick_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="powerRow" label="$i18n{powerTitle}" on-click="onPowerClick_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
     </settings-card>
@@ -8164,7 +8249,8 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
             this.graphicsTablets.length !== 0;
     }
     restoreDefaults() {
-        const remapKeysPage = this.shadowRoot.querySelector('#remap-keys');
+        const remapKeysPage = this.shadowRoot
+            .querySelector('#remap-keys');
         remapKeysPage.restoreDefaults();
     }
     /**
@@ -8282,128 +8368,85 @@ function getTemplate$1c() {
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const ButtonBarElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
+/** Element containing navigation buttons for the Cellular Setup flow. */
+const ButtonBarElementBase = I18nMixin(PolymerElement);
 class ButtonBarElement extends ButtonBarElementBase {
-  static get is() {
-    return 'button-bar';
-  }
-
-  static get template() {
-    return getTemplate$1c();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * Sets the states of all buttons
-       * @type {!ButtonBarState}
-       */
-      buttonState: {
-        type: Object,
-        value: {},
-      },
-
-      /**
-       * @type {!Button}
-       */
-      Button: {
-        type: Object,
-        value: Button,
-      },
-
-      forwardButtonLabel: {
-        type: String,
-        value: '',
-      },
-    };
-  }
-
-  /**
-   * @param {!Button} buttonName
-   * @return {boolean}
-   * @private
-   */
-  isButtonHidden_(buttonName) {
-    const state = this.getButtonBarState_(buttonName);
-    return state === ButtonState.HIDDEN;
-  }
-
-  /**
-   * @param {!Button} buttonName
-   * @return {boolean}
-   * @private
-   */
-  isButtonDisabled_(buttonName) {
-    const state = this.getButtonBarState_(buttonName);
-    return state === ButtonState.DISABLED;
-  }
-
-  focusDefaultButton() {
-    const buttons = this.shadowRoot.querySelectorAll('cr-button');
-    // Focus the first non-disabled, non-hidden button from the end.
-    for (let i = buttons.length - 1; i >= 0; i--) {
-      const button = buttons.item(i);
-      if (!button.disabled && !button.hidden) {
-        focusWithoutInk$1(button);
-        return;
-      }
+    static get is() {
+        return 'button-bar';
     }
-  }
-
-  /** @private */
-  onBackwardButtonClicked_() {
-    this.dispatchEvent(new CustomEvent('backward-nav-requested', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /** @private */
-  onCancelButtonClicked_() {
-    this.dispatchEvent(new CustomEvent('cancel-requested', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /** @private */
-  onForwardButtonClicked_() {
-    this.dispatchEvent(new CustomEvent('forward-nav-requested', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /**
-   * @param {!Button} button
-   * @returns {!ButtonState|undefined}
-   * @private
-   */
-  getButtonBarState_(button) {
-    assert$1(this.buttonState);
-    switch (button) {
-      case Button.BACKWARD:
-        return this.buttonState.backward;
-      case Button.CANCEL:
-        return this.buttonState.cancel;
-      case Button.FORWARD:
-        return this.buttonState.forward;
-      default:
-        assertNotReached$1();
-        return ButtonState.ENABLED;
+    static get template() {
+        return getTemplate$1c();
     }
-  }
+    static get properties() {
+        return {
+            /**
+             * Sets the states of all buttons
+             */
+            buttonState: {
+                type: Object,
+                value: {},
+            },
+            Button: {
+                type: Object,
+                value: Button,
+            },
+            forwardButtonLabel: {
+                type: String,
+                value: '',
+            },
+        };
+    }
+    isButtonHidden_(buttonName) {
+        const state = this.getButtonBarState_(buttonName);
+        return state === ButtonState.HIDDEN;
+    }
+    isButtonDisabled_(buttonName) {
+        const state = this.getButtonBarState_(buttonName);
+        return state === ButtonState.DISABLED;
+    }
+    focusDefaultButton() {
+        const buttons = this.shadowRoot.querySelectorAll('cr-button');
+        // Focus the first non-disabled, non-hidden button from the end.
+        for (let i = buttons.length - 1; i >= 0; i--) {
+            const button = buttons.item(i);
+            if (!button.disabled && !button.hidden) {
+                focusWithoutInk(button);
+                return;
+            }
+        }
+    }
+    onBackwardButtonClicked_() {
+        this.dispatchEvent(new CustomEvent('backward-nav-requested', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onCancelButtonClicked_() {
+        this.dispatchEvent(new CustomEvent('cancel-requested', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onForwardButtonClicked_() {
+        this.dispatchEvent(new CustomEvent('forward-nav-requested', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    getButtonBarState_(button) {
+        assert(this.buttonState);
+        switch (button) {
+            case Button.BACKWARD:
+                return this.buttonState.backward;
+            case Button.CANCEL:
+                return this.buttonState.cancel;
+            case Button.FORWARD:
+                return this.buttonState.forward;
+            default:
+                assertNotReached();
+        }
+    }
 }
-
 customElements.define(ButtonBarElement.is, ButtonBarElement);
 
 function getTemplate$1b() {
@@ -8451,78 +8494,43 @@ function getTemplate$1b() {
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const BasePageElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class BasePageElement extends BasePageElementBase {
-  static get is() {
-    return 'base-page';
-  }
-
-  static get template() {
-    return getTemplate$1b();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * Main title for the page.
-       *
-       * @type {string}
-       */
-      title: String,
-
-      /**
-       * Message displayed under the main title.
-       *
-       * @type {string}
-       */
-      message: String,
-
-      /**
-       * Name for the cellular-setup iconset iron-icon displayed beside message.
-       *
-       * @type {string}
-       */
-      messageIcon: {
-        type: String,
-        value: '',
-      },
-    };
-  }
-
-  /**
-   * @returns {string}
-   * @private
-   */
-  getTitle_() {
-    return this.title;
-  }
-
-  /**
-   * @returns {boolean}
-   * @private
-   */
-  isTitleShown_() {
-    return !!this.title;
-  }
-
-  /**
-   * @returns {boolean}
-   * @private
-   */
-  isMessageIconShown_() {
-    return !!this.messageIcon;
-  }
+/** Base template with elements common to all Cellular Setup flow sub-pages. */
+class BasePageElement extends PolymerElement {
+    static get is() {
+        return 'base-page';
+    }
+    static get template() {
+        return getTemplate$1b();
+    }
+    static get properties() {
+        return {
+            /**
+             * Main title for the page.
+             */
+            title: String,
+            /**
+             * Message displayed under the main title.
+             */
+            message: String,
+            /**
+             * Name for the cellular-setup iconset iron-icon displayed beside message.
+             */
+            messageIcon: {
+                type: String,
+                value: '',
+            },
+        };
+    }
+    getTitle_() {
+        return this.title;
+    }
+    isTitleShown_() {
+        return !!this.title;
+    }
+    isMessageIconShown_() {
+        return !!this.messageIcon;
+    }
 }
-
 customElements.define(BasePageElement.is, BasePageElement);
 
 function getTemplate$1a() {
@@ -8601,56 +8609,43 @@ function getTemplate$1a() {
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * Loading subpage in Cellular Setup flow that shows an in progress operation or
+ * an error. This element contains error image asset and loading animation.
  */
-const SetupLoadingPageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class SetupLoadingPageElement extends SetupLoadingPageElementBase {
-  static get is() {
-    return 'setup-loading-page';
-  }
-
-  static get template() {
-    return getTemplate$1a();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * Message displayed with spinner when in LOADING state.
-       */
-      loadingMessage: {
-        type: String,
-        value: '',
-      },
-
-      /**
-       * Title for page if needed.
-       * @type {?string}
-       */
-      loadingTitle: {
-        type: Object,
-        value: '',
-      },
-
-      /**
-       * Displays a sim detect error graphic if true.
-       */
-      isSimDetectError: {
-        type: Boolean,
-        value: false,
-      },
-    };
-  }
+class SetupLoadingPageElement extends PolymerElement {
+    static get is() {
+        return 'setup-loading-page';
+    }
+    static get template() {
+        return getTemplate$1a();
+    }
+    static get properties() {
+        return {
+            /**
+             * Message displayed with spinner when in LOADING state.
+             */
+            loadingMessage: {
+                type: String,
+                value: '',
+            },
+            /**
+             * Title for page if needed.
+             */
+            loadingTitle: {
+                type: String,
+                value: '',
+            },
+            /**
+             * Displays a sim detect error graphic if true.
+             */
+            isSimDetectError: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
 }
-
 customElements.define(SetupLoadingPageElement.is, SetupLoadingPageElement);
 
 function getTemplate$19() {
@@ -8716,13 +8711,6 @@ function getTemplate$19() {
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-/**
- * @fileoverview Provides utility methods used by the cellular activation flow.
- *  Current: chrome://mobilesetup (mobile_setup.html/mobile_setup_portal.html)
- *  New UI: cr_components/chromeos/cellular_setup/cellular_setup.html
- */
-
 /**
  * The script executed in the webview that is expected to be initialized
  * using POST request. The script parses the POST data (which is provided as
@@ -8763,13 +8751,11 @@ const WEBVIEW_REDIRECT_SCRIPT = '(function(form, paymentUrl, postData) {' +
     'initFormFromPostData(form, unescape(postData));' +
     'form.submit();' +
     '})';
-
 /**
  * @const {string} The ID used for the form element in the initial webiew
  *     HTML.
  */
 const WEBVIEW_REDIRECT_FORM_ID = 'redirectForm';
-
 /**
  * @const {string} The initial webview HTML - this will be loaded into the
  *     webview using data URL before executing
@@ -8778,278 +8764,196 @@ const WEBVIEW_REDIRECT_FORM_ID = 'redirectForm';
 const WEBVIEW_REDIRECT_HTML = '<html><body>' +
     '<form id="' + WEBVIEW_REDIRECT_FORM_ID + '"></form>' +
     '</body></html>';
-
 /**
  * Handles load commit event in the webview.
  * It runs <code>WEBVIEW_REDIRECT_SCRIPT</code> in the webview.
- * @param {!WebView} webview The target webview element.
- * @param {string} paymentUrl URL to load.
- * @param {string} postData Data to pass.
- * @param {string} webviewSrc The intended webview URL - commit events that
- *     do not match this URL will be ignored.
- * @param {!Object} commitEvent The loadcommit event.
  */
-function initializeWebviewRedirectForm(
-    webview, paymentUrl, postData, webviewSrc, commitEvent) {
-  if (!commitEvent.isTopLevel || commitEvent.url !== webviewSrc) {
-    return;
-  }
-
-  webview.executeScript({
-    code: WEBVIEW_REDIRECT_SCRIPT + '(' +
-        'document.getElementById(\'' + WEBVIEW_REDIRECT_FORM_ID + '\'),' +
-        ' \'' + escape(paymentUrl) + '\',' +
-        ' \'' + escape(postData || '') + '\');',
-  });
+function initializeWebviewRedirectForm(webview, paymentUrl, postData, webviewSrc, commitEvent) {
+    if (!commitEvent.isTopLevel || commitEvent.url !== webviewSrc) {
+        return;
+    }
+    webview.executeScript({
+        code: WEBVIEW_REDIRECT_SCRIPT + '(' +
+            'document.getElementById(\'' + WEBVIEW_REDIRECT_FORM_ID + '\'),' +
+            ' \'' + escape(paymentUrl) + '\',' +
+            ' \'' + escape(postData || '') + '\');',
+    });
 }
-
 /**
  * Initialized webview using a POST request described in by
  * <code>paymentUrl</code> and <code>postData</code>.
- * @param {!WebView} webview The webview to be initialized.
- * @param {string} paymentUrl URL to load.
- * @param {string} postData Data to pass.
  */
 function postDeviceDataToWebview(webview, paymentUrl, postData) {
-  const webviewSrc = 'data:text/html;charset=utf-8,' +
-      encodeURIComponent(WEBVIEW_REDIRECT_HTML);
-  webview.addEventListener(
-      'loadcommit',
-      initializeWebviewRedirectForm.bind(
-          this, webview, paymentUrl, postData, webviewSrc));
-  webview.src = webviewSrc;
+    const webviewSrc = 'data:text/html;charset=utf-8,' +
+        encodeURIComponent(WEBVIEW_REDIRECT_HTML);
+    webview.addEventListener('loadcommit', (commitEvent) => {
+        initializeWebviewRedirectForm(webview, paymentUrl, postData, webviewSrc, commitEvent);
+    });
+    webview.src = webviewSrc;
 }
 
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * Carrier Provisioning subpage in Cellular Setup flow. This element contains a
+ * webview element that loads the carrier's provisioning portal. It also has an
+ * error state that displays a message for errors that may happen during this
+ * step.
  */
-const ProvisioningPageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
+const ProvisioningPageElementBase = I18nMixin(PolymerElement);
 class ProvisioningPageElement extends ProvisioningPageElementBase {
-  static get is() {
-    return 'provisioning-page';
-  }
-
-  static get template() {
-    return getTemplate$19();
-  }
-
-  static get properties() {
-    return {
-      /** @type {!CellularSetupDelegate} */
-      delegate: Object,
-
-      /**
-       * Whether error state should be shown.
-       * @type {boolean}
-       */
-      showError: {
-        type: Boolean,
-        value: false,
-        notify: true,
-      },
-
-      /**
-       * Metadata used to open carrier provisioning portal. Expected to start as
-       * null, then change to a valid object.
-       * @type {?CellularMetadata}
-       */
-      cellularMetadata: {
-        type: Object,
-        value: null,
-        observer: 'onCellularMetadataChanged_',
-      },
-
-      /**
-       * Whether the carrier portal has completed being loaded.
-       * @private {boolean}
-       */
-      hasCarrierPortalLoaded_: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * The last carrier name provided via |cellularMetadata|.
-       * @private {string}
-       */
-      carrierName_: {
-        type: String,
-        value: '',
-      },
-
-    };
-  }
-
-  /**
-   * @return {?string}
-   * @private
-   */
-  getPageTitle_() {
-    if (!this.delegate.shouldShowPageTitle()) {
-      return null;
+    static get is() {
+        return 'provisioning-page';
     }
-    if (this.showError) {
-      return this.i18n('provisioningPageErrorTitle', this.carrierName_);
+    static get template() {
+        return getTemplate$19();
     }
-    if (this.hasCarrierPortalLoaded_) {
-      return this.i18n('provisioningPageActiveTitle');
+    static get properties() {
+        return {
+            delegate: Object,
+            /**
+             * Whether error state should be shown.
+             */
+            showError: {
+                type: Boolean,
+                value: false,
+                notify: true,
+            },
+            /**
+             * Metadata used to open carrier provisioning portal. Expected to start as
+             * null, then change to a valid object.
+             */
+            cellularMetadata: {
+                type: Object,
+                value: null,
+                observer: 'onCellularMetadataChanged_',
+            },
+            /**
+             * Whether the carrier portal has completed being loaded.
+             */
+            hasCarrierPortalLoaded_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * The last carrier name provided via |cellularMetadata|.
+             */
+            carrierName_: {
+                type: String,
+                value: '',
+            },
+        };
     }
-    return this.i18n('provisioningPageLoadingTitle', this.carrierName_);
-  }
-
-  /**
-   * @return {?string}
-   * @private
-   */
-  getPageMessage_() {
-    if (this.showError) {
-      return this.i18n('provisioningPageErrorMessage', this.carrierName_);
+    getPageTitle_() {
+        if (!this.delegate.shouldShowPageTitle()) {
+            return null;
+        }
+        if (this.showError) {
+            return this.i18n('provisioningPageErrorTitle', this.carrierName_);
+        }
+        if (this.hasCarrierPortalLoaded_) {
+            return this.i18n('provisioningPageActiveTitle');
+        }
+        return this.i18n('provisioningPageLoadingTitle', this.carrierName_);
     }
-    return null;
-  }
-
-  /**
-   * @return {boolean}
-   * @private
-   */
-  shouldShowSpinner_() {
-    return !this.showError && !this.hasCarrierPortalLoaded_;
-  }
-
-  /**
-   * @return {boolean}
-   * @private
-   */
-  shouldShowPortal_() {
-    return !this.showError && this.hasCarrierPortalLoaded_;
-  }
-
-  /**
-   * @return {?WebView}
-   * @private
-   */
-  getPortalWebview() {
-    return /** @type {?WebView} */ (this.shadowRoot.querySelector('webview'));
-  }
-
-  /** @private */
-  onCellularMetadataChanged_() {
-    // Once |cellularMetadata| has been set, load the carrier provisioning page.
-    if (this.cellularMetadata) {
-      this.carrierName_ = this.cellularMetadata.carrier;
-      this.loadPortal_();
-      return;
+    getPageMessage_() {
+        if (this.showError) {
+            return this.i18n('provisioningPageErrorMessage', this.carrierName_);
+        }
+        return null;
     }
-
-    // If |cellularMetadata| is now null, the page should be reset so that a new
-    // attempt can begin.
-    this.resetPage_();
-  }
-
-  /** @private */
-  loadPortal_() {
-    assert$1(!!this.cellularMetadata);
-    assert$1(!this.getPortalWebview());
-
-    const portalWebview =
-        /** @type {!WebView} */ (document.createElement('webview'));
-    this.$.portalContainer.appendChild(portalWebview);
-
-    portalWebview.addEventListener(
-        'loadabort', this.onPortalLoadAbort_.bind(this));
-    portalWebview.addEventListener(
-        'loadstop', this.onPortalLoadStop_.bind(this));
-    window.addEventListener('message', this.onMessageReceived_.bind(this));
-
-    // Setting a <webview>'s "src" attribute triggers a GET request, but some
-    // carrier portals require a POST request instead. If data is provided for a
-    // POST request body, use a utility function to load the webview.
-    if (this.cellularMetadata.paymentPostData) {
-      postDeviceDataToWebview(
-          portalWebview, this.cellularMetadata.paymentUrl.url,
-          this.cellularMetadata.paymentPostData);
-      return;
+    shouldShowSpinner_() {
+        return !this.showError && !this.hasCarrierPortalLoaded_;
     }
-
-    // Otherwise, use a normal GET request by specifying the "src".
-    portalWebview.src = this.cellularMetadata.paymentUrl.url;
-  }
-
-  /** @private */
-  resetPage_() {
-    this.hasCarrierPortalLoaded_ = false;
-
-    // Remove the portal from the DOM if it exists.
-    const portalWebview = this.getPortalWebview();
-    if (portalWebview) {
-      portalWebview.remove();
+    shouldShowPortal_() {
+        return !this.showError && this.hasCarrierPortalLoaded_;
     }
-  }
-
-  /** @private */
-  onPortalLoadAbort_(event) {
-    this.showError = true;
-  }
-
-  /** @private */
-  onPortalLoadStop_() {
-    if (this.hasCarrierPortalLoaded_) {
-      return;
+    getPortalWebview() {
+        return this.shadowRoot.querySelector('webview');
     }
-
-    this.hasCarrierPortalLoaded_ = true;
-    this.dispatchEvent(new CustomEvent(
-        'carrier-portal-loaded', {bubbles: true, composed: true}));
-
-    // When the portal loads, it expects to receive a message from this frame
-    // alerting it that loading has completed successfully.
-    this.getPortalWebview().contentWindow.postMessage(
-        {msg: 'loadedInWebview'}, this.cellularMetadata.paymentUrl.url);
-  }
-
-  /**
-   * @param {!Event} event
-   * @private
-   */
-  onMessageReceived_(event) {
-    const messageType = /** @type {string} */ (event.data.type);
-    const status = /** @type {string} */ (event.data.status);
-
-    // The <webview> requested information about this device. Reply by posting a
-    // message back to it.
-    if (messageType === 'requestDeviceInfoMsg') {
-      this.getPortalWebview().contentWindow.postMessage(
-          {
-            carrier: this.cellularMetadata.carrier,
-            MEID: this.cellularMetadata.meid,
-            IMEI: this.cellularMetadata.imei,
-            MDN: this.cellularMetadata.mdn,
-          },
-          this.cellularMetadata.paymentUrl.url);
-      return;
+    onCellularMetadataChanged_() {
+        // Once |cellularMetadata| has been set, load the carrier provisioning page.
+        if (this.cellularMetadata) {
+            this.carrierName_ = this.cellularMetadata.carrier;
+            this.loadPortal_();
+            return;
+        }
+        // If |cellularMetadata| is now null, the page should be reset so that a new
+        // attempt can begin.
+        this.resetPage_();
     }
-
-    // The <webview> provided an update on the status of the activation attempt.
-    if (messageType === 'reportTransactionStatusMsg') {
-      const success = status === 'ok';
-      this.dispatchEvent(new CustomEvent(
-          'on-carrier-portal-result',
-          {bubbles: true, composed: true, detail: success}));
-      return;
+    loadPortal_() {
+        assert(!!this.cellularMetadata);
+        assert(!this.getPortalWebview());
+        const portalWebview = (document.createElement('webview'));
+        this.$.portalContainer.appendChild(portalWebview);
+        portalWebview.addEventListener('loadabort', this.onPortalLoadAbort_.bind(this));
+        portalWebview.addEventListener('loadstop', this.onPortalLoadStop_.bind(this));
+        window.addEventListener('message', this.onMessageReceived_.bind(this));
+        // Setting a <webview>'s "src" attribute triggers a GET request, but some
+        // carrier portals require a POST request instead. If data is provided for a
+        // POST request body, use a utility function to load the webview.
+        if (this.cellularMetadata.paymentPostData) {
+            postDeviceDataToWebview(portalWebview, this.cellularMetadata.paymentUrl.url, this.cellularMetadata.paymentPostData);
+            return;
+        }
+        // Otherwise, use a normal GET request by specifying the "src".
+        portalWebview.src = this.cellularMetadata.paymentUrl.url;
     }
-  }
+    resetPage_() {
+        this.hasCarrierPortalLoaded_ = false;
+        // Remove the portal from the DOM if it exists.
+        const portalWebview = this.getPortalWebview();
+        if (portalWebview) {
+            portalWebview.remove();
+        }
+    }
+    onPortalLoadAbort_() {
+        this.showError = true;
+    }
+    onPortalLoadStop_() {
+        if (this.hasCarrierPortalLoaded_) {
+            return;
+        }
+        this.hasCarrierPortalLoaded_ = true;
+        this.dispatchEvent(new CustomEvent('carrier-portal-loaded', { bubbles: true, composed: true }));
+        // When the portal loads, it expects to receive a message from this frame
+        // alerting it that loading has completed successfully.
+        const portalWebview = this.getPortalWebview();
+        assert(!!portalWebview);
+        const contentWindow = portalWebview.contentWindow;
+        assert(!!contentWindow);
+        contentWindow.postMessage({ msg: 'loadedInWebview' }, this.cellularMetadata.paymentUrl?.url);
+    }
+    onMessageReceived_(event) {
+        const messageType = (event.data.type);
+        const status = (event.data.status);
+        // The <webview> requested information about this device. Reply by posting a
+        // message back to it.
+        if (messageType === 'requestDeviceInfoMsg') {
+            const portalWebview = this.getPortalWebview();
+            assert(!!portalWebview);
+            const contentWindow = portalWebview.contentWindow;
+            assert(!!contentWindow);
+            contentWindow.postMessage({
+                carrier: this.cellularMetadata.carrier,
+                MEID: this.cellularMetadata.meid,
+                IMEI: this.cellularMetadata.imei,
+                MDN: this.cellularMetadata.mdn,
+            }, this.cellularMetadata.paymentUrl?.url);
+            return;
+        }
+        // The <webview> provided an update on the status of the activation attempt.
+        if (messageType === 'reportTransactionStatusMsg') {
+            const success = status === 'ok';
+            this.dispatchEvent(new CustomEvent('on-carrier-portal-result', {
+                bubbles: true, composed: true, detail: success
+            }));
+            return;
+        }
+    }
 }
-
 customElements.define(ProvisioningPageElement.is, ProvisioningPageElement);
 
 function getTemplate$18() {
@@ -9106,87 +9010,48 @@ function getTemplate$18() {
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * Final page in Cellular Setup flow, which either displays a success or error
+ * message depending on the outcome of the flow. This element contains an image
+ * asset and description that indicates that the setup flow has completed.
  */
-const FinalPageElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
+const FinalPageElementBase = I18nMixin(PolymerElement);
 class FinalPageElement extends FinalPageElementBase {
-  static get is() {
-    return 'final-page';
-  }
-
-  static get template() {
-    return getTemplate$18();
-  }
-
-  static get properties() {
-    return {
-      /** @type {!CellularSetupDelegate} */
-      delegate: Object,
-
-      /**
-       * Whether error state should be shown.
-       * @type {boolean}
-       */
-      showError: Boolean,
-
-      /** @type {string} */
-      message: String,
-
-      /** @type {string} */
-      errorMessage: String,
-
-    };
-  }
-
-  /**
-   * @param {boolean} showError
-   * @return {?string}
-   * @private
-   */
-  getTitle_(showError) {
-    if (this.delegate.shouldShowPageTitle()) {
-      return showError ? this.i18n('finalPageErrorTitle') :
-                         this.i18n('finalPageTitle');
+    static get is() {
+        return 'final-page';
     }
-    return null;
-  }
-
-  /**
-   * @param {boolean} showError
-   * @return {string}
-   * @private
-   */
-  getMessage_(showError) {
-    return showError ? this.errorMessage : this.message;
-  }
-
-  /**
-   * @param {boolean} showError
-   * @return {string}
-   * @private
-   */
-  getPageBodyClass_(showError) {
-    return showError ? 'error' : '';
-  }
-
-  /**
-   * @param {boolean} showError
-   * @return {string}
-   * @private
-   */
-  getJellyIllustrationName_(showError) {
-    return showError ? 'cellular-setup-illo:error' :
-                       'cellular-setup-illo:final-page-success';
-  }
+    static get template() {
+        return getTemplate$18();
+    }
+    static get properties() {
+        return {
+            delegate: Object,
+            /**
+             * Whether error state should be shown.
+             */
+            showError: Boolean,
+            message: String,
+            errorMessage: String,
+        };
+    }
+    getTitle_(showError) {
+        if (this.delegate.shouldShowPageTitle()) {
+            return showError ? this.i18n('finalPageErrorTitle') :
+                this.i18n('finalPageTitle');
+        }
+        return null;
+    }
+    getMessage_(showError) {
+        return showError ? this.errorMessage : this.message;
+    }
+    getPageBodyClass_(showError) {
+        return showError ? 'error' : '';
+    }
+    getJellyIllustrationName_(showError) {
+        return showError ? 'cellular-setup-illo:error' :
+            'cellular-setup-illo:final-page-success';
+    }
 }
-
 customElements.define(FinalPageElement.is, FinalPageElement);
 
 function getTemplate$17() {
@@ -9228,668 +9093,520 @@ function getTemplate$17() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @polymerBehavior */
-const SubflowBehavior = {
-  properties: {
-
-    /**
-     * Button bar button state.
-     * @type {!ButtonBarState}
-     */
-    buttonState: {
-      type: Object,
-      notify: true,
-    },
-  },
-
-  /**
-   * Initialize the subflow.
-   */
-  initSubflow() {
-    assertNotReached$1();
-  },
-
-  /**
-   * Handles forward navigation within subpage.
-   */
-  navigateForward() {
-    assertNotReached$1();
-  },
-
-  /**
-   * Handles backward navigation within subpage.
-   */
-  navigateBackward() {
-    assertNotReached$1();
-  },
-};
+/**
+ * @fileoverview Polymer mixin for dealing with Cellular setup subflows.
+ * It includes some methods and property shared between subflows.
+ */
+const SubflowMixin = dedupingMixin((superClass) => {
+    class SubflowMixin extends superClass {
+        static get properties() {
+            return {
+                buttonState: {
+                    type: Object,
+                    notify: true,
+                },
+            };
+        }
+        initSubflow() {
+            assertNotReached();
+        }
+        navigateForward() {
+            assertNotReached();
+        }
+        navigateBackward() {
+            assertNotReached();
+        }
+    }
+    return SubflowMixin;
+});
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @enum {string} */
-const PSimPageName = {
-  SIM_DETECT: 'simDetectPage',
-  PROVISIONING: 'provisioningPage',
-  FINAL: 'finalPage',
-};
-
-/** @enum {string} */
-const PSimUIState = {
-  IDLE: 'idle',
-  STARTING_ACTIVATION: 'starting-activation',
-  WAITING_FOR_ACTIVATION_TO_START: 'waiting-for-activation-to-start',
-  TIMEOUT_START_ACTIVATION: 'timeout-start-activation',
-  FINAL_TIMEOUT_START_ACTIVATION: 'final-timeout-start-activation',
-  WAITING_FOR_PORTAL_TO_LOAD: 'waiting-for-portal-to-load',
-  TIMEOUT_PORTAL_LOAD: 'timeout-portal-load',
-  WAITING_FOR_USER_PAYMENT: 'waiting-for-user-payment',
-  WAITING_FOR_ACTIVATION_TO_FINISH: 'waiting-for-activation-to-finish',
-  TIMEOUT_FINISH_ACTIVATION: 'timeout-finish-activation',
-  ACTIVATION_SUCCESS: 'activation-success',
-  ALREADY_ACTIVATED: 'already-activated',
-  ACTIVATION_FAILURE: 'activation-failure',
-};
-
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var PSimPageName;
+(function (PSimPageName) {
+    PSimPageName["SIM_DETECT"] = "simDetectPage";
+    PSimPageName["PROVISIONING"] = "provisioningPage";
+    PSimPageName["FINAL"] = "finalPage";
+})(PSimPageName || (PSimPageName = {}));
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var PSimUIState;
+(function (PSimUIState) {
+    PSimUIState["IDLE"] = "idle";
+    PSimUIState["STARTING_ACTIVATION"] = "starting-activation";
+    PSimUIState["WAITING_FOR_ACTIVATION_TO_START"] = "waiting-for-activation-to-start";
+    PSimUIState["TIMEOUT_START_ACTIVATION"] = "timeout-start-activation";
+    PSimUIState["FINAL_TIMEOUT_START_ACTIVATION"] = "final-timeout-start-activation";
+    PSimUIState["WAITING_FOR_PORTAL_TO_LOAD"] = "waiting-for-portal-to-load";
+    PSimUIState["TIMEOUT_PORTAL_LOAD"] = "timeout-portal-load";
+    PSimUIState["WAITING_FOR_USER_PAYMENT"] = "waiting-for-user-payment";
+    PSimUIState["WAITING_FOR_ACTIVATION_TO_FINISH"] = "waiting-for-activation-to-finish";
+    PSimUIState["TIMEOUT_FINISH_ACTIVATION"] = "timeout-finish-activation";
+    PSimUIState["ACTIVATION_SUCCESS"] = "activation-success";
+    PSimUIState["ALREADY_ACTIVATED"] = "already-activated";
+    PSimUIState["ACTIVATION_FAILURE"] = "activation-failure";
+})(PSimUIState || (PSimUIState = {}));
+// The reason that caused the user to exit the PSim Setup flow.
+// These values are persisted to logs. Entries should not be renumbered
+// and numeric values should never be reused.
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var PSimSetupFlowResult;
+(function (PSimSetupFlowResult) {
+    PSimSetupFlowResult[PSimSetupFlowResult["SUCCESS"] = 0] = "SUCCESS";
+    PSimSetupFlowResult[PSimSetupFlowResult["CANCELLED"] = 1] = "CANCELLED";
+    PSimSetupFlowResult[PSimSetupFlowResult["CANCELLED_NO_SIM"] = 2] = "CANCELLED_NO_SIM";
+    PSimSetupFlowResult[PSimSetupFlowResult["CANCELLED_COLD_SIM_DEFER"] = 3] = "CANCELLED_COLD_SIM_DEFER";
+    PSimSetupFlowResult[PSimSetupFlowResult["CANCELLED_CARRIER_PORTAL"] = 4] = "CANCELLED_CARRIER_PORTAL";
+    PSimSetupFlowResult[PSimSetupFlowResult["CANCELLED_PORTAL_ERROR"] = 5] = "CANCELLED_PORTAL_ERROR";
+    PSimSetupFlowResult[PSimSetupFlowResult["CARRIER_PORTAL_TIMEOUT"] = 6] = "CARRIER_PORTAL_TIMEOUT";
+    PSimSetupFlowResult[PSimSetupFlowResult["NETWORK_ERROR"] = 7] = "NETWORK_ERROR";
+})(PSimSetupFlowResult || (PSimSetupFlowResult = {}));
 /**
- * The reason that caused the user to exit the PSim Setup flow.
- * These values are persisted to logs. Entries should not be renumbered
- * and numeric values should never be reused.
- * @enum {number}
- */
-const PSimSetupFlowResult = {
-  SUCCESS: 0,
-  CANCELLED: 1,
-  CANCELLED_NO_SIM: 2,
-  CANCELLED_COLD_SIM_DEFER: 3,
-  CANCELLED_CARRIER_PORTAL: 4,
-  CANCELLED_PORTAL_ERROR: 5,
-  CARRIER_PORTAL_TIMEOUT: 6,
-  NETWORK_ERROR: 7,
-};
-
-/**
- * @param {!PSimUIState} state
- * @return {?number} The time delta, in ms, for the timeout corresponding to
- *     |state|. If no timeout is applicable for this state, null is returned.
+ * The time delta, in ms, for the timeout corresponding to |state|. If no
+ * timeout is applicable for this state, null is returned.
  */
 function getTimeoutMsForPSimUIState(state) {
-  // In some cases, starting activation may require power-cycling the device's
-  // modem, a process that can take several seconds.
-  if (state === PSimUIState.STARTING_ACTIVATION) {
-    return 10000;  // 10 seconds.
-  }
-
-  // The portal is a website served by the mobile carrier.
-  if (state === PSimUIState.WAITING_FOR_PORTAL_TO_LOAD) {
-    return 10000;  // 10 seconds.
-  }
-
-  // Finishing activation only requires sending a D-Bus message to Shill.
-  if (state === PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH) {
-    return 1000;  // 1 second.
-  }
-
-  // No other states require timeouts.
-  return null;
+    // In some cases, starting activation may require power-cycling the device's
+    // modem, a process that can take several seconds.
+    if (state === PSimUIState.STARTING_ACTIVATION) {
+        return 10000; // 10 seconds.
+    }
+    // The portal is a website served by the mobile carrier.
+    if (state === PSimUIState.WAITING_FOR_PORTAL_TO_LOAD) {
+        return 10000; // 10 seconds.
+    }
+    // Finishing activation only requires sending a D-Bus message to Shill.
+    if (state === PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH) {
+        return 1000; // 1 second.
+    }
+    // No other states require timeouts.
+    return null;
 }
-
 /**
  * The maximum tries allowed to detect the SIM.
- * @private {number}
  */
 const MAX_START_ACTIVATION_ATTEMPTS = 3;
-
-const PSIM_SETUP_RESULT_METRIC_NAME =
-    'Network.Cellular.PSim.SetupFlowResult';
-
-const SUCCESSFUL_PSIM_SETUP_DURATION_METRIC_NAME =
-    'Network.Cellular.PSim.CellularSetup.Success.Duration';
-
-const FAILED_PSIM_SETUP_DURATION_METRIC_NAME =
-    'Network.Cellular.PSim.CellularSetup.Failure.Duration';
-
+const PSIM_SETUP_RESULT_METRIC_NAME = 'Network.Cellular.PSim.SetupFlowResult';
+const SUCCESSFUL_PSIM_SETUP_DURATION_METRIC_NAME = 'Network.Cellular.PSim.CellularSetup.Success.Duration';
+const FAILED_PSIM_SETUP_DURATION_METRIC_NAME = 'Network.Cellular.PSim.CellularSetup.Failure.Duration';
 /**
  * Root element for the pSIM cellular setup flow. This element interacts with
  * the CellularSetup service to carry out the psim activation flow. It
  * contains navigation buttons and sub-pages corresponding to each step of the
  * flow.
  */
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const PsimFlowUiElementBase =
-    mixinBehaviors([I18nBehavior, SubflowBehavior], PolymerElement);
-
-/** @polymer */
+const PsimFlowUiElementBase = SubflowMixin(I18nMixin(PolymerElement));
 class PsimFlowUiElement extends PsimFlowUiElementBase {
-  static get is() {
-    return 'psim-flow-ui';
-  }
-
-  static get template() {
-    return getTemplate$17();
-  }
-
-  static get properties() {
-    return {
-      /** @type {!CellularSetupDelegate} */
-      delegate: Object,
-
-      /**
-       * Carrier name; used in dialog title to show the current carrier
-       * name being setup
-       * @type {string}
-       */
-      nameOfCarrierPendingSetup: {
-        type: String,
-        notify: true,
-        computed: 'getCarrierText(' +
-            'selectedPSimPageName_, cellularMetadata_.*)',
-      },
-
-      forwardButtonLabel: {
-        type: String,
-        notify: true,
-      },
-
-      /**
-       * @type {!PSimUIState}
-       * @private
-       */
-      state_: {
-        type: String,
-        value: PSimUIState.IDLE,
-        observer: 'handlePSimUIStateChange_',
-      },
-
-      /**
-       * Element name of the current selected sub-page.
-       * @type {!PSimPageName}
-       * @private
-       */
-      selectedPSimPageName_: {
-        type: String,
-        value: PSimPageName.SIM_DETECT,
-        notify: true,
-      },
-
-      /**
-       * DOM Element for the current selected sub-page.
-       * @private {!SetupLoadingPageElement|!ProvisioningPageElement|
-       *           !FinalPageElement}
-       */
-      selectedPage_: Object,
-
-      /**
-       * Whether error state should be shown for the current page.
-       * @private {boolean}
-       */
-      showError_: {type: Boolean, value: false},
-
-      /**
-       * Cellular metadata received via the onActivationStarted() callback. If
-       * that callback has not occurred, this field is null.
-       * @private {?CellularMetadata}
-       */
-      cellularMetadata_: {
-        type: Object,
-        value: null,
-      },
-
-      /**
-       * The current number of tries to detect the SIM.
-       * @private {number}
-       */
-      startActivationAttempts_: {
-        type: Number,
-        value: 0,
-      },
-
-    };
-  }
-
-  /** @override */
-  constructor() {
-    super();
-
-    /**
-     * Provides an interface to the CellularSetup Mojo service.
-     * @private {?CellularSetupRemote}
-     */
-    this.cellularSetupRemote_ = getCellularSetupRemote();
-
-    /**
-     * Delegate responsible for routing activation started/finished events.
-     * @private {?ActivationDelegateReceiver}
-     */
-    this.activationDelegateReceiver_ = null;
-
-    /**
-     * The timeout ID corresponding to a timeout for the current state. If no
-     * timeout is active, this value is null.
-     * @private {?number}
-     */
-    this.currentTimeoutId_ = null;
-
-    /**
-     * Handler used to communicate state updates back to the CellularSetup
-     * service.
-     * @private {?CarrierPortalHandlerRemote}
-     */
-    this.carrierPortalHandler_ = null;
-
-    /**
-     * Whether there was a carrier portal error.
-     * @private {boolean}
-     */
-    this.didCarrierPortalResultFail_ = false;
-
-    /**
-     * The function used to initiate a timer. Can be overwritten in tests.
-     * @private {function(Function, number)}
-     */
-    this.setTimeoutFunction_ = setTimeout.bind(window);
-  }
-
-  /** @override */
-  connectedCallback() {
-    super.connectedCallback();
-
-    /**
-     * The time at which the PSim flow is attached.
-     * @private {?Date}
-     */
-    this.timeOnAttached_ = new Date();
-  }
-
-  /** @override */
-  disconnectedCallback() {
-    super.disconnectedCallback();
-
-    let resultCode = null;
-    switch (this.state_) {
-      case PSimUIState.IDLE:
-      case PSimUIState.STARTING_ACTIVATION:
-        resultCode = PSimSetupFlowResult.CANCELLED;
-        break;
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_START:
-        resultCode = PSimSetupFlowResult.CANCELLED_COLD_SIM_DEFER;
-        break;
-      case PSimUIState.TIMEOUT_START_ACTIVATION:
-      case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
-        resultCode = PSimSetupFlowResult.CANCELLED_NO_SIM;
-        break;
-      case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
-        resultCode = PSimSetupFlowResult.CANCELLED;
-        break;
-      case PSimUIState.TIMEOUT_PORTAL_LOAD:
-        resultCode = PSimSetupFlowResult.CARRIER_PORTAL_TIMEOUT;
-        break;
-      case PSimUIState.WAITING_FOR_USER_PAYMENT:
-        resultCode = PSimSetupFlowResult.CANCELLED_CARRIER_PORTAL;
-        break;
-      case PSimUIState.ACTIVATION_SUCCESS:
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
-      case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
-      case PSimUIState.ALREADY_ACTIVATED:
-        resultCode = PSimSetupFlowResult.SUCCESS;
-        break;
-      case PSimUIState.ACTIVATION_FAILURE:
-        resultCode = this.didCarrierPortalResultFail_ ?
-            PSimSetupFlowResult.CANCELLED_PORTAL_ERROR :
-            PSimSetupFlowResult.NETWORK_ERROR;
-        break;
-      default:
-        assertNotReached$1();
+    static get is() {
+        return 'psim-flow-ui';
     }
-
-    assert$1(resultCode !== null);
-    chrome.metricsPrivate.recordEnumerationValue(
-        PSIM_SETUP_RESULT_METRIC_NAME, resultCode,
-        Object.keys(PSimSetupFlowResult).length);
-
-    const elapsedTimeMs = new Date() - this.timeOnAttached_;
-    if (resultCode === PSimSetupFlowResult.SUCCESS) {
-      chrome.metricsPrivate.recordLongTime(
-          SUCCESSFUL_PSIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
-      return;
+    static get template() {
+        return getTemplate$17();
     }
-
-    chrome.metricsPrivate.recordLongTime(
-        FAILED_PSIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
-  }
-
-  /**
-   * Overrides ActivationDelegateInterface.
-   * @param {!CellularMetadata} metadata
-   * @private
-   */
-  onActivationStarted(metadata) {
-    this.clearTimer_();
-    this.cellularMetadata_ = metadata;
-    this.state_ = PSimUIState.WAITING_FOR_PORTAL_TO_LOAD;
-  }
-
-  initSubflow() {
-    this.state_ = PSimUIState.STARTING_ACTIVATION;
-    this.startActivationAttempts_ = 0;
-    this.updateButtonBarState_();
-    this.dispatchEvent(new CustomEvent(
-        'focus-default-button', {bubbles: true, composed: true}));
-  }
-
-  navigateForward() {
-    switch (this.state_) {
-      case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
-      case PSimUIState.TIMEOUT_PORTAL_LOAD:
-      case PSimUIState.WAITING_FOR_USER_PAYMENT:
-      case PSimUIState.ACTIVATION_SUCCESS:
-        this.state_ = PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH;
-        break;
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
-      case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
-      case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
-      case PSimUIState.ALREADY_ACTIVATED:
-        this.dispatchEvent(new CustomEvent(
-            'exit-cellular-setup', {bubbles: true, composed: true}));
-        break;
-      case PSimUIState.TIMEOUT_START_ACTIVATION:
-        this.state_ = PSimUIState.STARTING_ACTIVATION;
-        break;
-      default:
-        assertNotReached$1();
-        break;
-    }
-  }
-
-  /**
-   * Sets the function used to initiate a timer.
-   * @param {function(Function, number)}
-   *     timerFunction
-   */
-  setTimerFunctionForTest(timerFunction) {
-    this.setTimeoutFunction_ = timerFunction;
-  }
-
-  /** @private */
-  updateButtonBarState_() {
-    let buttonState;
-    switch (this.state_) {
-      case PSimUIState.IDLE:
-      case PSimUIState.STARTING_ACTIVATION:
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_START:
-      case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
-      case PSimUIState.TIMEOUT_PORTAL_LOAD:
-      case PSimUIState.WAITING_FOR_USER_PAYMENT:
-        this.forwardButtonLabel = this.i18n('next');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.ENABLED,
-          forward: ButtonState.DISABLED,
-        };
-        break;
-      case PSimUIState.TIMEOUT_START_ACTIVATION:
-        this.forwardButtonLabel = this.i18n('tryAgain');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.ENABLED,
-          forward: ButtonState.ENABLED,
-        };
-        break;
-      case PSimUIState.ACTIVATION_SUCCESS:
-        this.forwardButtonLabel = this.i18n('next');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.ENABLED,
-          forward: ButtonState.ENABLED,
-        };
-        break;
-      case PSimUIState.ALREADY_ACTIVATED:
-      case PSimUIState.ACTIVATION_FAILURE:
-      case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
-        this.forwardButtonLabel = this.i18n('done');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.ENABLED,
-          forward: ButtonState.ENABLED,
-        };
-        break;
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
-      case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
-        this.forwardButtonLabel = this.i18n('done');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.HIDDEN,
-          forward: ButtonState.ENABLED,
-        };
-        break;
-      default:
-        assertNotReached$1();
-    }
-    this.set('buttonState', buttonState);
-  }
-
-  /**
-   * Overrides ActivationDelegateInterface.
-   * @param {!ActivationResult} result
-   * @private
-   */
-  onActivationFinished(result) {
-    this.closeActivationConnection_();
-
-    switch (result) {
-      case ActivationResult.kSuccessfullyStartedActivation:
-        this.state_ = PSimUIState.ACTIVATION_SUCCESS;
-        break;
-      case ActivationResult.kAlreadyActivated:
-        this.state_ = PSimUIState.ALREADY_ACTIVATED;
-        break;
-      case ActivationResult.kFailedToActivate:
-        this.state_ = PSimUIState.ACTIVATION_FAILURE;
-        break;
-      default:
-        assertNotReached$1();
-    }
-  }
-
-  /** @private */
-  getCarrierText() {
-    if (this.selectedPSimPageName_ === PSimPageName.PROVISIONING &&
-        this.cellularMetadata_) {
-      return this.cellularMetadata_.carrier;
-    }
-    return '';
-  }
-
-  /** @private */
-  updateShowError_() {
-    switch (this.state_) {
-      case PSimUIState.TIMEOUT_PORTAL_LOAD:
-      case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
-      case PSimUIState.ACTIVATION_FAILURE:
-        this.showError_ = true;
-        return;
-      default:
-        this.showError_ = false;
-        return;
-    }
-  }
-
-  /** @private */
-  updateSelectedPage_() {
-    switch (this.state_) {
-      case PSimUIState.IDLE:
-      case PSimUIState.STARTING_ACTIVATION:
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_START:
-      case PSimUIState.TIMEOUT_START_ACTIVATION:
-      case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
-        this.selectedPSimPageName_ = PSimPageName.SIM_DETECT;
-        return;
-      case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
-      case PSimUIState.TIMEOUT_PORTAL_LOAD:
-      case PSimUIState.WAITING_FOR_USER_PAYMENT:
-      case PSimUIState.ACTIVATION_SUCCESS:
-        this.selectedPSimPageName_ = PSimPageName.PROVISIONING;
-        return;
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
-      case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
-      case PSimUIState.ALREADY_ACTIVATED:
-      case PSimUIState.ACTIVATION_FAILURE:
-        this.selectedPSimPageName_ = PSimPageName.FINAL;
-        return;
-      default:
-        assertNotReached$1();
-    }
-  }
-
-  /** @private */
-  handlePSimUIStateChange_() {
-    this.updateShowError_();
-    this.updateSelectedPage_();
-
-    // Since the state has changed, the previous state did not time out, so
-    // clear any active timeout.
-    this.clearTimer_();
-
-    // If the new state has an associated timeout, set it.
-    const timeoutMs = getTimeoutMsForPSimUIState(this.state_);
-    if (timeoutMs !== null) {
-      this.currentTimeoutId_ =
-          this.setTimeoutFunction_(this.onTimeout_.bind(this), timeoutMs);
-    }
-
-    if (this.state_ === PSimUIState.STARTING_ACTIVATION) {
-      this.startActivation_();
-    }
-
-    this.updateButtonBarState_();
-  }
-
-  /** @private */
-  onTimeout_() {
-    // The activation attempt failed, so close the connection to the service.
-    this.closeActivationConnection_();
-
-    switch (this.state_) {
-      case PSimUIState.STARTING_ACTIVATION:
-        this.startActivationAttempts_++;
-        if (this.startActivationAttempts_ < MAX_START_ACTIVATION_ATTEMPTS) {
-          this.state_ = PSimUIState.TIMEOUT_START_ACTIVATION;
-        } else {
-          this.state_ = PSimUIState.FINAL_TIMEOUT_START_ACTIVATION;
-        }
-        return;
-      case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
-        this.state_ = PSimUIState.TIMEOUT_PORTAL_LOAD;
-        return;
-      case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
-        this.state_ = PSimUIState.TIMEOUT_FINISH_ACTIVATION;
-        return;
-      default:
-        // Only the above states are expected to time out.
-        assertNotReached$1();
-    }
-  }
-
-  /** @private */
-  startActivation_() {
-    assert$1(!this.activationDelegateReceiver_);
-    this.activationDelegateReceiver_ = new ActivationDelegateReceiver(
-        /**
-         * @type {!ActivationDelegateInterface}
-         */
-        (this));
-
-    this.cellularSetupRemote_
-        .startActivation(
-            this.activationDelegateReceiver_.$.bindNewPipeAndPassRemote())
-        .then(
+    static get properties() {
+        return {
+            delegate: Object,
             /**
-             * @param {!CellularSetup_StartActivation_ResponseParams} params
+             * Carrier name; used in dialog title to show the current carrier
+             * name being setup
              */
-            (params) => {
-              this.carrierPortalHandler_ = params.observer;
-            });
-  }
-
-  /** @private */
-  closeActivationConnection_() {
-    assert$1(!!this.activationDelegateReceiver_);
-    this.activationDelegateReceiver_.$.close();
-    this.activationDelegateReceiver_ = null;
-    this.carrierPortalHandler_ = null;
-    this.cellularMetadata_ = null;
-  }
-
-  /** @private */
-  clearTimer_() {
-    if (this.currentTimeoutId_) {
-      clearTimeout(this.currentTimeoutId_);
+            nameOfCarrierPendingSetup: {
+                type: String,
+                notify: true,
+                computed: 'getCarrierText(' +
+                    'selectedPSimPageName_, cellularMetadata_.*)',
+            },
+            forwardButtonLabel: {
+                type: String,
+                notify: true,
+            },
+            state_: {
+                type: String,
+                value: PSimUIState.IDLE,
+                observer: 'handlePSimUIStateChange_',
+            },
+            /**
+             * Element name of the current selected sub-page.
+             */
+            selectedPSimPageName_: {
+                type: String,
+                value: PSimPageName.SIM_DETECT,
+                notify: true,
+            },
+            /**
+             * DOM Element for the current selected sub-page.
+             */
+            selectedPage_: Object,
+            /**
+             * Whether error state should be shown for the current page.
+             */
+            showError_: { type: Boolean, value: false },
+            /**
+             * Cellular metadata received via the onActivationStarted() callback. If
+             * that callback has not occurred, this field is null.
+             */
+            cellularMetadata_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * The current number of tries to detect the SIM.
+             */
+            startActivationAttempts_: {
+                type: Number,
+                value: 0,
+            },
+        };
     }
-    this.currentTimeoutId_ = null;
-  }
-
-  /** @private */
-  onCarrierPortalLoaded_() {
-    this.state_ = PSimUIState.WAITING_FOR_USER_PAYMENT;
-    this.carrierPortalHandler_.onCarrierPortalStatusChange(
-        CarrierPortalStatus.kPortalLoadedWithoutPaidUser);
-  }
-
-  /**
-   * @param {!CustomEvent<boolean>} event
-   * @private
-   */
-  onCarrierPortalResult_(event) {
-    const success = event.detail;
-    this.didCarrierPortalResultFail_ = !success;
-    this.state_ = success ? PSimUIState.ACTIVATION_SUCCESS :
-                            PSimUIState.ACTIVATION_FAILURE;
-  }
-
-  /** @return {string} */
-  getLoadingMessage_() {
-    if (this.state_ === PSimUIState.TIMEOUT_START_ACTIVATION) {
-      return this.i18n('simDetectPageErrorMessage');
-    } else if (this.state_ === PSimUIState.FINAL_TIMEOUT_START_ACTIVATION) {
-      return this.i18n('simDetectPageFinalErrorMessage');
+    constructor() {
+        super();
+        /**
+         * Provides an interface to the CellularSetup Mojo service.
+         */
+        this.cellularSetupRemote_ = null;
+        /**
+         * Delegate responsible for routing activation started/finished events.
+         */
+        this.activationDelegateReceiver_ = null;
+        /**
+         * The timeout ID corresponding to a timeout for the current state. If no
+         * timeout is active, this value is null.
+         */
+        this.currentTimeoutId_ = null;
+        /**
+         * Handler used to communicate state updates back to the CellularSetup
+         * service.
+         */
+        this.carrierPortalHandler_ = null;
+        /**
+         * Whether there was a carrier portal error.
+         */
+        this.didCarrierPortalResultFail_ = false;
+        /**
+         * The function used to initiate a timer. Can be overwritten in tests.
+         */
+        this.setTimeoutFunction_ = setTimeout.bind(window);
+        /**
+         * The time at which the PSim flow is attached.
+         */
+        this.timeOnAttached_ = null;
+        this.cellularSetupRemote_ = getCellularSetupRemote();
     }
-    return this.i18n('establishNetworkConnectionMessage');
-  }
-
-  /** @return {boolean} */
-  isSimDetectError_() {
-    return this.state_ === PSimUIState.TIMEOUT_START_ACTIVATION ||
-        this.state_ === PSimUIState.FINAL_TIMEOUT_START_ACTIVATION;
-  }
-
-  /** @return {string} */
-  getLoadingTitle_() {
-    if (this.delegate.shouldShowPageTitle() && this.isSimDetectError_()) {
-      return this.i18n('simDetectPageErrorTitle');
+    connectedCallback() {
+        super.connectedCallback();
+        this.timeOnAttached_ = new Date();
     }
-    return '';
-  }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        let resultCode = null;
+        switch (this.state_) {
+            case PSimUIState.IDLE:
+            case PSimUIState.STARTING_ACTIVATION:
+                resultCode = PSimSetupFlowResult.CANCELLED;
+                break;
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_START:
+                resultCode = PSimSetupFlowResult.CANCELLED_COLD_SIM_DEFER;
+                break;
+            case PSimUIState.TIMEOUT_START_ACTIVATION:
+            case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
+                resultCode = PSimSetupFlowResult.CANCELLED_NO_SIM;
+                break;
+            case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
+                resultCode = PSimSetupFlowResult.CANCELLED;
+                break;
+            case PSimUIState.TIMEOUT_PORTAL_LOAD:
+                resultCode = PSimSetupFlowResult.CARRIER_PORTAL_TIMEOUT;
+                break;
+            case PSimUIState.WAITING_FOR_USER_PAYMENT:
+                resultCode = PSimSetupFlowResult.CANCELLED_CARRIER_PORTAL;
+                break;
+            case PSimUIState.ACTIVATION_SUCCESS:
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
+            case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
+            case PSimUIState.ALREADY_ACTIVATED:
+                resultCode = PSimSetupFlowResult.SUCCESS;
+                break;
+            case PSimUIState.ACTIVATION_FAILURE:
+                resultCode = this.didCarrierPortalResultFail_ ?
+                    PSimSetupFlowResult.CANCELLED_PORTAL_ERROR :
+                    PSimSetupFlowResult.NETWORK_ERROR;
+                break;
+            default:
+                assertNotReached();
+        }
+        assert(resultCode !== null);
+        chrome.metricsPrivate.recordEnumerationValue(PSIM_SETUP_RESULT_METRIC_NAME, resultCode, Object.keys(PSimSetupFlowResult).length);
+        const elapsedTimeMs = Date.now() - this.timeOnAttached_.getTime();
+        if (resultCode === PSimSetupFlowResult.SUCCESS) {
+            chrome.metricsPrivate.recordLongTime(SUCCESSFUL_PSIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
+            return;
+        }
+        chrome.metricsPrivate.recordLongTime(FAILED_PSIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
+    }
+    /**
+     * Overrides ActivationDelegateInterface.
+     */
+    onActivationStarted(metadata) {
+        this.clearTimer_();
+        this.cellularMetadata_ = metadata;
+        this.state_ = PSimUIState.WAITING_FOR_PORTAL_TO_LOAD;
+    }
+    initSubflow() {
+        this.state_ = PSimUIState.STARTING_ACTIVATION;
+        this.startActivationAttempts_ = 0;
+        this.updateButtonBarState_();
+        this.dispatchEvent(new CustomEvent('focus-default-button', { bubbles: true, composed: true }));
+    }
+    navigateForward() {
+        switch (this.state_) {
+            case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
+            case PSimUIState.TIMEOUT_PORTAL_LOAD:
+            case PSimUIState.WAITING_FOR_USER_PAYMENT:
+            case PSimUIState.ACTIVATION_SUCCESS:
+                this.state_ = PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH;
+                break;
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
+            case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
+            case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
+            case PSimUIState.ALREADY_ACTIVATED:
+            case PSimUIState.ACTIVATION_FAILURE:
+                this.dispatchEvent(new CustomEvent('exit-cellular-setup', { bubbles: true, composed: true }));
+                break;
+            case PSimUIState.TIMEOUT_START_ACTIVATION:
+                this.state_ = PSimUIState.STARTING_ACTIVATION;
+                break;
+            default:
+                assertNotReached();
+        }
+    }
+    /**
+     * Sets the function used to initiate a timer.
+     */
+    setTimerFunctionForTest(timerFunction) {
+        this.setTimeoutFunction_ = timerFunction;
+    }
+    updateButtonBarState_() {
+        let buttonState;
+        switch (this.state_) {
+            case PSimUIState.IDLE:
+            case PSimUIState.STARTING_ACTIVATION:
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_START:
+            case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
+            case PSimUIState.TIMEOUT_PORTAL_LOAD:
+            case PSimUIState.WAITING_FOR_USER_PAYMENT:
+                this.forwardButtonLabel = this.i18n('next');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.ENABLED,
+                    forward: ButtonState.DISABLED,
+                };
+                break;
+            case PSimUIState.TIMEOUT_START_ACTIVATION:
+                this.forwardButtonLabel = this.i18n('tryAgain');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.ENABLED,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            case PSimUIState.ACTIVATION_SUCCESS:
+                this.forwardButtonLabel = this.i18n('next');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.ENABLED,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            case PSimUIState.ALREADY_ACTIVATED:
+            case PSimUIState.ACTIVATION_FAILURE:
+            case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
+                this.forwardButtonLabel = this.i18n('done');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.ENABLED,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
+            case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
+                this.forwardButtonLabel = this.i18n('done');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.HIDDEN,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            default:
+                assertNotReached();
+        }
+        this.set('buttonState', buttonState);
+    }
+    /**
+     * Overrides ActivationDelegateInterface.
+     */
+    onActivationFinished(result) {
+        this.closeActivationConnection_();
+        switch (result) {
+            case ActivationResult.kSuccessfullyStartedActivation:
+                this.state_ = PSimUIState.ACTIVATION_SUCCESS;
+                break;
+            case ActivationResult.kAlreadyActivated:
+                this.state_ = PSimUIState.ALREADY_ACTIVATED;
+                break;
+            case ActivationResult.kFailedToActivate:
+                this.state_ = PSimUIState.ACTIVATION_FAILURE;
+                break;
+            default:
+                assertNotReached();
+        }
+    }
+    getCarrierText() {
+        if (this.selectedPSimPageName_ === PSimPageName.PROVISIONING &&
+            this.cellularMetadata_) {
+            return this.cellularMetadata_.carrier;
+        }
+        return '';
+    }
+    updateShowError_() {
+        switch (this.state_) {
+            case PSimUIState.TIMEOUT_PORTAL_LOAD:
+            case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
+            case PSimUIState.ACTIVATION_FAILURE:
+                this.showError_ = true;
+                return;
+            default:
+                this.showError_ = false;
+                return;
+        }
+    }
+    updateSelectedPage_() {
+        switch (this.state_) {
+            case PSimUIState.IDLE:
+            case PSimUIState.STARTING_ACTIVATION:
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_START:
+            case PSimUIState.TIMEOUT_START_ACTIVATION:
+            case PSimUIState.FINAL_TIMEOUT_START_ACTIVATION:
+                this.selectedPSimPageName_ = PSimPageName.SIM_DETECT;
+                return;
+            case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
+            case PSimUIState.TIMEOUT_PORTAL_LOAD:
+            case PSimUIState.WAITING_FOR_USER_PAYMENT:
+            case PSimUIState.ACTIVATION_SUCCESS:
+                this.selectedPSimPageName_ = PSimPageName.PROVISIONING;
+                return;
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
+            case PSimUIState.TIMEOUT_FINISH_ACTIVATION:
+            case PSimUIState.ALREADY_ACTIVATED:
+            case PSimUIState.ACTIVATION_FAILURE:
+                this.selectedPSimPageName_ = PSimPageName.FINAL;
+                return;
+            default:
+                assertNotReached();
+        }
+    }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    handlePSimUIStateChange_() {
+        this.updateShowError_();
+        this.updateSelectedPage_();
+        // Since the state has changed, the previous state did not time out, so
+        // clear any active timeout.
+        this.clearTimer_();
+        // If the new state has an associated timeout, set it.
+        const timeoutMs = getTimeoutMsForPSimUIState(this.state_);
+        if (timeoutMs !== null) {
+            this.currentTimeoutId_ =
+                this.setTimeoutFunction_(this.onTimeout_.bind(this), timeoutMs);
+        }
+        if (this.state_ === PSimUIState.STARTING_ACTIVATION) {
+            this.startActivation_();
+        }
+        this.updateButtonBarState_();
+    }
+    onTimeout_() {
+        // The activation attempt failed, so close the connection to the service.
+        this.closeActivationConnection_();
+        switch (this.state_) {
+            case PSimUIState.STARTING_ACTIVATION:
+                this.startActivationAttempts_++;
+                if (this.startActivationAttempts_ < MAX_START_ACTIVATION_ATTEMPTS) {
+                    this.state_ = PSimUIState.TIMEOUT_START_ACTIVATION;
+                }
+                else {
+                    this.state_ = PSimUIState.FINAL_TIMEOUT_START_ACTIVATION;
+                }
+                return;
+            case PSimUIState.WAITING_FOR_PORTAL_TO_LOAD:
+                this.state_ = PSimUIState.TIMEOUT_PORTAL_LOAD;
+                return;
+            case PSimUIState.WAITING_FOR_ACTIVATION_TO_FINISH:
+                this.state_ = PSimUIState.TIMEOUT_FINISH_ACTIVATION;
+                return;
+            default:
+                // Only the above states are expected to time out.
+                assertNotReached();
+        }
+    }
+    startActivation_() {
+        assert(!this.activationDelegateReceiver_);
+        this.activationDelegateReceiver_ = new ActivationDelegateReceiver((this));
+        this.cellularSetupRemote_
+            .startActivation(this.activationDelegateReceiver_.$.bindNewPipeAndPassRemote())
+            .then((params) => {
+            this.carrierPortalHandler_ = params.observer;
+        });
+    }
+    closeActivationConnection_() {
+        assert(!!this.activationDelegateReceiver_);
+        this.activationDelegateReceiver_.$.close();
+        this.activationDelegateReceiver_ = null;
+        this.carrierPortalHandler_ = null;
+        this.cellularMetadata_ = null;
+    }
+    clearTimer_() {
+        if (this.currentTimeoutId_) {
+            clearTimeout(this.currentTimeoutId_);
+        }
+        this.currentTimeoutId_ = null;
+    }
+    onCarrierPortalLoaded_() {
+        this.state_ = PSimUIState.WAITING_FOR_USER_PAYMENT;
+        this.carrierPortalHandler_.onCarrierPortalStatusChange(CarrierPortalStatus.kPortalLoadedWithoutPaidUser);
+    }
+    onCarrierPortalResult_(event) {
+        const success = event.detail;
+        this.didCarrierPortalResultFail_ = !success;
+        this.state_ = success ? PSimUIState.ACTIVATION_SUCCESS :
+            PSimUIState.ACTIVATION_FAILURE;
+    }
+    getLoadingMessage_() {
+        if (this.state_ === PSimUIState.TIMEOUT_START_ACTIVATION) {
+            return this.i18n('simDetectPageErrorMessage');
+        }
+        else if (this.state_ === PSimUIState.FINAL_TIMEOUT_START_ACTIVATION) {
+            return this.i18n('simDetectPageFinalErrorMessage');
+        }
+        return this.i18n('establishNetworkConnectionMessage');
+    }
+    isSimDetectError_() {
+        return this.state_ === PSimUIState.TIMEOUT_START_ACTIVATION ||
+            this.state_ === PSimUIState.FINAL_TIMEOUT_START_ACTIVATION;
+    }
+    getLoadingTitle_() {
+        if (this.delegate.shouldShowPageTitle() && this.isSimDetectError_()) {
+            return this.i18n('simDetectPageErrorTitle');
+        }
+        return '';
+    }
 }
-
 customElements.define(PsimFlowUiElement.is, PsimFlowUiElement);
 
 function getTemplate$16() {
   return html`<!--_html_template_start_--><style include="iron-positioning">
   :host([expanded_]) #pageBody {
-    overflow: auto;
     transition-duration: 200ms;
   }
   :host(:not([expanded_])) #pageBody {
-    overflow: auto;
     transition-duration: 150ms;
   }
 
@@ -10048,7 +9765,7 @@ function getTemplate$16() {
     font-size: var(--cr-form-field-label-font-size);
     letter-spacing: .4px;
     line-height: var(--cr-form-field-label-line-height);
-    position: absolute;
+    margin-top: -16px;
   }
 
   #video {
@@ -10088,7 +9805,7 @@ function getTemplate$16() {
     </span>
     <template is="dom-if"
         if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
-      <div id="carrierLockWarningContainer">
+      <div id="carrierLockWarningContainer" aria-live="alert">
           <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
           </iron-icon>
         [[i18n('eSimCarrierLockedDevice')]]
@@ -10202,757 +9919,554 @@ function getTemplate$16() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @type {!number}
- * @private
+ * @fileoverview Page in eSIM Setup flow that accepts activation code.
+ * User has option for manual entry or scan a QR code.
  */
 const QR_CODE_DETECTION_INTERVAL_MS = 1000;
-
-/** @enum {number} */
-const PageState = {
-  MANUAL_ENTRY: 1,
-  SCANNING_USER_FACING: 2,
-  SCANNING_ENVIRONMENT_FACING: 3,
-  SWITCHING_CAM_USER_TO_ENVIRONMENT: 4,
-  SWITCHING_CAM_ENVIRONMENT_TO_USER: 5,
-  SCANNING_SUCCESS: 6,
-  SCANNING_FAILURE: 7,
-  MANUAL_ENTRY_INSTALL_FAILURE: 8,
-  SCANNING_INSTALL_FAILURE: 9,
-};
-
-/** @enum {number} */
-const UiElement = {
-  START_SCANNING: 1,
-  VIDEO: 2,
-  SWITCH_CAMERA: 3,
-  SCAN_FINISH: 4,
-  SCAN_SUCCESS: 5,
-  SCAN_FAILURE: 6,
-  CODE_DETECTED: 7,
-  SCAN_INSTALL_FAILURE: 8,
-};
-
+var PageState;
+(function (PageState) {
+    PageState[PageState["MANUAL_ENTRY"] = 1] = "MANUAL_ENTRY";
+    PageState[PageState["SCANNING_USER_FACING"] = 2] = "SCANNING_USER_FACING";
+    PageState[PageState["SCANNING_ENVIRONMENT_FACING"] = 3] = "SCANNING_ENVIRONMENT_FACING";
+    PageState[PageState["SWITCHING_CAM_USER_TO_ENVIRONMENT"] = 4] = "SWITCHING_CAM_USER_TO_ENVIRONMENT";
+    PageState[PageState["SWITCHING_CAM_ENVIRONMENT_TO_USER"] = 5] = "SWITCHING_CAM_ENVIRONMENT_TO_USER";
+    PageState[PageState["SCANNING_SUCCESS"] = 6] = "SCANNING_SUCCESS";
+    PageState[PageState["SCANNING_FAILURE"] = 7] = "SCANNING_FAILURE";
+    PageState[PageState["MANUAL_ENTRY_INSTALL_FAILURE"] = 8] = "MANUAL_ENTRY_INSTALL_FAILURE";
+    PageState[PageState["SCANNING_INSTALL_FAILURE"] = 9] = "SCANNING_INSTALL_FAILURE";
+})(PageState || (PageState = {}));
+var UiElement;
+(function (UiElement) {
+    UiElement[UiElement["START_SCANNING"] = 1] = "START_SCANNING";
+    UiElement[UiElement["VIDEO"] = 2] = "VIDEO";
+    UiElement[UiElement["SWITCH_CAMERA"] = 3] = "SWITCH_CAMERA";
+    UiElement[UiElement["SCAN_FINISH"] = 4] = "SCAN_FINISH";
+    UiElement[UiElement["SCAN_SUCCESS"] = 5] = "SCAN_SUCCESS";
+    UiElement[UiElement["SCAN_FAILURE"] = 6] = "SCAN_FAILURE";
+    UiElement[UiElement["CODE_DETECTED"] = 7] = "CODE_DETECTED";
+    UiElement[UiElement["SCAN_INSTALL_FAILURE"] = 8] = "SCAN_INSTALL_FAILURE";
+})(UiElement || (UiElement = {}));
 /**
  * barcode format used by |BarcodeDetector|
- * @private {string}
  */
 const QR_CODE_FORMAT = 'qr_code';
-
 /**
  * The prefix for valid activation codes.
- * @private {string}
  */
 const ACTIVATION_CODE_PREFIX = 'LPA:1$';
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const ActivationCodePageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
+const ActivationCodePageElementBase = I18nMixin(PolymerElement);
 class ActivationCodePageElement extends ActivationCodePageElementBase {
-  static get is() {
-    return 'activation-code-page';
-  }
-
-  static get template() {
-    return getTemplate$16();
-  }
-
-  static get properties() {
-    return {
-      activationCode: {
-        type: String,
-        notify: true,
-        observer: 'onActivationCodeChanged_',
-      },
-
-      showError: {
-        type: Boolean,
-        notify: true,
-        observer: 'onShowErrorChanged_',
-      },
-
-      /**
-       * Readonly property indicating whether the current |activationCode|
-       * was scanned from QR code.
-       */
-      isFromQrCode: {
-        type: Boolean,
-        notify: true,
-        value: false,
-      },
-
-      /**
-       * Indicates the UI is busy with an operation and cannot be interacted
-       * with.
-       */
-      showBusy: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Indicates no profiles were found while scanning.
-       */
-      showNoProfilesFound: {
-        type: Boolean,
-        notify: true,
-      },
-
-      /**
-       * Enum used as an ID for specific UI elements.
-       * A UiElement is passed between html and JS for
-       * certain UI elements to determine their state.
-       *
-       * @type {!UiElement}
-       */
-      UiElement: {
-        type: Object,
-        value: UiElement,
-      },
-
-      /**
-       * @type {!PageState}
-       * @private
-       */
-      state_: {
-        type: Object,
-        value: PageState,
-        observer: 'onStateChanged_',
-      },
-
-      /** @private */
-      cameraCount_: {
-        type: Number,
-        value: 0,
-        observer: 'onHasCameraCountChanged_',
-      },
-
-      /**
-       *  TODO(crbug.com/1093185): add type |BarcodeDetector| when externs
-       *  becomes available
-       *  @private {?Object}
-       */
-      qrCodeDetector_: {
-        type: Object,
-        value: null,
-      },
-
-      /**
-       * If true, video is expanded.
-       */
-      expanded_: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-      },
-
-      /**
-       * A11y string used to announce the current status of qr code camera
-       * detection. Used when device web cam is turned on and ready to scan,
-       * and also used after scan has been completed.
-       * @private
-       */
-      qrCodeCameraA11yString_: {
-        type: String,
-        value: '',
-      },
-
-      /**
-       * If true, device is locked to specific cellular operator.
-       */
-      isDeviceCarrierLocked_: {
-        type: Boolean,
-        value: false,
-      },
-
-      isCellularCarrierLockEnabled_: {
-        type: Boolean,
-        value() {
-          return loadTimeData$1.valueExists('isCellularCarrierLockEnabled') &&
-              loadTimeData$1.getBoolean('isCellularCarrierLockEnabled');
-        },
-      },
-
-      /**
-       * Indicates whether or not |activationCode| matches the correct
-       * activation code format. If there is a partial match (i.e. the code is
-       * incomplete but matches the format so far), this will be false.
-       * @private
-       */
-      isActivationCodeInvalidFormat_: {
-        type: Boolean,
-        value: false,
-      },
-    };
-  }
-
-  /** @override */
-  constructor() {
-    super();
-
-    /**
-     * @type {MediaDevices}
-     * @private
-     */
-    this.mediaDevices_ = null;
-
-    /**
-     * @type {?MediaStream}
-     * @private
-     */
-    this.stream_ = null;
-
-    /**
-     * @type {?number}
-     * @private
-     */
-    this.qrCodeDetectorTimer_ = null;
-
-    /**
-     * The function used to initiate a repeating timer. Can be overwritten in
-     * tests.
-     * @private {function(Function, number)}
-     */
-    this.setIntervalFunction_ = setInterval.bind(window);
-
-    /**
-     *  TODO(crbug.com/1093185): add type |BarcodeDetector| when externs
-     *  becomes available
-     *  @suppress {undefinedVars|missingProperties}
-     *  @private
-     */
-    this.barcodeDetectorClass_ = BarcodeDetector;
-
-    /** @private {typeof ImageCapture} */
-    this.imageCaptureClass_ = ImageCapture;
-    if (!this.isCellularCarrierLockEnabled_) {
-      return;
+    static get is() {
+        return 'activation-code-page';
     }
-
-    this.networkConfig_ =
-        MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
-    this.networkConfig_.getDeviceStateList().then(response => {
-      const devices = response.result;
-      const deviceState =
-          devices.find(device => device.type == NetworkType.kCellular) || null;
-      if (deviceState) {
-        this.isDeviceCarrierLocked_ = deviceState.isCarrierLocked;
-      }
-    });
-  }
-
-  /** @override */
-  ready() {
-    super.ready();
-
-    this.setMediaDevices(navigator.mediaDevices);
-    this.initBarcodeDetector_();
-    this.state_ = PageState.MANUAL_ENTRY;
-  }
-
-  /** @override */
-  disconnectedCallback() {
-    super.disconnectedCallback();
-
-    this.stopStream_(this.stream_);
-    if (this.qrCodeDetectorTimer_) {
-      this.clearQrCodeDetectorTimer_();
+    static get template() {
+        return getTemplate$16();
     }
-    this.mediaDevices_.removeEventListener(
-        'devicechange', this.updateCameraCount_.bind(this));
-  }
-
-  /**
-   * Function used to play the video. Can be overwritten by
-   * setFakesForTesting().
-   * @private
-   */
-  playVideo_() {
-    const videoElement = this.shadowRoot.querySelector('#video');
-    if (videoElement) {
-      videoElement.play();
+    static get properties() {
+        return {
+            activationCode: {
+                type: String,
+                notify: true,
+                observer: 'onActivationCodeChanged_',
+            },
+            showError: {
+                type: Boolean,
+                notify: true,
+                observer: 'onShowErrorChanged_',
+            },
+            /**
+             * Readonly property indicating whether the current |activationCode|
+             * was scanned from QR code.
+             */
+            isFromQrCode: {
+                type: Boolean,
+                notify: true,
+                value: false,
+            },
+            /**
+             * Indicates the UI is busy with an operation and cannot be interacted
+             * with.
+             */
+            showBusy: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Indicates no profiles were found while scanning.
+             */
+            showNoProfilesFound: {
+                type: Boolean,
+                notify: true,
+            },
+            /**
+             * Enum used as an ID for specific UI elements.
+             * A UiElement is passed between html and JS for
+             * certain UI elements to determine their state.
+             */
+            UiElement: {
+                type: Object,
+                value: UiElement,
+            },
+            state_: {
+                type: Object,
+                value: PageState,
+                observer: 'onStateChanged_',
+            },
+            cameraCount_: {
+                type: Number,
+                value: 0,
+                observer: 'onHasCameraCountChanged_',
+            },
+            /**
+             *  TODO(crbug.com/1093185): add type |BarcodeDetector| when externs
+             *  becomes available
+             */
+            qrCodeDetector_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * If true, video is expanded.
+             */
+            expanded_: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            /**
+             * A11y string used to announce the current status of qr code camera
+             * detection. Used when device web cam is turned on and ready to scan,
+             * and also used after scan has been completed.
+             */
+            qrCodeCameraA11yString_: {
+                type: String,
+                value: '',
+            },
+            /**
+             * If true, device is locked to specific cellular operator.
+             */
+            isDeviceCarrierLocked_: {
+                type: Boolean,
+                value: false,
+            },
+            isCellularCarrierLockEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isCellularCarrierLockEnabled') &&
+                        loadTimeData.getBoolean('isCellularCarrierLockEnabled');
+                },
+            },
+            /**
+             * Indicates whether or not |activationCode| matches the correct
+             * activation code format. If there is a partial match (i.e. the code is
+             * incomplete but matches the format so far), this will be false.
+             */
+            isActivationCodeInvalidFormat_: {
+                type: Boolean,
+                value: false,
+            },
+        };
     }
-  }
-
-  /**
-   * Function used to stop a stream. Can be overwritten by setFakesForTesting().
-   * @param {MediaStream} stream
-   * @private
-   */
-  stopStream_(stream) {
-    if (stream) {
-      stream.getTracks()[0].stop();
-    }
-  }
-
-  /**
-   * @return {boolean}
-   * @private
-   */
-  isScanningAvailable_() {
-    return this.cameraCount_ > 0 && !!this.qrCodeDetector_;
-  }
-
-  /**
-   * @return {boolean}
-   * @private
-   */
-  shouldShowCarrierLockWarning_() {
-    return this.isCellularCarrierLockEnabled_ && this.isDeviceCarrierLocked_;
-  }
-
-  /**
-   * TODO(crbug.com/1093185): Remove suppression when shape_detection extern
-   * definitions become available.
-   * @suppress {undefinedVars|missingProperties}
-   * @private
-   */
-  async initBarcodeDetector_() {
-    const formats = await this.barcodeDetectorClass_.getSupportedFormats();
-
-    if (!formats || formats.length === 0) {
-      this.qrCodeDetector_ = null;
-      return;
-    }
-
-    const qrCodeFormat = formats.find(format => format === QR_CODE_FORMAT);
-    if (qrCodeFormat) {
-      this.qrCodeDetector_ =
-          new this.barcodeDetectorClass_({formats: [QR_CODE_FORMAT]});
-    }
-  }
-
-  /**
-   * @param {MediaDevices} mediaDevices
-   */
-  setMediaDevices(mediaDevices) {
-    this.mediaDevices_ = mediaDevices;
-    this.updateCameraCount_();
-    this.mediaDevices_.addEventListener(
-        'devicechange', this.updateCameraCount_.bind(this));
-  }
-
-  /**
-   * TODO(crbug.com/1093185): Add barcodeDetectorClass type when BarcodeDetector
-   * externs become available.
-   * @param barcodeDetectorClass
-   * @param {typeof ImageCapture} imageCaptureClass
-   * @param {function(Function, number)} setIntervalFunction
-   * @param {function()} playVideoFunction
-   * @param {function(MediaStream)} stopStreamFunction
-   */
-  async setFakesForTesting(
-      barcodeDetectorClass, imageCaptureClass, setIntervalFunction,
-      playVideoFunction, stopStreamFunction) {
-    this.barcodeDetectorClass_ = barcodeDetectorClass;
-    await this.initBarcodeDetector_();
-    this.imageCaptureClass_ = imageCaptureClass;
-    this.setIntervalFunction_ = setIntervalFunction;
-    this.playVideo_ = playVideoFunction;
-    this.stopStream_ = stopStreamFunction;
-  }
-
-  /**
-   * @returns {?number}
-   */
-  getQrCodeDetectorTimerForTest() {
-    return this.qrCodeDetectorTimer_;
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  computeActivationCodeClass_() {
-    return this.isScanningAvailable_() ? 'relative' : 'center width-92';
-  }
-
-  /** @private */
-  updateCameraCount_() {
-    if (!this.mediaDevices_ || !this.mediaDevices_.enumerateDevices) {
-      this.cameraCount_ = 0;
-      return;
-    }
-
-    this.mediaDevices_.enumerateDevices()
-        .then(devices => {
-          this.cameraCount_ =
-              devices.filter(device => device.kind === 'videoinput').length;
-        })
-        .catch(e => {
-          this.cameraCount_ = 0;
-        });
-  }
-
-  /** @private */
-  onHasCameraCountChanged_() {
-    // If the user was using an environment-facing camera and it was removed,
-    // restart scanning with the user-facing camera.
-    if ((this.state_ === PageState.SCANNING_ENVIRONMENT_FACING) &&
-        this.cameraCount_ === 1) {
-      this.state_ = PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
-      this.startScanning_();
-    }
-  }
-
-  /** private */
-  startScanning_() {
-    const oldStream = this.stream_;
-    if (this.qrCodeDetectorTimer_) {
-      this.clearQrCodeDetectorTimer_();
-    }
-
-    const useUserFacingCamera =
-        this.state_ !== PageState.SWITCHING_CAM_USER_TO_ENVIRONMENT;
-    this.mediaDevices_
-        .getUserMedia({
-          video: {
-            height: 130,
-            width: 482,
-            facingMode: useUserFacingCamera ? 'user' : 'environment',
-          },
-          audio: false,
-        })
-        .then(stream => {
-          this.stream_ = stream;
-          if (this.stream_) {
-            const video = this.shadowRoot.querySelector('#video');
-            if (video) {
-              video.srcObject = stream;
-              this.playVideo_();
+    constructor() {
+        super();
+        this.qrCodeDetector_ = null;
+        this.networkConfig_ = null;
+        this.mediaDevices_ = null;
+        this.stream_ = null;
+        this.qrCodeDetectorTimer_ = null;
+        /**
+         * The function used to initiate a repeating timer. Can be overwritten in
+         * tests.
+         */
+        this.setIntervalFunction_ = setInterval.bind(window);
+        this.barcodeDetectorClass_ = BarcodeDetector;
+        this.imageCaptureClass_ = ImageCapture;
+        if (!this.isCellularCarrierLockEnabled_) {
+            return;
+        }
+        this.networkConfig_ =
+            MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
+        this.networkConfig_.getDeviceStateList().then(response => {
+            const devices = response.result;
+            const deviceState = devices.find(device => device.type == NetworkType.kCellular) || null;
+            if (deviceState) {
+                this.isDeviceCarrierLocked_ = deviceState.isCarrierLocked;
             }
-          }
-          this.stopStream_(oldStream);
-
-          this.activationCode = '';
-          this.state_ = useUserFacingCamera ?
-              PageState.SCANNING_USER_FACING :
-              PageState.SCANNING_ENVIRONMENT_FACING;
-
-          if (this.stream_) {
-            this.detectQrCode_();
-          }
-        })
-        .catch(e => {
-          this.state_ = PageState.SCANNING_FAILURE;
         });
-  }
-
-  /**
-   * Continuously checks stream if it contains a QR code. If a QR code is
-   * detected, activationCode is set to the QR code's value and the detection
-   * stops.
-   * @private
-   */
-  async detectQrCode_() {
-    try {
-      this.qrCodeDetectorTimer_ = this.setIntervalFunction_(
-          (async () => {
-            const capturer =
-                new this.imageCaptureClass_(this.stream_.getVideoTracks()[0]);
-            const frame = await capturer.grabFrame();
-            const activationCode = await this.detectActivationCode_(frame);
-            if (activationCode) {
-              this.clearQrCodeDetectorTimer_();
-              this.activationCode = activationCode;
-              this.stopStream_(this.stream_);
-
-              if (this.validateActivationCode_(activationCode)) {
-                this.state_ = PageState.SCANNING_SUCCESS;
-              } else {
-                // If the scanned activation code is invalid or incomplete, show
-                // error.
-                this.state_ = PageState.SCANNING_INSTALL_FAILURE;
-              }
-            }
-          }),
-          QR_CODE_DETECTION_INTERVAL_MS);
-    } catch (error) {
-      this.state_ = PageState.SCANNING_FAILURE;
     }
-  }
-
-  /**
-   * @param {ImageBitmap} frame
-   * @return {!Promise<string|null>}
-   * TODO(crbug.com/1093185): Remove suppression when shape_detection extern
-   * definitions become available.
-   * @suppress {undefinedVars|missingProperties}
-   * @private
-   */
-  async detectActivationCode_(frame) {
-    if (!this.qrCodeDetector_) {
-      return null;
+    ready() {
+        super.ready();
+        this.setMediaDevices(navigator.mediaDevices);
+        this.initBarcodeDetector_();
+        this.state_ = PageState.MANUAL_ENTRY;
     }
-
-    const qrCodes = await this.qrCodeDetector_.detect(frame);
-    if (qrCodes.length > 0) {
-      return qrCodes[0].rawValue;
-    }
-    return null;
-  }
-
-  /** @private */
-  onActivationCodeChanged_() {
-    const event = new CustomEvent('activation-code-updated', {
-      bubbles: true,
-      composed: true,
-      detail: {
-        activationCode: this.validateActivationCode_(this.activationCode) ?
-            this.activationCode :
-            null,
-      },
-    });
-
-    this.dispatchEvent(event);
-  }
-
-  /** @private */
-  clearQrCodeDetectorTimer_() {
-    clearTimeout(this.qrCodeDetectorTimer_);
-    this.qrCodeDetectorTimer_ = null;
-  }
-
-  /**
-   * Checks if |activationCode| matches or partially matches the correct format.
-   * Sets |isActivationCodeInvalidFormat_| to true if the format is incorrect.
-   * @param {string} activationCode
-   * @return {boolean} Returns true if |activationCode| is valid and ready to be
-   *     submitted for installation.
-   * @private
-   */
-  validateActivationCode_(activationCode) {
-    if (activationCode.length <= ACTIVATION_CODE_PREFIX.length) {
-      // If the currently entered activation code is shorter than
-      // |ACTIVATION_CODE_PREFIX|, check if the code matches the format thus
-      // far.
-      this.isActivationCodeInvalidFormat_ = activationCode !==
-          ACTIVATION_CODE_PREFIX.substring(0, activationCode.length);
-
-      // Because the entered activation code is shorter than
-      // |ACTIVATION_CODE_PREFIX| it cannot be submitted yet.
-      return false;
-    } else {
-      // |activationCode| is longer than |ACTIVATION_CODE_PREFIX|. Check if it
-      // begins with the prefix.
-      this.isActivationCodeInvalidFormat_ =
-          activationCode.substring(0, ACTIVATION_CODE_PREFIX.length) !==
-          ACTIVATION_CODE_PREFIX;
-    }
-
-    if (this.isActivationCodeInvalidFormat_) {
-      // If the activation code does not match the format, it cannot be
-      // submitted.
-      return false;
-    }
-    return true;
-  }
-
-  /** @private */
-  onSwitchCameraButtonPressed_() {
-    if (this.state_ === PageState.SCANNING_USER_FACING) {
-      this.state_ = PageState.SWITCHING_CAM_USER_TO_ENVIRONMENT;
-    } else if (this.state_ === PageState.SCANNING_ENVIRONMENT_FACING) {
-      this.state_ = PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
-    }
-    this.startScanning_();
-  }
-
-  /** @private */
-  onShowErrorChanged_() {
-    if (this.showError) {
-      if (this.state_ === PageState.MANUAL_ENTRY) {
-        this.state_ = PageState.MANUAL_ENTRY_INSTALL_FAILURE;
-        afterNextRender(this, () => {
-          focusWithoutInk$1(this.$.activationCode);
-        });
-      } else if (this.state_ === PageState.SCANNING_SUCCESS) {
-        this.state_ = PageState.SCANNING_INSTALL_FAILURE;
-      }
-    }
-  }
-
-  /** @private */
-  onStateChanged_() {
-    this.qrCodeCameraA11yString_ = '';
-    if (this.state_ !== PageState.MANUAL_ENTRY_INSTALL_FAILURE &&
-        this.state_ !== PageState.SCANNING_INSTALL_FAILURE) {
-      this.showError = false;
-    }
-    if (this.state_ === PageState.MANUAL_ENTRY) {
-      this.isFromQrCode = false;
-
-      // Clear |qrCodeDetectorTimer_| before closing video stream, prevents
-      // image capturer from going into an inactive state and throwing errors
-      // when |grabFrame()| is called.
-      this.clearQrCodeDetectorTimer_();
-
-      // Wait for the video element to be hidden by isUiElementHidden() before
-      // stopping the stream or the user will see a flash.
-      afterNextRender(this, () => {
+    disconnectedCallback() {
+        super.disconnectedCallback();
         this.stopStream_(this.stream_);
-      });
+        if (this.qrCodeDetectorTimer_) {
+            this.clearQrCodeDetectorTimer_();
+        }
+        this.mediaDevices_.removeEventListener('devicechange', this.updateCameraCount_.bind(this));
     }
-
-    if (this.state_ === PageState.SCANNING_USER_FACING ||
-        this.state_ === PageState.SCANNING_ENVIRONMENT_FACING) {
-      this.qrCodeCameraA11yString_ = this.i18n('qrCodeA11YCameraOn');
-      this.expanded_ = true;
-      return;
+    /**
+     * Function used to play the video. Can be overwritten by
+     * setFakesForTesting().
+     */
+    playVideo_() {
+        const videoElement = this.shadowRoot.querySelector('#video');
+        if (videoElement) {
+            videoElement.play();
+        }
     }
-
-    // Focus on the next button after scanning is successful.
-    if (this.state_ === PageState.SCANNING_SUCCESS) {
-      this.isFromQrCode = true;
-      this.qrCodeCameraA11yString_ = this.i18n('qrCodeA11YCameraScanSuccess');
-      this.dispatchEvent(new CustomEvent('focus-default-button', {
-        bubbles: true,
-        composed: true,
-      }));
+    /**
+     * Function used to stop a stream. Can be overwritten by setFakesForTesting().
+     */
+    stopStream_(stream) {
+        if (stream) {
+            stream.getTracks()[0].stop();
+        }
     }
-
-    this.expanded_ = false;
-  }
-
-  /**
-   * @param {KeyboardEvent} e
-   * @private
-   */
-  onKeyDown_(e) {
-    if (e.key === 'Enter') {
-      this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
-        bubbles: true,
-        composed: true,
-      }));
+    isScanningAvailable_() {
+        return this.cameraCount_ > 0 && !!this.qrCodeDetector_;
     }
-
-    // Prevents barcode detector video from closing if user tabs through
-    // window. We should only close barcode detector window if user
-    // types in activation code input.
-    if (e.key === 'Tab') {
-      return;
+    shouldShowCarrierLockWarning_() {
+        return this.isCellularCarrierLockEnabled_ && this.isDeviceCarrierLocked_;
     }
-
-    this.state_ = PageState.MANUAL_ENTRY;
-    e.stopPropagation();
-  }
-
-  /**
-   * @param {UiElement} uiElement
-   * @param {PageState} state
-   * @param {number} cameraCount
-   * @private
-   */
-  isUiElementHidden_(uiElement, state, cameraCount) {
-    switch (uiElement) {
-      case UiElement.START_SCANNING:
-        return state !== PageState.MANUAL_ENTRY &&
-            state !== PageState.MANUAL_ENTRY_INSTALL_FAILURE;
-      case UiElement.VIDEO:
-        return state !== PageState.SCANNING_USER_FACING &&
-            state !== PageState.SCANNING_ENVIRONMENT_FACING;
-      case UiElement.SWITCH_CAMERA:
-        const isScanning = state === PageState.SCANNING_USER_FACING ||
-            state === PageState.SCANNING_ENVIRONMENT_FACING;
-        return !(isScanning && this.cameraCount_ > 1);
-      case UiElement.SCAN_FINISH:
-        return state !== PageState.SCANNING_SUCCESS &&
-            state !== PageState.SCANNING_FAILURE &&
-            state !== PageState.SCANNING_INSTALL_FAILURE;
-      case UiElement.SCAN_SUCCESS:
-        return state !== PageState.SCANNING_SUCCESS &&
-            state !== PageState.SCANNING_INSTALL_FAILURE;
-      case UiElement.SCAN_FAILURE:
-        return state !== PageState.SCANNING_FAILURE;
-      case UiElement.CODE_DETECTED:
-        return state !== PageState.SCANNING_SUCCESS;
-      case UiElement.SCAN_INSTALL_FAILURE:
-        return state !== PageState.SCANNING_INSTALL_FAILURE;
+    /**
+     * TODO(crbug.com/1093185): Remove suppression when shape_detection extern
+     * definitions become available.
+     */
+    async initBarcodeDetector_() {
+        const formats = await this.barcodeDetectorClass_.getSupportedFormats();
+        if (!formats || formats.length === 0) {
+            this.qrCodeDetector_ = null;
+            return;
+        }
+        const qrCodeFormat = formats.find((format) => format === QR_CODE_FORMAT);
+        if (qrCodeFormat) {
+            this.qrCodeDetector_ =
+                new this.barcodeDetectorClass_({ formats: [QR_CODE_FORMAT] });
+        }
     }
-  }
-
-  /**
-   * @param {UiElement} uiElement
-   * @param {PageState} state
-   * @param {boolean} showBusy
-   * @private
-   */
-  isUiElementDisabled_(uiElement, state, showBusy) {
-    if (showBusy) {
-      return true;
+    setMediaDevices(mediaDevices) {
+        this.mediaDevices_ = mediaDevices;
+        this.updateCameraCount_();
+        this.mediaDevices_.addEventListener('devicechange', this.updateCameraCount_.bind(this));
     }
-    switch (uiElement) {
-      case UiElement.SWITCH_CAMERA:
-        return state === PageState.SWITCHING_CAM_USER_TO_ENVIRONMENT ||
-            state === PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
-      default:
-        return false;
+    async setFakesForTesting(barcodeDetectorClass, imageCaptureClass, setIntervalFunction, playVideoFunction, stopStreamFunction) {
+        this.barcodeDetectorClass_ = barcodeDetectorClass;
+        await this.initBarcodeDetector_();
+        this.imageCaptureClass_ = imageCaptureClass;
+        this.setIntervalFunction_ = setIntervalFunction;
+        this.playVideo_ = playVideoFunction;
+        this.stopStream_ = stopStreamFunction;
     }
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getDescription_() {
-    if (!this.isScanningAvailable_()) {
-      if (this.showNoProfilesFound) {
-        return this.i18n('enterActivationCodeNoProfilesFound');
-      }
-      return this.i18n('enterActivationCode');
+    getQrCodeDetectorTimerForTest() {
+        return this.qrCodeDetectorTimer_;
     }
-    if (this.showNoProfilesFound) {
-      return this.i18n('scanQRCodeNoProfilesFound');
+    computeActivationCodeClass_() {
+        return this.isScanningAvailable_() ? 'relative' : 'center width-92';
     }
-    return this.i18n('scanQRCode');
-  }
-
-  /**
-   * @param {PageState} state
-   * @return {boolean}
-   * @private
-   */
-  shouldActivationCodeInputBeInvalid_(state) {
-    if (this.isActivationCodeInvalidFormat_) {
-      return true;
+    updateCameraCount_() {
+        if (!this.mediaDevices_ || !this.mediaDevices_.enumerateDevices) {
+            this.cameraCount_ = 0;
+            return;
+        }
+        this.mediaDevices_.enumerateDevices()
+            .then(devices => {
+            this.cameraCount_ =
+                devices.filter(device => device.kind === 'videoinput').length;
+        })
+            .catch(() => {
+            this.cameraCount_ = 0;
+        });
     }
-    return state === PageState.MANUAL_ENTRY_INSTALL_FAILURE;
-  }
-
-  /**
-   * @param {boolean} showBusy
-   * @return {string}
-   * @private
-   */
-  getInputSubtitle_(showBusy) {
-    if (showBusy) {
-      return this.i18n('scanQrCodeLoading');
+    onHasCameraCountChanged_() {
+        // If the user was using an environment-facing camera and it was removed,
+        // restart scanning with the user-facing camera.
+        if ((this.state_ === PageState.SCANNING_ENVIRONMENT_FACING) &&
+            this.cameraCount_ === 1) {
+            this.state_ = PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
+            this.startScanning_();
+        }
     }
-
-    // Because this string contains '<' and '>' characters, we cannot use i18n
-    // methods.
-    return loadTimeData$1.getString('scanQrCodeInputSubtitle');
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getInputErrorMessage_() {
-    // Because this string contains '<' and '>' characters, we cannot use i18n
-    // methods.
-    return loadTimeData$1.getString('scanQrCodeInputError');
-  }
+    startScanning_() {
+        const oldStream = this.stream_;
+        if (this.qrCodeDetectorTimer_) {
+            this.clearQrCodeDetectorTimer_();
+        }
+        const useUserFacingCamera = this.state_ !== PageState.SWITCHING_CAM_USER_TO_ENVIRONMENT;
+        this.mediaDevices_
+            .getUserMedia({
+            video: {
+                height: 130,
+                width: 482,
+                facingMode: useUserFacingCamera ? 'user' : 'environment',
+            },
+            audio: false,
+        })
+            .then(stream => {
+            this.stream_ = stream;
+            if (this.stream_) {
+                const videoElement = this.shadowRoot.querySelector('#video');
+                if (videoElement) {
+                    videoElement.srcObject = stream;
+                    this.playVideo_();
+                }
+            }
+            this.stopStream_(oldStream);
+            this.activationCode = '';
+            this.state_ = useUserFacingCamera ?
+                PageState.SCANNING_USER_FACING :
+                PageState.SCANNING_ENVIRONMENT_FACING;
+            if (this.stream_) {
+                this.detectQrCode_();
+            }
+        })
+            .catch(() => {
+            this.state_ = PageState.SCANNING_FAILURE;
+        });
+    }
+    /**
+     * Continuously checks stream if it contains a QR code. If a QR code is
+     * detected, activationCode is set to the QR code's value and the detection
+     * stops.
+     */
+    async detectQrCode_() {
+        try {
+            this.qrCodeDetectorTimer_ = this.setIntervalFunction_((async () => {
+                assert(!!this.stream_);
+                const capturer = new this.imageCaptureClass_(this.stream_.getVideoTracks()[0]);
+                const frame = await capturer.grabFrame();
+                const activationCode = await this.detectActivationCode_(frame);
+                if (activationCode) {
+                    if (this.qrCodeDetectorTimer_) {
+                        this.clearQrCodeDetectorTimer_();
+                    }
+                    this.activationCode = activationCode;
+                    this.stopStream_(this.stream_);
+                    if (this.validateActivationCode_(activationCode)) {
+                        this.state_ = PageState.SCANNING_SUCCESS;
+                    }
+                    else {
+                        // If the scanned activation code is invalid or incomplete, show
+                        // error.
+                        this.state_ = PageState.SCANNING_INSTALL_FAILURE;
+                    }
+                }
+            }), QR_CODE_DETECTION_INTERVAL_MS);
+        }
+        catch (error) {
+            this.state_ = PageState.SCANNING_FAILURE;
+        }
+    }
+    /**
+     * TODO(crbug.com/1093185): Remove suppression when shape_detection extern
+     * definitions become available.
+     */
+    async detectActivationCode_(frame) {
+        if (!this.qrCodeDetector_) {
+            return null;
+        }
+        const qrCodes = await this.qrCodeDetector_.detect(frame);
+        if (qrCodes.length > 0) {
+            return qrCodes[0].rawValue;
+        }
+        return null;
+    }
+    onActivationCodeChanged_() {
+        const event = new CustomEvent('activation-code-updated', {
+            bubbles: true, composed: true, detail: {
+                activationCode: this.validateActivationCode_(this.activationCode) ?
+                    this.activationCode :
+                    null,
+            },
+        });
+        this.dispatchEvent(event);
+    }
+    clearQrCodeDetectorTimer_() {
+        assert(!!this.qrCodeDetectorTimer_);
+        clearTimeout(this.qrCodeDetectorTimer_);
+        this.qrCodeDetectorTimer_ = null;
+    }
+    /**
+     * Checks if |activationCode| matches or partially matches the correct format.
+     * Sets |isActivationCodeInvalidFormat_| to true if the format is incorrect.
+     * Returns true if |activationCode| is valid and ready to be submitted for
+     * installation.
+     */
+    validateActivationCode_(activationCode) {
+        if (activationCode.length <= ACTIVATION_CODE_PREFIX.length) {
+            // If the currently entered activation code is shorter than
+            // |ACTIVATION_CODE_PREFIX|, check if the code matches the format thus
+            // far.
+            this.isActivationCodeInvalidFormat_ = activationCode !==
+                ACTIVATION_CODE_PREFIX.substring(0, activationCode.length);
+            // Because the entered activation code is shorter than
+            // |ACTIVATION_CODE_PREFIX| it cannot be submitted yet.
+            return false;
+        }
+        else {
+            // |activationCode| is longer than |ACTIVATION_CODE_PREFIX|. Check if it
+            // begins with the prefix.
+            this.isActivationCodeInvalidFormat_ =
+                activationCode.substring(0, ACTIVATION_CODE_PREFIX.length) !==
+                    ACTIVATION_CODE_PREFIX;
+        }
+        if (this.isActivationCodeInvalidFormat_) {
+            // If the activation code does not match the format, it cannot be
+            // submitted.
+            return false;
+        }
+        return true;
+    }
+    onSwitchCameraButtonPressed_() {
+        if (this.state_ === PageState.SCANNING_USER_FACING) {
+            this.state_ = PageState.SWITCHING_CAM_USER_TO_ENVIRONMENT;
+        }
+        else if (this.state_ === PageState.SCANNING_ENVIRONMENT_FACING) {
+            this.state_ = PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
+        }
+        this.startScanning_();
+    }
+    onShowErrorChanged_() {
+        if (this.showError) {
+            if (this.state_ === PageState.MANUAL_ENTRY) {
+                this.state_ = PageState.MANUAL_ENTRY_INSTALL_FAILURE;
+                afterNextRender(this, () => {
+                    focusWithoutInk(this.$.activationCode);
+                });
+            }
+            else if (this.state_ === PageState.SCANNING_SUCCESS) {
+                this.state_ = PageState.SCANNING_INSTALL_FAILURE;
+            }
+        }
+    }
+    onStateChanged_() {
+        this.qrCodeCameraA11yString_ = '';
+        if (this.state_ !== PageState.MANUAL_ENTRY_INSTALL_FAILURE &&
+            this.state_ !== PageState.SCANNING_INSTALL_FAILURE) {
+            this.showError = false;
+        }
+        if (this.state_ === PageState.MANUAL_ENTRY) {
+            this.isFromQrCode = false;
+            // Clear |qrCodeDetectorTimer_| before closing video stream, prevents
+            // image capturer from going into an inactive state and throwing errors
+            // when |grabFrame()| is called.
+            if (this.qrCodeDetectorTimer_) {
+                this.clearQrCodeDetectorTimer_();
+            }
+            // Wait for the video element to be hidden by isUiElementHidden() before
+            // stopping the stream or the user will see a flash.
+            afterNextRender(this, () => {
+                this.stopStream_(this.stream_);
+            });
+        }
+        if (this.state_ === PageState.SCANNING_USER_FACING ||
+            this.state_ === PageState.SCANNING_ENVIRONMENT_FACING) {
+            this.qrCodeCameraA11yString_ = this.i18n('qrCodeA11YCameraOn');
+            this.expanded_ = true;
+            return;
+        }
+        // Focus on the next button after scanning is successful.
+        if (this.state_ === PageState.SCANNING_SUCCESS) {
+            this.isFromQrCode = true;
+            this.qrCodeCameraA11yString_ = this.i18n('qrCodeA11YCameraScanSuccess');
+            this.dispatchEvent(new CustomEvent('focus-default-button', {
+                bubbles: true,
+                composed: true,
+            }));
+        }
+        this.expanded_ = false;
+    }
+    onKeyDown_(e) {
+        if (e.key === 'Enter') {
+            this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+                bubbles: true,
+                composed: true,
+            }));
+        }
+        // Prevents barcode detector video from closing if user tabs through
+        // window. We should only close barcode detector window if user
+        // types in activation code input.
+        if (e.key === 'Tab') {
+            return;
+        }
+        this.state_ = PageState.MANUAL_ENTRY;
+        e.stopPropagation();
+    }
+    isUiElementHidden_(uiElement, state) {
+        switch (uiElement) {
+            case UiElement.START_SCANNING:
+                return state !== PageState.MANUAL_ENTRY &&
+                    state !== PageState.MANUAL_ENTRY_INSTALL_FAILURE;
+            case UiElement.VIDEO:
+                return state !== PageState.SCANNING_USER_FACING &&
+                    state !== PageState.SCANNING_ENVIRONMENT_FACING;
+            case UiElement.SWITCH_CAMERA:
+                const isScanning = state === PageState.SCANNING_USER_FACING ||
+                    state === PageState.SCANNING_ENVIRONMENT_FACING;
+                return !(isScanning && this.cameraCount_ > 1);
+            case UiElement.SCAN_FINISH:
+                return state !== PageState.SCANNING_SUCCESS &&
+                    state !== PageState.SCANNING_FAILURE &&
+                    state !== PageState.SCANNING_INSTALL_FAILURE;
+            case UiElement.SCAN_SUCCESS:
+                return state !== PageState.SCANNING_SUCCESS &&
+                    state !== PageState.SCANNING_INSTALL_FAILURE;
+            case UiElement.SCAN_FAILURE:
+                return state !== PageState.SCANNING_FAILURE;
+            case UiElement.CODE_DETECTED:
+                return state !== PageState.SCANNING_SUCCESS;
+            case UiElement.SCAN_INSTALL_FAILURE:
+                return state !== PageState.SCANNING_INSTALL_FAILURE;
+        }
+    }
+    isUiElementDisabled_(uiElement, state, showBusy) {
+        if (showBusy) {
+            return true;
+        }
+        switch (uiElement) {
+            case UiElement.SWITCH_CAMERA:
+                return state === PageState.SWITCHING_CAM_USER_TO_ENVIRONMENT ||
+                    state === PageState.SWITCHING_CAM_ENVIRONMENT_TO_USER;
+            default:
+                return false;
+        }
+    }
+    getDescription_() {
+        if (!this.isScanningAvailable_()) {
+            if (this.showNoProfilesFound) {
+                return this.i18n('enterActivationCodeNoProfilesFound');
+            }
+            return this.i18n('enterActivationCode');
+        }
+        if (this.showNoProfilesFound) {
+            return this.i18n('scanQRCodeNoProfilesFound');
+        }
+        return this.i18n('scanQRCode');
+    }
+    shouldActivationCodeInputBeInvalid_(state) {
+        if (this.isActivationCodeInvalidFormat_) {
+            return true;
+        }
+        return state === PageState.MANUAL_ENTRY_INSTALL_FAILURE;
+    }
+    getInputSubtitle_(showBusy) {
+        if (showBusy) {
+            return this.i18n('scanQrCodeLoading');
+        }
+        // Because this string contains '<' and '>' characters, we cannot use i18n
+        // methods.
+        return loadTimeData.getString('scanQrCodeInputSubtitle');
+    }
+    getInputErrorMessage_() {
+        // Because this string contains '<' and '>' characters, we cannot use i18n
+        // methods.
+        return loadTimeData.getString('scanQrCodeInputError');
+    }
 }
-
 customElements.define(ActivationCodePageElement.is, ActivationCodePageElement);
 
 function getTemplate$15() {
@@ -10989,33 +10503,23 @@ function getTemplate$15() {
 <!--_html_template_end_-->`;
 }
 
-// Copyright 2019 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * This page is displayed when the activation code is being verified, and
+ * an ESim profile is being installed.
  */
-const ActivationVerificationPageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ActivationVerificationPageElement extends
-    ActivationVerificationPageElementBase {
-  static get is() {
-    return 'activation-verification-page';
-  }
-
-  static get template() {
-    return getTemplate$15();
-  }
+const ActivationVerificationPageElementBase = I18nMixin(PolymerElement);
+class ActivationVerificationPageElement extends ActivationVerificationPageElementBase {
+    static get is() {
+        return 'activation-verification-page';
+    }
+    static get template() {
+        return getTemplate$15();
+    }
 }
-
-customElements.define(
-    ActivationVerificationPageElement.is, ActivationVerificationPageElement);
+customElements.define(ActivationVerificationPageElement.is, ActivationVerificationPageElement);
 
 function getTemplate$14() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
@@ -11049,52 +10553,38 @@ function getTemplate$14() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * Page in eSIM Setup flow that requests user consent to scan for profiles.
  */
-const ProfileDiscoveryConsentPageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ProfileDiscoveryConsentPageElement extends
-    ProfileDiscoveryConsentPageElementBase {
-  static get is() {
-    return 'profile-discovery-consent-page';
-  }
-
-  static get template() {
-    return getTemplate$14();
-  }
-
-  static get properties() {
-    return {
-      shouldSkipDiscovery: {
-        type: Boolean,
-        notify: true,
-      },
-
-    };
-  }
-
-  shouldSkipDiscoveryClicked_(e) {
-    // A place holder href with the value "#" is used to have a compliant link.
-    // This prevents the browser from navigating the window to "#"
-    e.detail.event.preventDefault();
-    e.stopPropagation();
-    this.shouldSkipDiscovery = true;
-    this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
+const ProfileDiscoveryConsentPageElementBase = I18nMixin(PolymerElement);
+class ProfileDiscoveryConsentPageElement extends ProfileDiscoveryConsentPageElementBase {
+    static get is() {
+        return 'profile-discovery-consent-page';
+    }
+    static get template() {
+        return getTemplate$14();
+    }
+    static get properties() {
+        return {
+            shouldSkipDiscovery: {
+                type: Boolean,
+                notify: true,
+            },
+        };
+    }
+    shouldSkipDiscoveryClicked_(e) {
+        // A place holder href with the value "#" is used to have a compliant link.
+        // This prevents the browser from navigating the window to "#"
+        e.detail.event.preventDefault();
+        e.stopPropagation();
+        this.shouldSkipDiscovery = true;
+        this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+            bubbles: true, composed: true,
+        }));
+    }
 }
-
-customElements.define(
-    ProfileDiscoveryConsentPageElement.is, ProfileDiscoveryConsentPageElement);
+customElements.define(ProfileDiscoveryConsentPageElement.is, ProfileDiscoveryConsentPageElement);
 
 function getTemplate$13() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -11160,88 +10650,57 @@ function getTemplate$13() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * Item in the profile-discovery-list-page-legacy list displaying details of
+ * an eSIM profile.
  */
-const ProfileDiscoveryListItemLegacyElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ProfileDiscoveryListItemLegacyElement extends
-    ProfileDiscoveryListItemLegacyElementBase {
-  static get is() {
-    return 'profile-discovery-list-item-legacy';
-  }
-
-  static get template() {
-    return getTemplate$13();
-  }
-
-  static get properties() {
-    return {
-      /** @type {?ESimProfileRemote} */
-      profile: {
-        type: Object,
-        value: null,
-        observer: 'onProfileChanged_',
-      },
-
-      selected: {
-        type: Boolean,
-        reflectToAttribute: true,
-      },
-
-      showLoadingIndicator: Boolean,
-
-      /**
-       * @type {?ESimProfileProperties}
-       * @private
-       */
-      profileProperties_: {
-        type: Object,
-        value: null,
-        notify: true,
-      },
-
-      /**
-       * @type {boolean}
-       * @private
-       */
-      isDarkModeActive_: {
-        type: Boolean,
-        value: false,
-      },
-
-    };
-  }
-
-  /** @private */
-  onProfileChanged_() {
-    if (!this.profile) {
-      this.profileProperties_ = null;
-      return;
+class ProfileDiscoveryListItemLegacyElement extends PolymerElement {
+    static get is() {
+        return 'profile-discovery-list-item-legacy';
     }
-    this.profile.getProperties().then(response => {
-      this.profileProperties_ = response.properties;
-    });
-  }
-
-  /** @private */
-  getProfileName_() {
-    if (!this.profileProperties_) {
-      return '';
+    static get template() {
+        return getTemplate$13();
     }
-    return mojoString16ToString(this.profileProperties_.name);
-  }
+    static get properties() {
+        return {
+            profile: {
+                type: Object,
+                value: null,
+                observer: 'onProfileChanged_',
+            },
+            selected: {
+                type: Boolean,
+                reflectToAttribute: true,
+            },
+            showLoadingIndicator: Boolean,
+            profileProperties_: {
+                type: Object,
+                value: null,
+                notify: true,
+            },
+            isDarkModeActive_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    async onProfileChanged_() {
+        if (!this.profile) {
+            this.profileProperties_ = null;
+            return;
+        }
+        const response = await this.profile.getProperties();
+        this.profileProperties_ = response.properties;
+    }
+    getProfileName_() {
+        if (!this.profileProperties_) {
+            return '';
+        }
+        return mojoString16ToString(this.profileProperties_.name);
+    }
 }
-
-customElements.define(
-    ProfileDiscoveryListItemLegacyElement.is,
-    ProfileDiscoveryListItemLegacyElement);
+customElements.define(ProfileDiscoveryListItemLegacyElement.is, ProfileDiscoveryListItemLegacyElement);
 
 function getTemplate$12() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
@@ -11294,68 +10753,40 @@ function getTemplate$12() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * Page in eSIM Setup flow that displays a choice of available eSIM Profiles.
  */
-const ProfileDiscoveryListPageLegacyElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ProfileDiscoveryListPageLegacyElement extends
-    ProfileDiscoveryListPageLegacyElementBase {
-  static get is() {
-    return 'profile-discovery-list-page-legacy';
-  }
-
-  static get template() {
-    return getTemplate$12();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {Array<!ESimProfileRemote>}
-       * @private
-       */
-      pendingProfiles: Array,
-
-      /**
-       * @type {?ESimProfileRemote}
-       * @private
-       */
-      selectedProfile: {
-        type: Object,
-        notify: true,
-      },
-
-      /**
-       * Indicates the UI is busy with an operation and cannot be interacted
-       * with.
-       */
-      showBusy: {
-        type: Boolean,
-        value: false,
-      },
-
-    };
-  }
-
-  /**
-   * @param {ESimProfileRemote} profile
-   * @private
-   */
-  isProfileSelected_(profile) {
-    return this.selectedProfile === profile;
-  }
+const ProfileDiscoveryListPageLegacyElementBase = I18nMixin(PolymerElement);
+class ProfileDiscoveryListPageLegacyElement extends ProfileDiscoveryListPageLegacyElementBase {
+    static get is() {
+        return 'profile-discovery-list-page-legacy';
+    }
+    static get template() {
+        return getTemplate$12();
+    }
+    static get properties() {
+        return {
+            pendingProfiles: Array,
+            selectedProfile: {
+                type: Object,
+                notify: true,
+            },
+            /**
+             * Indicates the UI is busy with an operation and cannot be interacted
+             * with.
+             */
+            showBusy: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    isProfileSelected_(profile) {
+        return this.selectedProfile === profile;
+    }
 }
-
-customElements.define(
-    ProfileDiscoveryListPageLegacyElement.is,
-    ProfileDiscoveryListPageLegacyElement);
+customElements.define(ProfileDiscoveryListPageLegacyElement.is, ProfileDiscoveryListPageLegacyElement);
 
 function getTemplate$11() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -11431,66 +10862,43 @@ function getTemplate$11() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * Item in the profile-discovery-list-page list displaying details of an eSIM
+ * profile.
  */
-const ProfileDiscoveryListItemElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ProfileDiscoveryListItemElement extends
-    ProfileDiscoveryListItemElementBase {
-  static get is() {
-    return 'profile-discovery-list-item';
-  }
-
-  static get template() {
-    return getTemplate$11();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {?ESimProfileProperties}
-       */
-      profileProperties: {
-        type: Object,
-        value: null,
-        notify: true,
-      },
-
-      selected: {
-        type: Boolean,
-        reflectToAttribute: true,
-      },
-
-      /**
-       * @type {boolean}
-       * @private
-       */
-      isDarkModeActive_: {
-        type: Boolean,
-        value: false,
-      },
-
-    };
-  }
-
-  /** @private */
-  getProfileName_() {
-    if (!this.profileProperties) {
-      return '';
+class ProfileDiscoveryListItemElement extends PolymerElement {
+    static get is() {
+        return 'profile-discovery-list-item';
     }
-    return mojoString16ToString(this.profileProperties.name);
-  }
+    static get template() {
+        return getTemplate$11();
+    }
+    static get properties() {
+        return {
+            profileProperties: {
+                type: Object,
+                value: null,
+                notify: true,
+            },
+            selected: {
+                type: Boolean,
+                reflectToAttribute: true,
+            },
+            isDarkModeActive_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    getProfileName_() {
+        if (!this.profileProperties) {
+            return '';
+        }
+        return mojoString16ToString(this.profileProperties.name);
+    }
 }
-
-customElements.define(
-    ProfileDiscoveryListItemElement.is, ProfileDiscoveryListItemElement);
+customElements.define(ProfileDiscoveryListItemElement.is, ProfileDiscoveryListItemElement);
 
 function getTemplate$10() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
@@ -11543,72 +10951,41 @@ function getTemplate$10() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview
+ * Page in eSIM Setup flow that displays a choice of available eSIM Profiles.
  */
-const ProfileDiscoveryListPageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ProfileDiscoveryListPageElement extends
-    ProfileDiscoveryListPageElementBase {
-  static get is() {
-    return 'profile-discovery-list-page';
-  }
-
-  static get template() {
-    return getTemplate$10();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {Array<!ESimProfileProperties>}
-       * @private
-       */
-      pendingProfileProperties: Array,
-
-      /**
-       * @type {?ESimProfileProperties}
-       * @private
-       */
-      selectedProfileProperties: {
-        type: Object,
-        notify: true,
-      },
-
-    };
-  }
-
-  /**
-   * @param {ESimProfileProperties} profileProperties
-   * @private
-   */
-  isProfilePropertiesSelected_(profileProperties) {
-    return this.selectedProfileProperties === profileProperties;
-  }
-
-  /**
-   * @param {Event} e
-   * @private
-   */
-  enterManuallyClicked_(e) {
-    e.detail.event.preventDefault();
-    e.stopPropagation();
-    this.selectedProfileProperties = null;
-    this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
+const ProfileDiscoveryListPageElementBase = I18nMixin(PolymerElement);
+class ProfileDiscoveryListPageElement extends ProfileDiscoveryListPageElementBase {
+    static get is() {
+        return 'profile-discovery-list-page';
+    }
+    static get template() {
+        return getTemplate$10();
+    }
+    static get properties() {
+        return {
+            pendingProfileProperties: Array,
+            selectedProfileProperties: {
+                type: Object,
+                notify: true,
+            },
+        };
+    }
+    isProfilePropertiesSelected_(profileProperties) {
+        return this.selectedProfileProperties === profileProperties;
+    }
+    enterManuallyClicked_(e) {
+        e.detail.event.preventDefault();
+        e.stopPropagation();
+        this.selectedProfileProperties = null;
+        this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
 }
-
-customElements.define(
-    ProfileDiscoveryListPageElement.is, ProfileDiscoveryListPageElement);
+customElements.define(ProfileDiscoveryListPageElement.is, ProfileDiscoveryListPageElement);
 
 function getTemplate$$() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -11700,131 +11077,81 @@ function getTemplate$$() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * Page in eSIM Cellular Setup flow shown if an eSIM profile requires a
+ * confirmation code to install. This element contains an input for the user to
+ * enter the confirmation code.
  */
-const ConfirmationCodePageLegacyElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class ConfirmationCodePageLegacyElement extends
-    ConfirmationCodePageLegacyElementBase {
-  static get is() {
-    return 'confirmation-code-page-legacy';
-  }
-
-  static get template() {
-    return getTemplate$$();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {?ESimProfileRemote}
-       */
-      profile: {
-        type: Object,
-        observer: 'onProfileChanged_',
-      },
-
-      confirmationCode: {
-        type: String,
-        notify: true,
-      },
-
-      showError: Boolean,
-
-      /**
-       * Indicates the UI is busy with an operation and cannot be interacted
-       * with.
-       */
-      showBusy: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * @type {?ESimProfileProperties}
-       * @private
-       */
-      profileProperties_: {
-        type: Object,
-        value: null,
-      },
-
-      /**
-       * @type {boolean}
-       * @private
-       */
-      isDarkModeActive_: {
-        type: Boolean,
-        value: false,
-      },
-
-    };
-  }
-
-  /** @private */
-  onProfileChanged_() {
-    if (!this.profile) {
-      this.profileProperties_ = null;
-      return;
+const ConfirmationCodePageLegacyElementBase = I18nMixin(PolymerElement);
+class ConfirmationCodePageLegacyElement extends ConfirmationCodePageLegacyElementBase {
+    static get is() {
+        return 'confirmation-code-page-legacy';
     }
-    this.profile.getProperties().then(response => {
-      this.profileProperties_ = response.properties;
-    });
-  }
-
-  /**
-   * @param {KeyboardEvent} e
-   * @private
-   */
-  onKeyDown_(e) {
-    if (e.key === 'Enter') {
-      this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
-        bubbles: true,
-        composed: true,
-      }));
+    static get template() {
+        return getTemplate$$();
     }
-    e.stopPropagation();
-  }
-
-  /**
-   * @return {boolean}
-   * @private
-   */
-  shouldShowProfileDetails_() {
-    return !!this.profile;
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getProfileName_() {
-    if (!this.profileProperties_) {
-      return '';
+    static get properties() {
+        return {
+            profile: {
+                type: Object,
+                observer: 'onProfileChanged_',
+            },
+            confirmationCode: {
+                type: String,
+                notify: true,
+            },
+            showError: Boolean,
+            /**
+             * Indicates the UI is busy with an operation and cannot be interacted
+             * with.
+             */
+            showBusy: {
+                type: Boolean,
+                value: false,
+            },
+            profileProperties_: {
+                type: Object,
+                value: null,
+            },
+            isDarkModeActive_: {
+                type: Boolean,
+                value: false,
+            },
+        };
     }
-    return mojoString16ToString(this.profileProperties_.name);
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getProfileImage_() {
-    return this.isDarkModeActive_ ?
-        'chrome://resources/ash/common/cellular_setup/default_esim_profile_dark.svg' :
-        'chrome://resources/ash/common/cellular_setup/default_esim_profile.svg';
-  }
+    async onProfileChanged_() {
+        if (!this.profile) {
+            this.profileProperties_ = null;
+            return;
+        }
+        const response = await this.profile.getProperties();
+        this.profileProperties_ = response.properties;
+    }
+    onKeyDown_(e) {
+        if (e.key === 'Enter') {
+            this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+                bubbles: true,
+                composed: true,
+            }));
+        }
+        e.stopPropagation();
+    }
+    shouldShowProfileDetails_() {
+        return !!this.profile;
+    }
+    getProfileName_() {
+        if (!this.profileProperties_) {
+            return '';
+        }
+        return mojoString16ToString(this.profileProperties_.name);
+    }
+    getProfileImage_() {
+        return this.isDarkModeActive_ ?
+            'chrome://resources/ash/common/cellular_setup/default_esim_profile_dark.svg' :
+            'chrome://resources/ash/common/cellular_setup/default_esim_profile.svg';
+    }
 }
-
-customElements.define(
-    ConfirmationCodePageLegacyElement.is, ConfirmationCodePageLegacyElement);
+customElements.define(ConfirmationCodePageLegacyElement.is, ConfirmationCodePageLegacyElement);
 
 function getTemplate$_() {
   return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
@@ -11883,70 +11210,46 @@ function getTemplate$_() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * Page in eSIM Cellular Setup flow shown if an eSIM profile requires a
+ * confirmation code to install. This element contains an input for the user to
+ * enter the confirmation code.
  */
-const ConfirmationCodePageElementBase =
-    mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
+const ConfirmationCodePageElementBase = I18nMixin(PolymerElement);
 class ConfirmationCodePageElement extends ConfirmationCodePageElementBase {
-  static get is() {
-    return 'confirmation-code-page';
-  }
-
-  static get template() {
-    return getTemplate$_();
-  }
-
-  static get properties() {
-    return {
-      /**
-       * @type {?ESimProfileProperties}
-       */
-      profileProperties: Object,
-
-      confirmationCode: {
-        type: String,
-        notify: true,
-      },
-
-      showError: Boolean,
-    };
-  }
-
-  /**
-   * @param {KeyboardEvent} e
-   * @private
-   */
-  onKeyDown_(e) {
-    if (e.key === 'Enter') {
-      this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
-        bubbles: true,
-        composed: true,
-      }));
+    static get is() {
+        return 'confirmation-code-page';
     }
-    e.stopPropagation();
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  getProfileName_() {
-    if (!this.profileProperties) {
-      return '';
+    static get template() {
+        return getTemplate$_();
     }
-    return mojoString16ToString(this.profileProperties.name);
-  }
+    static get properties() {
+        return {
+            profileProperties: Object,
+            confirmationCode: {
+                type: String,
+                notify: true,
+            },
+            showError: Boolean,
+        };
+    }
+    onKeyDown_(e) {
+        if (e.key === 'Enter') {
+            this.dispatchEvent(new CustomEvent('forward-navigation-requested', {
+                bubbles: true,
+                composed: true,
+            }));
+        }
+        e.stopPropagation();
+    }
+    getProfileName_() {
+        if (!this.profileProperties) {
+            return '';
+        }
+        return mojoString16ToString(this.profileProperties.name);
+    }
 }
-
-customElements.define(
-    ConfirmationCodePageElement.is, ConfirmationCodePageElement);
+customElements.define(ConfirmationCodePageElement.is, ConfirmationCodePageElement);
 
 function getTemplate$Z() {
   return html`<!--_html_template_start_--><style include="iron-flex">
@@ -12014,963 +11317,779 @@ function getTemplate$Z() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @enum {string} */
-const ESimPageName = {
-  PROFILE_LOADING: 'profileLoadingPage',
-  PROFILE_DISCOVERY_CONSENT: 'profileDiscoveryConsentPage',
-  PROFILE_DISCOVERY: 'profileDiscoveryPage',
-  PROFILE_DISCOVERY_LEGACY: 'profileDiscoveryPageLegacy',
-  ACTIVATION_CODE: 'activationCodePage',
-  CONFIRMATION_CODE: 'confirmationCodePage',
-  CONFIRMATION_CODE_LEGACY: 'confirmationCodePageLegacy',
-  PROFILE_INSTALLING: 'profileInstallingPage',
-  FINAL: 'finalPage',
-};
-
-/** @enum {string} */
-const ESimUiState = {
-  PROFILE_SEARCH: 'profile-search',
-  PROFILE_SEARCH_CONSENT: 'profile-search-consent',
-  ACTIVATION_CODE_ENTRY: 'activation-code-entry',
-  ACTIVATION_CODE_ENTRY_READY: 'activation-code-entry-ready',
-  ACTIVATION_CODE_ENTRY_INSTALLING: 'activation-code-entry-installing',
-  CONFIRMATION_CODE_ENTRY: 'confirmation-code-entry',
-  CONFIRMATION_CODE_ENTRY_READY: 'confirmation-code-entry-ready',
-  CONFIRMATION_CODE_ENTRY_INSTALLING: 'confirmation-code-entry-installing',
-  PROFILE_SELECTION: 'profile-selection',
-  PROFILE_SELECTION_INSTALLING: 'profile-selection-installing',
-  SETUP_FINISH: 'setup-finish',
-};
-
-/**
- * The reason that caused the user to exit the ESim Setup flow.
- * These values are persisted to logs. Entries should not be renumbered
- * and numeric values should never be reused.
- * @enum {number}
- */
-const ESimSetupFlowResult = {
-  SUCCESS: 0,
-  INSTALL_FAIL: 1,
-  CANCELLED_NEEDS_CONFIRMATION_CODE: 2,
-  CANCELLED_INVALID_ACTIVATION_CODE: 3,
-  ERROR_FETCHING_PROFILES: 4,
-  CANCELLED_WITHOUT_ERROR: 5,
-  CANCELLED_NO_PROFILES: 6,
-  NO_NETWORK: 7,
-};
-
-const ESIM_SETUP_RESULT_METRIC_NAME =
-    'Network.Cellular.ESim.SetupFlowResult';
-
-const SUCCESSFUL_ESIM_SETUP_DURATION_METRIC_NAME =
-    'Network.Cellular.ESim.CellularSetup.Success.Duration';
-
-const FAILED_ESIM_SETUP_DURATION_METRIC_NAME =
-    'Network.Cellular.ESim.CellularSetup.Failure.Duration';
-
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var ESimPageName;
+(function (ESimPageName) {
+    ESimPageName["PROFILE_LOADING"] = "profileLoadingPage";
+    ESimPageName["PROFILE_DISCOVERY_CONSENT"] = "profileDiscoveryConsentPage";
+    ESimPageName["PROFILE_DISCOVERY"] = "profileDiscoveryPage";
+    ESimPageName["PROFILE_DISCOVERY_LEGACY"] = "profileDiscoveryPageLegacy";
+    ESimPageName["ACTIVATION_CODE"] = "activationCodePage";
+    ESimPageName["CONFIRMATION_CODE"] = "confirmationCodePage";
+    ESimPageName["CONFIRMATION_CODE_LEGACY"] = "confirmationCodePageLegacy";
+    ESimPageName["PROFILE_INSTALLING"] = "profileInstallingPage";
+    ESimPageName["FINAL"] = "finalPage";
+})(ESimPageName || (ESimPageName = {}));
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var ESimUiState;
+(function (ESimUiState) {
+    ESimUiState["PROFILE_SEARCH"] = "profile-search";
+    ESimUiState["PROFILE_SEARCH_CONSENT"] = "profile-search-consent";
+    ESimUiState["ACTIVATION_CODE_ENTRY"] = "activation-code-entry";
+    ESimUiState["ACTIVATION_CODE_ENTRY_READY"] = "activation-code-entry-ready";
+    ESimUiState["ACTIVATION_CODE_ENTRY_INSTALLING"] = "activation-code-entry-installing";
+    ESimUiState["CONFIRMATION_CODE_ENTRY"] = "confirmation-code-entry";
+    ESimUiState["CONFIRMATION_CODE_ENTRY_READY"] = "confirmation-code-entry-ready";
+    ESimUiState["CONFIRMATION_CODE_ENTRY_INSTALLING"] = "confirmation-code-entry-installing";
+    ESimUiState["PROFILE_SELECTION"] = "profile-selection";
+    ESimUiState["PROFILE_SELECTION_INSTALLING"] = "profile-selection-installing";
+    ESimUiState["SETUP_FINISH"] = "setup-finish";
+})(ESimUiState || (ESimUiState = {}));
+// The reason that caused the user to exit the ESim Setup flow.
+// These values are persisted to logs. Entries should not be renumbered
+// and numeric values should never be reused.
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var ESimSetupFlowResult;
+(function (ESimSetupFlowResult) {
+    ESimSetupFlowResult[ESimSetupFlowResult["SUCCESS"] = 0] = "SUCCESS";
+    ESimSetupFlowResult[ESimSetupFlowResult["INSTALL_FAIL"] = 1] = "INSTALL_FAIL";
+    ESimSetupFlowResult[ESimSetupFlowResult["CANCELLED_NEEDS_CONFIRMATION_CODE"] = 2] = "CANCELLED_NEEDS_CONFIRMATION_CODE";
+    ESimSetupFlowResult[ESimSetupFlowResult["CANCELLED_INVALID_ACTIVATION_CODE"] = 3] = "CANCELLED_INVALID_ACTIVATION_CODE";
+    ESimSetupFlowResult[ESimSetupFlowResult["ERROR_FETCHING_PROFILES"] = 4] = "ERROR_FETCHING_PROFILES";
+    ESimSetupFlowResult[ESimSetupFlowResult["CANCELLED_WITHOUT_ERROR"] = 5] = "CANCELLED_WITHOUT_ERROR";
+    ESimSetupFlowResult[ESimSetupFlowResult["CANCELLED_NO_PROFILES"] = 6] = "CANCELLED_NO_PROFILES";
+    ESimSetupFlowResult[ESimSetupFlowResult["NO_NETWORK"] = 7] = "NO_NETWORK";
+})(ESimSetupFlowResult || (ESimSetupFlowResult = {}));
+const ESIM_SETUP_RESULT_METRIC_NAME = 'Network.Cellular.ESim.SetupFlowResult';
+const SUCCESSFUL_ESIM_SETUP_DURATION_METRIC_NAME = 'Network.Cellular.ESim.CellularSetup.Success.Duration';
+const FAILED_ESIM_SETUP_DURATION_METRIC_NAME = 'Network.Cellular.ESim.CellularSetup.Failure.Duration';
 /**
  * Root element for the eSIM cellular setup flow. This element interacts with
  * the CellularSetup service to carry out the esim activation flow.
  */
-
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- * @implements {NetworkListenerBehaviorInterface}
- */
-const EsimFlowUiElementBase = mixinBehaviors(
-    [I18nBehavior, NetworkListenerBehavior, SubflowBehavior], PolymerElement);
-
-/** @polymer */
+const EsimFlowUiElementBase = mixinBehaviors([NetworkListenerBehavior], SubflowMixin(I18nMixin(PolymerElement)));
 class EsimFlowUiElement extends EsimFlowUiElementBase {
-  static get is() {
-    return 'esim-flow-ui';
-  }
-
-  static get template() {
-    return getTemplate$Z();
-  }
-
-  static get properties() {
-    return {
-      /** @type {!CellularSetupDelegate} */
-      delegate: Object,
-
-      /**
-       * Header shown at the top of the flow. No header shown if the string is
-       * empty.
-       */
-      header: {
-        type: String,
-        notify: true,
-        computed: 'computeHeader_(selectedESimPageName_, showError_)',
-      },
-
-      forwardButtonLabel: {
-        type: String,
-        notify: true,
-      },
-
-      /**
-       * @type {!ESimUiState}
-       * @private
-       */
-      state_: {
-        type: String,
-        value: function() {
-          if (loadTimeData$1.valueExists('isSmdsSupportEnabled') &&
-              loadTimeData$1.getBoolean('isSmdsSupportEnabled')) {
-            return ESimUiState.PROFILE_SEARCH_CONSENT;
-          }
-          return ESimUiState.PROFILE_SEARCH;
-        },
-        observer: 'onStateChanged_',
-      },
-
-      /**
-       * Element name of the current selected sub-page.
-       * This is set in updateSelectedPage_ on initialization.
-       * @type {?ESimPageName}
-       * @private
-       */
-      selectedESimPageName_: String,
-
-      /**
-       * Whether the user has consented to a scan for profiles.
-       * @type {boolean}
-       */
-      hasConsentedForDiscovery_: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Whether the user is setting up the eSIM profile manually.
-       * @type {boolean}
-       */
-      shouldSkipDiscovery_: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Whether error state should be shown for the current page.
-       * @private {boolean}
-       */
-      showError_: {
-        type: Boolean,
-        value: false,
-      },
-
-      /**
-       * Profiles fetched that have status kPending.
-       * @type {!Array<!ESimProfileRemote>}
-       * @private
-       */
-      pendingProfiles_: Array,
-
-      /**
-       * Profile selected to be installed.
-       * @type {?ESimProfileRemote}
-       * @private
-       */
-      selectedProfile_: {
-        type: Object,
-        observer: 'onSelectedProfileChanged_',
-      },
-
-      /**
-       * Profile properties fetched from the latest SM-DS scan.
-       * @type {!Array<!ESimProfileProperties>}
-       * @private
-       */
-      pendingProfileProperties_: Array,
-
-      /**
-       * Profile properties selected to be installed.
-       * @type {?ESimProfileProperties}
-       * @private
-       */
-      selectedProfileProperties_: {
-        type: Object,
-        observer: 'onSelectedProfilePropertiesChanged_',
-      },
-
-      /** @private */
-      activationCode_: {
-        type: String,
-        value: '',
-      },
-
-      /** @private */
-      confirmationCode_: {
-        type: String,
-        value: '',
-        observer: 'onConfirmationCodeUpdated_',
-      },
-
-      /** @private */
-      hasHadActiveCellularNetwork_: {
-        type: Boolean,
-        value: false,
-      },
-
-      /** @private */
-      isActivationCodeFromQrCode_: Boolean,
-
-      /**
-       * Return true if SmdsSupportEnabled feature flag is enabled.
-       */
-      smdsSupportEnabled_: {
-        type: Boolean,
-        value() {
-          return loadTimeData$1.valueExists('isSmdsSupportEnabled') &&
-              loadTimeData$1.getBoolean('isSmdsSupportEnabled');
-        },
-      },
-
-    };
-  }
-
-  /** @override */
-  constructor() {
-    super();
-
-    /** @private {?EuiccRemote} */
-    this.euicc_ = null;
-
-    /** @private {boolean} */
-    this.hasFailedFetchingProfiles_ = false;
-
-    /** @private {?ProfileInstallResult} */
-    this.lastProfileInstallResult_ = null;
-
-    /**
-     * If there are no active network connections of any type.
-     * @private {boolean}
-     */
-    this.isOffline_ = false;
-
-    /**
-     * Provides an interface to the ESimManager Mojo service.
-     * @private {?ESimManagerRemote}
-     */
-    this.eSimManagerRemote_ = getESimManagerRemote();
-    const networkConfig =
-        MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
-
-    const filter = {
-      filter: FilterType.kActive,
-      limit: NO_LIMIT,
-      networkType: NetworkType.kAll,
-    };
-    networkConfig.getNetworkStateList(filter).then(response => {
-      this.onActiveNetworksChanged(response.result);
-    });
-  }
-
-  /** @override */
-  connectedCallback() {
-    super.connectedCallback();
-
-    /**
-     * The time at which the ESim flow is attached.
-     * @private {?Date}
-     */
-    this.timeOnAttached_ = new Date();
-  }
-
-  /** @override */
-  disconnectedCallback() {
-    super.disconnectedCallback();
-
-    let resultCode = null;
-
-    switch (this.lastProfileInstallResult_) {
-      case null:
-        // Handles case when no profile installation was attempted.
-        if (this.hasFailedFetchingProfiles_) {
-          resultCode = ESimSetupFlowResult.ERROR_FETCHING_PROFILES;
-        } else if (this.noProfilesFound_()) {
-          resultCode = ESimSetupFlowResult.CANCELLED_NO_PROFILES;
-        } else {
-          resultCode = ESimSetupFlowResult.CANCELLED_WITHOUT_ERROR;
-        }
-        break;
-      case ProfileInstallResult.kSuccess:
-        resultCode = ESimSetupFlowResult.SUCCESS;
-        break;
-      case ProfileInstallResult.kFailure:
-        resultCode = ESimSetupFlowResult.INSTALL_FAIL;
-        break;
-      case ProfileInstallResult.kErrorNeedsConfirmationCode:
-        resultCode = ESimSetupFlowResult.CANCELLED_NEEDS_CONFIRMATION_CODE;
-        break;
-      case ProfileInstallResult.kErrorInvalidActivationCode:
-        resultCode = ESimSetupFlowResult.CANCELLED_INVALID_ACTIVATION_CODE;
-        break;
+    static get is() {
+        return 'esim-flow-ui';
     }
-
-    if (this.isOffline_ && resultCode !== ProfileInstallResult.kSuccess) {
-      resultCode = ESimSetupFlowResult.NO_NETWORK;
+    static get template() {
+        return getTemplate$Z();
     }
-
-    assert$1(resultCode !== null);
-    chrome.metricsPrivate.recordEnumerationValue(
-        ESIM_SETUP_RESULT_METRIC_NAME, resultCode,
-        Object.keys(ESimSetupFlowResult).length);
-
-    const elapsedTimeMs = new Date() - this.timeOnAttached_;
-    if (resultCode === ESimSetupFlowResult.SUCCESS) {
-      chrome.metricsPrivate.recordLongTime(
-          SUCCESSFUL_ESIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
-      return;
+    static get properties() {
+        return {
+            delegate: Object,
+            /**
+             * Header shown at the top of the flow. No header shown if the string is
+             * empty.
+             */
+            header: {
+                type: String,
+                notify: true,
+                computed: 'computeHeader_(selectedESimPageName_, showError_)',
+            },
+            forwardButtonLabel: {
+                type: String,
+                notify: true,
+            },
+            state_: {
+                type: String,
+                value: function () {
+                    if (loadTimeData.valueExists('isSmdsSupportEnabled') &&
+                        loadTimeData.getBoolean('isSmdsSupportEnabled')) {
+                        return ESimUiState.PROFILE_SEARCH_CONSENT;
+                    }
+                    return ESimUiState.PROFILE_SEARCH;
+                },
+                observer: 'onStateChanged_',
+            },
+            /**
+             * Element name of the current selected sub-page.
+             * This is set in updateSelectedPage_ on initialization.
+             */
+            selectedESimPageName_: String,
+            /**
+             * Whether the user has consented to a scan for profiles.
+             */
+            hasConsentedForDiscovery_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Whether the user is setting up the eSIM profile manually.
+             */
+            shouldSkipDiscovery_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Whether error state should be shown for the current page.
+             */
+            showError_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Profiles fetched that have status kPending.
+             */
+            pendingProfiles_: Array,
+            /**
+             * Profile selected to be installed.
+             */
+            selectedProfile_: {
+                type: Object,
+                observer: 'onSelectedProfileChanged_',
+            },
+            /**
+             * Profile properties fetched from the latest SM-DS scan.
+             */
+            pendingProfileProperties_: Array,
+            /**
+             * Profile properties selected to be installed.
+             */
+            selectedProfileProperties_: {
+                type: Object,
+                observer: 'onSelectedProfilePropertiesChanged_',
+            },
+            activationCode_: {
+                type: String,
+                value: '',
+            },
+            confirmationCode_: {
+                type: String,
+                value: '',
+                observer: 'onConfirmationCodeUpdated_',
+            },
+            hasHadActiveCellularNetwork_: {
+                type: Boolean,
+                value: false,
+            },
+            isActivationCodeFromQrCode_: Boolean,
+            /**
+             * Return true if SmdsSupportEnabled feature flag is enabled.
+             */
+            smdsSupportEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isSmdsSupportEnabled') &&
+                        loadTimeData.getBoolean('isSmdsSupportEnabled');
+                },
+            },
+        };
     }
-
-    chrome.metricsPrivate.recordLongTime(
-        FAILED_ESIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
-  }
-
-  /** override */
-  ready() {
-    super.ready();
-
-    this.addEventListener('activation-code-updated', (event) => {
-      this.onActivationCodeUpdated_(event);
-    });
-    this.addEventListener(
-        'forward-navigation-requested', this.onForwardNavigationRequested_);
-  }
-
-  /**
-   * NetworkListenerBehavior override
-   * Used to determine if there is an online network connection.
-   * @param {!Array<NetworkStateProperties>}
-   *     activeNetworks
-   */
-  onActiveNetworksChanged(activeNetworks) {
-    this.isOffline_ = !activeNetworks.some(
-        (network) => network.connectionState === ConnectionStateType.kOnline);
-  }
-
-  initSubflow() {
-    if (!this.smdsSupportEnabled_) {
-      this.fetchProfiles_();
-    } else {
-      this.getEuicc_();
-    }
-    this.onNetworkStateListChanged();
-  }
-
-  /** @private */
-  async fetchProfiles_() {
-    await this.getEuicc_();
-    if (!this.euicc_) {
-      return;
-    }
-
-    if (this.smdsSupportEnabled_) {
-      await this.getAvailableProfileProperties_();
-    } else {
-      await this.getPendingProfiles_();
-    }
-    if (this.noProfilesFound_()) {
-      this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
-    } else {
-      this.state_ = ESimUiState.PROFILE_SELECTION;
-    }
-  }
-
-  /** @private */
-  async getEuicc_() {
-    const euicc = await getEuicc();
-    if (!euicc) {
-      this.hasFailedFetchingProfiles_ = true;
-      this.showError_ = true;
-      this.state_ = ESimUiState.SETUP_FINISH;
-      console.warn('No Euiccs found');
-      return;
-    }
-    this.euicc_ = euicc;
-  }
-
-  /**
-   * @private
-   */
-  async getAvailableProfileProperties_() {
-    const requestAvailableProfilesResponse =
-        await this.euicc_.requestAvailableProfiles();
-    if (requestAvailableProfilesResponse.result ===
-        ESimOperationResult.kFailure) {
-      this.hasFailedFetchingProfiles_ = true;
-      console.warn(
-          'Error requesting available profiles: ',
-          requestAvailableProfilesResponse);
-      this.pendingProfileProperties_ = [];
-    }
-    this.pendingProfileProperties_ =
-        requestAvailableProfilesResponse.profiles.filter(properties => {
-          return properties.state === ProfileState.kPending &&
-              properties.activationCode;
+    constructor() {
+        super();
+        this.euicc_ = null;
+        this.lastProfileInstallResult_ = null;
+        this.hasFailedFetchingProfiles_ = false;
+        /**
+         * If there are no active network connections of any type.
+         */
+        this.isOffline_ = false;
+        /**
+         * The time at which the ESim flow is attached.
+         */
+        this.timeOnAttached_ = null;
+        this.eSimManagerRemote_ = getESimManagerRemote();
+        const networkConfig = MojoInterfaceProviderImpl.getInstance().getMojoServiceRemote();
+        const filter = {
+            filter: FilterType.kActive,
+            limit: NO_LIMIT,
+            networkType: NetworkType.kAll,
+        };
+        networkConfig.getNetworkStateList(filter).then((response) => {
+            this.onActiveNetworksChanged(response.result);
         });
-  }
-
-  /**
-   * @private
-   */
-  async getPendingProfiles_() {
-    const requestPendingProfilesResponse =
-        await this.euicc_.requestPendingProfiles();
-    if (requestPendingProfilesResponse.result ===
-        ESimOperationResult.kFailure) {
-      this.hasFailedFetchingProfiles_ = true;
-      console.warn(
-          'Error requesting pending profiles: ',
-          requestPendingProfilesResponse);
-      this.pendingProfiles_ = [];
     }
-    this.pendingProfiles_ = await getPendingESimProfiles(this.euicc_);
-  }
-
-  /**
-   * @private
-   * @param {{result: ProfileInstallResult}} response
-   */
-  handleProfileInstallResponse_(response) {
-    this.lastProfileInstallResult_ = response.result;
-    if (response.result === ProfileInstallResult.kErrorNeedsConfirmationCode) {
-      this.state_ = ESimUiState.CONFIRMATION_CODE_ENTRY;
-      return;
+    connectedCallback() {
+        super.connectedCallback();
+        this.timeOnAttached_ = new Date();
     }
-    this.showError_ = response.result !== ProfileInstallResult.kSuccess;
-    if (response.result === ProfileInstallResult.kFailure &&
-        this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING) {
-      this.state_ = ESimUiState.CONFIRMATION_CODE_ENTRY_READY;
-      return;
-    }
-    if (response.result === ProfileInstallResult.kErrorInvalidActivationCode &&
-        (!this.smdsSupportEnabled_ ||
-         this.state_ !== ESimUiState.PROFILE_SELECTION_INSTALLING)) {
-      this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY_READY;
-      return;
-    }
-    if (response.result === ProfileInstallResult.kSuccess ||
-        response.result === ProfileInstallResult.kFailure) {
-      this.state_ = ESimUiState.SETUP_FINISH;
-    }
-  }
-
-  /** @private */
-  onStateChanged_(newState, oldState) {
-    this.updateButtonBarState_();
-    this.updateSelectedPage_();
-    if (this.hasConsentedForDiscovery_ &&
-        newState === ESimUiState.PROFILE_SEARCH) {
-      this.fetchProfiles_();
-    }
-    this.initializePageState_(newState, oldState);
-  }
-
-  /** @private */
-  updateSelectedPage_() {
-    const oldSelectedESimPageName = this.selectedESimPageName_;
-    switch (this.state_) {
-      case ESimUiState.PROFILE_SEARCH:
-        this.selectedESimPageName_ = ESimPageName.PROFILE_LOADING;
-        break;
-      case ESimUiState.PROFILE_SEARCH_CONSENT:
-        this.selectedESimPageName_= ESimPageName.PROFILE_DISCOVERY_CONSENT;
-        break;
-      case ESimUiState.ACTIVATION_CODE_ENTRY:
-      case ESimUiState.ACTIVATION_CODE_ENTRY_READY:
-        this.selectedESimPageName_ = ESimPageName.ACTIVATION_CODE;
-        break;
-      case ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING:
-        this.selectedESimPageName_ = ESimPageName.PROFILE_INSTALLING;
-        break;
-      case ESimUiState.CONFIRMATION_CODE_ENTRY:
-      case ESimUiState.CONFIRMATION_CODE_ENTRY_READY:
-        if (this.smdsSupportEnabled_) {
-          this.selectedESimPageName_ = ESimPageName.CONFIRMATION_CODE;
-        } else {
-          this.selectedESimPageName_ = ESimPageName.CONFIRMATION_CODE_LEGACY;
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        let resultCode = null;
+        switch (this.lastProfileInstallResult_) {
+            case null:
+                // Handles case when no profile installation was attempted.
+                if (this.hasFailedFetchingProfiles_) {
+                    resultCode = ESimSetupFlowResult.ERROR_FETCHING_PROFILES;
+                }
+                else if (this.noProfilesFound_()) {
+                    resultCode = ESimSetupFlowResult.CANCELLED_NO_PROFILES;
+                }
+                else {
+                    resultCode = ESimSetupFlowResult.CANCELLED_WITHOUT_ERROR;
+                }
+                break;
+            case ProfileInstallResult.kSuccess:
+                resultCode = ESimSetupFlowResult.SUCCESS;
+                break;
+            case ProfileInstallResult.kFailure:
+                resultCode = ESimSetupFlowResult.INSTALL_FAIL;
+                break;
+            case ProfileInstallResult.kErrorNeedsConfirmationCode:
+                resultCode = ESimSetupFlowResult.CANCELLED_NEEDS_CONFIRMATION_CODE;
+                break;
+            case ProfileInstallResult.kErrorInvalidActivationCode:
+                resultCode = ESimSetupFlowResult.CANCELLED_INVALID_ACTIVATION_CODE;
+                break;
         }
-        break;
-      case ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING:
-        if (this.smdsSupportEnabled_) {
-          this.selectedESimPageName_ = ESimPageName.PROFILE_INSTALLING;
-        } else {
-          this.selectedESimPageName_ = ESimPageName.CONFIRMATION_CODE_LEGACY;
+        if (this.isOffline_ && resultCode !== ProfileInstallResult.kSuccess) {
+            resultCode = ESimSetupFlowResult.NO_NETWORK;
         }
-        break;
-      case ESimUiState.PROFILE_SELECTION:
-        if (this.smdsSupportEnabled_) {
-          this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY;
-        } else {
-          this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY_LEGACY;
+        assert(resultCode !== null);
+        chrome.metricsPrivate.recordEnumerationValue(ESIM_SETUP_RESULT_METRIC_NAME, resultCode, Object.keys(ESimSetupFlowResult).length);
+        const elapsedTimeMs = new Date().getTime() - this.timeOnAttached_.getTime();
+        if (resultCode === ESimSetupFlowResult.SUCCESS) {
+            chrome.metricsPrivate.recordLongTime(SUCCESSFUL_ESIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
+            return;
         }
-        break;
-      case ESimUiState.PROFILE_SELECTION_INSTALLING:
-        if (this.smdsSupportEnabled_) {
-          this.selectedESimPageName_ = ESimPageName.PROFILE_INSTALLING;
-        } else {
-          this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY_LEGACY;
+        chrome.metricsPrivate.recordLongTime(FAILED_ESIM_SETUP_DURATION_METRIC_NAME, elapsedTimeMs);
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('activation-code-updated', (event) => {
+            this.onActivationCodeUpdated_(event);
+        });
+        this.addEventListener('forward-navigation-requested', this.onForwardNavigationRequested_);
+    }
+    /**
+     * NetworkListenerBehavior override
+     * Used to determine if there is an online network connection.
+     */
+    onActiveNetworksChanged(activeNetworks) {
+        this.isOffline_ = !activeNetworks.some((network) => network.connectionState === ConnectionStateType.kOnline);
+    }
+    initSubflow() {
+        if (!this.smdsSupportEnabled_) {
+            this.fetchProfiles_();
         }
-        break;
-      case ESimUiState.SETUP_FINISH:
-        this.selectedESimPageName_ = ESimPageName.FINAL;
-        break;
-      default:
-        assertNotReached$1();
-        break;
+        else {
+            this.getEuicc_();
+        }
+        this.onNetworkStateListChanged();
     }
-    // If there is a page change, fire focus event.
-    if (oldSelectedESimPageName !== this.selectedESimPageName_) {
-      this.dispatchEvent(new CustomEvent('focus-default-button', {
-        bubbles: true,
-        composed: true,
-      }));
+    async fetchProfiles_() {
+        await this.getEuicc_();
+        if (!this.euicc_) {
+            return;
+        }
+        if (this.smdsSupportEnabled_) {
+            await this.getAvailableProfileProperties_();
+        }
+        else {
+            await this.getPendingProfiles_();
+        }
+        if (this.noProfilesFound_()) {
+            this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
+        }
+        else {
+            this.state_ = ESimUiState.PROFILE_SELECTION;
+        }
     }
-  }
-
-  /**
-   * @param {boolean} enableForwardBtn
-   * @param {!ButtonState} cancelButtonStateIfEnabled
-   * @param {boolean} isInstalling
-   * @return {!ButtonBarState}
-   * @private
-   */
-  generateButtonStateForActivationPage_(
-      enableForwardBtn, cancelButtonStateIfEnabled, isInstalling) {
-    this.forwardButtonLabel = this.i18n('next');
-    let backBtnState = ButtonState.HIDDEN;
-    if (this.profilesFound_() && !this.smdsSupportEnabled_) {
-      backBtnState = isInstalling ? ButtonState.DISABLED : ButtonState.ENABLED;
+    async getEuicc_() {
+        const euicc = await getEuicc();
+        if (!euicc) {
+            this.hasFailedFetchingProfiles_ = true;
+            this.showError_ = true;
+            this.state_ = ESimUiState.SETUP_FINISH;
+            console.warn('No Euiccs found');
+            return;
+        }
+        this.euicc_ = euicc;
     }
-    return {
-      backward: backBtnState,
-      cancel: cancelButtonStateIfEnabled,
-      forward: enableForwardBtn ? ButtonState.ENABLED : ButtonState.DISABLED,
-    };
-  }
-
-  /**
-   * @param {boolean} enableForwardBtn
-   * @param {!ButtonState} cancelButtonStateIfEnabled
-   * @param {boolean} isInstalling
-   * @return {!ButtonBarState}
-   * @private
-   */
-  generateButtonStateForConfirmationPage_(
-      enableForwardBtn, cancelButtonStateIfEnabled, isInstalling) {
-    this.forwardButtonLabel = this.i18n('confirm');
-    let backBtnState = isInstalling ? ButtonState.DISABLED : ButtonState.ENABLED;
-    if (this.smdsSupportEnabled_) {
-      backBtnState = ButtonState.HIDDEN;
+    async getAvailableProfileProperties_() {
+        assert(this.euicc_);
+        const requestAvailableProfilesResponse = await this.euicc_.requestAvailableProfiles();
+        if (requestAvailableProfilesResponse.result ===
+            ESimOperationResult.kFailure) {
+            this.hasFailedFetchingProfiles_ = true;
+            console.warn('Error requesting available profiles: ', requestAvailableProfilesResponse);
+            this.pendingProfileProperties_ = [];
+        }
+        this.pendingProfileProperties_ =
+            requestAvailableProfilesResponse.profiles.filter((properties) => {
+                return properties.state === ProfileState.kPending &&
+                    properties.activationCode;
+            });
     }
-    return {
-      backward: backBtnState,
-      cancel: cancelButtonStateIfEnabled,
-      forward: enableForwardBtn ? ButtonState.ENABLED : ButtonState.DISABLED,
-    };
-  }
-
-  /** @private */
-  updateButtonBarState_() {
-    let buttonState;
-    const cancelButtonStateIfEnabled = this.delegate.shouldShowCancelButton() ?
-        ButtonState.ENABLED :
-        ButtonState.HIDDEN;
-    const cancelButtonStateIfDisabled = this.delegate.shouldShowCancelButton() ?
-        ButtonState.DISABLED :
-        ButtonState.HIDDEN;
-    switch (this.state_) {
-      case ESimUiState.PROFILE_SEARCH:
+    async getPendingProfiles_() {
+        assert(this.euicc_);
+        const requestPendingProfilesResponse = await this.euicc_.requestPendingProfiles();
+        if (requestPendingProfilesResponse.result ===
+            ESimOperationResult.kFailure) {
+            this.hasFailedFetchingProfiles_ = true;
+            console.warn('Error requesting pending profiles: ', requestPendingProfilesResponse);
+            this.pendingProfiles_ = [];
+        }
+        this.pendingProfiles_ = await getPendingESimProfiles(this.euicc_);
+    }
+    handleProfileInstallResponse_(response) {
+        this.lastProfileInstallResult_ = response.result;
+        if (response.result === ProfileInstallResult.kErrorNeedsConfirmationCode) {
+            this.state_ = ESimUiState.CONFIRMATION_CODE_ENTRY;
+            return;
+        }
+        this.showError_ = response.result !== ProfileInstallResult.kSuccess;
+        if (response.result === ProfileInstallResult.kFailure &&
+            this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING) {
+            this.state_ = ESimUiState.CONFIRMATION_CODE_ENTRY_READY;
+            return;
+        }
+        if (response.result === ProfileInstallResult.kErrorInvalidActivationCode &&
+            (!this.smdsSupportEnabled_ ||
+                this.state_ !== ESimUiState.PROFILE_SELECTION_INSTALLING)) {
+            this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY_READY;
+            return;
+        }
+        if (response.result === ProfileInstallResult.kSuccess ||
+            response.result === ProfileInstallResult.kFailure) {
+            this.state_ = ESimUiState.SETUP_FINISH;
+        }
+    }
+    onStateChanged_(newState, oldState) {
+        this.updateButtonBarState_();
+        this.updateSelectedPage_();
+        if (this.hasConsentedForDiscovery_ &&
+            newState === ESimUiState.PROFILE_SEARCH) {
+            this.fetchProfiles_();
+        }
+        this.initializePageState_(newState, oldState);
+    }
+    updateSelectedPage_() {
+        const oldSelectedESimPageName = this.selectedESimPageName_;
+        switch (this.state_) {
+            case ESimUiState.PROFILE_SEARCH:
+                this.selectedESimPageName_ = ESimPageName.PROFILE_LOADING;
+                break;
+            case ESimUiState.PROFILE_SEARCH_CONSENT:
+                this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY_CONSENT;
+                break;
+            case ESimUiState.ACTIVATION_CODE_ENTRY:
+            case ESimUiState.ACTIVATION_CODE_ENTRY_READY:
+                this.selectedESimPageName_ = ESimPageName.ACTIVATION_CODE;
+                break;
+            case ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING:
+                this.selectedESimPageName_ = ESimPageName.PROFILE_INSTALLING;
+                break;
+            case ESimUiState.CONFIRMATION_CODE_ENTRY:
+            case ESimUiState.CONFIRMATION_CODE_ENTRY_READY:
+                if (this.smdsSupportEnabled_) {
+                    this.selectedESimPageName_ = ESimPageName.CONFIRMATION_CODE;
+                }
+                else {
+                    this.selectedESimPageName_ = ESimPageName.CONFIRMATION_CODE_LEGACY;
+                }
+                break;
+            case ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING:
+                if (this.smdsSupportEnabled_) {
+                    this.selectedESimPageName_ = ESimPageName.PROFILE_INSTALLING;
+                }
+                else {
+                    this.selectedESimPageName_ = ESimPageName.CONFIRMATION_CODE_LEGACY;
+                }
+                break;
+            case ESimUiState.PROFILE_SELECTION:
+                if (this.smdsSupportEnabled_) {
+                    this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY;
+                }
+                else {
+                    this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY_LEGACY;
+                }
+                break;
+            case ESimUiState.PROFILE_SELECTION_INSTALLING:
+                if (this.smdsSupportEnabled_) {
+                    this.selectedESimPageName_ = ESimPageName.PROFILE_INSTALLING;
+                }
+                else {
+                    this.selectedESimPageName_ = ESimPageName.PROFILE_DISCOVERY_LEGACY;
+                }
+                break;
+            case ESimUiState.SETUP_FINISH:
+                this.selectedESimPageName_ = ESimPageName.FINAL;
+                break;
+            default:
+                assertNotReached();
+        }
+        // If there is a page change, fire focus event.
+        if (oldSelectedESimPageName !== this.selectedESimPageName_) {
+            this.dispatchEvent(new CustomEvent('focus-default-button', {
+                bubbles: true, composed: true,
+            }));
+        }
+    }
+    generateButtonStateForActivationPage_(enableForwardBtn, cancelButtonStateIfEnabled, isInstalling) {
         this.forwardButtonLabel = this.i18n('next');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: cancelButtonStateIfEnabled,
-          forward: ButtonState.DISABLED,
+        let backBtnState = ButtonState.HIDDEN;
+        if (this.profilesFound_() && !this.smdsSupportEnabled_) {
+            backBtnState = isInstalling ? ButtonState.DISABLED : ButtonState.ENABLED;
+        }
+        return {
+            backward: backBtnState,
+            cancel: cancelButtonStateIfEnabled,
+            forward: enableForwardBtn ? ButtonState.ENABLED : ButtonState.DISABLED,
         };
-        break;
-      case ESimUiState.PROFILE_SEARCH_CONSENT:
-        this.forwardButtonLabel = this.i18n('profileDiscoveryConsentScan');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.ENABLED,
-          forward: ButtonState.ENABLED,
+    }
+    generateButtonStateForConfirmationPage_(enableForwardBtn, cancelButtonStateIfEnabled, isInstalling) {
+        this.forwardButtonLabel = this.i18n('confirm');
+        let backBtnState = isInstalling ?
+            ButtonState.DISABLED : ButtonState.ENABLED;
+        if (this.smdsSupportEnabled_) {
+            backBtnState = ButtonState.HIDDEN;
+        }
+        return {
+            backward: backBtnState,
+            cancel: cancelButtonStateIfEnabled,
+            forward: enableForwardBtn ? ButtonState.ENABLED : ButtonState.DISABLED,
         };
-        break;
-      case ESimUiState.ACTIVATION_CODE_ENTRY:
-        buttonState = this.generateButtonStateForActivationPage_(
-            /*enableForwardBtn*/ false, cancelButtonStateIfEnabled,
-            /*isInstalling*/ false);
-        break;
-      case ESimUiState.ACTIVATION_CODE_ENTRY_READY:
-        buttonState = this.generateButtonStateForActivationPage_(
-            /*enableForwardBtn*/ true, cancelButtonStateIfEnabled,
-            /*isInstalling*/ false);
-        break;
-      case ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING:
-        buttonState = this.generateButtonStateForActivationPage_(
-            /*enableForwardBtn*/ false, cancelButtonStateIfDisabled,
-            /*isInstalling*/ true);
-        break;
-      case ESimUiState.CONFIRMATION_CODE_ENTRY:
-        buttonState = this.generateButtonStateForConfirmationPage_(
-            /*enableForwardBtn*/ false, cancelButtonStateIfEnabled,
-            /*isInstalling*/ false);
-        break;
-      case ESimUiState.CONFIRMATION_CODE_ENTRY_READY:
-        buttonState = this.generateButtonStateForConfirmationPage_(
-            /*enableForwardBtn*/ true, cancelButtonStateIfEnabled,
-            /*isInstalling*/ false);
-        break;
-      case ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING:
-        buttonState = this.generateButtonStateForConfirmationPage_(
-            /*enableForwardBtn*/ false, cancelButtonStateIfDisabled,
-            /*isInstalling*/ true);
-        break;
-      case ESimUiState.PROFILE_SELECTION:
+    }
+    updateButtonBarState_() {
+        let buttonState;
+        const cancelButtonStateIfEnabled = this.delegate.shouldShowCancelButton() ?
+            ButtonState.ENABLED :
+            ButtonState.HIDDEN;
+        const cancelButtonStateIfDisabled = this.delegate.shouldShowCancelButton() ?
+            ButtonState.DISABLED :
+            ButtonState.HIDDEN;
+        switch (this.state_) {
+            case ESimUiState.PROFILE_SEARCH:
+                this.forwardButtonLabel = this.i18n('next');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: cancelButtonStateIfEnabled,
+                    forward: ButtonState.DISABLED,
+                };
+                break;
+            case ESimUiState.PROFILE_SEARCH_CONSENT:
+                this.forwardButtonLabel = this.i18n('profileDiscoveryConsentScan');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.ENABLED,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            case ESimUiState.ACTIVATION_CODE_ENTRY:
+                buttonState = this.generateButtonStateForActivationPage_(
+                /*enableForwardBtn*/ false, cancelButtonStateIfEnabled, 
+                /*isInstalling*/ false);
+                break;
+            case ESimUiState.ACTIVATION_CODE_ENTRY_READY:
+                buttonState = this.generateButtonStateForActivationPage_(
+                /*enableForwardBtn*/ true, cancelButtonStateIfEnabled, 
+                /*isInstalling*/ false);
+                break;
+            case ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING:
+                buttonState = this.generateButtonStateForActivationPage_(
+                /*enableForwardBtn*/ false, cancelButtonStateIfDisabled, 
+                /*isInstalling*/ true);
+                break;
+            case ESimUiState.CONFIRMATION_CODE_ENTRY:
+                buttonState = this.generateButtonStateForConfirmationPage_(
+                /*enableForwardBtn*/ false, cancelButtonStateIfEnabled, 
+                /*isInstalling*/ false);
+                break;
+            case ESimUiState.CONFIRMATION_CODE_ENTRY_READY:
+                buttonState = this.generateButtonStateForConfirmationPage_(
+                /*enableForwardBtn*/ true, cancelButtonStateIfEnabled, 
+                /*isInstalling*/ false);
+                break;
+            case ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING:
+                buttonState = this.generateButtonStateForConfirmationPage_(
+                /*enableForwardBtn*/ false, cancelButtonStateIfDisabled, 
+                /*isInstalling*/ true);
+                break;
+            case ESimUiState.PROFILE_SELECTION:
+                this.updateForwardButtonLabel_();
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: cancelButtonStateIfEnabled,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            case ESimUiState.PROFILE_SELECTION_INSTALLING:
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: cancelButtonStateIfDisabled,
+                    forward: ButtonState.DISABLED,
+                };
+                break;
+            case ESimUiState.SETUP_FINISH:
+                this.forwardButtonLabel = this.i18n('done');
+                buttonState = {
+                    backward: ButtonState.HIDDEN,
+                    cancel: ButtonState.HIDDEN,
+                    forward: ButtonState.ENABLED,
+                };
+                break;
+            default:
+                assertNotReached();
+        }
+        this.set('buttonState', buttonState);
+    }
+    updateForwardButtonLabel_() {
+        if (this.smdsSupportEnabled_) {
+            this.forwardButtonLabel = this.selectedProfileProperties_ ?
+                this.i18n('next') :
+                this.i18n('skipDiscovery');
+        }
+        else {
+            this.forwardButtonLabel = this.selectedProfile_ ?
+                this.i18n('next') :
+                this.i18n('skipDiscovery');
+        }
+    }
+    initializePageState_(newState, oldState) {
+        if (newState === ESimUiState.CONFIRMATION_CODE_ENTRY &&
+            oldState !== ESimUiState.CONFIRMATION_CODE_ENTRY_READY) {
+            this.confirmationCode_ = '';
+        }
+        if (newState === ESimUiState.ACTIVATION_CODE_ENTRY &&
+            oldState !== ESimUiState.ACTIVATION_CODE_ENTRY_READY) {
+            this.activationCode_ = '';
+        }
+    }
+    onActivationCodeUpdated_(event) {
+        // initializePageState_() may cause this observer to fire and update the
+        // buttonState when we're not on the activation code page. Check we're on
+        // the activation code page before proceeding.
+        if (this.state_ !== ESimUiState.ACTIVATION_CODE_ENTRY &&
+            this.state_ !== ESimUiState.ACTIVATION_CODE_ENTRY_READY) {
+            return;
+        }
+        this.state_ = event.detail.activationCode ?
+            ESimUiState.ACTIVATION_CODE_ENTRY_READY :
+            ESimUiState.ACTIVATION_CODE_ENTRY;
+    }
+    onSelectedProfileChanged_() {
+        // initializePageState_() may cause this observer to fire and update the
+        // buttonState when we're not on the profile selection page. Check we're
+        // on the profile selection page before proceeding.
+        if (this.state_ !== ESimUiState.PROFILE_SELECTION) {
+            return;
+        }
+        if (this.smdsSupportEnabled_) {
+            return;
+        }
         this.updateForwardButtonLabel_();
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: cancelButtonStateIfEnabled,
-          forward: ButtonState.ENABLED,
-        };
-        break;
-      case ESimUiState.PROFILE_SELECTION_INSTALLING:
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: cancelButtonStateIfDisabled,
-          forward: ButtonState.DISABLED,
-        };
-        break;
-      case ESimUiState.SETUP_FINISH:
-        this.forwardButtonLabel = this.i18n('done');
-        buttonState = {
-          backward: ButtonState.HIDDEN,
-          cancel: ButtonState.HIDDEN,
-          forward: ButtonState.ENABLED,
-        };
-        break;
-      default:
-        assertNotReached$1();
-        break;
     }
-    this.set('buttonState', buttonState);
-  }
-
-  /** @private */
-  updateForwardButtonLabel_() {
-    if (this.smdsSupportEnabled_) {
-      this.forwardButtonLabel = this.selectedProfileProperties_ ?
-          this.i18n('next') :
-          this.i18n('skipDiscovery');
-    } else {
-      this.forwardButtonLabel = this.selectedProfile_ ?
-          this.i18n('next') :
-          this.i18n('skipDiscovery');
-    }
-  }
-
-  /** @private */
-  initializePageState_(newState, oldState) {
-    if (newState === ESimUiState.CONFIRMATION_CODE_ENTRY &&
-        oldState !== ESimUiState.CONFIRMATION_CODE_ENTRY_READY) {
-      this.confirmationCode_ = '';
-    }
-    if (newState === ESimUiState.ACTIVATION_CODE_ENTRY &&
-        oldState !== ESimUiState.ACTIVATION_CODE_ENTRY_READY) {
-      this.activationCode_ = '';
-    }
-  }
-
-  /** @private */
-  onActivationCodeUpdated_(event) {
-    // initializePageState_() may cause this observer to fire and update the
-    // buttonState when we're not on the activation code page. Check we're on
-    // the activation code page before proceeding.
-    if (this.state_ !== ESimUiState.ACTIVATION_CODE_ENTRY &&
-        this.state_ !== ESimUiState.ACTIVATION_CODE_ENTRY_READY) {
-      return;
-    }
-    this.state_ = event.detail.activationCode ?
-        ESimUiState.ACTIVATION_CODE_ENTRY_READY :
-        ESimUiState.ACTIVATION_CODE_ENTRY;
-  }
-
-  /** @private */
-  onSelectedProfileChanged_() {
-    // initializePageState_() may cause this observer to fire and update the
-    // buttonState when we're not on the profile selection page. Check we're
-    // on the profile selection page before proceeding.
-    if (this.state_ !== ESimUiState.PROFILE_SELECTION) {
-      return;
-    }
-    if (this.smdsSupportEnabled_) {
-      return;
-    }
-    this.updateForwardButtonLabel_();
-  }
-
-  /** @private */
-  onSelectedProfilePropertiesChanged_() {
-    // initializePageState_() may cause this observer to fire and update the
-    // buttonState when we're not on the profile selection page. Check we're
-    // on the profile selection page before proceeding.
-    if (this.state_ !== ESimUiState.PROFILE_SELECTION) {
-      return;
-    }
-    if (!this.smdsSupportEnabled_) {
-      return;
-    }
-    this.updateForwardButtonLabel_();
-  }
-
-  /** @private */
-  onConfirmationCodeUpdated_() {
-    // initializePageState_() may cause this observer to fire and update the
-    // buttonState when we're not on the confirmation code page. Check we're
-    // on the confirmation code page before proceeding.
-    if (this.state_ !== ESimUiState.CONFIRMATION_CODE_ENTRY &&
-        this.state_ !== ESimUiState.CONFIRMATION_CODE_ENTRY_READY) {
-      return;
-    }
-    this.state_ = this.confirmationCode_ ?
-        ESimUiState.CONFIRMATION_CODE_ENTRY_READY :
-        ESimUiState.CONFIRMATION_CODE_ENTRY;
-  }
-
-  /** SubflowBehavior override */
-  navigateForward() {
-    this.showError_ = false;
-    switch (this.state_) {
-      case ESimUiState.PROFILE_SEARCH_CONSENT:
-        if (this.shouldSkipDiscovery_) {
-          this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
-          break;
+    onSelectedProfilePropertiesChanged_() {
+        // initializePageState_() may cause this observer to fire and update the
+        // buttonState when we're not on the profile selection page. Check we're
+        // on the profile selection page before proceeding.
+        if (this.state_ !== ESimUiState.PROFILE_SELECTION) {
+            return;
         }
-        // Set |this.hasConsentedForDiscovery_| to |true| since navigating
-        // forward and not setting up manually is explicitly giving consent
-        // to perform SM-DS scans.
-        this.hasConsentedForDiscovery_= true;
-        this.state_ = ESimUiState.PROFILE_SEARCH;
-        break;
-      case ESimUiState.ACTIVATION_CODE_ENTRY_READY:
-        // Assume installing the profile doesn't require a confirmation
-        // code.
-        const confirmationCode = '';
-        this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING;
-        this.euicc_
-            .installProfileFromActivationCode(
-                this.activationCode_, confirmationCode,
-                this.computeProfileInstallMethod_())
-            .then(this.handleProfileInstallResponse_.bind(this));
-        break;
-      case ESimUiState.PROFILE_SELECTION:
+        if (!this.smdsSupportEnabled_) {
+            return;
+        }
+        this.updateForwardButtonLabel_();
+    }
+    onConfirmationCodeUpdated_() {
+        // initializePageState_() may cause this observer to fire and update the
+        // buttonState when we're not on the confirmation code page. Check we're
+        // on the confirmation code page before proceeding.
+        if (this.state_ !== ESimUiState.CONFIRMATION_CODE_ENTRY &&
+            this.state_ !== ESimUiState.CONFIRMATION_CODE_ENTRY_READY) {
+            return;
+        }
+        this.state_ = this.confirmationCode_ ?
+            ESimUiState.CONFIRMATION_CODE_ENTRY_READY :
+            ESimUiState.CONFIRMATION_CODE_ENTRY;
+    }
+    /** SubflowMixin override */
+    navigateForward() {
+        this.showError_ = false;
+        switch (this.state_) {
+            case ESimUiState.PROFILE_SEARCH_CONSENT:
+                if (this.shouldSkipDiscovery_) {
+                    this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
+                    break;
+                }
+                // Set |this.hasConsentedForDiscovery_| to |true| since navigating
+                // forward and not setting up manually is explicitly giving consent
+                // to perform SM-DS scans.
+                this.hasConsentedForDiscovery_ = true;
+                this.state_ = ESimUiState.PROFILE_SEARCH;
+                break;
+            case ESimUiState.ACTIVATION_CODE_ENTRY_READY:
+                assert(this.euicc_);
+                // Assume installing the profile doesn't require a confirmation
+                // code.
+                const confirmationCode = '';
+                this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING;
+                this.euicc_
+                    .installProfileFromActivationCode(this.activationCode_, confirmationCode, this.computeProfileInstallMethod_())
+                    .then(this.handleProfileInstallResponse_.bind(this));
+                break;
+            case ESimUiState.PROFILE_SELECTION:
+                if (this.smdsSupportEnabled_) {
+                    if (this.selectedProfileProperties_) {
+                        assert(this.euicc_);
+                        this.state_ = ESimUiState.PROFILE_SELECTION_INSTALLING;
+                        // Assume installing the profile doesn't require a confirmation
+                        // code.
+                        const confirmationCode = '';
+                        this.euicc_
+                            .installProfileFromActivationCode(this.selectedProfileProperties_.activationCode, confirmationCode, ProfileInstallMethod.kViaSmds)
+                            .then(this.handleProfileInstallResponse_.bind(this));
+                    }
+                    else {
+                        this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
+                    }
+                }
+                else {
+                    if (this.selectedProfile_) {
+                        this.state_ = ESimUiState.PROFILE_SELECTION_INSTALLING;
+                        // Assume installing the profile doesn't require a confirmation
+                        // code, send an empty string.
+                        this.selectedProfile_.installProfile('').then(this.handleProfileInstallResponse_.bind(this));
+                    }
+                    else {
+                        this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
+                    }
+                }
+                break;
+            case ESimUiState.CONFIRMATION_CODE_ENTRY_READY:
+                this.state_ = ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING;
+                if (this.smdsSupportEnabled_) {
+                    assert(this.euicc_);
+                    const fromQrCode = this.selectedProfileProperties_ ? true : false;
+                    const activationCode = fromQrCode ?
+                        this.selectedProfileProperties_.activationCode :
+                        this.activationCode_;
+                    this.euicc_
+                        .installProfileFromActivationCode(activationCode, this.confirmationCode_, this.computeProfileInstallMethod_())
+                        .then(this.handleProfileInstallResponse_.bind(this));
+                }
+                else {
+                    if (this.selectedProfile_) {
+                        this.selectedProfile_.installProfile(this.confirmationCode_)
+                            .then(this.handleProfileInstallResponse_.bind(this));
+                    }
+                    else {
+                        assert(this.euicc_);
+                        this.euicc_
+                            .installProfileFromActivationCode(this.activationCode_, this.confirmationCode_, this.computeProfileInstallMethod_())
+                            .then(this.handleProfileInstallResponse_.bind(this));
+                    }
+                }
+                break;
+            case ESimUiState.SETUP_FINISH:
+                this.dispatchEvent(new CustomEvent('exit-cellular-setup', {
+                    bubbles: true, composed: true,
+                }));
+                break;
+            default:
+                assertNotReached();
+        }
+    }
+    /** SubflowMixin override */
+    navigateBackward() {
+        if (this.profilesFound_() &&
+            (this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY ||
+                this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_READY)) {
+            this.state_ = ESimUiState.PROFILE_SELECTION;
+            return;
+        }
+        if (this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY ||
+            this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_READY) {
+            if (this.activationCode_) {
+                this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY_READY;
+                return;
+            }
+            else if (this.profilesFound_()) {
+                this.state_ = ESimUiState.PROFILE_SELECTION;
+                return;
+            }
+        }
+        console.error('Navigate backward faled for : ' + this.state_ +
+            ' this state does not support backward navigation.');
+        assertNotReached();
+    }
+    onForwardNavigationRequested_() {
+        if (this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_READY ||
+            this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_READY ||
+            this.state_ === ESimUiState.PROFILE_SEARCH_CONSENT ||
+            this.state_ === ESimUiState.PROFILE_SELECTION) {
+            this.navigateForward();
+        }
+    }
+    /** NetworkListenerBehavior override */
+    async onNetworkStateListChanged() {
+        const hasActive = await hasActiveCellularNetwork();
+        // If hasHadActiveCellularNetwork_ has been set to true, don't set to
+        // false again as we should show the cellular disconnect warning for the
+        // duration of the flow's lifecycle.
+        if (hasActive) {
+            this.hasHadActiveCellularNetwork_ = hasActive;
+        }
+    }
+    shouldShowSubpageBusy_() {
+        return this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING ||
+            this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING ||
+            this.state_ === ESimUiState.PROFILE_SELECTION_INSTALLING;
+    }
+    getLoadingMessage_() {
         if (this.smdsSupportEnabled_) {
-          if (this.selectedProfileProperties_) {
-            this.state_ = ESimUiState.PROFILE_SELECTION_INSTALLING;
-            // Assume installing the profile doesn't require a confirmation
-            // code.
-            const confirmationCode = '';
-            this.euicc_
-                .installProfileFromActivationCode(
-                    this.selectedProfileProperties_.activationCode,
-                    confirmationCode, ProfileInstallMethod.kViaSmds)
-                .then(this.handleProfileInstallResponse_.bind(this));
-          } else {
-            this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
-          }
-        } else {
-          if (this.selectedProfile_) {
-            this.state_ = ESimUiState.PROFILE_SELECTION_INSTALLING;
-            // Assume installing the profile doesn't require a confirmation
-            // code, send an empty string.
-            this.selectedProfile_.installProfile('').then(
-                this.handleProfileInstallResponse_.bind(this));
-          } else {
-            this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY;
-          }
+            return this.i18n('profileLoadingPageMessage');
         }
-        break;
-      case ESimUiState.CONFIRMATION_CODE_ENTRY_READY:
-        this.state_ = ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING;
+        return this.hasHadActiveCellularNetwork_ ?
+            this.i18n('eSimProfileDetectDuringActiveCellularConnectionMessage') :
+            this.i18n('eSimProfileDetectMessage');
+    }
+    computeHeader_() {
+        if (this.selectedESimPageName_ === ESimPageName.FINAL && !this.showError_) {
+            return this.i18n('eSimFinalPageSuccessHeader');
+        }
+        if (this.selectedESimPageName_ === ESimPageName.PROFILE_DISCOVERY_CONSENT) {
+            return this.i18n('profileDiscoveryConsentTitle');
+        }
         if (this.smdsSupportEnabled_) {
-          const fromQrCode = this.selectedProfileProperties_ ? true : false;
-          const activationCode = fromQrCode ?
-              this.selectedProfileProperties_.activationCode :
-              this.activationCode_;
-          this.euicc_
-              .installProfileFromActivationCode(
-                  activationCode, this.confirmationCode_,
-                  this.computeProfileInstallMethod_())
-              .then(this.handleProfileInstallResponse_.bind(this));
-        } else {
-          if (this.selectedProfile_) {
-            this.selectedProfile_.installProfile(this.confirmationCode_)
-                .then(this.handleProfileInstallResponse_.bind(this));
-          } else {
-            this.euicc_
-                .installProfileFromActivationCode(
-                    this.activationCode_, this.confirmationCode_,
-                    this.computeProfileInstallMethod_())
-                .then(this.handleProfileInstallResponse_.bind(this));
-          }
+            if (this.selectedESimPageName_ === ESimPageName.PROFILE_DISCOVERY) {
+                return this.i18n('profileDiscoveryPageTitle');
+            }
+            if (this.selectedESimPageName_ == ESimPageName.CONFIRMATION_CODE) {
+                return this.i18n('confimationCodePageTitle');
+            }
+            if (this.selectedESimPageName_ == ESimPageName.PROFILE_LOADING) {
+                return this.i18n('profileLoadingPageTitle');
+            }
         }
-        break;
-      case ESimUiState.SETUP_FINISH:
-        this.dispatchEvent(new CustomEvent('exit-cellular-setup', {
-          bubbles: true,
-          composed: true,
-        }));
-        break;
-      default:
-        assertNotReached$1();
-        break;
+        return '';
     }
-  }
-
-  /** SubflowBehavior override */
-  navigateBackward() {
-    if (this.profilesFound_() &&
-        (this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY ||
-         this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_READY)) {
-      this.state_ = ESimUiState.PROFILE_SELECTION;
-      return;
+    computeProfileInstallMethod_() {
+        if (this.isActivationCodeFromQrCode_) {
+            return this.hasConsentedForDiscovery_ ?
+                ProfileInstallMethod.kViaQrCodeAfterSmds :
+                ProfileInstallMethod.kViaQrCodeSkippedSmds;
+        }
+        return this.hasConsentedForDiscovery_ ?
+            ProfileInstallMethod.kViaActivationCodeAfterSmds :
+            ProfileInstallMethod.kViaActivationCodeSkippedSmds;
     }
-
-    if (this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY ||
-        this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_READY) {
-      if (this.activationCode_) {
-        this.state_ = ESimUiState.ACTIVATION_CODE_ENTRY_READY;
-        return;
-      } else if (this.profilesFound_()) {
-        this.state_ = ESimUiState.PROFILE_SELECTION;
-        return;
-      }
+    /**
+     * Returns true if profiles have been received and none were found.
+     */
+    noProfilesFound_() {
+        if (this.smdsSupportEnabled_) {
+            return this.hasConsentedForDiscovery_ &&
+                !!this.pendingProfileProperties_ &&
+                this.pendingProfileProperties_.length === 0;
+        }
+        else {
+            return (this.pendingProfiles_ && this.pendingProfiles_.length === 0);
+        }
     }
-    console.error(
-        'Navigate backward faled for : ' + this.state_ +
-        ' this state does not support backward navigation.');
-    assertNotReached$1();
-  }
-
-  /** @private */
-  onForwardNavigationRequested_() {
-    if (this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_READY ||
-        this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_READY ||
-        this.state_ === ESimUiState.PROFILE_SEARCH_CONSENT ||
-        this.state_ === ESimUiState.PROFILE_SELECTION) {
-      this.navigateForward();
+    profilesFound_() {
+        if (this.smdsSupportEnabled_) {
+            return this.hasConsentedForDiscovery_ &&
+                !!this.pendingProfileProperties_ &&
+                this.pendingProfileProperties_.length > 0;
+        }
+        else {
+            return (this.pendingProfiles_ && this.pendingProfiles_.length > 0);
+        }
     }
-  }
-
-  /** NetworkListenerBehavior override */
-  onNetworkStateListChanged() {
-    hasActiveCellularNetwork().then((hasActive) => {
-      // If hasHadActiveCellularNetwork_ has been set to true, don't set to
-      // false again as we should show the cellular disconnect warning for the
-      // duration of the flow's lifecycle.
-      if (hasActive) {
-        this.hasHadActiveCellularNetwork_ = hasActive;
-      }
-    });
-  }
-
-  /** @private */
-  shouldShowSubpageBusy_() {
-    return this.state_ === ESimUiState.ACTIVATION_CODE_ENTRY_INSTALLING ||
-        this.state_ === ESimUiState.CONFIRMATION_CODE_ENTRY_INSTALLING ||
-        this.state_ === ESimUiState.PROFILE_SELECTION_INSTALLING;
-  }
-
-  /** @private */
-  getLoadingMessage_() {
-    if (this.smdsSupportEnabled_) {
-      return this.i18n('profileLoadingPageMessage');
-    }
-
-    return this.hasHadActiveCellularNetwork_ ?
-        this.i18n('eSimProfileDetectDuringActiveCellularConnectionMessage') :
-        this.i18n('eSimProfileDetectMessage');
-  }
-
-  /**
-   * @return {string}
-   * @private
-   */
-  computeHeader_() {
-    if (this.selectedESimPageName_ === ESimPageName.FINAL && !this.showError_) {
-      return this.i18n('eSimFinalPageSuccessHeader');
-    }
-
-    if (this.selectedESimPageName_ === ESimPageName.PROFILE_DISCOVERY_CONSENT) {
-      return this.i18n('profileDiscoveryConsentTitle');
-    }
-
-    if (this.smdsSupportEnabled_) {
-      if (this.selectedESimPageName_ === ESimPageName.PROFILE_DISCOVERY) {
-        return this.i18n('profileDiscoveryPageTitle');
-      }
-
-      if (this.selectedESimPageName_ == ESimPageName.CONFIRMATION_CODE) {
-        return this.i18n('confimationCodePageTitle');
-      }
-      if (this.selectedESimPageName_ == ESimPageName.PROFILE_LOADING) {
-        return this.i18n('profileLoadingPageTitle');
-      }
-    }
-
-    return '';
-  }
-
-  /**
-   * @return {ProfileInstallMethod}
-   * @private
-   */
-  computeProfileInstallMethod_() {
-    if (this.isActivationCodeFromQrCode_) {
-      return this.hasConsentedForDiscovery_ ?
-          ProfileInstallMethod.kViaQrCodeAfterSmds :
-          ProfileInstallMethod.kViaQrCodeSkippedSmds;
-    }
-    return this.hasConsentedForDiscovery_ ?
-        ProfileInstallMethod.kViaActivationCodeAfterSmds :
-        ProfileInstallMethod.kViaActivationCodeSkippedSmds;
-  }
-
-  /**
-   * Returns true if profiles have been received and none were found.
-   * @return {boolean}
-   * @private
-   */
-  noProfilesFound_() {
-    if (this.smdsSupportEnabled_) {
-      return this.hasConsentedForDiscovery_ &&
-          !!this.pendingProfileProperties_ &&
-          this.pendingProfileProperties_.length === 0;
-    } else {
-      return (this.pendingProfiles_ && this.pendingProfiles_.length === 0);
-    }
-  }
-
-  /** @private*/
-  profilesFound_() {
-    if (this.smdsSupportEnabled_) {
-      return this.hasConsentedForDiscovery_ &&
-          !!this.pendingProfileProperties_ &&
-          this.pendingProfileProperties_.length > 0;
-    } else {
-      return (this.pendingProfiles_ && this.pendingProfiles_.length > 0);
-    }
-  }
 }
-
 customElements.define(EsimFlowUiElement.is, EsimFlowUiElement);
 
 function getTemplate$Y() {
@@ -13010,169 +12129,117 @@ function getTemplate$Y() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
+ * @fileoverview Root element for the cellular setup flow. This element wraps
+ * the psim setup flow, esim setup flow, and setup flow selection page.
  */
-const CellularSetupElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
-
-/** @polymer */
-class CellularSetupElement extends CellularSetupElementBase {
-  static get is() {
-    return 'cellular-setup';
-  }
-
-  static get template() {
-    return getTemplate$Y();
-  }
-
-  static get properties() {
-    return {
-      /** @type {!CellularSetupDelegate} */
-      delegate: Object,
-
-      /**
-       * Banner used in pSIM flow to show carrier network name. No banner
-       * shown if the string is empty.
-       */
-      flowPsimBanner: {
-        type: String,
-        notify: true,
-        value: '',
-      },
-
-      /**
-       * Header for the flow, shown below the title. No header shown if the
-       * string is empty.
-       */
-      flowHeader: {
-        type: String,
-        notify: true,
-        value: '',
-      },
-
-      /**
-       * Name of the currently displayed sub-page.
-       * @private {!CellularSetupPageName|null}
-       */
-      currentPageName: String,
-
-      /**
-       * Current user selected setup flow page name.
-       * @private {!CellularSetupPageName|null}
-       */
-      selectedFlow_: {
-        type: String,
-        value: null,
-      },
-
-      /**
-       * Button bar button state.
-       * @private {!ButtonBarState}
-       */
-      buttonState_: {
-        type: Object,
-        notify: true,
-      },
-
-      /**
-       * DOM Element corresponding to the visible page.
-       *
-       * @private {!PsimFlowUiElement|!EsimFlowUiElement}
-       */
-      currentPage_: {
-        type: Object,
-        observer: 'onPageChange_',
-      },
-
-      /**
-       * Text for the button_bar's 'Forward' button.
-       * @private {string}
-       */
-      forwardButtonLabel_: {
-        type: String,
-      },
-
-    };
-  }
-
-  /** @override */
-  connectedCallback() {
-    super.connectedCallback();
-
-    // By default eSIM flow is selected.
-    if (!this.currentPageName) {
-      this.currentPageName = CellularSetupPageName.ESIM_FLOW_UI;
+class CellularSetupElement extends PolymerElement {
+    static get is() {
+        return 'cellular-setup';
     }
-  }
-
-  /** override */
-  ready() {
-    super.ready();
-
-    this.addEventListener(
-        'backward-nav-requested', this.onBackwardNavRequested_);
-    this.addEventListener('retry-requested', this.onRetryRequested_);
-    this.addEventListener('forward-nav-requested', this.onForwardNavRequested_);
-    this.addEventListener('cancel-requested', this.onCancelRequested_);
-    this.addEventListener('focus-default-button', this.onFocusDefaultButton_);
-  }
-
-  /** @private */
-  onPageChange_() {
-    if (this.currentPage_) {
-      this.flowPsimBanner = '';
-      this.currentPage_.initSubflow();
+    static get template() {
+        return getTemplate$Y();
     }
-  }
-
-  /** @private */
-  onBackwardNavRequested_() {
-    this.currentPage_.navigateBackward();
-  }
-
-  onCancelRequested_() {
-    this.dispatchEvent(new CustomEvent('exit-cellular-setup', {
-      bubbles: true,
-      composed: true,
-    }));
-  }
-
-  /** @private */
-  onRetryRequested_() {
-    // TODO(crbug.com/1093185): Add try again logic.
-  }
-
-  /** @private */
-  onForwardNavRequested_() {
-    this.currentPage_.navigateForward();
-  }
-
-  /** @private */
-  onFocusDefaultButton_() {
-    this.$.buttonBar.focusDefaultButton();
-  }
-
-  /**
-   * @param {string} currentPage
-   * @private
-   */
-  shouldShowPsimFlow_(currentPage) {
-    return currentPage === CellularSetupPageName.PSIM_FLOW_UI;
-  }
-
-  /**
-   * @param {string} currentPage
-   * @private
-   */
-  shouldShowEsimFlow_(currentPage) {
-    return currentPage === CellularSetupPageName.ESIM_FLOW_UI;
-  }
+    static get properties() {
+        return {
+            delegate: Object,
+            /**
+             * Banner used in pSIM flow to show carrier network name. No banner
+             * shown if the string is empty.
+             */
+            flowPsimBanner: {
+                type: String,
+                notify: true,
+                value: '',
+            },
+            /**
+             * Header for the flow, shown below the title. No header shown if the
+             * string is empty.
+             */
+            flowHeader: {
+                type: String,
+                notify: true,
+                value: '',
+            },
+            /**
+             * Name of the currently displayed sub-page.
+             */
+            currentPageName: String,
+            /**
+             * Current user selected setup flow page name.
+             */
+            selectedFlow_: {
+                type: String,
+                value: null,
+            },
+            /**
+             * Button bar button state.
+             */
+            buttonState_: {
+                type: Object,
+                notify: true,
+            },
+            /**
+             * DOM Element corresponding to the visible page.
+             */
+            currentPage_: {
+                type: Object,
+                observer: 'onPageChange_',
+            },
+            /**
+             * Text for the button_bar's 'Forward' button.
+             */
+            forwardButtonLabel_: {
+                type: String,
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // By default eSIM flow is selected.
+        if (!this.currentPageName) {
+            this.currentPageName = CellularSetupPageName.ESIM_FLOW_UI;
+        }
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('backward-nav-requested', this.onBackwardNavRequested_);
+        this.addEventListener('retry-requested', this.onRetryRequested_);
+        this.addEventListener('forward-nav-requested', this.onForwardNavRequested_);
+        this.addEventListener('cancel-requested', this.onCancelRequested_);
+        this.addEventListener('focus-default-button', this.onFocusDefaultButton_);
+    }
+    onPageChange_() {
+        if (this.currentPage_) {
+            this.flowPsimBanner = '';
+            this.currentPage_.initSubflow();
+        }
+    }
+    onBackwardNavRequested_() {
+        this.currentPage_.navigateBackward();
+    }
+    onCancelRequested_() {
+        this.dispatchEvent(new CustomEvent('exit-cellular-setup', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onRetryRequested_() {
+        // TODO(crbug.com/1093185): Add try again logic.
+    }
+    onForwardNavRequested_() {
+        this.currentPage_.navigateForward();
+    }
+    onFocusDefaultButton_() {
+        this.$.buttonBar.focusDefaultButton();
+    }
+    shouldShowPsimFlow_(currentPage) {
+        return currentPage === CellularSetupPageName.PSIM_FLOW_UI;
+    }
+    shouldShowEsimFlow_(currentPage) {
+        return currentPage === CellularSetupPageName.ESIM_FLOW_UI;
+    }
 }
-
 customElements.define(CellularSetupElement.is, CellularSetupElement);
 
 function getTemplate$X() {
@@ -13853,19 +12920,9 @@ Polymer({
       reflectToAttribute: true,
     },
 
-    readonly: {
-      type: Boolean,
-      reflectToAttribute: true,
-    },
-
     invalid: {
       type: Boolean,
       value: false,
-    },
-
-    value: {
-      type: String,
-      notify: true,
     },
   },
 
@@ -13976,15 +13033,6 @@ Polymer({
       type: String,
       value: '',
     },
-
-    /**
-     * Select item value
-     * @type {string|number}
-     */
-    value: {
-      type: Object,
-      notify: true,
-    },
   },
 
   observers: ['updateSelected_(items, value)'],
@@ -14087,6 +13135,16 @@ Polymer({
     }
     return certificate.issuedBy;
   },
+
+  /**
+   * Only use the `prefilledValue` when it is also listed in the `items`.
+   */
+  isPrefilledValueValid() {
+    if (this.prefilledValue === undefined || this.prefilledValue === null) {
+      return false;
+    }
+    return this.items.includes(this.prefilledValue);
+  },
 });
 
 function getTemplate$R() {
@@ -14122,6 +13180,7 @@ function getTemplate$R() {
   <template is="dom-if" if="[[isWiFi_(mojoType_)]]" restamp>
     <network-config-input id="ssid" label="[[i18n('OncWiFi-SSID')]]"
         value="{{configProperties_.typeConfig.wifi.ssid}}"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.ssid}}"
         readonly="[[hasGuid_(guid)]]">
     </network-config-input>
   </template>
@@ -14132,6 +13191,7 @@ function getTemplate$R() {
         label="[[i18n('OncWiFi-Security')]]"
         value="{{securityType_}}" key="security"
         disabled="[[!securityIsEnabled_(guid, mojoType_)]]"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.security}}"
         items="[[getSecurityItems_(mojoType_)]]"
         onc-prefix="WiFi.Security"
         property="[[getManagedSecurity_(managedProperties_)]]">
@@ -14144,6 +13204,7 @@ function getTemplate$R() {
         on-keypress="onWifiPasswordInputKeypress_"
         label="[[i18n('OncWiFi-Passphrase')]]"
         value="{{configProperties_.typeConfig.wifi.passphrase}}"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.passphrase}}"
         property="[[managedProperties_.typeProperties.wifi.passphrase]]">
     </network-password-input>
   </template>
@@ -14300,11 +13361,13 @@ function getTemplate$R() {
   <template is="dom-if" if="[[showEap_]]" restamp>
     <network-config-select id="outer" label="[[i18n('OncEAP-Outer')]]"
         value="{{eapProperties_.outer}}" items="[[eapOuterItems_]]"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.eap.outer}}"
         onc-prefix="EAP.Outer" hidden="[[!showEap_.Outer]]"
         property="[[managedEapProperties_.outer]]">
     </network-config-select>
     <network-config-select id="inner" label="[[i18n('OncEAP-Inner')]]"
         value="{{eapProperties_.inner}}"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.eap.inner}}"
         items="[[getEapInnerItems_(eapProperties_.outer)]]"
         onc-prefix="EAP.Inner" hidden="[[!showEap_.Inner]]"
         property="[[managedEapProperties_.inner]]">
@@ -14337,14 +13400,17 @@ function getTemplate$R() {
         device-certs-only="[[deviceCertsOnly_]]">
     </network-config-select>
     <network-config-input id="oncEAPIdentity" label="[[i18n('OncEAP-Identity')]]"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.eap.identity}}"
         value="{{eapProperties_.identity}}" hidden="[[!showEap_.Identity]]"
         property="[[managedEapProperties_.identity]]">
     </network-config-input>
-    <network-password-input label="[[i18n('OncEAP-Password')]]"
+    <network-password-input id="eapPassword" label="[[i18n('OncEAP-Password')]]"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.eap.password}}"
         value="{{eapProperties_.password}}" hidden="[[!showEap_.Password]]"
         property="[[managedEapProperties_.password]]">
     </network-password-input>
-    <network-config-input label="[[i18n('OncEAP-AnonymousIdentity')]]"
+    <network-config-input id="oncEAPAnonymousIdentity" label="[[i18n('OncEAP-AnonymousIdentity')]]"
+        prefilled-value="{{prefilledProperties.typeConfig.wifi.eap.anonymousIdentity}}"
         value="{{eapProperties_.anonymousIdentity}}"
         hidden="[[!showEap_.AnonymousIdentity]]"
         property="[[managedEapProperties_.anonymousIdentity]]">
@@ -14534,6 +13600,13 @@ Polymer({
       type: String,
       notify: true,
     },
+
+    /**
+     * The prefilled network configuration. This can be empty if nothing to
+     * prefill or the configuration will be synced according to `this.guid`.
+     * @type {?ConfigProperties}
+     */
+    prefilledProperties: Object,
 
     /** @private {?ManagedProperties} */
     managedProperties_: {
@@ -17113,7 +16186,7 @@ function getTemplate$P() {
  * @fileoverview 'settings-internet-detail-menu' is a menu that provides
  * additional actions for a network in the network detail page.
  */
-const SettingsInternetDetailMenuElementBase = mixinBehaviors([ESimManagerListenerBehavior], DeepLinkingMixin(RouteObserverMixin(PolymerElement)));
+const SettingsInternetDetailMenuElementBase = ESimManagerListenerMixin(DeepLinkingMixin(RouteObserverMixin(PolymerElement)));
 class SettingsInternetDetailMenuElement extends SettingsInternetDetailMenuElementBase {
     static get is() {
         return 'settings-internet-detail-menu';
@@ -17654,7 +16727,7 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
             case NetworkType.kVPN:
                 return false;
             case NetworkType.kTether:
-                return true;
+                return !this.isInstantHotspotRebrandEnabled_();
             case NetworkType.kWiFi:
             case NetworkType.kCellular:
                 return deviceState.deviceState !== DeviceStateType.kUninitialized;
@@ -17673,6 +16746,7 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
         }
         switch (deviceState.type) {
             case NetworkType.kTether:
+                return this.i18n('internetToggleTetherA11yLabel');
             case NetworkType.kCellular:
                 return this.i18n('internetToggleMobileA11yLabel');
             case NetworkType.kWiFi:
@@ -17689,6 +16763,13 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
             return 'networkState';
         }
         return '';
+    }
+    /**
+     * @return True if instant hotspot rebrand feature flag is enabled.
+     */
+    isInstantHotspotRebrandEnabled_() {
+        return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+            loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
     }
     /**
      * @return True if VPNs are disabled by policy and the current device is VPN.
@@ -17920,7 +17001,9 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
         // The shared Cellular/Tether subpage is referred to as "Mobile".
         // TODO(khorimoto): Remove once Cellular/Tether are split into their own
         // sections.
-        if (type === NetworkType.kCellular || type === NetworkType.kTether) {
+        if (type === NetworkType.kCellular ||
+            (type === NetworkType.kTether &&
+                !this.isInstantHotspotRebrandEnabled_())) {
             type = NetworkType.kMobile;
         }
         return this.i18n('OncType' + OncMojo.getNetworkTypeString(type));
@@ -18033,6 +17116,16 @@ class NetworkSummaryElement extends NetworkSummaryElementBase {
                 value() {
                     return loadTimeData.valueExists('isHotspotEnabled') &&
                         loadTimeData.getBoolean('isHotspotEnabled');
+                },
+            },
+            /**
+             * Return true if instant hotspot rebrand feature flag is enabled
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
                 },
             },
         };
@@ -18190,7 +17283,8 @@ class NetworkSummaryElement extends NetworkSummaryElementBase {
             // lists and do not add an active network for 'Tether' so that there is
             // only one 'Mobile data' section / subpage.
             if (type === NetworkType.kTether &&
-                newDeviceStates[NetworkType.kCellular]) {
+                newDeviceStates[NetworkType.kCellular] &&
+                !this.isInstantHotspotRebrandEnabled_) {
                 newNetworkStateLists[NetworkType.kCellular] =
                     newNetworkStateLists[NetworkType.kCellular].concat(newNetworkStateLists[NetworkType.kTether]);
                 continue;
@@ -18220,7 +17314,8 @@ class NetworkSummaryElement extends NetworkSummaryElementBase {
      */
     getActiveStateForType_(activeStatesByType, type) {
         let activeState = activeStatesByType.get(type);
-        if (!activeState && type === NetworkType.kCellular) {
+        if (!activeState && type === NetworkType.kCellular &&
+            !this.isInstantHotspotRebrandEnabled_) {
             activeState = activeStatesByType.get(NetworkType.kTether);
         }
         return activeState || OncMojo.getDefaultNetworkState(type);
@@ -18543,6 +17638,16 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
                 value() {
                     return loadTimeData.valueExists('isCellularCarrierLockEnabled') &&
                         loadTimeData.getBoolean('isCellularCarrierLockEnabled');
+                },
+            },
+            /**
+             * Return true if instant hotspot rebrand feature flag is enabled
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
                 },
             },
             /**
@@ -18943,7 +18048,8 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
         // TODO(khorimoto): Remove once Cellular/Tether are split into their own
         // sections.
         if (this.subpageType_ === NetworkType.kCellular ||
-            this.subpageType_ === NetworkType.kTether) {
+            (this.subpageType_ === NetworkType.kTether &&
+                !this.isInstantHotspotRebrandEnabled_)) {
             return this.i18n('OncTypeMobile');
         }
         return this.i18n('OncType' + OncMojo.getNetworkTypeString(this.subpageType_));
@@ -18969,7 +18075,8 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
         // If both Tether and Cellular are enabled, use the Cellular device state
         // when directly navigating to the Tether page.
         if (subpageType === NetworkType.kTether &&
-            this.deviceStates[NetworkType.kCellular]) {
+            this.deviceStates[NetworkType.kCellular] &&
+            !this.isInstantHotspotRebrandEnabled_) {
             subpageType = NetworkType.kCellular;
         }
         return deviceStates[subpageType];
@@ -19239,11 +18346,11 @@ class SettingsKerberosPageElement extends SettingsKerberosPageElementBase {
 customElements.define(SettingsKerberosPageElement.is, SettingsKerberosPageElement);
 
 function getTemplate$J() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style cros-color-overrides">cr-dialog::part(dialog){width:320px}#passwordPrompt{padding-bottom:20px;padding-inline-end:0;padding-inline-start:0}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style cros-color-overrides">cr-dialog::part(dialog){width:320px}#passwordInput{margin-top:20px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{passwordPromptTitle}</div>
   <div slot="body">
-    <div id="passwordPrompt" class="cr-row first" hidden="[[!passwordPromptText]]">
+    <div id="passwordPrompt" hidden="[[!passwordPromptText]]">
       [[passwordPromptText]]
     </div>
     <cr-input id="passwordInput" type="password" placeholder="$i18n{passwordPromptPasswordLabel}" invalid="[[passwordInvalid_]]" error-message="$i18n{passwordPromptInvalidPassword}" value="{{inputValue_}}" aria-disabled="false">
@@ -19316,7 +18423,10 @@ class SettingsPasswordPromptDialogElement extends PolymerElement {
              * Interface for chrome.quickUnlockPrivate calls. May be overridden by
              * tests.
              */
-            quickUnlockPrivate: { type: Object, value: chrome.quickUnlockPrivate },
+            quickUnlockPrivate: {
+                type: Object,
+                value: chrome.quickUnlockPrivate,
+            },
             waitingForPasswordCheck_: {
                 type: Boolean,
                 value: false,
@@ -19381,7 +18491,7 @@ class SettingsPasswordPromptDialogElement extends PolymerElement {
 customElements.define(SettingsPasswordPromptDialogElement.is, SettingsPasswordPromptDialogElement);
 
 function getTemplate$I() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host-context(body:not(.jelly-enabled)):host{--cr-dialog-font-family:'Google Sans';--cr-dialog-title-font-size:16px}cr-dialog::part(dialog){width:512px}div[slot=title]{flex-direction:column;height:auto}div[slot=body]{align-items:center;display:flex;flex-direction:column;height:auto;justify-content:center;width:464px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert);padding-bottom:13px}#description{display:flex;flex-direction:column;gap:12px}:host(:not([did-setup-attempt-fail_])) #description{height:93px}:host([did-setup-attempt-fail_]) #description{height:60px}#illustration{background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;margin-bottom:24px;margin-top:24px;width:100%}:host([has-not-started-setup-attempt_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished.svg)}@media(prefers-color-scheme:dark){:host([has-not-started-setup-attempt_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup_dark.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting_dark.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error_dark.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished_dark.svg)}}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:512px}div[slot=title]{flex-direction:column;height:auto}div[slot=body]{align-items:center;display:flex;flex-direction:column;height:auto;justify-content:center;width:464px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert);padding-bottom:13px}#description{display:flex;flex-direction:column;gap:12px}:host(:not([did-setup-attempt-fail_])) #description{height:93px}:host([did-setup-attempt-fail_]) #description{height:60px}#illustration{background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;margin-bottom:24px;margin-top:24px;width:100%}:host([has-not-started-setup-attempt_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished.svg)}@media(prefers-color-scheme:dark){:host([has-not-started-setup-attempt_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup_dark.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting_dark.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error_dark.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished_dark.svg)}}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div id="dialogTitle" slot="title">
     <template is="dom-if" if="[[didSetupAttemptFail_]]" restamp>
@@ -19703,7 +18813,7 @@ class SettingsLockScreenPasswordPromptDialogElement extends SettingsLockScreenPa
 customElements.define(SettingsLockScreenPasswordPromptDialogElement.is, SettingsLockScreenPasswordPromptDialogElement);
 
 function getTemplate$G() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#screen-lock-description{align-items:center;display:flex;flex-direction:row;height:auto;justify-content:center}#half-container{flex:1;height:216px}#illustration{background-image:url(chrome://os-settings/images/multidevice_permission_setup_connecting.svg);background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;margin-bottom:8px;margin-top:8px;width:100%}@media(prefers-color-scheme:dark){#illustration{background-image:url(chrome://os-settings/images/multidevice_permission_setup_connecting_dark.svg)}}#radio-button-container{padding-top:20px}:host-context(body:not(.jelly-enabled)) #passwordRadioButton,:host-context(body:not(.jelly-enabled)) #pinRadioButton,:host-context(body:not(.jelly-enabled)) #subtext{font-family:Roboto;font-size:13px;font-weight:medium;line-height:20px}#passwordRadioButton{--cr-radio-button-label-spacing:20px;--cr-radio-button-size:20px;color:var(--cr-primary-text-color);min-height:20px;padding-inline-start:8px;padding-top:24px}#pinRadioButton{--cr-radio-button-label-spacing:20px;--cr-radio-button-size:20px;color:var(--cr-primary-text-color);min-height:20px;padding-inline-start:8px;padding-top:44px}#subtext{color:var(--cr-secondary-text-color);padding-inline-start:48px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#screen-lock-description{align-items:center;display:flex;flex-direction:row;height:auto;justify-content:center}#half-container{flex:1;height:216px}#illustration{background-image:url(chrome://os-settings/images/multidevice_permission_setup_connecting.svg);background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;margin-bottom:8px;margin-top:8px;width:100%}@media(prefers-color-scheme:dark){#illustration{background-image:url(chrome://os-settings/images/multidevice_permission_setup_connecting_dark.svg)}}#radio-button-container{padding-top:20px}#passwordRadioButton{--cr-radio-button-label-spacing:20px;--cr-radio-button-size:20px;color:var(--cr-primary-text-color);min-height:20px;padding-inline-start:8px;padding-top:24px}#pinRadioButton{--cr-radio-button-label-spacing:20px;--cr-radio-button-size:20px;color:var(--cr-primary-text-color);min-height:20px;padding-inline-start:8px;padding-top:44px}#subtext{color:var(--cr-secondary-text-color);padding-inline-start:48px}</style>
 <div id="screen-lock-description">
   <div id="half-container">
     <div id="illustration"></div>
@@ -19921,7 +19031,7 @@ class SettingsMultideviceScreenLockSubpageElement extends SettingsMultideviceScr
 customElements.define(SettingsMultideviceScreenLockSubpageElement.is, SettingsMultideviceScreenLockSubpageElement);
 
 function getTemplate$F() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:512px}#dialogTitle{--cr-dialog-title-slot-padding-bottom:24px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-slot-padding-top:24px}:host(:not([has-started-setup-attempt_])) #dialogTitle{--cr-dialog-title-slot-padding-bottom:20px}:host([is-setup-screen-lock-in-progress_]) #dialogTitle{--cr-dialog-title-slot-padding-bottom:20px}#title{align-items:center;color:var(--cros-text-color-primary);display:flex;flex-direction:row;gap:8px;justify-content:flex-start}:host-context(body:not(.jelly-enabled)) #title{font-family:var(--cros-font-family-google-sans);font-size:16px;font-weight:500;line-height:24px}:host-context(body.jelly-enabled) #title{font:var(--cros-title-1-font)}#subtitle{color:var(--cros-text-color-secondary)}:host-context(body:not(.jelly-enabled)) #subtitle{font-family:Roboto;font-size:14px;line-height:20px}:host-context(body.jelly-enabled) #subtitle{font:var(--cros-body-1-font)}#dialogBody{display:flex;flex-direction:column;padding-inline-end:24px;padding-inline-start:24px}:host([has-started-setup-attempt_]) #dialogBody{height:296px}:host([is-setup-screen-lock-in-progress_]) #dialogBody{height:260px}:host([did-setup-attempt-fail_]) #dialogBody{height:288px}:host([should-show-setup-instructions-separately_]) #dialogBody{justify-content:space-between}#buttonContainer{align-items:center;display:flex;flex-direction:row;justify-content:space-between;padding-bottom:20px;padding-inline-end:24px;padding-inline-start:24px;padding-top:0}#failure-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);height:32px;width:32px}#feature-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);height:20px;width:20px}#instruction-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:16px;width:16px}#screen-lock-instruction-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:20px;width:20px}#button-detail{align-items:flex-end;display:flex;flex-direction:row;gap:8px;justify-content:right}#description{color:var(--cros-text-color-secondary);padding-top:24px}:host-context(body:not(.jelly-enabled)) #description{font-family:Roboto;font-size:13px;line-height:20px}:host-context(body.jelly-enabled) #description{font:var(--cros-body-2-font)}#feature-description{align-items:flex-start;display:flex;flex-direction:column;width:252px}#start-setup-description{align-items:flex-start;display:flex;flex-direction:row;height:auto;justify-content:center}#feature-details-container{align-items:flex-start;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;gap:20px;justify-content:start;padding-bottom:16px}:host-context(body:not(.jelly-enabled)) #feature-details-container{font-family:Roboto;font-size:13px;line-height:20px}:host-context(body.jelly-enabled) #feature-details-container{font:var(--cros-body-2-font)}#half-container{flex:1}#instruction{align-items:flex-end;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font-size:11px;gap:6px;justify-content:start;line-height:14px;padding-bottom:24px}:host-context(body:not(.jelly-enabled)) #instruction{font-family:Roboto}#screen-lock-instruction{align-items:flex-start;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;gap:8px;justify-content:start;padding-bottom:24px}:host-context(body:not(.jelly-enabled)) #screen-lock-instruction{font-family:Roboto;font-size:13px;line-height:20px}:host-context(body.jelly-enabled) #screen-lock-instruction{font:var(--cros-body-2-font)}#illustration{background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;width:100%}:host(:not([has-started-setup-attempt_])) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup.svg);padding-bottom:8px;padding-top:8px;width:200px}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error.svg)}:host([has-completed-setup_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished.svg)}@media(prefers-color-scheme:dark){:host(:not([has-started-setup-attempt_])) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup_dark.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting_dark.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error_dark.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished_dark.svg)}}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:512px}#dialogTitle{--cr-dialog-title-slot-padding-bottom:24px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-slot-padding-top:24px}:host(:not([has-started-setup-attempt_])) #dialogTitle{--cr-dialog-title-slot-padding-bottom:20px}:host([is-setup-screen-lock-in-progress_]) #dialogTitle{--cr-dialog-title-slot-padding-bottom:20px}#title{align-items:center;color:var(--cros-text-color-primary);display:flex;flex-direction:row;font:var(--cros-title-1-font);gap:8px;justify-content:flex-start}#subtitle{color:var(--cros-text-color-secondary);font:var(--cros-body-1-font)}#dialogBody{display:flex;flex-direction:column;padding-inline-end:24px;padding-inline-start:24px}:host([has-started-setup-attempt_]) #dialogBody{height:296px}:host([is-setup-screen-lock-in-progress_]) #dialogBody{height:260px}:host([did-setup-attempt-fail_]) #dialogBody{height:288px}:host([should-show-setup-instructions-separately_]) #dialogBody{justify-content:space-between}#buttonContainer{align-items:center;display:flex;flex-direction:row;justify-content:space-between;padding-bottom:20px;padding-inline-end:24px;padding-inline-start:24px;padding-top:0}#failure-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);height:32px;width:32px}#feature-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);height:20px;width:20px}#instruction-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:16px;width:16px}#screen-lock-instruction-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:20px;width:20px}#button-detail{align-items:flex-end;display:flex;flex-direction:row;gap:8px;justify-content:right}#description{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);padding-top:24px}#feature-description{align-items:flex-start;display:flex;flex-direction:column;width:252px}#start-setup-description{align-items:flex-start;display:flex;flex-direction:row;height:auto;justify-content:center}#feature-details-container{align-items:flex-start;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font:var(--cros-body-2-font);gap:20px;justify-content:start;padding-bottom:16px}#half-container{flex:1}#instruction{align-items:flex-end;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font:var(--cros-annotation-2-font);gap:6px;justify-content:start;padding-bottom:24px}#screen-lock-instruction{align-items:flex-start;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font:var(--cros-body-2-font);gap:8px;justify-content:start;padding-bottom:24px}#illustration{background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;width:100%}:host(:not([has-started-setup-attempt_])) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup.svg);padding-bottom:8px;padding-top:8px;width:200px}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error.svg)}:host([has-completed-setup_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished.svg)}@media(prefers-color-scheme:dark){:host(:not([has-started-setup-attempt_])) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup_dark.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting_dark.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error_dark.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished_dark.svg)}}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div id="dialogTitle" slot="title">
     <div id="title" aria-live="[[getLiveStatus_(setupState_)]]" aria-labelledby="title" aria-describedby="description">
@@ -21016,24 +20126,23 @@ function getTemplate$E() {
               <template is="dom-if" if="[[showNearbyShareOnOffString_(
                         prefs.nearby_sharing.onboarding_complete.value,
                         pageContentData)]]" restamp>
-                <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
-                  <div class="secondary" id="nearbyShareSecondary">
-                    [[getOnOffString_(prefs.nearby_sharing.enabled.value,
-                      '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]
+                  <template is="dom-if" if="[[prefs.nearby_sharing.enabled.value]]">
+                    <div class="secondary" id="nearbyShareSecondary">
+                    [[getNearbyShareDescription_(settings.visibility)]]
                   </div>
-                </template>
-                <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-                  <div class="secondary" id="nearbyShareSecondary">
-                    [[getNearbyShareDescription_(prefs.nearby_sharing.enabled.value,
-                      settings.visibility)]]
-                  </div>
-                </template>
+                  </template>
+                  <template is="dom-if" if="[[!prefs.nearby_sharing.enabled.value]]">
+                    <div class="secondary" id="nearbyShareSecondary">
+                      <localized-link localized-string="$i18n{nearbyShareDescriptionOff}" link-url="$i18n{nearbyShareLearnMoreLink}">
+                      </localized-link>
+                    </div>
+                  </template>
               </template>
               <template is="dom-if" if="[[showNearbyShareSetUpDescription_(
                         prefs.nearby_sharing.onboarding_complete.value,
                         pageContentData)]]" restamp>
                 <div class="secondary" id="nearbyShareSecondary">
-                  <localized-link localized-string="$i18n{nearbyShareDescription}" link-url="$i18n{nearbyShareLearnMoreLink}">
+                  <localized-link id="setupDescription" localized-string="$i18n{nearbyShareDescription}" link-url="$i18n{nearbyShareLearnMoreLink}">
                   </localized-link>
                 </div>
               </template>
@@ -21530,10 +20639,7 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
         }
         return this.pageContentData.isNearbyShareDisallowedByPolicy;
     }
-    getNearbyShareDescription_(state, visibility) {
-        if (!state) {
-            return this.i18n('nearbyShareDescriptionOff');
-        }
+    getNearbyShareDescription_(visibility) {
         if (visibility === undefined) {
             return this.i18n('nearbyShareDescriptionHidden');
         }
@@ -21550,9 +20656,6 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
             default:
                 assertNotReached();
         }
-    }
-    getOnOffString_(state, onstr, offstr) {
-        return state ? onstr : offstr;
     }
     showNearbyShareToggle_(isOnboardingComplete) {
         return isOnboardingComplete || this.isNearbyShareDisallowedByPolicy_();
@@ -21722,7 +20825,7 @@ function getTemplate$D() {
   </div>
 
   <template is="dom-if" route-path="/manageAccessibility">
-    <os-settings-subpage page-title="$i18n{manageAccessibilityFeatures}" hide-close-button>
+    <os-settings-subpage page-title="$i18n{manageAccessibilityFeatures}" hide-back-button>
       <settings-toggle-button id="a11yImageLabelsToggle" hidden="[[!hasScreenReader_]]" pref="{{prefs.settings.a11y.enable_accessibility_image_labels}}" on-change="onToggleAccessibilityImageLabels_" label="$i18n{accessibleImageLabelsTitle}" sub-label="$i18n{accessibleImageLabelsSubtitle}" deep-link-focus-id$="[[Setting.kGetImageDescriptionsFromGoogle]]">
       </settings-toggle-button>
       <div class="hr" hidden="[[!hasScreenReader_]]"></div>
@@ -21799,6 +20902,18 @@ function getTemplate$D() {
     <os-settings-subpage page-title="$i18n{manageSwitchAccessSettings}">
       <settings-switch-access-subpage prefs="{{prefs}}">
       </settings-switch-access-subpage>
+    </os-settings-subpage>
+  </template>
+  <template is="dom-if" route-path="/manageAccessibility/faceGazeCursor">
+    <os-settings-subpage page-title="$i18n{facegazeCursorSettings}">
+      <settings-facegaze-cursor-subpage prefs="{{prefs}}">
+      </settings-facegaze-cursor-subpage>
+    </os-settings-subpage>
+  </template>
+  <template is="dom-if" route-path="/manageAccessibility/faceGazeExpressions">
+    <os-settings-subpage page-title="$i18n{facegazeFacialExpressionSettings}">
+      <settings-facegaze-facial-expression-subpage prefs="{{prefs}}">
+      </settings-facegaze-facial-expression-subpage>
     </os-settings-subpage>
   </template>
 </os-settings-animated-pages>
@@ -22779,20 +21894,22 @@ class SettingsBluetoothBasePageElement extends SettingsBluetoothBasePageElementB
     }
     connectedCallback() {
         super.connectedCallback();
-        afterNextRender(this, () => {
-            if (!this.focusDefault) {
+        afterNextRender(this, () => this.focus());
+    }
+    focus() {
+        super.focus();
+        if (!this.focusDefault) {
+            return;
+        }
+        const buttons = this.shadowRoot.querySelectorAll('cr-button');
+        // Focus to the first non-disabled, from the end.
+        for (let i = buttons.length - 1; i >= 0; i--) {
+            const button = buttons.item(i);
+            if (!button.disabled) {
+                focusWithoutInk(button);
                 return;
             }
-            const buttons = this.shadowRoot.querySelectorAll('cr-button');
-            // Focus to the first non-disabled, from the end.
-            for (let i = buttons.length - 1; i >= 0; i--) {
-                const button = buttons.item(i);
-                if (!button.disabled) {
-                    focusWithoutInk(button);
-                    return;
-                }
-            }
-        });
+        }
     }
     onCancelClick_() {
         this.dispatchEvent(new CustomEvent('cancel', {
@@ -23372,6 +22489,13 @@ class SettingsBluetoothPairingEnterCodeElement extends SettingsBluetoothPairingE
                 computed: 'computeKeys_(code)',
             },
         };
+    }
+    focus() {
+        super.focus();
+        const elem = this.shadowRoot?.querySelector('bluetooth-base-page');
+        if (elem) {
+            elem.focus();
+        }
     }
     computeKeys_() {
         if (!this.code) {
@@ -24417,7 +23541,7 @@ function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #parentalControlRowIcon{--iron-icon-fill-color:var(--cros-sys-primary)}cr-link-row{--cr-section-padding:0}</style>
 
 <settings-card header-text="$i18n{parentalControlsPageTitle}">
-  <div id="parentalControlsItem" class="settings-box two-line">
+  <div id="parentalControlsItem" class="settings-box two-line first">
     <template is="dom-if" if="[[isChild_]]">
       <cr-link-row on-click="handleFamilyLinkButtonClick_" start-icon="cr20:kite" label="$i18n{parentalControlsPageTitle}" sub-label="$i18n{parentalControlsPageViewSettingsLabel}" external>
       </cr-link-row>
@@ -24696,7 +23820,7 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
 customElements.define(AccountManagerSettingsCardElement.is, AccountManagerSettingsCardElement);
 
 function getTemplate$o() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.settings-box-text{padding-inline-start:var(--cr-section-padding)}#addAccountButtonContainer{padding-top:8px;padding-bottom:8px}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#addAccountButton{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:rgba(var(--cros-color-alert-rgb), .9);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}:host-context(body.jelly-enabled) #removeConfirmationButton{--hover-bg-action:var(--cros-sys-hover_on_prominent)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.settings-box-text{padding-inline-start:var(--cr-section-padding)}#addAccountButtonContainer{padding-top:8px;padding-bottom:8px}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#addAccountButton{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:var(--cros-sys-hover_on_prominent);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}</style>
 
 <settings-card header-text="[[getAccountListHeader_(isChildUser_)]]">
   
@@ -25554,7 +24678,7 @@ let instance$4 = null;
   }
 
 function getTemplate$n() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--icon-width:40px}.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#syncSetupRow{--cr-secondary-text-color:var(--cros-text-color-alert)}:host-context(body.jelly-enabled) #syncSetupRow{--cr-secondary-text-color:var(--cros-sys-error)}cr-link-row{--cr-link-row-icon-width:var(--icon-width);border-top:var(--cr-separator-line)}settings-parental-controls-page{--cr-link-row-icon-width:var(--icon-width)}parental-controls-settings-card{--cr-link-row-icon-width:var(--icon-width)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--icon-width:40px}.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#syncSetupRow{--cr-secondary-text-color:var(--cros-sys-error)}cr-link-row{--cr-link-row-icon-width:var(--icon-width);border-top:var(--cr-separator-line)}settings-parental-controls-page{--cr-link-row-icon-width:var(--icon-width)}parental-controls-settings-card{--cr-link-row-icon-width:var(--icon-width)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
@@ -26966,7 +26090,7 @@ class SettingsPersonalizationPageElement extends SettingsPersonalizationPageElem
 customElements.define(SettingsPersonalizationPageElement.is, SettingsPersonalizationPageElement);
 
 function getTemplate$h() {
-    return html `<!--_html_template_start_--><style include="settings-shared">#restoreIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#restoreIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}#textContainer{padding-inline-end:var(--cr-section-padding)}</style>
 
 <settings-card header-text="$i18n{onStartupSettingsCardTitle}">
   <div class="settings-box first two-line">
@@ -26974,7 +26098,7 @@ function getTemplate$h() {
       <iron-icon id="restoreIcon" icon="os-settings:restore-revamp">
       </iron-icon>
     </template>
-    <div class="start settings-box-text" aria-hidden="true">
+    <div id="textContainer" class="start settings-box-text" aria-hidden="true">
       $i18n{onStartupTitle}
       <div class="secondary">$i18n{onStartupDescription}</div>
     </div>
@@ -27527,7 +26651,7 @@ class PageDisplayerElement extends PolymerElement {
 customElements.define(PageDisplayerElement.is, PageDisplayerElement);
 
 function getTemplate$c() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style settings-shared">:host([is-subpage-animating]){overflow:hidden}:host(.showing-subpage) page-displayer:not([active]){display:none}:host-context(body.revamp-wayfinding-enabled):host(:not(.showing-subpage)){padding-top:8px}.banner{align-items:center;background-color:var(--cros-bg-color);border:var(--cr-hairline);border-radius:var(--cr-card-border-radius);display:flex;margin-bottom:var(--cr-section-vertical-margin);margin-top:var(--cr-section-vertical-margin)}.eol-warning-icon{align-items:center;background:rgba(var(--cros-icon-color-warning-rgb),var(--cros-second-tone-opacity));border-radius:50%;display:flex;flex:0 0 auto;height:40px;justify-content:center;margin-inline-end:var(--cr-section-padding);width:40px}.eol-warning-icon iron-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);margin:0}#advancedToggle{--ink-color:currentColor;align-items:center;background:0 0;border:none;box-shadow:none;color:currentColor;display:flex;font-weight:400;margin-bottom:3px;margin-top:12px;min-height:32px;padding:0 12px}:host-context(.focus-outline-visible) #advancedToggle:focus{outline:2px solid var(--cros-focus-ring-color)}#openInNewBrowserSettingsIcon{fill:var(--cros-link-color);margin-inline-start:0}#secondaryUserIcon{align-items:center;background:rgba(var(--cros-icon-color-prominent-rgb),var(--cros-second-tone-opacity));border-radius:50%;display:flex;flex:0 0 auto;height:40px;justify-content:center;margin-inline-end:var(--cr-section-padding);width:40px}#secondaryUserIcon iron-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);margin:0}#toggleContainer{align-items:center;color:var(--cros-text-color-primary);display:flex;font:inherit;justify-content:center;margin-bottom:0;margin-top:0;padding:0}#toggleSpacer{padding-top:33px}iron-icon{margin-inline-start:16px}eol-offer-section{margin-top:20px}</style>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style settings-shared">:host-context(body.revamp-wayfinding-enabled):host{--page-backdrop-bg-color:var(--cros-sys-surface1);background-color:var(--page-backdrop-bg-color);border-radius:20px;box-sizing:border-box;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:16px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled):host{--page-backdrop-bg-color:var(--cros-sys-app_base)}}:host-context(body.revamp-wayfinding-enabled):host(:not(.showing-subpage)){padding-top:8px}:host([is-subpage-animating]){overflow:hidden}:host(.showing-subpage) page-displayer:not([active]){display:none}.banner{align-items:center;background-color:var(--cros-bg-color);border:var(--cr-hairline);border-radius:var(--cr-card-border-radius);display:flex;margin-bottom:var(--cr-section-vertical-margin);margin-top:var(--cr-section-vertical-margin)}.eol-warning-icon{align-items:center;background:rgba(var(--cros-icon-color-warning-rgb),var(--cros-second-tone-opacity));border-radius:50%;display:flex;flex:0 0 auto;height:40px;justify-content:center;margin-inline-end:var(--cr-section-padding);width:40px}.eol-warning-icon iron-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);margin:0}#advancedToggle{--ink-color:currentColor;align-items:center;background:0 0;border:none;box-shadow:none;color:currentColor;display:flex;font-weight:400;margin-bottom:3px;margin-top:12px;min-height:32px;padding:0 12px}:host-context(.focus-outline-visible) #advancedToggle:focus{outline:2px solid var(--cros-focus-ring-color)}#openInNewBrowserSettingsIcon{fill:var(--cros-link-color);margin-inline-start:0}#secondaryUserIcon{align-items:center;background:rgba(var(--cros-icon-color-prominent-rgb),var(--cros-second-tone-opacity));border-radius:50%;display:flex;flex:0 0 auto;height:40px;justify-content:center;margin-inline-end:var(--cr-section-padding);width:40px}#secondaryUserIcon iron-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);margin:0}#toggleContainer{align-items:center;color:var(--cros-text-color-primary);display:flex;font:inherit;justify-content:center;margin-bottom:0;margin-top:0;padding:0}#toggleSpacer{padding-top:33px}iron-icon{margin-inline-start:16px}eol-offer-section{margin-top:20px}</style>
 
 
 <settings-languages prefs="{{prefs}}" languages="{{languages_}}" language-helper="{{languageHelper_}}">
@@ -27773,9 +26897,12 @@ const MainPageMixin = dedupingMixin((superClass) => {
             super(...arguments);
             this.lastScrollTop_ = 0;
         }
+        /**
+         * The scroller is derived from the #container ancestor element.
+         */
         get scroller_() {
             const hostEl = this.getRootNode().host;
-            return castExists(hostEl ? hostEl.parentElement : document.body);
+            return castExists(hostEl ? hostEl.closest('#container') : document.body);
         }
         /**
          * Method to be overridden by users of MainPageMixin.
@@ -28384,11 +27511,11 @@ class MainPageContainerElement extends MainPageContainerElementBase {
 customElements.define(MainPageContainerElement.is, MainPageContainerElement);
 
 function getTemplate$b() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style settings-shared">#overscroll{margin-top:64px}.showing-subpage~#overscroll{display:none}#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}managed-footnote{border-top:none;font:var(--cros-body-2-font);margin-bottom:calc(-21px - 8px);padding-bottom:14px;padding-top:14px;position:relative;z-index:1;--cr-link-color:var(--cros-sys-primary);--cr-secondary-text-color:var(--cros-sys-secondary);--iron-icon-fill-color:var(--cros-sys-secondary)}</style>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style settings-shared">:host-context(body.revamp-wayfinding-enabled):host{display:flex;flex-direction:column}:host-context(body.revamp-wayfinding-enabled) #mainPageContainer{flex:1;margin-bottom:16px}#overscroll{margin-top:64px}.showing-subpage~#overscroll{display:none}:host-context(body.revamp-wayfinding-enabled) #overscroll{display:none}#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}#managedHeader{border-top:none;font:var(--cros-body-2-font);margin-bottom:calc(-21px - 8px);padding-bottom:14px;padding-top:14px;position:relative;z-index:1;--cr-link-color:var(--cros-sys-primary);--cr-secondary-text-color:var(--cros-sys-secondary);--iron-icon-fill-color:var(--cros-sys-secondary)}:host-context(body.revamp-wayfinding-enabled) #managedHeader{margin-bottom:8px}</style>
 <template is="dom-if" if="[[showManagedHeader_(isShowingSubpage_, isShowingAboutPage_)]]" restamp>
-  <managed-footnote show-device-info></managed-footnote>
+  <managed-footnote id="managedHeader" show-device-info></managed-footnote>
 </template>
-<main-page-container class="cr-centered-card-container" prefs="{{prefs}}" page-availability="[[pageAvailability]]" advanced-toggle-expanded="{{advancedToggleExpanded}}">
+<main-page-container id="mainPageContainer" class="cr-centered-card-container" prefs="{{prefs}}" page-availability="[[pageAvailability]]" advanced-toggle-expanded="{{advancedToggleExpanded}}">
 </main-page-container>
 <div id="overscroll" style="padding-bottom:[[overscroll_]]px"></div>
 <!--_html_template_end_-->`;
@@ -28534,7 +27661,7 @@ customElements.define(OsSettingsMainElement.is, OsSettingsMainElement);
 
 function getTemplate$a() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
-                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+                var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -28544,7 +27671,7 @@ function getTemplate$a() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -28586,7 +27713,6 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'showingSearchChanged_',
                 reflectToAttribute: true,
             },
             disabled: {
@@ -28658,29 +27784,22 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
     onSearchTermKeydown_(e) {
         if (e.key === 'Escape') {
             this.showingSearch = false;
+            this.setValue('');
+            this.getSearchInput().blur();
         }
     }
     showSearch_(e) {
         if (e.target !== this.shadowRoot.querySelector('#clearSearch')) {
             this.showingSearch = true;
         }
+        if (this.narrow) {
+            this.focus_();
+        }
     }
     clearSearch_() {
         this.setValue('');
         this.focus_();
         this.spinnerActive = false;
-    }
-    showingSearchChanged_(_current, previous) {
-        // Prevent unnecessary 'search-changed' event from firing on startup.
-        if (previous === undefined) {
-            return;
-        }
-        if (this.showingSearch) {
-            this.focus_();
-            return;
-        }
-        this.setValue('');
-        this.getSearchInput().blur();
     }
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
@@ -29029,7 +28148,7 @@ var search_mojomWebui = /*#__PURE__*/Object.freeze({
 });
 
 function getTemplate$9() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{width:100%}:host([selected]) [focus-row-container]{background-color:var(--cros-sys-highlight_shape)}:host(:not([selected])) [focus-row-container]:hover{background-color:var(--cros-sys-hover_on_subtle)}[focus-row-control][selectable]:focus{background-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([dir=rtl]) #actionTypeIcon{transform:scaleX(-1)}[focus-row-container]{width:inherit}#searchResultContainer{align-items:center;display:flex;height:48px;justify-content:center}#resultText{flex-grow:1;margin:var(--cr-toolbar-search-field-term-margin)}iron-icon{margin:var(--cr-toolbar-icon-margin);width:var(--cr-toolbar-icon-container-size)}b{color:var(--cros-sys-on_surface)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{width:100%}:host([selected]) [focus-row-container]{background-color:var(--cros-sys-highlight_shape)}:host(:not([selected])) [focus-row-container]:hover{background-color:var(--cros-sys-hover_on_subtle)}[focus-row-control][selectable]:focus{background-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([dir=rtl]) #actionTypeIcon{transform:scaleX(-1)}[focus-row-container]{width:inherit}#searchResultContainer{align-items:center;display:flex;height:48px;justify-content:center;font:var(--cros-body-2-font)}#resultText{flex-grow:1;margin:var(--cr-toolbar-search-field-term-margin)}iron-icon{margin:var(--cr-toolbar-icon-margin);width:var(--cr-toolbar-icon-container-size)}b{color:var(--cros-sys-on_surface)}</style>
 <div focus-row-container>
   
   <div focus-row-control focus-type="rowWrapper" id="searchResultContainer" on-click="onSearchResultSelected" on-keypress="onKeyPress_" aria-disabled="true" selectable>
@@ -30031,7 +29150,7 @@ async function combinedSearch(query, maxNumResults, parentResultBehavior) {
 }
 
 function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toolbar-search-field-background:var(--cros-sys-input_field_on_shaded);--cr-toolbar-focused-min-height:40px;--cr-toolbar-icon-container-size:32px;--cr-toolbar-icon-margin:8px 16px;--cr-toolbar-search-field-icon-opacity:1;--cr-toolbar-search-field-narrow-mode-prompt-opacity:1;--cr-toolbar-search-field-prompt-opacity:1;--cr-toolbar-search-icon-margin-inline-start:16px;--cr-toolbar-query-exists-min-height:var(--cr-toolbar-focused-min-height);--separator-height:8px;-webkit-tap-highlight-color:transparent;display:flex;flex-basis:var(--cr-toolbar-field-width);transition:width 150ms cubic-bezier(.4,0,.2,1);width:var(--cr-toolbar-field-width)}@media (prefers-color-scheme:dark){:host{--cr-toolbar-search-field-narrow-mode-prompt-opacity:1}}:host([narrow]:not([showing-search])){flex-direction:row;justify-content:flex-end}:host([narrow][showing-search]){justify-content:center}cr-toolbar-search-field{--cr-toolbar-search-field-term-margin:0;--cr-toolbar-search-field-border-radius:var(--settings-toolbar-search-field-border-radius);--cr-toolbar-search-field-paper-spinner-margin:0 12px;--cr-toolbar-search-field-input-icon-color:var(--cros-icon-color-primary);--cr-toolbar-search-field-input-text-color:var(--cros-text-color-primary);--cr-toolbar-search-field-input-caret-color:currentColor;--cr-toolbar-search-field-prompt-color:var(--cros-text-color-secondary);--cr-toolbar-icon-button-focus-outline-color:var(--cros-focus-ring-color);--cr-toolbar-field-max-width:var(--cr-toolbar-field-width);height:var(--settings-toolbar-search-box-height);font-size:13px}:host([narrow][showing-search]) cr-toolbar-search-field{background-color:var(--cr-toolbar-search-field-background)}:host([narrow]:not([showing-search])) cr-toolbar-search-field{padding-inline-end:var(--settings-toolbar-padding-inline-end)}:host([showing-search]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-background:var(--cros-bg-color-elevation-3);box-shadow:var(--cr-elevation-1);min-height:var(--cr-toolbar-focused-min-height)}:host([has-search-query]) cr-toolbar-search-field{min-height:var(--cr-toolbar-query-exists-min-height)}:host(:not(:focus-within)) cr-toolbar-search-field{--cr-toolbar-search-field-cursor:pointer}:host([should-show-dropdown_]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;box-shadow:var(--cr-elevation-3);height:56px;margin-top:var(--separator-height);padding-bottom:var(--separator-height)}:host-context([chrome-refresh-2023]):host([should-show-dropdown_]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;outline:0}iron-dropdown{margin-top:72px}iron-dropdown [slot=dropdown-content]{background-color:var(--cros-bg-color-elevation-3);border-radius:0 0 20px 20px;box-shadow:var(--cr-elevation-3);display:table;padding-bottom:8px;width:var(--cr-toolbar-field-width)}iron-list{max-height:50vh}.pill-button-with-icon{--border-color:transparent;--cr-button-height:24px;--hover-bg-color:var(--cros-highlight-color);--text-color:var(--cros-text-color-secondary);border-radius:24px;margin-inline-end:8px;padding:4px 8px}.pill-button-with-icon:hover{--text-color:var(--cros-text-color-prominent)}#noSearchResultsContainer{height:32px;line-height:32px;margin-inline-start:24px}#reportSearchResult{display:flex;justify-content:flex-end;margin-inline-start:8px}.separator{background-color:var(--cros-bg-color-elevation-3);border-top:1px solid var(--cros-sys-separator);height:var(--separator-height);margin-inline-end:0;margin-inline-start:0;margin-top:-9px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toolbar-search-field-background:var(--cros-sys-input_field_on_shaded);--cr-toolbar-focused-min-height:40px;--cr-toolbar-icon-container-size:32px;--cr-toolbar-icon-margin:8px 16px;--cr-toolbar-search-field-icon-opacity:1;--cr-toolbar-search-field-narrow-mode-prompt-opacity:1;--cr-toolbar-search-field-prompt-opacity:1;--cr-toolbar-search-icon-margin-inline-start:16px;--cr-toolbar-query-exists-min-height:var(--cr-toolbar-focused-min-height);--separator-height:8px;-webkit-tap-highlight-color:transparent;display:flex;flex-basis:var(--cr-toolbar-field-width);transition:width 150ms cubic-bezier(.4,0,.2,1);width:var(--cr-toolbar-field-width)}@media (prefers-color-scheme:dark){:host{--cr-toolbar-search-field-narrow-mode-prompt-opacity:1}}:host([narrow]:not([showing-search])){flex-direction:row;justify-content:flex-end}:host([narrow][showing-search]){justify-content:center}cr-toolbar-search-field{--cr-toolbar-search-field-term-margin:0;--cr-toolbar-search-field-border-radius:var(--settings-toolbar-search-field-border-radius);--cr-toolbar-search-field-paper-spinner-margin:0 12px;--cr-toolbar-search-field-input-icon-color:var(--cros-icon-color-primary);--cr-toolbar-search-field-input-text-color:var(--cros-text-color-primary);--cr-toolbar-search-field-input-caret-color:currentColor;--cr-toolbar-search-field-prompt-color:var(--cros-text-color-secondary);--cr-toolbar-icon-button-focus-outline-color:var(--cros-focus-ring-color);--cr-toolbar-field-max-width:var(--cr-toolbar-field-width);font:var(--cros-body-2-font);height:var(--settings-toolbar-search-box-height)}:host([narrow][showing-search]) cr-toolbar-search-field{background-color:var(--cr-toolbar-search-field-background)}:host([narrow]:not([showing-search])) cr-toolbar-search-field{padding-inline-end:var(--settings-toolbar-padding-inline-end)}:host([showing-search]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-background:var(--cros-bg-color-elevation-3);box-shadow:var(--cr-elevation-1);min-height:var(--cr-toolbar-focused-min-height)}:host([has-search-query]) cr-toolbar-search-field{min-height:var(--cr-toolbar-query-exists-min-height)}:host(:not(:focus-within)) cr-toolbar-search-field{--cr-toolbar-search-field-cursor:pointer}:host([should-show-dropdown_]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;box-shadow:var(--cr-elevation-3);height:56px;margin-top:var(--separator-height);padding-bottom:var(--separator-height)}:host-context([chrome-refresh-2023]):host([should-show-dropdown_]:focus-within) cr-toolbar-search-field{--cr-toolbar-search-field-border-radius:20px 20px 0 0;outline:0}iron-dropdown{margin-top:72px}iron-dropdown [slot=dropdown-content]{background-color:var(--cros-bg-color-elevation-3);border-radius:0 0 20px 20px;box-shadow:var(--cr-elevation-3);display:table;padding-bottom:8px;width:var(--cr-toolbar-field-width)}iron-list{max-height:50vh}.pill-button-with-icon{--border-color:transparent;--cr-button-height:24px;--hover-bg-color:var(--cros-highlight-color);--text-color:var(--cros-text-color-secondary);border-radius:24px;margin-inline-end:8px;padding:4px 8px}.pill-button-with-icon:hover{--text-color:var(--cros-text-color-prominent)}#noSearchResultsContainer{height:32px;line-height:32px;margin-inline-start:24px;font:var(--cros-body-2-font)}#reportSearchResult{display:flex;justify-content:flex-end;margin-inline-start:8px}.separator{background-color:var(--cros-bg-color-elevation-3);border-top:1px solid var(--cros-sys-separator);height:var(--separator-height);margin-inline-end:0;margin-inline-start:0;margin-top:-9px}</style>
 <cr-toolbar-search-field id="search" narrow="[[narrow]]" on-search-icon-clicked="onSearchIconClicked_" label="$i18n{searchPrompt}" clear-label="$i18n{clearSearch}" showing-search="{{showingSearch}}" spinner-active="[[spinnerActive]]">
 </cr-toolbar-search-field>
 <iron-dropdown id="searchResults" opened="[[shouldShowDropdown_]]" allow-outside-scroll no-cancel-on-outside-click>
@@ -30480,7 +29599,7 @@ class OsSettingsSearchBoxElement extends OsSettingsSearchBoxElementBase {
 customElements.define(OsSettingsSearchBoxElement.is, OsSettingsSearchBoxElement);
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="cr-icons cr-hidden-style settings-shared">:host{align-items:center;background-color:var(--cros-sys-app_base_shaded);color:var(--cros-text-color-secondary);display:flex;height:var(--settings-toolbar-height);padding-top:var(--settings-toolbar-padding-top)}h1{flex:1;font-size:123%;font-weight:500;letter-spacing:.25px;line-height:normal;margin-inline-start:8px;padding-inline-end:12px}:host-context(body.revamp-wayfinding-enabled) h1{color:var(--cros-sys-primary);font:var(--cros-title-1-font)}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:var(--settings-toolbar-padding-inline-start);width:var(--settings-menu-width)}:host([narrow]) #leftSpacer{width:20px;padding-inline-start:var(--settings-toolbar-padding-inline-start-narrow)}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;min-width:32px}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:8px}:host([narrow]) #centeredContent{position:absolute;width:100%;z-index:-1}:host([narrow]:not([showing-search_])) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #settingsTitle{display:none}:host([showing-search_][is-search-box-cutoff_]) os-settings-search-box{--cr-toolbar-field-width:min(80vw,
+    return html `<!--_html_template_start_--><style include="cr-icons cr-hidden-style settings-shared">:host{align-items:center;background-color:var(--settings-base-bg-color);color:var(--cros-text-color-secondary);display:flex;height:var(--settings-toolbar-height);padding-top:var(--settings-toolbar-padding-top)}h1{flex:1;font-size:123%;font-weight:500;letter-spacing:.25px;line-height:normal;margin-inline-start:8px;padding-inline-end:12px}:host-context(body.revamp-wayfinding-enabled) h1{color:var(--cros-sys-primary);font:var(--cros-title-1-font)}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:var(--settings-toolbar-padding-inline-start);width:var(--settings-menu-width)}:host([narrow]) #leftSpacer{width:20px;padding-inline-start:var(--settings-toolbar-padding-inline-start-narrow)}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;min-width:32px}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:8px}:host([narrow]) #centeredContent{position:absolute;width:100%;z-index:-1}:host([narrow]:not([showing-search_])) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #settingsTitle{display:none}:host([showing-search_][is-search-box-cutoff_]) os-settings-search-box{--cr-toolbar-field-width:min(80vw,
       var(--settings-toolbar-search-box-width));margin-inline-start:48px}:host([showing-search_][is-search-box-cutoff_][narrow]) os-settings-search-box{--cr-toolbar-field-width:min(80vw,
       var(--settings-toolbar-narrow-search-box-width))}:host([showing-search_][narrow]:not([is-search-box-cutoff_])) os-settings-search-box{--cr-toolbar-field-width:var(--settings-toolbar-narrow-search-box-width)}:host(:not([narrow]):not([is-search-box-cutoff_])) os-settings-search-box{--cr-toolbar-field-width:var(--settings-toolbar-search-box-width)}:host(:not([narrow])) #leftContent{flex:1 1 0}:host(:not([narrow])) #centeredContent{flex-basis:var(--settings-main-basis)}:host([narrow][showing-search_]) #rightContent{display:none}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}</style>
 <iron-media-query query="(max-width: 780px)" query-matches="{{isSearchBoxCutoff_}}">
@@ -30565,56 +29684,71 @@ customElements.define(OsToolbarElement.is, OsToolbarElement);
 /**
  * @fileoverview Utility functions for settings metrics
  */
+const PrefType = chrome.settingsPrivate.PrefType;
 // Sorted and grouped by page alphabetically.
 const PREF_TO_SETTING_MAP = {
+    // Date and time settings
+    'settings.clock.use_24hour_clock': {
+        setting: Setting.k24HourClock,
+        type: PrefType.BOOLEAN,
+    },
+    'generated.resolve_timezone_by_geolocation_on_off': {
+        setting: Setting.kChangeTimeZone,
+        type: PrefType.BOOLEAN,
+    },
+    // Startup settings
+    'settings.restore_apps_and_pages': {
+        setting: Setting.kRestoreAppsAndPages,
+        type: PrefType.NUMBER,
+    },
     // device_page/audio.ts
     'ash.low_battery_sound.enabled': {
         setting: Setting.kLowBatterySound,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
     'ash.charging_sounds.enabled': {
         setting: Setting.kChargingSounds,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
     // device_page/keyboard.ts
     'settings.language.send_function_keys': {
         setting: Setting.kKeyboardFunctionKeys,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
     // device_page/pointers.ts
     'settings.touchpad.sensitivity2': {
         setting: Setting.kTouchpadSpeed,
-        type: chrome.settingsPrivate.PrefType.NUMBER,
+        type: PrefType.NUMBER,
     },
     // os_a11y_page/display_and_magnification_subpage.ts
     'settings.a11y.screen_magnifier_focus_following': {
         setting: Setting.kFullscreenMagnifierFocusFollowing,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
     'settings.a11y.screen_magnifier_mouse_following_mode': {
         setting: Setting.kFullscreenMagnifierMouseFollowingMode,
-        type: chrome.settingsPrivate.PrefType.NUMBER,
+        type: PrefType.NUMBER,
     },
     'settings.a11y.color_filtering.enabled': {
         setting: Setting.kColorCorrectionEnabled,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
     'settings.a11y.color_filtering.color_vision_deficiency_type': {
         setting: Setting.kColorCorrectionFilterType,
-        type: chrome.settingsPrivate.PrefType.NUMBER,
+        type: PrefType.NUMBER,
     },
     'settings.a11y.color_filtering.color_vision_correction_amount': {
         setting: Setting.kColorCorrectionFilterAmount,
-        type: chrome.settingsPrivate.PrefType.NUMBER,
+        type: PrefType.NUMBER,
     },
     // os_privacy_page/os_privacy_page.js
     'cros.device.peripheral_data_access_enabled': {
         setting: Setting.kPeripheralDataAccessProtection,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
     'cros.reven.enable_hw_data_usage': {
         setting: Setting.kRevenEnableHwDataUsage,
-        type: chrome.settingsPrivate.PrefType.BOOLEAN,
+        type: PrefType.BOOLEAN,
     },
 };
 // Converts a given settings pref to a pair of setting ID and setting change
@@ -30627,10 +29761,10 @@ function convertPrefToSettingMetric(prefKey, prefValue) {
     }
     const { type, setting } = settingAndType;
     switch (type) {
-        case chrome.settingsPrivate.PrefType.BOOLEAN:
+        case PrefType.BOOLEAN:
             assert(typeof prefValue === 'boolean');
             return { setting, value: { boolValue: prefValue } };
-        case chrome.settingsPrivate.PrefType.NUMBER:
+        case PrefType.NUMBER:
             assert(typeof prefValue === 'number');
             return { setting, value: { intValue: prefValue } };
         // pref to setting metric not implemented.
@@ -30709,7 +29843,7 @@ class OsSettingsHatsBrowserProxyImpl {
 
 function getTemplate$6() {
     return html `<!--_html_template_start_--><style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
-        var(--cr-centered-card-width-percentage));--cr-card-border-radius:4px;--cr-card-shadow:var(--cr-elevation-1);--cr-toolbar-padding-top:8px}os-toolbar{min-height:56px;z-index:3}cr-drawer{--cr-separator-line:none;--cr-drawer-header-color:var(--cros-text-color-secondary);--cr-drawer-header-font-weight:500;--cr-drawer-header-padding:20px}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}:host-context(body.revamp-wayfinding-enabled) #container{padding-top:var(--settings-container-padding-top)}#left,#main,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left os-settings-menu{height:100%;overflow:auto;overscroll-behavior:contain}:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface3);border-start-end-radius:30px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface2)}}:host-context(body.revamp-wayfinding-enabled) #drawer{--cr-drawer-border-start-end-radius:12px;--cr-drawer-border-end-end-radius:12px;--cr-drawer-header-color:var(--cros-sys-primary);--cr-drawer-header-font:var(--cros-title-1-font);--cr-drawer-header-padding:22px;--cr-drawer-width:var(--settings-menu-width)}#main{flex-basis:var(--settings-main-basis)}@media (max-width:980px){#left,#right{display:none}#main{min-width:auto;padding:0 3px}}#drawerIcon{cursor:pointer;margin-inline-end:14px;margin-inline-start:0;outline:0}:host-context(body.revamp-wayfinding-enabled) #drawerIcon{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:6px}</style>
+        var(--cr-centered-card-width-percentage));--cr-card-border-radius:4px;--cr-card-shadow:var(--cr-elevation-1);--cr-toolbar-padding-top:8px}os-toolbar{min-height:56px;z-index:3}cr-drawer{--cr-separator-line:none;--cr-drawer-header-color:var(--cros-text-color-secondary);--cr-drawer-header-font-weight:500;--cr-drawer-header-padding:20px}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}:host-context(body.revamp-wayfinding-enabled) #container{padding-top:8px}#center,#left,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left os-settings-menu{height:100%;overflow:auto;overscroll-behavior:contain}:host-context(body.revamp-wayfinding-enabled) #drawer{--cr-drawer-border-start-end-radius:12px;--cr-drawer-border-end-end-radius:12px;--cr-drawer-header-color:var(--cros-sys-primary);--cr-drawer-header-font:var(--cros-title-1-font);--cr-drawer-header-padding:22px;--cr-drawer-width:var(--settings-menu-width)}#center{flex-basis:var(--settings-main-basis)}:host-context(body.revamp-wayfinding-enabled) #center{height:100%}:host-context(body.revamp-wayfinding-enabled) #center>os-settings-main{min-height:100%}@media (max-width:980px){#left,#right{display:none}#center{min-width:auto;padding:0 3px}}#drawerIcon{cursor:pointer;margin-inline-end:14px;margin-inline-start:0;outline:0}:host-context(body.revamp-wayfinding-enabled) #drawerIcon{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:6px}</style>
 <settings-prefs id="prefs" prefs="{{prefs}}"></settings-prefs>
 <iron-media-query query="(max-width: [[narrowThreshold_]]px)" query-matches="{{isNarrow}}">
 </iron-media-query>
@@ -30732,6 +29866,7 @@ function getTemplate$6() {
     </div>
   </cr-drawer>
 </template>
+
 <div id="container" class="no-outline">
   <div id="left">
     <template is="dom-if" if="[[showNavMenu_]]">
@@ -30739,8 +29874,10 @@ function getTemplate$6() {
       </os-settings-menu>
     </template>
   </div>
-  <os-settings-main id="main" prefs="{{prefs}}" toolbar-spinner-active="{{toolbarSpinnerActive_}}" page-availability="[[pageAvailability_]]" advanced-toggle-expanded="{{advancedOpenedInMain_}}">
-  </os-settings-main>
+  <div id="center">
+    <os-settings-main prefs="{{prefs}}" toolbar-spinner-active="{{toolbarSpinnerActive_}}" page-availability="[[pageAvailability_]]" advanced-toggle-expanded="{{advancedOpenedInMain_}}">
+    </os-settings-main>
+  </div>
   
   <div id="right"></div>
 </div>
@@ -31232,11 +30369,11 @@ class SettingsPerDeviceKeyboardSubsectionElement extends SettingsPerDeviceKeyboa
     onPoliciesChanged() {
         this.topRowAreFunctionKeysPref = {
             ...this.topRowAreFunctionKeysPref,
-            ...getPrefPolicyFields(this.keyboardPolicies.topRowAreFkeysPolicy),
+            ...getPrefPolicyFields$1(this.keyboardPolicies.topRowAreFkeysPolicy),
         };
         this.blockMetaFunctionKeyRewritesPref = {
             ...this.blockMetaFunctionKeyRewritesPref,
-            ...getPrefPolicyFields(this.keyboardPolicies.enableMetaFkeyRewritesPolicy),
+            ...getPrefPolicyFields$1(this.keyboardPolicies.enableMetaFkeyRewritesPolicy),
         };
     }
     onLearnMoreLinkClicked_(event) {
@@ -31570,7 +30707,7 @@ class SettingsPerDeviceMouseSubsectionElement extends SettingsPerDeviceMouseSubs
     onPoliciesChanged() {
         this.primaryRightPref = {
             ...this.primaryRightPref,
-            ...getPrefPolicyFields(this.mousePolicies.swapRightPolicy),
+            ...getPrefPolicyFields$1(this.mousePolicies.swapRightPolicy),
         };
     }
     onLearnMoreLinkClicked_(event) {
@@ -32330,5 +31467,5 @@ window.addEventListener('load', () => {
     ColorChangeUpdater.forDocument().start();
 });
 
-export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
+export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, DisplayLayoutElement, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
 //# sourceMappingURL=os_settings.rollup.js.map

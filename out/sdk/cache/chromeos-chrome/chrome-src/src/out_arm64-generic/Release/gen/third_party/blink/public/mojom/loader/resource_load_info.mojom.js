@@ -90,8 +90,9 @@
   ResourceType.kPluginResource = 17;
   ResourceType.kNavigationPreloadMainFrame = 19;
   ResourceType.kNavigationPreloadSubFrame = 20;
+  ResourceType.kJson = 21;
   ResourceType.MIN_VALUE = 0;
-  ResourceType.MAX_VALUE = 20;
+  ResourceType.MAX_VALUE = 21;
 
   ResourceType.isKnownEnumValue = function(value) {
     switch (value) {
@@ -115,6 +116,7 @@
     case 17:
     case 19:
     case 20:
+    case 21:
       return true;
     }
     return false;

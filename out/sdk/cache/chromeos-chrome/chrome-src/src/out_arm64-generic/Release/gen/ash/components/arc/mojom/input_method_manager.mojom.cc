@@ -939,6 +939,8 @@ bool InputConnection_RequestTextInputState_ForwardToCallback::Accept(
           internal::InputConnection_RequestTextInputState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputConnection.3
   bool success = true;
   TextInputStatePtr p_state{};
   InputConnection_RequestTextInputState_ResponseParamsDataView input_data_view(params, message);
@@ -1023,6 +1025,8 @@ bool InputConnectionStubDispatch::Accept(
           reinterpret_cast<internal::InputConnection_CommitText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.0
       bool success = true;
       ::std::u16string p_text{};
       int32_t p_new_cursor_pos{};
@@ -1041,9 +1045,9 @@ bool InputConnectionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CommitText(
-std::move(p_text), 
-std::move(p_new_cursor_pos));
+      impl->CommitText(        
+        std::move(p_text), 
+        std::move(p_new_cursor_pos));
       return true;
     }
     case internal::kInputConnection_DeleteSurroundingText_Name: {
@@ -1053,6 +1057,8 @@ std::move(p_new_cursor_pos));
           reinterpret_cast<internal::InputConnection_DeleteSurroundingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.1
       bool success = true;
       int32_t p_before{};
       int32_t p_after{};
@@ -1071,9 +1077,9 @@ std::move(p_new_cursor_pos));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSurroundingText(
-std::move(p_before), 
-std::move(p_after));
+      impl->DeleteSurroundingText(        
+        std::move(p_before), 
+        std::move(p_after));
       return true;
     }
     case internal::kInputConnection_FinishComposingText_Name: {
@@ -1083,6 +1089,8 @@ std::move(p_after));
           reinterpret_cast<internal::InputConnection_FinishComposingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.2
       bool success = true;
       InputConnection_FinishComposingText_ParamsDataView input_data_view(params, message);
       
@@ -1095,7 +1103,7 @@ std::move(p_after));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FinishComposingText();
+      impl->FinishComposingText(        );
       return true;
     }
     case internal::kInputConnection_RequestTextInputState_Name: {
@@ -1108,6 +1116,8 @@ std::move(p_after));
           reinterpret_cast<internal::InputConnection_SetComposingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.4
       bool success = true;
       ::std::u16string p_text{};
       int32_t p_new_cursor_pos{};
@@ -1129,10 +1139,10 @@ std::move(p_after));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetComposingText(
-std::move(p_text), 
-std::move(p_new_cursor_pos), 
-std::move(p_new_selection_range));
+      impl->SetComposingText(        
+        std::move(p_text), 
+        std::move(p_new_cursor_pos), 
+        std::move(p_new_selection_range));
       return true;
     }
     case internal::kInputConnection_SetSelection_Name: {
@@ -1142,6 +1152,8 @@ std::move(p_new_selection_range));
           reinterpret_cast<internal::InputConnection_SetSelection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.5
       bool success = true;
       ::gfx::Range p_new_selection_range{};
       InputConnection_SetSelection_ParamsDataView input_data_view(params, message);
@@ -1157,8 +1169,8 @@ std::move(p_new_selection_range));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSelection(
-std::move(p_new_selection_range));
+      impl->SetSelection(        
+        std::move(p_new_selection_range));
       return true;
     }
     case internal::kInputConnection_SendKeyEvent_Name: {
@@ -1168,6 +1180,8 @@ std::move(p_new_selection_range));
           reinterpret_cast<internal::InputConnection_SendKeyEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.6
       bool success = true;
       ::std::unique_ptr<::ui::KeyEvent> p_key_event_data{};
       InputConnection_SendKeyEvent_ParamsDataView input_data_view(params, message);
@@ -1183,8 +1197,8 @@ std::move(p_new_selection_range));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendKeyEvent(
-std::move(p_key_event_data));
+      impl->SendKeyEvent(        
+        std::move(p_key_event_data));
       return true;
     }
     case internal::kInputConnection_SetCompositionRange_Name: {
@@ -1194,6 +1208,8 @@ std::move(p_key_event_data));
           reinterpret_cast<internal::InputConnection_SetCompositionRange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputConnection.7
       bool success = true;
       ::gfx::Range p_new_range{};
       InputConnection_SetCompositionRange_ParamsDataView input_data_view(params, message);
@@ -1209,8 +1225,8 @@ std::move(p_key_event_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCompositionRange(
-std::move(p_new_range));
+      impl->SetCompositionRange(        
+        std::move(p_new_range));
       return true;
     }
   }
@@ -1242,6 +1258,8 @@ bool InputConnectionStubDispatch::AcceptWithResponder(
               internal::InputConnection_RequestTextInputState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputConnection.3
       bool success = true;
       InputConnection_RequestTextInputState_ParamsDataView input_data_view(params, message);
       
@@ -1571,6 +1589,8 @@ bool InputMethodManagerHostStubDispatch::Accept(
           reinterpret_cast<internal::InputMethodManagerHost_OnActiveImeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerHost.0
       bool success = true;
       std::string p_ime_id{};
       InputMethodManagerHost_OnActiveImeChanged_ParamsDataView input_data_view(params, message);
@@ -1586,8 +1606,8 @@ bool InputMethodManagerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnActiveImeChanged(
-std::move(p_ime_id));
+      impl->OnActiveImeChanged(        
+        std::move(p_ime_id));
       return true;
     }
     case internal::kInputMethodManagerHost_OnImeDisabled_Name: {
@@ -1597,6 +1617,8 @@ std::move(p_ime_id));
           reinterpret_cast<internal::InputMethodManagerHost_OnImeDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerHost.2
       bool success = true;
       std::string p_ime_id{};
       InputMethodManagerHost_OnImeDisabled_ParamsDataView input_data_view(params, message);
@@ -1612,8 +1634,8 @@ std::move(p_ime_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImeDisabled(
-std::move(p_ime_id));
+      impl->OnImeDisabled(        
+        std::move(p_ime_id));
       return true;
     }
     case internal::kInputMethodManagerHost_OnImeInfoChanged_Name: {
@@ -1623,6 +1645,8 @@ std::move(p_ime_id));
           reinterpret_cast<internal::InputMethodManagerHost_OnImeInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerHost.1
       bool success = true;
       std::vector<ImeInfoPtr> p_ime_infos{};
       InputMethodManagerHost_OnImeInfoChanged_ParamsDataView input_data_view(params, message);
@@ -1638,8 +1662,8 @@ std::move(p_ime_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImeInfoChanged(
-std::move(p_ime_infos));
+      impl->OnImeInfoChanged(        
+        std::move(p_ime_infos));
       return true;
     }
   }
@@ -2299,6 +2323,8 @@ bool InputMethodManagerInstance_Init_ForwardToCallback::Accept(
           internal::InputMethodManagerInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodManagerInstance.0
   bool success = true;
   InputMethodManagerInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -2406,6 +2432,8 @@ bool InputMethodManagerInstance_EnableIme_ForwardToCallback::Accept(
           internal::InputMethodManagerInstance_EnableIme_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodManagerInstance.1
   bool success = true;
   bool p_success{};
   InputMethodManagerInstance_EnableIme_ResponseParamsDataView input_data_view(params, message);
@@ -2525,6 +2553,8 @@ bool InputMethodManagerInstance_SwitchImeTo_ForwardToCallback::Accept(
           internal::InputMethodManagerInstance_SwitchImeTo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethodManagerInstance.2
   bool success = true;
   bool p_success{};
   InputMethodManagerInstance_SwitchImeTo_ResponseParamsDataView input_data_view(params, message);
@@ -2608,6 +2638,8 @@ bool InputMethodManagerInstanceStubDispatch::Accept(
           reinterpret_cast<internal::InputMethodManagerInstance_Focus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.3
       bool success = true;
       ::mojo::PendingRemote<InputConnection> p_connection{};
       TextInputStatePtr p_initial_state{};
@@ -2628,9 +2660,9 @@ bool InputMethodManagerInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Focus(
-std::move(p_connection), 
-std::move(p_initial_state));
+      impl->Focus(        
+        std::move(p_connection), 
+        std::move(p_initial_state));
       return true;
     }
     case internal::kInputMethodManagerInstance_UpdateTextInputState_Name: {
@@ -2640,6 +2672,8 @@ std::move(p_initial_state));
           reinterpret_cast<internal::InputMethodManagerInstance_UpdateTextInputState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.4
       bool success = true;
       TextInputStatePtr p_state{};
       InputMethodManagerInstance_UpdateTextInputState_ParamsDataView input_data_view(params, message);
@@ -2655,8 +2689,8 @@ std::move(p_initial_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTextInputState(
-std::move(p_state));
+      impl->UpdateTextInputState(        
+        std::move(p_state));
       return true;
     }
     case internal::kInputMethodManagerInstance_ShowVirtualKeyboard_Name: {
@@ -2666,6 +2700,8 @@ std::move(p_state));
           reinterpret_cast<internal::InputMethodManagerInstance_ShowVirtualKeyboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.5
       bool success = true;
       InputMethodManagerInstance_ShowVirtualKeyboard_ParamsDataView input_data_view(params, message);
       
@@ -2678,7 +2714,7 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowVirtualKeyboard();
+      impl->ShowVirtualKeyboard(        );
       return true;
     }
     case internal::kInputMethodManagerInstance_HideVirtualKeyboard_Name: {
@@ -2688,6 +2724,8 @@ std::move(p_state));
           reinterpret_cast<internal::InputMethodManagerInstance_HideVirtualKeyboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.6
       bool success = true;
       InputMethodManagerInstance_HideVirtualKeyboard_ParamsDataView input_data_view(params, message);
       
@@ -2700,7 +2738,7 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideVirtualKeyboard();
+      impl->HideVirtualKeyboard(        );
       return true;
     }
   }
@@ -2723,6 +2761,8 @@ bool InputMethodManagerInstanceStubDispatch::AcceptWithResponder(
               internal::InputMethodManagerInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.0
       bool success = true;
       ::mojo::PendingRemote<InputMethodManagerHost> p_host_remote{};
       InputMethodManagerInstance_Init_ParamsDataView input_data_view(params, message);
@@ -2743,8 +2783,8 @@ bool InputMethodManagerInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kInputMethodManagerInstance_EnableIme_Name: {
@@ -2754,6 +2794,8 @@ std::move(p_host_remote), std::move(callback));
               internal::InputMethodManagerInstance_EnableIme_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.1
       bool success = true;
       std::string p_ime_id{};
       bool p_enable{};
@@ -2775,9 +2817,9 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableIme(
-std::move(p_ime_id), 
-std::move(p_enable), std::move(callback));
+      impl->EnableIme(        
+        std::move(p_ime_id), 
+        std::move(p_enable), std::move(callback));
       return true;
     }
     case internal::kInputMethodManagerInstance_SwitchImeTo_Name: {
@@ -2787,6 +2829,8 @@ std::move(p_enable), std::move(callback));
               internal::InputMethodManagerInstance_SwitchImeTo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethodManagerInstance.2
       bool success = true;
       std::string p_ime_id{};
       InputMethodManagerInstance_SwitchImeTo_ParamsDataView input_data_view(params, message);
@@ -2805,8 +2849,8 @@ std::move(p_enable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SwitchImeTo(
-std::move(p_ime_id), std::move(callback));
+      impl->SwitchImeTo(        
+        std::move(p_ime_id), std::move(callback));
       return true;
     }
     case internal::kInputMethodManagerInstance_Focus_Name: {

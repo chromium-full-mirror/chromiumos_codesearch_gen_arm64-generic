@@ -115,7 +115,7 @@ export class ExceptionListElement extends ExceptionListElementBase {
         this.$.menu.get().close();
     }
     onDeleteClick_() {
-        this.deletePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.selectedRule_);
+        this.deletePrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, this.selectedRule_);
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.REMOVE);
         this.$.menu.get().close();
     }
@@ -134,10 +134,15 @@ export class ExceptionListElement extends ExceptionListElementBase {
             TAB_DISCARD_EXCEPTIONS_PREF]) {
             // Annotate sites with their managed status and append them to newSites
             // with managed sites first.
-            const { value: sites, enforcement } = this.getPref(pref);
+            const prefObject = this.getPref(pref);
+            let sites = prefObject.value;
+            if (sites.constructor.name === 'Object') {
+                sites = Object.keys(sites);
+            }
             const siteToExceptionEntry = (site) => ({
                 site,
-                managed: enforcement === chrome.settingsPrivate.Enforcement.ENFORCED,
+                managed: prefObject.enforcement ===
+                    chrome.settingsPrivate.Enforcement.ENFORCED,
             });
             newSites.push(...sites.map(siteToExceptionEntry));
         }

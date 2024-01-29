@@ -614,438 +614,221 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAudioLevel()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_audio_level_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_audio_level_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasBytesReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_bytes_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_bytes_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasConcealedSamples()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_concealed_samples_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_concealed_samples_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasConcealmentEvents()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_concealment_events_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_concealment_events_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasContentType()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_content_type_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_content_type_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasDecoderImplementation()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_decoder_implementation_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_decoder_implementation_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasEstimatedPlayoutTimestamp()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_estimated_playout_timestamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_estimated_playout_timestamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 if (hasFecBytesReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_fec_bytes_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_fec_bytes_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
 }
 if (hasFecPacketsDiscarded()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_fec_packets_discarded_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_fec_packets_discarded_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
 }
 if (hasFecPacketsReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_fec_packets_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_fec_packets_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
 }
 if (hasFecSsrc()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_fec_ssrc_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_fec_ssrc_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
 }
 if (hasFirCount()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_fir_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_fir_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
 }
 if (hasFrameHeight()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_height_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_height_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
 }
 if (hasFrameWidth()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_width_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_width_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
 }
 if (hasFramesAssembledFromMultiplePackets()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_assembled_from_multiple_packets_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_assembled_from_multiple_packets_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
 }
 if (hasFramesDecoded()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_decoded_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_decoded_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
 }
 if (hasFramesDropped()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_dropped_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_dropped_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
 }
 if (hasFramesPerSecond()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_frames_per_second_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_frames_per_second_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
 }
 if (hasFramesReceived()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
 }
 if (hasFreezeCount()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_freeze_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_freeze_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
 }
 if (hasGoogTimingFrameInfo()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_goog_timing_frame_info_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_goog_timing_frame_info_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
 }
 if (hasHeaderBytesReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_header_bytes_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_header_bytes_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
 }
 if (hasInsertedSamplesForDeceleration()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_inserted_samples_for_deceleration_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_inserted_samples_for_deceleration_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
 }
 if (hasJitterBufferDelay()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_buffer_delay_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_buffer_delay_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
 }
 if (hasJitterBufferEmittedCount()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_jitter_buffer_emitted_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_jitter_buffer_emitted_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
 }
 if (hasJitterBufferMinimumDelay()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_buffer_minimum_delay_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_buffer_minimum_delay_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
 }
 if (hasJitterBufferTargetDelay()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_buffer_target_delay_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_buffer_target_delay_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
 }
 if (hasKeyFramesDecoded()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_key_frames_decoded_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_key_frames_decoded_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
 }
 if (hasLastPacketReceivedTimestamp()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_last_packet_received_timestamp_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_last_packet_received_timestamp_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).ToChecked();
 }
 if (hasMid()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_mid_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_mid_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).ToChecked();
 }
 if (hasNackCount()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_nack_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_nack_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).ToChecked();
 }
 if (hasPacketsDiscarded()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_packets_discarded_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_packets_discarded_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).ToChecked();
 }
 if (hasPauseCount()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_pause_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[32].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_pause_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[32].Get(isolate), v8_value).ToChecked();
 }
 if (hasPlayoutId()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_playout_id_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[33].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_playout_id_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[33].Get(isolate), v8_value).ToChecked();
 }
 if (hasPliCount()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_pli_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[34].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_pli_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[34].Get(isolate), v8_value).ToChecked();
 }
 if (hasPowerEfficientDecoder()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_power_efficient_decoder_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[35].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_power_efficient_decoder_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[35].Get(isolate), v8_value).ToChecked();
 }
 if (hasQpSum()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_qp_sum_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[36].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_qp_sum_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[36].Get(isolate), v8_value).ToChecked();
 }
 if (hasRemoteId()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_remote_id_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[37].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_remote_id_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[37].Get(isolate), v8_value).ToChecked();
 }
 if (hasRemovedSamplesForAcceleration()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_removed_samples_for_acceleration_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[38].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_removed_samples_for_acceleration_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[38].Get(isolate), v8_value).ToChecked();
 }
 if (hasRetransmittedBytesReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_bytes_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[39].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_bytes_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[39].Get(isolate), v8_value).ToChecked();
 }
 if (hasRetransmittedPacketsReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_packets_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[40].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_packets_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[40].Get(isolate), v8_value).ToChecked();
 }
 if (hasRtxSsrc()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtx_ssrc_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[41].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtx_ssrc_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[41].Get(isolate), v8_value).ToChecked();
 }
 if (hasSilentConcealedSamples()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_silent_concealed_samples_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[42].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_silent_concealed_samples_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[42].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalAssemblyTime()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_assembly_time_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[43].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_assembly_time_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[43].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalAudioEnergy()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_audio_energy_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[44].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_audio_energy_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[44].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalDecodeTime()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_decode_time_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[45].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_decode_time_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[45].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalFreezesDuration()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_freezes_duration_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[46].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_freezes_duration_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[46].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalInterFrameDelay()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_inter_frame_delay_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[47].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_inter_frame_delay_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[47].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalPausesDuration()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_pauses_duration_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[48].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_pauses_duration_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[48].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalProcessingDelay()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_processing_delay_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[49].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_processing_delay_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[49].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalSamplesDuration()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_samples_duration_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[50].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_samples_duration_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[50].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalSamplesReceived()) {
-  if (!ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_total_samples_received_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[51].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_total_samples_received_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[51].Get(isolate), v8_value).ToChecked();
 }
 if (hasTotalSquaredInterFrameDelay()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_total_squared_inter_frame_delay_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[52].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_squared_inter_frame_delay_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[52].Get(isolate), v8_value).ToChecked();
 }
 if (hasTrackIdentifier()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_track_identifier_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[53].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_track_identifier_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[53].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

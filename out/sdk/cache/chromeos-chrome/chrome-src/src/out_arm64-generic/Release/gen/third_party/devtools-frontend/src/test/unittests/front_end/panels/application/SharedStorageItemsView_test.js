@@ -20,18 +20,18 @@ class SharedStorageItemsListener {
     #editedEvents = [];
     constructor(dispatcher) {
         this.#dispatcher = dispatcher;
-        this.#dispatcher.addEventListener(View.SharedStorageItemsDispatcher.Events.ItemsCleared, this.#itemsCleared, this);
-        this.#dispatcher.addEventListener(View.SharedStorageItemsDispatcher.Events.FilteredItemsCleared, this.#filteredItemsCleared, this);
-        this.#dispatcher.addEventListener(View.SharedStorageItemsDispatcher.Events.ItemsRefreshed, this.#itemsRefreshed, this);
-        this.#dispatcher.addEventListener(View.SharedStorageItemsDispatcher.Events.ItemDeleted, this.#itemDeleted, this);
-        this.#dispatcher.addEventListener(View.SharedStorageItemsDispatcher.Events.ItemEdited, this.#itemEdited, this);
+        this.#dispatcher.addEventListener("ItemsCleared" /* View.SharedStorageItemsDispatcher.Events.ItemsCleared */, this.#itemsCleared, this);
+        this.#dispatcher.addEventListener("FilteredItemsCleared" /* View.SharedStorageItemsDispatcher.Events.FilteredItemsCleared */, this.#filteredItemsCleared, this);
+        this.#dispatcher.addEventListener("ItemsRefreshed" /* View.SharedStorageItemsDispatcher.Events.ItemsRefreshed */, this.#itemsRefreshed, this);
+        this.#dispatcher.addEventListener("ItemDeleted" /* View.SharedStorageItemsDispatcher.Events.ItemDeleted */, this.#itemDeleted, this);
+        this.#dispatcher.addEventListener("ItemEdited" /* View.SharedStorageItemsDispatcher.Events.ItemEdited */, this.#itemEdited, this);
     }
     dispose() {
-        this.#dispatcher.removeEventListener(View.SharedStorageItemsDispatcher.Events.ItemsCleared, this.#itemsCleared, this);
-        this.#dispatcher.removeEventListener(View.SharedStorageItemsDispatcher.Events.FilteredItemsCleared, this.#filteredItemsCleared, this);
-        this.#dispatcher.removeEventListener(View.SharedStorageItemsDispatcher.Events.ItemsRefreshed, this.#itemsRefreshed, this);
-        this.#dispatcher.removeEventListener(View.SharedStorageItemsDispatcher.Events.ItemDeleted, this.#itemDeleted, this);
-        this.#dispatcher.removeEventListener(View.SharedStorageItemsDispatcher.Events.ItemEdited, this.#itemEdited, this);
+        this.#dispatcher.removeEventListener("ItemsCleared" /* View.SharedStorageItemsDispatcher.Events.ItemsCleared */, this.#itemsCleared, this);
+        this.#dispatcher.removeEventListener("FilteredItemsCleared" /* View.SharedStorageItemsDispatcher.Events.FilteredItemsCleared */, this.#filteredItemsCleared, this);
+        this.#dispatcher.removeEventListener("ItemsRefreshed" /* View.SharedStorageItemsDispatcher.Events.ItemsRefreshed */, this.#itemsRefreshed, this);
+        this.#dispatcher.removeEventListener("ItemDeleted" /* View.SharedStorageItemsDispatcher.Events.ItemDeleted */, this.#itemDeleted, this);
+        this.#dispatcher.removeEventListener("ItemEdited" /* View.SharedStorageItemsDispatcher.Events.ItemEdited */, this.#itemEdited, this);
     }
     get deletedKeys() {
         return this.#deletedKeys;
@@ -59,30 +59,30 @@ class SharedStorageItemsListener {
     }
     async waitForItemsCleared() {
         if (!this.#cleared) {
-            await this.#dispatcher.once(View.SharedStorageItemsDispatcher.Events.ItemsCleared);
+            await this.#dispatcher.once("ItemsCleared" /* View.SharedStorageItemsDispatcher.Events.ItemsCleared */);
         }
         this.#cleared = true;
     }
     async waitForFilteredItemsCleared() {
         if (!this.#filteredCleared) {
-            await this.#dispatcher.once(View.SharedStorageItemsDispatcher.Events.FilteredItemsCleared);
+            await this.#dispatcher.once("FilteredItemsCleared" /* View.SharedStorageItemsDispatcher.Events.FilteredItemsCleared */);
         }
         this.#filteredCleared = true;
     }
     async waitForItemsRefreshed() {
         if (!this.#refreshed) {
-            await this.#dispatcher.once(View.SharedStorageItemsDispatcher.Events.ItemsRefreshed);
+            await this.#dispatcher.once("ItemsRefreshed" /* View.SharedStorageItemsDispatcher.Events.ItemsRefreshed */);
         }
         this.#refreshed = true;
     }
     async waitForItemsDeletedTotal(total) {
         while (this.#deletedKeys.length < total) {
-            await this.#dispatcher.once(View.SharedStorageItemsDispatcher.Events.ItemDeleted);
+            await this.#dispatcher.once("ItemDeleted" /* View.SharedStorageItemsDispatcher.Events.ItemDeleted */);
         }
     }
     async waitForItemsEditedTotal(total) {
         while (this.#editedEvents.length < total) {
-            await this.#dispatcher.once(View.SharedStorageItemsDispatcher.Events.ItemEdited);
+            await this.#dispatcher.once("ItemEdited" /* View.SharedStorageItemsDispatcher.Events.ItemEdited */);
         }
     }
 }
@@ -496,7 +496,7 @@ describeWithMockConnection('SharedStorageItemsView', function () {
         // Adding a filter to the text box will cause `getMetadata()`, and `getEntries()` to be called.
         itemsListener.resetRefreshed();
         const refreshedPromise2 = itemsListener.waitForItemsRefreshed();
-        view.filterItem.dispatchEventToListeners(UI.Toolbar.ToolbarInput.Event.TextChanged, 'b');
+        view.filterItem.dispatchEventToListeners("TextChanged" /* UI.Toolbar.ToolbarInput.Event.TextChanged */, 'b');
         await raf();
         await refreshedPromise2;
         assert.isTrue(getMetadataSpy.calledThrice);
@@ -520,7 +520,7 @@ describeWithMockConnection('SharedStorageItemsView', function () {
         // Changing the filter in the text box will cause `getMetadata()`, and `getEntries()` to be called.
         itemsListener.resetRefreshed();
         const refreshedPromise3 = itemsListener.waitForItemsRefreshed();
-        view.filterItem.dispatchEventToListeners(UI.Toolbar.ToolbarInput.Event.TextChanged, '');
+        view.filterItem.dispatchEventToListeners("TextChanged" /* UI.Toolbar.ToolbarInput.Event.TextChanged */, '');
         await raf();
         await refreshedPromise3;
         assert.strictEqual(getMetadataSpy.callCount, 5);

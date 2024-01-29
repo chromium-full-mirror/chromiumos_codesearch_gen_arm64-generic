@@ -815,6 +815,27 @@ static_assert(
       return int32_t{};
     return data_->reply_button_index;
   }
+  inline void GetChildrenDataDataView(
+      mojo::ArrayDataView<ArcNotificationDataDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChildrenData(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::arc::mojom::ArcNotificationDataDataView>, UserType>(),
+    "Attempting to read the optional `children_data` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadChildrenData` instead "
+    "of `ReadChildrenData if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 34
+                    ? data_->children_data.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::arc::mojom::ArcNotificationDataDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::ArcNotificationData_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1377,6 +1398,16 @@ struct Serializer<::arc::mojom::ArcNotificationDataDataView, MaybeConstUserType>
     fragment->group_key.Set(
         group_key_fragment.is_null() ? nullptr : group_key_fragment.data());
     fragment->reply_button_index = Traits::reply_button_index(input);
+    decltype(Traits::children_data(input)) in_children_data = Traits::children_data(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->children_data)::BaseType>
+        children_data_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& children_data_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::arc::mojom::ArcNotificationDataDataView>>(
+        in_children_data, children_data_fragment, &children_data_validate_params);
+    fragment->children_data.Set(
+        children_data_fragment.is_null() ? nullptr : children_data_fragment.data());
   }
 
   static bool Deserialize(::arc::mojom::internal::ArcNotificationData_Data* input,
@@ -1636,6 +1667,12 @@ inline void ArcNotificationDataDataView::GetGroupKeyDataView(
   auto pointer = data_->header_.version >= 29
                  ? data_->group_key.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void ArcNotificationDataDataView::GetChildrenDataDataView(
+    mojo::ArrayDataView<ArcNotificationDataDataView>* output) {
+  auto pointer = data_->header_.version >= 34
+                 ? data_->children_data.Get() : nullptr;
+  *output = mojo::ArrayDataView<ArcNotificationDataDataView>(pointer, message_);
 }
 
 

@@ -37,8 +37,8 @@ cros.mojom.EffectSpec = { $: mojo.internal.Enum() };
  */
 cros.mojom.Effect = {
   
-  NO_EFFECT: 0,
-  PORTRAIT_MODE: 1,
+  kNoEffect: 0,
+  kPortraitMode: 1,
   MIN_VALUE: 0,
   MAX_VALUE: 1,
 };
@@ -57,11 +57,11 @@ cros.mojom.StreamTypeSpec = { $: mojo.internal.Enum() };
  */
 cros.mojom.StreamType = {
   
-  PREVIEW_OUTPUT: 0,
-  JPEG_OUTPUT: 1,
-  JPEG_PORTRAIT_OUTPUT: 2,
-  RECORDIND_OUTPUT: 3,
-  UNKNOWN: 4,
+  kPreviewOutput: 0,
+  kJpegOutput: 1,
+  kJpegPortraitOutput: 2,
+  kRecordingOutput: 3,
+  kUnknown: 4,
   MIN_VALUE: 0,
   MAX_VALUE: 4,
 };
@@ -80,8 +80,8 @@ cros.mojom.GetCameraAppDeviceStatusSpec = { $: mojo.internal.Enum() };
  */
 cros.mojom.GetCameraAppDeviceStatus = {
   
-  SUCCESS: 0,
-  ERROR_INVALID_ID: 1,
+  kSuccess: 0,
+  kErrorInvalidId: 1,
   MIN_VALUE: 0,
   MAX_VALUE: 1,
 };
@@ -100,10 +100,10 @@ cros.mojom.CaptureIntentSpec = { $: mojo.internal.Enum() };
  */
 cros.mojom.CaptureIntent = {
   
-  DEFAULT: 0,
-  VIDEO_RECORD: 1,
-  STILL_CAPTURE: 2,
-  PORTRAIT_CAPTURE: 3,
+  kDefault: 0,
+  kVideoRecord: 1,
+  kStillCapture: 2,
+  kPortraitCapture: 3,
   MIN_VALUE: 0,
   MAX_VALUE: 3,
 };

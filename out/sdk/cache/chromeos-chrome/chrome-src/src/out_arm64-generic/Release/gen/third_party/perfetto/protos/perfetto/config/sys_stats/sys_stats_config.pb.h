@@ -232,6 +232,7 @@ class SysStatsConfig final :
     kCpufreqPeriodMsFieldNumber = 8,
     kBuddyinfoPeriodMsFieldNumber = 9,
     kDiskstatPeriodMsFieldNumber = 10,
+    kPsiPeriodMsFieldNumber = 11,
   };
   // repeated .perfetto.protos.MeminfoCounters meminfo_counters = 2;
   int meminfo_counters_size() const;
@@ -375,6 +376,19 @@ class SysStatsConfig final :
   void _internal_set_diskstat_period_ms(uint32_t value);
   public:
 
+  // optional uint32 psi_period_ms = 11;
+  bool has_psi_period_ms() const;
+  private:
+  bool _internal_has_psi_period_ms() const;
+  public:
+  void clear_psi_period_ms();
+  uint32_t psi_period_ms() const;
+  void set_psi_period_ms(uint32_t value);
+  private:
+  uint32_t _internal_psi_period_ms() const;
+  void _internal_set_psi_period_ms(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:perfetto.protos.SysStatsConfig)
  private:
   class _Internal;
@@ -394,6 +408,7 @@ class SysStatsConfig final :
   uint32_t cpufreq_period_ms_;
   uint32_t buddyinfo_period_ms_;
   uint32_t diskstat_period_ms_;
+  uint32_t psi_period_ms_;
   friend struct ::TableStruct_protos_2fperfetto_2fconfig_2fsys_5fstats_2fsys_5fstats_5fconfig_2eproto;
 };
 // ===================================================================
@@ -736,6 +751,34 @@ inline void SysStatsConfig::_internal_set_diskstat_period_ms(uint32_t value) {
 inline void SysStatsConfig::set_diskstat_period_ms(uint32_t value) {
   _internal_set_diskstat_period_ms(value);
   // @@protoc_insertion_point(field_set:perfetto.protos.SysStatsConfig.diskstat_period_ms)
+}
+
+// optional uint32 psi_period_ms = 11;
+inline bool SysStatsConfig::_internal_has_psi_period_ms() const {
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  return value;
+}
+inline bool SysStatsConfig::has_psi_period_ms() const {
+  return _internal_has_psi_period_ms();
+}
+inline void SysStatsConfig::clear_psi_period_ms() {
+  psi_period_ms_ = 0u;
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline uint32_t SysStatsConfig::_internal_psi_period_ms() const {
+  return psi_period_ms_;
+}
+inline uint32_t SysStatsConfig::psi_period_ms() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.SysStatsConfig.psi_period_ms)
+  return _internal_psi_period_ms();
+}
+inline void SysStatsConfig::_internal_set_psi_period_ms(uint32_t value) {
+  _has_bits_[0] |= 0x00000080u;
+  psi_period_ms_ = value;
+}
+inline void SysStatsConfig::set_psi_period_ms(uint32_t value) {
+  _internal_set_psi_period_ms(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.SysStatsConfig.psi_period_ms)
 }
 
 #ifdef __GNUC__

@@ -295,6 +295,8 @@ bool OriginTrialStateHostStubDispatch::Accept(
           reinterpret_cast<internal::OriginTrialStateHost_ApplyFeatureDiffForOriginTrial_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OriginTrialStateHost.0
       bool success = true;
       base::flat_map<::blink::mojom::RuntimeFeature, OriginTrialFeatureStatePtr> p_origin_trial_features{};
       OriginTrialStateHost_ApplyFeatureDiffForOriginTrial_ParamsDataView input_data_view(params, message);
@@ -310,8 +312,8 @@ bool OriginTrialStateHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyFeatureDiffForOriginTrial(
-std::move(p_origin_trial_features));
+      impl->ApplyFeatureDiffForOriginTrial(        
+        std::move(p_origin_trial_features));
       return true;
     }
     case internal::kOriginTrialStateHost_EnablePersistentTrial_Name: {
@@ -321,6 +323,8 @@ std::move(p_origin_trial_features));
           reinterpret_cast<internal::OriginTrialStateHost_EnablePersistentTrial_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OriginTrialStateHost.1
       bool success = true;
       std::string p_token{};
       std::vector<::url::Origin> p_script_origins{};
@@ -339,9 +343,9 @@ std::move(p_origin_trial_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnablePersistentTrial(
-std::move(p_token), 
-std::move(p_script_origins));
+      impl->EnablePersistentTrial(        
+        std::move(p_token), 
+        std::move(p_script_origins));
       return true;
     }
   }

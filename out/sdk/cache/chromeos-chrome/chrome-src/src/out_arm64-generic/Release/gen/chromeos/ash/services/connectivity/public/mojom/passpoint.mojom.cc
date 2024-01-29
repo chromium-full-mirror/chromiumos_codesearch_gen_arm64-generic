@@ -325,6 +325,8 @@ bool PasspointEventsListenerStubDispatch::Accept(
           reinterpret_cast<internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasspointEventsListener.0
       bool success = true;
       PasspointSubscriptionPtr p_subscription{};
       PasspointEventsListener_OnPasspointSubscriptionAdded_ParamsDataView input_data_view(params, message);
@@ -340,8 +342,8 @@ bool PasspointEventsListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPasspointSubscriptionAdded(
-std::move(p_subscription));
+      impl->OnPasspointSubscriptionAdded(        
+        std::move(p_subscription));
       return true;
     }
     case internal::kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name: {
@@ -351,6 +353,8 @@ std::move(p_subscription));
           reinterpret_cast<internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasspointEventsListener.1
       bool success = true;
       PasspointSubscriptionPtr p_subscription{};
       PasspointEventsListener_OnPasspointSubscriptionRemoved_ParamsDataView input_data_view(params, message);
@@ -366,8 +370,8 @@ std::move(p_subscription));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPasspointSubscriptionRemoved(
-std::move(p_subscription));
+      impl->OnPasspointSubscriptionRemoved(        
+        std::move(p_subscription));
       return true;
     }
   }
@@ -814,6 +818,8 @@ bool PasspointService_GetPasspointSubscription_ForwardToCallback::Accept(
           internal::PasspointService_GetPasspointSubscription_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasspointService.0
   bool success = true;
   PasspointSubscriptionPtr p_result{};
   PasspointService_GetPasspointSubscription_ResponseParamsDataView input_data_view(params, message);
@@ -939,6 +945,8 @@ bool PasspointService_ListPasspointSubscriptions_ForwardToCallback::Accept(
           internal::PasspointService_ListPasspointSubscriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasspointService.1
   bool success = true;
   std::vector<PasspointSubscriptionPtr> p_result{};
   PasspointService_ListPasspointSubscriptions_ResponseParamsDataView input_data_view(params, message);
@@ -1070,6 +1078,8 @@ bool PasspointService_DeletePasspointSubscription_ForwardToCallback::Accept(
           internal::PasspointService_DeletePasspointSubscription_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasspointService.2
   bool success = true;
   bool p_success{};
   PasspointService_DeletePasspointSubscription_ResponseParamsDataView input_data_view(params, message);
@@ -1153,6 +1163,8 @@ bool PasspointServiceStubDispatch::Accept(
           reinterpret_cast<internal::PasspointService_RegisterPasspointListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasspointService.3
       bool success = true;
       ::mojo::PendingRemote<PasspointEventsListener> p_listener{};
       PasspointService_RegisterPasspointListener_ParamsDataView input_data_view(params, message);
@@ -1170,8 +1182,8 @@ bool PasspointServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterPasspointListener(
-std::move(p_listener));
+      impl->RegisterPasspointListener(        
+        std::move(p_listener));
       return true;
     }
   }
@@ -1194,6 +1206,8 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
               internal::PasspointService_GetPasspointSubscription_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasspointService.0
       bool success = true;
       std::string p_id{};
       PasspointService_GetPasspointSubscription_ParamsDataView input_data_view(params, message);
@@ -1212,8 +1226,8 @@ bool PasspointServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPasspointSubscription(
-std::move(p_id), std::move(callback));
+      impl->GetPasspointSubscription(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kPasspointService_ListPasspointSubscriptions_Name: {
@@ -1223,6 +1237,8 @@ std::move(p_id), std::move(callback));
               internal::PasspointService_ListPasspointSubscriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasspointService.1
       bool success = true;
       PasspointService_ListPasspointSubscriptions_ParamsDataView input_data_view(params, message);
       
@@ -1248,6 +1264,8 @@ std::move(p_id), std::move(callback));
               internal::PasspointService_DeletePasspointSubscription_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasspointService.2
       bool success = true;
       std::string p_id{};
       PasspointService_DeletePasspointSubscription_ParamsDataView input_data_view(params, message);
@@ -1266,8 +1284,8 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeletePasspointSubscription(
-std::move(p_id), std::move(callback));
+      impl->DeletePasspointSubscription(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kPasspointService_RegisterPasspointListener_Name: {

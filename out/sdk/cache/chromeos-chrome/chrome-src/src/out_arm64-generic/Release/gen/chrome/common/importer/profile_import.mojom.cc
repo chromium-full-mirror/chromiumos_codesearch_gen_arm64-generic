@@ -1244,6 +1244,8 @@ bool ProfileImportObserverStubDispatch::Accept(
           reinterpret_cast<internal::ProfileImportObserver_OnImportStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.0
       bool success = true;
       ProfileImportObserver_OnImportStart_ParamsDataView input_data_view(params, message);
       
@@ -1256,7 +1258,7 @@ bool ProfileImportObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImportStart();
+      impl->OnImportStart(        );
       return true;
     }
     case internal::kProfileImportObserver_OnImportFinished_Name: {
@@ -1266,6 +1268,8 @@ bool ProfileImportObserverStubDispatch::Accept(
           reinterpret_cast<internal::ProfileImportObserver_OnImportFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.1
       bool success = true;
       bool p_succeeded{};
       std::string p_error_msg{};
@@ -1284,9 +1288,9 @@ bool ProfileImportObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImportFinished(
-std::move(p_succeeded), 
-std::move(p_error_msg));
+      impl->OnImportFinished(        
+        std::move(p_succeeded), 
+        std::move(p_error_msg));
       return true;
     }
     case internal::kProfileImportObserver_OnImportItemStart_Name: {
@@ -1296,6 +1300,8 @@ std::move(p_error_msg));
           reinterpret_cast<internal::ProfileImportObserver_OnImportItemStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.2
       bool success = true;
       ::importer::ImportItem p_item{};
       ProfileImportObserver_OnImportItemStart_ParamsDataView input_data_view(params, message);
@@ -1311,8 +1317,8 @@ std::move(p_error_msg));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImportItemStart(
-std::move(p_item));
+      impl->OnImportItemStart(        
+        std::move(p_item));
       return true;
     }
     case internal::kProfileImportObserver_OnImportItemFinished_Name: {
@@ -1322,6 +1328,8 @@ std::move(p_item));
           reinterpret_cast<internal::ProfileImportObserver_OnImportItemFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.3
       bool success = true;
       ::importer::ImportItem p_item{};
       ProfileImportObserver_OnImportItemFinished_ParamsDataView input_data_view(params, message);
@@ -1337,8 +1345,8 @@ std::move(p_item));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnImportItemFinished(
-std::move(p_item));
+      impl->OnImportItemFinished(        
+        std::move(p_item));
       return true;
     }
     case internal::kProfileImportObserver_OnHistoryImportStart_Name: {
@@ -1348,6 +1356,8 @@ std::move(p_item));
           reinterpret_cast<internal::ProfileImportObserver_OnHistoryImportStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.4
       bool success = true;
       uint32_t p_total_history_rows_count{};
       ProfileImportObserver_OnHistoryImportStart_ParamsDataView input_data_view(params, message);
@@ -1363,8 +1373,8 @@ std::move(p_item));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHistoryImportStart(
-std::move(p_total_history_rows_count));
+      impl->OnHistoryImportStart(        
+        std::move(p_total_history_rows_count));
       return true;
     }
     case internal::kProfileImportObserver_OnHistoryImportGroup_Name: {
@@ -1374,6 +1384,8 @@ std::move(p_total_history_rows_count));
           reinterpret_cast<internal::ProfileImportObserver_OnHistoryImportGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.5
       bool success = true;
       std::vector<::ImporterURLRow> p_history_rows_group{};
       int32_t p_visit_source{};
@@ -1392,9 +1404,9 @@ std::move(p_total_history_rows_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHistoryImportGroup(
-std::move(p_history_rows_group), 
-std::move(p_visit_source));
+      impl->OnHistoryImportGroup(        
+        std::move(p_history_rows_group), 
+        std::move(p_visit_source));
       return true;
     }
     case internal::kProfileImportObserver_OnHomePageImportReady_Name: {
@@ -1404,6 +1416,8 @@ std::move(p_visit_source));
           reinterpret_cast<internal::ProfileImportObserver_OnHomePageImportReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.6
       bool success = true;
       ::GURL p_home_page{};
       ProfileImportObserver_OnHomePageImportReady_ParamsDataView input_data_view(params, message);
@@ -1419,8 +1433,8 @@ std::move(p_visit_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHomePageImportReady(
-std::move(p_home_page));
+      impl->OnHomePageImportReady(        
+        std::move(p_home_page));
       return true;
     }
     case internal::kProfileImportObserver_OnBookmarksImportStart_Name: {
@@ -1430,6 +1444,8 @@ std::move(p_home_page));
           reinterpret_cast<internal::ProfileImportObserver_OnBookmarksImportStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.7
       bool success = true;
       ::std::u16string p_first_folder_name{};
       uint32_t p_total_bookmarks_count{};
@@ -1448,9 +1464,9 @@ std::move(p_home_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBookmarksImportStart(
-std::move(p_first_folder_name), 
-std::move(p_total_bookmarks_count));
+      impl->OnBookmarksImportStart(        
+        std::move(p_first_folder_name), 
+        std::move(p_total_bookmarks_count));
       return true;
     }
     case internal::kProfileImportObserver_OnBookmarksImportGroup_Name: {
@@ -1460,6 +1476,8 @@ std::move(p_total_bookmarks_count));
           reinterpret_cast<internal::ProfileImportObserver_OnBookmarksImportGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.8
       bool success = true;
       std::vector<::ImportedBookmarkEntry> p_bookmarks_group{};
       ProfileImportObserver_OnBookmarksImportGroup_ParamsDataView input_data_view(params, message);
@@ -1475,8 +1493,8 @@ std::move(p_total_bookmarks_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBookmarksImportGroup(
-std::move(p_bookmarks_group));
+      impl->OnBookmarksImportGroup(        
+        std::move(p_bookmarks_group));
       return true;
     }
     case internal::kProfileImportObserver_OnFaviconsImportStart_Name: {
@@ -1486,6 +1504,8 @@ std::move(p_bookmarks_group));
           reinterpret_cast<internal::ProfileImportObserver_OnFaviconsImportStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.9
       bool success = true;
       uint32_t p_total_favicons_count{};
       ProfileImportObserver_OnFaviconsImportStart_ParamsDataView input_data_view(params, message);
@@ -1501,8 +1521,8 @@ std::move(p_bookmarks_group));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFaviconsImportStart(
-std::move(p_total_favicons_count));
+      impl->OnFaviconsImportStart(        
+        std::move(p_total_favicons_count));
       return true;
     }
     case internal::kProfileImportObserver_OnFaviconsImportGroup_Name: {
@@ -1512,6 +1532,8 @@ std::move(p_total_favicons_count));
           reinterpret_cast<internal::ProfileImportObserver_OnFaviconsImportGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.10
       bool success = true;
       ::favicon_base::FaviconUsageDataList p_favicons_group{};
       ProfileImportObserver_OnFaviconsImportGroup_ParamsDataView input_data_view(params, message);
@@ -1527,8 +1549,8 @@ std::move(p_total_favicons_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFaviconsImportGroup(
-std::move(p_favicons_group));
+      impl->OnFaviconsImportGroup(        
+        std::move(p_favicons_group));
       return true;
     }
     case internal::kProfileImportObserver_OnPasswordFormImportReady_Name: {
@@ -1538,6 +1560,8 @@ std::move(p_favicons_group));
           reinterpret_cast<internal::ProfileImportObserver_OnPasswordFormImportReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.11
       bool success = true;
       ::importer::ImportedPasswordForm p_form{};
       ProfileImportObserver_OnPasswordFormImportReady_ParamsDataView input_data_view(params, message);
@@ -1553,8 +1577,8 @@ std::move(p_favicons_group));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPasswordFormImportReady(
-std::move(p_form));
+      impl->OnPasswordFormImportReady(        
+        std::move(p_form));
       return true;
     }
     case internal::kProfileImportObserver_OnKeywordsImportReady_Name: {
@@ -1564,6 +1588,8 @@ std::move(p_form));
           reinterpret_cast<internal::ProfileImportObserver_OnKeywordsImportReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.12
       bool success = true;
       std::vector<::importer::SearchEngineInfo> p_search_engines{};
       bool p_unique_on_host_and_path{};
@@ -1582,9 +1608,9 @@ std::move(p_form));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeywordsImportReady(
-std::move(p_search_engines), 
-std::move(p_unique_on_host_and_path));
+      impl->OnKeywordsImportReady(        
+        std::move(p_search_engines), 
+        std::move(p_unique_on_host_and_path));
       return true;
     }
     case internal::kProfileImportObserver_OnAutofillFormDataImportStart_Name: {
@@ -1594,6 +1620,8 @@ std::move(p_unique_on_host_and_path));
           reinterpret_cast<internal::ProfileImportObserver_OnAutofillFormDataImportStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.13
       bool success = true;
       uint32_t p_total_autofill_form_data_entry_count{};
       ProfileImportObserver_OnAutofillFormDataImportStart_ParamsDataView input_data_view(params, message);
@@ -1609,8 +1637,8 @@ std::move(p_unique_on_host_and_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAutofillFormDataImportStart(
-std::move(p_total_autofill_form_data_entry_count));
+      impl->OnAutofillFormDataImportStart(        
+        std::move(p_total_autofill_form_data_entry_count));
       return true;
     }
     case internal::kProfileImportObserver_OnAutofillFormDataImportGroup_Name: {
@@ -1620,6 +1648,8 @@ std::move(p_total_autofill_form_data_entry_count));
           reinterpret_cast<internal::ProfileImportObserver_OnAutofillFormDataImportGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImportObserver.14
       bool success = true;
       std::vector<::ImporterAutofillFormDataEntry> p_autofill_form_data_entry_group{};
       ProfileImportObserver_OnAutofillFormDataImportGroup_ParamsDataView input_data_view(params, message);
@@ -1635,8 +1665,8 @@ std::move(p_total_autofill_form_data_entry_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAutofillFormDataImportGroup(
-std::move(p_autofill_form_data_entry_group));
+      impl->OnAutofillFormDataImportGroup(        
+        std::move(p_autofill_form_data_entry_group));
       return true;
     }
   }
@@ -2006,6 +2036,8 @@ bool ProfileImportStubDispatch::Accept(
           reinterpret_cast<internal::ProfileImport_StartImport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImport.0
       bool success = true;
       ::importer::SourceProfile p_source_profile{};
       uint16_t p_items{};
@@ -2032,11 +2064,11 @@ bool ProfileImportStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartImport(
-std::move(p_source_profile), 
-std::move(p_items), 
-std::move(p_localized_strings), 
-std::move(p_observer));
+      impl->StartImport(        
+        std::move(p_source_profile), 
+        std::move(p_items), 
+        std::move(p_localized_strings), 
+        std::move(p_observer));
       return true;
     }
     case internal::kProfileImport_CancelImport_Name: {
@@ -2046,6 +2078,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ProfileImport_CancelImport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImport.1
       bool success = true;
       ProfileImport_CancelImport_ParamsDataView input_data_view(params, message);
       
@@ -2058,7 +2092,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelImport();
+      impl->CancelImport(        );
       return true;
     }
     case internal::kProfileImport_ReportImportItemFinished_Name: {
@@ -2068,6 +2102,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ProfileImport_ReportImportItemFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProfileImport.2
       bool success = true;
       ::importer::ImportItem p_item{};
       ProfileImport_ReportImportItemFinished_ParamsDataView input_data_view(params, message);
@@ -2083,8 +2119,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportImportItemFinished(
-std::move(p_item));
+      impl->ReportImportItemFinished(        
+        std::move(p_item));
       return true;
     }
   }

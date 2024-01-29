@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom.h

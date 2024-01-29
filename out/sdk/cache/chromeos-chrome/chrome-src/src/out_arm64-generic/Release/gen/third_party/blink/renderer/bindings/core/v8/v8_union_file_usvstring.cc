@@ -62,7 +62,7 @@ content_type_ = ContentType::kUSVString;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionFileOrUSVString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionFileOrUSVString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kFile: {
     return ToV8Traits<File>::ToV8(script_state, member_file_.Get());
@@ -73,7 +73,7 @@ v8::MaybeLocal<v8::Value> V8UnionFileOrUSVString::ToV8Value(ScriptState* script_
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionFileOrUSVString::Trace(Visitor* visitor) const {

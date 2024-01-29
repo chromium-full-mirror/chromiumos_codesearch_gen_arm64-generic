@@ -60,7 +60,8 @@ class CONTENT_EXPORT RendererHost
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    0
+    0, 
+    3
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -76,6 +77,7 @@ class CONTENT_EXPORT RendererHost
     kGetBrowserHistogramMinVersion = 0,
     kSuddenTerminationChangedMinVersion = 0,
     kRecordUserMetricsActionMinVersion = 0,
+    kHasGpuProcessMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -88,6 +90,9 @@ class CONTENT_EXPORT RendererHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RecordUserMetricsAction_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct HasGpuProcess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -107,6 +112,15 @@ class CONTENT_EXPORT RendererHost
 
   
   virtual void RecordUserMetricsAction(const std::string& action) = 0;
+
+  // Sync method. This signature is used by the client side; the service side
+  // should implement the signature with callback below.
+  
+  virtual bool HasGpuProcess(bool* out_has_gpu_process);
+
+  using HasGpuProcessCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void HasGpuProcess(HasGpuProcessCallback callback) = 0;
 };
 
 
@@ -125,6 +139,10 @@ class CONTENT_EXPORT RendererHostProxy
   void SuddenTerminationChanged(bool enabled) final;
   
   void RecordUserMetricsAction(const std::string& action) final;
+  
+  bool HasGpuProcess(bool* out_has_gpu_process) final;
+  
+  void HasGpuProcess(HasGpuProcessCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

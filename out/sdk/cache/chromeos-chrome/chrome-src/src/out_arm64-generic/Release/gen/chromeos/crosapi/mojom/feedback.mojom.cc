@@ -51,7 +51,8 @@ FeedbackInfo::FeedbackInfo()
       description_placeholder_text(),
       category_tag(),
       extra_diagnostics(),
-      autofill_metadata() {}
+      autofill_metadata(),
+      ai_metadata() {}
 
 FeedbackInfo::FeedbackInfo(
     const ::GURL& page_url_in,
@@ -66,7 +67,8 @@ FeedbackInfo::FeedbackInfo(
       description_placeholder_text(std::move(description_placeholder_text_in)),
       category_tag(std::move(category_tag_in)),
       extra_diagnostics(std::move(extra_diagnostics_in)),
-      autofill_metadata() {}
+      autofill_metadata(),
+      ai_metadata() {}
 
 FeedbackInfo::FeedbackInfo(
     const ::GURL& page_url_in,
@@ -82,7 +84,26 @@ FeedbackInfo::FeedbackInfo(
       description_placeholder_text(std::move(description_placeholder_text_in)),
       category_tag(std::move(category_tag_in)),
       extra_diagnostics(std::move(extra_diagnostics_in)),
-      autofill_metadata(std::move(autofill_metadata_in)) {}
+      autofill_metadata(std::move(autofill_metadata_in)),
+      ai_metadata() {}
+
+FeedbackInfo::FeedbackInfo(
+    const ::GURL& page_url_in,
+    LacrosFeedbackSource source_in,
+    const std::string& description_template_in,
+    const std::string& description_placeholder_text_in,
+    const std::string& category_tag_in,
+    const std::string& extra_diagnostics_in,
+    std::optional<::base::Value> autofill_metadata_in,
+    std::optional<::base::Value> ai_metadata_in)
+    : page_url(std::move(page_url_in)),
+      source(std::move(source_in)),
+      description_template(std::move(description_template_in)),
+      description_placeholder_text(std::move(description_placeholder_text_in)),
+      category_tag(std::move(category_tag_in)),
+      extra_diagnostics(std::move(extra_diagnostics_in)),
+      autofill_metadata(std::move(autofill_metadata_in)),
+      ai_metadata(std::move(ai_metadata_in)) {}
 
 FeedbackInfo::~FeedbackInfo() = default;
 
@@ -146,6 +167,15 @@ void FeedbackInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "autofill_metadata"), this->autofill_metadata,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::Value>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ai_metadata"), this->ai_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<::base::Value>>"
 #else
@@ -282,6 +312,8 @@ bool FeedbackStubDispatch::Accept(
           reinterpret_cast<internal::Feedback_ShowFeedbackPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Feedback.0
       bool success = true;
       FeedbackInfoPtr p_feedback_info{};
       Feedback_ShowFeedbackPage_ParamsDataView input_data_view(params, message);
@@ -297,8 +329,8 @@ bool FeedbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowFeedbackPage(
-std::move(p_feedback_info));
+      impl->ShowFeedbackPage(        
+        std::move(p_feedback_info));
       return true;
     }
   }
@@ -360,6 +392,8 @@ bool StructTraits<::crosapi::mojom::FeedbackInfo::DataView, ::crosapi::mojom::Fe
       if (success && !input.ReadExtraDiagnostics(&result->extra_diagnostics))
         success = false;
       if (success && !input.ReadAutofillMetadata(&result->autofill_metadata))
+        success = false;
+      if (success && !input.ReadAiMetadata(&result->ai_metadata))
         success = false;
   *output = std::move(result);
   return success;

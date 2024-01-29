@@ -66,6 +66,7 @@ CRDTP_BEGIN_SERIALIZER(TrustTokens)
 CRDTP_END_SERIALIZER();
 
 
+
 namespace InterestGroupAccessTypeEnum {
 const char Join[] = "join";
 const char Leave[] = "leave";
@@ -75,8 +76,25 @@ const char Bid[] = "bid";
 const char Win[] = "win";
 const char AdditionalBid[] = "additionalBid";
 const char AdditionalBidWin[] = "additionalBidWin";
+const char TopLevelBid[] = "topLevelBid";
+const char TopLevelAdditionalBid[] = "topLevelAdditionalBid";
 const char Clear[] = "clear";
 } // namespace InterestGroupAccessTypeEnum
+
+
+namespace InterestGroupAuctionEventTypeEnum {
+const char Started[] = "started";
+const char ConfigResolved[] = "configResolved";
+} // namespace InterestGroupAuctionEventTypeEnum
+
+
+namespace InterestGroupAuctionFetchTypeEnum {
+const char BidderJs[] = "bidderJs";
+const char BidderWasm[] = "bidderWasm";
+const char SellerJs[] = "sellerJs";
+const char BidderTrustedSignals[] = "bidderTrustedSignals";
+const char SellerTrustedSignals[] = "sellerTrustedSignals";
+} // namespace InterestGroupAuctionFetchTypeEnum
 
 
 CRDTP_BEGIN_DESERIALIZER(InterestGroupAd)
@@ -552,7 +570,7 @@ void Frontend::IndexedDBListUpdated(const String& origin, const String& storageK
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.indexedDBListUpdated", serializer.Finish()));
 }
 
-void Frontend::InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name)
+void Frontend::InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name, Maybe<String> componentSellerOrigin, Maybe<double> bid, Maybe<String> bidCurrency, Maybe<String> uniqueAuctionId)
 {
     if (!frontend_channel_)
         return;
@@ -561,7 +579,35 @@ void Frontend::InterestGroupAccessed(double accessTime, const String& type, cons
     serializer.AddField(crdtp::MakeSpan("type"), type);
     serializer.AddField(crdtp::MakeSpan("ownerOrigin"), ownerOrigin);
     serializer.AddField(crdtp::MakeSpan("name"), name);
+    serializer.AddField(crdtp::MakeSpan("componentSellerOrigin"), componentSellerOrigin);
+    serializer.AddField(crdtp::MakeSpan("bid"), bid);
+    serializer.AddField(crdtp::MakeSpan("bidCurrency"), bidCurrency);
+    serializer.AddField(crdtp::MakeSpan("uniqueAuctionId"), uniqueAuctionId);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.interestGroupAccessed", serializer.Finish()));
+}
+
+void Frontend::InterestGroupAuctionEventOccurred(double eventTime, const String& type, const String& uniqueAuctionId, Maybe<String> parentAuctionId, Maybe<protocol::DictionaryValue> auctionConfig)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("eventTime"), eventTime);
+    serializer.AddField(crdtp::MakeSpan("type"), type);
+    serializer.AddField(crdtp::MakeSpan("uniqueAuctionId"), uniqueAuctionId);
+    serializer.AddField(crdtp::MakeSpan("parentAuctionId"), parentAuctionId);
+    serializer.AddField(crdtp::MakeSpan("auctionConfig"), auctionConfig);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.interestGroupAuctionEventOccurred", serializer.Finish()));
+}
+
+void Frontend::InterestGroupAuctionNetworkRequestCreated(const String& type, const String& requestId, std::unique_ptr<protocol::Array<String>> auctions)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("type"), type);
+    serializer.AddField(crdtp::MakeSpan("requestId"), requestId);
+    serializer.AddField(crdtp::MakeSpan("auctions"), auctions);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.interestGroupAuctionNetworkRequestCreated", serializer.Finish()));
 }
 
 void Frontend::SharedStorageAccessed(double accessTime, const String& type, const String& mainFrameId, const String& ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageAccessParams> params)
@@ -659,6 +705,7 @@ public:
     void clearTrustTokens(const crdtp::Dispatchable& dispatchable);
     void getInterestGroupDetails(const crdtp::Dispatchable& dispatchable);
     void setInterestGroupTracking(const crdtp::Dispatchable& dispatchable);
+    void setInterestGroupAuctionTracking(const crdtp::Dispatchable& dispatchable);
     void getSharedStorageMetadata(const crdtp::Dispatchable& dispatchable);
     void getSharedStorageEntries(const crdtp::Dispatchable& dispatchable);
     void setSharedStorageEntry(const crdtp::Dispatchable& dispatchable);
@@ -757,6 +804,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("setCookies"),
           &DomainDispatcherImpl::setCookies
+    },
+    {
+          crdtp::SpanFrom("setInterestGroupAuctionTracking"),
+          &DomainDispatcherImpl::setInterestGroupAuctionTracking
     },
     {
           crdtp::SpanFrom("setInterestGroupTracking"),
@@ -1671,6 +1722,40 @@ void DomainDispatcherImpl::setInterestGroupTracking(const crdtp::Dispatchable& d
     DispatchResponse response = m_backend->SetInterestGroupTracking(params.enable);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.setInterestGroupTracking"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+struct setInterestGroupAuctionTrackingParams : public crdtp::DeserializableProtocolObject<setInterestGroupAuctionTrackingParams> {
+    bool enable;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(setInterestGroupAuctionTrackingParams)
+    CRDTP_DESERIALIZE_FIELD("enable", enable),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::setInterestGroupAuctionTracking(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    setInterestGroupAuctionTrackingParams params;
+    if (!setInterestGroupAuctionTrackingParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->SetInterestGroupAuctionTracking(params.enable);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.setInterestGroupAuctionTracking"), dispatchable.Serialized());
         return;
     }
     if (weak->get())

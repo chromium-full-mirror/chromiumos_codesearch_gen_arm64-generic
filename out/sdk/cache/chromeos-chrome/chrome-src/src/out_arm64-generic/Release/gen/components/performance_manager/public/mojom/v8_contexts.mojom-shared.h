@@ -80,7 +80,7 @@ enum class V8ContextWorldType : int32_t {
   
   kInspector = 5,
   
-  kRegExp = 6,
+  kBlinkInternalNonJSExposed = 6,
   kMinValue = 0,
   kMaxValue = 6,
 };

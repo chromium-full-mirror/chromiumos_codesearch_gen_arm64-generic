@@ -278,6 +278,8 @@ struct FromValue<audits::MixedContentResourceType> {
       return audits::MixedContentResourceType::IMAGE;
     if (value.GetString() == "Import")
       return audits::MixedContentResourceType::IMPORT;
+    if (value.GetString() == "JSON")
+      return audits::MixedContentResourceType::JSON;
     if (value.GetString() == "Manifest")
       return audits::MixedContentResourceType::MANIFEST;
     if (value.GetString() == "Ping")
@@ -342,6 +344,8 @@ inline base::Value ToValue(const audits::MixedContentResourceType& value) {
       return base::Value("Image");
     case audits::MixedContentResourceType::IMPORT:
       return base::Value("Import");
+    case audits::MixedContentResourceType::JSON:
+      return base::Value("JSON");
     case audits::MixedContentResourceType::MANIFEST:
       return base::Value("Manifest");
     case audits::MixedContentResourceType::PING:

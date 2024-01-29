@@ -18,6 +18,7 @@ import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { recordSettingChange } from '../metrics_recorder.js';
+import { Setting } from '../mojom-webui/setting.mojom-webui.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './os_powerwash_dialog.html.js';
 import { OsResetBrowserProxyImpl } from './os_reset_browser_proxy.js';
@@ -68,7 +69,7 @@ export class OsSettingsPowerwashDialogElement extends PolymerElement {
         this.$.dialog.close();
     }
     onRestartClick_() {
-        recordSettingChange();
+        recordSettingChange(Setting.kPowerwash);
         LifetimeBrowserProxyImpl.getInstance().factoryReset(this.requestTpmFirmwareUpdate);
     }
     onContinueClick_() {

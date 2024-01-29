@@ -306,6 +306,8 @@ NOINLINE static const char* AcceleratorActionToStringHelper(AcceleratorAction va
       return "kDebugToggleDarkMode";
     case AcceleratorAction::kDebugToggleDynamicColor:
       return "kDebugToggleDynamicColor";
+    case AcceleratorAction::kDebugToggleFocusModeState:
+      return "kDebugToggleFocusModeState";
     case AcceleratorAction::kDebugTogglePowerButtonMenu:
       return "kDebugTogglePowerButtonMenu";
     case AcceleratorAction::kDebugToggleShowDebugBorders:

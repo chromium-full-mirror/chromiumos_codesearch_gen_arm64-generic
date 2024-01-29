@@ -1004,6 +1004,8 @@ bool ContentDecryptionModule_SetServerCertificate_ForwardToCallback::Accept(
           internal::ContentDecryptionModule_SetServerCertificate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.1
   bool success = true;
   CdmPromiseResultPtr p_result{};
   ContentDecryptionModule_SetServerCertificate_ResponseParamsDataView input_data_view(params, message);
@@ -1133,6 +1135,8 @@ bool ContentDecryptionModule_GetStatusForPolicy_ForwardToCallback::Accept(
           internal::ContentDecryptionModule_GetStatusForPolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.2
   bool success = true;
   CdmPromiseResultPtr p_result{};
   ::media::CdmKeyInformation::KeyStatus p_key_status{};
@@ -1271,6 +1275,8 @@ bool ContentDecryptionModule_CreateSessionAndGenerateRequest_ForwardToCallback::
           internal::ContentDecryptionModule_CreateSessionAndGenerateRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.3
   bool success = true;
   CdmPromiseResultPtr p_result{};
   std::string p_session_id{};
@@ -1418,6 +1424,8 @@ bool ContentDecryptionModule_LoadSession_ForwardToCallback::Accept(
           internal::ContentDecryptionModule_LoadSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.4
   bool success = true;
   CdmPromiseResultPtr p_result{};
   std::string p_session_id{};
@@ -1565,6 +1573,8 @@ bool ContentDecryptionModule_UpdateSession_ForwardToCallback::Accept(
           internal::ContentDecryptionModule_UpdateSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.5
   bool success = true;
   CdmPromiseResultPtr p_result{};
   ContentDecryptionModule_UpdateSession_ResponseParamsDataView input_data_view(params, message);
@@ -1694,6 +1704,8 @@ bool ContentDecryptionModule_CloseSession_ForwardToCallback::Accept(
           internal::ContentDecryptionModule_CloseSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.6
   bool success = true;
   CdmPromiseResultPtr p_result{};
   ContentDecryptionModule_CloseSession_ResponseParamsDataView input_data_view(params, message);
@@ -1823,6 +1835,8 @@ bool ContentDecryptionModule_RemoveSession_ForwardToCallback::Accept(
           internal::ContentDecryptionModule_RemoveSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentDecryptionModule.7
   bool success = true;
   CdmPromiseResultPtr p_result{};
   ContentDecryptionModule_RemoveSession_ResponseParamsDataView input_data_view(params, message);
@@ -1907,6 +1921,8 @@ bool ContentDecryptionModuleStubDispatch::Accept(
           reinterpret_cast<internal::ContentDecryptionModule_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<ContentDecryptionModuleClient> p_client{};
       ContentDecryptionModule_SetClient_ParamsDataView input_data_view(params, message);
@@ -1924,8 +1940,8 @@ bool ContentDecryptionModuleStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kContentDecryptionModule_SetServerCertificate_Name: {
@@ -1972,6 +1988,8 @@ bool ContentDecryptionModuleStubDispatch::AcceptWithResponder(
               internal::ContentDecryptionModule_SetServerCertificate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.1
       bool success = true;
       std::vector<uint8_t> p_certificate_data{};
       ContentDecryptionModule_SetServerCertificate_ParamsDataView input_data_view(params, message);
@@ -1990,8 +2008,8 @@ bool ContentDecryptionModuleStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetServerCertificate(
-std::move(p_certificate_data), std::move(callback));
+      impl->SetServerCertificate(        
+        std::move(p_certificate_data), std::move(callback));
       return true;
     }
     case internal::kContentDecryptionModule_GetStatusForPolicy_Name: {
@@ -2001,6 +2019,8 @@ std::move(p_certificate_data), std::move(callback));
               internal::ContentDecryptionModule_GetStatusForPolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.2
       bool success = true;
       ::media::HdcpVersion p_min_hdcp_version{};
       ContentDecryptionModule_GetStatusForPolicy_ParamsDataView input_data_view(params, message);
@@ -2019,8 +2039,8 @@ std::move(p_certificate_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStatusForPolicy(
-std::move(p_min_hdcp_version), std::move(callback));
+      impl->GetStatusForPolicy(        
+        std::move(p_min_hdcp_version), std::move(callback));
       return true;
     }
     case internal::kContentDecryptionModule_CreateSessionAndGenerateRequest_Name: {
@@ -2030,6 +2050,8 @@ std::move(p_min_hdcp_version), std::move(callback));
               internal::ContentDecryptionModule_CreateSessionAndGenerateRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.3
       bool success = true;
       ::media::CdmSessionType p_session_type{};
       ::media::EmeInitDataType p_init_data_type{};
@@ -2054,10 +2076,10 @@ std::move(p_min_hdcp_version), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateSessionAndGenerateRequest(
-std::move(p_session_type), 
-std::move(p_init_data_type), 
-std::move(p_init_data), std::move(callback));
+      impl->CreateSessionAndGenerateRequest(        
+        std::move(p_session_type), 
+        std::move(p_init_data_type), 
+        std::move(p_init_data), std::move(callback));
       return true;
     }
     case internal::kContentDecryptionModule_LoadSession_Name: {
@@ -2067,6 +2089,8 @@ std::move(p_init_data), std::move(callback));
               internal::ContentDecryptionModule_LoadSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.4
       bool success = true;
       ::media::CdmSessionType p_session_type{};
       std::string p_session_id{};
@@ -2088,9 +2112,9 @@ std::move(p_init_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadSession(
-std::move(p_session_type), 
-std::move(p_session_id), std::move(callback));
+      impl->LoadSession(        
+        std::move(p_session_type), 
+        std::move(p_session_id), std::move(callback));
       return true;
     }
     case internal::kContentDecryptionModule_UpdateSession_Name: {
@@ -2100,6 +2124,8 @@ std::move(p_session_id), std::move(callback));
               internal::ContentDecryptionModule_UpdateSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.5
       bool success = true;
       std::string p_session_id{};
       std::vector<uint8_t> p_response{};
@@ -2121,9 +2147,9 @@ std::move(p_session_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSession(
-std::move(p_session_id), 
-std::move(p_response), std::move(callback));
+      impl->UpdateSession(        
+        std::move(p_session_id), 
+        std::move(p_response), std::move(callback));
       return true;
     }
     case internal::kContentDecryptionModule_CloseSession_Name: {
@@ -2133,6 +2159,8 @@ std::move(p_response), std::move(callback));
               internal::ContentDecryptionModule_CloseSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.6
       bool success = true;
       std::string p_session_id{};
       ContentDecryptionModule_CloseSession_ParamsDataView input_data_view(params, message);
@@ -2151,8 +2179,8 @@ std::move(p_response), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseSession(
-std::move(p_session_id), std::move(callback));
+      impl->CloseSession(        
+        std::move(p_session_id), std::move(callback));
       return true;
     }
     case internal::kContentDecryptionModule_RemoveSession_Name: {
@@ -2162,6 +2190,8 @@ std::move(p_session_id), std::move(callback));
               internal::ContentDecryptionModule_RemoveSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModule.7
       bool success = true;
       std::string p_session_id{};
       ContentDecryptionModule_RemoveSession_ParamsDataView input_data_view(params, message);
@@ -2180,8 +2210,8 @@ std::move(p_session_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveSession(
-std::move(p_session_id), std::move(callback));
+      impl->RemoveSession(        
+        std::move(p_session_id), std::move(callback));
       return true;
     }
   }
@@ -2602,6 +2632,8 @@ bool ContentDecryptionModuleClientStubDispatch::Accept(
           reinterpret_cast<internal::ContentDecryptionModuleClient_OnSessionMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModuleClient.0
       bool success = true;
       std::string p_session_id{};
       ::media::CdmMessageType p_message_type{};
@@ -2623,10 +2655,10 @@ bool ContentDecryptionModuleClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionMessage(
-std::move(p_session_id), 
-std::move(p_message_type), 
-std::move(p_message));
+      impl->OnSessionMessage(        
+        std::move(p_session_id), 
+        std::move(p_message_type), 
+        std::move(p_message));
       return true;
     }
     case internal::kContentDecryptionModuleClient_OnSessionClosed_Name: {
@@ -2636,6 +2668,8 @@ std::move(p_message));
           reinterpret_cast<internal::ContentDecryptionModuleClient_OnSessionClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModuleClient.1
       bool success = true;
       std::string p_session_id{};
       ::media::CdmSessionClosedReason p_reason{};
@@ -2654,9 +2688,9 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionClosed(
-std::move(p_session_id), 
-std::move(p_reason));
+      impl->OnSessionClosed(        
+        std::move(p_session_id), 
+        std::move(p_reason));
       return true;
     }
     case internal::kContentDecryptionModuleClient_OnSessionKeysChange_Name: {
@@ -2666,6 +2700,8 @@ std::move(p_reason));
           reinterpret_cast<internal::ContentDecryptionModuleClient_OnSessionKeysChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModuleClient.2
       bool success = true;
       std::string p_session_id{};
       bool p_has_additional_usable_key{};
@@ -2687,10 +2723,10 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionKeysChange(
-std::move(p_session_id), 
-std::move(p_has_additional_usable_key), 
-std::move(p_keys_info));
+      impl->OnSessionKeysChange(        
+        std::move(p_session_id), 
+        std::move(p_has_additional_usable_key), 
+        std::move(p_keys_info));
       return true;
     }
     case internal::kContentDecryptionModuleClient_OnSessionExpirationUpdate_Name: {
@@ -2700,6 +2736,8 @@ std::move(p_keys_info));
           reinterpret_cast<internal::ContentDecryptionModuleClient_OnSessionExpirationUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentDecryptionModuleClient.3
       bool success = true;
       std::string p_session_id{};
       double p_new_expiry_time_sec{};
@@ -2718,9 +2756,9 @@ std::move(p_keys_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionExpirationUpdate(
-std::move(p_session_id), 
-std::move(p_new_expiry_time_sec));
+      impl->OnSessionExpirationUpdate(        
+        std::move(p_session_id), 
+        std::move(p_new_expiry_time_sec));
       return true;
     }
   }
@@ -2953,6 +2991,8 @@ bool CdmFactory_CreateCdm_ForwardToCallback::Accept(
           internal::CdmFactory_CreateCdm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFactory.0
   bool success = true;
   ::mojo::PendingRemote<ContentDecryptionModule> p_cdm{};
   CdmContextPtr p_cdm_context{};
@@ -3078,6 +3118,8 @@ bool CdmFactoryStubDispatch::AcceptWithResponder(
               internal::CdmFactory_CreateCdm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFactory.0
       bool success = true;
       ::media::CdmConfig p_cdm_config{};
       CdmFactory_CreateCdm_ParamsDataView input_data_view(params, message);
@@ -3096,8 +3138,8 @@ bool CdmFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCdm(
-std::move(p_cdm_config), std::move(callback));
+      impl->CreateCdm(        
+        std::move(p_cdm_config), std::move(callback));
       return true;
     }
   }

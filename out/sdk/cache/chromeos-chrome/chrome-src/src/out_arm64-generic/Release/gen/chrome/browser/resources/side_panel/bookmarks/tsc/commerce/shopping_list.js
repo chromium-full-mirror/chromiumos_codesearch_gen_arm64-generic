@@ -7,7 +7,7 @@ import 'chrome://resources/cr_elements/mwb_element_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_auto_img/cr_auto_img.js';
 import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import './icons.html.js';
-import { ShoppingServiceApiProxyImpl } from '//bookmarks-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
+import { BrowserProxyImpl } from '//resources/cr_components/commerce/browser_proxy.js';
 import { getFaviconForPageURL } from 'chrome://resources/js/icon.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -21,7 +21,7 @@ export class ShoppingListElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.bookmarksApi_ = BookmarksApiProxyImpl.getInstance();
-        this.shoppingServiceApi_ = ShoppingServiceApiProxyImpl.getInstance();
+        this.shoppingServiceApi_ = BrowserProxyImpl.getInstance();
         this.listenerIds_ = [];
     }
     static get is() {

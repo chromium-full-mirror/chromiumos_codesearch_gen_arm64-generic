@@ -31,6 +31,8 @@ const char kNotifyAndroidInteractiveStateMethod[] =
 const char kNotifyAndroidWifiMulticastLockChangeMethod[] =
     "NotifyAndroidWifiMulticastLockChange";
 const char kNotifySocketConnectionEventMethod[] = "NotifySocketConnectionEvent";
+const char kNotifyARCVPNSocketConnectionEventMethod[] =
+    "NotifyARCVPNSocketConnectionEvent";
 const char kSetDnsRedirectionRuleMethod[] = "SetDnsRedirectionRule";
 const char kSetFeatureFlagMethod[] = "SetFeatureFlag";
 const char kSetVpnIntentMethod[] = "SetVpnIntent";

@@ -288,6 +288,8 @@ bool VibrationManager_Vibrate_ForwardToCallback::Accept(
           internal::VibrationManager_Vibrate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VibrationManager.0
   bool success = true;
   VibrationManager_Vibrate_ResponseParamsDataView input_data_view(params, message);
   
@@ -395,6 +397,8 @@ bool VibrationManager_Cancel_ForwardToCallback::Accept(
           internal::VibrationManager_Cancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VibrationManager.1
   bool success = true;
   VibrationManager_Cancel_ResponseParamsDataView input_data_view(params, message);
   
@@ -476,6 +480,8 @@ bool VibrationManagerStubDispatch::AcceptWithResponder(
               internal::VibrationManager_Vibrate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VibrationManager.0
       bool success = true;
       int64_t p_milliseconds{};
       VibrationManager_Vibrate_ParamsDataView input_data_view(params, message);
@@ -494,8 +500,8 @@ bool VibrationManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Vibrate(
-std::move(p_milliseconds), std::move(callback));
+      impl->Vibrate(        
+        std::move(p_milliseconds), std::move(callback));
       return true;
     }
     case internal::kVibrationManager_Cancel_Name: {
@@ -505,6 +511,8 @@ std::move(p_milliseconds), std::move(callback));
               internal::VibrationManager_Cancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VibrationManager.1
       bool success = true;
       VibrationManager_Cancel_ParamsDataView input_data_view(params, message);
       

@@ -46,19 +46,23 @@ bool HistoryClustersModuleRankingModelSignals_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
+    case 8:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> HistoryClustersModuleRankingModelSignals_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> HistoryClustersModuleRankingModelSignals_strings[9] = {};
 
 static const char HistoryClustersModuleRankingModelSignals_names[] =
   "HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_BOOSTED_CATEGORY"
   "HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT"
   "HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS"
+  "HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN"
+  "HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS"
   "HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE";
@@ -68,19 +72,23 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry HistoryClustersModuleR
   { {HistoryClustersModuleRankingModelSignals_names + 59, 63}, 1 },
   { {HistoryClustersModuleRankingModelSignals_names + 122, 53}, 0 },
   { {HistoryClustersModuleRankingModelSignals_names + 175, 51}, 6 },
-  { {HistoryClustersModuleRankingModelSignals_names + 226, 48}, 4 },
-  { {HistoryClustersModuleRankingModelSignals_names + 274, 48}, 5 },
-  { {HistoryClustersModuleRankingModelSignals_names + 322, 53}, 3 },
+  { {HistoryClustersModuleRankingModelSignals_names + 226, 46}, 7 },
+  { {HistoryClustersModuleRankingModelSignals_names + 272, 46}, 8 },
+  { {HistoryClustersModuleRankingModelSignals_names + 318, 48}, 4 },
+  { {HistoryClustersModuleRankingModelSignals_names + 366, 48}, 5 },
+  { {HistoryClustersModuleRankingModelSignals_names + 414, 53}, 3 },
 };
 
 static const int HistoryClustersModuleRankingModelSignals_entries_by_number[] = {
   2, // 0 -> HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN
   1, // 1 -> HISTORY_CLUSTERS_MODULE_RANKING_MINUTES_SINCE_MOST_RECENT_VISIT
   0, // 2 -> HISTORY_CLUSTERS_MODULE_RANKING_BELONGS_TO_BOOSTED_CATEGORY
-  6, // 3 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE
-  4, // 4 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS
-  5, // 5 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS
+  8, // 3 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_VISITS_WITH_IMAGE
+  6, // 4 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS
+  7, // 5 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS
   3, // 6 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS
+  4, // 7 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN
+  5, // 8 -> HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED
 };
 
 const std::string& HistoryClustersModuleRankingModelSignals_Name(
@@ -89,12 +97,12 @@ const std::string& HistoryClustersModuleRankingModelSignals_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           HistoryClustersModuleRankingModelSignals_entries,
           HistoryClustersModuleRankingModelSignals_entries_by_number,
-          7, HistoryClustersModuleRankingModelSignals_strings);
+          9, HistoryClustersModuleRankingModelSignals_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       HistoryClustersModuleRankingModelSignals_entries,
       HistoryClustersModuleRankingModelSignals_entries_by_number,
-      7, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      HistoryClustersModuleRankingModelSignals_strings[idx].get();
 }
@@ -102,7 +110,7 @@ bool HistoryClustersModuleRankingModelSignals_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, HistoryClustersModuleRankingModelSignals* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      HistoryClustersModuleRankingModelSignals_entries, 7, name, &int_value);
+      HistoryClustersModuleRankingModelSignals_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<HistoryClustersModuleRankingModelSignals>(int_value);
   }

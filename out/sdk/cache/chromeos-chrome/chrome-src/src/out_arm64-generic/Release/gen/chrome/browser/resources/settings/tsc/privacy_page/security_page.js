@@ -6,9 +6,9 @@ import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import './collapse_radio_button.js';
-import '/shared/settings/controls/settings_radio_group.js';
-import '/shared/settings/controls/settings_toggle_button.js';
-import '/shared/settings/privacy_page/secure_dns.js';
+import '../controls/settings_radio_group.js';
+import '../controls/settings_toggle_button.js';
+import '../privacy_page/secure_dns.js';
 import '../icons.html.js';
 import '../settings_shared.css.js';
 import '../simple_confirmation_dialog.js';
@@ -394,6 +394,9 @@ export class SettingsSecurityPageElement extends SettingsSecurityPageElementBase
     }
     onAdvancedProtectionProgramLinkClick_() {
         window.open(loadTimeData.getString('advancedProtectionURL'));
+    }
+    onV8SettingsClick_() {
+        Router.getInstance().navigateTo(routes.SITE_SETTINGS_JAVASCRIPT_JIT);
     }
     onSecurityKeysClick_() {
         Router.getInstance().navigateTo(routes.SECURITY_KEYS);

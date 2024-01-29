@@ -69,6 +69,88 @@ export const WebPrintColorMode = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
+export const WebPrintingOrientationRequestedSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const WebPrintingOrientationRequested = {
+  
+  kPortrait: 0,
+  kLandscape: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const WebPrinterStateSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const WebPrinterState = {
+  
+  kIdle: 0,
+  kProcessing: 1,
+  kStopped: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const WebPrinterStateReasonSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const WebPrinterStateReason = {
+  
+  kNone: 0,
+  kOther: 1,
+  kConnectingToDevice: 2,
+  kCoverOpen: 3,
+  kDeveloperEmpty: 4,
+  kDeveloperLow: 5,
+  kDoorOpen: 6,
+  kFuserOverTemp: 7,
+  kFuserUnderTemp: 8,
+  kInputTrayMissing: 9,
+  kInterlockOpen: 10,
+  kInterpreterResourceUnavailable: 11,
+  kMarkerSupplyEmpty: 12,
+  kMarkerSupplyLow: 13,
+  kMarkerWasteAlmostFull: 14,
+  kMarkerWasteFull: 15,
+  kMediaEmpty: 16,
+  kMediaJam: 17,
+  kMediaLow: 18,
+  kMediaNeeded: 19,
+  kMovingToPaused: 20,
+  kOpcLifeOver: 21,
+  kOpcNearEol: 22,
+  kOutputAreaAlmostFull: 23,
+  kOutputAreaFull: 24,
+  kOutputTrayMissing: 25,
+  kPaused: 26,
+  kShutdown: 27,
+  kSpoolAreaFull: 28,
+  kStoppedPartly: 29,
+  kStopping: 30,
+  kTimedOut: 31,
+  kTonerEmpty: 32,
+  kTonerLow: 33,
+  kCupsPkiExpired: 34,
+  MIN_VALUE: 0,
+  MAX_VALUE: 34,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
 export const WebPrintJobStateSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -88,6 +170,37 @@ export const WebPrintJobState = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
+export const GetPrintersErrorSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const GetPrintersError = {
+  
+  kUserPermissionDenied: 0,
+  MIN_VALUE: 0,
+  MAX_VALUE: 0,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const WebPrinterFetchErrorSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const WebPrinterFetchError = {
+  
+  kPrinterUnreachable: 0,
+  kUserPermissionDenied: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
 export const WebPrintErrorSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -98,8 +211,9 @@ export const WebPrintError = {
   kPrinterUnreachable: 0,
   kDocumentMalformed: 1,
   kPrintJobTemplateAttributesMismatch: 2,
+  kUserPermissionDenied: 3,
   MIN_VALUE: 0,
-  MAX_VALUE: 2,
+  MAX_VALUE: 3,
 };
 
 
@@ -127,10 +241,10 @@ export class WebPrintJobStateObserverPendingReceiver {
 export class WebPrintJobStateObserverInterface {
   
   /**
-   * @param { !WebPrintJobState } state
+   * @param { !WebPrintJobUpdate } update
    */
 
-  onWebPrintJobStateChanged(state) {}
+  onWebPrintJobUpdate(update) {}
 }
 
 /**
@@ -158,17 +272,17 @@ export class WebPrintJobStateObserverRemote {
 
   
   /**
-   * @param { !WebPrintJobState } state
+   * @param { !WebPrintJobUpdate } update
    */
 
-  onWebPrintJobStateChanged(
-      state) {
+  onWebPrintJobUpdate(
+      update) {
     this.proxy.sendMessage(
         0,
-        WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsSpec.$,
+        WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpec.$,
         null,
         [
-          state
+          update
         ]);
   }
 }
@@ -195,9 +309,9 @@ export class WebPrintJobStateObserverReceiver {
 
     this.helper_internal_.registerHandler(
         0,
-        WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsSpec.$,
+        WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpec.$,
         null,
-        impl.onWebPrintJobStateChanged.bind(impl));
+        impl.onWebPrintJobUpdate.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -247,15 +361,15 @@ export class WebPrintJobStateObserverCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onWebPrintJobStateChanged =
+    this.onWebPrintJobUpdate =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         0,
-        WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsSpec.$,
+        WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpec.$,
         null,
-        this.onWebPrintJobStateChanged.createReceiverHandler(false /* expectsResponse */));
+        this.onWebPrintJobUpdate.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -294,7 +408,7 @@ export class WebPrinterInterface {
   
   /**
    * @return {!Promise<{
-        attributes: ?WebPrinterAttributes,
+        result: !WebPrinterFetchResult,
    *  }>}
    */
 
@@ -337,7 +451,7 @@ export class WebPrinterRemote {
   
   /**
    * @return {!Promise<{
-        attributes: ?WebPrinterAttributes,
+        result: !WebPrinterFetchResult,
    *  }>}
    */
 
@@ -511,7 +625,7 @@ export class WebPrintingServiceInterface {
   
   /**
    * @return {!Promise<{
-        printers: !Array<!WebPrinterInfo>,
+        result: !GetPrintersResult,
    *  }>}
    */
 
@@ -544,7 +658,7 @@ export class WebPrintingServiceRemote {
   
   /**
    * @return {!Promise<{
-        printers: !Array<!WebPrinterInfo>,
+        result: !GetPrintersResult,
    *  }>}
    */
 
@@ -681,13 +795,19 @@ export const WebPrintJobTemplateAttributesSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const WebPrintJobUpdateSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const WebPrintJobInfoSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsSpec =
+export const WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -724,6 +844,18 @@ export const WebPrintingService_GetPrinters_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const WebPrintingService_GetPrinters_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType} }
+ */
+export const GetPrintersResultSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType} }
+ */
+export const WebPrinterFetchResultSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -850,7 +982,23 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'printerResolutionDefault', 24,
+        'orientationRequestedDefault', 24,
+        0,
+        WebPrintingOrientationRequestedSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'orientationRequestedSupported', 32,
+        0,
+        mojo.internal.Array(WebPrintingOrientationRequestedSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'printerResolutionDefault', 40,
         0,
         gfx_mojom_SizeSpec.$,
         null,
@@ -858,7 +1006,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'printerResolutionSupported', 32,
+        'printerResolutionSupported', 48,
         0,
         mojo.internal.Array(gfx_mojom_SizeSpec.$, false),
         null,
@@ -866,7 +1014,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'printColorModeDefault', 40,
+        'printColorModeDefault', 28,
         0,
         WebPrintColorModeSpec.$,
         0,
@@ -874,7 +1022,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'printColorModeSupported', 48,
+        'printColorModeSupported', 56,
         0,
         mojo.internal.Array(WebPrintColorModeSpec.$, false),
         null,
@@ -882,7 +1030,31 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sides_default_$flag', 44,
+        'printerState', 64,
+        0,
+        WebPrinterStateSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'printerStateMessage', 72,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'printerStateReasons', 80,
+        0,
+        mojo.internal.Array(WebPrinterStateReasonSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'sides_default_$flag', 68,
         0,
         mojo.internal.Bool,
         false,
@@ -895,7 +1067,7 @@ mojo.internal.Struct(
         }
       ),
       mojo.internal.StructField(
-        'sides_default_$value', 56,
+        'sides_default_$value', 88,
         0,
         WebPrintingSidesSpec.$,
         0,
@@ -907,7 +1079,7 @@ mojo.internal.Struct(
         }
       ),
       mojo.internal.StructField(
-        'sidesSupported', 64,
+        'sidesSupported', 96,
         0,
         mojo.internal.Array(WebPrintingSidesSpec.$, false),
         null,
@@ -915,7 +1087,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 80],]);
+    [[0, 112],]);
 
 
 
@@ -932,6 +1104,10 @@ export class WebPrinterAttributes {
     this.multipleDocumentHandlingDefault;
     /** @type { !Array<!WebPrintingMultipleDocumentHandling> } */
     this.multipleDocumentHandlingSupported;
+    /** @type { !WebPrintingOrientationRequested } */
+    this.orientationRequestedDefault;
+    /** @type { !Array<!WebPrintingOrientationRequested> } */
+    this.orientationRequestedSupported;
     /** @type { !gfx_mojom_Size } */
     this.printerResolutionDefault;
     /** @type { !Array<!gfx_mojom_Size> } */
@@ -940,6 +1116,12 @@ export class WebPrinterAttributes {
     this.printColorModeDefault;
     /** @type { !Array<!WebPrintColorMode> } */
     this.printColorModeSupported;
+    /** @type { !WebPrinterState } */
+    this.printerState;
+    /** @type { !string } */
+    this.printerStateMessage;
+    /** @type { !Array<!WebPrinterStateReason> } */
+    this.printerStateReasons;
     /** @type { (WebPrintingSides|undefined) } */
     this.sidesDefault;
     /** @type { !Array<!WebPrintingSides> } */
@@ -995,6 +1177,31 @@ mojo.internal.Struct(
         }
       ),
       mojo.internal.StructField(
+        'orientation_requested_$flag', 12,
+        1,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "orientation_requested_$value",
+          originalFieldName: "orientationRequested",
+        }
+      ),
+      mojo.internal.StructField(
+        'orientation_requested_$value', 20,
+        0,
+        WebPrintingOrientationRequestedSpec.$,
+        0,
+        false /* nullable */,
+        0,
+        {
+          isPrimary: false,
+          originalFieldName: "orientationRequested",
+        }
+      ),
+      mojo.internal.StructField(
         'printerResolution', 24,
         0,
         gfx_mojom_SizeSpec.$,
@@ -1004,7 +1211,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'print_color_mode_$flag', 12,
-        1,
+        2,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -1016,7 +1223,7 @@ mojo.internal.Struct(
         }
       ),
       mojo.internal.StructField(
-        'print_color_mode_$value', 20,
+        'print_color_mode_$value', 32,
         0,
         WebPrintColorModeSpec.$,
         0,
@@ -1029,7 +1236,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'sides_$flag', 12,
-        2,
+        3,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -1041,7 +1248,7 @@ mojo.internal.Struct(
         }
       ),
       mojo.internal.StructField(
-        'sides_$value', 32,
+        'sides_$value', 36,
         0,
         WebPrintingSidesSpec.$,
         0,
@@ -1068,12 +1275,53 @@ export class WebPrintJobTemplateAttributes {
     this.copies;
     /** @type { (WebPrintingMultipleDocumentHandling|undefined) } */
     this.multipleDocumentHandling;
+    /** @type { (WebPrintingOrientationRequested|undefined) } */
+    this.orientationRequested;
     /** @type { (gfx_mojom_Size|undefined) } */
     this.printerResolution;
     /** @type { (WebPrintColorMode|undefined) } */
     this.printColorMode;
     /** @type { (WebPrintingSides|undefined) } */
     this.sides;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    WebPrintJobUpdateSpec.$,
+    'WebPrintJobUpdate',
+    [
+      mojo.internal.StructField(
+        'state', 0,
+        0,
+        WebPrintJobStateSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'pagesPrinted', 4,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class WebPrintJobUpdate {
+  constructor() {
+    /** @type { !WebPrintJobState } */
+    this.state;
+    /** @type { !number } */
+    this.pagesPrinted;
   }
 }
 
@@ -1092,7 +1340,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'observer', 8,
+        'jobPages', 8,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'observer', 12,
         0,
         mojo.internal.InterfaceRequest(WebPrintJobStateObserverPendingReceiver),
         null,
@@ -1111,6 +1367,8 @@ export class WebPrintJobInfo {
   constructor() {
     /** @type { !string } */
     this.jobName;
+    /** @type { !number } */
+    this.jobPages;
     /** @type { !WebPrintJobStateObserverPendingReceiver } */
     this.observer;
   }
@@ -1119,14 +1377,14 @@ export class WebPrintJobInfo {
 
 
 mojo.internal.Struct(
-    WebPrintJobStateObserver_OnWebPrintJobStateChanged_ParamsSpec.$,
-    'WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params',
+    WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpec.$,
+    'WebPrintJobStateObserver_OnWebPrintJobUpdate_Params',
     [
       mojo.internal.StructField(
-        'state', 0,
+        'update', 0,
         0,
-        WebPrintJobStateSpec.$,
-        0,
+        WebPrintJobUpdateSpec.$,
+        null,
         false /* nullable */,
         0,
       ),
@@ -1138,10 +1396,10 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params {
+export class WebPrintJobStateObserver_OnWebPrintJobUpdate_Params {
   constructor() {
-    /** @type { !WebPrintJobState } */
-    this.state;
+    /** @type { !WebPrintJobUpdate } */
+    this.update;
   }
 }
 
@@ -1171,15 +1429,15 @@ mojo.internal.Struct(
     'WebPrinter_FetchAttributes_ResponseParams',
     [
       mojo.internal.StructField(
-        'attributes', 0,
+        'result', 0,
         0,
-        WebPrinterAttributesSpec.$,
+        WebPrinterFetchResultSpec.$,
         null,
-        true /* nullable */,
+        false /* nullable */,
         0,
       ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -1188,8 +1446,8 @@ mojo.internal.Struct(
  */
 export class WebPrinter_FetchAttributes_ResponseParams {
   constructor() {
-    /** @type { (WebPrinterAttributes|undefined) } */
-    this.attributes;
+    /** @type { !WebPrinterFetchResult } */
+    this.result;
   }
 }
 
@@ -1287,15 +1545,15 @@ mojo.internal.Struct(
     'WebPrintingService_GetPrinters_ResponseParams',
     [
       mojo.internal.StructField(
-        'printers', 0,
+        'result', 0,
         0,
-        mojo.internal.Array(WebPrinterInfoSpec.$, false),
+        GetPrintersResultSpec.$,
         null,
         false /* nullable */,
         0,
       ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -1304,11 +1562,51 @@ mojo.internal.Struct(
  */
 export class WebPrintingService_GetPrinters_ResponseParams {
   constructor() {
-    /** @type { !Array<!WebPrinterInfo> } */
-    this.printers;
+    /** @type { !GetPrintersResult } */
+    this.result;
   }
 }
 
+mojo.internal.Union(
+    GetPrintersResultSpec.$, 'GetPrintersResult',
+    {
+      'printers': {
+        'ordinal': 0,
+        'type': mojo.internal.Array(WebPrinterInfoSpec.$, false),
+      },
+      'error': {
+        'ordinal': 1,
+        'type': GetPrintersErrorSpec.$,
+      },
+    });
+
+/**
+ * @typedef { {
+ *   printers: (!Array<!WebPrinterInfo>|undefined),
+ *   error: (!GetPrintersError|undefined),
+ * } }
+ */
+export const GetPrintersResult = {};
+mojo.internal.Union(
+    WebPrinterFetchResultSpec.$, 'WebPrinterFetchResult',
+    {
+      'printerAttributes': {
+        'ordinal': 0,
+        'type': WebPrinterAttributesSpec.$,
+      },
+      'error': {
+        'ordinal': 1,
+        'type': WebPrinterFetchErrorSpec.$,
+      },
+    });
+
+/**
+ * @typedef { {
+ *   printerAttributes: (!WebPrinterAttributes|undefined),
+ *   error: (!WebPrinterFetchError|undefined),
+ * } }
+ */
+export const WebPrinterFetchResult = {};
 mojo.internal.Union(
     WebPrintResultSpec.$, 'WebPrintResult',
     {

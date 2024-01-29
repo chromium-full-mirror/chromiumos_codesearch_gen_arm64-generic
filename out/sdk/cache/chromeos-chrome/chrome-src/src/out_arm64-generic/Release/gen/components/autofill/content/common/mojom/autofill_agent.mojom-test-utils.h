@@ -17,7 +17,7 @@ class  AutofillAgentInterceptorForTesting : public AutofillAgent {
   virtual AutofillAgent* GetForwardingInterface() = 0;
   void TriggerFormExtraction() override;
   void TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) override;
-  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) override;
+  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData::FillData& form) override;
   void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) override;
   void ExtractForm(::autofill::FormRendererId form, ExtractFormCallback callback) override;
   void FieldTypePredictionsAvailable(const std::vector<::autofill::FormDataPredictions>& forms) override;
@@ -33,7 +33,6 @@ class  AutofillAgentInterceptorForTesting : public AutofillAgent {
   void SetFocusRequiresScroll(bool require) override;
   void SetQueryPasswordSuggestion(bool query) override;
   void EnableHeavyFormDataScraping() override;
-  void SetFieldsEligibleForManualFilling(const std::vector<::autofill::FieldRendererId>& fields) override;
   void GetPotentialLastFourCombinationsForStandaloneCvc(GetPotentialLastFourCombinationsForStandaloneCvcCallback callback) override;
 };
 class  AutofillAgentAsyncWaiter {

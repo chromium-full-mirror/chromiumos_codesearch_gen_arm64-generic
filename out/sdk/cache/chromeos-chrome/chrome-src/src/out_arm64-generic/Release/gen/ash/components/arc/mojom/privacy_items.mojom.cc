@@ -380,6 +380,8 @@ bool PrivacyItemsHostStubDispatch::Accept(
           reinterpret_cast<internal::PrivacyItemsHost_OnPrivacyItemsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrivacyItemsHost.0
       bool success = true;
       std::vector<PrivacyItemPtr> p_privacy_items{};
       PrivacyItemsHost_OnPrivacyItemsChanged_ParamsDataView input_data_view(params, message);
@@ -395,8 +397,8 @@ bool PrivacyItemsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrivacyItemsChanged(
-std::move(p_privacy_items));
+      impl->OnPrivacyItemsChanged(        
+        std::move(p_privacy_items));
       return true;
     }
     case internal::kPrivacyItemsHost_OnMicCameraIndicatorRequirementChanged_Name: {
@@ -406,6 +408,8 @@ std::move(p_privacy_items));
           reinterpret_cast<internal::PrivacyItemsHost_OnMicCameraIndicatorRequirementChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrivacyItemsHost.1
       bool success = true;
       bool p_flag{};
       PrivacyItemsHost_OnMicCameraIndicatorRequirementChanged_ParamsDataView input_data_view(params, message);
@@ -421,8 +425,8 @@ std::move(p_privacy_items));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMicCameraIndicatorRequirementChanged(
-std::move(p_flag));
+      impl->OnMicCameraIndicatorRequirementChanged(        
+        std::move(p_flag));
       return true;
     }
     case internal::kPrivacyItemsHost_OnLocationIndicatorRequirementChanged_Name: {
@@ -432,6 +436,8 @@ std::move(p_flag));
           reinterpret_cast<internal::PrivacyItemsHost_OnLocationIndicatorRequirementChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrivacyItemsHost.2
       bool success = true;
       bool p_flag{};
       PrivacyItemsHost_OnLocationIndicatorRequirementChanged_ParamsDataView input_data_view(params, message);
@@ -447,8 +453,8 @@ std::move(p_flag));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLocationIndicatorRequirementChanged(
-std::move(p_flag));
+      impl->OnLocationIndicatorRequirementChanged(        
+        std::move(p_flag));
       return true;
     }
   }
@@ -748,6 +754,8 @@ bool PrivacyItemsInstance_Init_ForwardToCallback::Accept(
           internal::PrivacyItemsInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrivacyItemsInstance.0
   bool success = true;
   PrivacyItemsInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -813,6 +821,8 @@ bool PrivacyItemsInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PrivacyItemsInstance_OnStaticPrivacyIndicatorBoundsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrivacyItemsInstance.1
       bool success = true;
       int32_t p_displayId{};
       std::vector<::gfx::Rect> p_bounds{};
@@ -831,9 +841,9 @@ bool PrivacyItemsInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStaticPrivacyIndicatorBoundsChanged(
-std::move(p_displayId), 
-std::move(p_bounds));
+      impl->OnStaticPrivacyIndicatorBoundsChanged(        
+        std::move(p_displayId), 
+        std::move(p_bounds));
       return true;
     }
   }
@@ -856,6 +866,8 @@ bool PrivacyItemsInstanceStubDispatch::AcceptWithResponder(
               internal::PrivacyItemsInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrivacyItemsInstance.0
       bool success = true;
       ::mojo::PendingRemote<PrivacyItemsHost> p_host_remote{};
       PrivacyItemsInstance_Init_ParamsDataView input_data_view(params, message);
@@ -876,8 +888,8 @@ bool PrivacyItemsInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kPrivacyItemsInstance_OnStaticPrivacyIndicatorBoundsChanged_Name: {

@@ -95,8 +95,7 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStreamDefaultWriter.closed.get");
 
 
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->closed(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -113,8 +112,7 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStreamDefaultWriter.desiredSize.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "WritableStreamDefaultWriter";
@@ -148,8 +146,7 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStreamDefaultWriter.ready.get");
 
 
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->ready(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -222,8 +219,7 @@ ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->abort(script_state, exception_state);
@@ -265,8 +261,7 @@ return;
 
 
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->close(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -289,8 +284,7 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStreamDefaultWriter.releaseLock");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 blink_receiver->releaseLock(script_state);
 
@@ -323,8 +317,7 @@ ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 WritableStreamDefaultWriter* blink_receiver = V8WritableStreamDefaultWriter::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->write(script_state, exception_state);

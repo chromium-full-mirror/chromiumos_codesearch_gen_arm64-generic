@@ -435,6 +435,8 @@ bool PluginRegistry_GetPlugins_ForwardToCallback::Accept(
           internal::PluginRegistry_GetPlugins_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PluginRegistry.0
   bool success = true;
   std::vector<PluginInfoPtr> p_plugins{};
   PluginRegistry_GetPlugins_ResponseParamsDataView input_data_view(params, message);
@@ -516,6 +518,8 @@ bool PluginRegistry_GetPlugins_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PluginRegistry_GetPlugins_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PluginRegistry.0
   bool success = true;
   std::vector<PluginInfoPtr> p_plugins{};
   PluginRegistry_GetPlugins_ResponseParamsDataView input_data_view(params, message);
@@ -562,6 +566,8 @@ bool PluginRegistryStubDispatch::AcceptWithResponder(
               internal::PluginRegistry_GetPlugins_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PluginRegistry.0
       bool success = true;
       bool p_refresh{};
       PluginRegistry_GetPlugins_ParamsDataView input_data_view(params, message);
@@ -580,8 +586,8 @@ bool PluginRegistryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPlugins(
-std::move(p_refresh), std::move(callback));
+      impl->GetPlugins(        
+        std::move(p_refresh), std::move(callback));
       return true;
     }
   }

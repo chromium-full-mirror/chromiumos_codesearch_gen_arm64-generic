@@ -57,7 +57,7 @@ return MakeGarbageCollected<V8UnionDOMPointInitOrUnrestrictedDouble>(blink_value
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionDOMPointInitOrUnrestrictedDouble::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionDOMPointInitOrUnrestrictedDouble::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kDOMPointInit: {
     return ToV8Traits<DOMPointInit>::ToV8(script_state, member_dom_point_init_.Get());
@@ -68,7 +68,7 @@ v8::MaybeLocal<v8::Value> V8UnionDOMPointInitOrUnrestrictedDouble::ToV8Value(Scr
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionDOMPointInitOrUnrestrictedDouble::Trace(Visitor* visitor) const {

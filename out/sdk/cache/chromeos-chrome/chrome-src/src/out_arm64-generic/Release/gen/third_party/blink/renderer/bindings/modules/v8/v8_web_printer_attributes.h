@@ -14,8 +14,11 @@
 #include "base/containers/span.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_print_color_mode.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_print_quality.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printer_state.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printer_state_reason.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_mime_media_type.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_multiple_document_handling.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_orientation_requested.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_sides.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
@@ -148,6 +151,40 @@ Vector<V8WebPrintingMultipleDocumentHandling> getMultipleDocumentHandlingSupport
 void setMultipleDocumentHandlingSupported(const Vector<V8WebPrintingMultipleDocumentHandling>& value);
 void setMultipleDocumentHandlingSupported(Vector<V8WebPrintingMultipleDocumentHandling>&& value);
 
+bool hasOrientationRequestedDefault() const {
+  return has_orientation_requested_default_;
+}
+V8WebPrintingOrientationRequested orientationRequestedDefault() const {
+  DCHECK(hasOrientationRequestedDefault());
+return member_orientation_requested_default_;
+}
+V8WebPrintingOrientationRequested getOrientationRequestedDefaultOr(V8WebPrintingOrientationRequested fallback_value) const {
+  if (!hasOrientationRequestedDefault()) {
+  return fallback_value;
+}
+return member_orientation_requested_default_;
+}
+void setOrientationRequestedDefault(V8WebPrintingOrientationRequested value) {
+  member_orientation_requested_default_ = value;
+has_orientation_requested_default_ = true;
+}
+void setOrientationRequestedDefault(V8WebPrintingOrientationRequested::Enum value) {
+  member_orientation_requested_default_ = V8WebPrintingOrientationRequested(value);
+has_orientation_requested_default_ = true;
+}
+
+bool hasOrientationRequestedSupported() const {
+  return has_orientation_requested_supported_;
+}
+const Vector<V8WebPrintingOrientationRequested>& orientationRequestedSupported() const {
+  DCHECK(hasOrientationRequestedSupported());
+return member_orientation_requested_supported_;
+}
+Vector<V8WebPrintingOrientationRequested> getOrientationRequestedSupportedOr(const Vector<V8WebPrintingOrientationRequested>& fallback_value) const;
+Vector<V8WebPrintingOrientationRequested> getOrientationRequestedSupportedOr(Vector<V8WebPrintingOrientationRequested>&& fallback_value) const;
+void setOrientationRequestedSupported(const Vector<V8WebPrintingOrientationRequested>& value);
+void setOrientationRequestedSupported(Vector<V8WebPrintingOrientationRequested>&& value);
+
 bool hasPrintColorModeDefault() const {
   return has_print_color_mode_default_;
 }
@@ -259,6 +296,52 @@ HeapVector<Member<WebPrintingResolution>> getPrinterResolutionSupportedOr(HeapVe
 void setPrinterResolutionSupported(const HeapVector<Member<WebPrintingResolution>>& value);
 void setPrinterResolutionSupported(HeapVector<Member<WebPrintingResolution>>&& value);
 
+bool hasPrinterState() const {
+  return has_printer_state_;
+}
+V8WebPrinterState printerState() const {
+  DCHECK(hasPrinterState());
+return member_printer_state_;
+}
+V8WebPrinterState getPrinterStateOr(V8WebPrinterState fallback_value) const {
+  if (!hasPrinterState()) {
+  return fallback_value;
+}
+return member_printer_state_;
+}
+void setPrinterState(V8WebPrinterState value) {
+  member_printer_state_ = value;
+has_printer_state_ = true;
+}
+void setPrinterState(V8WebPrinterState::Enum value) {
+  member_printer_state_ = V8WebPrinterState(value);
+has_printer_state_ = true;
+}
+
+bool hasPrinterStateMessage() const {
+  return has_printer_state_message_;
+}
+const String& printerStateMessage() const {
+  DCHECK(hasPrinterStateMessage());
+return member_printer_state_message_;
+}
+String getPrinterStateMessageOr(const String& fallback_value) const;
+String getPrinterStateMessageOr(String&& fallback_value) const;
+void setPrinterStateMessage(const String& value);
+void setPrinterStateMessage(String&& value);
+
+bool hasPrinterStateReasons() const {
+  return has_printer_state_reasons_;
+}
+const Vector<V8WebPrinterStateReason>& printerStateReasons() const {
+  DCHECK(hasPrinterStateReasons());
+return member_printer_state_reasons_;
+}
+Vector<V8WebPrinterStateReason> getPrinterStateReasonsOr(const Vector<V8WebPrinterStateReason>& fallback_value) const;
+Vector<V8WebPrinterStateReason> getPrinterStateReasonsOr(Vector<V8WebPrinterStateReason>&& fallback_value) const;
+void setPrinterStateReasons(const Vector<V8WebPrinterStateReason>& value);
+void setPrinterStateReasons(Vector<V8WebPrinterStateReason>&& value);
+
 bool hasSidesDefault() const {
   return has_sides_default_;
 }
@@ -303,6 +386,10 @@ void setMultipleDocumentHandlingDefault(const String& value) {
   member_multiple_document_handling_default_ = V8WebPrintingMultipleDocumentHandling::Create(value).value();
 has_multiple_document_handling_default_ = true;
 }
+void setOrientationRequestedDefault(const String& value) {
+  member_orientation_requested_default_ = V8WebPrintingOrientationRequested::Create(value).value();
+has_orientation_requested_default_ = true;
+}
 void setPrintColorModeDefault(const String& value) {
   member_print_color_mode_default_ = V8WebPrintColorMode::Create(value).value();
 has_print_color_mode_default_ = true;
@@ -310,6 +397,10 @@ has_print_color_mode_default_ = true;
 void setPrintQualityDefault(const String& value) {
   member_print_quality_default_ = V8WebPrintQuality::Create(value).value();
 has_print_quality_default_ = true;
+}
+void setPrinterState(const String& value) {
+  member_printer_state_ = V8WebPrinterState::Create(value).value();
+has_printer_state_ = true;
 }
 void setSidesDefault(const String& value) {
   member_sides_default_ = V8WebPrintingSides::Create(value).value();
@@ -334,6 +425,8 @@ bool has_document_format_default_ = false;
 bool has_document_format_supported_ = false;
 bool has_multiple_document_handling_default_ = false;
 bool has_multiple_document_handling_supported_ = false;
+bool has_orientation_requested_default_ = false;
+bool has_orientation_requested_supported_ = false;
 bool has_print_color_mode_default_ = false;
 bool has_print_color_mode_supported_ = false;
 bool has_print_quality_default_ = false;
@@ -341,6 +434,9 @@ bool has_print_quality_supported_ = false;
 bool has_printer_name_ = false;
 bool has_printer_resolution_default_ = false;
 bool has_printer_resolution_supported_ = false;
+bool has_printer_state_ = false;
+bool has_printer_state_message_ = false;
+bool has_printer_state_reasons_ = false;
 bool has_sides_default_ = false;
 bool has_sides_supported_ = false;
 
@@ -350,6 +446,8 @@ V8WebPrintingMimeMediaType member_document_format_default_{static_cast<V8WebPrin
 Vector<V8WebPrintingMimeMediaType> member_document_format_supported_;
 V8WebPrintingMultipleDocumentHandling member_multiple_document_handling_default_{static_cast<V8WebPrintingMultipleDocumentHandling::Enum>(0)};
 Vector<V8WebPrintingMultipleDocumentHandling> member_multiple_document_handling_supported_;
+V8WebPrintingOrientationRequested member_orientation_requested_default_{static_cast<V8WebPrintingOrientationRequested::Enum>(0)};
+Vector<V8WebPrintingOrientationRequested> member_orientation_requested_supported_;
 V8WebPrintColorMode member_print_color_mode_default_{static_cast<V8WebPrintColorMode::Enum>(0)};
 Vector<V8WebPrintColorMode> member_print_color_mode_supported_;
 V8WebPrintQuality member_print_quality_default_{static_cast<V8WebPrintQuality::Enum>(0)};
@@ -357,6 +455,9 @@ Vector<V8WebPrintQuality> member_print_quality_supported_;
 String member_printer_name_;
 Member<WebPrintingResolution> member_printer_resolution_default_;
 HeapVector<Member<WebPrintingResolution>> member_printer_resolution_supported_;
+V8WebPrinterState member_printer_state_{static_cast<V8WebPrinterState::Enum>(0)};
+String member_printer_state_message_;
+Vector<V8WebPrinterStateReason> member_printer_state_reasons_;
 V8WebPrintingSides member_sides_default_{static_cast<V8WebPrintingSides::Enum>(0)};
 Vector<V8WebPrintingSides> member_sides_supported_;
 

@@ -324,6 +324,8 @@ bool NetworkEasterEgg_GetHighScore_ForwardToCallback::Accept(
           internal::NetworkEasterEgg_GetHighScore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkEasterEgg.0
   bool success = true;
   uint32_t p_high_score{};
   NetworkEasterEgg_GetHighScore_ResponseParamsDataView input_data_view(params, message);
@@ -401,6 +403,8 @@ bool NetworkEasterEggStubDispatch::Accept(
           reinterpret_cast<internal::NetworkEasterEgg_UpdateHighScore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkEasterEgg.1
       bool success = true;
       uint32_t p_high_score{};
       NetworkEasterEgg_UpdateHighScore_ParamsDataView input_data_view(params, message);
@@ -416,8 +420,8 @@ bool NetworkEasterEggStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateHighScore(
-std::move(p_high_score));
+      impl->UpdateHighScore(        
+        std::move(p_high_score));
       return true;
     }
     case internal::kNetworkEasterEgg_ResetHighScore_Name: {
@@ -427,6 +431,8 @@ std::move(p_high_score));
           reinterpret_cast<internal::NetworkEasterEgg_ResetHighScore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkEasterEgg.2
       bool success = true;
       NetworkEasterEgg_ResetHighScore_ParamsDataView input_data_view(params, message);
       
@@ -439,7 +445,7 @@ std::move(p_high_score));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetHighScore();
+      impl->ResetHighScore(        );
       return true;
     }
   }
@@ -462,6 +468,8 @@ bool NetworkEasterEggStubDispatch::AcceptWithResponder(
               internal::NetworkEasterEgg_GetHighScore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkEasterEgg.0
       bool success = true;
       NetworkEasterEgg_GetHighScore_ParamsDataView input_data_view(params, message);
       

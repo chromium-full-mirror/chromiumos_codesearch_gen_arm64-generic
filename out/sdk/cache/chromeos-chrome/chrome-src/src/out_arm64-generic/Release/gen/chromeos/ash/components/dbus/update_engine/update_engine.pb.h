@@ -1126,6 +1126,7 @@ class InstallParams final :
     kIdFieldNumber = 1,
     kOmahaUrlFieldNumber = 2,
     kScaledFieldNumber = 3,
+    kForceOtaFieldNumber = 4,
   };
   // string id = 1;
   void clear_id();
@@ -1164,6 +1165,15 @@ class InstallParams final :
   void _internal_set_scaled(bool value);
   public:
 
+  // bool force_ota = 4;
+  void clear_force_ota();
+  bool force_ota() const;
+  void set_force_ota(bool value);
+  private:
+  bool _internal_force_ota() const;
+  void _internal_set_force_ota(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:update_engine.InstallParams)
  private:
   class _Internal;
@@ -1174,6 +1184,7 @@ class InstallParams final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr omaha_url_;
   bool scaled_;
+  bool force_ota_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_update_5fengine_2eproto;
 };
@@ -1996,6 +2007,26 @@ inline void InstallParams::_internal_set_scaled(bool value) {
 inline void InstallParams::set_scaled(bool value) {
   _internal_set_scaled(value);
   // @@protoc_insertion_point(field_set:update_engine.InstallParams.scaled)
+}
+
+// bool force_ota = 4;
+inline void InstallParams::clear_force_ota() {
+  force_ota_ = false;
+}
+inline bool InstallParams::_internal_force_ota() const {
+  return force_ota_;
+}
+inline bool InstallParams::force_ota() const {
+  // @@protoc_insertion_point(field_get:update_engine.InstallParams.force_ota)
+  return _internal_force_ota();
+}
+inline void InstallParams::_internal_set_force_ota(bool value) {
+  
+  force_ota_ = value;
+}
+inline void InstallParams::set_force_ota(bool value) {
+  _internal_set_force_ota(value);
+  // @@protoc_insertion_point(field_set:update_engine.InstallParams.force_ota)
 }
 
 #ifdef __GNUC__

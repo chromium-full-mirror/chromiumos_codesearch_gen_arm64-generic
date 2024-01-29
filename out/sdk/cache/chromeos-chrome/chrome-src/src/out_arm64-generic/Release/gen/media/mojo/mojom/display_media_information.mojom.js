@@ -94,6 +94,7 @@
     this.displaySurface = 0;
     this.logicalSurface = false;
     this.cursor = 0;
+    this.initialZoomLevel = 0;
     this.captureHandle = null;
   };
   DisplayMediaInformation.prototype.initFields_ = function(fields) {
@@ -135,6 +136,7 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
     return validator.validationError.NONE;
   };
 
@@ -154,10 +156,8 @@
     decoder.skip(1);
     val.cursor =
         decoder.decodeStruct(new codec.Enum(CursorCaptureType));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.initialZoomLevel =
+        decoder.decodeStruct(codec.Int32);
     val.captureHandle =
         decoder.decodeStructPointer(capture_handle$.CaptureHandle);
     return val;
@@ -175,10 +175,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.cursor);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.initialZoomLevel);
     encoder.encodeStructPointer(capture_handle$.CaptureHandle, val.captureHandle);
   };
   exports.DisplayCaptureSurfaceType = DisplayCaptureSurfaceType;

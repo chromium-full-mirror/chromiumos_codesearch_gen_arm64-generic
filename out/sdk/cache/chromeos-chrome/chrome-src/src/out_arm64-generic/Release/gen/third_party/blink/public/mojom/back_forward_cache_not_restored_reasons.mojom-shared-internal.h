@@ -28,31 +28,6 @@ namespace internal {
 class SameOriginBfcacheNotRestoredDetails_Data;
 class BackForwardCacheNotRestoredReasons_Data;
 
-struct BFCacheBlocked_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-      case 2:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
 #pragma pack(push, 1)
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SameOriginBfcacheNotRestoredDetails_Data {
  public:
@@ -61,7 +36,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SameOriginBfcacheNotRes
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> url;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> reasons;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::BackForwardCacheNotRestoredReasons_Data>>> children;
 
  private:
@@ -70,7 +44,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SameOriginBfcacheNotRes
   SameOriginBfcacheNotRestoredDetails_Data();
   ~SameOriginBfcacheNotRestoredDetails_Data() = delete;
 };
-static_assert(sizeof(SameOriginBfcacheNotRestoredDetails_Data) == 32,
+static_assert(sizeof(SameOriginBfcacheNotRestoredDetails_Data) == 24,
               "Bad sizeof(SameOriginBfcacheNotRestoredDetails_Data)");
 // Used by SameOriginBfcacheNotRestoredDetails::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -110,11 +84,10 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BackForwardCacheNotRest
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t blocked;
-  uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> src;
   mojo::internal::Pointer<mojo::internal::String_Data> id;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> reasons;
   mojo::internal::Pointer<internal::SameOriginBfcacheNotRestoredDetails_Data> same_origin_details;
 
  private:

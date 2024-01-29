@@ -94,7 +94,7 @@ class MediaRouteProvider
     kDetachRouteMinVersion = 0,
     kEnableMdnsDiscoveryMinVersion = 0,
     kDiscoverSinksNowMinVersion = 0,
-    kCreateMediaRouteControllerMinVersion = 0,
+    kBindMediaControllerMinVersion = 0,
     kGetStateMinVersion = 0,
   };
 
@@ -134,7 +134,7 @@ class MediaRouteProvider
   struct DiscoverSinksNow_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct CreateMediaRouteController_Sym {
+  struct BindMediaController_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetState_Sym {
@@ -183,9 +183,9 @@ class MediaRouteProvider
   virtual void DiscoverSinksNow() = 0;
 
 
-  using CreateMediaRouteControllerCallback = base::OnceCallback<void(bool)>;
+  using BindMediaControllerCallback = base::OnceCallback<void(bool)>;
   
-  virtual void CreateMediaRouteController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, CreateMediaRouteControllerCallback callback) = 0;
+  virtual void BindMediaController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, BindMediaControllerCallback callback) = 0;
 
 
   using GetStateCallback = base::OnceCallback<void(ProviderStatePtr)>;
@@ -351,7 +351,7 @@ class  MediaRouteProviderProxy
   
   void DiscoverSinksNow() final;
   
-  void CreateMediaRouteController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, CreateMediaRouteControllerCallback callback) final;
+  void BindMediaController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, BindMediaControllerCallback callback) final;
   
   void GetState(GetStateCallback callback) final;
 

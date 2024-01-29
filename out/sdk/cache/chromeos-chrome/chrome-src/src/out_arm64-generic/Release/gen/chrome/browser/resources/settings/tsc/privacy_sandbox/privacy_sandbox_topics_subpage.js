@@ -7,16 +7,18 @@ import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-collapse/iron-collapse.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import './privacy_sandbox_interest_item.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { HatsBrowserProxyImpl, TrustSafetyInteraction } from '../hats_browser_proxy.js';
+import { loadTimeData } from '../i18n_setup.js';
 import { MetricsBrowserProxyImpl } from '../metrics_browser_proxy.js';
 import { routes } from '../route.js';
-import { RouteObserverMixin } from '../router.js';
+import { RouteObserverMixin, Router } from '../router.js';
 import { PrivacySandboxBrowserProxyImpl } from './privacy_sandbox_browser_proxy.js';
 import { getTemplate } from './privacy_sandbox_topics_subpage.html.js';
 const SettingsPrivacySandboxTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PrefsMixin(PolymerElement)));
@@ -73,12 +75,21 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
                 value: false,
                 observer: 'onBlockedTopicsExpanded_',
             },
+            focusConfig: {
+                type: Object,
+                observer: 'focusConfigChanged_',
+            },
+            isProactiveTopicsBlockingEnabled_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
+            },
         };
     }
     ready() {
         super.ready();
         this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
         this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+        this.$.footerPTB.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
     }
     currentRouteChanged(newRoute) {
         if (newRoute === routes.PRIVACY_SANDBOX_TOPICS) {
@@ -178,6 +189,48 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
         if (this.blockedTopicsExpanded_) {
             this.metricsBrowserProxy_.recordAction('Settings.PrivacySandbox.Topics.BlockedTopicsOpened');
         }
+    }
+    onPrivacySandboxManageTopicsClick_() {
+        Router.getInstance().navigateTo(routes.PRIVACY_SANDBOX_MANAGE_TOPICS);
+    }
+    focusConfigChanged_(_newConfig, oldConfig) {
+        // TODO: focusConfig does not work for manage topics subpage
+        assert(!oldConfig);
+        if (routes.PRIVACY_SANDBOX_MANAGE_TOPICS) {
+            this.focusConfig.set(routes.PRIVACY_SANDBOX_MANAGE_TOPICS.path, () => {
+                const toFocus = this.shadowRoot.querySelector('#privacySandboxManageTopicsLinkRow');
+                assert(toFocus);
+                focusWithoutInk(toFocus);
+            });
+        }
+    }
+    computeTopicsPageToggleSubLabel_() {
+        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ? 'topicsPageToggleSubLabelPTB' :
+            'topicsPageToggleSubLabel');
+    }
+    computeTopicsPageCurrentTopicsHeading_() {
+        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
+            'topicsPageCurrentTopicsHeadingPTB' :
+            'topicsPageCurrentTopicsHeading');
+    }
+    computeTopicsPageCurrentTopicsDescription_() {
+        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
+            'topicsPageCurrentTopicsDescriptionPTB' :
+            'topicsPageCurrentTopicsDescription');
+    }
+    computeTopicsPageCurrentTopicsDescriptionEmpty_() {
+        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
+            'topicsPageCurrentTopicsDescriptionEmptyPTB' :
+            'topicsPageCurrentTopicsDescriptionEmpty');
+    }
+    computeTopicsPageBlockedTopicsHeading_() {
+        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
+            'topicsPageBlockedTopicsHeadingPTB' :
+            'topicsPageBlockedTopicsHeading');
+    }
+    shouldShowManageTopics_() {
+        return this.isProactiveTopicsBlockingEnabled_ &&
+            !loadTimeData.getBoolean('isPrivacySandboxRestricted');
     }
 }
 customElements.define(SettingsPrivacySandboxTopicsSubpageElement.is, SettingsPrivacySandboxTopicsSubpageElement);

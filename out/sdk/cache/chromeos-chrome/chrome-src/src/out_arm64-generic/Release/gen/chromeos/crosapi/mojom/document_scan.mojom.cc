@@ -2332,6 +2332,8 @@ bool DocumentScan_GetScannerNames_ForwardToCallback::Accept(
           internal::DocumentScan_GetScannerNames_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.0
   bool success = true;
   std::vector<std::string> p_scanner_names{};
   DocumentScan_GetScannerNames_ResponseParamsDataView input_data_view(params, message);
@@ -2463,6 +2465,8 @@ bool DocumentScan_ScanFirstPage_ForwardToCallback::Accept(
           internal::DocumentScan_ScanFirstPage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.1
   bool success = true;
   ScanFailureMode p_failure_mode{};
   std::optional<std::string> p_scan_data{};
@@ -2597,6 +2601,8 @@ bool DocumentScan_GetScannerList_ForwardToCallback::Accept(
           internal::DocumentScan_GetScannerList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.2
   bool success = true;
   GetScannerListResponsePtr p_response{};
   DocumentScan_GetScannerList_ResponseParamsDataView input_data_view(params, message);
@@ -2726,6 +2732,8 @@ bool DocumentScan_OpenScanner_ForwardToCallback::Accept(
           internal::DocumentScan_OpenScanner_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.3
   bool success = true;
   OpenScannerResponsePtr p_response{};
   DocumentScan_OpenScanner_ResponseParamsDataView input_data_view(params, message);
@@ -2855,6 +2863,8 @@ bool DocumentScan_CloseScanner_ForwardToCallback::Accept(
           internal::DocumentScan_CloseScanner_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.4
   bool success = true;
   CloseScannerResponsePtr p_response{};
   DocumentScan_CloseScanner_ResponseParamsDataView input_data_view(params, message);
@@ -2984,6 +2994,8 @@ bool DocumentScan_StartPreparedScan_ForwardToCallback::Accept(
           internal::DocumentScan_StartPreparedScan_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.5
   bool success = true;
   StartPreparedScanResponsePtr p_response{};
   DocumentScan_StartPreparedScan_ResponseParamsDataView input_data_view(params, message);
@@ -3113,6 +3125,8 @@ bool DocumentScan_ReadScanData_ForwardToCallback::Accept(
           internal::DocumentScan_ReadScanData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.6
   bool success = true;
   ReadScanDataResponsePtr p_response{};
   DocumentScan_ReadScanData_ResponseParamsDataView input_data_view(params, message);
@@ -3242,6 +3256,8 @@ bool DocumentScan_SetOptions_ForwardToCallback::Accept(
           internal::DocumentScan_SetOptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.7
   bool success = true;
   SetOptionsResponsePtr p_response{};
   DocumentScan_SetOptions_ResponseParamsDataView input_data_view(params, message);
@@ -3371,6 +3387,8 @@ bool DocumentScan_GetOptionGroups_ForwardToCallback::Accept(
           internal::DocumentScan_GetOptionGroups_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.8
   bool success = true;
   GetOptionGroupsResponsePtr p_response{};
   DocumentScan_GetOptionGroups_ResponseParamsDataView input_data_view(params, message);
@@ -3500,6 +3518,8 @@ bool DocumentScan_CancelScan_ForwardToCallback::Accept(
           internal::DocumentScan_CancelScan_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScan.9
   bool success = true;
   CancelScanResponsePtr p_response{};
   DocumentScan_CancelScan_ResponseParamsDataView input_data_view(params, message);
@@ -3627,6 +3647,8 @@ bool DocumentScanStubDispatch::AcceptWithResponder(
               internal::DocumentScan_GetScannerNames_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.0
       bool success = true;
       DocumentScan_GetScannerNames_ParamsDataView input_data_view(params, message);
       
@@ -3652,6 +3674,8 @@ bool DocumentScanStubDispatch::AcceptWithResponder(
               internal::DocumentScan_ScanFirstPage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.1
       bool success = true;
       std::string p_scanner_name{};
       DocumentScan_ScanFirstPage_ParamsDataView input_data_view(params, message);
@@ -3670,8 +3694,8 @@ bool DocumentScanStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScanFirstPage(
-std::move(p_scanner_name), std::move(callback));
+      impl->ScanFirstPage(        
+        std::move(p_scanner_name), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_GetScannerList_Name: {
@@ -3681,6 +3705,8 @@ std::move(p_scanner_name), std::move(callback));
               internal::DocumentScan_GetScannerList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.2
       bool success = true;
       std::string p_client_id{};
       ScannerEnumFilterPtr p_filter{};
@@ -3702,9 +3728,9 @@ std::move(p_scanner_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetScannerList(
-std::move(p_client_id), 
-std::move(p_filter), std::move(callback));
+      impl->GetScannerList(        
+        std::move(p_client_id), 
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_OpenScanner_Name: {
@@ -3714,6 +3740,8 @@ std::move(p_filter), std::move(callback));
               internal::DocumentScan_OpenScanner_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.3
       bool success = true;
       std::string p_client_id{};
       std::string p_scanner_id{};
@@ -3735,9 +3763,9 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenScanner(
-std::move(p_client_id), 
-std::move(p_scanner_id), std::move(callback));
+      impl->OpenScanner(        
+        std::move(p_client_id), 
+        std::move(p_scanner_id), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_CloseScanner_Name: {
@@ -3747,6 +3775,8 @@ std::move(p_scanner_id), std::move(callback));
               internal::DocumentScan_CloseScanner_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.4
       bool success = true;
       std::string p_scanner_handle{};
       DocumentScan_CloseScanner_ParamsDataView input_data_view(params, message);
@@ -3765,8 +3795,8 @@ std::move(p_scanner_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseScanner(
-std::move(p_scanner_handle), std::move(callback));
+      impl->CloseScanner(        
+        std::move(p_scanner_handle), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_StartPreparedScan_Name: {
@@ -3776,6 +3806,8 @@ std::move(p_scanner_handle), std::move(callback));
               internal::DocumentScan_StartPreparedScan_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.5
       bool success = true;
       std::string p_scanner_handle{};
       StartScanOptionsPtr p_options{};
@@ -3797,9 +3829,9 @@ std::move(p_scanner_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPreparedScan(
-std::move(p_scanner_handle), 
-std::move(p_options), std::move(callback));
+      impl->StartPreparedScan(        
+        std::move(p_scanner_handle), 
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_ReadScanData_Name: {
@@ -3809,6 +3841,8 @@ std::move(p_options), std::move(callback));
               internal::DocumentScan_ReadScanData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.6
       bool success = true;
       std::string p_job_handle{};
       DocumentScan_ReadScanData_ParamsDataView input_data_view(params, message);
@@ -3827,8 +3861,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadScanData(
-std::move(p_job_handle), std::move(callback));
+      impl->ReadScanData(        
+        std::move(p_job_handle), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_SetOptions_Name: {
@@ -3838,6 +3872,8 @@ std::move(p_job_handle), std::move(callback));
               internal::DocumentScan_SetOptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.7
       bool success = true;
       std::string p_scanner_handle{};
       std::vector<OptionSettingPtr> p_options{};
@@ -3859,9 +3895,9 @@ std::move(p_job_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOptions(
-std::move(p_scanner_handle), 
-std::move(p_options), std::move(callback));
+      impl->SetOptions(        
+        std::move(p_scanner_handle), 
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_GetOptionGroups_Name: {
@@ -3871,6 +3907,8 @@ std::move(p_options), std::move(callback));
               internal::DocumentScan_GetOptionGroups_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.8
       bool success = true;
       std::string p_scanner_handle{};
       DocumentScan_GetOptionGroups_ParamsDataView input_data_view(params, message);
@@ -3889,8 +3927,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOptionGroups(
-std::move(p_scanner_handle), std::move(callback));
+      impl->GetOptionGroups(        
+        std::move(p_scanner_handle), std::move(callback));
       return true;
     }
     case internal::kDocumentScan_CancelScan_Name: {
@@ -3900,6 +3938,8 @@ std::move(p_scanner_handle), std::move(callback));
               internal::DocumentScan_CancelScan_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScan.9
       bool success = true;
       std::string p_job_handle{};
       DocumentScan_CancelScan_ParamsDataView input_data_view(params, message);
@@ -3918,8 +3958,8 @@ std::move(p_scanner_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelScan(
-std::move(p_job_handle), std::move(callback));
+      impl->CancelScan(        
+        std::move(p_job_handle), std::move(callback));
       return true;
     }
   }

@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc libabsl_cord.a CMakeFiles/cord.dir/cord.cc.o CMakeFiles/cord.dir/cord_analysis.cc.o CMakeFiles/cord.dir/cord_buffer.cc.o
+/usr/bin/llvm-ranlib libabsl_cord.a

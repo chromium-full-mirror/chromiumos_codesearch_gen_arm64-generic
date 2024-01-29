@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3743/work/trunks-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -29,6 +29,8 @@ build libtrunks: phony obj/trunks/libtrunks.stamp
 build pinweaver_proto: phony ./libpinweaver_proto.a
 build pinweaver_proto_gen: phony obj/trunks/pinweaver_proto_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
+build trunks_adaptors: phony obj/trunks/trunks_adaptors.stamp
+build trunks_proxies: phony obj/trunks/trunks_proxies.stamp
 build trunks_test: phony ./libtrunks_test.a
 build trunksd_lib: phony ./libtrunksd_lib.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
@@ -44,7 +46,9 @@ build trunks$:pinweaver_client: phony ./pinweaver_client
 build trunks$:pinweaver_proto: phony ./libpinweaver_proto.a
 build trunks$:pinweaver_proto_gen: phony obj/trunks/pinweaver_proto_gen.stamp
 build trunks$:trunks: phony ./lib/libtrunks.so
+build trunks$:trunks_adaptors: phony obj/trunks/trunks_adaptors.stamp
 build trunks$:trunks_client: phony ./trunks_client
+build trunks$:trunks_proxies: phony obj/trunks/trunks_proxies.stamp
 build trunks$:trunks_send: phony ./trunks_send
 build trunks$:trunks_test: phony ./libtrunks_test.a
 build trunks$:trunksd: phony ./trunksd
@@ -64,7 +68,9 @@ build all: phony $
     ./libpinweaver_proto.a $
     obj/trunks/pinweaver_proto_gen.stamp $
     ./lib/libtrunks.so $
+    obj/trunks/trunks_adaptors.stamp $
     ./trunks_client $
+    obj/trunks/trunks_proxies.stamp $
     ./trunks_send $
     ./libtrunks_test.a $
     ./trunksd $

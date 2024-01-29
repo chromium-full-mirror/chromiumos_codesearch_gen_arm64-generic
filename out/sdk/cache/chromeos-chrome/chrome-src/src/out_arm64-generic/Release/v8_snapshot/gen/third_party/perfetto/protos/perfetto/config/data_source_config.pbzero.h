@@ -34,6 +34,7 @@ class NetworkPacketTraceConfig;
 class PackagesListConfig;
 class PerfEventConfig;
 class ProcessStatsConfig;
+class ProtoLogConfig;
 class StatsdTracingConfig;
 class SurfaceFlingerLayersConfig;
 class SurfaceFlingerTransactionsConfig;
@@ -41,6 +42,7 @@ class SysStatsConfig;
 class SystemInfoConfig;
 class TestConfig;
 class TrackEventConfig;
+class V8Config;
 class VulkanMemoryConfig;
 namespace perfetto_pbzero_enum_DataSourceConfig {
 enum SessionInitiator : int32_t;
@@ -72,7 +74,7 @@ const char* DataSourceConfig_SessionInitiator_Name(::perfetto::protos::pbzero::D
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/125, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/127, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   DataSourceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit DataSourceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -131,6 +133,8 @@ class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIE
   ::protozero::ConstBytes system_info_config() const { return at<119>().as_bytes(); }
   bool has_chrome_config() const { return at<101>().valid(); }
   ::protozero::ConstBytes chrome_config() const { return at<101>().as_bytes(); }
+  bool has_v8_config() const { return at<127>().valid(); }
+  ::protozero::ConstBytes v8_config() const { return at<127>().as_bytes(); }
   bool has_interceptor_config() const { return at<115>().valid(); }
   ::protozero::ConstBytes interceptor_config() const { return at<115>().as_bytes(); }
   bool has_network_packet_trace_config() const { return at<120>().valid(); }
@@ -143,6 +147,8 @@ class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIE
   ::protozero::ConstBytes android_sdk_sysprop_guard_config() const { return at<124>().as_bytes(); }
   bool has_etw_config() const { return at<125>().valid(); }
   ::protozero::ConstBytes etw_config() const { return at<125>().as_bytes(); }
+  bool has_protolog_config() const { return at<126>().valid(); }
+  ::protozero::ConstBytes protolog_config() const { return at<126>().as_bytes(); }
   // field legacy_config omitted because its id is too high
   // field for_testing omitted because its id is too high
 };
@@ -178,12 +184,14 @@ class DataSourceConfig : public ::protozero::Message {
     kStatsdTracingConfigFieldNumber = 117,
     kSystemInfoConfigFieldNumber = 119,
     kChromeConfigFieldNumber = 101,
+    kV8ConfigFieldNumber = 127,
     kInterceptorConfigFieldNumber = 115,
     kNetworkPacketTraceConfigFieldNumber = 120,
     kSurfaceflingerLayersConfigFieldNumber = 121,
     kSurfaceflingerTransactionsConfigFieldNumber = 123,
     kAndroidSdkSyspropGuardConfigFieldNumber = 124,
     kEtwConfigFieldNumber = 125,
+    kProtologConfigFieldNumber = 126,
     kLegacyConfigFieldNumber = 1000,
     kForTestingFieldNumber = 1001,
   };
@@ -681,6 +689,24 @@ class DataSourceConfig : public ::protozero::Message {
   }
 
 
+  using FieldMetadata_V8Config =
+    ::protozero::proto_utils::FieldMetadata<
+      127,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8Config,
+      DataSourceConfig>;
+
+  static constexpr FieldMetadata_V8Config kV8Config{};
+  template <typename T = V8Config> T* set_v8_config() {
+    return BeginNestedMessage<T>(127);
+  }
+
+  void set_v8_config_raw(const std::string& raw) {
+    return AppendBytes(127, raw.data(), raw.size());
+  }
+
+
   using FieldMetadata_InterceptorConfig =
     ::protozero::proto_utils::FieldMetadata<
       115,
@@ -782,6 +808,24 @@ class DataSourceConfig : public ::protozero::Message {
 
   void set_etw_config_raw(const std::string& raw) {
     return AppendBytes(125, raw.data(), raw.size());
+  }
+
+
+  using FieldMetadata_ProtologConfig =
+    ::protozero::proto_utils::FieldMetadata<
+      126,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ProtoLogConfig,
+      DataSourceConfig>;
+
+  static constexpr FieldMetadata_ProtologConfig kProtologConfig{};
+  template <typename T = ProtoLogConfig> T* set_protolog_config() {
+    return BeginNestedMessage<T>(126);
+  }
+
+  void set_protolog_config_raw(const std::string& raw) {
+    return AppendBytes(126, raw.data(), raw.size());
   }
 
 

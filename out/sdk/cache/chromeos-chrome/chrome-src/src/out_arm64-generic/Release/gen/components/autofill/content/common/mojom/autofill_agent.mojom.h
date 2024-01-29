@@ -89,7 +89,6 @@ class AutofillAgent
     kSetFocusRequiresScrollMinVersion = 0,
     kSetQueryPasswordSuggestionMinVersion = 0,
     kEnableHeavyFormDataScrapingMinVersion = 0,
-    kSetFieldsEligibleForManualFillingMinVersion = 0,
     kGetPotentialLastFourCombinationsForStandaloneCvcMinVersion = 0,
   };
 
@@ -150,9 +149,6 @@ class AutofillAgent
   struct EnableHeavyFormDataScraping_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetFieldsEligibleForManualFilling_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct GetPotentialLastFourCombinationsForStandaloneCvc_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -168,7 +164,7 @@ class AutofillAgent
   virtual void TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) = 0;
 
   
-  virtual void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) = 0;
+  virtual void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData::FillData& form) = 0;
 
   
   virtual void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) = 0;
@@ -216,9 +212,6 @@ class AutofillAgent
 
   
   virtual void EnableHeavyFormDataScraping() = 0;
-
-  
-  virtual void SetFieldsEligibleForManualFilling(const std::vector<::autofill::FieldRendererId>& fields) = 0;
 
 
   using GetPotentialLastFourCombinationsForStandaloneCvcCallback = base::OnceCallback<void(const std::vector<std::string>&)>;
@@ -388,7 +381,7 @@ class  AutofillAgentProxy
   
   void TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) final;
   
-  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) final;
+  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData::FillData& form) final;
   
   void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) final;
   
@@ -419,8 +412,6 @@ class  AutofillAgentProxy
   void SetQueryPasswordSuggestion(bool query) final;
   
   void EnableHeavyFormDataScraping() final;
-  
-  void SetFieldsEligibleForManualFilling(const std::vector<::autofill::FieldRendererId>& fields) final;
   
   void GetPotentialLastFourCombinationsForStandaloneCvc(GetPotentialLastFourCombinationsForStandaloneCvcCallback callback) final;
 

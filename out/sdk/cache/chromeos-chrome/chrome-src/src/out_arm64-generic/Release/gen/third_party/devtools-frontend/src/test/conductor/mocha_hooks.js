@@ -110,8 +110,9 @@ exports.mochaHooks = {
     beforeEach: async function () {
         // Sets the timeout higher for this hook only.
         this.timeout(20000);
-        await (0, hooks_js_1.watchForHang)(hooks_js_1.resetPages);
-        await (0, hooks_js_1.watchForHang)(hooks_js_1.unregisterAllServiceWorkers);
+        const currentTest = this.currentTest?.fullTitle();
+        await (0, hooks_js_1.watchForHang)(currentTest, hooks_js_1.resetPages);
+        await (0, hooks_js_1.watchForHang)(currentTest, hooks_js_1.unregisterAllServiceWorkers);
         // Pause when running interactively in debug mode. This is mututally
         // exclusive with parallel mode.
         // We need to pause after `resetPagesBetweenTests`, otherwise the DevTools

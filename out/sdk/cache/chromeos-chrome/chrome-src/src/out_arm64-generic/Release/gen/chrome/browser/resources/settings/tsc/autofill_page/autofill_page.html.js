@@ -3,7 +3,7 @@ export function getTemplate() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">cr-link-row{--cr-icon-button-margin-start:20px}cr-link-row:not([hidden])~cr-link-row{border-top:var(--cr-separator-line)}</style>
     <settings-animated-pages id="pages" section="autofill" focus-config="[[focusConfig_]]">
       <div route-path="default">
-        <cr-link-row id="passwordManagerButton" start-icon="settings20:vpn-key" label="$i18n{localPasswordManager}" on-click="onPasswordsClick_" role-description="$i18n{subpageArrowRoleDescription}" external>
+        <cr-link-row id="passwordManagerButton" label="$i18n{localPasswordManager}" on-click="onPasswordsClick_" role-description="$i18n{subpageArrowRoleDescription}" start-icon="cr20:password" external>
         </cr-link-row>
         <template is="dom-if" if="[[isPlusAddressSettingEnabled_]]">
           <cr-link-row id="plusAddressManagerButton" label="$i18n{plusAddressSettings}" on-click="onPlusAddressClick_" role-description="$i18n{subpageArrowRoleDescription}" external>

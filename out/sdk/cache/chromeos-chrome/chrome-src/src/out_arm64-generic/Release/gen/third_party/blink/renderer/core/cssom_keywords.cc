@@ -315,8 +315,10 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
   }
   case CSSPropertyID::kTextSpacingTrim: {
     switch (valueID) {
-    case CSSValueID::kSpaceFirst:
+    case CSSValueID::kNormal:
     case CSSValueID::kSpaceAll:
+    case CSSValueID::kSpaceFirst:
+    case CSSValueID::kTrimStart:
       return true;
     default:
       return false;
@@ -2478,6 +2480,14 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
     case CSSValueID::kTextTop:
     case CSSValueID::kTextBottom:
     case CSSValueID::kMiddle:
+      return true;
+    default:
+      return false;
+    }
+  }
+  case CSSPropertyID::kViewTransitionClass: {
+    switch (valueID) {
+    case CSSValueID::kNone:
       return true;
     default:
       return false;

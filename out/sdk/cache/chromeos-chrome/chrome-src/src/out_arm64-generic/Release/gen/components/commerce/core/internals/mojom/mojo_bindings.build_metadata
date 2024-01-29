@@ -1,6 +1,7 @@
 {
   "deps": [
     "../../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../../ui/webui/resources/cr_components/commerce/mojo_bindings.build_metadata",
     "../../../../../url/mojom/url_mojom_gurl.build_metadata"
   ],
   "sources": [

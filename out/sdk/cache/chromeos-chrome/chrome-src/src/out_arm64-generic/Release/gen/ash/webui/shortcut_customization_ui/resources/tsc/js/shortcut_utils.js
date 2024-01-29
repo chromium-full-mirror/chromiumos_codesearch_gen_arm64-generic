@@ -292,11 +292,14 @@ export const isFunctionKey = (keycode) => {
 export const isModifierKey = (keycode) => {
     return ModifierKeyCodes.includes(keycode);
 };
-export const isValidDefaultAccelerator = (accelerator) => {
+export const isValidAccelerator = (accelerator) => {
     // A valid default accelerator is one that has modifier(s) and a key or
     // is function key.
     return (accelerator.modifiers > 0 && accelerator.keyCode > 0) ||
         isFunctionKey(accelerator.keyCode);
+};
+export const containsAccelerator = (accelerators, accelerator) => {
+    return accelerators.some(accel => areAcceleratorsEqual(accel, accelerator));
 };
 export const getSourceAndActionFromAcceleratorId = (uuid) => {
     // Split '{source}-{action}` into [source][action].

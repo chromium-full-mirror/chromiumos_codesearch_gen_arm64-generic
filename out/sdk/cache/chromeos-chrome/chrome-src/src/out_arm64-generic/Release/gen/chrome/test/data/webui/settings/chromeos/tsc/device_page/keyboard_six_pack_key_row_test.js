@@ -57,8 +57,8 @@ suite('<keyboard-six-pack-key-row>', () => {
         for (const key of [SixPackKey.DELETE, SixPackKey.INSERT, SixPackKey.PAGE_UP,
             SixPackKey.PAGE_DOWN, SixPackKey.HOME, SixPackKey.END]) {
             await setKey(key);
-            assertDeepEquals(getMenuOptionsForSixPackKey(key), sixPackKeyRow.shadowRoot.querySelector('#keyDropdown')
-                .menuOptions);
+            assertDeepEquals(getMenuOptionsForSixPackKey(key), sixPackKeyRow.shadowRoot
+                .querySelector('#keyDropdown').menuOptions);
         }
     });
 });

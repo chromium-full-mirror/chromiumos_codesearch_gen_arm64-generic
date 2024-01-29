@@ -149,6 +149,8 @@ bool PolicyServiceStubDispatch::Accept(
           reinterpret_cast<internal::PolicyService_ReloadPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyService.0
       bool success = true;
       PolicyService_ReloadPolicy_ParamsDataView input_data_view(params, message);
       
@@ -161,7 +163,7 @@ bool PolicyServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReloadPolicy();
+      impl->ReloadPolicy(        );
       return true;
     }
   }

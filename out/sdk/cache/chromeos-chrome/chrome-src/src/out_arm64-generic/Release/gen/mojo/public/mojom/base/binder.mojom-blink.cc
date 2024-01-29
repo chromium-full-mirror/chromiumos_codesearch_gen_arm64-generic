@@ -167,6 +167,8 @@ bool BinderStubDispatch::Accept(
           reinterpret_cast<internal::Binder_Bind_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Binder.0
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       Binder_Bind_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool BinderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Bind(
-std::move(p_receiver));
+      impl->Bind(        
+        std::move(p_receiver));
       return true;
     }
   }

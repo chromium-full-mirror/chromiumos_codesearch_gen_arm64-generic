@@ -32,6 +32,7 @@
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom-blink.h"
 #include "third_party/blink/public/mojom/use_counter/metrics/web_feature.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom-blink.h"
+#include "third_party/blink/public/mojom/devtools/console_message.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
@@ -134,7 +135,7 @@ class MODULES_EXPORT SharedStorageWorkletServiceClient
     kSharedStorageEntriesMinVersion = 0,
     kSharedStorageLengthMinVersion = 0,
     kSharedStorageRemainingBudgetMinVersion = 0,
-    kConsoleLogMinVersion = 0,
+    kDidAddMessageToConsoleMinVersion = 0,
     kRecordUseCountersMinVersion = 0,
   };
 
@@ -168,7 +169,7 @@ class MODULES_EXPORT SharedStorageWorkletServiceClient
   struct SharedStorageRemainingBudget_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct ConsoleLog_Sym {
+  struct DidAddMessageToConsole_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RecordUseCounters_Sym {
@@ -219,7 +220,7 @@ class MODULES_EXPORT SharedStorageWorkletServiceClient
   virtual void SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) = 0;
 
   
-  virtual void ConsoleLog(const WTF::String& message) = 0;
+  virtual void DidAddMessageToConsole(::blink::mojom::blink::ConsoleMessageLevel log_level, const WTF::String& message) = 0;
 
   
   virtual void RecordUseCounters(const WTF::Vector<::blink::mojom::blink::WebFeature>& features) = 0;
@@ -340,7 +341,7 @@ class MODULES_EXPORT SharedStorageWorkletServiceClientProxy
   
   void SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) final;
   
-  void ConsoleLog(const WTF::String& message) final;
+  void DidAddMessageToConsole(::blink::mojom::blink::ConsoleMessageLevel log_level, const WTF::String& message) final;
   
   void RecordUseCounters(const WTF::Vector<::blink::mojom::blink::WebFeature>& features) final;
 

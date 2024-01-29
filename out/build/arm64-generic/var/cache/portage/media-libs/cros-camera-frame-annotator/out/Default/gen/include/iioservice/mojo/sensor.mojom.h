@@ -331,6 +331,7 @@ class SensorServiceNewDevicesObserver
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kOnNewDeviceAddedMinVersion = 0,
+    kOnDeviceRemovedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -339,11 +340,17 @@ class SensorServiceNewDevicesObserver
   struct OnNewDeviceAdded_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnDeviceRemoved_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SensorServiceNewDevicesObserver() = default;
 
   
   virtual void OnNewDeviceAdded(int32_t iio_device_id, const std::vector<DeviceType>& types) = 0;
+
+  
+  virtual void OnDeviceRemoved(int32_t iio_device_id) = 0;
 };
 
 class SensorDeviceEventsObserverProxy;
@@ -483,6 +490,8 @@ class  SensorServiceNewDevicesObserverProxy
   explicit SensorServiceNewDevicesObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void OnNewDeviceAdded(int32_t iio_device_id, const std::vector<DeviceType>& types) final;
+  
+  void OnDeviceRemoved(int32_t iio_device_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -39,7 +39,7 @@ export class TableList extends List {
     resizeCells_() {
         const cm = this.table_.columnModel;
         for (let row = this.firstElementChild; row; row = row.nextElementSibling) {
-            if (row.tagName != 'LI') {
+            if (row.tagName !== 'LI') {
                 continue;
             }
             for (let i = 0; i < cm.size; i++) {
@@ -56,7 +56,7 @@ export class TableList extends List {
      * Redraws the viewport.
      */
     redraw() {
-        if (this.batchCount_ != 0) {
+        if (this.batchCount_ !== 0) {
             return;
         }
         this.updateScrollbars_();
@@ -71,7 +71,7 @@ export class TableList extends List {
     getAfterFillerHeight(lastIndex) {
         // If the list is empty set height to 1 to show horizontal
         // scroll bar.
-        return lastIndex == 0 ?
+        return lastIndex === 0 ?
             1 :
             List.prototype.getAfterFillerHeight.call(this, lastIndex);
     }
@@ -82,8 +82,8 @@ export class TableList extends List {
     updateScrollbars_() {
         const cm = this.table_.columnModel;
         const style = this.style;
-        if (!cm || cm.size == 0) {
-            if (style.overflow != 'hidden') {
+        if (!cm || cm.size === 0) {
+            if (style.overflow !== 'hidden') {
                 style.overflow = 'hidden';
                 return true;
             }
@@ -95,7 +95,7 @@ export class TableList extends List {
         let changed = false;
         const offsetWidth = this.offsetWidth;
         if (cm.totalWidth > offsetWidth) {
-            if (style.overflowX != 'scroll') {
+            if (style.overflowX !== 'scroll') {
                 style.overflowX = 'scroll';
             }
             // Once we sure there will be horizontal
@@ -103,7 +103,7 @@ export class TableList extends List {
             height = this.clientHeight;
         }
         if (this.areAllItemsVisible_(height)) {
-            if (cm.totalWidth <= offsetWidth && style.overflowX != 'hidden') {
+            if (cm.totalWidth <= offsetWidth && style.overflowX !== 'hidden') {
                 style.overflowX = 'hidden';
             }
             changed = this.showVerticalScrollBar_(false);
@@ -111,7 +111,7 @@ export class TableList extends List {
         else {
             changed = this.showVerticalScrollBar_(true);
             const x = cm.totalWidth <= this.clientWidth ? 'hidden' : 'scroll';
-            if (style.overflowX != x) {
+            if (style.overflowX !== x) {
                 style.overflowX = x;
             }
         }
@@ -124,10 +124,10 @@ export class TableList extends List {
      */
     showVerticalScrollBar_(show) {
         const style = this.style;
-        if (show && style.overflowY == 'scroll') {
+        if (show && style.overflowY === 'scroll') {
             return false;
         }
-        if (!show && style.overflowY == 'hidden') {
+        if (!show && style.overflowY === 'hidden') {
             return false;
         }
         style.overflowY = show ? 'scroll' : 'hidden';
@@ -139,7 +139,7 @@ export class TableList extends List {
      *                   visibleHeight pixels.
      */
     areAllItemsVisible_(visibleHeight) {
-        if (!this.dataModel || this.dataModel.length == 0) {
+        if (!this.dataModel || this.dataModel.length === 0) {
             return true;
         }
         return this.getItemTop(this.dataModel.length) <= visibleHeight;
@@ -160,13 +160,13 @@ export class TableList extends List {
         const row = this.firstElementChild;
         // If the number of columns in the model has changed, a full redraw is
         // needed.
-        if (row.children.length != cm.size) {
+        if (row.children.length !== cm.size) {
             return true;
         }
         // If the column visibility has changed, a full redraw is required.
         for (let i = 0; i < cm.size; ++i) {
             const child = row.children[i];
-            if (cm.isVisible(i) == child.hidden) {
+            if (cm.isVisible(i) === child.hidden) {
                 return true;
             }
         }

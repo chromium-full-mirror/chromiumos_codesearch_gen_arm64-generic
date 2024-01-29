@@ -46,6 +46,8 @@ class  TelemetryManagementService_SetAudioGain_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t is_success : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<TelemetryManagementService_SetAudioGain_ResponseParams_Data>;
@@ -53,8 +55,44 @@ class  TelemetryManagementService_SetAudioGain_ResponseParams_Data {
   TelemetryManagementService_SetAudioGain_ResponseParams_Data();
   ~TelemetryManagementService_SetAudioGain_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(TelemetryManagementService_SetAudioGain_ResponseParams_Data) == 8,
+static_assert(sizeof(TelemetryManagementService_SetAudioGain_ResponseParams_Data) == 16,
               "Bad sizeof(TelemetryManagementService_SetAudioGain_ResponseParams_Data)");
+class  TelemetryManagementService_SetAudioVolume_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t node_id;
+  int32_t volume;
+  uint8_t is_muted : 1;
+  uint8_t padfinal_[3];
+
+ private:
+  friend class mojo::internal::MessageFragment<TelemetryManagementService_SetAudioVolume_Params_Data>;
+
+  TelemetryManagementService_SetAudioVolume_Params_Data();
+  ~TelemetryManagementService_SetAudioVolume_Params_Data() = delete;
+};
+static_assert(sizeof(TelemetryManagementService_SetAudioVolume_Params_Data) == 24,
+              "Bad sizeof(TelemetryManagementService_SetAudioVolume_Params_Data)");
+class  TelemetryManagementService_SetAudioVolume_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t is_success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<TelemetryManagementService_SetAudioVolume_ResponseParams_Data>;
+
+  TelemetryManagementService_SetAudioVolume_ResponseParams_Data();
+  ~TelemetryManagementService_SetAudioVolume_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(TelemetryManagementService_SetAudioVolume_ResponseParams_Data) == 16,
+              "Bad sizeof(TelemetryManagementService_SetAudioVolume_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -90,9 +128,60 @@ class TelemetryManagementService_SetAudioGain_ResponseParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  bool is_success() const {
+    if (data_->header_.version < 2)
+      return bool{};
+    return data_->is_success;
+  }
  private:
   internal::TelemetryManagementService_SetAudioGain_ResponseParams_Data* data_ = nullptr;
 };
+
+
+class TelemetryManagementService_SetAudioVolume_ParamsDataView {
+ public:
+  TelemetryManagementService_SetAudioVolume_ParamsDataView() = default;
+
+  TelemetryManagementService_SetAudioVolume_ParamsDataView(
+      internal::TelemetryManagementService_SetAudioVolume_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t node_id() const {
+    return data_->node_id;
+  }
+  int32_t volume() const {
+    return data_->volume;
+  }
+  bool is_muted() const {
+    return data_->is_muted;
+  }
+ private:
+  internal::TelemetryManagementService_SetAudioVolume_Params_Data* data_ = nullptr;
+};
+
+
+class TelemetryManagementService_SetAudioVolume_ResponseParamsDataView {
+ public:
+  TelemetryManagementService_SetAudioVolume_ResponseParamsDataView() = default;
+
+  TelemetryManagementService_SetAudioVolume_ResponseParamsDataView(
+      internal::TelemetryManagementService_SetAudioVolume_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool is_success() const {
+    return data_->is_success;
+  }
+ private:
+  internal::TelemetryManagementService_SetAudioVolume_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
+
 
 
 

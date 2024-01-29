@@ -165,6 +165,7 @@ export class Button extends HTMLElement {
             round: this.#props.variant === "round" /* Variant.ROUND */,
             'text-with-icon': hasIcon && !this.#isEmpty,
             'only-icon': hasIcon && this.#isEmpty,
+            'only-text': !hasIcon && !this.#isEmpty,
             small: Boolean(this.#props.size === "SMALL" /* Size.SMALL */ || this.#props.size === "TINY" /* Size.TINY */),
             tiny: Boolean(this.#props.size === "TINY" /* Size.TINY */),
             active: this.#props.active,
@@ -173,7 +174,7 @@ export class Button extends HTMLElement {
             primary: this.#props.variant === "primary" /* Variant.PRIMARY */,
             secondary: this.#props.variant === "secondary" /* Variant.SECONDARY */,
             disabled: Boolean(this.#props.disabled),
-            'spinner-component': true,
+            spinner: true,
         };
         const jslog = this.#props.jslogContext && VisualLogging.action().track({ click: true }).context(this.#props.jslogContext);
         // clang-format off

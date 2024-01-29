@@ -865,6 +865,8 @@ bool Decryptor_Decrypt_ForwardToCallback::Accept(
           internal::Decryptor_Decrypt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Decryptor.1
   bool success = true;
   Decryptor::Status p_status{};
   ::media::mojom::blink::DecoderBufferPtr p_buffer{};
@@ -999,6 +1001,8 @@ bool Decryptor_InitializeAudioDecoder_ForwardToCallback::Accept(
           internal::Decryptor_InitializeAudioDecoder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Decryptor.3
   bool success = true;
   bool p_success{};
   Decryptor_InitializeAudioDecoder_ResponseParamsDataView input_data_view(params, message);
@@ -1118,6 +1122,8 @@ bool Decryptor_InitializeVideoDecoder_ForwardToCallback::Accept(
           internal::Decryptor_InitializeVideoDecoder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Decryptor.4
   bool success = true;
   bool p_success{};
   Decryptor_InitializeVideoDecoder_ResponseParamsDataView input_data_view(params, message);
@@ -1237,6 +1243,8 @@ bool Decryptor_DecryptAndDecodeAudio_ForwardToCallback::Accept(
           internal::Decryptor_DecryptAndDecodeAudio_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Decryptor.5
   bool success = true;
   Decryptor::Status p_status{};
   WTF::Vector<::media::mojom::blink::AudioBufferPtr> p_audio_buffers{};
@@ -1377,6 +1385,8 @@ bool Decryptor_DecryptAndDecodeVideo_ForwardToCallback::Accept(
           internal::Decryptor_DecryptAndDecodeVideo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Decryptor.6
   bool success = true;
   Decryptor::Status p_status{};
   ::media::mojom::blink::VideoFramePtr p_video_frame{};
@@ -1477,6 +1487,8 @@ bool DecryptorStubDispatch::Accept(
           reinterpret_cast<internal::Decryptor_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Decryptor.0
       bool success = true;
       ::mojo::ScopedDataPipeConsumerHandle p_audio_pipe{};
       ::mojo::ScopedDataPipeConsumerHandle p_video_pipe{};
@@ -1501,11 +1513,11 @@ bool DecryptorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_audio_pipe), 
-std::move(p_video_pipe), 
-std::move(p_decrypt_pipe), 
-std::move(p_decrypted_pipe));
+      impl->Initialize(        
+        std::move(p_audio_pipe), 
+        std::move(p_video_pipe), 
+        std::move(p_decrypt_pipe), 
+        std::move(p_decrypted_pipe));
       return true;
     }
     case internal::kDecryptor_Decrypt_Name: {
@@ -1518,6 +1530,8 @@ std::move(p_decrypted_pipe));
           reinterpret_cast<internal::Decryptor_CancelDecrypt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Decryptor.2
       bool success = true;
       Decryptor::StreamType p_stream_type{};
       Decryptor_CancelDecrypt_ParamsDataView input_data_view(params, message);
@@ -1533,8 +1547,8 @@ std::move(p_decrypted_pipe));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelDecrypt(
-std::move(p_stream_type));
+      impl->CancelDecrypt(        
+        std::move(p_stream_type));
       return true;
     }
     case internal::kDecryptor_InitializeAudioDecoder_Name: {
@@ -1556,6 +1570,8 @@ std::move(p_stream_type));
           reinterpret_cast<internal::Decryptor_ResetDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Decryptor.7
       bool success = true;
       Decryptor::StreamType p_stream_type{};
       Decryptor_ResetDecoder_ParamsDataView input_data_view(params, message);
@@ -1571,8 +1587,8 @@ std::move(p_stream_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetDecoder(
-std::move(p_stream_type));
+      impl->ResetDecoder(        
+        std::move(p_stream_type));
       return true;
     }
     case internal::kDecryptor_DeinitializeDecoder_Name: {
@@ -1582,6 +1598,8 @@ std::move(p_stream_type));
           reinterpret_cast<internal::Decryptor_DeinitializeDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Decryptor.8
       bool success = true;
       Decryptor::StreamType p_stream_type{};
       Decryptor_DeinitializeDecoder_ParamsDataView input_data_view(params, message);
@@ -1597,8 +1615,8 @@ std::move(p_stream_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeinitializeDecoder(
-std::move(p_stream_type));
+      impl->DeinitializeDecoder(        
+        std::move(p_stream_type));
       return true;
     }
   }
@@ -1624,6 +1642,8 @@ bool DecryptorStubDispatch::AcceptWithResponder(
               internal::Decryptor_Decrypt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Decryptor.1
       bool success = true;
       Decryptor::StreamType p_stream_type{};
       ::media::mojom::blink::DecoderBufferPtr p_encrypted{};
@@ -1645,9 +1665,9 @@ bool DecryptorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decrypt(
-std::move(p_stream_type), 
-std::move(p_encrypted), std::move(callback));
+      impl->Decrypt(        
+        std::move(p_stream_type), 
+        std::move(p_encrypted), std::move(callback));
       return true;
     }
     case internal::kDecryptor_CancelDecrypt_Name: {
@@ -1660,6 +1680,8 @@ std::move(p_encrypted), std::move(callback));
               internal::Decryptor_InitializeAudioDecoder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Decryptor.3
       bool success = true;
       ::media::mojom::blink::AudioDecoderConfigPtr p_config{};
       Decryptor_InitializeAudioDecoder_ParamsDataView input_data_view(params, message);
@@ -1678,8 +1700,8 @@ std::move(p_encrypted), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeAudioDecoder(
-std::move(p_config), std::move(callback));
+      impl->InitializeAudioDecoder(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kDecryptor_InitializeVideoDecoder_Name: {
@@ -1689,6 +1711,8 @@ std::move(p_config), std::move(callback));
               internal::Decryptor_InitializeVideoDecoder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Decryptor.4
       bool success = true;
       ::media::mojom::blink::VideoDecoderConfigPtr p_config{};
       Decryptor_InitializeVideoDecoder_ParamsDataView input_data_view(params, message);
@@ -1707,8 +1731,8 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeVideoDecoder(
-std::move(p_config), std::move(callback));
+      impl->InitializeVideoDecoder(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kDecryptor_DecryptAndDecodeAudio_Name: {
@@ -1718,6 +1742,8 @@ std::move(p_config), std::move(callback));
               internal::Decryptor_DecryptAndDecodeAudio_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Decryptor.5
       bool success = true;
       ::media::mojom::blink::DecoderBufferPtr p_encrypted{};
       Decryptor_DecryptAndDecodeAudio_ParamsDataView input_data_view(params, message);
@@ -1736,8 +1762,8 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecryptAndDecodeAudio(
-std::move(p_encrypted), std::move(callback));
+      impl->DecryptAndDecodeAudio(        
+        std::move(p_encrypted), std::move(callback));
       return true;
     }
     case internal::kDecryptor_DecryptAndDecodeVideo_Name: {
@@ -1747,6 +1773,8 @@ std::move(p_encrypted), std::move(callback));
               internal::Decryptor_DecryptAndDecodeVideo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Decryptor.6
       bool success = true;
       ::media::mojom::blink::DecoderBufferPtr p_encrypted{};
       Decryptor_DecryptAndDecodeVideo_ParamsDataView input_data_view(params, message);
@@ -1765,8 +1793,8 @@ std::move(p_encrypted), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecryptAndDecodeVideo(
-std::move(p_encrypted), std::move(callback));
+      impl->DecryptAndDecodeVideo(        
+        std::move(p_encrypted), std::move(callback));
       return true;
     }
     case internal::kDecryptor_ResetDecoder_Name: {

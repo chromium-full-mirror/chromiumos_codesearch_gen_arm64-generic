@@ -14,12 +14,11 @@ export class PolicyTableElement extends CustomElement {
     filterPattern = '';
     update(dataModel) {
         // Clear policies
-        const mainContent = this.shadowRoot.querySelector('.main');
+        const mainContent = this.getRequiredElement('.main');
         const policies = this.shadowRoot.querySelectorAll('.policy-data');
-        this.shadowRoot.querySelector('.header').textContent = dataModel.name;
-        this.shadowRoot.querySelector('.id').textContent = dataModel.id || null;
-        this.shadowRoot.querySelector('.id').hidden =
-            !dataModel.id;
+        this.getRequiredElement('.header').textContent = dataModel.name;
+        this.getRequiredElement('.id').textContent = dataModel.id || null;
+        this.getRequiredElement('.id').hidden = !dataModel.id;
         policies.forEach(row => mainContent.removeChild(row));
         dataModel.policies
             .sort((a, b) => {
@@ -76,7 +75,7 @@ export class PolicyTableElement extends CustomElement {
                 policyDisplay.policy.value === undefined && !showUnset ||
                     policyDisplay.policy.name.toLowerCase().indexOf(this.filterPattern) === -1;
         }
-        this.shadowRoot.querySelector('.no-policy').hidden =
+        this.getRequiredElement('.no-policy').hidden =
             !!this.shadowRoot.querySelector('.policy-data:not([hidden])');
     }
 }

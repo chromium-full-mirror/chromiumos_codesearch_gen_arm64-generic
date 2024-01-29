@@ -34,34 +34,16 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/permission_broker/all.stamp
-build obj/featured/all.stamp: stamp ./featured ./lib/libc_fake_feature_library.so ./lib/libfake_platform_features.so ./lib/libfeatures.so ./lib/libfeatures_c.so ./libstore_impl.a
-subninja obj/featured/featured.ninja
-rule __featured_featured-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/permission_broker/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/featured/dbus_bindings/dbus-service-config.json ${in}
-  description = ACTION //featured:featured-adaptors(//common-mk/toolchain:toolchain)
-  restat = 1
-
-build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/common-mk/file_generator_wrapper.py
-  source_name_part = org.chromium.featured
-
-build obj/featured/featured-adaptors.stamp: stamp gen/include/featured/dbus_adaptors/org.chromium.featured.h
-subninja obj/featured/libc_fake_feature_library.ninja
-subninja obj/featured/libfake_platform_features.ninja
-subninja obj/featured/libfeatured.ninja
-subninja obj/featured/libfeatures.ninja
-subninja obj/featured/libfeatures_c.ninja
-subninja obj/featured/libstore_impl.ninja
-subninja obj/featured/libtmp_storage_impl.ninja
 build obj/permission_broker/all.stamp: stamp obj/permission_broker/install_minijail_conf.stamp ./permission_broker
 build obj/permission_broker/install_minijail_conf.stamp: stamp
 subninja obj/permission_broker/libpermission_broker.ninja
 subninja obj/permission_broker/permission_broker.ninja
 rule __permission_broker_permission_broker_adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/permission_broker/out/Default/gen/include/permission_broker/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/permission_broker/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/permission_broker/out/Default/gen/include/permission_broker/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //permission_broker:permission_broker_adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/permission_broker/dbus_adaptors/org.chromium.PermissionBroker.h: __permission_broker_permission_broker_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/permission_broker/dbus_bindings/org.chromium.PermissionBroker.xml | ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3602/work/permission_broker-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/permission_broker/dbus_adaptors/org.chromium.PermissionBroker.h: __permission_broker_permission_broker_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/dbus_bindings/org.chromium.PermissionBroker.xml | ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.PermissionBroker
 
 build obj/permission_broker/permission_broker_adaptors.stamp: stamp gen/include/permission_broker/dbus_adaptors/org.chromium.PermissionBroker.h

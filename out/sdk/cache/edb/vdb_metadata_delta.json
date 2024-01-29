@@ -1,1 +1,1 @@
-{"version": "1", "timestamp": 1704846305.6584113, "deltas": [{"event": "add", "package": "chromeos-base/featured", "version": "0.0.1-r420", "slot": "0", "counter": "1021"}, {"event": "add", "package": "chromeos-base/libhwsec", "version": "0.0.1-r1040", "slot": "0", "counter": "1022"}, {"event": "add", "package": "chromeos-base/oobe_config", "version": "0.0.1-r1145", "slot": "0", "counter": "1023"}, {"event": "add", "package": "chromeos-base/update_engine", "version": "0.0.3-r4920", "slot": "0", "counter": "1024"}]}
+{"version": "1", "timestamp": 1706552381.5434003}

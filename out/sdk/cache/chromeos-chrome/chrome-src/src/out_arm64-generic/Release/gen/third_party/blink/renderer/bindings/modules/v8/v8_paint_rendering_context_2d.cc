@@ -33,6 +33,9 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_gradient.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_pattern.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_image_smoothing_quality.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_path_2d.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_union_canvasfilter_string.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_union_cssimagevalue_htmlcanvaselement_htmlimageelement_htmlvideoelement_imagebitmap_offscreencanvas_svgimageelement_videoframe.h"
@@ -51,6 +54,9 @@
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_filter.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_gradient.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/canvas_pattern.h"
+#include "third_party/blink/renderer/modules/canvas/canvas2d/mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/modules/canvas/canvas2d/mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/modules/canvas/canvas2d/mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/modules/canvas/canvas2d/path_2d.h"
 #include "third_party/blink/renderer/modules/csspaint/paint_rendering_context_2d.h"
 #include "third_party/blink/renderer/modules/webcodecs/video_frame.h"
@@ -196,22 +202,19 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRend
 BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.filter.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvas2DFilter);
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->filter();
-if (!ToV8Traits<IDLNullable<V8UnionCanvasFilterOrString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionCanvasFilterOrString>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -221,7 +224,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRend
 BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.filter.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCanvas2DFilter);
 
@@ -237,8 +241,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<V8UnionCanvasFilterOrString>>::NativeValue(isolate, v8_property_value, exception_state);
@@ -348,8 +351,7 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingConte
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->strokeStyle(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -399,8 +401,7 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingConte
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->fillStyle(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -1100,8 +1101,7 @@ BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.beginLayer");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<BeginLayerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
@@ -1549,6 +1549,105 @@ auto&& return_value = blink_receiver->createLinearGradient(arg1_x_0, arg2_y_0, a
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
+void CreateMesh2DIndexBufferOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRenderingContext2D_createMesh2DIndexBuffer");
+BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.createMesh2DIndexBuffer");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "PaintRenderingContext2D";
+const char* const property_name = "createMesh2DIndexBuffer";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_buffer = NativeValueTraits<NotShared<DOMUint16Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createMesh2DIndexBuffer(arg1_buffer, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void CreateMesh2DUVBufferOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRenderingContext2D_createMesh2DUVBuffer");
+BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.createMesh2DUVBuffer");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "PaintRenderingContext2D";
+const char* const property_name = "createMesh2DUVBuffer";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_buffer = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createMesh2DUVBuffer(arg1_buffer, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+void CreateMesh2DVertexBufferOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRenderingContext2D_createMesh2DVertexBuffer");
+BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.createMesh2DVertexBuffer");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "PaintRenderingContext2D";
+const char* const property_name = "createMesh2DVertexBuffer";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_buffer = NativeValueTraits<NotShared<DOMFloat32Array>>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->createMesh2DVertexBuffer(arg1_buffer, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void CreatePatternOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRenderingContext2D_createPattern");
 BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.createPattern");
@@ -1813,6 +1912,53 @@ return;
 }
 exception_state.ThrowTypeError("Overload resolution failed.");
 return;
+}
+
+void DrawMeshOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_PaintRenderingContext2D_drawMesh");
+BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.drawMesh");
+
+
+// [HighEntropy]
+const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingContext2D.drawMesh", info);
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "PaintRenderingContext2D";
+const char* const property_name = "drawMesh";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 4)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(4, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& arg1_vertex_buffer = NativeValueTraits<Mesh2DVertexBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg2_uv_buffer = NativeValueTraits<Mesh2DUVBuffer>::ArgumentValue(isolate, 1, info[1], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg3_index_buffer = NativeValueTraits<Mesh2DIndexBuffer>::ArgumentValue(isolate, 2, info[2], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& arg4_image = NativeValueTraits<V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 3, info[3], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+blink_receiver->drawMesh(arg1_vertex_buffer, arg2_uv_buffer, arg3_index_buffer, arg4_image, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+
 }
 
 void EllipseOperationNoAllocDirectCallArg8(v8::Local<v8::Object> v8_arg0_receiver, double v8_arg1_x, double v8_arg2_y, double v8_arg3_radius_x, double v8_arg4_radius_y, double v8_arg5_rotation, double v8_arg6_start_angle, double v8_arg7_end_angle, bool v8_arg8_anticlockwise, v8::FastApiCallbackOptions& v8_arg_callback_options) {
@@ -2184,17 +2330,13 @@ BLINK_BINDINGS_TRACE_EVENT("PaintRenderingContext2D.getLineDash");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 PaintRenderingContext2D* blink_receiver = V8PaintRenderingContext2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLineDash();
-if (!ToV8Traits<IDLSequence<IDLUnrestrictedDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<IDLUnrestrictedDouble>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -2222,7 +2364,8 @@ void IsPointInPathOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& 
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingContext2D.isPointInPath", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaintRenderingContext2D_IsPointInPath_Method);
 
@@ -2275,7 +2418,8 @@ void IsPointInPathOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& 
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingContext2D.isPointInPath", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaintRenderingContext2D_IsPointInPath_Method);
 
@@ -2368,7 +2512,8 @@ void IsPointInStrokeOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingContext2D.isPointInStroke", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaintRenderingContext2D_IsPointInStroke_Method);
 
@@ -2405,7 +2550,8 @@ void IsPointInStrokeOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaintRenderingContext2D.isPointInStroke", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaintRenderingContext2D_IsPointInStroke_Method);
 
@@ -3630,6 +3776,17 @@ if (RuntimeEnabledFeatures::Canvas2dLayersEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"beginLayer", BeginLayerOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"endLayer", EndLayerOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+if (RuntimeEnabledFeatures::Canvas2dMeshEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"createMesh2DIndexBuffer", CreateMesh2DIndexBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"createMesh2DUVBuffer", CreateMesh2DUVBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"createMesh2DVertexBuffer", CreateMesh2DVertexBufferOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"drawMesh", DrawMeshOperationCallback, 4, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

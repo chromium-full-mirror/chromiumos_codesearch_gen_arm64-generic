@@ -260,6 +260,29 @@ PageHandler_RecordClick_Params_Data::PageHandler_RecordClick_Params_Data()
 
 
 // static
+bool PageHandler_RecordDisabled_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_RecordDisabled_Params_Data* object =
+      static_cast<const PageHandler_RecordDisabled_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_RecordDisabled_Params_Data::PageHandler_RecordDisabled_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PageHandler_RecordLayoutTypeShown_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -294,7 +317,7 @@ bool PageHandler_UpdateClusterVisitsInteractionState_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -304,7 +327,7 @@ bool PageHandler_UpdateClusterVisitsInteractionState_Params_Data::Validate(
       static_cast<const PageHandler_UpdateClusterVisitsInteractionState_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->visits, 1, validation_context)) {
+          object->visits, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& visits_validate_params =

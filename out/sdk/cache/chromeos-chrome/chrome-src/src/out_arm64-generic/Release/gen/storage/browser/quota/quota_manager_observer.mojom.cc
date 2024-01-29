@@ -237,6 +237,8 @@ bool QuotaManagerObserverStubDispatch::Accept(
           reinterpret_cast<internal::QuotaManagerObserver_OnCreateOrUpdateBucket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for QuotaManagerObserver.0
       bool success = true;
       ::storage::BucketInfo p_bucket_info{};
       QuotaManagerObserver_OnCreateOrUpdateBucket_ParamsDataView input_data_view(params, message);
@@ -252,8 +254,8 @@ bool QuotaManagerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCreateOrUpdateBucket(
-std::move(p_bucket_info));
+      impl->OnCreateOrUpdateBucket(        
+        std::move(p_bucket_info));
       return true;
     }
     case internal::kQuotaManagerObserver_OnDeleteBucket_Name: {
@@ -263,6 +265,8 @@ std::move(p_bucket_info));
           reinterpret_cast<internal::QuotaManagerObserver_OnDeleteBucket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for QuotaManagerObserver.1
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       QuotaManagerObserver_OnDeleteBucket_ParamsDataView input_data_view(params, message);
@@ -278,8 +282,8 @@ std::move(p_bucket_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeleteBucket(
-std::move(p_bucket_locator));
+      impl->OnDeleteBucket(        
+        std::move(p_bucket_locator));
       return true;
     }
   }

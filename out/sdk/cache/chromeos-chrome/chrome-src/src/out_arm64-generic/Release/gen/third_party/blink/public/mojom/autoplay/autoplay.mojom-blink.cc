@@ -171,6 +171,8 @@ bool AutoplayConfigurationClientStubDispatch::Accept(
           reinterpret_cast<internal::AutoplayConfigurationClient_AddAutoplayFlags_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutoplayConfigurationClient.0
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       int32_t p_flags{};
@@ -189,9 +191,9 @@ bool AutoplayConfigurationClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAutoplayFlags(
-std::move(p_origin), 
-std::move(p_flags));
+      impl->AddAutoplayFlags(        
+        std::move(p_origin), 
+        std::move(p_flags));
       return true;
     }
   }

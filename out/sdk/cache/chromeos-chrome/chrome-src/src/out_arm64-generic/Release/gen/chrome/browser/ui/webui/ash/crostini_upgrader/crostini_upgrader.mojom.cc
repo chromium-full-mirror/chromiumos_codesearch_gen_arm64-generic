@@ -170,6 +170,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -192,9 +194,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -711,6 +713,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_Backup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       bool p_show_file_chooser{};
       PageHandler_Backup_ParamsDataView input_data_view(params, message);
@@ -726,8 +730,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Backup(
-std::move(p_show_file_chooser));
+      impl->Backup(        
+        std::move(p_show_file_chooser));
       return true;
     }
     case internal::kPageHandler_StartPrechecks_Name: {
@@ -737,6 +741,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_StartPrechecks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_StartPrechecks_ParamsDataView input_data_view(params, message);
       
@@ -749,7 +755,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPrechecks();
+      impl->StartPrechecks(        );
       return true;
     }
     case internal::kPageHandler_Upgrade_Name: {
@@ -759,6 +765,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_Upgrade_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_Upgrade_ParamsDataView input_data_view(params, message);
       
@@ -771,7 +779,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Upgrade();
+      impl->Upgrade(        );
       return true;
     }
     case internal::kPageHandler_Cancel_Name: {
@@ -781,6 +789,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -793,7 +803,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel();
+      impl->Cancel(        );
       return true;
     }
     case internal::kPageHandler_CancelBeforeStart_Name: {
@@ -803,6 +813,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_CancelBeforeStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_CancelBeforeStart_ParamsDataView input_data_view(params, message);
       
@@ -815,7 +827,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelBeforeStart();
+      impl->CancelBeforeStart(        );
       return true;
     }
     case internal::kPageHandler_Restore_Name: {
@@ -825,6 +837,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_Restore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       PageHandler_Restore_ParamsDataView input_data_view(params, message);
       
@@ -837,7 +851,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Restore();
+      impl->Restore(        );
       return true;
     }
     case internal::kPageHandler_OnPageClosed_Name: {
@@ -847,6 +861,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_OnPageClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       PageHandler_OnPageClosed_ParamsDataView input_data_view(params, message);
       
@@ -859,7 +875,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPageClosed();
+      impl->OnPageClosed(        );
       return true;
     }
     case internal::kPageHandler_Launch_Name: {
@@ -869,6 +885,8 @@ std::move(p_show_file_chooser));
           reinterpret_cast<internal::PageHandler_Launch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_Launch_ParamsDataView input_data_view(params, message);
       
@@ -881,7 +899,7 @@ std::move(p_show_file_chooser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Launch();
+      impl->Launch(        );
       return true;
     }
   }
@@ -1761,6 +1779,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnBackupProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       int32_t p_percent{};
       Page_OnBackupProgress_ParamsDataView input_data_view(params, message);
@@ -1776,8 +1796,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBackupProgress(
-std::move(p_percent));
+      impl->OnBackupProgress(        
+        std::move(p_percent));
       return true;
     }
     case internal::kPage_OnBackupSucceeded_Name: {
@@ -1787,6 +1807,8 @@ std::move(p_percent));
           reinterpret_cast<internal::Page_OnBackupSucceeded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       bool p_was_cancelled{};
       Page_OnBackupSucceeded_ParamsDataView input_data_view(params, message);
@@ -1802,8 +1824,8 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBackupSucceeded(
-std::move(p_was_cancelled));
+      impl->OnBackupSucceeded(        
+        std::move(p_was_cancelled));
       return true;
     }
     case internal::kPage_OnBackupFailed_Name: {
@@ -1813,6 +1835,8 @@ std::move(p_was_cancelled));
           reinterpret_cast<internal::Page_OnBackupFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       Page_OnBackupFailed_ParamsDataView input_data_view(params, message);
       
@@ -1825,7 +1849,7 @@ std::move(p_was_cancelled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBackupFailed();
+      impl->OnBackupFailed(        );
       return true;
     }
     case internal::kPage_PrecheckStatus_Name: {
@@ -1835,6 +1859,8 @@ std::move(p_was_cancelled));
           reinterpret_cast<internal::Page_PrecheckStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.3
       bool success = true;
       UpgradePrecheckStatus p_status{};
       Page_PrecheckStatus_ParamsDataView input_data_view(params, message);
@@ -1850,8 +1876,8 @@ std::move(p_was_cancelled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrecheckStatus(
-std::move(p_status));
+      impl->PrecheckStatus(        
+        std::move(p_status));
       return true;
     }
     case internal::kPage_OnUpgradeProgress_Name: {
@@ -1861,6 +1887,8 @@ std::move(p_status));
           reinterpret_cast<internal::Page_OnUpgradeProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.4
       bool success = true;
       std::vector<std::string> p_progress_messages{};
       Page_OnUpgradeProgress_ParamsDataView input_data_view(params, message);
@@ -1876,8 +1904,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUpgradeProgress(
-std::move(p_progress_messages));
+      impl->OnUpgradeProgress(        
+        std::move(p_progress_messages));
       return true;
     }
     case internal::kPage_OnUpgradeSucceeded_Name: {
@@ -1887,6 +1915,8 @@ std::move(p_progress_messages));
           reinterpret_cast<internal::Page_OnUpgradeSucceeded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.5
       bool success = true;
       Page_OnUpgradeSucceeded_ParamsDataView input_data_view(params, message);
       
@@ -1899,7 +1929,7 @@ std::move(p_progress_messages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUpgradeSucceeded();
+      impl->OnUpgradeSucceeded(        );
       return true;
     }
     case internal::kPage_OnUpgradeFailed_Name: {
@@ -1909,6 +1939,8 @@ std::move(p_progress_messages));
           reinterpret_cast<internal::Page_OnUpgradeFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.6
       bool success = true;
       Page_OnUpgradeFailed_ParamsDataView input_data_view(params, message);
       
@@ -1921,7 +1953,7 @@ std::move(p_progress_messages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUpgradeFailed();
+      impl->OnUpgradeFailed(        );
       return true;
     }
     case internal::kPage_OnRestoreProgress_Name: {
@@ -1931,6 +1963,8 @@ std::move(p_progress_messages));
           reinterpret_cast<internal::Page_OnRestoreProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.7
       bool success = true;
       int32_t p_percent{};
       Page_OnRestoreProgress_ParamsDataView input_data_view(params, message);
@@ -1946,8 +1980,8 @@ std::move(p_progress_messages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRestoreProgress(
-std::move(p_percent));
+      impl->OnRestoreProgress(        
+        std::move(p_percent));
       return true;
     }
     case internal::kPage_OnRestoreSucceeded_Name: {
@@ -1957,6 +1991,8 @@ std::move(p_percent));
           reinterpret_cast<internal::Page_OnRestoreSucceeded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.8
       bool success = true;
       Page_OnRestoreSucceeded_ParamsDataView input_data_view(params, message);
       
@@ -1969,7 +2005,7 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRestoreSucceeded();
+      impl->OnRestoreSucceeded(        );
       return true;
     }
     case internal::kPage_OnRestoreFailed_Name: {
@@ -1979,6 +2015,8 @@ std::move(p_percent));
           reinterpret_cast<internal::Page_OnRestoreFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.9
       bool success = true;
       Page_OnRestoreFailed_ParamsDataView input_data_view(params, message);
       
@@ -1991,7 +2029,7 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRestoreFailed();
+      impl->OnRestoreFailed(        );
       return true;
     }
     case internal::kPage_OnCanceled_Name: {
@@ -2001,6 +2039,8 @@ std::move(p_percent));
           reinterpret_cast<internal::Page_OnCanceled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.10
       bool success = true;
       Page_OnCanceled_ParamsDataView input_data_view(params, message);
       
@@ -2013,7 +2053,7 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCanceled();
+      impl->OnCanceled(        );
       return true;
     }
     case internal::kPage_RequestClose_Name: {
@@ -2023,6 +2063,8 @@ std::move(p_percent));
           reinterpret_cast<internal::Page_RequestClose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.11
       bool success = true;
       Page_RequestClose_ParamsDataView input_data_view(params, message);
       
@@ -2035,7 +2077,7 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestClose();
+      impl->RequestClose(        );
       return true;
     }
     case internal::kPage_OnLogFileCreated_Name: {
@@ -2045,6 +2087,8 @@ std::move(p_percent));
           reinterpret_cast<internal::Page_OnLogFileCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.12
       bool success = true;
       std::string p_path{};
       Page_OnLogFileCreated_ParamsDataView input_data_view(params, message);
@@ -2060,8 +2104,8 @@ std::move(p_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLogFileCreated(
-std::move(p_path));
+      impl->OnLogFileCreated(        
+        std::move(p_path));
       return true;
     }
   }

@@ -6,13 +6,6 @@
 namespace v8 {
 namespace internal {
 template <>
-void TorqueGeneratedHeapNumber<HeapNumber, PrimitiveHeapObject>::HeapNumberPrint(std::ostream& os) {
-  this->PrintHeader(os, "HeapNumber");
-  os << "\n - value: " << this->value();
-  os << '\n';
-}
-
-template <>
 void TorqueGeneratedJSObject<JSObject, JSReceiver>::JSObjectPrint(std::ostream& os) {
   this->PrintHeader(os, "JSObject");
   os << "\n - properties_or_hash: " << Brief(this->JSReceiver::TorqueGeneratedClass::properties_or_hash());
@@ -662,7 +655,6 @@ void TorqueGeneratedJSGlobalProxy<JSGlobalProxy, JSSpecialObject>::JSGlobalProxy
   this->PrintHeader(os, "JSGlobalProxy");
   os << "\n - properties_or_hash: " << Brief(this->JSReceiver::TorqueGeneratedClass::properties_or_hash());
   os << "\n - elements: " << Brief(this->JSObject::TorqueGeneratedClass::elements());
-  os << "\n - native_context: " << Brief(this->native_context());
   os << '\n';
 }
 
@@ -671,7 +663,6 @@ void TorqueGeneratedJSGlobalObject<JSGlobalObject, JSSpecialObject>::JSGlobalObj
   this->PrintHeader(os, "JSGlobalObject");
   os << "\n - properties_or_hash: " << Brief(this->JSReceiver::TorqueGeneratedClass::properties_or_hash());
   os << "\n - elements: " << Brief(this->JSObject::TorqueGeneratedClass::elements());
-  os << "\n - native_context: " << Brief(this->native_context());
   os << "\n - global_proxy: " << Brief(this->global_proxy());
   os << '\n';
 }
@@ -1268,7 +1259,7 @@ template <>
 void TorqueGeneratedModuleRequest<ModuleRequest, Struct>::ModuleRequestPrint(std::ostream& os) {
   this->PrintHeader(os, "ModuleRequest");
   os << "\n - specifier: " << Brief(this->specifier());
-  os << "\n - import_assertions: " << Brief(this->import_assertions());
+  os << "\n - import_attributes: " << Brief(this->import_attributes());
   os << "\n - position: " << this->position();
   os << '\n';
 }
@@ -1362,6 +1353,14 @@ void TorqueGeneratedObjectTemplateInfo<ObjectTemplateInfo, TemplateInfo>::Object
   os << "\n - property_accessors: " << Brief(this->TemplateInfo::TorqueGeneratedClass::property_accessors());
   os << "\n - constructor: " << Brief(this->constructor());
   os << "\n - data: " << this->data();
+  os << '\n';
+}
+
+template <>
+void TorqueGeneratedDictionaryTemplateInfo<DictionaryTemplateInfo, HeapObject>::DictionaryTemplateInfoPrint(std::ostream& os) {
+  this->PrintHeader(os, "DictionaryTemplateInfo");
+  os << "\n - property_names: " << Brief(this->property_names());
+  os << "\n - fully_populated_map: " << Brief(this->fully_populated_map());
   os << '\n';
 }
 
@@ -1737,6 +1736,16 @@ void TorqueGeneratedJSSegments<JSSegments, JSObject>::JSSegmentsPrint(std::ostre
 }
 
 template <>
+void TorqueGeneratedWasmInstanceObject<WasmInstanceObject, JSObject>::WasmInstanceObjectPrint(std::ostream& os) {
+  this->PrintHeader(os, "WasmInstanceObject");
+  os << "\n - properties_or_hash: " << Brief(this->JSReceiver::TorqueGeneratedClass::properties_or_hash());
+  os << "\n - elements: " << Brief(this->JSObject::TorqueGeneratedClass::elements());
+  os << "\n - module_object: " << Brief(this->module_object());
+  os << "\n - exports_object: " << Brief(this->exports_object());
+  os << '\n';
+}
+
+template <>
 void TorqueGeneratedWasmApiFunctionRef<WasmApiFunctionRef, HeapObject>::WasmApiFunctionRefPrint(std::ostream& os) {
   this->PrintHeader(os, "WasmApiFunctionRef");
   os << "\n - native_context: " << Brief(this->native_context());
@@ -1826,7 +1835,7 @@ void TorqueGeneratedWasmSuspenderObject<WasmSuspenderObject, JSObject>::WasmSusp
   os << "\n - resume: " << Brief(this->resume());
   os << "\n - reject: " << Brief(this->reject());
   os << "\n - state: " << this->state();
-  os << "\n - wasm_to_js_counter: " << this->wasm_to_js_counter();
+  os << "\n - has_js_frames: " << this->has_js_frames();
   os << '\n';
 }
 
@@ -1856,7 +1865,7 @@ void TorqueGeneratedWasmTableObject<WasmTableObject, JSObject>::WasmTableObjectP
   os << "\n - entries: " << Brief(this->entries());
   os << "\n - current_length: " << this->current_length();
   os << "\n - maximum_length: " << Brief(this->maximum_length());
-  os << "\n - dispatch_tables: " << Brief(this->dispatch_tables());
+  os << "\n - uses: " << Brief(this->uses());
   os << "\n - raw_type: " << this->raw_type();
   os << '\n';
 }

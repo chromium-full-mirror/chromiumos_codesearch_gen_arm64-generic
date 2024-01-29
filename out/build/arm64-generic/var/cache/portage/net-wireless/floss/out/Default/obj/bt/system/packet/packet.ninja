@@ -1,83 +1,83 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DTARGET_FLOSS -DEXPORT_SYMBOL=__attribute__\(\(visibility\(\"default\"\)\)\) -DFALLTHROUGH_INTENDED=\[\[clang$:$:fallthrough\]\] -DEXCLUDE_NONSTANDARD_CODECS
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/internal_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/stack/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/profile/avrcp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/gd -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/stack/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/profile/avrcp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/gd -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -Wno-vla-cxx-extension -Wno-deprecated-this-capture -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -std=c++20
 root_out_dir = .
 target_output_name = libpacket
 
-build obj/bt/system/packet/avrcp/libpacket.get_folder_items.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_folder_items.cc
+build obj/bt/system/packet/avrcp/libpacket.get_folder_items.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_folder_items.cc
   source_file_part = get_folder_items.cc
   source_name_part = get_folder_items
-build obj/bt/system/packet/avrcp/libpacket.register_notification_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/register_notification_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.register_notification_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/register_notification_packet.cc
   source_file_part = register_notification_packet.cc
   source_name_part = register_notification_packet
-build obj/bt/system/packet/avrcp/libpacket.change_path.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/change_path.cc
+build obj/bt/system/packet/avrcp/libpacket.change_path.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/change_path.cc
   source_file_part = change_path.cc
   source_name_part = change_path
-build obj/bt/system/packet/avrcp/libpacket.get_total_number_of_items.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_total_number_of_items.cc
+build obj/bt/system/packet/avrcp/libpacket.get_total_number_of_items.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_total_number_of_items.cc
   source_file_part = get_total_number_of_items.cc
   source_name_part = get_total_number_of_items
-build obj/bt/system/packet/avrcp/libpacket.capabilities_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/capabilities_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.capabilities_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/capabilities_packet.cc
   source_file_part = capabilities_packet.cc
   source_name_part = capabilities_packet
-build obj/bt/system/packet/avrcp/libpacket.pass_through_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/pass_through_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.pass_through_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/pass_through_packet.cc
   source_file_part = pass_through_packet.cc
   source_name_part = pass_through_packet
-build obj/bt/system/packet/avrcp/libpacket.set_browsed_player.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_browsed_player.cc
+build obj/bt/system/packet/avrcp/libpacket.set_browsed_player.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_browsed_player.cc
   source_file_part = set_browsed_player.cc
   source_name_part = set_browsed_player
-build obj/bt/system/packet/avrcp/libpacket.avrcp_reject_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/avrcp_reject_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.avrcp_reject_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/avrcp_reject_packet.cc
   source_file_part = avrcp_reject_packet.cc
   source_name_part = avrcp_reject_packet
-build obj/bt/system/packet/avrcp/libpacket.set_absolute_volume.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_absolute_volume.cc
+build obj/bt/system/packet/avrcp/libpacket.set_absolute_volume.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_absolute_volume.cc
   source_file_part = set_absolute_volume.cc
   source_name_part = set_absolute_volume
-build obj/bt/system/packet/avrcp/libpacket.avrcp_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/avrcp_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.avrcp_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/avrcp_packet.cc
   source_file_part = avrcp_packet.cc
   source_name_part = avrcp_packet
-build obj/bt/system/packet/avrcp/libpacket.get_current_player_application_setting_value.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_current_player_application_setting_value.cc
+build obj/bt/system/packet/avrcp/libpacket.get_current_player_application_setting_value.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_current_player_application_setting_value.cc
   source_file_part = get_current_player_application_setting_value.cc
   source_name_part = get_current_player_application_setting_value
-build obj/bt/system/packet/avrcp/libpacket.get_element_attributes_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_element_attributes_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.get_element_attributes_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_element_attributes_packet.cc
   source_file_part = get_element_attributes_packet.cc
   source_name_part = get_element_attributes_packet
-build obj/bt/system/packet/avrcp/libpacket.get_play_status_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_play_status_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.get_play_status_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_play_status_packet.cc
   source_file_part = get_play_status_packet.cc
   source_name_part = get_play_status_packet
-build obj/bt/system/packet/avrcp/libpacket.general_reject_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/general_reject_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.general_reject_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/general_reject_packet.cc
   source_file_part = general_reject_packet.cc
   source_name_part = general_reject_packet
-build obj/bt/system/packet/avrcp/libpacket.avrcp_browse_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/avrcp_browse_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.avrcp_browse_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/avrcp_browse_packet.cc
   source_file_part = avrcp_browse_packet.cc
   source_name_part = avrcp_browse_packet
-build obj/bt/system/packet/avrcp/libpacket.get_item_attributes.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_item_attributes.cc
+build obj/bt/system/packet/avrcp/libpacket.get_item_attributes.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/get_item_attributes.cc
   source_file_part = get_item_attributes.cc
   source_name_part = get_item_attributes
-build obj/bt/system/packet/avrcp/libpacket.list_player_application_setting_attributes.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/list_player_application_setting_attributes.cc
+build obj/bt/system/packet/avrcp/libpacket.list_player_application_setting_attributes.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/list_player_application_setting_attributes.cc
   source_file_part = list_player_application_setting_attributes.cc
   source_name_part = list_player_application_setting_attributes
-build obj/bt/system/packet/avrcp/libpacket.list_player_application_setting_values.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/list_player_application_setting_values.cc
+build obj/bt/system/packet/avrcp/libpacket.list_player_application_setting_values.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/list_player_application_setting_values.cc
   source_file_part = list_player_application_setting_values.cc
   source_name_part = list_player_application_setting_values
-build obj/bt/system/packet/avrcp/libpacket.play_item.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/play_item.cc
+build obj/bt/system/packet/avrcp/libpacket.play_item.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/play_item.cc
   source_file_part = play_item.cc
   source_name_part = play_item
-build obj/bt/system/packet/avrcp/libpacket.vendor_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/vendor_packet.cc
+build obj/bt/system/packet/avrcp/libpacket.vendor_packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/vendor_packet.cc
   source_file_part = vendor_packet.cc
   source_name_part = vendor_packet
-build obj/bt/system/packet/avrcp/libpacket.set_addressed_player.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_addressed_player.cc
+build obj/bt/system/packet/avrcp/libpacket.set_addressed_player.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_addressed_player.cc
   source_file_part = set_addressed_player.cc
   source_name_part = set_addressed_player
-build obj/bt/system/packet/avrcp/libpacket.set_player_application_setting_value.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_player_application_setting_value.cc
+build obj/bt/system/packet/avrcp/libpacket.set_player_application_setting_value.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/avrcp/set_player_application_setting_value.cc
   source_file_part = set_player_application_setting_value.cc
   source_name_part = set_player_application_setting_value
-build obj/bt/system/packet/base/libpacket.iterator.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/base/iterator.cc
+build obj/bt/system/packet/base/libpacket.iterator.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/base/iterator.cc
   source_file_part = iterator.cc
   source_name_part = iterator
-build obj/bt/system/packet/base/libpacket.packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/base/packet.cc
+build obj/bt/system/packet/base/libpacket.packet.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/base/packet.cc
   source_file_part = packet.cc
   source_name_part = packet
-build obj/bt/system/packet/base/libpacket.packet_builder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2/bt/system/packet/base/packet_builder.cc
+build obj/bt/system/packet/base/libpacket.packet_builder.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2/bt/system/packet/base/packet_builder.cc
   source_file_part = packet_builder.cc
   source_name_part = packet_builder
 

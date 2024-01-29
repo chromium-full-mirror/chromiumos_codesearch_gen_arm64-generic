@@ -89,53 +89,6 @@ class  CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParams_Data {
 };
 static_assert(sizeof(CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParams_Data) == 8,
               "Bad sizeof(CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParams_Data)");
-class  CustomProxyConfigClient_MarkProxiesAsBad_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> bypass_duration;
-  mojo::internal::Pointer<::network::mojom::internal::ProxyList_Data> bad_proxies;
-
- private:
-  friend class mojo::internal::MessageFragment<CustomProxyConfigClient_MarkProxiesAsBad_Params_Data>;
-
-  CustomProxyConfigClient_MarkProxiesAsBad_Params_Data();
-  ~CustomProxyConfigClient_MarkProxiesAsBad_Params_Data() = delete;
-};
-static_assert(sizeof(CustomProxyConfigClient_MarkProxiesAsBad_Params_Data) == 24,
-              "Bad sizeof(CustomProxyConfigClient_MarkProxiesAsBad_Params_Data)");
-class  CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data>;
-
-  CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data();
-  ~CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data) == 8,
-              "Bad sizeof(CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data)");
-class  CustomProxyConfigClient_ClearBadProxiesCache_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<CustomProxyConfigClient_ClearBadProxiesCache_Params_Data>;
-
-  CustomProxyConfigClient_ClearBadProxiesCache_Params_Data();
-  ~CustomProxyConfigClient_ClearBadProxiesCache_Params_Data() = delete;
-};
-static_assert(sizeof(CustomProxyConfigClient_ClearBadProxiesCache_Params_Data) == 8,
-              "Bad sizeof(CustomProxyConfigClient_ClearBadProxiesCache_Params_Data)");
 class  TrustedHeaderClient_OnBeforeSendHeaders_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -471,6 +424,53 @@ class  IpProtectionConfigGetter_GetProxyList_ResponseParams_Data {
 };
 static_assert(sizeof(IpProtectionConfigGetter_GetProxyList_ResponseParams_Data) == 16,
               "Bad sizeof(IpProtectionConfigGetter_GetProxyList_ResponseParams_Data)");
+class  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data>;
+
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data();
+  ~IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data() = delete;
+};
+static_assert(sizeof(IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data) == 8,
+              "Bad sizeof(IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data)");
+class  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::BlindSignedAuthToken_Data> bsa_token;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> try_again_after;
+
+ private:
+  friend class mojo::internal::MessageFragment<IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data>;
+
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data();
+  ~IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data) == 24,
+              "Bad sizeof(IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data)");
+class  IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data>;
+
+  IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data();
+  ~IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data() = delete;
+};
+static_assert(sizeof(IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data) == 8,
+              "Bad sizeof(IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data)");
 class  NetworkContext_SetClient_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1813,53 +1813,6 @@ class  NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data {
 };
 static_assert(sizeof(NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data) == 24,
               "Bad sizeof(NetworkContext_VerifyCertForSignedExchange_ResponseParams_Data)");
-class  NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data>;
-
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data();
-  ~NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data() = delete;
-};
-static_assert(sizeof(NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data) == 8,
-              "Bad sizeof(NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data)");
-class  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::BlindSignedAuthToken_Data> bsa_token;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> try_again_after;
-
- private:
-  friend class mojo::internal::MessageFragment<NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data>;
-
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data();
-  ~NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data) == 24,
-              "Bad sizeof(NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data)");
-class  NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data>;
-
-  NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data();
-  ~NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data() = delete;
-};
-static_assert(sizeof(NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data) == 8,
-              "Bad sizeof(NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data)");
 class  NetworkContext_AddHSTS_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2658,72 +2611,6 @@ class CustomProxyConfigClient_OnCustomProxyConfigUpdated_ResponseParamsDataView 
 };
 
 
-class CustomProxyConfigClient_MarkProxiesAsBad_ParamsDataView {
- public:
-  CustomProxyConfigClient_MarkProxiesAsBad_ParamsDataView() = default;
-
-  CustomProxyConfigClient_MarkProxiesAsBad_ParamsDataView(
-      internal::CustomProxyConfigClient_MarkProxiesAsBad_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetBypassDurationDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBypassDuration(UserType* output) {
-    
-    auto* pointer = data_->bypass_duration.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
-  inline void GetBadProxiesDataView(
-      ::network::mojom::ProxyListDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBadProxies(UserType* output) {
-    
-    auto* pointer = data_->bad_proxies.Get();
-    return mojo::internal::Deserialize<::network::mojom::ProxyListDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::CustomProxyConfigClient_MarkProxiesAsBad_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class CustomProxyConfigClient_MarkProxiesAsBad_ResponseParamsDataView {
- public:
-  CustomProxyConfigClient_MarkProxiesAsBad_ResponseParamsDataView() = default;
-
-  CustomProxyConfigClient_MarkProxiesAsBad_ResponseParamsDataView(
-      internal::CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::CustomProxyConfigClient_MarkProxiesAsBad_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class CustomProxyConfigClient_ClearBadProxiesCache_ParamsDataView {
- public:
-  CustomProxyConfigClient_ClearBadProxiesCache_ParamsDataView() = default;
-
-  CustomProxyConfigClient_ClearBadProxiesCache_ParamsDataView(
-      internal::CustomProxyConfigClient_ClearBadProxiesCache_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::CustomProxyConfigClient_ClearBadProxiesCache_Params_Data* data_ = nullptr;
-};
-
-
 class TrustedHeaderClient_OnBeforeSendHeaders_ParamsDataView {
  public:
   TrustedHeaderClient_OnBeforeSendHeaders_ParamsDataView() = default;
@@ -3309,6 +3196,92 @@ static_assert(
  private:
   internal::IpProtectionConfigGetter_GetProxyList_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ParamsDataView {
+ public:
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ParamsDataView() = default;
+
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ParamsDataView(
+      internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params_Data* data_ = nullptr;
+};
+
+
+class IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView {
+ public:
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView() = default;
+
+  IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView(
+      internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetBsaTokenDataView(
+      BlindSignedAuthTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBsaToken(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::network::mojom::BlindSignedAuthTokenDataView, UserType>(),
+    "Attempting to read the optional `bsa_token` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadBsaToken` instead "
+    "of `ReadBsaToken if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->bsa_token.Get();
+    return mojo::internal::Deserialize<::network::mojom::BlindSignedAuthTokenDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTryAgainAfterDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTryAgainAfter(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDataView, UserType>(),
+    "Attempting to read the optional `try_again_after` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTryAgainAfter` instead "
+    "of `ReadTryAgainAfter if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->try_again_after.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView {
+ public:
+  IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView() = default;
+
+  IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView(
+      internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::IpProtectionProxyDelegate_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* data_ = nullptr;
 };
 
 
@@ -6073,92 +6046,6 @@ class NetworkContext_VerifyCertForSignedExchange_ResponseParamsDataView {
 };
 
 
-class NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsDataView {
- public:
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsDataView() = default;
-
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ParamsDataView(
-      internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_Params_Data* data_ = nullptr;
-};
-
-
-class NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView {
- public:
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView() = default;
-
-  NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView(
-      internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetBsaTokenDataView(
-      BlindSignedAuthTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBsaToken(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::network::mojom::BlindSignedAuthTokenDataView, UserType>(),
-    "Attempting to read the optional `bsa_token` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadBsaToken` instead "
-    "of `ReadBsaToken if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->bsa_token.Get();
-    return mojo::internal::Deserialize<::network::mojom::BlindSignedAuthTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetTryAgainAfterDataView(
-      ::mojo_base::mojom::TimeDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadTryAgainAfter(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::TimeDataView, UserType>(),
-    "Attempting to read the optional `try_again_after` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadTryAgainAfter` instead "
-    "of `ReadTryAgainAfter if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->try_again_after.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView {
- public:
-  NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView() = default;
-
-  NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_ParamsDataView(
-      internal::NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::NetworkContext_InvalidateIpProtectionConfigCacheTryAgainAfterTime_Params_Data* data_ = nullptr;
-};
-
-
 class NetworkContext_AddHSTS_ParamsDataView {
  public:
   NetworkContext_AddHSTS_ParamsDataView() = default;
@@ -7263,22 +7150,6 @@ inline void CustomProxyConfigClient_OnCustomProxyConfigUpdated_ParamsDataView::G
 
 
 
-inline void CustomProxyConfigClient_MarkProxiesAsBad_ParamsDataView::GetBypassDurationDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->bypass_duration.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
-inline void CustomProxyConfigClient_MarkProxiesAsBad_ParamsDataView::GetBadProxiesDataView(
-    ::network::mojom::ProxyListDataView* output) {
-  auto pointer = data_->bad_proxies.Get();
-  *output = ::network::mojom::ProxyListDataView(pointer, message_);
-}
-
-
-
-
-
-
 inline void TrustedHeaderClient_OnBeforeSendHeaders_ParamsDataView::GetHeadersDataView(
     ::network::mojom::HttpRequestHeadersDataView* output) {
   auto pointer = data_->headers.Get();
@@ -7397,6 +7268,22 @@ inline void IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView::GetPro
   auto pointer = data_->proxy_list.Get();
   *output = mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>(pointer, message_);
 }
+
+
+
+
+inline void IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView::GetBsaTokenDataView(
+    BlindSignedAuthTokenDataView* output) {
+  auto pointer = data_->bsa_token.Get();
+  *output = BlindSignedAuthTokenDataView(pointer, message_);
+}
+inline void IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView::GetTryAgainAfterDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->try_again_after.Get();
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+
+
 
 
 
@@ -8018,22 +7905,6 @@ inline void NetworkContext_VerifyCertForSignedExchange_ResponseParamsDataView::G
   auto pointer = data_->cv_result.Get();
   *output = ::network::mojom::CertVerifyResultDataView(pointer, message_);
 }
-
-
-
-
-inline void NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView::GetBsaTokenDataView(
-    BlindSignedAuthTokenDataView* output) {
-  auto pointer = data_->bsa_token.Get();
-  *output = BlindSignedAuthTokenDataView(pointer, message_);
-}
-inline void NetworkContext_VerifyIpProtectionConfigGetterForTesting_ResponseParamsDataView::GetTryAgainAfterDataView(
-    ::mojo_base::mojom::TimeDataView* output) {
-  auto pointer = data_->try_again_after.Get();
-  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
-}
-
-
 
 
 inline void NetworkContext_AddHSTS_ParamsDataView::GetHostDataView(

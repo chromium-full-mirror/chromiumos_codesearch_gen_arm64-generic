@@ -454,6 +454,7 @@ namespace css_longhand { class VerticalAlign; }
 namespace css_longhand { class ViewTimelineAxis; }
 namespace css_longhand { class ViewTimelineInset; }
 namespace css_longhand { class ViewTimelineName; }
+namespace css_longhand { class ViewTransitionClass; }
 namespace css_longhand { class ViewTransitionName; }
 namespace css_longhand { class Visibility; }
 namespace css_longhand { class WebkitBorderHorizontalSpacing; }
@@ -2925,6 +2926,11 @@ inline const css_longhand::ViewTimelineName&
 GetCSSPropertyViewTimelineName() {
   return *reinterpret_cast<const css_longhand::ViewTimelineName *>(
       GetPropertyInternal(CSSPropertyID::kViewTimelineName));
+}
+inline const css_longhand::ViewTransitionClass&
+GetCSSPropertyViewTransitionClass() {
+  return *reinterpret_cast<const css_longhand::ViewTransitionClass *>(
+      GetPropertyInternal(CSSPropertyID::kViewTransitionClass));
 }
 inline const css_longhand::ViewTransitionName&
 GetCSSPropertyViewTransitionName() {

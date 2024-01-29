@@ -25,6 +25,7 @@
 
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-shared-internal.h"
 #include "services/network/public/mojom/schemeful_site.mojom-shared.h"
+#include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-shared.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
@@ -43,6 +44,8 @@ class AdAuctionDataDataView;
 class URNConfigPairDataView;
 
 class SharedStorageBudgetMetadataDataView;
+
+class ParentPermissionsInfoDataView;
 
 class FencedFrameConfigDataView;
 
@@ -79,6 +82,13 @@ struct MojomTypeTraits<::blink::mojom::URNConfigPairDataView> {
 template <>
 struct MojomTypeTraits<::blink::mojom::SharedStorageBudgetMetadataDataView> {
   using Data = ::blink::mojom::internal::SharedStorageBudgetMetadata_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::ParentPermissionsInfoDataView> {
+  using Data = ::blink::mojom::internal::ParentPermissionsInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -327,6 +337,42 @@ class SharedStorageBudgetMetadataDataView {
 };
 
 
+class ParentPermissionsInfoDataView {
+ public:
+  ParentPermissionsInfoDataView() = default;
+
+  ParentPermissionsInfoDataView(
+      internal::ParentPermissionsInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetParsedPermissionsPolicyDataView(
+      mojo::ArrayDataView<::blink::mojom::ParsedPermissionsPolicyDeclarationDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadParsedPermissionsPolicy(UserType* output) {
+    
+    auto* pointer = data_->parsed_permissions_policy.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::ParsedPermissionsPolicyDeclarationDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetOriginDataView(
+      ::url::mojom::OriginDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrigin(UserType* output) {
+    
+    auto* pointer = data_->origin.Get();
+    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ParentPermissionsInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class FencedFrameConfigDataView {
  public:
   FencedFrameConfigDataView() = default;
@@ -507,6 +553,26 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::PermissionsPolicyFeature>>(
         pointer, output, message_);
   }
+  inline void GetParentPermissionsInfoDataView(
+      ParentPermissionsInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadParentPermissionsInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::ParentPermissionsInfoDataView, UserType>(),
+    "Attempting to read the optional `parent_permissions_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadParentPermissionsInfo` instead "
+    "of `ReadParentPermissionsInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->parent_permissions_info.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ParentPermissionsInfoDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::FencedFrameConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -685,6 +751,29 @@ static_assert(
     auto* pointer = data_->effective_enabled_permissions.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::PermissionsPolicyFeature>>(
         pointer, output, message_);
+  }
+  inline void GetParentPermissionsInfoDataView(
+      ParentPermissionsInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadParentPermissionsInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::ParentPermissionsInfoDataView, UserType>(),
+    "Attempting to read the optional `parent_permissions_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadParentPermissionsInfo` instead "
+    "of `ReadParentPermissionsInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->parent_permissions_info.Get();
+    return mojo::internal::Deserialize<::blink::mojom::ParentPermissionsInfoDataView>(
+        pointer, output, message_);
+  }
+  bool can_disable_untrusted_network() const {
+    return data_->can_disable_untrusted_network;
   }
  private:
   internal::FencedFrameProperties_Data* data_ = nullptr;
@@ -1292,6 +1381,61 @@ struct Serializer<::blink::mojom::SharedStorageBudgetMetadataDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::ParentPermissionsInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::ParentPermissionsInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::ParentPermissionsInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::parsed_permissions_policy(input)) in_parsed_permissions_policy = Traits::parsed_permissions_policy(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->parsed_permissions_policy)::BaseType>
+        parsed_permissions_policy_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& parsed_permissions_policy_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::ParsedPermissionsPolicyDeclarationDataView>>(
+        in_parsed_permissions_policy, parsed_permissions_policy_fragment, &parsed_permissions_policy_validate_params);
+    fragment->parsed_permissions_policy.Set(
+        parsed_permissions_policy_fragment.is_null() ? nullptr : parsed_permissions_policy_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->parsed_permissions_policy.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null parsed_permissions_policy in ParentPermissionsInfo struct");
+    decltype(Traits::origin(input)) in_origin = Traits::origin(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->origin)::BaseType> origin_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::OriginDataView>(
+        in_origin, origin_fragment);
+    fragment->origin.Set(
+        origin_fragment.is_null() ? nullptr : origin_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->origin.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null origin in ParentPermissionsInfo struct");
+  }
+
+  static bool Deserialize(::blink::mojom::internal::ParentPermissionsInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::ParentPermissionsInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::FencedFrameConfigDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::FencedFrameConfigDataView, UserType>;
@@ -1372,6 +1516,14 @@ struct Serializer<::blink::mojom::FencedFrameConfigDataView, MaybeConstUserType>
         fragment->effective_enabled_permissions.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null effective_enabled_permissions in FencedFrameConfig struct");
+    decltype(Traits::parent_permissions_info(input)) in_parent_permissions_info = Traits::parent_permissions_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->parent_permissions_info)::BaseType> parent_permissions_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ParentPermissionsInfoDataView>(
+        in_parent_permissions_info, parent_permissions_info_fragment);
+    fragment->parent_permissions_info.Set(
+        parent_permissions_info_fragment.is_null() ? nullptr : parent_permissions_info_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::FencedFrameConfig_Data* input,
@@ -1460,6 +1612,15 @@ struct Serializer<::blink::mojom::FencedFramePropertiesDataView, MaybeConstUserT
         fragment->effective_enabled_permissions.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null effective_enabled_permissions in FencedFrameProperties struct");
+    decltype(Traits::parent_permissions_info(input)) in_parent_permissions_info = Traits::parent_permissions_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->parent_permissions_info)::BaseType> parent_permissions_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::ParentPermissionsInfoDataView>(
+        in_parent_permissions_info, parent_permissions_info_fragment);
+    fragment->parent_permissions_info.Set(
+        parent_permissions_info_fragment.is_null() ? nullptr : parent_permissions_info_fragment.data());
+    fragment->can_disable_untrusted_network = Traits::can_disable_untrusted_network(input);
   }
 
   static bool Deserialize(::blink::mojom::internal::FencedFrameProperties_Data* input,
@@ -1953,6 +2114,18 @@ inline void SharedStorageBudgetMetadataDataView::GetSiteDataView(
 }
 
 
+inline void ParentPermissionsInfoDataView::GetParsedPermissionsPolicyDataView(
+    mojo::ArrayDataView<::blink::mojom::ParsedPermissionsPolicyDeclarationDataView>* output) {
+  auto pointer = data_->parsed_permissions_policy.Get();
+  *output = mojo::ArrayDataView<::blink::mojom::ParsedPermissionsPolicyDeclarationDataView>(pointer, message_);
+}
+inline void ParentPermissionsInfoDataView::GetOriginDataView(
+    ::url::mojom::OriginDataView* output) {
+  auto pointer = data_->origin.Get();
+  *output = ::url::mojom::OriginDataView(pointer, message_);
+}
+
+
 inline void FencedFrameConfigDataView::GetMappedUrlDataView(
     PotentiallyOpaqueURLDataView* output) {
   auto pointer = &data_->mapped_url;
@@ -1998,6 +2171,11 @@ inline void FencedFrameConfigDataView::GetEffectiveEnabledPermissionsDataView(
   auto pointer = data_->effective_enabled_permissions.Get();
   *output = mojo::ArrayDataView<::blink::mojom::PermissionsPolicyFeature>(pointer, message_);
 }
+inline void FencedFrameConfigDataView::GetParentPermissionsInfoDataView(
+    ParentPermissionsInfoDataView* output) {
+  auto pointer = data_->parent_permissions_info.Get();
+  *output = ParentPermissionsInfoDataView(pointer, message_);
+}
 
 
 inline void FencedFramePropertiesDataView::GetMappedUrlDataView(
@@ -2039,6 +2217,11 @@ inline void FencedFramePropertiesDataView::GetEffectiveEnabledPermissionsDataVie
     mojo::ArrayDataView<::blink::mojom::PermissionsPolicyFeature>* output) {
   auto pointer = data_->effective_enabled_permissions.Get();
   *output = mojo::ArrayDataView<::blink::mojom::PermissionsPolicyFeature>(pointer, message_);
+}
+inline void FencedFramePropertiesDataView::GetParentPermissionsInfoDataView(
+    ParentPermissionsInfoDataView* output) {
+  auto pointer = data_->parent_permissions_info.Get();
+  *output = ParentPermissionsInfoDataView(pointer, message_);
 }
 
 

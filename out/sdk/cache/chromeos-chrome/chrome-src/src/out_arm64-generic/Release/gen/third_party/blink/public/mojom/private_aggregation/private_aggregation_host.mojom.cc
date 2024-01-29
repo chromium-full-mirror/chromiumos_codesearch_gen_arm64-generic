@@ -307,6 +307,8 @@ bool PrivateAggregationHostStubDispatch::Accept(
           reinterpret_cast<internal::PrivateAggregationHost_ContributeToHistogram_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrivateAggregationHost.0
       bool success = true;
       std::vector<::blink::mojom::AggregatableReportHistogramContributionPtr> p_contributions{};
       PrivateAggregationHost_ContributeToHistogram_ParamsDataView input_data_view(params, message);
@@ -322,8 +324,8 @@ bool PrivateAggregationHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContributeToHistogram(
-std::move(p_contributions));
+      impl->ContributeToHistogram(        
+        std::move(p_contributions));
       return true;
     }
     case internal::kPrivateAggregationHost_EnableDebugMode_Name: {
@@ -333,6 +335,8 @@ std::move(p_contributions));
           reinterpret_cast<internal::PrivateAggregationHost_EnableDebugMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrivateAggregationHost.1
       bool success = true;
       DebugKeyPtr p_debug_key{};
       PrivateAggregationHost_EnableDebugMode_ParamsDataView input_data_view(params, message);
@@ -348,8 +352,8 @@ std::move(p_contributions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableDebugMode(
-std::move(p_debug_key));
+      impl->EnableDebugMode(        
+        std::move(p_debug_key));
       return true;
     }
   }

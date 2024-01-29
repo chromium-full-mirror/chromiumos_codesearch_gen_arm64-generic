@@ -1259,6 +1259,8 @@ bool PageBroadcast_SetPageLifecycleState_ForwardToCallback::Accept(
           internal::PageBroadcast_SetPageLifecycleState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageBroadcast.0
   bool success = true;
   PageBroadcast_SetPageLifecycleState_ResponseParamsDataView input_data_view(params, message);
   
@@ -1366,6 +1368,8 @@ bool PageBroadcast_ActivatePrerenderedPage_ForwardToCallback::Accept(
           internal::PageBroadcast_ActivatePrerenderedPage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageBroadcast.2
   bool success = true;
   PageBroadcast_ActivatePrerenderedPage_ResponseParamsDataView input_data_view(params, message);
   
@@ -1431,6 +1435,8 @@ bool PageBroadcastStubDispatch::Accept(
           reinterpret_cast<internal::PageBroadcast_AudioStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.1
       bool success = true;
       bool p_is_audio_playing{};
       PageBroadcast_AudioStateChanged_ParamsDataView input_data_view(params, message);
@@ -1446,8 +1452,8 @@ bool PageBroadcastStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AudioStateChanged(
-std::move(p_is_audio_playing));
+      impl->AudioStateChanged(        
+        std::move(p_is_audio_playing));
       return true;
     }
     case internal::kPageBroadcast_ActivatePrerenderedPage_Name: {
@@ -1460,6 +1466,8 @@ std::move(p_is_audio_playing));
           reinterpret_cast<internal::PageBroadcast_UpdateWebPreferences_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.3
       bool success = true;
       ::blink::web_pref::WebPreferences p_preferences{};
       PageBroadcast_UpdateWebPreferences_ParamsDataView input_data_view(params, message);
@@ -1475,8 +1483,8 @@ std::move(p_is_audio_playing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateWebPreferences(
-std::move(p_preferences));
+      impl->UpdateWebPreferences(        
+        std::move(p_preferences));
       return true;
     }
     case internal::kPageBroadcast_UpdateRendererPreferences_Name: {
@@ -1486,6 +1494,8 @@ std::move(p_preferences));
           reinterpret_cast<internal::PageBroadcast_UpdateRendererPreferences_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.4
       bool success = true;
       ::blink::RendererPreferences p_preferences{};
       PageBroadcast_UpdateRendererPreferences_ParamsDataView input_data_view(params, message);
@@ -1501,8 +1511,8 @@ std::move(p_preferences));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateRendererPreferences(
-std::move(p_preferences));
+      impl->UpdateRendererPreferences(        
+        std::move(p_preferences));
       return true;
     }
     case internal::kPageBroadcast_SetHistoryOffsetAndLength_Name: {
@@ -1512,6 +1522,8 @@ std::move(p_preferences));
           reinterpret_cast<internal::PageBroadcast_SetHistoryOffsetAndLength_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.5
       bool success = true;
       int32_t p_offset{};
       int32_t p_length{};
@@ -1530,9 +1542,9 @@ std::move(p_preferences));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHistoryOffsetAndLength(
-std::move(p_offset), 
-std::move(p_length));
+      impl->SetHistoryOffsetAndLength(        
+        std::move(p_offset), 
+        std::move(p_length));
       return true;
     }
     case internal::kPageBroadcast_SetPageBaseBackgroundColor_Name: {
@@ -1542,6 +1554,8 @@ std::move(p_length));
           reinterpret_cast<internal::PageBroadcast_SetPageBaseBackgroundColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.6
       bool success = true;
       std::optional<::SkColor> p_color{};
       PageBroadcast_SetPageBaseBackgroundColor_ParamsDataView input_data_view(params, message);
@@ -1557,8 +1571,8 @@ std::move(p_length));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPageBaseBackgroundColor(
-std::move(p_color));
+      impl->SetPageBaseBackgroundColor(        
+        std::move(p_color));
       return true;
     }
     case internal::kPageBroadcast_CreateRemoteMainFrame_Name: {
@@ -1568,6 +1582,8 @@ std::move(p_color));
           reinterpret_cast<internal::PageBroadcast_CreateRemoteMainFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.7
       bool success = true;
       ::blink::RemoteFrameToken p_token{};
       std::optional<::blink::FrameToken> p_opener_frame_token{};
@@ -1601,14 +1617,14 @@ std::move(p_color));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRemoteMainFrame(
-std::move(p_token), 
-std::move(p_opener_frame_token), 
-std::move(p_replication_state), 
-std::move(p_is_loading), 
-std::move(p_devtools_frame_token), 
-std::move(p_remote_frame_interfaces), 
-std::move(p_remote_main_frame_interfaces));
+      impl->CreateRemoteMainFrame(        
+        std::move(p_token), 
+        std::move(p_opener_frame_token), 
+        std::move(p_replication_state), 
+        std::move(p_is_loading), 
+        std::move(p_devtools_frame_token), 
+        std::move(p_remote_frame_interfaces), 
+        std::move(p_remote_main_frame_interfaces));
       return true;
     }
     case internal::kPageBroadcast_UpdatePageBrowsingContextGroup_Name: {
@@ -1618,6 +1634,8 @@ std::move(p_remote_main_frame_interfaces));
           reinterpret_cast<internal::PageBroadcast_UpdatePageBrowsingContextGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.8
       bool success = true;
       ::blink::BrowsingContextGroupInfo p_browsing_context_group_info{mojo::internal::DefaultConstructTag()};
       PageBroadcast_UpdatePageBrowsingContextGroup_ParamsDataView input_data_view(params, message);
@@ -1633,8 +1651,8 @@ std::move(p_remote_main_frame_interfaces));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePageBrowsingContextGroup(
-std::move(p_browsing_context_group_info));
+      impl->UpdatePageBrowsingContextGroup(        
+        std::move(p_browsing_context_group_info));
       return true;
     }
     case internal::kPageBroadcast_SetPageAttributionSupport_Name: {
@@ -1644,6 +1662,8 @@ std::move(p_browsing_context_group_info));
           reinterpret_cast<internal::PageBroadcast_SetPageAttributionSupport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.9
       bool success = true;
       ::network::mojom::AttributionSupport p_support{};
       PageBroadcast_SetPageAttributionSupport_ParamsDataView input_data_view(params, message);
@@ -1659,8 +1679,8 @@ std::move(p_browsing_context_group_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPageAttributionSupport(
-std::move(p_support));
+      impl->SetPageAttributionSupport(        
+        std::move(p_support));
       return true;
     }
     case internal::kPageBroadcast_UpdateColorProviders_Name: {
@@ -1670,6 +1690,8 @@ std::move(p_support));
           reinterpret_cast<internal::PageBroadcast_UpdateColorProviders_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.10
       bool success = true;
       ::blink::ColorProviderColorMaps p_color_provider_colors{};
       PageBroadcast_UpdateColorProviders_ParamsDataView input_data_view(params, message);
@@ -1685,8 +1707,8 @@ std::move(p_support));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateColorProviders(
-std::move(p_color_provider_colors));
+      impl->UpdateColorProviders(        
+        std::move(p_color_provider_colors));
       return true;
     }
   }
@@ -1709,6 +1731,8 @@ bool PageBroadcastStubDispatch::AcceptWithResponder(
               internal::PageBroadcast_SetPageLifecycleState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.0
       bool success = true;
       PageLifecycleStatePtr p_state{};
       PageRestoreParamsPtr p_page_restore_params{};
@@ -1730,9 +1754,9 @@ bool PageBroadcastStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPageLifecycleState(
-std::move(p_state), 
-std::move(p_page_restore_params), std::move(callback));
+      impl->SetPageLifecycleState(        
+        std::move(p_state), 
+        std::move(p_page_restore_params), std::move(callback));
       return true;
     }
     case internal::kPageBroadcast_AudioStateChanged_Name: {
@@ -1745,6 +1769,8 @@ std::move(p_page_restore_params), std::move(callback));
               internal::PageBroadcast_ActivatePrerenderedPage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageBroadcast.2
       bool success = true;
       PrerenderPageActivationParamsPtr p_prerender_page_activation_params{};
       PageBroadcast_ActivatePrerenderedPage_ParamsDataView input_data_view(params, message);
@@ -1763,8 +1789,8 @@ std::move(p_page_restore_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivatePrerenderedPage(
-std::move(p_prerender_page_activation_params), std::move(callback));
+      impl->ActivatePrerenderedPage(        
+        std::move(p_prerender_page_activation_params), std::move(callback));
       return true;
     }
     case internal::kPageBroadcast_UpdateWebPreferences_Name: {

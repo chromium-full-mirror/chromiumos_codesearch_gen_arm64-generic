@@ -112,8 +112,7 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocketStream.opened.get");
 
 
 WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->opened(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -140,8 +139,7 @@ BLINK_BINDINGS_TRACE_EVENT("WebSocketStream.closed.get");
 
 
 WebSocketStream* blink_receiver = V8WebSocketStream::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->closed(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -167,7 +165,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWebSocketStreamConstructor);
 
@@ -176,7 +175,6 @@ if (UNLIKELY(info.Length() < 1)) {
 return;
 }
 
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& arg1_url = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

@@ -23,6 +23,7 @@ PROTOBUF_CONSTEXPR TracePacketDefaults::TracePacketDefaults(
     ::_pbi::ConstantInitialized)
   : track_event_defaults_(nullptr)
   , perf_sample_defaults_(nullptr)
+  , v8_code_defaults_(nullptr)
   , timestamp_clock_id_(0u){}
 struct TracePacketDefaultsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TracePacketDefaultsDefaultTypeInternal()
@@ -44,7 +45,7 @@ class TracePacketDefaults::_Internal {
  public:
   using HasBits = decltype(std::declval<TracePacketDefaults>()._has_bits_);
   static void set_has_timestamp_clock_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static const ::perfetto::protos::TrackEventDefaults& track_event_defaults(const TracePacketDefaults* msg);
   static void set_has_track_event_defaults(HasBits* has_bits) {
@@ -53,6 +54,10 @@ class TracePacketDefaults::_Internal {
   static const ::perfetto::protos::PerfSampleDefaults& perf_sample_defaults(const TracePacketDefaults* msg);
   static void set_has_perf_sample_defaults(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static const ::perfetto::protos::V8CodeDefaults& v8_code_defaults(const TracePacketDefaults* msg);
+  static void set_has_v8_code_defaults(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
 };
 
@@ -64,6 +69,10 @@ const ::perfetto::protos::PerfSampleDefaults&
 TracePacketDefaults::_Internal::perf_sample_defaults(const TracePacketDefaults* msg) {
   return *msg->perf_sample_defaults_;
 }
+const ::perfetto::protos::V8CodeDefaults&
+TracePacketDefaults::_Internal::v8_code_defaults(const TracePacketDefaults* msg) {
+  return *msg->v8_code_defaults_;
+}
 void TracePacketDefaults::clear_track_event_defaults() {
   if (track_event_defaults_ != nullptr) track_event_defaults_->Clear();
   _has_bits_[0] &= ~0x00000001u;
@@ -71,6 +80,10 @@ void TracePacketDefaults::clear_track_event_defaults() {
 void TracePacketDefaults::clear_perf_sample_defaults() {
   if (perf_sample_defaults_ != nullptr) perf_sample_defaults_->Clear();
   _has_bits_[0] &= ~0x00000002u;
+}
+void TracePacketDefaults::clear_v8_code_defaults() {
+  if (v8_code_defaults_ != nullptr) v8_code_defaults_->Clear();
+  _has_bits_[0] &= ~0x00000004u;
 }
 TracePacketDefaults::TracePacketDefaults(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -91,6 +104,11 @@ TracePacketDefaults::TracePacketDefaults(const TracePacketDefaults& from)
     perf_sample_defaults_ = new ::perfetto::protos::PerfSampleDefaults(*from.perf_sample_defaults_);
   } else {
     perf_sample_defaults_ = nullptr;
+  }
+  if (from._internal_has_v8_code_defaults()) {
+    v8_code_defaults_ = new ::perfetto::protos::V8CodeDefaults(*from.v8_code_defaults_);
+  } else {
+    v8_code_defaults_ = nullptr;
   }
   timestamp_clock_id_ = from.timestamp_clock_id_;
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.TracePacketDefaults)
@@ -116,6 +134,7 @@ inline void TracePacketDefaults::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete track_event_defaults_;
   if (this != internal_default_instance()) delete perf_sample_defaults_;
+  if (this != internal_default_instance()) delete v8_code_defaults_;
 }
 
 void TracePacketDefaults::SetCachedSize(int size) const {
@@ -129,7 +148,7 @@ void TracePacketDefaults::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(track_event_defaults_ != nullptr);
       track_event_defaults_->Clear();
@@ -137,6 +156,10 @@ void TracePacketDefaults::Clear() {
     if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(perf_sample_defaults_ != nullptr);
       perf_sample_defaults_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(v8_code_defaults_ != nullptr);
+      v8_code_defaults_->Clear();
     }
   }
   timestamp_clock_id_ = 0u;
@@ -172,6 +195,14 @@ const char* TracePacketDefaults::_InternalParse(const char* ptr, ::_pbi::ParseCo
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
           _Internal::set_has_timestamp_clock_id(&has_bits);
           timestamp_clock_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .perfetto.protos.V8CodeDefaults v8_code_defaults = 99;
+      case 99:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_v8_code_defaults(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -222,9 +253,16 @@ uint8_t* TracePacketDefaults::_InternalSerialize(
   }
 
   // optional uint32 timestamp_clock_id = 58;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(58, this->_internal_timestamp_clock_id(), target);
+  }
+
+  // optional .perfetto.protos.V8CodeDefaults v8_code_defaults = 99;
+  if (cached_has_bits & 0x00000004u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(99, _Internal::v8_code_defaults(this),
+        _Internal::v8_code_defaults(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -244,7 +282,7 @@ size_t TracePacketDefaults::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional .perfetto.protos.TrackEventDefaults track_event_defaults = 11;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -259,8 +297,15 @@ size_t TracePacketDefaults::ByteSizeLong() const {
           *perf_sample_defaults_);
     }
 
-    // optional uint32 timestamp_clock_id = 58;
+    // optional .perfetto.protos.V8CodeDefaults v8_code_defaults = 99;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *v8_code_defaults_);
+    }
+
+    // optional uint32 timestamp_clock_id = 58;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::UInt32Size(
           this->_internal_timestamp_clock_id());
@@ -288,7 +333,7 @@ void TracePacketDefaults::MergeFrom(const TracePacketDefaults& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_track_event_defaults()->::perfetto::protos::TrackEventDefaults::MergeFrom(from._internal_track_event_defaults());
     }
@@ -296,6 +341,9 @@ void TracePacketDefaults::MergeFrom(const TracePacketDefaults& from) {
       _internal_mutable_perf_sample_defaults()->::perfetto::protos::PerfSampleDefaults::MergeFrom(from._internal_perf_sample_defaults());
     }
     if (cached_has_bits & 0x00000004u) {
+      _internal_mutable_v8_code_defaults()->::perfetto::protos::V8CodeDefaults::MergeFrom(from._internal_v8_code_defaults());
+    }
+    if (cached_has_bits & 0x00000008u) {
       timestamp_clock_id_ = from.timestamp_clock_id_;
     }
     _has_bits_[0] |= cached_has_bits;

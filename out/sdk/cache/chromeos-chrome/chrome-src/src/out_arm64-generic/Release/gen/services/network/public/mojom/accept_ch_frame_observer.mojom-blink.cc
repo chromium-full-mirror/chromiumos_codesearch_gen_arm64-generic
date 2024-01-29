@@ -311,6 +311,8 @@ bool AcceptCHFrameObserver_OnAcceptCHFrameReceived_ForwardToCallback::Accept(
           internal::AcceptCHFrameObserver_OnAcceptCHFrameReceived_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceptCHFrameObserver.0
   bool success = true;
   int32_t p_status{};
   AcceptCHFrameObserver_OnAcceptCHFrameReceived_ResponseParamsDataView input_data_view(params, message);
@@ -388,6 +390,8 @@ bool AcceptCHFrameObserverStubDispatch::Accept(
           reinterpret_cast<internal::AcceptCHFrameObserver_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceptCHFrameObserver.1
       bool success = true;
       ::mojo::PendingReceiver<AcceptCHFrameObserver> p_listener{};
       AcceptCHFrameObserver_Clone_ParamsDataView input_data_view(params, message);
@@ -405,8 +409,8 @@ bool AcceptCHFrameObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_listener));
+      impl->Clone(        
+        std::move(p_listener));
       return true;
     }
   }
@@ -429,6 +433,8 @@ bool AcceptCHFrameObserverStubDispatch::AcceptWithResponder(
               internal::AcceptCHFrameObserver_OnAcceptCHFrameReceived_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceptCHFrameObserver.0
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       WTF::Vector<::network::mojom::blink::WebClientHintsType> p_accept_ch_frame{};
@@ -450,9 +456,9 @@ bool AcceptCHFrameObserverStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAcceptCHFrameReceived(
-std::move(p_origin), 
-std::move(p_accept_ch_frame), std::move(callback));
+      impl->OnAcceptCHFrameReceived(        
+        std::move(p_origin), 
+        std::move(p_accept_ch_frame), std::move(callback));
       return true;
     }
     case internal::kAcceptCHFrameObserver_Clone_Name: {

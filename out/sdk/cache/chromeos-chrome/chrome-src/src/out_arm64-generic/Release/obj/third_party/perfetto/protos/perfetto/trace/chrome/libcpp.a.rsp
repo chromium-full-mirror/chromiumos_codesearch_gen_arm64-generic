@@ -1,1 +1,1 @@
-obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/chrome_benchmark_metadata.gen.o obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/chrome_metadata.gen.o obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/chrome_trace_event.gen.o
+obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/chrome_benchmark_metadata.gen.o obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/chrome_metadata.gen.o obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/chrome_trace_event.gen.o obj/third_party/perfetto/protos/perfetto/trace/chrome/cpp/v8.gen.o

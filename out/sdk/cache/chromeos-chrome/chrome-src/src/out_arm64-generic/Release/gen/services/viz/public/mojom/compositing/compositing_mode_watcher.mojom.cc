@@ -148,6 +148,8 @@ bool CompositingModeWatcherStubDispatch::Accept(
           reinterpret_cast<internal::CompositingModeWatcher_CompositingModeFallbackToSoftware_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositingModeWatcher.0
       bool success = true;
       CompositingModeWatcher_CompositingModeFallbackToSoftware_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool CompositingModeWatcherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompositingModeFallbackToSoftware();
+      impl->CompositingModeFallbackToSoftware(        );
       return true;
     }
   }
@@ -311,6 +313,8 @@ bool CompositingModeReporterStubDispatch::Accept(
           reinterpret_cast<internal::CompositingModeReporter_AddCompositingModeWatcher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositingModeReporter.0
       bool success = true;
       ::mojo::PendingRemote<CompositingModeWatcher> p_watcher{};
       CompositingModeReporter_AddCompositingModeWatcher_ParamsDataView input_data_view(params, message);
@@ -328,8 +332,8 @@ bool CompositingModeReporterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCompositingModeWatcher(
-std::move(p_watcher));
+      impl->AddCompositingModeWatcher(        
+        std::move(p_watcher));
       return true;
     }
   }

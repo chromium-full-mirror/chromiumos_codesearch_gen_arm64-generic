@@ -795,8 +795,11 @@ class LocalDeviceInstrumentationTestRun(
           device)
       # "%2m" is used to expand to 2 raw profiles at runtime. "%p" writes
       # process ID.
-      # See https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
-      clang_profile_filename = '%s_%s.profraw' % (coverage_basename, '%2m_%p')
+      # "%c" enables continuous mode. See crbug.com/1468343, crbug.com/1518474
+      # For more details, refer to:
+      #   https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
+      clang_profile_filename = ('%s_%s.profraw' %
+                                (coverage_basename, '%2m_%p%c'))
       extras[EXTRA_CLANG_COVERAGE_DEVICE_FILE] = posixpath.join(
           device_clang_profile_dir, clang_profile_filename)
 
@@ -1092,12 +1095,12 @@ class LocalDeviceInstrumentationTestRun(
         if r.GetName() == test_name:
           r.SetName(test_display_name)
 
-    # Add UNKNOWN results for any missing tests.
+    # Add NOTRUN results for any missing tests.
     iterable_test = test if isinstance(test, list) else [test]
     test_names = set(self._GetUniqueTestName(t) for t in iterable_test)
     results_names = set(r.GetName() for r in results)
     results.extend(
-        base_test_result.BaseTestResult(u, base_test_result.ResultType.UNKNOWN)
+        base_test_result.BaseTestResult(u, base_test_result.ResultType.NOTRUN)
         for u in test_names.difference(results_names))
 
     # Update the result type if we detect a crash.
@@ -1187,11 +1190,11 @@ class LocalDeviceInstrumentationTestRun(
           # associate with the first test.
           results[0].SetLink('tombstones', tombstone_file.Link())
 
-    unknown_tests = set(r.GetName() for r in results
-                        if r.GetType() == base_test_result.ResultType.UNKNOWN)
+    notrun_tests = set(r.GetName() for r in results
+                       if r.GetType() == base_test_result.ResultType.NOTRUN)
 
     # If a test that is batched crashes, the rest of the tests in that batch
-    # won't be ran and will have their status left as unknown in results,
+    # won't be ran and will have their status left as NOTRUN in results,
     # so rerun the tests. (see crbug/1127935)
     # Need to "unbatch" the tests, so that on subsequent tries, the tests can
     # get ran individually. This prevents an unrecognized crash from preventing
@@ -1200,7 +1203,7 @@ class LocalDeviceInstrumentationTestRun(
     # level.
     tests_to_rerun = []
     for t in iterable_test:
-      if self._GetUniqueTestName(t) in unknown_tests:
+      if self._GetUniqueTestName(t) in notrun_tests:
         prior_attempts = t.get('run_attempts', 0)
         t['run_attempts'] = prior_attempts + 1
         # It's possible every test in the batch could crash, so need to
@@ -1211,11 +1214,9 @@ class LocalDeviceInstrumentationTestRun(
           tests_to_rerun.append(t)
 
     # If we have a crash that isn't recognized as a crash in a batch, the tests
-    # will be marked as unknown. Sometimes a test failure causes a crash, but
+    # will be marked as NOTRUN. Sometimes a test failure causes a crash, but
     # the crash isn't recorded because the failure was detected first.
-    # When the UNKNOWN tests are reran while unbatched and pass,
-    # they'll have an UNKNOWN, PASS status, so will be improperly marked as
-    # flaky, so change status to NOTRUN and don't try rerunning. They will
+    # To avoid useless reruns, don't try rerunning. They will
     # get rerun individually at the local_device_test_run/environment level.
     # as the "Batch" annotation was removed.
     found_crash_or_fail = False
@@ -1228,9 +1229,6 @@ class LocalDeviceInstrumentationTestRun(
       # Don't bother rerunning since the unrecognized crashes in
       # the batch will keep failing.
       tests_to_rerun = None
-      for r in results:
-        if r.GetType() == base_test_result.ResultType.UNKNOWN:
-          r.SetType(base_test_result.ResultType.NOTRUN)
 
     return results, tests_to_rerun if tests_to_rerun else None
 
@@ -1248,11 +1246,12 @@ class LocalDeviceInstrumentationTestRun(
     else:
       test_mtime = os.path.getmtime(test_apk_path)
 
-    try:
-      return instrumentation_test_instance.GetTestsFromPickle(
-          pickle_path, test_mtime)
-    except instrumentation_test_instance.TestListPickleException as e:
-      logging.info('Could not get tests from pickle: %s', e)
+    if not self._test_instance.wait_for_java_debugger:
+      try:
+        return instrumentation_test_instance.GetTestsFromPickle(
+            pickle_path, test_mtime)
+      except instrumentation_test_instance.TestListPickleException as e:
+        logging.info('Could not get tests from pickle: %s', e)
     logging.info('Getting tests by having %s list them.',
                  self._test_instance.junit4_runner_class)
     def list_tests(d):
@@ -1797,7 +1796,7 @@ def _SetLinkOnResults(results, full_test_name, link_name, link):
     full_test_name: A string containing the full name of the test, e.g.
         org.chromium.chrome.SomeTestClass#someTestMethod.
     link_name: A string containing the name of the link being set.
-    link: A string containing the lkink being set.
+    link: A string containing the link being set.
   """
   found_matching_test = _MatchingTestInResults(results, full_test_name)
   if not found_matching_test and _ShouldReportNoMatchingResult(full_test_name):

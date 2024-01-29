@@ -484,6 +484,8 @@ bool Channel_SendMessage_ForwardToCallback::Accept(
           internal::Channel_SendMessage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Channel.0
   bool success = true;
   Channel_SendMessage_ResponseParamsDataView input_data_view(params, message);
   
@@ -591,6 +593,8 @@ bool Channel_RegisterPayloadFile_ForwardToCallback::Accept(
           internal::Channel_RegisterPayloadFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Channel.1
   bool success = true;
   bool p_success{};
   Channel_RegisterPayloadFile_ResponseParamsDataView input_data_view(params, message);
@@ -710,6 +714,8 @@ bool Channel_GetConnectionMetadata_ForwardToCallback::Accept(
           internal::Channel_GetConnectionMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Channel.2
   bool success = true;
   ConnectionMetadataPtr p_metadata{};
   Channel_GetConnectionMetadata_ResponseParamsDataView input_data_view(params, message);
@@ -816,6 +822,8 @@ bool ChannelStubDispatch::AcceptWithResponder(
               internal::Channel_SendMessage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Channel.0
       bool success = true;
       std::string p_message{};
       Channel_SendMessage_ParamsDataView input_data_view(params, message);
@@ -834,8 +842,8 @@ bool ChannelStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendMessage(
-std::move(p_message), std::move(callback));
+      impl->SendMessage(        
+        std::move(p_message), std::move(callback));
       return true;
     }
     case internal::kChannel_RegisterPayloadFile_Name: {
@@ -845,6 +853,8 @@ std::move(p_message), std::move(callback));
               internal::Channel_RegisterPayloadFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Channel.1
       bool success = true;
       int64_t p_payload_id{};
       ::ash::secure_channel::mojom::PayloadFilesPtr p_payload_files{};
@@ -871,10 +881,10 @@ std::move(p_message), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterPayloadFile(
-std::move(p_payload_id), 
-std::move(p_payload_files), 
-std::move(p_listener), std::move(callback));
+      impl->RegisterPayloadFile(        
+        std::move(p_payload_id), 
+        std::move(p_payload_files), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kChannel_GetConnectionMetadata_Name: {
@@ -884,6 +894,8 @@ std::move(p_listener), std::move(callback));
               internal::Channel_GetConnectionMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Channel.2
       bool success = true;
       Channel_GetConnectionMetadata_ParamsDataView input_data_view(params, message);
       
@@ -1047,6 +1059,8 @@ bool MessageReceiverStubDispatch::Accept(
           reinterpret_cast<internal::MessageReceiver_OnMessageReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessageReceiver.0
       bool success = true;
       std::string p_message{};
       MessageReceiver_OnMessageReceived_ParamsDataView input_data_view(params, message);
@@ -1062,8 +1076,8 @@ bool MessageReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessageReceived(
-std::move(p_message));
+      impl->OnMessageReceived(        
+        std::move(p_message));
       return true;
     }
   }
@@ -1285,6 +1299,8 @@ bool ConnectionDelegateStubDispatch::Accept(
           reinterpret_cast<internal::ConnectionDelegate_OnConnectionAttemptFailure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionDelegate.0
       bool success = true;
       ConnectionAttemptFailureReason p_reason{};
       ConnectionDelegate_OnConnectionAttemptFailure_ParamsDataView input_data_view(params, message);
@@ -1300,8 +1316,8 @@ bool ConnectionDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionAttemptFailure(
-std::move(p_reason));
+      impl->OnConnectionAttemptFailure(        
+        std::move(p_reason));
       return true;
     }
     case internal::kConnectionDelegate_OnConnection_Name: {
@@ -1311,6 +1327,8 @@ std::move(p_reason));
           reinterpret_cast<internal::ConnectionDelegate_OnConnection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionDelegate.1
       bool success = true;
       ::mojo::PendingRemote<Channel> p_channel{};
       ::mojo::PendingReceiver<MessageReceiver> p_message_receiver_receiver{};
@@ -1333,9 +1351,9 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnection(
-std::move(p_channel), 
-std::move(p_message_receiver_receiver));
+      impl->OnConnection(        
+        std::move(p_channel), 
+        std::move(p_message_receiver_receiver));
       return true;
     }
   }
@@ -1372,6 +1390,386 @@ static const mojo::internal::GenericValidationInfo kConnectionDelegateValidation
 bool ConnectionDelegateRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::secure_channel::mojom::ConnectionDelegate::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kConnectionDelegateValidationInfo);
+}
+
+const char SecureChannelStructuredMetricsLogger::Name_[] = "ash.secure_channel.mojom.SecureChannelStructuredMetricsLogger";
+
+SecureChannelStructuredMetricsLogger::IPCStableHashFunction SecureChannelStructuredMetricsLogger::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kSecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Name: {
+      return &SecureChannelStructuredMetricsLogger::LogDiscoveryAttempt_Sym::IPCStableHash;
+    }
+    case internal::kSecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Name: {
+      return &SecureChannelStructuredMetricsLogger::LogNearbyConnectionState_Sym::IPCStableHash;
+    }
+    case internal::kSecureChannelStructuredMetricsLogger_LogSecureChannelState_Name: {
+      return &SecureChannelStructuredMetricsLogger::LogSecureChannelState_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* SecureChannelStructuredMetricsLogger::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Name:
+            return "Receive ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogDiscoveryAttempt";
+      case internal::kSecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Name:
+            return "Receive ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogNearbyConnectionState";
+      case internal::kSecureChannelStructuredMetricsLogger_LogSecureChannelState_Name:
+            return "Receive ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogSecureChannelState";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Name:
+            return "Receive reply ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogDiscoveryAttempt";
+      case internal::kSecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Name:
+            return "Receive reply ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogNearbyConnectionState";
+      case internal::kSecureChannelStructuredMetricsLogger_LogSecureChannelState_Name:
+            return "Receive reply ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogSecureChannelState";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SecureChannelStructuredMetricsLogger::LogDiscoveryAttempt_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogDiscoveryAttempt");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SecureChannelStructuredMetricsLogger::LogNearbyConnectionState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogNearbyConnectionState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SecureChannelStructuredMetricsLogger::LogSecureChannelState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogSecureChannelState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+SecureChannelStructuredMetricsLoggerProxy::SecureChannelStructuredMetricsLoggerProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void SecureChannelStructuredMetricsLoggerProxy::LogDiscoveryAttempt(
+    DiscoveryResult in_result, std::optional<DiscoveryErrorCode> in_error_code) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogDiscoveryAttempt", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type DiscoveryResult>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("error_code"), in_error_code,
+                        "<value of type std::optional<DiscoveryErrorCode>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::secure_channel::mojom::internal::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::secure_channel::mojom::DiscoveryResult>(
+      in_result, &params->result);
+  params->error_code_$flag = in_error_code.has_value();
+  if (in_error_code.has_value()) {
+    mojo::internal::Serialize<::ash::secure_channel::mojom::DiscoveryErrorCode>(
+        in_error_code.value(), &params->error_code_$value);
+  } else {
+    params->error_code_$value =
+        static_cast<int32_t>(::ash::secure_channel::mojom::DiscoveryErrorCode::kMinValue);
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SecureChannelStructuredMetricsLogger::Name_);
+  message.set_method_name("LogDiscoveryAttempt");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void SecureChannelStructuredMetricsLoggerProxy::LogNearbyConnectionState(
+    ::ash::secure_channel::mojom::NearbyConnectionStep in_step, ::ash::secure_channel::mojom::NearbyConnectionStepResult in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogNearbyConnectionState", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("step"), in_step,
+                        "<value of type ::ash::secure_channel::mojom::NearbyConnectionStep>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::ash::secure_channel::mojom::NearbyConnectionStepResult>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::secure_channel::mojom::internal::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::secure_channel::mojom::NearbyConnectionStep>(
+      in_step, &params->step);
+  mojo::internal::Serialize<::ash::secure_channel::mojom::NearbyConnectionStepResult>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SecureChannelStructuredMetricsLogger::Name_);
+  message.set_method_name("LogNearbyConnectionState");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void SecureChannelStructuredMetricsLoggerProxy::LogSecureChannelState(
+    SecureChannelState in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::LogSecureChannelState", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type SecureChannelState>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSecureChannelStructuredMetricsLogger_LogSecureChannelState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::secure_channel::mojom::internal::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::secure_channel::mojom::SecureChannelState>(
+      in_state, &params->state);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SecureChannelStructuredMetricsLogger::Name_);
+  message.set_method_name("LogSecureChannelState");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool SecureChannelStructuredMetricsLoggerStubDispatch::Accept(
+    SecureChannelStructuredMetricsLogger* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kSecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data* params =
+          reinterpret_cast<internal::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for SecureChannelStructuredMetricsLogger.0
+      bool success = true;
+      DiscoveryResult p_result{};
+      std::optional<DiscoveryErrorCode> p_error_code{};
+      SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadResult(&p_result))
+        success = false;
+      if (success && !input_data_view.ReadErrorCode(&p_error_code)) {
+        success = false;
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SecureChannelStructuredMetricsLogger::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LogDiscoveryAttempt(        
+        std::move(p_result), 
+        std::move(p_error_code));
+      return true;
+    }
+    case internal::kSecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data* params =
+          reinterpret_cast<internal::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for SecureChannelStructuredMetricsLogger.1
+      bool success = true;
+      ::ash::secure_channel::mojom::NearbyConnectionStep p_step{};
+      ::ash::secure_channel::mojom::NearbyConnectionStepResult p_status{};
+      SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadStep(&p_step))
+        success = false;
+      if (success && !input_data_view.ReadStatus(&p_status))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SecureChannelStructuredMetricsLogger::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LogNearbyConnectionState(        
+        std::move(p_step), 
+        std::move(p_status));
+      return true;
+    }
+    case internal::kSecureChannelStructuredMetricsLogger_LogSecureChannelState_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data* params =
+          reinterpret_cast<internal::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for SecureChannelStructuredMetricsLogger.2
+      bool success = true;
+      SecureChannelState p_state{};
+      SecureChannelStructuredMetricsLogger_LogSecureChannelState_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadState(&p_state))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SecureChannelStructuredMetricsLogger::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LogSecureChannelState(        
+        std::move(p_state));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool SecureChannelStructuredMetricsLoggerStubDispatch::AcceptWithResponder(
+    SecureChannelStructuredMetricsLogger* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kSecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Name: {
+      break;
+    }
+    case internal::kSecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Name: {
+      break;
+    }
+    case internal::kSecureChannelStructuredMetricsLogger_LogSecureChannelState_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kSecureChannelStructuredMetricsLoggerValidationInfo[] = {
+    { &internal::SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::SecureChannelStructuredMetricsLogger_LogNearbyConnectionState_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::SecureChannelStructuredMetricsLogger_LogSecureChannelState_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool SecureChannelStructuredMetricsLoggerRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::secure_channel::mojom::SecureChannelStructuredMetricsLogger::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kSecureChannelStructuredMetricsLoggerValidationInfo);
 }
 
 const char SecureChannel::Name_[] = "ash.secure_channel.mojom.SecureChannel";
@@ -1608,7 +2006,7 @@ void SecureChannelProxy::ListenForConnectionFromDevice(
 }
 
 void SecureChannelProxy::InitiateConnectionToDevice(
-    const ::ash::multidevice::RemoteDevice& in_device_to_connect, const ::ash::multidevice::RemoteDevice& in_local_device, const std::string& in_feature, ::ash::secure_channel::ConnectionMedium in_connection_medium, ::ash::secure_channel::ConnectionPriority in_connection_priority, ::mojo::PendingRemote<ConnectionDelegate> in_delegate) {
+    const ::ash::multidevice::RemoteDevice& in_device_to_connect, const ::ash::multidevice::RemoteDevice& in_local_device, const std::string& in_feature, ::ash::secure_channel::ConnectionMedium in_connection_medium, ::ash::secure_channel::ConnectionPriority in_connection_priority, ::mojo::PendingRemote<ConnectionDelegate> in_delegate, ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger> in_secure_channel_structured_metrics_logger) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::secure_channel::mojom::SecureChannel::InitiateConnectionToDevice", "input_parameters",
@@ -1632,6 +2030,9 @@ void SecureChannelProxy::InitiateConnectionToDevice(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("delegate"), in_delegate,
                         "<value of type ::mojo::PendingRemote<ConnectionDelegate>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("secure_channel_structured_metrics_logger"), in_secure_channel_structured_metrics_logger,
+                        "<value of type ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger>>");
    });
 #endif
 
@@ -1695,6 +2096,8 @@ void SecureChannelProxy::InitiateConnectionToDevice(
       !mojo::internal::IsHandleOrInterfaceValid(params->delegate),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
       "invalid delegate in SecureChannel.InitiateConnectionToDevice request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::secure_channel::mojom::SecureChannelStructuredMetricsLoggerInterfaceBase>>(
+      in_secure_channel_structured_metrics_logger, &params->secure_channel_structured_metrics_logger, &params.message());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SecureChannel::Name_);
@@ -1860,6 +2263,8 @@ bool SecureChannel_GetLastSeenTimestamp_ForwardToCallback::Accept(
           internal::SecureChannel_GetLastSeenTimestamp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SecureChannel.3
   bool success = true;
   std::optional<::base::Time> p_time{};
   SecureChannel_GetLastSeenTimestamp_ResponseParamsDataView input_data_view(params, message);
@@ -1940,6 +2345,8 @@ bool SecureChannelStubDispatch::Accept(
           reinterpret_cast<internal::SecureChannel_ListenForConnectionFromDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SecureChannel.0
       bool success = true;
       ::ash::multidevice::RemoteDevice p_device_to_connect{};
       ::ash::multidevice::RemoteDevice p_local_device{};
@@ -1972,13 +2379,13 @@ bool SecureChannelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListenForConnectionFromDevice(
-std::move(p_device_to_connect), 
-std::move(p_local_device), 
-std::move(p_feature), 
-std::move(p_connection_medium), 
-std::move(p_connection_priority), 
-std::move(p_delegate));
+      impl->ListenForConnectionFromDevice(        
+        std::move(p_device_to_connect), 
+        std::move(p_local_device), 
+        std::move(p_feature), 
+        std::move(p_connection_medium), 
+        std::move(p_connection_priority), 
+        std::move(p_delegate));
       return true;
     }
     case internal::kSecureChannel_InitiateConnectionToDevice_Name: {
@@ -1988,6 +2395,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::SecureChannel_InitiateConnectionToDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SecureChannel.1
       bool success = true;
       ::ash::multidevice::RemoteDevice p_device_to_connect{};
       ::ash::multidevice::RemoteDevice p_local_device{};
@@ -1995,6 +2404,7 @@ std::move(p_delegate));
       ::ash::secure_channel::ConnectionMedium p_connection_medium{};
       ::ash::secure_channel::ConnectionPriority p_connection_priority{};
       ::mojo::PendingRemote<ConnectionDelegate> p_delegate{};
+      ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger> p_secure_channel_structured_metrics_logger{};
       SecureChannel_InitiateConnectionToDevice_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeviceToConnect(&p_device_to_connect))
@@ -2011,6 +2421,10 @@ std::move(p_delegate));
         p_delegate =
             input_data_view.TakeDelegate<decltype(p_delegate)>();
       }
+      if (success) {
+        p_secure_channel_structured_metrics_logger =
+            input_data_view.TakeSecureChannelStructuredMetricsLogger<decltype(p_secure_channel_structured_metrics_logger)>();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -2020,13 +2434,14 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitiateConnectionToDevice(
-std::move(p_device_to_connect), 
-std::move(p_local_device), 
-std::move(p_feature), 
-std::move(p_connection_medium), 
-std::move(p_connection_priority), 
-std::move(p_delegate));
+      impl->InitiateConnectionToDevice(        
+        std::move(p_device_to_connect), 
+        std::move(p_local_device), 
+        std::move(p_feature), 
+        std::move(p_connection_medium), 
+        std::move(p_connection_priority), 
+        std::move(p_delegate), 
+        std::move(p_secure_channel_structured_metrics_logger));
       return true;
     }
     case internal::kSecureChannel_SetNearbyConnector_Name: {
@@ -2036,6 +2451,8 @@ std::move(p_delegate));
           reinterpret_cast<internal::SecureChannel_SetNearbyConnector_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SecureChannel.2
       bool success = true;
       ::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector> p_nearby_connector{};
       SecureChannel_SetNearbyConnector_ParamsDataView input_data_view(params, message);
@@ -2053,8 +2470,8 @@ std::move(p_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNearbyConnector(
-std::move(p_nearby_connector));
+      impl->SetNearbyConnector(        
+        std::move(p_nearby_connector));
       return true;
     }
     case internal::kSecureChannel_GetLastSeenTimestamp_Name: {
@@ -2089,6 +2506,8 @@ bool SecureChannelStubDispatch::AcceptWithResponder(
               internal::SecureChannel_GetLastSeenTimestamp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SecureChannel.3
       bool success = true;
       std::string p_remote_device_id{};
       SecureChannel_GetLastSeenTimestamp_ParamsDataView input_data_view(params, message);
@@ -2107,8 +2526,8 @@ bool SecureChannelStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLastSeenTimestamp(
-std::move(p_remote_device_id), std::move(callback));
+      impl->GetLastSeenTimestamp(        
+        std::move(p_remote_device_id), std::move(callback));
       return true;
     }
   }
@@ -2287,11 +2706,28 @@ ConnectionDelegateAsyncWaiter::~ConnectionDelegateAsyncWaiter() = default;
 
 
 
+void SecureChannelStructuredMetricsLoggerInterceptorForTesting::LogDiscoveryAttempt(DiscoveryResult result, std::optional<DiscoveryErrorCode> error_code) {
+  GetForwardingInterface()->LogDiscoveryAttempt(std::move(result), std::move(error_code));
+}
+void SecureChannelStructuredMetricsLoggerInterceptorForTesting::LogNearbyConnectionState(::ash::secure_channel::mojom::NearbyConnectionStep step, ::ash::secure_channel::mojom::NearbyConnectionStepResult status) {
+  GetForwardingInterface()->LogNearbyConnectionState(std::move(step), std::move(status));
+}
+void SecureChannelStructuredMetricsLoggerInterceptorForTesting::LogSecureChannelState(SecureChannelState state) {
+  GetForwardingInterface()->LogSecureChannelState(std::move(state));
+}
+SecureChannelStructuredMetricsLoggerAsyncWaiter::SecureChannelStructuredMetricsLoggerAsyncWaiter(
+    SecureChannelStructuredMetricsLogger* proxy) : proxy_(proxy) {}
+
+SecureChannelStructuredMetricsLoggerAsyncWaiter::~SecureChannelStructuredMetricsLoggerAsyncWaiter() = default;
+
+
+
+
 void SecureChannelInterceptorForTesting::ListenForConnectionFromDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) {
   GetForwardingInterface()->ListenForConnectionFromDevice(std::move(device_to_connect), std::move(local_device), std::move(feature), std::move(connection_medium), std::move(connection_priority), std::move(delegate));
 }
-void SecureChannelInterceptorForTesting::InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) {
-  GetForwardingInterface()->InitiateConnectionToDevice(std::move(device_to_connect), std::move(local_device), std::move(feature), std::move(connection_medium), std::move(connection_priority), std::move(delegate));
+void SecureChannelInterceptorForTesting::InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate, ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger> secure_channel_structured_metrics_logger) {
+  GetForwardingInterface()->InitiateConnectionToDevice(std::move(device_to_connect), std::move(local_device), std::move(feature), std::move(connection_medium), std::move(connection_priority), std::move(delegate), std::move(secure_channel_structured_metrics_logger));
 }
 void SecureChannelInterceptorForTesting::SetNearbyConnector(::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector> nearby_connector) {
   GetForwardingInterface()->SetNearbyConnector(std::move(nearby_connector));

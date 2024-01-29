@@ -4,67 +4,58 @@
 /**
  * @fileoverview Fake implementation of chrome.system.display for testing.
  */
-import { assert } from 'chrome://resources/ash/common/assert.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { PromiseResolver } from 'chrome://resources/js/promise_resolver.js';
 import { FakeChromeEvent } from 'chrome://webui-test/fake_chrome_event.js';
 /**
  * Fake of the chrome.system.display API.
- * @implements {chrome.system.display}
  */
 export class FakeSystemDisplay {
-    constructor() {
-        /** @type {!Array<!chrome.system.display.DisplayUnitInfo>} */
-        this.fakeDisplays = [];
-        /** @type {!Array<!chrome.system.display.DisplayLayout>} */
-        this.fakeLayouts = [];
-        this.getInfoCalled = new PromiseResolver();
-        this.getLayoutCalled = new PromiseResolver();
-        this.overscanCalibrationStartCalled = 0;
-        this.overscanCalibrationResetCalled = 0;
-        this.overscanCalibrationCompleteCalled = 0;
-        this.LayoutPosition = chrome.system.display.LayoutPosition;
-        this.ActiveState = chrome.system.display.ActiveState;
-        this.MirrorMode = chrome.system.display.MirrorMode;
-        this.onDisplayChanged = new FakeChromeEvent();
-    }
-    // Public testing methods.
-    /**
-     * @param {!chrome.system.display.DisplayUnitInfo>} display
-     */
+    fakeDisplays = [];
+    fakeLayouts = [];
+    getInfoCalled = new PromiseResolver();
+    getLayoutCalled = new PromiseResolver();
+    overscanCalibrationStartCalled = 0;
+    overscanCalibrationResetCalled = 0;
+    overscanCalibrationCompleteCalled = 0;
+    onDisplayChanged = new FakeChromeEvent();
+    // The following properties mirror the necessary enum members.
+    /* eslint-disable @typescript-eslint/naming-convention */
+    LayoutPosition = chrome.system.display.LayoutPosition;
+    ActiveState = chrome.system.display.ActiveState;
+    MirrorMode = chrome.system.display.MirrorMode;
+    /* eslint-enable @typescript-eslint/naming-convention */
     addDisplayForTest(display) {
         this.fakeDisplays.push(display);
         this.updateLayouts_();
     }
-    // SystemDisplay overrides.
-    /** @override */
-    getInfo(flags) {
+    getInfo(_flags) {
         return new Promise((resolve) => {
             setTimeout(() => {
                 // Create a shallow copy to trigger Polymer data binding updates.
-                let displays;
+                let displays = [];
                 if (this.fakeDisplays.length > 0 &&
                     this.fakeDisplays[0].mirroringSourceId) {
                     // When mirroring is enabled, send only the info for the display
                     // being mirrored.
                     const display = this.getFakeDisplay_(this.fakeDisplays[0].mirroringSourceId);
-                    assert(!!display);
+                    assert(display);
                     displays = [display];
                 }
                 else {
                     displays = this.fakeDisplays.slice();
                 }
                 resolve(displays);
-                this.getInfoCalled.resolve();
+                this.getInfoCalled.resolve(null);
                 // Reset the promise resolver.
                 this.getInfoCalled = new PromiseResolver();
             });
         });
     }
-    /** @override */
     setDisplayProperties(id, info) {
         const display = this.getFakeDisplay_(id);
         if (!display) {
-            chrome.runtime.lastError = 'Display not found.';
+            chrome.runtime.lastError = { message: 'Display not found.' };
             return Promise.reject();
         }
         if (info.mirroringSourceId !== undefined) {
@@ -74,15 +65,15 @@ export class FakeSystemDisplay {
         }
         if (info.isPrimary !== undefined) {
             let havePrimary = info.isPrimary;
-            for (const d of this.fakeDisplays) {
-                if (d.id === id) {
-                    d.isPrimary = info.isPrimary;
+            for (const fakeDisplay of this.fakeDisplays) {
+                if (fakeDisplay.id === id) {
+                    fakeDisplay.isPrimary = info.isPrimary;
                 }
                 else if (havePrimary) {
-                    d.isPrimary = false;
+                    fakeDisplay.isPrimary = false;
                 }
                 else {
-                    d.isPrimary = true;
+                    fakeDisplay.isPrimary = true;
                     havePrimary = true;
                 }
             }
@@ -93,90 +84,71 @@ export class FakeSystemDisplay {
         }
         return Promise.resolve();
     }
-    /** @override */
     getDisplayLayout() {
         return new Promise((resolve) => {
             setTimeout(() => {
                 // Create a shallow copy to trigger Polymer data binding updates.
                 resolve(this.fakeLayouts.slice());
-                this.getLayoutCalled.resolve();
+                this.getLayoutCalled.resolve(null);
                 // Reset the promise resolver.
                 this.getLayoutCalled = new PromiseResolver();
             });
         });
     }
-    /** @override */
-    setDisplayLayout(layouts) {
+    async setDisplayLayout(layouts) {
         this.fakeLayouts = layouts;
-        return Promise.resolve();
     }
-    /** @override */
-    setMirrorMode(info) {
+    async setMirrorMode(info) {
         let mirroringSourceId = '';
         if (info.mode === this.MirrorMode.NORMAL) {
             // Select the primary display as the mirroring source.
-            for (const d of this.fakeDisplays) {
-                if (d.isPrimary) {
-                    mirroringSourceId = d.id;
+            for (const fakeDisplay of this.fakeDisplays) {
+                if (fakeDisplay.isPrimary) {
+                    mirroringSourceId = fakeDisplay.id;
                     break;
                 }
             }
         }
-        for (const d of this.fakeDisplays) {
-            d.mirroringSourceId = mirroringSourceId;
+        for (const fakeDisplay of this.fakeDisplays) {
+            fakeDisplay.mirroringSourceId = mirroringSourceId;
         }
-        return Promise.resolve();
     }
     // The below method is overridden to provide TS compatibility for tests.
     // But this is an unused method and hence doesn't have any implementation.
-    /** @override */
-    overscanCalibrationAdjust(id) { }
-    /** @override */
-    overscanCalibrationStart() {
+    overscanCalibrationAdjust(_id) { }
+    async overscanCalibrationStart() {
         this.overscanCalibrationStartCalled++;
-        return Promise.resolve();
     }
-    /** @override */
-    overscanCalibrationReset() {
+    async overscanCalibrationReset() {
         this.overscanCalibrationResetCalled++;
-        return Promise.resolve();
     }
-    /** @override */
-    overscanCalibrationComplete() {
+    async overscanCalibrationComplete() {
         this.overscanCalibrationCompleteCalled++;
-        return Promise.resolve();
     }
-    /** @override */
-    showNativeTouchCalibration(id) {
-        return Promise.resolve(true);
+    async showNativeTouchCalibration(_id) {
+        return true;
     }
-    /** @private */
     getFakeDisplay_(id) {
-        const idx = this.fakeDisplays.findIndex(function (display) {
+        return this.fakeDisplays.find((display) => {
             return display.id === id;
         });
-        if (idx >= 0) {
-            return this.fakeDisplays[idx];
-        }
-        return undefined;
     }
-    /** @private */
     updateLayouts_() {
         this.fakeLayouts = [];
         let primaryId = '';
-        for (const d of this.fakeDisplays) {
-            if (d.isPrimary) {
-                primaryId = d.id;
+        for (const fakeDisplay of this.fakeDisplays) {
+            if (fakeDisplay.isPrimary) {
+                primaryId = fakeDisplay.id;
                 break;
             }
         }
-        for (const d of this.fakeDisplays) {
-            this.fakeLayouts.push({
-                id: d.id,
-                parentId: d.isPrimary ? '' : primaryId,
+        this.fakeLayouts = this.fakeDisplays.map((fakeDisplay) => {
+            return {
+                id: fakeDisplay.id,
+                parentId: fakeDisplay.isPrimary ? '' : primaryId,
                 position: this.LayoutPosition.RIGHT,
                 offset: 0,
-            });
-        }
+            };
+        });
     }
 }

@@ -109,8 +109,8 @@ NOINLINE static const char* VideoCodecProfileToStringHelper(VideoCodecProfile va
       return "{kHEVCProfileMainStillPicture, kHEVCProfileMax}";
     case VideoCodecProfile::kDolbyVisionProfile0:
       return "kDolbyVisionProfile0";
-    case VideoCodecProfile::kDolbyVisionProfile4:
-      return "kDolbyVisionProfile4";
+    case VideoCodecProfile::kDeprecatedDolbyVisionProfile4:
+      return "kDeprecatedDolbyVisionProfile4";
     case VideoCodecProfile::kDolbyVisionProfile5:
       return "kDolbyVisionProfile5";
     case VideoCodecProfile::kDolbyVisionProfile7:
@@ -1290,8 +1290,12 @@ bool VideoFrameMetadata_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 16 },
+    { 1, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1304,7 +1308,7 @@ bool VideoFrameMetadata_Data::Validate(
 }
 
 VideoFrameMetadata_Data::VideoFrameMetadata_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

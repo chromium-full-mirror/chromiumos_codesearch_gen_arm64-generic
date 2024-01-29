@@ -26,7 +26,8 @@
 #include "components/content_settings/common/content_settings_manager.mojom-features.h"
 #include "components/content_settings/common/content_settings_manager.mojom-shared.h"
 #include "components/content_settings/common/content_settings_manager.mojom-forward.h"
-#include "components/content_settings/core/common/content_settings.mojom.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-forward.h"
+#include "components/content_settings/core/common/content_settings.mojom-forward.h"
 #include "services/network/public/mojom/site_for_cookies.mojom.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
 #include "url/mojom/origin.mojom.h"
@@ -111,7 +112,7 @@ class ContentSettingsManager
   virtual void AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) = 0;
 
   
-  virtual void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) = 0;
+  virtual void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::content_settings::mojom::ContentSettingsType type) = 0;
 };
 
 
@@ -129,7 +130,7 @@ class  ContentSettingsManagerProxy
   
   void AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) final;
   
-  void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) final;
+  void OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::content_settings::mojom::ContentSettingsType type) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

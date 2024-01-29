@@ -228,6 +228,8 @@ bool TrayActionStubDispatch::Accept(
           reinterpret_cast<internal::TrayAction_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrayAction.0
       bool success = true;
       ::mojo::PendingRemote<TrayActionClient> p_client{};
       TrayActionState p_lock_screen_note_state{};
@@ -248,9 +250,9 @@ bool TrayActionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client), 
-std::move(p_lock_screen_note_state));
+      impl->SetClient(        
+        std::move(p_client), 
+        std::move(p_lock_screen_note_state));
       return true;
     }
     case internal::kTrayAction_UpdateLockScreenNoteState_Name: {
@@ -260,6 +262,8 @@ std::move(p_lock_screen_note_state));
           reinterpret_cast<internal::TrayAction_UpdateLockScreenNoteState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrayAction.1
       bool success = true;
       TrayActionState p_state{};
       TrayAction_UpdateLockScreenNoteState_ParamsDataView input_data_view(params, message);
@@ -275,8 +279,8 @@ std::move(p_lock_screen_note_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateLockScreenNoteState(
-std::move(p_state));
+      impl->UpdateLockScreenNoteState(        
+        std::move(p_state));
       return true;
     }
   }
@@ -490,6 +494,8 @@ bool TrayActionClientStubDispatch::Accept(
           reinterpret_cast<internal::TrayActionClient_RequestNewLockScreenNote_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrayActionClient.0
       bool success = true;
       LockScreenNoteOrigin p_origin{};
       TrayActionClient_RequestNewLockScreenNote_ParamsDataView input_data_view(params, message);
@@ -505,8 +511,8 @@ bool TrayActionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestNewLockScreenNote(
-std::move(p_origin));
+      impl->RequestNewLockScreenNote(        
+        std::move(p_origin));
       return true;
     }
     case internal::kTrayActionClient_CloseLockScreenNote_Name: {
@@ -516,6 +522,8 @@ std::move(p_origin));
           reinterpret_cast<internal::TrayActionClient_CloseLockScreenNote_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrayActionClient.1
       bool success = true;
       CloseLockScreenNoteReason p_reason{};
       TrayActionClient_CloseLockScreenNote_ParamsDataView input_data_view(params, message);
@@ -531,8 +539,8 @@ std::move(p_origin));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseLockScreenNote(
-std::move(p_reason));
+      impl->CloseLockScreenNote(        
+        std::move(p_reason));
       return true;
     }
   }

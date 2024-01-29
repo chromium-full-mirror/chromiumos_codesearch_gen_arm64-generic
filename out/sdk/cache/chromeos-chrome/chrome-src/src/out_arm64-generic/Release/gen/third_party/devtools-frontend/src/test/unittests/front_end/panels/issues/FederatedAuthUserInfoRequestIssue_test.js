@@ -32,9 +32,9 @@ describeWithLocale('FederatedAuthUserInfoRequestIssue', () => {
             const federatedAuthUserInfoRequestIssues = IssuesManager.FederatedAuthUserInfoRequestIssue.FederatedAuthUserInfoRequestIssue.fromInspectorIssue(mockModel, issue);
             assert.lengthOf(federatedAuthUserInfoRequestIssues, 1);
             const federatedAuthUserInfoRequestIssue = federatedAuthUserInfoRequestIssues[0];
-            assert.strictEqual(federatedAuthUserInfoRequestIssue.getCategory(), IssuesManager.Issue.IssueCategory.Other);
+            assert.strictEqual(federatedAuthUserInfoRequestIssue.getCategory(), "Other" /* IssuesManager.Issue.IssueCategory.Other */);
             assert.deepStrictEqual(federatedAuthUserInfoRequestIssue.details(), issueDetails);
-            assert.strictEqual(federatedAuthUserInfoRequestIssue.getKind(), IssuesManager.Issue.IssueKind.PageError);
+            assert.strictEqual(federatedAuthUserInfoRequestIssue.getKind(), "PageError" /* IssuesManager.Issue.IssueKind.PageError */);
             assert.isNotNull(federatedAuthUserInfoRequestIssue.getDescription());
         }
     });

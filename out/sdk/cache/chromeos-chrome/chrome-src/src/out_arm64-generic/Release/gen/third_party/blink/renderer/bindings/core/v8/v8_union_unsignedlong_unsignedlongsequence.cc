@@ -83,7 +83,7 @@ content_type_ = ContentType::kUnsignedLongSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionUnsignedLongOrUnsignedLongSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionUnsignedLongOrUnsignedLongSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kUnsignedLong: {
     return ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_unsigned_long_);
@@ -94,7 +94,7 @@ v8::MaybeLocal<v8::Value> V8UnionUnsignedLongOrUnsignedLongSequence::ToV8Value(S
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionUnsignedLongOrUnsignedLongSequence::Trace(Visitor* visitor) const {

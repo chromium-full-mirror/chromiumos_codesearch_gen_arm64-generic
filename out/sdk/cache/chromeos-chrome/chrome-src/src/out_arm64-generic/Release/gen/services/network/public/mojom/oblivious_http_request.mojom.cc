@@ -502,6 +502,8 @@ bool ObliviousHttpClientStubDispatch::Accept(
           reinterpret_cast<internal::ObliviousHttpClient_OnCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ObliviousHttpClient.0
       bool success = true;
       ObliviousHttpCompletionResultPtr p_response{};
       ObliviousHttpClient_OnCompleted_ParamsDataView input_data_view(params, message);
@@ -517,8 +519,8 @@ bool ObliviousHttpClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompleted(
-std::move(p_response));
+      impl->OnCompleted(        
+        std::move(p_response));
       return true;
     }
   }

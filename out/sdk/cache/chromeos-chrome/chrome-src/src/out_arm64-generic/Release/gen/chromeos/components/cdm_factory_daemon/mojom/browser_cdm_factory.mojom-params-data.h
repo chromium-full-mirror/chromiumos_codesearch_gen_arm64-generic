@@ -204,6 +204,43 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM_SHARED) BrowserCdmFactory_AllocateSecu
 };
 static_assert(sizeof(BrowserCdmFactory_AllocateSecureBuffer_ResponseParams_Data) == 16,
               "Bad sizeof(BrowserCdmFactory_AllocateSecureBuffer_ResponseParams_Data)");
+class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM_SHARED) BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t secure_handle;
+  uint32_t offset;
+  uint8_t pad1_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> stream_data;
+
+ private:
+  friend class mojo::internal::MessageFragment<BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data>;
+
+  BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data();
+  ~BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data() = delete;
+};
+static_assert(sizeof(BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data) == 32,
+              "Bad sizeof(BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data)");
+class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM_SHARED) BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t pad0_[7];
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> slice_header;
+
+ private:
+  friend class mojo::internal::MessageFragment<BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data>;
+
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data();
+  ~BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data) == 24,
+              "Bad sizeof(BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -482,6 +519,67 @@ class BrowserCdmFactory_AllocateSecureBuffer_ResponseParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class BrowserCdmFactory_ParseEncryptedSliceHeader_ParamsDataView {
+ public:
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ParamsDataView() = default;
+
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ParamsDataView(
+      internal::BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t secure_handle() const {
+    return data_->secure_handle;
+  }
+  uint32_t offset() const {
+    return data_->offset;
+  }
+  inline void GetStreamDataDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStreamData(UserType* output) {
+    
+    auto* pointer = data_->stream_data.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParamsDataView {
+ public:
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParamsDataView() = default;
+
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParamsDataView(
+      internal::BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+  inline void GetSliceHeaderDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSliceHeader(UserType* output) {
+    
+    auto* pointer = data_->slice_header.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void BrowserCdmFactory_CreateFactory_ParamsDataView::GetKeySystemDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->key_system.Get();
@@ -532,6 +630,20 @@ inline void BrowserCdmFactory_GetAndroidHwKeyData_ResponseParamsDataView::GetKey
 
 
 
+
+
+inline void BrowserCdmFactory_ParseEncryptedSliceHeader_ParamsDataView::GetStreamDataDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->stream_data.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
+
+
+inline void BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParamsDataView::GetSliceHeaderDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->slice_header.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
 
 
 

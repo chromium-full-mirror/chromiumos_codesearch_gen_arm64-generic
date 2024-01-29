@@ -247,6 +247,22 @@ class  PrintCompositor_SetUserAgent_Params_Data {
 };
 static_assert(sizeof(PrintCompositor_SetUserAgent_Params_Data) == 16,
               "Bad sizeof(PrintCompositor_SetUserAgent_Params_Data)");
+class  PrintCompositor_SetTitle_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> title;
+
+ private:
+  friend class mojo::internal::MessageFragment<PrintCompositor_SetTitle_Params_Data>;
+
+  PrintCompositor_SetTitle_Params_Data();
+  ~PrintCompositor_SetTitle_Params_Data() = delete;
+};
+static_assert(sizeof(PrintCompositor_SetTitle_Params_Data) == 16,
+              "Bad sizeof(PrintCompositor_SetTitle_Params_Data)");
 
 }  // namespace internal
 
@@ -680,6 +696,32 @@ class PrintCompositor_SetUserAgent_ParamsDataView {
 };
 
 
+class PrintCompositor_SetTitle_ParamsDataView {
+ public:
+  PrintCompositor_SetTitle_ParamsDataView() = default;
+
+  PrintCompositor_SetTitle_ParamsDataView(
+      internal::PrintCompositor_SetTitle_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTitleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTitle(UserType* output) {
+    
+    auto* pointer = data_->title.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PrintCompositor_SetTitle_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void PrintCompositor_AddSubframeContent_ParamsDataView::GetSerializedContentDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
@@ -761,6 +803,13 @@ inline void PrintCompositor_SetWebContentsURL_ParamsDataView::GetUrlDataView(
 inline void PrintCompositor_SetUserAgent_ParamsDataView::GetUserAgentDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->user_agent.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void PrintCompositor_SetTitle_ParamsDataView::GetTitleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->title.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

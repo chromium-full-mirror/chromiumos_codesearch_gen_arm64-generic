@@ -210,6 +210,8 @@ bool SystemTracingService_OpenProducerSocket_ForwardToCallback::Accept(
           internal::SystemTracingService_OpenProducerSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemTracingService.0
   bool success = true;
   ::base::File p_traced_socket{};
   SystemTracingService_OpenProducerSocket_ResponseParamsDataView input_data_view(params, message);
@@ -306,6 +308,8 @@ bool SystemTracingServiceStubDispatch::AcceptWithResponder(
               internal::SystemTracingService_OpenProducerSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemTracingService.0
       bool success = true;
       SystemTracingService_OpenProducerSocket_ParamsDataView input_data_view(params, message);
       

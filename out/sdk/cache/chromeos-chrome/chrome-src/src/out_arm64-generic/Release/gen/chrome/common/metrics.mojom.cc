@@ -279,6 +279,8 @@ bool MetricsService_IsMetricsAndCrashReportingEnabled_ForwardToCallback::Accept(
           internal::MetricsService_IsMetricsAndCrashReportingEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MetricsService.0
   bool success = true;
   bool p_result{};
   MetricsService_IsMetricsAndCrashReportingEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -348,6 +350,8 @@ bool MetricsService_IsMetricsAndCrashReportingEnabled_HandleSyncResponse::Accept
       reinterpret_cast<internal::MetricsService_IsMetricsAndCrashReportingEnabled_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for MetricsService.0
   bool success = true;
   bool p_result{};
   MetricsService_IsMetricsAndCrashReportingEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -394,6 +398,8 @@ bool MetricsServiceStubDispatch::AcceptWithResponder(
               internal::MetricsService_IsMetricsAndCrashReportingEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MetricsService.0
       bool success = true;
       MetricsService_IsMetricsAndCrashReportingEnabled_ParamsDataView input_data_view(params, message);
       

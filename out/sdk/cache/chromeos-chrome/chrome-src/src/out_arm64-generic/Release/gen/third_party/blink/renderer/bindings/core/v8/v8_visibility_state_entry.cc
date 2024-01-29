@@ -30,7 +30,7 @@ namespace blink {
 
 bool V8VisibilityStateEntry::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::VisibilityStateEntryEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due

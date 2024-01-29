@@ -280,6 +280,8 @@ bool TextDetection_Detect_ForwardToCallback::Accept(
           internal::TextDetection_Detect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TextDetection.0
   bool success = true;
   std::vector<TextDetectionResultPtr> p_results{};
   TextDetection_Detect_ResponseParamsDataView input_data_view(params, message);
@@ -382,6 +384,8 @@ bool TextDetectionStubDispatch::AcceptWithResponder(
               internal::TextDetection_Detect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TextDetection.0
       bool success = true;
       ::SkBitmap p_bitmap_data{};
       TextDetection_Detect_ParamsDataView input_data_view(params, message);
@@ -400,8 +404,8 @@ bool TextDetectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Detect(
-std::move(p_bitmap_data), std::move(callback));
+      impl->Detect(        
+        std::move(p_bitmap_data), std::move(callback));
       return true;
     }
   }

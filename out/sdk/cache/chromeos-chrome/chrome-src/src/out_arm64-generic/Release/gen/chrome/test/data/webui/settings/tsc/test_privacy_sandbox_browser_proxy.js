@@ -5,20 +5,40 @@ import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
 export class TestPrivacySandboxBrowserProxy extends TestBrowserProxy {
     constructor() {
         super([
+            'getChildTopicsCurrentlyAssigned',
             'getFledgeState',
-            'setFledgeJoiningAllowed',
+            'getFirstLevelTopics',
             'getTopicsState',
+            'setFledgeJoiningAllowed',
             'setTopicAllowed',
             'topicsToggleChanged',
         ]);
+        this.firstLevelTopicsState_ = { firstLevelTopics: [], blockedTopics: [] };
+        this.childTopicsCurrentlyAssigned_ = [];
         this.fledgeState_ = {
             joiningSites: ['test-site-one.com'],
             blockedSites: ['test-site-two.com'],
         };
         this.topicsState_ = {
-            topTopics: [{ topicId: 1, taxonomyVersion: 1, displayString: 'test-topic-1' }],
-            blockedTopics: [{ topicId: 2, taxonomyVersion: 1, displayString: 'test-topic-2' }],
+            topTopics: [{
+                    topicId: 1,
+                    taxonomyVersion: 1,
+                    displayString: 'test-topic-1',
+                    description: '',
+                }],
+            blockedTopics: [{
+                    topicId: 2,
+                    taxonomyVersion: 1,
+                    displayString: 'test-topic-2',
+                    description: '',
+                }],
         };
+    }
+    setChildTopics(childTopics) {
+        this.childTopicsCurrentlyAssigned_ = childTopics;
+    }
+    setFirstLevelTopicsState(firstLevelTopicsState) {
+        this.firstLevelTopicsState_ = firstLevelTopicsState;
     }
     setFledgeState(fledgeState) {
         this.fledgeState_ = fledgeState;
@@ -42,5 +62,13 @@ export class TestPrivacySandboxBrowserProxy extends TestBrowserProxy {
     }
     topicsToggleChanged(newToggleValue) {
         this.methodCalled('topicsToggleChanged', [newToggleValue]);
+    }
+    getFirstLevelTopics() {
+        this.methodCalled('getFirstLevelTopics');
+        return Promise.resolve(this.firstLevelTopicsState_);
+    }
+    getChildTopicsCurrentlyAssigned(topic) {
+        this.methodCalled('getChildTopicsCurrentlyAssigned', topic.topicId, topic.taxonomyVersion);
+        return Promise.resolve(this.childTopicsCurrentlyAssigned_.slice());
     }
 }

@@ -213,6 +213,8 @@ bool CallStackProfileCollectorStubDispatch::Accept(
           reinterpret_cast<internal::CallStackProfileCollector_Collect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CallStackProfileCollector.0
       bool success = true;
       ::base::TimeTicks p_start_timestamp{};
       ProfileType p_profile_type{};
@@ -234,10 +236,10 @@ bool CallStackProfileCollectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Collect(
-std::move(p_start_timestamp), 
-std::move(p_profile_type), 
-std::move(p_profile));
+      impl->Collect(        
+        std::move(p_start_timestamp), 
+        std::move(p_profile_type), 
+        std::move(p_profile));
       return true;
     }
   }

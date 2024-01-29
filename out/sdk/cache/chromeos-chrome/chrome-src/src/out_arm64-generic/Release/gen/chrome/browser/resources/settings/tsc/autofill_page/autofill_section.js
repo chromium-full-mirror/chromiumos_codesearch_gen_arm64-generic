@@ -13,7 +13,7 @@ import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import '../settings_shared.css.js';
 import '/shared/settings/controls/extension_controlled_indicator.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import './address_edit_dialog.js';
 import './address_remove_confirmation_dialog.js';
 import './passwords_shared.css.js';
@@ -21,6 +21,7 @@ import '../i18n_setup.js';
 import { getInstance as getAnnouncerInstance } from '//resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { I18nMixin } from '//resources/cr_elements/i18n_mixin.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { AutofillManagerImpl } from './autofill_manager_proxy.js';
@@ -29,6 +30,7 @@ const SettingsAutofillSectionElementBase = I18nMixin(PolymerElement);
 export class SettingsAutofillSectionElement extends SettingsAutofillSectionElementBase {
     constructor() {
         super(...arguments);
+        this.accountInfo_ = null;
         this.autofillManager_ = AutofillManagerImpl.getInstance();
         this.setPersonalDataListener_ = null;
     }
@@ -60,11 +62,11 @@ export class SettingsAutofillSectionElement extends SettingsAutofillSectionEleme
             this.addresses = addressList;
         };
         const setAccountListener = (accountInfo) => {
-            this.accountInfo_ = accountInfo;
+            this.accountInfo_ = accountInfo || null;
         };
         const setPersonalDataListener = (addressList, _cardList, _ibans, accountInfo) => {
             this.addresses = addressList;
-            this.accountInfo_ = accountInfo;
+            this.accountInfo_ = accountInfo || null;
         };
         // Remember the bound reference in order to detach.
         this.setPersonalDataListener_ = setPersonalDataListener;
@@ -180,6 +182,18 @@ export class SettingsAutofillSectionElement extends SettingsAutofillSectionEleme
      */
     moreActionsTitle_(label, sublabel) {
         return this.i18n('moreActionsForAddress', label + (sublabel ? sublabel : ''));
+    }
+    isAutofillSyncToggleVisible_(accountInfo) {
+        return !!(accountInfo?.isAutofillSyncToggleAvailable);
+    }
+    /**
+     * Triggered by settings-toggle-button#autofillSyncToggle. It passes
+     * the toggle state to the native code. If the data changed the page
+     * content will be refreshed automatically via `PersonalDataChangedListener`.
+     */
+    onAutofillSyncEnabledChange_() {
+        assert(this.accountInfo_ && this.accountInfo_.isAutofillSyncToggleAvailable);
+        this.autofillManager_.setAutofillSyncToggleEnabled(this.$.autofillSyncToggle.checked);
     }
 }
 customElements.define(SettingsAutofillSectionElement.is, SettingsAutofillSectionElement);

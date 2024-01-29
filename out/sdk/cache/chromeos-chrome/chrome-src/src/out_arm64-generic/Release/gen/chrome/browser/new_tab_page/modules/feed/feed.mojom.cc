@@ -339,6 +339,8 @@ bool FeedHandler_GetFollowingFeedArticles_ForwardToCallback::Accept(
           internal::FeedHandler_GetFollowingFeedArticles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FeedHandler.0
   bool success = true;
   std::vector<ArticlePtr> p_articles{};
   FeedHandler_GetFollowingFeedArticles_ResponseParamsDataView input_data_view(params, message);
@@ -428,6 +430,8 @@ bool FeedHandlerStubDispatch::Accept(
           reinterpret_cast<internal::FeedHandler_ArticleOpened_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedHandler.1
       bool success = true;
       FeedHandler_ArticleOpened_ParamsDataView input_data_view(params, message);
       
@@ -440,7 +444,7 @@ bool FeedHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ArticleOpened();
+      impl->ArticleOpened(        );
       return true;
     }
   }
@@ -463,6 +467,8 @@ bool FeedHandlerStubDispatch::AcceptWithResponder(
               internal::FeedHandler_GetFollowingFeedArticles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FeedHandler.0
       bool success = true;
       FeedHandler_GetFollowingFeedArticles_ParamsDataView input_data_view(params, message);
       

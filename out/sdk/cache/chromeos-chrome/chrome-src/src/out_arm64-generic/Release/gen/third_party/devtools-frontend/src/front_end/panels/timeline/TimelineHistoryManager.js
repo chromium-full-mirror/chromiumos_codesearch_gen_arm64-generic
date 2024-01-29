@@ -270,7 +270,7 @@ export class TimelineHistoryManager {
         if (!lastFrame) {
             return container;
         }
-        void UI.UIUtils.loadImageFromData(lastFrame.screenshotAsString).then(img => {
+        void UI.UIUtils.loadImage(lastFrame.screenshotEvent.args.dataUri).then(img => {
             if (img) {
                 container.appendChild(img);
             }
@@ -429,8 +429,6 @@ export class ToolbarButton extends UI.Toolbar.ToolbarItem {
         element.classList.add('history-dropdown-button');
         super(element);
         this.contentElement = this.element.createChild('span', 'content');
-        const dropdownArrowIcon = UI.Icon.Icon.create('triangle-down');
-        this.element.appendChild(dropdownArrowIcon);
         this.element.addEventListener('click', () => void action.execute(), false);
         this.setEnabled(action.enabled());
         action.addEventListener("Enabled" /* UI.ActionRegistration.Events.Enabled */, event => this.setEnabled(event.data));

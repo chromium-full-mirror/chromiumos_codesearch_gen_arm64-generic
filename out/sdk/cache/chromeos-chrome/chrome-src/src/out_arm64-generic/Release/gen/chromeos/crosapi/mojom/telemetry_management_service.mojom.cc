@@ -53,6 +53,9 @@ TelemetryManagementService::IPCStableHashFunction TelemetryManagementService::Me
     case internal::kTelemetryManagementService_SetAudioGain_Name: {
       return &TelemetryManagementService::SetAudioGain_Sym::IPCStableHash;
     }
+    case internal::kTelemetryManagementService_SetAudioVolume_Name: {
+      return &TelemetryManagementService::SetAudioVolume_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -66,11 +69,15 @@ const char* TelemetryManagementService::MessageToMethodName_(mojo::Message& mess
     switch (message.name()) {
       case internal::kTelemetryManagementService_SetAudioGain_Name:
             return "Receive crosapi::mojom::TelemetryManagementService::SetAudioGain";
+      case internal::kTelemetryManagementService_SetAudioVolume_Name:
+            return "Receive crosapi::mojom::TelemetryManagementService::SetAudioVolume";
     }
   } else {
     switch (message.name()) {
       case internal::kTelemetryManagementService_SetAudioGain_Name:
             return "Receive reply crosapi::mojom::TelemetryManagementService::SetAudioGain";
+      case internal::kTelemetryManagementService_SetAudioVolume_Name:
+            return "Receive reply crosapi::mojom::TelemetryManagementService::SetAudioVolume";
     }
   }
   return "Receive unknown mojo message";
@@ -98,6 +105,19 @@ uint32_t TelemetryManagementService::SetAudioGain_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t TelemetryManagementService::SetAudioVolume_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::TelemetryManagementService::SetAudioVolume");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class TelemetryManagementService_SetAudioGain_ForwardToCallback
@@ -114,6 +134,22 @@ class TelemetryManagementService_SetAudioGain_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   TelemetryManagementService::SetAudioGainCallback callback_;
+};
+
+class TelemetryManagementService_SetAudioVolume_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  TelemetryManagementService_SetAudioVolume_ForwardToCallback(
+      TelemetryManagementService::SetAudioVolumeCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  TelemetryManagementService_SetAudioVolume_ForwardToCallback(const TelemetryManagementService_SetAudioVolume_ForwardToCallback&) = delete;
+  TelemetryManagementService_SetAudioVolume_ForwardToCallback& operator=(const TelemetryManagementService_SetAudioVolume_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  TelemetryManagementService::SetAudioVolumeCallback callback_;
 };
 
 TelemetryManagementServiceProxy::TelemetryManagementServiceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -165,6 +201,56 @@ void TelemetryManagementServiceProxy::SetAudioGain(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void TelemetryManagementServiceProxy::SetAudioVolume(
+    uint64_t in_node_id, int32_t in_volume, bool in_is_muted, SetAudioVolumeCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::TelemetryManagementService::SetAudioVolume", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("node_id"), in_node_id,
+                        "<value of type uint64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("volume"), in_volume,
+                        "<value of type int32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_muted"), in_is_muted,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTelemetryManagementService_SetAudioVolume_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TelemetryManagementService_SetAudioVolume_Params_Data> params(
+          message);
+  params.Allocate();
+  params->node_id = in_node_id;
+  params->volume = in_volume;
+  params->is_muted = in_is_muted;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TelemetryManagementService::Name_);
+  message.set_method_name("SetAudioVolume");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new TelemetryManagementService_SetAudioVolume_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class TelemetryManagementService_SetAudioGain_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static TelemetryManagementService::SetAudioGainCallback CreateCallback(
@@ -211,7 +297,7 @@ class TelemetryManagementService_SetAudioGain_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      );
+      bool in_is_success);
 };
 
 bool TelemetryManagementService_SetAudioGain_ForwardToCallback::Accept(
@@ -223,9 +309,14 @@ bool TelemetryManagementService_SetAudioGain_ForwardToCallback::Accept(
           internal::TelemetryManagementService_SetAudioGain_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TelemetryManagementService.0
   bool success = true;
+  bool p_is_success{};
   TelemetryManagementService_SetAudioGain_ResponseParamsDataView input_data_view(params, message);
   
+  if (success)
+    p_is_success = input_data_view.is_success();
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -234,14 +325,22 @@ bool TelemetryManagementService_SetAudioGain_ForwardToCallback::Accept(
     return false;
   }
   if (!callback_.is_null())
-    std::move(callback_).Run();
+    std::move(callback_).Run(
+std::move(p_is_success));
   return true;
 }
 
 void TelemetryManagementService_SetAudioGain_ProxyToResponder::Run(
-    ) {
+    bool in_is_success) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send reply crosapi::mojom::TelemetryManagementService::SetAudioGain");
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::TelemetryManagementService::SetAudioGain", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_success"), in_is_success,
+                        "<value of type bool>");
+   });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
@@ -255,10 +354,132 @@ void TelemetryManagementService_SetAudioGain_ProxyToResponder::Run(
       ::crosapi::mojom::internal::TelemetryManagementService_SetAudioGain_ResponseParams_Data> params(
           message);
   params.Allocate();
+  params->is_success = in_is_success;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(TelemetryManagementService::Name_);
   message.set_method_name("SetAudioGain");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class TelemetryManagementService_SetAudioVolume_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static TelemetryManagementService::SetAudioVolumeCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<TelemetryManagementService_SetAudioVolume_ProxyToResponder> proxy(
+        new TelemetryManagementService_SetAudioVolume_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&TelemetryManagementService_SetAudioVolume_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~TelemetryManagementService_SetAudioVolume_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  TelemetryManagementService_SetAudioVolume_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "TelemetryManagementService::SetAudioVolumeCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_is_success);
+};
+
+bool TelemetryManagementService_SetAudioVolume_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::TelemetryManagementService_SetAudioVolume_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::TelemetryManagementService_SetAudioVolume_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for TelemetryManagementService.1
+  bool success = true;
+  bool p_is_success{};
+  TelemetryManagementService_SetAudioVolume_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_is_success = input_data_view.is_success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        TelemetryManagementService::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_is_success));
+  return true;
+}
+
+void TelemetryManagementService_SetAudioVolume_ProxyToResponder::Run(
+    bool in_is_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::TelemetryManagementService::SetAudioVolume", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_success"), in_is_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kTelemetryManagementService_SetAudioVolume_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::TelemetryManagementService_SetAudioVolume_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->is_success = in_is_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TelemetryManagementService::Name_);
+  message.set_method_name("SetAudioVolume");
 #endif
 
   message.set_request_id(request_id_);
@@ -281,6 +502,9 @@ bool TelemetryManagementServiceStubDispatch::Accept(
     case internal::kTelemetryManagementService_SetAudioGain_Name: {
       break;
     }
+    case internal::kTelemetryManagementService_SetAudioVolume_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -301,6 +525,8 @@ bool TelemetryManagementServiceStubDispatch::AcceptWithResponder(
               internal::TelemetryManagementService_SetAudioGain_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TelemetryManagementService.0
       bool success = true;
       uint64_t p_node_id{};
       int32_t p_gain{};
@@ -322,9 +548,48 @@ bool TelemetryManagementServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAudioGain(
-std::move(p_node_id), 
-std::move(p_gain), std::move(callback));
+      impl->SetAudioGain(        
+        std::move(p_node_id), 
+        std::move(p_gain), std::move(callback));
+      return true;
+    }
+    case internal::kTelemetryManagementService_SetAudioVolume_Name: {
+
+      internal::TelemetryManagementService_SetAudioVolume_Params_Data* params =
+          reinterpret_cast<
+              internal::TelemetryManagementService_SetAudioVolume_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for TelemetryManagementService.1
+      bool success = true;
+      uint64_t p_node_id{};
+      int32_t p_volume{};
+      bool p_is_muted{};
+      TelemetryManagementService_SetAudioVolume_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_node_id = input_data_view.node_id();
+      if (success)
+        p_volume = input_data_view.volume();
+      if (success)
+        p_is_muted = input_data_view.is_muted();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TelemetryManagementService::Name_, 1, false);
+        return false;
+      }
+      TelemetryManagementService::SetAudioVolumeCallback callback =
+          TelemetryManagementService_SetAudioVolume_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAudioVolume(        
+        std::move(p_node_id), 
+        std::move(p_volume), 
+        std::move(p_is_muted), std::move(callback));
       return true;
     }
   }
@@ -335,6 +600,8 @@ namespace {
 static const mojo::internal::GenericValidationInfo kTelemetryManagementServiceValidationInfo[] = {
     { &internal::TelemetryManagementService_SetAudioGain_Params_Data::Validate,
      &internal::TelemetryManagementService_SetAudioGain_ResponseParams_Data::Validate},
+    { &internal::TelemetryManagementService_SetAudioVolume_Params_Data::Validate,
+     &internal::TelemetryManagementService_SetAudioVolume_ResponseParams_Data::Validate},
 };
 
 bool TelemetryManagementServiceRequestValidator::Accept(mojo::Message* message) {
@@ -366,24 +633,59 @@ namespace crosapi::mojom {
 void TelemetryManagementServiceInterceptorForTesting::SetAudioGain(uint64_t node_id, int32_t gain, SetAudioGainCallback callback) {
   GetForwardingInterface()->SetAudioGain(std::move(node_id), std::move(gain), std::move(callback));
 }
+void TelemetryManagementServiceInterceptorForTesting::SetAudioVolume(uint64_t node_id, int32_t volume, bool is_muted, SetAudioVolumeCallback callback) {
+  GetForwardingInterface()->SetAudioVolume(std::move(node_id), std::move(volume), std::move(is_muted), std::move(callback));
+}
 TelemetryManagementServiceAsyncWaiter::TelemetryManagementServiceAsyncWaiter(
     TelemetryManagementService* proxy) : proxy_(proxy) {}
 
 TelemetryManagementServiceAsyncWaiter::~TelemetryManagementServiceAsyncWaiter() = default;
 
 void TelemetryManagementServiceAsyncWaiter::SetAudioGain(
-    uint64_t node_id, int32_t gain) {
+    uint64_t node_id, int32_t gain, bool* out_is_success) {
   base::RunLoop loop;
   proxy_->SetAudioGain(std::move(node_id),std::move(gain),
       base::BindOnce(
-          [](base::RunLoop* loop) {
+          [](base::RunLoop* loop,
+             bool* out_is_success
+,
+             bool is_success) {*out_is_success = std::move(is_success);
             loop->Quit();
           },
-          &loop));
+          &loop,
+          out_is_success));
   loop.Run();
 }
 
+bool TelemetryManagementServiceAsyncWaiter::SetAudioGain(
+    uint64_t node_id, int32_t gain) {
+  bool async_wait_result;
+  SetAudioGain(std::move(node_id),std::move(gain),&async_wait_result);
+  return async_wait_result;
+}
 
+void TelemetryManagementServiceAsyncWaiter::SetAudioVolume(
+    uint64_t node_id, int32_t volume, bool is_muted, bool* out_is_success) {
+  base::RunLoop loop;
+  proxy_->SetAudioVolume(std::move(node_id),std::move(volume),std::move(is_muted),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_is_success
+,
+             bool is_success) {*out_is_success = std::move(is_success);
+            loop->Quit();
+          },
+          &loop,
+          out_is_success));
+  loop.Run();
+}
+
+bool TelemetryManagementServiceAsyncWaiter::SetAudioVolume(
+    uint64_t node_id, int32_t volume, bool is_muted) {
+  bool async_wait_result;
+  SetAudioVolume(std::move(node_id),std::move(volume),std::move(is_muted),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

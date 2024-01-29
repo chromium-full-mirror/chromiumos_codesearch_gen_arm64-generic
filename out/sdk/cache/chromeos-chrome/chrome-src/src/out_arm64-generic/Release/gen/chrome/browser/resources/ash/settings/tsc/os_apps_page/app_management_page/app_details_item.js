@@ -25,11 +25,6 @@ export class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase
             app: {
                 type: Object,
             },
-            hidden: {
-                type: Boolean,
-                computed: 'isHidden_()',
-                reflectToAttribute: true,
-            },
             appId_: {
                 type: String,
                 observer: 'appIdChanged_',
@@ -40,9 +35,6 @@ export class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase
         super.connectedCallback();
         this.watch('appId_', state => state.selectedAppId);
         this.updateFromStore();
-    }
-    isHidden_() {
-        return !loadTimeData.getBoolean('appManagementAppDetailsEnabled');
     }
     appIdChanged_(appId) {
         if (appId && this.app) {

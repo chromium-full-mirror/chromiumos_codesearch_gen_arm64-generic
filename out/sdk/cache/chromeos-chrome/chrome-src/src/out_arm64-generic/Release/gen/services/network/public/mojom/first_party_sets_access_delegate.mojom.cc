@@ -299,6 +299,8 @@ bool FirstPartySetsAccessDelegateStubDispatch::Accept(
           reinterpret_cast<internal::FirstPartySetsAccessDelegate_NotifyReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FirstPartySetsAccessDelegate.0
       bool success = true;
       FirstPartySetsReadyEventPtr p_ready_event{};
       FirstPartySetsAccessDelegate_NotifyReady_ParamsDataView input_data_view(params, message);
@@ -314,8 +316,8 @@ bool FirstPartySetsAccessDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyReady(
-std::move(p_ready_event));
+      impl->NotifyReady(        
+        std::move(p_ready_event));
       return true;
     }
     case internal::kFirstPartySetsAccessDelegate_SetEnabled_Name: {
@@ -325,6 +327,8 @@ std::move(p_ready_event));
           reinterpret_cast<internal::FirstPartySetsAccessDelegate_SetEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FirstPartySetsAccessDelegate.1
       bool success = true;
       bool p_enabled{};
       FirstPartySetsAccessDelegate_SetEnabled_ParamsDataView input_data_view(params, message);
@@ -340,8 +344,8 @@ std::move(p_ready_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEnabled(
-std::move(p_enabled));
+      impl->SetEnabled(        
+        std::move(p_enabled));
       return true;
     }
   }

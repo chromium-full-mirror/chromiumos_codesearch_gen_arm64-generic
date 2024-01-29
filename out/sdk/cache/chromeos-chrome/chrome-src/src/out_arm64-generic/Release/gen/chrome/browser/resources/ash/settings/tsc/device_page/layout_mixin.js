@@ -35,6 +35,9 @@ export const LayoutMixin = dedupingMixin((superClass) => {
                 },
             };
         }
+        getDisplayLayoutMapForTesting() {
+            return this.displayLayoutMap_;
+        }
         initializeDisplayLayout(displays, layouts) {
             this.dragLayoutId_ = '';
             this.dragParentId_ = '';

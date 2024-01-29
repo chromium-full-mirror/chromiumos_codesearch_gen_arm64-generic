@@ -210,6 +210,8 @@ bool IdleMonitorStubDispatch::Accept(
           reinterpret_cast<internal::IdleMonitor_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IdleMonitor.0
       bool success = true;
       IdleStatePtr p_state{};
       bool p_is_overridden_by_devtools{};
@@ -228,9 +230,9 @@ bool IdleMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_state), 
-std::move(p_is_overridden_by_devtools));
+      impl->Update(        
+        std::move(p_state), 
+        std::move(p_is_overridden_by_devtools));
       return true;
     }
   }
@@ -444,6 +446,8 @@ bool IdleManager_AddMonitor_ForwardToCallback::Accept(
           internal::IdleManager_AddMonitor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdleManager.0
   bool success = true;
   IdleManagerError p_error{};
   IdleStatePtr p_state{};
@@ -549,6 +553,8 @@ bool IdleManagerStubDispatch::AcceptWithResponder(
               internal::IdleManager_AddMonitor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdleManager.0
       bool success = true;
       ::mojo::PendingRemote<IdleMonitor> p_monitor{};
       IdleManager_AddMonitor_ParamsDataView input_data_view(params, message);
@@ -569,8 +575,8 @@ bool IdleManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMonitor(
-std::move(p_monitor), std::move(callback));
+      impl->AddMonitor(        
+        std::move(p_monitor), std::move(callback));
       return true;
     }
   }

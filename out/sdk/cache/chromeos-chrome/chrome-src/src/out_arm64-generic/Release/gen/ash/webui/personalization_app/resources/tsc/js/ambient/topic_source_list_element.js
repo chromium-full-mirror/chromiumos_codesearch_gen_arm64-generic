@@ -5,9 +5,9 @@
  * @fileoverview This component displays a list of topic (image) sources. It
  * behaviors similar to a radio button group, e.g. single selection.
  */
-import '../../css/common.css.js';
-import './topic_source_item_element.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
+import './topic_source_item_element.js';
 import { AmbientTheme, TopicSource } from '../../personalization_app.mojom-webui.js';
 import { isTimeOfDayScreenSaverEnabled } from '../load_time_booleans.js';
 import { WithPersonalizationStore } from '../personalization_store.js';

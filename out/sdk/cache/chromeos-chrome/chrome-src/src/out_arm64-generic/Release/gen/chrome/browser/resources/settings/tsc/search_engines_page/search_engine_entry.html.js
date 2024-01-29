@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared search-engine-entry">:host([is-default]) .list-item{font-weight:500}.additional-info-column-group{align-items:center;display:flex;flex:6}#controls-column-group{flex:auto;margin-left:auto;display:flex;justify-content:end;align-items:center}cr-policy-indicator{display:inline-flex;justify-content:center;margin-inline-start:16px;vertical-align:middle;width:36px}#name-column{align-items:center;display:flex;flex:3;word-break:break-word}#shortcut-column{word-break:break-word}#shortcut-column,#url-column{flex:auto;margin-inline-end:40px}</style>
+    return html `<!--_html_template_start_-->    <style include="settings-shared search-engine-entry">:host([is-default]) .list-item{font-weight:500}.additional-info-column-group{align-items:center;display:flex;flex:6}#controls-column-group{flex:auto;margin-left:auto;display:flex;justify-content:end;align-items:center}cr-policy-indicator{display:inline-flex;justify-content:center;margin-inline-start:16px;vertical-align:middle;width:36px}#name-column{align-items:center;display:flex;flex:3;word-break:break-word}#shortcut-column{word-break:break-word}#shortcut-column,#url-column{flex:auto;margin-inline-end:10px;max-width:200px}</style>
 
     <div class="list-item cr-row" role="row">
       <span role="cell" id="name-column">
@@ -12,8 +12,8 @@ export function getTemplate() {
         <span role="cell" id="shortcut-column" hidden="[[!showShortcut]]">
           <div>[[engine.keyword]]</div>
         </span>
-        <span role="cell" id="url-column" class="text-elide" hidden="[[!showQueryUrl]]">
-          <div>[[engine.url]]</div>
+        <span role="cell" id="url-column" hidden="[[!showQueryUrl]]">
+          <div class="text-elide">[[engine.url]]</div>
         </span>
         <span role="cell" id="controls-column-group">
           <cr-button class="secondary-button" on-click="onActivateClick_" hidden="[[!engine.canBeActivated]]" id="activate">

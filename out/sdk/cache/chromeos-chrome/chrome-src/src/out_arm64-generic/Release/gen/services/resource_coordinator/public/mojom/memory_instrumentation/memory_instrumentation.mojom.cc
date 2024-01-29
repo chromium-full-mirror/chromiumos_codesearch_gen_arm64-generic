@@ -1444,6 +1444,8 @@ bool ClientProcess_RequestChromeMemoryDump_ForwardToCallback::Accept(
           internal::ClientProcess_RequestChromeMemoryDump_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClientProcess.0
   bool success = true;
   bool p_success{};
   uint64_t p_dump_id{};
@@ -1585,6 +1587,8 @@ bool ClientProcess_RequestOSMemoryDump_ForwardToCallback::Accept(
           internal::ClientProcess_RequestOSMemoryDump_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClientProcess.1
   bool success = true;
   bool p_success{};
   base::flat_map<::base::ProcessId, RawOSMemDumpPtr> p_dumps{};
@@ -1698,6 +1702,8 @@ bool ClientProcessStubDispatch::AcceptWithResponder(
               internal::ClientProcess_RequestChromeMemoryDump_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClientProcess.0
       bool success = true;
       ::base::trace_event::MemoryDumpRequestArgs p_args{};
       ClientProcess_RequestChromeMemoryDump_ParamsDataView input_data_view(params, message);
@@ -1716,8 +1722,8 @@ bool ClientProcessStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestChromeMemoryDump(
-std::move(p_args), std::move(callback));
+      impl->RequestChromeMemoryDump(        
+        std::move(p_args), std::move(callback));
       return true;
     }
     case internal::kClientProcess_RequestOSMemoryDump_Name: {
@@ -1727,6 +1733,8 @@ std::move(p_args), std::move(callback));
               internal::ClientProcess_RequestOSMemoryDump_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClientProcess.1
       bool success = true;
       MemoryMapOption p_option{};
       std::vector<::base::ProcessId> p_pids{};
@@ -1748,9 +1756,9 @@ std::move(p_args), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestOSMemoryDump(
-std::move(p_option), 
-std::move(p_pids), std::move(callback));
+      impl->RequestOSMemoryDump(        
+        std::move(p_option), 
+        std::move(p_pids), std::move(callback));
       return true;
     }
   }
@@ -1952,6 +1960,8 @@ bool HeapProfiler_DumpProcessesForTracing_ForwardToCallback::Accept(
           internal::HeapProfiler_DumpProcessesForTracing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HeapProfiler.0
   bool success = true;
   std::vector<HeapProfileResultPtr> p_results{};
   HeapProfiler_DumpProcessesForTracing_ResponseParamsDataView input_data_view(params, message);
@@ -2054,6 +2064,8 @@ bool HeapProfilerStubDispatch::AcceptWithResponder(
               internal::HeapProfiler_DumpProcessesForTracing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HeapProfiler.0
       bool success = true;
       bool p_strip_path_from_mapped_files{};
       bool p_write_proto{};
@@ -2075,9 +2087,9 @@ bool HeapProfilerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DumpProcessesForTracing(
-std::move(p_strip_path_from_mapped_files), 
-std::move(p_write_proto), std::move(callback));
+      impl->DumpProcessesForTracing(        
+        std::move(p_strip_path_from_mapped_files), 
+        std::move(p_write_proto), std::move(callback));
       return true;
     }
   }
@@ -2285,6 +2297,8 @@ bool HeapProfilerHelper_GetVmRegionsForHeapProfiler_ForwardToCallback::Accept(
           internal::HeapProfilerHelper_GetVmRegionsForHeapProfiler_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HeapProfilerHelper.0
   bool success = true;
   base::flat_map<::base::ProcessId, std::vector<VmRegionPtr>> p_vm_regions{};
   HeapProfilerHelper_GetVmRegionsForHeapProfiler_ResponseParamsDataView input_data_view(params, message);
@@ -2387,6 +2401,8 @@ bool HeapProfilerHelperStubDispatch::AcceptWithResponder(
               internal::HeapProfilerHelper_GetVmRegionsForHeapProfiler_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HeapProfilerHelper.0
       bool success = true;
       std::vector<::base::ProcessId> p_pids{};
       HeapProfilerHelper_GetVmRegionsForHeapProfiler_ParamsDataView input_data_view(params, message);
@@ -2405,8 +2421,8 @@ bool HeapProfilerHelperStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVmRegionsForHeapProfiler(
-std::move(p_pids), std::move(callback));
+      impl->GetVmRegionsForHeapProfiler(        
+        std::move(p_pids), std::move(callback));
       return true;
     }
   }
@@ -2910,6 +2926,8 @@ bool Coordinator_RequestGlobalMemoryDump_ForwardToCallback::Accept(
           internal::Coordinator_RequestGlobalMemoryDump_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Coordinator.0
   bool success = true;
   bool p_success{};
   GlobalMemoryDumpPtr p_global_memory_dump{};
@@ -3043,6 +3061,8 @@ bool Coordinator_RequestGlobalMemoryDumpForPid_ForwardToCallback::Accept(
           internal::Coordinator_RequestGlobalMemoryDumpForPid_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Coordinator.1
   bool success = true;
   bool p_success{};
   GlobalMemoryDumpPtr p_global_memory_dump{};
@@ -3176,6 +3196,8 @@ bool Coordinator_RequestPrivateMemoryFootprint_ForwardToCallback::Accept(
           internal::Coordinator_RequestPrivateMemoryFootprint_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Coordinator.2
   bool success = true;
   bool p_success{};
   GlobalMemoryDumpPtr p_global_memory_dump{};
@@ -3309,6 +3331,8 @@ bool Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_ForwardToCallback::Acce
           internal::Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Coordinator.3
   bool success = true;
   bool p_success{};
   uint64_t p_dump_id{};
@@ -3416,6 +3440,8 @@ bool CoordinatorStubDispatch::AcceptWithResponder(
               internal::Coordinator_RequestGlobalMemoryDump_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Coordinator.0
       bool success = true;
       ::base::trace_event::MemoryDumpType p_dump_type{};
       ::base::trace_event::MemoryDumpLevelOfDetail p_level_of_detail{};
@@ -3443,11 +3469,11 @@ bool CoordinatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGlobalMemoryDump(
-std::move(p_dump_type), 
-std::move(p_level_of_detail), 
-std::move(p_determinism), 
-std::move(p_allocator_dump_names), std::move(callback));
+      impl->RequestGlobalMemoryDump(        
+        std::move(p_dump_type), 
+        std::move(p_level_of_detail), 
+        std::move(p_determinism), 
+        std::move(p_allocator_dump_names), std::move(callback));
       return true;
     }
     case internal::kCoordinator_RequestGlobalMemoryDumpForPid_Name: {
@@ -3457,6 +3483,8 @@ std::move(p_allocator_dump_names), std::move(callback));
               internal::Coordinator_RequestGlobalMemoryDumpForPid_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Coordinator.1
       bool success = true;
       ::base::ProcessId p_pid{};
       std::vector<std::string> p_allocator_dump_names{};
@@ -3478,9 +3506,9 @@ std::move(p_allocator_dump_names), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGlobalMemoryDumpForPid(
-std::move(p_pid), 
-std::move(p_allocator_dump_names), std::move(callback));
+      impl->RequestGlobalMemoryDumpForPid(        
+        std::move(p_pid), 
+        std::move(p_allocator_dump_names), std::move(callback));
       return true;
     }
     case internal::kCoordinator_RequestPrivateMemoryFootprint_Name: {
@@ -3490,6 +3518,8 @@ std::move(p_allocator_dump_names), std::move(callback));
               internal::Coordinator_RequestPrivateMemoryFootprint_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Coordinator.2
       bool success = true;
       ::base::ProcessId p_pid{};
       Coordinator_RequestPrivateMemoryFootprint_ParamsDataView input_data_view(params, message);
@@ -3508,8 +3538,8 @@ std::move(p_allocator_dump_names), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPrivateMemoryFootprint(
-std::move(p_pid), std::move(callback));
+      impl->RequestPrivateMemoryFootprint(        
+        std::move(p_pid), std::move(callback));
       return true;
     }
     case internal::kCoordinator_RequestGlobalMemoryDumpAndAppendToTrace_Name: {
@@ -3519,6 +3549,8 @@ std::move(p_pid), std::move(callback));
               internal::Coordinator_RequestGlobalMemoryDumpAndAppendToTrace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Coordinator.3
       bool success = true;
       ::base::trace_event::MemoryDumpType p_dump_type{};
       ::base::trace_event::MemoryDumpLevelOfDetail p_level_of_detail{};
@@ -3543,10 +3575,10 @@ std::move(p_pid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGlobalMemoryDumpAndAppendToTrace(
-std::move(p_dump_type), 
-std::move(p_level_of_detail), 
-std::move(p_determinism), std::move(callback));
+      impl->RequestGlobalMemoryDumpAndAppendToTrace(        
+        std::move(p_dump_type), 
+        std::move(p_level_of_detail), 
+        std::move(p_determinism), std::move(callback));
       return true;
     }
   }
@@ -3700,6 +3732,8 @@ bool CoordinatorConnectorStubDispatch::Accept(
           reinterpret_cast<internal::CoordinatorConnector_RegisterCoordinatorClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CoordinatorConnector.0
       bool success = true;
       ::mojo::PendingReceiver<Coordinator> p_receiver{};
       ::mojo::PendingRemote<ClientProcess> p_client_process{};
@@ -3722,9 +3756,9 @@ bool CoordinatorConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterCoordinatorClient(
-std::move(p_receiver), 
-std::move(p_client_process));
+      impl->RegisterCoordinatorClient(        
+        std::move(p_receiver), 
+        std::move(p_client_process));
       return true;
     }
   }

@@ -169,7 +169,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLVideo
 BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.poster.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Poster_AttributeGetter);
 
@@ -187,7 +188,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLVideo
 BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.poster.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Poster_AttributeSetter);
 
@@ -202,7 +204,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLVideo
 BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitSupportsFullscreen.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVideoSupportsFullscreen);
 
@@ -221,7 +224,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLVideo
 BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitDisplayingFullscreen.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVideoDisplayingFullscreen);
 
@@ -242,7 +246,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitDecodedFrameCount.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLVideoElement.webkitDecodedFrameCount.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPrefixedVideoDecodedFrameCount);
 
@@ -265,7 +270,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitDroppedFrameCount.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("HTMLVideoElement.webkitDroppedFrameCount.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPrefixedVideoDroppedFrameCount);
 
@@ -368,7 +374,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLVideo
 BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.disablePictureInPicture.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_DisablePictureInPicture_AttributeGetter);
 
@@ -386,7 +393,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLVideo
 BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.disablePictureInPicture.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_DisablePictureInPicture_AttributeSetter);
 
@@ -426,7 +434,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.cancelVideoFrameCallback");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_CancelVideoFrameCallback_Method);
 
@@ -460,7 +469,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.getVideoPlaybackQuality");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_GetVideoPlaybackQuality_Method);
 
@@ -493,7 +503,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_RequestPictureInPicture_Method);
 
@@ -502,8 +513,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_Req
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLVideoElement* blink_receiver = V8HTMLVideoElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLVideoElementPictureInPicture::requestPictureInPicture(script_state, *blink_receiver, exception_state);
@@ -520,7 +530,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.requestVideoFrameCallback");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8HTMLVideoElement_RequestVideoFrameCallback_Method);
 
@@ -563,12 +574,12 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitEnterFullScreen");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVideoEnterFullScreen);
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
@@ -591,12 +602,12 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitEnterFullscreen");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVideoEnterFullscreen);
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
@@ -619,7 +630,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitExitFullScreen");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVideoExitFullScreen);
 
@@ -641,7 +653,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLVideoElement.webkitExitFullscreen");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedVideoExitFullscreen);
 

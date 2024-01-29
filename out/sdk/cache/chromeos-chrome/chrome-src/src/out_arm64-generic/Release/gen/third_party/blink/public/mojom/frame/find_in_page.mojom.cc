@@ -462,6 +462,8 @@ bool FindInPageStubDispatch::Accept(
           reinterpret_cast<internal::FindInPage_Find_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FindInPage.0
       bool success = true;
       int32_t p_request_id{};
       std::string p_search_text{};
@@ -483,10 +485,10 @@ bool FindInPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Find(
-std::move(p_request_id), 
-std::move(p_search_text), 
-std::move(p_options));
+      impl->Find(        
+        std::move(p_request_id), 
+        std::move(p_search_text), 
+        std::move(p_options));
       return true;
     }
     case internal::kFindInPage_StopFinding_Name: {
@@ -496,6 +498,8 @@ std::move(p_options));
           reinterpret_cast<internal::FindInPage_StopFinding_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FindInPage.1
       bool success = true;
       StopFindAction p_action{};
       FindInPage_StopFinding_ParamsDataView input_data_view(params, message);
@@ -511,8 +515,8 @@ std::move(p_options));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopFinding(
-std::move(p_action));
+      impl->StopFinding(        
+        std::move(p_action));
       return true;
     }
     case internal::kFindInPage_ClearActiveFindMatch_Name: {
@@ -522,6 +526,8 @@ std::move(p_action));
           reinterpret_cast<internal::FindInPage_ClearActiveFindMatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FindInPage.2
       bool success = true;
       FindInPage_ClearActiveFindMatch_ParamsDataView input_data_view(params, message);
       
@@ -534,7 +540,7 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearActiveFindMatch();
+      impl->ClearActiveFindMatch(        );
       return true;
     }
     case internal::kFindInPage_SetClient_Name: {
@@ -544,6 +550,8 @@ std::move(p_action));
           reinterpret_cast<internal::FindInPage_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FindInPage.3
       bool success = true;
       ::mojo::PendingRemote<FindInPageClient> p_client{};
       FindInPage_SetClient_ParamsDataView input_data_view(params, message);
@@ -561,8 +569,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
   }
@@ -816,6 +824,8 @@ bool FindInPageClientStubDispatch::Accept(
           reinterpret_cast<internal::FindInPageClient_SetNumberOfMatches_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FindInPageClient.0
       bool success = true;
       int32_t p_request_id{};
       uint32_t p_number_of_matches{};
@@ -837,10 +847,10 @@ bool FindInPageClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNumberOfMatches(
-std::move(p_request_id), 
-std::move(p_number_of_matches), 
-std::move(p_update_type));
+      impl->SetNumberOfMatches(        
+        std::move(p_request_id), 
+        std::move(p_number_of_matches), 
+        std::move(p_update_type));
       return true;
     }
     case internal::kFindInPageClient_SetActiveMatch_Name: {
@@ -850,6 +860,8 @@ std::move(p_update_type));
           reinterpret_cast<internal::FindInPageClient_SetActiveMatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FindInPageClient.1
       bool success = true;
       int32_t p_request_id{};
       ::gfx::Rect p_active_match_rect{};
@@ -874,11 +886,11 @@ std::move(p_update_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetActiveMatch(
-std::move(p_request_id), 
-std::move(p_active_match_rect), 
-std::move(p_active_match_ordinal), 
-std::move(p_update_type));
+      impl->SetActiveMatch(        
+        std::move(p_request_id), 
+        std::move(p_active_match_rect), 
+        std::move(p_active_match_ordinal), 
+        std::move(p_update_type));
       return true;
     }
   }

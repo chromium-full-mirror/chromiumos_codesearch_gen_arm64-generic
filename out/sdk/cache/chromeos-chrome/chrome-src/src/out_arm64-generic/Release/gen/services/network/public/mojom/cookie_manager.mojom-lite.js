@@ -820,6 +820,22 @@ network.mojom.CookieManagerRemote = class {
           enable
         ]);
   }
+
+  
+  /**
+   * @param { !mojoBase.mojom.TimeDelta } delay
+   */
+
+  setPreCommitCallbackDelayForTesting(
+      delay) {
+    this.proxy.sendMessage(
+        18,
+        network.mojom.CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+        null,
+        [
+          delay
+        ]);
+  }
 };
 
 /**
@@ -934,6 +950,11 @@ network.mojom.CookieManagerReceiver = class {
         network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
         null,
         impl.setTrackingProtectionEnabledFor3pcd.bind(impl));
+    this.helper_internal_.registerHandler(
+        18,
+        network.mojom.CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+        null,
+        impl.setPreCommitCallbackDelayForTesting.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1202,6 +1223,18 @@ network.mojom.CookieManagerCallbackRouter = class {
         network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec.$,
         null,
         this.setTrackingProtectionEnabledFor3pcd.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setPreCommitCallbackDelayForTesting =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        18,
+        network.mojom.CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+        null,
+        this.setPreCommitCallbackDelayForTesting.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1543,6 +1576,14 @@ network.mojom.CookieManager_SetMitigationsEnabledFor3pcd_ParamsSpec =
  * @export
  */
 network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+network.mojom.CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -3080,7 +3121,7 @@ mojo.internal.Struct(
         'contentSettingsType', 0,
         0,
         contentSettings.mojom.ContentSettingsTypeSpec.$,
-        0,
+        -1,
         false, /* nullable */
         0 /* minVersion */,
       ),
@@ -3260,6 +3301,35 @@ network.mojom.CookieManager_SetTrackingProtectionEnabledFor3pcd_Params = class {
   constructor() {
     /** @export { !boolean } */
     this.enable;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    network.mojom.CookieManager_SetPreCommitCallbackDelayForTesting_ParamsSpec.$,
+    'CookieManager_SetPreCommitCallbackDelayForTesting_Params',
+    [
+      mojo.internal.StructField(
+        'delay', 0,
+        0,
+        mojoBase.mojom.TimeDeltaSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+network.mojom.CookieManager_SetPreCommitCallbackDelayForTesting_Params = class {
+  constructor() {
+    /** @export { !mojoBase.mojom.TimeDelta } */
+    this.delay;
   }
 };
 

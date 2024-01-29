@@ -44,6 +44,106 @@
 
 
 namespace ash::camera_app::mojom {
+WifiConfig::WifiConfig()
+    : ssid(),
+      security(),
+      password(),
+      eap_method(),
+      eap_phase2_method(),
+      eap_identity(),
+      eap_anonymous_identity() {}
+
+WifiConfig::WifiConfig(
+    const std::string& ssid_in,
+    WifiSecurityType security_in,
+    const std::optional<std::string>& password_in,
+    std::optional<WifiEapMethod> eap_method_in,
+    std::optional<WifiEapPhase2Method> eap_phase2_method_in,
+    const std::optional<std::string>& eap_identity_in,
+    const std::optional<std::string>& eap_anonymous_identity_in)
+    : ssid(std::move(ssid_in)),
+      security(std::move(security_in)),
+      password(std::move(password_in)),
+      eap_method(std::move(eap_method_in)),
+      eap_phase2_method(std::move(eap_phase2_method_in)),
+      eap_identity(std::move(eap_identity_in)),
+      eap_anonymous_identity(std::move(eap_anonymous_identity_in)) {}
+
+WifiConfig::~WifiConfig() = default;
+
+void WifiConfig::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "ssid"), this->ssid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "security"), this->security,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type WifiSecurityType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "password"), this->password,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "eap_method"), this->eap_method,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<WifiEapMethod>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "eap_phase2_method"), this->eap_phase2_method,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<WifiEapPhase2Method>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "eap_identity"), this->eap_identity,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "eap_anonymous_identity"), this->eap_anonymous_identity,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool WifiConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char TabletModeMonitor::Name_[] = "ash.camera_app.mojom.TabletModeMonitor";
 
 TabletModeMonitor::IPCStableHashFunction TabletModeMonitor::MessageToMethodInfo_(mojo::Message& message) {
@@ -156,6 +256,8 @@ bool TabletModeMonitorStubDispatch::Accept(
           reinterpret_cast<internal::TabletModeMonitor_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TabletModeMonitor.0
       bool success = true;
       bool p_is_tablet_mode{};
       TabletModeMonitor_Update_ParamsDataView input_data_view(params, message);
@@ -171,8 +273,8 @@ bool TabletModeMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_is_tablet_mode));
+      impl->Update(        
+        std::move(p_is_tablet_mode));
       return true;
     }
   }
@@ -319,6 +421,8 @@ bool ScreenStateMonitorStubDispatch::Accept(
           reinterpret_cast<internal::ScreenStateMonitor_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenStateMonitor.0
       bool success = true;
       ScreenState p_state{};
       ScreenStateMonitor_Update_ParamsDataView input_data_view(params, message);
@@ -334,8 +438,8 @@ bool ScreenStateMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_state));
+      impl->Update(        
+        std::move(p_state));
       return true;
     }
   }
@@ -481,6 +585,8 @@ bool ExternalScreenMonitorStubDispatch::Accept(
           reinterpret_cast<internal::ExternalScreenMonitor_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ExternalScreenMonitor.0
       bool success = true;
       bool p_has_external_screen{};
       ExternalScreenMonitor_Update_ParamsDataView input_data_view(params, message);
@@ -496,8 +602,8 @@ bool ExternalScreenMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_has_external_screen));
+      impl->Update(        
+        std::move(p_has_external_screen));
       return true;
     }
   }
@@ -705,6 +811,8 @@ bool CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_ForwardToCallback
           internal::CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraUsageOwnershipMonitor.0
   bool success = true;
   CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_ResponseParamsDataView input_data_view(params, message);
   
@@ -783,6 +891,8 @@ bool CameraUsageOwnershipMonitorStubDispatch::AcceptWithResponder(
               internal::CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraUsageOwnershipMonitor.0
       bool success = true;
       bool p_has_usage{};
       CameraUsageOwnershipMonitor_OnCameraUsageOwnershipChanged_ParamsDataView input_data_view(params, message);
@@ -801,8 +911,8 @@ bool CameraUsageOwnershipMonitorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCameraUsageOwnershipChanged(
-std::move(p_has_usage), std::move(callback));
+      impl->OnCameraUsageOwnershipChanged(        
+        std::move(p_has_usage), std::move(callback));
       return true;
     }
   }
@@ -1009,6 +1119,8 @@ bool WindowStateMonitorStubDispatch::Accept(
           reinterpret_cast<internal::WindowStateMonitor_OnWindowStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WindowStateMonitor.0
       bool success = true;
       std::vector<WindowStateType> p_states{};
       WindowStateMonitor_OnWindowStateChanged_ParamsDataView input_data_view(params, message);
@@ -1024,8 +1136,8 @@ bool WindowStateMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWindowStateChanged(
-std::move(p_states));
+      impl->OnWindowStateChanged(        
+        std::move(p_states));
       return true;
     }
     case internal::kWindowStateMonitor_OnWindowFocusChanged_Name: {
@@ -1035,6 +1147,8 @@ std::move(p_states));
           reinterpret_cast<internal::WindowStateMonitor_OnWindowFocusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WindowStateMonitor.1
       bool success = true;
       bool p_is_focus{};
       WindowStateMonitor_OnWindowFocusChanged_ParamsDataView input_data_view(params, message);
@@ -1050,8 +1164,8 @@ std::move(p_states));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWindowFocusChanged(
-std::move(p_is_focus));
+      impl->OnWindowFocusChanged(        
+        std::move(p_is_focus));
       return true;
     }
   }
@@ -1203,6 +1317,8 @@ bool StorageMonitorStubDispatch::Accept(
           reinterpret_cast<internal::StorageMonitor_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageMonitor.0
       bool success = true;
       StorageMonitorStatus p_status{};
       StorageMonitor_Update_ParamsDataView input_data_view(params, message);
@@ -1218,8 +1334,8 @@ bool StorageMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_status));
+      impl->Update(        
+        std::move(p_status));
       return true;
     }
   }
@@ -1852,6 +1968,8 @@ bool WindowStateController_AddMonitor_ForwardToCallback::Accept(
           internal::WindowStateController_AddMonitor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.0
   bool success = true;
   std::vector<WindowStateType> p_states{};
   WindowStateController_AddMonitor_ResponseParamsDataView input_data_view(params, message);
@@ -1983,6 +2101,8 @@ bool WindowStateController_GetWindowState_ForwardToCallback::Accept(
           internal::WindowStateController_GetWindowState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.1
   bool success = true;
   std::vector<WindowStateType> p_states{};
   WindowStateController_GetWindowState_ResponseParamsDataView input_data_view(params, message);
@@ -2114,6 +2234,8 @@ bool WindowStateController_Minimize_ForwardToCallback::Accept(
           internal::WindowStateController_Minimize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.2
   bool success = true;
   WindowStateController_Minimize_ResponseParamsDataView input_data_view(params, message);
   
@@ -2221,6 +2343,8 @@ bool WindowStateController_Restore_ForwardToCallback::Accept(
           internal::WindowStateController_Restore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.3
   bool success = true;
   WindowStateController_Restore_ResponseParamsDataView input_data_view(params, message);
   
@@ -2328,6 +2452,8 @@ bool WindowStateController_Maximize_ForwardToCallback::Accept(
           internal::WindowStateController_Maximize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.4
   bool success = true;
   WindowStateController_Maximize_ResponseParamsDataView input_data_view(params, message);
   
@@ -2435,6 +2561,8 @@ bool WindowStateController_Fullscreen_ForwardToCallback::Accept(
           internal::WindowStateController_Fullscreen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.5
   bool success = true;
   WindowStateController_Fullscreen_ResponseParamsDataView input_data_view(params, message);
   
@@ -2542,6 +2670,8 @@ bool WindowStateController_Focus_ForwardToCallback::Accept(
           internal::WindowStateController_Focus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WindowStateController.6
   bool success = true;
   WindowStateController_Focus_ResponseParamsDataView input_data_view(params, message);
   
@@ -2638,6 +2768,8 @@ bool WindowStateControllerStubDispatch::AcceptWithResponder(
               internal::WindowStateController_AddMonitor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.0
       bool success = true;
       ::mojo::PendingRemote<WindowStateMonitor> p_monitor{};
       WindowStateController_AddMonitor_ParamsDataView input_data_view(params, message);
@@ -2658,8 +2790,8 @@ bool WindowStateControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMonitor(
-std::move(p_monitor), std::move(callback));
+      impl->AddMonitor(        
+        std::move(p_monitor), std::move(callback));
       return true;
     }
     case internal::kWindowStateController_GetWindowState_Name: {
@@ -2669,6 +2801,8 @@ std::move(p_monitor), std::move(callback));
               internal::WindowStateController_GetWindowState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.1
       bool success = true;
       WindowStateController_GetWindowState_ParamsDataView input_data_view(params, message);
       
@@ -2694,6 +2828,8 @@ std::move(p_monitor), std::move(callback));
               internal::WindowStateController_Minimize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.2
       bool success = true;
       WindowStateController_Minimize_ParamsDataView input_data_view(params, message);
       
@@ -2719,6 +2855,8 @@ std::move(p_monitor), std::move(callback));
               internal::WindowStateController_Restore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.3
       bool success = true;
       WindowStateController_Restore_ParamsDataView input_data_view(params, message);
       
@@ -2744,6 +2882,8 @@ std::move(p_monitor), std::move(callback));
               internal::WindowStateController_Maximize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.4
       bool success = true;
       WindowStateController_Maximize_ParamsDataView input_data_view(params, message);
       
@@ -2769,6 +2909,8 @@ std::move(p_monitor), std::move(callback));
               internal::WindowStateController_Fullscreen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.5
       bool success = true;
       WindowStateController_Fullscreen_ParamsDataView input_data_view(params, message);
       
@@ -2794,6 +2936,8 @@ std::move(p_monitor), std::move(callback));
               internal::WindowStateController_Focus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WindowStateController.6
       bool success = true;
       WindowStateController_Focus_ParamsDataView input_data_view(params, message);
       
@@ -2920,6 +3064,9 @@ CameraAppHelper::IPCStableHashFunction CameraAppHelper::MessageToMethodInfo_(moj
     case internal::kCameraAppHelper_OpenStorageManagement_Name: {
       return &CameraAppHelper::OpenStorageManagement_Sym::IPCStableHash;
     }
+    case internal::kCameraAppHelper_OpenWifiDialog_Name: {
+      return &CameraAppHelper::OpenWifiDialog_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2979,6 +3126,8 @@ const char* CameraAppHelper::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::camera_app::mojom::CameraAppHelper::StopStorageMonitor";
       case internal::kCameraAppHelper_OpenStorageManagement_Name:
             return "Receive ash::camera_app::mojom::CameraAppHelper::OpenStorageManagement";
+      case internal::kCameraAppHelper_OpenWifiDialog_Name:
+            return "Receive ash::camera_app::mojom::CameraAppHelper::OpenWifiDialog";
     }
   } else {
     switch (message.name()) {
@@ -3030,6 +3179,8 @@ const char* CameraAppHelper::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::camera_app::mojom::CameraAppHelper::StopStorageMonitor";
       case internal::kCameraAppHelper_OpenStorageManagement_Name:
             return "Receive reply ash::camera_app::mojom::CameraAppHelper::OpenStorageManagement";
+      case internal::kCameraAppHelper_OpenWifiDialog_Name:
+            return "Receive reply ash::camera_app::mojom::CameraAppHelper::OpenWifiDialog";
     }
   }
   return "Receive unknown mojo message";
@@ -3352,6 +3503,19 @@ uint32_t CameraAppHelper::OpenStorageManagement_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::camera_app::mojom::CameraAppHelper::OpenStorageManagement");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAppHelper::OpenWifiDialog_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::camera_app::mojom::CameraAppHelper::OpenWifiDialog");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -4711,6 +4875,57 @@ void CameraAppHelperProxy::OpenStorageManagement(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void CameraAppHelperProxy::OpenWifiDialog(
+    WifiConfigPtr in_config) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::camera_app::mojom::CameraAppHelper::OpenWifiDialog", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("config"), in_config,
+                        "<value of type WifiConfigPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCameraAppHelper_OpenWifiDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::camera_app::mojom::internal::CameraAppHelper_OpenWifiDialog_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->config)::BaseType> config_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::camera_app::mojom::WifiConfigDataView>(
+      in_config, config_fragment);
+  params->config.Set(
+      config_fragment.is_null() ? nullptr : config_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->config.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null config in CameraAppHelper.OpenWifiDialog request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraAppHelper::Name_);
+  message.set_method_name("OpenWifiDialog");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class CameraAppHelper_HandleCameraResult_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static CameraAppHelper::HandleCameraResultCallback CreateCallback(
@@ -4769,6 +4984,8 @@ bool CameraAppHelper_HandleCameraResult_ForwardToCallback::Accept(
           internal::CameraAppHelper_HandleCameraResult_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.0
   bool success = true;
   bool p_is_success{};
   CameraAppHelper_HandleCameraResult_ResponseParamsDataView input_data_view(params, message);
@@ -4888,6 +5105,8 @@ bool CameraAppHelper_IsTabletMode_ForwardToCallback::Accept(
           internal::CameraAppHelper_IsTabletMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.1
   bool success = true;
   bool p_is_tablet_mode{};
   CameraAppHelper_IsTabletMode_ResponseParamsDataView input_data_view(params, message);
@@ -5007,6 +5226,8 @@ bool CameraAppHelper_SetTabletMonitor_ForwardToCallback::Accept(
           internal::CameraAppHelper_SetTabletMonitor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.4
   bool success = true;
   bool p_is_tablet_mode{};
   CameraAppHelper_SetTabletMonitor_ResponseParamsDataView input_data_view(params, message);
@@ -5126,6 +5347,8 @@ bool CameraAppHelper_SetScreenStateMonitor_ForwardToCallback::Accept(
           internal::CameraAppHelper_SetScreenStateMonitor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.5
   bool success = true;
   ScreenState p_initial_state{};
   CameraAppHelper_SetScreenStateMonitor_ResponseParamsDataView input_data_view(params, message);
@@ -5246,6 +5469,8 @@ bool CameraAppHelper_IsMetricsAndCrashReportingEnabled_ForwardToCallback::Accept
           internal::CameraAppHelper_IsMetricsAndCrashReportingEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.6
   bool success = true;
   bool p_is_enabled{};
   CameraAppHelper_IsMetricsAndCrashReportingEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -5365,6 +5590,8 @@ bool CameraAppHelper_SetExternalScreenMonitor_ForwardToCallback::Accept(
           internal::CameraAppHelper_SetExternalScreenMonitor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.7
   bool success = true;
   bool p_has_external_screen{};
   CameraAppHelper_SetExternalScreenMonitor_ResponseParamsDataView input_data_view(params, message);
@@ -5484,6 +5711,8 @@ bool CameraAppHelper_GetWindowStateController_ForwardToCallback::Accept(
           internal::CameraAppHelper_GetWindowStateController_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.11
   bool success = true;
   ::mojo::PendingRemote<WindowStateController> p_controller{};
   CameraAppHelper_GetWindowStateController_ResponseParamsDataView input_data_view(params, message);
@@ -5610,6 +5839,8 @@ bool CameraAppHelper_MonitorFileDeletion_ForwardToCallback::Accept(
           internal::CameraAppHelper_MonitorFileDeletion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.14
   bool success = true;
   FileMonitorResult p_result{};
   CameraAppHelper_MonitorFileDeletion_ResponseParamsDataView input_data_view(params, message);
@@ -5730,6 +5961,8 @@ bool CameraAppHelper_IsDocumentScannerSupported_ForwardToCallback::Accept(
           internal::CameraAppHelper_IsDocumentScannerSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.15
   bool success = true;
   bool p_is_supported{};
   CameraAppHelper_IsDocumentScannerSupported_ResponseParamsDataView input_data_view(params, message);
@@ -5849,6 +6082,8 @@ bool CameraAppHelper_CheckDocumentModeReadiness_ForwardToCallback::Accept(
           internal::CameraAppHelper_CheckDocumentModeReadiness_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.16
   bool success = true;
   bool p_is_loaded{};
   CameraAppHelper_CheckDocumentModeReadiness_ResponseParamsDataView input_data_view(params, message);
@@ -5968,6 +6203,8 @@ bool CameraAppHelper_ScanDocumentCorners_ForwardToCallback::Accept(
           internal::CameraAppHelper_ScanDocumentCorners_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.17
   bool success = true;
   std::vector<::gfx::PointF> p_corners{};
   CameraAppHelper_ScanDocumentCorners_ResponseParamsDataView input_data_view(params, message);
@@ -6099,6 +6336,8 @@ bool CameraAppHelper_ConvertToDocument_ForwardToCallback::Accept(
           internal::CameraAppHelper_ConvertToDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.18
   bool success = true;
   std::vector<uint8_t> p_doc_data{};
   CameraAppHelper_ConvertToDocument_ResponseParamsDataView input_data_view(params, message);
@@ -6230,6 +6469,8 @@ bool CameraAppHelper_ConvertToPdf_ForwardToCallback::Accept(
           internal::CameraAppHelper_ConvertToPdf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.19
   bool success = true;
   std::vector<uint8_t> p_pdf_data{};
   CameraAppHelper_ConvertToPdf_ResponseParamsDataView input_data_view(params, message);
@@ -6361,6 +6602,8 @@ bool CameraAppHelper_StartStorageMonitor_ForwardToCallback::Accept(
           internal::CameraAppHelper_StartStorageMonitor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppHelper.21
   bool success = true;
   StorageMonitorStatus p_initial_status{};
   CameraAppHelper_StartStorageMonitor_ResponseParamsDataView input_data_view(params, message);
@@ -6442,6 +6685,8 @@ bool CameraAppHelperStubDispatch::Accept(
           reinterpret_cast<internal::CameraAppHelper_StartPerfEventTrace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.2
       bool success = true;
       std::string p_event{};
       CameraAppHelper_StartPerfEventTrace_ParamsDataView input_data_view(params, message);
@@ -6457,8 +6702,8 @@ bool CameraAppHelperStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPerfEventTrace(
-std::move(p_event));
+      impl->StartPerfEventTrace(        
+        std::move(p_event));
       return true;
     }
     case internal::kCameraAppHelper_StopPerfEventTrace_Name: {
@@ -6468,6 +6713,8 @@ std::move(p_event));
           reinterpret_cast<internal::CameraAppHelper_StopPerfEventTrace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.3
       bool success = true;
       std::string p_event{};
       CameraAppHelper_StopPerfEventTrace_ParamsDataView input_data_view(params, message);
@@ -6483,8 +6730,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopPerfEventTrace(
-std::move(p_event));
+      impl->StopPerfEventTrace(        
+        std::move(p_event));
       return true;
     }
     case internal::kCameraAppHelper_SetTabletMonitor_Name: {
@@ -6506,6 +6753,8 @@ std::move(p_event));
           reinterpret_cast<internal::CameraAppHelper_OpenFileInGallery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.8
       bool success = true;
       std::string p_name{};
       CameraAppHelper_OpenFileInGallery_ParamsDataView input_data_view(params, message);
@@ -6521,8 +6770,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFileInGallery(
-std::move(p_name));
+      impl->OpenFileInGallery(        
+        std::move(p_name));
       return true;
     }
     case internal::kCameraAppHelper_OpenFeedbackDialog_Name: {
@@ -6532,6 +6781,8 @@ std::move(p_name));
           reinterpret_cast<internal::CameraAppHelper_OpenFeedbackDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.9
       bool success = true;
       std::string p_placeholder{};
       CameraAppHelper_OpenFeedbackDialog_ParamsDataView input_data_view(params, message);
@@ -6547,8 +6798,8 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFeedbackDialog(
-std::move(p_placeholder));
+      impl->OpenFeedbackDialog(        
+        std::move(p_placeholder));
       return true;
     }
     case internal::kCameraAppHelper_OpenUrlInBrowser_Name: {
@@ -6558,6 +6809,8 @@ std::move(p_placeholder));
           reinterpret_cast<internal::CameraAppHelper_OpenUrlInBrowser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.10
       bool success = true;
       ::GURL p_url{};
       CameraAppHelper_OpenUrlInBrowser_ParamsDataView input_data_view(params, message);
@@ -6573,8 +6826,8 @@ std::move(p_placeholder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlInBrowser(
-std::move(p_url));
+      impl->OpenUrlInBrowser(        
+        std::move(p_url));
       return true;
     }
     case internal::kCameraAppHelper_GetWindowStateController_Name: {
@@ -6587,6 +6840,8 @@ std::move(p_url));
           reinterpret_cast<internal::CameraAppHelper_SendNewCaptureBroadcast_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.12
       bool success = true;
       bool p_is_video{};
       std::string p_name{};
@@ -6605,9 +6860,9 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNewCaptureBroadcast(
-std::move(p_is_video), 
-std::move(p_name));
+      impl->SendNewCaptureBroadcast(        
+        std::move(p_is_video), 
+        std::move(p_name));
       return true;
     }
     case internal::kCameraAppHelper_NotifyTote_Name: {
@@ -6617,6 +6872,8 @@ std::move(p_name));
           reinterpret_cast<internal::CameraAppHelper_NotifyTote_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.13
       bool success = true;
       ToteMetricFormat p_format{};
       std::string p_name{};
@@ -6635,9 +6892,9 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyTote(
-std::move(p_format), 
-std::move(p_name));
+      impl->NotifyTote(        
+        std::move(p_format), 
+        std::move(p_name));
       return true;
     }
     case internal::kCameraAppHelper_MonitorFileDeletion_Name: {
@@ -6665,6 +6922,8 @@ std::move(p_name));
           reinterpret_cast<internal::CameraAppHelper_MaybeTriggerSurvey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.20
       bool success = true;
       CameraAppHelper_MaybeTriggerSurvey_ParamsDataView input_data_view(params, message);
       
@@ -6677,7 +6936,7 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeTriggerSurvey();
+      impl->MaybeTriggerSurvey(        );
       return true;
     }
     case internal::kCameraAppHelper_StartStorageMonitor_Name: {
@@ -6690,6 +6949,8 @@ std::move(p_name));
           reinterpret_cast<internal::CameraAppHelper_StopStorageMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.22
       bool success = true;
       CameraAppHelper_StopStorageMonitor_ParamsDataView input_data_view(params, message);
       
@@ -6702,7 +6963,7 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopStorageMonitor();
+      impl->StopStorageMonitor(        );
       return true;
     }
     case internal::kCameraAppHelper_OpenStorageManagement_Name: {
@@ -6712,6 +6973,8 @@ std::move(p_name));
           reinterpret_cast<internal::CameraAppHelper_OpenStorageManagement_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.23
       bool success = true;
       CameraAppHelper_OpenStorageManagement_ParamsDataView input_data_view(params, message);
       
@@ -6724,7 +6987,35 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenStorageManagement();
+      impl->OpenStorageManagement(        );
+      return true;
+    }
+    case internal::kCameraAppHelper_OpenWifiDialog_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CameraAppHelper_OpenWifiDialog_Params_Data* params =
+          reinterpret_cast<internal::CameraAppHelper_OpenWifiDialog_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for CameraAppHelper.24
+      bool success = true;
+      WifiConfigPtr p_config{};
+      CameraAppHelper_OpenWifiDialog_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadConfig(&p_config))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CameraAppHelper::Name_, 24, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenWifiDialog(        
+        std::move(p_config));
       return true;
     }
   }
@@ -6747,6 +7038,8 @@ bool CameraAppHelperStubDispatch::AcceptWithResponder(
               internal::CameraAppHelper_HandleCameraResult_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.0
       bool success = true;
       uint32_t p_intent_id{};
       ::arc::mojom::CameraIntentAction p_action{};
@@ -6771,10 +7064,10 @@ bool CameraAppHelperStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleCameraResult(
-std::move(p_intent_id), 
-std::move(p_action), 
-std::move(p_data), std::move(callback));
+      impl->HandleCameraResult(        
+        std::move(p_intent_id), 
+        std::move(p_action), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_IsTabletMode_Name: {
@@ -6784,6 +7077,8 @@ std::move(p_data), std::move(callback));
               internal::CameraAppHelper_IsTabletMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.1
       bool success = true;
       CameraAppHelper_IsTabletMode_ParamsDataView input_data_view(params, message);
       
@@ -6815,6 +7110,8 @@ std::move(p_data), std::move(callback));
               internal::CameraAppHelper_SetTabletMonitor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.4
       bool success = true;
       ::mojo::PendingRemote<TabletModeMonitor> p_monitor{};
       CameraAppHelper_SetTabletMonitor_ParamsDataView input_data_view(params, message);
@@ -6835,8 +7132,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTabletMonitor(
-std::move(p_monitor), std::move(callback));
+      impl->SetTabletMonitor(        
+        std::move(p_monitor), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_SetScreenStateMonitor_Name: {
@@ -6846,6 +7143,8 @@ std::move(p_monitor), std::move(callback));
               internal::CameraAppHelper_SetScreenStateMonitor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.5
       bool success = true;
       ::mojo::PendingRemote<ScreenStateMonitor> p_monitor{};
       CameraAppHelper_SetScreenStateMonitor_ParamsDataView input_data_view(params, message);
@@ -6866,8 +7165,8 @@ std::move(p_monitor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScreenStateMonitor(
-std::move(p_monitor), std::move(callback));
+      impl->SetScreenStateMonitor(        
+        std::move(p_monitor), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_IsMetricsAndCrashReportingEnabled_Name: {
@@ -6877,6 +7176,8 @@ std::move(p_monitor), std::move(callback));
               internal::CameraAppHelper_IsMetricsAndCrashReportingEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.6
       bool success = true;
       CameraAppHelper_IsMetricsAndCrashReportingEnabled_ParamsDataView input_data_view(params, message);
       
@@ -6902,6 +7203,8 @@ std::move(p_monitor), std::move(callback));
               internal::CameraAppHelper_SetExternalScreenMonitor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.7
       bool success = true;
       ::mojo::PendingRemote<ExternalScreenMonitor> p_monitor{};
       CameraAppHelper_SetExternalScreenMonitor_ParamsDataView input_data_view(params, message);
@@ -6922,8 +7225,8 @@ std::move(p_monitor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExternalScreenMonitor(
-std::move(p_monitor), std::move(callback));
+      impl->SetExternalScreenMonitor(        
+        std::move(p_monitor), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_OpenFileInGallery_Name: {
@@ -6942,6 +7245,8 @@ std::move(p_monitor), std::move(callback));
               internal::CameraAppHelper_GetWindowStateController_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.11
       bool success = true;
       CameraAppHelper_GetWindowStateController_ParamsDataView input_data_view(params, message);
       
@@ -6973,6 +7278,8 @@ std::move(p_monitor), std::move(callback));
               internal::CameraAppHelper_MonitorFileDeletion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.14
       bool success = true;
       std::string p_name{};
       CameraAppHelper_MonitorFileDeletion_ParamsDataView input_data_view(params, message);
@@ -6991,8 +7298,8 @@ std::move(p_monitor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MonitorFileDeletion(
-std::move(p_name), std::move(callback));
+      impl->MonitorFileDeletion(        
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_IsDocumentScannerSupported_Name: {
@@ -7002,6 +7309,8 @@ std::move(p_name), std::move(callback));
               internal::CameraAppHelper_IsDocumentScannerSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.15
       bool success = true;
       CameraAppHelper_IsDocumentScannerSupported_ParamsDataView input_data_view(params, message);
       
@@ -7027,6 +7336,8 @@ std::move(p_name), std::move(callback));
               internal::CameraAppHelper_CheckDocumentModeReadiness_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.16
       bool success = true;
       CameraAppHelper_CheckDocumentModeReadiness_ParamsDataView input_data_view(params, message);
       
@@ -7052,6 +7363,8 @@ std::move(p_name), std::move(callback));
               internal::CameraAppHelper_ScanDocumentCorners_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.17
       bool success = true;
       std::vector<uint8_t> p_jpeg_data{};
       CameraAppHelper_ScanDocumentCorners_ParamsDataView input_data_view(params, message);
@@ -7070,8 +7383,8 @@ std::move(p_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScanDocumentCorners(
-std::move(p_jpeg_data), std::move(callback));
+      impl->ScanDocumentCorners(        
+        std::move(p_jpeg_data), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_ConvertToDocument_Name: {
@@ -7081,6 +7394,8 @@ std::move(p_jpeg_data), std::move(callback));
               internal::CameraAppHelper_ConvertToDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.18
       bool success = true;
       std::vector<uint8_t> p_jpeg_data{};
       std::vector<::gfx::PointF> p_corners{};
@@ -7108,11 +7423,11 @@ std::move(p_jpeg_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConvertToDocument(
-std::move(p_jpeg_data), 
-std::move(p_corners), 
-std::move(p_rotation), 
-std::move(p_output_format), std::move(callback));
+      impl->ConvertToDocument(        
+        std::move(p_jpeg_data), 
+        std::move(p_corners), 
+        std::move(p_rotation), 
+        std::move(p_output_format), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_ConvertToPdf_Name: {
@@ -7122,6 +7437,8 @@ std::move(p_output_format), std::move(callback));
               internal::CameraAppHelper_ConvertToPdf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.19
       bool success = true;
       std::vector<std::vector<uint8_t>> p_jpegs_data{};
       CameraAppHelper_ConvertToPdf_ParamsDataView input_data_view(params, message);
@@ -7140,8 +7457,8 @@ std::move(p_output_format), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConvertToPdf(
-std::move(p_jpegs_data), std::move(callback));
+      impl->ConvertToPdf(        
+        std::move(p_jpegs_data), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_MaybeTriggerSurvey_Name: {
@@ -7154,6 +7471,8 @@ std::move(p_jpegs_data), std::move(callback));
               internal::CameraAppHelper_StartStorageMonitor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppHelper.21
       bool success = true;
       ::mojo::PendingRemote<StorageMonitor> p_monitor{};
       CameraAppHelper_StartStorageMonitor_ParamsDataView input_data_view(params, message);
@@ -7174,14 +7493,17 @@ std::move(p_jpegs_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartStorageMonitor(
-std::move(p_monitor), std::move(callback));
+      impl->StartStorageMonitor(        
+        std::move(p_monitor), std::move(callback));
       return true;
     }
     case internal::kCameraAppHelper_StopStorageMonitor_Name: {
       break;
     }
     case internal::kCameraAppHelper_OpenStorageManagement_Name: {
+      break;
+    }
+    case internal::kCameraAppHelper_OpenWifiDialog_Name: {
       break;
     }
   }
@@ -7238,6 +7560,8 @@ static const mojo::internal::GenericValidationInfo kCameraAppHelperValidationInf
      nullptr /* no response */},
     { &internal::CameraAppHelper_OpenStorageManagement_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::CameraAppHelper_OpenWifiDialog_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool CameraAppHelperRequestValidator::Accept(mojo::Message* message) {
@@ -7255,6 +7579,34 @@ bool CameraAppHelperResponseValidator::Accept(mojo::Message* message) {
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::ash::camera_app::mojom::WifiConfig::DataView, ::ash::camera_app::mojom::WifiConfigPtr>::Read(
+    ::ash::camera_app::mojom::WifiConfig::DataView input,
+    ::ash::camera_app::mojom::WifiConfigPtr* output) {
+  bool success = true;
+  ::ash::camera_app::mojom::WifiConfigPtr result(::ash::camera_app::mojom::WifiConfig::New());
+  
+      if (success && !input.ReadSsid(&result->ssid))
+        success = false;
+      if (success && !input.ReadSecurity(&result->security))
+        success = false;
+      if (success && !input.ReadPassword(&result->password))
+        success = false;
+      if (success && !input.ReadEapMethod(&result->eap_method)) {
+        success = false;
+      }
+      if (success && !input.ReadEapPhase2Method(&result->eap_phase2_method)) {
+        success = false;
+      }
+      if (success && !input.ReadEapIdentity(&result->eap_identity))
+        success = false;
+      if (success && !input.ReadEapAnonymousIdentity(&result->eap_anonymous_identity))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
 
 }  // namespace mojo
 
@@ -7565,6 +7917,9 @@ void CameraAppHelperInterceptorForTesting::StopStorageMonitor() {
 }
 void CameraAppHelperInterceptorForTesting::OpenStorageManagement() {
   GetForwardingInterface()->OpenStorageManagement();
+}
+void CameraAppHelperInterceptorForTesting::OpenWifiDialog(WifiConfigPtr config) {
+  GetForwardingInterface()->OpenWifiDialog(std::move(config));
 }
 CameraAppHelperAsyncWaiter::CameraAppHelperAsyncWaiter(
     CameraAppHelper* proxy) : proxy_(proxy) {}

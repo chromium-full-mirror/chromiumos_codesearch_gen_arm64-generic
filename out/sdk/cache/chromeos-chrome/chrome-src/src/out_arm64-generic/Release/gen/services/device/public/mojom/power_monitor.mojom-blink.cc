@@ -162,6 +162,8 @@ bool PowerMonitorStubDispatch::Accept(
           reinterpret_cast<internal::PowerMonitor_AddClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerMonitor.0
       bool success = true;
       ::mojo::PendingRemote<PowerMonitorClient> p_client{};
       PowerMonitor_AddClient_ParamsDataView input_data_view(params, message);
@@ -179,8 +181,8 @@ bool PowerMonitorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddClient(
-std::move(p_client));
+      impl->AddClient(        
+        std::move(p_client));
       return true;
     }
   }
@@ -432,6 +434,8 @@ bool PowerMonitorClientStubDispatch::Accept(
           reinterpret_cast<internal::PowerMonitorClient_PowerStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerMonitorClient.0
       bool success = true;
       bool p_on_battery_power{};
       PowerMonitorClient_PowerStateChange_ParamsDataView input_data_view(params, message);
@@ -447,8 +451,8 @@ bool PowerMonitorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PowerStateChange(
-std::move(p_on_battery_power));
+      impl->PowerStateChange(        
+        std::move(p_on_battery_power));
       return true;
     }
     case internal::kPowerMonitorClient_Suspend_Name: {
@@ -458,6 +462,8 @@ std::move(p_on_battery_power));
           reinterpret_cast<internal::PowerMonitorClient_Suspend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerMonitorClient.1
       bool success = true;
       PowerMonitorClient_Suspend_ParamsDataView input_data_view(params, message);
       
@@ -470,7 +476,7 @@ std::move(p_on_battery_power));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Suspend();
+      impl->Suspend(        );
       return true;
     }
     case internal::kPowerMonitorClient_Resume_Name: {
@@ -480,6 +486,8 @@ std::move(p_on_battery_power));
           reinterpret_cast<internal::PowerMonitorClient_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerMonitorClient.2
       bool success = true;
       PowerMonitorClient_Resume_ParamsDataView input_data_view(params, message);
       
@@ -492,7 +500,7 @@ std::move(p_on_battery_power));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
   }

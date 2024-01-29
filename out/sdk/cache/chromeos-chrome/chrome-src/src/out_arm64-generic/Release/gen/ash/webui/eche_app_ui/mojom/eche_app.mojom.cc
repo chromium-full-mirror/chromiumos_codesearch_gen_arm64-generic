@@ -287,6 +287,8 @@ bool SignalingMessageExchangerStubDispatch::Accept(
           reinterpret_cast<internal::SignalingMessageExchanger_SendSignalingMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SignalingMessageExchanger.0
       bool success = true;
       std::vector<uint8_t> p_signal{};
       SignalingMessageExchanger_SendSignalingMessage_ParamsDataView input_data_view(params, message);
@@ -302,8 +304,8 @@ bool SignalingMessageExchangerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendSignalingMessage(
-std::move(p_signal));
+      impl->SendSignalingMessage(        
+        std::move(p_signal));
       return true;
     }
     case internal::kSignalingMessageExchanger_SetSignalingMessageObserver_Name: {
@@ -313,6 +315,8 @@ std::move(p_signal));
           reinterpret_cast<internal::SignalingMessageExchanger_SetSignalingMessageObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SignalingMessageExchanger.1
       bool success = true;
       ::mojo::PendingRemote<SignalingMessageObserver> p_observer{};
       SignalingMessageExchanger_SetSignalingMessageObserver_ParamsDataView input_data_view(params, message);
@@ -330,8 +334,8 @@ std::move(p_signal));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSignalingMessageObserver(
-std::move(p_observer));
+      impl->SetSignalingMessageObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSignalingMessageExchanger_TearDownSignaling_Name: {
@@ -341,6 +345,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SignalingMessageExchanger_TearDownSignaling_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SignalingMessageExchanger.2
       bool success = true;
       SignalingMessageExchanger_TearDownSignaling_ParamsDataView input_data_view(params, message);
       
@@ -353,7 +359,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TearDownSignaling();
+      impl->TearDownSignaling(        );
       return true;
     }
   }
@@ -521,6 +527,8 @@ bool SignalingMessageObserverStubDispatch::Accept(
           reinterpret_cast<internal::SignalingMessageObserver_OnReceivedSignalingMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SignalingMessageObserver.0
       bool success = true;
       std::vector<uint8_t> p_signal{};
       SignalingMessageObserver_OnReceivedSignalingMessage_ParamsDataView input_data_view(params, message);
@@ -536,8 +544,8 @@ bool SignalingMessageObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceivedSignalingMessage(
-std::move(p_signal));
+      impl->OnReceivedSignalingMessage(        
+        std::move(p_signal));
       return true;
     }
   }
@@ -803,6 +811,8 @@ bool SystemInfoProvider_GetSystemInfo_ForwardToCallback::Accept(
           internal::SystemInfoProvider_GetSystemInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfoProvider.0
   bool success = true;
   std::string p_system_info{};
   SystemInfoProvider_GetSystemInfo_ResponseParamsDataView input_data_view(params, message);
@@ -890,6 +900,8 @@ bool SystemInfoProviderStubDispatch::Accept(
           reinterpret_cast<internal::SystemInfoProvider_SetSystemInfoObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemInfoProvider.1
       bool success = true;
       ::mojo::PendingRemote<SystemInfoObserver> p_observer{};
       SystemInfoProvider_SetSystemInfoObserver_ParamsDataView input_data_view(params, message);
@@ -907,8 +919,8 @@ bool SystemInfoProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSystemInfoObserver(
-std::move(p_observer));
+      impl->SetSystemInfoObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -931,6 +943,8 @@ bool SystemInfoProviderStubDispatch::AcceptWithResponder(
               internal::SystemInfoProvider_GetSystemInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfoProvider.0
       bool success = true;
       SystemInfoProvider_GetSystemInfo_ParamsDataView input_data_view(params, message);
       
@@ -1212,6 +1226,8 @@ bool SystemInfoObserverStubDispatch::Accept(
           reinterpret_cast<internal::SystemInfoObserver_OnScreenBacklightStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemInfoObserver.0
       bool success = true;
       ::ash::ScreenBacklightState p_state{};
       SystemInfoObserver_OnScreenBacklightStateChanged_ParamsDataView input_data_view(params, message);
@@ -1227,8 +1243,8 @@ bool SystemInfoObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenBacklightStateChanged(
-std::move(p_state));
+      impl->OnScreenBacklightStateChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kSystemInfoObserver_OnReceivedTabletModeChanged_Name: {
@@ -1238,6 +1254,8 @@ std::move(p_state));
           reinterpret_cast<internal::SystemInfoObserver_OnReceivedTabletModeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemInfoObserver.1
       bool success = true;
       bool p_is_tablet_mode{};
       SystemInfoObserver_OnReceivedTabletModeChanged_ParamsDataView input_data_view(params, message);
@@ -1253,8 +1271,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceivedTabletModeChanged(
-std::move(p_is_tablet_mode));
+      impl->OnReceivedTabletModeChanged(        
+        std::move(p_is_tablet_mode));
       return true;
     }
     case internal::kSystemInfoObserver_OnAndroidDeviceNetworkInfoChanged_Name: {
@@ -1264,6 +1282,8 @@ std::move(p_is_tablet_mode));
           reinterpret_cast<internal::SystemInfoObserver_OnAndroidDeviceNetworkInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SystemInfoObserver.2
       bool success = true;
       bool p_is_different_network{};
       bool p_android_device_on_cellular{};
@@ -1282,9 +1302,9 @@ std::move(p_is_tablet_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAndroidDeviceNetworkInfoChanged(
-std::move(p_is_different_network), 
-std::move(p_android_device_on_cellular));
+      impl->OnAndroidDeviceNetworkInfoChanged(        
+        std::move(p_is_different_network), 
+        std::move(p_android_device_on_cellular));
       return true;
     }
   }
@@ -1633,6 +1653,8 @@ bool AccessibilityProvider_IsAccessibilityEnabled_ForwardToCallback::Accept(
           internal::AccessibilityProvider_IsAccessibilityEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityProvider.2
   bool success = true;
   bool p_enabled{};
   AccessibilityProvider_IsAccessibilityEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1707,6 +1729,8 @@ bool AccessibilityProviderStubDispatch::Accept(
           reinterpret_cast<internal::AccessibilityProvider_HandleAccessibilityEventReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityProvider.0
       bool success = true;
       std::vector<uint8_t> p_serialized_proto{};
       AccessibilityProvider_HandleAccessibilityEventReceived_ParamsDataView input_data_view(params, message);
@@ -1722,8 +1746,8 @@ bool AccessibilityProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAccessibilityEventReceived(
-std::move(p_serialized_proto));
+      impl->HandleAccessibilityEventReceived(        
+        std::move(p_serialized_proto));
       return true;
     }
     case internal::kAccessibilityProvider_SetAccessibilityObserver_Name: {
@@ -1733,6 +1757,8 @@ std::move(p_serialized_proto));
           reinterpret_cast<internal::AccessibilityProvider_SetAccessibilityObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityProvider.1
       bool success = true;
       ::mojo::PendingRemote<AccessibilityObserver> p_observer{};
       AccessibilityProvider_SetAccessibilityObserver_ParamsDataView input_data_view(params, message);
@@ -1750,8 +1776,8 @@ std::move(p_serialized_proto));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAccessibilityObserver(
-std::move(p_observer));
+      impl->SetAccessibilityObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAccessibilityProvider_IsAccessibilityEnabled_Name: {
@@ -1783,6 +1809,8 @@ bool AccessibilityProviderStubDispatch::AcceptWithResponder(
               internal::AccessibilityProvider_IsAccessibilityEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityProvider.2
       bool success = true;
       AccessibilityProvider_IsAccessibilityEnabled_ParamsDataView input_data_view(params, message);
       
@@ -2222,6 +2250,8 @@ bool AccessibilityObserver_PerformAction_ForwardToCallback::Accept(
           internal::AccessibilityObserver_PerformAction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityObserver.2
   bool success = true;
   bool p_result{};
   AccessibilityObserver_PerformAction_ResponseParamsDataView input_data_view(params, message);
@@ -2341,6 +2371,8 @@ bool AccessibilityObserver_RefreshWithExtraData_ForwardToCallback::Accept(
           internal::AccessibilityObserver_RefreshWithExtraData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AccessibilityObserver.3
   bool success = true;
   std::optional<std::vector<uint8_t>> p_text_location_proto{};
   AccessibilityObserver_RefreshWithExtraData_ResponseParamsDataView input_data_view(params, message);
@@ -2423,6 +2455,8 @@ bool AccessibilityObserverStubDispatch::Accept(
           reinterpret_cast<internal::AccessibilityObserver_EnableAccessibilityTreeStreaming_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityObserver.0
       bool success = true;
       bool p_enable{};
       AccessibilityObserver_EnableAccessibilityTreeStreaming_ParamsDataView input_data_view(params, message);
@@ -2438,8 +2472,8 @@ bool AccessibilityObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAccessibilityTreeStreaming(
-std::move(p_enable));
+      impl->EnableAccessibilityTreeStreaming(        
+        std::move(p_enable));
       return true;
     }
     case internal::kAccessibilityObserver_EnableExploreByTouch_Name: {
@@ -2449,6 +2483,8 @@ std::move(p_enable));
           reinterpret_cast<internal::AccessibilityObserver_EnableExploreByTouch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityObserver.1
       bool success = true;
       bool p_enable{};
       AccessibilityObserver_EnableExploreByTouch_ParamsDataView input_data_view(params, message);
@@ -2464,8 +2500,8 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableExploreByTouch(
-std::move(p_enable));
+      impl->EnableExploreByTouch(        
+        std::move(p_enable));
       return true;
     }
     case internal::kAccessibilityObserver_PerformAction_Name: {
@@ -2500,6 +2536,8 @@ bool AccessibilityObserverStubDispatch::AcceptWithResponder(
               internal::AccessibilityObserver_PerformAction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityObserver.2
       bool success = true;
       std::vector<uint8_t> p_serialized_proto{};
       AccessibilityObserver_PerformAction_ParamsDataView input_data_view(params, message);
@@ -2518,8 +2556,8 @@ bool AccessibilityObserverStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformAction(
-std::move(p_serialized_proto), std::move(callback));
+      impl->PerformAction(        
+        std::move(p_serialized_proto), std::move(callback));
       return true;
     }
     case internal::kAccessibilityObserver_RefreshWithExtraData_Name: {
@@ -2529,6 +2567,8 @@ std::move(p_serialized_proto), std::move(callback));
               internal::AccessibilityObserver_RefreshWithExtraData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AccessibilityObserver.3
       bool success = true;
       std::vector<uint8_t> p_refresh_data_proto{};
       AccessibilityObserver_RefreshWithExtraData_ParamsDataView input_data_view(params, message);
@@ -2547,8 +2587,8 @@ std::move(p_serialized_proto), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RefreshWithExtraData(
-std::move(p_refresh_data_proto), std::move(callback));
+      impl->RefreshWithExtraData(        
+        std::move(p_refresh_data_proto), std::move(callback));
       return true;
     }
   }
@@ -2742,6 +2782,8 @@ bool UidGenerator_GetUid_ForwardToCallback::Accept(
           internal::UidGenerator_GetUid_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UidGenerator.0
   bool success = true;
   std::string p_local_uid{};
   UidGenerator_GetUid_ResponseParamsDataView input_data_view(params, message);
@@ -2842,6 +2884,8 @@ bool UidGeneratorStubDispatch::AcceptWithResponder(
               internal::UidGenerator_GetUid_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UidGenerator.0
       bool success = true;
       UidGenerator_GetUid_ParamsDataView input_data_view(params, message);
       
@@ -3091,6 +3135,8 @@ bool NotificationGeneratorStubDispatch::Accept(
           reinterpret_cast<internal::NotificationGenerator_ShowNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationGenerator.0
       bool success = true;
       ::std::u16string p_title{};
       ::std::u16string p_message{};
@@ -3112,10 +3158,10 @@ bool NotificationGeneratorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowNotification(
-std::move(p_title), 
-std::move(p_message), 
-std::move(p_type));
+      impl->ShowNotification(        
+        std::move(p_title), 
+        std::move(p_message), 
+        std::move(p_type));
       return true;
     }
     case internal::kNotificationGenerator_ShowToast_Name: {
@@ -3125,6 +3171,8 @@ std::move(p_type));
           reinterpret_cast<internal::NotificationGenerator_ShowToast_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationGenerator.1
       bool success = true;
       ::std::u16string p_text{};
       NotificationGenerator_ShowToast_ParamsDataView input_data_view(params, message);
@@ -3140,8 +3188,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowToast(
-std::move(p_text));
+      impl->ShowToast(        
+        std::move(p_text));
       return true;
     }
   }
@@ -3412,6 +3460,8 @@ bool DisplayStreamHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DisplayStreamHandler_StartStreaming_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayStreamHandler.0
       bool success = true;
       DisplayStreamHandler_StartStreaming_ParamsDataView input_data_view(params, message);
       
@@ -3424,7 +3474,7 @@ bool DisplayStreamHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartStreaming();
+      impl->StartStreaming(        );
       return true;
     }
     case internal::kDisplayStreamHandler_OnStreamStatusChanged_Name: {
@@ -3434,6 +3484,8 @@ bool DisplayStreamHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DisplayStreamHandler_OnStreamStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayStreamHandler.1
       bool success = true;
       StreamStatus p_status{};
       DisplayStreamHandler_OnStreamStatusChanged_ParamsDataView input_data_view(params, message);
@@ -3449,8 +3501,8 @@ bool DisplayStreamHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStreamStatusChanged(
-std::move(p_status));
+      impl->OnStreamStatusChanged(        
+        std::move(p_status));
       return true;
     }
     case internal::kDisplayStreamHandler_SetStreamActionObserver_Name: {
@@ -3460,6 +3512,8 @@ std::move(p_status));
           reinterpret_cast<internal::DisplayStreamHandler_SetStreamActionObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayStreamHandler.2
       bool success = true;
       ::mojo::PendingRemote<StreamActionObserver> p_observer{};
       DisplayStreamHandler_SetStreamActionObserver_ParamsDataView input_data_view(params, message);
@@ -3477,8 +3531,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetStreamActionObserver(
-std::move(p_observer));
+      impl->SetStreamActionObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -3635,6 +3689,8 @@ bool StreamActionObserverStubDispatch::Accept(
           reinterpret_cast<internal::StreamActionObserver_OnStreamAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StreamActionObserver.0
       bool success = true;
       StreamAction p_action{};
       StreamActionObserver_OnStreamAction_ParamsDataView input_data_view(params, message);
@@ -3650,8 +3706,8 @@ bool StreamActionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStreamAction(
-std::move(p_action));
+      impl->OnStreamAction(        
+        std::move(p_action));
       return true;
     }
   }
@@ -3797,6 +3853,8 @@ bool StreamOrientationObserverStubDispatch::Accept(
           reinterpret_cast<internal::StreamOrientationObserver_OnStreamOrientationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StreamOrientationObserver.0
       bool success = true;
       bool p_isLandscape{};
       StreamOrientationObserver_OnStreamOrientationChanged_ParamsDataView input_data_view(params, message);
@@ -3812,8 +3870,8 @@ bool StreamOrientationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStreamOrientationChanged(
-std::move(p_isLandscape));
+      impl->OnStreamOrientationChanged(        
+        std::move(p_isLandscape));
       return true;
     }
   }
@@ -3960,6 +4018,8 @@ bool ConnectionStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::ConnectionStatusObserver_OnConnectionStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionStatusObserver.0
       bool success = true;
       ConnectionStatus p_status{};
       ConnectionStatusObserver_OnConnectionStatusChanged_ParamsDataView input_data_view(params, message);
@@ -3975,8 +4035,8 @@ bool ConnectionStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionStatusChanged(
-std::move(p_status));
+      impl->OnConnectionStatusChanged(        
+        std::move(p_status));
       return true;
     }
   }
@@ -4180,6 +4240,8 @@ bool KeyboardLayoutHandlerStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardLayoutHandler_RequestCurrentKeyboardLayout_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardLayoutHandler.0
       bool success = true;
       KeyboardLayoutHandler_RequestCurrentKeyboardLayout_ParamsDataView input_data_view(params, message);
       
@@ -4192,7 +4254,7 @@ bool KeyboardLayoutHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestCurrentKeyboardLayout();
+      impl->RequestCurrentKeyboardLayout(        );
       return true;
     }
     case internal::kKeyboardLayoutHandler_SetKeyboardLayoutObserver_Name: {
@@ -4202,6 +4264,8 @@ bool KeyboardLayoutHandlerStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardLayoutHandler_SetKeyboardLayoutObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardLayoutHandler.1
       bool success = true;
       ::mojo::PendingRemote<KeyboardLayoutObserver> p_observer{};
       KeyboardLayoutHandler_SetKeyboardLayoutObserver_ParamsDataView input_data_view(params, message);
@@ -4219,8 +4283,8 @@ bool KeyboardLayoutHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetKeyboardLayoutObserver(
-std::move(p_observer));
+      impl->SetKeyboardLayoutObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -4423,6 +4487,8 @@ bool KeyboardLayoutObserverStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardLayoutObserver_OnKeyboardLayoutChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardLayoutObserver.0
       bool success = true;
       std::string p_id{};
       std::string p_longName{};
@@ -4447,11 +4513,11 @@ bool KeyboardLayoutObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardLayoutChanged(
-std::move(p_id), 
-std::move(p_longName), 
-std::move(p_shortName), 
-std::move(p_layoutTag));
+      impl->OnKeyboardLayoutChanged(        
+        std::move(p_id), 
+        std::move(p_longName), 
+        std::move(p_shortName), 
+        std::move(p_layoutTag));
       return true;
     }
   }

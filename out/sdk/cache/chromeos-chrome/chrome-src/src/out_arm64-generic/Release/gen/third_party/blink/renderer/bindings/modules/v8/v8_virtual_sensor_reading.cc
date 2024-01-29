@@ -55,29 +55,23 @@ return dictionary;
 
 
 
-Vector<double> VirtualSensorReading::getQuaternionOr(const Vector<double>& fallback_value) const {
-  if (!hasQuaternion()) {
-  return fallback_value;
-}
-return member_quaternion_;
-}
 
-Vector<double> VirtualSensorReading::getQuaternionOr(Vector<double>&& fallback_value) const {
-  if (!hasQuaternion()) {
-  return std::move(fallback_value);
-}
-return member_quaternion_;
-}
 
-void VirtualSensorReading::setQuaternion(const Vector<double>& value) {
-  member_quaternion_ = value;
-has_quaternion_ = true;
-}
 
-void VirtualSensorReading::setQuaternion(Vector<double>&& value) {
-  member_quaternion_ = std::move(value);
-has_quaternion_ = true;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -104,8 +98,10 @@ has_quaternion_ = true;
 
 
 void VirtualSensorReading::Trace(Visitor* visitor) const {
-  TraceIfNeeded<double>::Trace(visitor, member_illuminance_);
-TraceIfNeeded<Vector<double>>::Trace(visitor, member_quaternion_);
+  TraceIfNeeded<double>::Trace(visitor, member_alpha_);
+TraceIfNeeded<double>::Trace(visitor, member_beta_);
+TraceIfNeeded<double>::Trace(visitor, member_gamma_);
+TraceIfNeeded<double>::Trace(visitor, member_illuminance_);
 TraceIfNeeded<double>::Trace(visitor, member_x_);
 TraceIfNeeded<double>::Trace(visitor, member_y_);
 TraceIfNeeded<double>::Trace(visitor, member_z_);
@@ -117,46 +113,33 @@ bool VirtualSensorReading::FillV8ObjectWithMembers(ScriptState* script_state, v8
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
+if (hasAlpha()) {
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_alpha_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+}
+if (hasBeta()) {
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_beta_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+}
+if (hasGamma()) {
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_gamma_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+}
 if (hasIlluminance()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_illuminance_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-if (hasQuaternion()) {
-  if (!ToV8Traits<IDLArray<IDLDouble>>::ToV8(script_state, member_quaternion_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_illuminance_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasX()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_x_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_x_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasY()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_y_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_y_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasZ()) {
-  if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_z_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_z_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -164,36 +147,46 @@ return true;
 void VirtualSensorReading::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "VirtualSensorReading";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("illuminance");
+exception_context_scope.ChangePropertyNameAsOptimizationHack("alpha");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_illuminance_, member_illuminance_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_alpha_, member_alpha_, try_block, exception_state)) {
   return;
 }
-exception_context_scope.ChangePropertyNameAsOptimizationHack("quaternion");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLArray<IDLDouble>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_quaternion_, member_quaternion_, try_block, exception_state)) {
+exception_context_scope.ChangePropertyNameAsOptimizationHack("beta");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_beta_, member_beta_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("gamma");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_gamma_, member_gamma_, try_block, exception_state)) {
+  return;
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("illuminance");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_illuminance_, member_illuminance_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("x");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_x_, member_x_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_x_, member_x_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("y");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_y_, member_y_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_y_, member_y_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("z");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_z_, member_z_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), has_z_, member_z_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> VirtualSensorReading::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
+"alpha",
+"beta",
+"gamma",
 "illuminance",
-"quaternion",
 "x",
 "y",
 "z",

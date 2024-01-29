@@ -32,7 +32,7 @@ describeWithMockConnection('AutofillModel', () => {
         const autofillModel = target.model(SDK.AutofillModel.AutofillModel);
         assertNotNullOrUndefined(autofillModel);
         const dispatchedEvents = [];
-        autofillModel.addEventListener(SDK.AutofillModel.Events.AddressFormFilled, e => dispatchedEvents.push(e.data));
+        autofillModel.addEventListener("AddressFormFilled" /* SDK.AutofillModel.Events.AddressFormFilled */, e => dispatchedEvents.push(e.data));
         const addressFormFilledEvent = {
             addressUi: {
                 addressFields: [

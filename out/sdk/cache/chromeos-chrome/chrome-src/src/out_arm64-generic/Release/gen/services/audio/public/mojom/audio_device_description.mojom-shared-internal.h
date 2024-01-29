@@ -36,6 +36,8 @@ class  AudioDeviceDescription_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> device_name;
   mojo::internal::Pointer<mojo::internal::String_Data> unique_id;
   mojo::internal::Pointer<mojo::internal::String_Data> group_id;
+  uint8_t is_system_default : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<AudioDeviceDescription_Data>;
@@ -43,7 +45,7 @@ class  AudioDeviceDescription_Data {
   AudioDeviceDescription_Data();
   ~AudioDeviceDescription_Data() = delete;
 };
-static_assert(sizeof(AudioDeviceDescription_Data) == 32,
+static_assert(sizeof(AudioDeviceDescription_Data) == 40,
               "Bad sizeof(AudioDeviceDescription_Data)");
 // Used by AudioDeviceDescription::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

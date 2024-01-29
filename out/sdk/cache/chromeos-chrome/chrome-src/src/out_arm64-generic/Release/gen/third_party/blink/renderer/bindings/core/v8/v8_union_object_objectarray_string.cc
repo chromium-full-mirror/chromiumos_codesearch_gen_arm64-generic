@@ -134,7 +134,7 @@ void V8UnionObjectOrObjectArrayOrString::Set(const V8UnionObjectOrString* value)
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionObjectOrObjectArrayOrString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionObjectOrObjectArrayOrString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kObject: {
     return ToV8Traits<IDLObject>::ToV8(script_state, member_object_);
@@ -148,7 +148,7 @@ v8::MaybeLocal<v8::Value> V8UnionObjectOrObjectArrayOrString::ToV8Value(ScriptSt
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionObjectOrObjectArrayOrString::Trace(Visitor* visitor) const {

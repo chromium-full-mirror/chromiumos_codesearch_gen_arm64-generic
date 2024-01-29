@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/device_cursor.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/device_cursor.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/device_cursor.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/device_cursor.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/device_cursor.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/drm_device.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/drm_device.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/drm_device.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/drm_device.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/ozone/platform/drm/mojom/drm_device.mojom.h

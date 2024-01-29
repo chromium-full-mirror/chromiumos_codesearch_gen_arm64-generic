@@ -728,6 +728,8 @@ bool PushVideoStreamSubscription_Suspend_ForwardToCallback::Accept(
           internal::PushVideoStreamSubscription_Suspend_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushVideoStreamSubscription.1
   bool success = true;
   PushVideoStreamSubscription_Suspend_ResponseParamsDataView input_data_view(params, message);
   
@@ -835,6 +837,8 @@ bool PushVideoStreamSubscription_GetPhotoState_ForwardToCallback::Accept(
           internal::PushVideoStreamSubscription_GetPhotoState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushVideoStreamSubscription.3
   bool success = true;
   ::media::mojom::PhotoStatePtr p_capabilities{};
   PushVideoStreamSubscription_GetPhotoState_ResponseParamsDataView input_data_view(params, message);
@@ -960,6 +964,8 @@ bool PushVideoStreamSubscription_SetPhotoOptions_ForwardToCallback::Accept(
           internal::PushVideoStreamSubscription_SetPhotoOptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushVideoStreamSubscription.4
   bool success = true;
   bool p_success{};
   PushVideoStreamSubscription_SetPhotoOptions_ResponseParamsDataView input_data_view(params, message);
@@ -1079,6 +1085,8 @@ bool PushVideoStreamSubscription_TakePhoto_ForwardToCallback::Accept(
           internal::PushVideoStreamSubscription_TakePhoto_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushVideoStreamSubscription.5
   bool success = true;
   ::media::mojom::BlobPtr p_blob{};
   PushVideoStreamSubscription_TakePhoto_ResponseParamsDataView input_data_view(params, message);
@@ -1204,6 +1212,8 @@ bool PushVideoStreamSubscription_Close_ForwardToCallback::Accept(
           internal::PushVideoStreamSubscription_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushVideoStreamSubscription.6
   bool success = true;
   PushVideoStreamSubscription_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -1266,6 +1276,8 @@ bool PushVideoStreamSubscriptionStubDispatch::Accept(
           reinterpret_cast<internal::PushVideoStreamSubscription_Activate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.0
       bool success = true;
       PushVideoStreamSubscription_Activate_ParamsDataView input_data_view(params, message);
       
@@ -1278,7 +1290,7 @@ bool PushVideoStreamSubscriptionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Activate();
+      impl->Activate(        );
       return true;
     }
     case internal::kPushVideoStreamSubscription_Suspend_Name: {
@@ -1291,6 +1303,8 @@ bool PushVideoStreamSubscriptionStubDispatch::Accept(
           reinterpret_cast<internal::PushVideoStreamSubscription_Resume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.2
       bool success = true;
       PushVideoStreamSubscription_Resume_ParamsDataView input_data_view(params, message);
       
@@ -1303,7 +1317,7 @@ bool PushVideoStreamSubscriptionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume();
+      impl->Resume(        );
       return true;
     }
     case internal::kPushVideoStreamSubscription_GetPhotoState_Name: {
@@ -1325,6 +1339,8 @@ bool PushVideoStreamSubscriptionStubDispatch::Accept(
           reinterpret_cast<internal::PushVideoStreamSubscription_ProcessFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.7
       bool success = true;
       ::media::VideoCaptureFeedback p_feedback{};
       PushVideoStreamSubscription_ProcessFeedback_ParamsDataView input_data_view(params, message);
@@ -1340,8 +1356,8 @@ bool PushVideoStreamSubscriptionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessFeedback(
-std::move(p_feedback));
+      impl->ProcessFeedback(        
+        std::move(p_feedback));
       return true;
     }
   }
@@ -1367,6 +1383,8 @@ bool PushVideoStreamSubscriptionStubDispatch::AcceptWithResponder(
               internal::PushVideoStreamSubscription_Suspend_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.1
       bool success = true;
       PushVideoStreamSubscription_Suspend_ParamsDataView input_data_view(params, message);
       
@@ -1395,6 +1413,8 @@ bool PushVideoStreamSubscriptionStubDispatch::AcceptWithResponder(
               internal::PushVideoStreamSubscription_GetPhotoState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.3
       bool success = true;
       PushVideoStreamSubscription_GetPhotoState_ParamsDataView input_data_view(params, message);
       
@@ -1420,6 +1440,8 @@ bool PushVideoStreamSubscriptionStubDispatch::AcceptWithResponder(
               internal::PushVideoStreamSubscription_SetPhotoOptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.4
       bool success = true;
       ::media::mojom::PhotoSettingsPtr p_settings{};
       PushVideoStreamSubscription_SetPhotoOptions_ParamsDataView input_data_view(params, message);
@@ -1438,8 +1460,8 @@ bool PushVideoStreamSubscriptionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPhotoOptions(
-std::move(p_settings), std::move(callback));
+      impl->SetPhotoOptions(        
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kPushVideoStreamSubscription_TakePhoto_Name: {
@@ -1449,6 +1471,8 @@ std::move(p_settings), std::move(callback));
               internal::PushVideoStreamSubscription_TakePhoto_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.5
       bool success = true;
       PushVideoStreamSubscription_TakePhoto_ParamsDataView input_data_view(params, message);
       
@@ -1474,6 +1498,8 @@ std::move(p_settings), std::move(callback));
               internal::PushVideoStreamSubscription_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushVideoStreamSubscription.6
       bool success = true;
       PushVideoStreamSubscription_Close_ParamsDataView input_data_view(params, message);
       
@@ -1800,6 +1826,8 @@ bool VideoSource_CreatePushSubscription_ForwardToCallback::Accept(
           internal::VideoSource_CreatePushSubscription_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoSource.0
   bool success = true;
   CreatePushSubscriptionResultCodePtr p_result_code{};
   ::media::VideoCaptureParams p_settings_source_was_opened_with{};
@@ -1903,6 +1931,8 @@ bool VideoSourceStubDispatch::Accept(
           reinterpret_cast<internal::VideoSource_RegisterVideoEffectsManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoSource.1
       bool success = true;
       ::mojo::PendingRemote<::video_capture::mojom::VideoEffectsManager> p_remote{};
       VideoSource_RegisterVideoEffectsManager_ParamsDataView input_data_view(params, message);
@@ -1920,8 +1950,8 @@ bool VideoSourceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterVideoEffectsManager(
-std::move(p_remote));
+      impl->RegisterVideoEffectsManager(        
+        std::move(p_remote));
       return true;
     }
   }
@@ -1944,6 +1974,8 @@ bool VideoSourceStubDispatch::AcceptWithResponder(
               internal::VideoSource_CreatePushSubscription_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoSource.0
       bool success = true;
       ::mojo::PendingRemote<::video_capture::mojom::VideoFrameHandler> p_subscriber{};
       ::media::VideoCaptureParams p_requested_settings{};
@@ -1975,11 +2007,11 @@ bool VideoSourceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePushSubscription(
-std::move(p_subscriber), 
-std::move(p_requested_settings), 
-std::move(p_force_reopen_with_new_settings), 
-std::move(p_subscription), std::move(callback));
+      impl->CreatePushSubscription(        
+        std::move(p_subscriber), 
+        std::move(p_requested_settings), 
+        std::move(p_force_reopen_with_new_settings), 
+        std::move(p_subscription), std::move(callback));
       return true;
     }
     case internal::kVideoSource_RegisterVideoEffectsManager_Name: {

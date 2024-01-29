@@ -5,13 +5,12 @@ import * as Common from '../../../../../../../front_end/core/common/common.js';
 import * as i18n from '../../../../../../../front_end/core/i18n/i18n.js';
 import * as QuickOpen from '../../../../../../../front_end/ui/legacy/components/quick_open/quick_open.js';
 import { createFakeSetting, describeWithLocale } from '../../../../helpers/EnvironmentHelpers.js';
-import { TestRevealer } from '../../../../helpers/RevealerHelpers.js';
 function createCommandMenuProvider(deprecationNotice) {
     const setting = createFakeSetting('Test Setting', false);
     setting.setRegistration({
         settingName: 'Test Setting',
-        settingType: Common.SettingRegistration.SettingType.BOOLEAN,
-        category: Common.SettingRegistration.SettingCategory.APPEARANCE,
+        settingType: "boolean" /* Common.SettingRegistration.SettingType.BOOLEAN */,
+        category: "APPEARANCE" /* Common.SettingRegistration.SettingCategory.APPEARANCE */,
         defaultValue: false,
         deprecationNotice,
     });
@@ -54,11 +53,9 @@ describeWithLocale('CommandMenu', () => {
     it('reveals the setting when calling a deprecated setting', () => {
         const deprecation = { disabled: true, warning };
         const { setting, command } = createCommandMenuProvider(deprecation);
-        const callback = sinon.fake((_object, _omitFocus) => Promise.resolve());
-        TestRevealer.install(callback);
+        const reveal = sinon.stub(Common.Revealer.RevealerRegistry.prototype, 'reveal');
         command.execute();
-        assert.isTrue(callback.calledOnceWithExactly(setting), 'Revealer was either not called or was called with unexpected arguments');
-        TestRevealer.reset();
+        assert.isTrue(reveal.calledOnceWithExactly(setting, false), 'Revealer was either not called or was called with unexpected arguments');
     });
 });
 //# sourceMappingURL=CommandMenu_test.js.map

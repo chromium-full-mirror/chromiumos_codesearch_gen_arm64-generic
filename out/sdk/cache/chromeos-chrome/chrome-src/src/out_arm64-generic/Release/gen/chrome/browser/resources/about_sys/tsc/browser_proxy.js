@@ -12,5 +12,11 @@ export class BrowserProxyImpl {
     static setInstance(obj) {
         instance = obj;
     }
+    isLacrosEnabled() {
+        return sendWithPromise('isLacrosEnabled');
+    }
+    openLacrosSystemPage() {
+        chrome.send('openLacrosSystemPage');
+    }
 }
 let instance = null;

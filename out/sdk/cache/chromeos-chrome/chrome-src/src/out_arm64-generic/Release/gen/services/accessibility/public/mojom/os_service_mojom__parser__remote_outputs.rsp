@@ -1,0 +1,6 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/autoclick.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/file_loader.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/speech_recognition.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/tts.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/user_input.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/accessibility/public/mojom/user_interface.mojom-module

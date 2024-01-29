@@ -37,6 +37,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_GPU_EXPORT) SharedImageCapabilities_Data {
   uint8_t supports_scanout_shared_images : 1;
   uint8_t supports_luminance_shared_images : 1;
   uint8_t supports_r16_shared_images : 1;
+  uint8_t is_r16f_supported : 1;
   uint8_t disable_r8_shared_images : 1;
   uint8_t disable_webgpu_shared_images : 1;
   uint8_t shared_image_d3d : 1;

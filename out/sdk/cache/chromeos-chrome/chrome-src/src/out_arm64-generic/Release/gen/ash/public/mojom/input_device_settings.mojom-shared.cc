@@ -175,6 +175,32 @@ std::ostream& operator<<(std::ostream& os, CustomizableButton value) {
   return os << CustomizableButtonToString(value);
 }
 
+NOINLINE static const char* MouseButtonConfigToStringHelper(MouseButtonConfig value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case MouseButtonConfig::kNoConfig:
+      return "kNoConfig";
+    case MouseButtonConfig::kFiveKey:
+      return "kFiveKey";
+    case MouseButtonConfig::kLogitechSixKey:
+      return "kLogitechSixKey";
+    default:
+      return nullptr;
+  }
+}
+
+std::string MouseButtonConfigToString(MouseButtonConfig value) {
+  const char *str = MouseButtonConfigToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown MouseButtonConfig value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, MouseButtonConfig value) {
+  return os << MouseButtonConfigToString(value);
+}
+
 NOINLINE static const char* StaticShortcutActionToStringHelper(StaticShortcutAction value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -483,13 +509,46 @@ InputDeviceSettingsFkeyPolicy_Data::InputDeviceSettingsFkeyPolicy_Data()
 
 
 // static
+bool InputDeviceSettingsSixPackKeyPolicy_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InputDeviceSettingsSixPackKeyPolicy_Data* object =
+      static_cast<const InputDeviceSettingsSixPackKeyPolicy_Data*>(data);
+
+
+  if (!::ash::mojom::internal::PolicyStatus_Data
+        ::Validate(object->policy_status, validation_context))
+    return false;
+
+
+  if (!::ui::mojom::internal::SixPackShortcutModifier_Data
+        ::Validate(object->value, validation_context))
+    return false;
+
+  return true;
+}
+
+InputDeviceSettingsSixPackKeyPolicy_Data::InputDeviceSettingsSixPackKeyPolicy_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool KeyboardPolicies_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 72, validation_context)) {
     return false;
   }
 
@@ -504,7 +563,22 @@ bool KeyboardPolicies_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->enable_meta_fkey_rewrites_policy, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->extended_fkeys_policy, validation_context))
+  if (!mojo::internal::ValidateStruct(object->f11_key_policy, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->f12_key_policy, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->home_and_end_keys_policy, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->page_up_and_page_down_keys_policy, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->delete_key_policy, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->insert_key_policy, validation_context))
     return false;
 
   return true;
@@ -709,8 +783,13 @@ bool Mouse_Data::Validate(
         ::Validate(object->customization_restriction, validation_context))
     return false;
 
+
+  if (!::ash::mojom::internal::MouseButtonConfig_Data
+        ::Validate(object->mouse_button_config, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->settings, 6, validation_context)) {
+          object->settings, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->settings, validation_context))
@@ -1159,6 +1238,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::mojom::CustomizableButton>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::mojom::CustomizableButton value) {
   return std::move(context).WriteString(::ash::mojom::CustomizableButtonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::mojom::MouseButtonConfig>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::mojom::MouseButtonConfig value) {
+  return std::move(context).WriteString(::ash::mojom::MouseButtonConfigToString(value));
 }
 
 } // namespace perfetto

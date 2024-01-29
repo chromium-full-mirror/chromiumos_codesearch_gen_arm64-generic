@@ -1,6 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import 'chrome://resources/cr_elements/cr_icons.css.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input_style.css.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_icons.css.js';
@@ -14,6 +15,7 @@ import '../dialogs/edit_password_dialog.js';
 import '../dialogs/multi_store_delete_password_dialog.js';
 import '../sharing/share_password_flow.js';
 import '../sharing/metrics_utils.js';
+import '../dialogs/move_single_password_dialog.js';
 import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
@@ -47,6 +49,7 @@ export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
             },
             showEditPasswordDialog_: Boolean,
             showDeletePasswordDialog_: Boolean,
+            showMovePasswordDialog_: Boolean,
             showShareButton_: {
                 type: Boolean,
                 computed: 'computeShowShareButton_(enableSendPasswords_, ' +
@@ -68,6 +71,13 @@ export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
                     return loadTimeData.getBoolean('enableSendPasswords');
                 },
             },
+            enableButterOnDesktopFollowup_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
+                },
+            },
+            isUsingAccountStore: Boolean,
         };
     }
     isFederated_() {
@@ -139,6 +149,9 @@ export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
     }
     onShareFlowDone_() {
         this.showShareFlow_ = false;
+        setTimeout(() => {
+            this.$.shareButton.focus();
+        }, 0);
     }
     extendAuthValidity_() {
         PasswordManagerImpl.getInstance().extendAuthValidity();
@@ -178,6 +191,21 @@ export class PasswordDetailsCardElement extends PasswordDetailsCardElementBase {
         return this.password.username ?
             this.i18n('passwordDetailsCardDeleteButtonAriaLabel', this.getCredentialTypeString_(), this.password.username) :
             this.i18n('passwordDetailsCardDeleteButtonNoUsernameAriaLabel', this.getCredentialTypeString_());
+    }
+    computeMovePasswordText_() {
+        return this.i18nAdvanced('moveSinglePassword');
+    }
+    movePasswordClicked_(e) {
+        e.preventDefault();
+        this.showMovePasswordDialog_ = true;
+    }
+    showMovePasswordEntry_() {
+        return this.enableButterOnDesktopFollowup_ && this.isUsingAccountStore &&
+            this.password.storedIn ===
+                chrome.passwordsPrivate.PasswordStoreSet.DEVICE;
+    }
+    onMovePasswordDialogClose_() {
+        this.showMovePasswordDialog_ = false;
     }
     maybeRegisterSharingHelpBubble() {
         if (!this.showShareButton_ && !this.passwordSharingDisabled_) {

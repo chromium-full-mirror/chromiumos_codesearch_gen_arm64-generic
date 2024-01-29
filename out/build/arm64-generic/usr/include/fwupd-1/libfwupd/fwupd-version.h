@@ -32,7 +32,7 @@
  *
  * The compile-time micro version
  */
-#define FWUPD_MICRO_VERSION 9
+#define FWUPD_MICRO_VERSION 10
 /* clang-format on */
 
 /**

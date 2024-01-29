@@ -5,7 +5,7 @@
 import 'chrome://resources/cr_elements/cr_toolbar/cr_toolbar_search_field.js';
 import { pressAndReleaseKeyOn } from 'chrome://resources/polymer/v3_0/iron-test-helpers/mock-interactions.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { assertDeepEquals, assertEquals, assertFalse, assertNotEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
+import { assertDeepEquals, assertEquals, assertNotEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 // clang-format on
 /** @fileoverview Suite of tests for cr-toolbar-search-field. */
 suite('cr-toolbar-search-field', function () {
@@ -42,14 +42,11 @@ suite('cr-toolbar-search-field', function () {
         assertFalse(didFire, 'Should not have fired search-changed event');
     });
     test('opens and closes correctly', function () {
+        field.narrow = true;
         assertFalse(field.showingSearch);
         field.click();
         assertTrue(field.showingSearch);
         const searchInput = /** @type {!HTMLElement} */ (field.$.searchInput);
-        assertEquals(searchInput, field.shadowRoot.activeElement);
-        field.$.searchInput.blur();
-        assertFalse(field.showingSearch);
-        field.click();
         assertEquals(searchInput, field.shadowRoot.activeElement);
         pressAndReleaseKeyOn(searchInput, 27, '', 'Escape');
         assertFalse(field.showingSearch, 'Pressing escape closes field.');

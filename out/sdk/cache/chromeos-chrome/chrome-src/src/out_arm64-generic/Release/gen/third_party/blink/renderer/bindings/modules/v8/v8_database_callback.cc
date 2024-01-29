@@ -58,9 +58,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_database;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<Database>::ToV8(script_state, arg1_database).ToLocal(&v8_arg1_database)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_database = ToV8Traits<Database>::ToV8(script_state, arg1_database);
 argv[0] = v8_arg1_database;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -99,9 +97,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_database;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<Database>::ToV8(script_state, arg1_database).ToLocal(&v8_arg1_database)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_database = ToV8Traits<Database>::ToV8(script_state, arg1_database);
 argv[0] = v8_arg1_database;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

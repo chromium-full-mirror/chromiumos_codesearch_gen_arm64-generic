@@ -2,6 +2,7 @@ class TemplateInfo;
 class FunctionTemplateRareData;
 class FunctionTemplateInfo;
 class ObjectTemplateInfo;
+class DictionaryTemplateInfo;
 // Alias for IsTemplateInfo() that avoids inlining.
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=5&c=1
 V8_EXPORT_PRIVATE bool IsTemplateInfo_NonInline(Tagged<HeapObject> o);
@@ -501,5 +502,92 @@ class TorqueGeneratedObjectTemplateInfo : public P {
   inline explicit constexpr TorqueGeneratedObjectTemplateInfo(Address ptr, typename P::SkipTypeCheckTag
 )    : P(ptr, typename P::SkipTypeCheckTag{}) {}
   inline explicit TorqueGeneratedObjectTemplateInfo(Address ptr);
+};
+
+// Alias for IsDictionaryTemplateInfo() that avoids inlining.
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+V8_EXPORT_PRIVATE bool IsDictionaryTemplateInfo_NonInline(Tagged<HeapObject> o);
+
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+template <class D, class P>
+class TorqueGeneratedDictionaryTemplateInfo : public P {
+  static_assert(
+      std::is_same<DictionaryTemplateInfo, D>::value,
+      "Use this class as direct base for DictionaryTemplateInfo.");
+  static_assert(
+      std::is_same<HeapObject, P>::value,
+      "Pass in HeapObject as second template parameter for TorqueGeneratedDictionaryTemplateInfo.");
+
+ public: 
+  using Super = P;
+  using TorqueGeneratedClass = TorqueGeneratedDictionaryTemplateInfo<D,P>;
+
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+  inline Tagged<FixedArray> property_names() const;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+  inline Tagged<FixedArray> property_names(PtrComprCageBase cage_base) const;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+  inline void set_property_names(Tagged<FixedArray> value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
+
+  // Torque type: Weak<class Map>
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+  inline MaybeObject fully_populated_map() const;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+  inline MaybeObject fully_populated_map(PtrComprCageBase cage_base) const;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+  inline void set_fully_populated_map(MaybeObject value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
+
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+  V8_INLINE static Tagged<D> cast(Tagged<Object> object);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+  V8_INLINE static Tagged<D> unchecked_cast(Tagged<Object> object) {
+    return Tagged<D>::unchecked_cast(object);
+  }
+
+  DECL_PRINTER(DictionaryTemplateInfo)
+
+#ifdef VERIFY_HEAP
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+  V8_EXPORT_PRIVATE void DictionaryTemplateInfoVerify(Isolate* isolate);
+#endif  // VERIFY_HEAP
+
+  static constexpr int kStartOfStrongFieldsOffset = P::kHeaderSize;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=84&c=3
+  static constexpr int kPropertyNamesOffset = P::kHeaderSize;
+  static constexpr int kPropertyNamesOffsetEnd = kPropertyNamesOffset + kTaggedSize - 1;
+  static constexpr int kEndOfStrongFieldsOffset = kPropertyNamesOffsetEnd + 1;
+  static constexpr int kStartOfWeakFieldsOffset = kPropertyNamesOffsetEnd + 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=85&c=3
+  static constexpr int kFullyPopulatedMapOffset = kPropertyNamesOffsetEnd + 1;
+  static constexpr int kFullyPopulatedMapOffsetEnd = kFullyPopulatedMapOffset + kTaggedSize - 1;
+  static constexpr int kEndOfWeakFieldsOffset = kFullyPopulatedMapOffsetEnd + 1;
+  static constexpr int kHeaderSize = kFullyPopulatedMapOffsetEnd + 1;
+  static constexpr int kSize = kFullyPopulatedMapOffsetEnd + 1;
+
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+  V8_INLINE static constexpr int32_t SizeFor() {
+    DCHECK(kHeaderSize == kSize && kHeaderSize == 12);
+    int32_t size = kHeaderSize;
+    return size;
+  }
+
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/templates.tq?l=82&c=1
+  V8_INLINE int32_t AllocatedSize() const {
+    return SizeFor();
+  }
+
+  friend class Factory;
+
+  template <class DAlias = D>
+  constexpr TorqueGeneratedDictionaryTemplateInfo() : P() {
+    static_assert(
+        std::is_base_of<TorqueGeneratedDictionaryTemplateInfo, DAlias>::value,
+        "class TorqueGeneratedDictionaryTemplateInfo should be used as direct base for DictionaryTemplateInfo.");
+  }
+
+ protected:
+  inline explicit constexpr TorqueGeneratedDictionaryTemplateInfo(Address ptr, typename P::SkipTypeCheckTag
+)    : P(ptr, typename P::SkipTypeCheckTag{}) {}
+  inline explicit TorqueGeneratedDictionaryTemplateInfo(Address ptr);
 };
 

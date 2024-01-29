@@ -62,7 +62,7 @@ class  WebTransportClientInterceptorForTesting : public WebTransportClient {
   void OnOutgoingStreamClosed(uint32_t stream_id) override;
   void OnReceivedStopSending(uint32_t stream_id, uint32_t stream_error_code) override;
   void OnReceivedResetStream(uint32_t stream_id, uint32_t stream_error_code) override;
-  void OnClosed(WebTransportCloseInfoPtr close_info) override;
+  void OnClosed(WebTransportCloseInfoPtr close_info, WebTransportStatsPtr final_stats) override;
 };
 class  WebTransportClientAsyncWaiter {
  public:
@@ -80,7 +80,7 @@ class  WebTransportClientAsyncWaiter {
 
 class  WebTransportHandshakeClientInterceptorForTesting : public WebTransportHandshakeClient {
   virtual WebTransportHandshakeClient* GetForwardingInterface() = 0;
-  void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers) override;
+  void OnConnectionEstablished(::mojo::PendingRemote<WebTransport> transport, ::mojo::PendingReceiver<WebTransportClient> client, const ::scoped_refptr<::net::HttpResponseHeaders>& response_headers, WebTransportStatsPtr initial_stats) override;
   void OnHandshakeFailed(const std::optional<::net::WebTransportError>& error) override;
 };
 class  WebTransportHandshakeClientAsyncWaiter {

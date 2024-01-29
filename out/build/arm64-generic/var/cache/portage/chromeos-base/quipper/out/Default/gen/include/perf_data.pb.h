@@ -126,6 +126,9 @@ extern PerfDataProto_PerfFileAttrDefaultTypeInternal _PerfDataProto_PerfFileAttr
 class PerfDataProto_PerfGroupDescMetadata;
 struct PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal;
 extern PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal _PerfDataProto_PerfGroupDescMetadata_default_instance_;
+class PerfDataProto_PerfHybridTopologyMetadata;
+struct PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal;
+extern PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfHybridTopologyMetadata_default_instance_;
 class PerfDataProto_PerfNamespacesLinkInfo;
 struct PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal;
 extern PerfDataProto_PerfNamespacesLinkInfoDefaultTypeInternal _PerfDataProto_PerfNamespacesLinkInfo_default_instance_;
@@ -244,6 +247,8 @@ template <>
 ::quipper::PerfDataProto_PerfFileAttr* Arena::CreateMaybeMessage<::quipper::PerfDataProto_PerfFileAttr>(Arena*);
 template <>
 ::quipper::PerfDataProto_PerfGroupDescMetadata* Arena::CreateMaybeMessage<::quipper::PerfDataProto_PerfGroupDescMetadata>(Arena*);
+template <>
+::quipper::PerfDataProto_PerfHybridTopologyMetadata* Arena::CreateMaybeMessage<::quipper::PerfDataProto_PerfHybridTopologyMetadata>(Arena*);
 template <>
 ::quipper::PerfDataProto_PerfNamespacesLinkInfo* Arena::CreateMaybeMessage<::quipper::PerfDataProto_PerfNamespacesLinkInfo>(Arena*);
 template <>
@@ -10720,6 +10725,232 @@ class PerfDataProto_PerfGroupDescMetadata final :
   friend struct ::TableStruct_perf_5fdata_2eproto;
 };// -------------------------------------------------------------------
 
+class PerfDataProto_PerfHybridTopologyMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:quipper.PerfDataProto.PerfHybridTopologyMetadata) */ {
+ public:
+  inline PerfDataProto_PerfHybridTopologyMetadata() : PerfDataProto_PerfHybridTopologyMetadata(nullptr) {}
+  ~PerfDataProto_PerfHybridTopologyMetadata() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR PerfDataProto_PerfHybridTopologyMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PerfDataProto_PerfHybridTopologyMetadata(const PerfDataProto_PerfHybridTopologyMetadata& from);
+  PerfDataProto_PerfHybridTopologyMetadata(PerfDataProto_PerfHybridTopologyMetadata&& from) noexcept
+    : PerfDataProto_PerfHybridTopologyMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline PerfDataProto_PerfHybridTopologyMetadata& operator=(const PerfDataProto_PerfHybridTopologyMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PerfDataProto_PerfHybridTopologyMetadata& operator=(PerfDataProto_PerfHybridTopologyMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PerfDataProto_PerfHybridTopologyMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PerfDataProto_PerfHybridTopologyMetadata* internal_default_instance() {
+    return reinterpret_cast<const PerfDataProto_PerfHybridTopologyMetadata*>(
+               &_PerfDataProto_PerfHybridTopologyMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    44;
+
+  friend void swap(PerfDataProto_PerfHybridTopologyMetadata& a, PerfDataProto_PerfHybridTopologyMetadata& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PerfDataProto_PerfHybridTopologyMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PerfDataProto_PerfHybridTopologyMetadata* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PerfDataProto_PerfHybridTopologyMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PerfDataProto_PerfHybridTopologyMetadata>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PerfDataProto_PerfHybridTopologyMetadata& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PerfDataProto_PerfHybridTopologyMetadata& from) {
+    PerfDataProto_PerfHybridTopologyMetadata::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PerfDataProto_PerfHybridTopologyMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "quipper.PerfDataProto.PerfHybridTopologyMetadata";
+  }
+  protected:
+  explicit PerfDataProto_PerfHybridTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCpuListFieldNumber = 4,
+    kPmuNameFieldNumber = 1,
+    kCpusFieldNumber = 3,
+    kPmuNameMd5PrefixFieldNumber = 2,
+  };
+  // repeated uint32 cpu_list = 4 [packed = true];
+  int cpu_list_size() const;
+  private:
+  int _internal_cpu_list_size() const;
+
+  public:
+  void clear_cpu_list() ;
+  ::uint32_t cpu_list(int index) const;
+  void set_cpu_list(int index, ::uint32_t value);
+  void add_cpu_list(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& cpu_list() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* mutable_cpu_list();
+
+  private:
+  ::uint32_t _internal_cpu_list(int index) const;
+  void _internal_add_cpu_list(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& _internal_cpu_list() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* _internal_mutable_cpu_list();
+
+  public:
+  // optional string pmu_name = 1;
+  bool has_pmu_name() const;
+  void clear_pmu_name() ;
+  const std::string& pmu_name() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_pmu_name(Arg_&& arg, Args_... args);
+  std::string* mutable_pmu_name();
+  PROTOBUF_NODISCARD std::string* release_pmu_name();
+  void set_allocated_pmu_name(std::string* ptr);
+
+  private:
+  const std::string& _internal_pmu_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_pmu_name(
+      const std::string& value);
+  std::string* _internal_mutable_pmu_name();
+
+  public:
+  // optional string cpus = 3;
+  bool has_cpus() const;
+  void clear_cpus() ;
+  const std::string& cpus() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_cpus(Arg_&& arg, Args_... args);
+  std::string* mutable_cpus();
+  PROTOBUF_NODISCARD std::string* release_cpus();
+  void set_allocated_cpus(std::string* ptr);
+
+  private:
+  const std::string& _internal_cpus() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_cpus(
+      const std::string& value);
+  std::string* _internal_mutable_cpus();
+
+  public:
+  // optional uint64 pmu_name_md5_prefix = 2;
+  bool has_pmu_name_md5_prefix() const;
+  void clear_pmu_name_md5_prefix() ;
+  ::uint64_t pmu_name_md5_prefix() const;
+  void set_pmu_name_md5_prefix(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_pmu_name_md5_prefix() const;
+  void _internal_set_pmu_name_md5_prefix(::uint64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t> cpu_list_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cpu_list_cached_byte_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pmu_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cpus_;
+    ::uint64_t pmu_name_md5_prefix_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_perf_5fdata_2eproto;
+};// -------------------------------------------------------------------
+
 class PerfDataProto_StringMetadata_StringAndMd5sumPrefix final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:quipper.PerfDataProto.StringMetadata.StringAndMd5sumPrefix) */ {
  public:
@@ -10776,7 +11007,7 @@ class PerfDataProto_StringMetadata_StringAndMd5sumPrefix final :
                &_PerfDataProto_StringMetadata_StringAndMd5sumPrefix_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    45;
 
   friend void swap(PerfDataProto_StringMetadata_StringAndMd5sumPrefix& a, PerfDataProto_StringMetadata_StringAndMd5sumPrefix& b) {
     a.Swap(&b);
@@ -10956,7 +11187,7 @@ class PerfDataProto_StringMetadata final :
                &_PerfDataProto_StringMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    46;
 
   friend void swap(PerfDataProto_StringMetadata& a, PerfDataProto_StringMetadata& b) {
     a.Swap(&b);
@@ -11236,7 +11467,7 @@ class PerfDataProto final :
                &_PerfDataProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    47;
 
   friend void swap(PerfDataProto& a, PerfDataProto& b) {
     a.Swap(&b);
@@ -11347,6 +11578,7 @@ class PerfDataProto final :
   typedef PerfDataProto_PerfNodeTopologyMetadata PerfNodeTopologyMetadata;
   typedef PerfDataProto_PerfPMUMappingsMetadata PerfPMUMappingsMetadata;
   typedef PerfDataProto_PerfGroupDescMetadata PerfGroupDescMetadata;
+  typedef PerfDataProto_PerfHybridTopologyMetadata PerfHybridTopologyMetadata;
   typedef PerfDataProto_StringMetadata StringMetadata;
 
   // accessors -------------------------------------------------------
@@ -11362,6 +11594,7 @@ class PerfDataProto final :
     kNumaTopologyFieldNumber = 12,
     kPmuMappingsFieldNumber = 15,
     kGroupDescFieldNumber = 16,
+    kHybridTopologyFieldNumber = 17,
     kStatsFieldNumber = 4,
     kCpuTopologyFieldNumber = 11,
     kStringMetadataFieldNumber = 13,
@@ -11568,6 +11801,26 @@ class PerfDataProto final :
   ::quipper::PerfDataProto_PerfGroupDescMetadata* add_group_desc();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfGroupDescMetadata >&
       group_desc() const;
+  // repeated .quipper.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+  int hybrid_topology_size() const;
+  private:
+  int _internal_hybrid_topology_size() const;
+
+  public:
+  void clear_hybrid_topology() ;
+  ::quipper::PerfDataProto_PerfHybridTopologyMetadata* mutable_hybrid_topology(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfHybridTopologyMetadata >*
+      mutable_hybrid_topology();
+  private:
+  const ::quipper::PerfDataProto_PerfHybridTopologyMetadata& _internal_hybrid_topology(int index) const;
+  ::quipper::PerfDataProto_PerfHybridTopologyMetadata* _internal_add_hybrid_topology();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::quipper::PerfDataProto_PerfHybridTopologyMetadata>& _internal_hybrid_topology() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::quipper::PerfDataProto_PerfHybridTopologyMetadata>* _internal_mutable_hybrid_topology();
+  public:
+  const ::quipper::PerfDataProto_PerfHybridTopologyMetadata& hybrid_topology(int index) const;
+  ::quipper::PerfDataProto_PerfHybridTopologyMetadata* add_hybrid_topology();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfHybridTopologyMetadata >&
+      hybrid_topology() const;
   // optional .quipper.PerfDataProto.PerfEventStats stats = 4;
   bool has_stats() const;
   void clear_stats() ;
@@ -11655,6 +11908,7 @@ class PerfDataProto final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfNodeTopologyMetadata > numa_topology_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfPMUMappingsMetadata > pmu_mappings_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfGroupDescMetadata > group_desc_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfHybridTopologyMetadata > hybrid_topology_;
     ::quipper::PerfDataProto_PerfEventStats* stats_;
     ::quipper::PerfDataProto_PerfCPUTopologyMetadata* cpu_topology_;
     ::quipper::PerfDataProto_StringMetadata* string_metadata_;
@@ -21731,6 +21985,209 @@ inline void PerfDataProto_PerfGroupDescMetadata::_internal_set_num_members(::uin
 
 // -------------------------------------------------------------------
 
+// PerfDataProto_PerfHybridTopologyMetadata
+
+// optional string pmu_name = 1;
+inline bool PerfDataProto_PerfHybridTopologyMetadata::has_pmu_name() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::clear_pmu_name() {
+  _impl_.pmu_name_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& PerfDataProto_PerfHybridTopologyMetadata::pmu_name() const {
+  // @@protoc_insertion_point(field_get:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name)
+  return _internal_pmu_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void PerfDataProto_PerfHybridTopologyMetadata::set_pmu_name(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.pmu_name_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name)
+}
+inline std::string* PerfDataProto_PerfHybridTopologyMetadata::mutable_pmu_name() {
+  std::string* _s = _internal_mutable_pmu_name();
+  // @@protoc_insertion_point(field_mutable:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name)
+  return _s;
+}
+inline const std::string& PerfDataProto_PerfHybridTopologyMetadata::_internal_pmu_name() const {
+  return _impl_.pmu_name_.Get();
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::_internal_set_pmu_name(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+
+
+  _impl_.pmu_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PerfDataProto_PerfHybridTopologyMetadata::_internal_mutable_pmu_name() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.pmu_name_.Mutable( GetArenaForAllocation());
+}
+inline std::string* PerfDataProto_PerfHybridTopologyMetadata::release_pmu_name() {
+  // @@protoc_insertion_point(field_release:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.pmu_name_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.pmu_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::set_allocated_pmu_name(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.pmu_name_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.pmu_name_.IsDefault()) {
+          _impl_.pmu_name_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name)
+}
+
+// optional uint64 pmu_name_md5_prefix = 2;
+inline bool PerfDataProto_PerfHybridTopologyMetadata::has_pmu_name_md5_prefix() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::clear_pmu_name_md5_prefix() {
+  _impl_.pmu_name_md5_prefix_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline ::uint64_t PerfDataProto_PerfHybridTopologyMetadata::pmu_name_md5_prefix() const {
+  // @@protoc_insertion_point(field_get:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name_md5_prefix)
+  return _internal_pmu_name_md5_prefix();
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::set_pmu_name_md5_prefix(::uint64_t value) {
+  _internal_set_pmu_name_md5_prefix(value);
+  // @@protoc_insertion_point(field_set:quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name_md5_prefix)
+}
+inline ::uint64_t PerfDataProto_PerfHybridTopologyMetadata::_internal_pmu_name_md5_prefix() const {
+  return _impl_.pmu_name_md5_prefix_;
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::_internal_set_pmu_name_md5_prefix(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.pmu_name_md5_prefix_ = value;
+}
+
+// optional string cpus = 3;
+inline bool PerfDataProto_PerfHybridTopologyMetadata::has_cpus() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::clear_cpus() {
+  _impl_.cpus_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& PerfDataProto_PerfHybridTopologyMetadata::cpus() const {
+  // @@protoc_insertion_point(field_get:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus)
+  return _internal_cpus();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void PerfDataProto_PerfHybridTopologyMetadata::set_cpus(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.cpus_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus)
+}
+inline std::string* PerfDataProto_PerfHybridTopologyMetadata::mutable_cpus() {
+  std::string* _s = _internal_mutable_cpus();
+  // @@protoc_insertion_point(field_mutable:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus)
+  return _s;
+}
+inline const std::string& PerfDataProto_PerfHybridTopologyMetadata::_internal_cpus() const {
+  return _impl_.cpus_.Get();
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::_internal_set_cpus(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+
+
+  _impl_.cpus_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PerfDataProto_PerfHybridTopologyMetadata::_internal_mutable_cpus() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  return _impl_.cpus_.Mutable( GetArenaForAllocation());
+}
+inline std::string* PerfDataProto_PerfHybridTopologyMetadata::release_cpus() {
+  // @@protoc_insertion_point(field_release:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus)
+  if ((_impl_._has_bits_[0] & 0x00000002u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  auto* released = _impl_.cpus_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.cpus_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::set_allocated_cpus(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.cpus_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.cpus_.IsDefault()) {
+          _impl_.cpus_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus)
+}
+
+// repeated uint32 cpu_list = 4 [packed = true];
+inline int PerfDataProto_PerfHybridTopologyMetadata::_internal_cpu_list_size() const {
+  return _impl_.cpu_list_.size();
+}
+inline int PerfDataProto_PerfHybridTopologyMetadata::cpu_list_size() const {
+  return _internal_cpu_list_size();
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::clear_cpu_list() {
+  _internal_mutable_cpu_list()->Clear();
+}
+inline ::uint32_t PerfDataProto_PerfHybridTopologyMetadata::cpu_list(int index) const {
+  // @@protoc_insertion_point(field_get:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpu_list)
+  return _internal_cpu_list(index);
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::set_cpu_list(int index, ::uint32_t value) {
+  _internal_mutable_cpu_list()->Set(index, value);
+  // @@protoc_insertion_point(field_set:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpu_list)
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::add_cpu_list(::uint32_t value) {
+  _internal_add_cpu_list(value);
+  // @@protoc_insertion_point(field_add:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpu_list)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& PerfDataProto_PerfHybridTopologyMetadata::cpu_list() const {
+  // @@protoc_insertion_point(field_list:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpu_list)
+  return _internal_cpu_list();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* PerfDataProto_PerfHybridTopologyMetadata::mutable_cpu_list() {
+  // @@protoc_insertion_point(field_mutable_list:quipper.PerfDataProto.PerfHybridTopologyMetadata.cpu_list)
+  return _internal_mutable_cpu_list();
+}
+
+inline ::uint32_t PerfDataProto_PerfHybridTopologyMetadata::_internal_cpu_list(int index) const {
+  return _internal_cpu_list().Get(index);
+}
+inline void PerfDataProto_PerfHybridTopologyMetadata::_internal_add_cpu_list(::uint32_t value) {
+  _internal_mutable_cpu_list()->Add(value);
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& PerfDataProto_PerfHybridTopologyMetadata::_internal_cpu_list() const {
+  return _impl_.cpu_list_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* PerfDataProto_PerfHybridTopologyMetadata::_internal_mutable_cpu_list() {
+  return &_impl_.cpu_list_;
+}
+
+// -------------------------------------------------------------------
+
 // PerfDataProto_StringMetadata_StringAndMd5sumPrefix
 
 // optional string value = 1;
@@ -23248,6 +23705,54 @@ PerfDataProto::_internal_group_desc() const {
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::quipper::PerfDataProto_PerfGroupDescMetadata>*
 PerfDataProto::_internal_mutable_group_desc() {
   return &_impl_.group_desc_;
+}
+
+// repeated .quipper.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+inline int PerfDataProto::_internal_hybrid_topology_size() const {
+  return _impl_.hybrid_topology_.size();
+}
+inline int PerfDataProto::hybrid_topology_size() const {
+  return _internal_hybrid_topology_size();
+}
+inline void PerfDataProto::clear_hybrid_topology() {
+  _internal_mutable_hybrid_topology()->Clear();
+}
+inline ::quipper::PerfDataProto_PerfHybridTopologyMetadata* PerfDataProto::mutable_hybrid_topology(int index) {
+  // @@protoc_insertion_point(field_mutable:quipper.PerfDataProto.hybrid_topology)
+  return _internal_mutable_hybrid_topology()->Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfHybridTopologyMetadata >*
+PerfDataProto::mutable_hybrid_topology() {
+  // @@protoc_insertion_point(field_mutable_list:quipper.PerfDataProto.hybrid_topology)
+  return _internal_mutable_hybrid_topology();
+}
+inline const ::quipper::PerfDataProto_PerfHybridTopologyMetadata& PerfDataProto::_internal_hybrid_topology(int index) const {
+  return _internal_hybrid_topology().Get(index);
+}
+inline const ::quipper::PerfDataProto_PerfHybridTopologyMetadata& PerfDataProto::hybrid_topology(int index) const {
+  // @@protoc_insertion_point(field_get:quipper.PerfDataProto.hybrid_topology)
+  return _internal_hybrid_topology(index);
+}
+inline ::quipper::PerfDataProto_PerfHybridTopologyMetadata* PerfDataProto::_internal_add_hybrid_topology() {
+  return _internal_mutable_hybrid_topology()->Add();
+}
+inline ::quipper::PerfDataProto_PerfHybridTopologyMetadata* PerfDataProto::add_hybrid_topology() {
+  ::quipper::PerfDataProto_PerfHybridTopologyMetadata* _add = _internal_add_hybrid_topology();
+  // @@protoc_insertion_point(field_add:quipper.PerfDataProto.hybrid_topology)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::quipper::PerfDataProto_PerfHybridTopologyMetadata >&
+PerfDataProto::hybrid_topology() const {
+  // @@protoc_insertion_point(field_list:quipper.PerfDataProto.hybrid_topology)
+  return _internal_hybrid_topology();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::quipper::PerfDataProto_PerfHybridTopologyMetadata>&
+PerfDataProto::_internal_hybrid_topology() const {
+  return _impl_.hybrid_topology_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::quipper::PerfDataProto_PerfHybridTopologyMetadata>*
+PerfDataProto::_internal_mutable_hybrid_topology() {
+  return &_impl_.hybrid_topology_;
 }
 
 // optional .quipper.PerfDataProto.StringMetadata string_metadata = 13;

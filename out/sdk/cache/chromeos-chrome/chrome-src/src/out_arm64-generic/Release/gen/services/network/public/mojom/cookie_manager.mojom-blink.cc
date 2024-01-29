@@ -1174,6 +1174,8 @@ bool CookieChangeListenerStubDispatch::Accept(
           reinterpret_cast<internal::CookieChangeListener_OnCookieChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieChangeListener.0
       bool success = true;
       CookieChangeInfoPtr p_change{};
       CookieChangeListener_OnCookieChange_ParamsDataView input_data_view(params, message);
@@ -1189,8 +1191,8 @@ bool CookieChangeListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCookieChange(
-std::move(p_change));
+      impl->OnCookieChange(        
+        std::move(p_change));
       return true;
     }
   }
@@ -1283,6 +1285,9 @@ CookieManager::IPCStableHashFunction CookieManager::MessageToMethodInfo_(mojo::M
     case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name: {
       return &CookieManager::SetTrackingProtectionEnabledFor3pcd_Sym::IPCStableHash;
     }
+    case internal::kCookieManager_SetPreCommitCallbackDelayForTesting_Name: {
+      return &CookieManager::SetPreCommitCallbackDelayForTesting_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1330,6 +1335,8 @@ const char* CookieManager::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::CookieManager::SetMitigationsEnabledFor3pcd";
       case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
             return "Receive network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd";
+      case internal::kCookieManager_SetPreCommitCallbackDelayForTesting_Name:
+            return "Receive network::mojom::CookieManager::SetPreCommitCallbackDelayForTesting";
     }
   } else {
     switch (message.name()) {
@@ -1369,6 +1376,8 @@ const char* CookieManager::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::CookieManager::SetMitigationsEnabledFor3pcd";
       case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
             return "Receive reply network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd";
+      case internal::kCookieManager_SetPreCommitCallbackDelayForTesting_Name:
+            return "Receive reply network::mojom::CookieManager::SetPreCommitCallbackDelayForTesting";
     }
   }
   return "Receive unknown mojo message";
@@ -1613,6 +1622,19 @@ uint32_t CookieManager::SetTrackingProtectionEnabledFor3pcd_Sym::IPCStableHash()
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)network::mojom::CookieManager::SetTrackingProtectionEnabledFor3pcd");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CookieManager::SetPreCommitCallbackDelayForTesting_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)network::mojom::CookieManager::SetPreCommitCallbackDelayForTesting");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2642,6 +2664,57 @@ void CookieManagerProxy::SetTrackingProtectionEnabledFor3pcd(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+
+void CookieManagerProxy::SetPreCommitCallbackDelayForTesting(
+    ::base::TimeDelta in_delay) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send network::mojom::CookieManager::SetPreCommitCallbackDelayForTesting", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("delay"), in_delay,
+                        "<value of type ::base::TimeDelta>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCookieManager_SetPreCommitCallbackDelayForTesting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::network::mojom::internal::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->delay)::BaseType> delay_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+      in_delay, delay_fragment);
+  params->delay.Set(
+      delay_fragment.is_null() ? nullptr : delay_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->delay.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null delay in CookieManager.SetPreCommitCallbackDelayForTesting request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CookieManager::Name_);
+  message.set_method_name("SetPreCommitCallbackDelayForTesting");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class CookieManager_GetAllCookies_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static CookieManager::GetAllCookiesCallback CreateCallback(
@@ -2700,6 +2773,8 @@ bool CookieManager_GetAllCookies_ForwardToCallback::Accept(
           internal::CookieManager_GetAllCookies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.0
   bool success = true;
   WTF::Vector<::net::CanonicalCookie> p_cookies{};
   CookieManager_GetAllCookies_ResponseParamsDataView input_data_view(params, message);
@@ -2831,6 +2906,8 @@ bool CookieManager_GetAllCookiesWithAccessSemantics_ForwardToCallback::Accept(
           internal::CookieManager_GetAllCookiesWithAccessSemantics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.1
   bool success = true;
   WTF::Vector<::net::CanonicalCookie> p_cookies{};
   WTF::Vector<CookieAccessSemantics> p_access_semantics_list{};
@@ -2982,6 +3059,8 @@ bool CookieManager_GetCookieList_ForwardToCallback::Accept(
           internal::CookieManager_GetCookieList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.2
   bool success = true;
   WTF::Vector<CookieWithAccessResultPtr> p_cookies{};
   WTF::Vector<CookieWithAccessResultPtr> p_excluded_cookies{};
@@ -3133,6 +3212,8 @@ bool CookieManager_SetCanonicalCookie_ForwardToCallback::Accept(
           internal::CookieManager_SetCanonicalCookie_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.3
   bool success = true;
   CookieAccessResultPtr p_access_result{};
   CookieManager_SetCanonicalCookie_ResponseParamsDataView input_data_view(params, message);
@@ -3262,6 +3343,8 @@ bool CookieManager_DeleteCanonicalCookie_ForwardToCallback::Accept(
           internal::CookieManager_DeleteCanonicalCookie_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.4
   bool success = true;
   bool p_success{};
   CookieManager_DeleteCanonicalCookie_ResponseParamsDataView input_data_view(params, message);
@@ -3381,6 +3464,8 @@ bool CookieManager_DeleteCookies_ForwardToCallback::Accept(
           internal::CookieManager_DeleteCookies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.5
   bool success = true;
   uint32_t p_num_deleted{};
   CookieManager_DeleteCookies_ResponseParamsDataView input_data_view(params, message);
@@ -3500,6 +3585,8 @@ bool CookieManager_DeleteSessionOnlyCookies_ForwardToCallback::Accept(
           internal::CookieManager_DeleteSessionOnlyCookies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.6
   bool success = true;
   uint32_t p_num_deleted{};
   CookieManager_DeleteSessionOnlyCookies_ResponseParamsDataView input_data_view(params, message);
@@ -3619,6 +3706,8 @@ bool CookieManager_FlushCookieStore_ForwardToCallback::Accept(
           internal::CookieManager_FlushCookieStore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.10
   bool success = true;
   CookieManager_FlushCookieStore_ResponseParamsDataView input_data_view(params, message);
   
@@ -3726,6 +3815,8 @@ bool CookieManager_AllowFileSchemeCookies_ForwardToCallback::Accept(
           internal::CookieManager_AllowFileSchemeCookies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.11
   bool success = true;
   bool p_success{};
   CookieManager_AllowFileSchemeCookies_ResponseParamsDataView input_data_view(params, message);
@@ -3845,6 +3936,8 @@ bool CookieManager_SetContentSettings_ForwardToCallback::Accept(
           internal::CookieManager_SetContentSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieManager.12
   bool success = true;
   CookieManager_SetContentSettings_ResponseParamsDataView input_data_view(params, message);
   
@@ -3928,6 +4021,8 @@ bool CookieManagerStubDispatch::Accept(
           reinterpret_cast<internal::CookieManager_AddCookieChangeListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.7
       bool success = true;
       ::blink::KURL p_url{};
       WTF::String p_name{};
@@ -3951,10 +4046,10 @@ bool CookieManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCookieChangeListener(
-std::move(p_url), 
-std::move(p_name), 
-std::move(p_listener));
+      impl->AddCookieChangeListener(        
+        std::move(p_url), 
+        std::move(p_name), 
+        std::move(p_listener));
       return true;
     }
     case internal::kCookieManager_AddGlobalChangeListener_Name: {
@@ -3964,6 +4059,8 @@ std::move(p_listener));
           reinterpret_cast<internal::CookieManager_AddGlobalChangeListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.8
       bool success = true;
       ::mojo::PendingRemote<CookieChangeListener> p_notification_pointer{};
       CookieManager_AddGlobalChangeListener_ParamsDataView input_data_view(params, message);
@@ -3981,8 +4078,8 @@ std::move(p_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddGlobalChangeListener(
-std::move(p_notification_pointer));
+      impl->AddGlobalChangeListener(        
+        std::move(p_notification_pointer));
       return true;
     }
     case internal::kCookieManager_CloneInterface_Name: {
@@ -3992,6 +4089,8 @@ std::move(p_notification_pointer));
           reinterpret_cast<internal::CookieManager_CloneInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.9
       bool success = true;
       ::mojo::PendingReceiver<CookieManager> p_new_interface{};
       CookieManager_CloneInterface_ParamsDataView input_data_view(params, message);
@@ -4009,8 +4108,8 @@ std::move(p_notification_pointer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloneInterface(
-std::move(p_new_interface));
+      impl->CloneInterface(        
+        std::move(p_new_interface));
       return true;
     }
     case internal::kCookieManager_FlushCookieStore_Name: {
@@ -4029,6 +4128,8 @@ std::move(p_new_interface));
           reinterpret_cast<internal::CookieManager_SetForceKeepSessionState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.13
       bool success = true;
       CookieManager_SetForceKeepSessionState_ParamsDataView input_data_view(params, message);
       
@@ -4041,7 +4142,7 @@ std::move(p_new_interface));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetForceKeepSessionState();
+      impl->SetForceKeepSessionState(        );
       return true;
     }
     case internal::kCookieManager_BlockThirdPartyCookies_Name: {
@@ -4051,6 +4152,8 @@ std::move(p_new_interface));
           reinterpret_cast<internal::CookieManager_BlockThirdPartyCookies_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.14
       bool success = true;
       bool p_block{};
       CookieManager_BlockThirdPartyCookies_ParamsDataView input_data_view(params, message);
@@ -4066,8 +4169,8 @@ std::move(p_new_interface));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BlockThirdPartyCookies(
-std::move(p_block));
+      impl->BlockThirdPartyCookies(        
+        std::move(p_block));
       return true;
     }
     case internal::kCookieManager_BlockTruncatedCookies_Name: {
@@ -4077,6 +4180,8 @@ std::move(p_block));
           reinterpret_cast<internal::CookieManager_BlockTruncatedCookies_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.15
       bool success = true;
       bool p_block{};
       CookieManager_BlockTruncatedCookies_ParamsDataView input_data_view(params, message);
@@ -4092,8 +4197,8 @@ std::move(p_block));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BlockTruncatedCookies(
-std::move(p_block));
+      impl->BlockTruncatedCookies(        
+        std::move(p_block));
       return true;
     }
     case internal::kCookieManager_SetMitigationsEnabledFor3pcd_Name: {
@@ -4103,6 +4208,8 @@ std::move(p_block));
           reinterpret_cast<internal::CookieManager_SetMitigationsEnabledFor3pcd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.16
       bool success = true;
       bool p_enable{};
       CookieManager_SetMitigationsEnabledFor3pcd_ParamsDataView input_data_view(params, message);
@@ -4118,8 +4225,8 @@ std::move(p_block));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMitigationsEnabledFor3pcd(
-std::move(p_enable));
+      impl->SetMitigationsEnabledFor3pcd(        
+        std::move(p_enable));
       return true;
     }
     case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name: {
@@ -4129,6 +4236,8 @@ std::move(p_enable));
           reinterpret_cast<internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieManager.17
       bool success = true;
       bool p_enable{};
       CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsDataView input_data_view(params, message);
@@ -4144,8 +4253,36 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTrackingProtectionEnabledFor3pcd(
-std::move(p_enable));
+      impl->SetTrackingProtectionEnabledFor3pcd(        
+        std::move(p_enable));
+      return true;
+    }
+    case internal::kCookieManager_SetPreCommitCallbackDelayForTesting_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data* params =
+          reinterpret_cast<internal::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for CookieManager.18
+      bool success = true;
+      ::base::TimeDelta p_delay{};
+      CookieManager_SetPreCommitCallbackDelayForTesting_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDelay(&p_delay))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CookieManager::Name_, 18, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetPreCommitCallbackDelayForTesting(        
+        std::move(p_delay));
       return true;
     }
   }
@@ -4168,6 +4305,8 @@ bool CookieManagerStubDispatch::AcceptWithResponder(
               internal::CookieManager_GetAllCookies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.0
       bool success = true;
       CookieManager_GetAllCookies_ParamsDataView input_data_view(params, message);
       
@@ -4193,6 +4332,8 @@ bool CookieManagerStubDispatch::AcceptWithResponder(
               internal::CookieManager_GetAllCookiesWithAccessSemantics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.1
       bool success = true;
       CookieManager_GetAllCookiesWithAccessSemantics_ParamsDataView input_data_view(params, message);
       
@@ -4218,6 +4359,8 @@ bool CookieManagerStubDispatch::AcceptWithResponder(
               internal::CookieManager_GetCookieList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.2
       bool success = true;
       ::blink::KURL p_url{};
       CookieOptionsPtr p_cookie_options{};
@@ -4242,10 +4385,10 @@ bool CookieManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCookieList(
-std::move(p_url), 
-std::move(p_cookie_options), 
-std::move(p_cookie_partition_key_collection), std::move(callback));
+      impl->GetCookieList(        
+        std::move(p_url), 
+        std::move(p_cookie_options), 
+        std::move(p_cookie_partition_key_collection), std::move(callback));
       return true;
     }
     case internal::kCookieManager_SetCanonicalCookie_Name: {
@@ -4255,6 +4398,8 @@ std::move(p_cookie_partition_key_collection), std::move(callback));
               internal::CookieManager_SetCanonicalCookie_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.3
       bool success = true;
       ::net::CanonicalCookie p_cookie{};
       ::blink::KURL p_source_url{};
@@ -4279,10 +4424,10 @@ std::move(p_cookie_partition_key_collection), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCanonicalCookie(
-std::move(p_cookie), 
-std::move(p_source_url), 
-std::move(p_cookie_options), std::move(callback));
+      impl->SetCanonicalCookie(        
+        std::move(p_cookie), 
+        std::move(p_source_url), 
+        std::move(p_cookie_options), std::move(callback));
       return true;
     }
     case internal::kCookieManager_DeleteCanonicalCookie_Name: {
@@ -4292,6 +4437,8 @@ std::move(p_cookie_options), std::move(callback));
               internal::CookieManager_DeleteCanonicalCookie_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.4
       bool success = true;
       ::net::CanonicalCookie p_cookie{};
       CookieManager_DeleteCanonicalCookie_ParamsDataView input_data_view(params, message);
@@ -4310,8 +4457,8 @@ std::move(p_cookie_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteCanonicalCookie(
-std::move(p_cookie), std::move(callback));
+      impl->DeleteCanonicalCookie(        
+        std::move(p_cookie), std::move(callback));
       return true;
     }
     case internal::kCookieManager_DeleteCookies_Name: {
@@ -4321,6 +4468,8 @@ std::move(p_cookie), std::move(callback));
               internal::CookieManager_DeleteCookies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.5
       bool success = true;
       CookieDeletionFilterPtr p_filter{};
       CookieManager_DeleteCookies_ParamsDataView input_data_view(params, message);
@@ -4339,8 +4488,8 @@ std::move(p_cookie), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteCookies(
-std::move(p_filter), std::move(callback));
+      impl->DeleteCookies(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kCookieManager_DeleteSessionOnlyCookies_Name: {
@@ -4350,6 +4499,8 @@ std::move(p_filter), std::move(callback));
               internal::CookieManager_DeleteSessionOnlyCookies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.6
       bool success = true;
       CookieManager_DeleteSessionOnlyCookies_ParamsDataView input_data_view(params, message);
       
@@ -4384,6 +4535,8 @@ std::move(p_filter), std::move(callback));
               internal::CookieManager_FlushCookieStore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.10
       bool success = true;
       CookieManager_FlushCookieStore_ParamsDataView input_data_view(params, message);
       
@@ -4409,6 +4562,8 @@ std::move(p_filter), std::move(callback));
               internal::CookieManager_AllowFileSchemeCookies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.11
       bool success = true;
       bool p_allow{};
       CookieManager_AllowFileSchemeCookies_ParamsDataView input_data_view(params, message);
@@ -4427,8 +4582,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllowFileSchemeCookies(
-std::move(p_allow), std::move(callback));
+      impl->AllowFileSchemeCookies(        
+        std::move(p_allow), std::move(callback));
       return true;
     }
     case internal::kCookieManager_SetContentSettings_Name: {
@@ -4438,6 +4593,8 @@ std::move(p_allow), std::move(callback));
               internal::CookieManager_SetContentSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieManager.12
       bool success = true;
       ::content_settings::mojom::blink::ContentSettingsType p_content_settings_type{};
       WTF::Vector<::content_settings::mojom::blink::ContentSettingPatternSourcePtr> p_settings{};
@@ -4459,9 +4616,9 @@ std::move(p_allow), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetContentSettings(
-std::move(p_content_settings_type), 
-std::move(p_settings), std::move(callback));
+      impl->SetContentSettings(        
+        std::move(p_content_settings_type), 
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kCookieManager_SetForceKeepSessionState_Name: {
@@ -4477,6 +4634,9 @@ std::move(p_settings), std::move(callback));
       break;
     }
     case internal::kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name: {
+      break;
+    }
+    case internal::kCookieManager_SetPreCommitCallbackDelayForTesting_Name: {
       break;
     }
   }
@@ -4520,6 +4680,8 @@ static const mojo::internal::GenericValidationInfo kCookieManagerValidationInfo[
     { &internal::CookieManager_SetMitigationsEnabledFor3pcd_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4914,6 +5076,9 @@ void CookieManagerInterceptorForTesting::SetMitigationsEnabledFor3pcd(bool enabl
 }
 void CookieManagerInterceptorForTesting::SetTrackingProtectionEnabledFor3pcd(bool enable) {
   GetForwardingInterface()->SetTrackingProtectionEnabledFor3pcd(std::move(enable));
+}
+void CookieManagerInterceptorForTesting::SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) {
+  GetForwardingInterface()->SetPreCommitCallbackDelayForTesting(std::move(delay));
 }
 CookieManagerAsyncWaiter::CookieManagerAsyncWaiter(
     CookieManager* proxy) : proxy_(proxy) {}

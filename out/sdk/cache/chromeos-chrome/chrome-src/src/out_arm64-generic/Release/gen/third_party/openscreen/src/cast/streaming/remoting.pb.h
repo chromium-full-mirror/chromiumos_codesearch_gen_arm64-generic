@@ -301,7 +301,6 @@ enum VideoDecoderConfig_Profile : int {
   VideoDecoderConfig_Profile_HEVCPROFILE_MAIN10 = 17,
   VideoDecoderConfig_Profile_HEVCPROFILE_MAIN_STILL_PICTURE = 18,
   VideoDecoderConfig_Profile_DOLBYVISION_PROFILE0 = 19,
-  VideoDecoderConfig_Profile_DOLBYVISION_PROFILE4 = 20,
   VideoDecoderConfig_Profile_DOLBYVISION_PROFILE5 = 21,
   VideoDecoderConfig_Profile_DOLBYVISION_PROFILE7 = 22,
   VideoDecoderConfig_Profile_THEORAPROFILE_ANY = 23,
@@ -1729,8 +1728,6 @@ class VideoDecoderConfig final :
     VideoDecoderConfig_Profile_HEVCPROFILE_MAIN_STILL_PICTURE;
   static constexpr Profile DOLBYVISION_PROFILE0 =
     VideoDecoderConfig_Profile_DOLBYVISION_PROFILE0;
-  static constexpr Profile DOLBYVISION_PROFILE4 =
-    VideoDecoderConfig_Profile_DOLBYVISION_PROFILE4;
   static constexpr Profile DOLBYVISION_PROFILE5 =
     VideoDecoderConfig_Profile_DOLBYVISION_PROFILE5;
   static constexpr Profile DOLBYVISION_PROFILE7 =

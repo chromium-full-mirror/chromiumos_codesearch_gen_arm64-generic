@@ -367,6 +367,8 @@ bool FileEnumerator_GetNext_ForwardToCallback::Accept(
           internal::FileEnumerator_GetNext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileEnumerator.0
   bool success = true;
   std::vector<::disk_cache::BackendFileOperations::FileEnumerationEntry> p_entries{};
   bool p_end{};
@@ -464,6 +466,8 @@ bool FileEnumerator_GetNext_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileEnumerator_GetNext_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileEnumerator.0
   bool success = true;
   std::vector<::disk_cache::BackendFileOperations::FileEnumerationEntry> p_entries{};
   bool p_end{};
@@ -518,6 +522,8 @@ bool FileEnumeratorStubDispatch::AcceptWithResponder(
               internal::FileEnumerator_GetNext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileEnumerator.0
       bool success = true;
       uint32_t p_num_entries{};
       FileEnumerator_GetNext_ParamsDataView input_data_view(params, message);
@@ -536,8 +542,8 @@ bool FileEnumeratorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNext(
-std::move(p_num_entries), std::move(callback));
+      impl->GetNext(        
+        std::move(p_num_entries), std::move(callback));
       return true;
     }
   }
@@ -2100,6 +2106,8 @@ bool HttpCacheBackendFileOperations_CreateDirectory_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_CreateDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.0
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_CreateDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -2169,6 +2177,8 @@ bool HttpCacheBackendFileOperations_CreateDirectory_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_CreateDirectory_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.0
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_CreateDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -2244,6 +2254,8 @@ bool HttpCacheBackendFileOperations_PathExists_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_PathExists_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.1
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_PathExists_ResponseParamsDataView input_data_view(params, message);
@@ -2313,6 +2325,8 @@ bool HttpCacheBackendFileOperations_PathExists_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_PathExists_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.1
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_PathExists_ResponseParamsDataView input_data_view(params, message);
@@ -2388,6 +2402,8 @@ bool HttpCacheBackendFileOperations_DirectoryExists_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_DirectoryExists_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.2
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_DirectoryExists_ResponseParamsDataView input_data_view(params, message);
@@ -2457,6 +2473,8 @@ bool HttpCacheBackendFileOperations_DirectoryExists_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_DirectoryExists_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.2
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_DirectoryExists_ResponseParamsDataView input_data_view(params, message);
@@ -2532,6 +2550,8 @@ bool HttpCacheBackendFileOperations_OpenFile_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_OpenFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.3
   bool success = true;
   ::base::File p_file{};
   ::base::File::Error p_error{};
@@ -2616,6 +2636,8 @@ bool HttpCacheBackendFileOperations_OpenFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_OpenFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.3
   bool success = true;
   ::base::File p_file{};
   ::base::File::Error p_error{};
@@ -2695,6 +2717,8 @@ bool HttpCacheBackendFileOperations_DeleteFile_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_DeleteFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.4
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_DeleteFile_ResponseParamsDataView input_data_view(params, message);
@@ -2764,6 +2788,8 @@ bool HttpCacheBackendFileOperations_DeleteFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_DeleteFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.4
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_DeleteFile_ResponseParamsDataView input_data_view(params, message);
@@ -2839,6 +2865,8 @@ bool HttpCacheBackendFileOperations_RenameFile_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_RenameFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.5
   bool success = true;
   ::base::File::Error p_error{};
   HttpCacheBackendFileOperations_RenameFile_ResponseParamsDataView input_data_view(params, message);
@@ -2909,6 +2937,8 @@ bool HttpCacheBackendFileOperations_RenameFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_RenameFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.5
   bool success = true;
   ::base::File::Error p_error{};
   HttpCacheBackendFileOperations_RenameFile_ResponseParamsDataView input_data_view(params, message);
@@ -2984,6 +3014,8 @@ bool HttpCacheBackendFileOperations_GetFileInfo_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_GetFileInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.6
   bool success = true;
   std::optional<::base::File::Info> p_info{};
   HttpCacheBackendFileOperations_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3059,6 +3091,8 @@ bool HttpCacheBackendFileOperations_GetFileInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::HttpCacheBackendFileOperations_GetFileInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.6
   bool success = true;
   std::optional<::base::File::Info> p_info{};
   HttpCacheBackendFileOperations_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3134,6 +3168,8 @@ bool HttpCacheBackendFileOperations_CleanupDirectory_ForwardToCallback::Accept(
           internal::HttpCacheBackendFileOperations_CleanupDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HttpCacheBackendFileOperations.8
   bool success = true;
   bool p_result{};
   HttpCacheBackendFileOperations_CleanupDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -3229,6 +3265,8 @@ bool HttpCacheBackendFileOperationsStubDispatch::Accept(
           reinterpret_cast<internal::HttpCacheBackendFileOperations_EnumerateFiles_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.7
       bool success = true;
       ::base::FilePath p_path{};
       ::mojo::PendingReceiver<FileEnumerator> p_receiver{};
@@ -3249,9 +3287,9 @@ bool HttpCacheBackendFileOperationsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnumerateFiles(
-std::move(p_path), 
-std::move(p_receiver));
+      impl->EnumerateFiles(        
+        std::move(p_path), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_CleanupDirectory_Name: {
@@ -3277,6 +3315,8 @@ bool HttpCacheBackendFileOperationsStubDispatch::AcceptWithResponder(
               internal::HttpCacheBackendFileOperations_CreateDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.0
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendFileOperations_CreateDirectory_ParamsDataView input_data_view(params, message);
@@ -3295,8 +3335,8 @@ bool HttpCacheBackendFileOperationsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDirectory(
-std::move(p_path), std::move(callback));
+      impl->CreateDirectory(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_PathExists_Name: {
@@ -3306,6 +3346,8 @@ std::move(p_path), std::move(callback));
               internal::HttpCacheBackendFileOperations_PathExists_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.1
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendFileOperations_PathExists_ParamsDataView input_data_view(params, message);
@@ -3324,8 +3366,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PathExists(
-std::move(p_path), std::move(callback));
+      impl->PathExists(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_DirectoryExists_Name: {
@@ -3335,6 +3377,8 @@ std::move(p_path), std::move(callback));
               internal::HttpCacheBackendFileOperations_DirectoryExists_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.2
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendFileOperations_DirectoryExists_ParamsDataView input_data_view(params, message);
@@ -3353,8 +3397,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DirectoryExists(
-std::move(p_path), std::move(callback));
+      impl->DirectoryExists(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_OpenFile_Name: {
@@ -3364,6 +3408,8 @@ std::move(p_path), std::move(callback));
               internal::HttpCacheBackendFileOperations_OpenFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.3
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendOpenFileFlags p_flags{};
@@ -3385,9 +3431,9 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFile(
-std::move(p_path), 
-std::move(p_flags), std::move(callback));
+      impl->OpenFile(        
+        std::move(p_path), 
+        std::move(p_flags), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_DeleteFile_Name: {
@@ -3397,6 +3443,8 @@ std::move(p_flags), std::move(callback));
               internal::HttpCacheBackendFileOperations_DeleteFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.4
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendDeleteFileMode p_mode{};
@@ -3418,9 +3466,9 @@ std::move(p_flags), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteFile(
-std::move(p_path), 
-std::move(p_mode), std::move(callback));
+      impl->DeleteFile(        
+        std::move(p_path), 
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_RenameFile_Name: {
@@ -3430,6 +3478,8 @@ std::move(p_mode), std::move(callback));
               internal::HttpCacheBackendFileOperations_RenameFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.5
       bool success = true;
       ::base::FilePath p_from_path{};
       ::base::FilePath p_to_path{};
@@ -3451,9 +3501,9 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenameFile(
-std::move(p_from_path), 
-std::move(p_to_path), std::move(callback));
+      impl->RenameFile(        
+        std::move(p_from_path), 
+        std::move(p_to_path), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_GetFileInfo_Name: {
@@ -3463,6 +3513,8 @@ std::move(p_to_path), std::move(callback));
               internal::HttpCacheBackendFileOperations_GetFileInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.6
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendFileOperations_GetFileInfo_ParamsDataView input_data_view(params, message);
@@ -3481,8 +3533,8 @@ std::move(p_to_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileInfo(
-std::move(p_path), std::move(callback));
+      impl->GetFileInfo(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kHttpCacheBackendFileOperations_EnumerateFiles_Name: {
@@ -3495,6 +3547,8 @@ std::move(p_path), std::move(callback));
               internal::HttpCacheBackendFileOperations_CleanupDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperations.8
       bool success = true;
       ::base::FilePath p_path{};
       HttpCacheBackendFileOperations_CleanupDirectory_ParamsDataView input_data_view(params, message);
@@ -3513,8 +3567,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CleanupDirectory(
-std::move(p_path), std::move(callback));
+      impl->CleanupDirectory(        
+        std::move(p_path), std::move(callback));
       return true;
     }
   }
@@ -3669,6 +3723,8 @@ bool HttpCacheBackendFileOperationsFactoryStubDispatch::Accept(
           reinterpret_cast<internal::HttpCacheBackendFileOperationsFactory_Create_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HttpCacheBackendFileOperationsFactory.0
       bool success = true;
       ::mojo::PendingReceiver<HttpCacheBackendFileOperations> p_receiver{};
       HttpCacheBackendFileOperationsFactory_Create_ParamsDataView input_data_view(params, message);
@@ -3686,8 +3742,8 @@ bool HttpCacheBackendFileOperationsFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_receiver));
+      impl->Create(        
+        std::move(p_receiver));
       return true;
     }
   }

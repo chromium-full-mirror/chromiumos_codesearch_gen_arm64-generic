@@ -22,7 +22,10 @@ export class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMi
     static get properties() {
         return {
             dialogTitle: String,
-            members: Array,
+            members: {
+                type: Array,
+                value: [],
+            },
             selectedRecipients: {
                 type: Array,
                 value: [],
@@ -38,6 +41,14 @@ export class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMi
                 computed: 'computeIneligible_(members)',
             },
         };
+    }
+    ready() {
+        super.ready();
+        // Pre-select the member if they are eligible for sharing and there are no
+        // other members in the group.
+        if (this.members.length === 1 && this.computeEligible_().length === 1) {
+            this.selectedRecipients = this.members;
+        }
     }
     computeEligible_() {
         const eligibleMembers = this.members.filter(member => member.isEligible);
@@ -55,6 +66,11 @@ export class SharePasswordFamilyPickerDialogElement extends UserUtilMixin(I18nMi
                 .from(this.shadowRoot.querySelectorAll('share-password-recipient'))
                 .filter(item => item.selected)
                 .map(item => item.recipient);
+    }
+    // Should only be called for eligible recipients.
+    shouldPreselectFirstEntry_(index) {
+        // Only pre-select the first entry when there is only single group member.
+        return index === 0 && this.members.length === 1;
     }
     onViewFamilyClick_() {
         recordPasswordSharingInteraction(PasswordSharingActions.FAMILY_PICKER_VIEW_FAMILY_CLICKED);

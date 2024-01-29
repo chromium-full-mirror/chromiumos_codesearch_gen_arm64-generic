@@ -1,0 +1,6 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/camera3.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/camera_app.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/camera_common.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/camera_features.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/camera_metadata.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/camera_metadata_tags.mojom-module

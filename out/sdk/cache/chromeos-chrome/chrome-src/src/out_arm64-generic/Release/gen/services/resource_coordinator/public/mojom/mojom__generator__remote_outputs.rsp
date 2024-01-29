@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/constants.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/constants.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/constants.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/constants.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/constants.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom.h

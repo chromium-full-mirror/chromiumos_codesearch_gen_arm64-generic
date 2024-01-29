@@ -7,23 +7,6 @@
 import {mojo} from '../../../../mojo/public/js/bindings.js';
 
 
-/**
- * @const { {$: !mojo.internal.MojomType} }
- */
-export const BFCacheBlockedSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- */
-export const BFCacheBlocked = {
-  
-  kYes: 0,
-  kNo: 1,
-  kMasked: 2,
-  MIN_VALUE: 0,
-  MAX_VALUE: 2,
-};
-
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -53,15 +36,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'reasons', 8,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'children', 16,
+        'children', 8,
         0,
         mojo.internal.Array(BackForwardCacheNotRestoredReasonsSpec.$, false),
         null,
@@ -69,7 +44,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 32],]);
+    [[0, 24],]);
 
 
 
@@ -80,8 +55,6 @@ export class SameOriginBfcacheNotRestoredDetails {
   constructor() {
     /** @type { !string } */
     this.url;
-    /** @type { !Array<!string> } */
-    this.reasons;
     /** @type { !Array<!BackForwardCacheNotRestoredReasons> } */
     this.children;
   }
@@ -94,35 +67,35 @@ mojo.internal.Struct(
     'BackForwardCacheNotRestoredReasons',
     [
       mojo.internal.StructField(
-        'blocked', 0,
+        'src', 0,
         0,
-        BFCacheBlockedSpec.$,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
         0,
+      ),
+      mojo.internal.StructField(
+        'id', 8,
+        0,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'name', 16,
+        0,
+        mojo.internal.String,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'reasons', 24,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
         false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'src', 8,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'id', 16,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'name', 24,
-        0,
-        mojo.internal.String,
-        null,
-        true /* nullable */,
         0,
       ),
       mojo.internal.StructField(
@@ -143,14 +116,14 @@ mojo.internal.Struct(
  */
 export class BackForwardCacheNotRestoredReasons {
   constructor() {
-    /** @type { !BFCacheBlocked } */
-    this.blocked;
     /** @type { (string|undefined) } */
     this.src;
     /** @type { (string|undefined) } */
     this.id;
     /** @type { (string|undefined) } */
     this.name;
+    /** @type { !Array<!string> } */
+    this.reasons;
     /** @type { (SameOriginBfcacheNotRestoredDetails|undefined) } */
     this.sameOriginDetails;
   }

@@ -3369,6 +3369,8 @@ bool GpuChannel_GetChannelToken_ForwardToCallback::Accept(
           internal::GpuChannel_GetChannelToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.2
   bool success = true;
   ::base::UnguessableToken p_token{};
   GpuChannel_GetChannelToken_ResponseParamsDataView input_data_view(params, message);
@@ -3448,6 +3450,8 @@ bool GpuChannel_GetChannelToken_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_GetChannelToken_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.2
   bool success = true;
   ::base::UnguessableToken p_token{};
   GpuChannel_GetChannelToken_ResponseParamsDataView input_data_view(params, message);
@@ -3523,6 +3527,8 @@ bool GpuChannel_Flush_ForwardToCallback::Accept(
           internal::GpuChannel_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.3
   bool success = true;
   GpuChannel_Flush_ResponseParamsDataView input_data_view(params, message);
   
@@ -3580,6 +3586,8 @@ bool GpuChannel_Flush_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_Flush_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.3
   bool success = true;
   GpuChannel_Flush_ResponseParamsDataView input_data_view(params, message);
   
@@ -3651,6 +3659,8 @@ bool GpuChannel_CreateCommandBuffer_ForwardToCallback::Accept(
           internal::GpuChannel_CreateCommandBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.4
   bool success = true;
   ::gpu::ContextResult p_result{};
   ::gpu::Capabilities p_capabilties{};
@@ -3757,6 +3767,8 @@ bool GpuChannel_CreateCommandBuffer_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_CreateCommandBuffer_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.4
   bool success = true;
   ::gpu::ContextResult p_result{};
   ::gpu::Capabilities p_capabilties{};
@@ -3840,6 +3852,8 @@ bool GpuChannel_DestroyCommandBuffer_ForwardToCallback::Accept(
           internal::GpuChannel_DestroyCommandBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.5
   bool success = true;
   GpuChannel_DestroyCommandBuffer_ResponseParamsDataView input_data_view(params, message);
   
@@ -3897,6 +3911,8 @@ bool GpuChannel_DestroyCommandBuffer_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_DestroyCommandBuffer_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.5
   bool success = true;
   GpuChannel_DestroyCommandBuffer_ResponseParamsDataView input_data_view(params, message);
   
@@ -3968,6 +3984,8 @@ bool GpuChannel_CreateGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::GpuChannel_CreateGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.8
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   GpuChannel_CreateGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -4047,6 +4065,8 @@ bool GpuChannel_CreateGpuMemoryBuffer_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_CreateGpuMemoryBuffer_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.8
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   GpuChannel_CreateGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -4122,6 +4142,8 @@ bool GpuChannel_GetGpuMemoryBufferHandleInfo_ForwardToCallback::Accept(
           internal::GpuChannel_GetGpuMemoryBufferHandleInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.9
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   ::viz::SharedImageFormat p_format{};
@@ -4244,6 +4266,8 @@ bool GpuChannel_GetGpuMemoryBufferHandleInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_GetGpuMemoryBufferHandleInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.9
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   ::viz::SharedImageFormat p_format{};
@@ -4331,6 +4355,8 @@ bool GpuChannel_WaitForTokenInRange_ForwardToCallback::Accept(
           internal::GpuChannel_WaitForTokenInRange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.10
   bool success = true;
   ::gpu::CommandBuffer::State p_state{};
   GpuChannel_WaitForTokenInRange_ResponseParamsDataView input_data_view(params, message);
@@ -4410,6 +4436,8 @@ bool GpuChannel_WaitForTokenInRange_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_WaitForTokenInRange_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.10
   bool success = true;
   ::gpu::CommandBuffer::State p_state{};
   GpuChannel_WaitForTokenInRange_ResponseParamsDataView input_data_view(params, message);
@@ -4485,6 +4513,8 @@ bool GpuChannel_WaitForGetOffsetInRange_ForwardToCallback::Accept(
           internal::GpuChannel_WaitForGetOffsetInRange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuChannel.11
   bool success = true;
   ::gpu::CommandBuffer::State p_state{};
   GpuChannel_WaitForGetOffsetInRange_ResponseParamsDataView input_data_view(params, message);
@@ -4564,6 +4594,8 @@ bool GpuChannel_WaitForGetOffsetInRange_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuChannel_WaitForGetOffsetInRange_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuChannel.11
   bool success = true;
   ::gpu::CommandBuffer::State p_state{};
   GpuChannel_WaitForGetOffsetInRange_ResponseParamsDataView input_data_view(params, message);
@@ -4594,6 +4626,8 @@ bool GpuChannelStubDispatch::Accept(
           reinterpret_cast<internal::GpuChannel_CrashForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuChannel.0
       bool success = true;
       GpuChannel_CrashForTesting_ParamsDataView input_data_view(params, message);
       
@@ -4606,7 +4640,7 @@ bool GpuChannelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CrashForTesting();
+      impl->CrashForTesting(        );
       return true;
     }
     case internal::kGpuChannel_TerminateForTesting_Name: {
@@ -4616,6 +4650,8 @@ bool GpuChannelStubDispatch::Accept(
           reinterpret_cast<internal::GpuChannel_TerminateForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuChannel.1
       bool success = true;
       GpuChannel_TerminateForTesting_ParamsDataView input_data_view(params, message);
       
@@ -4628,7 +4664,7 @@ bool GpuChannelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TerminateForTesting();
+      impl->TerminateForTesting(        );
       return true;
     }
     case internal::kGpuChannel_GetChannelToken_Name: {
@@ -4650,6 +4686,8 @@ bool GpuChannelStubDispatch::Accept(
           reinterpret_cast<internal::GpuChannel_ScheduleImageDecode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuChannel.6
       bool success = true;
       ScheduleImageDecodeParamsPtr p_params{};
       uint64_t p_decode_release_count{};
@@ -4668,9 +4706,9 @@ bool GpuChannelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScheduleImageDecode(
-std::move(p_params), 
-std::move(p_decode_release_count));
+      impl->ScheduleImageDecode(        
+        std::move(p_params), 
+        std::move(p_decode_release_count));
       return true;
     }
     case internal::kGpuChannel_FlushDeferredRequests_Name: {
@@ -4680,6 +4718,8 @@ std::move(p_decode_release_count));
           reinterpret_cast<internal::GpuChannel_FlushDeferredRequests_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuChannel.7
       bool success = true;
       std::vector<DeferredRequestPtr> p_requests{};
       GpuChannel_FlushDeferredRequests_ParamsDataView input_data_view(params, message);
@@ -4695,8 +4735,8 @@ std::move(p_decode_release_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FlushDeferredRequests(
-std::move(p_requests));
+      impl->FlushDeferredRequests(        
+        std::move(p_requests));
       return true;
     }
     case internal::kGpuChannel_CreateGpuMemoryBuffer_Name: {
@@ -4737,6 +4777,8 @@ bool GpuChannelStubDispatch::AcceptWithResponder(
               internal::GpuChannel_GetChannelToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.2
       bool success = true;
       GpuChannel_GetChannelToken_ParamsDataView input_data_view(params, message);
       
@@ -4762,6 +4804,8 @@ bool GpuChannelStubDispatch::AcceptWithResponder(
               internal::GpuChannel_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.3
       bool success = true;
       GpuChannel_Flush_ParamsDataView input_data_view(params, message);
       
@@ -4787,6 +4831,8 @@ bool GpuChannelStubDispatch::AcceptWithResponder(
               internal::GpuChannel_CreateCommandBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.4
       bool success = true;
       CreateCommandBufferParamsPtr p_params{};
       int32_t p_routing_id{};
@@ -4821,12 +4867,12 @@ bool GpuChannelStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCommandBuffer(
-std::move(p_params), 
-std::move(p_routing_id), 
-std::move(p_shared_state), 
-std::move(p_receiver), 
-std::move(p_client), std::move(callback));
+      impl->CreateCommandBuffer(        
+        std::move(p_params), 
+        std::move(p_routing_id), 
+        std::move(p_shared_state), 
+        std::move(p_receiver), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kGpuChannel_DestroyCommandBuffer_Name: {
@@ -4836,6 +4882,8 @@ std::move(p_client), std::move(callback));
               internal::GpuChannel_DestroyCommandBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.5
       bool success = true;
       int32_t p_routing_id{};
       GpuChannel_DestroyCommandBuffer_ParamsDataView input_data_view(params, message);
@@ -4854,8 +4902,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyCommandBuffer(
-std::move(p_routing_id), std::move(callback));
+      impl->DestroyCommandBuffer(        
+        std::move(p_routing_id), std::move(callback));
       return true;
     }
     case internal::kGpuChannel_ScheduleImageDecode_Name: {
@@ -4871,6 +4919,8 @@ std::move(p_routing_id), std::move(callback));
               internal::GpuChannel_CreateGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.8
       bool success = true;
       ::gfx::Size p_size{};
       ::viz::SharedImageFormat p_format{};
@@ -4895,10 +4945,10 @@ std::move(p_routing_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuMemoryBuffer(
-std::move(p_size), 
-std::move(p_format), 
-std::move(p_buffer_usage), std::move(callback));
+      impl->CreateGpuMemoryBuffer(        
+        std::move(p_size), 
+        std::move(p_format), 
+        std::move(p_buffer_usage), std::move(callback));
       return true;
     }
     case internal::kGpuChannel_GetGpuMemoryBufferHandleInfo_Name: {
@@ -4908,6 +4958,8 @@ std::move(p_buffer_usage), std::move(callback));
               internal::GpuChannel_GetGpuMemoryBufferHandleInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.9
       bool success = true;
       ::gpu::Mailbox p_mailbox{};
       GpuChannel_GetGpuMemoryBufferHandleInfo_ParamsDataView input_data_view(params, message);
@@ -4926,8 +4978,8 @@ std::move(p_buffer_usage), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetGpuMemoryBufferHandleInfo(
-std::move(p_mailbox), std::move(callback));
+      impl->GetGpuMemoryBufferHandleInfo(        
+        std::move(p_mailbox), std::move(callback));
       return true;
     }
     case internal::kGpuChannel_WaitForTokenInRange_Name: {
@@ -4937,6 +4989,8 @@ std::move(p_mailbox), std::move(callback));
               internal::GpuChannel_WaitForTokenInRange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.10
       bool success = true;
       int32_t p_routing_id{};
       int32_t p_start{};
@@ -4961,10 +5015,10 @@ std::move(p_mailbox), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WaitForTokenInRange(
-std::move(p_routing_id), 
-std::move(p_start), 
-std::move(p_end), std::move(callback));
+      impl->WaitForTokenInRange(        
+        std::move(p_routing_id), 
+        std::move(p_start), 
+        std::move(p_end), std::move(callback));
       return true;
     }
     case internal::kGpuChannel_WaitForGetOffsetInRange_Name: {
@@ -4974,6 +5028,8 @@ std::move(p_end), std::move(callback));
               internal::GpuChannel_WaitForGetOffsetInRange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuChannel.11
       bool success = true;
       int32_t p_routing_id{};
       uint32_t p_set_get_buffer_count{};
@@ -5001,11 +5057,11 @@ std::move(p_end), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WaitForGetOffsetInRange(
-std::move(p_routing_id), 
-std::move(p_set_get_buffer_count), 
-std::move(p_start), 
-std::move(p_end), std::move(callback));
+      impl->WaitForGetOffsetInRange(        
+        std::move(p_routing_id), 
+        std::move(p_set_get_buffer_count), 
+        std::move(p_start), 
+        std::move(p_end), std::move(callback));
       return true;
     }
   }
@@ -5574,6 +5630,8 @@ bool CommandBuffer_GetGpuFenceHandle_ForwardToCallback::Accept(
           internal::CommandBuffer_GetGpuFenceHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommandBuffer.3
   bool success = true;
   ::gfx::GpuFenceHandle p_fence_handle{};
   CommandBuffer_GetGpuFenceHandle_ResponseParamsDataView input_data_view(params, message);
@@ -5654,6 +5712,8 @@ bool CommandBufferStubDispatch::Accept(
           reinterpret_cast<internal::CommandBuffer_SetGetBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBuffer.0
       bool success = true;
       int32_t p_shm_id{};
       CommandBuffer_SetGetBuffer_ParamsDataView input_data_view(params, message);
@@ -5669,8 +5729,8 @@ bool CommandBufferStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetGetBuffer(
-std::move(p_shm_id));
+      impl->SetGetBuffer(        
+        std::move(p_shm_id));
       return true;
     }
     case internal::kCommandBuffer_RegisterTransferBuffer_Name: {
@@ -5680,6 +5740,8 @@ std::move(p_shm_id));
           reinterpret_cast<internal::CommandBuffer_RegisterTransferBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBuffer.1
       bool success = true;
       int32_t p_id{};
       ::base::UnsafeSharedMemoryRegion p_buffer{};
@@ -5698,9 +5760,9 @@ std::move(p_shm_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterTransferBuffer(
-std::move(p_id), 
-std::move(p_buffer));
+      impl->RegisterTransferBuffer(        
+        std::move(p_id), 
+        std::move(p_buffer));
       return true;
     }
     case internal::kCommandBuffer_CreateGpuFenceFromHandle_Name: {
@@ -5710,6 +5772,8 @@ std::move(p_buffer));
           reinterpret_cast<internal::CommandBuffer_CreateGpuFenceFromHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBuffer.2
       bool success = true;
       uint32_t p_gpu_fence_id{};
       ::gfx::GpuFenceHandle p_fence_handle{};
@@ -5728,9 +5792,9 @@ std::move(p_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuFenceFromHandle(
-std::move(p_gpu_fence_id), 
-std::move(p_fence_handle));
+      impl->CreateGpuFenceFromHandle(        
+        std::move(p_gpu_fence_id), 
+        std::move(p_fence_handle));
       return true;
     }
     case internal::kCommandBuffer_GetGpuFenceHandle_Name: {
@@ -5743,6 +5807,8 @@ std::move(p_fence_handle));
           reinterpret_cast<internal::CommandBuffer_SignalSyncToken_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBuffer.4
       bool success = true;
       ::gpu::SyncToken p_sync_token{};
       uint32_t p_signal_id{};
@@ -5761,9 +5827,9 @@ std::move(p_fence_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SignalSyncToken(
-std::move(p_sync_token), 
-std::move(p_signal_id));
+      impl->SignalSyncToken(        
+        std::move(p_sync_token), 
+        std::move(p_signal_id));
       return true;
     }
     case internal::kCommandBuffer_SignalQuery_Name: {
@@ -5773,6 +5839,8 @@ std::move(p_signal_id));
           reinterpret_cast<internal::CommandBuffer_SignalQuery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBuffer.5
       bool success = true;
       uint32_t p_query{};
       uint32_t p_signal_id{};
@@ -5791,9 +5859,9 @@ std::move(p_signal_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SignalQuery(
-std::move(p_query), 
-std::move(p_signal_id));
+      impl->SignalQuery(        
+        std::move(p_query), 
+        std::move(p_signal_id));
       return true;
     }
   }
@@ -5825,6 +5893,8 @@ bool CommandBufferStubDispatch::AcceptWithResponder(
               internal::CommandBuffer_GetGpuFenceHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommandBuffer.3
       bool success = true;
       uint32_t p_id{};
       CommandBuffer_GetGpuFenceHandle_ParamsDataView input_data_view(params, message);
@@ -5843,8 +5913,8 @@ bool CommandBufferStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetGpuFenceHandle(
-std::move(p_id), std::move(callback));
+      impl->GetGpuFenceHandle(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kCommandBuffer_SignalSyncToken_Name: {
@@ -6281,6 +6351,8 @@ bool CommandBufferClientStubDispatch::Accept(
           reinterpret_cast<internal::CommandBufferClient_OnConsoleMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBufferClient.0
       bool success = true;
       std::string p_message{};
       CommandBufferClient_OnConsoleMessage_ParamsDataView input_data_view(params, message);
@@ -6296,8 +6368,8 @@ bool CommandBufferClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConsoleMessage(
-std::move(p_message));
+      impl->OnConsoleMessage(        
+        std::move(p_message));
       return true;
     }
     case internal::kCommandBufferClient_OnGpuSwitched_Name: {
@@ -6307,6 +6379,8 @@ std::move(p_message));
           reinterpret_cast<internal::CommandBufferClient_OnGpuSwitched_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBufferClient.1
       bool success = true;
       ::gl::GpuPreference p_active_gpu_heuristic{};
       CommandBufferClient_OnGpuSwitched_ParamsDataView input_data_view(params, message);
@@ -6322,8 +6396,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGpuSwitched(
-std::move(p_active_gpu_heuristic));
+      impl->OnGpuSwitched(        
+        std::move(p_active_gpu_heuristic));
       return true;
     }
     case internal::kCommandBufferClient_OnDestroyed_Name: {
@@ -6333,6 +6407,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::CommandBufferClient_OnDestroyed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBufferClient.2
       bool success = true;
       ::gpu::error::ContextLostReason p_reason{};
       ::gpu::error::Error p_error{};
@@ -6351,9 +6427,9 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDestroyed(
-std::move(p_reason), 
-std::move(p_error));
+      impl->OnDestroyed(        
+        std::move(p_reason), 
+        std::move(p_error));
       return true;
     }
     case internal::kCommandBufferClient_OnReturnData_Name: {
@@ -6363,6 +6439,8 @@ std::move(p_error));
           reinterpret_cast<internal::CommandBufferClient_OnReturnData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBufferClient.3
       bool success = true;
       std::vector<uint8_t> p_data{};
       CommandBufferClient_OnReturnData_ParamsDataView input_data_view(params, message);
@@ -6378,8 +6456,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReturnData(
-std::move(p_data));
+      impl->OnReturnData(        
+        std::move(p_data));
       return true;
     }
     case internal::kCommandBufferClient_OnSignalAck_Name: {
@@ -6389,6 +6467,8 @@ std::move(p_data));
           reinterpret_cast<internal::CommandBufferClient_OnSignalAck_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommandBufferClient.4
       bool success = true;
       uint32_t p_signal_id{};
       ::gpu::CommandBuffer::State p_state{};
@@ -6407,9 +6487,9 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSignalAck(
-std::move(p_signal_id), 
-std::move(p_state));
+      impl->OnSignalAck(        
+        std::move(p_signal_id), 
+        std::move(p_state));
       return true;
     }
   }

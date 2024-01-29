@@ -2394,6 +2394,8 @@ bool WidgetInputHandlerHost_RequestMouseLock_ForwardToCallback::Accept(
           internal::WidgetInputHandlerHost_RequestMouseLock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WidgetInputHandlerHost.8
   bool success = true;
   ::blink::mojom::blink::PointerLockResult p_result{};
   ::mojo::PendingRemote<::blink::mojom::blink::PointerLockContext> p_context{};
@@ -2480,6 +2482,8 @@ bool WidgetInputHandlerHostStubDispatch::Accept(
           reinterpret_cast<internal::WidgetInputHandlerHost_SetTouchActionFromMain_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.0
       bool success = true;
       ::cc::TouchAction p_touch_action{};
       WidgetInputHandlerHost_SetTouchActionFromMain_ParamsDataView input_data_view(params, message);
@@ -2495,8 +2499,8 @@ bool WidgetInputHandlerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTouchActionFromMain(
-std::move(p_touch_action));
+      impl->SetTouchActionFromMain(        
+        std::move(p_touch_action));
       return true;
     }
     case internal::kWidgetInputHandlerHost_SetPanAction_Name: {
@@ -2506,6 +2510,8 @@ std::move(p_touch_action));
           reinterpret_cast<internal::WidgetInputHandlerHost_SetPanAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.1
       bool success = true;
       PanAction p_pan_action{};
       WidgetInputHandlerHost_SetPanAction_ParamsDataView input_data_view(params, message);
@@ -2521,8 +2527,8 @@ std::move(p_touch_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPanAction(
-std::move(p_pan_action));
+      impl->SetPanAction(        
+        std::move(p_pan_action));
       return true;
     }
     case internal::kWidgetInputHandlerHost_DidOverscroll_Name: {
@@ -2532,6 +2538,8 @@ std::move(p_pan_action));
           reinterpret_cast<internal::WidgetInputHandlerHost_DidOverscroll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.2
       bool success = true;
       DidOverscrollParamsPtr p_params{};
       WidgetInputHandlerHost_DidOverscroll_ParamsDataView input_data_view(params, message);
@@ -2547,8 +2555,8 @@ std::move(p_pan_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidOverscroll(
-std::move(p_params));
+      impl->DidOverscroll(        
+        std::move(p_params));
       return true;
     }
     case internal::kWidgetInputHandlerHost_DidStartScrollingViewport_Name: {
@@ -2558,6 +2566,8 @@ std::move(p_params));
           reinterpret_cast<internal::WidgetInputHandlerHost_DidStartScrollingViewport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.3
       bool success = true;
       WidgetInputHandlerHost_DidStartScrollingViewport_ParamsDataView input_data_view(params, message);
       
@@ -2570,7 +2580,7 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStartScrollingViewport();
+      impl->DidStartScrollingViewport(        );
       return true;
     }
     case internal::kWidgetInputHandlerHost_ImeCancelComposition_Name: {
@@ -2580,6 +2590,8 @@ std::move(p_params));
           reinterpret_cast<internal::WidgetInputHandlerHost_ImeCancelComposition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.4
       bool success = true;
       WidgetInputHandlerHost_ImeCancelComposition_ParamsDataView input_data_view(params, message);
       
@@ -2592,7 +2604,7 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImeCancelComposition();
+      impl->ImeCancelComposition(        );
       return true;
     }
     case internal::kWidgetInputHandlerHost_ImeCompositionRangeChanged_Name: {
@@ -2602,6 +2614,8 @@ std::move(p_params));
           reinterpret_cast<internal::WidgetInputHandlerHost_ImeCompositionRangeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.5
       bool success = true;
       ::gfx::Range p_range{};
       std::optional<WTF::Vector<::gfx::Rect>> p_character_bounds{};
@@ -2623,10 +2637,10 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImeCompositionRangeChanged(
-std::move(p_range), 
-std::move(p_character_bounds), 
-std::move(p_line_bounds));
+      impl->ImeCompositionRangeChanged(        
+        std::move(p_range), 
+        std::move(p_character_bounds), 
+        std::move(p_line_bounds));
       return true;
     }
     case internal::kWidgetInputHandlerHost_SetMouseCapture_Name: {
@@ -2636,6 +2650,8 @@ std::move(p_line_bounds));
           reinterpret_cast<internal::WidgetInputHandlerHost_SetMouseCapture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.6
       bool success = true;
       bool p_capture{};
       WidgetInputHandlerHost_SetMouseCapture_ParamsDataView input_data_view(params, message);
@@ -2651,8 +2667,8 @@ std::move(p_line_bounds));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMouseCapture(
-std::move(p_capture));
+      impl->SetMouseCapture(        
+        std::move(p_capture));
       return true;
     }
     case internal::kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name: {
@@ -2662,6 +2678,8 @@ std::move(p_capture));
           reinterpret_cast<internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.7
       bool success = true;
       bool p_autoscroll_selection{};
       WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsDataView input_data_view(params, message);
@@ -2677,8 +2695,8 @@ std::move(p_capture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAutoscrollSelectionActiveInMainFrame(
-std::move(p_autoscroll_selection));
+      impl->SetAutoscrollSelectionActiveInMainFrame(        
+        std::move(p_autoscroll_selection));
       return true;
     }
     case internal::kWidgetInputHandlerHost_RequestMouseLock_Name: {
@@ -2728,6 +2746,8 @@ bool WidgetInputHandlerHostStubDispatch::AcceptWithResponder(
               internal::WidgetInputHandlerHost_RequestMouseLock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandlerHost.8
       bool success = true;
       bool p_from_user_gesture{};
       bool p_unadjusted_movement{};
@@ -2749,9 +2769,9 @@ bool WidgetInputHandlerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestMouseLock(
-std::move(p_from_user_gesture), 
-std::move(p_unadjusted_movement), std::move(callback));
+      impl->RequestMouseLock(        
+        std::move(p_from_user_gesture), 
+        std::move(p_unadjusted_movement), std::move(callback));
       return true;
     }
   }
@@ -4857,6 +4877,8 @@ bool FrameWidgetInputHandler_HandleStylusWritingGestureAction_ForwardToCallback:
           internal::FrameWidgetInputHandler_HandleStylusWritingGestureAction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidgetInputHandler.8
   bool success = true;
   ::blink::mojom::blink::HandwritingGestureResult p_result{};
   FrameWidgetInputHandler_HandleStylusWritingGestureAction_ResponseParamsDataView input_data_view(params, message);
@@ -4977,6 +4999,8 @@ bool FrameWidgetInputHandler_SelectAroundCaret_ForwardToCallback::Accept(
           internal::FrameWidgetInputHandler_SelectAroundCaret_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidgetInputHandler.25
   bool success = true;
   SelectAroundCaretResultPtr p_result{};
   FrameWidgetInputHandler_SelectAroundCaret_ResponseParamsDataView input_data_view(params, message);
@@ -5102,6 +5126,8 @@ bool FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_ForwardToCallba
           internal::FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FrameWidgetInputHandler.28
   bool success = true;
   FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -5164,6 +5190,8 @@ bool FrameWidgetInputHandlerStubDispatch::Accept(
           reinterpret_cast<internal::FrameWidgetInputHandler_AddImeTextSpansToExistingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.0
       bool success = true;
       uint32_t p_start{};
       uint32_t p_end{};
@@ -5185,10 +5213,10 @@ bool FrameWidgetInputHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddImeTextSpansToExistingText(
-std::move(p_start), 
-std::move(p_end), 
-std::move(p_ime_text_spans));
+      impl->AddImeTextSpansToExistingText(        
+        std::move(p_start), 
+        std::move(p_end), 
+        std::move(p_ime_text_spans));
       return true;
     }
     case internal::kFrameWidgetInputHandler_ClearImeTextSpansByType_Name: {
@@ -5198,6 +5226,8 @@ std::move(p_ime_text_spans));
           reinterpret_cast<internal::FrameWidgetInputHandler_ClearImeTextSpansByType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.1
       bool success = true;
       uint32_t p_start{};
       uint32_t p_end{};
@@ -5219,10 +5249,10 @@ std::move(p_ime_text_spans));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearImeTextSpansByType(
-std::move(p_start), 
-std::move(p_end), 
-std::move(p_type));
+      impl->ClearImeTextSpansByType(        
+        std::move(p_start), 
+        std::move(p_end), 
+        std::move(p_type));
       return true;
     }
     case internal::kFrameWidgetInputHandler_SetCompositionFromExistingText_Name: {
@@ -5232,6 +5262,8 @@ std::move(p_type));
           reinterpret_cast<internal::FrameWidgetInputHandler_SetCompositionFromExistingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.2
       bool success = true;
       int32_t p_start{};
       int32_t p_end{};
@@ -5253,10 +5285,10 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCompositionFromExistingText(
-std::move(p_start), 
-std::move(p_end), 
-std::move(p_ime_text_spans));
+      impl->SetCompositionFromExistingText(        
+        std::move(p_start), 
+        std::move(p_end), 
+        std::move(p_ime_text_spans));
       return true;
     }
     case internal::kFrameWidgetInputHandler_ExtendSelectionAndDelete_Name: {
@@ -5266,6 +5298,8 @@ std::move(p_ime_text_spans));
           reinterpret_cast<internal::FrameWidgetInputHandler_ExtendSelectionAndDelete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.3
       bool success = true;
       int32_t p_before{};
       int32_t p_after{};
@@ -5284,9 +5318,9 @@ std::move(p_ime_text_spans));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtendSelectionAndDelete(
-std::move(p_before), 
-std::move(p_after));
+      impl->ExtendSelectionAndDelete(        
+        std::move(p_before), 
+        std::move(p_after));
       return true;
     }
     case internal::kFrameWidgetInputHandler_ExtendSelectionAndReplace_Name: {
@@ -5296,6 +5330,8 @@ std::move(p_after));
           reinterpret_cast<internal::FrameWidgetInputHandler_ExtendSelectionAndReplace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.4
       bool success = true;
       uint32_t p_before{};
       uint32_t p_after{};
@@ -5317,10 +5353,10 @@ std::move(p_after));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtendSelectionAndReplace(
-std::move(p_before), 
-std::move(p_after), 
-std::move(p_replacement_text));
+      impl->ExtendSelectionAndReplace(        
+        std::move(p_before), 
+        std::move(p_after), 
+        std::move(p_replacement_text));
       return true;
     }
     case internal::kFrameWidgetInputHandler_DeleteSurroundingText_Name: {
@@ -5330,6 +5366,8 @@ std::move(p_replacement_text));
           reinterpret_cast<internal::FrameWidgetInputHandler_DeleteSurroundingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.5
       bool success = true;
       int32_t p_before{};
       int32_t p_after{};
@@ -5348,9 +5386,9 @@ std::move(p_replacement_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSurroundingText(
-std::move(p_before), 
-std::move(p_after));
+      impl->DeleteSurroundingText(        
+        std::move(p_before), 
+        std::move(p_after));
       return true;
     }
     case internal::kFrameWidgetInputHandler_DeleteSurroundingTextInCodePoints_Name: {
@@ -5360,6 +5398,8 @@ std::move(p_after));
           reinterpret_cast<internal::FrameWidgetInputHandler_DeleteSurroundingTextInCodePoints_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.6
       bool success = true;
       int32_t p_before{};
       int32_t p_after{};
@@ -5378,9 +5418,9 @@ std::move(p_after));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSurroundingTextInCodePoints(
-std::move(p_before), 
-std::move(p_after));
+      impl->DeleteSurroundingTextInCodePoints(        
+        std::move(p_before), 
+        std::move(p_after));
       return true;
     }
     case internal::kFrameWidgetInputHandler_SetEditableSelectionOffsets_Name: {
@@ -5390,6 +5430,8 @@ std::move(p_after));
           reinterpret_cast<internal::FrameWidgetInputHandler_SetEditableSelectionOffsets_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.7
       bool success = true;
       int32_t p_start{};
       int32_t p_end{};
@@ -5408,9 +5450,9 @@ std::move(p_after));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEditableSelectionOffsets(
-std::move(p_start), 
-std::move(p_end));
+      impl->SetEditableSelectionOffsets(        
+        std::move(p_start), 
+        std::move(p_end));
       return true;
     }
     case internal::kFrameWidgetInputHandler_HandleStylusWritingGestureAction_Name: {
@@ -5423,6 +5465,8 @@ std::move(p_end));
           reinterpret_cast<internal::FrameWidgetInputHandler_ExecuteEditCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.9
       bool success = true;
       WTF::String p_command{};
       ::WTF::String p_value{};
@@ -5441,9 +5485,9 @@ std::move(p_end));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteEditCommand(
-std::move(p_command), 
-std::move(p_value));
+      impl->ExecuteEditCommand(        
+        std::move(p_command), 
+        std::move(p_value));
       return true;
     }
     case internal::kFrameWidgetInputHandler_Undo_Name: {
@@ -5453,6 +5497,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Undo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.10
       bool success = true;
       FrameWidgetInputHandler_Undo_ParamsDataView input_data_view(params, message);
       
@@ -5465,7 +5511,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Undo();
+      impl->Undo(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_Redo_Name: {
@@ -5475,6 +5521,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Redo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.11
       bool success = true;
       FrameWidgetInputHandler_Redo_ParamsDataView input_data_view(params, message);
       
@@ -5487,7 +5535,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Redo();
+      impl->Redo(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_Cut_Name: {
@@ -5497,6 +5545,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Cut_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.12
       bool success = true;
       FrameWidgetInputHandler_Cut_ParamsDataView input_data_view(params, message);
       
@@ -5509,7 +5559,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cut();
+      impl->Cut(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_Copy_Name: {
@@ -5519,6 +5569,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Copy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.13
       bool success = true;
       FrameWidgetInputHandler_Copy_ParamsDataView input_data_view(params, message);
       
@@ -5531,7 +5583,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Copy();
+      impl->Copy(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_CopyToFindPboard_Name: {
@@ -5541,6 +5593,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_CopyToFindPboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.14
       bool success = true;
       FrameWidgetInputHandler_CopyToFindPboard_ParamsDataView input_data_view(params, message);
       
@@ -5553,7 +5607,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyToFindPboard();
+      impl->CopyToFindPboard(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_CenterSelection_Name: {
@@ -5563,6 +5617,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_CenterSelection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.15
       bool success = true;
       FrameWidgetInputHandler_CenterSelection_ParamsDataView input_data_view(params, message);
       
@@ -5575,7 +5631,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CenterSelection();
+      impl->CenterSelection(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_Paste_Name: {
@@ -5585,6 +5641,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Paste_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.16
       bool success = true;
       FrameWidgetInputHandler_Paste_ParamsDataView input_data_view(params, message);
       
@@ -5597,7 +5655,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Paste();
+      impl->Paste(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_PasteAndMatchStyle_Name: {
@@ -5607,6 +5665,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_PasteAndMatchStyle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.17
       bool success = true;
       FrameWidgetInputHandler_PasteAndMatchStyle_ParamsDataView input_data_view(params, message);
       
@@ -5619,7 +5679,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PasteAndMatchStyle();
+      impl->PasteAndMatchStyle(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_Delete_Name: {
@@ -5629,6 +5689,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Delete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.18
       bool success = true;
       FrameWidgetInputHandler_Delete_ParamsDataView input_data_view(params, message);
       
@@ -5641,7 +5703,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Delete();
+      impl->Delete(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_SelectAll_Name: {
@@ -5651,6 +5713,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_SelectAll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.19
       bool success = true;
       FrameWidgetInputHandler_SelectAll_ParamsDataView input_data_view(params, message);
       
@@ -5663,7 +5727,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectAll();
+      impl->SelectAll(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_CollapseSelection_Name: {
@@ -5673,6 +5737,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_CollapseSelection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.20
       bool success = true;
       FrameWidgetInputHandler_CollapseSelection_ParamsDataView input_data_view(params, message);
       
@@ -5685,7 +5751,7 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CollapseSelection();
+      impl->CollapseSelection(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_Replace_Name: {
@@ -5695,6 +5761,8 @@ std::move(p_value));
           reinterpret_cast<internal::FrameWidgetInputHandler_Replace_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.21
       bool success = true;
       ::WTF::String p_word{};
       FrameWidgetInputHandler_Replace_ParamsDataView input_data_view(params, message);
@@ -5710,8 +5778,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Replace(
-std::move(p_word));
+      impl->Replace(        
+        std::move(p_word));
       return true;
     }
     case internal::kFrameWidgetInputHandler_ReplaceMisspelling_Name: {
@@ -5721,6 +5789,8 @@ std::move(p_word));
           reinterpret_cast<internal::FrameWidgetInputHandler_ReplaceMisspelling_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.22
       bool success = true;
       ::WTF::String p_word{};
       FrameWidgetInputHandler_ReplaceMisspelling_ParamsDataView input_data_view(params, message);
@@ -5736,8 +5806,8 @@ std::move(p_word));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReplaceMisspelling(
-std::move(p_word));
+      impl->ReplaceMisspelling(        
+        std::move(p_word));
       return true;
     }
     case internal::kFrameWidgetInputHandler_SelectRange_Name: {
@@ -5747,6 +5817,8 @@ std::move(p_word));
           reinterpret_cast<internal::FrameWidgetInputHandler_SelectRange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.23
       bool success = true;
       ::gfx::Point p_base{};
       ::gfx::Point p_extent{};
@@ -5765,9 +5837,9 @@ std::move(p_word));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectRange(
-std::move(p_base), 
-std::move(p_extent));
+      impl->SelectRange(        
+        std::move(p_base), 
+        std::move(p_extent));
       return true;
     }
     case internal::kFrameWidgetInputHandler_AdjustSelectionByCharacterOffset_Name: {
@@ -5777,6 +5849,8 @@ std::move(p_extent));
           reinterpret_cast<internal::FrameWidgetInputHandler_AdjustSelectionByCharacterOffset_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.24
       bool success = true;
       int32_t p_start{};
       int32_t p_end{};
@@ -5798,10 +5872,10 @@ std::move(p_extent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdjustSelectionByCharacterOffset(
-std::move(p_start), 
-std::move(p_end), 
-std::move(p_behavior));
+      impl->AdjustSelectionByCharacterOffset(        
+        std::move(p_start), 
+        std::move(p_end), 
+        std::move(p_behavior));
       return true;
     }
     case internal::kFrameWidgetInputHandler_SelectAroundCaret_Name: {
@@ -5814,6 +5888,8 @@ std::move(p_behavior));
           reinterpret_cast<internal::FrameWidgetInputHandler_MoveRangeSelectionExtent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.26
       bool success = true;
       ::gfx::Point p_extent{};
       FrameWidgetInputHandler_MoveRangeSelectionExtent_ParamsDataView input_data_view(params, message);
@@ -5829,8 +5905,8 @@ std::move(p_behavior));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveRangeSelectionExtent(
-std::move(p_extent));
+      impl->MoveRangeSelectionExtent(        
+        std::move(p_extent));
       return true;
     }
     case internal::kFrameWidgetInputHandler_ScrollFocusedEditableNodeIntoView_Name: {
@@ -5840,6 +5916,8 @@ std::move(p_extent));
           reinterpret_cast<internal::FrameWidgetInputHandler_ScrollFocusedEditableNodeIntoView_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.27
       bool success = true;
       FrameWidgetInputHandler_ScrollFocusedEditableNodeIntoView_ParamsDataView input_data_view(params, message);
       
@@ -5852,7 +5930,7 @@ std::move(p_extent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScrollFocusedEditableNodeIntoView();
+      impl->ScrollFocusedEditableNodeIntoView(        );
       return true;
     }
     case internal::kFrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_Name: {
@@ -5865,6 +5943,8 @@ std::move(p_extent));
           reinterpret_cast<internal::FrameWidgetInputHandler_MoveCaret_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.29
       bool success = true;
       ::gfx::Point p_point{};
       FrameWidgetInputHandler_MoveCaret_ParamsDataView input_data_view(params, message);
@@ -5880,8 +5960,8 @@ std::move(p_extent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveCaret(
-std::move(p_point));
+      impl->MoveCaret(        
+        std::move(p_point));
       return true;
     }
   }
@@ -5928,6 +6008,8 @@ bool FrameWidgetInputHandlerStubDispatch::AcceptWithResponder(
               internal::FrameWidgetInputHandler_HandleStylusWritingGestureAction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.8
       bool success = true;
       ::blink::mojom::blink::StylusWritingGestureDataPtr p_gesture_data{};
       FrameWidgetInputHandler_HandleStylusWritingGestureAction_ParamsDataView input_data_view(params, message);
@@ -5946,8 +6028,8 @@ bool FrameWidgetInputHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleStylusWritingGestureAction(
-std::move(p_gesture_data), std::move(callback));
+      impl->HandleStylusWritingGestureAction(        
+        std::move(p_gesture_data), std::move(callback));
       return true;
     }
     case internal::kFrameWidgetInputHandler_ExecuteEditCommand_Name: {
@@ -6005,6 +6087,8 @@ std::move(p_gesture_data), std::move(callback));
               internal::FrameWidgetInputHandler_SelectAroundCaret_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.25
       bool success = true;
       SelectionGranularity p_granularity{};
       bool p_should_show_handle{};
@@ -6029,10 +6113,10 @@ std::move(p_gesture_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectAroundCaret(
-std::move(p_granularity), 
-std::move(p_should_show_handle), 
-std::move(p_should_show_context_menu), std::move(callback));
+      impl->SelectAroundCaret(        
+        std::move(p_granularity), 
+        std::move(p_should_show_handle), 
+        std::move(p_should_show_context_menu), std::move(callback));
       return true;
     }
     case internal::kFrameWidgetInputHandler_MoveRangeSelectionExtent_Name: {
@@ -6048,6 +6132,8 @@ std::move(p_should_show_context_menu), std::move(callback));
               internal::FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FrameWidgetInputHandler.28
       bool success = true;
       FrameWidgetInputHandler_WaitForPageScaleAnimationForTesting_ParamsDataView input_data_view(params, message);
       
@@ -7284,6 +7370,8 @@ bool WidgetInputHandler_ImeSetComposition_ForwardToCallback::Accept(
           internal::WidgetInputHandler_ImeSetComposition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WidgetInputHandler.4
   bool success = true;
   WidgetInputHandler_ImeSetComposition_ResponseParamsDataView input_data_view(params, message);
   
@@ -7391,6 +7479,8 @@ bool WidgetInputHandler_ImeCommitText_ForwardToCallback::Accept(
           internal::WidgetInputHandler_ImeCommitText_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WidgetInputHandler.5
   bool success = true;
   WidgetInputHandler_ImeCommitText_ResponseParamsDataView input_data_view(params, message);
   
@@ -7498,6 +7588,8 @@ bool WidgetInputHandler_DispatchEvent_ForwardToCallback::Accept(
           internal::WidgetInputHandler_DispatchEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WidgetInputHandler.9
   bool success = true;
   ::blink::mojom::blink::InputEventResultSource p_source{};
   ::ui::LatencyInfo p_updated_latency{};
@@ -7673,6 +7765,8 @@ bool WidgetInputHandler_WaitForInputProcessed_ForwardToCallback::Accept(
           internal::WidgetInputHandler_WaitForInputProcessed_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WidgetInputHandler.11
   bool success = true;
   WidgetInputHandler_WaitForInputProcessed_ResponseParamsDataView input_data_view(params, message);
   
@@ -7735,6 +7829,8 @@ bool WidgetInputHandlerStubDispatch::Accept(
           reinterpret_cast<internal::WidgetInputHandler_SetFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.0
       bool success = true;
       FocusState p_state{};
       WidgetInputHandler_SetFocus_ParamsDataView input_data_view(params, message);
@@ -7750,8 +7846,8 @@ bool WidgetInputHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFocus(
-std::move(p_state));
+      impl->SetFocus(        
+        std::move(p_state));
       return true;
     }
     case internal::kWidgetInputHandler_MouseCaptureLost_Name: {
@@ -7761,6 +7857,8 @@ std::move(p_state));
           reinterpret_cast<internal::WidgetInputHandler_MouseCaptureLost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.1
       bool success = true;
       WidgetInputHandler_MouseCaptureLost_ParamsDataView input_data_view(params, message);
       
@@ -7773,7 +7871,7 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MouseCaptureLost();
+      impl->MouseCaptureLost(        );
       return true;
     }
     case internal::kWidgetInputHandler_SetEditCommandsForNextKeyEvent_Name: {
@@ -7783,6 +7881,8 @@ std::move(p_state));
           reinterpret_cast<internal::WidgetInputHandler_SetEditCommandsForNextKeyEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.2
       bool success = true;
       WTF::Vector<EditCommandPtr> p_commands{};
       WidgetInputHandler_SetEditCommandsForNextKeyEvent_ParamsDataView input_data_view(params, message);
@@ -7798,8 +7898,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEditCommandsForNextKeyEvent(
-std::move(p_commands));
+      impl->SetEditCommandsForNextKeyEvent(        
+        std::move(p_commands));
       return true;
     }
     case internal::kWidgetInputHandler_CursorVisibilityChanged_Name: {
@@ -7809,6 +7909,8 @@ std::move(p_commands));
           reinterpret_cast<internal::WidgetInputHandler_CursorVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.3
       bool success = true;
       bool p_visible{};
       WidgetInputHandler_CursorVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -7824,8 +7926,8 @@ std::move(p_commands));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CursorVisibilityChanged(
-std::move(p_visible));
+      impl->CursorVisibilityChanged(        
+        std::move(p_visible));
       return true;
     }
     case internal::kWidgetInputHandler_ImeSetComposition_Name: {
@@ -7841,6 +7943,8 @@ std::move(p_visible));
           reinterpret_cast<internal::WidgetInputHandler_ImeFinishComposingText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.6
       bool success = true;
       bool p_keep_selection{};
       WidgetInputHandler_ImeFinishComposingText_ParamsDataView input_data_view(params, message);
@@ -7856,8 +7960,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImeFinishComposingText(
-std::move(p_keep_selection));
+      impl->ImeFinishComposingText(        
+        std::move(p_keep_selection));
       return true;
     }
     case internal::kWidgetInputHandler_RequestTextInputStateUpdate_Name: {
@@ -7867,6 +7971,8 @@ std::move(p_keep_selection));
           reinterpret_cast<internal::WidgetInputHandler_RequestTextInputStateUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.7
       bool success = true;
       WidgetInputHandler_RequestTextInputStateUpdate_ParamsDataView input_data_view(params, message);
       
@@ -7879,7 +7985,7 @@ std::move(p_keep_selection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestTextInputStateUpdate();
+      impl->RequestTextInputStateUpdate(        );
       return true;
     }
     case internal::kWidgetInputHandler_RequestCompositionUpdates_Name: {
@@ -7889,6 +7995,8 @@ std::move(p_keep_selection));
           reinterpret_cast<internal::WidgetInputHandler_RequestCompositionUpdates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.8
       bool success = true;
       bool p_immediate_request{};
       bool p_monitor_request{};
@@ -7907,9 +8015,9 @@ std::move(p_keep_selection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestCompositionUpdates(
-std::move(p_immediate_request), 
-std::move(p_monitor_request));
+      impl->RequestCompositionUpdates(        
+        std::move(p_immediate_request), 
+        std::move(p_monitor_request));
       return true;
     }
     case internal::kWidgetInputHandler_DispatchEvent_Name: {
@@ -7922,6 +8030,8 @@ std::move(p_monitor_request));
           reinterpret_cast<internal::WidgetInputHandler_DispatchNonBlockingEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.10
       bool success = true;
       ::std::unique_ptr<::blink::WebCoalescedInputEvent> p_event{};
       WidgetInputHandler_DispatchNonBlockingEvent_ParamsDataView input_data_view(params, message);
@@ -7937,8 +8047,8 @@ std::move(p_monitor_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchNonBlockingEvent(
-std::move(p_event));
+      impl->DispatchNonBlockingEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kWidgetInputHandler_WaitForInputProcessed_Name: {
@@ -7951,6 +8061,8 @@ std::move(p_event));
           reinterpret_cast<internal::WidgetInputHandler_GetFrameWidgetInputHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.12
       bool success = true;
       ::mojo::PendingAssociatedReceiver<FrameWidgetInputHandler> p_interface_request{};
       WidgetInputHandler_GetFrameWidgetInputHandler_ParamsDataView input_data_view(params, message);
@@ -7968,8 +8080,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFrameWidgetInputHandler(
-std::move(p_interface_request));
+      impl->GetFrameWidgetInputHandler(        
+        std::move(p_interface_request));
       return true;
     }
     case internal::kWidgetInputHandler_UpdateBrowserControlsState_Name: {
@@ -7979,6 +8091,8 @@ std::move(p_interface_request));
           reinterpret_cast<internal::WidgetInputHandler_UpdateBrowserControlsState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.13
       bool success = true;
       ::cc::BrowserControlsState p_constraints{};
       ::cc::BrowserControlsState p_current{};
@@ -8000,10 +8114,10 @@ std::move(p_interface_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateBrowserControlsState(
-std::move(p_constraints), 
-std::move(p_current), 
-std::move(p_animate));
+      impl->UpdateBrowserControlsState(        
+        std::move(p_constraints), 
+        std::move(p_current), 
+        std::move(p_animate));
       return true;
     }
   }
@@ -8038,6 +8152,8 @@ bool WidgetInputHandlerStubDispatch::AcceptWithResponder(
               internal::WidgetInputHandler_ImeSetComposition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.4
       bool success = true;
       ::WTF::String p_text{};
       WTF::Vector<::ui::ImeTextSpan> p_ime_text_spans{};
@@ -8068,12 +8184,12 @@ bool WidgetInputHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImeSetComposition(
-std::move(p_text), 
-std::move(p_ime_text_spans), 
-std::move(p_range), 
-std::move(p_start), 
-std::move(p_end), std::move(callback));
+      impl->ImeSetComposition(        
+        std::move(p_text), 
+        std::move(p_ime_text_spans), 
+        std::move(p_range), 
+        std::move(p_start), 
+        std::move(p_end), std::move(callback));
       return true;
     }
     case internal::kWidgetInputHandler_ImeCommitText_Name: {
@@ -8083,6 +8199,8 @@ std::move(p_end), std::move(callback));
               internal::WidgetInputHandler_ImeCommitText_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.5
       bool success = true;
       ::WTF::String p_text{};
       WTF::Vector<::ui::ImeTextSpan> p_ime_text_spans{};
@@ -8110,11 +8228,11 @@ std::move(p_end), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImeCommitText(
-std::move(p_text), 
-std::move(p_ime_text_spans), 
-std::move(p_range), 
-std::move(p_relative_cursor_position), std::move(callback));
+      impl->ImeCommitText(        
+        std::move(p_text), 
+        std::move(p_ime_text_spans), 
+        std::move(p_range), 
+        std::move(p_relative_cursor_position), std::move(callback));
       return true;
     }
     case internal::kWidgetInputHandler_ImeFinishComposingText_Name: {
@@ -8133,6 +8251,8 @@ std::move(p_relative_cursor_position), std::move(callback));
               internal::WidgetInputHandler_DispatchEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.9
       bool success = true;
       ::std::unique_ptr<::blink::WebCoalescedInputEvent> p_event{};
       WidgetInputHandler_DispatchEvent_ParamsDataView input_data_view(params, message);
@@ -8151,8 +8271,8 @@ std::move(p_relative_cursor_position), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchEvent(
-std::move(p_event), std::move(callback));
+      impl->DispatchEvent(        
+        std::move(p_event), std::move(callback));
       return true;
     }
     case internal::kWidgetInputHandler_DispatchNonBlockingEvent_Name: {
@@ -8165,6 +8285,8 @@ std::move(p_event), std::move(callback));
               internal::WidgetInputHandler_WaitForInputProcessed_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WidgetInputHandler.11
       bool success = true;
       WidgetInputHandler_WaitForInputProcessed_ParamsDataView input_data_view(params, message);
       

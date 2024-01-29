@@ -240,7 +240,8 @@ suite('SeaPenRecentWallpapersElementTest', function () {
             }
         });
     });
-    test('selects Wallpaper Info menu option for a Sea Pen wallpaper', async () => {
+    // TODO(b/318418911) re-enable this test.
+    test.skip('select Wallpaper Info option for recent image', async () => {
         personalizationStore.data.wallpaper.seaPen.recentImages =
             seaPenProvider.recentImages;
         // Initialize |seaPenRecentWallpapersElement|.

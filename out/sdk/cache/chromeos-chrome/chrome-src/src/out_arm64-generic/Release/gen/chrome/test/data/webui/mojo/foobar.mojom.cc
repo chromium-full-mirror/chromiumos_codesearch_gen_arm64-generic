@@ -210,6 +210,8 @@ bool Foo_GetFoo_ForwardToCallback::Accept(
           internal::Foo_GetFoo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Foo.0
   bool success = true;
   std::string p_value{};
   Foo_GetFoo_ResponseParamsDataView input_data_view(params, message);
@@ -310,6 +312,8 @@ bool FooStubDispatch::AcceptWithResponder(
               internal::Foo_GetFoo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Foo.0
       bool success = true;
       Foo_GetFoo_ParamsDataView input_data_view(params, message);
       
@@ -513,6 +517,8 @@ bool Bar_GetBar_ForwardToCallback::Accept(
           internal::Bar_GetBar_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Bar.0
   bool success = true;
   std::string p_value{};
   Bar_GetBar_ResponseParamsDataView input_data_view(params, message);
@@ -613,6 +619,8 @@ bool BarStubDispatch::AcceptWithResponder(
               internal::Bar_GetBar_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Bar.0
       bool success = true;
       Bar_GetBar_ParamsDataView input_data_view(params, message);
       
@@ -816,6 +824,8 @@ bool Baz_GetBaz_ForwardToCallback::Accept(
           internal::Baz_GetBaz_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Baz.0
   bool success = true;
   std::string p_value{};
   Baz_GetBaz_ResponseParamsDataView input_data_view(params, message);
@@ -916,6 +926,8 @@ bool BazStubDispatch::AcceptWithResponder(
               internal::Baz_GetBaz_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Baz.0
       bool success = true;
       Baz_GetBaz_ParamsDataView input_data_view(params, message);
       

@@ -222,6 +222,9 @@ class ReadAnythingThemeDataView {
   float font_size() const {
     return data_->font_size;
   }
+  bool links_enabled() const {
+    return data_->links_enabled;
+  }
   inline void GetForegroundColorDataView(
       ::skia::mojom::SkColorDataView* output);
 
@@ -399,6 +402,7 @@ struct Serializer<::read_anything::mojom::ReadAnythingThemeDataView, MaybeConstU
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null font_name in ReadAnythingTheme struct");
     fragment->font_size = Traits::font_size(input);
+    fragment->links_enabled = Traits::links_enabled(input);
     decltype(Traits::foreground_color(input)) in_foreground_color = Traits::foreground_color(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->foreground_color)::BaseType> foreground_color_fragment(

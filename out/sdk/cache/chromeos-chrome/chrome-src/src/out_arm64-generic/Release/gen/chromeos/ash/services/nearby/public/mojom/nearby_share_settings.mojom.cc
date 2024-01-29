@@ -753,6 +753,8 @@ bool NearbyShareSettingsObserverStubDispatch::Accept(
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnEnabledChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.0
       bool success = true;
       bool p_enabled{};
       NearbyShareSettingsObserver_OnEnabledChanged_ParamsDataView input_data_view(params, message);
@@ -768,8 +770,8 @@ bool NearbyShareSettingsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnabledChanged(
-std::move(p_enabled));
+      impl->OnEnabledChanged(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnFastInitiationNotificationStateChanged_Name: {
@@ -779,6 +781,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnFastInitiationNotificationStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.1
       bool success = true;
       FastInitiationNotificationState p_state{};
       NearbyShareSettingsObserver_OnFastInitiationNotificationStateChanged_ParamsDataView input_data_view(params, message);
@@ -794,8 +798,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFastInitiationNotificationStateChanged(
-std::move(p_state));
+      impl->OnFastInitiationNotificationStateChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnIsFastInitiationHardwareSupportedChanged_Name: {
@@ -805,6 +809,8 @@ std::move(p_state));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnIsFastInitiationHardwareSupportedChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.2
       bool success = true;
       bool p_is_supported{};
       NearbyShareSettingsObserver_OnIsFastInitiationHardwareSupportedChanged_ParamsDataView input_data_view(params, message);
@@ -820,8 +826,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIsFastInitiationHardwareSupportedChanged(
-std::move(p_is_supported));
+      impl->OnIsFastInitiationHardwareSupportedChanged(        
+        std::move(p_is_supported));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnDeviceNameChanged_Name: {
@@ -831,6 +837,8 @@ std::move(p_is_supported));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnDeviceNameChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.3
       bool success = true;
       std::string p_device_name{};
       NearbyShareSettingsObserver_OnDeviceNameChanged_ParamsDataView input_data_view(params, message);
@@ -846,8 +854,8 @@ std::move(p_is_supported));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceNameChanged(
-std::move(p_device_name));
+      impl->OnDeviceNameChanged(        
+        std::move(p_device_name));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnDataUsageChanged_Name: {
@@ -857,6 +865,8 @@ std::move(p_device_name));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnDataUsageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.4
       bool success = true;
       DataUsage p_data_usage{};
       NearbyShareSettingsObserver_OnDataUsageChanged_ParamsDataView input_data_view(params, message);
@@ -872,8 +882,8 @@ std::move(p_device_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDataUsageChanged(
-std::move(p_data_usage));
+      impl->OnDataUsageChanged(        
+        std::move(p_data_usage));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnVisibilityChanged_Name: {
@@ -883,6 +893,8 @@ std::move(p_data_usage));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.5
       bool success = true;
       Visibility p_visibility{};
       NearbyShareSettingsObserver_OnVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -898,8 +910,8 @@ std::move(p_data_usage));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisibilityChanged(
-std::move(p_visibility));
+      impl->OnVisibilityChanged(        
+        std::move(p_visibility));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnAllowedContactsChanged_Name: {
@@ -909,6 +921,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnAllowedContactsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.6
       bool success = true;
       std::vector<std::string> p_visible_contact_ids{};
       NearbyShareSettingsObserver_OnAllowedContactsChanged_ParamsDataView input_data_view(params, message);
@@ -924,8 +938,8 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAllowedContactsChanged(
-std::move(p_visible_contact_ids));
+      impl->OnAllowedContactsChanged(        
+        std::move(p_visible_contact_ids));
       return true;
     }
     case internal::kNearbyShareSettingsObserver_OnIsOnboardingCompleteChanged_Name: {
@@ -935,6 +949,8 @@ std::move(p_visible_contact_ids));
           reinterpret_cast<internal::NearbyShareSettingsObserver_OnIsOnboardingCompleteChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettingsObserver.7
       bool success = true;
       bool p_is_complete{};
       NearbyShareSettingsObserver_OnIsOnboardingCompleteChanged_ParamsDataView input_data_view(params, message);
@@ -950,8 +966,8 @@ std::move(p_visible_contact_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIsOnboardingCompleteChanged(
-std::move(p_is_complete));
+      impl->OnIsOnboardingCompleteChanged(        
+        std::move(p_is_complete));
       return true;
     }
   }
@@ -2299,6 +2315,8 @@ bool NearbyShareSettings_GetEnabled_ForwardToCallback::Accept(
           internal::NearbyShareSettings_GetEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.1
   bool success = true;
   bool p_enabled{};
   NearbyShareSettings_GetEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -2418,6 +2436,8 @@ bool NearbyShareSettings_IsOnboardingComplete_ForwardToCallback::Accept(
           internal::NearbyShareSettings_IsOnboardingComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.3
   bool success = true;
   bool p_completed{};
   NearbyShareSettings_IsOnboardingComplete_ResponseParamsDataView input_data_view(params, message);
@@ -2537,6 +2557,8 @@ bool NearbyShareSettings_GetFastInitiationNotificationState_ForwardToCallback::A
           internal::NearbyShareSettings_GetFastInitiationNotificationState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.5
   bool success = true;
   FastInitiationNotificationState p_state{};
   NearbyShareSettings_GetFastInitiationNotificationState_ResponseParamsDataView input_data_view(params, message);
@@ -2657,6 +2679,8 @@ bool NearbyShareSettings_GetIsFastInitiationHardwareSupported_ForwardToCallback:
           internal::NearbyShareSettings_GetIsFastInitiationHardwareSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.7
   bool success = true;
   bool p_supported{};
   NearbyShareSettings_GetIsFastInitiationHardwareSupported_ResponseParamsDataView input_data_view(params, message);
@@ -2776,6 +2800,8 @@ bool NearbyShareSettings_GetDeviceName_ForwardToCallback::Accept(
           internal::NearbyShareSettings_GetDeviceName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.8
   bool success = true;
   std::string p_device_name{};
   NearbyShareSettings_GetDeviceName_ResponseParamsDataView input_data_view(params, message);
@@ -2905,6 +2931,8 @@ bool NearbyShareSettings_ValidateDeviceName_ForwardToCallback::Accept(
           internal::NearbyShareSettings_ValidateDeviceName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.9
   bool success = true;
   DeviceNameValidationResult p_result{};
   NearbyShareSettings_ValidateDeviceName_ResponseParamsDataView input_data_view(params, message);
@@ -3025,6 +3053,8 @@ bool NearbyShareSettings_SetDeviceName_ForwardToCallback::Accept(
           internal::NearbyShareSettings_SetDeviceName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.10
   bool success = true;
   DeviceNameValidationResult p_result{};
   NearbyShareSettings_SetDeviceName_ResponseParamsDataView input_data_view(params, message);
@@ -3145,6 +3175,8 @@ bool NearbyShareSettings_GetDataUsage_ForwardToCallback::Accept(
           internal::NearbyShareSettings_GetDataUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.11
   bool success = true;
   DataUsage p_data_usage{};
   NearbyShareSettings_GetDataUsage_ResponseParamsDataView input_data_view(params, message);
@@ -3265,6 +3297,8 @@ bool NearbyShareSettings_GetVisibility_ForwardToCallback::Accept(
           internal::NearbyShareSettings_GetVisibility_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.13
   bool success = true;
   Visibility p_visibility{};
   NearbyShareSettings_GetVisibility_ResponseParamsDataView input_data_view(params, message);
@@ -3385,6 +3419,8 @@ bool NearbyShareSettings_GetAllowedContacts_ForwardToCallback::Accept(
           internal::NearbyShareSettings_GetAllowedContacts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyShareSettings.15
   bool success = true;
   std::vector<std::string> p_allowed_contacts{};
   NearbyShareSettings_GetAllowedContacts_ResponseParamsDataView input_data_view(params, message);
@@ -3471,6 +3507,8 @@ bool NearbyShareSettingsStubDispatch::Accept(
           reinterpret_cast<internal::NearbyShareSettings_AddSettingsObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.0
       bool success = true;
       ::mojo::PendingRemote<NearbyShareSettingsObserver> p_observer{};
       NearbyShareSettings_AddSettingsObserver_ParamsDataView input_data_view(params, message);
@@ -3488,8 +3526,8 @@ bool NearbyShareSettingsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSettingsObserver(
-std::move(p_observer));
+      impl->AddSettingsObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kNearbyShareSettings_GetEnabled_Name: {
@@ -3502,6 +3540,8 @@ std::move(p_observer));
           reinterpret_cast<internal::NearbyShareSettings_SetEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.2
       bool success = true;
       bool p_enabled{};
       NearbyShareSettings_SetEnabled_ParamsDataView input_data_view(params, message);
@@ -3517,8 +3557,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEnabled(
-std::move(p_enabled));
+      impl->SetEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kNearbyShareSettings_IsOnboardingComplete_Name: {
@@ -3531,6 +3571,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::NearbyShareSettings_SetIsOnboardingComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.4
       bool success = true;
       bool p_completed{};
       NearbyShareSettings_SetIsOnboardingComplete_ParamsDataView input_data_view(params, message);
@@ -3546,8 +3588,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsOnboardingComplete(
-std::move(p_completed));
+      impl->SetIsOnboardingComplete(        
+        std::move(p_completed));
       return true;
     }
     case internal::kNearbyShareSettings_GetFastInitiationNotificationState_Name: {
@@ -3560,6 +3602,8 @@ std::move(p_completed));
           reinterpret_cast<internal::NearbyShareSettings_SetFastInitiationNotificationState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.6
       bool success = true;
       FastInitiationNotificationState p_state{};
       NearbyShareSettings_SetFastInitiationNotificationState_ParamsDataView input_data_view(params, message);
@@ -3575,8 +3619,8 @@ std::move(p_completed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFastInitiationNotificationState(
-std::move(p_state));
+      impl->SetFastInitiationNotificationState(        
+        std::move(p_state));
       return true;
     }
     case internal::kNearbyShareSettings_GetIsFastInitiationHardwareSupported_Name: {
@@ -3601,6 +3645,8 @@ std::move(p_state));
           reinterpret_cast<internal::NearbyShareSettings_SetDataUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.12
       bool success = true;
       DataUsage p_data_usage{};
       NearbyShareSettings_SetDataUsage_ParamsDataView input_data_view(params, message);
@@ -3616,8 +3662,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDataUsage(
-std::move(p_data_usage));
+      impl->SetDataUsage(        
+        std::move(p_data_usage));
       return true;
     }
     case internal::kNearbyShareSettings_GetVisibility_Name: {
@@ -3630,6 +3676,8 @@ std::move(p_data_usage));
           reinterpret_cast<internal::NearbyShareSettings_SetVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.14
       bool success = true;
       Visibility p_visibility{};
       NearbyShareSettings_SetVisibility_ParamsDataView input_data_view(params, message);
@@ -3645,8 +3693,8 @@ std::move(p_data_usage));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVisibility(
-std::move(p_visibility));
+      impl->SetVisibility(        
+        std::move(p_visibility));
       return true;
     }
     case internal::kNearbyShareSettings_GetAllowedContacts_Name: {
@@ -3659,6 +3707,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::NearbyShareSettings_SetAllowedContacts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.16
       bool success = true;
       std::vector<std::string> p_allowed_contacts{};
       NearbyShareSettings_SetAllowedContacts_ParamsDataView input_data_view(params, message);
@@ -3674,8 +3724,8 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAllowedContacts(
-std::move(p_allowed_contacts));
+      impl->SetAllowedContacts(        
+        std::move(p_allowed_contacts));
       return true;
     }
   }
@@ -3701,6 +3751,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               internal::NearbyShareSettings_GetEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.1
       bool success = true;
       NearbyShareSettings_GetEnabled_ParamsDataView input_data_view(params, message);
       
@@ -3729,6 +3781,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               internal::NearbyShareSettings_IsOnboardingComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.3
       bool success = true;
       NearbyShareSettings_IsOnboardingComplete_ParamsDataView input_data_view(params, message);
       
@@ -3757,6 +3811,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               internal::NearbyShareSettings_GetFastInitiationNotificationState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.5
       bool success = true;
       NearbyShareSettings_GetFastInitiationNotificationState_ParamsDataView input_data_view(params, message);
       
@@ -3785,6 +3841,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               internal::NearbyShareSettings_GetIsFastInitiationHardwareSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.7
       bool success = true;
       NearbyShareSettings_GetIsFastInitiationHardwareSupported_ParamsDataView input_data_view(params, message);
       
@@ -3810,6 +3868,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               internal::NearbyShareSettings_GetDeviceName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.8
       bool success = true;
       NearbyShareSettings_GetDeviceName_ParamsDataView input_data_view(params, message);
       
@@ -3835,6 +3895,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               internal::NearbyShareSettings_ValidateDeviceName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.9
       bool success = true;
       std::string p_device_name{};
       NearbyShareSettings_ValidateDeviceName_ParamsDataView input_data_view(params, message);
@@ -3853,8 +3915,8 @@ bool NearbyShareSettingsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ValidateDeviceName(
-std::move(p_device_name), std::move(callback));
+      impl->ValidateDeviceName(        
+        std::move(p_device_name), std::move(callback));
       return true;
     }
     case internal::kNearbyShareSettings_SetDeviceName_Name: {
@@ -3864,6 +3926,8 @@ std::move(p_device_name), std::move(callback));
               internal::NearbyShareSettings_SetDeviceName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.10
       bool success = true;
       std::string p_device_name{};
       NearbyShareSettings_SetDeviceName_ParamsDataView input_data_view(params, message);
@@ -3882,8 +3946,8 @@ std::move(p_device_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeviceName(
-std::move(p_device_name), std::move(callback));
+      impl->SetDeviceName(        
+        std::move(p_device_name), std::move(callback));
       return true;
     }
     case internal::kNearbyShareSettings_GetDataUsage_Name: {
@@ -3893,6 +3957,8 @@ std::move(p_device_name), std::move(callback));
               internal::NearbyShareSettings_GetDataUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.11
       bool success = true;
       NearbyShareSettings_GetDataUsage_ParamsDataView input_data_view(params, message);
       
@@ -3921,6 +3987,8 @@ std::move(p_device_name), std::move(callback));
               internal::NearbyShareSettings_GetVisibility_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.13
       bool success = true;
       NearbyShareSettings_GetVisibility_ParamsDataView input_data_view(params, message);
       
@@ -3949,6 +4017,8 @@ std::move(p_device_name), std::move(callback));
               internal::NearbyShareSettings_GetAllowedContacts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyShareSettings.15
       bool success = true;
       NearbyShareSettings_GetAllowedContacts_ParamsDataView input_data_view(params, message);
       
@@ -4218,6 +4288,8 @@ bool DownloadContactsObserverStubDispatch::Accept(
           reinterpret_cast<internal::DownloadContactsObserver_OnContactsDownloaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadContactsObserver.0
       bool success = true;
       std::vector<std::string> p_allowed_contacts{};
       std::vector<ContactRecordPtr> p_contacts{};
@@ -4239,10 +4311,10 @@ bool DownloadContactsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnContactsDownloaded(
-std::move(p_allowed_contacts), 
-std::move(p_contacts), 
-std::move(p_num_unreachable_contacts_filtered_out));
+      impl->OnContactsDownloaded(        
+        std::move(p_allowed_contacts), 
+        std::move(p_contacts), 
+        std::move(p_num_unreachable_contacts_filtered_out));
       return true;
     }
     case internal::kDownloadContactsObserver_OnContactsDownloadFailed_Name: {
@@ -4252,6 +4324,8 @@ std::move(p_num_unreachable_contacts_filtered_out));
           reinterpret_cast<internal::DownloadContactsObserver_OnContactsDownloadFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadContactsObserver.1
       bool success = true;
       DownloadContactsObserver_OnContactsDownloadFailed_ParamsDataView input_data_view(params, message);
       
@@ -4264,7 +4338,7 @@ std::move(p_num_unreachable_contacts_filtered_out));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnContactsDownloadFailed();
+      impl->OnContactsDownloadFailed(        );
       return true;
     }
   }
@@ -4546,6 +4620,8 @@ bool ContactManagerStubDispatch::Accept(
           reinterpret_cast<internal::ContactManager_AddDownloadContactsObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContactManager.0
       bool success = true;
       ::mojo::PendingRemote<DownloadContactsObserver> p_observer{};
       ContactManager_AddDownloadContactsObserver_ParamsDataView input_data_view(params, message);
@@ -4563,8 +4639,8 @@ bool ContactManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDownloadContactsObserver(
-std::move(p_observer));
+      impl->AddDownloadContactsObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kContactManager_DownloadContacts_Name: {
@@ -4574,6 +4650,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ContactManager_DownloadContacts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContactManager.1
       bool success = true;
       ContactManager_DownloadContacts_ParamsDataView input_data_view(params, message);
       
@@ -4586,7 +4664,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadContacts();
+      impl->DownloadContacts(        );
       return true;
     }
     case internal::kContactManager_SetAllowedContacts_Name: {
@@ -4596,6 +4674,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ContactManager_SetAllowedContacts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContactManager.2
       bool success = true;
       std::vector<std::string> p_allowed_contacts{};
       ContactManager_SetAllowedContacts_ParamsDataView input_data_view(params, message);
@@ -4611,8 +4691,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAllowedContacts(
-std::move(p_allowed_contacts));
+      impl->SetAllowedContacts(        
+        std::move(p_allowed_contacts));
       return true;
     }
   }

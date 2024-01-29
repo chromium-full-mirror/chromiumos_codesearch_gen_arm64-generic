@@ -117,6 +117,12 @@ export class MediaMetricsProviderInterface {
    * @param { !media_mojom_PipelineStatus } status
    */
 
+  onStarted(status) {}
+  
+  /**
+   * @param { !media_mojom_PipelineStatus } status
+   */
+
   onError(status) {}
   
   /**
@@ -287,10 +293,26 @@ export class MediaMetricsProviderRemote {
    * @param { !media_mojom_PipelineStatus } status
    */
 
-  onError(
+  onStarted(
       status) {
     this.proxy.sendMessage(
         1,
+        MediaMetricsProvider_OnStarted_ParamsSpec.$,
+        null,
+        [
+          status
+        ]);
+  }
+
+  
+  /**
+   * @param { !media_mojom_PipelineStatus } status
+   */
+
+  onError(
+      status) {
+    this.proxy.sendMessage(
+        2,
         MediaMetricsProvider_OnError_ParamsSpec.$,
         null,
         [
@@ -306,7 +328,7 @@ export class MediaMetricsProviderRemote {
   onFallback(
       status) {
     this.proxy.sendMessage(
-        2,
+        3,
         MediaMetricsProvider_OnFallback_ParamsSpec.$,
         null,
         [
@@ -320,7 +342,7 @@ export class MediaMetricsProviderRemote {
 
   setHasPlayed() {
     this.proxy.sendMessage(
-        3,
+        4,
         MediaMetricsProvider_SetHasPlayed_ParamsSpec.$,
         null,
         [
@@ -333,7 +355,7 @@ export class MediaMetricsProviderRemote {
 
   setHaveEnough() {
     this.proxy.sendMessage(
-        4,
+        5,
         MediaMetricsProvider_SetHaveEnough_ParamsSpec.$,
         null,
         [
@@ -346,7 +368,7 @@ export class MediaMetricsProviderRemote {
 
   setIsEME() {
     this.proxy.sendMessage(
-        5,
+        6,
         MediaMetricsProvider_SetIsEME_ParamsSpec.$,
         null,
         [
@@ -361,7 +383,7 @@ export class MediaMetricsProviderRemote {
   setTimeToMetadata(
       elapsed) {
     this.proxy.sendMessage(
-        6,
+        7,
         MediaMetricsProvider_SetTimeToMetadata_ParamsSpec.$,
         null,
         [
@@ -377,7 +399,7 @@ export class MediaMetricsProviderRemote {
   setTimeToFirstFrame(
       elapsed) {
     this.proxy.sendMessage(
-        7,
+        8,
         MediaMetricsProvider_SetTimeToFirstFrame_ParamsSpec.$,
         null,
         [
@@ -393,7 +415,7 @@ export class MediaMetricsProviderRemote {
   setTimeToPlayReady(
       elapsed) {
     this.proxy.sendMessage(
-        8,
+        9,
         MediaMetricsProvider_SetTimeToPlayReady_ParamsSpec.$,
         null,
         [
@@ -409,7 +431,7 @@ export class MediaMetricsProviderRemote {
   setRendererType(
       rendererType) {
     this.proxy.sendMessage(
-        9,
+        10,
         MediaMetricsProvider_SetRendererType_ParamsSpec.$,
         null,
         [
@@ -425,7 +447,7 @@ export class MediaMetricsProviderRemote {
   setKeySystem(
       keySystem) {
     this.proxy.sendMessage(
-        10,
+        11,
         MediaMetricsProvider_SetKeySystem_ParamsSpec.$,
         null,
         [
@@ -439,7 +461,7 @@ export class MediaMetricsProviderRemote {
 
   setHasWaitingForKey() {
     this.proxy.sendMessage(
-        11,
+        12,
         MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
         null,
         [
@@ -452,7 +474,7 @@ export class MediaMetricsProviderRemote {
 
   setIsHardwareSecure() {
     this.proxy.sendMessage(
-        12,
+        13,
         MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec.$,
         null,
         [
@@ -467,7 +489,7 @@ export class MediaMetricsProviderRemote {
   setContainerName(
       containerName) {
     this.proxy.sendMessage(
-        13,
+        14,
         MediaMetricsProvider_SetContainerName_ParamsSpec.$,
         null,
         [
@@ -485,7 +507,7 @@ export class MediaMetricsProviderRemote {
       properties,
       recorder) {
     this.proxy.sendMessage(
-        14,
+        15,
         MediaMetricsProvider_AcquireWatchTimeRecorder_ParamsSpec.$,
         null,
         [
@@ -502,7 +524,7 @@ export class MediaMetricsProviderRemote {
   acquireVideoDecodeStatsRecorder(
       recorder) {
     this.proxy.sendMessage(
-        15,
+        16,
         MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsSpec.$,
         null,
         [
@@ -520,7 +542,7 @@ export class MediaMetricsProviderRemote {
       taskName,
       controller) {
     this.proxy.sendMessage(
-        16,
+        17,
         MediaMetricsProvider_AcquireLearningTaskController_ParamsSpec.$,
         null,
         [
@@ -537,7 +559,7 @@ export class MediaMetricsProviderRemote {
   acquirePlaybackEventsRecorder(
       receiver) {
     this.proxy.sendMessage(
-        17,
+        18,
         MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsSpec.$,
         null,
         [
@@ -553,7 +575,7 @@ export class MediaMetricsProviderRemote {
   setHasAudio(
       codec) {
     this.proxy.sendMessage(
-        18,
+        19,
         MediaMetricsProvider_SetHasAudio_ParamsSpec.$,
         null,
         [
@@ -569,7 +591,7 @@ export class MediaMetricsProviderRemote {
   setHasVideo(
       codec) {
     this.proxy.sendMessage(
-        19,
+        20,
         MediaMetricsProvider_SetHasVideo_ParamsSpec.$,
         null,
         [
@@ -585,7 +607,7 @@ export class MediaMetricsProviderRemote {
   setVideoPipelineInfo(
       info) {
     this.proxy.sendMessage(
-        20,
+        21,
         MediaMetricsProvider_SetVideoPipelineInfo_ParamsSpec.$,
         null,
         [
@@ -601,7 +623,7 @@ export class MediaMetricsProviderRemote {
   setAudioPipelineInfo(
       info) {
     this.proxy.sendMessage(
-        21,
+        22,
         MediaMetricsProvider_SetAudioPipelineInfo_ParamsSpec.$,
         null,
         [
@@ -637,106 +659,111 @@ export class MediaMetricsProviderReceiver {
         impl.initialize.bind(impl));
     this.helper_internal_.registerHandler(
         1,
+        MediaMetricsProvider_OnStarted_ParamsSpec.$,
+        null,
+        impl.onStarted.bind(impl));
+    this.helper_internal_.registerHandler(
+        2,
         MediaMetricsProvider_OnError_ParamsSpec.$,
         null,
         impl.onError.bind(impl));
     this.helper_internal_.registerHandler(
-        2,
+        3,
         MediaMetricsProvider_OnFallback_ParamsSpec.$,
         null,
         impl.onFallback.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         MediaMetricsProvider_SetHasPlayed_ParamsSpec.$,
         null,
         impl.setHasPlayed.bind(impl));
     this.helper_internal_.registerHandler(
-        4,
+        5,
         MediaMetricsProvider_SetHaveEnough_ParamsSpec.$,
         null,
         impl.setHaveEnough.bind(impl));
     this.helper_internal_.registerHandler(
-        5,
+        6,
         MediaMetricsProvider_SetIsEME_ParamsSpec.$,
         null,
         impl.setIsEME.bind(impl));
     this.helper_internal_.registerHandler(
-        6,
+        7,
         MediaMetricsProvider_SetTimeToMetadata_ParamsSpec.$,
         null,
         impl.setTimeToMetadata.bind(impl));
     this.helper_internal_.registerHandler(
-        7,
+        8,
         MediaMetricsProvider_SetTimeToFirstFrame_ParamsSpec.$,
         null,
         impl.setTimeToFirstFrame.bind(impl));
     this.helper_internal_.registerHandler(
-        8,
+        9,
         MediaMetricsProvider_SetTimeToPlayReady_ParamsSpec.$,
         null,
         impl.setTimeToPlayReady.bind(impl));
     this.helper_internal_.registerHandler(
-        9,
+        10,
         MediaMetricsProvider_SetRendererType_ParamsSpec.$,
         null,
         impl.setRendererType.bind(impl));
     this.helper_internal_.registerHandler(
-        10,
+        11,
         MediaMetricsProvider_SetKeySystem_ParamsSpec.$,
         null,
         impl.setKeySystem.bind(impl));
     this.helper_internal_.registerHandler(
-        11,
+        12,
         MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
         null,
         impl.setHasWaitingForKey.bind(impl));
     this.helper_internal_.registerHandler(
-        12,
+        13,
         MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec.$,
         null,
         impl.setIsHardwareSecure.bind(impl));
     this.helper_internal_.registerHandler(
-        13,
+        14,
         MediaMetricsProvider_SetContainerName_ParamsSpec.$,
         null,
         impl.setContainerName.bind(impl));
     this.helper_internal_.registerHandler(
-        14,
+        15,
         MediaMetricsProvider_AcquireWatchTimeRecorder_ParamsSpec.$,
         null,
         impl.acquireWatchTimeRecorder.bind(impl));
     this.helper_internal_.registerHandler(
-        15,
+        16,
         MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsSpec.$,
         null,
         impl.acquireVideoDecodeStatsRecorder.bind(impl));
     this.helper_internal_.registerHandler(
-        16,
+        17,
         MediaMetricsProvider_AcquireLearningTaskController_ParamsSpec.$,
         null,
         impl.acquireLearningTaskController.bind(impl));
     this.helper_internal_.registerHandler(
-        17,
+        18,
         MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsSpec.$,
         null,
         impl.acquirePlaybackEventsRecorder.bind(impl));
     this.helper_internal_.registerHandler(
-        18,
+        19,
         MediaMetricsProvider_SetHasAudio_ParamsSpec.$,
         null,
         impl.setHasAudio.bind(impl));
     this.helper_internal_.registerHandler(
-        19,
+        20,
         MediaMetricsProvider_SetHasVideo_ParamsSpec.$,
         null,
         impl.setHasVideo.bind(impl));
     this.helper_internal_.registerHandler(
-        20,
+        21,
         MediaMetricsProvider_SetVideoPipelineInfo_ParamsSpec.$,
         null,
         impl.setVideoPipelineInfo.bind(impl));
     this.helper_internal_.registerHandler(
-        21,
+        22,
         MediaMetricsProvider_SetAudioPipelineInfo_ParamsSpec.$,
         null,
         impl.setAudioPipelineInfo.bind(impl));
@@ -801,12 +828,24 @@ export class MediaMetricsProviderCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onError =
+    this.onStarted =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         1,
+        MediaMetricsProvider_OnStarted_ParamsSpec.$,
+        null,
+        this.onStarted.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onError =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        2,
         MediaMetricsProvider_OnError_ParamsSpec.$,
         null,
         this.onError.createReceiverHandler(false /* expectsResponse */));
@@ -818,7 +857,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        2,
+        3,
         MediaMetricsProvider_OnFallback_ParamsSpec.$,
         null,
         this.onFallback.createReceiverHandler(false /* expectsResponse */));
@@ -830,7 +869,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         MediaMetricsProvider_SetHasPlayed_ParamsSpec.$,
         null,
         this.setHasPlayed.createReceiverHandler(false /* expectsResponse */));
@@ -842,7 +881,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        4,
+        5,
         MediaMetricsProvider_SetHaveEnough_ParamsSpec.$,
         null,
         this.setHaveEnough.createReceiverHandler(false /* expectsResponse */));
@@ -854,7 +893,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        5,
+        6,
         MediaMetricsProvider_SetIsEME_ParamsSpec.$,
         null,
         this.setIsEME.createReceiverHandler(false /* expectsResponse */));
@@ -866,7 +905,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        6,
+        7,
         MediaMetricsProvider_SetTimeToMetadata_ParamsSpec.$,
         null,
         this.setTimeToMetadata.createReceiverHandler(false /* expectsResponse */));
@@ -878,7 +917,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        7,
+        8,
         MediaMetricsProvider_SetTimeToFirstFrame_ParamsSpec.$,
         null,
         this.setTimeToFirstFrame.createReceiverHandler(false /* expectsResponse */));
@@ -890,7 +929,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        8,
+        9,
         MediaMetricsProvider_SetTimeToPlayReady_ParamsSpec.$,
         null,
         this.setTimeToPlayReady.createReceiverHandler(false /* expectsResponse */));
@@ -902,7 +941,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        9,
+        10,
         MediaMetricsProvider_SetRendererType_ParamsSpec.$,
         null,
         this.setRendererType.createReceiverHandler(false /* expectsResponse */));
@@ -914,7 +953,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        10,
+        11,
         MediaMetricsProvider_SetKeySystem_ParamsSpec.$,
         null,
         this.setKeySystem.createReceiverHandler(false /* expectsResponse */));
@@ -926,7 +965,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        11,
+        12,
         MediaMetricsProvider_SetHasWaitingForKey_ParamsSpec.$,
         null,
         this.setHasWaitingForKey.createReceiverHandler(false /* expectsResponse */));
@@ -938,7 +977,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        12,
+        13,
         MediaMetricsProvider_SetIsHardwareSecure_ParamsSpec.$,
         null,
         this.setIsHardwareSecure.createReceiverHandler(false /* expectsResponse */));
@@ -950,7 +989,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        13,
+        14,
         MediaMetricsProvider_SetContainerName_ParamsSpec.$,
         null,
         this.setContainerName.createReceiverHandler(false /* expectsResponse */));
@@ -962,7 +1001,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        14,
+        15,
         MediaMetricsProvider_AcquireWatchTimeRecorder_ParamsSpec.$,
         null,
         this.acquireWatchTimeRecorder.createReceiverHandler(false /* expectsResponse */));
@@ -974,7 +1013,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        15,
+        16,
         MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsSpec.$,
         null,
         this.acquireVideoDecodeStatsRecorder.createReceiverHandler(false /* expectsResponse */));
@@ -986,7 +1025,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        16,
+        17,
         MediaMetricsProvider_AcquireLearningTaskController_ParamsSpec.$,
         null,
         this.acquireLearningTaskController.createReceiverHandler(false /* expectsResponse */));
@@ -998,7 +1037,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        17,
+        18,
         MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsSpec.$,
         null,
         this.acquirePlaybackEventsRecorder.createReceiverHandler(false /* expectsResponse */));
@@ -1010,7 +1049,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        18,
+        19,
         MediaMetricsProvider_SetHasAudio_ParamsSpec.$,
         null,
         this.setHasAudio.createReceiverHandler(false /* expectsResponse */));
@@ -1022,7 +1061,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        19,
+        20,
         MediaMetricsProvider_SetHasVideo_ParamsSpec.$,
         null,
         this.setHasVideo.createReceiverHandler(false /* expectsResponse */));
@@ -1034,7 +1073,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        20,
+        21,
         MediaMetricsProvider_SetVideoPipelineInfo_ParamsSpec.$,
         null,
         this.setVideoPipelineInfo.createReceiverHandler(false /* expectsResponse */));
@@ -1046,7 +1085,7 @@ export class MediaMetricsProviderCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        21,
+        22,
         MediaMetricsProvider_SetAudioPipelineInfo_ParamsSpec.$,
         null,
         this.setAudioPipelineInfo.createReceiverHandler(false /* expectsResponse */));
@@ -1067,6 +1106,12 @@ export class MediaMetricsProviderCallbackRouter {
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const MediaMetricsProvider_Initialize_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const MediaMetricsProvider_OnStarted_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -1242,6 +1287,35 @@ export class MediaMetricsProvider_Initialize_Params {
     this.urlScheme;
     /** @type { !media_mojom_MediaStreamType } */
     this.streamType;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    MediaMetricsProvider_OnStarted_ParamsSpec.$,
+    'MediaMetricsProvider_OnStarted_Params',
+    [
+      mojo.internal.StructField(
+        'status', 0,
+        0,
+        media_mojom_PipelineStatusSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class MediaMetricsProvider_OnStarted_Params {
+  constructor() {
+    /** @type { !media_mojom_PipelineStatus } */
+    this.status;
   }
 }
 

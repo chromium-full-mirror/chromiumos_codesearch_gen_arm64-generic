@@ -352,6 +352,8 @@ bool FileLock_Release_ForwardToCallback::Accept(
           internal::FileLock_Release_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileLock.0
   bool success = true;
   ::base::File::Error p_error{};
   FileLock_Release_ResponseParamsDataView input_data_view(params, message);
@@ -422,6 +424,8 @@ bool FileLock_Release_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileLock_Release_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileLock.0
   bool success = true;
   ::base::File::Error p_error{};
   FileLock_Release_ResponseParamsDataView input_data_view(params, message);
@@ -468,6 +472,8 @@ bool FileLockStubDispatch::AcceptWithResponder(
               internal::FileLock_Release_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileLock.0
       bool success = true;
       FileLock_Release_ParamsDataView input_data_view(params, message);
       
@@ -2509,6 +2515,8 @@ bool Directory_PathExists_ForwardToCallback::Accept(
           internal::Directory_PathExists_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.1
   bool success = true;
   bool p_exists{};
   Directory_PathExists_ResponseParamsDataView input_data_view(params, message);
@@ -2578,6 +2586,8 @@ bool Directory_PathExists_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_PathExists_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.1
   bool success = true;
   bool p_exists{};
   Directory_PathExists_ResponseParamsDataView input_data_view(params, message);
@@ -2653,6 +2663,8 @@ bool Directory_GetEntries_ForwardToCallback::Accept(
           internal::Directory_GetEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.2
   bool success = true;
   ::base::File::Error p_error{};
   std::vector<::base::FilePath> p_entries{};
@@ -2743,6 +2755,8 @@ bool Directory_GetEntries_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_GetEntries_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.2
   bool success = true;
   ::base::File::Error p_error{};
   std::vector<::base::FilePath> p_entries{};
@@ -2822,6 +2836,8 @@ bool Directory_OpenFile_ForwardToCallback::Accept(
           internal::Directory_OpenFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.3
   bool success = true;
   ::base::File::Error p_error{};
   ::base::File p_file{};
@@ -2906,6 +2922,8 @@ bool Directory_OpenFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_OpenFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.3
   bool success = true;
   ::base::File::Error p_error{};
   ::base::File p_file{};
@@ -2985,6 +3003,8 @@ bool Directory_CreateDirectory_ForwardToCallback::Accept(
           internal::Directory_CreateDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.4
   bool success = true;
   ::base::File::Error p_error{};
   Directory_CreateDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -3055,6 +3075,8 @@ bool Directory_CreateDirectory_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_CreateDirectory_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.4
   bool success = true;
   ::base::File::Error p_error{};
   Directory_CreateDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -3130,6 +3152,8 @@ bool Directory_DeleteFile_ForwardToCallback::Accept(
           internal::Directory_DeleteFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.5
   bool success = true;
   bool p_success{};
   Directory_DeleteFile_ResponseParamsDataView input_data_view(params, message);
@@ -3199,6 +3223,8 @@ bool Directory_DeleteFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_DeleteFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.5
   bool success = true;
   bool p_success{};
   Directory_DeleteFile_ResponseParamsDataView input_data_view(params, message);
@@ -3274,6 +3300,8 @@ bool Directory_GetFileInfo_ForwardToCallback::Accept(
           internal::Directory_GetFileInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.6
   bool success = true;
   std::optional<::base::File::Info> p_info{};
   Directory_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3349,6 +3377,8 @@ bool Directory_GetFileInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_GetFileInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.6
   bool success = true;
   std::optional<::base::File::Info> p_info{};
   Directory_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3424,6 +3454,8 @@ bool Directory_GetPathAccess_ForwardToCallback::Accept(
           internal::Directory_GetPathAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.7
   bool success = true;
   PathAccessInfoPtr p_info{};
   Directory_GetPathAccess_ResponseParamsDataView input_data_view(params, message);
@@ -3499,6 +3531,8 @@ bool Directory_GetPathAccess_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_GetPathAccess_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.7
   bool success = true;
   PathAccessInfoPtr p_info{};
   Directory_GetPathAccess_ResponseParamsDataView input_data_view(params, message);
@@ -3574,6 +3608,8 @@ bool Directory_RenameFile_ForwardToCallback::Accept(
           internal::Directory_RenameFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.8
   bool success = true;
   ::base::File::Error p_error{};
   Directory_RenameFile_ResponseParamsDataView input_data_view(params, message);
@@ -3644,6 +3680,8 @@ bool Directory_RenameFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_RenameFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.8
   bool success = true;
   ::base::File::Error p_error{};
   Directory_RenameFile_ResponseParamsDataView input_data_view(params, message);
@@ -3719,6 +3757,8 @@ bool Directory_LockFile_ForwardToCallback::Accept(
           internal::Directory_LockFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.9
   bool success = true;
   ::base::File::Error p_error{};
   ::mojo::PendingRemote<FileLock> p_lock{};
@@ -3800,6 +3840,8 @@ bool Directory_LockFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_LockFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.9
   bool success = true;
   ::base::File::Error p_error{};
   ::mojo::PendingRemote<FileLock> p_lock{};
@@ -3881,6 +3923,8 @@ bool Directory_SetOpenedFileLength_ForwardToCallback::Accept(
           internal::Directory_SetOpenedFileLength_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Directory.10
   bool success = true;
   bool p_success{};
   ::base::File p_file{};
@@ -3968,6 +4012,8 @@ bool Directory_SetOpenedFileLength_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Directory_SetOpenedFileLength_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Directory.10
   bool success = true;
   bool p_success{};
   ::base::File p_file{};
@@ -4002,6 +4048,8 @@ bool DirectoryStubDispatch::Accept(
           reinterpret_cast<internal::Directory_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Directory.0
       bool success = true;
       ::mojo::PendingReceiver<Directory> p_receiver{};
       Directory_Clone_ParamsDataView input_data_view(params, message);
@@ -4019,8 +4067,8 @@ bool DirectoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDirectory_PathExists_Name: {
@@ -4076,6 +4124,8 @@ bool DirectoryStubDispatch::AcceptWithResponder(
               internal::Directory_PathExists_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.1
       bool success = true;
       ::base::FilePath p_path{};
       Directory_PathExists_ParamsDataView input_data_view(params, message);
@@ -4094,8 +4144,8 @@ bool DirectoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PathExists(
-std::move(p_path), std::move(callback));
+      impl->PathExists(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_GetEntries_Name: {
@@ -4105,6 +4155,8 @@ std::move(p_path), std::move(callback));
               internal::Directory_GetEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.2
       bool success = true;
       ::base::FilePath p_path{};
       GetEntriesMode p_mode{};
@@ -4126,9 +4178,9 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEntries(
-std::move(p_path), 
-std::move(p_mode), std::move(callback));
+      impl->GetEntries(        
+        std::move(p_path), 
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kDirectory_OpenFile_Name: {
@@ -4138,6 +4190,8 @@ std::move(p_mode), std::move(callback));
               internal::Directory_OpenFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.3
       bool success = true;
       ::base::FilePath p_path{};
       FileOpenMode p_mode{};
@@ -4165,11 +4219,11 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFile(
-std::move(p_path), 
-std::move(p_mode), 
-std::move(p_read_access), 
-std::move(p_write_access), std::move(callback));
+      impl->OpenFile(        
+        std::move(p_path), 
+        std::move(p_mode), 
+        std::move(p_read_access), 
+        std::move(p_write_access), std::move(callback));
       return true;
     }
     case internal::kDirectory_CreateDirectory_Name: {
@@ -4179,6 +4233,8 @@ std::move(p_write_access), std::move(callback));
               internal::Directory_CreateDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.4
       bool success = true;
       ::base::FilePath p_path{};
       Directory_CreateDirectory_ParamsDataView input_data_view(params, message);
@@ -4197,8 +4253,8 @@ std::move(p_write_access), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDirectory(
-std::move(p_path), std::move(callback));
+      impl->CreateDirectory(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_DeleteFile_Name: {
@@ -4208,6 +4264,8 @@ std::move(p_path), std::move(callback));
               internal::Directory_DeleteFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.5
       bool success = true;
       ::base::FilePath p_path{};
       Directory_DeleteFile_ParamsDataView input_data_view(params, message);
@@ -4226,8 +4284,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteFile(
-std::move(p_path), std::move(callback));
+      impl->DeleteFile(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_GetFileInfo_Name: {
@@ -4237,6 +4295,8 @@ std::move(p_path), std::move(callback));
               internal::Directory_GetFileInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.6
       bool success = true;
       ::base::FilePath p_path{};
       Directory_GetFileInfo_ParamsDataView input_data_view(params, message);
@@ -4255,8 +4315,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileInfo(
-std::move(p_path), std::move(callback));
+      impl->GetFileInfo(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_GetPathAccess_Name: {
@@ -4266,6 +4326,8 @@ std::move(p_path), std::move(callback));
               internal::Directory_GetPathAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.7
       bool success = true;
       ::base::FilePath p_path{};
       Directory_GetPathAccess_ParamsDataView input_data_view(params, message);
@@ -4284,8 +4346,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPathAccess(
-std::move(p_path), std::move(callback));
+      impl->GetPathAccess(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_RenameFile_Name: {
@@ -4295,6 +4357,8 @@ std::move(p_path), std::move(callback));
               internal::Directory_RenameFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.8
       bool success = true;
       ::base::FilePath p_old_path{};
       ::base::FilePath p_new_path{};
@@ -4316,9 +4380,9 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenameFile(
-std::move(p_old_path), 
-std::move(p_new_path), std::move(callback));
+      impl->RenameFile(        
+        std::move(p_old_path), 
+        std::move(p_new_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_LockFile_Name: {
@@ -4328,6 +4392,8 @@ std::move(p_new_path), std::move(callback));
               internal::Directory_LockFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.9
       bool success = true;
       ::base::FilePath p_path{};
       Directory_LockFile_ParamsDataView input_data_view(params, message);
@@ -4346,8 +4412,8 @@ std::move(p_new_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LockFile(
-std::move(p_path), std::move(callback));
+      impl->LockFile(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kDirectory_SetOpenedFileLength_Name: {
@@ -4357,6 +4423,8 @@ std::move(p_path), std::move(callback));
               internal::Directory_SetOpenedFileLength_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Directory.10
       bool success = true;
       ::base::File p_file{};
       uint64_t p_size{};
@@ -4378,9 +4446,9 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOpenedFileLength(
-std::move(p_file), 
-std::move(p_size), std::move(callback));
+      impl->SetOpenedFileLength(        
+        std::move(p_file), 
+        std::move(p_size), std::move(callback));
       return true;
     }
   }

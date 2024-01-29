@@ -390,6 +390,8 @@ bool MediaStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::MediaStatusObserver_OnMediaStatusUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStatusObserver.0
       bool success = true;
       MediaStatusPtr p_status{};
       MediaStatusObserver_OnMediaStatusUpdated_ParamsDataView input_data_view(params, message);
@@ -405,8 +407,8 @@ bool MediaStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaStatusUpdated(
-std::move(p_status));
+      impl->OnMediaStatusUpdated(        
+        std::move(p_status));
       return true;
     }
   }

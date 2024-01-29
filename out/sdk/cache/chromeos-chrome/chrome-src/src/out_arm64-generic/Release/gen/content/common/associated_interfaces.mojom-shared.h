@@ -25,6 +25,7 @@
 
 #include "content/common/associated_interfaces.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/associated_interfaces/associated_interfaces.mojom-shared.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

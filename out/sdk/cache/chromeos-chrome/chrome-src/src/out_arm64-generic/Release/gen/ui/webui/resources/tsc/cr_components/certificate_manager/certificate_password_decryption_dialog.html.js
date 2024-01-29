@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared">cr-input{--cr-input-error-display:none}</style>
-    <cr-dialog id="dialog" close-text="[[i18n('close')]]">
+    <cr-dialog id="dialog" show-on-attach close-text="[[i18n('close')]]">
       <div slot="title">
         [[i18n('certificateManagerDecryptPasswordTitle')]]
       </div>

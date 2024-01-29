@@ -47,15 +47,18 @@ namespace audio::mojom {
 AudioDeviceDescription::AudioDeviceDescription()
     : device_name(),
       unique_id(),
-      group_id() {}
+      group_id(),
+      is_system_default() {}
 
 AudioDeviceDescription::AudioDeviceDescription(
     const std::string& device_name_in,
     const std::string& unique_id_in,
-    const std::string& group_id_in)
+    const std::string& group_id_in,
+    bool is_system_default_in)
     : device_name(std::move(device_name_in)),
       unique_id(std::move(unique_id_in)),
-      group_id(std::move(group_id_in)) {}
+      group_id(std::move(group_id_in)),
+      is_system_default(std::move(is_system_default_in)) {}
 
 AudioDeviceDescription::~AudioDeviceDescription() = default;
 
@@ -89,6 +92,15 @@ void AudioDeviceDescription::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_system_default"), this->is_system_default,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool AudioDeviceDescription::Validate(
@@ -117,6 +129,8 @@ bool StructTraits<::audio::mojom::AudioDeviceDescription::DataView, ::audio::moj
         success = false;
       if (success && !input.ReadGroupId(&result->group_id))
         success = false;
+      if (success)
+        result->is_system_default = input.is_system_default();
   *output = std::move(result);
   return success;
 }

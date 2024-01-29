@@ -958,6 +958,8 @@ bool TaskManagerProvider_GetTaskManagerTasks_ForwardToCallback::Accept(
           internal::TaskManagerProvider_GetTaskManagerTasks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TaskManagerProvider.1
   bool success = true;
   std::vector<TaskPtr> p_task_results{};
   std::vector<TaskGroupPtr> p_task_group_results{};
@@ -1064,6 +1066,8 @@ bool TaskManagerProviderStubDispatch::Accept(
           reinterpret_cast<internal::TaskManagerProvider_DeprecatedSetRefreshArgs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TaskManagerProvider.0
       bool success = true;
       ::base::TimeDelta p_refresh_interval{};
       int64_t p_refresh_flags{};
@@ -1082,9 +1086,9 @@ bool TaskManagerProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedSetRefreshArgs(
-std::move(p_refresh_interval), 
-std::move(p_refresh_flags));
+      impl->DeprecatedSetRefreshArgs(        
+        std::move(p_refresh_interval), 
+        std::move(p_refresh_flags));
       return true;
     }
     case internal::kTaskManagerProvider_GetTaskManagerTasks_Name: {
@@ -1097,6 +1101,8 @@ std::move(p_refresh_flags));
           reinterpret_cast<internal::TaskManagerProvider_OnTaskManagerClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TaskManagerProvider.2
       bool success = true;
       TaskManagerProvider_OnTaskManagerClosed_ParamsDataView input_data_view(params, message);
       
@@ -1109,7 +1115,7 @@ std::move(p_refresh_flags));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTaskManagerClosed();
+      impl->OnTaskManagerClosed(        );
       return true;
     }
     case internal::kTaskManagerProvider_SetRefreshFlags_Name: {
@@ -1119,6 +1125,8 @@ std::move(p_refresh_flags));
           reinterpret_cast<internal::TaskManagerProvider_SetRefreshFlags_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TaskManagerProvider.3
       bool success = true;
       int64_t p_refresh_flags{};
       TaskManagerProvider_SetRefreshFlags_ParamsDataView input_data_view(params, message);
@@ -1134,8 +1142,8 @@ std::move(p_refresh_flags));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRefreshFlags(
-std::move(p_refresh_flags));
+      impl->SetRefreshFlags(        
+        std::move(p_refresh_flags));
       return true;
     }
     case internal::kTaskManagerProvider_ActivateTask_Name: {
@@ -1145,6 +1153,8 @@ std::move(p_refresh_flags));
           reinterpret_cast<internal::TaskManagerProvider_ActivateTask_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TaskManagerProvider.4
       bool success = true;
       std::string p_task_uuid{};
       TaskManagerProvider_ActivateTask_ParamsDataView input_data_view(params, message);
@@ -1160,8 +1170,8 @@ std::move(p_refresh_flags));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivateTask(
-std::move(p_task_uuid));
+      impl->ActivateTask(        
+        std::move(p_task_uuid));
       return true;
     }
   }
@@ -1187,6 +1197,8 @@ bool TaskManagerProviderStubDispatch::AcceptWithResponder(
               internal::TaskManagerProvider_GetTaskManagerTasks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TaskManagerProvider.1
       bool success = true;
       TaskManagerProvider_GetTaskManagerTasks_ParamsDataView input_data_view(params, message);
       
@@ -1426,6 +1438,8 @@ bool TaskManagerStubDispatch::Accept(
           reinterpret_cast<internal::TaskManager_RegisterTaskManagerProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TaskManager.0
       bool success = true;
       ::mojo::PendingRemote<TaskManagerProvider> p_provider{};
       ::base::UnguessableToken p_token{};
@@ -1446,9 +1460,9 @@ bool TaskManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterTaskManagerProvider(
-std::move(p_provider), 
-std::move(p_token));
+      impl->RegisterTaskManagerProvider(        
+        std::move(p_provider), 
+        std::move(p_token));
       return true;
     }
     case internal::kTaskManager_ShowTaskManager_Name: {
@@ -1458,6 +1472,8 @@ std::move(p_token));
           reinterpret_cast<internal::TaskManager_ShowTaskManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TaskManager.1
       bool success = true;
       TaskManager_ShowTaskManager_ParamsDataView input_data_view(params, message);
       
@@ -1470,7 +1486,7 @@ std::move(p_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowTaskManager();
+      impl->ShowTaskManager(        );
       return true;
     }
   }

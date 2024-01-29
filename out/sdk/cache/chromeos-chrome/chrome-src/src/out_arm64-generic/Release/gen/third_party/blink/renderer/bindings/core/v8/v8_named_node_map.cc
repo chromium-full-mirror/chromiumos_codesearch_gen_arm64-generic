@@ -263,9 +263,13 @@ blink_receiver->NamedPropertyEnumerator(blink_property_names, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 bindings::V8SetReturnValue(
     info,
-    ToV8(blink_property_names, v8_receiver, isolate));
+    ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state,
+                                             blink_property_names)
+         .As<v8::Array>());
 
 }
 
@@ -433,7 +437,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.getNamedItem");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapGetNamedItem);
 
@@ -476,7 +481,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.getNamedItemNS");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapGetNamedItemNS);
 
@@ -514,7 +520,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.item");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapItem);
 
@@ -548,7 +555,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.removeNamedItem");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapRemoveNamedItem);
 
@@ -588,7 +596,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.removeNamedItemNS");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapRemoveNamedItemNS);
 
@@ -632,7 +641,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.setNamedItem");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapSetNamedItem);
 
@@ -672,7 +682,8 @@ BLINK_BINDINGS_TRACE_EVENT("NamedNodeMap.setNamedItemNS");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kNamedNodeMapSetNamedItemNS);
 

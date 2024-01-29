@@ -884,6 +884,7 @@ class  VideoFrameMetadata_Data {
   uint8_t wants_promotion_hint : 1;
   uint8_t protected_video : 1;
   uint8_t hw_protected : 1;
+  uint8_t needs_detiling : 1;
   uint8_t is_webgpu_compatible : 1;
   uint8_t power_efficient : 1;
   uint8_t texture_origin_is_top_left : 1;
@@ -894,7 +895,7 @@ class  VideoFrameMetadata_Data {
   uint8_t has_top_controls_visible_height : 1;
   uint8_t has_rtp_timestamp : 1;
   uint8_t frame_sequence_$flag : 1;
-  uint8_t pad20_[1];
+  uint8_t pad21_[1];
   int32_t capture_counter;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> capture_begin_time;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> capture_end_time;
@@ -902,7 +903,7 @@ class  VideoFrameMetadata_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> source_size;
   mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> region_capture_rect;
   uint32_t sub_capture_target_version;
-  uint8_t pad27_[4];
+  uint8_t pad28_[4];
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> frame_duration;
   double frame_rate;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeTicks_Data> reference_time;

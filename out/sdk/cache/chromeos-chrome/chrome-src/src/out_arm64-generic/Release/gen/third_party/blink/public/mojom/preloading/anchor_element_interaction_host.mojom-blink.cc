@@ -310,6 +310,8 @@ bool AnchorElementInteractionHostStubDispatch::Accept(
           reinterpret_cast<internal::AnchorElementInteractionHost_OnPointerDown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementInteractionHost.0
       bool success = true;
       ::blink::KURL p_target{};
       AnchorElementInteractionHost_OnPointerDown_ParamsDataView input_data_view(params, message);
@@ -325,8 +327,8 @@ bool AnchorElementInteractionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPointerDown(
-std::move(p_target));
+      impl->OnPointerDown(        
+        std::move(p_target));
       return true;
     }
     case internal::kAnchorElementInteractionHost_OnPointerHover_Name: {
@@ -336,6 +338,8 @@ std::move(p_target));
           reinterpret_cast<internal::AnchorElementInteractionHost_OnPointerHover_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementInteractionHost.1
       bool success = true;
       ::blink::KURL p_target{};
       AnchorElementPointerDataPtr p_mouse_data{};
@@ -354,9 +358,9 @@ std::move(p_target));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPointerHover(
-std::move(p_target), 
-std::move(p_mouse_data));
+      impl->OnPointerHover(        
+        std::move(p_target), 
+        std::move(p_mouse_data));
       return true;
     }
   }

@@ -33,6 +33,7 @@ class  UntrustedPageHandlerFactoryAsyncWaiter {
 
 class  OcrUntrustedPageHandlerInterceptorForTesting : public OcrUntrustedPageHandler {
   virtual OcrUntrustedPageHandler* GetForwardingInterface() = 0;
+  void PageMetadataUpdated(std::vector<PageMetadataPtr> page_metadata) override;
   void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) override;
 };
 class  OcrUntrustedPageHandlerAsyncWaiter {

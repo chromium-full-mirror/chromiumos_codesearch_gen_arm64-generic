@@ -17,7 +17,6 @@ namespace content::mojom {
 class CONTENT_EXPORT RenderMessageFilterInterceptorForTesting : public RenderMessageFilter {
   virtual RenderMessageFilter* GetForwardingInterface() = 0;
   void GenerateFrameRoutingID(GenerateFrameRoutingIDCallback callback) override;
-  void HasGpuProcess(HasGpuProcessCallback callback) override;
 };
 class CONTENT_EXPORT RenderMessageFilterAsyncWaiter {
  public:
@@ -30,9 +29,6 @@ class CONTENT_EXPORT RenderMessageFilterAsyncWaiter {
   void GenerateFrameRoutingID(
       int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token);
   
-  void HasGpuProcess(
-      bool* out_has_gpu_process);
-  bool HasGpuProcess();
 
  private:
   RenderMessageFilter* const proxy_;

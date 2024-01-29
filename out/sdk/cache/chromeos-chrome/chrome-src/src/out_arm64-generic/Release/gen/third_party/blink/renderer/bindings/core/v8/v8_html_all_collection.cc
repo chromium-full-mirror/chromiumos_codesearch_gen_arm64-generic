@@ -95,13 +95,9 @@ return;  // Do not intercept.
 // "Otherwise, operation was defined with an identifier. Set value to the result
 //  of performing the steps listed in the description of operation with P as the
 //  only argument value."
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
-if (!ToV8Traits<IDLNullable<V8UnionElementOrHTMLCollection>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionElementOrHTMLCollection>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -270,9 +266,13 @@ blink_receiver->NamedPropertyEnumerator(blink_property_names, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 bindings::V8SetReturnValue(
     info,
-    ToV8(blink_property_names, v8_receiver, isolate));
+    ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state,
+                                             blink_property_names)
+         .As<v8::Array>());
 
 }
 
@@ -444,10 +444,8 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLAllCollection.item");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8UnionElementOrHTMLCollection* return_value;
 v8::Isolate* isolate = info.GetIsolate();
@@ -471,9 +469,7 @@ return_value = blink_receiver->item(isolate, arg1_name_or_index, exception_state
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<IDLNullable<V8UnionElementOrHTMLCollection>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionElementOrHTMLCollection>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -497,10 +493,8 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 HTMLAllCollection* blink_receiver = V8HTMLAllCollection::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_name;
@@ -517,9 +511,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 }
 auto&& return_value = blink_receiver->NamedGetter(arg1_name);
-if (!ToV8Traits<IDLNullable<V8UnionElementOrHTMLCollection>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<V8UnionElementOrHTMLCollection>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

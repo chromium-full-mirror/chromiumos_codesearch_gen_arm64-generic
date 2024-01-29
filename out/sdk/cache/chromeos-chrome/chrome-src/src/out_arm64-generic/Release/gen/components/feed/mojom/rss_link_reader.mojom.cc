@@ -250,6 +250,8 @@ bool RssLinkReader_GetRssLinks_ForwardToCallback::Accept(
           internal::RssLinkReader_GetRssLinks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RssLinkReader.0
   bool success = true;
   RssLinksPtr p_rss_links{};
   RssLinkReader_GetRssLinks_ResponseParamsDataView input_data_view(params, message);
@@ -350,6 +352,8 @@ bool RssLinkReaderStubDispatch::AcceptWithResponder(
               internal::RssLinkReader_GetRssLinks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RssLinkReader.0
       bool success = true;
       RssLinkReader_GetRssLinks_ParamsDataView input_data_view(params, message);
       

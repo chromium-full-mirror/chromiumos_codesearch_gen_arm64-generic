@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
-<style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{background-position:center center;background-repeat:no-repeat;background-size:183px}.illustration,.illustration-jelly{height:173px;margin-top:15px;padding:16px;width:183px}#intro .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_start_pairing.svg)}#assignSwitch[data-switch=select] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_select.svg)}#assignSwitch[data-switch=next] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_next.svg)}#assignSwitch[data-switch=previous] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_previous.svg)}#chooseSwitchCount[data-switch-count='1'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_one_switch.svg)}#chooseSwitchCount[data-switch-count='2'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_two_switches.svg)}#chooseSwitchCount[data-switch-count='3'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_three_switches.svg)}#autoScanEnabled .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_auto_scan_enabled.svg)}#closing .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_closing.svg)}@media(prefers-color-scheme:dark){#intro .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_start_pairing_dark.svg)}#assignSwitch[data-switch=select] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_select_dark.svg)}#assignSwitch[data-switch=next] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_next_dark.svg)}#assignSwitch[data-switch=previous] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_previous_dark.svg)}#chooseSwitchCount[data-switch-count='1'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_one_switch_dark.svg)}#chooseSwitchCount[data-switch-count='2'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_two_switches_dark.svg)}#chooseSwitchCount[data-switch-count='3'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_three_switches_dark.svg)}#autoScanEnabled .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_auto_scan_enabled_dark.svg)}#closing .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_closing_dark.svg)}}:host-context(body:not(.jelly-enabled)) .illustration-jelly{display:none}:host-context(body.jelly-enabled) .illustration{display:none}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
+<style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{height:173px;margin-top:15px;padding:16px;width:183px}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
 <cr-dialog id="switchAccessSetupGuideDialog" show-on-attach>
   <div slot="title" class="sa-setup-title" id="title">
     <span id="titleText">
@@ -16,15 +16,13 @@ export function getTemplate() {
         $i18n{switchAccessSetupIntroBody}
       </div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="os-settings-illo:switch-access-setup-guide-start-pairing" class="illustration-jelly">
+      <iron-icon icon="os-settings-illo:switch-access-setup-guide-start-pairing" class="illustration">
       </iron-icon>
     </div>
     <div id="assignSwitch" class="flex" hidden data-switch$="[[switchToAssign_]]">
       <div class="sa-setup-contents"></div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="[[getAssignSwitchIllo_(switchToAssign_)]]" class="illustration-jelly">
+      <iron-icon icon="[[getAssignSwitchIllo_(switchToAssign_)]]" class="illustration">
       </iron-icon>
     </div>
     <div id="autoScanEnabled" class="flex" hidden>
@@ -33,8 +31,7 @@ export function getTemplate() {
         <p>$i18n{switchAccessSetupAutoScanEnabledDirections}</p>
       </div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="os-settings-illo:switch-access-setup-guide-auto-scan" class="illustration-jelly">
+      <iron-icon icon="os-settings-illo:switch-access-setup-guide-auto-scan" class="illustration">
       </iron-icon>
     </div>
     <div id="chooseSwitchCount" class="flex" hidden data-switch-count$="[[switchCount_]]">
@@ -64,8 +61,7 @@ export function getTemplate() {
         
       </cr-radio-group></div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="[[getSwitchCountIllo_(switchCount_)]]" class="illustration-jelly">
+      <iron-icon icon="[[getSwitchCountIllo_(switchCount_)]]" class="illustration">
       </iron-icon>
     </div>
     <div id="autoScanSpeed" hidden>
@@ -85,8 +81,7 @@ export function getTemplate() {
         <p>$i18n{switchAccessSetupClosingInfo}</p>
       </div>
 
-      <div class="illustration"></div>
-      <iron-icon icon="os-settings-illo:switch-access-setup-guide-closing" class="illustration-jelly">
+      <iron-icon icon="os-settings-illo:switch-access-setup-guide-closing" class="illustration">
       </iron-icon>
     </div>
   </div>

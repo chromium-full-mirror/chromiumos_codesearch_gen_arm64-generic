@@ -560,6 +560,8 @@ bool SmbFsBootstrap_MountShare_ForwardToCallback::Accept(
           internal::SmbFsBootstrap_MountShare_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmbFsBootstrap.0
   bool success = true;
   MountError p_error{};
   ::mojo::PendingRemote<SmbFs> p_smbfs{};
@@ -662,6 +664,8 @@ bool SmbFsBootstrapStubDispatch::AcceptWithResponder(
               internal::SmbFsBootstrap_MountShare_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmbFsBootstrap.0
       bool success = true;
       MountOptionsPtr p_options{};
       ::mojo::PendingRemote<SmbFsDelegate> p_delegate{};
@@ -685,9 +689,9 @@ bool SmbFsBootstrapStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MountShare(
-std::move(p_options), 
-std::move(p_delegate), std::move(callback));
+      impl->MountShare(        
+        std::move(p_options), 
+        std::move(p_delegate), std::move(callback));
       return true;
     }
   }
@@ -963,6 +967,8 @@ bool SmbFs_RemoveSavedCredentials_ForwardToCallback::Accept(
           internal::SmbFs_RemoveSavedCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmbFs.0
   bool success = true;
   bool p_success{};
   SmbFs_RemoveSavedCredentials_ResponseParamsDataView input_data_view(params, message);
@@ -1082,6 +1088,8 @@ bool SmbFs_DeleteRecursively_ForwardToCallback::Accept(
           internal::SmbFs_DeleteRecursively_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmbFs.1
   bool success = true;
   DeleteRecursivelyError p_error{};
   SmbFs_DeleteRecursively_ResponseParamsDataView input_data_view(params, message);
@@ -1176,6 +1184,8 @@ bool SmbFsStubDispatch::AcceptWithResponder(
               internal::SmbFs_RemoveSavedCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmbFs.0
       bool success = true;
       SmbFs_RemoveSavedCredentials_ParamsDataView input_data_view(params, message);
       
@@ -1201,6 +1211,8 @@ bool SmbFsStubDispatch::AcceptWithResponder(
               internal::SmbFs_DeleteRecursively_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmbFs.1
       bool success = true;
       ::base::FilePath p_path{};
       SmbFs_DeleteRecursively_ParamsDataView input_data_view(params, message);
@@ -1219,8 +1231,8 @@ bool SmbFsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteRecursively(
-std::move(p_path), std::move(callback));
+      impl->DeleteRecursively(        
+        std::move(p_path), std::move(callback));
       return true;
     }
   }
@@ -1410,6 +1422,8 @@ bool SmbFsDelegate_RequestCredentials_ForwardToCallback::Accept(
           internal::SmbFsDelegate_RequestCredentials_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmbFsDelegate.0
   bool success = true;
   CredentialsPtr p_credentials{};
   SmbFsDelegate_RequestCredentials_ResponseParamsDataView input_data_view(params, message);
@@ -1506,6 +1520,8 @@ bool SmbFsDelegateStubDispatch::AcceptWithResponder(
               internal::SmbFsDelegate_RequestCredentials_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmbFsDelegate.0
       bool success = true;
       SmbFsDelegate_RequestCredentials_ParamsDataView input_data_view(params, message);
       

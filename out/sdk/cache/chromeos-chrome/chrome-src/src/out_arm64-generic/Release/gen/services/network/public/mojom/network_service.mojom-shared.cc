@@ -640,7 +640,7 @@ NetworkService_SetRawHeadersAccess_Params_Data::NetworkService_SetRawHeadersAcce
 
 
 // static
-bool NetworkService_SetMaxConnectionsPerProxy_Params_Data::Validate(
+bool NetworkService_SetMaxConnectionsPerProxyChain_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -652,13 +652,13 @@ bool NetworkService_SetMaxConnectionsPerProxy_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const NetworkService_SetMaxConnectionsPerProxy_Params_Data* object =
-      static_cast<const NetworkService_SetMaxConnectionsPerProxy_Params_Data*>(data);
+  [[maybe_unused]] const NetworkService_SetMaxConnectionsPerProxyChain_Params_Data* object =
+      static_cast<const NetworkService_SetMaxConnectionsPerProxyChain_Params_Data*>(data);
 
   return true;
 }
 
-NetworkService_SetMaxConnectionsPerProxy_Params_Data::NetworkService_SetMaxConnectionsPerProxy_Params_Data()
+NetworkService_SetMaxConnectionsPerProxyChain_Params_Data::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1485,7 +1485,7 @@ NetworkService_SetIPv6ReachabilityOverride_Params_Data::NetworkService_SetIPv6Re
 
 
 // static
-bool NetworkService_SetCookieEncryptionProvider_Params_Data::Validate(
+bool NetworkService_SetNetworkAnnotationMonitor_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1497,14 +1497,14 @@ bool NetworkService_SetCookieEncryptionProvider_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const NetworkService_SetCookieEncryptionProvider_Params_Data* object =
-      static_cast<const NetworkService_SetCookieEncryptionProvider_Params_Data*>(data);
+  [[maybe_unused]] const NetworkService_SetNetworkAnnotationMonitor_Params_Data* object =
+      static_cast<const NetworkService_SetNetworkAnnotationMonitor_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->provider, 1, validation_context)) {
+          object->remote, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateHandleOrInterface(object->provider,
+  if (!mojo::internal::ValidateHandleOrInterface(object->remote,
                                                  validation_context)) {
     return false;
   }
@@ -1512,7 +1512,7 @@ bool NetworkService_SetCookieEncryptionProvider_Params_Data::Validate(
   return true;
 }
 
-NetworkService_SetCookieEncryptionProvider_Params_Data::NetworkService_SetCookieEncryptionProvider_Params_Data()
+NetworkService_SetNetworkAnnotationMonitor_Params_Data::NetworkService_SetNetworkAnnotationMonitor_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

@@ -72,6 +72,9 @@
       "chrome://resources/mwc/*": [
         "./../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/material_web_components/components-chromium/node_modules/*"
       ],
+      "chrome://file-manager/*": [
+        "./preprocessed/file_manager/*"
+      ],
       "chrome://webui-test/chromeos/*": [
         "./../../chrome/test/data/webui/chromeos/tsc/*"
       ],
@@ -207,13 +210,8 @@
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/tabs.d.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/wallpaper.d.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/webview_tag.d.ts",
-    "file_manager/externs/search_item.d.ts",
-    "file_manager/externs/quick_view.d.ts",
     "preprocessed/file_manager/definitions/file_error.d.ts",
     "preprocessed/file_manager/definitions/file_manager.d.ts",
-    "preprocessed/file_manager/externs/volume_info.d.ts",
-    "preprocessed/file_manager/externs/volume_info_list.d.ts",
-    "preprocessed/file_manager/externs/volume_manager.d.ts",
     "preprocessed/file_manager/definitions/navigator_connection.d.ts",
     "preprocessed/file_manager/foreground/js/ui/tree.d.ts"
   ],

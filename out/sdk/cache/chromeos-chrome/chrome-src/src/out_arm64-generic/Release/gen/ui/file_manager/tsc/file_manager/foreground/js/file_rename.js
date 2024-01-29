@@ -95,7 +95,7 @@ export async function validateFileName(parentEntry, name, areHiddenFilesVisible)
     if (!areHiddenFilesVisible && /\.crdownload$/i.test(name)) {
         throw Error(str('ERROR_RESERVED_NAME'));
     }
-    if (!areHiddenFilesVisible && name[0] == '.') {
+    if (!areHiddenFilesVisible && name[0] === '.') {
         throw Error(str('ERROR_HIDDEN_NAME'));
     }
     const isValid = await validatePathNameLength(parentEntry, name);
@@ -137,7 +137,7 @@ export async function renameFile(entry, newName) {
             await getEntry(parent, newName, entry.isFile, { create: false });
         }
         catch (error) {
-            if (error.name == FileErrorToDomError.NOT_FOUND_ERR) {
+            if (error.name === FileErrorToDomError.NOT_FOUND_ERR) {
                 return moveEntryTo(entry, parent, newName);
             }
             // Unexpected error found.
@@ -155,8 +155,8 @@ export async function renameFile(entry, newName) {
  */
 function getRenameErrorMessage(error, entry, newName) {
     if (error &&
-        (error.name == FileErrorToDomError.PATH_EXISTS_ERR ||
-            error.name == FileErrorToDomError.TYPE_MISMATCH_ERR)) {
+        (error.name === FileErrorToDomError.PATH_EXISTS_ERR ||
+            error.name === FileErrorToDomError.TYPE_MISMATCH_ERR)) {
         // Check the existing entry is file or not.
         // 1) If the entry is a file:
         //   a) If we get PATH_EXISTS_ERR, a file exists.
@@ -164,9 +164,9 @@ function getRenameErrorMessage(error, entry, newName) {
         // 2) If the entry is a directory:
         //   a) If we get PATH_EXISTS_ERR, a directory exists.
         //   b) If we get TYPE_MISMATCH_ERR, a file exists.
-        return Error(strf((entry.isFile && error.name == FileErrorToDomError.PATH_EXISTS_ERR) ||
+        return Error(strf((entry.isFile && error.name === FileErrorToDomError.PATH_EXISTS_ERR) ||
             (!entry.isFile &&
-                error.name == FileErrorToDomError.TYPE_MISMATCH_ERR) ?
+                error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) ?
             'FILE_ALREADY_EXISTS' :
             'DIRECTORY_ALREADY_EXISTS', newName));
     }

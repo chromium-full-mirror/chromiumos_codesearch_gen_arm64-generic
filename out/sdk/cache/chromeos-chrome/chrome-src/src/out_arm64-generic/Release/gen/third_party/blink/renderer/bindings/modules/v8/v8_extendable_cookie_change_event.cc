@@ -11,6 +11,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_extendable_cookie_change_event.h"
 
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
+#include "third_party/blink/renderer/bindings/core/v8/frozen_array.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
@@ -84,7 +85,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Extendabl
 BLINK_BINDINGS_TRACE_EVENT("ExtendableCookieChangeEvent.changed.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCookieStoreAPI);
 
@@ -106,15 +108,11 @@ auto&& v8_private_save_same_object =
   }
 }
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 ExtendableCookieChangeEvent* blink_receiver = V8ExtendableCookieChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->changed();
-if (!ToV8Traits<IDLArray<CookieListItem>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<CookieListItem>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 // [SaveSameObject]
 v8_private_save_same_object.Set(v8_receiver, info.GetReturnValue().Get());
@@ -127,7 +125,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Extendabl
 BLINK_BINDINGS_TRACE_EVENT("ExtendableCookieChangeEvent.deleted.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kCookieStoreAPI);
 
@@ -149,15 +148,11 @@ auto&& v8_private_save_same_object =
   }
 }
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 ExtendableCookieChangeEvent* blink_receiver = V8ExtendableCookieChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deleted();
-if (!ToV8Traits<IDLArray<CookieListItem>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLArray<CookieListItem>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 // [SaveSameObject]
 v8_private_save_same_object.Set(v8_receiver, info.GetReturnValue().Get());

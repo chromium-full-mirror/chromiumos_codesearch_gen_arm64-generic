@@ -26,8 +26,8 @@ class  WebNNGraphAsyncWaiter {
 
   ~WebNNGraphAsyncWaiter();
   void Compute(
-      base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<base::flat_map<std::string, ::mojo_base::BigBuffer>>* out_named_outputs);
-  
+      base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs, ComputeResultPtr* out_result);
+  ComputeResultPtr Compute(base::flat_map<std::string, ::mojo_base::BigBuffer> named_inputs);
 
  private:
   WebNNGraph* const proxy_;

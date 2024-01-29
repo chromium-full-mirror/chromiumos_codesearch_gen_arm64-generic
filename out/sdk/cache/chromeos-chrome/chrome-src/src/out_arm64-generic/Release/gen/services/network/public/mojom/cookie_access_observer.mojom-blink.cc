@@ -359,6 +359,8 @@ bool CookieAccessObserverStubDispatch::Accept(
           reinterpret_cast<internal::CookieAccessObserver_OnCookiesAccessed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieAccessObserver.0
       bool success = true;
       WTF::Vector<CookieAccessDetailsPtr> p_details{};
       CookieAccessObserver_OnCookiesAccessed_ParamsDataView input_data_view(params, message);
@@ -374,8 +376,8 @@ bool CookieAccessObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCookiesAccessed(
-std::move(p_details));
+      impl->OnCookiesAccessed(        
+        std::move(p_details));
       return true;
     }
     case internal::kCookieAccessObserver_Clone_Name: {
@@ -385,6 +387,8 @@ std::move(p_details));
           reinterpret_cast<internal::CookieAccessObserver_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CookieAccessObserver.1
       bool success = true;
       ::mojo::PendingReceiver<CookieAccessObserver> p_listener{};
       CookieAccessObserver_Clone_ParamsDataView input_data_view(params, message);
@@ -402,8 +406,8 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_listener));
+      impl->Clone(        
+        std::move(p_listener));
       return true;
     }
   }

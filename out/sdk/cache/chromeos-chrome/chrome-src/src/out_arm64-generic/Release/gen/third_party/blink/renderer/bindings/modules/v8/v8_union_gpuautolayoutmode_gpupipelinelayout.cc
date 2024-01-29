@@ -44,7 +44,7 @@ return MakeGarbageCollected<V8UnionGPUAutoLayoutModeOrGPUPipelineLayout>(blink_v
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionGPUAutoLayoutModeOrGPUPipelineLayout::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionGPUAutoLayoutModeOrGPUPipelineLayout::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kGPUAutoLayoutMode: {
     return ToV8Traits<V8GPUAutoLayoutMode>::ToV8(script_state, member_gpu_auto_layout_mode_);
@@ -55,7 +55,7 @@ v8::MaybeLocal<v8::Value> V8UnionGPUAutoLayoutModeOrGPUPipelineLayout::ToV8Value
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionGPUAutoLayoutModeOrGPUPipelineLayout::Trace(Visitor* visitor) const {

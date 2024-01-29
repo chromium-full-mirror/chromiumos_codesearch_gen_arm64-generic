@@ -436,6 +436,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -458,9 +460,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -1732,6 +1734,8 @@ bool PageHandler_GetGroupVisualData_ForwardToCallback::Accept(
           internal::PageHandler_GetGroupVisualData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   base::flat_map<std::string, TabGroupVisualDataPtr> p_data{};
   PageHandler_GetGroupVisualData_ResponseParamsDataView input_data_view(params, message);
@@ -1863,6 +1867,8 @@ bool PageHandler_GetTabs_ForwardToCallback::Accept(
           internal::PageHandler_GetTabs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   std::vector<TabPtr> p_tabs{};
   PageHandler_GetTabs_ResponseParamsDataView input_data_view(params, message);
@@ -1994,6 +2000,8 @@ bool PageHandler_GetLayout_ForwardToCallback::Accept(
           internal::PageHandler_GetLayout_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   base::flat_map<std::string, std::string> p_layout{};
   PageHandler_GetLayout_ResponseParamsDataView input_data_view(params, message);
@@ -2086,6 +2094,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_CloseTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       int32_t p_tab_id{};
       bool p_tab_was_swiped{};
@@ -2104,9 +2114,9 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseTab(
-std::move(p_tab_id), 
-std::move(p_tab_was_swiped));
+      impl->CloseTab(        
+        std::move(p_tab_id), 
+        std::move(p_tab_was_swiped));
       return true;
     }
     case internal::kPageHandler_GroupTab_Name: {
@@ -2116,6 +2126,8 @@ std::move(p_tab_was_swiped));
           reinterpret_cast<internal::PageHandler_GroupTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       int32_t p_tab_id{};
       std::string p_group_id{};
@@ -2134,9 +2146,9 @@ std::move(p_tab_was_swiped));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GroupTab(
-std::move(p_tab_id), 
-std::move(p_group_id));
+      impl->GroupTab(        
+        std::move(p_tab_id), 
+        std::move(p_group_id));
       return true;
     }
     case internal::kPageHandler_MoveGroup_Name: {
@@ -2146,6 +2158,8 @@ std::move(p_group_id));
           reinterpret_cast<internal::PageHandler_MoveGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       std::string p_group_id{};
       int32_t p_to_index{};
@@ -2164,9 +2178,9 @@ std::move(p_group_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveGroup(
-std::move(p_group_id), 
-std::move(p_to_index));
+      impl->MoveGroup(        
+        std::move(p_group_id), 
+        std::move(p_to_index));
       return true;
     }
     case internal::kPageHandler_MoveTab_Name: {
@@ -2176,6 +2190,8 @@ std::move(p_to_index));
           reinterpret_cast<internal::PageHandler_MoveTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_to_index{};
@@ -2194,9 +2210,9 @@ std::move(p_to_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveTab(
-std::move(p_tab_id), 
-std::move(p_to_index));
+      impl->MoveTab(        
+        std::move(p_tab_id), 
+        std::move(p_to_index));
       return true;
     }
     case internal::kPageHandler_SetThumbnailTracked_Name: {
@@ -2206,6 +2222,8 @@ std::move(p_to_index));
           reinterpret_cast<internal::PageHandler_SetThumbnailTracked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       int32_t p_tab_id{};
       bool p_thumbnail_tracked{};
@@ -2224,9 +2242,9 @@ std::move(p_to_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetThumbnailTracked(
-std::move(p_tab_id), 
-std::move(p_thumbnail_tracked));
+      impl->SetThumbnailTracked(        
+        std::move(p_tab_id), 
+        std::move(p_thumbnail_tracked));
       return true;
     }
     case internal::kPageHandler_UngroupTab_Name: {
@@ -2236,6 +2254,8 @@ std::move(p_thumbnail_tracked));
           reinterpret_cast<internal::PageHandler_UngroupTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       int32_t p_tab_id{};
       PageHandler_UngroupTab_ParamsDataView input_data_view(params, message);
@@ -2251,8 +2271,8 @@ std::move(p_thumbnail_tracked));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UngroupTab(
-std::move(p_tab_id));
+      impl->UngroupTab(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kPageHandler_GetLayout_Name: {
@@ -2265,6 +2285,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::PageHandler_ShowEditDialogForGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       std::string p_group_id{};
       int32_t p_location_x{};
@@ -2292,12 +2314,12 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowEditDialogForGroup(
-std::move(p_group_id), 
-std::move(p_location_x), 
-std::move(p_location_y), 
-std::move(p_width), 
-std::move(p_height));
+      impl->ShowEditDialogForGroup(        
+        std::move(p_group_id), 
+        std::move(p_location_x), 
+        std::move(p_location_y), 
+        std::move(p_width), 
+        std::move(p_height));
       return true;
     }
     case internal::kPageHandler_ShowTabContextMenu_Name: {
@@ -2307,6 +2329,8 @@ std::move(p_height));
           reinterpret_cast<internal::PageHandler_ShowTabContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_location_x{};
@@ -2328,10 +2352,10 @@ std::move(p_height));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowTabContextMenu(
-std::move(p_tab_id), 
-std::move(p_location_x), 
-std::move(p_location_y));
+      impl->ShowTabContextMenu(        
+        std::move(p_tab_id), 
+        std::move(p_location_x), 
+        std::move(p_location_y));
       return true;
     }
     case internal::kPageHandler_ShowBackgroundContextMenu_Name: {
@@ -2341,6 +2365,8 @@ std::move(p_location_y));
           reinterpret_cast<internal::PageHandler_ShowBackgroundContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       int32_t p_location_x{};
       int32_t p_location_y{};
@@ -2359,9 +2385,9 @@ std::move(p_location_y));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowBackgroundContextMenu(
-std::move(p_location_x), 
-std::move(p_location_y));
+      impl->ShowBackgroundContextMenu(        
+        std::move(p_location_x), 
+        std::move(p_location_y));
       return true;
     }
     case internal::kPageHandler_CloseContainer_Name: {
@@ -2371,6 +2397,8 @@ std::move(p_location_y));
           reinterpret_cast<internal::PageHandler_CloseContainer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       PageHandler_CloseContainer_ParamsDataView input_data_view(params, message);
       
@@ -2383,7 +2411,7 @@ std::move(p_location_y));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseContainer();
+      impl->CloseContainer(        );
       return true;
     }
     case internal::kPageHandler_ReportTabActivationDuration_Name: {
@@ -2393,6 +2421,8 @@ std::move(p_location_y));
           reinterpret_cast<internal::PageHandler_ReportTabActivationDuration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       uint32_t p_duration_ms{};
       PageHandler_ReportTabActivationDuration_ParamsDataView input_data_view(params, message);
@@ -2408,8 +2438,8 @@ std::move(p_location_y));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportTabActivationDuration(
-std::move(p_duration_ms));
+      impl->ReportTabActivationDuration(        
+        std::move(p_duration_ms));
       return true;
     }
     case internal::kPageHandler_ReportTabDataReceivedDuration_Name: {
@@ -2419,6 +2449,8 @@ std::move(p_duration_ms));
           reinterpret_cast<internal::PageHandler_ReportTabDataReceivedDuration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.14
       bool success = true;
       uint32_t p_tab_count{};
       uint32_t p_duration_ms{};
@@ -2437,9 +2469,9 @@ std::move(p_duration_ms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportTabDataReceivedDuration(
-std::move(p_tab_count), 
-std::move(p_duration_ms));
+      impl->ReportTabDataReceivedDuration(        
+        std::move(p_tab_count), 
+        std::move(p_duration_ms));
       return true;
     }
     case internal::kPageHandler_ReportTabCreationDuration_Name: {
@@ -2449,6 +2481,8 @@ std::move(p_duration_ms));
           reinterpret_cast<internal::PageHandler_ReportTabCreationDuration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.15
       bool success = true;
       uint32_t p_tab_count{};
       uint32_t p_duration_ms{};
@@ -2467,9 +2501,9 @@ std::move(p_duration_ms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportTabCreationDuration(
-std::move(p_tab_count), 
-std::move(p_duration_ms));
+      impl->ReportTabCreationDuration(        
+        std::move(p_tab_count), 
+        std::move(p_duration_ms));
       return true;
     }
     case internal::kPageHandler_ActivateTab_Name: {
@@ -2479,6 +2513,8 @@ std::move(p_duration_ms));
           reinterpret_cast<internal::PageHandler_ActivateTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.16
       bool success = true;
       int32_t p_tab_id{};
       PageHandler_ActivateTab_ParamsDataView input_data_view(params, message);
@@ -2494,8 +2530,8 @@ std::move(p_duration_ms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivateTab(
-std::move(p_tab_id));
+      impl->ActivateTab(        
+        std::move(p_tab_id));
       return true;
     }
   }
@@ -2518,6 +2554,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetGroupVisualData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetGroupVisualData_ParamsDataView input_data_view(params, message);
       
@@ -2543,6 +2581,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetTabs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetTabs_ParamsDataView input_data_view(params, message);
       
@@ -2586,6 +2626,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetLayout_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       PageHandler_GetLayout_ParamsDataView input_data_view(params, message);
       
@@ -3908,6 +3950,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_LayoutChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       base::flat_map<std::string, std::string> p_layout{};
       Page_LayoutChanged_ParamsDataView input_data_view(params, message);
@@ -3923,8 +3967,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LayoutChanged(
-std::move(p_layout));
+      impl->LayoutChanged(        
+        std::move(p_layout));
       return true;
     }
     case internal::kPage_ReceivedKeyboardFocus_Name: {
@@ -3934,6 +3978,8 @@ std::move(p_layout));
           reinterpret_cast<internal::Page_ReceivedKeyboardFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       Page_ReceivedKeyboardFocus_ParamsDataView input_data_view(params, message);
       
@@ -3946,7 +3992,7 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceivedKeyboardFocus();
+      impl->ReceivedKeyboardFocus(        );
       return true;
     }
     case internal::kPage_ContextMenuClosed_Name: {
@@ -3956,6 +4002,8 @@ std::move(p_layout));
           reinterpret_cast<internal::Page_ContextMenuClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       Page_ContextMenuClosed_ParamsDataView input_data_view(params, message);
       
@@ -3968,7 +4016,7 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContextMenuClosed();
+      impl->ContextMenuClosed(        );
       return true;
     }
     case internal::kPage_LongPress_Name: {
@@ -3978,6 +4026,8 @@ std::move(p_layout));
           reinterpret_cast<internal::Page_LongPress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.3
       bool success = true;
       Page_LongPress_ParamsDataView input_data_view(params, message);
       
@@ -3990,7 +4040,7 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LongPress();
+      impl->LongPress(        );
       return true;
     }
     case internal::kPage_TabGroupVisualsChanged_Name: {
@@ -4000,6 +4050,8 @@ std::move(p_layout));
           reinterpret_cast<internal::Page_TabGroupVisualsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.4
       bool success = true;
       std::string p_group_id{};
       TabGroupVisualDataPtr p_tab_group{};
@@ -4018,9 +4070,9 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabGroupVisualsChanged(
-std::move(p_group_id), 
-std::move(p_tab_group));
+      impl->TabGroupVisualsChanged(        
+        std::move(p_group_id), 
+        std::move(p_tab_group));
       return true;
     }
     case internal::kPage_TabGroupMoved_Name: {
@@ -4030,6 +4082,8 @@ std::move(p_tab_group));
           reinterpret_cast<internal::Page_TabGroupMoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.5
       bool success = true;
       std::string p_group_id{};
       int32_t p_index{};
@@ -4048,9 +4102,9 @@ std::move(p_tab_group));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabGroupMoved(
-std::move(p_group_id), 
-std::move(p_index));
+      impl->TabGroupMoved(        
+        std::move(p_group_id), 
+        std::move(p_index));
       return true;
     }
     case internal::kPage_TabGroupClosed_Name: {
@@ -4060,6 +4114,8 @@ std::move(p_index));
           reinterpret_cast<internal::Page_TabGroupClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.6
       bool success = true;
       std::string p_group_id{};
       Page_TabGroupClosed_ParamsDataView input_data_view(params, message);
@@ -4075,8 +4131,8 @@ std::move(p_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabGroupClosed(
-std::move(p_group_id));
+      impl->TabGroupClosed(        
+        std::move(p_group_id));
       return true;
     }
     case internal::kPage_TabGroupStateChanged_Name: {
@@ -4086,6 +4142,8 @@ std::move(p_group_id));
           reinterpret_cast<internal::Page_TabGroupStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.7
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_index{};
@@ -4107,10 +4165,10 @@ std::move(p_group_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabGroupStateChanged(
-std::move(p_tab_id), 
-std::move(p_index), 
-std::move(p_group_id));
+      impl->TabGroupStateChanged(        
+        std::move(p_tab_id), 
+        std::move(p_index), 
+        std::move(p_group_id));
       return true;
     }
     case internal::kPage_TabCloseCancelled_Name: {
@@ -4120,6 +4178,8 @@ std::move(p_group_id));
           reinterpret_cast<internal::Page_TabCloseCancelled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.8
       bool success = true;
       int32_t p_tab_id{};
       Page_TabCloseCancelled_ParamsDataView input_data_view(params, message);
@@ -4135,8 +4195,8 @@ std::move(p_group_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabCloseCancelled(
-std::move(p_tab_id));
+      impl->TabCloseCancelled(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kPage_TabCreated_Name: {
@@ -4146,6 +4206,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::Page_TabCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.9
       bool success = true;
       TabPtr p_tab{};
       Page_TabCreated_ParamsDataView input_data_view(params, message);
@@ -4161,8 +4223,8 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabCreated(
-std::move(p_tab));
+      impl->TabCreated(        
+        std::move(p_tab));
       return true;
     }
     case internal::kPage_TabRemoved_Name: {
@@ -4172,6 +4234,8 @@ std::move(p_tab));
           reinterpret_cast<internal::Page_TabRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.10
       bool success = true;
       int32_t p_tab_id{};
       Page_TabRemoved_ParamsDataView input_data_view(params, message);
@@ -4187,8 +4251,8 @@ std::move(p_tab));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabRemoved(
-std::move(p_tab_id));
+      impl->TabRemoved(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kPage_TabMoved_Name: {
@@ -4198,6 +4262,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::Page_TabMoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.11
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_to_index{};
@@ -4219,10 +4285,10 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabMoved(
-std::move(p_tab_id), 
-std::move(p_to_index), 
-std::move(p_in_pinned));
+      impl->TabMoved(        
+        std::move(p_tab_id), 
+        std::move(p_to_index), 
+        std::move(p_in_pinned));
       return true;
     }
     case internal::kPage_TabReplaced_Name: {
@@ -4232,6 +4298,8 @@ std::move(p_in_pinned));
           reinterpret_cast<internal::Page_TabReplaced_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.12
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_new_tab_id{};
@@ -4250,9 +4318,9 @@ std::move(p_in_pinned));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabReplaced(
-std::move(p_tab_id), 
-std::move(p_new_tab_id));
+      impl->TabReplaced(        
+        std::move(p_tab_id), 
+        std::move(p_new_tab_id));
       return true;
     }
     case internal::kPage_TabActiveChanged_Name: {
@@ -4262,6 +4330,8 @@ std::move(p_new_tab_id));
           reinterpret_cast<internal::Page_TabActiveChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.13
       bool success = true;
       int32_t p_tab_id{};
       Page_TabActiveChanged_ParamsDataView input_data_view(params, message);
@@ -4277,8 +4347,8 @@ std::move(p_new_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabActiveChanged(
-std::move(p_tab_id));
+      impl->TabActiveChanged(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kPage_TabUpdated_Name: {
@@ -4288,6 +4358,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::Page_TabUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.14
       bool success = true;
       TabPtr p_tab{};
       Page_TabUpdated_ParamsDataView input_data_view(params, message);
@@ -4303,8 +4375,8 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabUpdated(
-std::move(p_tab));
+      impl->TabUpdated(        
+        std::move(p_tab));
       return true;
     }
     case internal::kPage_TabThumbnailUpdated_Name: {
@@ -4314,6 +4386,8 @@ std::move(p_tab));
           reinterpret_cast<internal::Page_TabThumbnailUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.15
       bool success = true;
       int32_t p_tab_id{};
       std::string p_data_uri{};
@@ -4332,9 +4406,9 @@ std::move(p_tab));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TabThumbnailUpdated(
-std::move(p_tab_id), 
-std::move(p_data_uri));
+      impl->TabThumbnailUpdated(        
+        std::move(p_tab_id), 
+        std::move(p_data_uri));
       return true;
     }
     case internal::kPage_ShowContextMenu_Name: {
@@ -4344,6 +4418,8 @@ std::move(p_data_uri));
           reinterpret_cast<internal::Page_ShowContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.16
       bool success = true;
       Page_ShowContextMenu_ParamsDataView input_data_view(params, message);
       
@@ -4356,7 +4432,7 @@ std::move(p_data_uri));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenu();
+      impl->ShowContextMenu(        );
       return true;
     }
     case internal::kPage_ThemeChanged_Name: {
@@ -4366,6 +4442,8 @@ std::move(p_data_uri));
           reinterpret_cast<internal::Page_ThemeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.17
       bool success = true;
       Page_ThemeChanged_ParamsDataView input_data_view(params, message);
       
@@ -4378,7 +4456,7 @@ std::move(p_data_uri));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ThemeChanged();
+      impl->ThemeChanged(        );
       return true;
     }
   }

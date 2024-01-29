@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root = "/var/cache/portage/dev-util/puffin"
 platform2_root =
     "/var/tmp/portage/dev-util/puffin-1.0.0-r449/work/puffin-1.0.0/platform2"
-libbase_ver = "1241304"
+libbase_ver = "1252475"
 enable_exceptions = false
 external_cflags = [
   "-O2",

@@ -10,11 +10,11 @@ import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import './cr_radio_button_style.css.js';
 import '../cr_shared_vars.css.js';
 import '../icons.html.js';
-import { PaperRippleBehavior } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from '//resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './cr_card_radio_button.html.js';
 import { CrRadioButtonMixin } from './cr_radio_button_mixin.js';
-const CrCardRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const CrCardRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 export class CrCardRadioButtonElement extends CrCardRadioButtonElementBase {
     static get is() {
         return 'cr-card-radio-button';
@@ -26,7 +26,7 @@ export class CrCardRadioButtonElement extends CrCardRadioButtonElementBase {
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');

@@ -165,6 +165,8 @@ bool PrintJobObserverForProfileStubDispatch::Accept(
           reinterpret_cast<internal::PrintJobObserverForProfile_OnPrintJobFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintJobObserverForProfile.0
       bool success = true;
       ::base::Value p_print_job{};
       PrintJobObserverForProfile_OnPrintJobFinished_ParamsDataView input_data_view(params, message);
@@ -180,8 +182,8 @@ bool PrintJobObserverForProfileStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintJobFinished(
-std::move(p_print_job));
+      impl->OnPrintJobFinished(        
+        std::move(p_print_job));
       return true;
     }
   }
@@ -452,6 +454,8 @@ bool PrintingMetricsForProfile_DeprecatedGetPrintJobs_ForwardToCallback::Accept(
           internal::PrintingMetricsForProfile_DeprecatedGetPrintJobs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetricsForProfile.0
   bool success = true;
   std::vector<::base::Value> p_print_jobs{};
   PrintingMetricsForProfile_DeprecatedGetPrintJobs_ResponseParamsDataView input_data_view(params, message);
@@ -583,6 +587,8 @@ bool PrintingMetricsForProfile_GetPrintJobs_ForwardToCallback::Accept(
           internal::PrintingMetricsForProfile_GetPrintJobs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetricsForProfile.1
   bool success = true;
   ::base::Value::List p_print_jobs{};
   PrintingMetricsForProfile_GetPrintJobs_ResponseParamsDataView input_data_view(params, message);
@@ -686,6 +692,8 @@ bool PrintingMetricsForProfileStubDispatch::AcceptWithResponder(
               internal::PrintingMetricsForProfile_DeprecatedGetPrintJobs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetricsForProfile.0
       bool success = true;
       PrintingMetricsForProfile_DeprecatedGetPrintJobs_ParamsDataView input_data_view(params, message);
       
@@ -711,6 +719,8 @@ bool PrintingMetricsForProfileStubDispatch::AcceptWithResponder(
               internal::PrintingMetricsForProfile_GetPrintJobs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetricsForProfile.1
       bool success = true;
       PrintingMetricsForProfile_GetPrintJobs_ParamsDataView input_data_view(params, message);
       
@@ -877,6 +887,8 @@ bool PrintingMetricsStubDispatch::Accept(
           reinterpret_cast<internal::PrintingMetrics_RegisterForMainProfile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintingMetrics.0
       bool success = true;
       ::mojo::PendingReceiver<PrintingMetricsForProfile> p_receiver{};
       ::mojo::PendingRemote<PrintJobObserverForProfile> p_observer{};
@@ -899,9 +911,9 @@ bool PrintingMetricsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterForMainProfile(
-std::move(p_receiver), 
-std::move(p_observer));
+      impl->RegisterForMainProfile(        
+        std::move(p_receiver), 
+        std::move(p_observer));
       return true;
     }
   }

@@ -386,6 +386,8 @@ bool VolumeMounterHost_SetUpExternalStorageMountPoints_ForwardToCallback::Accept
           internal::VolumeMounterHost_SetUpExternalStorageMountPoints_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VolumeMounterHost.3
   bool success = true;
   bool p_success{};
   VolumeMounterHost_SetUpExternalStorageMountPoints_ResponseParamsDataView input_data_view(params, message);
@@ -460,6 +462,8 @@ bool VolumeMounterHostStubDispatch::Accept(
           reinterpret_cast<internal::VolumeMounterHost_RequestAllMountPoints_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VolumeMounterHost.1
       bool success = true;
       VolumeMounterHost_RequestAllMountPoints_ParamsDataView input_data_view(params, message);
       
@@ -472,7 +476,7 @@ bool VolumeMounterHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAllMountPoints();
+      impl->RequestAllMountPoints(        );
       return true;
     }
     case internal::kVolumeMounterHost_SetUpExternalStorageMountPoints_Name: {
@@ -501,6 +505,8 @@ bool VolumeMounterHostStubDispatch::AcceptWithResponder(
               internal::VolumeMounterHost_SetUpExternalStorageMountPoints_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VolumeMounterHost.3
       bool success = true;
       uint32_t p_media_provider_uid{};
       VolumeMounterHost_SetUpExternalStorageMountPoints_ParamsDataView input_data_view(params, message);
@@ -519,8 +525,8 @@ bool VolumeMounterHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpExternalStorageMountPoints(
-std::move(p_media_provider_uid), std::move(callback));
+      impl->SetUpExternalStorageMountPoints(        
+        std::move(p_media_provider_uid), std::move(callback));
       return true;
     }
   }
@@ -796,6 +802,8 @@ bool VolumeMounterInstance_Init_ForwardToCallback::Accept(
           internal::VolumeMounterInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VolumeMounterInstance.0
   bool success = true;
   VolumeMounterInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -861,6 +869,8 @@ bool VolumeMounterInstanceStubDispatch::Accept(
           reinterpret_cast<internal::VolumeMounterInstance_OnMountEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VolumeMounterInstance.1
       bool success = true;
       MountPointInfoPtr p_mount_point_info{};
       VolumeMounterInstance_OnMountEvent_ParamsDataView input_data_view(params, message);
@@ -876,8 +886,8 @@ bool VolumeMounterInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMountEvent(
-std::move(p_mount_point_info));
+      impl->OnMountEvent(        
+        std::move(p_mount_point_info));
       return true;
     }
   }
@@ -900,6 +910,8 @@ bool VolumeMounterInstanceStubDispatch::AcceptWithResponder(
               internal::VolumeMounterInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VolumeMounterInstance.0
       bool success = true;
       ::mojo::PendingRemote<VolumeMounterHost> p_host_remote{};
       VolumeMounterInstance_Init_ParamsDataView input_data_view(params, message);
@@ -920,8 +932,8 @@ bool VolumeMounterInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kVolumeMounterInstance_OnMountEvent_Name: {

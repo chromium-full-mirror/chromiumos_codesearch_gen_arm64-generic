@@ -31,7 +31,7 @@ bool RouteProvider_GetRoute_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -39,6 +39,13 @@ bool RouteProvider_GetRoute_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const RouteProvider_GetRoute_Params_Data* object =
       static_cast<const RouteProvider_GetRoute_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->frame_token, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->frame_token, validation_context))
+    return false;
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->receiver, 2, validation_context)) {

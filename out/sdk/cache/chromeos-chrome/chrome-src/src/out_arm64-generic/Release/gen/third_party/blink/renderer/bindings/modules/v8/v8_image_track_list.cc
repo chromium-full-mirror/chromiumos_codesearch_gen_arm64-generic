@@ -277,8 +277,7 @@ BLINK_BINDINGS_TRACE_EVENT("ImageTrackList.ready.get");
 
 
 ImageTrackList* blink_receiver = V8ImageTrackList::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->ready(script_state);
 bindings::V8SetReturnValue(info, return_value);

@@ -405,6 +405,8 @@ bool ErrorObserverStubDispatch::Accept(
           reinterpret_cast<internal::ErrorObserver_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ErrorObserver.0
       bool success = true;
       ::rmad::RmadErrorCode p_error{};
       ErrorObserver_OnError_ParamsDataView input_data_view(params, message);
@@ -420,8 +422,8 @@ bool ErrorObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_error));
       return true;
     }
   }
@@ -577,6 +579,8 @@ bool OsUpdateObserverStubDispatch::Accept(
           reinterpret_cast<internal::OsUpdateObserver_OnOsUpdateProgressUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OsUpdateObserver.0
       bool success = true;
       ::update_engine::Operation p_operation{};
       float p_progress{};
@@ -598,10 +602,10 @@ bool OsUpdateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOsUpdateProgressUpdated(
-std::move(p_operation), 
-std::move(p_progress), 
-std::move(p_update_error_code));
+      impl->OnOsUpdateProgressUpdated(        
+        std::move(p_operation), 
+        std::move(p_progress), 
+        std::move(p_update_error_code));
       return true;
     }
   }
@@ -819,6 +823,8 @@ bool CalibrationObserverStubDispatch::Accept(
           reinterpret_cast<internal::CalibrationObserver_OnCalibrationUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CalibrationObserver.0
       bool success = true;
       ::rmad::CalibrationComponentStatus p_componentStatus{};
       CalibrationObserver_OnCalibrationUpdated_ParamsDataView input_data_view(params, message);
@@ -834,8 +840,8 @@ bool CalibrationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCalibrationUpdated(
-std::move(p_componentStatus));
+      impl->OnCalibrationUpdated(        
+        std::move(p_componentStatus));
       return true;
     }
     case internal::kCalibrationObserver_OnCalibrationStepComplete_Name: {
@@ -845,6 +851,8 @@ std::move(p_componentStatus));
           reinterpret_cast<internal::CalibrationObserver_OnCalibrationStepComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CalibrationObserver.1
       bool success = true;
       ::rmad::CalibrationOverallStatus p_status{};
       CalibrationObserver_OnCalibrationStepComplete_ParamsDataView input_data_view(params, message);
@@ -860,8 +868,8 @@ std::move(p_componentStatus));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCalibrationStepComplete(
-std::move(p_status));
+      impl->OnCalibrationStepComplete(        
+        std::move(p_status));
       return true;
     }
   }
@@ -1022,6 +1030,8 @@ bool ProvisioningObserverStubDispatch::Accept(
           reinterpret_cast<internal::ProvisioningObserver_OnProvisioningUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProvisioningObserver.0
       bool success = true;
       ::rmad::ProvisionStatus_Status p_status{};
       float p_progress{};
@@ -1043,10 +1053,10 @@ bool ProvisioningObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProvisioningUpdated(
-std::move(p_status), 
-std::move(p_progress), 
-std::move(p_error));
+      impl->OnProvisioningUpdated(        
+        std::move(p_status), 
+        std::move(p_progress), 
+        std::move(p_error));
       return true;
     }
   }
@@ -1192,6 +1202,8 @@ bool HardwareWriteProtectionStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::HardwareWriteProtectionStateObserver_OnHardwareWriteProtectionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HardwareWriteProtectionStateObserver.0
       bool success = true;
       bool p_enabled{};
       HardwareWriteProtectionStateObserver_OnHardwareWriteProtectionStateChanged_ParamsDataView input_data_view(params, message);
@@ -1207,8 +1219,8 @@ bool HardwareWriteProtectionStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHardwareWriteProtectionStateChanged(
-std::move(p_enabled));
+      impl->OnHardwareWriteProtectionStateChanged(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -1354,6 +1366,8 @@ bool PowerCableStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::PowerCableStateObserver_OnPowerCableStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PowerCableStateObserver.0
       bool success = true;
       bool p_plugged_in{};
       PowerCableStateObserver_OnPowerCableStateChanged_ParamsDataView input_data_view(params, message);
@@ -1369,8 +1383,8 @@ bool PowerCableStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPowerCableStateChanged(
-std::move(p_plugged_in));
+      impl->OnPowerCableStateChanged(        
+        std::move(p_plugged_in));
       return true;
     }
   }
@@ -1516,6 +1530,8 @@ bool ExternalDiskStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::ExternalDiskStateObserver_OnExternalDiskStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ExternalDiskStateObserver.0
       bool success = true;
       bool p_detected{};
       ExternalDiskStateObserver_OnExternalDiskStateChanged_ParamsDataView input_data_view(params, message);
@@ -1531,8 +1547,8 @@ bool ExternalDiskStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnExternalDiskStateChanged(
-std::move(p_detected));
+      impl->OnExternalDiskStateChanged(        
+        std::move(p_detected));
       return true;
     }
   }
@@ -1692,6 +1708,8 @@ bool HardwareVerificationStatusObserverStubDispatch::Accept(
           reinterpret_cast<internal::HardwareVerificationStatusObserver_OnHardwareVerificationResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for HardwareVerificationStatusObserver.0
       bool success = true;
       bool p_is_compliant{};
       std::string p_error_message{};
@@ -1710,9 +1728,9 @@ bool HardwareVerificationStatusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHardwareVerificationResult(
-std::move(p_is_compliant), 
-std::move(p_error_message));
+      impl->OnHardwareVerificationResult(        
+        std::move(p_is_compliant), 
+        std::move(p_error_message));
       return true;
     }
   }
@@ -1868,6 +1886,8 @@ bool FinalizationObserverStubDispatch::Accept(
           reinterpret_cast<internal::FinalizationObserver_OnFinalizationUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FinalizationObserver.0
       bool success = true;
       ::rmad::FinalizeStatus_Status p_status{};
       float p_progress{};
@@ -1889,10 +1909,10 @@ bool FinalizationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFinalizationUpdated(
-std::move(p_status), 
-std::move(p_progress), 
-std::move(p_error));
+      impl->OnFinalizationUpdated(        
+        std::move(p_status), 
+        std::move(p_progress), 
+        std::move(p_error));
       return true;
     }
   }
@@ -2039,6 +2059,8 @@ bool UpdateRoFirmwareObserverStubDispatch::Accept(
           reinterpret_cast<internal::UpdateRoFirmwareObserver_OnUpdateRoFirmwareStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UpdateRoFirmwareObserver.0
       bool success = true;
       ::rmad::UpdateRoFirmwareStatus p_status{};
       UpdateRoFirmwareObserver_OnUpdateRoFirmwareStatusChanged_ParamsDataView input_data_view(params, message);
@@ -2054,8 +2076,8 @@ bool UpdateRoFirmwareObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUpdateRoFirmwareStatusChanged(
-std::move(p_status));
+      impl->OnUpdateRoFirmwareStatusChanged(        
+        std::move(p_status));
       return true;
     }
   }
@@ -7339,6 +7361,8 @@ bool ShimlessRmaService_GetCurrentState_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetCurrentState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.0
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_GetCurrentState_ResponseParamsDataView input_data_view(params, message);
@@ -7468,6 +7492,8 @@ bool ShimlessRmaService_TransitionPreviousState_ForwardToCallback::Accept(
           internal::ShimlessRmaService_TransitionPreviousState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.1
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_TransitionPreviousState_ResponseParamsDataView input_data_view(params, message);
@@ -7597,6 +7623,8 @@ bool ShimlessRmaService_AbortRma_ForwardToCallback::Accept(
           internal::ShimlessRmaService_AbortRma_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.2
   bool success = true;
   ::rmad::RmadErrorCode p_error{};
   ShimlessRmaService_AbortRma_ResponseParamsDataView input_data_view(params, message);
@@ -7717,6 +7745,8 @@ bool ShimlessRmaService_BeginFinalization_ForwardToCallback::Accept(
           internal::ShimlessRmaService_BeginFinalization_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.3
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_BeginFinalization_ResponseParamsDataView input_data_view(params, message);
@@ -7846,6 +7876,8 @@ bool ShimlessRmaService_NetworkSelectionComplete_ForwardToCallback::Accept(
           internal::ShimlessRmaService_NetworkSelectionComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.5
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_NetworkSelectionComplete_ResponseParamsDataView input_data_view(params, message);
@@ -7975,6 +8007,8 @@ bool ShimlessRmaService_GetCurrentOsVersion_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetCurrentOsVersion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.6
   bool success = true;
   std::optional<std::string> p_version{};
   ShimlessRmaService_GetCurrentOsVersion_ResponseParamsDataView input_data_view(params, message);
@@ -8100,6 +8134,8 @@ bool ShimlessRmaService_CheckForOsUpdates_ForwardToCallback::Accept(
           internal::ShimlessRmaService_CheckForOsUpdates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.7
   bool success = true;
   bool p_update_available{};
   std::string p_version{};
@@ -8237,6 +8273,8 @@ bool ShimlessRmaService_UpdateOs_ForwardToCallback::Accept(
           internal::ShimlessRmaService_UpdateOs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.8
   bool success = true;
   bool p_update_started{};
   ShimlessRmaService_UpdateOs_ResponseParamsDataView input_data_view(params, message);
@@ -8356,6 +8394,8 @@ bool ShimlessRmaService_UpdateOsSkipped_ForwardToCallback::Accept(
           internal::ShimlessRmaService_UpdateOsSkipped_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.9
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_UpdateOsSkipped_ResponseParamsDataView input_data_view(params, message);
@@ -8485,6 +8525,8 @@ bool ShimlessRmaService_SetSameOwner_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SetSameOwner_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.10
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_SetSameOwner_ResponseParamsDataView input_data_view(params, message);
@@ -8614,6 +8656,8 @@ bool ShimlessRmaService_SetDifferentOwner_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SetDifferentOwner_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.11
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_SetDifferentOwner_ResponseParamsDataView input_data_view(params, message);
@@ -8743,6 +8787,8 @@ bool ShimlessRmaService_SetWipeDevice_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SetWipeDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.12
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_SetWipeDevice_ResponseParamsDataView input_data_view(params, message);
@@ -8872,6 +8918,8 @@ bool ShimlessRmaService_ChooseManuallyDisableWriteProtect_ForwardToCallback::Acc
           internal::ShimlessRmaService_ChooseManuallyDisableWriteProtect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.13
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ChooseManuallyDisableWriteProtect_ResponseParamsDataView input_data_view(params, message);
@@ -9001,6 +9049,8 @@ bool ShimlessRmaService_ChooseRsuDisableWriteProtect_ForwardToCallback::Accept(
           internal::ShimlessRmaService_ChooseRsuDisableWriteProtect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.14
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ChooseRsuDisableWriteProtect_ResponseParamsDataView input_data_view(params, message);
@@ -9130,6 +9180,8 @@ bool ShimlessRmaService_GetRsuDisableWriteProtectChallenge_ForwardToCallback::Ac
           internal::ShimlessRmaService_GetRsuDisableWriteProtectChallenge_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.15
   bool success = true;
   std::string p_challenge{};
   ShimlessRmaService_GetRsuDisableWriteProtectChallenge_ResponseParamsDataView input_data_view(params, message);
@@ -9259,6 +9311,8 @@ bool ShimlessRmaService_GetRsuDisableWriteProtectHwid_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetRsuDisableWriteProtectHwid_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.16
   bool success = true;
   std::string p_hwid{};
   ShimlessRmaService_GetRsuDisableWriteProtectHwid_ResponseParamsDataView input_data_view(params, message);
@@ -9388,6 +9442,8 @@ bool ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_ForwardToCallba
           internal::ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.17
   bool success = true;
   std::vector<uint8_t> p_qr_code_data{};
   ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_ResponseParamsDataView input_data_view(params, message);
@@ -9519,6 +9575,8 @@ bool ShimlessRmaService_SetRsuDisableWriteProtectCode_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SetRsuDisableWriteProtectCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.18
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_SetRsuDisableWriteProtectCode_ResponseParamsDataView input_data_view(params, message);
@@ -9648,6 +9706,8 @@ bool ShimlessRmaService_WriteProtectManuallyDisabled_ForwardToCallback::Accept(
           internal::ShimlessRmaService_WriteProtectManuallyDisabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.19
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_WriteProtectManuallyDisabled_ResponseParamsDataView input_data_view(params, message);
@@ -9777,6 +9837,8 @@ bool ShimlessRmaService_GetWriteProtectDisableCompleteAction_ForwardToCallback::
           internal::ShimlessRmaService_GetWriteProtectDisableCompleteAction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.20
   bool success = true;
   ::rmad::WriteProtectDisableCompleteState_Action p_action{};
   ShimlessRmaService_GetWriteProtectDisableCompleteAction_ResponseParamsDataView input_data_view(params, message);
@@ -9897,6 +9959,8 @@ bool ShimlessRmaService_ConfirmManualWpDisableComplete_ForwardToCallback::Accept
           internal::ShimlessRmaService_ConfirmManualWpDisableComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.21
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ConfirmManualWpDisableComplete_ResponseParamsDataView input_data_view(params, message);
@@ -10026,6 +10090,8 @@ bool ShimlessRmaService_GetComponentList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetComponentList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.22
   bool success = true;
   std::vector<::rmad::ComponentsRepairState_ComponentRepairStatus> p_components{};
   ShimlessRmaService_GetComponentList_ResponseParamsDataView input_data_view(params, message);
@@ -10157,6 +10223,8 @@ bool ShimlessRmaService_SetComponentList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SetComponentList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.23
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_SetComponentList_ResponseParamsDataView input_data_view(params, message);
@@ -10286,6 +10354,8 @@ bool ShimlessRmaService_ReworkMainboard_ForwardToCallback::Accept(
           internal::ShimlessRmaService_ReworkMainboard_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.24
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ReworkMainboard_ResponseParamsDataView input_data_view(params, message);
@@ -10415,6 +10485,8 @@ bool ShimlessRmaService_RoFirmwareUpdateComplete_ForwardToCallback::Accept(
           internal::ShimlessRmaService_RoFirmwareUpdateComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.25
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_RoFirmwareUpdateComplete_ResponseParamsDataView input_data_view(params, message);
@@ -10544,6 +10616,8 @@ bool ShimlessRmaService_ShutdownForRestock_ForwardToCallback::Accept(
           internal::ShimlessRmaService_ShutdownForRestock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.26
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ShutdownForRestock_ResponseParamsDataView input_data_view(params, message);
@@ -10673,6 +10747,8 @@ bool ShimlessRmaService_ContinueFinalizationAfterRestock_ForwardToCallback::Acce
           internal::ShimlessRmaService_ContinueFinalizationAfterRestock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.27
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ContinueFinalizationAfterRestock_ResponseParamsDataView input_data_view(params, message);
@@ -10802,6 +10878,8 @@ bool ShimlessRmaService_GetRegionList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetRegionList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.28
   bool success = true;
   std::vector<std::string> p_regions{};
   ShimlessRmaService_GetRegionList_ResponseParamsDataView input_data_view(params, message);
@@ -10933,6 +11011,8 @@ bool ShimlessRmaService_GetSkuList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetSkuList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.29
   bool success = true;
   std::vector<uint64_t> p_skus{};
   ShimlessRmaService_GetSkuList_ResponseParamsDataView input_data_view(params, message);
@@ -11064,6 +11144,8 @@ bool ShimlessRmaService_GetCustomLabelList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetCustomLabelList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.30
   bool success = true;
   std::vector<std::string> p_custom_labels{};
   ShimlessRmaService_GetCustomLabelList_ResponseParamsDataView input_data_view(params, message);
@@ -11195,6 +11277,8 @@ bool ShimlessRmaService_GetSkuDescriptionList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetSkuDescriptionList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.31
   bool success = true;
   std::vector<std::string> p_sku_descriptions{};
   ShimlessRmaService_GetSkuDescriptionList_ResponseParamsDataView input_data_view(params, message);
@@ -11326,6 +11410,8 @@ bool ShimlessRmaService_GetOriginalSerialNumber_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetOriginalSerialNumber_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.32
   bool success = true;
   std::string p_serial_number{};
   ShimlessRmaService_GetOriginalSerialNumber_ResponseParamsDataView input_data_view(params, message);
@@ -11455,6 +11541,8 @@ bool ShimlessRmaService_GetOriginalRegion_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetOriginalRegion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.33
   bool success = true;
   int32_t p_region_index{};
   ShimlessRmaService_GetOriginalRegion_ResponseParamsDataView input_data_view(params, message);
@@ -11574,6 +11662,8 @@ bool ShimlessRmaService_GetOriginalSku_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetOriginalSku_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.34
   bool success = true;
   int32_t p_sku_index{};
   ShimlessRmaService_GetOriginalSku_ResponseParamsDataView input_data_view(params, message);
@@ -11693,6 +11783,8 @@ bool ShimlessRmaService_GetOriginalCustomLabel_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetOriginalCustomLabel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.35
   bool success = true;
   int32_t p_custom_label_index{};
   ShimlessRmaService_GetOriginalCustomLabel_ResponseParamsDataView input_data_view(params, message);
@@ -11812,6 +11904,8 @@ bool ShimlessRmaService_GetOriginalDramPartNumber_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetOriginalDramPartNumber_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.36
   bool success = true;
   std::string p_dram_part_number{};
   ShimlessRmaService_GetOriginalDramPartNumber_ResponseParamsDataView input_data_view(params, message);
@@ -11941,6 +12035,8 @@ bool ShimlessRmaService_GetOriginalFeatureLevel_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetOriginalFeatureLevel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.37
   bool success = true;
   ::rmad::UpdateDeviceInfoState_FeatureLevel p_original_feature_level{};
   ShimlessRmaService_GetOriginalFeatureLevel_ResponseParamsDataView input_data_view(params, message);
@@ -12061,6 +12157,8 @@ bool ShimlessRmaService_SetDeviceInformation_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SetDeviceInformation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.38
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_SetDeviceInformation_ResponseParamsDataView input_data_view(params, message);
@@ -12190,6 +12288,8 @@ bool ShimlessRmaService_GetCalibrationComponentList_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetCalibrationComponentList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.39
   bool success = true;
   std::vector<::rmad::CalibrationComponentStatus> p_components{};
   ShimlessRmaService_GetCalibrationComponentList_ResponseParamsDataView input_data_view(params, message);
@@ -12321,6 +12421,8 @@ bool ShimlessRmaService_GetCalibrationSetupInstructions_ForwardToCallback::Accep
           internal::ShimlessRmaService_GetCalibrationSetupInstructions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.40
   bool success = true;
   ::rmad::CalibrationSetupInstruction p_instructions{};
   ShimlessRmaService_GetCalibrationSetupInstructions_ResponseParamsDataView input_data_view(params, message);
@@ -12441,6 +12543,8 @@ bool ShimlessRmaService_StartCalibration_ForwardToCallback::Accept(
           internal::ShimlessRmaService_StartCalibration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.41
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_StartCalibration_ResponseParamsDataView input_data_view(params, message);
@@ -12570,6 +12674,8 @@ bool ShimlessRmaService_RunCalibrationStep_ForwardToCallback::Accept(
           internal::ShimlessRmaService_RunCalibrationStep_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.42
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_RunCalibrationStep_ResponseParamsDataView input_data_view(params, message);
@@ -12699,6 +12805,8 @@ bool ShimlessRmaService_ContinueCalibration_ForwardToCallback::Accept(
           internal::ShimlessRmaService_ContinueCalibration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.43
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ContinueCalibration_ResponseParamsDataView input_data_view(params, message);
@@ -12828,6 +12936,8 @@ bool ShimlessRmaService_CalibrationComplete_ForwardToCallback::Accept(
           internal::ShimlessRmaService_CalibrationComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.44
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_CalibrationComplete_ResponseParamsDataView input_data_view(params, message);
@@ -12957,6 +13067,8 @@ bool ShimlessRmaService_RetryProvisioning_ForwardToCallback::Accept(
           internal::ShimlessRmaService_RetryProvisioning_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.45
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_RetryProvisioning_ResponseParamsDataView input_data_view(params, message);
@@ -13086,6 +13198,8 @@ bool ShimlessRmaService_ProvisioningComplete_ForwardToCallback::Accept(
           internal::ShimlessRmaService_ProvisioningComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.46
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_ProvisioningComplete_ResponseParamsDataView input_data_view(params, message);
@@ -13215,6 +13329,8 @@ bool ShimlessRmaService_RetryFinalization_ForwardToCallback::Accept(
           internal::ShimlessRmaService_RetryFinalization_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.47
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_RetryFinalization_ResponseParamsDataView input_data_view(params, message);
@@ -13344,6 +13460,8 @@ bool ShimlessRmaService_FinalizationComplete_ForwardToCallback::Accept(
           internal::ShimlessRmaService_FinalizationComplete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.48
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_FinalizationComplete_ResponseParamsDataView input_data_view(params, message);
@@ -13473,6 +13591,8 @@ bool ShimlessRmaService_WriteProtectManuallyEnabled_ForwardToCallback::Accept(
           internal::ShimlessRmaService_WriteProtectManuallyEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.49
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_WriteProtectManuallyEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -13602,6 +13722,8 @@ bool ShimlessRmaService_GetLog_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetLog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.50
   bool success = true;
   std::string p_log{};
   ::rmad::RmadErrorCode p_error{};
@@ -13740,6 +13862,8 @@ bool ShimlessRmaService_SaveLog_ForwardToCallback::Accept(
           internal::ShimlessRmaService_SaveLog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.51
   bool success = true;
   ::base::FilePath p_save_path{};
   ::rmad::RmadErrorCode p_error{};
@@ -13878,6 +14002,8 @@ bool ShimlessRmaService_GetPowerwashRequired_ForwardToCallback::Accept(
           internal::ShimlessRmaService_GetPowerwashRequired_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.52
   bool success = true;
   bool p_powerwash_required{};
   ShimlessRmaService_GetPowerwashRequired_ResponseParamsDataView input_data_view(params, message);
@@ -13997,6 +14123,8 @@ bool ShimlessRmaService_EndRma_ForwardToCallback::Accept(
           internal::ShimlessRmaService_EndRma_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.54
   bool success = true;
   StateResultPtr p_state_result{};
   ShimlessRmaService_EndRma_ResponseParamsDataView input_data_view(params, message);
@@ -14126,6 +14254,8 @@ bool ShimlessRmaService_CriticalErrorExitToLogin_ForwardToCallback::Accept(
           internal::ShimlessRmaService_CriticalErrorExitToLogin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.56
   bool success = true;
   ::rmad::RmadErrorCode p_error{};
   ShimlessRmaService_CriticalErrorExitToLogin_ResponseParamsDataView input_data_view(params, message);
@@ -14246,6 +14376,8 @@ bool ShimlessRmaService_CriticalErrorReboot_ForwardToCallback::Accept(
           internal::ShimlessRmaService_CriticalErrorReboot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.57
   bool success = true;
   ::rmad::RmadErrorCode p_error{};
   ShimlessRmaService_CriticalErrorReboot_ResponseParamsDataView input_data_view(params, message);
@@ -14366,6 +14498,8 @@ bool ShimlessRmaService_Get3pDiagnosticsProvider_ForwardToCallback::Accept(
           internal::ShimlessRmaService_Get3pDiagnosticsProvider_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.58
   bool success = true;
   std::optional<std::string> p_provider{};
   ShimlessRmaService_Get3pDiagnosticsProvider_ResponseParamsDataView input_data_view(params, message);
@@ -14491,6 +14625,8 @@ bool ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ForwardToCallback::Ac
           internal::ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.59
   bool success = true;
   std::optional<::base::FilePath> p_app_path{};
   ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ResponseParamsDataView input_data_view(params, message);
@@ -14616,6 +14752,8 @@ bool ShimlessRmaService_InstallLastFound3pDiagnosticsApp_ForwardToCallback::Acce
           internal::ShimlessRmaService_InstallLastFound3pDiagnosticsApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.60
   bool success = true;
   Shimless3pDiagnosticsAppInfoPtr p_app_info{};
   ShimlessRmaService_InstallLastFound3pDiagnosticsApp_ResponseParamsDataView input_data_view(params, message);
@@ -14741,6 +14879,8 @@ bool ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_ForwardToCallback:
           internal::ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.61
   bool success = true;
   ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_ResponseParamsDataView input_data_view(params, message);
   
@@ -14848,6 +14988,8 @@ bool ShimlessRmaService_Show3pDiagnosticsApp_ForwardToCallback::Accept(
           internal::ShimlessRmaService_Show3pDiagnosticsApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShimlessRmaService.62
   bool success = true;
   Show3pDiagnosticsAppResult p_result{};
   ShimlessRmaService_Show3pDiagnosticsApp_ResponseParamsDataView input_data_view(params, message);
@@ -14935,6 +15077,8 @@ bool ShimlessRmaServiceStubDispatch::Accept(
           reinterpret_cast<internal::ShimlessRmaService_TrackConfiguredNetworks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.4
       bool success = true;
       ShimlessRmaService_TrackConfiguredNetworks_ParamsDataView input_data_view(params, message);
       
@@ -14947,7 +15091,7 @@ bool ShimlessRmaServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TrackConfiguredNetworks();
+      impl->TrackConfiguredNetworks(        );
       return true;
     }
     case internal::kShimlessRmaService_NetworkSelectionComplete_Name: {
@@ -15101,6 +15245,8 @@ bool ShimlessRmaServiceStubDispatch::Accept(
           reinterpret_cast<internal::ShimlessRmaService_LaunchDiagnostics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.53
       bool success = true;
       ShimlessRmaService_LaunchDiagnostics_ParamsDataView input_data_view(params, message);
       
@@ -15113,7 +15259,7 @@ bool ShimlessRmaServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchDiagnostics();
+      impl->LaunchDiagnostics(        );
       return true;
     }
     case internal::kShimlessRmaService_EndRma_Name: {
@@ -15126,6 +15272,8 @@ bool ShimlessRmaServiceStubDispatch::Accept(
           reinterpret_cast<internal::ShimlessRmaService_ShutDownAfterHardwareError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.55
       bool success = true;
       ShimlessRmaService_ShutDownAfterHardwareError_ParamsDataView input_data_view(params, message);
       
@@ -15138,7 +15286,7 @@ bool ShimlessRmaServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShutDownAfterHardwareError();
+      impl->ShutDownAfterHardwareError(        );
       return true;
     }
     case internal::kShimlessRmaService_CriticalErrorExitToLogin_Name: {
@@ -15169,6 +15317,8 @@ bool ShimlessRmaServiceStubDispatch::Accept(
           reinterpret_cast<internal::ShimlessRmaService_ObserveError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.63
       bool success = true;
       ::mojo::PendingRemote<ErrorObserver> p_observer{};
       ShimlessRmaService_ObserveError_ParamsDataView input_data_view(params, message);
@@ -15186,8 +15336,8 @@ bool ShimlessRmaServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveError(
-std::move(p_observer));
+      impl->ObserveError(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveOsUpdateProgress_Name: {
@@ -15197,6 +15347,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveOsUpdateProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.64
       bool success = true;
       ::mojo::PendingRemote<OsUpdateObserver> p_observer{};
       ShimlessRmaService_ObserveOsUpdateProgress_ParamsDataView input_data_view(params, message);
@@ -15214,8 +15366,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveOsUpdateProgress(
-std::move(p_observer));
+      impl->ObserveOsUpdateProgress(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveCalibrationProgress_Name: {
@@ -15225,6 +15377,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveCalibrationProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.65
       bool success = true;
       ::mojo::PendingRemote<CalibrationObserver> p_observer{};
       ShimlessRmaService_ObserveCalibrationProgress_ParamsDataView input_data_view(params, message);
@@ -15242,8 +15396,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveCalibrationProgress(
-std::move(p_observer));
+      impl->ObserveCalibrationProgress(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveProvisioningProgress_Name: {
@@ -15253,6 +15407,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveProvisioningProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.66
       bool success = true;
       ::mojo::PendingRemote<ProvisioningObserver> p_observer{};
       ShimlessRmaService_ObserveProvisioningProgress_ParamsDataView input_data_view(params, message);
@@ -15270,8 +15426,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveProvisioningProgress(
-std::move(p_observer));
+      impl->ObserveProvisioningProgress(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveHardwareWriteProtectionState_Name: {
@@ -15281,6 +15437,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveHardwareWriteProtectionState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.67
       bool success = true;
       ::mojo::PendingRemote<HardwareWriteProtectionStateObserver> p_observer{};
       ShimlessRmaService_ObserveHardwareWriteProtectionState_ParamsDataView input_data_view(params, message);
@@ -15298,8 +15456,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveHardwareWriteProtectionState(
-std::move(p_observer));
+      impl->ObserveHardwareWriteProtectionState(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObservePowerCableState_Name: {
@@ -15309,6 +15467,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObservePowerCableState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.68
       bool success = true;
       ::mojo::PendingRemote<PowerCableStateObserver> p_observer{};
       ShimlessRmaService_ObservePowerCableState_ParamsDataView input_data_view(params, message);
@@ -15326,8 +15486,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObservePowerCableState(
-std::move(p_observer));
+      impl->ObservePowerCableState(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveExternalDiskState_Name: {
@@ -15337,6 +15497,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveExternalDiskState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.69
       bool success = true;
       ::mojo::PendingRemote<ExternalDiskStateObserver> p_observer{};
       ShimlessRmaService_ObserveExternalDiskState_ParamsDataView input_data_view(params, message);
@@ -15354,8 +15516,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveExternalDiskState(
-std::move(p_observer));
+      impl->ObserveExternalDiskState(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveHardwareVerificationStatus_Name: {
@@ -15365,6 +15527,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveHardwareVerificationStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.70
       bool success = true;
       ::mojo::PendingRemote<HardwareVerificationStatusObserver> p_observer{};
       ShimlessRmaService_ObserveHardwareVerificationStatus_ParamsDataView input_data_view(params, message);
@@ -15382,8 +15546,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveHardwareVerificationStatus(
-std::move(p_observer));
+      impl->ObserveHardwareVerificationStatus(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveFinalizationStatus_Name: {
@@ -15393,6 +15557,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveFinalizationStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.71
       bool success = true;
       ::mojo::PendingRemote<FinalizationObserver> p_observer{};
       ShimlessRmaService_ObserveFinalizationStatus_ParamsDataView input_data_view(params, message);
@@ -15410,8 +15576,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveFinalizationStatus(
-std::move(p_observer));
+      impl->ObserveFinalizationStatus(        
+        std::move(p_observer));
       return true;
     }
     case internal::kShimlessRmaService_ObserveRoFirmwareUpdateProgress_Name: {
@@ -15421,6 +15587,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ShimlessRmaService_ObserveRoFirmwareUpdateProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.72
       bool success = true;
       ::mojo::PendingRemote<UpdateRoFirmwareObserver> p_observer{};
       ShimlessRmaService_ObserveRoFirmwareUpdateProgress_ParamsDataView input_data_view(params, message);
@@ -15438,8 +15606,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveRoFirmwareUpdateProgress(
-std::move(p_observer));
+      impl->ObserveRoFirmwareUpdateProgress(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -15462,6 +15630,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_GetCurrentState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.0
       bool success = true;
       ShimlessRmaService_GetCurrentState_ParamsDataView input_data_view(params, message);
       
@@ -15487,6 +15657,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_TransitionPreviousState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.1
       bool success = true;
       ShimlessRmaService_TransitionPreviousState_ParamsDataView input_data_view(params, message);
       
@@ -15512,6 +15684,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_AbortRma_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.2
       bool success = true;
       ShimlessRmaService_AbortRma_ParamsDataView input_data_view(params, message);
       
@@ -15537,6 +15711,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_BeginFinalization_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.3
       bool success = true;
       ShimlessRmaService_BeginFinalization_ParamsDataView input_data_view(params, message);
       
@@ -15565,6 +15741,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_NetworkSelectionComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.5
       bool success = true;
       ShimlessRmaService_NetworkSelectionComplete_ParamsDataView input_data_view(params, message);
       
@@ -15590,6 +15768,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_GetCurrentOsVersion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.6
       bool success = true;
       ShimlessRmaService_GetCurrentOsVersion_ParamsDataView input_data_view(params, message);
       
@@ -15615,6 +15795,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_CheckForOsUpdates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.7
       bool success = true;
       ShimlessRmaService_CheckForOsUpdates_ParamsDataView input_data_view(params, message);
       
@@ -15640,6 +15822,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_UpdateOs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.8
       bool success = true;
       ShimlessRmaService_UpdateOs_ParamsDataView input_data_view(params, message);
       
@@ -15665,6 +15849,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_UpdateOsSkipped_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.9
       bool success = true;
       ShimlessRmaService_UpdateOsSkipped_ParamsDataView input_data_view(params, message);
       
@@ -15690,6 +15876,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_SetSameOwner_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.10
       bool success = true;
       ShimlessRmaService_SetSameOwner_ParamsDataView input_data_view(params, message);
       
@@ -15715,6 +15903,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_SetDifferentOwner_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.11
       bool success = true;
       ShimlessRmaService_SetDifferentOwner_ParamsDataView input_data_view(params, message);
       
@@ -15740,6 +15930,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               internal::ShimlessRmaService_SetWipeDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.12
       bool success = true;
       bool p_should_wipe_device{};
       ShimlessRmaService_SetWipeDevice_ParamsDataView input_data_view(params, message);
@@ -15758,8 +15950,8 @@ bool ShimlessRmaServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWipeDevice(
-std::move(p_should_wipe_device), std::move(callback));
+      impl->SetWipeDevice(        
+        std::move(p_should_wipe_device), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_ChooseManuallyDisableWriteProtect_Name: {
@@ -15769,6 +15961,8 @@ std::move(p_should_wipe_device), std::move(callback));
               internal::ShimlessRmaService_ChooseManuallyDisableWriteProtect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.13
       bool success = true;
       ShimlessRmaService_ChooseManuallyDisableWriteProtect_ParamsDataView input_data_view(params, message);
       
@@ -15794,6 +15988,8 @@ std::move(p_should_wipe_device), std::move(callback));
               internal::ShimlessRmaService_ChooseRsuDisableWriteProtect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.14
       bool success = true;
       ShimlessRmaService_ChooseRsuDisableWriteProtect_ParamsDataView input_data_view(params, message);
       
@@ -15819,6 +16015,8 @@ std::move(p_should_wipe_device), std::move(callback));
               internal::ShimlessRmaService_GetRsuDisableWriteProtectChallenge_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.15
       bool success = true;
       ShimlessRmaService_GetRsuDisableWriteProtectChallenge_ParamsDataView input_data_view(params, message);
       
@@ -15844,6 +16042,8 @@ std::move(p_should_wipe_device), std::move(callback));
               internal::ShimlessRmaService_GetRsuDisableWriteProtectHwid_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.16
       bool success = true;
       ShimlessRmaService_GetRsuDisableWriteProtectHwid_ParamsDataView input_data_view(params, message);
       
@@ -15869,6 +16069,8 @@ std::move(p_should_wipe_device), std::move(callback));
               internal::ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.17
       bool success = true;
       ShimlessRmaService_GetRsuDisableWriteProtectChallengeQrCode_ParamsDataView input_data_view(params, message);
       
@@ -15894,6 +16096,8 @@ std::move(p_should_wipe_device), std::move(callback));
               internal::ShimlessRmaService_SetRsuDisableWriteProtectCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.18
       bool success = true;
       std::string p_code{};
       ShimlessRmaService_SetRsuDisableWriteProtectCode_ParamsDataView input_data_view(params, message);
@@ -15912,8 +16116,8 @@ std::move(p_should_wipe_device), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRsuDisableWriteProtectCode(
-std::move(p_code), std::move(callback));
+      impl->SetRsuDisableWriteProtectCode(        
+        std::move(p_code), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_WriteProtectManuallyDisabled_Name: {
@@ -15923,6 +16127,8 @@ std::move(p_code), std::move(callback));
               internal::ShimlessRmaService_WriteProtectManuallyDisabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.19
       bool success = true;
       ShimlessRmaService_WriteProtectManuallyDisabled_ParamsDataView input_data_view(params, message);
       
@@ -15948,6 +16154,8 @@ std::move(p_code), std::move(callback));
               internal::ShimlessRmaService_GetWriteProtectDisableCompleteAction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.20
       bool success = true;
       ShimlessRmaService_GetWriteProtectDisableCompleteAction_ParamsDataView input_data_view(params, message);
       
@@ -15973,6 +16181,8 @@ std::move(p_code), std::move(callback));
               internal::ShimlessRmaService_ConfirmManualWpDisableComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.21
       bool success = true;
       ShimlessRmaService_ConfirmManualWpDisableComplete_ParamsDataView input_data_view(params, message);
       
@@ -15998,6 +16208,8 @@ std::move(p_code), std::move(callback));
               internal::ShimlessRmaService_GetComponentList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.22
       bool success = true;
       ShimlessRmaService_GetComponentList_ParamsDataView input_data_view(params, message);
       
@@ -16023,6 +16235,8 @@ std::move(p_code), std::move(callback));
               internal::ShimlessRmaService_SetComponentList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.23
       bool success = true;
       std::vector<::rmad::ComponentsRepairState_ComponentRepairStatus> p_components{};
       ShimlessRmaService_SetComponentList_ParamsDataView input_data_view(params, message);
@@ -16041,8 +16255,8 @@ std::move(p_code), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetComponentList(
-std::move(p_components), std::move(callback));
+      impl->SetComponentList(        
+        std::move(p_components), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_ReworkMainboard_Name: {
@@ -16052,6 +16266,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_ReworkMainboard_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.24
       bool success = true;
       ShimlessRmaService_ReworkMainboard_ParamsDataView input_data_view(params, message);
       
@@ -16077,6 +16293,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_RoFirmwareUpdateComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.25
       bool success = true;
       ShimlessRmaService_RoFirmwareUpdateComplete_ParamsDataView input_data_view(params, message);
       
@@ -16102,6 +16320,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_ShutdownForRestock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.26
       bool success = true;
       ShimlessRmaService_ShutdownForRestock_ParamsDataView input_data_view(params, message);
       
@@ -16127,6 +16347,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_ContinueFinalizationAfterRestock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.27
       bool success = true;
       ShimlessRmaService_ContinueFinalizationAfterRestock_ParamsDataView input_data_view(params, message);
       
@@ -16152,6 +16374,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetRegionList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.28
       bool success = true;
       ShimlessRmaService_GetRegionList_ParamsDataView input_data_view(params, message);
       
@@ -16177,6 +16401,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetSkuList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.29
       bool success = true;
       ShimlessRmaService_GetSkuList_ParamsDataView input_data_view(params, message);
       
@@ -16202,6 +16428,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetCustomLabelList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.30
       bool success = true;
       ShimlessRmaService_GetCustomLabelList_ParamsDataView input_data_view(params, message);
       
@@ -16227,6 +16455,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetSkuDescriptionList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.31
       bool success = true;
       ShimlessRmaService_GetSkuDescriptionList_ParamsDataView input_data_view(params, message);
       
@@ -16252,6 +16482,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetOriginalSerialNumber_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.32
       bool success = true;
       ShimlessRmaService_GetOriginalSerialNumber_ParamsDataView input_data_view(params, message);
       
@@ -16277,6 +16509,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetOriginalRegion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.33
       bool success = true;
       ShimlessRmaService_GetOriginalRegion_ParamsDataView input_data_view(params, message);
       
@@ -16302,6 +16536,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetOriginalSku_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.34
       bool success = true;
       ShimlessRmaService_GetOriginalSku_ParamsDataView input_data_view(params, message);
       
@@ -16327,6 +16563,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetOriginalCustomLabel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.35
       bool success = true;
       ShimlessRmaService_GetOriginalCustomLabel_ParamsDataView input_data_view(params, message);
       
@@ -16352,6 +16590,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetOriginalDramPartNumber_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.36
       bool success = true;
       ShimlessRmaService_GetOriginalDramPartNumber_ParamsDataView input_data_view(params, message);
       
@@ -16377,6 +16617,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetOriginalFeatureLevel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.37
       bool success = true;
       ShimlessRmaService_GetOriginalFeatureLevel_ParamsDataView input_data_view(params, message);
       
@@ -16402,6 +16644,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_SetDeviceInformation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.38
       bool success = true;
       std::string p_serial_number{};
       int32_t p_region_index{};
@@ -16438,14 +16682,14 @@ std::move(p_components), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeviceInformation(
-std::move(p_serial_number), 
-std::move(p_region_index), 
-std::move(p_sku_index), 
-std::move(p_custom_label_index), 
-std::move(p_dram_part_number), 
-std::move(p_is_chassis_branded), 
-std::move(p_hw_compliance_version), std::move(callback));
+      impl->SetDeviceInformation(        
+        std::move(p_serial_number), 
+        std::move(p_region_index), 
+        std::move(p_sku_index), 
+        std::move(p_custom_label_index), 
+        std::move(p_dram_part_number), 
+        std::move(p_is_chassis_branded), 
+        std::move(p_hw_compliance_version), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_GetCalibrationComponentList_Name: {
@@ -16455,6 +16699,8 @@ std::move(p_hw_compliance_version), std::move(callback));
               internal::ShimlessRmaService_GetCalibrationComponentList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.39
       bool success = true;
       ShimlessRmaService_GetCalibrationComponentList_ParamsDataView input_data_view(params, message);
       
@@ -16480,6 +16726,8 @@ std::move(p_hw_compliance_version), std::move(callback));
               internal::ShimlessRmaService_GetCalibrationSetupInstructions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.40
       bool success = true;
       ShimlessRmaService_GetCalibrationSetupInstructions_ParamsDataView input_data_view(params, message);
       
@@ -16505,6 +16753,8 @@ std::move(p_hw_compliance_version), std::move(callback));
               internal::ShimlessRmaService_StartCalibration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.41
       bool success = true;
       std::vector<::rmad::CalibrationComponentStatus> p_components{};
       ShimlessRmaService_StartCalibration_ParamsDataView input_data_view(params, message);
@@ -16523,8 +16773,8 @@ std::move(p_hw_compliance_version), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartCalibration(
-std::move(p_components), std::move(callback));
+      impl->StartCalibration(        
+        std::move(p_components), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_RunCalibrationStep_Name: {
@@ -16534,6 +16784,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_RunCalibrationStep_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.42
       bool success = true;
       ShimlessRmaService_RunCalibrationStep_ParamsDataView input_data_view(params, message);
       
@@ -16559,6 +16811,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_ContinueCalibration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.43
       bool success = true;
       ShimlessRmaService_ContinueCalibration_ParamsDataView input_data_view(params, message);
       
@@ -16584,6 +16838,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_CalibrationComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.44
       bool success = true;
       ShimlessRmaService_CalibrationComplete_ParamsDataView input_data_view(params, message);
       
@@ -16609,6 +16865,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_RetryProvisioning_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.45
       bool success = true;
       ShimlessRmaService_RetryProvisioning_ParamsDataView input_data_view(params, message);
       
@@ -16634,6 +16892,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_ProvisioningComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.46
       bool success = true;
       ShimlessRmaService_ProvisioningComplete_ParamsDataView input_data_view(params, message);
       
@@ -16659,6 +16919,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_RetryFinalization_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.47
       bool success = true;
       ShimlessRmaService_RetryFinalization_ParamsDataView input_data_view(params, message);
       
@@ -16684,6 +16946,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_FinalizationComplete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.48
       bool success = true;
       ShimlessRmaService_FinalizationComplete_ParamsDataView input_data_view(params, message);
       
@@ -16709,6 +16973,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_WriteProtectManuallyEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.49
       bool success = true;
       ShimlessRmaService_WriteProtectManuallyEnabled_ParamsDataView input_data_view(params, message);
       
@@ -16734,6 +17000,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetLog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.50
       bool success = true;
       ShimlessRmaService_GetLog_ParamsDataView input_data_view(params, message);
       
@@ -16759,6 +17027,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_SaveLog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.51
       bool success = true;
       ShimlessRmaService_SaveLog_ParamsDataView input_data_view(params, message);
       
@@ -16784,6 +17054,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_GetPowerwashRequired_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.52
       bool success = true;
       ShimlessRmaService_GetPowerwashRequired_ParamsDataView input_data_view(params, message);
       
@@ -16812,6 +17084,8 @@ std::move(p_components), std::move(callback));
               internal::ShimlessRmaService_EndRma_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.54
       bool success = true;
       ::rmad::RepairCompleteState_ShutdownMethod p_shutdown_method{};
       ShimlessRmaService_EndRma_ParamsDataView input_data_view(params, message);
@@ -16830,8 +17104,8 @@ std::move(p_components), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EndRma(
-std::move(p_shutdown_method), std::move(callback));
+      impl->EndRma(        
+        std::move(p_shutdown_method), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_ShutDownAfterHardwareError_Name: {
@@ -16844,6 +17118,8 @@ std::move(p_shutdown_method), std::move(callback));
               internal::ShimlessRmaService_CriticalErrorExitToLogin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.56
       bool success = true;
       ShimlessRmaService_CriticalErrorExitToLogin_ParamsDataView input_data_view(params, message);
       
@@ -16869,6 +17145,8 @@ std::move(p_shutdown_method), std::move(callback));
               internal::ShimlessRmaService_CriticalErrorReboot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.57
       bool success = true;
       ShimlessRmaService_CriticalErrorReboot_ParamsDataView input_data_view(params, message);
       
@@ -16894,6 +17172,8 @@ std::move(p_shutdown_method), std::move(callback));
               internal::ShimlessRmaService_Get3pDiagnosticsProvider_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.58
       bool success = true;
       ShimlessRmaService_Get3pDiagnosticsProvider_ParamsDataView input_data_view(params, message);
       
@@ -16919,6 +17199,8 @@ std::move(p_shutdown_method), std::move(callback));
               internal::ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.59
       bool success = true;
       ShimlessRmaService_GetInstallable3pDiagnosticsAppPath_ParamsDataView input_data_view(params, message);
       
@@ -16944,6 +17226,8 @@ std::move(p_shutdown_method), std::move(callback));
               internal::ShimlessRmaService_InstallLastFound3pDiagnosticsApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.60
       bool success = true;
       ShimlessRmaService_InstallLastFound3pDiagnosticsApp_ParamsDataView input_data_view(params, message);
       
@@ -16969,6 +17253,8 @@ std::move(p_shutdown_method), std::move(callback));
               internal::ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.61
       bool success = true;
       bool p_is_approved{};
       ShimlessRmaService_CompleteLast3pDiagnosticsInstallation_ParamsDataView input_data_view(params, message);
@@ -16987,8 +17273,8 @@ std::move(p_shutdown_method), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompleteLast3pDiagnosticsInstallation(
-std::move(p_is_approved), std::move(callback));
+      impl->CompleteLast3pDiagnosticsInstallation(        
+        std::move(p_is_approved), std::move(callback));
       return true;
     }
     case internal::kShimlessRmaService_Show3pDiagnosticsApp_Name: {
@@ -16998,6 +17284,8 @@ std::move(p_is_approved), std::move(callback));
               internal::ShimlessRmaService_Show3pDiagnosticsApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShimlessRmaService.62
       bool success = true;
       ShimlessRmaService_Show3pDiagnosticsApp_ParamsDataView input_data_view(params, message);
       

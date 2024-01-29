@@ -857,6 +857,8 @@ bool CommerceHintObserver_OnNavigation_ForwardToCallback::Accept(
           internal::CommerceHintObserver_OnNavigation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommerceHintObserver.7
   bool success = true;
   bool p_should_skip{};
   HeuristicsPtr p_heuristics{};
@@ -994,6 +996,8 @@ bool CommerceHintObserver_OnCartExtraction_ForwardToCallback::Accept(
           internal::CommerceHintObserver_OnCartExtraction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommerceHintObserver.8
   bool success = true;
   std::string p_product_id_json{};
   std::string p_cart_extraction_script{};
@@ -1096,6 +1100,8 @@ bool CommerceHintObserverStubDispatch::Accept(
           reinterpret_cast<internal::CommerceHintObserver_OnAddToCart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.0
       bool success = true;
       std::optional<::GURL> p_cart_url{};
       std::string p_product_id{};
@@ -1114,9 +1120,9 @@ bool CommerceHintObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAddToCart(
-std::move(p_cart_url), 
-std::move(p_product_id));
+      impl->OnAddToCart(        
+        std::move(p_cart_url), 
+        std::move(p_product_id));
       return true;
     }
     case internal::kCommerceHintObserver_OnVisitCart_Name: {
@@ -1126,6 +1132,8 @@ std::move(p_product_id));
           reinterpret_cast<internal::CommerceHintObserver_OnVisitCart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.1
       bool success = true;
       CommerceHintObserver_OnVisitCart_ParamsDataView input_data_view(params, message);
       
@@ -1138,7 +1146,7 @@ std::move(p_product_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisitCart();
+      impl->OnVisitCart(        );
       return true;
     }
     case internal::kCommerceHintObserver_OnCartProductUpdated_Name: {
@@ -1148,6 +1156,8 @@ std::move(p_product_id));
           reinterpret_cast<internal::CommerceHintObserver_OnCartProductUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.2
       bool success = true;
       std::vector<ProductPtr> p_products{};
       CommerceHintObserver_OnCartProductUpdated_ParamsDataView input_data_view(params, message);
@@ -1163,8 +1173,8 @@ std::move(p_product_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCartProductUpdated(
-std::move(p_products));
+      impl->OnCartProductUpdated(        
+        std::move(p_products));
       return true;
     }
     case internal::kCommerceHintObserver_OnVisitCheckout_Name: {
@@ -1174,6 +1184,8 @@ std::move(p_products));
           reinterpret_cast<internal::CommerceHintObserver_OnVisitCheckout_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.3
       bool success = true;
       CommerceHintObserver_OnVisitCheckout_ParamsDataView input_data_view(params, message);
       
@@ -1186,7 +1198,7 @@ std::move(p_products));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisitCheckout();
+      impl->OnVisitCheckout(        );
       return true;
     }
     case internal::kCommerceHintObserver_OnPurchase_Name: {
@@ -1196,6 +1208,8 @@ std::move(p_products));
           reinterpret_cast<internal::CommerceHintObserver_OnPurchase_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.4
       bool success = true;
       CommerceHintObserver_OnPurchase_ParamsDataView input_data_view(params, message);
       
@@ -1208,7 +1222,7 @@ std::move(p_products));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPurchase();
+      impl->OnPurchase(        );
       return true;
     }
     case internal::kCommerceHintObserver_OnFormSubmit_Name: {
@@ -1218,6 +1232,8 @@ std::move(p_products));
           reinterpret_cast<internal::CommerceHintObserver_OnFormSubmit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.5
       bool success = true;
       bool p_is_purchase{};
       CommerceHintObserver_OnFormSubmit_ParamsDataView input_data_view(params, message);
@@ -1233,8 +1249,8 @@ std::move(p_products));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFormSubmit(
-std::move(p_is_purchase));
+      impl->OnFormSubmit(        
+        std::move(p_is_purchase));
       return true;
     }
     case internal::kCommerceHintObserver_OnWillSendRequest_Name: {
@@ -1244,6 +1260,8 @@ std::move(p_is_purchase));
           reinterpret_cast<internal::CommerceHintObserver_OnWillSendRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.6
       bool success = true;
       bool p_is_addtocart{};
       CommerceHintObserver_OnWillSendRequest_ParamsDataView input_data_view(params, message);
@@ -1259,8 +1277,8 @@ std::move(p_is_purchase));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWillSendRequest(
-std::move(p_is_addtocart));
+      impl->OnWillSendRequest(        
+        std::move(p_is_addtocart));
       return true;
     }
     case internal::kCommerceHintObserver_OnNavigation_Name: {
@@ -1310,6 +1328,8 @@ bool CommerceHintObserverStubDispatch::AcceptWithResponder(
               internal::CommerceHintObserver_OnNavigation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.7
       bool success = true;
       ::GURL p_url{};
       std::string p_version_number{};
@@ -1331,9 +1351,9 @@ bool CommerceHintObserverStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNavigation(
-std::move(p_url), 
-std::move(p_version_number), std::move(callback));
+      impl->OnNavigation(        
+        std::move(p_url), 
+        std::move(p_version_number), std::move(callback));
       return true;
     }
     case internal::kCommerceHintObserver_OnCartExtraction_Name: {
@@ -1343,6 +1363,8 @@ std::move(p_version_number), std::move(callback));
               internal::CommerceHintObserver_OnCartExtraction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommerceHintObserver.8
       bool success = true;
       CommerceHintObserver_OnCartExtraction_ParamsDataView input_data_view(params, message);
       

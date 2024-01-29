@@ -161,6 +161,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -467,6 +469,8 @@ bool PageHandler_GetChildFolders_ForwardToCallback::Accept(
           internal::PageHandler_GetChildFolders_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::vector<::base::FilePath> p_paths{};
   PageHandler_GetChildFolders_ResponseParamsDataView input_data_view(params, message);
@@ -598,6 +602,8 @@ bool PageHandler_GetSyncingPaths_ForwardToCallback::Accept(
           internal::PageHandler_GetSyncingPaths_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   PageHandler::GetSyncPathError p_error{};
   std::vector<::base::FilePath> p_syncing_paths{};
@@ -712,6 +718,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetChildFolders_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       ::base::FilePath p_path{};
       PageHandler_GetChildFolders_ParamsDataView input_data_view(params, message);
@@ -730,8 +738,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetChildFolders(
-std::move(p_path), std::move(callback));
+      impl->GetChildFolders(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetSyncingPaths_Name: {
@@ -741,6 +749,8 @@ std::move(p_path), std::move(callback));
               internal::PageHandler_GetSyncingPaths_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetSyncingPaths_ParamsDataView input_data_view(params, message);
       

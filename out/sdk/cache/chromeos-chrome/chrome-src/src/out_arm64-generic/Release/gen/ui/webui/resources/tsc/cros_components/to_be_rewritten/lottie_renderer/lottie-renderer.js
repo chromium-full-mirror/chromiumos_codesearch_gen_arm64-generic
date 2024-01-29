@@ -47,7 +47,7 @@ const CROS_TOKENS = new Set([
     'cros.sys.illo.card.on_color1',
 ]);
 /** String variant of the name field used for comparison during parsing. */
-const LOTTIE_NAME_KEY = 'nm';
+const LOTTIE_GRADIENT_FILL_TYPE = 'gf';
 /** The CustomEvent names that LottieRenderer can fire. */
 export var CrosLottieEvent;
 (function (CrosLottieEvent) {
@@ -75,10 +75,9 @@ export var CrosLottieEvent;
 })(CrosLottieEvent || (CrosLottieEvent = {}));
 /**
  * Helper function for converting between the hexadecimal string we get from the
- * computed style to the format that lottie expects, which is an array of four
- * floats. Since these come directly from the computed style and color pipeline,
- * we can be confident that we are only going to be parsing 8 digit hexadecimal
- * strings.
+ * computed style to LottieRGBAArray type. Since these come directly
+ * from the computed style and color pipeline, we can be confident that we are
+ * only going to be parsing 8 digit hexadecimal strings.
  */
 function convertHexToLottieRGBA(hexString) {
     let r;
@@ -106,27 +105,48 @@ function convertHexToLottieRGBA(hexString) {
 function convertTokenToCssVariable(token) {
     return `--${(token).replaceAll('.', '-')}`;
 }
+function getOrCreateTokenColor(colors, tokenName) {
+    if (!colors.has(tokenName)) {
+        colors.set(tokenName, {
+            cssVar: convertTokenToCssVariable(tokenName),
+            shapes: [],
+            gradients: []
+        });
+    }
+    return colors.get(tokenName);
+}
 /**
  * Traverses through a jsonObject, looking for known keys and tokens, and
- * saving them in the `shapes` map.
+ * saving them in the `shapes` and `gradients` map.
  */
-function traverse(jsonObj, shapes) {
+function traverse(jsonObj, colors) {
     if (jsonObj === null || typeof jsonObj !== 'object')
         return;
-    for (const [key, value] of Object.entries(jsonObj)) {
-        // If we are looking at something that contains a "nm" field that is set to
-        // one of the known illustration tokens, this is a LottieShape that needs to
-        // have its color value set.
-        if (key === LOTTIE_NAME_KEY && CROS_TOKENS.has(value)) {
-            const tokenName = value;
-            if (!shapes.has(tokenName)) {
-                shapes.set(tokenName, { cssVar: convertTokenToCssVariable(tokenName), locations: [] });
+    for (const value of Object.values(jsonObj)) {
+        const tokenName = jsonObj.nm || null;
+        let tokenColor = null;
+        let gradient = null;
+        let shape = null;
+        if (tokenName && CROS_TOKENS.has(tokenName)) {
+            tokenColor = getOrCreateTokenColor(colors, tokenName);
+            const gradientObj = jsonObj;
+            // Attempt to parse the object as a gradient, otherwise we assume it is a
+            // regular shape. If more complex animation types get added, this logic
+            // will need to be updated along with the types.
+            if (gradientObj.ty === LOTTIE_GRADIENT_FILL_TYPE) {
+                gradient = gradientObj;
             }
-            const color = shapes.get(tokenName);
-            const shape = jsonObj;
-            color.locations.push(shape);
+            else {
+                shape = jsonObj;
+            }
         }
-        traverse(value, shapes);
+        traverse(value, colors);
+        if (tokenColor) {
+            if (gradient)
+                tokenColor.gradients.push(gradient);
+            if (shape)
+                tokenColor.shapes.push(shape);
+        }
     }
 }
 /**
@@ -396,7 +416,7 @@ export class LottieRenderer extends LitElement {
         for (const color of this.colors.values()) {
             const computedColor = computedStyle.getPropertyValue(color.cssVar).trim();
             const colorArray = convertHexToLottieRGBA(computedColor);
-            for (const location of color.locations) {
+            for (const location of color.shapes) {
                 if (location.c) {
                     location.c.k = colorArray;
                 }
@@ -405,6 +425,15 @@ export class LottieRenderer extends LitElement {
                 }
                 else {
                     console.info(`Unable to assign color to shape: ${JSON.stringify(location)}`);
+                }
+            }
+            for (const location of color.gradients) {
+                const numOfPoints = location.g.p;
+                for (let i = 0; i < numOfPoints; i++) {
+                    const gradientFillPoints = location.g.k.k;
+                    gradientFillPoints[(4 * i) + 1] = colorArray[0];
+                    gradientFillPoints[(4 * i) + 2] = colorArray[1];
+                    gradientFillPoints[(4 * i) + 3] = colorArray[2];
                 }
             }
         }

@@ -44,7 +44,7 @@ class  PdfFlattener_FlattenPdf_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> flattened_pdf_region;
+  mojo::internal::Pointer<internal::FlattenPdfResult_Data> result;
 
  private:
   friend class mojo::internal::MessageFragment<PdfFlattener_FlattenPdf_ResponseParams_Data>;
@@ -111,24 +111,24 @@ class PdfFlattener_FlattenPdf_ResponseParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetFlattenedPdfRegionDataView(
-      ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output);
+  inline void GetResultDataView(
+      FlattenPdfResultDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadFlattenedPdfRegion(UserType* output) {
+  [[nodiscard]] bool ReadResult(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView, UserType>(),
-    "Attempting to read the optional `flattened_pdf_region` field into a type which "
+        ::printing::mojom::FlattenPdfResultDataView, UserType>(),
+    "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadFlattenedPdfRegion` instead "
-    "of `ReadFlattenedPdfRegion if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadResult` instead "
+    "of `ReadResult if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->flattened_pdf_region.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::printing::mojom::FlattenPdfResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -161,10 +161,10 @@ inline void PdfFlattener_FlattenPdf_ParamsDataView::GetSrcPdfRegionDataView(
 }
 
 
-inline void PdfFlattener_FlattenPdf_ResponseParamsDataView::GetFlattenedPdfRegionDataView(
-    ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
-  auto pointer = data_->flattened_pdf_region.Get();
-  *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
+inline void PdfFlattener_FlattenPdf_ResponseParamsDataView::GetResultDataView(
+    FlattenPdfResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = FlattenPdfResultDataView(pointer, message_);
 }
 
 

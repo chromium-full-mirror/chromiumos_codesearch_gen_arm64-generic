@@ -13,6 +13,7 @@
 #include "mojo/public/mojom/base/string16.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
+#include "ui/gfx/image/mojom/image.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -27,9 +28,62 @@ class ValidationContext;
 
 namespace crosapi::mojom {
 namespace internal {
+class DownloadProgress_Data;
 class DownloadStatus_Data;
 
 #pragma pack(push, 1)
+class  DownloadProgress_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t loop : 1;
+  uint8_t visible : 1;
+  uint8_t pad1_[7];
+  int64_t received_bytes;
+  int64_t total_bytes;
+
+ private:
+  friend class mojo::internal::MessageFragment<DownloadProgress_Data>;
+
+  DownloadProgress_Data();
+  ~DownloadProgress_Data() = delete;
+};
+static_assert(sizeof(DownloadProgress_Data) == 32,
+              "Bad sizeof(DownloadProgress_Data)");
+// Used by DownloadProgress::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DownloadProgress_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DownloadProgress_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DownloadProgress_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DownloadProgress_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DownloadProgress_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  DownloadStatus_Data {
  public:
   static bool Validate(const void* data,
@@ -38,8 +92,8 @@ class  DownloadStatus_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> guid;
   int32_t state;
-  uint8_t received_bytes_$flag : 1;
-  uint8_t total_bytes_$flag : 1;
+  uint8_t received_bytes_deprecated_$flag : 1;
+  uint8_t total_bytes_deprecated_$flag : 1;
   uint8_t cancellable_$flag : 1;
   uint8_t cancellable_$value : 1;
   uint8_t pausable_$flag : 1;
@@ -47,11 +101,13 @@ class  DownloadStatus_Data {
   uint8_t resumable_$flag : 1;
   uint8_t resumable_$value : 1;
   uint8_t pad9_[3];
-  int64_t received_bytes_$value;
-  int64_t total_bytes_$value;
+  int64_t received_bytes_deprecated_$value;
+  int64_t total_bytes_deprecated_$value;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> target_file_path;
   mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> full_path;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> status_text;
+  mojo::internal::Pointer<::gfx::mojom::internal::ImageSkia_Data> image;
+  mojo::internal::Pointer<internal::DownloadProgress_Data> progress;
 
  private:
   friend class mojo::internal::MessageFragment<DownloadStatus_Data>;
@@ -59,7 +115,7 @@ class  DownloadStatus_Data {
   DownloadStatus_Data();
   ~DownloadStatus_Data() = delete;
 };
-static_assert(sizeof(DownloadStatus_Data) == 64,
+static_assert(sizeof(DownloadStatus_Data) == 80,
               "Bad sizeof(DownloadStatus_Data)");
 // Used by DownloadStatus::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

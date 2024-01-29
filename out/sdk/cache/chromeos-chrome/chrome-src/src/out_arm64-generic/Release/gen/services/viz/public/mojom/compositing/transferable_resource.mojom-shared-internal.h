@@ -74,7 +74,8 @@ class  TransferableResource_Data {
   uint8_t is_overlay_candidate : 1;
   uint8_t is_backed_by_surface_texture : 1;
   uint8_t wants_promotion_hint : 1;
-  uint8_t pad8_[3];
+  uint8_t needs_detiling : 1;
+  uint8_t pad9_[3];
   mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> color_space;
   mojo::internal::Pointer<::gfx::mojom::internal::HDRMetadata_Data> hdr_metadata;
   mojo::internal::Pointer<::gpu::mojom::internal::VulkanYCbCrInfo_Data> ycbcr_info;

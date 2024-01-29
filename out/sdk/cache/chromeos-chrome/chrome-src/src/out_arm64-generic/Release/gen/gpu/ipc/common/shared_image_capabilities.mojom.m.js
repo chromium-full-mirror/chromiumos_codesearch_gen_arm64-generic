@@ -46,7 +46,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'disableR8SharedImages', 0,
+        'isR16fSupported', 0,
         3,
         mojo.internal.Bool,
         false,
@@ -54,7 +54,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'disableWebgpuSharedImages', 0,
+        'disableR8SharedImages', 0,
         4,
         mojo.internal.Bool,
         false,
@@ -62,7 +62,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sharedImageD3d', 0,
+        'disableWebgpuSharedImages', 0,
         5,
         mojo.internal.Bool,
         false,
@@ -70,8 +70,16 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'sharedImageSwapChain', 0,
+        'sharedImageD3d', 0,
         6,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'sharedImageSwapChain', 0,
+        7,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -93,6 +101,8 @@ export class SharedImageCapabilities {
     this.supportsLuminanceSharedImages;
     /** @type { !boolean } */
     this.supportsR16SharedImages;
+    /** @type { !boolean } */
+    this.isR16fSupported;
     /** @type { !boolean } */
     this.disableR8SharedImages;
     /** @type { !boolean } */

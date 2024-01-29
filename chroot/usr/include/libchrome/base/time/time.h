@@ -118,7 +118,9 @@ struct TimeSpan;
 
 namespace base {
 
+#if BUILDFLAG(IS_WIN)
 class PlatformThreadHandle;
+#endif
 class TimeDelta;
 
 template <typename T>

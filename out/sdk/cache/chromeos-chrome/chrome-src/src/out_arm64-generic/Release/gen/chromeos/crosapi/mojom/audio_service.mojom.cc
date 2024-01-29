@@ -533,6 +533,8 @@ bool AudioChangeObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioChangeObserver_OnDeviceListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioChangeObserver.0
       bool success = true;
       std::vector<AudioDeviceInfoPtr> p_devices{};
       AudioChangeObserver_OnDeviceListChanged_ParamsDataView input_data_view(params, message);
@@ -548,8 +550,8 @@ bool AudioChangeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceListChanged(
-std::move(p_devices));
+      impl->OnDeviceListChanged(        
+        std::move(p_devices));
       return true;
     }
     case internal::kAudioChangeObserver_OnLevelChanged_Name: {
@@ -559,6 +561,8 @@ std::move(p_devices));
           reinterpret_cast<internal::AudioChangeObserver_OnLevelChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioChangeObserver.1
       bool success = true;
       std::string p_id{};
       int32_t p_level{};
@@ -577,9 +581,9 @@ std::move(p_devices));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLevelChanged(
-std::move(p_id), 
-std::move(p_level));
+      impl->OnLevelChanged(        
+        std::move(p_id), 
+        std::move(p_level));
       return true;
     }
     case internal::kAudioChangeObserver_OnMuteChanged_Name: {
@@ -589,6 +593,8 @@ std::move(p_level));
           reinterpret_cast<internal::AudioChangeObserver_OnMuteChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioChangeObserver.2
       bool success = true;
       bool p_is_input{};
       bool p_is_muted{};
@@ -607,9 +613,9 @@ std::move(p_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMuteChanged(
-std::move(p_is_input), 
-std::move(p_is_muted));
+      impl->OnMuteChanged(        
+        std::move(p_is_input), 
+        std::move(p_is_muted));
       return true;
     }
   }
@@ -1256,6 +1262,8 @@ bool AudioService_GetDevices_ForwardToCallback::Accept(
           internal::AudioService_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioService.0
   bool success = true;
   std::optional<std::vector<AudioDeviceInfoPtr>> p_devices{};
   AudioService_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -1383,6 +1391,8 @@ bool AudioService_GetMute_ForwardToCallback::Accept(
           internal::AudioService_GetMute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioService.1
   bool success = true;
   bool p_success{};
   bool p_is_muted{};
@@ -1510,6 +1520,8 @@ bool AudioService_SetActiveDeviceLists_ForwardToCallback::Accept(
           internal::AudioService_SetActiveDeviceLists_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioService.2
   bool success = true;
   bool p_success{};
   AudioService_SetActiveDeviceLists_ResponseParamsDataView input_data_view(params, message);
@@ -1629,6 +1641,8 @@ bool AudioService_SetMute_ForwardToCallback::Accept(
           internal::AudioService_SetMute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioService.3
   bool success = true;
   bool p_success{};
   AudioService_SetMute_ResponseParamsDataView input_data_view(params, message);
@@ -1748,6 +1762,8 @@ bool AudioService_SetProperties_ForwardToCallback::Accept(
           internal::AudioService_SetProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioService.4
   bool success = true;
   bool p_success{};
   AudioService_SetProperties_ResponseParamsDataView input_data_view(params, message);
@@ -1837,6 +1853,8 @@ bool AudioServiceStubDispatch::Accept(
           reinterpret_cast<internal::AudioService_AddAudioChangeObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.5
       bool success = true;
       ::mojo::PendingRemote<AudioChangeObserver> p_observer{};
       AudioService_AddAudioChangeObserver_ParamsDataView input_data_view(params, message);
@@ -1854,8 +1872,8 @@ bool AudioServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAudioChangeObserver(
-std::move(p_observer));
+      impl->AddAudioChangeObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -1878,6 +1896,8 @@ bool AudioServiceStubDispatch::AcceptWithResponder(
               internal::AudioService_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioService.0
       bool success = true;
       DeviceFilterPtr p_filter{};
       AudioService_GetDevices_ParamsDataView input_data_view(params, message);
@@ -1896,8 +1916,8 @@ bool AudioServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevices(
-std::move(p_filter), std::move(callback));
+      impl->GetDevices(        
+        std::move(p_filter), std::move(callback));
       return true;
     }
     case internal::kAudioService_GetMute_Name: {
@@ -1907,6 +1927,8 @@ std::move(p_filter), std::move(callback));
               internal::AudioService_GetMute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioService.1
       bool success = true;
       StreamType p_stream_type{};
       AudioService_GetMute_ParamsDataView input_data_view(params, message);
@@ -1925,8 +1947,8 @@ std::move(p_filter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMute(
-std::move(p_stream_type), std::move(callback));
+      impl->GetMute(        
+        std::move(p_stream_type), std::move(callback));
       return true;
     }
     case internal::kAudioService_SetActiveDeviceLists_Name: {
@@ -1936,6 +1958,8 @@ std::move(p_stream_type), std::move(callback));
               internal::AudioService_SetActiveDeviceLists_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioService.2
       bool success = true;
       DeviceIdListsPtr p_ids{};
       AudioService_SetActiveDeviceLists_ParamsDataView input_data_view(params, message);
@@ -1954,8 +1978,8 @@ std::move(p_stream_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetActiveDeviceLists(
-std::move(p_ids), std::move(callback));
+      impl->SetActiveDeviceLists(        
+        std::move(p_ids), std::move(callback));
       return true;
     }
     case internal::kAudioService_SetMute_Name: {
@@ -1965,6 +1989,8 @@ std::move(p_ids), std::move(callback));
               internal::AudioService_SetMute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioService.3
       bool success = true;
       StreamType p_stream_type{};
       bool p_is_muted{};
@@ -1986,9 +2012,9 @@ std::move(p_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMute(
-std::move(p_stream_type), 
-std::move(p_is_muted), std::move(callback));
+      impl->SetMute(        
+        std::move(p_stream_type), 
+        std::move(p_is_muted), std::move(callback));
       return true;
     }
     case internal::kAudioService_SetProperties_Name: {
@@ -1998,6 +2024,8 @@ std::move(p_is_muted), std::move(callback));
               internal::AudioService_SetProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioService.4
       bool success = true;
       std::string p_id{};
       AudioDevicePropertiesPtr p_properties{};
@@ -2019,9 +2047,9 @@ std::move(p_is_muted), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProperties(
-std::move(p_id), 
-std::move(p_properties), std::move(callback));
+      impl->SetProperties(        
+        std::move(p_id), 
+        std::move(p_properties), std::move(callback));
       return true;
     }
     case internal::kAudioService_AddAudioChangeObserver_Name: {

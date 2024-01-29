@@ -48,6 +48,9 @@ using URNConfigPairPtr = mojo::StructPtr<URNConfigPair>;
 class SharedStorageBudgetMetadata;
 using SharedStorageBudgetMetadataPtr = mojo::StructPtr<SharedStorageBudgetMetadata>;
 
+class ParentPermissionsInfo;
+using ParentPermissionsInfoPtr = mojo::StructPtr<ParentPermissionsInfo>;
+
 class FencedFrameConfig;
 using FencedFrameConfigPtr = mojo::StructPtr<FencedFrameConfig>;
 

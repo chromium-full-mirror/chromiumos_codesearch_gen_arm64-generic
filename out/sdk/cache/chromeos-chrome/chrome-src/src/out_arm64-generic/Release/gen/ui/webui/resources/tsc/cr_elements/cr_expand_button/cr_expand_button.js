@@ -31,7 +31,6 @@ export class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -53,13 +52,12 @@ export class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
-                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
-                observer: 'onIconChange_',
             },
+            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -70,7 +68,10 @@ export class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
+        return [
+            'updateAriaExpanded_(disabled, expanded)',
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
     }
     ready() {
         super.ready();
@@ -95,14 +96,8 @@ export class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
     updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this

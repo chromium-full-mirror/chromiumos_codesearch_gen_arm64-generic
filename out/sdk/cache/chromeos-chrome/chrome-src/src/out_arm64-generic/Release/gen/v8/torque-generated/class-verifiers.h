@@ -10,7 +10,6 @@ class Isolate;
 template<typename T>
 class Tagged;
 class JSReceiver;
-class HeapNumber;
 class Context;
 class JSObject;
 class JSObjectWithEmbedderSlots;
@@ -152,6 +151,7 @@ class TemplateInfo;
 class FunctionTemplateRareData;
 class FunctionTemplateInfo;
 class ObjectTemplateInfo;
+class DictionaryTemplateInfo;
 class TurbofanType;
 class TurbofanBitsetType;
 class TurbofanUnionType;
@@ -192,6 +192,7 @@ class JSRelativeTimeFormat;
 class JSSegmentIterator;
 class JSSegmenter;
 class JSSegments;
+class WasmInstanceObject;
 class WasmApiFunctionRef;
 class WasmFunctionData;
 class WasmExportedFunctionData;
@@ -216,7 +217,6 @@ class WasmStringViewIter;
 class V8_EXPORT_PRIVATE TorqueGeneratedClassVerifiers{
  public:
   static void JSReceiverVerify(Tagged<JSReceiver> o, Isolate* isolate);
-  static void HeapNumberVerify(Tagged<HeapNumber> o, Isolate* isolate);
   static void ContextVerify(Tagged<Context> o, Isolate* isolate);
   static void JSObjectVerify(Tagged<JSObject> o, Isolate* isolate);
   static void JSObjectWithEmbedderSlotsVerify(Tagged<JSObjectWithEmbedderSlots> o, Isolate* isolate);
@@ -358,6 +358,7 @@ class V8_EXPORT_PRIVATE TorqueGeneratedClassVerifiers{
   static void FunctionTemplateRareDataVerify(Tagged<FunctionTemplateRareData> o, Isolate* isolate);
   static void FunctionTemplateInfoVerify(Tagged<FunctionTemplateInfo> o, Isolate* isolate);
   static void ObjectTemplateInfoVerify(Tagged<ObjectTemplateInfo> o, Isolate* isolate);
+  static void DictionaryTemplateInfoVerify(Tagged<DictionaryTemplateInfo> o, Isolate* isolate);
   static void TurbofanTypeVerify(Tagged<TurbofanType> o, Isolate* isolate);
   static void TurbofanBitsetTypeVerify(Tagged<TurbofanBitsetType> o, Isolate* isolate);
   static void TurbofanUnionTypeVerify(Tagged<TurbofanUnionType> o, Isolate* isolate);
@@ -398,6 +399,7 @@ class V8_EXPORT_PRIVATE TorqueGeneratedClassVerifiers{
   static void JSSegmentIteratorVerify(Tagged<JSSegmentIterator> o, Isolate* isolate);
   static void JSSegmenterVerify(Tagged<JSSegmenter> o, Isolate* isolate);
   static void JSSegmentsVerify(Tagged<JSSegments> o, Isolate* isolate);
+  static void WasmInstanceObjectVerify(Tagged<WasmInstanceObject> o, Isolate* isolate);
   static void WasmApiFunctionRefVerify(Tagged<WasmApiFunctionRef> o, Isolate* isolate);
   static void WasmFunctionDataVerify(Tagged<WasmFunctionData> o, Isolate* isolate);
   static void WasmExportedFunctionDataVerify(Tagged<WasmExportedFunctionData> o, Isolate* isolate);

@@ -252,7 +252,7 @@ describeWithMockConnection('BackForwardCacheView', () => {
             resourceTreeModel.navigationHistory = stub;
             resourceTreeModel.navigate = (url) => {
                 resourceTreeModel.frameNavigated({ url }, undefined);
-                return Promise.resolve();
+                return Promise.resolve({ frameId: '', getError() { } });
             };
             resourceTreeModel.navigateToHistoryEntry = (entry) => {
                 resourceTreeModel.frameNavigated({ url: entry.url }, undefined);

@@ -639,6 +639,8 @@ bool NetworkListObserverStubDispatch::Accept(
           reinterpret_cast<internal::NetworkListObserver_OnNetworkListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkListObserver.0
       bool success = true;
       std::vector<std::string> p_network_guids{};
       std::string p_active_guid{};
@@ -657,9 +659,9 @@ bool NetworkListObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkListChanged(
-std::move(p_network_guids), 
-std::move(p_active_guid));
+      impl->OnNetworkListChanged(        
+        std::move(p_network_guids), 
+        std::move(p_active_guid));
       return true;
     }
   }
@@ -815,6 +817,8 @@ bool NetworkStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::NetworkStateObserver_OnNetworkStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkStateObserver.0
       bool success = true;
       NetworkPtr p_network{};
       NetworkStateObserver_OnNetworkStateChanged_ParamsDataView input_data_view(params, message);
@@ -830,8 +834,8 @@ bool NetworkStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkStateChanged(
-std::move(p_network));
+      impl->OnNetworkStateChanged(        
+        std::move(p_network));
       return true;
     }
   }
@@ -1062,6 +1066,8 @@ bool NetworkHealthProviderStubDispatch::Accept(
           reinterpret_cast<internal::NetworkHealthProvider_ObserveNetworkList_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkHealthProvider.0
       bool success = true;
       ::mojo::PendingRemote<NetworkListObserver> p_observer{};
       NetworkHealthProvider_ObserveNetworkList_ParamsDataView input_data_view(params, message);
@@ -1079,8 +1085,8 @@ bool NetworkHealthProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveNetworkList(
-std::move(p_observer));
+      impl->ObserveNetworkList(        
+        std::move(p_observer));
       return true;
     }
     case internal::kNetworkHealthProvider_ObserveNetwork_Name: {
@@ -1090,6 +1096,8 @@ std::move(p_observer));
           reinterpret_cast<internal::NetworkHealthProvider_ObserveNetwork_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkHealthProvider.1
       bool success = true;
       ::mojo::PendingRemote<NetworkStateObserver> p_observer{};
       std::string p_guid{};
@@ -1110,9 +1118,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveNetwork(
-std::move(p_observer), 
-std::move(p_guid));
+      impl->ObserveNetwork(        
+        std::move(p_observer), 
+        std::move(p_guid));
       return true;
     }
   }

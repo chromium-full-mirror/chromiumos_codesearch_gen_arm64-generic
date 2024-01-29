@@ -28,6 +28,7 @@
 #include "mojo/public/mojom/base/read_only_file.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-shared.h"
+#include "ui/accessibility/ax_features.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

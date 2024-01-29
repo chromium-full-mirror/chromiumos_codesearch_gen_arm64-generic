@@ -236,6 +236,36 @@ int64_t BluetoothProfileConnectionStateChanged::GetProfileConnectionStateForTest
   return GetIntMetricForTest(kProfileConnectionStateNameHash);
 }
 
+BluetoothSuspendIdStateChanged::BluetoothSuspendIdStateChanged() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+BluetoothSuspendIdStateChanged::~BluetoothSuspendIdStateChanged() = default;
+BluetoothSuspendIdStateChanged& BluetoothSuspendIdStateChanged::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothSuspendIdStateChanged::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
+BluetoothSuspendIdStateChanged& BluetoothSuspendIdStateChanged::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothSuspendIdStateChanged::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
+}
+
+BluetoothSuspendIdStateChanged& BluetoothSuspendIdStateChanged::SetSuspendIdState(const int64_t value) {
+  AddIntMetric(kSuspendIdStateNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothSuspendIdStateChanged::GetSuspendIdStateForTest() const {
+  return GetIntMetricForTest(kSuspendIdStateNameHash);
+}
+
 BluetoothDeviceInfoReport::BluetoothDeviceInfoReport() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 BluetoothDeviceInfoReport::~BluetoothDeviceInfoReport() = default;

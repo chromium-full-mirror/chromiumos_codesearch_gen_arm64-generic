@@ -22,18 +22,6 @@ import {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
-export const ContentSettingsTypeSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- */
-export const ContentSettingsType = {
-  
-};
-
-/**
- * @const { {$: !mojo.internal.MojomType} }
- */
 export const ContentSettingSpec = { $: mojo.internal.Enum() };
 
 /**

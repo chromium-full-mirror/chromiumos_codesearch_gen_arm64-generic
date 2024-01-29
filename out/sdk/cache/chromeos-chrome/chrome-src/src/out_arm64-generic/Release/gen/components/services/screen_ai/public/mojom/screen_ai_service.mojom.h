@@ -27,8 +27,10 @@
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-shared.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-forward.h"
 #include "skia/public/mojom/bitmap.mojom.h"
+#include "ui/accessibility/ax_features.mojom-forward.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include <string>
 #include <vector>
 
@@ -59,6 +61,7 @@ class ScreenAIAnnotator
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
+  static bool RuntimeFeature_IsEnabled_(bool expected);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -217,6 +220,7 @@ class OCRService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
+  static bool RuntimeFeature_IsEnabled_(bool expected);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -269,6 +273,7 @@ class MainContentExtractionService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
+  static bool RuntimeFeature_IsEnabled_(bool expected);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -618,155 +623,6 @@ class  Screen2xMainContentExtractorResponseValidator : public mojo::MessageRecei
 
 
 
-class  WordBox {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<WordBox, T>::value>;
-  using DataView = WordBoxDataView;
-  using Data_ = internal::WordBox_Data;
-
-  template <typename... Args>
-  static WordBoxPtr New(Args&&... args) {
-    return WordBoxPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static WordBoxPtr From(const U& u) {
-    return mojo::TypeConverter<WordBoxPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, WordBox>::Convert(*this);
-  }
-
-
-  WordBox();
-
-  WordBox(
-      const std::string& word,
-      bool dictionary_word,
-      const std::string& language,
-      bool has_space_after);
-
-
-  ~WordBox();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = WordBoxPtr>
-  WordBoxPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        WordBox::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        WordBox::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::WordBox_UnserializedMessageContext<
-            UserType, WordBox::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<WordBox::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return WordBox::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::WordBox_UnserializedMessageContext<
-            UserType, WordBox::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<WordBox::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::string word;
-  
-  bool dictionary_word;
-  
-  std::string language;
-  
-  bool has_space_after;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, WordBox::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 
 
@@ -943,7 +799,11 @@ class  LineBox {
       const std::string& text_line,
       const std::string& language,
       int32_t block_id,
-      int32_t order_within_block);
+      int32_t order_within_block,
+      const ::gfx::Rect& bounding_box,
+      float bounding_box_angle,
+      const ::gfx::Rect& baseline_box,
+      float baseline_box_angle);
 
 LineBox(const LineBox&) = delete;
 LineBox& operator=(const LineBox&) = delete;
@@ -1032,6 +892,14 @@ LineBox& operator=(const LineBox&) = delete;
   int32_t block_id;
   
   int32_t order_within_block;
+  
+  ::gfx::Rect bounding_box;
+  
+  float bounding_box_angle;
+  
+  ::gfx::Rect baseline_box;
+  
+  float baseline_box_angle;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1063,6 +931,163 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
+
+class  WordBox {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<WordBox, T>::value>;
+  using DataView = WordBoxDataView;
+  using Data_ = internal::WordBox_Data;
+
+  template <typename... Args>
+  static WordBoxPtr New(Args&&... args) {
+    return WordBoxPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static WordBoxPtr From(const U& u) {
+    return mojo::TypeConverter<WordBoxPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, WordBox>::Convert(*this);
+  }
+
+
+  WordBox();
+
+  WordBox(
+      const std::string& word,
+      bool dictionary_word,
+      const std::string& language,
+      bool has_space_after,
+      const ::gfx::Rect& bounding_box,
+      float bounding_box_angle,
+      Direction direction);
+
+
+  ~WordBox();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = WordBoxPtr>
+  WordBoxPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        WordBox::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        WordBox::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::WordBox_UnserializedMessageContext<
+            UserType, WordBox::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<WordBox::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return WordBox::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::WordBox_UnserializedMessageContext<
+            UserType, WordBox::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<WordBox::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string word;
+  
+  bool dictionary_word;
+  
+  std::string language;
+  
+  bool has_space_after;
+  
+  ::gfx::Rect bounding_box;
+  
+  float bounding_box_angle;
+  
+  Direction direction;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, WordBox::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 VisualAnnotationPtr VisualAnnotation::Clone() const {
   return New(
@@ -1092,7 +1117,11 @@ LineBoxPtr LineBox::Clone() const {
       mojo::Clone(text_line),
       mojo::Clone(language),
       mojo::Clone(block_id),
-      mojo::Clone(order_within_block)
+      mojo::Clone(order_within_block),
+      mojo::Clone(bounding_box),
+      mojo::Clone(bounding_box_angle),
+      mojo::Clone(baseline_box),
+      mojo::Clone(baseline_box_angle)
   );
 }
 
@@ -1107,6 +1136,14 @@ bool LineBox::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->block_id, other_struct.block_id))
     return false;
   if (!mojo::Equals(this->order_within_block, other_struct.order_within_block))
+    return false;
+  if (!mojo::Equals(this->bounding_box, other_struct.bounding_box))
+    return false;
+  if (!mojo::Equals(this->bounding_box_angle, other_struct.bounding_box_angle))
+    return false;
+  if (!mojo::Equals(this->baseline_box, other_struct.baseline_box))
+    return false;
+  if (!mojo::Equals(this->baseline_box_angle, other_struct.baseline_box_angle))
     return false;
   return true;
 }
@@ -1133,6 +1170,22 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.order_within_block < lhs.order_within_block)
     return false;
+  if (lhs.bounding_box < rhs.bounding_box)
+    return true;
+  if (rhs.bounding_box < lhs.bounding_box)
+    return false;
+  if (lhs.bounding_box_angle < rhs.bounding_box_angle)
+    return true;
+  if (rhs.bounding_box_angle < lhs.bounding_box_angle)
+    return false;
+  if (lhs.baseline_box < rhs.baseline_box)
+    return true;
+  if (rhs.baseline_box < lhs.baseline_box)
+    return false;
+  if (lhs.baseline_box_angle < rhs.baseline_box_angle)
+    return true;
+  if (rhs.baseline_box_angle < lhs.baseline_box_angle)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -1141,7 +1194,10 @@ WordBoxPtr WordBox::Clone() const {
       mojo::Clone(word),
       mojo::Clone(dictionary_word),
       mojo::Clone(language),
-      mojo::Clone(has_space_after)
+      mojo::Clone(has_space_after),
+      mojo::Clone(bounding_box),
+      mojo::Clone(bounding_box_angle),
+      mojo::Clone(direction)
   );
 }
 
@@ -1154,6 +1210,12 @@ bool WordBox::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->language, other_struct.language))
     return false;
   if (!mojo::Equals(this->has_space_after, other_struct.has_space_after))
+    return false;
+  if (!mojo::Equals(this->bounding_box, other_struct.bounding_box))
+    return false;
+  if (!mojo::Equals(this->bounding_box_angle, other_struct.bounding_box_angle))
+    return false;
+  if (!mojo::Equals(this->direction, other_struct.direction))
     return false;
   return true;
 }
@@ -1175,6 +1237,18 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.has_space_after < rhs.has_space_after)
     return true;
   if (rhs.has_space_after < lhs.has_space_after)
+    return false;
+  if (lhs.bounding_box < rhs.bounding_box)
+    return true;
+  if (rhs.bounding_box < lhs.bounding_box)
+    return false;
+  if (lhs.bounding_box_angle < rhs.bounding_box_angle)
+    return true;
+  if (rhs.bounding_box_angle < lhs.bounding_box_angle)
+    return false;
+  if (lhs.direction < rhs.direction)
+    return true;
+  if (rhs.direction < lhs.direction)
     return false;
   return false;
 }
@@ -1231,6 +1305,26 @@ struct  StructTraits<::screen_ai::mojom::LineBox::DataView,
     return input->order_within_block;
   }
 
+  static const decltype(::screen_ai::mojom::LineBox::bounding_box)& bounding_box(
+      const ::screen_ai::mojom::LineBoxPtr& input) {
+    return input->bounding_box;
+  }
+
+  static decltype(::screen_ai::mojom::LineBox::bounding_box_angle) bounding_box_angle(
+      const ::screen_ai::mojom::LineBoxPtr& input) {
+    return input->bounding_box_angle;
+  }
+
+  static const decltype(::screen_ai::mojom::LineBox::baseline_box)& baseline_box(
+      const ::screen_ai::mojom::LineBoxPtr& input) {
+    return input->baseline_box;
+  }
+
+  static decltype(::screen_ai::mojom::LineBox::baseline_box_angle) baseline_box_angle(
+      const ::screen_ai::mojom::LineBoxPtr& input) {
+    return input->baseline_box_angle;
+  }
+
   static bool Read(::screen_ai::mojom::LineBox::DataView input, ::screen_ai::mojom::LineBoxPtr* output);
 };
 
@@ -1261,8 +1355,52 @@ struct  StructTraits<::screen_ai::mojom::WordBox::DataView,
     return input->has_space_after;
   }
 
+  static const decltype(::screen_ai::mojom::WordBox::bounding_box)& bounding_box(
+      const ::screen_ai::mojom::WordBoxPtr& input) {
+    return input->bounding_box;
+  }
+
+  static decltype(::screen_ai::mojom::WordBox::bounding_box_angle) bounding_box_angle(
+      const ::screen_ai::mojom::WordBoxPtr& input) {
+    return input->bounding_box_angle;
+  }
+
+  static decltype(::screen_ai::mojom::WordBox::direction) direction(
+      const ::screen_ai::mojom::WordBoxPtr& input) {
+    return input->direction;
+  }
+
   static bool Read(::screen_ai::mojom::WordBox::DataView input, ::screen_ai::mojom::WordBoxPtr* output);
 };
+namespace internal {
+template <>
+inline bool GetRuntimeFeature_IsEnabled<::screen_ai::mojom::ScreenAIAnnotator>() {
+  return ::screen_ai::mojom::ScreenAIAnnotator::RuntimeFeature_IsEnabled_(false);
+}
+template <>
+inline bool GetRuntimeFeature_ExpectEnabled<::screen_ai::mojom::ScreenAIAnnotator>() {
+  return ::screen_ai::mojom::ScreenAIAnnotator::RuntimeFeature_IsEnabled_(true);
+}template <>
+inline constexpr bool kIsRuntimeFeatureGuarded<::screen_ai::mojom::ScreenAIAnnotator> = true;
+template <>
+inline bool GetRuntimeFeature_IsEnabled<::screen_ai::mojom::OCRService>() {
+  return ::screen_ai::mojom::OCRService::RuntimeFeature_IsEnabled_(false);
+}
+template <>
+inline bool GetRuntimeFeature_ExpectEnabled<::screen_ai::mojom::OCRService>() {
+  return ::screen_ai::mojom::OCRService::RuntimeFeature_IsEnabled_(true);
+}template <>
+inline constexpr bool kIsRuntimeFeatureGuarded<::screen_ai::mojom::OCRService> = true;
+template <>
+inline bool GetRuntimeFeature_IsEnabled<::screen_ai::mojom::MainContentExtractionService>() {
+  return ::screen_ai::mojom::MainContentExtractionService::RuntimeFeature_IsEnabled_(false);
+}
+template <>
+inline bool GetRuntimeFeature_ExpectEnabled<::screen_ai::mojom::MainContentExtractionService>() {
+  return ::screen_ai::mojom::MainContentExtractionService::RuntimeFeature_IsEnabled_(true);
+}template <>
+inline constexpr bool kIsRuntimeFeatureGuarded<::screen_ai::mojom::MainContentExtractionService> = true;
+}  // namespace internal
 
 }  // namespace mojo
 

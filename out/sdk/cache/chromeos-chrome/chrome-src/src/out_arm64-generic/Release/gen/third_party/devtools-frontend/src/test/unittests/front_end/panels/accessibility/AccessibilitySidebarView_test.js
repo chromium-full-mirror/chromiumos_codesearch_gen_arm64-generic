@@ -1,11 +1,11 @@
 // Copyright 2023 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import * as Root from '../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Accessibility from '../../../../../front_end/panels/accessibility/accessibility.js';
 import { createTarget, stubNoopSettings } from '../../helpers/EnvironmentHelpers.js';
-import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import { describeWithMockConnection, setMockConnectionResponseHandler } from '../../helpers/MockConnection.js';
 const { assert } = chai;
 const NODE_ID = 1;
@@ -17,7 +17,7 @@ describeWithMockConnection('AccessibilitySidebarView', () => {
         target = createTarget();
         setMockConnectionResponseHandler('DOM.getDocument', () => ({ root: { nodeId: NODE_ID } }));
         setMockConnectionResponseHandler('DOM.getNodesForSubtreeByStyle', () => ({ nodeIds: [] }));
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.FULL_ACCESSIBILITY_TREE, '');
+        Root.Runtime.experiments.register("fullAccessibilityTree" /* Root.Runtime.ExperimentName.FULL_ACCESSIBILITY_TREE */, '');
     });
     afterEach(() => {
         view.detach();

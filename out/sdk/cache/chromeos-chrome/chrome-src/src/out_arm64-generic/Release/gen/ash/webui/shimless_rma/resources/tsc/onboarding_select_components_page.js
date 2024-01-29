@@ -4,40 +4,27 @@
 import './base_page.js';
 import './repair_component_chip.js';
 import './shimless_rma_shared.css.js';
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { I18nBehavior, I18nBehaviorInterface } from 'chrome://resources/ash/common/i18n_behavior.js';
-import { afterNextRender, html, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { ComponentTypeToId } from './data.js';
+import { CLICK_REPAIR_COMPONENT_BUTTON } from './events.js';
 import { getShimlessRmaService } from './mojo_interface_provider.js';
 import { getTemplate } from './onboarding_select_components_page.html.js';
-import { Component, ComponentRepairStatus, ComponentType, ShimlessRmaServiceInterface, StateResult } from './shimless_rma.mojom-webui.js';
+import { ComponentRepairStatus } from './shimless_rma.mojom-webui.js';
 import { enableNextButton, executeThenTransitionState, focusPageTitle } from './shimless_rma_util.js';
-/**
- * @typedef {{
- *   component: !ComponentType,
- *   uniqueId: number,
- *   id: string,
- *   identifier: string,
- *   name: string,
- *   checked: boolean,
- *   disabled: boolean
- * }}
- */
-let ComponentCheckbox;
 /**
  * @fileoverview
  * 'onboarding-select-components-page' is the page for selecting the components
  * that were replaced during repair.
  */
 const NUM_COLUMNS = 2;
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- */
-const OnboardingSelectComponentsPageElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
-/** @polymer */
+const OnboardingSelectComponentsPageElementBase = I18nMixin(PolymerElement);
 export class OnboardingSelectComponentsPageElement extends OnboardingSelectComponentsPageElementBase {
+    constructor() {
+        super(...arguments);
+        this.shimlessRmaService = getShimlessRmaService();
+    }
     static get is() {
         return 'onboarding-select-components-page';
     }
@@ -47,21 +34,17 @@ export class OnboardingSelectComponentsPageElement extends OnboardingSelectCompo
     static get properties() {
         return {
             /**
-             * Set by shimless_rma.js.
-             * @type {boolean}
+             * Set by shimless_rma.ts.
              */
             allButtonsDisabled: Boolean,
-            /** @protected {!Array<!ComponentCheckbox>} */
             componentCheckboxes: {
                 type: Array,
                 value: () => [],
             },
-            /** @private {string} */
             reworkFlowLinkText: { type: String, value: '' },
             /**
              * The index into componentCheckboxes for keyboard navigation between
              * components.
-             * @private
              */
             focusedComponentIndex: {
                 type: Number,
@@ -72,94 +55,100 @@ export class OnboardingSelectComponentsPageElement extends OnboardingSelectCompo
     static get observers() {
         return ['updateIsFirstClickableComponent(componentCheckboxes.*)'];
     }
-    constructor() {
-        super();
-        /** @private {ShimlessRmaServiceInterface} */
-        this.shimlessRmaService = getShimlessRmaService();
-        /**
-         * The componentClickedCallback callback is used to capture events when
-         * components are clicked, so that the page can put the focus on the
-         * component that was clicked.
-         * @private {?Function}
-         */
-        this.componentClicked = (event) => {
-            const componentIndex = this.componentCheckboxes.findIndex(component => component.uniqueId === event.detail);
-            if (componentIndex === -1 ||
-                this.componentCheckboxes[componentIndex].disabled) {
-                return;
-            }
-            this.focusedComponentIndex = componentIndex;
-            this.focusOnCurrentComponent();
-        };
-        /**
-         * Handles keyboard navigation over the list of components.
-         * @private {?Function}
-         */
-        this.handleKeyDownEvent = (event) => {
-            if (event.key !== 'ArrowRight' && event.key !== 'ArrowDown' &&
-                event.key !== 'ArrowLeft' && event.key !== 'ArrowUp') {
-                return;
-            }
-            // If there are no selectable components, do nothing.
-            if (this.focusedComponentIndex === -1) {
-                return;
-            }
-            // Don't use keyboard navigation if the user tabbed out of the
-            // component list.
-            if (!this.shadowRoot.activeElement ||
-                this.shadowRoot.activeElement.tagName !== 'REPAIR-COMPONENT-CHIP') {
-                return;
-            }
-            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-                // The Down button should send you down the column, so we go forward
-                // by two components, which is the size of the row.
-                let step = 1;
-                if (event.key === 'ArrowDown') {
-                    step = NUM_COLUMNS;
-                }
-                let newIndex = this.focusedComponentIndex + step;
-                // Keep skipping disabled components until we encounter one that is
-                // not disabled.
-                while (newIndex < this.componentCheckboxes.length &&
-                    this.componentCheckboxes[newIndex].disabled) {
-                    newIndex += step;
-                }
-                // Check that we haven't ended up outside of the array before
-                // applying the changes.
-                if (newIndex < this.componentCheckboxes.length) {
-                    this.focusedComponentIndex = newIndex;
-                }
-            }
-            // The left and up arrows work similarly to down and right, but go
-            // backwards.
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-                let step = 1;
-                if (event.key === 'ArrowUp') {
-                    step = NUM_COLUMNS;
-                }
-                let newIndex = this.focusedComponentIndex - step;
-                while (newIndex >= 0 && this.componentCheckboxes[newIndex].disabled) {
-                    newIndex -= step;
-                }
-                if (newIndex >= 0) {
-                    this.focusedComponentIndex = newIndex;
-                }
-            }
-            this.focusOnCurrentComponent();
-        };
+    connectedCallback() {
+        super.connectedCallback();
+        this.focusOnCurrentComponent();
+        window.addEventListener('keydown', this.handleKeyDownEvent);
+        window.addEventListener(CLICK_REPAIR_COMPONENT_BUTTON, (e) => this.componentClicked(e));
     }
-    /** @override */
+    /**
+     * The componentClickedCallback callback is used to capture events when
+     * components are clicked, so that the page can put the focus on the
+     * component that was clicked.
+     */
+    componentClicked(event) {
+        const componentIndex = this.componentCheckboxes.findIndex(component => component.uniqueId === event.detail);
+        if (componentIndex === -1 ||
+            this.componentCheckboxes[componentIndex].disabled) {
+            return;
+        }
+        this.focusedComponentIndex = componentIndex;
+        this.focusOnCurrentComponent();
+    }
+    /**
+     * Handles keyboard navigation over the list of components.
+     */
+    handleKeyDownEvent(event) {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowDown' &&
+            event.key !== 'ArrowLeft' && event.key !== 'ArrowUp') {
+            return;
+        }
+        // If there are no selectable components, do nothing.
+        if (this.focusedComponentIndex === -1) {
+            return;
+        }
+        // Don't use keyboard navigation if the user tabbed out of the
+        // component list.
+        if (!this.shadowRoot.activeElement ||
+            this.shadowRoot.activeElement.tagName !== 'REPAIR-COMPONENT-CHIP') {
+            return;
+        }
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            // The Down button should send you down the column, so we go forward
+            // by two components, which is the size of the row.
+            let step = 1;
+            if (event.key === 'ArrowDown') {
+                step = NUM_COLUMNS;
+            }
+            let newIndex = this.focusedComponentIndex + step;
+            // Keep skipping disabled components until we encounter one that is
+            // not disabled.
+            while (newIndex < this.componentCheckboxes.length &&
+                this.componentCheckboxes[newIndex].disabled) {
+                newIndex += step;
+            }
+            // Check that we haven't ended up outside of the array before
+            // applying the changes.
+            if (newIndex < this.componentCheckboxes.length) {
+                this.focusedComponentIndex = newIndex;
+            }
+        }
+        // The left and up arrows work similarly to down and right, but go
+        // backwards.
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            let step = 1;
+            if (event.key === 'ArrowUp') {
+                step = NUM_COLUMNS;
+            }
+            let newIndex = this.focusedComponentIndex - step;
+            while (newIndex >= 0 && this.componentCheckboxes[newIndex].disabled) {
+                newIndex -= step;
+            }
+            if (newIndex >= 0) {
+                this.focusedComponentIndex = newIndex;
+            }
+        }
+        this.focusOnCurrentComponent();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('keydown', this.handleKeyDownEvent);
+        window.removeEventListener(CLICK_REPAIR_COMPONENT_BUTTON, (e) => this.componentClicked(e));
+    }
     ready() {
         super.ready();
         this.setReworkFlowLink();
         this.getComponents();
         enableNextButton(this);
         // Hide the gradient when the list is scrolled to the end.
-        this.shadowRoot.querySelector('.scroll-container')
-            .addEventListener('scroll', (event) => {
+        const scrollContainer = this.shadowRoot.querySelector('.scroll-container');
+        assert(scrollContainer);
+        scrollContainer.addEventListener('scroll', (event) => {
+            assert(event && event.target);
+            const target = event.target;
             const gradient = this.shadowRoot.querySelector('.gradient');
-            if (event.target.scrollHeight - event.target.scrollTop ===
-                event.target.clientHeight) {
+            assert(gradient);
+            if (target.scrollHeight - target.scrollTop === target.clientHeight) {
                 gradient.style.setProperty('visibility', 'hidden');
             }
             else {
@@ -168,15 +157,14 @@ export class OnboardingSelectComponentsPageElement extends OnboardingSelectCompo
         });
         focusPageTitle(this);
     }
-    /** @private */
-    getComponents() {
-        this.shimlessRmaService.getComponentList().then((result) => {
-            if (!result || !result.hasOwnProperty('components')) {
-                // TODO(gavindodd): Set an error state?
-                console.error('Could not get components!');
-                return;
-            }
-            this.componentCheckboxes = result.components.map((item, index) => {
+    async getComponents() {
+        const result = await this.shimlessRmaService.getComponentList();
+        if (!result || !result.hasOwnProperty('components')) {
+            console.error('Could not get components!');
+            return;
+        }
+        this.componentCheckboxes =
+            result.components.map((item, index) => {
                 assert(item.component);
                 return {
                     component: item.component,
@@ -188,40 +176,25 @@ export class OnboardingSelectComponentsPageElement extends OnboardingSelectCompo
                     disabled: item.state === ComponentRepairStatus.kMissing,
                 };
             });
-            // Focus on the first clickable component at the beginning.
-            this.focusedComponentIndex =
-                this.componentCheckboxes.findIndex(component => !component.disabled);
-        });
-    }
-    /** @override */
-    connectedCallback() {
-        super.connectedCallback();
-        window.addEventListener('keydown', this.handleKeyDownEvent);
-        window.addEventListener('click-repair-component-button', this.componentClicked);
-    }
-    /** @override */
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        window.removeEventListener('keydown', this.handleKeyDownEvent);
-        window.removeEventListener('click-repair-component-button', this.componentClicked);
+        // Focus on the first clickable component at the beginning.
+        this.focusedComponentIndex =
+            this.componentCheckboxes.findIndex(component => !component.disabled);
     }
     /**
      * Make the page focus on the component at focusedComponentIndex.
-     * @private
      */
     focusOnCurrentComponent() {
-        if (this.focusedComponentIndex != -1) {
-            const componentChip = this.shadowRoot.querySelector(`[unique-id="${this.componentCheckboxes[this.focusedComponentIndex].uniqueId}"]`);
-            componentChip.shadowRoot.querySelector('#componentButton').focus();
+        if (this.focusedComponentIndex !== -1) {
+            const componentChip = this.shadowRoot.querySelector(`[unique-id="${this.componentCheckboxes[this.focusedComponentIndex]
+                .uniqueId}"]`);
+            assert(componentChip);
+            const componentButton = componentChip.shadowRoot.querySelector('#componentButton');
+            assert(componentButton);
+            componentButton.focus();
         }
     }
-    /**
-     * @return {!Array<!Component>}
-     * @private
-     */
     getComponentRepairStateList() {
-        return this.componentCheckboxes.map(item => {
-            /** @type {!ComponentRepairStatus} */
+        return this.componentCheckboxes.map((item) => {
             let state = ComponentRepairStatus.kOriginal;
             if (item.disabled) {
                 state = ComponentRepairStatus.kMissing;
@@ -236,42 +209,34 @@ export class OnboardingSelectComponentsPageElement extends OnboardingSelectCompo
             };
         });
     }
-    /** @protected */
     onReworkFlowLinkClicked(e) {
         e.preventDefault();
         executeThenTransitionState(this, () => this.shimlessRmaService.reworkMainboard());
     }
-    /** @return {!Promise<!{stateResult: !StateResult}>} */
     onNextButtonClick() {
         return this.shimlessRmaService.setComponentList(this.getComponentRepairStateList());
     }
-    /** @protected */
     setReworkFlowLink() {
         this.reworkFlowLinkText =
             this.i18nAdvanced('reworkFlowLinkText', { attrs: ['id'] });
         const linkElement = this.shadowRoot.querySelector('#reworkFlowLink');
+        assert(linkElement);
         linkElement.setAttribute('href', '#');
-        linkElement.addEventListener('click', e => {
+        linkElement.addEventListener('click', (e) => {
             if (this.allButtonsDisabled) {
                 return;
             }
             this.onReworkFlowLinkClicked(e);
         });
     }
-    /**
-     * @param {boolean} componentDisabled
-     * @return {boolean}
-     * @protected
-     */
     isComponentDisabled(componentDisabled) {
         return this.allButtonsDisabled || componentDisabled;
     }
-    /** @private */
     updateIsFirstClickableComponent() {
-        const firstClickableComponent = this.componentCheckboxes.find(component => !component.disabled);
+        const firstClickableComponent = this.componentCheckboxes.find((component) => !component.disabled);
         this.componentCheckboxes.forEach(component => {
             component.isFirstClickableComponent =
-                (component === firstClickableComponent) ? true : false;
+                component === firstClickableComponent;
         });
     }
 }

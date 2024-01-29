@@ -252,6 +252,8 @@ bool VpnExtensionObserverStubDispatch::Accept(
           reinterpret_cast<internal::VpnExtensionObserver_OnLacrosVpnExtensionLoaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VpnExtensionObserver.0
       bool success = true;
       std::string p_extension_id{};
       std::string p_extension_name{};
@@ -270,9 +272,9 @@ bool VpnExtensionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLacrosVpnExtensionLoaded(
-std::move(p_extension_id), 
-std::move(p_extension_name));
+      impl->OnLacrosVpnExtensionLoaded(        
+        std::move(p_extension_id), 
+        std::move(p_extension_name));
       return true;
     }
     case internal::kVpnExtensionObserver_OnLacrosVpnExtensionUnloaded_Name: {
@@ -282,6 +284,8 @@ std::move(p_extension_name));
           reinterpret_cast<internal::VpnExtensionObserver_OnLacrosVpnExtensionUnloaded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VpnExtensionObserver.1
       bool success = true;
       std::string p_extension_id{};
       VpnExtensionObserver_OnLacrosVpnExtensionUnloaded_ParamsDataView input_data_view(params, message);
@@ -297,8 +301,8 @@ std::move(p_extension_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLacrosVpnExtensionUnloaded(
-std::move(p_extension_id));
+      impl->OnLacrosVpnExtensionUnloaded(        
+        std::move(p_extension_id));
       return true;
     }
   }

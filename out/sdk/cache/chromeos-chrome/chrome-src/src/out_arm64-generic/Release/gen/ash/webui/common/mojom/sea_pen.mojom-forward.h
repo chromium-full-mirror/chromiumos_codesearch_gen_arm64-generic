@@ -24,7 +24,11 @@
 namespace ash::personalization_app::mojom {
 class SeaPenThumbnailDataView;
 
+class SeaPenUserVisibleQueryDataView;
+
 class SeaPenTemplateQueryDataView;
+
+class SeaPenFeedbackMetadataDataView;
 
 class SeaPenQueryDataView;
 
@@ -34,12 +38,20 @@ enum class SeaPenTemplateChip : int32_t;
 
 enum class SeaPenTemplateOption : int32_t;
 
+enum class MantaStatusCode : int32_t;
+
 constexpr uint32_t kMaximumSearchWallpaperTextBytes = 3000U;
 class SeaPenThumbnail;
 using SeaPenThumbnailPtr = mojo::StructPtr<SeaPenThumbnail>;
 
+class SeaPenUserVisibleQuery;
+using SeaPenUserVisibleQueryPtr = mojo::InlinedStructPtr<SeaPenUserVisibleQuery>;
+
 class SeaPenTemplateQuery;
 using SeaPenTemplateQueryPtr = mojo::StructPtr<SeaPenTemplateQuery>;
+
+class SeaPenFeedbackMetadata;
+using SeaPenFeedbackMetadataPtr = mojo::InlinedStructPtr<SeaPenFeedbackMetadata>;
 
 class SeaPenQuery;
 

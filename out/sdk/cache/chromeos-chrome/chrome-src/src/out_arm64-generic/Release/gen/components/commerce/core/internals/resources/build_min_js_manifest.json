@@ -1,1 +1,1 @@
-{"base_dir": "gen/components/commerce/core/internals/resources/minified", "files": ["commerce_internals.js", "commerce_internals_api_proxy.js", "commerce_internals.mojom-webui.js"]}
+{"base_dir": "gen/components/commerce/core/internals/resources/minified", "files": ["commerce_internals.js", "commerce_internals_api_proxy.js", "view_product.js", "commerce_internals.mojom-webui.js", "shopping_service.mojom-webui.js"]}

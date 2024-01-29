@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import * as Common from '../../../../../front_end/core/common/common.js';
 import * as Host from '../../../../../front_end/core/host/host.js';
+import * as Platform from '../../../../../front_end/core/platform/platform.js';
 import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import * as Root from '../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
@@ -26,7 +27,7 @@ describeWithMockConnection('NetworkLogView', () => {
             for (const settingName of ['networkColorCodeResourceTypes', 'network.group-by-frame']) {
                 Common.Settings.registerSettingExtension({
                     settingName,
-                    settingType: Common.Settings.SettingType.BOOLEAN,
+                    settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
                     defaultValue: false,
                 });
             }
@@ -242,6 +243,33 @@ describeWithMockConnection('NetworkLogView', () => {
         };
         it('replaces requests when switching scope with preserve log off', handlesSwitchingScope(false));
         it('appends requests when switching scope with preserve log on', handlesSwitchingScope(true));
+        it('appends requests on prerender activation with preserve log on', async () => {
+            Common.Settings.Settings.instance().moduleSetting('network_log.preserve-log').set(true);
+            SDK.TargetManager.TargetManager.instance().setScopeTarget(target);
+            const anotherTarget = createTarget();
+            const networkManager = target.model(SDK.NetworkManager.NetworkManager);
+            assertNotNullOrUndefined(networkManager);
+            const request1 = createNetworkRequest('url1', { target });
+            const request2 = createNetworkRequest('url2', { target });
+            const request3 = createNetworkRequest('url3', { target: anotherTarget });
+            networkLogView = createNetworkLogView();
+            networkLogView.markAsRoot();
+            networkLogView.show(document.body);
+            await coordinator.done();
+            const rootNode = networkLogView.columns().dataGrid().rootNode();
+            assert.deepEqual(rootNode.children.map(n => n.request()), [request1, request2]);
+            const resourceTreeModel = target.model(SDK.ResourceTreeModel.ResourceTreeModel);
+            assertNotNullOrUndefined(resourceTreeModel);
+            const frame = {
+                url: 'http://example.com/',
+                unreachableUrl: () => Platform.DevToolsPath.EmptyUrlString,
+                resourceTreeModel: () => resourceTreeModel,
+            };
+            resourceTreeModel.dispatchEventToListeners(SDK.ResourceTreeModel.Events.PrimaryPageChanged, { frame, type: "Activation" /* SDK.ResourceTreeModel.PrimaryPageChangeType.Activation */ });
+            await coordinator.done();
+            assert.deepEqual(rootNode.children.map(n => n.request()), [request1, request2, request3]);
+            networkLogView.detach();
+        });
         it('hide Chrome extension requests from checkbox', async () => {
             createNetworkRequest('chrome-extension://url1', { target });
             createNetworkRequest('url2', { target });
@@ -255,7 +283,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.detach();
         });
         it('can hide Chrome extension requests from dropdown', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             createNetworkRequest('chrome-extension://url1', { target });
             createNetworkRequest('url2', { target });
             let rootNode;
@@ -277,7 +305,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.detach();
         });
         it('displays correct count for more filters', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             let filterBar;
             ({ filterBar, networkLogView } = createEnvironment());
             const dropdown = await openMoreTypesDropdown(filterBar, networkLogView);
@@ -294,7 +322,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.detach();
         });
         it('can automatically check the `All` option in the `Request Type` when the only type checked becomes unchecked', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const dropdown = setupRequestTypesDropdown();
             const button = dropdown.element().querySelector('.toolbar-button');
             assertElement(button, HTMLElement);
@@ -326,7 +354,7 @@ describeWithMockConnection('NetworkLogView', () => {
             await raf();
         });
         it('shows correct selected request types count', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const umaCountSpy = sinon.spy(Host.userMetrics, 'resourceTypeFilterNumberOfSelectedChanged');
             const umaTypeSpy = sinon.spy(Host.userMetrics, 'resourceTypeFilterItemSelected');
             const dropdown = setupRequestTypesDropdown();
@@ -346,7 +374,7 @@ describeWithMockConnection('NetworkLogView', () => {
             assert.isTrue(umaTypeSpy.calledOnceWith('Image'));
         });
         it('adjusts request types label dynamically', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const dropdown = setupRequestTypesDropdown();
             const button = dropdown.element().querySelector('.toolbar-button');
             assertElement(button, HTMLElement);
@@ -365,7 +393,7 @@ describeWithMockConnection('NetworkLogView', () => {
             await raf();
         });
         it('lists selected types in requests types tooltip', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const umaCountSpy = sinon.spy(Host.userMetrics, 'resourceTypeFilterNumberOfSelectedChanged');
             const umaTypeSpy = sinon.spy(Host.userMetrics, 'resourceTypeFilterItemSelected');
             const dropdown = setupRequestTypesDropdown();
@@ -387,7 +415,7 @@ describeWithMockConnection('NetworkLogView', () => {
             assert.isTrue(umaTypeSpy.calledWith('JavaScript'));
         });
         it('updates tooltip to default when request type deselected', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const dropdown = setupRequestTypesDropdown();
             const button = dropdown.element().querySelector('.toolbar-button');
             assertElement(button, HTMLElement);
@@ -421,7 +449,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.detach();
         });
         it('can filter requests with blocked response cookies from dropdown', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const umaCountSpy = sinon.spy(Host.userMetrics, 'networkPanelMoreFiltersNumberOfSelectedChanged');
             const umaItemSpy = sinon.spy(Host.userMetrics, 'networkPanelMoreFiltersItemSelected');
             const request1 = createNetworkRequest('url1', { target });
@@ -454,7 +482,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.detach();
         });
         it('lists selected options in more filters tooltip', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             const umaCountSpy = sinon.spy(Host.userMetrics, 'networkPanelMoreFiltersNumberOfSelectedChanged');
             const umaItemSpy = sinon.spy(Host.userMetrics, 'networkPanelMoreFiltersItemSelected');
             let filterBar;
@@ -476,7 +504,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.detach();
         });
         it('updates tooltip to default when more filters option deselected', async () => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN);
+            Root.Runtime.experiments.enableForTest("networkPanelFilterBarRedesign" /* Root.Runtime.ExperimentName.NETWORK_PANEL_FILTER_BAR_REDESIGN */);
             let filterBar;
             ({ filterBar, networkLogView } = createEnvironment());
             const dropdown = await openMoreTypesDropdown(filterBar, networkLogView);
@@ -499,7 +527,7 @@ describeWithMockConnection('NetworkLogView', () => {
             networkLogView.show(document.body);
             const rootNode = networkLogView.columns().dataGrid().rootNode();
             assert.strictEqual(rootNode.children.length, 1);
-            networkLog.dispatchEventToListeners(Logs.NetworkLog.Events.RequestRemoved, request);
+            networkLog.dispatchEventToListeners(Logs.NetworkLog.Events.RequestRemoved, { request });
             assert.strictEqual(rootNode.children.length, 0);
             networkLogView.detach();
         });
@@ -635,7 +663,7 @@ function setupRequestTypesDropdown() {
         title: category.title(),
     }));
     const setting = Common.Settings.Settings.instance().createSetting('networkResourceTypeFilters', { all: true });
-    const dropdown = new Network.NetworkLogView.DropDownTypesUI(filterItems, /* callback*/ () => { }, setting);
+    const dropdown = new Network.NetworkLogView.DropDownTypesUI(filterItems, setting);
     return dropdown;
 }
 function getCountAdorner(filterBar) {

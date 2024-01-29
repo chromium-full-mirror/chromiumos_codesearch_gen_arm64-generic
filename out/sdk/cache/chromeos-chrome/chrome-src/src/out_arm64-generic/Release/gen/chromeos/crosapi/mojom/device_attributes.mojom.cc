@@ -625,6 +625,8 @@ bool DeviceAttributes_GetDirectoryDeviceId_ForwardToCallback::Accept(
           internal::DeviceAttributes_GetDirectoryDeviceId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAttributes.0
   bool success = true;
   DeviceAttributesStringResultPtr p_result{};
   DeviceAttributes_GetDirectoryDeviceId_ResponseParamsDataView input_data_view(params, message);
@@ -752,6 +754,8 @@ bool DeviceAttributes_GetDeviceSerialNumber_ForwardToCallback::Accept(
           internal::DeviceAttributes_GetDeviceSerialNumber_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAttributes.1
   bool success = true;
   DeviceAttributesStringResultPtr p_result{};
   DeviceAttributes_GetDeviceSerialNumber_ResponseParamsDataView input_data_view(params, message);
@@ -879,6 +883,8 @@ bool DeviceAttributes_GetDeviceAssetId_ForwardToCallback::Accept(
           internal::DeviceAttributes_GetDeviceAssetId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAttributes.2
   bool success = true;
   DeviceAttributesStringResultPtr p_result{};
   DeviceAttributes_GetDeviceAssetId_ResponseParamsDataView input_data_view(params, message);
@@ -1006,6 +1012,8 @@ bool DeviceAttributes_GetDeviceAnnotatedLocation_ForwardToCallback::Accept(
           internal::DeviceAttributes_GetDeviceAnnotatedLocation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAttributes.3
   bool success = true;
   DeviceAttributesStringResultPtr p_result{};
   DeviceAttributes_GetDeviceAnnotatedLocation_ResponseParamsDataView input_data_view(params, message);
@@ -1133,6 +1141,8 @@ bool DeviceAttributes_GetDeviceHostname_ForwardToCallback::Accept(
           internal::DeviceAttributes_GetDeviceHostname_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAttributes.4
   bool success = true;
   DeviceAttributesStringResultPtr p_result{};
   DeviceAttributes_GetDeviceHostname_ResponseParamsDataView input_data_view(params, message);
@@ -1260,6 +1270,8 @@ bool DeviceAttributes_GetDeviceTypeForMetrics_ForwardToCallback::Accept(
           internal::DeviceAttributes_GetDeviceTypeForMetrics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceAttributes.5
   bool success = true;
   int32_t p_device_type{};
   DeviceAttributes_GetDeviceTypeForMetrics_ResponseParamsDataView input_data_view(params, message);
@@ -1365,6 +1377,8 @@ bool DeviceAttributesStubDispatch::AcceptWithResponder(
               internal::DeviceAttributes_GetDirectoryDeviceId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAttributes.0
       bool success = true;
       DeviceAttributes_GetDirectoryDeviceId_ParamsDataView input_data_view(params, message);
       
@@ -1390,6 +1404,8 @@ bool DeviceAttributesStubDispatch::AcceptWithResponder(
               internal::DeviceAttributes_GetDeviceSerialNumber_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAttributes.1
       bool success = true;
       DeviceAttributes_GetDeviceSerialNumber_ParamsDataView input_data_view(params, message);
       
@@ -1415,6 +1431,8 @@ bool DeviceAttributesStubDispatch::AcceptWithResponder(
               internal::DeviceAttributes_GetDeviceAssetId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAttributes.2
       bool success = true;
       DeviceAttributes_GetDeviceAssetId_ParamsDataView input_data_view(params, message);
       
@@ -1440,6 +1458,8 @@ bool DeviceAttributesStubDispatch::AcceptWithResponder(
               internal::DeviceAttributes_GetDeviceAnnotatedLocation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAttributes.3
       bool success = true;
       DeviceAttributes_GetDeviceAnnotatedLocation_ParamsDataView input_data_view(params, message);
       
@@ -1465,6 +1485,8 @@ bool DeviceAttributesStubDispatch::AcceptWithResponder(
               internal::DeviceAttributes_GetDeviceHostname_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAttributes.4
       bool success = true;
       DeviceAttributes_GetDeviceHostname_ParamsDataView input_data_view(params, message);
       
@@ -1490,6 +1512,8 @@ bool DeviceAttributesStubDispatch::AcceptWithResponder(
               internal::DeviceAttributes_GetDeviceTypeForMetrics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceAttributes.5
       bool success = true;
       DeviceAttributes_GetDeviceTypeForMetrics_ParamsDataView input_data_view(params, message);
       

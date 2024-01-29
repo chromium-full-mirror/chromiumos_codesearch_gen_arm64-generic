@@ -232,6 +232,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<PageHandler> p_handler{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -249,8 +251,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -1005,6 +1007,8 @@ bool PageHandler_OpenFeedbackDialog_ForwardToCallback::Accept(
           internal::PageHandler_OpenFeedbackDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::optional<std::string> p_error_message{};
   PageHandler_OpenFeedbackDialog_ResponseParamsDataView input_data_view(params, message);
@@ -1130,6 +1134,8 @@ bool PageHandler_IsLssEnabled_ForwardToCallback::Accept(
           internal::PageHandler_IsLssEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   bool p_enabled{};
   PageHandler_IsLssEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1249,6 +1255,8 @@ bool PageHandler_IsLauncherSearchEnabled_ForwardToCallback::Accept(
           internal::PageHandler_IsLauncherSearchEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   bool p_enabled{};
   PageHandler_IsLauncherSearchEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1368,6 +1376,8 @@ bool PageHandler_GetDeviceInfo_ForwardToCallback::Accept(
           internal::PageHandler_GetDeviceInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   DeviceInfoPtr p_device_info{};
   PageHandler_GetDeviceInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1455,6 +1465,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ShowParentalControls_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_ShowParentalControls_ParamsDataView input_data_view(params, message);
       
@@ -1467,7 +1479,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowParentalControls();
+      impl->ShowParentalControls(        );
       return true;
     }
     case internal::kPageHandler_TriggerWelcomeTipCallToAction_Name: {
@@ -1477,6 +1489,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_TriggerWelcomeTipCallToAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ActionTypeId p_action_type_id{};
       PageHandler_TriggerWelcomeTipCallToAction_ParamsDataView input_data_view(params, message);
@@ -1492,8 +1506,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerWelcomeTipCallToAction(
-std::move(p_action_type_id));
+      impl->TriggerWelcomeTipCallToAction(        
+        std::move(p_action_type_id));
       return true;
     }
     case internal::kPageHandler_IsLssEnabled_Name: {
@@ -1509,6 +1523,8 @@ std::move(p_action_type_id));
           reinterpret_cast<internal::PageHandler_LaunchMicrosoft365Setup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       PageHandler_LaunchMicrosoft365Setup_ParamsDataView input_data_view(params, message);
       
@@ -1521,7 +1537,7 @@ std::move(p_action_type_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchMicrosoft365Setup();
+      impl->LaunchMicrosoft365Setup(        );
       return true;
     }
     case internal::kPageHandler_MaybeShowDiscoverNotification_Name: {
@@ -1531,6 +1547,8 @@ std::move(p_action_type_id));
           reinterpret_cast<internal::PageHandler_MaybeShowDiscoverNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       PageHandler_MaybeShowDiscoverNotification_ParamsDataView input_data_view(params, message);
       
@@ -1543,7 +1561,7 @@ std::move(p_action_type_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeShowDiscoverNotification();
+      impl->MaybeShowDiscoverNotification(        );
       return true;
     }
     case internal::kPageHandler_MaybeShowReleaseNotesNotification_Name: {
@@ -1553,6 +1571,8 @@ std::move(p_action_type_id));
           reinterpret_cast<internal::PageHandler_MaybeShowReleaseNotesNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_MaybeShowReleaseNotesNotification_ParamsDataView input_data_view(params, message);
       
@@ -1565,7 +1585,7 @@ std::move(p_action_type_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeShowReleaseNotesNotification();
+      impl->MaybeShowReleaseNotesNotification(        );
       return true;
     }
     case internal::kPageHandler_GetDeviceInfo_Name: {
@@ -1578,6 +1598,8 @@ std::move(p_action_type_id));
           reinterpret_cast<internal::PageHandler_OpenUrlInBrowserAndTriggerInstallDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       ::GURL p_url{};
       PageHandler_OpenUrlInBrowserAndTriggerInstallDialog_ParamsDataView input_data_view(params, message);
@@ -1593,8 +1615,8 @@ std::move(p_action_type_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlInBrowserAndTriggerInstallDialog(
-std::move(p_url));
+      impl->OpenUrlInBrowserAndTriggerInstallDialog(        
+        std::move(p_url));
       return true;
     }
   }
@@ -1617,6 +1639,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_OpenFeedbackDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_OpenFeedbackDialog_ParamsDataView input_data_view(params, message);
       
@@ -1648,6 +1672,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_IsLssEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_IsLssEnabled_ParamsDataView input_data_view(params, message);
       
@@ -1673,6 +1699,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_IsLauncherSearchEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_IsLauncherSearchEnabled_ParamsDataView input_data_view(params, message);
       
@@ -1707,6 +1735,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetDeviceInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       PageHandler_GetDeviceInfo_ParamsDataView input_data_view(params, message);
       

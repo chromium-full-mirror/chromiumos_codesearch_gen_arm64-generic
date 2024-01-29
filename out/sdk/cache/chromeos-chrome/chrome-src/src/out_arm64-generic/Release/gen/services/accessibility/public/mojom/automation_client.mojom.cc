@@ -210,6 +210,8 @@ bool AutomationClient_Enable_ForwardToCallback::Accept(
           internal::AutomationClient_Enable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AutomationClient.0
   bool success = true;
   ::ui::AXTreeID p_desktop_id{};
   AutomationClient_Enable_ResponseParamsDataView input_data_view(params, message);
@@ -308,6 +310,8 @@ bool AutomationClientStubDispatch::AcceptWithResponder(
               internal::AutomationClient_Enable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AutomationClient.0
       bool success = true;
       AutomationClient_Enable_ParamsDataView input_data_view(params, message);
       

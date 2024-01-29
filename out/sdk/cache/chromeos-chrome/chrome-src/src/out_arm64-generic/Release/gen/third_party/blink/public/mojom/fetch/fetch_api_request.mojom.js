@@ -118,26 +118,27 @@
   RequestContextType.IMAGE = 15;
   RequestContextType.IMAGE_SET = 16;
   RequestContextType.INTERNAL = 17;
-  RequestContextType.LOCATION = 18;
-  RequestContextType.MANIFEST = 19;
-  RequestContextType.OBJECT = 20;
-  RequestContextType.PING = 21;
-  RequestContextType.PLUGIN = 22;
-  RequestContextType.PREFETCH = 23;
-  RequestContextType.SCRIPT = 24;
-  RequestContextType.SERVICE_WORKER = 25;
-  RequestContextType.SHARED_WORKER = 26;
-  RequestContextType.SPECULATION_RULES = 27;
-  RequestContextType.SUBRESOURCE = 28;
-  RequestContextType.SUBRESOURCE_WEBBUNDLE = 29;
-  RequestContextType.STYLE = 30;
-  RequestContextType.TRACK = 31;
-  RequestContextType.VIDEO = 32;
-  RequestContextType.WORKER = 33;
-  RequestContextType.XML_HTTP_REQUEST = 34;
-  RequestContextType.XSLT = 35;
+  RequestContextType.JSON = 18;
+  RequestContextType.LOCATION = 19;
+  RequestContextType.MANIFEST = 20;
+  RequestContextType.OBJECT = 21;
+  RequestContextType.PING = 22;
+  RequestContextType.PLUGIN = 23;
+  RequestContextType.PREFETCH = 24;
+  RequestContextType.SCRIPT = 25;
+  RequestContextType.SERVICE_WORKER = 26;
+  RequestContextType.SHARED_WORKER = 27;
+  RequestContextType.SPECULATION_RULES = 28;
+  RequestContextType.SUBRESOURCE = 29;
+  RequestContextType.SUBRESOURCE_WEBBUNDLE = 30;
+  RequestContextType.STYLE = 31;
+  RequestContextType.TRACK = 32;
+  RequestContextType.VIDEO = 33;
+  RequestContextType.WORKER = 34;
+  RequestContextType.XML_HTTP_REQUEST = 35;
+  RequestContextType.XSLT = 36;
   RequestContextType.MIN_VALUE = 0;
-  RequestContextType.MAX_VALUE = 35;
+  RequestContextType.MAX_VALUE = 36;
 
   RequestContextType.isKnownEnumValue = function(value) {
     switch (value) {
@@ -177,6 +178,7 @@
     case 33:
     case 34:
     case 35:
+    case 36:
       return true;
     }
     return false;

@@ -476,6 +476,8 @@ bool FileManager_ShowItemInFolder_ForwardToCallback::Accept(
           internal::FileManager_ShowItemInFolder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileManager.1
   bool success = true;
   OpenResult p_result{};
   FileManager_ShowItemInFolder_ResponseParamsDataView input_data_view(params, message);
@@ -596,6 +598,8 @@ bool FileManager_OpenFolder_ForwardToCallback::Accept(
           internal::FileManager_OpenFolder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileManager.2
   bool success = true;
   OpenResult p_result{};
   FileManager_OpenFolder_ResponseParamsDataView input_data_view(params, message);
@@ -716,6 +720,8 @@ bool FileManager_OpenFile_ForwardToCallback::Accept(
           internal::FileManager_OpenFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileManager.3
   bool success = true;
   OpenResult p_result{};
   FileManager_OpenFile_ResponseParamsDataView input_data_view(params, message);
@@ -791,6 +797,8 @@ bool FileManagerStubDispatch::Accept(
           reinterpret_cast<internal::FileManager_DeprecatedShowItemInFolder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileManager.0
       bool success = true;
       ::base::FilePath p_path{};
       FileManager_DeprecatedShowItemInFolder_ParamsDataView input_data_view(params, message);
@@ -806,8 +814,8 @@ bool FileManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedShowItemInFolder(
-std::move(p_path));
+      impl->DeprecatedShowItemInFolder(        
+        std::move(p_path));
       return true;
     }
     case internal::kFileManager_ShowItemInFolder_Name: {
@@ -842,6 +850,8 @@ bool FileManagerStubDispatch::AcceptWithResponder(
               internal::FileManager_ShowItemInFolder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileManager.1
       bool success = true;
       ::base::FilePath p_path{};
       FileManager_ShowItemInFolder_ParamsDataView input_data_view(params, message);
@@ -860,8 +870,8 @@ bool FileManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowItemInFolder(
-std::move(p_path), std::move(callback));
+      impl->ShowItemInFolder(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kFileManager_OpenFolder_Name: {
@@ -871,6 +881,8 @@ std::move(p_path), std::move(callback));
               internal::FileManager_OpenFolder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileManager.2
       bool success = true;
       ::base::FilePath p_path{};
       FileManager_OpenFolder_ParamsDataView input_data_view(params, message);
@@ -889,8 +901,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFolder(
-std::move(p_path), std::move(callback));
+      impl->OpenFolder(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kFileManager_OpenFile_Name: {
@@ -900,6 +912,8 @@ std::move(p_path), std::move(callback));
               internal::FileManager_OpenFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileManager.3
       bool success = true;
       ::base::FilePath p_path{};
       FileManager_OpenFile_ParamsDataView input_data_view(params, message);
@@ -918,8 +932,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFile(
-std::move(p_path), std::move(callback));
+      impl->OpenFile(        
+        std::move(p_path), std::move(callback));
       return true;
     }
   }

@@ -208,6 +208,8 @@ bool VideoFrameAccessHandlerStubDispatch::Accept(
           reinterpret_cast<internal::VideoFrameAccessHandler_OnFinishedConsumingBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameAccessHandler.0
       bool success = true;
       int32_t p_buffer_id{};
       VideoFrameAccessHandler_OnFinishedConsumingBuffer_ParamsDataView input_data_view(params, message);
@@ -223,8 +225,8 @@ bool VideoFrameAccessHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFinishedConsumingBuffer(
-std::move(p_buffer_id));
+      impl->OnFinishedConsumingBuffer(        
+        std::move(p_buffer_id));
       return true;
     }
   }
@@ -1101,6 +1103,8 @@ bool VideoFrameHandlerStubDispatch::Accept(
           reinterpret_cast<internal::VideoFrameHandler_OnCaptureConfigurationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.0
       bool success = true;
       VideoFrameHandler_OnCaptureConfigurationChanged_ParamsDataView input_data_view(params, message);
       
@@ -1113,7 +1117,7 @@ bool VideoFrameHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCaptureConfigurationChanged();
+      impl->OnCaptureConfigurationChanged(        );
       return true;
     }
     case internal::kVideoFrameHandler_OnNewBuffer_Name: {
@@ -1123,6 +1127,8 @@ bool VideoFrameHandlerStubDispatch::Accept(
           reinterpret_cast<internal::VideoFrameHandler_OnNewBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.1
       bool success = true;
       int32_t p_buffer_id{};
       ::media::mojom::VideoBufferHandlePtr p_buffer_handle{};
@@ -1141,9 +1147,9 @@ bool VideoFrameHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewBuffer(
-std::move(p_buffer_id), 
-std::move(p_buffer_handle));
+      impl->OnNewBuffer(        
+        std::move(p_buffer_id), 
+        std::move(p_buffer_handle));
       return true;
     }
     case internal::kVideoFrameHandler_OnFrameAccessHandlerReady_Name: {
@@ -1153,6 +1159,8 @@ std::move(p_buffer_handle));
           reinterpret_cast<internal::VideoFrameHandler_OnFrameAccessHandlerReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.2
       bool success = true;
       ::mojo::PendingRemote<VideoFrameAccessHandler> p_frame_access_handler{};
       VideoFrameHandler_OnFrameAccessHandlerReady_ParamsDataView input_data_view(params, message);
@@ -1170,8 +1178,8 @@ std::move(p_buffer_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameAccessHandlerReady(
-std::move(p_frame_access_handler));
+      impl->OnFrameAccessHandlerReady(        
+        std::move(p_frame_access_handler));
       return true;
     }
     case internal::kVideoFrameHandler_OnFrameReadyInBuffer_Name: {
@@ -1181,6 +1189,8 @@ std::move(p_frame_access_handler));
           reinterpret_cast<internal::VideoFrameHandler_OnFrameReadyInBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.3
       bool success = true;
       ReadyFrameInBufferPtr p_buffer{};
       VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView input_data_view(params, message);
@@ -1196,8 +1206,8 @@ std::move(p_frame_access_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameReadyInBuffer(
-std::move(p_buffer));
+      impl->OnFrameReadyInBuffer(        
+        std::move(p_buffer));
       return true;
     }
     case internal::kVideoFrameHandler_OnBufferRetired_Name: {
@@ -1207,6 +1217,8 @@ std::move(p_buffer));
           reinterpret_cast<internal::VideoFrameHandler_OnBufferRetired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.4
       bool success = true;
       int32_t p_buffer_id{};
       VideoFrameHandler_OnBufferRetired_ParamsDataView input_data_view(params, message);
@@ -1222,8 +1234,8 @@ std::move(p_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferRetired(
-std::move(p_buffer_id));
+      impl->OnBufferRetired(        
+        std::move(p_buffer_id));
       return true;
     }
     case internal::kVideoFrameHandler_OnError_Name: {
@@ -1233,6 +1245,8 @@ std::move(p_buffer_id));
           reinterpret_cast<internal::VideoFrameHandler_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.5
       bool success = true;
       ::media::VideoCaptureError p_error{};
       VideoFrameHandler_OnError_ParamsDataView input_data_view(params, message);
@@ -1248,8 +1262,8 @@ std::move(p_buffer_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_error));
       return true;
     }
     case internal::kVideoFrameHandler_OnFrameDropped_Name: {
@@ -1259,6 +1273,8 @@ std::move(p_error));
           reinterpret_cast<internal::VideoFrameHandler_OnFrameDropped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.6
       bool success = true;
       ::media::VideoCaptureFrameDropReason p_reason{};
       VideoFrameHandler_OnFrameDropped_ParamsDataView input_data_view(params, message);
@@ -1274,8 +1290,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameDropped(
-std::move(p_reason));
+      impl->OnFrameDropped(        
+        std::move(p_reason));
       return true;
     }
     case internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name: {
@@ -1285,6 +1301,8 @@ std::move(p_reason));
           reinterpret_cast<internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.7
       bool success = true;
       uint32_t p_sub_capture_target_version{};
       VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView input_data_view(params, message);
@@ -1300,8 +1318,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewSubCaptureTargetVersion(
-std::move(p_sub_capture_target_version));
+      impl->OnNewSubCaptureTargetVersion(        
+        std::move(p_sub_capture_target_version));
       return true;
     }
     case internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name: {
@@ -1311,6 +1329,8 @@ std::move(p_sub_capture_target_version));
           reinterpret_cast<internal::VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.8
       bool success = true;
       VideoFrameHandler_OnFrameWithEmptyRegionCapture_ParamsDataView input_data_view(params, message);
       
@@ -1323,7 +1343,7 @@ std::move(p_sub_capture_target_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameWithEmptyRegionCapture();
+      impl->OnFrameWithEmptyRegionCapture(        );
       return true;
     }
     case internal::kVideoFrameHandler_OnLog_Name: {
@@ -1333,6 +1353,8 @@ std::move(p_sub_capture_target_version));
           reinterpret_cast<internal::VideoFrameHandler_OnLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.9
       bool success = true;
       std::string p_message{};
       VideoFrameHandler_OnLog_ParamsDataView input_data_view(params, message);
@@ -1348,8 +1370,8 @@ std::move(p_sub_capture_target_version));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLog(
-std::move(p_message));
+      impl->OnLog(        
+        std::move(p_message));
       return true;
     }
     case internal::kVideoFrameHandler_OnStarted_Name: {
@@ -1359,6 +1381,8 @@ std::move(p_message));
           reinterpret_cast<internal::VideoFrameHandler_OnStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.10
       bool success = true;
       VideoFrameHandler_OnStarted_ParamsDataView input_data_view(params, message);
       
@@ -1371,7 +1395,7 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStarted();
+      impl->OnStarted(        );
       return true;
     }
     case internal::kVideoFrameHandler_OnStartedUsingGpuDecode_Name: {
@@ -1381,6 +1405,8 @@ std::move(p_message));
           reinterpret_cast<internal::VideoFrameHandler_OnStartedUsingGpuDecode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.11
       bool success = true;
       VideoFrameHandler_OnStartedUsingGpuDecode_ParamsDataView input_data_view(params, message);
       
@@ -1393,7 +1419,7 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStartedUsingGpuDecode();
+      impl->OnStartedUsingGpuDecode(        );
       return true;
     }
     case internal::kVideoFrameHandler_OnStopped_Name: {
@@ -1403,6 +1429,8 @@ std::move(p_message));
           reinterpret_cast<internal::VideoFrameHandler_OnStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandler.12
       bool success = true;
       VideoFrameHandler_OnStopped_ParamsDataView input_data_view(params, message);
       
@@ -1415,7 +1443,7 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStopped();
+      impl->OnStopped(        );
       return true;
     }
   }

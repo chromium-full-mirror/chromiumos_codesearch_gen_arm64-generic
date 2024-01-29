@@ -267,6 +267,8 @@ bool SpeechRecognizerStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognizer_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognizer.0
       bool success = true;
       StartSpeechRecognitionRequestParamsPtr p_params{};
       SpeechRecognizer_Start_ParamsDataView input_data_view(params, message);
@@ -282,8 +284,8 @@ bool SpeechRecognizerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_params));
+      impl->Start(        
+        std::move(p_params));
       return true;
     }
   }
@@ -474,6 +476,8 @@ bool SpeechRecognitionSessionStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionSession_Abort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSession.0
       bool success = true;
       SpeechRecognitionSession_Abort_ParamsDataView input_data_view(params, message);
       
@@ -486,7 +490,7 @@ bool SpeechRecognitionSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort();
+      impl->Abort(        );
       return true;
     }
     case internal::kSpeechRecognitionSession_StopCapture_Name: {
@@ -496,6 +500,8 @@ bool SpeechRecognitionSessionStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionSession_StopCapture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSession.1
       bool success = true;
       SpeechRecognitionSession_StopCapture_ParamsDataView input_data_view(params, message);
       
@@ -508,7 +514,7 @@ bool SpeechRecognitionSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopCapture();
+      impl->StopCapture(        );
       return true;
     }
   }
@@ -1060,6 +1066,8 @@ bool SpeechRecognitionSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionSessionClient_ResultRetrieved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.0
       bool success = true;
       WTF::Vector<::blink::mojom::blink::SpeechRecognitionResultPtr> p_results{};
       SpeechRecognitionSessionClient_ResultRetrieved_ParamsDataView input_data_view(params, message);
@@ -1075,8 +1083,8 @@ bool SpeechRecognitionSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResultRetrieved(
-std::move(p_results));
+      impl->ResultRetrieved(        
+        std::move(p_results));
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_ErrorOccurred_Name: {
@@ -1086,6 +1094,8 @@ std::move(p_results));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_ErrorOccurred_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.1
       bool success = true;
       ::blink::mojom::blink::SpeechRecognitionErrorPtr p_error{};
       SpeechRecognitionSessionClient_ErrorOccurred_ParamsDataView input_data_view(params, message);
@@ -1101,8 +1111,8 @@ std::move(p_results));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ErrorOccurred(
-std::move(p_error));
+      impl->ErrorOccurred(        
+        std::move(p_error));
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_Started_Name: {
@@ -1112,6 +1122,8 @@ std::move(p_error));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_Started_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.2
       bool success = true;
       SpeechRecognitionSessionClient_Started_ParamsDataView input_data_view(params, message);
       
@@ -1124,7 +1136,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Started();
+      impl->Started(        );
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_AudioStarted_Name: {
@@ -1134,6 +1146,8 @@ std::move(p_error));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_AudioStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.3
       bool success = true;
       SpeechRecognitionSessionClient_AudioStarted_ParamsDataView input_data_view(params, message);
       
@@ -1146,7 +1160,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AudioStarted();
+      impl->AudioStarted(        );
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_SoundStarted_Name: {
@@ -1156,6 +1170,8 @@ std::move(p_error));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_SoundStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.4
       bool success = true;
       SpeechRecognitionSessionClient_SoundStarted_ParamsDataView input_data_view(params, message);
       
@@ -1168,7 +1184,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SoundStarted();
+      impl->SoundStarted(        );
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_SoundEnded_Name: {
@@ -1178,6 +1194,8 @@ std::move(p_error));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_SoundEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.5
       bool success = true;
       SpeechRecognitionSessionClient_SoundEnded_ParamsDataView input_data_view(params, message);
       
@@ -1190,7 +1208,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SoundEnded();
+      impl->SoundEnded(        );
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_AudioEnded_Name: {
@@ -1200,6 +1218,8 @@ std::move(p_error));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_AudioEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.6
       bool success = true;
       SpeechRecognitionSessionClient_AudioEnded_ParamsDataView input_data_view(params, message);
       
@@ -1212,7 +1232,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AudioEnded();
+      impl->AudioEnded(        );
       return true;
     }
     case internal::kSpeechRecognitionSessionClient_Ended_Name: {
@@ -1222,6 +1242,8 @@ std::move(p_error));
           reinterpret_cast<internal::SpeechRecognitionSessionClient_Ended_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionSessionClient.7
       bool success = true;
       SpeechRecognitionSessionClient_Ended_ParamsDataView input_data_view(params, message);
       
@@ -1234,7 +1256,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Ended();
+      impl->Ended(        );
       return true;
     }
   }

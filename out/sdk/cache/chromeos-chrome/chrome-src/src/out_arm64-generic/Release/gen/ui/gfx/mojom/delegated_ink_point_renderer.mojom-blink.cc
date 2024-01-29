@@ -220,6 +220,8 @@ bool DelegatedInkPointRendererStubDispatch::Accept(
           reinterpret_cast<internal::DelegatedInkPointRenderer_StoreDelegatedInkPoint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DelegatedInkPointRenderer.0
       bool success = true;
       ::gfx::mojom::blink::DelegatedInkPointPtr p_point{};
       DelegatedInkPointRenderer_StoreDelegatedInkPoint_ParamsDataView input_data_view(params, message);
@@ -235,8 +237,8 @@ bool DelegatedInkPointRendererStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StoreDelegatedInkPoint(
-std::move(p_point));
+      impl->StoreDelegatedInkPoint(        
+        std::move(p_point));
       return true;
     }
     case internal::kDelegatedInkPointRenderer_ResetPrediction_Name: {
@@ -246,6 +248,8 @@ std::move(p_point));
           reinterpret_cast<internal::DelegatedInkPointRenderer_ResetPrediction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DelegatedInkPointRenderer.1
       bool success = true;
       DelegatedInkPointRenderer_ResetPrediction_ParamsDataView input_data_view(params, message);
       
@@ -258,7 +262,7 @@ std::move(p_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetPrediction();
+      impl->ResetPrediction(        );
       return true;
     }
   }

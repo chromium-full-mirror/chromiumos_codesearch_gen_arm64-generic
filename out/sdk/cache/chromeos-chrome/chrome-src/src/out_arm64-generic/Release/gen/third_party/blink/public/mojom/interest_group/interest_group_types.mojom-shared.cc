@@ -611,7 +611,7 @@ bool InterestGroup_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->auction_server_request_flags, 22, validation_context)) {
+          object->auction_server_request_flags, 23, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->auction_server_request_flags, validation_context))
@@ -849,6 +849,29 @@ AuctionAdServerResponseConfig_Data::AuctionAdServerResponseConfig_Data()
 
 
 // static
+bool AuctionReportBuyerDebugModeConfig_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AuctionReportBuyerDebugModeConfig_Data* object =
+      static_cast<const AuctionReportBuyerDebugModeConfig_Data*>(data);
+
+  return true;
+}
+
+AuctionReportBuyerDebugModeConfig_Data::AuctionReportBuyerDebugModeConfig_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AuctionReportBuyersConfig_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -885,7 +908,7 @@ bool AuctionAdConfigNonSharedParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 216, validation_context)) {
+          data, 224, validation_context)) {
     return false;
   }
 
@@ -988,8 +1011,11 @@ bool AuctionAdConfigNonSharedParams_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidateStruct(object->auction_report_buyer_debug_mode_config, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->required_seller_capabilities, 16, validation_context)) {
+          object->required_seller_capabilities, 17, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->required_seller_capabilities, validation_context))
@@ -1009,7 +1035,7 @@ bool AuctionAdConfigNonSharedParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->component_auctions, 20, validation_context)) {
+          object->component_auctions, 21, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& component_auctions_validate_params =
@@ -1033,7 +1059,7 @@ bool AuctionAdConfig_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 88, validation_context)) {
+          data, 96, validation_context)) {
     return false;
   }
 
@@ -1059,21 +1085,21 @@ bool AuctionAdConfig_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->auction_ad_config_non_shared_params, 5, validation_context)) {
+          object->auction_ad_config_non_shared_params, 6, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->auction_ad_config_non_shared_params, validation_context))
     return false;
 
   if (!mojo::internal::ValidateInlinedUnionNonNullable(
-          object->direct_from_seller_signals, 6, validation_context)) {
+          object->direct_from_seller_signals, 7, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateInlinedUnion(object->direct_from_seller_signals, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->per_buyer_experiment_group_ids, 12, validation_context)) {
+          object->per_buyer_experiment_group_ids, 13, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& per_buyer_experiment_group_ids_validate_params =

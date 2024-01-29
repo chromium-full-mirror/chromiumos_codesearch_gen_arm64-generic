@@ -85,10 +85,10 @@ class StreamingResponder
   virtual ~StreamingResponder() = default;
 
   
-  virtual void OnResponse(const std::string& text) = 0;
+  virtual void OnResponse(ResponseChunkPtr chunk) = 0;
 
   
-  virtual void OnComplete(ResponseStatus status) = 0;
+  virtual void OnComplete(ResponseSummaryPtr summary) = 0;
 };
 
 class ContextClientProxy;
@@ -242,9 +242,9 @@ class  StreamingResponderProxy
 
   explicit StreamingResponderProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnResponse(const std::string& text) final;
+  void OnResponse(ResponseChunkPtr chunk) final;
   
-  void OnComplete(ResponseStatus status) final;
+  void OnComplete(ResponseSummaryPtr summary) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -484,6 +484,291 @@ class  OnDeviceModelRequestValidator : public mojo::MessageReceiver {
 
 
 
+
+
+class  ResponseChunk {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ResponseChunk, T>::value>;
+  using DataView = ResponseChunkDataView;
+  using Data_ = internal::ResponseChunk_Data;
+
+  template <typename... Args>
+  static ResponseChunkPtr New(Args&&... args) {
+    return ResponseChunkPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ResponseChunkPtr From(const U& u) {
+    return mojo::TypeConverter<ResponseChunkPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ResponseChunk>::Convert(*this);
+  }
+
+
+  ResponseChunk();
+
+  ResponseChunk(
+      const std::string& text,
+      std::optional<std::vector<float>> ts_scores);
+
+
+  ~ResponseChunk();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ResponseChunkPtr>
+  ResponseChunkPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ResponseChunk::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ResponseChunk::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ResponseChunk_UnserializedMessageContext<
+            UserType, ResponseChunk::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ResponseChunk::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ResponseChunk::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ResponseChunk_UnserializedMessageContext<
+            UserType, ResponseChunk::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ResponseChunk::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string text;
+  
+  std::optional<std::vector<float>> ts_scores;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ResponseChunk::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  ResponseSummary {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ResponseSummary, T>::value>;
+  using DataView = ResponseSummaryDataView;
+  using Data_ = internal::ResponseSummary_Data;
+
+  template <typename... Args>
+  static ResponseSummaryPtr New(Args&&... args) {
+    return ResponseSummaryPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ResponseSummaryPtr From(const U& u) {
+    return mojo::TypeConverter<ResponseSummaryPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ResponseSummary>::Convert(*this);
+  }
+
+
+  ResponseSummary();
+
+  explicit ResponseSummary(
+      std::optional<std::vector<float>> ts_scores);
+
+
+  ~ResponseSummary();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ResponseSummaryPtr>
+  ResponseSummaryPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ResponseSummary::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ResponseSummary::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ResponseSummary_UnserializedMessageContext<
+            UserType, ResponseSummary::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ResponseSummary::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ResponseSummary::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ResponseSummary_UnserializedMessageContext<
+            UserType, ResponseSummary::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ResponseSummary::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<std::vector<float>> ts_scores;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ResponseSummary::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  InputOptions {
  public:
   template <typename T>
@@ -515,7 +800,8 @@ class  InputOptions {
       std::optional<uint32_t> max_tokens,
       std::optional<uint32_t> token_offset,
       bool ignore_context,
-      std::optional<uint32_t> max_output_tokens);
+      std::optional<uint32_t> max_output_tokens,
+      std::optional<uint32_t> ts_interval);
 
 
   ~InputOptions();
@@ -602,6 +888,8 @@ class  InputOptions {
   bool ignore_context;
   
   std::optional<uint32_t> max_output_tokens;
+  
+  std::optional<uint32_t> ts_interval;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -633,13 +921,65 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
+ResponseChunkPtr ResponseChunk::Clone() const {
+  return New(
+      mojo::Clone(text),
+      mojo::Clone(ts_scores)
+  );
+}
+
+template <typename T, ResponseChunk::EnableIfSame<T>*>
+bool ResponseChunk::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->text, other_struct.text))
+    return false;
+  if (!mojo::Equals(this->ts_scores, other_struct.ts_scores))
+    return false;
+  return true;
+}
+
+template <typename T, ResponseChunk::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.text < rhs.text)
+    return true;
+  if (rhs.text < lhs.text)
+    return false;
+  if (lhs.ts_scores < rhs.ts_scores)
+    return true;
+  if (rhs.ts_scores < lhs.ts_scores)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ResponseSummaryPtr ResponseSummary::Clone() const {
+  return New(
+      mojo::Clone(ts_scores)
+  );
+}
+
+template <typename T, ResponseSummary::EnableIfSame<T>*>
+bool ResponseSummary::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->ts_scores, other_struct.ts_scores))
+    return false;
+  return true;
+}
+
+template <typename T, ResponseSummary::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.ts_scores < rhs.ts_scores)
+    return true;
+  if (rhs.ts_scores < lhs.ts_scores)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 InputOptionsPtr InputOptions::Clone() const {
   return New(
       mojo::Clone(text),
       mojo::Clone(max_tokens),
       mojo::Clone(token_offset),
       mojo::Clone(ignore_context),
-      mojo::Clone(max_output_tokens)
+      mojo::Clone(max_output_tokens),
+      mojo::Clone(ts_interval)
   );
 }
 
@@ -654,6 +994,8 @@ bool InputOptions::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->ignore_context, other_struct.ignore_context))
     return false;
   if (!mojo::Equals(this->max_output_tokens, other_struct.max_output_tokens))
+    return false;
+  if (!mojo::Equals(this->ts_interval, other_struct.ts_interval))
     return false;
   return true;
 }
@@ -680,6 +1022,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.max_output_tokens < lhs.max_output_tokens)
     return false;
+  if (lhs.ts_interval < rhs.ts_interval)
+    return true;
+  if (rhs.ts_interval < lhs.ts_interval)
+    return false;
   return false;
 }
 
@@ -687,6 +1033,41 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // on_device_model::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::on_device_model::mojom::ResponseChunk::DataView,
+                                         ::on_device_model::mojom::ResponseChunkPtr> {
+  static bool IsNull(const ::on_device_model::mojom::ResponseChunkPtr& input) { return !input; }
+  static void SetToNull(::on_device_model::mojom::ResponseChunkPtr* output) { output->reset(); }
+
+  static const decltype(::on_device_model::mojom::ResponseChunk::text)& text(
+      const ::on_device_model::mojom::ResponseChunkPtr& input) {
+    return input->text;
+  }
+
+  static const decltype(::on_device_model::mojom::ResponseChunk::ts_scores)& ts_scores(
+      const ::on_device_model::mojom::ResponseChunkPtr& input) {
+    return input->ts_scores;
+  }
+
+  static bool Read(::on_device_model::mojom::ResponseChunk::DataView input, ::on_device_model::mojom::ResponseChunkPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::on_device_model::mojom::ResponseSummary::DataView,
+                                         ::on_device_model::mojom::ResponseSummaryPtr> {
+  static bool IsNull(const ::on_device_model::mojom::ResponseSummaryPtr& input) { return !input; }
+  static void SetToNull(::on_device_model::mojom::ResponseSummaryPtr* output) { output->reset(); }
+
+  static const decltype(::on_device_model::mojom::ResponseSummary::ts_scores)& ts_scores(
+      const ::on_device_model::mojom::ResponseSummaryPtr& input) {
+    return input->ts_scores;
+  }
+
+  static bool Read(::on_device_model::mojom::ResponseSummary::DataView input, ::on_device_model::mojom::ResponseSummaryPtr* output);
+};
 
 
 template <>
@@ -718,6 +1099,11 @@ struct  StructTraits<::on_device_model::mojom::InputOptions::DataView,
   static decltype(::on_device_model::mojom::InputOptions::max_output_tokens) max_output_tokens(
       const ::on_device_model::mojom::InputOptionsPtr& input) {
     return input->max_output_tokens;
+  }
+
+  static decltype(::on_device_model::mojom::InputOptions::ts_interval) ts_interval(
+      const ::on_device_model::mojom::InputOptionsPtr& input) {
+    return input->ts_interval;
   }
 
   static bool Read(::on_device_model::mojom::InputOptions::DataView input, ::on_device_model::mojom::InputOptionsPtr* output);

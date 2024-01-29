@@ -469,6 +469,8 @@ bool TextSuggestionBackendStubDispatch::Accept(
           reinterpret_cast<internal::TextSuggestionBackend_ApplySpellCheckSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionBackend.0
       bool success = true;
       std::string p_suggestion{};
       TextSuggestionBackend_ApplySpellCheckSuggestion_ParamsDataView input_data_view(params, message);
@@ -484,8 +486,8 @@ bool TextSuggestionBackendStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplySpellCheckSuggestion(
-std::move(p_suggestion));
+      impl->ApplySpellCheckSuggestion(        
+        std::move(p_suggestion));
       return true;
     }
     case internal::kTextSuggestionBackend_ApplyTextSuggestion_Name: {
@@ -495,6 +497,8 @@ std::move(p_suggestion));
           reinterpret_cast<internal::TextSuggestionBackend_ApplyTextSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionBackend.1
       bool success = true;
       int32_t p_marker_tag{};
       int32_t p_suggestion_index{};
@@ -513,9 +517,9 @@ std::move(p_suggestion));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyTextSuggestion(
-std::move(p_marker_tag), 
-std::move(p_suggestion_index));
+      impl->ApplyTextSuggestion(        
+        std::move(p_marker_tag), 
+        std::move(p_suggestion_index));
       return true;
     }
     case internal::kTextSuggestionBackend_DeleteActiveSuggestionRange_Name: {
@@ -525,6 +529,8 @@ std::move(p_suggestion_index));
           reinterpret_cast<internal::TextSuggestionBackend_DeleteActiveSuggestionRange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionBackend.2
       bool success = true;
       TextSuggestionBackend_DeleteActiveSuggestionRange_ParamsDataView input_data_view(params, message);
       
@@ -537,7 +543,7 @@ std::move(p_suggestion_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteActiveSuggestionRange();
+      impl->DeleteActiveSuggestionRange(        );
       return true;
     }
     case internal::kTextSuggestionBackend_OnNewWordAddedToDictionary_Name: {
@@ -547,6 +553,8 @@ std::move(p_suggestion_index));
           reinterpret_cast<internal::TextSuggestionBackend_OnNewWordAddedToDictionary_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionBackend.3
       bool success = true;
       std::string p_suggestion{};
       TextSuggestionBackend_OnNewWordAddedToDictionary_ParamsDataView input_data_view(params, message);
@@ -562,8 +570,8 @@ std::move(p_suggestion_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewWordAddedToDictionary(
-std::move(p_suggestion));
+      impl->OnNewWordAddedToDictionary(        
+        std::move(p_suggestion));
       return true;
     }
     case internal::kTextSuggestionBackend_OnSuggestionMenuClosed_Name: {
@@ -573,6 +581,8 @@ std::move(p_suggestion));
           reinterpret_cast<internal::TextSuggestionBackend_OnSuggestionMenuClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionBackend.4
       bool success = true;
       TextSuggestionBackend_OnSuggestionMenuClosed_ParamsDataView input_data_view(params, message);
       
@@ -585,7 +595,7 @@ std::move(p_suggestion));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSuggestionMenuClosed();
+      impl->OnSuggestionMenuClosed(        );
       return true;
     }
     case internal::kTextSuggestionBackend_SuggestionMenuTimeoutCallback_Name: {
@@ -595,6 +605,8 @@ std::move(p_suggestion));
           reinterpret_cast<internal::TextSuggestionBackend_SuggestionMenuTimeoutCallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionBackend.5
       bool success = true;
       int32_t p_max_number_of_suggestions{};
       TextSuggestionBackend_SuggestionMenuTimeoutCallback_ParamsDataView input_data_view(params, message);
@@ -610,8 +622,8 @@ std::move(p_suggestion));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SuggestionMenuTimeoutCallback(
-std::move(p_max_number_of_suggestions));
+      impl->SuggestionMenuTimeoutCallback(        
+        std::move(p_max_number_of_suggestions));
       return true;
     }
   }

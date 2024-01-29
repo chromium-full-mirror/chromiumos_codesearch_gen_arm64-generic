@@ -279,6 +279,8 @@ bool CopyOutputResultSenderStubDispatch::Accept(
           reinterpret_cast<internal::CopyOutputResultSender_SendResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CopyOutputResultSender.0
       bool success = true;
       ::viz::mojom::blink::CopyOutputResultPtr p_result{};
       CopyOutputResultSender_SendResult_ParamsDataView input_data_view(params, message);
@@ -294,8 +296,8 @@ bool CopyOutputResultSenderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendResult(
-std::move(p_result));
+      impl->SendResult(        
+        std::move(p_result));
       return true;
     }
   }

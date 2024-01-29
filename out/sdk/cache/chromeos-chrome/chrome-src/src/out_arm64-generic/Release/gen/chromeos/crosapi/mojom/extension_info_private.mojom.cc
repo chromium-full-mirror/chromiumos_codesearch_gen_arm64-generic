@@ -464,6 +464,8 @@ bool ExtensionInfoPrivate_GetSystemProperties_ForwardToCallback::Accept(
           internal::ExtensionInfoPrivate_GetSystemProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ExtensionInfoPrivate.0
   bool success = true;
   ::base::Value p_properties{};
   ExtensionInfoPrivate_GetSystemProperties_ResponseParamsDataView input_data_view(params, message);
@@ -591,6 +593,8 @@ bool ExtensionInfoPrivate_SetBool_ForwardToCallback::Accept(
           internal::ExtensionInfoPrivate_SetBool_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ExtensionInfoPrivate.2
   bool success = true;
   bool p_found{};
   ExtensionInfoPrivate_SetBool_ResponseParamsDataView input_data_view(params, message);
@@ -710,6 +714,8 @@ bool ExtensionInfoPrivate_IsTabletModeEnabled_ForwardToCallback::Accept(
           internal::ExtensionInfoPrivate_IsTabletModeEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ExtensionInfoPrivate.3
   bool success = true;
   bool p_enabled{};
   ExtensionInfoPrivate_IsTabletModeEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -787,6 +793,8 @@ bool ExtensionInfoPrivateStubDispatch::Accept(
           reinterpret_cast<internal::ExtensionInfoPrivate_SetTimezone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ExtensionInfoPrivate.1
       bool success = true;
       std::string p_value{};
       ExtensionInfoPrivate_SetTimezone_ParamsDataView input_data_view(params, message);
@@ -802,8 +810,8 @@ bool ExtensionInfoPrivateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTimezone(
-std::move(p_value));
+      impl->SetTimezone(        
+        std::move(p_value));
       return true;
     }
     case internal::kExtensionInfoPrivate_SetBool_Name: {
@@ -832,6 +840,8 @@ bool ExtensionInfoPrivateStubDispatch::AcceptWithResponder(
               internal::ExtensionInfoPrivate_GetSystemProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ExtensionInfoPrivate.0
       bool success = true;
       std::vector<std::string> p_property_names{};
       ExtensionInfoPrivate_GetSystemProperties_ParamsDataView input_data_view(params, message);
@@ -850,8 +860,8 @@ bool ExtensionInfoPrivateStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSystemProperties(
-std::move(p_property_names), std::move(callback));
+      impl->GetSystemProperties(        
+        std::move(p_property_names), std::move(callback));
       return true;
     }
     case internal::kExtensionInfoPrivate_SetTimezone_Name: {
@@ -864,6 +874,8 @@ std::move(p_property_names), std::move(callback));
               internal::ExtensionInfoPrivate_SetBool_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ExtensionInfoPrivate.2
       bool success = true;
       std::string p_property_name{};
       bool p_value{};
@@ -885,9 +897,9 @@ std::move(p_property_names), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBool(
-std::move(p_property_name), 
-std::move(p_value), std::move(callback));
+      impl->SetBool(        
+        std::move(p_property_name), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kExtensionInfoPrivate_IsTabletModeEnabled_Name: {
@@ -897,6 +909,8 @@ std::move(p_value), std::move(callback));
               internal::ExtensionInfoPrivate_IsTabletModeEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ExtensionInfoPrivate.3
       bool success = true;
       ExtensionInfoPrivate_IsTabletModeEnabled_ParamsDataView input_data_view(params, message);
       

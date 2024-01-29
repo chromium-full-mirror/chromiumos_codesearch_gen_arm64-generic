@@ -833,6 +833,8 @@ bool DisplayPrivateStubDispatch::Accept(
           reinterpret_cast<internal::DisplayPrivate_SetDisplayVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.0
       bool success = true;
       bool p_visible{};
       DisplayPrivate_SetDisplayVisible_ParamsDataView input_data_view(params, message);
@@ -848,8 +850,8 @@ bool DisplayPrivateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisplayVisible(
-std::move(p_visible));
+      impl->SetDisplayVisible(        
+        std::move(p_visible));
       return true;
     }
     case internal::kDisplayPrivate_Resize_Name: {
@@ -859,6 +861,8 @@ std::move(p_visible));
           reinterpret_cast<internal::DisplayPrivate_Resize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.1
       bool success = true;
       ::gfx::Size p_size{};
       DisplayPrivate_Resize_ParamsDataView input_data_view(params, message);
@@ -874,8 +878,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resize(
-std::move(p_size));
+      impl->Resize(        
+        std::move(p_size));
       return true;
     }
     case internal::kDisplayPrivate_SetDisplayColorMatrix_Name: {
@@ -885,6 +889,8 @@ std::move(p_size));
           reinterpret_cast<internal::DisplayPrivate_SetDisplayColorMatrix_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.2
       bool success = true;
       ::gfx::Transform p_color_matrix{};
       DisplayPrivate_SetDisplayColorMatrix_ParamsDataView input_data_view(params, message);
@@ -900,8 +906,8 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisplayColorMatrix(
-std::move(p_color_matrix));
+      impl->SetDisplayColorMatrix(        
+        std::move(p_color_matrix));
       return true;
     }
     case internal::kDisplayPrivate_SetDisplayColorSpaces_Name: {
@@ -911,6 +917,8 @@ std::move(p_color_matrix));
           reinterpret_cast<internal::DisplayPrivate_SetDisplayColorSpaces_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.3
       bool success = true;
       ::gfx::DisplayColorSpaces p_display_color_spaces{};
       DisplayPrivate_SetDisplayColorSpaces_ParamsDataView input_data_view(params, message);
@@ -926,8 +934,8 @@ std::move(p_color_matrix));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisplayColorSpaces(
-std::move(p_display_color_spaces));
+      impl->SetDisplayColorSpaces(        
+        std::move(p_display_color_spaces));
       return true;
     }
     case internal::kDisplayPrivate_SetOutputIsSecure_Name: {
@@ -937,6 +945,8 @@ std::move(p_display_color_spaces));
           reinterpret_cast<internal::DisplayPrivate_SetOutputIsSecure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.4
       bool success = true;
       bool p_secure{};
       DisplayPrivate_SetOutputIsSecure_ParamsDataView input_data_view(params, message);
@@ -952,8 +962,8 @@ std::move(p_display_color_spaces));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutputIsSecure(
-std::move(p_secure));
+      impl->SetOutputIsSecure(        
+        std::move(p_secure));
       return true;
     }
     case internal::kDisplayPrivate_SetDisplayVSyncParameters_Name: {
@@ -963,6 +973,8 @@ std::move(p_secure));
           reinterpret_cast<internal::DisplayPrivate_SetDisplayVSyncParameters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.5
       bool success = true;
       ::base::TimeTicks p_timebase{};
       ::base::TimeDelta p_interval{};
@@ -981,9 +993,9 @@ std::move(p_secure));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisplayVSyncParameters(
-std::move(p_timebase), 
-std::move(p_interval));
+      impl->SetDisplayVSyncParameters(        
+        std::move(p_timebase), 
+        std::move(p_interval));
       return true;
     }
     case internal::kDisplayPrivate_ForceImmediateDrawAndSwapIfPossible_Name: {
@@ -993,6 +1005,8 @@ std::move(p_interval));
           reinterpret_cast<internal::DisplayPrivate_ForceImmediateDrawAndSwapIfPossible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.6
       bool success = true;
       DisplayPrivate_ForceImmediateDrawAndSwapIfPossible_ParamsDataView input_data_view(params, message);
       
@@ -1005,7 +1019,7 @@ std::move(p_interval));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceImmediateDrawAndSwapIfPossible();
+      impl->ForceImmediateDrawAndSwapIfPossible(        );
       return true;
     }
     case internal::kDisplayPrivate_AddVSyncParameterObserver_Name: {
@@ -1015,6 +1029,8 @@ std::move(p_interval));
           reinterpret_cast<internal::DisplayPrivate_AddVSyncParameterObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.7
       bool success = true;
       ::mojo::PendingRemote<::viz::mojom::VSyncParameterObserver> p_observer{};
       DisplayPrivate_AddVSyncParameterObserver_ParamsDataView input_data_view(params, message);
@@ -1032,8 +1048,8 @@ std::move(p_interval));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVSyncParameterObserver(
-std::move(p_observer));
+      impl->AddVSyncParameterObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDisplayPrivate_SetDelegatedInkPointRenderer_Name: {
@@ -1043,6 +1059,8 @@ std::move(p_observer));
           reinterpret_cast<internal::DisplayPrivate_SetDelegatedInkPointRenderer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.8
       bool success = true;
       ::mojo::PendingReceiver<::gfx::mojom::DelegatedInkPointRenderer> p_receiver{};
       DisplayPrivate_SetDelegatedInkPointRenderer_ParamsDataView input_data_view(params, message);
@@ -1060,8 +1078,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDelegatedInkPointRenderer(
-std::move(p_receiver));
+      impl->SetDelegatedInkPointRenderer(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDisplayPrivate_SetStandaloneBeginFrameObserver_Name: {
@@ -1071,6 +1089,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DisplayPrivate_SetStandaloneBeginFrameObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.9
       bool success = true;
       ::mojo::PendingRemote<::viz::mojom::BeginFrameObserver> p_observer{};
       DisplayPrivate_SetStandaloneBeginFrameObserver_ParamsDataView input_data_view(params, message);
@@ -1088,8 +1108,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetStandaloneBeginFrameObserver(
-std::move(p_observer));
+      impl->SetStandaloneBeginFrameObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDisplayPrivate_SetMaxVrrInterval_Name: {
@@ -1099,6 +1119,8 @@ std::move(p_observer));
           reinterpret_cast<internal::DisplayPrivate_SetMaxVrrInterval_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayPrivate.10
       bool success = true;
       std::optional<::base::TimeDelta> p_max_vrr_interval{};
       DisplayPrivate_SetMaxVrrInterval_ParamsDataView input_data_view(params, message);
@@ -1114,8 +1136,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMaxVrrInterval(
-std::move(p_max_vrr_interval));
+      impl->SetMaxVrrInterval(        
+        std::move(p_max_vrr_interval));
       return true;
     }
   }

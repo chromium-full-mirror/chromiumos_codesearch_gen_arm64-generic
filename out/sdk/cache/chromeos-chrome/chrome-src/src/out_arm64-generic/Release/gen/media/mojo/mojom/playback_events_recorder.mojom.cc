@@ -626,6 +626,8 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::PlaybackEventsRecorder_OnPlaying_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.0
       bool success = true;
       PlaybackEventsRecorder_OnPlaying_ParamsDataView input_data_view(params, message);
       
@@ -638,7 +640,7 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPlaying();
+      impl->OnPlaying(        );
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnPaused_Name: {
@@ -648,6 +650,8 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::PlaybackEventsRecorder_OnPaused_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.1
       bool success = true;
       PlaybackEventsRecorder_OnPaused_ParamsDataView input_data_view(params, message);
       
@@ -660,7 +664,7 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPaused();
+      impl->OnPaused(        );
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnSeeking_Name: {
@@ -670,6 +674,8 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::PlaybackEventsRecorder_OnSeeking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.2
       bool success = true;
       PlaybackEventsRecorder_OnSeeking_ParamsDataView input_data_view(params, message);
       
@@ -682,7 +688,7 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSeeking();
+      impl->OnSeeking(        );
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnEnded_Name: {
@@ -692,6 +698,8 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::PlaybackEventsRecorder_OnEnded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.3
       bool success = true;
       PlaybackEventsRecorder_OnEnded_ParamsDataView input_data_view(params, message);
       
@@ -704,7 +712,7 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnded();
+      impl->OnEnded(        );
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnError_Name: {
@@ -714,6 +722,8 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
           reinterpret_cast<internal::PlaybackEventsRecorder_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.4
       bool success = true;
       ::media::PipelineStatus p_status{};
       PlaybackEventsRecorder_OnError_ParamsDataView input_data_view(params, message);
@@ -729,8 +739,8 @@ bool PlaybackEventsRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_status));
+      impl->OnError(        
+        std::move(p_status));
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnBuffering_Name: {
@@ -740,6 +750,8 @@ std::move(p_status));
           reinterpret_cast<internal::PlaybackEventsRecorder_OnBuffering_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.5
       bool success = true;
       PlaybackEventsRecorder_OnBuffering_ParamsDataView input_data_view(params, message);
       
@@ -752,7 +764,7 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBuffering();
+      impl->OnBuffering(        );
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnBufferingComplete_Name: {
@@ -762,6 +774,8 @@ std::move(p_status));
           reinterpret_cast<internal::PlaybackEventsRecorder_OnBufferingComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.6
       bool success = true;
       PlaybackEventsRecorder_OnBufferingComplete_ParamsDataView input_data_view(params, message);
       
@@ -774,7 +788,7 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferingComplete();
+      impl->OnBufferingComplete(        );
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnNaturalSizeChanged_Name: {
@@ -784,6 +798,8 @@ std::move(p_status));
           reinterpret_cast<internal::PlaybackEventsRecorder_OnNaturalSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.7
       bool success = true;
       ::gfx::Size p_size{};
       PlaybackEventsRecorder_OnNaturalSizeChanged_ParamsDataView input_data_view(params, message);
@@ -799,8 +815,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNaturalSizeChanged(
-std::move(p_size));
+      impl->OnNaturalSizeChanged(        
+        std::move(p_size));
       return true;
     }
     case internal::kPlaybackEventsRecorder_OnPipelineStatistics_Name: {
@@ -810,6 +826,8 @@ std::move(p_size));
           reinterpret_cast<internal::PlaybackEventsRecorder_OnPipelineStatistics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PlaybackEventsRecorder.8
       bool success = true;
       ::media::PipelineStatistics p_stats{};
       PlaybackEventsRecorder_OnPipelineStatistics_ParamsDataView input_data_view(params, message);
@@ -825,8 +843,8 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPipelineStatistics(
-std::move(p_stats));
+      impl->OnPipelineStatistics(        
+        std::move(p_stats));
       return true;
     }
   }

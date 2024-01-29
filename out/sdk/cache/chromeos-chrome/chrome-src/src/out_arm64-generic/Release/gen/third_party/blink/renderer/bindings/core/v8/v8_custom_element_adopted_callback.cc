@@ -58,14 +58,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_old_owner;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<Document>::ToV8(script_state, arg1_old_owner).ToLocal(&v8_arg1_old_owner)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_old_owner = ToV8Traits<Document>::ToV8(script_state, arg1_old_owner);
 argv[0] = v8_arg1_old_owner;
 v8::Local<v8::Value> v8_arg2_new_owner;
-if (!ToV8Traits<Document>::ToV8(script_state, arg2_new_owner).ToLocal(&v8_arg2_new_owner)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_new_owner = ToV8Traits<Document>::ToV8(script_state, arg2_new_owner);
 argv[1] = v8_arg2_new_owner;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -104,14 +100,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_old_owner;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<Document>::ToV8(script_state, arg1_old_owner).ToLocal(&v8_arg1_old_owner)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_old_owner = ToV8Traits<Document>::ToV8(script_state, arg1_old_owner);
 argv[0] = v8_arg1_old_owner;
 v8::Local<v8::Value> v8_arg2_new_owner;
-if (!ToV8Traits<Document>::ToV8(script_state, arg2_new_owner).ToLocal(&v8_arg2_new_owner)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_new_owner = ToV8Traits<Document>::ToV8(script_state, arg2_new_owner);
 argv[1] = v8_arg2_new_owner;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

@@ -218,7 +218,7 @@ describeWithMockConnection('RequestHeadersView', () => {
         assertElement(responseHeadersCategory, HTMLElement);
         assert.deepStrictEqual(getRowsTextFromCategory(responseHeadersCategory), [['devtools:', 'rock'], ['foo:', 'bar'], ['highlightme:', 'some value']]);
         assert.deepStrictEqual(getRowHighlightStatus(responseHeadersCategory), [false, false, false]);
-        component.revealHeader(NetworkForward.UIRequestLocation.UIHeaderSection.Response, 'HiGhLiGhTmE');
+        component.revealHeader("Response" /* NetworkForward.UIRequestLocation.UIHeaderSection.Response */, 'HiGhLiGhTmE');
         await coordinator.done();
         assert.deepStrictEqual(getRowHighlightStatus(responseHeadersCategory), [false, false, true]);
     });
@@ -235,7 +235,7 @@ describeWithMockConnection('RequestHeadersView', () => {
         assertElement(requestHeadersCategory, HTMLElement);
         assert.deepStrictEqual(getRowsTextFromCategory(requestHeadersCategory), [['devtools:', 'rock'], ['foo:', 'bar'], ['highlightme:', 'some value']]);
         assert.deepStrictEqual(getRowHighlightStatus(requestHeadersCategory), [false, false, false]);
-        component.revealHeader(NetworkForward.UIRequestLocation.UIHeaderSection.Request, 'HiGhLiGhTmE');
+        component.revealHeader("Request" /* NetworkForward.UIRequestLocation.UIHeaderSection.Request */, 'HiGhLiGhTmE');
         await coordinator.done();
         assert.deepStrictEqual(getRowHighlightStatus(requestHeadersCategory), [false, false, true]);
     });
@@ -315,8 +315,8 @@ describeWithMockConnection('RequestHeadersView', () => {
         pencilButton.click();
         await coordinator.done();
         checkRow(headerRow.shadowRoot, 'foo:', 'bar', true);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideEnableEditingClicked));
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.PersistenceNetworkOverridesEnabled));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideEnableEditingClicked));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.PersistenceNetworkOverridesEnabled));
     });
     it('records metrics when a new \'.headers\' file is created', async () => {
         const request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'https://www.example.com/', '', null, null, null);
@@ -334,10 +334,10 @@ describeWithMockConnection('RequestHeadersView', () => {
         assertShadowRoot(headerRow.shadowRoot);
         const pencilButton = headerRow.shadowRoot.querySelector('.enable-editing');
         assertElement(pencilButton, HTMLElement);
-        assert.isFalse(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideFileCreated));
+        assert.isFalse(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideFileCreated));
         pencilButton.click();
         await coordinator.done();
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideFileCreated));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideFileCreated));
     });
 });
 describeWithEnvironment('RequestHeadersView\'s Category', () => {
@@ -347,6 +347,7 @@ describeWithEnvironment('RequestHeadersView\'s Category', () => {
         component.data = {
             name: 'general',
             title: 'General',
+            loggingContext: 'details-general',
         };
         assertShadowRoot(component.shadowRoot);
         await coordinator.done();
@@ -373,6 +374,7 @@ describeWithEnvironment('RequestHeadersView\'s Category', () => {
             title: 'Response Headers',
             headerCount: 3,
             checked: false,
+            loggingContext: 'details-response-headers',
         };
         assertShadowRoot(component.shadowRoot);
         await coordinator.done();

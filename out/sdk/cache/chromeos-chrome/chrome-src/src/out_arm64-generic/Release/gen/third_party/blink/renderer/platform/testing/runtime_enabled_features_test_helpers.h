@@ -33,8 +33,6 @@ class RuntimeEnabledFeaturesTestHelpers {
     bool original_;
   };
 
-  using ScopedAbortSignalAny = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_abort_signal_any_enabled_>;
   using ScopedAccelerated2dCanvas = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_accelerated_2d_canvas_enabled_>;
   using ScopedAcceleratedSmallCanvases = ScopedRuntimeEnabledFeature<
@@ -57,8 +55,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_accessibility_serialization_size_metrics_enabled_>;
   using ScopedAccessibilityUseAXPositionForDocumentMarkers = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_accessibility_use_ax_position_for_document_markers_enabled_>;
-  using ScopedAccordionPattern = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_accordion_pattern_enabled_>;
   using ScopedAddIdentityInCanMakePaymentEvent = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_add_identity_in_can_make_payment_event_enabled_>;
   using ScopedAddressSpace = ScopedRuntimeEnabledFeature<
@@ -81,8 +77,10 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_anonymous_iframe_enabled_>;
   using ScopedAOMAriaRelationshipProperties = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_aom_aria_relationship_properties_enabled_>;
-  using ScopedArrowKeysInVerticalWritingModes = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_arrow_keys_in_vertical_writing_modes_enabled_>;
+  using ScopedAppTitle = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_app_title_enabled_>;
+  using ScopedAsyncClipboardImplicitPermission = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_async_clipboard_implicit_permission_enabled_>;
   using ScopedAttributionReporting = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_attribution_reporting_enabled_>;
   using ScopedAttributionReportingCrossAppWeb = ScopedRuntimeEnabledFeature<
@@ -97,8 +95,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_audio_video_tracks_enabled_>;
   using ScopedAutoDarkMode = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_auto_dark_mode_enabled_>;
-  using ScopedAutoDisableAccessibilityV2 = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_auto_disable_accessibility_v_2_enabled_>;
   using ScopedAutomationControlled = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_automation_controlled_enabled_>;
   using ScopedAutoplayIgnoresWebAudio = ScopedRuntimeEnabledFeature<
@@ -111,8 +107,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_backdrop_inherit_originating_enabled_>;
   using ScopedBackfaceVisibilityInterop = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_backface_visibility_interop_enabled_>;
-  using ScopedBackfaceVisibilityNewInheritance = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_backface_visibility_new_inheritance_enabled_>;
   using ScopedBackForwardCache = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_back_forward_cache_enabled_>;
   using ScopedBackForwardCacheExperimentHTTPHeader = ScopedRuntimeEnabledFeature<
@@ -123,18 +117,16 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_background_fetch_enabled_>;
   using ScopedBarcodeDetector = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_barcode_detector_enabled_>;
+  using ScopedBdiElementDirInheritance = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_bdi_element_dir_inheritance_enabled_>;
   using ScopedBeforeunloadEventCancelByPreventDefault = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_beforeunload_event_cancel_by_prevent_default_enabled_>;
   using ScopedBidiCaretAffinity = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_bidi_caret_affinity_enabled_>;
   using ScopedBlinkExtensionChromeOS = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_blink_extension_chrome_os_enabled_>;
-  using ScopedBlinkExtensionChromeOSHID = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_blink_extension_chrome_oshid_enabled_>;
-  using ScopedBlinkExtensionChromeOSTelemetry = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_blink_extension_chrome_os_telemetry_enabled_>;
-  using ScopedBlinkExtensionChromeOSWindowManagement = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_blink_extension_chrome_os_window_management_enabled_>;
+  using ScopedBlinkExtensionChromeOSKiosk = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_blink_extension_chrome_os_kiosk_enabled_>;
   using ScopedBlinkExtensionDiagnostics = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_blink_extension_diagnostics_enabled_>;
   using ScopedBlinkLifecycleScriptForbidden = ScopedRuntimeEnabledFeature<
@@ -143,8 +135,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_blink_runtime_call_stats_enabled_>;
   using ScopedBlockingFocusWithoutUserActivation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_blocking_focus_without_user_activation_enabled_>;
-  using ScopedBlockRubyConsoleMessage = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_block_ruby_console_message_enabled_>;
   using ScopedBlockRubyWrappingInlineRuby = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_block_ruby_wrapping_inline_ruby_enabled_>;
   using ScopedBoundaryEventDispatchTracksNodeRemoval = ScopedRuntimeEnabledFeature<
@@ -165,6 +155,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_canvas_2d_image_chromium_enabled_>;
   using ScopedCanvas2dLayers = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_canvas_2d_layers_enabled_>;
+  using ScopedCanvas2dMesh = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_canvas_2d_mesh_enabled_>;
   using ScopedCanvas2dScrollPathIntoView = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_canvas_2d_scroll_path_into_view_enabled_>;
   using ScopedCanvasFloatingPoint = ScopedRuntimeEnabledFeature<
@@ -173,6 +165,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_canvas_hdr_enabled_>;
   using ScopedCanvasImageSmoothing = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_canvas_image_smoothing_enabled_>;
+  using ScopedCanvasWebGPUAccess = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_canvas_webgpu_access_enabled_>;
   using ScopedCapabilityDelegationDisplayCaptureRequest = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_capability_delegation_display_capture_request_enabled_>;
   using ScopedCaptureController = ScopedRuntimeEnabledFeature<
@@ -183,18 +177,14 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_captured_surface_control_enabled_>;
   using ScopedCaptureHandle = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_capture_handle_enabled_>;
+  using ScopedCaretPositionFromPoint = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_caret_position_from_point_enabled_>;
   using ScopedCCTNewRFMPushBehavior = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_cct_new_rfm_push_behavior_enabled_>;
   using ScopedCheckVisibilityExtraProperties = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_check_visibility_extra_properties_enabled_>;
   using ScopedClickToCapturedPointer = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_click_to_captured_pointer_enabled_>;
-  using ScopedClientHintsMetaEquivDelegateCH = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_client_hints_meta_equiv_delegate_ch_enabled_>;
-  using ScopedClientHintsMetaHTTPEquivAcceptCH = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_client_hints_meta_http_equiv_accept_ch_enabled_>;
-  using ScopedClientHintThirdPartyDelegation = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_client_hint_third_party_delegation_enabled_>;
   using ScopedClipboardSupportedTypes = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_clipboard_supported_types_enabled_>;
   using ScopedClipboardSvg = ScopedRuntimeEnabledFeature<
@@ -301,8 +291,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_font_size_adjust_enabled_>;
   using ScopedCSSHexAlphaColor = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_hex_alpha_color_enabled_>;
-  using ScopedCSSImageSet = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_css_image_set_enabled_>;
   using ScopedCSSLayoutAPI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_layout_api_enabled_>;
   using ScopedCSSLinearTimingFunction = ScopedRuntimeEnabledFeature<
@@ -341,18 +329,16 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_parser_ignore_charset_for_urls_enabled_>;
   using ScopedCSSPhraseLineBreak = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_phrase_line_break_enabled_>;
-  using ScopedCSSPictureInPicture = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_css_picture_in_picture_enabled_>;
   using ScopedCSSPositionStickyStaticScrollPosition = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_position_sticky_static_scroll_position_enabled_>;
   using ScopedCSSProgressNotation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_progress_notation_enabled_>;
-  using ScopedCSSPseudoDir = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_css_pseudo_dir_enabled_>;
   using ScopedCSSPseudoPlayingPaused = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_pseudo_playing_paused_enabled_>;
   using ScopedCSSRelativeColor = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_relative_color_enabled_>;
+  using ScopedCSSResizeAuto = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_resize_auto_enabled_>;
   using ScopedCSSScope = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_scope_enabled_>;
   using ScopedCSSScrollSnapEvents = ScopedRuntimeEnabledFeature<
@@ -387,18 +373,20 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_text_auto_space_enabled_>;
   using ScopedCSSTextBoxTrim = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_text_box_trim_enabled_>;
+  using ScopedCSSTextSpacing = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_text_spacing_enabled_>;
   using ScopedCSSTextSpacingTrim = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_text_spacing_trim_enabled_>;
   using ScopedCSSTextWrapBalanceByScore = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_text_wrap_balance_by_score_enabled_>;
   using ScopedCSSTextWrapPretty = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_text_wrap_pretty_enabled_>;
-  using ScopedCSSTransformBoxAdditionalKeywords = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_css_transform_box_additional_keywords_enabled_>;
   using ScopedCSSTransitionDiscrete = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_transition_discrete_enabled_>;
   using ScopedCSSTreeScopedTimelines = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_tree_scoped_timelines_enabled_>;
+  using ScopedCSSUnknownContainerQueriesNoSelection = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_unknown_container_queries_no_selection_enabled_>;
   using ScopedCSSUpdateMediaFeature = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_update_media_feature_enabled_>;
   using ScopedCSSUserSelectContain = ScopedRuntimeEnabledFeature<
@@ -409,18 +397,24 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_variables_2_transform_values_enabled_>;
   using ScopedCSSVideoDynamicRangeMediaQueries = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_video_dynamic_range_media_queries_enabled_>;
-  using ScopedCSSViewportUnits4 = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_css_viewport_units_4_enabled_>;
   using ScopedCSSViewTimelineInsetShorthand = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_view_timeline_inset_shorthand_enabled_>;
+  using ScopedCSSViewTransitionClass = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_view_transition_class_enabled_>;
   using ScopedCustomElementsGetName = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_custom_elements_get_name_enabled_>;
   using ScopedDatabase = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_database_enabled_>;
+  using ScopedDataTransferClearStringItems = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_data_transfer_clear_string_items_enabled_>;
   using ScopedDateInputInlineBlock = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_date_input_inline_block_enabled_>;
-  using ScopedDeprecatedNonStreamingDeclarativeShadowDOM = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_deprecated_non_streaming_declarative_shadow_dom_enabled_>;
+  using ScopedDeclarativeShadowDOMSerializable = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_declarative_shadow_dom_serializable_enabled_>;
+  using ScopedDeprecatedTemplateShadowRoot = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_deprecated_template_shadow_root_enabled_>;
+  using ScopedDeprecateUnloadOptOut = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_deprecate_unload_opt_out_enabled_>;
   using ScopedDesktopCaptureDisableLocalEchoControl = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_desktop_capture_disable_local_echo_control_enabled_>;
   using ScopedDesktopPWAsAdditionalWindowingControls = ScopedRuntimeEnabledFeature<
@@ -459,6 +453,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_disable_third_party_storage_partitioning_enabled_>;
   using ScopedDispatchHiddenVisibilityTransitions = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_dispatch_hidden_visibility_transitions_enabled_>;
+  using ScopedDisplayContentsFocusable = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_display_contents_focusable_enabled_>;
   using ScopedDisplayCutoutAPI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_display_cutout_api_enabled_>;
   using ScopedDocumentBaseURIFix = ScopedRuntimeEnabledFeature<
@@ -483,6 +479,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_document_render_blocking_enabled_>;
   using ScopedDocumentWrite = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_document_write_enabled_>;
+  using ScopedDOMParserUsesHTMLFastPathParser = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_dom_parser_uses_html_fast_path_parser_enabled_>;
   using ScopedDOMPartsAPI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_dom_parts_api_enabled_>;
   using ScopedDontFireDblclickOnDisabledFormControls = ScopedRuntimeEnabledFeature<
@@ -493,8 +491,10 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_edit_context_enabled_>;
   using ScopedElementCapture = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_element_capture_enabled_>;
-  using ScopedEmptyCaretInVertical = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_empty_caret_in_vertical_enabled_>;
+  using ScopedElementGetHTML = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_element_get_html_enabled_>;
+  using ScopedElementGetInnerHTML = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_element_get_inner_html_enabled_>;
   using ScopedEmptyClipboardRead = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_empty_clipboard_read_enabled_>;
   using ScopedEnforceAnonymityExposure = ScopedRuntimeEnabledFeature<
@@ -587,6 +587,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_fledge_clear_origin_joined_ad_interest_groups_enabled_>;
   using ScopedFledgeDirectFromSellerSignalsHeaderAdSlot = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_fledge_direct_from_seller_signals_header_ad_slot_enabled_>;
+  using ScopedFledgeFeatureDetection = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_fledge_feature_detection_enabled_>;
   using ScopedFledgeNegativeTargeting = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_fledge_negative_targeting_enabled_>;
   using ScopedFledgeTrustedBiddingSignalsSlotSize = ScopedRuntimeEnabledFeature<
@@ -599,8 +601,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_flush_parser_before_creating_custom_elements_enabled_>;
   using ScopedFocusgroup = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_focusgroup_enabled_>;
-  using ScopedFocuslessSpatialNavigation = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_focusless_spatial_navigation_enabled_>;
   using ScopedFocusStyleInvalidationOnPageActivation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_focus_style_invalidation_on_page_activation_enabled_>;
   using ScopedFontAccess = ScopedRuntimeEnabledFeature<
@@ -613,8 +613,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_font_palette_animation_enabled_>;
   using ScopedFontSrcLocalMatching = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_font_src_local_matching_enabled_>;
-  using ScopedFontVariantPosition = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_font_variant_position_enabled_>;
   using ScopedForcedColors = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_forced_colors_enabled_>;
   using ScopedForcedColorsPreserveParentColor = ScopedRuntimeEnabledFeature<
@@ -653,6 +651,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_get_display_media_enabled_>;
   using ScopedGetDisplayMediaRequiresUserActivation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_get_display_media_requires_user_activation_enabled_>;
+  using ScopedGetNextSiblingPositionWhenLastChild = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_get_next_sibling_position_when_last_child_enabled_>;
   using ScopedGroupEffect = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_group_effect_enabled_>;
   using ScopedHandwritingRecognition = ScopedRuntimeEnabledFeature<
@@ -675,8 +675,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_html_invoke_actions_v_2_enabled_>;
   using ScopedHTMLInvokeTargetAttribute = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_html_invoke_target_attribute_enabled_>;
-  using ScopedHTMLLangNewInheritance = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_html_lang_new_inheritance_enabled_>;
   using ScopedHTMLParserFastPathBulkInsertNotify = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_html_parser_fast_path_bulk_insert_notify_enabled_>;
   using ScopedHTMLParserYieldAndDelayOftenForTesting = ScopedRuntimeEnabledFeature<
@@ -695,18 +693,16 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_implicit_root_scroller_enabled_>;
   using ScopedImportAttributesDisallowUnknownKeys = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_import_attributes_disallow_unknown_keys_enabled_>;
+  using ScopedImprovedXMLErrors = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_improved_xml_errors_enabled_>;
   using ScopedIncomingCallNotifications = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_incoming_call_notifications_enabled_>;
-  using ScopedInertAttribute = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_inert_attribute_enabled_>;
   using ScopedInertDisplayTransition = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_inert_display_transition_enabled_>;
   using ScopedInfiniteCullRect = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_infinite_cull_rect_enabled_>;
   using ScopedInheritUserModifyWithoutContenteditable = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_inherit_user_modify_without_contenteditable_enabled_>;
-  using ScopedInnerHTMLParserFastpath = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_inner_html_parser_fastpath_enabled_>;
   using ScopedInnerHTMLParserFastpathLogFailure = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_inner_html_parser_fastpath_log_failure_enabled_>;
   using ScopedInputMultipleFieldsUI = ScopedRuntimeEnabledFeature<
@@ -761,12 +757,10 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_lcp_multiple_updates_per_element_enabled_>;
   using ScopedLegacyWindowsDWriteFontFallback = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_legacy_windows_d_write_font_fallback_enabled_>;
-  using ScopedLongAnimationFrameMonitoring = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_long_animation_frame_monitoring_enabled_>;
+  using ScopedLockedMode = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_locked_mode_enabled_>;
   using ScopedLongAnimationFrameTiming = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_long_animation_frame_timing_enabled_>;
-  using ScopedLongAnimationFrameUKM = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_long_animation_frame_ukm_enabled_>;
   using ScopedLongTaskFromLongAnimationFrame = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_long_task_from_long_animation_frame_enabled_>;
   using ScopedMacFontsDeprecateFontTraitsWorkaround = ScopedRuntimeEnabledFeature<
@@ -779,6 +773,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_machine_learning_neural_network_enabled_>;
   using ScopedManagedConfiguration = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_managed_configuration_enabled_>;
+  using ScopedMaskingGraphemeClusters = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_masking_grapheme_clusters_enabled_>;
   using ScopedMeasureMemory = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_measure_memory_enabled_>;
   using ScopedMediaCapabilitiesDynamicRange = ScopedRuntimeEnabledFeature<
@@ -795,6 +791,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_media_capture_camera_controls_enabled_>;
   using ScopedMediaCaptureConfigurationChange = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_media_capture_configuration_change_enabled_>;
+  using ScopedMediaCaptureVoiceIsolation = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_media_capture_voice_isolation_enabled_>;
   using ScopedMediaCastOverlayButton = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_media_cast_overlay_button_enabled_>;
   using ScopedMediaControlsExpandGesture = ScopedRuntimeEnabledFeature<
@@ -817,8 +815,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_media_session_chapter_information_enabled_>;
   using ScopedMediaSessionEnterPictureInPicture = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_media_session_enter_picture_in_picture_enabled_>;
-  using ScopedMediaSessionSlides = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_media_session_slides_enabled_>;
   using ScopedMediaSourceExperimental = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_media_source_experimental_enabled_>;
   using ScopedMediaSourceExtensionsForWebCodecs = ScopedRuntimeEnabledFeature<
@@ -833,6 +829,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_middle_click_autoscroll_enabled_>;
   using ScopedMobileLayoutTheme = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_mobile_layout_theme_enabled_>;
+  using ScopedModelExecutionAPI = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_model_execution_api_enabled_>;
   using ScopedMojoJS = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_mojo_js_enabled_>;
   using ScopedMojoJSTest = ScopedRuntimeEnabledFeature<
@@ -937,6 +935,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_page_freeze_opt_in_enabled_>;
   using ScopedPageFreezeOptOut = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_page_freeze_opt_out_enabled_>;
+  using ScopedPageMarginBoxes = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_page_margin_boxes_enabled_>;
   using ScopedPagePopup = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_page_popup_enabled_>;
   using ScopedPageRevealEvent = ScopedRuntimeEnabledFeature<
@@ -973,6 +973,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_percent_based_scrolling_enabled_>;
   using ScopedPerformanceManagerInstrumentation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_performance_manager_instrumentation_enabled_>;
+  using ScopedPerformanceMarkFeatureUsage = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_performance_mark_feature_usage_enabled_>;
   using ScopedPerformanceNavigateSystemEntropy = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_performance_navigate_system_entropy_enabled_>;
   using ScopedPeriodicBackgroundSync = ScopedRuntimeEnabledFeature<
@@ -983,8 +985,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_permission_element_enabled_>;
   using ScopedPermissions = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_permissions_enabled_>;
-  using ScopedPermissionsPolicyReporting = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_permissions_policy_reporting_enabled_>;
   using ScopedPermissionsRequestRevoke = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_permissions_request_revoke_enabled_>;
   using ScopedPNaCl = ScopedRuntimeEnabledFeature<
@@ -997,12 +997,12 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_position_outside_tab_span_check_sibling_node_enabled_>;
   using ScopedPreciseMemoryInfo = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_precise_memory_info_enabled_>;
+  using ScopedPreferDefaultScrollbarStyles = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_prefer_default_scrollbar_styles_enabled_>;
   using ScopedPreferNonCompositedScrolling = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_prefer_non_composited_scrolling_enabled_>;
   using ScopedPrefersReducedData = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_prefers_reduced_data_enabled_>;
-  using ScopedPrefersReducedTransparency = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_prefers_reduced_transparency_enabled_>;
   using ScopedPrefixedVideoFullscreen = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_prefixed_video_fullscreen_enabled_>;
   using ScopedPrePaintAncestorsOfMissedOOF = ScopedRuntimeEnabledFeature<
@@ -1017,6 +1017,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_prevent_reading_system_accent_color_enabled_>;
   using ScopedPrivacySandboxAdsAPIs = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_privacy_sandbox_ads_api_s_enabled_>;
+  using ScopedPrivateAggregationAuctionReportBuyerDebugModeConfig = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_private_aggregation_auction_report_buyer_debug_mode_config_enabled_>;
   using ScopedPrivateNetworkAccessNonSecureContextsAllowed = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_private_network_access_non_secure_contexts_allowed_enabled_>;
   using ScopedPrivateNetworkAccessNullIpAddress = ScopedRuntimeEnabledFeature<
@@ -1063,18 +1065,14 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_remove_mobile_viewport_double_tap_enabled_>;
   using ScopedRemoveZoomAdjustmentOfBoundingBox = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_remove_zoom_adjustment_of_bounding_box_enabled_>;
+  using ScopedRenderBlockingInlineModuleScript = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_render_blocking_inline_module_script_enabled_>;
   using ScopedRenderBlockingStatus = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_render_blocking_status_enabled_>;
   using ScopedRenderPriorityAttribute = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_render_priority_attribute_enabled_>;
-  using ScopedResourceHintsLeastRestrictiveCSP = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_resource_hints_least_restrictive_csp_enabled_>;
   using ScopedResourceTimingContentType = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_resource_timing_content_type_enabled_>;
-  using ScopedResourceTimingInterimResponseTimes = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_resource_timing_interim_response_times_enabled_>;
-  using ScopedResourceTimingResponseStatus = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_resource_timing_response_status_enabled_>;
   using ScopedResourceTimingUseCORSForBodySizes = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_resource_timing_use_cors_for_body_sizes_enabled_>;
   using ScopedRestrictGamepadAccess = ScopedRuntimeEnabledFeature<
@@ -1115,8 +1113,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_scripted_speech_recognition_enabled_>;
   using ScopedScriptedSpeechSynthesis = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_scripted_speech_synthesis_enabled_>;
-  using ScopedScriptingMediaFeature = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_scripting_media_feature_enabled_>;
   using ScopedScrollbarColor = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_scrollbar_color_enabled_>;
   using ScopedScrollbarWidth = ScopedRuntimeEnabledFeature<
@@ -1161,6 +1157,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_service_worker_static_router_enabled_>;
   using ScopedSetSequentialFocusStartingPoint = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_set_sequential_focus_starting_point_enabled_>;
+  using ScopedShadowRootAttachmentNewBehavior = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_shadow_root_attachment_new_behavior_enabled_>;
   using ScopedSharedArrayBuffer = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_shared_array_buffer_enabled_>;
   using ScopedSharedArrayBufferOnDesktop = ScopedRuntimeEnabledFeature<
@@ -1181,8 +1179,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_site_initiated_mirroring_enabled_>;
   using ScopedSkipAd = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_skip_ad_enabled_>;
-  using ScopedSkipShadowHostWhenHoveringForTooltip = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_skip_shadow_host_when_hovering_for_tooltip_enabled_>;
   using ScopedSkipTouchEventFilter = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_skip_touch_event_filter_enabled_>;
   using ScopedSmartCard = ScopedRuntimeEnabledFeature<
@@ -1193,12 +1189,12 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_smil_auto_suspend_on_lag_enabled_>;
   using ScopedSnapBorderWidthsBeforeLayout = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_snap_border_widths_before_layout_enabled_>;
+  using ScopedSoftNavigationDetection = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_soft_navigation_detection_enabled_>;
   using ScopedSoftNavigationHeuristics = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_soft_navigation_heuristics_enabled_>;
   using ScopedSoftNavigationHeuristicsExposeFPAndFCP = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_soft_navigation_heuristics_expose_fp_and_fcp_enabled_>;
-  using ScopedSolidColorLayers = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_solid_color_layers_enabled_>;
   using ScopedSparseObjectPaintProperties = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_sparse_object_paint_properties_enabled_>;
   using ScopedSpeculationRulesDocumentRules = ScopedRuntimeEnabledFeature<
@@ -1209,6 +1205,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_speculation_rules_eagerness_enabled_>;
   using ScopedSpeculationRulesFetchFromHeader = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_speculation_rules_fetch_from_header_enabled_>;
+  using ScopedSpeculationRulesImplicitSource = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_speculation_rules_implicit_source_enabled_>;
   using ScopedSpeculationRulesNoVarySearchHint = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_speculation_rules_no_vary_search_hint_enabled_>;
   using ScopedSpeculationRulesNoVarySearchHintShippedByDefault = ScopedRuntimeEnabledFeature<
@@ -1239,6 +1237,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_storage_buckets_locks_enabled_>;
   using ScopedStrictMimeTypesForWorkers = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_strict_mime_types_for_workers_enabled_>;
+  using ScopedStylableSelect = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_stylable_select_enabled_>;
   using ScopedStylusHandwriting = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_stylus_handwriting_enabled_>;
   using ScopedSuggestionPickerDarkModeSupport = ScopedRuntimeEnabledFeature<
@@ -1247,8 +1247,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_svg_cross_origin_attribute_enabled_>;
   using ScopedSvgNoPixelSnappingScaleAdjustment = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_svg_no_pixel_snapping_scale_adjustment_enabled_>;
-  using ScopedSvgTextFixHittestAfterScale = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_svg_text_fix_hittest_after_scale_enabled_>;
   using ScopedSynthesizedKeyboardEventsForAccessibilityActions = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_synthesized_keyboard_events_for_accessibility_actions_enabled_>;
   using ScopedSystemWakeLock = ScopedRuntimeEnabledFeature<
@@ -1281,6 +1279,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_topics_api_enabled_>;
   using ScopedTopicsDocumentAPI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_topics_document_api_enabled_>;
+  using ScopedTopLevelTpcd = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_top_level_tpcd_enabled_>;
   using ScopedTouchDragAndContextMenu = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_touch_drag_and_context_menu_enabled_>;
   using ScopedTouchDragOnShortPress = ScopedRuntimeEnabledFeature<
@@ -1291,8 +1291,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_touch_text_editing_redesign_enabled_>;
   using ScopedTpcd = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_tpcd_enabled_>;
-  using ScopedTpcd1p = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_tpcd_1_p_enabled_>;
   using ScopedTranslateService = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_translate_service_enabled_>;
   using ScopedTrustedTypeBeforePolicyCreationEvent = ScopedRuntimeEnabledFeature<
@@ -1331,8 +1329,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_used_color_scheme_root_scrollbars_enabled_>;
   using ScopedUserActivationSameOriginVisibility = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_user_activation_same_origin_visibility_enabled_>;
-  using ScopedUserAgentClientHint = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_user_agent_client_hint_enabled_>;
   using ScopedUserValidUserInvalid = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_user_valid_user_invalid_enabled_>;
   using ScopedV8IdleTasks = ScopedRuntimeEnabledFeature<
@@ -1361,8 +1357,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_view_transition_types_enabled_>;
   using ScopedVisibilityCollapseColumn = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_visibility_collapse_column_enabled_>;
-  using ScopedVisibilityStateEntry = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_visibility_state_entry_enabled_>;
   using ScopedWakeLock = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_wake_lock_enabled_>;
   using ScopedWarnOnContentVisibilityRenderAccess = ScopedRuntimeEnabledFeature<
@@ -1387,10 +1381,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_web_app_translations_enabled_>;
   using ScopedWebAppUrlHandling = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_app_url_handling_enabled_>;
-  using ScopedWebAppWindowControlsOverlay = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_web_app_window_controls_overlay_enabled_>;
-  using ScopedWebAssemblyGC = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_web_assembly_gc_enabled_>;
   using ScopedWebAssemblyJSStringBuiltins = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_assembly_js_string_builtins_enabled_>;
   using ScopedWebAuth = ScopedRuntimeEnabledFeature<
@@ -1437,6 +1427,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_webgl_image_chromium_enabled_>;
   using ScopedWebGPUDeveloperFeatures = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_webgpu_developer_features_enabled_>;
+  using ScopedWebGPUExperimentalFeatures = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_webgpu_experimental_features_enabled_>;
   using ScopedWebHID = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_hid_enabled_>;
   using ScopedWebHIDOnServiceWorkers = ScopedRuntimeEnabledFeature<
@@ -1445,8 +1437,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_web_identity_digital_credentials_enabled_>;
   using ScopedWebIDLBigIntUsesToBigInt = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_idl_big_int_uses_to_big_int_enabled_>;
-  using ScopedWebKitScrollbarStyling = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_web_kit_scrollbar_styling_enabled_>;
   using ScopedWebNFC = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_nfc_enabled_>;
   using ScopedWebOTP = ScopedRuntimeEnabledFeature<
@@ -1511,8 +1501,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_zero_copy_tab_capture_enabled_>;
 };
 
-using ScopedAbortSignalAnyForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedAbortSignalAny;
 using ScopedAccelerated2dCanvasForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAccelerated2dCanvas;
 using ScopedAcceleratedSmallCanvasesForTest =
@@ -1535,8 +1523,6 @@ using ScopedAccessibilitySerializationSizeMetricsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAccessibilitySerializationSizeMetrics;
 using ScopedAccessibilityUseAXPositionForDocumentMarkersForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAccessibilityUseAXPositionForDocumentMarkers;
-using ScopedAccordionPatternForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedAccordionPattern;
 using ScopedAddIdentityInCanMakePaymentEventForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAddIdentityInCanMakePaymentEvent;
 using ScopedAddressSpaceForTest =
@@ -1559,8 +1545,10 @@ using ScopedAnonymousIframeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAnonymousIframe;
 using ScopedAOMAriaRelationshipPropertiesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAOMAriaRelationshipProperties;
-using ScopedArrowKeysInVerticalWritingModesForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedArrowKeysInVerticalWritingModes;
+using ScopedAppTitleForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedAppTitle;
+using ScopedAsyncClipboardImplicitPermissionForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedAsyncClipboardImplicitPermission;
 using ScopedAttributionReportingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAttributionReporting;
 using ScopedAttributionReportingCrossAppWebForTest =
@@ -1575,8 +1563,6 @@ using ScopedAudioVideoTracksForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAudioVideoTracks;
 using ScopedAutoDarkModeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAutoDarkMode;
-using ScopedAutoDisableAccessibilityV2ForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedAutoDisableAccessibilityV2;
 using ScopedAutomationControlledForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedAutomationControlled;
 using ScopedAutoplayIgnoresWebAudioForTest =
@@ -1589,8 +1575,6 @@ using ScopedBackdropInheritOriginatingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBackdropInheritOriginating;
 using ScopedBackfaceVisibilityInteropForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBackfaceVisibilityInterop;
-using ScopedBackfaceVisibilityNewInheritanceForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedBackfaceVisibilityNewInheritance;
 using ScopedBackForwardCacheForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBackForwardCache;
 using ScopedBackForwardCacheExperimentHTTPHeaderForTest =
@@ -1601,18 +1585,16 @@ using ScopedBackgroundFetchForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBackgroundFetch;
 using ScopedBarcodeDetectorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBarcodeDetector;
+using ScopedBdiElementDirInheritanceForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedBdiElementDirInheritance;
 using ScopedBeforeunloadEventCancelByPreventDefaultForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBeforeunloadEventCancelByPreventDefault;
 using ScopedBidiCaretAffinityForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBidiCaretAffinity;
 using ScopedBlinkExtensionChromeOSForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBlinkExtensionChromeOS;
-using ScopedBlinkExtensionChromeOSHIDForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedBlinkExtensionChromeOSHID;
-using ScopedBlinkExtensionChromeOSTelemetryForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedBlinkExtensionChromeOSTelemetry;
-using ScopedBlinkExtensionChromeOSWindowManagementForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedBlinkExtensionChromeOSWindowManagement;
+using ScopedBlinkExtensionChromeOSKioskForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedBlinkExtensionChromeOSKiosk;
 using ScopedBlinkExtensionDiagnosticsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBlinkExtensionDiagnostics;
 using ScopedBlinkLifecycleScriptForbiddenForTest =
@@ -1621,8 +1603,6 @@ using ScopedBlinkRuntimeCallStatsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBlinkRuntimeCallStats;
 using ScopedBlockingFocusWithoutUserActivationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBlockingFocusWithoutUserActivation;
-using ScopedBlockRubyConsoleMessageForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedBlockRubyConsoleMessage;
 using ScopedBlockRubyWrappingInlineRubyForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedBlockRubyWrappingInlineRuby;
 using ScopedBoundaryEventDispatchTracksNodeRemovalForTest =
@@ -1643,6 +1623,8 @@ using ScopedCanvas2dImageChromiumForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCanvas2dImageChromium;
 using ScopedCanvas2dLayersForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCanvas2dLayers;
+using ScopedCanvas2dMeshForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCanvas2dMesh;
 using ScopedCanvas2dScrollPathIntoViewForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCanvas2dScrollPathIntoView;
 using ScopedCanvasFloatingPointForTest =
@@ -1651,6 +1633,8 @@ using ScopedCanvasHDRForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCanvasHDR;
 using ScopedCanvasImageSmoothingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCanvasImageSmoothing;
+using ScopedCanvasWebGPUAccessForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCanvasWebGPUAccess;
 using ScopedCapabilityDelegationDisplayCaptureRequestForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCapabilityDelegationDisplayCaptureRequest;
 using ScopedCaptureControllerForTest =
@@ -1661,18 +1645,14 @@ using ScopedCapturedSurfaceControlForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCapturedSurfaceControl;
 using ScopedCaptureHandleForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCaptureHandle;
+using ScopedCaretPositionFromPointForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCaretPositionFromPoint;
 using ScopedCCTNewRFMPushBehaviorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCCTNewRFMPushBehavior;
 using ScopedCheckVisibilityExtraPropertiesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCheckVisibilityExtraProperties;
 using ScopedClickToCapturedPointerForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedClickToCapturedPointer;
-using ScopedClientHintsMetaEquivDelegateCHForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedClientHintsMetaEquivDelegateCH;
-using ScopedClientHintsMetaHTTPEquivAcceptCHForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedClientHintsMetaHTTPEquivAcceptCH;
-using ScopedClientHintThirdPartyDelegationForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedClientHintThirdPartyDelegation;
 using ScopedClipboardSupportedTypesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedClipboardSupportedTypes;
 using ScopedClipboardSvgForTest =
@@ -1779,8 +1759,6 @@ using ScopedCSSFontSizeAdjustForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSFontSizeAdjust;
 using ScopedCSSHexAlphaColorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSHexAlphaColor;
-using ScopedCSSImageSetForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCSSImageSet;
 using ScopedCSSLayoutAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSLayoutAPI;
 using ScopedCSSLinearTimingFunctionForTest =
@@ -1819,18 +1797,16 @@ using ScopedCSSParserIgnoreCharsetForURLsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSParserIgnoreCharsetForURLs;
 using ScopedCSSPhraseLineBreakForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSPhraseLineBreak;
-using ScopedCSSPictureInPictureForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCSSPictureInPicture;
 using ScopedCSSPositionStickyStaticScrollPositionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSPositionStickyStaticScrollPosition;
 using ScopedCSSProgressNotationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSProgressNotation;
-using ScopedCSSPseudoDirForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCSSPseudoDir;
 using ScopedCSSPseudoPlayingPausedForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSPseudoPlayingPaused;
 using ScopedCSSRelativeColorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSRelativeColor;
+using ScopedCSSResizeAutoForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSResizeAuto;
 using ScopedCSSScopeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSScope;
 using ScopedCSSScrollSnapEventsForTest =
@@ -1865,18 +1841,20 @@ using ScopedCSSTextAutoSpaceForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTextAutoSpace;
 using ScopedCSSTextBoxTrimForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTextBoxTrim;
+using ScopedCSSTextSpacingForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSTextSpacing;
 using ScopedCSSTextSpacingTrimForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTextSpacingTrim;
 using ScopedCSSTextWrapBalanceByScoreForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTextWrapBalanceByScore;
 using ScopedCSSTextWrapPrettyForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTextWrapPretty;
-using ScopedCSSTransformBoxAdditionalKeywordsForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCSSTransformBoxAdditionalKeywords;
 using ScopedCSSTransitionDiscreteForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTransitionDiscrete;
 using ScopedCSSTreeScopedTimelinesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSTreeScopedTimelines;
+using ScopedCSSUnknownContainerQueriesNoSelectionForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSUnknownContainerQueriesNoSelection;
 using ScopedCSSUpdateMediaFeatureForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSUpdateMediaFeature;
 using ScopedCSSUserSelectContainForTest =
@@ -1887,18 +1865,24 @@ using ScopedCSSVariables2TransformValuesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSVariables2TransformValues;
 using ScopedCSSVideoDynamicRangeMediaQueriesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSVideoDynamicRangeMediaQueries;
-using ScopedCSSViewportUnits4ForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCSSViewportUnits4;
 using ScopedCSSViewTimelineInsetShorthandForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSViewTimelineInsetShorthand;
+using ScopedCSSViewTransitionClassForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSViewTransitionClass;
 using ScopedCustomElementsGetNameForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCustomElementsGetName;
 using ScopedDatabaseForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDatabase;
+using ScopedDataTransferClearStringItemsForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDataTransferClearStringItems;
 using ScopedDateInputInlineBlockForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDateInputInlineBlock;
-using ScopedDeprecatedNonStreamingDeclarativeShadowDOMForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedDeprecatedNonStreamingDeclarativeShadowDOM;
+using ScopedDeclarativeShadowDOMSerializableForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDeclarativeShadowDOMSerializable;
+using ScopedDeprecatedTemplateShadowRootForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDeprecatedTemplateShadowRoot;
+using ScopedDeprecateUnloadOptOutForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDeprecateUnloadOptOut;
 using ScopedDesktopCaptureDisableLocalEchoControlForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDesktopCaptureDisableLocalEchoControl;
 using ScopedDesktopPWAsAdditionalWindowingControlsForTest =
@@ -1937,6 +1921,8 @@ using ScopedDisableThirdPartyStoragePartitioningForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDisableThirdPartyStoragePartitioning;
 using ScopedDispatchHiddenVisibilityTransitionsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDispatchHiddenVisibilityTransitions;
+using ScopedDisplayContentsFocusableForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDisplayContentsFocusable;
 using ScopedDisplayCutoutAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDisplayCutoutAPI;
 using ScopedDocumentBaseURIFixForTest =
@@ -1961,6 +1947,8 @@ using ScopedDocumentRenderBlockingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDocumentRenderBlocking;
 using ScopedDocumentWriteForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDocumentWrite;
+using ScopedDOMParserUsesHTMLFastPathParserForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDOMParserUsesHTMLFastPathParser;
 using ScopedDOMPartsAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDOMPartsAPI;
 using ScopedDontFireDblclickOnDisabledFormControlsForTest =
@@ -1971,8 +1959,10 @@ using ScopedEditContextForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedEditContext;
 using ScopedElementCaptureForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedElementCapture;
-using ScopedEmptyCaretInVerticalForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedEmptyCaretInVertical;
+using ScopedElementGetHTMLForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedElementGetHTML;
+using ScopedElementGetInnerHTMLForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedElementGetInnerHTML;
 using ScopedEmptyClipboardReadForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedEmptyClipboardRead;
 using ScopedEnforceAnonymityExposureForTest =
@@ -2065,6 +2055,8 @@ using ScopedFledgeClearOriginJoinedAdInterestGroupsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFledgeClearOriginJoinedAdInterestGroups;
 using ScopedFledgeDirectFromSellerSignalsHeaderAdSlotForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFledgeDirectFromSellerSignalsHeaderAdSlot;
+using ScopedFledgeFeatureDetectionForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedFledgeFeatureDetection;
 using ScopedFledgeNegativeTargetingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFledgeNegativeTargeting;
 using ScopedFledgeTrustedBiddingSignalsSlotSizeForTest =
@@ -2077,8 +2069,6 @@ using ScopedFlushParserBeforeCreatingCustomElementsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFlushParserBeforeCreatingCustomElements;
 using ScopedFocusgroupForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFocusgroup;
-using ScopedFocuslessSpatialNavigationForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedFocuslessSpatialNavigation;
 using ScopedFocusStyleInvalidationOnPageActivationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFocusStyleInvalidationOnPageActivation;
 using ScopedFontAccessForTest =
@@ -2091,8 +2081,6 @@ using ScopedFontPaletteAnimationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFontPaletteAnimation;
 using ScopedFontSrcLocalMatchingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFontSrcLocalMatching;
-using ScopedFontVariantPositionForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedFontVariantPosition;
 using ScopedForcedColorsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedForcedColors;
 using ScopedForcedColorsPreserveParentColorForTest =
@@ -2131,6 +2119,8 @@ using ScopedGetDisplayMediaForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedGetDisplayMedia;
 using ScopedGetDisplayMediaRequiresUserActivationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedGetDisplayMediaRequiresUserActivation;
+using ScopedGetNextSiblingPositionWhenLastChildForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedGetNextSiblingPositionWhenLastChild;
 using ScopedGroupEffectForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedGroupEffect;
 using ScopedHandwritingRecognitionForTest =
@@ -2153,8 +2143,6 @@ using ScopedHTMLInvokeActionsV2ForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedHTMLInvokeActionsV2;
 using ScopedHTMLInvokeTargetAttributeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedHTMLInvokeTargetAttribute;
-using ScopedHTMLLangNewInheritanceForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedHTMLLangNewInheritance;
 using ScopedHTMLParserFastPathBulkInsertNotifyForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedHTMLParserFastPathBulkInsertNotify;
 using ScopedHTMLParserYieldAndDelayOftenForTestingForTest =
@@ -2173,18 +2161,16 @@ using ScopedImplicitRootScrollerForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedImplicitRootScroller;
 using ScopedImportAttributesDisallowUnknownKeysForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedImportAttributesDisallowUnknownKeys;
+using ScopedImprovedXMLErrorsForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedImprovedXMLErrors;
 using ScopedIncomingCallNotificationsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedIncomingCallNotifications;
-using ScopedInertAttributeForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedInertAttribute;
 using ScopedInertDisplayTransitionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedInertDisplayTransition;
 using ScopedInfiniteCullRectForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedInfiniteCullRect;
 using ScopedInheritUserModifyWithoutContenteditableForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedInheritUserModifyWithoutContenteditable;
-using ScopedInnerHTMLParserFastpathForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedInnerHTMLParserFastpath;
 using ScopedInnerHTMLParserFastpathLogFailureForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedInnerHTMLParserFastpathLogFailure;
 using ScopedInputMultipleFieldsUIForTest =
@@ -2239,12 +2225,10 @@ using ScopedLCPMultipleUpdatesPerElementForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLCPMultipleUpdatesPerElement;
 using ScopedLegacyWindowsDWriteFontFallbackForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLegacyWindowsDWriteFontFallback;
-using ScopedLongAnimationFrameMonitoringForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedLongAnimationFrameMonitoring;
+using ScopedLockedModeForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedLockedMode;
 using ScopedLongAnimationFrameTimingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLongAnimationFrameTiming;
-using ScopedLongAnimationFrameUKMForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedLongAnimationFrameUKM;
 using ScopedLongTaskFromLongAnimationFrameForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLongTaskFromLongAnimationFrame;
 using ScopedMacFontsDeprecateFontTraitsWorkaroundForTest =
@@ -2257,6 +2241,8 @@ using ScopedMachineLearningNeuralNetworkForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMachineLearningNeuralNetwork;
 using ScopedManagedConfigurationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedManagedConfiguration;
+using ScopedMaskingGraphemeClustersForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedMaskingGraphemeClusters;
 using ScopedMeasureMemoryForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMeasureMemory;
 using ScopedMediaCapabilitiesDynamicRangeForTest =
@@ -2273,6 +2259,8 @@ using ScopedMediaCaptureCameraControlsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMediaCaptureCameraControls;
 using ScopedMediaCaptureConfigurationChangeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMediaCaptureConfigurationChange;
+using ScopedMediaCaptureVoiceIsolationForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedMediaCaptureVoiceIsolation;
 using ScopedMediaCastOverlayButtonForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMediaCastOverlayButton;
 using ScopedMediaControlsExpandGestureForTest =
@@ -2295,8 +2283,6 @@ using ScopedMediaSessionChapterInformationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMediaSessionChapterInformation;
 using ScopedMediaSessionEnterPictureInPictureForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMediaSessionEnterPictureInPicture;
-using ScopedMediaSessionSlidesForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedMediaSessionSlides;
 using ScopedMediaSourceExperimentalForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMediaSourceExperimental;
 using ScopedMediaSourceExtensionsForWebCodecsForTest =
@@ -2311,6 +2297,8 @@ using ScopedMiddleClickAutoscrollForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMiddleClickAutoscroll;
 using ScopedMobileLayoutThemeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMobileLayoutTheme;
+using ScopedModelExecutionAPIForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedModelExecutionAPI;
 using ScopedMojoJSForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMojoJS;
 using ScopedMojoJSTestForTest =
@@ -2415,6 +2403,8 @@ using ScopedPageFreezeOptInForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPageFreezeOptIn;
 using ScopedPageFreezeOptOutForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPageFreezeOptOut;
+using ScopedPageMarginBoxesForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedPageMarginBoxes;
 using ScopedPagePopupForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPagePopup;
 using ScopedPageRevealEventForTest =
@@ -2451,6 +2441,8 @@ using ScopedPercentBasedScrollingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPercentBasedScrolling;
 using ScopedPerformanceManagerInstrumentationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPerformanceManagerInstrumentation;
+using ScopedPerformanceMarkFeatureUsageForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedPerformanceMarkFeatureUsage;
 using ScopedPerformanceNavigateSystemEntropyForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPerformanceNavigateSystemEntropy;
 using ScopedPeriodicBackgroundSyncForTest =
@@ -2461,8 +2453,6 @@ using ScopedPermissionElementForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPermissionElement;
 using ScopedPermissionsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPermissions;
-using ScopedPermissionsPolicyReportingForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedPermissionsPolicyReporting;
 using ScopedPermissionsRequestRevokeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPermissionsRequestRevoke;
 using ScopedPNaClForTest =
@@ -2475,12 +2465,12 @@ using ScopedPositionOutsideTabSpanCheckSiblingNodeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPositionOutsideTabSpanCheckSiblingNode;
 using ScopedPreciseMemoryInfoForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPreciseMemoryInfo;
+using ScopedPreferDefaultScrollbarStylesForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedPreferDefaultScrollbarStyles;
 using ScopedPreferNonCompositedScrollingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPreferNonCompositedScrolling;
 using ScopedPrefersReducedDataForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPrefersReducedData;
-using ScopedPrefersReducedTransparencyForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedPrefersReducedTransparency;
 using ScopedPrefixedVideoFullscreenForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPrefixedVideoFullscreen;
 using ScopedPrePaintAncestorsOfMissedOOFForTest =
@@ -2495,6 +2485,8 @@ using ScopedPreventReadingSystemAccentColorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPreventReadingSystemAccentColor;
 using ScopedPrivacySandboxAdsAPIsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPrivacySandboxAdsAPIs;
+using ScopedPrivateAggregationAuctionReportBuyerDebugModeConfigForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedPrivateAggregationAuctionReportBuyerDebugModeConfig;
 using ScopedPrivateNetworkAccessNonSecureContextsAllowedForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedPrivateNetworkAccessNonSecureContextsAllowed;
 using ScopedPrivateNetworkAccessNullIpAddressForTest =
@@ -2541,18 +2533,14 @@ using ScopedRemoveMobileViewportDoubleTapForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRemoveMobileViewportDoubleTap;
 using ScopedRemoveZoomAdjustmentOfBoundingBoxForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRemoveZoomAdjustmentOfBoundingBox;
+using ScopedRenderBlockingInlineModuleScriptForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedRenderBlockingInlineModuleScript;
 using ScopedRenderBlockingStatusForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRenderBlockingStatus;
 using ScopedRenderPriorityAttributeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRenderPriorityAttribute;
-using ScopedResourceHintsLeastRestrictiveCSPForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedResourceHintsLeastRestrictiveCSP;
 using ScopedResourceTimingContentTypeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedResourceTimingContentType;
-using ScopedResourceTimingInterimResponseTimesForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedResourceTimingInterimResponseTimes;
-using ScopedResourceTimingResponseStatusForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedResourceTimingResponseStatus;
 using ScopedResourceTimingUseCORSForBodySizesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedResourceTimingUseCORSForBodySizes;
 using ScopedRestrictGamepadAccessForTest =
@@ -2593,8 +2581,6 @@ using ScopedScriptedSpeechRecognitionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedScriptedSpeechRecognition;
 using ScopedScriptedSpeechSynthesisForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedScriptedSpeechSynthesis;
-using ScopedScriptingMediaFeatureForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedScriptingMediaFeature;
 using ScopedScrollbarColorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedScrollbarColor;
 using ScopedScrollbarWidthForTest =
@@ -2639,6 +2625,8 @@ using ScopedServiceWorkerStaticRouterForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedServiceWorkerStaticRouter;
 using ScopedSetSequentialFocusStartingPointForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSetSequentialFocusStartingPoint;
+using ScopedShadowRootAttachmentNewBehaviorForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedShadowRootAttachmentNewBehavior;
 using ScopedSharedArrayBufferForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSharedArrayBuffer;
 using ScopedSharedArrayBufferOnDesktopForTest =
@@ -2659,8 +2647,6 @@ using ScopedSiteInitiatedMirroringForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSiteInitiatedMirroring;
 using ScopedSkipAdForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSkipAd;
-using ScopedSkipShadowHostWhenHoveringForTooltipForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedSkipShadowHostWhenHoveringForTooltip;
 using ScopedSkipTouchEventFilterForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSkipTouchEventFilter;
 using ScopedSmartCardForTest =
@@ -2671,12 +2657,12 @@ using ScopedSmilAutoSuspendOnLagForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSmilAutoSuspendOnLag;
 using ScopedSnapBorderWidthsBeforeLayoutForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSnapBorderWidthsBeforeLayout;
+using ScopedSoftNavigationDetectionForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedSoftNavigationDetection;
 using ScopedSoftNavigationHeuristicsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSoftNavigationHeuristics;
 using ScopedSoftNavigationHeuristicsExposeFPAndFCPForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSoftNavigationHeuristicsExposeFPAndFCP;
-using ScopedSolidColorLayersForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedSolidColorLayers;
 using ScopedSparseObjectPaintPropertiesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSparseObjectPaintProperties;
 using ScopedSpeculationRulesDocumentRulesForTest =
@@ -2687,6 +2673,8 @@ using ScopedSpeculationRulesEagernessForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSpeculationRulesEagerness;
 using ScopedSpeculationRulesFetchFromHeaderForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSpeculationRulesFetchFromHeader;
+using ScopedSpeculationRulesImplicitSourceForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedSpeculationRulesImplicitSource;
 using ScopedSpeculationRulesNoVarySearchHintForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSpeculationRulesNoVarySearchHint;
 using ScopedSpeculationRulesNoVarySearchHintShippedByDefaultForTest =
@@ -2717,6 +2705,8 @@ using ScopedStorageBucketsLocksForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStorageBucketsLocks;
 using ScopedStrictMimeTypesForWorkersForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStrictMimeTypesForWorkers;
+using ScopedStylableSelectForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedStylableSelect;
 using ScopedStylusHandwritingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStylusHandwriting;
 using ScopedSuggestionPickerDarkModeSupportForTest =
@@ -2725,8 +2715,6 @@ using ScopedSvgCrossOriginAttributeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSvgCrossOriginAttribute;
 using ScopedSvgNoPixelSnappingScaleAdjustmentForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSvgNoPixelSnappingScaleAdjustment;
-using ScopedSvgTextFixHittestAfterScaleForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedSvgTextFixHittestAfterScale;
 using ScopedSynthesizedKeyboardEventsForAccessibilityActionsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSynthesizedKeyboardEventsForAccessibilityActions;
 using ScopedSystemWakeLockForTest =
@@ -2759,6 +2747,8 @@ using ScopedTopicsAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedTopicsAPI;
 using ScopedTopicsDocumentAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedTopicsDocumentAPI;
+using ScopedTopLevelTpcdForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedTopLevelTpcd;
 using ScopedTouchDragAndContextMenuForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedTouchDragAndContextMenu;
 using ScopedTouchDragOnShortPressForTest =
@@ -2769,8 +2759,6 @@ using ScopedTouchTextEditingRedesignForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedTouchTextEditingRedesign;
 using ScopedTpcdForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedTpcd;
-using ScopedTpcd1pForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedTpcd1p;
 using ScopedTranslateServiceForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedTranslateService;
 using ScopedTrustedTypeBeforePolicyCreationEventForTest =
@@ -2809,8 +2797,6 @@ using ScopedUsedColorSchemeRootScrollbarsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedUsedColorSchemeRootScrollbars;
 using ScopedUserActivationSameOriginVisibilityForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedUserActivationSameOriginVisibility;
-using ScopedUserAgentClientHintForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedUserAgentClientHint;
 using ScopedUserValidUserInvalidForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedUserValidUserInvalid;
 using ScopedV8IdleTasksForTest =
@@ -2839,8 +2825,6 @@ using ScopedViewTransitionTypesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedViewTransitionTypes;
 using ScopedVisibilityCollapseColumnForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedVisibilityCollapseColumn;
-using ScopedVisibilityStateEntryForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedVisibilityStateEntry;
 using ScopedWakeLockForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWakeLock;
 using ScopedWarnOnContentVisibilityRenderAccessForTest =
@@ -2865,10 +2849,6 @@ using ScopedWebAppTranslationsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebAppTranslations;
 using ScopedWebAppUrlHandlingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebAppUrlHandling;
-using ScopedWebAppWindowControlsOverlayForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedWebAppWindowControlsOverlay;
-using ScopedWebAssemblyGCForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedWebAssemblyGC;
 using ScopedWebAssemblyJSStringBuiltinsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebAssemblyJSStringBuiltins;
 using ScopedWebAuthForTest =
@@ -2915,6 +2895,8 @@ using ScopedWebGLImageChromiumForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebGLImageChromium;
 using ScopedWebGPUDeveloperFeaturesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebGPUDeveloperFeatures;
+using ScopedWebGPUExperimentalFeaturesForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedWebGPUExperimentalFeatures;
 using ScopedWebHIDForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebHID;
 using ScopedWebHIDOnServiceWorkersForTest =
@@ -2923,8 +2905,6 @@ using ScopedWebIdentityDigitalCredentialsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebIdentityDigitalCredentials;
 using ScopedWebIDLBigIntUsesToBigIntForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebIDLBigIntUsesToBigInt;
-using ScopedWebKitScrollbarStylingForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedWebKitScrollbarStyling;
 using ScopedWebNFCForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebNFC;
 using ScopedWebOTPForTest =

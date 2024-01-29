@@ -78,8 +78,6 @@
 #include "third_party/blink/public/mojom/frame/tree_scope_type.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/loader/referrer.mojom.h"
 #include "third_party/blink/public/mojom/loader/referrer.mojom-import-headers.h"
-#include "third_party/blink/public/mojom/loader/resource_cache.mojom.h"
-#include "third_party/blink/public/mojom/loader/resource_cache.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/navigation/navigation_policy.mojom.h"
 #include "third_party/blink/public/mojom/navigation/navigation_policy.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info.mojom.h"

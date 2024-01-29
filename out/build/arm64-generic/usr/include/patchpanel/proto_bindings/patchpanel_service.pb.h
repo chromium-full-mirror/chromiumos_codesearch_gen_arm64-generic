@@ -168,6 +168,12 @@ extern NetworkDeviceChangedSignalDefaultTypeInternal _NetworkDeviceChangedSignal
 class NetworkPriority;
 struct NetworkPriorityDefaultTypeInternal;
 extern NetworkPriorityDefaultTypeInternal _NetworkPriority_default_instance_;
+class NotifyARCVPNSocketConnectionEventRequest;
+struct NotifyARCVPNSocketConnectionEventRequestDefaultTypeInternal;
+extern NotifyARCVPNSocketConnectionEventRequestDefaultTypeInternal _NotifyARCVPNSocketConnectionEventRequest_default_instance_;
+class NotifyARCVPNSocketConnectionEventResponse;
+struct NotifyARCVPNSocketConnectionEventResponseDefaultTypeInternal;
+extern NotifyARCVPNSocketConnectionEventResponseDefaultTypeInternal _NotifyARCVPNSocketConnectionEventResponse_default_instance_;
 class NotifyAndroidInteractiveStateRequest;
 struct NotifyAndroidInteractiveStateRequestDefaultTypeInternal;
 extern NotifyAndroidInteractiveStateRequestDefaultTypeInternal _NotifyAndroidInteractiveStateRequest_default_instance_;
@@ -340,6 +346,10 @@ template <>
 ::patchpanel::NetworkDeviceChangedSignal* Arena::CreateMaybeMessage<::patchpanel::NetworkDeviceChangedSignal>(Arena*);
 template <>
 ::patchpanel::NetworkPriority* Arena::CreateMaybeMessage<::patchpanel::NetworkPriority>(Arena*);
+template <>
+::patchpanel::NotifyARCVPNSocketConnectionEventRequest* Arena::CreateMaybeMessage<::patchpanel::NotifyARCVPNSocketConnectionEventRequest>(Arena*);
+template <>
+::patchpanel::NotifyARCVPNSocketConnectionEventResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyARCVPNSocketConnectionEventResponse>(Arena*);
 template <>
 ::patchpanel::NotifyAndroidInteractiveStateRequest* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidInteractiveStateRequest>(Arena*);
 template <>
@@ -12860,6 +12870,271 @@ class SetFeatureFlagResponse final :
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};// -------------------------------------------------------------------
+
+class NotifyARCVPNSocketConnectionEventRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifyARCVPNSocketConnectionEventRequest) */ {
+ public:
+  inline NotifyARCVPNSocketConnectionEventRequest() : NotifyARCVPNSocketConnectionEventRequest(nullptr) {}
+  ~NotifyARCVPNSocketConnectionEventRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR NotifyARCVPNSocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyARCVPNSocketConnectionEventRequest(const NotifyARCVPNSocketConnectionEventRequest& from);
+  NotifyARCVPNSocketConnectionEventRequest(NotifyARCVPNSocketConnectionEventRequest&& from) noexcept
+    : NotifyARCVPNSocketConnectionEventRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyARCVPNSocketConnectionEventRequest& operator=(const NotifyARCVPNSocketConnectionEventRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyARCVPNSocketConnectionEventRequest& operator=(NotifyARCVPNSocketConnectionEventRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const NotifyARCVPNSocketConnectionEventRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyARCVPNSocketConnectionEventRequest* internal_default_instance() {
+    return reinterpret_cast<const NotifyARCVPNSocketConnectionEventRequest*>(
+               &_NotifyARCVPNSocketConnectionEventRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    70;
+
+  friend void swap(NotifyARCVPNSocketConnectionEventRequest& a, NotifyARCVPNSocketConnectionEventRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyARCVPNSocketConnectionEventRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyARCVPNSocketConnectionEventRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifyARCVPNSocketConnectionEventRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifyARCVPNSocketConnectionEventRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifyARCVPNSocketConnectionEventRequest& from);
+  void MergeFrom(const NotifyARCVPNSocketConnectionEventRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifyARCVPNSocketConnectionEventRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "patchpanel.NotifyARCVPNSocketConnectionEventRequest";
+  }
+  protected:
+  explicit NotifyARCVPNSocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgFieldNumber = 1,
+  };
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  bool has_msg() const;
+  void clear_msg() ;
+  const ::patchpanel::SocketConnectionEvent& msg() const;
+  PROTOBUF_NODISCARD ::patchpanel::SocketConnectionEvent* release_msg();
+  ::patchpanel::SocketConnectionEvent* mutable_msg();
+  void set_allocated_msg(::patchpanel::SocketConnectionEvent* msg);
+  private:
+  const ::patchpanel::SocketConnectionEvent& _internal_msg() const;
+  ::patchpanel::SocketConnectionEvent* _internal_mutable_msg();
+  public:
+  void unsafe_arena_set_allocated_msg(
+      ::patchpanel::SocketConnectionEvent* msg);
+  ::patchpanel::SocketConnectionEvent* unsafe_arena_release_msg();
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifyARCVPNSocketConnectionEventRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::patchpanel::SocketConnectionEvent* msg_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};// -------------------------------------------------------------------
+
+class NotifyARCVPNSocketConnectionEventResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifyARCVPNSocketConnectionEventResponse) */ {
+ public:
+  inline NotifyARCVPNSocketConnectionEventResponse() : NotifyARCVPNSocketConnectionEventResponse(nullptr) {}
+  ~NotifyARCVPNSocketConnectionEventResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR NotifyARCVPNSocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyARCVPNSocketConnectionEventResponse(const NotifyARCVPNSocketConnectionEventResponse& from);
+  NotifyARCVPNSocketConnectionEventResponse(NotifyARCVPNSocketConnectionEventResponse&& from) noexcept
+    : NotifyARCVPNSocketConnectionEventResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyARCVPNSocketConnectionEventResponse& operator=(const NotifyARCVPNSocketConnectionEventResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyARCVPNSocketConnectionEventResponse& operator=(NotifyARCVPNSocketConnectionEventResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const NotifyARCVPNSocketConnectionEventResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyARCVPNSocketConnectionEventResponse* internal_default_instance() {
+    return reinterpret_cast<const NotifyARCVPNSocketConnectionEventResponse*>(
+               &_NotifyARCVPNSocketConnectionEventResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    71;
+
+  friend void swap(NotifyARCVPNSocketConnectionEventResponse& a, NotifyARCVPNSocketConnectionEventResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyARCVPNSocketConnectionEventResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyARCVPNSocketConnectionEventResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifyARCVPNSocketConnectionEventResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifyARCVPNSocketConnectionEventResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifyARCVPNSocketConnectionEventResponse& from);
+  void MergeFrom(const NotifyARCVPNSocketConnectionEventResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifyARCVPNSocketConnectionEventResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "patchpanel.NotifyARCVPNSocketConnectionEventResponse";
+  }
+  protected:
+  explicit NotifyARCVPNSocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifyARCVPNSocketConnectionEventResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
 
 // ===================================================================
@@ -20328,6 +20603,101 @@ inline void SetFeatureFlagResponse::_internal_set_enabled(bool value) {
   ;
   _impl_.enabled_ = value;
 }
+
+// -------------------------------------------------------------------
+
+// NotifyARCVPNSocketConnectionEventRequest
+
+// .patchpanel.SocketConnectionEvent msg = 1;
+inline bool NotifyARCVPNSocketConnectionEventRequest::has_msg() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.msg_ != nullptr);
+  return value;
+}
+inline void NotifyARCVPNSocketConnectionEventRequest::clear_msg() {
+  if (_impl_.msg_ != nullptr) _impl_.msg_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::patchpanel::SocketConnectionEvent& NotifyARCVPNSocketConnectionEventRequest::_internal_msg() const {
+  const ::patchpanel::SocketConnectionEvent* p = _impl_.msg_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::SocketConnectionEvent&>(
+      ::patchpanel::_SocketConnectionEvent_default_instance_);
+}
+inline const ::patchpanel::SocketConnectionEvent& NotifyARCVPNSocketConnectionEventRequest::msg() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NotifyARCVPNSocketConnectionEventRequest.msg)
+  return _internal_msg();
+}
+inline void NotifyARCVPNSocketConnectionEventRequest::unsafe_arena_set_allocated_msg(
+    ::patchpanel::SocketConnectionEvent* msg) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.msg_);
+  }
+  _impl_.msg_ = msg;
+  if (msg) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.NotifyARCVPNSocketConnectionEventRequest.msg)
+}
+inline ::patchpanel::SocketConnectionEvent* NotifyARCVPNSocketConnectionEventRequest::release_msg() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::patchpanel::SocketConnectionEvent* temp = _impl_.msg_;
+  _impl_.msg_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifyARCVPNSocketConnectionEventRequest::unsafe_arena_release_msg() {
+  // @@protoc_insertion_point(field_release:patchpanel.NotifyARCVPNSocketConnectionEventRequest.msg)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::patchpanel::SocketConnectionEvent* temp = _impl_.msg_;
+  _impl_.msg_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifyARCVPNSocketConnectionEventRequest::_internal_mutable_msg() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.msg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::SocketConnectionEvent>(GetArenaForAllocation());
+    _impl_.msg_ = p;
+  }
+  return _impl_.msg_;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifyARCVPNSocketConnectionEventRequest::mutable_msg() {
+  ::patchpanel::SocketConnectionEvent* _msg = _internal_mutable_msg();
+  // @@protoc_insertion_point(field_mutable:patchpanel.NotifyARCVPNSocketConnectionEventRequest.msg)
+  return _msg;
+}
+inline void NotifyARCVPNSocketConnectionEventRequest::set_allocated_msg(::patchpanel::SocketConnectionEvent* msg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.msg_;
+  }
+  if (msg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(msg);
+    if (message_arena != submessage_arena) {
+      msg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.msg_ = msg;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.NotifyARCVPNSocketConnectionEventRequest.msg)
+}
+
+// -------------------------------------------------------------------
+
+// NotifyARCVPNSocketConnectionEventResponse
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop

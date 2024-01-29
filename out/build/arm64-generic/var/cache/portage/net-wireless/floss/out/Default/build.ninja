@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5132/work/floss-0.0.2/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5283/work/floss-0.0.2/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -87,6 +87,7 @@ build libbluetooth-dumpsys_gen: phony obj/bt/system/gd/dumpsys/libbluetooth-dump
 build libbluetooth_gd: phony ./libbluetooth_gd.a
 build libbluetooth_rust_interop: phony ./libbluetooth_rust_interop.a
 build libbluetooth_topshim: phony ./libbluetooth_topshim.a
+build libbt-audio-asrc: phony obj/bt/system/audio/libbt-audio-asrc.stamp
 build libbt-platform-protos-lite_gen: phony obj/external/proto_logging/stats/enums/bluetooth/libbt-platform-protos-lite_gen.stamp
 build libbt_common_bridge_code: phony obj/bt/system/gd/rust/common/libbt_common_bridge_code.stamp
 build libbt_common_bridge_code_gen: phony obj/bt/system/gd/rust/common/libbt_common_bridge_code_gen.stamp
@@ -124,6 +125,7 @@ build bt/system$:all: phony obj/bt/system/all.stamp
 build bt/system$:bluetooth: phony obj/bt/system/bluetooth.stamp
 build bt/system$:libbt-platform-protos-lite: phony obj/bt/system/libbt-platform-protos-lite.stamp
 build bt/system$:tools: phony obj/bt/system/tools.stamp
+build bt/system/audio$:libbt-audio-asrc: phony obj/bt/system/audio/libbt-audio-asrc.stamp
 build bt/system/audio_hal_interface$:audio_hal_interface: phony ./libaudio_hal_interface.a
 build bt/system/audio_hal_interface: phony ./libaudio_hal_interface.a
 build bt/system/bta$:LeAudioSetConfigsSchema_bfbs: phony obj/bt/system/bta/LeAudioSetConfigsSchema_bfbs.stamp
@@ -260,6 +262,7 @@ build all: phony $
     obj/bt/system/bluetooth.stamp $
     obj/bt/system/libbt-platform-protos-lite.stamp $
     obj/bt/system/tools.stamp $
+    obj/bt/system/audio/libbt-audio-asrc.stamp $
     ./libaudio_hal_interface.a $
     obj/bt/system/bta/LeAudioSetConfigsSchema_bfbs.stamp $
     obj/bt/system/bta/LeAudioSetConfigsSchema_bfbs_gen.stamp $

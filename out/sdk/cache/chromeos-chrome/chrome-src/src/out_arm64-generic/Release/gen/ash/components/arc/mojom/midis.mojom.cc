@@ -392,6 +392,8 @@ bool MidisClientStubDispatch::Accept(
           reinterpret_cast<internal::MidisClient_OnDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidisClient.0
       bool success = true;
       MidisDeviceInfoPtr p_device{};
       MidisClient_OnDeviceAdded_ParamsDataView input_data_view(params, message);
@@ -407,8 +409,8 @@ bool MidisClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceAdded(
-std::move(p_device));
+      impl->OnDeviceAdded(        
+        std::move(p_device));
       return true;
     }
     case internal::kMidisClient_OnDeviceRemoved_Name: {
@@ -418,6 +420,8 @@ std::move(p_device));
           reinterpret_cast<internal::MidisClient_OnDeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidisClient.1
       bool success = true;
       MidisDeviceInfoPtr p_device{};
       MidisClient_OnDeviceRemoved_ParamsDataView input_data_view(params, message);
@@ -433,8 +437,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRemoved(
-std::move(p_device));
+      impl->OnDeviceRemoved(        
+        std::move(p_device));
       return true;
     }
   }
@@ -798,6 +802,8 @@ bool MidisServer_ListDevices_ForwardToCallback::Accept(
           internal::MidisServer_ListDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MidisServer.0
   bool success = true;
   std::vector<MidisDeviceInfoPtr> p_devices{};
   MidisServer_ListDevices_ResponseParamsDataView input_data_view(params, message);
@@ -929,6 +935,8 @@ bool MidisServer_RequestPort_ForwardToCallback::Accept(
           internal::MidisServer_RequestPort_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MidisServer.3
   bool success = true;
   ::mojo::ScopedHandle p_port_handle{};
   MidisServer_RequestPort_ResponseParamsDataView input_data_view(params, message);
@@ -1010,6 +1018,8 @@ bool MidisServerStubDispatch::Accept(
           reinterpret_cast<internal::MidisServer_CloseDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidisServer.2
       bool success = true;
       MidisRequestPtr p_request{};
       MidisServer_CloseDevice_ParamsDataView input_data_view(params, message);
@@ -1025,8 +1035,8 @@ bool MidisServerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseDevice(
-std::move(p_request));
+      impl->CloseDevice(        
+        std::move(p_request));
       return true;
     }
   }
@@ -1049,6 +1059,8 @@ bool MidisServerStubDispatch::AcceptWithResponder(
               internal::MidisServer_ListDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MidisServer.0
       bool success = true;
       MidisServer_ListDevices_ParamsDataView input_data_view(params, message);
       
@@ -1074,6 +1086,8 @@ bool MidisServerStubDispatch::AcceptWithResponder(
               internal::MidisServer_RequestPort_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MidisServer.3
       bool success = true;
       MidisRequestPtr p_request{};
       MidisServer_RequestPort_ParamsDataView input_data_view(params, message);
@@ -1092,8 +1106,8 @@ bool MidisServerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPort(
-std::move(p_request), std::move(callback));
+      impl->RequestPort(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kMidisServer_CloseDevice_Name: {
@@ -1249,6 +1263,8 @@ bool MidisHostStubDispatch::Accept(
           reinterpret_cast<internal::MidisHost_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MidisHost.0
       bool success = true;
       ::mojo::PendingReceiver<MidisServer> p_server{};
       ::mojo::PendingRemote<MidisClient> p_client{};
@@ -1271,9 +1287,9 @@ bool MidisHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_server), 
-std::move(p_client));
+      impl->Connect(        
+        std::move(p_server), 
+        std::move(p_client));
       return true;
     }
   }
@@ -1486,6 +1502,8 @@ bool MidisInstance_Init_ForwardToCallback::Accept(
           internal::MidisInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MidisInstance.1
   bool success = true;
   MidisInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1564,6 +1582,8 @@ bool MidisInstanceStubDispatch::AcceptWithResponder(
               internal::MidisInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MidisInstance.1
       bool success = true;
       ::mojo::PendingRemote<MidisHost> p_host_remote{};
       MidisInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1584,8 +1604,8 @@ bool MidisInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

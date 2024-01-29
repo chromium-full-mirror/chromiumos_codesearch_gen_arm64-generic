@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/redaction_tool-0.0.1-r216/work/redaction_tool-0.0.1/platform2"
+    },
+    {
+      "src_path": "src/platform/redaction_tool",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/redaction_tool-0.0.1-r216/work/redaction_tool-0.0.1/platform2/redaction_tool"
+    }
+  ]
+}

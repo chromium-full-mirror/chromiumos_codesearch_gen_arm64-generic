@@ -293,6 +293,8 @@ bool FileSystemAccessObserverHost_Observe_ForwardToCallback::Accept(
           internal::FileSystemAccessObserverHost_Observe_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessObserverHost.0
   bool success = true;
   ::blink::mojom::FileSystemAccessErrorPtr p_result{};
   ::mojo::PendingReceiver<::blink::mojom::FileSystemAccessObserver> p_observer_receiver{};
@@ -391,6 +393,8 @@ bool FileSystemAccessObserverHostStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessObserverHost_Unobserve_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessObserverHost.1
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> p_token{};
       FileSystemAccessObserverHost_Unobserve_ParamsDataView input_data_view(params, message);
@@ -408,8 +412,8 @@ bool FileSystemAccessObserverHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Unobserve(
-std::move(p_token));
+      impl->Unobserve(        
+        std::move(p_token));
       return true;
     }
   }
@@ -432,6 +436,8 @@ bool FileSystemAccessObserverHostStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessObserverHost_Observe_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessObserverHost.0
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> p_token{};
       bool p_is_recursive{};
@@ -455,9 +461,9 @@ bool FileSystemAccessObserverHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Observe(
-std::move(p_token), 
-std::move(p_is_recursive), std::move(callback));
+      impl->Observe(        
+        std::move(p_token), 
+        std::move(p_is_recursive), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessObserverHost_Unobserve_Name: {

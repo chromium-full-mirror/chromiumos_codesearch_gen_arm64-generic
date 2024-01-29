@@ -286,6 +286,8 @@ bool ContentSecurityNotifierStubDispatch::Accept(
           reinterpret_cast<internal::ContentSecurityNotifier_NotifyContentWithCertificateErrorsRan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSecurityNotifier.0
       bool success = true;
       ContentSecurityNotifier_NotifyContentWithCertificateErrorsRan_ParamsDataView input_data_view(params, message);
       
@@ -298,7 +300,7 @@ bool ContentSecurityNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyContentWithCertificateErrorsRan();
+      impl->NotifyContentWithCertificateErrorsRan(        );
       return true;
     }
     case internal::kContentSecurityNotifier_NotifyContentWithCertificateErrorsDisplayed_Name: {
@@ -308,6 +310,8 @@ bool ContentSecurityNotifierStubDispatch::Accept(
           reinterpret_cast<internal::ContentSecurityNotifier_NotifyContentWithCertificateErrorsDisplayed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSecurityNotifier.1
       bool success = true;
       ContentSecurityNotifier_NotifyContentWithCertificateErrorsDisplayed_ParamsDataView input_data_view(params, message);
       
@@ -320,7 +324,7 @@ bool ContentSecurityNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyContentWithCertificateErrorsDisplayed();
+      impl->NotifyContentWithCertificateErrorsDisplayed(        );
       return true;
     }
     case internal::kContentSecurityNotifier_NotifyInsecureContentRan_Name: {
@@ -330,6 +334,8 @@ bool ContentSecurityNotifierStubDispatch::Accept(
           reinterpret_cast<internal::ContentSecurityNotifier_NotifyInsecureContentRan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSecurityNotifier.2
       bool success = true;
       ::GURL p_origin{};
       ::GURL p_insecure_url{};
@@ -348,9 +354,9 @@ bool ContentSecurityNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyInsecureContentRan(
-std::move(p_origin), 
-std::move(p_insecure_url));
+      impl->NotifyInsecureContentRan(        
+        std::move(p_origin), 
+        std::move(p_insecure_url));
       return true;
     }
   }

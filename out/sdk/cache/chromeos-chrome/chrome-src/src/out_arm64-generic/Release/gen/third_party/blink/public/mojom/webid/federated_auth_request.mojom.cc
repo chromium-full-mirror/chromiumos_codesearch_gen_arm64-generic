@@ -1501,6 +1501,8 @@ bool FederatedAuthRequest_RequestToken_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_RequestToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.0
   bool success = true;
   RequestTokenStatus p_status{};
   std::optional<::GURL> p_selected_identity_provider_config_url{};
@@ -1671,6 +1673,8 @@ bool FederatedAuthRequest_RequestUserInfo_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_RequestUserInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.1
   bool success = true;
   RequestUserInfoStatus p_status{};
   std::optional<std::vector<IdentityUserInfoPtr>> p_user_info{};
@@ -1807,6 +1811,8 @@ bool FederatedAuthRequest_ResolveTokenRequest_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_ResolveTokenRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.3
   bool success = true;
   bool p_success{};
   FederatedAuthRequest_ResolveTokenRequest_ResponseParamsDataView input_data_view(params, message);
@@ -1926,6 +1932,8 @@ bool FederatedAuthRequest_RegisterIdP_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_RegisterIdP_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.5
   bool success = true;
   bool p_accepted{};
   FederatedAuthRequest_RegisterIdP_ResponseParamsDataView input_data_view(params, message);
@@ -2045,6 +2053,8 @@ bool FederatedAuthRequest_UnregisterIdP_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_UnregisterIdP_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.6
   bool success = true;
   bool p_success{};
   FederatedAuthRequest_UnregisterIdP_ResponseParamsDataView input_data_view(params, message);
@@ -2164,6 +2174,8 @@ bool FederatedAuthRequest_PreventSilentAccess_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.8
   bool success = true;
   FederatedAuthRequest_PreventSilentAccess_ResponseParamsDataView input_data_view(params, message);
   
@@ -2271,6 +2283,8 @@ bool FederatedAuthRequest_Disconnect_ForwardToCallback::Accept(
           internal::FederatedAuthRequest_Disconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FederatedAuthRequest.9
   bool success = true;
   DisconnectStatus p_status{};
   FederatedAuthRequest_Disconnect_ResponseParamsDataView input_data_view(params, message);
@@ -2352,6 +2366,8 @@ bool FederatedAuthRequestStubDispatch::Accept(
           reinterpret_cast<internal::FederatedAuthRequest_CancelTokenRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.2
       bool success = true;
       FederatedAuthRequest_CancelTokenRequest_ParamsDataView input_data_view(params, message);
       
@@ -2364,7 +2380,7 @@ bool FederatedAuthRequestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelTokenRequest();
+      impl->CancelTokenRequest(        );
       return true;
     }
     case internal::kFederatedAuthRequest_ResolveTokenRequest_Name: {
@@ -2377,6 +2393,8 @@ bool FederatedAuthRequestStubDispatch::Accept(
           reinterpret_cast<internal::FederatedAuthRequest_SetIdpSigninStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.4
       bool success = true;
       ::url::Origin p_origin{};
       IdpSigninStatus p_status{};
@@ -2395,9 +2413,9 @@ bool FederatedAuthRequestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIdpSigninStatus(
-std::move(p_origin), 
-std::move(p_status));
+      impl->SetIdpSigninStatus(        
+        std::move(p_origin), 
+        std::move(p_status));
       return true;
     }
     case internal::kFederatedAuthRequest_RegisterIdP_Name: {
@@ -2413,6 +2431,8 @@ std::move(p_status));
           reinterpret_cast<internal::FederatedAuthRequest_CloseModalDialogView_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.7
       bool success = true;
       FederatedAuthRequest_CloseModalDialogView_ParamsDataView input_data_view(params, message);
       
@@ -2425,7 +2445,7 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseModalDialogView();
+      impl->CloseModalDialogView(        );
       return true;
     }
     case internal::kFederatedAuthRequest_PreventSilentAccess_Name: {
@@ -2454,6 +2474,8 @@ bool FederatedAuthRequestStubDispatch::AcceptWithResponder(
               internal::FederatedAuthRequest_RequestToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.0
       bool success = true;
       std::vector<IdentityProviderGetParametersPtr> p_idp_get_params{};
       ::password_manager::CredentialMediationRequirement p_requirement{};
@@ -2475,9 +2497,9 @@ bool FederatedAuthRequestStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestToken(
-std::move(p_idp_get_params), 
-std::move(p_requirement), std::move(callback));
+      impl->RequestToken(        
+        std::move(p_idp_get_params), 
+        std::move(p_requirement), std::move(callback));
       return true;
     }
     case internal::kFederatedAuthRequest_RequestUserInfo_Name: {
@@ -2487,6 +2509,8 @@ std::move(p_requirement), std::move(callback));
               internal::FederatedAuthRequest_RequestUserInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.1
       bool success = true;
       IdentityProviderConfigPtr p_provider{};
       FederatedAuthRequest_RequestUserInfo_ParamsDataView input_data_view(params, message);
@@ -2505,8 +2529,8 @@ std::move(p_requirement), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestUserInfo(
-std::move(p_provider), std::move(callback));
+      impl->RequestUserInfo(        
+        std::move(p_provider), std::move(callback));
       return true;
     }
     case internal::kFederatedAuthRequest_CancelTokenRequest_Name: {
@@ -2519,6 +2543,8 @@ std::move(p_provider), std::move(callback));
               internal::FederatedAuthRequest_ResolveTokenRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.3
       bool success = true;
       std::string p_token{};
       FederatedAuthRequest_ResolveTokenRequest_ParamsDataView input_data_view(params, message);
@@ -2537,8 +2563,8 @@ std::move(p_provider), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveTokenRequest(
-std::move(p_token), std::move(callback));
+      impl->ResolveTokenRequest(        
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kFederatedAuthRequest_SetIdpSigninStatus_Name: {
@@ -2551,6 +2577,8 @@ std::move(p_token), std::move(callback));
               internal::FederatedAuthRequest_RegisterIdP_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.5
       bool success = true;
       ::GURL p_url{};
       FederatedAuthRequest_RegisterIdP_ParamsDataView input_data_view(params, message);
@@ -2569,8 +2597,8 @@ std::move(p_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterIdP(
-std::move(p_url), std::move(callback));
+      impl->RegisterIdP(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFederatedAuthRequest_UnregisterIdP_Name: {
@@ -2580,6 +2608,8 @@ std::move(p_url), std::move(callback));
               internal::FederatedAuthRequest_UnregisterIdP_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.6
       bool success = true;
       ::GURL p_url{};
       FederatedAuthRequest_UnregisterIdP_ParamsDataView input_data_view(params, message);
@@ -2598,8 +2628,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnregisterIdP(
-std::move(p_url), std::move(callback));
+      impl->UnregisterIdP(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kFederatedAuthRequest_CloseModalDialogView_Name: {
@@ -2612,6 +2642,8 @@ std::move(p_url), std::move(callback));
               internal::FederatedAuthRequest_PreventSilentAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.8
       bool success = true;
       FederatedAuthRequest_PreventSilentAccess_ParamsDataView input_data_view(params, message);
       
@@ -2637,6 +2669,8 @@ std::move(p_url), std::move(callback));
               internal::FederatedAuthRequest_Disconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FederatedAuthRequest.9
       bool success = true;
       IdentityCredentialDisconnectOptionsPtr p_options{};
       FederatedAuthRequest_Disconnect_ParamsDataView input_data_view(params, message);
@@ -2655,8 +2689,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Disconnect(
-std::move(p_options), std::move(callback));
+      impl->Disconnect(        
+        std::move(p_options), std::move(callback));
       return true;
     }
   }

@@ -25,13 +25,58 @@ namespace internal {
 
 
 // static
+bool FeaturePromoDemoPageData_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FeaturePromoDemoPageData_Data* object =
+      static_cast<const FeaturePromoDemoPageData_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->value, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->value, validation_context,
+                                         &value_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+FeaturePromoDemoPageData_Data::FeaturePromoDemoPageData_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FeaturePromoDemoPageInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 88, validation_context)) {
     return false;
   }
 
@@ -96,7 +141,18 @@ bool FeaturePromoDemoPageInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->instructions, 7, validation_context)) {
+          object->required_features, 7, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& required_features_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->required_features, validation_context,
+                                         &required_features_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->instructions, 8, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& instructions_validate_params =
@@ -107,13 +163,24 @@ bool FeaturePromoDemoPageInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->followed_by_internal_name, 8, validation_context)) {
+          object->followed_by_internal_name, 9, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& followed_by_internal_name_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->followed_by_internal_name, validation_context,
                                          &followed_by_internal_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->data, 10, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->data, validation_context,
+                                         &data_validate_params)) {
     return false;
   }
 
@@ -250,6 +317,63 @@ UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data::UserEducati
 
 
 // static
+bool UserEducationInternalsPageHandler_GetSessionData_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserEducationInternalsPageHandler_GetSessionData_Params_Data* object =
+      static_cast<const UserEducationInternalsPageHandler_GetSessionData_Params_Data*>(data);
+
+  return true;
+}
+
+UserEducationInternalsPageHandler_GetSessionData_Params_Data::UserEducationInternalsPageHandler_GetSessionData_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data* object =
+      static_cast<const UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->session_data, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& session_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->session_data, validation_context,
+                                         &session_data_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool UserEducationInternalsPageHandler_GetFeaturePromos_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -371,6 +495,131 @@ bool UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data::Val
 }
 
 UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data::UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data* object =
+      static_cast<const UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->feature_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& feature_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->feature_name, validation_context,
+                                         &feature_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data* object =
+      static_cast<const UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->error_message, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& error_message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->error_message, validation_context,
+                                         &error_message_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UserEducationInternalsPageHandler_ClearSessionData_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserEducationInternalsPageHandler_ClearSessionData_Params_Data* object =
+      static_cast<const UserEducationInternalsPageHandler_ClearSessionData_Params_Data*>(data);
+
+  return true;
+}
+
+UserEducationInternalsPageHandler_ClearSessionData_Params_Data::UserEducationInternalsPageHandler_ClearSessionData_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data* object =
+      static_cast<const UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->error_message, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& error_message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->error_message, validation_context,
+                                         &error_message_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

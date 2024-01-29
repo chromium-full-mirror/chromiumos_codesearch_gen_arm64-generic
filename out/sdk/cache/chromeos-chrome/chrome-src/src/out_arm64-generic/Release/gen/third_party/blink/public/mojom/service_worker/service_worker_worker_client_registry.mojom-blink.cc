@@ -228,6 +228,8 @@ bool ServiceWorkerWorkerClientRegistryStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerWorkerClientRegistry_RegisterWorkerClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerWorkerClientRegistry.0
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::ServiceWorkerWorkerClient> p_client{};
       ServiceWorkerWorkerClientRegistry_RegisterWorkerClient_ParamsDataView input_data_view(params, message);
@@ -245,8 +247,8 @@ bool ServiceWorkerWorkerClientRegistryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterWorkerClient(
-std::move(p_client));
+      impl->RegisterWorkerClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kServiceWorkerWorkerClientRegistry_CloneWorkerClientRegistry_Name: {
@@ -256,6 +258,8 @@ std::move(p_client));
           reinterpret_cast<internal::ServiceWorkerWorkerClientRegistry_CloneWorkerClientRegistry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerWorkerClientRegistry.1
       bool success = true;
       ::mojo::PendingReceiver<ServiceWorkerWorkerClientRegistry> p_host{};
       ServiceWorkerWorkerClientRegistry_CloneWorkerClientRegistry_ParamsDataView input_data_view(params, message);
@@ -273,8 +277,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloneWorkerClientRegistry(
-std::move(p_host));
+      impl->CloneWorkerClientRegistry(        
+        std::move(p_host));
       return true;
     }
   }

@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionIDBIndexOrIDBObjectStore::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionIDBIndexOrIDBObjectStore::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kIDBIndex: {
     return ToV8Traits<IDBIndex>::ToV8(script_state, member_idb_index_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionIDBIndexOrIDBObjectStore::ToV8Value(ScriptState
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionIDBIndexOrIDBObjectStore::Trace(Visitor* visitor) const {

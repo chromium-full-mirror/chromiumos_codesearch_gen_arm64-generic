@@ -190,9 +190,6 @@ class ShareTargetParamsFile::_Internal {
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
-  }
 };
 
 ShareTargetParamsFile::ShareTargetParamsFile(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -265,7 +262,7 @@ const char* ShareTargetParamsFile::_InternalParse(const char* ptr, ::_pbi::Parse
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string name = 1;
+      // optional string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
@@ -319,7 +316,7 @@ uint8_t* ShareTargetParamsFile::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string name = 1;
+  // optional string name = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_name(), target);
@@ -343,12 +340,6 @@ size_t ShareTargetParamsFile::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.ShareTargetParamsFile)
   size_t total_size = 0;
 
-  // required string name = 1;
-  if (_internal_has_name()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -359,6 +350,14 @@ size_t ShareTargetParamsFile::ByteSizeLong() const {
   for (int i = 0, n = accept_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       accept_.Get(i));
+  }
+
+  // optional string name = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -396,7 +395,6 @@ void ShareTargetParamsFile::CopyFrom(const ShareTargetParamsFile& from) {
 }
 
 bool ShareTargetParamsFile::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -726,8 +724,6 @@ void ShareTargetParams::CopyFrom(const ShareTargetParams& from) {
 }
 
 bool ShareTargetParams::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(files_))
-    return false;
   return true;
 }
 
@@ -774,9 +770,6 @@ class ShareTarget::_Internal {
   static const ::web_app::ShareTargetParams& params(const ShareTarget* msg);
   static void set_has_params(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x0000000f) ^ 0x0000000f) != 0;
   }
 };
 
@@ -875,7 +868,7 @@ const char* ShareTarget::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string action = 1;
+      // optional string action = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_action();
@@ -884,7 +877,7 @@ const char* ShareTarget::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // required .web_app.ShareTarget.Method method = 2;
+      // optional .web_app.ShareTarget.Method method = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -897,7 +890,7 @@ const char* ShareTarget::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // required .web_app.ShareTarget.Enctype enctype = 3;
+      // optional .web_app.ShareTarget.Enctype enctype = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -910,7 +903,7 @@ const char* ShareTarget::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // required .web_app.ShareTargetParams params = 4;
+      // optional .web_app.ShareTargetParams params = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_params(), ptr);
@@ -949,27 +942,27 @@ uint8_t* ShareTarget::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string action = 1;
+  // optional string action = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_action(), target);
   }
 
-  // required .web_app.ShareTarget.Method method = 2;
+  // optional .web_app.ShareTarget.Method method = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_method(), target);
   }
 
-  // required .web_app.ShareTarget.Enctype enctype = 3;
+  // optional .web_app.ShareTarget.Enctype enctype = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_enctype(), target);
   }
 
-  // required .web_app.ShareTargetParams params = 4;
+  // optional .web_app.ShareTargetParams params = 4;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::params(this),
@@ -984,68 +977,43 @@ uint8_t* ShareTarget::_InternalSerialize(
   return target;
 }
 
-size_t ShareTarget::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.ShareTarget)
-  size_t total_size = 0;
-
-  if (_internal_has_action()) {
-    // required string action = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_action());
-  }
-
-  if (_internal_has_params()) {
-    // required .web_app.ShareTargetParams params = 4;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *params_);
-  }
-
-  if (_internal_has_method()) {
-    // required .web_app.ShareTarget.Method method = 2;
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_method());
-  }
-
-  if (_internal_has_enctype()) {
-    // required .web_app.ShareTarget.Enctype enctype = 3;
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_enctype());
-  }
-
-  return total_size;
-}
 size_t ShareTarget::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.ShareTarget)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
-    // required string action = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_action());
-
-    // required .web_app.ShareTargetParams params = 4;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *params_);
-
-    // required .web_app.ShareTarget.Method method = 2;
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_method());
-
-    // required .web_app.ShareTarget.Enctype enctype = 3;
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_enctype());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string action = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_action());
+    }
+
+    // optional .web_app.ShareTargetParams params = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *params_);
+    }
+
+    // optional .web_app.ShareTarget.Method method = 2;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_method());
+    }
+
+    // optional .web_app.ShareTarget.Enctype enctype = 3;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_enctype());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1093,10 +1061,6 @@ void ShareTarget::CopyFrom(const ShareTarget& from) {
 }
 
 bool ShareTarget::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  if (_internal_has_params()) {
-    if (!params_->IsInitialized()) return false;
-  }
   return true;
 }
 

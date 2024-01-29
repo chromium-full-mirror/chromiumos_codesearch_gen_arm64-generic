@@ -315,7 +315,6 @@ Theme::Theme()
       is_custom_background(),
       daily_refresh_enabled(),
       is_dark(),
-      theme_realbox_icons(),
       logo_color(),
       background_image_collection_id(),
       background_image(),
@@ -331,7 +330,6 @@ Theme::Theme(
     bool is_custom_background_in,
     bool daily_refresh_enabled_in,
     bool is_dark_in,
-    bool theme_realbox_icons_in,
     std::optional<::SkColor> logo_color_in,
     const std::optional<std::string>& background_image_collection_id_in,
     BackgroundImagePtr background_image_in,
@@ -345,7 +343,6 @@ Theme::Theme(
       is_custom_background(std::move(is_custom_background_in)),
       daily_refresh_enabled(std::move(daily_refresh_enabled_in)),
       is_dark(std::move(is_dark_in)),
-      theme_realbox_icons(std::move(theme_realbox_icons_in)),
       logo_color(std::move(logo_color_in)),
       background_image_collection_id(std::move(background_image_collection_id_in)),
       background_image(std::move(background_image_in)),
@@ -407,15 +404,6 @@ void Theme::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_dark"), this->is_dark,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "theme_realbox_icons"), this->theme_realbox_icons,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -1237,6 +1225,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -1259,9 +1249,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -4051,6 +4041,8 @@ bool PageHandler_GetMostVisitedSettings_ForwardToCallback::Accept(
           internal::PageHandler_GetMostVisitedSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.6
   bool success = true;
   bool p_custom_links_enabled{};
   bool p_shortcuts_visible{};
@@ -4178,6 +4170,8 @@ bool PageHandler_GetBackgroundCollections_ForwardToCallback::Accept(
           internal::PageHandler_GetBackgroundCollections_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.7
   bool success = true;
   std::vector<BackgroundCollectionPtr> p_collections{};
   PageHandler_GetBackgroundCollections_ResponseParamsDataView input_data_view(params, message);
@@ -4309,6 +4303,8 @@ bool PageHandler_GetBackgroundImages_ForwardToCallback::Accept(
           internal::PageHandler_GetBackgroundImages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   std::vector<CollectionImagePtr> p_images{};
   PageHandler_GetBackgroundImages_ResponseParamsDataView input_data_view(params, message);
@@ -4440,6 +4436,8 @@ bool PageHandler_GetDoodle_ForwardToCallback::Accept(
           internal::PageHandler_GetDoodle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.9
   bool success = true;
   DoodlePtr p_doodle{};
   PageHandler_GetDoodle_ResponseParamsDataView input_data_view(params, message);
@@ -4565,6 +4563,8 @@ bool PageHandler_ChooseLocalCustomBackground_ForwardToCallback::Accept(
           internal::PageHandler_ChooseLocalCustomBackground_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.10
   bool success = true;
   bool p_success{};
   PageHandler_ChooseLocalCustomBackground_ResponseParamsDataView input_data_view(params, message);
@@ -4684,6 +4684,8 @@ bool PageHandler_GetModulesIdNames_ForwardToCallback::Accept(
           internal::PageHandler_GetModulesIdNames_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.21
   bool success = true;
   std::vector<ModuleIdNamePtr> p_data{};
   PageHandler_GetModulesIdNames_ResponseParamsDataView input_data_view(params, message);
@@ -4815,6 +4817,8 @@ bool PageHandler_GetModulesOrder_ForwardToCallback::Accept(
           internal::PageHandler_GetModulesOrder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.23
   bool success = true;
   std::vector<std::string> p_module_ids{};
   PageHandler_GetModulesOrder_ResponseParamsDataView input_data_view(params, message);
@@ -4946,6 +4950,8 @@ bool PageHandler_OnDoodleImageRendered_ForwardToCallback::Accept(
           internal::PageHandler_OnDoodleImageRendered_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.35
   bool success = true;
   std::optional<std::string> p_image_click_params{};
   std::optional<::GURL> p_interaction_log_url{};
@@ -5054,6 +5060,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_SetBackgroundImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       std::string p_attribution_1{};
       std::string p_attribution_2{};
@@ -5084,13 +5092,13 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBackgroundImage(
-std::move(p_attribution_1), 
-std::move(p_attribution_2), 
-std::move(p_attribution_url), 
-std::move(p_image_url), 
-std::move(p_thumbnail_url), 
-std::move(p_collection_id));
+      impl->SetBackgroundImage(        
+        std::move(p_attribution_1), 
+        std::move(p_attribution_2), 
+        std::move(p_attribution_url), 
+        std::move(p_image_url), 
+        std::move(p_thumbnail_url), 
+        std::move(p_collection_id));
       return true;
     }
     case internal::kPageHandler_SetDailyRefreshCollectionId_Name: {
@@ -5100,6 +5108,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::PageHandler_SetDailyRefreshCollectionId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       std::string p_collection_id{};
       PageHandler_SetDailyRefreshCollectionId_ParamsDataView input_data_view(params, message);
@@ -5115,8 +5125,8 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDailyRefreshCollectionId(
-std::move(p_collection_id));
+      impl->SetDailyRefreshCollectionId(        
+        std::move(p_collection_id));
       return true;
     }
     case internal::kPageHandler_SetNoBackgroundImage_Name: {
@@ -5126,6 +5136,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::PageHandler_SetNoBackgroundImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_SetNoBackgroundImage_ParamsDataView input_data_view(params, message);
       
@@ -5138,7 +5150,7 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNoBackgroundImage();
+      impl->SetNoBackgroundImage(        );
       return true;
     }
     case internal::kPageHandler_RevertBackgroundChanges_Name: {
@@ -5148,6 +5160,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::PageHandler_RevertBackgroundChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_RevertBackgroundChanges_ParamsDataView input_data_view(params, message);
       
@@ -5160,7 +5174,7 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RevertBackgroundChanges();
+      impl->RevertBackgroundChanges(        );
       return true;
     }
     case internal::kPageHandler_ConfirmBackgroundChanges_Name: {
@@ -5170,6 +5184,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::PageHandler_ConfirmBackgroundChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_ConfirmBackgroundChanges_ParamsDataView input_data_view(params, message);
       
@@ -5182,7 +5198,7 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfirmBackgroundChanges();
+      impl->ConfirmBackgroundChanges(        );
       return true;
     }
     case internal::kPageHandler_SetMostVisitedSettings_Name: {
@@ -5192,6 +5208,8 @@ std::move(p_collection_id));
           reinterpret_cast<internal::PageHandler_SetMostVisitedSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       bool p_custom_links_enabled{};
       bool p_shortcuts_visible{};
@@ -5210,9 +5228,9 @@ std::move(p_collection_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMostVisitedSettings(
-std::move(p_custom_links_enabled), 
-std::move(p_shortcuts_visible));
+      impl->SetMostVisitedSettings(        
+        std::move(p_custom_links_enabled), 
+        std::move(p_shortcuts_visible));
       return true;
     }
     case internal::kPageHandler_GetMostVisitedSettings_Name: {
@@ -5237,6 +5255,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::PageHandler_UpdatePromoData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       PageHandler_UpdatePromoData_ParamsDataView input_data_view(params, message);
       
@@ -5249,7 +5269,7 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePromoData();
+      impl->UpdatePromoData(        );
       return true;
     }
     case internal::kPageHandler_BlocklistPromo_Name: {
@@ -5259,6 +5279,8 @@ std::move(p_shortcuts_visible));
           reinterpret_cast<internal::PageHandler_BlocklistPromo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       std::string p_promo_id{};
       PageHandler_BlocklistPromo_ParamsDataView input_data_view(params, message);
@@ -5274,8 +5296,8 @@ std::move(p_shortcuts_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BlocklistPromo(
-std::move(p_promo_id));
+      impl->BlocklistPromo(        
+        std::move(p_promo_id));
       return true;
     }
     case internal::kPageHandler_UndoBlocklistPromo_Name: {
@@ -5285,6 +5307,8 @@ std::move(p_promo_id));
           reinterpret_cast<internal::PageHandler_UndoBlocklistPromo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       std::string p_promo_id{};
       PageHandler_UndoBlocklistPromo_ParamsDataView input_data_view(params, message);
@@ -5300,8 +5324,8 @@ std::move(p_promo_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UndoBlocklistPromo(
-std::move(p_promo_id));
+      impl->UndoBlocklistPromo(        
+        std::move(p_promo_id));
       return true;
     }
     case internal::kPageHandler_OnDismissModule_Name: {
@@ -5311,6 +5335,8 @@ std::move(p_promo_id));
           reinterpret_cast<internal::PageHandler_OnDismissModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.14
       bool success = true;
       std::string p_module_id{};
       PageHandler_OnDismissModule_ParamsDataView input_data_view(params, message);
@@ -5326,8 +5352,8 @@ std::move(p_promo_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDismissModule(
-std::move(p_module_id));
+      impl->OnDismissModule(        
+        std::move(p_module_id));
       return true;
     }
     case internal::kPageHandler_OnRestoreModule_Name: {
@@ -5337,6 +5363,8 @@ std::move(p_module_id));
           reinterpret_cast<internal::PageHandler_OnRestoreModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.15
       bool success = true;
       std::string p_module_id{};
       PageHandler_OnRestoreModule_ParamsDataView input_data_view(params, message);
@@ -5352,8 +5380,8 @@ std::move(p_module_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRestoreModule(
-std::move(p_module_id));
+      impl->OnRestoreModule(        
+        std::move(p_module_id));
       return true;
     }
     case internal::kPageHandler_SetModulesVisible_Name: {
@@ -5363,6 +5391,8 @@ std::move(p_module_id));
           reinterpret_cast<internal::PageHandler_SetModulesVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.16
       bool success = true;
       bool p_visible{};
       PageHandler_SetModulesVisible_ParamsDataView input_data_view(params, message);
@@ -5378,8 +5408,8 @@ std::move(p_module_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModulesVisible(
-std::move(p_visible));
+      impl->SetModulesVisible(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_SetModuleDisabled_Name: {
@@ -5389,6 +5419,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_SetModuleDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.17
       bool success = true;
       std::string p_module_id{};
       bool p_disabled{};
@@ -5407,9 +5439,9 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModuleDisabled(
-std::move(p_module_id), 
-std::move(p_disabled));
+      impl->SetModuleDisabled(        
+        std::move(p_module_id), 
+        std::move(p_disabled));
       return true;
     }
     case internal::kPageHandler_UpdateDisabledModules_Name: {
@@ -5419,6 +5451,8 @@ std::move(p_disabled));
           reinterpret_cast<internal::PageHandler_UpdateDisabledModules_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.18
       bool success = true;
       PageHandler_UpdateDisabledModules_ParamsDataView input_data_view(params, message);
       
@@ -5431,7 +5465,7 @@ std::move(p_disabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDisabledModules();
+      impl->UpdateDisabledModules(        );
       return true;
     }
     case internal::kPageHandler_OnModulesLoadedWithData_Name: {
@@ -5441,6 +5475,8 @@ std::move(p_disabled));
           reinterpret_cast<internal::PageHandler_OnModulesLoadedWithData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.19
       bool success = true;
       std::vector<std::string> p_module_ids{};
       PageHandler_OnModulesLoadedWithData_ParamsDataView input_data_view(params, message);
@@ -5456,8 +5492,8 @@ std::move(p_disabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnModulesLoadedWithData(
-std::move(p_module_ids));
+      impl->OnModulesLoadedWithData(        
+        std::move(p_module_ids));
       return true;
     }
     case internal::kPageHandler_OnModuleUsed_Name: {
@@ -5467,6 +5503,8 @@ std::move(p_module_ids));
           reinterpret_cast<internal::PageHandler_OnModuleUsed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.20
       bool success = true;
       std::string p_module_id{};
       PageHandler_OnModuleUsed_ParamsDataView input_data_view(params, message);
@@ -5482,8 +5520,8 @@ std::move(p_module_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnModuleUsed(
-std::move(p_module_id));
+      impl->OnModuleUsed(        
+        std::move(p_module_id));
       return true;
     }
     case internal::kPageHandler_GetModulesIdNames_Name: {
@@ -5496,6 +5534,8 @@ std::move(p_module_id));
           reinterpret_cast<internal::PageHandler_SetModulesOrder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.22
       bool success = true;
       std::vector<std::string> p_module_ids{};
       PageHandler_SetModulesOrder_ParamsDataView input_data_view(params, message);
@@ -5511,8 +5551,8 @@ std::move(p_module_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModulesOrder(
-std::move(p_module_ids));
+      impl->SetModulesOrder(        
+        std::move(p_module_ids));
       return true;
     }
     case internal::kPageHandler_GetModulesOrder_Name: {
@@ -5525,6 +5565,8 @@ std::move(p_module_ids));
           reinterpret_cast<internal::PageHandler_IncrementModulesShownCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.24
       bool success = true;
       PageHandler_IncrementModulesShownCount_ParamsDataView input_data_view(params, message);
       
@@ -5537,7 +5579,7 @@ std::move(p_module_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IncrementModulesShownCount();
+      impl->IncrementModulesShownCount(        );
       return true;
     }
     case internal::kPageHandler_SetModulesFreVisible_Name: {
@@ -5547,6 +5589,8 @@ std::move(p_module_ids));
           reinterpret_cast<internal::PageHandler_SetModulesFreVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.25
       bool success = true;
       bool p_visible{};
       PageHandler_SetModulesFreVisible_ParamsDataView input_data_view(params, message);
@@ -5562,8 +5606,8 @@ std::move(p_module_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModulesFreVisible(
-std::move(p_visible));
+      impl->SetModulesFreVisible(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_UpdateModulesFreVisibility_Name: {
@@ -5573,6 +5617,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_UpdateModulesFreVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.26
       bool success = true;
       PageHandler_UpdateModulesFreVisibility_ParamsDataView input_data_view(params, message);
       
@@ -5585,7 +5631,7 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateModulesFreVisibility();
+      impl->UpdateModulesFreVisibility(        );
       return true;
     }
     case internal::kPageHandler_LogModulesFreOptInStatus_Name: {
@@ -5595,6 +5641,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_LogModulesFreOptInStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.27
       bool success = true;
       OptInStatus p_opt_in_status{};
       PageHandler_LogModulesFreOptInStatus_ParamsDataView input_data_view(params, message);
@@ -5610,8 +5658,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogModulesFreOptInStatus(
-std::move(p_opt_in_status));
+      impl->LogModulesFreOptInStatus(        
+        std::move(p_opt_in_status));
       return true;
     }
     case internal::kPageHandler_SetCustomizeChromeSidePanelVisible_Name: {
@@ -5621,6 +5669,8 @@ std::move(p_opt_in_status));
           reinterpret_cast<internal::PageHandler_SetCustomizeChromeSidePanelVisible_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.28
       bool success = true;
       bool p_visible{};
       CustomizeChromeSection p_section{};
@@ -5639,9 +5689,9 @@ std::move(p_opt_in_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCustomizeChromeSidePanelVisible(
-std::move(p_visible), 
-std::move(p_section));
+      impl->SetCustomizeChromeSidePanelVisible(        
+        std::move(p_visible), 
+        std::move(p_section));
       return true;
     }
     case internal::kPageHandler_IncrementCustomizeChromeButtonOpenCount_Name: {
@@ -5651,6 +5701,8 @@ std::move(p_section));
           reinterpret_cast<internal::PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.29
       bool success = true;
       PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsDataView input_data_view(params, message);
       
@@ -5663,7 +5715,7 @@ std::move(p_section));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IncrementCustomizeChromeButtonOpenCount();
+      impl->IncrementCustomizeChromeButtonOpenCount(        );
       return true;
     }
     case internal::kPageHandler_MaybeShowFeaturePromo_Name: {
@@ -5673,6 +5725,8 @@ std::move(p_section));
           reinterpret_cast<internal::PageHandler_MaybeShowFeaturePromo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.30
       bool success = true;
       IphFeature p_iph_feature{};
       PageHandler_MaybeShowFeaturePromo_ParamsDataView input_data_view(params, message);
@@ -5688,8 +5742,8 @@ std::move(p_section));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeShowFeaturePromo(
-std::move(p_iph_feature));
+      impl->MaybeShowFeaturePromo(        
+        std::move(p_iph_feature));
       return true;
     }
     case internal::kPageHandler_OnOneGoogleBarRendered_Name: {
@@ -5699,6 +5753,8 @@ std::move(p_iph_feature));
           reinterpret_cast<internal::PageHandler_OnOneGoogleBarRendered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.31
       bool success = true;
       double p_time{};
       PageHandler_OnOneGoogleBarRendered_ParamsDataView input_data_view(params, message);
@@ -5714,8 +5770,8 @@ std::move(p_iph_feature));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOneGoogleBarRendered(
-std::move(p_time));
+      impl->OnOneGoogleBarRendered(        
+        std::move(p_time));
       return true;
     }
     case internal::kPageHandler_OnPromoRendered_Name: {
@@ -5725,6 +5781,8 @@ std::move(p_time));
           reinterpret_cast<internal::PageHandler_OnPromoRendered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.32
       bool success = true;
       double p_time{};
       std::optional<::GURL> p_log_url{};
@@ -5743,9 +5801,9 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPromoRendered(
-std::move(p_time), 
-std::move(p_log_url));
+      impl->OnPromoRendered(        
+        std::move(p_time), 
+        std::move(p_log_url));
       return true;
     }
     case internal::kPageHandler_OnCustomizeDialogAction_Name: {
@@ -5755,6 +5813,8 @@ std::move(p_log_url));
           reinterpret_cast<internal::PageHandler_OnCustomizeDialogAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.33
       bool success = true;
       CustomizeDialogAction p_action{};
       PageHandler_OnCustomizeDialogAction_ParamsDataView input_data_view(params, message);
@@ -5770,8 +5830,8 @@ std::move(p_log_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCustomizeDialogAction(
-std::move(p_action));
+      impl->OnCustomizeDialogAction(        
+        std::move(p_action));
       return true;
     }
     case internal::kPageHandler_OnDoodleImageClicked_Name: {
@@ -5781,6 +5841,8 @@ std::move(p_action));
           reinterpret_cast<internal::PageHandler_OnDoodleImageClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.34
       bool success = true;
       DoodleImageType p_type{};
       std::optional<::GURL> p_log_url{};
@@ -5799,9 +5861,9 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDoodleImageClicked(
-std::move(p_type), 
-std::move(p_log_url));
+      impl->OnDoodleImageClicked(        
+        std::move(p_type), 
+        std::move(p_log_url));
       return true;
     }
     case internal::kPageHandler_OnDoodleImageRendered_Name: {
@@ -5814,6 +5876,8 @@ std::move(p_log_url));
           reinterpret_cast<internal::PageHandler_OnDoodleShared_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.36
       bool success = true;
       DoodleShareChannel p_channel{};
       std::string p_doodle_id{};
@@ -5835,10 +5899,10 @@ std::move(p_log_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDoodleShared(
-std::move(p_channel), 
-std::move(p_doodle_id), 
-std::move(p_share_id));
+      impl->OnDoodleShared(        
+        std::move(p_channel), 
+        std::move(p_doodle_id), 
+        std::move(p_share_id));
       return true;
     }
     case internal::kPageHandler_OnPromoLinkClicked_Name: {
@@ -5848,6 +5912,8 @@ std::move(p_share_id));
           reinterpret_cast<internal::PageHandler_OnPromoLinkClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.37
       bool success = true;
       PageHandler_OnPromoLinkClicked_ParamsDataView input_data_view(params, message);
       
@@ -5860,7 +5926,7 @@ std::move(p_share_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPromoLinkClicked();
+      impl->OnPromoLinkClicked(        );
       return true;
     }
     case internal::kPageHandler_OnAppRendered_Name: {
@@ -5870,6 +5936,8 @@ std::move(p_share_id));
           reinterpret_cast<internal::PageHandler_OnAppRendered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.38
       bool success = true;
       double p_time{};
       PageHandler_OnAppRendered_ParamsDataView input_data_view(params, message);
@@ -5885,8 +5953,8 @@ std::move(p_share_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppRendered(
-std::move(p_time));
+      impl->OnAppRendered(        
+        std::move(p_time));
       return true;
     }
   }
@@ -5927,6 +5995,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMostVisitedSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       PageHandler_GetMostVisitedSettings_ParamsDataView input_data_view(params, message);
       
@@ -5952,6 +6022,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetBackgroundCollections_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_GetBackgroundCollections_ParamsDataView input_data_view(params, message);
       
@@ -5977,6 +6049,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetBackgroundImages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       std::string p_collection_id{};
       PageHandler_GetBackgroundImages_ParamsDataView input_data_view(params, message);
@@ -5995,8 +6069,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBackgroundImages(
-std::move(p_collection_id), std::move(callback));
+      impl->GetBackgroundImages(        
+        std::move(p_collection_id), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetDoodle_Name: {
@@ -6006,6 +6080,8 @@ std::move(p_collection_id), std::move(callback));
               internal::PageHandler_GetDoodle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       PageHandler_GetDoodle_ParamsDataView input_data_view(params, message);
       
@@ -6031,6 +6107,8 @@ std::move(p_collection_id), std::move(callback));
               internal::PageHandler_ChooseLocalCustomBackground_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       PageHandler_ChooseLocalCustomBackground_ParamsDataView input_data_view(params, message);
       
@@ -6086,6 +6164,8 @@ std::move(p_collection_id), std::move(callback));
               internal::PageHandler_GetModulesIdNames_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.21
       bool success = true;
       PageHandler_GetModulesIdNames_ParamsDataView input_data_view(params, message);
       
@@ -6114,6 +6194,8 @@ std::move(p_collection_id), std::move(callback));
               internal::PageHandler_GetModulesOrder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.23
       bool success = true;
       PageHandler_GetModulesOrder_ParamsDataView input_data_view(params, message);
       
@@ -6172,6 +6254,8 @@ std::move(p_collection_id), std::move(callback));
               internal::PageHandler_OnDoodleImageRendered_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.35
       bool success = true;
       DoodleImageType p_type{};
       double p_time{};
@@ -6196,10 +6280,10 @@ std::move(p_collection_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDoodleImageRendered(
-std::move(p_type), 
-std::move(p_time), 
-std::move(p_log_url), std::move(callback));
+      impl->OnDoodleImageRendered(        
+        std::move(p_type), 
+        std::move(p_time), 
+        std::move(p_log_url), std::move(callback));
       return true;
     }
     case internal::kPageHandler_OnDoodleShared_Name: {
@@ -6747,6 +6831,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_SetCustomizeChromeSidePanelVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       bool p_visible{};
       Page_SetCustomizeChromeSidePanelVisibility_ParamsDataView input_data_view(params, message);
@@ -6762,8 +6848,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCustomizeChromeSidePanelVisibility(
-std::move(p_visible));
+      impl->SetCustomizeChromeSidePanelVisibility(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPage_SetTheme_Name: {
@@ -6773,6 +6859,8 @@ std::move(p_visible));
           reinterpret_cast<internal::Page_SetTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       ThemePtr p_theme{};
       Page_SetTheme_ParamsDataView input_data_view(params, message);
@@ -6788,8 +6876,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTheme(
-std::move(p_theme));
+      impl->SetTheme(        
+        std::move(p_theme));
       return true;
     }
     case internal::kPage_SetDisabledModules_Name: {
@@ -6799,6 +6887,8 @@ std::move(p_theme));
           reinterpret_cast<internal::Page_SetDisabledModules_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       bool p_all{};
       std::vector<std::string> p_ids{};
@@ -6817,9 +6907,9 @@ std::move(p_theme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDisabledModules(
-std::move(p_all), 
-std::move(p_ids));
+      impl->SetDisabledModules(        
+        std::move(p_all), 
+        std::move(p_ids));
       return true;
     }
     case internal::kPage_SetModulesFreVisibility_Name: {
@@ -6829,6 +6919,8 @@ std::move(p_ids));
           reinterpret_cast<internal::Page_SetModulesFreVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.3
       bool success = true;
       bool p_visible{};
       Page_SetModulesFreVisibility_ParamsDataView input_data_view(params, message);
@@ -6844,8 +6936,8 @@ std::move(p_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetModulesFreVisibility(
-std::move(p_visible));
+      impl->SetModulesFreVisibility(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPage_SetPromo_Name: {
@@ -6855,6 +6947,8 @@ std::move(p_visible));
           reinterpret_cast<internal::Page_SetPromo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.4
       bool success = true;
       PromoPtr p_promo{};
       Page_SetPromo_ParamsDataView input_data_view(params, message);
@@ -6870,8 +6964,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPromo(
-std::move(p_promo));
+      impl->SetPromo(        
+        std::move(p_promo));
       return true;
     }
     case internal::kPage_ShowWebstoreToast_Name: {
@@ -6881,6 +6975,8 @@ std::move(p_promo));
           reinterpret_cast<internal::Page_ShowWebstoreToast_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.5
       bool success = true;
       Page_ShowWebstoreToast_ParamsDataView input_data_view(params, message);
       
@@ -6893,7 +6989,7 @@ std::move(p_promo));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowWebstoreToast();
+      impl->ShowWebstoreToast(        );
       return true;
     }
   }
@@ -7051,8 +7147,6 @@ bool StructTraits<::new_tab_page::mojom::Theme::DataView, ::new_tab_page::mojom:
         result->daily_refresh_enabled = input.daily_refresh_enabled();
       if (success)
         result->is_dark = input.is_dark();
-      if (success)
-        result->theme_realbox_icons = input.theme_realbox_icons();
       if (success && !input.ReadLogoColor(&result->logo_color))
         success = false;
       if (success && !input.ReadBackgroundImageCollectionId(&result->background_image_collection_id))

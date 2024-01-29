@@ -329,6 +329,8 @@ bool NetworkEventsObserverStubDispatch::Accept(
           reinterpret_cast<internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkEventsObserver.0
       bool success = true;
       std::string p_guid{};
       ::chromeos::network_health::mojom::NetworkState p_state{};
@@ -347,9 +349,9 @@ bool NetworkEventsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionStateChanged(
-std::move(p_guid), 
-std::move(p_state));
+      impl->OnConnectionStateChanged(        
+        std::move(p_guid), 
+        std::move(p_state));
       return true;
     }
     case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
@@ -359,6 +361,8 @@ std::move(p_state));
           reinterpret_cast<internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkEventsObserver.1
       bool success = true;
       std::string p_guid{};
       ::chromeos::network_health::mojom::UInt32ValuePtr p_signal_strength{};
@@ -377,9 +381,9 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSignalStrengthChanged(
-std::move(p_guid), 
-std::move(p_signal_strength));
+      impl->OnSignalStrengthChanged(        
+        std::move(p_guid), 
+        std::move(p_signal_strength));
       return true;
     }
     case internal::kNetworkEventsObserver_OnNetworkListChanged_Name: {
@@ -389,6 +393,8 @@ std::move(p_signal_strength));
           reinterpret_cast<internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkEventsObserver.2
       bool success = true;
       std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks{};
       NetworkEventsObserver_OnNetworkListChanged_ParamsDataView input_data_view(params, message);
@@ -404,8 +410,8 @@ std::move(p_signal_strength));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkListChanged(
-std::move(p_networks));
+      impl->OnNetworkListChanged(        
+        std::move(p_networks));
       return true;
     }
   }
@@ -821,6 +827,8 @@ bool NetworkHealthService_GetNetworkList_ForwardToCallback::Accept(
           internal::NetworkHealthService_GetNetworkList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkHealthService.1
   bool success = true;
   std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks{};
   NetworkHealthService_GetNetworkList_ResponseParamsDataView input_data_view(params, message);
@@ -952,6 +960,8 @@ bool NetworkHealthService_GetHealthSnapshot_ForwardToCallback::Accept(
           internal::NetworkHealthService_GetHealthSnapshot_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkHealthService.2
   bool success = true;
   ::chromeos::network_health::mojom::NetworkHealthStatePtr p_state{};
   NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView input_data_view(params, message);
@@ -1081,6 +1091,8 @@ bool NetworkHealthService_GetRecentlyActiveNetworks_ForwardToCallback::Accept(
           internal::NetworkHealthService_GetRecentlyActiveNetworks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkHealthService.3
   bool success = true;
   std::vector<std::string> p_guids{};
   NetworkHealthService_GetRecentlyActiveNetworks_ResponseParamsDataView input_data_view(params, message);
@@ -1167,6 +1179,8 @@ bool NetworkHealthServiceStubDispatch::Accept(
           reinterpret_cast<internal::NetworkHealthService_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkHealthService.0
       bool success = true;
       ::mojo::PendingRemote<NetworkEventsObserver> p_observer{};
       NetworkHealthService_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1184,8 +1198,8 @@ bool NetworkHealthServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kNetworkHealthService_GetNetworkList_Name: {
@@ -1220,6 +1234,8 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
               internal::NetworkHealthService_GetNetworkList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkHealthService.1
       bool success = true;
       NetworkHealthService_GetNetworkList_ParamsDataView input_data_view(params, message);
       
@@ -1245,6 +1261,8 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
               internal::NetworkHealthService_GetHealthSnapshot_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkHealthService.2
       bool success = true;
       NetworkHealthService_GetHealthSnapshot_ParamsDataView input_data_view(params, message);
       
@@ -1270,6 +1288,8 @@ bool NetworkHealthServiceStubDispatch::AcceptWithResponder(
               internal::NetworkHealthService_GetRecentlyActiveNetworks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkHealthService.3
       bool success = true;
       NetworkHealthService_GetRecentlyActiveNetworks_ParamsDataView input_data_view(params, message);
       

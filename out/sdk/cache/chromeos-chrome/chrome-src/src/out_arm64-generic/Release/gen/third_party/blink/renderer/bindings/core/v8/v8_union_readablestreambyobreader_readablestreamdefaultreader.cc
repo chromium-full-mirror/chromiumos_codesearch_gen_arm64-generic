@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionReadableStreamBYOBReaderOrReadableStreamDefaultReader::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionReadableStreamBYOBReaderOrReadableStreamDefaultReader::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kReadableStreamBYOBReader: {
     return ToV8Traits<ReadableStreamBYOBReader>::ToV8(script_state, member_readable_stream_byob_reader_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionReadableStreamBYOBReaderOrReadableStreamDefault
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionReadableStreamBYOBReaderOrReadableStreamDefaultReader::Trace(Visitor* visitor) const {

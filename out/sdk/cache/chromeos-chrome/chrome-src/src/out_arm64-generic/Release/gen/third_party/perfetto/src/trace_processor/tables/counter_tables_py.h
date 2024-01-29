@@ -60,7 +60,7 @@ class CounterTable : public macros_internal::MacroTable {
     }
   };
   struct ColumnFlag {
-    static constexpr uint32_t ts = static_cast<uint32_t>(Column::Flag::kSorted) | ColumnType::ts::default_flags();
+    static constexpr uint32_t ts = static_cast<uint32_t>(ColumnLegacy::Flag::kSorted) | ColumnType::ts::default_flags();
     static constexpr uint32_t track_id = ColumnType::track_id::default_flags();
     static constexpr uint32_t value = ColumnType::value::default_flags();
     static constexpr uint32_t arg_set_id = ColumnType::arg_set_id::default_flags();
@@ -227,19 +227,19 @@ class CounterTable : public macros_internal::MacroTable {
         value_(ColumnStorage<ColumnType::value::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::track_id::stored_type>(
           ColumnFlag::track_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::value::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::value::stored_type>(
           ColumnFlag::value),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

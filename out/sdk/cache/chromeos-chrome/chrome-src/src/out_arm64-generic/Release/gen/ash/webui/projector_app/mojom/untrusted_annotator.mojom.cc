@@ -325,6 +325,8 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedAnnotatorPage_Clear_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPage.0
       bool success = true;
       UntrustedAnnotatorPage_Clear_ParamsDataView input_data_view(params, message);
       
@@ -337,7 +339,7 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clear();
+      impl->Clear(        );
       return true;
     }
     case internal::kUntrustedAnnotatorPage_Undo_Name: {
@@ -347,6 +349,8 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedAnnotatorPage_Undo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPage.1
       bool success = true;
       UntrustedAnnotatorPage_Undo_ParamsDataView input_data_view(params, message);
       
@@ -359,7 +363,7 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Undo();
+      impl->Undo(        );
       return true;
     }
     case internal::kUntrustedAnnotatorPage_Redo_Name: {
@@ -369,6 +373,8 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedAnnotatorPage_Redo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPage.2
       bool success = true;
       UntrustedAnnotatorPage_Redo_ParamsDataView input_data_view(params, message);
       
@@ -381,7 +387,7 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Redo();
+      impl->Redo(        );
       return true;
     }
     case internal::kUntrustedAnnotatorPage_SetTool_Name: {
@@ -391,6 +397,8 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedAnnotatorPage_SetTool_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPage.3
       bool success = true;
       ::ash::annotator::mojom::AnnotatorToolPtr p_tool{};
       UntrustedAnnotatorPage_SetTool_ParamsDataView input_data_view(params, message);
@@ -406,8 +414,8 @@ bool UntrustedAnnotatorPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTool(
-std::move(p_tool));
+      impl->SetTool(        
+        std::move(p_tool));
       return true;
     }
   }
@@ -633,6 +641,8 @@ bool UntrustedAnnotatorPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedAnnotatorPageHandler_OnUndoRedoAvailabilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPageHandler.0
       bool success = true;
       bool p_undo_available{};
       bool p_redo_available{};
@@ -651,9 +661,9 @@ bool UntrustedAnnotatorPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUndoRedoAvailabilityChanged(
-std::move(p_undo_available), 
-std::move(p_redo_available));
+      impl->OnUndoRedoAvailabilityChanged(        
+        std::move(p_undo_available), 
+        std::move(p_redo_available));
       return true;
     }
     case internal::kUntrustedAnnotatorPageHandler_OnCanvasInitialized_Name: {
@@ -663,6 +673,8 @@ std::move(p_redo_available));
           reinterpret_cast<internal::UntrustedAnnotatorPageHandler_OnCanvasInitialized_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPageHandler.1
       bool success = true;
       bool p_success{};
       UntrustedAnnotatorPageHandler_OnCanvasInitialized_ParamsDataView input_data_view(params, message);
@@ -678,8 +690,8 @@ std::move(p_redo_available));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCanvasInitialized(
-std::move(p_success));
+      impl->OnCanvasInitialized(        
+        std::move(p_success));
       return true;
     }
   }
@@ -844,6 +856,8 @@ bool UntrustedAnnotatorPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedAnnotatorPageHandlerFactory_Create_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedAnnotatorPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<UntrustedAnnotatorPageHandler> p_handler{};
       ::mojo::PendingRemote<UntrustedAnnotatorPage> p_annotator{};
@@ -866,9 +880,9 @@ bool UntrustedAnnotatorPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_handler), 
-std::move(p_annotator));
+      impl->Create(        
+        std::move(p_handler), 
+        std::move(p_annotator));
       return true;
     }
   }

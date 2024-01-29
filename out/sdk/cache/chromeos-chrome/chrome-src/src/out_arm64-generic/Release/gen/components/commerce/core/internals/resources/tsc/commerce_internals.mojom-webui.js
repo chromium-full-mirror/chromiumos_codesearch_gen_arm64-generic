@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+import { BookmarkProductInfoSpec as shoppingService_mojom_BookmarkProductInfoSpec, ProductInfoSpec as shoppingService_mojom_ProductInfoSpec } from '//resources/cr_components/commerce/shopping_service.mojom-webui.js';
+import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export class CommerceInternalsHandlerFactoryPendingReceiver {
     handle;
     constructor(handle) {
@@ -118,6 +120,14 @@ export class CommerceInternalsHandlerRemote {
     resetPriceTrackingEmailPref() {
         this.proxy.sendMessage(2, CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsSpec.$, null, []);
     }
+    getProductInfoForUrl(url) {
+        return this.proxy.sendMessage(3, CommerceInternalsHandler_GetProductInfoForUrl_ParamsSpec.$, CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsSpec.$, [
+            url
+        ]);
+    }
+    getSubscriptionDetails() {
+        return this.proxy.sendMessage(4, CommerceInternalsHandler_GetSubscriptionDetails_ParamsSpec.$, CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -135,6 +145,8 @@ export class CommerceInternalsHandlerReceiver {
         this.helper_internal_.registerHandler(0, CommerceInternalsHandler_GetIsShoppingListEligible_ParamsSpec.$, CommerceInternalsHandler_GetIsShoppingListEligible_ResponseParamsSpec.$, impl.getIsShoppingListEligible.bind(impl));
         this.helper_internal_.registerHandler(1, CommerceInternalsHandler_GetShoppingListEligibleDetails_ParamsSpec.$, CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponseParamsSpec.$, impl.getShoppingListEligibleDetails.bind(impl));
         this.helper_internal_.registerHandler(2, CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsSpec.$, null, impl.resetPriceTrackingEmailPref.bind(impl));
+        this.helper_internal_.registerHandler(3, CommerceInternalsHandler_GetProductInfoForUrl_ParamsSpec.$, CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsSpec.$, impl.getProductInfoForUrl.bind(impl));
+        this.helper_internal_.registerHandler(4, CommerceInternalsHandler_GetSubscriptionDetails_ParamsSpec.$, CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsSpec.$, impl.getSubscriptionDetails.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -166,6 +178,8 @@ export class CommerceInternalsHandlerCallbackRouter {
     getIsShoppingListEligible;
     getShoppingListEligibleDetails;
     resetPriceTrackingEmailPref;
+    getProductInfoForUrl;
+    getSubscriptionDetails;
     onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CommerceInternalsHandlerRemote);
@@ -180,6 +194,12 @@ export class CommerceInternalsHandlerCallbackRouter {
         this.resetPriceTrackingEmailPref =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(2, CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsSpec.$, null, this.resetPriceTrackingEmailPref.createReceiverHandler(false /* expectsResponse */));
+        this.getProductInfoForUrl =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(3, CommerceInternalsHandler_GetProductInfoForUrl_ParamsSpec.$, CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsSpec.$, this.getProductInfoForUrl.createReceiverHandler(true /* expectsResponse */));
+        this.getSubscriptionDetails =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, CommerceInternalsHandler_GetSubscriptionDetails_ParamsSpec.$, CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsSpec.$, this.getSubscriptionDetails.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -278,12 +298,17 @@ export class CommerceInternalsPageCallbackRouter {
 }
 export const EligibleEntrySpec = { $: {} };
 export const ShoppingListEligibleDetailSpec = { $: {} };
+export const SubscriptionSpec = { $: {} };
 export const CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_ParamsSpec = { $: {} };
 export const CommerceInternalsHandler_GetIsShoppingListEligible_ParamsSpec = { $: {} };
 export const CommerceInternalsHandler_GetIsShoppingListEligible_ResponseParamsSpec = { $: {} };
 export const CommerceInternalsHandler_GetShoppingListEligibleDetails_ParamsSpec = { $: {} };
 export const CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponseParamsSpec = { $: {} };
 export const CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsSpec = { $: {} };
+export const CommerceInternalsHandler_GetProductInfoForUrl_ParamsSpec = { $: {} };
+export const CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsSpec = { $: {} };
+export const CommerceInternalsHandler_GetSubscriptionDetails_ParamsSpec = { $: {} };
+export const CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsSpec = { $: {} };
 export const CommerceInternalsPage_OnShoppingListEligibilityChanged_ParamsSpec = { $: {} };
 mojo.internal.Struct(EligibleEntrySpec.$, 'EligibleEntry', [
     mojo.internal.StructField('value', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
@@ -298,6 +323,10 @@ mojo.internal.Struct(ShoppingListEligibleDetailSpec.$, 'ShoppingListEligibleDeta
     mojo.internal.StructField('isAnonymizedUrlDataCollectionEnabled', 40, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('isSubjectToParentalControls', 48, 0, EligibleEntrySpec.$, null, false /* nullable */, 0),
 ], [[0, 64],]);
+mojo.internal.Struct(SubscriptionSpec.$, 'Subscription', [
+    mojo.internal.StructField('clusterId', 0, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
+    mojo.internal.StructField('productInfos', 8, 0, mojo.internal.Array(shoppingService_mojom_BookmarkProductInfoSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_ParamsSpec.$, 'CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Params', [
     mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(CommerceInternalsPageRemote), null, false /* nullable */, 0),
     mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(CommerceInternalsHandlerPendingReceiver), null, false /* nullable */, 0),
@@ -311,6 +340,16 @@ mojo.internal.Struct(CommerceInternalsHandler_GetShoppingListEligibleDetails_Res
     mojo.internal.StructField('detail', 0, 0, ShoppingListEligibleDetailSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsSpec.$, 'CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params', [], [[0, 8],]);
+mojo.internal.Struct(CommerceInternalsHandler_GetProductInfoForUrl_ParamsSpec.$, 'CommerceInternalsHandler_GetProductInfoForUrl_Params', [
+    mojo.internal.StructField('url', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsSpec.$, 'CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams', [
+    mojo.internal.StructField('info', 0, 0, shoppingService_mojom_ProductInfoSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(CommerceInternalsHandler_GetSubscriptionDetails_ParamsSpec.$, 'CommerceInternalsHandler_GetSubscriptionDetails_Params', [], [[0, 8],]);
+mojo.internal.Struct(CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsSpec.$, 'CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams', [
+    mojo.internal.StructField('subscriptions', 0, 0, mojo.internal.Array(SubscriptionSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(CommerceInternalsPage_OnShoppingListEligibilityChanged_ParamsSpec.$, 'CommerceInternalsPage_OnShoppingListEligibilityChanged_Params', [
     mojo.internal.StructField('eligible', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);

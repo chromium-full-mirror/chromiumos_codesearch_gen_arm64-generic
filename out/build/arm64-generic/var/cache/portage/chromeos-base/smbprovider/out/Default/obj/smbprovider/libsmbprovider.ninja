@@ -1,65 +1,65 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -pthread -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/samba-4.0 -DPROTOBUF_USE_DLLS
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/samba-4.0
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libsmbprovider
 
-build obj/smbprovider/libsmbprovider.constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/constants.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/constants.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = constants.cc
   source_name_part = constants
-build obj/smbprovider/libsmbprovider.file_copy_progress.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/file_copy_progress.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.file_copy_progress.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/file_copy_progress.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = file_copy_progress.cc
   source_name_part = file_copy_progress
-build obj/smbprovider/iterator/libsmbprovider.depth_first_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/iterator/depth_first_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/iterator/libsmbprovider.depth_first_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/iterator/depth_first_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = depth_first_iterator.cc
   source_name_part = depth_first_iterator
-build obj/smbprovider/iterator/libsmbprovider.directory_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/iterator/directory_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/iterator/libsmbprovider.directory_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/iterator/directory_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = directory_iterator.cc
   source_name_part = directory_iterator
-build obj/smbprovider/iterator/libsmbprovider.post_depth_first_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/iterator/post_depth_first_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/iterator/libsmbprovider.post_depth_first_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/iterator/post_depth_first_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = post_depth_first_iterator.cc
   source_name_part = post_depth_first_iterator
-build obj/smbprovider/iterator/libsmbprovider.pre_depth_first_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/iterator/pre_depth_first_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/iterator/libsmbprovider.pre_depth_first_iterator.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/iterator/pre_depth_first_iterator.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = pre_depth_first_iterator.cc
   source_name_part = pre_depth_first_iterator
-build obj/smbprovider/libsmbprovider.kerberos_artifact_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/kerberos_artifact_client.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.kerberos_artifact_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/kerberos_artifact_client.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = kerberos_artifact_client.cc
   source_name_part = kerberos_artifact_client
-build obj/smbprovider/libsmbprovider.kerberos_artifact_synchronizer.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/kerberos_artifact_synchronizer.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.kerberos_artifact_synchronizer.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/kerberos_artifact_synchronizer.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = kerberos_artifact_synchronizer.cc
   source_name_part = kerberos_artifact_synchronizer
-build obj/smbprovider/libsmbprovider.metadata_cache.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/metadata_cache.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.metadata_cache.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/metadata_cache.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = metadata_cache.cc
   source_name_part = metadata_cache
-build obj/smbprovider/libsmbprovider.mount_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/mount_manager.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.mount_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/mount_manager.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = mount_manager.cc
   source_name_part = mount_manager
-build obj/smbprovider/libsmbprovider.mount_tracker.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/mount_tracker.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.mount_tracker.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/mount_tracker.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = mount_tracker.cc
   source_name_part = mount_tracker
-build obj/smbprovider/libsmbprovider.netbios_packet_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/netbios_packet_parser.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.netbios_packet_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/netbios_packet_parser.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = netbios_packet_parser.cc
   source_name_part = netbios_packet_parser
-build obj/smbprovider/libsmbprovider.proto.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/proto.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.proto.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/proto.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = proto.cc
   source_name_part = proto
-build obj/smbprovider/libsmbprovider.read_dir_progress.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/read_dir_progress.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.read_dir_progress.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/read_dir_progress.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = read_dir_progress.cc
   source_name_part = read_dir_progress
-build obj/smbprovider/libsmbprovider.recursive_copy_progress.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/recursive_copy_progress.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.recursive_copy_progress.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/recursive_copy_progress.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = recursive_copy_progress.cc
   source_name_part = recursive_copy_progress
-build obj/smbprovider/libsmbprovider.samba_interface_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/samba_interface_impl.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.samba_interface_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/samba_interface_impl.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = samba_interface_impl.cc
   source_name_part = samba_interface_impl
-build obj/smbprovider/libsmbprovider.smbprovider.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/smbprovider.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.smbprovider.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/smbprovider.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = smbprovider.cc
   source_name_part = smbprovider
-build obj/smbprovider/libsmbprovider.smbprovider_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/smbprovider_helper.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.smbprovider_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/smbprovider_helper.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = smbprovider_helper.cc
   source_name_part = smbprovider_helper
-build obj/smbprovider/libsmbprovider.temp_file_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1051/work/smbprovider-0.0.1/smbprovider/temp_file_manager.cc || obj/smbprovider/smbproviderd_adaptors.stamp
+build obj/smbprovider/libsmbprovider.temp_file_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1055/work/smbprovider-0.0.1/smbprovider/temp_file_manager.cc || obj/smbprovider/smbproviderd_adaptors.stamp
   source_file_part = temp_file_manager.cc
   source_name_part = temp_file_manager
 

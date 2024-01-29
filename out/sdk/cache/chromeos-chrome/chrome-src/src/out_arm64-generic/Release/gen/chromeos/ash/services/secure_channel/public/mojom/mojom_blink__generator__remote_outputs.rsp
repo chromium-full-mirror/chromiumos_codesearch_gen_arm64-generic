@@ -1,0 +1,15 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/nearby_connector.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/nearby_connector.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/nearby_connector.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/nearby_connector.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/nearby_connector.mojom-blink.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel.mojom-blink.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel_types.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel_types.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel_types.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel_types.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/secure_channel/public/mojom/secure_channel_types.mojom-blink.h

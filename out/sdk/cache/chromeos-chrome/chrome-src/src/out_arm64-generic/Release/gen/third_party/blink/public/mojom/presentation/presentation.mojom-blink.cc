@@ -477,6 +477,8 @@ bool PresentationConnectionStubDispatch::Accept(
           reinterpret_cast<internal::PresentationConnection_OnMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationConnection.0
       bool success = true;
       PresentationConnectionMessagePtr p_message{};
       PresentationConnection_OnMessage_ParamsDataView input_data_view(params, message);
@@ -492,8 +494,8 @@ bool PresentationConnectionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessage(
-std::move(p_message));
+      impl->OnMessage(        
+        std::move(p_message));
       return true;
     }
     case internal::kPresentationConnection_DidChangeState_Name: {
@@ -503,6 +505,8 @@ std::move(p_message));
           reinterpret_cast<internal::PresentationConnection_DidChangeState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationConnection.1
       bool success = true;
       PresentationConnectionState p_state{};
       PresentationConnection_DidChangeState_ParamsDataView input_data_view(params, message);
@@ -518,8 +522,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeState(
-std::move(p_state));
+      impl->DidChangeState(        
+        std::move(p_state));
       return true;
     }
     case internal::kPresentationConnection_DidClose_Name: {
@@ -529,6 +533,8 @@ std::move(p_state));
           reinterpret_cast<internal::PresentationConnection_DidClose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationConnection.2
       bool success = true;
       PresentationConnectionCloseReason p_reason{};
       PresentationConnection_DidClose_ParamsDataView input_data_view(params, message);
@@ -544,8 +550,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidClose(
-std::move(p_reason));
+      impl->DidClose(        
+        std::move(p_reason));
       return true;
     }
   }
@@ -1396,6 +1402,8 @@ bool PresentationService_StartPresentation_ForwardToCallback::Accept(
           internal::PresentationService_StartPresentation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PresentationService.5
   bool success = true;
   PresentationConnectionResultPtr p_result{};
   PresentationErrorPtr p_error{};
@@ -1535,6 +1543,8 @@ bool PresentationService_ReconnectPresentation_ForwardToCallback::Accept(
           internal::PresentationService_ReconnectPresentation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PresentationService.6
   bool success = true;
   PresentationConnectionResultPtr p_result{};
   PresentationErrorPtr p_error{};
@@ -1629,6 +1639,8 @@ bool PresentationServiceStubDispatch::Accept(
           reinterpret_cast<internal::PresentationService_SetController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.0
       bool success = true;
       ::mojo::PendingRemote<PresentationController> p_controller{};
       PresentationService_SetController_ParamsDataView input_data_view(params, message);
@@ -1646,8 +1658,8 @@ bool PresentationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetController(
-std::move(p_controller));
+      impl->SetController(        
+        std::move(p_controller));
       return true;
     }
     case internal::kPresentationService_SetReceiver_Name: {
@@ -1657,6 +1669,8 @@ std::move(p_controller));
           reinterpret_cast<internal::PresentationService_SetReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.1
       bool success = true;
       ::mojo::PendingRemote<PresentationReceiver> p_receiver{};
       PresentationService_SetReceiver_ParamsDataView input_data_view(params, message);
@@ -1674,8 +1688,8 @@ std::move(p_controller));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReceiver(
-std::move(p_receiver));
+      impl->SetReceiver(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kPresentationService_SetDefaultPresentationUrls_Name: {
@@ -1685,6 +1699,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::PresentationService_SetDefaultPresentationUrls_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.2
       bool success = true;
       WTF::Vector<::blink::KURL> p_presentation_urls{};
       PresentationService_SetDefaultPresentationUrls_ParamsDataView input_data_view(params, message);
@@ -1700,8 +1716,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDefaultPresentationUrls(
-std::move(p_presentation_urls));
+      impl->SetDefaultPresentationUrls(        
+        std::move(p_presentation_urls));
       return true;
     }
     case internal::kPresentationService_ListenForScreenAvailability_Name: {
@@ -1711,6 +1727,8 @@ std::move(p_presentation_urls));
           reinterpret_cast<internal::PresentationService_ListenForScreenAvailability_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.3
       bool success = true;
       ::blink::KURL p_availability_url{};
       PresentationService_ListenForScreenAvailability_ParamsDataView input_data_view(params, message);
@@ -1726,8 +1744,8 @@ std::move(p_presentation_urls));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListenForScreenAvailability(
-std::move(p_availability_url));
+      impl->ListenForScreenAvailability(        
+        std::move(p_availability_url));
       return true;
     }
     case internal::kPresentationService_StopListeningForScreenAvailability_Name: {
@@ -1737,6 +1755,8 @@ std::move(p_availability_url));
           reinterpret_cast<internal::PresentationService_StopListeningForScreenAvailability_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.4
       bool success = true;
       ::blink::KURL p_availability_url{};
       PresentationService_StopListeningForScreenAvailability_ParamsDataView input_data_view(params, message);
@@ -1752,8 +1772,8 @@ std::move(p_availability_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopListeningForScreenAvailability(
-std::move(p_availability_url));
+      impl->StopListeningForScreenAvailability(        
+        std::move(p_availability_url));
       return true;
     }
     case internal::kPresentationService_StartPresentation_Name: {
@@ -1769,6 +1789,8 @@ std::move(p_availability_url));
           reinterpret_cast<internal::PresentationService_CloseConnection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.7
       bool success = true;
       ::blink::KURL p_presentation_url{};
       WTF::String p_presentation_id{};
@@ -1787,9 +1809,9 @@ std::move(p_availability_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseConnection(
-std::move(p_presentation_url), 
-std::move(p_presentation_id));
+      impl->CloseConnection(        
+        std::move(p_presentation_url), 
+        std::move(p_presentation_id));
       return true;
     }
     case internal::kPresentationService_Terminate_Name: {
@@ -1799,6 +1821,8 @@ std::move(p_presentation_id));
           reinterpret_cast<internal::PresentationService_Terminate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationService.8
       bool success = true;
       ::blink::KURL p_presentation_url{};
       WTF::String p_presentation_id{};
@@ -1817,9 +1841,9 @@ std::move(p_presentation_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Terminate(
-std::move(p_presentation_url), 
-std::move(p_presentation_id));
+      impl->Terminate(        
+        std::move(p_presentation_url), 
+        std::move(p_presentation_id));
       return true;
     }
   }
@@ -1857,6 +1881,8 @@ bool PresentationServiceStubDispatch::AcceptWithResponder(
               internal::PresentationService_StartPresentation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PresentationService.5
       bool success = true;
       WTF::Vector<::blink::KURL> p_presentation_urls{};
       PresentationService_StartPresentation_ParamsDataView input_data_view(params, message);
@@ -1875,8 +1901,8 @@ bool PresentationServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPresentation(
-std::move(p_presentation_urls), std::move(callback));
+      impl->StartPresentation(        
+        std::move(p_presentation_urls), std::move(callback));
       return true;
     }
     case internal::kPresentationService_ReconnectPresentation_Name: {
@@ -1886,6 +1912,8 @@ std::move(p_presentation_urls), std::move(callback));
               internal::PresentationService_ReconnectPresentation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PresentationService.6
       bool success = true;
       WTF::Vector<::blink::KURL> p_presentation_urls{};
       WTF::String p_presentation_id{};
@@ -1907,9 +1935,9 @@ std::move(p_presentation_urls), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReconnectPresentation(
-std::move(p_presentation_urls), 
-std::move(p_presentation_id), std::move(callback));
+      impl->ReconnectPresentation(        
+        std::move(p_presentation_urls), 
+        std::move(p_presentation_id), std::move(callback));
       return true;
     }
     case internal::kPresentationService_CloseConnection_Name: {
@@ -2317,6 +2345,8 @@ bool PresentationControllerStubDispatch::Accept(
           reinterpret_cast<internal::PresentationController_OnScreenAvailabilityUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationController.0
       bool success = true;
       ::blink::KURL p_url{};
       ScreenAvailability p_availability{};
@@ -2335,9 +2365,9 @@ bool PresentationControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreenAvailabilityUpdated(
-std::move(p_url), 
-std::move(p_availability));
+      impl->OnScreenAvailabilityUpdated(        
+        std::move(p_url), 
+        std::move(p_availability));
       return true;
     }
     case internal::kPresentationController_OnDefaultPresentationStarted_Name: {
@@ -2347,6 +2377,8 @@ std::move(p_availability));
           reinterpret_cast<internal::PresentationController_OnDefaultPresentationStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationController.1
       bool success = true;
       PresentationConnectionResultPtr p_result{};
       PresentationController_OnDefaultPresentationStarted_ParamsDataView input_data_view(params, message);
@@ -2362,8 +2394,8 @@ std::move(p_availability));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDefaultPresentationStarted(
-std::move(p_result));
+      impl->OnDefaultPresentationStarted(        
+        std::move(p_result));
       return true;
     }
     case internal::kPresentationController_OnConnectionStateChanged_Name: {
@@ -2373,6 +2405,8 @@ std::move(p_result));
           reinterpret_cast<internal::PresentationController_OnConnectionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationController.2
       bool success = true;
       PresentationInfoPtr p_presentation_info{};
       PresentationConnectionState p_newState{};
@@ -2391,9 +2425,9 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionStateChanged(
-std::move(p_presentation_info), 
-std::move(p_newState));
+      impl->OnConnectionStateChanged(        
+        std::move(p_presentation_info), 
+        std::move(p_newState));
       return true;
     }
     case internal::kPresentationController_OnConnectionClosed_Name: {
@@ -2403,6 +2437,8 @@ std::move(p_newState));
           reinterpret_cast<internal::PresentationController_OnConnectionClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationController.3
       bool success = true;
       PresentationInfoPtr p_presentation_info{};
       PresentationConnectionCloseReason p_reason{};
@@ -2424,10 +2460,10 @@ std::move(p_newState));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionClosed(
-std::move(p_presentation_info), 
-std::move(p_reason), 
-std::move(p_message));
+      impl->OnConnectionClosed(        
+        std::move(p_presentation_info), 
+        std::move(p_reason), 
+        std::move(p_message));
       return true;
     }
   }
@@ -2598,6 +2634,8 @@ bool PresentationReceiverStubDispatch::Accept(
           reinterpret_cast<internal::PresentationReceiver_OnReceiverConnectionAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PresentationReceiver.0
       bool success = true;
       PresentationConnectionResultPtr p_result{};
       PresentationReceiver_OnReceiverConnectionAvailable_ParamsDataView input_data_view(params, message);
@@ -2613,8 +2651,8 @@ bool PresentationReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceiverConnectionAvailable(
-std::move(p_result));
+      impl->OnReceiverConnectionAvailable(        
+        std::move(p_result));
       return true;
     }
   }

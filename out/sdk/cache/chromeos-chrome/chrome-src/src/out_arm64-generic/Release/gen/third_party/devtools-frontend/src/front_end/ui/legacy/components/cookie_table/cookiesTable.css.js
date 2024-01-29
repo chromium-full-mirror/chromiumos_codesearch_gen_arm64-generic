@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.cookies-table devtools-icon{margin-right:4px;margin-bottom:-2px}.cookies-table td.flagged-cookie-attribute-cell devtools-icon{filter:grayscale()}.cookies-table:focus-within tr.flagged-cookie-attribute-row.selected devtools-icon{filter:brightness(0) invert(1)}.cookies-table tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(odd){background-color:var(--sys-color-surface-yellow-high)}.cookies-table tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(even){background-color:var(--sys-color-surface-yellow)}
+`.cookies-table devtools-icon{margin-right:4px}.cookies-table td.flagged-cookie-attribute-cell devtools-icon{filter:grayscale()}.cookies-table:focus-within tr.flagged-cookie-attribute-row.selected devtools-icon{filter:brightness(0) invert(1)}.cookies-table tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(odd){background-color:var(--sys-color-surface-yellow-high)}.cookies-table tr.revealed.data-grid-data-grid-node.flagged-cookie-attribute-row:not(.selected):nth-child(even){background-color:var(--sys-color-surface-yellow)}
 /*# sourceURL=cookiesTable.css */
 `);
 

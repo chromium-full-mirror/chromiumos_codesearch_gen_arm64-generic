@@ -57,9 +57,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_reason;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg1_reason).ToLocal(&v8_arg1_reason)) {
-  return v8::Nothing<ScriptPromise>();
-}
+v8_arg1_reason = ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg1_reason);
 argv[0] = v8_arg1_reason;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptPromise>();
@@ -98,9 +96,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_reason;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg1_reason).ToLocal(&v8_arg1_reason)) {
-  return v8::Nothing<ScriptPromise>();
-}
+v8_arg1_reason = ToV8Traits<IDLOptional<IDLAny>>::ToV8(script_state, arg1_reason);
 argv[0] = v8_arg1_reason;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptPromise>();

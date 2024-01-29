@@ -4,8 +4,8 @@
 import * as Common from '../../../core/common/common.js';
 import * as i18n from '../../../core/i18n/i18n.js';
 import * as SDK from '../../../core/sdk/sdk.js';
+import * as Buttons from '../../../ui/components/buttons/buttons.js';
 import * as ComponentHelpers from '../../../ui/components/helpers/helpers.js';
-import * as IconButton from '../../../ui/components/icon_button/icon_button.js';
 import * as Input from '../../../ui/components/input/input.js';
 import * as LegacyWrapper from '../../../ui/components/legacy_wrapper/legacy_wrapper.js';
 import * as NodeText from '../../../ui/components/node_text/node_text.js';
@@ -136,10 +136,10 @@ const flexContainerNodesToElements = (nodes) => {
     });
 };
 function isEnumSetting(setting) {
-    return setting.type === Common.Settings.SettingType.ENUM;
+    return setting.type === "enum" /* Common.Settings.SettingType.ENUM */;
 }
 function isBooleanSetting(setting) {
-    return setting.type === Common.Settings.SettingType.BOOLEAN;
+    return setting.type === "boolean" /* Common.Settings.SettingType.BOOLEAN */;
 }
 const coordinator = Coordinator.RenderCoordinator.RenderCoordinator.instance();
 let layoutPaneWrapperInstance;
@@ -169,14 +169,14 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
     }
     modelAdded(domModel) {
         const overlayModel = domModel.overlayModel();
-        overlayModel.addEventListener(SDK.OverlayModel.Events.PersistentGridOverlayStateChanged, this.render, this);
-        overlayModel.addEventListener(SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged, this.render, this);
+        overlayModel.addEventListener("PersistentGridOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentGridOverlayStateChanged */, this.render, this);
+        overlayModel.addEventListener("PersistentFlexContainerOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged */, this.render, this);
         this.#domModels.push(domModel);
     }
     modelRemoved(domModel) {
         const overlayModel = domModel.overlayModel();
-        overlayModel.removeEventListener(SDK.OverlayModel.Events.PersistentGridOverlayStateChanged, this.render, this);
-        overlayModel.removeEventListener(SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged, this.render, this);
+        overlayModel.removeEventListener("PersistentGridOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentGridOverlayStateChanged */, this.render, this);
+        overlayModel.removeEventListener("PersistentFlexContainerOverlayStateChanged" /* SDK.OverlayModel.Events.PersistentFlexContainerOverlayStateChanged */, this.render, this);
         this.#domModels = this.#domModels.filter(model => model !== domModel);
     }
     async #fetchNodesByStyle(style) {
@@ -216,7 +216,7 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
             if (!settingType) {
                 throw new Error('A setting provided to LayoutSidebarPane does not have a setting type');
             }
-            if (settingType !== Common.Settings.SettingType.BOOLEAN && settingType !== Common.Settings.SettingType.ENUM) {
+            if (settingType !== "boolean" /* Common.Settings.SettingType.BOOLEAN */ && settingType !== "enum" /* Common.Settings.SettingType.ENUM */) {
                 throw new Error('A setting provided to LayoutSidebarPane does not have a supported setting type');
             }
             const mappedSetting = {
@@ -300,7 +300,7 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
           <summary class="header" @keydown=${this.#onSummaryKeyDown}>
             ${i18nString(UIStrings.grid)}
           </summary>
-          <div class="content-section" jslog=${VisualLogging.gridSettings()}>
+          <div class="content-section" jslog=${VisualLogging.section().context('grid-settings')}>
             <h3 class="content-section-title">${i18nString(UIStrings.overlayDisplaySettings)}</h3>
             <div class="select-settings">
               ${this.#getEnumSettings().map(setting => this.#renderEnumSetting(setting))}
@@ -310,7 +310,7 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
             </div>
           </div>
           ${gridElements ?
-                html `<div class="content-section" jslog=${VisualLogging.gridOverlays()}>
+                html `<div class="content-section" jslog=${VisualLogging.section().context('grid-overlays')}>
               <h3 class="content-section-title">
                 ${gridElements.length ? i18nString(UIStrings.gridOverlays) : i18nString(UIStrings.noGridLayoutsFoundOnThisPage)}
               </h3>
@@ -327,7 +327,7 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
               ${i18nString(UIStrings.flexbox)}
             </summary>
             ${flexContainerElements ?
-                    html `<div class="content-section" jslog=${VisualLogging.flexboxOverlays()}>
+                    html `<div class="content-section" jslog=${VisualLogging.section().context('flexbox-overlays')}>
                 <h3 class="content-section-title">
                   ${flexContainerElements.length ? i18nString(UIStrings.flexboxOverlays) : i18nString(UIStrings.noFlexboxLayoutsFoundOnThisPage)}
                 </h3>
@@ -419,13 +419,13 @@ export class LayoutPane extends LegacyWrapper.LegacyWrapper.WrappableComponent {
       <label @keyup=${onColorLabelKeyUp} @keydown=${onColorLabelKeyDown} class="color-picker-label" style="background: ${element.color};" jslog=${VisualLogging.showStyleEditor().track({ click: true }).context('color')}>
         <input @change=${onColorChange} @input=${onColorChange} title=${i18nString(UIStrings.chooseElementOverlayColor)} tabindex="0" class="color-picker" type="color" value=${element.color} />
       </label>
-      <${IconButton.Icon.Icon.litTagName} .data=${{
-            iconName: 'select-element',
-            color: 'var(--icon-show-element)',
-            width: '16px',
-        }} tabindex="0", @click=${onElementClick} title=${i18nString(UIStrings.showElementInTheElementsPanel)} class="show-element" jslog=${VisualLogging.jumpToElement().track({ click: true })}>
-      ()
-      </${IconButton.Icon.Icon.litTagName}>
+      <${Buttons.Button.Button.litTagName} class="show-element"
+                                           title=${i18nString(UIStrings.showElementInTheElementsPanel)}
+                                           .iconName=${'select-element'}
+                                           .jslogContext=${'elements.select-element'}
+                                           .size=${"SMALL" /* Buttons.Button.Size.SMALL */}
+                                           .variant=${"round" /* Buttons.Button.Variant.ROUND */}
+                                           @click=${onElementClick}></${Buttons.Button.Button.litTagName}>
     </div>`;
         // clang-format on
     }

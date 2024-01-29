@@ -320,6 +320,8 @@ bool NearbySharingDecoder_DecodeAdvertisement_ForwardToCallback::Accept(
           internal::NearbySharingDecoder_DecodeAdvertisement_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbySharingDecoder.0
   bool success = true;
   ::sharing::mojom::AdvertisementPtr p_advertisement{};
   NearbySharingDecoder_DecodeAdvertisement_ResponseParamsDataView input_data_view(params, message);
@@ -445,6 +447,8 @@ bool NearbySharingDecoder_DecodeFrame_ForwardToCallback::Accept(
           internal::NearbySharingDecoder_DecodeFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbySharingDecoder.1
   bool success = true;
   ::sharing::mojom::FramePtr p_frame{};
   NearbySharingDecoder_DecodeFrame_ResponseParamsDataView input_data_view(params, message);
@@ -542,6 +546,8 @@ bool NearbySharingDecoderStubDispatch::AcceptWithResponder(
               internal::NearbySharingDecoder_DecodeAdvertisement_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbySharingDecoder.0
       bool success = true;
       std::vector<uint8_t> p_data{};
       NearbySharingDecoder_DecodeAdvertisement_ParamsDataView input_data_view(params, message);
@@ -560,8 +566,8 @@ bool NearbySharingDecoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecodeAdvertisement(
-std::move(p_data), std::move(callback));
+      impl->DecodeAdvertisement(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kNearbySharingDecoder_DecodeFrame_Name: {
@@ -571,6 +577,8 @@ std::move(p_data), std::move(callback));
               internal::NearbySharingDecoder_DecodeFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbySharingDecoder.1
       bool success = true;
       std::vector<uint8_t> p_data{};
       NearbySharingDecoder_DecodeFrame_ParamsDataView input_data_view(params, message);
@@ -589,8 +597,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecodeFrame(
-std::move(p_data), std::move(callback));
+      impl->DecodeFrame(        
+        std::move(p_data), std::move(callback));
       return true;
     }
   }

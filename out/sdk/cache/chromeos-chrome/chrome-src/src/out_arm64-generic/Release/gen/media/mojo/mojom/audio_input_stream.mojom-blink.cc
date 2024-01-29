@@ -210,6 +210,8 @@ bool AudioInputStreamStubDispatch::Accept(
           reinterpret_cast<internal::AudioInputStream_Record_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputStream.0
       bool success = true;
       AudioInputStream_Record_ParamsDataView input_data_view(params, message);
       
@@ -222,7 +224,7 @@ bool AudioInputStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Record();
+      impl->Record(        );
       return true;
     }
     case internal::kAudioInputStream_SetVolume_Name: {
@@ -232,6 +234,8 @@ bool AudioInputStreamStubDispatch::Accept(
           reinterpret_cast<internal::AudioInputStream_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputStream.1
       bool success = true;
       double p_volume{};
       AudioInputStream_SetVolume_ParamsDataView input_data_view(params, message);
@@ -247,8 +251,8 @@ bool AudioInputStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
   }
@@ -461,6 +465,8 @@ bool AudioInputStreamClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioInputStreamClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputStreamClient.0
       bool success = true;
       ::media::mojom::blink::InputStreamErrorCode p_code{};
       AudioInputStreamClient_OnError_ParamsDataView input_data_view(params, message);
@@ -476,8 +482,8 @@ bool AudioInputStreamClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_code));
+      impl->OnError(        
+        std::move(p_code));
       return true;
     }
     case internal::kAudioInputStreamClient_OnMutedStateChanged_Name: {
@@ -487,6 +493,8 @@ std::move(p_code));
           reinterpret_cast<internal::AudioInputStreamClient_OnMutedStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputStreamClient.1
       bool success = true;
       bool p_is_muted{};
       AudioInputStreamClient_OnMutedStateChanged_ParamsDataView input_data_view(params, message);
@@ -502,8 +510,8 @@ std::move(p_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMutedStateChanged(
-std::move(p_is_muted));
+      impl->OnMutedStateChanged(        
+        std::move(p_is_muted));
       return true;
     }
   }
@@ -646,6 +654,8 @@ bool AudioInputStreamObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioInputStreamObserver_DidStartRecording_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputStreamObserver.0
       bool success = true;
       AudioInputStreamObserver_DidStartRecording_ParamsDataView input_data_view(params, message);
       
@@ -658,7 +668,7 @@ bool AudioInputStreamObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStartRecording();
+      impl->DidStartRecording(        );
       return true;
     }
   }

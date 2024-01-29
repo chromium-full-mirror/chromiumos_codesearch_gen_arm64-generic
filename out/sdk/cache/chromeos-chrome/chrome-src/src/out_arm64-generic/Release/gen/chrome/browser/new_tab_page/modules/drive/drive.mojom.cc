@@ -392,6 +392,8 @@ bool DriveHandler_GetFiles_ForwardToCallback::Accept(
           internal::DriveHandler_GetFiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveHandler.0
   bool success = true;
   std::vector<FilePtr> p_files{};
   DriveHandler_GetFiles_ResponseParamsDataView input_data_view(params, message);
@@ -481,6 +483,8 @@ bool DriveHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DriveHandler_DismissModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveHandler.1
       bool success = true;
       DriveHandler_DismissModule_ParamsDataView input_data_view(params, message);
       
@@ -493,7 +497,7 @@ bool DriveHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissModule();
+      impl->DismissModule(        );
       return true;
     }
     case internal::kDriveHandler_RestoreModule_Name: {
@@ -503,6 +507,8 @@ bool DriveHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DriveHandler_RestoreModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveHandler.2
       bool success = true;
       DriveHandler_RestoreModule_ParamsDataView input_data_view(params, message);
       
@@ -515,7 +521,7 @@ bool DriveHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreModule();
+      impl->RestoreModule(        );
       return true;
     }
   }
@@ -538,6 +544,8 @@ bool DriveHandlerStubDispatch::AcceptWithResponder(
               internal::DriveHandler_GetFiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveHandler.0
       bool success = true;
       DriveHandler_GetFiles_ParamsDataView input_data_view(params, message);
       

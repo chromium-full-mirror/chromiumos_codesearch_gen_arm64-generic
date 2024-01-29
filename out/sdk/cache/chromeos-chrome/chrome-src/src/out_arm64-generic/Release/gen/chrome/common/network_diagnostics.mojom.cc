@@ -166,6 +166,8 @@ bool NetworkDiagnosticsStubDispatch::Accept(
           reinterpret_cast<internal::NetworkDiagnostics_RunNetworkDiagnostics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnostics.0
       bool success = true;
       ::GURL p_failed_url{};
       NetworkDiagnostics_RunNetworkDiagnostics_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool NetworkDiagnosticsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunNetworkDiagnostics(
-std::move(p_failed_url));
+      impl->RunNetworkDiagnostics(        
+        std::move(p_failed_url));
       return true;
     }
   }
@@ -389,6 +391,8 @@ bool NetworkDiagnosticsClientStubDispatch::Accept(
           reinterpret_cast<internal::NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsClient.0
       bool success = true;
       bool p_can_show{};
       NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_ParamsDataView input_data_view(params, message);
@@ -404,8 +408,8 @@ bool NetworkDiagnosticsClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCanShowNetworkDiagnosticsDialog(
-std::move(p_can_show));
+      impl->SetCanShowNetworkDiagnosticsDialog(        
+        std::move(p_can_show));
       return true;
     }
     case internal::kNetworkDiagnosticsClient_DNSProbeStatus_Name: {
@@ -415,6 +419,8 @@ std::move(p_can_show));
           reinterpret_cast<internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkDiagnosticsClient.1
       bool success = true;
       int32_t p_status{};
       NetworkDiagnosticsClient_DNSProbeStatus_ParamsDataView input_data_view(params, message);
@@ -430,8 +436,8 @@ std::move(p_can_show));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DNSProbeStatus(
-std::move(p_status));
+      impl->DNSProbeStatus(        
+        std::move(p_status));
       return true;
     }
   }

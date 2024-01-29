@@ -4,6 +4,12 @@
     "rootDir": "preprocessed",
     "outDir": "tsc",
     "paths": {
+      "//resources/cr_components/commerce/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/commerce/*"
+      ],
+      "chrome://resources/cr_components/commerce/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/commerce/*"
+      ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
       ],
@@ -24,9 +30,14 @@
   "files": [
     "preprocessed/commerce_internals.ts",
     "preprocessed/commerce_internals_api_proxy.ts",
-    "preprocessed/commerce_internals.mojom-webui.ts"
+    "preprocessed/view_product.ts",
+    "preprocessed/commerce_internals.mojom-webui.ts",
+    "preprocessed/shopping_service.mojom-webui.ts"
   ],
   "references": [
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/commerce/tsconfig_build_ts.json"
+    },
     {
       "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
     },

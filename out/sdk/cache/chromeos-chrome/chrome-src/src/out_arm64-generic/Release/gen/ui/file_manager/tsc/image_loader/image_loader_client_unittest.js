@@ -36,8 +36,8 @@ function loadAndCheckCacheUsed(client, url, cache) {
     };
     const request = LoadImageRequest.createForUrl(url);
     request.cache = cache;
-    return new Promise(function (fulfill) {
-        client.load(request, function () {
+    return new Promise((fulfill) => {
+        client.load(request, () => {
             fulfill(cacheUsed);
         });
     });

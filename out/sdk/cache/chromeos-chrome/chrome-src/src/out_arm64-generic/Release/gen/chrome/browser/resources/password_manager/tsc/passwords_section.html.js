@@ -1,8 +1,8 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style iron-flex">#header{align-items:center;display:flex}a[href]{color:var(--cr-link-color)}#addPasswordButton{height:auto;padding:3px 16px}#passwords{margin-top:20px}promo-card{margin-bottom:24px;margin-top:24px}password-list-item:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}password-list-item:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
-<template is="dom-if" if="[[promoCard_]]" restamp>
-  <promo-card id="promoCard" class="card" promo-card="[[promoCard_]]" on-promo-closed="onPromoClosed_">
+<template is="dom-if" if="[[shouldShowPromoCard_]]" restamp>
+  <promo-card id="promoCard" class="card" promo-card="[[promoCard_]]" on-promo-closed="onPromoClosed_" on-move-passwords-clicked="onMovePasswordsClicked_">
   </promo-card>
 </template>
 <div id="header">
@@ -35,7 +35,7 @@ export function getTemplate() {
   </auth-timed-out-dialog>
 </template>
 <template is="dom-if" if="[[showMovePasswordsDialog_]]" restamp>
-  <move-passwords-dialog on-close="onMovePasswordsDialogClose_" id="movePasswordsDialog" passwords="[[passwordsOnDevice_]]">
+  <move-passwords-dialog on-close="onMovePasswordsDialogClose_" id="movePasswordsDialog" passwords="[[passwordsOnDevice_]]" trigger="[[getMovePasswordsDialogTrigger_()]]">
   </move-passwords-dialog>
 </template>
 <!--_html_template_end_-->`;

@@ -83,7 +83,7 @@ class CONTENT_EXPORT ChildHistogramFetcherFactory
   virtual ~ChildHistogramFetcherFactory() = default;
 
   
-  virtual void CreateFetcher(::base::WritableSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) = 0;
+  virtual void CreateFetcher(::base::UnsafeSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) = 0;
 };
 
 class ChildHistogramFetcherProxy;
@@ -152,7 +152,7 @@ class CONTENT_EXPORT ChildHistogramFetcherFactoryProxy
 
   explicit ChildHistogramFetcherFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CreateFetcher(::base::WritableSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) final;
+  void CreateFetcher(::base::UnsafeSharedMemoryRegion shared_memory, ::mojo::PendingReceiver<ChildHistogramFetcher> child_histogram_fetcher) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

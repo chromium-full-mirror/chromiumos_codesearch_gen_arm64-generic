@@ -61,24 +61,16 @@ const int argc = 4;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_rendering_context;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<PaintRenderingContext2D>::ToV8(script_state, arg1_rendering_context).ToLocal(&v8_arg1_rendering_context)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_rendering_context = ToV8Traits<PaintRenderingContext2D>::ToV8(script_state, arg1_rendering_context);
 argv[0] = v8_arg1_rendering_context;
 v8::Local<v8::Value> v8_arg2_paint_size;
-if (!ToV8Traits<PaintSize>::ToV8(script_state, arg2_paint_size).ToLocal(&v8_arg2_paint_size)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_paint_size = ToV8Traits<PaintSize>::ToV8(script_state, arg2_paint_size);
 argv[1] = v8_arg2_paint_size;
 v8::Local<v8::Value> v8_arg3_style_map;
-if (!ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg3_style_map).ToLocal(&v8_arg3_style_map)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_style_map = ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg3_style_map);
 argv[2] = v8_arg3_style_map;
 v8::Local<v8::Value> v8_arg4_input_arguments;
-if (!ToV8Traits<IDLSequence<CSSStyleValue>>::ToV8(script_state, arg4_input_arguments).ToLocal(&v8_arg4_input_arguments)) {
-  return v8::Nothing<void>();
-}
+v8_arg4_input_arguments = ToV8Traits<IDLSequence<CSSStyleValue>>::ToV8(script_state, arg4_input_arguments);
 argv[3] = v8_arg4_input_arguments;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -117,24 +109,16 @@ const int argc = 4;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_rendering_context;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<PaintRenderingContext2D>::ToV8(script_state, arg1_rendering_context).ToLocal(&v8_arg1_rendering_context)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_rendering_context = ToV8Traits<PaintRenderingContext2D>::ToV8(script_state, arg1_rendering_context);
 argv[0] = v8_arg1_rendering_context;
 v8::Local<v8::Value> v8_arg2_paint_size;
-if (!ToV8Traits<PaintSize>::ToV8(script_state, arg2_paint_size).ToLocal(&v8_arg2_paint_size)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_paint_size = ToV8Traits<PaintSize>::ToV8(script_state, arg2_paint_size);
 argv[1] = v8_arg2_paint_size;
 v8::Local<v8::Value> v8_arg3_style_map;
-if (!ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg3_style_map).ToLocal(&v8_arg3_style_map)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_style_map = ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg3_style_map);
 argv[2] = v8_arg3_style_map;
 v8::Local<v8::Value> v8_arg4_input_arguments;
-if (!ToV8Traits<IDLSequence<CSSStyleValue>>::ToV8(script_state, arg4_input_arguments).ToLocal(&v8_arg4_input_arguments)) {
-  return v8::Nothing<void>();
-}
+v8_arg4_input_arguments = ToV8Traits<IDLSequence<CSSStyleValue>>::ToV8(script_state, arg4_input_arguments);
 argv[3] = v8_arg4_input_arguments;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

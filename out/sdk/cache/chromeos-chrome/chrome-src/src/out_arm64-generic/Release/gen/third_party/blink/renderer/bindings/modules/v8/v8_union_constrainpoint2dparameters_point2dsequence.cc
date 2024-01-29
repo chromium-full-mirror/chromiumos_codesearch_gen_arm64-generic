@@ -84,7 +84,7 @@ content_type_ = ContentType::kPoint2DSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionConstrainPoint2DParametersOrPoint2DSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionConstrainPoint2DParametersOrPoint2DSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kConstrainPoint2DParameters: {
     return ToV8Traits<ConstrainPoint2DParameters>::ToV8(script_state, member_constrain_point_2d_parameters_.Get());
@@ -95,7 +95,7 @@ v8::MaybeLocal<v8::Value> V8UnionConstrainPoint2DParametersOrPoint2DSequence::To
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionConstrainPoint2DParametersOrPoint2DSequence::Trace(Visitor* visitor) const {

@@ -342,6 +342,8 @@ bool ScreenAIDownloader_DownloadComponentDeprecated_ForwardToCallback::Accept(
           internal::ScreenAIDownloader_DownloadComponentDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIDownloader.0
   bool success = true;
   std::optional<::base::FilePath> p_loaded_folder{};
   ScreenAIDownloader_DownloadComponentDeprecated_ResponseParamsDataView input_data_view(params, message);
@@ -467,6 +469,8 @@ bool ScreenAIDownloader_GetComponentFolder_ForwardToCallback::Accept(
           internal::ScreenAIDownloader_GetComponentFolder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIDownloader.2
   bool success = true;
   std::optional<::base::FilePath> p_component_folder{};
   ScreenAIDownloader_GetComponentFolder_ResponseParamsDataView input_data_view(params, message);
@@ -550,6 +554,8 @@ bool ScreenAIDownloaderStubDispatch::Accept(
           reinterpret_cast<internal::ScreenAIDownloader_SetLastUsageTime_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenAIDownloader.1
       bool success = true;
       ScreenAIDownloader_SetLastUsageTime_ParamsDataView input_data_view(params, message);
       
@@ -562,7 +568,7 @@ bool ScreenAIDownloaderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLastUsageTime();
+      impl->SetLastUsageTime(        );
       return true;
     }
     case internal::kScreenAIDownloader_GetComponentFolder_Name: {
@@ -588,6 +594,8 @@ bool ScreenAIDownloaderStubDispatch::AcceptWithResponder(
               internal::ScreenAIDownloader_DownloadComponentDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIDownloader.0
       bool success = true;
       ScreenAIDownloader_DownloadComponentDeprecated_ParamsDataView input_data_view(params, message);
       
@@ -616,6 +624,8 @@ bool ScreenAIDownloaderStubDispatch::AcceptWithResponder(
               internal::ScreenAIDownloader_GetComponentFolder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIDownloader.2
       bool success = true;
       bool p_download_if_needed{};
       ScreenAIDownloader_GetComponentFolder_ParamsDataView input_data_view(params, message);
@@ -634,8 +644,8 @@ bool ScreenAIDownloaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetComponentFolder(
-std::move(p_download_if_needed), std::move(callback));
+      impl->GetComponentFolder(        
+        std::move(p_download_if_needed), std::move(callback));
       return true;
     }
   }

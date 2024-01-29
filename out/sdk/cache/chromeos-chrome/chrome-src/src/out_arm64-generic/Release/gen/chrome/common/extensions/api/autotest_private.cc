@@ -355,6 +355,10 @@ const char* ToString(WindowStateType enum_param) {
       return "PrimarySnapped";
     case WindowStateType::kSecondarySnapped:
       return "SecondarySnapped";
+    case WindowStateType::kPinned:
+      return "Pinned";
+    case WindowStateType::kTrustedPinned:
+      return "TrustedPinned";
     case WindowStateType::kPip:
       return "PIP";
     case WindowStateType::kFloated:
@@ -379,6 +383,10 @@ WindowStateType ParseWindowStateType(base::StringPiece enum_string) {
     return WindowStateType::kPrimarySnapped;
   if (enum_string == "SecondarySnapped")
     return WindowStateType::kSecondarySnapped;
+  if (enum_string == "Pinned")
+    return WindowStateType::kPinned;
+  if (enum_string == "TrustedPinned")
+    return WindowStateType::kTrustedPinned;
   if (enum_string == "PIP")
     return WindowStateType::kPip;
   if (enum_string == "Floated")
@@ -387,7 +395,7 @@ WindowStateType ParseWindowStateType(base::StringPiece enum_string) {
 }
 
 std::u16string GetWindowStateTypeParseError(base::StringPiece enum_string) {
-  return u"expected \"Normal\" or \"Minimized\" or \"Maximized\" or \"Fullscreen\" or \"PrimarySnapped\" or \"SecondarySnapped\" or \"PIP\" or \"Floated\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"Normal\" or \"Minimized\" or \"Maximized\" or \"Fullscreen\" or \"PrimarySnapped\" or \"SecondarySnapped\" or \"Pinned\" or \"TrustedPinned\" or \"PIP\" or \"Floated\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -6127,7 +6135,7 @@ base::Value::Dict ResetHoldingSpaceOptions::ToValue() const {
 
 
 LoginEventRecorderData::LoginEventRecorderData()
-: microsecnods_since_unix_epoch(0) {}
+: microsecnods_since_unix_epoch(0.0) {}
 
 LoginEventRecorderData::~LoginEventRecorderData() = default;
 LoginEventRecorderData::LoginEventRecorderData(LoginEventRecorderData&& rhs) noexcept = default;
@@ -6159,7 +6167,7 @@ bool LoginEventRecorderData::Populate(
     return false;
   }
   {
-    auto temp = (*microsecnods_since_unix_epoch_value).GetIfInt();
+    auto temp = (*microsecnods_since_unix_epoch_value).GetIfDouble();
     if (!temp.has_value()) {
       return false;
     }
@@ -10733,6 +10741,46 @@ base::Value::List Results::Create(const WakefulnessMode& mode) {
   return create_results;
 }
 }  // namespace GetArcWakefulnessMode
+
+namespace SetDeviceLanguage {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& locale_value = args[0];
+    {
+      auto* temp = locale_value.GetIfString();
+      if (!temp) {
+        return std::nullopt;
+      }
+      params.locale = *temp;
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create() {
+  base::Value::List create_results;
+
+  return create_results;
+}
+}  // namespace SetDeviceLanguage
 
 //
 // Events

@@ -31,8 +31,6 @@ class ContentSettingsPattern_Data;
 class RuleMetaData_Data;
 class ContentSettingPatternSource_Data;
 class RendererContentSettingRules_Data;
-using ContentSettingsType_Data =
-    mojo::internal::NativeEnum_Data;
 
 struct ContentSetting_Data {
  public:

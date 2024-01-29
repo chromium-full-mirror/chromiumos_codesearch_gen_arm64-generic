@@ -23,7 +23,7 @@ describeWithMockConnection('NetworkPanel', () => {
         for (const settingName of ['networkColorCodeResourceTypes', 'network.group-by-frame', 'networkRecordFilmStripSetting']) {
             Common.Settings.registerSettingExtension({
                 settingName,
-                settingType: Common.Settings.SettingType.BOOLEAN,
+                settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
                 defaultValue: false,
             });
         }

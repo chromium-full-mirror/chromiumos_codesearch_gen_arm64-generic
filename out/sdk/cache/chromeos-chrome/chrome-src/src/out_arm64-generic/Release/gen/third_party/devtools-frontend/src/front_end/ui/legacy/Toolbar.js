@@ -40,7 +40,7 @@ import * as ARIAUtils from './ARIAUtils.js';
 import { ContextMenu } from './ContextMenu.js';
 import { GlassPane } from './GlassPane.js';
 import { bindCheckbox } from './SettingsUI.js';
-import { Events as TextPromptEvents, TextPrompt } from './TextPrompt.js';
+import { TextPrompt } from './TextPrompt.js';
 import toolbarStyles from './toolbar.css.legacy.js';
 import { Tooltip } from './Tooltip.js';
 import { CheckboxLabel, LongClickController } from './UIUtils.js';
@@ -204,7 +204,7 @@ export class Toolbar {
                 void action.execute();
             };
         }
-        button.addEventListener(ToolbarButton.Events.Click, handler, action);
+        button.addEventListener("Click" /* ToolbarButton.Events.Click */, handler, action);
         action.addEventListener("Enabled" /* ActionEvents.Enabled */, enabledChanged);
         button.setEnabled(action.enabled());
         return button;
@@ -466,12 +466,8 @@ export class ToolbarButton extends ToolbarItem {
     textElement;
     text;
     glyph;
-    icon;
     adorner;
-    /**
-     * TODO(crbug.com/1515213): Remove arbitrary `HTMLElement`s here.
-     */
-    constructor(title, glyphOrIcon, text, jslogContext) {
+    constructor(title, glyphOrAdorner, text, jslogContext) {
         const element = document.createElement('button');
         element.classList.add('toolbar-button');
         super(element);
@@ -482,8 +478,8 @@ export class ToolbarButton extends ToolbarItem {
         this.element.appendChild(this.glyphElement);
         this.textElement = this.element.createChild('div', 'toolbar-text hidden');
         this.setTitle(title);
-        if (glyphOrIcon) {
-            this.setGlyphOrIcon(glyphOrIcon);
+        if (glyphOrAdorner) {
+            this.setGlyphOrAdorner(glyphOrAdorner);
         }
         this.setText(text || '');
         if (jslogContext) {
@@ -502,28 +498,18 @@ export class ToolbarButton extends ToolbarItem {
         this.textElement.classList.toggle('hidden', !text);
         this.text = text;
     }
-    setGlyphOrIcon(glyphOrIcon) {
-        if (glyphOrIcon instanceof Adorners.Adorner.Adorner) {
+    setGlyphOrAdorner(glyphOrAdorner) {
+        if (glyphOrAdorner instanceof Adorners.Adorner.Adorner) {
             if (this.adorner) {
-                this.adorner.replaceWith(glyphOrIcon);
+                this.adorner.replaceWith(glyphOrAdorner);
             }
             else {
-                this.element.prepend(glyphOrIcon);
+                this.element.prepend(glyphOrAdorner);
             }
-            this.adorner = glyphOrIcon;
+            this.adorner = glyphOrAdorner;
         }
-        else if (glyphOrIcon instanceof HTMLElement) {
-            glyphOrIcon.classList.add('toolbar-icon');
-            if (this.icon) {
-                this.icon.replaceWith(glyphOrIcon);
-            }
-            else {
-                this.element.appendChild(glyphOrIcon);
-            }
-            this.icon = glyphOrIcon;
-        }
-        else if (glyphOrIcon) {
-            this.setGlyph(glyphOrIcon);
+        else {
+            this.setGlyph(glyphOrAdorner);
         }
     }
     setGlyph(glyph) {
@@ -556,25 +542,16 @@ export class ToolbarButton extends ToolbarItem {
         if (!this.enabled) {
             return;
         }
-        this.dispatchEventToListeners(ToolbarButton.Events.Click, event);
+        this.dispatchEventToListeners("Click" /* ToolbarButton.Events.Click */, event);
         event.consume();
     }
     mouseDown(event) {
         if (!this.enabled) {
             return;
         }
-        this.dispatchEventToListeners(ToolbarButton.Events.MouseDown, event);
+        this.dispatchEventToListeners("MouseDown" /* ToolbarButton.Events.MouseDown */, event);
     }
 }
-(function (ToolbarButton) {
-    // TODO(crbug.com/1167717): Make this a const enum again
-    // eslint-disable-next-line rulesdir/const_enum
-    let Events;
-    (function (Events) {
-        Events["Click"] = "Click";
-        Events["MouseDown"] = "MouseDown";
-    })(Events = ToolbarButton.Events || (ToolbarButton.Events = {}));
-})(ToolbarButton || (ToolbarButton = {}));
 export class ToolbarInput extends ToolbarItem {
     prompt;
     proxyElement;
@@ -596,7 +573,7 @@ export class ToolbarInput extends ToolbarItem {
             this.prompt.setTitle(tooltip);
         }
         this.prompt.setPlaceholder(placeholder, accessiblePlaceholder);
-        this.prompt.addEventListener(TextPromptEvents.TextChanged, this.onChangeCallback.bind(this));
+        this.prompt.addEventListener("TextChanged" /* TextPromptEvents.TextChanged */, this.onChangeCallback.bind(this));
         if (growFactor) {
             this.element.style.flexGrow = String(growFactor);
         }
@@ -633,7 +610,7 @@ export class ToolbarInput extends ToolbarItem {
     }
     onKeydownCallback(event) {
         if (event.key === 'Enter' && this.prompt.text()) {
-            this.dispatchEventToListeners(ToolbarInput.Event.EnterPressed, this.prompt.text());
+            this.dispatchEventToListeners("EnterPressed" /* ToolbarInput.Event.EnterPressed */, this.prompt.text());
         }
         if (!Platform.KeyboardUtilities.isEscKey(event) || !this.prompt.text()) {
             return;
@@ -643,30 +620,21 @@ export class ToolbarInput extends ToolbarItem {
     }
     onChangeCallback() {
         this.updateEmptyStyles();
-        this.dispatchEventToListeners(ToolbarInput.Event.TextChanged, this.prompt.text());
+        this.dispatchEventToListeners("TextChanged" /* ToolbarInput.Event.TextChanged */, this.prompt.text());
     }
     updateEmptyStyles() {
         this.element.classList.toggle('toolbar-input-empty', !this.prompt.text());
     }
 }
-(function (ToolbarInput) {
-    // TODO(crbug.com/1167717): Make this a const enum again
-    // eslint-disable-next-line rulesdir/const_enum
-    let Event;
-    (function (Event) {
-        Event["TextChanged"] = "TextChanged";
-        Event["EnterPressed"] = "EnterPressed";
-    })(Event = ToolbarInput.Event || (ToolbarInput.Event = {}));
-})(ToolbarInput || (ToolbarInput = {}));
 export class ToolbarToggle extends ToolbarButton {
     toggledInternal;
-    untoggledGlyphOrIcon;
-    toggledGlyphOrIcon;
-    constructor(title, glyphOrIcon, toggledGlyphOrIcon, jslogContext) {
-        super(title, glyphOrIcon, '');
+    untoggledGlyph;
+    toggledGlyph;
+    constructor(title, glyph, toggledGlyph, jslogContext) {
+        super(title, glyph, '');
         this.toggledInternal = false;
-        this.untoggledGlyphOrIcon = glyphOrIcon;
-        this.toggledGlyphOrIcon = toggledGlyphOrIcon;
+        this.untoggledGlyph = glyph;
+        this.toggledGlyph = toggledGlyph;
         this.element.classList.add('toolbar-state-off');
         ARIAUtils.setPressed(this.element, false);
         if (jslogContext) {
@@ -684,8 +652,8 @@ export class ToolbarToggle extends ToolbarButton {
         this.element.classList.toggle('toolbar-state-on', toggled);
         this.element.classList.toggle('toolbar-state-off', !toggled);
         ARIAUtils.setPressed(this.element, toggled);
-        if (this.toggledGlyphOrIcon && this.untoggledGlyphOrIcon) {
-            this.setGlyphOrIcon(toggled ? this.toggledGlyphOrIcon : this.untoggledGlyphOrIcon);
+        if (this.toggledGlyph && this.untoggledGlyph) {
+            this.setGlyph(toggled ? this.toggledGlyph : this.untoggledGlyph);
         }
     }
     setDefaultWithRedColor(withRedColor) {
@@ -937,13 +905,4 @@ export function registerToolbarItem(registration) {
 function getRegisteredToolbarItems() {
     return registeredToolbarItems.filter(item => Root.Runtime.Runtime.isDescriptorEnabled({ experiment: item.experiment, condition: item.condition }));
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var ToolbarItemLocation;
-(function (ToolbarItemLocation) {
-    ToolbarItemLocation["FILES_NAVIGATION_TOOLBAR"] = "files-navigator-toolbar";
-    ToolbarItemLocation["MAIN_TOOLBAR_RIGHT"] = "main-toolbar-right";
-    ToolbarItemLocation["MAIN_TOOLBAR_LEFT"] = "main-toolbar-left";
-    ToolbarItemLocation["STYLES_SIDEBARPANE_TOOLBAR"] = "styles-sidebarpane-toolbar";
-})(ToolbarItemLocation || (ToolbarItemLocation = {}));
 //# sourceMappingURL=Toolbar.js.map

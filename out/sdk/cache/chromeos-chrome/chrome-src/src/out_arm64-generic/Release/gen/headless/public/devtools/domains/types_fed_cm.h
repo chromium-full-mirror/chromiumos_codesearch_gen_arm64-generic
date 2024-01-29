@@ -621,6 +621,135 @@ class HEADLESS_EXPORT ClickDialogButtonResult {
 };
 
 
+// Parameters for the OpenUrl command.
+class HEADLESS_EXPORT OpenUrlParams {
+ public:
+  static std::unique_ptr<OpenUrlParams> Parse(const base::Value& value, ErrorReporter* errors);
+
+  OpenUrlParams(const OpenUrlParams&) = delete;
+  OpenUrlParams& operator=(const OpenUrlParams&) = delete;
+
+  ~OpenUrlParams() { }
+
+
+  std::string GetDialogId() const { return dialog_id_; }
+  void SetDialogId(const std::string& value) { dialog_id_ = value; }
+
+  int GetAccountIndex() const { return account_index_; }
+  void SetAccountIndex(int value) { account_index_ = value; }
+
+  ::headless::fed_cm::AccountUrlType GetAccountUrlType() const { return account_url_type_; }
+  void SetAccountUrlType(::headless::fed_cm::AccountUrlType value) { account_url_type_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<OpenUrlParams> Clone() const;
+
+  template<int STATE>
+  class OpenUrlParamsBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kDialogIdSet = 1 << 1,
+    kAccountIndexSet = 1 << 2,
+    kAccountUrlTypeSet = 1 << 3,
+      kAllRequiredFieldsSet = (kDialogIdSet | kAccountIndexSet | kAccountUrlTypeSet | 0)
+    };
+
+    OpenUrlParamsBuilder<STATE | kDialogIdSet>& SetDialogId(const std::string& value) {
+      static_assert(!(STATE & kDialogIdSet), "property dialogId should not have already been set");
+      result_->SetDialogId(value);
+      return CastState<kDialogIdSet>();
+    }
+
+    OpenUrlParamsBuilder<STATE | kAccountIndexSet>& SetAccountIndex(int value) {
+      static_assert(!(STATE & kAccountIndexSet), "property accountIndex should not have already been set");
+      result_->SetAccountIndex(value);
+      return CastState<kAccountIndexSet>();
+    }
+
+    OpenUrlParamsBuilder<STATE | kAccountUrlTypeSet>& SetAccountUrlType(::headless::fed_cm::AccountUrlType value) {
+      static_assert(!(STATE & kAccountUrlTypeSet), "property accountUrlType should not have already been set");
+      result_->SetAccountUrlType(value);
+      return CastState<kAccountUrlTypeSet>();
+    }
+
+    std::unique_ptr<OpenUrlParams> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class OpenUrlParams;
+    OpenUrlParamsBuilder() : result_(new OpenUrlParams()) { }
+
+    template<int STEP> OpenUrlParamsBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<OpenUrlParamsBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<OpenUrlParams> result_;
+  };
+
+  static OpenUrlParamsBuilder<0> Builder() {
+    return OpenUrlParamsBuilder<0>();
+  }
+
+ private:
+  OpenUrlParams() { }
+
+  std::string dialog_id_;
+  int account_index_;
+  ::headless::fed_cm::AccountUrlType account_url_type_;
+};
+
+
+// Result for the OpenUrl command.
+class HEADLESS_EXPORT OpenUrlResult {
+ public:
+  static std::unique_ptr<OpenUrlResult> Parse(const base::Value& value, ErrorReporter* errors);
+
+  OpenUrlResult(const OpenUrlResult&) = delete;
+  OpenUrlResult& operator=(const OpenUrlResult&) = delete;
+
+  ~OpenUrlResult() { }
+
+
+  base::Value Serialize() const;
+  std::unique_ptr<OpenUrlResult> Clone() const;
+
+  template<int STATE>
+  class OpenUrlResultBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+      kAllRequiredFieldsSet = (0)
+    };
+
+    std::unique_ptr<OpenUrlResult> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class OpenUrlResult;
+    OpenUrlResultBuilder() : result_(new OpenUrlResult()) { }
+
+    template<int STEP> OpenUrlResultBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<OpenUrlResultBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<OpenUrlResult> result_;
+  };
+
+  static OpenUrlResultBuilder<0> Builder() {
+    return OpenUrlResultBuilder<0>();
+  }
+
+ private:
+  OpenUrlResult() { }
+
+};
+
+
 // Parameters for the DismissDialog command.
 class HEADLESS_EXPORT DismissDialogParams {
  public:

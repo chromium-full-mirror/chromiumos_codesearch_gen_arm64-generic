@@ -5,7 +5,6 @@ import '../strings.m.js';
 import { assert } from 'chrome://resources/js/assert.js';
 // 
 import { NativeLayerCrosImpl } from '../native_layer_cros.js';
-// 
 import { getStatusReasonFromPrinterStatus, PrinterStatusReason } from './printer_status_cros.js';
 // 
 /**

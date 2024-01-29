@@ -68,8 +68,18 @@ void Domain::Enable(base::OnceClosure callback) {
 void Domain::Enable(std::unique_ptr<EnableParams> params, base::OnceClosure callback) {
   dispatcher_->SendMessage("Security.enable", params->Serialize(), std::move(callback));
 }
-void ExperimentalDomain::SetIgnoreCertificateErrors(std::unique_ptr<SetIgnoreCertificateErrorsParams> params, base::OnceCallback<void(std::unique_ptr<SetIgnoreCertificateErrorsResult>)> callback) {
+void Domain::SetIgnoreCertificateErrors(std::unique_ptr<SetIgnoreCertificateErrorsParams> params, base::OnceCallback<void(std::unique_ptr<SetIgnoreCertificateErrorsResult>)> callback) {
   dispatcher_->SendMessage("Security.setIgnoreCertificateErrors", params->Serialize(), base::BindOnce(&Domain::HandleSetIgnoreCertificateErrorsResponse, std::move(callback)));
+}
+
+void Domain::SetIgnoreCertificateErrors(bool ignore, base::OnceClosure callback) {
+  std::unique_ptr<SetIgnoreCertificateErrorsParams> params = SetIgnoreCertificateErrorsParams::Builder()
+      .SetIgnore(std::move(ignore))
+      .Build();
+  dispatcher_->SendMessage("Security.setIgnoreCertificateErrors", params->Serialize(), std::move(callback));
+}
+void Domain::SetIgnoreCertificateErrors(std::unique_ptr<SetIgnoreCertificateErrorsParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Security.setIgnoreCertificateErrors", params->Serialize(), std::move(callback));
 }
 void Domain::HandleCertificateError(std::unique_ptr<HandleCertificateErrorParams> params, base::OnceCallback<void(std::unique_ptr<HandleCertificateErrorResult>)> callback) {
   dispatcher_->SendMessage("Security.handleCertificateError", params->Serialize(), base::BindOnce(&Domain::HandleHandleCertificateErrorResponse, std::move(callback)));

@@ -6,7 +6,7 @@
  * 'settings-pdf-documents' is the polymer element for showing the
  * settings for viewing PDF documents under Site Settings.
  */
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './pdf_documents.html.js';

@@ -130,7 +130,6 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
@@ -139,9 +138,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = Mojo::createDataPipe(arg1_options);
-if (!ToV8Traits<MojoCreateDataPipeResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoCreateDataPipeResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -156,15 +153,12 @@ BLINK_BINDINGS_TRACE_EVENT("Mojo.createMessagePipe");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& return_value = Mojo::createMessagePipe();
-if (!ToV8Traits<MojoCreateMessagePipeResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoCreateMessagePipeResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -188,7 +182,6 @@ return;
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
@@ -197,9 +190,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 auto&& return_value = Mojo::createSharedBuffer(arg1_num_bytes);
-if (!ToV8Traits<MojoCreateSharedBufferResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<MojoCreateSharedBufferResult>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -314,7 +305,7 @@ void V8Mojo::Impl::InstallContextDependentProperties(v8::Local<v8::Context> cont
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 const ContextFeatureSettings* context_feature_settings = ContextFeatureSettings::From(execution_context, ContextFeatureSettings::CreationMode::kDontCreateIfNotExists);
 if (execution_context->IsWindow() && (feature_selector.IsAll() && (context_feature_settings && context_feature_settings->isMojoJSFileSystemAccessHelperEnabled()))) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {

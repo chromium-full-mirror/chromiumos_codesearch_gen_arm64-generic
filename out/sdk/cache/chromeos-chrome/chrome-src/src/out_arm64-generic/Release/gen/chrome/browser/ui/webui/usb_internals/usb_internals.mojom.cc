@@ -227,6 +227,8 @@ bool UsbInternalsPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UsbInternalsPageHandler_BindUsbDeviceManagerInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbInternalsPageHandler.0
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::UsbDeviceManager> p_receiver{};
       UsbInternalsPageHandler_BindUsbDeviceManagerInterface_ParamsDataView input_data_view(params, message);
@@ -244,8 +246,8 @@ bool UsbInternalsPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUsbDeviceManagerInterface(
-std::move(p_receiver));
+      impl->BindUsbDeviceManagerInterface(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kUsbInternalsPageHandler_BindTestInterface_Name: {
@@ -255,6 +257,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::UsbInternalsPageHandler_BindTestInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbInternalsPageHandler.1
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::UsbDeviceManagerTest> p_receiver{};
       UsbInternalsPageHandler_BindTestInterface_ParamsDataView input_data_view(params, message);
@@ -272,8 +276,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestInterface(
-std::move(p_receiver));
+      impl->BindTestInterface(        
+        std::move(p_receiver));
       return true;
     }
   }

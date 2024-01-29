@@ -1251,6 +1251,96 @@ struct StatefulPartitionInfo {
 
 };
 
+enum class ThermalSensorSource {
+  kNone = 0,
+  kUnknown,
+  kEc,
+  kSysFs,
+  kMaxValue = kSysFs,
+};
+
+
+const char* ToString(ThermalSensorSource as_enum);
+ThermalSensorSource ParseThermalSensorSource(base::StringPiece as_string);
+std::u16string GetThermalSensorSourceParseError(base::StringPiece as_string);
+
+struct ThermalSensorInfo {
+  ThermalSensorInfo();
+  ~ThermalSensorInfo();
+  ThermalSensorInfo(const ThermalSensorInfo&) = delete;
+  ThermalSensorInfo& operator=(const ThermalSensorInfo&) = delete;
+  ThermalSensorInfo(ThermalSensorInfo&& rhs) noexcept;
+  ThermalSensorInfo& operator=(ThermalSensorInfo&& rhs) noexcept;
+
+  // Populates a ThermalSensorInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ThermalSensorInfo& out);
+
+  // Populates a ThermalSensorInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ThermalSensorInfo& out);
+
+  // Creates a deep copy of ThermalSensorInfo.
+  ThermalSensorInfo Clone() const;
+
+  // Creates a ThermalSensorInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<ThermalSensorInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a ThermalSensorInfo object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<ThermalSensorInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisThermalSensorInfo object.
+  base::Value::Dict ToValue() const;
+
+  // Name of the thermal sensor.
+  std::optional<std::string> name;
+
+  // Temperature detected by the thermal sensor in celsius.
+  std::optional<double> temperature_celsius;
+
+  // Where the thermal sensor is detected from.
+  ThermalSensorSource source;
+
+};
+
+struct ThermalInfo {
+  ThermalInfo();
+  ~ThermalInfo();
+  ThermalInfo(const ThermalInfo&) = delete;
+  ThermalInfo& operator=(const ThermalInfo&) = delete;
+  ThermalInfo(ThermalInfo&& rhs) noexcept;
+  ThermalInfo& operator=(ThermalInfo&& rhs) noexcept;
+
+  // Populates a ThermalInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ThermalInfo& out);
+
+  // Populates a ThermalInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ThermalInfo& out);
+
+  // Creates a deep copy of ThermalInfo.
+  ThermalInfo Clone() const;
+
+  // Creates a ThermalInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<ThermalInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a ThermalInfo object from a base::Value, or nullopt on failure.
+  static std::optional<ThermalInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisThermalInfo object.
+  base::Value::Dict ToValue() const;
+
+  // An array containing all the information retrieved for thermal sensors.
+  std::vector<ThermalSensorInfo> thermal_sensors;
+
+};
+
 enum class TpmGSCVersion {
   kNone = 0,
   kNotGsc,
@@ -1573,6 +1663,15 @@ base::Value::List Create(const DisplayInfo& display_info);
 }  // namespace Results
 
 }  // namespace GetDisplayInfo
+
+namespace GetThermalInfo {
+
+namespace Results {
+
+base::Value::List Create(const ThermalInfo& thermal_info);
+}  // namespace Results
+
+}  // namespace GetThermalInfo
 
 }  // namespace os_telemetry
 }  // namespace api

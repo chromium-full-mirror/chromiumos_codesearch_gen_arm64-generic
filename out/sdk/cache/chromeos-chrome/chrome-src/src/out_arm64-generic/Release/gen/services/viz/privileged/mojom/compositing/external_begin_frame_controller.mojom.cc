@@ -233,6 +233,8 @@ bool ExternalBeginFrameController_IssueExternalBeginFrame_ForwardToCallback::Acc
           internal::ExternalBeginFrameController_IssueExternalBeginFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ExternalBeginFrameController.0
   bool success = true;
   ::viz::BeginFrameAck p_ack{};
   ExternalBeginFrameController_IssueExternalBeginFrame_ResponseParamsDataView input_data_view(params, message);
@@ -333,6 +335,8 @@ bool ExternalBeginFrameControllerStubDispatch::AcceptWithResponder(
               internal::ExternalBeginFrameController_IssueExternalBeginFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ExternalBeginFrameController.0
       bool success = true;
       ::viz::BeginFrameArgs p_args{};
       bool p_force{};
@@ -354,9 +358,9 @@ bool ExternalBeginFrameControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IssueExternalBeginFrame(
-std::move(p_args), 
-std::move(p_force), std::move(callback));
+      impl->IssueExternalBeginFrame(        
+        std::move(p_args), 
+        std::move(p_force), std::move(callback));
       return true;
     }
   }

@@ -362,6 +362,8 @@ bool AttributionHostStubDispatch::Accept(
           reinterpret_cast<internal::AttributionHost_RegisterDataHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionHost.0
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::AttributionDataHost> p_data_host{};
       ::attribution_reporting::mojom::blink::RegistrationEligibility p_registration_eligibility{};
@@ -382,9 +384,9 @@ bool AttributionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterDataHost(
-std::move(p_data_host), 
-std::move(p_registration_eligibility));
+      impl->RegisterDataHost(        
+        std::move(p_data_host), 
+        std::move(p_registration_eligibility));
       return true;
     }
     case internal::kAttributionHost_RegisterNavigationDataHost_Name: {
@@ -394,6 +396,8 @@ std::move(p_registration_eligibility));
           reinterpret_cast<internal::AttributionHost_RegisterNavigationDataHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionHost.1
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::AttributionDataHost> p_data_host{};
       ::blink::AttributionSrcToken p_attribution_src_token{};
@@ -414,9 +418,9 @@ std::move(p_registration_eligibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterNavigationDataHost(
-std::move(p_data_host), 
-std::move(p_attribution_src_token));
+      impl->RegisterNavigationDataHost(        
+        std::move(p_data_host), 
+        std::move(p_attribution_src_token));
       return true;
     }
     case internal::kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name: {
@@ -426,6 +430,8 @@ std::move(p_attribution_src_token));
           reinterpret_cast<internal::AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AttributionHost.2
       bool success = true;
       ::blink::AttributionSrcToken p_attribution_src_token{};
       uint32_t p_expected_registrations{};
@@ -444,9 +450,9 @@ std::move(p_attribution_src_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyNavigationWithBackgroundRegistrationsWillStart(
-std::move(p_attribution_src_token), 
-std::move(p_expected_registrations));
+      impl->NotifyNavigationWithBackgroundRegistrationsWillStart(        
+        std::move(p_attribution_src_token), 
+        std::move(p_expected_registrations));
       return true;
     }
   }

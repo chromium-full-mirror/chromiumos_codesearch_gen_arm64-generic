@@ -42,8 +42,6 @@
 #include "third_party/blink/public/mojom/loader/transferrable_url_loader.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/loader/url_loader_factory_bundle.mojom.h"
 #include "third_party/blink/public/mojom/loader/url_loader_factory_bundle.mojom-import-headers.h"
-#include "third_party/blink/public/mojom/loader/resource_cache.mojom.h"
-#include "third_party/blink/public/mojom/loader/resource_cache.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/navigation/navigation_params.mojom.h"
 #include "third_party/blink/public/mojom/navigation/navigation_params.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/permissions_policy/document_policy_feature.mojom.h"

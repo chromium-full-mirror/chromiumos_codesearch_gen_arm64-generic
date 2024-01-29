@@ -18,7 +18,7 @@ describeWithRealConnection('IssueView', () => {
         const treeOutline = new UI.TreeOutline.TreeOutline(); // TreeElements need to be part of a TreeOutline to be expandable.
         treeOutline.appendChild(view);
         view.expand();
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded, Host.UserMetrics.IssueExpanded.Other));
+        assert.isTrue(recordedMetricsContain("DevTools.IssuesPanelIssueExpanded" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded */, Host.UserMetrics.IssueExpanded.Other));
         view.clear();
     });
     it('records metrics when a SameSite Cookie issue is expanded', () => {
@@ -30,8 +30,8 @@ describeWithRealConnection('IssueView', () => {
         const treeOutline = new UI.TreeOutline.TreeOutline(); // TreeElements need to be part of a TreeOutline to be expandable.
         treeOutline.appendChild(view);
         view.expand();
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded, Host.UserMetrics.IssueExpanded.SameSiteCookie));
-        assert.isFalse(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded, Host.UserMetrics.IssueExpanded.GenericCookie));
+        assert.isTrue(recordedMetricsContain("DevTools.IssuesPanelIssueExpanded" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded */, Host.UserMetrics.IssueExpanded.SameSiteCookie));
+        assert.isFalse(recordedMetricsContain("DevTools.IssuesPanelIssueExpanded" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded */, Host.UserMetrics.IssueExpanded.GenericCookie));
         view.clear();
     });
     it('records metrics when a ThirdPartyPhaseout Cookie issue is expanded', () => {
@@ -43,8 +43,8 @@ describeWithRealConnection('IssueView', () => {
         const treeOutline = new UI.TreeOutline.TreeOutline(); // TreeElements need to be part of a TreeOutline to be expandable.
         treeOutline.appendChild(view);
         view.expand();
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded, Host.UserMetrics.IssueExpanded.ThirdPartyPhaseoutCookie));
-        assert.isFalse(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded, Host.UserMetrics.IssueExpanded.GenericCookie));
+        assert.isTrue(recordedMetricsContain("DevTools.IssuesPanelIssueExpanded" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded */, Host.UserMetrics.IssueExpanded.ThirdPartyPhaseoutCookie));
+        assert.isFalse(recordedMetricsContain("DevTools.IssuesPanelIssueExpanded" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.IssuesPanelIssueExpanded */, Host.UserMetrics.IssueExpanded.GenericCookie));
         view.clear();
     });
 });

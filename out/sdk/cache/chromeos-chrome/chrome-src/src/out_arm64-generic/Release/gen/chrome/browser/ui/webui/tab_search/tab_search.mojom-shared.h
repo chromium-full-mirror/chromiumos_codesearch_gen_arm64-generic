@@ -154,15 +154,17 @@ namespace tab_search::mojom {
 
 enum class TabOrganizationState : int32_t {
   
-  kNotStarted = 0,
+  kInitializing = 0,
   
-  kInProgress = 1,
+  kNotStarted = 1,
   
-  kSuccess = 2,
+  kInProgress = 2,
   
-  kFailure = 3,
+  kSuccess = 3,
+  
+  kFailure = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, TabOrganizationState value);

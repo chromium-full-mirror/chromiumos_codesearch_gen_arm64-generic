@@ -2023,6 +2023,13 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // HasLogicalDirectionRelativeUnits
+  bool HasLogicalDirectionRelativeUnits() const {
+    return static_cast<bool>(data_.has_logical_direction_relative_units_);
+  }
+
+
+
   // HasNonUaHighlightPseudoStyles
   bool HasNonUaHighlightPseudoStyles() const {
     return static_cast<bool>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->has_non_ua_highlight_pseudo_styles_);
@@ -2080,6 +2087,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   }
 
 
+
+
+
+
+  // HighlightsDependOnSizeContainerQueries
+  bool HighlightsDependOnSizeContainerQueries() const {
+    return static_cast<bool>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->highlights_depend_on_size_container_queries_);
+  }
 
 
 
@@ -4181,6 +4196,16 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // view-transition-class
+  const Vector<AtomicString>& ViewTransitionClass() const {
+    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_;
+  }
+
+
+
+
+
+
   // view-transition-name
   const AtomicString& ViewTransitionName() const {
     return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_name_;
@@ -4498,6 +4523,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     has_glyph_relative_units_,
     has_line_height_relative_units_,
     has_line_if_empty_,
+    has_logical_direction_relative_units_,
     has_non_ua_highlight_pseudo_styles_,
     has_non_universal_highlight_pseudo_styles_,
     has_root_font_relative_units_,
@@ -4506,6 +4532,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     has_variable_reference_from_non_inherited_property_,
     height_,
     highlight_data_,
+    highlights_depend_on_size_container_queries_,
     horizontal_border_spacing_,
     hyphenate_limit_chars_,
     hyphenation_string_,
@@ -4761,6 +4788,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     view_timeline_axis_,
     view_timeline_inset_,
     view_timeline_name_,
+    view_transition_class_,
     view_transition_name_,
     viewport_unit_flags_,
     visibility_,
@@ -5792,6 +5820,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(timeline_data_);
       visitor->Trace(will_change_data_);
       visitor->Trace(math_data_);
+      TraceIfNeeded<Vector<AtomicString>>::Trace(visitor, view_transition_class_);
       TraceIfNeeded<AtomicString>::Trace(visitor, view_transition_name_);
       TraceIfNeeded<AtomicString>::Trace(visitor, display_layout_custom_name_);
       TraceIfNeeded<AtomicString>::Trace(visitor, display_layout_custom_parent_name_);
@@ -5806,6 +5835,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
       visitor->Trace(position_fallback_);
       visitor->Trace(position_fallback_bounds_);
       visitor->Trace(document_rules_selectors_);
+      visitor->Trace(paint_images_);
       TraceIfNeeded<StyleInitialLetter>::Trace(visitor, initial_letter_);
       TraceIfNeeded<gfx::SizeF>::Trace(visitor, page_size_);
       TraceIfNeeded<float>::Trace(visitor, popover_hide_delay_);
@@ -5827,6 +5857,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && base::ValuesEquivalent(timeline_data_, other.timeline_data_)
         && base::ValuesEquivalent(will_change_data_, other.will_change_data_)
         && base::ValuesEquivalent(math_data_, other.math_data_)
+        && view_transition_class_ == other.view_transition_class_
         && view_transition_name_ == other.view_transition_name_
         && display_layout_custom_name_ == other.display_layout_custom_name_
         && display_layout_custom_parent_name_ == other.display_layout_custom_parent_name_
@@ -5903,6 +5934,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     Member<StyleTimelineData> timeline_data_;
     Member<StyleWillChangeData> will_change_data_;
     Member<StyleMathData> math_data_;
+    Vector<AtomicString> view_transition_class_;
     AtomicString view_transition_name_;
     AtomicString display_layout_custom_name_;
     AtomicString display_layout_custom_parent_name_;
@@ -5912,7 +5944,6 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     std::unique_ptr<CounterDirectiveMap> counter_directives_;
     std::unique_ptr<CSSAnimationData> animations_;
     std::unique_ptr<CSSTransitionData> transitions_;
-    std::unique_ptr<PaintImages> paint_images_;
     std::unique_ptr<StyleNonInheritedVariables> non_inherited_variables_;
     Vector<String> callback_selectors_;
     FillLayer mask_;
@@ -5924,6 +5955,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     Member<ScopedCSSName> position_fallback_;
     Member<ScopedCSSName> position_fallback_bounds_;
     Member<HeapHashSet<WeakMember<StyleRule>>> document_rules_selectors_;
+    Member<PaintImages> paint_images_;
     StyleInitialLetter initial_letter_;
     gfx::SizeF page_size_;
     float popover_hide_delay_;
@@ -5967,6 +5999,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     unsigned has_line_height_relative_units_ : 1; // bool
     unsigned has_non_ua_highlight_pseudo_styles_ : 1; // bool
     unsigned has_non_universal_highlight_pseudo_styles_ : 1; // bool
+    unsigned highlights_depend_on_size_container_queries_ : 1; // bool
     unsigned inline_style_lost_cascade_ : 1; // bool
     unsigned is_running_backdrop_filter_animation_on_compositor_ : 1; // bool
     unsigned is_running_filter_animation_on_compositor_ : 1; // bool
@@ -7734,6 +7767,9 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // HasLogicalDirectionRelativeUnits
+  
+
   // HasNonUaHighlightPseudoStyles
   
 
@@ -7771,6 +7807,12 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
   // HighlightData
   
 
+
+
+
+
+  // HighlightsDependOnSizeContainerQueries
+  
 
 
 
@@ -8644,7 +8686,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
   // PaintImages
-  const std::unique_ptr<PaintImages>& PaintImagesInternal() const {
+  const Member<PaintImages>& PaintImagesInternal() const {
     return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->paint_images_;
   }
 
@@ -9443,6 +9485,13 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // view-transition-class
+  
+
+
+
+
+
   // view-transition-name
   
 
@@ -9605,6 +9654,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     unsigned has_em_units_ : 1; // bool
     unsigned has_explicit_inheritance_ : 1; // bool
     unsigned has_glyph_relative_units_ : 1; // bool
+    unsigned has_logical_direction_relative_units_ : 1; // bool
     unsigned has_root_font_relative_units_ : 1; // bool
     unsigned has_variable_declaration_ : 1; // bool
     unsigned has_variable_reference_ : 1; // bool
@@ -12374,6 +12424,16 @@ class ComputedStyleBuilderBase {
   }
 
 
+  // HasLogicalDirectionRelativeUnits
+  bool HasLogicalDirectionRelativeUnits() const {
+    return static_cast<bool>(data_.has_logical_direction_relative_units_);
+  }
+
+  void SetHasLogicalDirectionRelativeUnits() {
+    data_.has_logical_direction_relative_units_ = static_cast<unsigned>(true);
+  }
+
+
   // HasNonUaHighlightPseudoStyles
   bool HasNonUaHighlightPseudoStyles() const {
     return static_cast<bool>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->has_non_ua_highlight_pseudo_styles_);
@@ -12481,6 +12541,21 @@ class ComputedStyleBuilderBase {
     Access(Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->highlight_data_data_, access_.highlight_data_data_)->highlight_data_ = StyleHighlightData();
   }
 
+
+
+  // HighlightsDependOnSizeContainerQueries
+  bool HighlightsDependOnSizeContainerQueries() const {
+    return static_cast<bool>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->highlights_depend_on_size_container_queries_);
+  }
+
+  void SetHighlightsDependOnSizeContainerQueries(bool v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->highlights_depend_on_size_container_queries_ == static_cast<unsigned>(v)))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->highlights_depend_on_size_container_queries_ = static_cast<unsigned>(v);
+  }
+
+  inline void ResetHighlightsDependOnSizeContainerQueries() {
+    Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->highlights_depend_on_size_container_queries_ = static_cast<unsigned>(false);
+  }
 
 
   // -webkit-border-horizontal-spacing
@@ -16558,6 +16633,27 @@ class ComputedStyleBuilderBase {
 
 
 
+  // view-transition-class
+  const Vector<AtomicString>& ViewTransitionClass() const {
+    return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_;
+  }
+
+  void SetViewTransitionClass(const Vector<AtomicString>& v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_ == v))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->view_transition_class_ = v;
+  }
+
+  void SetViewTransitionClass(Vector<AtomicString>&& v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_ == v))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->view_transition_class_ = std::move(v);
+  }
+
+  inline void ResetViewTransitionClass() {
+    Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->view_transition_class_ = Vector<AtomicString, 0>();
+  }
+
+
+
   // view-transition-name
   const AtomicString& ViewTransitionName() const {
     return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_name_;
@@ -18508,6 +18604,9 @@ class ComputedStyleBuilderBase {
   }
 
 
+  // HasLogicalDirectionRelativeUnits
+  
+
   // HasNonUaHighlightPseudoStyles
   
 
@@ -18558,6 +18657,15 @@ class ComputedStyleBuilderBase {
 
   StyleHighlightData& MutableHighlightDataInternal() {
     return Access(Access(Access(rare_inherited_usage_less_than_64_percent_data_, access_.rare_inherited_usage_less_than_64_percent_data_)->rare_inherited_usage_less_than_64_percent_sub_data_, access_.rare_inherited_usage_less_than_64_percent_sub_data_)->highlight_data_data_, access_.highlight_data_data_)->highlight_data_;
+  }
+
+
+  // HighlightsDependOnSizeContainerQueries
+  
+
+
+  bool MutableHighlightsDependOnSizeContainerQueriesInternal() {
+    return static_cast<bool>(Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->highlights_depend_on_size_container_queries_);
   }
 
 
@@ -19887,17 +19995,17 @@ class ComputedStyleBuilderBase {
 
 
   // PaintImages
-  const std::unique_ptr<PaintImages>& PaintImagesInternal() const {
+  const Member<PaintImages>& PaintImagesInternal() const {
     return rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->paint_images_;
   }
 
-  void SetPaintImagesInternal(std::unique_ptr<PaintImages>&& v) {
+  void SetPaintImagesInternal(Member<PaintImages>&& v) {
     if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->paint_images_ == v))
       Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->paint_images_ = std::move(v);
   }
 
 
-  std::unique_ptr<PaintImages>& MutablePaintImagesInternal() {
+  Member<PaintImages>& MutablePaintImagesInternal() {
     return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->paint_images_;
   }
 
@@ -21090,6 +21198,16 @@ class ComputedStyleBuilderBase {
 
   Member<ScopedCSSNameList>& MutableViewTimelineNameInternal() {
     return Access(Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->timeline_data_, access_.timeline_data_)->view_timeline_name_;
+  }
+
+
+  // view-transition-class
+  
+
+
+
+  Vector<AtomicString>& MutableViewTransitionClassInternal() {
+    return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->view_transition_class_;
   }
 
 

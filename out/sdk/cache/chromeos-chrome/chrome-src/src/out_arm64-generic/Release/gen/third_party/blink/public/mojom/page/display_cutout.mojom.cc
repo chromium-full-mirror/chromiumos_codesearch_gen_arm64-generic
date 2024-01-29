@@ -157,6 +157,8 @@ bool DisplayCutoutHostStubDispatch::Accept(
           reinterpret_cast<internal::DisplayCutoutHost_NotifyViewportFitChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayCutoutHost.0
       bool success = true;
       ViewportFit p_value{};
       DisplayCutoutHost_NotifyViewportFitChanged_ParamsDataView input_data_view(params, message);
@@ -172,8 +174,8 @@ bool DisplayCutoutHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyViewportFitChanged(
-std::move(p_value));
+      impl->NotifyViewportFitChanged(        
+        std::move(p_value));
       return true;
     }
   }
@@ -329,6 +331,8 @@ bool DisplayCutoutClientStubDispatch::Accept(
           reinterpret_cast<internal::DisplayCutoutClient_SetSafeArea_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DisplayCutoutClient.0
       bool success = true;
       ::gfx::Insets p_safe_area{};
       DisplayCutoutClient_SetSafeArea_ParamsDataView input_data_view(params, message);
@@ -344,8 +348,8 @@ bool DisplayCutoutClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSafeArea(
-std::move(p_safe_area));
+      impl->SetSafeArea(        
+        std::move(p_safe_area));
       return true;
     }
   }

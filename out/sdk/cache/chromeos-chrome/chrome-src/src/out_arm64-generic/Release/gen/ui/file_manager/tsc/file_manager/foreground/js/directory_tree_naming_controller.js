@@ -122,7 +122,7 @@ export class DirectoryTreeNamingController {
         assert(entry);
         const newName = this.inputElement_.value;
         // If new name is the same as current name or empty, do nothing.
-        if (newName === this.currentDirectoryItem_.label || newName.length == 0) {
+        if (newName === this.currentDirectoryItem_.label || newName.length === 0) {
             this.detach_();
             return;
         }

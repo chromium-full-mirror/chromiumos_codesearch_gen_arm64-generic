@@ -16,6 +16,11 @@ import {
   UrlSpec as url_mojom_UrlSpec
 } from '../../../url/mojom/url.mojom.m.js';
 
+import {
+  HostID as extensions_mojom_HostID,
+  HostIDSpec as extensions_mojom_HostIDSpec
+} from './host_id.mojom.m.js';
+
 
 
 
@@ -323,9 +328,9 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'extensionId', 8,
+        'hostId', 8,
         0,
-        mojo.internal.String,
+        extensions_mojom_HostIDSpec.$,
         null,
         false /* nullable */,
         0,
@@ -374,8 +379,8 @@ export class DispatchEventParams {
   constructor() {
     /** @type { !number } */
     this.workerThreadId;
-    /** @type { !string } */
-    this.extensionId;
+    /** @type { !extensions_mojom_HostID } */
+    this.hostId;
     /** @type { !string } */
     this.eventName;
     /** @type { !number } */

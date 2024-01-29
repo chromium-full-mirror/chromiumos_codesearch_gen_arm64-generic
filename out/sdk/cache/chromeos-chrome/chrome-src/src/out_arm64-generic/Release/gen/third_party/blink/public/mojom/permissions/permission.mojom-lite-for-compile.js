@@ -274,6 +274,197 @@ blink.mojom.PermissionObserverCallbackRouter = class {
 };
 
 
+goog.provide('blink.mojom.EmbeddedPermissionControlClient');
+goog.provide('blink.mojom.EmbeddedPermissionControlClientReceiver');
+goog.provide('blink.mojom.EmbeddedPermissionControlClientCallbackRouter');
+goog.provide('blink.mojom.EmbeddedPermissionControlClientInterface');
+goog.provide('blink.mojom.EmbeddedPermissionControlClientRemote');
+goog.provide('blink.mojom.EmbeddedPermissionControlClientPendingReceiver');
+
+
+/**
+ * @implements {mojo.internal.interfaceSupport.PendingReceiver}
+ * @export
+ */
+blink.mojom.EmbeddedPermissionControlClientPendingReceiver = class {
+  /**
+   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
+   */
+  constructor(handle) {
+    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
+    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+  }
+
+  /** @param {string=} scope */
+  bindInBrowser(scope = 'context') {
+    mojo.internal.interfaceSupport.bind(
+        this.handle,
+        blink.mojom.EmbeddedPermissionControlClient.$interfaceName,
+        scope);
+  }
+};
+
+/** @interface */
+blink.mojom.EmbeddedPermissionControlClientInterface = class {
+  
+  /**
+   * @param { !boolean } allow
+   * @param { ?Array<!blink.mojom.PermissionStatus> } statuses
+   */
+
+  onEmbeddedPermissionControlRegistered(allow, statuses) {}
+};
+
+/**
+ * @export
+ * @implements { blink.mojom.EmbeddedPermissionControlClientInterface }
+ */
+blink.mojom.EmbeddedPermissionControlClientRemote = class {
+  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
+  constructor(handle = undefined) {
+    /**
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!blink.mojom.EmbeddedPermissionControlClientPendingReceiver>}
+     */
+    this.proxy =
+        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
+          blink.mojom.EmbeddedPermissionControlClientPendingReceiver,
+          handle);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!blink.mojom.EmbeddedPermissionControlClientPendingReceiver>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+  }
+
+  
+  /**
+   * @param { !boolean } allow
+   * @param { ?Array<!blink.mojom.PermissionStatus> } statuses
+   */
+
+  onEmbeddedPermissionControlRegistered(
+      allow,
+      statuses) {
+    this.proxy.sendMessage(
+        0,
+        blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_ParamsSpec.$,
+        null,
+        [
+          allow,
+          statuses
+        ]);
+  }
+};
+
+/**
+ * An object which receives request messages for the EmbeddedPermissionControlClient
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ *
+ * @export
+ */
+blink.mojom.EmbeddedPermissionControlClientReceiver = class {
+  /**
+   * @param {!blink.mojom.EmbeddedPermissionControlClientInterface } impl
+   */
+  constructor(impl) {
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!blink.mojom.EmbeddedPermissionControlClientRemote>} */
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+        blink.mojom.EmbeddedPermissionControlClientRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!blink.mojom.EmbeddedPermissionControlClientRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+
+    this.helper_internal_.registerHandler(
+        0,
+        blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_ParamsSpec.$,
+        null,
+        impl.onEmbeddedPermissionControlRegistered.bind(impl));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+};
+
+/**
+ *  @export
+ */
+blink.mojom.EmbeddedPermissionControlClient = class {
+  /**
+   * @return {!string}
+   */
+  static get $interfaceName() {
+    return "blink.mojom.EmbeddedPermissionControlClient";
+  }
+
+  /**
+   * Returns a remote for this interface which sends messages to the browser.
+   * The browser must have an interface request binder registered for this
+   * interface and accessible to the calling document's frame.
+   *
+   * @return {!blink.mojom.EmbeddedPermissionControlClientRemote}
+   * @export
+   */
+  static getRemote() {
+    let remote = new blink.mojom.EmbeddedPermissionControlClientRemote;
+    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+    return remote;
+  }
+};
+
+
+/**
+ * An object which receives request messages for the EmbeddedPermissionControlClient
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ *
+ * @export
+ */
+blink.mojom.EmbeddedPermissionControlClientCallbackRouter = class {
+  constructor() {
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+      blink.mojom.EmbeddedPermissionControlClientRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!blink.mojom.EmbeddedPermissionControlClientRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onEmbeddedPermissionControlRegistered =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_ParamsSpec.$,
+        null,
+        this.onEmbeddedPermissionControlRegistered.createReceiverHandler(false /* expectsResponse */));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+
+  /**
+   * @param {number} id An ID returned by a prior call to addListener.
+   * @return {boolean} True iff the identified listener was found and removed.
+   * @export
+   */
+  removeListener(id) {
+    return this.router_.removeListener(id);
+  }
+};
+
+
 goog.provide('blink.mojom.PermissionService');
 goog.provide('blink.mojom.PermissionServiceReceiver');
 goog.provide('blink.mojom.PermissionServiceCallbackRouter');
@@ -318,13 +509,10 @@ blink.mojom.PermissionServiceInterface = class {
   
   /**
    * @param { !Array<!blink.mojom.PermissionDescriptor> } permissions
-   * @return {!Promise<{
-        allowed: !boolean,
-        statuses: ?Array<!blink.mojom.PermissionStatus>,
-   *  }>}
+   * @param { !blink.mojom.EmbeddedPermissionControlClientRemote } client
    */
 
-  registerPageEmbeddedPermissionControl(permissions) {}
+  registerPageEmbeddedPermissionControl(permissions, client) {}
   
   /**
    * @param { !blink.mojom.EmbeddedPermissionRequestDescriptor } descriptor
@@ -427,20 +615,19 @@ blink.mojom.PermissionServiceRemote = class {
   
   /**
    * @param { !Array<!blink.mojom.PermissionDescriptor> } permissions
-   * @return {!Promise<{
-        allowed: !boolean,
-        statuses: ?Array<!blink.mojom.PermissionStatus>,
-   *  }>}
+   * @param { !blink.mojom.EmbeddedPermissionControlClientRemote } client
    */
 
   registerPageEmbeddedPermissionControl(
-      permissions) {
-    return this.proxy.sendMessage(
+      permissions,
+      client) {
+    this.proxy.sendMessage(
         1,
         blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
-        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        null,
         [
-          permissions
+          permissions,
+          client
         ]);
   }
 
@@ -601,7 +788,7 @@ blink.mojom.PermissionServiceReceiver = class {
     this.helper_internal_.registerHandler(
         1,
         blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
-        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
+        null,
         impl.registerPageEmbeddedPermissionControl.bind(impl));
     this.helper_internal_.registerHandler(
         2,
@@ -707,8 +894,8 @@ blink.mojom.PermissionServiceCallbackRouter = class {
     this.helper_internal_.registerHandler(
         1,
         blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec.$,
-        blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
-        this.registerPageEmbeddedPermissionControl.createReceiverHandler(true /* expectsResponse */));
+        null,
+        this.registerPageEmbeddedPermissionControl.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -852,6 +1039,14 @@ goog.provide('blink.mojom.PermissionObserver_OnPermissionStatusChange_ParamsSpec
 blink.mojom.PermissionObserver_OnPermissionStatusChange_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('blink.mojom.PermissionService_HasPermission_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -874,14 +1069,6 @@ goog.provide('blink.mojom.PermissionService_RegisterPageEmbeddedPermissionContro
  * @export
  */
 blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-goog.provide('blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec');
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('blink.mojom.PermissionService_RequestPageEmbeddedPermission_ParamsSpec');
@@ -1209,6 +1396,45 @@ blink.mojom.PermissionObserver_OnPermissionStatusChange_Params = class {
 
 
 mojo.internal.Struct(
+    blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_ParamsSpec.$,
+    'EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_Params',
+    [
+      mojo.internal.StructField(
+        'allow', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'statuses', 8,
+        0,
+        mojo.internal.Array(blink.mojom.PermissionStatusSpec.$, false),
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_Params');
+
+/** @record */
+blink.mojom.EmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_Params = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.allow;
+    /** @export { (Array<!blink.mojom.PermissionStatus>|undefined) } */
+    this.statuses;
+  }
+};
+
+
+
+mojo.internal.Struct(
     blink.mojom.PermissionService_HasPermission_ParamsSpec.$,
     'PermissionService_HasPermission_Params',
     [
@@ -1278,8 +1504,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'client', 8,
+        0,
+        mojo.internal.InterfaceProxy(blink.mojom.EmbeddedPermissionControlClientRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -1290,45 +1524,8 @@ blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_Params = cla
   constructor() {
     /** @export { !Array<!blink.mojom.PermissionDescriptor> } */
     this.permissions;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsSpec.$,
-    'PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'allowed', 0,
-        0,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'statuses', 8,
-        0,
-        mojo.internal.Array(blink.mojom.PermissionStatusSpec.$, false),
-        null,
-        true, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-goog.provide('blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams');
-
-/** @record */
-blink.mojom.PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams = class {
-  constructor() {
-    /** @export { !boolean } */
-    this.allowed;
-    /** @export { (Array<!blink.mojom.PermissionStatus>|undefined) } */
-    this.statuses;
+    /** @export { !blink.mojom.EmbeddedPermissionControlClientRemote } */
+    this.client;
   }
 };
 

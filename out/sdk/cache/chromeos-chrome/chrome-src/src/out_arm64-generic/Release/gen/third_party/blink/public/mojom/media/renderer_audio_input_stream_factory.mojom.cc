@@ -292,6 +292,8 @@ bool RendererAudioInputStreamFactoryStubDispatch::Accept(
           reinterpret_cast<internal::RendererAudioInputStreamFactory_CreateStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererAudioInputStreamFactory.0
       bool success = true;
       ::mojo::PendingRemote<RendererAudioInputStreamFactoryClient> p_client{};
       ::base::UnguessableToken p_session_id{};
@@ -324,13 +326,13 @@ bool RendererAudioInputStreamFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateStream(
-std::move(p_client), 
-std::move(p_session_id), 
-std::move(p_params), 
-std::move(p_automatic_gain_control), 
-std::move(p_shared_memory_count), 
-std::move(p_processing_config));
+      impl->CreateStream(        
+        std::move(p_client), 
+        std::move(p_session_id), 
+        std::move(p_params), 
+        std::move(p_automatic_gain_control), 
+        std::move(p_shared_memory_count), 
+        std::move(p_processing_config));
       return true;
     }
     case internal::kRendererAudioInputStreamFactory_AssociateInputAndOutputForAec_Name: {
@@ -340,6 +342,8 @@ std::move(p_processing_config));
           reinterpret_cast<internal::RendererAudioInputStreamFactory_AssociateInputAndOutputForAec_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererAudioInputStreamFactory.1
       bool success = true;
       ::base::UnguessableToken p_input_stream_id{};
       std::string p_output_device_id{};
@@ -358,9 +362,9 @@ std::move(p_processing_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AssociateInputAndOutputForAec(
-std::move(p_input_stream_id), 
-std::move(p_output_device_id));
+      impl->AssociateInputAndOutputForAec(        
+        std::move(p_input_stream_id), 
+        std::move(p_output_device_id));
       return true;
     }
   }
@@ -553,6 +557,8 @@ bool RendererAudioInputStreamFactoryClientStubDispatch::Accept(
           reinterpret_cast<internal::RendererAudioInputStreamFactoryClient_StreamCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererAudioInputStreamFactoryClient.0
       bool success = true;
       ::mojo::PendingRemote<::media::mojom::AudioInputStream> p_stream{};
       ::mojo::PendingReceiver<::media::mojom::AudioInputStreamClient> p_client_request{};
@@ -584,12 +590,12 @@ bool RendererAudioInputStreamFactoryClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StreamCreated(
-std::move(p_stream), 
-std::move(p_client_request), 
-std::move(p_data_pipe), 
-std::move(p_initially_muted), 
-std::move(p_stream_id));
+      impl->StreamCreated(        
+        std::move(p_stream), 
+        std::move(p_client_request), 
+        std::move(p_data_pipe), 
+        std::move(p_initially_muted), 
+        std::move(p_stream_id));
       return true;
     }
   }

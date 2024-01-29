@@ -1314,6 +1314,8 @@ bool PrintRenderer_CreatePreviewDocument_ForwardToCallback::Accept(
           internal::PrintRenderer_CreatePreviewDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintRenderer.0
   bool success = true;
   ::base::ReadOnlySharedMemoryRegion p_preview_document_region{};
   PrintRenderer_CreatePreviewDocument_ResponseParamsDataView input_data_view(params, message);
@@ -1410,6 +1412,8 @@ bool PrintRendererStubDispatch::AcceptWithResponder(
               internal::PrintRenderer_CreatePreviewDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintRenderer.0
       bool success = true;
       ::base::Value::Dict p_job_settings{};
       PrintRenderer_CreatePreviewDocument_ParamsDataView input_data_view(params, message);
@@ -1428,8 +1432,8 @@ bool PrintRendererStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePreviewDocument(
-std::move(p_job_settings), std::move(callback));
+      impl->CreatePreviewDocument(        
+        std::move(p_job_settings), std::move(callback));
       return true;
     }
   }
@@ -2159,6 +2163,8 @@ bool PrintPreviewUIStubDispatch::Accept(
           reinterpret_cast<internal::PrintPreviewUI_SetOptionsFromDocument_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.0
       bool success = true;
       OptionsFromDocumentParamsPtr p_params{};
       int32_t p_request_id{};
@@ -2177,9 +2183,9 @@ bool PrintPreviewUIStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOptionsFromDocument(
-std::move(p_params), 
-std::move(p_request_id));
+      impl->SetOptionsFromDocument(        
+        std::move(p_params), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_DidPrepareDocumentForPreview_Name: {
@@ -2189,6 +2195,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_DidPrepareDocumentForPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.1
       bool success = true;
       int32_t p_document_cookie{};
       int32_t p_request_id{};
@@ -2207,9 +2215,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidPrepareDocumentForPreview(
-std::move(p_document_cookie), 
-std::move(p_request_id));
+      impl->DidPrepareDocumentForPreview(        
+        std::move(p_document_cookie), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_DidPreviewPage_Name: {
@@ -2219,6 +2227,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_DidPreviewPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.2
       bool success = true;
       DidPreviewPageParamsPtr p_params{};
       int32_t p_request_id{};
@@ -2237,9 +2247,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidPreviewPage(
-std::move(p_params), 
-std::move(p_request_id));
+      impl->DidPreviewPage(        
+        std::move(p_params), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_MetafileReadyForPrinting_Name: {
@@ -2249,6 +2259,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_MetafileReadyForPrinting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.3
       bool success = true;
       DidPreviewDocumentParamsPtr p_params{};
       int32_t p_request_id{};
@@ -2267,9 +2279,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MetafileReadyForPrinting(
-std::move(p_params), 
-std::move(p_request_id));
+      impl->MetafileReadyForPrinting(        
+        std::move(p_params), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_PrintPreviewFailed_Name: {
@@ -2279,6 +2291,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_PrintPreviewFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.4
       bool success = true;
       int32_t p_document_cookie{};
       int32_t p_request_id{};
@@ -2297,9 +2311,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintPreviewFailed(
-std::move(p_document_cookie), 
-std::move(p_request_id));
+      impl->PrintPreviewFailed(        
+        std::move(p_document_cookie), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_PrintPreviewCancelled_Name: {
@@ -2309,6 +2323,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_PrintPreviewCancelled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.5
       bool success = true;
       int32_t p_document_cookie{};
       int32_t p_request_id{};
@@ -2327,9 +2343,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintPreviewCancelled(
-std::move(p_document_cookie), 
-std::move(p_request_id));
+      impl->PrintPreviewCancelled(        
+        std::move(p_document_cookie), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_PrinterSettingsInvalid_Name: {
@@ -2339,6 +2355,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_PrinterSettingsInvalid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.6
       bool success = true;
       int32_t p_document_cookie{};
       int32_t p_request_id{};
@@ -2357,9 +2375,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrinterSettingsInvalid(
-std::move(p_document_cookie), 
-std::move(p_request_id));
+      impl->PrinterSettingsInvalid(        
+        std::move(p_document_cookie), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_DidGetDefaultPageLayout_Name: {
@@ -2369,6 +2387,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_DidGetDefaultPageLayout_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.7
       bool success = true;
       ::printing::mojom::PageSizeMarginsPtr p_page_layout_in_points{};
       ::gfx::RectF p_printable_area_in_points{};
@@ -2396,12 +2416,12 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidGetDefaultPageLayout(
-std::move(p_page_layout_in_points), 
-std::move(p_printable_area_in_points), 
-std::move(p_all_pages_have_custom_size), 
-std::move(p_all_pages_have_custom_orientation), 
-std::move(p_request_id));
+      impl->DidGetDefaultPageLayout(        
+        std::move(p_page_layout_in_points), 
+        std::move(p_printable_area_in_points), 
+        std::move(p_all_pages_have_custom_size), 
+        std::move(p_all_pages_have_custom_orientation), 
+        std::move(p_request_id));
       return true;
     }
     case internal::kPrintPreviewUI_DidStartPreview_Name: {
@@ -2411,6 +2431,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::PrintPreviewUI_DidStartPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintPreviewUI.8
       bool success = true;
       DidStartPreviewParamsPtr p_params{};
       int32_t p_request_id{};
@@ -2429,9 +2451,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStartPreview(
-std::move(p_params), 
-std::move(p_request_id));
+      impl->DidStartPreview(        
+        std::move(p_params), 
+        std::move(p_request_id));
       return true;
     }
   }
@@ -3306,6 +3328,8 @@ bool PrintRenderFrame_PrintWithParams_ForwardToCallback::Accept(
           internal::PrintRenderFrame_PrintWithParams_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintRenderFrame.1
   bool success = true;
   PrintWithParamsResultPtr p_result{};
   PrintRenderFrame_PrintWithParams_ResponseParamsDataView input_data_view(params, message);
@@ -3433,6 +3457,8 @@ bool PrintRenderFrame_PrintFrameContent_ForwardToCallback::Accept(
           internal::PrintRenderFrame_PrintFrameContent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintRenderFrame.7
   bool success = true;
   int32_t p_document_cookie{};
   DidPrintContentParamsPtr p_params{};
@@ -3525,6 +3551,8 @@ bool PrintRenderFrameStubDispatch::Accept(
           reinterpret_cast<internal::PrintRenderFrame_PrintRequestedPages_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.0
       bool success = true;
       PrintRenderFrame_PrintRequestedPages_ParamsDataView input_data_view(params, message);
       
@@ -3537,7 +3565,7 @@ bool PrintRenderFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintRequestedPages();
+      impl->PrintRequestedPages(        );
       return true;
     }
     case internal::kPrintRenderFrame_PrintWithParams_Name: {
@@ -3550,6 +3578,8 @@ bool PrintRenderFrameStubDispatch::Accept(
           reinterpret_cast<internal::PrintRenderFrame_PrintForSystemDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.2
       bool success = true;
       PrintRenderFrame_PrintForSystemDialog_ParamsDataView input_data_view(params, message);
       
@@ -3562,7 +3592,7 @@ bool PrintRenderFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintForSystemDialog();
+      impl->PrintForSystemDialog(        );
       return true;
     }
     case internal::kPrintRenderFrame_InitiatePrintPreview_Name: {
@@ -3572,6 +3602,8 @@ bool PrintRenderFrameStubDispatch::Accept(
           reinterpret_cast<internal::PrintRenderFrame_InitiatePrintPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.3
       bool success = true;
       ::mojo::PendingAssociatedRemote<PrintRenderer> p_print_renderer{};
       bool p_has_selection{};
@@ -3592,9 +3624,9 @@ bool PrintRenderFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitiatePrintPreview(
-std::move(p_print_renderer), 
-std::move(p_has_selection));
+      impl->InitiatePrintPreview(        
+        std::move(p_print_renderer), 
+        std::move(p_has_selection));
       return true;
     }
     case internal::kPrintRenderFrame_SetPrintPreviewUI_Name: {
@@ -3604,6 +3636,8 @@ std::move(p_has_selection));
           reinterpret_cast<internal::PrintRenderFrame_SetPrintPreviewUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.4
       bool success = true;
       ::mojo::PendingAssociatedRemote<PrintPreviewUI> p_preview{};
       PrintRenderFrame_SetPrintPreviewUI_ParamsDataView input_data_view(params, message);
@@ -3621,8 +3655,8 @@ std::move(p_has_selection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPrintPreviewUI(
-std::move(p_preview));
+      impl->SetPrintPreviewUI(        
+        std::move(p_preview));
       return true;
     }
     case internal::kPrintRenderFrame_PrintPreview_Name: {
@@ -3632,6 +3666,8 @@ std::move(p_preview));
           reinterpret_cast<internal::PrintRenderFrame_PrintPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.5
       bool success = true;
       ::base::Value::Dict p_settings{};
       PrintRenderFrame_PrintPreview_ParamsDataView input_data_view(params, message);
@@ -3647,8 +3683,8 @@ std::move(p_preview));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintPreview(
-std::move(p_settings));
+      impl->PrintPreview(        
+        std::move(p_settings));
       return true;
     }
     case internal::kPrintRenderFrame_OnPrintPreviewDialogClosed_Name: {
@@ -3658,6 +3694,8 @@ std::move(p_settings));
           reinterpret_cast<internal::PrintRenderFrame_OnPrintPreviewDialogClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.6
       bool success = true;
       PrintRenderFrame_OnPrintPreviewDialogClosed_ParamsDataView input_data_view(params, message);
       
@@ -3670,7 +3708,7 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintPreviewDialogClosed();
+      impl->OnPrintPreviewDialogClosed(        );
       return true;
     }
     case internal::kPrintRenderFrame_PrintFrameContent_Name: {
@@ -3683,6 +3721,8 @@ std::move(p_settings));
           reinterpret_cast<internal::PrintRenderFrame_ConnectToPdfRenderer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.8
       bool success = true;
       PrintRenderFrame_ConnectToPdfRenderer_ParamsDataView input_data_view(params, message);
       
@@ -3695,7 +3735,7 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToPdfRenderer();
+      impl->ConnectToPdfRenderer(        );
       return true;
     }
     case internal::kPrintRenderFrame_PrintingDone_Name: {
@@ -3705,6 +3745,8 @@ std::move(p_settings));
           reinterpret_cast<internal::PrintRenderFrame_PrintingDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.9
       bool success = true;
       bool p_success{};
       PrintRenderFrame_PrintingDone_ParamsDataView input_data_view(params, message);
@@ -3720,8 +3762,8 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintingDone(
-std::move(p_success));
+      impl->PrintingDone(        
+        std::move(p_success));
       return true;
     }
     case internal::kPrintRenderFrame_PrintNodeUnderContextMenu_Name: {
@@ -3731,6 +3773,8 @@ std::move(p_success));
           reinterpret_cast<internal::PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.10
       bool success = true;
       PrintRenderFrame_PrintNodeUnderContextMenu_ParamsDataView input_data_view(params, message);
       
@@ -3743,7 +3787,7 @@ std::move(p_success));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintNodeUnderContextMenu();
+      impl->PrintNodeUnderContextMenu(        );
       return true;
     }
   }
@@ -3769,6 +3813,8 @@ bool PrintRenderFrameStubDispatch::AcceptWithResponder(
               internal::PrintRenderFrame_PrintWithParams_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.1
       bool success = true;
       PrintPagesParamsPtr p_params{};
       PrintRenderFrame_PrintWithParams_ParamsDataView input_data_view(params, message);
@@ -3787,8 +3833,8 @@ bool PrintRenderFrameStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintWithParams(
-std::move(p_params), std::move(callback));
+      impl->PrintWithParams(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kPrintRenderFrame_PrintForSystemDialog_Name: {
@@ -3813,6 +3859,8 @@ std::move(p_params), std::move(callback));
               internal::PrintRenderFrame_PrintFrameContent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintRenderFrame.7
       bool success = true;
       PrintFrameContentParamsPtr p_params{};
       PrintRenderFrame_PrintFrameContent_ParamsDataView input_data_view(params, message);
@@ -3831,8 +3879,8 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintFrameContent(
-std::move(p_params), std::move(callback));
+      impl->PrintFrameContent(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kPrintRenderFrame_ConnectToPdfRenderer_Name: {
@@ -5406,6 +5454,8 @@ bool PrintManagerHost_GetDefaultPrintSettings_ForwardToCallback::Accept(
           internal::PrintManagerHost_GetDefaultPrintSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.1
   bool success = true;
   PrintParamsPtr p_default_settings{};
   PrintManagerHost_GetDefaultPrintSettings_ResponseParamsDataView input_data_view(params, message);
@@ -5481,6 +5531,8 @@ bool PrintManagerHost_GetDefaultPrintSettings_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PrintManagerHost_GetDefaultPrintSettings_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.1
   bool success = true;
   PrintParamsPtr p_default_settings{};
   PrintManagerHost_GetDefaultPrintSettings_ResponseParamsDataView input_data_view(params, message);
@@ -5556,6 +5608,8 @@ bool PrintManagerHost_DidPrintDocument_ForwardToCallback::Accept(
           internal::PrintManagerHost_DidPrintDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.3
   bool success = true;
   bool p_completed{};
   PrintManagerHost_DidPrintDocument_ResponseParamsDataView input_data_view(params, message);
@@ -5625,6 +5679,8 @@ bool PrintManagerHost_DidPrintDocument_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PrintManagerHost_DidPrintDocument_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.3
   bool success = true;
   bool p_completed{};
   PrintManagerHost_DidPrintDocument_ResponseParamsDataView input_data_view(params, message);
@@ -5700,6 +5756,8 @@ bool PrintManagerHost_IsPrintingEnabled_ForwardToCallback::Accept(
           internal::PrintManagerHost_IsPrintingEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.4
   bool success = true;
   bool p_printing_enabled{};
   PrintManagerHost_IsPrintingEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -5769,6 +5827,8 @@ bool PrintManagerHost_IsPrintingEnabled_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PrintManagerHost_IsPrintingEnabled_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.4
   bool success = true;
   bool p_printing_enabled{};
   PrintManagerHost_IsPrintingEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -5844,6 +5904,8 @@ bool PrintManagerHost_ScriptedPrint_ForwardToCallback::Accept(
           internal::PrintManagerHost_ScriptedPrint_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.5
   bool success = true;
   PrintPagesParamsPtr p_settings{};
   PrintManagerHost_ScriptedPrint_ResponseParamsDataView input_data_view(params, message);
@@ -5919,6 +5981,8 @@ bool PrintManagerHost_ScriptedPrint_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PrintManagerHost_ScriptedPrint_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.5
   bool success = true;
   PrintPagesParamsPtr p_settings{};
   PrintManagerHost_ScriptedPrint_ResponseParamsDataView input_data_view(params, message);
@@ -5994,6 +6058,8 @@ bool PrintManagerHost_UpdatePrintSettings_ForwardToCallback::Accept(
           internal::PrintManagerHost_UpdatePrintSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.7
   bool success = true;
   PrintPagesParamsPtr p_current_settings{};
   PrintManagerHost_UpdatePrintSettings_ResponseParamsDataView input_data_view(params, message);
@@ -6069,6 +6135,8 @@ bool PrintManagerHost_UpdatePrintSettings_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PrintManagerHost_UpdatePrintSettings_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.7
   bool success = true;
   PrintPagesParamsPtr p_current_settings{};
   PrintManagerHost_UpdatePrintSettings_ResponseParamsDataView input_data_view(params, message);
@@ -6144,6 +6212,8 @@ bool PrintManagerHost_SetupScriptedPrintPreview_ForwardToCallback::Accept(
           internal::PrintManagerHost_SetupScriptedPrintPreview_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.8
   bool success = true;
   PrintManagerHost_SetupScriptedPrintPreview_ResponseParamsDataView input_data_view(params, message);
   
@@ -6251,6 +6321,8 @@ bool PrintManagerHost_CheckForCancel_ForwardToCallback::Accept(
           internal::PrintManagerHost_CheckForCancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.11
   bool success = true;
   bool p_cancel{};
   PrintManagerHost_CheckForCancel_ResponseParamsDataView input_data_view(params, message);
@@ -6320,6 +6392,8 @@ bool PrintManagerHost_CheckForCancel_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PrintManagerHost_CheckForCancel_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PrintManagerHost.11
   bool success = true;
   bool p_cancel{};
   PrintManagerHost_CheckForCancel_ResponseParamsDataView input_data_view(params, message);
@@ -6350,6 +6424,8 @@ bool PrintManagerHostStubDispatch::Accept(
           reinterpret_cast<internal::PrintManagerHost_DidGetPrintedPagesCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.0
       bool success = true;
       int32_t p_cookie{};
       uint32_t p_number_pages{};
@@ -6368,9 +6444,9 @@ bool PrintManagerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidGetPrintedPagesCount(
-std::move(p_cookie), 
-std::move(p_number_pages));
+      impl->DidGetPrintedPagesCount(        
+        std::move(p_cookie), 
+        std::move(p_number_pages));
       return true;
     }
     case internal::kPrintManagerHost_GetDefaultPrintSettings_Name: {
@@ -6383,6 +6459,8 @@ std::move(p_number_pages));
           reinterpret_cast<internal::PrintManagerHost_DidShowPrintDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.2
       bool success = true;
       PrintManagerHost_DidShowPrintDialog_ParamsDataView input_data_view(params, message);
       
@@ -6395,7 +6473,7 @@ std::move(p_number_pages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidShowPrintDialog();
+      impl->DidShowPrintDialog(        );
       return true;
     }
     case internal::kPrintManagerHost_DidPrintDocument_Name: {
@@ -6414,6 +6492,8 @@ std::move(p_number_pages));
           reinterpret_cast<internal::PrintManagerHost_PrintingFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.6
       bool success = true;
       int32_t p_cookie{};
       PrintFailureReason p_reason{};
@@ -6432,9 +6512,9 @@ std::move(p_number_pages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintingFailed(
-std::move(p_cookie), 
-std::move(p_reason));
+      impl->PrintingFailed(        
+        std::move(p_cookie), 
+        std::move(p_reason));
       return true;
     }
     case internal::kPrintManagerHost_UpdatePrintSettings_Name: {
@@ -6450,6 +6530,8 @@ std::move(p_reason));
           reinterpret_cast<internal::PrintManagerHost_ShowScriptedPrintPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.9
       bool success = true;
       bool p_is_modifiable{};
       PrintManagerHost_ShowScriptedPrintPreview_ParamsDataView input_data_view(params, message);
@@ -6465,8 +6547,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowScriptedPrintPreview(
-std::move(p_is_modifiable));
+      impl->ShowScriptedPrintPreview(        
+        std::move(p_is_modifiable));
       return true;
     }
     case internal::kPrintManagerHost_RequestPrintPreview_Name: {
@@ -6476,6 +6558,8 @@ std::move(p_is_modifiable));
           reinterpret_cast<internal::PrintManagerHost_RequestPrintPreview_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.10
       bool success = true;
       RequestPrintPreviewParamsPtr p_params{};
       PrintManagerHost_RequestPrintPreview_ParamsDataView input_data_view(params, message);
@@ -6491,8 +6575,8 @@ std::move(p_is_modifiable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestPrintPreview(
-std::move(p_params));
+      impl->RequestPrintPreview(        
+        std::move(p_params));
       return true;
     }
     case internal::kPrintManagerHost_CheckForCancel_Name: {
@@ -6505,6 +6589,8 @@ std::move(p_params));
           reinterpret_cast<internal::PrintManagerHost_SetAccessibilityTree_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.12
       bool success = true;
       int32_t p_cookie{};
       ::ui::AXTreeUpdate p_accessibility_tree{};
@@ -6523,9 +6609,9 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAccessibilityTree(
-std::move(p_cookie), 
-std::move(p_accessibility_tree));
+      impl->SetAccessibilityTree(        
+        std::move(p_cookie), 
+        std::move(p_accessibility_tree));
       return true;
     }
   }
@@ -6551,6 +6637,8 @@ bool PrintManagerHostStubDispatch::AcceptWithResponder(
               internal::PrintManagerHost_GetDefaultPrintSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.1
       bool success = true;
       PrintManagerHost_GetDefaultPrintSettings_ParamsDataView input_data_view(params, message);
       
@@ -6579,6 +6667,8 @@ bool PrintManagerHostStubDispatch::AcceptWithResponder(
               internal::PrintManagerHost_DidPrintDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.3
       bool success = true;
       DidPrintDocumentParamsPtr p_params{};
       PrintManagerHost_DidPrintDocument_ParamsDataView input_data_view(params, message);
@@ -6597,8 +6687,8 @@ bool PrintManagerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidPrintDocument(
-std::move(p_params), std::move(callback));
+      impl->DidPrintDocument(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kPrintManagerHost_IsPrintingEnabled_Name: {
@@ -6608,6 +6698,8 @@ std::move(p_params), std::move(callback));
               internal::PrintManagerHost_IsPrintingEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.4
       bool success = true;
       PrintManagerHost_IsPrintingEnabled_ParamsDataView input_data_view(params, message);
       
@@ -6633,6 +6725,8 @@ std::move(p_params), std::move(callback));
               internal::PrintManagerHost_ScriptedPrint_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.5
       bool success = true;
       ScriptedPrintParamsPtr p_params{};
       PrintManagerHost_ScriptedPrint_ParamsDataView input_data_view(params, message);
@@ -6651,8 +6745,8 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScriptedPrint(
-std::move(p_params), std::move(callback));
+      impl->ScriptedPrint(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kPrintManagerHost_PrintingFailed_Name: {
@@ -6665,6 +6759,8 @@ std::move(p_params), std::move(callback));
               internal::PrintManagerHost_UpdatePrintSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.7
       bool success = true;
       ::base::Value::Dict p_job_settings{};
       PrintManagerHost_UpdatePrintSettings_ParamsDataView input_data_view(params, message);
@@ -6683,8 +6779,8 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePrintSettings(
-std::move(p_job_settings), std::move(callback));
+      impl->UpdatePrintSettings(        
+        std::move(p_job_settings), std::move(callback));
       return true;
     }
     case internal::kPrintManagerHost_SetupScriptedPrintPreview_Name: {
@@ -6694,6 +6790,8 @@ std::move(p_job_settings), std::move(callback));
               internal::PrintManagerHost_SetupScriptedPrintPreview_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.8
       bool success = true;
       PrintManagerHost_SetupScriptedPrintPreview_ParamsDataView input_data_view(params, message);
       
@@ -6725,6 +6823,8 @@ std::move(p_job_settings), std::move(callback));
               internal::PrintManagerHost_CheckForCancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintManagerHost.11
       bool success = true;
       int32_t p_preview_ui_id{};
       int32_t p_request_id{};
@@ -6746,9 +6846,9 @@ std::move(p_job_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckForCancel(
-std::move(p_preview_ui_id), 
-std::move(p_request_id), std::move(callback));
+      impl->CheckForCancel(        
+        std::move(p_preview_ui_id), 
+        std::move(p_request_id), std::move(callback));
       return true;
     }
     case internal::kPrintManagerHost_SetAccessibilityTree_Name: {

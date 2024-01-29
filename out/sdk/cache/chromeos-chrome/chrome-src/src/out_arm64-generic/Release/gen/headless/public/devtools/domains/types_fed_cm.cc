@@ -422,6 +422,95 @@ std::unique_ptr<ClickDialogButtonResult> ClickDialogButtonResult::Clone() const 
 }
 
 
+std::unique_ptr<OpenUrlParams> OpenUrlParams::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("OpenUrlParams");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<OpenUrlParams> result(new OpenUrlParams());
+  errors->Push();
+  errors->SetName("OpenUrlParams");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* dialog_id_value = dict.Find("dialogId");
+  if (dialog_id_value) {
+    errors->SetName("dialogId");
+    result->dialog_id_ = internal::FromValue<std::string>::Parse(*dialog_id_value, errors);
+  } else {
+    errors->AddError("required property missing: dialogId");
+  }
+  const base::Value* account_index_value = dict.Find("accountIndex");
+  if (account_index_value) {
+    errors->SetName("accountIndex");
+    result->account_index_ = internal::FromValue<int>::Parse(*account_index_value, errors);
+  } else {
+    errors->AddError("required property missing: accountIndex");
+  }
+  const base::Value* account_url_type_value = dict.Find("accountUrlType");
+  if (account_url_type_value) {
+    errors->SetName("accountUrlType");
+    result->account_url_type_ = internal::FromValue<::headless::fed_cm::AccountUrlType>::Parse(*account_url_type_value, errors);
+  } else {
+    errors->AddError("required property missing: accountUrlType");
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value OpenUrlParams::Serialize() const {
+  base::Value::Dict result;
+  result.Set("dialogId", internal::ToValue(dialog_id_));
+  result.Set("accountIndex", internal::ToValue(account_index_));
+  result.Set("accountUrlType", internal::ToValue(account_url_type_));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<OpenUrlParams> OpenUrlParams::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<OpenUrlParams> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<OpenUrlResult> OpenUrlResult::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("OpenUrlResult");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<OpenUrlResult> result(new OpenUrlResult());
+  errors->Push();
+  errors->SetName("OpenUrlResult");
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value OpenUrlResult::Serialize() const {
+  base::Value::Dict result;
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<OpenUrlResult> OpenUrlResult::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<OpenUrlResult> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
 std::unique_ptr<DismissDialogParams> DismissDialogParams::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("DismissDialogParams");

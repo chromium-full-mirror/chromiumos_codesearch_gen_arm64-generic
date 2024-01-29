@@ -1,7 +1,6 @@
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 import { Route, Router } from 'chrome://settings/settings.js';
 import { assertEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { eventToPromise } from 'chrome://webui-test/test_util.js';

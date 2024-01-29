@@ -682,6 +682,8 @@ bool HandwritingRecognizer_GetPrediction_ForwardToCallback::Accept(
           internal::HandwritingRecognizer_GetPrediction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HandwritingRecognizer.0
   bool success = true;
   std::optional<std::vector<HandwritingPredictionPtr>> p_prediction{};
   HandwritingRecognizer_GetPrediction_ResponseParamsDataView input_data_view(params, message);
@@ -780,6 +782,8 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
               internal::HandwritingRecognizer_GetPrediction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HandwritingRecognizer.0
       bool success = true;
       std::vector<HandwritingStrokePtr> p_strokes{};
       HandwritingHintsPtr p_hints{};
@@ -801,9 +805,9 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPrediction(
-std::move(p_strokes), 
-std::move(p_hints), std::move(callback));
+      impl->GetPrediction(        
+        std::move(p_strokes), 
+        std::move(p_hints), std::move(callback));
       return true;
     }
   }
@@ -1093,6 +1097,8 @@ bool HandwritingRecognitionService_CreateHandwritingRecognizer_ForwardToCallback
           internal::HandwritingRecognitionService_CreateHandwritingRecognizer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HandwritingRecognitionService.0
   bool success = true;
   CreateHandwritingRecognizerResult p_result{};
   ::mojo::PendingRemote<HandwritingRecognizer> p_handwriting_recognizer{};
@@ -1224,6 +1230,8 @@ bool HandwritingRecognitionService_QueryHandwritingRecognizer_ForwardToCallback:
           internal::HandwritingRecognitionService_QueryHandwritingRecognizer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HandwritingRecognitionService.1
   bool success = true;
   QueryHandwritingRecognizerResultPtr p_result{};
   HandwritingRecognitionService_QueryHandwritingRecognizer_ResponseParamsDataView input_data_view(params, message);
@@ -1323,6 +1331,8 @@ bool HandwritingRecognitionServiceStubDispatch::AcceptWithResponder(
               internal::HandwritingRecognitionService_CreateHandwritingRecognizer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HandwritingRecognitionService.0
       bool success = true;
       HandwritingModelConstraintPtr p_constraint{};
       HandwritingRecognitionService_CreateHandwritingRecognizer_ParamsDataView input_data_view(params, message);
@@ -1341,8 +1351,8 @@ bool HandwritingRecognitionServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateHandwritingRecognizer(
-std::move(p_constraint), std::move(callback));
+      impl->CreateHandwritingRecognizer(        
+        std::move(p_constraint), std::move(callback));
       return true;
     }
     case internal::kHandwritingRecognitionService_QueryHandwritingRecognizer_Name: {
@@ -1352,6 +1362,8 @@ std::move(p_constraint), std::move(callback));
               internal::HandwritingRecognitionService_QueryHandwritingRecognizer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HandwritingRecognitionService.1
       bool success = true;
       HandwritingModelConstraintPtr p_constraint{};
       HandwritingRecognitionService_QueryHandwritingRecognizer_ParamsDataView input_data_view(params, message);
@@ -1370,8 +1382,8 @@ std::move(p_constraint), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueryHandwritingRecognizer(
-std::move(p_constraint), std::move(callback));
+      impl->QueryHandwritingRecognizer(        
+        std::move(p_constraint), std::move(callback));
       return true;
     }
   }

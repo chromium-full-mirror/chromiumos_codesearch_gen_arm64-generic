@@ -32,13 +32,14 @@ export const DeviceRequestIdSpec = { $: mojo.internal.Enum() };
 export var DeviceRequestId;
 (function (DeviceRequestId) {
     DeviceRequestId[DeviceRequestId["MIN_VALUE"] = 0] = "MIN_VALUE";
-    DeviceRequestId[DeviceRequestId["MAX_VALUE"] = 5] = "MAX_VALUE";
+    DeviceRequestId[DeviceRequestId["MAX_VALUE"] = 6] = "MAX_VALUE";
     DeviceRequestId[DeviceRequestId["kDoNotPowerOff"] = 0] = "kDoNotPowerOff";
     DeviceRequestId[DeviceRequestId["kReplugInstall"] = 1] = "kReplugInstall";
     DeviceRequestId[DeviceRequestId["kInsertUSBCable"] = 2] = "kInsertUSBCable";
     DeviceRequestId[DeviceRequestId["kRemoveUSBCable"] = 3] = "kRemoveUSBCable";
     DeviceRequestId[DeviceRequestId["kPressUnlock"] = 4] = "kPressUnlock";
     DeviceRequestId[DeviceRequestId["kRemoveReplug"] = 5] = "kRemoveReplug";
+    DeviceRequestId[DeviceRequestId["kReplugPower"] = 6] = "kReplugPower";
 })(DeviceRequestId || (DeviceRequestId = {}));
 export const DeviceRequestKindSpec = { $: mojo.internal.Enum() };
 export var DeviceRequestKind;
@@ -46,8 +47,8 @@ export var DeviceRequestKind;
     DeviceRequestKind[DeviceRequestKind["MIN_VALUE"] = 0] = "MIN_VALUE";
     DeviceRequestKind[DeviceRequestKind["MAX_VALUE"] = 2] = "MAX_VALUE";
     DeviceRequestKind[DeviceRequestKind["kUnknown"] = 0] = "kUnknown";
-    DeviceRequestKind[DeviceRequestKind["kImmediate"] = 1] = "kImmediate";
-    DeviceRequestKind[DeviceRequestKind["kPost"] = 2] = "kPost";
+    DeviceRequestKind[DeviceRequestKind["kPost"] = 1] = "kPost";
+    DeviceRequestKind[DeviceRequestKind["kImmediate"] = 2] = "kImmediate";
 })(DeviceRequestKind || (DeviceRequestKind = {}));
 export class UpdateObserverPendingReceiver {
     constructor(handle) {

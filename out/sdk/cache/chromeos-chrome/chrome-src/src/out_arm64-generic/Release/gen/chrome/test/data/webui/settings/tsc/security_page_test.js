@@ -111,6 +111,13 @@ suite('Main', function () {
         radioButton.click();
         assertEquals(HttpsFirstModeSetting.DISABLED, page.getPref('generated.https_first_mode_enabled').value);
     });
+    // Test that clicking the V8 security row navigates to the setting page.
+    test('NavigateToV8Setting', function () {
+        const link = page.shadowRoot.querySelector('#v8-setting-link');
+        assertTrue(!!link);
+        link.click();
+        assertEquals(routes.SITE_SETTINGS_JAVASCRIPT_JIT, Router.getInstance().getCurrentRoute());
+    });
     // TODO(crbug.com/1494186): Add test for alternate sub-label when Advanced
     // Protection is enabled.
 });

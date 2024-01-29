@@ -554,6 +554,7 @@ CORE_EXPORT extern const blink::QualifiedName& kOncopyAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOncuechangeAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOncutAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOndblclickAttr;
+CORE_EXPORT extern const blink::QualifiedName& kOndismissAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOndragAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOndragendAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOndragenterAttr;
@@ -617,6 +618,7 @@ CORE_EXPORT extern const blink::QualifiedName& kOnprogressAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnratechangeAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnresetAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnresizeAttr;
+CORE_EXPORT extern const blink::QualifiedName& kOnresolveAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnscrollAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnscrollendAttr;
 CORE_EXPORT extern const blink::QualifiedName& kOnsearchAttr;
@@ -687,6 +689,7 @@ CORE_EXPORT extern const blink::QualifiedName& kScrolldelayAttr;
 CORE_EXPORT extern const blink::QualifiedName& kScrollingAttr;
 CORE_EXPORT extern const blink::QualifiedName& kSelectAttr;
 CORE_EXPORT extern const blink::QualifiedName& kSelectedAttr;
+CORE_EXPORT extern const blink::QualifiedName& kSerializableAttr;
 CORE_EXPORT extern const blink::QualifiedName& kShadowrootAttr;
 CORE_EXPORT extern const blink::QualifiedName& kShadowrootdelegatesfocusAttr;
 CORE_EXPORT extern const blink::QualifiedName& kShadowrootmodeAttr;
@@ -729,9 +732,9 @@ CORE_EXPORT extern const blink::QualifiedName& kWrapAttr;
 constexpr unsigned kTagsCount = 144;
 CORE_EXPORT std::unique_ptr<const HTMLQualifiedName*[]> GetTags();
 
-constexpr unsigned kAttrsCount = 400;
+constexpr unsigned kAttrsCount = 403;
 
-CORE_EXPORT  extern const blink::HTMLQualifiedName& TagToQualifedName(HTMLTag tag);
+CORE_EXPORT  extern const blink::HTMLQualifiedName& TagToQualifiedName(HTMLTag tag);
 
 void Init();
 

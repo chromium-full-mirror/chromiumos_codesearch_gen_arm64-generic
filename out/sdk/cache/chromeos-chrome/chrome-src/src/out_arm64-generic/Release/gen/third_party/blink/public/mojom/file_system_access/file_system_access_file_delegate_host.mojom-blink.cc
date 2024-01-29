@@ -787,6 +787,8 @@ bool FileSystemAccessFileDelegateHost_Read_ForwardToCallback::Accept(
           internal::FileSystemAccessFileDelegateHost_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.0
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_data{};
   ::base::File::Error p_error{};
@@ -877,6 +879,8 @@ bool FileSystemAccessFileDelegateHost_Read_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileSystemAccessFileDelegateHost_Read_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.0
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_data{};
   ::base::File::Error p_error{};
@@ -960,6 +964,8 @@ bool FileSystemAccessFileDelegateHost_Write_ForwardToCallback::Accept(
           internal::FileSystemAccessFileDelegateHost_Write_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.1
   bool success = true;
   ::base::File::Error p_error{};
   int32_t p_bytes_written{};
@@ -1038,6 +1044,8 @@ bool FileSystemAccessFileDelegateHost_Write_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileSystemAccessFileDelegateHost_Write_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.1
   bool success = true;
   ::base::File::Error p_error{};
   int32_t p_bytes_written{};
@@ -1117,6 +1125,8 @@ bool FileSystemAccessFileDelegateHost_GetLength_ForwardToCallback::Accept(
           internal::FileSystemAccessFileDelegateHost_GetLength_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.2
   bool success = true;
   ::base::File::Error p_error{};
   int64_t p_length{};
@@ -1195,6 +1205,8 @@ bool FileSystemAccessFileDelegateHost_GetLength_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileSystemAccessFileDelegateHost_GetLength_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.2
   bool success = true;
   ::base::File::Error p_error{};
   int64_t p_length{};
@@ -1274,6 +1286,8 @@ bool FileSystemAccessFileDelegateHost_SetLength_ForwardToCallback::Accept(
           internal::FileSystemAccessFileDelegateHost_SetLength_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.3
   bool success = true;
   ::base::File::Error p_error{};
   FileSystemAccessFileDelegateHost_SetLength_ResponseParamsDataView input_data_view(params, message);
@@ -1344,6 +1358,8 @@ bool FileSystemAccessFileDelegateHost_SetLength_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileSystemAccessFileDelegateHost_SetLength_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessFileDelegateHost.3
   bool success = true;
   ::base::File::Error p_error{};
   FileSystemAccessFileDelegateHost_SetLength_ResponseParamsDataView input_data_view(params, message);
@@ -1399,6 +1415,8 @@ bool FileSystemAccessFileDelegateHostStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessFileDelegateHost_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileDelegateHost.0
       bool success = true;
       int64_t p_offset{};
       int32_t p_bytes_to_read{};
@@ -1420,9 +1438,9 @@ bool FileSystemAccessFileDelegateHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_offset), 
-std::move(p_bytes_to_read), std::move(callback));
+      impl->Read(        
+        std::move(p_offset), 
+        std::move(p_bytes_to_read), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileDelegateHost_Write_Name: {
@@ -1432,6 +1450,8 @@ std::move(p_bytes_to_read), std::move(callback));
               internal::FileSystemAccessFileDelegateHost_Write_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileDelegateHost.1
       bool success = true;
       int64_t p_offset{};
       ::mojo::ScopedDataPipeConsumerHandle p_data{};
@@ -1453,9 +1473,9 @@ std::move(p_bytes_to_read), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Write(
-std::move(p_offset), 
-std::move(p_data), std::move(callback));
+      impl->Write(        
+        std::move(p_offset), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessFileDelegateHost_GetLength_Name: {
@@ -1465,6 +1485,8 @@ std::move(p_data), std::move(callback));
               internal::FileSystemAccessFileDelegateHost_GetLength_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileDelegateHost.2
       bool success = true;
       FileSystemAccessFileDelegateHost_GetLength_ParamsDataView input_data_view(params, message);
       
@@ -1490,6 +1512,8 @@ std::move(p_data), std::move(callback));
               internal::FileSystemAccessFileDelegateHost_SetLength_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessFileDelegateHost.3
       bool success = true;
       int64_t p_length{};
       FileSystemAccessFileDelegateHost_SetLength_ParamsDataView input_data_view(params, message);
@@ -1508,8 +1532,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLength(
-std::move(p_length), std::move(callback));
+      impl->SetLength(        
+        std::move(p_length), std::move(callback));
       return true;
     }
   }

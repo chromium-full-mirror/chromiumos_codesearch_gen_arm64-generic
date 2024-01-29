@@ -45,12 +45,13 @@ class  CookieManagerInterceptorForTesting : public CookieManager {
   void CloneInterface(::mojo::PendingReceiver<CookieManager> new_interface) override;
   void FlushCookieStore(FlushCookieStoreCallback callback) override;
   void AllowFileSchemeCookies(bool allow, AllowFileSchemeCookiesCallback callback) override;
-  void SetContentSettings(::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings, SetContentSettingsCallback callback) override;
+  void SetContentSettings(::content_settings::mojom::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings, SetContentSettingsCallback callback) override;
   void SetForceKeepSessionState() override;
   void BlockThirdPartyCookies(bool block) override;
   void BlockTruncatedCookies(bool block) override;
   void SetMitigationsEnabledFor3pcd(bool enable) override;
   void SetTrackingProtectionEnabledFor3pcd(bool enable) override;
+  void SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) override;
 };
 class  CookieManagerAsyncWaiter {
  public:
@@ -88,7 +89,7 @@ class  CookieManagerAsyncWaiter {
       bool allow, bool* out_success);
   bool AllowFileSchemeCookies(bool allow);
   void SetContentSettings(
-      ::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings);
+      ::content_settings::mojom::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings);
   
 
  private:

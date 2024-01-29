@@ -14,7 +14,7 @@ export function getTemplate() {
           </settings-section>
         </template>
         <template is="dom-if" if="[[showExperimentalAdvancedPage_(pageVisibility.ai)]]" restamp>
-          <settings-section page-title="$i18n{experimentalAdvancedPageTitle}" section="ai">
+          <settings-section page-title="$i18n{aiPageTitle}" section="ai">
             <settings-ai-page prefs="{{prefs}}"></settings-ai-page>
           </settings-section>
         </template>

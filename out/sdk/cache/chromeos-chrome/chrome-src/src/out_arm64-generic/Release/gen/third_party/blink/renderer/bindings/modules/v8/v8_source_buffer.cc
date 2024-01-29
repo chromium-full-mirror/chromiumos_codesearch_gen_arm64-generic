@@ -653,7 +653,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SourceBuffer_AppendEncodedChunks_Method);
 
@@ -667,8 +668,7 @@ return;
 
 
 SourceBuffer* blink_receiver = V8SourceBuffer::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_chunks = NativeValueTraits<V8UnionEncodedAudioChunkOrEncodedAudioChunkOrEncodedVideoChunkSequenceOrEncodedVideoChunk>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -685,7 +685,8 @@ void ChangeTypeOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SourceBuffer_ChangeType_Method);
 
@@ -719,7 +720,8 @@ void ChangeTypeOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& inf
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kChangeTypeUsingConfig);
 
@@ -738,8 +740,8 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 SourceBuffer* blink_receiver = V8SourceBuffer::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_config = NativeValueTraits<SourceBufferConfig>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -761,8 +763,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 const int arg_count = std::min(info.Length(), 1);
 if (arg_count == 1) {
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (RuntimeEnabledFeatures::MediaSourceExtensionsForWebCodecsEnabled(execution_context)) {
   if (info[0]->IsNullOrUndefined()) {
@@ -929,7 +931,7 @@ void V8SourceBuffer::InstallContextDependentProperties(v8::Local<v8::Context> co
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::MediaSourceExtensionsForWebCodecsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kMediaSourceExtensionsForWebCodecs)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"appendEncodedChunks", AppendEncodedChunksOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

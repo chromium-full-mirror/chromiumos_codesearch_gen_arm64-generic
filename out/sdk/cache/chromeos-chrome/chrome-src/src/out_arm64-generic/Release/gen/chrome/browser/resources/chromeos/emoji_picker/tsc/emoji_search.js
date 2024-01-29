@@ -42,12 +42,12 @@ export class EmojiSearch extends PolymerElement {
             searchResults: { type: Array },
             needIndexing: { type: Boolean, value: false },
             gifSupport: { type: Boolean, value: false },
-            jellySupport: { type: Boolean, value: false },
             status: { type: Status, value: null },
             searchQuery: { type: String, value: '' },
             nextGifPos: { type: String, value: '' },
             errorMessage: { type: String, value: NO_INTERNET_SEARCH_ERROR_MSG },
             closeGifNudgeOverlay: { type: Object },
+            useGroupedPreference: { type: Boolean, value: false },
             globalTone: { type: Number, value: null, readonly: true },
             globalGender: { type: Number, value: null, readonly: true },
         };
@@ -349,9 +349,6 @@ export class EmojiSearch extends PolymerElement {
      */
     setSearchQuery(value) {
         this.$.search.setValue(value);
-    }
-    computeCrSearchFieldClass(jellySupport) {
-        return jellySupport ? 'jelly' : '';
     }
 }
 customElements.define(EmojiSearch.is, EmojiSearch);

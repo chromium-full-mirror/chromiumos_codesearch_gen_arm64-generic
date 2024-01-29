@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 import constants_pb2 as constants__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0emessages.proto\x12\x04\x62iod\x1a\x0f\x63onstants.proto\"m\n\x12\x46ingerprintMessage\x12\'\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x16.biod.FingerprintErrorH\x00\x12\'\n\x0bscan_result\x18\x02 \x01(\x0e\x32\x10.biod.ScanResultH\x00\x42\x05\n\x03msg\"\x1e\n\rGetNonceReply\x12\r\n\x05nonce\x18\x01 \x01(\x0c\"s\n\x0e\x45nrollScanDone\x12%\n\x0bscan_result\x18\x01 \x01(\x0e\x32\x10.biod.ScanResult\x12\x0c\n\x04\x64one\x18\x02 \x01(\x08\x12\x18\n\x10percent_complete\x18\x03 \x01(\x05\x12\x12\n\nauth_nonce\x18\x04 \x01(\x0c\"\"\n\x0c\x41uthScanDone\x12\x12\n\nauth_nonce\x18\x01 \x01(\x0c\"X\n\x19StartEnrollSessionRequest\x12\x11\n\tgsc_nonce\x18\x01 \x01(\x0c\x12\x1c\n\x14\x65ncrypted_label_seed\x18\x02 \x01(\x0c\x12\n\n\x02iv\x18\x03 \x01(\x0c\"@\n\x17StartEnrollSessionReply\x12%\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x16.biod.FingerprintError\"g\n\x17StartAuthSessionRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x0c\x12\x11\n\tgsc_nonce\x18\x02 \x01(\x0c\x12\x1c\n\x14\x65ncrypted_label_seed\x18\x03 \x01(\x0c\x12\n\n\x02iv\x18\x04 \x01(\x0c\">\n\x15StartAuthSessionReply\x12%\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x16.biod.FingerprintError\"O\n\x1e\x42iometricsManagerStatusChanged\x12-\n\x06status\x18\x01 \x01(\x0e\x32\x1d.biod.BiometricsManagerStatus\"#\n\x0b\x46pPublicKey\x12\t\n\x01x\x18\x01 \x01(\x0c\x12\t\n\x01y\x18\x02 \x01(\x0c\"\x87\x01\n\x17\x43reateCredentialRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tgsc_nonce\x18\x02 \x01(\x0c\x12\x1c\n\x14\x65ncrypted_label_seed\x18\x03 \x01(\x0c\x12\n\n\x02iv\x18\x04 \x01(\x0c\x12\x1e\n\x03pub\x18\x05 \x01(\x0b\x32\x11.biod.FpPublicKey\";\n\x19\x43reateCredentialRequestV2\x12\x1e\n\x03pub\x18\x01 \x01(\x0b\x32\x11.biod.FpPublicKey\"\xb8\x02\n\x15\x43reateCredentialReply\x12\x42\n\x06status\x18\x01 \x01(\x0e\x32\x32.biod.CreateCredentialReply.CreateCredentialStatus\x12\x18\n\x10\x65ncrypted_secret\x18\x02 \x01(\x0c\x12\n\n\x02iv\x18\x03 \x01(\x0c\x12\x1e\n\x03pub\x18\x04 \x01(\x0b\x32\x11.biod.FpPublicKey\x12\x11\n\trecord_id\x18\x05 \x01(\t\"\x81\x01\n\x16\x43reateCredentialStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x13\n\x0fINCORRECT_STATE\x10\x02\x12\x0f\n\x0bNO_TEMPLATE\x10\x03\x12\r\n\tNO_SECRET\x10\x04\x12\x18\n\x14\x43REATE_RECORD_FAILED\x10\x05\"|\n\x1d\x41uthenticateCredentialRequest\x12\x11\n\tgsc_nonce\x18\x01 \x01(\x0c\x12\x1c\n\x14\x65ncrypted_label_seed\x18\x02 \x01(\x0c\x12\n\n\x02iv\x18\x03 \x01(\x0c\x12\x1e\n\x03pub\x18\x04 \x01(\x0b\x32\x11.biod.FpPublicKey\"A\n\x1f\x41uthenticateCredentialRequestV2\x12\x1e\n\x03pub\x18\x01 \x01(\x0b\x32\x11.biod.FpPublicKey\"\xb7\x03\n\x1b\x41uthenticateCredentialReply\x12N\n\x06status\x18\x01 \x01(\x0e\x32>.biod.AuthenticateCredentialReply.AuthenticateCredentialStatus\x12%\n\x0bscan_result\x18\x02 \x01(\x0e\x32\x10.biod.ScanResult\x12\x18\n\x10\x65ncrypted_secret\x18\x03 \x01(\x0c\x12\n\n\x02iv\x18\x04 \x01(\x0c\x12\x1e\n\x03pub\x18\x05 \x01(\x0b\x32\x11.biod.FpPublicKey\x12\x11\n\trecord_id\x18\x06 \x01(\t\"\xc7\x01\n\x1c\x41uthenticateCredentialStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x13\n\x0fINCORRECT_STATE\x10\x02\x12\x14\n\x10SET_NONCE_FAILED\x10\x03\x12\x1b\n\x17UPLOAD_TEMPLATES_FAILED\x10\x04\x12\x10\n\x0cMATCH_FAILED\x10\x05\x12\x10\n\x0cNO_TEMPLATES\x10\x06\x12\r\n\tNO_SECRET\x10\x07\x12\x12\n\x0eINTERNAL_ERROR\x10\x08\"=\n\x17\x44\x65leteCredentialRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\trecord_id\x18\x02 \x01(\t\"\xc8\x01\n\x15\x44\x65leteCredentialReply\x12\x42\n\x06status\x18\x01 \x01(\x0e\x32\x32.biod.DeleteCredentialReply.DeleteCredentialStatus\"k\n\x16\x44\x65leteCredentialStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x13\n\x0fINCORRECT_STATE\x10\x02\x12\r\n\tNOT_EXIST\x10\x03\x12\x13\n\x0f\x44\x45LETION_FAILED\x10\x04\x42-H\x03Z)chromiumos/system_api/biod_messages_proto')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0emessages.proto\x12\x04\x62iod\x1a\x0f\x63onstants.proto\"m\n\x12\x46ingerprintMessage\x12\'\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x16.biod.FingerprintErrorH\x00\x12\'\n\x0bscan_result\x18\x02 \x01(\x0e\x32\x10.biod.ScanResultH\x00\x42\x05\n\x03msg\"\x1e\n\rGetNonceReply\x12\r\n\x05nonce\x18\x01 \x01(\x0c\"s\n\x0e\x45nrollScanDone\x12%\n\x0bscan_result\x18\x01 \x01(\x0e\x32\x10.biod.ScanResult\x12\x0c\n\x04\x64one\x18\x02 \x01(\x08\x12\x18\n\x10percent_complete\x18\x03 \x01(\x05\x12\x12\n\nauth_nonce\x18\x04 \x01(\x0c\"\"\n\x0c\x41uthScanDone\x12\x12\n\nauth_nonce\x18\x01 \x01(\x0c\"X\n\x19StartEnrollSessionRequest\x12\x11\n\tgsc_nonce\x18\x01 \x01(\x0c\x12\x1c\n\x14\x65ncrypted_label_seed\x18\x02 \x01(\x0c\x12\n\n\x02iv\x18\x03 \x01(\x0c\"@\n\x17StartEnrollSessionReply\x12%\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x16.biod.FingerprintError\"g\n\x17StartAuthSessionRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x0c\x12\x11\n\tgsc_nonce\x18\x02 \x01(\x0c\x12\x1c\n\x14\x65ncrypted_label_seed\x18\x03 \x01(\x0c\x12\n\n\x02iv\x18\x04 \x01(\x0c\">\n\x15StartAuthSessionReply\x12%\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x16.biod.FingerprintError\"O\n\x1e\x42iometricsManagerStatusChanged\x12-\n\x06status\x18\x01 \x01(\x0e\x32\x1d.biod.BiometricsManagerStatus\"#\n\x0b\x46pPublicKey\x12\t\n\x01x\x18\x01 \x01(\x0c\x12\t\n\x01y\x18\x02 \x01(\x0c\"9\n\x17\x43reateCredentialRequest\x12\x1e\n\x03pub\x18\x01 \x01(\x0b\x32\x11.biod.FpPublicKey\"\xb8\x02\n\x15\x43reateCredentialReply\x12\x42\n\x06status\x18\x01 \x01(\x0e\x32\x32.biod.CreateCredentialReply.CreateCredentialStatus\x12\x18\n\x10\x65ncrypted_secret\x18\x02 \x01(\x0c\x12\n\n\x02iv\x18\x03 \x01(\x0c\x12\x1e\n\x03pub\x18\x04 \x01(\x0b\x32\x11.biod.FpPublicKey\x12\x11\n\trecord_id\x18\x05 \x01(\t\"\x81\x01\n\x16\x43reateCredentialStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x13\n\x0fINCORRECT_STATE\x10\x02\x12\x0f\n\x0bNO_TEMPLATE\x10\x03\x12\r\n\tNO_SECRET\x10\x04\x12\x18\n\x14\x43REATE_RECORD_FAILED\x10\x05\"?\n\x1d\x41uthenticateCredentialRequest\x12\x1e\n\x03pub\x18\x01 \x01(\x0b\x32\x11.biod.FpPublicKey\"\xb7\x03\n\x1b\x41uthenticateCredentialReply\x12N\n\x06status\x18\x01 \x01(\x0e\x32>.biod.AuthenticateCredentialReply.AuthenticateCredentialStatus\x12%\n\x0bscan_result\x18\x02 \x01(\x0e\x32\x10.biod.ScanResult\x12\x18\n\x10\x65ncrypted_secret\x18\x03 \x01(\x0c\x12\n\n\x02iv\x18\x04 \x01(\x0c\x12\x1e\n\x03pub\x18\x05 \x01(\x0b\x32\x11.biod.FpPublicKey\x12\x11\n\trecord_id\x18\x06 \x01(\t\"\xc7\x01\n\x1c\x41uthenticateCredentialStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x13\n\x0fINCORRECT_STATE\x10\x02\x12\x14\n\x10SET_NONCE_FAILED\x10\x03\x12\x1b\n\x17UPLOAD_TEMPLATES_FAILED\x10\x04\x12\x10\n\x0cMATCH_FAILED\x10\x05\x12\x10\n\x0cNO_TEMPLATES\x10\x06\x12\r\n\tNO_SECRET\x10\x07\x12\x12\n\x0eINTERNAL_ERROR\x10\x08\"=\n\x17\x44\x65leteCredentialRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\trecord_id\x18\x02 \x01(\t\"\xc8\x01\n\x15\x44\x65leteCredentialReply\x12\x42\n\x06status\x18\x01 \x01(\x0e\x32\x32.biod.DeleteCredentialReply.DeleteCredentialStatus\"k\n\x16\x44\x65leteCredentialStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x13\n\x0fINCORRECT_STATE\x10\x02\x12\r\n\tNOT_EXIST\x10\x03\x12\x13\n\x0f\x44\x45LETION_FAILED\x10\x04\x42-H\x03Z)chromiumos/system_api/biod_messages_proto')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'messages_pb2', globals())
@@ -42,26 +42,22 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _BIOMETRICSMANAGERSTATUSCHANGED._serialized_end=741
   _FPPUBLICKEY._serialized_start=743
   _FPPUBLICKEY._serialized_end=778
-  _CREATECREDENTIALREQUEST._serialized_start=781
-  _CREATECREDENTIALREQUEST._serialized_end=916
-  _CREATECREDENTIALREQUESTV2._serialized_start=918
-  _CREATECREDENTIALREQUESTV2._serialized_end=977
-  _CREATECREDENTIALREPLY._serialized_start=980
-  _CREATECREDENTIALREPLY._serialized_end=1292
-  _CREATECREDENTIALREPLY_CREATECREDENTIALSTATUS._serialized_start=1163
-  _CREATECREDENTIALREPLY_CREATECREDENTIALSTATUS._serialized_end=1292
-  _AUTHENTICATECREDENTIALREQUEST._serialized_start=1294
-  _AUTHENTICATECREDENTIALREQUEST._serialized_end=1418
-  _AUTHENTICATECREDENTIALREQUESTV2._serialized_start=1420
-  _AUTHENTICATECREDENTIALREQUESTV2._serialized_end=1485
-  _AUTHENTICATECREDENTIALREPLY._serialized_start=1488
-  _AUTHENTICATECREDENTIALREPLY._serialized_end=1927
-  _AUTHENTICATECREDENTIALREPLY_AUTHENTICATECREDENTIALSTATUS._serialized_start=1728
-  _AUTHENTICATECREDENTIALREPLY_AUTHENTICATECREDENTIALSTATUS._serialized_end=1927
-  _DELETECREDENTIALREQUEST._serialized_start=1929
-  _DELETECREDENTIALREQUEST._serialized_end=1990
-  _DELETECREDENTIALREPLY._serialized_start=1993
-  _DELETECREDENTIALREPLY._serialized_end=2193
-  _DELETECREDENTIALREPLY_DELETECREDENTIALSTATUS._serialized_start=2086
-  _DELETECREDENTIALREPLY_DELETECREDENTIALSTATUS._serialized_end=2193
+  _CREATECREDENTIALREQUEST._serialized_start=780
+  _CREATECREDENTIALREQUEST._serialized_end=837
+  _CREATECREDENTIALREPLY._serialized_start=840
+  _CREATECREDENTIALREPLY._serialized_end=1152
+  _CREATECREDENTIALREPLY_CREATECREDENTIALSTATUS._serialized_start=1023
+  _CREATECREDENTIALREPLY_CREATECREDENTIALSTATUS._serialized_end=1152
+  _AUTHENTICATECREDENTIALREQUEST._serialized_start=1154
+  _AUTHENTICATECREDENTIALREQUEST._serialized_end=1217
+  _AUTHENTICATECREDENTIALREPLY._serialized_start=1220
+  _AUTHENTICATECREDENTIALREPLY._serialized_end=1659
+  _AUTHENTICATECREDENTIALREPLY_AUTHENTICATECREDENTIALSTATUS._serialized_start=1460
+  _AUTHENTICATECREDENTIALREPLY_AUTHENTICATECREDENTIALSTATUS._serialized_end=1659
+  _DELETECREDENTIALREQUEST._serialized_start=1661
+  _DELETECREDENTIALREQUEST._serialized_end=1722
+  _DELETECREDENTIALREPLY._serialized_start=1725
+  _DELETECREDENTIALREPLY._serialized_end=1925
+  _DELETECREDENTIALREPLY_DELETECREDENTIALSTATUS._serialized_start=1818
+  _DELETECREDENTIALREPLY_DELETECREDENTIALSTATUS._serialized_end=1925
 # @@protoc_insertion_point(module_scope)

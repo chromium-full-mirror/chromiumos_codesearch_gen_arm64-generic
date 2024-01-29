@@ -705,6 +705,8 @@ bool ServiceWorkerRegistrationObjectHost_Update_ForwardToCallback::Accept(
           internal::ServiceWorkerRegistrationObjectHost_Update_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerRegistrationObjectHost.0
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
@@ -839,6 +841,8 @@ bool ServiceWorkerRegistrationObjectHost_Unregister_ForwardToCallback::Accept(
           internal::ServiceWorkerRegistrationObjectHost_Unregister_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerRegistrationObjectHost.1
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
@@ -973,6 +977,8 @@ bool ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ForwardToCallba
           internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerRegistrationObjectHost.2
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
@@ -1107,6 +1113,8 @@ bool ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ForwardToCall
           internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerRegistrationObjectHost.3
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
@@ -1255,6 +1263,8 @@ bool ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ForwardToCal
           internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerRegistrationObjectHost.4
   bool success = true;
   ::blink::mojom::blink::ServiceWorkerErrorType p_error{};
   WTF::String p_error_msg{};
@@ -1372,6 +1382,8 @@ bool ServiceWorkerRegistrationObjectHostStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerRegistrationObjectHost_Update_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObjectHost.0
       bool success = true;
       ::blink::mojom::blink::FetchClientSettingsObjectPtr p_outside_fetch_client_settings_object{};
       ServiceWorkerRegistrationObjectHost_Update_ParamsDataView input_data_view(params, message);
@@ -1390,8 +1402,8 @@ bool ServiceWorkerRegistrationObjectHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_outside_fetch_client_settings_object), std::move(callback));
+      impl->Update(        
+        std::move(p_outside_fetch_client_settings_object), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerRegistrationObjectHost_Unregister_Name: {
@@ -1401,6 +1413,8 @@ std::move(p_outside_fetch_client_settings_object), std::move(callback));
               internal::ServiceWorkerRegistrationObjectHost_Unregister_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObjectHost.1
       bool success = true;
       ServiceWorkerRegistrationObjectHost_Unregister_ParamsDataView input_data_view(params, message);
       
@@ -1426,6 +1440,8 @@ std::move(p_outside_fetch_client_settings_object), std::move(callback));
               internal::ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObjectHost.2
       bool success = true;
       bool p_enable{};
       ServiceWorkerRegistrationObjectHost_EnableNavigationPreload_ParamsDataView input_data_view(params, message);
@@ -1444,8 +1460,8 @@ std::move(p_outside_fetch_client_settings_object), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableNavigationPreload(
-std::move(p_enable), std::move(callback));
+      impl->EnableNavigationPreload(        
+        std::move(p_enable), std::move(callback));
       return true;
     }
     case internal::kServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Name: {
@@ -1455,6 +1471,8 @@ std::move(p_enable), std::move(callback));
               internal::ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObjectHost.3
       bool success = true;
       ServiceWorkerRegistrationObjectHost_GetNavigationPreloadState_ParamsDataView input_data_view(params, message);
       
@@ -1480,6 +1498,8 @@ std::move(p_enable), std::move(callback));
               internal::ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObjectHost.4
       bool success = true;
       WTF::String p_value{};
       ServiceWorkerRegistrationObjectHost_SetNavigationPreloadHeader_ParamsDataView input_data_view(params, message);
@@ -1498,8 +1518,8 @@ std::move(p_enable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNavigationPreloadHeader(
-std::move(p_value), std::move(callback));
+      impl->SetNavigationPreloadHeader(        
+        std::move(p_value), std::move(callback));
       return true;
     }
   }
@@ -1796,6 +1816,8 @@ bool ServiceWorkerRegistrationObjectStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerRegistrationObject_SetServiceWorkerObjects_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObject.0
       bool success = true;
       ChangedServiceWorkerObjectsMaskPtr p_changed_mask{};
       ::blink::mojom::blink::ServiceWorkerObjectInfoPtr p_installing{};
@@ -1820,11 +1842,11 @@ bool ServiceWorkerRegistrationObjectStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetServiceWorkerObjects(
-std::move(p_changed_mask), 
-std::move(p_installing), 
-std::move(p_waiting), 
-std::move(p_active));
+      impl->SetServiceWorkerObjects(        
+        std::move(p_changed_mask), 
+        std::move(p_installing), 
+        std::move(p_waiting), 
+        std::move(p_active));
       return true;
     }
     case internal::kServiceWorkerRegistrationObject_SetUpdateViaCache_Name: {
@@ -1834,6 +1856,8 @@ std::move(p_active));
           reinterpret_cast<internal::ServiceWorkerRegistrationObject_SetUpdateViaCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObject.1
       bool success = true;
       ::blink::mojom::blink::ServiceWorkerUpdateViaCache p_update_via_cache{};
       ServiceWorkerRegistrationObject_SetUpdateViaCache_ParamsDataView input_data_view(params, message);
@@ -1849,8 +1873,8 @@ std::move(p_active));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpdateViaCache(
-std::move(p_update_via_cache));
+      impl->SetUpdateViaCache(        
+        std::move(p_update_via_cache));
       return true;
     }
     case internal::kServiceWorkerRegistrationObject_UpdateFound_Name: {
@@ -1860,6 +1884,8 @@ std::move(p_update_via_cache));
           reinterpret_cast<internal::ServiceWorkerRegistrationObject_UpdateFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerRegistrationObject.2
       bool success = true;
       ServiceWorkerRegistrationObject_UpdateFound_ParamsDataView input_data_view(params, message);
       
@@ -1872,7 +1898,7 @@ std::move(p_update_via_cache));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateFound();
+      impl->UpdateFound(        );
       return true;
     }
   }

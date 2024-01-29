@@ -140,6 +140,12 @@ netdataDashboard.menu = {
         info: 'Detailed information for each CPU of the system. A summary of the system for all CPUs can be found at the <a href="#menu_system">System Overview</a> section.'
     },
 
+    'amdgpu': {
+        title: 'AMD GPUs',
+        icon: '<i class="fas fa-microchip"></i>',
+        info: 'Detailed information for each AMD GPU of the system. Temperature, fan speed, voltage and power metrics can be found at the <a href="#menu_sensors">Sensors</a> section.'
+    },
+
     'mem': {
         title: 'Memory',
         icon: '<i class="fas fa-microchip"></i>',
@@ -291,10 +297,16 @@ netdataDashboard.menu = {
         info: 'QEMU virtual machine resource utilization metrics. QEMU (short for Quick Emulator) is a free and open-source hosted hypervisor that performs hardware virtualization.'
     },
 
-    'fping': {
-        title: 'fping',
+    'docker': {
+        title: 'Docker',
+        icon: '<i class="fas fa-cube"></i>',
+        info: 'Docker containers state and disk usage.'
+    },
+
+    'ping': {
+        title: 'Ping',
         icon: '<i class="fas fa-exchange-alt"></i>',
-        info: 'Network latency statistics, via <b>fping</b>. <b>fping</b> is a program to send ICMP echo probes to network hosts, similar to <code>ping</code>, but much better performing when pinging multiple hosts. fping versions after 3.15 can be directly used as netdata plugins.'
+        info: 'Measures round-trip time and packet loss by sending ping messages to network hosts.'
     },
 
     'gearman': {
@@ -333,10 +345,28 @@ netdataDashboard.menu = {
         info: 'Performance metrics for <b>mysql</b>, the open-source relational database management system (RDBMS).'
     },
 
+    'nvme': {
+        title: 'NVMe',
+        icon: '<i class="fas fa-hdd"></i>',
+        info: 'NVMe devices SMART and health metrics. Additional information on metrics can be found in the <a href="https://nvmexpress.org/developers/nvme-specification/" target="_blank">NVM Express Base Specification</a>.'
+    },
+
     'postgres': {
-        title: 'Postgres',
+        title: 'PostgreSQL',
         icon: '<i class="fas fa-database"></i>',
-        info: 'Performance metrics for <b>PostgresSQL</b>, the object-relational database (ORDBMS).'
+        info: 'Performance metrics for <b>PostgreSQL</b>, the open source object-relational database management system (ORDBMS).'
+    },
+
+    'proxysql': {
+        title: 'ProxySQL',
+        icon: '<i class="fas fa-database"></i>',
+        info: 'Performance metrics for <b>ProxySQL</b>, a high-performance open-source MySQL proxy.'
+    },
+
+    'pgbouncer': {
+        title: 'PgBouncer',
+        icon: '<i class="fas fa-exchange-alt"></i>',
+        info: 'Performance metrics for PgBouncer, an open source connection pooler for PostgreSQL.'
     },
 
     'redis': {
@@ -412,6 +442,12 @@ netdataDashboard.menu = {
         info: undefined
     },
 
+    'nginxplus': {
+        title: 'Nginx Plus',
+        icon: '<i class="fas fa-eye"></i>',
+        info: undefined
+    },
+
     'apache': {
         title: 'Apache',
         icon: '<i class="fas fa-eye"></i>',
@@ -427,7 +463,7 @@ netdataDashboard.menu = {
     'web_log': {
         title: undefined,
         icon: '<i class="fas fa-file-alt"></i>',
-        info: 'Information extracted from a server log file. <code>web_log</code> plugin incrementally parses the server log file to provide, in real-time, a break down of key server performance metrics. For web servers, an extended log file format may optionally be used (for <code>nginx</code> and <code>apache</code>) offering timing information and bandwidth for both requests and responses. <code>web_log</code> plugin may also be configured to provide a break down of requests per URL pattern (check <a href="https://github.com/netdata/netdata/blob/master/collectors/python.d.plugin/web_log/web_log.conf" target="_blank"><code>/etc/netdata/python.d/web_log.conf</code></a>).'
+        info: 'Information extracted from a server log file. <code>web_log</code> plugin incrementally parses the server log file to provide, in real-time, a break down of key server performance metrics. For web servers, an extended log file format may optionally be used (for <code>nginx</code> and <code>apache</code>) offering timing information and bandwidth for both requests and responses. <code>web_log</code> plugin may also be configured to provide a break down of requests per URL pattern (check <a href="https://github.com/netdata/go.d.plugin/blob/master/config/go.d/web_log.conf" target="_blank"><code>/etc/netdata/go.d/web_log.conf</code></a>).'
     },
 
     'squid': {
@@ -461,8 +497,9 @@ netdataDashboard.menu = {
     },
 
     'chrony': {
+        title: 'Chrony',
         icon: '<i class="fas fa-clock"></i>',
-        info: 'chronyd parameters about the system’s clock performance.'
+        info: 'The system’s clock performance and peers activity status.'
     },
 
     'couchdb': {
@@ -521,7 +558,7 @@ netdataDashboard.menu = {
     'logind': {
         title: 'Logind',
         icon: '<i class="fas fa-user"></i>',
-        info: undefined
+        info: 'Keeps track of user logins and sessions by querying the <a href="https://www.freedesktop.org/software/systemd/man/org.freedesktop.login1.html" target="_blank">systemd-logind API</a>.'
     },
 
     'powersupply': {
@@ -542,9 +579,45 @@ netdataDashboard.menu = {
         info: 'Xen domain resource utilization metrics. Netdata reads this information using <b>xenstat</b> library which gives access to the resource usage information (CPU, memory, disk I/O, network) for a virtual machine.'
     },
 
-    'wmi': {
-        title: 'wmi',
-        icon: '<i class="fas fa-server"></i>',
+    'windows': {
+        title: 'Windows',
+        icon: '<i class="fab fa-windows"></i>',
+        info: undefined
+    },
+
+    'iis': {
+        title: 'IIS',
+        icon: '<i class="fas fa-eye"></i>',
+        info: undefined
+    },
+
+    'mssql': {
+        title: 'MS SQL Server',
+        icon: '<i class="fas fa-database"></i>',
+        info: undefined
+    },
+
+    'ad': {
+        title: 'AD Domain Service',
+        icon: '<i class="fab fa-windows"></i>',
+        info: undefined
+    },
+
+    'adcs': {
+        title: 'AD Certification Service',
+        icon: '<i class="fab fa-windows"></i>',
+        info: undefined
+    },
+
+    'adfs': {
+        title: 'AD Federation Service',
+        icon: '<i class="fab fa-windows"></i>',
+        info: undefined
+    },
+
+    'netframework': {
+        title: '.NET Framework',
+        icon: '<i class="fas fa-laptop-code"></i>',
         info: undefined
     },
 
@@ -686,6 +759,28 @@ netdataDashboard.menu = {
         icon: '<i class="fas fa-shield-alt"></i>',
         info: 'Netdata keeps track of the current jail status by reading the Fail2ban log file.'
     },
+
+    'wireguard': {
+        title: 'WireGuard',
+        icon: '<i class="fas fa-dragon"></i>',
+        info: 'VPN network interfaces and peers traffic.'
+    },
+
+    'pandas': {
+        icon: '<i class="fas fa-teddy-bear"></i>'
+    },
+
+    'cassandra': {
+        title: 'Cassandra',
+        icon: '<i class="fas fa-database"></i>',
+        info: 'Performance metrics for Cassandra, the open source distributed NoSQL database management system'
+    },
+
+    'consul': {
+        title: 'Consul',
+        icon: '<i class="fas fa-circle-notch"></i>',
+        info: 'Consul performance and health metrics. For details, see <a href="https://developer.hashicorp.com/consul/docs/agent/telemetry#key-metrics" target="_blank">Key Metrics</a>.'
+    }
 };
 
 
@@ -739,7 +834,7 @@ netdataDashboard.submenu = {
     },
 
     'web_log.urls': {
-        info: 'Number of requests for each <code>URL pattern</code> defined in <a href="https://github.com/netdata/netdata/blob/master/collectors/python.d.plugin/web_log/web_log.conf" target="_blank"><code>/etc/netdata/python.d/web_log.conf</code></a>. This chart counts all requests matching the URL patterns defined, independently of the web server response codes (i.e. both successful and unsuccessful).'
+        info: 'Number of requests for each <code>URL pattern</code> defined in <a href="https://github.com/netdata/go.d.plugin/blob/master/config/go.d/web_log.conf" target="_blank"><code>/etc/netdata/go.d/web_log.conf</code></a>. This chart counts all requests matching the URL patterns defined, independently of the web server response codes (i.e. both successful and unsuccessful).'
     },
 
     'web_log.clients': {
@@ -792,6 +887,19 @@ netdataDashboard.submenu = {
         'By keeping pages grouped based on their ability to move, '+
         'the kernel can reclaim pages within a page block to satisfy a high-order allocation. '+
         'When the kernel or an application requests some memory, the buddy allocator provides a page that matches closest the request.'
+    },
+
+    'mem.fragmentation': {
+        info: 'These charts show whether the kernel will compact memory or direct reclaim to satisfy a high-order allocation. '+
+            'The extfrag/extfrag_index file in debugfs shows what the fragmentation index for each order is in each zone in the system.' +
+            'Values tending towards 0 imply allocations would fail due to lack of memory, values towards 1000 imply failures are due to ' +
+            'fragmentation and -1 implies that the allocation will succeed as long as watermarks are met.'
+    },
+
+    'system.zswap': {
+        info : 'Zswap is a backend for frontswap that takes pages that are in the process of being swapped out and attempts to compress and store them in a ' +
+            'RAM-based memory pool.  This can result in a significant I/O reduction on the swap device and, in the case where decompressing from RAM is faster ' +
+            'than reading from the swap device, can also improve workload performance.'
     },
 
     'ip.ecn': {
@@ -1070,6 +1178,15 @@ netdataDashboard.submenu = {
               'IRQ (<a href="#ebpf_global_hard_irq">Hard IRQ</a> and <a href="#ebpf_global_soft_irq">Soft IRQ</a> ), <a href="#ebpf_global_shm">Shared Memory</a>, ' +
               'Syscalls (<a href="#menu_mem_submenu_synchronization__eBPF_">Sync</a>, <a href="#menu_mount_submenu_mount__eBPF_">Mount</a>), and <a href="#menu_ip_submenu_kernel">Network</a>.'
     },
+
+    'postgres.connections': {
+        info: 'A connection is an established line of communication between a client and the PostgreSQL server. Each connection adds to the load on the PostgreSQL server. To guard against running out of memory or overloading the database the <i>max_connections</i> parameter (default = 100) defines the maximum number of concurrent connections to the database server. A separate parameter, <i>superuser_reserved_connections</i> (default = 3), defines the quota for superuser connections (so that superusers can connect even if all other connection slots are blocked).'
+    },
+
+    'system.power_consumption': {
+        info: 'The current power consumption of the zones defined by the <a href="https://www.kernel.org/doc/html/next/power/powercap/powercap.html" target="_blank">power capping framework</a>.'
+    }
+
 };
 
 // ----------------------------------------------------------------------------
@@ -1123,8 +1240,7 @@ const netDuplexInfo = '<p>The interface\'s latest or current ' +
     '<a href="https://en.wikipedia.org/wiki/Autonegotiation" target="_blank">negotiated</a> with the device it is connected to.</p>' +
     '<p><b>Unknown</b> - the duplex mode can not be determined. ' +
     '<b>Half duplex</b> - the communication is one direction at a time. ' +
-    '<b>Full duplex</b> - the interface is able to send and receive data simultaneously.</p>' +
-    '<p><b>State map</b>: 0 - unknown, 1 - half, 2 - full.</p>'
+    '<b>Full duplex</b> - the interface is able to send and receive data simultaneously.</p>'
 const netOperstateInfo = '<p>The current ' +
     '<a href="https://datatracker.ietf.org/doc/html/rfc2863" target="_blank">operational state</a> of the interface.</p>' +
     '<p><b>Unknown</b> - the state can not be determined. ' +
@@ -1133,10 +1249,8 @@ const netOperstateInfo = '<p>The current ' +
     '<b>LowerLayerDown</b> - the interface is down due to state of lower-layer interface(s). ' +
     '<b>Testing</b> - the interface is in testing mode, e.g. cable test. It can’t be used for normal traffic until tests complete. ' +
     '<b>Dormant</b> - the interface is L1 up, but waiting for an external event, e.g. for a protocol to establish. ' +
-    '<b>Up</b> - the interface is ready to pass packets and can be used.</p>' +
-    '<p><b>State map</b>: 0 - unknown, 1 - notpresent, 2 - down, 3 - lowerlayerdown, 4 - testing, 5 - dormant, 6 - up.</p>'
-const netCarrierInfo = '<p>The current physical link state of the interface.</p>' +
-    '<p><b>State map</b>: 0 - down, 1 - up.</p>'
+    '<b>Up</b> - the interface is ready to pass packets and can be used.</p>'
+const netCarrierInfo = 'The current physical link state of the interface.'
 const netSpeedInfo = 'The interface\'s latest or current speed that the network adapter ' +
     '<a href="https://en.wikipedia.org/wiki/Autonegotiation" target="_blank">negotiated</a> with the device it is connected to. ' +
     'This does not give the max supported speed of the NIC.'
@@ -1286,6 +1400,41 @@ const ebpfUDPrecv = 'Number of calls to <a href="https://learn.netdata.cloud/doc
     'Netdata gives a summary for this chart in <a href="#ebpf_global_udp_bandwidth_call">Network Stack</a>. ' +
     'When the integration is <a href="https://learn.netdata.cloud/guides/troubleshoot/monitor-debug-applications-ebpf" target="_blank">enabled</a>, Netdata shows UDP calls per <a href="#ebpf_apps_udp_recv">application</a>.' + ebpfChartProvides
 
+const cgroupCPULimit = 'Total CPU utilization within the configured or system-wide (if not set) limits. When the CPU utilization of a cgroup exceeds the limit for the configured period, the tasks belonging to its hierarchy will be throttled and are not allowed to run again until the next period.'
+const cgroupCPU = 'Total CPU utilization within the system-wide CPU resources (all cores). The amount of time spent by tasks of the cgroup in <a href="https://en.wikipedia.org/wiki/CPU_modes#Mode_types" target="_blank">user and kernel</a> modes.'
+const cgroupThrottled = 'The percentage of runnable periods when tasks in a cgroup have been throttled. The tasks have not been allowed to run because they have exhausted all of the available time as specified by their CPU quota.'
+const cgroupThrottledDuration = 'The total time duration for which tasks in a cgroup have been throttled. When an application has used its allotted CPU quota for a given period, it gets throttled until the next period.'
+const cgroupCPUShared = '<p>The weight of each group living in the same hierarchy, that translates into the amount of CPU it is expected to get. The percentage of CPU assigned to the cgroup is the value of shares divided by the sum of all shares in all cgroups in the same level.</p> <p>For example, tasks in two cgroups that have <b>cpu.shares</b> set to 100 will receive equal CPU time, but tasks in a cgroup that has <b>cpu.shares</b> set to 200 receive twice the CPU time of tasks in a cgroup where <b>cpu.shares</b> is set to 100.</p>'
+const cgroupCPUPerCore = 'Total CPU utilization per core within the system-wide CPU resources.'
+const cgroupCPUSomePressure = 'CPU <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. <b>Some</b> indicates the share of time in which at least <b>some tasks</b> are stalled on CPU. The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+const cgroupCPUSomePressureStallTime = 'The amount of time some processes have been waiting for CPU time.'
+const cgroupCPUFullPressure = 'CPU <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. <b>Full</b> indicates the share of time in which <b>all non-idle tasks</b> are stalled on CPU resource simultaneously. The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+const cgroupCPUFullPressureStallTime = 'The amount of time all non-idle processes have been stalled due to CPU congestion.'
+
+const cgroupMemUtilization = 'RAM utilization within the configured or system-wide (if not set) limits. When the RAM utilization of a cgroup exceeds the limit, OOM killer will start killing the tasks belonging to the cgroup.'
+const cgroupMemUsageLimit = 'RAM usage within the configured or system-wide (if not set) limits. When the RAM usage of a cgroup exceeds the limit, OOM killer will start killing the tasks belonging to the cgroup.'
+const cgroupMemUsage = 'The amount of used RAM and swap memory.'
+const cgroupMem = 'Memory usage statistics. The individual metrics are described in the memory.stat section for <a href="https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v1/memory.html#per-memory-cgroup-local-status" target="_blank">cgroup-v1</a> and <a href="https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html#memory-interface-files" target="_blank">cgroup-v2</a>.'
+const cgroupMemFailCnt = 'The number of memory usage hits limits.'
+const cgroupWriteback = '<b>Dirty</b> is the amount of memory waiting to be written to disk. <b>Writeback</b> is how much memory is actively being written to disk.'
+const cgroupMemActivity = '<p>Memory accounting statistics.</p><p><b>In</b> - a page is accounted as either mapped anon page (RSS) or cache page (Page Cache) to the cgroup. <b>Out</b> - a page is unaccounted from the cgroup.</p>'
+const cgroupPgFaults = '<p>Memory <a href="https://en.wikipedia.org/wiki/Page_fault" target="_blank">page fault</a> statistics.</p><p><b>Pgfault</b> - all page faults. <b>Swap</b> - major page faults.</p>'
+const cgroupMemorySomePressure = 'Memory <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. <b>Some</b> indicates the share of time in which at least <b>some tasks</b> are stalled on memory. In this state the CPU is still doing productive work. The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+const cgroupMemorySomePressureStallTime = 'The amount of time some processes have been waiting due to memory congestion.'
+const cgroupMemoryFullPressure = 'Memory <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. <b>Full</b> indicates the share of time in which <b>all non-idle tasks</b> are stalled on memory resource simultaneously. In this state actual CPU cycles are going to waste, and a workload that spends extended time in this state is considered to be thrashing. This has severe impact on performance. The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+const cgroupMemoryFullPressureStallTime = 'The amount of time all non-idle processes have been stalled due to memory congestion.'
+
+const cgroupIO = 'The amount of data transferred to and from specific devices as seen by the CFQ scheduler. It is not updated when the CFQ scheduler is operating on a request queue.'
+const cgroupServicedOps = 'The number of I/O operations performed on specific devices as seen by the CFQ scheduler.'
+const cgroupQueuedOps = 'The number of requests queued for I/O operations.'
+const cgroupMergedOps = 'The number of BIOS requests merged into requests for I/O operations.'
+const cgroupThrottleIO = 'The amount of data transferred to and from specific devices as seen by the throttling policy.'
+const cgroupThrottleIOServicesOps = 'The number of I/O operations performed on specific devices as seen by the throttling policy.'
+const cgroupIOSomePressure = 'I/O <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. <b>Some</b> indicates the share of time in which at least <b>some tasks</b> are stalled on I/O. In this state the CPU is still doing productive work. The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+const cgroupIOSomePRessureStallTime = 'The amount of time some processes have been waiting due to I/O congestion.'
+const cgroupIOFullPressure = 'I/O <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. <b>Full</b> line indicates the share of time in which <b>all non-idle tasks</b> are stalled on I/O resource simultaneously. In this state actual CPU cycles are going to waste, and a workload that spends extended time in this state is considered to be thrashing. This has severe impact on performance. The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+const cgroupIOFullPressureStallTime = 'The amount of time all non-idle processes have been stalled due to I/O congestion.'
+
 netdataDashboard.context = {
     'system.cpu': {
         info: function (os) {
@@ -1309,29 +1458,61 @@ netdataDashboard.context = {
         height: 0.7
     },
 
-    'system.cpu_pressure': {
-        info: '<a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a> ' +
-            'identifies and quantifies the disruptions caused by resource contentions. ' +
-            'The "some" line indicates the share of time in which at least <b>some</b> tasks are stalled on CPU. ' +
-            'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    'system.cpu_some_pressure': {
+        info: 'CPU <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
+            '<b>Some</b> indicates the share of time in which at least <b>some tasks</b> are stalled on CPU. ' +
+            'The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    },
+    'system.cpu_some_pressure_stall_time': {
+        info: 'The amount of time some processes have been waiting for CPU time.'
+    },
+    'system.cpu_full_pressure': {
+        info: 'CPU <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. ' +
+            '<b>Full</b> indicates the share of time in which <b>all non-idle tasks</b> are stalled on CPU resource simultaneously. ' +
+            'The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    },
+    'system.cpu_full_pressure_stall_time': {
+        info: 'The amount of time all non-idle processes have been stalled due to CPU congestion.'
     },
 
     'system.memory_some_pressure': {
-        info: '<a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a> ' +
-            'identifies and quantifies the disruptions caused by resource contentions. ' +
-            'The "some" line indicates the share of time in which at least <b>some</b> tasks are stalled on memory. ' +
-            'The "full" line indicates the share of time in which <b>all non-idle</b> tasks are stalled on memory simultaneously. ' +
-            'In this state actual CPU cycles are going to waste, and a workload that spends extended time in this state is considered to be thrashing. ' +
-            'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+        info: 'Memory <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
+            '<b>Some</b> indicates the share of time in which at least <b>some tasks</b> are stalled on memory. ' +
+            'In this state the CPU is still doing productive work. '+
+            'The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    },
+    'system.memory_some_pressure_stall_time': {
+        info: 'The amount of time some processes have been waiting due to memory congestion.'
+    },
+    'system.memory_full_pressure': {
+        info: 'Memory <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. ' +
+            '<b>Full</b> indicates the share of time in which <b>all non-idle tasks</b> are stalled on memory resource simultaneously. ' +
+            'In this state actual CPU cycles are going to waste, and a workload that spends extended time in this state is considered to be thrashing. '+
+            'This has severe impact on performance. '+
+            'The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    },
+    'system.memory_full_pressure_stall_time': {
+        info: 'The amount of time all non-idle processes have been stalled due to memory congestion.'
     },
 
     'system.io_some_pressure': {
-        info: '<a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a> ' +
-            'identifies and quantifies the disruptions caused by resource contentions. ' +
-            'The "some" line indicates the share of time in which at least <b>some</b> tasks are stalled on I/O. ' +
-            'The "full" line indicates the share of time in which <b>all non-idle</b> tasks are stalled on I/O simultaneously. ' +
-            'In this state actual CPU cycles are going to waste, and a workload that spends extended time in this state is considered to be thrashing. ' +
-            'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+        info: 'I/O <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
+            '<b>Some</b> indicates the share of time in which at least <b>some tasks</b> are stalled on I/O. ' +
+            'In this state the CPU is still doing productive work. '+
+            'The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    },
+    'system.io_some_pressure_stall_time': {
+        info: 'The amount of time some processes have been waiting due to I/O congestion.'
+    },
+    'system.io_full_pressure': {
+        info: 'I/O <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. ' +
+            '<b>Full</b> line indicates the share of time in which <b>all non-idle tasks</b> are stalled on I/O resource simultaneously. ' +
+            'In this state actual CPU cycles are going to waste, and a workload that spends extended time in this state is considered to be thrashing. '+
+            'This has severe impact on performance. '+
+            'The ratios are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    },
+    'system.io_full_pressure_stall_time': {
+        info: 'The amount of time all non-idle processes have been stalled due to I/O congestion.'
     },
 
     'system.io': {
@@ -1349,7 +1530,7 @@ netdataDashboard.context = {
         info: 'Memory paged from/to disk. This is usually the total disk I/O of the system.'
     },
 
-    'system.swapio': {
+    'mem.swapio': {
         info: '<p>System swap I/O.</p>'+
         '<b>In</b> - pages the system has swapped in from disk to RAM. '+
         '<b>Out</b> - pages the system has swapped out from RAM to disk.'
@@ -1362,6 +1543,14 @@ netdataDashboard.context = {
     'system.entropy': {
         colors: '#CC22AA',
         info: '<a href="https://en.wikipedia.org/wiki/Entropy_(computing)" target="_blank">Entropy</a>, is a pool of random numbers (<a href="https://en.wikipedia.org/wiki//dev/random" target="_blank">/dev/random</a>) that is mainly used in cryptography. If the pool of entropy gets empty, processes requiring random numbers may run a lot slower (it depends on the interface each program uses), waiting for the pool to be replenished. Ideally a system with high entropy demands should have a hardware device for that purpose (TPM is one such device). There are also several software-only options you may install, like <code>haveged</code>, although these are generally useful only in servers.'
+    },
+
+    'system.zswap_rejections': {
+        info: '<p>Zswap rejected pages per access.</p>' +
+            '<p><b>CompressPoor</b> - compressed page was too big for the allocator to store. ' +
+            '<b>KmemcacheFail</b> - number of entry metadata that could not be allocated. ' +
+            '<b>AllocFail</b> - allocator could not get memory. ' +
+            '<b>ReclaimFail</b> - memory cannot be reclaimed (pool limit was reached).</p>'
     },
 
     'system.clock_sync_state': {
@@ -1486,7 +1675,7 @@ netdataDashboard.context = {
         info: 'System Random Access Memory (i.e. physical memory) usage.'
     },
 
-    'system.swap': {
+    'mem.swap': {
         info: 'System swap memory usage. Swap space is used when the amount of physical memory (RAM) is full. When the system needs more memory resources and the RAM is full, inactive pages in memory are moved to the swap space (usually a disk, a disk partition or a file).'
     },
 
@@ -1549,6 +1738,10 @@ netdataDashboard.context = {
     'system.process_status': {
         title : 'Task status',
         info: 'Difference between the number of calls to <a href="https://learn.netdata.cloud/docs/agent/collectors/ebpf.plugin#process-exit" target="_blank">functions</a> that close a task and release a task.'+ ebpfChartProvides
+    },
+
+    'system.power_consumption': {
+        info: 'The current power consumption of the zones defined by the <a href="https://www.kernel.org/doc/html/next/power/powercap/powercap.html" target="_blank">power capping framework</a>.'
     },
 
     // ------------------------------------------------------------------------
@@ -1674,6 +1867,11 @@ netdataDashboard.context = {
         info: 'Committed Memory, is the sum of all memory which has been allocated by processes.'
     },
 
+    'mem.real': {
+        colors: NETDATA.colors[3],
+        info: 'Total amount of real (physical) memory used.'
+    },
+
     'mem.oom_kill': {
         info: 'The number of processes killed by '+
         '<a href="https://en.wikipedia.org/wiki/Out_of_memory" target="_blank">Out of Memory</a> Killer. '+
@@ -1702,7 +1900,12 @@ netdataDashboard.context = {
     },
 
     'mem.available': {
-        info: 'Available Memory is estimated by the kernel, as the amount of RAM that can be used by userspace processes, without causing swapping.'
+        info: function (os) {
+            if (os === "freebsd")
+                return 'The amount of memory that can be used by user-space processes without causing swapping. Calculated as the sum of free, cached, and inactive memory.';
+            else
+                return 'Available Memory is estimated by the kernel, as the amount of RAM that can be used by userspace processes, without causing swapping.';
+        }
     },
 
     'mem.writeback': {
@@ -2589,7 +2792,7 @@ netdataDashboard.context = {
         info: 'Real memory (RAM) used per user group. This does not include shared memory.'
     },
     'users.mem': {
-        info: 'Real memory (RAM) used per user group. This does not include shared memory.'
+        info: 'Real memory (RAM) used per user. This does not include shared memory.'
     },
 
     'apps.vmem': {
@@ -2600,7 +2803,7 @@ netdataDashboard.context = {
         info: 'Virtual memory allocated per user group since the Netdata restart. Please check <a href="https://github.com/netdata/netdata/tree/master/daemon#virtual-memory" target="_blank">this article</a> for more information.'
     },
     'users.vmem': {
-        info: 'Virtual memory allocated per user group since the Netdata restart. Please check <a href="https://github.com/netdata/netdata/tree/master/daemon#virtual-memory" target="_blank">this article</a> for more information.'
+        info: 'Virtual memory allocated per user since the Netdata restart. Please check <a href="https://github.com/netdata/netdata/tree/master/daemon#virtual-memory" target="_blank">this article</a> for more information.'
     },
 
     'apps.minor_faults': {
@@ -3097,6 +3300,64 @@ netdataDashboard.context = {
         info: netSpeedInfo
     },
     'cgroup.net_mtu': {
+        info: netMTUInfo
+    },
+
+    'k8s.cgroup.net_net': {
+        mainheads: [
+            function (_, id) {
+                var iface;
+                try {
+                    iface = ' ' + id.substring(id.lastIndexOf('.net_') + 5, id.length);
+                } catch (e) {
+                    iface = '';
+                }
+                return netdataDashboard.gaugeChart('Received' + iface, '12%', 'received');
+
+            },
+            function (_, id) {
+                var iface;
+                try {
+                    iface = ' ' + id.substring(id.lastIndexOf('.net_') + 5, id.length);
+                } catch (e) {
+                    iface = '';
+                }
+                return netdataDashboard.gaugeChart('Sent' + iface, '12%', 'sent');
+            }
+        ],
+        info: netBytesInfo
+    },
+    'k8s.cgroup.net_packets': {
+        info: netPacketsInfo
+    },
+    'k8s.cgroup.net_errors': {
+        info: netErrorsInfo
+    },
+    'k8s.cgroup.net_fifo': {
+        info: netFIFOInfo
+    },
+    'k8s.cgroup.net_drops': {
+        info: netDropsInfo
+    },
+    'k8s.cgroup.net_compressed': {
+        info: netCompressedInfo
+    },
+    'k8s.cgroup.net_events': {
+        info: netEventsInfo
+    },
+    'k8s.cgroup.net_operstate': {
+        info: netOperstateInfo
+    },
+    'k8s.cgroup.net_duplex': {
+        info: netDuplexInfo
+    },
+    'k8s.cgroup.net_carrier': {
+        info: netCarrierInfo
+    },
+    'k8s.cgroup.net_speed': {
+        info: netSpeedInfo
+    },
+    'k8s.cgroup.net_mtu': {
         info: netMTUInfo
     },
 
@@ -3622,21 +3883,11 @@ netdataDashboard.context = {
     },
 
     'mysql.galera_cluster_status': {
-        info:
-            '<code>-1</code>: unknown, ' +
-            '<code>0</code>: primary (primary group configuration, quorum present), ' +
-            '<code>1</code>: non-primary (non-primary group configuration, quorum lost), ' +
-            '<code>2</code>: disconnected(not connected to group, retrying).'
+        info: "<p>Status of this cluster component.</p><p><b>Primary</b> - primary group configuration, quorum present. <b>Non-Primary</b> - non-primary group configuration, quorum lost. <b>Disconnected</b> - not connected to group, retrying.</p>"
     },
 
     'mysql.galera_cluster_state': {
-        info:
-            '<code>0</code>: Undefined, ' +
-            '<code>1</code>: Joining, ' +
-            '<code>2</code>: Donor/Desynced, ' +
-            '<code>3</code>: Joined, ' +
-            '<code>4</code>: Synced, ' +
-            '<code>5</code>: Inconsistent.'
+        info: "<p>Membership state of this cluster component.</p><p><b>Undefined</b> - undefined state. <b>Joining</b> - the node is attempting to join the cluster. <b>Donor</b> - the node has blocked itself while it sends a State Snapshot Transfer (SST) to bring a new node up to date with the cluster. <b>Joined</b> - the node has successfully joined the cluster. <b>Synced</b> - the node has established a connection with the cluster and synchronized its local databases with those of the cluster. <b>Error</b> - the node is not part of the cluster and does not replicate transactions. This state is provider-specific, check <i>wsrep_local_state_comment</i> variable for a description.</p>"
     },
 
     'mysql.galera_cluster_weight': {
@@ -3657,90 +3908,737 @@ netdataDashboard.context = {
 
     // ------------------------------------------------------------------------
     // POSTGRESQL
+    'postgres.connections_utilization': {
+        room: { 
+            mainheads: [
+                function (_, id) {
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-append-options="percentage"'
+                        + ' data-gauge-max-value="100"'
+                        + ' data-chart-library="gauge"'
+                        + ' data-title="Connections Utilization"'
+                        + ' data-units="%"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="12%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' data-colors="' + NETDATA.colors[1] + '"'
+                        + ' role="application"></div>';
+                }
+            ],
+        },
+        info: '<b>Total connection utilization</b> across all databases. Utilization is measured as a percentage of (<i>max_connections</i> - <i>superuser_reserved_connections</i>). If the utilization is 100% no more new connections will be accepted (superuser connections will still be accepted if superuser quota is available).'
+    },
+    'postgres.connections_usage': {
+        info: '<p><b>Connections usage</b> across all databases. The maximum number of concurrent connections to the database server is (<i>max_connections</i> - <i>superuser_reserved_connections</i>). As a general rule, if you need more than 200 connections it is advisable to use connection pooling.</p><p><b>Available</b> - new connections allowed. <b>Used</b> - connections currently in use.</p>'
+    },
+    'postgres.connections_state_count': {
+        info: '<p>Number of connections in each state across all databases.</p><p><b>Active</b> - the backend is executing query. <b>Idle</b> - the backend is waiting for a new client command. <b>IdleInTransaction</b> - the backend is in a transaction, but is not currently executing a query. <b>IdleInTransactionAborted</b> - the backend is in a transaction, and not currently executing a query, but one of the statements in the transaction caused an error. <b>FastPathFunctionCall</b> - the backend is executing a fast-path function. <b>Disabled</b> - is reported if <a href="https://www.postgresql.org/docs/current/runtime-config-statistics.html#GUC-TRACK-ACTIVITIES" target="_blank"><i>track_activities</i></a> is disabled in this backend.</p>'
+    },
+    'postgres.transactions_duration': {
+        info: 'Running transactions duration histogram. The bins are specified as consecutive, non-overlapping intervals. The value is the number of observed transactions that fall into each interval.'
+    },
+    'postgres.queries_duration': {
+        info: 'Active queries duration histogram. The bins are specified as consecutive, non-overlapping intervals. The value is the number of observed active queries that fall into each interval.'
+    },
+    'postgres.checkpoints_rate': {
+        info: '<p>Number of checkpoints that have been performed. Checkpoints are periodic maintenance operations the database performs to make sure that everything it\'s been caching in memory has been synchronized with the disk. Ideally checkpoints should be time-driven (scheduled) as opposed to load-driven (requested).</p><p><b>Scheduled</b> - checkpoints triggered as per schedule when time elapsed from the previous checkpoint is greater than <a href="https://www.postgresql.org/docs/current/runtime-config-wal.html#GUC-CHECKPOINT-TIMEOUT" target="_blank"><i>checkpoint_timeout</i></a>. <b>Requested</b> - checkpoints triggered due to WAL updates reaching the <a href="https://www.postgresql.org/docs/current/runtime-config-wal.html#GUC-MAX-WAL-SIZE" target="_blank"><i>max_wal_size</i></a> before the <i>checkpoint_timeout</i> is reached.</p>'
+    },
+    'postgres.checkpoints_time': {
+        info: '<p>Checkpoint timing information. An important indicator of how well checkpoint I/O is performing is the amount of time taken to sync files to disk.</p><p><b>Write</b> - amount of time spent writing files to disk during checkpoint processing. <b>Sync</b> - amount of time spent synchronizing files to disk during checkpoint processing.</p>'
+    },
+    'postgres.buffers_allocated_rate': {
+        info: 'Allocated and re-allocated buffers. If a backend process requests data it is either found in a block in shared buffer cache or the block has to be allocated (read from disk). The latter is counted as <b>Allocated</b>.'
+    },
+    'postgres.buffers_io_rate': {
+        info: '<p>Amount of data flushed from memory to disk.</p><p><b>Checkpoint</b> - buffers written during checkpoints. <b>Backend</b> -  buffers written directly by a backend. It may happen that a dirty page is requested by a backend process. In this case the page is synced to disk before the page is returned to the client. <b>BgWriter</b> - buffers written by the background writer. PostgreSQL may clear pages with a low usage count in advance. The process scans for dirty pages with a low usage count so that they could be cleared if necessary. Buffers written by this process increment the counter.</p>'
+    },
+    'postgres.bgwriter_halts_rate': {
+        info: 'Number of times the background writer stopped a cleaning scan because it had written too many buffers (exceeding the value of <a href="https://www.postgresql.org/docs/current/runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER" target="_blank"><i>bgwriter_lru_maxpages</i></a>).'
+    },
+    'postgres.buffers_backend_fsync_rate': {
+        info: 'Number of times a backend had to execute its own fsync call (normally the background writer handles those even when the backend does its own write). Any values above zero can indicate problems with storage when fsync queue is completely filled.'
+    },
+    'postgres.wal_io_rate': {
+        info: 'Write-Ahead Logging (WAL) ensures data integrity by ensuring that changes to data files (where tables and indexes reside) are written only after log records describing the changes have been flushed to permanent storage.'
+    },
+    'postgres.wal_files_count': {
+        info: '<p>Number of WAL logs stored in the directory <i>pg_wal</i> under the data directory.</p><p><b>Written</b> - generated log segments files. <b>Recycled</b> - old log segment files that are no longer needed. Renamed to become future segments in the numbered sequence to avoid the need to create new ones.</p>'
+    },
+    'postgres.wal_archiving_files_count': {
+        info: '<p>WAL archiving.</p><p><b>Ready</b> - WAL files waiting to be archived. A non-zero value can indicate <i>archive_command</i> is in error, see <a href="https://www.postgresql.org/docs/current/static/continuous-archiving.html" target="_blank">Continuous Archiving and Point-in-Time Recovery</a>. <b>Done</b> - WAL files successfully archived.'
+    },
+    'postgres.autovacuum_workers_count': {
+        info: 'PostgreSQL databases require periodic maintenance known as vacuuming. For many installations, it is sufficient to let vacuuming be performed by the autovacuum daemon. For more information see <a href="https://www.postgresql.org/docs/current/static/routine-vacuuming.html#AUTOVACUUM" target="_blank">The Autovacuum Daemon</a>.'
+    },
+    'postgres.txid_exhaustion_towards_autovacuum_perc': {
+        info: 'Percentage towards emergency autovacuum for one or more tables. A forced autovacuum will run once this value reaches 100%. For more information see <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" target="_blank">Preventing Transaction ID Wraparound Failures</a>.'
+    },
+    'postgres.txid_exhaustion_perc': {
+        info: 'Percentage towards transaction wraparound. A transaction wraparound may occur when this value reaches 100%. For more information see <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" target="_blank">Preventing Transaction ID Wraparound Failures</a>.'
+    },
+    'postgres.txid_exhaustion_oldest_txid_num': {
+        info: 'The oldest current transaction ID (XID). If for some reason autovacuum fails to clear old XIDs from a table, the system will begin to emit warning messages when the database\'s oldest XIDs reach eleven million transactions from the wraparound point. For more information see <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" target="_blank">Preventing Transaction ID Wraparound Failures</a>.'
+    },
+    'postgres.uptime': {
+        room: { 
+            mainheads: [
+                function (os, id) {
+                    void (os);
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-chart-library="easypiechart"'
+                        + ' data-title="Uptime"'
+                        + ' data-units="Seconds"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="10%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' role="application"></div>';
+                }
+            ],
+        },
+        info: 'The time elapsed since the Postgres process was started.'
+    },
+
+    'postgres.replication_app_wal_lag_size': {
+        info: '<p>Replication WAL lag size.</p><p><b>SentLag</b> - sent over the network. <b>WriteLag</b> - written to disk. <b>FlushLag</b> - flushed to disk. <b>ReplayLag</b> - replayed into the database.</p>'
+    },
+    'postgres.replication_app_wal_lag_time': {
+        info: '<p>Replication WAL lag time.</p><p><b>WriteLag</b> - time elapsed between flushing recent WAL locally and receiving notification that the standby server has written it, but not yet flushed it or applied it. <b>FlushLag</b> - time elapsed between flushing recent WAL locally and receiving notification that the standby server has written and flushed it, but not yet applied it. <b>ReplayLag</b> - time elapsed between flushing recent WAL locally and receiving notification that the standby server has written, flushed and applied it.</p>'
+    },
+    'postgres.replication_slot_files_count': {
+        info: '<p>Replication slot files. For more information see <a href="https://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION-SLOTS" target="_blank">Replication Slots</a>.</p><p><b>WalKeep</b> - WAL files retained by the replication slot. <b>PgReplslotFiles</b> - files present in pg_replslot.</p>'
+    },
+
+    'postgres.db_transactions_ratio': {
+        info: 'Percentage of committed/rollback transactions.'
+    },
+    'postgres.db_transactions_rate': {
+        info: '<p>Number of transactions that have been performed</p><p><b>Committed</b> - transactions that have been committed. All changes made by the committed transaction become visible to others and are guaranteed to be durable if a crash occurs. <b>Rollback</b> - transactions that have been rolled back. Rollback aborts the current transaction and causes all the updates made by the transaction to be discarded. Single queries that have failed outside the transactions are also accounted as rollbacks.</p>'
+    },
+    'postgres.db_connections_utilization': {
+        info: 'Connection utilization per database. Utilization is measured as a percentage of <i>CONNECTION LIMIT</i> per database (if set) or <i>max_connections</i> (if <i>CONNECTION LIMIT</i> is not set).'
+    },
+    'postgres.db_connections_count': {
+        info: 'Number of current connections per database.'
+    },    
+    'postgres.db_cache_io_ratio': {
+        room: { 
+            mainheads: [
+                function (_, id) {
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-append-options="percentage"'
+                        + ' data-gauge-max-value="100"'
+                        + ' data-chart-library="gauge"'
+                        + ' data-title="Cache Miss Ratio"'
+                        + ' data-units="%"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="12%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' data-colors="' + NETDATA.colors[1] + '"'
+                        + ' role="application"></div>';
+                }
+            ],
+        },
+        info: 'PostgreSQL uses a <b>shared buffer cache</b> to store frequently accessed data in memory, and avoid slower disk reads. If you are seeing performance issues, consider increasing the <a href="https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-SHARED-BUFFERS" target="_blank"><i>shared_buffers</i></a> size or tuning <a href="https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-EFFECTIVE-CACHE-SIZE" target="_blank"><i>effective_cache_size</i></a>.'
+    },
+    'postgres.db_io_rate': {
+        info: '<p>Amount of data read from shared buffer cache or from disk.</p><p><b>Disk</b> - data read from disk. <b>Memory</b> - data read from buffer cache (this only includes hits in the PostgreSQL buffer cache, not the operating system\'s file system cache).</p>'
+    },
+    'postgres.db_ops_fetched_rows_ratio': {
+        room: {
+            mainheads: [
+                function (_, id) {
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-append-options="percentage"'
+                        + ' data-gauge-max-value="100"'
+                        + ' data-chart-library="gauge"'
+                        + ' data-title="Rows Fetched vs Returned"'
+                        + ' data-units="%"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="12%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' data-colors="' + NETDATA.colors[1] + '"'
+                        + ' role="application"></div>';
+                }
+            ],
+        }, 
+        info: 'The percentage of rows that contain data needed to execute the query, out of the total number of rows scanned. A high value indicates that the database is executing queries efficiently, while a low value indicates that the database is performing extra work by scanning a large number of rows that aren\'t required to process the query. Low values may be caused by missing indexes or inefficient queries.'
+    },
+    'postgres.db_ops_read_rows_rate': {
+        info: '<p>Read queries throughput.</p><p><b>Returned</b> - Total number of rows scanned by queries. This value indicates rows returned by the storage layer to be scanned, not rows returned to the client. <b>Fetched</b> - Subset of scanned rows (<b>Returned</b>) that contained data needed to execute the query.</p>'
+    },
+    'postgres.db_ops_write_rows_rate': {
+        info: '<p>Write queries throughput.</p><p><b>Inserted</b> - number of rows inserted by queries. <b>Deleted</b> - number of rows deleted by queries. <b>Updated</b> - number of rows updated by queries.</p>'
+    },
+    'postgres.db_conflicts_rate': {
+        info: 'Number of queries canceled due to conflict with recovery on standby servers. To minimize query cancels caused by cleanup records consider configuring <a href="https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-HOT-STANDBY-FEEDBACK" target="_blank"><i>hot_standby_feedback</i></a>.'
+    },
+    'postgres.db_conflicts_reason_rate': {
+        info: '<p>Statistics about queries canceled due to various types of conflicts on standby servers.</p><p><b>Tablespace</b> - queries that have been canceled due to dropped tablespaces. <b>Lock</b> - queries that have been canceled due to lock timeouts. <b>Snapshot</b> - queries that have been canceled due to old snapshots. <b>Bufferpin</b> - queries that have been canceled due to pinned buffers. <b>Deadlock</b> - queries that have been canceled due to deadlocks.</p>'
+    },
+    'postgres.db_deadlocks_rate': {
+        info: 'Number of detected deadlocks. When a transaction cannot acquire the requested lock within a certain amount of time (configured by <b>deadlock_timeout</b>), it begins deadlock detection.'
+    },
+    'postgres.db_locks_held_count': {
+        info: 'Number of held locks. Some of these lock modes are acquired by PostgreSQL automatically before statement execution, while others are provided to be used by applications. All lock modes acquired in a transaction are held for the duration of the transaction. For lock modes details, see <a href="https://www.postgresql.org/docs/current/explicit-locking.html#LOCKING-TABLES" target="_blank">table-level locks</a>.'
+    },
+    'postgres.db_locks_awaited_count': {
+        info: 'Number of awaited locks. It indicates that some transaction is currently waiting to acquire a lock, which implies that some other transaction is holding a conflicting lock mode on the same lockable object. For lock modes details, see <a href="https://www.postgresql.org/docs/current/explicit-locking.html#LOCKING-TABLES" target="_blank">table-level locks</a>.'
+    },
+    'postgres.db_temp_files_created_rate': {
+        info: 'Number of temporary files created by queries. Complex queries may require more memory than is available (specified by <b>work_mem</b>). When this happens, Postgres reverts to using temporary files - they are actually stored on disk, but only exist for the duration of the request. After the request returns, the temporary files are deleted.'
+    },
+    'postgres.db_temp_files_io_rate': {
+        info: 'Amount of data written temporarily to disk to execute queries.'
+    },
+    'postgres.db_size': {
+        room: {
+            mainheads: [
+                function (os, id) {
+                    void (os);
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-chart-library="easypiechart"'
+                        + ' data-title="DB Size"'
+                        + ' data-units="MiB"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="10%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' role="application"></div>';
+                }
+            ],
+        },        
+        info: 'Actual on-disk usage of the database\'s data directory and any associated tablespaces.'
+    },
+    'postgres.table_rows_dead_ratio': {
+        info: 'Percentage of dead rows. An increase in dead rows indicates a problem with VACUUM processes, which can slow down your queries.'
+    },
+    'postgres.table_rows_count': {
+        info: '<p>Number of rows. When you do an UPDATE or DELETE, the row is not actually physically deleted. For a DELETE, the database simply marks the row as unavailable for future transactions, and for UPDATE, under the hood it is a combined INSERT then DELETE, where the previous version of the row is marked unavailable.</p><p><b>Live</b> - rows that currently in use and can be queried. <b>Dead</b> - deleted rows that will later be reused for new rows from INSERT or UPDATE.</p>'
+    },
+    'postgres.table_ops_rows_rate': {
+        info: 'Write queries throughput. If you see a large number of updated and deleted rows, keep an eye on the number of dead rows, as a high percentage of dead rows can slow down your queries.'
+    },
+    'postgres.table_ops_rows_hot_ratio': {
+        info: 'Percentage of HOT (Heap Only Tuple) updated rows. HOT updates are much more efficient than ordinary updates: less write operations, less WAL writes, vacuum operation has less work to do, increased read efficiency (help to limit table and index bloat).'
+    },
+    'postgres.table_ops_rows_hot_rate': {
+        info: 'Number of HOT (Heap Only Tuple) updated rows.'
+    },
+    'postgres.table_cache_io_ratio': {
+        info: 'Table cache inefficiency. Percentage of data read from disk. Lower is better.'
+    },
+    'postgres.table_io_rate': {
+        info: '<p>Amount of data read from shared buffer cache or from disk.</p><p><b>Disk</b> - data read from disk. <b>Memory</b> - data read from buffer cache (this only includes hits in the PostgreSQL buffer cache, not the operating system\'s file system cache).</p>'
+    },
+    'postgres.table_index_cache_io_ratio': {
+        info: 'Table indexes cache inefficiency. Percentage of data read from disk. Lower is better.'
+    },
+    'postgres.table_index_io_rate': {
+        info: '<p>Amount of data read from all indexes from shared buffer cache or from disk.</p><p><b>Disk</b> - data read from disk. <b>Memory</b> - data read from buffer cache (this only includes hits in the PostgreSQL buffer cache, not the operating system\'s file system cache).</p>'
+    },
+    'postgres.table_toast_cache_io_ratio': {
+        info: 'Table TOAST cache inefficiency. Percentage of data read from disk. Lower is better.'
+    },
+    'postgres.table_toast_io_rate': {
+        info: '<p>Amount of data read from TOAST table from shared buffer cache or from disk.</p><p><b>Disk</b> - data read from disk. <b>Memory</b> - data read from buffer cache (this only includes hits in the PostgreSQL buffer cache, not the operating system\'s file system cache).</p>'
+    },
+    'postgres.table_toast_index_cache_io_ratio': {
+        info: 'Table TOAST indexes cache inefficiency. Percentage of data read from disk. Lower is better.'
+    },
+    'postgres.table_toast_index_io_rate': {
+        info: '<p>Amount of data read from this table\'s TOAST table indexes from shared buffer cache or from disk.</p><p><b>Disk</b> - data read from disk. <b>Memory</b> - data read from buffer cache (this only includes hits in the PostgreSQL buffer cache, not the operating system\'s file system cache).</p>'
+    },
+    'postgres.table_scans_rate': {
+        info: '<p>Number of scans initiated on this table. If you see that your database regularly performs more sequential scans over time, you can improve its performance by creating an index on data that is frequently accessed.</p><p><b>Index</b> - relying on an index to point to the location of specific rows. <b>Sequential</b> - have to scan through each row of a table sequentially. Typically, take longer than index scans.</p>'
+    },
+    'postgres.table_scans_rows_rate': {
+        info: 'Number of live rows fetched by scans.'
+    },
+    'postgres.table_autovacuum_since_time': {
+        info: 'Time elapsed since this table was vacuumed by the autovacuum daemon.'
+    },
+    'postgres.table_vacuum_since_time': {
+        info: 'Time elapsed since this table was manually vacuumed (not counting VACUUM FULL).'
+    },
+    'postgres.table_autoanalyze_since_time': {
+        info: 'Time elapsed this table was analyzed by the autovacuum daemon.'
+    },
+    'postgres.table_analyze_since_time': {
+        info: 'Time elapsed since this table was manually analyzed.'
+    },
+    'postgres.table_null_columns': {
+        info: 'Number of table columns that contain only NULLs.'
+    },
+    'postgres.table_total_size': {
+        info: 'Actual on-disk size of the table.'
+    },
+    'postgres.table_bloat_size_perc': {
+        info: 'Estimated percentage of bloat in the table. It is normal for tables that are updated frequently to have a small to moderate amount of bloat.'
+    },
+    'postgres.table_bloat_size': {
+        info: 'Disk space that was used by the table and is available for reuse by the database but has not been reclaimed. Bloated tables require more disk storage and additional I/O that can slow down query execution. Running <a href="https://www.postgresql.org/docs/current/sql-vacuum.html" target="_blank">VACUUM</a> regularly on a table that is updated frequently results in fast reuse of space occupied by expired rows, which prevents the table from growing too large.'
+    },
+    'postgres.index_size': {
+        info: 'Actual on-disk size of the index.'
+    },
+    'postgres.index_bloat_size_perc': {
+        info: 'Estimated percentage of bloat in the index.'
+    },
+    'postgres.index_bloat_size': {
+        info: 'Disk space that was used by the index and is available for reuse by the database but has not been reclaimed. Bloat slows down your database and eats up more storage than needed. To recover the space from indexes, recreate them using the <a href="https://www.postgresql.org/docs/current/sql-reindex.html" target="_blank">REINDEX</a> command.'
+    },
+    'postgres.index_usage_status': {
+        info: 'An index is considered unused if no scans have been initiated on that index.'
+    },
 
 
-    'postgres.db_stat_blks': {
-        info: 'Blocks reads from disk or cache.<ul>' +
-            '<li><strong>blks_read:</strong> number of disk blocks read in this database.</li>' +
-            '<li><strong>blks_hit:</strong> number of times disk blocks were found already in the buffer cache, so that a read was not necessary (this only includes hits in the PostgreSQL buffer cache, not the operating system&#39;s file system cache)</li>' +
-            '</ul>'
+    // ------------------------------------------------------------------------
+    // PgBouncer
+    'pgbouncer.client_connections_utilization': {
+        info: 'Client connections in use as percentage of <i>max_client_conn</i> (default 100).'
     },
-    'postgres.db_stat_tuple_write': {
-        info: '<ul><li>Number of rows inserted/updated/deleted.</li>' +
-            '<li><strong>conflicts:</strong> number of queries canceled due to conflicts with recovery in this database. (Conflicts occur only on standby servers; see <a href="https://www.postgresql.org/docs/10/static/monitoring-stats.html#PG-STAT-DATABASE-CONFLICTS-VIEW" target="_blank">pg_stat_database_conflicts</a> for details.)</li>' +
-            '</ul>'
+    'pgbouncer.db_client_connections': {
+        info: '<p>Client connections in different states.</p><p><b>Active</b> - linked to server connection and can process queries. <b>Waiting</b> - have sent queries but have not yet got a server connection. <b>CancelReq</b> - have not forwarded query cancellations to the server yet.</p>'
     },
-    'postgres.db_stat_temp_bytes': {
-        info: 'Temporary files can be created on disk for sorts, hashes, and temporary query results.'
+    'pgbouncer.db_server_connections': {
+        info: '<p>Server connections in different states.</p><p><b>Active</b> - linked to a client. <b>Idle</b> - unused and immediately usable for client queries. <b>Used</b> - have been idle for more than <i>server_check_delay</i>, so they need <i>server_check_query</i> to run on them before they can be used again. <b>Tested</b> - currently running either <i>server_reset_query</i> or <i>server_check_query</i>. <b>Login</b> - currently in the process of logging in.</p>'
     },
-    'postgres.db_stat_temp_files': {
-        info: '<ul>' +
-            '<li><strong>files:</strong> number of temporary files created by queries. All temporary files are counted, regardless of why the temporary file was created (e.g., sorting or hashing).</li>' +
-            '</ul>'
+    'pgbouncer.db_server_connections_utilization': {
+        info: 'Server connections in use as percentage of <i>max_db_connections</i> (default 0 - unlimited). This considers the PgBouncer database that the client has connected to, not the PostgreSQL database of the outgoing connection.'
     },
-    'postgres.archive_wal': {
-        info: 'WAL archiving.<ul>' +
-            '<li><strong>total:</strong> total files.</li>' +
-            '<li><strong>ready:</strong> WAL waiting to be archived.</li>' +
-            '<li><strong>done:</strong> WAL successfully archived. ' +
-            'Ready WAL can indicate archive_command is in error, see <a href="https://www.postgresql.org/docs/current/static/continuous-archiving.html" target="_blank">Continuous Archiving and Point-in-Time Recovery</a>.</li>' +
-            '</ul>'
+    'pgbouncer.db_clients_wait_time': {
+        info: 'Time spent by clients waiting for a server connection. This shows if the decrease in database performance from the client\'s point of view was due to exhaustion of the corresponding PgBouncer pool.'
     },
-    'postgres.checkpointer': {
-        info: 'Number of checkpoints.<ul>' +
-            '<li><strong>scheduled:</strong> when checkpoint_timeout is reached.</li>' +
-            '<li><strong>requested:</strong> when max_wal_size is reached.</li>' +
-            '</ul>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/static/wal-configuration.html" target="_blank">WAL Configuration</a>.'
+    'pgbouncer.db_client_max_wait_time': {
+        info: 'Waiting time for the first (oldest) client in the queue. If this starts increasing, then the current pool of servers does not handle requests quickly enough.'
     },
-    'postgres.autovacuum': {
-        info: 'PostgreSQL databases require periodic maintenance known as vacuuming. For many installations, it is sufficient to let vacuuming be performed by the autovacuum daemon. ' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/static/routine-vacuuming.html#AUTOVACUUM" target="_blank">The Autovacuum Daemon</a>.'
+    'pgbouncer.db_transactions': {
+        info: 'SQL transactions pooled (proxied) by pgbouncer.'
     },
-    'postgres.standby_delta': {
-        info: 'Streaming replication delta.<ul>' +
-            '<li><strong>sent_delta:</strong> replication delta sent to standby.</li>' +
-            '<li><strong>write_delta:</strong> replication delta written to disk by this standby.</li>' +
-            '<li><strong>flush_delta:</strong> replication delta flushed to disk by this standby server.</li>' +
-            '<li><strong>replay_delta:</strong> replication delta replayed into the database on this standby server.</li>' +
-            '</ul>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/static/warm-standby.html#SYNCHRONOUS-REPLICATION" target="_blank">Synchronous Replication</a>.'
+    'pgbouncer.db_transactions_time': {
+        info: 'Time spent by pgbouncer when connected to PostgreSQL in a transaction, either idle in transaction or executing queries.'
     },
-    'postgres.replication_slot': {
-        info: 'Replication slot files.<ul>' +
-            '<li><strong>wal_keeped:</strong> WAL files retained by each replication slots.</li>' +
-            '<li><strong>pg_replslot_files:</strong> files present in pg_replslot.</li>' +
-            '</ul>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION-SLOTS" target="_blank">Replication Slots</a>.'
+    'pgbouncer.db_transaction_avg_time': {
+        info: 'Average transaction duration.'
     },
-    'postgres.backend_usage': {
-        info: 'Connections usage against maximum connections allowed, as defined in the <i>max_connections</i> setting.<ul>' +
-            '<li><strong>available:</strong> maximum new connections allowed.</li>' +
-            '<li><strong>used:</strong> connections currently in use.</li>' +
-            '</ul>' +
-            'Assuming non-superuser accounts are being used to connect to Postgres (so <i>superuser_reserved_connections</i> are subtracted from <i>max_connections</i>).<br/>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/runtime-config-connection.html" target="_blank">Connections and Authentication</a>.'
+    'pgbouncer.db_queries': {
+        info: 'SQL queries pooled (proxied) by pgbouncer.'
     },
-    'postgres.forced_autovacuum': {
-        info: 'Percent towards forced autovacuum for one or more tables.<ul>' +
-            '<li><strong>percent_towards_forced_autovacuum:</strong> a forced autovacuum will run once this value reaches 100.</li>' +
-            '</ul>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html" target="_blank">Preventing Transaction ID Wraparound Failures</a>.'
+    'pgbouncer.db_queries_time': {
+        info: 'Time spent by pgbouncer when actively connected to PostgreSQL, executing queries.'
     },
-    'postgres.tx_wraparound_oldest_current_xid': {
-        info: 'The oldest current transaction id (xid).<ul>' +
-            '<li><strong>oldest_current_xid:</strong> oldest current transaction id.</li>' +
-            '</ul>' +
-            'If for some reason autovacuum fails to clear old XIDs from a table, the system will begin to emit warning messages when the database\'s oldest XIDs reach eleven million transactions from the wraparound point.<br/>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html" target="_blank">Preventing Transaction ID Wraparound Failures</a>.'
+    'pgbouncer.db_query_avg_time': {
+        info: 'Average query duration.'
     },
-    'postgres.percent_towards_wraparound': {
-        info: 'Percent towards transaction wraparound.<ul>' +
-            '<li><strong>percent_towards_wraparound:</strong> transaction wraparound may occur when this value reaches 100.</li>' +
-            '</ul>' +
-            'For more information see <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html" target="_blank">Preventing Transaction ID Wraparound Failures</a>.'
+    'pgbouncer.db_network_io': {
+        info: '<p>Network traffic received and sent by pgbouncer.</p><p><b>Received</b> - received from clients. <b>Sent</b> - sent to servers.</p>'
     },
 
+    // ------------------------------------------------------------------------
+    // CASSANDRA
+
+    'cassandra.client_requests_rate': {
+        info: 'Client requests received per second. Consider whether your workload is read-heavy or write-heavy while choosing a compaction strategy.'
+    },
+    'cassandra.client_requests_latency': {
+        info: 'Response latency of requests received per second. Latency could be impacted by disk access, network latency or replication configuration.'
+    },
+    'cassandra.key_cache_hit_ratio': {
+        info: 'Key cache hit ratio indicates the efficiency of the key cache. If ratio is consistently < 80% consider increasing cache size.'
+    },
+    'cassandra.key_cache_hit_rate': {
+        info: 'Key cache hit rate measures the cache hits and misses per second.'
+    },
+    'cassandra.storage_live_disk_space_used': {
+        info: 'Amount of live disk space used. This does not include obsolete data waiting to be garbage collected.'
+    },
+    'cassandra.compaction_completed_tasks_rate': {
+        info: 'Compaction tasks completed per second.'
+    },
+    'cassandra.compaction_pending_tasks_count': {
+        info: 'Total compaction tasks in queue.'
+    },
+    'cassandra.thread_pool_active_tasks_count': {
+        info: 'Total tasks currently being processed.'
+    },
+    'cassandra.thread_pool_pending_tasks_count': {
+        info: 'Total tasks in queue awaiting a thread for processing.'
+    },
+    'cassandra.thread_pool_blocked_tasks_rate': {
+        info: 'Tasks that cannot be queued for processing yet.'
+    },
+    'cassandra.thread_pool_blocked_tasks_count': {
+        info: 'Total tasks that cannot yet be queued for processing.'
+    },
+    'cassandra.jvm_gc_rate': {
+        info: 'Rate of garbage collections.</p><p><b>ParNew</b> - young-generation. <b>cms (ConcurrentMarkSweep)</b> - old-generation.</p>'
+    },
+    'cassandra.jvm_gc_time': {
+        info: 'Elapsed time of garbage collection.</p><p><b>ParNew</b> - young-generation. <b>cms (ConcurrentMarkSweep)</b> - old-generation.</p>'
+    },
+    'cassandra.client_requests_timeouts_rate': {
+        info: 'Requests which were not acknowledged within the configurable timeout window.'
+    },
+    'cassandra.client_requests_unavailables_rate': {
+        info: 'Requests for which the required number of nodes was unavailable.'
+    },
+    'cassandra.storage_exceptions_rate': {
+        info: 'Requests for which a storage exception was encountered.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Consul
+    'consul.node_health_check_status': {
+        info: 'The current status of the <a href="https://developer.hashicorp.com/consul/tutorials/developer-discovery/service-registration-health-checks#monitor-a-node" target="_blank">node health check</a>. A node health check monitors the health of the entire node. If the node health check fails, Consul marks the node as unhealthy.'
+    },
+    'consul.service_health_check_status': {
+        info: 'The current status of the <a href="https://developer.hashicorp.com/consul/tutorials/developer-discovery/service-registration-health-checks#monitor-a-service" target="_blank">service health check</a>. A service check only affects the health of the service it is associated with. If the service health check fails, the DNS interface stops returning that service.'
+    },
+    'consul.client_rpc_requests_rate': {
+        info: 'The number of RPC requests to a Consul server.'
+    },
+    'consul.client_rpc_requests_exceeded_rate': {
+        info: 'The number of rate-limited RPC requests to a Consul server. An Increase of this metric either indicates the load is getting high enough to limit the rate or a <a href="https://developer.hashicorp.com/consul/docs/agent/config/config-files#limits" target="_blank">incorrectly configured</a> Consul agent.'
+    },
+    'consul.client_rpc_requests_failed_rate': {
+        info: 'The number of failed RPC requests to a Consul server.'
+    },
+    'consul.memory_allocated': {
+        info: 'The amount of memory allocated by the Consul process.'
+    },
+    'consul.memory_sys': {
+        info: 'The amount of memory obtained from the OS.'
+    },
+    'consul.gc_pause_time': {
+        info: 'The amount of time spent in garbage collection (GC) pauses. GC pause is a "stop-the-world" event, meaning that all runtime threads are blocked until GC completes. If memory usage is high, the Go runtime may GC so frequently that it starts to slow down Consul.'
+    },
+    'consul.kvs_apply_time': {
+        info: 'The time it takes to complete an update to the KV store.'
+    },
+    'consul.kvs_apply_operations_rate': {
+        info: 'The number of KV store updates.'
+    },
+    'consul.txn_apply_time': {
+        info: 'The time spent applying a transaction operation.'
+    },
+    'consul.txn_apply_operations_rate': {
+        info: 'The number of applied transaction operations.'
+    },
+    'consul.raft_commit_time': {
+        info: 'The time it takes to commit a new entry to the Raft log on the leader.'
+    },
+    'consul.raft_commits_rate': {
+        info: 'The number of applied Raft transactions.'
+    },
+    'consul.autopilot_health_status': {
+        info: 'The overall health of the local server cluster. The status is healthy if <b>all servers</b> are considered healthy by Autopilot.'
+    },
+    'consul.autopilot_server_health_status': {
+        info: 'Whether the server is healthy according to the current <a href="https://developer.hashicorp.com/consul/tutorials/datacenter-operations/autopilot-datacenter-operations#server-health-checking", target="_blank">Autopilot configuration</a>.'
+    },
+    'consul.autopilot_server_stable_time': {
+        info: 'The time this server has been in its current state.'
+    },
+    'consul.autopilot_server_serf_status': {
+        info: 'The SerfHealth check status for the server.'
+    },
+    'consul.autopilot_server_voter_status': {
+        info: 'Whether the server is a voting member of the Raft cluster.'
+    },
+    'consul.autopilot_failure_tolerance': {
+        info: 'The number of voting servers that the cluster can lose while continuing to function.'
+    },
+    'consul.network_lan_rtt': {
+        info: '<a href="https://developer.hashicorp.com/consul/docs/architecture/coordinates#working-with-coordinates" target="_blank">Estimated</a> network round-trip time between this node and other nodes of the cluster.'
+    },
+    'consul.raft_leader_last_contact_time': {
+        info: 'The time since the leader was last able to contact the follower nodes when checking its leader lease.'
+    },
+    'consul.raft_follower_last_contact_leader_time': {
+        info: 'The time elapsed since this server last contacted the leader.'
+    },
+    'consul.raft_leader_elections_rate': {
+        info: 'The number of leadership elections. Increments whenever a Consul server starts an election.'
+    },
+    'consul.raft_leadership_transitions_rate': {
+        info: 'The number of leadership elections. Increments whenever a Consul server becomes a leader.'
+    },
+    'consul.server_leadership_status': {
+        info: 'The Consul server leadership status.'
+    },
+    'consul.raft_thread_main_saturation_perc': {
+        info: 'An approximate measurement of the proportion of time the main Raft goroutine is busy and unavailable to accept new work.'
+    },
+    'consul.raft_thread_fsm_saturation_perc': {
+        info: 'An approximate measurement of the proportion of time the Raft FSM goroutine is busy and unavailable to accept new work.'
+    },
+    'consul.raft_fsm_last_restore_duration': {
+        info: 'The time taken to restore the FSM from a snapshot on an agent restart or from the leader calling <i>installSnapshot</i>.'
+    },
+    'consul.raft_leader_oldest_log_age': {
+        info: 'The time elapsed since the oldest journal was written to the leader\'s journal storage. This can be important for the health of replication when the write rate is high and the snapshot is large, because followers may not be able to recover from a restart if recovery takes longer than the minimum for the current leader.'
+    },
+    'consul.raft_rpc_install_snapshot_time': {
+        info: 'The time it takes to process the <i>installSnapshot</i> RPC call.'
+    },
+    'consul.raft_boltdb_freelist_bytes': {
+        info: 'The number of bytes necessary to encode the freelist metadata. When <a href="https://developer.hashicorp.com/consul/docs/agent/config/config-files#NoFreelistSync" target="_blank">raft_boltdb.NoFreelistSync</a> is set to <i>false</i> these metadata bytes must also be written to disk for each committed log.'
+    },
+    'consul.raft_boltdb_logs_per_batch_rate': {
+        info: 'The number of logs written per batch to the database.'
+    },
+    'consul.raft_boltdb_store_logs_time': {
+        info: 'The amount of time spent writing logs to the database.'
+    },
+    'consul.license_expiration_time': {
+        info: 'The amount of time remaining before Consul Enterprise license expires. When the license expires, some Consul Enterprise features will stop working.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (Process)
+
+    'windows.processes_cpu_time': {
+        info: 'Total CPU utilization. The amount of time spent by the process in <a href="https://en.wikipedia.org/wiki/CPU_modes#Mode_types" target="_blank">user and privileged</a> modes.'
+    },
+    'windows.processes_handles': {
+        info: 'Total number of <a href="https://learn.microsoft.com/en-us/windows/win32/sysinfo/handles-and-objects" target="_blank">handles</a> the process has open. This number is the sum of the handles currently open by each thread in the process.'
+    },
+    'windows.processes_io_bytes': {
+        info: 'Bytes issued to I/O operations in different modes (read, write, other). This property counts all I/O activity generated by the process to include file, network, and device I/Os. Read and write mode includes data operations; other mode includes those that do not involve data, such as control operations.'
+    },
+    'windows.processes_io_operations': {
+        info: 'I/O operations issued in different modes (read, write, other). This property counts all I/O activity generated by the process to include file, network, and device I/Os. Read and write mode includes data operations; other mode includes those that do not involve data, such as control operations.'
+    },
+    'windows.processes_page_faults': {
+        info: 'Page faults by the threads executing in this process. A page fault occurs when a thread refers to a virtual memory page that is not in its working set in main memory. This can cause the page not to be fetched from disk if it is on the standby list and hence already in main memory, or if it is in use by another process with which the page is shared.'
+    },
+    'windows.processes_file_bytes': {
+        info: 'Current number of bytes this process has used in the paging file(s). Paging files are used to store pages of memory used by the process that are not contained in other files. Paging files are shared by all processes, and lack of space in paging files can prevent other processes from allocating memory.'
+    },
+    'windows.processes_pool_bytes': {
+        info: 'Pool Bytes is the last observed number of bytes in the paged or nonpaged pool. The nonpaged pool is an area of system memory (physical memory used by the operating system) for objects that cannot be written to disk, but must remain in physical memory as long as they are allocated. The paged pool is an area of system memory (physical memory used by the operating system) for objects that can be written to disk when they are not being used.'
+    },
+    'windows.processes_threads': {
+        info: 'Number of threads currently active in this process. An instruction is the basic unit of execution in a processor, and a thread is the object that executes instructions. Every running process has at least one thread.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (TCP)
+
+    'windows.tcp_conns_active': {
+        info: 'Number of times TCP connections have made a direct transition from the CLOSED state to the SYN-SENT state.'
+    },
+    'windows.tcp_conns_established': {
+        info: 'Number of TCP connections for which the current state is either ESTABLISHED or CLOSE-WAIT.'
+    },
+    'windows.tcp_conns_failures': {
+        info: 'Number of times TCP connections have made a direct transition to the CLOSED state from the SYN-SENT state or the SYN-RCVD state, plus the number of times TCP connections have made a direct transition from the SYN-RCVD state to the LISTEN state.'
+    },
+    'windows.tcp_conns_passive': {
+        info: 'Number of times TCP connections have made a direct transition from the LISTEN state to the SYN-RCVD state.'
+    },
+    'windows.tcp_conns_resets': {
+        info: 'Number of times TCP connections have made a direct transition from the LISTEN state to the SYN-RCVD state.'
+    },
+    'windows.tcp_segments_received': {
+        info: 'Rate at which segments are received, including those received in error. This count includes segments received on currently established connections.'
+    },
+    'windows.tcp_segments_retransmitted': {
+        info: 'Rate at which segments are retransmitted, that is, segments transmitted that contain one or more previously transmitted bytes.'
+    },
+    'windows.tcp_segments_sent': {
+        info: 'Rate at which segments are sent, including those on current connections, but excluding those containing only retransmitted bytes.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (IIS)
+
+    'iis.website_isapi_extension_requests_count': {
+        info: 'The number of <a href="https://learn.microsoft.com/en-us/previous-versions/iis/6.0-sdk/ms525282(v=vs.90)" target="_blank">ISAPI extension</a> requests that are processed concurrently by the web service.'
+    },
+    'iis.website_errors_rate': {
+        info: '<p>The number of requests that cannot be satisfied by the server.</p><p><b>DocumentLocked</b> - the requested document was locked. Usually reported as HTTP error 423. <b>DocumentNotFound</b> - the requested document was not found. Usually reported as HTTP error 404.</p>'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (Service)
+
+    'windows.service_status': {
+        info: 'The current <a href="https://learn.microsoft.com/en-us/windows/win32/services/service-status-transitions" target="_blank">status</a> of the service.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (MSSQL)
+
+    'mssql.instance_accessmethods_page_splits': {
+        info : 'Page split happens when the page does not have more space. This chart shows the number of page splits per second that occur as the result of overflowing index pages.'
+    },
+
+    'mssql.instance_cache_hit_ratio': {
+        info : 'Indicates the percentage of pages found in the buffer cache without having to read from disk. The ratio is the total number of cache hits divided by the total number of cache lookups over the last few thousand page accesses. After a long period of time, the ratio moves very little. Because reading from the cache is much less expensive than reading from disk, you want this ratio to be high.'
+    },
+
+    'mssql.instance_bufman_checkpoint_pages': {
+        info : 'Indicates the number of pages flushed to disk per second by a checkpoint or other operation that require all dirty pages to be flushed.'
+    },
+
+    'mssql.instance_bufman_page_life_expectancy': {
+        info : 'Indicates the number of seconds a page will stay in the buffer pool without references.'
+    },
+
+    'mssql.instance_memmgr_external_benefit_of_memory': {
+        info : 'It is used by the engine to balance memory usage between cache and is useful to support when troubleshooting cases with unexpected cache growth. The value is presented as an integer based on an internal calculation.'
+    },
+
+    'mssql.instance_sql_errors': {
+        info: 'Errors in Microsoft SQL Server.</p><p><b>Db_offline</b> - Tracks severe errors that cause SQL Server to take the current database offline. <b>Info</b> - Information related to error messages that provide information to users but do not cause errors. <b>Kill_connection</b> - Tracks severe errors that cause SQL Server to kill the current connection. <b>User</b> - User errors.</p>'
+    },
+
+    'mssql.instance_sqlstats_auto_parameterization_attempts': {
+        info: 'Auto-parameterization occurs when an instance of SQL Server tries to parameterize a Transact-SQL request by replacing some literals with parameters so that reuse of the resulting cached execution plan across multiple similar-looking requests is possible. Note that auto-parameterizations are also known as simple parameterizations in newer versions of SQL Server. This counter does not include forced parameterizations.'
+    },
+
+    'mssql.instance_sqlstats_batch_requests': {
+        info: 'This statistic is affected by all constraints (such as I/O, number of users, cache size, complexity of requests, and so on). High batch requests mean good throughput.'
+    },
+
+    'mssql.instance_sqlstats_safe_auto_parameterization_attempts': {
+        info: 'Note that auto-parameterizations are also known as simple parameterizations in later versions of SQL Server.'
+    },
+
+    'mssql.instance_sqlstats_sql_compilations': {
+        info: 'Indicates the number of times the compile code path is entered. Includes compiles caused by statement-level recompilations in SQL Server. After SQL Server user activity is stable, this value reaches a steady state.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (AD)
+
+    'ad.dra_replication_intersite_compressed_traffic': {
+        info: 'The compressed size, in bytes, of inbound and outbound compressed replication data (size after compression, from DSAs in other sites).'
+    },
+
+    'ad.dra_replication_intrasite_compressed_traffic': {
+        info: 'The number of bytes replicated that were not compressed (that is., from DSAs in the same site).'
+    },
+
+    'ad.dra_replication_properties_updated': {
+        info: 'The number of properties that are updated due to incoming property winning the reconciliation logic that determines the final value to be replicated.'
+    },
+
+    'ad.dra_replication_objects_filtered': {
+        info: 'The number of objects received from inbound replication partners that contained no updates that needed to be applied.'
+    },
+
+    'ad.dra_replication_pending_syncs': {
+        info: 'The number of directory synchronizations that are queued for this server but not yet processed.'
+    },
+
+    'ad.dra_replication_sync_requests': {
+        info: 'The number of directory synchronizations that are queued for this server but not yet processed.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (NET Framework: Exception)
+
+    'netframework.clrexception_thrown': {
+        info: 'The exceptions include both .NET exceptions and unmanaged exceptions that are converted into .NET exceptions.'
+    },
+
+    'netframework.clrexception_filters': {
+        info: 'An exception filter evaluates regardless of whether an exception is handled.'
+    },
+
+    'netframework.clrexception_finallys': {
+        info: 'The metric counts only the finally blocks executed for an exception; finally blocks on normal code paths are not counted by this counter.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (NET Framework: Interop)
+
+    'netframework.clrinterop_com_callable_wrappers': {
+        info: 'A COM callable wrappers (CCW) is a proxy for a managed object being referenced from an unmanaged COM client.'
+    },
+
+    'netframework.clrinterop_interop_stubs_created': {
+        info: 'The Stubs are responsible for marshaling arguments and return values from managed to unmanaged code, and vice versa, during a COM interop call or a platform invoke call.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (NET Framework: JIT)
+
+    'netframework.clrjit_methods': {
+        info: 'The metric does not include pre-JIT-compiled methods.'
+    },
+
+    'netframework.clrjit_time': {
+        info: 'The metric is updated at the end of every JIT compilation phase. A JIT compilation phase occurs when a method and its dependencies are compiled.'
+    },
+
+    'netframework.clrjit_standard_failures': {
+        info: 'The failure can occur if the MSIL cannot be verified or if there is an internal error in the JIT compiler.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (NET Framework: Loading)
+
+    'netframework.clrloading_loader_heap_size': {
+        info: 'The memory committed by the class loader across all application domains is the physical space reserved in the disk paging file.'
+    },
+
+    'netframework.clrloading_assemblies_loaded': {
+        info: 'If the assembly is loaded as domain-neutral from multiple application domains, the metric is incremented only once.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (NET Framework: Locks and Threads)
+
+    'netframework.clrlocksandthreads_recognized_threads': {
+        info: 'Displays the total number of threads that have been recognized by the runtime since the application started. These threads are associated with a corresponding managed thread object. The runtime does not create these threads, but they have run inside the runtime at least once.'
+    },
+
+    // ------------------------------------------------------------------------
+    // Windows (NET Framework: Memory)
+
+    'netframework.clrmemory_heap_size': {
+        info: 'The metric shows maximum bytes that can be allocated, but it does not indicate the current number of bytes allocated.'
+    },
+
+    'netframework.clrmemory_promoted': {
+        info: 'Memory is promoted when it survives a garbage collection.'
+    },
+
+    'netframework.clrmemory_number_gc_handles': {
+        info: 'Garbage collection handles are handles to resources external to the common language runtime and the managed environment.'
+    },
+
+    'netframework.clrmemory_induced_gc': {
+        info: 'The metric is updated when an explicit call to GC.Collect happens.'
+    },
+
+    'netframework.clrmemory_number_sink_blocks_in_use': {
+        info: 'Synchronization blocks are per-object data structures allocated for storing synchronization information. They hold weak references to managed objects and must be scanned by the garbage collector.'
+    },
+
+    'netframework.clrmemory_committed': {
+        info: 'Committed memory is the physical memory for which space has been reserved in the disk paging file.'
+    },
+
+    'netframework.clrmemory_reserved': {
+        info: 'Reserved memory is the virtual memory space reserved for the application when no disk or main memory pages have been used.'
+    },
+
+    'netframework.clrmemory_gc_time': {
+        info: 'Displays the percentage of time that was spent performing a garbage collection in the last sample.'
+    },
 
     // ------------------------------------------------------------------------
     // APACHE
@@ -3881,6 +4779,150 @@ netdataDashboard.context = {
     },
 
     // ------------------------------------------------------------------------
+    // NGINX Plus
+    'nginxplus.client_connections_rate': {
+        info: 'Accepted and dropped (not handled) connections. A connection is considered <b>dropped</b> if the worker process is unable to get a connection for the request by establishing a new connection or reusing an open one.'
+    },
+    'nginxplus.client_connections_count': {
+        info: 'The current number of client connections. A connection is considered <b>idle</b> if there are currently no active requests.'
+    },
+    'nginxplus.ssl_handshakes_rate': {
+        info: 'Successful and failed SSL handshakes.'
+    },
+    'nginxplus.ssl_session_reuses_rate': {
+        info: 'The number of session reuses during SSL handshake.'
+    },
+    'nginxplus.ssl_handshakes_failures_rate': {
+        info: '<p>SSL handshake failures.</p><p><b>NoCommonProtocol</b> - failed because of no common protocol. <b>NoCommonCipher</b> - failed because of no shared cipher. <b>Timeout</b> - failed because of a timeout. <b>PeerRejectedCert</b> - failed because a client rejected the certificate.</p>'
+    },
+    'nginxplus.ssl_verification_errors_rate': {
+        info: '<p>SSL verification errors.</p><p><b>NoCert</b> - a client did not provide the required certificate. <b>ExpiredCert</b> - an expired or not yet valid certificate was presented by a client. <b>RevokedCert</b> - a revoked certificate was presented by a client. <b>HostnameMismatch</b> - server\'s certificate does not match the hostname. <b>Other</b> - other SSL certificate verification errors.</p>'
+    },
+    'nginxplus.http_requests_rate': {
+        info: 'The number of HTTP requests received from clients.'
+    },
+    'nginxplus.http_requests_count': {
+        info: 'The current number of client requests.'
+    },
+    'nginxplus.uptime': {
+        info: 'The time elapsed since the NGINX process was started.'
+    },
+    'nginxplus.http_server_zone_requests_rate': {
+        info: 'The number of requests to the HTTP Server Zone.'
+    },
+    'nginxplus.http_server_zone_responses_per_code_class_rate': {
+        info: 'The number of responses from the HTTP Server Zone. Responses grouped by HTTP status code class.'
+    },
+    'nginxplus.http_server_zone_traffic_rate': {
+        info: 'The amount of data transferred to and from the HTTP Server Zone.'
+    },
+    'nginxplus.http_server_zone_requests_processing_count': {
+        info: 'The number of client requests that are currently being processed by the HTTP Server Zone.'
+    },
+    'nginxplus.http_server_zone_requests_discarded_rate': {
+        info: 'The number of requests to the HTTP Server Zone completed without sending a response.'
+    },
+    'nginxplus.http_location_zone_requests_rate': {
+        info: 'The number of requests to the HTTP Location Zone.'
+    },
+    'nginxplus.http_location_zone_responses_per_code_class_rate': {
+        info: 'The number of responses from the HTTP Location Zone. Responses grouped by HTTP status code class.'
+    },
+    'nginxplus.http_location_zone_traffic_rate': {
+        info: 'The amount of data transferred to and from the HTTP Location Zone.'
+    },
+    'nginxplus.http_location_zone_requests_discarded_rate': {
+        info: 'The number of requests to the HTTP Location Zone completed without sending a response.'
+    },
+    'nginxplus.http_upstream_peers_count': {
+        info: 'The number of HTTP Upstream servers.'
+    },
+    'nginxplus.http_upstream_zombies_count': {
+        info: 'The current number of HTTP Upstream servers removed from the group but still processing active client requests.'
+    },
+    'nginxplus.http_upstream_keepalive_count': {
+        info: 'The current number of idle keepalive connections to the HTTP Upstream.'
+    },
+    'nginxplus.http_upstream_server_requests_rate': {
+        info: 'The number of client requests forwarded to the HTTP Upstream Server.'
+    },
+    'nginxplus.http_upstream_server_responses_per_code_class_rate': {
+        info: 'The number of responses received from the HTTP Upstream Server. Responses grouped by HTTP status code class.'
+    },
+    'nginxplus.http_upstream_server_response_time': {
+        info: 'The average time to get a complete response from the HTTP Upstream Server.'
+    },
+    'nginxplus.http_upstream_server_response_header_time': {
+        info: 'The average time to get a response header from the HTTP Upstream Server.'
+    },
+    'nginxplus.http_upstream_server_traffic_rate': {
+        info: 'The amount of traffic transferred to and from the HTTP Upstream Server.'
+    },
+    'nginxplus.http_upstream_server_state': {
+        info: 'The current state of the HTTP Upstream Server. Status active if set to 1.'
+    },
+    'nginxplus.http_upstream_server_connections_count': {
+        info: 'The current number of active connections to the HTTP Upstream Server.'
+    },
+    'nginxplus.http_upstream_server_downtime': {
+        info: 'The time the HTTP Upstream Server has spent in the <b>unavail</b>, <b>checking</b>, and <b>unhealthy</b> states.'
+    },
+    'nginxplus.http_cache_state': {
+        info: 'HTTP cache current state. <b>Cold</b> means that the cache loader process is still loading data from disk into the cache.'
+    },
+    'nginxplus.http_cache_iops': {
+        info: '<p>HTTP cache IOPS.</p><p><b>Served</b> - valid, expired, and revalidated responses read from the cache. <b>Written</b> - miss, expired, and bypassed responses written to the cache. <b>Bypassed</b> - miss, expired, and bypass responses.</p>'
+    },
+    'nginxplus.http_cache_io': {
+        info: '<p>HTTP cache IO.</p><p><b>Served</b> - valid, expired, and revalidated responses read from the cache. <b>Written</b> - miss, expired, and bypassed responses written to the cache. <b>Bypassed</b> - miss, expired, and bypass responses.</p>'
+    },
+    'nginxplus.http_cache_size': {
+        info: 'The current size of the cache.'
+    },
+    'nginxplus.stream_server_zone_connections_rate': {
+        info: 'The number of accepted connections to the Stream Server Zone.'
+    },
+    'nginxplus.stream_server_zone_sessions_per_code_class_rate': {
+        info: 'The number of completed sessions for the Stream Server Zone. Sessions grouped by status code class.'
+    },
+    'nginxplus.stream_server_zone_traffic_rate': {
+        info: 'The amount of data transferred to and from the Stream Server Zone.'
+    },
+    'nginxplus.stream_server_zone_connections_processing_count': {
+        info: 'The number of client connections to the Stream Server Zone that are currently being processed.'
+    },
+    'nginxplus.stream_server_zone_connections_discarded_rate': {
+        info: 'The number of connections to the Stream Server Zone completed without creating a session.'
+    },
+    'nginxplus.stream_upstream_peers_count': {
+        info: 'The number of Stream Upstream servers.'
+    },
+    'nginxplus.stream_upstream_zombies_count': {
+        info: 'The current number of HTTP Upstream servers removed from the group but still processing active client connections.'
+    },
+    'nginxplus.stream_upstream_server_connections_rate': {
+        info: 'The number of connections forwarded to the Stream Upstream Server.'
+    },
+    'nginxplus.stream_upstream_server_traffic_rate': {
+        info: 'The amount of traffic transferred to and from the Stream Upstream Server.'
+    },
+    'nginxplus.stream_upstream_server_state': {
+        info: 'The current state of the Stream Upstream Server. Status active if set to 1.'
+    },
+    'nginxplus.stream_upstream_server_downtime': {
+        info: 'The time the Stream Upstream Server has spent in the <b>unavail</b>, <b>checking</b>, and <b>unhealthy</b> states.'
+    },
+    'nginxplus.stream_upstream_server_connections_count': {
+        info: 'The current number of connections to the Stream Upstream Server.'
+    },
+    'nginxplus.resolver_zone_requests_rate': {
+        info: '<p>Resolver zone DNS requests.</p><p><b>Name</b> - requests to resolve names to addresses. <b>Srv</b> - requests to resolve SRV records. <b>Addr</b> - requests to resolve addresses to names.</p>'
+    },
+    'nginxplus.resolver_zone_responses_rate': {
+        info: '<p>Resolver zone DNS responses.</p><p><b>NoError</b> - successful responses. <b>FormErr</b> - format error responses. <b>ServFail</b> - server failure responses. <b>NXDomain</b> - host not found responses. <b>NotImp</b> - unimplemented responses. <b>Refused</b> - operation refused responses. <b>TimedOut</b> - timed out requests. <b>Unknown</b> - requests completed with an unknown error.</p>'
+    },
+
+    // ------------------------------------------------------------------------
     // HTTP check
 
     'httpcheck.responsetime': {
@@ -3907,14 +4949,34 @@ netdataDashboard.context = {
     },
 
     'netdata.ebpf_threads': {
-        info: 'Show total number of threads and number of active threads. For more details about the threads, see the <a href="https://learn.netdata.cloud/docs/agent/collectors/ebpf.plugin#ebpf-programs-configuration-options" target="_blank">official documentation</a>.'
+        info: 'Show thread status. Threads running have value 1 an stopped value 0. For more details about the threads, see the <a href="https://learn.netdata.cloud/docs/agent/collectors/ebpf.plugin#ebpf-programs-configuration-options" target="_blank">official documentation</a>.'
+    },
+
+    'netdata.ebpf_life_time': {
+        info: 'Time remaining for thread shutdown itself.'
     },
 
     'netdata.ebpf_load_methods': {
         info: 'Show number of threads loaded using legacy code (independent binary) or <code>CO-RE (Compile Once Run Everywhere)</code>.'
     },
 
-    // ------------------------------------------------------------------------
+    'netdata.ebpf_kernel_memory': {
+        info: 'Show amount of memory allocated inside kernel ring for hash tables. This chart shows the same information displayed by command `bpftool map show`.'
+    },
+
+    'netdata.ebpf_hash_tables_count': {
+        info: 'Show total number of hash tables loaded by eBPF.plugin`.'
+    },
+
+    'netdata.ebpf_aral_stat_size': {
+        info: 'Show total memory allocated for the specific ARAL.'
+    },
+
+    'netdata.ebpf_aral_stat_alloc': {
+        info: 'Show total memory of calls to get a specific region of memory inside an ARAL region.'
+    },
+
+// ------------------------------------------------------------------------
     // RETROSHARE
 
     'retroshare.bandwidth': {
@@ -3950,26 +5012,12 @@ netdataDashboard.context = {
     },
 
     // ------------------------------------------------------------------------
-    // fping
-
-    'fping.quality': {
-        colors: NETDATA.colors[10],
-        height: 0.5
-    },
-
-    'fping.packets': {
-        height: 0.5
-    },
-
-
-    // ------------------------------------------------------------------------
     // containers
 
     'cgroup.cpu_limit': {
         valueRange: "[0, null]",
         mainheads: [
-            function (os, id) {
-                void (os);
+            function (_, id) {
                 cgroupCPULimitIsSet = 1;
                 return '<div data-netdata="' + id + '"'
                     + ' data-dimensions="used"'
@@ -3986,15 +5034,11 @@ netdataDashboard.context = {
                     + ' role="application"></div>';
             }
         ],
-        info: 'Total CPU utilization within the configured or system-wide (if not set) limits. '+
-        'When the CPU utilization of a cgroup exceeds the limit for the configured period, '+
-        'the tasks belonging to its hierarchy will be throttled and are not allowed to run again until the next period.'
+        info: cgroupCPULimit
     },
-
     'cgroup.cpu': {
         mainheads: [
-            function (os, id) {
-                void (os);
+            function (_, id) {
                 if (cgroupCPULimitIsSet === 0) {
                     return '<div data-netdata="' + id + '"'
                         + ' data-chart-library="gauge"'
@@ -4011,41 +5055,107 @@ netdataDashboard.context = {
                     return '';
             }
         ],
-        info: 'Total CPU utilization within the system-wide CPU resources (all cores). '+
-        'The amount of time spent by tasks of the cgroup in '+
-        '<a href="https://en.wikipedia.org/wiki/CPU_modes#Mode_types" target="_blank">user and kernel</a> modes.'
+        info: cgroupCPU
     },
-
     'cgroup.throttled': {
-        info: 'The percentage of runnable periods when tasks in a cgroup have been throttled. '+ 
-        'The tasks have not been allowed to run because they have exhausted all of the available time as specified by their CPU quota.'
+        info: cgroupThrottled
     },
-
     'cgroup.throttled_duration': {
-        info: 'The total time duration for which tasks in a cgroup have been throttled. '+
-        'When an application has used its allotted CPU quota for a given period, it gets throttled until the next period.'
+        info: cgroupThrottledDuration
     },
-
+    'cgroup.cpu_shares': {
+        info: cgroupCPUShared
+    },
     'cgroup.cpu_per_core': {
-        info: 'Total CPU utilization per core within the system-wide CPU resources.'
+        info: cgroupCPUPerCore
+    },
+    'cgroup.cpu_some_pressure': {
+        info: cgroupCPUSomePressure
+    },
+    'cgroup.cpu_some_pressure_stall_time': {
+        info: cgroupCPUSomePressureStallTime
+    },
+    'cgroup.cpu_full_pressure': {
+        info: cgroupCPUFullPressure
+    },
+    'cgroup.cpu_full_pressure_stall_time': {
+        info: cgroupCPUFullPressureStallTime
     },
 
-    'cgroup.cpu_pressure': {
-        info: 'CPU <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
-        '<b>Some</b> indicates the share of time in which at least some tasks are stalled on CPU. '+
-        'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    'k8s.cgroup.cpu_limit': {
+        valueRange: "[0, null]",
+        mainheads: [
+            function (_, id) {
+                cgroupCPULimitIsSet = 1;
+                return '<div data-netdata="' + id + '"'
+                    + ' data-dimensions="used"'
+                    + ' data-gauge-max-value="100"'
+                    + ' data-chart-library="gauge"'
+                    + ' data-title="CPU"'
+                    + ' data-units="%"'
+                    + ' data-gauge-adjust="width"'
+                    + ' data-width="12%"'
+                    + ' data-before="0"'
+                    + ' data-after="-CHART_DURATION"'
+                    + ' data-points="CHART_DURATION"'
+                    + ' data-colors="' + NETDATA.colors[4] + '"'
+                    + ' role="application"></div>';
+            }
+        ],
+        info: cgroupCPULimit
+    },
+    'k8s.cgroup.cpu': {
+        mainheads: [
+            function (_, id) {
+                if (cgroupCPULimitIsSet === 0) {
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-chart-library="gauge"'
+                        + ' data-title="CPU"'
+                        + ' data-units="%"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="12%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' data-colors="' + NETDATA.colors[4] + '"'
+                        + ' role="application"></div>';
+                } else
+                    return '';
+            }
+        ],
+        info: cgroupCPU
+    },
+    'k8s.cgroup.throttled': {
+        info: cgroupThrottled
+    },
+    'k8s.cgroup.throttled_duration': {
+        info: cgroupThrottledDuration
+    },
+    'k8s.cgroup.cpu_shares': {
+        info: cgroupCPUShared
+    },
+    'k8s.cgroup.cpu_per_core': {
+        info: cgroupCPUPerCore
+    },
+    'k8s.cgroup.cpu_some_pressure': {
+        info: cgroupCPUSomePressure
+    },
+    'k8s.cgroup.cpu_some_pressure_stall_time': {
+        info: cgroupCPUSomePressureStallTime
+    },
+    'k8s.cgroup.cpu_full_pressure': {
+        info: cgroupCPUFullPressure
+    },
+    'k8s.cgroup.cpu_full_pressure_stall_time': {
+        info: cgroupCPUFullPressureStallTime
     },
 
     'cgroup.mem_utilization': {
-        info: 'RAM utilization within the configured or system-wide (if not set) limits. '+
-        'When the RAM utilization of a cgroup exceeds the limit, '+
-        'OOM killer will start killing the tasks belonging to the cgroup.'
+        info: cgroupMemUtilization
     },
-
     'cgroup.mem_usage_limit': {
         mainheads: [
-            function (os, id) {
-                void (os);
+            function (_, id) {
                 cgroupMemLimitIsSet = 1;
                 return '<div data-netdata="' + id + '"'
                     + ' data-dimensions="used"'
@@ -4063,15 +5173,11 @@ netdataDashboard.context = {
                     + ' role="application"></div>';
             }
         ],
-        info: 'RAM usage within the configured or system-wide (if not set) limits. '+
-        'When the RAM usage of a cgroup exceeds the limit, '+
-        'OOM killer will start killing the tasks belonging to the cgroup.'
+        info: cgroupMemUsageLimit
     },
-
     'cgroup.mem_usage': {
         mainheads: [
-            function (os, id) {
-                void (os);
+            function (_, id) {
                 if (cgroupMemLimitIsSet === 0) {
                     return '<div data-netdata="' + id + '"'
                         + ' data-chart-library="gauge"'
@@ -4088,72 +5194,125 @@ netdataDashboard.context = {
                     return '';
             }
         ],
-        info: 'The amount of used RAM and swap memory.'
+        info: cgroupMemUsage
     },
-
     'cgroup.mem': {
-        info: 'Memory usage statistics. '+
-        'The individual metrics are described in the memory.stat section for '+
-        '<a href="https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v1/memory.html#per-memory-cgroup-local-status" target="_blank">cgroup-v1 </a>'+
-        'and '+
-        '<a href="https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html#memory-interface-files" target="_blank">cgroup-v2</a>.'
+        info: cgroupMem
     },
-
     'cgroup.mem_failcnt': {
-        info: 'The number of memory usage hits limits.'
+        info: cgroupMemFailCnt
     },
-
     'cgroup.writeback': {
-        info: '<b>Dirty</b> is the amount of memory waiting to be written to disk. <b>Writeback</b> is how much memory is actively being written to disk.'
+        info: cgroupWriteback
     },
-
     'cgroup.mem_activity': {
-        info: '<p>Memory accounting statistics.</p>'+
-        '<p><b>In</b> - a page is accounted as either mapped anon page (RSS) or cache page (Page Cache) to the cgroup. '+
-        '<b>Out</b> - a page is unaccounted from the cgroup.</p>'
+        info: cgroupMemActivity
     },
-
     'cgroup.pgfaults': {
-        info: '<p>Memory <a href="https://en.wikipedia.org/wiki/Page_fault" target="_blank">page fault</a> statistics.</p>'+
-        '<p><b>Pgfault</b> - all page faults. '+
-        '<b>Swap</b> - major page faults.</p>'
+        info: cgroupPgFaults
     },
-
-    'cgroup.memory_pressure': {
-        info: 'Memory <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
-        '<b>Some</b> indicates the share of time in which at least some tasks are stalled on memory. '+
-        'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    'cgroup.memory_some_pressure': {
+        info: cgroupMemorySomePressure
     },
-
+    'cgroup.memory_some_pressure_stall_time': {
+        info: cgroupMemorySomePressureStallTime
+    },
     'cgroup.memory_full_pressure': {
-        info: 'Memory <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
-        '<b>Full</b> indicates the share of time in which all non-idle tasks are stalled on memory simultaneously. '+
-        'In this state actual CPU cycles are going to waste, '+
-        'and a workload that spends extended time in this state is considered to be thrashing. '+
-        'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+        info: cgroupMemoryFullPressure
+    },
+    'cgroup.memory_full_pressure_stall_time': {
+        info: cgroupMemoryFullPressureStallTime
+    },
+
+    'k8s.cgroup.mem_utilization': {
+        info: cgroupMemUtilization
+    },
+    'k8s.cgroup.mem_usage_limit': {
+        mainheads: [
+            function (_, id) {
+                cgroupMemLimitIsSet = 1;
+                return '<div data-netdata="' + id + '"'
+                    + ' data-dimensions="used"'
+                    + ' data-append-options="percentage"'
+                    + ' data-gauge-max-value="100"'
+                    + ' data-chart-library="gauge"'
+                    + ' data-title="Memory"'
+                    + ' data-units="%"'
+                    + ' data-gauge-adjust="width"'
+                    + ' data-width="12%"'
+                    + ' data-before="0"'
+                    + ' data-after="-CHART_DURATION"'
+                    + ' data-points="CHART_DURATION"'
+                    + ' data-colors="' + NETDATA.colors[1] + '"'
+                    + ' role="application"></div>';
+            }
+        ],
+        info: cgroupMemUsageLimit
+    },
+    'k8s.cgroup.mem_usage': {
+        mainheads: [
+            function (_, id) {
+                if (cgroupMemLimitIsSet === 0) {
+                    return '<div data-netdata="' + id + '"'
+                        + ' data-chart-library="gauge"'
+                        + ' data-title="Memory"'
+                        + ' data-units="MB"'
+                        + ' data-gauge-adjust="width"'
+                        + ' data-width="12%"'
+                        + ' data-before="0"'
+                        + ' data-after="-CHART_DURATION"'
+                        + ' data-points="CHART_DURATION"'
+                        + ' data-colors="' + NETDATA.colors[1] + '"'
+                        + ' role="application"></div>';
+                } else
+                    return '';
+            }
+        ],
+        info: cgroupMemUsage
+    },
+    'k8s.cgroup.mem': {
+        info: cgroupMem
+    },
+    'k8s.cgroup.mem_failcnt': {
+        info: cgroupMemFailCnt
+    },
+    'k8s.cgroup.writeback': {
+        info: cgroupWriteback
+    },
+    'k8s.cgroup.mem_activity': {
+        info: cgroupMemActivity
+    },
+    'k8s.cgroup.pgfaults': {
+        info: cgroupPgFaults
+    },
+    'k8s.cgroup.memory_some_pressure': {
+        info: cgroupMemorySomePressure
+    },
+    'k8s.cgroup.memory_some_pressure_stall_time': {
+        info: cgroupMemorySomePressureStallTime
+    },
+    'k8s.cgroup.memory_full_pressure': {
+        info: cgroupMemoryFullPressure
+    },
+    'k8s.cgroup.memory_full_pressure_stall_time': {
+        info: cgroupMemoryFullPressureStallTime
     },
 
     'cgroup.io': {
-        info: 'The amount of data transferred to and from specific devices as seen by the CFQ scheduler. '+
-        'It is not updated when the CFQ scheduler is operating on a request queue.'
+        info: cgroupIO
     },
-
     'cgroup.serviced_ops': {
-        info: 'The number of I/O operations performed on specific devices as seen by the CFQ scheduler.'
+        info: cgroupServicedOps
     },
-
     'cgroup.queued_ops': {
-        info: 'The number of requests queued for I/O operations.'
+        info: cgroupQueuedOps
     },
-
     'cgroup.merged_ops': {
-        info: 'The number of BIOS requests merged into requests for I/O operations.'
+        info: cgroupMergedOps
     },
-
     'cgroup.throttle_io': {
         mainheads: [
-            function (os, id) {
-                void (os);
+            function (_, id) {
                 return '<div data-netdata="' + id + '"'
                     + ' data-dimensions="read"'
                     + ' data-chart-library="gauge"'
@@ -4167,8 +5326,7 @@ netdataDashboard.context = {
                     + ' data-colors="' + NETDATA.colors[2] + '"'
                     + ' role="application"></div>';
             },
-            function (os, id) {
-                void (os);
+            function (_, id) {
                 return '<div data-netdata="' + id + '"'
                     + ' data-dimensions="write"'
                     + ' data-chart-library="gauge"'
@@ -4183,207 +5341,220 @@ netdataDashboard.context = {
                     + ' role="application"></div>';
             }
         ],
-        info: 'The amount of data transferred to and from specific devices as seen by the throttling policy.'
+        info: cgroupThrottleIO
     },
-
     'cgroup.throttle_serviced_ops': {
-        info: 'The number of I/O operations performed on specific devices as seen by the throttling policy.'
+        info: cgroupThrottleIOServicesOps
     },
-
-    'cgroup.io_pressure': {
-        info: 'I/O <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
-        '<b>Some</b> indicates the share of time in which at least some tasks are stalled on I/O. '+
-        'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+    'cgroup.io_some_pressure': {
+        info: cgroupIOSomePressure
     },
-
+    'cgroup.io_some_pressure_stall_time': {
+        info: cgroupIOSomePRessureStallTime
+    },
     'cgroup.io_full_pressure': {
-        info: 'I/O <a href="https://www.kernel.org/doc/html/latest/accounting/psi.html" target="_blank">Pressure Stall Information</a>. '+
-        '<b>Full</b> indicates the share of time in which all non-idle tasks are stalled on I/O simultaneously. '+
-        'In this state actual CPU cycles are going to waste, '+
-        'and a workload that spends extended time in this state is considered to be thrashing. '+
-        'The ratios (in %) are tracked as recent trends over 10-, 60-, and 300-second windows.'
+        info: cgroupIOFullPressure
+    },
+    'cgroup.io_full_pressure_stall_time': {
+        info: cgroupIOFullPressureStallTime
+    },
+
+    'k8s.cgroup.io': {
+        info: cgroupIO
+    },
+    'k8s.cgroup.serviced_ops': {
+        info: cgroupServicedOps
+    },
+    'k8s.cgroup.queued_ops': {
+        info: cgroupQueuedOps
+    },
+    'k8s.cgroup.merged_ops': {
+        info: cgroupMergedOps
+    },
+    'k8s.cgroup.throttle_io': {
+        mainheads: [
+            function (_, id) {
+                return '<div data-netdata="' + id + '"'
+                    + ' data-dimensions="read"'
+                    + ' data-chart-library="gauge"'
+                    + ' data-title="Read Disk I/O"'
+                    + ' data-units="KB/s"'
+                    + ' data-gauge-adjust="width"'
+                    + ' data-width="12%"'
+                    + ' data-before="0"'
+                    + ' data-after="-CHART_DURATION"'
+                    + ' data-points="CHART_DURATION"'
+                    + ' data-colors="' + NETDATA.colors[2] + '"'
+                    + ' role="application"></div>';
+            },
+            function (_, id) {
+                return '<div data-netdata="' + id + '"'
+                    + ' data-dimensions="write"'
+                    + ' data-chart-library="gauge"'
+                    + ' data-title="Write Disk I/O"'
+                    + ' data-units="KB/s"'
+                    + ' data-gauge-adjust="width"'
+                    + ' data-width="12%"'
+                    + ' data-before="0"'
+                    + ' data-after="-CHART_DURATION"'
+                    + ' data-points="CHART_DURATION"'
+                    + ' data-colors="' + NETDATA.colors[3] + '"'
+                    + ' role="application"></div>';
+            }
+        ],
+        info: cgroupThrottleIO
+    },
+    'k8s.cgroup.throttle_serviced_ops': {
+        info: cgroupThrottleIOServicesOps
+    },
+    'k8s.cgroup.io_some_pressure': {
+        info: cgroupIOSomePressure
+    },
+    'k8s.cgroup.io_some_pressure_stall_time': {
+        info: cgroupIOSomePRessureStallTime
+    },
+    'k8s.cgroup.io_full_pressure': {
+        info: cgroupIOFullPressure
+    },
+    'k8s.cgroup.io_full_pressure_stall_time': {
+        info: cgroupIOFullPressureStallTime
     },
 
     'cgroup.swap_read': {
         info: ebpfSwapRead
     },
-
     'cgroup.swap_write': {
         info: ebpfSwapWrite
     },
-
     'cgroup.fd_open': {
         info: ebpfFileOpen
     },
-
     'cgroup.fd_open_error': {
         info: ebpfFileOpenError
     },
-
     'cgroup.fd_close': {
         info: ebpfFileClosed
     },
-
     'cgroup.fd_close_error': {
         info: ebpfFileCloseError
     },
-
     'cgroup.vfs_unlink': {
         info: ebpfVFSUnlink
     },
-
     'cgroup.vfs_write': {
         info: ebpfVFSWrite
     },
-
     'cgroup.vfs_write_error': {
         info: ebpfVFSWriteError
     },
-
     'cgroup.vfs_read': {
         info: ebpfVFSRead
     },
-
     'cgroup.vfs_read_error': {
         info: ebpfVFSReadError
     },
-
     'cgroup.vfs_write_bytes': {
         info: ebpfVFSWriteBytes
     },
-
     'cgroup.vfs_read_bytes': {
         info: ebpfVFSReadBytes
     },
-
     'cgroup.vfs_fsync': {
         info: ebpfVFSSync
     },
-
     'cgroup.vfs_fsync_error': {
         info: ebpfVFSSyncError
     },
-
     'cgroup.vfs_open': {
         info: ebpfVFSOpen
     },
-
     'cgroup.vfs_open_error': {
         info: ebpfVFSOpenError
     },
-
     'cgroup.vfs_create': {
         info: ebpfVFSCreate
     },
-
     'cgroup.vfs_create_error': {
         info: ebpfVFSCreateError
     },
-
     'cgroup.process_create': {
         info: ebpfProcessCreate
     },
-
     'cgroup.thread_create': {
         info: ebpfThreadCreate
     },
-
     'cgroup.task_exit': {
         info: ebpfTaskExit
     },
-
     'cgroup.task_close': {
         info: ebpfTaskClose
     },
-
     'cgroup.task_error': {
         info: ebpfTaskError
     },
-
     'cgroup.dc_ratio': {
         info: 'Percentage of file accesses that were present in the directory cache. 100% means that every file that was accessed was present in the directory cache. If files are not present in the directory cache 1) they are not present in the file system, 2) the files were not accessed before. Read more about <a href="https://www.kernel.org/doc/htmldocs/filesystems/the_directory_cache.html" target="_blank">directory cache</a>. Netdata also gives a summary for these charts in <a href="#menu_filesystem_submenu_directory_cache__eBPF_">Filesystem submenu</a>.'
     },
-
     'cgroup.shmget': {
         info: ebpfSHMget
     },
-
     'cgroup.shmat': {
         info: ebpfSHMat
     },
-
     'cgroup.shmdt': {
         info: ebpfSHMdt
     },
-
     'cgroup.shmctl': {
         info: ebpfSHMctl
     },
-
     'cgroup.outbound_conn_v4': {
         info: ebpfIPV4conn
     },
-
     'cgroup.outbound_conn_v6': {
         info: ebpfIPV6conn
     },
-
     'cgroup.net_bytes_send': {
         info: ebpfBandwidthSent
     },
-
     'cgroup.net_bytes_recv': {
         info: ebpfBandwidthRecv
     },
-
     'cgroup.net_tcp_send': {
         info: ebpfTCPSendCall
     },
-
     'cgroup.net_tcp_recv': {
         info: ebpfTCPRecvCall
     },
-
     'cgroup.net_retransmit': {
         info: ebpfTCPRetransmit
     },
-
     'cgroup.net_udp_send': {
         info: ebpfUDPsend
     },
-
     'cgroup.net_udp_recv': {
         info: ebpfUDPrecv
     },
-
     'cgroup.dc_hit_ratio': {
         info: ebpfDCHit
     },
-
     'cgroup.dc_reference': {
         info: ebpfDCReference
     },
-
     'cgroup.dc_not_cache': {
         info: ebpfDCNotCache
     },
-
     'cgroup.dc_not_found': {
         info: ebpfDCNotFound
     },
-
     'cgroup.cachestat_ratio': {
         info: ebpfCachestatRatio
     },
-
     'cgroup.cachestat_dirties': {
         info: ebpfCachestatDirties
     },
-
     'cgroup.cachestat_hits': {
         info: ebpfCachestatHits
     },
-
     'cgroup.cachestat_misses': {
         info: ebpfCachestatMisses
     },
@@ -4931,7 +6102,7 @@ netdataDashboard.context = {
     },
 
     'web_log.clients_all': {
-        info: 'Unique client IPs accessing the web server since the last restart of netdata. This plugin keeps in memory all the unique IPs that have accessed the web server. On very busy web servers (several millions of unique IPs) you may want to disable this chart (check <a href="https://github.com/netdata/netdata/blob/master/collectors/python.d.plugin/web_log/web_log.conf" target="_blank"><code>/etc/netdata/python.d/web_log.conf</code></a>).'
+        info: 'Unique client IPs accessing the web server since the last restart of netdata. This plugin keeps in memory all the unique IPs that have accessed the web server. On very busy web servers (several millions of unique IPs) you may want to disable this chart (check <a href="https://github.com/netdata/go.d.plugin/blob/master/config/go.d/web_log.conf" target="_blank"><code>/etc/netdata/go.d/web_log.conf</code></a>).'
     },
 
     // ------------------------------------------------------------------------
@@ -5062,7 +6233,7 @@ netdataDashboard.context = {
     },
 
     'web_log.squid_clients_all': {
-        info: 'Unique client IPs accessing squid since the last restart of netdata. This plugin keeps in memory all the unique IPs that have accessed the server. On very busy squid servers (several millions of unique IPs) you may want to disable this chart (check <a href="https://github.com/netdata/netdata/blob/master/collectors/python.d.plugin/web_log/web_log.conf" target="_blank"><code>/etc/netdata/python.d/web_log.conf</code></a>).'
+        info: 'Unique client IPs accessing squid since the last restart of netdata. This plugin keeps in memory all the unique IPs that have accessed the server. On very busy squid servers (several millions of unique IPs) you may want to disable this chart (check <a href="https://github.com/netdata/go.d.plugin/blob/master/config/go.d/web_log.conf" target="_blank"><code>/etc/netdata/go.d/web_log.conf</code></a>).'
     },
 
     'web_log.squid_transport_methods': {
@@ -5235,51 +6406,54 @@ netdataDashboard.context = {
     },
 
     // ------------------------------------------------------------------------
-
-    'chrony.system': {
-        info: 'In normal operation, chronyd never steps the system clock, because any jump in the timescale can have adverse consequences for certain application programs. Instead, any error in the system clock is corrected by slightly speeding up or slowing down the system clock until the error has been removed, and then returning to the system clock’s normal speed. A consequence of this is that there will be a period when the system clock (as read by other programs using the <code>gettimeofday()</code> system call, or by the <code>date</code> command in the shell) will be different from chronyd\'s estimate of the current true time (which it reports to NTP clients when it is operating in server mode). The value reported on this line is the difference due to this effect.',
-        colors: NETDATA.colors[3]
-    },
-
-    'chrony.offsets': {
-        info: '<code>last offset</code> is the estimated local offset on the last clock update. <code>RMS offset</code> is a long-term average of the offset value.',
-        height: 0.5
-    },
+    // Chrony
 
     'chrony.stratum': {
-        info: 'The <code>stratum</code> indicates how many hops away from a computer with an attached reference clock we are. Such a computer is a stratum-1 computer.',
-        decimalDigits: 0,
-        height: 0.5
+        info: 'The stratum indicates the distance (hops) to the computer with the reference clock. The higher the stratum number, the more the timing accuracy and stability degrades.',
     },
 
-    'chrony.root': {
-        info: 'Estimated delays against the root time server this system is synchronized with. <code>delay</code> is the total of the network path delays to the stratum-1 computer from which the computer is ultimately synchronised. <code>dispersion</code> is the total dispersion accumulated through all the computers back to the stratum-1 computer from which the computer is ultimately synchronised. Dispersion is due to system clock resolution, statistical measurement variations etc.'
+    'chrony.current_correction': {
+        info: 'Any error in the system clock is corrected by slightly speeding up or slowing down the system clock until the error has been removed, and then returning to the system clock’s normal speed. A consequence of this is that there will be a period when the system clock (as read by other programs) will be different from chronyd\'s estimate of the current true time (which it reports to NTP clients when it is operating as a server). The reported value is the difference due to this effect.',
+    },
+
+    'chrony.root_delay': {
+        info: 'The total of the network path delays to the stratum-1 computer from which the computer is ultimately synchronised.'
+    },
+
+    'chrony.root_dispersion': {
+        info: 'The total dispersion accumulated through all the computers back to the stratum-1 computer from which the computer is ultimately synchronised. Dispersion is due to system clock resolution, statistical measurement variations, etc.'
+    },
+
+    'chrony.last_offset': {
+        info: 'The estimated local offset on the last clock update. A positive value indicates the local time (as previously estimated true time) was ahead of the time sources.',
     },
 
     'chrony.frequency': {
-        info: 'The <code>frequency</code> is the rate by which the system\'s clock would be would be wrong if chronyd was not correcting it. It is expressed in ppm (parts per million). For example, a value of 1ppm would mean that when the system\'s clock thinks it has advanced 1 second, it has actually advanced by 1.000001 seconds relative to true time.',
-        colors: NETDATA.colors[0]
+        info: 'The <b>frequency</b> is the rate by which the system’s clock would be wrong if chronyd was not correcting it. It is expressed in ppm (parts per million). For example, a value of 1 ppm would mean that when the system’s clock thinks it has advanced 1 second, it has actually advanced by 1.000001 seconds relative to true time.',
     },
 
-    'chrony.residualfreq': {
-        info: 'This shows the <code>residual frequency</code> for the currently selected reference source. ' +
-            'It reflects any difference between what the measurements from the reference source indicate the ' +
-            'frequency should be and the frequency currently being used. The reason this is not always zero is ' +
-            'that a smoothing procedure is applied to the frequency. Each time a measurement from the reference ' +
-            'source is obtained and a new residual frequency computed, the estimated accuracy of this residual ' +
-            'is compared with the estimated accuracy (see <code>skew</code>) of the existing frequency value. ' +
-            'A weighted average is computed for the new frequency, with weights depending on these accuracies. ' +
-            'If the measurements from the reference source follow a consistent trend, the residual will be ' +
-            'driven to zero over time.',
-        height: 0.5,
-        colors: NETDATA.colors[3]
+    'chrony.residual_frequency': {
+        info: 'The <b>residual frequency</b> for the currently selected reference source. This reflects any difference between what the measurements from the reference source indicate the frequency should be and the frequency currently being used. The reason this is not always zero is that a smoothing procedure is applied to the frequency.',
     },
 
     'chrony.skew': {
         info: 'The estimated error bound on the frequency.',
-        height: 0.5,
-        colors: NETDATA.colors[5]
     },
+
+    'chrony.ref_measurement_time': {
+        info: 'The time elapsed since the last measurement from the reference source was processed.',
+    },
+
+    'chrony.leap_status': {
+        info: '<p>The current leap status of the source.</p><p><b>Normal</b> - indicates the normal status (no leap second). <b>InsertSecond</b> - indicates that a leap second will be inserted at the end of the month. <b>DeleteSecond</b> - indicates that a leap second will be deleted at the end of the month. <b>Unsynchronised</b> - the server has not synchronized properly with the NTP server.</p>',
+    },
+
+    'chrony.activity': {
+        info: '<p>The number of servers and peers that are online and offline.</p><p><b>Online</b> - the server or peer is currently online (i.e. assumed by chronyd to be reachable). <b>Offline</b> - the server or peer is currently offline (i.e. assumed by chronyd to be unreachable, and no measurements from it will be attempted). <b>BurstOnline</b> - a burst command has been initiated for the server or peer and is being performed. After the burst is complete, the server or peer will be returned to the online state. <b>BurstOffline</b> - a burst command has been initiated for the server or peer and is being performed. After the burst is complete, the server or peer will be returned to the offline state. <b>Unresolved</b> - the name of the server or peer was not resolved to an address yet.</p>',
+    },
+
+    // ------------------------------------------------------------------------
+    // Couchdb
 
     'couchdb.active_tasks': {
         info: 'Active tasks running on this CouchDB <b>cluster</b>. Four types of tasks currently exist: indexer (view building), replication, database compaction and view compaction.'
@@ -5308,6 +6482,22 @@ netdataDashboard.context = {
 
     'btrfs.system': {
         info: 'Logical disk usage for BTRFS system. System chunks store information about the allocation of other chunks. The disk space reported here is the usable allocation (i.e. after any striping or replication). The values reported here should be relatively small compared to Data and Metadata, and will scale with the volume size and overall space usage.'
+    },
+
+    'btrfs.commits': {
+        info: 'Tracks filesystem wide commits. Commits mark fully consistent synchronization points for the filesystem, and are triggered automatically when certain events happen or when enough time has elapsed since the last commit.'
+    },
+
+    'btrfs.commits_perc_time': {
+        info: 'Tracks commits time share. The reported time share metrics are valid only when BTRFS commit interval is longer than Netdata\'s <b>update_every</b> interval.'
+    },
+
+    'btrfs.commit_timings': {
+        info: 'Tracks timing information for commits. <b>last</b> dimension metrics are valid only when BTRFS commit interval is longer than Netdata\'s <b>update_every</b> interval.'
+    },
+
+    'btrfs.device_errors': {
+        info: 'Tracks per-device error counts. Five types of errors are tracked: read errors, write errors, flush errors, corruption errors, and generation errors. <b>Read</b>, <b>write</b>, and <b>flush</b> are errors reported by the underlying block device when trying to perform the associated operations on behalf of BTRFS. <b>Corruption</b> errors count checksum mismatches, which usually are a result of either at-rest data corruption or hardware problems. <b>Generation</b> errors count generational mismatches within the internal data structures of the volume, and are also usually indicative of at-rest data corruption or hardware problems. Note that errors reported here may not trigger an associated IO error in userspace, as BTRFS has relatively robust error recovery that allows it to return correct data in most multi-device setups.'
     },
 
     // ------------------------------------------------------------------------
@@ -5495,15 +6685,16 @@ netdataDashboard.context = {
     },
 
     'logind.sessions': {
-        info: 'Shows the number of active sessions of each type tracked by logind.'
+        info: 'Local and remote sessions.'
     },
-
-    'logind.users': {
-        info: 'Shows the number of active users of each type tracked by logind.'
+    'logind.sessions_type': {
+        info: '<p>Sessions of each session type.</p><p><b>Graphical</b> - sessions are running under one of X11, Mir, or Wayland. <b>Console</b> - sessions are usually regular text mode local logins, but depending on how the system is configured may have an associated GUI. <b>Other</b> - sessions are those that do not fall into the above categories (such as sessions for cron jobs or systemd timer units).</p>'
     },
-
-    'logind.seats': {
-        info: 'Shows the number of active seats tracked by logind.  Each seat corresponds to a combination of a display device and input device providing a physical presence for the system.'
+    'logind.sessions_state': {
+        info: '<p>Sessions in each session state.</p><p><b>Online</b> - logged in and running in the background. <b>Closing</b> - nominally logged out, but some processes belonging to it are still around. <b>Active</b> - logged in and running in the foreground.</p>'
+    },
+    'logind.users_state': {
+        info: '<p>Users in each user state.</p><p><b>Offline</b> - users are not logged in. <b>Closing</b> - users are in the process of logging out without lingering. <b>Online</b> - users are logged in, but have no active sessions. <b>Lingering</b> - users are not logged in, but have one or more services still running. <b>Active</b> - users are logged in, and have at least one active session.</p>'
     },
 
     // ------------------------------------------------------------------------
@@ -6765,5 +7956,258 @@ netdataDashboard.context = {
     'fail2ban.banned_ips': {
         info: '<p>The number of banned IP addresses.</p>'
     },
+
+    // ------------------------------------------------------------------------
+    // K8s state: Node.
+
+    'k8s_state.node_allocatable_cpu_requests_utilization': {
+        info: 'The percentage of allocated CPU resources used by Pod requests. '+
+        'A Pod is scheduled to run on a Node only if the Node has enough CPU resources available to satisfy the Pod CPU request.'
+    },
+    'k8s_state.node_allocatable_cpu_requests_used': {
+        info: 'The amount of allocated CPU resources used by Pod requests. ' +
+        '1000 millicpu is equivalent to '+
+        '<a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#cpu-units" target="_blank">1 physical or virtual CPU core</a>.'
+    },
+    'k8s_state.node_allocatable_cpu_limits_utilization': {
+        info: 'The percentage of allocated CPU resources used by Pod limits. '+
+        'Total limits may be over 100 percent (overcommitted).'
+    },
+    'k8s_state.node_allocatable_cpu_limits_used': {
+        info: 'The amount of allocated CPU resources used by Pod limits. ' +
+        '1000 millicpu is equivalent to '+
+        '<a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#cpu-units" target="_blank">1 physical or virtual CPU core</a>.'
+    },
+    'k8s_state.node_allocatable_mem_requests_utilization': {
+        info: 'The percentage of allocated memory resources used by Pod requests. '+
+        'A Pod is scheduled to run on a Node only if the Node has enough memory resources available to satisfy the Pod memory request.'
+    },
+    'k8s_state.node_allocatable_mem_requests_used': {
+        info: 'The amount of allocated memory resources used by Pod requests.'
+    },
+    'k8s_state.node_allocatable_mem_limits_utilization': {
+        info: 'The percentage of allocated memory resources used by Pod limits. '+
+        'Total limits may be over 100 percent (overcommitted).'
+    },
+    'k8s_state.node_allocatable_mem_limits_used': {
+        info: 'The amount of allocated memory resources used by Pod limits.'
+    },
+    'k8s_state.node_allocatable_pods_utilization': {
+        info: 'Pods limit utilization.'
+    },
+    'k8s_state.node_allocatable_pods_usage': {
+        info: '<p>Pods limit usage.</p>'+
+        '<p><b>Available</b> - the number of Pods available for scheduling. '+
+        '<b>Allocated</b> - the number of Pods that have been scheduled.</p>'
+    },
+    'k8s_state.node_condition': {
+        info: 'Health status. '+
+        'If the status of the Ready condition remains False for longer than the <code>pod-eviction-timeout</code> (the default is 5 minutes), '+
+        'then the node controller triggers API-initiated eviction for all Pods assigned to that node. '+
+        '<a href="https://kubernetes.io/docs/concepts/architecture/nodes/#condition" target="_blank">More info.</a>'
+    },
+    'k8s_state.node_pods_readiness': {
+        info: 'The percentage of Pods that are ready to serve requests.'
+    },
+    'k8s_state.node_pods_readiness_state': {
+        info: '<p>Pods readiness state.</p>'+
+        '<p><b>Ready</b> - the Pod has passed its readiness probe and ready to serve requests. '+
+        '<b>Unready</b> - the Pod has not passed its readiness probe yet.</p>'
+    },
+    'k8s_state.node_pods_condition': {
+        info: '<p>Pods state. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions" target="_blank">More info.</a></p>'+
+        '<b>PodReady</b> -  the Pod is able to serve requests and should be added to the load balancing pools of all matching Services. '+
+        '<b>PodScheduled</b> - the Pod has been scheduled to a node. '+
+        '<b>PodInitialized</b> - all init containers have completed successfully. '+
+        '<b>ContainersReady</b> - all containers in the Pod are ready.</p>'
+    },
+    'k8s_state.node_pods_phase': {
+        info: '<p>Pods phase. The phase of a Pod is a high-level summary of where the Pod is in its lifecycle. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase" target="_blank">More info.</a></p>'+
+        '<p><b>Running</b> - the Pod has been bound to a node, and all of the containers have been created. '+
+        'At least one container is still running, or is in the process of starting or restarting. ' +
+        '<b>Failed</b> - all containers in the Pod have terminated, and at least one container has terminated in failure. '+
+        'That is, the container either exited with non-zero status or was terminated by the system. ' +
+        '<b>Succedeed</b> - all containers in the Pod have terminated in success, and will not be restarted. ' +
+        '<b>Pending</b> - the Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run.</p>'
+    },
+    'k8s_state.node_containers': {
+        info: 'The total number of containers and init containers.'
+    },
+    'k8s_state.node_containers_state': {
+        info: '<p>The number of containers in different lifecycle states. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-states" target="_blank">More info.</a></p>'+
+        '<p><b>Running</b> - a container is executing without issues. '+
+        '<b>Waiting</b> - a container is still running the operations it requires in order to complete start up. '+
+        '<b>Terminated</b> - a container began execution and then either ran to completion or failed for some reason.</p>'
+    },
+    'k8s_state.node_init_containers_state': {
+        info: '<p>The number of init containers in different lifecycle states. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-states" target="_blank">More info.</a></p>'+
+        '<p><b>Running</b> - a container is executing without issues. '+
+        '<b>Waiting</b> - a container is still running the operations it requires in order to complete start up. '+
+        '<b>Terminated</b> - a container began execution and then either ran to completion or failed for some reason.</p>'
+    },
+    'k8s_state.node_age': {
+        info: 'The lifetime of the Node.'
+    },
+
+    // K8s state: Pod.
+
+    'k8s_state.pod_cpu_requests_used': {
+        info: 'The overall CPU resource requests for a Pod. '+
+        'This is the sum of the CPU requests for all the Containers in the Pod. '+
+        'Provided the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests. '+
+        '1000 millicpu is equivalent to '+
+        '<a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#cpu-units" target="_blank">1 physical or virtual CPU core</a>.'
+    },
+    'k8s_state.pod_cpu_limits_used': {
+        info: 'The overall CPU resource limits for a Pod. '+
+        'This is the sum of the CPU limits for all the Containers in the Pod. '+
+        'If set, containers cannot use more CPU than the configured limit. '+
+        '1000 millicpu is equivalent to '+
+        '<a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#cpu-units" target="_blank">1 physical or virtual CPU core</a>.'
+    },
+    'k8s_state.pod_mem_requests_used': {
+        info: 'The overall memory resource requests for a Pod. '+
+        'This is the sum of the memory requests for all the Containers in the Pod.'
+    },
+    'k8s_state.pod_mem_limits_used': {
+        info: 'The overall memory resource limits for a Pod. '+
+        'This is the sum of the memory limits for all the Containers in the Pod. '+
+        'If set, containers cannot use more RAM than the configured limit.'
+    },
+    'k8s_state.pod_condition': {
+        info: 'The current state of the Pod. ' +
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions" target="_blank">More info.</a></p>'+
+        '<p><b>PodReady</b> - the Pod is able to serve requests and should be added to the load balancing pools of all matching Services. ' +
+        '<b>PodScheduled</b> - the Pod has been scheduled to a node. ' +
+        '<b>PodInitialized</b> - all init containers have completed successfully. ' +
+        '<b>ContainersReady</b> - all containers in the Pod are ready. '
+    },
+    'k8s_state.pod_phase': {
+        info: 'High-level summary of where the Pod is in its lifecycle. ' +
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase" target="_blank">More info.</a></p>'+
+        '<p><b>Running</b> - the Pod has been bound to a node, and all of the containers have been created. '+
+        'At least one container is still running, or is in the process of starting or restarting. ' +
+        '<b>Failed</b> - all containers in the Pod have terminated, and at least one container has terminated in failure. '+
+        'That is, the container either exited with non-zero status or was terminated by the system. ' +
+        '<b>Succedeed</b> - all containers in the Pod have terminated in success, and will not be restarted. ' +
+        '<b>Pending</b> - the Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. '+
+        'This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network. '
+    },
+    'k8s_state.pod_age': {
+        info: 'The <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-lifetime" target="_blank">lifetime</a> of the Pod. '
+    },
+    'k8s_state.pod_containers': {
+        info: 'The number of containers and init containers belonging to the Pod.'
+    },
+    'k8s_state.pod_containers_state': {
+        info: 'The state of each container inside this Pod. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-states" target="_blank">More info.</a> '+
+        '<p><b>Running</b> - a container is executing without issues. '+
+        '<b>Waiting</b> - a container is still running the operations it requires in order to complete start up. '+
+        '<b>Terminated</b> - a container began execution and then either ran to completion or failed for some reason.</p>'
+    },
+    'k8s_state.pod_init_containers_state': {
+        info: 'The state of each init container inside this Pod. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-states" target="_blank">More info.</a> '+
+        '<p><b>Running</b> - a container is executing without issues. '+
+        '<b>Waiting</b> - a container is still running the operations it requires in order to complete start up. '+
+        '<b>Terminated</b> - a container began execution and then either ran to completion or failed for some reason.</p>'
+    },
+
+    // K8s state: Pod container.
+
+    'k8s_state.pod_container_readiness_state': {
+        info: 'Specifies whether the container has passed its readiness probe. '+
+        'Kubelet uses readiness probes to know when a container is ready to start accepting traffic.'
+    },
+    'k8s_state.pod_container_restarts': {
+        info: 'The number of times the container has been restarted.'
+    },
+    'k8s_state.pod_container_state': {
+        info: 'Current state of the container. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-states" target="_blank">More info.</a> '+
+        '<p><b>Running</b> - a container is executing without issues. '+
+        '<b>Waiting</b> - a container is still running the operations it requires in order to complete start up. '+
+        '<b>Terminated</b> - a container began execution and then either ran to completion or failed for some reason.</p>'
+    },
+    'k8s_state.pod_container_waiting_state_reason': {
+        info: 'Reason the container is not yet running. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting" target="_blank">More info.</a> '
+    },
+    'k8s_state.pod_container_terminated_state_reason': {
+        info: 'Reason from the last termination of the container. '+
+        '<a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-state-terminated" target="_blank">More info.</a>'
+    },
+
+    // Ping
+
+    'ping.host_rtt': {
+        info: 'Round-trip time (RTT) is the time it takes for a data packet to reach its destination and return back to its original source.'
+    },
+    'ping.host_std_dev_rtt': {
+        info: 'Round-trip time (RTT) standard deviation. The average value of how far each RTT of a ping differs from the average RTT.'
+    },
+    'ping.host_packet_loss': {
+        info: 'Packet loss occurs when one or more transmitted data packets do not reach their destination. Usually caused by data transfer errors, network congestion or firewall blocking. ICMP echo packets are often treated as lower priority by routers and target hosts, so ping test packet loss may not always translate to application packet loss.'
+    },
+    'ping.host_packets': {
+        info: 'Number of ICMP messages sent and received. These counters should be equal if there is no packet loss.'
+    },
+
+    // NVMe
+
+    'nvme.device_estimated_endurance_perc': {
+        info: 'NVM subsystem lifetime used based on the actual usage and the manufacturer\'s prediction of NVM life. A value of 100 indicates that the estimated endurance of the device has been consumed, but may not indicate a device failure. The value can be greater than 100 if you use the storage beyond its planned lifetime.'
+    },
+    'nvme.device_available_spare_perc': {
+        info: 'Remaining spare capacity that is available. SSDs provide a set of internal spare capacity, called spare blocks, that can be used to replace blocks that have reached their write operation limit. After all of the spare blocks have been used, the next block that reaches its limit causes the disk to fail.'
+    },
+    'nvme.device_composite_temperature': {
+        info: 'The current composite temperature of the controller and namespace(s) associated with that controller. The manner in which this value is computed is implementation specific and may not represent the actual temperature of any physical point in the NVM subsystem.'
+    },
+    'nvme.device_io_transferred_count': {
+        info: 'The total amount of data read and written by the host.'
+    },
+    'nvme.device_power_cycles_count': {
+        info: 'Power cycles reflect the number of times this host has been rebooted or the device has been woken up after sleep. A high number of power cycles does not affect the device\'s life expectancy.'
+    },
+    'nvme.device_power_on_time': {
+        info: '<a href="https://en.wikipedia.org/wiki/Power-on_hours" target="_blank">Power-on time</a> is the length of time the device is supplied with power.'
+    },
+    'nvme.device_unsafe_shutdowns_count': {
+        info: 'The number of times a power outage occurred without a shutdown notification being sent. Depending on the NVMe device you are using, an unsafe shutdown can corrupt user data.'
+    },
+    'nvme.device_critical_warnings_state': {
+        info: '<p>Critical warnings for the status of the controller. Status active if set to 1.</p><p><b>AvailableSpare</b> - the available spare capacity is below the threshold. <b>TempThreshold</b> - the composite temperature is greater than or equal to an over temperature threshold or less than or equal to an under temperature threshold. <b>NvmSubsystemReliability</b> - the NVM subsystem reliability is degraded due to excessive media or internal errors. <b>ReadOnly</b> - media is placed in read-only mode. <b>VolatileMemBackupFailed</b> - the volatile memory backup device has failed. <b>PersistentMemoryReadOnly</b> - the Persistent Memory Region has become read-only or unreliable.</p>'
+    },
+    'nvme.device_media_errors_rate': {
+        info: 'The number of occurrences where the controller detected an unrecovered data integrity error. Errors such as uncorrectable ECC, CRC checksum failure, or LBA tag mismatch are included in this counter.'
+    },
+    'nvme.device_error_log_entries_rate': {
+        info: 'The number of entries in the Error Information Log. By itself, an increase in the number of records is not an indicator of any failure condition.'
+    },
+    'nvme.device_warning_composite_temperature_time': {
+        info: 'The time the device has been operating above the Warning Composite Temperature Threshold (WCTEMP) and below Critical Composite Temperature Threshold (CCTEMP).'
+    },
+    'nvme.device_critical_composite_temperature_time': {
+        info: 'The time the device has been operating above the Critical Composite Temperature Threshold (CCTEMP).'
+    },
+    'nvme.device_thermal_mgmt_temp1_transitions_rate': {
+        info: 'The number of times the controller has entered lower active power states or performed vendor-specific thermal management actions, <b>minimizing performance impact</b>, to attempt to lower the Composite Temperature due to the host-managed thermal management feature.'
+    },
+    'nvme.device_thermal_mgmt_temp2_transitions_rate': {
+        info: 'The number of times the controller has entered lower active power states or performed vendor-specific thermal management actions, <b>regardless of the impact on performance (e.g., heavy throttling)</b>, to attempt to lower the Combined Temperature due to the host-managed thermal management feature.'
+    },
+    'nvme.device_thermal_mgmt_temp1_time': {
+        info: 'The amount of time the controller has entered lower active power states or performed vendor-specific thermal management actions, <b>minimizing performance impact</b>, to attempt to lower the Composite Temperature due to the host-managed thermal management feature.'
+    },
+    'nvme.device_thermal_mgmt_temp2_time': {
+        info: 'The amount of time the controller has entered lower active power states or performed vendor-specific thermal management actions, <b>regardless of the impact on performance (e.g., heavy throttling)</b>, to attempt to lower the Combined Temperature due to the host-managed thermal management feature.'
+    },
+    // ------------------------------------------------------------------------
 
 };

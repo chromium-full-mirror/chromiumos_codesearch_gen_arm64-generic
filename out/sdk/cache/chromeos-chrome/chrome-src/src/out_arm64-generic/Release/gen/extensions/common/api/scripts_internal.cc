@@ -194,7 +194,7 @@ SerializedUserScript SerializedUserScript::Clone() const {
 // static
 bool SerializedUserScript::Populate(
     const base::Value::Dict& dict, SerializedUserScript& out) {
-  out.run_at = extension_types::RunAt();
+  out.run_at = extensions::api::extension_types::RunAt();
   const base::Value* all_frames_value = dict.Find("allFrames");
   if (all_frames_value) {
     {
@@ -323,13 +323,13 @@ bool SerializedUserScript::Populate(
       if (!run_at_as_string) {
         return false;
       }
-      out.run_at = extension_types::ParseRunAt(*run_at_as_string);
-      if (out.run_at == extension_types::RunAt()) {
+      out.run_at = extensions::api::extension_types::ParseRunAt(*run_at_as_string);
+      if (out.run_at == extensions::api::extension_types::RunAt()) {
         return false;
       }
     }
     } else {
-    out.run_at = extension_types::RunAt();
+    out.run_at = extensions::api::extension_types::RunAt();
   }
 
   const base::Value* source_value = dict.Find("source");
@@ -356,8 +356,8 @@ bool SerializedUserScript::Populate(
     if (!execution_world_as_string) {
       return false;
     }
-    out.world = extension_types::ParseExecutionWorld(*execution_world_as_string);
-    if (out.world == extension_types::ExecutionWorld()) {
+    out.world = extensions::api::extension_types::ParseExecutionWorld(*execution_world_as_string);
+    if (out.world == extensions::api::extension_types::ExecutionWorld()) {
       return false;
     }
   }
@@ -429,7 +429,7 @@ base::Value::Dict SerializedUserScript::ToValue() const {
     to_value_result.Set("matchOriginAsFallback", *this->match_origin_as_fallback);
 
   }
-  if (this->run_at != extension_types::RunAt()) {
+  if (this->run_at != extensions::api::extension_types::RunAt()) {
     to_value_result.Set("runAt", extension_types::ToString(this->run_at));
 
   }

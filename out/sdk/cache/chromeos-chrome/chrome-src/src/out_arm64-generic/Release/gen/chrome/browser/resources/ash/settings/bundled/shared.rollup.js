@@ -7,10 +7,10 @@ import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { PortalState, ConnectionStateType, DeviceStateType, NetworkType, OncSource, PolicySource, IPConfigType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { getESimManagerRemote, observeESimManager } from 'chrome://resources/ash/common/cellular_setup/mojo_interface_provider.js';
+import { TriState, AppTypeSpec, PermissionTypeSpec, PermissionSpec, PermissionType, AppType, PageCallbackRouter as PageCallbackRouter$3, PageHandlerRemote as PageHandlerRemote$3, PageHandlerFactory as PageHandlerFactory$2, InstallReason, InstallSource, WindowMode } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import { ActivationStateType, InhibitReason, SecurityType, VpnType, ProxyMode, AuthenticationType, MatchType, HiddenSsidMode, SubjectAltName_Type, CrosNetworkConfigObserverReceiver, FilterType, NO_LIMIT, ApnAuthenticationType, ApnIpType, ApnType, ApnState } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
 import { PinFactorEditor, ConfigureResult, AuthFactorConfig, RecoveryFactorEditor } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
-import { PageCallbackRouter as PageCallbackRouter$3, PageHandlerRemote as PageHandlerRemote$3, PageHandlerFactory as PageHandlerFactory$2, TriState, PermissionType, AppType, InstallReason, InstallSource, WindowMode, AppTypeSpec, PermissionTypeSpec, PermissionSpec } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import { Visibility, NearbyShareSettings, NearbyShareSettingsObserverReceiver, DeviceNameValidationResult, ContactManager, DownloadContactsObserverReceiver, DataUsage, FastInitiationNotificationState } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_settings.mojom-webui.js';
 import { ShareTargetType, ShareTargetTypeSpec } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
@@ -1148,6 +1148,8 @@ const CHROME_VOX_SUBPAGE_PATH = "textToSpeech/chromeVox";
 const AUDIO_AND_CAPTIONS_SUBPAGE_PATH = "audioAndCaptions";
 const TEXT_TO_SPEECH_SUBPAGE_PATH = "manageAccessibility/tts";
 const SWITCH_ACCESS_OPTIONS_SUBPAGE_PATH = "manageAccessibility/switchAccess";
+const FACE_GAZE_CURSOR_SETTINGS_SUBPAGE_PATH = "manageAccessibility/faceGazeCursor";
+const FACE_GAZE_FACIAL_EXPRESSIONS_SETTINGS_SUBPAGE_PATH = "manageAccessibility/faceGazeExpressions";
 const RESET_SECTION_PATH = "osReset";
 const ABOUT_CHROME_OS_SECTION_PATH = "help";
 const DETAILED_BUILD_INFO_SUBPAGE_PATH = "help/details";
@@ -1272,6 +1274,8 @@ var Subpage;
     Subpage[Subpage["kAudioAndCaptions"] = 1509] = "kAudioAndCaptions";
     Subpage[Subpage["kSelectToSpeak"] = 1510] = "kSelectToSpeak";
     Subpage[Subpage["kChromeVox"] = 1511] = "kChromeVox";
+    Subpage[Subpage["kFaceGazeCursorSettings"] = 1512] = "kFaceGazeCursorSettings";
+    Subpage[Subpage["kFaceGazeFacialExpressionsSettings"] = 1513] = "kFaceGazeFacialExpressionsSettings";
     Subpage[Subpage["kDetailedBuildInfo"] = 1701] = "kDetailedBuildInfo";
     Subpage[Subpage["kKerberosAccountsV2"] = 1800] = "kKerberosAccountsV2";
 })(Subpage || (Subpage = {}));
@@ -1321,6 +1325,8 @@ var routesMojom = /*#__PURE__*/Object.freeze({
   EDIT_DICTIONARY_SUBPAGE_PATH: EDIT_DICTIONARY_SUBPAGE_PATH,
   ETHERNET_DETAILS_SUBPAGE_PATH: ETHERNET_DETAILS_SUBPAGE_PATH,
   EXTERNAL_STORAGE_SUBPAGE_PATH: EXTERNAL_STORAGE_SUBPAGE_PATH,
+  FACE_GAZE_CURSOR_SETTINGS_SUBPAGE_PATH: FACE_GAZE_CURSOR_SETTINGS_SUBPAGE_PATH,
+  FACE_GAZE_FACIAL_EXPRESSIONS_SETTINGS_SUBPAGE_PATH: FACE_GAZE_FACIAL_EXPRESSIONS_SETTINGS_SUBPAGE_PATH,
   FILES_SECTION_PATH: FILES_SECTION_PATH,
   FINGERPRINT_SUBPAGE_PATH_V2: FINGERPRINT_SUBPAGE_PATH_V2,
   GOOGLE_DRIVE_SUBPAGE_PATH: GOOGLE_DRIVE_SUBPAGE_PATH,
@@ -1596,6 +1602,8 @@ function createRoutes() {
     r.A11Y_SELECT_TO_SPEAK = createSubpage(r.A11Y_TEXT_TO_SPEECH, SELECT_TO_SPEAK_SUBPAGE_PATH, Subpage.kSelectToSpeak);
     r.MANAGE_TTS_SETTINGS = createSubpage(r.A11Y_TEXT_TO_SPEECH, TEXT_TO_SPEECH_SUBPAGE_PATH, Subpage.kTextToSpeech);
     r.MANAGE_SWITCH_ACCESS_SETTINGS = createSubpage(r.A11Y_KEYBOARD_AND_TEXT_INPUT, SWITCH_ACCESS_OPTIONS_SUBPAGE_PATH, Subpage.kSwitchAccessOptions);
+    r.MANAGE_FACEGAZE_CURSOR_SETTINGS = createSubpage(r.A11Y_CURSOR_AND_TOUCHPAD, FACE_GAZE_CURSOR_SETTINGS_SUBPAGE_PATH, Subpage.kFaceGazeCursorSettings);
+    r.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS = createSubpage(r.A11Y_CURSOR_AND_TOUCHPAD, FACE_GAZE_FACIAL_EXPRESSIONS_SETTINGS_SUBPAGE_PATH, Subpage.kFaceGazeFacialExpressionsSettings);
     // Privacy and Security section.
     r.OS_PRIVACY = createSection(r.BASIC, PRIVACY_AND_SECURITY_SECTION_PATH, Section.kPrivacyAndSecurity);
     r.LOCK_SCREEN = createSubpage(r.OS_PRIVACY, SECURITY_AND_SIGN_IN_SUBPAGE_PATH_V2, Subpage.kSecurityAndSignInV2);
@@ -2053,7 +2061,7 @@ function getSettingIdParameter() {
     return Router.getInstance().getQueryParameters().get(SETTING_ID_URL_PARAM_NAME);
 }
 
-function getTemplate$2f() {
+function getTemplate$2h() {
     return html `<!--_html_template_start_--><iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
   <slot></slot>
 </iron-pages>
@@ -2080,7 +2088,7 @@ class OsSettingsAnimatedPagesElement extends OsSettingsAnimatedPagesElementBase 
         return 'os-settings-animated-pages';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2h();
     }
     static get properties() {
         return {
@@ -3866,128 +3874,128 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
 
-function getTemplate$2e() {
+  return PaperRippleMixin;
+});
+
+function getTemplate$2g() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -4039,13 +4047,13 @@ function getTemplate$2e() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
@@ -4231,7 +4239,7 @@ styleMod$d.appendChild(html `
 `.content);
 styleMod$d.register('cr-input-style');
 
-function getTemplate$2d() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -4274,7 +4282,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -4789,6 +4797,9 @@ const template$e = html `
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
       </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
+      </g>
       
         <g id="banner-warning">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
@@ -5040,7 +5051,7 @@ const template$e = html `
 `;
 document.head.appendChild(template$e.content);
 
-function getTemplate$2c() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -5195,7 +5206,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -5696,9 +5707,9 @@ styleMod$c.register('search-highlight-style');
 
 const template$b = html `
 <style>
-html{--settings-error-color:var(--google-red-700);--iron-icon-fill-color:var(--google-grey-700);--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);--cr-radio-group-item-padding:0;--settings-menu-width:250px;--settings-menu-item-border-width:2px;--settings-row-min-height:var(--cr-section-min-height);--settings-toolbar-height:var(--cr-toolbar-height);--settings-toolbar-padding-inline-end:10px;--settings-toolbar-padding-inline-start:14px;--settings-toolbar-padding-inline-start-narrow:14px;--settings-toolbar-padding-top:var(--cr-toolbar-padding-top);--settings-toolbar-search-box-height:40px;--settings-toolbar-search-box-width:480px;--settings-toolbar-narrow-search-box-width:680px;--settings-toolbar-search-field-border-radius:20px}body.revamp-wayfinding-enabled{--settings-container-padding-top:8px;--settings-menu-item-width:256px;--settings-menu-padding-inline-end:16px;--settings-menu-padding-inline-start:16px;--settings-menu-padding-top:16px;--settings-menu-width:calc(var(--settings-menu-item-width) +
+html{--settings-error-color:var(--google-red-700);--iron-icon-fill-color:var(--google-grey-700);--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);--cr-radio-group-item-padding:0;--settings-base-bg-color:var(--cros-sys-app_base_shaded);--settings-menu-width:250px;--settings-menu-item-border-width:2px;--settings-row-min-height:var(--cr-section-min-height);--settings-toolbar-height:var(--cr-toolbar-height);--settings-toolbar-padding-inline-end:10px;--settings-toolbar-padding-inline-start:14px;--settings-toolbar-padding-inline-start-narrow:14px;--settings-toolbar-padding-top:var(--cr-toolbar-padding-top);--settings-toolbar-search-box-height:40px;--settings-toolbar-search-box-width:480px;--settings-toolbar-narrow-search-box-width:680px;--settings-toolbar-search-field-border-radius:20px}html:has(body.revamp-wayfinding-enabled){--settings-base-bg-color:var(--cros-sys-surface3);--settings-menu-item-width:256px;--settings-menu-padding-inline-end:16px;--settings-menu-padding-inline-start:16px;--settings-menu-padding-top:16px;--settings-menu-width:calc(var(--settings-menu-item-width) +
       var(--settings-menu-padding-inline-end) +
-      var(--settings-menu-padding-inline-start));--settings-row-min-height:64px;--settings-toolbar-height:72px;--settings-toolbar-padding-inline-end:16px;--settings-toolbar-padding-inline-start:32px;--settings-toolbar-padding-inline-start-narrow:16px;--settings-toolbar-padding-top:0;--settings-toolbar-search-box-height:48px;--settings-toolbar-narrow-search-box-width:512px;--settings-toolbar-search-field-border-radius:24px}@media (prefers-color-scheme:dark){html{--iron-icon-fill-color:var(--google-grey-500);--settings-error-color:var(--google-red-300)}}
+      var(--settings-menu-padding-inline-start));--settings-row-min-height:64px;--settings-toolbar-height:72px;--settings-toolbar-padding-inline-end:16px;--settings-toolbar-padding-inline-start:32px;--settings-toolbar-padding-inline-start-narrow:16px;--settings-toolbar-padding-top:0;--settings-toolbar-search-box-height:48px;--settings-toolbar-narrow-search-box-width:512px;--settings-toolbar-search-field-border-radius:24px}@media (prefers-color-scheme:dark){html{--iron-icon-fill-color:var(--google-grey-500);--settings-error-color:var(--google-red-300)}html:has(body.revamp-wayfinding-enabled){--settings-base-bg-color:var(--cros-sys-app_base_shaded)}}
 </style>
 `;
 document.head.appendChild(template$b.content);
@@ -5707,7 +5718,7 @@ const styleMod$b = document.createElement('dom-module');
 styleMod$b.appendChild(html `
   <template>
     <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
@@ -5717,14 +5728,14 @@ const styleMod$a = document.createElement('dom-module');
 styleMod$a.appendChild(html `
   <template>
     <style include="cr-shared-style search-highlight-style cros-color-overrides">
-a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;color:var(--cr-secondary-text-color);display:flex;font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{flex-shrink:0}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}iron-list{user-select:none}iron-list[risk-selection]{user-select:text}.separator+cr-icon-button{margin-inline-start:var(--cr-icon-ripple-margin)}.settings-box settings-toggle-button cr-button:last-of-type{margin-inline-end:16px}.settings-box controlled-button+controlled-button,.settings-box controlled-button+cr-button,.settings-box cr-button+controlled-button,.settings-box cr-button+cr-button{margin-inline-start:8px}a[href]{color:var(--cr-link-color)}.inherit-color{color:inherit!important}.primary-toggle{color:var(--cr-secondary-text-color);font-weight:500}.primary-toggle[checked]{color:var(--google-blue-500)}collapse-radio-button,controlled-radio-button,cr-radio-button{min-height:var(--cr-section-min-height)}cr-radio-group{width:100%}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-min-width{min-width:0}.header-aligned-button{margin-top:12px}.link-wrapper{align-items:center;display:flex;flex-grow:1}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.list-item{align-items:center;display:flex;min-height:var(--cr-section-min-height);padding:0}.list-item.underbar{border-bottom:var(--cr-separator-line)}.list-item.selected{font-weight:500}.list-item .middle{flex:1;margin:8px 16px}.list-item>.start{flex:1}.list-button[is=action-link]{align-items:center;display:flex;flex:1;font-weight:500;min-height:inherit}:host-context(html:not(.focus-outline-visible)) .list-button[is=action-link]{outline:0}.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--settings-row-min-height);padding:0 var(--cr-section-padding)}:host-context(body.revamp-wayfinding-enabled) cr-link-row,:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{min-height:var(--settings-row-min-height)}.settings-box.no-padding{padding:0}.settings-box.no-padding .margin-matches-padding{margin:0 var(--cr-section-padding)}.settings-box.no-padding>.link-wrapper{padding:0 var(--cr-section-padding)}.settings-box.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box-text{box-sizing:border-box;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);padding-inline-end:20px}.settings-box.continuation,.settings-box.first{border-top:none}h2.first{padding-top:0}.settings-box.block{display:block}.single-column{align-items:flex-start;flex-direction:column;justify-content:center}.settings-box.line-only{min-height:0}.settings-box.embedded{padding-inline-start:var(--cr-section-indent-padding)}.secondary{color:var(--cr-secondary-text-color);font-weight:400}.secondary:empty{margin:0}.settings-box .middle{align-items:center;flex:auto;padding-inline-start:16px}.settings-box .middle.two-line,.settings-box .start.two-line{display:flex}.settings-box .start{align-items:center;flex:auto}.settings-row{align-items:center;display:flex;flex-direction:row;max-width:100%;min-width:0}.no-outline{background:0 0;outline:0}.list-item,[scrollable],iron-list{--cr-icon-button-margin-end:0}.vertical-list>:not(:first-of-type){border-top:var(--cr-separator-line)}.separator{border-inline-start:var(--cr-separator-line);flex-shrink:0;height:32px;margin:0 16px}.settings-box.no-padding>.link-wrapper~.separator{margin:0}.column-header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:400}.error-message{color:#fff;font:13px;padding-bottom:15px;padding-top:15px;text-align:center;white-space:normal}.url-directionality{direction:ltr;unicode-bidi:embed}cr-dialog>[slot=title]{font:var(--cros-title-1-font)}controlled-button,cr-button{font:var(--cros-button-2-font)}:host-context(body.revamp-wayfinding-enabled) cr-link-row{--cr-link-row-start-icon-color:var(--cros-sys-primary)}
+a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;color:var(--cr-secondary-text-color);display:flex;font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{flex-shrink:0}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}iron-list{user-select:none}iron-list[risk-selection]{user-select:text}.separator+cr-icon-button{margin-inline-start:var(--cr-icon-ripple-margin)}.settings-box settings-toggle-button cr-button:last-of-type{margin-inline-end:16px}.settings-box controlled-button+controlled-button,.settings-box controlled-button+cr-button,.settings-box cr-button+controlled-button,.settings-box cr-button+cr-button{margin-inline-start:8px}a[href]{color:var(--cr-link-color)}settings-toggle-button.primary-toggle{color:var(--cros-sys-on_surface_variant);font:var(--cros-button-2-font)}settings-toggle-button.primary-toggle[checked]{color:var(--cros-sys-primary)}collapse-radio-button,controlled-radio-button,cr-radio-button{min-height:var(--cr-section-min-height)}cr-radio-group{width:100%}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-min-width{min-width:0}.link-wrapper{align-items:center;display:flex;flex-grow:1}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.list-item{align-items:center;display:flex;min-height:var(--cr-section-min-height);padding:0}.list-item.underbar{border-bottom:var(--cr-separator-line)}.list-item.selected{font-weight:500}.list-item .middle{flex:1;margin:8px 16px}.list-item>.start{flex:1}.list-button[is=action-link]{align-items:center;display:flex;flex:1;font-weight:500;min-height:inherit}:host-context(html:not(.focus-outline-visible)) .list-button[is=action-link]{outline:0}.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--settings-row-min-height);padding:0 var(--cr-section-padding)}:host-context(body.revamp-wayfinding-enabled) cr-link-row,:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{min-height:var(--settings-row-min-height)}.settings-box.no-padding{padding:0}.settings-box.no-padding .margin-matches-padding{margin:0 var(--cr-section-padding)}.settings-box.no-padding>.link-wrapper{padding:0 var(--cr-section-padding)}.settings-box.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box-text{box-sizing:border-box;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);padding-inline-end:20px}.settings-box.continuation,.settings-box.first{border-top:none}h2.first{padding-top:0}.settings-box.block{display:block}.single-column{align-items:flex-start;flex-direction:column;justify-content:center}.settings-box.line-only{min-height:0}.settings-box.embedded{padding-inline-start:var(--cr-section-indent-padding)}.secondary{color:var(--cr-secondary-text-color);font-weight:400}.secondary:empty{margin:0}.settings-box .middle{align-items:center;flex:auto;padding-inline-start:16px}.settings-box .middle.two-line,.settings-box .start.two-line{display:flex}.settings-box .start{align-items:center;flex:auto}.settings-row{align-items:center;display:flex;flex-direction:row;max-width:100%;min-width:0}.no-outline{background:0 0;outline:0}.list-item,[scrollable],iron-list{--cr-icon-button-margin-end:0}.vertical-list>:not(:first-of-type){border-top:var(--cr-separator-line)}.separator{border-inline-start:var(--cr-separator-line);flex-shrink:0;height:32px;margin:0 16px}.settings-box.no-padding>.link-wrapper~.separator{margin:0}.error-message{color:#fff;font:13px;padding-bottom:15px;padding-top:15px;text-align:center;white-space:normal}cr-dialog>[slot=title]{font:var(--cros-title-1-font)}controlled-button,cr-button{font:var(--cros-button-2-font)}:host-context(body.revamp-wayfinding-enabled) cr-link-row{--cr-link-row-start-icon-color:var(--cros-sys-primary)}
     </style>
   </template>
 `.content);
 styleMod$a.register('settings-shared');
 
-function getTemplate$2b() {
-    return html `<!--_html_template_start_--><style>:host{--settings-card-border-radius:var(--cr-card-border-radius);display:flex;flex-direction:column;outline:0;position:relative}:host-context(body.revamp-wayfinding-enabled):host{--settings-card-border-radius:16px;margin-bottom:16px}:host-context(body.revamp-wayfinding-enabled) #header{margin:0;padding:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #headerText{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #headerText{color:var(--cros-sys-primary);font:var(--cros-button-2-font);margin:0;outline:0;padding:0}#card{background-color:var(--cros-sys-app_base);border-radius:var(--settings-card-border-radius);flex:1;overflow:hidden}:host-context(body:not(.revamp-wayfinding-enabled)) #card{box-shadow:var(--cr-card-shadow)}</style>
+function getTemplate$2d() {
+    return html `<!--_html_template_start_--><style>:host{--settings-card-bg-color:var(--cros-sys-app_base);--settings-card-border-radius:var(--cr-card-border-radius);display:flex;flex-direction:column;outline:0;position:relative}:host-context(body.revamp-wayfinding-enabled):host{--settings-card-border-radius:16px;margin-bottom:16px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled):host{--settings-card-bg-color:var(--cros-sys-surface1)}}:host-context(body.revamp-wayfinding-enabled) #header{margin:0;padding:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #headerText{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #headerText{color:var(--cros-sys-primary);font:var(--cros-button-2-font);margin:0;outline:0;padding:0}#card{background-color:var(--settings-card-bg-color);border-radius:var(--settings-card-border-radius);flex:1;overflow:hidden}:host-context(body:not(.revamp-wayfinding-enabled)) #card{box-shadow:var(--cr-card-shadow)}</style>
 <template is="dom-if" if="[[headerText]]" restamp>
   <div id="header">
     <h2 id="headerText" tabindex="-1">
@@ -5756,7 +5767,7 @@ class SettingsCardElement extends PolymerElement {
         return 'settings-card';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -6307,13 +6318,13 @@ class EventTracker {
 // found in the LICENSE file.
 // clang-format off
 // clang-format on
-let hideInk$1 = false;
+let hideInk = false;
 assert$1(!isIOS, 'pointerdown doesn\'t work on iOS');
 document.addEventListener('pointerdown', function () {
-    hideInk$1 = true;
+    hideInk = true;
 }, true);
 document.addEventListener('keydown', function () {
-    hideInk$1 = false;
+    hideInk = false;
 }, true);
 /**
  * Attempts to track whether focus outlines should be shown, and if they
@@ -6321,10 +6332,10 @@ document.addEventListener('keydown', function () {
  * This is helpful when a user is clicking/touching, because it's not super
  * helpful to show focus ripples in that case. This is Polymer-specific.
  */
-function focusWithoutInk$1(toFocus) {
+function focusWithoutInk(toFocus) {
     // |toFocus| does not have a 'noink' property, so it's unclear whether the
     // element has "ink" and/or whether it can be suppressed. Just focus().
-    if (!('noink' in toFocus) || !hideInk$1) {
+    if (!('noink' in toFocus) || !hideInk) {
         toFocus.focus();
         return;
     }
@@ -6399,23 +6410,21 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$2a() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--settings-subpage-min-height:calc(100vh - var(--settings-toolbar-height));background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);box-sizing:border-box;display:block;min-height:var(--settings-subpage-min-height);padding-bottom:60px}:host-context(body.revamp-wayfinding-enabled):host{--settings-subpage-margin-bottom:16px;--settings-subpage-min-height:calc(100vh - var(--settings-toolbar-height)
-        - var(--settings-container-padding-top)
-        - var(--settings-subpage-margin-bottom));background-color:var(--settings-content-backdrop-bg-color);border-radius:16px;box-shadow:none;margin-bottom:var(--settings-subpage-margin-bottom);min-height:var(--settings-subpage-min-height);padding-bottom:16px;padding-inline-end:16px;padding-inline-start:16px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageHeader>h1{flex:1;font:var(--cros-button-1-font)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#closeButton{margin-inline-end:10px;margin-inline-start:-10px}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{margin-inline-start:16px}</style>
+function getTemplate$2c() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block}:host-context(body:not(.revamp-wayfinding-enabled)):host{background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);min-height:calc(100vh - var(--settings-toolbar-height));padding-bottom:60px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageTitle{flex:1;font:var(--cros-button-1-font)}:host-context(body.revamp-wayfinding-enabled) #subpageTitle{color:var(--cros-sys-primary)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#backButton{margin-inline-end:10px;margin-inline-start:-10px}:host-context(body.revamp-wayfinding-enabled) #backButton{--cr-icon-button-fill-color:var(--cros-sys-primary)}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{--cr-search-field-input-width:200px;margin-inline-start:16px}:host-context(body.revamp-wayfinding-enabled) #searchField::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_shaded)}</style>
 <div id="subpageHeader" class="cr-row first">
-  <cr-icon-button id="closeButton" class="icon-arrow-back" hidden="[[hideCloseButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
+  <cr-icon-button id="backButton" class="icon-arrow-back" hidden="[[hideBackButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
   </cr-icon-button>
   <template is="dom-if" if="[[titleIcon]]">
     <img id="titleIcon" src="[[titleIcon]]" aria-hidden="true">
   </template>
-  <h1 class="cr-title-text">[[pageTitle]]</h1>
+  <h1 id="subpageTitle">[[pageTitle]]</h1>
   <template is="dom-if" if="[[learnMoreUrl]]">
     <cr-icon-button iron-icon="cr:help-outline" dir="ltr" aria-label="[[getLearnMoreAriaLabel_(pageTitle)]]" on-click="onHelpClick_">
     </cr-icon-button>
   </template>
   <template is="dom-if" if="[[searchLabel]]">
-    <cr-search-field label="[[searchLabel]]" on-search-changed="onSearchChanged_" clear-label="$i18n{clearSearch}">
+    <cr-search-field id="searchField" label="[[searchLabel]]" on-search-changed="onSearchChanged_" clear-label="$i18n{clearSearch}">
     </cr-search-field>
   </template>
   <template is="dom-if" if="[[showSpinner]]">
@@ -6450,7 +6459,7 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
         return 'os-settings-subpage';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -6479,9 +6488,10 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
                 value: '',
             },
             /**
-             * Whether we should hide the "close" button to get to the previous page.
+             * Whether the back button, which goes to the previous page, should be
+             * hidden.
              */
-            hideCloseButton: {
+            hideBackButton: {
                 type: Boolean,
                 value: false,
             },
@@ -6568,10 +6578,10 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
     }
     /** Focuses the back button when page is loaded. */
     focusBackButton() {
-        if (this.hideCloseButton) {
+        if (this.hideBackButton) {
             return;
         }
-        afterNextRender(this, () => focusWithoutInk$1(this.$.closeButton));
+        afterNextRender(this, () => focusWithoutInk(this.$.backButton));
     }
     currentRouteChanged(newRoute, oldRoute) {
         this.active_ = this.getAttribute('route-path') === newRoute.path;
@@ -9443,7 +9453,7 @@ class GuestOsBrowserProxyImpl {
     }
 }
 
-function getTemplate$29() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div class="settings-box first">
   <div role="text">
@@ -9509,7 +9519,7 @@ class SettingsGuestOsSharedPathsElement extends SettingsGuestOsSharedPathsElemen
         return 'settings-guest-os-shared-paths';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -9679,7 +9689,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$28() {
+function getTemplate$2a() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -9709,13 +9719,13 @@ function getTemplate$28() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -9875,7 +9885,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -9889,7 +9899,7 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$27() {
+function getTemplate$29() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -9920,7 +9930,7 @@ function getTemplate$27() {
  * intentional.
  */
 const MOVE_THRESHOLD_PX = 5;
-const CrToggleElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrToggleElementBase = PaperRippleMixin(PolymerElement);
 class CrToggleElement extends CrToggleElementBase {
     constructor() {
         super(...arguments);
@@ -9936,7 +9946,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -10079,7 +10089,7 @@ class CrToggleElement extends CrToggleElementBase {
             this.toggleState_(/* fromKeyboard= */ true);
         }
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.knob;
@@ -10723,7 +10733,7 @@ Polymer({
   }
 });
 
-function getTemplate$26() {
+function getTemplate$28() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -10740,7 +10750,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -10760,7 +10770,7 @@ class CrTooltipIconElement extends PolymerElement {
 }
 customElements.define(CrTooltipIconElement.is, CrTooltipIconElement);
 
-function getTemplate$25() {
+function getTemplate$27() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip_]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]">
     </cr-tooltip-icon>
@@ -10905,7 +10915,7 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
         return 'cr-policy-indicator';
     }
     static get template() {
-        return getTemplate$25();
+        return getTemplate$27();
     }
     static get properties() {
         return {
@@ -11061,7 +11071,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$24() {
+function getTemplate$26() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
     <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
@@ -11116,7 +11126,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$24();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -11364,7 +11374,7 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-function getTemplate$23() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -11396,7 +11406,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$23();
+        return getTemplate$25();
     }
     static get properties() {
         return {
@@ -11683,7 +11693,7 @@ styleMod$9.appendChild(html `
 `.content);
 styleMod$9.register('md-select');
 
-function getTemplate$22() {
+function getTemplate$24() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select"></style>
 <label class="cr-form-field-label">Container</label>
 <select id="selectContainer" class="md-select" value="containerLabel_(containerId)" on-change="onSelectContainer_">
@@ -11718,7 +11728,7 @@ class ContainerSelectElement extends PolymerElement {
         return 'settings-guest-os-container-select';
     }
     static get template() {
-        return getTemplate$22();
+        return getTemplate$24();
     }
     static get properties() {
         return {
@@ -12017,7 +12027,7 @@ class FocusRow {
     }
 }
 
-function getTemplate$21() {
+function getTemplate$23() {
     return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
             var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
                 var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
@@ -12106,7 +12116,7 @@ class CrActionMenuElement extends PolymerElement {
         return 'cr-action-menu';
     }
     static get template() {
-        return getTemplate$21();
+        return getTemplate$23();
     }
     static get properties() {
         return {
@@ -12235,7 +12245,7 @@ class CrActionMenuElement extends PolymerElement {
         this.open = false;
         if (this.anchorElement_) {
             assert$1(this.anchorElement_);
-            focusWithoutInk$1(this.anchorElement_);
+            focusWithoutInk(this.anchorElement_);
             this.anchorElement_ = null;
         }
         if (this.lastConfig_) {
@@ -12729,8 +12739,8 @@ Polymer({
   }
 });
 
-function getTemplate$20() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+function getTemplate$22() {
+    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
             var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
@@ -12753,7 +12763,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$20();
+        return getTemplate$22();
     }
     static get properties() {
         return {
@@ -12830,7 +12840,7 @@ styleMod$8.appendChild(html `
 `.content);
 styleMod$8.register('action-link');
 
-function getTemplate$1$() {
+function getTemplate$21() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
     </cr-tooltip-icon>
@@ -12850,7 +12860,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
         return 'cr-policy-pref-indicator';
     }
     static get template() {
-        return getTemplate$1$();
+        return getTemplate$21();
     }
     static get properties() {
         return {
@@ -13601,7 +13611,7 @@ const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
     return SettingsBooleanControlMixin;
 });
 
-function getTemplate$1_() {
+function getTemplate$20() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style iron-flex action-link cros-color-overrides">:host{--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding)}:host([elide-label]),:host([elide-label]) #outerRow,:host([elide-label]) #outerRow>div.flex{min-width:0}:host([elide-label]) .label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#outerRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);width:100%}#outerRow[noSubLabel]{min-height:var(--cr-section-min-height)}#icon{margin-inline-end:var(--cr-icon-button-margin-end)}#labelWrapper{padding:var(--cr-section-vertical-padding) 0}#labelWrapper,::slotted([slot=more-actions]){margin-inline-end:20px!important}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}a{color:var(--cr-link-color)}</style>
 <div id="outerRow" nosublabel$="[[!subLabel]]">
   <template is="dom-if" if="[[icon]]">
@@ -13660,7 +13670,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
         return 'settings-toggle-button';
     }
     static get template() {
-        return getTemplate$1_();
+        return getTemplate$20();
     }
     static get properties() {
         return {
@@ -13731,6 +13741,11 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
     getLearnMoreAriaLabelledBy_() {
         return this.learnMoreAriaLabel ? 'learn-more-aria-label' :
             'sub-label-text learn-more';
+    }
+    getBubbleAnchor() {
+        const anchor = this.shadowRoot.querySelector('#control');
+        assert$1(anchor);
+        return anchor;
     }
     onDisableOrPrefChange_() {
         this.toggleAttribute('effectively-disabled_', this.controlDisabled());
@@ -13852,11 +13867,32 @@ const PrefsMixin = dedupingMixin((superClass) => {
                 this.splice(`prefs.${key}.value`, index, 1);
             }
         }
+        /**
+         * Updates the entry in the pref dictionary to the new key value pair.
+         * Asserts if the pref itself is not found or is not a dictionary type.
+         */
+        setPrefDictEntry(prefPath, key, value) {
+            const pref = this.getPref(prefPath);
+            assert$1(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            pref.value[key] = value;
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
+        /**
+         * Deletes the given key from the pref dictionary if it is
+         * found. Asserts if the pref itself is not found or is not a dictionary
+         * type.
+         */
+        deletePrefDictEntry(prefPath, key) {
+            const pref = this.getPref(prefPath);
+            assert$1(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            delete pref.value[key];
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
     }
     return PrefsMixin;
 });
 
-function getTemplate$1Z() {
+function getTemplate$1$() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">#selectDevice{width:100%}.custom-body{padding-bottom:20px}.custom-button-container{float:right}.input-container{padding-bottom:10px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{guestOsSharedUsbDevicesAddTitle}</div>
@@ -13926,7 +13962,7 @@ class GuestOsSharedUsbDevicesAddDialog extends GuestOsSharedUsbDevicesAddDialogE
         return 'settings-guest-os-shared-usb-devices-add-dialog';
     }
     static get template() {
-        return getTemplate$1Z();
+        return getTemplate$1$();
     }
     static get properties() {
         return {
@@ -14011,7 +14047,7 @@ class GuestOsSharedUsbDevicesAddDialog extends GuestOsSharedUsbDevicesAddDialogE
 }
 customElements.define(GuestOsSharedUsbDevicesAddDialog.is, GuestOsSharedUsbDevicesAddDialog);
 
-function getTemplate$1Y() {
+function getTemplate$1_() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.toggle-container{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between}#selectDevice{width:100%}</style>
 <div class="settings-box first">
   <div class="settings-box-text">
@@ -14112,7 +14148,7 @@ class SettingsGuestOsSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDev
         return 'settings-guest-os-shared-usb-devices';
     }
     static get template() {
-        return getTemplate$1Y();
+        return getTemplate$1_();
     }
     static get properties() {
         return {
@@ -14263,7 +14299,7 @@ styleMod$7.appendChild(html `
 `.content);
 styleMod$7.register('cr-actionable-row-style');
 
-function getTemplate$1X() {
+function getTemplate$1Z() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -14303,7 +14339,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$1X();
+        return getTemplate$1Z();
     }
     static get properties() {
         return {
@@ -14366,7 +14402,7 @@ class CrLinkRowElement extends PolymerElement {
 }
 customElements.define(CrLinkRowElement.is, CrLinkRowElement);
 
-function getTemplate$1W() {
+function getTemplate$1Y() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--cr-slider-active-color:var(--google-blue-600);--cr-slider-container-color:rgba(var(--google-blue-600-rgb), .24);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .24);--cr-slider-disabled-color:var(--google-grey-600);--cr-slider-knob-color-rgb:var(--google-blue-600-rgb);--cr-slider-knob-disabled-color:white;--cr-slider-marker-active-color:rgba(255, 255, 255, .54);--cr-slider-marker-color:rgba(26, 115, 232, .54);--cr-slider-marker-disabled-color:rgba(128, 134, 139, .54);--cr-slider-position-transition:80ms ease;--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .25);-webkit-tap-highlight-color:transparent;cursor:default;height:32px;isolation:isolate;outline:0;padding:0 16px;user-select:none}@media (prefers-color-scheme:dark){:host{--cr-slider-active-color:var(--google-blue-300);--cr-slider-container-color:rgba(var(--google-blue-500-rgb), .48);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .48);--cr-slider-knob-color-rgb:var(--google-blue-300-rgb);--cr-slider-knob-disabled-color:var(--google-grey-900-white-4-percent);--cr-slider-marker-active-color:var(--google-blue-300);--cr-slider-marker-color:var(--google-blue-300);--cr-slider-marker-disabled-color:rgba(255, 255, 255, .54);--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .4)}}:host,:host>#container{touch-action:none}#bar,#container{border-top-style:solid;border-top-width:2px}#container{border-top-color:var(--cr-slider-container-color);position:relative;top:16px}#container>div{position:absolute}#bar,#markers{top:-2px}#markers{display:flex;flex-direction:row;left:0;pointer-events:none;right:0}.active-marker,.inactive-marker{flex:1}#markers::after,#markers::before,.active-marker::after,.inactive-marker::after{border-radius:50%;content:'';display:block;height:2px;margin-inline-start:-1px;width:2px}#markers::before,.active-marker::after{background-color:var(--cr-slider-marker-active-color)}#markers::after,.inactive-marker::after{background-color:var(--cr-slider-marker-color)}#bar{border-top-color:var(--cr-slider-active-color)}:host([transiting_]) #bar{transition:width var(--cr-slider-position-transition)}#knobAndLabel{top:-1px}:host([transiting_]) #knobAndLabel{transition:margin-inline-start var(--cr-slider-position-transition)}#knob{background-color:rgb(var(--cr-slider-knob-color-rgb));border-radius:50%;box-shadow:0 1px 3px 0 rgba(0,0,0,.4);height:10px;outline:0;position:relative;transform:translate(-50%,-50%);width:10px}:host([is-rtl_]) #knob{transform:translate(50%,-50%)}#label{background:rgb(var(--cr-slider-knob-color-rgb));border-radius:.75em;bottom:22px;color:#fff;font-size:12px;line-height:1.5em;opacity:0;outline:1px transparent solid;padding:0 .67em;position:absolute;transform:translateX(-50%);transition:opacity 80ms ease-in-out;white-space:nowrap}:host([is-rtl_]) #label{transform:translateX(50%)}:host(:hover) #label,:host([show-label_]) #label{opacity:1}paper-ripple{--paper-ripple-opacity:var(--cr-slider-ripple-opacity, 1);color:var(--cr-slider-ripple-color);height:var(--cr-slider-ripple-size,32px);pointer-events:none;transition:color linear 80ms;transform:translate(-50%,-50%);top:50%;left:50%;width:var(--cr-slider-ripple-size,32px);z-index:var(--cr-slider-ripple-z-index,auto)}:host([disabled_]){pointer-events:none}:host([disabled_]) #container{border-top-color:var(--cr-slider-container-disabled-color)}:host([disabled_]) #bar{border-top-color:var(--cr-slider-disabled-color)}:host([disabled_]) #markers::after,:host([disabled_]) .inactive-marker::after{background-color:var(--cr-slider-marker-disabled-color)}:host([disabled_]) #knob{background-color:var(--cr-slider-disabled-color);border:2px solid var(--cr-slider-knob-disabled-color);box-shadow:unset}</style>
     <div id="container" hidden part="container">
       <div id="bar"></div>
@@ -14402,7 +14438,7 @@ function getAriaValue(tick) {
     return sliderTick.ariaValue !== undefined ? sliderTick.ariaValue :
         sliderTick.value;
 }
-const CrSliderElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrSliderElementBase = PaperRippleMixin(PolymerElement);
 class CrSliderElement extends CrSliderElementBase {
     constructor() {
         super(...arguments);
@@ -14413,7 +14449,7 @@ class CrSliderElement extends CrSliderElementBase {
         return 'cr-slider';
     }
     static get template() {
-        return getTemplate$1W();
+        return getTemplate$1Y();
     }
     static get properties() {
         return {
@@ -14751,7 +14787,7 @@ class CrSliderElement extends CrSliderElementBase {
             ['ArrowRight', this.isRtl_ ? decrement : increment],
         ]);
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.knob;
@@ -14859,7 +14895,7 @@ const RouteOriginMixin = dedupingMixin((superClass) => {
                 element = config;
             }
             if (element) {
-                focusWithoutInk$1(element);
+                focusWithoutInk(element);
             }
         }
     }
@@ -14908,7 +14944,7 @@ function prefToString(pref) {
     }
 }
 
-function getTemplate$1V() {
+function getTemplate$1X() {
     return html `<!--_html_template_start_--><style include="md-select cros-color-overrides">:host{align-items:center;display:inline-flex}cr-policy-pref-indicator{height:var(--iron-icon-width,24px);margin:0 var(--cr-controlled-by-spacing);order:var(--settings-dropdown-menu-policy-order,0);width:var(--iron-icon-width,24px)}option:disabled{display:none}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -14944,7 +14980,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
         return 'settings-dropdown-menu';
     }
     static get template() {
-        return getTemplate$1V();
+        return getTemplate$1X();
     }
     static get properties() {
         return {
@@ -15020,7 +15056,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
             return;
         }
         const prefValue = this.prefStringValue_();
-        const option = this.menuOptions.find(function (menuItem) {
+        const option = this.menuOptions.find(menuItem => {
             return menuItem.value.toString() === prefValue;
         });
         // Wait for the dom-repeat to populate the <select> before setting
@@ -15089,7 +15125,7 @@ class TimeZoneBrowserProxyImpl {
     }
 }
 
-function getTemplate$1U() {
+function getTemplate$1W() {
     return html `<!--_html_template_start_--><style include="settings-shared">settings-dropdown-menu{--md-select-width:425px}#systemTimezoneSelector,#userTimeZoneSelector{--settings-dropdown-menu-policy-order:1}</style>
 <template is="dom-if" restamp if="[[!prefs.cros.flags.per_user_timezone_enabled.value]]">
   <settings-dropdown-menu pref="{{prefs.cros.system.timezone}}" label="$i18n{timeZone}" menu-options="[[timeZoneList_]]" disabled="[[prefs.generated.resolve_timezone_by_geolocation_on_off.value ||
@@ -15119,7 +15155,7 @@ class TimezoneSelectorElement extends TimezoneSelectorElementBase {
         return 'timezone-selector';
     }
     static get template() {
-        return getTemplate$1U();
+        return getTemplate$1W();
     }
     static get properties() {
         return {
@@ -15266,7 +15302,7 @@ class TimezoneSelectorElement extends TimezoneSelectorElementBase {
 }
 customElements.define(TimezoneSelectorElement.is, TimezoneSelectorElement);
 
-function getTemplate$1T() {
+function getTemplate$1V() {
     return html `<!--_html_template_start_--><style include="settings-shared">#timezoneSelectorContainer{padding-block-end:var(--cr-section-vertical-padding);padding-inline-start:var(--cr-section-indent-padding)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 <settings-card header-text="$i18n{dateTimePageTitle}">
   <template is="dom-if" if="[[!prefs.cros.flags.fine_grained_time_zone_detection_enabled.value]]" restamp>
@@ -15309,7 +15345,7 @@ class DateTimeSettingsCardElement extends DateTimeSettingsCardElementBase {
         return 'date-time-settings-card';
     }
     static get template() {
-        return getTemplate$1T();
+        return getTemplate$1V();
     }
     static get properties() {
         return {
@@ -16453,7 +16489,7 @@ const template$8 = html `
 `;
 document.head.appendChild(template$8.content);
 
-function getTemplate$1S() {
+function getTemplate$1U() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -16506,13 +16542,13 @@ function getTemplate$1S() {
  *  --cr-checkbox-size
  *  --cr-checkbox-unchecked-box-color
  */
-const CrCheckboxElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrCheckboxElementBase = PaperRippleMixin(PolymerElement);
 class CrCheckboxElement extends CrCheckboxElementBase {
     static get is() {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$1S();
+        return getTemplate$1U();
     }
     static get properties() {
         return {
@@ -16623,7 +16659,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         // :host shouldn't have a tabindex because it's set on #checkbox.
         this.removeAttribute('tabindex');
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.checkbox;
@@ -16649,10 +16685,24 @@ function stringToMojoString16(str) {
 }
 // Convert a Mojo String16 into a javascript string.
 function mojoString16ToString(str16) {
-    return String.fromCharCode(...str16.data);
+    // Taken from chunk size used in goog.crypt.byteArrayToBinaryString in Closure
+    // Library. The value is equal to 2^13.
+    const CHUNK_SIZE = 8192;
+    if (str16.data.length < CHUNK_SIZE) {
+        return String.fromCharCode(...str16.data);
+    }
+    // Convert the array to a string in chunks, to avoid passing too many
+    // arguments to String.fromCharCode() at once, which can exceed the max call
+    // stack size (c.f. crbug.com/1509792).
+    let str = '';
+    for (let i = 0; i < str16.data.length; i += CHUNK_SIZE) {
+        const chunk = str16.data.slice(i, i + CHUNK_SIZE);
+        str += String.fromCharCode(...chunk);
+    }
+    return str;
 }
 
-function getTemplate$1R() {
+function getTemplate$1T() {
     return html `<!--_html_template_start_--><style include="settings-shared">div{color:var(--cr-primary-text-color);margin-top:10px}#providerName{color:var(--cros-text-color-disabled)}</style>
 <div inner-h-t-m-l="[[getItemInnerHtml_(profileProperties_)]]">
 </div>
@@ -16673,7 +16723,7 @@ class OsSettingsPowerwashDialogEsimItemElement extends OsSettingsPowerwashDialog
         return 'os-settings-powerwash-dialog-esim-item';
     }
     static get template() {
-        return getTemplate$1R();
+        return getTemplate$1T();
     }
     static get properties() {
         return {
@@ -18192,7 +18242,7 @@ class OncMojo {
  */
 OncMojo.USE_ATTACH_APN_NAME = 'attach';
 
-function getTemplate$1Q() {
+function getTemplate$1S() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:400px}:host cr-checkbox{--cr-checkbox-label-color:var(--cr-secondary-text-color);--cr-checkbox-label-padding-start:12px;--cr-checkbox-unchecked-box-color:var(--cros-icon-color-primary)}iron-list{background-color:var(--cros-textfield-background-color);border-radius:4px;margin-top:8px;padding-bottom:8px}os-settings-powerwash-dialog-esim-item{height:32px;padding-inline-end:16px;padding-inline-start:16px}#profilesListContainer{margin-bottom:8px;margin-top:20px}#profilesListTitle{font-size:calc(14 / 13 * 100%)}#checkboxLabel{margin-top:16px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" ignore-enter-key>
   <template is="dom-if" if="[[shouldShowESimWarning_]]" restamp>
@@ -18273,7 +18323,7 @@ class OsSettingsPowerwashDialogElement extends PolymerElement {
         return 'os-settings-powerwash-dialog';
     }
     static get template() {
-        return getTemplate$1Q();
+        return getTemplate$1S();
     }
     static get properties() {
         return {
@@ -18315,7 +18365,7 @@ class OsSettingsPowerwashDialogElement extends PolymerElement {
         this.$.dialog.close();
     }
     onRestartClick_() {
-        recordSettingChange();
+        recordSettingChange(Setting.kPowerwash);
         LifetimeBrowserProxyImpl.getInstance().factoryReset(this.requestTpmFirmwareUpdate);
     }
     onContinueClick_() {
@@ -18492,7 +18542,7 @@ class AboutPageBrowserProxyImpl {
     }
 }
 
-function getTemplate$1P() {
+function getTemplate$1R() {
     return html `<!--_html_template_start_--><style>:host{background-color:var(--cr-card-background-color);border-radius:8px;box-shadow:var(--cr-card-shadow);display:flex;padding:16px}.image-container{background-color:var(--cros-illustration-color-1-shade-2);border-radius:50%;display:inline-block;height:40px;margin-inline-end:16px;width:40px}.inner-image{--iron-icon-fill-color:var(--cros-icon-color-prominent);padding:8px}.side-content{flex:1}.eol-offer-title{font-weight:500;margin-bottom:8px}.eol-offer-text{margin-bottom:8px}</style>
 <div class="image-container">
   <iron-icon class="inner-image" icon="os-settings:end-of-life-offer">
@@ -18520,7 +18570,7 @@ class EolOfferSection extends PolymerElement {
         return 'eol-offer-section';
     }
     static get template() {
-        return getTemplate$1P();
+        return getTemplate$1R();
     }
     static get properties() {
         return {
@@ -21629,7 +21679,7 @@ Polymer({
   }
 });
 
-function getTemplate$1O() {
+function getTemplate$1Q() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style">:host(:not([error-message-allowed])) cr-input{--cr-input-error-display:none}:host([opened_]) cr-input{--cr-input-border-radius:4px 4px 0 0}cr-input,iron-dropdown{width:var(--cr-searchable-drop-down-width,472px)}cr-input{--cr-input-padding-start:8px;isolation:auto}iron-dropdown{max-height:270px}iron-dropdown [slot=dropdown-content]{background-color:var(--cr-searchable-drop-down-bg-color,#fff);border-radius:0 0 4px 4px;box-shadow:var(--cr-searchable-drop-down-shadow,0 2px 6px var(--paper-grey-500));min-width:128px;padding:8px 0}#input-overlay{border-radius:4px;height:100%;left:0;overflow:hidden;pointer-events:none;position:absolute;top:0;width:100%}#dropdown-icon{--iron-icon-height:20px;--iron-icon-width:20px;margin-top:-10px;padding-inline-end:6px;position:absolute;right:0;top:50%}:host-context([dir=rtl]) #dropdown-icon{left:0;right:unset}cr-input:focus-within #dropdown-icon{--iron-icon-fill-color:var(--cr-searchable-drop-down-icon-color-focus,
           var(--google-blue-600))}#input-box{height:100%;left:0;pointer-events:none;top:0;width:100%}#dropdown-box{pointer-events:initial;width:100%}#loading-box{align-items:center;box-sizing:border-box;display:flex;height:32px;padding:0 8px;text-align:start;width:100%}#loading-box div{font-size:12px;padding:0 16px}#loading-box paper-spinner-lite{--paper-spinner-color:var(--cr-searchable-drop-down-spinner-color,
           var(--google-blue-600));--paper-spinner-stroke-width:2px;height:16px;width:16px}.list-item{background:0 0;border:none;box-sizing:border-box;color:var(--cr-searchable-drop-down-list-item-color,var(--paper-grey-900));font:inherit;min-height:32px;padding:0 8px;text-align:start;width:100%}.list-item[selected_]{background-color:var(--cr-searchable-drop-down-list-bg-color-selected,rgba(0,0,0,.04));outline:0}.list-item:active{background-color:var(--cr-searchable-drop-down-list-bg-color-active,rgba(0,0,0,.12));outline:0}</style>
@@ -21684,7 +21734,7 @@ class CrSearchableDropDownElement extends PolymerElement {
         return 'cr-searchable-drop-down';
     }
     static get template() {
-        return getTemplate$1O();
+        return getTemplate$1Q();
     }
     static get properties() {
         return {
@@ -23761,8 +23811,6 @@ const TOUCH_TARGET_SIZE = css `48px`;
 const RIPPLE_SIZE = css `40px`;
 /**
  * A ChromeOS compliant checkbox.
- * See spec
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2796%3A12821&t=yiSJIVSrbtOP4ZCo-0
  */
 class Checkbox extends LitElement {
     /** @nocollapse */
@@ -24311,7 +24359,7 @@ var WebUIListenerBehavior = {
   },
 };
 
-function getTemplate$1N() {
+function getTemplate$1P() {
   return html`<!--_html_template_start_-->    <style include="cr-shared-style md-select">
       cr-dialog::part(dialog) {
         background-color: var(--cros-sys-dialog_container);
@@ -24647,7 +24695,7 @@ const SMB_SHARE_URL_REGEX =
 Polymer({
   is: 'add-smb-share-dialog',
 
-  _template: getTemplate$1N(),
+  _template: getTemplate$1P(),
 
   behaviors: [I18nBehavior, WebUIListenerBehavior],
 
@@ -25007,7 +25055,7 @@ Polymer({
   },
 });
 
-function getTemplate$1M() {
+function getTemplate$1O() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{--justify-margin:8px;align-items:center;display:flex}:host([enforced_]){pointer-events:none}cr-policy-pref-indicator{pointer-events:all}:host(:not([end-justified])) cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}:host([end-justified]) cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing);margin-inline-start:calc(var(--cr-controlled-by-spacing) - var(--justify-margin));order:-1}</style>
 
 <cr-button class$="[[actionClass_]]" disabled="[[!buttonEnabled_(enforced_, disabled)]]">
@@ -25030,7 +25078,7 @@ class ControlledButtonElement extends ControlledButtonElementBase {
         return 'controlled-button';
     }
     static get template() {
-        return getTemplate$1M();
+        return getTemplate$1O();
     }
     static get properties() {
         return {
@@ -25074,8 +25122,8 @@ class ControlledButtonElement extends ControlledButtonElementBase {
 }
 customElements.define(ControlledButtonElement.is, ControlledButtonElement);
 
-function getTemplate$1L() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #disconnectGoogleDriveAccountToggle{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#smbSharesIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
+function getTemplate$1N() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #disconnectGoogleDriveAccountToggle{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#smbSharesIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}#smbSharesTextContainer{flex:1}</style>
 
 <settings-card header-text="$i18n{filesPageTitle}">
   <cr-link-row id="googleDriveRow" start-icon="[[rowIcons_.googleDrive]]" on-click="onClickGoogleDrive_" label="$i18n{googleDriveLabel}" role-description="$i18n{subpageArrowRoleDescription}">
@@ -25095,7 +25143,7 @@ function getTemplate$1L() {
       <div id="addSmbSharesRow" class="settings-box two-line">
         <iron-icon id="smbSharesIcon" icon="[[rowIcons_.smbShares]]">
         </iron-icon>
-        <div class="start">
+        <div id="smbSharesTextContainer" class="start">
           <div class="settings-box-text">
             <div>
               $i18n{smbSharesTitle}
@@ -25304,7 +25352,7 @@ class FilesSettingsCardElement extends FilesSettingsCardElementBase {
         return 'files-settings-card';
     }
     static get template() {
-        return getTemplate$1L();
+        return getTemplate$1N();
     }
     static get properties() {
         return {
@@ -25496,7 +25544,7 @@ class FilesSettingsCardElement extends FilesSettingsCardElementBase {
 }
 customElements.define(FilesSettingsCardElement.is, FilesSettingsCardElement);
 
-function getTemplate$1K() {
+function getTemplate$1M() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <settings-card header-text="[[getHeaderText_()]]">
@@ -26627,7 +26675,7 @@ class LanguageSettingsCardElement extends LanguageSettingsCardElementBase {
         return 'language-settings-card';
     }
     static get template() {
-        return getTemplate$1K();
+        return getTemplate$1M();
     }
     static get properties() {
         return {
@@ -27194,12 +27242,12 @@ const FocusRowMixin = dedupingMixin((superClass) => {
             // the first item in these cases.
             const restoreFocusToFirst = this.listBlurred && e.composedPath()[0] === this;
             if (this.lastFocused && !restoreFocusToFirst) {
-                focusWithoutInk$1(this.row_.getEquivalentElement(this.lastFocused));
+                focusWithoutInk(this.row_.getEquivalentElement(this.lastFocused));
             }
             else {
                 assert$1(this.firstControl_);
                 const firstFocusable = this.firstControl_;
-                focusWithoutInk$1(firstFocusable);
+                focusWithoutInk(firstFocusable);
             }
             this.listBlurred = false;
             this.isFocused = true;
@@ -27238,7 +27286,7 @@ const FocusRowMixin = dedupingMixin((superClass) => {
     return FocusRowMixin;
 });
 
-function getTemplate$1J() {
+function getTemplate$1L() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <settings-card header-text="$i18n{printingPageTitle}">
@@ -27266,7 +27314,7 @@ class PrintingSettingsCardElement extends PrintingSettingsCardElementBase {
         return 'printing-settings-card';
     }
     static get template() {
-        return getTemplate$1J();
+        return getTemplate$1L();
     }
     static get properties() {
         return {
@@ -27341,162 +27389,122 @@ customElements.define(PrintingSettingsCardElement.is, PrintingSettingsCardElemen
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 /**
  * Fetches the EUICC's eSIM profiles with status 'Pending'.
- * @param {!EuiccRemote} euicc
- * @return {!Promise<!Array<!ESimProfileRemote>>}
  */
-function getPendingESimProfiles(euicc) {
-  return euicc.getProfileList().then(response => {
-    return filterByProfileProperties_(response.profiles, properties => {
-      return properties.state === ProfileState.kPending;
+async function getPendingESimProfiles(euicc) {
+    const response = await euicc.getProfileList();
+    return filterByProfileProperties(response.profiles, properties => {
+        return properties.state === ProfileState.kPending;
     });
-  });
 }
-
 /**
  * Fetches the EUICC's eSIM profiles with status not 'Pending'.
- * @param {!EuiccRemote} euicc
- * @return {!Promise<!Array<!ESimProfileRemote>>}
  */
-function getNonPendingESimProfiles(euicc) {
-  return euicc.getProfileList().then(response => {
-    return filterByProfileProperties_(response.profiles, properties => {
-      return properties.state !== ProfileState.kPending;
+async function getNonPendingESimProfiles(euicc) {
+    const response = await euicc.getProfileList();
+    return filterByProfileProperties(response.profiles, properties => {
+        return properties.state !== ProfileState.kPending;
     });
-  });
 }
-
 /**
  * Filters each profile in profiles by callback, which is given the profile's
  * properties as an argument and returns true or false. Does not guarantee
  * that profiles retains the same order.
- * @private
- * @param {!Array<!ESimProfileRemote>} profiles
- * @param {function(ESimProfileProperties)}
- *     callback
- * @return {!Promise<Array<!ESimProfileRemote>>}
  */
-function filterByProfileProperties_(profiles, callback) {
-  const profilePromises = profiles.map(profile => {
-    return profile.getProperties().then(response => {
-      if (!callback(response.properties)) {
-        return null;
-      }
-      return profile;
-    });
-  });
-  return Promise.all(profilePromises).then(profiles => {
-    return profiles.filter(profile => {
-      return profile !== null;
-    });
-  });
+async function filterByProfileProperties(profiles, callback) {
+    const filteredProfiles = [];
+    for (const profile of profiles) {
+        const response = await profile.getProperties();
+        if (callback(response.properties)) {
+            filteredProfiles.push(profile);
+        }
+    }
+    return filteredProfiles;
 }
-
-/**
- * @return {!Promise<number>}
- */
-function getNumESimProfiles() {
-  return getEuicc()
-      .then(euicc => {
-        return euicc.getProfileList();
-      })
-      .then(response => {
-        return response.profiles.length;
-      });
+async function getNumESimProfiles() {
+    const euicc = await getEuicc();
+    if (!euicc) {
+        return 0;
+    }
+    const response = await euicc.getProfileList();
+    if (!response || !response.profiles) {
+        return 0;
+    }
+    return response.profiles.length;
 }
-
 /**
  * Returns the Euicc that should be used for eSim operations or null
  * if there is none available.
- * @return {!Promise<?EuiccRemote>}
  */
 async function getEuicc() {
-  const eSimManagerRemote = getESimManagerRemote();
-  const response = await eSimManagerRemote.getAvailableEuiccs();
-  if (!response || !response.euiccs) {
-    return null;
-  }
-  // Always use the first Euicc if Hermes only exposes one Euicc.
-  // If useSecondEuicc flag is set and there are two Euicc available,
-  // use the second available Euicc.
-  if (response.euiccs.length === 0) {
-    return null;
-  }
-
-  if (response.euiccs.length === 1) {
-    return response.euiccs[0];
-  }
-
-  const euiccIndex = loadTimeData$1.getBoolean('useSecondEuicc') ? 1 : 0;
-  return response.euiccs[euiccIndex];
+    const eSimManagerRemote = getESimManagerRemote();
+    const response = await eSimManagerRemote.getAvailableEuiccs();
+    if (!response || !response.euiccs) {
+        return null;
+    }
+    // Always use the first Euicc if Hermes only exposes one Euicc.
+    // If useSecondEuicc flag is set and there are two Euicc available,
+    // use the second available Euicc.
+    if (response.euiccs.length === 0) {
+        return null;
+    }
+    if (response.euiccs.length === 1) {
+        return response.euiccs[0];
+    }
+    const euiccIndex = loadTimeData.getBoolean('useSecondEuicc') ? 1 : 0;
+    return response.euiccs[euiccIndex];
 }
-
 /**
- * @param {string} iccid
- * @return {!Promise<?{
- *       profileRemote: ESimProfileRemote,
- *       profileProperties: ESimProfileProperties
- *     }>} Returns a eSIM profile remote and profile properties for given
- *         |iccid|.
+ * Returns a eSIM profile remote and profile properties for given
+ * |iccid|.
  */
 async function getESimProfileDetails(iccid) {
-  if (!iccid) {
-    return null;
-  }
-  const euicc = await getEuicc();
-
-  if (!euicc) {
-    console.error('No Euiccs found');
-    return null;
-  }
-  const esimProfilesRemotes = await euicc.getProfileList();
-
-  for (const profileRemote of esimProfilesRemotes.profiles) {
-    const profilePropertiesResponse = await profileRemote.getProperties();
-    if (!profilePropertiesResponse || !profilePropertiesResponse.properties) {
-      return null;
+    if (!iccid) {
+        return null;
     }
-
-    const profileProperties = profilePropertiesResponse.properties;
-    if (profileProperties.iccid === iccid) {
-      return {profileRemote, profileProperties};
+    const euicc = await getEuicc();
+    if (!euicc) {
+        console.error('No Euiccs found');
+        return null;
     }
-  }
-  return null;
+    const esimProfilesRemotes = await euicc.getProfileList();
+    for (const profileRemote of esimProfilesRemotes.profiles) {
+        const profilePropertiesResponse = await profileRemote.getProperties();
+        if (!profilePropertiesResponse || !profilePropertiesResponse.properties) {
+            return null;
+        }
+        const profileProperties = profilePropertiesResponse.properties;
+        if (profileProperties.iccid === iccid) {
+            return { profileRemote, profileProperties };
+        }
+    }
+    return null;
 }
-
 /**
  * Returns the eSIM profile with iccid in the first EUICC or null if none
  * is found.
- * @param {string} iccid
- * @return {!Promise<?ESimProfileRemote>}
  */
 async function getESimProfile(iccid) {
-  const details = await getESimProfileDetails(iccid);
-  if (!details) {
-    return null;
-  }
-  return details.profileRemote;
+    const details = await getESimProfileDetails(iccid);
+    if (!details) {
+        return null;
+    }
+    return details.profileRemote;
 }
-
 /**
  * Returns properties for eSIM profile with iccid in the first EUICC or null
  * if none is found.
- * @param {string} iccid
- * @return {!Promise<?ESimProfileProperties>}
  */
 async function getESimProfileProperties(iccid) {
-  const details = await getESimProfileDetails(iccid);
-  if (!details) {
-    return null;
-  }
-  return details.profileProperties;
+    const details = await getESimProfileDetails(iccid);
+    if (!details) {
+        return null;
+    }
+    return details.profileProperties;
 }
 
-function getTemplate$1I() {
+function getTemplate$1K() {
     return html `<!--_html_template_start_--><style include="settings-shared">#powerwashIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
 
 <settings-card header-text="$i18n{resetPageTitle}">
@@ -27536,7 +27544,7 @@ class ResetSettingsCardElement extends ResetSettingsCardElementBase {
         return 'reset-settings-card';
     }
     static get template() {
-        return getTemplate$1I();
+        return getTemplate$1K();
     }
     static get properties() {
         return {
@@ -27585,7 +27593,7 @@ class ResetSettingsCardElement extends ResetSettingsCardElementBase {
     }
     onPowerwashDialogClose_() {
         this.showPowerwashDialog_ = false;
-        focusWithoutInk$1(this.$.powerwashButton);
+        focusWithoutInk(this.$.powerwashButton);
     }
     currentRouteChanged(newRoute) {
         // Check route change applies to this page.
@@ -27725,7 +27733,7 @@ const CrRadioButtonMixin = dedupingMixin((superClass) => {
     return CrRadioButtonMixin;
 });
 
-function getTemplate$1H() {
+function getTemplate$1J() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cros-color-overrides">:host([disabled]){opacity:1}:host([disabled]) #labelWrapper,:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing);pointer-events:all}</style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -27751,13 +27759,13 @@ function getTemplate$1H() {
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const ControlledRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PrefControlMixin(PolymerElement)));
+const ControlledRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PrefControlMixin(PolymerElement)));
 class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
     static get is() {
         return 'controlled-radio-button';
     }
     static get template() {
-        return getTemplate$1H();
+        return getTemplate$1J();
     }
     static get observers() {
         return [
@@ -27768,7 +27776,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
@@ -27797,7 +27805,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
 }
 customElements.define(ControlledRadioButtonElement.is, ControlledRadioButtonElement);
 
-function getTemplate$1G() {
+function getTemplate$1I() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -27818,19 +27826,19 @@ function getTemplate$1G() {
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const CrRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const CrRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class CrRadioButtonElement extends CrRadioButtonElementBase {
     static get is() {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$1G();
+        return getTemplate$1I();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
@@ -27843,7 +27851,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
 }
 customElements.define(CrRadioButtonElement.is, CrRadioButtonElement);
 
-function getTemplate$1F() {
+function getTemplate$1H() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -27869,7 +27877,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$1F();
+        return getTemplate$1H();
     }
     static get properties() {
         return {
@@ -28072,7 +28080,7 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-function getTemplate$1E() {
+function getTemplate$1G() {
     return html `<!--_html_template_start_--><style>cr-radio-group{width:100%}</style>
 <cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]">
   <slot></slot>
@@ -28099,7 +28107,7 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
         return 'settings-radio-group';
     }
     static get template() {
-        return getTemplate$1E();
+        return getTemplate$1G();
     }
     static get properties() {
         return {
@@ -28153,28 +28161,360 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
 }
 customElements.define(SettingsRadioGroupElement.is, SettingsRadioGroupElement);
 
-function getTemplate$1D() {
-    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}settings-dropdown-menu{--md-select-width:100%}</style>
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function createPermission(permissionType, value, isManaged) {
+    return {
+        permissionType,
+        value,
+        isManaged,
+    };
+}
+function createTriStatePermissionValue(value) {
+    return { tristateValue: value };
+}
+function getTriStatePermissionValue(permissionValue) {
+    assert$1(isTriStateValue(permissionValue));
+    return permissionValue.tristateValue;
+}
+function createBoolPermissionValue(value) {
+    return { boolValue: value };
+}
+function getBoolPermissionValue(permissionValue) {
+    assert$1(isBoolValue(permissionValue));
+    return permissionValue.boolValue;
+}
+function isTriStateValue(permissionValue) {
+    return permissionValue['tristateValue'] !== undefined &&
+        permissionValue['boolValue'] === undefined;
+}
+function isBoolValue(permissionValue) {
+    return permissionValue['boolValue'] !== undefined &&
+        permissionValue['tristateValue'] === undefined;
+}
+function createBoolPermission(permissionType, value, isManaged) {
+    return createPermission(permissionType, createBoolPermissionValue(value), isManaged);
+}
+function createTriStatePermission(permissionType, value, isManaged) {
+    return createPermission(permissionType, createTriStatePermissionValue(value), isManaged);
+}
+function isPermissionEnabled(permissionValue) {
+    if (isBoolValue(permissionValue)) {
+        return getBoolPermissionValue(permissionValue);
+    }
+    if (isTriStateValue(permissionValue)) {
+        return getTriStatePermissionValue(permissionValue) === TriState.kAllow;
+    }
+    assertNotReached$1();
+}
 
+// chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class AppPermissionsHandlerPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.app_permission.mojom.AppPermissionsHandler', scope);
+    }
+}
+class AppPermissionsHandlerRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(AppPermissionsHandlerPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    addObserver(observer) {
+        this.proxy.sendMessage(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, [
+            observer
+        ]);
+    }
+    getApps() {
+        return this.proxy.sendMessage(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, []);
+    }
+    getSystemAppsThatUseCamera() {
+        return this.proxy.sendMessage(2, AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec.$, []);
+    }
+    getSystemAppsThatUseMicrophone() {
+        return this.proxy.sendMessage(3, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, []);
+    }
+    openNativeSettings(appId) {
+        this.proxy.sendMessage(4, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, [
+            appId
+        ]);
+    }
+    setPermission(appId, permission) {
+        this.proxy.sendMessage(5, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, [
+            appId,
+            permission
+        ]);
+    }
+}
+/**
+ * An object which receives request messages for the AppPermissionsHandler
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+class AppPermissionsHandlerReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsHandlerRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, impl.addObserver.bind(impl));
+        this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, impl.getApps.bind(impl));
+        this.helper_internal_.registerHandler(2, AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec.$, impl.getSystemAppsThatUseCamera.bind(impl));
+        this.helper_internal_.registerHandler(3, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, impl.getSystemAppsThatUseMicrophone.bind(impl));
+        this.helper_internal_.registerHandler(4, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, impl.openNativeSettings.bind(impl));
+        this.helper_internal_.registerHandler(5, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, impl.setPermission.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+class AppPermissionsHandler {
+    static get $interfaceName() {
+        return "ash.settings.app_permission.mojom.AppPermissionsHandler";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new AppPermissionsHandlerRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the AppPermissionsHandler
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+class AppPermissionsHandlerCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsHandlerRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.addObserver =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, this.addObserver.createReceiverHandler(false /* expectsResponse */));
+        this.getApps =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, this.getApps.createReceiverHandler(true /* expectsResponse */));
+        this.getSystemAppsThatUseCamera =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec.$, this.getSystemAppsThatUseCamera.createReceiverHandler(true /* expectsResponse */));
+        this.getSystemAppsThatUseMicrophone =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(3, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, this.getSystemAppsThatUseMicrophone.createReceiverHandler(true /* expectsResponse */));
+        this.openNativeSettings =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, this.openNativeSettings.createReceiverHandler(false /* expectsResponse */));
+        this.setPermission =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, this.setPermission.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
+class AppPermissionsObserverPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.app_permission.mojom.AppPermissionsObserver', scope);
+    }
+}
+class AppPermissionsObserverRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(AppPermissionsObserverPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onAppRemoved(appId) {
+        this.proxy.sendMessage(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, [
+            appId
+        ]);
+    }
+    onAppUpdated(app) {
+        this.proxy.sendMessage(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, [
+            app
+        ]);
+    }
+}
+/**
+ * An object which receives request messages for the AppPermissionsObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+class AppPermissionsObserverReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, impl.onAppRemoved.bind(impl));
+        this.helper_internal_.registerHandler(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, impl.onAppUpdated.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+class AppPermissionsObserver {
+    static get $interfaceName() {
+        return "ash.settings.app_permission.mojom.AppPermissionsObserver";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new AppPermissionsObserverRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+/**
+ * An object which receives request messages for the AppPermissionsObserver
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+class AppPermissionsObserverCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.onAppRemoved =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, this.onAppRemoved.createReceiverHandler(false /* expectsResponse */));
+        this.onAppUpdated =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, this.onAppUpdated.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
+const AppSpec$1 = { $: {} };
+const AppPermissionsHandler_AddObserver_ParamsSpec = { $: {} };
+const AppPermissionsHandler_GetApps_ParamsSpec = { $: {} };
+const AppPermissionsHandler_GetApps_ResponseParamsSpec = { $: {} };
+const AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec = { $: {} };
+const AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec = { $: {} };
+const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec = { $: {} };
+const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec = { $: {} };
+const AppPermissionsHandler_OpenNativeSettings_ParamsSpec = { $: {} };
+const AppPermissionsHandler_SetPermission_ParamsSpec = { $: {} };
+const AppPermissionsObserver_OnAppRemoved_ParamsSpec = { $: {} };
+const AppPermissionsObserver_OnAppUpdated_ParamsSpec = { $: {} };
+mojo.internal.Struct(AppSpec$1.$, 'App', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('type', 16, 0, AppTypeSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('permissions', 24, 0, mojo.internal.Map(PermissionTypeSpec.$, PermissionSpec.$, false), null, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(AppPermissionsHandler_AddObserver_ParamsSpec.$, 'AppPermissionsHandler_AddObserver_Params', [
+    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(AppPermissionsObserverRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_GetApps_ParamsSpec.$, 'AppPermissionsHandler_GetApps_Params', [], [[0, 8],]);
+mojo.internal.Struct(AppPermissionsHandler_GetApps_ResponseParamsSpec.$, 'AppPermissionsHandler_GetApps_ResponseParams', [
+    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec$1.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec.$, 'AppPermissionsHandler_GetSystemAppsThatUseCamera_Params', [], [[0, 8],]);
+mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec.$, 'AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams', [
+    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec$1.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, 'AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params', [], [[0, 8],]);
+mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, 'AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams', [
+    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec$1.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, 'AppPermissionsHandler_OpenNativeSettings_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_SetPermission_ParamsSpec.$, 'AppPermissionsHandler_SetPermission_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('permission', 8, 0, PermissionSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, 'AppPermissionsObserver_OnAppRemoved_Params', [
+    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, 'AppPermissionsObserver_OnAppUpdated_Params', [
+    mojo.internal.StructField('app', 0, 0, AppSpec$1.$, null, false /* nullable */, 0),
+], [[0, 16],]);
 
-<div id="geolocationDropdownDiv" class="settings-box first">
-  <settings-dropdown-menu id="geolocationDropdown" label="Label here" menu-options="[[geolocationMapTargets_]]" on-settings-control-change="recordMetric_" pref="{{prefs.ash.user.geolocation_access_level}}">
-  </settings-dropdown-menu>
-</div>
-<div class="settings-box">
-  <h2>
-    Apps
-  </h2>
-</div>
-<div class="settings-box">
-  <h2>
-    Websites
-  </h2>
-</div>
-<div class="settings-box">
-  <h2>
-    System services
-  </h2>
+var app_permission_handler_mojomWebui = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  AppPermissionsHandler: AppPermissionsHandler,
+  AppPermissionsHandlerCallbackRouter: AppPermissionsHandlerCallbackRouter,
+  AppPermissionsHandlerPendingReceiver: AppPermissionsHandlerPendingReceiver,
+  AppPermissionsHandlerReceiver: AppPermissionsHandlerReceiver,
+  AppPermissionsHandlerRemote: AppPermissionsHandlerRemote,
+  AppPermissionsHandler_AddObserver_ParamsSpec: AppPermissionsHandler_AddObserver_ParamsSpec,
+  AppPermissionsHandler_GetApps_ParamsSpec: AppPermissionsHandler_GetApps_ParamsSpec,
+  AppPermissionsHandler_GetApps_ResponseParamsSpec: AppPermissionsHandler_GetApps_ResponseParamsSpec,
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec: AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec,
+  AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec: AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec,
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec: AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec,
+  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec: AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec,
+  AppPermissionsHandler_OpenNativeSettings_ParamsSpec: AppPermissionsHandler_OpenNativeSettings_ParamsSpec,
+  AppPermissionsHandler_SetPermission_ParamsSpec: AppPermissionsHandler_SetPermission_ParamsSpec,
+  AppPermissionsObserver: AppPermissionsObserver,
+  AppPermissionsObserverCallbackRouter: AppPermissionsObserverCallbackRouter,
+  AppPermissionsObserverPendingReceiver: AppPermissionsObserverPendingReceiver,
+  AppPermissionsObserverReceiver: AppPermissionsObserverReceiver,
+  AppPermissionsObserverRemote: AppPermissionsObserverRemote,
+  AppPermissionsObserver_OnAppRemoved_ParamsSpec: AppPermissionsObserver_OnAppRemoved_ParamsSpec,
+  AppPermissionsObserver_OnAppUpdated_ParamsSpec: AppPermissionsObserver_OnAppUpdated_ParamsSpec,
+  AppSpec: AppSpec$1
+});
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let appPermissionProvider = null;
+function setAppPermissionProviderForTesting(fakeProvider) {
+    appPermissionProvider = fakeProvider;
+}
+function getAppPermissionProvider() {
+    if (appPermissionProvider === null) {
+        appPermissionProvider = AppPermissionsHandler.getRemote();
+    }
+    return appPermissionProvider;
+}
+
+function getTemplate$1F() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#container{align-items:center;display:flex;height:48px;width:100%}#container:hover[actionable]{background-color:var(--cr-hover-background-color)}#appData{align-items:center;display:flex;flex-direction:row;width:100%}#appIcon{height:32px;margin-inline-end:20px;width:32px}cr-icon-button,cr-policy-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
+<div id="container" actionable$="[[!isPermissionManaged_]]">
+  <div id="appData">
+    <img id="appIcon" src="chrome://app-icon/[[app.id]]/64" alt="[[app.name]] app icon." aria-hidden="true">
+    <div id="appNameAndPermissionText">
+      <div id="appName">[[app.name]]</div>
+      <div id="permissionText" class="secondary">[[permissionText_]]</div>
+    </div>
+  </div>
+  <template is="dom-if" if="[[isPermissionManaged_]]" restamp>
+    <cr-policy-indicator indicator-type="devicePolicy" icon-aria-label="[[getAriaLabel_()]]" aria-description="[[ariaDescription_]]">
+    </cr-policy-indicator>
+  </template>
+  <template is="dom-if" if="[[shouldRedirectToAndroidSettings_]]" restamp>
+    <cr-icon-button iron-icon="cr:open-in-new" role="link" aria-label="[[getAriaLabel_()]]" aria-description="[[androidSettingsLinkAriaDescription_]]">
+    </cr-icon-button>
+  </template>
+  <cr-toggle id="permissionToggle" checked="[[checked_]]" on-change="onToggleChangeByUser_" disabled="[[shouldDisableToggle_]]" aria-label="[[getAriaLabel_()]]" aria-description="[[ariaDescription_]]">
+  </cr-toggle>
 </div>
 <!--_html_template_end_-->`;
 }
@@ -28209,6 +28549,261 @@ const NUMBER_OF_POSSIBLE_USER_ACTIONS = Object.keys(PrivacyHubSensorSubpageUserA
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
+ * @fileoverview
+ * 'settings-privacy-hub-app-permission-row' is a custom row element
+ * representing an app. This is used in the subpages of the OS Settings Privacy
+ * controls page.
+ */
+function getPermissionValueAsTriState$1(permission) {
+    if (isTriStateValue(permission.value)) {
+        return castExists$1(permission.value.tristateValue);
+    }
+    return permission.value.boolValue ? TriState.kAllow : TriState.kBlock;
+}
+const SettingsPrivacyHubAppPermissionRowBase = I18nMixin(PolymerElement);
+class SettingsPrivacyHubAppPermissionRow extends SettingsPrivacyHubAppPermissionRowBase {
+    static get is() {
+        return 'settings-privacy-hub-app-permission-row';
+    }
+    static get template() {
+        return getTemplate$1F();
+    }
+    static get properties() {
+        return {
+            app: {
+                type: Object,
+            },
+            /**
+             * A string version of the permission type. Must be a value of the
+             * permission type enum in appManagement.mojom.PermissionType.
+             */
+            permissionType: {
+                type: String,
+                reflectToAttribute: true,
+            },
+            /**
+             * Boolean state indicator for the value of the permission of type
+             * `this.permissionType`.
+             *
+             * `TriState.kAllow` maps to `true`.
+             * `TriState.kAsk` and `TriState.kBlock` maps to `false`.
+             */
+            checked_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * A text describing the permission value.
+             */
+            permissionText_: {
+                type: String,
+                value: '',
+            },
+            isPermissionManaged_: {
+                type: Boolean,
+                value: false,
+            },
+            shouldRedirectToAndroidSettings_: {
+                type: Boolean,
+                computed: 'computeShouldRedirectToAndroidSettings_(app.type, ' +
+                    'isPermissionManaged_)',
+            },
+            shouldDisableToggle_: {
+                type: Boolean,
+                computed: 'computeShouldDisableToggle_(isPermissionManaged_, ' +
+                    'shouldRedirectToAndroidSettings_)',
+            },
+            ariaDescription_: {
+                type: String,
+                computed: 'computeAriaDescription_(permissionText_)',
+            },
+            androidSettingsLinkAriaDescription_: {
+                type: String,
+                computed: 'computeAndroidSettingsLinkAriaDescription_(permissionText_)',
+            },
+        };
+    }
+    static get observers() {
+        return ['onPermissionChange_(app.permissions.*)'];
+    }
+    constructor() {
+        super();
+        this.mojoInterfaceProvider_ = getAppPermissionProvider();
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('click', this.onPermissionRowClick_.bind(this));
+    }
+    onPermissionChange_() {
+        const permission = castExists$1(this.app.permissions[PermissionType[this.permissionType]]);
+        this.checked_ = isPermissionEnabled(permission.value);
+        this.isPermissionManaged_ = permission.isManaged;
+        const value = getPermissionValueAsTriState$1(permission);
+        if (value === TriState.kAllow && permission.details) {
+            this.permissionText_ = this.i18n('privacyHubPermissionAllowedTextWithDetails', permission.details);
+            return;
+        }
+        switch (value) {
+            case TriState.kAllow:
+                this.permissionText_ = this.i18n('privacyHubPermissionAllowedText');
+                break;
+            case TriState.kBlock:
+                this.permissionText_ = this.i18n('privacyHubPermissionDeniedText');
+                break;
+            case TriState.kAsk:
+                this.permissionText_ = this.i18n('privacyHubPermissionAskText');
+                break;
+        }
+    }
+    getUserActionHistogramName() {
+        return `ChromeOS.PrivacyHub.${this.permissionType.substring(1)}Subpage.UserAction`;
+    }
+    togglePermissionState_() {
+        const permission = castExists$1(this.app.permissions[PermissionType[this.permissionType]]);
+        const permissionEnabled = isPermissionEnabled(permission.value);
+        if (isBoolValue(permission.value)) {
+            permission.value = createBoolPermissionValue(!permissionEnabled);
+        }
+        else if (isTriStateValue(permission.value)) {
+            permission.value = createTriStatePermissionValue(permissionEnabled ? TriState.kBlock : TriState.kAllow);
+        }
+        this.mojoInterfaceProvider_.setPermission(this.app.id, permission);
+        chrome.metricsPrivate.recordEnumerationValue(this.getUserActionHistogramName(), PrivacyHubSensorSubpageUserAction.APP_PERMISSION_CHANGED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
+    }
+    onPermissionRowClick_() {
+        if (this.isPermissionManaged_) {
+            return;
+        }
+        if (this.shouldRedirectToAndroidSettings_) {
+            this.mojoInterfaceProvider_.openNativeSettings(this.app.id);
+            chrome.metricsPrivate.recordEnumerationValue(this.getUserActionHistogramName(), PrivacyHubSensorSubpageUserAction.ANDROID_SETTINGS_LINK_CLICKED, Object.keys(PrivacyHubSensorSubpageUserAction).length);
+            return;
+        }
+        this.togglePermissionState_();
+    }
+    onToggleChangeByUser_() {
+        this.togglePermissionState_();
+    }
+    computeShouldRedirectToAndroidSettings_() {
+        return !this.isPermissionManaged_ &&
+            loadTimeData.getBoolean('isArcReadOnlyPermissionsEnabled') &&
+            this.app.type === AppType.kArc;
+    }
+    computeShouldDisableToggle_() {
+        return this.isPermissionManaged_ || this.shouldRedirectToAndroidSettings_;
+    }
+    getAriaLabel_() {
+        switch (PermissionType[this.permissionType]) {
+            case PermissionType.kCamera:
+                return this.i18n('privacyHubCameraAppPermissionRowAriaLabel', this.app.name);
+            case PermissionType.kLocation:
+                return this.i18n('privacyHubLocationAppPermissionRowAriaLabel', this.app.name);
+            case PermissionType.kMicrophone:
+                return this.i18n('privacyHubMicrophoneAppPermissionRowAriaLabel', this.app.name);
+            default:
+                return '';
+        }
+    }
+    computeAriaDescription_() {
+        return this.i18n('privacyHubAppPermissionRowAriaDescription', this.permissionText_);
+    }
+    computeAndroidSettingsLinkAriaDescription_() {
+        return this.i18n('privacyHubAppPermissionRowAndroidSettingsLinkAriaDescription', this.permissionText_);
+    }
+}
+customElements.define(SettingsPrivacyHubAppPermissionRow.is, SettingsPrivacyHubAppPermissionRow);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class OpenWindowProxyImpl {
+    openUrl(url) {
+        window.open(url);
+    }
+    static getInstance() {
+        return instance$u || (instance$u = new OpenWindowProxyImpl());
+    }
+    static setInstance(obj) {
+        instance$u = obj;
+    }
+}
+let instance$u = null;
+
+function getTemplate$1E() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}h2{padding-inline-start:var(--cr-section-padding)}.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}settings-dropdown-menu{--md-select-width:100%}</style>
+
+
+<div id="geolocationDropdownDiv" class="settings-box first">
+  <settings-dropdown-menu id="geolocationDropdown" label="Label here" menu-options="[[geolocationMapTargets_]]" on-settings-control-change="recordMetric_" pref="{{prefs.ash.user.geolocation_access_level}}">
+  </settings-dropdown-menu>
+</div>
+
+<div class="hr"></div>
+<div id="appsSection">
+  <h2 id="appsSectionTitle">$i18n{privacyHubAppsSectionTitle}</h2>
+  <template is="dom-if" if="[[isGeolocationAllowedForApps_]]" restamp>
+    <div class="list-frame">
+      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app">
+        <settings-privacy-hub-app-permission-row class="list-item" app="[[app]]" permission-type="kLocation">
+        </settings-privacy-hub-app-permission-row>
+      </template>
+    </div>
+  </template>
+  <template is="dom-if" if="[[!isGeolocationAllowedForApps_]]" restamp>
+    <div id="noAppHasAccessText" class="settings-box-text subsection">
+      $i18n{noAppCanUseGeolocationText}
+    </div>
+  </template>
+</div>
+
+<div class="hr"></div>
+<div id="websitesSection">
+  <h2 id="websitesSectionTitle">$i18n{websitesSectionTitle}</h2>
+  <div class="subsection">
+    <template is="dom-if" if="[[isGeolocationAllowedForApps_]]" restamp>
+      <cr-link-row id="managePermissionsInChromeRow" start-icon="os-settings:chrome" label="$i18n{manageLocationPermissionsInChromeText}" on-click="onManagePermissionsInChromeRowClick_" external>
+      </cr-link-row>
+    </template>
+    <template is="dom-if" if="[[!isGeolocationAllowedForApps_]]" restamp>
+      <div id="noWebsiteHasAccessText" class="settings-box-text">
+        $i18n{noWebsiteCanUseLocationText}
+      </div>
+    </template>
+  </div>
+</div>
+
+<div class="hr"></div>
+<div id="systemServicesSection">
+  <h2 id="systemServicesSectionTitle">
+    $i18n{privacyHubSystemServicesSectionTitle}
+  </h2>
+  <div class="list-frame">
+      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesAutomaticTimeZoneName}" permission-state="[[getSystemServicesPermissionText_(
+            prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
+      </settings-privacy-hub-system-service-row>
+      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesSunsetScheduleName}" permission-state="[[getSystemServicesPermissionText_(
+            prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
+      </settings-privacy-hub-system-service-row>
+      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesLocalWeatherName}" permission-state="[[getSystemServicesPermissionText_(
+            prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
+      </settings-privacy-hub-system-service-row>
+      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesDarkThemeName}" permission-state="[[getSystemServicesPermissionText_(
+            prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
+      </settings-privacy-hub-system-service-row>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-privacy-hub-geolocation-subpage' contains a detailed overview about
+ * the state of the system geolocation access.
+ */
+/**
  * Geolocation access levels for the ChromeOS system.
  * This must be kept in sync with `GeolocationAccessLevel` in
  * ash/constants/geolocation_access_level.h
@@ -28220,13 +28815,19 @@ var GeolocationAccessLevel;
     GeolocationAccessLevel[GeolocationAccessLevel["ONLY_ALLOWED_FOR_SYSTEM"] = 2] = "ONLY_ALLOWED_FOR_SYSTEM";
 })(GeolocationAccessLevel || (GeolocationAccessLevel = {}));
 const GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE = Object.keys(GeolocationAccessLevel).length;
+/**
+ * Whether the app has location permission defined.
+ */
+function hasLocationPermission(app) {
+    return app.permissions[PermissionType.kLocation] !== undefined;
+}
 const SettingsPrivacyHubGeolocationSubpageBase = PrefsMixin(I18nMixin(PolymerElement));
 class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeolocationSubpageBase {
     static get is() {
         return 'settings-privacy-hub-geolocation-subpage';
     }
     static get template() {
-        return getTemplate$1D();
+        return getTemplate$1E();
     }
     static get properties() {
         return {
@@ -28249,11 +28850,94 @@ class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeolocation
                     ];
                 },
             },
+            /**
+             * Apps with location permission defined.
+             */
+            appList_: {
+                type: Array,
+                value: [],
+            },
+            isGeolocationAllowedForApps_: {
+                type: Boolean,
+                computed: 'computedIsGeolocationAllowedForApps_(' +
+                    'prefs.ash.user.geolocation_access_level.value)',
+            },
         };
+    }
+    constructor() {
+        super();
+        this.mojoInterfaceProvider_ = getAppPermissionProvider();
+        this.appPermissionsObserverReceiver_ = null;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.appPermissionsObserverReceiver_ =
+            new AppPermissionsObserverReceiver(this);
+        this.mojoInterfaceProvider_.addObserver(this.appPermissionsObserverReceiver_.$.bindNewPipeAndPassRemote());
+        this.updateAppList_();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.appPermissionsObserverReceiver_.$.close();
+    }
+    async updateAppList_() {
+        const apps = (await this.mojoInterfaceProvider_.getApps()).apps;
+        this.appList_ = apps.filter(hasLocationPermission);
+    }
+    isLocationPermissionEnabled_(app) {
+        const permission = castExists$1(app.permissions[PermissionType.kLocation]);
+        return isPermissionEnabled(permission.value);
+    }
+    /** Implements AppPermissionsObserver.OnAppUpdated */
+    onAppUpdated(updatedApp) {
+        if (!hasLocationPermission(updatedApp)) {
+            return;
+        }
+        const idx = this.appList_.findIndex(app => app.id === updatedApp.id);
+        if (idx === -1) {
+            // New app installed.
+            this.push('appList_', updatedApp);
+        }
+        else {
+            // An already installed app is updated.
+            this.splice('appList_', idx, 1, updatedApp);
+        }
+    }
+    /** Implements AppPermissionsObserver.OnAppRemoved */
+    onAppRemoved(appId) {
+        const idx = this.appList_.findIndex(app => app.id === appId);
+        if (idx !== -1) {
+            this.splice('appList_', idx, 1);
+        }
+    }
+    computedIsGeolocationAllowedForApps_() {
+        const accessLevel = this.getPref('ash.user.geolocation_access_level')
+            .value;
+        switch (accessLevel) {
+            case GeolocationAccessLevel.ALLOWED:
+                return true;
+            case GeolocationAccessLevel.DISALLOWED:
+            case GeolocationAccessLevel.ONLY_ALLOWED_FOR_SYSTEM:
+                return false;
+            default:
+                assertExhaustive(accessLevel);
+        }
+    }
+    onManagePermissionsInChromeRowClick_() {
+        OpenWindowProxyImpl.getInstance().openUrl('chrome://settings/content/location');
     }
     recordMetric_() {
         const accessLevel = this.$.geolocationDropdown.pref.value;
         chrome.metricsPrivate.recordEnumerationValue(LOCATION_PERMISSION_CHANGE_FROM_SETTINGS_HISTOGRAM_NAME, accessLevel, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE);
+    }
+    geolocationAllowedForSystem_() {
+        return this.getPref('ash.user.geolocation_access_level')
+            .value !== GeolocationAccessLevel.DISALLOWED;
+    }
+    getSystemServicesPermissionText_() {
+        return this.geolocationAllowedForSystem_() ?
+            this.i18n('privacyHubSystemServicesAllowedText') :
+            this.i18n('privacyHubSystemServicesBlockedText');
     }
 }
 customElements.define(SettingsPrivacyHubGeolocationSubpage.is, SettingsPrivacyHubGeolocationSubpage);
@@ -28268,7 +28952,7 @@ styleMod$5.appendChild(html `
 `.content);
 styleMod$5.register('input-device-settings-shared');
 
-function getTemplate$1C() {
+function getTemplate$1D() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#mouseSwapToggleButton{border-bottom:var(--cr-separator-line)}#helpSection{align-items:center;background-color:var(--cros-sys-app_base_shaded);border-radius:12px;display:flex;margin:8px;padding:16px 12px}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font);margin-bottom:5px}.secondary{font:var(--cros-body-2-font)}#buttonsSection{border-top:var(--cr-separator-line)}</style>
 <settings-toggle-button id="mouseSwapToggleButton" aria-describedby="description" label="$i18n{mouseSwapButtonsLabel}" pref="{{primaryRightPref_}}">
 </settings-toggle-button>
@@ -28300,7 +28984,7 @@ const AcceleratorActionSpec = { $: mojo.internal.Enum() };
 var AcceleratorAction$1;
 (function (AcceleratorAction) {
     AcceleratorAction[AcceleratorAction["MIN_VALUE"] = 0] = "MIN_VALUE";
-    AcceleratorAction[AcceleratorAction["MAX_VALUE"] = 155] = "MAX_VALUE";
+    AcceleratorAction[AcceleratorAction["MAX_VALUE"] = 9027] = "MAX_VALUE";
     AcceleratorAction[AcceleratorAction["kBrightnessDown"] = 0] = "kBrightnessDown";
     AcceleratorAction[AcceleratorAction["kBrightnessUp"] = 1] = "kBrightnessUp";
     AcceleratorAction[AcceleratorAction["kCycleBackwardMru"] = 2] = "kCycleBackwardMru";
@@ -28430,33 +29114,34 @@ var AcceleratorAction$1;
     AcceleratorAction[AcceleratorAction["kWindowMinimize"] = 126] = "kWindowMinimize";
     AcceleratorAction[AcceleratorAction["kMinimizeTopWindowOnBack"] = 127] = "kMinimizeTopWindowOnBack";
     AcceleratorAction[AcceleratorAction["kVolumeMuteToggle"] = 128] = "kVolumeMuteToggle";
-    AcceleratorAction[AcceleratorAction["kDebugClearUseKMeansPref"] = 129] = "kDebugClearUseKMeansPref";
-    AcceleratorAction[AcceleratorAction["kDebugKeyboardBacklightToggle"] = 130] = "kDebugKeyboardBacklightToggle";
-    AcceleratorAction[AcceleratorAction["kDebugMicrophoneMuteToggle"] = 131] = "kDebugMicrophoneMuteToggle";
-    AcceleratorAction[AcceleratorAction["kDebugPrintLayerHierarchy"] = 132] = "kDebugPrintLayerHierarchy";
-    AcceleratorAction[AcceleratorAction["kDebugPrintViewHierarchy"] = 133] = "kDebugPrintViewHierarchy";
-    AcceleratorAction[AcceleratorAction["kDebugPrintWindowHierarchy"] = 134] = "kDebugPrintWindowHierarchy";
-    AcceleratorAction[AcceleratorAction["kDebugShowInformedRestore"] = 135] = "kDebugShowInformedRestore";
-    AcceleratorAction[AcceleratorAction["kDebugShowToast"] = 136] = "kDebugShowToast";
-    AcceleratorAction[AcceleratorAction["kDebugShowSystemNudge"] = 137] = "kDebugShowSystemNudge";
-    AcceleratorAction[AcceleratorAction["kDebugSystemUiStyleViewer"] = 138] = "kDebugSystemUiStyleViewer";
-    AcceleratorAction[AcceleratorAction["kDebugToggleDarkMode"] = 139] = "kDebugToggleDarkMode";
-    AcceleratorAction[AcceleratorAction["kDebugToggleDynamicColor"] = 140] = "kDebugToggleDynamicColor";
-    AcceleratorAction[AcceleratorAction["kDebugTogglePowerButtonMenu"] = 141] = "kDebugTogglePowerButtonMenu";
-    AcceleratorAction[AcceleratorAction["kDebugToggleShowDebugBorders"] = 142] = "kDebugToggleShowDebugBorders";
-    AcceleratorAction[AcceleratorAction["kDebugToggleShowFpsCounter"] = 143] = "kDebugToggleShowFpsCounter";
-    AcceleratorAction[AcceleratorAction["kDebugToggleShowPaintRects"] = 144] = "kDebugToggleShowPaintRects";
-    AcceleratorAction[AcceleratorAction["kDebugToggleTouchPad"] = 145] = "kDebugToggleTouchPad";
-    AcceleratorAction[AcceleratorAction["kDebugToggleTouchScreen"] = 146] = "kDebugToggleTouchScreen";
-    AcceleratorAction[AcceleratorAction["kDebugToggleTabletMode"] = 147] = "kDebugToggleTabletMode";
-    AcceleratorAction[AcceleratorAction["kDebugToggleVideoConferenceCameraTrayIcon"] = 148] = "kDebugToggleVideoConferenceCameraTrayIcon";
-    AcceleratorAction[AcceleratorAction["kDebugToggleWallpaperMode"] = 149] = "kDebugToggleWallpaperMode";
-    AcceleratorAction[AcceleratorAction["kDebugTriggerCrash"] = 150] = "kDebugTriggerCrash";
-    AcceleratorAction[AcceleratorAction["kDebugToggleHudDisplay"] = 151] = "kDebugToggleHudDisplay";
-    AcceleratorAction[AcceleratorAction["kDebugToggleVirtualTrackpad"] = 152] = "kDebugToggleVirtualTrackpad";
-    AcceleratorAction[AcceleratorAction["kDevAddRemoveDisplay"] = 153] = "kDevAddRemoveDisplay";
-    AcceleratorAction[AcceleratorAction["kDevToggleAppList"] = 154] = "kDevToggleAppList";
-    AcceleratorAction[AcceleratorAction["kDevToggleUnifiedDesktop"] = 155] = "kDevToggleUnifiedDesktop";
+    AcceleratorAction[AcceleratorAction["kDebugClearUseKMeansPref"] = 9000] = "kDebugClearUseKMeansPref";
+    AcceleratorAction[AcceleratorAction["kDebugKeyboardBacklightToggle"] = 9001] = "kDebugKeyboardBacklightToggle";
+    AcceleratorAction[AcceleratorAction["kDebugMicrophoneMuteToggle"] = 9002] = "kDebugMicrophoneMuteToggle";
+    AcceleratorAction[AcceleratorAction["kDebugPrintLayerHierarchy"] = 9003] = "kDebugPrintLayerHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugPrintViewHierarchy"] = 9004] = "kDebugPrintViewHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugPrintWindowHierarchy"] = 9005] = "kDebugPrintWindowHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugShowInformedRestore"] = 9006] = "kDebugShowInformedRestore";
+    AcceleratorAction[AcceleratorAction["kDebugShowToast"] = 9007] = "kDebugShowToast";
+    AcceleratorAction[AcceleratorAction["kDebugShowSystemNudge"] = 9008] = "kDebugShowSystemNudge";
+    AcceleratorAction[AcceleratorAction["kDebugSystemUiStyleViewer"] = 9009] = "kDebugSystemUiStyleViewer";
+    AcceleratorAction[AcceleratorAction["kDebugToggleDarkMode"] = 9010] = "kDebugToggleDarkMode";
+    AcceleratorAction[AcceleratorAction["kDebugToggleDynamicColor"] = 9011] = "kDebugToggleDynamicColor";
+    AcceleratorAction[AcceleratorAction["kDebugToggleFocusModeState"] = 9012] = "kDebugToggleFocusModeState";
+    AcceleratorAction[AcceleratorAction["kDebugTogglePowerButtonMenu"] = 9013] = "kDebugTogglePowerButtonMenu";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowDebugBorders"] = 9014] = "kDebugToggleShowDebugBorders";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowFpsCounter"] = 9015] = "kDebugToggleShowFpsCounter";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowPaintRects"] = 9016] = "kDebugToggleShowPaintRects";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTouchPad"] = 9017] = "kDebugToggleTouchPad";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTouchScreen"] = 9018] = "kDebugToggleTouchScreen";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTabletMode"] = 9019] = "kDebugToggleTabletMode";
+    AcceleratorAction[AcceleratorAction["kDebugToggleVideoConferenceCameraTrayIcon"] = 9020] = "kDebugToggleVideoConferenceCameraTrayIcon";
+    AcceleratorAction[AcceleratorAction["kDebugToggleWallpaperMode"] = 9021] = "kDebugToggleWallpaperMode";
+    AcceleratorAction[AcceleratorAction["kDebugTriggerCrash"] = 9022] = "kDebugTriggerCrash";
+    AcceleratorAction[AcceleratorAction["kDebugToggleHudDisplay"] = 9023] = "kDebugToggleHudDisplay";
+    AcceleratorAction[AcceleratorAction["kDebugToggleVirtualTrackpad"] = 9024] = "kDebugToggleVirtualTrackpad";
+    AcceleratorAction[AcceleratorAction["kDevAddRemoveDisplay"] = 9025] = "kDevAddRemoveDisplay";
+    AcceleratorAction[AcceleratorAction["kDevToggleAppList"] = 9026] = "kDevToggleAppList";
+    AcceleratorAction[AcceleratorAction["kDevToggleUnifiedDesktop"] = 9027] = "kDevToggleUnifiedDesktop";
 })(AcceleratorAction$1 || (AcceleratorAction$1 = {}));
 
 // ash/public/mojom/accelerator_keys.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
@@ -28467,7 +29152,7 @@ const VKeySpec = { $: mojo.internal.Enum() };
 var VKey;
 (function (VKey) {
     VKey[VKey["MIN_VALUE"] = 0] = "MIN_VALUE";
-    VKey[VKey["MAX_VALUE"] = 254] = "MAX_VALUE";
+    VKey[VKey["MAX_VALUE"] = 65295] = "MAX_VALUE";
     VKey[VKey["kCancel"] = 3] = "kCancel";
     VKey[VKey["kBack"] = 8] = "kBack";
     VKey[VKey["kTab"] = 9] = "kTab";
@@ -28667,6 +29352,22 @@ var VKey;
     VKey[VKey["kEmojiPicker"] = 237] = "kEmojiPicker";
     VKey[VKey["kDictate"] = 238] = "kDictate";
     VKey[VKey["kAllApplications"] = 239] = "kAllApplications";
+    VKey[VKey["kButton0"] = 65280] = "kButton0";
+    VKey[VKey["kButton1"] = 65281] = "kButton1";
+    VKey[VKey["kButton2"] = 65282] = "kButton2";
+    VKey[VKey["kButton3"] = 65283] = "kButton3";
+    VKey[VKey["kButton4"] = 65284] = "kButton4";
+    VKey[VKey["kButton5"] = 65285] = "kButton5";
+    VKey[VKey["kButton6"] = 65286] = "kButton6";
+    VKey[VKey["kButton7"] = 65287] = "kButton7";
+    VKey[VKey["kButton8"] = 65288] = "kButton8";
+    VKey[VKey["kButton9"] = 65289] = "kButton9";
+    VKey[VKey["kButtonA"] = 65290] = "kButtonA";
+    VKey[VKey["kButtonB"] = 65291] = "kButtonB";
+    VKey[VKey["kButtonC"] = 65292] = "kButtonC";
+    VKey[VKey["kButtonX"] = 65293] = "kButtonX";
+    VKey[VKey["kButtonY"] = 65294] = "kButtonY";
+    VKey[VKey["kButtonZ"] = 65295] = "kButtonZ";
 })(VKey || (VKey = {}));
 
 // ui/events/ash/mojom/extended_fkeys_modifier.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
@@ -28797,6 +29498,15 @@ var CustomizableButton$1;
     CustomizableButton[CustomizableButton["kExtra"] = 5] = "kExtra";
     CustomizableButton[CustomizableButton["kSide"] = 6] = "kSide";
 })(CustomizableButton$1 || (CustomizableButton$1 = {}));
+const MouseButtonConfigSpec = { $: mojo.internal.Enum() };
+var MouseButtonConfig$1;
+(function (MouseButtonConfig) {
+    MouseButtonConfig[MouseButtonConfig["MIN_VALUE"] = 0] = "MIN_VALUE";
+    MouseButtonConfig[MouseButtonConfig["MAX_VALUE"] = 2] = "MAX_VALUE";
+    MouseButtonConfig[MouseButtonConfig["kNoConfig"] = 0] = "kNoConfig";
+    MouseButtonConfig[MouseButtonConfig["kFiveKey"] = 1] = "kFiveKey";
+    MouseButtonConfig[MouseButtonConfig["kLogitechSixKey"] = 2] = "kLogitechSixKey";
+})(MouseButtonConfig$1 || (MouseButtonConfig$1 = {}));
 const StaticShortcutActionSpec = { $: mojo.internal.Enum() };
 var StaticShortcutAction$1;
 (function (StaticShortcutAction) {
@@ -28829,6 +29539,7 @@ var CustomizationRestriction$1;
 const SixPackKeyInfoSpec = { $: {} };
 const InputDeviceSettingsPolicySpec = { $: {} };
 const InputDeviceSettingsFkeyPolicySpec = { $: {} };
+const InputDeviceSettingsSixPackKeyPolicySpec = { $: {} };
 const KeyboardPoliciesSpec = { $: {} };
 const MousePoliciesSpec = { $: {} };
 const KeyboardSpec = { $: {} };
@@ -28862,11 +29573,20 @@ mojo.internal.Struct(InputDeviceSettingsFkeyPolicySpec.$, 'InputDeviceSettingsFk
     mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('value', 4, 0, ExtendedFkeysModifierSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(InputDeviceSettingsSixPackKeyPolicySpec.$, 'InputDeviceSettingsSixPackKeyPolicy', [
+    mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 4, 0, SixPackShortcutModifierSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(KeyboardPoliciesSpec.$, 'KeyboardPolicies', [
     mojo.internal.StructField('topRowAreFkeysPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('enableMetaFkeyRewritesPolicy', 8, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('extendedFkeysPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
-], [[0, 32],]);
+    mojo.internal.StructField('f11KeyPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('f12KeyPolicy', 24, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('homeAndEndKeysPolicy', 32, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('pageUpAndPageDownKeysPolicy', 40, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('deleteKeyPolicy', 48, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('insertKeyPolicy', 56, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+], [[0, 72],]);
 mojo.internal.Struct(MousePoliciesSpec.$, 'MousePolicies', [
     mojo.internal.StructField('swapRightPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
@@ -28910,6 +29630,7 @@ mojo.internal.Struct(MouseSpec.$, 'Mouse', [
     mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
     mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('customizationRestriction', 24, 0, CustomizationRestrictionSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('mouseButtonConfig', 28, 0, MouseButtonConfigSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('settings', 32, 0, MouseSettingsSpec.$, null, false /* nullable */, 0),
 ], [[0, 48],]);
 mojo.internal.Struct(MouseSettingsSpec.$, 'MouseSettings', [
@@ -29491,6 +30212,7 @@ const AcceleratorAction = AcceleratorAction$1;
 const CustomizableButton = CustomizableButton$1;
 const StaticShortcutAction = StaticShortcutAction$1;
 const CustomizationRestriction = CustomizationRestriction$1;
+const MouseButtonConfig = MouseButtonConfig$1;
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -29795,6 +30517,7 @@ const fakeMice = [
         name: 'Razer Basilisk V3',
         isExternal: true,
         customizationRestriction: CustomizationRestriction.kAllowCustomizations,
+        mouseButtonConfig: MouseButtonConfig.kNoConfig,
         settings: {
             swapRight: true,
             sensitivity: 5,
@@ -29860,6 +30583,7 @@ const fakeMice = [
         name: 'MX Anywhere 2S',
         isExternal: false,
         customizationRestriction: CustomizationRestriction.kDisableKeyEventRewrites,
+        mouseButtonConfig: MouseButtonConfig.kNoConfig,
         settings: {
             swapRight: false,
             sensitivity: 1,
@@ -29903,6 +30627,7 @@ const fakeMice2 = [
         name: 'Fake Razer Basilisk V3',
         isExternal: true,
         customizationRestriction: CustomizationRestriction.kDisallowCustomizations,
+        mouseButtonConfig: MouseButtonConfig.kNoConfig,
         settings: {
             swapRight: true,
             sensitivity: 5,
@@ -30604,7 +31329,7 @@ class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomizeMouse
         return 'settings-customize-mouse-buttons-subpage';
     }
     static get template() {
-        return getTemplate$1C();
+        return getTemplate$1D();
     }
     static get properties() {
         return {
@@ -30736,7 +31461,7 @@ class SettingsCustomizeMouseButtonsSubpageElement extends SettingsCustomizeMouse
 }
 customElements.define(SettingsCustomizeMouseButtonsSubpageElement.is, SettingsCustomizeMouseButtonsSubpageElement);
 
-function getTemplate$1B() {
+function getTemplate$1C() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <customize-buttons-subsection button-remapping-list="{{selectedTablet.settings.penButtonRemappings}}" action-list$="[[buttonActionList_]]" has-launcher-button="[[hasLauncherButton_]]">
 </customize-buttons-subsection>
@@ -30768,7 +31493,7 @@ class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomizePenButt
         return 'settings-customize-pen-buttons-subpage';
     }
     static get template() {
-        return getTemplate$1B();
+        return getTemplate$1C();
     }
     static get properties() {
         return {
@@ -30875,7 +31600,7 @@ class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomizePenButt
 }
 customElements.define(SettingsCustomizePenButtonsSubpageElement.is, SettingsCustomizePenButtonsSubpageElement);
 
-function getTemplate$1A() {
+function getTemplate$1B() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <customize-buttons-subsection button-remapping-list="{{selectedTablet.settings.tabletButtonRemappings}}" action-list$="[[buttonActionList_]]" has-launcher-button="[[hasLauncherButton_]]">
 </customize-buttons-subsection>
@@ -30906,7 +31631,7 @@ class SettingsCustomizeTabletButtonsSubpageElement extends SettingsCustomizeTabl
         return 'settings-customize-tablet-buttons-subpage';
     }
     static get template() {
-        return getTemplate$1A();
+        return getTemplate$1B();
     }
     static get properties() {
         return {
@@ -31381,11 +32106,12 @@ function getApnDisplayName(i18nFunction, apn) {
   return i18nFunction('apnNameModem');
 }
 
-function getTemplate$1z() {
+function getTemplate$1A() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
+    </cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -31402,7 +32128,7 @@ class CrExpandButtonElement extends PolymerElement {
         return 'cr-expand-button';
     }
     static get template() {
-        return getTemplate$1z();
+        return getTemplate$1A();
     }
     static get properties() {
         return {
@@ -31415,7 +32141,6 @@ class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -31437,13 +32162,12 @@ class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
-                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
-                observer: 'onIconChange_',
             },
+            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -31454,7 +32178,10 @@ class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
+        return [
+            'updateAriaExpanded_(disabled, expanded)',
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
     }
     ready() {
         super.ready();
@@ -31479,14 +32206,8 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
     updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
@@ -31495,7 +32216,7 @@ class CrExpandButtonElement extends PolymerElement {
         event.preventDefault();
         this.scrollIntoViewIfNeeded();
         this.expanded = !this.expanded;
-        focusWithoutInk$1(this.$.icon);
+        focusWithoutInk(this.$.icon);
     }
     updateAriaExpanded_() {
         if (this.disabled) {
@@ -31508,7 +32229,7 @@ class CrExpandButtonElement extends PolymerElement {
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
 
-function getTemplate$1y() {
+function getTemplate$1z() {
   return html`<!--_html_template_start_--><style include="cr-shared-style md-select">
   cr-dialog {
     --cr-dialog-width: 416px;
@@ -31752,7 +32473,7 @@ class ApnDetailDialog extends ApnDetailDialogElementBase {
   }
 
   static get template() {
-    return getTemplate$1y();
+    return getTemplate$1z();
   }
 
   static get properties() {
@@ -31921,7 +32642,7 @@ class ApnDetailDialog extends ApnDetailDialogElementBase {
           element = this.shadowRoot.querySelector('#apnDoneBtn');
           break;
       }
-      focusWithoutInk$1(element);
+      focusWithoutInk(element);
 
       // Only after dialog is connected and the intended element is focused can
       // action enabled state changes be a11y announced.
@@ -32333,7 +33054,7 @@ function getTrustedScriptURL(literal) {
     return staticPolicy.createScriptURL('', literal);
 }
 
-function getTemplate$1x() {
+function getTemplate$1y() {
     return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
@@ -32377,7 +33098,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return 'cr-a11y-announcer';
     }
     static get template() {
-        return getTemplate$1x();
+        return getTemplate$1y();
     }
     disconnectedCallback() {
         if (this.currentTimeout_ !== null) {
@@ -32732,7 +33453,7 @@ const CrPolicyNetworkBehaviorMojo = {
   },
 };
 
-function getTemplate$1w() {
+function getTemplate$1x() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style">
   /* CSS variable for controlling the margin of the icon outside the
     * indicator element (i.e. in the element including the indicator). */
@@ -32757,7 +33478,7 @@ function getTemplate$1w() {
 
 
 Polymer({
-  _template: getTemplate$1w(),
+  _template: getTemplate$1x(),
   is: 'cr-policy-network-indicator-mojo',
 
   behaviors: [CrPolicyIndicatorBehavior, CrPolicyNetworkBehaviorMojo],
@@ -32842,6 +33563,12 @@ const NetworkConfigElementBehavior = {
       reflectToAttribute: true,
     },
 
+    readonly: {
+      type: Boolean,
+      value: false,
+      reflectToAttribute: true,
+    },
+
     /**
      * Network managed property associated with the config element.
      * @type {?OncMojo.ManagedProperty}
@@ -32850,7 +33577,28 @@ const NetworkConfigElementBehavior = {
       type: Object,
       value: null,
     },
+
+    /**
+     * @type {string|number|null}
+     */
+    value: {
+      type: Object,
+      notify: true,
+    },
+
+    /**
+     * If set, the field will be filled and the element will be disabled for
+     * user input.
+     * @type {string|number|null}
+     */
+    prefilledValue: {
+      type: Object,
+      value: null,
+    },
   },
+
+  observers:
+      ['maybeLockByPrefilledValue(readonly, disabled, value, prefilledValue)'],
 
   /**
    * @param {boolean} disabled
@@ -32861,9 +33609,33 @@ const NetworkConfigElementBehavior = {
   getDisabled_(disabled, property) {
     return disabled || (!!property && this.isNetworkPolicyEnforced(property));
   },
+
+  /**
+   * It can be overridden by the elements to implement their own validation
+   * logic.
+   */
+  isPrefilledValueValid() {
+    return true;
+  },
+
+  /**
+   * If the prefilled value is defined, always use the value and mark the input
+   * as readonly/disabled.
+   */
+  maybeLockByPrefilledValue() {
+    if (this.prefilledValue === undefined || this.prefilledValue === null) {
+      return;
+    }
+    if (!this.isPrefilledValueValid()) {
+      return;
+    }
+    this.value = this.prefilledValue;
+    this.readonly = true;
+    this.disabled = true;
+  },
 };
 
-function getTemplate$1v() {
+function getTemplate$1w() {
   return html`<!--_html_template_start_--><style include="network-shared">
   :host {
     cursor: pointer;
@@ -32916,7 +33688,7 @@ function getTemplate$1v() {
 
 
 Polymer({
-  _template: getTemplate$1v(),
+  _template: getTemplate$1w(),
   is: 'network-config-toggle',
 
   behaviors: [
@@ -33011,7 +33783,7 @@ const template$7 = html`<!-- These icons were converted from source .svg files. 
 `;
 document.head.appendChild(template$7.content);
 
-function getTemplate$1u() {
+function getTemplate$1v() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style">
   :host {
     display: inline-flex;
@@ -33212,9 +33984,8 @@ function getTemplate$1u() {
     -webkit-mask: url(chrome://resources/ash/common/network/cellular_locked.svg);
   }
 
-  /* TODO(b/315043236): Update icon URL to point to the new carrier lock icon*/
   #icon.cellular-carrier-locked {
-    -webkit-mask: url(chrome://resources/ash/common/network/cellular_locked.svg);
+    -webkit-mask: url(chrome://resources/ash/common/network/cellular_carrier_locked.svg);
   }
 
   #icon.cellular-connecting {
@@ -33263,7 +34034,7 @@ function getTemplate$1u() {
 
 
 Polymer({
-  _template: getTemplate$1u(),
+  _template: getTemplate$1v(),
   is: 'network-icon',
 
   behaviors: [
@@ -33638,7 +34409,7 @@ Polymer({
 
 });
 
-function getTemplate$1t() {
+function getTemplate$1u() {
   return html`<!--_html_template_start_--><style include="network-shared">
   :host {
     display: block;
@@ -33676,6 +34447,7 @@ function getTemplate$1t() {
       on-touchstart="onMousedown_"
       on-keydown="onKeydown_"
       invalid="[[invalid]]"
+      readonly="[[readonly]]"
       error-message="[[errorMessage]]">
     <template is="dom-if" if="[[!showPolicyIndicator_]]" restamp>
       <div slot="suffix">
@@ -33709,7 +34481,7 @@ function getTemplate$1t() {
 
 
 Polymer({
-  _template: getTemplate$1t(),
+  _template: getTemplate$1u(),
   is: 'network-password-input',
 
   behaviors: [
@@ -33722,11 +34494,6 @@ Polymer({
     label: {
       type: String,
       reflectToAttribute: true,
-    },
-
-    value: {
-      type: String,
-      notify: true,
     },
 
     showPassword: {
@@ -33889,10 +34656,9 @@ Polymer({
       event.preventDefault();
     }
   },
-
 });
 
-function getTemplate$1s() {
+function getTemplate$1t() {
   return html`<!--_html_template_start_--><style>
   #enter-pin-description {
     margin-bottom: 16px;
@@ -34123,7 +34889,7 @@ const PIN_MIN_LENGTH = 4;
 const PUK_MIN_LENGTH = 8;
 
 Polymer({
-  _template: getTemplate$1s(),
+  _template: getTemplate$1t(),
   is: 'sim-lock-dialogs',
 
   behaviors: [I18nBehavior],
@@ -34884,22 +35650,6 @@ Polymer({
   },
 });
 
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class OpenWindowProxyImpl {
-    openUrl(url) {
-        window.open(url);
-    }
-    static getInstance() {
-        return instance$u || (instance$u = new OpenWindowProxyImpl());
-    }
-    static setInstance(obj) {
-        instance$u = obj;
-    }
-}
-let instance$u = null;
-
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -34919,7 +35669,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance$t = null;
 
-function getTemplate$1r() {
+function getTemplate$1s() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -34941,7 +35691,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$1r();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -34982,7 +35732,7 @@ class LacrosExtensionControlBrowserProxyImpl {
     }
 }
 
-function getTemplate$1q() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://resources/images/extension.svg" width="20" height="20">
 <span>[[getLabel_(extensionName)]]</span>
@@ -35009,7 +35759,7 @@ class LacrosExtensionControlledIndicatorElement extends PolymerElement {
         return 'lacros-extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$1q();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -35089,70 +35839,26 @@ class InternetPageBrowserProxyImpl {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
  * @fileoverview Constants used in cellular setup flow.
  */
-
-/** @enum {string} */
-const CellularSetupPageName = {
-  ESIM_FLOW_UI: 'esim-flow-ui',
-  PSIM_FLOW_UI: 'psim-flow-ui',
-};
-
-/** @enum {number} */
-const ButtonState$1 = {
-  ENABLED: 1,
-  DISABLED: 2,
-  HIDDEN: 3,
-};
-
-/** @enum {number} */
-const Button = {
-  BACKWARD: 1,
-  CANCEL: 2,
-  FORWARD: 3,
-};
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// clang-format on
-
-
-let hideInk = false;
-
-document.addEventListener('pointerdown', function() {
-  hideInk = true;
-}, true);
-
-document.addEventListener('keydown', function() {
-  hideInk = false;
-}, true);
-
-/**
- * Attempts to track whether focus outlines should be shown, and if they
- * shouldn't, removes the "ink" (ripple) from a control while focusing it.
- * This is helpful when a user is clicking/touching, because it's not super
- * helpful to show focus ripples in that case. This is Polymer-specific.
- * @param {!Element} toFocus
- */
-const focusWithoutInk = function(toFocus) {
-  // |toFocus| does not have a 'noink' property, so it's unclear whether the
-  // element has "ink" and/or whether it can be suppressed. Just focus().
-  if (!('noink' in toFocus) || !hideInk) {
-    toFocus.focus();
-    return;
-  }
-
-  // Make sure the element is in the document we're listening to events on.
-  assert(document === toFocus.ownerDocument);
-  const {noink} = toFocus;
-  toFocus.noink = true;
-  toFocus.focus();
-  toFocus.noink = noink;
-};
+var CellularSetupPageName;
+(function (CellularSetupPageName) {
+    CellularSetupPageName["ESIM_FLOW_UI"] = "esim-flow-ui";
+    CellularSetupPageName["PSIM_FLOW_UI"] = "psim-flow-ui";
+})(CellularSetupPageName || (CellularSetupPageName = {}));
+var ButtonState$1;
+(function (ButtonState) {
+    ButtonState[ButtonState["ENABLED"] = 1] = "ENABLED";
+    ButtonState[ButtonState["DISABLED"] = 2] = "DISABLED";
+    ButtonState[ButtonState["HIDDEN"] = 3] = "HIDDEN";
+})(ButtonState$1 || (ButtonState$1 = {}));
+var Button;
+(function (Button) {
+    Button[Button["BACKWARD"] = 1] = "BACKWARD";
+    Button[Button["CANCEL"] = 2] = "CANCEL";
+    Button[Button["FORWARD"] = 3] = "FORWARD";
+})(Button || (Button = {}));
 
 const styleMod$2 = document.createElement('dom-module');
 styleMod$2.appendChild(html `
@@ -35167,37 +35873,25 @@ styleMod$2.register('os-settings-icons');
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
-/** @polymerBehavior */
-const ESimManagerListenerBehavior = {
-  /** @private {?ESimManagerObserver} */
-  observer_: null,
-
-  /** @override */
-  attached() {
-    observeESimManager(this);
-  },
-
-  // ESimManagerObserver methods. Override these in the implementation.
-
-  onAvailableEuiccListChanged() {},
-
-  /**
-   * @param {!EuiccRemote} euicc
-   */
-  onProfileListChanged(euicc) {},
-
-  /**
-   * @param {!EuiccRemote} euicc
-   */
-  onEuiccChanged(euicc) {},
-
-  /**
-   * @param {!ESimProfileRemote} profile
-   */
-  onProfileChanged(profile) {},
-};
+const ESimManagerListenerMixin = dedupingMixin((superClass) => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    class ESimManagerListenerMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.observer_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            observeESimManager(this);
+        }
+        // ESimManagerObserver methods. Override these in the implementation.
+        onAvailableEuiccListChanged() { }
+        onProfileListChanged() { }
+        onEuiccChanged() { }
+        onProfileChanged() { }
+    }
+    return ESimManagerListenerMixin;
+});
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -35428,7 +36122,7 @@ let BrowserProxy$1 = class BrowserProxy {
 };
 let instance$o = null;
 
-function getTemplate$1p() {
+function getTemplate$1q() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">textarea{display:block;resize:none}#input-container{background-color:var(--cr-input-background-color)}:host([autogrow][has-max-height]) #input-container{box-sizing:content-box;max-height:var(--cr-textarea-autogrow-max-height);min-height:1lh}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}:host-context([chrome-refresh-2023]) #input{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#footerContainer{border-top:0;display:var(--cr-textarea-footer-display,none);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:space-between;line-height:var(--cr-form-field-label-line-height);margin:8px 0;min-height:0;padding:0;white-space:var(--cr-input-error-white-space)}:host([invalid]) #footerContainer,:host([invalid]) #label{color:var(--cr-input-error-color)}#mirror{display:none}:host([autogrow]) #mirror{display:block;visibility:hidden;white-space:pre-wrap;word-wrap:break-word}:host([autogrow]) #mirror,:host([autogrow]) textarea{border:0;box-sizing:border-box;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px)}:host([autogrow]) textarea{height:100%;left:0;overflow:hidden;position:absolute;resize:none;top:0;width:100%}:host([autogrow][has-max-height]) #mirror,:host([autogrow][has-max-height]) textarea{overflow-x:hidden;overflow-y:auto}:host-context([chrome-refresh-2023]) textarea{position:relative;z-index:1}:host-context([chrome-refresh-2023]):host([autogrow]) textarea{position:absolute}:host-context([chrome-refresh-2023]) #mirror{font-size:12px;line-height:16px}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
@@ -35465,7 +36159,7 @@ class CrTextareaElement extends PolymerElement {
         return 'cr-textarea';
     }
     static get template() {
-        return getTemplate$1p();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -35695,8 +36389,66 @@ function getImage(path) {
         getUrlForCss(path);
 }
 
-function getTemplate$1o() {
-    return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{display:inline-flex}cr-policy-pref-indicator{align-self:center;margin-inline-start:var(--cr-controlled-by-spacing)}#labels[disabled]{color:var(--paper-grey-400)}@media (prefers-color-scheme:dark){#labels[disabled]{color:var(--google-grey-500)}}:host-context(body.jelly-enabled) #labels[disabled]{color:var(--cros-sys-disabled)}div.outer{align-items:stretch;display:flex;flex-direction:column;margin:8px 0;min-width:200px}#labels{display:flex;flex-direction:row;justify-content:space-between;margin:-4px 16px 0 16px}#labels>div{font-size:12px}#label-begin{margin-inline-end:4px}#label-end{margin-inline-start:4px}</style>
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let instance$n = null;
+class ChromeVoxSubpageBrowserProxyImpl {
+    static getInstance() {
+        return instance$n || (instance$n = new ChromeVoxSubpageBrowserProxyImpl());
+    }
+    static setInstanceForTesting(obj) {
+        instance$n = obj;
+    }
+    getAllTtsVoiceData() {
+        chrome.send('getAllTtsVoiceData');
+    }
+    refreshTtsVoices() {
+        chrome.send('refreshTtsVoices');
+    }
+    getDisplayNameForLocale(locale) {
+        return sendWithPromise$1('getDisplayNameForLocale', locale);
+    }
+    getApplicationLocale() {
+        return sendWithPromise$1('getApplicationLocale');
+    }
+    addDeviceAddedListener(listener) {
+        chrome.bluetooth.onDeviceAdded.addListener(listener);
+    }
+    removeDeviceAddedListener(listener) {
+        chrome.bluetooth.onDeviceAdded.removeListener(listener);
+    }
+    addDeviceChangedListener(listener) {
+        chrome.bluetooth.onDeviceChanged.addListener(listener);
+    }
+    removeDeviceChangedListener(listener) {
+        chrome.bluetooth.onDeviceChanged.removeListener(listener);
+    }
+    addDeviceRemovedListener(listener) {
+        chrome.bluetooth.onDeviceRemoved.addListener(listener);
+    }
+    removeDeviceRemovedListener(listener) {
+        chrome.bluetooth.onDeviceRemoved.removeListener(listener);
+    }
+    addPairingListener(listener) {
+        chrome.bluetoothPrivate.onPairing.addListener(listener);
+    }
+    removePairingListener(listener) {
+        chrome.bluetoothPrivate.onPairing.removeListener(listener);
+    }
+    startDiscovery() {
+        chrome.bluetooth.startDiscovery();
+    }
+    stopDiscovery() {
+        chrome.bluetooth.startDiscovery();
+    }
+    updateBluetoothBrailleDisplayAddress(displayAddress) {
+        chrome.send('updateBluetoothBrailleDisplayAddress', [displayAddress]);
+    }
+}
+
+function getTemplate$1p() {
+    return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{display:inline-flex}cr-policy-pref-indicator{align-self:center;margin-inline-start:var(--cr-controlled-by-spacing)}#labels[disabled]{color:var(--cros-sys-disabled)}div.outer{align-items:stretch;display:flex;flex-direction:column;margin:8px 0;min-width:200px}#labels{display:flex;flex-direction:row;justify-content:space-between;margin:-4px 16px 0 16px}#labels>div{font-size:12px}#label-begin{margin-inline-end:4px}#label-end{margin-inline-start:4px}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
 </template>
@@ -35727,7 +36479,7 @@ class SettingsSliderElement extends SettingsSliderElementBase {
         return 'settings-slider';
     }
     static get template() {
-        return getTemplate$1o();
+        return getTemplate$1p();
     }
     static get properties() {
         return {
@@ -35915,13 +36667,13 @@ var NoteAppLockScreenSupport;
     NoteAppLockScreenSupport[NoteAppLockScreenSupport["SUPPORTED"] = 2] = "SUPPORTED";
     NoteAppLockScreenSupport[NoteAppLockScreenSupport["ENABLED"] = 3] = "ENABLED";
 })(NoteAppLockScreenSupport || (NoteAppLockScreenSupport = {}));
-let instance$n = null;
+let instance$m = null;
 class DevicePageBrowserProxyImpl {
     static getInstance() {
-        return instance$n || (instance$n = new DevicePageBrowserProxyImpl());
+        return instance$m || (instance$m = new DevicePageBrowserProxyImpl());
     }
     static setInstanceForTesting(obj) {
-        instance$n = obj;
+        instance$m = obj;
     }
     initializePointers() {
         chrome.send('initializePointerSettings');
@@ -35994,64 +36746,6 @@ class DevicePageBrowserProxyImpl {
     }
     openBrowsingDataSettings() {
         chrome.send('openBrowsingDataSettings');
-    }
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-let instance$m = null;
-class ChromeVoxSubpageBrowserProxyImpl {
-    static getInstance() {
-        return instance$m || (instance$m = new ChromeVoxSubpageBrowserProxyImpl());
-    }
-    static setInstanceForTesting(obj) {
-        instance$m = obj;
-    }
-    getAllTtsVoiceData() {
-        chrome.send('getAllTtsVoiceData');
-    }
-    refreshTtsVoices() {
-        chrome.send('refreshTtsVoices');
-    }
-    getDisplayNameForLocale(locale) {
-        return sendWithPromise$1('getDisplayNameForLocale', locale);
-    }
-    getApplicationLocale() {
-        return sendWithPromise$1('getApplicationLocale');
-    }
-    addDeviceAddedListener(listener) {
-        chrome.bluetooth.onDeviceAdded.addListener(listener);
-    }
-    removeDeviceAddedListener(listener) {
-        chrome.bluetooth.onDeviceAdded.removeListener(listener);
-    }
-    addDeviceChangedListener(listener) {
-        chrome.bluetooth.onDeviceChanged.addListener(listener);
-    }
-    removeDeviceChangedListener(listener) {
-        chrome.bluetooth.onDeviceChanged.removeListener(listener);
-    }
-    addDeviceRemovedListener(listener) {
-        chrome.bluetooth.onDeviceRemoved.addListener(listener);
-    }
-    removeDeviceRemovedListener(listener) {
-        chrome.bluetooth.onDeviceRemoved.removeListener(listener);
-    }
-    addPairingListener(listener) {
-        chrome.bluetoothPrivate.onPairing.addListener(listener);
-    }
-    removePairingListener(listener) {
-        chrome.bluetoothPrivate.onPairing.removeListener(listener);
-    }
-    startDiscovery() {
-        chrome.bluetooth.startDiscovery();
-    }
-    stopDiscovery() {
-        chrome.bluetooth.startDiscovery();
-    }
-    updateBluetoothBrailleDisplayAddress(displayAddress) {
-        chrome.send('updateBluetoothBrailleDisplayAddress', [displayAddress]);
     }
 }
 
@@ -36456,7 +37150,7 @@ var SetDeviceNameResult;
     SetDeviceNameResult[SetDeviceNameResult["ERROR_DUE_TO_INVALID_INPUT"] = 3] = "ERROR_DUE_TO_INVALID_INPUT";
 })(SetDeviceNameResult || (SetDeviceNameResult = {}));
 
-function getTemplate$1n() {
+function getTemplate$1o() {
     return html `<!--_html_template_start_--><slot></slot>
 <!--_html_template_end_-->`;
 }
@@ -36497,7 +37191,7 @@ class AppManagementDomSwitchElement extends PolymerElement {
         return 'app-management-dom-switch';
     }
     static get template() {
-        return getTemplate$1n();
+        return getTemplate$1o();
     }
     static get properties() {
         return {
@@ -36693,54 +37387,6 @@ var AppManagementUserAction;
     AppManagementUserAction[AppManagementUserAction["APP_STORE_LINK_CLICKED"] = 32] = "APP_STORE_LINK_CLICKED";
 })(AppManagementUserAction || (AppManagementUserAction = {}));
 
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-function createPermission(permissionType, value, isManaged) {
-    return {
-        permissionType,
-        value,
-        isManaged,
-    };
-}
-function createTriStatePermissionValue(value) {
-    return { tristateValue: value };
-}
-function getTriStatePermissionValue(permissionValue) {
-    assert$1(isTriStateValue(permissionValue));
-    return permissionValue.tristateValue;
-}
-function createBoolPermissionValue(value) {
-    return { boolValue: value };
-}
-function getBoolPermissionValue(permissionValue) {
-    assert$1(isBoolValue(permissionValue));
-    return permissionValue.boolValue;
-}
-function isTriStateValue(permissionValue) {
-    return permissionValue['tristateValue'] !== undefined &&
-        permissionValue['boolValue'] === undefined;
-}
-function isBoolValue(permissionValue) {
-    return permissionValue['boolValue'] !== undefined &&
-        permissionValue['tristateValue'] === undefined;
-}
-function createBoolPermission(permissionType, value, isManaged) {
-    return createPermission(permissionType, createBoolPermissionValue(value), isManaged);
-}
-function createTriStatePermission(permissionType, value, isManaged) {
-    return createPermission(permissionType, createTriStatePermissionValue(value), isManaged);
-}
-function isPermissionEnabled(permissionValue) {
-    if (isBoolValue(permissionValue)) {
-        return getBoolPermissionValue(permissionValue);
-    }
-    if (isTriStateValue(permissionValue)) {
-        return getTriStatePermissionValue(permissionValue) === TriState.kAllow;
-    }
-    assertNotReached$1();
-}
-
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -36771,7 +37417,7 @@ function getPermissionValueBool(app, permissionType) {
  * Returns the TriState value of a permission. If the permission value is not
  * already a TriState, it will be converted based on the boolean value.
  */
-function getPermissionValueAsTriState$1(app, permissionType) {
+function getPermissionValueAsTriState(app, permissionType) {
     const permission = getPermission(app, permissionType);
     assert$1(permission);
     if (isTriStateValue(permission.value)) {
@@ -37238,7 +37884,7 @@ function onAppRemoved(appId) {
 initStoreAndListeners();
 const AppManagementStoreMixin = makeStoreClientMixin(AppManagementStore.getInstance);
 
-function getTemplate$1m() {
+function getTemplate$1n() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style settings-shared">#infoIcon{--paper-tooltip-min-width:max-content;margin-inline-start:3px}#launchIcon{--cr-icon-image:url(chrome://resources/images/open_in_new.svg);--cr-icon-button-fill-color:var(--cr-link-color);border-radius:0;height:var(--help-icon-size);margin-inline-start:3px;width:var(--help-icon-size)}#tooltipText{font-size:10px;line-height:12px;white-space:nowrap}#typeAndSource{display:flex}</style>
 <div class="permission-section-header">
   <localized-link id="heading" class="header-text" localized-string="$i18n{appManagementAppDetailsTitle}">
@@ -37292,17 +37938,12 @@ class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase {
         return 'app-management-app-details-item';
     }
     static get template() {
-        return getTemplate$1m();
+        return getTemplate$1n();
     }
     static get properties() {
         return {
             app: {
                 type: Object,
-            },
-            hidden: {
-                type: Boolean,
-                computed: 'isHidden_()',
-                reflectToAttribute: true,
             },
             appId_: {
                 type: String,
@@ -37314,9 +37955,6 @@ class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase {
         super.connectedCallback();
         this.watch('appId_', state => state.selectedAppId);
         this.updateFromStore();
-    }
-    isHidden_() {
-        return !loadTimeData.getBoolean('appManagementAppDetailsEnabled');
     }
     appIdChanged_(appId) {
         if (appId && this.app) {
@@ -37453,7 +38091,7 @@ class AppManagementAppDetailsItem extends AppManagementAppDetailsItemBase {
 }
 customElements.define(AppManagementAppDetailsItem.is, AppManagementAppDetailsItem);
 
-function getTemplate$1l() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">.permission-heading{padding:var(--cr-section-vertical-padding) 0}.permission-text-row{border-top:none}</style>
 
 <div class="permission-heading">
@@ -37499,7 +38137,7 @@ class AppManagementPermissionHeadingElement extends AppManagementPermissionHeadi
         return 'app-management-permission-heading';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
@@ -37543,7 +38181,7 @@ class AppManagementPermissionHeadingElement extends AppManagementPermissionHeadi
 }
 customElements.define(AppManagementPermissionHeadingElement.is, AppManagementPermissionHeadingElement);
 
-function getTemplate$1k() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;flex:1;justify-content:space-between}#icon{padding-inline-end:var(--row-item-icon-padding)}#policyIndicator{padding-inline-end:var(--app-management-controlled-by-spacing)}</style>
 
 <div id="left-content" aria-hidden="true">
@@ -37580,7 +38218,7 @@ class AppManagementToggleRowElement extends PolymerElement {
         return 'app-management-toggle-row';
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -37612,7 +38250,7 @@ class AppManagementToggleRowElement extends PolymerElement {
 }
 customElements.define(AppManagementToggleRowElement.is, AppManagementToggleRowElement);
 
-function getTemplate$1j() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style>:host(:not([disabled])){cursor:pointer}</style>
 <app-management-toggle-row id="toggleRow" label="$i18n{appManagementPinToShelfLabel}" managed="[[isManaged_(app)]]" value="[[getValue_(app)]]">
 </app-management-toggle-row>
@@ -37627,7 +38265,7 @@ class AppManagementPinToShelfItemElement extends PolymerElement {
         return 'app-management-pin-to-shelf-item';
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1k();
     }
     static get properties() {
         return {
@@ -37676,7 +38314,7 @@ class AppManagementPinToShelfItemElement extends PolymerElement {
 }
 customElements.define(AppManagementPinToShelfItemElement.is, AppManagementPinToShelfItemElement);
 
-function getTemplate$1i() {
+function getTemplate$1j() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style settings-shared">.sub-app-row:last-of-type{border-bottom:none}</style>
 <div class="permission-section-header">
   <div class="header-text">[[getListHeadingString_(parentApp)]]</div>
@@ -37702,7 +38340,7 @@ class AppManagementSubAppsItemElement extends AppManagementSubAppsItemElementBas
         return 'app-management-sub-apps-item';
     }
     static get template() {
-        return getTemplate$1i();
+        return getTemplate$1j();
     }
     static get properties() {
         return {
@@ -37732,7 +38370,7 @@ class AppManagementSubAppsItemElement extends AppManagementSubAppsItemElementBas
 }
 customElements.define(AppManagementSubAppsItemElement.is, AppManagementSubAppsItemElement);
 
-function getTemplate$1h() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">:host(:not([available_])){display:none}#file-handling-item{margin:var(--row-item-vertical-padding) 0;width:100%}#toggle-row:not([disabled_]){cursor:pointer}#dialog-body{user-select:text}</style>
 
 <div id="file-handling-item">
@@ -37770,7 +38408,7 @@ class AppManagementFileHandlingItemElement extends AppManagementFileHandlingItem
         return 'app-management-file-handling-item';
     }
     static get template() {
-        return getTemplate$1h();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -37849,7 +38487,7 @@ class AppManagementFileHandlingItemElement extends AppManagementFileHandlingItem
         this.showOverflowDialog = false;
         const toFocus = this.shadowRoot.querySelector('#type-list');
         assert$1(toFocus);
-        focusWithoutInk$1(toFocus);
+        focusWithoutInk(toFocus);
     }
     getValue_(app) {
         if (app && app.fileHandlingState) {
@@ -37887,7 +38525,7 @@ const template$5 = html `<iron-iconset-svg name="app-management" size="20">
 `;
 document.head.appendChild(template$5.content);
 
-function getTemplate$1g() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;cursor:pointer;display:flex;flex:1;justify-content:space-between}</style>
 <div id="label" aria-hidden="true">
   [[morePermissionsLabel]]
@@ -37907,7 +38545,7 @@ class AppManagementMorePermissionsItemElement extends PolymerElement {
         return 'app-management-more-permissions-item';
     }
     static get template() {
-        return getTemplate$1g();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -37926,7 +38564,7 @@ class AppManagementMorePermissionsItemElement extends PolymerElement {
 }
 customElements.define(AppManagementMorePermissionsItemElement.is, AppManagementMorePermissionsItemElement);
 
-function getTemplate$1f() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([disabled_])){cursor:pointer}:host(:not([available_])){display:none}</style>
 
 <template is="dom-if" if="[[available_]]">
@@ -37944,7 +38582,7 @@ class AppManagementPermissionItemElement extends PolymerElement {
         return 'app-management-permission-item';
     }
     static get template() {
-        return getTemplate$1f();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -38130,7 +38768,7 @@ class AppManagementPermissionItemElement extends PolymerElement {
 }
 customElements.define(AppManagementPermissionItemElement.is, AppManagementPermissionItemElement);
 
-function getTemplate$1e() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">#dialogBody{display:flex;flex-direction:column;height:350px;overflow-y:auto}.list-item{border-bottom:var(--cr-separator-line);align-items:center;display:flex;min-height:36px;padding:0}iron-list{user-select:none}</style>
 <cr-dialog id="dialog" close-text="[[i18n('close')]]" show-on-attach show-close-button>
   <div slot="title">[[i18n('appManagementIntentSettingsDialogTitle')]]</div>
@@ -38156,7 +38794,7 @@ class AppManagementSupportedLinksDialogElement extends AppManagementSupportedLin
         return 'app-management-supported-links-dialog';
     }
     static get template() {
-        return getTemplate$1e();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -38182,7 +38820,7 @@ class AppManagementSupportedLinksDialogElement extends AppManagementSupportedLin
 }
 customElements.define(AppManagementSupportedLinksDialogElement.is, AppManagementSupportedLinksDialogElement);
 
-function getTemplate$1d() {
+function getTemplate$1e() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style"></style>
 <cr-dialog show-on-attach id="dialog" close-text="close">
   <div slot="title">[[i18n('appManagementIntentOverlapDialogTitle')]]</div>
@@ -38208,7 +38846,7 @@ class AppManagementSupportedLinksOverlappingAppsDialogElement extends AppManagem
         return 'app-management-supported-links-overlapping-apps-dialog';
     }
     static get template() {
-        return getTemplate$1d();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -38251,7 +38889,7 @@ class AppManagementSupportedLinksOverlappingAppsDialogElement extends AppManagem
 }
 customElements.define(AppManagementSupportedLinksOverlappingAppsDialogElement.is, AppManagementSupportedLinksOverlappingAppsDialogElement);
 
-function getTemplate$1c() {
+function getTemplate$1d() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">#disabledExplanationText{align-items:center;display:flex;flex-direction:row;height:var(--info-text-row-height)}#supportedLinksOption{height:48px}.info-icon{height:var(--help-icon-size);width:var(--help-icon-size)}#overlapWarning{color:var(--secondary-text-color);margin-block-start:-12px;margin-inline-start:36px}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}cr-radio-group{width:100%}iron-icon{flex-shrink:0}cr-radio-button{min-height:var(--cr-section-min-height)}</style>
 <div class="permission-section-header">
   <localized-link id="heading" class="header-text" on-link-clicked="launchDialog_" localized-string="[[i18nAdvanced('appManagementIntentSettingsTitle')]]">
@@ -38298,7 +38936,7 @@ class AppManagementSupportedLinksItemElement extends AppManagementSupportedLinks
         return 'app-management-supported-links-item';
     }
     static get template() {
-        return getTemplate$1c();
+        return getTemplate$1d();
     }
     static get properties() {
         return {
@@ -38412,7 +39050,7 @@ class AppManagementSupportedLinksItemElement extends AppManagementSupportedLinks
     }
     onDialogClose_() {
         this.showSupportedLinksDialog_ = false;
-        focusWithoutInk$1(this.$.heading);
+        focusWithoutInk(this.$.heading);
     }
     /* Preferred app state change dialog and related functions ******************/
     async onSupportedLinkPrefChanged_(event) {
@@ -38442,14 +39080,14 @@ class AppManagementSupportedLinksItemElement extends AppManagementSupportedLinks
         if (overlapDialog.wasConfirmed()) {
             this.setAppAsPreferredApp_(PREFERRED_APP_PREF);
             // Return keyboard focus to the preferred radio button.
-            focusWithoutInk$1(this.$.preferredRadioButton);
+            focusWithoutInk(this.$.preferredRadioButton);
         }
         else {
             // Reset the radio button.
             this.shadowRoot.querySelector('#radioGroup').selected =
                 this.getCurrentPreferredApp_(this.app);
             // Return keyboard focus to the browser radio button.
-            focusWithoutInk$1(this.$.browserRadioButton);
+            focusWithoutInk(this.$.browserRadioButton);
         }
     }
     /**
@@ -38467,7 +39105,7 @@ class AppManagementSupportedLinksItemElement extends AppManagementSupportedLinks
 }
 customElements.define(AppManagementSupportedLinksItemElement.is, AppManagementSupportedLinksItemElement);
 
-function getTemplate$1b() {
+function getTemplate$1c() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style"></style>
 <div class="permission-list">
   <app-management-pin-to-shelf-item id="pinToShelfSetting" class="permission-card-row separated-row" app="[[app_]]">
@@ -38509,7 +39147,7 @@ class AppManagementPwaDetailViewElement extends AppManagementPwaDetailViewElemen
         return 'app-management-pwa-detail-view';
     }
     static get template() {
-        return getTemplate$1b();
+        return getTemplate$1c();
     }
     static get properties() {
         return {
@@ -38538,7 +39176,7 @@ class AppManagementPwaDetailViewElement extends AppManagementPwaDetailViewElemen
 }
 customElements.define(AppManagementPwaDetailViewElement.is, AppManagementPwaDetailViewElement);
 
-function getTemplate$1a() {
+function getTemplate$1b() {
     return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([available_])){display:none}#icon{padding-inline-end:var(--row-item-icon-padding)}</style>
 
 <template is="dom-if" if="[[available_]]">
@@ -38569,7 +39207,7 @@ class AppManagementReadOnlyPermissionItemElement extends AppManagementReadOnlyPe
         return 'app-management-read-only-permission-item';
     }
     static get template() {
-        return getTemplate$1a();
+        return getTemplate$1b();
     }
     static get properties() {
         return {
@@ -38609,7 +39247,7 @@ class AppManagementReadOnlyPermissionItemElement extends AppManagementReadOnlyPe
         }
         const permission = getPermission(app, permissionType);
         assert$1(permission);
-        const value = getPermissionValueAsTriState$1(app, permissionType);
+        const value = getPermissionValueAsTriState(app, permissionType);
         if (value === TriState.kAllow && permission.details) {
             return this.i18n('appManagementPermissionAllowedWithDetails', permission.details);
         }
@@ -38633,7 +39271,7 @@ class AppManagementReadOnlyPermissionItemElement extends AppManagementReadOnlyPe
 }
 customElements.define(AppManagementReadOnlyPermissionItemElement.is, AppManagementReadOnlyPermissionItemElement);
 
-function getTemplate$19() {
+function getTemplate$1a() {
     return html `<!--_html_template_start_--><style>:host{cursor:pointer}</style>
 <app-management-toggle-row id="toggleRow" label="$i18n{appManagementPresetWindowSizesLabel}" value="[[getValue_(app)]]" description="$i18n{appManagementPresetWindowSizesText}">
 </app-management-toggle-row>
@@ -38648,7 +39286,7 @@ class AppManagementResizeLockItemElement extends PolymerElement {
         return 'app-management-resize-lock-item';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$1a();
     }
     static get properties() {
         return {
@@ -38690,8 +39328,8 @@ class AppManagementResizeLockItemElement extends PolymerElement {
 }
 customElements.define(AppManagementResizeLockItemElement.is, AppManagementResizeLockItemElement);
 
-function getTemplate$18() {
-    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#noPermissions{border-top:none}</style>
+function getTemplate$19() {
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#noPermissions{border-top:none}#appDetails{padding-bottom:12px}</style>
 <div class="permission-list">
   <app-management-pin-to-shelf-item id="pinToShelfSetting" class="permission-card-row separated-row" app="[[app_]]">
   </app-management-pin-to-shelf-item>
@@ -38747,7 +39385,7 @@ class AppManagementArcDetailViewElement extends AppManagementArcDetailViewElemen
         return 'app-management-arc-detail-view';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$19();
     }
     static get properties() {
         return {
@@ -38835,7 +39473,7 @@ class AppManagementArcDetailViewElement extends AppManagementArcDetailViewElemen
 }
 customElements.define(AppManagementArcDetailViewElement.is, AppManagementArcDetailViewElement);
 
-function getTemplate$17() {
+function getTemplate$18() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">.permission-text-row:first-of-type{border-top:none}#noPermissions{border-top:none}</style>
 <div>
   <div class="permission-list">
@@ -38884,7 +39522,7 @@ class AppManagementChromeAppDetailViewElement extends AppManagementChromeAppDeta
         return 'app-management-chrome-app-detail-view';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$18();
     }
     static get properties() {
         return {
@@ -38962,7 +39600,7 @@ class PluginVmBrowserProxyImpl {
     }
 }
 
-function getTemplate$16() {
+function getTemplate$17() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style"></style>
 
 <div class="permission-list">
@@ -39027,7 +39665,7 @@ class AppManagementPluginVmDetailViewElement extends AppManagementPluginVmDetail
         return 'app-management-plugin-vm-detail-view';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$17();
     }
     static get properties() {
         return {
@@ -39092,7 +39730,7 @@ class AppManagementPluginVmDetailViewElement extends AppManagementPluginVmDetail
 }
 customElements.define(AppManagementPluginVmDetailViewElement.is, AppManagementPluginVmDetailViewElement);
 
-function getTemplate$15() {
+function getTemplate$16() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">.permission-text-row{border-top:none}iron-icon{--iron-icon-fill-color:var(--secondary-text-color);padding-inline-end:var(--row-item-icon-padding)}localized-link{color:var(--secondary-text-color);white-space:pre-line}</style>
 
 <div class="permission-list">
@@ -39134,7 +39772,7 @@ class AppManagementBorealisDetailViewElement extends AppManagementBorealisDetail
         return 'app-management-borealis-detail-view';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$16();
     }
     static get properties() {
         return {
@@ -39162,7 +39800,7 @@ class AppManagementBorealisDetailViewElement extends AppManagementBorealisDetail
 }
 customElements.define(AppManagementBorealisDetailViewElement.is, AppManagementBorealisDetailViewElement);
 
-function getTemplate$14() {
+function getTemplate$15() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <app-management-dom-switch id="viewSelector" route="[[getSelectedRouteId_(app_)]]">
   <template>
@@ -39190,7 +39828,7 @@ class AppManagementAppDetailViewElement extends AppManagementAppDetailViewElemen
         return 'app-management-app-detail-view';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$15();
     }
     static get properties() {
         return {
@@ -39289,7 +39927,7 @@ html{--card-separator:1px solid var(--cros-separator-color);--header-text-color:
 `;
 document.head.appendChild(template$4.content);
 
-function getTemplate$13() {
+function getTemplate$14() {
     return html `<!--_html_template_start_--><style include="app-management-cros-shared-style cr-icons">:host{align-items:center;border-bottom:var(--card-separator);color:var(--cros-text-color-primary);cursor:pointer;display:flex;flex-direction:row;font-weight:400;height:48px}#appTitle{flex:1;overflow:hidden;text-overflow:ellipsis}#appIcon{height:32px;margin-inline-end:20px;margin-inline-start:24px;width:32px}</style>
 <img id="appIcon" src="[[iconUrlFromId_(app)]]" alt="[[app.title]] app icon." aria-hidden="true">
 <div id="appTitle" aria-hidden="true">[[app.title]]</div>
@@ -39306,7 +39944,7 @@ class AppManagementAppItemElement extends AppManagementAppItemElementBase {
         return 'app-management-app-item';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -39349,7 +39987,7 @@ class AppManagementAppItemElement extends AppManagementAppItemElementBase {
 }
 customElements.define(AppManagementAppItemElement.is, AppManagementAppItemElement);
 
-function getTemplate$12() {
+function getTemplate$13() {
     return html `<!--_html_template_start_--><style include="cr-shared-style app-management-cros-shared-style">.app-management-item-arrow{margin-inline-end:8px}#noAppsLabel{text-align:center}</style>
 
 <div id="appList">
@@ -39378,7 +40016,7 @@ class AppManagementMainViewElement extends AppManagementMainViewElementBase {
         return 'app-management-main-view';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$13();
     }
     static get properties() {
         return {
@@ -39408,7 +40046,7 @@ class AppManagementMainViewElement extends AppManagementMainViewElementBase {
             if (appId) {
                 const button = this.shadowRoot.querySelector(`#app-subpage-button-${appId}`);
                 if (button) {
-                    focusWithoutInk$1(button);
+                    focusWithoutInk(button);
                 }
             }
         }
@@ -39444,7 +40082,7 @@ class AppManagementMainViewElement extends AppManagementMainViewElementBase {
 }
 customElements.define(AppManagementMainViewElement.is, AppManagementMainViewElement);
 
-function getTemplate$11() {
+function getTemplate$12() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div id="mainContainer">
   <app-management-main-view search-term="[[searchTerm]]">
@@ -39461,7 +40099,7 @@ class SettingsAppManagementPageElement extends PolymerElement {
         return 'settings-app-management-page';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$12();
     }
     static get properties() {
         return {
@@ -39471,27 +40109,11 @@ class SettingsAppManagementPageElement extends PolymerElement {
 }
 customElements.define(SettingsAppManagementPageElement.is, SettingsAppManagementPageElement);
 
-function getTemplate$10() {
-    return html `<!--_html_template_start_--><style include="settings-shared shared-style md-select">:host{--cr-dialog-width:320px;--md-select-width:280px}#dialogBody{display:flex;flex-direction:column;height:95px;overflow:auto}.md-select{margin-top:20px}</style>
-<cr-dialog id="dialog" show-on-attach>
-  <div id="title" slot="title">$i18n{osSearchEngineLabel}</div>
-  <div id="dialogBody" slot="body">
-    <div id="description">$i18n{osSearchEngineDescription}</div>
-    <select class="md-select" aria-labelledby="title" aria-describedby="description" autofocus>
-      <template is="dom-repeat" items="[[searchEngines_]]">
-        <option selected="[[item.default]]">[[item.name]]</option>
-      </template>
-    </select>
-  </div>
-  <div slot="button-container">
-    <cr-button class="cancel-button" on-click="onCancelButtonClick_">
-      $i18n{cancel}
-    </cr-button>
-    <cr-button class="action-button" on-click="onActionButtonClick_" disabled="[[disableActionButton_]]">
-      $i18n{done}
-    </cr-button>
-  </div>
-</cr-dialog>
+function getTemplate$11() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared md-select"></style>
+
+<cr-link-row id="browserSearchSettingsLink" label="$i18n{osSearchEngineLabel}" sub-label="[[currentSearchEngine_.name]]" on-click="onSearchEngineLinkClick_" external>
+</cr-link-row>
 <!--_html_template_end_-->`;
 }
 
@@ -39510,83 +40132,12 @@ class SearchEnginesBrowserProxyImpl {
     static setInstanceForTesting(obj) {
         instance$d = obj;
     }
-    setDefaultSearchEngine(modelIndex) {
-        chrome.send('setDefaultSearchEngine', [modelIndex]);
-    }
     getSearchEnginesList() {
         return sendWithPromise$1('getSearchEnginesList');
     }
     openBrowserSearchSettings() {
         chrome.send('openBrowserSearchSettings');
     }
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'os-settings-search-selection-dialog' is a dialog for setting
- * the preferred search engine.
- */
-const OsSettingsSearchSelectionDialogElementBase = WebUiListenerMixin(PolymerElement);
-class OsSettingsSearchSelectionDialogElement extends OsSettingsSearchSelectionDialogElementBase {
-    static get is() {
-        return 'os-settings-search-selection-dialog';
-    }
-    static get template() {
-        return getTemplate$10();
-    }
-    static get properties() {
-        return {
-            /**
-             * List of default search engines available.
-             */
-            searchEngines_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-        };
-    }
-    constructor() {
-        super();
-        this.browserProxy_ = SearchEnginesBrowserProxyImpl.getInstance();
-    }
-    ready() {
-        super.ready();
-        this.browserProxy_.getSearchEnginesList().then(this.updateSearchEngines_.bind(this));
-        this.addWebUiListener('search-engines-changed', this.updateSearchEngines_.bind(this));
-    }
-    updateSearchEngines_(searchEngines) {
-        this.set('searchEngines_', searchEngines.defaults);
-    }
-    /**
-     * Enables the checked languages.
-     */
-    onActionButtonClick_() {
-        const select = castExists$1(this.shadowRoot.querySelector('select'));
-        const searchEngine = this.searchEngines_[select.selectedIndex];
-        this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex);
-        this.$.dialog.close();
-    }
-    onCancelButtonClick_() {
-        this.$.dialog.close();
-    }
-    onKeydown_(e) {
-        if (e.key === 'Escape') {
-            this.onCancelButtonClick_();
-        }
-    }
-}
-customElements.define(OsSettingsSearchSelectionDialogElement.is, OsSettingsSearchSelectionDialogElement);
-
-function getTemplate$$() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared md-select">#search-wrapper{align-items:center;display:flex}cr-policy-pref-indicator{padding-inline-end:8px}</style>
-
-<cr-link-row id="browserSearchSettingsLink" label="$i18n{osSearchEngineLabel}" sub-label="[[currentSearchEngine_.name]]" on-click="onSearchEngineLinkClick_" external>
-</cr-link-row>
-<!--_html_template_end_-->`;
 }
 
 // Copyright 2021 The Chromium Authors
@@ -39602,11 +40153,10 @@ class SettingsSearchEngineElement extends SettingsSearchEngineElementBase {
         return 'settings-search-engine';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$11();
     }
     static get properties() {
         return {
-            prefs: Object,
             /** The current selected search engine. */
             currentSearchEngine_: Object,
         };
@@ -39625,24 +40175,10 @@ class SettingsSearchEngineElement extends SettingsSearchEngineElementBase {
         this.currentSearchEngine_ = defaultSearchEngine;
     }
     focus() {
-        this.getBrowserSearchSettingsLink_().focus();
-    }
-    onDisableExtension_() {
-        const event = new CustomEvent('refresh-pref', {
-            bubbles: true,
-            composed: true,
-            detail: 'default_search_provider.enabled',
-        });
-        this.dispatchEvent(event);
+        this.shadowRoot.getElementById('browserSearchSettingsLink').focus();
     }
     onSearchEngineLinkClick_() {
         this.browserProxy_.openBrowserSearchSettings();
-    }
-    getBrowserSearchSettingsLink_() {
-        return castExists$1(this.shadowRoot.getElementById('browserSearchSettingsLink'));
-    }
-    getSearchSelectionDialogButton_() {
-        return castExists$1(this.shadowRoot.getElementById('searchSelectionDialogButton'));
     }
 }
 customElements.define(SettingsSearchEngineElement.is, SettingsSearchEngineElement);
@@ -40050,7 +40586,7 @@ const CROS_TOKENS = new Set([
     'cros.sys.illo.card.on_color1',
 ]);
 /** String variant of the name field used for comparison during parsing. */
-const LOTTIE_NAME_KEY = 'nm';
+const LOTTIE_GRADIENT_FILL_TYPE = 'gf';
 /** The CustomEvent names that LottieRenderer can fire. */
 var CrosLottieEvent;
 (function (CrosLottieEvent) {
@@ -40078,10 +40614,9 @@ var CrosLottieEvent;
 })(CrosLottieEvent || (CrosLottieEvent = {}));
 /**
  * Helper function for converting between the hexadecimal string we get from the
- * computed style to the format that lottie expects, which is an array of four
- * floats. Since these come directly from the computed style and color pipeline,
- * we can be confident that we are only going to be parsing 8 digit hexadecimal
- * strings.
+ * computed style to LottieRGBAArray type. Since these come directly
+ * from the computed style and color pipeline, we can be confident that we are
+ * only going to be parsing 8 digit hexadecimal strings.
  */
 function convertHexToLottieRGBA(hexString) {
     let r;
@@ -40109,27 +40644,48 @@ function convertHexToLottieRGBA(hexString) {
 function convertTokenToCssVariable(token) {
     return `--${(token).replaceAll('.', '-')}`;
 }
+function getOrCreateTokenColor(colors, tokenName) {
+    if (!colors.has(tokenName)) {
+        colors.set(tokenName, {
+            cssVar: convertTokenToCssVariable(tokenName),
+            shapes: [],
+            gradients: []
+        });
+    }
+    return colors.get(tokenName);
+}
 /**
  * Traverses through a jsonObject, looking for known keys and tokens, and
- * saving them in the `shapes` map.
+ * saving them in the `shapes` and `gradients` map.
  */
-function traverse(jsonObj, shapes) {
+function traverse(jsonObj, colors) {
     if (jsonObj === null || typeof jsonObj !== 'object')
         return;
-    for (const [key, value] of Object.entries(jsonObj)) {
-        // If we are looking at something that contains a "nm" field that is set to
-        // one of the known illustration tokens, this is a LottieShape that needs to
-        // have its color value set.
-        if (key === LOTTIE_NAME_KEY && CROS_TOKENS.has(value)) {
-            const tokenName = value;
-            if (!shapes.has(tokenName)) {
-                shapes.set(tokenName, { cssVar: convertTokenToCssVariable(tokenName), locations: [] });
+    for (const value of Object.values(jsonObj)) {
+        const tokenName = jsonObj.nm || null;
+        let tokenColor = null;
+        let gradient = null;
+        let shape = null;
+        if (tokenName && CROS_TOKENS.has(tokenName)) {
+            tokenColor = getOrCreateTokenColor(colors, tokenName);
+            const gradientObj = jsonObj;
+            // Attempt to parse the object as a gradient, otherwise we assume it is a
+            // regular shape. If more complex animation types get added, this logic
+            // will need to be updated along with the types.
+            if (gradientObj.ty === LOTTIE_GRADIENT_FILL_TYPE) {
+                gradient = gradientObj;
             }
-            const color = shapes.get(tokenName);
-            const shape = jsonObj;
-            color.locations.push(shape);
+            else {
+                shape = jsonObj;
+            }
         }
-        traverse(value, shapes);
+        traverse(value, colors);
+        if (tokenColor) {
+            if (gradient)
+                tokenColor.gradients.push(gradient);
+            if (shape)
+                tokenColor.shapes.push(shape);
+        }
     }
 }
 /**
@@ -40399,7 +40955,7 @@ class LottieRenderer extends LitElement {
         for (const color of this.colors.values()) {
             const computedColor = computedStyle.getPropertyValue(color.cssVar).trim();
             const colorArray = convertHexToLottieRGBA(computedColor);
-            for (const location of color.locations) {
+            for (const location of color.shapes) {
                 if (location.c) {
                     location.c.k = colorArray;
                 }
@@ -40408,6 +40964,15 @@ class LottieRenderer extends LitElement {
                 }
                 else {
                     console.info(`Unable to assign color to shape: ${JSON.stringify(location)}`);
+                }
+            }
+            for (const location of color.gradients) {
+                const numOfPoints = location.g.p;
+                for (let i = 0; i < numOfPoints; i++) {
+                    const gradientFillPoints = location.g.k.k;
+                    gradientFillPoints[(4 * i) + 1] = colorArray[0];
+                    gradientFillPoints[(4 * i) + 2] = colorArray[1];
+                    gradientFillPoints[(4 * i) + 3] = colorArray[2];
                 }
             }
         }
@@ -40530,7 +41095,7 @@ const template$3 = html`<iron-iconset-svg name="pin-keyboard" size="24">
 `;
 document.head.appendChild(template$3.content);
 
-function getTemplate$_() {
+function getTemplate$10() {
   return html`<!--_html_template_start_--><style include="cr-shared-style cros-color-overrides">
   /**
     * It's important that buttons are square (have same height and width) so
@@ -40903,7 +41468,7 @@ class PinKeyboardElement extends PinKeyboardElementBase {
         return 'pin-keyboard';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -41355,7 +41920,7 @@ function recordLockScreenProgress(currentProgress) {
     ]);
 }
 
-function getTemplate$Z() {
+function getTemplate$$() {
   return html`<!--_html_template_start_--><!--
 
 This module is a "pin setup" keyboard + pin display element.
@@ -41485,7 +42050,7 @@ class SetupPinKeyboardElement extends SetupPinKeyboardElementBase {
         return 'setup-pin-keyboard';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -41769,7 +42334,7 @@ class SetupPinKeyboardElement extends SetupPinKeyboardElementBase {
 }
 customElements.define(SetupPinKeyboardElement.is, SetupPinKeyboardElement);
 
-function getTemplate$Y() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="settings-shared">#pinKeyboardDiv{justify-content:center}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">[[getTitleMessage_(isConfirmStep_)]]</div>
@@ -41809,7 +42374,7 @@ class SettingsSetupPinDialogElement extends SettingsSetupPinDialogElementBase {
         return 'settings-setup-pin-dialog';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -42239,7 +42804,7 @@ const MultiDeviceFeatureMixin = dedupingMixin((superClass) => {
     return MultiDeviceFeatureMixinInternal;
 });
 
-function getTemplate$X() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 <cr-toggle id="toggle" aria-label$="[[getToggleA11yLabel_(feature)]]" checked="{{checked_}}" disabled="[[!isFeatureStateEditable(feature, pageContentData)]]" on-change="toggleFeature">
 </cr-toggle>
@@ -42263,7 +42828,7 @@ class SettingsMultideviceFeatureToggleElement extends SettingsMultideviceFeature
         return 'settings-multidevice-feature-toggle';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -42342,7 +42907,7 @@ class SettingsMultideviceFeatureToggleElement extends SettingsMultideviceFeature
 }
 customElements.define(SettingsMultideviceFeatureToggleElement.is, SettingsMultideviceFeatureToggleElement);
 
-function getTemplate$W() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host([is-sub-feature]) #feature-icon{display:none}:host([is-sub-feature]) .settings-box .middle{padding-inline-start:64px}#card{border-top:var(--cr-separator-line);border-top-style:var(--feature-item-border-top-style,solid);padding:var(--cr-section-vertical-padding) 0}#feature-icon{padding:2px}cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}#help-icon:active{pointer-events:none}</style>
 <div id="card" class="settings-box no-padding">
   <div id="linkWrapper" class="link-wrapper" actionable$="[[isRowClickable_(
@@ -42468,7 +43033,7 @@ class SettingsMultideviceFeatureItemElement extends SettingsMultideviceFeatureIt
         return 'settings-multidevice-feature-item';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -42882,413 +43447,6 @@ const CrScrollableMixin = dedupingMixin((superClass) => {
     return CrScrollableMixin;
 });
 
-// chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class AppPermissionsHandlerPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.app_permission.mojom.AppPermissionsHandler', scope);
-    }
-}
-class AppPermissionsHandlerRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(AppPermissionsHandlerPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    addObserver(observer) {
-        this.proxy.sendMessage(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, [
-            observer
-        ]);
-    }
-    getApps() {
-        return this.proxy.sendMessage(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, []);
-    }
-    openNativeSettings(appId) {
-        this.proxy.sendMessage(2, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, [
-            appId
-        ]);
-    }
-    setPermission(appId, permission) {
-        this.proxy.sendMessage(3, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, [
-            appId,
-            permission
-        ]);
-    }
-}
-/**
- * An object which receives request messages for the AppPermissionsHandler
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- */
-class AppPermissionsHandlerReceiver {
-    constructor(impl) {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsHandlerRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.helper_internal_.registerHandler(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, impl.addObserver.bind(impl));
-        this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, impl.getApps.bind(impl));
-        this.helper_internal_.registerHandler(2, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, impl.openNativeSettings.bind(impl));
-        this.helper_internal_.registerHandler(3, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, impl.setPermission.bind(impl));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-}
-class AppPermissionsHandler {
-    static get $interfaceName() {
-        return "ash.settings.app_permission.mojom.AppPermissionsHandler";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new AppPermissionsHandlerRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-/**
- * An object which receives request messages for the AppPermissionsHandler
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-class AppPermissionsHandlerCallbackRouter {
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsHandlerRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.addObserver =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, this.addObserver.createReceiverHandler(false /* expectsResponse */));
-        this.getApps =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, this.getApps.createReceiverHandler(true /* expectsResponse */));
-        this.openNativeSettings =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(2, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, this.openNativeSettings.createReceiverHandler(false /* expectsResponse */));
-        this.setPermission =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, this.setPermission.createReceiverHandler(false /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-    /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
-     */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-}
-class AppPermissionsObserverPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.app_permission.mojom.AppPermissionsObserver', scope);
-    }
-}
-class AppPermissionsObserverRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(AppPermissionsObserverPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    onAppRemoved(appId) {
-        this.proxy.sendMessage(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, [
-            appId
-        ]);
-    }
-    onAppUpdated(app) {
-        this.proxy.sendMessage(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, [
-            app
-        ]);
-    }
-}
-/**
- * An object which receives request messages for the AppPermissionsObserver
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- */
-class AppPermissionsObserverReceiver {
-    constructor(impl) {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsObserverRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.helper_internal_.registerHandler(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, impl.onAppRemoved.bind(impl));
-        this.helper_internal_.registerHandler(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, impl.onAppUpdated.bind(impl));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-}
-class AppPermissionsObserver {
-    static get $interfaceName() {
-        return "ash.settings.app_permission.mojom.AppPermissionsObserver";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new AppPermissionsObserverRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-/**
- * An object which receives request messages for the AppPermissionsObserver
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-class AppPermissionsObserverCallbackRouter {
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsObserverRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.onAppRemoved =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, this.onAppRemoved.createReceiverHandler(false /* expectsResponse */));
-        this.onAppUpdated =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, this.onAppUpdated.createReceiverHandler(false /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-    /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
-     */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-}
-const AppSpec$1 = { $: {} };
-const AppPermissionsHandler_AddObserver_ParamsSpec = { $: {} };
-const AppPermissionsHandler_GetApps_ParamsSpec = { $: {} };
-const AppPermissionsHandler_GetApps_ResponseParamsSpec = { $: {} };
-const AppPermissionsHandler_OpenNativeSettings_ParamsSpec = { $: {} };
-const AppPermissionsHandler_SetPermission_ParamsSpec = { $: {} };
-const AppPermissionsObserver_OnAppRemoved_ParamsSpec = { $: {} };
-const AppPermissionsObserver_OnAppUpdated_ParamsSpec = { $: {} };
-mojo.internal.Struct(AppSpec$1.$, 'App', [
-    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('type', 16, 0, AppTypeSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('permissions', 24, 0, mojo.internal.Map(PermissionTypeSpec.$, PermissionSpec.$, false), null, false /* nullable */, 0),
-], [[0, 40],]);
-mojo.internal.Struct(AppPermissionsHandler_AddObserver_ParamsSpec.$, 'AppPermissionsHandler_AddObserver_Params', [
-    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(AppPermissionsObserverRemote), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsHandler_GetApps_ParamsSpec.$, 'AppPermissionsHandler_GetApps_Params', [], [[0, 8],]);
-mojo.internal.Struct(AppPermissionsHandler_GetApps_ResponseParamsSpec.$, 'AppPermissionsHandler_GetApps_ResponseParams', [
-    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec$1.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, 'AppPermissionsHandler_OpenNativeSettings_Params', [
-    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsHandler_SetPermission_ParamsSpec.$, 'AppPermissionsHandler_SetPermission_Params', [
-    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('permission', 8, 0, PermissionSpec.$, null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, 'AppPermissionsObserver_OnAppRemoved_Params', [
-    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, 'AppPermissionsObserver_OnAppUpdated_Params', [
-    mojo.internal.StructField('app', 0, 0, AppSpec$1.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-
-var app_permission_handler_mojomWebui = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  AppPermissionsHandler: AppPermissionsHandler,
-  AppPermissionsHandlerCallbackRouter: AppPermissionsHandlerCallbackRouter,
-  AppPermissionsHandlerPendingReceiver: AppPermissionsHandlerPendingReceiver,
-  AppPermissionsHandlerReceiver: AppPermissionsHandlerReceiver,
-  AppPermissionsHandlerRemote: AppPermissionsHandlerRemote,
-  AppPermissionsHandler_AddObserver_ParamsSpec: AppPermissionsHandler_AddObserver_ParamsSpec,
-  AppPermissionsHandler_GetApps_ParamsSpec: AppPermissionsHandler_GetApps_ParamsSpec,
-  AppPermissionsHandler_GetApps_ResponseParamsSpec: AppPermissionsHandler_GetApps_ResponseParamsSpec,
-  AppPermissionsHandler_OpenNativeSettings_ParamsSpec: AppPermissionsHandler_OpenNativeSettings_ParamsSpec,
-  AppPermissionsHandler_SetPermission_ParamsSpec: AppPermissionsHandler_SetPermission_ParamsSpec,
-  AppPermissionsObserver: AppPermissionsObserver,
-  AppPermissionsObserverCallbackRouter: AppPermissionsObserverCallbackRouter,
-  AppPermissionsObserverPendingReceiver: AppPermissionsObserverPendingReceiver,
-  AppPermissionsObserverReceiver: AppPermissionsObserverReceiver,
-  AppPermissionsObserverRemote: AppPermissionsObserverRemote,
-  AppPermissionsObserver_OnAppRemoved_ParamsSpec: AppPermissionsObserver_OnAppRemoved_ParamsSpec,
-  AppPermissionsObserver_OnAppUpdated_ParamsSpec: AppPermissionsObserver_OnAppUpdated_ParamsSpec,
-  AppSpec: AppSpec$1
-});
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-let appPermissionProvider = null;
-function setAppPermissionProviderForTesting(fakeProvider) {
-    appPermissionProvider = fakeProvider;
-}
-function getAppPermissionProvider() {
-    if (appPermissionProvider === null) {
-        appPermissionProvider = AppPermissionsHandler.getRemote();
-    }
-    return appPermissionProvider;
-}
-
-function getTemplate$V() {
-    return html `<!--_html_template_start_--><style include="settings-shared">#container{align-items:center;display:flex;height:48px;width:100%}#container:hover[actionable]{background-color:var(--cr-hover-background-color)}#appData{align-items:center;display:flex;flex-direction:row;width:100%}#appIcon{height:32px;margin-inline-end:20px;width:32px}cr-icon-button,cr-policy-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
-<div id="container" actionable$="[[!isPermissionManaged_]]" on-click="onPermissionRowClick_">
-  <div id="appData">
-    <img id="appIcon" src="chrome://app-icon/[[app.id]]/64" alt="[[app.name]] app icon." aria-hidden="true">
-    <div id="appNameAndPermissionText">
-      <div id="appName">[[app.name]]</div>
-      <div id="permissionText" class="secondary">[[permissionText_]]</div>
-    </div>
-  </div>
-  <template is="dom-if" if="[[isPermissionManaged_]]" restamp>
-    <cr-policy-indicator indicator-type="devicePolicy"></cr-policy-indicator>
-  </template>
-  <template is="dom-if" if="[[shouldRedirectToAndroidSettings_]]" restamp>
-    <cr-icon-button iron-icon="cr:open-in-new"></cr-icon-button>
-  </template>
-  <cr-toggle id="permissionToggle" checked="[[checked_]]" on-click="onPermissionRowClick_" disabled="[[shouldDisableToggle_]]" aria-labelledby="appName">
-  </cr-toggle>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'settings-privacy-hub-app-permission-row' is a custom row element
- * representing an app. This is used in the subpages of the OS Settings Privacy
- * controls page.
- */
-function getPermissionValueAsTriState(permission) {
-    if (isTriStateValue(permission.value)) {
-        return castExists$1(permission.value.tristateValue);
-    }
-    return permission.value.boolValue ? TriState.kAllow : TriState.kBlock;
-}
-const SettingsPrivacyHubAppPermissionRowBase = I18nMixin(PolymerElement);
-class SettingsPrivacyHubAppPermissionRow extends SettingsPrivacyHubAppPermissionRowBase {
-    static get is() {
-        return 'settings-privacy-hub-app-permission-row';
-    }
-    static get template() {
-        return getTemplate$V();
-    }
-    static get properties() {
-        return {
-            app: {
-                type: Object,
-            },
-            /**
-             * A string version of the permission type. Must be a value of the
-             * permission type enum in appManagement.mojom.PermissionType.
-             */
-            permissionType: {
-                type: String,
-                reflectToAttribute: true,
-            },
-            /**
-             * Boolean state indicator for the value of the permission of type
-             * `this.permissionType`.
-             *
-             * `TriState.kAllow` maps to `true`.
-             * `TriState.kAsk` and `TriState.kBlock` maps to `false`.
-             */
-            checked_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * A text describing the permission value.
-             */
-            permissionText_: {
-                type: String,
-                value: '',
-            },
-            isPermissionManaged_: {
-                type: Boolean,
-                value: false,
-            },
-            shouldRedirectToAndroidSettings_: {
-                type: Boolean,
-                computed: 'computeShouldRedirectToAndroidSettings_(app.type, ' +
-                    'isPermissionManaged_)',
-            },
-            shouldDisableToggle_: {
-                type: Boolean,
-                computed: 'computeShouldDisableToggle_(isPermissionManaged_, ' +
-                    'shouldRedirectToAndroidSettings_)',
-            },
-        };
-    }
-    static get observers() {
-        return ['onPermissionChange_(app.permissions.*)'];
-    }
-    constructor() {
-        super();
-        this.mojoInterfaceProvider_ = getAppPermissionProvider();
-    }
-    onPermissionChange_() {
-        const permission = castExists$1(this.app.permissions[PermissionType[this.permissionType]]);
-        this.checked_ = isPermissionEnabled(permission.value);
-        this.isPermissionManaged_ = permission.isManaged;
-        const value = getPermissionValueAsTriState(permission);
-        if (value === TriState.kAllow && permission.details) {
-            this.permissionText_ = this.i18n('privacyHubPermissionAllowedTextWithDetails', permission.details);
-            return;
-        }
-        switch (value) {
-            case TriState.kAllow:
-                this.permissionText_ = this.i18n('privacyHubPermissionAllowedText');
-                break;
-            case TriState.kBlock:
-                this.permissionText_ = this.i18n('privacyHubPermissionDeniedText');
-                break;
-            case TriState.kAsk:
-                this.permissionText_ = this.i18n('privacyHubPermissionAskText');
-                break;
-        }
-    }
-    onPermissionRowClick_() {
-        if (this.isPermissionManaged_) {
-            return;
-        }
-        const userActionHistogramName = `ChromeOS.PrivacyHub.${this.permissionType.substring(1)}Subpage.UserAction`;
-        if (this.shouldRedirectToAndroidSettings_) {
-            this.mojoInterfaceProvider_.openNativeSettings(this.app.id);
-            chrome.metricsPrivate.recordEnumerationValue(userActionHistogramName, PrivacyHubSensorSubpageUserAction.ANDROID_SETTINGS_LINK_CLICKED, Object.keys(PrivacyHubSensorSubpageUserAction).length);
-            return;
-        }
-        const permission = castExists$1(this.app.permissions[PermissionType[this.permissionType]]);
-        if (isBoolValue(permission.value)) {
-            permission.value = createBoolPermissionValue(!this.checked_);
-        }
-        else if (isTriStateValue(permission.value)) {
-            permission.value = createTriStatePermissionValue(this.checked_ ? TriState.kBlock : TriState.kAllow);
-        }
-        this.mojoInterfaceProvider_.setPermission(this.app.id, permission);
-        chrome.metricsPrivate.recordEnumerationValue(userActionHistogramName, PrivacyHubSensorSubpageUserAction.APP_PERMISSION_CHANGED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
-    }
-    computeShouldRedirectToAndroidSettings_() {
-        return !this.isPermissionManaged_ &&
-            loadTimeData.getBoolean('isArcReadOnlyPermissionsEnabled') &&
-            this.app.type === AppType.kArc;
-    }
-    computeShouldDisableToggle_() {
-        return this.isPermissionManaged_ || this.shouldRedirectToAndroidSettings_;
-    }
-}
-customElements.define(SettingsPrivacyHubAppPermissionRow.is, SettingsPrivacyHubAppPermissionRow);
-
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -43330,6 +43488,53 @@ class PrivacyHubBrowserProxyImpl {
     }
 }
 
+function getTemplate$X() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#container{align-items:center;display:flex;width:100%}#icon{height:32px;margin-inline-end:20px;width:32px}</style>
+<div id="container">
+  <img id="icon" src="[[iconSource]]" aria-hidden="true">
+  <div id="nameAndPermission">
+    <div id="serviceName">[[name]]</div>
+    <div id="permissionState" class="secondary">[[permissionState]]</div>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-privacy-hub-system-service-row' is a custom row element
+ * representing a system service or system app. This is used in the subpages of
+ * the OS Settings Privacy controls page.
+ */
+class SettingsPrivacyHubSystemServiceRow extends PolymerElement {
+    static get is() {
+        return 'settings-privacy-hub-system-service-row';
+    }
+    static get template() {
+        return getTemplate$X();
+    }
+    static get properties() {
+        return {
+            name: {
+                type: String,
+                value: '',
+            },
+            permissionState: {
+                type: String,
+                value: '',
+            },
+            iconSource: {
+                type: String,
+                value: '',
+            },
+        };
+    }
+}
+customElements.define(SettingsPrivacyHubSystemServiceRow.is, SettingsPrivacyHubSystemServiceRow);
+
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -43353,7 +43558,7 @@ class MetricsConsentBrowserProxyImpl {
     }
 }
 
-function getTemplate$U() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style>:host{display:block}</style>
 <settings-toggle-button id="settingsToggle" pref="[[metricsConsentPref_]]" label="$i18n{enableLogging}" sub-label="$i18n{enableLoggingDesc}" disabled="[[!isMetricsConsentConfigurable_]]" on-settings-boolean-control-change="onMetricsConsentChange_" no-set-pref>
 </settings-toggle-button>
@@ -43374,7 +43579,7 @@ class SettingsMetricsConsentToggleButtonElement extends SettingsMetricsConsentTo
         return 'settings-metrics-consent-toggle-button';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -43426,7 +43631,7 @@ class SettingsMetricsConsentToggleButtonElement extends SettingsMetricsConsentTo
 }
 customElements.define(SettingsMetricsConsentToggleButtonElement.is, SettingsMetricsConsentToggleButtonElement);
 
-function getTemplate$T() {
+function getTemplate$V() {
     return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}.list-frame{padding-bottom:8px;padding-top:8px}.separator{margin:0}</style>
 
 <div id="cameraSection">
@@ -43450,11 +43655,16 @@ function getTemplate$T() {
   </template>
   <template is="dom-if" if="[[showAppPermissions_]]">
     <div id="cameraRow" class="settings-box no-padding">
-      <cr-link-row id="cameraSubpageLink" start-icon="app-management:camera" label="$i18n{cameraToggleTitle}" sub-label="[[cameraSubLabel_]]" on-click="onCameraSubpageLinkClick_">
+      <cr-link-row id="cameraSubpageLink" start-icon="app-management:camera" label="$i18n{cameraToggleTitle}" sub-label="[[cameraRowSubtext_]]" on-click="onCameraSubpageLinkClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="separator"></div>
-      <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]">
-      </cr-toggle>
+      <div id="cameraToggleWrapper">
+        <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraSubLabel_]]">
+        </cr-toggle>
+      </div>
+      <paper-tooltip id="cameraToggleTooltip" hidden="[[!isCameraListEmpty_]]" aria-hidden="true" for="cameraToggleWrapper" fit-to-visible-bounds>
+        $i18n{privacyHubNoCameraConnectedTooltipText}
+      </paper-tooltip>
     </div>
   </template>
 </div>
@@ -43483,15 +43693,15 @@ function getTemplate$T() {
   </template>
   <template is="dom-if" if="[[showAppPermissions_]]">
     <div id="microphoneRow" class="settings-box no-padding">
-      <cr-link-row id="microphoneSubpageLink" start-icon="app-management:microphone" label="$i18n{microphoneToggleTitle}" sub-label="$i18n{microphoneToggleSubtext}" on-click="onMicrophoneSubpageLinkClick_">
+      <cr-link-row id="microphoneSubpageLink" start-icon="app-management:microphone" label="$i18n{microphoneToggleTitle}" sub-label="[[microphoneRowSubtext_]]" on-click="onMicrophoneSubpageLinkClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="separator"></div>
       <div id="microphoneToggleWrapper">
-        <cr-toggle id="microphoneToggle" class="margin-matches-padding" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]">
+        <cr-toggle id="microphoneToggle" class="margin-matches-padding" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]" aria-label="$i18n{microphoneToggleTitle}" aria-description="[[microphoneRowSubtext_]]">
         </cr-toggle>
       </div>
-      <paper-tooltip id="microphoneToggleTooltip" hidden="[[!microphoneHardwareToggleActive_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
-        $i18n{microphoneHwToggleTooltip}
+      <paper-tooltip id="microphoneToggleTooltip" hidden="[[!shouldDisableMicrophoneToggle_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
+        [[microphoneToggleTooltipText_]]
       </paper-tooltip>
     </div>
   </template>
@@ -43545,7 +43755,7 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
         return 'settings-privacy-hub-subpage';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -43631,6 +43841,25 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
                     return loadTimeData.getBoolean('showSpeakOnMuteDetectionPage');
                 },
             },
+            cameraFallbackMechanismEnabled_: {
+                type: Boolean,
+                value: false,
+            },
+            cameraRowSubtext_: {
+                type: String,
+                computed: 'computeCameraRowSubtext_(cameraFallbackMechanismEnabled_, ' +
+                    'prefs.ash.user.camera_allowed.*)',
+            },
+            microphoneRowSubtext_: {
+                type: String,
+                computed: 'computeMicrophoneRowSubtext_(' +
+                    'prefs.ash.user.microphone_allowed.*)',
+            },
+            microphoneToggleTooltipText_: {
+                type: String,
+                computed: 'computeMicrophoneToggleTooltipText_(isMicListEmpty_, ' +
+                    'microphoneHardwareToggleActive_)',
+            },
             /**
              * Used by DeepLinkingMixin to focus this page's deep links.
              */
@@ -43666,6 +43895,7 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
             this.cameraSwitchForceDisabled_ = disabled;
         });
         this.browserProxy_.getCameraLedFallbackState().then((enabled) => {
+            this.cameraFallbackMechanismEnabled_ = enabled;
             this.setCameraSubLabel_(enabled);
         });
         this.updateMediaDeviceLists_();
@@ -43759,10 +43989,42 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
         chrome.metricsPrivate.recordEnumerationValue('ChromeOS.PrivacyHub.LocationSubpage.UserAction', PrivacyHubSensorSubpageUserAction.SUBPAGE_OPENED, Object.keys(PrivacyHubSensorSubpageUserAction).length);
         Router.getInstance().navigateTo(routes.PRIVACY_HUB_GEOLOCATION);
     }
+    computeCameraRowSubtext_() {
+        // Note: `this.getPref()` will assert the queried pref exists, but the prefs
+        // property may not be initialized yet when this element runs the first
+        // computation of this method. Ensure prefs is initialized first.
+        if (!this.prefs) {
+            return '';
+        }
+        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
+        if (cameraAllowed) {
+            return this.cameraFallbackMechanismEnabled_ ?
+                this.i18n('privacyHubPageCameraRowFallbackSubtext') :
+                this.i18n('privacyHubPageCameraRowSubtext');
+        }
+        return this.i18n('privacyHubCameraAccessBlockedText');
+    }
+    computeMicrophoneRowSubtext_() {
+        const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
+        return microphoneAllowed ?
+            this.i18n('privacyHubPageMicrophoneRowSubtext') :
+            this.i18n('privacyHubMicrophoneAccessBlockedText');
+    }
+    computeMicrophoneToggleTooltipText_() {
+        if (this.isMicListEmpty_) {
+            return this.i18n('privacyHubNoMicrophoneConnectedTooltipText');
+        }
+        else if (this.microphoneHardwareToggleActive_) {
+            return this.i18n('microphoneHwToggleTooltip');
+        }
+        else {
+            return '';
+        }
+    }
 }
 customElements.define(SettingsPrivacyHubSubpage.is, SettingsPrivacyHubSubpage);
 
-function getTemplate$S() {
+function getTemplate$U() {
     return html `<!--_html_template_start_-->    <style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
     <slot name="view"></slot>
 <!--_html_template_end_-->`;
@@ -43825,7 +44087,7 @@ class CrViewManagerElement extends PolymerElement {
         return 'cr-view-manager';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$U();
     }
     exit_(element, animation) {
         const animationFunction = viewAnimations.get(animation);
@@ -43874,7 +44136,7 @@ class CrViewManagerElement extends PolymerElement {
 }
 customElements.define(CrViewManagerElement.is, CrViewManagerElement);
 
-function getTemplate$R() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 
 <style include="cros-color-overrides"></style>
@@ -43954,7 +44216,7 @@ class NearbyPageTemplateElement extends PolymerElement {
         return 'nearby-page-template';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -44357,7 +44619,7 @@ function processOnePageOnboardingManageContactsMetrics() {
     ]);
 }
 
-function getTemplate$Q() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 
   <style include="cros-color-overrides"></style>
@@ -44446,7 +44708,7 @@ class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageElementBase 
         return 'nearby-onboarding-one-page';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -44635,7 +44897,7 @@ class NearbyOnboardingOnePageElement extends NearbyOnboardingOnePageElementBase 
 }
 customElements.define(NearbyOnboardingOnePageElement.is, NearbyOnboardingOnePageElement);
 
-function getTemplate$P() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 <style>#center-content{align-items:center;box-sizing:border-box;display:flex;flex-grow:1;justify-content:space-between;margin:0 24px;overflow:hidden}#splash-image-column{height:200px;margin:8px;width:200px}#device-name-column{display:flex;flex-direction:column;margin:8px;position:relative;top:-12px;width:calc(50% - 16px)}#link-row{border:1px solid #d3d3d3;border-radius:5px}#deviceNameHelp{bottom:8px;color:var(--cros-text-color-secondary);font-size:10px;line-height:10px;margin-inline-start:8px;position:absolute}#device-name-group{padding-inline-end:10px;padding-inline-start:10px}cr-input{color:var(--cros-text-color-secondary)}</style>
 <nearby-page-template title="$i18n{nearbyShareOnboardingPageTitle}" sub-title="$i18n{nearbyShareOnboardingPageSubtitle}" action-button-label="$i18n{nearbyShareActionsNext}" action-button-event-name="next" action-disabled="[[hasErrorMessage_(errorMessage)]]" cancel-button-label="$i18n{nearbyShareActionsCancel}" cancel-button-event-name="close">
@@ -44674,7 +44936,7 @@ class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase {
         return 'nearby-onboarding-page';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -44778,7 +45040,7 @@ class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase {
 }
 customElements.define(NearbyOnboardingPageElement.is, NearbyOnboardingPageElement);
 
-function getTemplate$O() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style">:host{background-color:var(--cr-card-background-color);border-radius:8px;box-shadow:var(--cr-elevation-1);margin:var(--cr-card-radio-button-margin,8px);width:var(--cr-card-radio-button-width,200px);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04)}@media (prefers-color-scheme:dark){:host{--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-color:rgba(var(--google-blue-300-rgb), .08)}}.disc-wrapper,paper-ripple{border-radius:inherit}paper-ripple{height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}#button{height:var(--cr-card-radio-button-height,auto);padding:var(--cr-card-radio-button-padding,24px);position:relative;width:100%}:host-context(.focus-outline-visible) #button:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}#button:hover{background-color:var(--hover-bg-color)}#checkMark{fill:var(--cr-checked-color);left:var(--cr-card-radio-button-checkmark-left,auto);position:absolute;right:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));top:var(--cr-card-radio-button-checkmark-top,var(--cr-button-edge-spacing))}:host-context([dir=rtl]) #checkMark{left:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));right:var(--cr-card-radio-button-checkmark-left,auto)}:host(:not([checked])) #checkMark{display:none}#slottedContent{padding:var(--cr-card-radio-button-slotted-content-padding)}</style>
     <div id="button" role="radio" aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" class="disc-wrapper" tabindex$="[[buttonTabIndex_]]" aria-labelledby="slotted-content" on-keydown="onInputKeydown_">
       <iron-icon id="checkMark" icon="cr:check-circle"></iron-icon>
@@ -44797,19 +45059,19 @@ function getTemplate$O() {
  * 'cr-card-radio-button' is a radio button in the style of a card. A checkmark
  * is displayed in the upper right hand corner if the radio button is selected.
  */
-const CrCardRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const CrCardRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class CrCardRadioButtonElement extends CrCardRadioButtonElementBase {
     static get is() {
         return 'cr-card-radio-button';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$Q();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
@@ -44948,7 +45210,7 @@ function observeContactManager(observer) {
     return receiver;
 }
 
-function getTemplate$N() {
+function getTemplate$P() {
     return html `<!--_html_template_start_-->
   <style include="cros-color-overrides"></style>
 
@@ -45149,7 +45411,7 @@ class NearbyContactVisibilityElement extends NearbyContactVisibilityElementBase 
         return 'nearby-contact-visibility';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -45710,7 +45972,7 @@ class NearbyContactVisibilityElement extends NearbyContactVisibilityElementBase 
 }
 customElements.define(NearbyContactVisibilityElement.is, NearbyContactVisibilityElement);
 
-function getTemplate$M() {
+function getTemplate$O() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style"></style>
 <style>#center-content{box-sizing:border-box;display:flex;flex-grow:1;justify-content:center;margin-inline-end:24px;margin-inline-start:24px;overflow:hidden}nearby-contact-visibility{width:100%}</style>
 <nearby-page-template title="$i18n{nearbyShareVisibilityPageTitle}" sub-title="$i18n{nearbyShareVisibilityPageSubtitle}" action-button-label="$i18n{nearbyShareActionsConfirm}" action-button-event-name="next" action-disabled="[[!isVisibilitySelected_]]" cancel-button-label="$i18n{nearbyShareActionsCancel}" cancel-button-event-name="close" utility-button-label="$i18n{nearbyShareVisibilityPageManageContacts}" utility-button-open-in-new="true" utility-button-event-name="manage-contacts">
@@ -45739,7 +46001,7 @@ class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase {
         return 'nearby-visibility-page';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -45818,7 +46080,7 @@ class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase {
 }
 customElements.define(NearbyVisibilityPageElement.is, NearbyVisibilityPageElement);
 
-function getTemplate$L() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style>canvas{height:100%;width:100%}</style>
     <canvas id="canvas" hidden="[[hidden]]"></canvas>
 <!--_html_template_end_-->`;
@@ -45901,7 +46163,7 @@ class CrLottieElement extends PolymerElement {
         return 'cr-lottie';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -46289,7 +46551,7 @@ class CrAutoImgElement extends HTMLImageElement {
 }
 customElements.define('cr-auto-img', CrAutoImgElement, { extends: 'img' });
 
-function getTemplate$K() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style>:host{background-color:var(--nearby-device-icon-background-color,var(--cros-sys-primary_container,var(--google-blue-50)));border-radius:50%;display:flex}#icon{height:var(--nearby-device-icon-size,24px);margin:auto;width:var(--nearby-device-icon-size,24px)}</style>
 
 <iron-icon id="icon" icon="[[getShareTargetIcon_(shareTarget)]]">
@@ -46310,7 +46572,7 @@ class NearbyDeviceIconElement extends PolymerElement {
         return 'nearby-device-icon';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -46342,7 +46604,7 @@ class NearbyDeviceIconElement extends PolymerElement {
 }
 customElements.define(NearbyDeviceIconElement.is, NearbyDeviceIconElement);
 
-function getTemplate$J() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style>#wrapper{align-items:center;display:flex;border-radius:8px;outline:0;padding-block-end:3px;padding-block-start:3px;padding-inline-end:9px;padding-inline-start:6px;cursor:pointer;margin:3px;height:40px;box-sizing:border-box;overflow:hidden}:host{background-color:var(--cr-card-background-color);border:1px solid var(--cros-button-stroke-color-secondary);border-bottom-style:hidden;align-items:center;display:flex;justify-content:space-between}:host-context(body:not(.jelly-enabled)):host(:focus){outline:0;box-shadow:inset 0 0 0 2px var(--cros-focus-aura-color)}:host-context(body.jelly-enabled):host(:focus){border:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled):host(:hover){background-color:var(--cros-sys-hover_on_subtle)}:host-context(body:not(.jelly-enabled)):host([is-selected]){border-color:var(--cros-button-icon-color-secondary)}:host-context(body.jelly-enabled):host([is-selected]){background-color:var(--cros-sys-primary_container)}:host-context(body:not(.jelly-enabled)):host([is-selected]) #name{color:var(--cros-text-color-prominent)}:host-context(body.jelly-enabled):host([is-selected]) #name{color:var(--cros-sys-primary)}:host-context(body.jelly-enabled):host([is-selected]) #share-target-image{border:1px solid var(--cros-sys-primary)}:host([is-selected]) #checked{display:flex}#checked{display:none;flex-shrink:0;height:20px;padding-top:2px;vertical-align:middle;width:20px;margin-left:auto;padding-left:8px;padding-right:8px}:host-context(body.jelly-enabled) #checked{color:var(--cros-sys-primary)}:host-context(body:not(.jelly-enabled)) #checked{color:var(--cros-icon-color-prominent)}#icon{--nearby-device-icon-size:15px;flex-shrink:0;height:var(--target-image-size);width:var(--target-image-size)}:host-context(body.jelly-enabled) #icon{--nearby-device-icon-color:var(--cros-sys-on_primary_container);--nearby-device-icon-background-color:var(--cros-sys-primary_container)}:host-context(body.jelly-enabled):host([is-selected]) #icon{--nearby-device-icon-color:var(--cros-sys-on_primary);--nearby-device-icon-background-color:var(--cros-sys-primary)}#share-target-image{border-radius:50%;display:none;flex-shrink:0;height:var(--target-image-size);width:var(--target-image-size)}:host-context(body.jelly-enabled) #share-target-image{border:1px solid var(--cr-card-background-color)}#name{flex-grow:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left:8px}:host-context(body:not(.jelly-enabled)) #name{color:var(--cros-text-color-secondary);font-size:11px;font-weight:500;letter-spacing:.3px}:host-context(body.jelly-enabled) #name{color:var(--cros-sys-secondary);font:var(--cros-button-2-font)}</style>
 
 <div id="wrapper" title="[[shareTarget.name]]">
@@ -46367,7 +46629,7 @@ class NearbyDeviceElement extends PolymerElement {
         return 'nearby-device';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -46489,7 +46751,7 @@ const template$1 = html `<iron-iconset-svg name="nearbysharetype68" size="68">
 `;
 document.head.appendChild(template$1.content);
 
-function getTemplate$I() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style>iron-icon{display:block;height:68px;margin:12px auto 24px auto;width:68px}iron-icon.disabled{--nearby-preview-color:var(--cros-color-disabled);--nearby-preview-background-color:var(
         --cros-shortcut-background-color)}#title{height:60px;letter-spacing:.2px;overflow:hidden;overflow-wrap:break-word;text-align:center;width:116px}:host-context(body:not(.jelly-enabled)) #title{color:var(--cr-primary-text-color);font-size:13px;line-height:20px}:host-context(body.jelly-enabled) #title{color:var(--cros-sys-on_surface_variant);font:var(--cros-body-2-font)}</style>
 
@@ -46537,7 +46799,7 @@ class NearbyPreviewElement extends NearbyPreviewElementBase {
         return 'nearby-preview';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -46618,7 +46880,7 @@ class NearbyPreviewElement extends NearbyPreviewElementBase {
 }
 customElements.define(NearbyPreviewElement.is, NearbyPreviewElement);
 
-function getTemplate$H() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style>#device-name{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;overflow-wrap:break-word;text-align:center;width:116px}:host-context(body:not(.jelly-enabled)) #device-name{color:var(--cros-text-color-primary);line-height:154%;letter-spacing:.25px}:host-context(body.jelly-enabled) #device-name{font:var(--cros-body-2-font);color:var(--cros-sys-on_surface_variant)}#icon{height:var(--target-image-size);margin:auto;width:var(--target-image-size)}.has-error #icon{--nearby-device-icon-color:var(--cros-sys-on_error_container, var(--cros-color-disabled));--nearby-device-icon-background-color:var(
       --cros-sys-error_container, var(
         --cros-shortcut-background-color))}#progress-container{display:flex;height:76px;margin:8px auto 20px auto;position:relative;width:76px}#share-target-image{border-radius:50%;display:none;flex-shrink:0;height:var(--target-image-size);margin:4px;width:var(--target-image-size)}#wheel{fill:none;stroke:var(--cros-sys-primary,var(--cros-icon-color-prominent));stroke-dasharray:100;stroke-linecap:round;stroke-width:2px;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .4s ease}.indeterminate-progress #wheel{animation:1.4s ease-in-out infinite both indeterminate-progress-animation;stroke-dasharray:116}.has-error #wheel{animation:none;stroke:var(--cros-sys-error,var(--cros-icon-color-alert));stroke-dashoffset:0}#svg{left:0;position:absolute;top:0}.indeterminate-progress #svg{animation:2s linear infinite svg-animation}.has-error #svg{animation:none}.hidden #svg{display:none}@keyframes indeterminate-progress-animation{0%,25%{stroke-dashoffset:115;transform:rotate(0)}50%,75%{stroke-dashoffset:30;transform:rotate(45deg)}100%{stroke-dashoffset:115;transform:rotate(360deg)}}@keyframes svg-animation{0%{transform:rotateZ(0)}100%{transform:rotateZ(360deg)}}</style>
@@ -46654,7 +46916,7 @@ class NearbyProgressElement extends PolymerElement {
         return 'nearby-progress';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -47715,7 +47977,7 @@ var nearby_share_mojomWebui = /*#__PURE__*/Object.freeze({
   TransferUpdateListener_OnTransferUpdate_ParamsSpec: TransferUpdateListener_OnTransferUpdate_ParamsSpec
 });
 
-function getTemplate$G() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><style>#centerContent{box-sizing:border-box;display:flex;flex-direction:column;flex-grow:1;margin:0 24px}#connectionToken{color:var(--cros-text-color-disabled);flex-grow:1;font-size:9px;letter-spacing:.3px;line-height:12px;margin-top:46px;padding-top:6px;text-align:center}#animation{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;right:0}#processRow{display:flex;flex-grow:1}#processRowContent{align-self:center;display:flex;flex-grow:1;margin:24px 8px}#errorSection{align-items:flex-start;display:flex;flex-direction:row;padding:8px}#error{align-items:flex-start;display:flex;flex-direction:column;font-size:12px}#errorTitle{color:var(--cros-text-color-alert);font-weight:700;margin-bottom:3px}#errorDescription{color:var(--cros-text-color-secondary);line-height:13px}#errorIcon{fill:var(--cros-icon-color-alert);flex-shrink:0;height:20px;margin-inline-end:12px;width:20px}</style>
 <nearby-page-template title="$i18n{nearbyShareReceiveConfirmPageTitle}" action-button-label="$i18n{nearbyShareActionsAccept}" action-button-event-name="accept" cancel-button-label="$i18n{nearbyShareActionsDecline}" cancel-button-event-name="reject" close-only="[[errorTitle_]]">
   <div id="centerContent" slot="content">
@@ -47732,11 +47994,8 @@ function getTemplate$G() {
         </nearby-preview>
       </div>
     </div>
-    
-    <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-    </iron-media-query>
     <template is="dom-if" if="[[!errorTitle_]]" restamp>
-      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_(isDarkModeActive_, isJellyEnabled_)]]" autoplay dynamic aria-hidden>
+      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_()]]" autoplay dynamic aria-hidden>
       </cros-lottie-renderer>
     </template>
     
@@ -47765,24 +48024,16 @@ function getTemplate$G() {
  * reject the request
  */
 /**
- * The progress bar asset URL for light mode.
+ * The progress bar asset URL.
  */
-const PROGRESS_BAR_URL_LIGHT = 'nearby_share_progress_bar_light.json';
-/**
- * The progress bar asset URL for dark mode.
- */
-const PROGRESS_BAR_URL_DARK = 'nearby_share_progress_bar_dark.json';
-/**
- * The progress bar asset URL for jelly mode.
- */
-const PROGRESS_BAR_URL_JELLY = 'nearby_share_progress_bar_jelly.json';
+const PROGRESS_BAR_URL = 'nearby_share_progress_bar.json';
 const NearbyShareConfirmPageElementBase = I18nMixin(PolymerElement);
 class NearbyShareConfirmPageElement extends NearbyShareConfirmPageElementBase {
     static get is() {
         return 'nearby-share-confirm-page';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -47814,24 +48065,6 @@ class NearbyShareConfirmPageElement extends NearbyShareConfirmPageElementBase {
             errorDescription_: {
                 type: String,
                 value: null,
-            },
-            /**
-             * Whether the confirm page is being rendered in dark mode.
-             */
-            isDarkModeActive_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * Return true if the Jelly feature flag is enabled.
-             */
-            isJellyEnabled_: {
-                type: Boolean,
-                readOnly: true,
-                value() {
-                    return loadTimeData.valueExists('isJellyEnabled') &&
-                        loadTimeData.getBoolean('isJellyEnabled');
-                },
             },
         };
     }
@@ -47891,24 +48124,17 @@ class NearbyShareConfirmPageElement extends NearbyShareConfirmPageElementBase {
      * progress bar.
      */
     getAnimationUrl_() {
-        if (this.isJellyEnabled_) {
-            return PROGRESS_BAR_URL_JELLY;
-        }
-        return this.isDarkModeActive_ ? PROGRESS_BAR_URL_DARK :
-            PROGRESS_BAR_URL_LIGHT;
+        return PROGRESS_BAR_URL;
     }
 }
 customElements.define(NearbyShareConfirmPageElement.is, NearbyShareConfirmPageElement);
 
-function getTemplate$F() {
-    return html `<!--_html_template_start_--><style>#content{background:linear-gradient(to top,var(--nearby-page-linear-gradient-color-start) 5%,transparent 50%);display:flex;flex-direction:column-reverse;height:100%;position:relative;width:100%}#help{align-items:flex-start;display:flex;flex-direction:row;margin-inline-end:24px;margin-inline-start:24px;padding:8px}:host-context(body:not(.jelly-enabled)) #help{color:var(--cros-text-color-disabled);font-size:9px;line-height:12px}:host-context(body.jelly-enabled) #help{color:var(--cros-sys-secondary);font:var(--cros-annotation-2-font)}#helpText{margin:auto 0}#infoIcon{flex-shrink:0}:host-context(body:not(.jelly-enabled)) #infoIcon{margin-inline-end:12px;height:20px;width:20px}:host-context(body.jelly-enabled) #infoIcon{margin-inline-end:8px;height:16px;width:16px}:host-context(body:not(.jelly-enabled)) .icon-help-state{fill:var(--cros-icon-color-disabled)}:host-context(body.jelly-enabled) .icon-help-state{fill:var(--cros-sys-secondary)}:host-context(body:not(.jelly-enabled)) .icon-error-state{fill:var(--cros-icon-color-alert)}:host-context(body.jelly-enabled) .icon-error-state{fill:var(--cros-sys-error)}#error{align-items:flex-start;display:flex;flex-direction:column}:host-context(body:not(.jelly-enabled)) #error{font-size:12px}#errorTitle{margin-bottom:3px}:host-context(body:not(.jelly-enabled)) #errorTitle{color:var(--cros-text-color-alert);font-weight:700}:host-context(body.jelly-enabled) #errorTitle{color:var(--cros-sys-error);font:var(--cros-button-2-font)}:host-context(body:not(.jelly-enabled)) #errorDescription{color:var(--cros-text-color-secondary);line-height:13px}:host-context(body.jelly-enabled) #errorDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-2-font)}#animation{bottom:0;height:100px;left:0;pointer-events:none;position:absolute;right:0}</style>
+function getTemplate$H() {
+    return html `<!--_html_template_start_--><style>#content{background:linear-gradient(to top,var(--nearby-page-linear-gradient-color-start) 5%,transparent 50%);display:flex;flex-direction:column-reverse;height:100%;position:relative;width:100%}#help{align-items:flex-start;color:var(--cros-sys-secondary);display:flex;flex-direction:row;font:var(--cros-annotation-2-font);margin-inline-end:24px;margin-inline-start:24px;padding:8px}#helpText{margin:auto 0}#infoIcon{flex-shrink:0;height:16px;margin-inline-end:8px;width:16px}.icon-help-state{fill:var(--cros-sys-secondary)}.icon-error-state{fill:var(--cros-sys-error)}#error{align-items:flex-start;display:flex;flex-direction:column}#errorTitle{color:var(--cros-sys-error);font:var(--cros-button-2-font);margin-bottom:3px}#errorDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-2-font)}#animation{bottom:0;height:100px;left:0;pointer-events:none;position:absolute;right:0}</style>
 <nearby-page-template title="$i18n{nearbyShareFeatureName}" sub-title="[[getSubTitle_(deviceName, remainingTimeInSeconds_)]]" a11y-announced-sub-title="[[getA11yAnnouncedSubTitle_(deviceName,
                               remainingTimeInSeconds_)]]" cancel-button-label="$i18n{cancel}" close-only="[[getErrorTitle_(errorState_)]]">
   <div id="content" slot="content">
-    
-    <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-    </iron-media-query>
-      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_(isDarkModeActive_, isJellyEnabled_)]]" autoplay dynamic aria-hidden>
+      <cros-lottie-renderer id="animation" asset-url="[[getAnimationUrl_()]]" autoplay dynamic aria-hidden>
       </cros-lottie-renderer>
     <div id="help">
       <template is="dom-if" if="[[!getErrorTitle_(errorState_)]]" restamp>
@@ -47956,26 +48182,17 @@ var NearbyVisibilityErrorState;
     NearbyVisibilityErrorState[NearbyVisibilityErrorState["TRANSFER_IN_PROGRESS"] = 2] = "TRANSFER_IN_PROGRESS";
     NearbyVisibilityErrorState[NearbyVisibilityErrorState["SOMETHING_WRONG"] = 3] = "SOMETHING_WRONG";
 })(NearbyVisibilityErrorState || (NearbyVisibilityErrorState = {}));
-// TODO(TODO(b/279623883): Remove dark mode handling.
 /**
- * The pulse animation asset URL for light mode.
+ * The pulse animation asset URL.
  */
-const PULSE_ANIMATION_URL_LIGHT = 'nearby_share_pulse_animation_light.json';
-/**
- * The pulse animation asset URL for dark mode.
- */
-const PULSE_ANIMATION_URL_DARK = 'nearby_share_pulse_animation_dark.json';
-/**
- * The pulse animation asset URL for jelly mode.
- */
-const PULSE_ANIMATION_URL_JELLY = 'nearby_share_pulse_animation_jelly.json';
+const PULSE_ANIMATION_URL = 'nearby_share_pulse_animation.json';
 const NearbyShareHighVisibilityPageElementBase = I18nMixin(PolymerElement);
 class NearbyShareHighVisibilityPageElement extends NearbyShareHighVisibilityPageElementBase {
     static get is() {
         return 'nearby-share-high-visibility-page';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -48020,24 +48237,6 @@ class NearbyShareHighVisibilityPageElement extends NearbyShareHighVisibilityPage
                 value: null,
                 computed: 'computeErrorState_(shutoffTimestamp, remainingTimeInSeconds_,' +
                     'registerResult, nearbyProcessStopped, startAdvertisingFailed)',
-            },
-            /**
-             * Whether the high visibility page is being rendered in dark mode.
-             */
-            isDarkModeActive_: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * Return true if the Jelly feature flag is enabled.
-             */
-            isJellyEnabled_: {
-                type: Boolean,
-                readOnly: true,
-                value() {
-                    return loadTimeData.valueExists('isJellyEnabled') &&
-                        loadTimeData.getBoolean('isJellyEnabled');
-                },
             },
         };
     }
@@ -48156,18 +48355,12 @@ class NearbyShareHighVisibilityPageElement extends NearbyShareHighVisibilityPage
      * pulsing background animation.
      */
     getAnimationUrl_() {
-        if (this.isJellyEnabled_) {
-            return PULSE_ANIMATION_URL_JELLY;
-        }
-        // TODO(b/279623883): Clean up dark mode logic and duplicate assets after
-        // Jelly is launched.
-        return this.isDarkModeActive_ ? PULSE_ANIMATION_URL_DARK :
-            PULSE_ANIMATION_URL_LIGHT;
+        return PULSE_ANIMATION_URL;
     }
 }
 customElements.define(NearbyShareHighVisibilityPageElement.is, NearbyShareHighVisibilityPageElement);
 
-function getTemplate$E() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){height:420px;width:512px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div id="content" slot="body" aria-live="polite">
@@ -48245,7 +48438,7 @@ class NearbyShareReceiveDialogElement extends PolymerElement {
         return 'nearby-share-receive-dialog';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -48540,8 +48733,8 @@ class NearbyShareReceiveDialogElement extends PolymerElement {
 }
 customElements.define(NearbyShareReceiveDialogElement.is, NearbyShareReceiveDialogElement);
 
-function getTemplate$D() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.title{color:var(--cr-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}:host-context(body:not(.jelly-enabled)) .title{font-family:'Google Sans';font-weight:400}h3.header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:inherit;margin:0;padding-block-end:16px;padding-inline-start:20px}#flex{flex:1}</style>
+function getTemplate$F() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.title{color:var(--cr-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}h3.header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:inherit;margin:0;padding-block-end:16px;padding-inline-start:20px}#flex{flex:1}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" class="title">
     $i18n{nearbyShareVisibilityDialogTitle}
@@ -48580,7 +48773,7 @@ class NearbyShareContactVisibilityDialogElement extends PolymerElement {
         return 'nearby-share-contact-visibility-dialog';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -48608,8 +48801,8 @@ class NearbyShareContactVisibilityDialogElement extends PolymerElement {
 }
 customElements.define(NearbyShareContactVisibilityDialogElement.is, NearbyShareContactVisibilityDialogElement);
 
-function getTemplate$C() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:24px;padding-block-start:24px}:host-context(body:not(.jelly-enabled)) .title{font-family:'Google Sans';font-size:16px;font-weight:400;line-height:24px}</style>
+function getTemplate$E() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}[slot=body]{padding-top:5px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:24px;padding-block-start:24px}</style>
 <cr-dialog id="dialog">
   <div slot="title" class="title">$i18n{nearbyShareDeviceNameDialogTitle}</div>
   <div slot="body">
@@ -48642,7 +48835,7 @@ class NearbyShareDeviceNameDialogElement extends NearbyShareDeviceNameDialogElem
         return 'nearby-share-device-name-dialog';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -48715,8 +48908,8 @@ class NearbyShareDeviceNameDialogElement extends NearbyShareDeviceNameDialogElem
 }
 customElements.define(NearbyShareDeviceNameDialogElement.is, NearbyShareDeviceNameDialogElement);
 
-function getTemplate$B() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}:host-context(body:not(.jelly-enabled)) .title{font-family:'Google Sans';font-size:16px;font-weight:400;line-height:24px}cr-radio-group{margin-block-end:12px;margin-inline-start:2px}.data-usage-name{font-weight:600;padding-block-start:20px}#dataUsageDataIcon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:16px;padding-bottom:2px;width:16px}#dataUsageDataTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#dataUsageDataTooltip::part(tooltip){margin-inline-end:6px}#dataUsageDataTooltipText{font-size:12px;font-weight:400;line-height:18px}</style>
+function getTemplate$D() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}cr-radio-group{margin-block-end:12px;margin-inline-start:2px}.data-usage-name{font-weight:600;padding-block-start:20px}#dataUsageDataIcon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:16px;padding-bottom:2px;width:16px}#dataUsageDataTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#dataUsageDataTooltip::part(tooltip){margin-inline-end:6px}#dataUsageDataTooltipText{font-size:12px;font-weight:400;line-height:18px}</style>
 <cr-dialog id="dialog">
   <div slot="title" class="title">$i18n{nearbyShareDataUsageDialogTitle}</div>
   <div slot="body">
@@ -48814,7 +49007,7 @@ class NearbyShareDataUsageDialogElement extends NearbyShareDataUsageDialogElemen
         return 'nearby-share-data-usage-dialog';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -48875,14 +49068,13 @@ class NearbyAccountManagerBrowserProxyImpl {
     }
 }
 
-function getTemplate$A() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#help{flex-direction:row;align-items:flex-start;padding-block-start:12px}#helpIcon{--iron-icon-fill-color:var(--cr-secondary-text-color);height:16px;margin-inline-end:8px;padding:2px;width:16px}.help-text{flex-direction:column;color:var(--cr-secondary-text-color);font-size:13px;line-height:20px}#helpTopRow{margin-bottom:2.5%}#highVisibilityContainer{border-top:none;padding-inline-start:var(--cr-section-indent-padding);padding-inline-end:var(--cr-section-padding)}.separator{margin:0}#highVisibilityContainer>cr-toggle{margin-inline-end:var(--cr-section-padding);margin-inline-start:var(--cr-section-padding)}.enabled-toggle-off{font-weight:500}.enabled-toggle-on{color:var(--cros-text-color-prominent);font-weight:500}#setupRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}</style>
+function getTemplate$C() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#help{flex-direction:row;align-items:flex-start;padding-block-end:12px;padding-block-start:12px}#helpIcon{--iron-icon-fill-color:var(--cr-secondary-text-color);height:16px;margin-inline-end:8px;padding:2px;width:16px}.help-text{flex-direction:column;color:var(--cr-secondary-text-color);font-size:13px;line-height:20px}#helpTopRow{margin-bottom:2.5%}#highVisibilityContainer{border-top:none;padding-inline-start:var(--cr-section-indent-padding);padding-inline-end:var(--cr-section-padding)}.separator{margin:0}#highVisibilityContainer>cr-toggle{margin-inline-start:var(--cr-section-padding)}#setupRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}</style>
 
 <template is="dom-if" if="[[prefs]]" restamp>
   <template is="dom-if" if="[[prefs.nearby_sharing.onboarding_complete.value]]" restamp>
     <settings-toggle-button id="featureToggleButton" label="[[getOnOffString_(prefs.nearby_sharing.enabled.value,
-            '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]" pref="{{prefs.nearby_sharing.enabled}}" deep-link-focus-id$="[[Setting.kNearbyShareOnOff]]" class$="[[getEnabledToggleClassName_(
-            prefs.nearby_sharing.enabled.value)]]">
+            '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]" pref="{{prefs.nearby_sharing.enabled}}" deep-link-focus-id$="[[Setting.kNearbyShareOnOff]]" class="primary-toggle">
     </settings-toggle-button>
   </template>
   <template is="dom-if" if="[[!prefs.nearby_sharing.onboarding_complete.value]]" restamp>
@@ -49034,7 +49226,7 @@ class SettingsNearbyShareSubpageElement extends SettingsNearbyShareSubpageElemen
         return 'settings-nearby-share-subpage';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -49322,12 +49514,6 @@ class SettingsNearbyShareSubpageElement extends SettingsNearbyShareSubpageElemen
     getAccountRowLabel(profileName, profileLabel) {
         return this.i18n('nearbyShareAccountRowLabel', this.i18n('nearbyShareFeatureName'), profileName, profileLabel);
     }
-    getEnabledToggleClassName_() {
-        if (this.getPref('nearby_sharing.enabled').value) {
-            return 'enabled-toggle-on';
-        }
-        return 'enabled-toggle-off';
-    }
     onOnboardingCancelled_() {
         // Return to main settings page multidevice section
         Router.getInstance().navigateTo(routes.MULTIDEVICE);
@@ -49359,6 +49545,263 @@ class SettingsNearbyShareSubpageElement extends SettingsNearbyShareSubpageElemen
     }
 }
 customElements.define(SettingsNearbyShareSubpageElement.is, SettingsNearbyShareSubpageElement);
+
+function getTemplate$B() {
+    return html `<!--_html_template_start_--><style include="settings-shared shared-style">iron-icon[icon='settings:check-circle']{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:26px}#listItem{min-height:36px;align-items:center;display:flex;justify-content:space-between;flex-direction:row;padding-left:32px;cursor:pointer}</style>
+
+<div id="listItem">
+  <paper-ripple></paper-ripple>
+  <div aria-selected="[[getAriaSelected_(selected)]]" role="row" tabindex$="[[index]]">
+    [[getDisplayText_(item)]]
+  </div>
+  <iron-icon icon="settings:check-circle" hidden="[[!selected]]"></iron-icon>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'app-language-selection-item' is part of app language picker
+ * dialog to display language option in a single row.
+ */
+class AppLanguageSelectionItemElement extends PolymerElement {
+    static get is() {
+        return 'app-language-selection-item';
+    }
+    static get template() {
+        return getTemplate$B();
+    }
+    static get properties() {
+        return {
+            index: Number,
+            item: Object,
+            selected: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    getDisplayText_() {
+        let name = this.item.displayName;
+        if (name === '') {
+            // If displayName couldn't be translated, we'll display the localeTag
+            // instead.
+            return this.item.localeTag;
+        }
+        if (this.item.nativeDisplayName !== '' &&
+            this.item.nativeDisplayName !== name) {
+            name += ' - ' + this.item.nativeDisplayName;
+        }
+        return name;
+    }
+    getAriaSelected_() {
+        return this.selected ? 'true' : 'false';
+    }
+}
+customElements.define(AppLanguageSelectionItemElement.is, AppLanguageSelectionItemElement);
+
+function getTemplate$A() {
+    return html `<!--_html_template_start_--><style include="settings-shared shared-style">[slot=header]{align-items:center;display:flex;flex-direction:row;font-weight:400;height:48px;margin-inline-start:24px}.app-title{flex:1;overflow:hidden;text-overflow:ellipsis}.app-icon{height:36px;width:36px;margin-inline-end:12px}[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-bottom:8px}iron-list>:not([selected]):hover{background-color:var(--cros-menu-item-bg-color-focus)}iron-list>[selected]:not(.no-outline):focus{background-color:transparent}.label{padding-bottom:8px;padding-top:8px}</style>
+
+<cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
+  <div slot="title">$i18n{appLanguageDialogTitle}</div>
+  <div slot="header">
+    <img class="app-icon" src="[[iconUrlFromApp_(app)]]" alt="[[app.title]] app icon." aria-hidden="true">
+    <div class="app-title">[[app.title]]</div>
+  </div>
+  <div id="dialogBody" slot="body" scrollable>
+    <cr-search-field label="$i18n{appLanguageDialogSearchPlaceholderText}" id="search" clear-label="$i18n{clearSearch}" autofocus on-search-changed="onSearchChanged_" on-keydown="onKeydown_">
+    </cr-search-field>
+    <template is="dom-if" if="[[!isSearchQueryPresent(searchQuery_.length)]]">
+      <div class="label">
+        $i18n{appLanguageDialogSuggestedLabel}
+      </div>
+      <iron-list id="suggestedItemsList" items="[[suggestedLanguages_]]" scroll-target="dialogBody">
+        <template>
+          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
+          </app-language-selection-item>
+        </template>
+      </iron-list>
+    </template>
+    <template is="dom-if" if="[[showFilteredLanguages(filteredLanguages_.length)]]">
+      <div class="label" hidden="[[isSearchQueryPresent(searchQuery_.length)]]">
+        $i18n{appLanguageDialogAllLanguagesLabel}
+      </div>
+      <iron-list id="filteredItemsList" items="[[filteredLanguages_]]" scroll-target="dialog-body">
+        <template>
+          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
+          </app-language-selection-item>
+        </template>
+      </iron-list>
+    </template>
+    <div id="noSearchResults" class="centered-message" hidden="[[!isSearchResultEmpty_(searchQuery_.length)]]">
+      $i18n{noSearchResults}
+    </div>
+  </div>
+  <div slot="button-container">
+    <cr-button class="cancel-button" on-click="onCancelButtonClick_">
+      $i18n{cancel}
+    </cr-button>
+    <cr-button class="action-button" disabled="[[shouldDisableActionButton_(selectedLanguage_)]]" on-click="onActionButtonClick_">
+      $i18n{appLanguageDialogUpdateButtonText}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'app-language-selection-dialog' is a dialog to select
+ * per-app language. The component supports suggested items, and filtering
+ * by search query.
+ * Note: `App` object must be present before showing this dialog.
+ */
+// Keep this in sync with tools/metrics/histograms/metadata/arc/histograms.xml
+// Arc.AppLanguageSwitch.{SettingsPage}.TargetLanguage.
+var AppLanguageSelectionDialogEntryPoint;
+(function (AppLanguageSelectionDialogEntryPoint) {
+    AppLanguageSelectionDialogEntryPoint["APPS_MANAGEMENT_PAGE"] = "AppsManagementPage";
+    AppLanguageSelectionDialogEntryPoint["LANGUAGES_PAGE"] = "LanguagesPage";
+})(AppLanguageSelectionDialogEntryPoint || (AppLanguageSelectionDialogEntryPoint = {}));
+const AppLanguageSelectionDialogElementBase = PrefsMixin(I18nMixin(PolymerElement));
+class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialogElementBase {
+    constructor() {
+        super(...arguments);
+        this.suggestedLanguages_ = [];
+        this.filteredLanguages_ = [];
+        this.searchQuery_ = '';
+    }
+    static get is() {
+        return 'app-language-selection-dialog';
+    }
+    static get template() {
+        return getTemplate$A();
+    }
+    static get properties() {
+        return {
+            app: Object,
+            filteredLanguages_: {
+                type: Array,
+                computed: 'getFilteredLanguages_(searchQuery_.length, suggestedLanguages_)',
+            },
+            entryPoint: String,
+        };
+    }
+    ready() {
+        super.ready();
+        this.initializeSuggestedLanguages_();
+    }
+    onCancelButtonClick_() {
+        this.$.dialog.close();
+    }
+    onActionButtonClick_() {
+        AppManagementBrowserProxy.getInstance().handler.setAppLocale(this.app.id, this.selectedLanguage_.localeTag);
+        chrome.metricsPrivate.recordSparseValueWithHashMetricName(`Arc.AppLanguageSwitch.${this.entryPoint}.TargetLanguage`, this.selectedLanguage_.localeTag);
+        this.$.dialog.close();
+    }
+    shouldDisableActionButton_() {
+        return !this.selectedLanguage_;
+    }
+    // 'on-search-changed' event listener on a <cr-search-field>.
+    onSearchChanged_(e) {
+        this.searchQuery_ = e.detail.toLocaleLowerCase();
+    }
+    // Used to display "search result is empty" text.
+    isSearchResultEmpty_() {
+        return this.searchQuery_.length > 0 && this.filteredLanguages_.length === 0;
+    }
+    // 'on-keydown' event listener on a <cr-search-field>.
+    onKeydown_(e) {
+        // Close dialog if 'esc' is pressed and the search box is already empty.
+        if (e.key === 'Escape' && !this.$.search.getValue().trim()) {
+            this.$.dialog.close();
+        }
+        else if (e.key !== 'PageDown' && e.key !== 'PageUp') {
+            this.$.search.scrollIntoView();
+        }
+    }
+    // 'on-click' event listener on a <app-language-selection-item>.
+    toggleSelection_(e) {
+        if (e.model.item === this.selectedLanguage_) {
+            this.selectedLanguage_ = undefined;
+        }
+        else {
+            this.selectedLanguage_ = e.model.item;
+        }
+    }
+    // Defines whether a selected-icon should be added to the item.
+    isItemSelected_(item) {
+        if (!this.selectedLanguage_) {
+            return false;
+        }
+        return this.selectedLanguage_.localeTag === item.localeTag;
+    }
+    // Hide suggestedLanguages along with "Device Language", and "All languages"
+    // label if searchQuery exists.
+    isSearchQueryPresent() {
+        return this.searchQuery_.length > 0;
+    }
+    // The only case where `filteredLanguages` is completely hidden is when
+    // there's only 1 app-language available, and it's already selected. In this
+    // case, we'll only display suggestedLanguages (deviceLanguage,
+    // selectedLanguage).
+    showFilteredLanguages() {
+        return this.filteredLanguages_.length > 0;
+    }
+    // `suggestedLanguages_` is immutable throughout the dialog lifecycle, hence
+    // it's better to pre-populate once here.
+    initializeSuggestedLanguages_() {
+        const defaultDeviceLanguage = {
+            localeTag: '',
+            displayName: this.i18n('appLanguageDeviceLanguageLabel'),
+            nativeDisplayName: '',
+        };
+        // Possibly add selected locale to suggested list and init
+        // currently-selected language.
+        const suggestedLanguages = [defaultDeviceLanguage];
+        if (this.app.selectedLocale && this.app.selectedLocale.localeTag !== '') {
+            suggestedLanguages.push(this.app.selectedLocale);
+            this.selectedLanguage_ = this.app.selectedLocale;
+        }
+        else {
+            // Set device language as selected if no other locale selected.
+            this.selectedLanguage_ = defaultDeviceLanguage;
+        }
+        const lastSetAppLocaleTag = this.getPref('arc.last_set_app_locale').value;
+        // Add last-set-app-locale into suggestions if it's supported by app and
+        // hasn't been included yet.
+        const lastSetAppLocale = this.app.supportedLocales.find(locale => locale.localeTag === lastSetAppLocaleTag);
+        if (lastSetAppLocale &&
+            !suggestedLanguages.find(locale => locale.localeTag === lastSetAppLocale.localeTag)) {
+            suggestedLanguages.push(lastSetAppLocale);
+        }
+        this.suggestedLanguages_ = suggestedLanguages;
+    }
+    // Display list of all supported languages, minus suggestedLanguages, and
+    // filtered by search query.
+    getFilteredLanguages_() {
+        let filteredItems;
+        if (this.searchQuery_.length === 0) {
+            // Filter out elements in suggestedList
+            filteredItems = this.app.supportedLocales.filter(locale => !this.suggestedLanguages_.some(suggestedLanguage => suggestedLanguage.localeTag === locale.localeTag));
+        }
+        else {
+            // Filter out based on search query.
+            filteredItems = this.app.supportedLocales.filter(locale => locale.displayName.toLocaleLowerCase().includes(this.searchQuery_) ||
+                locale.nativeDisplayName.toLocaleLowerCase().includes(this.searchQuery_));
+        }
+        return filteredItems.sort((a, b) => a.displayName.localeCompare(b.displayName));
+    }
+    iconUrlFromApp_() {
+        return getAppIcon(this.app);
+    }
+}
+customElements.define(AppLanguageSelectionDialogElement.is, AppLanguageSelectionDialogElement);
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -52807,7 +53250,7 @@ function getTemplate$m() {
   </div>
 </div>
 
-<settings-toggle-button id="batterySaverToggle" class$="[[getClassForRow_(batteryStatus_.present, 'batterySaver')]]" hidden$="[[batterySaverHidden_]]" pref="{{prefs.power.cros_battery_saver_active}}" label="$i18n{powerBatterySaverLabel}" sub-label="$i18n{powerBatterySaverSubtext}" disabled="[[isExternalPowerAC_]]" deep-link-focus-id$="[[Setting.kBatterySaver]]">
+<settings-toggle-button id="batterySaverToggle" class$="[[getClassForRow_(batteryStatus_.present, 'batterySaver')]]" hidden$="[[batterySaverHidden_]]" pref="{{prefs.power.cros_battery_saver_active}}" label="$i18n{powerBatterySaverLabel}" sub-label="$i18n{powerBatterySaverSubtext}" learn-more-url="$i18n{powerBatterySaverLearnMoreUrl}" disabled="[[isExternalPowerAC_]]" deep-link-focus-id$="[[Setting.kBatterySaver]]">
 </settings-toggle-button>
 
 <settings-toggle-button id="adaptiveChargingToggle" class$="[[getClassForRow_(batteryStatus_.present, 'adaptiveCharging')]]" hidden$="[[!adaptiveChargingEnabled_]]" pref="[[adaptiveChargingPref_]]" label="$i18n{powerAdaptiveChargingLabel}" sub-label="$i18n{powerAdaptiveChargingSubtext}" learn-more-url="$i18n{powerAdaptiveChargingLearnMoreUrl}" on-settings-boolean-control-change="onAdaptiveChargingToggleChange_" deep-link-focus-id$="[[Setting.kAdaptiveCharging]]" no-set-pref>
@@ -53371,8 +53814,9 @@ class StorageExternalEntryElement extends StorageExternalEntryElementBase {
 customElements.define(StorageExternalEntryElement.is, StorageExternalEntryElement);
 
 function getTemplate$k() {
-    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}</style>
-<div class="settings-box first">
+    return html `<!--_html_template_start_--><style include="settings-shared">h2{padding-inline-start:var(--cr-section-padding)}#androidAppsExternalDrivesNoteContainer{padding-top:10px;padding-bottom:10px}</style>
+
+<div id="androidAppsExternalDrivesNoteContainer" class="settings-box first">
   <localized-link localized-string="[[i18nAdvanced('storageAndroidAppsExternalDrivesNote')]]">
   </localized-link>
 </div>
@@ -53473,7 +53917,7 @@ function getTemplate$j() {
 </template>
 <div class="settings-box first">
   <div id="barArea">
-    <progress id="bar" class$="[[getBarClass_(sizeStat_.spaceState)]]" value="[[sizeStat_.usedRatio]]" aria-label="$i18n{storageOverviewAriaLabel}" aria-describedby="barLabels">
+    <progress id="bar" class$="[[getBarClass_(sizeStat_.spaceState)]]" value="[[roundTo2DecimalPoints_(sizeStat_.usedRatio)]]" aria-label="$i18n{storageOverviewAriaLabel}" aria-valuetext$="[[sizeStat_.usedSize]]" aria-describedby="barLabels">
     </progress>
     <div id="barLabels" aria-hidden="true">
       <div id="inUseLabelArea" class="bar-label">
@@ -53512,7 +53956,7 @@ function getTemplate$j() {
   </cr-link-row>
 </template>
 <template is="dom-if" if="[[!isEphemeralUser_]]">
-  <div id="systemSize" class="settings-box two-line single-column stretch settings-box-text" aria-describedby="systemSizeLabel" aria-labelledby="systemSizeSubLabel">
+  <div id="systemSize" class="settings-box two-line single-column stretch settings-box-text" aria-describedby="systemSizeSubLabel" aria-labelledby="systemSizeLabel">
     <div id="systemSizeLabel" class="label" aria-hidden="true">
       $i18n{storageItemSystem}
     </div>
@@ -53804,6 +54248,9 @@ class SettingsStorageElement extends SettingsStorageElementBase {
             default:
                 return '';
         }
+    }
+    roundTo2DecimalPoints_(n) {
+        return n.toFixed(2);
     }
 }
 customElements.define(SettingsStorageElement.is, SettingsStorageElement);
@@ -55212,7 +55659,7 @@ class SettingsAndroidAppsSubpageElement extends SettingsAndroidAppsSubpageElemen
         this.$.confirmDisableDialog.close();
     }
     onConfirmDisableDialogClose_() {
-        focusWithoutInk$1(castExists$1(this.shadowRoot.querySelector('#remove')));
+        focusWithoutInk(castExists$1(this.shadowRoot.querySelector('#remove')));
     }
     onManageAndroidAppsClick_(event) {
         // |event.detail| is the click count. Keyboard events will have 0 clicks.
@@ -55675,7 +56122,7 @@ function getTemplate$5() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex"></style>
 
 <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-  <cr-link-row id="appNotificationsManagerRow" class="settings-box" label="$i18n{appNotificationsManagerLabel}" sub-label="[[getNotificationsCountSublabel_(appList_)]]" on-click="onClickAppNotifications_">
+  <cr-link-row id="appNotificationsManagerRow" class="settings-box first" label="$i18n{appNotificationsManagerLabel}" sub-label="[[getNotificationsCountSublabel_(appList_)]]" on-click="onClickAppNotifications_">
   </cr-link-row>
 </template>
 
@@ -56732,5 +57179,5 @@ class SettingsBluetoothSavedDevicesSubpageElement extends SettingsBluetoothSaved
 }
 customElements.define(SettingsBluetoothSavedDevicesSubpageElement.is, SettingsBluetoothSavedDevicesSubpageElement);
 
-export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, focusWithoutInk as a0, getESimProfileProperties as a1, mojoString16ToString as a2, CellularSetupPageName as a3, ESimManagerListenerBehavior as a4, MultiDeviceBrowserProxyImpl as a5, getEuicc as a6, getSimSlotCount as a7, getPendingESimProfiles as a8, MultiDeviceFeatureState as a9, CrButtonElement as aA, CrDialogElement as aB, CrIconButtonElement as aC, CrActionMenuElement as aD, recordLockScreenProgress as aE, LockScreenProgress as aF, PluralStringProxyImpl as aG, SyncBrowserProxyImpl as aH, PageStatus as aI, StatusAction as aJ, CrScrollableMixin as aK, PrivacyHubBrowserProxyImpl as aL, getAppPermissionProvider as aM, MediaDevicesProxy as aN, AppPermissionsObserverReceiver as aO, isPermissionEnabled as aP, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aQ, PrivacyHubSensorSubpageUserAction as aR, NUMBER_OF_POSSIBLE_USER_ACTIONS as aS, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aT, AppManagementBrowserProxy as aU, getAppIcon as aV, OneDriveBrowserProxy as aW, AppManagementStoreMixin as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, CrToggleElement as aa, BrowserProxy$1 as ab, getImage as ac, SettingsToggleButtonElement as ad, DevicePageBrowserProxyImpl as ae, ChromeVoxSubpageBrowserProxyImpl as af, assertExhaustive as ag, SelectToSpeakSubpageBrowserProxyImpl as ah, LanguagesBrowserProxyImpl as ai, SwitchAccessSubpageBrowserProxyImpl as aj, TextToSpeechSubpageBrowserProxyImpl as ak, TtsVoiceSubpageBrowserProxyImpl as al, BrowserChannel as am, isTargetChannelMoreStable as an, DeviceNameBrowserProxyImpl as ao, SetDeviceNameResult as ap, DeviceNameState as aq, AccountManagerBrowserProxyImpl as ar, ParentalControlsBrowserProxyImpl as as, assertInstanceof$1 as at, fireAuthTokenInvalidEvent as au, LockStateMixin as av, MultiDeviceFeatureMixin as aw, MultiDeviceFeature as ax, MultiDeviceSettingsMode as ay, CrInputElement as az, routes as b, SettingsBluetoothDevicesSubpageElement as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceFeatureToggleElement as bA, SettingsMultideviceSubpageElement as bB, SettingsMultideviceTaskContinuationDisabledLinkElement as bC, SettingsMultideviceTaskContinuationItemElement as bD, SettingsMultideviceWifiSyncDisabledLinkElement as bE, NearbyShareReceiveDialogElement as bF, SettingsNearbyShareSubpageElement as bG, SettingsAndroidAppsSubpageElement as bH, AppManagementAppDetailViewElement as bI, AppManagementAppDetailsItem as bJ, AppManagementAppItemElement as bK, SettingsAppManagementPageElement as bL, AppManagementArcDetailViewElement as bM, AppManagementBorealisDetailViewElement as bN, AppManagementChromeAppDetailViewElement as bO, AppManagementDomSwitchElement as bP, AppManagementMainViewElement as bQ, AppManagementPermissionHeadingElement as bR, AppManagementPinToShelfItemElement as bS, AppManagementPluginVmDetailViewElement as bT, AppManagementPwaDetailViewElement as bU, AppManagementResizeLockItemElement as bV, AppManagementSubAppsItemElement as bW, SettingsAppNotificationsManagerSubpage as bX, AppNotificationsSubpage as bY, SettingsBluetoothChangeDeviceNameDialogElement as bZ, SettingsBluetoothDeviceDetailSubpageElement as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SettingsRadioGroupElement as be, SmbBrowserProxyImpl as bf, SmbMountResult as bg, AppManagementSupportedLinksItemElement as bh, AppManagementSupportedLinksOverlappingAppsDialogElement as bi, DateTimeSettingsCardElement as bj, TimezoneSelectorElement as bk, SettingsCustomizeMouseButtonsSubpageElement as bl, SettingsCustomizePenButtonsSubpageElement as bm, SettingsCustomizeTabletButtonsSubpageElement as bn, SettingsKeyboardElement as bo, SettingsPointersElement as bp, SettingsPowerElement as bq, SettingsStorageElement as br, SettingsStylusElement as bs, CROSTINI_TYPE as bt, GuestOsBrowserProxyImpl as bu, PLUGIN_VM_TYPE as bv, ContainerSelectElement as bw, SettingsGuestOsSharedPathsElement as bx, SettingsMultideviceCombinedSetupItemElement as by, SettingsMultideviceFeatureItemElement as bz, assert$1 as c, stringToMojoString16 as c$, SettingsBluetoothSavedDevicesSubpageElement as c0, SettingsBluetoothTrueWirelessImagesElement as c1, SettingsPairedBluetoothListElement as c2, SettingsPairedBluetoothListItemElement as c3, SettingsSavedDevicesListElement as c4, FilesSettingsCardElement as c5, SettingsGoogleDriveSubpageElement as c6, LanguageSettingsCardElement as c7, SettingsLanguagesElement as c8, PrintingSettingsCardElement as c9, getDeviceName as cA, KeyboardSettingsObserverReceiver as cB, MouseSettingsObserverReceiver as cC, PointingStickSettingsObserverReceiver as cD, TouchpadSettingsObserverReceiver as cE, routesMojom as cF, getDisplayApi as cG, IronResizableBehavior as cH, PaperRippleBehavior as cI, getDeviceStateChangesToAnnounce as cJ, CrLinkRowElement as cK, Fkey as cL, ExtendedFkeysModifier as cM, TopRowActionKey as cN, MetaKey as cO, ModifierKey$1 as cP, SixPackShortcutModifier as cQ, SixPackKey as cR, PolicyStatus as cS, isInputDeviceSettingsSplitEnabled as cT, isExternalStorageEnabled as cU, GraphicsTabletSettingsObserverReceiver as cV, Button as cW, ButtonState$1 as cX, assertNotReached as cY, hasActiveCellularNetwork as cZ, getESimProfile as c_, SettingsPrivacyHubGeolocationSubpage as ca, SettingsPrivacyHubSubpage as cb, OsSettingsPowerwashDialogElement as cc, OsResetBrowserProxyImpl as cd, ResetSettingsCardElement as ce, listenOnce as cf, ABOUT_CHROME_OS_SECTION_PATH as cg, isAdvancedRoute as ch, NETWORK_SECTION_PATH as ci, BLUETOOTH_SECTION_PATH as cj, MULTI_DEVICE_SECTION_PATH as ck, PEOPLE_SECTION_PATH as cl, KERBEROS_SECTION_PATH as cm, DEVICE_SECTION_PATH as cn, PERSONALIZATION_SECTION_PATH as co, PRIVACY_AND_SECURITY_SECTION_PATH as cp, APPS_SECTION_PATH as cq, ACCESSIBILITY_SECTION_PATH as cr, SYSTEM_PREFERENCES_SECTION_PATH as cs, SEARCH_AND_ASSISTANT_SECTION_PATH as ct, DATE_AND_TIME_SECTION_PATH as cu, LANGUAGES_AND_INPUT_SECTION_PATH as cv, FILES_SECTION_PATH as cw, PRINTING_SECTION_PATH as cx, CROSTINI_SECTION_PATH as cy, RESET_SECTION_PATH as cz, cast as d, LocalizedLinkElement as d$, NetworkConfigElementBehavior as d0, htmlEscape as d1, isConnectedToNonCellularNetwork as d2, getNumESimProfiles as d3, LockScreenUnlockType as d4, PhoneHubPermissionsSetupFlowScreens as d5, PhoneHubPermissionsSetupAction as d6, PhoneHubPermissionsSetupFeatureCombination as d7, getNearbyShareSettings as d8, observeNearbyShareSettings as d9, recordSearch as dA, CrContainerShadowMixin as dB, setGlobalScrollTarget as dC, recordPageFocus as dD, recordPageBlur as dE, recordClick as dF, recordNavigation as dG, getPrefPolicyFields as dH, settingsAreEqual as dI, CustomizationRestriction as dJ, SimulateRightClickModifier as dK, recordSavedDevicesUiEventMetrics as dL, FastPairSavedDevicesUiEvent as dM, ColorChangeUpdater as dN, getContactManager as dO, observeContactManager as dP, setContactManagerForTesting as dQ, NearbyProgressElement as dR, nearby_share_mojomWebui as dS, setNearbyShareSettingsForTesting as dT, ControlledButtonElement as dU, ControlledRadioButtonElement as dV, SettingsDropdownMenuElement as dW, SettingsSliderElement as dX, ApnDetailDialog as dY, AppManagementFileHandlingItemElement as dZ, AppManagementToggleRowElement as d_, PhoneHubFeatureAccessStatus as da, OsBluetoothDevicesSubpageBrowserProxyImpl as db, ButtonState as dc, ButtonName as dd, DeviceItemState as de, PairingAuthType as df, recordBluetoothUiSurfaceMetrics as dg, BluetoothUiSurface as dh, isAccountManagerEnabled as di, AUTH_TOKEN_INVALID_EVENT_TYPE as dj, PrivacyHubNavigationOrigin as dk, shouldShowQuickAnswersSettings as dl, isAssistantAllowed as dm, isGuest as dn, isPowerwashAllowed as dp, shouldShowStartup as dq, getTrustedScriptURL as dr, isAboutRoute as ds, AndroidAppsBrowserProxyImpl as dt, isBasicRoute as du, CrSearchFieldMixin as dv, SectionSpec as dw, SubpageSpec as dx, SettingSpec as dy, OpenWindowProxyImpl as dz, equalContainerId as e, GoogleDriveBrowserProxy as e$, SettingsPrefsElement as e0, CrSettingsPrefs as e1, CrCheckboxElement as e2, CrCardRadioButtonElement as e3, CrRadioButtonElement as e4, CrRadioGroupElement as e5, CrSearchFieldElement as e6, CrSearchableDropDownElement as e7, CrSliderElement as e8, CrTextareaElement as e9, fakePointingSticks as eA, fakePointingSticks2 as eB, fakeStyluses as eC, fakeTouchpads as eD, fakeTouchpads2 as eE, setInputDeviceSettingsProviderForTesting as eF, setupFakeInputDeviceSettingsProvider as eG, Vkey as eH, setUserActionRecorderForTesting as eI, app_notification_handler_mojomWebui as eJ, app_permission_handler_mojomWebui as eK, setting_mojomWebui as eL, user_action_recorder_mojomWebui as eM, PhoneHubFeatureAccessProhibitedReason as eN, PhoneHubPermissionsSetupMode as eO, NearbyAccountManagerBrowserProxyImpl as eP, NearbyShareConfirmPageElement as eQ, NearbyShareHighVisibilityPageElement as eR, getReceiveManager as eS, observeReceiveManager as eT, setReceiveManagerForTesting as eU, dataUsageStringToEnum as eV, NearbyShareDataUsage as eW, PluginVmBrowserProxyImpl as eX, setAppNotificationProviderForTesting as eY, OsSettingsAppsPageElement as eZ, FastPairSavedDevicesOptInStatus as e_, CrToastElement as ea, CrPolicyIndicatorElement as eb, CrTooltipIconElement as ec, addApp$1 as ed, changeApp$1 as ee, removeApp$1 as ef, updateSelectedAppId$1 as eg, updateSubAppToParentAppId$1 as eh, reduceAction as ei, updateApps as ej, AppManagementStore as ek, resetGlobalScrollTargetForTesting as el, LacrosExtensionControlBrowserProxyImpl as em, LacrosExtensionControlledIndicatorElement as en, IdleBehavior as eo, LidClosedBehavior as ep, NoteAppLockScreenSupport as eq, setDisplayApiForTesting as er, StorageSpaceState as es, fakeGraphicsTabletButtonActions as et, fakeGraphicsTablets as eu, fakeKeyboards as ev, fakeKeyboards2 as ew, fakeMice as ex, fakeMice2 as ey, fakeMouseButtonActions as ez, containerLabel as f, PageCallbackRouter as f0, PageHandlerRemote as f1, PageRemote as f2, Stage as f3, ConfirmationDialogType as f4, PageCallbackRouter$2 as f5, PageHandlerRemote$2 as f6, PageRemote$2 as f7, MetricsConsentBrowserProxyImpl as f8, setAppPermissionProviderForTesting as f9, SettingsPrivacyHubAppPermissionRow as fa, SearchEnginesBrowserProxyImpl as fb, SettingsCardElement as fc, createRouter as fd, Route as fe, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk$1 as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
+export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, SettingsBluetoothChangeDeviceNameDialogElement as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceCombinedSetupItemElement as bA, SettingsMultideviceFeatureItemElement as bB, SettingsMultideviceFeatureToggleElement as bC, SettingsMultideviceSubpageElement as bD, SettingsMultideviceTaskContinuationDisabledLinkElement as bE, SettingsMultideviceTaskContinuationItemElement as bF, SettingsMultideviceWifiSyncDisabledLinkElement as bG, NearbyShareReceiveDialogElement as bH, SettingsNearbyShareSubpageElement as bI, SettingsAndroidAppsSubpageElement as bJ, AppManagementAppDetailViewElement as bK, AppManagementAppDetailsItem as bL, AppManagementAppItemElement as bM, SettingsAppManagementPageElement as bN, AppManagementArcDetailViewElement as bO, AppManagementBorealisDetailViewElement as bP, AppManagementChromeAppDetailViewElement as bQ, AppManagementDomSwitchElement as bR, AppManagementMainViewElement as bS, AppManagementPermissionHeadingElement as bT, AppManagementPinToShelfItemElement as bU, AppManagementPluginVmDetailViewElement as bV, AppManagementPwaDetailViewElement as bW, AppManagementResizeLockItemElement as bX, AppManagementSubAppsItemElement as bY, SettingsAppNotificationsManagerSubpage as bZ, AppNotificationsSubpage as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppManagementSupportedLinksItemElement as bg, AppManagementSupportedLinksOverlappingAppsDialogElement as bh, AppLanguageSelectionDialogElement as bi, AppLanguageSelectionItemElement as bj, SettingsRadioGroupElement as bk, DateTimeSettingsCardElement as bl, TimezoneSelectorElement as bm, SettingsCustomizeMouseButtonsSubpageElement as bn, SettingsCustomizePenButtonsSubpageElement as bo, SettingsCustomizeTabletButtonsSubpageElement as bp, SettingsKeyboardElement as bq, SettingsPointersElement as br, SettingsPowerElement as bs, SettingsStorageElement as bt, SettingsStylusElement as bu, CROSTINI_TYPE as bv, GuestOsBrowserProxyImpl as bw, PLUGIN_VM_TYPE as bx, ContainerSelectElement as by, SettingsGuestOsSharedPathsElement as bz, assert$1 as c, getESimProfile as c$, SettingsBluetoothDeviceDetailSubpageElement as c0, SettingsBluetoothDevicesSubpageElement as c1, SettingsBluetoothSavedDevicesSubpageElement as c2, SettingsBluetoothTrueWirelessImagesElement as c3, SettingsPairedBluetoothListElement as c4, SettingsPairedBluetoothListItemElement as c5, SettingsSavedDevicesListElement as c6, FilesSettingsCardElement as c7, SettingsGoogleDriveSubpageElement as c8, LanguageSettingsCardElement as c9, CROSTINI_SECTION_PATH as cA, RESET_SECTION_PATH as cB, getDeviceName as cC, KeyboardSettingsObserverReceiver as cD, MouseSettingsObserverReceiver as cE, PointingStickSettingsObserverReceiver as cF, TouchpadSettingsObserverReceiver as cG, routesMojom as cH, getDisplayApi as cI, IronResizableBehavior as cJ, PaperRippleMixin as cK, getDeviceStateChangesToAnnounce as cL, CrLinkRowElement as cM, Fkey as cN, ExtendedFkeysModifier as cO, TopRowActionKey as cP, MetaKey as cQ, ModifierKey$1 as cR, SixPackShortcutModifier as cS, SixPackKey as cT, PolicyStatus as cU, isInputDeviceSettingsSplitEnabled as cV, isExternalStorageEnabled as cW, GraphicsTabletSettingsObserverReceiver as cX, Button as cY, ButtonState$1 as cZ, hasActiveCellularNetwork as c_, SettingsLanguagesElement as ca, PrintingSettingsCardElement as cb, SettingsPrivacyHubGeolocationSubpage as cc, SettingsPrivacyHubSubpage as cd, OsSettingsPowerwashDialogElement as ce, OsResetBrowserProxyImpl as cf, ResetSettingsCardElement as cg, listenOnce as ch, ABOUT_CHROME_OS_SECTION_PATH as ci, isAdvancedRoute as cj, NETWORK_SECTION_PATH as ck, BLUETOOTH_SECTION_PATH as cl, MULTI_DEVICE_SECTION_PATH as cm, PEOPLE_SECTION_PATH as cn, KERBEROS_SECTION_PATH as co, DEVICE_SECTION_PATH as cp, PERSONALIZATION_SECTION_PATH as cq, PRIVACY_AND_SECURITY_SECTION_PATH as cr, APPS_SECTION_PATH as cs, ACCESSIBILITY_SECTION_PATH as ct, SYSTEM_PREFERENCES_SECTION_PATH as cu, SEARCH_AND_ASSISTANT_SECTION_PATH as cv, DATE_AND_TIME_SECTION_PATH as cw, LANGUAGES_AND_INPUT_SECTION_PATH as cx, FILES_SECTION_PATH as cy, PRINTING_SECTION_PATH as cz, cast as d, AppManagementToggleRowElement as d$, stringToMojoString16 as d0, NetworkConfigElementBehavior as d1, assertNotReached as d2, htmlEscape as d3, isConnectedToNonCellularNetwork as d4, getNumESimProfiles as d5, LockScreenUnlockType as d6, PhoneHubPermissionsSetupFlowScreens as d7, PhoneHubPermissionsSetupAction as d8, PhoneHubPermissionsSetupFeatureCombination as d9, SettingSpec as dA, OpenWindowProxyImpl as dB, recordSearch as dC, CrContainerShadowMixin as dD, setGlobalScrollTarget as dE, recordPageFocus as dF, recordPageBlur as dG, recordClick as dH, recordNavigation as dI, getPrefPolicyFields as dJ, settingsAreEqual as dK, CustomizationRestriction as dL, SimulateRightClickModifier as dM, recordSavedDevicesUiEventMetrics as dN, FastPairSavedDevicesUiEvent as dO, ColorChangeUpdater as dP, getContactManager as dQ, observeContactManager as dR, setContactManagerForTesting as dS, NearbyProgressElement as dT, nearby_share_mojomWebui as dU, setNearbyShareSettingsForTesting as dV, DEFAULT_CHECKED_VALUE as dW, DEFAULT_UNCHECKED_VALUE as dX, ExtensionControlBrowserProxyImpl as dY, ApnDetailDialog as dZ, AppManagementFileHandlingItemElement as d_, getNearbyShareSettings as da, observeNearbyShareSettings as db, PhoneHubFeatureAccessStatus as dc, OsBluetoothDevicesSubpageBrowserProxyImpl as dd, ButtonState as de, ButtonName as df, DeviceItemState as dg, PairingAuthType as dh, recordBluetoothUiSurfaceMetrics as di, BluetoothUiSurface as dj, isAccountManagerEnabled as dk, AUTH_TOKEN_INVALID_EVENT_TYPE as dl, PrivacyHubNavigationOrigin as dm, shouldShowQuickAnswersSettings as dn, isAssistantAllowed as dp, isGuest as dq, isPowerwashAllowed as dr, shouldShowStartup as ds, getTrustedScriptURL as dt, isAboutRoute as du, AndroidAppsBrowserProxyImpl as dv, isBasicRoute as dw, CrSearchFieldMixin as dx, SectionSpec as dy, SubpageSpec as dz, equalContainerId as e, dataUsageStringToEnum as e$, LocalizedLinkElement as e0, SettingsPrefsElement as e1, CrSettingsPrefs as e2, CrCheckboxElement as e3, CrCardRadioButtonElement as e4, CrRadioButtonElement as e5, CrRadioGroupElement as e6, CrSearchFieldElement as e7, CrSearchableDropDownElement as e8, CrSliderElement as e9, fakeGraphicsTablets as eA, fakeKeyboards as eB, fakeKeyboards2 as eC, fakeMice as eD, fakeMice2 as eE, fakeMouseButtonActions as eF, fakePointingSticks as eG, fakePointingSticks2 as eH, fakeStyluses as eI, fakeTouchpads as eJ, fakeTouchpads2 as eK, setInputDeviceSettingsProviderForTesting as eL, setupFakeInputDeviceSettingsProvider as eM, Vkey as eN, setUserActionRecorderForTesting as eO, app_notification_handler_mojomWebui as eP, app_permission_handler_mojomWebui as eQ, setting_mojomWebui as eR, user_action_recorder_mojomWebui as eS, PhoneHubFeatureAccessProhibitedReason as eT, PhoneHubPermissionsSetupMode as eU, NearbyAccountManagerBrowserProxyImpl as eV, NearbyShareConfirmPageElement as eW, NearbyShareHighVisibilityPageElement as eX, getReceiveManager as eY, observeReceiveManager as eZ, setReceiveManagerForTesting as e_, CrTextareaElement as ea, CrToastElement as eb, CrPolicyIndicatorElement as ec, CrTooltipIconElement as ed, addApp$1 as ee, changeApp$1 as ef, removeApp$1 as eg, updateSelectedAppId$1 as eh, updateSubAppToParentAppId$1 as ei, reduceAction as ej, updateApps as ek, AppManagementStore as el, resetGlobalScrollTargetForTesting as em, LacrosExtensionControlBrowserProxyImpl as en, LacrosExtensionControlledIndicatorElement as eo, ControlledButtonElement as ep, ControlledRadioButtonElement as eq, ExtensionControlledIndicatorElement as er, SettingsDropdownMenuElement as es, SettingsSliderElement as et, IdleBehavior as eu, LidClosedBehavior as ev, NoteAppLockScreenSupport as ew, setDisplayApiForTesting as ex, StorageSpaceState as ey, fakeGraphicsTabletButtonActions as ez, containerLabel as f, NearbyShareDataUsage as f0, PluginVmBrowserProxyImpl as f1, setAppNotificationProviderForTesting as f2, OsSettingsAppsPageElement as f3, FastPairSavedDevicesOptInStatus as f4, GoogleDriveBrowserProxy as f5, PageCallbackRouter as f6, PageHandlerRemote as f7, PageRemote as f8, Stage as f9, ConfirmationDialogType as fa, PageCallbackRouter$2 as fb, PageHandlerRemote$2 as fc, PageRemote$2 as fd, MetricsConsentBrowserProxyImpl as fe, setAppPermissionProviderForTesting as ff, SettingsPrivacyHubAppPermissionRow as fg, SettingsPrivacyHubSystemServiceRow as fh, SettingsSearchEngineElement as fi, SearchEnginesBrowserProxyImpl as fj, SettingsCardElement as fk, createRouter as fl, Route as fm, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
 //# sourceMappingURL=shared.rollup.js.map

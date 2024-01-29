@@ -440,6 +440,8 @@ bool TrustTokenAccessObserverStubDispatch::Accept(
           reinterpret_cast<internal::TrustTokenAccessObserver_OnTrustTokensAccessed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustTokenAccessObserver.0
       bool success = true;
       TrustTokenAccessDetailsPtr p_details{};
       TrustTokenAccessObserver_OnTrustTokensAccessed_ParamsDataView input_data_view(params, message);
@@ -455,8 +457,8 @@ bool TrustTokenAccessObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTrustTokensAccessed(
-std::move(p_details));
+      impl->OnTrustTokensAccessed(        
+        std::move(p_details));
       return true;
     }
     case internal::kTrustTokenAccessObserver_Clone_Name: {
@@ -466,6 +468,8 @@ std::move(p_details));
           reinterpret_cast<internal::TrustTokenAccessObserver_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrustTokenAccessObserver.1
       bool success = true;
       ::mojo::PendingReceiver<TrustTokenAccessObserver> p_listener{};
       TrustTokenAccessObserver_Clone_ParamsDataView input_data_view(params, message);
@@ -483,8 +487,8 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_listener));
+      impl->Clone(        
+        std::move(p_listener));
       return true;
     }
   }

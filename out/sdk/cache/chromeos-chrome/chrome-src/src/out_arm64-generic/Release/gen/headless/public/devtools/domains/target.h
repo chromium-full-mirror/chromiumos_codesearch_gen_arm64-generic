@@ -101,6 +101,15 @@ class HEADLESS_EXPORT Domain {
   void CloseTarget(std::unique_ptr<CloseTargetParams> params, base::OnceCallback<void(std::unique_ptr<CloseTargetResult>)> callback = base::OnceCallback<void(std::unique_ptr<CloseTargetResult>)>());
   void CloseTarget(const std::string& target_id, base::OnceCallback<void(std::unique_ptr<CloseTargetResult>)> callback = base::OnceCallback<void(std::unique_ptr<CloseTargetResult>)>());
 
+  // Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than
+  // one.
+  void CreateBrowserContext(std::unique_ptr<CreateBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)> callback = base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)>());
+  void CreateBrowserContext(base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)> callback = base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)>());
+
+  // Returns all browser contexts created with `Target.createBrowserContext` method.
+  void GetBrowserContexts(std::unique_ptr<GetBrowserContextsParams> params, base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)>());
+  void GetBrowserContexts(base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)>());
+
   // Creates a new page.
   void CreateTarget(std::unique_ptr<CreateTargetParams> params, base::OnceCallback<void(std::unique_ptr<CreateTargetResult>)> callback = base::OnceCallback<void(std::unique_ptr<CreateTargetResult>)>());
   void CreateTarget(const std::string& url, base::OnceCallback<void(std::unique_ptr<CreateTargetResult>)> callback = base::OnceCallback<void(std::unique_ptr<CreateTargetResult>)>());
@@ -109,6 +118,12 @@ class HEADLESS_EXPORT Domain {
   void DetachFromTarget(std::unique_ptr<DetachFromTargetParams> params, base::OnceCallback<void(std::unique_ptr<DetachFromTargetResult>)> callback = base::OnceCallback<void(std::unique_ptr<DetachFromTargetResult>)>());
   void DetachFromTarget(base::OnceClosure callback = base::OnceClosure());
   void DetachFromTarget(std::unique_ptr<DetachFromTargetParams> params, base::OnceClosure callback);
+
+  // Deletes a BrowserContext. All the belonging pages will be closed without calling their
+  // beforeunload hooks.
+  void DisposeBrowserContext(std::unique_ptr<DisposeBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<DisposeBrowserContextResult>)> callback = base::OnceCallback<void(std::unique_ptr<DisposeBrowserContextResult>)>());
+  void DisposeBrowserContext(const std::string& browser_context_id, base::OnceClosure callback = base::OnceClosure());
+  void DisposeBrowserContext(std::unique_ptr<DisposeBrowserContextParams> params, base::OnceClosure callback);
 
   // Retrieves a list of available targets.
   void GetTargets(std::unique_ptr<GetTargetsParams> params, base::OnceCallback<void(std::unique_ptr<GetTargetsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetTargetsResult>)>());
@@ -120,6 +135,15 @@ class HEADLESS_EXPORT Domain {
   void SendMessageToTarget(std::unique_ptr<SendMessageToTargetParams> params, base::OnceCallback<void(std::unique_ptr<SendMessageToTargetResult>)> callback = base::OnceCallback<void(std::unique_ptr<SendMessageToTargetResult>)>());
   void SendMessageToTarget(const std::string& message, base::OnceClosure callback = base::OnceClosure());
   void SendMessageToTarget(std::unique_ptr<SendMessageToTargetParams> params, base::OnceClosure callback);
+
+  // Controls whether to automatically attach to new targets which are considered to be related to
+  // this one. When turned on, attaches to all existing related targets as well. When turned off,
+  // automatically detaches from all currently attached targets.
+  // This also clears all targets added by `autoAttachRelated` from the list of targets to watch
+  // for creation of related targets.
+  void SetAutoAttach(std::unique_ptr<SetAutoAttachParams> params, base::OnceCallback<void(std::unique_ptr<SetAutoAttachResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAutoAttachResult>)>());
+  void SetAutoAttach(bool auto_attach, bool wait_for_debugger_on_start, base::OnceClosure callback = base::OnceClosure());
+  void SetAutoAttach(std::unique_ptr<SetAutoAttachParams> params, base::OnceClosure callback);
 
   // Controls whether to discover available targets and notify via
   // `targetCreated/targetInfoChanged/targetDestroyed` events.
@@ -195,26 +219,8 @@ class ExperimentalDomain : public Domain {
   // - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses.
   void ExposeDevToolsProtocol(std::unique_ptr<ExposeDevToolsProtocolParams> params, base::OnceCallback<void(std::unique_ptr<ExposeDevToolsProtocolResult>)> callback = base::OnceCallback<void(std::unique_ptr<ExposeDevToolsProtocolResult>)>());
 
-  // Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than
-  // one.
-  void CreateBrowserContext(std::unique_ptr<CreateBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)> callback = base::OnceCallback<void(std::unique_ptr<CreateBrowserContextResult>)>());
-
-  // Returns all browser contexts created with `Target.createBrowserContext` method.
-  void GetBrowserContexts(std::unique_ptr<GetBrowserContextsParams> params, base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetBrowserContextsResult>)>());
-
-  // Deletes a BrowserContext. All the belonging pages will be closed without calling their
-  // beforeunload hooks.
-  void DisposeBrowserContext(std::unique_ptr<DisposeBrowserContextParams> params, base::OnceCallback<void(std::unique_ptr<DisposeBrowserContextResult>)> callback = base::OnceCallback<void(std::unique_ptr<DisposeBrowserContextResult>)>());
-
   // Returns information about a target.
   void GetTargetInfo(std::unique_ptr<GetTargetInfoParams> params, base::OnceCallback<void(std::unique_ptr<GetTargetInfoResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetTargetInfoResult>)>());
-
-  // Controls whether to automatically attach to new targets which are considered to be related to
-  // this one. When turned on, attaches to all existing related targets as well. When turned off,
-  // automatically detaches from all currently attached targets.
-  // This also clears all targets added by `autoAttachRelated` from the list of targets to watch
-  // for creation of related targets.
-  void SetAutoAttach(std::unique_ptr<SetAutoAttachParams> params, base::OnceCallback<void(std::unique_ptr<SetAutoAttachResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAutoAttachResult>)>());
 
   // Adds the specified target to the list of targets that will be monitored for any related target
   // creation (such as child frames, child workers and new versions of service worker) and reported

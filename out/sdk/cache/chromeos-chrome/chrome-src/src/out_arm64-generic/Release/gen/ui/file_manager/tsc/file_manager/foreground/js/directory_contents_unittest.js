@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assertEquals, assertFalse } from 'chrome://webui-test/chromeos/chai_assert.js';
+import { FilesAppEntry } from '../../common/js/files_app_entry_types.js';
 import { installMockChrome } from '../../common/js/mock_chrome.js';
 import { RootType } from '../../common/js/volume_manager_types.js';
-import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 import { FileFilter, RecentContentScanner } from './directory_contents.js';
 /**
  * Mock chrome APIs.

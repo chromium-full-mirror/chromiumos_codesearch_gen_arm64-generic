@@ -256,6 +256,11 @@ class HEADLESS_EXPORT Domain {
   void GetRequestPostData(std::unique_ptr<GetRequestPostDataParams> params, base::OnceCallback<void(std::unique_ptr<GetRequestPostDataResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetRequestPostDataResult>)>());
   void GetRequestPostData(const std::string& request_id, base::OnceCallback<void(std::unique_ptr<GetRequestPostDataResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetRequestPostDataResult>)>());
 
+  // Toggles ignoring of service worker for each request.
+  void SetBypassServiceWorker(std::unique_ptr<SetBypassServiceWorkerParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassServiceWorkerResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetBypassServiceWorkerResult>)>());
+  void SetBypassServiceWorker(bool bypass, base::OnceClosure callback = base::OnceClosure());
+  void SetBypassServiceWorker(std::unique_ptr<SetBypassServiceWorkerParams> params, base::OnceClosure callback);
+
   // Toggles ignoring cache for each request. If `true`, cache will not be used.
   void SetCacheDisabled(std::unique_ptr<SetCacheDisabledParams> params, base::OnceCallback<void(std::unique_ptr<SetCacheDisabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetCacheDisabledResult>)>());
   void SetCacheDisabled(bool cache_disabled, base::OnceClosure callback = base::OnceClosure());
@@ -410,9 +415,6 @@ class ExperimentalDomain : public Domain {
 
   // Blocks URLs from loading.
   void SetBlockedURLs(std::unique_ptr<SetBlockedURLsParams> params, base::OnceCallback<void(std::unique_ptr<SetBlockedURLsResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetBlockedURLsResult>)>());
-
-  // Toggles ignoring of service worker for each request.
-  void SetBypassServiceWorker(std::unique_ptr<SetBypassServiceWorkerParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassServiceWorkerResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetBypassServiceWorkerResult>)>());
 
   // Specifies whether to attach a page script stack id in requests
   void SetAttachDebugStack(std::unique_ptr<SetAttachDebugStackParams> params, base::OnceCallback<void(std::unique_ptr<SetAttachDebugStackResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAttachDebugStackResult>)>());

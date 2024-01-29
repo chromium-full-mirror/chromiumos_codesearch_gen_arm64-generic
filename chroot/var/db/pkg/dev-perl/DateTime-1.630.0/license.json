@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "DateTime", "version": "1.630.0", "revision": 0, "fullname": "dev-perl/DateTime", "fullnamerev": "dev-perl/DateTime-1.630.0", "license_names": ["Artistic-2"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/DateTime"], "skip": false, "tainted": false, "ebuild_path": null}

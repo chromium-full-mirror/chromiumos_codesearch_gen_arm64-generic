@@ -60,6 +60,8 @@ class AuctionAdConfigBuyerCurrenciesDataView;
 
 class AuctionAdServerResponseConfigDataView;
 
+class AuctionReportBuyerDebugModeConfigDataView;
+
 class AuctionReportBuyersConfigDataView;
 
 class AuctionAdConfigNonSharedParamsDataView;
@@ -144,6 +146,13 @@ struct MojomTypeTraits<::blink::mojom::AuctionAdConfigBuyerCurrenciesDataView> {
 template <>
 struct MojomTypeTraits<::blink::mojom::AuctionAdServerResponseConfigDataView> {
   using Data = ::blink::mojom::internal::AuctionAdServerResponseConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::AuctionReportBuyerDebugModeConfigDataView> {
+  using Data = ::blink::mojom::internal::AuctionReportBuyerDebugModeConfig_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -705,6 +714,9 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
+  int32_t max_trusted_bidding_signals_url_length() const {
+    return data_->max_trusted_bidding_signals_url_length;
+  }
   inline void GetUserBiddingSignalsDataView(
       mojo::StringDataView* output);
 
@@ -1137,6 +1149,30 @@ class AuctionAdServerResponseConfigDataView {
 };
 
 
+class AuctionReportBuyerDebugModeConfigDataView {
+ public:
+  AuctionReportBuyerDebugModeConfigDataView() = default;
+
+  AuctionReportBuyerDebugModeConfigDataView(
+      internal::AuctionReportBuyerDebugModeConfig_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool is_enabled() const {
+    return data_->is_enabled;
+  }
+  std::optional<uint64_t> debug_key() const {
+
+    return data_->debug_key_$flag
+        ? absl::make_optional(data_->debug_key_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::AuctionReportBuyerDebugModeConfig_Data* data_ = nullptr;
+};
+
+
 class AuctionReportBuyersConfigDataView {
  public:
   AuctionReportBuyersConfigDataView() = default;
@@ -1389,6 +1425,26 @@ static_assert(
     return mojo::internal::Deserialize<mojo::MapDataView<::blink::mojom::AuctionAdConfigNonSharedParams_BuyerReportType, ::blink::mojom::AuctionReportBuyersConfigDataView>>(
         pointer, output, message_);
   }
+  inline void GetAuctionReportBuyerDebugModeConfigDataView(
+      AuctionReportBuyerDebugModeConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAuctionReportBuyerDebugModeConfig(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::AuctionReportBuyerDebugModeConfigDataView, UserType>(),
+    "Attempting to read the optional `auction_report_buyer_debug_mode_config` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAuctionReportBuyerDebugModeConfig` instead "
+    "of `ReadAuctionReportBuyerDebugModeConfig if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->auction_report_buyer_debug_mode_config.Get();
+    return mojo::internal::Deserialize<::blink::mojom::AuctionReportBuyerDebugModeConfigDataView>(
+        pointer, output, message_);
+  }
   inline void GetRequiredSellerCapabilitiesDataView(
       SellerCapabilitiesDataView* output);
 
@@ -1554,6 +1610,9 @@ static_assert(
     auto* pointer = data_->trusted_scoring_signals_url.Get();
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
+  }
+  int32_t max_trusted_scoring_signals_url_length() const {
+    return data_->max_trusted_scoring_signals_url_length;
   }
   inline void GetAuctionAdConfigNonSharedParamsDataView(
       AuctionAdConfigNonSharedParamsDataView* output);
@@ -2242,6 +2301,7 @@ struct Serializer<::blink::mojom::InterestGroupDataView, MaybeConstUserType> {
         in_trusted_bidding_signals_keys, trusted_bidding_signals_keys_fragment, &trusted_bidding_signals_keys_validate_params);
     fragment->trusted_bidding_signals_keys.Set(
         trusted_bidding_signals_keys_fragment.is_null() ? nullptr : trusted_bidding_signals_keys_fragment.data());
+    fragment->max_trusted_bidding_signals_url_length = Traits::max_trusted_bidding_signals_url_length(input);
     decltype(Traits::user_bidding_signals(input)) in_user_bidding_signals = Traits::user_bidding_signals(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->user_bidding_signals)::BaseType> user_bidding_signals_fragment(
@@ -2639,6 +2699,40 @@ struct Serializer<::blink::mojom::AuctionAdServerResponseConfigDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::AuctionReportBuyerDebugModeConfigDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::AuctionReportBuyerDebugModeConfigDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::AuctionReportBuyerDebugModeConfig_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->is_enabled = Traits::is_enabled(input);
+    fragment->debug_key_$flag = Traits::debug_key(input).has_value();
+    if (Traits::debug_key(input).has_value()) {
+      fragment->debug_key_$value = Traits::debug_key(input).value();
+    }
+  }
+
+  static bool Deserialize(::blink::mojom::internal::AuctionReportBuyerDebugModeConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::AuctionReportBuyerDebugModeConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::AuctionReportBuyersConfigDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::AuctionReportBuyersConfigDataView, UserType>;
@@ -2832,6 +2926,14 @@ struct Serializer<::blink::mojom::AuctionAdConfigNonSharedParamsDataView, MaybeC
         in_auction_report_buyers, auction_report_buyers_fragment, &auction_report_buyers_validate_params);
     fragment->auction_report_buyers.Set(
         auction_report_buyers_fragment.is_null() ? nullptr : auction_report_buyers_fragment.data());
+    decltype(Traits::auction_report_buyer_debug_mode_config(input)) in_auction_report_buyer_debug_mode_config = Traits::auction_report_buyer_debug_mode_config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->auction_report_buyer_debug_mode_config)::BaseType> auction_report_buyer_debug_mode_config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::blink::mojom::AuctionReportBuyerDebugModeConfigDataView>(
+        in_auction_report_buyer_debug_mode_config, auction_report_buyer_debug_mode_config_fragment);
+    fragment->auction_report_buyer_debug_mode_config.Set(
+        auction_report_buyer_debug_mode_config_fragment.is_null() ? nullptr : auction_report_buyer_debug_mode_config_fragment.data());
     decltype(Traits::required_seller_capabilities(input)) in_required_seller_capabilities = Traits::required_seller_capabilities(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->required_seller_capabilities)::BaseType> required_seller_capabilities_fragment(
@@ -2949,6 +3051,7 @@ struct Serializer<::blink::mojom::AuctionAdConfigDataView, MaybeConstUserType> {
         in_trusted_scoring_signals_url, trusted_scoring_signals_url_fragment);
     fragment->trusted_scoring_signals_url.Set(
         trusted_scoring_signals_url_fragment.is_null() ? nullptr : trusted_scoring_signals_url_fragment.data());
+    fragment->max_trusted_scoring_signals_url_length = Traits::max_trusted_scoring_signals_url_length(input);
     decltype(Traits::auction_ad_config_non_shared_params(input)) in_auction_ad_config_non_shared_params = Traits::auction_ad_config_non_shared_params(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->auction_ad_config_non_shared_params)::BaseType> auction_ad_config_non_shared_params_fragment(
@@ -3539,6 +3642,8 @@ inline void AuctionAdServerResponseConfigDataView::GetRequestIdDataView(
 }
 
 
+
+
 inline void AuctionReportBuyersConfigDataView::GetBucketDataView(
     ::mojo_base::mojom::Uint128DataView* output) {
   auto pointer = data_->bucket.Get();
@@ -3615,6 +3720,11 @@ inline void AuctionAdConfigNonSharedParamsDataView::GetAuctionReportBuyersDataVi
     mojo::MapDataView<AuctionAdConfigNonSharedParams_BuyerReportType, AuctionReportBuyersConfigDataView>* output) {
   auto pointer = data_->auction_report_buyers.Get();
   *output = mojo::MapDataView<AuctionAdConfigNonSharedParams_BuyerReportType, AuctionReportBuyersConfigDataView>(pointer, message_);
+}
+inline void AuctionAdConfigNonSharedParamsDataView::GetAuctionReportBuyerDebugModeConfigDataView(
+    AuctionReportBuyerDebugModeConfigDataView* output) {
+  auto pointer = data_->auction_report_buyer_debug_mode_config.Get();
+  *output = AuctionReportBuyerDebugModeConfigDataView(pointer, message_);
 }
 inline void AuctionAdConfigNonSharedParamsDataView::GetRequiredSellerCapabilitiesDataView(
     SellerCapabilitiesDataView* output) {

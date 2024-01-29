@@ -85,17 +85,13 @@ BLINK_BINDINGS_TRACE_EVENT("RecordTest.getNullableStringLongRecord");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNullableStringLongRecord();
-if (!ToV8Traits<IDLNullable<IDLRecord<IDLString, IDLLong>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<IDLRecord<IDLString, IDLLong>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -110,17 +106,13 @@ BLINK_BINDINGS_TRACE_EVENT("RecordTest.getStringElementRecord");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getStringElementRecord();
-if (!ToV8Traits<IDLRecord<IDLString, Element>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLRecord<IDLString, Element>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -135,17 +127,13 @@ BLINK_BINDINGS_TRACE_EVENT("RecordTest.getStringLongRecord");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getStringLongRecord();
-if (!ToV8Traits<IDLRecord<IDLString, IDLLong>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLRecord<IDLString, IDLLong>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -160,17 +148,13 @@ BLINK_BINDINGS_TRACE_EVENT("RecordTest.getUSVStringUSVStringBooleanRecordRecord"
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getUSVStringUSVStringBooleanRecordRecord();
-if (!ToV8Traits<IDLRecord<IDLUSVString, IDLRecord<IDLUSVString, IDLBoolean>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLRecord<IDLUSVString, IDLRecord<IDLUSVString, IDLBoolean>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -185,17 +169,13 @@ BLINK_BINDINGS_TRACE_EVENT("RecordTest.returnStringByteStringSequenceRecord");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RecordTest* blink_receiver = V8RecordTest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->returnStringByteStringSequenceRecord();
-if (!ToV8Traits<IDLRecord<IDLString, IDLSequence<IDLByteString>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLRecord<IDLString, IDLSequence<IDLByteString>>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

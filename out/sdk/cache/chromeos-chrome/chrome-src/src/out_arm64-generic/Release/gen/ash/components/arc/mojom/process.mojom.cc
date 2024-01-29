@@ -937,6 +937,8 @@ bool ProcessInstance_RequestProcessList_ForwardToCallback::Accept(
           internal::ProcessInstance_RequestProcessList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInstance.5
   bool success = true;
   std::vector<RunningAppProcessInfoPtr> p_processes{};
   ProcessInstance_RequestProcessList_ResponseParamsDataView input_data_view(params, message);
@@ -1068,6 +1070,8 @@ bool ProcessInstance_RequestApplicationProcessMemoryInfo_ForwardToCallback::Acce
           internal::ProcessInstance_RequestApplicationProcessMemoryInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInstance.8
   bool success = true;
   std::vector<ArcMemoryDumpPtr> p_process_dumps{};
   ProcessInstance_RequestApplicationProcessMemoryInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1199,6 +1203,8 @@ bool ProcessInstance_RequestSystemProcessMemoryInfo_ForwardToCallback::Accept(
           internal::ProcessInstance_RequestSystemProcessMemoryInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInstance.9
   bool success = true;
   std::vector<ArcMemoryDumpPtr> p_process_dumps{};
   ProcessInstance_RequestSystemProcessMemoryInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1330,6 +1336,8 @@ bool ProcessInstance_ApplyHostMemoryPressureDeprecated_ForwardToCallback::Accept
           internal::ProcessInstance_ApplyHostMemoryPressureDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInstance.10
   bool success = true;
   uint32_t p_killed{};
   uint64_t p_reclaimed{};
@@ -1457,6 +1465,8 @@ bool ProcessInstance_ApplyHostMemoryPressure_ForwardToCallback::Accept(
           internal::ProcessInstance_ApplyHostMemoryPressure_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInstance.11
   bool success = true;
   uint32_t p_killed{};
   uint64_t p_reclaimed{};
@@ -1584,6 +1594,8 @@ bool ProcessInstance_RequestLowMemoryKillCounts_ForwardToCallback::Accept(
           internal::ProcessInstance_RequestLowMemoryKillCounts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProcessInstance.12
   bool success = true;
   LowMemoryKillCountsPtr p_counts{};
   ProcessInstance_RequestLowMemoryKillCounts_ResponseParamsDataView input_data_view(params, message);
@@ -1668,6 +1680,8 @@ bool ProcessInstanceStubDispatch::Accept(
           reinterpret_cast<internal::ProcessInstance_KillProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.1
       bool success = true;
       uint32_t p_pid{};
       std::string p_reason{};
@@ -1686,9 +1700,9 @@ bool ProcessInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->KillProcess(
-std::move(p_pid), 
-std::move(p_reason));
+      impl->KillProcess(        
+        std::move(p_pid), 
+        std::move(p_reason));
       return true;
     }
     case internal::kProcessInstance_RequestProcessList_Name: {
@@ -1732,6 +1746,8 @@ bool ProcessInstanceStubDispatch::AcceptWithResponder(
               internal::ProcessInstance_RequestProcessList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.5
       bool success = true;
       ProcessInstance_RequestProcessList_ParamsDataView input_data_view(params, message);
       
@@ -1757,6 +1773,8 @@ bool ProcessInstanceStubDispatch::AcceptWithResponder(
               internal::ProcessInstance_RequestApplicationProcessMemoryInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.8
       bool success = true;
       ProcessInstance_RequestApplicationProcessMemoryInfo_ParamsDataView input_data_view(params, message);
       
@@ -1782,6 +1800,8 @@ bool ProcessInstanceStubDispatch::AcceptWithResponder(
               internal::ProcessInstance_RequestSystemProcessMemoryInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.9
       bool success = true;
       std::vector<uint32_t> p_nspids{};
       ProcessInstance_RequestSystemProcessMemoryInfo_ParamsDataView input_data_view(params, message);
@@ -1800,8 +1820,8 @@ bool ProcessInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSystemProcessMemoryInfo(
-std::move(p_nspids), std::move(callback));
+      impl->RequestSystemProcessMemoryInfo(        
+        std::move(p_nspids), std::move(callback));
       return true;
     }
     case internal::kProcessInstance_ApplyHostMemoryPressureDeprecated_Name: {
@@ -1811,6 +1831,8 @@ std::move(p_nspids), std::move(callback));
               internal::ProcessInstance_ApplyHostMemoryPressureDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.10
       bool success = true;
       ProcessState p_level{};
       int64_t p_reclaim_target{};
@@ -1832,9 +1854,9 @@ std::move(p_nspids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyHostMemoryPressureDeprecated(
-std::move(p_level), 
-std::move(p_reclaim_target), std::move(callback));
+      impl->ApplyHostMemoryPressureDeprecated(        
+        std::move(p_level), 
+        std::move(p_reclaim_target), std::move(callback));
       return true;
     }
     case internal::kProcessInstance_ApplyHostMemoryPressure_Name: {
@@ -1844,6 +1866,8 @@ std::move(p_reclaim_target), std::move(callback));
               internal::ProcessInstance_ApplyHostMemoryPressure_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.11
       bool success = true;
       PressureLevel p_level{};
       int64_t p_reclaim_target{};
@@ -1865,9 +1889,9 @@ std::move(p_reclaim_target), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyHostMemoryPressure(
-std::move(p_level), 
-std::move(p_reclaim_target), std::move(callback));
+      impl->ApplyHostMemoryPressure(        
+        std::move(p_level), 
+        std::move(p_reclaim_target), std::move(callback));
       return true;
     }
     case internal::kProcessInstance_RequestLowMemoryKillCounts_Name: {
@@ -1877,6 +1901,8 @@ std::move(p_reclaim_target), std::move(callback));
               internal::ProcessInstance_RequestLowMemoryKillCounts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProcessInstance.12
       bool success = true;
       ProcessInstance_RequestLowMemoryKillCounts_ParamsDataView input_data_view(params, message);
       

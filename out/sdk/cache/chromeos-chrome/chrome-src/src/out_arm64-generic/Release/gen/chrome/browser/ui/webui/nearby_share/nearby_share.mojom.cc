@@ -459,6 +459,8 @@ bool ShareTargetListenerStubDispatch::Accept(
           reinterpret_cast<internal::ShareTargetListener_OnShareTargetDiscovered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShareTargetListener.0
       bool success = true;
       ::ShareTarget p_share_target{};
       ShareTargetListener_OnShareTargetDiscovered_ParamsDataView input_data_view(params, message);
@@ -474,8 +476,8 @@ bool ShareTargetListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShareTargetDiscovered(
-std::move(p_share_target));
+      impl->OnShareTargetDiscovered(        
+        std::move(p_share_target));
       return true;
     }
     case internal::kShareTargetListener_OnShareTargetLost_Name: {
@@ -485,6 +487,8 @@ std::move(p_share_target));
           reinterpret_cast<internal::ShareTargetListener_OnShareTargetLost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ShareTargetListener.1
       bool success = true;
       ::ShareTarget p_share_target{};
       ShareTargetListener_OnShareTargetLost_ParamsDataView input_data_view(params, message);
@@ -500,8 +504,8 @@ std::move(p_share_target));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShareTargetLost(
-std::move(p_share_target));
+      impl->OnShareTargetLost(        
+        std::move(p_share_target));
       return true;
     }
   }
@@ -663,6 +667,8 @@ bool TransferUpdateListenerStubDispatch::Accept(
           reinterpret_cast<internal::TransferUpdateListener_OnTransferUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TransferUpdateListener.0
       bool success = true;
       TransferStatus p_status{};
       std::optional<std::string> p_token{};
@@ -681,9 +687,9 @@ bool TransferUpdateListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTransferUpdate(
-std::move(p_status), 
-std::move(p_token));
+      impl->OnTransferUpdate(        
+        std::move(p_status), 
+        std::move(p_token));
       return true;
     }
   }
@@ -882,6 +888,8 @@ bool DiscoveryObserverStubDispatch::Accept(
           reinterpret_cast<internal::DiscoveryObserver_OnNearbyProcessStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DiscoveryObserver.0
       bool success = true;
       DiscoveryObserver_OnNearbyProcessStopped_ParamsDataView input_data_view(params, message);
       
@@ -894,7 +902,7 @@ bool DiscoveryObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNearbyProcessStopped();
+      impl->OnNearbyProcessStopped(        );
       return true;
     }
     case internal::kDiscoveryObserver_OnStartDiscoveryResult_Name: {
@@ -904,6 +912,8 @@ bool DiscoveryObserverStubDispatch::Accept(
           reinterpret_cast<internal::DiscoveryObserver_OnStartDiscoveryResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DiscoveryObserver.1
       bool success = true;
       bool p_success{};
       DiscoveryObserver_OnStartDiscoveryResult_ParamsDataView input_data_view(params, message);
@@ -919,8 +929,8 @@ bool DiscoveryObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStartDiscoveryResult(
-std::move(p_success));
+      impl->OnStartDiscoveryResult(        
+        std::move(p_success));
       return true;
     }
   }
@@ -1432,6 +1442,8 @@ bool DiscoveryManager_StartDiscovery_ForwardToCallback::Accept(
           internal::DiscoveryManager_StartDiscovery_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscoveryManager.1
   bool success = true;
   StartDiscoveryResult p_result{};
   DiscoveryManager_StartDiscovery_ResponseParamsDataView input_data_view(params, message);
@@ -1552,6 +1564,8 @@ bool DiscoveryManager_StopDiscovery_ForwardToCallback::Accept(
           internal::DiscoveryManager_StopDiscovery_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscoveryManager.2
   bool success = true;
   DiscoveryManager_StopDiscovery_ResponseParamsDataView input_data_view(params, message);
   
@@ -1659,6 +1673,8 @@ bool DiscoveryManager_SelectShareTarget_ForwardToCallback::Accept(
           internal::DiscoveryManager_SelectShareTarget_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscoveryManager.3
   bool success = true;
   SelectShareTargetResult p_result{};
   ::mojo::PendingReceiver<TransferUpdateListener> p_transfer_update_listener{};
@@ -1801,6 +1817,8 @@ bool DiscoveryManager_GetPayloadPreview_ForwardToCallback::Accept(
           internal::DiscoveryManager_GetPayloadPreview_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiscoveryManager.4
   bool success = true;
   PayloadPreviewPtr p_payload_preview{};
   DiscoveryManager_GetPayloadPreview_ResponseParamsDataView input_data_view(params, message);
@@ -1885,6 +1903,8 @@ bool DiscoveryManagerStubDispatch::Accept(
           reinterpret_cast<internal::DiscoveryManager_AddDiscoveryObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DiscoveryManager.0
       bool success = true;
       ::mojo::PendingRemote<DiscoveryObserver> p_observer{};
       DiscoveryManager_AddDiscoveryObserver_ParamsDataView input_data_view(params, message);
@@ -1902,8 +1922,8 @@ bool DiscoveryManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDiscoveryObserver(
-std::move(p_observer));
+      impl->AddDiscoveryObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDiscoveryManager_StartDiscovery_Name: {
@@ -1941,6 +1961,8 @@ bool DiscoveryManagerStubDispatch::AcceptWithResponder(
               internal::DiscoveryManager_StartDiscovery_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscoveryManager.1
       bool success = true;
       ::mojo::PendingRemote<ShareTargetListener> p_listener{};
       DiscoveryManager_StartDiscovery_ParamsDataView input_data_view(params, message);
@@ -1961,8 +1983,8 @@ bool DiscoveryManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDiscovery(
-std::move(p_listener), std::move(callback));
+      impl->StartDiscovery(        
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kDiscoveryManager_StopDiscovery_Name: {
@@ -1972,6 +1994,8 @@ std::move(p_listener), std::move(callback));
               internal::DiscoveryManager_StopDiscovery_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscoveryManager.2
       bool success = true;
       DiscoveryManager_StopDiscovery_ParamsDataView input_data_view(params, message);
       
@@ -1997,6 +2021,8 @@ std::move(p_listener), std::move(callback));
               internal::DiscoveryManager_SelectShareTarget_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscoveryManager.3
       bool success = true;
       ::base::UnguessableToken p_share_target_id{};
       DiscoveryManager_SelectShareTarget_ParamsDataView input_data_view(params, message);
@@ -2015,8 +2041,8 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectShareTarget(
-std::move(p_share_target_id), std::move(callback));
+      impl->SelectShareTarget(        
+        std::move(p_share_target_id), std::move(callback));
       return true;
     }
     case internal::kDiscoveryManager_GetPayloadPreview_Name: {
@@ -2026,6 +2052,8 @@ std::move(p_share_target_id), std::move(callback));
               internal::DiscoveryManager_GetPayloadPreview_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiscoveryManager.4
       bool success = true;
       DiscoveryManager_GetPayloadPreview_ParamsDataView input_data_view(params, message);
       
@@ -2377,6 +2405,8 @@ bool ConfirmationManager_Accept_ForwardToCallback::Accept(
           internal::ConfirmationManager_Accept_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ConfirmationManager.0
   bool success = true;
   bool p_success{};
   ConfirmationManager_Accept_ResponseParamsDataView input_data_view(params, message);
@@ -2496,6 +2526,8 @@ bool ConfirmationManager_Reject_ForwardToCallback::Accept(
           internal::ConfirmationManager_Reject_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ConfirmationManager.1
   bool success = true;
   bool p_success{};
   ConfirmationManager_Reject_ResponseParamsDataView input_data_view(params, message);
@@ -2615,6 +2647,8 @@ bool ConfirmationManager_Cancel_ForwardToCallback::Accept(
           internal::ConfirmationManager_Cancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ConfirmationManager.2
   bool success = true;
   bool p_success{};
   ConfirmationManager_Cancel_ResponseParamsDataView input_data_view(params, message);
@@ -2711,6 +2745,8 @@ bool ConfirmationManagerStubDispatch::AcceptWithResponder(
               internal::ConfirmationManager_Accept_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ConfirmationManager.0
       bool success = true;
       ConfirmationManager_Accept_ParamsDataView input_data_view(params, message);
       
@@ -2736,6 +2772,8 @@ bool ConfirmationManagerStubDispatch::AcceptWithResponder(
               internal::ConfirmationManager_Reject_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ConfirmationManager.1
       bool success = true;
       ConfirmationManager_Reject_ParamsDataView input_data_view(params, message);
       
@@ -2761,6 +2799,8 @@ bool ConfirmationManagerStubDispatch::AcceptWithResponder(
               internal::ConfirmationManager_Cancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ConfirmationManager.2
       bool success = true;
       ConfirmationManager_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -3105,6 +3145,8 @@ bool ReceiveObserverStubDispatch::Accept(
           reinterpret_cast<internal::ReceiveObserver_OnHighVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveObserver.0
       bool success = true;
       bool p_in_high_visibility{};
       ReceiveObserver_OnHighVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -3120,8 +3162,8 @@ bool ReceiveObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHighVisibilityChanged(
-std::move(p_in_high_visibility));
+      impl->OnHighVisibilityChanged(        
+        std::move(p_in_high_visibility));
       return true;
     }
     case internal::kReceiveObserver_OnTransferUpdate_Name: {
@@ -3131,6 +3173,8 @@ std::move(p_in_high_visibility));
           reinterpret_cast<internal::ReceiveObserver_OnTransferUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveObserver.1
       bool success = true;
       ::ShareTarget p_share_target{};
       TransferMetadataPtr p_metadata{};
@@ -3149,9 +3193,9 @@ std::move(p_in_high_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTransferUpdate(
-std::move(p_share_target), 
-std::move(p_metadata));
+      impl->OnTransferUpdate(        
+        std::move(p_share_target), 
+        std::move(p_metadata));
       return true;
     }
     case internal::kReceiveObserver_OnNearbyProcessStopped_Name: {
@@ -3161,6 +3205,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::ReceiveObserver_OnNearbyProcessStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveObserver.2
       bool success = true;
       ReceiveObserver_OnNearbyProcessStopped_ParamsDataView input_data_view(params, message);
       
@@ -3173,7 +3219,7 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNearbyProcessStopped();
+      impl->OnNearbyProcessStopped(        );
       return true;
     }
     case internal::kReceiveObserver_OnStartAdvertisingFailure_Name: {
@@ -3183,6 +3229,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::ReceiveObserver_OnStartAdvertisingFailure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveObserver.3
       bool success = true;
       ReceiveObserver_OnStartAdvertisingFailure_ParamsDataView input_data_view(params, message);
       
@@ -3195,7 +3243,7 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStartAdvertisingFailure();
+      impl->OnStartAdvertisingFailure(        );
       return true;
     }
   }
@@ -3853,6 +3901,8 @@ bool ReceiveManager_IsInHighVisibility_ForwardToCallback::Accept(
           internal::ReceiveManager_IsInHighVisibility_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ReceiveManager.1
   bool success = true;
   bool p_in_high_visibility{};
   ReceiveManager_IsInHighVisibility_ResponseParamsDataView input_data_view(params, message);
@@ -3972,6 +4022,8 @@ bool ReceiveManager_RegisterForegroundReceiveSurface_ForwardToCallback::Accept(
           internal::ReceiveManager_RegisterForegroundReceiveSurface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ReceiveManager.2
   bool success = true;
   RegisterReceiveSurfaceResult p_result{};
   ReceiveManager_RegisterForegroundReceiveSurface_ResponseParamsDataView input_data_view(params, message);
@@ -4092,6 +4144,8 @@ bool ReceiveManager_UnregisterForegroundReceiveSurface_ForwardToCallback::Accept
           internal::ReceiveManager_UnregisterForegroundReceiveSurface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ReceiveManager.3
   bool success = true;
   bool p_success{};
   ReceiveManager_UnregisterForegroundReceiveSurface_ResponseParamsDataView input_data_view(params, message);
@@ -4211,6 +4265,8 @@ bool ReceiveManager_Accept_ForwardToCallback::Accept(
           internal::ReceiveManager_Accept_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ReceiveManager.4
   bool success = true;
   bool p_success{};
   ReceiveManager_Accept_ResponseParamsDataView input_data_view(params, message);
@@ -4330,6 +4386,8 @@ bool ReceiveManager_Reject_ForwardToCallback::Accept(
           internal::ReceiveManager_Reject_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ReceiveManager.5
   bool success = true;
   bool p_success{};
   ReceiveManager_Reject_ResponseParamsDataView input_data_view(params, message);
@@ -4404,6 +4462,8 @@ bool ReceiveManagerStubDispatch::Accept(
           reinterpret_cast<internal::ReceiveManager_AddReceiveObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.0
       bool success = true;
       ::mojo::PendingRemote<ReceiveObserver> p_observer{};
       ReceiveManager_AddReceiveObserver_ParamsDataView input_data_view(params, message);
@@ -4421,8 +4481,8 @@ bool ReceiveManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddReceiveObserver(
-std::move(p_observer));
+      impl->AddReceiveObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kReceiveManager_IsInHighVisibility_Name: {
@@ -4447,6 +4507,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ReceiveManager_RecordFastInitiationNotificationUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.6
       bool success = true;
       bool p_success{};
       ReceiveManager_RecordFastInitiationNotificationUsage_ParamsDataView input_data_view(params, message);
@@ -4462,8 +4524,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordFastInitiationNotificationUsage(
-std::move(p_success));
+      impl->RecordFastInitiationNotificationUsage(        
+        std::move(p_success));
       return true;
     }
   }
@@ -4489,6 +4551,8 @@ bool ReceiveManagerStubDispatch::AcceptWithResponder(
               internal::ReceiveManager_IsInHighVisibility_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.1
       bool success = true;
       ReceiveManager_IsInHighVisibility_ParamsDataView input_data_view(params, message);
       
@@ -4514,6 +4578,8 @@ bool ReceiveManagerStubDispatch::AcceptWithResponder(
               internal::ReceiveManager_RegisterForegroundReceiveSurface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.2
       bool success = true;
       ReceiveManager_RegisterForegroundReceiveSurface_ParamsDataView input_data_view(params, message);
       
@@ -4539,6 +4605,8 @@ bool ReceiveManagerStubDispatch::AcceptWithResponder(
               internal::ReceiveManager_UnregisterForegroundReceiveSurface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.3
       bool success = true;
       ReceiveManager_UnregisterForegroundReceiveSurface_ParamsDataView input_data_view(params, message);
       
@@ -4564,6 +4632,8 @@ bool ReceiveManagerStubDispatch::AcceptWithResponder(
               internal::ReceiveManager_Accept_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.4
       bool success = true;
       ::base::UnguessableToken p_share_target_id{};
       ReceiveManager_Accept_ParamsDataView input_data_view(params, message);
@@ -4582,8 +4652,8 @@ bool ReceiveManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Accept(
-std::move(p_share_target_id), std::move(callback));
+      impl->Accept(        
+        std::move(p_share_target_id), std::move(callback));
       return true;
     }
     case internal::kReceiveManager_Reject_Name: {
@@ -4593,6 +4663,8 @@ std::move(p_share_target_id), std::move(callback));
               internal::ReceiveManager_Reject_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ReceiveManager.5
       bool success = true;
       ::base::UnguessableToken p_share_target_id{};
       ReceiveManager_Reject_ParamsDataView input_data_view(params, message);
@@ -4611,8 +4683,8 @@ std::move(p_share_target_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Reject(
-std::move(p_share_target_id), std::move(callback));
+      impl->Reject(        
+        std::move(p_share_target_id), std::move(callback));
       return true;
     }
     case internal::kReceiveManager_RecordFastInitiationNotificationUsage_Name: {

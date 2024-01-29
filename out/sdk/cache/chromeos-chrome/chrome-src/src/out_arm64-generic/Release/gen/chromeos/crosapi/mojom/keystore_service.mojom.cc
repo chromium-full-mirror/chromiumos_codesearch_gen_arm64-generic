@@ -2909,6 +2909,8 @@ bool KeystoreService_ChallengeAttestationOnlyKeystore_ForwardToCallback::Accept(
           internal::KeystoreService_ChallengeAttestationOnlyKeystore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.20
   bool success = true;
   ChallengeAttestationOnlyKeystoreResultPtr p_result{};
   KeystoreService_ChallengeAttestationOnlyKeystore_ResponseParamsDataView input_data_view(params, message);
@@ -3036,6 +3038,8 @@ bool KeystoreService_GetKeyStores_ForwardToCallback::Accept(
           internal::KeystoreService_GetKeyStores_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.16
   bool success = true;
   GetKeyStoresResultPtr p_result{};
   KeystoreService_GetKeyStores_ResponseParamsDataView input_data_view(params, message);
@@ -3163,6 +3167,8 @@ bool KeystoreService_SelectClientCertificates_ForwardToCallback::Accept(
           internal::KeystoreService_SelectClientCertificates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.11
   bool success = true;
   KeystoreSelectClientCertificatesResultPtr p_result{};
   KeystoreService_SelectClientCertificates_ResponseParamsDataView input_data_view(params, message);
@@ -3290,6 +3296,8 @@ bool KeystoreService_GetCertificates_ForwardToCallback::Accept(
           internal::KeystoreService_GetCertificates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.17
   bool success = true;
   GetCertificatesResultPtr p_result{};
   KeystoreService_GetCertificates_ResponseParamsDataView input_data_view(params, message);
@@ -3417,6 +3425,8 @@ bool KeystoreService_AddCertificate_ForwardToCallback::Accept(
           internal::KeystoreService_AddCertificate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.18
   bool success = true;
   bool p_is_error{};
   ::crosapi::mojom::KeystoreError p_error{};
@@ -3545,6 +3555,8 @@ bool KeystoreService_RemoveCertificate_ForwardToCallback::Accept(
           internal::KeystoreService_RemoveCertificate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.19
   bool success = true;
   bool p_is_error{};
   ::crosapi::mojom::KeystoreError p_error{};
@@ -3673,6 +3685,8 @@ bool KeystoreService_GetPublicKey_ForwardToCallback::Accept(
           internal::KeystoreService_GetPublicKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.15
   bool success = true;
   GetPublicKeyResultPtr p_result{};
   KeystoreService_GetPublicKey_ResponseParamsDataView input_data_view(params, message);
@@ -3800,6 +3814,8 @@ bool KeystoreService_GenerateKey_ForwardToCallback::Accept(
           internal::KeystoreService_GenerateKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.8
   bool success = true;
   KeystoreBinaryResultPtr p_result{};
   KeystoreService_GenerateKey_ResponseParamsDataView input_data_view(params, message);
@@ -3927,6 +3943,8 @@ bool KeystoreService_RemoveKey_ForwardToCallback::Accept(
           internal::KeystoreService_RemoveKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.10
   bool success = true;
   bool p_is_error{};
   ::crosapi::mojom::KeystoreError p_error{};
@@ -4055,6 +4073,8 @@ bool KeystoreService_Sign_ForwardToCallback::Accept(
           internal::KeystoreService_Sign_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.9
   bool success = true;
   KeystoreBinaryResultPtr p_result{};
   KeystoreService_Sign_ResponseParamsDataView input_data_view(params, message);
@@ -4182,6 +4202,8 @@ bool KeystoreService_GetKeyTags_ForwardToCallback::Accept(
           internal::KeystoreService_GetKeyTags_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.12
   bool success = true;
   GetKeyTagsResultPtr p_result{};
   KeystoreService_GetKeyTags_ResponseParamsDataView input_data_view(params, message);
@@ -4309,6 +4331,8 @@ bool KeystoreService_AddKeyTags_ForwardToCallback::Accept(
           internal::KeystoreService_AddKeyTags_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.13
   bool success = true;
   bool p_is_error{};
   ::crosapi::mojom::KeystoreError p_error{};
@@ -4437,6 +4461,8 @@ bool KeystoreService_CanUserGrantPermissionForKey_ForwardToCallback::Accept(
           internal::KeystoreService_CanUserGrantPermissionForKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.14
   bool success = true;
   bool p_is_allowed{};
   KeystoreService_CanUserGrantPermissionForKey_ResponseParamsDataView input_data_view(params, message);
@@ -4556,6 +4582,8 @@ bool KeystoreService_DEPRECATED_ExtensionGenerateKey_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_ExtensionGenerateKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.3
   bool success = true;
   DEPRECATED_ExtensionKeystoreBinaryResultPtr p_result{};
   KeystoreService_DEPRECATED_ExtensionGenerateKey_ResponseParamsDataView input_data_view(params, message);
@@ -4683,6 +4711,8 @@ bool KeystoreService_DEPRECATED_ExtensionSign_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_ExtensionSign_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.7
   bool success = true;
   DEPRECATED_ExtensionKeystoreBinaryResultPtr p_result{};
   KeystoreService_DEPRECATED_ExtensionSign_ResponseParamsDataView input_data_view(params, message);
@@ -4810,6 +4840,8 @@ bool KeystoreService_DEPRECATED_GetPublicKey_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_GetPublicKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.6
   bool success = true;
   DEPRECATED_GetPublicKeyResultPtr p_result{};
   KeystoreService_DEPRECATED_GetPublicKey_ResponseParamsDataView input_data_view(params, message);
@@ -4937,6 +4969,8 @@ bool KeystoreService_DEPRECATED_GetKeyStores_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_GetKeyStores_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.1
   bool success = true;
   DEPRECATED_GetKeyStoresResultPtr p_result{};
   KeystoreService_DEPRECATED_GetKeyStores_ResponseParamsDataView input_data_view(params, message);
@@ -5064,6 +5098,8 @@ bool KeystoreService_DEPRECATED_GetCertificates_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_GetCertificates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.2
   bool success = true;
   DEPRECATED_GetCertificatesResultPtr p_result{};
   KeystoreService_DEPRECATED_GetCertificates_ResponseParamsDataView input_data_view(params, message);
@@ -5191,6 +5227,8 @@ bool KeystoreService_DEPRECATED_AddCertificate_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_AddCertificate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.4
   bool success = true;
   std::string p_error{};
   KeystoreService_DEPRECATED_AddCertificate_ResponseParamsDataView input_data_view(params, message);
@@ -5320,6 +5358,8 @@ bool KeystoreService_DEPRECATED_RemoveCertificate_ForwardToCallback::Accept(
           internal::KeystoreService_DEPRECATED_RemoveCertificate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.5
   bool success = true;
   std::string p_error{};
   KeystoreService_DEPRECATED_RemoveCertificate_ResponseParamsDataView input_data_view(params, message);
@@ -5449,6 +5489,8 @@ bool KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_ForwardToCallba
           internal::KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeystoreService.0
   bool success = true;
   DEPRECATED_KeystoreStringResultPtr p_result{};
   KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_ResponseParamsDataView input_data_view(params, message);
@@ -5607,6 +5649,8 @@ bool KeystoreServiceStubDispatch::AcceptWithResponder(
               internal::KeystoreService_ChallengeAttestationOnlyKeystore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.20
       bool success = true;
       KeystoreType p_type{};
       std::vector<uint8_t> p_challenge{};
@@ -5634,11 +5678,11 @@ bool KeystoreServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChallengeAttestationOnlyKeystore(
-std::move(p_type), 
-std::move(p_challenge), 
-std::move(p_migrate), 
-std::move(p_algorithm), std::move(callback));
+      impl->ChallengeAttestationOnlyKeystore(        
+        std::move(p_type), 
+        std::move(p_challenge), 
+        std::move(p_migrate), 
+        std::move(p_algorithm), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_GetKeyStores_Name: {
@@ -5648,6 +5692,8 @@ std::move(p_algorithm), std::move(callback));
               internal::KeystoreService_GetKeyStores_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.16
       bool success = true;
       KeystoreService_GetKeyStores_ParamsDataView input_data_view(params, message);
       
@@ -5673,6 +5719,8 @@ std::move(p_algorithm), std::move(callback));
               internal::KeystoreService_SelectClientCertificates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.11
       bool success = true;
       std::vector<std::vector<uint8_t>> p_certificate_authorities{};
       KeystoreService_SelectClientCertificates_ParamsDataView input_data_view(params, message);
@@ -5691,8 +5739,8 @@ std::move(p_algorithm), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectClientCertificates(
-std::move(p_certificate_authorities), std::move(callback));
+      impl->SelectClientCertificates(        
+        std::move(p_certificate_authorities), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_GetCertificates_Name: {
@@ -5702,6 +5750,8 @@ std::move(p_certificate_authorities), std::move(callback));
               internal::KeystoreService_GetCertificates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.17
       bool success = true;
       KeystoreType p_keystore{};
       KeystoreService_GetCertificates_ParamsDataView input_data_view(params, message);
@@ -5720,8 +5770,8 @@ std::move(p_certificate_authorities), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCertificates(
-std::move(p_keystore), std::move(callback));
+      impl->GetCertificates(        
+        std::move(p_keystore), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_AddCertificate_Name: {
@@ -5731,6 +5781,8 @@ std::move(p_keystore), std::move(callback));
               internal::KeystoreService_AddCertificate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.18
       bool success = true;
       KeystoreType p_keystore{};
       std::vector<uint8_t> p_certificate{};
@@ -5752,9 +5804,9 @@ std::move(p_keystore), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCertificate(
-std::move(p_keystore), 
-std::move(p_certificate), std::move(callback));
+      impl->AddCertificate(        
+        std::move(p_keystore), 
+        std::move(p_certificate), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_RemoveCertificate_Name: {
@@ -5764,6 +5816,8 @@ std::move(p_certificate), std::move(callback));
               internal::KeystoreService_RemoveCertificate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.19
       bool success = true;
       KeystoreType p_keystore{};
       std::vector<uint8_t> p_certificate{};
@@ -5785,9 +5839,9 @@ std::move(p_certificate), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveCertificate(
-std::move(p_keystore), 
-std::move(p_certificate), std::move(callback));
+      impl->RemoveCertificate(        
+        std::move(p_keystore), 
+        std::move(p_certificate), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_GetPublicKey_Name: {
@@ -5797,6 +5851,8 @@ std::move(p_certificate), std::move(callback));
               internal::KeystoreService_GetPublicKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.15
       bool success = true;
       std::vector<uint8_t> p_certificate{};
       KeystoreSigningAlgorithmName p_algorithm_name{};
@@ -5818,9 +5874,9 @@ std::move(p_certificate), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPublicKey(
-std::move(p_certificate), 
-std::move(p_algorithm_name), std::move(callback));
+      impl->GetPublicKey(        
+        std::move(p_certificate), 
+        std::move(p_algorithm_name), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_GenerateKey_Name: {
@@ -5830,6 +5886,8 @@ std::move(p_algorithm_name), std::move(callback));
               internal::KeystoreService_GenerateKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.8
       bool success = true;
       KeystoreType p_keystore{};
       KeystoreSigningAlgorithmPtr p_algorithm{};
@@ -5851,9 +5909,9 @@ std::move(p_algorithm_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateKey(
-std::move(p_keystore), 
-std::move(p_algorithm), std::move(callback));
+      impl->GenerateKey(        
+        std::move(p_keystore), 
+        std::move(p_algorithm), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_RemoveKey_Name: {
@@ -5863,6 +5921,8 @@ std::move(p_algorithm), std::move(callback));
               internal::KeystoreService_RemoveKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.10
       bool success = true;
       KeystoreType p_keystore{};
       std::vector<uint8_t> p_public_key{};
@@ -5884,9 +5944,9 @@ std::move(p_algorithm), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveKey(
-std::move(p_keystore), 
-std::move(p_public_key), std::move(callback));
+      impl->RemoveKey(        
+        std::move(p_keystore), 
+        std::move(p_public_key), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_Sign_Name: {
@@ -5896,6 +5956,8 @@ std::move(p_public_key), std::move(callback));
               internal::KeystoreService_Sign_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.9
       bool success = true;
       bool p_is_keystore_provided{};
       KeystoreType p_keystore{};
@@ -5926,12 +5988,12 @@ std::move(p_public_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Sign(
-std::move(p_is_keystore_provided), 
-std::move(p_keystore), 
-std::move(p_public_key), 
-std::move(p_scheme), 
-std::move(p_data), std::move(callback));
+      impl->Sign(        
+        std::move(p_is_keystore_provided), 
+        std::move(p_keystore), 
+        std::move(p_public_key), 
+        std::move(p_scheme), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_GetKeyTags_Name: {
@@ -5941,6 +6003,8 @@ std::move(p_data), std::move(callback));
               internal::KeystoreService_GetKeyTags_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.12
       bool success = true;
       std::vector<uint8_t> p_public_key{};
       KeystoreService_GetKeyTags_ParamsDataView input_data_view(params, message);
@@ -5959,8 +6023,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetKeyTags(
-std::move(p_public_key), std::move(callback));
+      impl->GetKeyTags(        
+        std::move(p_public_key), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_AddKeyTags_Name: {
@@ -5970,6 +6034,8 @@ std::move(p_public_key), std::move(callback));
               internal::KeystoreService_AddKeyTags_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.13
       bool success = true;
       std::vector<uint8_t> p_public_key{};
       uint64_t p_tags{};
@@ -5991,9 +6057,9 @@ std::move(p_public_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddKeyTags(
-std::move(p_public_key), 
-std::move(p_tags), std::move(callback));
+      impl->AddKeyTags(        
+        std::move(p_public_key), 
+        std::move(p_tags), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_CanUserGrantPermissionForKey_Name: {
@@ -6003,6 +6069,8 @@ std::move(p_tags), std::move(callback));
               internal::KeystoreService_CanUserGrantPermissionForKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.14
       bool success = true;
       std::vector<uint8_t> p_public_key{};
       KeystoreService_CanUserGrantPermissionForKey_ParamsDataView input_data_view(params, message);
@@ -6021,8 +6089,8 @@ std::move(p_tags), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CanUserGrantPermissionForKey(
-std::move(p_public_key), std::move(callback));
+      impl->CanUserGrantPermissionForKey(        
+        std::move(p_public_key), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_ExtensionGenerateKey_Name: {
@@ -6032,6 +6100,8 @@ std::move(p_public_key), std::move(callback));
               internal::KeystoreService_DEPRECATED_ExtensionGenerateKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.3
       bool success = true;
       KeystoreType p_keystore{};
       KeystoreSigningAlgorithmPtr p_algorithm{};
@@ -6056,10 +6126,10 @@ std::move(p_public_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ExtensionGenerateKey(
-std::move(p_keystore), 
-std::move(p_algorithm), 
-std::move(p_extension_id), std::move(callback));
+      impl->DEPRECATED_ExtensionGenerateKey(        
+        std::move(p_keystore), 
+        std::move(p_algorithm), 
+        std::move(p_extension_id), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_ExtensionSign_Name: {
@@ -6069,6 +6139,8 @@ std::move(p_extension_id), std::move(callback));
               internal::KeystoreService_DEPRECATED_ExtensionSign_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.7
       bool success = true;
       KeystoreType p_keystore{};
       std::vector<uint8_t> p_public_key{};
@@ -6099,12 +6171,12 @@ std::move(p_extension_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ExtensionSign(
-std::move(p_keystore), 
-std::move(p_public_key), 
-std::move(p_scheme), 
-std::move(p_data), 
-std::move(p_extension_id), std::move(callback));
+      impl->DEPRECATED_ExtensionSign(        
+        std::move(p_keystore), 
+        std::move(p_public_key), 
+        std::move(p_scheme), 
+        std::move(p_data), 
+        std::move(p_extension_id), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_GetPublicKey_Name: {
@@ -6114,6 +6186,8 @@ std::move(p_extension_id), std::move(callback));
               internal::KeystoreService_DEPRECATED_GetPublicKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.6
       bool success = true;
       std::vector<uint8_t> p_certificate{};
       KeystoreSigningAlgorithmName p_algorithm_name{};
@@ -6135,9 +6209,9 @@ std::move(p_extension_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_GetPublicKey(
-std::move(p_certificate), 
-std::move(p_algorithm_name), std::move(callback));
+      impl->DEPRECATED_GetPublicKey(        
+        std::move(p_certificate), 
+        std::move(p_algorithm_name), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_GetKeyStores_Name: {
@@ -6147,6 +6221,8 @@ std::move(p_algorithm_name), std::move(callback));
               internal::KeystoreService_DEPRECATED_GetKeyStores_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.1
       bool success = true;
       KeystoreService_DEPRECATED_GetKeyStores_ParamsDataView input_data_view(params, message);
       
@@ -6172,6 +6248,8 @@ std::move(p_algorithm_name), std::move(callback));
               internal::KeystoreService_DEPRECATED_GetCertificates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.2
       bool success = true;
       KeystoreType p_keystore{};
       KeystoreService_DEPRECATED_GetCertificates_ParamsDataView input_data_view(params, message);
@@ -6190,8 +6268,8 @@ std::move(p_algorithm_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_GetCertificates(
-std::move(p_keystore), std::move(callback));
+      impl->DEPRECATED_GetCertificates(        
+        std::move(p_keystore), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_AddCertificate_Name: {
@@ -6201,6 +6279,8 @@ std::move(p_keystore), std::move(callback));
               internal::KeystoreService_DEPRECATED_AddCertificate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.4
       bool success = true;
       KeystoreType p_keystore{};
       std::vector<uint8_t> p_certificate{};
@@ -6222,9 +6302,9 @@ std::move(p_keystore), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_AddCertificate(
-std::move(p_keystore), 
-std::move(p_certificate), std::move(callback));
+      impl->DEPRECATED_AddCertificate(        
+        std::move(p_keystore), 
+        std::move(p_certificate), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_RemoveCertificate_Name: {
@@ -6234,6 +6314,8 @@ std::move(p_certificate), std::move(callback));
               internal::KeystoreService_DEPRECATED_RemoveCertificate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.5
       bool success = true;
       KeystoreType p_keystore{};
       std::vector<uint8_t> p_certificate{};
@@ -6255,9 +6337,9 @@ std::move(p_certificate), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_RemoveCertificate(
-std::move(p_keystore), 
-std::move(p_certificate), std::move(callback));
+      impl->DEPRECATED_RemoveCertificate(        
+        std::move(p_keystore), 
+        std::move(p_certificate), std::move(callback));
       return true;
     }
     case internal::kKeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_Name: {
@@ -6267,6 +6349,8 @@ std::move(p_certificate), std::move(callback));
               internal::KeystoreService_DEPRECATED_ChallengeAttestationOnlyKeystore_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeystoreService.0
       bool success = true;
       std::string p_challenge{};
       KeystoreType p_type{};
@@ -6291,10 +6375,10 @@ std::move(p_certificate), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ChallengeAttestationOnlyKeystore(
-std::move(p_challenge), 
-std::move(p_type), 
-std::move(p_migrate), std::move(callback));
+      impl->DEPRECATED_ChallengeAttestationOnlyKeystore(        
+        std::move(p_challenge), 
+        std::move(p_type), 
+        std::move(p_migrate), std::move(callback));
       return true;
     }
   }

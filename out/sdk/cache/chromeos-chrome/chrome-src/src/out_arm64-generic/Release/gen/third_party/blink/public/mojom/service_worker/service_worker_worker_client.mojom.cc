@@ -157,6 +157,8 @@ bool ServiceWorkerWorkerClientStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerWorkerClient_OnControllerChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerWorkerClient.0
       bool success = true;
       ::blink::mojom::ControllerServiceWorkerMode p_mode{};
       ServiceWorkerWorkerClient_OnControllerChanged_ParamsDataView input_data_view(params, message);
@@ -172,8 +174,8 @@ bool ServiceWorkerWorkerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnControllerChanged(
-std::move(p_mode));
+      impl->OnControllerChanged(        
+        std::move(p_mode));
       return true;
     }
   }

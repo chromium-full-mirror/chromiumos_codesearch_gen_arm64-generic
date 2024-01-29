@@ -1183,6 +1183,34 @@ struct PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfGroupDescMetadataDefaultTypeInternal _PerfDataProto_PerfGroupDescMetadata_default_instance_;
 template <typename>
+PROTOBUF_CONSTEXPR PerfDataProto_PerfHybridTopologyMetadata::PerfDataProto_PerfHybridTopologyMetadata(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.cpu_list_)*/ {}
+  ,/* _impl_._cpu_list_cached_byte_size_ = */ { 0 }
+
+  , /*decltype(_impl_.pmu_name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.cpus_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.pmu_name_md5_prefix_)*/ ::uint64_t{0u}
+} {}
+struct PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal() {}
+  union {
+    PerfDataProto_PerfHybridTopologyMetadata _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfHybridTopologyMetadata_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -1242,6 +1270,7 @@ PROTOBUF_CONSTEXPR PerfDataProto::PerfDataProto(
   , /*decltype(_impl_.numa_topology_)*/{}
   , /*decltype(_impl_.pmu_mappings_)*/{}
   , /*decltype(_impl_.group_desc_)*/{}
+  , /*decltype(_impl_.hybrid_topology_)*/{}
   , /*decltype(_impl_.stats_)*/nullptr
   , /*decltype(_impl_.cpu_topology_)*/nullptr
   , /*decltype(_impl_.string_metadata_)*/nullptr
@@ -1259,7 +1288,7 @@ struct PerfDataProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProtoDefaultTypeInternal _PerfDataProto_default_instance_;
 }  // namespace quipper
-static ::_pb::Metadata file_level_metadata_perf_5fdata_2eproto[47];
+static ::_pb::Metadata file_level_metadata_perf_5fdata_2eproto[48];
 static constexpr const ::_pb::EnumDescriptor**
     file_level_enum_descriptors_perf_5fdata_2eproto = nullptr;
 static constexpr const ::_pb::ServiceDescriptor**
@@ -2152,6 +2181,22 @@ const ::uint32_t TableStruct_perf_5fdata_2eproto::offsets[] PROTOBUF_SECTION_VAR
     1,
     2,
     3,
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfHybridTopologyMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfHybridTopologyMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfHybridTopologyMetadata, _impl_.pmu_name_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfHybridTopologyMetadata, _impl_.pmu_name_md5_prefix_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfHybridTopologyMetadata, _impl_.cpus_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_PerfHybridTopologyMetadata, _impl_.cpu_list_),
+    0,
+    2,
+    1,
+    ~0u,
     PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -2210,6 +2255,7 @@ const ::uint32_t TableStruct_perf_5fdata_2eproto::offsets[] PROTOBUF_SECTION_VAR
     PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.numa_topology_),
     PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.pmu_mappings_),
     PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.group_desc_),
+    PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.hybrid_topology_),
     PROTOBUF_FIELD_OFFSET(::quipper::PerfDataProto, _impl_.string_metadata_),
     ~0u,
     ~0u,
@@ -2222,6 +2268,7 @@ const ::uint32_t TableStruct_perf_5fdata_2eproto::offsets[] PROTOBUF_SECTION_VAR
     ~0u,
     ~0u,
     1,
+    ~0u,
     ~0u,
     ~0u,
     ~0u,
@@ -2274,9 +2321,10 @@ static const ::_pbi::MigrationSchema
         { 838, 851, -1, sizeof(::quipper::PerfDataProto_PerfNodeTopologyMetadata)},
         { 856, 867, -1, sizeof(::quipper::PerfDataProto_PerfPMUMappingsMetadata)},
         { 870, 882, -1, sizeof(::quipper::PerfDataProto_PerfGroupDescMetadata)},
-        { 886, 896, -1, sizeof(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix)},
-        { 898, 914, -1, sizeof(::quipper::PerfDataProto_StringMetadata)},
-        { 922, 945, -1, sizeof(::quipper::PerfDataProto)},
+        { 886, 898, -1, sizeof(::quipper::PerfDataProto_PerfHybridTopologyMetadata)},
+        { 902, 912, -1, sizeof(::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix)},
+        { 914, 930, -1, sizeof(::quipper::PerfDataProto_StringMetadata)},
+        { 938, 962, -1, sizeof(::quipper::PerfDataProto)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -2324,12 +2372,13 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::quipper::_PerfDataProto_PerfNodeTopologyMetadata_default_instance_._instance,
     &::quipper::_PerfDataProto_PerfPMUMappingsMetadata_default_instance_._instance,
     &::quipper::_PerfDataProto_PerfGroupDescMetadata_default_instance_._instance,
+    &::quipper::_PerfDataProto_PerfHybridTopologyMetadata_default_instance_._instance,
     &::quipper::_PerfDataProto_StringMetadata_StringAndMd5sumPrefix_default_instance_._instance,
     &::quipper::_PerfDataProto_StringMetadata_default_instance_._instance,
     &::quipper::_PerfDataProto_default_instance_._instance,
 };
 const char descriptor_table_protodef_perf_5fdata_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-    "\n\017perf_data.proto\022\007quipper\"\320H\n\rPerfDataP"
+    "\n\017perf_data.proto\022\007quipper\"\215J\n\rPerfDataP"
     "roto\0227\n\nfile_attrs\030\001 \003(\0132#.quipper.PerfD"
     "ataProto.PerfFileAttr\0220\n\006events\030\002 \003(\0132 ."
     "quipper.PerfDataProto.PerfEvent\0229\n\013event"
@@ -2350,231 +2399,235 @@ const char descriptor_table_protodef_perf_5fdata_2eproto[] PROTOBUF_SECTION_VARI
     "pings\030\017 \003(\0132..quipper.PerfDataProto.Perf"
     "PMUMappingsMetadata\022@\n\ngroup_desc\030\020 \003(\0132"
     ",.quipper.PerfDataProto.PerfGroupDescMet"
-    "adata\022>\n\017string_metadata\030\r \001(\0132%.quipper"
-    ".PerfDataProto.StringMetadata\032\266\007\n\rPerfEv"
-    "entAttr\022\014\n\004type\030\001 \001(\r\022\014\n\004size\030\002 \001(\r\022\016\n\006c"
-    "onfig\030\003 \001(\004\022\025\n\rsample_period\030\004 \001(\004\022\023\n\013sa"
-    "mple_freq\030\005 \001(\004\022\023\n\013sample_type\030\006 \001(\004\022\023\n\013"
-    "read_format\030\007 \001(\004\022\020\n\010disabled\030\010 \001(\010\022\017\n\007i"
-    "nherit\030\t \001(\010\022\016\n\006pinned\030\n \001(\010\022\021\n\texclusiv"
-    "e\030\013 \001(\010\022\024\n\014exclude_user\030\014 \001(\010\022\026\n\016exclude"
-    "_kernel\030\r \001(\010\022\022\n\nexclude_hv\030\016 \001(\010\022\024\n\014exc"
-    "lude_idle\030\017 \001(\010\022\014\n\004mmap\030\020 \001(\010\022\014\n\004comm\030\021 "
-    "\001(\010\022\014\n\004freq\030\022 \001(\010\022\024\n\014inherit_stat\030\023 \001(\010\022"
-    "\026\n\016enable_on_exec\030\024 \001(\010\022\014\n\004task\030\025 \001(\010\022\021\n"
-    "\twatermark\030\026 \001(\010\022\022\n\nprecise_ip\030\027 \001(\r\022\021\n\t"
-    "mmap_data\030\030 \001(\010\022\025\n\rsample_id_all\030\031 \001(\010\022\024"
-    "\n\014exclude_host\030\032 \001(\010\022\025\n\rexclude_guest\030\033 "
-    "\001(\010\022 \n\030exclude_callchain_kernel\030$ \001(\010\022\036\n"
-    "\026exclude_callchain_user\030% \001(\010\022\r\n\005mmap2\030&"
-    " \001(\010\022\021\n\tcomm_exec\030\' \001(\010\022\023\n\013use_clockid\030*"
-    " \001(\010\022\026\n\016context_switch\030+ \001(\010\022\026\n\016write_ba"
-    "ckward\030, \001(\010\022\022\n\nnamespaces\030- \001(\010\022\016\n\006cgro"
-    "up\030. \001(\010\022\025\n\rwakeup_events\030\034 \001(\r\022\030\n\020wakeu"
-    "p_watermark\030\035 \001(\r\022\017\n\007bp_type\030\036 \001(\r\022\017\n\007bp"
-    "_addr\030\037 \001(\004\022\017\n\007config1\030  \001(\004\022\016\n\006bp_len\030!"
-    " \001(\004\022\017\n\007config2\030\" \001(\004\022\032\n\022branch_sample_t"
-    "ype\030# \001(\004\022\030\n\020sample_regs_user\030( \001(\004\022\031\n\021s"
-    "ample_stack_user\030) \001(\r\032O\n\014PerfFileAttr\0222"
-    "\n\004attr\030\001 \001(\0132$.quipper.PerfDataProto.Per"
-    "fEventAttr\022\013\n\003ids\030\002 \003(\004\032B\n\rPerfEventType"
-    "\022\n\n\002id\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md5_p"
-    "refix\030\003 \001(\004\032j\n\nSampleInfo\022\013\n\003pid\030\001 \001(\r\022\013"
-    "\n\003tid\030\002 \001(\r\022\026\n\016sample_time_ns\030\003 \001(\004\022\n\n\002i"
-    "d\030\004 \001(\004\022\013\n\003cpu\030\005 \001(\r\022\021\n\tstream_id\030\006 \001(\004\032"
-    "\235\001\n\tCommEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022"
-    "\014\n\004comm\030\003 \001(\t\022\027\n\017comm_md5_prefix\030\004 \001(\004\022\027"
-    "\n\013sample_time\030\005 \001(\004B\002\030\001\0226\n\013sample_info\030\006"
-    " \001(\0132!.quipper.PerfDataProto.SampleInfo\032"
-    "\326\002\n\tMMapEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022"
-    "\r\n\005start\030\003 \001(\004\022\013\n\003len\030\004 \001(\004\022\r\n\005pgoff\030\005 \001"
-    "(\004\022\013\n\003maj\030\t \001(\r\022\013\n\003min\030\n \001(\r\022\013\n\003ino\030\013 \001("
-    "\004\022\026\n\016ino_generation\030\014 \001(\004\022\020\n\010build_id\030\021 "
-    "\001(\t\022\014\n\004prot\030\r \001(\r\022\r\n\005flags\030\016 \001(\r\022\020\n\010file"
-    "name\030\006 \001(\t\022\033\n\023filename_md5_prefix\030\007 \001(\004\022"
-    "\021\n\troot_path\030\017 \001(\t\022\034\n\024root_path_md5_pref"
-    "ix\030\020 \001(\004\0226\n\013sample_info\030\010 \001(\0132!.quipper."
-    "PerfDataProto.SampleInfo\032\235\001\n\010ReadInfo\022\024\n"
-    "\014time_enabled\030\001 \001(\004\022\024\n\014time_running\030\002 \001("
-    "\004\022=\n\nread_value\030\003 \003(\0132).quipper.PerfData"
-    "Proto.ReadInfo.ReadValue\032&\n\tReadValue\022\r\n"
-    "\005value\030\001 \001(\004\022\n\n\002id\030\002 \001(\004\032\256\001\n\020BranchStack"
-    "Entry\022\017\n\007from_ip\030\001 \001(\004\022\r\n\005to_ip\030\002 \001(\004\022\024\n"
-    "\014mispredicted\030\003 \001(\010\022\021\n\tpredicted\030\004 \001(\010\022\026"
-    "\n\016in_transaction\030\005 \001(\010\022\r\n\005abort\030\006 \001(\010\022\016\n"
-    "\006cycles\030\007 \001(\r\022\014\n\004type\030\010 \001(\r\022\014\n\004spec\030\t \001("
-    "\r\032\?\n\014WeightStruct\022\017\n\007var1_dw\030\001 \001(\r\022\016\n\006va"
-    "r2_w\030\002 \001(\r\022\016\n\006var3_w\030\003 \001(\r\032\264\004\n\013SampleEve"
-    "nt\022\n\n\002ip\030\001 \001(\004\022\013\n\003pid\030\002 \001(\r\022\013\n\003tid\030\003 \001(\r"
-    "\022\026\n\016sample_time_ns\030\004 \001(\004\022\014\n\004addr\030\005 \001(\004\022\n"
-    "\n\002id\030\006 \001(\004\022\021\n\tstream_id\030\007 \001(\004\022\016\n\006period\030"
-    "\010 \001(\004\022\013\n\003cpu\030\t \001(\r\022\013\n\003raw\030\025 \001(\014\022\020\n\010raw_s"
-    "ize\030\n \001(\r\0222\n\tread_info\030\022 \001(\0132\037.quipper.P"
-    "erfDataProto.ReadInfo\022\021\n\tcallchain\030\013 \003(\004"
-    "\022=\n\014branch_stack\030\014 \003(\0132\'.quipper.PerfDat"
-    "aProto.BranchStackEntry\022\016\n\006weight\030\017 \001(\004\022"
-    "\020\n\010data_src\030\020 \001(\004\022\023\n\013transaction\030\021 \001(\004\022\025"
-    "\n\rphysical_addr\030\023 \001(\004\022\016\n\006cgroup\030\024 \001(\004\022\026\n"
-    "\016data_page_size\030\026 \001(\004\022\026\n\016code_page_size\030"
-    "\027 \001(\004\022\021\n\tno_hw_idx\030\030 \001(\010\022\033\n\023branch_stack"
-    "_hw_idx\030\031 \001(\004\022:\n\rweight_struct\030\032 \001(\0132#.q"
-    "uipper.PerfDataProto.WeightStruct\032\217\001\n\tFo"
-    "rkEvent\022\013\n\003pid\030\001 \001(\r\022\014\n\004ppid\030\002 \001(\r\022\013\n\003ti"
-    "d\030\003 \001(\r\022\014\n\004ptid\030\004 \001(\r\022\024\n\014fork_time_ns\030\005 "
-    "\001(\004\0226\n\013sample_info\030\013 \001(\0132!.quipper.PerfD"
-    "ataProto.SampleInfo\032]\n\tLostEvent\022\n\n\002id\030\001"
-    " \001(\004\022\014\n\004lost\030\002 \001(\004\0226\n\013sample_info\030\003 \001(\0132"
-    "!.quipper.PerfDataProto.SampleInfo\032w\n\rTh"
-    "rottleEvent\022\017\n\007time_ns\030\001 \001(\004\022\n\n\002id\030\002 \001(\004"
-    "\022\021\n\tstream_id\030\003 \001(\004\0226\n\013sample_info\030\004 \001(\013"
-    "2!.quipper.PerfDataProto.SampleInfo\032\250\001\n\t"
-    "ReadEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\r\n\005v"
-    "alue\030\003 \001(\004\022\024\n\014time_enabled\030\004 \001(\004\022\024\n\014time"
-    "_running\030\005 \001(\004\022\n\n\002id\030\006 \001(\004\0226\n\013sample_inf"
-    "o\030\007 \001(\0132!.quipper.PerfDataProto.SampleIn"
-    "fo:\002\030\001\032\250\001\n\010AuxEvent\022\022\n\naux_offset\030\001 \001(\004\022"
-    "\020\n\010aux_size\030\002 \001(\004\022\024\n\014is_truncated\030\003 \001(\010\022"
-    "\024\n\014is_overwrite\030\004 \001(\010\022\022\n\nis_partial\030\005 \001("
-    "\010\0226\n\013sample_info\030\006 \001(\0132!.quipper.PerfDat"
-    "aProto.SampleInfo\032I\n\021AuxtraceInfoEvent\022\014"
-    "\n\004type\030\001 \001(\r\022&\n\036unparsed_binary_blob_pri"
-    "v_data\030\002 \003(\004\032{\n\rAuxtraceEvent\022\014\n\004size\030\001 "
-    "\001(\004\022\016\n\006offset\030\002 \001(\004\022\021\n\treference\030\003 \001(\004\022\013"
-    "\n\003idx\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\013\n\003cpu\030\006 \001(\r\022\022\n"
-    "\ntrace_data\030\007 \001(\014\032\210\001\n\022AuxtraceErrorEvent"
-    "\022\014\n\004type\030\001 \001(\r\022\014\n\004code\030\002 \001(\r\022\013\n\003cpu\030\003 \001("
-    "\r\022\013\n\003pid\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\n\n\002ip\030\006 \001(\004\022"
-    "\013\n\003msg\030\007 \001(\t\022\026\n\016msg_md5_prefix\030\010 \001(\004\032d\n\020"
-    "ItraceStartEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001"
-    "(\r\0226\n\013sample_info\030\003 \001(\0132!.quipper.PerfDa"
-    "taProto.SampleInfo\032\\\n\020LostSamplesEvent\022\020"
-    "\n\010num_lost\030\001 \001(\004\0226\n\013sample_info\030\002 \001(\0132!."
-    "quipper.PerfDataProto.SampleInfo\032\212\001\n\022Con"
-    "textSwitchEvent\022\016\n\006is_out\030\001 \001(\010\022\025\n\rnext_"
-    "prev_pid\030\002 \001(\r\022\025\n\rnext_prev_tid\030\003 \001(\r\0226\n"
-    "\013sample_info\030\004 \001(\0132!.quipper.PerfDataPro"
-    "to.SampleInfo\0322\n\026PerfNamespacesLinkInfo\022"
-    "\013\n\003dev\030\001 \001(\004\022\013\n\003ino\030\002 \001(\004\032\245\001\n\017Namespaces"
-    "Event\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022@\n\tlink_"
-    "info\030\003 \003(\0132-.quipper.PerfDataProto.PerfN"
-    "amespacesLinkInfo\0226\n\013sample_info\030\004 \001(\0132!"
-    ".quipper.PerfDataProto.SampleInfo\032I\n\023Thr"
-    "eadMapEventEntry\022\013\n\003pid\030\001 \001(\004\022\014\n\004comm\030\002 "
-    "\001(\t\022\027\n\017comm_md5_prefix\030\003 \001(\004\032M\n\016ThreadMa"
-    "pEvent\022;\n\007entries\030\001 \003(\0132*.quipper.PerfDa"
-    "taProto.ThreadMapEventEntry\0320\n\024StatConfi"
-    "gEventEntry\022\013\n\003tag\030\001 \001(\004\022\013\n\003val\030\002 \001(\004\032L\n"
-    "\017StatConfigEvent\0229\n\004data\030\001 \003(\0132+.quipper"
-    ".PerfDataProto.StatConfigEventEntry\032e\n\tS"
-    "tatEvent\022\n\n\002id\030\001 \001(\004\022\013\n\003cpu\030\002 \001(\r\022\016\n\006thr"
-    "ead\030\003 \001(\r\022\r\n\005value\030\004 \001(\004\022\017\n\007enabled\030\005 \001("
-    "\004\022\017\n\007running\030\006 \001(\004\032,\n\016StatRoundEvent\022\014\n\004"
-    "type\030\001 \001(\004\022\014\n\004time\030\002 \001(\004\032_\n\013CgroupEvent\022"
-    "\n\n\002id\030\001 \001(\004\022\014\n\004path\030\002 \001(\t\0226\n\013sample_info"
-    "\030\003 \001(\0132!.quipper.PerfDataProto.SampleInf"
-    "o\032\252\001\n\rTimeConvEvent\022\022\n\ntime_shift\030\001 \001(\004\022"
-    "\021\n\ttime_mult\030\002 \001(\004\022\021\n\ttime_zero\030\003 \001(\004\022\023\n"
-    "\013time_cycles\030\004 \001(\004\022\021\n\ttime_mask\030\005 \001(\004\022\032\n"
-    "\022cap_user_time_zero\030\006 \001(\010\022\033\n\023cap_user_ti"
-    "me_short\030\007 \001(\010\0327\n\013EventHeader\022\014\n\004type\030\001 "
-    "\001(\r\022\014\n\004misc\030\002 \001(\r\022\014\n\004size\030\003 \001(\r\032\327\013\n\tPerf"
-    "Event\0222\n\006header\030\001 \001(\0132\".quipper.PerfData"
-    "Proto.EventHeader\0226\n\nmmap_event\030\002 \001(\0132 ."
-    "quipper.PerfDataProto.MMapEventH\000\022:\n\014sam"
-    "ple_event\030\003 \001(\0132\".quipper.PerfDataProto."
-    "SampleEventH\000\0226\n\ncomm_event\030\004 \001(\0132 .quip"
-    "per.PerfDataProto.CommEventH\000\0226\n\nfork_ev"
-    "ent\030\005 \001(\0132 .quipper.PerfDataProto.ForkEv"
-    "entH\000\0226\n\nexit_event\030\t \001(\0132 .quipper.Perf"
-    "DataProto.ForkEventH\000\0226\n\nlost_event\030\006 \001("
-    "\0132 .quipper.PerfDataProto.LostEventH\000\022>\n"
-    "\016throttle_event\030\007 \001(\0132$.quipper.PerfData"
-    "Proto.ThrottleEventH\000\022:\n\nread_event\030\010 \001("
-    "\0132 .quipper.PerfDataProto.ReadEventB\002\030\001H"
-    "\000\0224\n\taux_event\030\013 \001(\0132\037.quipper.PerfDataP"
-    "roto.AuxEventH\000\022E\n\022itrace_start_event\030\r "
-    "\001(\0132\'.quipper.PerfDataProto.ItraceStartE"
-    "ventH\000\022E\n\022lost_samples_event\030\016 \001(\0132\'.qui"
-    "pper.PerfDataProto.LostSamplesEventH\000\022I\n"
-    "\024context_switch_event\030\017 \001(\0132).quipper.Pe"
-    "rfDataProto.ContextSwitchEventH\000\022B\n\020name"
-    "spaces_event\030\020 \001(\0132&.quipper.PerfDataPro"
-    "to.NamespacesEventH\000\022G\n\023auxtrace_info_ev"
-    "ent\030\022 \001(\0132(.quipper.PerfDataProto.Auxtra"
-    "ceInfoEventH\000\022>\n\016auxtrace_event\030\014 \001(\0132$."
-    "quipper.PerfDataProto.AuxtraceEventH\000\022I\n"
-    "\024auxtrace_error_event\030\023 \001(\0132).quipper.Pe"
-    "rfDataProto.AuxtraceErrorEventH\000\022A\n\020thre"
-    "ad_map_event\030\024 \001(\0132%.quipper.PerfDataPro"
-    "to.ThreadMapEventH\000\022\?\n\017time_conv_event\030\021"
-    " \001(\0132$.quipper.PerfDataProto.TimeConvEve"
-    "ntH\000\022C\n\021stat_config_event\030\025 \001(\0132&.quippe"
-    "r.PerfDataProto.StatConfigEventH\000\0226\n\nsta"
-    "t_event\030\026 \001(\0132 .quipper.PerfDataProto.St"
-    "atEventH\000\022A\n\020stat_round_event\030\027 \001(\0132%.qu"
-    "ipper.PerfDataProto.StatRoundEventH\000\022:\n\014"
-    "cgroup_event\030\030 \001(\0132\".quipper.PerfDataPro"
-    "to.CgroupEventH\000\022\021\n\ttimestamp\030\n \001(\004B\014\n\ne"
-    "vent_type\032\304\001\n\016PerfEventStats\022\027\n\017num_even"
-    "ts_read\030\001 \001(\r\022\031\n\021num_sample_events\030\002 \001(\r"
-    "\022\027\n\017num_mmap_events\030\003 \001(\r\022\027\n\017num_fork_ev"
-    "ents\030\004 \001(\r\022\027\n\017num_exit_events\030\005 \001(\r\022 \n\030n"
-    "um_sample_events_mapped\030\006 \001(\r\022\021\n\tdid_rem"
-    "ap\030\007 \001(\010\0320\n\022PerfUint32Metadata\022\014\n\004type\030\001"
-    " \001(\r\022\014\n\004data\030\002 \003(\r\0320\n\022PerfUint64Metadata"
-    "\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 \003(\004\032P\n\023PerfTrac"
-    "ingMetadata\022\024\n\014tracing_data\030\001 \001(\014\022#\n\027tra"
-    "cing_data_md5_prefix\030\002 \001(\004B\002\030\001\032\221\001\n\013PerfB"
-    "uildID\022\014\n\004misc\030\001 \001(\r\022\013\n\003pid\030\002 \001(\r\022\025\n\rbui"
-    "ld_id_hash\030\003 \001(\014\022\020\n\010filename\030\004 \001(\t\022\033\n\023fi"
-    "lename_md5_prefix\030\005 \001(\004\022\014\n\004size\030\006 \001(\r\022\023\n"
-    "\013is_injected\030\007 \001(\010\032\206\002\n\027PerfCPUTopologyMe"
-    "tadata\022\025\n\rcore_siblings\030\001 \003(\t\022 \n\030core_si"
-    "blings_md5_prefix\030\002 \003(\004\022\027\n\017thread_siblin"
-    "gs\030\003 \003(\t\022\"\n\032thread_siblings_md5_prefix\030\004"
-    " \003(\004\022J\n\016available_cpus\030\005 \003(\01322.quipper.P"
-    "erfDataProto.PerfCPUTopologyMetadata.CPU"
-    "\032)\n\003CPU\022\017\n\007core_id\030\001 \001(\r\022\021\n\tsocket_id\030\002 "
-    "\001(\r\032\200\001\n\030PerfNodeTopologyMetadata\022\n\n\002id\030\001"
-    " \001(\r\022\024\n\014total_memory\030\002 \001(\004\022\023\n\013free_memor"
-    "y\030\003 \001(\004\022\020\n\010cpu_list\030\004 \001(\t\022\033\n\023cpu_list_md"
-    "5_prefix\030\005 \001(\004\032N\n\027PerfPMUMappingsMetadat"
-    "a\022\014\n\004type\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md"
-    "5_prefix\030\003 \001(\004\032g\n\025PerfGroupDescMetadata\022"
-    "\014\n\004name\030\001 \001(\t\022\027\n\017name_md5_prefix\030\002 \001(\004\022\022"
-    "\n\nleader_idx\030\003 \001(\r\022\023\n\013num_members\030\004 \001(\r\032"
-    "\373\005\n\016StringMetadata\022M\n\010hostname\030\001 \001(\0132;.q"
+    "adata\022J\n\017hybrid_topology\030\021 \003(\01321.quipper"
+    ".PerfDataProto.PerfHybridTopologyMetadat"
+    "a\022>\n\017string_metadata\030\r \001(\0132%.quipper.Per"
+    "fDataProto.StringMetadata\032\266\007\n\rPerfEventA"
+    "ttr\022\014\n\004type\030\001 \001(\r\022\014\n\004size\030\002 \001(\r\022\016\n\006confi"
+    "g\030\003 \001(\004\022\025\n\rsample_period\030\004 \001(\004\022\023\n\013sample"
+    "_freq\030\005 \001(\004\022\023\n\013sample_type\030\006 \001(\004\022\023\n\013read"
+    "_format\030\007 \001(\004\022\020\n\010disabled\030\010 \001(\010\022\017\n\007inher"
+    "it\030\t \001(\010\022\016\n\006pinned\030\n \001(\010\022\021\n\texclusive\030\013 "
+    "\001(\010\022\024\n\014exclude_user\030\014 \001(\010\022\026\n\016exclude_ker"
+    "nel\030\r \001(\010\022\022\n\nexclude_hv\030\016 \001(\010\022\024\n\014exclude"
+    "_idle\030\017 \001(\010\022\014\n\004mmap\030\020 \001(\010\022\014\n\004comm\030\021 \001(\010\022"
+    "\014\n\004freq\030\022 \001(\010\022\024\n\014inherit_stat\030\023 \001(\010\022\026\n\016e"
+    "nable_on_exec\030\024 \001(\010\022\014\n\004task\030\025 \001(\010\022\021\n\twat"
+    "ermark\030\026 \001(\010\022\022\n\nprecise_ip\030\027 \001(\r\022\021\n\tmmap"
+    "_data\030\030 \001(\010\022\025\n\rsample_id_all\030\031 \001(\010\022\024\n\014ex"
+    "clude_host\030\032 \001(\010\022\025\n\rexclude_guest\030\033 \001(\010\022"
+    " \n\030exclude_callchain_kernel\030$ \001(\010\022\036\n\026exc"
+    "lude_callchain_user\030% \001(\010\022\r\n\005mmap2\030& \001(\010"
+    "\022\021\n\tcomm_exec\030\' \001(\010\022\023\n\013use_clockid\030* \001(\010"
+    "\022\026\n\016context_switch\030+ \001(\010\022\026\n\016write_backwa"
+    "rd\030, \001(\010\022\022\n\nnamespaces\030- \001(\010\022\016\n\006cgroup\030."
+    " \001(\010\022\025\n\rwakeup_events\030\034 \001(\r\022\030\n\020wakeup_wa"
+    "termark\030\035 \001(\r\022\017\n\007bp_type\030\036 \001(\r\022\017\n\007bp_add"
+    "r\030\037 \001(\004\022\017\n\007config1\030  \001(\004\022\016\n\006bp_len\030! \001(\004"
+    "\022\017\n\007config2\030\" \001(\004\022\032\n\022branch_sample_type\030"
+    "# \001(\004\022\030\n\020sample_regs_user\030( \001(\004\022\031\n\021sampl"
+    "e_stack_user\030) \001(\r\032O\n\014PerfFileAttr\0222\n\004at"
+    "tr\030\001 \001(\0132$.quipper.PerfDataProto.PerfEve"
+    "ntAttr\022\013\n\003ids\030\002 \003(\004\032B\n\rPerfEventType\022\n\n\002"
+    "id\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md5_prefi"
+    "x\030\003 \001(\004\032j\n\nSampleInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003ti"
+    "d\030\002 \001(\r\022\026\n\016sample_time_ns\030\003 \001(\004\022\n\n\002id\030\004 "
+    "\001(\004\022\013\n\003cpu\030\005 \001(\r\022\021\n\tstream_id\030\006 \001(\004\032\235\001\n\t"
+    "CommEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004c"
+    "omm\030\003 \001(\t\022\027\n\017comm_md5_prefix\030\004 \001(\004\022\027\n\013sa"
+    "mple_time\030\005 \001(\004B\002\030\001\0226\n\013sample_info\030\006 \001(\013"
+    "2!.quipper.PerfDataProto.SampleInfo\032\326\002\n\t"
+    "MMapEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\r\n\005s"
+    "tart\030\003 \001(\004\022\013\n\003len\030\004 \001(\004\022\r\n\005pgoff\030\005 \001(\004\022\013"
+    "\n\003maj\030\t \001(\r\022\013\n\003min\030\n \001(\r\022\013\n\003ino\030\013 \001(\004\022\026\n"
+    "\016ino_generation\030\014 \001(\004\022\020\n\010build_id\030\021 \001(\t\022"
+    "\014\n\004prot\030\r \001(\r\022\r\n\005flags\030\016 \001(\r\022\020\n\010filename"
+    "\030\006 \001(\t\022\033\n\023filename_md5_prefix\030\007 \001(\004\022\021\n\tr"
+    "oot_path\030\017 \001(\t\022\034\n\024root_path_md5_prefix\030\020"
+    " \001(\004\0226\n\013sample_info\030\010 \001(\0132!.quipper.Perf"
+    "DataProto.SampleInfo\032\235\001\n\010ReadInfo\022\024\n\014tim"
+    "e_enabled\030\001 \001(\004\022\024\n\014time_running\030\002 \001(\004\022=\n"
+    "\nread_value\030\003 \003(\0132).quipper.PerfDataProt"
+    "o.ReadInfo.ReadValue\032&\n\tReadValue\022\r\n\005val"
+    "ue\030\001 \001(\004\022\n\n\002id\030\002 \001(\004\032\256\001\n\020BranchStackEntr"
+    "y\022\017\n\007from_ip\030\001 \001(\004\022\r\n\005to_ip\030\002 \001(\004\022\024\n\014mis"
+    "predicted\030\003 \001(\010\022\021\n\tpredicted\030\004 \001(\010\022\026\n\016in"
+    "_transaction\030\005 \001(\010\022\r\n\005abort\030\006 \001(\010\022\016\n\006cyc"
+    "les\030\007 \001(\r\022\014\n\004type\030\010 \001(\r\022\014\n\004spec\030\t \001(\r\032\?\n"
+    "\014WeightStruct\022\017\n\007var1_dw\030\001 \001(\r\022\016\n\006var2_w"
+    "\030\002 \001(\r\022\016\n\006var3_w\030\003 \001(\r\032\264\004\n\013SampleEvent\022\n"
+    "\n\002ip\030\001 \001(\004\022\013\n\003pid\030\002 \001(\r\022\013\n\003tid\030\003 \001(\r\022\026\n\016"
+    "sample_time_ns\030\004 \001(\004\022\014\n\004addr\030\005 \001(\004\022\n\n\002id"
+    "\030\006 \001(\004\022\021\n\tstream_id\030\007 \001(\004\022\016\n\006period\030\010 \001("
+    "\004\022\013\n\003cpu\030\t \001(\r\022\013\n\003raw\030\025 \001(\014\022\020\n\010raw_size\030"
+    "\n \001(\r\0222\n\tread_info\030\022 \001(\0132\037.quipper.PerfD"
+    "ataProto.ReadInfo\022\021\n\tcallchain\030\013 \003(\004\022=\n\014"
+    "branch_stack\030\014 \003(\0132\'.quipper.PerfDataPro"
+    "to.BranchStackEntry\022\016\n\006weight\030\017 \001(\004\022\020\n\010d"
+    "ata_src\030\020 \001(\004\022\023\n\013transaction\030\021 \001(\004\022\025\n\rph"
+    "ysical_addr\030\023 \001(\004\022\016\n\006cgroup\030\024 \001(\004\022\026\n\016dat"
+    "a_page_size\030\026 \001(\004\022\026\n\016code_page_size\030\027 \001("
+    "\004\022\021\n\tno_hw_idx\030\030 \001(\010\022\033\n\023branch_stack_hw_"
+    "idx\030\031 \001(\004\022:\n\rweight_struct\030\032 \001(\0132#.quipp"
+    "er.PerfDataProto.WeightStruct\032\217\001\n\tForkEv"
+    "ent\022\013\n\003pid\030\001 \001(\r\022\014\n\004ppid\030\002 \001(\r\022\013\n\003tid\030\003 "
+    "\001(\r\022\014\n\004ptid\030\004 \001(\r\022\024\n\014fork_time_ns\030\005 \001(\004\022"
+    "6\n\013sample_info\030\013 \001(\0132!.quipper.PerfDataP"
+    "roto.SampleInfo\032]\n\tLostEvent\022\n\n\002id\030\001 \001(\004"
+    "\022\014\n\004lost\030\002 \001(\004\0226\n\013sample_info\030\003 \001(\0132!.qu"
+    "ipper.PerfDataProto.SampleInfo\032w\n\rThrott"
+    "leEvent\022\017\n\007time_ns\030\001 \001(\004\022\n\n\002id\030\002 \001(\004\022\021\n\t"
+    "stream_id\030\003 \001(\004\0226\n\013sample_info\030\004 \001(\0132!.q"
+    "uipper.PerfDataProto.SampleInfo\032\250\001\n\tRead"
+    "Event\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\r\n\005value"
+    "\030\003 \001(\004\022\024\n\014time_enabled\030\004 \001(\004\022\024\n\014time_run"
+    "ning\030\005 \001(\004\022\n\n\002id\030\006 \001(\004\0226\n\013sample_info\030\007 "
+    "\001(\0132!.quipper.PerfDataProto.SampleInfo:\002"
+    "\030\001\032\250\001\n\010AuxEvent\022\022\n\naux_offset\030\001 \001(\004\022\020\n\010a"
+    "ux_size\030\002 \001(\004\022\024\n\014is_truncated\030\003 \001(\010\022\024\n\014i"
+    "s_overwrite\030\004 \001(\010\022\022\n\nis_partial\030\005 \001(\010\0226\n"
+    "\013sample_info\030\006 \001(\0132!.quipper.PerfDataPro"
+    "to.SampleInfo\032I\n\021AuxtraceInfoEvent\022\014\n\004ty"
+    "pe\030\001 \001(\r\022&\n\036unparsed_binary_blob_priv_da"
+    "ta\030\002 \003(\004\032{\n\rAuxtraceEvent\022\014\n\004size\030\001 \001(\004\022"
+    "\016\n\006offset\030\002 \001(\004\022\021\n\treference\030\003 \001(\004\022\013\n\003id"
+    "x\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\013\n\003cpu\030\006 \001(\r\022\022\n\ntra"
+    "ce_data\030\007 \001(\014\032\210\001\n\022AuxtraceErrorEvent\022\014\n\004"
+    "type\030\001 \001(\r\022\014\n\004code\030\002 \001(\r\022\013\n\003cpu\030\003 \001(\r\022\013\n"
+    "\003pid\030\004 \001(\r\022\013\n\003tid\030\005 \001(\r\022\n\n\002ip\030\006 \001(\004\022\013\n\003m"
+    "sg\030\007 \001(\t\022\026\n\016msg_md5_prefix\030\010 \001(\004\032d\n\020Itra"
+    "ceStartEvent\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\0226"
+    "\n\013sample_info\030\003 \001(\0132!.quipper.PerfDataPr"
+    "oto.SampleInfo\032\\\n\020LostSamplesEvent\022\020\n\010nu"
+    "m_lost\030\001 \001(\004\0226\n\013sample_info\030\002 \001(\0132!.quip"
+    "per.PerfDataProto.SampleInfo\032\212\001\n\022Context"
+    "SwitchEvent\022\016\n\006is_out\030\001 \001(\010\022\025\n\rnext_prev"
+    "_pid\030\002 \001(\r\022\025\n\rnext_prev_tid\030\003 \001(\r\0226\n\013sam"
+    "ple_info\030\004 \001(\0132!.quipper.PerfDataProto.S"
+    "ampleInfo\0322\n\026PerfNamespacesLinkInfo\022\013\n\003d"
+    "ev\030\001 \001(\004\022\013\n\003ino\030\002 \001(\004\032\245\001\n\017NamespacesEven"
+    "t\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022@\n\tlink_info"
+    "\030\003 \003(\0132-.quipper.PerfDataProto.PerfNames"
+    "pacesLinkInfo\0226\n\013sample_info\030\004 \001(\0132!.qui"
+    "pper.PerfDataProto.SampleInfo\032I\n\023ThreadM"
+    "apEventEntry\022\013\n\003pid\030\001 \001(\004\022\014\n\004comm\030\002 \001(\t\022"
+    "\027\n\017comm_md5_prefix\030\003 \001(\004\032M\n\016ThreadMapEve"
+    "nt\022;\n\007entries\030\001 \003(\0132*.quipper.PerfDataPr"
+    "oto.ThreadMapEventEntry\0320\n\024StatConfigEve"
+    "ntEntry\022\013\n\003tag\030\001 \001(\004\022\013\n\003val\030\002 \001(\004\032L\n\017Sta"
+    "tConfigEvent\0229\n\004data\030\001 \003(\0132+.quipper.Per"
+    "fDataProto.StatConfigEventEntry\032e\n\tStatE"
+    "vent\022\n\n\002id\030\001 \001(\004\022\013\n\003cpu\030\002 \001(\r\022\016\n\006thread\030"
+    "\003 \001(\r\022\r\n\005value\030\004 \001(\004\022\017\n\007enabled\030\005 \001(\004\022\017\n"
+    "\007running\030\006 \001(\004\032,\n\016StatRoundEvent\022\014\n\004type"
+    "\030\001 \001(\004\022\014\n\004time\030\002 \001(\004\032_\n\013CgroupEvent\022\n\n\002i"
+    "d\030\001 \001(\004\022\014\n\004path\030\002 \001(\t\0226\n\013sample_info\030\003 \001"
+    "(\0132!.quipper.PerfDataProto.SampleInfo\032\252\001"
+    "\n\rTimeConvEvent\022\022\n\ntime_shift\030\001 \001(\004\022\021\n\tt"
+    "ime_mult\030\002 \001(\004\022\021\n\ttime_zero\030\003 \001(\004\022\023\n\013tim"
+    "e_cycles\030\004 \001(\004\022\021\n\ttime_mask\030\005 \001(\004\022\032\n\022cap"
+    "_user_time_zero\030\006 \001(\010\022\033\n\023cap_user_time_s"
+    "hort\030\007 \001(\010\0327\n\013EventHeader\022\014\n\004type\030\001 \001(\r\022"
+    "\014\n\004misc\030\002 \001(\r\022\014\n\004size\030\003 \001(\r\032\327\013\n\tPerfEven"
+    "t\0222\n\006header\030\001 \001(\0132\".quipper.PerfDataProt"
+    "o.EventHeader\0226\n\nmmap_event\030\002 \001(\0132 .quip"
+    "per.PerfDataProto.MMapEventH\000\022:\n\014sample_"
+    "event\030\003 \001(\0132\".quipper.PerfDataProto.Samp"
+    "leEventH\000\0226\n\ncomm_event\030\004 \001(\0132 .quipper."
+    "PerfDataProto.CommEventH\000\0226\n\nfork_event\030"
+    "\005 \001(\0132 .quipper.PerfDataProto.ForkEventH"
+    "\000\0226\n\nexit_event\030\t \001(\0132 .quipper.PerfData"
+    "Proto.ForkEventH\000\0226\n\nlost_event\030\006 \001(\0132 ."
+    "quipper.PerfDataProto.LostEventH\000\022>\n\016thr"
+    "ottle_event\030\007 \001(\0132$.quipper.PerfDataProt"
+    "o.ThrottleEventH\000\022:\n\nread_event\030\010 \001(\0132 ."
+    "quipper.PerfDataProto.ReadEventB\002\030\001H\000\0224\n"
+    "\taux_event\030\013 \001(\0132\037.quipper.PerfDataProto"
+    ".AuxEventH\000\022E\n\022itrace_start_event\030\r \001(\0132"
+    "\'.quipper.PerfDataProto.ItraceStartEvent"
+    "H\000\022E\n\022lost_samples_event\030\016 \001(\0132\'.quipper"
+    ".PerfDataProto.LostSamplesEventH\000\022I\n\024con"
+    "text_switch_event\030\017 \001(\0132).quipper.PerfDa"
+    "taProto.ContextSwitchEventH\000\022B\n\020namespac"
+    "es_event\030\020 \001(\0132&.quipper.PerfDataProto.N"
+    "amespacesEventH\000\022G\n\023auxtrace_info_event\030"
+    "\022 \001(\0132(.quipper.PerfDataProto.AuxtraceIn"
+    "foEventH\000\022>\n\016auxtrace_event\030\014 \001(\0132$.quip"
+    "per.PerfDataProto.AuxtraceEventH\000\022I\n\024aux"
+    "trace_error_event\030\023 \001(\0132).quipper.PerfDa"
+    "taProto.AuxtraceErrorEventH\000\022A\n\020thread_m"
+    "ap_event\030\024 \001(\0132%.quipper.PerfDataProto.T"
+    "hreadMapEventH\000\022\?\n\017time_conv_event\030\021 \001(\013"
+    "2$.quipper.PerfDataProto.TimeConvEventH\000"
+    "\022C\n\021stat_config_event\030\025 \001(\0132&.quipper.Pe"
+    "rfDataProto.StatConfigEventH\000\0226\n\nstat_ev"
+    "ent\030\026 \001(\0132 .quipper.PerfDataProto.StatEv"
+    "entH\000\022A\n\020stat_round_event\030\027 \001(\0132%.quippe"
+    "r.PerfDataProto.StatRoundEventH\000\022:\n\014cgro"
+    "up_event\030\030 \001(\0132\".quipper.PerfDataProto.C"
+    "groupEventH\000\022\021\n\ttimestamp\030\n \001(\004B\014\n\nevent"
+    "_type\032\304\001\n\016PerfEventStats\022\027\n\017num_events_r"
+    "ead\030\001 \001(\r\022\031\n\021num_sample_events\030\002 \001(\r\022\027\n\017"
+    "num_mmap_events\030\003 \001(\r\022\027\n\017num_fork_events"
+    "\030\004 \001(\r\022\027\n\017num_exit_events\030\005 \001(\r\022 \n\030num_s"
+    "ample_events_mapped\030\006 \001(\r\022\021\n\tdid_remap\030\007"
+    " \001(\010\0320\n\022PerfUint32Metadata\022\014\n\004type\030\001 \001(\r"
+    "\022\014\n\004data\030\002 \003(\r\0320\n\022PerfUint64Metadata\022\014\n\004"
+    "type\030\001 \001(\r\022\014\n\004data\030\002 \003(\004\032P\n\023PerfTracingM"
+    "etadata\022\024\n\014tracing_data\030\001 \001(\014\022#\n\027tracing"
+    "_data_md5_prefix\030\002 \001(\004B\002\030\001\032\221\001\n\013PerfBuild"
+    "ID\022\014\n\004misc\030\001 \001(\r\022\013\n\003pid\030\002 \001(\r\022\025\n\rbuild_i"
+    "d_hash\030\003 \001(\014\022\020\n\010filename\030\004 \001(\t\022\033\n\023filena"
+    "me_md5_prefix\030\005 \001(\004\022\014\n\004size\030\006 \001(\r\022\023\n\013is_"
+    "injected\030\007 \001(\010\032\206\002\n\027PerfCPUTopologyMetada"
+    "ta\022\025\n\rcore_siblings\030\001 \003(\t\022 \n\030core_siblin"
+    "gs_md5_prefix\030\002 \003(\004\022\027\n\017thread_siblings\030\003"
+    " \003(\t\022\"\n\032thread_siblings_md5_prefix\030\004 \003(\004"
+    "\022J\n\016available_cpus\030\005 \003(\01322.quipper.PerfD"
+    "ataProto.PerfCPUTopologyMetadata.CPU\032)\n\003"
+    "CPU\022\017\n\007core_id\030\001 \001(\r\022\021\n\tsocket_id\030\002 \001(\r\032"
+    "\200\001\n\030PerfNodeTopologyMetadata\022\n\n\002id\030\001 \001(\r"
+    "\022\024\n\014total_memory\030\002 \001(\004\022\023\n\013free_memory\030\003 "
+    "\001(\004\022\020\n\010cpu_list\030\004 \001(\t\022\033\n\023cpu_list_md5_pr"
+    "efix\030\005 \001(\004\032N\n\027PerfPMUMappingsMetadata\022\014\n"
+    "\004type\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\027\n\017name_md5_pr"
+    "efix\030\003 \001(\004\032g\n\025PerfGroupDescMetadata\022\014\n\004n"
+    "ame\030\001 \001(\t\022\027\n\017name_md5_prefix\030\002 \001(\004\022\022\n\nle"
+    "ader_idx\030\003 \001(\r\022\023\n\013num_members\030\004 \001(\r\032o\n\032P"
+    "erfHybridTopologyMetadata\022\020\n\010pmu_name\030\001 "
+    "\001(\t\022\033\n\023pmu_name_md5_prefix\030\002 \001(\004\022\014\n\004cpus"
+    "\030\003 \001(\t\022\024\n\010cpu_list\030\004 \003(\rB\002\020\001\032\373\005\n\016StringM"
+    "etadata\022M\n\010hostname\030\001 \001(\0132;.quipper.Perf"
+    "DataProto.StringMetadata.StringAndMd5sum"
+    "Prefix\022S\n\016kernel_version\030\002 \001(\0132;.quipper"
+    ".PerfDataProto.StringMetadata.StringAndM"
+    "d5sumPrefix\022Q\n\014perf_version\030\003 \001(\0132;.quip"
+    "per.PerfDataProto.StringMetadata.StringA"
+    "ndMd5sumPrefix\022Q\n\014architecture\030\004 \001(\0132;.q"
     "uipper.PerfDataProto.StringMetadata.Stri"
-    "ngAndMd5sumPrefix\022S\n\016kernel_version\030\002 \001("
-    "\0132;.quipper.PerfDataProto.StringMetadata"
-    ".StringAndMd5sumPrefix\022Q\n\014perf_version\030\003"
-    " \001(\0132;.quipper.PerfDataProto.StringMetad"
-    "ata.StringAndMd5sumPrefix\022Q\n\014architectur"
-    "e\030\004 \001(\0132;.quipper.PerfDataProto.StringMe"
-    "tadata.StringAndMd5sumPrefix\022T\n\017cpu_desc"
-    "ription\030\005 \001(\0132;.quipper.PerfDataProto.St"
-    "ringMetadata.StringAndMd5sumPrefix\022K\n\006cp"
-    "u_id\030\006 \001(\0132;.quipper.PerfDataProto.Strin"
-    "gMetadata.StringAndMd5sumPrefix\022\\\n\027perf_"
-    "command_line_token\030\007 \003(\0132;.quipper.PerfD"
-    "ataProto.StringMetadata.StringAndMd5sumP"
-    "refix\022\\\n\027perf_command_line_whole\030\010 \001(\0132;"
-    ".quipper.PerfDataProto.StringMetadata.St"
-    "ringAndMd5sumPrefix\032@\n\025StringAndMd5sumPr"
-    "efix\022\r\n\005value\030\001 \001(\t\022\030\n\020value_md5_prefix\030"
-    "\002 \001(\004B\003\370\001\001"
+    "ngAndMd5sumPrefix\022T\n\017cpu_description\030\005 \001"
+    "(\0132;.quipper.PerfDataProto.StringMetadat"
+    "a.StringAndMd5sumPrefix\022K\n\006cpu_id\030\006 \001(\0132"
+    ";.quipper.PerfDataProto.StringMetadata.S"
+    "tringAndMd5sumPrefix\022\\\n\027perf_command_lin"
+    "e_token\030\007 \003(\0132;.quipper.PerfDataProto.St"
+    "ringMetadata.StringAndMd5sumPrefix\022\\\n\027pe"
+    "rf_command_line_whole\030\010 \001(\0132;.quipper.Pe"
+    "rfDataProto.StringMetadata.StringAndMd5s"
+    "umPrefix\032@\n\025StringAndMd5sumPrefix\022\r\n\005val"
+    "ue\030\001 \001(\t\022\030\n\020value_md5_prefix\030\002 \001(\004B\003\370\001\001"
 };
 static ::absl::once_flag descriptor_table_perf_5fdata_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_perf_5fdata_2eproto = {
     false,
     false,
-    9330,
+    9519,
     descriptor_table_protodef_perf_5fdata_2eproto,
     "perf_data.proto",
     &descriptor_table_perf_5fdata_2eproto_once,
     nullptr,
     0,
-    47,
+    48,
     schemas,
     file_default_instances,
     TableStruct_perf_5fdata_2eproto::offsets,
@@ -20194,6 +20247,365 @@ void PerfDataProto_PerfGroupDescMetadata::InternalSwap(PerfDataProto_PerfGroupDe
 }
 // ===================================================================
 
+class PerfDataProto_PerfHybridTopologyMetadata::_Internal {
+ public:
+  using HasBits = decltype(std::declval<PerfDataProto_PerfHybridTopologyMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PerfDataProto_PerfHybridTopologyMetadata, _impl_._has_bits_);
+  static void set_has_pmu_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_pmu_name_md5_prefix(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_cpus(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+PerfDataProto_PerfHybridTopologyMetadata::PerfDataProto_PerfHybridTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+}
+PerfDataProto_PerfHybridTopologyMetadata::PerfDataProto_PerfHybridTopologyMetadata(const PerfDataProto_PerfHybridTopologyMetadata& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  PerfDataProto_PerfHybridTopologyMetadata* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.cpu_list_) { from._impl_.cpu_list_ }
+    ,/* _impl_._cpu_list_cached_byte_size_ = */ { 0 }
+
+    , decltype(_impl_.pmu_name_) {}
+
+    , decltype(_impl_.cpus_) {}
+
+    , decltype(_impl_.pmu_name_md5_prefix_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.pmu_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.pmu_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.pmu_name_.Set(from._internal_pmu_name(), _this->GetArenaForAllocation());
+  }
+  _impl_.cpus_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.cpus_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.cpus_.Set(from._internal_cpus(), _this->GetArenaForAllocation());
+  }
+  _this->_impl_.pmu_name_md5_prefix_ = from._impl_.pmu_name_md5_prefix_;
+  // @@protoc_insertion_point(copy_constructor:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+}
+
+inline void PerfDataProto_PerfHybridTopologyMetadata::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.cpu_list_) { arena }
+    ,/* _impl_._cpu_list_cached_byte_size_ = */ { 0 }
+
+    , decltype(_impl_.pmu_name_) {}
+
+    , decltype(_impl_.cpus_) {}
+
+    , decltype(_impl_.pmu_name_md5_prefix_) { ::uint64_t{0u} }
+
+  };
+  _impl_.pmu_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.pmu_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.cpus_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.cpus_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PerfDataProto_PerfHybridTopologyMetadata::~PerfDataProto_PerfHybridTopologyMetadata() {
+  // @@protoc_insertion_point(destructor:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PerfDataProto_PerfHybridTopologyMetadata::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.cpu_list_.~RepeatedField();
+  _impl_.pmu_name_.Destroy();
+  _impl_.cpus_.Destroy();
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::Clear() {
+// @@protoc_insertion_point(message_clear_start:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_mutable_cpu_list()->Clear();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _impl_.pmu_name_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _impl_.cpus_.ClearNonDefaultToEmpty();
+    }
+  }
+  _impl_.pmu_name_md5_prefix_ = ::uint64_t{0u};
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PerfDataProto_PerfHybridTopologyMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string pmu_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_pmu_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name");
+          #endif  // !NDEBUG
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional uint64 pmu_name_md5_prefix = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          _Internal::set_has_pmu_name_md5_prefix(&has_bits);
+          _impl_.pmu_name_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional string cpus = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_cpus();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus");
+          #endif  // !NDEBUG
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // repeated uint32 cpu_list = 4 [packed = true];
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_cpu_list(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<::uint8_t>(tag) == 32) {
+          _internal_add_cpu_list(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* PerfDataProto_PerfHybridTopologyMetadata::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional string pmu_name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_pmu_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfHybridTopologyMetadata.pmu_name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // optional uint64 pmu_name_md5_prefix = 2;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_pmu_name_md5_prefix(), target);
+  }
+
+  // optional string cpus = 3;
+  if (cached_has_bits & 0x00000002u) {
+    const std::string& _s = this->_internal_cpus();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+                                "quipper.PerfDataProto.PerfHybridTopologyMetadata.cpus");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
+  }
+
+  // repeated uint32 cpu_list = 4 [packed = true];
+  {
+    int byte_size = _impl_._cpu_list_cached_byte_size_.Get();
+    if (byte_size > 0) {
+      target = stream->WriteUInt32Packed(4, _internal_cpu_list(),
+                                                 byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  return target;
+}
+
+::size_t PerfDataProto_PerfHybridTopologyMetadata::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated uint32 cpu_list = 4 [packed = true];
+  {
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt32Size(
+        this->_internal_cpu_list())
+    ;
+    _impl_._cpu_list_cached_byte_size_.Set(::_pbi::ToCachedSize(data_size));
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string pmu_name = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_pmu_name());
+    }
+
+    // optional string cpus = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_cpus());
+    }
+
+    // optional uint64 pmu_name_md5_prefix = 2;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_pmu_name_md5_prefix());
+    }
+
+  }
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PerfDataProto_PerfHybridTopologyMetadata::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    PerfDataProto_PerfHybridTopologyMetadata::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PerfDataProto_PerfHybridTopologyMetadata::GetClassData() const { return &_class_data_; }
+
+
+void PerfDataProto_PerfHybridTopologyMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<PerfDataProto_PerfHybridTopologyMetadata*>(&to_msg);
+  auto& from = static_cast<const PerfDataProto_PerfHybridTopologyMetadata&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.cpu_list_.MergeFrom(from._impl_.cpu_list_);
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_pmu_name(from._internal_pmu_name());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_set_cpus(from._internal_cpus());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.pmu_name_md5_prefix_ = from._impl_.pmu_name_md5_prefix_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::CopyFrom(const PerfDataProto_PerfHybridTopologyMetadata& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:quipper.PerfDataProto.PerfHybridTopologyMetadata)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PerfDataProto_PerfHybridTopologyMetadata::IsInitialized() const {
+  return true;
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::InternalSwap(PerfDataProto_PerfHybridTopologyMetadata* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.cpu_list_.InternalSwap(&other->_impl_.cpu_list_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.pmu_name_, lhs_arena,
+                                       &other->_impl_.pmu_name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.cpus_, lhs_arena,
+                                       &other->_impl_.cpus_, rhs_arena);
+
+  swap(_impl_.pmu_name_md5_prefix_, other->_impl_.pmu_name_md5_prefix_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto_PerfHybridTopologyMetadata::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
+      file_level_metadata_perf_5fdata_2eproto[44]);
+}
+// ===================================================================
+
 class PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StringMetadata_StringAndMd5sumPrefix>()._impl_._has_bits_);
@@ -20448,7 +20860,7 @@ void PerfDataProto_StringMetadata_StringAndMd5sumPrefix::InternalSwap(PerfDataPr
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto_StringMetadata_StringAndMd5sumPrefix::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
-      file_level_metadata_perf_5fdata_2eproto[44]);
+      file_level_metadata_perf_5fdata_2eproto[45]);
 }
 // ===================================================================
 
@@ -20970,7 +21382,7 @@ void PerfDataProto_StringMetadata::InternalSwap(PerfDataProto_StringMetadata* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto_StringMetadata::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
-      file_level_metadata_perf_5fdata_2eproto[45]);
+      file_level_metadata_perf_5fdata_2eproto[46]);
 }
 // ===================================================================
 
@@ -21038,6 +21450,7 @@ PerfDataProto::PerfDataProto(const PerfDataProto& from)
     , decltype(_impl_.numa_topology_){from._impl_.numa_topology_}
     , decltype(_impl_.pmu_mappings_){from._impl_.pmu_mappings_}
     , decltype(_impl_.group_desc_){from._impl_.group_desc_}
+    , decltype(_impl_.hybrid_topology_){from._impl_.hybrid_topology_}
     , decltype(_impl_.stats_){nullptr}
     , decltype(_impl_.cpu_topology_){nullptr}
     , decltype(_impl_.string_metadata_){nullptr}
@@ -21078,6 +21491,7 @@ inline void PerfDataProto::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.numa_topology_){arena}
     , decltype(_impl_.pmu_mappings_){arena}
     , decltype(_impl_.group_desc_){arena}
+    , decltype(_impl_.hybrid_topology_){arena}
     , decltype(_impl_.stats_){nullptr}
     , decltype(_impl_.cpu_topology_){nullptr}
     , decltype(_impl_.string_metadata_){nullptr}
@@ -21108,6 +21522,7 @@ inline void PerfDataProto::SharedDtor() {
   _internal_mutable_numa_topology()->~RepeatedPtrField();
   _internal_mutable_pmu_mappings()->~RepeatedPtrField();
   _internal_mutable_group_desc()->~RepeatedPtrField();
+  _internal_mutable_hybrid_topology()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.stats_;
   if (this != internal_default_instance()) delete _impl_.cpu_topology_;
   if (this != internal_default_instance()) delete _impl_.string_metadata_;
@@ -21134,6 +21549,7 @@ void PerfDataProto::Clear() {
   _internal_mutable_numa_topology()->Clear();
   _internal_mutable_pmu_mappings()->Clear();
   _internal_mutable_group_desc()->Clear();
+  _internal_mutable_hybrid_topology()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -21354,6 +21770,20 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           goto handle_unusual;
         }
         continue;
+      // repeated .quipper.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 138)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_hybrid_topology(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<138>(ptr));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -21499,6 +21929,14 @@ failure:
         InternalWriteMessage(16, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .quipper.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_hybrid_topology_size()); i < n; i++) {
+    const auto& repfield = this->_internal_hybrid_topology(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(17, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -21589,6 +22027,13 @@ failure:
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .quipper.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+  total_size += 2UL * this->_internal_hybrid_topology_size();
+  for (const auto& msg : this->_internal_hybrid_topology()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     // optional .quipper.PerfDataProto.PerfEventStats stats = 4;
@@ -21654,6 +22099,7 @@ void PerfDataProto::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   _this->_internal_mutable_numa_topology()->MergeFrom(from._internal_numa_topology());
   _this->_internal_mutable_pmu_mappings()->MergeFrom(from._internal_pmu_mappings());
   _this->_internal_mutable_group_desc()->MergeFrom(from._internal_group_desc());
+  _this->_internal_mutable_hybrid_topology()->MergeFrom(from._internal_hybrid_topology());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -21705,6 +22151,7 @@ void PerfDataProto::InternalSwap(PerfDataProto* other) {
   _internal_mutable_numa_topology()->InternalSwap(other->_internal_mutable_numa_topology());
   _internal_mutable_pmu_mappings()->InternalSwap(other->_internal_mutable_pmu_mappings());
   _internal_mutable_group_desc()->InternalSwap(other->_internal_mutable_group_desc());
+  _internal_mutable_hybrid_topology()->InternalSwap(other->_internal_mutable_hybrid_topology());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto, _impl_.timestamp_sec_)
       + sizeof(PerfDataProto::_impl_.timestamp_sec_)
@@ -21716,7 +22163,7 @@ void PerfDataProto::InternalSwap(PerfDataProto* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PerfDataProto::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_perf_5fdata_2eproto_getter, &descriptor_table_perf_5fdata_2eproto_once,
-      file_level_metadata_perf_5fdata_2eproto[46]);
+      file_level_metadata_perf_5fdata_2eproto[47]);
 }
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace quipper
@@ -21896,6 +22343,10 @@ Arena::CreateMaybeMessage< ::quipper::PerfDataProto_PerfPMUMappingsMetadata >(Ar
 template<> PROTOBUF_NOINLINE ::quipper::PerfDataProto_PerfGroupDescMetadata*
 Arena::CreateMaybeMessage< ::quipper::PerfDataProto_PerfGroupDescMetadata >(Arena* arena) {
   return Arena::CreateMessageInternal< ::quipper::PerfDataProto_PerfGroupDescMetadata >(arena);
+}
+template<> PROTOBUF_NOINLINE ::quipper::PerfDataProto_PerfHybridTopologyMetadata*
+Arena::CreateMaybeMessage< ::quipper::PerfDataProto_PerfHybridTopologyMetadata >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::quipper::PerfDataProto_PerfHybridTopologyMetadata >(arena);
 }
 template<> PROTOBUF_NOINLINE ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix*
 Arena::CreateMaybeMessage< ::quipper::PerfDataProto_StringMetadata_StringAndMd5sumPrefix >(Arena* arena) {

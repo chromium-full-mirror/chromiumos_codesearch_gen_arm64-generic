@@ -361,6 +361,8 @@ bool ServiceWorkerObjectHost_TerminateForTesting_ForwardToCallback::Accept(
           internal::ServiceWorkerObjectHost_TerminateForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceWorkerObjectHost.1
   bool success = true;
   ServiceWorkerObjectHost_TerminateForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -423,6 +425,8 @@ bool ServiceWorkerObjectHostStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerObjectHost_PostMessageToServiceWorker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerObjectHost.0
       bool success = true;
       ::blink::TransferableMessage p_message{};
       ServiceWorkerObjectHost_PostMessageToServiceWorker_ParamsDataView input_data_view(params, message);
@@ -438,8 +442,8 @@ bool ServiceWorkerObjectHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PostMessageToServiceWorker(
-std::move(p_message));
+      impl->PostMessageToServiceWorker(        
+        std::move(p_message));
       return true;
     }
     case internal::kServiceWorkerObjectHost_TerminateForTesting_Name: {
@@ -468,6 +472,8 @@ bool ServiceWorkerObjectHostStubDispatch::AcceptWithResponder(
               internal::ServiceWorkerObjectHost_TerminateForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerObjectHost.1
       bool success = true;
       ServiceWorkerObjectHost_TerminateForTesting_ParamsDataView input_data_view(params, message);
       
@@ -620,6 +626,8 @@ bool ServiceWorkerObjectStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerObject_StateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerObject.0
       bool success = true;
       ::blink::mojom::ServiceWorkerState p_state{};
       ServiceWorkerObject_StateChanged_ParamsDataView input_data_view(params, message);
@@ -635,8 +643,8 @@ bool ServiceWorkerObjectStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StateChanged(
-std::move(p_state));
+      impl->StateChanged(        
+        std::move(p_state));
       return true;
     }
   }

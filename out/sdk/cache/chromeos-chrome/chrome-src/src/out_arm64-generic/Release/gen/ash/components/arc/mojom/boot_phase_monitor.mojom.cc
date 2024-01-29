@@ -148,6 +148,8 @@ bool BootPhaseMonitorHostStubDispatch::Accept(
           reinterpret_cast<internal::BootPhaseMonitorHost_OnBootCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BootPhaseMonitorHost.0
       bool success = true;
       BootPhaseMonitorHost_OnBootCompleted_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool BootPhaseMonitorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBootCompleted();
+      impl->OnBootCompleted(        );
       return true;
     }
   }
@@ -373,6 +375,8 @@ bool BootPhaseMonitorInstance_Init_ForwardToCallback::Accept(
           internal::BootPhaseMonitorInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BootPhaseMonitorInstance.1
   bool success = true;
   BootPhaseMonitorInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -451,6 +455,8 @@ bool BootPhaseMonitorInstanceStubDispatch::AcceptWithResponder(
               internal::BootPhaseMonitorInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BootPhaseMonitorInstance.1
       bool success = true;
       ::mojo::PendingRemote<BootPhaseMonitorHost> p_host_remote{};
       BootPhaseMonitorInstance_Init_ParamsDataView input_data_view(params, message);
@@ -471,8 +477,8 @@ bool BootPhaseMonitorInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

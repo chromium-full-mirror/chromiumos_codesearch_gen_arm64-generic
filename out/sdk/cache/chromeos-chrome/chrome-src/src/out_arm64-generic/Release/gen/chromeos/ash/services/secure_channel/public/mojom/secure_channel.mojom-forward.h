@@ -34,6 +34,12 @@ enum class ConnectionCreationDetail : int32_t;
 enum class ConnectionPriority : int32_t;
 
 enum class ConnectionMedium : int32_t;
+
+enum class DiscoveryResult : int32_t;
+
+enum class DiscoveryErrorCode : int32_t;
+
+enum class SecureChannelState : int32_t;
 class BluetoothConnectionMetadata;
 using BluetoothConnectionMetadataPtr = mojo::InlinedStructPtr<BluetoothConnectionMetadata>;
 
@@ -45,6 +51,8 @@ class Channel;
 class MessageReceiver;
 
 class ConnectionDelegate;
+
+class SecureChannelStructuredMetricsLogger;
 
 class SecureChannel;
 

@@ -307,9 +307,8 @@ export class TimelineEventOverviewResponsiveness extends TimelineEventOverview {
         // All the warnings that we care about regarding responsiveness and want to represent on the overview.
         const warningsForResponsiveness = new Set([
             'LONG_TASK',
-            'FORCED_STYLE',
+            'FORCED_REFLOW',
             'IDLE_CALLBACK_OVER_TIME',
-            'FORCED_LAYOUT',
         ]);
         const allWarningEvents = new Set();
         for (const warning of warningsForResponsiveness) {
@@ -407,8 +406,7 @@ export class TimelineFilmStripOverview extends TimelineEventOverview {
     async imageByFrame(frame) {
         let imagePromise = this.frameToImagePromise.get(frame);
         if (!imagePromise) {
-            const data = frame.screenshotAsString;
-            imagePromise = UI.UIUtils.loadImageFromData(data);
+            imagePromise = UI.UIUtils.loadImage(frame.screenshotEvent.args.dataUri);
             this.frameToImagePromise.set(frame, imagePromise);
         }
         return imagePromise;

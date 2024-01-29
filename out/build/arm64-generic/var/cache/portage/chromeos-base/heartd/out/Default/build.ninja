@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/heartd-0.0.1-r21/work/heartd-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/heartd-0.0.1-r36/work/heartd-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -19,34 +19,59 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build _heartd-install_config: phony obj/heartd/_heartd-install_config.stamp
+build install_dbus_activation: phony obj/heartd/install_dbus_activation.stamp
+build install_dbus_config: phony obj/heartd/install_dbus_config.stamp
 build install_init_config: phony obj/heartd/install_init_config.stamp
 build install_mojo_service_manager_policy_config: phony obj/heartd/install_mojo_service_manager_policy_config.stamp
 build install_seccomp_policy: phony obj/heartd/install_seccomp_policy.stamp
 build install_tmpfiles_config: phony obj/heartd/install_tmpfiles_config.stamp
 build libheartd: phony obj/heartd/daemon/libheartd.stamp
+build libheartd_mojo_bindings: phony ./libheartd_mojo_bindings.a
+build libheartd_mojo_bindings_gen: phony obj/heartd/mojom/libheartd_mojo_bindings_gen.stamp
+build libheartd_mojo_bindings_gen_mojo_templates: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates.stamp
+build libheartd_mojo_bindings_gen_mojo_templates_dir: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates_dir.stamp
+build libheartd_mojo_bindings_gen_parse: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_parse.stamp
 build libminijail: phony obj/heartd/minijail/libminijail.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
+build utils: phony obj/heartd/daemon/utils/utils.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 build heartd$:_heartd-install_config: phony obj/heartd/_heartd-install_config.stamp
 build heartd$:all: phony obj/heartd/all.stamp
 build heartd$:heartd: phony ./heartd
+build heartd$:install_dbus_activation: phony obj/heartd/install_dbus_activation.stamp
+build heartd$:install_dbus_config: phony obj/heartd/install_dbus_config.stamp
 build heartd$:install_init_config: phony obj/heartd/install_init_config.stamp
 build heartd$:install_mojo_service_manager_policy_config: phony obj/heartd/install_mojo_service_manager_policy_config.stamp
 build heartd$:install_seccomp_policy: phony obj/heartd/install_seccomp_policy.stamp
 build heartd$:install_tmpfiles_config: phony obj/heartd/install_tmpfiles_config.stamp
 build heartd/daemon$:libheartd: phony obj/heartd/daemon/libheartd.stamp
+build heartd/daemon/utils$:utils: phony obj/heartd/daemon/utils/utils.stamp
+build heartd/daemon/utils: phony obj/heartd/daemon/utils/utils.stamp
 build heartd/minijail$:libminijail: phony obj/heartd/minijail/libminijail.stamp
+build heartd/mojom$:libheartd_mojo_bindings: phony ./libheartd_mojo_bindings.a
+build heartd/mojom$:libheartd_mojo_bindings_gen: phony obj/heartd/mojom/libheartd_mojo_bindings_gen.stamp
+build heartd/mojom$:libheartd_mojo_bindings_gen_mojo_templates: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates.stamp
+build heartd/mojom$:libheartd_mojo_bindings_gen_mojo_templates_dir: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates_dir.stamp
+build heartd/mojom$:libheartd_mojo_bindings_gen_parse: phony obj/heartd/mojom/libheartd_mojo_bindings_gen_parse.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
     obj/heartd/_heartd-install_config.stamp $
     obj/heartd/all.stamp $
     ./heartd $
+    obj/heartd/install_dbus_activation.stamp $
+    obj/heartd/install_dbus_config.stamp $
     obj/heartd/install_init_config.stamp $
     obj/heartd/install_mojo_service_manager_policy_config.stamp $
     obj/heartd/install_seccomp_policy.stamp $
     obj/heartd/install_tmpfiles_config.stamp $
     obj/heartd/daemon/libheartd.stamp $
-    obj/heartd/minijail/libminijail.stamp
+    obj/heartd/daemon/utils/utils.stamp $
+    obj/heartd/minijail/libminijail.stamp $
+    ./libheartd_mojo_bindings.a $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen.stamp $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates.stamp $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/heartd/mojom/libheartd_mojo_bindings_gen_parse.stamp
 
 default all

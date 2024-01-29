@@ -289,6 +289,8 @@ bool DataPipeGetter_Read_ForwardToCallback::Accept(
           internal::DataPipeGetter_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DataPipeGetter.0
   bool success = true;
   int32_t p_status{};
   uint64_t p_size{};
@@ -374,6 +376,8 @@ bool DataPipeGetterStubDispatch::Accept(
           reinterpret_cast<internal::DataPipeGetter_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataPipeGetter.1
       bool success = true;
       ::mojo::PendingReceiver<DataPipeGetter> p_receiver{};
       DataPipeGetter_Clone_ParamsDataView input_data_view(params, message);
@@ -391,8 +395,8 @@ bool DataPipeGetterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -415,6 +419,8 @@ bool DataPipeGetterStubDispatch::AcceptWithResponder(
               internal::DataPipeGetter_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DataPipeGetter.0
       bool success = true;
       ::mojo::ScopedDataPipeProducerHandle p_pipe{};
       DataPipeGetter_Read_ParamsDataView input_data_view(params, message);
@@ -433,8 +439,8 @@ bool DataPipeGetterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_pipe), std::move(callback));
+      impl->Read(        
+        std::move(p_pipe), std::move(callback));
       return true;
     }
     case internal::kDataPipeGetter_Clone_Name: {

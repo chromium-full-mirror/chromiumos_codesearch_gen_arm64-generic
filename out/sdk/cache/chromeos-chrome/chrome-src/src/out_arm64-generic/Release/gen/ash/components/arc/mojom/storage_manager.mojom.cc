@@ -321,6 +321,8 @@ bool StorageManagerInstance_GetApplicationsSize_ForwardToCallback::Accept(
           internal::StorageManagerInstance_GetApplicationsSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageManagerInstance.3
   bool success = true;
   bool p_succeeded{};
   ApplicationsSizePtr p_applications_size{};
@@ -409,6 +411,8 @@ bool StorageManagerInstanceStubDispatch::Accept(
           reinterpret_cast<internal::StorageManagerInstance_OpenPrivateVolumeSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageManagerInstance.2
       bool success = true;
       StorageManagerInstance_OpenPrivateVolumeSettings_ParamsDataView input_data_view(params, message);
       
@@ -421,7 +425,7 @@ bool StorageManagerInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenPrivateVolumeSettings();
+      impl->OpenPrivateVolumeSettings(        );
       return true;
     }
     case internal::kStorageManagerInstance_GetApplicationsSize_Name: {
@@ -450,6 +454,8 @@ bool StorageManagerInstanceStubDispatch::AcceptWithResponder(
               internal::StorageManagerInstance_GetApplicationsSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageManagerInstance.3
       bool success = true;
       StorageManagerInstance_GetApplicationsSize_ParamsDataView input_data_view(params, message);
       

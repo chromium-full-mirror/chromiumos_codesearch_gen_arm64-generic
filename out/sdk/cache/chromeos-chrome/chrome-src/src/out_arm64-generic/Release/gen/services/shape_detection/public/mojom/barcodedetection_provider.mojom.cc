@@ -318,6 +318,8 @@ bool BarcodeDetectionProvider_EnumerateSupportedFormats_ForwardToCallback::Accep
           internal::BarcodeDetectionProvider_EnumerateSupportedFormats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BarcodeDetectionProvider.1
   bool success = true;
   std::vector<::shape_detection::mojom::BarcodeFormat> p_supported_formats{};
   BarcodeDetectionProvider_EnumerateSupportedFormats_ResponseParamsDataView input_data_view(params, message);
@@ -404,6 +406,8 @@ bool BarcodeDetectionProviderStubDispatch::Accept(
           reinterpret_cast<internal::BarcodeDetectionProvider_CreateBarcodeDetection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BarcodeDetectionProvider.0
       bool success = true;
       ::mojo::PendingReceiver<::shape_detection::mojom::BarcodeDetection> p_receiver{};
       BarcodeDetectorOptionsPtr p_options{};
@@ -424,9 +428,9 @@ bool BarcodeDetectionProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBarcodeDetection(
-std::move(p_receiver), 
-std::move(p_options));
+      impl->CreateBarcodeDetection(        
+        std::move(p_receiver), 
+        std::move(p_options));
       return true;
     }
     case internal::kBarcodeDetectionProvider_EnumerateSupportedFormats_Name: {
@@ -455,6 +459,8 @@ bool BarcodeDetectionProviderStubDispatch::AcceptWithResponder(
               internal::BarcodeDetectionProvider_EnumerateSupportedFormats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BarcodeDetectionProvider.1
       bool success = true;
       BarcodeDetectionProvider_EnumerateSupportedFormats_ParamsDataView input_data_view(params, message);
       

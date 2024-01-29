@@ -411,7 +411,8 @@ class  DisplaySettingsValue {
 
   DisplaySettingsValue(
       std::optional<bool> is_internal_display,
-      std::optional<int64_t> display_id);
+      std::optional<int64_t> display_id,
+      std::optional<DisplaySettingsOrientationOption> orientation);
 
 
   ~DisplaySettingsValue();
@@ -492,6 +493,8 @@ class  DisplaySettingsValue {
   std::optional<bool> is_internal_display;
   
   std::optional<int64_t> display_id;
+  
+  std::optional<DisplaySettingsOrientationOption> orientation;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -529,7 +532,8 @@ template <typename StructPtrType>
 DisplaySettingsValuePtr DisplaySettingsValue::Clone() const {
   return New(
       mojo::Clone(is_internal_display),
-      mojo::Clone(display_id)
+      mojo::Clone(display_id),
+      mojo::Clone(orientation)
   );
 }
 
@@ -538,6 +542,8 @@ bool DisplaySettingsValue::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_internal_display, other_struct.is_internal_display))
     return false;
   if (!mojo::Equals(this->display_id, other_struct.display_id))
+    return false;
+  if (!mojo::Equals(this->orientation, other_struct.orientation))
     return false;
   return true;
 }
@@ -551,6 +557,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.display_id < rhs.display_id)
     return true;
   if (rhs.display_id < lhs.display_id)
+    return false;
+  if (lhs.orientation < rhs.orientation)
+    return true;
+  if (rhs.orientation < lhs.orientation)
     return false;
   return false;
 }
@@ -575,6 +585,11 @@ struct  StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView,
   static decltype(::ash::settings::mojom::DisplaySettingsValue::display_id) display_id(
       const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
     return input->display_id;
+  }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::orientation) orientation(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->orientation;
   }
 
   static bool Read(::ash::settings::mojom::DisplaySettingsValue::DataView input, ::ash::settings::mojom::DisplaySettingsValuePtr* output);

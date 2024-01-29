@@ -85,7 +85,7 @@ bool URLResponseHeadDevToolsInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 104, validation_context)) {
+          data, 112, validation_context)) {
     return false;
   }
 
@@ -120,14 +120,25 @@ bool URLResponseHeadDevToolsInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->load_timing, 4, validation_context)) {
+          object->charset, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& charset_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->charset, validation_context,
+                                         &charset_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->load_timing, 5, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->load_timing, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->cache_storage_cache_name, 9, validation_context)) {
+          object->cache_storage_cache_name, 10, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& cache_storage_cache_name_validate_params =
@@ -138,7 +149,7 @@ bool URLResponseHeadDevToolsInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->alpn_negotiated_protocol, 10, validation_context)) {
+          object->alpn_negotiated_protocol, 11, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& alpn_negotiated_protocol_validate_params =
@@ -165,7 +176,7 @@ bool URLResponseHeadDevToolsInfo_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->remote_endpoint, 16, validation_context)) {
+          object->remote_endpoint, 17, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->remote_endpoint, validation_context))

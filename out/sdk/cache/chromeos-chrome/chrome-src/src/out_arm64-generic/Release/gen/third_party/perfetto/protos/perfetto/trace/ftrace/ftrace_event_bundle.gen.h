@@ -16,6 +16,7 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 class FtraceEventBundle;
+class FtraceEventBundle_FtraceError;
 class FtraceEventBundle_CompactSched;
 class FtraceEvent;
 class GpuWorkPeriodFtraceEvent;
@@ -487,6 +488,7 @@ class CpuFrequencyFtraceEvent;
 class SchedSwitchFtraceEvent;
 class PrintFtraceEvent;
 enum FtraceClock : int;
+enum FtraceParseStatus : int;
 }  // namespace perfetto
 }  // namespace protos
 }  // namespace gen
@@ -509,6 +511,7 @@ enum FtraceClock : int {
 class PERFETTO_EXPORT_COMPONENT FtraceEventBundle : public ::protozero::CppMessageObj {
  public:
   using CompactSched = FtraceEventBundle_CompactSched;
+  using FtraceError = FtraceEventBundle_FtraceError;
   enum FieldNumbers {
     kCpuFieldNumber = 1,
     kEventFieldNumber = 2,
@@ -517,6 +520,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceEventBundle : public ::protozero::CppMessa
     kFtraceClockFieldNumber = 5,
     kFtraceTimestampFieldNumber = 6,
     kBootTimestampFieldNumber = 7,
+    kErrorFieldNumber = 8,
   };
 
   FtraceEventBundle();
@@ -563,6 +567,12 @@ class PERFETTO_EXPORT_COMPONENT FtraceEventBundle : public ::protozero::CppMessa
   int64_t boot_timestamp() const { return boot_timestamp_; }
   void set_boot_timestamp(int64_t value) { boot_timestamp_ = value; _has_field_.set(7); }
 
+  const std::vector<FtraceEventBundle_FtraceError>& error() const { return error_; }
+  std::vector<FtraceEventBundle_FtraceError>* mutable_error() { return &error_; }
+  int error_size() const;
+  void clear_error();
+  FtraceEventBundle_FtraceError* add_error();
+
  private:
   uint32_t cpu_{};
   std::vector<FtraceEvent> event_;
@@ -571,12 +581,54 @@ class PERFETTO_EXPORT_COMPONENT FtraceEventBundle : public ::protozero::CppMessa
   FtraceClock ftrace_clock_{};
   int64_t ftrace_timestamp_{};
   int64_t boot_timestamp_{};
+  std::vector<FtraceEventBundle_FtraceError> error_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<8> _has_field_{};
+  std::bitset<9> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FtraceEventBundle_FtraceError : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTimestampFieldNumber = 1,
+    kStatusFieldNumber = 2,
+  };
+
+  FtraceEventBundle_FtraceError();
+  ~FtraceEventBundle_FtraceError() override;
+  FtraceEventBundle_FtraceError(FtraceEventBundle_FtraceError&&) noexcept;
+  FtraceEventBundle_FtraceError& operator=(FtraceEventBundle_FtraceError&&);
+  FtraceEventBundle_FtraceError(const FtraceEventBundle_FtraceError&);
+  FtraceEventBundle_FtraceError& operator=(const FtraceEventBundle_FtraceError&);
+  bool operator==(const FtraceEventBundle_FtraceError&) const;
+  bool operator!=(const FtraceEventBundle_FtraceError& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_timestamp() const { return _has_field_[1]; }
+  uint64_t timestamp() const { return timestamp_; }
+  void set_timestamp(uint64_t value) { timestamp_ = value; _has_field_.set(1); }
+
+  bool has_status() const { return _has_field_[2]; }
+  FtraceParseStatus status() const { return status_; }
+  void set_status(FtraceParseStatus value) { status_ = value; _has_field_.set(2); }
+
+ private:
+  uint64_t timestamp_{};
+  FtraceParseStatus status_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
 };
 
 

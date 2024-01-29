@@ -670,6 +670,8 @@ bool ScanJobObserverStubDispatch::Accept(
           reinterpret_cast<internal::ScanJobObserver_OnPageProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanJobObserver.0
       bool success = true;
       uint32_t p_page_number{};
       uint32_t p_progress_percent{};
@@ -688,9 +690,9 @@ bool ScanJobObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPageProgress(
-std::move(p_page_number), 
-std::move(p_progress_percent));
+      impl->OnPageProgress(        
+        std::move(p_page_number), 
+        std::move(p_progress_percent));
       return true;
     }
     case internal::kScanJobObserver_OnPageComplete_Name: {
@@ -700,6 +702,8 @@ std::move(p_progress_percent));
           reinterpret_cast<internal::ScanJobObserver_OnPageComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanJobObserver.1
       bool success = true;
       std::vector<uint8_t> p_page_data{};
       uint32_t p_new_page_index{};
@@ -718,9 +722,9 @@ std::move(p_progress_percent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPageComplete(
-std::move(p_page_data), 
-std::move(p_new_page_index));
+      impl->OnPageComplete(        
+        std::move(p_page_data), 
+        std::move(p_new_page_index));
       return true;
     }
     case internal::kScanJobObserver_OnScanComplete_Name: {
@@ -730,6 +734,8 @@ std::move(p_new_page_index));
           reinterpret_cast<internal::ScanJobObserver_OnScanComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanJobObserver.2
       bool success = true;
       ::lorgnette::ScanFailureMode p_result{};
       std::vector<::base::FilePath> p_scanned_file_paths{};
@@ -748,9 +754,9 @@ std::move(p_new_page_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScanComplete(
-std::move(p_result), 
-std::move(p_scanned_file_paths));
+      impl->OnScanComplete(        
+        std::move(p_result), 
+        std::move(p_scanned_file_paths));
       return true;
     }
     case internal::kScanJobObserver_OnCancelComplete_Name: {
@@ -760,6 +766,8 @@ std::move(p_scanned_file_paths));
           reinterpret_cast<internal::ScanJobObserver_OnCancelComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanJobObserver.3
       bool success = true;
       bool p_success{};
       ScanJobObserver_OnCancelComplete_ParamsDataView input_data_view(params, message);
@@ -775,8 +783,8 @@ std::move(p_scanned_file_paths));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCancelComplete(
-std::move(p_success));
+      impl->OnCancelComplete(        
+        std::move(p_success));
       return true;
     }
     case internal::kScanJobObserver_OnMultiPageScanFail_Name: {
@@ -786,6 +794,8 @@ std::move(p_success));
           reinterpret_cast<internal::ScanJobObserver_OnMultiPageScanFail_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanJobObserver.4
       bool success = true;
       ::lorgnette::ScanFailureMode p_result{};
       ScanJobObserver_OnMultiPageScanFail_ParamsDataView input_data_view(params, message);
@@ -801,8 +811,8 @@ std::move(p_success));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMultiPageScanFail(
-std::move(p_result));
+      impl->OnMultiPageScanFail(        
+        std::move(p_result));
       return true;
     }
   }
@@ -1385,6 +1395,8 @@ bool ScanService_GetScanners_ForwardToCallback::Accept(
           internal::ScanService_GetScanners_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScanService.0
   bool success = true;
   std::vector<ScannerPtr> p_scanners{};
   ScanService_GetScanners_ResponseParamsDataView input_data_view(params, message);
@@ -1516,6 +1528,8 @@ bool ScanService_GetScannerCapabilities_ForwardToCallback::Accept(
           internal::ScanService_GetScannerCapabilities_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScanService.1
   bool success = true;
   ScannerCapabilitiesPtr p_capabilities{};
   ScanService_GetScannerCapabilities_ResponseParamsDataView input_data_view(params, message);
@@ -1645,6 +1659,8 @@ bool ScanService_StartScan_ForwardToCallback::Accept(
           internal::ScanService_StartScan_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScanService.2
   bool success = true;
   bool p_success{};
   ScanService_StartScan_ResponseParamsDataView input_data_view(params, message);
@@ -1764,6 +1780,8 @@ bool ScanService_StartMultiPageScan_ForwardToCallback::Accept(
           internal::ScanService_StartMultiPageScan_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScanService.3
   bool success = true;
   ::mojo::PendingRemote<MultiPageScanController> p_controller{};
   ScanService_StartMultiPageScan_ResponseParamsDataView input_data_view(params, message);
@@ -1853,6 +1871,8 @@ bool ScanServiceStubDispatch::Accept(
           reinterpret_cast<internal::ScanService_CancelScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScanService.4
       bool success = true;
       ScanService_CancelScan_ParamsDataView input_data_view(params, message);
       
@@ -1865,7 +1885,7 @@ bool ScanServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelScan();
+      impl->CancelScan(        );
       return true;
     }
   }
@@ -1888,6 +1908,8 @@ bool ScanServiceStubDispatch::AcceptWithResponder(
               internal::ScanService_GetScanners_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScanService.0
       bool success = true;
       ScanService_GetScanners_ParamsDataView input_data_view(params, message);
       
@@ -1913,6 +1935,8 @@ bool ScanServiceStubDispatch::AcceptWithResponder(
               internal::ScanService_GetScannerCapabilities_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScanService.1
       bool success = true;
       ::base::UnguessableToken p_scanner_id{};
       ScanService_GetScannerCapabilities_ParamsDataView input_data_view(params, message);
@@ -1931,8 +1955,8 @@ bool ScanServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetScannerCapabilities(
-std::move(p_scanner_id), std::move(callback));
+      impl->GetScannerCapabilities(        
+        std::move(p_scanner_id), std::move(callback));
       return true;
     }
     case internal::kScanService_StartScan_Name: {
@@ -1942,6 +1966,8 @@ std::move(p_scanner_id), std::move(callback));
               internal::ScanService_StartScan_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScanService.2
       bool success = true;
       ::base::UnguessableToken p_scanner_id{};
       ScanSettingsPtr p_settings{};
@@ -1968,10 +1994,10 @@ std::move(p_scanner_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartScan(
-std::move(p_scanner_id), 
-std::move(p_settings), 
-std::move(p_observer), std::move(callback));
+      impl->StartScan(        
+        std::move(p_scanner_id), 
+        std::move(p_settings), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kScanService_StartMultiPageScan_Name: {
@@ -1981,6 +2007,8 @@ std::move(p_observer), std::move(callback));
               internal::ScanService_StartMultiPageScan_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScanService.3
       bool success = true;
       ::base::UnguessableToken p_scanner_id{};
       ScanSettingsPtr p_settings{};
@@ -2007,10 +2035,10 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartMultiPageScan(
-std::move(p_scanner_id), 
-std::move(p_settings), 
-std::move(p_observer), std::move(callback));
+      impl->StartMultiPageScan(        
+        std::move(p_scanner_id), 
+        std::move(p_settings), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kScanService_CancelScan_Name: {
@@ -2461,6 +2489,8 @@ bool MultiPageScanController_ScanNextPage_ForwardToCallback::Accept(
           internal::MultiPageScanController_ScanNextPage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiPageScanController.0
   bool success = true;
   bool p_success{};
   MultiPageScanController_ScanNextPage_ResponseParamsDataView input_data_view(params, message);
@@ -2580,6 +2610,8 @@ bool MultiPageScanController_RescanPage_ForwardToCallback::Accept(
           internal::MultiPageScanController_RescanPage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MultiPageScanController.2
   bool success = true;
   bool p_success{};
   MultiPageScanController_RescanPage_ResponseParamsDataView input_data_view(params, message);
@@ -2657,6 +2689,8 @@ bool MultiPageScanControllerStubDispatch::Accept(
           reinterpret_cast<internal::MultiPageScanController_RemovePage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiPageScanController.1
       bool success = true;
       uint32_t p_page_index{};
       MultiPageScanController_RemovePage_ParamsDataView input_data_view(params, message);
@@ -2672,8 +2706,8 @@ bool MultiPageScanControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovePage(
-std::move(p_page_index));
+      impl->RemovePage(        
+        std::move(p_page_index));
       return true;
     }
     case internal::kMultiPageScanController_RescanPage_Name: {
@@ -2686,6 +2720,8 @@ std::move(p_page_index));
           reinterpret_cast<internal::MultiPageScanController_CompleteMultiPageScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiPageScanController.3
       bool success = true;
       MultiPageScanController_CompleteMultiPageScan_ParamsDataView input_data_view(params, message);
       
@@ -2698,7 +2734,7 @@ std::move(p_page_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompleteMultiPageScan();
+      impl->CompleteMultiPageScan(        );
       return true;
     }
   }
@@ -2721,6 +2757,8 @@ bool MultiPageScanControllerStubDispatch::AcceptWithResponder(
               internal::MultiPageScanController_ScanNextPage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiPageScanController.0
       bool success = true;
       ::base::UnguessableToken p_scanner_id{};
       ScanSettingsPtr p_settings{};
@@ -2742,9 +2780,9 @@ bool MultiPageScanControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScanNextPage(
-std::move(p_scanner_id), 
-std::move(p_settings), std::move(callback));
+      impl->ScanNextPage(        
+        std::move(p_scanner_id), 
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kMultiPageScanController_RemovePage_Name: {
@@ -2757,6 +2795,8 @@ std::move(p_settings), std::move(callback));
               internal::MultiPageScanController_RescanPage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MultiPageScanController.2
       bool success = true;
       ::base::UnguessableToken p_scanner_id{};
       ScanSettingsPtr p_settings{};
@@ -2781,10 +2821,10 @@ std::move(p_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RescanPage(
-std::move(p_scanner_id), 
-std::move(p_settings), 
-std::move(p_page_index), std::move(callback));
+      impl->RescanPage(        
+        std::move(p_scanner_id), 
+        std::move(p_settings), 
+        std::move(p_page_index), std::move(callback));
       return true;
     }
     case internal::kMultiPageScanController_CompleteMultiPageScan_Name: {

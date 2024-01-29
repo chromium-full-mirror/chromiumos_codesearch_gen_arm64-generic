@@ -25,13 +25,53 @@ namespace internal {
 
 
 // static
+bool DisplaySnapshotColorInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DisplaySnapshotColorInfo_Data* object =
+      static_cast<const DisplaySnapshotColorInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->color_space, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->color_space, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->edid_primaries, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->edid_primaries, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->hdr_static_metadata, validation_context))
+    return false;
+
+  return true;
+}
+
+DisplaySnapshotColorInfo_Data::DisplaySnapshotColorInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool DisplaySnapshot_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 184, validation_context)) {
+          data, 176, validation_context)) {
     return false;
   }
 
@@ -76,17 +116,14 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->color_space, 15, validation_context)) {
+          object->color_info, 14, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->color_space, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidateStruct(object->hdr_static_metadata, validation_context))
+  if (!mojo::internal::ValidateStruct(object->color_info, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->display_name, 18, validation_context)) {
+          object->display_name, 15, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
@@ -97,14 +134,14 @@ bool DisplaySnapshot_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->sys_path, 19, validation_context)) {
+          object->sys_path, 16, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->sys_path, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->modes, 20, validation_context)) {
+          object->modes, 17, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& modes_validate_params =
@@ -120,7 +157,7 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->edid, 22, validation_context)) {
+          object->edid, 19, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& edid_validate_params =
@@ -131,7 +168,7 @@ bool DisplaySnapshot_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->maximum_cursor_size, 29, validation_context)) {
+          object->maximum_cursor_size, 26, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->maximum_cursor_size, validation_context))
@@ -143,7 +180,7 @@ bool DisplaySnapshot_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->drm_formats_and_modifiers, 32, validation_context)) {
+          object->drm_formats_and_modifiers, 29, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& drm_formats_and_modifiers_validate_params =

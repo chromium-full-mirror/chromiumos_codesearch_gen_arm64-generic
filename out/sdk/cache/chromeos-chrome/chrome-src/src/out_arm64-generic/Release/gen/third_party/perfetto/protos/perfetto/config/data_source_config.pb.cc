@@ -48,6 +48,8 @@ PROTOBUF_CONSTEXPR DataSourceConfig::DataSourceConfig(
   , surfaceflinger_transactions_config_(nullptr)
   , android_sdk_sysprop_guard_config_(nullptr)
   , etw_config_(nullptr)
+  , protolog_config_(nullptr)
+  , v8_config_(nullptr)
   , for_testing_(nullptr)
   , target_buffer_(0u)
   , trace_duration_ms_(0u)
@@ -138,25 +140,25 @@ class DataSourceConfig::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_target_buffer(HasBits* has_bits) {
-    (*has_bits)[0] |= 268435456u;
+    (*has_bits)[0] |= 1073741824u;
   }
   static void set_has_trace_duration_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 536870912u;
-  }
-  static void set_has_prefer_suspend_clock_for_duration(HasBits* has_bits) {
-    (*has_bits)[1] |= 2u;
-  }
-  static void set_has_stop_timeout_ms(HasBits* has_bits) {
     (*has_bits)[0] |= 2147483648u;
   }
+  static void set_has_prefer_suspend_clock_for_duration(HasBits* has_bits) {
+    (*has_bits)[1] |= 8u;
+  }
+  static void set_has_stop_timeout_ms(HasBits* has_bits) {
+    (*has_bits)[1] |= 2u;
+  }
   static void set_has_enable_extra_guardrails(HasBits* has_bits) {
-    (*has_bits)[1] |= 4u;
+    (*has_bits)[1] |= 16u;
   }
   static void set_has_session_initiator(HasBits* has_bits) {
-    (*has_bits)[1] |= 1u;
+    (*has_bits)[1] |= 4u;
   }
   static void set_has_tracing_session_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 1073741824u;
+    (*has_bits)[1] |= 1u;
   }
   static const ::perfetto::protos::FtraceConfig& ftrace_config(const DataSourceConfig* msg);
   static void set_has_ftrace_config(HasBits* has_bits) {
@@ -234,6 +236,10 @@ class DataSourceConfig::_Internal {
   static void set_has_chrome_config(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
+  static const ::perfetto::protos::V8Config& v8_config(const DataSourceConfig* msg);
+  static void set_has_v8_config(HasBits* has_bits) {
+    (*has_bits)[0] |= 268435456u;
+  }
   static const ::perfetto::protos::InterceptorConfig& interceptor_config(const DataSourceConfig* msg);
   static void set_has_interceptor_config(HasBits* has_bits) {
     (*has_bits)[0] |= 131072u;
@@ -258,12 +264,16 @@ class DataSourceConfig::_Internal {
   static void set_has_etw_config(HasBits* has_bits) {
     (*has_bits)[0] |= 67108864u;
   }
+  static const ::perfetto::protos::ProtoLogConfig& protolog_config(const DataSourceConfig* msg);
+  static void set_has_protolog_config(HasBits* has_bits) {
+    (*has_bits)[0] |= 134217728u;
+  }
   static void set_has_legacy_config(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static const ::perfetto::protos::TestConfig& for_testing(const DataSourceConfig* msg);
   static void set_has_for_testing(HasBits* has_bits) {
-    (*has_bits)[0] |= 134217728u;
+    (*has_bits)[0] |= 536870912u;
   }
 };
 
@@ -343,6 +353,10 @@ const ::perfetto::protos::ChromeConfig&
 DataSourceConfig::_Internal::chrome_config(const DataSourceConfig* msg) {
   return *msg->chrome_config_;
 }
+const ::perfetto::protos::V8Config&
+DataSourceConfig::_Internal::v8_config(const DataSourceConfig* msg) {
+  return *msg->v8_config_;
+}
 const ::perfetto::protos::InterceptorConfig&
 DataSourceConfig::_Internal::interceptor_config(const DataSourceConfig* msg) {
   return *msg->interceptor_config_;
@@ -366,6 +380,10 @@ DataSourceConfig::_Internal::android_sdk_sysprop_guard_config(const DataSourceCo
 const ::perfetto::protos::EtwConfig&
 DataSourceConfig::_Internal::etw_config(const DataSourceConfig* msg) {
   return *msg->etw_config_;
+}
+const ::perfetto::protos::ProtoLogConfig&
+DataSourceConfig::_Internal::protolog_config(const DataSourceConfig* msg) {
+  return *msg->protolog_config_;
 }
 const ::perfetto::protos::TestConfig&
 DataSourceConfig::_Internal::for_testing(const DataSourceConfig* msg) {
@@ -447,6 +465,10 @@ void DataSourceConfig::clear_chrome_config() {
   if (chrome_config_ != nullptr) chrome_config_->Clear();
   _has_bits_[0] &= ~0x00000008u;
 }
+void DataSourceConfig::clear_v8_config() {
+  if (v8_config_ != nullptr) v8_config_->Clear();
+  _has_bits_[0] &= ~0x10000000u;
+}
 void DataSourceConfig::clear_interceptor_config() {
   if (interceptor_config_ != nullptr) interceptor_config_->Clear();
   _has_bits_[0] &= ~0x00020000u;
@@ -471,9 +493,13 @@ void DataSourceConfig::clear_etw_config() {
   if (etw_config_ != nullptr) etw_config_->Clear();
   _has_bits_[0] &= ~0x04000000u;
 }
+void DataSourceConfig::clear_protolog_config() {
+  if (protolog_config_ != nullptr) protolog_config_->Clear();
+  _has_bits_[0] &= ~0x08000000u;
+}
 void DataSourceConfig::clear_for_testing() {
   if (for_testing_ != nullptr) for_testing_->Clear();
-  _has_bits_[0] &= ~0x08000000u;
+  _has_bits_[0] &= ~0x20000000u;
 }
 DataSourceConfig::DataSourceConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -626,6 +652,16 @@ DataSourceConfig::DataSourceConfig(const DataSourceConfig& from)
   } else {
     etw_config_ = nullptr;
   }
+  if (from._internal_has_protolog_config()) {
+    protolog_config_ = new ::perfetto::protos::ProtoLogConfig(*from.protolog_config_);
+  } else {
+    protolog_config_ = nullptr;
+  }
+  if (from._internal_has_v8_config()) {
+    v8_config_ = new ::perfetto::protos::V8Config(*from.v8_config_);
+  } else {
+    v8_config_ = nullptr;
+  }
   if (from._internal_has_for_testing()) {
     for_testing_ = new ::perfetto::protos::TestConfig(*from.for_testing_);
   } else {
@@ -690,6 +726,8 @@ inline void DataSourceConfig::SharedDtor() {
   if (this != internal_default_instance()) delete surfaceflinger_transactions_config_;
   if (this != internal_default_instance()) delete android_sdk_sysprop_guard_config_;
   if (this != internal_default_instance()) delete etw_config_;
+  if (this != internal_default_instance()) delete protolog_config_;
+  if (this != internal_default_instance()) delete v8_config_;
   if (this != internal_default_instance()) delete for_testing_;
 }
 
@@ -804,7 +842,7 @@ void DataSourceConfig::Clear() {
       surfaceflinger_layers_config_->Clear();
     }
   }
-  if (cached_has_bits & 0x0f000000u) {
+  if (cached_has_bits & 0x3f000000u) {
     if (cached_has_bits & 0x01000000u) {
       GOOGLE_DCHECK(surfaceflinger_transactions_config_ != nullptr);
       surfaceflinger_transactions_config_->Clear();
@@ -818,20 +856,28 @@ void DataSourceConfig::Clear() {
       etw_config_->Clear();
     }
     if (cached_has_bits & 0x08000000u) {
+      GOOGLE_DCHECK(protolog_config_ != nullptr);
+      protolog_config_->Clear();
+    }
+    if (cached_has_bits & 0x10000000u) {
+      GOOGLE_DCHECK(v8_config_ != nullptr);
+      v8_config_->Clear();
+    }
+    if (cached_has_bits & 0x20000000u) {
       GOOGLE_DCHECK(for_testing_ != nullptr);
       for_testing_->Clear();
     }
   }
-  if (cached_has_bits & 0xf0000000u) {
+  if (cached_has_bits & 0xc0000000u) {
     ::memset(&target_buffer_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&stop_timeout_ms_) -
-        reinterpret_cast<char*>(&target_buffer_)) + sizeof(stop_timeout_ms_));
+        reinterpret_cast<char*>(&trace_duration_ms_) -
+        reinterpret_cast<char*>(&target_buffer_)) + sizeof(trace_duration_ms_));
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x00000007u) {
-    ::memset(&session_initiator_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x0000001fu) {
+    ::memset(&tracing_session_id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&enable_extra_guardrails_) -
-        reinterpret_cast<char*>(&session_initiator_)) + sizeof(enable_extra_guardrails_));
+        reinterpret_cast<char*>(&tracing_session_id_)) + sizeof(enable_extra_guardrails_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1119,6 +1165,22 @@ const char* DataSourceConfig::_InternalParse(const char* ptr, ::_pbi::ParseConte
         } else
           goto handle_unusual;
         continue;
+      // optional .perfetto.protos.ProtoLogConfig protolog_config = 126 [lazy = true];
+      case 126:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 242)) {
+          ptr = ctx->ParseMessage(_internal_mutable_protolog_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .perfetto.protos.V8Config v8_config = 127 [lazy = true];
+      case 127:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 250)) {
+          ptr = ctx->ParseMessage(_internal_mutable_v8_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       // optional string legacy_config = 1000;
       case 1000:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
@@ -1173,40 +1235,38 @@ uint8_t* DataSourceConfig::_InternalSerialize(
   }
 
   // optional uint32 target_buffer = 2;
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x40000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_target_buffer(), target);
   }
 
   // optional uint32 trace_duration_ms = 3;
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x80000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_trace_duration_ms(), target);
   }
 
+  cached_has_bits = _has_bits_[1];
   // optional uint64 tracing_session_id = 4;
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_tracing_session_id(), target);
   }
 
-  cached_has_bits = _has_bits_[1];
   // optional bool enable_extra_guardrails = 6;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_enable_extra_guardrails(), target);
   }
 
-  cached_has_bits = _has_bits_[0];
   // optional uint32 stop_timeout_ms = 7;
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_stop_timeout_ms(), target);
   }
 
-  cached_has_bits = _has_bits_[1];
   // optional .perfetto.protos.DataSourceConfig.SessionInitiator session_initiator = 8;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       8, this->_internal_session_initiator(), target);
@@ -1369,7 +1429,7 @@ uint8_t* DataSourceConfig::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional bool prefer_suspend_clock_for_duration = 122;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(122, this->_internal_prefer_suspend_clock_for_duration(), target);
   }
@@ -1396,6 +1456,20 @@ uint8_t* DataSourceConfig::_InternalSerialize(
         _Internal::etw_config(this).GetCachedSize(), target, stream);
   }
 
+  // optional .perfetto.protos.ProtoLogConfig protolog_config = 126 [lazy = true];
+  if (cached_has_bits & 0x08000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(126, _Internal::protolog_config(this),
+        _Internal::protolog_config(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .perfetto.protos.V8Config v8_config = 127 [lazy = true];
+  if (cached_has_bits & 0x10000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(127, _Internal::v8_config(this),
+        _Internal::v8_config(this).GetCachedSize(), target, stream);
+  }
+
   // optional string legacy_config = 1000;
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
@@ -1403,7 +1477,7 @@ uint8_t* DataSourceConfig::_InternalSerialize(
   }
 
   // optional .perfetto.protos.TestConfig for_testing = 1001;
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x20000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1001, _Internal::for_testing(this),
         _Internal::for_testing(this).GetCachedSize(), target, stream);
@@ -1622,49 +1696,63 @@ size_t DataSourceConfig::ByteSizeLong() const {
           *etw_config_);
     }
 
-    // optional .perfetto.protos.TestConfig for_testing = 1001;
+    // optional .perfetto.protos.ProtoLogConfig protolog_config = 126 [lazy = true];
     if (cached_has_bits & 0x08000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *protolog_config_);
+    }
+
+    // optional .perfetto.protos.V8Config v8_config = 127 [lazy = true];
+    if (cached_has_bits & 0x10000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *v8_config_);
+    }
+
+    // optional .perfetto.protos.TestConfig for_testing = 1001;
+    if (cached_has_bits & 0x20000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *for_testing_);
     }
 
     // optional uint32 target_buffer = 2;
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x40000000u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_target_buffer());
     }
 
     // optional uint32 trace_duration_ms = 3;
-    if (cached_has_bits & 0x20000000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_trace_duration_ms());
-    }
-
-    // optional uint64 tracing_session_id = 4;
-    if (cached_has_bits & 0x40000000u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tracing_session_id());
-    }
-
-    // optional uint32 stop_timeout_ms = 7;
     if (cached_has_bits & 0x80000000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_stop_timeout_ms());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_trace_duration_ms());
     }
 
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x00000007u) {
-    // optional .perfetto.protos.DataSourceConfig.SessionInitiator session_initiator = 8;
+  if (cached_has_bits & 0x0000001fu) {
+    // optional uint64 tracing_session_id = 4;
     if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tracing_session_id());
+    }
+
+    // optional uint32 stop_timeout_ms = 7;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_stop_timeout_ms());
+    }
+
+    // optional .perfetto.protos.DataSourceConfig.SessionInitiator session_initiator = 8;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_session_initiator());
     }
 
     // optional bool prefer_suspend_clock_for_duration = 122;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 + 1;
     }
 
     // optional bool enable_extra_guardrails = 6;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 + 1;
     }
 
@@ -1779,31 +1867,37 @@ void DataSourceConfig::MergeFrom(const DataSourceConfig& from) {
       _internal_mutable_etw_config()->::perfetto::protos::EtwConfig::MergeFrom(from._internal_etw_config());
     }
     if (cached_has_bits & 0x08000000u) {
-      _internal_mutable_for_testing()->::perfetto::protos::TestConfig::MergeFrom(from._internal_for_testing());
+      _internal_mutable_protolog_config()->::perfetto::protos::ProtoLogConfig::MergeFrom(from._internal_protolog_config());
     }
     if (cached_has_bits & 0x10000000u) {
-      target_buffer_ = from.target_buffer_;
+      _internal_mutable_v8_config()->::perfetto::protos::V8Config::MergeFrom(from._internal_v8_config());
     }
     if (cached_has_bits & 0x20000000u) {
-      trace_duration_ms_ = from.trace_duration_ms_;
+      _internal_mutable_for_testing()->::perfetto::protos::TestConfig::MergeFrom(from._internal_for_testing());
     }
     if (cached_has_bits & 0x40000000u) {
-      tracing_session_id_ = from.tracing_session_id_;
+      target_buffer_ = from.target_buffer_;
     }
     if (cached_has_bits & 0x80000000u) {
-      stop_timeout_ms_ = from.stop_timeout_ms_;
+      trace_duration_ms_ = from.trace_duration_ms_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   cached_has_bits = from._has_bits_[1];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      session_initiator_ = from.session_initiator_;
+      tracing_session_id_ = from.tracing_session_id_;
     }
     if (cached_has_bits & 0x00000002u) {
-      prefer_suspend_clock_for_duration_ = from.prefer_suspend_clock_for_duration_;
+      stop_timeout_ms_ = from.stop_timeout_ms_;
     }
     if (cached_has_bits & 0x00000004u) {
+      session_initiator_ = from.session_initiator_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      prefer_suspend_clock_for_duration_ = from.prefer_suspend_clock_for_duration_;
+    }
+    if (cached_has_bits & 0x00000010u) {
       enable_extra_guardrails_ = from.enable_extra_guardrails_;
     }
     _has_bits_[1] |= cached_has_bits;

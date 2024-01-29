@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 const { assert } = chai;
 import * as SDK from '../../../../../../../front_end/core/sdk/sdk.js';
+import * as Common from '../../../../../../../front_end/core/common/common.js';
 import * as ObjectUI from '../../../../../../../front_end/ui/legacy/components/object_ui/object_ui.js';
 import * as UI from '../../../../../../../front_end/ui/legacy/legacy.js';
 import { assertNotNullOrUndefined } from '../../../../../../../front_end/core/platform/platform.js';
@@ -10,7 +11,6 @@ import { dispatchClickEvent } from '../../../../helpers/DOMHelpers.js';
 import { describeWithEnvironment } from '../../../../helpers/EnvironmentHelpers.js';
 import { someMutations } from '../../../../helpers/MutationHelpers.js';
 import { describeWithRealConnection, getExecutionContext } from '../../../../helpers/RealConnection.js';
-import { TestRevealer } from '../../../../helpers/RevealerHelpers.js';
 describe('ObjectPropertiesSection', () => {
     describeWithRealConnection('ObjectPropertiesSection', () => {
         async function evaluateAndGetProperties(code, accessorPropertiesOnly = false, generatePreview = false) {
@@ -161,15 +161,9 @@ describe('ObjectPropertiesSection', () => {
                 ObjectUI.ObjectPropertiesSection.ObjectPropertiesSection.appendMemoryIcon(div, object, expression);
                 const icon = div.querySelector('devtools-icon');
                 assertNotNullOrUndefined(icon);
-                const reveal = sinon.spy();
-                TestRevealer.install(reveal);
-                try {
-                    dispatchClickEvent(icon);
-                    sinon.assert.calledOnceWithMatch(reveal, sinon.match({ object, expression }));
-                }
-                finally {
-                    TestRevealer.reset();
-                }
+                const reveal = sinon.stub(Common.Revealer.RevealerRegistry.prototype, 'reveal');
+                dispatchClickEvent(icon);
+                sinon.assert.calledOnceWithMatch(reveal, sinon.match({ object, expression }), false);
             });
         });
     });

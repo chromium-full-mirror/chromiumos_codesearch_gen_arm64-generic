@@ -238,6 +238,8 @@ bool DeviceListHostStubDispatch::Accept(
           reinterpret_cast<internal::DeviceListHost_SelectDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceListHost.0
       bool success = true;
       std::string p_device_id{};
       DeviceListHost_SelectDevice_ParamsDataView input_data_view(params, message);
@@ -253,8 +255,8 @@ bool DeviceListHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectDevice(
-std::move(p_device_id));
+      impl->SelectDevice(        
+        std::move(p_device_id));
       return true;
     }
   }
@@ -413,6 +415,8 @@ bool DeviceListClientStubDispatch::Accept(
           reinterpret_cast<internal::DeviceListClient_OnDevicesUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceListClient.0
       bool success = true;
       std::vector<DevicePtr> p_devices{};
       DeviceListClient_OnDevicesUpdated_ParamsDataView input_data_view(params, message);
@@ -428,8 +432,8 @@ bool DeviceListClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicesUpdated(
-std::move(p_devices));
+      impl->OnDevicesUpdated(        
+        std::move(p_devices));
       return true;
     }
   }
@@ -745,6 +749,8 @@ bool DeviceServiceStubDispatch::Accept(
           reinterpret_cast<internal::DeviceService_GetDeviceListHostForSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.0
       bool success = true;
       std::string p_session_id{};
       ::mojo::PendingReceiver<DeviceListHost> p_host_receiver{};
@@ -770,10 +776,10 @@ bool DeviceServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeviceListHostForSession(
-std::move(p_session_id), 
-std::move(p_host_receiver), 
-std::move(p_client_remote));
+      impl->GetDeviceListHostForSession(        
+        std::move(p_session_id), 
+        std::move(p_host_receiver), 
+        std::move(p_client_remote));
       return true;
     }
     case internal::kDeviceService_GetDeviceListHostForPresentation_Name: {
@@ -783,6 +789,8 @@ std::move(p_client_remote));
           reinterpret_cast<internal::DeviceService_GetDeviceListHostForPresentation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.1
       bool success = true;
       ::mojo::PendingReceiver<DeviceListHost> p_host_receiver{};
       ::mojo::PendingRemote<DeviceListClient> p_client_remote{};
@@ -805,9 +813,9 @@ std::move(p_client_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeviceListHostForPresentation(
-std::move(p_host_receiver), 
-std::move(p_client_remote));
+      impl->GetDeviceListHostForPresentation(        
+        std::move(p_host_receiver), 
+        std::move(p_client_remote));
       return true;
     }
     case internal::kDeviceService_SetDevicePickerProvider_Name: {
@@ -817,6 +825,8 @@ std::move(p_client_remote));
           reinterpret_cast<internal::DeviceService_SetDevicePickerProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceService.2
       bool success = true;
       ::mojo::PendingRemote<DevicePickerProvider> p_provider_remote{};
       DeviceService_SetDevicePickerProvider_ParamsDataView input_data_view(params, message);
@@ -834,8 +844,8 @@ std::move(p_client_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDevicePickerProvider(
-std::move(p_provider_remote));
+      impl->SetDevicePickerProvider(        
+        std::move(p_provider_remote));
       return true;
     }
   }
@@ -1485,6 +1495,8 @@ bool DevicePickerProviderStubDispatch::Accept(
           reinterpret_cast<internal::DevicePickerProvider_CreateItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.0
       bool success = true;
       ::base::UnguessableToken p_source_id{};
       DevicePickerProvider_CreateItem_ParamsDataView input_data_view(params, message);
@@ -1500,8 +1512,8 @@ bool DevicePickerProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateItem(
-std::move(p_source_id));
+      impl->CreateItem(        
+        std::move(p_source_id));
       return true;
     }
     case internal::kDevicePickerProvider_DeleteItem_Name: {
@@ -1511,6 +1523,8 @@ std::move(p_source_id));
           reinterpret_cast<internal::DevicePickerProvider_DeleteItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.1
       bool success = true;
       DevicePickerProvider_DeleteItem_ParamsDataView input_data_view(params, message);
       
@@ -1523,7 +1537,7 @@ std::move(p_source_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteItem();
+      impl->DeleteItem(        );
       return true;
     }
     case internal::kDevicePickerProvider_ShowItem_Name: {
@@ -1533,6 +1547,8 @@ std::move(p_source_id));
           reinterpret_cast<internal::DevicePickerProvider_ShowItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.2
       bool success = true;
       DevicePickerProvider_ShowItem_ParamsDataView input_data_view(params, message);
       
@@ -1545,7 +1561,7 @@ std::move(p_source_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowItem();
+      impl->ShowItem(        );
       return true;
     }
     case internal::kDevicePickerProvider_HideItem_Name: {
@@ -1555,6 +1571,8 @@ std::move(p_source_id));
           reinterpret_cast<internal::DevicePickerProvider_HideItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.3
       bool success = true;
       DevicePickerProvider_HideItem_ParamsDataView input_data_view(params, message);
       
@@ -1567,7 +1585,7 @@ std::move(p_source_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideItem();
+      impl->HideItem(        );
       return true;
     }
     case internal::kDevicePickerProvider_OnMetadataChanged_Name: {
@@ -1577,6 +1595,8 @@ std::move(p_source_id));
           reinterpret_cast<internal::DevicePickerProvider_OnMetadataChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.4
       bool success = true;
       ::media_session::MediaMetadata p_metadata{};
       DevicePickerProvider_OnMetadataChanged_ParamsDataView input_data_view(params, message);
@@ -1592,8 +1612,8 @@ std::move(p_source_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMetadataChanged(
-std::move(p_metadata));
+      impl->OnMetadataChanged(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kDevicePickerProvider_OnArtworkImageChanged_Name: {
@@ -1603,6 +1623,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::DevicePickerProvider_OnArtworkImageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.5
       bool success = true;
       ::gfx::ImageSkia p_artwork_image{};
       DevicePickerProvider_OnArtworkImageChanged_ParamsDataView input_data_view(params, message);
@@ -1618,8 +1640,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnArtworkImageChanged(
-std::move(p_artwork_image));
+      impl->OnArtworkImageChanged(        
+        std::move(p_artwork_image));
       return true;
     }
     case internal::kDevicePickerProvider_OnFaviconImageChanged_Name: {
@@ -1629,6 +1651,8 @@ std::move(p_artwork_image));
           reinterpret_cast<internal::DevicePickerProvider_OnFaviconImageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.6
       bool success = true;
       ::gfx::ImageSkia p_favicon_image{};
       DevicePickerProvider_OnFaviconImageChanged_ParamsDataView input_data_view(params, message);
@@ -1644,8 +1668,8 @@ std::move(p_artwork_image));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFaviconImageChanged(
-std::move(p_favicon_image));
+      impl->OnFaviconImageChanged(        
+        std::move(p_favicon_image));
       return true;
     }
     case internal::kDevicePickerProvider_AddObserver_Name: {
@@ -1655,6 +1679,8 @@ std::move(p_favicon_image));
           reinterpret_cast<internal::DevicePickerProvider_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.7
       bool success = true;
       ::mojo::PendingRemote<DevicePickerObserver> p_observer{};
       DevicePickerProvider_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1672,8 +1698,8 @@ std::move(p_favicon_image));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDevicePickerProvider_HideMediaUI_Name: {
@@ -1683,6 +1709,8 @@ std::move(p_observer));
           reinterpret_cast<internal::DevicePickerProvider_HideMediaUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerProvider.8
       bool success = true;
       DevicePickerProvider_HideMediaUI_ParamsDataView input_data_view(params, message);
       
@@ -1695,7 +1723,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideMediaUI();
+      impl->HideMediaUI(        );
       return true;
     }
   }
@@ -2033,6 +2061,8 @@ bool DevicePickerObserverStubDispatch::Accept(
           reinterpret_cast<internal::DevicePickerObserver_OnMediaUIOpened_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerObserver.0
       bool success = true;
       DevicePickerObserver_OnMediaUIOpened_ParamsDataView input_data_view(params, message);
       
@@ -2045,7 +2075,7 @@ bool DevicePickerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaUIOpened();
+      impl->OnMediaUIOpened(        );
       return true;
     }
     case internal::kDevicePickerObserver_OnMediaUIClosed_Name: {
@@ -2055,6 +2085,8 @@ bool DevicePickerObserverStubDispatch::Accept(
           reinterpret_cast<internal::DevicePickerObserver_OnMediaUIClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerObserver.1
       bool success = true;
       DevicePickerObserver_OnMediaUIClosed_ParamsDataView input_data_view(params, message);
       
@@ -2067,7 +2099,7 @@ bool DevicePickerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaUIClosed();
+      impl->OnMediaUIClosed(        );
       return true;
     }
     case internal::kDevicePickerObserver_OnMediaUIUpdated_Name: {
@@ -2077,6 +2109,8 @@ bool DevicePickerObserverStubDispatch::Accept(
           reinterpret_cast<internal::DevicePickerObserver_OnMediaUIUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerObserver.2
       bool success = true;
       DevicePickerObserver_OnMediaUIUpdated_ParamsDataView input_data_view(params, message);
       
@@ -2089,7 +2123,7 @@ bool DevicePickerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMediaUIUpdated();
+      impl->OnMediaUIUpdated(        );
       return true;
     }
     case internal::kDevicePickerObserver_OnPickerDismissed_Name: {
@@ -2099,6 +2133,8 @@ bool DevicePickerObserverStubDispatch::Accept(
           reinterpret_cast<internal::DevicePickerObserver_OnPickerDismissed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePickerObserver.3
       bool success = true;
       DevicePickerObserver_OnPickerDismissed_ParamsDataView input_data_view(params, message);
       
@@ -2111,7 +2147,7 @@ bool DevicePickerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPickerDismissed();
+      impl->OnPickerDismissed(        );
       return true;
     }
   }

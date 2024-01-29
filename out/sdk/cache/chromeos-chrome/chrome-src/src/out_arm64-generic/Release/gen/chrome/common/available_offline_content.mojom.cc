@@ -541,6 +541,8 @@ bool AvailableOfflineContentProvider_List_ForwardToCallback::Accept(
           internal::AvailableOfflineContentProvider_List_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AvailableOfflineContentProvider.0
   bool success = true;
   bool p_list_visible_by_prefs{};
   std::vector<AvailableOfflineContentPtr> p_out{};
@@ -638,6 +640,8 @@ bool AvailableOfflineContentProviderStubDispatch::Accept(
           reinterpret_cast<internal::AvailableOfflineContentProvider_LaunchItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AvailableOfflineContentProvider.1
       bool success = true;
       std::string p_item_id{};
       std::string p_name_space{};
@@ -656,9 +660,9 @@ bool AvailableOfflineContentProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchItem(
-std::move(p_item_id), 
-std::move(p_name_space));
+      impl->LaunchItem(        
+        std::move(p_item_id), 
+        std::move(p_name_space));
       return true;
     }
     case internal::kAvailableOfflineContentProvider_LaunchDownloadsPage_Name: {
@@ -668,6 +672,8 @@ std::move(p_name_space));
           reinterpret_cast<internal::AvailableOfflineContentProvider_LaunchDownloadsPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AvailableOfflineContentProvider.2
       bool success = true;
       bool p_open_prefetched_articles_tab{};
       AvailableOfflineContentProvider_LaunchDownloadsPage_ParamsDataView input_data_view(params, message);
@@ -683,8 +689,8 @@ std::move(p_name_space));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchDownloadsPage(
-std::move(p_open_prefetched_articles_tab));
+      impl->LaunchDownloadsPage(        
+        std::move(p_open_prefetched_articles_tab));
       return true;
     }
     case internal::kAvailableOfflineContentProvider_ListVisibilityChanged_Name: {
@@ -694,6 +700,8 @@ std::move(p_open_prefetched_articles_tab));
           reinterpret_cast<internal::AvailableOfflineContentProvider_ListVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AvailableOfflineContentProvider.3
       bool success = true;
       bool p_is_visible{};
       AvailableOfflineContentProvider_ListVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -709,8 +717,8 @@ std::move(p_open_prefetched_articles_tab));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListVisibilityChanged(
-std::move(p_is_visible));
+      impl->ListVisibilityChanged(        
+        std::move(p_is_visible));
       return true;
     }
   }
@@ -733,6 +741,8 @@ bool AvailableOfflineContentProviderStubDispatch::AcceptWithResponder(
               internal::AvailableOfflineContentProvider_List_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AvailableOfflineContentProvider.0
       bool success = true;
       AvailableOfflineContentProvider_List_ParamsDataView input_data_view(params, message);
       

@@ -7,7 +7,7 @@ import { FakeEntryImpl, GuestOsPlaceholder, VolumeEntry } from '../../common/js/
 import { MockFileSystem } from '../../common/js/mock_entry.js';
 import { waitUntil } from '../../common/js/test_error_reporting.js';
 import { RootType, VolumeType } from '../../common/js/volume_manager_types.js';
-import { FileData, State } from '../../externs/ts/state.js';
+import {} from '../../state/state.js';
 import { convertEntryToFileData, readSubDirectories } from '../ducks/all_entries.js';
 import { createFakeVolumeMetadata, setUpFileManagerOnWindow, setupStore, waitDeepEquals } from '../for_tests.js';
 import { getEmptyState, getEntry } from '../store.js';

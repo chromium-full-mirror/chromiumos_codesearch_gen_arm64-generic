@@ -397,6 +397,7 @@ CRDTP_END_SERIALIZER();
 CRDTP_BEGIN_DESERIALIZER(Response)
     CRDTP_DESERIALIZE_FIELD_OPT("alternateProtocolUsage", m_alternateProtocolUsage),
     CRDTP_DESERIALIZE_FIELD_OPT("cacheStorageCacheName", m_cacheStorageCacheName),
+    CRDTP_DESERIALIZE_FIELD("charset", m_charset),
     CRDTP_DESERIALIZE_FIELD("connectionId", m_connectionId),
     CRDTP_DESERIALIZE_FIELD("connectionReused", m_connectionReused),
     CRDTP_DESERIALIZE_FIELD("encodedDataLength", m_encodedDataLength),
@@ -429,6 +430,7 @@ CRDTP_BEGIN_SERIALIZER(Response)
     CRDTP_SERIALIZE_FIELD("headers", m_headers);
     CRDTP_SERIALIZE_FIELD("headersText", m_headersText);
     CRDTP_SERIALIZE_FIELD("mimeType", m_mimeType);
+    CRDTP_SERIALIZE_FIELD("charset", m_charset);
     CRDTP_SERIALIZE_FIELD("requestHeaders", m_requestHeaders);
     CRDTP_SERIALIZE_FIELD("requestHeadersText", m_requestHeadersText);
     CRDTP_SERIALIZE_FIELD("connectionReused", m_connectionReused);

@@ -7,6 +7,7 @@ import './shared_style.css.js';
 import './prefs/pref_toggle_button.js';
 import './user_utils_mixin.js';
 import '/shared/settings/controls/extension_controlled_indicator.js';
+import './dialogs/move_passwords_dialog.js';
 import { HelpBubbleMixin } from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
@@ -14,7 +15,9 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
+import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { MoveToAccountStoreTrigger } from './dialogs/move_passwords_dialog.js';
 import { PasswordManagerImpl } from './password_manager_proxy.js';
 import { RouteObserverMixin, Router, UrlParam } from './router.js';
 import { getTemplate } from './settings_section.html.js';
@@ -26,6 +29,7 @@ const SettingsSectionElementBase = HelpBubbleMixin(RouteObserverMixin(PrefsMixin
 export class SettingsSectionElement extends SettingsSectionElementBase {
     constructor() {
         super(...arguments);
+        this.passwordsOnDevice_ = [];
         this.setBlockedSitesListListener_ = null;
         this.setCredentialsChangedListener_ = null;
     }
@@ -75,6 +79,10 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
                     return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
                 },
             },
+            showMovePasswordsDialog_: Boolean,
+            passwordsOnDevice_: {
+                type: Array,
+            },
         };
     }
     ready() {
@@ -83,6 +91,7 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
     }
     connectedCallback() {
         super.connectedCallback();
+        this.updatePasswordsOnDevice_();
         this.setBlockedSitesListListener_ = blockedSites => {
             this.blockedSites_ = blockedSites;
         };
@@ -91,6 +100,7 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
         this.setCredentialsChangedListener_ =
             (passwords) => {
                 this.hasPasswordsToExport_ = passwords.length > 0;
+                this.updatePasswordsOnDevice_();
             };
         PasswordManagerImpl.getInstance().getSavedPasswordList().then(this.setCredentialsChangedListener_);
         PasswordManagerImpl.getInstance().addSavedPasswordListChangedListener(this.setCredentialsChangedListener_);
@@ -203,6 +213,34 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
         const pref = this.getPref('credentials_enable_service');
         return pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED &&
             !pref.value;
+    }
+    onMovePasswordsClicked_(e) {
+        e.preventDefault();
+        this.showMovePasswordsDialog_ = true;
+    }
+    onMovePasswordsDialogClose_() {
+        this.showMovePasswordsDialog_ = false;
+    }
+    getMovePasswordsDialogTrigger_() {
+        return MoveToAccountStoreTrigger
+            .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS;
+    }
+    shouldShowMovePasswordsEntry_() {
+        return this.enableButterOnDesktopFollowup_ && this.isAccountStoreUser &&
+            this.passwordsOnDevice_.length > 0;
+    }
+    async updatePasswordsOnDevice_() {
+        const groups = await PasswordManagerImpl.getInstance().getCredentialGroups();
+        const localStorage = [
+            chrome.passwordsPrivate.PasswordStoreSet.DEVICE_AND_ACCOUNT,
+            chrome.passwordsPrivate.PasswordStoreSet.DEVICE,
+        ];
+        this.passwordsOnDevice_ =
+            groups.map(group => group.entries)
+                .flat()
+                .filter(entry => localStorage.includes(entry.storedIn));
+        this.movePasswordsLabel_ =
+            await PluralStringProxyImpl.getInstance().getPluralString('deviceOnlyPasswordsIconTooltip', this.passwordsOnDevice_.length);
     }
 }
 customElements.define(SettingsSectionElement.is, SettingsSectionElement);

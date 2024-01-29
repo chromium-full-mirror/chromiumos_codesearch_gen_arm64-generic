@@ -510,6 +510,8 @@ bool AuctionWorkletServiceStubDispatch::Accept(
           reinterpret_cast<internal::AuctionWorkletService_LoadBidderWorklet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionWorkletService.0
       bool success = true;
       ::mojo::PendingReceiver<::auction_worklet::mojom::BidderWorklet> p_bidder_worklet{};
       ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> p_shared_storage_host{};
@@ -569,20 +571,20 @@ bool AuctionWorkletServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadBidderWorklet(
-std::move(p_bidder_worklet), 
-std::move(p_shared_storage_host), 
-std::move(p_pause_for_debugger_on_start), 
-std::move(p_url_loader_factory), 
-std::move(p_auction_network_events_handler), 
-std::move(p_script_source_url), 
-std::move(p_wasm_helper_url), 
-std::move(p_trusted_bidding_signals_url), 
-std::move(p_trusted_bidding_signals_slot_size_param), 
-std::move(p_top_window_origin), 
-std::move(p_permissions_policy_state), 
-std::move(p_has_experiment_group_id), 
-std::move(p_experiment_group_id));
+      impl->LoadBidderWorklet(        
+        std::move(p_bidder_worklet), 
+        std::move(p_shared_storage_host), 
+        std::move(p_pause_for_debugger_on_start), 
+        std::move(p_url_loader_factory), 
+        std::move(p_auction_network_events_handler), 
+        std::move(p_script_source_url), 
+        std::move(p_wasm_helper_url), 
+        std::move(p_trusted_bidding_signals_url), 
+        std::move(p_trusted_bidding_signals_slot_size_param), 
+        std::move(p_top_window_origin), 
+        std::move(p_permissions_policy_state), 
+        std::move(p_has_experiment_group_id), 
+        std::move(p_experiment_group_id));
       return true;
     }
     case internal::kAuctionWorkletService_LoadSellerWorklet_Name: {
@@ -592,6 +594,8 @@ std::move(p_experiment_group_id));
           reinterpret_cast<internal::AuctionWorkletService_LoadSellerWorklet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionWorkletService.1
       bool success = true;
       ::mojo::PendingReceiver<::auction_worklet::mojom::SellerWorklet> p_seller_worklet{};
       ::mojo::PendingRemote<::auction_worklet::mojom::AuctionSharedStorageHost> p_shared_storage_host{};
@@ -645,18 +649,18 @@ std::move(p_experiment_group_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadSellerWorklet(
-std::move(p_seller_worklet), 
-std::move(p_shared_storage_host), 
-std::move(p_pause_for_debugger_on_start), 
-std::move(p_url_loader_factory), 
-std::move(p_auction_network_events_handler), 
-std::move(p_script_source_url), 
-std::move(p_trusted_scoring_signals_url), 
-std::move(p_top_window_origin), 
-std::move(p_permissions_policy_state), 
-std::move(p_has_experiment_group_id), 
-std::move(p_experiment_group_id));
+      impl->LoadSellerWorklet(        
+        std::move(p_seller_worklet), 
+        std::move(p_shared_storage_host), 
+        std::move(p_pause_for_debugger_on_start), 
+        std::move(p_url_loader_factory), 
+        std::move(p_auction_network_events_handler), 
+        std::move(p_script_source_url), 
+        std::move(p_trusted_scoring_signals_url), 
+        std::move(p_top_window_origin), 
+        std::move(p_permissions_policy_state), 
+        std::move(p_has_experiment_group_id), 
+        std::move(p_experiment_group_id));
       return true;
     }
   }

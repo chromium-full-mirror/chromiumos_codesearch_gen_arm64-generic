@@ -260,6 +260,8 @@ bool PaymentCredential_StorePaymentCredential_ForwardToCallback::Accept(
           internal::PaymentCredential_StorePaymentCredential_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentCredential.0
   bool success = true;
   PaymentCredentialStorageStatus p_status{};
   PaymentCredential_StorePaymentCredential_ResponseParamsDataView input_data_view(params, message);
@@ -351,6 +353,8 @@ bool PaymentCredentialStubDispatch::AcceptWithResponder(
               internal::PaymentCredential_StorePaymentCredential_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentCredential.0
       bool success = true;
       std::vector<uint8_t> p_credential_id{};
       std::string p_rp_id{};
@@ -375,10 +379,10 @@ bool PaymentCredentialStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StorePaymentCredential(
-std::move(p_credential_id), 
-std::move(p_rp_id), 
-std::move(p_user_id), std::move(callback));
+      impl->StorePaymentCredential(        
+        std::move(p_credential_id), 
+        std::move(p_rp_id), 
+        std::move(p_user_id), std::move(callback));
       return true;
     }
   }

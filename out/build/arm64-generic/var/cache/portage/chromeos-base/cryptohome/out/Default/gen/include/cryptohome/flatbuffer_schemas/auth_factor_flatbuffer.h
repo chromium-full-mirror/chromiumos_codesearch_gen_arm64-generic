@@ -113,9 +113,11 @@ struct ToFlatBuffer<::cryptohome::SerializedKnowledgeFactorHashInfo> {
         std::optional<::cryptohome::SerializedKnowledgeFactorHashAlgorithm>>()(
         builder, object.algorithm);
     auto salt = ToFlatBuffer<brillo::Blob>()(builder, object.salt);
+    auto should_generate_key_store = ToFlatBuffer<std::optional<bool>>()(
+        builder, object.should_generate_key_store);
 
     return ::cryptohome::_serialized_::CreateSerializedKnowledgeFactorHashInfo(
-        *builder, algorithm, salt);
+        *builder, algorithm, salt, should_generate_key_store);
   }
 };
 
@@ -136,6 +138,8 @@ struct FromFlatBuffer<::cryptohome::SerializedKnowledgeFactorHashInfo> {
             ::cryptohome::SerializedKnowledgeFactorHashAlgorithm>>()(
             object->algorithm()),
         .salt = FromFlatBuffer<brillo::Blob>()(object->salt()),
+        .should_generate_key_store = FromFlatBuffer<std::optional<bool>>()(
+            object->should_generate_key_store()),
     };
   }
 };

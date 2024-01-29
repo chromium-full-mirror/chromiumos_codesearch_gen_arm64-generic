@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
-        var(--cr-centered-card-width-percentage));--cr-card-border-radius:4px;--cr-card-shadow:var(--cr-elevation-1);--cr-toolbar-padding-top:8px}os-toolbar{min-height:56px;z-index:3}cr-drawer{--cr-separator-line:none;--cr-drawer-header-color:var(--cros-text-color-secondary);--cr-drawer-header-font-weight:500;--cr-drawer-header-padding:20px}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}:host-context(body.revamp-wayfinding-enabled) #container{padding-top:var(--settings-container-padding-top)}#left,#main,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left os-settings-menu{height:100%;overflow:auto;overscroll-behavior:contain}:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface3);border-start-end-radius:30px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled) #left os-settings-menu{background-color:var(--cros-sys-surface2)}}:host-context(body.revamp-wayfinding-enabled) #drawer{--cr-drawer-border-start-end-radius:12px;--cr-drawer-border-end-end-radius:12px;--cr-drawer-header-color:var(--cros-sys-primary);--cr-drawer-header-font:var(--cros-title-1-font);--cr-drawer-header-padding:22px;--cr-drawer-width:var(--settings-menu-width)}#main{flex-basis:var(--settings-main-basis)}@media (max-width:980px){#left,#right{display:none}#main{min-width:auto;padding:0 3px}}#drawerIcon{cursor:pointer;margin-inline-end:14px;margin-inline-start:0;outline:0}:host-context(body.revamp-wayfinding-enabled) #drawerIcon{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:6px}</style>
+        var(--cr-centered-card-width-percentage));--cr-card-border-radius:4px;--cr-card-shadow:var(--cr-elevation-1);--cr-toolbar-padding-top:8px}os-toolbar{min-height:56px;z-index:3}cr-drawer{--cr-separator-line:none;--cr-drawer-header-color:var(--cros-text-color-secondary);--cr-drawer-header-font-weight:500;--cr-drawer-header-padding:20px}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}:host-context(body.revamp-wayfinding-enabled) #container{padding-top:8px}#center,#left,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left os-settings-menu{height:100%;overflow:auto;overscroll-behavior:contain}:host-context(body.revamp-wayfinding-enabled) #drawer{--cr-drawer-border-start-end-radius:12px;--cr-drawer-border-end-end-radius:12px;--cr-drawer-header-color:var(--cros-sys-primary);--cr-drawer-header-font:var(--cros-title-1-font);--cr-drawer-header-padding:22px;--cr-drawer-width:var(--settings-menu-width)}#center{flex-basis:var(--settings-main-basis)}:host-context(body.revamp-wayfinding-enabled) #center{height:100%}:host-context(body.revamp-wayfinding-enabled) #center>os-settings-main{min-height:100%}@media (max-width:980px){#left,#right{display:none}#center{min-width:auto;padding:0 3px}}#drawerIcon{cursor:pointer;margin-inline-end:14px;margin-inline-start:0;outline:0}:host-context(body.revamp-wayfinding-enabled) #drawerIcon{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:6px}</style>
 <settings-prefs id="prefs" prefs="{{prefs}}"></settings-prefs>
 <iron-media-query query="(max-width: [[narrowThreshold_]]px)" query-matches="{{isNarrow}}">
 </iron-media-query>
@@ -24,6 +24,7 @@ export function getTemplate() {
     </div>
   </cr-drawer>
 </template>
+
 <div id="container" class="no-outline">
   <div id="left">
     <template is="dom-if" if="[[showNavMenu_]]">
@@ -31,8 +32,10 @@ export function getTemplate() {
       </os-settings-menu>
     </template>
   </div>
-  <os-settings-main id="main" prefs="{{prefs}}" toolbar-spinner-active="{{toolbarSpinnerActive_}}" page-availability="[[pageAvailability_]]" advanced-toggle-expanded="{{advancedOpenedInMain_}}">
-  </os-settings-main>
+  <div id="center">
+    <os-settings-main prefs="{{prefs}}" toolbar-spinner-active="{{toolbarSpinnerActive_}}" page-availability="[[pageAvailability_]]" advanced-toggle-expanded="{{advancedOpenedInMain_}}">
+    </os-settings-main>
+  </div>
   
   <div id="right"></div>
 </div>

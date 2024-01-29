@@ -147,7 +147,117 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var AsrSwitchResult = {};
+  AsrSwitchResult.DEFAULT_NO_SWITCH = 0;
+  AsrSwitchResult.SWITCH_SUCCEEDED = 1;
+  AsrSwitchResult.SWITCH_FAILED = 2;
+  AsrSwitchResult.SWITCH_SKIPPED_NO_LP = 3;
+  AsrSwitchResult.MIN_VALUE = 0;
+  AsrSwitchResult.MAX_VALUE = 3;
+  AsrSwitchResult.DEFAULT_VALUE = 0;
 
+  AsrSwitchResult.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    }
+    return false;
+  };
+
+  AsrSwitchResult.toKnownEnumValue = function(value) {
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
+  };
+
+  AsrSwitchResult.validate = function(enumValue) {
+    const isExtensible = true;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
+
+  function SodaMultilangConfig(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  SodaMultilangConfig.prototype.initDefaults_ = function() {
+    this.rewindWhenSwitchingLanguage = true;
+    this.localeToLanguagePackMap = null;
+  };
+  SodaMultilangConfig.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  SodaMultilangConfig.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate SodaMultilangConfig.localeToLanguagePackMap
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 8, false, codec.String, codec.String, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  SodaMultilangConfig.encodedSize = codec.kStructHeaderSize + 16;
+
+  SodaMultilangConfig.decode = function(decoder) {
+    var packed;
+    var val = new SodaMultilangConfig();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.rewindWhenSwitchingLanguage = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.localeToLanguagePackMap =
+        decoder.decodeMapPointer(codec.String, codec.String);
+    return val;
+  };
+
+  SodaMultilangConfig.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(SodaMultilangConfig.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.rewindWhenSwitchingLanguage & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeMapPointer(codec.String, codec.String, val.localeToLanguagePackMap);
+  };
   function SodaConfig(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -165,6 +275,7 @@
     this.maskOffensiveWords = false;
     this.speakerChangeDetection = false;
     this.includeLoggingOutput = false;
+    this.multiLangConfig = null;
   };
   SodaConfig.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -185,7 +296,8 @@
       {version: 3, numBytes: 48},
       {version: 4, numBytes: 56},
       {version: 5, numBytes: 56},
-      {version: 6, numBytes: 56}
+      {version: 6, numBytes: 56},
+      {version: 7, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -234,10 +346,20 @@
 
 
 
+
+
+    // version check SodaConfig.multiLangConfig
+    if (!messageValidator.isFieldInStructVersion(offset, 7))
+      return validator.validationError.NONE;
+    // validate SodaConfig.multiLangConfig
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, SodaMultilangConfig, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  SodaConfig.encodedSize = codec.kStructHeaderSize + 48;
+  SodaConfig.encodedSize = codec.kStructHeaderSize + 56;
 
   SodaConfig.decode = function(decoder) {
     var packed;
@@ -277,13 +399,19 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
+    if (version >= 7) {
+      val.multiLangConfig =
+          decoder.decodeStructPointer(SodaMultilangConfig);
+    } else {
+      val.multiLangConfig = null;
+    }
     return val;
   };
 
   SodaConfig.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(SodaConfig.encodedSize);
-    encoder.writeUint32(6);
+    encoder.writeUint32(7);
     encoder.encodeStruct(codec.Uint32, val.channelCount);
     encoder.encodeStruct(codec.Uint32, val.sampleRate);
     encoder.encodeStruct(codec.String, val.apiKey);
@@ -303,6 +431,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
+    encoder.encodeStructPointer(SodaMultilangConfig, val.multiLangConfig);
   };
   function TimingInfo(values) {
     this.initDefaults_();
@@ -788,6 +917,77 @@
     encoder.encodeStruct(codec.Float, val.rms);
     encoder.encodeStruct(codec.Float, val.audioLevel);
   };
+  function LangIdEvent(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LangIdEvent.prototype.initDefaults_ = function() {
+    this.language = null;
+    this.confidenceLevel = 0;
+    this.asrSwitchResult = 0;
+  };
+  LangIdEvent.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LangIdEvent.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LangIdEvent.language
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+    // validate LangIdEvent.asrSwitchResult
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 12, AsrSwitchResult);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LangIdEvent.encodedSize = codec.kStructHeaderSize + 16;
+
+  LangIdEvent.decode = function(decoder) {
+    var packed;
+    var val = new LangIdEvent();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.language =
+        decoder.decodeStruct(codec.String);
+    val.confidenceLevel =
+        decoder.decodeStruct(codec.Int32);
+    val.asrSwitchResult =
+        decoder.decodeStruct(new codec.Enum(AsrSwitchResult));
+    return val;
+  };
+
+  LangIdEvent.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LangIdEvent.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.language);
+    encoder.encodeStruct(codec.Int32, val.confidenceLevel);
+    encoder.encodeStruct(codec.Int32, val.asrSwitchResult);
+  };
   function SodaClient_OnStart_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1142,6 +1342,7 @@
     partialResult: 1,
     endpointerEvent: 2,
     finalResult: 3,
+    langidEvent: 4,
   };
 
   SpeechRecognizerEvent.prototype.initDefault_ = function() {
@@ -1168,6 +1369,7 @@
         "partialResult",
         "endpointerEvent",
         "finalResult",
+        "langidEvent",
     ];
 
     if (fields.indexOf(keys[0]) < 0) {
@@ -1233,6 +1435,20 @@
       this.$data = value;
     }
   });
+  Object.defineProperty(SpeechRecognizerEvent.prototype, "langidEvent", {
+    get: function() {
+      if (this.$tag != SpeechRecognizerEvent.Tags.langidEvent) {
+        throw new ReferenceError(
+            "SpeechRecognizerEvent.langidEvent is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = SpeechRecognizerEvent.Tags.langidEvent;
+      this.$data = value;
+    }
+  });
 
 
     SpeechRecognizerEvent.encode = function(encoder, val) {
@@ -1259,6 +1475,9 @@
           break;
         case SpeechRecognizerEvent.Tags.finalResult:
           encoder.encodeStructPointer(FinalResult, val.finalResult);
+          break;
+        case SpeechRecognizerEvent.Tags.langidEvent:
+          encoder.encodeStructPointer(LangIdEvent, val.langidEvent);
           break;
       }
       encoder.align();
@@ -1287,6 +1506,9 @@
           break;
         case SpeechRecognizerEvent.Tags.finalResult:
           result.finalResult = decoder.decodeStructPointer(FinalResult);
+          break;
+        case SpeechRecognizerEvent.Tags.langidEvent:
+          result.langidEvent = decoder.decodeStructPointer(LangIdEvent);
           break;
       }
       decoder.align();
@@ -1334,6 +1556,14 @@
 
     // validate SpeechRecognizerEvent.finalResult
     err = messageValidator.validateStructPointer(data_offset, FinalResult, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+        case SpeechRecognizerEvent.Tags.langidEvent:
+          
+
+    // validate SpeechRecognizerEvent.langidEvent
+    err = messageValidator.validateStructPointer(data_offset, LangIdEvent, false);
     if (err !== validator.validationError.NONE)
         return err;
           break;
@@ -1663,6 +1893,8 @@
   exports.SodaRecognitionMode = SodaRecognitionMode;
   exports.EndpointerType = EndpointerType;
   exports.EndpointReason = EndpointReason;
+  exports.AsrSwitchResult = AsrSwitchResult;
+  exports.SodaMultilangConfig = SodaMultilangConfig;
   exports.SodaConfig = SodaConfig;
   exports.TimingInfo = TimingInfo;
   exports.EndpointerEvent = EndpointerEvent;
@@ -1670,6 +1902,7 @@
   exports.HypothesisPartInResult = HypothesisPartInResult;
   exports.FinalResult = FinalResult;
   exports.AudioLevelEvent = AudioLevelEvent;
+  exports.LangIdEvent = LangIdEvent;
   exports.SpeechRecognizerEvent = SpeechRecognizerEvent;
   exports.SodaClient = SodaClient;
   exports.SodaClientPtr = SodaClientPtr;

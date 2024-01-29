@@ -5,6 +5,12 @@
     "outDir": "tsc",
     "allowJs": true,
     "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -16,6 +22,12 @@
       ],
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
       ],
       "//resources/cr_elements/*": [
         "./../../../../../ui/webui/resources/tsc/cr_elements/*"
@@ -29,8 +41,17 @@
       "chrome://resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
       ],
+      "//resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "//oobe/gaia_auth_host/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/gaia_auth_host/*"
       ]
     }
   },
@@ -51,13 +72,9 @@
     "preprocessed/components/dialogs/oobe_modal_dialog.js",
     "preprocessed/components/oobe_vars/oobe_shared_vars.css.js",
     "preprocessed/components/api_keys_notice.js",
-    "preprocessed/components/gaia_button.js",
-    "preprocessed/components/gaia_dialog.js",
     "preprocessed/components/hd_iron_icon.js",
-    "preprocessed/components/network_select_login.js",
     "preprocessed/components/notification_card.js",
     "preprocessed/components/oobe_a11y_option.js",
-    "preprocessed/components/oobe_apps_list.js",
     "preprocessed/components/oobe_carousel.js",
     "preprocessed/components/oobe_cr_lottie.js",
     "preprocessed/components/oobe_display_size_selector.js",
@@ -73,15 +90,15 @@
     "preprocessed/components/security_token_pin.js",
     "preprocessed/components/throbber_notice.js",
     "preprocessed/screens/oobe/auto_enrollment_check.ts",
-    "preprocessed/screens/oobe/consumer_update.js",
+    "preprocessed/screens/oobe/consumer_update.ts",
     "preprocessed/screens/oobe/demo_preferences.ts",
     "preprocessed/screens/oobe/demo_setup.ts",
     "preprocessed/screens/oobe/enable_debugging.ts",
-    "preprocessed/screens/oobe/enterprise_enrollment.js",
-    "preprocessed/screens/oobe/hid_detection.js",
-    "preprocessed/screens/oobe/oobe_network.js",
+    "preprocessed/screens/oobe/enterprise_enrollment.ts",
+    "preprocessed/screens/oobe/hid_detection.ts",
+    "preprocessed/screens/oobe/oobe_network.ts",
     "preprocessed/screens/oobe/packaged_license.ts",
-    "preprocessed/screens/oobe/update.js",
+    "preprocessed/screens/oobe/update.ts",
     "preprocessed/screens/oobe/welcome.js",
     "preprocessed/screens/oobe/welcome_dialog.js",
     "preprocessed/screens/oobe/auto_enrollment_check.html.js",
@@ -98,45 +115,46 @@
     "preprocessed/screens/oobe/welcome_dialog.html.js",
     "preprocessed/screens/common/adb_sideloading.ts",
     "preprocessed/screens/common/add_child.ts",
-    "preprocessed/screens/common/app_downloading.js",
-    "preprocessed/screens/common/app_launch_splash.js",
-    "preprocessed/screens/common/assistant_optin.js",
+    "preprocessed/screens/common/app_downloading.ts",
+    "preprocessed/screens/common/app_launch_splash.ts",
+    "preprocessed/screens/common/assistant_optin.ts",
     "preprocessed/screens/common/autolaunch.ts",
     "preprocessed/screens/common/choobe.ts",
-    "preprocessed/screens/common/consolidated_consent.js",
-    "preprocessed/screens/common/device_disabled.js",
+    "preprocessed/screens/common/consolidated_consent.ts",
+    "preprocessed/screens/common/device_disabled.ts",
     "preprocessed/screens/common/display_size.ts",
     "preprocessed/screens/common/drive_pinning.ts",
     "preprocessed/screens/common/enable_kiosk.ts",
     "preprocessed/screens/common/error_message.js",
     "preprocessed/screens/common/family_link_notice.ts",
     "preprocessed/screens/common/gaia_info.ts",
-    "preprocessed/screens/common/gaia_signin.js",
+    "preprocessed/screens/common/gaia_signin.ts",
     "preprocessed/screens/common/gesture_navigation.ts",
-    "preprocessed/screens/common/guest_tos.js",
+    "preprocessed/screens/common/guest_tos.ts",
     "preprocessed/screens/common/hw_data_collection.ts",
+    "preprocessed/screens/common/install_attributes_error.ts",
     "preprocessed/screens/common/local_state_error.ts",
-    "preprocessed/screens/common/managed_terms_of_service.js",
+    "preprocessed/screens/common/managed_terms_of_service.ts",
     "preprocessed/screens/common/marketing_opt_in.ts",
-    "preprocessed/screens/common/multidevice_setup.js",
+    "preprocessed/screens/common/multidevice_setup.ts",
     "preprocessed/screens/common/offline_ad_login.js",
     "preprocessed/screens/common/online_authentication_screen.js",
     "preprocessed/screens/common/oobe_reset.ts",
-    "preprocessed/screens/common/os_install.js",
+    "preprocessed/screens/common/os_install.ts",
     "preprocessed/screens/common/os_trial.ts",
     "preprocessed/screens/common/parental_handoff.ts",
-    "preprocessed/screens/common/quick_start.js",
-    "preprocessed/screens/common/remote_activity_notification.js",
+    "preprocessed/screens/common/quick_start.ts",
+    "preprocessed/screens/common/remote_activity_notification.ts",
     "preprocessed/screens/common/placeholder.ts",
-    "preprocessed/screens/common/recommend_apps.js",
-    "preprocessed/screens/common/saml_confirm_password.js",
+    "preprocessed/screens/common/recommend_apps.ts",
+    "preprocessed/screens/common/saml_confirm_password.ts",
     "preprocessed/screens/common/signin_fatal_error.js",
     "preprocessed/screens/common/smart_privacy_protection.ts",
-    "preprocessed/screens/common/sync_consent.js",
+    "preprocessed/screens/common/sync_consent.ts",
     "preprocessed/screens/common/theme_selection.ts",
-    "preprocessed/screens/common/touchpad_scroll.js",
+    "preprocessed/screens/common/touchpad_scroll.ts",
     "preprocessed/screens/common/tpm_error.ts",
-    "preprocessed/screens/common/user_allowlist_check_screen.js",
+    "preprocessed/screens/common/user_allowlist_check_screen.ts",
     "preprocessed/screens/common/user_creation.ts",
     "preprocessed/screens/common/wrong_hwid.ts",
     "preprocessed/screens/common/adb_sideloading.html.js",
@@ -158,6 +176,7 @@
     "preprocessed/screens/common/gesture_navigation.html.js",
     "preprocessed/screens/common/guest_tos.html.js",
     "preprocessed/screens/common/hw_data_collection.html.js",
+    "preprocessed/screens/common/install_attributes_error.html.js",
     "preprocessed/screens/common/local_state_error.html.js",
     "preprocessed/screens/common/managed_terms_of_service.html.js",
     "preprocessed/screens/common/marketing_opt_in.html.js",
@@ -182,14 +201,14 @@
     "preprocessed/screens/common/user_allowlist_check_screen.html.js",
     "preprocessed/screens/common/user_creation.html.js",
     "preprocessed/screens/common/wrong_hwid.html.js",
-    "preprocessed/screens/login/arc_vm_data_migration.js",
-    "preprocessed/screens/login/checking_downloading_update.js",
+    "preprocessed/screens/login/arc_vm_data_migration.ts",
+    "preprocessed/screens/login/checking_downloading_update.ts",
     "preprocessed/screens/login/encryption_migration.ts",
     "preprocessed/screens/login/lacros_data_backward_migration.ts",
     "preprocessed/screens/login/lacros_data_migration.ts",
     "preprocessed/screens/login/management_transition.ts",
-    "preprocessed/screens/login/offline_login.js",
-    "preprocessed/screens/login/update_required_card.js",
+    "preprocessed/screens/login/offline_login.ts",
+    "preprocessed/screens/login/update_required_card.ts",
     "preprocessed/screens/login/arc_vm_data_migration.html.js",
     "preprocessed/screens/login/checking_downloading_update.html.js",
     "preprocessed/screens/login/encryption_migration.html.js",
@@ -198,18 +217,18 @@
     "preprocessed/screens/login/management_transition.html.js",
     "preprocessed/screens/login/offline_login.html.js",
     "preprocessed/screens/login/update_required_card.html.js",
-    "preprocessed/screens/osauth/apply_online_password.js",
-    "preprocessed/screens/osauth/cryptohome_recovery.js",
-    "preprocessed/screens/osauth/cryptohome_recovery_setup.js",
-    "preprocessed/screens/osauth/factor_setup_success.js",
-    "preprocessed/screens/osauth/fingerprint_setup.js",
-    "preprocessed/screens/osauth/gaia_password_changed.js",
-    "preprocessed/screens/osauth/local_password_setup.js",
-    "preprocessed/screens/osauth/local_data_loss_warning.js",
-    "preprocessed/screens/osauth/enter_old_password.js",
-    "preprocessed/screens/osauth/osauth_error.js",
-    "preprocessed/screens/osauth/password_selection.js",
-    "preprocessed/screens/osauth/pin_setup.js",
+    "preprocessed/screens/osauth/apply_online_password.ts",
+    "preprocessed/screens/osauth/cryptohome_recovery.ts",
+    "preprocessed/screens/osauth/cryptohome_recovery_setup.ts",
+    "preprocessed/screens/osauth/factor_setup_success.ts",
+    "preprocessed/screens/osauth/fingerprint_setup.ts",
+    "preprocessed/screens/osauth/gaia_password_changed.ts",
+    "preprocessed/screens/osauth/local_password_setup.ts",
+    "preprocessed/screens/osauth/local_data_loss_warning.ts",
+    "preprocessed/screens/osauth/enter_old_password.ts",
+    "preprocessed/screens/osauth/osauth_error.ts",
+    "preprocessed/screens/osauth/password_selection.ts",
+    "preprocessed/screens/osauth/pin_setup.ts",
     "preprocessed/screens/osauth/apply_online_password.html.js",
     "preprocessed/screens/osauth/cryptohome_recovery.html.js",
     "preprocessed/screens/osauth/cryptohome_recovery_setup.html.js",
@@ -231,6 +250,14 @@
     "preprocessed/components/buttons/oobe_icon_button.html.ts",
     "preprocessed/components/buttons/oobe_next_button.html.ts",
     "preprocessed/components/buttons/oobe_text_button.html.ts",
+    "preprocessed/components/gaia_button.ts",
+    "preprocessed/components/gaia_dialog.ts",
+    "preprocessed/components/oobe_apps_list.ts",
+    "preprocessed/components/network_select_login.ts",
+    "preprocessed/components/gaia_button.html.ts",
+    "preprocessed/components/gaia_dialog.html.ts",
+    "preprocessed/components/oobe_apps_list.html.ts",
+    "preprocessed/components/network_select_login.html.ts",
     "preprocessed/components/display_manager_types.js",
     "preprocessed/components/keyboard_utils.js",
     "preprocessed/components/keyboard_utils_oobe.js",
@@ -260,17 +287,33 @@
     "preprocessed/debug/debug.js",
     "preprocessed/debug/quick_start_debugger.js",
     "preprocessed/test_api/test_api.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/context_menus.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/extension_types.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/quick_unlock_private.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/tabs.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/webview_tag.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/web_request.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/quick_unlock_private.d.ts"
   ],
   "references": [
     {
+      "path": "../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
     }
   ]
 }

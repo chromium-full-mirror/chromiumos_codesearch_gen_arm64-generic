@@ -32,6 +32,7 @@
 #include "third_party/blink/public/mojom/shared_storage/shared_storage.mojom.h"
 #include "third_party/blink/public/mojom/use_counter/metrics/web_feature.mojom-forward.h"
 #include "third_party/blink/public/mojom/messaging/cloneable_message.mojom.h"
+#include "third_party/blink/public/mojom/devtools/console_message.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
@@ -131,7 +132,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClient
     kSharedStorageEntriesMinVersion = 0,
     kSharedStorageLengthMinVersion = 0,
     kSharedStorageRemainingBudgetMinVersion = 0,
-    kConsoleLogMinVersion = 0,
+    kDidAddMessageToConsoleMinVersion = 0,
     kRecordUseCountersMinVersion = 0,
   };
 
@@ -165,7 +166,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClient
   struct SharedStorageRemainingBudget_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct ConsoleLog_Sym {
+  struct DidAddMessageToConsole_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RecordUseCounters_Sym {
@@ -216,7 +217,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClient
   virtual void SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) = 0;
 
   
-  virtual void ConsoleLog(const std::string& message) = 0;
+  virtual void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const std::string& message) = 0;
 
   
   virtual void RecordUseCounters(const std::vector<::blink::mojom::WebFeature>& features) = 0;
@@ -337,7 +338,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClientProxy
   
   void SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) final;
   
-  void ConsoleLog(const std::string& message) final;
+  void DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const std::string& message) final;
   
   void RecordUseCounters(const std::vector<::blink::mojom::WebFeature>& features) final;
 

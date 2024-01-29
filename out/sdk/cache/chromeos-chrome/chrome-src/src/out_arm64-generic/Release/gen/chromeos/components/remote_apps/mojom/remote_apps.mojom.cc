@@ -742,6 +742,8 @@ bool RemoteApps_AddFolder_ForwardToCallback::Accept(
           internal::RemoteApps_AddFolder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteApps.0
   bool success = true;
   AddFolderResultPtr p_result{};
   RemoteApps_AddFolder_ResponseParamsDataView input_data_view(params, message);
@@ -869,6 +871,8 @@ bool RemoteApps_AddApp_ForwardToCallback::Accept(
           internal::RemoteApps_AddApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteApps.1
   bool success = true;
   AddAppResultPtr p_result{};
   RemoteApps_AddApp_ResponseParamsDataView input_data_view(params, message);
@@ -996,6 +1000,8 @@ bool RemoteApps_DeleteApp_ForwardToCallback::Accept(
           internal::RemoteApps_DeleteApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteApps.2
   bool success = true;
   std::optional<std::string> p_error{};
   RemoteApps_DeleteApp_ResponseParamsDataView input_data_view(params, message);
@@ -1121,6 +1127,8 @@ bool RemoteApps_SortLauncherWithRemoteAppsFirst_ForwardToCallback::Accept(
           internal::RemoteApps_SortLauncherWithRemoteAppsFirst_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteApps.3
   bool success = true;
   std::optional<std::string> p_error{};
   RemoteApps_SortLauncherWithRemoteAppsFirst_ResponseParamsDataView input_data_view(params, message);
@@ -1246,6 +1254,8 @@ bool RemoteApps_SetPinnedApps_ForwardToCallback::Accept(
           internal::RemoteApps_SetPinnedApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RemoteApps.4
   bool success = true;
   std::optional<std::string> p_error{};
   RemoteApps_SetPinnedApps_ResponseParamsDataView input_data_view(params, message);
@@ -1354,6 +1364,8 @@ bool RemoteAppsStubDispatch::AcceptWithResponder(
               internal::RemoteApps_AddFolder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteApps.0
       bool success = true;
       std::string p_name{};
       bool p_add_to_front{};
@@ -1375,9 +1387,9 @@ bool RemoteAppsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddFolder(
-std::move(p_name), 
-std::move(p_add_to_front), std::move(callback));
+      impl->AddFolder(        
+        std::move(p_name), 
+        std::move(p_add_to_front), std::move(callback));
       return true;
     }
     case internal::kRemoteApps_AddApp_Name: {
@@ -1387,6 +1399,8 @@ std::move(p_add_to_front), std::move(callback));
               internal::RemoteApps_AddApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteApps.1
       bool success = true;
       std::string p_source_id{};
       std::string p_name{};
@@ -1417,12 +1431,12 @@ std::move(p_add_to_front), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddApp(
-std::move(p_source_id), 
-std::move(p_name), 
-std::move(p_folder_id), 
-std::move(p_icon_url), 
-std::move(p_add_to_front), std::move(callback));
+      impl->AddApp(        
+        std::move(p_source_id), 
+        std::move(p_name), 
+        std::move(p_folder_id), 
+        std::move(p_icon_url), 
+        std::move(p_add_to_front), std::move(callback));
       return true;
     }
     case internal::kRemoteApps_DeleteApp_Name: {
@@ -1432,6 +1446,8 @@ std::move(p_add_to_front), std::move(callback));
               internal::RemoteApps_DeleteApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteApps.2
       bool success = true;
       std::string p_app_id{};
       RemoteApps_DeleteApp_ParamsDataView input_data_view(params, message);
@@ -1450,8 +1466,8 @@ std::move(p_add_to_front), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteApp(
-std::move(p_app_id), std::move(callback));
+      impl->DeleteApp(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kRemoteApps_SortLauncherWithRemoteAppsFirst_Name: {
@@ -1461,6 +1477,8 @@ std::move(p_app_id), std::move(callback));
               internal::RemoteApps_SortLauncherWithRemoteAppsFirst_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteApps.3
       bool success = true;
       RemoteApps_SortLauncherWithRemoteAppsFirst_ParamsDataView input_data_view(params, message);
       
@@ -1486,6 +1504,8 @@ std::move(p_app_id), std::move(callback));
               internal::RemoteApps_SetPinnedApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RemoteApps.4
       bool success = true;
       std::vector<std::string> p_app_ids{};
       RemoteApps_SetPinnedApps_ParamsDataView input_data_view(params, message);
@@ -1504,8 +1524,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPinnedApps(
-std::move(p_app_ids), std::move(callback));
+      impl->SetPinnedApps(        
+        std::move(p_app_ids), std::move(callback));
       return true;
     }
   }
@@ -1675,6 +1695,8 @@ bool RemoteAppsFactoryStubDispatch::Accept(
           reinterpret_cast<internal::RemoteAppsFactory_BindRemoteAppsAndAppLaunchObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteAppsFactory.0
       bool success = true;
       std::string p_source_id{};
       ::mojo::PendingReceiver<RemoteApps> p_remote_apps{};
@@ -1700,10 +1722,10 @@ bool RemoteAppsFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRemoteAppsAndAppLaunchObserver(
-std::move(p_source_id), 
-std::move(p_remote_apps), 
-std::move(p_observer));
+      impl->BindRemoteAppsAndAppLaunchObserver(        
+        std::move(p_source_id), 
+        std::move(p_remote_apps), 
+        std::move(p_observer));
       return true;
     }
   }
@@ -1864,6 +1886,8 @@ bool RemoteAppsLacrosBridgeStubDispatch::Accept(
           reinterpret_cast<internal::RemoteAppsLacrosBridge_BindRemoteAppsAndAppLaunchObserverForLacros_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteAppsLacrosBridge.0
       bool success = true;
       ::mojo::PendingReceiver<RemoteApps> p_remote_apps{};
       ::mojo::PendingRemote<RemoteAppLaunchObserver> p_observer{};
@@ -1886,9 +1910,9 @@ bool RemoteAppsLacrosBridgeStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRemoteAppsAndAppLaunchObserverForLacros(
-std::move(p_remote_apps), 
-std::move(p_observer));
+      impl->BindRemoteAppsAndAppLaunchObserverForLacros(        
+        std::move(p_remote_apps), 
+        std::move(p_observer));
       return true;
     }
   }
@@ -2058,6 +2082,8 @@ bool RemoteAppLaunchObserverStubDispatch::Accept(
           reinterpret_cast<internal::RemoteAppLaunchObserver_OnRemoteAppLaunched_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RemoteAppLaunchObserver.0
       bool success = true;
       std::string p_app_id{};
       std::string p_source_id{};
@@ -2076,9 +2102,9 @@ bool RemoteAppLaunchObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemoteAppLaunched(
-std::move(p_app_id), 
-std::move(p_source_id));
+      impl->OnRemoteAppLaunched(        
+        std::move(p_app_id), 
+        std::move(p_source_id));
       return true;
     }
   }

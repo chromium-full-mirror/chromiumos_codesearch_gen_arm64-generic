@@ -104,15 +104,15 @@ RouteProviderProxy::RouteProviderProxy(mojo::MessageReceiverWithResponder* recei
 }
 
 void RouteProviderProxy::GetRoute(
-    int32_t in_routing_id, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> in_receiver) {
+    const ::blink::LocalFrameToken& in_frame_token, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content::mojom::RouteProvider::GetRoute", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("routing_id"), in_routing_id,
-                        "<value of type int32_t>");
+           dict.AddItem("frame_token"), in_frame_token,
+                        "<value of type const ::blink::LocalFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider>>");
@@ -136,7 +136,17 @@ void RouteProviderProxy::GetRoute(
       ::content::mojom::internal::RouteProvider_GetRoute_Params_Data> params(
           message);
   params.Allocate();
-  params->routing_id = in_routing_id;
+  mojo::internal::MessageFragment<
+      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::LocalFrameTokenDataView>(
+      in_frame_token, frame_token_fragment);
+  params->frame_token.Set(
+      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->frame_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null frame_token in RouteProvider.GetRoute request");
   mojo::internal::Serialize<::blink::mojom::AssociatedInterfaceProviderAssociatedRequestDataView>(
       in_receiver, &params->receiver, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -165,13 +175,15 @@ bool RouteProviderStubDispatch::Accept(
           reinterpret_cast<internal::RouteProvider_GetRoute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RouteProvider.0
       bool success = true;
-      int32_t p_routing_id{};
+      ::blink::LocalFrameToken p_frame_token{};
       ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> p_receiver{};
       RouteProvider_GetRoute_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_routing_id = input_data_view.routing_id();
+      if (success && !input_data_view.ReadFrameToken(&p_frame_token))
+        success = false;
       if (success) {
         p_receiver =
             input_data_view.TakeReceiver<decltype(p_receiver)>();
@@ -185,9 +197,9 @@ bool RouteProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRoute(
-std::move(p_routing_id), 
-std::move(p_receiver));
+      impl->GetRoute(        
+        std::move(p_frame_token), 
+        std::move(p_receiver));
       return true;
     }
   }
@@ -238,8 +250,8 @@ namespace mojo {
 namespace content::mojom {
 
 
-void RouteProviderInterceptorForTesting::GetRoute(int32_t routing_id, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) {
-  GetForwardingInterface()->GetRoute(std::move(routing_id), std::move(receiver));
+void RouteProviderInterceptorForTesting::GetRoute(const ::blink::LocalFrameToken& frame_token, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) {
+  GetForwardingInterface()->GetRoute(std::move(frame_token), std::move(receiver));
 }
 RouteProviderAsyncWaiter::RouteProviderAsyncWaiter(
     RouteProvider* proxy) : proxy_(proxy) {}

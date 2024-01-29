@@ -12,7 +12,7 @@ export function getTemplate() {
     <div id="description" inner-h-t-m-l="[[i18nAdvanced('sharePasswordFamilyPickerDescription')]]">
     </div>
     <template is="dom-repeat" items="[[eligibleRecipients_]]">
-      <share-password-recipient recipient="[[item]]" on-change="recipientSelected_">
+      <share-password-recipient recipient="[[item]]" selected="[[shouldPreselectFirstEntry_(index)]]" on-change="recipientSelected_">
       </share-password-recipient>
     </template>
     <template is="dom-repeat" items="[[ineligibleRecipients_]]">

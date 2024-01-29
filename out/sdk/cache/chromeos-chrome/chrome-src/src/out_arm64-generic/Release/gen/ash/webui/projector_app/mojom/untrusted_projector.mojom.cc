@@ -1049,6 +1049,8 @@ bool UntrustedProjectorPageHandler_GetNewScreencastPrecondition_ForwardToCallbac
           internal::UntrustedProjectorPageHandler_GetNewScreencastPrecondition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.0
   bool success = true;
   ::ash::NewScreencastPrecondition p_precondition{};
   UntrustedProjectorPageHandler_GetNewScreencastPrecondition_ResponseParamsDataView input_data_view(params, message);
@@ -1178,6 +1180,8 @@ bool UntrustedProjectorPageHandler_ShouldDownloadSoda_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_ShouldDownloadSoda_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.1
   bool success = true;
   bool p_should_download{};
   UntrustedProjectorPageHandler_ShouldDownloadSoda_ResponseParamsDataView input_data_view(params, message);
@@ -1297,6 +1301,8 @@ bool UntrustedProjectorPageHandler_InstallSoda_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_InstallSoda_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.2
   bool success = true;
   bool p_triggered{};
   UntrustedProjectorPageHandler_InstallSoda_ResponseParamsDataView input_data_view(params, message);
@@ -1416,6 +1422,8 @@ bool UntrustedProjectorPageHandler_GetPendingScreencasts_ForwardToCallback::Acce
           internal::UntrustedProjectorPageHandler_GetPendingScreencasts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.3
   bool success = true;
   std::vector<::ash::projector::mojom::PendingScreencastPtr> p_pending_screencasts{};
   UntrustedProjectorPageHandler_GetPendingScreencasts_ResponseParamsDataView input_data_view(params, message);
@@ -1547,6 +1555,8 @@ bool UntrustedProjectorPageHandler_GetUserPref_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_GetUserPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.4
   bool success = true;
   ::base::Value p_value{};
   UntrustedProjectorPageHandler_GetUserPref_ResponseParamsDataView input_data_view(params, message);
@@ -1674,6 +1684,8 @@ bool UntrustedProjectorPageHandler_SetUserPref_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_SetUserPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.5
   bool success = true;
   UntrustedProjectorPageHandler_SetUserPref_ResponseParamsDataView input_data_view(params, message);
   
@@ -1781,6 +1793,8 @@ bool UntrustedProjectorPageHandler_OpenFeedbackDialog_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_OpenFeedbackDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.6
   bool success = true;
   UntrustedProjectorPageHandler_OpenFeedbackDialog_ResponseParamsDataView input_data_view(params, message);
   
@@ -1888,6 +1902,8 @@ bool UntrustedProjectorPageHandler_StartProjectorSession_ForwardToCallback::Acce
           internal::UntrustedProjectorPageHandler_StartProjectorSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.7
   bool success = true;
   bool p_success{};
   UntrustedProjectorPageHandler_StartProjectorSession_ResponseParamsDataView input_data_view(params, message);
@@ -2007,6 +2023,8 @@ bool UntrustedProjectorPageHandler_SendXhr_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_SendXhr_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.8
   bool success = true;
   ::ash::projector::mojom::XhrResponsePtr p_response{};
   UntrustedProjectorPageHandler_SendXhr_ResponseParamsDataView input_data_view(params, message);
@@ -2136,6 +2154,8 @@ bool UntrustedProjectorPageHandler_GetAccounts_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_GetAccounts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.9
   bool success = true;
   std::vector<::ash::projector::mojom::AccountPtr> p_accounts{};
   UntrustedProjectorPageHandler_GetAccounts_ResponseParamsDataView input_data_view(params, message);
@@ -2267,6 +2287,8 @@ bool UntrustedProjectorPageHandler_GetVideo_ForwardToCallback::Accept(
           internal::UntrustedProjectorPageHandler_GetVideo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UntrustedProjectorPageHandler.10
   bool success = true;
   ::ash::projector::mojom::GetVideoResultPtr p_result{};
   UntrustedProjectorPageHandler_GetVideo_ResponseParamsDataView input_data_view(params, message);
@@ -2395,6 +2417,8 @@ bool UntrustedProjectorPageHandlerStubDispatch::AcceptWithResponder(
               internal::UntrustedProjectorPageHandler_GetNewScreencastPrecondition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.0
       bool success = true;
       UntrustedProjectorPageHandler_GetNewScreencastPrecondition_ParamsDataView input_data_view(params, message);
       
@@ -2420,6 +2444,8 @@ bool UntrustedProjectorPageHandlerStubDispatch::AcceptWithResponder(
               internal::UntrustedProjectorPageHandler_ShouldDownloadSoda_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.1
       bool success = true;
       UntrustedProjectorPageHandler_ShouldDownloadSoda_ParamsDataView input_data_view(params, message);
       
@@ -2445,6 +2471,8 @@ bool UntrustedProjectorPageHandlerStubDispatch::AcceptWithResponder(
               internal::UntrustedProjectorPageHandler_InstallSoda_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.2
       bool success = true;
       UntrustedProjectorPageHandler_InstallSoda_ParamsDataView input_data_view(params, message);
       
@@ -2470,6 +2498,8 @@ bool UntrustedProjectorPageHandlerStubDispatch::AcceptWithResponder(
               internal::UntrustedProjectorPageHandler_GetPendingScreencasts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.3
       bool success = true;
       UntrustedProjectorPageHandler_GetPendingScreencasts_ParamsDataView input_data_view(params, message);
       
@@ -2495,6 +2525,8 @@ bool UntrustedProjectorPageHandlerStubDispatch::AcceptWithResponder(
               internal::UntrustedProjectorPageHandler_GetUserPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.4
       bool success = true;
       ::ash::projector::mojom::PrefsThatProjectorCanAskFor p_pref{};
       UntrustedProjectorPageHandler_GetUserPref_ParamsDataView input_data_view(params, message);
@@ -2513,8 +2545,8 @@ bool UntrustedProjectorPageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserPref(
-std::move(p_pref), std::move(callback));
+      impl->GetUserPref(        
+        std::move(p_pref), std::move(callback));
       return true;
     }
     case internal::kUntrustedProjectorPageHandler_SetUserPref_Name: {
@@ -2524,6 +2556,8 @@ std::move(p_pref), std::move(callback));
               internal::UntrustedProjectorPageHandler_SetUserPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.5
       bool success = true;
       ::ash::projector::mojom::PrefsThatProjectorCanAskFor p_pref{};
       ::base::Value p_value{};
@@ -2545,9 +2579,9 @@ std::move(p_pref), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserPref(
-std::move(p_pref), 
-std::move(p_value), std::move(callback));
+      impl->SetUserPref(        
+        std::move(p_pref), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kUntrustedProjectorPageHandler_OpenFeedbackDialog_Name: {
@@ -2557,6 +2591,8 @@ std::move(p_value), std::move(callback));
               internal::UntrustedProjectorPageHandler_OpenFeedbackDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.6
       bool success = true;
       UntrustedProjectorPageHandler_OpenFeedbackDialog_ParamsDataView input_data_view(params, message);
       
@@ -2582,6 +2618,8 @@ std::move(p_value), std::move(callback));
               internal::UntrustedProjectorPageHandler_StartProjectorSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.7
       bool success = true;
       ::base::SafeBaseName p_storage_dir_name{};
       UntrustedProjectorPageHandler_StartProjectorSession_ParamsDataView input_data_view(params, message);
@@ -2600,8 +2638,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartProjectorSession(
-std::move(p_storage_dir_name), std::move(callback));
+      impl->StartProjectorSession(        
+        std::move(p_storage_dir_name), std::move(callback));
       return true;
     }
     case internal::kUntrustedProjectorPageHandler_SendXhr_Name: {
@@ -2611,6 +2649,8 @@ std::move(p_storage_dir_name), std::move(callback));
               internal::UntrustedProjectorPageHandler_SendXhr_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.8
       bool success = true;
       ::GURL p_url{};
       ::ash::projector::mojom::RequestType p_method{};
@@ -2647,14 +2687,14 @@ std::move(p_storage_dir_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendXhr(
-std::move(p_url), 
-std::move(p_method), 
-std::move(p_request_body), 
-std::move(p_use_credentials), 
-std::move(p_use_api_key), 
-std::move(p_headers), 
-std::move(p_account_email), std::move(callback));
+      impl->SendXhr(        
+        std::move(p_url), 
+        std::move(p_method), 
+        std::move(p_request_body), 
+        std::move(p_use_credentials), 
+        std::move(p_use_api_key), 
+        std::move(p_headers), 
+        std::move(p_account_email), std::move(callback));
       return true;
     }
     case internal::kUntrustedProjectorPageHandler_GetAccounts_Name: {
@@ -2664,6 +2704,8 @@ std::move(p_account_email), std::move(callback));
               internal::UntrustedProjectorPageHandler_GetAccounts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.9
       bool success = true;
       UntrustedProjectorPageHandler_GetAccounts_ParamsDataView input_data_view(params, message);
       
@@ -2689,6 +2731,8 @@ std::move(p_account_email), std::move(callback));
               internal::UntrustedProjectorPageHandler_GetVideo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandler.10
       bool success = true;
       std::string p_video_file_id{};
       std::optional<std::string> p_resource_key{};
@@ -2710,9 +2754,9 @@ std::move(p_account_email), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVideo(
-std::move(p_video_file_id), 
-std::move(p_resource_key), std::move(callback));
+      impl->GetVideo(        
+        std::move(p_video_file_id), 
+        std::move(p_resource_key), std::move(callback));
       return true;
     }
   }
@@ -3116,6 +3160,8 @@ bool UntrustedProjectorPageStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedProjectorPage_OnNewScreencastPreconditionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPage.0
       bool success = true;
       ::ash::NewScreencastPrecondition p_precondition{};
       UntrustedProjectorPage_OnNewScreencastPreconditionChanged_ParamsDataView input_data_view(params, message);
@@ -3131,8 +3177,8 @@ bool UntrustedProjectorPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewScreencastPreconditionChanged(
-std::move(p_precondition));
+      impl->OnNewScreencastPreconditionChanged(        
+        std::move(p_precondition));
       return true;
     }
     case internal::kUntrustedProjectorPage_OnSodaInstallProgressUpdated_Name: {
@@ -3142,6 +3188,8 @@ std::move(p_precondition));
           reinterpret_cast<internal::UntrustedProjectorPage_OnSodaInstallProgressUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPage.1
       bool success = true;
       int32_t p_progress{};
       UntrustedProjectorPage_OnSodaInstallProgressUpdated_ParamsDataView input_data_view(params, message);
@@ -3157,8 +3205,8 @@ std::move(p_precondition));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSodaInstallProgressUpdated(
-std::move(p_progress));
+      impl->OnSodaInstallProgressUpdated(        
+        std::move(p_progress));
       return true;
     }
     case internal::kUntrustedProjectorPage_OnSodaInstalled_Name: {
@@ -3168,6 +3216,8 @@ std::move(p_progress));
           reinterpret_cast<internal::UntrustedProjectorPage_OnSodaInstalled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPage.2
       bool success = true;
       UntrustedProjectorPage_OnSodaInstalled_ParamsDataView input_data_view(params, message);
       
@@ -3180,7 +3230,7 @@ std::move(p_progress));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSodaInstalled();
+      impl->OnSodaInstalled(        );
       return true;
     }
     case internal::kUntrustedProjectorPage_OnSodaInstallError_Name: {
@@ -3190,6 +3240,8 @@ std::move(p_progress));
           reinterpret_cast<internal::UntrustedProjectorPage_OnSodaInstallError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPage.3
       bool success = true;
       UntrustedProjectorPage_OnSodaInstallError_ParamsDataView input_data_view(params, message);
       
@@ -3202,7 +3254,7 @@ std::move(p_progress));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSodaInstallError();
+      impl->OnSodaInstallError(        );
       return true;
     }
     case internal::kUntrustedProjectorPage_OnScreencastsStateChange_Name: {
@@ -3212,6 +3264,8 @@ std::move(p_progress));
           reinterpret_cast<internal::UntrustedProjectorPage_OnScreencastsStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPage.4
       bool success = true;
       std::vector<::ash::projector::mojom::PendingScreencastPtr> p_pending_screencasts{};
       UntrustedProjectorPage_OnScreencastsStateChange_ParamsDataView input_data_view(params, message);
@@ -3227,8 +3281,8 @@ std::move(p_progress));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScreencastsStateChange(
-std::move(p_pending_screencasts));
+      impl->OnScreencastsStateChange(        
+        std::move(p_pending_screencasts));
       return true;
     }
   }
@@ -3408,6 +3462,8 @@ bool UntrustedProjectorPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedProjectorPageHandlerFactory_Create_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedProjectorPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<UntrustedProjectorPageHandler> p_handler{};
       ::mojo::PendingRemote<UntrustedProjectorPage> p_page{};
@@ -3430,9 +3486,9 @@ bool UntrustedProjectorPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_handler), 
-std::move(p_page));
+      impl->Create(        
+        std::move(p_handler), 
+        std::move(p_page));
       return true;
     }
   }

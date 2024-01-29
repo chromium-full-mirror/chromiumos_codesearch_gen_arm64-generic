@@ -746,6 +746,8 @@ bool EditorPanelManager_GetEditorPanelContext_ForwardToCallback::Accept(
           internal::EditorPanelManager_GetEditorPanelContext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EditorPanelManager.0
   bool success = true;
   EditorPanelContextPtr p_editor_panel_context{};
   EditorPanelManager_GetEditorPanelContext_ResponseParamsDataView input_data_view(params, message);
@@ -833,6 +835,8 @@ bool EditorPanelManagerStubDispatch::Accept(
           reinterpret_cast<internal::EditorPanelManager_OnPromoCardDismissed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.1
       bool success = true;
       EditorPanelManager_OnPromoCardDismissed_ParamsDataView input_data_view(params, message);
       
@@ -845,7 +849,7 @@ bool EditorPanelManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPromoCardDismissed();
+      impl->OnPromoCardDismissed(        );
       return true;
     }
     case internal::kEditorPanelManager_OnPromoCardDeclined_Name: {
@@ -855,6 +859,8 @@ bool EditorPanelManagerStubDispatch::Accept(
           reinterpret_cast<internal::EditorPanelManager_OnPromoCardDeclined_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.2
       bool success = true;
       EditorPanelManager_OnPromoCardDeclined_ParamsDataView input_data_view(params, message);
       
@@ -867,7 +873,7 @@ bool EditorPanelManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPromoCardDeclined();
+      impl->OnPromoCardDeclined(        );
       return true;
     }
     case internal::kEditorPanelManager_StartEditingFlow_Name: {
@@ -877,6 +883,8 @@ bool EditorPanelManagerStubDispatch::Accept(
           reinterpret_cast<internal::EditorPanelManager_StartEditingFlow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.3
       bool success = true;
       EditorPanelManager_StartEditingFlow_ParamsDataView input_data_view(params, message);
       
@@ -889,7 +897,7 @@ bool EditorPanelManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEditingFlow();
+      impl->StartEditingFlow(        );
       return true;
     }
     case internal::kEditorPanelManager_StartEditingFlowWithPreset_Name: {
@@ -899,6 +907,8 @@ bool EditorPanelManagerStubDispatch::Accept(
           reinterpret_cast<internal::EditorPanelManager_StartEditingFlowWithPreset_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.4
       bool success = true;
       std::string p_text_query_id{};
       EditorPanelManager_StartEditingFlowWithPreset_ParamsDataView input_data_view(params, message);
@@ -914,8 +924,8 @@ bool EditorPanelManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEditingFlowWithPreset(
-std::move(p_text_query_id));
+      impl->StartEditingFlowWithPreset(        
+        std::move(p_text_query_id));
       return true;
     }
     case internal::kEditorPanelManager_StartEditingFlowWithFreeform_Name: {
@@ -925,6 +935,8 @@ std::move(p_text_query_id));
           reinterpret_cast<internal::EditorPanelManager_StartEditingFlowWithFreeform_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.5
       bool success = true;
       std::string p_text{};
       EditorPanelManager_StartEditingFlowWithFreeform_ParamsDataView input_data_view(params, message);
@@ -940,8 +952,8 @@ std::move(p_text_query_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEditingFlowWithFreeform(
-std::move(p_text));
+      impl->StartEditingFlowWithFreeform(        
+        std::move(p_text));
       return true;
     }
     case internal::kEditorPanelManager_OnEditorMenuVisibilityChanged_Name: {
@@ -951,6 +963,8 @@ std::move(p_text));
           reinterpret_cast<internal::EditorPanelManager_OnEditorMenuVisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.6
       bool success = true;
       bool p_visible{};
       EditorPanelManager_OnEditorMenuVisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -966,8 +980,8 @@ std::move(p_text));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEditorMenuVisibilityChanged(
-std::move(p_visible));
+      impl->OnEditorMenuVisibilityChanged(        
+        std::move(p_visible));
       return true;
     }
     case internal::kEditorPanelManager_LogEditorMode_Name: {
@@ -977,6 +991,8 @@ std::move(p_visible));
           reinterpret_cast<internal::EditorPanelManager_LogEditorMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.7
       bool success = true;
       EditorPanelMode p_mode{};
       EditorPanelManager_LogEditorMode_ParamsDataView input_data_view(params, message);
@@ -992,8 +1008,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogEditorMode(
-std::move(p_mode));
+      impl->LogEditorMode(        
+        std::move(p_mode));
       return true;
     }
   }
@@ -1016,6 +1032,8 @@ bool EditorPanelManagerStubDispatch::AcceptWithResponder(
               internal::EditorPanelManager_GetEditorPanelContext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EditorPanelManager.0
       bool success = true;
       EditorPanelManager_GetEditorPanelContext_ParamsDataView input_data_view(params, message);
       

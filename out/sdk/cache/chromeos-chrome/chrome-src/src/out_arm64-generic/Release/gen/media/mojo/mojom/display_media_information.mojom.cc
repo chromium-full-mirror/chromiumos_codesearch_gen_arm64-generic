@@ -48,17 +48,20 @@ DisplayMediaInformation::DisplayMediaInformation()
     : display_surface(),
       logical_surface(),
       cursor(),
-      capture_handle() {}
+      capture_handle(),
+      initial_zoom_level() {}
 
 DisplayMediaInformation::DisplayMediaInformation(
     DisplayCaptureSurfaceType display_surface_in,
     bool logical_surface_in,
     CursorCaptureType cursor_in,
-    ::media::mojom::CaptureHandlePtr capture_handle_in)
+    ::media::mojom::CaptureHandlePtr capture_handle_in,
+    int32_t initial_zoom_level_in)
     : display_surface(std::move(display_surface_in)),
       logical_surface(std::move(logical_surface_in)),
       cursor(std::move(cursor_in)),
-      capture_handle(std::move(capture_handle_in)) {}
+      capture_handle(std::move(capture_handle_in)),
+      initial_zoom_level(std::move(initial_zoom_level_in)) {}
 
 DisplayMediaInformation::~DisplayMediaInformation() = default;
 
@@ -101,6 +104,15 @@ void DisplayMediaInformation::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "initial_zoom_level"), this->initial_zoom_level,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool DisplayMediaInformation::Validate(
@@ -131,6 +143,8 @@ bool StructTraits<::media::mojom::DisplayMediaInformation::DataView, ::media::mo
         success = false;
       if (success && !input.ReadCaptureHandle(&result->capture_handle))
         success = false;
+      if (success)
+        result->initial_zoom_level = input.initial_zoom_level();
   *output = std::move(result);
   return success;
 }

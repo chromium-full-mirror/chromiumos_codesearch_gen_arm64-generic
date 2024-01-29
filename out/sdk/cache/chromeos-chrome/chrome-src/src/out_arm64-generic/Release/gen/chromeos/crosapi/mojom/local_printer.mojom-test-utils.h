@@ -34,7 +34,8 @@ class  PrintServerObserverAsyncWaiter {
 
 class  PrintJobObserverInterceptorForTesting : public PrintJobObserver {
   virtual PrintJobObserver* GetForwardingInterface() = 0;
-  void OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) override;
+  void OnPrintJobUpdateDeprecated(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) override;
+  void OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobUpdatePtr update) override;
 };
 class  PrintJobObserverAsyncWaiter {
  public:

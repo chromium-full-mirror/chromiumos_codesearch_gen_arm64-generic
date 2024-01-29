@@ -78,7 +78,7 @@ class DriveToggleOfflineAction {
     }
     execute() {
         const entries = this.entries_;
-        if (entries.length == 0) {
+        if (entries.length === 0) {
             return;
         }
         let currentEntry;

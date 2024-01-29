@@ -41,7 +41,6 @@
 
 #include "components/content_settings/common/content_settings_manager.mojom-import-headers.h"
 #include "components/content_settings/common/content_settings_manager.mojom-test-utils.h"
-#include "components/content_settings/core/common/content_settings_param_traits.h"
 
 
 namespace content_settings::mojom {
@@ -440,7 +439,7 @@ void ContentSettingsManagerProxy::AllowStorageAccess(
 }
 
 void ContentSettingsManagerProxy::OnContentBlocked(
-    const ::blink::LocalFrameToken& in_frame_token, ::ContentSettingsType in_type) {
+    const ::blink::LocalFrameToken& in_frame_token, ::content_settings::mojom::ContentSettingsType in_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content_settings::mojom::ContentSettingsManager::OnContentBlocked", "input_parameters",
@@ -451,7 +450,7 @@ void ContentSettingsManagerProxy::OnContentBlocked(
                         "<value of type const ::blink::LocalFrameToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
-                        "<value of type ::ContentSettingsType>");
+                        "<value of type ::content_settings::mojom::ContentSettingsType>");
    });
 #endif
 
@@ -552,6 +551,8 @@ bool ContentSettingsManager_AllowStorageAccess_ForwardToCallback::Accept(
           internal::ContentSettingsManager_AllowStorageAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContentSettingsManager.1
   bool success = true;
   bool p_allowed{};
   ContentSettingsManager_AllowStorageAccess_ResponseParamsDataView input_data_view(params, message);
@@ -621,6 +622,8 @@ bool ContentSettingsManager_AllowStorageAccess_HandleSyncResponse::Accept(
       reinterpret_cast<internal::ContentSettingsManager_AllowStorageAccess_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for ContentSettingsManager.1
   bool success = true;
   bool p_allowed{};
   ContentSettingsManager_AllowStorageAccess_ResponseParamsDataView input_data_view(params, message);
@@ -651,6 +654,8 @@ bool ContentSettingsManagerStubDispatch::Accept(
           reinterpret_cast<internal::ContentSettingsManager_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSettingsManager.0
       bool success = true;
       ::mojo::PendingReceiver<ContentSettingsManager> p_clone{};
       ContentSettingsManager_Clone_ParamsDataView input_data_view(params, message);
@@ -668,8 +673,8 @@ bool ContentSettingsManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_clone));
+      impl->Clone(        
+        std::move(p_clone));
       return true;
     }
     case internal::kContentSettingsManager_AllowStorageAccess_Name: {
@@ -682,9 +687,11 @@ std::move(p_clone));
           reinterpret_cast<internal::ContentSettingsManager_OnContentBlocked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentSettingsManager.2
       bool success = true;
       ::blink::LocalFrameToken p_frame_token{};
-      ::ContentSettingsType p_type{};
+      ::content_settings::mojom::ContentSettingsType p_type{};
       ContentSettingsManager_OnContentBlocked_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFrameToken(&p_frame_token))
@@ -700,9 +707,9 @@ std::move(p_clone));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnContentBlocked(
-std::move(p_frame_token), 
-std::move(p_type));
+      impl->OnContentBlocked(        
+        std::move(p_frame_token), 
+        std::move(p_type));
       return true;
     }
   }
@@ -728,6 +735,8 @@ bool ContentSettingsManagerStubDispatch::AcceptWithResponder(
               internal::ContentSettingsManager_AllowStorageAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContentSettingsManager.1
       bool success = true;
       ::blink::LocalFrameToken p_frame_token{};
       ContentSettingsManager::StorageType p_storage_type{};
@@ -758,12 +767,12 @@ bool ContentSettingsManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllowStorageAccess(
-std::move(p_frame_token), 
-std::move(p_storage_type), 
-std::move(p_origin), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), std::move(callback));
+      impl->AllowStorageAccess(        
+        std::move(p_frame_token), 
+        std::move(p_storage_type), 
+        std::move(p_origin), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), std::move(callback));
       return true;
     }
     case internal::kContentSettingsManager_OnContentBlocked_Name: {
@@ -815,7 +824,7 @@ void ContentSettingsManagerInterceptorForTesting::Clone(::mojo::PendingReceiver<
 void ContentSettingsManagerInterceptorForTesting::AllowStorageAccess(const ::blink::LocalFrameToken& frame_token, ContentSettingsManager::StorageType storage_type, const ::url::Origin& origin, const ::net::SiteForCookies& site_for_cookies, const ::url::Origin& top_frame_origin, AllowStorageAccessCallback callback) {
   GetForwardingInterface()->AllowStorageAccess(std::move(frame_token), std::move(storage_type), std::move(origin), std::move(site_for_cookies), std::move(top_frame_origin), std::move(callback));
 }
-void ContentSettingsManagerInterceptorForTesting::OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::ContentSettingsType type) {
+void ContentSettingsManagerInterceptorForTesting::OnContentBlocked(const ::blink::LocalFrameToken& frame_token, ::content_settings::mojom::ContentSettingsType type) {
   GetForwardingInterface()->OnContentBlocked(std::move(frame_token), std::move(type));
 }
 ContentSettingsManagerAsyncWaiter::ContentSettingsManagerAsyncWaiter(

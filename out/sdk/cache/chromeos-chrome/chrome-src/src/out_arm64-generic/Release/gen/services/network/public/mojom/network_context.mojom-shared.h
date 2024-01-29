@@ -36,6 +36,7 @@
 #include "services/network/public/mojom/clear_data_filter.mojom-shared.h"
 #include "services/network/public/mojom/client_security_state.mojom-shared.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-shared.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-shared.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared.h"
 #include "services/network/public/mojom/cookie_setting_overrides.mojom-shared.h"
 #include "services/network/public/mojom/cors_origin_pattern.mojom-shared.h"
@@ -93,8 +94,6 @@
 #include "mojo/public/cpp/system/data_pipe.h"
 
 
-#include "mojo/public/cpp/bindings/native_enum.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 
@@ -347,6 +346,16 @@ using IpProtectionConfigGetterAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<IpProtectionConfigGetterInterfaceBase>;
 using IpProtectionConfigGetterAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<IpProtectionConfigGetterInterfaceBase>;
+class IpProtectionProxyDelegateInterfaceBase {};
+
+using IpProtectionProxyDelegatePtrDataView =
+    mojo::InterfacePtrDataView<IpProtectionProxyDelegateInterfaceBase>;
+using IpProtectionProxyDelegateRequestDataView =
+    mojo::InterfaceRequestDataView<IpProtectionProxyDelegateInterfaceBase>;
+using IpProtectionProxyDelegateAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<IpProtectionProxyDelegateInterfaceBase>;
+using IpProtectionProxyDelegateAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<IpProtectionProxyDelegateInterfaceBase>;
 class NetworkContextInterfaceBase {};
 
 using NetworkContextPtrDataView =
@@ -384,9 +393,6 @@ class CustomProxyConfigDataView {
   }
   bool allow_non_idempotent_methods() const {
     return data_->allow_non_idempotent_methods;
-  }
-  bool should_replace_direct() const {
-    return data_->should_replace_direct;
   }
   inline void GetConnectTunnelHeadersDataView(
       ::network::mojom::HttpRequestHeadersDataView* output);
@@ -928,6 +934,15 @@ static_assert(
     DCHECK(ret);
     return result;
   }
+  template <typename UserType>
+  UserType TakeIpProtectionProxyDelegate() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::network::mojom::IpProtectionProxyDelegateInterfaceBase>>(
+            &data_->ip_protection_proxy_delegate, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
   bool pac_quick_check_enabled() const {
     return data_->pac_quick_check_enabled;
   }
@@ -1181,6 +1196,15 @@ static_assert(
   }
   bool afp_block_list_experiment_enabled() const {
     return data_->afp_block_list_experiment_enabled;
+  }
+  template <typename UserType>
+  UserType TakeCookieEncryptionProvider() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::network::mojom::CookieEncryptionProviderInterfaceBase>>(
+            &data_->cookie_encryption_provider, &result, message_);
+    DCHECK(ret);
+    return result;
   }
  private:
   internal::NetworkContextParams_Data* data_ = nullptr;
@@ -1855,7 +1879,6 @@ struct Serializer<::network::mojom::CustomProxyConfigDataView, MaybeConstUserTyp
         "null rules in CustomProxyConfig struct");
     fragment->should_override_existing_config = Traits::should_override_existing_config(input);
     fragment->allow_non_idempotent_methods = Traits::allow_non_idempotent_methods(input);
-    fragment->should_replace_direct = Traits::should_replace_direct(input);
     decltype(Traits::connect_tunnel_headers(input)) in_connect_tunnel_headers = Traits::connect_tunnel_headers(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->connect_tunnel_headers)::BaseType> connect_tunnel_headers_fragment(
@@ -2230,6 +2253,9 @@ struct Serializer<::network::mojom::NetworkContextParamsDataView, MaybeConstUser
     decltype(Traits::ip_protection_config_getter(input)) in_ip_protection_config_getter = Traits::ip_protection_config_getter(input);
     mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::IpProtectionConfigGetterInterfaceBase>>(
         in_ip_protection_config_getter, &fragment->ip_protection_config_getter, &fragment.message());
+    decltype(Traits::ip_protection_proxy_delegate(input)) in_ip_protection_proxy_delegate = Traits::ip_protection_proxy_delegate(input);
+    mojo::internal::Serialize<mojo::InterfaceRequestDataView<::network::mojom::IpProtectionProxyDelegateInterfaceBase>>(
+        in_ip_protection_proxy_delegate, &fragment->ip_protection_proxy_delegate, &fragment.message());
     fragment->pac_quick_check_enabled = Traits::pac_quick_check_enabled(input);
     fragment->enable_certificate_reporting = Traits::enable_certificate_reporting(input);
     fragment->enforce_chrome_ct_policy = Traits::enforce_chrome_ct_policy(input);
@@ -2372,6 +2398,9 @@ struct Serializer<::network::mojom::NetworkContextParamsDataView, MaybeConstUser
     fragment->cookie_deprecation_label.Set(
         cookie_deprecation_label_fragment.is_null() ? nullptr : cookie_deprecation_label_fragment.data());
     fragment->afp_block_list_experiment_enabled = Traits::afp_block_list_experiment_enabled(input);
+    decltype(Traits::cookie_encryption_provider(input)) in_cookie_encryption_provider = Traits::cookie_encryption_provider(input);
+    mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::CookieEncryptionProviderInterfaceBase>>(
+        in_cookie_encryption_provider, &fragment->cookie_encryption_provider, &fragment.message());
   }
 
   static bool Deserialize(::network::mojom::internal::NetworkContextParams_Data* input,

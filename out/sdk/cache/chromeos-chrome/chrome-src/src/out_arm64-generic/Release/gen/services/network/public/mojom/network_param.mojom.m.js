@@ -28,14 +28,13 @@ export const ProxySchemeSpec = { $: mojo.internal.Enum() };
 export const ProxyScheme = {
   
   kInvalid: 0,
-  kDirect: 1,
-  kHttp: 2,
-  kSocks4: 3,
-  kSocks5: 4,
-  kHttps: 5,
-  kQuic: 6,
+  kHttp: 1,
+  kSocks4: 2,
+  kSocks5: 3,
+  kHttps: 4,
+  kQuic: 5,
   MIN_VALUE: 0,
-  MAX_VALUE: 6,
+  MAX_VALUE: 5,
 };
 
 

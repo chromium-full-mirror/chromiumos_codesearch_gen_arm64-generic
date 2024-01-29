@@ -5795,13 +5795,23 @@ bool ThunderboltBusInfo::Validate(
 }
 InputInfo::InputInfo()
     : touchpad_library_name(),
-      touchscreen_devices() {}
+      touchscreen_devices(),
+      touchpad_devices() {}
 
 InputInfo::InputInfo(
     const std::string& touchpad_library_name_in,
     std::vector<TouchscreenDevicePtr> touchscreen_devices_in)
     : touchpad_library_name(std::move(touchpad_library_name_in)),
-      touchscreen_devices(std::move(touchscreen_devices_in)) {}
+      touchscreen_devices(std::move(touchscreen_devices_in)),
+      touchpad_devices() {}
+
+InputInfo::InputInfo(
+    const std::string& touchpad_library_name_in,
+    std::vector<TouchscreenDevicePtr> touchscreen_devices_in,
+    std::optional<std::vector<TouchpadDevicePtr>> touchpad_devices_in)
+    : touchpad_library_name(std::move(touchpad_library_name_in)),
+      touchscreen_devices(std::move(touchscreen_devices_in)),
+      touchpad_devices(std::move(touchpad_devices_in)) {}
 
 InputInfo::~InputInfo() = default;
 
@@ -5822,6 +5832,15 @@ void InputInfo::WriteIntoTrace(
       "touchscreen_devices"), this->touchscreen_devices,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::vector<TouchscreenDevicePtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touchpad_devices"), this->touchpad_devices,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<std::vector<TouchpadDevicePtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5900,6 +5919,51 @@ void TouchscreenDevice::WriteIntoTrace(
 }
 
 bool TouchscreenDevice::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TouchpadDevice::TouchpadDevice()
+    : input_device(),
+      driver_name() {}
+
+TouchpadDevice::TouchpadDevice(
+    InputDevicePtr input_device_in,
+    const std::string& driver_name_in)
+    : input_device(std::move(input_device_in)),
+      driver_name(std::move(driver_name_in)) {}
+
+TouchpadDevice::~TouchpadDevice() = default;
+size_t TouchpadDevice::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->input_device);
+  seed = mojo::internal::Hash(seed, this->driver_name);
+  return seed;
+}
+
+void TouchpadDevice::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_device"), this->input_device,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputDevicePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "driver_name"), this->driver_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchpadDevice::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -6084,6 +6148,92 @@ bool Sensor::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ThermalInfo::ThermalInfo()
+    : thermal_sensors() {}
+
+ThermalInfo::ThermalInfo(
+    std::vector<ThermalSensorInfoPtr> thermal_sensors_in)
+    : thermal_sensors(std::move(thermal_sensors_in)) {}
+
+ThermalInfo::~ThermalInfo() = default;
+
+void ThermalInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "thermal_sensors"), this->thermal_sensors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<ThermalSensorInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ThermalInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ThermalSensorInfo::ThermalSensorInfo()
+    : name(),
+      temperature_celsius(),
+      source() {}
+
+ThermalSensorInfo::ThermalSensorInfo(
+    const std::string& name_in,
+    double temperature_celsius_in,
+    ThermalSensorInfo::ThermalSensorSource source_in)
+    : name(std::move(name_in)),
+      temperature_celsius(std::move(temperature_celsius_in)),
+      source(std::move(source_in)) {}
+
+ThermalSensorInfo::~ThermalSensorInfo() = default;
+size_t ThermalSensorInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->name);
+  seed = mojo::internal::Hash(seed, this->temperature_celsius);
+  seed = mojo::internal::Hash(seed, this->source);
+  return seed;
+}
+
+void ThermalSensorInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "temperature_celsius"), this->temperature_celsius,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source"), this->source,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ThermalSensorInfo::ThermalSensorSource>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ThermalSensorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TelemetryInfo::TelemetryInfo()
     : battery_result(),
       block_device_result(),
@@ -6106,7 +6256,8 @@ TelemetryInfo::TelemetryInfo()
       network_interface_result(),
       input_result(),
       audio_hardware_result(),
-      sensor_result() {}
+      sensor_result(),
+      thermal_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -6147,7 +6298,8 @@ TelemetryInfo::TelemetryInfo(
       network_interface_result(),
       input_result(),
       audio_hardware_result(),
-      sensor_result() {}
+      sensor_result(),
+      thermal_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -6189,7 +6341,8 @@ TelemetryInfo::TelemetryInfo(
       network_interface_result(),
       input_result(),
       audio_hardware_result(),
-      sensor_result() {}
+      sensor_result(),
+      thermal_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -6232,7 +6385,8 @@ TelemetryInfo::TelemetryInfo(
       network_interface_result(std::move(network_interface_result_in)),
       input_result(),
       audio_hardware_result(),
-      sensor_result() {}
+      sensor_result(),
+      thermal_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -6276,7 +6430,8 @@ TelemetryInfo::TelemetryInfo(
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
       audio_hardware_result(),
-      sensor_result() {}
+      sensor_result(),
+      thermal_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -6321,7 +6476,8 @@ TelemetryInfo::TelemetryInfo(
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
       audio_hardware_result(std::move(audio_hardware_result_in)),
-      sensor_result() {}
+      sensor_result(),
+      thermal_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -6367,7 +6523,56 @@ TelemetryInfo::TelemetryInfo(
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
       audio_hardware_result(std::move(audio_hardware_result_in)),
-      sensor_result(std::move(sensor_result_in)) {}
+      sensor_result(std::move(sensor_result_in)),
+      thermal_result() {}
+
+TelemetryInfo::TelemetryInfo(
+    BatteryResultPtr battery_result_in,
+    NonRemovableBlockDeviceResultPtr block_device_result_in,
+    CpuResultPtr cpu_result_in,
+    TimezoneResultPtr timezone_result_in,
+    MemoryResultPtr memory_result_in,
+    BacklightResultPtr backlight_result_in,
+    FanResultPtr fan_result_in,
+    StatefulPartitionResultPtr stateful_partition_result_in,
+    BluetoothResultPtr bluetooth_result_in,
+    DEPRECATED_SystemResultPtr deprecated_system_result_in,
+    NetworkResultPtr network_result_in,
+    AudioResultPtr audio_result_in,
+    BootPerformanceResultPtr boot_performance_result_in,
+    BusResultPtr bus_result_in,
+    SystemResultPtr system_result_in,
+    TpmResultPtr tpm_result_in,
+    GraphicsResultPtr graphics_result_in,
+    DisplayResultPtr display_result_in,
+    NetworkInterfaceResultPtr network_interface_result_in,
+    InputResultPtr input_result_in,
+    AudioHardwareResultPtr audio_hardware_result_in,
+    SensorResultPtr sensor_result_in,
+    ThermalResultPtr thermal_result_in)
+    : battery_result(std::move(battery_result_in)),
+      block_device_result(std::move(block_device_result_in)),
+      cpu_result(std::move(cpu_result_in)),
+      timezone_result(std::move(timezone_result_in)),
+      memory_result(std::move(memory_result_in)),
+      backlight_result(std::move(backlight_result_in)),
+      fan_result(std::move(fan_result_in)),
+      stateful_partition_result(std::move(stateful_partition_result_in)),
+      bluetooth_result(std::move(bluetooth_result_in)),
+      deprecated_system_result(std::move(deprecated_system_result_in)),
+      network_result(std::move(network_result_in)),
+      audio_result(std::move(audio_result_in)),
+      boot_performance_result(std::move(boot_performance_result_in)),
+      bus_result(std::move(bus_result_in)),
+      system_result(std::move(system_result_in)),
+      tpm_result(std::move(tpm_result_in)),
+      graphics_result(std::move(graphics_result_in)),
+      display_result(std::move(display_result_in)),
+      network_interface_result(std::move(network_interface_result_in)),
+      input_result(std::move(input_result_in)),
+      audio_hardware_result(std::move(audio_hardware_result_in)),
+      sensor_result(std::move(sensor_result_in)),
+      thermal_result(std::move(thermal_result_in)) {}
 
 TelemetryInfo::~TelemetryInfo() = default;
 
@@ -6568,6 +6773,15 @@ void TelemetryInfo::WriteIntoTrace(
       "sensor_result"), this->sensor_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type SensorResultPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "thermal_result"), this->thermal_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ThermalResultPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8335,6 +8549,57 @@ bool SensorResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+ThermalResult::ThermalResult() : tag_(Tag::kThermalInfo) {
+  data_.thermal_info = new ThermalInfoPtr;
+}
+
+ThermalResult::~ThermalResult() {
+  DestroyActive();
+}
+
+
+void ThermalResult::set_thermal_info(
+    ThermalInfoPtr thermal_info) {
+  if (tag_ == Tag::kThermalInfo) {
+    *(data_.thermal_info) = std::move(thermal_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kThermalInfo;
+    data_.thermal_info = new ThermalInfoPtr(
+        std::move(thermal_info));
+  }
+}
+void ThermalResult::set_error(
+    ProbeErrorPtr error) {
+  if (tag_ == Tag::kError) {
+    *(data_.error) = std::move(error);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kError;
+    data_.error = new ProbeErrorPtr(
+        std::move(error));
+  }
+}
+
+void ThermalResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kThermalInfo:
+
+      delete data_.thermal_info;
+      break;
+    case Tag::kError:
+
+      delete data_.error;
+      break;
+  }
+}
+
+bool ThermalResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 
 
 }  // ash::cros_healthd::mojom
@@ -9759,6 +10024,8 @@ bool StructTraits<::ash::cros_healthd::mojom::InputInfo::DataView, ::ash::cros_h
         success = false;
       if (success && !input.ReadTouchscreenDevices(&result->touchscreen_devices))
         success = false;
+      if (success && !input.ReadTouchpadDevices(&result->touchpad_devices))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -9779,6 +10046,22 @@ bool StructTraits<::ash::cros_healthd::mojom::TouchscreenDevice::DataView, ::ash
         result->has_stylus = input.has_stylus();
       if (success)
         result->has_stylus_garage_switch = input.has_stylus_garage_switch();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchpadDevice::DataView, ::ash::cros_healthd::mojom::TouchpadDevicePtr>::Read(
+    ::ash::cros_healthd::mojom::TouchpadDevice::DataView input,
+    ::ash::cros_healthd::mojom::TouchpadDevicePtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchpadDevicePtr result(::ash::cros_healthd::mojom::TouchpadDevice::New());
+  
+      if (success && !input.ReadInputDevice(&result->input_device))
+        success = false;
+      if (success && !input.ReadDriverName(&result->driver_name))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -9841,6 +10124,38 @@ bool StructTraits<::ash::cros_healthd::mojom::Sensor::DataView, ::ash::cros_heal
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::ThermalInfo::DataView, ::ash::cros_healthd::mojom::ThermalInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ThermalInfo::DataView input,
+    ::ash::cros_healthd::mojom::ThermalInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::ThermalInfoPtr result(::ash::cros_healthd::mojom::ThermalInfo::New());
+  
+      if (success && !input.ReadThermalSensors(&result->thermal_sensors))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::ThermalSensorInfo::DataView, ::ash::cros_healthd::mojom::ThermalSensorInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ThermalSensorInfo::DataView input,
+    ::ash::cros_healthd::mojom::ThermalSensorInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::ThermalSensorInfoPtr result(::ash::cros_healthd::mojom::ThermalSensorInfo::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success)
+        result->temperature_celsius = input.temperature_celsius();
+      if (success && !input.ReadSource(&result->source))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView, ::ash::cros_healthd::mojom::TelemetryInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TelemetryInfo::DataView input,
     ::ash::cros_healthd::mojom::TelemetryInfoPtr* output) {
@@ -9890,6 +10205,8 @@ bool StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView, ::ash::cr
       if (success && !input.ReadAudioHardwareResult(&result->audio_hardware_result))
         success = false;
       if (success && !input.ReadSensorResult(&result->sensor_result))
+        success = false;
+      if (success && !input.ReadThermalResult(&result->thermal_result))
         success = false;
   *output = std::move(result);
   return success;
@@ -10881,6 +11198,39 @@ bool UnionTraits<::ash::cros_healthd::mojom::SensorResult::DataView, ::ash::cros
 
       *output = UnionType::NewSensorInfo(
           std::move(result_sensor_info));
+      break;
+    }
+    case Tag::kError: {
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(
+          std::move(result_error));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::ThermalResult::DataView, ::ash::cros_healthd::mojom::ThermalResultPtr>::Read(
+    ::ash::cros_healthd::mojom::ThermalResult::DataView input,
+    ::ash::cros_healthd::mojom::ThermalResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::ThermalResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kThermalInfo: {
+      ::ash::cros_healthd::mojom::ThermalInfoPtr result_thermal_info;
+      if (!input.ReadThermalInfo(&result_thermal_info))
+        return false;
+
+      *output = UnionType::NewThermalInfo(
+          std::move(result_thermal_info));
       break;
     }
     case Tag::kError: {

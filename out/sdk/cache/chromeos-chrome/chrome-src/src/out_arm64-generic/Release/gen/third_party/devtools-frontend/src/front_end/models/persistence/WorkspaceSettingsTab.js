@@ -54,8 +54,7 @@ export class WorkspaceSettingsTab extends UI.Widget.VBox {
         const div = this.containerElement.createChild('div', 'settings-info-message');
         UI.UIUtils.createTextChild(div, i18nString(UIStrings.mappingsAreInferredAutomatically));
         this.fileSystemsListContainer = this.containerElement.createChild('div', '');
-        const addButton = UI.UIUtils.createTextButton(i18nString(UIStrings.addFolder), this.addFileSystemClicked.bind(this));
-        addButton.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('sources.add-folder-to-workspace')}`);
+        const addButton = UI.UIUtils.createTextButton(i18nString(UIStrings.addFolder), this.addFileSystemClicked.bind(this), { jslogContext: 'sources.add-folder-to-workspace' });
         this.containerElement.appendChild(addButton);
         this.setDefaultFocusedElement(addButton);
         this.elementByPath = new Map();
@@ -126,7 +125,7 @@ export class WorkspaceSettingsTab extends UI.Widget.VBox {
         UI.Tooltip.Tooltip.install(path, fileSystemPath);
         const toolbar = new UI.Toolbar.Toolbar('');
         const button = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.remove), 'cross', undefined, 'settings.remove-file-system');
-        button.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.removeFileSystemClicked.bind(this, fileSystem));
+        button.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.removeFileSystemClicked.bind(this, fileSystem));
         toolbar.appendToolbarItem(button);
         header.appendChild(toolbar.element);
         return element;

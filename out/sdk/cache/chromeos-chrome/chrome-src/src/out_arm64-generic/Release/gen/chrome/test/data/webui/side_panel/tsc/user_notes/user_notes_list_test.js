@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import 'chrome://user-notes-side-panel.top-chrome/user_notes_list.js';
 import { UserNotesApiProxyImpl } from 'chrome://user-notes-side-panel.top-chrome/user_notes_api_proxy.js';
-import { assertEquals } from 'chrome://webui-test/chai_assert.js';
+import { assertEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { TestUserNotesApiProxy } from './test_user_notes_api_proxy.js';
 suite('UserNotesListTest', () => {
@@ -71,6 +71,7 @@ suite('UserNotesListTest', () => {
         assertEquals('false', note.$.noteContent.getAttribute('contenteditable'));
         const contextMenuElement = note.shadowRoot.querySelector('user-note-menu');
         const noteMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+        assertTrue(!!noteMenuButton);
         noteMenuButton.click();
         const noteMenu = contextMenuElement.$.menu;
         // Click edit button.
@@ -100,6 +101,7 @@ suite('UserNotesListTest', () => {
         assertEquals('false', note.$.noteContent.getAttribute('contenteditable'));
         const contextMenuElement = note.shadowRoot.querySelector('user-note-menu');
         const noteMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+        assertTrue(!!noteMenuButton);
         noteMenuButton.click();
         const noteMenu = contextMenuElement.$.menu;
         // Click edit button.
@@ -129,6 +131,7 @@ suite('UserNotesListTest', () => {
         assertEquals('false', note.$.noteContent.getAttribute('contenteditable'));
         const contextMenuElement = note.shadowRoot.querySelector('user-note-menu');
         const noteMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+        assertTrue(!!noteMenuButton);
         noteMenuButton.click();
         const noteMenu = contextMenuElement.$.menu;
         // Click edit button.
@@ -155,6 +158,7 @@ suite('UserNotesListTest', () => {
         assertEquals('false', note.$.noteContent.getAttribute('contenteditable'));
         const contextMenuElement = note.shadowRoot.querySelector('user-note-menu');
         const noteMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+        assertTrue(!!noteMenuButton);
         noteMenuButton.click();
         const noteMenu = contextMenuElement.$.menu;
         // Click delete button.

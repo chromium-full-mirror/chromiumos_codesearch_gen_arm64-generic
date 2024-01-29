@@ -1,7 +1,6 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { FileData } from '../../externs/ts/state.js';
 import { TaskHistory } from '../../foreground/js/task_history.js';
 import { getIcon } from './file_type.js';
 import { str } from './translations.js';
@@ -53,7 +52,7 @@ export function getDefaultTask(tasks, policyDefaultHandlerStatus, taskHistory) {
     }
     // 2. Most recently executed or sole non-generic task.
     const latest = nonGenericTasks[0];
-    if (nonGenericTasks.length == 1 ||
+    if (nonGenericTasks.length === 1 ||
         taskHistory.getLastExecutedTime(latest.descriptor)) {
         return latest;
     }

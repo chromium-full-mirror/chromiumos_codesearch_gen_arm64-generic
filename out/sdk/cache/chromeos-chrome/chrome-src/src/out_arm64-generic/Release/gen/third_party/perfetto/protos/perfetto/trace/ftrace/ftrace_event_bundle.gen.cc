@@ -9,6 +9,7 @@
 #pragma GCC diagnostic ignored "-Wfloat-equal"
 #endif
 #include "protos/perfetto/trace/ftrace/ftrace_event_bundle.gen.h"
+#include "protos/perfetto/trace/ftrace/ftrace_stats.gen.h"
 #include "protos/perfetto/trace/ftrace/ftrace_event.gen.h"
 #include "protos/perfetto/trace/ftrace/generic.gen.h"
 #include "protos/perfetto/trace/ftrace/workqueue.gen.h"
@@ -93,14 +94,19 @@ bool FtraceEventBundle::operator==(const FtraceEventBundle& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(compact_sched_, other.compact_sched_)
    && ::protozero::internal::gen_helpers::EqualsField(ftrace_clock_, other.ftrace_clock_)
    && ::protozero::internal::gen_helpers::EqualsField(ftrace_timestamp_, other.ftrace_timestamp_)
-   && ::protozero::internal::gen_helpers::EqualsField(boot_timestamp_, other.boot_timestamp_);
+   && ::protozero::internal::gen_helpers::EqualsField(boot_timestamp_, other.boot_timestamp_)
+   && ::protozero::internal::gen_helpers::EqualsField(error_, other.error_);
 }
 
 int FtraceEventBundle::event_size() const { return static_cast<int>(event_.size()); }
 void FtraceEventBundle::clear_event() { event_.clear(); }
 FtraceEvent* FtraceEventBundle::add_event() { event_.emplace_back(); return &event_.back(); }
+int FtraceEventBundle::error_size() const { return static_cast<int>(error_.size()); }
+void FtraceEventBundle::clear_error() { error_.clear(); }
+FtraceEventBundle_FtraceError* FtraceEventBundle::add_error() { error_.emplace_back(); return &error_.back(); }
 bool FtraceEventBundle::ParseFromArray(const void* raw, size_t size) {
   event_.clear();
+  error_.clear();
   unknown_fields_.clear();
   bool packed_error = false;
 
@@ -131,6 +137,10 @@ bool FtraceEventBundle::ParseFromArray(const void* raw, size_t size) {
         break;
       case 7 /* boot_timestamp */:
         field.get(&boot_timestamp_);
+        break;
+      case 8 /* error */:
+        error_.emplace_back();
+        error_.back().ParseFromArray(field.data(), field.size());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -186,6 +196,75 @@ void FtraceEventBundle::Serialize(::protozero::Message* msg) const {
   // Field 7: boot_timestamp
   if (_has_field_[7]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(7, boot_timestamp_, msg);
+  }
+
+  // Field 8: error
+  for (auto& it : error_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(8));
+  }
+
+  protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
+}
+
+
+FtraceEventBundle_FtraceError::FtraceEventBundle_FtraceError() = default;
+FtraceEventBundle_FtraceError::~FtraceEventBundle_FtraceError() = default;
+FtraceEventBundle_FtraceError::FtraceEventBundle_FtraceError(const FtraceEventBundle_FtraceError&) = default;
+FtraceEventBundle_FtraceError& FtraceEventBundle_FtraceError::operator=(const FtraceEventBundle_FtraceError&) = default;
+FtraceEventBundle_FtraceError::FtraceEventBundle_FtraceError(FtraceEventBundle_FtraceError&&) noexcept = default;
+FtraceEventBundle_FtraceError& FtraceEventBundle_FtraceError::operator=(FtraceEventBundle_FtraceError&&) = default;
+
+bool FtraceEventBundle_FtraceError::operator==(const FtraceEventBundle_FtraceError& other) const {
+  return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
+   && ::protozero::internal::gen_helpers::EqualsField(timestamp_, other.timestamp_)
+   && ::protozero::internal::gen_helpers::EqualsField(status_, other.status_);
+}
+
+bool FtraceEventBundle_FtraceError::ParseFromArray(const void* raw, size_t size) {
+  unknown_fields_.clear();
+  bool packed_error = false;
+
+  ::protozero::ProtoDecoder dec(raw, size);
+  for (auto field = dec.ReadField(); field.valid(); field = dec.ReadField()) {
+    if (field.id() < _has_field_.size()) {
+      _has_field_.set(field.id());
+    }
+    switch (field.id()) {
+      case 1 /* timestamp */:
+        field.get(&timestamp_);
+        break;
+      case 2 /* status */:
+        field.get(&status_);
+        break;
+      default:
+        field.SerializeAndAppendTo(&unknown_fields_);
+        break;
+    }
+  }
+  return !packed_error && !dec.bytes_left();
+}
+
+std::string FtraceEventBundle_FtraceError::SerializeAsString() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsString();
+}
+
+std::vector<uint8_t> FtraceEventBundle_FtraceError::SerializeAsArray() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsArray();
+}
+
+void FtraceEventBundle_FtraceError::Serialize(::protozero::Message* msg) const {
+  // Field 1: timestamp
+  if (_has_field_[1]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(1, timestamp_, msg);
+  }
+
+  // Field 2: status
+  if (_has_field_[2]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(2, status_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

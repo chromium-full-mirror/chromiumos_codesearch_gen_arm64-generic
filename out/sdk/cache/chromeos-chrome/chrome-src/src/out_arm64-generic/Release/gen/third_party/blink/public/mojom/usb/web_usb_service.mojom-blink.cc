@@ -573,6 +573,8 @@ bool WebUsbService_GetDevices_ForwardToCallback::Accept(
           internal::WebUsbService_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebUsbService.0
   bool success = true;
   WTF::Vector<::device::mojom::blink::UsbDeviceInfoPtr> p_results{};
   WebUsbService_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -704,6 +706,8 @@ bool WebUsbService_GetPermission_ForwardToCallback::Accept(
           internal::WebUsbService_GetPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebUsbService.2
   bool success = true;
   ::device::mojom::blink::UsbDeviceInfoPtr p_result{};
   WebUsbService_GetPermission_ResponseParamsDataView input_data_view(params, message);
@@ -829,6 +833,8 @@ bool WebUsbService_ForgetDevice_ForwardToCallback::Accept(
           internal::WebUsbService_ForgetDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebUsbService.3
   bool success = true;
   WebUsbService_ForgetDevice_ResponseParamsDataView input_data_view(params, message);
   
@@ -894,6 +900,8 @@ bool WebUsbServiceStubDispatch::Accept(
           reinterpret_cast<internal::WebUsbService_GetDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebUsbService.1
       bool success = true;
       WTF::String p_guid{};
       ::mojo::PendingReceiver<::device::mojom::blink::UsbDevice> p_device_receiver{};
@@ -914,9 +922,9 @@ bool WebUsbServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevice(
-std::move(p_guid), 
-std::move(p_device_receiver));
+      impl->GetDevice(        
+        std::move(p_guid), 
+        std::move(p_device_receiver));
       return true;
     }
     case internal::kWebUsbService_GetPermission_Name: {
@@ -932,6 +940,8 @@ std::move(p_device_receiver));
           reinterpret_cast<internal::WebUsbService_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebUsbService.4
       bool success = true;
       ::mojo::PendingAssociatedRemote<::device::mojom::blink::UsbDeviceManagerClient> p_client{};
       WebUsbService_SetClient_ParamsDataView input_data_view(params, message);
@@ -949,8 +959,8 @@ std::move(p_device_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
   }
@@ -973,6 +983,8 @@ bool WebUsbServiceStubDispatch::AcceptWithResponder(
               internal::WebUsbService_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebUsbService.0
       bool success = true;
       WebUsbService_GetDevices_ParamsDataView input_data_view(params, message);
       
@@ -1001,6 +1013,8 @@ bool WebUsbServiceStubDispatch::AcceptWithResponder(
               internal::WebUsbService_GetPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebUsbService.2
       bool success = true;
       WebUsbRequestDeviceOptionsPtr p_options{};
       WebUsbService_GetPermission_ParamsDataView input_data_view(params, message);
@@ -1019,8 +1033,8 @@ bool WebUsbServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPermission(
-std::move(p_options), std::move(callback));
+      impl->GetPermission(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kWebUsbService_ForgetDevice_Name: {
@@ -1030,6 +1044,8 @@ std::move(p_options), std::move(callback));
               internal::WebUsbService_ForgetDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebUsbService.3
       bool success = true;
       WTF::String p_guid{};
       WebUsbService_ForgetDevice_ParamsDataView input_data_view(params, message);
@@ -1048,8 +1064,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForgetDevice(
-std::move(p_guid), std::move(callback));
+      impl->ForgetDevice(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kWebUsbService_SetClient_Name: {

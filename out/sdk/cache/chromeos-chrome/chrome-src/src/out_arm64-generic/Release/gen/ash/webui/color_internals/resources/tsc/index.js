@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { COLOR_PROVIDER_CHANGED, ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { getRGBAFromComputedStyle } from './utils.js';
 import { startObservingWallpaperColors } from './wallpaper_colors.js';
 const CROS_TOKENS_JSON_URL = 'color_internals_tokens.json';
@@ -71,6 +72,7 @@ function onColorChange() {
         second: 'numeric',
     });
     const span = document.querySelector('#last-updated');
+    assert(span);
     span.innerText = formatter.format(new Date());
 }
 window.onload = () => {

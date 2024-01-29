@@ -387,6 +387,8 @@ bool CertStoreInstance_UpdatePlaceholderKeys_ForwardToCallback::Accept(
           internal::CertStoreInstance_UpdatePlaceholderKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertStoreInstance.1
   bool success = true;
   bool p_success{};
   CertStoreInstance_UpdatePlaceholderKeys_ResponseParamsDataView input_data_view(params, message);
@@ -477,6 +479,8 @@ bool CertStoreInstanceStubDispatch::AcceptWithResponder(
               internal::CertStoreInstance_UpdatePlaceholderKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertStoreInstance.1
       bool success = true;
       std::vector<ChromeOsKeyPtr> p_keys{};
       CertStoreInstance_UpdatePlaceholderKeys_ParamsDataView input_data_view(params, message);
@@ -495,8 +499,8 @@ bool CertStoreInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePlaceholderKeys(
-std::move(p_keys), std::move(callback));
+      impl->UpdatePlaceholderKeys(        
+        std::move(p_keys), std::move(callback));
       return true;
     }
   }

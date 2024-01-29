@@ -52,6 +52,7 @@ class BLINK_PLATFORM_EXPORT CookieManagerInterceptorForTesting : public CookieMa
   void BlockTruncatedCookies(bool block) override;
   void SetMitigationsEnabledFor3pcd(bool enable) override;
   void SetTrackingProtectionEnabledFor3pcd(bool enable) override;
+  void SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) override;
 };
 class BLINK_PLATFORM_EXPORT CookieManagerAsyncWaiter {
  public:

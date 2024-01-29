@@ -23,6 +23,9 @@ export class AutofillManagerImpl {
     removeAddress(guid) {
         chrome.autofillPrivate.removeEntry(guid);
     }
+    setAutofillSyncToggleEnabled(enabled) {
+        chrome.autofillPrivate.setAutofillSyncToggleEnabled(enabled);
+    }
     static getInstance() {
         return instance || (instance = new AutofillManagerImpl());
     }

@@ -217,6 +217,8 @@ bool FeatureObserverStubDispatch::Accept(
           reinterpret_cast<internal::FeatureObserver_Register_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeatureObserver.0
       bool success = true;
       ::mojo::PendingReceiver<ObservedFeature> p_feature{};
       ObservedFeatureType p_type{};
@@ -237,9 +239,9 @@ bool FeatureObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_feature), 
-std::move(p_type));
+      impl->Register(        
+        std::move(p_feature), 
+        std::move(p_type));
       return true;
     }
   }

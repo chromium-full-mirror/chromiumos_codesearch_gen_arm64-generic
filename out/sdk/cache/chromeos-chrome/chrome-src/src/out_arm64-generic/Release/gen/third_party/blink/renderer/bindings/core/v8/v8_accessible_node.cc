@@ -2214,7 +2214,8 @@ return;
 
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& return_value = AccessibleNode::Create(*bindings::ToDocumentFromExecutionContext(execution_context));
 v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V8AccessibleNode::GetWrapperTypeInfo(), v8_receiver);

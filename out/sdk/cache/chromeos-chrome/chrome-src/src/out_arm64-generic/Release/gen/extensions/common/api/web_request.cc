@@ -795,11 +795,11 @@ base::Value::Dict Details::ToValue() const {
     to_value_result.Set("parentDocumentId", *this->parent_document_id);
 
   }
-  if (this->document_lifecycle != extension_types::DocumentLifecycle()) {
+  if (this->document_lifecycle != extensions::api::extension_types::DocumentLifecycle()) {
     to_value_result.Set("documentLifecycle", extension_types::ToString(this->document_lifecycle));
 
   }
-  if (this->frame_type != extension_types::FrameType()) {
+  if (this->frame_type != extensions::api::extension_types::FrameType()) {
     to_value_result.Set("frameType", extension_types::ToString(this->frame_type));
 
   }

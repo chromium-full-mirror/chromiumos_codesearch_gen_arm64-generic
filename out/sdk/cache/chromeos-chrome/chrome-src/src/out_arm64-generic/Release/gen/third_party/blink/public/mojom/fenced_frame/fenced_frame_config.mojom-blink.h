@@ -27,6 +27,7 @@
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-shared.h"
 #include "third_party/blink/public/mojom/fenced_frame/fenced_frame_config.mojom-blink-forward.h"
 #include "services/network/public/mojom/schemeful_site.mojom-blink.h"
+#include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-blink.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -47,6 +48,7 @@
 
 
 namespace blink::mojom::blink {
+
 
 
 
@@ -1397,6 +1399,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class PLATFORM_EXPORT ParentPermissionsInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ParentPermissionsInfo, T>::value>;
+  using DataView = ParentPermissionsInfoDataView;
+  using Data_ = internal::ParentPermissionsInfo_Data;
+
+  template <typename... Args>
+  static ParentPermissionsInfoPtr New(Args&&... args) {
+    return ParentPermissionsInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ParentPermissionsInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ParentPermissionsInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ParentPermissionsInfo>::Convert(*this);
+  }
+
+
+  ParentPermissionsInfo();
+
+  ParentPermissionsInfo(
+      WTF::Vector<::blink::ParsedPermissionsPolicyDeclaration> parsed_permissions_policy,
+      const ::scoped_refptr<const ::blink::SecurityOrigin>& origin);
+
+
+  ~ParentPermissionsInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ParentPermissionsInfoPtr>
+  ParentPermissionsInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ParentPermissionsInfo::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ParentPermissionsInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ParentPermissionsInfo_UnserializedMessageContext<
+            UserType, ParentPermissionsInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ParentPermissionsInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return ParentPermissionsInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ParentPermissionsInfo_UnserializedMessageContext<
+            UserType, ParentPermissionsInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ParentPermissionsInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  WTF::Vector<::blink::ParsedPermissionsPolicyDeclaration> parsed_permissions_policy;
+  
+  ::scoped_refptr<const ::blink::SecurityOrigin> origin;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ParentPermissionsInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class PLATFORM_EXPORT FencedFrameConfig {
  public:
   template <typename T>
@@ -1433,8 +1578,11 @@ class PLATFORM_EXPORT FencedFrameConfig {
       const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata,
       const ::blink::KURL& urn_uuid,
       ::blink::FencedFrame::DeprecatedFencedFrameMode mode,
-      WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions);
+      WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions,
+      ParentPermissionsInfoPtr parent_permissions_info);
 
+FencedFrameConfig(const FencedFrameConfig&) = delete;
+FencedFrameConfig& operator=(const FencedFrameConfig&) = delete;
 
   ~FencedFrameConfig();
 
@@ -1530,6 +1678,8 @@ class PLATFORM_EXPORT FencedFrameConfig {
   ::blink::FencedFrame::DeprecatedFencedFrameMode mode;
   
   WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions;
+  
+  ParentPermissionsInfoPtr parent_permissions_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1600,7 +1750,9 @@ class PLATFORM_EXPORT FencedFrameProperties {
       const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata,
       bool has_fenced_frame_reporting,
       ::blink::FencedFrame::DeprecatedFencedFrameMode mode,
-      WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions);
+      WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions,
+      ParentPermissionsInfoPtr parent_permissions_info,
+      bool can_disable_untrusted_network);
 
 FencedFrameProperties(const FencedFrameProperties&) = delete;
 FencedFrameProperties& operator=(const FencedFrameProperties&) = delete;
@@ -1699,6 +1851,10 @@ FencedFrameProperties& operator=(const FencedFrameProperties&) = delete;
   ::blink::FencedFrame::DeprecatedFencedFrameMode mode;
   
   WTF::Vector<::blink::mojom::blink::PermissionsPolicyFeature> effective_enabled_permissions;
+  
+  ParentPermissionsInfoPtr parent_permissions_info;
+  
+  bool can_disable_untrusted_network;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2027,6 +2183,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ParentPermissionsInfoPtr ParentPermissionsInfo::Clone() const {
+  return New(
+      mojo::Clone(parsed_permissions_policy),
+      mojo::Clone(origin)
+  );
+}
+
+template <typename T, ParentPermissionsInfo::EnableIfSame<T>*>
+bool ParentPermissionsInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->parsed_permissions_policy, other_struct.parsed_permissions_policy))
+    return false;
+  if (!mojo::Equals(this->origin, other_struct.origin))
+    return false;
+  return true;
+}
+
+template <typename T, ParentPermissionsInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.parsed_permissions_policy < rhs.parsed_permissions_policy)
+    return true;
+  if (rhs.parsed_permissions_policy < lhs.parsed_permissions_policy)
+    return false;
+  if (lhs.origin < rhs.origin)
+    return true;
+  if (rhs.origin < lhs.origin)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 FencedFrameConfigPtr FencedFrameConfig::Clone() const {
   return New(
       mojo::Clone(mapped_url),
@@ -2038,7 +2223,8 @@ FencedFrameConfigPtr FencedFrameConfig::Clone() const {
       mojo::Clone(shared_storage_budget_metadata),
       mojo::Clone(urn_uuid),
       mojo::Clone(mode),
-      mojo::Clone(effective_enabled_permissions)
+      mojo::Clone(effective_enabled_permissions),
+      mojo::Clone(parent_permissions_info)
   );
 }
 
@@ -2063,6 +2249,8 @@ bool FencedFrameConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->mode, other_struct.mode))
     return false;
   if (!mojo::Equals(this->effective_enabled_permissions, other_struct.effective_enabled_permissions))
+    return false;
+  if (!mojo::Equals(this->parent_permissions_info, other_struct.parent_permissions_info))
     return false;
   return true;
 }
@@ -2109,6 +2297,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.effective_enabled_permissions < lhs.effective_enabled_permissions)
     return false;
+  if (lhs.parent_permissions_info < rhs.parent_permissions_info)
+    return true;
+  if (rhs.parent_permissions_info < lhs.parent_permissions_info)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -2123,7 +2315,9 @@ FencedFramePropertiesPtr FencedFrameProperties::Clone() const {
       mojo::Clone(shared_storage_budget_metadata),
       mojo::Clone(has_fenced_frame_reporting),
       mojo::Clone(mode),
-      mojo::Clone(effective_enabled_permissions)
+      mojo::Clone(effective_enabled_permissions),
+      mojo::Clone(parent_permissions_info),
+      mojo::Clone(can_disable_untrusted_network)
   );
 }
 
@@ -2148,6 +2342,10 @@ bool FencedFrameProperties::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->mode, other_struct.mode))
     return false;
   if (!mojo::Equals(this->effective_enabled_permissions, other_struct.effective_enabled_permissions))
+    return false;
+  if (!mojo::Equals(this->parent_permissions_info, other_struct.parent_permissions_info))
+    return false;
+  if (!mojo::Equals(this->can_disable_untrusted_network, other_struct.can_disable_untrusted_network))
     return false;
   return true;
 }
@@ -2193,6 +2391,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.effective_enabled_permissions < rhs.effective_enabled_permissions)
     return true;
   if (rhs.effective_enabled_permissions < lhs.effective_enabled_permissions)
+    return false;
+  if (lhs.parent_permissions_info < rhs.parent_permissions_info)
+    return true;
+  if (rhs.parent_permissions_info < lhs.parent_permissions_info)
+    return false;
+  if (lhs.can_disable_untrusted_network < rhs.can_disable_untrusted_network)
+    return true;
+  if (rhs.can_disable_untrusted_network < lhs.can_disable_untrusted_network)
     return false;
   return false;
 }
@@ -2269,6 +2475,26 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::SharedStorageBudgetMe
 
 
 template <>
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::ParentPermissionsInfo::DataView,
+                                         ::blink::mojom::blink::ParentPermissionsInfoPtr> {
+  static bool IsNull(const ::blink::mojom::blink::ParentPermissionsInfoPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::ParentPermissionsInfoPtr* output) { output->reset(); }
+
+  static const decltype(::blink::mojom::blink::ParentPermissionsInfo::parsed_permissions_policy)& parsed_permissions_policy(
+      const ::blink::mojom::blink::ParentPermissionsInfoPtr& input) {
+    return input->parsed_permissions_policy;
+  }
+
+  static const decltype(::blink::mojom::blink::ParentPermissionsInfo::origin)& origin(
+      const ::blink::mojom::blink::ParentPermissionsInfoPtr& input) {
+    return input->origin;
+  }
+
+  static bool Read(::blink::mojom::blink::ParentPermissionsInfo::DataView input, ::blink::mojom::blink::ParentPermissionsInfoPtr* output);
+};
+
+
+template <>
 struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::FencedFrameConfig::DataView,
                                          ::blink::mojom::blink::FencedFrameConfigPtr> {
   static bool IsNull(const ::blink::mojom::blink::FencedFrameConfigPtr& input) { return !input; }
@@ -2322,6 +2548,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::FencedFrameConfig::Da
   static const decltype(::blink::mojom::blink::FencedFrameConfig::effective_enabled_permissions)& effective_enabled_permissions(
       const ::blink::mojom::blink::FencedFrameConfigPtr& input) {
     return input->effective_enabled_permissions;
+  }
+
+  static const decltype(::blink::mojom::blink::FencedFrameConfig::parent_permissions_info)& parent_permissions_info(
+      const ::blink::mojom::blink::FencedFrameConfigPtr& input) {
+    return input->parent_permissions_info;
   }
 
   static bool Read(::blink::mojom::blink::FencedFrameConfig::DataView input, ::blink::mojom::blink::FencedFrameConfigPtr* output);
@@ -2382,6 +2613,16 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::FencedFrameProperties
   static const decltype(::blink::mojom::blink::FencedFrameProperties::effective_enabled_permissions)& effective_enabled_permissions(
       const ::blink::mojom::blink::FencedFramePropertiesPtr& input) {
     return input->effective_enabled_permissions;
+  }
+
+  static const decltype(::blink::mojom::blink::FencedFrameProperties::parent_permissions_info)& parent_permissions_info(
+      const ::blink::mojom::blink::FencedFramePropertiesPtr& input) {
+    return input->parent_permissions_info;
+  }
+
+  static decltype(::blink::mojom::blink::FencedFrameProperties::can_disable_untrusted_network) can_disable_untrusted_network(
+      const ::blink::mojom::blink::FencedFramePropertiesPtr& input) {
+    return input->can_disable_untrusted_network;
   }
 
   static bool Read(::blink::mojom::blink::FencedFrameProperties::DataView input, ::blink::mojom::blink::FencedFramePropertiesPtr* output);

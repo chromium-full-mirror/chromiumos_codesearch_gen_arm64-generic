@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'components/content_settings/core/common/content_settings.mojom', '../../../../components/content_settings/core/common/content_settings.mojom.js');
   }
+  var content_settings_types$ =
+      mojo.internal.exposeNamespace('contentSettings.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'components/content_settings/core/common/content_settings_types.mojom', '../../../../components/content_settings/core/common/content_settings_types.mojom.js');
+  }
   var time$ =
       mojo.internal.exposeNamespace('mojoBase.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -482,7 +488,7 @@
 
 
     // validate CookieManagerParams.contentSettings
-    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 8, false, new codec.Enum(content_settings$.ContentSettingsType), new codec.ArrayOf(new codec.PointerTo(content_settings$.ContentSettingPatternSource)), false);
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 8, false, new codec.Enum(content_settings_types$.ContentSettingsType), new codec.ArrayOf(new codec.PointerTo(content_settings$.ContentSettingPatternSource)), false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -533,7 +539,7 @@
     val.cookieAccessDelegateType =
         decoder.decodeStruct(new codec.Enum(CookieAccessDelegateType));
     val.contentSettings =
-        decoder.decodeMapPointer(new codec.Enum(content_settings$.ContentSettingsType), new codec.ArrayOf(new codec.PointerTo(content_settings$.ContentSettingPatternSource)));
+        decoder.decodeMapPointer(new codec.Enum(content_settings_types$.ContentSettingsType), new codec.ArrayOf(new codec.PointerTo(content_settings$.ContentSettingPatternSource)));
     val.secureOriginCookiesAllowedSchemes =
         decoder.decodeArrayPointer(codec.String);
     val.matchingSchemeCookiesAllowedSchemes =
@@ -558,7 +564,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.cookieAccessDelegateType);
-    encoder.encodeMapPointer(new codec.Enum(content_settings$.ContentSettingsType), new codec.ArrayOf(new codec.PointerTo(content_settings$.ContentSettingPatternSource)), val.contentSettings);
+    encoder.encodeMapPointer(new codec.Enum(content_settings_types$.ContentSettingsType), new codec.ArrayOf(new codec.PointerTo(content_settings$.ContentSettingPatternSource)), val.contentSettings);
     encoder.encodeArrayPointer(codec.String, val.secureOriginCookiesAllowedSchemes);
     encoder.encodeArrayPointer(codec.String, val.matchingSchemeCookiesAllowedSchemes);
     encoder.encodeArrayPointer(codec.String, val.thirdPartyCookiesAllowedSchemes);
@@ -2949,7 +2955,7 @@
 
 
     // validate CookieManager_SetContentSettings_Params.contentSettingsType
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, content_settings$.ContentSettingsType);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, content_settings_types$.ContentSettingsType);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -2970,7 +2976,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.contentSettingsType =
-        decoder.decodeStruct(new codec.Enum(content_settings$.ContentSettingsType));
+        decoder.decodeStruct(new codec.Enum(content_settings_types$.ContentSettingsType));
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -3351,6 +3357,62 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function CookieManager_SetPreCommitCallbackDelayForTesting_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params.prototype.initDefaults_ = function() {
+    this.delay = null;
+  };
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate CookieManager_SetPreCommitCallbackDelayForTesting_Params.delay
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, time$.TimeDelta, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params.decode = function(decoder) {
+    var packed;
+    var val = new CookieManager_SetPreCommitCallbackDelayForTesting_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.delay =
+        decoder.decodeStructPointer(time$.TimeDelta);
+    return val;
+  };
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(CookieManager_SetPreCommitCallbackDelayForTesting_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(time$.TimeDelta, val.delay);
+  };
 
   function CookieOrLine(value) {
     this.initDefault_();
@@ -3615,6 +3677,7 @@
   var kCookieManager_BlockTruncatedCookies_Name = 15;
   var kCookieManager_SetMitigationsEnabledFor3pcd_Name = 16;
   var kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name = 17;
+  var kCookieManager_SetPreCommitCallbackDelayForTesting_Name = 18;
 
   function CookieManagerPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(CookieManager,
@@ -4006,6 +4069,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  CookieManagerPtr.prototype.setPreCommitCallbackDelayForTesting = function() {
+    return CookieManagerProxy.prototype.setPreCommitCallbackDelayForTesting
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  CookieManagerProxy.prototype.setPreCommitCallbackDelayForTesting = function(delay) {
+    var params_ = new CookieManager_SetPreCommitCallbackDelayForTesting_Params();
+    params_.delay = delay;
+    var builder = new codec.MessageV0Builder(
+        kCookieManager_SetPreCommitCallbackDelayForTesting_Name,
+        codec.align(CookieManager_SetPreCommitCallbackDelayForTesting_Params.encodedSize));
+    builder.encodeStruct(CookieManager_SetPreCommitCallbackDelayForTesting_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function CookieManagerStub(delegate) {
     this.delegate_ = delegate;
@@ -4064,6 +4142,9 @@
   CookieManagerStub.prototype.setTrackingProtectionEnabledFor3pcd = function(enable) {
     return this.delegate_ && this.delegate_.setTrackingProtectionEnabledFor3pcd && this.delegate_.setTrackingProtectionEnabledFor3pcd(enable);
   }
+  CookieManagerStub.prototype.setPreCommitCallbackDelayForTesting = function(delay) {
+    return this.delegate_ && this.delegate_.setPreCommitCallbackDelayForTesting && this.delegate_.setPreCommitCallbackDelayForTesting(delay);
+  }
 
   CookieManagerStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
@@ -4099,6 +4180,10 @@
     case kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
       var params = reader.decodeStruct(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params);
       this.setTrackingProtectionEnabledFor3pcd(params.enable);
+      return true;
+    case kCookieManager_SetPreCommitCallbackDelayForTesting_Name:
+      var params = reader.decodeStruct(CookieManager_SetPreCommitCallbackDelayForTesting_Params);
+      this.setPreCommitCallbackDelayForTesting(params.delay);
       return true;
     default:
       return false;
@@ -4349,6 +4434,10 @@
       case kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = CookieManager_SetTrackingProtectionEnabledFor3pcd_Params;
+      break;
+      case kCookieManager_SetPreCommitCallbackDelayForTesting_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = CookieManager_SetPreCommitCallbackDelayForTesting_Params;
       break;
     }
     if (paramsClass === null)

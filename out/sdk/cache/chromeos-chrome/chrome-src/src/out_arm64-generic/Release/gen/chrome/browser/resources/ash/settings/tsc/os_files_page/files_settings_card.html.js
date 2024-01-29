@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #disconnectGoogleDriveAccountToggle{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#smbSharesIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #disconnectGoogleDriveAccountToggle{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#smbSharesIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}#smbSharesTextContainer{flex:1}</style>
 
 <settings-card header-text="$i18n{filesPageTitle}">
   <cr-link-row id="googleDriveRow" start-icon="[[rowIcons_.googleDrive]]" on-click="onClickGoogleDrive_" label="$i18n{googleDriveLabel}" role-description="$i18n{subpageArrowRoleDescription}">
@@ -20,7 +20,7 @@ export function getTemplate() {
       <div id="addSmbSharesRow" class="settings-box two-line">
         <iron-icon id="smbSharesIcon" icon="[[rowIcons_.smbShares]]">
         </iron-icon>
-        <div class="start">
+        <div id="smbSharesTextContainer" class="start">
           <div class="settings-box-text">
             <div>
               $i18n{smbSharesTitle}

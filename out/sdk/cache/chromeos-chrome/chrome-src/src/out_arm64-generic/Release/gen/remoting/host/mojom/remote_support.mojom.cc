@@ -977,6 +977,8 @@ bool SupportHostObserverStubDispatch::Accept(
           reinterpret_cast<internal::SupportHostObserver_OnHostStateStarting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.0
       bool success = true;
       SupportHostObserver_OnHostStateStarting_ParamsDataView input_data_view(params, message);
       
@@ -989,7 +991,7 @@ bool SupportHostObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateStarting();
+      impl->OnHostStateStarting(        );
       return true;
     }
     case internal::kSupportHostObserver_OnHostStateRequestedAccessCode_Name: {
@@ -999,6 +1001,8 @@ bool SupportHostObserverStubDispatch::Accept(
           reinterpret_cast<internal::SupportHostObserver_OnHostStateRequestedAccessCode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.1
       bool success = true;
       SupportHostObserver_OnHostStateRequestedAccessCode_ParamsDataView input_data_view(params, message);
       
@@ -1011,7 +1015,7 @@ bool SupportHostObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateRequestedAccessCode();
+      impl->OnHostStateRequestedAccessCode(        );
       return true;
     }
     case internal::kSupportHostObserver_OnHostStateReceivedAccessCode_Name: {
@@ -1021,6 +1025,8 @@ bool SupportHostObserverStubDispatch::Accept(
           reinterpret_cast<internal::SupportHostObserver_OnHostStateReceivedAccessCode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.2
       bool success = true;
       std::string p_access_code{};
       ::base::TimeDelta p_lifetime{};
@@ -1039,9 +1045,9 @@ bool SupportHostObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateReceivedAccessCode(
-std::move(p_access_code), 
-std::move(p_lifetime));
+      impl->OnHostStateReceivedAccessCode(        
+        std::move(p_access_code), 
+        std::move(p_lifetime));
       return true;
     }
     case internal::kSupportHostObserver_OnHostStateConnecting_Name: {
@@ -1051,6 +1057,8 @@ std::move(p_lifetime));
           reinterpret_cast<internal::SupportHostObserver_OnHostStateConnecting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.3
       bool success = true;
       SupportHostObserver_OnHostStateConnecting_ParamsDataView input_data_view(params, message);
       
@@ -1063,7 +1071,7 @@ std::move(p_lifetime));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateConnecting();
+      impl->OnHostStateConnecting(        );
       return true;
     }
     case internal::kSupportHostObserver_OnHostStateConnected_Name: {
@@ -1073,6 +1081,8 @@ std::move(p_lifetime));
           reinterpret_cast<internal::SupportHostObserver_OnHostStateConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.4
       bool success = true;
       std::string p_remote_username{};
       SupportHostObserver_OnHostStateConnected_ParamsDataView input_data_view(params, message);
@@ -1088,8 +1098,8 @@ std::move(p_lifetime));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateConnected(
-std::move(p_remote_username));
+      impl->OnHostStateConnected(        
+        std::move(p_remote_username));
       return true;
     }
     case internal::kSupportHostObserver_OnHostStateDisconnected_Name: {
@@ -1099,6 +1109,8 @@ std::move(p_remote_username));
           reinterpret_cast<internal::SupportHostObserver_OnHostStateDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.6
       bool success = true;
       std::optional<std::string> p_disconnect_reason{};
       SupportHostObserver_OnHostStateDisconnected_ParamsDataView input_data_view(params, message);
@@ -1114,8 +1126,8 @@ std::move(p_remote_username));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateDisconnected(
-std::move(p_disconnect_reason));
+      impl->OnHostStateDisconnected(        
+        std::move(p_disconnect_reason));
       return true;
     }
     case internal::kSupportHostObserver_OnNatPolicyChanged_Name: {
@@ -1125,6 +1137,8 @@ std::move(p_disconnect_reason));
           reinterpret_cast<internal::SupportHostObserver_OnNatPolicyChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.7
       bool success = true;
       NatPolicyStatePtr p_nat_policy_state{};
       SupportHostObserver_OnNatPolicyChanged_ParamsDataView input_data_view(params, message);
@@ -1140,8 +1154,8 @@ std::move(p_disconnect_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNatPolicyChanged(
-std::move(p_nat_policy_state));
+      impl->OnNatPolicyChanged(        
+        std::move(p_nat_policy_state));
       return true;
     }
     case internal::kSupportHostObserver_OnHostStateError_Name: {
@@ -1151,6 +1165,8 @@ std::move(p_nat_policy_state));
           reinterpret_cast<internal::SupportHostObserver_OnHostStateError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.8
       bool success = true;
       int64_t p_error_code{};
       SupportHostObserver_OnHostStateError_ParamsDataView input_data_view(params, message);
@@ -1166,8 +1182,8 @@ std::move(p_nat_policy_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostStateError(
-std::move(p_error_code));
+      impl->OnHostStateError(        
+        std::move(p_error_code));
       return true;
     }
     case internal::kSupportHostObserver_OnPolicyError_Name: {
@@ -1177,6 +1193,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::SupportHostObserver_OnPolicyError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.9
       bool success = true;
       SupportHostObserver_OnPolicyError_ParamsDataView input_data_view(params, message);
       
@@ -1189,7 +1207,7 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPolicyError();
+      impl->OnPolicyError(        );
       return true;
     }
     case internal::kSupportHostObserver_OnInvalidDomainError_Name: {
@@ -1199,6 +1217,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::SupportHostObserver_OnInvalidDomainError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SupportHostObserver.10
       bool success = true;
       SupportHostObserver_OnInvalidDomainError_ParamsDataView input_data_view(params, message);
       
@@ -1211,7 +1231,7 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInvalidDomainError();
+      impl->OnInvalidDomainError(        );
       return true;
     }
   }

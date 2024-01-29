@@ -7,6 +7,7 @@
  */
 import 'chrome://resources/cr_elements/policy/cr_policy_pref_indicator.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/cr_elements/md_select.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
@@ -17,6 +18,7 @@ import '../settings_page/settings_subpage.js';
 import '../settings_shared.css.js';
 import '../settings_vars.css.js';
 import '../site_favicon.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -26,7 +28,7 @@ import { routes } from '../route.js';
 import { Router } from '../router.js';
 import { ChoiceMadeLocation, SearchEnginesBrowserProxyImpl } from '../search_engines_page/search_engines_browser_proxy.js';
 import { getTemplate } from './search_page.html.js';
-const SettingsSearchPageElementBase = BaseMixin(WebUiListenerMixin(PolymerElement));
+const SettingsSearchPageElementBase = BaseMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
 export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
     constructor() {
         super(...arguments);
@@ -71,6 +73,9 @@ export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
             focusConfig_: Object,
             // Boolean to check whether we need to show the dialog or not.
             showSearchEngineListDialog_: Boolean,
+            // The label of the confirmation toast that is displayed when the user
+            // chooses a default search engine.
+            confirmationToastLabel_: String,
         };
     }
     ready() {
@@ -124,6 +129,10 @@ export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         assert(this.searchEngineChoiceSettingsUi_);
         this.showSearchEngineListDialog_ = true;
         chrome.metricsPrivate.recordUserAction('ChooseDefaultSearchEngine');
+    }
+    onDefaultSearchEngineChangedInDialog_(e) {
+        this.confirmationToastLabel_ = this.i18n('searchEnginesConfirmationToastLabel', e.detail.searchEngine.name);
+        this.shadowRoot.querySelector('#confirmationToast').show();
     }
     onSearchEngineListDialogClose_() {
         assert(this.searchEngineChoiceSettingsUi_);

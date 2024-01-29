@@ -21,6 +21,34 @@
 namespace screen_ai {
 namespace mojom {
 
+NOINLINE static const char* DirectionToStringHelper(Direction value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Direction::DIRECTION_UNSPECIFIED:
+      return "DIRECTION_UNSPECIFIED";
+    case Direction::DIRECTION_LEFT_TO_RIGHT:
+      return "DIRECTION_LEFT_TO_RIGHT";
+    case Direction::DIRECTION_RIGHT_TO_LEFT:
+      return "DIRECTION_RIGHT_TO_LEFT";
+    case Direction::DIRECTION_TOP_TO_BOTTOM:
+      return "DIRECTION_TOP_TO_BOTTOM";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DirectionToString(Direction value) {
+  const char *str = DirectionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Direction value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Direction value) {
+  return os << DirectionToString(value);
+}
+
 namespace internal {
 
 
@@ -65,7 +93,7 @@ bool LineBox_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -107,6 +135,20 @@ bool LineBox_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->bounding_box, 6, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->bounding_box, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->baseline_box, 8, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->baseline_box, validation_context))
+    return false;
+
   return true;
 }
 
@@ -121,7 +163,7 @@ bool WordBox_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -151,6 +193,18 @@ bool WordBox_Data::Validate(
                                          &language_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->bounding_box, 5, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->bounding_box, validation_context))
+    return false;
+
+
+  if (!::screen_ai::mojom::internal::Direction_Data
+        ::Validate(object->direction, validation_context))
+    return false;
 
   return true;
 }
@@ -456,10 +510,6 @@ bool OCRService_BindAnnotator_Params_Data::Validate(
   [[maybe_unused]] const OCRService_BindAnnotator_Params_Data* object =
       static_cast<const OCRService_BindAnnotator_Params_Data*>(data);
 
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->annotator, 1, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateHandleOrInterface(object->annotator,
                                                  validation_context)) {
     return false;
@@ -488,10 +538,6 @@ bool OCRService_BindAnnotatorClient_Params_Data::Validate(
   [[maybe_unused]] const OCRService_BindAnnotatorClient_Params_Data* object =
       static_cast<const OCRService_BindAnnotatorClient_Params_Data*>(data);
 
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->annotator_client, 1, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateHandleOrInterface(object->annotator_client,
                                                  validation_context)) {
     return false;
@@ -520,10 +566,6 @@ bool MainContentExtractionService_BindMainContentExtractor_Params_Data::Validate
   [[maybe_unused]] const MainContentExtractionService_BindMainContentExtractor_Params_Data* object =
       static_cast<const MainContentExtractionService_BindMainContentExtractor_Params_Data*>(data);
 
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->main_content_extractor, 1, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateHandleOrInterface(object->main_content_extractor,
                                                  validation_context)) {
     return false;
@@ -538,3 +580,13 @@ MainContentExtractionService_BindMainContentExtractor_Params_Data::MainContentEx
 }  // namespace internal
 }  // namespace mojom
 }  // namespace screen_ai
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::screen_ai::mojom::Direction>::WriteIntoTrace(
+   perfetto::TracedValue context, ::screen_ai::mojom::Direction value) {
+  return std::move(context).WriteString(::screen_ai::mojom::DirectionToString(value));
+}
+
+} // namespace perfetto

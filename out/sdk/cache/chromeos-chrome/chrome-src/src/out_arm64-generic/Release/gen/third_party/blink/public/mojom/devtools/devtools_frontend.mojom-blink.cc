@@ -247,6 +247,8 @@ bool DevToolsFrontendStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsFrontend_SetupDevToolsFrontend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsFrontend.0
       bool success = true;
       WTF::String p_api_script{};
       ::mojo::PendingAssociatedRemote<DevToolsFrontendHost> p_host{};
@@ -267,9 +269,9 @@ bool DevToolsFrontendStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetupDevToolsFrontend(
-std::move(p_api_script), 
-std::move(p_host));
+      impl->SetupDevToolsFrontend(        
+        std::move(p_api_script), 
+        std::move(p_host));
       return true;
     }
     case internal::kDevToolsFrontend_SetupDevToolsExtensionAPI_Name: {
@@ -279,6 +281,8 @@ std::move(p_host));
           reinterpret_cast<internal::DevToolsFrontend_SetupDevToolsExtensionAPI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsFrontend.1
       bool success = true;
       WTF::String p_extension_api{};
       DevToolsFrontend_SetupDevToolsExtensionAPI_ParamsDataView input_data_view(params, message);
@@ -294,8 +298,8 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetupDevToolsExtensionAPI(
-std::move(p_extension_api));
+      impl->SetupDevToolsExtensionAPI(        
+        std::move(p_extension_api));
       return true;
     }
   }
@@ -456,6 +460,8 @@ bool DevToolsFrontendHostStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsFrontendHost_DispatchEmbedderMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsFrontendHost.0
       bool success = true;
       ::base::Value::Dict p_message{};
       DevToolsFrontendHost_DispatchEmbedderMessage_ParamsDataView input_data_view(params, message);
@@ -471,8 +477,8 @@ bool DevToolsFrontendHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchEmbedderMessage(
-std::move(p_message));
+      impl->DispatchEmbedderMessage(        
+        std::move(p_message));
       return true;
     }
   }

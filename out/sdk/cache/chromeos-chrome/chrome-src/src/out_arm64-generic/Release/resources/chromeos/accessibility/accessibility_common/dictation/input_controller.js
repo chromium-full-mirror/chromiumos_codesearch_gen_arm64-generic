@@ -1,7 +1,7 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { EventHandler } from '../../common/event_handler.js';
+import { EventHandler } from '/common/event_handler.js';
 import { EditingUtil } from './editing_util.js';
 import { LocaleInfo } from './locale_info.js';
 var EventType = chrome.automation.EventType;
@@ -102,7 +102,7 @@ export class InputController {
      */
     connect(callback) {
         this.onConnectCallback_ = callback;
-        chrome.inputMethodPrivate.getCurrentInputMethod(method => this.saveCurrentInputMethodAndStart_(method));
+        chrome.inputMethodPrivate.getCurrentInputMethod((method) => this.saveCurrentInputMethodAndStart_(method));
     }
     /**
      * Called when InputController has received the current input method. We save

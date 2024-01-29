@@ -120,11 +120,12 @@ enum OptimizationTarget : int {
   OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER = 37,
   OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE = 38,
   OPTIMIZATION_TARGET_PRELOADING_HEURISTICS = 39,
-  OPTIMIZATION_TARGET_TEXT_SAFETY = 40
+  OPTIMIZATION_TARGET_TEXT_SAFETY = 40,
+  OPTIMIZATION_TARGET_SEGMENTATION_ANDROID_HOME_MODULE_RANKER = 41
 };
 bool OptimizationTarget_IsValid(int value);
 constexpr OptimizationTarget OptimizationTarget_MIN = OPTIMIZATION_TARGET_UNKNOWN;
-constexpr OptimizationTarget OptimizationTarget_MAX = OPTIMIZATION_TARGET_TEXT_SAFETY;
+constexpr OptimizationTarget OptimizationTarget_MAX = OPTIMIZATION_TARGET_SEGMENTATION_ANDROID_HOME_MODULE_RANKER;
 constexpr int OptimizationTarget_ARRAYSIZE = OptimizationTarget_MAX + 1;
 
 const std::string& OptimizationTarget_Name(OptimizationTarget value);

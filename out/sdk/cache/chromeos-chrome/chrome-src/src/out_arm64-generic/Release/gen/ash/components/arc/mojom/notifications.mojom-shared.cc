@@ -361,6 +361,7 @@ bool ArcNotificationData_Data::Validate(
     { 28, 176 },
     { 29, 184 },
     { 30, 192 },
+    { 34, 200 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -529,12 +530,21 @@ bool ArcNotificationData_Data::Validate(
                                          &group_key_validate_params)) {
     return false;
   }
+  if (object->header_.version < 34)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& children_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->children_data, validation_context,
+                                         &children_data_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 ArcNotificationData_Data::ArcNotificationData_Data()
-    : header_({sizeof(*this), 30}) {}
+    : header_({sizeof(*this), 34}) {}
 
 
 // static

@@ -1,7 +1,7 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}</style>
-<div class="settings-box two-line">
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}:host-context(body:not(.revamp-wayfinding-enabled)) #buildDetailsLinkContainer{border-bottom:var(--cr-separator-line)}</style>
+<div class="settings-box two-line first">
   <div class="start">
     <div role="heading" aria-level="2">$i18n{aboutChannelLabel}</div>
     <div id="currentlyOnChannelText" aria-hidden="true" class="secondary">
@@ -94,6 +94,5 @@ export function getTemplate() {
   <cr-icon-button on-click="onVisitBuildDetailsPageClick_" aria-labelledby="aboutBuildDetailsTitle" class="icon-external">
   </cr-icon-button>
 </div>
-<div class="hr"></div>
 <!--_html_template_end_-->`;
 }

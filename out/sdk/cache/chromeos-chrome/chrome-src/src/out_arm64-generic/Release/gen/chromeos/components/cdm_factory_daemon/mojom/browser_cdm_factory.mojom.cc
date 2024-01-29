@@ -68,6 +68,9 @@ BrowserCdmFactory::IPCStableHashFunction BrowserCdmFactory::MessageToMethodInfo_
     case internal::kBrowserCdmFactory_AllocateSecureBuffer_Name: {
       return &BrowserCdmFactory::AllocateSecureBuffer_Sym::IPCStableHash;
     }
+    case internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name: {
+      return &BrowserCdmFactory::ParseEncryptedSliceHeader_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -91,6 +94,8 @@ const char* BrowserCdmFactory::MessageToMethodName_(mojo::Message& message) {
             return "Receive chromeos::cdm::mojom::BrowserCdmFactory::GetAndroidHwKeyData";
       case internal::kBrowserCdmFactory_AllocateSecureBuffer_Name:
             return "Receive chromeos::cdm::mojom::BrowserCdmFactory::AllocateSecureBuffer";
+      case internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name:
+            return "Receive chromeos::cdm::mojom::BrowserCdmFactory::ParseEncryptedSliceHeader";
     }
   } else {
     switch (message.name()) {
@@ -106,6 +111,8 @@ const char* BrowserCdmFactory::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply chromeos::cdm::mojom::BrowserCdmFactory::GetAndroidHwKeyData";
       case internal::kBrowserCdmFactory_AllocateSecureBuffer_Name:
             return "Receive reply chromeos::cdm::mojom::BrowserCdmFactory::AllocateSecureBuffer";
+      case internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name:
+            return "Receive reply chromeos::cdm::mojom::BrowserCdmFactory::ParseEncryptedSliceHeader";
     }
   }
   return "Receive unknown mojo message";
@@ -198,6 +205,19 @@ uint32_t BrowserCdmFactory::AllocateSecureBuffer_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t BrowserCdmFactory::ParseEncryptedSliceHeader_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::cdm::mojom::BrowserCdmFactory::ParseEncryptedSliceHeader");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class BrowserCdmFactory_CreateFactory_ForwardToCallback
@@ -278,6 +298,22 @@ class BrowserCdmFactory_AllocateSecureBuffer_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   BrowserCdmFactory::AllocateSecureBufferCallback callback_;
+};
+
+class BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback(
+      BrowserCdmFactory::ParseEncryptedSliceHeaderCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback(const BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback&) = delete;
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback& operator=(const BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  BrowserCdmFactory::ParseEncryptedSliceHeaderCallback callback_;
 };
 
 BrowserCdmFactoryProxy::BrowserCdmFactoryProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -561,6 +597,68 @@ void BrowserCdmFactoryProxy::AllocateSecureBuffer(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void BrowserCdmFactoryProxy::ParseEncryptedSliceHeader(
+    uint64_t in_secure_handle, uint32_t in_offset, const std::vector<uint8_t>& in_stream_data, ParseEncryptedSliceHeaderCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::cdm::mojom::BrowserCdmFactory::ParseEncryptedSliceHeader", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("secure_handle"), in_secure_handle,
+                        "<value of type uint64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("offset"), in_offset,
+                        "<value of type uint32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("stream_data"), in_stream_data,
+                        "<value of type const std::vector<uint8_t>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cdm::mojom::internal::BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data> params(
+          message);
+  params.Allocate();
+  params->secure_handle = in_secure_handle;
+  params->offset = in_offset;
+  mojo::internal::MessageFragment<
+      typename decltype(params->stream_data)::BaseType>
+      stream_data_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& stream_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+      in_stream_data, stream_data_fragment, &stream_data_validate_params);
+  params->stream_data.Set(
+      stream_data_fragment.is_null() ? nullptr : stream_data_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->stream_data.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null stream_data in BrowserCdmFactory.ParseEncryptedSliceHeader request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(BrowserCdmFactory::Name_);
+  message.set_method_name("ParseEncryptedSliceHeader");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class BrowserCdmFactory_CreateFactory_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static BrowserCdmFactory::CreateFactoryCallback CreateCallback(
@@ -619,6 +717,8 @@ bool BrowserCdmFactory_CreateFactory_ForwardToCallback::Accept(
           internal::BrowserCdmFactory_CreateFactory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserCdmFactory.0
   bool success = true;
   ::mojo::PendingRemote<::chromeos::cdm::mojom::CdmFactory> p_factory{};
   BrowserCdmFactory_CreateFactory_ResponseParamsDataView input_data_view(params, message);
@@ -741,6 +841,8 @@ bool BrowserCdmFactory_GetHwConfigData_ForwardToCallback::Accept(
           internal::BrowserCdmFactory_GetHwConfigData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserCdmFactory.2
   bool success = true;
   bool p_success{};
   std::vector<uint8_t> p_config_data{};
@@ -880,6 +982,8 @@ bool BrowserCdmFactory_GetScreenResolutions_ForwardToCallback::Accept(
           internal::BrowserCdmFactory_GetScreenResolutions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserCdmFactory.3
   bool success = true;
   std::vector<::gfx::Size> p_resolutions{};
   BrowserCdmFactory_GetScreenResolutions_ResponseParamsDataView input_data_view(params, message);
@@ -1011,6 +1115,8 @@ bool BrowserCdmFactory_GetAndroidHwKeyData_ForwardToCallback::Accept(
           internal::BrowserCdmFactory_GetAndroidHwKeyData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserCdmFactory.4
   bool success = true;
   ::media::Decryptor::Status p_status{};
   std::vector<uint8_t> p_key_data{};
@@ -1151,6 +1257,8 @@ bool BrowserCdmFactory_AllocateSecureBuffer_ForwardToCallback::Accept(
           internal::BrowserCdmFactory_AllocateSecureBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserCdmFactory.5
   bool success = true;
   ::mojo::PlatformHandle p_fd{};
   BrowserCdmFactory_AllocateSecureBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -1213,6 +1321,147 @@ void BrowserCdmFactory_AllocateSecureBuffer_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static BrowserCdmFactory::ParseEncryptedSliceHeaderCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder> proxy(
+        new BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "BrowserCdmFactory::ParseEncryptedSliceHeaderCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success, const std::vector<uint8_t>& in_slice_header);
+};
+
+bool BrowserCdmFactory_ParseEncryptedSliceHeader_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for BrowserCdmFactory.6
+  bool success = true;
+  bool p_success{};
+  std::vector<uint8_t> p_slice_header{};
+  BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (success && !input_data_view.ReadSliceHeader(&p_slice_header))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        BrowserCdmFactory::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success), 
+std::move(p_slice_header));
+  return true;
+}
+
+void BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder::Run(
+    bool in_success, const std::vector<uint8_t>& in_slice_header) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::cdm::mojom::BrowserCdmFactory::ParseEncryptedSliceHeader", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("slice_header"), in_slice_header,
+                        "<value of type const std::vector<uint8_t>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cdm::mojom::internal::BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+  mojo::internal::MessageFragment<
+      typename decltype(params->slice_header)::BaseType>
+      slice_header_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& slice_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+      in_slice_header, slice_header_fragment, &slice_header_validate_params);
+  params->slice_header.Set(
+      slice_header_fragment.is_null() ? nullptr : slice_header_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->slice_header.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null slice_header in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(BrowserCdmFactory::Name_);
+  message.set_method_name("ParseEncryptedSliceHeader");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool BrowserCdmFactoryStubDispatch::Accept(
@@ -1229,6 +1478,8 @@ bool BrowserCdmFactoryStubDispatch::Accept(
           reinterpret_cast<internal::BrowserCdmFactory_GetOutputProtection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserCdmFactory.1
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::cdm::mojom::OutputProtection> p_output_protection{};
       BrowserCdmFactory_GetOutputProtection_ParamsDataView input_data_view(params, message);
@@ -1246,8 +1497,8 @@ bool BrowserCdmFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOutputProtection(
-std::move(p_output_protection));
+      impl->GetOutputProtection(        
+        std::move(p_output_protection));
       return true;
     }
     case internal::kBrowserCdmFactory_GetHwConfigData_Name: {
@@ -1260,6 +1511,9 @@ std::move(p_output_protection));
       break;
     }
     case internal::kBrowserCdmFactory_AllocateSecureBuffer_Name: {
+      break;
+    }
+    case internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name: {
       break;
     }
   }
@@ -1282,6 +1536,8 @@ bool BrowserCdmFactoryStubDispatch::AcceptWithResponder(
               internal::BrowserCdmFactory_CreateFactory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserCdmFactory.0
       bool success = true;
       std::string p_key_system{};
       BrowserCdmFactory_CreateFactory_ParamsDataView input_data_view(params, message);
@@ -1300,8 +1556,8 @@ bool BrowserCdmFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFactory(
-std::move(p_key_system), std::move(callback));
+      impl->CreateFactory(        
+        std::move(p_key_system), std::move(callback));
       return true;
     }
     case internal::kBrowserCdmFactory_GetOutputProtection_Name: {
@@ -1314,6 +1570,8 @@ std::move(p_key_system), std::move(callback));
               internal::BrowserCdmFactory_GetHwConfigData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserCdmFactory.2
       bool success = true;
       BrowserCdmFactory_GetHwConfigData_ParamsDataView input_data_view(params, message);
       
@@ -1339,6 +1597,8 @@ std::move(p_key_system), std::move(callback));
               internal::BrowserCdmFactory_GetScreenResolutions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserCdmFactory.3
       bool success = true;
       BrowserCdmFactory_GetScreenResolutions_ParamsDataView input_data_view(params, message);
       
@@ -1364,6 +1624,8 @@ std::move(p_key_system), std::move(callback));
               internal::BrowserCdmFactory_GetAndroidHwKeyData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserCdmFactory.4
       bool success = true;
       std::vector<uint8_t> p_key_id{};
       std::vector<uint8_t> p_hw_identifier{};
@@ -1385,9 +1647,9 @@ std::move(p_key_system), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAndroidHwKeyData(
-std::move(p_key_id), 
-std::move(p_hw_identifier), std::move(callback));
+      impl->GetAndroidHwKeyData(        
+        std::move(p_key_id), 
+        std::move(p_hw_identifier), std::move(callback));
       return true;
     }
     case internal::kBrowserCdmFactory_AllocateSecureBuffer_Name: {
@@ -1397,6 +1659,8 @@ std::move(p_hw_identifier), std::move(callback));
               internal::BrowserCdmFactory_AllocateSecureBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserCdmFactory.5
       bool success = true;
       uint32_t p_size{};
       BrowserCdmFactory_AllocateSecureBuffer_ParamsDataView input_data_view(params, message);
@@ -1415,8 +1679,47 @@ std::move(p_hw_identifier), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllocateSecureBuffer(
-std::move(p_size), std::move(callback));
+      impl->AllocateSecureBuffer(        
+        std::move(p_size), std::move(callback));
+      return true;
+    }
+    case internal::kBrowserCdmFactory_ParseEncryptedSliceHeader_Name: {
+
+      internal::BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data* params =
+          reinterpret_cast<
+              internal::BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for BrowserCdmFactory.6
+      bool success = true;
+      uint64_t p_secure_handle{};
+      uint32_t p_offset{};
+      std::vector<uint8_t> p_stream_data{};
+      BrowserCdmFactory_ParseEncryptedSliceHeader_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_secure_handle = input_data_view.secure_handle();
+      if (success)
+        p_offset = input_data_view.offset();
+      if (success && !input_data_view.ReadStreamData(&p_stream_data))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            BrowserCdmFactory::Name_, 6, false);
+        return false;
+      }
+      BrowserCdmFactory::ParseEncryptedSliceHeaderCallback callback =
+          BrowserCdmFactory_ParseEncryptedSliceHeader_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ParseEncryptedSliceHeader(        
+        std::move(p_secure_handle), 
+        std::move(p_offset), 
+        std::move(p_stream_data), std::move(callback));
       return true;
     }
   }
@@ -1437,6 +1740,8 @@ static const mojo::internal::GenericValidationInfo kBrowserCdmFactoryValidationI
      &internal::BrowserCdmFactory_GetAndroidHwKeyData_ResponseParams_Data::Validate},
     { &internal::BrowserCdmFactory_AllocateSecureBuffer_Params_Data::Validate,
      &internal::BrowserCdmFactory_AllocateSecureBuffer_ResponseParams_Data::Validate},
+    { &internal::BrowserCdmFactory_ParseEncryptedSliceHeader_Params_Data::Validate,
+     &internal::BrowserCdmFactory_ParseEncryptedSliceHeader_ResponseParams_Data::Validate},
 };
 
 bool BrowserCdmFactoryRequestValidator::Accept(mojo::Message* message) {
@@ -1482,6 +1787,9 @@ void BrowserCdmFactoryInterceptorForTesting::GetAndroidHwKeyData(const std::vect
 }
 void BrowserCdmFactoryInterceptorForTesting::AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) {
   GetForwardingInterface()->AllocateSecureBuffer(std::move(size), std::move(callback));
+}
+void BrowserCdmFactoryInterceptorForTesting::ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) {
+  GetForwardingInterface()->ParseEncryptedSliceHeader(std::move(secure_handle), std::move(offset), std::move(stream_data), std::move(callback));
 }
 BrowserCdmFactoryAsyncWaiter::BrowserCdmFactoryAsyncWaiter(
     BrowserCdmFactory* proxy) : proxy_(proxy) {}
@@ -1600,6 +1908,28 @@ void BrowserCdmFactoryAsyncWaiter::AllocateSecureBuffer(
   AllocateSecureBuffer(std::move(size),&async_wait_result);
   return async_wait_result;
 }
+
+void BrowserCdmFactoryAsyncWaiter::ParseEncryptedSliceHeader(
+    uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, bool* out_success, std::vector<uint8_t>* out_slice_header) {
+  base::RunLoop loop;
+  proxy_->ParseEncryptedSliceHeader(std::move(secure_handle),std::move(offset),std::move(stream_data),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             std::vector<uint8_t>* out_slice_header
+,
+             bool success,
+             const std::vector<uint8_t>& slice_header) {*out_success = std::move(success);*out_slice_header = std::move(slice_header);
+            loop->Quit();
+          },
+          &loop,
+          out_success,
+          out_slice_header));
+  loop.Run();
+}
+
+
 
 
 

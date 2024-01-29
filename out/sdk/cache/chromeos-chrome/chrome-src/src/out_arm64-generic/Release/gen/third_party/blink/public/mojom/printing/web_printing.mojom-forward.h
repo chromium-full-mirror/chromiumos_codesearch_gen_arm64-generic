@@ -30,8 +30,12 @@ class WebPrinterAttributesDataView;
 
 class WebPrintJobTemplateAttributesDataView;
 
+class WebPrintJobUpdateDataView;
+
 class WebPrintJobInfoDataView;
 
+class GetPrintersResultDataView;
+class WebPrinterFetchResultDataView;
 class WebPrintResultDataView;
 
 enum class WebPrintingMultipleDocumentHandling : int32_t;
@@ -40,7 +44,17 @@ enum class WebPrintingSides : int32_t;
 
 enum class WebPrintColorMode : int32_t;
 
+enum class WebPrintingOrientationRequested : int32_t;
+
+enum class WebPrinterState : int32_t;
+
+enum class WebPrinterStateReason : int32_t;
+
 enum class WebPrintJobState : int32_t;
+
+enum class GetPrintersError : int32_t;
+
+enum class WebPrinterFetchError : int32_t;
 
 enum class WebPrintError : int32_t;
 class WebPrinterInfo;
@@ -55,8 +69,19 @@ using WebPrinterAttributesPtr = mojo::StructPtr<WebPrinterAttributes>;
 class WebPrintJobTemplateAttributes;
 using WebPrintJobTemplateAttributesPtr = mojo::StructPtr<WebPrintJobTemplateAttributes>;
 
+class WebPrintJobUpdate;
+using WebPrintJobUpdatePtr = mojo::InlinedStructPtr<WebPrintJobUpdate>;
+
 class WebPrintJobInfo;
 using WebPrintJobInfoPtr = mojo::StructPtr<WebPrintJobInfo>;
+
+class GetPrintersResult;
+
+using GetPrintersResultPtr = mojo::StructPtr<GetPrintersResult>;
+
+class WebPrinterFetchResult;
+
+using WebPrinterFetchResultPtr = mojo::StructPtr<WebPrinterFetchResult>;
 
 class WebPrintResult;
 

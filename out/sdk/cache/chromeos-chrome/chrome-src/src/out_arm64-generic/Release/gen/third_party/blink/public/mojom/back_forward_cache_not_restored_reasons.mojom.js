@@ -21,34 +21,6 @@
   var exports = mojo.internal.exposeNamespace('blink.mojom');
 
 
-  var BFCacheBlocked = {};
-  BFCacheBlocked.kYes = 0;
-  BFCacheBlocked.kNo = 1;
-  BFCacheBlocked.kMasked = 2;
-  BFCacheBlocked.MIN_VALUE = 0;
-  BFCacheBlocked.MAX_VALUE = 2;
-
-  BFCacheBlocked.isKnownEnumValue = function(value) {
-    switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    }
-    return false;
-  };
-
-  BFCacheBlocked.toKnownEnumValue = function(value) {
-    return value;
-  };
-
-  BFCacheBlocked.validate = function(enumValue) {
-    const isExtensible = false;
-    if (isExtensible || this.isKnownEnumValue(enumValue))
-      return validator.validationError.NONE;
-
-    return validator.validationError.UNKNOWN_ENUM_VALUE;
-  };
 
   function SameOriginBfcacheNotRestoredDetails(values) {
     this.initDefaults_();
@@ -58,7 +30,6 @@
 
   SameOriginBfcacheNotRestoredDetails.prototype.initDefaults_ = function() {
     this.url = null;
-    this.reasons = null;
     this.children = null;
   };
   SameOriginBfcacheNotRestoredDetails.prototype.initFields_ = function(fields) {
@@ -75,7 +46,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -88,21 +59,15 @@
         return err;
 
 
-    // validate SameOriginBfcacheNotRestoredDetails.reasons
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, codec.String, false, [0, 0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate SameOriginBfcacheNotRestoredDetails.children
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.PointerTo(BackForwardCacheNotRestoredReasons), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(BackForwardCacheNotRestoredReasons), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  SameOriginBfcacheNotRestoredDetails.encodedSize = codec.kStructHeaderSize + 24;
+  SameOriginBfcacheNotRestoredDetails.encodedSize = codec.kStructHeaderSize + 16;
 
   SameOriginBfcacheNotRestoredDetails.decode = function(decoder) {
     var packed;
@@ -111,8 +76,6 @@
     var version = decoder.readUint32();
     val.url =
         decoder.decodeStruct(codec.String);
-    val.reasons =
-        decoder.decodeArrayPointer(codec.String);
     val.children =
         decoder.decodeArrayPointer(new codec.PointerTo(BackForwardCacheNotRestoredReasons));
     return val;
@@ -123,7 +86,6 @@
     encoder.writeUint32(SameOriginBfcacheNotRestoredDetails.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.url);
-    encoder.encodeArrayPointer(codec.String, val.reasons);
     encoder.encodeArrayPointer(new codec.PointerTo(BackForwardCacheNotRestoredReasons), val.children);
   };
   function BackForwardCacheNotRestoredReasons(values) {
@@ -133,10 +95,10 @@
 
 
   BackForwardCacheNotRestoredReasons.prototype.initDefaults_ = function() {
-    this.blocked = 0;
     this.src = null;
     this.id = null;
     this.name = null;
+    this.reasons = null;
     this.sameOriginDetails = null;
   };
   BackForwardCacheNotRestoredReasons.prototype.initFields_ = function(fields) {
@@ -160,26 +122,26 @@
         return err;
 
 
-    // validate BackForwardCacheNotRestoredReasons.blocked
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, BFCacheBlocked);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate BackForwardCacheNotRestoredReasons.src
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate BackForwardCacheNotRestoredReasons.id
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate BackForwardCacheNotRestoredReasons.name
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, true)
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, true)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate BackForwardCacheNotRestoredReasons.reasons
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 24, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -199,18 +161,14 @@
     var val = new BackForwardCacheNotRestoredReasons();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.blocked =
-        decoder.decodeStruct(new codec.Enum(BFCacheBlocked));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     val.src =
         decoder.decodeStruct(codec.NullableString);
     val.id =
         decoder.decodeStruct(codec.NullableString);
     val.name =
         decoder.decodeStruct(codec.NullableString);
+    val.reasons =
+        decoder.decodeArrayPointer(codec.String);
     val.sameOriginDetails =
         decoder.decodeStructPointer(SameOriginBfcacheNotRestoredDetails);
     return val;
@@ -220,17 +178,12 @@
     var packed;
     encoder.writeUint32(BackForwardCacheNotRestoredReasons.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.blocked);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
     encoder.encodeStruct(codec.NullableString, val.src);
     encoder.encodeStruct(codec.NullableString, val.id);
     encoder.encodeStruct(codec.NullableString, val.name);
+    encoder.encodeArrayPointer(codec.String, val.reasons);
     encoder.encodeStructPointer(SameOriginBfcacheNotRestoredDetails, val.sameOriginDetails);
   };
-  exports.BFCacheBlocked = BFCacheBlocked;
   exports.SameOriginBfcacheNotRestoredDetails = SameOriginBfcacheNotRestoredDetails;
   exports.BackForwardCacheNotRestoredReasons = BackForwardCacheNotRestoredReasons;
 })();

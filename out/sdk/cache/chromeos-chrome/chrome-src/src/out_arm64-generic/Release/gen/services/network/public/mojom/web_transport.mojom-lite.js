@@ -648,16 +648,19 @@ network.mojom.WebTransportClientRemote = class {
   
   /**
    * @param { ?network.mojom.WebTransportCloseInfo } closeInfo
+   * @param { !network.mojom.WebTransportStats } finalStats
    */
 
   onClosed(
-      closeInfo) {
+      closeInfo,
+      finalStats) {
     this.proxy.sendMessage(
         5,
         network.mojom.WebTransportClient_OnClosed_ParamsSpec.$,
         null,
         [
-          closeInfo
+          closeInfo,
+          finalStats
         ]);
   }
 };
@@ -908,12 +911,14 @@ network.mojom.WebTransportHandshakeClientRemote = class {
    * @param { !network.mojom.WebTransportRemote } transport
    * @param { !network.mojom.WebTransportClientPendingReceiver } client
    * @param { !network.mojom.HttpResponseHeaders } responseHeaders
+   * @param { !network.mojom.WebTransportStats } initialStats
    */
 
   onConnectionEstablished(
       transport,
       client,
-      responseHeaders) {
+      responseHeaders,
+      initialStats) {
     this.proxy.sendMessage(
         0,
         network.mojom.WebTransportHandshakeClient_OnConnectionEstablished_ParamsSpec.$,
@@ -921,7 +926,8 @@ network.mojom.WebTransportHandshakeClientRemote = class {
         [
           transport,
           client,
-          responseHeaders
+          responseHeaders,
+          initialStats
         ]);
   }
 
@@ -2172,8 +2178,16 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'finalStats', 8,
+        0,
+        network.mojom.WebTransportStatsSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 16],]);
+    [[0, 24],]);
 
 
 
@@ -2184,6 +2198,8 @@ network.mojom.WebTransportClient_OnClosed_Params = class {
   constructor() {
     /** @export { (network.mojom.WebTransportCloseInfo|undefined) } */
     this.closeInfo;
+    /** @export { !network.mojom.WebTransportStats } */
+    this.finalStats;
   }
 };
 
@@ -2217,8 +2233,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'initialStats', 24,
+        0,
+        network.mojom.WebTransportStatsSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 40],]);
 
 
 
@@ -2233,6 +2257,8 @@ network.mojom.WebTransportHandshakeClient_OnConnectionEstablished_Params = class
     this.client;
     /** @export { !network.mojom.HttpResponseHeaders } */
     this.responseHeaders;
+    /** @export { !network.mojom.WebTransportStats } */
+    this.initialStats;
   }
 };
 

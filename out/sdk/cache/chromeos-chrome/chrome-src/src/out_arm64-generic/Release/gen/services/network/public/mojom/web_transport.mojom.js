@@ -1544,6 +1544,7 @@
 
   WebTransportClient_OnClosed_Params.prototype.initDefaults_ = function() {
     this.closeInfo = null;
+    this.finalStats = null;
   };
   WebTransportClient_OnClosed_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1559,7 +1560,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 16}
+      {version: 0, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1571,10 +1572,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate WebTransportClient_OnClosed_Params.finalStats
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, WebTransportStats, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  WebTransportClient_OnClosed_Params.encodedSize = codec.kStructHeaderSize + 8;
+  WebTransportClient_OnClosed_Params.encodedSize = codec.kStructHeaderSize + 16;
 
   WebTransportClient_OnClosed_Params.decode = function(decoder) {
     var packed;
@@ -1583,6 +1590,8 @@
     var version = decoder.readUint32();
     val.closeInfo =
         decoder.decodeStructPointer(WebTransportCloseInfo);
+    val.finalStats =
+        decoder.decodeStructPointer(WebTransportStats);
     return val;
   };
 
@@ -1591,6 +1600,7 @@
     encoder.writeUint32(WebTransportClient_OnClosed_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(WebTransportCloseInfo, val.closeInfo);
+    encoder.encodeStructPointer(WebTransportStats, val.finalStats);
   };
   function WebTransportHandshakeClient_OnConnectionEstablished_Params(values) {
     this.initDefaults_();
@@ -1602,6 +1612,7 @@
     this.transport = new WebTransportPtr();
     this.client = new bindings.InterfaceRequest();
     this.responseHeaders = null;
+    this.initialStats = null;
   };
   WebTransportHandshakeClient_OnConnectionEstablished_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1617,7 +1628,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 40}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1641,10 +1652,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate WebTransportHandshakeClient_OnConnectionEstablished_Params.initialStats
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, WebTransportStats, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  WebTransportHandshakeClient_OnConnectionEstablished_Params.encodedSize = codec.kStructHeaderSize + 24;
+  WebTransportHandshakeClient_OnConnectionEstablished_Params.encodedSize = codec.kStructHeaderSize + 32;
 
   WebTransportHandshakeClient_OnConnectionEstablished_Params.decode = function(decoder) {
     var packed;
@@ -1661,6 +1678,8 @@
     decoder.skip(1);
     val.responseHeaders =
         decoder.decodeStructPointer(network_param$.HttpResponseHeaders);
+    val.initialStats =
+        decoder.decodeStructPointer(WebTransportStats);
     return val;
   };
 
@@ -1675,6 +1694,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStructPointer(network_param$.HttpResponseHeaders, val.responseHeaders);
+    encoder.encodeStructPointer(WebTransportStats, val.initialStats);
   };
   function WebTransportHandshakeClient_OnHandshakeFailed_Params(values) {
     this.initDefaults_();
@@ -2316,9 +2336,10 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  WebTransportClientProxy.prototype.onClosed = function(closeInfo) {
+  WebTransportClientProxy.prototype.onClosed = function(closeInfo, finalStats) {
     var params_ = new WebTransportClient_OnClosed_Params();
     params_.closeInfo = closeInfo;
+    params_.finalStats = finalStats;
     var builder = new codec.MessageV0Builder(
         kWebTransportClient_OnClosed_Name,
         codec.align(WebTransportClient_OnClosed_Params.encodedSize));
@@ -2345,8 +2366,8 @@
   WebTransportClientStub.prototype.onReceivedResetStream = function(streamId, streamErrorCode) {
     return this.delegate_ && this.delegate_.onReceivedResetStream && this.delegate_.onReceivedResetStream(streamId, streamErrorCode);
   }
-  WebTransportClientStub.prototype.onClosed = function(closeInfo) {
-    return this.delegate_ && this.delegate_.onClosed && this.delegate_.onClosed(closeInfo);
+  WebTransportClientStub.prototype.onClosed = function(closeInfo, finalStats) {
+    return this.delegate_ && this.delegate_.onClosed && this.delegate_.onClosed(closeInfo, finalStats);
   }
 
   WebTransportClientStub.prototype.accept = function(message) {
@@ -2374,7 +2395,7 @@
       return true;
     case kWebTransportClient_OnClosed_Name:
       var params = reader.decodeStruct(WebTransportClient_OnClosed_Params);
-      this.onClosed(params.closeInfo);
+      this.onClosed(params.closeInfo, params.finalStats);
       return true;
     default:
       return false;
@@ -2465,11 +2486,12 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  WebTransportHandshakeClientProxy.prototype.onConnectionEstablished = function(transport, client, responseHeaders) {
+  WebTransportHandshakeClientProxy.prototype.onConnectionEstablished = function(transport, client, responseHeaders, initialStats) {
     var params_ = new WebTransportHandshakeClient_OnConnectionEstablished_Params();
     params_.transport = transport;
     params_.client = client;
     params_.responseHeaders = responseHeaders;
+    params_.initialStats = initialStats;
     var builder = new codec.MessageV0Builder(
         kWebTransportHandshakeClient_OnConnectionEstablished_Name,
         codec.align(WebTransportHandshakeClient_OnConnectionEstablished_Params.encodedSize));
@@ -2496,8 +2518,8 @@
   function WebTransportHandshakeClientStub(delegate) {
     this.delegate_ = delegate;
   }
-  WebTransportHandshakeClientStub.prototype.onConnectionEstablished = function(transport, client, responseHeaders) {
-    return this.delegate_ && this.delegate_.onConnectionEstablished && this.delegate_.onConnectionEstablished(transport, client, responseHeaders);
+  WebTransportHandshakeClientStub.prototype.onConnectionEstablished = function(transport, client, responseHeaders, initialStats) {
+    return this.delegate_ && this.delegate_.onConnectionEstablished && this.delegate_.onConnectionEstablished(transport, client, responseHeaders, initialStats);
   }
   WebTransportHandshakeClientStub.prototype.onHandshakeFailed = function(error) {
     return this.delegate_ && this.delegate_.onHandshakeFailed && this.delegate_.onHandshakeFailed(error);
@@ -2508,7 +2530,7 @@
     switch (reader.messageName) {
     case kWebTransportHandshakeClient_OnConnectionEstablished_Name:
       var params = reader.decodeStruct(WebTransportHandshakeClient_OnConnectionEstablished_Params);
-      this.onConnectionEstablished(params.transport, params.client, params.responseHeaders);
+      this.onConnectionEstablished(params.transport, params.client, params.responseHeaders, params.initialStats);
       return true;
     case kWebTransportHandshakeClient_OnHandshakeFailed_Name:
       var params = reader.decodeStruct(WebTransportHandshakeClient_OnHandshakeFailed_Params);

@@ -127,7 +127,7 @@ export async function testCommandsCanBeUsedForExtraButtons(done) {
     stateBanner = document.body.querySelector('state-banner');
     stateBanner.querySelector('[slot="extra-button"]').click();
     // Wait until the command has been received.
-    await waitUntil(() => commandReceived == true);
+    await waitUntil(() => commandReceived === true);
     // Assert the event type received is a command.
     assertEquals(commandEvent.type, 'command');
     done();

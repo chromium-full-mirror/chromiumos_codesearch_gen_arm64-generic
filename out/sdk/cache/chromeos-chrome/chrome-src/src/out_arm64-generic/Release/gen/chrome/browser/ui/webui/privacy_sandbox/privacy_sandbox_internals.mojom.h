@@ -26,7 +26,7 @@
 #include "chrome/browser/ui/webui/privacy_sandbox/privacy_sandbox_internals.mojom-features.h"
 #include "chrome/browser/ui/webui/privacy_sandbox/privacy_sandbox_internals.mojom-shared.h"
 #include "chrome/browser/ui/webui/privacy_sandbox/privacy_sandbox_internals.mojom-forward.h"
-#include "mojo/public/mojom/base/values.mojom-forward.h"
+#include "mojo/public/mojom/base/values.mojom.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
 #include <string>
 #include <vector>
@@ -71,25 +71,50 @@ class PageHandler
   using RequestValidator_ = PageHandlerRequestValidator;
   using ResponseValidator_ = PageHandlerResponseValidator;
   enum MethodMinVersions : uint32_t {
+    kReadPrefMinVersion = 0,
     kGetCookieSettingsMinVersion = 0,
     kGetTpcdMetadataGrantsMinVersion = 0,
+    kGetTpcdHeuristicsGrantsMinVersion = 0,
+    kGetTpcdTrialMinVersion = 0,
+    kGetTopLevelTpcdTrialMinVersion = 0,
     kContentSettingsPatternToStringMinVersion = 0,
+    kStringToContentSettingsPatternMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct ReadPref_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct GetCookieSettings_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetTpcdMetadataGrants_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetTpcdHeuristicsGrants_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetTpcdTrial_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetTopLevelTpcdTrial_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct ContentSettingsPatternToString_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StringToContentSettingsPattern_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PageHandler() = default;
+
+
+  using ReadPrefCallback = base::OnceCallback<void(::base::Value)>;
+  
+  virtual void ReadPref(const std::string& pref_name, ReadPrefCallback callback) = 0;
 
 
   using GetCookieSettingsCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
@@ -102,9 +127,29 @@ class PageHandler
   virtual void GetTpcdMetadataGrants(GetTpcdMetadataGrantsCallback callback) = 0;
 
 
+  using GetTpcdHeuristicsGrantsCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
+  
+  virtual void GetTpcdHeuristicsGrants(GetTpcdHeuristicsGrantsCallback callback) = 0;
+
+
+  using GetTpcdTrialCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
+  
+  virtual void GetTpcdTrial(GetTpcdTrialCallback callback) = 0;
+
+
+  using GetTopLevelTpcdTrialCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
+  
+  virtual void GetTopLevelTpcdTrial(GetTopLevelTpcdTrialCallback callback) = 0;
+
+
   using ContentSettingsPatternToStringCallback = base::OnceCallback<void(const std::string&)>;
   
   virtual void ContentSettingsPatternToString(const ::ContentSettingsPattern& pattern, ContentSettingsPatternToStringCallback callback) = 0;
+
+
+  using StringToContentSettingsPatternCallback = base::OnceCallback<void(const ::ContentSettingsPattern&)>;
+  
+  virtual void StringToContentSettingsPattern(const std::string& s, StringToContentSettingsPatternCallback callback) = 0;
 };
 
 class PageProxy;
@@ -154,11 +199,21 @@ class  PageHandlerProxy
 
   explicit PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
   
+  void ReadPref(const std::string& pref_name, ReadPrefCallback callback) final;
+  
   void GetCookieSettings(GetCookieSettingsCallback callback) final;
   
   void GetTpcdMetadataGrants(GetTpcdMetadataGrantsCallback callback) final;
   
+  void GetTpcdHeuristicsGrants(GetTpcdHeuristicsGrantsCallback callback) final;
+  
+  void GetTpcdTrial(GetTpcdTrialCallback callback) final;
+  
+  void GetTopLevelTpcdTrial(GetTopLevelTpcdTrialCallback callback) final;
+  
   void ContentSettingsPatternToString(const ::ContentSettingsPattern& pattern, ContentSettingsPatternToStringCallback callback) final;
+  
+  void StringToContentSettingsPattern(const std::string& s, StringToContentSettingsPatternCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

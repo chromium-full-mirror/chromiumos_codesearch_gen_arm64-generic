@@ -148,6 +148,8 @@ bool FullscreenVideoElementHandlerStubDispatch::Accept(
           reinterpret_cast<internal::FullscreenVideoElementHandler_RequestFullscreenVideoElement_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FullscreenVideoElementHandler.0
       bool success = true;
       FullscreenVideoElementHandler_RequestFullscreenVideoElement_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool FullscreenVideoElementHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestFullscreenVideoElement();
+      impl->RequestFullscreenVideoElement(        );
       return true;
     }
   }

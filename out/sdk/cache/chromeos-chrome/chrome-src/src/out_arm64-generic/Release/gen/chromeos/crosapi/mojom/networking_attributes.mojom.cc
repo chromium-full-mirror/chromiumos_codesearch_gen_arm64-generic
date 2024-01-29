@@ -314,6 +314,8 @@ bool NetworkingAttributes_GetNetworkDetails_ForwardToCallback::Accept(
           internal::NetworkingAttributes_GetNetworkDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingAttributes.0
   bool success = true;
   GetNetworkDetailsResultPtr p_result{};
   NetworkingAttributes_GetNetworkDetails_ResponseParamsDataView input_data_view(params, message);
@@ -412,6 +414,8 @@ bool NetworkingAttributesStubDispatch::AcceptWithResponder(
               internal::NetworkingAttributes_GetNetworkDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingAttributes.0
       bool success = true;
       NetworkingAttributes_GetNetworkDetails_ParamsDataView input_data_view(params, message);
       

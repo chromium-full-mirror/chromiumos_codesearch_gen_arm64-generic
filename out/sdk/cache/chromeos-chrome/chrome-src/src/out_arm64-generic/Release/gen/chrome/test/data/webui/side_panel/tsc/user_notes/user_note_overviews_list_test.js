@@ -4,7 +4,7 @@
 import 'chrome://user-notes-side-panel.top-chrome/user_note_overviews_list.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { UserNotesApiProxyImpl } from 'chrome://user-notes-side-panel.top-chrome/user_notes_api_proxy.js';
-import { assertEquals } from 'chrome://webui-test/chai_assert.js';
+import { assertEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { TestUserNotesApiProxy } from './test_user_notes_api_proxy.js';
 suite('UserNoteOverviewsListTest', () => {
@@ -58,6 +58,7 @@ suite('UserNoteOverviewsListTest', () => {
             const overviewElement = noteOverviewElements[0];
             const contextMenuElement = overviewElement.shadowRoot.querySelector('user-note-overview-row-menu');
             const overviewMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+            assertTrue(!!overviewMenuButton);
             overviewMenuButton.click();
             const overviewMenu = contextMenuElement.$.menu;
             // Click add a note button.
@@ -72,6 +73,7 @@ suite('UserNoteOverviewsListTest', () => {
             const overviewElement = noteOverviewElements[0];
             const contextMenuElement = overviewElement.shadowRoot.querySelector('user-note-overview-row-menu');
             const overviewMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+            assertTrue(!!overviewMenuButton);
             overviewMenuButton.click();
             const overviewMenu = contextMenuElement.$.menu;
             // Click open in new tab button.
@@ -86,6 +88,7 @@ suite('UserNoteOverviewsListTest', () => {
             const overviewElement = noteOverviewElements[0];
             const contextMenuElement = overviewElement.shadowRoot.querySelector('user-note-overview-row-menu');
             const overviewMenuButton = contextMenuElement.shadowRoot.querySelector('#menuButton');
+            assertTrue(!!overviewMenuButton);
             overviewMenuButton.click();
             const overviewMenu = contextMenuElement.$.menu;
             // Click delete button.

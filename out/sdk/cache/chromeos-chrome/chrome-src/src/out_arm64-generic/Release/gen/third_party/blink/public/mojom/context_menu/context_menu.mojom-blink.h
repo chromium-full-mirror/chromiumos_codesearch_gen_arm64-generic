@@ -662,6 +662,7 @@ class PLATFORM_EXPORT UntrustworthyContextMenuParams {
       const ::blink::KURL& unfiltered_link_url,
       const ::blink::KURL& src_url,
       bool has_image_contents,
+      bool is_image_media_plugin_document,
       int32_t media_flags,
       const ::WTF::String& selection_text,
       const ::WTF::String& title_text,
@@ -784,6 +785,8 @@ UntrustworthyContextMenuParams& operator=(const UntrustworthyContextMenuParams&)
   ::blink::KURL src_url;
   
   bool has_image_contents;
+  
+  bool is_image_media_plugin_document;
   
   int32_t media_flags;
   
@@ -1007,6 +1010,7 @@ UntrustworthyContextMenuParamsPtr UntrustworthyContextMenuParams::Clone() const 
       mojo::Clone(unfiltered_link_url),
       mojo::Clone(src_url),
       mojo::Clone(has_image_contents),
+      mojo::Clone(is_image_media_plugin_document),
       mojo::Clone(media_flags),
       mojo::Clone(selection_text),
       mojo::Clone(title_text),
@@ -1055,6 +1059,8 @@ bool UntrustworthyContextMenuParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->src_url, other_struct.src_url))
     return false;
   if (!mojo::Equals(this->has_image_contents, other_struct.has_image_contents))
+    return false;
+  if (!mojo::Equals(this->is_image_media_plugin_document, other_struct.is_image_media_plugin_document))
     return false;
   if (!mojo::Equals(this->media_flags, other_struct.media_flags))
     return false;
@@ -1148,6 +1154,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.has_image_contents < rhs.has_image_contents)
     return true;
   if (rhs.has_image_contents < lhs.has_image_contents)
+    return false;
+  if (lhs.is_image_media_plugin_document < rhs.is_image_media_plugin_document)
+    return true;
+  if (rhs.is_image_media_plugin_document < lhs.is_image_media_plugin_document)
     return false;
   if (lhs.media_flags < rhs.media_flags)
     return true;
@@ -1401,6 +1411,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::UntrustworthyContextM
   static decltype(::blink::mojom::blink::UntrustworthyContextMenuParams::has_image_contents) has_image_contents(
       const ::blink::mojom::blink::UntrustworthyContextMenuParamsPtr& input) {
     return input->has_image_contents;
+  }
+
+  static decltype(::blink::mojom::blink::UntrustworthyContextMenuParams::is_image_media_plugin_document) is_image_media_plugin_document(
+      const ::blink::mojom::blink::UntrustworthyContextMenuParamsPtr& input) {
+    return input->is_image_media_plugin_document;
   }
 
   static decltype(::blink::mojom::blink::UntrustworthyContextMenuParams::media_flags) media_flags(

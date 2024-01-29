@@ -2,28 +2,27 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview Fake implementation of chrome.inputMethodPrivate
- * for testing.
+ * @fileoverview Fake of the chrome.inputMethodsPrivate API for testing. Only
+ * methods that are called during testing have been implemented.
  */
-/**
- * Fake of the chrome.inputMethodsPrivate API. Only methods that are called
- * during testing have been implemented.
- *
- * @constructor
- */
-export function FakeInputMethodPrivate() { }
-FakeInputMethodPrivate.prototype = {
-    getCurrentInputMethod: () => Promise.resolve(null),
-    setCurrentInputMethod: () => Promise.resolve(),
-    getLanguagePackStatus: () => Promise.resolve(chrome.inputMethodPrivate.LanguagePackStatus.UNKNOWN),
+export class FakeInputMethodPrivate {
+    getCurrentInputMethod() {
+        return Promise.resolve(null);
+    }
+    setCurrentInputMethod() {
+        return Promise.resolve();
+    }
+    getLanguagePackStatus() {
+        return Promise.resolve(chrome.inputMethodPrivate.LanguagePackStatus.UNKNOWN);
+    }
     get onChanged() {
         return {
-            addListener: function () {
+            addListener: () => {
                 // Nothing to do here.
             },
-            removeListener: function () {
+            removeListener: () => {
                 // Nothing to do here.
             },
         };
-    },
-};
+    }
+}

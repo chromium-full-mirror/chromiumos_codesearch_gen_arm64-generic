@@ -20,6 +20,7 @@ constexpr uint32_t kBluetoothInternalsHandler_GetDebugLogsChangeHandler_Name = 1
 constexpr uint32_t kBluetoothInternalsHandler_CheckSystemPermissions_Name = 2;
 constexpr uint32_t kBluetoothInternalsHandler_RequestSystemPermissions_Name = 3;
 constexpr uint32_t kBluetoothInternalsHandler_RequestLocationServices_Name = 4;
+constexpr uint32_t kBluetoothInternalsHandler_RestartSystemBluetooth_Name = 5;
 
 }  // namespace internal
 

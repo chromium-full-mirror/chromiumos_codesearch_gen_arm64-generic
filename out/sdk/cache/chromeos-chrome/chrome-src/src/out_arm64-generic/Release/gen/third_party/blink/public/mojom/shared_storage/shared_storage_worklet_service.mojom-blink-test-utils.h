@@ -43,7 +43,7 @@ class MODULES_EXPORT SharedStorageWorkletServiceClientInterceptorForTesting : pu
   void SharedStorageEntries(::mojo::PendingRemote<SharedStorageEntriesListener> listener) override;
   void SharedStorageLength(SharedStorageLengthCallback callback) override;
   void SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) override;
-  void ConsoleLog(const WTF::String& message) override;
+  void DidAddMessageToConsole(::blink::mojom::blink::ConsoleMessageLevel log_level, const WTF::String& message) override;
   void RecordUseCounters(const WTF::Vector<::blink::mojom::blink::WebFeature>& features) override;
 };
 class MODULES_EXPORT SharedStorageWorkletServiceClientAsyncWaiter {

@@ -12,7 +12,7 @@ import { MockExecutionContext } from '../../helpers/MockExecutionContext.js';
 async function addMessage(helper, target, url) {
     const details = { line: 2, column: 1, url };
     const message = new SDK.ConsoleModel.ConsoleMessage(target.model(SDK.RuntimeModel.RuntimeModel), SDK.ConsoleModel.FrontendMessageSource.ConsoleAPI, "error" /* Protocol.Log.LogEntryLevel.Error */, 'test message', details);
-    const level = Workspace.UISourceCode.Message.Level.Error;
+    const level = "Error" /* Workspace.UISourceCode.Message.Level.Error */;
     await helper.addMessage(new Workspace.UISourceCode.Message(level, message.messageText), message);
     return message;
 }

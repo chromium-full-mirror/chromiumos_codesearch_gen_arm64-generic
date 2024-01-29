@@ -15,6 +15,7 @@ namespace internal {
 
 
 constexpr uint32_t kPermissionObserver_OnPermissionStatusChange_Name = 0;
+constexpr uint32_t kEmbeddedPermissionControlClient_OnEmbeddedPermissionControlRegistered_Name = 0;
 constexpr uint32_t kPermissionService_HasPermission_Name = 0;
 constexpr uint32_t kPermissionService_RegisterPageEmbeddedPermissionControl_Name = 1;
 constexpr uint32_t kPermissionService_RequestPageEmbeddedPermission_Name = 2;

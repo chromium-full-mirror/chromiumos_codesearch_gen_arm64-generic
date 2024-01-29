@@ -38,9 +38,7 @@ const TOGGLE_CONTAINER_ON_PROMINENT = css `var(--cros-sys-highlight_shape)`;
 const LARGE_CONTAINER_WIDTH = css `72px`;
 const LARGE_CONTAINER_HEIGHT = css `56px`;
 /**
- * A cros compliant icon-button component.
- * See spec:
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2447%3A5928
+ * A ChromeOS compliant icon-button component.
  */
 export class IconButton extends LitElement {
     /** @nocollapse */
@@ -265,6 +263,14 @@ export class IconButton extends LitElement {
         this.surface = 'base';
         this.disabled = false;
         this.selected = false;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // All aria properties on button just get proxied down to the real <button>
+        // element, as such we set role to presentation so screenreaders ignore
+        // this component and instead only read aria attributes off the inner
+        // interactive element.
+        this.setAttribute('role', 'presentation');
     }
     render() {
         const ariaLabel = this.ariaLabel || '';

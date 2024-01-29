@@ -470,6 +470,8 @@ bool SelectFile_Select_ForwardToCallback::Accept(
           internal::SelectFile_Select_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SelectFile.0
   bool success = true;
   SelectFileResult p_result{};
   std::vector<SelectedFileInfoPtr> p_files{};
@@ -589,6 +591,8 @@ bool SelectFileStubDispatch::AcceptWithResponder(
               internal::SelectFile_Select_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SelectFile.0
       bool success = true;
       SelectFileOptionsPtr p_options{};
       SelectFile_Select_ParamsDataView input_data_view(params, message);
@@ -607,8 +611,8 @@ bool SelectFileStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Select(
-std::move(p_options), std::move(callback));
+      impl->Select(        
+        std::move(p_options), std::move(callback));
       return true;
     }
   }

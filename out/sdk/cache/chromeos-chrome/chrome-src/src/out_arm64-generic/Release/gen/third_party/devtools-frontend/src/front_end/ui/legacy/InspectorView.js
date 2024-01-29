@@ -31,16 +31,18 @@ import * as Common from '../../core/common/common.js';
 import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Root from '../../core/root/root.js';
+import * as IconButton from '../components/icon_button/icon_button.js';
 import * as ARIAUtils from './ARIAUtils.js';
 import { Dialog } from './Dialog.js';
 import { DockController } from './DockController.js';
 import { GlassPane } from './GlassPane.js';
-import { Infobar, Type as InfobarType } from './Infobar.js';
+import { Infobar } from './Infobar.js';
 import inspectorViewTabbedPaneStyles from './inspectorViewTabbedPane.css.legacy.js';
 import { KeyboardShortcut } from './KeyboardShortcut.js';
-import { ShowMode, SplitWidget } from './SplitWidget.js';
+import { SplitWidget } from './SplitWidget.js';
 import { Events as TabbedPaneEvents } from './TabbedPane.js';
 import { ToolbarButton } from './Toolbar.js';
+import { Tooltip } from './Tooltip.js';
 import { ViewManager } from './ViewManager.js';
 import { VBox, WidgetFocusRestorer } from './Widget.js';
 const UIStrings = {
@@ -152,11 +154,12 @@ export class InspectorView extends VBox {
         this.drawerTabbedPane.setMinimumSize(0, 27);
         this.drawerTabbedPane.element.classList.add('drawer-tabbed-pane');
         const closeDrawerButton = new ToolbarButton(i18nString(UIStrings.closeDrawer), 'cross');
-        closeDrawerButton.addEventListener(ToolbarButton.Events.Click, this.closeDrawer, this);
-        this.drawerTabbedPane.addEventListener(TabbedPaneEvents.TabSelected, this.tabSelected, this);
+        closeDrawerButton.addEventListener("Click" /* ToolbarButton.Events.Click */, this.closeDrawer, this);
+        this.drawerTabbedPane.addEventListener(TabbedPaneEvents.TabSelected, (event) => this.tabSelected(event.data.tabId, 'drawer'), this);
         const selectedDrawerTab = this.drawerTabbedPane.selectedTabId;
-        if (this.drawerSplitWidget.showMode() !== ShowMode.OnlyMain && selectedDrawerTab) {
+        if (this.drawerSplitWidget.showMode() !== "OnlyMain" /* ShowMode.OnlyMain */ && selectedDrawerTab) {
             Host.userMetrics.panelShown(selectedDrawerTab, true);
+            Host.userMetrics.panelShownInLocation(selectedDrawerTab, 'drawer');
         }
         this.drawerTabbedPane.setTabDelegate(this.tabDelegate);
         const drawerElement = this.drawerTabbedPane.element;
@@ -173,13 +176,14 @@ export class InspectorView extends VBox {
         // the tabs themselves, so a space equal to the buttons' total width is preemptively allocated
         // to prevent to prevent a shift in the tab layout. Note that when DevTools cannot be docked,
         // the Device mode button is not added and so the allocated space is smaller.
-        const allocatedSpace = Root.Runtime.Runtime.queryParam(Root.Runtime.ConditionName.CAN_DOCK) ? '69px' : '41px';
+        const allocatedSpace = Root.Runtime.Runtime.queryParam("can_dock" /* Root.Runtime.ConditionName.CAN_DOCK */) ? '69px' : '41px';
         this.tabbedPane.leftToolbar().element.style.minWidth = allocatedSpace;
         this.tabbedPane.registerRequiredCSS(inspectorViewTabbedPaneStyles);
-        this.tabbedPane.addEventListener(TabbedPaneEvents.TabSelected, this.tabSelected, this);
+        this.tabbedPane.addEventListener(TabbedPaneEvents.TabSelected, (event) => this.tabSelected(event.data.tabId, 'main'), this);
         const selectedTab = this.tabbedPane.selectedTabId;
         if (selectedTab) {
             Host.userMetrics.panelShown(selectedTab, true);
+            Host.userMetrics.panelShownInLocation(selectedTab, 'main');
         }
         this.tabbedPane.setAccessibleName(i18nString(UIStrings.panels));
         this.tabbedPane.setTabDelegate(this.tabDelegate);
@@ -260,15 +264,21 @@ export class InspectorView extends VBox {
     async showPanel(panelName) {
         await ViewManager.instance().showView(panelName);
     }
-    setPanelIcon(tabId, icon) {
+    setPanelWarnings(tabId, warnings) {
         // Find the tabbed location where the panel lives
         const tabbedPane = this.getTabbedPaneForTabId(tabId);
         if (tabbedPane) {
+            let icon = null;
+            if (warnings.length !== 0) {
+                const warning = warnings.length === 1 ? warnings[0] : '· ' + warnings.join('\n· ');
+                icon = IconButton.Icon.create('warning-filled');
+                Tooltip.install(icon, warning);
+            }
             tabbedPane.setTabIcon(tabId, icon);
         }
     }
     emitDrawerChangeEvent(isDrawerOpen) {
-        const evt = new CustomEvent(Events.DrawerChange, { bubbles: true, cancelable: true, detail: { isDrawerOpen } });
+        const evt = new CustomEvent("drawerchange" /* Events.DrawerChange */, { bubbles: true, cancelable: true, detail: { isDrawerOpen } });
         document.body.dispatchEvent(evt);
     }
     getTabbedPaneForTabId(tabId) {
@@ -363,9 +373,9 @@ export class InspectorView extends VBox {
     toolbarItemResized() {
         this.tabbedPane.headerResized();
     }
-    tabSelected(event) {
-        const { tabId } = event.data;
+    tabSelected(tabId, location) {
         Host.userMetrics.panelShown(tabId);
+        Host.userMetrics.panelShownInLocation(tabId, location);
     }
     setOwnerSplit(splitWidget) {
         this.ownerSplitWidget = splitWidget;
@@ -385,7 +395,7 @@ export class InspectorView extends VBox {
     }
     displayReloadRequiredWarning(message) {
         if (!this.reloadRequiredInfobar) {
-            const infobar = new Infobar(InfobarType.Info, message, [
+            const infobar = new Infobar("info" /* InfobarType.Info */, message, [
                 {
                     text: i18nString(UIStrings.reloadDevtools),
                     highlight: true,
@@ -403,7 +413,7 @@ export class InspectorView extends VBox {
     }
     displaySelectOverrideFolderInfobar(callback) {
         if (!this.#selectOverrideFolderInfobar) {
-            const infobar = new Infobar(InfobarType.Info, i18nString(UIStrings.selectOverrideFolder), [
+            const infobar = new Infobar("info" /* InfobarType.Info */, i18nString(UIStrings.selectOverrideFolder), [
                 {
                     text: i18nString(UIStrings.selectFolder),
                     highlight: true,
@@ -455,7 +465,7 @@ function createLocaleInfobar() {
     const locale = new Intl.Locale(closestSupportedLocale);
     const closestSupportedLanguageInCurrentLocale = new Intl.DisplayNames([devtoolsLocale.locale], { type: 'language' }).of(locale.language || 'en') || 'English';
     const languageSetting = Common.Settings.Settings.instance().moduleSetting('language');
-    return new Infobar(InfobarType.Info, i18nString(UIStrings.devToolsLanguageMissmatch, { PH1: closestSupportedLanguageInCurrentLocale }), [
+    return new Infobar("info" /* InfobarType.Info */, i18nString(UIStrings.devToolsLanguageMissmatch, { PH1: closestSupportedLanguageInCurrentLocale }), [
         {
             text: i18nString(UIStrings.setToBrowserLanguage),
             highlight: true,
@@ -540,10 +550,4 @@ export class InspectorViewTabDelegate {
         }
     }
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var Events;
-(function (Events) {
-    Events["DrawerChange"] = "drawerchange";
-})(Events || (Events = {}));
 //# sourceMappingURL=InspectorView.js.map

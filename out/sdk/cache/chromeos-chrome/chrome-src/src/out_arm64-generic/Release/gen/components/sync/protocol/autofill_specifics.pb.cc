@@ -26,11 +26,9 @@ PROTOBUF_CONSTEXPR AutofillProfileSpecifics::AutofillProfileSpecifics(
   , email_address_()
   , phone_home_whole_number_()
   , name_full_()
-  , name_honorific_()
   , name_last_first_()
   , name_last_conjunction_()
   , name_last_second_()
-  , name_honorific_status_()
   , name_first_status_()
   , name_middle_status_()
   , name_last_status_()
@@ -38,8 +36,6 @@ PROTOBUF_CONSTEXPR AutofillProfileSpecifics::AutofillProfileSpecifics(
   , name_last_conjunction_status_()
   , name_last_second_status_()
   , name_full_status_()
-  , name_full_with_honorific_()
-  , name_full_with_honorific_status_()
   , deprecated_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , company_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , address_home_line1_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -1420,20 +1416,16 @@ AutofillProfileSpecifics::AutofillProfileSpecifics(::PROTOBUF_NAMESPACE_ID::Aren
   email_address_(arena),
   phone_home_whole_number_(arena),
   name_full_(arena),
-  name_honorific_(arena),
   name_last_first_(arena),
   name_last_conjunction_(arena),
   name_last_second_(arena),
-  name_honorific_status_(arena),
   name_first_status_(arena),
   name_middle_status_(arena),
   name_last_status_(arena),
   name_last_first_status_(arena),
   name_last_conjunction_status_(arena),
   name_last_second_status_(arena),
-  name_full_status_(arena),
-  name_full_with_honorific_(arena),
-  name_full_with_honorific_status_(arena) {
+  name_full_status_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:sync_pb.AutofillProfileSpecifics)
 }
@@ -1446,20 +1438,16 @@ AutofillProfileSpecifics::AutofillProfileSpecifics(const AutofillProfileSpecific
       email_address_(from.email_address_),
       phone_home_whole_number_(from.phone_home_whole_number_),
       name_full_(from.name_full_),
-      name_honorific_(from.name_honorific_),
       name_last_first_(from.name_last_first_),
       name_last_conjunction_(from.name_last_conjunction_),
       name_last_second_(from.name_last_second_),
-      name_honorific_status_(from.name_honorific_status_),
       name_first_status_(from.name_first_status_),
       name_middle_status_(from.name_middle_status_),
       name_last_status_(from.name_last_status_),
       name_last_first_status_(from.name_last_first_status_),
       name_last_conjunction_status_(from.name_last_conjunction_status_),
       name_last_second_status_(from.name_last_second_status_),
-      name_full_status_(from.name_full_status_),
-      name_full_with_honorific_(from.name_full_with_honorific_),
-      name_full_with_honorific_status_(from.name_full_with_honorific_status_) {
+      name_full_status_(from.name_full_status_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   deprecated_label_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1919,11 +1907,9 @@ void AutofillProfileSpecifics::Clear() {
   email_address_.Clear();
   phone_home_whole_number_.Clear();
   name_full_.Clear();
-  name_honorific_.Clear();
   name_last_first_.Clear();
   name_last_conjunction_.Clear();
   name_last_second_.Clear();
-  name_honorific_status_.Clear();
   name_first_status_.Clear();
   name_middle_status_.Clear();
   name_last_status_.Clear();
@@ -1931,8 +1917,6 @@ void AutofillProfileSpecifics::Clear() {
   name_last_conjunction_status_.Clear();
   name_last_second_status_.Clear();
   name_full_status_.Clear();
-  name_full_with_honorific_.Clear();
-  name_full_with_honorific_status_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -2324,20 +2308,6 @@ const char* AutofillProfileSpecifics::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
-      // repeated string name_honorific = 26;
-      case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            auto str = _internal_add_name_honorific();
-            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<210>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
       // repeated string name_last_first = 27;
       case 27:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 218)) {
@@ -2377,27 +2347,6 @@ const char* AutofillProfileSpecifics::_InternalParse(const char* ptr, ::_pbi::Pa
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<234>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_honorific_status = 30;
-      case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 240)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-            CHK_(ptr);
-            if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
-              _internal_add_name_honorific_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
-            } else {
-              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(30, val, mutable_unknown_fields());
-            }
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<240>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 242) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_name_honorific_status(), ptr, ctx, ::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid, &_internal_metadata_, 30);
-          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -2759,41 +2708,6 @@ const char* AutofillProfileSpecifics::_InternalParse(const char* ptr, ::_pbi::Pa
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(59, val, mutable_unknown_fields());
           }
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated string name_full_with_honorific = 60;
-      case 60:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            auto str = _internal_add_name_full_with_honorific();
-            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<482>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_full_with_honorific_status = 61;
-      case 61:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-            CHK_(ptr);
-            if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
-              _internal_add_name_full_with_honorific_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
-            } else {
-              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(61, val, mutable_unknown_fields());
-            }
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<488>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 234) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_name_full_with_honorific_status(), ptr, ctx, ::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid, &_internal_metadata_, 61);
-          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -3256,12 +3170,6 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(25, this->_internal_is_client_validity_states_updated(), target);
   }
 
-  // repeated string name_honorific = 26;
-  for (int i = 0, n = this->_internal_name_honorific_size(); i < n; i++) {
-    const auto& s = this->_internal_name_honorific(i);
-    target = stream->WriteString(26, s, target);
-  }
-
   // repeated string name_last_first = 27;
   for (int i = 0, n = this->_internal_name_last_first_size(); i < n; i++) {
     const auto& s = this->_internal_name_last_first(i);
@@ -3278,13 +3186,6 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
   for (int i = 0, n = this->_internal_name_last_second_size(); i < n; i++) {
     const auto& s = this->_internal_name_last_second(i);
     target = stream->WriteString(29, s, target);
-  }
-
-  // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_honorific_status = 30;
-  for (int i = 0, n = this->_internal_name_honorific_status_size(); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        30, this->_internal_name_honorific_status(i), target);
   }
 
   // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_first_status = 31;
@@ -3459,19 +3360,6 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       59, this->_internal_address_home_floor_status(), target);
-  }
-
-  // repeated string name_full_with_honorific = 60;
-  for (int i = 0, n = this->_internal_name_full_with_honorific_size(); i < n; i++) {
-    const auto& s = this->_internal_name_full_with_honorific(i);
-    target = stream->WriteString(60, s, target);
-  }
-
-  // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_full_with_honorific_status = 61;
-  for (int i = 0, n = this->_internal_name_full_with_honorific_status_size(); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        61, this->_internal_name_full_with_honorific_status(i), target);
   }
 
   cached_has_bits = _has_bits_[0];
@@ -3729,14 +3617,6 @@ size_t AutofillProfileSpecifics::ByteSizeLong() const {
       name_full_.Get(i));
   }
 
-  // repeated string name_honorific = 26;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(name_honorific_.size());
-  for (int i = 0, n = name_honorific_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      name_honorific_.Get(i));
-  }
-
   // repeated string name_last_first = 27;
   total_size += 2 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(name_last_first_.size());
@@ -3759,16 +3639,6 @@ size_t AutofillProfileSpecifics::ByteSizeLong() const {
   for (int i = 0, n = name_last_second_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       name_last_second_.Get(i));
-  }
-
-  // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_honorific_status = 30;
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_name_honorific_status_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_name_honorific_status(static_cast<int>(i)));
-    }
-    total_size += (2UL * count) + data_size;
   }
 
   // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_first_status = 31;
@@ -3837,24 +3707,6 @@ size_t AutofillProfileSpecifics::ByteSizeLong() const {
     unsigned int count = static_cast<unsigned int>(this->_internal_name_full_status_size());for (unsigned int i = 0; i < count; i++) {
       data_size += ::_pbi::WireFormatLite::EnumSize(
         this->_internal_name_full_status(static_cast<int>(i)));
-    }
-    total_size += (2UL * count) + data_size;
-  }
-
-  // repeated string name_full_with_honorific = 60;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(name_full_with_honorific_.size());
-  for (int i = 0, n = name_full_with_honorific_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      name_full_with_honorific_.Get(i));
-  }
-
-  // repeated .sync_pb.AutofillProfileSpecifics.VerificationStatus name_full_with_honorific_status = 61;
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_name_full_with_honorific_status_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_name_full_with_honorific_status(static_cast<int>(i)));
     }
     total_size += (2UL * count) + data_size;
   }
@@ -4318,11 +4170,9 @@ void AutofillProfileSpecifics::MergeFrom(const AutofillProfileSpecifics& from) {
   email_address_.MergeFrom(from.email_address_);
   phone_home_whole_number_.MergeFrom(from.phone_home_whole_number_);
   name_full_.MergeFrom(from.name_full_);
-  name_honorific_.MergeFrom(from.name_honorific_);
   name_last_first_.MergeFrom(from.name_last_first_);
   name_last_conjunction_.MergeFrom(from.name_last_conjunction_);
   name_last_second_.MergeFrom(from.name_last_second_);
-  name_honorific_status_.MergeFrom(from.name_honorific_status_);
   name_first_status_.MergeFrom(from.name_first_status_);
   name_middle_status_.MergeFrom(from.name_middle_status_);
   name_last_status_.MergeFrom(from.name_last_status_);
@@ -4330,8 +4180,6 @@ void AutofillProfileSpecifics::MergeFrom(const AutofillProfileSpecifics& from) {
   name_last_conjunction_status_.MergeFrom(from.name_last_conjunction_status_);
   name_last_second_status_.MergeFrom(from.name_last_second_status_);
   name_full_status_.MergeFrom(from.name_full_status_);
-  name_full_with_honorific_.MergeFrom(from.name_full_with_honorific_);
-  name_full_with_honorific_status_.MergeFrom(from.name_full_with_honorific_status_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -4570,11 +4418,9 @@ void AutofillProfileSpecifics::InternalSwap(AutofillProfileSpecifics* other) {
   email_address_.InternalSwap(&other->email_address_);
   phone_home_whole_number_.InternalSwap(&other->phone_home_whole_number_);
   name_full_.InternalSwap(&other->name_full_);
-  name_honorific_.InternalSwap(&other->name_honorific_);
   name_last_first_.InternalSwap(&other->name_last_first_);
   name_last_conjunction_.InternalSwap(&other->name_last_conjunction_);
   name_last_second_.InternalSwap(&other->name_last_second_);
-  name_honorific_status_.InternalSwap(&other->name_honorific_status_);
   name_first_status_.InternalSwap(&other->name_first_status_);
   name_middle_status_.InternalSwap(&other->name_middle_status_);
   name_last_status_.InternalSwap(&other->name_last_status_);
@@ -4582,8 +4428,6 @@ void AutofillProfileSpecifics::InternalSwap(AutofillProfileSpecifics* other) {
   name_last_conjunction_status_.InternalSwap(&other->name_last_conjunction_status_);
   name_last_second_status_.InternalSwap(&other->name_last_second_status_);
   name_full_status_.InternalSwap(&other->name_full_status_);
-  name_full_with_honorific_.InternalSwap(&other->name_full_with_honorific_);
-  name_full_with_honorific_status_.InternalSwap(&other->name_full_with_honorific_status_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &deprecated_label_, lhs_arena,
       &other->deprecated_label_, rhs_arena

@@ -89,7 +89,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.candidate.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("RTCIceCandidate.candidate.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateCandidate);
 
@@ -187,7 +188,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.address.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("RTCIceCandidate.address.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateAddress);
 
@@ -225,7 +227,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.port.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("RTCIceCandidate.port.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidatePort);
 
@@ -278,7 +281,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.relatedAddress.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("RTCIceCandidate.relatedAddress.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateRelatedAddress);
 
@@ -301,7 +305,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.relatedPort.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("RTCIceCandidate.relatedPort.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRTCIceCandidateRelatedPort);
 
@@ -352,7 +357,8 @@ return;
 
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<RTCIceCandidateInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_candidate_init_dict;
 if (info[0]->IsUndefined()) {
@@ -385,8 +391,7 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceCandidate.toJSON");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 RTCIceCandidate* blink_receiver = V8RTCIceCandidate::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->toJSONForBinding(script_state);
 bindings::V8SetReturnValue(info, return_value);

@@ -181,6 +181,7 @@ suite('<settings-per-device-touchpad-subsection>', () => {
     test('Simulate right click dropdown', async () => {
         assertTrue(isVisible(subsection.shadowRoot.querySelector('#simulateRightClickContainer')));
         const simulateRightClickDropdown = subsection.shadowRoot.querySelector('#simulateRightClickDropdown');
+        assertTrue(!!simulateRightClickDropdown);
         // Dropdown has the correct default value.
         assertEquals(Number(simulateRightClickDropdown.$.dropdownMenu.value), SimulateRightClickModifier.kNone);
         await simulateDropdownChange(SimulateRightClickModifier.kAlt);

@@ -61,24 +61,16 @@ const int argc = 4;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_children;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLSequence<CustomLayoutChild>>::ToV8(script_state, arg1_children).ToLocal(&v8_arg1_children)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_children = ToV8Traits<IDLSequence<CustomLayoutChild>>::ToV8(script_state, arg1_children);
 argv[0] = v8_arg1_children;
 v8::Local<v8::Value> v8_arg2_edges;
-if (!ToV8Traits<CustomLayoutEdges>::ToV8(script_state, arg2_edges).ToLocal(&v8_arg2_edges)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg2_edges = ToV8Traits<CustomLayoutEdges>::ToV8(script_state, arg2_edges);
 argv[1] = v8_arg2_edges;
 v8::Local<v8::Value> v8_arg3_constraints;
-if (!ToV8Traits<CustomLayoutConstraints>::ToV8(script_state, arg3_constraints).ToLocal(&v8_arg3_constraints)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg3_constraints = ToV8Traits<CustomLayoutConstraints>::ToV8(script_state, arg3_constraints);
 argv[2] = v8_arg3_constraints;
 v8::Local<v8::Value> v8_arg4_style_map;
-if (!ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg4_style_map).ToLocal(&v8_arg4_style_map)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg4_style_map = ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg4_style_map);
 argv[3] = v8_arg4_style_map;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();
@@ -117,24 +109,16 @@ const int argc = 4;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_children;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLSequence<CustomLayoutChild>>::ToV8(script_state, arg1_children).ToLocal(&v8_arg1_children)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_children = ToV8Traits<IDLSequence<CustomLayoutChild>>::ToV8(script_state, arg1_children);
 argv[0] = v8_arg1_children;
 v8::Local<v8::Value> v8_arg2_edges;
-if (!ToV8Traits<CustomLayoutEdges>::ToV8(script_state, arg2_edges).ToLocal(&v8_arg2_edges)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg2_edges = ToV8Traits<CustomLayoutEdges>::ToV8(script_state, arg2_edges);
 argv[1] = v8_arg2_edges;
 v8::Local<v8::Value> v8_arg3_constraints;
-if (!ToV8Traits<CustomLayoutConstraints>::ToV8(script_state, arg3_constraints).ToLocal(&v8_arg3_constraints)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg3_constraints = ToV8Traits<CustomLayoutConstraints>::ToV8(script_state, arg3_constraints);
 argv[2] = v8_arg3_constraints;
 v8::Local<v8::Value> v8_arg4_style_map;
-if (!ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg4_style_map).ToLocal(&v8_arg4_style_map)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg4_style_map = ToV8Traits<StylePropertyMapReadOnly>::ToV8(script_state, arg4_style_map);
 argv[3] = v8_arg4_style_map;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();

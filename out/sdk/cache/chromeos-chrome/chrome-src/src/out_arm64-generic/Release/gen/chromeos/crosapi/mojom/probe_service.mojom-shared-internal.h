@@ -56,6 +56,8 @@ class ProbeAudioInfo_Data;
 class ProbeEmbeddedDisplayInfo_Data;
 class ProbeExternalDisplayInfo_Data;
 class ProbeDisplayInfo_Data;
+class ProbeThermalSensorInfo_Data;
+class ProbeThermalInfo_Data;
 class ProbeTelemetryInfo_Data;
 class ProbeOemData_Data;
 class ProbeBatteryResult_Data;
@@ -75,6 +77,7 @@ class ProbeSystemResult_Data;
 class ProbeNetworkResult_Data;
 class ProbeAudioResult_Data;
 class ProbeDisplayResult_Data;
+class ProbeThermalResult_Data;
 
 struct ProbeCategoryEnum_Data {
  public:
@@ -99,6 +102,7 @@ struct ProbeCategoryEnum_Data {
       case 14:
       case 15:
       case 16:
+      case 17:
         return true;
     }
     return false;
@@ -284,6 +288,31 @@ struct ProbeTpmGSCVersion_Data {
 };
 
 struct ProbeDisplayInputType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct ProbeThermalSensorSource_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -1193,6 +1222,58 @@ class  ProbeDisplayResult_Data {
 };
 static_assert(sizeof(ProbeDisplayResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(ProbeDisplayResult_Data)");
+
+
+class  ProbeThermalResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  ProbeThermalResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~ProbeThermalResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<ProbeThermalResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class ProbeThermalResult_Tag : uint32_t {
+
+    
+    kThermalInfo,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::ProbeThermalInfo_Data> f_thermal_info;
+    mojo::internal::Pointer<internal::ProbeError_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  ProbeThermalResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(ProbeThermalResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(ProbeThermalResult_Data)");
 class  ProbeError_Data {
  public:
   static bool Validate(const void* data,
@@ -2777,6 +2858,105 @@ struct ProbeDisplayInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ProbeDisplayInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ProbeThermalSensorInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  double temperature_celsius;
+  int32_t source;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ProbeThermalSensorInfo_Data>;
+
+  ProbeThermalSensorInfo_Data();
+  ~ProbeThermalSensorInfo_Data() = delete;
+};
+static_assert(sizeof(ProbeThermalSensorInfo_Data) == 32,
+              "Bad sizeof(ProbeThermalSensorInfo_Data)");
+// Used by ProbeThermalSensorInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ProbeThermalSensorInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ProbeThermalSensorInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ProbeThermalSensorInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ProbeThermalSensorInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ProbeThermalSensorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ProbeThermalInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ProbeThermalSensorInfo_Data>>> thermal_sensors;
+
+ private:
+  friend class mojo::internal::MessageFragment<ProbeThermalInfo_Data>;
+
+  ProbeThermalInfo_Data();
+  ~ProbeThermalInfo_Data() = delete;
+};
+static_assert(sizeof(ProbeThermalInfo_Data) == 16,
+              "Bad sizeof(ProbeThermalInfo_Data)");
+// Used by ProbeThermalInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ProbeThermalInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ProbeThermalInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ProbeThermalInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ProbeThermalInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ProbeThermalInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ProbeTelemetryInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -2799,6 +2979,7 @@ class  ProbeTelemetryInfo_Data {
   internal::ProbeAudioResult_Data audio_result;
   internal::ProbeBusResult_Data bus_result;
   internal::ProbeDisplayResult_Data display_result;
+  internal::ProbeThermalResult_Data thermal_result;
 
  private:
   friend class mojo::internal::MessageFragment<ProbeTelemetryInfo_Data>;
@@ -2806,7 +2987,7 @@ class  ProbeTelemetryInfo_Data {
   ProbeTelemetryInfo_Data();
   ~ProbeTelemetryInfo_Data() = delete;
 };
-static_assert(sizeof(ProbeTelemetryInfo_Data) == 264,
+static_assert(sizeof(ProbeTelemetryInfo_Data) == 280,
               "Bad sizeof(ProbeTelemetryInfo_Data)");
 // Used by ProbeTelemetryInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

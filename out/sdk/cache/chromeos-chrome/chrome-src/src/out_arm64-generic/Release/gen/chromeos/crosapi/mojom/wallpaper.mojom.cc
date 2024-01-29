@@ -476,6 +476,8 @@ bool Wallpaper_SetWallpaperDeprecated_ForwardToCallback::Accept(
           internal::Wallpaper_SetWallpaperDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Wallpaper.0
   bool success = true;
   std::vector<uint8_t> p_thumbnail_data{};
   Wallpaper_SetWallpaperDeprecated_ResponseParamsDataView input_data_view(params, message);
@@ -607,6 +609,8 @@ bool Wallpaper_SetWallpaper_ForwardToCallback::Accept(
           internal::Wallpaper_SetWallpaper_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Wallpaper.1
   bool success = true;
   SetWallpaperResultPtr p_result{};
   Wallpaper_SetWallpaper_ResponseParamsDataView input_data_view(params, message);
@@ -708,6 +712,8 @@ bool WallpaperStubDispatch::AcceptWithResponder(
               internal::Wallpaper_SetWallpaperDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Wallpaper.0
       bool success = true;
       WallpaperSettingsPtr p_wallpaper{};
       std::string p_extension_id{};
@@ -732,10 +738,10 @@ bool WallpaperStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWallpaperDeprecated(
-std::move(p_wallpaper), 
-std::move(p_extension_id), 
-std::move(p_extension_name), std::move(callback));
+      impl->SetWallpaperDeprecated(        
+        std::move(p_wallpaper), 
+        std::move(p_extension_id), 
+        std::move(p_extension_name), std::move(callback));
       return true;
     }
     case internal::kWallpaper_SetWallpaper_Name: {
@@ -745,6 +751,8 @@ std::move(p_extension_name), std::move(callback));
               internal::Wallpaper_SetWallpaper_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Wallpaper.1
       bool success = true;
       WallpaperSettingsPtr p_wallpaper{};
       std::string p_exension_id{};
@@ -769,10 +777,10 @@ std::move(p_extension_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWallpaper(
-std::move(p_wallpaper), 
-std::move(p_exension_id), 
-std::move(p_extension_name), std::move(callback));
+      impl->SetWallpaper(        
+        std::move(p_wallpaper), 
+        std::move(p_exension_id), 
+        std::move(p_extension_name), std::move(callback));
       return true;
     }
   }

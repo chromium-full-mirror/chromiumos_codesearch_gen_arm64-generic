@@ -230,6 +230,8 @@ bool WebSocketConnectorStubDispatch::Accept(
           reinterpret_cast<internal::WebSocketConnector_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebSocketConnector.0
       bool success = true;
       ::blink::KURL p_url{};
       WTF::Vector<WTF::String> p_requested_protocols{};
@@ -265,14 +267,14 @@ bool WebSocketConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_url), 
-std::move(p_requested_protocols), 
-std::move(p_site_for_cookies), 
-std::move(p_user_agent), 
-std::move(p_has_storage_access), 
-std::move(p_handshake_client), 
-std::move(p_throttling_profile_id));
+      impl->Connect(        
+        std::move(p_url), 
+        std::move(p_requested_protocols), 
+        std::move(p_site_for_cookies), 
+        std::move(p_user_agent), 
+        std::move(p_has_storage_access), 
+        std::move(p_handshake_client), 
+        std::move(p_throttling_profile_id));
       return true;
     }
   }

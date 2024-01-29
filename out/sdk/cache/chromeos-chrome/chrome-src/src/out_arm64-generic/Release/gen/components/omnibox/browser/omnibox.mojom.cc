@@ -1484,6 +1484,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_SetPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       PageHandler_SetPage_ParamsDataView input_data_view(params, message);
@@ -1501,8 +1503,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPage(
-std::move(p_page));
+      impl->SetPage(        
+        std::move(p_page));
       return true;
     }
     case internal::kPageHandler_OnFocusChanged_Name: {
@@ -1512,6 +1514,8 @@ std::move(p_page));
           reinterpret_cast<internal::PageHandler_OnFocusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       bool p_focused{};
       PageHandler_OnFocusChanged_ParamsDataView input_data_view(params, message);
@@ -1527,8 +1531,8 @@ std::move(p_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFocusChanged(
-std::move(p_focused));
+      impl->OnFocusChanged(        
+        std::move(p_focused));
       return true;
     }
     case internal::kPageHandler_QueryAutocomplete_Name: {
@@ -1538,6 +1542,8 @@ std::move(p_focused));
           reinterpret_cast<internal::PageHandler_QueryAutocomplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ::std::u16string p_input{};
       bool p_prevent_inline_autocomplete{};
@@ -1556,9 +1562,9 @@ std::move(p_focused));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueryAutocomplete(
-std::move(p_input), 
-std::move(p_prevent_inline_autocomplete));
+      impl->QueryAutocomplete(        
+        std::move(p_input), 
+        std::move(p_prevent_inline_autocomplete));
       return true;
     }
     case internal::kPageHandler_StopAutocomplete_Name: {
@@ -1568,6 +1574,8 @@ std::move(p_prevent_inline_autocomplete));
           reinterpret_cast<internal::PageHandler_StopAutocomplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       bool p_clear_result{};
       PageHandler_StopAutocomplete_ParamsDataView input_data_view(params, message);
@@ -1583,8 +1591,8 @@ std::move(p_prevent_inline_autocomplete));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopAutocomplete(
-std::move(p_clear_result));
+      impl->StopAutocomplete(        
+        std::move(p_clear_result));
       return true;
     }
     case internal::kPageHandler_OpenAutocompleteMatch_Name: {
@@ -1594,6 +1602,8 @@ std::move(p_clear_result));
           reinterpret_cast<internal::PageHandler_OpenAutocompleteMatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       uint8_t p_line{};
       ::GURL p_url{};
@@ -1630,15 +1640,15 @@ std::move(p_clear_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenAutocompleteMatch(
-std::move(p_line), 
-std::move(p_url), 
-std::move(p_are_matches_showing), 
-std::move(p_mouse_button), 
-std::move(p_alt_key), 
-std::move(p_ctrl_key), 
-std::move(p_meta_key), 
-std::move(p_shift_key));
+      impl->OpenAutocompleteMatch(        
+        std::move(p_line), 
+        std::move(p_url), 
+        std::move(p_are_matches_showing), 
+        std::move(p_mouse_button), 
+        std::move(p_alt_key), 
+        std::move(p_ctrl_key), 
+        std::move(p_meta_key), 
+        std::move(p_shift_key));
       return true;
     }
     case internal::kPageHandler_OnNavigationLikely_Name: {
@@ -1648,6 +1658,8 @@ std::move(p_shift_key));
           reinterpret_cast<internal::PageHandler_OnNavigationLikely_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       uint8_t p_line{};
       ::GURL p_url{};
@@ -1669,10 +1681,10 @@ std::move(p_shift_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNavigationLikely(
-std::move(p_line), 
-std::move(p_url), 
-std::move(p_navigation_predictor));
+      impl->OnNavigationLikely(        
+        std::move(p_line), 
+        std::move(p_url), 
+        std::move(p_navigation_predictor));
       return true;
     }
     case internal::kPageHandler_DeleteAutocompleteMatch_Name: {
@@ -1682,6 +1694,8 @@ std::move(p_navigation_predictor));
           reinterpret_cast<internal::PageHandler_DeleteAutocompleteMatch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       uint8_t p_line{};
       ::GURL p_url{};
@@ -1700,9 +1714,9 @@ std::move(p_navigation_predictor));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteAutocompleteMatch(
-std::move(p_line), 
-std::move(p_url));
+      impl->DeleteAutocompleteMatch(        
+        std::move(p_line), 
+        std::move(p_url));
       return true;
     }
     case internal::kPageHandler_ToggleSuggestionGroupIdVisibility_Name: {
@@ -1712,6 +1726,8 @@ std::move(p_url));
           reinterpret_cast<internal::PageHandler_ToggleSuggestionGroupIdVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       int32_t p_suggestion_group_id{};
       PageHandler_ToggleSuggestionGroupIdVisibility_ParamsDataView input_data_view(params, message);
@@ -1727,8 +1743,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleSuggestionGroupIdVisibility(
-std::move(p_suggestion_group_id));
+      impl->ToggleSuggestionGroupIdVisibility(        
+        std::move(p_suggestion_group_id));
       return true;
     }
     case internal::kPageHandler_ExecuteAction_Name: {
@@ -1738,6 +1754,8 @@ std::move(p_suggestion_group_id));
           reinterpret_cast<internal::PageHandler_ExecuteAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       uint8_t p_line{};
       uint8_t p_action_index{};
@@ -1777,16 +1795,16 @@ std::move(p_suggestion_group_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteAction(
-std::move(p_line), 
-std::move(p_action_index), 
-std::move(p_url), 
-std::move(p_match_selection_timestamp), 
-std::move(p_mouse_button), 
-std::move(p_alt_key), 
-std::move(p_ctrl_key), 
-std::move(p_meta_key), 
-std::move(p_shift_key));
+      impl->ExecuteAction(        
+        std::move(p_line), 
+        std::move(p_action_index), 
+        std::move(p_url), 
+        std::move(p_match_selection_timestamp), 
+        std::move(p_mouse_button), 
+        std::move(p_alt_key), 
+        std::move(p_ctrl_key), 
+        std::move(p_meta_key), 
+        std::move(p_shift_key));
       return true;
     }
     case internal::kPageHandler_PopupElementSizeChanged_Name: {
@@ -1796,6 +1814,8 @@ std::move(p_shift_key));
           reinterpret_cast<internal::PageHandler_PopupElementSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       ::gfx::Size p_size{};
       PageHandler_PopupElementSizeChanged_ParamsDataView input_data_view(params, message);
@@ -1811,8 +1831,8 @@ std::move(p_shift_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PopupElementSizeChanged(
-std::move(p_size));
+      impl->PopupElementSizeChanged(        
+        std::move(p_size));
       return true;
     }
   }
@@ -2022,12 +2042,15 @@ void PageProxy::AutocompleteResultChanged(
 }
 
 void PageProxy::UpdateSelection(
-    OmniboxPopupSelectionPtr in_selection) {
+    OmniboxPopupSelectionPtr in_old_selection, OmniboxPopupSelectionPtr in_selection) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send omnibox::mojom::Page::UpdateSelection", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("old_selection"), in_old_selection,
+                        "<value of type OmniboxPopupSelectionPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("selection"), in_selection,
                         "<value of type OmniboxPopupSelectionPtr>");
@@ -2051,6 +2074,17 @@ void PageProxy::UpdateSelection(
       ::omnibox::mojom::internal::Page_UpdateSelection_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->old_selection)::BaseType> old_selection_fragment(
+          params.message());
+  mojo::internal::Serialize<::omnibox::mojom::OmniboxPopupSelectionDataView>(
+      in_old_selection, old_selection_fragment);
+  params->old_selection.Set(
+      old_selection_fragment.is_null() ? nullptr : old_selection_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->old_selection.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null old_selection in Page.UpdateSelection request");
   mojo::internal::MessageFragment<
       typename decltype(params->selection)::BaseType> selection_fragment(
           params.message());
@@ -2084,6 +2118,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_AutocompleteResultChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       AutocompleteResultPtr p_result{};
       Page_AutocompleteResultChanged_ParamsDataView input_data_view(params, message);
@@ -2099,8 +2135,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AutocompleteResultChanged(
-std::move(p_result));
+      impl->AutocompleteResultChanged(        
+        std::move(p_result));
       return true;
     }
     case internal::kPage_UpdateSelection_Name: {
@@ -2110,10 +2146,15 @@ std::move(p_result));
           reinterpret_cast<internal::Page_UpdateSelection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
+      OmniboxPopupSelectionPtr p_old_selection{};
       OmniboxPopupSelectionPtr p_selection{};
       Page_UpdateSelection_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadOldSelection(&p_old_selection))
+        success = false;
       if (success && !input_data_view.ReadSelection(&p_selection))
         success = false;
       if (!success) {
@@ -2125,8 +2166,9 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSelection(
-std::move(p_selection));
+      impl->UpdateSelection(        
+        std::move(p_old_selection), 
+        std::move(p_selection));
       return true;
     }
   }
@@ -2392,8 +2434,8 @@ PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
 void PageInterceptorForTesting::AutocompleteResultChanged(AutocompleteResultPtr result) {
   GetForwardingInterface()->AutocompleteResultChanged(std::move(result));
 }
-void PageInterceptorForTesting::UpdateSelection(OmniboxPopupSelectionPtr selection) {
-  GetForwardingInterface()->UpdateSelection(std::move(selection));
+void PageInterceptorForTesting::UpdateSelection(OmniboxPopupSelectionPtr old_selection, OmniboxPopupSelectionPtr selection) {
+  GetForwardingInterface()->UpdateSelection(std::move(old_selection), std::move(selection));
 }
 PageAsyncWaiter::PageAsyncWaiter(
     Page* proxy) : proxy_(proxy) {}

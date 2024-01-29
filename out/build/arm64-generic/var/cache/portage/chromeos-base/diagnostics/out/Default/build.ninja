@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-0.0.1-r2483/work/diagnostics-0.0.1/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-0.0.1-r2505/work/diagnostics-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -67,6 +67,7 @@ build diagnostics_seccomp_delegate: phony obj/diagnostics/cros_healthd/seccomp/d
 build diagnostics_seccomp_delegate_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate_install.stamp
 build diagnostics_seccomp_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_install.stamp
 build diagnostics_seccomp_wilco: phony obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp
+build events: phony obj/diagnostics/cros_healthd/delegate/events/events.stamp
 build fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
 build floss-callback-adaptors: phony obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp
 build floss-proxies: phony obj/diagnostics/dbus_bindings/floss-proxies.stamp
@@ -160,6 +161,8 @@ build diagnostics/cros_healthd$:libcros_healthd: phony obj/diagnostics/cros_heal
 build diagnostics/cros_healthd/delegate$:_executor-delegate-install_config: phony obj/diagnostics/cros_healthd/delegate/_executor-delegate-install_config.stamp
 build diagnostics/cros_healthd/delegate$:executor-delegate: phony ./executor-delegate
 build diagnostics/cros_healthd/delegate$:libexecutor_delegate: phony obj/diagnostics/cros_healthd/delegate/libexecutor_delegate.stamp
+build diagnostics/cros_healthd/delegate/events$:events: phony obj/diagnostics/cros_healthd/delegate/events/events.stamp
+build diagnostics/cros_healthd/delegate/events: phony obj/diagnostics/cros_healthd/delegate/events/events.stamp
 build diagnostics/cros_healthd/delegate/fetchers$:fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
 build diagnostics/cros_healthd/delegate/fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
 build diagnostics/cros_healthd/delegate/routines$:routines: phony obj/diagnostics/cros_healthd/delegate/routines/routines.stamp
@@ -300,6 +303,7 @@ build all: phony $
     obj/diagnostics/cros_healthd/delegate/_executor-delegate-install_config.stamp $
     ./executor-delegate $
     obj/diagnostics/cros_healthd/delegate/libexecutor_delegate.stamp $
+    obj/diagnostics/cros_healthd/delegate/events/events.stamp $
     obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp $
     obj/diagnostics/cros_healthd/delegate/routines/routines.stamp $
     obj/diagnostics/cros_healthd/delegate/utils/utils.stamp $

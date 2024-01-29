@@ -91,6 +91,7 @@ class  TransferableResource {
       bool wants_promotion_hint,
       const ::gfx::ColorSpace& color_space,
       const ::gfx::HDRMetadata& hdr_metadata,
+      bool needs_detiling,
       std::optional<::gpu::VulkanYCbCrInfo> ycbcr_info);
 
 
@@ -191,6 +192,8 @@ class  TransferableResource {
   
   ::gfx::HDRMetadata hdr_metadata;
   
+  bool needs_detiling;
+  
   std::optional<::gpu::VulkanYCbCrInfo> ycbcr_info;
 
   // Serialise this struct into a trace.
@@ -236,6 +239,7 @@ TransferableResourcePtr TransferableResource::Clone() const {
       mojo::Clone(wants_promotion_hint),
       mojo::Clone(color_space),
       mojo::Clone(hdr_metadata),
+      mojo::Clone(needs_detiling),
       mojo::Clone(ycbcr_info)
   );
 }
@@ -263,6 +267,8 @@ bool TransferableResource::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->color_space, other_struct.color_space))
     return false;
   if (!mojo::Equals(this->hdr_metadata, other_struct.hdr_metadata))
+    return false;
+  if (!mojo::Equals(this->needs_detiling, other_struct.needs_detiling))
     return false;
   if (!mojo::Equals(this->ycbcr_info, other_struct.ycbcr_info))
     return false;
@@ -314,6 +320,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.hdr_metadata < rhs.hdr_metadata)
     return true;
   if (rhs.hdr_metadata < lhs.hdr_metadata)
+    return false;
+  if (lhs.needs_detiling < rhs.needs_detiling)
+    return true;
+  if (rhs.needs_detiling < lhs.needs_detiling)
     return false;
   if (lhs.ycbcr_info < rhs.ycbcr_info)
     return true;
@@ -387,6 +397,11 @@ struct  StructTraits<::viz::mojom::TransferableResource::DataView,
   static const decltype(::viz::mojom::TransferableResource::hdr_metadata)& hdr_metadata(
       const ::viz::mojom::TransferableResourcePtr& input) {
     return input->hdr_metadata;
+  }
+
+  static decltype(::viz::mojom::TransferableResource::needs_detiling) needs_detiling(
+      const ::viz::mojom::TransferableResourcePtr& input) {
+    return input->needs_detiling;
   }
 
   static const decltype(::viz::mojom::TransferableResource::ycbcr_info)& ycbcr_info(

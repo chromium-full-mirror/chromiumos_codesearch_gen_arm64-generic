@@ -726,6 +726,8 @@ bool BlobURLStore_Register_ForwardToCallback::Accept(
           internal::BlobURLStore_Register_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobURLStore.0
   bool success = true;
   BlobURLStore_Register_ResponseParamsDataView input_data_view(params, message);
   
@@ -783,6 +785,8 @@ bool BlobURLStore_Register_HandleSyncResponse::Accept(
       reinterpret_cast<internal::BlobURLStore_Register_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for BlobURLStore.0
   bool success = true;
   BlobURLStore_Register_ResponseParamsDataView input_data_view(params, message);
   
@@ -854,6 +858,8 @@ bool BlobURLStore_Resolve_ForwardToCallback::Accept(
           internal::BlobURLStore_Resolve_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobURLStore.2
   bool success = true;
   ::mojo::PendingRemote<::blink::mojom::Blob> p_blob{};
   std::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
@@ -990,6 +996,8 @@ bool BlobURLStore_ResolveAsURLLoaderFactory_ForwardToCallback::Accept(
           internal::BlobURLStore_ResolveAsURLLoaderFactory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobURLStore.3
   bool success = true;
   std::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
   std::optional<::net::SchemefulSite> p_unsafe_top_level_site{};
@@ -1129,6 +1137,8 @@ bool BlobURLStore_ResolveForNavigation_ForwardToCallback::Accept(
           internal::BlobURLStore_ResolveForNavigation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobURLStore.4
   bool success = true;
   std::optional<::base::UnguessableToken> p_unsafe_agent_cluster_id{};
   BlobURLStore_ResolveForNavigation_ResponseParamsDataView input_data_view(params, message);
@@ -1212,6 +1222,8 @@ bool BlobURLStoreStubDispatch::Accept(
           reinterpret_cast<internal::BlobURLStore_Revoke_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobURLStore.1
       bool success = true;
       ::GURL p_url{};
       BlobURLStore_Revoke_ParamsDataView input_data_view(params, message);
@@ -1227,8 +1239,8 @@ bool BlobURLStoreStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Revoke(
-std::move(p_url));
+      impl->Revoke(        
+        std::move(p_url));
       return true;
     }
     case internal::kBlobURLStore_Resolve_Name: {
@@ -1260,6 +1272,8 @@ bool BlobURLStoreStubDispatch::AcceptWithResponder(
               internal::BlobURLStore_Register_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobURLStore.0
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::Blob> p_blob{};
       ::GURL p_url{};
@@ -1289,11 +1303,11 @@ bool BlobURLStoreStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_blob), 
-std::move(p_url), 
-std::move(p_unsafe_agent_cluster_id), 
-std::move(p_unsafe_top_level_site), std::move(callback));
+      impl->Register(        
+        std::move(p_blob), 
+        std::move(p_url), 
+        std::move(p_unsafe_agent_cluster_id), 
+        std::move(p_unsafe_top_level_site), std::move(callback));
       return true;
     }
     case internal::kBlobURLStore_Revoke_Name: {
@@ -1306,6 +1320,8 @@ std::move(p_unsafe_top_level_site), std::move(callback));
               internal::BlobURLStore_Resolve_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobURLStore.2
       bool success = true;
       ::GURL p_url{};
       BlobURLStore_Resolve_ParamsDataView input_data_view(params, message);
@@ -1324,8 +1340,8 @@ std::move(p_unsafe_top_level_site), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resolve(
-std::move(p_url), std::move(callback));
+      impl->Resolve(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kBlobURLStore_ResolveAsURLLoaderFactory_Name: {
@@ -1335,6 +1351,8 @@ std::move(p_url), std::move(callback));
               internal::BlobURLStore_ResolveAsURLLoaderFactory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobURLStore.3
       bool success = true;
       ::GURL p_url{};
       ::mojo::PendingReceiver<::network::mojom::URLLoaderFactory> p_factory{};
@@ -1358,9 +1376,9 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveAsURLLoaderFactory(
-std::move(p_url), 
-std::move(p_factory), std::move(callback));
+      impl->ResolveAsURLLoaderFactory(        
+        std::move(p_url), 
+        std::move(p_factory), std::move(callback));
       return true;
     }
     case internal::kBlobURLStore_ResolveForNavigation_Name: {
@@ -1370,6 +1388,8 @@ std::move(p_factory), std::move(callback));
               internal::BlobURLStore_ResolveForNavigation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobURLStore.4
       bool success = true;
       ::GURL p_url{};
       ::mojo::PendingReceiver<BlobURLToken> p_token{};
@@ -1393,9 +1413,9 @@ std::move(p_factory), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResolveForNavigation(
-std::move(p_url), 
-std::move(p_token), std::move(callback));
+      impl->ResolveForNavigation(        
+        std::move(p_url), 
+        std::move(p_token), std::move(callback));
       return true;
     }
   }
@@ -1657,6 +1677,8 @@ bool BlobURLToken_GetToken_ForwardToCallback::Accept(
           internal::BlobURLToken_GetToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobURLToken.1
   bool success = true;
   ::base::UnguessableToken p_token{};
   BlobURLToken_GetToken_ResponseParamsDataView input_data_view(params, message);
@@ -1741,6 +1763,8 @@ bool BlobURLTokenStubDispatch::Accept(
           reinterpret_cast<internal::BlobURLToken_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobURLToken.0
       bool success = true;
       ::mojo::PendingReceiver<BlobURLToken> p_token{};
       BlobURLToken_Clone_ParamsDataView input_data_view(params, message);
@@ -1758,8 +1782,8 @@ bool BlobURLTokenStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_token));
+      impl->Clone(        
+        std::move(p_token));
       return true;
     }
     case internal::kBlobURLToken_GetToken_Name: {
@@ -1788,6 +1812,8 @@ bool BlobURLTokenStubDispatch::AcceptWithResponder(
               internal::BlobURLToken_GetToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobURLToken.1
       bool success = true;
       BlobURLToken_GetToken_ParamsDataView input_data_view(params, message);
       

@@ -14,15 +14,15 @@ export function getTemplate() {
         $i18n{addPasswordStoreOptionDevice}
       </option>
     </select>
-    <cr-input id="websiteInput" label="$i18n{websiteLabel}" autofocus required placeholder="example.com" value="{{website_}}" invalid="[[isWebsiteInputInvalid_(websiteErrorMessage_)]]" show-error-message$="[[showWebsiteError_(websiteErrorMessage_)]]" error-message="[[websiteErrorMessage_]]" on-input="validateWebsite_" on-blur="onWebsiteInputBlur_">
+    <cr-input id="websiteInput" label="$i18n{websiteLabel}" autofocus required placeholder="example.com" value="{{website_}}" invalid="[[isWebsiteInputInvalid_(websiteErrorMessage_)]]" show-error-message$="[[showWebsiteError_(websiteErrorMessage_)]]" error-message="[[websiteErrorMessage_]]" spellcheck="false" on-input="validateWebsite_" on-blur="onWebsiteInputBlur_">
     </cr-input>
-    <cr-input id="usernameInput" label="$i18n{usernameLabel}" value="{{username_}}" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]" error-message="[[usernameErrorMessage_]]">
+    <cr-input id="usernameInput" label="$i18n{usernameLabel}" value="{{username_}}" spellcheck="false" invalid="[[doesUsernameExistAlready_(usernameErrorMessage_)]]" error-message="[[usernameErrorMessage_]]">
     </cr-input>
     <a id="viewExistingPasswordLink" is="action-link" href="/" on-click="onViewExistingPasswordClick_" aria-description="[[getViewExistingPasswordAriaDescription_(
           urlCollection_, username_)]]" hidden="[[!doesUsernameExistAlready_(usernameErrorMessage_)]]">
       $i18n{viewExistingPassword}
     </a>
-    <cr-input id="passwordInput" label="$i18n{passwordLabel}" type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[isPasswordInvalid_]]" on-blur="onPasswordInput_" on-input="onPasswordInput_" required class="password-input">
+    <cr-input id="passwordInput" label="$i18n{passwordLabel}" type="[[getPasswordInputType(isPasswordVisible)]]" value="{{password_}}" invalid="[[isPasswordInvalid_]]" on-blur="onPasswordInput_" on-input="onPasswordInput_" required class="password-input" spellcheck="false">
       <cr-icon-button id="showPasswordButton" slot="inline-suffix" class$="[[getShowHideButtonIconClass(isPasswordVisible)]]" title="[[getShowHideButtonLabel(isPasswordVisible)]]" on-click="onShowHidePasswordButtonClick">
       </cr-icon-button>
     </cr-input>

@@ -175,8 +175,10 @@ export class StylePropertiesSection {
         // @ts-ignore TODO: fix ad hoc section property in a separate CL to be safe
         this.propertiesTreeOutline.section = this;
         this.innerElement.appendChild(this.propertiesTreeOutline.element);
-        this.showAllButton = UI.UIUtils.createTextButton('', this.showAllItems.bind(this), 'styles-show-all');
-        this.showAllButton.setAttribute('jslog', `${VisualLogging.showAllStyleProperties().track({ click: true })}`);
+        this.showAllButton = UI.UIUtils.createTextButton('', this.showAllItems.bind(this), {
+            className: 'styles-show-all',
+            jslogContext: 'elements.show-all-style-properties',
+        });
         this.innerElement.appendChild(this.showAllButton);
         const selectorContainer = document.createElement('div');
         selectorContainer.classList.add('selector-container');
@@ -193,7 +195,7 @@ export class StylePropertiesSection {
         closeBrace.textContent = '}';
         if (this.styleInternal.parentRule) {
             const newRuleButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.insertStyleRuleBelow), 'plus', undefined, 'elements.new-style-rule');
-            newRuleButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.onNewRuleClick, this);
+            newRuleButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.onNewRuleClick, this);
             newRuleButton.element.tabIndex = -1;
             if (!this.newStyleRuleToolbar) {
                 this.newStyleRuleToolbar =
@@ -206,7 +208,7 @@ export class StylePropertiesSection {
             this.fontEditorToolbar = new UI.Toolbar.Toolbar('sidebar-pane-section-toolbar', this.innerElement);
             this.fontEditorSectionManager = new FontEditorSectionManager(this.parentPane.swatchPopoverHelper(), this);
             this.fontEditorButton = new UI.Toolbar.ToolbarButton('Font Editor', 'custom-typography');
-            this.fontEditorButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
+            this.fontEditorButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => {
                 this.onFontEditorButtonClicked();
             }, this);
             this.fontEditorButton.element.addEventListener('keydown', event => {
@@ -466,7 +468,7 @@ export class StylePropertiesSection {
             default:
                 // Filter out non-printable key strokes.
                 if (keyboardEvent.key.length === 1) {
-                    this.addNewBlankProperty(0).startEditing();
+                    this.addNewBlankProperty(0).startEditingName();
                 }
                 break;
         }
@@ -902,7 +904,7 @@ export class StylePropertiesSection {
         }
     }
     isPropertyOverloaded(property) {
-        return this.matchedStyles.propertyState(property) === SDK.CSSMatchedStyles.PropertyState.Overloaded;
+        return this.matchedStyles.propertyState(property) === "Overloaded" /* SDK.CSSMatchedStyles.PropertyState.Overloaded */;
     }
     updateFilter() {
         let hasMatchingChild = false;
@@ -1015,13 +1017,13 @@ export class StylePropertiesSection {
         const deepTarget = UI.UIUtils.deepElementFromEvent(event);
         const treeElement = deepTarget && UI.TreeOutline.TreeElement.getTreeElementBylistItemNode(deepTarget);
         if (treeElement && treeElement instanceof StylePropertyTreeElement) {
-            this.addNewBlankProperty(treeElement.property.index + 1).startEditing();
+            this.addNewBlankProperty(treeElement.property.index + 1).startEditingName();
         }
         else if (target.classList.contains('selector-container') || target.classList.contains('styles-section-subtitle')) {
-            this.addNewBlankProperty(0).startEditing();
+            this.addNewBlankProperty(0).startEditingName();
         }
         else {
-            this.addNewBlankProperty().startEditing();
+            this.addNewBlankProperty().startEditingName();
         }
         event.consume(true);
     }
@@ -1138,23 +1140,23 @@ export class StylePropertiesSection {
         contextMenu.clipboardSection().appendItem(i18nString(UIStrings.copySelector), () => {
             const selectorText = this.headerText();
             Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(selectorText);
-            Host.userMetrics.styleTextCopied(Host.UserMetrics.StyleTextCopied.SelectorViaContextMenu);
+            Host.userMetrics.styleTextCopied(10 /* Host.UserMetrics.StyleTextCopied.SelectorViaContextMenu */);
         });
         contextMenu.clipboardSection().appendItem(i18nString(UIStrings.copyRule), () => {
             const ruleText = StylesSidebarPane.formatLeadingProperties(this).ruleText;
             Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(ruleText);
-            Host.userMetrics.styleTextCopied(Host.UserMetrics.StyleTextCopied.RuleViaContextMenu);
+            Host.userMetrics.styleTextCopied(7 /* Host.UserMetrics.StyleTextCopied.RuleViaContextMenu */);
         });
         contextMenu.clipboardSection().appendItem(i18nString(UIStrings.copyAllDeclarations), () => {
             const allDeclarationText = StylesSidebarPane.formatLeadingProperties(this).allDeclarationText;
             Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(allDeclarationText);
-            Host.userMetrics.styleTextCopied(Host.UserMetrics.StyleTextCopied.AllDeclarationsViaContextMenu);
+            Host.userMetrics.styleTextCopied(8 /* Host.UserMetrics.StyleTextCopied.AllDeclarationsViaContextMenu */);
         });
         // TODO(changhaohan): conditionally add this item only when there are changes to copy
         contextMenu.clipboardSection().appendItem(i18nString(UIStrings.copyAllCSSChanges), async () => {
             const allChanges = await this.parentPane.getFormattedChanges();
             Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(allChanges);
-            Host.userMetrics.styleTextCopied(Host.UserMetrics.StyleTextCopied.AllChangesViaStylesPane);
+            Host.userMetrics.styleTextCopied(2 /* Host.UserMetrics.StyleTextCopied.AllChangesViaStylesPane */);
         });
         void contextMenu.show();
     }
@@ -1225,10 +1227,10 @@ export class StylePropertiesSection {
                 currentChild = sibling instanceof StylePropertyTreeElement ? sibling : null;
             }
             if (!currentChild) {
-                this.addNewBlankProperty().startEditing();
+                this.addNewBlankProperty().startEditingName();
             }
             else {
-                currentChild.startEditing(currentChild.nameElement);
+                currentChild.startEditingName();
             }
         }
         else {
@@ -1236,7 +1238,7 @@ export class StylePropertiesSection {
             if (!previousSection) {
                 return;
             }
-            previousSection.addNewBlankProperty().startEditing();
+            previousSection.addNewBlankProperty().startEditingName();
         }
     }
     editingSelectorCommitted(element, newContent, oldContent, context, moveDirection) {

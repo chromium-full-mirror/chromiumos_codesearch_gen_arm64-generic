@@ -140,7 +140,7 @@ void V8UnionConstrainDOMStringParametersOrStringOrStringSequence::Set(const V8Un
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionConstrainDOMStringParametersOrStringOrStringSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionConstrainDOMStringParametersOrStringOrStringSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kConstrainDOMStringParameters: {
     return ToV8Traits<ConstrainDOMStringParameters>::ToV8(script_state, member_constrain_dom_string_parameters_.Get());
@@ -154,7 +154,7 @@ v8::MaybeLocal<v8::Value> V8UnionConstrainDOMStringParametersOrStringOrStringSeq
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionConstrainDOMStringParametersOrStringOrStringSequence::Trace(Visitor* visitor) const {

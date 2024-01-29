@@ -364,6 +364,8 @@ bool AudioSystemPropertiesObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioSystemPropertiesObserver_OnPropertiesUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioSystemPropertiesObserver.0
       bool success = true;
       AudioSystemPropertiesPtr p_properties{};
       AudioSystemPropertiesObserver_OnPropertiesUpdated_ParamsDataView input_data_view(params, message);
@@ -379,8 +381,8 @@ bool AudioSystemPropertiesObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPropertiesUpdated(
-std::move(p_properties));
+      impl->OnPropertiesUpdated(        
+        std::move(p_properties));
       return true;
     }
   }
@@ -1019,6 +1021,8 @@ bool CrosAudioConfigStubDispatch::Accept(
           reinterpret_cast<internal::CrosAudioConfig_ObserveAudioSystemProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.0
       bool success = true;
       ::mojo::PendingRemote<AudioSystemPropertiesObserver> p_observer{};
       CrosAudioConfig_ObserveAudioSystemProperties_ParamsDataView input_data_view(params, message);
@@ -1036,8 +1040,8 @@ bool CrosAudioConfigStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveAudioSystemProperties(
-std::move(p_observer));
+      impl->ObserveAudioSystemProperties(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCrosAudioConfig_SetOutputMuted_Name: {
@@ -1047,6 +1051,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CrosAudioConfig_SetOutputMuted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.1
       bool success = true;
       bool p_muted{};
       CrosAudioConfig_SetOutputMuted_ParamsDataView input_data_view(params, message);
@@ -1062,8 +1068,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutputMuted(
-std::move(p_muted));
+      impl->SetOutputMuted(        
+        std::move(p_muted));
       return true;
     }
     case internal::kCrosAudioConfig_SetOutputVolumePercent_Name: {
@@ -1073,6 +1079,8 @@ std::move(p_muted));
           reinterpret_cast<internal::CrosAudioConfig_SetOutputVolumePercent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.2
       bool success = true;
       int8_t p_volume{};
       CrosAudioConfig_SetOutputVolumePercent_ParamsDataView input_data_view(params, message);
@@ -1088,8 +1096,8 @@ std::move(p_muted));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOutputVolumePercent(
-std::move(p_volume));
+      impl->SetOutputVolumePercent(        
+        std::move(p_volume));
       return true;
     }
     case internal::kCrosAudioConfig_SetInputGainPercent_Name: {
@@ -1099,6 +1107,8 @@ std::move(p_volume));
           reinterpret_cast<internal::CrosAudioConfig_SetInputGainPercent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.3
       bool success = true;
       uint8_t p_gain{};
       CrosAudioConfig_SetInputGainPercent_ParamsDataView input_data_view(params, message);
@@ -1114,8 +1124,8 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInputGainPercent(
-std::move(p_gain));
+      impl->SetInputGainPercent(        
+        std::move(p_gain));
       return true;
     }
     case internal::kCrosAudioConfig_SetActiveDevice_Name: {
@@ -1125,6 +1135,8 @@ std::move(p_gain));
           reinterpret_cast<internal::CrosAudioConfig_SetActiveDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.4
       bool success = true;
       uint64_t p_device{};
       CrosAudioConfig_SetActiveDevice_ParamsDataView input_data_view(params, message);
@@ -1140,8 +1152,8 @@ std::move(p_gain));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetActiveDevice(
-std::move(p_device));
+      impl->SetActiveDevice(        
+        std::move(p_device));
       return true;
     }
     case internal::kCrosAudioConfig_SetInputMuted_Name: {
@@ -1151,6 +1163,8 @@ std::move(p_device));
           reinterpret_cast<internal::CrosAudioConfig_SetInputMuted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.5
       bool success = true;
       bool p_muted{};
       CrosAudioConfig_SetInputMuted_ParamsDataView input_data_view(params, message);
@@ -1166,8 +1180,8 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInputMuted(
-std::move(p_muted));
+      impl->SetInputMuted(        
+        std::move(p_muted));
       return true;
     }
     case internal::kCrosAudioConfig_SetNoiseCancellationEnabled_Name: {
@@ -1177,6 +1191,8 @@ std::move(p_muted));
           reinterpret_cast<internal::CrosAudioConfig_SetNoiseCancellationEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.6
       bool success = true;
       bool p_enabled{};
       CrosAudioConfig_SetNoiseCancellationEnabled_ParamsDataView input_data_view(params, message);
@@ -1192,8 +1208,8 @@ std::move(p_muted));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNoiseCancellationEnabled(
-std::move(p_enabled));
+      impl->SetNoiseCancellationEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kCrosAudioConfig_SetForceRespectUiGainsEnabled_Name: {
@@ -1203,6 +1219,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CrosAudioConfig_SetForceRespectUiGainsEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.7
       bool success = true;
       bool p_enabled{};
       CrosAudioConfig_SetForceRespectUiGainsEnabled_ParamsDataView input_data_view(params, message);
@@ -1218,8 +1236,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetForceRespectUiGainsEnabled(
-std::move(p_enabled));
+      impl->SetForceRespectUiGainsEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kCrosAudioConfig_SetHfpMicSrEnabled_Name: {
@@ -1229,6 +1247,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CrosAudioConfig_SetHfpMicSrEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosAudioConfig.8
       bool success = true;
       bool p_enabled{};
       CrosAudioConfig_SetHfpMicSrEnabled_ParamsDataView input_data_view(params, message);
@@ -1244,8 +1264,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHfpMicSrEnabled(
-std::move(p_enabled));
+      impl->SetHfpMicSrEnabled(        
+        std::move(p_enabled));
       return true;
     }
   }

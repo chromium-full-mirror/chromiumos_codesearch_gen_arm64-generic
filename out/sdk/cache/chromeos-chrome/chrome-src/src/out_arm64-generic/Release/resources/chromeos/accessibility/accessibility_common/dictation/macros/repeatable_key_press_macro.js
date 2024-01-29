@@ -1,8 +1,8 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { EventGenerator } from '../../../common/event_generator.js';
-import { KeyCodeData } from '../../../common/key_code.js';
+import { EventGenerator } from '/common/event_generator.js';
+import { KeyCodeData } from '/common/key_code.js';
 import { Context, ContextChecker } from '../context_checker.js';
 import { LocaleInfo } from '../locale_info.js';
 import { Macro, MacroError } from './macro.js';
@@ -87,7 +87,7 @@ export class NavPreviousLineMacro extends RepeatableKeyPressMacro {
 }
 /** Macro to navigate to the next line. */
 export class NavNextLineMacro extends RepeatableKeyPressMacro {
-    /** @param {number=} repeat The number of lines to move. */
+    /** @param repeat The number of lines to move. */
     constructor(inputController, repeat = 1) {
         super(MacroName.NAV_NEXT_LINE, repeat, new ContextChecker(inputController).add(Context.EMPTY_EDITABLE));
     }
@@ -117,7 +117,6 @@ export class PasteTextMacro extends RepeatableKeyPressMacro {
 }
 /** Macro to cut selected text. */
 export class CutSelectedTextMacro extends RepeatableKeyPressMacro {
-    /** @param {!InputController} inputController */
     constructor(inputController) {
         super(MacroName.CUT_SELECTED_TEXT, /*repeat=*/ 1, new ContextChecker(inputController)
             .add(Context.EMPTY_EDITABLE)
@@ -262,7 +261,7 @@ export class SelectNextChar extends RepeatableKeyPressMacro {
 }
 /** Macro to select the previous character in the input field. */
 export class SelectPrevChar extends RepeatableKeyPressMacro {
-    /** @param {number=} repeat The number of previous characters to select. */
+    /** @param repeat The number of previous characters to select. */
     constructor(inputController, repeat = 1) {
         super(MacroName.SELECT_PREV_CHAR, repeat, new ContextChecker(inputController).add(Context.EMPTY_EDITABLE));
     }

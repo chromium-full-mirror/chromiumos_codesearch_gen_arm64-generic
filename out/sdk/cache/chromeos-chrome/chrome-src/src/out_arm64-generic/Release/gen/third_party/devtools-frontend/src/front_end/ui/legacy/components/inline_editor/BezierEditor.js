@@ -68,10 +68,10 @@ export class BezierEditor extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
         this.header = this.contentElement.createChild('div', 'bezier-header');
         const minus = this.createPresetModifyIcon(this.header, 'bezier-preset-minus', 'M 12 6 L 8 10 L 12 14');
         minus.addEventListener('click', this.presetModifyClicked.bind(this, false));
-        minus.setAttribute('jslog', `${VisualLogging.previous().track({ click: true })}`);
+        minus.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('bezier.prev-preset')}`);
         const plus = this.createPresetModifyIcon(this.header, 'bezier-preset-plus', 'M 8 6 L 12 10 L 8 14');
         plus.addEventListener('click', this.presetModifyClicked.bind(this, true));
-        plus.setAttribute('jslog', `${VisualLogging.next().track({ click: true })}`);
+        plus.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('bezier.next-preset')}`);
         this.label = this.header.createChild('span', 'source-code bezier-display-value');
     }
     setModel(model) {
@@ -96,7 +96,7 @@ export class BezierEditor extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
     }
     onchange() {
         this.updateUI();
-        this.dispatchEventToListeners(Events.BezierChanged, this.model.asCSSText());
+        this.dispatchEventToListeners("BezierChanged" /* Events.BezierChanged */, this.model.asCSSText());
     }
     updateUI() {
         const labelText = this.selectedCategory ? this.selectedCategory.presets[this.selectedCategory.presetIndex].name :
@@ -189,12 +189,6 @@ export class BezierEditor extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
         }
     }
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var Events;
-(function (Events) {
-    Events["BezierChanged"] = "BezierChanged";
-})(Events || (Events = {}));
 export const Presets = [
     [
         { name: 'linear', value: 'linear' },

@@ -93,6 +93,7 @@ class  StableCdmContextInterceptorForTesting : public StableCdmContext {
   void GetHwConfigData(GetHwConfigDataCallback callback) override;
   void GetScreenResolutions(GetScreenResolutionsCallback callback) override;
   void AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) override;
+  void ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const WTF::Vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) override;
 };
 class  StableCdmContextAsyncWaiter {
  public:
@@ -114,6 +115,9 @@ class  StableCdmContextAsyncWaiter {
   void AllocateSecureBuffer(
       uint32_t size, ::mojo::PlatformHandle* out_secure_buffer);
   ::mojo::PlatformHandle AllocateSecureBuffer(uint32_t size);
+  void ParseEncryptedSliceHeader(
+      uint64_t secure_handle, uint32_t offset, const WTF::Vector<uint8_t>& stream_data, bool* out_success, WTF::Vector<uint8_t>* out_slice_header);
+  
 
  private:
   StableCdmContext* const proxy_;

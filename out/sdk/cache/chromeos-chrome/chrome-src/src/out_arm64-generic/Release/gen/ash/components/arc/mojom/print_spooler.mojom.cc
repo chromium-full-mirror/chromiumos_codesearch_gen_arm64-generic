@@ -333,6 +333,8 @@ bool PrintSessionInstance_CreatePreviewDocument_ForwardToCallback::Accept(
           internal::PrintSessionInstance_CreatePreviewDocument_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintSessionInstance.1
   bool success = true;
   ::mojo::ScopedHandle p_preview_document{};
   int64_t p_data_size{};
@@ -416,6 +418,8 @@ bool PrintSessionInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PrintSessionInstance_OnPrintPreviewClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintSessionInstance.0
       bool success = true;
       PrintSessionInstance_OnPrintPreviewClosed_ParamsDataView input_data_view(params, message);
       
@@ -428,7 +432,7 @@ bool PrintSessionInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintPreviewClosed();
+      impl->OnPrintPreviewClosed(        );
       return true;
     }
     case internal::kPrintSessionInstance_CreatePreviewDocument_Name: {
@@ -457,6 +461,8 @@ bool PrintSessionInstanceStubDispatch::AcceptWithResponder(
               internal::PrintSessionInstance_CreatePreviewDocument_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintSessionInstance.1
       bool success = true;
       ::arc::mojom::PrintDocumentRequestPtr p_request{};
       PrintSessionInstance_CreatePreviewDocument_ParamsDataView input_data_view(params, message);
@@ -475,8 +481,8 @@ bool PrintSessionInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePreviewDocument(
-std::move(p_request), std::move(callback));
+      impl->CreatePreviewDocument(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }
@@ -692,6 +698,8 @@ bool PrintSpoolerHost_StartPrintInCustomTab_ForwardToCallback::Accept(
           internal::PrintSpoolerHost_StartPrintInCustomTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintSpoolerHost.1
   bool success = true;
   ::mojo::PendingRemote<PrintSessionHost> p_host{};
   PrintSpoolerHost_StartPrintInCustomTab_ResponseParamsDataView input_data_view(params, message);
@@ -785,6 +793,8 @@ bool PrintSpoolerHostStubDispatch::AcceptWithResponder(
               internal::PrintSpoolerHost_StartPrintInCustomTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintSpoolerHost.1
       bool success = true;
       ::mojo::ScopedHandle p_scoped_handle{};
       int32_t p_task_id{};
@@ -811,10 +821,10 @@ bool PrintSpoolerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPrintInCustomTab(
-std::move(p_scoped_handle), 
-std::move(p_task_id), 
-std::move(p_instance), std::move(callback));
+      impl->StartPrintInCustomTab(        
+        std::move(p_scoped_handle), 
+        std::move(p_task_id), 
+        std::move(p_instance), std::move(callback));
       return true;
     }
   }
@@ -1016,6 +1026,8 @@ bool PrintSpoolerInstance_Init_ForwardToCallback::Accept(
           internal::PrintSpoolerInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintSpoolerInstance.0
   bool success = true;
   PrintSpoolerInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1094,6 +1106,8 @@ bool PrintSpoolerInstanceStubDispatch::AcceptWithResponder(
               internal::PrintSpoolerInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintSpoolerInstance.0
       bool success = true;
       ::mojo::PendingRemote<PrintSpoolerHost> p_host_remote{};
       PrintSpoolerInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1114,8 +1128,8 @@ bool PrintSpoolerInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

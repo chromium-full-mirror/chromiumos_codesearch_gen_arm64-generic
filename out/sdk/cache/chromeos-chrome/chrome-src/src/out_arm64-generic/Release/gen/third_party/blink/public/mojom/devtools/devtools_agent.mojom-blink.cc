@@ -548,6 +548,8 @@ bool DevToolsAgent_ReportChildTargets_ForwardToCallback::Accept(
           internal::DevToolsAgent_ReportChildTargets_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevToolsAgent.2
   bool success = true;
   DevToolsAgent_ReportChildTargets_ResponseParamsDataView input_data_view(params, message);
   
@@ -655,6 +657,8 @@ bool DevToolsAgent_GetUniqueFormControlId_ForwardToCallback::Accept(
           internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevToolsAgent.3
   bool success = true;
   uint64_t p_id{};
   DevToolsAgent_GetUniqueFormControlId_ResponseParamsDataView input_data_view(params, message);
@@ -729,6 +733,8 @@ bool DevToolsAgentStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsAgent_AttachDevToolsSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsAgent.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<DevToolsSessionHost> p_host{};
       ::mojo::PendingAssociatedReceiver<DevToolsSession> p_session{};
@@ -771,15 +777,15 @@ bool DevToolsAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AttachDevToolsSession(
-std::move(p_host), 
-std::move(p_session), 
-std::move(p_io_session), 
-std::move(p_reattach_session_state), 
-std::move(p_client_expects_binary_responses), 
-std::move(p_client_is_trusted), 
-std::move(p_session_id), 
-std::move(p_session_waits_for_debugger));
+      impl->AttachDevToolsSession(        
+        std::move(p_host), 
+        std::move(p_session), 
+        std::move(p_io_session), 
+        std::move(p_reattach_session_state), 
+        std::move(p_client_expects_binary_responses), 
+        std::move(p_client_is_trusted), 
+        std::move(p_session_id), 
+        std::move(p_session_waits_for_debugger));
       return true;
     }
     case internal::kDevToolsAgent_InspectElement_Name: {
@@ -789,6 +795,8 @@ std::move(p_session_waits_for_debugger));
           reinterpret_cast<internal::DevToolsAgent_InspectElement_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsAgent.1
       bool success = true;
       ::gfx::Point p_point{};
       DevToolsAgent_InspectElement_ParamsDataView input_data_view(params, message);
@@ -804,8 +812,8 @@ std::move(p_session_waits_for_debugger));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InspectElement(
-std::move(p_point));
+      impl->InspectElement(        
+        std::move(p_point));
       return true;
     }
     case internal::kDevToolsAgent_ReportChildTargets_Name: {
@@ -840,6 +848,8 @@ bool DevToolsAgentStubDispatch::AcceptWithResponder(
               internal::DevToolsAgent_ReportChildTargets_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevToolsAgent.2
       bool success = true;
       bool p_report{};
       bool p_wait_for_debugger{};
@@ -861,9 +871,9 @@ bool DevToolsAgentStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportChildTargets(
-std::move(p_report), 
-std::move(p_wait_for_debugger), std::move(callback));
+      impl->ReportChildTargets(        
+        std::move(p_report), 
+        std::move(p_wait_for_debugger), std::move(callback));
       return true;
     }
     case internal::kDevToolsAgent_GetUniqueFormControlId_Name: {
@@ -873,6 +883,8 @@ std::move(p_wait_for_debugger), std::move(callback));
               internal::DevToolsAgent_GetUniqueFormControlId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevToolsAgent.3
       bool success = true;
       int32_t p_nodeId{};
       DevToolsAgent_GetUniqueFormControlId_ParamsDataView input_data_view(params, message);
@@ -891,8 +903,8 @@ std::move(p_wait_for_debugger), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUniqueFormControlId(
-std::move(p_nodeId), std::move(callback));
+      impl->GetUniqueFormControlId(        
+        std::move(p_nodeId), std::move(callback));
       return true;
     }
   }
@@ -1203,6 +1215,8 @@ bool DevToolsAgentHostStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsAgentHost_ChildTargetCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsAgentHost.0
       bool success = true;
       ::mojo::PendingRemote<DevToolsAgent> p_worker_devtools_agent{};
       ::mojo::PendingReceiver<DevToolsAgentHost> p_worker_devtools_agent_host{};
@@ -1240,14 +1254,14 @@ bool DevToolsAgentHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChildTargetCreated(
-std::move(p_worker_devtools_agent), 
-std::move(p_worker_devtools_agent_host), 
-std::move(p_url), 
-std::move(p_name), 
-std::move(p_devtools_worker_token), 
-std::move(p_waiting_for_debugger), 
-std::move(p_context_type));
+      impl->ChildTargetCreated(        
+        std::move(p_worker_devtools_agent), 
+        std::move(p_worker_devtools_agent_host), 
+        std::move(p_url), 
+        std::move(p_name), 
+        std::move(p_devtools_worker_token), 
+        std::move(p_waiting_for_debugger), 
+        std::move(p_context_type));
       return true;
     }
     case internal::kDevToolsAgentHost_MainThreadDebuggerPaused_Name: {
@@ -1257,6 +1271,8 @@ std::move(p_context_type));
           reinterpret_cast<internal::DevToolsAgentHost_MainThreadDebuggerPaused_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsAgentHost.1
       bool success = true;
       DevToolsAgentHost_MainThreadDebuggerPaused_ParamsDataView input_data_view(params, message);
       
@@ -1269,7 +1285,7 @@ std::move(p_context_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MainThreadDebuggerPaused();
+      impl->MainThreadDebuggerPaused(        );
       return true;
     }
     case internal::kDevToolsAgentHost_MainThreadDebuggerResumed_Name: {
@@ -1279,6 +1295,8 @@ std::move(p_context_type));
           reinterpret_cast<internal::DevToolsAgentHost_MainThreadDebuggerResumed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsAgentHost.2
       bool success = true;
       DevToolsAgentHost_MainThreadDebuggerResumed_ParamsDataView input_data_view(params, message);
       
@@ -1291,7 +1309,7 @@ std::move(p_context_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MainThreadDebuggerResumed();
+      impl->MainThreadDebuggerResumed(        );
       return true;
     }
   }
@@ -1475,6 +1493,8 @@ bool DevToolsSessionStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsSession_DispatchProtocolCommand_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsSession.0
       bool success = true;
       int32_t p_call_id{};
       WTF::String p_method{};
@@ -1496,10 +1516,10 @@ bool DevToolsSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchProtocolCommand(
-std::move(p_call_id), 
-std::move(p_method), 
-std::move(p_message));
+      impl->DispatchProtocolCommand(        
+        std::move(p_call_id), 
+        std::move(p_method), 
+        std::move(p_message));
       return true;
     }
   }
@@ -1752,6 +1772,8 @@ bool DevToolsSessionHostStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsSessionHost_DispatchProtocolResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsSessionHost.0
       bool success = true;
       DevToolsMessagePtr p_message{};
       int32_t p_call_id{};
@@ -1773,10 +1795,10 @@ bool DevToolsSessionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchProtocolResponse(
-std::move(p_message), 
-std::move(p_call_id), 
-std::move(p_updates));
+      impl->DispatchProtocolResponse(        
+        std::move(p_message), 
+        std::move(p_call_id), 
+        std::move(p_updates));
       return true;
     }
     case internal::kDevToolsSessionHost_DispatchProtocolNotification_Name: {
@@ -1786,6 +1808,8 @@ std::move(p_updates));
           reinterpret_cast<internal::DevToolsSessionHost_DispatchProtocolNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsSessionHost.1
       bool success = true;
       DevToolsMessagePtr p_message{};
       DevToolsSessionStatePtr p_updates{};
@@ -1804,9 +1828,9 @@ std::move(p_updates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchProtocolNotification(
-std::move(p_message), 
-std::move(p_updates));
+      impl->DispatchProtocolNotification(        
+        std::move(p_message), 
+        std::move(p_updates));
       return true;
     }
   }

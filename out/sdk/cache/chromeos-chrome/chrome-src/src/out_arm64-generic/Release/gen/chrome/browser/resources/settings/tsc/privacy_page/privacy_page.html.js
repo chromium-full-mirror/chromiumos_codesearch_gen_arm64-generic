@@ -45,6 +45,18 @@ export function getTemplate() {
       </template>
 
 
+      <template is="dom-if" route-path="/content/v8">
+        <settings-subpage page-title="$i18n{siteSettingsCategoryJavascriptJit}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
+          <div class="content-settings-header secondary">
+            $i18n{siteSettingsJavascriptJitDescription}
+          </div>
+          <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.JAVASCRIPT_JIT]]" allow-option-label="$i18n{siteSettingsJavascriptJitAllowed}" allow-option-sub-label="$i18n{siteSettingsJavascriptJitAllowedSubLabel}" block-option-label="$i18n{siteSettingsJavascriptJitBlocked}" block-option-sub-label="$i18n{siteSettingsJavascriptJitBlockedSubLabel}">
+          </settings-category-default-radio-group>
+          <category-setting-exceptions category="[[contentSettingsTypesEnum_.JAVASCRIPT_JIT]]" allow-header="$i18n{siteSettingsJavascriptJitAllowedExceptions}" block-header="$i18n{siteSettingsJavascriptJitBlockedExceptions}" search-filter="[[searchFilter_]]">
+          </category-setting-exceptions>
+        </settings-subpage>
+      </template>
+
       <template is="dom-if" if="[[enableSecurityKeysSubpage_]]">
         <template is="dom-if" route-path="/securityKeys">
           <settings-subpage associated-control="[[$$('#securityLinkRow')]]" page-title="$i18n{securityKeysTitle}">
@@ -93,8 +105,15 @@ export function getTemplate() {
 
       <template is="dom-if" route-path="/adPrivacy/interests" no-search="[[isPrivacySandboxRestricted_]]">
         <settings-subpage id="privacy-sandbox-topics" page-title="$i18n{topicsPageTitle}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
-          <settings-privacy-sandbox-topics-subpage prefs="{{prefs}}">
+          <settings-privacy-sandbox-topics-subpage prefs="{{prefs}}" focus-config="[[focusConfig_]]">
           </settings-privacy-sandbox-topics-subpage>
+        </settings-subpage>
+      </template>
+      <template is="dom-if" route-path="/adPrivacy/interests/manage" no-search="[[shouldShowManageTopics_(
+            isProactiveTopicsBlockingEnabled_, isPrivacySandboxRestricted_)]]">
+        <settings-subpage id="privacy-sandbox-manage-topics" page-title="$i18n{manageTopicsHeading}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
+          <settings-privacy-sandbox-manage-topics-subpage focus-config="[[focusConfig_]]" prefs="{{prefs}}">
+          </settings-privacy-sandbox-manage-topics-subpage>
         </settings-subpage>
       </template>
 
@@ -128,6 +147,19 @@ export function getTemplate() {
           <category-setting-exceptions category="[[contentSettingsTypesEnum_.AUTOMATIC_DOWNLOADS]]" allow-header="$i18n{siteSettingsAutomaticDownloadsAllowedExceptions}" block-header="$i18n{siteSettingsAutomaticDownloadsBlockedExceptions}" search-filter="[[searchFilter_]]">
           </category-setting-exceptions>
         </settings-subpage>
+      </template>
+      <template is="dom-if" if="[[enableWebPrintingContentSetting_]]">
+        <template is="dom-if" route-path="/content/webPrinting" no-search>
+          <settings-subpage page-title="$i18n{siteSettingsWebPrinting}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
+            <div class="content-settings-header secondary">
+                $i18n{siteSettingsWebPrintingDescription}
+            </div>
+            <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.WEB_PRINTING]]" allow-option-label="$i18n{siteSettingsWebPrintingAsk}" allow-option-icon="settings:printer" block-option-label="$i18n{siteSettingsWebPrintingBlock}" block-option-icon="settings:printer-off">
+            </settings-category-default-radio-group>
+            <category-setting-exceptions category="[[contentSettingsTypesEnum_.WEB_PRINTING]]" allow-header="$i18n{siteSettingsWebPrintingAllowedExceptions}" block-header="$i18n{siteSettingsWebPrintingBlockedExceptions}" search-filter="[[searchFilter_]]">
+            </category-setting-exceptions>
+          </settings-subpage>
+        </template>
       </template>
       <template is="dom-if" route-path="/content/backgroundSync" no-search>
         <settings-subpage page-title="$i18n{siteSettingsBackgroundSync}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">

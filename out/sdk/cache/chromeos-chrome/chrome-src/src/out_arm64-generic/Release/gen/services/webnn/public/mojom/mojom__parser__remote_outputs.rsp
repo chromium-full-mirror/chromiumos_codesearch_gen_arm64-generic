@@ -1,0 +1,3 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/webnn/public/mojom/webnn_context_provider.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/webnn/public/mojom/webnn_error.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/webnn/public/mojom/webnn_graph.mojom-module

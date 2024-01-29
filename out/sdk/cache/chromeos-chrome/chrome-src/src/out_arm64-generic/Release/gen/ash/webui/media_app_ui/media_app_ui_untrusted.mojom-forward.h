@@ -9,11 +9,12 @@
 
 
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,6 +22,11 @@
 
 
 namespace ash::media_app_ui::mojom {
+class PageMetadataDataView;
+
+class PageMetadata;
+using PageMetadataPtr = mojo::StructPtr<PageMetadata>;
+
 class UntrustedPageHandlerFactory;
 
 class OcrUntrustedPageHandler;

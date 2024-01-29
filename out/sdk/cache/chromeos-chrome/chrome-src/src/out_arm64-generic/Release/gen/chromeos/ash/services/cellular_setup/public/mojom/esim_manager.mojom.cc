@@ -531,6 +531,8 @@ bool ESimManagerObserverStubDispatch::Accept(
           reinterpret_cast<internal::ESimManagerObserver_OnAvailableEuiccListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ESimManagerObserver.0
       bool success = true;
       ESimManagerObserver_OnAvailableEuiccListChanged_ParamsDataView input_data_view(params, message);
       
@@ -543,7 +545,7 @@ bool ESimManagerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAvailableEuiccListChanged();
+      impl->OnAvailableEuiccListChanged(        );
       return true;
     }
     case internal::kESimManagerObserver_OnProfileListChanged_Name: {
@@ -553,6 +555,8 @@ bool ESimManagerObserverStubDispatch::Accept(
           reinterpret_cast<internal::ESimManagerObserver_OnProfileListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ESimManagerObserver.1
       bool success = true;
       ::mojo::PendingRemote<Euicc> p_euicc{};
       ESimManagerObserver_OnProfileListChanged_ParamsDataView input_data_view(params, message);
@@ -570,8 +574,8 @@ bool ESimManagerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProfileListChanged(
-std::move(p_euicc));
+      impl->OnProfileListChanged(        
+        std::move(p_euicc));
       return true;
     }
     case internal::kESimManagerObserver_OnEuiccChanged_Name: {
@@ -581,6 +585,8 @@ std::move(p_euicc));
           reinterpret_cast<internal::ESimManagerObserver_OnEuiccChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ESimManagerObserver.2
       bool success = true;
       ::mojo::PendingRemote<Euicc> p_euicc{};
       ESimManagerObserver_OnEuiccChanged_ParamsDataView input_data_view(params, message);
@@ -598,8 +604,8 @@ std::move(p_euicc));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEuiccChanged(
-std::move(p_euicc));
+      impl->OnEuiccChanged(        
+        std::move(p_euicc));
       return true;
     }
     case internal::kESimManagerObserver_OnProfileChanged_Name: {
@@ -609,6 +615,8 @@ std::move(p_euicc));
           reinterpret_cast<internal::ESimManagerObserver_OnProfileChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ESimManagerObserver.3
       bool success = true;
       ::mojo::PendingRemote<ESimProfile> p_profile{};
       ESimManagerObserver_OnProfileChanged_ParamsDataView input_data_view(params, message);
@@ -626,8 +634,8 @@ std::move(p_euicc));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProfileChanged(
-std::move(p_profile));
+      impl->OnProfileChanged(        
+        std::move(p_profile));
       return true;
     }
   }
@@ -908,6 +916,8 @@ bool ESimManager_GetAvailableEuiccs_ForwardToCallback::Accept(
           internal::ESimManager_GetAvailableEuiccs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ESimManager.1
   bool success = true;
   std::vector<::mojo::PendingRemote<Euicc>> p_euiccs{};
   ESimManager_GetAvailableEuiccs_ResponseParamsDataView input_data_view(params, message);
@@ -994,6 +1004,8 @@ bool ESimManagerStubDispatch::Accept(
           reinterpret_cast<internal::ESimManager_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ESimManager.0
       bool success = true;
       ::mojo::PendingRemote<ESimManagerObserver> p_observer{};
       ESimManager_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1011,8 +1023,8 @@ bool ESimManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kESimManager_GetAvailableEuiccs_Name: {
@@ -1041,6 +1053,8 @@ bool ESimManagerStubDispatch::AcceptWithResponder(
               internal::ESimManager_GetAvailableEuiccs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ESimManager.1
       bool success = true;
       ESimManager_GetAvailableEuiccs_ParamsDataView input_data_view(params, message);
       
@@ -1633,6 +1647,8 @@ bool Euicc_GetProperties_ForwardToCallback::Accept(
           internal::Euicc_GetProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Euicc.0
   bool success = true;
   EuiccPropertiesPtr p_properties{};
   Euicc_GetProperties_ResponseParamsDataView input_data_view(params, message);
@@ -1762,6 +1778,8 @@ bool Euicc_GetProfileList_ForwardToCallback::Accept(
           internal::Euicc_GetProfileList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Euicc.1
   bool success = true;
   std::vector<::mojo::PendingRemote<ESimProfile>> p_profiles{};
   Euicc_GetProfileList_ResponseParamsDataView input_data_view(params, message);
@@ -1893,6 +1911,8 @@ bool Euicc_RequestAvailableProfiles_ForwardToCallback::Accept(
           internal::Euicc_RequestAvailableProfiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Euicc.2
   bool success = true;
   ESimOperationResult p_result{};
   std::vector<ESimProfilePropertiesPtr> p_profiles{};
@@ -2033,6 +2053,8 @@ bool Euicc_RequestPendingProfiles_ForwardToCallback::Accept(
           internal::Euicc_RequestPendingProfiles_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Euicc.3
   bool success = true;
   ESimOperationResult p_result{};
   Euicc_RequestPendingProfiles_ResponseParamsDataView input_data_view(params, message);
@@ -2153,6 +2175,8 @@ bool Euicc_InstallProfileFromActivationCode_ForwardToCallback::Accept(
           internal::Euicc_InstallProfileFromActivationCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Euicc.4
   bool success = true;
   ProfileInstallResult p_result{};
   ::mojo::PendingRemote<ESimProfile> p_profile{};
@@ -2284,6 +2308,8 @@ bool Euicc_GetEidQRCode_ForwardToCallback::Accept(
           internal::Euicc_GetEidQRCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Euicc.5
   bool success = true;
   QRCodePtr p_qr_code{};
   Euicc_GetEidQRCode_ResponseParamsDataView input_data_view(params, message);
@@ -2395,6 +2421,8 @@ bool EuiccStubDispatch::AcceptWithResponder(
               internal::Euicc_GetProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Euicc.0
       bool success = true;
       Euicc_GetProperties_ParamsDataView input_data_view(params, message);
       
@@ -2420,6 +2448,8 @@ bool EuiccStubDispatch::AcceptWithResponder(
               internal::Euicc_GetProfileList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Euicc.1
       bool success = true;
       Euicc_GetProfileList_ParamsDataView input_data_view(params, message);
       
@@ -2445,6 +2475,8 @@ bool EuiccStubDispatch::AcceptWithResponder(
               internal::Euicc_RequestAvailableProfiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Euicc.2
       bool success = true;
       Euicc_RequestAvailableProfiles_ParamsDataView input_data_view(params, message);
       
@@ -2470,6 +2502,8 @@ bool EuiccStubDispatch::AcceptWithResponder(
               internal::Euicc_RequestPendingProfiles_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Euicc.3
       bool success = true;
       Euicc_RequestPendingProfiles_ParamsDataView input_data_view(params, message);
       
@@ -2495,6 +2529,8 @@ bool EuiccStubDispatch::AcceptWithResponder(
               internal::Euicc_InstallProfileFromActivationCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Euicc.4
       bool success = true;
       std::string p_activation_code{};
       std::string p_confirmation_code{};
@@ -2519,10 +2555,10 @@ bool EuiccStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallProfileFromActivationCode(
-std::move(p_activation_code), 
-std::move(p_confirmation_code), 
-std::move(p_install_method), std::move(callback));
+      impl->InstallProfileFromActivationCode(        
+        std::move(p_activation_code), 
+        std::move(p_confirmation_code), 
+        std::move(p_install_method), std::move(callback));
       return true;
     }
     case internal::kEuicc_GetEidQRCode_Name: {
@@ -2532,6 +2568,8 @@ std::move(p_install_method), std::move(callback));
               internal::Euicc_GetEidQRCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Euicc.5
       bool success = true;
       Euicc_GetEidQRCode_ParamsDataView input_data_view(params, message);
       
@@ -2991,6 +3029,8 @@ bool ESimProfile_GetProperties_ForwardToCallback::Accept(
           internal::ESimProfile_GetProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ESimProfile.0
   bool success = true;
   ESimProfilePropertiesPtr p_properties{};
   ESimProfile_GetProperties_ResponseParamsDataView input_data_view(params, message);
@@ -3120,6 +3160,8 @@ bool ESimProfile_InstallProfile_ForwardToCallback::Accept(
           internal::ESimProfile_InstallProfile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ESimProfile.1
   bool success = true;
   ProfileInstallResult p_result{};
   ESimProfile_InstallProfile_ResponseParamsDataView input_data_view(params, message);
@@ -3240,6 +3282,8 @@ bool ESimProfile_UninstallProfile_ForwardToCallback::Accept(
           internal::ESimProfile_UninstallProfile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ESimProfile.2
   bool success = true;
   ESimOperationResult p_result{};
   ESimProfile_UninstallProfile_ResponseParamsDataView input_data_view(params, message);
@@ -3360,6 +3404,8 @@ bool ESimProfile_SetProfileNickname_ForwardToCallback::Accept(
           internal::ESimProfile_SetProfileNickname_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ESimProfile.3
   bool success = true;
   ESimOperationResult p_result{};
   ESimProfile_SetProfileNickname_ResponseParamsDataView input_data_view(params, message);
@@ -3460,6 +3506,8 @@ bool ESimProfileStubDispatch::AcceptWithResponder(
               internal::ESimProfile_GetProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ESimProfile.0
       bool success = true;
       ESimProfile_GetProperties_ParamsDataView input_data_view(params, message);
       
@@ -3485,6 +3533,8 @@ bool ESimProfileStubDispatch::AcceptWithResponder(
               internal::ESimProfile_InstallProfile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ESimProfile.1
       bool success = true;
       std::string p_confirmation_code{};
       ESimProfile_InstallProfile_ParamsDataView input_data_view(params, message);
@@ -3503,8 +3553,8 @@ bool ESimProfileStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallProfile(
-std::move(p_confirmation_code), std::move(callback));
+      impl->InstallProfile(        
+        std::move(p_confirmation_code), std::move(callback));
       return true;
     }
     case internal::kESimProfile_UninstallProfile_Name: {
@@ -3514,6 +3564,8 @@ std::move(p_confirmation_code), std::move(callback));
               internal::ESimProfile_UninstallProfile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ESimProfile.2
       bool success = true;
       ESimProfile_UninstallProfile_ParamsDataView input_data_view(params, message);
       
@@ -3539,6 +3591,8 @@ std::move(p_confirmation_code), std::move(callback));
               internal::ESimProfile_SetProfileNickname_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ESimProfile.3
       bool success = true;
       ::std::u16string p_nickname{};
       ESimProfile_SetProfileNickname_ParamsDataView input_data_view(params, message);
@@ -3557,8 +3611,8 @@ std::move(p_confirmation_code), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProfileNickname(
-std::move(p_nickname), std::move(callback));
+      impl->SetProfileNickname(        
+        std::move(p_nickname), std::move(callback));
       return true;
     }
   }

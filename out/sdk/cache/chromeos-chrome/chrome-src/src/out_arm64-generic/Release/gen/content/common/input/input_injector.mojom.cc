@@ -1099,6 +1099,8 @@ bool InputInjector_QueueSyntheticSmoothDrag_ForwardToCallback::Accept(
           internal::InputInjector_QueueSyntheticSmoothDrag_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputInjector.0
   bool success = true;
   InputInjector_QueueSyntheticSmoothDrag_ResponseParamsDataView input_data_view(params, message);
   
@@ -1206,6 +1208,8 @@ bool InputInjector_QueueSyntheticSmoothScroll_ForwardToCallback::Accept(
           internal::InputInjector_QueueSyntheticSmoothScroll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputInjector.1
   bool success = true;
   InputInjector_QueueSyntheticSmoothScroll_ResponseParamsDataView input_data_view(params, message);
   
@@ -1313,6 +1317,8 @@ bool InputInjector_QueueSyntheticPinch_ForwardToCallback::Accept(
           internal::InputInjector_QueueSyntheticPinch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputInjector.2
   bool success = true;
   InputInjector_QueueSyntheticPinch_ResponseParamsDataView input_data_view(params, message);
   
@@ -1420,6 +1426,8 @@ bool InputInjector_QueueSyntheticTap_ForwardToCallback::Accept(
           internal::InputInjector_QueueSyntheticTap_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputInjector.3
   bool success = true;
   InputInjector_QueueSyntheticTap_ResponseParamsDataView input_data_view(params, message);
   
@@ -1527,6 +1535,8 @@ bool InputInjector_QueueSyntheticPointerAction_ForwardToCallback::Accept(
           internal::InputInjector_QueueSyntheticPointerAction_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputInjector.4
   bool success = true;
   InputInjector_QueueSyntheticPointerAction_ResponseParamsDataView input_data_view(params, message);
   
@@ -1617,6 +1627,8 @@ bool InputInjectorStubDispatch::AcceptWithResponder(
               internal::InputInjector_QueueSyntheticSmoothDrag_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputInjector.0
       bool success = true;
       ::content::SyntheticSmoothDragGestureParams p_drag{};
       InputInjector_QueueSyntheticSmoothDrag_ParamsDataView input_data_view(params, message);
@@ -1635,8 +1647,8 @@ bool InputInjectorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueSyntheticSmoothDrag(
-std::move(p_drag), std::move(callback));
+      impl->QueueSyntheticSmoothDrag(        
+        std::move(p_drag), std::move(callback));
       return true;
     }
     case internal::kInputInjector_QueueSyntheticSmoothScroll_Name: {
@@ -1646,6 +1658,8 @@ std::move(p_drag), std::move(callback));
               internal::InputInjector_QueueSyntheticSmoothScroll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputInjector.1
       bool success = true;
       ::content::SyntheticSmoothScrollGestureParams p_scroll{};
       InputInjector_QueueSyntheticSmoothScroll_ParamsDataView input_data_view(params, message);
@@ -1664,8 +1678,8 @@ std::move(p_drag), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueSyntheticSmoothScroll(
-std::move(p_scroll), std::move(callback));
+      impl->QueueSyntheticSmoothScroll(        
+        std::move(p_scroll), std::move(callback));
       return true;
     }
     case internal::kInputInjector_QueueSyntheticPinch_Name: {
@@ -1675,6 +1689,8 @@ std::move(p_scroll), std::move(callback));
               internal::InputInjector_QueueSyntheticPinch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputInjector.2
       bool success = true;
       ::content::SyntheticPinchGestureParams p_pinch{};
       InputInjector_QueueSyntheticPinch_ParamsDataView input_data_view(params, message);
@@ -1693,8 +1709,8 @@ std::move(p_scroll), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueSyntheticPinch(
-std::move(p_pinch), std::move(callback));
+      impl->QueueSyntheticPinch(        
+        std::move(p_pinch), std::move(callback));
       return true;
     }
     case internal::kInputInjector_QueueSyntheticTap_Name: {
@@ -1704,6 +1720,8 @@ std::move(p_pinch), std::move(callback));
               internal::InputInjector_QueueSyntheticTap_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputInjector.3
       bool success = true;
       ::content::SyntheticTapGestureParams p_tap{};
       InputInjector_QueueSyntheticTap_ParamsDataView input_data_view(params, message);
@@ -1722,8 +1740,8 @@ std::move(p_pinch), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueSyntheticTap(
-std::move(p_tap), std::move(callback));
+      impl->QueueSyntheticTap(        
+        std::move(p_tap), std::move(callback));
       return true;
     }
     case internal::kInputInjector_QueueSyntheticPointerAction_Name: {
@@ -1733,6 +1751,8 @@ std::move(p_tap), std::move(callback));
               internal::InputInjector_QueueSyntheticPointerAction_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputInjector.4
       bool success = true;
       ::content::SyntheticPointerActionListParams p_pointer_action{};
       InputInjector_QueueSyntheticPointerAction_ParamsDataView input_data_view(params, message);
@@ -1751,8 +1771,8 @@ std::move(p_tap), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueSyntheticPointerAction(
-std::move(p_pointer_action), std::move(callback));
+      impl->QueueSyntheticPointerAction(        
+        std::move(p_pointer_action), std::move(callback));
       return true;
     }
   }

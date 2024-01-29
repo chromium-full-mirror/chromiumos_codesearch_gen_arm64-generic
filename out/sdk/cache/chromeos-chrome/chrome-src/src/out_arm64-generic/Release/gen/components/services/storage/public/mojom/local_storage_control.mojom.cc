@@ -697,6 +697,8 @@ bool LocalStorageControl_GetUsage_ForwardToCallback::Accept(
           internal::LocalStorageControl_GetUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalStorageControl.1
   bool success = true;
   std::vector<::storage::mojom::StorageUsageInfoPtr> p_info{};
   LocalStorageControl_GetUsage_ResponseParamsDataView input_data_view(params, message);
@@ -828,6 +830,8 @@ bool LocalStorageControl_DeleteStorage_ForwardToCallback::Accept(
           internal::LocalStorageControl_DeleteStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalStorageControl.2
   bool success = true;
   LocalStorageControl_DeleteStorage_ResponseParamsDataView input_data_view(params, message);
   
@@ -935,6 +939,8 @@ bool LocalStorageControl_CleanUpStorage_ForwardToCallback::Accept(
           internal::LocalStorageControl_CleanUpStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalStorageControl.3
   bool success = true;
   LocalStorageControl_CleanUpStorage_ResponseParamsDataView input_data_view(params, message);
   
@@ -1042,6 +1048,8 @@ bool LocalStorageControl_Flush_ForwardToCallback::Accept(
           internal::LocalStorageControl_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalStorageControl.4
   bool success = true;
   LocalStorageControl_Flush_ResponseParamsDataView input_data_view(params, message);
   
@@ -1104,6 +1112,8 @@ bool LocalStorageControlStubDispatch::Accept(
           reinterpret_cast<internal::LocalStorageControl_BindStorageArea_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.0
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       ::mojo::PendingReceiver<::blink::mojom::StorageArea> p_receiver{};
@@ -1124,9 +1134,9 @@ bool LocalStorageControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindStorageArea(
-std::move(p_storage_key), 
-std::move(p_receiver));
+      impl->BindStorageArea(        
+        std::move(p_storage_key), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kLocalStorageControl_GetUsage_Name: {
@@ -1148,6 +1158,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::LocalStorageControl_PurgeMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.5
       bool success = true;
       LocalStorageControl_PurgeMemory_ParamsDataView input_data_view(params, message);
       
@@ -1160,7 +1172,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PurgeMemory();
+      impl->PurgeMemory(        );
       return true;
     }
     case internal::kLocalStorageControl_ApplyPolicyUpdates_Name: {
@@ -1170,6 +1182,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::LocalStorageControl_ApplyPolicyUpdates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.6
       bool success = true;
       std::vector<::storage::mojom::StoragePolicyUpdatePtr> p_policy_updates{};
       LocalStorageControl_ApplyPolicyUpdates_ParamsDataView input_data_view(params, message);
@@ -1185,8 +1199,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyPolicyUpdates(
-std::move(p_policy_updates));
+      impl->ApplyPolicyUpdates(        
+        std::move(p_policy_updates));
       return true;
     }
     case internal::kLocalStorageControl_ForceKeepSessionState_Name: {
@@ -1196,6 +1210,8 @@ std::move(p_policy_updates));
           reinterpret_cast<internal::LocalStorageControl_ForceKeepSessionState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.7
       bool success = true;
       LocalStorageControl_ForceKeepSessionState_ParamsDataView input_data_view(params, message);
       
@@ -1208,7 +1224,7 @@ std::move(p_policy_updates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceKeepSessionState();
+      impl->ForceKeepSessionState(        );
       return true;
     }
   }
@@ -1234,6 +1250,8 @@ bool LocalStorageControlStubDispatch::AcceptWithResponder(
               internal::LocalStorageControl_GetUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.1
       bool success = true;
       LocalStorageControl_GetUsage_ParamsDataView input_data_view(params, message);
       
@@ -1259,6 +1277,8 @@ bool LocalStorageControlStubDispatch::AcceptWithResponder(
               internal::LocalStorageControl_DeleteStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.2
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       LocalStorageControl_DeleteStorage_ParamsDataView input_data_view(params, message);
@@ -1277,8 +1297,8 @@ bool LocalStorageControlStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteStorage(
-std::move(p_storage_key), std::move(callback));
+      impl->DeleteStorage(        
+        std::move(p_storage_key), std::move(callback));
       return true;
     }
     case internal::kLocalStorageControl_CleanUpStorage_Name: {
@@ -1288,6 +1308,8 @@ std::move(p_storage_key), std::move(callback));
               internal::LocalStorageControl_CleanUpStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.3
       bool success = true;
       LocalStorageControl_CleanUpStorage_ParamsDataView input_data_view(params, message);
       
@@ -1313,6 +1335,8 @@ std::move(p_storage_key), std::move(callback));
               internal::LocalStorageControl_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalStorageControl.4
       bool success = true;
       LocalStorageControl_Flush_ParamsDataView input_data_view(params, message);
       

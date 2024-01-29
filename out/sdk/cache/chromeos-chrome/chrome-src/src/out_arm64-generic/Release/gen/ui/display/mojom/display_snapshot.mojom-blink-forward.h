@@ -27,6 +27,9 @@ namespace display::mojom {
 
 
 namespace display::mojom::blink {
+class DisplaySnapshotColorInfo;
+using DisplaySnapshotColorInfoPtr = mojo::StructPtr<DisplaySnapshotColorInfo>;
+
 class DisplaySnapshot;
 using DisplaySnapshotPtr = mojo::StructPtr<DisplaySnapshot>;
 

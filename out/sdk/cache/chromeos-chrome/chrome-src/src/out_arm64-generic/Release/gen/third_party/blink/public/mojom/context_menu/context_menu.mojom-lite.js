@@ -574,6 +574,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'isImageMediaPluginDocument', 12,
+        1,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'mediaFlags', 56,
         0,
         mojo.internal.Int32,
@@ -631,7 +639,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'spellcheckEnabled', 12,
-        1,
+        2,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -639,7 +647,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'isEditable', 12,
-        2,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -735,7 +743,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'openedFromHighlight', 12,
-        3,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -743,7 +751,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'form_control_type_$flag', 12,
-        4,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -768,7 +776,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'isContentEditableForAutofill', 12,
-        5,
+        6,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -792,7 +800,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'isPasswordTypeByHeuristics', 12,
-        6,
+        7,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -826,6 +834,8 @@ blink.mojom.UntrustworthyContextMenuParams = class {
     this.srcUrl;
     /** @export { !boolean } */
     this.hasImageContents;
+    /** @export { !boolean } */
+    this.isImageMediaPluginDocument;
     /** @export { !number } */
     this.mediaFlags;
     /** @export { !mojoBase.mojom.String16 } */

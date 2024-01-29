@@ -282,6 +282,8 @@ bool LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ForwardToCallback::
           internal::LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LacrosCleanupTriggeredObserver.0
   bool success = true;
   std::optional<std::string> p_error{};
   LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ResponseParamsDataView input_data_view(params, message);
@@ -378,6 +380,8 @@ bool LacrosCleanupTriggeredObserverStubDispatch::AcceptWithResponder(
               internal::LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LacrosCleanupTriggeredObserver.0
       bool success = true;
       LacrosCleanupTriggeredObserver_OnLacrosCleanupTriggered_ParamsDataView input_data_view(params, message);
       
@@ -520,6 +524,8 @@ bool ExternalLogoutRequestObserverStubDispatch::Accept(
           reinterpret_cast<internal::ExternalLogoutRequestObserver_OnRequestExternalLogout_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ExternalLogoutRequestObserver.0
       bool success = true;
       ExternalLogoutRequestObserver_OnRequestExternalLogout_ParamsDataView input_data_view(params, message);
       
@@ -532,7 +538,7 @@ bool ExternalLogoutRequestObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRequestExternalLogout();
+      impl->OnRequestExternalLogout(        );
       return true;
     }
   }
@@ -1965,6 +1971,8 @@ bool Login_ExitCurrentSession_ForwardToCallback::Accept(
           internal::Login_ExitCurrentSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.1
   bool success = true;
   std::optional<std::string> p_error{};
   Login_ExitCurrentSession_ResponseParamsDataView input_data_view(params, message);
@@ -2090,6 +2098,8 @@ bool Login_FetchDataForNextLoginAttempt_ForwardToCallback::Accept(
           internal::Login_FetchDataForNextLoginAttempt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.2
   bool success = true;
   std::string p_data{};
   Login_FetchDataForNextLoginAttempt_ResponseParamsDataView input_data_view(params, message);
@@ -2219,6 +2229,8 @@ bool Login_LockManagedGuestSession_ForwardToCallback::Accept(
           internal::Login_LockManagedGuestSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.3
   bool success = true;
   std::optional<std::string> p_error{};
   Login_LockManagedGuestSession_ResponseParamsDataView input_data_view(params, message);
@@ -2344,6 +2356,8 @@ bool Login_EndSharedSession_ForwardToCallback::Accept(
           internal::Login_EndSharedSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.8
   bool success = true;
   std::optional<std::string> p_error{};
   Login_EndSharedSession_ResponseParamsDataView input_data_view(params, message);
@@ -2469,6 +2483,8 @@ bool Login_SetDataForNextLoginAttempt_ForwardToCallback::Accept(
           internal::Login_SetDataForNextLoginAttempt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.9
   bool success = true;
   Login_SetDataForNextLoginAttempt_ResponseParamsDataView input_data_view(params, message);
   
@@ -2576,6 +2592,8 @@ bool Login_LockCurrentSession_ForwardToCallback::Accept(
           internal::Login_LockCurrentSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.11
   bool success = true;
   std::optional<std::string> p_error{};
   Login_LockCurrentSession_ResponseParamsDataView input_data_view(params, message);
@@ -2701,6 +2719,8 @@ bool Login_REMOVED_0_ForwardToCallback::Accept(
           internal::Login_REMOVED_0_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.0
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
@@ -2826,6 +2846,8 @@ bool Login_REMOVED_4_ForwardToCallback::Accept(
           internal::Login_REMOVED_4_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.4
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_4_ResponseParamsDataView input_data_view(params, message);
@@ -2951,6 +2973,8 @@ bool Login_REMOVED_5_ForwardToCallback::Accept(
           internal::Login_REMOVED_5_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.5
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_5_ResponseParamsDataView input_data_view(params, message);
@@ -3076,6 +3100,8 @@ bool Login_REMOVED_6_ForwardToCallback::Accept(
           internal::Login_REMOVED_6_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.6
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_6_ResponseParamsDataView input_data_view(params, message);
@@ -3201,6 +3227,8 @@ bool Login_REMOVED_7_ForwardToCallback::Accept(
           internal::Login_REMOVED_7_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.7
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_7_ResponseParamsDataView input_data_view(params, message);
@@ -3326,6 +3354,8 @@ bool Login_REMOVED_10_ForwardToCallback::Accept(
           internal::Login_REMOVED_10_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.10
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_10_ResponseParamsDataView input_data_view(params, message);
@@ -3451,6 +3481,8 @@ bool Login_REMOVED_12_ForwardToCallback::Accept(
           internal::Login_REMOVED_12_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Login.12
   bool success = true;
   std::optional<std::string> p_error{};
   Login_REMOVED_12_ResponseParamsDataView input_data_view(params, message);
@@ -3549,6 +3581,8 @@ bool LoginStubDispatch::Accept(
           reinterpret_cast<internal::Login_AddLacrosCleanupTriggeredObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Login.13
       bool success = true;
       ::mojo::PendingRemote<LacrosCleanupTriggeredObserver> p_observer{};
       Login_AddLacrosCleanupTriggeredObserver_ParamsDataView input_data_view(params, message);
@@ -3566,8 +3600,8 @@ bool LoginStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLacrosCleanupTriggeredObserver(
-std::move(p_observer));
+      impl->AddLacrosCleanupTriggeredObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kLogin_AddExternalLogoutRequestObserver_Name: {
@@ -3577,6 +3611,8 @@ std::move(p_observer));
           reinterpret_cast<internal::Login_AddExternalLogoutRequestObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Login.14
       bool success = true;
       ::mojo::PendingRemote<ExternalLogoutRequestObserver> p_observer{};
       Login_AddExternalLogoutRequestObserver_ParamsDataView input_data_view(params, message);
@@ -3594,8 +3630,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddExternalLogoutRequestObserver(
-std::move(p_observer));
+      impl->AddExternalLogoutRequestObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kLogin_NotifyOnExternalLogoutDone_Name: {
@@ -3605,6 +3641,8 @@ std::move(p_observer));
           reinterpret_cast<internal::Login_NotifyOnExternalLogoutDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Login.16
       bool success = true;
       Login_NotifyOnExternalLogoutDone_ParamsDataView input_data_view(params, message);
       
@@ -3617,7 +3655,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyOnExternalLogoutDone();
+      impl->NotifyOnExternalLogoutDone(        );
       return true;
     }
     case internal::kLogin_ShowGuestSessionConfirmationDialog_Name: {
@@ -3627,6 +3665,8 @@ std::move(p_observer));
           reinterpret_cast<internal::Login_ShowGuestSessionConfirmationDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Login.17
       bool success = true;
       Login_ShowGuestSessionConfirmationDialog_ParamsDataView input_data_view(params, message);
       
@@ -3639,7 +3679,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowGuestSessionConfirmationDialog();
+      impl->ShowGuestSessionConfirmationDialog(        );
       return true;
     }
     case internal::kLogin_REMOVED_0_Name: {
@@ -3683,6 +3723,8 @@ bool LoginStubDispatch::AcceptWithResponder(
               internal::Login_ExitCurrentSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.1
       bool success = true;
       std::optional<std::string> p_data_for_next_login_attempt{};
       Login_ExitCurrentSession_ParamsDataView input_data_view(params, message);
@@ -3701,8 +3743,8 @@ bool LoginStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExitCurrentSession(
-std::move(p_data_for_next_login_attempt), std::move(callback));
+      impl->ExitCurrentSession(        
+        std::move(p_data_for_next_login_attempt), std::move(callback));
       return true;
     }
     case internal::kLogin_FetchDataForNextLoginAttempt_Name: {
@@ -3712,6 +3754,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               internal::Login_FetchDataForNextLoginAttempt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.2
       bool success = true;
       Login_FetchDataForNextLoginAttempt_ParamsDataView input_data_view(params, message);
       
@@ -3737,6 +3781,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               internal::Login_LockManagedGuestSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.3
       bool success = true;
       Login_LockManagedGuestSession_ParamsDataView input_data_view(params, message);
       
@@ -3762,6 +3808,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               internal::Login_EndSharedSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.8
       bool success = true;
       Login_EndSharedSession_ParamsDataView input_data_view(params, message);
       
@@ -3787,6 +3835,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               internal::Login_SetDataForNextLoginAttempt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.9
       bool success = true;
       std::string p_data_for_next_login_attempt{};
       Login_SetDataForNextLoginAttempt_ParamsDataView input_data_view(params, message);
@@ -3805,8 +3855,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDataForNextLoginAttempt(
-std::move(p_data_for_next_login_attempt), std::move(callback));
+      impl->SetDataForNextLoginAttempt(        
+        std::move(p_data_for_next_login_attempt), std::move(callback));
       return true;
     }
     case internal::kLogin_LockCurrentSession_Name: {
@@ -3816,6 +3866,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               internal::Login_LockCurrentSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.11
       bool success = true;
       Login_LockCurrentSession_ParamsDataView input_data_view(params, message);
       
@@ -3853,6 +3905,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               internal::Login_REMOVED_0_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.0
       bool success = true;
       std::optional<std::string> p_password{};
       Login_REMOVED_0_ParamsDataView input_data_view(params, message);
@@ -3871,8 +3925,8 @@ std::move(p_data_for_next_login_attempt), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_0(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_0(        
+        std::move(p_password), std::move(callback));
       return true;
     }
     case internal::kLogin_REMOVED_4_Name: {
@@ -3882,6 +3936,8 @@ std::move(p_password), std::move(callback));
               internal::Login_REMOVED_4_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.4
       bool success = true;
       std::string p_password{};
       Login_REMOVED_4_ParamsDataView input_data_view(params, message);
@@ -3900,8 +3956,8 @@ std::move(p_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_4(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_4(        
+        std::move(p_password), std::move(callback));
       return true;
     }
     case internal::kLogin_REMOVED_5_Name: {
@@ -3911,6 +3967,8 @@ std::move(p_password), std::move(callback));
               internal::Login_REMOVED_5_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.5
       bool success = true;
       std::string p_password{};
       Login_REMOVED_5_ParamsDataView input_data_view(params, message);
@@ -3929,8 +3987,8 @@ std::move(p_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_5(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_5(        
+        std::move(p_password), std::move(callback));
       return true;
     }
     case internal::kLogin_REMOVED_6_Name: {
@@ -3940,6 +3998,8 @@ std::move(p_password), std::move(callback));
               internal::Login_REMOVED_6_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.6
       bool success = true;
       std::string p_password{};
       Login_REMOVED_6_ParamsDataView input_data_view(params, message);
@@ -3958,8 +4018,8 @@ std::move(p_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_6(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_6(        
+        std::move(p_password), std::move(callback));
       return true;
     }
     case internal::kLogin_REMOVED_7_Name: {
@@ -3969,6 +4029,8 @@ std::move(p_password), std::move(callback));
               internal::Login_REMOVED_7_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.7
       bool success = true;
       std::string p_password{};
       Login_REMOVED_7_ParamsDataView input_data_view(params, message);
@@ -3987,8 +4049,8 @@ std::move(p_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_7(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_7(        
+        std::move(p_password), std::move(callback));
       return true;
     }
     case internal::kLogin_REMOVED_10_Name: {
@@ -3998,6 +4060,8 @@ std::move(p_password), std::move(callback));
               internal::Login_REMOVED_10_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.10
       bool success = true;
       SamlUserSessionPropertiesPtr p_properties{};
       Login_REMOVED_10_ParamsDataView input_data_view(params, message);
@@ -4016,8 +4080,8 @@ std::move(p_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_10(
-std::move(p_properties), std::move(callback));
+      impl->REMOVED_10(        
+        std::move(p_properties), std::move(callback));
       return true;
     }
     case internal::kLogin_REMOVED_12_Name: {
@@ -4027,6 +4091,8 @@ std::move(p_properties), std::move(callback));
               internal::Login_REMOVED_12_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Login.12
       bool success = true;
       std::string p_password{};
       Login_REMOVED_12_ParamsDataView input_data_view(params, message);
@@ -4045,8 +4111,8 @@ std::move(p_properties), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_12(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_12(        
+        std::move(p_password), std::move(callback));
       return true;
     }
   }

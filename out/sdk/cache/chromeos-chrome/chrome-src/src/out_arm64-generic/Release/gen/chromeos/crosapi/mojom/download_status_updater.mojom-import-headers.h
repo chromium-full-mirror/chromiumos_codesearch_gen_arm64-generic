@@ -12,5 +12,7 @@
 #include "chromeos/crosapi/mojom/download_controller.mojom-import-headers.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
+#include "ui/gfx/image/mojom/image.mojom.h"
+#include "ui/gfx/image/mojom/image.mojom-import-headers.h"
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_DOWNLOAD_STATUS_UPDATER_MOJOM_IMPORT_HEADERS_H_

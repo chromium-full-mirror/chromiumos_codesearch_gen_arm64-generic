@@ -505,11 +505,13 @@ TorqueStructSetRecord GetSetRecord_0(compiler::CodeAssemblerState* state_, TNode
   compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block7(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block11(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block10(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block15(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
-  compiler::CodeAssemblerParameterizedLabel<> block14(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block8(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block9(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block13(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block12(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block17(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
   compiler::CodeAssemblerParameterizedLabel<> block16(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block18(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
     ca_.Goto(&block0);
 
   TNode<JSReceiver> tmp0;
@@ -548,65 +550,79 @@ TorqueStructSetRecord GetSetRecord_0(compiler::CodeAssemblerState* state_, TNode
   }
 
   TNode<Number> tmp6;
-  TNode<String> tmp7;
-  TNode<Object> tmp8;
-  TNode<JSReceiver> tmp9;
+  TNode<Number> tmp7;
+  TNode<BoolT> tmp8;
   if (block7.is_used()) {
     ca_.Bind(&block7);
     tmp6 = ToInteger_Inline_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp4});
-    tmp7 = kHasString_0(state_);
-    tmp8 = CodeStubAssembler(state_).GetProperty(TNode<Context>{p_context}, TNode<Object>{tmp0}, TNode<Object>{tmp7});
-    compiler::CodeAssemblerLabel label10(&ca_);
-    tmp9 = Cast_Callable_1(state_, TNode<Context>{p_context}, TNode<Object>{tmp8}, &label10);
-    ca_.Goto(&block10);
-    if (label10.is_used()) {
-      ca_.Bind(&label10);
-      ca_.Goto(&block11);
+    tmp7 = FromConstexpr_Number_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp8 = NumberIsLessThan_0(state_, TNode<Number>{tmp6}, TNode<Number>{tmp7});
+    ca_.Branch(tmp8, &block8, std::vector<compiler::Node*>{}, &block9, std::vector<compiler::Node*>{});
+  }
+
+  if (block8.is_used()) {
+    ca_.Bind(&block8);
+    CodeStubAssembler(state_).ThrowRangeError(TNode<Context>{p_context}, MessageTemplate::kInvalidSizeValue, TNode<Object>{tmp6});
+  }
+
+  TNode<String> tmp9;
+  TNode<Object> tmp10;
+  TNode<JSReceiver> tmp11;
+  if (block9.is_used()) {
+    ca_.Bind(&block9);
+    tmp9 = kHasString_0(state_);
+    tmp10 = CodeStubAssembler(state_).GetProperty(TNode<Context>{p_context}, TNode<Object>{tmp0}, TNode<Object>{tmp9});
+    compiler::CodeAssemblerLabel label12(&ca_);
+    tmp11 = Cast_Callable_1(state_, TNode<Context>{p_context}, TNode<Object>{tmp10}, &label12);
+    ca_.Goto(&block12);
+    if (label12.is_used()) {
+      ca_.Bind(&label12);
+      ca_.Goto(&block13);
     }
   }
 
-  TNode<String> tmp11;
-  if (block11.is_used()) {
-    ca_.Bind(&block11);
-    tmp11 = kHasString_0(state_);
-    CodeStubAssembler(state_).CallRuntime(Runtime::kThrowCalledNonCallable, p_context, tmp11);
+  TNode<String> tmp13;
+  if (block13.is_used()) {
+    ca_.Bind(&block13);
+    tmp13 = kHasString_0(state_);
+    CodeStubAssembler(state_).CallRuntime(Runtime::kThrowCalledNonCallable, p_context, tmp13);
     CodeStubAssembler(state_).Unreachable();
   }
 
-  TNode<String> tmp12;
-  TNode<Object> tmp13;
-  TNode<JSReceiver> tmp14;
-  if (block10.is_used()) {
-    ca_.Bind(&block10);
-    tmp12 = kKeysString_0(state_);
-    tmp13 = CodeStubAssembler(state_).GetProperty(TNode<Context>{p_context}, TNode<Object>{tmp0}, TNode<Object>{tmp12});
-    compiler::CodeAssemblerLabel label15(&ca_);
-    tmp14 = Cast_Callable_1(state_, TNode<Context>{p_context}, TNode<Object>{tmp13}, &label15);
-    ca_.Goto(&block14);
-    if (label15.is_used()) {
-      ca_.Bind(&label15);
-      ca_.Goto(&block15);
-    }
-  }
-
-  TNode<String> tmp16;
-  if (block15.is_used()) {
-    ca_.Bind(&block15);
-    tmp16 = kKeysString_0(state_);
-    CodeStubAssembler(state_).CallRuntime(Runtime::kThrowCalledNonCallable, p_context, tmp16);
-    CodeStubAssembler(state_).Unreachable();
-  }
-
-  if (block14.is_used()) {
-    ca_.Bind(&block14);
+  TNode<String> tmp14;
+  TNode<Object> tmp15;
+  TNode<JSReceiver> tmp16;
+  if (block12.is_used()) {
+    ca_.Bind(&block12);
+    tmp14 = kKeysString_0(state_);
+    tmp15 = CodeStubAssembler(state_).GetProperty(TNode<Context>{p_context}, TNode<Object>{tmp0}, TNode<Object>{tmp14});
+    compiler::CodeAssemblerLabel label17(&ca_);
+    tmp16 = Cast_Callable_1(state_, TNode<Context>{p_context}, TNode<Object>{tmp15}, &label17);
     ca_.Goto(&block16);
+    if (label17.is_used()) {
+      ca_.Bind(&label17);
+      ca_.Goto(&block17);
+    }
   }
 
+  TNode<String> tmp18;
+  if (block17.is_used()) {
+    ca_.Bind(&block17);
+    tmp18 = kKeysString_0(state_);
+    CodeStubAssembler(state_).CallRuntime(Runtime::kThrowCalledNonCallable, p_context, tmp18);
+    CodeStubAssembler(state_).Unreachable();
+  }
+
+  if (block16.is_used()) {
     ca_.Bind(&block16);
-  return TorqueStructSetRecord{TNode<JSReceiver>{tmp0}, TNode<Number>{tmp6}, TNode<Object>{tmp9}, TNode<Object>{tmp14}};
+    ca_.Goto(&block18);
+  }
+
+    ca_.Bind(&block18);
+  return TorqueStructSetRecord{TNode<JSReceiver>{tmp0}, TNode<Number>{tmp6}, TNode<Object>{tmp11}, TNode<Object>{tmp16}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=311&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=316&c=1
 TorqueStructIteratorRecord GetKeysIterator_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<JSReceiver> p_set, TNode<JSReceiver> p_keys) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -670,7 +686,7 @@ TorqueStructIteratorRecord GetKeysIterator_0(compiler::CodeAssemblerState* state
   return TorqueStructIteratorRecord{TNode<JSReceiver>{tmp1}, TNode<Object>{tmp4}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=333&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=338&c=1
 void CheckSetRecordHasJSSetMethods_0(compiler::CodeAssemblerState* state_, TorqueStructSetRecord p_setRecord, compiler::CodeAssemblerLabel* label_HasUserProvidedMethods) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -827,7 +843,7 @@ void CheckSetRecordHasJSSetMethods_0(compiler::CodeAssemblerState* state_, Torqu
     ca_.Bind(&block18);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=347&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=352&c=1
 void CheckSetRecordHasJSMapMethods_0(compiler::CodeAssemblerState* state_, TorqueStructSetRecord p_setRecord, compiler::CodeAssemblerLabel* label_HasUserProvidedMethods) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -984,7 +1000,7 @@ void CheckSetRecordHasJSMapMethods_0(compiler::CodeAssemblerState* state_, Torqu
     ca_.Bind(&block18);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=361&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=366&c=1
 TNode<OrderedHashSet> ShrinkOrderedHashSetIfNeeded_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Smi> p_numberOfElements, TNode<OrderedHashSet> p_resultSetData) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1026,7 +1042,7 @@ TNode<OrderedHashSet> ShrinkOrderedHashSetIfNeeded_0(compiler::CodeAssemblerStat
   return TNode<OrderedHashSet>{phi_bb7_3};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=420&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=425&c=1
 TorqueStructStableJSSetBackingTableWitness_0 NewStableBackingTableWitness_0(compiler::CodeAssemblerState* state_, TNode<JSSet> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1093,7 +1109,7 @@ TorqueStructStableJSSetBackingTableWitness_0 NewStableBackingTableWitness_0(comp
   return TorqueStructStableJSSetBackingTableWitness_0{TNode<JSSet>{p_o}, TNode<OrderedHashSet>{tmp6}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=428&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=433&c=1
 TorqueStructStableJSMapBackingTableWitness_0 NewStableBackingTableWitness_1(compiler::CodeAssemblerState* state_, TNode<JSMap> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1160,7 +1176,7 @@ TorqueStructStableJSMapBackingTableWitness_0 NewStableBackingTableWitness_1(comp
   return TorqueStructStableJSMapBackingTableWitness_0{TNode<JSMap>{p_o}, TNode<OrderedHashMap>{tmp6}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=424&c=15
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=429&c=15
 TNode<OrderedHashSet> Cast_StableOrderedHashSet_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1221,7 +1237,7 @@ TNode<OrderedHashSet> Cast_StableOrderedHashSet_1(compiler::CodeAssemblerState* 
   return TNode<OrderedHashSet>{tmp2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=432&c=15
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/collections.tq?l=437&c=15
 TNode<OrderedHashMap> Cast_StableOrderedHashMap_1(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

@@ -1830,6 +1830,7 @@
     this.wantsPromotionHint = false;
     this.protectedVideo = false;
     this.hwProtected = false;
+    this.needsDetiling = false;
     this.isWebgpuCompatible = false;
     this.powerEfficient = false;
     this.textureOriginIsTopLeft = false;
@@ -1949,6 +1950,7 @@
 
 
 
+
     // validate VideoFrameMetadata.overlayPlaneId
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, unguessable_token$.UnguessableToken, true);
     if (err !== validator.validationError.NONE)
@@ -2023,17 +2025,18 @@
     val.wantsPromotionHint = (packed >> 0) & 1 ? true : false;
     val.protectedVideo = (packed >> 1) & 1 ? true : false;
     val.hwProtected = (packed >> 2) & 1 ? true : false;
-    val.isWebgpuCompatible = (packed >> 3) & 1 ? true : false;
-    val.powerEfficient = (packed >> 4) & 1 ? true : false;
-    val.textureOriginIsTopLeft = (packed >> 5) & 1 ? true : false;
-    val.hasDeviceScaleFactor = (packed >> 6) & 1 ? true : false;
-    val.hasPageScaleFactor = (packed >> 7) & 1 ? true : false;
+    val.needsDetiling = (packed >> 3) & 1 ? true : false;
+    val.isWebgpuCompatible = (packed >> 4) & 1 ? true : false;
+    val.powerEfficient = (packed >> 5) & 1 ? true : false;
+    val.textureOriginIsTopLeft = (packed >> 6) & 1 ? true : false;
+    val.hasDeviceScaleFactor = (packed >> 7) & 1 ? true : false;
     packed = decoder.readUint8();
-    val.hasRootScrollOffsetX = (packed >> 0) & 1 ? true : false;
-    val.hasRootScrollOffsetY = (packed >> 1) & 1 ? true : false;
-    val.hasTopControlsVisibleHeight = (packed >> 2) & 1 ? true : false;
-    val.hasRtpTimestamp = (packed >> 3) & 1 ? true : false;
-    val.frame_sequence_$flag = (packed >> 4) & 1 ? true : false;
+    val.hasPageScaleFactor = (packed >> 0) & 1 ? true : false;
+    val.hasRootScrollOffsetX = (packed >> 1) & 1 ? true : false;
+    val.hasRootScrollOffsetY = (packed >> 2) & 1 ? true : false;
+    val.hasTopControlsVisibleHeight = (packed >> 3) & 1 ? true : false;
+    val.hasRtpTimestamp = (packed >> 4) & 1 ? true : false;
+    val.frame_sequence_$flag = (packed >> 5) & 1 ? true : false;
     decoder.skip(1);
     val.captureCounter =
         decoder.decodeStruct(codec.Int32);
@@ -2108,18 +2111,19 @@
     packed |= (val.wantsPromotionHint & 1) << 0
     packed |= (val.protectedVideo & 1) << 1
     packed |= (val.hwProtected & 1) << 2
-    packed |= (val.isWebgpuCompatible & 1) << 3
-    packed |= (val.powerEfficient & 1) << 4
-    packed |= (val.textureOriginIsTopLeft & 1) << 5
-    packed |= (val.hasDeviceScaleFactor & 1) << 6
-    packed |= (val.hasPageScaleFactor & 1) << 7
+    packed |= (val.needsDetiling & 1) << 3
+    packed |= (val.isWebgpuCompatible & 1) << 4
+    packed |= (val.powerEfficient & 1) << 5
+    packed |= (val.textureOriginIsTopLeft & 1) << 6
+    packed |= (val.hasDeviceScaleFactor & 1) << 7
     encoder.writeUint8(packed);
     packed = 0;
-    packed |= (val.hasRootScrollOffsetX & 1) << 0
-    packed |= (val.hasRootScrollOffsetY & 1) << 1
-    packed |= (val.hasTopControlsVisibleHeight & 1) << 2
-    packed |= (val.hasRtpTimestamp & 1) << 3
-    packed |= (val.frame_sequence_$flag & 1) << 4
+    packed |= (val.hasPageScaleFactor & 1) << 0
+    packed |= (val.hasRootScrollOffsetX & 1) << 1
+    packed |= (val.hasRootScrollOffsetY & 1) << 2
+    packed |= (val.hasTopControlsVisibleHeight & 1) << 3
+    packed |= (val.hasRtpTimestamp & 1) << 4
+    packed |= (val.frame_sequence_$flag & 1) << 5
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.captureCounter);

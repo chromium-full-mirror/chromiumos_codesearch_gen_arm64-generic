@@ -12,40 +12,29 @@ import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/buttons/oobe_text_button.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { CrInputElement } from '//resources/cr_elements/cr_input/cr_input.js';
+import { assert } from '//resources/js/assert.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { addSubmitListener } from '../../login_ui_tools.js';
 import { getTemplate } from './enter_old_password.html.js';
 /**
  * UI mode for the dialog.
- * @enum {string}
  */
-const EnterOldPasswordUIState = {
-    PASSWORD: 'password',
-    PROGRESS: 'progress',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- */
-const EnterOldPasswordBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @typedef {{
- *   oldPasswordInput:  CrInputElement,
- * }}
- */
-EnterOldPasswordBase.$;
-/**
- * @polymer
- */
-class EnterOldPassword extends EnterOldPasswordBase {
+var EnterOldPasswordUiState;
+(function (EnterOldPasswordUiState) {
+    EnterOldPasswordUiState["PASSWORD"] = "password";
+    EnterOldPasswordUiState["PROGRESS"] = "progress";
+})(EnterOldPasswordUiState || (EnterOldPasswordUiState = {}));
+const EnterOldPasswordBase = mixinBehaviors([
+    OobeI18nBehavior,
+    LoginScreenBehavior,
+    MultiStepBehavior,
+], PolymerElement);
+export class EnterOldPassword extends EnterOldPasswordBase {
     static get is() {
         return 'enter-old-password-element';
     }
@@ -54,7 +43,7 @@ class EnterOldPassword extends EnterOldPasswordBase {
     }
     static get properties() {
         return {
-            password_: {
+            password: {
                 type: String,
                 value: '',
             },
@@ -66,44 +55,43 @@ class EnterOldPassword extends EnterOldPasswordBase {
                 type: Boolean,
                 value: false,
             },
-            passwordInput_: Object,
+            passwordInput: Object,
         };
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return EnterOldPasswordUIState.PASSWORD;
+        return EnterOldPasswordUiState.PASSWORD;
     }
     get UI_STEPS() {
-        return EnterOldPasswordUIState;
+        return EnterOldPasswordUiState;
     }
     /** Overridden from LoginScreenBehavior. */
-    // clang-format off
     get EXTERNAL_API() {
         return [
             'showWrongPasswordError',
         ];
     }
-    // clang-format on
-    /**
-     * @override
-     */
     ready() {
         super.ready();
         this.initializeLoginScreen('EnterOldPasswordScreen');
-        this.passwordInput_ = this.$.oldPasswordInput;
-        addSubmitListener(this.passwordInput_, this.submit_.bind(this));
+        const oldpasswordInput = this.shadowRoot?.querySelector('#oldPasswordInput');
+        assert(oldpasswordInput instanceof CrInputElement);
+        this.passwordInput = oldpasswordInput;
+        addSubmitListener(this.passwordInput, this.submit.bind(this));
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.PASSWORD_CHANGED;
     }
     /**
-     * Invoked just before being shown. Contains all the data for the screen.
+     * Invoked just before being shown.
      */
-    onBeforeShow(data) {
+    onBeforeShow() {
         this.reset();
     }
     reset() {
-        this.setUIStep(EnterOldPasswordUIState.PASSWORD);
+        this.setUIStep(EnterOldPasswordUiState.PASSWORD);
         this.clearPassword();
         this.disabled = false;
     }
@@ -115,35 +103,30 @@ class EnterOldPassword extends EnterOldPasswordBase {
         this.clearPassword();
         this.disabled = false;
         this.passwordInvalid = true;
-        this.setUIStep(EnterOldPasswordUIState.PASSWORD);
+        this.setUIStep(EnterOldPasswordUiState.PASSWORD);
     }
-    /**
-     * @private
-     */
-    submit_() {
+    submit() {
         if (this.disabled) {
             return;
         }
-        if (!this.passwordInput_.validate()) {
+        if (!this.passwordInput.validate()) {
             return;
         }
-        this.setUIStep(EnterOldPasswordUIState.PROGRESS);
+        this.setUIStep(EnterOldPasswordUiState.PROGRESS);
         this.disabled = true;
-        this.userActed(['submit', this.passwordInput_.value]);
+        this.userActed(['submit', this.passwordInput.value]);
     }
-    /** @private */
-    onForgotPasswordClicked_() {
+    onForgotPasswordClicked() {
         if (this.disabled) {
             return;
         }
         this.userActed('forgot');
     }
-    /** @private */
-    onAnimationFinish_() {
+    onAnimationFinish() {
         this.focus();
     }
     clearPassword() {
-        this.password_ = '';
+        this.password = '';
         this.passwordInvalid = false;
     }
 }

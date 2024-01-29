@@ -50,7 +50,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionObserverOrObserverCallback::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionObserverOrObserverCallback::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kObserver: {
     return ToV8Traits<Observer>::ToV8(script_state, member_observer_.Get());
@@ -61,7 +61,7 @@ v8::MaybeLocal<v8::Value> V8UnionObserverOrObserverCallback::ToV8Value(ScriptSta
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionObserverOrObserverCallback::Trace(Visitor* visitor) const {

@@ -78,10 +78,10 @@ export class Infobar {
                 if (action.highlight) {
                     buttonClass += ' primary-button';
                 }
-                const button = createTextButton(action.text, actionCallback, buttonClass);
-                if (action.jsLogContext) {
-                    button.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context(action.jsLogContext)}`);
-                }
+                const button = createTextButton(action.text, actionCallback, {
+                    className: buttonClass,
+                    jslogContext: action.jsLogContext,
+                });
                 if (action.highlight && !this.#firstFocusableElement) {
                     this.#firstFocusableElement = button;
                 }
@@ -90,11 +90,11 @@ export class Infobar {
         }
         this.disableSetting = disableSetting || null;
         if (disableSetting) {
-            const disableButton = createTextButton(i18nString(UIStrings.dontShowAgain), this.onDisable.bind(this), 'infobar-button');
+            const disableButton = createTextButton(i18nString(UIStrings.dontShowAgain), this.onDisable.bind(this), { className: 'infobar-button' });
             this.actionContainer.appendChild(disableButton);
         }
         this.closeContainer = this.mainRow.createChild('div', 'infobar-close-container');
-        this.toggleElement = createTextButton(i18nString(UIStrings.showMore), this.onToggleDetails.bind(this), 'link-style devtools-link hidden');
+        this.toggleElement = createTextButton(i18nString(UIStrings.showMore), this.onToggleDetails.bind(this), { className: 'link-style devtools-link hidden' });
         this.toggleElement.setAttribute('role', 'link');
         this.closeContainer.appendChild(this.toggleElement);
         this.closeButton = this.closeContainer.createChild('div', 'close-button', 'dt-close-button');
@@ -105,7 +105,7 @@ export class Infobar {
         this.closeButton.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('close')}`);
         ARIAUtils.setDescription(this.closeButton, i18nString(UIStrings.close));
         self.onInvokeElement(this.closeButton, this.dispose.bind(this));
-        if (type !== Type.Issue) {
+        if (type !== "issue" /* Type.Issue */) {
             this.contentElement.tabIndex = 0;
         }
         ARIAUtils.setLabel(this.contentElement, text);
@@ -203,13 +203,4 @@ export class Infobar {
         return detailsRowMessage;
     }
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var Type;
-(function (Type) {
-    Type["Warning"] = "warning";
-    Type["Info"] = "info";
-    Type["Issue"] = "issue";
-    Type["Error"] = "error";
-})(Type || (Type = {}));
 //# sourceMappingURL=Infobar.js.map

@@ -587,6 +587,8 @@ bool CameraAlgorithmOps_Initialize_ForwardToCallback::Accept(
           internal::CameraAlgorithmOps_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAlgorithmOps.0
   bool success = true;
   int32_t p_result{};
   CameraAlgorithmOps_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -706,6 +708,8 @@ bool CameraAlgorithmOps_RegisterBuffer_ForwardToCallback::Accept(
           internal::CameraAlgorithmOps_RegisterBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAlgorithmOps.1
   bool success = true;
   int32_t p_result{};
   CameraAlgorithmOps_RegisterBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -786,6 +790,8 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
           reinterpret_cast<internal::CameraAlgorithmOps_Request_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmOps.2
       bool success = true;
       uint32_t p_req_id{};
       std::vector<uint8_t> p_req_header{};
@@ -807,10 +813,10 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Request(
-std::move(p_req_id), 
-std::move(p_req_header), 
-std::move(p_buffer_handle));
+      impl->Request(        
+        std::move(p_req_id), 
+        std::move(p_req_header), 
+        std::move(p_buffer_handle));
       return true;
     }
     case internal::kCameraAlgorithmOps_DeregisterBuffers_Name: {
@@ -820,6 +826,8 @@ std::move(p_buffer_handle));
           reinterpret_cast<internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmOps.3
       bool success = true;
       std::vector<int32_t> p_buffer_handles{};
       CameraAlgorithmOps_DeregisterBuffers_ParamsDataView input_data_view(params, message);
@@ -835,8 +843,8 @@ std::move(p_buffer_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeregisterBuffers(
-std::move(p_buffer_handles));
+      impl->DeregisterBuffers(        
+        std::move(p_buffer_handles));
       return true;
     }
     case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
@@ -846,6 +854,8 @@ std::move(p_buffer_handles));
           reinterpret_cast<internal::CameraAlgorithmOps_UpdateReturn_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmOps.4
       bool success = true;
       uint32_t p_upd_id{};
       uint32_t p_status{};
@@ -867,10 +877,10 @@ std::move(p_buffer_handles));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateReturn(
-std::move(p_upd_id), 
-std::move(p_status), 
-std::move(p_buffer_fd));
+      impl->UpdateReturn(        
+        std::move(p_upd_id), 
+        std::move(p_status), 
+        std::move(p_buffer_fd));
       return true;
     }
     case internal::kCameraAlgorithmOps_Deinitialize_Name: {
@@ -880,6 +890,8 @@ std::move(p_buffer_fd));
           reinterpret_cast<internal::CameraAlgorithmOps_Deinitialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmOps.5
       bool success = true;
       CameraAlgorithmOps_Deinitialize_ParamsDataView input_data_view(params, message);
       
@@ -892,7 +904,7 @@ std::move(p_buffer_fd));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Deinitialize();
+      impl->Deinitialize(        );
       return true;
     }
   }
@@ -915,6 +927,8 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
               internal::CameraAlgorithmOps_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmOps.0
       bool success = true;
       ::mojo::PendingRemote<CameraAlgorithmCallbackOps> p_callbacks{};
       CameraAlgorithmOps_Initialize_ParamsDataView input_data_view(params, message);
@@ -935,8 +949,8 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_callbacks), std::move(callback));
+      impl->Initialize(        
+        std::move(p_callbacks), std::move(callback));
       return true;
     }
     case internal::kCameraAlgorithmOps_RegisterBuffer_Name: {
@@ -946,6 +960,8 @@ std::move(p_callbacks), std::move(callback));
               internal::CameraAlgorithmOps_RegisterBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmOps.1
       bool success = true;
       ::mojo::ScopedHandle p_buffer_fd{};
       CameraAlgorithmOps_RegisterBuffer_ParamsDataView input_data_view(params, message);
@@ -964,8 +980,8 @@ std::move(p_callbacks), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterBuffer(
-std::move(p_buffer_fd), std::move(callback));
+      impl->RegisterBuffer(        
+        std::move(p_buffer_fd), std::move(callback));
       return true;
     }
     case internal::kCameraAlgorithmOps_Request_Name: {
@@ -1215,6 +1231,8 @@ bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
           reinterpret_cast<internal::CameraAlgorithmCallbackOps_Return_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmCallbackOps.0
       bool success = true;
       uint32_t p_req_id{};
       uint32_t p_status{};
@@ -1236,10 +1254,10 @@ bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Return(
-std::move(p_req_id), 
-std::move(p_status), 
-std::move(p_buffer_handle));
+      impl->Return(        
+        std::move(p_req_id), 
+        std::move(p_status), 
+        std::move(p_buffer_handle));
       return true;
     }
     case internal::kCameraAlgorithmCallbackOps_Update_Name: {
@@ -1249,6 +1267,8 @@ std::move(p_buffer_handle));
           reinterpret_cast<internal::CameraAlgorithmCallbackOps_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraAlgorithmCallbackOps.1
       bool success = true;
       uint32_t p_upd_id{};
       std::vector<uint8_t> p_upd_header{};
@@ -1270,10 +1290,10 @@ std::move(p_buffer_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_upd_id), 
-std::move(p_upd_header), 
-std::move(p_buffer_fd));
+      impl->Update(        
+        std::move(p_upd_id), 
+        std::move(p_upd_header), 
+        std::move(p_buffer_fd));
       return true;
     }
   }

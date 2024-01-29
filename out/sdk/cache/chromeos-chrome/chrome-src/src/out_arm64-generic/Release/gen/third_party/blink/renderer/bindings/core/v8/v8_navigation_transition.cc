@@ -125,8 +125,7 @@ BLINK_BINDINGS_TRACE_EVENT("NavigationTransition.finished.get");
 
 
 NavigationTransition* blink_receiver = V8NavigationTransition::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->finished(script_state);
 bindings::V8SetReturnValue(info, return_value);

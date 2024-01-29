@@ -278,6 +278,7 @@
     this.responseTime = null;
     this.headers = null;
     this.mimeType = null;
+    this.charset = null;
     this.loadTiming = null;
     this.certStatus = 0;
     this.wasInPrefetchCache = false;
@@ -307,7 +308,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 104}
+      {version: 0, numBytes: 112}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -332,8 +333,14 @@
         return err;
 
 
+    // validate URLResponseHeadDevToolsInfo.charset
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 24, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate URLResponseHeadDevToolsInfo.loadTiming
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, load_timing_info$.LoadTimingInfo, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, load_timing_info$.LoadTimingInfo, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -343,44 +350,44 @@
 
 
     // validate URLResponseHeadDevToolsInfo.cacheStorageCacheName
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 48, false)
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate URLResponseHeadDevToolsInfo.alpnNegotiatedProtocol
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 56, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
+    // validate URLResponseHeadDevToolsInfo.alpnNegotiatedProtocol
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 64, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate URLResponseHeadDevToolsInfo.alternateProtocolUsage
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 64, alternate_protocol_usage$.AlternateProtocolUsage);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 72, alternate_protocol_usage$.AlternateProtocolUsage);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate URLResponseHeadDevToolsInfo.serviceWorkerResponseSource
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 68, fetch_api$.FetchResponseSource);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 76, fetch_api$.FetchResponseSource);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHeadDevToolsInfo.serviceWorkerRouterInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, service_worker_router_info$.ServiceWorkerRouterInfo, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, service_worker_router_info$.ServiceWorkerRouterInfo, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHeadDevToolsInfo.sslInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, network_param$.SSLInfo, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, network_param$.SSLInfo, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHeadDevToolsInfo.remoteEndpoint
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, ip_endpoint$.IPEndPoint, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 96, ip_endpoint$.IPEndPoint, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -388,7 +395,7 @@
     return validator.validationError.NONE;
   };
 
-  URLResponseHeadDevToolsInfo.encodedSize = codec.kStructHeaderSize + 96;
+  URLResponseHeadDevToolsInfo.encodedSize = codec.kStructHeaderSize + 104;
 
   URLResponseHeadDevToolsInfo.decode = function(decoder) {
     var packed;
@@ -400,6 +407,8 @@
     val.headers =
         decoder.decodeStructPointer(network_param$.HttpResponseHeaders);
     val.mimeType =
+        decoder.decodeStruct(codec.String);
+    val.charset =
         decoder.decodeStruct(codec.String);
     val.loadTiming =
         decoder.decodeStructPointer(load_timing_info$.LoadTimingInfo);
@@ -439,6 +448,7 @@
     encoder.encodeStructPointer(time1$.Time, val.responseTime);
     encoder.encodeStructPointer(network_param$.HttpResponseHeaders, val.headers);
     encoder.encodeStruct(codec.String, val.mimeType);
+    encoder.encodeStruct(codec.String, val.charset);
     encoder.encodeStructPointer(load_timing_info$.LoadTimingInfo, val.loadTiming);
     encoder.encodeStruct(codec.Uint32, val.certStatus);
     packed = 0;

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "iioservice_simpleclient", "version": "0.0.1", "revision": 520, "fullname": "chromeos-base/iioservice_simpleclient", "fullnamerev": "chromeos-base/iioservice_simpleclient-0.0.1-r520", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

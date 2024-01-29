@@ -16,7 +16,7 @@ namespace content::mojom {
 
 class CONTENT_EXPORT RouteProviderInterceptorForTesting : public RouteProvider {
   virtual RouteProvider* GetForwardingInterface() = 0;
-  void GetRoute(int32_t routing_id, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) override;
+  void GetRoute(const ::blink::LocalFrameToken& frame_token, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) override;
 };
 class CONTENT_EXPORT RouteProviderAsyncWaiter {
  public:

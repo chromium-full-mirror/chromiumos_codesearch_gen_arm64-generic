@@ -1199,10 +1199,11 @@ class DiskImage final :
     kFstypeFieldNumber = 3,
     kDataFieldNumber = 5,
     kFlagsFieldNumber = 4,
+    kImageTypeFieldNumber = 8,
     kWritableFieldNumber = 6,
     kDoMountFieldNumber = 7,
     kODirectFieldNumber = 10,
-    kImageTypeFieldNumber = 8,
+    kMultipleWorkersFieldNumber = 11,
     kBlockSizeFieldNumber = 9,
   };
   // string path = 1;
@@ -1270,6 +1271,15 @@ class DiskImage final :
   void _internal_set_flags(uint64_t value);
   public:
 
+  // .vm_tools.concierge.DiskImageType image_type = 8;
+  void clear_image_type();
+  ::vm_tools::concierge::DiskImageType image_type() const;
+  void set_image_type(::vm_tools::concierge::DiskImageType value);
+  private:
+  ::vm_tools::concierge::DiskImageType _internal_image_type() const;
+  void _internal_set_image_type(::vm_tools::concierge::DiskImageType value);
+  public:
+
   // bool writable = 6;
   void clear_writable();
   bool writable() const;
@@ -1297,13 +1307,13 @@ class DiskImage final :
   void _internal_set_o_direct(bool value);
   public:
 
-  // .vm_tools.concierge.DiskImageType image_type = 8;
-  void clear_image_type();
-  ::vm_tools::concierge::DiskImageType image_type() const;
-  void set_image_type(::vm_tools::concierge::DiskImageType value);
+  // bool multiple_workers = 11;
+  void clear_multiple_workers();
+  bool multiple_workers() const;
+  void set_multiple_workers(bool value);
   private:
-  ::vm_tools::concierge::DiskImageType _internal_image_type() const;
-  void _internal_set_image_type(::vm_tools::concierge::DiskImageType value);
+  bool _internal_multiple_workers() const;
+  void _internal_set_multiple_workers(bool value);
   public:
 
   // uint32 block_size = 9;
@@ -1327,10 +1337,11 @@ class DiskImage final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fstype_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
   uint64_t flags_;
+  int image_type_;
   bool writable_;
   bool do_mount_;
   bool o_direct_;
-  int image_type_;
+  bool multiple_workers_;
   uint32_t block_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
@@ -2721,6 +2732,7 @@ class StartArcVmRequest final :
     kEnableVmmSwapFieldNumber = 43,
     kRootfsODirectFieldNumber = 45,
     kEnableS2IdleFieldNumber = 46,
+    kRootfsMultipleWorkersFieldNumber = 47,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -3070,6 +3082,15 @@ class StartArcVmRequest final :
   void _internal_set_enable_s2idle(bool value);
   public:
 
+  // bool rootfs_multiple_workers = 47;
+  void clear_rootfs_multiple_workers();
+  bool rootfs_multiple_workers() const;
+  void set_rootfs_multiple_workers(bool value);
+  private:
+  bool _internal_rootfs_multiple_workers() const;
+  void _internal_set_rootfs_multiple_workers(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3111,6 +3132,7 @@ class StartArcVmRequest final :
   bool enable_vmm_swap_;
   bool rootfs_o_direct_;
   bool enable_s2idle_;
+  bool rootfs_multiple_workers_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -15343,6 +15365,26 @@ inline void DiskImage::set_o_direct(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.DiskImage.o_direct)
 }
 
+// bool multiple_workers = 11;
+inline void DiskImage::clear_multiple_workers() {
+  multiple_workers_ = false;
+}
+inline bool DiskImage::_internal_multiple_workers() const {
+  return multiple_workers_;
+}
+inline bool DiskImage::multiple_workers() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DiskImage.multiple_workers)
+  return _internal_multiple_workers();
+}
+inline void DiskImage::_internal_set_multiple_workers(bool value) {
+  
+  multiple_workers_ = value;
+}
+inline void DiskImage::set_multiple_workers(bool value) {
+  _internal_set_multiple_workers(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DiskImage.multiple_workers)
+}
+
 // -------------------------------------------------------------------
 
 // VmInfo
@@ -17667,6 +17709,26 @@ inline void StartArcVmRequest::_internal_set_enable_s2idle(bool value) {
 inline void StartArcVmRequest::set_enable_s2idle(bool value) {
   _internal_set_enable_s2idle(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_s2idle)
+}
+
+// bool rootfs_multiple_workers = 47;
+inline void StartArcVmRequest::clear_rootfs_multiple_workers() {
+  rootfs_multiple_workers_ = false;
+}
+inline bool StartArcVmRequest::_internal_rootfs_multiple_workers() const {
+  return rootfs_multiple_workers_;
+}
+inline bool StartArcVmRequest::rootfs_multiple_workers() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.rootfs_multiple_workers)
+  return _internal_rootfs_multiple_workers();
+}
+inline void StartArcVmRequest::_internal_set_rootfs_multiple_workers(bool value) {
+  
+  rootfs_multiple_workers_ = value;
+}
+inline void StartArcVmRequest::set_rootfs_multiple_workers(bool value) {
+  _internal_set_rootfs_multiple_workers(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.rootfs_multiple_workers)
 }
 
 // -------------------------------------------------------------------

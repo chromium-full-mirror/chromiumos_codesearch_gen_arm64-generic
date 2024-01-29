@@ -63,12 +63,14 @@ enum HistoryClustersModuleRankingModelSignals : int {
   HISTORY_CLUSTERS_MODULE_RANKING_NUM_TOTAL_VISITS = 4,
   HISTORY_CLUSTERS_MODULE_RANKING_NUM_UNIQUE_HOSTS = 5,
   HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS = 6,
+  HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_SEEN = 7,
+  HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED = 8,
   HistoryClustersModuleRankingModelSignals_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   HistoryClustersModuleRankingModelSignals_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool HistoryClustersModuleRankingModelSignals_IsValid(int value);
 constexpr HistoryClustersModuleRankingModelSignals HistoryClustersModuleRankingModelSignals_MIN = HISTORY_CLUSTERS_MODULE_RANKING_MODEL_SIGNALS_UNKNOWN;
-constexpr HistoryClustersModuleRankingModelSignals HistoryClustersModuleRankingModelSignals_MAX = HISTORY_CLUSTERS_MODULE_RANKING_NUM_ABANDONED_CARTS;
+constexpr HistoryClustersModuleRankingModelSignals HistoryClustersModuleRankingModelSignals_MAX = HISTORY_CLUSTERS_MODULE_RANKING_NUM_TIMES_USED;
 constexpr int HistoryClustersModuleRankingModelSignals_ARRAYSIZE = HistoryClustersModuleRankingModelSignals_MAX + 1;
 
 const std::string& HistoryClustersModuleRankingModelSignals_Name(HistoryClustersModuleRankingModelSignals value);

@@ -25,8 +25,10 @@
 
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-shared-internal.h"
 #include "skia/public/mojom/bitmap.mojom-shared.h"
+#include "ui/accessibility/ax_features.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-shared.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -75,6 +77,26 @@ struct MojomTypeTraits<::screen_ai::mojom::WordBoxDataView> {
 
 
 namespace screen_ai::mojom {
+
+
+enum class Direction : int32_t {
+  
+  DIRECTION_UNSPECIFIED = 0,
+  
+  DIRECTION_LEFT_TO_RIGHT = 1,
+  
+  DIRECTION_RIGHT_TO_LEFT = 2,
+  
+  DIRECTION_TOP_TO_BOTTOM = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, Direction value);
+inline bool IsKnownEnumValue(Direction value) {
+  return internal::Direction_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class ScreenAIAnnotatorInterfaceBase {};
 
@@ -200,6 +222,32 @@ class LineBoxDataView {
   int32_t order_within_block() const {
     return data_->order_within_block;
   }
+  inline void GetBoundingBoxDataView(
+      ::gfx::mojom::RectDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBoundingBox(UserType* output) {
+    
+    auto* pointer = data_->bounding_box.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectDataView>(
+        pointer, output, message_);
+  }
+  float bounding_box_angle() const {
+    return data_->bounding_box_angle;
+  }
+  inline void GetBaselineBoxDataView(
+      ::gfx::mojom::RectDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBaselineBox(UserType* output) {
+    
+    auto* pointer = data_->baseline_box.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectDataView>(
+        pointer, output, message_);
+  }
+  float baseline_box_angle() const {
+    return data_->baseline_box_angle;
+  }
  private:
   internal::LineBox_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -242,6 +290,29 @@ class WordBoxDataView {
   bool has_space_after() const {
     return data_->has_space_after;
   }
+  inline void GetBoundingBoxDataView(
+      ::gfx::mojom::RectDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBoundingBox(UserType* output) {
+    
+    auto* pointer = data_->bounding_box.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectDataView>(
+        pointer, output, message_);
+  }
+  float bounding_box_angle() const {
+    return data_->bounding_box_angle;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDirection(UserType* output) const {
+    auto data_value = data_->direction;
+    return mojo::internal::Deserialize<::screen_ai::mojom::Direction>(
+        data_value, output);
+  }
+  Direction direction() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::screen_ai::mojom::Direction>(data_->direction));
+  }
  private:
   internal::WordBox_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -252,9 +323,33 @@ class WordBoxDataView {
 
 namespace std {
 
+template <>
+struct hash<::screen_ai::mojom::Direction>
+    : public mojo::internal::EnumHashImpl<::screen_ai::mojom::Direction> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::screen_ai::mojom::Direction, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::screen_ai::mojom::Direction, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::screen_ai::mojom::Direction>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -353,6 +448,32 @@ struct Serializer<::screen_ai::mojom::LineBoxDataView, MaybeConstUserType> {
         "null language in LineBox struct");
     fragment->block_id = Traits::block_id(input);
     fragment->order_within_block = Traits::order_within_block(input);
+    decltype(Traits::bounding_box(input)) in_bounding_box = Traits::bounding_box(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->bounding_box)::BaseType> bounding_box_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::RectDataView>(
+        in_bounding_box, bounding_box_fragment);
+    fragment->bounding_box.Set(
+        bounding_box_fragment.is_null() ? nullptr : bounding_box_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->bounding_box.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null bounding_box in LineBox struct");
+    fragment->bounding_box_angle = Traits::bounding_box_angle(input);
+    decltype(Traits::baseline_box(input)) in_baseline_box = Traits::baseline_box(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->baseline_box)::BaseType> baseline_box_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::RectDataView>(
+        in_baseline_box, baseline_box_fragment);
+    fragment->baseline_box.Set(
+        baseline_box_fragment.is_null() ? nullptr : baseline_box_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->baseline_box.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null baseline_box in LineBox struct");
+    fragment->baseline_box_angle = Traits::baseline_box_angle(input);
   }
 
   static bool Deserialize(::screen_ai::mojom::internal::LineBox_Data* input,
@@ -408,6 +529,21 @@ struct Serializer<::screen_ai::mojom::WordBoxDataView, MaybeConstUserType> {
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null language in WordBox struct");
     fragment->has_space_after = Traits::has_space_after(input);
+    decltype(Traits::bounding_box(input)) in_bounding_box = Traits::bounding_box(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->bounding_box)::BaseType> bounding_box_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::RectDataView>(
+        in_bounding_box, bounding_box_fragment);
+    fragment->bounding_box.Set(
+        bounding_box_fragment.is_null() ? nullptr : bounding_box_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->bounding_box.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null bounding_box in WordBox struct");
+    fragment->bounding_box_angle = Traits::bounding_box_angle(input);
+    mojo::internal::Serialize<::screen_ai::mojom::Direction>(
+        Traits::direction(input), &fragment->direction);
   }
 
   static bool Deserialize(::screen_ai::mojom::internal::WordBox_Data* input,
@@ -450,6 +586,16 @@ inline void LineBoxDataView::GetLanguageDataView(
   auto pointer = data_->language.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void LineBoxDataView::GetBoundingBoxDataView(
+    ::gfx::mojom::RectDataView* output) {
+  auto pointer = data_->bounding_box.Get();
+  *output = ::gfx::mojom::RectDataView(pointer, message_);
+}
+inline void LineBoxDataView::GetBaselineBoxDataView(
+    ::gfx::mojom::RectDataView* output) {
+  auto pointer = data_->baseline_box.Get();
+  *output = ::gfx::mojom::RectDataView(pointer, message_);
+}
 
 
 inline void WordBoxDataView::GetWordDataView(
@@ -462,6 +608,11 @@ inline void WordBoxDataView::GetLanguageDataView(
   auto pointer = data_->language.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void WordBoxDataView::GetBoundingBoxDataView(
+    ::gfx::mojom::RectDataView* output) {
+  auto pointer = data_->bounding_box.Get();
+  *output = ::gfx::mojom::RectDataView(pointer, message_);
+}
 
 
 
@@ -469,5 +620,14 @@ inline void WordBoxDataView::GetLanguageDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::screen_ai::mojom::Direction> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::screen_ai::mojom::Direction value);
+};
+
+} // namespace perfetto
 
 #endif  // COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_SHARED_H_

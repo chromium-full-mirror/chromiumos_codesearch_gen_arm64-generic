@@ -134,6 +134,15 @@ base::Value::List Create(const AccountRestrictionsInfo& restrictions);
 
 }  // namespace GetAccountRestrictions
 
+namespace ShowAutomatedMountError {
+
+namespace Results {
+
+base::Value::List Create();
+}  // namespace Results
+
+}  // namespace ShowAutomatedMountError
+
 //
 // Events
 //

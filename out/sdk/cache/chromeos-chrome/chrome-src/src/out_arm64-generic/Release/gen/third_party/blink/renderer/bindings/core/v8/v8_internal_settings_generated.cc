@@ -4387,36 +4387,6 @@ blink_receiver->setUseAXMenuList(arg1_use_ax_menu_list);
 
 }
 
-void SetUseLegacyBackgroundSizeShorthandBehaviorOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setUseLegacyBackgroundSizeShorthandBehavior");
-BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setUseLegacyBackgroundSizeShorthandBehavior");
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "InternalSettingsGenerated";
-const char* const property_name = "setUseLegacyBackgroundSizeShorthandBehavior";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-if (UNLIKELY(info.Length() < 1)) {
-  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
-return;
-}
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalSettingsGenerated* blink_receiver = V8InternalSettingsGenerated::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& arg1_use_legacy_background_size_shorthand_behavior = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-blink_receiver->setUseLegacyBackgroundSizeShorthandBehavior(arg1_use_legacy_background_size_shorthand_behavior);
-
-}
-
 void SetUseWideViewportOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalSettingsGenerated_setUseWideViewport");
 BLINK_BINDINGS_TRACE_EVENT("InternalSettingsGenerated.setUseWideViewport");
@@ -4990,7 +4960,6 @@ void V8InternalSettingsGenerated::InstallUnconditionalProperties(v8::Isolate* is
 {"setTouchDragEndContextMenu", SetTouchDragEndContextMenuOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setTouchEditingEnabled", SetTouchEditingEnabledOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setUseAXMenuList", SetUseAXMenuListOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setUseLegacyBackgroundSizeShorthandBehavior", SetUseLegacyBackgroundSizeShorthandBehaviorOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setUseWideViewport", SetUseWideViewportOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setValidationMessageTimerMagnification", SetValidationMessageTimerMagnificationOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setViewportEnabled", SetViewportEnabledOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

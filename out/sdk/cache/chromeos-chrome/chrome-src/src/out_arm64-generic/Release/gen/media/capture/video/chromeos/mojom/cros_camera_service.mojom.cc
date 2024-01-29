@@ -242,6 +242,8 @@ bool CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback::Accept(
           internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraHalDispatcher.5
   bool success = true;
   int32_t p_result{};
   CameraHalDispatcher_RegisterClientWithToken_ResponseParamsDataView input_data_view(params, message);
@@ -332,6 +334,8 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
               internal::CameraHalDispatcher_RegisterClientWithToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraHalDispatcher.5
       bool success = true;
       ::mojo::PendingRemote<::cros::mojom::CameraHalClient> p_client{};
       CameraClientType p_type{};
@@ -358,10 +362,10 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterClientWithToken(
-std::move(p_client), 
-std::move(p_type), 
-std::move(p_auth_token), std::move(callback));
+      impl->RegisterClientWithToken(        
+        std::move(p_client), 
+        std::move(p_type), 
+        std::move(p_auth_token), std::move(callback));
       return true;
     }
   }
@@ -634,6 +638,8 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraServiceObserver.0
       bool success = true;
       int32_t p_camera_id{};
       bool p_opened{};
@@ -655,10 +661,10 @@ bool CrosCameraServiceObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CameraDeviceActivityChange(
-std::move(p_camera_id), 
-std::move(p_opened), 
-std::move(p_type));
+      impl->CameraDeviceActivityChange(        
+        std::move(p_camera_id), 
+        std::move(p_opened), 
+        std::move(p_type));
       return true;
     }
     case internal::kCrosCameraServiceObserver_CameraPrivacySwitchStateChange_Name: {
@@ -668,6 +674,8 @@ std::move(p_type));
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraServiceObserver.1
       bool success = true;
       CameraPrivacySwitchState p_state{};
       int32_t p_camera_id{};
@@ -686,9 +694,9 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CameraPrivacySwitchStateChange(
-std::move(p_state), 
-std::move(p_camera_id));
+      impl->CameraPrivacySwitchStateChange(        
+        std::move(p_state), 
+        std::move(p_camera_id));
       return true;
     }
     case internal::kCrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Name: {
@@ -698,6 +706,8 @@ std::move(p_camera_id));
           reinterpret_cast<internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraServiceObserver.2
       bool success = true;
       CameraPrivacySwitchState p_state{};
       CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
@@ -713,8 +723,8 @@ std::move(p_camera_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CameraSWPrivacySwitchStateChange(
-std::move(p_state));
+      impl->CameraSWPrivacySwitchStateChange(        
+        std::move(p_state));
       return true;
     }
   }
@@ -1412,6 +1422,8 @@ bool CrosCameraService_GetCameraModule_ForwardToCallback::Accept(
           internal::CrosCameraService_GetCameraModule_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosCameraService.0
   bool success = true;
   ::mojo::PendingRemote<::cros::mojom::CameraModule> p_camera_module_receiver{};
   CrosCameraService_GetCameraModule_ResponseParamsDataView input_data_view(params, message);
@@ -1538,6 +1550,8 @@ bool CrosCameraService_GetCameraSWPrivacySwitchState_ForwardToCallback::Accept(
           internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosCameraService.3
   bool success = true;
   CameraPrivacySwitchState p_state{};
   CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsDataView input_data_view(params, message);
@@ -1658,6 +1672,8 @@ bool CrosCameraService_GetAutoFramingSupported_ForwardToCallback::Accept(
           internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosCameraService.5
   bool success = true;
   bool p_supported{};
   CrosCameraService_GetAutoFramingSupported_ResponseParamsDataView input_data_view(params, message);
@@ -1777,6 +1793,8 @@ bool CrosCameraService_SetCameraEffect_ForwardToCallback::Accept(
           internal::CrosCameraService_SetCameraEffect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosCameraService.6
   bool success = true;
   ::cros::mojom::SetEffectResult p_result{};
   CrosCameraService_SetCameraEffect_ResponseParamsDataView input_data_view(params, message);
@@ -1855,6 +1873,8 @@ bool CrosCameraServiceStubDispatch::Accept(
           reinterpret_cast<internal::CrosCameraService_SetTracingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.1
       bool success = true;
       bool p_enabled{};
       CrosCameraService_SetTracingEnabled_ParamsDataView input_data_view(params, message);
@@ -1870,8 +1890,8 @@ bool CrosCameraServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTracingEnabled(
-std::move(p_enabled));
+      impl->SetTracingEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kCrosCameraService_SetAutoFramingState_Name: {
@@ -1881,6 +1901,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::CrosCameraService_SetAutoFramingState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.2
       bool success = true;
       CameraAutoFramingState p_state{};
       CrosCameraService_SetAutoFramingState_ParamsDataView input_data_view(params, message);
@@ -1896,8 +1918,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAutoFramingState(
-std::move(p_state));
+      impl->SetAutoFramingState(        
+        std::move(p_state));
       return true;
     }
     case internal::kCrosCameraService_GetCameraSWPrivacySwitchState_Name: {
@@ -1910,6 +1932,8 @@ std::move(p_state));
           reinterpret_cast<internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.4
       bool success = true;
       CameraPrivacySwitchState p_state{};
       CrosCameraService_SetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
@@ -1925,8 +1949,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCameraSWPrivacySwitchState(
-std::move(p_state));
+      impl->SetCameraSWPrivacySwitchState(        
+        std::move(p_state));
       return true;
     }
     case internal::kCrosCameraService_GetAutoFramingSupported_Name: {
@@ -1942,6 +1966,8 @@ std::move(p_state));
           reinterpret_cast<internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.7
       bool success = true;
       ::mojo::PendingRemote<CrosCameraServiceObserver> p_observer{};
       CrosCameraService_AddCrosCameraServiceObserver_ParamsDataView input_data_view(params, message);
@@ -1959,8 +1985,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCrosCameraServiceObserver(
-std::move(p_observer));
+      impl->AddCrosCameraServiceObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -1983,6 +2009,8 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
               internal::CrosCameraService_GetCameraModule_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.0
       bool success = true;
       CameraClientType p_type{};
       CrosCameraService_GetCameraModule_ParamsDataView input_data_view(params, message);
@@ -2001,8 +2029,8 @@ bool CrosCameraServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCameraModule(
-std::move(p_type), std::move(callback));
+      impl->GetCameraModule(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kCrosCameraService_SetTracingEnabled_Name: {
@@ -2018,6 +2046,8 @@ std::move(p_type), std::move(callback));
               internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.3
       bool success = true;
       CrosCameraService_GetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
       
@@ -2046,6 +2076,8 @@ std::move(p_type), std::move(callback));
               internal::CrosCameraService_GetAutoFramingSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.5
       bool success = true;
       CrosCameraService_GetAutoFramingSupported_ParamsDataView input_data_view(params, message);
       
@@ -2071,6 +2103,8 @@ std::move(p_type), std::move(callback));
               internal::CrosCameraService_SetCameraEffect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosCameraService.6
       bool success = true;
       ::cros::mojom::EffectsConfigPtr p_config{};
       CrosCameraService_SetCameraEffect_ParamsDataView input_data_view(params, message);
@@ -2089,8 +2123,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCameraEffect(
-std::move(p_config), std::move(callback));
+      impl->SetCameraEffect(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kCrosCameraService_AddCrosCameraServiceObserver_Name: {

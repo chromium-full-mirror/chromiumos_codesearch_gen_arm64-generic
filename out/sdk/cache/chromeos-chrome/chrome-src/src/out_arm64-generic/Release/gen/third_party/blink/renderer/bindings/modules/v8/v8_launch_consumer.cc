@@ -58,9 +58,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_params;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<LaunchParams>::ToV8(script_state, arg1_params).ToLocal(&v8_arg1_params)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_params = ToV8Traits<LaunchParams>::ToV8(script_state, arg1_params);
 argv[0] = v8_arg1_params;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -99,9 +97,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_params;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<LaunchParams>::ToV8(script_state, arg1_params).ToLocal(&v8_arg1_params)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_params = ToV8Traits<LaunchParams>::ToV8(script_state, arg1_params);
 argv[0] = v8_arg1_params;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

@@ -102,6 +102,7 @@ enum class MixedContentResourceType {
   FRAME,
   IMAGE,
   IMPORT,
+  JSON,
   MANIFEST,
   PING,
   PLUGIN_DATA,

@@ -18,6 +18,7 @@ namespace FedCm {
 using LoginState = String;
 using DialogType = String;
 using DialogButton = String;
+using AccountUrlType = String;
 class Account;
 
 // ------------- Forward and enum declarations.
@@ -39,6 +40,11 @@ CONTENT_EXPORT extern const char ConfirmIdpLoginContinue[];
 CONTENT_EXPORT extern const char ErrorGotIt[];
 CONTENT_EXPORT extern const char ErrorMoreDetails[];
 } // namespace DialogButtonEnum
+
+namespace AccountUrlTypeEnum {
+CONTENT_EXPORT extern const char TermsOfService[];
+CONTENT_EXPORT extern const char PrivacyPolicy[];
+} // namespace AccountUrlTypeEnum
 
 // ------------- Type and builder declarations.
 
@@ -219,6 +225,7 @@ public:
     virtual DispatchResponse Disable() = 0;
     virtual DispatchResponse SelectAccount(const String& in_dialogId, int in_accountIndex) = 0;
     virtual DispatchResponse ClickDialogButton(const String& in_dialogId, const String& in_dialogButton) = 0;
+    virtual DispatchResponse OpenUrl(const String& in_dialogId, int in_accountIndex, const String& in_accountUrlType) = 0;
     virtual DispatchResponse DismissDialog(const String& in_dialogId, Maybe<bool> in_triggerCooldown) = 0;
     virtual DispatchResponse ResetCooldown() = 0;
 

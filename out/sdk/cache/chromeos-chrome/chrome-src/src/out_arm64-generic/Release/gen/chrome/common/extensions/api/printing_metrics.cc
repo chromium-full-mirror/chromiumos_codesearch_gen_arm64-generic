@@ -674,8 +674,8 @@ bool PrintJobInfo::Populate(
     if (!printer_status_as_string) {
       return false;
     }
-    out.printer_status = printing::ParsePrinterStatus(*printer_status_as_string);
-    if (out.printer_status == printing::PrinterStatus()) {
+    out.printer_status = extensions::api::printing::ParsePrinterStatus(*printer_status_as_string);
+    if (out.printer_status == extensions::api::printing::PrinterStatus()) {
       return false;
     }
   }

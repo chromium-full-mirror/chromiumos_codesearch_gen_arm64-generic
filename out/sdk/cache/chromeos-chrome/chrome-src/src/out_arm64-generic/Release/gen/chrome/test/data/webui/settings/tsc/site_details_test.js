@@ -41,6 +41,7 @@ suite('SiteDetails', function () {
     setup(function () {
         loadTimeData.overrideValues({
             blockMidiByDefault: true,
+            enableWebPrintingContentSetting: true,
         });
         prefs = createSiteSettingsPrefs([], [
             createContentSettingTypeToValuePair(ContentSettingsTypes.COOKIES, [createRawSiteException('https://foo.com:443')]),
@@ -48,6 +49,7 @@ suite('SiteDetails', function () {
                     source: SiteSettingSource.DEFAULT,
                 })]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.JAVASCRIPT, [createRawSiteException('https://foo.com:443')]),
+            createContentSettingTypeToValuePair(ContentSettingsTypes.JAVASCRIPT_JIT, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.SOUND, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.POPUPS, [createRawSiteException('https://foo.com:443', {
                     setting: ContentSetting.BLOCK,
@@ -80,6 +82,7 @@ suite('SiteDetails', function () {
             createContentSettingTypeToValuePair(ContentSettingsTypes.BLUETOOTH_DEVICES, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.AR, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.VR, [createRawSiteException('https://foo.com:443')]),
+            createContentSettingTypeToValuePair(ContentSettingsTypes.WEB_PRINTING, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.WINDOW_MANAGEMENT, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.LOCAL_FONTS, [createRawSiteException('https://foo.com:443')]),
             createContentSettingTypeToValuePair(ContentSettingsTypes.IDLE_DETECTION, [createRawSiteException('https://foo.com:443')]),

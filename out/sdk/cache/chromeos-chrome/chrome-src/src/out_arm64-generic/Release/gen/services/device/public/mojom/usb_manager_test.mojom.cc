@@ -478,6 +478,8 @@ bool UsbDeviceManagerTest_AddDeviceForTesting_ForwardToCallback::Accept(
           internal::UsbDeviceManagerTest_AddDeviceForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManagerTest.0
   bool success = true;
   bool p_success{};
   std::string p_message{};
@@ -615,6 +617,8 @@ bool UsbDeviceManagerTest_RemoveDeviceForTesting_ForwardToCallback::Accept(
           internal::UsbDeviceManagerTest_RemoveDeviceForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManagerTest.1
   bool success = true;
   UsbDeviceManagerTest_RemoveDeviceForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -722,6 +726,8 @@ bool UsbDeviceManagerTest_GetTestDevices_ForwardToCallback::Accept(
           internal::UsbDeviceManagerTest_GetTestDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManagerTest.2
   bool success = true;
   std::vector<TestDeviceInfoPtr> p_devices{};
   UsbDeviceManagerTest_GetTestDevices_ResponseParamsDataView input_data_view(params, message);
@@ -830,6 +836,8 @@ bool UsbDeviceManagerTestStubDispatch::AcceptWithResponder(
               internal::UsbDeviceManagerTest_AddDeviceForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManagerTest.0
       bool success = true;
       std::string p_name{};
       std::string p_serial_number{};
@@ -854,10 +862,10 @@ bool UsbDeviceManagerTestStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDeviceForTesting(
-std::move(p_name), 
-std::move(p_serial_number), 
-std::move(p_landing_page), std::move(callback));
+      impl->AddDeviceForTesting(        
+        std::move(p_name), 
+        std::move(p_serial_number), 
+        std::move(p_landing_page), std::move(callback));
       return true;
     }
     case internal::kUsbDeviceManagerTest_RemoveDeviceForTesting_Name: {
@@ -867,6 +875,8 @@ std::move(p_landing_page), std::move(callback));
               internal::UsbDeviceManagerTest_RemoveDeviceForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManagerTest.1
       bool success = true;
       std::string p_guid{};
       UsbDeviceManagerTest_RemoveDeviceForTesting_ParamsDataView input_data_view(params, message);
@@ -885,8 +895,8 @@ std::move(p_landing_page), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveDeviceForTesting(
-std::move(p_guid), std::move(callback));
+      impl->RemoveDeviceForTesting(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kUsbDeviceManagerTest_GetTestDevices_Name: {
@@ -896,6 +906,8 @@ std::move(p_guid), std::move(callback));
               internal::UsbDeviceManagerTest_GetTestDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManagerTest.2
       bool success = true;
       UsbDeviceManagerTest_GetTestDevices_ParamsDataView input_data_view(params, message);
       

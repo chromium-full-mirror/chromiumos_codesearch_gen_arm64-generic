@@ -45,6 +45,8 @@ class DriveErrorDataView;
 
 class DialogReasonDataView;
 
+class UserInfoDataView;
+
 class FileMetadataDataView;
 
 class ShortcutDetailsDataView;
@@ -119,6 +121,13 @@ struct MojomTypeTraits<::drivefs::mojom::DriveErrorDataView> {
 template <>
 struct MojomTypeTraits<::drivefs::mojom::DialogReasonDataView> {
   using Data = ::drivefs::mojom::internal::DialogReason_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::drivefs::mojom::UserInfoDataView> {
+  using Data = ::drivefs::mojom::internal::UserInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -726,8 +735,10 @@ enum class QueryParameters_SortField : int32_t {
   kLastViewedByMe = 2,
   
   kFileSize = 3,
+  
+  kSharedWithMe = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
 };
 
 COMPONENT_EXPORT(DRIVEFS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, QueryParameters_SortField value);
@@ -953,6 +964,16 @@ static_assert(
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::drivefs::mojom::CSESupport>(data_->cse_support));
   }
+  bool fetch_modifying_user_metadata() const {
+    if (data_->header_.version < 8)
+      return bool{};
+    return data_->fetch_modifying_user_metadata;
+  }
+  bool fetch_sharing_user_metadata() const {
+    if (data_->header_.version < 8)
+      return bool{};
+    return data_->fetch_sharing_user_metadata;
+  }
  private:
   internal::DriveFsConfiguration_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1089,6 +1110,32 @@ class DialogReasonDataView {
   }
  private:
   internal::DialogReason_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class UserInfoDataView {
+ public:
+  UserInfoDataView() = default;
+
+  UserInfoDataView(
+      internal::UserInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDisplayNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDisplayName(UserType* output) {
+    
+    auto* pointer = data_->display_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1368,6 +1415,90 @@ static_assert(
     if (data_->header_.version < 8)
       return bool{};
     return data_->trashed;
+  }
+  inline void GetModifiedByMeTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadModifiedByMeTime(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDataView, UserType>(),
+    "Attempting to read the optional `modified_by_me_time` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadModifiedByMeTime` instead "
+    "of `ReadModifiedByMeTime if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 9
+                    ? data_->modified_by_me_time.Get() : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLastModifyingUserDataView(
+      UserInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLastModifyingUser(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::drivefs::mojom::UserInfoDataView, UserType>(),
+    "Attempting to read the optional `last_modifying_user` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLastModifyingUser` instead "
+    "of `ReadLastModifyingUser if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 9
+                    ? data_->last_modifying_user.Get() : nullptr;
+    return mojo::internal::Deserialize<::drivefs::mojom::UserInfoDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSharedWithMeTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSharedWithMeTime(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDataView, UserType>(),
+    "Attempting to read the optional `shared_with_me_time` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSharedWithMeTime` instead "
+    "of `ReadSharedWithMeTime if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 9
+                    ? data_->shared_with_me_time.Get() : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSharingUserDataView(
+      UserInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSharingUser(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::drivefs::mojom::UserInfoDataView, UserType>(),
+    "Attempting to read the optional `sharing_user` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSharingUser` instead "
+    "of `ReadSharingUser if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 9
+                    ? data_->sharing_user.Get() : nullptr;
+    return mojo::internal::Deserialize<::drivefs::mojom::UserInfoDataView>(
+        pointer, output, message_);
   }
  private:
   internal::FileMetadata_Data* data_ = nullptr;
@@ -1914,6 +2045,40 @@ static_assert(
     if (data_->header_.version < 5)
       return int64_t{};
     return data_->parent_stable_id;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadViewedTimeOperator(UserType* output) const {
+    auto data_value = data_->header_.version >= 6
+                      ? data_->viewed_time_operator : 0;
+    return mojo::internal::Deserialize<::drivefs::mojom::QueryParameters_DateComparisonOperator>(
+        data_value, output);
+  }
+  QueryParameters_DateComparisonOperator viewed_time_operator() const {
+    if (data_->header_.version < 6)
+      return QueryParameters_DateComparisonOperator{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::drivefs::mojom::QueryParameters_DateComparisonOperator>(data_->viewed_time_operator));
+  }
+  inline void GetViewedTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadViewedTime(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeDataView, UserType>(),
+    "Attempting to read the optional `viewed_time` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadViewedTime` instead "
+    "of `ReadViewedTime if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 6
+                    ? data_->viewed_time.Get() : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
   }
  private:
   internal::QueryParameters_Data* data_ = nullptr;
@@ -2897,6 +3062,8 @@ struct Serializer<::drivefs::mojom::DriveFsConfigurationDataView, MaybeConstUser
     fragment->enable_cros_network = Traits::enable_cros_network(input);
     mojo::internal::Serialize<::drivefs::mojom::CSESupport>(
         Traits::cse_support(input), &fragment->cse_support);
+    fragment->fetch_modifying_user_metadata = Traits::fetch_modifying_user_metadata(input);
+    fragment->fetch_sharing_user_metadata = Traits::fetch_sharing_user_metadata(input);
   }
 
   static bool Deserialize(::drivefs::mojom::internal::DriveFsConfiguration_Data* input,
@@ -3054,6 +3221,47 @@ struct Serializer<::drivefs::mojom::DialogReasonDataView, MaybeConstUserType> {
       return CallSetToNullIfExists<Traits>(output);
 
     ::drivefs::mojom::DialogReasonDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::drivefs::mojom::UserInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::drivefs::mojom::UserInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::drivefs::mojom::internal::UserInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::display_name(input)) in_display_name = Traits::display_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->display_name)::BaseType> display_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_display_name, display_name_fragment);
+    fragment->display_name.Set(
+        display_name_fragment.is_null() ? nullptr : display_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->display_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null display_name in UserInfo struct");
+  }
+
+  static bool Deserialize(::drivefs::mojom::internal::UserInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::drivefs::mojom::UserInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -3228,6 +3436,38 @@ struct Serializer<::drivefs::mojom::FileMetadataDataView, MaybeConstUserType> {
     fragment->shortcut_details.Set(
         shortcut_details_fragment.is_null() ? nullptr : shortcut_details_fragment.data());
     fragment->trashed = Traits::trashed(input);
+    decltype(Traits::modified_by_me_time(input)) in_modified_by_me_time = Traits::modified_by_me_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->modified_by_me_time)::BaseType> modified_by_me_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+        in_modified_by_me_time, modified_by_me_time_fragment);
+    fragment->modified_by_me_time.Set(
+        modified_by_me_time_fragment.is_null() ? nullptr : modified_by_me_time_fragment.data());
+    decltype(Traits::last_modifying_user(input)) in_last_modifying_user = Traits::last_modifying_user(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->last_modifying_user)::BaseType> last_modifying_user_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::drivefs::mojom::UserInfoDataView>(
+        in_last_modifying_user, last_modifying_user_fragment);
+    fragment->last_modifying_user.Set(
+        last_modifying_user_fragment.is_null() ? nullptr : last_modifying_user_fragment.data());
+    decltype(Traits::shared_with_me_time(input)) in_shared_with_me_time = Traits::shared_with_me_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->shared_with_me_time)::BaseType> shared_with_me_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+        in_shared_with_me_time, shared_with_me_time_fragment);
+    fragment->shared_with_me_time.Set(
+        shared_with_me_time_fragment.is_null() ? nullptr : shared_with_me_time_fragment.data());
+    decltype(Traits::sharing_user(input)) in_sharing_user = Traits::sharing_user(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sharing_user)::BaseType> sharing_user_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::drivefs::mojom::UserInfoDataView>(
+        in_sharing_user, sharing_user_fragment);
+    fragment->sharing_user.Set(
+        sharing_user_fragment.is_null() ? nullptr : sharing_user_fragment.data());
   }
 
   static bool Deserialize(::drivefs::mojom::internal::FileMetadata_Data* input,
@@ -3701,6 +3941,16 @@ struct Serializer<::drivefs::mojom::QueryParametersDataView, MaybeConstUserType>
     fragment->modified_time.Set(
         modified_time_fragment.is_null() ? nullptr : modified_time_fragment.data());
     fragment->parent_stable_id = Traits::parent_stable_id(input);
+    mojo::internal::Serialize<::drivefs::mojom::QueryParameters_DateComparisonOperator>(
+        Traits::viewed_time_operator(input), &fragment->viewed_time_operator);
+    decltype(Traits::viewed_time(input)) in_viewed_time = Traits::viewed_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->viewed_time)::BaseType> viewed_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+        in_viewed_time, viewed_time_fragment);
+    fragment->viewed_time.Set(
+        viewed_time_fragment.is_null() ? nullptr : viewed_time_fragment.data());
   }
 
   static bool Deserialize(::drivefs::mojom::internal::QueryParameters_Data* input,
@@ -4236,6 +4486,13 @@ inline void DialogReasonDataView::GetPathDataView(
 }
 
 
+inline void UserInfoDataView::GetDisplayNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->display_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void FileMetadataDataView::GetContentMimeTypeDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->content_mime_type.Get();
@@ -4310,6 +4567,30 @@ inline void FileMetadataDataView::GetShortcutDetailsDataView(
   auto pointer = data_->header_.version >= 7
                  ? data_->shortcut_details.Get() : nullptr;
   *output = ShortcutDetailsDataView(pointer, message_);
+}
+inline void FileMetadataDataView::GetModifiedByMeTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->header_.version >= 9
+                 ? data_->modified_by_me_time.Get() : nullptr;
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+inline void FileMetadataDataView::GetLastModifyingUserDataView(
+    UserInfoDataView* output) {
+  auto pointer = data_->header_.version >= 9
+                 ? data_->last_modifying_user.Get() : nullptr;
+  *output = UserInfoDataView(pointer, message_);
+}
+inline void FileMetadataDataView::GetSharedWithMeTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->header_.version >= 9
+                 ? data_->shared_with_me_time.Get() : nullptr;
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+inline void FileMetadataDataView::GetSharingUserDataView(
+    UserInfoDataView* output) {
+  auto pointer = data_->header_.version >= 9
+                 ? data_->sharing_user.Get() : nullptr;
+  *output = UserInfoDataView(pointer, message_);
 }
 
 
@@ -4390,6 +4671,12 @@ inline void QueryParametersDataView::GetModifiedTimeDataView(
     ::mojo_base::mojom::TimeDataView* output) {
   auto pointer = data_->header_.version >= 4
                  ? data_->modified_time.Get() : nullptr;
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+inline void QueryParametersDataView::GetViewedTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->header_.version >= 6
+                 ? data_->viewed_time.Get() : nullptr;
   *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
 }
 

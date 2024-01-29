@@ -263,6 +263,8 @@ bool DocumentMetadata_GetEntities_ForwardToCallback::Accept(
           internal::DocumentMetadata_GetEntities_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentMetadata.0
   bool success = true;
   WebPagePtr p_page{};
   DocumentMetadata_GetEntities_ResponseParamsDataView input_data_view(params, message);
@@ -359,6 +361,8 @@ bool DocumentMetadataStubDispatch::AcceptWithResponder(
               internal::DocumentMetadata_GetEntities_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentMetadata.0
       bool success = true;
       DocumentMetadata_GetEntities_ParamsDataView input_data_view(params, message);
       

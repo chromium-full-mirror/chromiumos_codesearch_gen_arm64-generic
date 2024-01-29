@@ -841,6 +841,8 @@ bool ServiceManager_Query_ForwardToCallback::Accept(
           internal::ServiceManager_Query_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ServiceManager.2
   bool success = true;
   ErrorOrServiceStatePtr p_result{};
   ServiceManager_Query_ResponseParamsDataView input_data_view(params, message);
@@ -923,6 +925,8 @@ bool ServiceManagerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceManager_Register_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManager.0
       bool success = true;
       std::string p_service_name{};
       ::mojo::PendingRemote<ServiceProvider> p_service_provider{};
@@ -943,9 +947,9 @@ bool ServiceManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_service_name), 
-std::move(p_service_provider));
+      impl->Register(        
+        std::move(p_service_name), 
+        std::move(p_service_provider));
       return true;
     }
     case internal::kServiceManager_Request_Name: {
@@ -955,6 +959,8 @@ std::move(p_service_provider));
           reinterpret_cast<internal::ServiceManager_Request_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManager.1
       bool success = true;
       std::string p_service_name{};
       std::optional<::base::TimeDelta> p_timeout{};
@@ -976,10 +982,10 @@ std::move(p_service_provider));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Request(
-std::move(p_service_name), 
-std::move(p_timeout), 
-std::move(p_receiver));
+      impl->Request(        
+        std::move(p_service_name), 
+        std::move(p_timeout), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kServiceManager_Query_Name: {
@@ -992,6 +998,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ServiceManager_AddServiceObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceManager.3
       bool success = true;
       ::mojo::PendingRemote<ServiceObserver> p_observer{};
       ServiceManager_AddServiceObserver_ParamsDataView input_data_view(params, message);
@@ -1009,8 +1017,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddServiceObserver(
-std::move(p_observer));
+      impl->AddServiceObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -1039,6 +1047,8 @@ bool ServiceManagerStubDispatch::AcceptWithResponder(
               internal::ServiceManager_Query_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ServiceManager.2
       bool success = true;
       std::string p_service_name{};
       ServiceManager_Query_ParamsDataView input_data_view(params, message);
@@ -1057,8 +1067,8 @@ bool ServiceManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Query(
-std::move(p_service_name), std::move(callback));
+      impl->Query(        
+        std::move(p_service_name), std::move(callback));
       return true;
     }
     case internal::kServiceManager_AddServiceObserver_Name: {
@@ -1220,6 +1230,8 @@ bool ServiceProviderStubDispatch::Accept(
           reinterpret_cast<internal::ServiceProvider_Request_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceProvider.0
       bool success = true;
       ProcessIdentityPtr p_client_identity{};
       ::mojo::ScopedMessagePipeHandle p_receiver{};
@@ -1238,9 +1250,9 @@ bool ServiceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Request(
-std::move(p_client_identity), 
-std::move(p_receiver));
+      impl->Request(        
+        std::move(p_client_identity), 
+        std::move(p_receiver));
       return true;
     }
   }
@@ -1396,6 +1408,8 @@ bool ServiceObserverStubDispatch::Accept(
           reinterpret_cast<internal::ServiceObserver_OnServiceEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceObserver.0
       bool success = true;
       ServiceEventPtr p_event{};
       ServiceObserver_OnServiceEvent_ParamsDataView input_data_view(params, message);
@@ -1411,8 +1425,8 @@ bool ServiceObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceEvent(
-std::move(p_event));
+      impl->OnServiceEvent(        
+        std::move(p_event));
       return true;
     }
   }

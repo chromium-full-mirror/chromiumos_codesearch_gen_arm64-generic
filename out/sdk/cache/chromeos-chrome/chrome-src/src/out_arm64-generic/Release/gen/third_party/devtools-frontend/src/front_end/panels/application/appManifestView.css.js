@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.report-field-name{flex-basis:152px}.manifest-view-header{min-width:600px;flex-shrink:0;flex-grow:0}.manifest-container{overflow:auto}.inline-icon{margin-left:4px;margin-right:4px;vertical-align:middle}.multiline-value{white-space:normal}.inline-icon:focus-visible{outline-width:unset}.chrome-select{margin:4px}
+`.report-field-name{flex-basis:152px}.manifest-view-header{min-width:600px;flex-shrink:0;flex-grow:0}.manifest-container{overflow:auto}.inline-icon{margin-inline:4px;width:16px;height:16px;&[name="check-circle"]{color:var(--icon-checkmark-green)}}.multiline-value{white-space:normal}.chrome-select{margin:4px}.inline-button{vertical-align:sub}
 /*# sourceURL=appManifestView.css */
 `);
 

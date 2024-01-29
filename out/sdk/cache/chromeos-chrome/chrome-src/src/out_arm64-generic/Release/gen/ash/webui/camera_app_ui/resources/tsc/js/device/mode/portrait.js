@@ -35,7 +35,7 @@ export class Portrait extends Photo {
         let reference;
         let portrait;
         try {
-            [reference, portrait] = await this.getImageCapture().takePhoto(photoSettings, [Effect.PORTRAIT_MODE]);
+            [reference, portrait] = await this.getImageCapture().takePhoto(photoSettings, [Effect.kPortraitMode]);
             this.portraitHandler.playShutterEffect();
         }
         catch (e) {

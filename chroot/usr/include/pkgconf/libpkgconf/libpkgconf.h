@@ -20,6 +20,7 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <libpkgconf/libpkgconf-api.h>
 #include <libpkgconf/iter.h>
 #include <libpkgconf/bsdstubs.h>
@@ -123,6 +124,8 @@ struct pkgconf_path_ {
 #define PKGCONF_PKG_PROPF_SEEN			0x04
 #define PKGCONF_PKG_PROPF_UNINSTALLED		0x08
 #define PKGCONF_PKG_PROPF_VIRTUAL		0x10
+#define PKGCONF_PKG_PROPF_VISITED		0x20
+#define PKGCONF_PKG_PROPF_VISITED_PRIVATE	0x40
 
 struct pkgconf_pkg_ {
 	pkgconf_node_t cache_iter;
@@ -157,6 +160,8 @@ struct pkgconf_pkg_ {
 	 */
 	pkgconf_tuple_t *orig_prefix;
 	pkgconf_tuple_t *prefix;
+
+	uint64_t traverse_id;
 };
 
 typedef bool (*pkgconf_pkg_iteration_func_t)(const pkgconf_pkg_t *pkg, void *data);
@@ -191,6 +196,8 @@ struct pkgconf_client_ {
 	char *prefix_varname;
 
 	bool already_sent_notice;
+
+	uint64_t traverse_id;
 };
 
 struct pkgconf_cross_personality_ {

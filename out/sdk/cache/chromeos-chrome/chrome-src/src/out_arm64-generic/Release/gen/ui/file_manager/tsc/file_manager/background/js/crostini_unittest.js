@@ -6,8 +6,7 @@ import { assertFalse, assertTrue } from 'chrome://webui-test/chromeos/chai_asser
 import { installMockChrome } from '../../common/js/mock_chrome.js';
 import { MockDirectoryEntry, MockEntry, MockFileSystem } from '../../common/js/mock_entry.js';
 import { RootType } from '../../common/js/volume_manager_types.js';
-import { EntryLocation } from '../../externs/entry_location.js';
-import { CrostiniImpl } from './crostini.js';
+import { Crostini } from './crostini.js';
 /**
  * Mock metrics.
  */
@@ -39,7 +38,7 @@ export function setUp() {
     // Reset initial root type.
     volumeManagerRootType = 'testroot';
     // Create and initialize Crostini.
-    crostini = new CrostiniImpl();
+    crostini = new Crostini();
     crostini.initVolumeManager(volumeManager);
 }
 /**

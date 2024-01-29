@@ -113,6 +113,152 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var WebPrintingOrientationRequested = {};
+  WebPrintingOrientationRequested.kPortrait = 0;
+  WebPrintingOrientationRequested.kLandscape = 1;
+  WebPrintingOrientationRequested.MIN_VALUE = 0;
+  WebPrintingOrientationRequested.MAX_VALUE = 1;
+
+  WebPrintingOrientationRequested.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+      return true;
+    }
+    return false;
+  };
+
+  WebPrintingOrientationRequested.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  WebPrintingOrientationRequested.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
+  var WebPrinterState = {};
+  WebPrinterState.kIdle = 0;
+  WebPrinterState.kProcessing = 1;
+  WebPrinterState.kStopped = 2;
+  WebPrinterState.MIN_VALUE = 0;
+  WebPrinterState.MAX_VALUE = 2;
+
+  WebPrinterState.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    }
+    return false;
+  };
+
+  WebPrinterState.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  WebPrinterState.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
+  var WebPrinterStateReason = {};
+  WebPrinterStateReason.kNone = 0;
+  WebPrinterStateReason.kOther = 1;
+  WebPrinterStateReason.kConnectingToDevice = 2;
+  WebPrinterStateReason.kCoverOpen = 3;
+  WebPrinterStateReason.kDeveloperEmpty = 4;
+  WebPrinterStateReason.kDeveloperLow = 5;
+  WebPrinterStateReason.kDoorOpen = 6;
+  WebPrinterStateReason.kFuserOverTemp = 7;
+  WebPrinterStateReason.kFuserUnderTemp = 8;
+  WebPrinterStateReason.kInputTrayMissing = 9;
+  WebPrinterStateReason.kInterlockOpen = 10;
+  WebPrinterStateReason.kInterpreterResourceUnavailable = 11;
+  WebPrinterStateReason.kMarkerSupplyEmpty = 12;
+  WebPrinterStateReason.kMarkerSupplyLow = 13;
+  WebPrinterStateReason.kMarkerWasteAlmostFull = 14;
+  WebPrinterStateReason.kMarkerWasteFull = 15;
+  WebPrinterStateReason.kMediaEmpty = 16;
+  WebPrinterStateReason.kMediaJam = 17;
+  WebPrinterStateReason.kMediaLow = 18;
+  WebPrinterStateReason.kMediaNeeded = 19;
+  WebPrinterStateReason.kMovingToPaused = 20;
+  WebPrinterStateReason.kOpcLifeOver = 21;
+  WebPrinterStateReason.kOpcNearEol = 22;
+  WebPrinterStateReason.kOutputAreaAlmostFull = 23;
+  WebPrinterStateReason.kOutputAreaFull = 24;
+  WebPrinterStateReason.kOutputTrayMissing = 25;
+  WebPrinterStateReason.kPaused = 26;
+  WebPrinterStateReason.kShutdown = 27;
+  WebPrinterStateReason.kSpoolAreaFull = 28;
+  WebPrinterStateReason.kStoppedPartly = 29;
+  WebPrinterStateReason.kStopping = 30;
+  WebPrinterStateReason.kTimedOut = 31;
+  WebPrinterStateReason.kTonerEmpty = 32;
+  WebPrinterStateReason.kTonerLow = 33;
+  WebPrinterStateReason.kCupsPkiExpired = 34;
+  WebPrinterStateReason.MIN_VALUE = 0;
+  WebPrinterStateReason.MAX_VALUE = 34;
+
+  WebPrinterStateReason.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 34:
+      return true;
+    }
+    return false;
+  };
+
+  WebPrinterStateReason.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  WebPrinterStateReason.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var WebPrintJobState = {};
   WebPrintJobState.kPending = 0;
   WebPrintJobState.kProcessing = 1;
@@ -145,18 +291,70 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var GetPrintersError = {};
+  GetPrintersError.kUserPermissionDenied = 0;
+  GetPrintersError.MIN_VALUE = 0;
+  GetPrintersError.MAX_VALUE = 0;
+
+  GetPrintersError.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+      return true;
+    }
+    return false;
+  };
+
+  GetPrintersError.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  GetPrintersError.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
+  var WebPrinterFetchError = {};
+  WebPrinterFetchError.kPrinterUnreachable = 0;
+  WebPrinterFetchError.kUserPermissionDenied = 1;
+  WebPrinterFetchError.MIN_VALUE = 0;
+  WebPrinterFetchError.MAX_VALUE = 1;
+
+  WebPrinterFetchError.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+      return true;
+    }
+    return false;
+  };
+
+  WebPrinterFetchError.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  WebPrinterFetchError.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var WebPrintError = {};
   WebPrintError.kPrinterUnreachable = 0;
   WebPrintError.kDocumentMalformed = 1;
   WebPrintError.kPrintJobTemplateAttributesMismatch = 2;
+  WebPrintError.kUserPermissionDenied = 3;
   WebPrintError.MIN_VALUE = 0;
-  WebPrintError.MAX_VALUE = 2;
+  WebPrintError.MAX_VALUE = 3;
 
   WebPrintError.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     }
     return false;
@@ -307,11 +505,16 @@
     this.multipleDocumentHandlingDefault = 0;
     this.copiesSupported = null;
     this.multipleDocumentHandlingSupported = null;
+    this.orientationRequestedDefault = 0;
+    this.printColorModeDefault = 0;
+    this.orientationRequestedSupported = null;
     this.printerResolutionDefault = null;
     this.printerResolutionSupported = null;
-    this.printColorModeDefault = 0;
-    this.sides_default_$flag = false;
     this.printColorModeSupported = null;
+    this.printerState = 0;
+    this.sides_default_$flag = false;
+    this.printerStateMessage = null;
+    this.printerStateReasons = null;
     this.sides_default_$value = 0;
     this.sidesSupported = null;
   };
@@ -329,7 +532,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 80}
+      {version: 0, numBytes: 112}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -355,46 +558,76 @@
         return err;
 
 
+    // validate WebPrinterAttributes.orientationRequestedDefault
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 24, WebPrintingOrientationRequested);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate WebPrinterAttributes.orientationRequestedSupported
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 4, new codec.Enum(WebPrintingOrientationRequested), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate WebPrinterAttributes.printerResolutionDefault
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, geometry$.Size, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, geometry$.Size, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate WebPrinterAttributes.printerResolutionSupported
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 32, 8, new codec.PointerTo(geometry$.Size), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 48, 8, new codec.PointerTo(geometry$.Size), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate WebPrinterAttributes.printColorModeDefault
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 40, WebPrintColorMode);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 28, WebPrintColorMode);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate WebPrinterAttributes.printColorModeSupported
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 48, 4, new codec.Enum(WebPrintColorMode), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 56, 4, new codec.Enum(WebPrintColorMode), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate WebPrinterAttributes.printerState
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 64, WebPrinterState);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate WebPrinterAttributes.printerStateMessage
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 72, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate WebPrinterAttributes.printerStateReasons
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 80, 4, new codec.Enum(WebPrinterStateReason), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate WebPrinterAttributes.sides_default_$value
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 56, WebPrintingSides);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 88, WebPrintingSides);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate WebPrinterAttributes.sidesSupported
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 64, 4, new codec.Enum(WebPrintingSides), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 96, 4, new codec.Enum(WebPrintingSides), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WebPrinterAttributes.encodedSize = codec.kStructHeaderSize + 72;
+  WebPrinterAttributes.encodedSize = codec.kStructHeaderSize + 104;
 
   WebPrinterAttributes.decode = function(decoder) {
     var packed;
@@ -409,19 +642,29 @@
         decoder.decodeStructPointer(WebPrintingRange);
     val.multipleDocumentHandlingSupported =
         decoder.decodeArrayPointer(new codec.Enum(WebPrintingMultipleDocumentHandling));
+    val.orientationRequestedDefault =
+        decoder.decodeStruct(new codec.Enum(WebPrintingOrientationRequested));
+    val.printColorModeDefault =
+        decoder.decodeStruct(new codec.Enum(WebPrintColorMode));
+    val.orientationRequestedSupported =
+        decoder.decodeArrayPointer(new codec.Enum(WebPrintingOrientationRequested));
     val.printerResolutionDefault =
         decoder.decodeStructPointer(geometry$.Size);
     val.printerResolutionSupported =
         decoder.decodeArrayPointer(new codec.PointerTo(geometry$.Size));
-    val.printColorModeDefault =
-        decoder.decodeStruct(new codec.Enum(WebPrintColorMode));
+    val.printColorModeSupported =
+        decoder.decodeArrayPointer(new codec.Enum(WebPrintColorMode));
+    val.printerState =
+        decoder.decodeStruct(new codec.Enum(WebPrinterState));
     packed = decoder.readUint8();
     val.sides_default_$flag = (packed >> 0) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
-    val.printColorModeSupported =
-        decoder.decodeArrayPointer(new codec.Enum(WebPrintColorMode));
+    val.printerStateMessage =
+        decoder.decodeStruct(codec.String);
+    val.printerStateReasons =
+        decoder.decodeArrayPointer(new codec.Enum(WebPrinterStateReason));
     val.sides_default_$value =
         decoder.decodeStruct(new codec.Enum(WebPrintingSides));
     decoder.skip(1);
@@ -441,16 +684,21 @@
     encoder.encodeStruct(codec.Int32, val.multipleDocumentHandlingDefault);
     encoder.encodeStructPointer(WebPrintingRange, val.copiesSupported);
     encoder.encodeArrayPointer(new codec.Enum(WebPrintingMultipleDocumentHandling), val.multipleDocumentHandlingSupported);
+    encoder.encodeStruct(codec.Int32, val.orientationRequestedDefault);
+    encoder.encodeStruct(codec.Int32, val.printColorModeDefault);
+    encoder.encodeArrayPointer(new codec.Enum(WebPrintingOrientationRequested), val.orientationRequestedSupported);
     encoder.encodeStructPointer(geometry$.Size, val.printerResolutionDefault);
     encoder.encodeArrayPointer(new codec.PointerTo(geometry$.Size), val.printerResolutionSupported);
-    encoder.encodeStruct(codec.Int32, val.printColorModeDefault);
+    encoder.encodeArrayPointer(new codec.Enum(WebPrintColorMode), val.printColorModeSupported);
+    encoder.encodeStruct(codec.Int32, val.printerState);
     packed = 0;
     packed |= (val.sides_default_$flag & 1) << 0
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
-    encoder.encodeArrayPointer(new codec.Enum(WebPrintColorMode), val.printColorModeSupported);
+    encoder.encodeStruct(codec.String, val.printerStateMessage);
+    encoder.encodeArrayPointer(new codec.Enum(WebPrinterStateReason), val.printerStateReasons);
     encoder.encodeStruct(codec.Int32, val.sides_default_$value);
     encoder.skip(1);
     encoder.skip(1);
@@ -468,11 +716,13 @@
     this.jobName = null;
     this.copies = 0;
     this.multiple_document_handling_$flag = false;
+    this.orientation_requested_$flag = false;
     this.print_color_mode_$flag = false;
     this.sides_$flag = false;
     this.multiple_document_handling_$value = 0;
-    this.print_color_mode_$value = 0;
+    this.orientation_requested_$value = 0;
     this.printerResolution = null;
+    this.print_color_mode_$value = 0;
     this.sides_$value = 0;
   };
   WebPrintJobTemplateAttributes.prototype.initFields_ = function(fields) {
@@ -510,6 +760,13 @@
         return err;
 
 
+
+    // validate WebPrintJobTemplateAttributes.orientation_requested_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 20, WebPrintingOrientationRequested);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate WebPrintJobTemplateAttributes.printerResolution
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 24, geometry$.Size, true);
     if (err !== validator.validationError.NONE)
@@ -518,14 +775,14 @@
 
 
     // validate WebPrintJobTemplateAttributes.print_color_mode_$value
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 20, WebPrintColorMode);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, WebPrintColorMode);
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate WebPrintJobTemplateAttributes.sides_$value
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, WebPrintingSides);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 36, WebPrintingSides);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -545,23 +802,22 @@
         decoder.decodeStruct(codec.Uint32);
     packed = decoder.readUint8();
     val.multiple_document_handling_$flag = (packed >> 0) & 1 ? true : false;
-    val.print_color_mode_$flag = (packed >> 1) & 1 ? true : false;
-    val.sides_$flag = (packed >> 2) & 1 ? true : false;
+    val.orientation_requested_$flag = (packed >> 1) & 1 ? true : false;
+    val.print_color_mode_$flag = (packed >> 2) & 1 ? true : false;
+    val.sides_$flag = (packed >> 3) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
     val.multiple_document_handling_$value =
         decoder.decodeStruct(new codec.Enum(WebPrintingMultipleDocumentHandling));
-    val.print_color_mode_$value =
-        decoder.decodeStruct(new codec.Enum(WebPrintColorMode));
+    val.orientation_requested_$value =
+        decoder.decodeStruct(new codec.Enum(WebPrintingOrientationRequested));
     val.printerResolution =
         decoder.decodeStructPointer(geometry$.Size);
+    val.print_color_mode_$value =
+        decoder.decodeStruct(new codec.Enum(WebPrintColorMode));
     val.sides_$value =
         decoder.decodeStruct(new codec.Enum(WebPrintingSides));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     return val;
   };
 
@@ -573,20 +829,79 @@
     encoder.encodeStruct(codec.Uint32, val.copies);
     packed = 0;
     packed |= (val.multiple_document_handling_$flag & 1) << 0
-    packed |= (val.print_color_mode_$flag & 1) << 1
-    packed |= (val.sides_$flag & 1) << 2
+    packed |= (val.orientation_requested_$flag & 1) << 1
+    packed |= (val.print_color_mode_$flag & 1) << 2
+    packed |= (val.sides_$flag & 1) << 3
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.Int32, val.multiple_document_handling_$value);
-    encoder.encodeStruct(codec.Int32, val.print_color_mode_$value);
+    encoder.encodeStruct(codec.Int32, val.orientation_requested_$value);
     encoder.encodeStructPointer(geometry$.Size, val.printerResolution);
+    encoder.encodeStruct(codec.Int32, val.print_color_mode_$value);
     encoder.encodeStruct(codec.Int32, val.sides_$value);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+  };
+  function WebPrintJobUpdate(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  WebPrintJobUpdate.prototype.initDefaults_ = function() {
+    this.state = 0;
+    this.pagesPrinted = 0;
+  };
+  WebPrintJobUpdate.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  WebPrintJobUpdate.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate WebPrintJobUpdate.state
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, WebPrintJobState);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  WebPrintJobUpdate.encodedSize = codec.kStructHeaderSize + 8;
+
+  WebPrintJobUpdate.decode = function(decoder) {
+    var packed;
+    var val = new WebPrintJobUpdate();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.state =
+        decoder.decodeStruct(new codec.Enum(WebPrintJobState));
+    val.pagesPrinted =
+        decoder.decodeStruct(codec.Uint32);
+    return val;
+  };
+
+  WebPrintJobUpdate.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(WebPrintJobUpdate.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.state);
+    encoder.encodeStruct(codec.Uint32, val.pagesPrinted);
   };
   function WebPrintJobInfo(values) {
     this.initDefaults_();
@@ -596,6 +911,7 @@
 
   WebPrintJobInfo.prototype.initDefaults_ = function() {
     this.jobName = null;
+    this.jobPages = 0;
     this.observer = new bindings.InterfaceRequest();
   };
   WebPrintJobInfo.prototype.initFields_ = function(fields) {
@@ -625,8 +941,9 @@
         return err;
 
 
+
     // validate WebPrintJobInfo.observer
-    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 8, false)
+    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 12, false)
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -642,12 +959,10 @@
     var version = decoder.readUint32();
     val.jobName =
         decoder.decodeStruct(codec.String);
+    val.jobPages =
+        decoder.decodeStruct(codec.Uint32);
     val.observer =
         decoder.decodeStruct(codec.InterfaceRequest);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
     return val;
   };
 
@@ -656,29 +971,26 @@
     encoder.writeUint32(WebPrintJobInfo.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.jobName);
+    encoder.encodeStruct(codec.Uint32, val.jobPages);
     encoder.encodeStruct(codec.InterfaceRequest, val.observer);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
   };
-  function WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params(values) {
+  function WebPrintJobStateObserver_OnWebPrintJobUpdate_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.prototype.initDefaults_ = function() {
-    this.state = 0;
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.prototype.initDefaults_ = function() {
+    this.update = null;
   };
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.prototype.initFields_ = function(fields) {
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.validate = function(messageValidator, offset) {
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -692,39 +1004,31 @@
         return err;
 
 
-    // validate WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.state
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, WebPrintJobState);
+    // validate WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.update
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, WebPrintJobUpdate, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.encodedSize = codec.kStructHeaderSize + 8;
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.decode = function(decoder) {
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.decode = function(decoder) {
     var packed;
-    var val = new WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params();
+    var val = new WebPrintJobStateObserver_OnWebPrintJobUpdate_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.state =
-        decoder.decodeStruct(new codec.Enum(WebPrintJobState));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.update =
+        decoder.decodeStructPointer(WebPrintJobUpdate);
     return val;
   };
 
-  WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.encode = function(encoder, val) {
+  WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.encodedSize);
+    encoder.writeUint32(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.state);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStructPointer(WebPrintJobUpdate, val.update);
   };
   function WebPrinter_FetchAttributes_Params(values) {
     this.initDefaults_();
@@ -779,7 +1083,7 @@
 
 
   WebPrinter_FetchAttributes_ResponseParams.prototype.initDefaults_ = function() {
-    this.attributes = null;
+    this.result = null;
   };
   WebPrinter_FetchAttributes_ResponseParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -795,30 +1099,30 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 16}
+      {version: 0, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate WebPrinter_FetchAttributes_ResponseParams.attributes
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, WebPrinterAttributes, true);
+    // validate WebPrinter_FetchAttributes_ResponseParams.result
+    err = messageValidator.validateUnion(offset + codec.kStructHeaderSize + 0, WebPrinterFetchResult, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WebPrinter_FetchAttributes_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+  WebPrinter_FetchAttributes_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
 
   WebPrinter_FetchAttributes_ResponseParams.decode = function(decoder) {
     var packed;
     var val = new WebPrinter_FetchAttributes_ResponseParams();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.attributes =
-        decoder.decodeStructPointer(WebPrinterAttributes);
+    val.result =
+        decoder.decodeStruct(WebPrinterFetchResult);
     return val;
   };
 
@@ -826,7 +1130,7 @@
     var packed;
     encoder.writeUint32(WebPrinter_FetchAttributes_ResponseParams.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStructPointer(WebPrinterAttributes, val.attributes);
+    encoder.encodeStruct(WebPrinterFetchResult, val.result);
   };
   function WebPrinter_Print_Params(values) {
     this.initDefaults_();
@@ -1003,7 +1307,7 @@
 
 
   WebPrintingService_GetPrinters_ResponseParams.prototype.initDefaults_ = function() {
-    this.printers = null;
+    this.result = null;
   };
   WebPrintingService_GetPrinters_ResponseParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1019,30 +1323,30 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 16}
+      {version: 0, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate WebPrintingService_GetPrinters_ResponseParams.printers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(WebPrinterInfo), false, [0], 0);
+    // validate WebPrintingService_GetPrinters_ResponseParams.result
+    err = messageValidator.validateUnion(offset + codec.kStructHeaderSize + 0, GetPrintersResult, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WebPrintingService_GetPrinters_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+  WebPrintingService_GetPrinters_ResponseParams.encodedSize = codec.kStructHeaderSize + 16;
 
   WebPrintingService_GetPrinters_ResponseParams.decode = function(decoder) {
     var packed;
     var val = new WebPrintingService_GetPrinters_ResponseParams();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.printers =
-        decoder.decodeArrayPointer(new codec.PointerTo(WebPrinterInfo));
+    val.result =
+        decoder.decodeStruct(GetPrintersResult);
     return val;
   };
 
@@ -1050,8 +1354,314 @@
     var packed;
     encoder.writeUint32(WebPrintingService_GetPrinters_ResponseParams.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.PointerTo(WebPrinterInfo), val.printers);
+    encoder.encodeStruct(GetPrintersResult, val.result);
   };
+
+  function GetPrintersResult(value) {
+    this.initDefault_();
+    this.initValue_(value);
+  }
+
+
+  GetPrintersResult.Tags = {
+    printers: 0,
+    error: 1,
+  };
+
+  GetPrintersResult.prototype.initDefault_ = function() {
+    this.$data = null;
+    this.$tag = undefined;
+  }
+
+  GetPrintersResult.prototype.initValue_ = function(value) {
+    if (value == undefined) {
+      return;
+    }
+
+    var keys = Object.keys(value);
+    if (keys.length == 0) {
+      return;
+    }
+
+    if (keys.length > 1) {
+      throw new TypeError("You may set only one member on a union.");
+    }
+
+    var fields = [
+        "printers",
+        "error",
+    ];
+
+    if (fields.indexOf(keys[0]) < 0) {
+      throw new ReferenceError(keys[0] + " is not a GetPrintersResult member.");
+
+    }
+
+    this[keys[0]] = value[keys[0]];
+  }
+  Object.defineProperty(GetPrintersResult.prototype, "printers", {
+    get: function() {
+      if (this.$tag != GetPrintersResult.Tags.printers) {
+        throw new ReferenceError(
+            "GetPrintersResult.printers is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = GetPrintersResult.Tags.printers;
+      this.$data = value;
+    }
+  });
+  Object.defineProperty(GetPrintersResult.prototype, "error", {
+    get: function() {
+      if (this.$tag != GetPrintersResult.Tags.error) {
+        throw new ReferenceError(
+            "GetPrintersResult.error is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = GetPrintersResult.Tags.error;
+      this.$data = value;
+    }
+  });
+
+
+    GetPrintersResult.encode = function(encoder, val) {
+      if (val == null) {
+        encoder.writeUint64(0);
+        encoder.writeUint64(0);
+        return;
+      }
+      if (val.$tag == undefined) {
+        throw new TypeError("Cannot encode unions with an unknown member set.");
+      }
+
+      encoder.writeUint32(16);
+      encoder.writeUint32(val.$tag);
+      switch (val.$tag) {
+        case GetPrintersResult.Tags.printers:
+          encoder.encodeArrayPointer(new codec.PointerTo(WebPrinterInfo), val.printers);
+          break;
+        case GetPrintersResult.Tags.error:
+          encoder.encodeStruct(codec.Int32, val.error);
+          break;
+      }
+      encoder.align();
+    };
+
+
+    GetPrintersResult.decode = function(decoder) {
+      var size = decoder.readUint32();
+      if (size == 0) {
+        decoder.readUint32();
+        decoder.readUint64();
+        return null;
+      }
+
+      var result = new GetPrintersResult();
+      var tag = decoder.readUint32();
+      switch (tag) {
+        case GetPrintersResult.Tags.printers:
+          result.printers = decoder.decodeArrayPointer(new codec.PointerTo(WebPrinterInfo));
+          break;
+        case GetPrintersResult.Tags.error:
+          result.error = decoder.decodeStruct(new codec.Enum(GetPrintersError));
+          break;
+      }
+      decoder.align();
+
+      return result;
+    };
+
+
+    GetPrintersResult.validate = function(messageValidator, offset) {
+      var size = messageValidator.decodeUnionSize(offset);
+      if (size != 16) {
+        return validator.validationError.INVALID_UNION_SIZE;
+      }
+
+      var tag = messageValidator.decodeUnionTag(offset);
+      var data_offset = offset + 8;
+      var err;
+      switch (tag) {
+        case GetPrintersResult.Tags.printers:
+          
+
+    // validate GetPrintersResult.printers
+    err = messageValidator.validateArrayPointer(data_offset, 8, new codec.PointerTo(WebPrinterInfo), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+        case GetPrintersResult.Tags.error:
+          
+
+    // validate GetPrintersResult.error
+    err = messageValidator.validateEnum(data_offset, GetPrintersError);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+      }
+
+      return validator.validationError.NONE;
+    };
+
+  GetPrintersResult.encodedSize = 16;
+
+  function WebPrinterFetchResult(value) {
+    this.initDefault_();
+    this.initValue_(value);
+  }
+
+
+  WebPrinterFetchResult.Tags = {
+    printerAttributes: 0,
+    error: 1,
+  };
+
+  WebPrinterFetchResult.prototype.initDefault_ = function() {
+    this.$data = null;
+    this.$tag = undefined;
+  }
+
+  WebPrinterFetchResult.prototype.initValue_ = function(value) {
+    if (value == undefined) {
+      return;
+    }
+
+    var keys = Object.keys(value);
+    if (keys.length == 0) {
+      return;
+    }
+
+    if (keys.length > 1) {
+      throw new TypeError("You may set only one member on a union.");
+    }
+
+    var fields = [
+        "printerAttributes",
+        "error",
+    ];
+
+    if (fields.indexOf(keys[0]) < 0) {
+      throw new ReferenceError(keys[0] + " is not a WebPrinterFetchResult member.");
+
+    }
+
+    this[keys[0]] = value[keys[0]];
+  }
+  Object.defineProperty(WebPrinterFetchResult.prototype, "printerAttributes", {
+    get: function() {
+      if (this.$tag != WebPrinterFetchResult.Tags.printerAttributes) {
+        throw new ReferenceError(
+            "WebPrinterFetchResult.printerAttributes is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = WebPrinterFetchResult.Tags.printerAttributes;
+      this.$data = value;
+    }
+  });
+  Object.defineProperty(WebPrinterFetchResult.prototype, "error", {
+    get: function() {
+      if (this.$tag != WebPrinterFetchResult.Tags.error) {
+        throw new ReferenceError(
+            "WebPrinterFetchResult.error is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = WebPrinterFetchResult.Tags.error;
+      this.$data = value;
+    }
+  });
+
+
+    WebPrinterFetchResult.encode = function(encoder, val) {
+      if (val == null) {
+        encoder.writeUint64(0);
+        encoder.writeUint64(0);
+        return;
+      }
+      if (val.$tag == undefined) {
+        throw new TypeError("Cannot encode unions with an unknown member set.");
+      }
+
+      encoder.writeUint32(16);
+      encoder.writeUint32(val.$tag);
+      switch (val.$tag) {
+        case WebPrinterFetchResult.Tags.printerAttributes:
+          encoder.encodeStructPointer(WebPrinterAttributes, val.printerAttributes);
+          break;
+        case WebPrinterFetchResult.Tags.error:
+          encoder.encodeStruct(codec.Int32, val.error);
+          break;
+      }
+      encoder.align();
+    };
+
+
+    WebPrinterFetchResult.decode = function(decoder) {
+      var size = decoder.readUint32();
+      if (size == 0) {
+        decoder.readUint32();
+        decoder.readUint64();
+        return null;
+      }
+
+      var result = new WebPrinterFetchResult();
+      var tag = decoder.readUint32();
+      switch (tag) {
+        case WebPrinterFetchResult.Tags.printerAttributes:
+          result.printerAttributes = decoder.decodeStructPointer(WebPrinterAttributes);
+          break;
+        case WebPrinterFetchResult.Tags.error:
+          result.error = decoder.decodeStruct(new codec.Enum(WebPrinterFetchError));
+          break;
+      }
+      decoder.align();
+
+      return result;
+    };
+
+
+    WebPrinterFetchResult.validate = function(messageValidator, offset) {
+      var size = messageValidator.decodeUnionSize(offset);
+      if (size != 16) {
+        return validator.validationError.INVALID_UNION_SIZE;
+      }
+
+      var tag = messageValidator.decodeUnionTag(offset);
+      var data_offset = offset + 8;
+      var err;
+      switch (tag) {
+        case WebPrinterFetchResult.Tags.printerAttributes:
+          
+
+    // validate WebPrinterFetchResult.printerAttributes
+    err = messageValidator.validateStructPointer(data_offset, WebPrinterAttributes, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+        case WebPrinterFetchResult.Tags.error:
+          
+
+    // validate WebPrinterFetchResult.error
+    err = messageValidator.validateEnum(data_offset, WebPrinterFetchError);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+      }
+
+      return validator.validationError.NONE;
+    };
+
+  WebPrinterFetchResult.encodedSize = 16;
 
   function WebPrintResult(value) {
     this.initDefault_();
@@ -1205,7 +1815,7 @@
     };
 
   WebPrintResult.encodedSize = 16;
-  var kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name = 0;
+  var kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name = 0;
 
   function WebPrintJobStateObserverPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(WebPrintJobStateObserver,
@@ -1225,18 +1835,18 @@
   function WebPrintJobStateObserverProxy(receiver) {
     this.receiver_ = receiver;
   }
-  WebPrintJobStateObserverPtr.prototype.onWebPrintJobStateChanged = function() {
-    return WebPrintJobStateObserverProxy.prototype.onWebPrintJobStateChanged
+  WebPrintJobStateObserverPtr.prototype.onWebPrintJobUpdate = function() {
+    return WebPrintJobStateObserverProxy.prototype.onWebPrintJobUpdate
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  WebPrintJobStateObserverProxy.prototype.onWebPrintJobStateChanged = function(state) {
-    var params_ = new WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params();
-    params_.state = state;
+  WebPrintJobStateObserverProxy.prototype.onWebPrintJobUpdate = function(update) {
+    var params_ = new WebPrintJobStateObserver_OnWebPrintJobUpdate_Params();
+    params_.update = update;
     var builder = new codec.MessageV0Builder(
-        kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name,
-        codec.align(WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params.encodedSize));
-    builder.encodeStruct(WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params, params_);
+        kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name,
+        codec.align(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.encodedSize));
+    builder.encodeStruct(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -1244,16 +1854,16 @@
   function WebPrintJobStateObserverStub(delegate) {
     this.delegate_ = delegate;
   }
-  WebPrintJobStateObserverStub.prototype.onWebPrintJobStateChanged = function(state) {
-    return this.delegate_ && this.delegate_.onWebPrintJobStateChanged && this.delegate_.onWebPrintJobStateChanged(state);
+  WebPrintJobStateObserverStub.prototype.onWebPrintJobUpdate = function(update) {
+    return this.delegate_ && this.delegate_.onWebPrintJobUpdate && this.delegate_.onWebPrintJobUpdate(update);
   }
 
   WebPrintJobStateObserverStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name:
-      var params = reader.decodeStruct(WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params);
-      this.onWebPrintJobStateChanged(params.state);
+    case kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name:
+      var params = reader.decodeStruct(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params);
+      this.onWebPrintJobUpdate(params.update);
       return true;
     default:
       return false;
@@ -1273,9 +1883,9 @@
     var message = messageValidator.message;
     var paramsClass = null;
     switch (message.getName()) {
-      case kWebPrintJobStateObserver_OnWebPrintJobStateChanged_Name:
+      case kWebPrintJobStateObserver_OnWebPrintJobUpdate_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = WebPrintJobStateObserver_OnWebPrintJobStateChanged_Params;
+          paramsClass = WebPrintJobStateObserver_OnWebPrintJobUpdate_Params;
       break;
     }
     if (paramsClass === null)
@@ -1397,7 +2007,7 @@
       this.fetchAttributes().then(function(response) {
         var responseParams =
             new WebPrinter_FetchAttributes_ResponseParams();
-        responseParams.attributes = response.attributes;
+        responseParams.result = response.result;
         var builder = new codec.MessageV1Builder(
             kWebPrinter_FetchAttributes_Name,
             codec.align(WebPrinter_FetchAttributes_ResponseParams.encodedSize),
@@ -1545,7 +2155,7 @@
       this.getPrinters().then(function(response) {
         var responseParams =
             new WebPrintingService_GetPrinters_ResponseParams();
-        responseParams.printers = response.printers;
+        responseParams.result = response.result;
         var builder = new codec.MessageV1Builder(
             kWebPrintingService_GetPrinters_Name,
             codec.align(WebPrintingService_GetPrinters_ResponseParams.encodedSize),
@@ -1603,13 +2213,21 @@
   exports.WebPrintingMultipleDocumentHandling = WebPrintingMultipleDocumentHandling;
   exports.WebPrintingSides = WebPrintingSides;
   exports.WebPrintColorMode = WebPrintColorMode;
+  exports.WebPrintingOrientationRequested = WebPrintingOrientationRequested;
+  exports.WebPrinterState = WebPrinterState;
+  exports.WebPrinterStateReason = WebPrinterStateReason;
   exports.WebPrintJobState = WebPrintJobState;
+  exports.GetPrintersError = GetPrintersError;
+  exports.WebPrinterFetchError = WebPrinterFetchError;
   exports.WebPrintError = WebPrintError;
   exports.WebPrinterInfo = WebPrinterInfo;
   exports.WebPrintingRange = WebPrintingRange;
   exports.WebPrinterAttributes = WebPrinterAttributes;
   exports.WebPrintJobTemplateAttributes = WebPrintJobTemplateAttributes;
+  exports.WebPrintJobUpdate = WebPrintJobUpdate;
   exports.WebPrintJobInfo = WebPrintJobInfo;
+  exports.GetPrintersResult = GetPrintersResult;
+  exports.WebPrinterFetchResult = WebPrinterFetchResult;
   exports.WebPrintResult = WebPrintResult;
   exports.WebPrintJobStateObserver = WebPrintJobStateObserver;
   exports.WebPrintJobStateObserverPtr = WebPrintJobStateObserverPtr;

@@ -10,7 +10,7 @@
 ,"0005-Add-headers-for-opensolaris.patch"
 ,"- Add headers for opensolaris"
 ,"0006-List-packaged-patches-in-patchlevel.h.patch"
-,"- List packaged patches for perl-5.38.0-r1(perl-5.38.0-patches-1) in patchlevel.h"
+,"- List packaged patches for perl-5.38.2-r1(perl-5.38.0-patches-1) in patchlevel.h"
 ,"- Bug: https://bugs.debian.org/567489"
 ,"0007-Cleanup-PATH-and-shrpenv.patch"
 ,"- Cleanup PATH and shrpenv"

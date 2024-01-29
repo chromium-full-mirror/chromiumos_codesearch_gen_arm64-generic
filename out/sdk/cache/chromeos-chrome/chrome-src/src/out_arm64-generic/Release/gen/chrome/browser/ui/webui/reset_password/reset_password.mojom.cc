@@ -148,6 +148,8 @@ bool ResetPasswordHandlerStubDispatch::Accept(
           reinterpret_cast<internal::ResetPasswordHandler_HandlePasswordReset_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResetPasswordHandler.0
       bool success = true;
       ResetPasswordHandler_HandlePasswordReset_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool ResetPasswordHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandlePasswordReset();
+      impl->HandlePasswordReset(        );
       return true;
     }
   }

@@ -9,8 +9,6 @@ import { Corner, FocusState } from 'chrome://resources/mwc/@material/web/menu/me
 import { css, html, LitElement } from '//resources/mwc/lit/index.js';
 /**
  * A chromeOS menu component.
- * See spec
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2650%3A7994&t=01NOG3FTGuaigSvB-0
  */
 export class Menu extends LitElement {
     /** @nocollapse */

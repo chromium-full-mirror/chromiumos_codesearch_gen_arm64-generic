@@ -1055,6 +1055,8 @@ bool VirtualAuthenticator_GetUniqueId_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_GetUniqueId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.0
   bool success = true;
   WTF::String p_id{};
   VirtualAuthenticator_GetUniqueId_ResponseParamsDataView input_data_view(params, message);
@@ -1184,6 +1186,8 @@ bool VirtualAuthenticator_AddRegistration_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_AddRegistration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.1
   bool success = true;
   bool p_added{};
   VirtualAuthenticator_AddRegistration_ResponseParamsDataView input_data_view(params, message);
@@ -1303,6 +1307,8 @@ bool VirtualAuthenticator_GetRegistrations_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_GetRegistrations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.2
   bool success = true;
   WTF::Vector<RegisteredKeyPtr> p_keys{};
   VirtualAuthenticator_GetRegistrations_ResponseParamsDataView input_data_view(params, message);
@@ -1434,6 +1440,8 @@ bool VirtualAuthenticator_RemoveRegistration_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_RemoveRegistration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.3
   bool success = true;
   bool p_removed{};
   VirtualAuthenticator_RemoveRegistration_ResponseParamsDataView input_data_view(params, message);
@@ -1553,6 +1561,8 @@ bool VirtualAuthenticator_ClearRegistrations_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_ClearRegistrations_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.4
   bool success = true;
   VirtualAuthenticator_ClearRegistrations_ResponseParamsDataView input_data_view(params, message);
   
@@ -1660,6 +1670,8 @@ bool VirtualAuthenticator_GetLargeBlob_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_GetLargeBlob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.5
   bool success = true;
   std::optional<WTF::Vector<uint8_t>> p_blob{};
   VirtualAuthenticator_GetLargeBlob_ResponseParamsDataView input_data_view(params, message);
@@ -1787,6 +1799,8 @@ bool VirtualAuthenticator_SetLargeBlob_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_SetLargeBlob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.6
   bool success = true;
   bool p_set{};
   VirtualAuthenticator_SetLargeBlob_ResponseParamsDataView input_data_view(params, message);
@@ -1906,6 +1920,8 @@ bool VirtualAuthenticator_SetUserVerified_ForwardToCallback::Accept(
           internal::VirtualAuthenticator_SetUserVerified_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticator.7
   bool success = true;
   VirtualAuthenticator_SetUserVerified_ResponseParamsDataView input_data_view(params, message);
   
@@ -2005,6 +2021,8 @@ bool VirtualAuthenticatorStubDispatch::AcceptWithResponder(
               internal::VirtualAuthenticator_GetUniqueId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.0
       bool success = true;
       VirtualAuthenticator_GetUniqueId_ParamsDataView input_data_view(params, message);
       
@@ -2030,6 +2048,8 @@ bool VirtualAuthenticatorStubDispatch::AcceptWithResponder(
               internal::VirtualAuthenticator_AddRegistration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.1
       bool success = true;
       RegisteredKeyPtr p_key{};
       VirtualAuthenticator_AddRegistration_ParamsDataView input_data_view(params, message);
@@ -2048,8 +2068,8 @@ bool VirtualAuthenticatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddRegistration(
-std::move(p_key), std::move(callback));
+      impl->AddRegistration(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kVirtualAuthenticator_GetRegistrations_Name: {
@@ -2059,6 +2079,8 @@ std::move(p_key), std::move(callback));
               internal::VirtualAuthenticator_GetRegistrations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.2
       bool success = true;
       VirtualAuthenticator_GetRegistrations_ParamsDataView input_data_view(params, message);
       
@@ -2084,6 +2106,8 @@ std::move(p_key), std::move(callback));
               internal::VirtualAuthenticator_RemoveRegistration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.3
       bool success = true;
       WTF::Vector<uint8_t> p_key_handle{};
       VirtualAuthenticator_RemoveRegistration_ParamsDataView input_data_view(params, message);
@@ -2102,8 +2126,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveRegistration(
-std::move(p_key_handle), std::move(callback));
+      impl->RemoveRegistration(        
+        std::move(p_key_handle), std::move(callback));
       return true;
     }
     case internal::kVirtualAuthenticator_ClearRegistrations_Name: {
@@ -2113,6 +2137,8 @@ std::move(p_key_handle), std::move(callback));
               internal::VirtualAuthenticator_ClearRegistrations_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.4
       bool success = true;
       VirtualAuthenticator_ClearRegistrations_ParamsDataView input_data_view(params, message);
       
@@ -2138,6 +2164,8 @@ std::move(p_key_handle), std::move(callback));
               internal::VirtualAuthenticator_GetLargeBlob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.5
       bool success = true;
       WTF::Vector<uint8_t> p_key_handle{};
       VirtualAuthenticator_GetLargeBlob_ParamsDataView input_data_view(params, message);
@@ -2156,8 +2184,8 @@ std::move(p_key_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLargeBlob(
-std::move(p_key_handle), std::move(callback));
+      impl->GetLargeBlob(        
+        std::move(p_key_handle), std::move(callback));
       return true;
     }
     case internal::kVirtualAuthenticator_SetLargeBlob_Name: {
@@ -2167,6 +2195,8 @@ std::move(p_key_handle), std::move(callback));
               internal::VirtualAuthenticator_SetLargeBlob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.6
       bool success = true;
       WTF::Vector<uint8_t> p_key_handle{};
       WTF::Vector<uint8_t> p_blob{};
@@ -2188,9 +2218,9 @@ std::move(p_key_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLargeBlob(
-std::move(p_key_handle), 
-std::move(p_blob), std::move(callback));
+      impl->SetLargeBlob(        
+        std::move(p_key_handle), 
+        std::move(p_blob), std::move(callback));
       return true;
     }
     case internal::kVirtualAuthenticator_SetUserVerified_Name: {
@@ -2200,6 +2230,8 @@ std::move(p_blob), std::move(callback));
               internal::VirtualAuthenticator_SetUserVerified_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticator.7
       bool success = true;
       bool p_verified{};
       VirtualAuthenticator_SetUserVerified_ParamsDataView input_data_view(params, message);
@@ -2218,8 +2250,8 @@ std::move(p_blob), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserVerified(
-std::move(p_verified), std::move(callback));
+      impl->SetUserVerified(        
+        std::move(p_verified), std::move(callback));
       return true;
     }
   }
@@ -2667,6 +2699,8 @@ bool VirtualAuthenticatorManager_CreateAuthenticator_ForwardToCallback::Accept(
           internal::VirtualAuthenticatorManager_CreateAuthenticator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticatorManager.0
   bool success = true;
   ::mojo::PendingRemote<VirtualAuthenticator> p_authenticator{};
   VirtualAuthenticatorManager_CreateAuthenticator_ResponseParamsDataView input_data_view(params, message);
@@ -2793,6 +2827,8 @@ bool VirtualAuthenticatorManager_GetAuthenticators_ForwardToCallback::Accept(
           internal::VirtualAuthenticatorManager_GetAuthenticators_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticatorManager.1
   bool success = true;
   WTF::Vector<::mojo::PendingRemote<VirtualAuthenticator>> p_authenticators{};
   VirtualAuthenticatorManager_GetAuthenticators_ResponseParamsDataView input_data_view(params, message);
@@ -2924,6 +2960,8 @@ bool VirtualAuthenticatorManager_RemoveAuthenticator_ForwardToCallback::Accept(
           internal::VirtualAuthenticatorManager_RemoveAuthenticator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticatorManager.2
   bool success = true;
   bool p_removed{};
   VirtualAuthenticatorManager_RemoveAuthenticator_ResponseParamsDataView input_data_view(params, message);
@@ -3043,6 +3081,8 @@ bool VirtualAuthenticatorManager_ClearAuthenticators_ForwardToCallback::Accept(
           internal::VirtualAuthenticatorManager_ClearAuthenticators_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualAuthenticatorManager.3
   bool success = true;
   VirtualAuthenticatorManager_ClearAuthenticators_ResponseParamsDataView input_data_view(params, message);
   
@@ -3130,6 +3170,8 @@ bool VirtualAuthenticatorManagerStubDispatch::AcceptWithResponder(
               internal::VirtualAuthenticatorManager_CreateAuthenticator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticatorManager.0
       bool success = true;
       VirtualAuthenticatorOptionsPtr p_options{};
       VirtualAuthenticatorManager_CreateAuthenticator_ParamsDataView input_data_view(params, message);
@@ -3148,8 +3190,8 @@ bool VirtualAuthenticatorManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAuthenticator(
-std::move(p_options), std::move(callback));
+      impl->CreateAuthenticator(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kVirtualAuthenticatorManager_GetAuthenticators_Name: {
@@ -3159,6 +3201,8 @@ std::move(p_options), std::move(callback));
               internal::VirtualAuthenticatorManager_GetAuthenticators_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticatorManager.1
       bool success = true;
       VirtualAuthenticatorManager_GetAuthenticators_ParamsDataView input_data_view(params, message);
       
@@ -3184,6 +3228,8 @@ std::move(p_options), std::move(callback));
               internal::VirtualAuthenticatorManager_RemoveAuthenticator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticatorManager.2
       bool success = true;
       WTF::String p_id{};
       VirtualAuthenticatorManager_RemoveAuthenticator_ParamsDataView input_data_view(params, message);
@@ -3202,8 +3248,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveAuthenticator(
-std::move(p_id), std::move(callback));
+      impl->RemoveAuthenticator(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kVirtualAuthenticatorManager_ClearAuthenticators_Name: {
@@ -3213,6 +3259,8 @@ std::move(p_id), std::move(callback));
               internal::VirtualAuthenticatorManager_ClearAuthenticators_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualAuthenticatorManager.3
       bool success = true;
       VirtualAuthenticatorManager_ClearAuthenticators_ParamsDataView input_data_view(params, message);
       

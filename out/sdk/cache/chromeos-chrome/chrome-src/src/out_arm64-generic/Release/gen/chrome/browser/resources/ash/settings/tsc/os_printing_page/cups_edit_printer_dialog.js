@@ -39,7 +39,7 @@ var DialogActions;
     DialogActions[DialogActions["VIEW_PPD_CLICKED"] = 1] = "VIEW_PPD_CLICKED";
 })(DialogActions || (DialogActions = {}));
 /** Keyword used for recording metrics */
-const METRICS_KEYWORD = 'Printing.CUPS.EditDialog';
+const METRICS_KEYWORD = 'Printing.CUPS.PrinterEditDialogActions';
 const SettingsCupsEditPrinterDialogElementBase = mixinBehaviors([NetworkListenerBehavior], I18nMixin(PolymerElement));
 export class SettingsCupsEditPrinterDialogElement extends SettingsCupsEditPrinterDialogElementBase {
     static get is() {

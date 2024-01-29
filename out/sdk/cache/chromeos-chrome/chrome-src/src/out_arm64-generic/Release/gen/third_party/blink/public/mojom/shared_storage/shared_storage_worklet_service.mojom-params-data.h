@@ -317,22 +317,24 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletSer
 };
 static_assert(sizeof(SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponseParams_Data) == 32,
               "Bad sizeof(SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletServiceClient_ConsoleLog_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t log_level;
+  uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> message;
 
  private:
-  friend class mojo::internal::MessageFragment<SharedStorageWorkletServiceClient_ConsoleLog_Params_Data>;
+  friend class mojo::internal::MessageFragment<SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data>;
 
-  SharedStorageWorkletServiceClient_ConsoleLog_Params_Data();
-  ~SharedStorageWorkletServiceClient_ConsoleLog_Params_Data() = delete;
+  SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data();
+  ~SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data() = delete;
 };
-static_assert(sizeof(SharedStorageWorkletServiceClient_ConsoleLog_Params_Data) == 16,
-              "Bad sizeof(SharedStorageWorkletServiceClient_ConsoleLog_Params_Data)");
+static_assert(sizeof(SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data) == 24,
+              "Bad sizeof(SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletServiceClient_RecordUseCounters_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -974,16 +976,26 @@ class SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponsePar
 };
 
 
-class SharedStorageWorkletServiceClient_ConsoleLog_ParamsDataView {
+class SharedStorageWorkletServiceClient_DidAddMessageToConsole_ParamsDataView {
  public:
-  SharedStorageWorkletServiceClient_ConsoleLog_ParamsDataView() = default;
+  SharedStorageWorkletServiceClient_DidAddMessageToConsole_ParamsDataView() = default;
 
-  SharedStorageWorkletServiceClient_ConsoleLog_ParamsDataView(
-      internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data* data,
+  SharedStorageWorkletServiceClient_DidAddMessageToConsole_ParamsDataView(
+      internal::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadLogLevel(UserType* output) const {
+    auto data_value = data_->log_level;
+    return mojo::internal::Deserialize<::blink::mojom::ConsoleMessageLevel>(
+        data_value, output);
+  }
+  ::blink::mojom::ConsoleMessageLevel log_level() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::ConsoleMessageLevel>(data_->log_level));
+  }
   inline void GetMessageDataView(
       mojo::StringDataView* output);
 
@@ -995,7 +1007,7 @@ class SharedStorageWorkletServiceClient_ConsoleLog_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data* data_ = nullptr;
+  internal::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1412,7 +1424,7 @@ inline void SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Respo
 }
 
 
-inline void SharedStorageWorkletServiceClient_ConsoleLog_ParamsDataView::GetMessageDataView(
+inline void SharedStorageWorkletServiceClient_DidAddMessageToConsole_ParamsDataView::GetMessageDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->message.Get();
   *output = mojo::StringDataView(pointer, message_);

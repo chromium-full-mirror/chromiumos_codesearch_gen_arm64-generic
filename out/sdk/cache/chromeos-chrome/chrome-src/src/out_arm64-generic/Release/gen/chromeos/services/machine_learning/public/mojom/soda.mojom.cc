@@ -44,6 +44,46 @@
 
 
 namespace chromeos::machine_learning::mojom {
+SodaMultilangConfig::SodaMultilangConfig()
+    : rewind_when_switching_language(true),
+      locale_to_language_pack_map() {}
+
+SodaMultilangConfig::SodaMultilangConfig(
+    bool rewind_when_switching_language_in,
+    const base::flat_map<std::string, std::string>& locale_to_language_pack_map_in)
+    : rewind_when_switching_language(std::move(rewind_when_switching_language_in)),
+      locale_to_language_pack_map(std::move(locale_to_language_pack_map_in)) {}
+
+SodaMultilangConfig::~SodaMultilangConfig() = default;
+
+void SodaMultilangConfig::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "rewind_when_switching_language"), this->rewind_when_switching_language,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "locale_to_language_pack_map"), this->locale_to_language_pack_map,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const base::flat_map<std::string, std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SodaMultilangConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 SodaConfig::SodaConfig()
     : channel_count(),
       sample_rate(),
@@ -54,7 +94,8 @@ SodaConfig::SodaConfig()
       recognition_mode(SodaRecognitionMode::kCaption),
       mask_offensive_words(false),
       speaker_change_detection(false),
-      include_logging_output(false) {}
+      include_logging_output(false),
+      multi_lang_config() {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -71,7 +112,8 @@ SodaConfig::SodaConfig(
       recognition_mode(SodaRecognitionMode::kCaption),
       mask_offensive_words(false),
       speaker_change_detection(false),
-      include_logging_output(false) {}
+      include_logging_output(false),
+      multi_lang_config() {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -89,7 +131,8 @@ SodaConfig::SodaConfig(
       recognition_mode(SodaRecognitionMode::kCaption),
       mask_offensive_words(false),
       speaker_change_detection(false),
-      include_logging_output(false) {}
+      include_logging_output(false),
+      multi_lang_config() {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -108,7 +151,8 @@ SodaConfig::SodaConfig(
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(false),
       speaker_change_detection(false),
-      include_logging_output(false) {}
+      include_logging_output(false),
+      multi_lang_config() {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -128,7 +172,8 @@ SodaConfig::SodaConfig(
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(std::move(mask_offensive_words_in)),
       speaker_change_detection(false),
-      include_logging_output(false) {}
+      include_logging_output(false),
+      multi_lang_config() {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -149,7 +194,8 @@ SodaConfig::SodaConfig(
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(std::move(mask_offensive_words_in)),
       speaker_change_detection(std::move(speaker_change_detection_in)),
-      include_logging_output(false) {}
+      include_logging_output(false),
+      multi_lang_config() {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -171,22 +217,34 @@ SodaConfig::SodaConfig(
       recognition_mode(std::move(recognition_mode_in)),
       mask_offensive_words(std::move(mask_offensive_words_in)),
       speaker_change_detection(std::move(speaker_change_detection_in)),
-      include_logging_output(std::move(include_logging_output_in)) {}
+      include_logging_output(std::move(include_logging_output_in)),
+      multi_lang_config() {}
+
+SodaConfig::SodaConfig(
+    uint32_t channel_count_in,
+    uint32_t sample_rate_in,
+    const std::string& api_key_in,
+    const std::string& library_dlc_path_in,
+    const std::string& language_dlc_path_in,
+    OptionalBool enable_formatting_in,
+    SodaRecognitionMode recognition_mode_in,
+    bool mask_offensive_words_in,
+    bool speaker_change_detection_in,
+    bool include_logging_output_in,
+    SodaMultilangConfigPtr multi_lang_config_in)
+    : channel_count(std::move(channel_count_in)),
+      sample_rate(std::move(sample_rate_in)),
+      api_key(std::move(api_key_in)),
+      library_dlc_path(std::move(library_dlc_path_in)),
+      language_dlc_path(std::move(language_dlc_path_in)),
+      enable_formatting(std::move(enable_formatting_in)),
+      recognition_mode(std::move(recognition_mode_in)),
+      mask_offensive_words(std::move(mask_offensive_words_in)),
+      speaker_change_detection(std::move(speaker_change_detection_in)),
+      include_logging_output(std::move(include_logging_output_in)),
+      multi_lang_config(std::move(multi_lang_config_in)) {}
 
 SodaConfig::~SodaConfig() = default;
-size_t SodaConfig::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->channel_count);
-  seed = mojo::internal::Hash(seed, this->sample_rate);
-  seed = mojo::internal::Hash(seed, this->api_key);
-  seed = mojo::internal::Hash(seed, this->library_dlc_path);
-  seed = mojo::internal::Hash(seed, this->language_dlc_path);
-  seed = mojo::internal::Hash(seed, this->enable_formatting);
-  seed = mojo::internal::Hash(seed, this->recognition_mode);
-  seed = mojo::internal::Hash(seed, this->mask_offensive_words);
-  seed = mojo::internal::Hash(seed, this->speaker_change_detection);
-  seed = mojo::internal::Hash(seed, this->include_logging_output);
-  return seed;
-}
 
 void SodaConfig::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -277,6 +335,15 @@ void SodaConfig::WriteIntoTrace(
       "include_logging_output"), this->include_logging_output,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "multi_lang_config"), this->multi_lang_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SodaMultilangConfigPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -626,6 +693,64 @@ bool AudioLevelEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+LangIdEvent::LangIdEvent()
+    : language(),
+      confidence_level(),
+      asr_switch_result() {}
+
+LangIdEvent::LangIdEvent(
+    const std::string& language_in,
+    int32_t confidence_level_in,
+    AsrSwitchResult asr_switch_result_in)
+    : language(std::move(language_in)),
+      confidence_level(std::move(confidence_level_in)),
+      asr_switch_result(std::move(asr_switch_result_in)) {}
+
+LangIdEvent::~LangIdEvent() = default;
+size_t LangIdEvent::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->language);
+  seed = mojo::internal::Hash(seed, this->confidence_level);
+  seed = mojo::internal::Hash(seed, this->asr_switch_result);
+  return seed;
+}
+
+void LangIdEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "language"), this->language,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "confidence_level"), this->confidence_level,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "asr_switch_result"), this->asr_switch_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AsrSwitchResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LangIdEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 SpeechRecognizerEvent::SpeechRecognizerEvent() : tag_(Tag::kAudioEvent) {
   data_.audio_event = new AudioLevelEventPtr;
 }
@@ -679,6 +804,17 @@ void SpeechRecognizerEvent::set_final_result(
         std::move(final_result));
   }
 }
+void SpeechRecognizerEvent::set_langid_event(
+    LangIdEventPtr langid_event) {
+  if (tag_ == Tag::kLangidEvent) {
+    *(data_.langid_event) = std::move(langid_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLangidEvent;
+    data_.langid_event = new LangIdEventPtr(
+        std::move(langid_event));
+  }
+}
 
 void SpeechRecognizerEvent::DestroyActive() {
   switch (tag_) {
@@ -698,6 +834,10 @@ void SpeechRecognizerEvent::DestroyActive() {
     case Tag::kFinalResult:
 
       delete data_.final_result;
+      break;
+    case Tag::kLangidEvent:
+
+      delete data_.langid_event;
       break;
   }
 }
@@ -933,6 +1073,8 @@ bool SodaClientStubDispatch::Accept(
           reinterpret_cast<internal::SodaClient_OnStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaClient.0
       bool success = true;
       SodaClient_OnStart_ParamsDataView input_data_view(params, message);
       
@@ -945,7 +1087,7 @@ bool SodaClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStart();
+      impl->OnStart(        );
       return true;
     }
     case internal::kSodaClient_OnStop_Name: {
@@ -955,6 +1097,8 @@ bool SodaClientStubDispatch::Accept(
           reinterpret_cast<internal::SodaClient_OnStop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaClient.1
       bool success = true;
       SodaClient_OnStop_ParamsDataView input_data_view(params, message);
       
@@ -967,7 +1111,7 @@ bool SodaClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStop();
+      impl->OnStop(        );
       return true;
     }
     case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
@@ -977,6 +1121,8 @@ bool SodaClientStubDispatch::Accept(
           reinterpret_cast<internal::SodaClient_OnSpeechRecognizerEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaClient.2
       bool success = true;
       SpeechRecognizerEventPtr p_event{};
       SodaClient_OnSpeechRecognizerEvent_ParamsDataView input_data_view(params, message);
@@ -992,8 +1138,8 @@ bool SodaClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRecognizerEvent(
-std::move(p_event));
+      impl->OnSpeechRecognizerEvent(        
+        std::move(p_event));
       return true;
     }
   }
@@ -1320,6 +1466,8 @@ bool SodaRecognizerStubDispatch::Accept(
           reinterpret_cast<internal::SodaRecognizer_AddAudio_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaRecognizer.0
       bool success = true;
       std::vector<uint8_t> p_audio{};
       SodaRecognizer_AddAudio_ParamsDataView input_data_view(params, message);
@@ -1335,8 +1483,8 @@ bool SodaRecognizerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAudio(
-std::move(p_audio));
+      impl->AddAudio(        
+        std::move(p_audio));
       return true;
     }
     case internal::kSodaRecognizer_Stop_Name: {
@@ -1346,6 +1494,8 @@ std::move(p_audio));
           reinterpret_cast<internal::SodaRecognizer_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaRecognizer.1
       bool success = true;
       SodaRecognizer_Stop_ParamsDataView input_data_view(params, message);
       
@@ -1358,7 +1508,7 @@ std::move(p_audio));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kSodaRecognizer_Start_Name: {
@@ -1368,6 +1518,8 @@ std::move(p_audio));
           reinterpret_cast<internal::SodaRecognizer_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaRecognizer.2
       bool success = true;
       SodaRecognizer_Start_ParamsDataView input_data_view(params, message);
       
@@ -1380,7 +1532,7 @@ std::move(p_audio));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start();
+      impl->Start(        );
       return true;
     }
     case internal::kSodaRecognizer_MarkDone_Name: {
@@ -1390,6 +1542,8 @@ std::move(p_audio));
           reinterpret_cast<internal::SodaRecognizer_MarkDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SodaRecognizer.3
       bool success = true;
       SodaRecognizer_MarkDone_ParamsDataView input_data_view(params, message);
       
@@ -1402,7 +1556,7 @@ std::move(p_audio));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MarkDone();
+      impl->MarkDone(        );
       return true;
     }
   }
@@ -1460,6 +1614,22 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::chromeos::machine_learning::mojom::SodaMultilangConfig::DataView, ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr>::Read(
+    ::chromeos::machine_learning::mojom::SodaMultilangConfig::DataView input,
+    ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr* output) {
+  bool success = true;
+  ::chromeos::machine_learning::mojom::SodaMultilangConfigPtr result(::chromeos::machine_learning::mojom::SodaMultilangConfig::New());
+  
+      if (success)
+        result->rewind_when_switching_language = input.rewind_when_switching_language();
+      if (success && !input.ReadLocaleToLanguagePackMap(&result->locale_to_language_pack_map))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::chromeos::machine_learning::mojom::SodaConfig::DataView, ::chromeos::machine_learning::mojom::SodaConfigPtr>::Read(
     ::chromeos::machine_learning::mojom::SodaConfig::DataView input,
     ::chromeos::machine_learning::mojom::SodaConfigPtr* output) {
@@ -1486,6 +1656,8 @@ bool StructTraits<::chromeos::machine_learning::mojom::SodaConfig::DataView, ::c
         result->speaker_change_detection = input.speaker_change_detection();
       if (success)
         result->include_logging_output = input.include_logging_output();
+      if (success && !input.ReadMultiLangConfig(&result->multi_lang_config))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -1600,6 +1772,24 @@ bool StructTraits<::chromeos::machine_learning::mojom::AudioLevelEvent::DataView
   return success;
 }
 
+
+// static
+bool StructTraits<::chromeos::machine_learning::mojom::LangIdEvent::DataView, ::chromeos::machine_learning::mojom::LangIdEventPtr>::Read(
+    ::chromeos::machine_learning::mojom::LangIdEvent::DataView input,
+    ::chromeos::machine_learning::mojom::LangIdEventPtr* output) {
+  bool success = true;
+  ::chromeos::machine_learning::mojom::LangIdEventPtr result(::chromeos::machine_learning::mojom::LangIdEvent::New());
+  
+      if (success && !input.ReadLanguage(&result->language))
+        success = false;
+      if (success)
+        result->confidence_level = input.confidence_level();
+      if (success && !input.ReadAsrSwitchResult(&result->asr_switch_result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::DataView, ::chromeos::machine_learning::mojom::SpeechRecognizerEventPtr>::Read(
     ::chromeos::machine_learning::mojom::SpeechRecognizerEvent::DataView input,
@@ -1642,6 +1832,15 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
 
       *output = UnionType::NewFinalResult(
           std::move(result_final_result));
+      break;
+    }
+    case Tag::kLangidEvent: {
+      ::chromeos::machine_learning::mojom::LangIdEventPtr result_langid_event;
+      if (!input.ReadLangidEvent(&result_langid_event))
+        return false;
+
+      *output = UnionType::NewLangidEvent(
+          std::move(result_langid_event));
       break;
     }
     default:

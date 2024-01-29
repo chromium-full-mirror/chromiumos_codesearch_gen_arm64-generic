@@ -19,7 +19,7 @@ describeWithMockConnection('LighthouseController', () => {
             const serviceWorkerManager = target.model(SDK.ServiceWorkerManager.ServiceWorkerManager);
             assertNotNullOrUndefined(serviceWorkerManager);
             const pageAuditabilityChange = controller.once(LighthouseModule.LighthouseController.Events.PageAuditabilityChanged);
-            serviceWorkerManager.dispatchEventToListeners(SDK.ServiceWorkerManager.Events.RegistrationUpdated, {});
+            serviceWorkerManager.dispatchEventToListeners("RegistrationUpdated" /* SDK.ServiceWorkerManager.Events.RegistrationUpdated */, {});
             await pageAuditabilityChange;
         });
     };

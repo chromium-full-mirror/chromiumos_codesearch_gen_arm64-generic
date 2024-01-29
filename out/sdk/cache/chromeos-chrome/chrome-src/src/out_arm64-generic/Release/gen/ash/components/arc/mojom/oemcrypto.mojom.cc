@@ -8167,6 +8167,8 @@ bool OemCryptoService_InitializeDeprecated_ForwardToCallback::Accept(
           internal::OemCryptoService_InitializeDeprecated_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.0
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_InitializeDeprecated_ResponseParamsDataView input_data_view(params, message);
@@ -8287,6 +8289,8 @@ bool OemCryptoService_Initialize_ForwardToCallback::Accept(
           internal::OemCryptoService_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.36
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -8407,6 +8411,8 @@ bool OemCryptoService_Terminate_ForwardToCallback::Accept(
           internal::OemCryptoService_Terminate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.1
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_Terminate_ResponseParamsDataView input_data_view(params, message);
@@ -8527,6 +8533,8 @@ bool OemCryptoService_OpenSession_ForwardToCallback::Accept(
           internal::OemCryptoService_OpenSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.2
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_session{};
@@ -8655,6 +8663,8 @@ bool OemCryptoService_CloseSession_ForwardToCallback::Accept(
           internal::OemCryptoService_CloseSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.3
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_CloseSession_ResponseParamsDataView input_data_view(params, message);
@@ -8775,6 +8785,8 @@ bool OemCryptoService_GenerateDerivedKeys_ForwardToCallback::Accept(
           internal::OemCryptoService_GenerateDerivedKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.4
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_GenerateDerivedKeys_ResponseParamsDataView input_data_view(params, message);
@@ -8895,6 +8907,8 @@ bool OemCryptoService_GenerateNonce_ForwardToCallback::Accept(
           internal::OemCryptoService_GenerateNonce_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.5
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_nonce{};
@@ -9023,6 +9037,8 @@ bool OemCryptoService_GenerateSignature_ForwardToCallback::Accept(
           internal::OemCryptoService_GenerateSignature_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.6
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_signature{};
@@ -9159,6 +9175,8 @@ bool OemCryptoService_LoadKeysV11OrV12_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadKeysV11OrV12_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.7
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadKeysV11OrV12_ResponseParamsDataView input_data_view(params, message);
@@ -9279,6 +9297,8 @@ bool OemCryptoService_RefreshKeysV14_ForwardToCallback::Accept(
           internal::OemCryptoService_RefreshKeysV14_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.8
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_RefreshKeysV14_ResponseParamsDataView input_data_view(params, message);
@@ -9399,6 +9419,8 @@ bool OemCryptoService_QueryKeyControl_ForwardToCallback::Accept(
           internal::OemCryptoService_QueryKeyControl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.9
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_key_control_block{};
@@ -9535,6 +9557,8 @@ bool OemCryptoService_SelectKeyV13_ForwardToCallback::Accept(
           internal::OemCryptoService_SelectKeyV13_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.10
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_SelectKeyV13_ResponseParamsDataView input_data_view(params, message);
@@ -9655,6 +9679,8 @@ bool OemCryptoService_DecryptCencV15_ForwardToCallback::Accept(
           internal::OemCryptoService_DecryptCencV15_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.11
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_decrypted_data{};
@@ -9791,6 +9817,8 @@ bool OemCryptoService_GenericEncrypt_ForwardToCallback::Accept(
           internal::OemCryptoService_GenericEncrypt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.12
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_encrypted_data{};
@@ -9927,6 +9955,8 @@ bool OemCryptoService_GenericDecrypt_ForwardToCallback::Accept(
           internal::OemCryptoService_GenericDecrypt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.13
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_decrypted_data{};
@@ -10063,6 +10093,8 @@ bool OemCryptoService_GenericSign_ForwardToCallback::Accept(
           internal::OemCryptoService_GenericSign_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.14
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_signature{};
@@ -10199,6 +10231,8 @@ bool OemCryptoService_GenericVerify_ForwardToCallback::Accept(
           internal::OemCryptoService_GenericVerify_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.15
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_GenericVerify_ResponseParamsDataView input_data_view(params, message);
@@ -10319,6 +10353,8 @@ bool OemCryptoService_CopyBufferV14_ForwardToCallback::Accept(
           internal::OemCryptoService_CopyBufferV14_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.16
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_CopyBufferV14_ResponseParamsDataView input_data_view(params, message);
@@ -10439,6 +10475,8 @@ bool OemCryptoService_LoadTestKeyboxV13_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadTestKeyboxV13_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.17
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadTestKeyboxV13_ResponseParamsDataView input_data_view(params, message);
@@ -10559,6 +10597,8 @@ bool OemCryptoService_IsRootKeyCertificateValid_ForwardToCallback::Accept(
           internal::OemCryptoService_IsRootKeyCertificateValid_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.18
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_IsRootKeyCertificateValid_ResponseParamsDataView input_data_view(params, message);
@@ -10679,6 +10719,8 @@ bool OemCryptoService_GetDeviceId_ForwardToCallback::Accept(
           internal::OemCryptoService_GetDeviceId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.19
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_device_id{};
@@ -10815,6 +10857,8 @@ bool OemCryptoService_GetKeyData_ForwardToCallback::Accept(
           internal::OemCryptoService_GetKeyData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.20
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_key_data{};
@@ -10951,6 +10995,8 @@ bool OemCryptoService_GetRandom_ForwardToCallback::Accept(
           internal::OemCryptoService_GetRandom_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.21
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_data{};
@@ -11087,6 +11133,8 @@ bool OemCryptoService_GetNumberOfOpenSessions_ForwardToCallback::Accept(
           internal::OemCryptoService_GetNumberOfOpenSessions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.22
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_num{};
@@ -11215,6 +11263,8 @@ bool OemCryptoService_GetMaxNumberOfSessions_ForwardToCallback::Accept(
           internal::OemCryptoService_GetMaxNumberOfSessions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.23
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_max{};
@@ -11343,6 +11393,8 @@ bool OemCryptoService_RewrapDeviceRsaKey_ForwardToCallback::Accept(
           internal::OemCryptoService_RewrapDeviceRsaKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.24
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_wrapped_key{};
@@ -11479,6 +11531,8 @@ bool OemCryptoService_LoadDeviceRsaKey_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadDeviceRsaKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.25
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadDeviceRsaKey_ResponseParamsDataView input_data_view(params, message);
@@ -11599,6 +11653,8 @@ bool OemCryptoService_GenerateRsaSignature_ForwardToCallback::Accept(
           internal::OemCryptoService_GenerateRsaSignature_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.26
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_signature{};
@@ -11735,6 +11791,8 @@ bool OemCryptoService_DeriveKeysFromSessionKey_ForwardToCallback::Accept(
           internal::OemCryptoService_DeriveKeysFromSessionKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.27
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_DeriveKeysFromSessionKey_ResponseParamsDataView input_data_view(params, message);
@@ -11855,6 +11913,8 @@ bool OemCryptoService_SecurityPatchLevel_ForwardToCallback::Accept(
           internal::OemCryptoService_SecurityPatchLevel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.28
   bool success = true;
   uint8_t p_security_patch_level{};
   OemCryptoService_SecurityPatchLevel_ResponseParamsDataView input_data_view(params, message);
@@ -11974,6 +12034,8 @@ bool OemCryptoService_GetHdcpCapability_ForwardToCallback::Accept(
           internal::OemCryptoService_GetHdcpCapability_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.29
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoHdcpCapability p_current{};
@@ -12112,6 +12174,8 @@ bool OemCryptoService_UpdateUsageTable_ForwardToCallback::Accept(
           internal::OemCryptoService_UpdateUsageTable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.30
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_UpdateUsageTable_ResponseParamsDataView input_data_view(params, message);
@@ -12232,6 +12296,8 @@ bool OemCryptoService_DeactivateUsageEntryV12_ForwardToCallback::Accept(
           internal::OemCryptoService_DeactivateUsageEntryV12_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.31
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_DeactivateUsageEntryV12_ResponseParamsDataView input_data_view(params, message);
@@ -12352,6 +12418,8 @@ bool OemCryptoService_ReportUsage_ForwardToCallback::Accept(
           internal::OemCryptoService_ReportUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.32
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoPstReportPtr p_report{};
@@ -12486,6 +12554,8 @@ bool OemCryptoService_DeleteUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_DeleteUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.33
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_DeleteUsageEntry_ResponseParamsDataView input_data_view(params, message);
@@ -12606,6 +12676,8 @@ bool OemCryptoService_ForceDeleteUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_ForceDeleteUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.34
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_ForceDeleteUsageEntry_ResponseParamsDataView input_data_view(params, message);
@@ -12726,6 +12798,8 @@ bool OemCryptoService_DeleteOldUsageTable_ForwardToCallback::Accept(
           internal::OemCryptoService_DeleteOldUsageTable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.35
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_DeleteOldUsageTable_ResponseParamsDataView input_data_view(params, message);
@@ -12846,6 +12920,8 @@ bool OemCryptoService_GetProvisioningMethod_ForwardToCallback::Accept(
           internal::OemCryptoService_GetProvisioningMethod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.37
   bool success = true;
   OemCryptoProvisioningMethod p_result{};
   OemCryptoService_GetProvisioningMethod_ResponseParamsDataView input_data_view(params, message);
@@ -12966,6 +13042,8 @@ bool OemCryptoService_SupportedCertificates_ForwardToCallback::Accept(
           internal::OemCryptoService_SupportedCertificates_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.38
   bool success = true;
   uint32_t p_result{};
   OemCryptoService_SupportedCertificates_ResponseParamsDataView input_data_view(params, message);
@@ -13085,6 +13163,8 @@ bool OemCryptoService_IsSrmUpdateSupported_ForwardToCallback::Accept(
           internal::OemCryptoService_IsSrmUpdateSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.39
   bool success = true;
   bool p_result{};
   OemCryptoService_IsSrmUpdateSupported_ResponseParamsDataView input_data_view(params, message);
@@ -13204,6 +13284,8 @@ bool OemCryptoService_GetCurrentSrmVersion_ForwardToCallback::Accept(
           internal::OemCryptoService_GetCurrentSrmVersion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.40
   bool success = true;
   OemCryptoResult p_result{};
   uint16_t p_version{};
@@ -13332,6 +13414,8 @@ bool OemCryptoService_LoadSrm_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadSrm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.41
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadSrm_ResponseParamsDataView input_data_view(params, message);
@@ -13452,6 +13536,8 @@ bool OemCryptoService_RemoveSrm_ForwardToCallback::Accept(
           internal::OemCryptoService_RemoveSrm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.42
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_RemoveSrm_ResponseParamsDataView input_data_view(params, message);
@@ -13572,6 +13658,8 @@ bool OemCryptoService_CreateUsageTableHeader_ForwardToCallback::Accept(
           internal::OemCryptoService_CreateUsageTableHeader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.43
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_header{};
@@ -13708,6 +13796,8 @@ bool OemCryptoService_LoadUsageTableHeader_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadUsageTableHeader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.44
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadUsageTableHeader_ResponseParamsDataView input_data_view(params, message);
@@ -13828,6 +13918,8 @@ bool OemCryptoService_CreateNewUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_CreateNewUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.45
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_usage_entry_number{};
@@ -13956,6 +14048,8 @@ bool OemCryptoService_LoadUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.46
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadUsageEntry_ResponseParamsDataView input_data_view(params, message);
@@ -14076,6 +14170,8 @@ bool OemCryptoService_UpdateUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_UpdateUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.47
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_header{};
@@ -14228,6 +14324,8 @@ bool OemCryptoService_DeactivateUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_DeactivateUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.48
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_DeactivateUsageEntry_ResponseParamsDataView input_data_view(params, message);
@@ -14348,6 +14446,8 @@ bool OemCryptoService_ShrinkUsageTableHeader_ForwardToCallback::Accept(
           internal::OemCryptoService_ShrinkUsageTableHeader_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.49
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_header{};
@@ -14484,6 +14584,8 @@ bool OemCryptoService_MoveEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_MoveEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.50
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_MoveEntry_ResponseParamsDataView input_data_view(params, message);
@@ -14604,6 +14706,8 @@ bool OemCryptoService_CopyOldUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_CopyOldUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.51
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_CopyOldUsageEntry_ResponseParamsDataView input_data_view(params, message);
@@ -14724,6 +14828,8 @@ bool OemCryptoService_CreateOldUsageEntry_ForwardToCallback::Accept(
           internal::OemCryptoService_CreateOldUsageEntry_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.52
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_CreateOldUsageEntry_ResponseParamsDataView input_data_view(params, message);
@@ -14844,6 +14950,8 @@ bool OemCryptoService_GetAnalogOutputFlags_ForwardToCallback::Accept(
           internal::OemCryptoService_GetAnalogOutputFlags_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.53
   bool success = true;
   uint32_t p_result{};
   OemCryptoService_GetAnalogOutputFlags_ResponseParamsDataView input_data_view(params, message);
@@ -14963,6 +15071,8 @@ bool OemCryptoService_LoadTestKeybox_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadTestKeybox_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.54
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadTestKeybox_ResponseParamsDataView input_data_view(params, message);
@@ -15083,6 +15193,8 @@ bool OemCryptoService_LoadEntitledContentKeysV14_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadEntitledContentKeysV14_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.55
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadEntitledContentKeysV14_ResponseParamsDataView input_data_view(params, message);
@@ -15203,6 +15315,8 @@ bool OemCryptoService_SelectKey_ForwardToCallback::Accept(
           internal::OemCryptoService_SelectKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.56
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_SelectKey_ResponseParamsDataView input_data_view(params, message);
@@ -15323,6 +15437,8 @@ bool OemCryptoService_LoadKeysV14_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadKeysV14_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.57
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadKeysV14_ResponseParamsDataView input_data_view(params, message);
@@ -15443,6 +15559,8 @@ bool OemCryptoService_LoadKeys_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.58
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadKeys_ResponseParamsDataView input_data_view(params, message);
@@ -15563,6 +15681,8 @@ bool OemCryptoService_ResourceRatingTier_ForwardToCallback::Accept(
           internal::OemCryptoService_ResourceRatingTier_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.59
   bool success = true;
   uint32_t p_rating_tier{};
   OemCryptoService_ResourceRatingTier_ResponseParamsDataView input_data_view(params, message);
@@ -15682,6 +15802,8 @@ bool OemCryptoService_BuildInformation_ForwardToCallback::Accept(
           internal::OemCryptoService_BuildInformation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.60
   bool success = true;
   std::string p_build_information{};
   OemCryptoService_BuildInformation_ResponseParamsDataView input_data_view(params, message);
@@ -15811,6 +15933,8 @@ bool OemCryptoService_RefreshKeys_ForwardToCallback::Accept(
           internal::OemCryptoService_RefreshKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.61
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_RefreshKeys_ResponseParamsDataView input_data_view(params, message);
@@ -15931,6 +16055,8 @@ bool OemCryptoService_LoadEntitledContentKeys_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadEntitledContentKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.62
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadEntitledContentKeys_ResponseParamsDataView input_data_view(params, message);
@@ -16051,6 +16177,8 @@ bool OemCryptoService_GetOemPublicCertificate_ForwardToCallback::Accept(
           internal::OemCryptoService_GetOemPublicCertificate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.63
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_public_cert{};
@@ -16187,6 +16315,8 @@ bool OemCryptoService_MaximumUsageTableHeaderSize_ForwardToCallback::Accept(
           internal::OemCryptoService_MaximumUsageTableHeaderSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.64
   bool success = true;
   uint32_t p_size{};
   OemCryptoService_MaximumUsageTableHeaderSize_ResponseParamsDataView input_data_view(params, message);
@@ -16306,6 +16436,8 @@ bool OemCryptoService_IsAntiRollbackHwPresent_ForwardToCallback::Accept(
           internal::OemCryptoService_IsAntiRollbackHwPresent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.65
   bool success = true;
   bool p_result{};
   OemCryptoService_IsAntiRollbackHwPresent_ResponseParamsDataView input_data_view(params, message);
@@ -16425,6 +16557,8 @@ bool OemCryptoService_MinorApiVersion_ForwardToCallback::Accept(
           internal::OemCryptoService_MinorApiVersion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.66
   bool success = true;
   uint32_t p_version{};
   OemCryptoService_MinorApiVersion_ResponseParamsDataView input_data_view(params, message);
@@ -16544,6 +16678,8 @@ bool OemCryptoService_PrepAndSignLicenseRequest_ForwardToCallback::Accept(
           internal::OemCryptoService_PrepAndSignLicenseRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.67
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_core_message_size{};
@@ -16704,6 +16840,8 @@ bool OemCryptoService_PrepAndSignRenewalRequest_ForwardToCallback::Accept(
           internal::OemCryptoService_PrepAndSignRenewalRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.68
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_core_message_size{};
@@ -16864,6 +17002,8 @@ bool OemCryptoService_PrepAndSignProvisioningRequest_ForwardToCallback::Accept(
           internal::OemCryptoService_PrepAndSignProvisioningRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.69
   bool success = true;
   OemCryptoResult p_result{};
   uint32_t p_core_message_size{};
@@ -17024,6 +17164,8 @@ bool OemCryptoService_LoadLicense_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadLicense_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.70
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadLicense_ResponseParamsDataView input_data_view(params, message);
@@ -17144,6 +17286,8 @@ bool OemCryptoService_LoadRenewal_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadRenewal_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.71
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadRenewal_ResponseParamsDataView input_data_view(params, message);
@@ -17264,6 +17408,8 @@ bool OemCryptoService_LoadProvisioning_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadProvisioning_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.72
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_wrapped_private_key{};
@@ -17400,6 +17546,8 @@ bool OemCryptoService_LoadOemPrivateKey_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadOemPrivateKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.73
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadOemPrivateKey_ResponseParamsDataView input_data_view(params, message);
@@ -17520,6 +17668,8 @@ bool OemCryptoService_LoadDrmPrivateKey_ForwardToCallback::Accept(
           internal::OemCryptoService_LoadDrmPrivateKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.74
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_LoadDrmPrivateKey_ResponseParamsDataView input_data_view(params, message);
@@ -17640,6 +17790,8 @@ bool OemCryptoService_DecryptCenc_ForwardToCallback::Accept(
           internal::OemCryptoService_DecryptCenc_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.75
   bool success = true;
   OemCryptoResult p_result{};
   std::optional<std::vector<uint8_t>> p_decrypted_data{};
@@ -17776,6 +17928,8 @@ bool OemCryptoService_CopyBuffer_ForwardToCallback::Accept(
           internal::OemCryptoService_CopyBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoService.76
   bool success = true;
   OemCryptoResult p_result{};
   OemCryptoService_CopyBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -18095,6 +18249,8 @@ bool OemCryptoServiceStubDispatch::AcceptWithResponder(
               internal::OemCryptoService_InitializeDeprecated_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.0
       bool success = true;
       OemCryptoService_InitializeDeprecated_ParamsDataView input_data_view(params, message);
       
@@ -18120,6 +18276,8 @@ bool OemCryptoServiceStubDispatch::AcceptWithResponder(
               internal::OemCryptoService_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.36
       bool success = true;
       uint32_t p_oemcrypto_version{};
       OemCryptoService_Initialize_ParamsDataView input_data_view(params, message);
@@ -18138,8 +18296,8 @@ bool OemCryptoServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_oemcrypto_version), std::move(callback));
+      impl->Initialize(        
+        std::move(p_oemcrypto_version), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_Terminate_Name: {
@@ -18149,6 +18307,8 @@ std::move(p_oemcrypto_version), std::move(callback));
               internal::OemCryptoService_Terminate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.1
       bool success = true;
       OemCryptoService_Terminate_ParamsDataView input_data_view(params, message);
       
@@ -18174,6 +18334,8 @@ std::move(p_oemcrypto_version), std::move(callback));
               internal::OemCryptoService_OpenSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.2
       bool success = true;
       OemCryptoService_OpenSession_ParamsDataView input_data_view(params, message);
       
@@ -18199,6 +18361,8 @@ std::move(p_oemcrypto_version), std::move(callback));
               internal::OemCryptoService_CloseSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.3
       bool success = true;
       uint32_t p_session{};
       OemCryptoService_CloseSession_ParamsDataView input_data_view(params, message);
@@ -18217,8 +18381,8 @@ std::move(p_oemcrypto_version), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseSession(
-std::move(p_session), std::move(callback));
+      impl->CloseSession(        
+        std::move(p_session), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenerateDerivedKeys_Name: {
@@ -18228,6 +18392,8 @@ std::move(p_session), std::move(callback));
               internal::OemCryptoService_GenerateDerivedKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.4
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_mac_key_context{};
@@ -18252,10 +18418,10 @@ std::move(p_session), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateDerivedKeys(
-std::move(p_session), 
-std::move(p_mac_key_context), 
-std::move(p_enc_key_context), std::move(callback));
+      impl->GenerateDerivedKeys(        
+        std::move(p_session), 
+        std::move(p_mac_key_context), 
+        std::move(p_enc_key_context), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenerateNonce_Name: {
@@ -18265,6 +18431,8 @@ std::move(p_enc_key_context), std::move(callback));
               internal::OemCryptoService_GenerateNonce_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.5
       bool success = true;
       uint32_t p_session{};
       OemCryptoService_GenerateNonce_ParamsDataView input_data_view(params, message);
@@ -18283,8 +18451,8 @@ std::move(p_enc_key_context), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateNonce(
-std::move(p_session), std::move(callback));
+      impl->GenerateNonce(        
+        std::move(p_session), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenerateSignature_Name: {
@@ -18294,6 +18462,8 @@ std::move(p_session), std::move(callback));
               internal::OemCryptoService_GenerateSignature_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.6
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -18315,9 +18485,9 @@ std::move(p_session), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateSignature(
-std::move(p_session), 
-std::move(p_message), std::move(callback));
+      impl->GenerateSignature(        
+        std::move(p_session), 
+        std::move(p_message), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadKeysV11OrV12_Name: {
@@ -18327,6 +18497,8 @@ std::move(p_message), std::move(callback));
               internal::OemCryptoService_LoadKeysV11OrV12_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.7
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -18369,16 +18541,16 @@ std::move(p_message), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadKeysV11OrV12(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_signature), 
-std::move(p_has_enc_mac_keys), 
-std::move(p_enc_mac_keys_iv_offset), 
-std::move(p_enc_mac_keys_offset), 
-std::move(p_key_array), 
-std::move(p_pst_offset), 
-std::move(p_pst_length), std::move(callback));
+      impl->LoadKeysV11OrV12(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_signature), 
+        std::move(p_has_enc_mac_keys), 
+        std::move(p_enc_mac_keys_iv_offset), 
+        std::move(p_enc_mac_keys_offset), 
+        std::move(p_key_array), 
+        std::move(p_pst_offset), 
+        std::move(p_pst_length), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_RefreshKeysV14_Name: {
@@ -18388,6 +18560,8 @@ std::move(p_pst_length), std::move(callback));
               internal::OemCryptoService_RefreshKeysV14_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.8
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -18415,11 +18589,11 @@ std::move(p_pst_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RefreshKeysV14(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_signature), 
-std::move(p_key_array), std::move(callback));
+      impl->RefreshKeysV14(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_signature), 
+        std::move(p_key_array), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_QueryKeyControl_Name: {
@@ -18429,6 +18603,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_QueryKeyControl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.9
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_key_id{};
@@ -18450,9 +18626,9 @@ std::move(p_key_array), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueryKeyControl(
-std::move(p_session), 
-std::move(p_key_id), std::move(callback));
+      impl->QueryKeyControl(        
+        std::move(p_session), 
+        std::move(p_key_id), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_SelectKeyV13_Name: {
@@ -18462,6 +18638,8 @@ std::move(p_key_id), std::move(callback));
               internal::OemCryptoService_SelectKeyV13_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.10
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_key_id{};
@@ -18483,9 +18661,9 @@ std::move(p_key_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectKeyV13(
-std::move(p_session), 
-std::move(p_key_id), std::move(callback));
+      impl->SelectKeyV13(        
+        std::move(p_session), 
+        std::move(p_key_id), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_DecryptCencV15_Name: {
@@ -18495,6 +18673,8 @@ std::move(p_key_id), std::move(callback));
               internal::OemCryptoService_DecryptCencV15_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.11
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -18531,14 +18711,14 @@ std::move(p_key_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecryptCencV15(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_is_encrypted), 
-std::move(p_iv), 
-std::move(p_block_offset), 
-std::move(p_secure_buffer), 
-std::move(p_pattern), std::move(callback));
+      impl->DecryptCencV15(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_is_encrypted), 
+        std::move(p_iv), 
+        std::move(p_block_offset), 
+        std::move(p_secure_buffer), 
+        std::move(p_pattern), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenericEncrypt_Name: {
@@ -18548,6 +18728,8 @@ std::move(p_pattern), std::move(callback));
               internal::OemCryptoService_GenericEncrypt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.12
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -18575,11 +18757,11 @@ std::move(p_pattern), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenericEncrypt(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_iv), 
-std::move(p_algorithm), std::move(callback));
+      impl->GenericEncrypt(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_iv), 
+        std::move(p_algorithm), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenericDecrypt_Name: {
@@ -18589,6 +18771,8 @@ std::move(p_algorithm), std::move(callback));
               internal::OemCryptoService_GenericDecrypt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.13
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -18616,11 +18800,11 @@ std::move(p_algorithm), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenericDecrypt(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_iv), 
-std::move(p_algorithm), std::move(callback));
+      impl->GenericDecrypt(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_iv), 
+        std::move(p_algorithm), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenericSign_Name: {
@@ -18630,6 +18814,8 @@ std::move(p_algorithm), std::move(callback));
               internal::OemCryptoService_GenericSign_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.14
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -18654,10 +18840,10 @@ std::move(p_algorithm), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenericSign(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_algorithm), std::move(callback));
+      impl->GenericSign(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_algorithm), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenericVerify_Name: {
@@ -18667,6 +18853,8 @@ std::move(p_algorithm), std::move(callback));
               internal::OemCryptoService_GenericVerify_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.15
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -18694,11 +18882,11 @@ std::move(p_algorithm), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenericVerify(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_algorithm), 
-std::move(p_signature), std::move(callback));
+      impl->GenericVerify(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_algorithm), 
+        std::move(p_signature), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_CopyBufferV14_Name: {
@@ -18708,6 +18896,8 @@ std::move(p_signature), std::move(callback));
               internal::OemCryptoService_CopyBufferV14_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.16
       bool success = true;
       std::vector<uint8_t> p_data{};
       OemCryptoSecureBufferPtr p_out_buffer{};
@@ -18729,9 +18919,9 @@ std::move(p_signature), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyBufferV14(
-std::move(p_data), 
-std::move(p_out_buffer), std::move(callback));
+      impl->CopyBufferV14(        
+        std::move(p_data), 
+        std::move(p_out_buffer), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadTestKeyboxV13_Name: {
@@ -18741,6 +18931,8 @@ std::move(p_out_buffer), std::move(callback));
               internal::OemCryptoService_LoadTestKeyboxV13_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.17
       bool success = true;
       OemCryptoService_LoadTestKeyboxV13_ParamsDataView input_data_view(params, message);
       
@@ -18766,6 +18958,8 @@ std::move(p_out_buffer), std::move(callback));
               internal::OemCryptoService_IsRootKeyCertificateValid_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.18
       bool success = true;
       OemCryptoService_IsRootKeyCertificateValid_ParamsDataView input_data_view(params, message);
       
@@ -18791,6 +18985,8 @@ std::move(p_out_buffer), std::move(callback));
               internal::OemCryptoService_GetDeviceId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.19
       bool success = true;
       OemCryptoService_GetDeviceId_ParamsDataView input_data_view(params, message);
       
@@ -18816,6 +19012,8 @@ std::move(p_out_buffer), std::move(callback));
               internal::OemCryptoService_GetKeyData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.20
       bool success = true;
       OemCryptoService_GetKeyData_ParamsDataView input_data_view(params, message);
       
@@ -18841,6 +19039,8 @@ std::move(p_out_buffer), std::move(callback));
               internal::OemCryptoService_GetRandom_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.21
       bool success = true;
       uint32_t p_length{};
       OemCryptoService_GetRandom_ParamsDataView input_data_view(params, message);
@@ -18859,8 +19059,8 @@ std::move(p_out_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRandom(
-std::move(p_length), std::move(callback));
+      impl->GetRandom(        
+        std::move(p_length), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GetNumberOfOpenSessions_Name: {
@@ -18870,6 +19070,8 @@ std::move(p_length), std::move(callback));
               internal::OemCryptoService_GetNumberOfOpenSessions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.22
       bool success = true;
       OemCryptoService_GetNumberOfOpenSessions_ParamsDataView input_data_view(params, message);
       
@@ -18895,6 +19097,8 @@ std::move(p_length), std::move(callback));
               internal::OemCryptoService_GetMaxNumberOfSessions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.23
       bool success = true;
       OemCryptoService_GetMaxNumberOfSessions_ParamsDataView input_data_view(params, message);
       
@@ -18920,6 +19124,8 @@ std::move(p_length), std::move(callback));
               internal::OemCryptoService_RewrapDeviceRsaKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.24
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -18956,14 +19162,14 @@ std::move(p_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RewrapDeviceRsaKey(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_signature), 
-std::move(p_nonce_offset), 
-std::move(p_enc_rsa_key_offset), 
-std::move(p_enc_rsa_key_length), 
-std::move(p_enc_rsa_key_iv_offset), std::move(callback));
+      impl->RewrapDeviceRsaKey(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_signature), 
+        std::move(p_nonce_offset), 
+        std::move(p_enc_rsa_key_offset), 
+        std::move(p_enc_rsa_key_length), 
+        std::move(p_enc_rsa_key_iv_offset), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadDeviceRsaKey_Name: {
@@ -18973,6 +19179,8 @@ std::move(p_enc_rsa_key_iv_offset), std::move(callback));
               internal::OemCryptoService_LoadDeviceRsaKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.25
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_wrapped_rsa_key{};
@@ -18994,9 +19202,9 @@ std::move(p_enc_rsa_key_iv_offset), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadDeviceRsaKey(
-std::move(p_session), 
-std::move(p_wrapped_rsa_key), std::move(callback));
+      impl->LoadDeviceRsaKey(        
+        std::move(p_session), 
+        std::move(p_wrapped_rsa_key), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GenerateRsaSignature_Name: {
@@ -19006,6 +19214,8 @@ std::move(p_wrapped_rsa_key), std::move(callback));
               internal::OemCryptoService_GenerateRsaSignature_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.26
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -19030,10 +19240,10 @@ std::move(p_wrapped_rsa_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateRsaSignature(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_padding_scheme), std::move(callback));
+      impl->GenerateRsaSignature(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_padding_scheme), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_DeriveKeysFromSessionKey_Name: {
@@ -19043,6 +19253,8 @@ std::move(p_padding_scheme), std::move(callback));
               internal::OemCryptoService_DeriveKeysFromSessionKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.27
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_enc_session_key{};
@@ -19070,11 +19282,11 @@ std::move(p_padding_scheme), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeriveKeysFromSessionKey(
-std::move(p_session), 
-std::move(p_enc_session_key), 
-std::move(p_mac_key_context), 
-std::move(p_enc_key_context), std::move(callback));
+      impl->DeriveKeysFromSessionKey(        
+        std::move(p_session), 
+        std::move(p_enc_session_key), 
+        std::move(p_mac_key_context), 
+        std::move(p_enc_key_context), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_SecurityPatchLevel_Name: {
@@ -19084,6 +19296,8 @@ std::move(p_enc_key_context), std::move(callback));
               internal::OemCryptoService_SecurityPatchLevel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.28
       bool success = true;
       OemCryptoService_SecurityPatchLevel_ParamsDataView input_data_view(params, message);
       
@@ -19109,6 +19323,8 @@ std::move(p_enc_key_context), std::move(callback));
               internal::OemCryptoService_GetHdcpCapability_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.29
       bool success = true;
       OemCryptoService_GetHdcpCapability_ParamsDataView input_data_view(params, message);
       
@@ -19134,6 +19350,8 @@ std::move(p_enc_key_context), std::move(callback));
               internal::OemCryptoService_UpdateUsageTable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.30
       bool success = true;
       OemCryptoService_UpdateUsageTable_ParamsDataView input_data_view(params, message);
       
@@ -19159,6 +19377,8 @@ std::move(p_enc_key_context), std::move(callback));
               internal::OemCryptoService_DeactivateUsageEntryV12_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.31
       bool success = true;
       std::vector<uint8_t> p_pst{};
       OemCryptoService_DeactivateUsageEntryV12_ParamsDataView input_data_view(params, message);
@@ -19177,8 +19397,8 @@ std::move(p_enc_key_context), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeactivateUsageEntryV12(
-std::move(p_pst), std::move(callback));
+      impl->DeactivateUsageEntryV12(        
+        std::move(p_pst), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_ReportUsage_Name: {
@@ -19188,6 +19408,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_ReportUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.32
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_pst{};
@@ -19209,9 +19431,9 @@ std::move(p_pst), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportUsage(
-std::move(p_session), 
-std::move(p_pst), std::move(callback));
+      impl->ReportUsage(        
+        std::move(p_session), 
+        std::move(p_pst), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_DeleteUsageEntry_Name: {
@@ -19221,6 +19443,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_DeleteUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.33
       bool success = true;
       uint32_t p_session{};
       uint32_t p_pst_offset{};
@@ -19251,12 +19475,12 @@ std::move(p_pst), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteUsageEntry(
-std::move(p_session), 
-std::move(p_pst_offset), 
-std::move(p_pst_length), 
-std::move(p_message), 
-std::move(p_signature), std::move(callback));
+      impl->DeleteUsageEntry(        
+        std::move(p_session), 
+        std::move(p_pst_offset), 
+        std::move(p_pst_length), 
+        std::move(p_message), 
+        std::move(p_signature), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_ForceDeleteUsageEntry_Name: {
@@ -19266,6 +19490,8 @@ std::move(p_signature), std::move(callback));
               internal::OemCryptoService_ForceDeleteUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.34
       bool success = true;
       std::vector<uint8_t> p_pst{};
       OemCryptoService_ForceDeleteUsageEntry_ParamsDataView input_data_view(params, message);
@@ -19284,8 +19510,8 @@ std::move(p_signature), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceDeleteUsageEntry(
-std::move(p_pst), std::move(callback));
+      impl->ForceDeleteUsageEntry(        
+        std::move(p_pst), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_DeleteOldUsageTable_Name: {
@@ -19295,6 +19521,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_DeleteOldUsageTable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.35
       bool success = true;
       OemCryptoService_DeleteOldUsageTable_ParamsDataView input_data_view(params, message);
       
@@ -19320,6 +19548,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_GetProvisioningMethod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.37
       bool success = true;
       OemCryptoService_GetProvisioningMethod_ParamsDataView input_data_view(params, message);
       
@@ -19345,6 +19575,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_SupportedCertificates_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.38
       bool success = true;
       OemCryptoService_SupportedCertificates_ParamsDataView input_data_view(params, message);
       
@@ -19370,6 +19602,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_IsSrmUpdateSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.39
       bool success = true;
       OemCryptoService_IsSrmUpdateSupported_ParamsDataView input_data_view(params, message);
       
@@ -19395,6 +19629,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_GetCurrentSrmVersion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.40
       bool success = true;
       OemCryptoService_GetCurrentSrmVersion_ParamsDataView input_data_view(params, message);
       
@@ -19420,6 +19656,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_LoadSrm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.41
       bool success = true;
       std::vector<uint8_t> p_buffer{};
       OemCryptoService_LoadSrm_ParamsDataView input_data_view(params, message);
@@ -19438,8 +19676,8 @@ std::move(p_pst), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadSrm(
-std::move(p_buffer), std::move(callback));
+      impl->LoadSrm(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_RemoveSrm_Name: {
@@ -19449,6 +19687,8 @@ std::move(p_buffer), std::move(callback));
               internal::OemCryptoService_RemoveSrm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.42
       bool success = true;
       OemCryptoService_RemoveSrm_ParamsDataView input_data_view(params, message);
       
@@ -19474,6 +19714,8 @@ std::move(p_buffer), std::move(callback));
               internal::OemCryptoService_CreateUsageTableHeader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.43
       bool success = true;
       uint32_t p_avail_header_length{};
       OemCryptoService_CreateUsageTableHeader_ParamsDataView input_data_view(params, message);
@@ -19492,8 +19734,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUsageTableHeader(
-std::move(p_avail_header_length), std::move(callback));
+      impl->CreateUsageTableHeader(        
+        std::move(p_avail_header_length), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadUsageTableHeader_Name: {
@@ -19503,6 +19745,8 @@ std::move(p_avail_header_length), std::move(callback));
               internal::OemCryptoService_LoadUsageTableHeader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.44
       bool success = true;
       std::vector<uint8_t> p_buffer{};
       OemCryptoService_LoadUsageTableHeader_ParamsDataView input_data_view(params, message);
@@ -19521,8 +19765,8 @@ std::move(p_avail_header_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadUsageTableHeader(
-std::move(p_buffer), std::move(callback));
+      impl->LoadUsageTableHeader(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_CreateNewUsageEntry_Name: {
@@ -19532,6 +19776,8 @@ std::move(p_buffer), std::move(callback));
               internal::OemCryptoService_CreateNewUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.45
       bool success = true;
       uint32_t p_session{};
       OemCryptoService_CreateNewUsageEntry_ParamsDataView input_data_view(params, message);
@@ -19550,8 +19796,8 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNewUsageEntry(
-std::move(p_session), std::move(callback));
+      impl->CreateNewUsageEntry(        
+        std::move(p_session), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadUsageEntry_Name: {
@@ -19561,6 +19807,8 @@ std::move(p_session), std::move(callback));
               internal::OemCryptoService_LoadUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.46
       bool success = true;
       uint32_t p_session{};
       uint32_t p_index{};
@@ -19585,10 +19833,10 @@ std::move(p_session), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadUsageEntry(
-std::move(p_session), 
-std::move(p_index), 
-std::move(p_buffer), std::move(callback));
+      impl->LoadUsageEntry(        
+        std::move(p_session), 
+        std::move(p_index), 
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_UpdateUsageEntry_Name: {
@@ -19598,6 +19846,8 @@ std::move(p_buffer), std::move(callback));
               internal::OemCryptoService_UpdateUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.47
       bool success = true;
       uint32_t p_session{};
       uint32_t p_avail_header_length{};
@@ -19622,10 +19872,10 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUsageEntry(
-std::move(p_session), 
-std::move(p_avail_header_length), 
-std::move(p_avail_entry_length), std::move(callback));
+      impl->UpdateUsageEntry(        
+        std::move(p_session), 
+        std::move(p_avail_header_length), 
+        std::move(p_avail_entry_length), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_DeactivateUsageEntry_Name: {
@@ -19635,6 +19885,8 @@ std::move(p_avail_entry_length), std::move(callback));
               internal::OemCryptoService_DeactivateUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.48
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_pst{};
@@ -19656,9 +19908,9 @@ std::move(p_avail_entry_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeactivateUsageEntry(
-std::move(p_session), 
-std::move(p_pst), std::move(callback));
+      impl->DeactivateUsageEntry(        
+        std::move(p_session), 
+        std::move(p_pst), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_ShrinkUsageTableHeader_Name: {
@@ -19668,6 +19920,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_ShrinkUsageTableHeader_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.49
       bool success = true;
       uint32_t p_new_entry_count{};
       uint32_t p_avail_header_length{};
@@ -19689,9 +19943,9 @@ std::move(p_pst), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShrinkUsageTableHeader(
-std::move(p_new_entry_count), 
-std::move(p_avail_header_length), std::move(callback));
+      impl->ShrinkUsageTableHeader(        
+        std::move(p_new_entry_count), 
+        std::move(p_avail_header_length), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_MoveEntry_Name: {
@@ -19701,6 +19955,8 @@ std::move(p_avail_header_length), std::move(callback));
               internal::OemCryptoService_MoveEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.50
       bool success = true;
       uint32_t p_session{};
       uint32_t p_new_index{};
@@ -19722,9 +19978,9 @@ std::move(p_avail_header_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveEntry(
-std::move(p_session), 
-std::move(p_new_index), std::move(callback));
+      impl->MoveEntry(        
+        std::move(p_session), 
+        std::move(p_new_index), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_CopyOldUsageEntry_Name: {
@@ -19734,6 +19990,8 @@ std::move(p_new_index), std::move(callback));
               internal::OemCryptoService_CopyOldUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.51
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_pst{};
@@ -19755,9 +20013,9 @@ std::move(p_new_index), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyOldUsageEntry(
-std::move(p_session), 
-std::move(p_pst), std::move(callback));
+      impl->CopyOldUsageEntry(        
+        std::move(p_session), 
+        std::move(p_pst), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_CreateOldUsageEntry_Name: {
@@ -19767,6 +20025,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_CreateOldUsageEntry_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.52
       bool success = true;
       uint64_t p_time_since_license_received{};
       uint64_t p_time_since_first_decrypt{};
@@ -19803,14 +20063,14 @@ std::move(p_pst), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateOldUsageEntry(
-std::move(p_time_since_license_received), 
-std::move(p_time_since_first_decrypt), 
-std::move(p_time_since_last_decrypt), 
-std::move(p_status), 
-std::move(p_server_mac_key), 
-std::move(p_client_mac_key), 
-std::move(p_pst), std::move(callback));
+      impl->CreateOldUsageEntry(        
+        std::move(p_time_since_license_received), 
+        std::move(p_time_since_first_decrypt), 
+        std::move(p_time_since_last_decrypt), 
+        std::move(p_status), 
+        std::move(p_server_mac_key), 
+        std::move(p_client_mac_key), 
+        std::move(p_pst), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GetAnalogOutputFlags_Name: {
@@ -19820,6 +20080,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_GetAnalogOutputFlags_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.53
       bool success = true;
       OemCryptoService_GetAnalogOutputFlags_ParamsDataView input_data_view(params, message);
       
@@ -19845,6 +20107,8 @@ std::move(p_pst), std::move(callback));
               internal::OemCryptoService_LoadTestKeybox_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.54
       bool success = true;
       std::vector<uint8_t> p_buffer{};
       OemCryptoService_LoadTestKeybox_ParamsDataView input_data_view(params, message);
@@ -19863,8 +20127,8 @@ std::move(p_pst), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadTestKeybox(
-std::move(p_buffer), std::move(callback));
+      impl->LoadTestKeybox(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadEntitledContentKeysV14_Name: {
@@ -19874,6 +20138,8 @@ std::move(p_buffer), std::move(callback));
               internal::OemCryptoService_LoadEntitledContentKeysV14_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.55
       bool success = true;
       uint32_t p_session{};
       std::vector<OemCryptoEntitledContentKeyObjectV14Ptr> p_key_array{};
@@ -19895,9 +20161,9 @@ std::move(p_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadEntitledContentKeysV14(
-std::move(p_session), 
-std::move(p_key_array), std::move(callback));
+      impl->LoadEntitledContentKeysV14(        
+        std::move(p_session), 
+        std::move(p_key_array), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_SelectKey_Name: {
@@ -19907,6 +20173,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_SelectKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.56
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_content_key_id{};
@@ -19931,10 +20199,10 @@ std::move(p_key_array), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectKey(
-std::move(p_session), 
-std::move(p_content_key_id), 
-std::move(p_cipher_mode), std::move(callback));
+      impl->SelectKey(        
+        std::move(p_session), 
+        std::move(p_content_key_id), 
+        std::move(p_cipher_mode), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadKeysV14_Name: {
@@ -19944,6 +20212,8 @@ std::move(p_cipher_mode), std::move(callback));
               internal::OemCryptoService_LoadKeysV14_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.57
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -19992,18 +20262,18 @@ std::move(p_cipher_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadKeysV14(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_signature), 
-std::move(p_has_enc_mac_keys), 
-std::move(p_enc_mac_keys_iv_offset), 
-std::move(p_enc_mac_keys_offset), 
-std::move(p_key_array), 
-std::move(p_pst_offset), 
-std::move(p_pst_length), 
-std::move(p_srm_requirement), 
-std::move(p_license_type), std::move(callback));
+      impl->LoadKeysV14(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_signature), 
+        std::move(p_has_enc_mac_keys), 
+        std::move(p_enc_mac_keys_iv_offset), 
+        std::move(p_enc_mac_keys_offset), 
+        std::move(p_key_array), 
+        std::move(p_pst_offset), 
+        std::move(p_pst_length), 
+        std::move(p_srm_requirement), 
+        std::move(p_license_type), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadKeys_Name: {
@@ -20013,6 +20283,8 @@ std::move(p_license_type), std::move(callback));
               internal::OemCryptoService_LoadKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.58
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20055,16 +20327,16 @@ std::move(p_license_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadKeys(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_signature), 
-std::move(p_enc_mac_keys_iv), 
-std::move(p_enc_mac_keys), 
-std::move(p_key_array), 
-std::move(p_pst), 
-std::move(p_srm_restriction_data), 
-std::move(p_license_type), std::move(callback));
+      impl->LoadKeys(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_signature), 
+        std::move(p_enc_mac_keys_iv), 
+        std::move(p_enc_mac_keys), 
+        std::move(p_key_array), 
+        std::move(p_pst), 
+        std::move(p_srm_restriction_data), 
+        std::move(p_license_type), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_ResourceRatingTier_Name: {
@@ -20074,6 +20346,8 @@ std::move(p_license_type), std::move(callback));
               internal::OemCryptoService_ResourceRatingTier_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.59
       bool success = true;
       OemCryptoService_ResourceRatingTier_ParamsDataView input_data_view(params, message);
       
@@ -20099,6 +20373,8 @@ std::move(p_license_type), std::move(callback));
               internal::OemCryptoService_BuildInformation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.60
       bool success = true;
       OemCryptoService_BuildInformation_ParamsDataView input_data_view(params, message);
       
@@ -20124,6 +20400,8 @@ std::move(p_license_type), std::move(callback));
               internal::OemCryptoService_RefreshKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.61
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20151,11 +20429,11 @@ std::move(p_license_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RefreshKeys(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_signature), 
-std::move(p_key_array), std::move(callback));
+      impl->RefreshKeys(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_signature), 
+        std::move(p_key_array), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadEntitledContentKeys_Name: {
@@ -20165,6 +20443,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_LoadEntitledContentKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.62
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20189,10 +20469,10 @@ std::move(p_key_array), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadEntitledContentKeys(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_key_array), std::move(callback));
+      impl->LoadEntitledContentKeys(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_key_array), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_GetOemPublicCertificate_Name: {
@@ -20202,6 +20482,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_GetOemPublicCertificate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.63
       bool success = true;
       OemCryptoService_GetOemPublicCertificate_ParamsDataView input_data_view(params, message);
       
@@ -20227,6 +20509,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_MaximumUsageTableHeaderSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.64
       bool success = true;
       OemCryptoService_MaximumUsageTableHeaderSize_ParamsDataView input_data_view(params, message);
       
@@ -20252,6 +20536,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_IsAntiRollbackHwPresent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.65
       bool success = true;
       OemCryptoService_IsAntiRollbackHwPresent_ParamsDataView input_data_view(params, message);
       
@@ -20277,6 +20563,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_MinorApiVersion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.66
       bool success = true;
       OemCryptoService_MinorApiVersion_ParamsDataView input_data_view(params, message);
       
@@ -20302,6 +20590,8 @@ std::move(p_key_array), std::move(callback));
               internal::OemCryptoService_PrepAndSignLicenseRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.67
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20329,11 +20619,11 @@ std::move(p_key_array), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepAndSignLicenseRequest(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_core_message_size), 
-std::move(p_avail_signature_size), std::move(callback));
+      impl->PrepAndSignLicenseRequest(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_core_message_size), 
+        std::move(p_avail_signature_size), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_PrepAndSignRenewalRequest_Name: {
@@ -20343,6 +20633,8 @@ std::move(p_avail_signature_size), std::move(callback));
               internal::OemCryptoService_PrepAndSignRenewalRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.68
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20370,11 +20662,11 @@ std::move(p_avail_signature_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepAndSignRenewalRequest(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_core_message_size), 
-std::move(p_avail_signature_size), std::move(callback));
+      impl->PrepAndSignRenewalRequest(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_core_message_size), 
+        std::move(p_avail_signature_size), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_PrepAndSignProvisioningRequest_Name: {
@@ -20384,6 +20676,8 @@ std::move(p_avail_signature_size), std::move(callback));
               internal::OemCryptoService_PrepAndSignProvisioningRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.69
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20411,11 +20705,11 @@ std::move(p_avail_signature_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrepAndSignProvisioningRequest(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_core_message_size), 
-std::move(p_avail_signature_size), std::move(callback));
+      impl->PrepAndSignProvisioningRequest(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_core_message_size), 
+        std::move(p_avail_signature_size), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadLicense_Name: {
@@ -20425,6 +20719,8 @@ std::move(p_avail_signature_size), std::move(callback));
               internal::OemCryptoService_LoadLicense_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.70
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20452,11 +20748,11 @@ std::move(p_avail_signature_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadLicense(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_core_message_length), 
-std::move(p_signature), std::move(callback));
+      impl->LoadLicense(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_core_message_length), 
+        std::move(p_signature), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadRenewal_Name: {
@@ -20466,6 +20762,8 @@ std::move(p_signature), std::move(callback));
               internal::OemCryptoService_LoadRenewal_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.71
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20493,11 +20791,11 @@ std::move(p_signature), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadRenewal(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_core_message_length), 
-std::move(p_signature), std::move(callback));
+      impl->LoadRenewal(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_core_message_length), 
+        std::move(p_signature), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadProvisioning_Name: {
@@ -20507,6 +20805,8 @@ std::move(p_signature), std::move(callback));
               internal::OemCryptoService_LoadProvisioning_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.72
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_message{};
@@ -20537,12 +20837,12 @@ std::move(p_signature), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadProvisioning(
-std::move(p_session), 
-std::move(p_message), 
-std::move(p_core_message_length), 
-std::move(p_signature), 
-std::move(p_avail_wrapped_private_key_size), std::move(callback));
+      impl->LoadProvisioning(        
+        std::move(p_session), 
+        std::move(p_message), 
+        std::move(p_core_message_length), 
+        std::move(p_signature), 
+        std::move(p_avail_wrapped_private_key_size), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadOemPrivateKey_Name: {
@@ -20552,6 +20852,8 @@ std::move(p_avail_wrapped_private_key_size), std::move(callback));
               internal::OemCryptoService_LoadOemPrivateKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.73
       bool success = true;
       uint32_t p_session{};
       OemCryptoService_LoadOemPrivateKey_ParamsDataView input_data_view(params, message);
@@ -20570,8 +20872,8 @@ std::move(p_avail_wrapped_private_key_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadOemPrivateKey(
-std::move(p_session), std::move(callback));
+      impl->LoadOemPrivateKey(        
+        std::move(p_session), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_LoadDrmPrivateKey_Name: {
@@ -20581,6 +20883,8 @@ std::move(p_session), std::move(callback));
               internal::OemCryptoService_LoadDrmPrivateKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.74
       bool success = true;
       uint32_t p_session{};
       OemCryptoPrivateKey p_key_type{};
@@ -20605,10 +20909,10 @@ std::move(p_session), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadDrmPrivateKey(
-std::move(p_session), 
-std::move(p_key_type), 
-std::move(p_wrapped_private_key), std::move(callback));
+      impl->LoadDrmPrivateKey(        
+        std::move(p_session), 
+        std::move(p_key_type), 
+        std::move(p_wrapped_private_key), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_DecryptCenc_Name: {
@@ -20618,6 +20922,8 @@ std::move(p_wrapped_private_key), std::move(callback));
               internal::OemCryptoService_DecryptCenc_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.75
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -20651,13 +20957,13 @@ std::move(p_wrapped_private_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecryptCenc(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_iv), 
-std::move(p_sub_samples), 
-std::move(p_pattern), 
-std::move(p_secure_buffer), std::move(callback));
+      impl->DecryptCenc(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_iv), 
+        std::move(p_sub_samples), 
+        std::move(p_pattern), 
+        std::move(p_secure_buffer), std::move(callback));
       return true;
     }
     case internal::kOemCryptoService_CopyBuffer_Name: {
@@ -20667,6 +20973,8 @@ std::move(p_secure_buffer), std::move(callback));
               internal::OemCryptoService_CopyBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoService.76
       bool success = true;
       uint32_t p_session{};
       std::vector<uint8_t> p_data{};
@@ -20694,11 +21002,11 @@ std::move(p_secure_buffer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyBuffer(
-std::move(p_session), 
-std::move(p_data), 
-std::move(p_out_buffer), 
-std::move(p_subsample_flags), std::move(callback));
+      impl->CopyBuffer(        
+        std::move(p_session), 
+        std::move(p_data), 
+        std::move(p_out_buffer), 
+        std::move(p_subsample_flags), std::move(callback));
       return true;
     }
   }
@@ -20989,6 +21297,8 @@ bool OemCryptoHostStubDispatch::Accept(
           reinterpret_cast<internal::OemCryptoHost_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OemCryptoHost.0
       bool success = true;
       ::mojo::PendingReceiver<OemCryptoService> p_oemcryptor{};
       OemCryptoHost_Connect_ParamsDataView input_data_view(params, message);
@@ -21006,8 +21316,8 @@ bool OemCryptoHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_oemcryptor));
+      impl->Connect(        
+        std::move(p_oemcryptor));
       return true;
     }
   }
@@ -21220,6 +21530,8 @@ bool OemCryptoInstance_Init_ForwardToCallback::Accept(
           internal::OemCryptoInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OemCryptoInstance.1
   bool success = true;
   OemCryptoInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -21298,6 +21610,8 @@ bool OemCryptoInstanceStubDispatch::AcceptWithResponder(
               internal::OemCryptoInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OemCryptoInstance.1
       bool success = true;
       ::mojo::PendingRemote<OemCryptoHost> p_host_remote{};
       OemCryptoInstance_Init_ParamsDataView input_data_view(params, message);
@@ -21318,8 +21632,8 @@ bool OemCryptoInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

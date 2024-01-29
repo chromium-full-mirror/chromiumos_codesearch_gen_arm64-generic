@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1307/work/patchpanel-0.0.2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1342/work/patchpanel-0.0.2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -25,6 +25,7 @@ build ebpf_webrtc_detection: phony obj/patchpanel/bpf/ebpf_webrtc_detection.stam
 build install_dbus_config: phony obj/patchpanel/install_dbus_config.stamp
 build install_init_config: phony obj/patchpanel/install_init_config.stamp
 build install_seccomp_policy: phony obj/patchpanel/install_seccomp_policy.stamp
+build install_setuid_restriction: phony obj/patchpanel/install_setuid_restriction.stamp
 build libpatchpanel: phony ./libpatchpanel.a
 build libpatchpanel-util: phony ./lib/libpatchpanel-util.so
 build patchpanel_dbus_adaptors: phony obj/patchpanel/patchpanel_dbus_adaptors.stamp
@@ -41,6 +42,7 @@ build patchpanel$:all: phony obj/patchpanel/all.stamp
 build patchpanel$:install_dbus_config: phony obj/patchpanel/install_dbus_config.stamp
 build patchpanel$:install_init_config: phony obj/patchpanel/install_init_config.stamp
 build patchpanel$:install_seccomp_policy: phony obj/patchpanel/install_seccomp_policy.stamp
+build patchpanel$:install_setuid_restriction: phony obj/patchpanel/install_setuid_restriction.stamp
 build patchpanel$:libpatchpanel: phony ./libpatchpanel.a
 build patchpanel$:libpatchpanel-util: phony ./lib/libpatchpanel-util.so
 build patchpanel$:patchpanel_dbus_adaptors: phony obj/patchpanel/patchpanel_dbus_adaptors.stamp
@@ -62,6 +64,7 @@ build all: phony $
     obj/patchpanel/install_dbus_config.stamp $
     obj/patchpanel/install_init_config.stamp $
     obj/patchpanel/install_seccomp_policy.stamp $
+    obj/patchpanel/install_setuid_restriction.stamp $
     ./libpatchpanel.a $
     ./lib/libpatchpanel-util.so $
     obj/patchpanel/patchpanel_dbus_adaptors.stamp $

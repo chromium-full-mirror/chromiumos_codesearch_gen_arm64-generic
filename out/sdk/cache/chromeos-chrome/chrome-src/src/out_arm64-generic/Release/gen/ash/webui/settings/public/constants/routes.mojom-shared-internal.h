@@ -160,6 +160,8 @@ struct Subpage_Data {
       case 1509:
       case 1510:
       case 1511:
+      case 1512:
+      case 1513:
       case 1701:
       case 1800:
         return true;

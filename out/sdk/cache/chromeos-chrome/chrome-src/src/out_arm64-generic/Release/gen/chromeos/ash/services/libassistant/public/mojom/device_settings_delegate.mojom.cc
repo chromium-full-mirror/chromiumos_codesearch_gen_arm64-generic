@@ -612,6 +612,8 @@ bool DeviceSettingsDelegate_GetScreenBrightnessLevel_ForwardToCallback::Accept(
           internal::DeviceSettingsDelegate_GetScreenBrightnessLevel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeviceSettingsDelegate.0
   bool success = true;
   GetBrightnessResultPtr p_result{};
   DeviceSettingsDelegate_GetScreenBrightnessLevel_ResponseParamsDataView input_data_view(params, message);
@@ -695,6 +697,8 @@ bool DeviceSettingsDelegateStubDispatch::Accept(
           reinterpret_cast<internal::DeviceSettingsDelegate_SetBluetoothEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.1
       bool success = true;
       bool p_enabled{};
       DeviceSettingsDelegate_SetBluetoothEnabled_ParamsDataView input_data_view(params, message);
@@ -710,8 +714,8 @@ bool DeviceSettingsDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBluetoothEnabled(
-std::move(p_enabled));
+      impl->SetBluetoothEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDeviceSettingsDelegate_SetDoNotDisturbEnabled_Name: {
@@ -721,6 +725,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DeviceSettingsDelegate_SetDoNotDisturbEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.2
       bool success = true;
       bool p_enabled{};
       DeviceSettingsDelegate_SetDoNotDisturbEnabled_ParamsDataView input_data_view(params, message);
@@ -736,8 +742,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDoNotDisturbEnabled(
-std::move(p_enabled));
+      impl->SetDoNotDisturbEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDeviceSettingsDelegate_SetNightLightEnabled_Name: {
@@ -747,6 +753,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DeviceSettingsDelegate_SetNightLightEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.3
       bool success = true;
       bool p_enabled{};
       DeviceSettingsDelegate_SetNightLightEnabled_ParamsDataView input_data_view(params, message);
@@ -762,8 +770,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNightLightEnabled(
-std::move(p_enabled));
+      impl->SetNightLightEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDeviceSettingsDelegate_SetScreenBrightnessLevel_Name: {
@@ -773,6 +781,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DeviceSettingsDelegate_SetScreenBrightnessLevel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.4
       bool success = true;
       double p_level{};
       bool p_gradual{};
@@ -791,9 +801,9 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScreenBrightnessLevel(
-std::move(p_level), 
-std::move(p_gradual));
+      impl->SetScreenBrightnessLevel(        
+        std::move(p_level), 
+        std::move(p_gradual));
       return true;
     }
     case internal::kDeviceSettingsDelegate_SetSwitchAccessEnabled_Name: {
@@ -803,6 +813,8 @@ std::move(p_gradual));
           reinterpret_cast<internal::DeviceSettingsDelegate_SetSwitchAccessEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.5
       bool success = true;
       bool p_enabled{};
       DeviceSettingsDelegate_SetSwitchAccessEnabled_ParamsDataView input_data_view(params, message);
@@ -818,8 +830,8 @@ std::move(p_gradual));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSwitchAccessEnabled(
-std::move(p_enabled));
+      impl->SetSwitchAccessEnabled(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kDeviceSettingsDelegate_SetWifiEnabled_Name: {
@@ -829,6 +841,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::DeviceSettingsDelegate_SetWifiEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.6
       bool success = true;
       bool p_enabled{};
       DeviceSettingsDelegate_SetWifiEnabled_ParamsDataView input_data_view(params, message);
@@ -844,8 +858,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWifiEnabled(
-std::move(p_enabled));
+      impl->SetWifiEnabled(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -868,6 +882,8 @@ bool DeviceSettingsDelegateStubDispatch::AcceptWithResponder(
               internal::DeviceSettingsDelegate_GetScreenBrightnessLevel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeviceSettingsDelegate.0
       bool success = true;
       DeviceSettingsDelegate_GetScreenBrightnessLevel_ParamsDataView input_data_view(params, message);
       

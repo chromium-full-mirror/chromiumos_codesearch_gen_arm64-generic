@@ -57,38 +57,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_Generate
 };
 static_assert(sizeof(RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data) == 40,
               "Bad sizeof(RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_HasGpuProcess_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<RenderMessageFilter_HasGpuProcess_Params_Data>;
-
-  RenderMessageFilter_HasGpuProcess_Params_Data();
-  ~RenderMessageFilter_HasGpuProcess_Params_Data() = delete;
-};
-static_assert(sizeof(RenderMessageFilter_HasGpuProcess_Params_Data) == 8,
-              "Bad sizeof(RenderMessageFilter_HasGpuProcess_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RenderMessageFilter_HasGpuProcess_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t has_gpu_process : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<RenderMessageFilter_HasGpuProcess_ResponseParams_Data>;
-
-  RenderMessageFilter_HasGpuProcess_ResponseParams_Data();
-  ~RenderMessageFilter_HasGpuProcess_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(RenderMessageFilter_HasGpuProcess_ResponseParams_Data) == 16,
-              "Bad sizeof(RenderMessageFilter_HasGpuProcess_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -157,39 +125,6 @@ class RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView {
 };
 
 
-class RenderMessageFilter_HasGpuProcess_ParamsDataView {
- public:
-  RenderMessageFilter_HasGpuProcess_ParamsDataView() = default;
-
-  RenderMessageFilter_HasGpuProcess_ParamsDataView(
-      internal::RenderMessageFilter_HasGpuProcess_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::RenderMessageFilter_HasGpuProcess_Params_Data* data_ = nullptr;
-};
-
-
-class RenderMessageFilter_HasGpuProcess_ResponseParamsDataView {
- public:
-  RenderMessageFilter_HasGpuProcess_ResponseParamsDataView() = default;
-
-  RenderMessageFilter_HasGpuProcess_ResponseParamsDataView(
-      internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool has_gpu_process() const {
-    return data_->has_gpu_process;
-  }
- private:
-  internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data* data_ = nullptr;
-};
-
-
 
 inline void RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView::GetFrameTokenDataView(
     ::blink::mojom::LocalFrameTokenDataView* output) {
@@ -206,10 +141,6 @@ inline void RenderMessageFilter_GenerateFrameRoutingID_ResponseParamsDataView::G
   auto pointer = data_->document_token.Get();
   *output = ::blink::mojom::DocumentTokenDataView(pointer, message_);
 }
-
-
-
-
 
 
 

@@ -171,7 +171,6 @@ class InternalSettingsGenerated : public ScriptWrappable,
   void setTouchDragEndContextMenu(bool touchDragEndContextMenu);
   void setTouchEditingEnabled(bool touchEditingEnabled);
   void setUseAXMenuList(bool useAXMenuList);
-  void setUseLegacyBackgroundSizeShorthandBehavior(bool useLegacyBackgroundSizeShorthandBehavior);
   void setUseWideViewport(bool useWideViewport);
   void setValidationMessageTimerMagnification(int validationMessageTimerMagnification);
   void setViewportEnabled(bool viewportEnabled);

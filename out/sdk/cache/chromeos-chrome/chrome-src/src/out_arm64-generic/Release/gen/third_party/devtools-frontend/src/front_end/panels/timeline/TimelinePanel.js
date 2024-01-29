@@ -47,6 +47,7 @@ import * as MobileThrottling from '../mobile_throttling/mobile_throttling.js';
 import { ActiveFilters } from './ActiveFilters.js';
 import { TraceLoadEvent } from './BenchmarkEvents.js';
 import historyToolbarButtonStyles from './historyToolbarButton.css.js';
+import { IsolateSelector } from './IsolateSelector.js';
 import { PerformanceModel } from './PerformanceModel.js';
 import { cpuprofileJsonGenerator, traceJsonGenerator } from './SaveFileFormatter.js';
 import { NodeNamesUpdated, SourceMapsResolver } from './SourceMapsResolver.js';
@@ -303,7 +304,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.element.addEventListener('contextmenu', this.contextMenu.bind(this), false);
         this.dropTarget = new UI.DropTarget.DropTarget(this.element, [UI.DropTarget.Type.File, UI.DropTarget.Type.URI], i18nString(UIStrings.dropTimelineFileOrUrlHere), this.handleDrop.bind(this));
         this.recordingOptionUIControls = [];
-        this.state = State.Idle;
+        this.state = "Idle" /* State.Idle */;
         this.recordingPageReload = false;
         this.millisecondsToRecordAfterLoadEvent = 5000;
         this.toggleRecordAction = UI.ActionRegistry.ActionRegistry.instance().getAction('timeline.toggle-recording');
@@ -352,7 +353,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.populateToolbar();
         this.showLandingPage();
         this.updateTimelineControls();
-        SDK.TargetManager.TargetManager.instance().addEventListener(SDK.TargetManager.Events.SuspendStateChanged, this.onSuspendStateChanged, this);
+        SDK.TargetManager.TargetManager.instance().addEventListener("SuspendStateChanged" /* SDK.TargetManager.Events.SuspendStateChanged */, this.onSuspendStateChanged, this);
         if (Root.Runtime.experiments.isEnabled('timelineAsConsoleProfileResultPanel')) {
             const profilerModels = SDK.TargetManager.TargetManager.instance().models(SDK.CPUProfilerModel.CPUProfilerModel);
             for (const model of profilerModels) {
@@ -362,7 +363,7 @@ export class TimelinePanel extends UI.Panel.Panel {
             }
             SDK.TargetManager.TargetManager.instance().observeModels(SDK.CPUProfilerModel.CPUProfilerModel, {
                 modelAdded: (model) => {
-                    model.addEventListener(SDK.CPUProfilerModel.Events.ConsoleProfileFinished, event => this.consoleProfileFinished(event.data));
+                    model.addEventListener("ConsoleProfileFinished" /* SDK.CPUProfilerModel.Events.ConsoleProfileFinished */, event => this.consoleProfileFinished(event.data));
                 },
                 modelRemoved: (_model) => {
                 },
@@ -401,7 +402,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.#historyManager.cancelIfShowing();
     }
     loadFromEvents(events) {
-        if (this.state !== State.Idle) {
+        if (this.state !== "Idle" /* State.Idle */) {
             return;
         }
         this.prepareToLoadTimeline();
@@ -411,7 +412,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         return this.flameChart;
     }
     loadFromCpuProfile(profile, title) {
-        if (this.state !== State.Idle) {
+        if (this.state !== "Idle" /* State.Idle */) {
             return;
         }
         this.prepareToLoadTimeline();
@@ -431,16 +432,16 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.panelToolbar.appendToolbarItem(UI.Toolbar.Toolbar.createActionButton(this.toggleRecordAction));
         this.panelToolbar.appendToolbarItem(UI.Toolbar.Toolbar.createActionButton(this.recordReloadAction));
         this.clearButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.clear), 'clear');
-        this.clearButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => this.onClearButton());
+        this.clearButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => this.onClearButton());
         this.panelToolbar.appendToolbarItem(this.clearButton);
         // Load / Save
         this.loadButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.loadProfile), 'import');
-        this.loadButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => {
+        this.loadButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => {
             Host.userMetrics.actionTaken(Host.UserMetrics.Action.PerfPanelTraceImported);
             this.selectFileToLoad();
         });
         this.saveButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.saveProfile), 'download');
-        this.saveButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, _event => {
+        this.saveButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, _event => {
             Host.userMetrics.actionTaken(Host.UserMetrics.Action.PerfPanelTraceExported);
             void this.saveToFile();
         });
@@ -464,6 +465,12 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.panelToolbar.appendToolbarItem(this.showMemoryToolbarCheckbox);
         // GC
         this.panelToolbar.appendToolbarItem(UI.Toolbar.Toolbar.createActionButtonForId('components.collect-garbage'));
+        // Isolate selector
+        const isolateSelector = new IsolateSelector();
+        if (isNode) {
+            this.panelToolbar.appendSeparator();
+            this.panelToolbar.appendToolbarItem(isolateSelector);
+        }
         // Settings
         if (!isNode) {
             this.panelRightToolbar.appendSeparator();
@@ -474,9 +481,9 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.showSettingsPaneSetting =
             Common.Settings.Settings.instance().createSetting('timelineShowSettingsToolbar', false);
         this.showSettingsPaneButton = new UI.Toolbar.ToolbarSettingToggle(this.showSettingsPaneSetting, 'gear', i18nString(UIStrings.captureSettings), 'gear-filled');
-        SDK.NetworkManager.MultitargetNetworkManager.instance().addEventListener(SDK.NetworkManager.MultitargetNetworkManager.Events.ConditionsChanged, this.updateShowSettingsToolbarButton, this);
-        SDK.CPUThrottlingManager.CPUThrottlingManager.instance().addEventListener(SDK.CPUThrottlingManager.Events.RateChanged, this.updateShowSettingsToolbarButton, this);
-        SDK.CPUThrottlingManager.CPUThrottlingManager.instance().addEventListener(SDK.CPUThrottlingManager.Events.HardwareConcurrencyChanged, this.updateShowSettingsToolbarButton, this);
+        SDK.NetworkManager.MultitargetNetworkManager.instance().addEventListener("ConditionsChanged" /* SDK.NetworkManager.MultitargetNetworkManager.Events.ConditionsChanged */, this.updateShowSettingsToolbarButton, this);
+        SDK.CPUThrottlingManager.CPUThrottlingManager.instance().addEventListener("RateChanged" /* SDK.CPUThrottlingManager.Events.RateChanged */, this.updateShowSettingsToolbarButton, this);
+        SDK.CPUThrottlingManager.CPUThrottlingManager.instance().addEventListener("HardwareConcurrencyChanged" /* SDK.CPUThrottlingManager.Events.HardwareConcurrencyChanged */, this.updateShowSettingsToolbarButton, this);
         this.disableCaptureJSProfileSetting.addChangeListener(this.updateShowSettingsToolbarButton, this);
         this.captureLayersAndPicturesSetting.addChangeListener(this.updateShowSettingsToolbarButton, this);
         this.settingsPane = new UI.Widget.HBox();
@@ -519,8 +526,8 @@ export class TimelinePanel extends UI.Panel.Panel {
         return toolbarItem;
     }
     prepareToLoadTimeline() {
-        console.assert(this.state === State.Idle);
-        this.setState(State.Loading);
+        console.assert(this.state === "Idle" /* State.Idle */);
+        this.setState("Loading" /* State.Loading */);
         if (this.performanceModel) {
             this.performanceModel = null;
         }
@@ -538,7 +545,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         void contextMenu.show();
     }
     async saveToFile() {
-        if (this.state !== State.Idle) {
+        if (this.state !== "Idle" /* State.Idle */) {
             return;
         }
         const performanceModel = this.performanceModel;
@@ -616,7 +623,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         }
     }
     async loadFromFile(file) {
-        if (this.state !== State.Idle) {
+        if (this.state !== "Idle" /* State.Idle */) {
             return;
         }
         this.prepareToLoadTimeline();
@@ -624,7 +631,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         this.createFileSelector();
     }
     async loadFromURL(url) {
-        if (this.state !== State.Idle) {
+        if (this.state !== "Idle" /* State.Idle */) {
             return;
         }
         this.prepareToLoadTimeline();
@@ -744,17 +751,20 @@ export class TimelinePanel extends UI.Panel.Panel {
     }
     async #startCPUProfilingRecording() {
         try {
-            // Only profile the first target devtools connects to. If we profile all target, but this will cause some bugs
-            // like time for the function is calculated wrong, because the profiles will be concated and sorted together,
-            // so the total time will be amplified.
-            // Multiple targets problem might happen when you inspect multiple node servers on different port at same time,
-            // or when you let DevTools listen to both locolhost:9229 & 127.0.0.1:9229.
-            const firstNodeTarget = SDK.TargetManager.TargetManager.instance().targets().find(target => target.type() === SDK.Target.Type.Node);
-            if (!firstNodeTarget) {
-                throw new Error('Could not load any Node target.');
-            }
-            if (firstNodeTarget) {
-                this.cpuProfiler = firstNodeTarget.model(SDK.CPUProfilerModel.CPUProfilerModel);
+            this.cpuProfiler = UI.Context.Context.instance().flavor(SDK.CPUProfilerModel.CPUProfilerModel);
+            if (!this.cpuProfiler) {
+                // If there is no isolate selected, we will profile the first isolate that devtools connects to.
+                // If we profile all target, but this will cause some bugs like time for the function is calculated wrong,
+                // because the profiles will be concated and sorted together, so the total time will be amplified.
+                // Multiple targets problem might happen when you inspect multiple node servers on different port at same time,
+                // or when you let DevTools listen to both locolhost:9229 & 127.0.0.1:9229.
+                const firstNodeTarget = SDK.TargetManager.TargetManager.instance().targets().find(target => target.type() === SDK.Target.Type.Node);
+                if (!firstNodeTarget) {
+                    throw new Error('Could not load any Node target.');
+                }
+                if (firstNodeTarget) {
+                    this.cpuProfiler = firstNodeTarget.model(SDK.CPUProfilerModel.CPUProfilerModel);
+                }
             }
             this.setUIControlsEnabled(false);
             this.hideLandingPage();
@@ -824,7 +834,7 @@ export class TimelinePanel extends UI.Panel.Panel {
     }
     async startRecording() {
         console.assert(!this.statusPane, 'Status pane is already opened.');
-        this.setState(State.StartPending);
+        this.setState("StartPending" /* State.StartPending */);
         this.showRecordingStarted();
         if (isNode) {
             await this.#startCPUProfilingRecording();
@@ -839,7 +849,7 @@ export class TimelinePanel extends UI.Panel.Panel {
             this.statusPane.updateStatus(i18nString(UIStrings.stoppingTimeline));
             this.statusPane.updateProgressBar(i18nString(UIStrings.received), 0);
         }
-        this.setState(State.StopPending);
+        this.setState("StopPending" /* State.StopPending */);
         if (this.controller) {
             this.performanceModel = this.controller.getPerformanceModel();
             await this.controller.stopRecording();
@@ -850,7 +860,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         }
         if (this.cpuProfiler) {
             const profile = await this.cpuProfiler.stopRecording();
-            this.setState(State.Idle);
+            this.setState("Idle" /* State.Idle */);
             this.loadFromCpuProfile(profile);
             this.setUIControlsEnabled(true);
             this.cpuProfiler = null;
@@ -883,7 +893,7 @@ export class TimelinePanel extends UI.Panel.Panel {
         if (rawEvents) {
             this.statusPane.enableDownloadOfEvents(rawEvents);
         }
-        this.setState(State.RecordingFailed);
+        this.setState("RecordingFailed" /* State.RecordingFailed */);
         this.performanceModel = null;
         this.traceLoadStart = null;
         this.setUIControlsEnabled(true);
@@ -902,30 +912,29 @@ export class TimelinePanel extends UI.Panel.Panel {
         void UI.InspectorView.InspectorView.instance().showPanel('timeline');
     }
     updateTimelineControls() {
-        const state = State;
-        this.toggleRecordAction.setToggled(this.state === state.Recording);
-        this.toggleRecordAction.setEnabled(this.state === state.Recording || this.state === state.Idle);
-        this.recordReloadAction.setEnabled(isNode ? false : this.state === state.Idle);
-        this.#historyManager.setEnabled(this.state === state.Idle);
-        this.clearButton.setEnabled(this.state === state.Idle);
-        this.panelToolbar.setEnabled(this.state !== state.Loading);
-        this.panelRightToolbar.setEnabled(this.state !== state.Loading);
-        this.dropTarget.setEnabled(this.state === state.Idle);
-        this.loadButton.setEnabled(this.state === state.Idle);
-        this.saveButton.setEnabled(this.state === state.Idle && Boolean(this.performanceModel));
+        this.toggleRecordAction.setToggled(this.state === "Recording" /* State.Recording */);
+        this.toggleRecordAction.setEnabled(this.state === "Recording" /* State.Recording */ || this.state === "Idle" /* State.Idle */);
+        this.recordReloadAction.setEnabled(isNode ? false : this.state === "Idle" /* State.Idle */);
+        this.#historyManager.setEnabled(this.state === "Idle" /* State.Idle */);
+        this.clearButton.setEnabled(this.state === "Idle" /* State.Idle */);
+        this.panelToolbar.setEnabled(this.state !== "Loading" /* State.Loading */);
+        this.panelRightToolbar.setEnabled(this.state !== "Loading" /* State.Loading */);
+        this.dropTarget.setEnabled(this.state === "Idle" /* State.Idle */);
+        this.loadButton.setEnabled(this.state === "Idle" /* State.Idle */);
+        this.saveButton.setEnabled(this.state === "Idle" /* State.Idle */ && Boolean(this.performanceModel));
     }
     async toggleRecording() {
-        if (this.state === State.Idle) {
+        if (this.state === "Idle" /* State.Idle */) {
             this.recordingPageReload = false;
             await this.startRecording();
             Host.userMetrics.actionTaken(Host.UserMetrics.Action.TimelineStarted);
         }
-        else if (this.state === State.Recording) {
+        else if (this.state === "Recording" /* State.Recording */) {
             await this.stopRecording();
         }
     }
     recordReload() {
-        if (this.state !== State.Idle) {
+        if (this.state !== "Idle" /* State.Idle */) {
             return;
         }
         this.recordingPageReload = true;
@@ -1012,14 +1021,12 @@ export class TimelinePanel extends UI.Panel.Panel {
         if (this.flameChart) {
             this.flameChart.resizeToPreferredHeights();
         }
-        // Set the initial zoom: if we are using breadcrumbs we leave the entire
-        // window visible, but if not we zoom into the biggest period of activity
-        // (we might want to consider doing the same for breadcrumbs)
-        if (this.#minimapComponent.breadcrumbsActivated) {
-            this.#minimapComponent.addInitialBreadcrumb();
-        }
-        else if (traceParsedData) {
-            // We expect traceParsedData to always exist, this check is to keep TS happy.
+        // Set the initial zoom and if we are using breadcrumbs, create the initial breadcrum.
+        // We expect traceParsedData to always exist, this check is to keep TS happy.
+        if (traceParsedData) {
+            if (this.#minimapComponent.breadcrumbsActivated) {
+                this.#minimapComponent.addInitialBreadcrumb();
+            }
             // To calculate the activity we might want to zoom in, we find the last
             // main thread. Or we find the CPU Profile thread, for e.g. Node traces.
             const mainThreadTypes = [
@@ -1052,7 +1059,7 @@ export class TimelinePanel extends UI.Panel.Panel {
             void resourceModel.navigate(config.navigateToUrl);
         }
         this.reset();
-        this.setState(State.Recording);
+        this.setState("Recording" /* State.Recording */);
         this.showRecordingStarted();
         if (this.statusPane) {
             this.statusPane.enableAndFocusButton();
@@ -1154,8 +1161,8 @@ export class TimelinePanel extends UI.Panel.Panel {
         // be StopPending. Whereas if it was an existing trace they loaded via a
         // file, it will be State.Loading. This means we can tell the recording is
         // fresh by checking the state value.
-        const recordingIsFresh = this.state === State.StopPending;
-        this.setState(State.Idle);
+        const recordingIsFresh = this.state === "StopPending" /* State.StopPending */;
+        this.setState("Idle" /* State.Idle */);
         if (!tracingModel) {
             this.clear();
             return;
@@ -1273,14 +1280,14 @@ export class TimelinePanel extends UI.Panel.Panel {
         }
     }
     async loadEventFired(event) {
-        if (this.state !== State.Recording || !this.recordingPageReload || !this.controller ||
+        if (this.state !== "Recording" /* State.Recording */ || !this.recordingPageReload || !this.controller ||
             this.controller.primaryPageTarget !== event.data.resourceTreeModel.target()) {
             return;
         }
         const controller = this.controller;
         await new Promise(r => window.setTimeout(r, this.millisecondsToRecordAfterLoadEvent));
         // Check if we're still in the same recording session.
-        if (controller !== this.controller || this.state !== State.Recording) {
+        if (controller !== this.controller || this.state !== "Recording" /* State.Recording */) {
             return;
         }
         void this.stopRecording();
@@ -1398,17 +1405,6 @@ export class TimelinePanel extends UI.Panel.Panel {
         }
     }
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var State;
-(function (State) {
-    State["Idle"] = "Idle";
-    State["StartPending"] = "StartPending";
-    State["Recording"] = "Recording";
-    State["StopPending"] = "StopPending";
-    State["Loading"] = "Loading";
-    State["RecordingFailed"] = "RecordingFailed";
-})(State || (State = {}));
 // Define row and header height, should be in sync with styles for timeline graphs.
 export const rowHeight = 18;
 export const headerHeight = 20;
@@ -1448,13 +1444,16 @@ export class StatusPane extends UI.Widget.VBox {
             this.description.innerText = options.description;
         }
         const buttonContainer = this.contentElement.createChild('div', 'stop-button');
-        this.downloadTraceButton = UI.UIUtils.createTextButton(i18nString(UIStrings.downloadAfterError), async () => {
+        this.downloadTraceButton = UI.UIUtils.createTextButton(i18nString(UIStrings.downloadAfterError), () => {
             void this.#downloadRawTraceAfterError();
-        });
+        }, { jslogContext: 'timeline.download-after-error' });
         this.downloadTraceButton.disabled = true;
         this.downloadTraceButton.style.visibility = 'hidden';
         const buttonText = options.buttonText || i18nString(UIStrings.stop);
-        this.button = UI.UIUtils.createTextButton(buttonText, buttonCallback, '', true);
+        this.button = UI.UIUtils.createTextButton(buttonText, buttonCallback, {
+            jslogContext: 'timeline.stop-recording',
+            primary: true,
+        });
         // Profiling can't be stopped during initialization.
         this.button.disabled = !options.buttonDisabled === false;
         buttonContainer.append(this.downloadTraceButton);

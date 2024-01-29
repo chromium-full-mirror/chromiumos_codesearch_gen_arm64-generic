@@ -422,6 +422,8 @@ bool TtsHostStubDispatch::Accept(
           reinterpret_cast<internal::TtsHost_OnVoicesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsHost.1
       bool success = true;
       std::vector<TtsVoicePtr> p_voices{};
       TtsHost_OnVoicesChanged_ParamsDataView input_data_view(params, message);
@@ -437,8 +439,8 @@ bool TtsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVoicesChanged(
-std::move(p_voices));
+      impl->OnVoicesChanged(        
+        std::move(p_voices));
       return true;
     }
     case internal::kTtsHost_OnTtsEvent_Name: {
@@ -448,6 +450,8 @@ std::move(p_voices));
           reinterpret_cast<internal::TtsHost_OnTtsEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsHost.2
       bool success = true;
       uint32_t p_utteranceId{};
       TtsEventType p_event_type{};
@@ -475,12 +479,12 @@ std::move(p_voices));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTtsEvent(
-std::move(p_utteranceId), 
-std::move(p_event_type), 
-std::move(p_char_index), 
-std::move(p_length), 
-std::move(p_error_msg));
+      impl->OnTtsEvent(        
+        std::move(p_utteranceId), 
+        std::move(p_event_type), 
+        std::move(p_char_index), 
+        std::move(p_length), 
+        std::move(p_error_msg));
       return true;
     }
   }
@@ -876,6 +880,8 @@ bool TtsInstance_Init_ForwardToCallback::Accept(
           internal::TtsInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TtsInstance.3
   bool success = true;
   TtsInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -941,6 +947,8 @@ bool TtsInstanceStubDispatch::Accept(
           reinterpret_cast<internal::TtsInstance_Speak_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsInstance.1
       bool success = true;
       TtsUtterancePtr p_utterance{};
       TtsInstance_Speak_ParamsDataView input_data_view(params, message);
@@ -956,8 +964,8 @@ bool TtsInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Speak(
-std::move(p_utterance));
+      impl->Speak(        
+        std::move(p_utterance));
       return true;
     }
     case internal::kTtsInstance_Stop_Name: {
@@ -967,6 +975,8 @@ std::move(p_utterance));
           reinterpret_cast<internal::TtsInstance_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsInstance.2
       bool success = true;
       TtsInstance_Stop_ParamsDataView input_data_view(params, message);
       
@@ -979,7 +989,7 @@ std::move(p_utterance));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
     case internal::kTtsInstance_RefreshVoices_Name: {
@@ -989,6 +999,8 @@ std::move(p_utterance));
           reinterpret_cast<internal::TtsInstance_RefreshVoices_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TtsInstance.4
       bool success = true;
       TtsInstance_RefreshVoices_ParamsDataView input_data_view(params, message);
       
@@ -1001,7 +1013,7 @@ std::move(p_utterance));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RefreshVoices();
+      impl->RefreshVoices(        );
       return true;
     }
   }
@@ -1024,6 +1036,8 @@ bool TtsInstanceStubDispatch::AcceptWithResponder(
               internal::TtsInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TtsInstance.3
       bool success = true;
       ::mojo::PendingRemote<TtsHost> p_host_remote{};
       TtsInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1044,8 +1058,8 @@ bool TtsInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kTtsInstance_Speak_Name: {

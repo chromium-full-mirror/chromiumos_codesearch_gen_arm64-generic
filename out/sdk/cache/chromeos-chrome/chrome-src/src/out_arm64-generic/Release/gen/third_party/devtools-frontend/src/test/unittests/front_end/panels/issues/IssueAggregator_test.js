@@ -85,39 +85,39 @@ describeWithMockConnection('IssueAggregator', async () => {
     });
     describe('aggregates issue kind', () => {
         it('for a single issue', () => {
-            const issues = StubIssue.createFromIssueKinds([IssuesManager.Issue.IssueKind.Improvement]);
+            const issues = StubIssue.createFromIssueKinds(["Improvement" /* IssuesManager.Issue.IssueKind.Improvement */]);
             const mockManager = new MockIssuesManager(issues);
             const aggregator = new Issues.IssueAggregator.IssueAggregator(mockManager);
             const aggregatedIssues = Array.from(aggregator.aggregatedIssues());
             assert.strictEqual(aggregatedIssues.length, 1);
             const aggregatedIssue = aggregatedIssues[0];
-            assert.strictEqual(aggregatedIssue.getKind(), IssuesManager.Issue.IssueKind.Improvement);
+            assert.strictEqual(aggregatedIssue.getKind(), "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */);
         });
         it('for issues of two different kinds', () => {
             const issues = StubIssue.createFromIssueKinds([
-                IssuesManager.Issue.IssueKind.Improvement,
-                IssuesManager.Issue.IssueKind.BreakingChange,
-                IssuesManager.Issue.IssueKind.Improvement,
+                "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */,
+                "BreakingChange" /* IssuesManager.Issue.IssueKind.BreakingChange */,
+                "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */,
             ]);
             const mockManager = new MockIssuesManager(issues);
             const aggregator = new Issues.IssueAggregator.IssueAggregator(mockManager);
             const aggregatedIssues = Array.from(aggregator.aggregatedIssues());
             assert.strictEqual(aggregatedIssues.length, 1);
             const aggregatedIssue = aggregatedIssues[0];
-            assert.strictEqual(aggregatedIssue.getKind(), IssuesManager.Issue.IssueKind.BreakingChange);
+            assert.strictEqual(aggregatedIssue.getKind(), "BreakingChange" /* IssuesManager.Issue.IssueKind.BreakingChange */);
         });
         it('for issues of three different kinds', () => {
             const issues = StubIssue.createFromIssueKinds([
-                IssuesManager.Issue.IssueKind.BreakingChange,
-                IssuesManager.Issue.IssueKind.PageError,
-                IssuesManager.Issue.IssueKind.Improvement,
+                "BreakingChange" /* IssuesManager.Issue.IssueKind.BreakingChange */,
+                "PageError" /* IssuesManager.Issue.IssueKind.PageError */,
+                "Improvement" /* IssuesManager.Issue.IssueKind.Improvement */,
             ]);
             const mockManager = new MockIssuesManager(issues);
             const aggregator = new Issues.IssueAggregator.IssueAggregator(mockManager);
             const aggregatedIssues = Array.from(aggregator.aggregatedIssues());
             assert.strictEqual(aggregatedIssues.length, 1);
             const aggregatedIssue = aggregatedIssues[0];
-            assert.strictEqual(aggregatedIssue.getKind(), IssuesManager.Issue.IssueKind.PageError);
+            assert.strictEqual(aggregatedIssue.getKind(), "PageError" /* IssuesManager.Issue.IssueKind.PageError */);
         });
     });
 });

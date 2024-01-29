@@ -177,6 +177,120 @@ AppPermissionsHandler_GetApps_ResponseParams_Data::AppPermissionsHandler_GetApps
 
 
 // static
+bool AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data* object =
+      static_cast<const AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data*>(data);
+
+  return true;
+}
+
+AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data::AppPermissionsHandler_GetSystemAppsThatUseCamera_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data* object =
+      static_cast<const AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->apps, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->apps, validation_context,
+                                         &apps_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data* object =
+      static_cast<const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data*>(data);
+
+  return true;
+}
+
+AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data* object =
+      static_cast<const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->apps, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->apps, validation_context,
+                                         &apps_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AppPermissionsHandler_OpenNativeSettings_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

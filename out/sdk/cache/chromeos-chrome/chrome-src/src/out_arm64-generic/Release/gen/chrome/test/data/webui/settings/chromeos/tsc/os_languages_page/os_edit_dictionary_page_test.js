@@ -64,7 +64,7 @@ suite('<os-settings-edit-dictionary-page>', () => {
         const settingsPrivate = new FakeSettingsPrivate(getFakePrefs());
         settingsPrefs.initialize(settingsPrivate);
         languageSettingsPrivate = new FakeLanguageSettingsPrivate();
-        languageSettingsPrivate.setSettingsPrefs(settingsPrefs);
+        languageSettingsPrivate.setSettingsPrefsForTesting(settingsPrefs);
         browserProxy = new TestLanguagesBrowserProxy();
         LanguagesBrowserProxyImpl.setInstanceForTesting(browserProxy);
         browserProxy.setLanguageSettingsPrivate(languageSettingsPrivate);

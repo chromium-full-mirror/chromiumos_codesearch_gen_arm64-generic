@@ -1,0 +1,13 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/chrome_render_frame.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/draggable_regions.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/google_accounts_private_api_extension.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/media/webrtc_logging.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/metrics.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/net/net_error_page_support.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/net_benchmarking.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/network_diagnostics.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/network_easter_egg.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/open_search_description_document_handler.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/plugin.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/renderer_configuration.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/common/trusted_vault_encryption_keys_extension.mojom-module

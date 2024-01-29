@@ -339,6 +339,8 @@ bool CrossOriginOpenerPolicyReporterStubDispatch::Accept(
           reinterpret_cast<internal::CrossOriginOpenerPolicyReporter_QueueAccessReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrossOriginOpenerPolicyReporter.0
       bool success = true;
       CoopAccessReportType p_report_type{};
       std::string p_property{};
@@ -363,11 +365,11 @@ bool CrossOriginOpenerPolicyReporterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->QueueAccessReport(
-std::move(p_report_type), 
-std::move(p_property), 
-std::move(p_source_location), 
-std::move(p_reported_window_url));
+      impl->QueueAccessReport(        
+        std::move(p_report_type), 
+        std::move(p_property), 
+        std::move(p_source_location), 
+        std::move(p_reported_window_url));
       return true;
     }
   }

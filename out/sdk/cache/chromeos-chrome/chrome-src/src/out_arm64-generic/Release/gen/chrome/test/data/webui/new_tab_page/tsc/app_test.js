@@ -1,7 +1,7 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { counterfactualLoad, LensUploadDialogElement, ModuleDescriptor, ModuleRegistry } from 'chrome://new-tab-page/lazy_load.js';
+import { counterfactualLoad, ModuleDescriptor, ModuleRegistry } from 'chrome://new-tab-page/lazy_load.js';
 import { $$, BackgroundManager, BrowserCommandProxy, CUSTOMIZE_CHROME_BUTTON_ELEMENT_ID, CustomizeDialogPage, NewTabPageProxy, NtpCustomizeChromeEntryPoint, NtpElement, VoiceAction, WindowProxy } from 'chrome://new-tab-page/new_tab_page.js';
 import { CustomizeChromeSection, NtpBackgroundImageSource, PageCallbackRouter, PageHandlerRemote } from 'chrome://new-tab-page/new_tab_page.mojom-webui.js';
 import { Command, CommandHandlerRemote } from 'chrome://resources/js/browser_command.mojom-webui.js';
@@ -813,11 +813,11 @@ suite('NewTabPageAppTest', () => {
             $$(app, '#realbox').dispatchEvent(new Event('open-lens-search'));
             await flushTasks();
             // Assert.
-            assertTrue(!!app.shadowRoot.querySelector('ntp-lens-upload-dialog'));
+            const dialog = app.shadowRoot.querySelector('ntp-lens-upload-dialog');
+            assertTrue(!!dialog);
             assertStyle($$(app, '#realbox'), 'visibility', 'hidden');
             // Act.
-            app.shadowRoot.querySelector(LensUploadDialogElement.is)
-                .closeDialog();
+            dialog.closeDialog();
             await flushTasks();
             // Assert.
             assertStyle($$(app, '#realbox'), 'visibility', 'visible');

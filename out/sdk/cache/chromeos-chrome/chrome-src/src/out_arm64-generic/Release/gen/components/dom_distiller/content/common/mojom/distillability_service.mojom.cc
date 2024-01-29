@@ -168,6 +168,8 @@ bool DistillabilityServiceStubDispatch::Accept(
           reinterpret_cast<internal::DistillabilityService_NotifyIsDistillable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DistillabilityService.0
       bool success = true;
       bool p_page_is_distillable{};
       bool p_is_last_update{};
@@ -192,11 +194,11 @@ bool DistillabilityServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyIsDistillable(
-std::move(p_page_is_distillable), 
-std::move(p_is_last_update), 
-std::move(p_is_long_article), 
-std::move(p_is_mobile_friendly));
+      impl->NotifyIsDistillable(        
+        std::move(p_page_is_distillable), 
+        std::move(p_is_last_update), 
+        std::move(p_is_long_article), 
+        std::move(p_is_mobile_friendly));
       return true;
     }
   }

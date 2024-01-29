@@ -11,44 +11,39 @@ import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/oobe_icons.html.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { getTemplate } from './arc_vm_data_migration.html.js';
 // Keep in sync with ArcVmDataMigrationScreenView::UIState.
-const ArcVmDataMigrationUIState = {
-    LOADING: 'loading',
-    WELCOME: 'welcome',
-    RESUM: 'resume',
-    PROGRESS: 'progress',
-    SUCCESS: 'success',
-    FAILURE: 'failure',
-};
+var ArcVmDataMigrationUiState;
+(function (ArcVmDataMigrationUiState) {
+    ArcVmDataMigrationUiState["LOADING"] = "loading";
+    ArcVmDataMigrationUiState["WELCOME"] = "welcome";
+    ArcVmDataMigrationUiState["RESUM"] = "resume";
+    ArcVmDataMigrationUiState["PROGRESS"] = "progress";
+    ArcVmDataMigrationUiState["SUCCESS"] = "success";
+    ArcVmDataMigrationUiState["FAILURE"] = "failure";
+})(ArcVmDataMigrationUiState || (ArcVmDataMigrationUiState = {}));
 // Keep in sync with kUserAction* in arc_vm_data_migration_screen.cc.
-const ArcVmDataMigrationUserAction = {
-    SKIP: 'skip',
-    UPDATE: 'update',
-    RESUME: 'resume',
-    FINISH: 'finish',
-    REPORT: 'report',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- */
+var ArcVmDataMigrationUserAction;
+(function (ArcVmDataMigrationUserAction) {
+    ArcVmDataMigrationUserAction["SKIP"] = "skip";
+    ArcVmDataMigrationUserAction["UPDATE"] = "update";
+    ArcVmDataMigrationUserAction["RESUME"] = "resume";
+    ArcVmDataMigrationUserAction["FINISH"] = "finish";
+    ArcVmDataMigrationUserAction["REPORT"] = "report";
+})(ArcVmDataMigrationUserAction || (ArcVmDataMigrationUserAction = {}));
 const ArcVmDataMigrationScreenElementBase = mixinBehaviors([
     OobeDialogHostBehavior,
     OobeI18nBehavior,
     LoginScreenBehavior,
     MultiStepBehavior,
 ], PolymerElement);
-class ArcVmDataMigrationScreen extends ArcVmDataMigrationScreenElementBase {
+export class ArcVmDataMigrationScreen extends ArcVmDataMigrationScreenElementBase {
     static get is() {
         return 'arc-vm-data-migration-element';
     }
@@ -57,30 +52,45 @@ class ArcVmDataMigrationScreen extends ArcVmDataMigrationScreenElementBase {
     }
     static get properties() {
         return {
-            hasEnoughFreeDiskSpace: Boolean,
-            requiredFreeDiskSpaceInString: String,
-            minimumBatteryPercent: Number,
-            hasEnoughBattery: Boolean,
-            isConnectedToCharger: Boolean,
-            migrationProgress: Number,
-            estimatedRemainingTimeInString: String,
+            hasEnoughFreeDiskSpace: {
+                type: Boolean,
+                value: true,
+            },
+            requiredFreeDiskSpaceInString: {
+                type: String,
+                value: '',
+            },
+            minimumBatteryPercent: {
+                type: Number,
+                value: 0,
+            },
+            hasEnoughBattery: {
+                type: Boolean,
+                value: true,
+            },
+            isConnectedToCharger: {
+                type: Boolean,
+                value: true,
+            },
+            migrationProgress: {
+                type: Number,
+                value: -1,
+            },
+            estimatedRemainingTimeInString: {
+                type: String,
+                value: '',
+            },
         };
     }
     constructor() {
         super();
-        this.hasEnoughFreeDiskSpace = true;
-        this.requiredFreeDiskSpaceInString = '';
-        this.minimumBatteryPercent = 0;
-        this.hasEnoughBattery = true;
-        this.isConnectedToCharger = true;
-        this.migrationProgress = -1;
-        this.estimatedRemainingTimeInString = '';
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return ArcVmDataMigrationUIState.LOADING;
+        return ArcVmDataMigrationUiState.LOADING;
     }
     get UI_STEPS() {
-        return ArcVmDataMigrationUIState;
+        return ArcVmDataMigrationUiState;
     }
     get EXTERNAL_API() {
         return [
@@ -96,11 +106,13 @@ class ArcVmDataMigrationScreen extends ArcVmDataMigrationScreenElementBase {
         super.ready();
         this.initializeLoginScreen('ArcVmDataMigrationScreen');
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.MIGRATION;
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     setUIState(state) {
-        this.setUIStep(Object.values(ArcVmDataMigrationUIState)[state]);
+        this.setUIStep(Object.values(ArcVmDataMigrationUiState)[state]);
     }
     setRequiredFreeDiskSpace(requiredFreeDiskSpaceInString) {
         this.hasEnoughFreeDiskSpace = false;
@@ -119,25 +131,25 @@ class ArcVmDataMigrationScreen extends ArcVmDataMigrationScreenElementBase {
     setEstimatedRemainingTime(estimatedRemainingTimeInString) {
         this.estimatedRemainingTimeInString = estimatedRemainingTimeInString;
     }
-    shouldDisableUpdateButton_(hasEnoughFreeDiskSpace, hasEnoughBattery) {
+    shouldDisableUpdateButton(hasEnoughFreeDiskSpace, hasEnoughBattery) {
         return !hasEnoughFreeDiskSpace || !hasEnoughBattery;
     }
-    isProgressIndeterminate_(migrationProgress) {
+    isProgressIndeterminate(migrationProgress) {
         return migrationProgress < 0;
     }
-    onSkipButtonClicked_() {
+    onSkipButtonClicked() {
         this.userActed(ArcVmDataMigrationUserAction.SKIP);
     }
-    onUpdateButtonClicked_() {
+    onUpdateButtonClicked() {
         this.userActed(ArcVmDataMigrationUserAction.UPDATE);
     }
-    onResumeButtonClicked_() {
+    onResumeButtonClicked() {
         this.userActed(ArcVmDataMigrationUserAction.RESUME);
     }
-    onFinishButtonClicked_() {
+    onFinishButtonClicked() {
         this.userActed(ArcVmDataMigrationUserAction.FINISH);
     }
-    onReportButtonClicked_() {
+    onReportButtonClicked() {
         this.userActed(ArcVmDataMigrationUserAction.REPORT);
     }
 }

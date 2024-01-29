@@ -165,7 +165,8 @@ export class TouchscreenTesterElement extends TouchscreenTesterElementBase {
         canvas.height = SCREEN_MAX_LENGTH;
         // CSS in .html file does not have access to this element,
         // therefore adjust it here to make the canvas cover the whole screen.
-        const topContainer = this.getDialog(DialogType.CANVAS).shadowRoot.querySelector('.top-container');
+        const topContainer = this.getDialog(DialogType.CANVAS).shadowRoot
+            .querySelector('.top-container');
         topContainer.style.display = 'none';
         const ctx = canvas.getContext('2d');
         assert(ctx);

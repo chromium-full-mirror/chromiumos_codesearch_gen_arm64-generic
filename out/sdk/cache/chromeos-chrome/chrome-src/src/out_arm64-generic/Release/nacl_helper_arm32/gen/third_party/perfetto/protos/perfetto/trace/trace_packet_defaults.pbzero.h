@@ -18,8 +18,9 @@ namespace pbzero {
 
 class PerfSampleDefaults;
 class TrackEventDefaults;
+class V8CodeDefaults;
 
-class TracePacketDefaults_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/58, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TracePacketDefaults_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/99, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TracePacketDefaults_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TracePacketDefaults_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -30,6 +31,8 @@ class TracePacketDefaults_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   ::protozero::ConstBytes track_event_defaults() const { return at<11>().as_bytes(); }
   bool has_perf_sample_defaults() const { return at<12>().valid(); }
   ::protozero::ConstBytes perf_sample_defaults() const { return at<12>().as_bytes(); }
+  bool has_v8_code_defaults() const { return at<99>().valid(); }
+  ::protozero::ConstBytes v8_code_defaults() const { return at<99>().as_bytes(); }
 };
 
 class TracePacketDefaults : public ::protozero::Message {
@@ -39,6 +42,7 @@ class TracePacketDefaults : public ::protozero::Message {
     kTimestampClockIdFieldNumber = 58,
     kTrackEventDefaultsFieldNumber = 11,
     kPerfSampleDefaultsFieldNumber = 12,
+    kV8CodeDefaultsFieldNumber = 99,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TracePacketDefaults"; }
 
@@ -86,6 +90,20 @@ class TracePacketDefaults : public ::protozero::Message {
   static constexpr FieldMetadata_PerfSampleDefaults kPerfSampleDefaults{};
   template <typename T = PerfSampleDefaults> T* set_perf_sample_defaults() {
     return BeginNestedMessage<T>(12);
+  }
+
+
+  using FieldMetadata_V8CodeDefaults =
+    ::protozero::proto_utils::FieldMetadata<
+      99,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8CodeDefaults,
+      TracePacketDefaults>;
+
+  static constexpr FieldMetadata_V8CodeDefaults kV8CodeDefaults{};
+  template <typename T = V8CodeDefaults> T* set_v8_code_defaults() {
+    return BeginNestedMessage<T>(99);
   }
 
 };

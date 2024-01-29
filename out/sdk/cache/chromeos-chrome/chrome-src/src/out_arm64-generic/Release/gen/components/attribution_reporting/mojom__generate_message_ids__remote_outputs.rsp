@@ -1,0 +1,6 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/attribution_reporting/registration_eligibility.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/attribution_reporting/source_registration_error.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/attribution_reporting/source_registration_time_config.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/attribution_reporting/summary_window_operator.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/attribution_reporting/trigger_data_matching.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/attribution_reporting/trigger_registration_error.mojom-shared-message-ids.h

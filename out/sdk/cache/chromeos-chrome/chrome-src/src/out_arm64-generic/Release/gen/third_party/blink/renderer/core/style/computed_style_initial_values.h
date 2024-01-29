@@ -1287,6 +1287,10 @@ class ComputedStyleInitialValues{
     return nullptr;
   }
 
+  static Vector<AtomicString> InitialViewTransitionClass() {
+    return Vector<AtomicString, 0>();
+  }
+
   static AtomicString InitialViewTransitionName() {
     return AtomicString();
   }
@@ -1452,6 +1456,10 @@ class ComputedStyleInitialValues{
   }
 
   static bool InitialHasNonUaHighlightPseudoStyles() {
+    return false;
+  }
+
+  static bool InitialHighlightsDependOnSizeContainerQueries() {
     return false;
   }
 

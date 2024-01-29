@@ -613,6 +613,8 @@ bool FileChooser_OpenFileChooser_ForwardToCallback::Accept(
           internal::FileChooser_OpenFileChooser_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileChooser.0
   bool success = true;
   FileChooserResultPtr p_result{};
   FileChooser_OpenFileChooser_ResponseParamsDataView input_data_view(params, message);
@@ -739,6 +741,8 @@ bool FileChooser_EnumerateChosenDirectory_ForwardToCallback::Accept(
           internal::FileChooser_EnumerateChosenDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileChooser.1
   bool success = true;
   FileChooserResultPtr p_result{};
   FileChooser_EnumerateChosenDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -838,6 +842,8 @@ bool FileChooserStubDispatch::AcceptWithResponder(
               internal::FileChooser_OpenFileChooser_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileChooser.0
       bool success = true;
       FileChooserParamsPtr p_params{};
       FileChooser_OpenFileChooser_ParamsDataView input_data_view(params, message);
@@ -856,8 +862,8 @@ bool FileChooserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFileChooser(
-std::move(p_params), std::move(callback));
+      impl->OpenFileChooser(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kFileChooser_EnumerateChosenDirectory_Name: {
@@ -867,6 +873,8 @@ std::move(p_params), std::move(callback));
               internal::FileChooser_EnumerateChosenDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileChooser.1
       bool success = true;
       ::base::FilePath p_directory_path{};
       FileChooser_EnumerateChosenDirectory_ParamsDataView input_data_view(params, message);
@@ -885,8 +893,8 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnumerateChosenDirectory(
-std::move(p_directory_path), std::move(callback));
+      impl->EnumerateChosenDirectory(        
+        std::move(p_directory_path), std::move(callback));
       return true;
     }
   }

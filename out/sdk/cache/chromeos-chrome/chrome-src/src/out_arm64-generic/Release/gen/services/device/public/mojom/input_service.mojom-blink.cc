@@ -413,6 +413,8 @@ bool InputDeviceManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::InputDeviceManagerClient_InputDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceManagerClient.0
       bool success = true;
       InputDeviceInfoPtr p_device_info{};
       InputDeviceManagerClient_InputDeviceAdded_ParamsDataView input_data_view(params, message);
@@ -428,8 +430,8 @@ bool InputDeviceManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InputDeviceAdded(
-std::move(p_device_info));
+      impl->InputDeviceAdded(        
+        std::move(p_device_info));
       return true;
     }
     case internal::kInputDeviceManagerClient_InputDeviceRemoved_Name: {
@@ -439,6 +441,8 @@ std::move(p_device_info));
           reinterpret_cast<internal::InputDeviceManagerClient_InputDeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDeviceManagerClient.1
       bool success = true;
       WTF::String p_id{};
       InputDeviceManagerClient_InputDeviceRemoved_ParamsDataView input_data_view(params, message);
@@ -454,8 +458,8 @@ std::move(p_device_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InputDeviceRemoved(
-std::move(p_id));
+      impl->InputDeviceRemoved(        
+        std::move(p_id));
       return true;
     }
   }
@@ -743,6 +747,8 @@ bool InputDeviceManager_GetDevicesAndSetClient_ForwardToCallback::Accept(
           internal::InputDeviceManager_GetDevicesAndSetClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDeviceManager.0
   bool success = true;
   WTF::Vector<InputDeviceInfoPtr> p_devices{};
   InputDeviceManager_GetDevicesAndSetClient_ResponseParamsDataView input_data_view(params, message);
@@ -874,6 +880,8 @@ bool InputDeviceManager_GetDevices_ForwardToCallback::Accept(
           internal::InputDeviceManager_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDeviceManager.1
   bool success = true;
   WTF::Vector<InputDeviceInfoPtr> p_devices{};
   InputDeviceManager_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -979,6 +987,8 @@ bool InputDeviceManagerStubDispatch::AcceptWithResponder(
               internal::InputDeviceManager_GetDevicesAndSetClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDeviceManager.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<InputDeviceManagerClient> p_client{};
       InputDeviceManager_GetDevicesAndSetClient_ParamsDataView input_data_view(params, message);
@@ -999,8 +1009,8 @@ bool InputDeviceManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevicesAndSetClient(
-std::move(p_client), std::move(callback));
+      impl->GetDevicesAndSetClient(        
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kInputDeviceManager_GetDevices_Name: {
@@ -1010,6 +1020,8 @@ std::move(p_client), std::move(callback));
               internal::InputDeviceManager_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDeviceManager.1
       bool success = true;
       InputDeviceManager_GetDevices_ParamsDataView input_data_view(params, message);
       

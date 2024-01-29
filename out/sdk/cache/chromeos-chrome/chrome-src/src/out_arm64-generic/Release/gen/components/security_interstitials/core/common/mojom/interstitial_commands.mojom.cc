@@ -837,6 +837,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_DontProceed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.0
       bool success = true;
       InterstitialCommands_DontProceed_ParamsDataView input_data_view(params, message);
       
@@ -849,7 +851,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DontProceed();
+      impl->DontProceed(        );
       return true;
     }
     case internal::kInterstitialCommands_Proceed_Name: {
@@ -859,6 +861,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_Proceed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.1
       bool success = true;
       InterstitialCommands_Proceed_ParamsDataView input_data_view(params, message);
       
@@ -871,7 +875,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Proceed();
+      impl->Proceed(        );
       return true;
     }
     case internal::kInterstitialCommands_ShowMoreSection_Name: {
@@ -881,6 +885,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_ShowMoreSection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.2
       bool success = true;
       InterstitialCommands_ShowMoreSection_ParamsDataView input_data_view(params, message);
       
@@ -893,7 +899,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowMoreSection();
+      impl->ShowMoreSection(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenHelpCenter_Name: {
@@ -903,6 +909,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenHelpCenter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.3
       bool success = true;
       InterstitialCommands_OpenHelpCenter_ParamsDataView input_data_view(params, message);
       
@@ -915,7 +923,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenHelpCenter();
+      impl->OpenHelpCenter(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenDiagnostic_Name: {
@@ -925,6 +933,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenDiagnostic_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.4
       bool success = true;
       InterstitialCommands_OpenDiagnostic_ParamsDataView input_data_view(params, message);
       
@@ -937,7 +947,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDiagnostic();
+      impl->OpenDiagnostic(        );
       return true;
     }
     case internal::kInterstitialCommands_Reload_Name: {
@@ -947,6 +957,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_Reload_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.5
       bool success = true;
       InterstitialCommands_Reload_ParamsDataView input_data_view(params, message);
       
@@ -959,7 +971,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Reload();
+      impl->Reload(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenDateSettings_Name: {
@@ -969,6 +981,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenDateSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.6
       bool success = true;
       InterstitialCommands_OpenDateSettings_ParamsDataView input_data_view(params, message);
       
@@ -981,7 +995,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDateSettings();
+      impl->OpenDateSettings(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenLogin_Name: {
@@ -991,6 +1005,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenLogin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.7
       bool success = true;
       InterstitialCommands_OpenLogin_ParamsDataView input_data_view(params, message);
       
@@ -1003,7 +1019,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenLogin();
+      impl->OpenLogin(        );
       return true;
     }
     case internal::kInterstitialCommands_DoReport_Name: {
@@ -1013,6 +1029,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_DoReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.8
       bool success = true;
       InterstitialCommands_DoReport_ParamsDataView input_data_view(params, message);
       
@@ -1025,7 +1043,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoReport();
+      impl->DoReport(        );
       return true;
     }
     case internal::kInterstitialCommands_DontReport_Name: {
@@ -1035,6 +1053,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_DontReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.9
       bool success = true;
       InterstitialCommands_DontReport_ParamsDataView input_data_view(params, message);
       
@@ -1047,7 +1067,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DontReport();
+      impl->DontReport(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenReportingPrivacy_Name: {
@@ -1057,6 +1077,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenReportingPrivacy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.10
       bool success = true;
       InterstitialCommands_OpenReportingPrivacy_ParamsDataView input_data_view(params, message);
       
@@ -1069,7 +1091,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenReportingPrivacy();
+      impl->OpenReportingPrivacy(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenWhitepaper_Name: {
@@ -1079,6 +1101,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenWhitepaper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.11
       bool success = true;
       InterstitialCommands_OpenWhitepaper_ParamsDataView input_data_view(params, message);
       
@@ -1091,7 +1115,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenWhitepaper();
+      impl->OpenWhitepaper(        );
       return true;
     }
     case internal::kInterstitialCommands_ReportPhishingError_Name: {
@@ -1101,6 +1125,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_ReportPhishingError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.12
       bool success = true;
       InterstitialCommands_ReportPhishingError_ParamsDataView input_data_view(params, message);
       
@@ -1113,7 +1139,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportPhishingError();
+      impl->ReportPhishingError(        );
       return true;
     }
     case internal::kInterstitialCommands_OpenEnhancedProtectionSettings_Name: {
@@ -1123,6 +1149,8 @@ bool InterstitialCommandsStubDispatch::Accept(
           reinterpret_cast<internal::InterstitialCommands_OpenEnhancedProtectionSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterstitialCommands.13
       bool success = true;
       InterstitialCommands_OpenEnhancedProtectionSettings_ParamsDataView input_data_view(params, message);
       
@@ -1135,7 +1163,7 @@ bool InterstitialCommandsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenEnhancedProtectionSettings();
+      impl->OpenEnhancedProtectionSettings(        );
       return true;
     }
   }

@@ -84,30 +84,17 @@ bool ResponseInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasHeaders()) {
-  if (!ToV8Traits<V8UnionByteStringByteStringRecordOrByteStringSequenceSequence>::ToV8(script_state, member_headers_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8UnionByteStringByteStringRecordOrByteStringSequenceSequence>::ToV8(script_state, member_headers_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasStatus()) {
-  if (!ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_status_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_status_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasStatusText()) {
-  if (!ToV8Traits<IDLByteString>::ToV8(script_state, member_status_text_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLByteString>::ToV8(script_state, member_status_text_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

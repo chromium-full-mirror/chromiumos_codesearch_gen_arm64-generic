@@ -445,6 +445,8 @@ bool Sharing_ShutDown_ForwardToCallback::Accept(
           internal::Sharing_ShutDown_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Sharing.1
   bool success = true;
   Sharing_ShutDown_ResponseParamsDataView input_data_view(params, message);
   
@@ -507,6 +509,8 @@ bool SharingStubDispatch::Accept(
           reinterpret_cast<internal::Sharing_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Sharing.0
       bool success = true;
       NearbyDependenciesPtr p_deps{};
       ::mojo::PendingReceiver<::nearby::connections::mojom::NearbyConnections> p_nearby_connections{};
@@ -542,12 +546,12 @@ bool SharingStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_deps), 
-std::move(p_nearby_connections), 
-std::move(p_nearby_presence), 
-std::move(p_decoder), 
-std::move(p_quick_start_decoder));
+      impl->Connect(        
+        std::move(p_deps), 
+        std::move(p_nearby_connections), 
+        std::move(p_nearby_presence), 
+        std::move(p_decoder), 
+        std::move(p_quick_start_decoder));
       return true;
     }
     case internal::kSharing_ShutDown_Name: {
@@ -576,6 +580,8 @@ bool SharingStubDispatch::AcceptWithResponder(
               internal::Sharing_ShutDown_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Sharing.1
       bool success = true;
       Sharing_ShutDown_ParamsDataView input_data_view(params, message);
       

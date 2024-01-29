@@ -15,7 +15,6 @@ namespace internal {
 
 
 constexpr uint32_t kRenderMessageFilter_GenerateFrameRoutingID_Name = 0;
-constexpr uint32_t kRenderMessageFilter_HasGpuProcess_Name = 1;
 
 }  // namespace internal
 

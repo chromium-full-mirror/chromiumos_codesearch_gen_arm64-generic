@@ -493,6 +493,8 @@ bool IdentityManager_GetAccountFullName_ForwardToCallback::Accept(
           internal::IdentityManager_GetAccountFullName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdentityManager.0
   bool success = true;
   std::string p_full_name{};
   IdentityManager_GetAccountFullName_ResponseParamsDataView input_data_view(params, message);
@@ -622,6 +624,8 @@ bool IdentityManager_GetAccountImage_ForwardToCallback::Accept(
           internal::IdentityManager_GetAccountImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdentityManager.1
   bool success = true;
   ::gfx::ImageSkia p_image{};
   IdentityManager_GetAccountImage_ResponseParamsDataView input_data_view(params, message);
@@ -747,6 +751,8 @@ bool IdentityManager_GetAccountEmail_ForwardToCallback::Accept(
           internal::IdentityManager_GetAccountEmail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdentityManager.2
   bool success = true;
   std::string p_email{};
   IdentityManager_GetAccountEmail_ResponseParamsDataView input_data_view(params, message);
@@ -876,6 +882,8 @@ bool IdentityManager_HasAccountWithPersistentError_ForwardToCallback::Accept(
           internal::IdentityManager_HasAccountWithPersistentError_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdentityManager.3
   bool success = true;
   bool p_persistent_error{};
   IdentityManager_HasAccountWithPersistentError_ResponseParamsDataView input_data_view(params, message);
@@ -975,6 +983,8 @@ bool IdentityManagerStubDispatch::AcceptWithResponder(
               internal::IdentityManager_GetAccountFullName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdentityManager.0
       bool success = true;
       std::string p_gaia{};
       IdentityManager_GetAccountFullName_ParamsDataView input_data_view(params, message);
@@ -993,8 +1003,8 @@ bool IdentityManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAccountFullName(
-std::move(p_gaia), std::move(callback));
+      impl->GetAccountFullName(        
+        std::move(p_gaia), std::move(callback));
       return true;
     }
     case internal::kIdentityManager_GetAccountImage_Name: {
@@ -1004,6 +1014,8 @@ std::move(p_gaia), std::move(callback));
               internal::IdentityManager_GetAccountImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdentityManager.1
       bool success = true;
       std::string p_gaia{};
       IdentityManager_GetAccountImage_ParamsDataView input_data_view(params, message);
@@ -1022,8 +1034,8 @@ std::move(p_gaia), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAccountImage(
-std::move(p_gaia), std::move(callback));
+      impl->GetAccountImage(        
+        std::move(p_gaia), std::move(callback));
       return true;
     }
     case internal::kIdentityManager_GetAccountEmail_Name: {
@@ -1033,6 +1045,8 @@ std::move(p_gaia), std::move(callback));
               internal::IdentityManager_GetAccountEmail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdentityManager.2
       bool success = true;
       std::string p_gaia{};
       IdentityManager_GetAccountEmail_ParamsDataView input_data_view(params, message);
@@ -1051,8 +1065,8 @@ std::move(p_gaia), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAccountEmail(
-std::move(p_gaia), std::move(callback));
+      impl->GetAccountEmail(        
+        std::move(p_gaia), std::move(callback));
       return true;
     }
     case internal::kIdentityManager_HasAccountWithPersistentError_Name: {
@@ -1062,6 +1076,8 @@ std::move(p_gaia), std::move(callback));
               internal::IdentityManager_HasAccountWithPersistentError_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdentityManager.3
       bool success = true;
       std::string p_gaia{};
       IdentityManager_HasAccountWithPersistentError_ParamsDataView input_data_view(params, message);
@@ -1080,8 +1096,8 @@ std::move(p_gaia), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasAccountWithPersistentError(
-std::move(p_gaia), std::move(callback));
+      impl->HasAccountWithPersistentError(        
+        std::move(p_gaia), std::move(callback));
       return true;
     }
   }

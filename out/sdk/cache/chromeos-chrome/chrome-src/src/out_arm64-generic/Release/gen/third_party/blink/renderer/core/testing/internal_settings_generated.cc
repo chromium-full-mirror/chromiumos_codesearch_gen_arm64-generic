@@ -333,8 +333,6 @@ InternalSettingsGenerated::InternalSettingsGenerated(Page& page)
       GetSettings().GetTouchEditingEnabled());
   backup_.SetUseAXMenuList(
       GetSettings().GetUseAXMenuList());
-  backup_.SetUseLegacyBackgroundSizeShorthandBehavior(
-      GetSettings().GetUseLegacyBackgroundSizeShorthandBehavior());
   backup_.SetUseWideViewport(
       GetSettings().GetUseWideViewport());
   backup_.SetV8CacheOptions(
@@ -686,8 +684,6 @@ void InternalSettingsGenerated::ResetToConsistentState() {
       backup_.GetTouchEditingEnabled());
   GetSettings().SetUseAXMenuList(
       backup_.GetUseAXMenuList());
-  GetSettings().SetUseLegacyBackgroundSizeShorthandBehavior(
-      backup_.GetUseLegacyBackgroundSizeShorthandBehavior());
   GetSettings().SetUseWideViewport(
       backup_.GetUseWideViewport());
   GetSettings().SetV8CacheOptions(
@@ -1423,11 +1419,6 @@ void InternalSettingsGenerated::setTouchEditingEnabled(
 void InternalSettingsGenerated::setUseAXMenuList(
     bool useAXMenuList) {
   GetSettings().SetUseAXMenuList(useAXMenuList);
-}
-
-void InternalSettingsGenerated::setUseLegacyBackgroundSizeShorthandBehavior(
-    bool useLegacyBackgroundSizeShorthandBehavior) {
-  GetSettings().SetUseLegacyBackgroundSizeShorthandBehavior(useLegacyBackgroundSizeShorthandBehavior);
 }
 
 void InternalSettingsGenerated::setUseWideViewport(

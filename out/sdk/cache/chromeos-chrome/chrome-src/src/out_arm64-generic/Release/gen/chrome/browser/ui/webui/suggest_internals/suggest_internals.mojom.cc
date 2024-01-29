@@ -394,6 +394,8 @@ bool PageHandler_HardcodeResponse_ForwardToCallback::Accept(
           internal::PageHandler_HardcodeResponse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   RequestPtr p_request{};
   PageHandler_HardcodeResponse_ResponseParamsDataView input_data_view(params, message);
@@ -478,6 +480,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_SetPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       PageHandler_SetPage_ParamsDataView input_data_view(params, message);
@@ -495,8 +499,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPage(
-std::move(p_page));
+      impl->SetPage(        
+        std::move(p_page));
       return true;
     }
     case internal::kPageHandler_HardcodeResponse_Name: {
@@ -525,6 +529,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_HardcodeResponse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       std::string p_response{};
       PageHandler_HardcodeResponse_ParamsDataView input_data_view(params, message);
@@ -543,8 +549,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HardcodeResponse(
-std::move(p_response), std::move(callback));
+      impl->HardcodeResponse(        
+        std::move(p_response), std::move(callback));
       return true;
     }
   }
@@ -832,6 +838,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnSuggestRequestCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       RequestPtr p_request{};
       Page_OnSuggestRequestCreated_ParamsDataView input_data_view(params, message);
@@ -847,8 +855,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSuggestRequestCreated(
-std::move(p_request));
+      impl->OnSuggestRequestCreated(        
+        std::move(p_request));
       return true;
     }
     case internal::kPage_OnSuggestRequestStarted_Name: {
@@ -858,6 +866,8 @@ std::move(p_request));
           reinterpret_cast<internal::Page_OnSuggestRequestStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       RequestPtr p_request{};
       Page_OnSuggestRequestStarted_ParamsDataView input_data_view(params, message);
@@ -873,8 +883,8 @@ std::move(p_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSuggestRequestStarted(
-std::move(p_request));
+      impl->OnSuggestRequestStarted(        
+        std::move(p_request));
       return true;
     }
     case internal::kPage_OnSuggestRequestCompleted_Name: {
@@ -884,6 +894,8 @@ std::move(p_request));
           reinterpret_cast<internal::Page_OnSuggestRequestCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       RequestPtr p_request{};
       Page_OnSuggestRequestCompleted_ParamsDataView input_data_view(params, message);
@@ -899,8 +911,8 @@ std::move(p_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSuggestRequestCompleted(
-std::move(p_request));
+      impl->OnSuggestRequestCompleted(        
+        std::move(p_request));
       return true;
     }
   }

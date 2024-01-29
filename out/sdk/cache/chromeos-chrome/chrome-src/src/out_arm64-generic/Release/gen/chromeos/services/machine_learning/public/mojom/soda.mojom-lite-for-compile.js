@@ -103,6 +103,28 @@ chromeos.machineLearning.mojom.EndpointReason = {
   MAX_VALUE: 3,
 };
 
+goog.provide('chromeos.machineLearning.mojom.AsrSwitchResult');
+goog.provide('chromeos.machineLearning.mojom.AsrSwitchResultSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+chromeos.machineLearning.mojom.AsrSwitchResultSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+chromeos.machineLearning.mojom.AsrSwitchResult = {
+  
+  DEFAULT_NO_SWITCH: 0,
+  SWITCH_SUCCEEDED: 1,
+  SWITCH_FAILED: 2,
+  SWITCH_SKIPPED_NO_LP: 3,
+  MIN_VALUE: 0,
+  MAX_VALUE: 3,
+};
+
 
 
 goog.provide('chromeos.machineLearning.mojom.SodaClient');
@@ -654,6 +676,14 @@ chromeos.machineLearning.mojom.SodaRecognizerCallbackRouter = class {
 };
 
 
+goog.provide('chromeos.machineLearning.mojom.SodaMultilangConfigSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+chromeos.machineLearning.mojom.SodaMultilangConfigSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('chromeos.machineLearning.mojom.SodaConfigSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -708,6 +738,14 @@ goog.provide('chromeos.machineLearning.mojom.AudioLevelEventSpec');
  * @export
  */
 chromeos.machineLearning.mojom.AudioLevelEventSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('chromeos.machineLearning.mojom.LangIdEventSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+chromeos.machineLearning.mojom.LangIdEventSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('chromeos.machineLearning.mojom.SodaClient_OnStart_ParamsSpec');
@@ -774,6 +812,45 @@ goog.provide('chromeos.machineLearning.mojom.SpeechRecognizerEventSpec');
 chromeos.machineLearning.mojom.SpeechRecognizerEventSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+
+
+
+mojo.internal.Struct(
+    chromeos.machineLearning.mojom.SodaMultilangConfigSpec.$,
+    'SodaMultilangConfig',
+    [
+      mojo.internal.StructField(
+        'rewindWhenSwitchingLanguage', 0,
+        0,
+        mojo.internal.Bool,
+        true,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'localeToLanguagePackMap', 8,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('chromeos.machineLearning.mojom.SodaMultilangConfig');
+
+/** @record */
+chromeos.machineLearning.mojom.SodaMultilangConfig = class {
+  constructor() {
+    /** @export { !boolean } */
+    this.rewindWhenSwitchingLanguage;
+    /** @export { !Object<!string, !string> } */
+    this.localeToLanguagePackMap;
+  }
+};
 
 
 
@@ -861,8 +938,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'multiLangConfig', 48,
+        0,
+        chromeos.machineLearning.mojom.SodaMultilangConfigSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],[6, 56],]);
+    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],[6, 56],[7, 64],]);
 
 
 
@@ -891,6 +976,8 @@ chromeos.machineLearning.mojom.SodaConfig = class {
     this.speakerChangeDetection;
     /** @export { !boolean } */
     this.includeLoggingOutput;
+    /** @export { (chromeos.machineLearning.mojom.SodaMultilangConfig|undefined) } */
+    this.multiLangConfig;
   }
 };
 
@@ -1201,6 +1288,55 @@ chromeos.machineLearning.mojom.AudioLevelEvent = class {
 
 
 mojo.internal.Struct(
+    chromeos.machineLearning.mojom.LangIdEventSpec.$,
+    'LangIdEvent',
+    [
+      mojo.internal.StructField(
+        'language', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'confidenceLevel', 8,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'asrSwitchResult', 12,
+        0,
+        chromeos.machineLearning.mojom.AsrSwitchResultSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('chromeos.machineLearning.mojom.LangIdEvent');
+
+/** @record */
+chromeos.machineLearning.mojom.LangIdEvent = class {
+  constructor() {
+    /** @export { !string } */
+    this.language;
+    /** @export { !number } */
+    this.confidenceLevel;
+    /** @export { !chromeos.machineLearning.mojom.AsrSwitchResult } */
+    this.asrSwitchResult;
+  }
+};
+
+
+
+mojo.internal.Struct(
     chromeos.machineLearning.mojom.SodaClient_OnStart_ParamsSpec.$,
     'SodaClient_OnStart_Params',
     [
@@ -1373,6 +1509,10 @@ mojo.internal.Union(
         'ordinal': 3,
         'type': chromeos.machineLearning.mojom.FinalResultSpec.$,
       },
+      'langidEvent': {
+        'ordinal': 4,
+        'type': chromeos.machineLearning.mojom.LangIdEventSpec.$,
+      },
     });
 
 /**
@@ -1381,6 +1521,7 @@ mojo.internal.Union(
  *   partialResult: (!chromeos.machineLearning.mojom.PartialResult|undefined),
  *   endpointerEvent: (!chromeos.machineLearning.mojom.EndpointerEvent|undefined),
  *   finalResult: (!chromeos.machineLearning.mojom.FinalResult|undefined),
+ *   langidEvent: (!chromeos.machineLearning.mojom.LangIdEvent|undefined),
  * } }
  */
 chromeos.machineLearning.mojom.SpeechRecognizerEvent;

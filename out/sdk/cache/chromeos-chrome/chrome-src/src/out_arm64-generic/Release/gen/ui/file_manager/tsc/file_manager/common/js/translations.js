@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
+import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
 import { getMediaViewRootTypeFromVolumeId, MediaViewRootType, RootType } from './volume_manager_types.js';
 /**
  * Returns a translated string.
@@ -177,14 +178,14 @@ export function getEntryLabel(locationInfo, entry) {
         }
     }
     // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
-    if (locationInfo && locationInfo.rootType == RootType.DOWNLOADS) {
-        if (entry.fullPath == '/Downloads') {
+    if (locationInfo && locationInfo.rootType === RootType.DOWNLOADS) {
+        if (entry.fullPath === '/Downloads') {
             return str('DOWNLOADS_DIRECTORY_LABEL');
         }
-        if (entry.fullPath == '/PvmDefault') {
+        if (entry.fullPath === '/PvmDefault') {
             return str('PLUGIN_VM_DIRECTORY_LABEL');
         }
-        if (entry.fullPath == '/Camera') {
+        if (entry.fullPath === '/Camera') {
             return str('CAMERA_DIRECTORY_LABEL');
         }
     }
@@ -211,13 +212,13 @@ export function secondsToRemainingTimeString(seconds) {
     }
     const minuteFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'minute', unitDisplay: 'long' });
     const hours = Math.floor(minutes / 60);
-    if (hours == 0) {
+    if (hours === 0) {
         // Less than one hour. Display remaining time in minutes.
         return strf('TIME_REMAINING_ESTIMATE', minuteFormatter.format(minutes));
     }
     minutes -= hours * 60;
     const hourFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'hour', unitDisplay: 'long' });
-    if (minutes == 0) {
+    if (minutes === 0) {
         // Hours but no minutes.
         return strf('TIME_REMAINING_ESTIMATE', hourFormatter.format(hours));
     }
@@ -245,4 +246,37 @@ export function getFileErrorString(name) {
         FileErrorLocalizedName[name] :
         'FILE_ERROR_GENERIC';
     return loadTimeData.getString(error);
+}
+/**
+ * Get the plural string with a specified count.
+ * Note: the string id to get must be handled by `PluralStringHandler` in C++
+ * side.
+ *
+ * @param id The translation string resource id.
+ * @param count The number count to get the plural.
+ */
+export async function getPluralString(id, count) {
+    return PluralStringProxyImpl.getInstance().getPluralString(id, count);
+}
+/**
+ * Get the plural string with a specified count and placeholder values.
+ * Note: the string id to get must be handled by `PluralStringHandler` in C++
+ * side.
+ *
+ * ```
+ * {NUM_FILE, plural,
+ *    = 1 {1 file with <ph name="FILE_SIZE">$1<ex>44 MB</ex></ph> size.},
+ *    other {# files with <ph name="FILE_SIZE">$1<ex>44 MB</ex></ph> size.}}
+ *
+ * await getPluralStringWithPlaceHolders(id, 2, '44 MB')
+ * => "2 files with 44 MB size"
+ * ```
+ *
+ * @param id The translation string resource id.
+ * @param count The number count to get the plural.
+ * @param placeholders The placeholder value to replace.
+ */
+export async function getPluralStringWithPlaceHolders(id, count, ...placeholders) {
+    const strWithPlaceholders = await PluralStringProxyImpl.getInstance().getPluralString(id, count);
+    return loadTimeData.substituteString(strWithPlaceholders, ...placeholders);
 }

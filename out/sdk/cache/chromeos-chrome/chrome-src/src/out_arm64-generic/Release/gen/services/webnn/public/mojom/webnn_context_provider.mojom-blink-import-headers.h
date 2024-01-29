@@ -8,6 +8,8 @@
 #define SERVICES_WEBNN_PUBLIC_MOJOM_WEBNN_CONTEXT_PROVIDER_MOJOM_BLINK_IMPORT_HEADERS_H_
 #include "components/ml/webnn/features.mojom-blink.h"
 #include "components/ml/webnn/features.mojom-blink-import-headers.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-blink.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-blink-import-headers.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-blink.h"
 #include "services/webnn/public/mojom/webnn_graph.mojom-blink-import-headers.h"
 

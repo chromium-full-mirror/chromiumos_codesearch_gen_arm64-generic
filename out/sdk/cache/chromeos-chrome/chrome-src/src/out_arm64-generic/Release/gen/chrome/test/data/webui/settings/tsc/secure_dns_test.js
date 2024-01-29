@@ -15,6 +15,7 @@ import { PrivacyPageBrowserProxyImpl, SecureDnsMode, SecureDnsUiManagementMode }
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
 import { isVisible } from 'chrome://webui-test/test_util.js';
+import { waitAfterNextRender } from 'chrome://webui-test/polymer_test_util.js';
 // 
 import { TestPrivacyPageBrowserProxy } from './test_privacy_page_browser_proxy.js';
 // clang-format on
@@ -286,6 +287,7 @@ suite('OsSettingsRevampSecureDnsDialog', () => {
         });
     });
     setup(async function () {
+        document.body.innerHTML = window.trustedTypes.emptyHTML;
         testBrowserProxy = new TestPrivacyPageBrowserProxy();
         PrivacyPageBrowserProxyImpl.setInstance(testBrowserProxy);
         testElement = document.createElement('settings-secure-dns');
@@ -321,6 +323,8 @@ suite('OsSettingsRevampSecureDnsDialog', () => {
         flush();
         // Wait for onDisableDnsDialogClosed_ to finish.
         await flushTasks();
+        await waitAfterNextRender(secureDnsToggle);
+        assertFalse(secureDnsToggleDialog.$.dialog.open);
         assertTrue(secureDnsToggle.checked);
         assertResolverSelectShown();
         assertEquals(SecureDnsResolverType.AUTOMATIC, testElement.$.resolverSelect.value);

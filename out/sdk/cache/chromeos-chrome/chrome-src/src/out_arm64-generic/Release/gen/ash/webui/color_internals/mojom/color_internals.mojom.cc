@@ -206,6 +206,8 @@ bool WallpaperColorsObserverStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperColorsObserver_OnWallpaperColorsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperColorsObserver.0
       bool success = true;
       ::ash::WallpaperCalculatedColors p_colors{};
       WallpaperColorsObserver_OnWallpaperColorsChanged_ParamsDataView input_data_view(params, message);
@@ -221,8 +223,8 @@ bool WallpaperColorsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWallpaperColorsChanged(
-std::move(p_colors));
+      impl->OnWallpaperColorsChanged(        
+        std::move(p_colors));
       return true;
     }
   }
@@ -373,6 +375,8 @@ bool WallpaperColorsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperColorsHandler_SetWallpaperColorsObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperColorsHandler.0
       bool success = true;
       ::mojo::PendingRemote<WallpaperColorsObserver> p_observer{};
       WallpaperColorsHandler_SetWallpaperColorsObserver_ParamsDataView input_data_view(params, message);
@@ -390,8 +394,8 @@ bool WallpaperColorsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWallpaperColorsObserver(
-std::move(p_observer));
+      impl->SetWallpaperColorsObserver(        
+        std::move(p_observer));
       return true;
     }
   }

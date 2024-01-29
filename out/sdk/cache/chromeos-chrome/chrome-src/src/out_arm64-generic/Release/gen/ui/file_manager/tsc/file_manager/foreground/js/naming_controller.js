@@ -68,7 +68,7 @@ export class NamingController {
         }
         catch (error) {
             if (error instanceof DOMException) {
-                if (error.name == FileErrorToDomError.NOT_FOUND_ERR) {
+                if (error.name === FileErrorToDomError.NOT_FOUND_ERR) {
                     // The file does not exist, so it should be ok to create a new file.
                     return fileUrl;
                 }
@@ -155,7 +155,7 @@ export class NamingController {
             return;
         }
         const leadListItem = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
-        if (this.listContainer_.currentListType == ListType.DETAIL) {
+        if (this.listContainer_.currentListType === ListType.DETAIL) {
             this.listContainer_.table.updateFileMetadata(leadListItem, leadEntry);
         }
         this.listContainer_.currentList.restoreLeadItem(leadListItem);
@@ -205,7 +205,7 @@ export class NamingController {
         const newName = input.value;
         const renamedItemElement = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
         const nameNode = renamedItemElement.querySelector('.filename-label');
-        if (!newName || newName == nameNode?.textContent) {
+        if (!newName || newName === nameNode?.textContent) {
             this.cancelRename_();
             return;
         }

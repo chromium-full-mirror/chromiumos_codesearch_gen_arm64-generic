@@ -45,11 +45,13 @@ namespace dawn::native {
 
     MaybeError ValidateAddressMode(wgpu::AddressMode value) {
         switch (value) {
+            case wgpu::AddressMode::Undefined:
+                return {};
+            case wgpu::AddressMode::ClampToEdge:
+                return {};
             case wgpu::AddressMode::Repeat:
                 return {};
             case wgpu::AddressMode::MirrorRepeat:
-                return {};
-            case wgpu::AddressMode::ClampToEdge:
                 return {};
             default:
                 return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUAddressMode.", value);
@@ -94,6 +96,8 @@ namespace dawn::native {
 
     MaybeError ValidateBlendFactor(wgpu::BlendFactor value) {
         switch (value) {
+            case wgpu::BlendFactor::Undefined:
+                return {};
             case wgpu::BlendFactor::Zero:
                 return {};
             case wgpu::BlendFactor::One:
@@ -135,6 +139,8 @@ namespace dawn::native {
 
     MaybeError ValidateBlendOperation(wgpu::BlendOperation value) {
         switch (value) {
+            case wgpu::BlendOperation::Undefined:
+                return {};
             case wgpu::BlendOperation::Add:
                 return {};
             case wgpu::BlendOperation::Subtract:
@@ -216,6 +222,8 @@ namespace dawn::native {
 
     MaybeError ValidateCompareFunction(wgpu::CompareFunction value) {
         switch (value) {
+            case wgpu::CompareFunction::Undefined:
+                return {};
             case wgpu::CompareFunction::Never:
                 return {};
             case wgpu::CompareFunction::Less:
@@ -286,6 +294,8 @@ namespace dawn::native {
 
     MaybeError ValidateCullMode(wgpu::CullMode value) {
         switch (value) {
+            case wgpu::CullMode::Undefined:
+                return {};
             case wgpu::CullMode::None:
                 return {};
             case wgpu::CullMode::Front:
@@ -427,6 +437,8 @@ namespace dawn::native {
                 return {};
             case wgpu::FeatureName::AdapterPropertiesMemoryHeaps:
                 return {};
+            case wgpu::FeatureName::AdapterPropertiesD3D:
+                return {};
             case wgpu::FeatureName::SharedTextureMemoryVkDedicatedAllocation:
                 return {};
             case wgpu::FeatureName::SharedTextureMemoryAHardwareBuffer:
@@ -462,6 +474,8 @@ namespace dawn::native {
 
     MaybeError ValidateFilterMode(wgpu::FilterMode value) {
         switch (value) {
+            case wgpu::FilterMode::Undefined:
+                return {};
             case wgpu::FilterMode::Nearest:
                 return {};
             case wgpu::FilterMode::Linear:
@@ -473,6 +487,8 @@ namespace dawn::native {
 
     MaybeError ValidateFrontFace(wgpu::FrontFace value) {
         switch (value) {
+            case wgpu::FrontFace::Undefined:
+                return {};
             case wgpu::FrontFace::CCW:
                 return {};
             case wgpu::FrontFace::CW:
@@ -525,6 +541,8 @@ namespace dawn::native {
 
     MaybeError ValidateMipmapFilterMode(wgpu::MipmapFilterMode value) {
         switch (value) {
+            case wgpu::MipmapFilterMode::Undefined:
+                return {};
             case wgpu::MipmapFilterMode::Nearest:
                 return {};
             case wgpu::MipmapFilterMode::Linear:
@@ -562,6 +580,8 @@ namespace dawn::native {
 
     MaybeError ValidatePrimitiveTopology(wgpu::PrimitiveTopology value) {
         switch (value) {
+            case wgpu::PrimitiveTopology::Undefined:
+                return {};
             case wgpu::PrimitiveTopology::PointList:
                 return {};
             case wgpu::PrimitiveTopology::LineList:
@@ -701,6 +721,8 @@ namespace dawn::native {
                 return {};
             case wgpu::SType::AdapterPropertiesMemoryHeaps:
                 return {};
+            case wgpu::SType::AdapterPropertiesD3D:
+                return {};
             case wgpu::SType::DawnComputePipelineFullSubgroups:
                 return {};
             case wgpu::SType::DawnWireWGSLControl:
@@ -792,6 +814,8 @@ namespace dawn::native {
 
     MaybeError ValidateStencilOperation(wgpu::StencilOperation value) {
         switch (value) {
+            case wgpu::StencilOperation::Undefined:
+                return {};
             case wgpu::StencilOperation::Keep:
                 return {};
             case wgpu::StencilOperation::Zero:
@@ -841,6 +865,8 @@ namespace dawn::native {
 
     MaybeError ValidateTextureAspect(wgpu::TextureAspect value) {
         switch (value) {
+            case wgpu::TextureAspect::Undefined:
+                return {};
             case wgpu::TextureAspect::All:
                 return {};
             case wgpu::TextureAspect::StencilOnly:
@@ -860,6 +886,8 @@ namespace dawn::native {
 
     MaybeError ValidateTextureDimension(wgpu::TextureDimension value) {
         switch (value) {
+            case wgpu::TextureDimension::Undefined:
+                return {};
             case wgpu::TextureDimension::e1D:
                 return {};
             case wgpu::TextureDimension::e2D:
@@ -1105,6 +1133,8 @@ namespace dawn::native {
 
     MaybeError ValidateTextureViewDimension(wgpu::TextureViewDimension value) {
         switch (value) {
+            case wgpu::TextureViewDimension::Undefined:
+                return {};
             case wgpu::TextureViewDimension::e1D:
                 return {};
             case wgpu::TextureViewDimension::e2D:
@@ -1193,11 +1223,13 @@ namespace dawn::native {
 
     MaybeError ValidateVertexStepMode(wgpu::VertexStepMode value) {
         switch (value) {
+            case wgpu::VertexStepMode::Undefined:
+                return {};
+            case wgpu::VertexStepMode::VertexBufferNotUsed:
+                return {};
             case wgpu::VertexStepMode::Vertex:
                 return {};
             case wgpu::VertexStepMode::Instance:
-                return {};
-            case wgpu::VertexStepMode::VertexBufferNotUsed:
                 return {};
             default:
                 return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUVertexStepMode.", value);

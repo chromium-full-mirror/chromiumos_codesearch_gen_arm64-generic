@@ -20,6 +20,7 @@ typedef struct DawnProcTable {
     WGPUProcAdapterGetProperties adapterGetProperties;
     WGPUProcAdapterHasFeature adapterHasFeature;
     WGPUProcAdapterRequestDevice adapterRequestDevice;
+    WGPUProcAdapterRequestDeviceF adapterRequestDeviceF;
     WGPUProcAdapterReference adapterReference;
     WGPUProcAdapterRelease adapterRelease;
 
@@ -91,6 +92,7 @@ typedef struct DawnProcTable {
     WGPUProcDeviceCreateCommandEncoder deviceCreateCommandEncoder;
     WGPUProcDeviceCreateComputePipeline deviceCreateComputePipeline;
     WGPUProcDeviceCreateComputePipelineAsync deviceCreateComputePipelineAsync;
+    WGPUProcDeviceCreateComputePipelineAsyncF deviceCreateComputePipelineAsyncF;
     WGPUProcDeviceCreateErrorBuffer deviceCreateErrorBuffer;
     WGPUProcDeviceCreateErrorExternalTexture deviceCreateErrorExternalTexture;
     WGPUProcDeviceCreateErrorShaderModule deviceCreateErrorShaderModule;
@@ -101,6 +103,7 @@ typedef struct DawnProcTable {
     WGPUProcDeviceCreateRenderBundleEncoder deviceCreateRenderBundleEncoder;
     WGPUProcDeviceCreateRenderPipeline deviceCreateRenderPipeline;
     WGPUProcDeviceCreateRenderPipelineAsync deviceCreateRenderPipelineAsync;
+    WGPUProcDeviceCreateRenderPipelineAsyncF deviceCreateRenderPipelineAsyncF;
     WGPUProcDeviceCreateSampler deviceCreateSampler;
     WGPUProcDeviceCreateShaderModule deviceCreateShaderModule;
     WGPUProcDeviceCreateSwapChain deviceCreateSwapChain;
@@ -247,6 +250,7 @@ typedef struct DawnProcTable {
     WGPUProcSwapChainReference swapChainReference;
     WGPUProcSwapChainRelease swapChainRelease;
 
+    WGPUProcTextureCreateErrorView textureCreateErrorView;
     WGPUProcTextureCreateView textureCreateView;
     WGPUProcTextureDestroy textureDestroy;
     WGPUProcTextureGetDepthOrArrayLayers textureGetDepthOrArrayLayers;

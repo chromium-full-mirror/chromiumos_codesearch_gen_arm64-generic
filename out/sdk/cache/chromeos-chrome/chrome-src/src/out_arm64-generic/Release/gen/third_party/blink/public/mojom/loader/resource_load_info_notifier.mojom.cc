@@ -556,6 +556,8 @@ bool ResourceLoadInfoNotifierStubDispatch::Accept(
           reinterpret_cast<internal::ResourceLoadInfoNotifier_NotifyResourceRedirectReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceLoadInfoNotifier.0
       bool success = true;
       ::net::RedirectInfo p_redirect_info{};
       ::network::mojom::URLResponseHeadPtr p_redirect_response{};
@@ -574,9 +576,9 @@ bool ResourceLoadInfoNotifierStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyResourceRedirectReceived(
-std::move(p_redirect_info), 
-std::move(p_redirect_response));
+      impl->NotifyResourceRedirectReceived(        
+        std::move(p_redirect_info), 
+        std::move(p_redirect_response));
       return true;
     }
     case internal::kResourceLoadInfoNotifier_NotifyResourceResponseReceived_Name: {
@@ -586,6 +588,8 @@ std::move(p_redirect_response));
           reinterpret_cast<internal::ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceLoadInfoNotifier.1
       bool success = true;
       int64_t p_request_id{};
       ::url::SchemeHostPort p_final_response_url{};
@@ -613,12 +617,12 @@ std::move(p_redirect_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyResourceResponseReceived(
-std::move(p_request_id), 
-std::move(p_final_response_url), 
-std::move(p_head), 
-std::move(p_request_destination), 
-std::move(p_is_ad_resource));
+      impl->NotifyResourceResponseReceived(        
+        std::move(p_request_id), 
+        std::move(p_final_response_url), 
+        std::move(p_head), 
+        std::move(p_request_destination), 
+        std::move(p_is_ad_resource));
       return true;
     }
     case internal::kResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Name: {
@@ -628,6 +632,8 @@ std::move(p_is_ad_resource));
           reinterpret_cast<internal::ResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceLoadInfoNotifier.2
       bool success = true;
       int64_t p_request_id{};
       int32_t p_transfer_size_diff{};
@@ -646,9 +652,9 @@ std::move(p_is_ad_resource));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyResourceTransferSizeUpdated(
-std::move(p_request_id), 
-std::move(p_transfer_size_diff));
+      impl->NotifyResourceTransferSizeUpdated(        
+        std::move(p_request_id), 
+        std::move(p_transfer_size_diff));
       return true;
     }
     case internal::kResourceLoadInfoNotifier_NotifyResourceLoadCompleted_Name: {
@@ -658,6 +664,8 @@ std::move(p_transfer_size_diff));
           reinterpret_cast<internal::ResourceLoadInfoNotifier_NotifyResourceLoadCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceLoadInfoNotifier.3
       bool success = true;
       ::blink::mojom::ResourceLoadInfoPtr p_resource_load_info{};
       ::network::URLLoaderCompletionStatus p_status{};
@@ -676,9 +684,9 @@ std::move(p_transfer_size_diff));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyResourceLoadCompleted(
-std::move(p_resource_load_info), 
-std::move(p_status));
+      impl->NotifyResourceLoadCompleted(        
+        std::move(p_resource_load_info), 
+        std::move(p_status));
       return true;
     }
     case internal::kResourceLoadInfoNotifier_NotifyResourceLoadCanceled_Name: {
@@ -688,6 +696,8 @@ std::move(p_status));
           reinterpret_cast<internal::ResourceLoadInfoNotifier_NotifyResourceLoadCanceled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceLoadInfoNotifier.4
       bool success = true;
       int64_t p_request_id{};
       ResourceLoadInfoNotifier_NotifyResourceLoadCanceled_ParamsDataView input_data_view(params, message);
@@ -703,8 +713,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyResourceLoadCanceled(
-std::move(p_request_id));
+      impl->NotifyResourceLoadCanceled(        
+        std::move(p_request_id));
       return true;
     }
     case internal::kResourceLoadInfoNotifier_Clone_Name: {
@@ -714,6 +724,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::ResourceLoadInfoNotifier_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceLoadInfoNotifier.5
       bool success = true;
       ::mojo::PendingReceiver<ResourceLoadInfoNotifier> p_pending_resource_load_info_notifier{};
       ResourceLoadInfoNotifier_Clone_ParamsDataView input_data_view(params, message);
@@ -731,8 +743,8 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_pending_resource_load_info_notifier));
+      impl->Clone(        
+        std::move(p_pending_resource_load_info_notifier));
       return true;
     }
   }

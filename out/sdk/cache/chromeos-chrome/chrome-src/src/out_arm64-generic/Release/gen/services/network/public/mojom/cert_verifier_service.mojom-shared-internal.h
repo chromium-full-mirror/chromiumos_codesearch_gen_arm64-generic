@@ -144,9 +144,12 @@ class  AdditionalCertificates_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> all_certificates;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::X509Certificate_Data>>> trust_anchors;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>>>> all_certificates;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>>>> trust_anchors;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>>>> trust_anchors_with_enforced_constraints;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>>>> distrusted_spkis;
+  uint8_t include_system_trust_store : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<AdditionalCertificates_Data>;
@@ -154,7 +157,7 @@ class  AdditionalCertificates_Data {
   AdditionalCertificates_Data();
   ~AdditionalCertificates_Data() = delete;
 };
-static_assert(sizeof(AdditionalCertificates_Data) == 32,
+static_assert(sizeof(AdditionalCertificates_Data) == 48,
               "Bad sizeof(AdditionalCertificates_Data)");
 // Used by AdditionalCertificates::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

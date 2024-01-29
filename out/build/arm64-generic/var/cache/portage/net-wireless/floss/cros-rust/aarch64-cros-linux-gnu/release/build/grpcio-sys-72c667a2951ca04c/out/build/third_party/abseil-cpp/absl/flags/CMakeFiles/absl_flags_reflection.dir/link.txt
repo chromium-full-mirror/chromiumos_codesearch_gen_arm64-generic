@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libabsl_flags_reflection.a CMakeFiles/absl_flags_reflection.dir/reflection.cc.o
-/usr/bin/llvm-ranlib libabsl_flags_reflection.a

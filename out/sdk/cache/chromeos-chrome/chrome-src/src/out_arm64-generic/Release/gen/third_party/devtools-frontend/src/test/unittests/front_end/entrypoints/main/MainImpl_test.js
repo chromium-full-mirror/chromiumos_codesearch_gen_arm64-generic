@@ -2,12 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 const { assert } = chai;
+import * as Host from '../../../../../front_end/core/host/host.js';
 import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as UI from '../../../../../front_end/ui/legacy/legacy.js';
 import * as Main from '../../../../../front_end/entrypoints/main/main.js';
 import { createTarget, stubNoopSettings } from '../../helpers/EnvironmentHelpers.js';
 import { describeWithMockConnection, } from '../../helpers/MockConnection.js';
+import { describeWithRealConnection } from '../../helpers/RealConnection.js';
 describeWithMockConnection('MainMenuItem', () => {
     const focusDebuggee = (targetFactory) => {
         beforeEach(async () => {
@@ -18,10 +20,10 @@ describeWithMockConnection('MainMenuItem', () => {
             });
             targetFactory();
             sinon.stub(UI.ActionRegistry.ActionRegistry.instance(), 'hasAction')
-                .withArgs(sinon.match(/inspector_main.focus-debuggee|main.toggle-drawer/))
+                .withArgs(sinon.match(/inspector-main.focus-debuggee|main.toggle-drawer/))
                 .returns(true);
             sinon.stub(UI.ActionRegistry.ActionRegistry.instance(), 'getAction')
-                .withArgs(sinon.match(/inspector_main.focus-debuggee|main.toggle-drawer/))
+                .withArgs(sinon.match(/inspector-main.focus-debuggee|main.toggle-drawer/))
                 .returns(sinon.createStubInstance(UI.ActionRegistration.Action));
         });
         it('includes focus debuggee item when undocked', async () => {
@@ -55,5 +57,12 @@ describeWithMockConnection('MainMenuItem', () => {
         createTarget({ parentTarget: tabTaget, subtype: 'prerender' });
         return createTarget({ parentTarget: tabTaget });
     }));
+});
+describeWithRealConnection('MainImpl', () => {
+    it('calls refetchColors on ColorThemeChanged', async () => {
+        const colorFetchSpy = sinon.spy(UI.Utils.DynamicTheming, 'refetchColors');
+        Host.InspectorFrontendHost.InspectorFrontendHostInstance.events.dispatchEventToListeners(Host.InspectorFrontendHostAPI.Events.ColorThemeChanged);
+        assert.isTrue(colorFetchSpy.called);
+    });
 });
 //# sourceMappingURL=MainImpl_test.js.map

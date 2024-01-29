@@ -235,6 +235,8 @@ bool SharedStorageEntriesListenerStubDispatch::Accept(
           reinterpret_cast<internal::SharedStorageEntriesListener_DidReadEntries_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedStorageEntriesListener.0
       bool success = true;
       bool p_success{};
       std::string p_error_message{};
@@ -262,12 +264,12 @@ bool SharedStorageEntriesListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidReadEntries(
-std::move(p_success), 
-std::move(p_error_message), 
-std::move(p_entries), 
-std::move(p_has_more_entries), 
-std::move(p_total_queued_to_send));
+      impl->DidReadEntries(        
+        std::move(p_success), 
+        std::move(p_error_message), 
+        std::move(p_entries), 
+        std::move(p_has_more_entries), 
+        std::move(p_total_queued_to_send));
       return true;
     }
   }
@@ -333,8 +335,8 @@ SharedStorageWorkletServiceClient::IPCStableHashFunction SharedStorageWorkletSer
     case internal::kSharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Name: {
       return &SharedStorageWorkletServiceClient::SharedStorageRemainingBudget_Sym::IPCStableHash;
     }
-    case internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name: {
-      return &SharedStorageWorkletServiceClient::ConsoleLog_Sym::IPCStableHash;
+    case internal::kSharedStorageWorkletServiceClient_DidAddMessageToConsole_Name: {
+      return &SharedStorageWorkletServiceClient::DidAddMessageToConsole_Sym::IPCStableHash;
     }
     case internal::kSharedStorageWorkletServiceClient_RecordUseCounters_Name: {
       return &SharedStorageWorkletServiceClient::RecordUseCounters_Sym::IPCStableHash;
@@ -368,8 +370,8 @@ const char* SharedStorageWorkletServiceClient::MessageToMethodName_(mojo::Messag
             return "Receive blink::mojom::SharedStorageWorkletServiceClient::SharedStorageLength";
       case internal::kSharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Name:
             return "Receive blink::mojom::SharedStorageWorkletServiceClient::SharedStorageRemainingBudget";
-      case internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name:
-            return "Receive blink::mojom::SharedStorageWorkletServiceClient::ConsoleLog";
+      case internal::kSharedStorageWorkletServiceClient_DidAddMessageToConsole_Name:
+            return "Receive blink::mojom::SharedStorageWorkletServiceClient::DidAddMessageToConsole";
       case internal::kSharedStorageWorkletServiceClient_RecordUseCounters_Name:
             return "Receive blink::mojom::SharedStorageWorkletServiceClient::RecordUseCounters";
     }
@@ -393,8 +395,8 @@ const char* SharedStorageWorkletServiceClient::MessageToMethodName_(mojo::Messag
             return "Receive reply blink::mojom::SharedStorageWorkletServiceClient::SharedStorageLength";
       case internal::kSharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Name:
             return "Receive reply blink::mojom::SharedStorageWorkletServiceClient::SharedStorageRemainingBudget";
-      case internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name:
-            return "Receive reply blink::mojom::SharedStorageWorkletServiceClient::ConsoleLog";
+      case internal::kSharedStorageWorkletServiceClient_DidAddMessageToConsole_Name:
+            return "Receive reply blink::mojom::SharedStorageWorkletServiceClient::DidAddMessageToConsole";
       case internal::kSharedStorageWorkletServiceClient_RecordUseCounters_Name:
             return "Receive reply blink::mojom::SharedStorageWorkletServiceClient::RecordUseCounters";
     }
@@ -528,7 +530,7 @@ uint32_t SharedStorageWorkletServiceClient::SharedStorageRemainingBudget_Sym::IP
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t SharedStorageWorkletServiceClient::ConsoleLog_Sym::IPCStableHash() {
+uint32_t SharedStorageWorkletServiceClient::DidAddMessageToConsole_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -536,7 +538,7 @@ uint32_t SharedStorageWorkletServiceClient::ConsoleLog_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::SharedStorageWorkletServiceClient::ConsoleLog");
+          "(Impl)blink::mojom::SharedStorageWorkletServiceClient::DidAddMessageToConsole");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1106,13 +1108,16 @@ void SharedStorageWorkletServiceClientProxy::SharedStorageRemainingBudget(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void SharedStorageWorkletServiceClientProxy::ConsoleLog(
-    const std::string& in_message) {
+void SharedStorageWorkletServiceClientProxy::DidAddMessageToConsole(
+    ::blink::mojom::ConsoleMessageLevel in_log_level, const std::string& in_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send blink::mojom::SharedStorageWorkletServiceClient::ConsoleLog", "input_parameters",
+    "mojom", "Send blink::mojom::SharedStorageWorkletServiceClient::DidAddMessageToConsole", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("log_level"), in_log_level,
+                        "<value of type ::blink::mojom::ConsoleMessageLevel>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("message"), in_message,
                         "<value of type const std::string&>");
@@ -1131,11 +1136,13 @@ void SharedStorageWorkletServiceClientProxy::ConsoleLog(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name, kFlags, 0, 0, nullptr);
+      internal::kSharedStorageWorkletServiceClient_DidAddMessageToConsole_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::mojom::internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data> params(
+      ::blink::mojom::internal::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::blink::mojom::ConsoleMessageLevel>(
+      in_log_level, &params->log_level);
   mojo::internal::MessageFragment<
       typename decltype(params->message)::BaseType> message_fragment(
           params.message());
@@ -1146,11 +1153,11 @@ void SharedStorageWorkletServiceClientProxy::ConsoleLog(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->message.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null message in SharedStorageWorkletServiceClient.ConsoleLog request");
+      "null message in SharedStorageWorkletServiceClient.DidAddMessageToConsole request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SharedStorageWorkletServiceClient::Name_);
-  message.set_method_name("ConsoleLog");
+  message.set_method_name("DidAddMessageToConsole");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1267,6 +1274,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageSet_ForwardToCallback::Accep
           internal::SharedStorageWorkletServiceClient_SharedStorageSet_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.0
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1404,6 +1413,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageAppend_ForwardToCallback::Ac
           internal::SharedStorageWorkletServiceClient_SharedStorageAppend_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.1
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1541,6 +1552,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageDelete_ForwardToCallback::Ac
           internal::SharedStorageWorkletServiceClient_SharedStorageDelete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.2
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1678,6 +1691,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageClear_ForwardToCallback::Acc
           internal::SharedStorageWorkletServiceClient_SharedStorageClear_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.3
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -1815,6 +1830,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageGet_ForwardToCallback::Accep
           internal::SharedStorageWorkletServiceClient_SharedStorageGet_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.4
   bool success = true;
   SharedStorageGetStatus p_status{};
   std::string p_error_message{};
@@ -1971,6 +1988,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageLength_ForwardToCallback::Ac
           internal::SharedStorageWorkletServiceClient_SharedStorageLength_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.7
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -2116,6 +2135,8 @@ bool SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ForwardToCal
           internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletServiceClient.8
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -2231,6 +2252,8 @@ bool SharedStorageWorkletServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::SharedStorageWorkletServiceClient_SharedStorageKeys_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.5
       bool success = true;
       ::mojo::PendingRemote<SharedStorageEntriesListener> p_listener{};
       SharedStorageWorkletServiceClient_SharedStorageKeys_ParamsDataView input_data_view(params, message);
@@ -2248,8 +2271,8 @@ bool SharedStorageWorkletServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageKeys(
-std::move(p_listener));
+      impl->SharedStorageKeys(        
+        std::move(p_listener));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_SharedStorageEntries_Name: {
@@ -2259,6 +2282,8 @@ std::move(p_listener));
           reinterpret_cast<internal::SharedStorageWorkletServiceClient_SharedStorageEntries_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.6
       bool success = true;
       ::mojo::PendingRemote<SharedStorageEntriesListener> p_listener{};
       SharedStorageWorkletServiceClient_SharedStorageEntries_ParamsDataView input_data_view(params, message);
@@ -2276,8 +2301,8 @@ std::move(p_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageEntries(
-std::move(p_listener));
+      impl->SharedStorageEntries(        
+        std::move(p_listener));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_SharedStorageLength_Name: {
@@ -2286,17 +2311,22 @@ std::move(p_listener));
     case internal::kSharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Name: {
       break;
     }
-    case internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name: {
+    case internal::kSharedStorageWorkletServiceClient_DidAddMessageToConsole_Name: {
 
       DCHECK(message->is_serialized());
-      internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data* params =
-          reinterpret_cast<internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data*>(
+      internal::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data* params =
+          reinterpret_cast<internal::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      std::string p_message{};
-      SharedStorageWorkletServiceClient_ConsoleLog_ParamsDataView input_data_view(params, message);
       
+      // Validation for SharedStorageWorkletServiceClient.9
+      bool success = true;
+      ::blink::mojom::ConsoleMessageLevel p_log_level{};
+      std::string p_message{};
+      SharedStorageWorkletServiceClient_DidAddMessageToConsole_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLogLevel(&p_log_level))
+        success = false;
       if (success && !input_data_view.ReadMessage(&p_message))
         success = false;
       if (!success) {
@@ -2308,8 +2338,9 @@ std::move(p_listener));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConsoleLog(
-std::move(p_message));
+      impl->DidAddMessageToConsole(        
+        std::move(p_log_level), 
+        std::move(p_message));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_RecordUseCounters_Name: {
@@ -2319,6 +2350,8 @@ std::move(p_message));
           reinterpret_cast<internal::SharedStorageWorkletServiceClient_RecordUseCounters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.10
       bool success = true;
       std::vector<::blink::mojom::WebFeature> p_features{};
       SharedStorageWorkletServiceClient_RecordUseCounters_ParamsDataView input_data_view(params, message);
@@ -2334,8 +2367,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordUseCounters(
-std::move(p_features));
+      impl->RecordUseCounters(        
+        std::move(p_features));
       return true;
     }
   }
@@ -2358,6 +2391,8 @@ bool SharedStorageWorkletServiceClientStubDispatch::AcceptWithResponder(
               internal::SharedStorageWorkletServiceClient_SharedStorageSet_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.0
       bool success = true;
       ::std::u16string p_key{};
       ::std::u16string p_value{};
@@ -2382,10 +2417,10 @@ bool SharedStorageWorkletServiceClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageSet(
-std::move(p_key), 
-std::move(p_value), 
-std::move(p_ignore_if_present), std::move(callback));
+      impl->SharedStorageSet(        
+        std::move(p_key), 
+        std::move(p_value), 
+        std::move(p_ignore_if_present), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_SharedStorageAppend_Name: {
@@ -2395,6 +2430,8 @@ std::move(p_ignore_if_present), std::move(callback));
               internal::SharedStorageWorkletServiceClient_SharedStorageAppend_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.1
       bool success = true;
       ::std::u16string p_key{};
       ::std::u16string p_value{};
@@ -2416,9 +2453,9 @@ std::move(p_ignore_if_present), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageAppend(
-std::move(p_key), 
-std::move(p_value), std::move(callback));
+      impl->SharedStorageAppend(        
+        std::move(p_key), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_SharedStorageDelete_Name: {
@@ -2428,6 +2465,8 @@ std::move(p_value), std::move(callback));
               internal::SharedStorageWorkletServiceClient_SharedStorageDelete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.2
       bool success = true;
       ::std::u16string p_key{};
       SharedStorageWorkletServiceClient_SharedStorageDelete_ParamsDataView input_data_view(params, message);
@@ -2446,8 +2485,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageDelete(
-std::move(p_key), std::move(callback));
+      impl->SharedStorageDelete(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_SharedStorageClear_Name: {
@@ -2457,6 +2496,8 @@ std::move(p_key), std::move(callback));
               internal::SharedStorageWorkletServiceClient_SharedStorageClear_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.3
       bool success = true;
       SharedStorageWorkletServiceClient_SharedStorageClear_ParamsDataView input_data_view(params, message);
       
@@ -2482,6 +2523,8 @@ std::move(p_key), std::move(callback));
               internal::SharedStorageWorkletServiceClient_SharedStorageGet_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.4
       bool success = true;
       ::std::u16string p_key{};
       SharedStorageWorkletServiceClient_SharedStorageGet_ParamsDataView input_data_view(params, message);
@@ -2500,8 +2543,8 @@ std::move(p_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SharedStorageGet(
-std::move(p_key), std::move(callback));
+      impl->SharedStorageGet(        
+        std::move(p_key), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletServiceClient_SharedStorageKeys_Name: {
@@ -2517,6 +2560,8 @@ std::move(p_key), std::move(callback));
               internal::SharedStorageWorkletServiceClient_SharedStorageLength_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.7
       bool success = true;
       SharedStorageWorkletServiceClient_SharedStorageLength_ParamsDataView input_data_view(params, message);
       
@@ -2542,6 +2587,8 @@ std::move(p_key), std::move(callback));
               internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletServiceClient.8
       bool success = true;
       SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ParamsDataView input_data_view(params, message);
       
@@ -2560,7 +2607,7 @@ std::move(p_key), std::move(callback));
       impl->SharedStorageRemainingBudget(std::move(callback));
       return true;
     }
-    case internal::kSharedStorageWorkletServiceClient_ConsoleLog_Name: {
+    case internal::kSharedStorageWorkletServiceClient_DidAddMessageToConsole_Name: {
       break;
     }
     case internal::kSharedStorageWorkletServiceClient_RecordUseCounters_Name: {
@@ -2590,7 +2637,7 @@ static const mojo::internal::GenericValidationInfo kSharedStorageWorkletServiceC
      &internal::SharedStorageWorkletServiceClient_SharedStorageLength_ResponseParams_Data::Validate},
     { &internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_Params_Data::Validate,
      &internal::SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponseParams_Data::Validate},
-    { &internal::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data::Validate,
+    { &internal::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::SharedStorageWorkletServiceClient_RecordUseCounters_Params_Data::Validate,
      nullptr /* no response */},
@@ -3108,6 +3155,8 @@ bool SharedStorageWorkletService_AddModule_ForwardToCallback::Accept(
           internal::SharedStorageWorkletService_AddModule_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletService.1
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -3245,6 +3294,8 @@ bool SharedStorageWorkletService_RunURLSelectionOperation_ForwardToCallback::Acc
           internal::SharedStorageWorkletService_RunURLSelectionOperation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletService.2
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -3390,6 +3441,8 @@ bool SharedStorageWorkletService_RunOperation_ForwardToCallback::Accept(
           internal::SharedStorageWorkletService_RunOperation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedStorageWorkletService.3
   bool success = true;
   bool p_success{};
   std::string p_error_message{};
@@ -3482,6 +3535,8 @@ bool SharedStorageWorkletServiceStubDispatch::Accept(
           reinterpret_cast<internal::SharedStorageWorkletService_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletService.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> p_client{};
       bool p_private_aggregation_permissions_policy_allowed{};
@@ -3505,10 +3560,10 @@ bool SharedStorageWorkletServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_client), 
-std::move(p_private_aggregation_permissions_policy_allowed), 
-std::move(p_embedder_context));
+      impl->Initialize(        
+        std::move(p_client), 
+        std::move(p_private_aggregation_permissions_policy_allowed), 
+        std::move(p_embedder_context));
       return true;
     }
     case internal::kSharedStorageWorkletService_AddModule_Name: {
@@ -3543,6 +3598,8 @@ bool SharedStorageWorkletServiceStubDispatch::AcceptWithResponder(
               internal::SharedStorageWorkletService_AddModule_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletService.1
       bool success = true;
       ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> p_url_loader_factory{};
       ::GURL p_script_source_url{};
@@ -3566,9 +3623,9 @@ bool SharedStorageWorkletServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddModule(
-std::move(p_url_loader_factory), 
-std::move(p_script_source_url), std::move(callback));
+      impl->AddModule(        
+        std::move(p_url_loader_factory), 
+        std::move(p_script_source_url), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletService_RunURLSelectionOperation_Name: {
@@ -3578,6 +3635,8 @@ std::move(p_script_source_url), std::move(callback));
               internal::SharedStorageWorkletService_RunURLSelectionOperation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletService.2
       bool success = true;
       std::string p_name{};
       std::vector<::GURL> p_urls{};
@@ -3607,11 +3666,11 @@ std::move(p_script_source_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunURLSelectionOperation(
-std::move(p_name), 
-std::move(p_urls), 
-std::move(p_serialized_data), 
-std::move(p_pa_host), std::move(callback));
+      impl->RunURLSelectionOperation(        
+        std::move(p_name), 
+        std::move(p_urls), 
+        std::move(p_serialized_data), 
+        std::move(p_pa_host), std::move(callback));
       return true;
     }
     case internal::kSharedStorageWorkletService_RunOperation_Name: {
@@ -3621,6 +3680,8 @@ std::move(p_pa_host), std::move(callback));
               internal::SharedStorageWorkletService_RunOperation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedStorageWorkletService.3
       bool success = true;
       std::string p_name{};
       ::blink::CloneableMessage p_serialized_data{};
@@ -3647,10 +3708,10 @@ std::move(p_pa_host), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunOperation(
-std::move(p_name), 
-std::move(p_serialized_data), 
-std::move(p_pa_host), std::move(callback));
+      impl->RunOperation(        
+        std::move(p_name), 
+        std::move(p_serialized_data), 
+        std::move(p_pa_host), std::move(callback));
       return true;
     }
   }
@@ -3749,8 +3810,8 @@ void SharedStorageWorkletServiceClientInterceptorForTesting::SharedStorageLength
 void SharedStorageWorkletServiceClientInterceptorForTesting::SharedStorageRemainingBudget(SharedStorageRemainingBudgetCallback callback) {
   GetForwardingInterface()->SharedStorageRemainingBudget(std::move(callback));
 }
-void SharedStorageWorkletServiceClientInterceptorForTesting::ConsoleLog(const std::string& message) {
-  GetForwardingInterface()->ConsoleLog(std::move(message));
+void SharedStorageWorkletServiceClientInterceptorForTesting::DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const std::string& message) {
+  GetForwardingInterface()->DidAddMessageToConsole(std::move(log_level), std::move(message));
 }
 void SharedStorageWorkletServiceClientInterceptorForTesting::RecordUseCounters(const std::vector<::blink::mojom::WebFeature>& features) {
   GetForwardingInterface()->RecordUseCounters(std::move(features));

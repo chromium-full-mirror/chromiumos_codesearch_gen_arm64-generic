@@ -132,19 +132,12 @@ const std::string& ConnectionType_Name(ConnectionType value);
 bool ConnectionType_Parse(absl::string_view name, ConnectionType* value);
 enum ResizePriority : int {
   RESIZE_PRIORITY_UNSPECIFIED = 0,
-  RESIZE_PRIORITY_HIGHEST = 1,
-  RESIZE_PRIORITY_BALLOON_STALL = 1,
-  RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST = 2,
-  RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST = 3,
   RESIZE_PRIORITY_FOCUSED_TAB = 4,
   RESIZE_PRIORITY_FOCUSED_APP = 5,
   RESIZE_PRIORITY_PERCEPTIBLE_TAB = 6,
   RESIZE_PRIORITY_PERCEPTIBLE_APP = 7,
   RESIZE_PRIORITY_CACHED_TAB = 8,
   RESIZE_PRIORITY_CACHED_APP = 9,
-  RESIZE_PRIORITY_MGLRU_RECLAIM = 10,
-  RESIZE_PRIORITY_LOWEST = 10,
-  RESIZE_PRIORITY_N_PRIORITIES = 11,
   ResizePriority_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   ResizePriority_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -153,8 +146,8 @@ enum ResizePriority : int {
 
 bool ResizePriority_IsValid(int value);
 constexpr ResizePriority ResizePriority_MIN = static_cast<ResizePriority>(0);
-constexpr ResizePriority ResizePriority_MAX = static_cast<ResizePriority>(11);
-constexpr int ResizePriority_ARRAYSIZE = 11 + 1;
+constexpr ResizePriority ResizePriority_MAX = static_cast<ResizePriority>(9);
+constexpr int ResizePriority_ARRAYSIZE = 9 + 1;
 const std::string& ResizePriority_Name(ResizePriority value);
 template <typename T>
 const std::string& ResizePriority_Name(T value) {

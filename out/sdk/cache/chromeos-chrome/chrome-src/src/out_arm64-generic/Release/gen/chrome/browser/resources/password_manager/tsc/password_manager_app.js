@@ -199,16 +199,22 @@ export class PasswordManagerAppElement extends PasswordManagerAppElementBase {
         // TODO(crbug.com/1350947): Show different message if account store user.
         this.showUndo_ = true;
         this.toastMessage_ = this.i18n('passwordDeleted');
-        this.$.removalToast.show();
+        this.$.toast.show();
     }
     onPasskeyRemoved_() {
         this.showUndo_ = false;
         this.toastMessage_ = this.i18n('passkeyDeleted');
-        this.$.removalToast.show();
+        this.$.toast.show();
+    }
+    onPasswordMoved_(event) {
+        this.showUndo_ = false;
+        this.toastMessage_ =
+            this.i18n('passwordMovedToastMessage', event.detail.accountEmail);
+        this.$.toast.show();
     }
     onUndoButtonClick_() {
         PasswordManagerImpl.getInstance().undoRemoveSavedPasswordOrException();
-        this.$.removalToast.hide();
+        this.$.toast.hide();
     }
     onSearchEnterClick_() {
         this.$.passwords.focusFirstResult();

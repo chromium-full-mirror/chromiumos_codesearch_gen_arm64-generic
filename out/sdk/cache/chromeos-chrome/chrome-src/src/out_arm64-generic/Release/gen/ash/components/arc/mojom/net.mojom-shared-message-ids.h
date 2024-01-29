@@ -34,6 +34,7 @@ constexpr uint32_t kNetHost_StartLohs_Name = 18;
 constexpr uint32_t kNetHost_StopLohs_Name = 19;
 constexpr uint32_t kNetHost_NotifyAndroidWifiMulticastLockChange_Name = 22;
 constexpr uint32_t kNetHost_NotifySocketConnectionEvent_Name = 23;
+constexpr uint32_t kNetHost_NotifyARCVPNSocketConnectionEvent_Name = 24;
 constexpr uint32_t kNetInstance_Init_Name = 6;
 constexpr uint32_t kNetInstance_ScanCompleted_Name = 1;
 constexpr uint32_t kNetInstance_WifiEnabledStateChanged_Name = 3;

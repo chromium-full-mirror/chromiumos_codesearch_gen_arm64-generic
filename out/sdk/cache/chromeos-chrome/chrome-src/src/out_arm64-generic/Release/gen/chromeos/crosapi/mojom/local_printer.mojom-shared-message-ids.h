@@ -16,7 +16,8 @@ namespace internal {
 
 constexpr uint32_t kPrintServerObserver_OnPrintServersChanged_Name = 0;
 constexpr uint32_t kPrintServerObserver_OnServerPrintersChanged_Name = 1;
-constexpr uint32_t kPrintJobObserver_OnPrintJobUpdate_Name = 0;
+constexpr uint32_t kPrintJobObserver_OnPrintJobUpdateDeprecated_Name = 0;
+constexpr uint32_t kPrintJobObserver_OnPrintJobUpdate_Name = 1;
 constexpr uint32_t kLocalPrintersObserver_OnLocalPrintersUpdated_Name = 0;
 constexpr uint32_t kLocalPrinter_GetPrinters_Name = 0;
 constexpr uint32_t kLocalPrinter_GetCapability_Name = 1;

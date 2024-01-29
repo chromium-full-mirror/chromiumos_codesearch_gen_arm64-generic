@@ -98,8 +98,7 @@ if (!blink_receiver->isValueDirty()) {
   }
 }
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->value(script_state);
 bindings::V8SetReturnValue(info, return_value);

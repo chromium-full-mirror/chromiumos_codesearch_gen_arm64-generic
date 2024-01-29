@@ -20,6 +20,9 @@ constexpr uint32_t kSeaPenProvider_SelectRecentSeaPenImage_Name = 2;
 constexpr uint32_t kSeaPenProvider_GetRecentSeaPenImages_Name = 3;
 constexpr uint32_t kSeaPenProvider_GetRecentSeaPenImageThumbnail_Name = 4;
 constexpr uint32_t kSeaPenProvider_DeleteRecentSeaPenImage_Name = 5;
+constexpr uint32_t kSeaPenProvider_OpenFeedbackDialog_Name = 6;
+constexpr uint32_t kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name = 7;
+constexpr uint32_t kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name = 8;
 
 }  // namespace internal
 

@@ -39,10 +39,10 @@ build obj/net-base/_libnet-base_pc-install_config.stamp: stamp
 build obj/net-base/all.stamp: stamp ./lib/libnet-base.so obj/net-base/libnet-base_pc.stamp
 subninja obj/net-base/libnet-base.ninja
 rule __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/net-base/out/Default/obj/net-base/libnet-base.pc --name=libnet-base --description=Network\$ primitive\$ library --version=0.0.1 --requires=libchrome --libs=-lnet-base
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/net-base/out/Default/obj/net-base/libnet-base.pc --name=libnet-base --description=Network\$ primitive\$ library --version=0.0.1 --requires=libchrome --libs=-lnet-base
   description = ACTION //net-base:libnet-base_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/net-base/libnet-base.pc: __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/common-mk/generate-pc.py obj/net-base/_libnet-base_pc-install_config.stamp
+build obj/net-base/libnet-base.pc: __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/common-mk/generate-pc.py obj/net-base/_libnet-base_pc-install_config.stamp
 
 build obj/net-base/libnet-base_pc.stamp: stamp obj/net-base/libnet-base.pc

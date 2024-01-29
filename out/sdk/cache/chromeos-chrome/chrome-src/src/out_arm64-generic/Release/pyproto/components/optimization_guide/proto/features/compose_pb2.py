@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from components.optimization_guide.proto.features import common_quality_data_pb2 as components_dot_optimization__guide_dot_proto_dot_features_dot_common__quality__data__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n:components/optimization_guide/proto/features/compose.proto\x12\x18optimization_guide.proto\x1a\x46\x63omponents/optimization_guide/proto/features/common_quality_data.proto\"\xd6\x01\n\x12\x43omposeLoggingData\x12>\n\x0crequest_data\x18\x01 \x01(\x0b\x32(.optimization_guide.proto.ComposeRequest\x12@\n\rresponse_data\x18\x02 \x01(\x0b\x32).optimization_guide.proto.ComposeResponse\x12>\n\x0cquality_data\x18\x03 \x01(\x0b\x32(.optimization_guide.proto.ComposeQuality\"\xbf\x01\n\x14\x43omposePriorResponse\x12\x15\n\rresponse_text\x18\x01 \x01(\t\x12\x33\n\x04tone\x18\x02 \x01(\x0e\x32%.optimization_guide.proto.ComposeTone\x12\x37\n\x06length\x18\x03 \x01(\x0e\x32\'.optimization_guide.proto.ComposeLength\x12\"\n\x1aregenerate_requested_since\x18\x04 \x01(\x08\"t\n\x13\x43omposePageMetadata\x12\x10\n\x08page_url\x18\x01 \x01(\t\x12\x12\n\npage_title\x18\x02 \x01(\t\x12\x17\n\x0fpage_inner_text\x18\x03 \x01(\t\x12\x1e\n\x16page_inner_text_offset\x18\x04 \x01(\x04\"\x93\x04\n\x0e\x43omposeRequest\x12R\n\x0fgenerate_params\x18\x07 \x01(\x0b\x32\x37.optimization_guide.proto.ComposeRequest.GenerateParamsH\x00\x12P\n\x0erewrite_params\x18\x08 \x01(\x0b\x32\x36.optimization_guide.proto.ComposeRequest.RewriteParamsH\x00\x12\x44\n\rpage_metadata\x18\x03 \x01(\x0b\x32-.optimization_guide.proto.ComposePageMetadata\x1a$\n\x0eGenerateParams\x12\x12\n\nuser_input\x18\x01 \x01(\t\x1a\xbe\x01\n\rRewriteParams\x12\x19\n\x11previous_response\x18\x01 \x01(\t\x12\x35\n\x04tone\x18\x02 \x01(\x0e\x32%.optimization_guide.proto.ComposeToneH\x00\x12\x39\n\x06length\x18\x03 \x01(\x0e\x32\'.optimization_guide.proto.ComposeLengthH\x00\x12\x14\n\nregenerate\x18\x04 \x01(\x08H\x00\x42\n\n\x08modifierB\x10\n\x0erequest_paramsJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07\"!\n\x0f\x43omposeResponse\x12\x0e\n\x06output\x18\x01 \x01(\t\"#\n\x06Int128\x12\x0c\n\x04high\x18\x01 \x01(\x04\x12\x0b\n\x03low\x18\x02 \x01(\x04\"\xd4\x02\n\x0e\x43omposeQuality\x12;\n\x0c\x66inal_status\x18\x01 \x01(\x0e\x32%.optimization_guide.proto.FinalStatus\x12=\n\ruser_feedback\x18\x02 \x01(\x0e\x32&.optimization_guide.proto.UserFeedback\x12=\n\rclipboard_use\x18\x03 \x01(\x0e\x32&.optimization_guide.proto.ClipboardUse\x12\x1a\n\x12request_latency_ms\x18\x04 \x01(\x03\x12\x15\n\redit_distance\x18\x05 \x01(\x03\x12\x34\n\nsession_id\x18\x06 \x01(\x0b\x32 .optimization_guide.proto.Int128\x12\x1e\n\x16was_generated_via_edit\x18\x07 \x01(\x08*U\n\x0b\x43omposeTone\x12\x1c\n\x18\x43OMPOSE_UNSPECIFIED_TONE\x10\x00\x12\x12\n\x0e\x43OMPOSE_FORMAL\x10\x01\x12\x14\n\x10\x43OMPOSE_INFORMAL\x10\x02*X\n\rComposeLength\x12\x1e\n\x1a\x43OMPOSE_UNSPECIFIED_LENGTH\x10\x00\x12\x13\n\x0f\x43OMPOSE_SHORTER\x10\x01\x12\x12\n\x0e\x43OMPOSE_LONGER\x10\x02*t\n\x0b\x46inalStatus\x12\x16\n\x12STATUS_UNSPECIFIED\x10\x00\x12\x13\n\x0fSTATUS_INSERTED\x10\x01\x12\x14\n\x10STATUS_ABANDONED\x10\x02\x12\"\n\x1eSTATUS_FINISHED_WITHOUT_INSERT\x10\x03*H\n\x0c\x43lipboardUse\x12\x19\n\x15\x43LIPBOARD_UNSPECIFIED\x10\x00\x12\x1d\n\x19\x43LIPBOARD_RESPONSE_COPIED\x10\x01\x42K\n9org.chromium.components.optimization_guide.features.protoB\x0c\x43omposeProtoH\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n:components/optimization_guide/proto/features/compose.proto\x12\x18optimization_guide.proto\x1a\x46\x63omponents/optimization_guide/proto/features/common_quality_data.proto\"\xd6\x01\n\x12\x43omposeLoggingData\x12>\n\x0crequest_data\x18\x01 \x01(\x0b\x32(.optimization_guide.proto.ComposeRequest\x12@\n\rresponse_data\x18\x02 \x01(\x0b\x32).optimization_guide.proto.ComposeResponse\x12>\n\x0cquality_data\x18\x03 \x01(\x0b\x32(.optimization_guide.proto.ComposeQuality\"t\n\x13\x43omposePageMetadata\x12\x10\n\x08page_url\x18\x01 \x01(\t\x12\x12\n\npage_title\x18\x02 \x01(\t\x12\x17\n\x0fpage_inner_text\x18\x03 \x01(\t\x12\x1e\n\x16page_inner_text_offset\x18\x04 \x01(\x04\"\x93\x04\n\x0e\x43omposeRequest\x12R\n\x0fgenerate_params\x18\x07 \x01(\x0b\x32\x37.optimization_guide.proto.ComposeRequest.GenerateParamsH\x00\x12P\n\x0erewrite_params\x18\x08 \x01(\x0b\x32\x36.optimization_guide.proto.ComposeRequest.RewriteParamsH\x00\x12\x44\n\rpage_metadata\x18\x03 \x01(\x0b\x32-.optimization_guide.proto.ComposePageMetadata\x1a$\n\x0eGenerateParams\x12\x12\n\nuser_input\x18\x01 \x01(\t\x1a\xbe\x01\n\rRewriteParams\x12\x19\n\x11previous_response\x18\x01 \x01(\t\x12\x35\n\x04tone\x18\x02 \x01(\x0e\x32%.optimization_guide.proto.ComposeToneH\x00\x12\x39\n\x06length\x18\x03 \x01(\x0e\x32\'.optimization_guide.proto.ComposeLengthH\x00\x12\x14\n\nregenerate\x18\x04 \x01(\x08H\x00\x42\n\n\x08modifierB\x10\n\x0erequest_paramsJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07\"!\n\x0f\x43omposeResponse\x12\x0e\n\x06output\x18\x01 \x01(\t\"#\n\x06Int128\x12\x0c\n\x04high\x18\x01 \x01(\x04\x12\x0b\n\x03low\x18\x02 \x01(\x04\"\xd4\x02\n\x0e\x43omposeQuality\x12;\n\x0c\x66inal_status\x18\x01 \x01(\x0e\x32%.optimization_guide.proto.FinalStatus\x12=\n\ruser_feedback\x18\x02 \x01(\x0e\x32&.optimization_guide.proto.UserFeedback\x12=\n\rclipboard_use\x18\x03 \x01(\x0e\x32&.optimization_guide.proto.ClipboardUse\x12\x1a\n\x12request_latency_ms\x18\x04 \x01(\x03\x12\x15\n\redit_distance\x18\x05 \x01(\x03\x12\x34\n\nsession_id\x18\x06 \x01(\x0b\x32 .optimization_guide.proto.Int128\x12\x1e\n\x16was_generated_via_edit\x18\x07 \x01(\x08*U\n\x0b\x43omposeTone\x12\x1c\n\x18\x43OMPOSE_UNSPECIFIED_TONE\x10\x00\x12\x12\n\x0e\x43OMPOSE_FORMAL\x10\x01\x12\x14\n\x10\x43OMPOSE_INFORMAL\x10\x02*X\n\rComposeLength\x12\x1e\n\x1a\x43OMPOSE_UNSPECIFIED_LENGTH\x10\x00\x12\x13\n\x0f\x43OMPOSE_SHORTER\x10\x01\x12\x12\n\x0e\x43OMPOSE_LONGER\x10\x02*t\n\x0b\x46inalStatus\x12\x16\n\x12STATUS_UNSPECIFIED\x10\x00\x12\x13\n\x0fSTATUS_INSERTED\x10\x01\x12\x14\n\x10STATUS_ABANDONED\x10\x02\x12\"\n\x1eSTATUS_FINISHED_WITHOUT_INSERT\x10\x03*H\n\x0c\x43lipboardUse\x12\x19\n\x15\x43LIPBOARD_UNSPECIFIED\x10\x00\x12\x1d\n\x19\x43LIPBOARD_RESPONSE_COPIED\x10\x01\x42K\n9org.chromium.components.optimization_guide.features.protoB\x0c\x43omposeProtoH\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.optimization_guide.proto.features.compose_pb2', globals())
@@ -22,30 +22,28 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n9org.chromium.components.optimization_guide.features.protoB\014ComposeProtoH\003'
-  _COMPOSETONE._serialized_start=1638
-  _COMPOSETONE._serialized_end=1723
-  _COMPOSELENGTH._serialized_start=1725
-  _COMPOSELENGTH._serialized_end=1813
-  _FINALSTATUS._serialized_start=1815
-  _FINALSTATUS._serialized_end=1931
-  _CLIPBOARDUSE._serialized_start=1933
-  _CLIPBOARDUSE._serialized_end=2005
+  _COMPOSETONE._serialized_start=1444
+  _COMPOSETONE._serialized_end=1529
+  _COMPOSELENGTH._serialized_start=1531
+  _COMPOSELENGTH._serialized_end=1619
+  _FINALSTATUS._serialized_start=1621
+  _FINALSTATUS._serialized_end=1737
+  _CLIPBOARDUSE._serialized_start=1739
+  _CLIPBOARDUSE._serialized_end=1811
   _COMPOSELOGGINGDATA._serialized_start=161
   _COMPOSELOGGINGDATA._serialized_end=375
-  _COMPOSEPRIORRESPONSE._serialized_start=378
-  _COMPOSEPRIORRESPONSE._serialized_end=569
-  _COMPOSEPAGEMETADATA._serialized_start=571
-  _COMPOSEPAGEMETADATA._serialized_end=687
-  _COMPOSEREQUEST._serialized_start=690
-  _COMPOSEREQUEST._serialized_end=1221
-  _COMPOSEREQUEST_GENERATEPARAMS._serialized_start=944
-  _COMPOSEREQUEST_GENERATEPARAMS._serialized_end=980
-  _COMPOSEREQUEST_REWRITEPARAMS._serialized_start=983
-  _COMPOSEREQUEST_REWRITEPARAMS._serialized_end=1173
-  _COMPOSERESPONSE._serialized_start=1223
-  _COMPOSERESPONSE._serialized_end=1256
-  _INT128._serialized_start=1258
-  _INT128._serialized_end=1293
-  _COMPOSEQUALITY._serialized_start=1296
-  _COMPOSEQUALITY._serialized_end=1636
+  _COMPOSEPAGEMETADATA._serialized_start=377
+  _COMPOSEPAGEMETADATA._serialized_end=493
+  _COMPOSEREQUEST._serialized_start=496
+  _COMPOSEREQUEST._serialized_end=1027
+  _COMPOSEREQUEST_GENERATEPARAMS._serialized_start=750
+  _COMPOSEREQUEST_GENERATEPARAMS._serialized_end=786
+  _COMPOSEREQUEST_REWRITEPARAMS._serialized_start=789
+  _COMPOSEREQUEST_REWRITEPARAMS._serialized_end=979
+  _COMPOSERESPONSE._serialized_start=1029
+  _COMPOSERESPONSE._serialized_end=1062
+  _INT128._serialized_start=1064
+  _INT128._serialized_end=1099
+  _COMPOSEQUALITY._serialized_start=1102
+  _COMPOSEQUALITY._serialized_end=1442
 # @@protoc_insertion_point(module_scope)

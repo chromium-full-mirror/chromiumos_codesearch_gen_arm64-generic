@@ -203,6 +203,8 @@ export function createRoutes() {
     r.A11Y_SELECT_TO_SPEAK = createSubpage(r.A11Y_TEXT_TO_SPEECH, routesMojom.SELECT_TO_SPEAK_SUBPAGE_PATH, Subpage.kSelectToSpeak);
     r.MANAGE_TTS_SETTINGS = createSubpage(r.A11Y_TEXT_TO_SPEECH, routesMojom.TEXT_TO_SPEECH_SUBPAGE_PATH, Subpage.kTextToSpeech);
     r.MANAGE_SWITCH_ACCESS_SETTINGS = createSubpage(r.A11Y_KEYBOARD_AND_TEXT_INPUT, routesMojom.SWITCH_ACCESS_OPTIONS_SUBPAGE_PATH, Subpage.kSwitchAccessOptions);
+    r.MANAGE_FACEGAZE_CURSOR_SETTINGS = createSubpage(r.A11Y_CURSOR_AND_TOUCHPAD, routesMojom.FACE_GAZE_CURSOR_SETTINGS_SUBPAGE_PATH, Subpage.kFaceGazeCursorSettings);
+    r.MANAGE_FACEGAZE_FACIAL_EXPRESSIONS_SETTINGS = createSubpage(r.A11Y_CURSOR_AND_TOUCHPAD, routesMojom.FACE_GAZE_FACIAL_EXPRESSIONS_SETTINGS_SUBPAGE_PATH, Subpage.kFaceGazeFacialExpressionsSettings);
     // Privacy and Security section.
     r.OS_PRIVACY = createSection(r.BASIC, routesMojom.PRIVACY_AND_SECURITY_SECTION_PATH, Section.kPrivacyAndSecurity);
     r.LOCK_SCREEN = createSubpage(r.OS_PRIVACY, routesMojom.SECURITY_AND_SIGN_IN_SUBPAGE_PATH_V2, Subpage.kSecurityAndSignInV2);

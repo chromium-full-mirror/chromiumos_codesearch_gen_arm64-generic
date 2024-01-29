@@ -152,7 +152,6 @@ export class InlineLoginAppElement extends InlineLoginAppElementBase {
     connectedCallback() {
         super.connectedCallback();
         this.addWebUiListener('load-authenticator', (data) => this.loadAuthenticator_(data));
-        this.addWebUiListener('send-lst-fetch-results', (arg) => this.sendLstFetchResults_(arg));
         this.addWebUiListener('close-dialog', () => this.closeDialog_());
         this.addWebUiListener('show-signin-error-page', (data) => this.signinErrorShowView_(data));
     }
@@ -225,17 +224,6 @@ export class InlineLoginAppElement extends InlineLoginAppElementBase {
             this.isReauthentication_ = true;
         }
         this.switchToDefaultView_();
-    }
-    /**
-     * Sends a message 'lstFetchResults'. This is a specific message sent when
-     * the inline signin is loaded with reason kFetchLstOnly. Handlers of
-     * this message would expect a single argument a base::Dictionary value that
-     * contains the values fetched from the gaia sign in endpoint.
-     * @param arg The string representation of the json data returned by
-     *    the sign in dialog after it has finished the sign in process.
-     */
-    sendLstFetchResults_(arg) {
-        this.browserProxy_.lstFetchResults(arg);
     }
     /**
      * @param loading Indicates whether the page is loading.

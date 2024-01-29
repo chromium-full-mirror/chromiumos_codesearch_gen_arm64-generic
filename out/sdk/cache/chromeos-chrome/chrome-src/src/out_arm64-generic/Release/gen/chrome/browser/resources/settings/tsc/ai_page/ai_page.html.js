@@ -2,13 +2,13 @@ import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-frame{padding-inline-end:0}.list-frame settings-toggle-button{padding-inline-start:0}</style>
 
-<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeatureMainLabel}" sub-label="$i18n{experimentalAdvancedFeatureMainSublabel}" on-settings-boolean-control-change="onToggleChange_">
+<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiPageMainLabel}" sub-label="$i18n{aiPageMainSublabel}" on-settings-boolean-control-change="onToggleChange_">
 </settings-toggle-button>
 
 <iron-collapse opened="[[isExpanded_(
     prefs.optimization_guide.model_execution_main_toggle_setting_state.value)]]">
   <div class="list-frame">
-    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature1Label}" sub-label="$i18n{experimentalAdvancedFeature1Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiComposeLabel}" sub-label="$i18n{aiComposeSublabel}" on-settings-boolean-control-change="onToggleChange_">
     </settings-toggle-button>
     <settings-toggle-button class$="[[getTabOrganizationHrCssClass_(showComposeControl_)]]" hidden="[[!showTabOrganizationControl_]]" pref="{{prefs.optimization_guide.tab_organization_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature2Label}" sub-label="$i18n{experimentalAdvancedFeature2Sublabel}" on-settings-boolean-control-change="onToggleChange_">
     </settings-toggle-button>

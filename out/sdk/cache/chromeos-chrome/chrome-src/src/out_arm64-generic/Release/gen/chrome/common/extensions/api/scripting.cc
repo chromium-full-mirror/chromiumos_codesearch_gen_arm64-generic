@@ -648,7 +648,7 @@ RegisteredContentScript RegisteredContentScript::Clone() const {
 // static
 bool RegisteredContentScript::Populate(
     const base::Value::Dict& dict, RegisteredContentScript& out) {
-  out.run_at = extension_types::RunAt();
+  out.run_at = extensions::api::extension_types::RunAt();
   out.world = ExecutionWorld();
   const base::Value* id_value = dict.Find("id");
   if (!id_value) {
@@ -749,13 +749,13 @@ bool RegisteredContentScript::Populate(
       if (!run_at_as_string) {
         return false;
       }
-      out.run_at = extension_types::ParseRunAt(*run_at_as_string);
-      if (out.run_at == extension_types::RunAt()) {
+      out.run_at = extensions::api::extension_types::ParseRunAt(*run_at_as_string);
+      if (out.run_at == extensions::api::extension_types::RunAt()) {
         return false;
       }
     }
     } else {
-    out.run_at = extension_types::RunAt();
+    out.run_at = extensions::api::extension_types::RunAt();
   }
 
   const base::Value* persist_across_sessions_value = dict.Find("persistAcrossSessions");
@@ -847,7 +847,7 @@ base::Value::Dict RegisteredContentScript::ToValue() const {
     to_value_result.Set("matchOriginAsFallback", *this->match_origin_as_fallback);
 
   }
-  if (this->run_at != extension_types::RunAt()) {
+  if (this->run_at != extensions::api::extension_types::RunAt()) {
     to_value_result.Set("runAt", extension_types::ToString(this->run_at));
 
   }

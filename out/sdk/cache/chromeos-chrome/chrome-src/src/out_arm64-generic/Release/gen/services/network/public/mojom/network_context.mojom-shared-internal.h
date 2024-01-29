@@ -22,6 +22,7 @@
 #include "services/network/public/mojom/clear_data_filter.mojom-shared-internal.h"
 #include "services/network/public/mojom/client_security_state.mojom-shared-internal.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-shared-internal.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-shared-internal.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared-internal.h"
 #include "services/network/public/mojom/cookie_setting_overrides.mojom-shared-internal.h"
 #include "services/network/public/mojom/cors_origin_pattern.mojom-shared-internal.h"
@@ -209,8 +210,7 @@ class  CustomProxyConfig_Data {
   mojo::internal::Pointer<::network::mojom::internal::ProxyRules_Data> rules;
   uint8_t should_override_existing_config : 1;
   uint8_t allow_non_idempotent_methods : 1;
-  uint8_t should_replace_direct : 1;
-  uint8_t pad3_[7];
+  uint8_t pad2_[7];
   mojo::internal::Pointer<::network::mojom::internal::HttpRequestHeaders_Data> connect_tunnel_headers;
 
  private:
@@ -507,7 +507,9 @@ class  NetworkContextParams_Data {
   mojo::internal::Interface_Data proxy_config_poller_client;
   mojo::internal::Interface_Data proxy_error_client;
   mojo::internal::Interface_Data ip_protection_config_getter;
+  mojo::internal::Handle_Data ip_protection_proxy_delegate;
   int32_t sct_auditing_mode;
+  mojo::internal::Handle_Data first_party_sets_access_delegate_receiver;
   mojo::internal::Pointer<internal::CTPolicy_Data> ct_policy;
   mojo::internal::Pointer<internal::CertVerifierServiceRemoteParams_Data> cert_verifier_params;
   mojo::internal::Pointer<::network::mojom::internal::CookieManagerParams_Data> cookie_manager_params;
@@ -520,9 +522,8 @@ class  NetworkContextParams_Data {
   mojo::internal::Pointer<internal::NetworkContextFilePaths_Data> file_paths;
   uint64_t shared_dictionary_cache_max_size;
   mojo::internal::Pointer<::network::mojom::internal::FirstPartySetsAccessDelegateParams_Data> first_party_sets_access_delegate_params;
-  mojo::internal::Handle_Data first_party_sets_access_delegate_receiver;
-  uint8_t pad52_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> cookie_deprecation_label;
+  mojo::internal::Interface_Data cookie_encryption_provider;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkContextParams_Data>;
@@ -530,7 +531,7 @@ class  NetworkContextParams_Data {
   NetworkContextParams_Data();
   ~NetworkContextParams_Data() = delete;
 };
-static_assert(sizeof(NetworkContextParams_Data) == 240,
+static_assert(sizeof(NetworkContextParams_Data) == 248,
               "Bad sizeof(NetworkContextParams_Data)");
 // Used by NetworkContextParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

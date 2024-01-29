@@ -183,6 +183,8 @@ bool PendingBeaconHostStubDispatch::Accept(
           reinterpret_cast<internal::PendingBeaconHost_CreateBeacon_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PendingBeaconHost.0
       bool success = true;
       ::mojo::PendingReceiver<PendingBeacon> p_receiver{};
       ::GURL p_url{};
@@ -206,10 +208,10 @@ bool PendingBeaconHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBeacon(
-std::move(p_receiver), 
-std::move(p_url), 
-std::move(p_method));
+      impl->CreateBeacon(        
+        std::move(p_receiver), 
+        std::move(p_url), 
+        std::move(p_method));
       return true;
     }
   }
@@ -556,6 +558,8 @@ bool PendingBeaconStubDispatch::Accept(
           reinterpret_cast<internal::PendingBeacon_Deactivate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PendingBeacon.0
       bool success = true;
       PendingBeacon_Deactivate_ParamsDataView input_data_view(params, message);
       
@@ -568,7 +572,7 @@ bool PendingBeaconStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Deactivate();
+      impl->Deactivate(        );
       return true;
     }
     case internal::kPendingBeacon_SetRequestData_Name: {
@@ -578,6 +582,8 @@ bool PendingBeaconStubDispatch::Accept(
           reinterpret_cast<internal::PendingBeacon_SetRequestData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PendingBeacon.1
       bool success = true;
       ::scoped_refptr<::network::ResourceRequestBody> p_request_body{};
       std::string p_content_type{};
@@ -596,9 +602,9 @@ bool PendingBeaconStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRequestData(
-std::move(p_request_body), 
-std::move(p_content_type));
+      impl->SetRequestData(        
+        std::move(p_request_body), 
+        std::move(p_content_type));
       return true;
     }
     case internal::kPendingBeacon_SetRequestURL_Name: {
@@ -608,6 +614,8 @@ std::move(p_content_type));
           reinterpret_cast<internal::PendingBeacon_SetRequestURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PendingBeacon.2
       bool success = true;
       ::GURL p_url{};
       PendingBeacon_SetRequestURL_ParamsDataView input_data_view(params, message);
@@ -623,8 +631,8 @@ std::move(p_content_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRequestURL(
-std::move(p_url));
+      impl->SetRequestURL(        
+        std::move(p_url));
       return true;
     }
     case internal::kPendingBeacon_SendNow_Name: {
@@ -634,6 +642,8 @@ std::move(p_url));
           reinterpret_cast<internal::PendingBeacon_SendNow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PendingBeacon.3
       bool success = true;
       PendingBeacon_SendNow_ParamsDataView input_data_view(params, message);
       
@@ -646,7 +656,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendNow();
+      impl->SendNow(        );
       return true;
     }
   }

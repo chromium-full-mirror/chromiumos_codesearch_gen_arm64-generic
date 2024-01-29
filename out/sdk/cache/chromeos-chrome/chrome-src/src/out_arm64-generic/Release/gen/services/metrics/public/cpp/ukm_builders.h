@@ -2493,6 +2493,22 @@ class Blink_FindInPage final : public ::ukm::internal::UkmEntryBuilderBase {
 
 };
 
+class Blink_FrameLoader final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Blink_FrameLoader(ukm::SourceId source_id);
+  explicit Blink_FrameLoader(ukm::SourceIdObj source_id);
+  ~Blink_FrameLoader() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(16844813860515784834);
+
+
+  static const char kCommitDocumentLoaderTimeName[];
+  static constexpr uint64_t kCommitDocumentLoaderTimeNameHash = UINT64_C(9956533067091530475);
+  Blink_FrameLoader& SetCommitDocumentLoaderTime(int64_t value);
+
+};
+
 class Blink_HTMLParsing final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit Blink_HTMLParsing(ukm::SourceId source_id);
@@ -2507,6 +2523,10 @@ class Blink_HTMLParsing final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kChunkCountNameHash = UINT64_C(12117884680134555924);
   Blink_HTMLParsing& SetChunkCount(int64_t value);
 
+  static const char kFetchQueuedPreloadsTimeName[];
+  static constexpr uint64_t kFetchQueuedPreloadsTimeNameHash = UINT64_C(11181566460668502457);
+  Blink_HTMLParsing& SetFetchQueuedPreloadsTime(int64_t value);
+
   static const char kParsingTimeMaxName[];
   static constexpr uint64_t kParsingTimeMaxNameHash = UINT64_C(17100612038745900895);
   Blink_HTMLParsing& SetParsingTimeMax(int64_t value);
@@ -2518,6 +2538,26 @@ class Blink_HTMLParsing final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kParsingTimeTotalName[];
   static constexpr uint64_t kParsingTimeTotalNameHash = UINT64_C(4428025718068016638);
   Blink_HTMLParsing& SetParsingTimeTotal(int64_t value);
+
+  static const char kPreloadTimeName[];
+  static constexpr uint64_t kPreloadTimeNameHash = UINT64_C(10231940208011006536);
+  Blink_HTMLParsing& SetPreloadTime(int64_t value);
+
+  static const char kPrepareToStopParsingTimeName[];
+  static constexpr uint64_t kPrepareToStopParsingTimeNameHash = UINT64_C(2831826313858976977);
+  Blink_HTMLParsing& SetPrepareToStopParsingTime(int64_t value);
+
+  static const char kPumpTokenizerTimeName[];
+  static constexpr uint64_t kPumpTokenizerTimeNameHash = UINT64_C(13454191439082080400);
+  Blink_HTMLParsing& SetPumpTokenizerTime(int64_t value);
+
+  static const char kScanAndPreloadTimeName[];
+  static constexpr uint64_t kScanAndPreloadTimeNameHash = UINT64_C(6657456342375564209);
+  Blink_HTMLParsing& SetScanAndPreloadTime(int64_t value);
+
+  static const char kScanTimeName[];
+  static constexpr uint64_t kScanTimeNameHash = UINT64_C(4279175345715057370);
+  Blink_HTMLParsing& SetScanTime(int64_t value);
 
   static const char kTokensParsedAverageName[];
   static constexpr uint64_t kTokensParsedAverageNameHash = UINT64_C(9991938757455203086);
@@ -2675,9 +2715,9 @@ class Blink_PageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kParseStyleSheetNameHash = UINT64_C(894530995873833008);
   Blink_PageLoad& SetParseStyleSheet(int64_t value);
 
-  static const char kPossibleSynchronizedScrollCountName[];
-  static constexpr uint64_t kPossibleSynchronizedScrollCountNameHash = UINT64_C(10186385537422100512);
-  Blink_PageLoad& SetPossibleSynchronizedScrollCount(int64_t value);
+  static const char kPossibleSynchronizedScrollCount2Name[];
+  static constexpr uint64_t kPossibleSynchronizedScrollCount2NameHash = UINT64_C(14804210884018037500);
+  Blink_PageLoad& SetPossibleSynchronizedScrollCount2(int64_t value);
 
   static const char kPrePaintName[];
   static constexpr uint64_t kPrePaintNameHash = UINT64_C(4880392982914161630);
@@ -2931,13 +2971,13 @@ class Blink_UpdateTime final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kParseStyleSheetBeginMainFrameNameHash = UINT64_C(11811580094233179112);
   Blink_UpdateTime& SetParseStyleSheetBeginMainFrame(int64_t value);
 
-  static const char kPossibleSynchronizedScrollCountName[];
-  static constexpr uint64_t kPossibleSynchronizedScrollCountNameHash = UINT64_C(10186385537422100512);
-  Blink_UpdateTime& SetPossibleSynchronizedScrollCount(int64_t value);
+  static const char kPossibleSynchronizedScrollCount2Name[];
+  static constexpr uint64_t kPossibleSynchronizedScrollCount2NameHash = UINT64_C(14804210884018037500);
+  Blink_UpdateTime& SetPossibleSynchronizedScrollCount2(int64_t value);
 
-  static const char kPossibleSynchronizedScrollCountBeginMainFrameName[];
-  static constexpr uint64_t kPossibleSynchronizedScrollCountBeginMainFrameNameHash = UINT64_C(7244685015675640364);
-  Blink_UpdateTime& SetPossibleSynchronizedScrollCountBeginMainFrame(int64_t value);
+  static const char kPossibleSynchronizedScrollCount2BeginMainFrameName[];
+  static constexpr uint64_t kPossibleSynchronizedScrollCount2BeginMainFrameNameHash = UINT64_C(78849555788140421);
+  Blink_UpdateTime& SetPossibleSynchronizedScrollCount2BeginMainFrame(int64_t value);
 
   static const char kPrePaintName[];
   static constexpr uint64_t kPrePaintNameHash = UINT64_C(4880392982914161630);
@@ -3713,6 +3753,90 @@ class Companion_PageView final : public ::ukm::internal::UkmEntryBuilderBase {
 
 };
 
+class Compose_PageEvents final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Compose_PageEvents(ukm::SourceId source_id);
+  explicit Compose_PageEvents(ukm::SourceIdObj source_id);
+  ~Compose_PageEvents() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(3985288542356389988);
+
+
+  static const char kComposeTextInsertedName[];
+  static constexpr uint64_t kComposeTextInsertedNameHash = UINT64_C(1529883372102930552);
+  Compose_PageEvents& SetComposeTextInserted(int64_t value);
+
+  static const char kMenuItemClickedName[];
+  static constexpr uint64_t kMenuItemClickedNameHash = UINT64_C(7152270533230000254);
+  Compose_PageEvents& SetMenuItemClicked(int64_t value);
+
+  static const char kMenuItemShownName[];
+  static constexpr uint64_t kMenuItemShownNameHash = UINT64_C(1164620438642242488);
+  Compose_PageEvents& SetMenuItemShown(int64_t value);
+
+  static const char kMissingFormDataName[];
+  static constexpr uint64_t kMissingFormDataNameHash = UINT64_C(9868356957895905469);
+  Compose_PageEvents& SetMissingFormData(int64_t value);
+
+  static const char kMissingFormFieldDataName[];
+  static constexpr uint64_t kMissingFormFieldDataNameHash = UINT64_C(16672330768134080229);
+  Compose_PageEvents& SetMissingFormFieldData(int64_t value);
+
+};
+
+class Compose_SessionProgress final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Compose_SessionProgress(ukm::SourceId source_id);
+  explicit Compose_SessionProgress(ukm::SourceIdObj source_id);
+  ~Compose_SessionProgress() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(17644213575895096611);
+
+
+  static const char kCanceledName[];
+  static constexpr uint64_t kCanceledNameHash = UINT64_C(1018656279737460067);
+  Compose_SessionProgress& SetCanceled(int64_t value);
+
+  static const char kCasualCountName[];
+  static constexpr uint64_t kCasualCountNameHash = UINT64_C(7409548365602751944);
+  Compose_SessionProgress& SetCasualCount(int64_t value);
+
+  static const char kComposeCountName[];
+  static constexpr uint64_t kComposeCountNameHash = UINT64_C(2221417367890112149);
+  Compose_SessionProgress& SetComposeCount(int64_t value);
+
+  static const char kDialogShownCountName[];
+  static constexpr uint64_t kDialogShownCountNameHash = UINT64_C(12484289827565314066);
+  Compose_SessionProgress& SetDialogShownCount(int64_t value);
+
+  static const char kFormalCountName[];
+  static constexpr uint64_t kFormalCountNameHash = UINT64_C(783152929378883966);
+  Compose_SessionProgress& SetFormalCount(int64_t value);
+
+  static const char kInsertedResultsName[];
+  static constexpr uint64_t kInsertedResultsNameHash = UINT64_C(13028887832255837841);
+  Compose_SessionProgress& SetInsertedResults(int64_t value);
+
+  static const char kLengthenCountName[];
+  static constexpr uint64_t kLengthenCountNameHash = UINT64_C(17478007101599605306);
+  Compose_SessionProgress& SetLengthenCount(int64_t value);
+
+  static const char kRegenerateCountName[];
+  static constexpr uint64_t kRegenerateCountNameHash = UINT64_C(693581751111908086);
+  Compose_SessionProgress& SetRegenerateCount(int64_t value);
+
+  static const char kShortenCountName[];
+  static constexpr uint64_t kShortenCountNameHash = UINT64_C(3786907751629834770);
+  Compose_SessionProgress& SetShortenCount(int64_t value);
+
+  static const char kUndoCountName[];
+  static constexpr uint64_t kUndoCountNameHash = UINT64_C(11052334537289124941);
+  Compose_SessionProgress& SetUndoCount(int64_t value);
+
+};
+
 class Compose_TextElementUsage final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit Compose_TextElementUsage(ukm::SourceId source_id);
@@ -3961,19 +4085,19 @@ class CookieHasNonAsciiCharacter final : public ::ukm::internal::UkmEntryBuilder
 
 };
 
-class Cookies_FirstPartyPartitionedInCrossSiteContext final : public ::ukm::internal::UkmEntryBuilderBase {
+class Cookies_FirstPartyPartitionedInCrossSiteContextV2 final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
-  explicit Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceId source_id);
-  explicit Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceIdObj source_id);
-  ~Cookies_FirstPartyPartitionedInCrossSiteContext() override;
+  explicit Cookies_FirstPartyPartitionedInCrossSiteContextV2(ukm::SourceId source_id);
+  explicit Cookies_FirstPartyPartitionedInCrossSiteContextV2(ukm::SourceIdObj source_id);
+  ~Cookies_FirstPartyPartitionedInCrossSiteContextV2() override;
 
   static const char kEntryName[];
-  static constexpr uint64_t kEntryNameHash = UINT64_C(13054846304569977294);
+  static constexpr uint64_t kEntryNameHash = UINT64_C(17351264935773153751);
 
 
   static const char kCookiePresentName[];
   static constexpr uint64_t kCookiePresentNameHash = UINT64_C(7098191299343393352);
-  Cookies_FirstPartyPartitionedInCrossSiteContext& SetCookiePresent(int64_t value);
+  Cookies_FirstPartyPartitionedInCrossSiteContextV2& SetCookiePresent(int64_t value);
 
 };
 
@@ -4445,6 +4569,30 @@ class Event_ScrollBegin_Wheel final : public ::ukm::internal::UkmEntryBuilderBas
 
 };
 
+class Event_ScrollJank_PredictorJank final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Event_ScrollJank_PredictorJank(ukm::SourceId source_id);
+  explicit Event_ScrollJank_PredictorJank(ukm::SourceIdObj source_id);
+  ~Event_ScrollJank_PredictorJank() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(12205595443714861014);
+
+
+  static const char kMaxDeltaName[];
+  static constexpr uint64_t kMaxDeltaNameHash = UINT64_C(17545637207036206590);
+  Event_ScrollJank_PredictorJank& SetMaxDelta(int64_t value);
+
+  static const char kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2Name[];
+  static constexpr uint64_t kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2NameHash = UINT64_C(14620028796937461493);
+  Event_ScrollJank_PredictorJank& SetScrollUpdate_MissedVsync_FrameAboveJankyThreshold2(int64_t value);
+
+  static const char kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2Name[];
+  static constexpr uint64_t kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2NameHash = UINT64_C(15782093480730386868);
+  Event_ScrollJank_PredictorJank& SetScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2(int64_t value);
+
+};
+
 class Event_ScrollUpdate_Touch final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit Event_ScrollUpdate_Touch(ukm::SourceId source_id);
@@ -4581,6 +4729,26 @@ class Extensions_WebRequest_KeepaliveRequestFinished final : public ::ukm::inter
 
 };
 
+class FamilyLinkUser_BlockedContent final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit FamilyLinkUser_BlockedContent(ukm::SourceId source_id);
+  explicit FamilyLinkUser_BlockedContent(ukm::SourceIdObj source_id);
+  ~FamilyLinkUser_BlockedContent() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(4648922300412212646);
+
+
+  static const char kMainFrameBlockedName[];
+  static constexpr uint64_t kMainFrameBlockedNameHash = UINT64_C(18128244960986027787);
+  FamilyLinkUser_BlockedContent& SetMainFrameBlocked(int64_t value);
+
+  static const char kNumBlockedIframesName[];
+  static constexpr uint64_t kNumBlockedIframesNameHash = UINT64_C(6084184224638712807);
+  FamilyLinkUser_BlockedContent& SetNumBlockedIframes(int64_t value);
+
+};
+
 class FileSystemAPI_WebRequest final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit FileSystemAPI_WebRequest(ukm::SourceId source_id);
@@ -4614,6 +4782,38 @@ class FlocPageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kFlocIdName[];
   static constexpr uint64_t kFlocIdNameHash = UINT64_C(12132897347379791215);
   FlocPageLoad& SetFlocId(int64_t value);
+
+};
+
+class Fullscreen_Enter final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Fullscreen_Enter(ukm::SourceId source_id);
+  explicit Fullscreen_Enter(ukm::SourceIdObj source_id);
+  ~Fullscreen_Enter() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(17828670494812061854);
+
+
+  static const char kLockStateName[];
+  static constexpr uint64_t kLockStateNameHash = UINT64_C(1690349150269719208);
+  Fullscreen_Enter& SetLockState(int64_t value);
+
+};
+
+class Fullscreen_Exit final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Fullscreen_Exit(ukm::SourceId source_id);
+  explicit Fullscreen_Exit(ukm::SourceIdObj source_id);
+  ~Fullscreen_Exit() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(5280816973080484130);
+
+
+  static const char kSessionDurationName[];
+  static constexpr uint64_t kSessionDurationNameHash = UINT64_C(2701974374748336509);
+  Fullscreen_Exit& SetSessionDuration(int64_t value);
 
 };
 
@@ -7671,6 +7871,10 @@ class NewTabPage_HistoryClusters final : public ::ukm::internal::UkmEntryBuilder
   static constexpr uint64_t kDidEngageWithModuleNameHash = UINT64_C(706303784194036913);
   NewTabPage_HistoryClusters& SetDidEngageWithModule(int64_t value);
 
+  static const char kDidMarkAsDoneName[];
+  static constexpr uint64_t kDidMarkAsDoneNameHash = UINT64_C(6179140868304393454);
+  NewTabPage_HistoryClusters& SetDidMarkAsDone(int64_t value);
+
   static const char kLayoutTypeShownName[];
   static constexpr uint64_t kLayoutTypeShownNameHash = UINT64_C(11086775481426639863);
   NewTabPage_HistoryClusters& SetLayoutTypeShown(int64_t value);
@@ -7682,6 +7886,14 @@ class NewTabPage_HistoryClusters final : public ::ukm::internal::UkmEntryBuilder
   static const char kNumAbandonedCartsName[];
   static constexpr uint64_t kNumAbandonedCartsNameHash = UINT64_C(9479945921710286606);
   NewTabPage_HistoryClusters& SetNumAbandonedCarts(int64_t value);
+
+  static const char kNumTimesSeenLast24hName[];
+  static constexpr uint64_t kNumTimesSeenLast24hNameHash = UINT64_C(8736705493520202236);
+  NewTabPage_HistoryClusters& SetNumTimesSeenLast24h(int64_t value);
+
+  static const char kNumTimesUsedLast24hName[];
+  static constexpr uint64_t kNumTimesUsedLast24hNameHash = UINT64_C(3315522120224304794);
+  NewTabPage_HistoryClusters& SetNumTimesUsedLast24h(int64_t value);
 
   static const char kNumTotalVisitsName[];
   static constexpr uint64_t kNumTotalVisitsNameHash = UINT64_C(14700845548935967128);
@@ -8631,6 +8843,10 @@ class PasswordForm final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kManagerFill_AssistanceNameHash = UINT64_C(8134193492903112186);
   PasswordForm& SetManagerFill_Assistance(int64_t value);
 
+  static const char kManagerFill_AssistanceForSingleUsernameName[];
+  static constexpr uint64_t kManagerFill_AssistanceForSingleUsernameNameHash = UINT64_C(9541708180713743295);
+  PasswordForm& SetManagerFill_AssistanceForSingleUsername(int64_t value);
+
   static const char kParsingDiffFillingAndSavingName[];
   static constexpr uint64_t kParsingDiffFillingAndSavingNameHash = UINT64_C(13018243475274035602);
   PasswordForm& SetParsingDiffFillingAndSaving(int64_t value);
@@ -8722,6 +8938,26 @@ class PasswordManager_LeakWarningDialog final : public ::ukm::internal::UkmEntry
   static const char kPasswordLeakDetectionDialogTypeName[];
   static constexpr uint64_t kPasswordLeakDetectionDialogTypeNameHash = UINT64_C(10374809374421500686);
   PasswordManager_LeakWarningDialog& SetPasswordLeakDetectionDialogType(int64_t value);
+
+};
+
+class PasswordManager_NewlySavedPassword final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit PasswordManager_NewlySavedPassword(ukm::SourceId source_id);
+  explicit PasswordManager_NewlySavedPassword(ukm::SourceIdObj source_id);
+  ~PasswordManager_NewlySavedPassword() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(3312101392374499085);
+
+
+  static const char kHasEmptyUsernameName[];
+  static constexpr uint64_t kHasEmptyUsernameNameHash = UINT64_C(9648690868448947846);
+  PasswordManager_NewlySavedPassword& SetHasEmptyUsername(int64_t value);
+
+  static const char kIsPasswordGeneratedName[];
+  static constexpr uint64_t kIsPasswordGeneratedNameHash = UINT64_C(14171687590247907180);
+  PasswordManager_NewlySavedPassword& SetIsPasswordGenerated(int64_t value);
 
 };
 
@@ -17135,9 +17371,9 @@ class WebAPK_Install final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kEntryNameHash = UINT64_C(12193435703081602033);
 
 
-  static const char kAppVersionName[];
-  static constexpr uint64_t kAppVersionNameHash = UINT64_C(333571752519763750);
-  WebAPK_Install& SetAppVersion(int64_t value);
+  static const char kDisplayModeName[];
+  static constexpr uint64_t kDisplayModeNameHash = UINT64_C(12581275766339648725);
+  WebAPK_Install& SetDisplayMode(int64_t value);
 
   static const char kDistributorName[];
   static constexpr uint64_t kDistributorNameHash = UINT64_C(8247396947590737646);
@@ -17146,6 +17382,10 @@ class WebAPK_Install final : public ::ukm::internal::UkmEntryBuilderBase {
   static const char kInstallName[];
   static constexpr uint64_t kInstallNameHash = UINT64_C(3789841737615482174);
   WebAPK_Install& SetInstall(int64_t value);
+
+  static const char kInstallSourceName[];
+  static constexpr uint64_t kInstallSourceNameHash = UINT64_C(7897354207534621578);
+  WebAPK_Install& SetInstallSource(int64_t value);
 
 };
 

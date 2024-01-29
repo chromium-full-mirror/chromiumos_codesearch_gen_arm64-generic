@@ -14,9 +14,6 @@ export class SearchEnginesBrowserProxyImpl {
     static setInstanceForTesting(obj) {
         instance = obj;
     }
-    setDefaultSearchEngine(modelIndex) {
-        chrome.send('setDefaultSearchEngine', [modelIndex]);
-    }
     getSearchEnginesList() {
         return sendWithPromise('getSearchEnginesList');
     }

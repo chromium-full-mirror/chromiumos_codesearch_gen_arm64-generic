@@ -21,30 +21,6 @@
 namespace on_device_model {
 namespace mojom {
 
-NOINLINE static const char* ResponseStatusToStringHelper(ResponseStatus value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case ResponseStatus::kOk:
-      return "kOk";
-    case ResponseStatus::kRetracted:
-      return "kRetracted";
-    default:
-      return nullptr;
-  }
-}
-
-std::string ResponseStatusToString(ResponseStatus value) {
-  const char *str = ResponseStatusToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown ResponseStatus value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, ResponseStatus value) {
-  return os << ResponseStatusToString(value);
-}
-
 NOINLINE static const char* PerformanceClassToStringHelper(PerformanceClass value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -111,13 +87,84 @@ namespace internal {
 
 
 // static
+bool ResponseChunk_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ResponseChunk_Data* object =
+      static_cast<const ResponseChunk_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->text, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->text, validation_context,
+                                         &text_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& ts_scores_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->ts_scores, validation_context,
+                                         &ts_scores_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+ResponseChunk_Data::ResponseChunk_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ResponseSummary_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ResponseSummary_Data* object =
+      static_cast<const ResponseSummary_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& ts_scores_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->ts_scores, validation_context,
+                                         &ts_scores_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+ResponseSummary_Data::ResponseSummary_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool InputOptions_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -161,15 +208,11 @@ bool StreamingResponder_OnResponse_Params_Data::Validate(
       static_cast<const StreamingResponder_OnResponse_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->text, 1, validation_context)) {
+          object->chunk, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->text, validation_context,
-                                         &text_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->chunk, validation_context))
     return false;
-  }
 
   return true;
 }
@@ -194,9 +237,11 @@ bool StreamingResponder_OnComplete_Params_Data::Validate(
   [[maybe_unused]] const StreamingResponder_OnComplete_Params_Data* object =
       static_cast<const StreamingResponder_OnComplete_Params_Data*>(data);
 
-
-  if (!::on_device_model::mojom::internal::ResponseStatus_Data
-        ::Validate(object->status, validation_context))
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->summary, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->summary, validation_context))
     return false;
 
   return true;
@@ -337,16 +382,6 @@ OnDeviceModel_StartSession_Params_Data::OnDeviceModel_StartSession_Params_Data()
 }  // namespace internal
 }  // namespace mojom
 }  // namespace on_device_model
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::on_device_model::mojom::ResponseStatus>::WriteIntoTrace(
-   perfetto::TracedValue context, ::on_device_model::mojom::ResponseStatus value) {
-  return std::move(context).WriteString(::on_device_model::mojom::ResponseStatusToString(value));
-}
-
-} // namespace perfetto
 
 namespace perfetto {
 

@@ -17,7 +17,7 @@ export function getTemplate() {
     [[label_]]
   </template>
 </div>
-<iron-dropdown opened="[[shouldShowDropdownMenu_]]" no-cancel-on-outside-click dynamic-align>
+<iron-dropdown opened="[[shouldShowDropdownMenu_]]" no-cancel-on-outside-click focus-target="[[focusTarget_]]" dynamic-align>
   <div id="menuContainer" slot="dropdown-content">
     <template is="dom-repeat" items="[[menu]]">
       <customize-button-dropdown-item option="[[item]]" selected="[[isItemSelected_(item, selectedItem)]]">

@@ -24,19 +24,12 @@
 namespace webnn::mojom {
 class CreateContextOptionsDataView;
 
-class ErrorDataView;
-
 class CreateGraphResultDataView;
 class CreateContextResultDataView;
 
 enum class PowerPreference : int32_t;
-
-enum class Error_Code : int32_t;
 class CreateContextOptions;
 using CreateContextOptionsPtr = mojo::InlinedStructPtr<CreateContextOptions>;
-
-class Error;
-using ErrorPtr = mojo::InlinedStructPtr<Error>;
 
 class CreateGraphResult;
 

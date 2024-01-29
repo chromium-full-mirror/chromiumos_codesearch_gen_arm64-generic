@@ -180,11 +180,12 @@ struct ExtensionInfo {
   // The description of this extension, app, or theme.
   std::string description;
 
-  // The <a href='manifest/version'>version</a> of this extension, app, or theme.
+  // The <a href='reference/manifest/version'>version</a> of this extension, app,
+  // or theme.
   std::string version;
 
-  // The <a href='manifest/version#version_name'>version name</a> of this
-  // extension, app, or theme if the manifest specified one.
+  // The <a href='reference/manifest/version#version_name'>version name</a> of
+  // this extension, app, or theme if the manifest specified one.
   std::optional<std::string> version_name;
 
   // Whether this extension can be disabled or uninstalled by the user.
@@ -225,7 +226,8 @@ struct ExtensionInfo {
   // the manifest, and the actual image at that url may be larger or smaller than
   // what was declared, so you might consider using explicit width and height
   // attributes on img tags referencing these images. See the <a
-  // href='manifest/icons'>manifest documentation on icons</a> for more details.
+  // href='reference/manifest/icons'>manifest documentation on icons</a> for more
+  // details.
   std::optional<std::vector<IconInfo>> icons;
 
   // Returns a list of API based permissions.

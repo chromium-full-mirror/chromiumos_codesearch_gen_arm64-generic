@@ -58,8 +58,13 @@ export class PageHandlerRemote {
             managed
         ]);
     }
+    setIsInUserChildSession(inChildSession) {
+        this.proxy.sendMessage(8, PageHandler_SetIsInUserChildSession_ParamsSpec.$, null, [
+            inChildSession
+        ]);
+    }
     triggerPrivacyIndicators(appId, appName, isCameraUsed, isMicrophoneUsed) {
-        this.proxy.sendMessage(8, PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, null, [
+        this.proxy.sendMessage(9, PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, null, [
             appId,
             appName,
             isCameraUsed,
@@ -85,7 +90,8 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(5, PageHandler_ToggleVideoConferenceTray_ParamsSpec.$, null, impl.toggleVideoConferenceTray.bind(impl));
         this.helper_internal_.registerHandler(6, PageHandler_ToggleProjectorTray_ParamsSpec.$, null, impl.toggleProjectorTray.bind(impl));
         this.helper_internal_.registerHandler(7, PageHandler_SetActiveDirectoryManaged_ParamsSpec.$, null, impl.setActiveDirectoryManaged.bind(impl));
-        this.helper_internal_.registerHandler(8, PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, null, impl.triggerPrivacyIndicators.bind(impl));
+        this.helper_internal_.registerHandler(8, PageHandler_SetIsInUserChildSession_ParamsSpec.$, null, impl.setIsInUserChildSession.bind(impl));
+        this.helper_internal_.registerHandler(9, PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, null, impl.triggerPrivacyIndicators.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -139,9 +145,12 @@ export class PageHandlerCallbackRouter {
         this.setActiveDirectoryManaged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(7, PageHandler_SetActiveDirectoryManaged_ParamsSpec.$, null, this.setActiveDirectoryManaged.createReceiverHandler(false /* expectsResponse */));
+        this.setIsInUserChildSession =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(8, PageHandler_SetIsInUserChildSession_ParamsSpec.$, null, this.setIsInUserChildSession.createReceiverHandler(false /* expectsResponse */));
         this.triggerPrivacyIndicators =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(8, PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, null, this.triggerPrivacyIndicators.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(9, PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, null, this.triggerPrivacyIndicators.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -160,6 +169,7 @@ export const PageHandler_ToggleDictationTray_ParamsSpec = { $: {} };
 export const PageHandler_ToggleVideoConferenceTray_ParamsSpec = { $: {} };
 export const PageHandler_ToggleProjectorTray_ParamsSpec = { $: {} };
 export const PageHandler_SetActiveDirectoryManaged_ParamsSpec = { $: {} };
+export const PageHandler_SetIsInUserChildSession_ParamsSpec = { $: {} };
 export const PageHandler_TriggerPrivacyIndicators_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageHandler_ToggleImeTray_ParamsSpec.$, 'PageHandler_ToggleImeTray_Params', [
     mojo.internal.StructField('visible', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
@@ -184,6 +194,9 @@ mojo.internal.Struct(PageHandler_ToggleProjectorTray_ParamsSpec.$, 'PageHandler_
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_SetActiveDirectoryManaged_ParamsSpec.$, 'PageHandler_SetActiveDirectoryManaged_Params', [
     mojo.internal.StructField('managed', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SetIsInUserChildSession_ParamsSpec.$, 'PageHandler_SetIsInUserChildSession_Params', [
+    mojo.internal.StructField('inChildSession', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_TriggerPrivacyIndicators_ParamsSpec.$, 'PageHandler_TriggerPrivacyIndicators_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),

@@ -499,6 +499,22 @@ class  CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data {
 };
 static_assert(sizeof(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data) == 16,
               "Bad sizeof(CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data)");
+class  CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> delay;
+
+ private:
+  friend class mojo::internal::MessageFragment<CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data>;
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data();
+  ~CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data() = delete;
+};
+static_assert(sizeof(CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data) == 16,
+              "Bad sizeof(CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data)");
 
 }  // namespace internal
 
@@ -1204,6 +1220,32 @@ class CookieManager_SetTrackingProtectionEnabledFor3pcd_ParamsDataView {
   internal::CookieManager_SetTrackingProtectionEnabledFor3pcd_Params_Data* data_ = nullptr;
 };
 
+
+class CookieManager_SetPreCommitCallbackDelayForTesting_ParamsDataView {
+ public:
+  CookieManager_SetPreCommitCallbackDelayForTesting_ParamsDataView() = default;
+
+  CookieManager_SetPreCommitCallbackDelayForTesting_ParamsDataView(
+      internal::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDelayDataView(
+      ::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDelay(UserType* output) {
+    
+    auto* pointer = data_->delay.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CookieManager_SetPreCommitCallbackDelayForTesting_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void CookieChangeListener_OnCookieChange_ParamsDataView::GetChangeDataView(
     CookieChangeInfoDataView* output) {
   auto pointer = data_->change.Get();
@@ -1350,6 +1392,13 @@ inline void CookieManager_SetContentSettings_ParamsDataView::GetSettingsDataView
 
 
 
+
+
+inline void CookieManager_SetPreCommitCallbackDelayForTesting_ParamsDataView::GetDelayDataView(
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->delay.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
 
 
 

@@ -19,13 +19,13 @@ namespace pbzero {
 class SerializedColumn;
 class SerializedColumn_BitVector;
 class SerializedColumn_Storage;
-class SerializedColumn_Storage_ArrangementStorage;
-class SerializedColumn_Storage_DenseNullStorage;
+class SerializedColumn_Storage_ArrangementOverlay;
+class SerializedColumn_Storage_DenseNullOverlay;
 class SerializedColumn_Storage_DummyStorage;
 class SerializedColumn_Storage_IdStorage;
-class SerializedColumn_Storage_NullStorage;
+class SerializedColumn_Storage_NullOverlay;
 class SerializedColumn_Storage_NumericStorage;
-class SerializedColumn_Storage_SelectorStorage;
+class SerializedColumn_Storage_SelectorOverlay;
 class SerializedColumn_Storage_SetIdStorage;
 class SerializedColumn_Storage_StringStorage;
 class SerializedTraceProcessorPacket;
@@ -134,14 +134,14 @@ class SerializedColumn_Storage_Decoder : public ::protozero::TypedProtoDecoder</
   ::protozero::ConstBytes set_id_storage() const { return at<4>().as_bytes(); }
   bool has_string_storage() const { return at<5>().valid(); }
   ::protozero::ConstBytes string_storage() const { return at<5>().as_bytes(); }
-  bool has_null_storage() const { return at<6>().valid(); }
-  ::protozero::ConstBytes null_storage() const { return at<6>().as_bytes(); }
-  bool has_arrangement_storage() const { return at<7>().valid(); }
-  ::protozero::ConstBytes arrangement_storage() const { return at<7>().as_bytes(); }
-  bool has_selector_storage() const { return at<8>().valid(); }
-  ::protozero::ConstBytes selector_storage() const { return at<8>().as_bytes(); }
-  bool has_dense_null_storage() const { return at<9>().valid(); }
-  ::protozero::ConstBytes dense_null_storage() const { return at<9>().as_bytes(); }
+  bool has_null_overlay() const { return at<6>().valid(); }
+  ::protozero::ConstBytes null_overlay() const { return at<6>().as_bytes(); }
+  bool has_arrangement_overlay() const { return at<7>().valid(); }
+  ::protozero::ConstBytes arrangement_overlay() const { return at<7>().as_bytes(); }
+  bool has_selector_overlay() const { return at<8>().valid(); }
+  ::protozero::ConstBytes selector_overlay() const { return at<8>().as_bytes(); }
+  bool has_dense_null_overlay() const { return at<9>().valid(); }
+  ::protozero::ConstBytes dense_null_overlay() const { return at<9>().as_bytes(); }
 };
 
 class SerializedColumn_Storage : public ::protozero::Message {
@@ -153,10 +153,10 @@ class SerializedColumn_Storage : public ::protozero::Message {
     kNumericStorageFieldNumber = 3,
     kSetIdStorageFieldNumber = 4,
     kStringStorageFieldNumber = 5,
-    kNullStorageFieldNumber = 6,
-    kArrangementStorageFieldNumber = 7,
-    kSelectorStorageFieldNumber = 8,
-    kDenseNullStorageFieldNumber = 9,
+    kNullOverlayFieldNumber = 6,
+    kArrangementOverlayFieldNumber = 7,
+    kSelectorOverlayFieldNumber = 8,
+    kDenseNullOverlayFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage"; }
 
@@ -165,10 +165,10 @@ class SerializedColumn_Storage : public ::protozero::Message {
   using NumericStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_NumericStorage;
   using SetIdStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_SetIdStorage;
   using StringStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_StringStorage;
-  using NullStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_NullStorage;
-  using ArrangementStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_ArrangementStorage;
-  using SelectorStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_SelectorStorage;
-  using DenseNullStorage = ::perfetto::protos::pbzero::SerializedColumn_Storage_DenseNullStorage;
+  using NullOverlay = ::perfetto::protos::pbzero::SerializedColumn_Storage_NullOverlay;
+  using ArrangementOverlay = ::perfetto::protos::pbzero::SerializedColumn_Storage_ArrangementOverlay;
+  using SelectorOverlay = ::perfetto::protos::pbzero::SerializedColumn_Storage_SelectorOverlay;
+  using DenseNullOverlay = ::perfetto::protos::pbzero::SerializedColumn_Storage_DenseNullOverlay;
 
   using FieldMetadata_DummyStorage =
     ::protozero::proto_utils::FieldMetadata<
@@ -240,82 +240,82 @@ class SerializedColumn_Storage : public ::protozero::Message {
   }
 
 
-  using FieldMetadata_NullStorage =
+  using FieldMetadata_NullOverlay =
     ::protozero::proto_utils::FieldMetadata<
       6,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      SerializedColumn_Storage_NullStorage,
+      SerializedColumn_Storage_NullOverlay,
       SerializedColumn_Storage>;
 
-  static constexpr FieldMetadata_NullStorage kNullStorage{};
-  template <typename T = SerializedColumn_Storage_NullStorage> T* set_null_storage() {
+  static constexpr FieldMetadata_NullOverlay kNullOverlay{};
+  template <typename T = SerializedColumn_Storage_NullOverlay> T* set_null_overlay() {
     return BeginNestedMessage<T>(6);
   }
 
 
-  using FieldMetadata_ArrangementStorage =
+  using FieldMetadata_ArrangementOverlay =
     ::protozero::proto_utils::FieldMetadata<
       7,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      SerializedColumn_Storage_ArrangementStorage,
+      SerializedColumn_Storage_ArrangementOverlay,
       SerializedColumn_Storage>;
 
-  static constexpr FieldMetadata_ArrangementStorage kArrangementStorage{};
-  template <typename T = SerializedColumn_Storage_ArrangementStorage> T* set_arrangement_storage() {
+  static constexpr FieldMetadata_ArrangementOverlay kArrangementOverlay{};
+  template <typename T = SerializedColumn_Storage_ArrangementOverlay> T* set_arrangement_overlay() {
     return BeginNestedMessage<T>(7);
   }
 
 
-  using FieldMetadata_SelectorStorage =
+  using FieldMetadata_SelectorOverlay =
     ::protozero::proto_utils::FieldMetadata<
       8,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      SerializedColumn_Storage_SelectorStorage,
+      SerializedColumn_Storage_SelectorOverlay,
       SerializedColumn_Storage>;
 
-  static constexpr FieldMetadata_SelectorStorage kSelectorStorage{};
-  template <typename T = SerializedColumn_Storage_SelectorStorage> T* set_selector_storage() {
+  static constexpr FieldMetadata_SelectorOverlay kSelectorOverlay{};
+  template <typename T = SerializedColumn_Storage_SelectorOverlay> T* set_selector_overlay() {
     return BeginNestedMessage<T>(8);
   }
 
 
-  using FieldMetadata_DenseNullStorage =
+  using FieldMetadata_DenseNullOverlay =
     ::protozero::proto_utils::FieldMetadata<
       9,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      SerializedColumn_Storage_DenseNullStorage,
+      SerializedColumn_Storage_DenseNullOverlay,
       SerializedColumn_Storage>;
 
-  static constexpr FieldMetadata_DenseNullStorage kDenseNullStorage{};
-  template <typename T = SerializedColumn_Storage_DenseNullStorage> T* set_dense_null_storage() {
+  static constexpr FieldMetadata_DenseNullOverlay kDenseNullOverlay{};
+  template <typename T = SerializedColumn_Storage_DenseNullOverlay> T* set_dense_null_overlay() {
     return BeginNestedMessage<T>(9);
   }
 
 };
 
-class SerializedColumn_Storage_DenseNullStorage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class SerializedColumn_Storage_DenseNullOverlay_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
-  SerializedColumn_Storage_DenseNullStorage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit SerializedColumn_Storage_DenseNullStorage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit SerializedColumn_Storage_DenseNullStorage_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  SerializedColumn_Storage_DenseNullOverlay_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SerializedColumn_Storage_DenseNullOverlay_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SerializedColumn_Storage_DenseNullOverlay_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_bit_vector() const { return at<1>().valid(); }
   ::protozero::ConstBytes bit_vector() const { return at<1>().as_bytes(); }
   bool has_storage() const { return at<2>().valid(); }
   ::protozero::ConstBytes storage() const { return at<2>().as_bytes(); }
 };
 
-class SerializedColumn_Storage_DenseNullStorage : public ::protozero::Message {
+class SerializedColumn_Storage_DenseNullOverlay : public ::protozero::Message {
  public:
-  using Decoder = SerializedColumn_Storage_DenseNullStorage_Decoder;
+  using Decoder = SerializedColumn_Storage_DenseNullOverlay_Decoder;
   enum : int32_t {
     kBitVectorFieldNumber = 1,
     kStorageFieldNumber = 2,
   };
-  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.DenseNullStorage"; }
+  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.DenseNullOverlay"; }
 
 
   using FieldMetadata_BitVector =
@@ -324,7 +324,7 @@ class SerializedColumn_Storage_DenseNullStorage : public ::protozero::Message {
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_BitVector,
-      SerializedColumn_Storage_DenseNullStorage>;
+      SerializedColumn_Storage_DenseNullOverlay>;
 
   static constexpr FieldMetadata_BitVector kBitVector{};
   template <typename T = SerializedColumn_BitVector> T* set_bit_vector() {
@@ -338,7 +338,7 @@ class SerializedColumn_Storage_DenseNullStorage : public ::protozero::Message {
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_Storage,
-      SerializedColumn_Storage_DenseNullStorage>;
+      SerializedColumn_Storage_DenseNullOverlay>;
 
   static constexpr FieldMetadata_Storage kStorage{};
   template <typename T = SerializedColumn_Storage> T* set_storage() {
@@ -347,25 +347,25 @@ class SerializedColumn_Storage_DenseNullStorage : public ::protozero::Message {
 
 };
 
-class SerializedColumn_Storage_SelectorStorage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class SerializedColumn_Storage_SelectorOverlay_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
-  SerializedColumn_Storage_SelectorStorage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit SerializedColumn_Storage_SelectorStorage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit SerializedColumn_Storage_SelectorStorage_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  SerializedColumn_Storage_SelectorOverlay_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SerializedColumn_Storage_SelectorOverlay_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SerializedColumn_Storage_SelectorOverlay_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_bit_vector() const { return at<1>().valid(); }
   ::protozero::ConstBytes bit_vector() const { return at<1>().as_bytes(); }
   bool has_storage() const { return at<2>().valid(); }
   ::protozero::ConstBytes storage() const { return at<2>().as_bytes(); }
 };
 
-class SerializedColumn_Storage_SelectorStorage : public ::protozero::Message {
+class SerializedColumn_Storage_SelectorOverlay : public ::protozero::Message {
  public:
-  using Decoder = SerializedColumn_Storage_SelectorStorage_Decoder;
+  using Decoder = SerializedColumn_Storage_SelectorOverlay_Decoder;
   enum : int32_t {
     kBitVectorFieldNumber = 1,
     kStorageFieldNumber = 2,
   };
-  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.SelectorStorage"; }
+  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.SelectorOverlay"; }
 
 
   using FieldMetadata_BitVector =
@@ -374,7 +374,7 @@ class SerializedColumn_Storage_SelectorStorage : public ::protozero::Message {
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_BitVector,
-      SerializedColumn_Storage_SelectorStorage>;
+      SerializedColumn_Storage_SelectorOverlay>;
 
   static constexpr FieldMetadata_BitVector kBitVector{};
   template <typename T = SerializedColumn_BitVector> T* set_bit_vector() {
@@ -388,7 +388,7 @@ class SerializedColumn_Storage_SelectorStorage : public ::protozero::Message {
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_Storage,
-      SerializedColumn_Storage_SelectorStorage>;
+      SerializedColumn_Storage_SelectorOverlay>;
 
   static constexpr FieldMetadata_Storage kStorage{};
   template <typename T = SerializedColumn_Storage> T* set_storage() {
@@ -397,25 +397,25 @@ class SerializedColumn_Storage_SelectorStorage : public ::protozero::Message {
 
 };
 
-class SerializedColumn_Storage_ArrangementStorage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class SerializedColumn_Storage_ArrangementOverlay_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
-  SerializedColumn_Storage_ArrangementStorage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit SerializedColumn_Storage_ArrangementStorage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit SerializedColumn_Storage_ArrangementStorage_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  SerializedColumn_Storage_ArrangementOverlay_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SerializedColumn_Storage_ArrangementOverlay_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SerializedColumn_Storage_ArrangementOverlay_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_values() const { return at<1>().valid(); }
   ::protozero::ConstBytes values() const { return at<1>().as_bytes(); }
   bool has_storage() const { return at<2>().valid(); }
   ::protozero::ConstBytes storage() const { return at<2>().as_bytes(); }
 };
 
-class SerializedColumn_Storage_ArrangementStorage : public ::protozero::Message {
+class SerializedColumn_Storage_ArrangementOverlay : public ::protozero::Message {
  public:
-  using Decoder = SerializedColumn_Storage_ArrangementStorage_Decoder;
+  using Decoder = SerializedColumn_Storage_ArrangementOverlay_Decoder;
   enum : int32_t {
     kValuesFieldNumber = 1,
     kStorageFieldNumber = 2,
   };
-  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.ArrangementStorage"; }
+  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.ArrangementOverlay"; }
 
 
   using FieldMetadata_Values =
@@ -424,7 +424,7 @@ class SerializedColumn_Storage_ArrangementStorage : public ::protozero::Message 
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kBytes,
       std::string,
-      SerializedColumn_Storage_ArrangementStorage>;
+      SerializedColumn_Storage_ArrangementOverlay>;
 
   static constexpr FieldMetadata_Values kValues{};
   void set_values(const uint8_t* data, size_t size) {
@@ -448,7 +448,7 @@ class SerializedColumn_Storage_ArrangementStorage : public ::protozero::Message 
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_Storage,
-      SerializedColumn_Storage_ArrangementStorage>;
+      SerializedColumn_Storage_ArrangementOverlay>;
 
   static constexpr FieldMetadata_Storage kStorage{};
   template <typename T = SerializedColumn_Storage> T* set_storage() {
@@ -457,25 +457,25 @@ class SerializedColumn_Storage_ArrangementStorage : public ::protozero::Message 
 
 };
 
-class SerializedColumn_Storage_NullStorage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class SerializedColumn_Storage_NullOverlay_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
-  SerializedColumn_Storage_NullStorage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit SerializedColumn_Storage_NullStorage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit SerializedColumn_Storage_NullStorage_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  SerializedColumn_Storage_NullOverlay_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SerializedColumn_Storage_NullOverlay_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SerializedColumn_Storage_NullOverlay_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_bit_vector() const { return at<1>().valid(); }
   ::protozero::ConstBytes bit_vector() const { return at<1>().as_bytes(); }
   bool has_storage() const { return at<2>().valid(); }
   ::protozero::ConstBytes storage() const { return at<2>().as_bytes(); }
 };
 
-class SerializedColumn_Storage_NullStorage : public ::protozero::Message {
+class SerializedColumn_Storage_NullOverlay : public ::protozero::Message {
  public:
-  using Decoder = SerializedColumn_Storage_NullStorage_Decoder;
+  using Decoder = SerializedColumn_Storage_NullOverlay_Decoder;
   enum : int32_t {
     kBitVectorFieldNumber = 1,
     kStorageFieldNumber = 2,
   };
-  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.NullStorage"; }
+  static constexpr const char* GetName() { return ".perfetto.protos.SerializedColumn.Storage.NullOverlay"; }
 
 
   using FieldMetadata_BitVector =
@@ -484,7 +484,7 @@ class SerializedColumn_Storage_NullStorage : public ::protozero::Message {
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_BitVector,
-      SerializedColumn_Storage_NullStorage>;
+      SerializedColumn_Storage_NullOverlay>;
 
   static constexpr FieldMetadata_BitVector kBitVector{};
   template <typename T = SerializedColumn_BitVector> T* set_bit_vector() {
@@ -498,7 +498,7 @@ class SerializedColumn_Storage_NullStorage : public ::protozero::Message {
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
       ::protozero::proto_utils::ProtoSchemaType::kMessage,
       SerializedColumn_Storage,
-      SerializedColumn_Storage_NullStorage>;
+      SerializedColumn_Storage_NullOverlay>;
 
   static constexpr FieldMetadata_Storage kStorage{};
   template <typename T = SerializedColumn_Storage> T* set_storage() {

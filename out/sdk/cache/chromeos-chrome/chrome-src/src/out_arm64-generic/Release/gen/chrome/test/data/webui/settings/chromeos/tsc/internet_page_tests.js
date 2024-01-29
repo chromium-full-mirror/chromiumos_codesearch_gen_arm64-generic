@@ -172,7 +172,6 @@ suite('InternetPage', function () {
             internetAddWiFi: 'internetAddWiFi',
             internetDetailPageTitle: 'internetDetailPageTitle',
             internetKnownNetworksPageTitle: 'internetKnownNetworksPageTitle',
-            isApnRevampEnabled: false,
         });
         mojoApi_ = new FakeNetworkConfig();
         MojoInterfaceProviderImpl.getInstance().remote_ = mojoApi_;

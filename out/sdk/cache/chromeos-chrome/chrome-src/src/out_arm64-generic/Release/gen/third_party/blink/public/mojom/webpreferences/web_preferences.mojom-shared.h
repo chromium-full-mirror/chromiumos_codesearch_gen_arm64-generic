@@ -402,8 +402,8 @@ class WebPreferencesDataView {
   bool hide_scrollbars() const {
     return data_->hide_scrollbars;
   }
-  bool enable_webkit_scrollbar_styling() const {
-    return data_->enable_webkit_scrollbar_styling;
+  bool prefers_default_scrollbar_styles() const {
+    return data_->prefers_default_scrollbar_styles;
   }
   bool accelerated_2d_canvas_enabled() const {
     return data_->accelerated_2d_canvas_enabled;
@@ -1199,7 +1199,7 @@ struct Serializer<::blink::mojom::WebPreferencesDataView, MaybeConstUserType> {
     fragment->privileged_webgl_extensions_enabled = Traits::privileged_webgl_extensions_enabled(input);
     fragment->webgl_errors_to_console_enabled = Traits::webgl_errors_to_console_enabled(input);
     fragment->hide_scrollbars = Traits::hide_scrollbars(input);
-    fragment->enable_webkit_scrollbar_styling = Traits::enable_webkit_scrollbar_styling(input);
+    fragment->prefers_default_scrollbar_styles = Traits::prefers_default_scrollbar_styles(input);
     fragment->accelerated_2d_canvas_enabled = Traits::accelerated_2d_canvas_enabled(input);
     fragment->canvas_2d_layers_enabled = Traits::canvas_2d_layers_enabled(input);
     fragment->antialiased_2d_canvas_disabled = Traits::antialiased_2d_canvas_disabled(input);

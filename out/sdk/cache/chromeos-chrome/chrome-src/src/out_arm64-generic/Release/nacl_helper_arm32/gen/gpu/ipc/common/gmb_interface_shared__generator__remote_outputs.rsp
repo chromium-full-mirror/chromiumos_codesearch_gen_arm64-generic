@@ -1,0 +1,5 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/gpu/ipc/common/client_gmb_interface.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/gpu/ipc/common/client_gmb_interface.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/gpu/ipc/common/client_gmb_interface.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/gpu/ipc/common/client_gmb_interface.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/gpu/ipc/common/client_gmb_interface.mojom-shared.h

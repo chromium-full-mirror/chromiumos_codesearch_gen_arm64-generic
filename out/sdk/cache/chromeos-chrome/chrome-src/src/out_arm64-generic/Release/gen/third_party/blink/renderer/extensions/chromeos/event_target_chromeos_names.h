@@ -17,9 +17,8 @@
 namespace blink {
 namespace event_target_names {
 
-extern const WTF::AtomicString& kCrosWindowManagement;
 
-constexpr unsigned kChromeOSNamesCount = 1;
+constexpr unsigned kChromeOSNamesCount = 0;
 
 void InitChromeOS();
 

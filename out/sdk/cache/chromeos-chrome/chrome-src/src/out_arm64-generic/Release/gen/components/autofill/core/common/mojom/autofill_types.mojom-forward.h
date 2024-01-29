@@ -42,9 +42,13 @@ class AutocompleteParsingResultDataView;
 
 class FormFieldDataDataView;
 
+class FormFieldData_FillDataDataView;
+
 class ButtonTitleInfoDataView;
 
 class FormDataDataView;
+
+class FormData_FillDataDataView;
 
 class FormFieldDataPredictionsDataView;
 
@@ -123,11 +127,17 @@ using AutocompleteParsingResultPtr = mojo::InlinedStructPtr<AutocompleteParsingR
 class FormFieldData;
 using FormFieldDataPtr = mojo::StructPtr<FormFieldData>;
 
+class FormFieldData_FillData;
+using FormFieldData_FillDataPtr = mojo::StructPtr<FormFieldData_FillData>;
+
 class ButtonTitleInfo;
 using ButtonTitleInfoPtr = mojo::StructPtr<ButtonTitleInfo>;
 
 class FormData;
 using FormDataPtr = mojo::StructPtr<FormData>;
+
+class FormData_FillData;
+using FormData_FillDataPtr = mojo::StructPtr<FormData_FillData>;
 
 class FormFieldDataPredictions;
 using FormFieldDataPredictionsPtr = mojo::StructPtr<FormFieldDataPredictions>;

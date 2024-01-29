@@ -66,8 +66,6 @@ NOINLINE static const char* VideoCodecProfileToStringHelper(VideoCodecProfile va
       return "{HEVCPROFILE_MAIN_STILL_PICTURE, HEVCPROFILE_MAX}";
     case VideoCodecProfile::DOLBYVISION_PROFILE0:
       return "DOLBYVISION_PROFILE0";
-    case VideoCodecProfile::DOLBYVISION_PROFILE4:
-      return "DOLBYVISION_PROFILE4";
     case VideoCodecProfile::DOLBYVISION_PROFILE5:
       return "DOLBYVISION_PROFILE5";
     case VideoCodecProfile::DOLBYVISION_PROFILE7:

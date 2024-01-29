@@ -85,6 +85,37 @@ class  UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data {
 };
 static_assert(sizeof(UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data) == 16,
               "Bad sizeof(UserEducationInternalsPageHandler_StartTutorial_ResponseParams_Data)");
+class  UserEducationInternalsPageHandler_GetSessionData_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_GetSessionData_Params_Data>;
+
+  UserEducationInternalsPageHandler_GetSessionData_Params_Data();
+  ~UserEducationInternalsPageHandler_GetSessionData_Params_Data() = delete;
+};
+static_assert(sizeof(UserEducationInternalsPageHandler_GetSessionData_Params_Data) == 8,
+              "Bad sizeof(UserEducationInternalsPageHandler_GetSessionData_Params_Data)");
+class  UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FeaturePromoDemoPageData_Data>>> session_data;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data>;
+
+  UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data();
+  ~UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data) == 16,
+              "Bad sizeof(UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data)");
 class  UserEducationInternalsPageHandler_GetFeaturePromos_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -148,6 +179,69 @@ class  UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data {
 };
 static_assert(sizeof(UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data) == 16,
               "Bad sizeof(UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParams_Data)");
+class  UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> feature_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data>;
+
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data();
+  ~UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data() = delete;
+};
+static_assert(sizeof(UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data) == 16,
+              "Bad sizeof(UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data)");
+class  UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> error_message;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data>;
+
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data();
+  ~UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data) == 16,
+              "Bad sizeof(UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data)");
+class  UserEducationInternalsPageHandler_ClearSessionData_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_ClearSessionData_Params_Data>;
+
+  UserEducationInternalsPageHandler_ClearSessionData_Params_Data();
+  ~UserEducationInternalsPageHandler_ClearSessionData_Params_Data() = delete;
+};
+static_assert(sizeof(UserEducationInternalsPageHandler_ClearSessionData_Params_Data) == 8,
+              "Bad sizeof(UserEducationInternalsPageHandler_ClearSessionData_Params_Data)");
+class  UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> error_message;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data>;
+
+  UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data();
+  ~UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data) == 16,
+              "Bad sizeof(UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -245,6 +339,47 @@ class UserEducationInternalsPageHandler_StartTutorial_ResponseParamsDataView {
 };
 
 
+class UserEducationInternalsPageHandler_GetSessionData_ParamsDataView {
+ public:
+  UserEducationInternalsPageHandler_GetSessionData_ParamsDataView() = default;
+
+  UserEducationInternalsPageHandler_GetSessionData_ParamsDataView(
+      internal::UserEducationInternalsPageHandler_GetSessionData_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::UserEducationInternalsPageHandler_GetSessionData_Params_Data* data_ = nullptr;
+};
+
+
+class UserEducationInternalsPageHandler_GetSessionData_ResponseParamsDataView {
+ public:
+  UserEducationInternalsPageHandler_GetSessionData_ResponseParamsDataView() = default;
+
+  UserEducationInternalsPageHandler_GetSessionData_ResponseParamsDataView(
+      internal::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSessionDataDataView(
+      mojo::ArrayDataView<FeaturePromoDemoPageDataDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSessionData(UserType* output) {
+    
+    auto* pointer = data_->session_data.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserEducationInternalsPageHandler_GetSessionData_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class UserEducationInternalsPageHandler_GetFeaturePromos_ParamsDataView {
  public:
   UserEducationInternalsPageHandler_GetFeaturePromos_ParamsDataView() = default;
@@ -338,6 +473,99 @@ class UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsDataView 
 };
 
 
+class UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsDataView {
+ public:
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsDataView() = default;
+
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsDataView(
+      internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFeatureNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFeatureName(UserType* output) {
+    
+    auto* pointer = data_->feature_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsDataView {
+ public:
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsDataView() = default;
+
+  UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsDataView(
+      internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrorMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErrorMessage(UserType* output) {
+    
+    auto* pointer = data_->error_message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class UserEducationInternalsPageHandler_ClearSessionData_ParamsDataView {
+ public:
+  UserEducationInternalsPageHandler_ClearSessionData_ParamsDataView() = default;
+
+  UserEducationInternalsPageHandler_ClearSessionData_ParamsDataView(
+      internal::UserEducationInternalsPageHandler_ClearSessionData_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::UserEducationInternalsPageHandler_ClearSessionData_Params_Data* data_ = nullptr;
+};
+
+
+class UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsDataView {
+ public:
+  UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsDataView() = default;
+
+  UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsDataView(
+      internal::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrorMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErrorMessage(UserType* output) {
+    
+    auto* pointer = data_->error_message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserEducationInternalsPageHandler_ClearSessionData_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void UserEducationInternalsPageHandler_GetTutorials_ResponseParamsDataView::GetTutorialInfosDataView(
     mojo::ArrayDataView<FeaturePromoDemoPageInfoDataView>* output) {
@@ -362,6 +590,15 @@ inline void UserEducationInternalsPageHandler_StartTutorial_ResponseParamsDataVi
 
 
 
+inline void UserEducationInternalsPageHandler_GetSessionData_ResponseParamsDataView::GetSessionDataDataView(
+    mojo::ArrayDataView<FeaturePromoDemoPageDataDataView>* output) {
+  auto pointer = data_->session_data.Get();
+  *output = mojo::ArrayDataView<FeaturePromoDemoPageDataDataView>(pointer, message_);
+}
+
+
+
+
 inline void UserEducationInternalsPageHandler_GetFeaturePromos_ResponseParamsDataView::GetFeaturePromosDataView(
     mojo::ArrayDataView<FeaturePromoDemoPageInfoDataView>* output) {
   auto pointer = data_->feature_promos.Get();
@@ -377,6 +614,29 @@ inline void UserEducationInternalsPageHandler_ShowFeaturePromo_ParamsDataView::G
 
 
 inline void UserEducationInternalsPageHandler_ShowFeaturePromo_ResponseParamsDataView::GetErrorMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->error_message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void UserEducationInternalsPageHandler_ClearFeaturePromoData_ParamsDataView::GetFeatureNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->feature_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void UserEducationInternalsPageHandler_ClearFeaturePromoData_ResponseParamsDataView::GetErrorMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->error_message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void UserEducationInternalsPageHandler_ClearSessionData_ResponseParamsDataView::GetErrorMessageDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->error_message.Get();
   *output = mojo::StringDataView(pointer, message_);

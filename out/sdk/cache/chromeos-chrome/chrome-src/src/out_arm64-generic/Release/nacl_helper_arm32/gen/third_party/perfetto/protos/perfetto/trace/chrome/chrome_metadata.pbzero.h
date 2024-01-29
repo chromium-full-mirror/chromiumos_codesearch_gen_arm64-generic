@@ -20,6 +20,7 @@ class BackgroundTracingMetadata;
 class BackgroundTracingMetadata_TriggerRule;
 class BackgroundTracingMetadata_TriggerRule_HistogramRule;
 class BackgroundTracingMetadata_TriggerRule_NamedRule;
+class ChromeMetadataPacket_FinchHash;
 namespace perfetto_pbzero_enum_BackgroundTracingMetadata_TriggerRule_NamedRule {
 enum EventType : int32_t;
 }  // namespace perfetto_pbzero_enum_BackgroundTracingMetadata_TriggerRule_NamedRule
@@ -426,7 +427,7 @@ class BackgroundTracingMetadata_TriggerRule_HistogramRule : public ::protozero::
   }
 };
 
-class ChromeMetadataPacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeMetadataPacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ChromeMetadataPacket_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeMetadataPacket_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -437,6 +438,8 @@ class ChromeMetadataPacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   int32_t chrome_version_code() const { return at<2>().as_int32(); }
   bool has_enabled_categories() const { return at<3>().valid(); }
   ::protozero::ConstChars enabled_categories() const { return at<3>().as_string(); }
+  bool has_field_trial_hashes() const { return at<4>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> field_trial_hashes() const { return GetRepeated<::protozero::ConstBytes>(4); }
 };
 
 class ChromeMetadataPacket : public ::protozero::Message {
@@ -446,9 +449,11 @@ class ChromeMetadataPacket : public ::protozero::Message {
     kBackgroundTracingMetadataFieldNumber = 1,
     kChromeVersionCodeFieldNumber = 2,
     kEnabledCategoriesFieldNumber = 3,
+    kFieldTrialHashesFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeMetadataPacket"; }
 
+  using FinchHash = ::perfetto::protos::pbzero::ChromeMetadataPacket_FinchHash;
 
   using FieldMetadata_BackgroundTracingMetadata =
     ::protozero::proto_utils::FieldMetadata<
@@ -503,6 +508,78 @@ class ChromeMetadataPacket : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FieldTrialHashes =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ChromeMetadataPacket_FinchHash,
+      ChromeMetadataPacket>;
+
+  static constexpr FieldMetadata_FieldTrialHashes kFieldTrialHashes{};
+  template <typename T = ChromeMetadataPacket_FinchHash> T* add_field_trial_hashes() {
+    return BeginNestedMessage<T>(4);
+  }
+
+};
+
+class ChromeMetadataPacket_FinchHash_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ChromeMetadataPacket_FinchHash_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ChromeMetadataPacket_FinchHash_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ChromeMetadataPacket_FinchHash_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_name() const { return at<1>().valid(); }
+  uint32_t name() const { return at<1>().as_uint32(); }
+  bool has_group() const { return at<2>().valid(); }
+  uint32_t group() const { return at<2>().as_uint32(); }
+};
+
+class ChromeMetadataPacket_FinchHash : public ::protozero::Message {
+ public:
+  using Decoder = ChromeMetadataPacket_FinchHash_Decoder;
+  enum : int32_t {
+    kNameFieldNumber = 1,
+    kGroupFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ChromeMetadataPacket.FinchHash"; }
+
+
+  using FieldMetadata_Name =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      ChromeMetadataPacket_FinchHash>;
+
+  static constexpr FieldMetadata_Name kName{};
+  void set_name(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Name::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Group =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      ChromeMetadataPacket_FinchHash>;
+
+  static constexpr FieldMetadata_Group kGroup{};
+  void set_group(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Group::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
         ::Append(*this, field_id, value);
   }
 };

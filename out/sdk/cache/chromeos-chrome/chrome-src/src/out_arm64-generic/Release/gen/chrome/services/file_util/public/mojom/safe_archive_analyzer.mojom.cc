@@ -549,6 +549,8 @@ bool SafeArchiveAnalyzer_AnalyzeZipFile_ForwardToCallback::Accept(
           internal::SafeArchiveAnalyzer_AnalyzeZipFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeArchiveAnalyzer.0
   bool success = true;
   ::safe_browsing::ArchiveAnalyzerResults p_results{};
   SafeArchiveAnalyzer_AnalyzeZipFile_ResponseParamsDataView input_data_view(params, message);
@@ -678,6 +680,8 @@ bool SafeArchiveAnalyzer_AnalyzeDmgFile_ForwardToCallback::Accept(
           internal::SafeArchiveAnalyzer_AnalyzeDmgFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeArchiveAnalyzer.1
   bool success = true;
   ::safe_browsing::ArchiveAnalyzerResults p_results{};
   SafeArchiveAnalyzer_AnalyzeDmgFile_ResponseParamsDataView input_data_view(params, message);
@@ -807,6 +811,8 @@ bool SafeArchiveAnalyzer_AnalyzeRarFile_ForwardToCallback::Accept(
           internal::SafeArchiveAnalyzer_AnalyzeRarFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeArchiveAnalyzer.2
   bool success = true;
   ::safe_browsing::ArchiveAnalyzerResults p_results{};
   SafeArchiveAnalyzer_AnalyzeRarFile_ResponseParamsDataView input_data_view(params, message);
@@ -936,6 +942,8 @@ bool SafeArchiveAnalyzer_AnalyzeSevenZipFile_ForwardToCallback::Accept(
           internal::SafeArchiveAnalyzer_AnalyzeSevenZipFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeArchiveAnalyzer.3
   bool success = true;
   ::safe_browsing::ArchiveAnalyzerResults p_results{};
   SafeArchiveAnalyzer_AnalyzeSevenZipFile_ResponseParamsDataView input_data_view(params, message);
@@ -1045,6 +1053,8 @@ bool SafeArchiveAnalyzerStubDispatch::AcceptWithResponder(
               internal::SafeArchiveAnalyzer_AnalyzeZipFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeArchiveAnalyzer.0
       bool success = true;
       ::base::File p_zip_file{};
       std::optional<std::string> p_password{};
@@ -1071,10 +1081,10 @@ bool SafeArchiveAnalyzerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnalyzeZipFile(
-std::move(p_zip_file), 
-std::move(p_password), 
-std::move(p_temp_file_getter), std::move(callback));
+      impl->AnalyzeZipFile(        
+        std::move(p_zip_file), 
+        std::move(p_password), 
+        std::move(p_temp_file_getter), std::move(callback));
       return true;
     }
     case internal::kSafeArchiveAnalyzer_AnalyzeDmgFile_Name: {
@@ -1084,6 +1094,8 @@ std::move(p_temp_file_getter), std::move(callback));
               internal::SafeArchiveAnalyzer_AnalyzeDmgFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeArchiveAnalyzer.1
       bool success = true;
       ::base::File p_dmg_file{};
       ::mojo::PendingRemote<TemporaryFileGetter> p_temp_file_getter{};
@@ -1107,9 +1119,9 @@ std::move(p_temp_file_getter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnalyzeDmgFile(
-std::move(p_dmg_file), 
-std::move(p_temp_file_getter), std::move(callback));
+      impl->AnalyzeDmgFile(        
+        std::move(p_dmg_file), 
+        std::move(p_temp_file_getter), std::move(callback));
       return true;
     }
     case internal::kSafeArchiveAnalyzer_AnalyzeRarFile_Name: {
@@ -1119,6 +1131,8 @@ std::move(p_temp_file_getter), std::move(callback));
               internal::SafeArchiveAnalyzer_AnalyzeRarFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeArchiveAnalyzer.2
       bool success = true;
       ::base::File p_rar_file{};
       std::optional<std::string> p_password{};
@@ -1145,10 +1159,10 @@ std::move(p_temp_file_getter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnalyzeRarFile(
-std::move(p_rar_file), 
-std::move(p_password), 
-std::move(p_temp_file_getter), std::move(callback));
+      impl->AnalyzeRarFile(        
+        std::move(p_rar_file), 
+        std::move(p_password), 
+        std::move(p_temp_file_getter), std::move(callback));
       return true;
     }
     case internal::kSafeArchiveAnalyzer_AnalyzeSevenZipFile_Name: {
@@ -1158,6 +1172,8 @@ std::move(p_temp_file_getter), std::move(callback));
               internal::SafeArchiveAnalyzer_AnalyzeSevenZipFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeArchiveAnalyzer.3
       bool success = true;
       ::base::File p_seven_zip_file{};
       ::mojo::PendingRemote<TemporaryFileGetter> p_temp_file_getter{};
@@ -1181,9 +1197,9 @@ std::move(p_temp_file_getter), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnalyzeSevenZipFile(
-std::move(p_seven_zip_file), 
-std::move(p_temp_file_getter), std::move(callback));
+      impl->AnalyzeSevenZipFile(        
+        std::move(p_seven_zip_file), 
+        std::move(p_temp_file_getter), std::move(callback));
       return true;
     }
   }
@@ -1377,6 +1393,8 @@ bool TemporaryFileGetter_RequestTemporaryFile_ForwardToCallback::Accept(
           internal::TemporaryFileGetter_RequestTemporaryFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TemporaryFileGetter.0
   bool success = true;
   ::base::File p_temp_file{};
   TemporaryFileGetter_RequestTemporaryFile_ResponseParamsDataView input_data_view(params, message);
@@ -1473,6 +1491,8 @@ bool TemporaryFileGetterStubDispatch::AcceptWithResponder(
               internal::TemporaryFileGetter_RequestTemporaryFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TemporaryFileGetter.0
       bool success = true;
       TemporaryFileGetter_RequestTemporaryFile_ParamsDataView input_data_view(params, message);
       

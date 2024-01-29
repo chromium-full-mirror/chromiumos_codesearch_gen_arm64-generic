@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionMediaSourceHandleOrMediaStream::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionMediaSourceHandleOrMediaStream::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kMediaSourceHandle: {
     return ToV8Traits<MediaSourceHandleImpl>::ToV8(script_state, member_media_source_handle_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionMediaSourceHandleOrMediaStream::ToV8Value(Scrip
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionMediaSourceHandleOrMediaStream::Trace(Visitor* visitor) const {

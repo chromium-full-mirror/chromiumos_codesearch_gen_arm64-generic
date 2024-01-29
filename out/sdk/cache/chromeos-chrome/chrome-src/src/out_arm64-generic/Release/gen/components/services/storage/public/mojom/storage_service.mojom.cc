@@ -370,6 +370,8 @@ bool StorageServiceStubDispatch::Accept(
           reinterpret_cast<internal::StorageService_EnableAggressiveDomStorageFlushing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageService.0
       bool success = true;
       StorageService_EnableAggressiveDomStorageFlushing_ParamsDataView input_data_view(params, message);
       
@@ -382,7 +384,7 @@ bool StorageServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAggressiveDomStorageFlushing();
+      impl->EnableAggressiveDomStorageFlushing(        );
       return true;
     }
     case internal::kStorageService_SetDataDirectory_Name: {
@@ -392,6 +394,8 @@ bool StorageServiceStubDispatch::Accept(
           reinterpret_cast<internal::StorageService_SetDataDirectory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageService.1
       bool success = true;
       ::base::FilePath p_path{};
       ::mojo::PendingRemote<::storage::mojom::Directory> p_directory{};
@@ -412,9 +416,9 @@ bool StorageServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDataDirectory(
-std::move(p_path), 
-std::move(p_directory));
+      impl->SetDataDirectory(        
+        std::move(p_path), 
+        std::move(p_directory));
       return true;
     }
     case internal::kStorageService_BindPartition_Name: {
@@ -424,6 +428,8 @@ std::move(p_directory));
           reinterpret_cast<internal::StorageService_BindPartition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageService.2
       bool success = true;
       std::optional<::base::FilePath> p_path{};
       ::mojo::PendingReceiver<::storage::mojom::Partition> p_receiver{};
@@ -444,9 +450,9 @@ std::move(p_directory));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPartition(
-std::move(p_path), 
-std::move(p_receiver));
+      impl->BindPartition(        
+        std::move(p_path), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kStorageService_BindTestApi_Name: {
@@ -456,6 +462,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::StorageService_BindTestApi_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StorageService.3
       bool success = true;
       ::mojo::ScopedMessagePipeHandle p_test_api_receiver{};
       StorageService_BindTestApi_ParamsDataView input_data_view(params, message);
@@ -471,8 +479,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestApi(
-std::move(p_test_api_receiver));
+      impl->BindTestApi(        
+        std::move(p_test_api_receiver));
       return true;
     }
   }

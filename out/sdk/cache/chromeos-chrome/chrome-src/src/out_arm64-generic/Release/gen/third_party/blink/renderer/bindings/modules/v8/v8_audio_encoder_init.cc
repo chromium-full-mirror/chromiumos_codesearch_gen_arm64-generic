@@ -68,22 +68,13 @@ bool AudioEncoderInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Lo
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasError()) {
-  if (!ToV8Traits<V8WebCodecsErrorCallback>::ToV8(script_state, member_error_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8WebCodecsErrorCallback>::ToV8(script_state, member_error_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasOutput()) {
-  if (!ToV8Traits<V8EncodedAudioChunkOutputCallback>::ToV8(script_state, member_output_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8EncodedAudioChunkOutputCallback>::ToV8(script_state, member_output_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

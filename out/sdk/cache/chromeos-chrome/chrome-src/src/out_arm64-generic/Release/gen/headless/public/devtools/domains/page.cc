@@ -376,8 +376,18 @@ void ExperimentalDomain::SearchInResource(std::unique_ptr<SearchInResourceParams
 void ExperimentalDomain::SetAdBlockingEnabled(std::unique_ptr<SetAdBlockingEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetAdBlockingEnabledResult>)> callback) {
   dispatcher_->SendMessage("Page.setAdBlockingEnabled", params->Serialize(), base::BindOnce(&Domain::HandleSetAdBlockingEnabledResponse, std::move(callback)));
 }
-void ExperimentalDomain::SetBypassCSP(std::unique_ptr<SetBypassCSPParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassCSPResult>)> callback) {
+void Domain::SetBypassCSP(std::unique_ptr<SetBypassCSPParams> params, base::OnceCallback<void(std::unique_ptr<SetBypassCSPResult>)> callback) {
   dispatcher_->SendMessage("Page.setBypassCSP", params->Serialize(), base::BindOnce(&Domain::HandleSetBypassCSPResponse, std::move(callback)));
+}
+
+void Domain::SetBypassCSP(bool enabled, base::OnceClosure callback) {
+  std::unique_ptr<SetBypassCSPParams> params = SetBypassCSPParams::Builder()
+      .SetEnabled(std::move(enabled))
+      .Build();
+  dispatcher_->SendMessage("Page.setBypassCSP", params->Serialize(), std::move(callback));
+}
+void Domain::SetBypassCSP(std::unique_ptr<SetBypassCSPParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Page.setBypassCSP", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::GetPermissionsPolicyState(std::unique_ptr<GetPermissionsPolicyStateParams> params, base::OnceCallback<void(std::unique_ptr<GetPermissionsPolicyStateResult>)> callback) {
   dispatcher_->SendMessage("Page.getPermissionsPolicyState", params->Serialize(), base::BindOnce(&Domain::HandleGetPermissionsPolicyStateResponse, std::move(callback)));
@@ -426,8 +436,18 @@ void Domain::SetGeolocationOverride(base::OnceClosure callback) {
 void Domain::SetGeolocationOverride(std::unique_ptr<SetGeolocationOverrideParams> params, base::OnceClosure callback) {
   dispatcher_->SendMessage("Page.setGeolocationOverride", params->Serialize(), std::move(callback));
 }
-void ExperimentalDomain::SetLifecycleEventsEnabled(std::unique_ptr<SetLifecycleEventsEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetLifecycleEventsEnabledResult>)> callback) {
+void Domain::SetLifecycleEventsEnabled(std::unique_ptr<SetLifecycleEventsEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetLifecycleEventsEnabledResult>)> callback) {
   dispatcher_->SendMessage("Page.setLifecycleEventsEnabled", params->Serialize(), base::BindOnce(&Domain::HandleSetLifecycleEventsEnabledResponse, std::move(callback)));
+}
+
+void Domain::SetLifecycleEventsEnabled(bool enabled, base::OnceClosure callback) {
+  std::unique_ptr<SetLifecycleEventsEnabledParams> params = SetLifecycleEventsEnabledParams::Builder()
+      .SetEnabled(std::move(enabled))
+      .Build();
+  dispatcher_->SendMessage("Page.setLifecycleEventsEnabled", params->Serialize(), std::move(callback));
+}
+void Domain::SetLifecycleEventsEnabled(std::unique_ptr<SetLifecycleEventsEnabledParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Page.setLifecycleEventsEnabled", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::SetTouchEmulationEnabled(std::unique_ptr<SetTouchEmulationEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetTouchEmulationEnabledResult>)> callback) {
   dispatcher_->SendMessage("Page.setTouchEmulationEnabled", params->Serialize(), base::BindOnce(&Domain::HandleSetTouchEmulationEnabledResponse, std::move(callback)));
@@ -450,8 +470,17 @@ void Domain::StopLoading(std::unique_ptr<StopLoadingParams> params, base::OnceCl
 void ExperimentalDomain::Crash(std::unique_ptr<CrashParams> params, base::OnceCallback<void(std::unique_ptr<CrashResult>)> callback) {
   dispatcher_->SendMessage("Page.crash", params->Serialize(), base::BindOnce(&Domain::HandleCrashResponse, std::move(callback)));
 }
-void ExperimentalDomain::Close(std::unique_ptr<CloseParams> params, base::OnceCallback<void(std::unique_ptr<CloseResult>)> callback) {
+void Domain::Close(std::unique_ptr<CloseParams> params, base::OnceCallback<void(std::unique_ptr<CloseResult>)> callback) {
   dispatcher_->SendMessage("Page.close", params->Serialize(), base::BindOnce(&Domain::HandleCloseResponse, std::move(callback)));
+}
+
+void Domain::Close(base::OnceClosure callback) {
+  std::unique_ptr<CloseParams> params = CloseParams::Builder()
+      .Build();
+  dispatcher_->SendMessage("Page.close", params->Serialize(), std::move(callback));
+}
+void Domain::Close(std::unique_ptr<CloseParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Page.close", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::SetWebLifecycleState(std::unique_ptr<SetWebLifecycleStateParams> params, base::OnceCallback<void(std::unique_ptr<SetWebLifecycleStateResult>)> callback) {
   dispatcher_->SendMessage("Page.setWebLifecycleState", params->Serialize(), base::BindOnce(&Domain::HandleSetWebLifecycleStateResponse, std::move(callback)));
@@ -480,8 +509,18 @@ void ExperimentalDomain::GenerateTestReport(std::unique_ptr<GenerateTestReportPa
 void ExperimentalDomain::WaitForDebugger(std::unique_ptr<WaitForDebuggerParams> params, base::OnceCallback<void(std::unique_ptr<WaitForDebuggerResult>)> callback) {
   dispatcher_->SendMessage("Page.waitForDebugger", params->Serialize(), base::BindOnce(&Domain::HandleWaitForDebuggerResponse, std::move(callback)));
 }
-void ExperimentalDomain::SetInterceptFileChooserDialog(std::unique_ptr<SetInterceptFileChooserDialogParams> params, base::OnceCallback<void(std::unique_ptr<SetInterceptFileChooserDialogResult>)> callback) {
+void Domain::SetInterceptFileChooserDialog(std::unique_ptr<SetInterceptFileChooserDialogParams> params, base::OnceCallback<void(std::unique_ptr<SetInterceptFileChooserDialogResult>)> callback) {
   dispatcher_->SendMessage("Page.setInterceptFileChooserDialog", params->Serialize(), base::BindOnce(&Domain::HandleSetInterceptFileChooserDialogResponse, std::move(callback)));
+}
+
+void Domain::SetInterceptFileChooserDialog(bool enabled, base::OnceClosure callback) {
+  std::unique_ptr<SetInterceptFileChooserDialogParams> params = SetInterceptFileChooserDialogParams::Builder()
+      .SetEnabled(std::move(enabled))
+      .Build();
+  dispatcher_->SendMessage("Page.setInterceptFileChooserDialog", params->Serialize(), std::move(callback));
+}
+void Domain::SetInterceptFileChooserDialog(std::unique_ptr<SetInterceptFileChooserDialogParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Page.setInterceptFileChooserDialog", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::SetPrerenderingAllowed(std::unique_ptr<SetPrerenderingAllowedParams> params, base::OnceCallback<void(std::unique_ptr<SetPrerenderingAllowedResult>)> callback) {
   dispatcher_->SendMessage("Page.setPrerenderingAllowed", params->Serialize(), base::BindOnce(&Domain::HandleSetPrerenderingAllowedResponse, std::move(callback)));

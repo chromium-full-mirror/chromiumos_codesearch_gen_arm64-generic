@@ -203,6 +203,8 @@ bool SharedWorkerConnectorStubDispatch::Accept(
           reinterpret_cast<internal::SharedWorkerConnector_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorkerConnector.0
       bool success = true;
       ::blink::mojom::SharedWorkerInfoPtr p_info{};
       ::mojo::PendingRemote<::blink::mojom::SharedWorkerClient> p_client{};
@@ -237,13 +239,13 @@ bool SharedWorkerConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_info), 
-std::move(p_client), 
-std::move(p_creation_context_type), 
-std::move(p_message_port), 
-std::move(p_blob_url_token), 
-std::move(p_client_ukm_source_id));
+      impl->Connect(        
+        std::move(p_info), 
+        std::move(p_client), 
+        std::move(p_creation_context_type), 
+        std::move(p_message_port), 
+        std::move(p_blob_url_token), 
+        std::move(p_client_ukm_source_id));
       return true;
     }
   }

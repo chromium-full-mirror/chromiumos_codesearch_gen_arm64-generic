@@ -28,10 +28,10 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_shared_worker_global_scope.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_svg_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_window.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_worker_navigator.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_xml_http_request.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_browser_capture_media_stream_track.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_can_make_payment_event.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_capture_controller.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_install_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_launch_params.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_devices.h"
@@ -123,6 +123,13 @@ selected_wti_list = wti_list;
     static const WrapperTypeInfo* const wti_list[] = {
 V8PerformanceNavigationTiming::GetWrapperTypeInfo(), 
 V8Window::GetWrapperTypeInfo(), 
+};
+selected_wti_list = wti_list;
+    break;
+  }
+  case mojom::blink::OriginTrialFeature::kCapturedSurfaceControl: {
+    static const WrapperTypeInfo* const wti_list[] = {
+V8CaptureController::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
     break;
@@ -237,13 +244,6 @@ V8HTMLAnchorElement::GetWrapperTypeInfo(),
 selected_wti_list = wti_list;
     break;
   }
-  case mojom::blink::OriginTrialFeature::kLongAnimationFrameTiming: {
-    static const WrapperTypeInfo* const wti_list[] = {
-V8Window::GetWrapperTypeInfo(), 
-};
-selected_wti_list = wti_list;
-    break;
-  }
   case mojom::blink::OriginTrialFeature::kMediaCaptureConfigurationChange: {
     static const WrapperTypeInfo* const wti_list[] = {
 V8MediaStreamTrack::GetWrapperTypeInfo(), 
@@ -352,14 +352,9 @@ V8Window::GetWrapperTypeInfo(),
 selected_wti_list = wti_list;
     break;
   }
-  case mojom::blink::OriginTrialFeature::kStorageBuckets: {
+  case mojom::blink::OriginTrialFeature::kStorageAccessAPIBeyondCookies: {
     static const WrapperTypeInfo* const wti_list[] = {
-V8DedicatedWorkerGlobalScope::GetWrapperTypeInfo(), 
-V8Navigator::GetWrapperTypeInfo(), 
-V8ServiceWorkerGlobalScope::GetWrapperTypeInfo(), 
-V8SharedWorkerGlobalScope::GetWrapperTypeInfo(), 
-V8Window::GetWrapperTypeInfo(), 
-V8WorkerNavigator::GetWrapperTypeInfo(), 
+V8Document::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
     break;
@@ -406,14 +401,6 @@ selected_wti_list = wti_list;
   }
   case mojom::blink::OriginTrialFeature::kWebAppLaunchQueue: {
     static const WrapperTypeInfo* const wti_list[] = {
-V8Window::GetWrapperTypeInfo(), 
-};
-selected_wti_list = wti_list;
-    break;
-  }
-  case mojom::blink::OriginTrialFeature::kWebAppWindowControlsOverlay: {
-    static const WrapperTypeInfo* const wti_list[] = {
-V8Navigator::GetWrapperTypeInfo(), 
 V8Window::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;

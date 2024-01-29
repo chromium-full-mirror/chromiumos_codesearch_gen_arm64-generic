@@ -55,6 +55,7 @@ struct NtpBackgroundImageSource_Data {
       case 3:
       case 4:
       case 5:
+      case 6:
         return true;
     }
     return false;
@@ -459,8 +460,7 @@ class  Theme_Data {
   uint8_t is_custom_background : 1;
   uint8_t daily_refresh_enabled : 1;
   uint8_t is_dark : 1;
-  uint8_t theme_realbox_icons : 1;
-  uint8_t pad6_[7];
+  uint8_t pad5_[7];
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> logo_color;
   mojo::internal::Pointer<mojo::internal::String_Data> background_image_collection_id;
   mojo::internal::Pointer<internal::BackgroundImage_Data> background_image;

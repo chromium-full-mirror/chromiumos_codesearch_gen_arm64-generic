@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2022 Free Software Foundation, Inc.
+/* Copyright (C) 1996-2023 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -57,3 +57,7 @@ struct dirent64
 #else
 # define _DIRENT_MATCHES_DIRENT64	0
 #endif
+
+/* The telldir function returns long int, which may not be large enough to
+   store off64_t values.  In this case, translation is required.  */
+#define _DIRENT_OFFSET_TRANSLATION (LONG_WIDTH < 64)

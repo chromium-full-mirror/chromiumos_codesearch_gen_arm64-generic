@@ -41,10 +41,10 @@ subninja obj/machine-id-regen/lib-machine-id-regen.ninja
 subninja obj/machine-id-regen/machine-id-regen.ninja
 build obj/machine-id-regen/tmpfile_confs.stamp: stamp
 rule __machine-id-regen_upstart_proxies___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/chromeos-machine-id-regen-0.0.2-r99/work/chromeos-machine-id-regen-0.0.2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-machine-id-regen/out/Default/gen/include/upstart/dbus-proxies.h ../../../../../../../usr/share/dbus-1/interfaces/com.ubuntu.Upstart.xml
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/chromeos-machine-id-regen-0.0.2-r107/work/chromeos-machine-id-regen-0.0.2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-machine-id-regen/out/Default/gen/include/upstart/dbus-proxies.h ../../../../../../../usr/share/dbus-1/interfaces/com.ubuntu.Upstart.xml
   description = ACTION //machine-id-regen:upstart_proxies(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/upstart/dbus-proxies.h: __machine-id-regen_upstart_proxies___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/chromeos-machine-id-regen-0.0.2-r99/work/chromeos-machine-id-regen-0.0.2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/dbus-1/interfaces/com.ubuntu.Upstart.xml
+build gen/include/upstart/dbus-proxies.h: __machine-id-regen_upstart_proxies___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/chromeos-machine-id-regen-0.0.2-r107/work/chromeos-machine-id-regen-0.0.2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/dbus-1/interfaces/com.ubuntu.Upstart.xml
 
 build obj/machine-id-regen/upstart_proxies.stamp: stamp gen/include/upstart/dbus-proxies.h

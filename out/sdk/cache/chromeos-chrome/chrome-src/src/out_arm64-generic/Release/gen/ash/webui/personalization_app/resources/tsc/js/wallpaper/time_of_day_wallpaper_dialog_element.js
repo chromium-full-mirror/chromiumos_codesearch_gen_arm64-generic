@@ -5,8 +5,8 @@
  * @fileoverview Displays a dialog asking the user to whether enable auto dark
  * light mode or not before setting the time of day wallpaper.
  */
-import '../../css/common.css.js';
-import '../../css/cros_button_style.css.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
+import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './time_of_day_wallpaper_dialog_element.html.js';
 export class TimeOfDayAcceptEvent extends CustomEvent {

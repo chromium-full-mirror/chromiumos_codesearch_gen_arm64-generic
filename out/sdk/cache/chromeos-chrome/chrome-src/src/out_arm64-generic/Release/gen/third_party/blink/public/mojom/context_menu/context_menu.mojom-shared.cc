@@ -247,42 +247,42 @@ bool UntrustworthyContextMenuParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->selection_text, 11, validation_context)) {
+          object->selection_text, 12, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->selection_text, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->title_text, 12, validation_context)) {
+          object->title_text, 13, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->title_text, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->alt_text, 13, validation_context)) {
+          object->alt_text, 14, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->alt_text, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->suggested_filename, 14, validation_context)) {
+          object->suggested_filename, 15, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->suggested_filename, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->misspelled_word, 15, validation_context)) {
+          object->misspelled_word, 16, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->misspelled_word, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->dictionary_suggestions, 16, validation_context)) {
+          object->dictionary_suggestions, 17, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& dictionary_suggestions_validate_params =
@@ -293,7 +293,7 @@ bool UntrustworthyContextMenuParams_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->frame_charset, 23, validation_context)) {
+          object->frame_charset, 24, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& frame_charset_validate_params =
@@ -309,14 +309,14 @@ bool UntrustworthyContextMenuParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->link_followed, 25, validation_context)) {
+          object->link_followed, 26, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->link_followed, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->custom_items, 26, validation_context)) {
+          object->custom_items, 27, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& custom_items_validate_params =
@@ -332,7 +332,7 @@ bool UntrustworthyContextMenuParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->selection_rect, 28, validation_context)) {
+          object->selection_rect, 29, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->selection_rect, validation_context))
@@ -344,14 +344,14 @@ bool UntrustworthyContextMenuParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->field_renderer_id, 34, validation_context)) {
+          object->field_renderer_id, 35, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->field_renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->form_renderer_id, 35, validation_context)) {
+          object->form_renderer_id, 36, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->form_renderer_id, validation_context))

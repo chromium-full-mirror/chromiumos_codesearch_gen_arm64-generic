@@ -7934,6 +7934,10 @@ base::Value::List Results::Create() {
 }
 }  // namespace RemoveMultipleExtensions
 
+namespace DismissSafetyHubExtensionsMenuNotification {
+
+}  // namespace DismissSafetyHubExtensionsMenuNotification
+
 //
 // Events
 //

@@ -597,6 +597,8 @@ bool ArcObserverStubDispatch::Accept(
           reinterpret_cast<internal::ArcObserver_OnIconInvalidated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ArcObserver.0
       bool success = true;
       std::string p_package_name{};
       ArcObserver_OnIconInvalidated_ParamsDataView input_data_view(params, message);
@@ -612,8 +614,8 @@ bool ArcObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIconInvalidated(
-std::move(p_package_name));
+      impl->OnIconInvalidated(        
+        std::move(p_package_name));
       return true;
     }
   }
@@ -1415,6 +1417,8 @@ bool Arc_RequestActivityIcons_ForwardToCallback::Accept(
           internal::Arc_RequestActivityIcons_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Arc.1
   bool success = true;
   std::vector<ActivityIconPtr> p_icons{};
   RequestActivityIconsStatus p_status{};
@@ -1555,6 +1559,8 @@ bool Arc_RequestUrlHandlerList_ForwardToCallback::Accept(
           internal::Arc_RequestUrlHandlerList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Arc.2
   bool success = true;
   std::vector<IntentHandlerInfoPtr> p_handlers{};
   RequestUrlHandlerListStatus p_status{};
@@ -1695,6 +1701,8 @@ bool Arc_RequestTextSelectionActions_ForwardToCallback::Accept(
           internal::Arc_RequestTextSelectionActions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Arc.4
   bool success = true;
   RequestTextSelectionActionsStatus p_status{};
   std::vector<TextSelectionActionPtr> p_actionos{};
@@ -1835,6 +1843,8 @@ bool Arc_IsInstallable_ForwardToCallback::Accept(
           internal::Arc_IsInstallable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Arc.7
   bool success = true;
   IsInstallableResult p_result{};
   Arc_IsInstallable_ResponseParamsDataView input_data_view(params, message);
@@ -1910,6 +1920,8 @@ bool ArcStubDispatch::Accept(
           reinterpret_cast<internal::Arc_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Arc.0
       bool success = true;
       ::mojo::PendingRemote<ArcObserver> p_observer{};
       Arc_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1927,8 +1939,8 @@ bool ArcStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kArc_RequestActivityIcons_Name: {
@@ -1947,6 +1959,8 @@ std::move(p_observer));
           reinterpret_cast<internal::Arc_HandleUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Arc.3
       bool success = true;
       std::string p_url{};
       std::string p_package_name{};
@@ -1965,9 +1979,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleUrl(
-std::move(p_url), 
-std::move(p_package_name));
+      impl->HandleUrl(        
+        std::move(p_url), 
+        std::move(p_package_name));
       return true;
     }
     case internal::kArc_HandleIntent_Name: {
@@ -1977,6 +1991,8 @@ std::move(p_package_name));
           reinterpret_cast<internal::Arc_HandleIntent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Arc.5
       bool success = true;
       IntentInfoPtr p_intent{};
       ActivityNamePtr p_activity{};
@@ -1995,9 +2011,9 @@ std::move(p_package_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleIntent(
-std::move(p_intent), 
-std::move(p_activity));
+      impl->HandleIntent(        
+        std::move(p_intent), 
+        std::move(p_activity));
       return true;
     }
     case internal::kArc_AddPreferredPackage_Name: {
@@ -2007,6 +2023,8 @@ std::move(p_activity));
           reinterpret_cast<internal::Arc_AddPreferredPackage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Arc.6
       bool success = true;
       std::string p_package_name{};
       Arc_AddPreferredPackage_ParamsDataView input_data_view(params, message);
@@ -2022,8 +2040,8 @@ std::move(p_activity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPreferredPackage(
-std::move(p_package_name));
+      impl->AddPreferredPackage(        
+        std::move(p_package_name));
       return true;
     }
     case internal::kArc_IsInstallable_Name: {
@@ -2052,6 +2070,8 @@ bool ArcStubDispatch::AcceptWithResponder(
               internal::Arc_RequestActivityIcons_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Arc.1
       bool success = true;
       std::vector<ActivityNamePtr> p_activities{};
       ScaleFactor p_scale_factor{};
@@ -2073,9 +2093,9 @@ bool ArcStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestActivityIcons(
-std::move(p_activities), 
-std::move(p_scale_factor), std::move(callback));
+      impl->RequestActivityIcons(        
+        std::move(p_activities), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kArc_RequestUrlHandlerList_Name: {
@@ -2085,6 +2105,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::Arc_RequestUrlHandlerList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Arc.2
       bool success = true;
       std::string p_url{};
       Arc_RequestUrlHandlerList_ParamsDataView input_data_view(params, message);
@@ -2103,8 +2125,8 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestUrlHandlerList(
-std::move(p_url), std::move(callback));
+      impl->RequestUrlHandlerList(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kArc_RequestTextSelectionActions_Name: {
@@ -2114,6 +2136,8 @@ std::move(p_url), std::move(callback));
               internal::Arc_RequestTextSelectionActions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Arc.4
       bool success = true;
       std::string p_text{};
       ScaleFactor p_scale_factor{};
@@ -2135,9 +2159,9 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestTextSelectionActions(
-std::move(p_text), 
-std::move(p_scale_factor), std::move(callback));
+      impl->RequestTextSelectionActions(        
+        std::move(p_text), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kArc_HandleUrl_Name: {
@@ -2156,6 +2180,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::Arc_IsInstallable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Arc.7
       bool success = true;
       std::string p_package_name{};
       Arc_IsInstallable_ParamsDataView input_data_view(params, message);
@@ -2174,8 +2200,8 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsInstallable(
-std::move(p_package_name), std::move(callback));
+      impl->IsInstallable(        
+        std::move(p_package_name), std::move(callback));
       return true;
     }
   }

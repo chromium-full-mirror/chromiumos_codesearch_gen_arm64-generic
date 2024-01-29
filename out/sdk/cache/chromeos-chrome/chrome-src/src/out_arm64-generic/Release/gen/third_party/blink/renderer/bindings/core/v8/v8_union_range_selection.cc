@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionRangeOrSelection::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionRangeOrSelection::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kRange: {
     return ToV8Traits<Range>::ToV8(script_state, member_range_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionRangeOrSelection::ToV8Value(ScriptState* script
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionRangeOrSelection::Trace(Visitor* visitor) const {

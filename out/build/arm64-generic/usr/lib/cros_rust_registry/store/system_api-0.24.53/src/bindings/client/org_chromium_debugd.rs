@@ -5,7 +5,7 @@ use dbus::arg;
 use dbus::blocking;
 
 pub trait OrgChromiumDebugd {
-    fn crosh_shell_start(&self, lifeline_fd: arg::OwnedFd, infd: arg::OwnedFd, outfd: arg::OwnedFd) -> Result<String, dbus::Error>;
+    fn crosh_shell_start(&self, shell_lifeline_fd: arg::OwnedFd, caller_lifeline_fd: arg::OwnedFd, infd: arg::OwnedFd, outfd: arg::OwnedFd) -> Result<String, dbus::Error>;
     fn ping_start(&self, outfd: arg::OwnedFd, destination: &str, options: arg::PropMap) -> Result<String, dbus::Error>;
     fn ping_stop(&self, handle: &str) -> Result<(), dbus::Error>;
     fn systrace_start(&self, categories: &str) -> Result<(), dbus::Error>;
@@ -24,7 +24,7 @@ pub trait OrgChromiumDebugd {
     fn set_debug_mode(&self, subsystem: &str) -> Result<(), dbus::Error>;
     fn get_log(&self, log: &str) -> Result<String, dbus::Error>;
     fn get_all_logs(&self) -> Result<::std::collections::HashMap<String, String>, dbus::Error>;
-    fn get_feedback_logs_v2(&self, outfd: arg::OwnedFd, username: &str, requested_logs: Vec<i32>) -> Result<(), dbus::Error>;
+    fn get_feedback_logs(&self, outfd: arg::OwnedFd, username: &str, requested_logs: Vec<i32>) -> Result<(), dbus::Error>;
     fn get_feedback_logs_v3(&self, outfd: arg::OwnedFd, username: &str, requested_logs: Vec<i32>) -> Result<(), dbus::Error>;
     fn backup_arc_bug_report(&self, username: &str) -> Result<(), dbus::Error>;
     fn delete_arc_bug_report_backup(&self, username: &str) -> Result<(), dbus::Error>;
@@ -80,7 +80,6 @@ pub trait OrgChromiumDebugd {
     fn set_scheduler_configuration(&self, policy: &str) -> Result<bool, dbus::Error>;
     fn evaluate_probe_function(&self, probe_statement: &str, log_level: i32) -> Result<(arg::OwnedFd, arg::OwnedFd), dbus::Error>;
     fn set_scheduler_configuration_v2(&self, policy: &str, lock_policy: bool) -> Result<(bool, u32), dbus::Error>;
-    fn wifi_fwdump(&self) -> Result<String, dbus::Error>;
     fn ec_get_inventory(&self) -> Result<String, dbus::Error>;
     fn call_dmesg(&self, options: arg::PropMap) -> Result<String, dbus::Error>;
     fn ec_type_center_mode(&self, port_num: u32, mode: u32) -> Result<String, dbus::Error>;
@@ -140,8 +139,8 @@ impl dbus::message::SignalArgs for OrgChromiumDebugdPacketCaptureStop {
 
 impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiumDebugd for blocking::Proxy<'a, C> {
 
-    fn crosh_shell_start(&self, lifeline_fd: arg::OwnedFd, infd: arg::OwnedFd, outfd: arg::OwnedFd) -> Result<String, dbus::Error> {
-        self.method_call("org.chromium.debugd", "CroshShellStart", (lifeline_fd, infd, outfd, ))
+    fn crosh_shell_start(&self, shell_lifeline_fd: arg::OwnedFd, caller_lifeline_fd: arg::OwnedFd, infd: arg::OwnedFd, outfd: arg::OwnedFd) -> Result<String, dbus::Error> {
+        self.method_call("org.chromium.debugd", "CroshShellStart", (shell_lifeline_fd, caller_lifeline_fd, infd, outfd, ))
             .and_then(|r: (String, )| Ok(r.0, ))
     }
 
@@ -227,8 +226,8 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
             .and_then(|r: (::std::collections::HashMap<String, String>, )| Ok(r.0, ))
     }
 
-    fn get_feedback_logs_v2(&self, outfd: arg::OwnedFd, username: &str, requested_logs: Vec<i32>) -> Result<(), dbus::Error> {
-        self.method_call("org.chromium.debugd", "GetFeedbackLogsV2", (outfd, username, requested_logs, ))
+    fn get_feedback_logs(&self, outfd: arg::OwnedFd, username: &str, requested_logs: Vec<i32>) -> Result<(), dbus::Error> {
+        self.method_call("org.chromium.debugd", "GetFeedbackLogs", (outfd, username, requested_logs, ))
     }
 
     fn get_feedback_logs_v3(&self, outfd: arg::OwnedFd, username: &str, requested_logs: Vec<i32>) -> Result<(), dbus::Error> {
@@ -478,11 +477,6 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
 
     fn set_scheduler_configuration_v2(&self, policy: &str, lock_policy: bool) -> Result<(bool, u32), dbus::Error> {
         self.method_call("org.chromium.debugd", "SetSchedulerConfigurationV2", (policy, lock_policy, ))
-    }
-
-    fn wifi_fwdump(&self) -> Result<String, dbus::Error> {
-        self.method_call("org.chromium.debugd", "WifiFWDump", ())
-            .and_then(|r: (String, )| Ok(r.0, ))
     }
 
     fn ec_get_inventory(&self) -> Result<String, dbus::Error> {

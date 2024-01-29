@@ -56,7 +56,7 @@ export class AutomationTreeWalker {
     skipInitialSubtree_;
     leafPred_;
     rootPred_;
-    constructor(node, dir, optRestrictions) {
+    constructor(node, dir, restrictions = {}) {
         this.node_ = node;
         this.phase_ = AutomationTreeWalkerPhase.INITIAL;
         this.dir_ = dir;
@@ -65,9 +65,15 @@ export class AutomationTreeWalker {
          * Deepest common ancestor of initialNode and node. Valid only when moving
          * backward.
          */
-        this.backwardAncestor_ = node.parent || null;
-        const restrictions = optRestrictions || {};
-        this.visitPred_ = function (node) {
+        this.backwardAncestor_ = node.parent ?? null;
+        this.visitPred_ = this.makeVisitPred_(restrictions);
+        this.leafPred_ = restrictions.leaf ?? falsePredicate;
+        this.rootPred_ = restrictions.root ?? falsePredicate;
+        this.skipInitialAncestry_ = restrictions.skipInitialAncestry ?? false;
+        this.skipInitialSubtree_ = restrictions.skipInitialSubtree ?? false;
+    }
+    makeVisitPred_(restrictions) {
+        return node => {
             if (this.skipInitialAncestry_ &&
                 this.phase_ === AutomationTreeWalkerPhase.ANCESTOR) {
                 return false;
@@ -82,19 +88,6 @@ export class AutomationTreeWalker {
             }
             return true;
         };
-        /** @private {AutomationPredicate.Unary} */
-        this.leafPred_ = restrictions.leaf ? restrictions.leaf :
-            AutomationTreeWalker.falsePredicate_;
-        /** @private {AutomationPredicate.Unary} */
-        this.rootPred_ = restrictions.root ? restrictions.root :
-            AutomationTreeWalker.falsePredicate_;
-        /** @private {boolean} */
-        this.skipInitialAncestry_ = restrictions.skipInitialAncestry || false;
-        /** @private {boolean} */
-        this.skipInitialSubtree_ = restrictions.skipInitialSubtree || false;
-    }
-    static falsePredicate_(_node) {
-        return false;
     }
     get node() {
         return this.node_;
@@ -176,4 +169,8 @@ export class AutomationTreeWalker {
         }
         this.node_ = node.parent || null;
     }
+}
+// Local to module.
+function falsePredicate(_node) {
+    return false;
 }

@@ -197,6 +197,8 @@ bool DownloadStreamClientStubDispatch::Accept(
           reinterpret_cast<internal::DownloadStreamClient_OnStreamCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadStreamClient.0
       bool success = true;
       NetworkRequestStatus p_status{};
       DownloadStreamClient_OnStreamCompleted_ParamsDataView input_data_view(params, message);
@@ -212,8 +214,8 @@ bool DownloadStreamClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStreamCompleted(
-std::move(p_status));
+      impl->OnStreamCompleted(        
+        std::move(p_status));
       return true;
     }
   }

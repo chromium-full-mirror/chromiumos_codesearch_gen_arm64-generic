@@ -451,8 +451,9 @@ class WebAppSpecifics final :
     kUserPageOrdinalFieldNumber = 7,
     kUserLaunchOrdinalFieldNumber = 8,
     kRelativeManifestIdFieldNumber = 9,
-    kUserDisplayModeFieldNumber = 3,
+    kUserDisplayModeNonCrosFieldNumber = 3,
     kThemeColorFieldNumber = 4,
+    kUserDisplayModeCrosFieldNumber = 10,
   };
   // repeated .sync_pb.WebAppIconInfo icon_infos = 6;
   int icon_infos_size() const;
@@ -580,17 +581,17 @@ class WebAppSpecifics final :
   std::string* _internal_mutable_relative_manifest_id();
   public:
 
-  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode = 3;
-  bool has_user_display_mode() const;
+  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_non_cros = 3;
+  bool has_user_display_mode_non_cros() const;
   private:
-  bool _internal_has_user_display_mode() const;
+  bool _internal_has_user_display_mode_non_cros() const;
   public:
-  void clear_user_display_mode();
-  ::sync_pb::WebAppSpecifics_UserDisplayMode user_display_mode() const;
-  void set_user_display_mode(::sync_pb::WebAppSpecifics_UserDisplayMode value);
+  void clear_user_display_mode_non_cros();
+  ::sync_pb::WebAppSpecifics_UserDisplayMode user_display_mode_non_cros() const;
+  void set_user_display_mode_non_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value);
   private:
-  ::sync_pb::WebAppSpecifics_UserDisplayMode _internal_user_display_mode() const;
-  void _internal_set_user_display_mode(::sync_pb::WebAppSpecifics_UserDisplayMode value);
+  ::sync_pb::WebAppSpecifics_UserDisplayMode _internal_user_display_mode_non_cros() const;
+  void _internal_set_user_display_mode_non_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value);
   public:
 
   // optional uint32 theme_color = 4;
@@ -604,6 +605,19 @@ class WebAppSpecifics final :
   private:
   uint32_t _internal_theme_color() const;
   void _internal_set_theme_color(uint32_t value);
+  public:
+
+  // optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_cros = 10;
+  bool has_user_display_mode_cros() const;
+  private:
+  bool _internal_has_user_display_mode_cros() const;
+  public:
+  void clear_user_display_mode_cros();
+  ::sync_pb::WebAppSpecifics_UserDisplayMode user_display_mode_cros() const;
+  void set_user_display_mode_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value);
+  private:
+  ::sync_pb::WebAppSpecifics_UserDisplayMode _internal_user_display_mode_cros() const;
+  void _internal_set_user_display_mode_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value);
   public:
 
   // @@protoc_insertion_point(class_scope:sync_pb.WebAppSpecifics)
@@ -622,8 +636,9 @@ class WebAppSpecifics final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_page_ordinal_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_launch_ordinal_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr relative_manifest_id_;
-  int user_display_mode_;
+  int user_display_mode_non_cros_;
   uint32_t theme_color_;
+  int user_display_mode_cros_;
   friend struct ::TableStruct_components_2fsync_2fprotocol_2fweb_5fapp_5fspecifics_2eproto;
 };
 // ===================================================================
@@ -902,33 +917,33 @@ inline void WebAppSpecifics::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:sync_pb.WebAppSpecifics.name)
 }
 
-// optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode = 3;
-inline bool WebAppSpecifics::_internal_has_user_display_mode() const {
+// optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_non_cros = 3;
+inline bool WebAppSpecifics::_internal_has_user_display_mode_non_cros() const {
   bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
-inline bool WebAppSpecifics::has_user_display_mode() const {
-  return _internal_has_user_display_mode();
+inline bool WebAppSpecifics::has_user_display_mode_non_cros() const {
+  return _internal_has_user_display_mode_non_cros();
 }
-inline void WebAppSpecifics::clear_user_display_mode() {
-  user_display_mode_ = 0;
+inline void WebAppSpecifics::clear_user_display_mode_non_cros() {
+  user_display_mode_non_cros_ = 0;
   _has_bits_[0] &= ~0x00000040u;
 }
-inline ::sync_pb::WebAppSpecifics_UserDisplayMode WebAppSpecifics::_internal_user_display_mode() const {
-  return static_cast< ::sync_pb::WebAppSpecifics_UserDisplayMode >(user_display_mode_);
+inline ::sync_pb::WebAppSpecifics_UserDisplayMode WebAppSpecifics::_internal_user_display_mode_non_cros() const {
+  return static_cast< ::sync_pb::WebAppSpecifics_UserDisplayMode >(user_display_mode_non_cros_);
 }
-inline ::sync_pb::WebAppSpecifics_UserDisplayMode WebAppSpecifics::user_display_mode() const {
-  // @@protoc_insertion_point(field_get:sync_pb.WebAppSpecifics.user_display_mode)
-  return _internal_user_display_mode();
+inline ::sync_pb::WebAppSpecifics_UserDisplayMode WebAppSpecifics::user_display_mode_non_cros() const {
+  // @@protoc_insertion_point(field_get:sync_pb.WebAppSpecifics.user_display_mode_non_cros)
+  return _internal_user_display_mode_non_cros();
 }
-inline void WebAppSpecifics::_internal_set_user_display_mode(::sync_pb::WebAppSpecifics_UserDisplayMode value) {
+inline void WebAppSpecifics::_internal_set_user_display_mode_non_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value) {
   assert(::sync_pb::WebAppSpecifics_UserDisplayMode_IsValid(value));
   _has_bits_[0] |= 0x00000040u;
-  user_display_mode_ = value;
+  user_display_mode_non_cros_ = value;
 }
-inline void WebAppSpecifics::set_user_display_mode(::sync_pb::WebAppSpecifics_UserDisplayMode value) {
-  _internal_set_user_display_mode(value);
-  // @@protoc_insertion_point(field_set:sync_pb.WebAppSpecifics.user_display_mode)
+inline void WebAppSpecifics::set_user_display_mode_non_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value) {
+  _internal_set_user_display_mode_non_cros(value);
+  // @@protoc_insertion_point(field_set:sync_pb.WebAppSpecifics.user_display_mode_non_cros)
 }
 
 // optional uint32 theme_color = 4;
@@ -1269,6 +1284,35 @@ inline void WebAppSpecifics::set_allocated_relative_manifest_id(std::string* rel
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:sync_pb.WebAppSpecifics.relative_manifest_id)
+}
+
+// optional .sync_pb.WebAppSpecifics.UserDisplayMode user_display_mode_cros = 10;
+inline bool WebAppSpecifics::_internal_has_user_display_mode_cros() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool WebAppSpecifics::has_user_display_mode_cros() const {
+  return _internal_has_user_display_mode_cros();
+}
+inline void WebAppSpecifics::clear_user_display_mode_cros() {
+  user_display_mode_cros_ = 0;
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline ::sync_pb::WebAppSpecifics_UserDisplayMode WebAppSpecifics::_internal_user_display_mode_cros() const {
+  return static_cast< ::sync_pb::WebAppSpecifics_UserDisplayMode >(user_display_mode_cros_);
+}
+inline ::sync_pb::WebAppSpecifics_UserDisplayMode WebAppSpecifics::user_display_mode_cros() const {
+  // @@protoc_insertion_point(field_get:sync_pb.WebAppSpecifics.user_display_mode_cros)
+  return _internal_user_display_mode_cros();
+}
+inline void WebAppSpecifics::_internal_set_user_display_mode_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value) {
+  assert(::sync_pb::WebAppSpecifics_UserDisplayMode_IsValid(value));
+  _has_bits_[0] |= 0x00000100u;
+  user_display_mode_cros_ = value;
+}
+inline void WebAppSpecifics::set_user_display_mode_cros(::sync_pb::WebAppSpecifics_UserDisplayMode value) {
+  _internal_set_user_display_mode_cros(value);
+  // @@protoc_insertion_point(field_set:sync_pb.WebAppSpecifics.user_display_mode_cros)
 }
 
 #ifdef __GNUC__

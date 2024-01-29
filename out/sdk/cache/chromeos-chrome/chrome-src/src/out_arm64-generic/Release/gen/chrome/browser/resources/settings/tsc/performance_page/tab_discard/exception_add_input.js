@@ -7,6 +7,7 @@ import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/pref
 import { ListPropertyUpdateMixin } from 'chrome://resources/cr_elements/list_property_update_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { convertDateToWindowsEpoch } from '../../time.js';
 import { MemorySaverModeExceptionListAction, PerformanceMetricsProxyImpl } from '../performance_metrics_proxy.js';
 import { getTemplate } from './exception_add_input.html.js';
 import { ExceptionValidationMixin, TAB_DISCARD_EXCEPTIONS_PREF } from './exception_validation_mixin.js';
@@ -25,7 +26,7 @@ export class ExceptionAddInputElement extends ExceptionAddInputElementBase {
     submit() {
         assert(!this.submitDisabled);
         const rule = this.rule.trim();
-        this.appendPrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, rule);
+        this.setPrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, rule, convertDateToWindowsEpoch());
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.ADD_MANUAL);
     }
 }

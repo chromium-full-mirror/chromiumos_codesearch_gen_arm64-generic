@@ -12,6 +12,7 @@
 goog.require('mojo.internal');
 goog.require('mojo.internal.interfaceSupport');
 
+goog.require('extensions.mojom.HostID');
 goog.require('mojoBase.mojom.ListValue');
 goog.require('url.mojom.Url');
 
@@ -354,9 +355,9 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'extensionId', 8,
+        'hostId', 8,
         0,
-        mojo.internal.String,
+        extensions.mojom.HostIDSpec.$,
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -405,8 +406,8 @@ extensions.mojom.DispatchEventParams = class {
   constructor() {
     /** @export { !number } */
     this.workerThreadId;
-    /** @export { !string } */
-    this.extensionId;
+    /** @export { !extensions.mojom.HostID } */
+    this.hostId;
     /** @export { !string } */
     this.eventName;
     /** @export { !number } */

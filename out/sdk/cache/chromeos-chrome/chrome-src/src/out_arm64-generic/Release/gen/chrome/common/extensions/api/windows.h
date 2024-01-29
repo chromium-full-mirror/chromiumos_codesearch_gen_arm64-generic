@@ -41,8 +41,8 @@ namespace windows {
 // The windowId value that represents the absence of a Chrome browser window.
 extern const int WINDOW_ID_NONE;
 
-// The windowId value that represents the <a
-// href='windows#current-window'>current window</a>.
+// The windowId value that represents the <a href='#the_current_window'>current
+// window</a>.
 extern const int WINDOW_ID_CURRENT;
 
 //

@@ -109,7 +109,7 @@ export const VideoCodecProfile = {
   kHEVCProfileMainStillPicture: 18,
   kHEVCProfileMax: 18,
   kDolbyVisionProfile0: 19,
-  kDolbyVisionProfile4: 20,
+  kDeprecatedDolbyVisionProfile4: 20,
   kDolbyVisionProfile5: 21,
   kDolbyVisionProfile7: 22,
   kTheoraProfileMin: 23,
@@ -1374,8 +1374,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'needsDetiling', 0,
+        2,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        1,
+      ),
     ],
-    [[0, 16],]);
+    [[0, 16],[1, 16],]);
 
 
 
@@ -1388,6 +1396,8 @@ export class VideoFrameMetadata {
     this.protectedVideo;
     /** @type { !boolean } */
     this.hwProtected;
+    /** @type { !boolean } */
+    this.needsDetiling;
   }
 }
 

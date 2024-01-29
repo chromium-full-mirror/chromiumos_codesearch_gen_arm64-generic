@@ -77,15 +77,17 @@ enum class SingleplanarFormat : int32_t {
   
   BGRX_1010102 = 17,
   
-  YV12_LEGACY = 18,
+  R_F16 = 18,
   
-  NV12_LEGACY = 19,
+  YV12_LEGACY = 19,
   
-  NV12A_LEGACY = 20,
+  NV12_LEGACY = 20,
   
-  P010_LEGACY = 21,
+  NV12A_LEGACY = 21,
+  
+  P010_LEGACY = 22,
   kMinValue = 0,
-  kMaxValue = 21,
+  kMaxValue = 22,
 };
 
  std::ostream& operator<<(std::ostream& os, SingleplanarFormat value);

@@ -68,12 +68,9 @@ export class SettingsAudioElement extends SettingsAudioElementBase {
             outputVolume_: {
                 type: Number,
             },
-            systemSoundsEnabled_: {
+            powerSoundsHidden_: {
                 type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('areSystemSoundsEnabled');
-                },
-                readOnly: true,
+                computed: 'computePowerSoundsHidden_(batteryStatus_)',
             },
             startupSoundEnabled_: {
                 type: Boolean,
@@ -115,6 +112,7 @@ export class SettingsAudioElement extends SettingsAudioElementBase {
         this.addWebUiListener('startup-sound-setting-retrieved', (startupSoundEnabled) => {
             this.startupSoundEnabled_ = startupSoundEnabled;
         });
+        this.addWebUiListener('battery-status-changed', this.set.bind(this, 'batteryStatus_'));
     }
     /**
      * AudioSystemPropertiesObserverInterface override
@@ -317,6 +315,12 @@ export class SettingsAudioElement extends SettingsAudioElementBase {
     }
     toggleStartupSoundEnabled_(e) {
         this.audioAndCaptionsBrowserProxy_.setStartupSoundEnabled(e.detail);
+    }
+    computePowerSoundsHidden_() {
+        if (!loadTimeData.getBoolean('areSystemSoundsEnabled')) {
+            return true;
+        }
+        return !this.batteryStatus_?.present;
     }
 }
 customElements.define(SettingsAudioElement.is, SettingsAudioElement);

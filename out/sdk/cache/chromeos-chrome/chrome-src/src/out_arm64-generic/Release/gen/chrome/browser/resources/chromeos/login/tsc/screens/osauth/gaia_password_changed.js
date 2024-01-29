@@ -5,7 +5,6 @@
  * @fileoverview Polymer element for GAIA password changed screen.
  */
 import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
-import '//resources/cr_elements/cr_input/cr_input.js';
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '//resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import '../../components/oobe_icons.html.js';
@@ -15,50 +14,31 @@ import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/buttons/oobe_text_button.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { CrInputElement } from '//resources/cr_elements/cr_input/cr_input.js';
+import { assert } from '//resources/js/assert.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { addSubmitListener } from '../../login_ui_tools.js';
 import { getTemplate } from './gaia_password_changed.html.js';
 /**
  * UI mode for the dialog.
- * @enum {string}
  */
-const GaiaPasswordChangedUIState = {
-    PASSWORD: 'password',
-    FORGOT: 'forgot',
-    RECOVERY: 'setup-recovery',
-    PROGRESS: 'progress',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- */
-const GaiaPasswordChangedBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @typedef {{
- *   oldPasswordInput:  CrInputElement,
- * }}
- */
-GaiaPasswordChangedBase.$;
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   email: string,
- *   showError: boolean,
- * }}
- */
-let GaiaPasswordChangedScreenData;
-/**
- * @polymer
- */
-class GaiaPasswordChanged extends GaiaPasswordChangedBase {
+var GaiaPasswordChangedUiState;
+(function (GaiaPasswordChangedUiState) {
+    GaiaPasswordChangedUiState["PASSWORD"] = "password";
+    GaiaPasswordChangedUiState["FORGOT"] = "forgot";
+    GaiaPasswordChangedUiState["RECOVERY"] = "setup-recovery";
+    GaiaPasswordChangedUiState["PROGRESS"] = "progress";
+})(GaiaPasswordChangedUiState || (GaiaPasswordChangedUiState = {}));
+const GaiaPasswordChangedBase = mixinBehaviors([
+    OobeI18nBehavior,
+    LoginScreenBehavior,
+    MultiStepBehavior,
+], PolymerElement);
+export class GaiaPasswordChanged extends GaiaPasswordChangedBase {
     static get is() {
         return 'gaia-password-changed-element';
     }
@@ -71,11 +51,11 @@ class GaiaPasswordChanged extends GaiaPasswordChangedBase {
                 type: String,
                 value: '',
             },
-            password_: {
+            password: {
                 type: String,
                 value: '',
             },
-            passwordInvalid_: {
+            passwordInvalid: {
                 type: Boolean,
                 value: false,
             },
@@ -83,16 +63,16 @@ class GaiaPasswordChanged extends GaiaPasswordChangedBase {
                 type: Boolean,
                 value: false,
             },
-            passwordInput_: Object,
+            passwordInput: Object,
         };
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return GaiaPasswordChangedUIState.PASSWORD;
+        return GaiaPasswordChangedUiState.PASSWORD;
     }
     get UI_STEPS() {
-        return GaiaPasswordChangedUIState;
+        return GaiaPasswordChangedUiState;
     }
-    /** Overridden from LoginScreenBehavior. */
     // clang-format off
     get EXTERNAL_API() {
         return [
@@ -101,31 +81,29 @@ class GaiaPasswordChanged extends GaiaPasswordChangedBase {
         ];
     }
     // clang-format on
-    /**
-     * @override
-     */
     ready() {
         super.ready();
         this.initializeLoginScreen('GaiaPasswordChangedScreen');
-        this.passwordInput_ = this.$.oldPasswordInput;
-        addSubmitListener(this.passwordInput_, this.submit_.bind(this));
+        const oldpasswordInput = this.shadowRoot?.querySelector('#oldPasswordInput');
+        assert(oldpasswordInput instanceof CrInputElement);
+        this.passwordInput = oldpasswordInput;
+        addSubmitListener(this.passwordInput, this.submit.bind(this));
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.PASSWORD_CHANGED;
     }
     /**
      * Invoked just before being shown. Contains all the data for the screen.
-     * @param {GaiaPasswordChangedScreenData} data
      */
     onBeforeShow(data) {
         this.reset();
         this.email = data.email;
-        this.passwordInvalid_ = data.showError;
-        this.$.proceedAnyway.textKey = 'continueAndDeleteDataButton';
+        this.passwordInvalid = data.showError;
     }
     reset() {
-        this.setUIStep(GaiaPasswordChangedUIState.PASSWORD);
+        this.setUIStep(GaiaPasswordChangedUiState.PASSWORD);
         this.clearPassword();
         this.disabled = false;
     }
@@ -136,8 +114,8 @@ class GaiaPasswordChanged extends GaiaPasswordChangedBase {
     showWrongPasswordError() {
         this.clearPassword();
         this.disabled = false;
-        this.passwordInvalid_ = true;
-        this.setUIStep(GaiaPasswordChangedUIState.PASSWORD);
+        this.passwordInvalid = true;
+        this.setUIStep(GaiaPasswordChangedUiState.PASSWORD);
     }
     /**
      * Called when password was successfully updated
@@ -145,81 +123,73 @@ class GaiaPasswordChanged extends GaiaPasswordChangedBase {
      */
     suggestRecovery() {
         this.disabled = false;
-        this.setUIStep(GaiaPasswordChangedUIState.RECOVERY);
+        this.setUIStep(GaiaPasswordChangedUiState.RECOVERY);
     }
     /**
      * Returns the subtitle message for the data loss warning screen.
-     * @param {string} locale The i18n locale.
-     * @param {string} email The email address that the user is trying to recover.
-     * @returns {string} The translated subtitle message.
+     * @param locale The i18n locale.
+     * @param email The email address that the user is trying to recover.
+     * @return The translated subtitle message.
      */
-    getDataLossWarningSubtitleMessage_(locale, email) {
+    getDataLossWarningSubtitleMessage(locale, email) {
         return this.i18nAdvancedDynamic(locale, 'dataLossWarningSubtitle', { substitutions: [email] });
     }
-    /**
-     * @private
-     */
-    submit_() {
+    submit() {
         if (this.disabled) {
             return;
         }
-        if (!this.passwordInput_.validate()) {
+        if (!this.passwordInput.validate()) {
             return;
         }
-        this.setUIStep(GaiaPasswordChangedUIState.PROGRESS);
+        this.setUIStep(GaiaPasswordChangedUiState.PROGRESS);
         this.disabled = true;
-        this.userActed(['migrate-user-data', this.passwordInput_.value]);
+        this.userActed(['migrate-user-data', this.passwordInput.value]);
     }
-    /** @private */
-    onForgotPasswordClicked_() {
+    onForgotPasswordClicked() {
         if (this.disabled) {
             return;
         }
-        this.setUIStep(GaiaPasswordChangedUIState.FORGOT);
+        this.setUIStep(GaiaPasswordChangedUiState.FORGOT);
         this.clearPassword();
     }
-    /** @private */
-    onBackButtonClicked_() {
-        this.setUIStep(GaiaPasswordChangedUIState.PASSWORD);
+    onBackButtonClicked() {
+        this.setUIStep(GaiaPasswordChangedUiState.PASSWORD);
     }
-    /** @private */
-    onAnimationFinish_() {
+    onAnimationFinish() {
         this.focus();
     }
     clearPassword() {
-        this.password_ = '';
-        this.passwordInvalid_ = false;
+        this.password = '';
+        this.passwordInvalid = false;
     }
-    /** @private */
-    onProceedClicked_() {
+    onProceedClicked() {
         if (this.disabled) {
             return;
         }
-        this.setUIStep(GaiaPasswordChangedUIState.PROGRESS);
+        this.setUIStep(GaiaPasswordChangedUiState.PROGRESS);
         this.disabled = true;
         this.clearPassword();
         this.userActed('resync');
     }
-    onNoRecovery_() {
+    onNoRecovery() {
         if (this.disabled) {
             return;
         }
-        this.setUIStep(GaiaPasswordChangedUIState.PROGRESS);
+        this.setUIStep(GaiaPasswordChangedUiState.PROGRESS);
         this.disabled = true;
         this.clearPassword();
         this.userActed('no-recovery');
     }
-    onSetRecovery_() {
+    onSetRecovery() {
         if (this.disabled) {
             return;
         }
-        this.setUIStep(GaiaPasswordChangedUIState.PROGRESS);
+        this.setUIStep(GaiaPasswordChangedUiState.PROGRESS);
         this.disabled = true;
         this.clearPassword();
         this.userActed('setup-recovery');
     }
-    /** @private */
-    onCancel_() {
+    onCancel() {
         if (this.disabled) {
             return;
         }

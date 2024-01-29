@@ -39,15 +39,12 @@ constexpr uint32_t kMetricsHost_ReportDataRestore_Name = 22;
 constexpr uint32_t kMetricsHost_ReportMemoryPressure_Name = 23;
 constexpr uint32_t kMetricsHost_ReportProvisioningPreSignIn_Name = 24;
 constexpr uint32_t kMetricsHost_ReportWaylandLateTimingEvent_Name = 30;
-constexpr uint32_t kMetricsHost_ReportNonAndroidPlayFilesCount_Name = 26;
-constexpr uint32_t kMetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Name = 27;
-constexpr uint32_t kMetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Name = 28;
-constexpr uint32_t kMetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Name = 29;
 constexpr uint32_t kMetricsHost_ReportWebViewProcessStarted_Name = 31;
 constexpr uint32_t kMetricsHost_ReportVpnServiceBuilderCompatApiUsage_Name = 32;
 constexpr uint32_t kMetricsHost_ReportNewQosSocketCount_Name = 33;
 constexpr uint32_t kMetricsHost_ReportQosSocketPercentage_Name = 34;
 constexpr uint32_t kMetricsHost_ReportArcKeyMintError_Name = 35;
+constexpr uint32_t kMetricsHost_ReportDragResizeLatency_Name = 36;
 constexpr uint32_t kMetricsInstance_Init_Name = 1;
 constexpr uint32_t kMetricsInstance_GetGfxMetrics_Name = 2;
 

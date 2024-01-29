@@ -38,6 +38,7 @@
 #include "services/network/public/mojom/clear_data_filter.mojom-forward.h"
 #include "services/network/public/mojom/client_security_state.mojom.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-forward.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-forward.h"
 #include "services/network/public/mojom/cookie_manager.mojom.h"
 #include "services/network/public/mojom/cookie_setting_overrides.mojom.h"
 #include "services/network/public/mojom/cors_origin_pattern.mojom.h"
@@ -98,8 +99,6 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
-#include "mojo/public/cpp/bindings/lib/native_enum_serialization.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 namespace network { struct ResourceRequest; }
@@ -190,20 +189,12 @@ class CustomProxyConfigClient
   using ResponseValidator_ = CustomProxyConfigClientResponseValidator;
   enum MethodMinVersions : uint32_t {
     kOnCustomProxyConfigUpdatedMinVersion = 0,
-    kMarkProxiesAsBadMinVersion = 0,
-    kClearBadProxiesCacheMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct OnCustomProxyConfigUpdated_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct MarkProxiesAsBad_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ClearBadProxiesCache_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -213,14 +204,6 @@ class CustomProxyConfigClient
   using OnCustomProxyConfigUpdatedCallback = base::OnceCallback<void()>;
   
   virtual void OnCustomProxyConfigUpdated(CustomProxyConfigPtr proxy_config, OnCustomProxyConfigUpdatedCallback callback) = 0;
-
-
-  using MarkProxiesAsBadCallback = base::OnceCallback<void()>;
-  
-  virtual void MarkProxiesAsBad(::base::TimeDelta bypass_duration, const ::net::ProxyList& bad_proxies, MarkProxiesAsBadCallback callback) = 0;
-
-  
-  virtual void ClearBadProxiesCache() = 0;
 };
 
 class TrustedHeaderClientProxy;
@@ -478,6 +461,61 @@ class IpProtectionConfigGetter
   virtual void GetProxyList(GetProxyListCallback callback) = 0;
 };
 
+class IpProtectionProxyDelegateProxy;
+
+template <typename ImplRefTraits>
+class IpProtectionProxyDelegateStub;
+
+class IpProtectionProxyDelegateRequestValidator;
+class IpProtectionProxyDelegateResponseValidator;
+
+
+class IpProtectionProxyDelegate
+    : public IpProtectionProxyDelegateInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = IpProtectionProxyDelegateInterfaceBase;
+  using Proxy_ = IpProtectionProxyDelegateProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = IpProtectionProxyDelegateStub<ImplRefTraits>;
+
+  using RequestValidator_ = IpProtectionProxyDelegateRequestValidator;
+  using ResponseValidator_ = IpProtectionProxyDelegateResponseValidator;
+  enum MethodMinVersions : uint32_t {
+    kVerifyIpProtectionConfigGetterForTestingMinVersion = 0,
+    kInvalidateIpProtectionConfigCacheTryAgainAfterTimeMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct VerifyIpProtectionConfigGetterForTesting_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~IpProtectionProxyDelegate() = default;
+
+
+  using VerifyIpProtectionConfigGetterForTestingCallback = base::OnceCallback<void(BlindSignedAuthTokenPtr, std::optional<::base::Time>)>;
+  
+  virtual void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) = 0;
+
+  
+  virtual void InvalidateIpProtectionConfigCacheTryAgainAfterTime() = 0;
+};
+
 class NetworkContextProxy;
 
 template <typename ImplRefTraits>
@@ -498,9 +536,9 @@ class NetworkContext
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
+    65, 
     67, 
-    69, 
-    70
+    68
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -566,8 +604,6 @@ class NetworkContext
     kResolveHostMinVersion = 0,
     kCreateHostResolverMinVersion = 0,
     kVerifyCertForSignedExchangeMinVersion = 0,
-    kVerifyIpProtectionConfigGetterForTestingMinVersion = 0,
-    kInvalidateIpProtectionConfigCacheTryAgainAfterTimeMinVersion = 0,
     kAddHSTSMinVersion = 0,
     kIsHSTSActiveForHostMinVersion = 0,
     kGetHSTSStateMinVersion = 0,
@@ -755,12 +791,6 @@ class NetworkContext
     NOINLINE static uint32_t IPCStableHash();
   };
   struct VerifyCertForSignedExchange_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct VerifyIpProtectionConfigGetterForTesting_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct InvalidateIpProtectionConfigCacheTryAgainAfterTime_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddHSTS_Sym {
@@ -1053,14 +1083,6 @@ class NetworkContext
   virtual void VerifyCertForSignedExchange(const ::scoped_refptr<::net::X509Certificate>& certificate, const ::GURL& url, const std::string& ocsp_response, const std::string& sct_list, VerifyCertForSignedExchangeCallback callback) = 0;
 
 
-  using VerifyIpProtectionConfigGetterForTestingCallback = base::OnceCallback<void(BlindSignedAuthTokenPtr, std::optional<::base::Time>)>;
-  
-  virtual void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) = 0;
-
-  
-  virtual void InvalidateIpProtectionConfigCacheTryAgainAfterTime() = 0;
-
-
   using AddHSTSCallback = base::OnceCallback<void()>;
   
   virtual void AddHSTS(const std::string& host, ::base::Time expiry, bool include_subdomains, AddHSTSCallback callback) = 0;
@@ -1209,10 +1231,6 @@ class  CustomProxyConfigClientProxy
   explicit CustomProxyConfigClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void OnCustomProxyConfigUpdated(CustomProxyConfigPtr proxy_config, OnCustomProxyConfigUpdatedCallback callback) final;
-  
-  void MarkProxiesAsBad(::base::TimeDelta bypass_duration, const ::net::ProxyList& bad_proxies, MarkProxiesAsBadCallback callback) final;
-  
-  void ClearBadProxiesCache() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1289,6 +1307,23 @@ class  IpProtectionConfigGetterProxy
   void TryGetAuthTokens(uint32_t batch_size, IpProtectionProxyLayer proxy_layer, TryGetAuthTokensCallback callback) final;
   
   void GetProxyList(GetProxyListCallback callback) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  IpProtectionProxyDelegateProxy
+    : public IpProtectionProxyDelegate {
+ public:
+  using InterfaceType = IpProtectionProxyDelegate;
+
+  explicit IpProtectionProxyDelegateProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) final;
+  
+  void InvalidateIpProtectionConfigCacheTryAgainAfterTime() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1408,10 +1443,6 @@ class  NetworkContextProxy
   void CreateHostResolver(const std::optional<::net::DnsConfigOverrides>& config_overrides, ::mojo::PendingReceiver<::network::mojom::HostResolver> host_resolver) final;
   
   void VerifyCertForSignedExchange(const ::scoped_refptr<::net::X509Certificate>& certificate, const ::GURL& url, const std::string& ocsp_response, const std::string& sct_list, VerifyCertForSignedExchangeCallback callback) final;
-  
-  void VerifyIpProtectionConfigGetterForTesting(VerifyIpProtectionConfigGetterForTestingCallback callback) final;
-  
-  void InvalidateIpProtectionConfigCacheTryAgainAfterTime() final;
   
   void AddHSTS(const std::string& host, ::base::Time expiry, bool include_subdomains, AddHSTSCallback callback) final;
   
@@ -1718,6 +1749,47 @@ class IpProtectionConfigGetterStub
  private:
   ImplPointerType sink_;
 };
+class  IpProtectionProxyDelegateStubDispatch {
+ public:
+  static bool Accept(IpProtectionProxyDelegate* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      IpProtectionProxyDelegate* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<IpProtectionProxyDelegate>>
+class IpProtectionProxyDelegateStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  IpProtectionProxyDelegateStub() = default;
+  ~IpProtectionProxyDelegateStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return IpProtectionProxyDelegateStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return IpProtectionProxyDelegateStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  NetworkContextStubDispatch {
  public:
   static bool Accept(NetworkContext* impl, mojo::Message* message);
@@ -1783,6 +1855,10 @@ class  IpProtectionConfigGetterRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  IpProtectionProxyDelegateRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  NetworkContextRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -1800,6 +1876,10 @@ class  NetworkContextClientResponseValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  IpProtectionConfigGetterResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  IpProtectionProxyDelegateResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -1995,7 +2075,6 @@ class  CustomProxyConfig {
       const ::net::ProxyConfig::ProxyRules& rules,
       bool should_override_existing_config,
       bool allow_non_idempotent_methods,
-      bool should_replace_direct,
       const ::net::HttpRequestHeaders& connect_tunnel_headers);
 
 
@@ -2079,8 +2158,6 @@ class  CustomProxyConfig {
   bool should_override_existing_config;
   
   bool allow_non_idempotent_methods;
-  
-  bool should_replace_direct;
   
   ::net::HttpRequestHeaders connect_tunnel_headers;
 
@@ -2623,6 +2700,7 @@ class  NetworkContextParams {
       ::mojo::PendingRemote<::network::mojom::ProxyConfigPollerClient> proxy_config_poller_client,
       ::mojo::PendingRemote<::network::mojom::ProxyErrorClient> proxy_error_client,
       ::mojo::PendingRemote<IpProtectionConfigGetter> ip_protection_config_getter,
+      ::mojo::PendingReceiver<IpProtectionProxyDelegate> ip_protection_proxy_delegate,
       bool pac_quick_check_enabled,
       bool enable_certificate_reporting,
       bool enforce_chrome_ct_policy,
@@ -2651,7 +2729,8 @@ class  NetworkContextParams {
       ::mojo::PendingReceiver<::network::mojom::FirstPartySetsAccessDelegate> first_party_sets_access_delegate_receiver,
       bool acam_preflight_spec_conformant,
       const std::optional<std::string>& cookie_deprecation_label,
-      bool afp_block_list_experiment_enabled);
+      bool afp_block_list_experiment_enabled,
+      ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> cookie_encryption_provider);
 
 NetworkContextParams(const NetworkContextParams&) = delete;
 NetworkContextParams& operator=(const NetworkContextParams&) = delete;
@@ -2776,6 +2855,8 @@ NetworkContextParams& operator=(const NetworkContextParams&) = delete;
   
   ::mojo::PendingRemote<IpProtectionConfigGetter> ip_protection_config_getter;
   
+  ::mojo::PendingReceiver<IpProtectionProxyDelegate> ip_protection_proxy_delegate;
+  
   bool pac_quick_check_enabled;
   
   bool enable_certificate_reporting;
@@ -2833,6 +2914,8 @@ NetworkContextParams& operator=(const NetworkContextParams&) = delete;
   std::optional<std::string> cookie_deprecation_label;
   
   bool afp_block_list_experiment_enabled;
+  
+  ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> cookie_encryption_provider;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3841,7 +3924,6 @@ CustomProxyConfigPtr CustomProxyConfig::Clone() const {
       mojo::Clone(rules),
       mojo::Clone(should_override_existing_config),
       mojo::Clone(allow_non_idempotent_methods),
-      mojo::Clone(should_replace_direct),
       mojo::Clone(connect_tunnel_headers)
   );
 }
@@ -3853,8 +3935,6 @@ bool CustomProxyConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->should_override_existing_config, other_struct.should_override_existing_config))
     return false;
   if (!mojo::Equals(this->allow_non_idempotent_methods, other_struct.allow_non_idempotent_methods))
-    return false;
-  if (!mojo::Equals(this->should_replace_direct, other_struct.should_replace_direct))
     return false;
   if (!mojo::Equals(this->connect_tunnel_headers, other_struct.connect_tunnel_headers))
     return false;
@@ -3874,10 +3954,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.allow_non_idempotent_methods < rhs.allow_non_idempotent_methods)
     return true;
   if (rhs.allow_non_idempotent_methods < lhs.allow_non_idempotent_methods)
-    return false;
-  if (lhs.should_replace_direct < rhs.should_replace_direct)
-    return true;
-  if (rhs.should_replace_direct < lhs.should_replace_direct)
     return false;
   if (lhs.connect_tunnel_headers < rhs.connect_tunnel_headers)
     return true;
@@ -4092,6 +4168,7 @@ NetworkContextParamsPtr NetworkContextParams::Clone() const {
       mojo::Clone(proxy_config_poller_client),
       mojo::Clone(proxy_error_client),
       mojo::Clone(ip_protection_config_getter),
+      mojo::Clone(ip_protection_proxy_delegate),
       mojo::Clone(pac_quick_check_enabled),
       mojo::Clone(enable_certificate_reporting),
       mojo::Clone(enforce_chrome_ct_policy),
@@ -4120,7 +4197,8 @@ NetworkContextParamsPtr NetworkContextParams::Clone() const {
       mojo::Clone(first_party_sets_access_delegate_receiver),
       mojo::Clone(acam_preflight_spec_conformant),
       mojo::Clone(cookie_deprecation_label),
-      mojo::Clone(afp_block_list_experiment_enabled)
+      mojo::Clone(afp_block_list_experiment_enabled),
+      mojo::Clone(cookie_encryption_provider)
   );
 }
 
@@ -4175,6 +4253,8 @@ bool NetworkContextParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->proxy_error_client, other_struct.proxy_error_client))
     return false;
   if (!mojo::Equals(this->ip_protection_config_getter, other_struct.ip_protection_config_getter))
+    return false;
+  if (!mojo::Equals(this->ip_protection_proxy_delegate, other_struct.ip_protection_proxy_delegate))
     return false;
   if (!mojo::Equals(this->pac_quick_check_enabled, other_struct.pac_quick_check_enabled))
     return false;
@@ -4233,6 +4313,8 @@ bool NetworkContextParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->cookie_deprecation_label, other_struct.cookie_deprecation_label))
     return false;
   if (!mojo::Equals(this->afp_block_list_experiment_enabled, other_struct.afp_block_list_experiment_enabled))
+    return false;
+  if (!mojo::Equals(this->cookie_encryption_provider, other_struct.cookie_encryption_provider))
     return false;
   return true;
 }
@@ -4338,6 +4420,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.ip_protection_config_getter < rhs.ip_protection_config_getter)
     return true;
   if (rhs.ip_protection_config_getter < lhs.ip_protection_config_getter)
+    return false;
+  if (lhs.ip_protection_proxy_delegate < rhs.ip_protection_proxy_delegate)
+    return true;
+  if (rhs.ip_protection_proxy_delegate < lhs.ip_protection_proxy_delegate)
     return false;
   if (lhs.pac_quick_check_enabled < rhs.pac_quick_check_enabled)
     return true;
@@ -4454,6 +4540,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.afp_block_list_experiment_enabled < rhs.afp_block_list_experiment_enabled)
     return true;
   if (rhs.afp_block_list_experiment_enabled < lhs.afp_block_list_experiment_enabled)
+    return false;
+  if (lhs.cookie_encryption_provider < rhs.cookie_encryption_provider)
+    return true;
+  if (rhs.cookie_encryption_provider < lhs.cookie_encryption_provider)
     return false;
   return false;
 }
@@ -4939,11 +5029,6 @@ struct  StructTraits<::network::mojom::CustomProxyConfig::DataView,
     return input->allow_non_idempotent_methods;
   }
 
-  static decltype(::network::mojom::CustomProxyConfig::should_replace_direct) should_replace_direct(
-      const ::network::mojom::CustomProxyConfigPtr& input) {
-    return input->should_replace_direct;
-  }
-
   static const decltype(::network::mojom::CustomProxyConfig::connect_tunnel_headers)& connect_tunnel_headers(
       const ::network::mojom::CustomProxyConfigPtr& input) {
     return input->connect_tunnel_headers;
@@ -5209,6 +5294,11 @@ struct  StructTraits<::network::mojom::NetworkContextParams::DataView,
     return input->ip_protection_config_getter;
   }
 
+  static  decltype(::network::mojom::NetworkContextParams::ip_protection_proxy_delegate)& ip_protection_proxy_delegate(
+       ::network::mojom::NetworkContextParamsPtr& input) {
+    return input->ip_protection_proxy_delegate;
+  }
+
   static decltype(::network::mojom::NetworkContextParams::pac_quick_check_enabled) pac_quick_check_enabled(
       const ::network::mojom::NetworkContextParamsPtr& input) {
     return input->pac_quick_check_enabled;
@@ -5352,6 +5442,11 @@ struct  StructTraits<::network::mojom::NetworkContextParams::DataView,
   static decltype(::network::mojom::NetworkContextParams::afp_block_list_experiment_enabled) afp_block_list_experiment_enabled(
       const ::network::mojom::NetworkContextParamsPtr& input) {
     return input->afp_block_list_experiment_enabled;
+  }
+
+  static  decltype(::network::mojom::NetworkContextParams::cookie_encryption_provider)& cookie_encryption_provider(
+       ::network::mojom::NetworkContextParamsPtr& input) {
+    return input->cookie_encryption_provider;
   }
 
   static bool Read(::network::mojom::NetworkContextParams::DataView input, ::network::mojom::NetworkContextParamsPtr* output);

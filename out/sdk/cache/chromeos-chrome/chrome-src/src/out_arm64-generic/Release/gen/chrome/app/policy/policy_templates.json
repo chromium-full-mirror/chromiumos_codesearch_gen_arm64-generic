@@ -81,6 +81,7 @@
     "DeviceEncryptedReportingPipelineEnabled": "device_reporting.encrypted_reporting_pipeline_enabled",
     "DeviceEphemeralNetworkPoliciesEnabled": "device_ephemeral_network_policies_enabled.value",
     "DeviceEphemeralUsersEnabled": "ephemeral_users_enabled.ephemeral_users_enabled",
+    "DeviceExtendedAutoUpdateEnabled": "DeviceExtendedAutoUpdateEnabled.value",
     "DeviceExtendedFkeysModifier": "extended_fkeys_modifier.modifier",
     "DeviceExternalPrintServers": "external_print_servers.external_policy",
     "DeviceExternalPrintServersAllowlist": "external_print_servers_allowlist.allowlist",
@@ -135,6 +136,7 @@
     "DeviceLoginScreenSpokenFeedbackEnabled": "accessibility_settings.login_screen_spoken_feedback_enabled",
     "DeviceLoginScreenStickyKeysEnabled": "accessibility_settings.login_screen_sticky_keys_enabled",
     "DeviceLoginScreenSystemInfoEnforced": "device_login_screen_system_info_enforced.value",
+    "DeviceLoginScreenTouchVirtualKeyboardEnabled": "DeviceLoginScreenTouchVirtualKeyboardEnabled.value",
     "DeviceLoginScreenVirtualKeyboardEnabled": "accessibility_settings.login_screen_virtual_keyboard_enabled",
     "DeviceLoginScreenWebHidAllowDevicesForUrls": "device_login_screen_webhid_allow_devices_for_urls.value",
     "DeviceLoginScreenWebUILazyLoading": "login_web_ui_lazy_loading.enabled",
@@ -264,8 +266,8 @@
     "UptimeLimit": "uptime_limit.uptime_limit",
     "VirtualMachinesAllowed": "virtual_machines_allowed.virtual_machines_allowed"
   },
-  "highest_atomic_group_id_currently_used": 49,
-  "highest_id_currently_used": 1193,
+  "highest_atomic_group_id_currently_used": 50,
+  "highest_id_currently_used": 1207,
   "legacy_device_policy_proto_map": [
     [
       "",
@@ -872,6 +874,16 @@
         "ExtensionManifestV2Availability",
         "ExtensionUnpublishedAvailability",
         "ExtensionExtendedBackgroundLifetimeForPortConnectionsToUrls"
+      ]
+    },
+    {
+      "caption": "Floating SSO Service settings",
+      "id": 50,
+      "name": "FloatingSso",
+      "policies": [
+        "FloatingSsoEnabled",
+        "FloatingSsoDomainBlocklist",
+        "FloatingSsoDomainBlocklistExceptions"
       ]
     },
     {
@@ -2130,9 +2142,9 @@
       "type": "main"
     },
     {
-      "caption": "Enable the virtual keyboard on the login screen",
+      "caption": "Enable the accessibility virtual keyboard on the login screen",
       "default": null,
-      "desc": "Enable the virtual keyboard accessibility feature on the login screen.\n\n          If this policy is set to true, the virtual keyboard will always be enabled on the login screen.\n\n          If this policy is set to false, the virtual keyboard will always be disabled on the login screen.\n\n          If you set this policy, users cannot change or override it.\n\n          If this policy is left unset, the virtual keyboard is disabled on the login screen initially but can be enabled by the user anytime.",
+      "desc": "Enable the virtual keyboard accessibility feature on the login screen.\n\n          If this policy is set to true, the accessibility virtual keyboard will always be enabled on the login screen.\n\n          If this policy is set to false, the accessibility virtual keyboard will always be disabled on the login screen.\n\n          If you set this policy, users cannot change or override it.\n\n          If this policy is left unset, the accessibility virtual keyboard is disabled on the login screen initially but can be enabled by the user anytime via accessibility settings.\n\n          This policy does not affect whether the touch virtual keyboard is enabled. For example, the touch virtual keyboard will still show up on a tablet device even if this policy is set to false.",
       "device_only": true,
       "example_value": true,
       "features": {
@@ -2142,11 +2154,11 @@
       "id": 607,
       "items": [
         {
-          "caption": "Enable on-screen keyboard on the login screen",
+          "caption": "Enable accessibility virtual keyboard on the login screen",
           "value": true
         },
         {
-          "caption": "Disable on-screen keyboard on the login screen",
+          "caption": "Disable accessibility virtual keyboard on the login screen",
           "value": false
         },
         {
@@ -2156,8 +2168,8 @@
       ],
       "name": "DeviceLoginScreenVirtualKeyboardEnabled",
       "owners": [
-        "amraboelkher@chromium.org",
-        "emaxx@chromium.org"
+        "shend@chromium.org",
+        "e14s-eng@google.com"
       ],
       "schema": {
         "type": "boolean"
@@ -2666,9 +2678,9 @@
       "type": "main"
     },
     {
-      "caption": "Enable on-screen keyboard",
+      "caption": "Enable the accessibility virtual keyboard",
       "default": null,
-      "desc": "Setting the policy to True keeps the on-screen keyboard on. Setting the policy to False keeps the on-screen keyboard off unless other factors turn it on. See the <ph name=\"TOUCH_VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">TouchVirtualKeyboardEnabled</ph> policy as an example of these factors.\n\n      If you set the policy, users can't change it. If not set, the on-screen keyboard is off at first, but users can turn it on any time.",
+      "desc": "Enable the virtual keyboard accessibility feature.\n\n          If this policy is set to true, the accessibility virtual keyboard will always be enabled.\n\n          If this policy is set to false, the accessibility virtual keyboard will always be disabled.\n\n          If you set this policy, users cannot change or override it.\n\n          If this policy is left unset, the accessibility virtual keyboard is disabled initially but can be enabled by the user at any time by using the accessibility settings.\n\n          This policy does not affect whether the touch virtual keyboard is enabled. For example, the touch virtual keyboard will still show up on a tablet device even if this policy is set to false. Use the <ph name=\"TOUCH_VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">TouchVirtualKeyboardEnabled</ph> policy to control the behavior of the touch virtual keyboard.",
       "example_value": true,
       "features": {
         "can_be_recommended": true,
@@ -2678,11 +2690,11 @@
       "id": 255,
       "items": [
         {
-          "caption": "Enable on-screen keyboard",
+          "caption": "Enable accessibility virtual keyboard",
           "value": true
         },
         {
-          "caption": "Disable on-screen keyboard",
+          "caption": "Disable accessibility virtual keyboard",
           "value": false
         },
         {
@@ -4629,7 +4641,8 @@
         "dadrian@chromium.org",
         "davidben@chromium.org",
         "hchao@chromium.org",
-        "mattm@chromium.org"
+        "mattm@chromium.org",
+        "trusty-transport@chromium.org"
       ],
       "schema": {
         "items": {
@@ -4662,7 +4675,8 @@
         "dadrian@chromium.org",
         "davidben@chromium.org",
         "hchao@chromium.org",
-        "mattm@chromium.org"
+        "mattm@chromium.org",
+        "trusty-transport@chromium.org"
       ],
       "schema": {
         "items": {
@@ -4695,7 +4709,8 @@
         "dadrian@chromium.org",
         "davidben@chromium.org",
         "hchao@chromium.org",
-        "mattm@chromium.org"
+        "mattm@chromium.org",
+        "trusty-transport@chromium.org"
       ],
       "schema": {
         "items": {
@@ -4705,6 +4720,45 @@
       },
       "tags": [],
       "type": "list"
+    },
+    {
+      "caption": "Use user-added TLS certificates from platform trust stores for server authentication",
+      "default": true,
+      "desc": "If enabled(or not set), user-added TLS certificates from platform trust stores will be used in path-building for TLS server authentication.\n\nIf disabled, user-added TLS certificates from platform trust stores will not be used in path-building for TLS server authentication.",
+      "example_value": false,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome.linux",
+        "chrome.mac",
+        "chrome.win"
+      ],
+      "id": 1196,
+      "items": [
+        {
+          "caption": "Import user-added TLS server certificates from platform trust stores.",
+          "value": true
+        },
+        {
+          "caption": "Do not import user-added TLS server certificates from platform trust stores.",
+          "value": false
+        }
+      ],
+      "name": "CAPlatformIntegrationEnabled",
+      "owners": [
+        "dadrian@chromium.org",
+        "davidben@chromium.org",
+        "hchao@chromium.org",
+        "mattm@chromium.org",
+        "trusty-transport@chromium.org"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "tags": [],
+      "type": "main"
     },
     {
       "caption": "Required device-wide Client Certificates",
@@ -5451,9 +5505,6 @@
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1146,
       "items": [
         {
@@ -5486,6 +5537,9 @@
         ],
         "type": "string"
       },
+      "supported_on": [
+        "chrome_os:122-"
+      ],
       "tags": [],
       "type": "string-enum"
     },
@@ -5493,15 +5547,12 @@
       "caption": "Configures the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph>",
       "default": "allowed",
       "default_for_enterprise_users": "disallowed",
-      "desc": "This policy allows the admins to configure the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> on <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph>.\n\nSetting the policy to '<ph name=\"ALLOWED_NAME\">allowed</ph>' lets the user set up the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> if they wish to.\nAfter completing the setup process, files with matching file formats will by default be moved to <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and handled by one of the <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> apps when the user attempts to open them.\n\nSetting the policy to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>' prohibits the user from setting up the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> as described above and removes <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> from the list of potential file handlers.\n\nSetting the policy to '<ph name=\"AUTOMATED_NAME\">automated</ph>' sets up the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> automatically, so that files with matching file formats will by default be moved to <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and handled by one of the <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> apps when the user attempts to open them.\n\nLeaving the policy unset is functionally equivalent to setting it to '<ph name=\"ALLOWED_NAME\">allowed</ph>' for regular users; for enterprise users unset policy defaults to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>'.",
+      "desc": "This policy allows the admins to configure the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> on <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph>.\n\nSetting the policy to '<ph name=\"ALLOWED_NAME\">allowed</ph>' lets the user set up the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> if they wish to.\nAfter completing the setup process, files with matching file formats will by default be moved to <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and handled by the <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> app when the user attempts to open them.\n\nSetting the policy to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>' prohibits the user from setting up the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> as described above and removes <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> from the list of potential file handlers.\n\nSetting the policy to '<ph name=\"AUTOMATED_NAME\">automated</ph>' sets up the <ph name=\"CLOUD_UPLOAD_NAME\">Cloud Upload</ph> flow for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> automatically, so that files with matching file formats will by default be moved to <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> and handled by the <ph name=\"MICROSOFT_365_NAME\">Microsoft 365</ph> app when the user attempts to open them.\n\nLeaving the policy unset is functionally equivalent to setting it to '<ph name=\"ALLOWED_NAME\">allowed</ph>' for regular users; for enterprise users unset policy defaults to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>'.",
       "example_value": "allowed",
       "features": {
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1145,
       "items": [
         {
@@ -5534,6 +5585,9 @@
         ],
         "type": "string"
       },
+      "supported_on": [
+        "chrome_os:122-"
+      ],
       "tags": [],
       "type": "string-enum"
     },
@@ -7117,9 +7171,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 1020,
       "items": [
         {
@@ -9559,6 +9610,7 @@
     },
     {
       "caption": "Default search provider icon",
+      "deprecated": true,
       "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_ICON_URL_POLICY_NAME\">DefaultSearchProviderIconURL</ph> specifies the default search provider's favorite icon URL.\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_ICON_URL_POLICY_NAME\">DefaultSearchProviderIconURL</ph> unset means there's no icon for the search provider.",
       "example_value": "https://search.my.company/favicon.ico",
       "features": {
@@ -9566,9 +9618,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 46,
       "name": "DefaultSearchProviderIconURL",
       "owners": [
@@ -9579,17 +9628,17 @@
         "type": "string"
       },
       "supported_on": [
-        "chrome.*:8-",
-        "chrome_os:11-",
-        "android:30-",
-        "ios:88-"
+        "chrome.*:8-121",
+        "chrome_os:11-121",
+        "android:30-121",
+        "ios:88-121"
       ],
       "tags": [],
       "type": "string"
     },
     {
       "caption": "Parameter providing search-by-image feature for the default search provider",
-      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> specifies the URL of the search engine used for image search. (If <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> is set, then image search requests use the POST method instead.)\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> unset means no image search is used.",
+      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> specifies the URL of the search engine used for image search. (If <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> is set, then image search requests use the POST method instead.)\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POLICY_NAME\">DefaultSearchProviderImageURL</ph> unset means no image search is used.\n\n      If image search uses the GET method, then the URL must specify image\n      parameters using a valid combination of the following placeholders:\n      <ph name=\"IMAGE_IMAGE_URL\">'{google:imageURL}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_HEIGHT\">'{google:imageOriginalHeight}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_WIDTH\">'{google:imageOriginalWidth}'</ph>,\n      <ph name=\"IMAGE_PROCESSED_IMAGE_DIMENSIONS\">'{google:processedImageDimensions}'</ph>,\n      <ph name=\"IMAGE_SEARCH_SOURCE\">'{google:imageSearchSource}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL\">'{google:imageThumbnail}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL_BASE64\">'{google:imageThumbnailBase64}'</ph>.",
       "example_value": "https://search.my.company/searchbyimage/upload",
       "features": {
         "can_be_recommended": true,
@@ -9619,8 +9668,8 @@
     },
     {
       "caption": "Parameters for image URL which uses POST",
-      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> specifies the parameters during image search with POST. It consists of comma-separated, name-value pairs. If a value is a template parameter, such as {imageThumbnail}, real image thumbnail data replaces it.\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> unset means image search request is sent using the GET method.",
-      "example_value": "content={imageThumbnail},url={imageURL},sbisrc={SearchSource}",
+      "desc": "If <ph name=\"DEFAULT_SEARCH_PROVIDER_ENABLED_POLICY_NAME\">DefaultSearchProviderEnabled</ph> is on, then setting <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> specifies the parameters during image search with POST. It consists of comma-separated, name-value pairs. If a value is a template parameter, such as {imageThumbnail}, real image thumbnail data replaces it.\n\n      Leaving <ph name=\"DEFAULT_SEARCH_PROVIDER_IMAGE_URL_POST_PARMS_POLICY_NAME\">DefaultSearchProviderImageURLPostParams</ph> unset means image search request is sent using the GET method.\n\n      The URL must specify the image parameter using a valid combination of\n      the following placeholders depending on what the search provider supports:\n      <ph name=\"IMAGE_IMAGE_URL\">'{google:imageURL}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_HEIGHT\">'{google:imageOriginalHeight}'</ph>,\n      <ph name=\"IMAGE_ORIGINAL_WIDTH\">'{google:imageOriginalWidth}'</ph>,\n      <ph name=\"IMAGE_PROCESSED_IMAGE_DIMENSIONS\">'{google:processedImageDimensions}'</ph>,\n      <ph name=\"IMAGE_SEARCH_SOURCE\">'{google:imageSearchSource}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL\">'{google:imageThumbnail}'</ph>,\n      <ph name=\"IMAGE_THUMBNAIL_BASE64\">'{google:imageThumbnailBase64}'</ph>.",
+      "example_value": "content={google:imageThumbnail},url={google:imageURL},sbisrc={google:imageSearchSource}",
       "features": {
         "can_be_recommended": true,
         "dynamic_refresh": true,
@@ -9725,8 +9774,8 @@
       "supported_on": [
         "chrome.*:8-",
         "chrome_os:11-",
-        "android:30-",
-        "ios:88-"
+        "android:30-121",
+        "ios:88-121"
       ],
       "tags": [],
       "type": "string"
@@ -9787,8 +9836,8 @@
       "supported_on": [
         "chrome.*:30-",
         "chrome_os:30-",
-        "android:30-",
-        "ios:88-"
+        "android:30-121",
+        "ios:88-121"
       ],
       "tags": [],
       "type": "string"
@@ -10384,6 +10433,41 @@
       },
       "tags": [],
       "type": "int-enum"
+    },
+    {
+      "caption": "Enable/disable Extended Automatic Updates",
+      "default": false,
+      "desc": "If the policy is true, devices will opt in to Extended Automatic Updates.\n\nIf the policy is set to false or unset, devices will stop receiving updates\nafter Auto Update Expiration.\n\nExtended Automatic Updates and Auto Updates are documented at\nhttps://support.google.com/chrome/a?p=auto-update-policy.",
+      "device_only": true,
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1195,
+      "items": [
+        {
+          "caption": "Opt in to Extended Automatic Updates",
+          "value": true
+        },
+        {
+          "caption": "Do not opt in to Extended Automatic Updates",
+          "value": false
+        }
+      ],
+      "name": "DeviceExtendedAutoUpdateEnabled",
+      "owners": [
+        "artyomchen@chromium.org",
+        "chromeos-commercial-remote-management@google.com"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "tags": [],
+      "type": "main"
     },
     {
       "caption": "Configure minimum allowed <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> version for the device.",
@@ -11059,7 +11143,7 @@
       "default_for_enterprise_users": [
         "organizations"
       ],
-      "desc": "This policy allows admins to restrict which accounts are allowed to sign-in for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> when the <ph name=\"MICROSOFT_ONE_DRIVE_MOUNT_POLICY_NAME\">MicrosoftOneDriveMount</ph> is enabled.\n\nIf this policy contains a value of '<ph name=\"COMMON_NAME\">common</ph>', any account can be used to sign-in.\n\nIf this policy contains a value of '<ph name=\"ORGANIZATIONS_NAME\">organizations</ph>', work or school accounts can be used to sign-in.\n\nIf this policy contains a value of '<ph name=\"CONSUMER_NAME\">consumer</ph>', personal <ph name=\"MICROSOFT_NAME\">Microsoft</ph> accounts can be used to sign-in.\n\nIf this policy contains domain names or tenant IDs, accounts from these domain names or tenant IDs (see https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-protocols#endpoints) can be used to sign-in.\n\nIf this policy is unset or only contains an empty value, it behaves as if '<ph name=\"COMMON_NAME\">common</ph>' was specified for regular users; for enterprise users it behaves as if '<ph name=\"ORGANIZATIONS_NAME\">organizations</ph>' was specified.\n\nChanging the restriction might lead to users being signed out of their <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> account if it does not adhere to the new restrictions.",
+      "desc": "This policy allows admins to restrict which accounts are allowed to sign-in for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> when the <ph name=\"MICROSOFT_ONE_DRIVE_MOUNT_POLICY_NAME\">MicrosoftOneDriveMount</ph> policy is enabled.\n\nIf this policy contains a value of '<ph name=\"COMMON_NAME\">common</ph>', any account can be used to sign-in.\n\nIf this policy contains a value of '<ph name=\"ORGANIZATIONS_NAME\">organizations</ph>', work or school accounts can be used to sign-in.\n\nIf this policy contains a value of '<ph name=\"CONSUMERS_NAME\">consumers</ph>', personal <ph name=\"MICROSOFT_NAME\">Microsoft</ph> accounts can be used to sign-in.\n\nIf this policy contains domain names or tenant IDs, accounts from these domain names or tenant IDs (see https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-protocols#endpoints) can be used to sign-in.\n\nIf this policy is unset or only contains an empty value, it behaves as if '<ph name=\"COMMON_NAME\">common</ph>' was specified for regular users; for enterprise users it behaves as if '<ph name=\"ORGANIZATIONS_NAME\">organizations</ph>' was specified.\n\nChanging restrictions might lead to users being signed out of their <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> account if it does not adhere to the new restrictions.\n\nNote: At this time only the first entry will be taken into account. Later extensions will support multiple entries.",
       "example_value": [
         "domain.com"
       ],
@@ -11067,9 +11151,6 @@
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1174,
       "name": "MicrosoftOneDriveAccountRestrictions",
       "owners": [
@@ -11083,6 +11164,9 @@
         },
         "type": "array"
       },
+      "supported_on": [
+        "chrome_os:122-"
+      ],
       "tags": [],
       "type": "list"
     },
@@ -11090,15 +11174,12 @@
       "caption": "Configures the mounting of <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph>",
       "default": "allowed",
       "default_for_enterprise_users": "disallowed",
-      "desc": "This policy allows the admins to configure the mounting of <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph>.\n\nSetting the policy to '<ph name=\"ALLOWED_NAME\">allowed</ph>' lets the user set up <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> if they wish to.\nAfter completing the setup process, <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> will be mounted in the file manager.\n\nSetting the policy to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>' prohibits the user from setting up <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph>.\n\nSetting the policy to '<ph name=\"AUTOMATED_NAME\">automated</ph>' attempts to set up <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> automatically. In case of failure it falls back to showing the setup flow.\n\nLeaving the policy unset is functionally equivalent to setting it to '<ph name=\"ALLOWED_NAME\">allowed</ph>' for regular users; for enterprise users unset policy defaults to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>'.",
+      "desc": "This policy allows the admins to configure the mounting of <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph>.\n\nSetting the policy to '<ph name=\"ALLOWED_NAME\">allowed</ph>' lets the user set up <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> if they wish to.\nAfter completing the setup process, <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> will be mounted in the file manager.\n\nSetting the policy to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>' prohibits the user from setting up <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph>.\n\nSetting the policy to '<ph name=\"AUTOMATED_NAME\">automated</ph>' attempts to set up <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> automatically. This requires the user to log in to <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> with a Microsoft account. In case of failure it falls back to showing the setup flow.\n\nLeaving the policy unset is functionally equivalent to setting it to '<ph name=\"ALLOWED_NAME\">allowed</ph>' for regular users; for enterprise users unset policy defaults to '<ph name=\"DISALLOWED_NAME\">disallowed</ph>'.\n\nIt is possible to add further account restrict with the <ph name=\"MICROSOFT_ONE_DRIVE_ACCOUNT_RESTRICTIONS\">MicrosoftOneDriveAccountRestrictions</ph> policy.",
       "example_value": "allowed",
       "features": {
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1148,
       "items": [
         {
@@ -11131,6 +11212,9 @@
         ],
         "type": "string"
       },
+      "supported_on": [
+        "chrome_os:122-"
+      ],
       "tags": [],
       "type": "string-enum"
     },
@@ -11174,7 +11258,8 @@
     {
       "caption": "Restore permissive Chrome Apps <ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph> behavior",
       "default": false,
-      "desc": "Chrome Apps <ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph> allows for\nbehavior which is in the process of being removed from\n<ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>.\n\nThe previous behavior allows the\n<ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph>\n<ph name=\"NEWWINDOW_EVENT_NAME\">newwindow</ph> event\n(https://developer.chrome.com/docs/extensions/reference/webviewTag/#event-newwindow)\nto attach the new window to a <ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph>\nelement in a separate App window from the originating\n<ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph>. With the new behavior, this\nattachment is still allowed, however the window reference returned from the\ncall to <ph name=\"WINDOW_OPEN_NAME\">window.open</ph> in the originating\n<ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph> is invalidated.\n\nIf enabled, the previous behavior is used.\nIf disabled or unset, the behavior change takes effect as it is rolled\nout through the <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>\nrelease process.\n\nThis policy is a temporary workaround in the event that enterprises\nexperience breakage due to this change. This policy will be removed\nin version 122.",
+      "deprecated": true,
+      "desc": "Chrome Apps <ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph> allows for\nbehavior which is in the process of being removed from\n<ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>.\n\nThe previous behavior allows the\n<ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph>\n<ph name=\"NEWWINDOW_EVENT_NAME\">newwindow</ph> event\n(https://developer.chrome.com/docs/extensions/reference/webviewTag/#event-newwindow)\nto attach the new window to a <ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph>\nelement in a separate App window from the originating\n<ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph>. With the new behavior, this\nattachment is still allowed, however the window reference returned from the\ncall to <ph name=\"WINDOW_OPEN_NAME\">window.open</ph> in the originating\n<ph name=\"WEBVIEW_TAG_NAME\">&lt;webview&gt;</ph> is invalidated.\n\nIf enabled, the previous behavior is used.\nIf disabled or unset, the behavior change takes effect as it is rolled\nout through the <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>\nrelease process.\n\nThis policy is a temporary workaround in the event that enterprises\nexperience breakage due to this change. The last supported version of this\npolicy was version 121. It was removed in version 122.",
       "example_value": false,
       "features": {
         "dynamic_refresh": false,
@@ -11200,9 +11285,9 @@
         "type": "boolean"
       },
       "supported_on": [
-        "chrome.*:113-",
-        "chrome_os:113-",
-        "fuchsia:113-"
+        "chrome.*:113-121",
+        "chrome_os:113-121",
+        "fuchsia:113-121"
       ],
       "tags": [
         "system-security"
@@ -11270,9 +11355,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 516,
       "items": [
         {
@@ -12181,6 +12263,102 @@
       "type": "dict"
     },
     {
+      "caption": "Floating SSO Service blocked domain list",
+      "desc": "Configures a list of blocked cookie domains that will not be moved when a user switches between <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> devices, when the Floating SSO Service is enabled.\n\nIf a cookie is set for a domain which matches one of the provided filters, the cookie is excluded from the move. Cookie domains are matched according to \"host\" field rules outlined in https://support.google.com/chrome/a?p=url_blocklist_filter_format, all other fields are ignored. Wildcards, <ph name=\"WILDCARD_VALUE\">*</ph>, are allowed.\n\nThe <ph name=\"FLOATING_SSO_DOMAIN_BLOCKLIST_EXCEPTIONS_POLICY_NAME\">FloatingSsoDomainBlocklistExceptions</ph> policy takes precedence.",
+      "example_value": [
+        "*",
+        "example.com",
+        "*.example.com"
+      ],
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1198,
+      "name": "FloatingSsoDomainBlocklist",
+      "owners": [
+        "andreydav@google.com",
+        "mpetrisor@chromium.org",
+        "imprivata-eng@google.com"
+      ],
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "tags": [],
+      "type": "list"
+    },
+    {
+      "caption": "Floating SSO Service domain blocklist exception list",
+      "desc": "Configures the list of blocklist excepted cookie domains to be moved when a user switches between <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> devices, when the Floating SSO Service is enabled.\n\nIf a cookie is set for a domain which matches one of the provided filters, the cookie is included into the move. Cookie domains are matched according to \"host\" field rules outlined in https://support.google.com/chrome/a?p=url_blocklist_filter_format, all other fields are ignored. Wildcards, <ph name=\"WILDCARD_VALUE\">*</ph>, are allowed.\n\nLeaving the policy empty allows no exceptions to <ph name=\"FLOATING_SSO_DOMAIN_BLOCKLIST_POLICY_NAME\">FloatingSsoDomainBlocklist</ph>. To only allow a limited number of domains to be moved, block all domains by setting the <ph name=\"FLOATING_SSO_DOMAIN_BLOCKLIST_POLICY_NAME\">FloatingSsoDomainBlocklist</ph> policy to <ph name=\"WILDCARD_VALUE\">*</ph>, and configure the blocklist exceptions here.",
+      "example_value": [
+        "example.com",
+        "*.example.com"
+      ],
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1199,
+      "name": "FloatingSsoDomainBlocklistExceptions",
+      "owners": [
+        "andreydav@google.com",
+        "mpetrisor@chromium.org",
+        "imprivata-eng@google.com"
+      ],
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "tags": [],
+      "type": "list"
+    },
+    {
+      "caption": "Enable Floating SSO Service",
+      "default": false,
+      "desc": "When a user switches between <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> devices, the Floating SSO Service will restore the user's web service authentication state from the previous device onto the new device. This is achieved by moving user's cookies across devices.\n\nSetting the policy to Enabled will restore the user's web service authentication state from the user's last used <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> device automatically upon login.\nSetting the policy to Disabled or leaving it unset will not restore the user's web service authentication state upon login on a different device.\n\nThe web service domains blocked from being restored can be configured using the <ph name=\"FLOATING_SSO_DOMAIN_BLOCKLIST_POLICY_NAME\">FloatingSsoDomainBlocklist</ph> policy, while exceptions to that policy can be configured using the <ph name=\"FLOATING_SSO_DOMAIN_BLOCKLIST_EXCEPTIONS_POLICY_NAME\">FloatingSsoDomainBlocklistExceptions</ph> policy.\nIf both of these policies are unset, all web service authentications, except Google authentications, will be moved.",
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1197,
+      "items": [
+        {
+          "caption": "Enable Floating SSO and move the user's web service authentications to new device",
+          "value": true
+        },
+        {
+          "caption": "Disable Floating SSO and do not move the user's web service authentications to new device",
+          "value": false
+        }
+      ],
+      "name": "FloatingSsoEnabled",
+      "owners": [
+        "andreydav@google.com",
+        "mpetrisor@chromium.org",
+        "imprivata-eng@google.com"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "tags": [],
+      "type": "main"
+    },
+    {
       "caption": "Limit the time for which a user authenticated via GAIA without SAML can log in offline",
       "default": null,
       "desc": "During login, <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> can authenticate against a server (online) or using a cached password (offline).\n\n      When this policy is set to a value of -1, this policy will not enforce online authentication and will allow the user to use offline authentication until a different reason than this policy enforces an online login. If the policy is set to a value of 0, online login will always be required. When this policy is set to any other value, it specifies the length of time since the last online authentication after which the user must use online authentication again in the next sign-in.\n\n      Leaving this policy not set will make <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> use offline login.\n\n      This policy affects only users who authenticated using GAIA without SAML.\n\n      The policy value should be specified in days.",
@@ -12208,9 +12386,10 @@
       "type": "int"
     },
     {
-      "caption": "Create themes with AI",
+      "caption": "Settings for Create Themes with AI",
       "default": 0,
-      "desc": "This policy allows you to control how your organization's data is handled with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>'s Create themes with AI. This policy will take precedence over any future blanket policy.\n\nSetting the policy to \"Allowed\" will allow feature use for organization.\n\nSetting the policy to \"Allow without data collection\" will opt-out of collecting enterprise data for model training. This setting also disables data sharing via the in-feature Feedback dialog, and sending data for human evaluation. As a result, Google does not use enterprise user content (including prompts, inputs, outputs, and source materials) for model training. This would ensure that Google does not use enterprise user data to train or improve its AI models. Google does not save enterprise user content including (prompts, sources, inputs or outputs). Note that these may be stored up to 24 hours to keep situational context. This would ensure that Google does not collect or store any data that is entered into or generated by an AI feature. This includes user inputs, generated outputs, and user feedback.\n\nSetting the policy to \"Disabled\" will fully disable feature.",
+      "default_for_enterprise_users": 2,
+      "desc": "Create Themes with AI lets users create custom themes/wallpapers by preselecting from a list of options.\n\n0 = Enable the feature for users, and send relevant data to Google to help train or improve AI models. Relevant data may include prompts, inputs, outputs, and source materials, depending on the feature. It may be reviewed by humans for the sole purpose of improving AI models.\n\n0 is the default value, except when noted below.\n\n1 = Enable the feature for users, but do not send data to Google to train or improve AI models. 1 is the default value for Enterprise users managed by <ph name=\"GOOGLE_ADMIN_CONSOLE_PRODUCT_NAME\">Google Admin console</ph>.\n\n2 = Disable the feature. 2 is the default value for Education accounts managed by <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph>.\n\nFor more information on data handling for generative AI features, please see https://support.google.com/chrome/a?p=generative_ai_settings.",
       "example_value": 1,
       "features": {
         "dynamic_refresh": true,
@@ -12219,17 +12398,17 @@
       "id": 1188,
       "items": [
         {
-          "caption": "Allow feature use for organization",
+          "caption": "Enable the feature and send data to help train AI models",
           "name": "Allowed",
           "value": 0
         },
         {
-          "caption": "Allow without data collection",
+          "caption": "Enable the feature but don't send data to help train AI models",
           "name": "AllowedWithoutLogging",
           "value": 1
         },
         {
-          "caption": "Fully disable feature",
+          "caption": "Disable the feature",
           "name": "Disabled",
           "value": 2
         }
@@ -12255,9 +12434,10 @@
       "type": "int-enum"
     },
     {
-      "caption": "Allow help me write",
+      "caption": "Settings for Help Me Write",
       "default": 0,
-      "desc": "This policy allows you to control how your organization's data is handled with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>\u2019s Help me write. This policy will take precedence over any future blanket policy.\n\nSetting the policy to \"Allowed\" will allow feature use for organization.\n\nSetting the policy to \"Allow without data collection\" will opt-out of collecting enterprise data for model training. This setting also disables data sharing via the in-feature Feedback dialog, and sending data for human evaluation. As a result, Google does not use enterprise user content (including prompts, inputs, outputs, and source materials) for model training. This would ensure that Google does not use enterprise user data to train or improve its AI models. Google does not save enterprise user content including (prompts, sources, inputs or outputs). Note that these may be stored up to 24 hours to keep situational context. This would ensure that Google does not collect or store any data that is entered into or generated by an AI feature. This includes user inputs, generated outputs, and user feedback.\n\nSetting the policy to \"Disabled\" will fully disable feature.",
+      "default_for_enterprise_users": 2,
+      "desc": "Help Me Write is an AI-based writing assistant for short-form content on the web. Suggested content is based on prompts entered by the user and the content of the web page.\n\n0 = Enable the feature for users, and send relevant data to Google to help train or improve AI models. Relevant data may include prompts, inputs, outputs, and source materials, depending on the feature. It may be reviewed by humans for the sole purpose of improving AI models.\n\n0 is the default value, except when noted below.\n\n1 = Enable the feature for users, but do not send data to Google to train or improve AI models. 1 is the default value for Enterprise users managed by <ph name=\"GOOGLE_ADMIN_CONSOLE_PRODUCT_NAME\">Google Admin console</ph>.\n\n2 = Disable the feature. 2 is the default value for Education accounts managed by <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph>.\n\nFor more information on data handling for generative AI features, please see https://support.google.com/chrome/a?p=generative_ai_settings.",
       "example_value": 1,
       "features": {
         "dynamic_refresh": true,
@@ -12266,17 +12446,17 @@
       "id": 1187,
       "items": [
         {
-          "caption": "Allow feature use for organization",
+          "caption": "Enable the feature and send data to help train AI models",
           "name": "Allowed",
           "value": 0
         },
         {
-          "caption": "Allow without data collection",
+          "caption": "Enable the feature but don't send data to help train AI models",
           "name": "AllowedWithoutLogging",
           "value": 1
         },
         {
-          "caption": "Fully disable feature",
+          "caption": "Disable the feature",
           "name": "Disabled",
           "value": 2
         }
@@ -12302,9 +12482,10 @@
       "type": "int-enum"
     },
     {
-      "caption": "Allow tab organizer",
+      "caption": "Settings for Tab Organizer",
       "default": 0,
-      "desc": "This policy allows you to control how your organization's data is handled with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>'s Tab organizer. This policy will take precedence over any future blanket policy.\n\nSetting the policy to \"Allowed\" will allow feature use for organization.\n\nSetting the policy to \"Allow without data collection\" will opt-out of collecting enterprise data for model training. This setting also disables data sharing via the in-feature Feedback dialog, and sending data for human evaluation. As a result, Google does not use enterprise user content (including prompts, inputs, outputs, and source materials) for model training. This would ensure that Google does not use enterprise user data to train or improve its AI models. Google does not save enterprise user content including (prompts, sources, inputs or outputs). Note that these may be stored up to 24 hours to keep situational context. This would ensure that Google does not collect or store any data that is entered into or generated by an AI feature. This includes user inputs, generated outputs, and user feedback.\n\nSetting the policy to \"Disabled\" will fully disable feature.",
+      "default_for_enterprise_users": 2,
+      "desc": "Tab Organizer is an AI-based tool that automatically creates tab groups based on a user's open tabs. Suggestions are based on open tabs (but not page content).\n\n0 = Enable the feature for users, and send relevant data to Google to help train or improve AI models. Relevant data may include prompts, inputs, outputs, and source materials, depending on the feature. It may be reviewed by humans for the sole purpose of improving AI models.\n\n0 is the default value, except when noted below.\n\n1 = Enable the feature for users, but do not send data to Google to train or improve AI models. 1 is the default value for Enterprise users managed by <ph name=\"GOOGLE_ADMIN_CONSOLE_PRODUCT_NAME\">Google Admin console</ph>.\n\n2 = Disable the feature. 2 is the default value for education accounts managed by <ph name=\"GOOGLE_WORKSPACE_PRODUCT_NAME\">Google Workspace</ph>.\n\nFor more information on data handling for generative AI features, please see https://support.google.com/chrome/a?p=generative_ai_settings.",
       "example_value": 1,
       "features": {
         "dynamic_refresh": true,
@@ -12313,17 +12494,17 @@
       "id": 1186,
       "items": [
         {
-          "caption": "Allow feature use for organization",
+          "caption": "Enable the feature and send data to help train AI models",
           "name": "Allowed",
           "value": 0
         },
         {
-          "caption": "Allow without data collection",
+          "caption": "Enable the feature but don't send data to help train AI models",
           "name": "AllowedWithoutLogging",
           "value": 1
         },
         {
-          "caption": "Fully disable feature",
+          "caption": "Disable the feature",
           "name": "Disabled",
           "value": 2
         }
@@ -12435,9 +12616,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 1011,
       "items": [
         {
@@ -13786,9 +13964,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 223,
       "items": [
         {
@@ -14377,9 +14552,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 533,
       "items": [
         {
@@ -14450,9 +14622,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 604,
       "items": [
         {
@@ -15947,10 +16116,10 @@
         "type": "boolean"
       },
       "supported_on": [
-        "chrome.*:117-127",
-        "chrome_os:117-127",
-        "android:117-127",
-        "webview_android:117-127"
+        "chrome.*:117-",
+        "chrome_os:117-",
+        "android:117-",
+        "webview_android:117-"
       ],
       "tags": [],
       "type": "main"
@@ -16568,9 +16737,6 @@
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 841,
       "items": [
         {
@@ -16783,15 +16949,13 @@
     {
       "caption": "Extend support for Chrome Apps on <ph name=\"MS_WIN_NAME\">Microsoft\u00ae Windows\u00ae</ph>, <ph name=\"MAC_OS_NAME\">macOS</ph>, and <ph name=\"LINUX_OS_NAME\">Linux</ph>.",
       "default": false,
+      "deprecated": true,
       "desc": "Chrome Apps are deprecated on <ph name=\"MS_WIN_NAME\">Microsoft\u00ae Windows\u00ae</ph>, <ph name=\"MAC_OS_NAME\">macOS</ph>, and <ph name=\"LINUX_OS_NAME\">Linux</ph>.\n      If this policy is enabled, <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> will continue to allow Chrome Apps to be run on these platforms until the final date when Chrome Apps support is removed on all platforms, June 2022.\n      If this policy is disabled or unset, Chrome Apps may not be allowed to run, depending on the status of the deprecation rollout.\n      In either case, Chrome Apps that are force installed by policy will continue to be allowed.",
       "example_value": true,
       "features": {
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 892,
       "items": [
         {
@@ -17593,9 +17757,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 826,
       "name": "ContextAwareAccessSignalsAllowlist",
       "owners": [
@@ -17722,7 +17883,8 @@
     },
     {
       "caption": "Allows blocking copying to the clipboard on specified URLs",
-      "desc": "This policy blocks copying data to the clipboard on specific URLs.\n\nThe <ph name=\"ENTERPRISE_CONNECTOR_ENABLE_FIELD\">enable</ph> and <ph name=\"ENTERPRISE_CONNECTOR_DISABLE_FIELD\">disable</ph> URL lists control which sites are allowed to write to the clipboard. A clipboard write is blocked if the URL matches a pattern in 'enable' and doesn't match a pattern in 'disable'. A copy is not blocked if the URL does not match any pattern.\n\nThe origin matching patterns use a similar format to those for the '<ph name=\"URL_BLOCKLIST_POLICY_NAME\">URLBlocklist</ph>' policy, which are documented at https://support.google.com/chrome/a?p=url_blocklist_filter_format.\n\nThe <ph name=\"ENTERPRISE_CONNECTOR_MINIMUM_DATA_SIZE\">minimum_data_size</ph> indicates the minimum amount of data in bytes that triggers the pattern check. This means that a clipboard write from a blocked URL would be allowed if the size of the copied data is smaller than the value specified in this field. The default value is 100 bytes if the field is unset.",
+      "deprecated": true,
+      "desc": "This policy is deprecated and will eventually be replaced by DataControlsRules.\n\nThis policy blocks copying data to the clipboard on specific URLs.\n\nThe <ph name=\"ENTERPRISE_CONNECTOR_ENABLE_FIELD\">enable</ph> and <ph name=\"ENTERPRISE_CONNECTOR_DISABLE_FIELD\">disable</ph> URL lists control which sites are allowed to write to the clipboard. A clipboard write is blocked if the URL matches a pattern in 'enable' and doesn't match a pattern in 'disable'. A copy is not blocked if the URL does not match any pattern.\n\nThe origin matching patterns use a similar format to those for the '<ph name=\"URL_BLOCKLIST_POLICY_NAME\">URLBlocklist</ph>' policy, which are documented at https://support.google.com/chrome/a?p=url_blocklist_filter_format.\n\nThe <ph name=\"ENTERPRISE_CONNECTOR_MINIMUM_DATA_SIZE\">minimum_data_size</ph> indicates the minimum amount of data in bytes that triggers the pattern check. This means that a clipboard write from a blocked URL would be allowed if the size of the copied data is smaller than the value specified in this field. The default value is 100 bytes if the field is unset.",
       "example_value": {
         "disable": [
           "not-sensitive.example.com"
@@ -17743,8 +17905,8 @@
       "id": 928,
       "name": "CopyPreventionSettings",
       "owners": [
-        "anthonyvd@chromium.org",
-        "domfc@chromium.org"
+        "domfc@chromium.org",
+        "dpr-eng@google.com"
       ],
       "schema": {
         "properties": {
@@ -18123,6 +18285,251 @@
               "level": "BLOCK"
             }
           ]
+        },
+        {
+          "description": "Block pasting in non corp sites using a not condition",
+          "not": {
+            "destinations": {
+              "urls": [
+                "corp.com"
+              ]
+            }
+          },
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
+        },
+        {
+          "description": "Block pasting in several cases using an if condition",
+          "or": [
+            {
+              "destinations": {
+                "incognito": true
+              }
+            },
+            {
+              "destinations": {
+                "os_clipboard": true
+              }
+            },
+            {
+              "destinations": {
+                "other_profile": true
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
+        },
+        {
+          "and": [
+            {
+              "destinations": {
+                "incognito": true
+              }
+            },
+            {
+              "not": {
+                "destinations": {
+                  "urls": [
+                    "corp.com"
+                  ]
+                }
+              }
+            }
+          ],
+          "description": "Block pasting to incognito with an exception of corp sites",
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
+        },
+        {
+          "description": "Block copying from non corp sites using a not condition",
+          "not": {
+            "sources": {
+              "urls": [
+                "corp.com"
+              ]
+            }
+          },
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
+        },
+        {
+          "description": "Block copying in several cases using an if condition",
+          "or": [
+            {
+              "sources": {
+                "incognito": true
+              }
+            },
+            {
+              "sources": {
+                "os_clipboard": true
+              }
+            },
+            {
+              "sources": {
+                "other_profile": true
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
+        },
+        {
+          "and": [
+            {
+              "sources": {
+                "incognito": true
+              }
+            },
+            {
+              "not": {
+                "sources": {
+                  "urls": [
+                    "corp.com"
+                  ]
+                }
+              }
+            }
+          ],
+          "description": "Block copying from incognito with an exception of corp sites",
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
+        },
+        {
+          "and": [
+            {
+              "and": [
+                {
+                  "destinations": {
+                    "incognito": true
+                  },
+                  "sources": {
+                    "incognito": true
+                  }
+                }
+              ]
+            },
+            {
+              "not": {
+                "destinations": {
+                  "incognito": true
+                },
+                "sources": {
+                  "incognito": true
+                }
+              }
+            },
+            {
+              "or": [
+                {
+                  "destinations": {
+                    "incognito": true
+                  },
+                  "sources": {
+                    "incognito": true
+                  }
+                }
+              ]
+            }
+          ],
+          "description": "Block clipboard interactions with several nested conditions",
+          "not": {
+            "and": [
+              {
+                "destinations": {
+                  "incognito": true
+                },
+                "sources": {
+                  "incognito": true
+                }
+              }
+            ],
+            "not": {
+              "destinations": {
+                "incognito": true
+              },
+              "sources": {
+                "incognito": true
+              }
+            },
+            "or": [
+              {
+                "destinations": {
+                  "incognito": true
+                },
+                "sources": {
+                  "incognito": true
+                }
+              }
+            ]
+          },
+          "or": [
+            {
+              "and": [
+                {
+                  "destinations": {
+                    "incognito": true
+                  },
+                  "sources": {
+                    "incognito": true
+                  }
+                }
+              ]
+            },
+            {
+              "not": {
+                "destinations": {
+                  "incognito": true
+                },
+                "sources": {
+                  "incognito": true
+                }
+              }
+            },
+            {
+              "or": [
+                {
+                  "destinations": {
+                    "incognito": true
+                  },
+                  "sources": {
+                    "incognito": true
+                  }
+                }
+              ]
+            }
+          ],
+          "restrictions": [
+            {
+              "class": "CLIPBOARD",
+              "level": "BLOCK"
+            }
+          ]
         }
       ],
       "features": {
@@ -18144,6 +18551,70 @@
       "schema": {
         "items": {
           "properties": {
+            "and": {
+              "items": {
+                "id": "DataControlsCondition",
+                "properties": {
+                  "and": {
+                    "items": {
+                      "$ref": "DataControlsCondition"
+                    },
+                    "type": "array"
+                  },
+                  "destinations": {
+                    "properties": {
+                      "incognito": {
+                        "type": "boolean"
+                      },
+                      "os_clipboard": {
+                        "type": "boolean"
+                      },
+                      "other_profile": {
+                        "type": "boolean"
+                      },
+                      "urls": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "not": {
+                    "$ref": "DataControlsCondition"
+                  },
+                  "or": {
+                    "items": {
+                      "$ref": "DataControlsCondition"
+                    },
+                    "type": "array"
+                  },
+                  "sources": {
+                    "properties": {
+                      "incognito": {
+                        "type": "boolean"
+                      },
+                      "os_clipboard": {
+                        "type": "boolean"
+                      },
+                      "other_profile": {
+                        "type": "boolean"
+                      },
+                      "urls": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
             "description": {
               "type": "string"
             },
@@ -18169,6 +18640,129 @@
             },
             "name": {
               "type": "string"
+            },
+            "not": {
+              "properties": {
+                "and": {
+                  "items": {
+                    "$ref": "DataControlsCondition"
+                  },
+                  "type": "array"
+                },
+                "destinations": {
+                  "properties": {
+                    "incognito": {
+                      "type": "boolean"
+                    },
+                    "os_clipboard": {
+                      "type": "boolean"
+                    },
+                    "other_profile": {
+                      "type": "boolean"
+                    },
+                    "urls": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "not": {
+                  "$ref": "DataControlsCondition"
+                },
+                "or": {
+                  "items": {
+                    "$ref": "DataControlsCondition"
+                  },
+                  "type": "array"
+                },
+                "sources": {
+                  "properties": {
+                    "incognito": {
+                      "type": "boolean"
+                    },
+                    "os_clipboard": {
+                      "type": "boolean"
+                    },
+                    "other_profile": {
+                      "type": "boolean"
+                    },
+                    "urls": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "or": {
+              "items": {
+                "properties": {
+                  "and": {
+                    "items": {
+                      "$ref": "DataControlsCondition"
+                    },
+                    "type": "array"
+                  },
+                  "destinations": {
+                    "properties": {
+                      "incognito": {
+                        "type": "boolean"
+                      },
+                      "os_clipboard": {
+                        "type": "boolean"
+                      },
+                      "other_profile": {
+                        "type": "boolean"
+                      },
+                      "urls": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "not": {
+                    "$ref": "DataControlsCondition"
+                  },
+                  "or": {
+                    "items": {
+                      "$ref": "DataControlsCondition"
+                    },
+                    "type": "array"
+                  },
+                  "sources": {
+                    "properties": {
+                      "incognito": {
+                        "type": "boolean"
+                      },
+                      "os_clipboard": {
+                        "type": "boolean"
+                      },
+                      "other_profile": {
+                        "type": "boolean"
+                      },
+                      "urls": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
             },
             "restrictions": {
               "items": {
@@ -18673,6 +19267,53 @@
       ],
       "tags": [],
       "type": "main"
+    },
+    {
+      "caption": "Control the shortcut used to trigger the Delete \"six pack\" key",
+      "default": 2,
+      "desc": "This policy determines the behavior for remapping the Delete key within\nthe 'remap keys' subpage. The 'remap keys' subpage allows users to\ncustomize keyboard keys. If enabled, this policy prevents users from\ncustomizing these specific remappings. If the policy is not set,\nsearch-based shortcuts will act as the default and allows users to\nconfigure the shortcuts.",
+      "example_value": 0,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1204,
+      "items": [
+        {
+          "caption": "Setting a shortcut for the \"Delete\" action is disabled.",
+          "name": "None",
+          "value": 0
+        },
+        {
+          "caption": "Delete shortcut setting uses the shortcut that contains the alt modifier",
+          "name": "Alt",
+          "value": 1
+        },
+        {
+          "caption": "Delete shortcut setting uses the shortcut that contains the search modifier",
+          "name": "Search",
+          "value": 2
+        }
+      ],
+      "name": "DeleteKeyModifier",
+      "owners": [
+        "michaelcheco@google.com",
+        "cros-peripherals@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
+      "tags": [],
+      "type": "int-enum"
     },
     {
       "caption": "Allow users to select a desk template layout to load",
@@ -19384,6 +20025,7 @@
     {
       "caption": "Control the shortcut used to trigger F11/F12",
       "default": null,
+      "deprecated": true,
       "desc": "This policy controls the selected shortcut option for remapping events to\nF11/F12 in the remap keys subpage. These settings are only applicable for\nChromeOS keyboards and are disabled by default if the policy is unset.",
       "device_only": true,
       "example_value": 0,
@@ -19429,7 +20071,7 @@
         "type": "integer"
       },
       "supported_on": [
-        "chrome_os:121-"
+        "chrome_os:121-122"
       ],
       "tags": [],
       "type": "int-enum"
@@ -19891,6 +20533,45 @@
       ],
       "tags": [],
       "type": "int"
+    },
+    {
+      "caption": "Enable the touch virtual keyboard on the login screen",
+      "default": null,
+      "desc": "Controls the touch virtual keyboard on the login screen, acting as a supplementary policy to the <ph name=\"VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">DeviceLoginScreenVirtualKeyboardEnabled</ph> policy.\n\n    If accessibility virtual keyboard is turned on, this policy has no effect.\n\n    Otherwise, this policy has the following effect on the login screen:\n    If this policy is not set, the virtual keyboard is displayed based on the default system heuristics, such as whether there are keyboards attached.\n    If this policy is set to True, the virtual keyboard is always displayed.\n    If this policy is set to False, the virtual keyboard is never displayed.\n\n    The virtual keyboard may change to a compact layout depending on the input method.",
+      "device_only": true,
+      "example_value": true,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1194,
+      "items": [
+        {
+          "caption": "Enable touch virtual keyboard on the login screen",
+          "value": true
+        },
+        {
+          "caption": "Disable touch virtual keyboard on the login screen",
+          "value": false
+        },
+        {
+          "caption": "Enable touch virtual keyboard based on the default system heuristics on the login screen",
+          "value": null
+        }
+      ],
+      "name": "DeviceLoginScreenTouchVirtualKeyboardEnabled",
+      "owners": [
+        "shend@chromium.org",
+        "e14s-eng@google.com"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "tags": [],
+      "type": "main"
     },
     {
       "caption": "Automatically grant permission to these sites to connect to HID devices with the given vendor and product IDs on the login screen.",
@@ -21212,9 +21893,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 880,
       "items": [
         {
@@ -21401,9 +22079,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 970,
       "items": [
         {
@@ -21550,7 +22225,7 @@
       ],
       "name": "EasyUnlockAllowed",
       "owners": [
-        "file://chrome/browser/ash/login/easy_unlock/OWNERS",
+        "file://chrome/browser/ash/login/smart_lock/OWNERS",
         "hansberry@chromium.org"
       ],
       "schema": {
@@ -22419,9 +23094,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1100,
       "items": [
         {
@@ -22442,6 +23114,9 @@
       "schema": {
         "type": "boolean"
       },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
       "tags": [],
       "type": "main"
     },
@@ -22455,9 +23130,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 990,
       "items": [
         {
@@ -22900,6 +23572,111 @@
       "type": "main"
     },
     {
+      "caption": "Control the shortcut used to trigger F11",
+      "desc": "This policy controls the selected shortcut option for remapping events to\nF11 in the remap keys subpage. These settings are only applicable for\n<ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> keyboards\nand are disabled by default if the policy is unset. If you set this policy,\nusers cannot change or override it.",
+      "example_value": 0,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1200,
+      "items": [
+        {
+          "caption": "F11 settings are disabled",
+          "name": "Disabled",
+          "value": 0
+        },
+        {
+          "caption": "F11 settings use the shortcut that contains the alt modifier",
+          "name": "Alt",
+          "value": 1
+        },
+        {
+          "caption": "F11 settings use the shortcut that contains the shift modifier",
+          "name": "Shift",
+          "value": 2
+        },
+        {
+          "caption": "F11 settings use the shortcut that contains the modifiers ctrl and shift",
+          "name": "CtrlShift",
+          "value": 3
+        }
+      ],
+      "name": "F11KeyModifier",
+      "owners": [
+        "michaelcheco@google.com",
+        "cros-peripherals@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
+      "tags": [],
+      "type": "int-enum"
+    },
+    {
+      "caption": "Control the shortcut used to trigger F12",
+      "default": null,
+      "desc": "This policy controls the selected shortcut option for remapping events to\nF12 in the remap keys subpage. These settings are only applicable for\n<ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> keyboards\nand are disabled by default if the policy is unset. If you set this policy,\nusers cannot change or override it.",
+      "example_value": 0,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1201,
+      "items": [
+        {
+          "caption": "F12 settings are disabled",
+          "name": "Disabled",
+          "value": 0
+        },
+        {
+          "caption": "F12 settings use the shortcut that contains the alt modifier",
+          "name": "Alt",
+          "value": 1
+        },
+        {
+          "caption": "F12 settings use the shortcut that contains the shift modifier",
+          "name": "Shift",
+          "value": 2
+        },
+        {
+          "caption": "F12 settings use the shortcut that contains the modifiers ctrl and shift",
+          "name": "CtrlShift",
+          "value": 3
+        }
+      ],
+      "name": "F12KeyModifier",
+      "owners": [
+        "michaelcheco@google.com",
+        "cros-peripherals@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
+      "tags": [],
+      "type": "int-enum"
+    },
+    {
       "caption": "Enable Fast Pair (fast Bluetooth pairing)",
       "default": true,
       "default_for_enterprise_users": false,
@@ -23337,9 +24114,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 949,
       "items": [
         {
@@ -23960,7 +24734,7 @@
     {
       "caption": "Enable <ph name=\"SEARCH_SIDE_PANEL_FEATURE_NAME\">Google Search Side Panel</ph>",
       "default": true,
-      "desc": "If set to Enabled or not set, <ph name=\"SEARCH_SIDE_PANEL_FEATURE_NAME\">Google Search Side Panel</ph> is allowed on all web pages.\n\nIf set to Disabled, <ph name=\"SEARCH_SIDE_PANEL_FEATURE_NAME\">Google Search Side Panel</ph> is not available on any webpage.",
+      "desc": "If set to Enabled or not set, <ph name=\"SEARCH_SIDE_PANEL_FEATURE_NAME\">Google Search Side Panel</ph> is allowed on all web pages.\n\nIf set to Disabled, <ph name=\"SEARCH_SIDE_PANEL_FEATURE_NAME\">Google Search Side Panel</ph> is not available on any webpage.\n\nGenAI capabilities that are part of this feature are not available for Educational or Enterprise accounts.",
       "example_value": true,
       "features": {
         "dynamic_refresh": true,
@@ -24031,8 +24805,8 @@
       "type": "list"
     },
     {
-      "caption": "Use hardware acceleration when available",
-      "desc": "Setting the policy to Enabled or leaving it unset turns on hardware acceleration, if available.\n\n      Setting the policy to Disabled turns off hardware acceleration.",
+      "caption": "Use graphics acceleration when available",
+      "desc": "Setting the policy to Enabled or leaving it unset turns on graphics acceleration, if available.\n\n      Setting the policy to Disabled turns off graphics acceleration.",
       "example_value": true,
       "features": {
         "dynamic_refresh": false,
@@ -24044,18 +24818,19 @@
       "id": 304,
       "items": [
         {
-          "caption": "Enable hardware acceleration",
+          "caption": "Enable graphics acceleration",
           "value": true
         },
         {
-          "caption": "Disable hardware acceleration",
+          "caption": "Disable graphics acceleration",
           "value": false
         }
       ],
       "name": "HardwareAccelerationModeEnabled",
       "owners": [
         "zmo@chromium.org",
-        "kbr@chromium.org"
+        "kbr@chromium.org",
+        "file://gpu/GRAPHICS_TEAM_OWNERS"
       ],
       "schema": {
         "type": "boolean"
@@ -24292,6 +25067,53 @@
       ],
       "tags": [],
       "type": "main"
+    },
+    {
+      "caption": "Control the shortcut used to trigger the Home/End \"six pack\" keys",
+      "default": 2,
+      "desc": "This policy determines the behavior for remapping the Home/End keys\nwithin the 'remap keys' subpage. The 'remap keys' subpage allows users to\ncustomize keyboard keys. If enabled, this policy prevents users from\ncustomizing these specific remappings. If the policy is not set,\nsearch-based shortcuts will act as the default and allows users to\nconfigure the shortcuts.",
+      "example_value": 0,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1205,
+      "items": [
+        {
+          "caption": "Home/End settings are disabled",
+          "name": "None",
+          "value": 0
+        },
+        {
+          "caption": "Home/End settings use the shortcut that contains the alt modifier",
+          "name": "Alt",
+          "value": 1
+        },
+        {
+          "caption": "Home/End settings use the shortcut that contains the search modifier",
+          "name": "Launcher/Search",
+          "value": 2
+        }
+      ],
+      "name": "HomeAndEndKeysModifier",
+      "owners": [
+        "michaelcheco@google.com",
+        "cros-peripherals@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
+      "tags": [],
+      "type": "int-enum"
     },
     {
       "caption": "Enable HTTP/0.9 support on non-default ports",
@@ -24870,6 +25692,47 @@
         "system-security"
       ],
       "type": "main"
+    },
+    {
+      "caption": "Control the shortcut used to trigger the Insert \"six pack\" key",
+      "default": 2,
+      "desc": "This policy determines the default behavior for remapping the Insert key\nwithin the 'remap keys' subpage. The 'remap keys' subpage allows users to\ncustomize keyboard keys. If enabled, this policy prevents users from\ncustomizing these specific remappings. If the policy is not set,\nsearch-based shortcuts will act as the default.",
+      "example_value": 0,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1207,
+      "items": [
+        {
+          "caption": "Setting a shortcut for the \"Insert\" action is disabled.",
+          "name": "None",
+          "value": 0
+        },
+        {
+          "caption": "Insert shortcut setting uses the shortcut that contains the search modifier",
+          "name": "Search",
+          "value": 2
+        }
+      ],
+      "name": "InsertKeyModifier",
+      "owners": [
+        "michaelcheco@google.com",
+        "cros-peripherals@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          2
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
+      "tags": [],
+      "type": "int-enum"
     },
     {
       "arc_support": "This policy has no effect on the reporting done by Android.",
@@ -25742,9 +26605,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 1005,
       "items": [
         {
@@ -28556,6 +29416,7 @@
     {
       "caption": "Allow <ph name=\"PEPPER_NAME\">Pepper</ph> to use shared images for video decoding.",
       "default": true,
+      "deprecated": true,
       "desc": "This policy controls the recent refactor for VideoDecoder APIs in PPAPI plugin.\n\nThe migration only affects internal implementation details and should not\nchange any behavior. However, this policy can be used in case any PPAPI\napplications do not work as expected.\n\nWhen the policy is left unset or set to Enabled, the browser will decide which\nimplementation is used.\nWhen the policy is set to Disabled, browser will use the old implementation\nuntil the policy is expired.\n\nNOTE: Only newly-started renderer processes will reflect changes to this\npolicy while the browser is running.",
       "device_only": false,
       "example_value": false,
@@ -28583,7 +29444,7 @@
         "type": "boolean"
       },
       "supported_on": [
-        "chrome_os:119-"
+        "chrome_os:119-121"
       ],
       "tags": [],
       "type": "main"
@@ -28650,6 +29511,53 @@
         "system-security"
       ],
       "type": "main"
+    },
+    {
+      "caption": "Control the shortcut used to trigger the PageUp/PageDown \"six pack\" keys",
+      "default": 2,
+      "desc": "This policy determines the behavior for remapping the PageUp/PageDown\nkeys within the 'remap keys' subpage. The 'remap keys' subpage allows users\nto customize keyboard keys. If enabled, this policy prevents users from\ncustomizing these specific remappings. If the policy is not set,\nsearch-based shortcuts will act as the default and allows users to\nconfigure the shortcuts.",
+      "example_value": 0,
+      "features": {
+        "can_be_recommended": true,
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1206,
+      "items": [
+        {
+          "caption": "PageUp/PageDown settings are disabled",
+          "name": "None",
+          "value": 0
+        },
+        {
+          "caption": "PageUp/PageDown settings use the shortcut that contains the alt modifier",
+          "name": "Alt",
+          "value": 1
+        },
+        {
+          "caption": "PageUp/PageDown settings use the shortcut that contains the search modifier",
+          "name": "Search",
+          "value": 2
+        }
+      ],
+      "name": "PageUpAndPageDownKeysModifier",
+      "owners": [
+        "michaelcheco@google.com",
+        "cros-peripherals@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
+      "tags": [],
+      "type": "int-enum"
     },
     {
       "caption": "Allows users to track their packages on Chrome.",
@@ -28877,9 +29785,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 1002,
       "items": [
         {
@@ -29515,9 +30420,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 1004,
       "items": [
         {
@@ -30806,9 +31708,6 @@
         "dynamic_refresh": true,
         "per_profile": false
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 279,
       "items": [
         {
@@ -31328,7 +32227,8 @@
     {
       "caption": "Add restrictions on a managed account's usage as a secondary account on ChromeOS",
       "default": "all",
-      "desc": "If this policy is set to <ph name=\"POLICY_VALUE_ALL\">'all'</ph> or not set, all usages of managed accounts are allowed. This may result in a managed account being a secondary account, which would only receive policies when the account is signed-in as a primary account in a browser Profile.\n      Policies set to the account won't be enforced in the following scenarios:\n        -  Being a secondary account at the OS level (Account Settings)\n        -  Being a secondary account in a browser Profile\n\n      If this policy is set to <ph name=\"POLICY_VALUE_PRIMARY_ACCOUNT_SIGNIN\">'primary_account_signin'</ph> on an account, this account will be allowed to sign in as a primary account only. It won't be allowed to sign in as a secondary account.",
+      "deprecated": true,
+      "desc": "Removed in M122 - this is a server-side-only policy that never used the ChromeOS policy infrastructure for its propagation.\nIf this policy is set to <ph name=\"POLICY_VALUE_ALL\">'all'</ph> or not set, all usages of managed accounts are allowed. This may result in a managed account being a secondary account, which would only receive policies when the account is signed-in as a primary account in a browser Profile.\n      Policies set to the account won't be enforced in the following scenarios:\n        -  Being a secondary account at the OS level (Account Settings)\n        -  Being a secondary account in a browser Profile\n\n      If this policy is set to <ph name=\"POLICY_VALUE_PRIMARY_ACCOUNT_SIGNIN\">'primary_account_signin'</ph> on an account, this account will be allowed to sign in as a primary account only. It won't be allowed to sign in as a secondary account.",
       "example_value": "primary_account_signin",
       "features": {
         "dynamic_refresh": false,
@@ -31361,7 +32261,7 @@
         "type": "string"
       },
       "supported_on": [
-        "chrome_os:103-"
+        "chrome_os:103-121"
       ],
       "tags": [],
       "type": "string-enum"
@@ -33568,9 +34468,9 @@
       "type": "int"
     },
     {
-      "caption": "Enable virtual keyboard",
+      "caption": "Enable the touch virtual keyboard",
       "default": null,
-      "desc": "Controls the on-screen keyboard, acting as a supplementary policy to the <ph name=\"VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">VirtualKeyboardEnabled</ph> policy.\n\n      If the <ph name=\"VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">VirtualKeyboardEnabled</ph> policy is True or if the Enable on-screen keyboard ChromeOS setting is on, this policy has no effect.\n\n      If the <ph name=\"VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">VirtualKeyboardEnabled</ph> policy is False or not set and the Enable on-screen keyboard ChromeOS setting is off, this policy has the following effect:\n      If this policy is not set, the on-screen keyboard is displayed when the device is in tablet mode.\n      If this policy is set to True, the on-screen keyboard is always displayed.\n      If this policy is set to False, the on-screen keyboard is never displayed.\n\n      The on-screen keyboard may change to a compact layout depending on the input method.\n\n      If you set the policy, users can't change it.",
+      "desc": "Controls the touch virtual keyboard, acting as a supplementary policy to the <ph name=\"VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">VirtualKeyboardEnabled</ph> policy.\n\n      If accessibility virtual keyboard is turned on, this policy has no effect.\n\n      Otherwise, this policy has the following effect:\n      If this policy is not set, the virtual keyboard is displayed based on the default system heuristics, such as whether there are keyboards attached.\n      If this policy is set to True, the virtual keyboard is always displayed.\n      If this policy is set to False, the virtual keyboard is never displayed.\n\n      The virtual keyboard may change to a compact layout depending on the input method.",
       "example_value": false,
       "features": {
         "dynamic_refresh": true,
@@ -33579,21 +34479,22 @@
       "id": 269,
       "items": [
         {
-          "caption": "Enable on-screen keyboard",
+          "caption": "Enable touch virtual keyboard",
           "value": true
         },
         {
-          "caption": "Disable on-screen keyboard",
+          "caption": "Disable touch virtual keyboard",
           "value": false
         },
         {
-          "caption": "Enable on-screen keyboard in tablet mode",
+          "caption": "Enable touch virtual keyboard based on the default system heuristics",
           "value": null
         }
       ],
       "name": "TouchVirtualKeyboardEnabled",
       "owners": [
-        "rsadam@chromium.org"
+        "shend@chromium.org",
+        "e14s-eng@google.com"
       ],
       "schema": {
         "type": "boolean"
@@ -34040,9 +34941,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 988,
       "items": [
         {
@@ -34173,9 +35071,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 981,
       "items": [
         {
@@ -34920,6 +35815,40 @@
       "type": "main"
     },
     {
+      "caption": "Let the on-screen keyboard appear when appropriate.",
+      "default": true,
+      "desc": "When the policy is set to True or unset, the on-screen keyboard can appear when it predicts that the user is about to use it.\n\nWhen the policy to set to False, the on-screen keyboard only appears if the user explicitly taps on an input field or if an application requests it.\n\nFor example, suppose the user uses the virtual keyboard to type their username in a two-stage login screen. When the login screen transitions to the password stage, if the policy is True, the virtual keyboard may remain visible, even though the user did not tap on the password input field. If the policy is False, then the virtual keyboard will disappear.\n\nThis policy does not apply if the virtual keyboard is disabled (e.g. using the <ph name=\"TOUCH_VIRTUAL_KEYBOARD_ENABLED_POLICY_NAME\">TouchVirtualKeyboardEnabled</ph> policy, or if the device is connected to a physical keyboard).",
+      "example_value": false,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1202,
+      "items": [
+        {
+          "caption": "Show the on-screen keyboard when appropriate.",
+          "value": true
+        },
+        {
+          "caption": "Only show the on-screen keyboard if the user or application requests it.",
+          "value": false
+        }
+      ],
+      "name": "VirtualKeyboardSmartVisibilityEnabled",
+      "owners": [
+        "shend@chromium.org",
+        "e14s-eng@google.com"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "tags": [],
+      "type": "main"
+    },
+    {
       "caption": "Specify VM CLI permission",
       "desc": "Instructs <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> to enable or disable virtual machine management console tools.\n\n      If the policy is set to true or left unset, the user will be able to use VM management CLI.\n      Otherwise, all of VM management CLI is disabled and hidden.\n      ",
       "example_value": false,
@@ -35129,6 +36058,111 @@
       ],
       "tags": [],
       "type": "main"
+    },
+    {
+      "caption": "Allow detecting plain text entities in web pages.",
+      "default": {
+        "addresses": "default",
+        "calendar": "default",
+        "default": "enabled",
+        "email": "default",
+        "package": "default",
+        "phonenumbers": "default",
+        "units": "default"
+      },
+      "desc": "This policy decides if plain text entities are detected on webpages, letting users trigger contextual actions by interacting with them.\nThe policy has multiple properties, one for each entity type.\nThe entity types are <ph name=\"DEFAULT_ENUM_VALUE\">default</ph>, <ph name=\"ADDRESS_ENUM_VALUE\">addresses</ph> ... .\n\nIf the value for an entity is unset, the behavior of the <ph name=\"DEFAULT_ENUM_VALUE\">default</ph> entity is applied.\nThe default behavior for <ph name=\"DEFAULT_ENUM_VALUE\">default</ph> is <ph name=\"ENABLED_ENUM_VALUE\">enabled</ph>.\n\nThe values for each entity types are <ph name=\"DEFAULT_ENUM_VALUE\">default</ph>, <ph name=\"ENABLED_ENUM_VALUE\">enabled</ph>,\n<ph name=\"DISABLED_ENUM_VALUE\">disabled</ph> or <ph name=\"LONGPRESSONLY_ENUM_VALUE\">longpressonly</ph>.\nIf the value is set to <ph name=\"DEFAULT_ENUM_VALUE\">default</ph>, the behavior of the <ph name=\"DEFAULT_ENUM_VALUE\">default</ph> entity is applied.\nIf the value is set to <ph name=\"ENABLED_ENUM_VALUE\">enabled</ph>, entities are detected, underlines and triggered either by one tap or long press.\nIf the value is set to <ph name=\"DISABLED_ENUM_VALUE\">disabled</ph>, entities are not detected and not actionable.\nIf the value is set to <ph name=\"LONGPRESSONLY_ENUM_VALUE\">longpressonly</ph>, entities are detected and only actionable using long press.",
+      "example_value": {
+        "addresses": "longpressonly",
+        "calendar": "default",
+        "default": "enabled",
+        "email": "disabled",
+        "package": "default",
+        "phonenumbers": "default",
+        "units": "default"
+      },
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "ios"
+      ],
+      "id": 1203,
+      "name": "WebAnnotations",
+      "owners": [
+        "olivierrobin@google.com",
+        "djean@google.com",
+        "erahmaoui@google.com"
+      ],
+      "schema": {
+        "properties": {
+          "addresses": {
+            "enum": [
+              "default",
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          },
+          "calendar": {
+            "enum": [
+              "default",
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          },
+          "default": {
+            "enum": [
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          },
+          "email": {
+            "enum": [
+              "default",
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          },
+          "package": {
+            "enum": [
+              "default",
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          },
+          "phonenumbers": {
+            "enum": [
+              "default",
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          },
+          "units": {
+            "enum": [
+              "default",
+              "enabled",
+              "disabled",
+              "longpressonly"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "tags": [],
+      "type": "dict"
     },
     {
       "caption": "Configure list of force-installed Web Apps",
@@ -35465,9 +36499,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 787,
       "items": [
         {
@@ -35771,9 +36802,6 @@
         "dynamic_refresh": false,
         "per_profile": true
       },
-      "future_on": [
-        "fuchsia"
-      ],
       "id": 993,
       "items": [
         {
@@ -36409,8 +37437,8 @@
     },
     {
       "caption": "Specify URI template of desired DNS-over-HTTPS resolver with identity information",
-      "desc": "The URI template of the desired DNS-over-HTTPS resolver. To specify multiple DNS-over-HTTPS resolvers, separate the corresponding URI templates with spaces. This policy is very similar to <ph name=\"DOH_TEMPLATES_POLICY_NAME\">DnsOverHttpsTemplates</ph> which it will override if specified. In contrast to that it supports specifying identify information.\n\nIf the <ph name=\"DOH_MODE_POLICY_NAME\">DnsOverHttpsMode</ph> is set to <ph name=\"SECURE_DNS_MODE_SECURE\">\"secure\"</ph> then either this policy or <ph name=\"DOH_TEMPLATES_POLICY_NAME\">DnsOverHttpsTemplates</ph> must be set and not empty.\n\nIf the <ph name=\"DOH_MODE_POLICY_NAME\">DnsOverHttpsMode</ph> is set to <ph name=\"SECURE_DNS_MODE_AUTOMATIC\">\"automatic\"</ph> and this policy is set then the URI templates specified will be used; if this policy is unset then hardcoded mappings will be used to attempt to upgrade the users current DNS resolver to a DoH resolver operated by the same provider.\n\nIf the URI template contains a <ph name=\"HTTP_VARIABLE_DNS\">dns</ph> variable, requests to the resolver will use <ph name=\"HTTP_METHOD_GET\">GET</ph>; otherwise requests will use <ph name=\"HTTP_METHOD_POST\">POST</ph>.\n\nIn version 114 and later, <ph name=\"DOH_SALT_POLICY_NAME\">DnsOverHttpsSalt</ph> is optional if this policy is set.",
-      "example_value": "https://dns.example.net/dns-query{?dns}",
+      "desc": "The URI template of the desired DNS-over-HTTPS resolver. To specify multiple DNS-over-HTTPS resolvers, separate the corresponding URI templates with spaces. This policy is very similar to <ph name=\"DOH_TEMPLATES_POLICY_NAME\">DnsOverHttpsTemplates</ph> which it will override if specified.\nIn contrast to the <ph name=\"DOH_TEMPLATES_POLICY_NAME\">DnsOverHttpsTemplates</ph> policy, this policy supports specifying identity information.\nIdentifiers are specified using variable placeholders which are replaced with user or device information in <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>. The identifiers are not sent to the DNS server in plain text; instead they are hashed with the <ph name=\"SHA256\">SHA-256</ph> algorithm and uppercase hex encoded.\n\nIdentifiers are specified between curly brackets, preceded by the dollar sign. For user identification, use the following placeholders <ph name=\"USER_EMAIL\">USER_EMAIL</ph>, <ph name=\"USER_EMAIL_DOMAIN\">USER_EMAIL_DOMAIN</ph> and <ph name=\"USER_EMAIL_NAME\">USER_EMAIL_NAME</ph>. For device identification, use the following placeholders <ph name=\"DEVICE_DIRECTORY_ID\">DEVICE_DIRECTORY_ID</ph>, <ph name=\"DEVICE_SERIAL_NUMBER\">DEVICE_SERIAL_NUMBER</ph>, <ph name=\"DEVICE_ASSET_ID\">DEVICE_ASSET_ID</ph> and <ph name=\"DEVICE_ANNOTATED_LOCATION\">DEVICE_ANNOTATED_LOCATION</ph>.\n\nBefore version 122, device identifiers were not replaced for unaffiliated users. Starting version 122, the device placeholders are replaced with the value <ph name=\"DEVICE_NOT_MANAGED\">DEVICE_NOT_MANAGED</ph>, which is hashed and hex encoded.\n\nIf the <ph name=\"DOH_MODE_POLICY_NAME\">DnsOverHttpsMode</ph> is set to <ph name=\"SECURE_DNS_MODE_SECURE\">\"secure\"</ph> then either this policy or <ph name=\"DOH_TEMPLATES_POLICY_NAME\">DnsOverHttpsTemplates</ph> must be set and not empty.\n\nIf the <ph name=\"DOH_MODE_POLICY_NAME\">DnsOverHttpsMode</ph> is set to <ph name=\"SECURE_DNS_MODE_AUTOMATIC\">\"automatic\"</ph> and this policy is set then the URI templates specified will be used; if this policy is unset then hardcoded mappings will be used to attempt to upgrade the users current DNS resolver to a DoH resolver operated by the same provider.\n\nIf the URI template contains a <ph name=\"HTTP_VARIABLE_DNS\">dns</ph> variable, requests to the resolver will use <ph name=\"HTTP_METHOD_GET\">GET</ph>; otherwise requests will use <ph name=\"HTTP_METHOD_POST\">POST</ph>.\n\nIn version 114 and later, <ph name=\"DOH_SALT_POLICY_NAME\">DnsOverHttpsSalt</ph> is optional if this policy is set.",
+      "example_value": "https://dns.example.net/${USER_EMAIL_DOMAIN}/dns-query{?dns}",
       "features": {
         "dynamic_refresh": true,
         "per_profile": false
@@ -47904,9 +48932,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1138,
       "name": "ReportWebsiteActivityAllowlist",
       "owners": [
@@ -47919,6 +48944,9 @@
         },
         "type": "array"
       },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
       "tags": [
         "admin-sharing"
       ],
@@ -47935,9 +48963,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1143,
       "items": [
         {
@@ -47960,6 +48985,9 @@
         },
         "type": "array"
       },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
       "tags": [
         "admin-sharing"
       ],
@@ -47979,9 +49007,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1139,
       "name": "ReportWebsiteTelemetryAllowlist",
       "owners": [
@@ -47994,6 +49019,9 @@
         },
         "type": "array"
       },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
       "tags": [
         "admin-sharing"
       ],
@@ -48010,9 +49038,6 @@
         "per_profile": true,
         "unlisted": true
       },
-      "future_on": [
-        "chrome_os"
-      ],
       "id": 1140,
       "name": "ReportWebsiteTelemetryCollectionRateMs",
       "owners": [
@@ -48023,6 +49048,9 @@
         "minimum": 300000,
         "type": "integer"
       },
+      "supported_on": [
+        "chrome_os:123-"
+      ],
       "tags": [
         "admin-sharing"
       ],
@@ -48271,6 +49299,7 @@
         "CACertificates",
         "CADistrustedCertificates",
         "CAHintCertificates",
+        "CAPlatformIntegrationEnabled",
         "RequiredClientCertificateForDevice",
         "RequiredClientCertificateForUser"
       ],
@@ -48494,6 +49523,7 @@
         "DeviceAutoUpdateP2PEnabled",
         "DeviceAutoUpdateTimeRestrictions",
         "DeviceChannelDowngradeBehavior",
+        "DeviceExtendedAutoUpdateEnabled",
         "DeviceMinimumVersion",
         "DeviceMinimumVersionAueMessage",
         "DeviceQuickFixBuildToken",
@@ -48564,6 +49594,17 @@
       "policies": [
         "FirstPartySetsEnabled",
         "FirstPartySetsOverrides"
+      ],
+      "type": "group"
+    },
+    {
+      "caption": "Floating SSO Settings",
+      "desc": "Controls if Floating SSO is enabled and the cookie domain blocklist and its exceptions.",
+      "name": "FloatingSso",
+      "policies": [
+        "FloatingSsoDomainBlocklist",
+        "FloatingSsoDomainBlocklistExceptions",
+        "FloatingSsoEnabled"
       ],
       "type": "group"
     },
@@ -48798,6 +49839,7 @@
         "DefaultDownloadDirectory",
         "DefaultHandlersForFileExtensions",
         "DefaultSearchProviderContextMenuAccessAllowed",
+        "DeleteKeyModifier",
         "DeskTemplatesEnabled",
         "DesktopSharingHubEnabled",
         "DeveloperToolsAvailability",
@@ -48831,6 +49873,7 @@
         "DeviceLoginScreenPrimaryMouseButtonSwitch",
         "DeviceLoginScreenSaverId",
         "DeviceLoginScreenSaverTimeout",
+        "DeviceLoginScreenTouchVirtualKeyboardEnabled",
         "DeviceLoginScreenWebHidAllowDevicesForUrls",
         "DeviceLoginScreenWebUILazyLoading",
         "DeviceLoginScreenWebUsbAllowDevicesForUrls",
@@ -48907,6 +49950,8 @@
         "ExternalProtocolDialogShowAlwaysOpenCheckbox",
         "ExternalStorageDisabled",
         "ExternalStorageReadOnly",
+        "F11KeyModifier",
+        "F12KeyModifier",
         "FastPairEnabled",
         "FeedbackSurveysEnabled",
         "FetchKeepaliveDurationSecondsOnShutdown",
@@ -48945,6 +49990,7 @@
         "HighEfficiencyModeEnabled",
         "HindiInscriptLayoutEnabled",
         "HistoryClustersVisible",
+        "HomeAndEndKeysModifier",
         "Http09OnNonDefaultPortsEnabled",
         "HttpAllowlist",
         "HttpsOnlyMode",
@@ -48959,6 +50005,7 @@
         "IncognitoModeAvailability",
         "InsecureFormsWarningsEnabled",
         "InsecureHashesInTLSHandshakesEnabled",
+        "InsertKeyModifier",
         "InsightsExtensionEnabled",
         "InstantEnabled",
         "InstantTetheringAllowed",
@@ -49031,6 +50078,7 @@
         "PPAPISharedImagesForVideoDecoderAllowed",
         "PPAPISharedImagesSwapChainAllowed",
         "PacHttpsUrlStrippingEnabled",
+        "PageUpAndPageDownKeysModifier",
         "ParcelTrackingEnabled",
         "PaymentMethodQueryEnabled",
         "PdfAnnotationsEnabled",
@@ -49194,12 +50242,14 @@
         "VideoCaptureAllowed",
         "VideoCaptureAllowedUrls",
         "VirtualKeyboardResizesLayoutByDefault",
+        "VirtualKeyboardSmartVisibilityEnabled",
         "VmManagementCliAllowed",
         "VpnConfigAllowed",
         "WPADQuickCheckEnabled",
         "WallpaperGooglePhotosIntegrationEnabled",
         "WallpaperImage",
         "WarnBeforeQuittingEnabled",
+        "WebAnnotations",
         "WebAppInstallForceList",
         "WebAppSettings",
         "WebAuthenticationRemoteProxiedRequestsAllowed",

@@ -161,6 +161,8 @@ bool CameraHalClientStubDispatch::Accept(
           reinterpret_cast<internal::CameraHalClient_SetUpChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraHalClient.0
       bool success = true;
       ::mojo::PendingRemote<::cros::mojom::CameraModule> p_camera_module{};
       CameraHalClient_SetUpChannel_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool CameraHalClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpChannel(
-std::move(p_camera_module));
+      impl->SetUpChannel(        
+        std::move(p_camera_module));
       return true;
     }
   }

@@ -96,7 +96,8 @@ return;
 // [HighEntropy]
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Keyboard.getLayoutMap", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiGetLayoutMap);
 
@@ -106,8 +107,7 @@ UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiGetLayoutMa
 
 
 Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->getLayoutMap(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -134,7 +134,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiLock);
 
@@ -144,8 +145,7 @@ UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiLock);
 
 
 Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLSequence<IDLString>>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_key_codes;
 if (!info[0]->IsUndefined()) {
@@ -168,7 +168,8 @@ BLINK_BINDINGS_TRACE_EVENT("Keyboard.unlock");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiUnlock);
 
@@ -179,8 +180,7 @@ UseCounter::Count(current_execution_context, WebFeature::kKeyboardApiUnlock);
 
 v8::Local<v8::Object> v8_receiver = info.This();
 Keyboard* blink_receiver = V8Keyboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 blink_receiver->unlock(script_state);
 

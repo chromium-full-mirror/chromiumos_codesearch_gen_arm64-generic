@@ -772,6 +772,8 @@ bool SystemInfo_GetInputStreamParameters_ForwardToCallback::Accept(
           internal::SystemInfo_GetInputStreamParameters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.0
   bool success = true;
   std::optional<::media::AudioParameters> p_params{};
   SystemInfo_GetInputStreamParameters_ResponseParamsDataView input_data_view(params, message);
@@ -897,6 +899,8 @@ bool SystemInfo_GetOutputStreamParameters_ForwardToCallback::Accept(
           internal::SystemInfo_GetOutputStreamParameters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.1
   bool success = true;
   std::optional<::media::AudioParameters> p_params{};
   SystemInfo_GetOutputStreamParameters_ResponseParamsDataView input_data_view(params, message);
@@ -1022,6 +1026,8 @@ bool SystemInfo_HasInputDevices_ForwardToCallback::Accept(
           internal::SystemInfo_HasInputDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.2
   bool success = true;
   bool p_has_input_devices{};
   SystemInfo_HasInputDevices_ResponseParamsDataView input_data_view(params, message);
@@ -1141,6 +1147,8 @@ bool SystemInfo_HasOutputDevices_ForwardToCallback::Accept(
           internal::SystemInfo_HasOutputDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.3
   bool success = true;
   bool p_has_output_devices{};
   SystemInfo_HasOutputDevices_ResponseParamsDataView input_data_view(params, message);
@@ -1260,6 +1268,8 @@ bool SystemInfo_GetInputDeviceDescriptions_ForwardToCallback::Accept(
           internal::SystemInfo_GetInputDeviceDescriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.4
   bool success = true;
   std::vector<::media::AudioDeviceDescription> p_device_descriptions{};
   SystemInfo_GetInputDeviceDescriptions_ResponseParamsDataView input_data_view(params, message);
@@ -1391,6 +1401,8 @@ bool SystemInfo_GetOutputDeviceDescriptions_ForwardToCallback::Accept(
           internal::SystemInfo_GetOutputDeviceDescriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.5
   bool success = true;
   std::vector<::media::AudioDeviceDescription> p_device_descriptions{};
   SystemInfo_GetOutputDeviceDescriptions_ResponseParamsDataView input_data_view(params, message);
@@ -1522,6 +1534,8 @@ bool SystemInfo_GetAssociatedOutputDeviceID_ForwardToCallback::Accept(
           internal::SystemInfo_GetAssociatedOutputDeviceID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.6
   bool success = true;
   std::optional<std::string> p_associated_output_device_id{};
   SystemInfo_GetAssociatedOutputDeviceID_ResponseParamsDataView input_data_view(params, message);
@@ -1647,6 +1661,8 @@ bool SystemInfo_GetInputDeviceInfo_ForwardToCallback::Accept(
           internal::SystemInfo_GetInputDeviceInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemInfo.7
   bool success = true;
   std::optional<::media::AudioParameters> p_input_params{};
   std::optional<std::string> p_associated_output_device_id{};
@@ -1778,6 +1794,8 @@ bool SystemInfoStubDispatch::AcceptWithResponder(
               internal::SystemInfo_GetInputStreamParameters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.0
       bool success = true;
       std::string p_device_id{};
       SystemInfo_GetInputStreamParameters_ParamsDataView input_data_view(params, message);
@@ -1796,8 +1814,8 @@ bool SystemInfoStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetInputStreamParameters(
-std::move(p_device_id), std::move(callback));
+      impl->GetInputStreamParameters(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kSystemInfo_GetOutputStreamParameters_Name: {
@@ -1807,6 +1825,8 @@ std::move(p_device_id), std::move(callback));
               internal::SystemInfo_GetOutputStreamParameters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.1
       bool success = true;
       std::string p_device_id{};
       SystemInfo_GetOutputStreamParameters_ParamsDataView input_data_view(params, message);
@@ -1825,8 +1845,8 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOutputStreamParameters(
-std::move(p_device_id), std::move(callback));
+      impl->GetOutputStreamParameters(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kSystemInfo_HasInputDevices_Name: {
@@ -1836,6 +1856,8 @@ std::move(p_device_id), std::move(callback));
               internal::SystemInfo_HasInputDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.2
       bool success = true;
       SystemInfo_HasInputDevices_ParamsDataView input_data_view(params, message);
       
@@ -1861,6 +1883,8 @@ std::move(p_device_id), std::move(callback));
               internal::SystemInfo_HasOutputDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.3
       bool success = true;
       SystemInfo_HasOutputDevices_ParamsDataView input_data_view(params, message);
       
@@ -1886,6 +1910,8 @@ std::move(p_device_id), std::move(callback));
               internal::SystemInfo_GetInputDeviceDescriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.4
       bool success = true;
       SystemInfo_GetInputDeviceDescriptions_ParamsDataView input_data_view(params, message);
       
@@ -1911,6 +1937,8 @@ std::move(p_device_id), std::move(callback));
               internal::SystemInfo_GetOutputDeviceDescriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.5
       bool success = true;
       SystemInfo_GetOutputDeviceDescriptions_ParamsDataView input_data_view(params, message);
       
@@ -1936,6 +1964,8 @@ std::move(p_device_id), std::move(callback));
               internal::SystemInfo_GetAssociatedOutputDeviceID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.6
       bool success = true;
       std::string p_input_device_id{};
       SystemInfo_GetAssociatedOutputDeviceID_ParamsDataView input_data_view(params, message);
@@ -1954,8 +1984,8 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAssociatedOutputDeviceID(
-std::move(p_input_device_id), std::move(callback));
+      impl->GetAssociatedOutputDeviceID(        
+        std::move(p_input_device_id), std::move(callback));
       return true;
     }
     case internal::kSystemInfo_GetInputDeviceInfo_Name: {
@@ -1965,6 +1995,8 @@ std::move(p_input_device_id), std::move(callback));
               internal::SystemInfo_GetInputDeviceInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemInfo.7
       bool success = true;
       std::string p_input_device_id{};
       SystemInfo_GetInputDeviceInfo_ParamsDataView input_data_view(params, message);
@@ -1983,8 +2015,8 @@ std::move(p_input_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetInputDeviceInfo(
-std::move(p_input_device_id), std::move(callback));
+      impl->GetInputDeviceInfo(        
+        std::move(p_input_device_id), std::move(callback));
       return true;
     }
   }

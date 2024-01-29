@@ -11,33 +11,29 @@ import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
-import { HTMLEscape } from '//resources/ash/common/util.js';
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { I18nBehavior, I18nBehaviorInterface } from 'chrome://resources/ash/common/i18n_behavior.js';
-import { NetworkListenerBehavior, NetworkListenerBehaviorInterface } from 'chrome://resources/ash/common/network/network_listener_behavior.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { CrosNetworkConfigInterface as NetworkConfigServiceInterface, FilterType, NetworkStateProperties, NO_LIMIT, StartConnectResult } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
+import { FilterType, NO_LIMIT, StartConnectResult } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { ConnectionStateType, NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getNetworkConfigService, getShimlessRmaService } from './mojo_interface_provider.js';
 import { getTemplate } from './onboarding_network_page.html.js';
-import { ShimlessRmaServiceInterface, StateResult } from './shimless_rma.mojom-webui.js';
 import { enableNextButton, focusPageTitle } from './shimless_rma_util.js';
+import { createCustomEvent, SET_NEXT_BUTTON_LABEL } from './events.js';
 /**
  * @fileoverview
  * 'onboarding-network-page' is the page where the user can choose to join a
  * network.
  */
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {I18nBehaviorInterface}
- * @implements {NetworkListenerBehaviorInterface}
- */
-const OnboardingNetworkPageBase = mixinBehaviors([I18nBehavior, NetworkListenerBehavior], PolymerElement);
-/** @polymer */
+const OnboardingNetworkPageBase = I18nMixin(PolymerElement);
 export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
+    constructor() {
+        super(...arguments);
+        this.shimlessRmaService = getShimlessRmaService();
+        this.networkConfig = getNetworkConfigService();
+    }
     static get is() {
         return 'onboarding-network-page';
     }
@@ -48,13 +44,10 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
         return {
             /**
              * Set by shimless_rma.js.
-             * @type {boolean}
              */
             allButtonsDisabled: Boolean,
             /**
              * Array of available networks
-             * @protected
-             * @type {!Array<NetworkStateProperties>}
              */
             networks: {
                 type: Array,
@@ -62,7 +55,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             },
             /**
              * Tracks whether network has configuration to be connected
-             * @protected
              */
             enableConnect: {
                 type: Boolean,
@@ -70,7 +62,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             /**
              * The type of network to be configured as a string. May be set initially
              * or updated by network-config.
-             * @protected
              */
             networkType: {
                 type: String,
@@ -83,7 +74,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
              *
              * The name of the network. May be set initially or updated by
              * network-config.
-             * @protected
              */
             networkName: {
                 type: String,
@@ -92,7 +82,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             /**
              * The GUID when an existing network is being configured. This will be
              * empty when configuring a new network.
-             * @protected
              */
             guid: {
                 type: String,
@@ -100,14 +89,12 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             },
             /**
              * Tracks whether network shows connect button or disconnect button.
-             * @protected
              */
             networkShowConnect: {
                 type: Boolean,
             },
             /**
              * Set by network-config when a configuration error occurs.
-             * @private
              */
             error: {
                 type: String,
@@ -115,7 +102,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             },
             /**
              * Set to true to when connected to at least one active network.
-             * @protected
              */
             isOnline: {
                 type: Boolean,
@@ -124,14 +110,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             },
         };
     }
-    constructor() {
-        super();
-        /** @private {ShimlessRmaServiceInterface} */
-        this.shimlessRmaService = getShimlessRmaService();
-        /** @private {?NetworkConfigServiceInterface} */
-        this.networkConfig = getNetworkConfigService();
-    }
-    /** @override */
     ready() {
         super.ready();
         // Before displaying the available networks, track the pre-existing
@@ -145,27 +123,19 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
     onNetworkStateListChanged() {
         this.refreshNetworks();
     }
-    refreshNetworks() {
+    async refreshNetworks() {
         const networkFilter = {
             filter: FilterType.kVisible,
             networkType: NetworkType.kAll,
             limit: NO_LIMIT,
         };
-        this.networkConfig.getNetworkStateList(networkFilter).then(res => {
-            // Filter again since networkFilter above doesn't take two network types.
-            this.networks = res.result.filter((network) => [NetworkType.kWiFi,
-                NetworkType.kEthernet,
-            ].includes(network.type));
-            this.isOnline = this.networks.some(function (network) {
-                return OncMojo.connectionStateIsConnected(network.connectionState);
-            });
-        });
+        const response = await this.networkConfig.getNetworkStateList(networkFilter);
+        const networkIsWiFiOrEthernet = (n) => [NetworkType.kWiFi, NetworkType.kEthernet].includes(n.type);
+        this.networks = response.result.filter(networkIsWiFiOrEthernet);
+        this.isOnline = this.networks.some(n => OncMojo.connectionStateIsConnected(n.connectionState));
     }
     /**
      * Event triggered when a network list item is selected.
-     * @param {!{target: HTMLElement, detail: !OncMojo.NetworkStateProperties}}
-     *     event
-     * @protected
      */
     onNetworkSelected(event) {
         const networkState = event.detail;
@@ -177,7 +147,7 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
             this.showConfig(type, networkState.guid, displayName);
             return;
         }
-        this.networkConfig.startConnect(networkState.guid).then(response => {
+        this.networkConfig.startConnect(networkState.guid).then((response) => {
             this.refreshNetworks();
             if (response.result === StartConnectResult.kUnknown) {
                 console.error('startConnect failed for: ' + networkState.guid +
@@ -190,8 +160,6 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
      * Determines whether or not it is possible to attempt a connection to the
      * provided network (e.g., whether it's possible to connect or configure the
      * network for connection).
-     * @param {!OncMojo.NetworkStateProperties} state The network state.
-     * @private
      */
     canAttemptConnection(state) {
         if (state.connectionState !== ConnectionStateType.kNotConnected) {
@@ -203,28 +171,23 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
         }
         return true;
     }
-    /**
-     * @param {NetworkType} type
-     * @param {string} guid
-     * @param {string} name
-     * @private
-     */
     showConfig(type, guid, name) {
         assert(type !== NetworkType.kCellular && type !== NetworkType.kTether);
         this.networkType = OncMojo.getNetworkTypeString(type);
         this.networkName = name || '';
         this.guid = guid || '';
-        const networkConfig = 
-        /** @type {!NetworkConfigElement} */ (this.shadowRoot.querySelector('#networkConfig'));
+        const networkConfig = this.shadowRoot.querySelector('#networkConfig');
+        assert(networkConfig);
         networkConfig.init();
-        const dialog = /** @type {!CrDialogElement} */ (this.shadowRoot.querySelector('#dialog'));
+        const dialog = this.shadowRoot.querySelector('#dialog');
+        assert(dialog);
         if (!dialog.open) {
             dialog.showModal();
         }
     }
-    /** @protected */
     closeConfig() {
-        const dialog = /** @type {!CrDialogElement} */ (this.shadowRoot.querySelector('#dialog'));
+        const dialog = this.shadowRoot.querySelector('#dialog');
+        assert(dialog);
         if (dialog.open) {
             dialog.close();
         }
@@ -233,13 +196,11 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
         this.networkName = '';
         this.guid = '';
     }
-    /** @protected */
     connectNetwork() {
-        const networkConfig = 
-        /** @type {!NetworkConfigElement} */ (this.shadowRoot.querySelector('#networkConfig'));
+        const networkConfig = this.shadowRoot.querySelector('#networkConfig');
+        assert(networkConfig);
         networkConfig.connect();
     }
-    /** @protected */
     disconnectNetwork() {
         this.networkConfig.startDisconnect(this.guid).then(response => {
             if (!response.success) {
@@ -248,31 +209,19 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
         });
         this.closeConfig();
     }
-    /**
-     * @return {string}
-     * @private
-     */
     getError() {
         if (this.i18nExists(this.error)) {
             return this.i18n(this.error);
         }
         return this.i18n('networkErrorUnknown');
     }
-    /**
-     * @protected
-     */
     onPropertiesSet() {
         this.refreshNetworks();
     }
-    /** @private */
     onConfigClose() {
         this.closeConfig();
         this.refreshNetworks();
     }
-    /**
-     * @return {string}
-     * @protected
-     */
     getDialogTitle() {
         if (this.networkName && !this.networkShowConnect) {
             return loadTimeData.getStringF('internetConfigName', this.networkName);
@@ -280,17 +229,11 @@ export class OnboardingNetworkPage extends OnboardingNetworkPageBase {
         const type = this.i18n('OncType' + this.networkType);
         return this.i18n('internetJoinType', type);
     }
-    /** @return {!Promise<{stateResult: !StateResult}>} */
     onNextButtonClick() {
         return this.shimlessRmaService.networkSelectionComplete();
     }
-    /** @private */
     onIsOnlineChange() {
-        this.dispatchEvent(new CustomEvent('set-next-button-label', {
-            bubbles: true,
-            composed: true,
-            detail: this.isOnline ? 'nextButtonLabel' : 'skipButtonLabel',
-        }));
+        this.dispatchEvent(createCustomEvent(SET_NEXT_BUTTON_LABEL, this.isOnline ? 'nextButtonLabel' : 'skipButtonLabel'));
     }
 }
 customElements.define(OnboardingNetworkPage.is, OnboardingNetworkPage);

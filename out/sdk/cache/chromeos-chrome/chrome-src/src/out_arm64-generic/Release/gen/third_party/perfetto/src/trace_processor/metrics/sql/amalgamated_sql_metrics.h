@@ -193,50 +193,50 @@ const char kAndroidAdServicesMetric[] = R"_d3l1m1t3r_(--
 -- limitations under the License.
 --
 
-CREATE OR REPLACE PERFETTO FUNCTION GET_EVENT_LATENCY_TABLE(event_name STRING)
-RETURNS TABLE (latency LONG) AS
-SELECT
-  dur / 1e6 as latency
-FROM
-  slices
-WHERE
-  name = $event_name;
+CREATE OR REPLACE PERFETTO FUNCTION GET_LATENCY(tag STRING)
+RETURNS DOUBLE AS
+SELECT dur/1e6 FROM slices WHERE name = $tag ORDER BY dur DESC LIMIT 1;
 
 DROP VIEW IF EXISTS ad_services_metric_output;
-CREATE PERFETTO VIEW ad_services_metric_output AS
+
+CREATE PERFETTO VIEW ad_services_metric_output
+AS
 SELECT
   AdServicesMetric(
     'ui_metric',
     (
       SELECT
         RepeatedField(
-          AdServicesUiMetric('latency', latency)
+          AdServicesUiMetric(
+            'main_actitivity_creation_latency', (
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(        )
-      FROM
-        GET_EVENT_LATENCY_TABLE("NotificationTriggerEvent")
+R"_d3l1m1t3r_(              GET_LATENCY('AdServicesSettingsMainActivity#OnCreate')
+            ),
+            'consent_manager_read_latency', (
+              GET_LATENCY('ConsentManager#ReadOperation')
+            ),
+            'consent_manager_write_latency', (
+              GET_LATENCY('ConsentManager#WriteOperation')
+            ),
+            'consent_manager_initialization_latency', (
+              GET_LATENCY('ConsentManager#Initialization')
+            )
+          )
+        )
     ),
     'app_set_id_metric',
     (
       SELECT
         RepeatedField(
           AdServicesAppSetIdMetric(
-            'latency', latency
-          )
-        )
-      FROM
-        GET_EVENT_LATENCY_TABLE("AdIdCacheEvent")
+            'latency', GET_LATENCY('AdIdCacheEvent')))
     ),
     'ad_id_metric',
     (
       SELECT
         RepeatedField(
-          AdServicesAdIdMetric('latency', latency)
-        )
-      FROM
-        GET_EVENT_LATENCY_TABLE("AppSetIdEvent")
-    )
-);
+          AdServicesAdIdMetric('latency', GET_LATENCY('AppSetIdEvent')))
+    ));
 
 )_d3l1m1t3r_"
 ;
@@ -552,6 +552,8 @@ R"_d3l1m1t3r_(      AndroidBinderMetric_PerProcessBreakdown(
     SELECT RepeatedField(
       AndroidBinderMetric_UnaggregatedTxnBreakdown(
         'aidl_name', aidl_name,
+        'aidl_ts', aidl_ts,
+        'aidl_dur', aidl_dur,
         'client_process', client_process,
         'client_thread', client_thread,
         'is_main_thread', is_main_thread,
@@ -568,10 +570,10 @@ R"_d3l1m1t3r_(      AndroidBinderMetric_PerProcessBreakdown(
         'server_pid', server_pid,
         'server_oom_score', server_oom_score,
         'is_sync', is_sync,
-        'thread_states', (
-          SELECT RepeatedField(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(            AndroidBinderMetric_ThreadStateBreakdown(
+R"_d3l1m1t3r_(        'thread_states', (
+          SELECT RepeatedField(
+            AndroidBinderMetric_ThreadStateBreakdown(
               'thread_state_type', thread_state_type,
               'thread_state', thread_state,
               'thread_state_dur', thread_state_dur,
@@ -593,7 +595,8 @@ R"_d3l1m1t3r_(            AndroidBinderMetric_ThreadStateBreakdown(
     )
     FROM android_binder_txns
   )
-);
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_();
 
 )_d3l1m1t3r_"
 ;
@@ -16292,7 +16295,7 @@ FROM all_input_increments;
 -- that do not have corresponding input events.
 DROP VIEW IF EXISTS all_input_slices;
 CREATE PERFETTO VIEW all_input_slices AS
-SELECT ts,
+SELECT cast(ts as int) as ts,
   dur,
   input_active
 FROM (

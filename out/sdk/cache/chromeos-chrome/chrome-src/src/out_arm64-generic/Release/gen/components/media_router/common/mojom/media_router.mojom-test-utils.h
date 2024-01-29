@@ -26,7 +26,7 @@ class  MediaRouteProviderInterceptorForTesting : public MediaRouteProvider {
   void DetachRoute(const std::string& route_id) override;
   void EnableMdnsDiscovery() override;
   void DiscoverSinksNow() override;
-  void CreateMediaRouteController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, CreateMediaRouteControllerCallback callback) override;
+  void BindMediaController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, BindMediaControllerCallback callback) override;
   void GetState(GetStateCallback callback) override;
 };
 class  MediaRouteProviderAsyncWaiter {
@@ -46,9 +46,9 @@ class  MediaRouteProviderAsyncWaiter {
   void TerminateRoute(
       const std::string& route_id, std::optional<std::string>* out_error_text, ::media_router::mojom::RouteRequestResultCode* out_result_code);
   
-  void CreateMediaRouteController(
+  void BindMediaController(
       const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, bool* out_success);
-  bool CreateMediaRouteController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer);
+  bool BindMediaController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer);
   void GetState(
       ProviderStatePtr* out_state);
   ProviderStatePtr GetState();

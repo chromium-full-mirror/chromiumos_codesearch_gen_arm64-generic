@@ -238,6 +238,8 @@ bool MtpManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::MtpManagerClient_StorageAttached_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MtpManagerClient.0
       bool success = true;
       ::device::mojom::blink::MtpStorageInfoPtr p_storage_info{};
       MtpManagerClient_StorageAttached_ParamsDataView input_data_view(params, message);
@@ -253,8 +255,8 @@ bool MtpManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StorageAttached(
-std::move(p_storage_info));
+      impl->StorageAttached(        
+        std::move(p_storage_info));
       return true;
     }
     case internal::kMtpManagerClient_StorageDetached_Name: {
@@ -264,6 +266,8 @@ std::move(p_storage_info));
           reinterpret_cast<internal::MtpManagerClient_StorageDetached_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MtpManagerClient.1
       bool success = true;
       WTF::String p_storage_name{};
       MtpManagerClient_StorageDetached_ParamsDataView input_data_view(params, message);
@@ -279,8 +283,8 @@ std::move(p_storage_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StorageDetached(
-std::move(p_storage_name));
+      impl->StorageDetached(        
+        std::move(p_storage_name));
       return true;
     }
   }
@@ -1574,6 +1578,8 @@ bool MtpManager_EnumerateStoragesAndSetClient_ForwardToCallback::Accept(
           internal::MtpManager_EnumerateStoragesAndSetClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.0
   bool success = true;
   WTF::Vector<::device::mojom::blink::MtpStorageInfoPtr> p_storages{};
   MtpManager_EnumerateStoragesAndSetClient_ResponseParamsDataView input_data_view(params, message);
@@ -1705,6 +1711,8 @@ bool MtpManager_GetStorageInfo_ForwardToCallback::Accept(
           internal::MtpManager_GetStorageInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.1
   bool success = true;
   ::device::mojom::blink::MtpStorageInfoPtr p_storage_info{};
   MtpManager_GetStorageInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1834,6 +1842,8 @@ bool MtpManager_GetStorageInfoFromDevice_ForwardToCallback::Accept(
           internal::MtpManager_GetStorageInfoFromDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.2
   bool success = true;
   ::device::mojom::blink::MtpStorageInfoPtr p_storage_info{};
   bool p_error{};
@@ -1971,6 +1981,8 @@ bool MtpManager_OpenStorage_ForwardToCallback::Accept(
           internal::MtpManager_OpenStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.3
   bool success = true;
   WTF::String p_storage_handle{};
   bool p_error{};
@@ -2108,6 +2120,8 @@ bool MtpManager_CloseStorage_ForwardToCallback::Accept(
           internal::MtpManager_CloseStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.4
   bool success = true;
   bool p_error{};
   MtpManager_CloseStorage_ResponseParamsDataView input_data_view(params, message);
@@ -2227,6 +2241,8 @@ bool MtpManager_CreateDirectory_ForwardToCallback::Accept(
           internal::MtpManager_CreateDirectory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.5
   bool success = true;
   bool p_error{};
   MtpManager_CreateDirectory_ResponseParamsDataView input_data_view(params, message);
@@ -2346,6 +2362,8 @@ bool MtpManager_ReadDirectoryEntryIds_ForwardToCallback::Accept(
           internal::MtpManager_ReadDirectoryEntryIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.6
   bool success = true;
   WTF::Vector<uint32_t> p_file_ids{};
   bool p_error{};
@@ -2485,6 +2503,8 @@ bool MtpManager_ReadFileChunk_ForwardToCallback::Accept(
           internal::MtpManager_ReadFileChunk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.7
   bool success = true;
   WTF::String p_data{};
   bool p_error{};
@@ -2622,6 +2642,8 @@ bool MtpManager_GetFileInfo_ForwardToCallback::Accept(
           internal::MtpManager_GetFileInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.8
   bool success = true;
   WTF::Vector<::device::mojom::blink::MtpFileEntryPtr> p_file_entries{};
   bool p_error{};
@@ -2761,6 +2783,8 @@ bool MtpManager_RenameObject_ForwardToCallback::Accept(
           internal::MtpManager_RenameObject_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.9
   bool success = true;
   bool p_error{};
   MtpManager_RenameObject_ResponseParamsDataView input_data_view(params, message);
@@ -2880,6 +2904,8 @@ bool MtpManager_CopyFileFromLocal_ForwardToCallback::Accept(
           internal::MtpManager_CopyFileFromLocal_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.10
   bool success = true;
   bool p_error{};
   MtpManager_CopyFileFromLocal_ResponseParamsDataView input_data_view(params, message);
@@ -2999,6 +3025,8 @@ bool MtpManager_DeleteObject_ForwardToCallback::Accept(
           internal::MtpManager_DeleteObject_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MtpManager.11
   bool success = true;
   bool p_error{};
   MtpManager_DeleteObject_ResponseParamsDataView input_data_view(params, message);
@@ -3122,6 +3150,8 @@ bool MtpManagerStubDispatch::AcceptWithResponder(
               internal::MtpManager_EnumerateStoragesAndSetClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<MtpManagerClient> p_client{};
       MtpManager_EnumerateStoragesAndSetClient_ParamsDataView input_data_view(params, message);
@@ -3142,8 +3172,8 @@ bool MtpManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnumerateStoragesAndSetClient(
-std::move(p_client), std::move(callback));
+      impl->EnumerateStoragesAndSetClient(        
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kMtpManager_GetStorageInfo_Name: {
@@ -3153,6 +3183,8 @@ std::move(p_client), std::move(callback));
               internal::MtpManager_GetStorageInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.1
       bool success = true;
       WTF::String p_storage_name{};
       MtpManager_GetStorageInfo_ParamsDataView input_data_view(params, message);
@@ -3171,8 +3203,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStorageInfo(
-std::move(p_storage_name), std::move(callback));
+      impl->GetStorageInfo(        
+        std::move(p_storage_name), std::move(callback));
       return true;
     }
     case internal::kMtpManager_GetStorageInfoFromDevice_Name: {
@@ -3182,6 +3214,8 @@ std::move(p_storage_name), std::move(callback));
               internal::MtpManager_GetStorageInfoFromDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.2
       bool success = true;
       WTF::String p_storage_name{};
       MtpManager_GetStorageInfoFromDevice_ParamsDataView input_data_view(params, message);
@@ -3200,8 +3234,8 @@ std::move(p_storage_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStorageInfoFromDevice(
-std::move(p_storage_name), std::move(callback));
+      impl->GetStorageInfoFromDevice(        
+        std::move(p_storage_name), std::move(callback));
       return true;
     }
     case internal::kMtpManager_OpenStorage_Name: {
@@ -3211,6 +3245,8 @@ std::move(p_storage_name), std::move(callback));
               internal::MtpManager_OpenStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.3
       bool success = true;
       WTF::String p_storage_name{};
       WTF::String p_mode{};
@@ -3232,9 +3268,9 @@ std::move(p_storage_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenStorage(
-std::move(p_storage_name), 
-std::move(p_mode), std::move(callback));
+      impl->OpenStorage(        
+        std::move(p_storage_name), 
+        std::move(p_mode), std::move(callback));
       return true;
     }
     case internal::kMtpManager_CloseStorage_Name: {
@@ -3244,6 +3280,8 @@ std::move(p_mode), std::move(callback));
               internal::MtpManager_CloseStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.4
       bool success = true;
       WTF::String p_storage_handle{};
       MtpManager_CloseStorage_ParamsDataView input_data_view(params, message);
@@ -3262,8 +3300,8 @@ std::move(p_mode), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseStorage(
-std::move(p_storage_handle), std::move(callback));
+      impl->CloseStorage(        
+        std::move(p_storage_handle), std::move(callback));
       return true;
     }
     case internal::kMtpManager_CreateDirectory_Name: {
@@ -3273,6 +3311,8 @@ std::move(p_storage_handle), std::move(callback));
               internal::MtpManager_CreateDirectory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.5
       bool success = true;
       WTF::String p_storage_handle{};
       uint32_t p_parent_id{};
@@ -3297,10 +3337,10 @@ std::move(p_storage_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDirectory(
-std::move(p_storage_handle), 
-std::move(p_parent_id), 
-std::move(p_directory_name), std::move(callback));
+      impl->CreateDirectory(        
+        std::move(p_storage_handle), 
+        std::move(p_parent_id), 
+        std::move(p_directory_name), std::move(callback));
       return true;
     }
     case internal::kMtpManager_ReadDirectoryEntryIds_Name: {
@@ -3310,6 +3350,8 @@ std::move(p_directory_name), std::move(callback));
               internal::MtpManager_ReadDirectoryEntryIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.6
       bool success = true;
       WTF::String p_storage_handle{};
       uint32_t p_file_id{};
@@ -3331,9 +3373,9 @@ std::move(p_directory_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadDirectoryEntryIds(
-std::move(p_storage_handle), 
-std::move(p_file_id), std::move(callback));
+      impl->ReadDirectoryEntryIds(        
+        std::move(p_storage_handle), 
+        std::move(p_file_id), std::move(callback));
       return true;
     }
     case internal::kMtpManager_ReadFileChunk_Name: {
@@ -3343,6 +3385,8 @@ std::move(p_file_id), std::move(callback));
               internal::MtpManager_ReadFileChunk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.7
       bool success = true;
       WTF::String p_storage_handle{};
       uint32_t p_file_id{};
@@ -3370,11 +3414,11 @@ std::move(p_file_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadFileChunk(
-std::move(p_storage_handle), 
-std::move(p_file_id), 
-std::move(p_offset), 
-std::move(p_count), std::move(callback));
+      impl->ReadFileChunk(        
+        std::move(p_storage_handle), 
+        std::move(p_file_id), 
+        std::move(p_offset), 
+        std::move(p_count), std::move(callback));
       return true;
     }
     case internal::kMtpManager_GetFileInfo_Name: {
@@ -3384,6 +3428,8 @@ std::move(p_count), std::move(callback));
               internal::MtpManager_GetFileInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.8
       bool success = true;
       WTF::String p_storage_handle{};
       WTF::Vector<uint32_t> p_file_ids{};
@@ -3405,9 +3451,9 @@ std::move(p_count), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileInfo(
-std::move(p_storage_handle), 
-std::move(p_file_ids), std::move(callback));
+      impl->GetFileInfo(        
+        std::move(p_storage_handle), 
+        std::move(p_file_ids), std::move(callback));
       return true;
     }
     case internal::kMtpManager_RenameObject_Name: {
@@ -3417,6 +3463,8 @@ std::move(p_file_ids), std::move(callback));
               internal::MtpManager_RenameObject_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.9
       bool success = true;
       WTF::String p_storage_handle{};
       uint32_t p_object_id{};
@@ -3441,10 +3489,10 @@ std::move(p_file_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenameObject(
-std::move(p_storage_handle), 
-std::move(p_object_id), 
-std::move(p_new_name), std::move(callback));
+      impl->RenameObject(        
+        std::move(p_storage_handle), 
+        std::move(p_object_id), 
+        std::move(p_new_name), std::move(callback));
       return true;
     }
     case internal::kMtpManager_CopyFileFromLocal_Name: {
@@ -3454,6 +3502,8 @@ std::move(p_new_name), std::move(callback));
               internal::MtpManager_CopyFileFromLocal_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.10
       bool success = true;
       WTF::String p_storage_handle{};
       int64_t p_source_file_descriptor{};
@@ -3481,11 +3531,11 @@ std::move(p_new_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyFileFromLocal(
-std::move(p_storage_handle), 
-std::move(p_source_file_descriptor), 
-std::move(p_parent_id), 
-std::move(p_file_name), std::move(callback));
+      impl->CopyFileFromLocal(        
+        std::move(p_storage_handle), 
+        std::move(p_source_file_descriptor), 
+        std::move(p_parent_id), 
+        std::move(p_file_name), std::move(callback));
       return true;
     }
     case internal::kMtpManager_DeleteObject_Name: {
@@ -3495,6 +3545,8 @@ std::move(p_file_name), std::move(callback));
               internal::MtpManager_DeleteObject_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MtpManager.11
       bool success = true;
       WTF::String p_storage_handle{};
       uint32_t p_object_id{};
@@ -3516,9 +3568,9 @@ std::move(p_file_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteObject(
-std::move(p_storage_handle), 
-std::move(p_object_id), std::move(callback));
+      impl->DeleteObject(        
+        std::move(p_storage_handle), 
+        std::move(p_object_id), std::move(callback));
       return true;
     }
   }

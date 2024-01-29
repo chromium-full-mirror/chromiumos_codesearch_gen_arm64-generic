@@ -271,6 +271,8 @@ bool NFCProviderStubDispatch::Accept(
           reinterpret_cast<internal::NFCProvider_GetNFCForHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFCProvider.0
       bool success = true;
       int32_t p_host_id{};
       ::mojo::PendingReceiver<::device::mojom::NFC> p_receiver{};
@@ -291,9 +293,9 @@ bool NFCProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNFCForHost(
-std::move(p_host_id), 
-std::move(p_receiver));
+      impl->GetNFCForHost(        
+        std::move(p_host_id), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kNFCProvider_SuspendNFCOperations_Name: {
@@ -303,6 +305,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NFCProvider_SuspendNFCOperations_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFCProvider.1
       bool success = true;
       NFCProvider_SuspendNFCOperations_ParamsDataView input_data_view(params, message);
       
@@ -315,7 +319,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SuspendNFCOperations();
+      impl->SuspendNFCOperations(        );
       return true;
     }
     case internal::kNFCProvider_ResumeNFCOperations_Name: {
@@ -325,6 +329,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NFCProvider_ResumeNFCOperations_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NFCProvider.2
       bool success = true;
       NFCProvider_ResumeNFCOperations_ParamsDataView input_data_view(params, message);
       
@@ -337,7 +343,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResumeNFCOperations();
+      impl->ResumeNFCOperations(        );
       return true;
     }
   }

@@ -436,6 +436,8 @@ bool RestrictedUDPSocket_Send_ForwardToCallback::Accept(
           internal::RestrictedUDPSocket_Send_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedUDPSocket.1
   bool success = true;
   int32_t p_result{};
   RestrictedUDPSocket_Send_ResponseParamsDataView input_data_view(params, message);
@@ -555,6 +557,8 @@ bool RestrictedUDPSocket_SendTo_ForwardToCallback::Accept(
           internal::RestrictedUDPSocket_SendTo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedUDPSocket.2
   bool success = true;
   int32_t p_result{};
   RestrictedUDPSocket_SendTo_ResponseParamsDataView input_data_view(params, message);
@@ -629,6 +633,8 @@ bool RestrictedUDPSocketStubDispatch::Accept(
           reinterpret_cast<internal::RestrictedUDPSocket_ReceiveMore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RestrictedUDPSocket.0
       bool success = true;
       uint32_t p_num_additional_datagrams{};
       RestrictedUDPSocket_ReceiveMore_ParamsDataView input_data_view(params, message);
@@ -644,8 +650,8 @@ bool RestrictedUDPSocketStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveMore(
-std::move(p_num_additional_datagrams));
+      impl->ReceiveMore(        
+        std::move(p_num_additional_datagrams));
       return true;
     }
     case internal::kRestrictedUDPSocket_Send_Name: {
@@ -677,6 +683,8 @@ bool RestrictedUDPSocketStubDispatch::AcceptWithResponder(
               internal::RestrictedUDPSocket_Send_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedUDPSocket.1
       bool success = true;
       ::base::span<const ::uint8_t> p_data{};
       RestrictedUDPSocket_Send_ParamsDataView input_data_view(params, message);
@@ -695,8 +703,8 @@ bool RestrictedUDPSocketStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Send(
-std::move(p_data), std::move(callback));
+      impl->Send(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kRestrictedUDPSocket_SendTo_Name: {
@@ -706,6 +714,8 @@ std::move(p_data), std::move(callback));
               internal::RestrictedUDPSocket_SendTo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedUDPSocket.2
       bool success = true;
       ::base::span<const ::uint8_t> p_data{};
       ::net::HostPortPair p_dest_addr{};
@@ -730,10 +740,10 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendTo(
-std::move(p_data), 
-std::move(p_dest_addr), 
-std::move(p_dns_query_type), std::move(callback));
+      impl->SendTo(        
+        std::move(p_data), 
+        std::move(p_dest_addr), 
+        std::move(p_dns_query_type), std::move(callback));
       return true;
     }
   }

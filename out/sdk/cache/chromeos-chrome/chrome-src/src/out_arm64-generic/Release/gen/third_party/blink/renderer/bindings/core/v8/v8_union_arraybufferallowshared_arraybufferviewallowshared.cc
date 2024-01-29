@@ -47,7 +47,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kArrayBufferAllowShared: {
     return ToV8Traits<DOMArrayBufferBase>::ToV8(script_state, member_array_buffer_allow_shared_.Get());
@@ -58,7 +58,7 @@ v8::MaybeLocal<v8::Value> V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowSha
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared::Trace(Visitor* visitor) const {

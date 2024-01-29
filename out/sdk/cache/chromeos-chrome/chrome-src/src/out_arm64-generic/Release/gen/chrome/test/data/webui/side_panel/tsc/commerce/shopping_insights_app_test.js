@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import 'chrome://shopping-insights-side-panel.top-chrome/app.js';
+import { BrowserProxyImpl } from 'chrome://resources/cr_components/commerce/browser_proxy.js';
+import { PageCallbackRouter, PriceInsightsInfo_PriceBucket } from 'chrome://resources/cr_components/commerce/shopping_service.mojom-webui.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { stringToMojoString16 } from 'chrome://resources/js/mojo_type_util.js';
-import { ShoppingServiceApiProxyImpl } from 'chrome://shopping-insights-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
-import { PageCallbackRouter, PriceInsightsInfo_PriceBucket } from 'chrome://shopping-insights-side-panel.top-chrome/shared/shopping_list.mojom-webui.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { fakeMetricsPrivate } from 'chrome://webui-test/metrics_test_support.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
@@ -13,7 +13,7 @@ import { TestMock } from 'chrome://webui-test/test_mock.js';
 import { isVisible } from 'chrome://webui-test/test_util.js';
 suite('ShoppingInsightsAppTest', () => {
     let shoppingInsightsApp;
-    const shoppingServiceApi = TestMock.fromClass(ShoppingServiceApiProxyImpl);
+    const shoppingServiceApi = TestMock.fromClass(BrowserProxyImpl);
     let metrics;
     const productInfo = {
         title: 'Product Foo',
@@ -90,7 +90,8 @@ suite('ShoppingInsightsAppTest', () => {
         shoppingServiceApi.reset();
         shoppingServiceApi.setResultFor('getProductInfoForCurrentUrl', Promise.resolve({ productInfo: productInfo }));
         shoppingServiceApi.setResultFor('isShoppingListEligible', Promise.resolve({ eligible: false }));
-        ShoppingServiceApiProxyImpl.setInstance(shoppingServiceApi);
+        shoppingServiceApi.setResultFor('getPriceTrackingStatusForCurrentUrl', Promise.resolve({ tracked: false }));
+        BrowserProxyImpl.setInstance(shoppingServiceApi);
         shoppingInsightsApp = document.createElement('shopping-insights-app');
         metrics = fakeMetricsPrivate();
     });
@@ -223,13 +224,36 @@ suite('ShoppingInsightsAppTest', () => {
             await shoppingServiceApi.whenCalled('getProductInfoForCurrentUrl');
             await shoppingServiceApi.whenCalled('getPriceInsightsInfoForCurrentUrl');
             await shoppingServiceApi.whenCalled('isShoppingListEligible');
+            await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
             await flushTasks();
             const section = shoppingInsightsApp.shadowRoot.querySelector('#priceTrackingSection');
             assertEquals(isVisible(section), eligible);
             if (eligible) {
+                assertTrue(!!section);
                 assertEquals(section.priceInsightsInfo, priceInsights1);
                 assertEquals(section.productInfo, productInfo);
             }
         });
+    });
+    test('NotShowPriceTrackingWithoutTrackingStatus', async () => {
+        shoppingServiceApi.setResultFor('isShoppingListEligible', Promise.resolve({ eligible: true }));
+        shoppingServiceApi.setResultFor('getProductInfoForCurrentUrl', Promise.resolve({ productInfo: productInfo }));
+        shoppingServiceApi.setResultFor('getPriceInsightsInfoForCurrentUrl', Promise.resolve({ priceInsightsInfo: priceInsights1 }));
+        shoppingServiceApi.setResultFor('getParentBookmarkFolderNameForCurrentUrl', Promise.resolve({ name: stringToMojoString16('Parent folder') }));
+        const callbackRouter = new PageCallbackRouter();
+        shoppingServiceApi.setResultFor('getCallbackRouter', callbackRouter);
+        document.body.appendChild(shoppingInsightsApp);
+        await shoppingServiceApi.whenCalled('getProductInfoForCurrentUrl');
+        await shoppingServiceApi.whenCalled('getPriceInsightsInfoForCurrentUrl');
+        await shoppingServiceApi.whenCalled('isShoppingListEligible');
+        // Price tracking section is not visible before
+        // `getPriceTrackingStatusForCurrentUrl` returns.
+        let section = shoppingInsightsApp.shadowRoot.querySelector('#priceTrackingSection');
+        assertFalse(isVisible(section));
+        await shoppingServiceApi.whenCalled('getPriceTrackingStatusForCurrentUrl');
+        await flushTasks();
+        section =
+            shoppingInsightsApp.shadowRoot.querySelector('#priceTrackingSection');
+        assertTrue(isVisible(section));
     });
 });

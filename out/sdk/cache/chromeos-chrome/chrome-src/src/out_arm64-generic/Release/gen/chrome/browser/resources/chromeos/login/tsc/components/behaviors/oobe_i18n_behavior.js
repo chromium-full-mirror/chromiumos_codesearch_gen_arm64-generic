@@ -48,6 +48,12 @@ export class OobeI18nBehaviorInterface extends I18nBehaviorInterface {
     i18n(id, ...var_args) { }
     i18nUpdateLocale() { }
     /**
+     * @param {string} id
+     * @param {SanitizeInnerHtmlOpts=} opts
+     * @return {string}
+     */
+    i18nAdvanced(id, opts) { }
+    /**
      * @param {string} locale
      * @param {string} id
      * @param {...string} varArgs

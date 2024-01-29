@@ -18,10 +18,10 @@ goog.require('network.mojom.IpProtectionProxyBypassPolicy');
 goog.require('mojoBase.mojom.MemoryPressureLevel');
 goog.require('network.mojom.NetLogCaptureMode');
 goog.require('network.mojom.SecureDnsMode');
-goog.require('network.mojom.CookieEncryptionProvider');
 goog.require('network.mojom.DnsConfigChangeManager');
 goog.require('network.mojom.NetLogProxySink');
 goog.require('network.mojom.NetLogProxySource');
+goog.require('network.mojom.NetworkAnnotationMonitor');
 goog.require('network.mojom.NetworkChangeManager');
 goog.require('network.mojom.NetworkContext');
 goog.require('network.mojom.NetworkQualityEstimatorManager');
@@ -155,7 +155,7 @@ network.mojom.NetworkServiceInterface = class {
    * @param { !number } maxConnections
    */
 
-  setMaxConnectionsPerProxy(maxConnections) {}
+  setMaxConnectionsPerProxyChain(maxConnections) {}
   
   /**
    * @param { !network.mojom.NetworkChangeManagerPendingReceiver } networkChangeManager
@@ -305,10 +305,10 @@ network.mojom.NetworkServiceInterface = class {
   setIPv6ReachabilityOverride(reachabilityOverride) {}
   
   /**
-   * @param { !network.mojom.CookieEncryptionProviderRemote } provider
+   * @param { !network.mojom.NetworkAnnotationMonitorRemote } remote
    */
 
-  setCookieEncryptionProvider(provider) {}
+  setNetworkAnnotationMonitor(remote) {}
 };
 
 /**
@@ -524,11 +524,11 @@ network.mojom.NetworkServiceRemote = class {
    * @param { !number } maxConnections
    */
 
-  setMaxConnectionsPerProxy(
+  setMaxConnectionsPerProxyChain(
       maxConnections) {
     this.proxy.sendMessage(
         10,
-        network.mojom.NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
+        network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
         null,
         [
           maxConnections
@@ -912,17 +912,17 @@ network.mojom.NetworkServiceRemote = class {
 
   
   /**
-   * @param { !network.mojom.CookieEncryptionProviderRemote } provider
+   * @param { !network.mojom.NetworkAnnotationMonitorRemote } remote
    */
 
-  setCookieEncryptionProvider(
-      provider) {
+  setNetworkAnnotationMonitor(
+      remote) {
     this.proxy.sendMessage(
         34,
-        network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        network.mojom.NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
         null,
         [
-          provider
+          remote
         ]);
   }
 };
@@ -1001,9 +1001,9 @@ network.mojom.NetworkServiceReceiver = class {
         impl.setRawHeadersAccess.bind(impl));
     this.helper_internal_.registerHandler(
         10,
-        network.mojom.NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
+        network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
         null,
-        impl.setMaxConnectionsPerProxy.bind(impl));
+        impl.setMaxConnectionsPerProxyChain.bind(impl));
     this.helper_internal_.registerHandler(
         11,
         network.mojom.NetworkService_GetNetworkChangeManager_ParamsSpec.$,
@@ -1121,9 +1121,9 @@ network.mojom.NetworkServiceReceiver = class {
         impl.setIPv6ReachabilityOverride.bind(impl));
     this.helper_internal_.registerHandler(
         34,
-        network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        network.mojom.NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
         null,
-        impl.setCookieEncryptionProvider.bind(impl));
+        impl.setNetworkAnnotationMonitor.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1299,15 +1299,15 @@ network.mojom.NetworkServiceCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setMaxConnectionsPerProxy =
+    this.setMaxConnectionsPerProxyChain =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         10,
-        network.mojom.NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
+        network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
         null,
-        this.setMaxConnectionsPerProxy.createReceiverHandler(false /* expectsResponse */));
+        this.setMaxConnectionsPerProxyChain.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -1587,15 +1587,15 @@ network.mojom.NetworkServiceCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.setCookieEncryptionProvider =
+    this.setNetworkAnnotationMonitor =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         34,
-        network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
+        network.mojom.NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
         null,
-        this.setCookieEncryptionProvider.createReceiverHandler(false /* expectsResponse */));
+        this.setNetworkAnnotationMonitor.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1731,12 +1731,12 @@ goog.provide('network.mojom.NetworkService_SetRawHeadersAccess_ParamsSpec');
 network.mojom.NetworkService_SetRawHeadersAccess_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('network.mojom.NetworkService_SetMaxConnectionsPerProxy_ParamsSpec');
+goog.provide('network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-network.mojom.NetworkService_SetMaxConnectionsPerProxy_ParamsSpec =
+network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('network.mojom.NetworkService_GetNetworkChangeManager_ParamsSpec');
@@ -1971,12 +1971,12 @@ goog.provide('network.mojom.NetworkService_SetIPv6ReachabilityOverride_ParamsSpe
 network.mojom.NetworkService_SetIPv6ReachabilityOverride_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec');
+goog.provide('network.mojom.NetworkService_SetNetworkAnnotationMonitor_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec =
+network.mojom.NetworkService_SetNetworkAnnotationMonitor_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2728,8 +2728,8 @@ network.mojom.NetworkService_SetRawHeadersAccess_Params = class {
 
 
 mojo.internal.Struct(
-    network.mojom.NetworkService_SetMaxConnectionsPerProxy_ParamsSpec.$,
-    'NetworkService_SetMaxConnectionsPerProxy_Params',
+    network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_ParamsSpec.$,
+    'NetworkService_SetMaxConnectionsPerProxyChain_Params',
     [
       mojo.internal.StructField(
         'maxConnections', 0,
@@ -2744,10 +2744,10 @@ mojo.internal.Struct(
 
 
 
-goog.provide('network.mojom.NetworkService_SetMaxConnectionsPerProxy_Params');
+goog.provide('network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_Params');
 
 /** @record */
-network.mojom.NetworkService_SetMaxConnectionsPerProxy_Params = class {
+network.mojom.NetworkService_SetMaxConnectionsPerProxyChain_Params = class {
   constructor() {
     /** @export { !number } */
     this.maxConnections;
@@ -3548,13 +3548,13 @@ network.mojom.NetworkService_SetIPv6ReachabilityOverride_Params = class {
 
 
 mojo.internal.Struct(
-    network.mojom.NetworkService_SetCookieEncryptionProvider_ParamsSpec.$,
-    'NetworkService_SetCookieEncryptionProvider_Params',
+    network.mojom.NetworkService_SetNetworkAnnotationMonitor_ParamsSpec.$,
+    'NetworkService_SetNetworkAnnotationMonitor_Params',
     [
       mojo.internal.StructField(
-        'provider', 0,
+        'remote', 0,
         0,
-        mojo.internal.InterfaceProxy(network.mojom.CookieEncryptionProviderRemote),
+        mojo.internal.InterfaceProxy(network.mojom.NetworkAnnotationMonitorRemote),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -3564,13 +3564,13 @@ mojo.internal.Struct(
 
 
 
-goog.provide('network.mojom.NetworkService_SetCookieEncryptionProvider_Params');
+goog.provide('network.mojom.NetworkService_SetNetworkAnnotationMonitor_Params');
 
 /** @record */
-network.mojom.NetworkService_SetCookieEncryptionProvider_Params = class {
+network.mojom.NetworkService_SetNetworkAnnotationMonitor_Params = class {
   constructor() {
-    /** @export { !network.mojom.CookieEncryptionProviderRemote } */
-    this.provider;
+    /** @export { !network.mojom.NetworkAnnotationMonitorRemote } */
+    this.remote;
   }
 };
 

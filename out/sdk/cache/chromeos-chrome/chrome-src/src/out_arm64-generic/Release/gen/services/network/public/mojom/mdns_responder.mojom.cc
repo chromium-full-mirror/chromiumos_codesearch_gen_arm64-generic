@@ -316,6 +316,8 @@ bool MdnsResponder_CreateNameForAddress_ForwardToCallback::Accept(
           internal::MdnsResponder_CreateNameForAddress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MdnsResponder.0
   bool success = true;
   std::string p_name{};
   bool p_announcement_scheduled{};
@@ -453,6 +455,8 @@ bool MdnsResponder_RemoveNameForAddress_ForwardToCallback::Accept(
           internal::MdnsResponder_RemoveNameForAddress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MdnsResponder.1
   bool success = true;
   bool p_removed{};
   bool p_goodbye_scheduled{};
@@ -554,6 +558,8 @@ bool MdnsResponderStubDispatch::AcceptWithResponder(
               internal::MdnsResponder_CreateNameForAddress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MdnsResponder.0
       bool success = true;
       ::net::IPAddress p_address{};
       MdnsResponder_CreateNameForAddress_ParamsDataView input_data_view(params, message);
@@ -572,8 +578,8 @@ bool MdnsResponderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNameForAddress(
-std::move(p_address), std::move(callback));
+      impl->CreateNameForAddress(        
+        std::move(p_address), std::move(callback));
       return true;
     }
     case internal::kMdnsResponder_RemoveNameForAddress_Name: {
@@ -583,6 +589,8 @@ std::move(p_address), std::move(callback));
               internal::MdnsResponder_RemoveNameForAddress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MdnsResponder.1
       bool success = true;
       ::net::IPAddress p_address{};
       MdnsResponder_RemoveNameForAddress_ParamsDataView input_data_view(params, message);
@@ -601,8 +609,8 @@ std::move(p_address), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveNameForAddress(
-std::move(p_address), std::move(callback));
+      impl->RemoveNameForAddress(        
+        std::move(p_address), std::move(callback));
       return true;
     }
   }

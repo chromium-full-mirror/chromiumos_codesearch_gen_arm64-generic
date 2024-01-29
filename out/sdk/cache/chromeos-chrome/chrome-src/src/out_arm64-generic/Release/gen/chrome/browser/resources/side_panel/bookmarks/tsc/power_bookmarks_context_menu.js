@@ -7,7 +7,7 @@ import '//bookmarks-side-panel.top-chrome/shared/sp_shared_style.css.js';
 import '//resources/cr_elements/cr_action_menu/cr_action_menu.js';
 import '//resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import '//resources/cr_elements/icons.html.js';
-import { ShoppingServiceApiProxyImpl } from '//bookmarks-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
+import { BrowserProxyImpl } from '//resources/cr_components/commerce/browser_proxy.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -33,7 +33,7 @@ export class PowerBookmarksContextMenuElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.bookmarksApi_ = BookmarksApiProxyImpl.getInstance();
-        this.shoppingServiceApi_ = ShoppingServiceApiProxyImpl.getInstance();
+        this.shoppingServiceApi_ = BrowserProxyImpl.getInstance();
         this.bookmarks_ = [];
     }
     static get is() {

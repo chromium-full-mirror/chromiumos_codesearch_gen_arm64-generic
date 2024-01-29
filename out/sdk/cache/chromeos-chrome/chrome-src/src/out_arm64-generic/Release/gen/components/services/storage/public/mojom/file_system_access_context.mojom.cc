@@ -385,6 +385,8 @@ bool FileSystemAccessContext_SerializeHandle_ForwardToCallback::Accept(
           internal::FileSystemAccessContext_SerializeHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessContext.0
   bool success = true;
   std::vector<uint8_t> p_bits{};
   FileSystemAccessContext_SerializeHandle_ResponseParamsDataView input_data_view(params, message);
@@ -474,6 +476,8 @@ bool FileSystemAccessContextStubDispatch::Accept(
           reinterpret_cast<internal::FileSystemAccessContext_DeserializeHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessContext.1
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       std::vector<uint8_t> p_bits{};
@@ -497,10 +501,10 @@ bool FileSystemAccessContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeserializeHandle(
-std::move(p_storage_key), 
-std::move(p_bits), 
-std::move(p_token));
+      impl->DeserializeHandle(        
+        std::move(p_storage_key), 
+        std::move(p_bits), 
+        std::move(p_token));
       return true;
     }
     case internal::kFileSystemAccessContext_Clone_Name: {
@@ -510,6 +514,8 @@ std::move(p_token));
           reinterpret_cast<internal::FileSystemAccessContext_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessContext.2
       bool success = true;
       ::mojo::PendingReceiver<FileSystemAccessContext> p_receiever{};
       FileSystemAccessContext_Clone_ParamsDataView input_data_view(params, message);
@@ -527,8 +533,8 @@ std::move(p_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiever));
+      impl->Clone(        
+        std::move(p_receiever));
       return true;
     }
   }
@@ -551,6 +557,8 @@ bool FileSystemAccessContextStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessContext_SerializeHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessContext.0
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> p_token{};
       FileSystemAccessContext_SerializeHandle_ParamsDataView input_data_view(params, message);
@@ -571,8 +579,8 @@ bool FileSystemAccessContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SerializeHandle(
-std::move(p_token), std::move(callback));
+      impl->SerializeHandle(        
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kFileSystemAccessContext_DeserializeHandle_Name: {

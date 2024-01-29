@@ -146,11 +146,17 @@ class InputInfoDataView;
 
 class TouchscreenDeviceDataView;
 
+class TouchpadDeviceDataView;
+
 class InputDeviceDataView;
 
 class SensorInfoDataView;
 
 class SensorDataView;
+
+class ThermalInfoDataView;
+
+class ThermalSensorInfoDataView;
 
 class TelemetryInfoDataView;
 
@@ -184,6 +190,7 @@ class GraphicsResultDataView;
 class DisplayResultDataView;
 class InputResultDataView;
 class SensorResultDataView;
+class ThermalResultDataView;
 
 enum class CpuArchitectureEnum : int32_t;
 
@@ -234,6 +241,8 @@ enum class InputDevice_ConnectionType : int32_t;
 enum class Sensor_Type : int32_t;
 
 enum class Sensor_Location : int32_t;
+
+enum class ThermalSensorInfo_ThermalSensorSource : int32_t;
 class ProbeError;
 using ProbeErrorPtr = mojo::InlinedStructPtr<ProbeError>;
 
@@ -420,6 +429,9 @@ using InputInfoPtr = mojo::StructPtr<InputInfo>;
 class TouchscreenDevice;
 using TouchscreenDevicePtr = mojo::StructPtr<TouchscreenDevice>;
 
+class TouchpadDevice;
+using TouchpadDevicePtr = mojo::StructPtr<TouchpadDevice>;
+
 class InputDevice;
 using InputDevicePtr = mojo::InlinedStructPtr<InputDevice>;
 
@@ -428,6 +440,12 @@ using SensorInfoPtr = mojo::StructPtr<SensorInfo>;
 
 class Sensor;
 using SensorPtr = mojo::InlinedStructPtr<Sensor>;
+
+class ThermalInfo;
+using ThermalInfoPtr = mojo::StructPtr<ThermalInfo>;
+
+class ThermalSensorInfo;
+using ThermalSensorInfoPtr = mojo::InlinedStructPtr<ThermalSensorInfo>;
 
 class TelemetryInfo;
 using TelemetryInfoPtr = mojo::StructPtr<TelemetryInfo>;
@@ -551,6 +569,10 @@ using InputResultPtr = mojo::StructPtr<InputResult>;
 class SensorResult;
 
 using SensorResultPtr = mojo::StructPtr<SensorResult>;
+
+class ThermalResult;
+
+using ThermalResultPtr = mojo::StructPtr<ThermalResult>;
 
 
 

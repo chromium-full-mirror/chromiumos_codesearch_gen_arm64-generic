@@ -1861,6 +1861,44 @@ class  ArcNotificationData {
       const std::optional<std::string>& group_key,
       int32_t reply_button_index);
 
+  ArcNotificationData(
+      const std::string& key,
+      ArcNotificationType type,
+      const std::string& message,
+      const std::string& title,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
+      ArcNotificationPriority priority,
+      int64_t time,
+      int32_t progress_current,
+      int32_t progress_max,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      bool no_clear,
+      bool ongoing_event,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
+      bool is_custom_notification,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
+      float snapshot_image_scale,
+      const std::optional<std::string>& accessible_name,
+      ArcNotificationExpandState expand_state,
+      ArcNotificationShownContents shown_contents,
+      ArcNotificationRemoteInputState remote_input_state,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
+      ArcNotificationFlagsPtr flags,
+      bool indeterminate_progress,
+      const std::optional<::SkBitmap>& snapshot_image_public,
+      bool is_media_notification,
+      ArcNotificationStyle style,
+      bool is_action_enabled,
+      bool is_inline_reply_enabled,
+      bool render_on_chrome,
+      const std::optional<std::string>& group_key,
+      int32_t reply_button_index,
+      std::optional<std::vector<ArcNotificationDataPtr>> children_data);
+
 ArcNotificationData(const ArcNotificationData&) = delete;
 ArcNotificationData& operator=(const ArcNotificationData&) = delete;
 
@@ -2008,6 +2046,8 @@ ArcNotificationData& operator=(const ArcNotificationData&) = delete;
   std::optional<std::string> group_key;
   
   int32_t reply_button_index;
+  
+  std::optional<std::vector<ArcNotificationDataPtr>> children_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2130,7 +2170,8 @@ ArcNotificationDataPtr ArcNotificationData::Clone() const {
       mojo::Clone(is_inline_reply_enabled),
       mojo::Clone(render_on_chrome),
       mojo::Clone(group_key),
-      mojo::Clone(reply_button_index)
+      mojo::Clone(reply_button_index),
+      mojo::Clone(children_data)
   );
 }
 
@@ -2205,6 +2246,8 @@ bool ArcNotificationData::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->group_key, other_struct.group_key))
     return false;
   if (!mojo::Equals(this->reply_button_index, other_struct.reply_button_index))
+    return false;
+  if (!mojo::Equals(this->children_data, other_struct.children_data))
     return false;
   return true;
 }
@@ -2350,6 +2393,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.reply_button_index < rhs.reply_button_index)
     return true;
   if (rhs.reply_button_index < lhs.reply_button_index)
+    return false;
+  if (lhs.children_data < rhs.children_data)
+    return true;
+  if (rhs.children_data < lhs.children_data)
     return false;
   return false;
 }
@@ -2690,6 +2737,11 @@ struct  StructTraits<::arc::mojom::ArcNotificationData::DataView,
   static decltype(::arc::mojom::ArcNotificationData::reply_button_index) reply_button_index(
       const ::arc::mojom::ArcNotificationDataPtr& input) {
     return input->reply_button_index;
+  }
+
+  static const decltype(::arc::mojom::ArcNotificationData::children_data)& children_data(
+      const ::arc::mojom::ArcNotificationDataPtr& input) {
+    return input->children_data;
   }
 
   static bool Read(::arc::mojom::ArcNotificationData::DataView input, ::arc::mojom::ArcNotificationDataPtr* output);

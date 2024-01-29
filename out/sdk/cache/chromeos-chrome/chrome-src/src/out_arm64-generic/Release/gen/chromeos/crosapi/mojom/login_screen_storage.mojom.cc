@@ -443,6 +443,8 @@ bool LoginScreenStorage_Store_ForwardToCallback::Accept(
           internal::LoginScreenStorage_Store_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LoginScreenStorage.0
   bool success = true;
   std::optional<std::string> p_error_message{};
   LoginScreenStorage_Store_ResponseParamsDataView input_data_view(params, message);
@@ -568,6 +570,8 @@ bool LoginScreenStorage_Retrieve_ForwardToCallback::Accept(
           internal::LoginScreenStorage_Retrieve_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LoginScreenStorage.1
   bool success = true;
   LoginScreenStorageRetrieveResultPtr p_result{};
   LoginScreenStorage_Retrieve_ResponseParamsDataView input_data_view(params, message);
@@ -669,6 +673,8 @@ bool LoginScreenStorageStubDispatch::AcceptWithResponder(
               internal::LoginScreenStorage_Store_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LoginScreenStorage.0
       bool success = true;
       std::vector<std::string> p_keys{};
       LoginScreenStorageMetadataPtr p_metadata{};
@@ -693,10 +699,10 @@ bool LoginScreenStorageStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Store(
-std::move(p_keys), 
-std::move(p_metadata), 
-std::move(p_data), std::move(callback));
+      impl->Store(        
+        std::move(p_keys), 
+        std::move(p_metadata), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kLoginScreenStorage_Retrieve_Name: {
@@ -706,6 +712,8 @@ std::move(p_data), std::move(callback));
               internal::LoginScreenStorage_Retrieve_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LoginScreenStorage.1
       bool success = true;
       std::string p_key{};
       LoginScreenStorage_Retrieve_ParamsDataView input_data_view(params, message);
@@ -724,8 +732,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Retrieve(
-std::move(p_key), std::move(callback));
+      impl->Retrieve(        
+        std::move(p_key), std::move(callback));
       return true;
     }
   }

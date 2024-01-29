@@ -328,8 +328,6 @@
     void SetTouchEditingEnabled(bool touch_editing_enabled); \
     bool GetUseAXMenuList() const { return use_ax_menu_list_; } \
     void SetUseAXMenuList(bool use_ax_menu_list); \
-    bool GetUseLegacyBackgroundSizeShorthandBehavior() const { return use_legacy_background_size_shorthand_behavior_; } \
-    void SetUseLegacyBackgroundSizeShorthandBehavior(bool use_legacy_background_size_shorthand_behavior); \
     bool GetUseWideViewport() const { return use_wide_viewport_; } \
     void SetUseWideViewport(bool use_wide_viewport); \
     mojom::blink::V8CacheOptions GetV8CacheOptions() const { return v8_cache_options_; } \
@@ -527,7 +525,6 @@
     bool touch_drag_end_context_menu_ : 1; \
     bool touch_editing_enabled_ : 1; \
     bool use_ax_menu_list_ : 1; \
-    bool use_legacy_background_size_shorthand_behavior_ : 1; \
     bool use_wide_viewport_ : 1; \
     bool viewport_enabled_ : 1; \
     bool viewport_meta_enabled_ : 1; \
@@ -690,7 +687,6 @@
     , touch_drag_end_context_menu_(false) \
     , touch_editing_enabled_(false) \
     , use_ax_menu_list_(true) \
-    , use_legacy_background_size_shorthand_behavior_(false) \
     , use_wide_viewport_(true) \
     , viewport_enabled_(false) \
     , viewport_meta_enabled_(false) \
@@ -1405,7 +1401,6 @@ void Settings::SetSpatialNavigationEnabled(bool spatial_navigation_enabled) { \
   if (spatial_navigation_enabled_ == spatial_navigation_enabled) \
     return; \
   spatial_navigation_enabled_ = spatial_navigation_enabled; \
-  Invalidate(SettingsDelegate::ChangeType::kSpatialNavigation); \
 } \
 void Settings::SetSpellCheckEnabledByDefault(bool spell_check_enabled_by_default) { \
   if (spell_check_enabled_by_default_ == spell_check_enabled_by_default) \
@@ -1540,11 +1535,6 @@ void Settings::SetUseAXMenuList(bool use_ax_menu_list) { \
   if (use_ax_menu_list_ == use_ax_menu_list) \
     return; \
   use_ax_menu_list_ = use_ax_menu_list; \
-} \
-void Settings::SetUseLegacyBackgroundSizeShorthandBehavior(bool use_legacy_background_size_shorthand_behavior) { \
-  if (use_legacy_background_size_shorthand_behavior_ == use_legacy_background_size_shorthand_behavior) \
-    return; \
-  use_legacy_background_size_shorthand_behavior_ = use_legacy_background_size_shorthand_behavior; \
 } \
 void Settings::SetUseWideViewport(bool use_wide_viewport) { \
   if (use_wide_viewport_ == use_wide_viewport) \
@@ -2257,10 +2247,6 @@ void Settings::SetFromStrings(const String& name, const String& value) { \
   } \
   if (name == "useAXMenuList") { \
     SetUseAXMenuList(FromString<bool>()(value)); \
-    return; \
-  } \
-  if (name == "useLegacyBackgroundSizeShorthandBehavior") { \
-    SetUseLegacyBackgroundSizeShorthandBehavior(FromString<bool>()(value)); \
     return; \
   } \
   if (name == "useWideViewport") { \

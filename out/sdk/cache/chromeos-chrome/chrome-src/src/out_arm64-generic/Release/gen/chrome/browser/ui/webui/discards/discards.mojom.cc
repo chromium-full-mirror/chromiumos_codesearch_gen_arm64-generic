@@ -1140,6 +1140,8 @@ bool DetailsProvider_GetTabDiscardsInfo_ForwardToCallback::Accept(
           internal::DetailsProvider_GetTabDiscardsInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DetailsProvider.0
   bool success = true;
   std::vector<TabDiscardsInfoPtr> p_infos{};
   DetailsProvider_GetTabDiscardsInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1271,6 +1273,8 @@ bool DetailsProvider_SetAutoDiscardable_ForwardToCallback::Accept(
           internal::DetailsProvider_SetAutoDiscardable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DetailsProvider.1
   bool success = true;
   DetailsProvider_SetAutoDiscardable_ResponseParamsDataView input_data_view(params, message);
   
@@ -1378,6 +1382,8 @@ bool DetailsProvider_DiscardById_ForwardToCallback::Accept(
           internal::DetailsProvider_DiscardById_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DetailsProvider.2
   bool success = true;
   DetailsProvider_DiscardById_ResponseParamsDataView input_data_view(params, message);
   
@@ -1485,6 +1491,8 @@ bool DetailsProvider_Discard_ForwardToCallback::Accept(
           internal::DetailsProvider_Discard_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DetailsProvider.4
   bool success = true;
   DetailsProvider_Discard_ResponseParamsDataView input_data_view(params, message);
   
@@ -1556,6 +1564,8 @@ bool DetailsProviderStubDispatch::Accept(
           reinterpret_cast<internal::DetailsProvider_LoadById_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DetailsProvider.3
       bool success = true;
       int32_t p_tab_id{};
       DetailsProvider_LoadById_ParamsDataView input_data_view(params, message);
@@ -1571,8 +1581,8 @@ bool DetailsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadById(
-std::move(p_tab_id));
+      impl->LoadById(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kDetailsProvider_Discard_Name: {
@@ -1585,6 +1595,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::DetailsProvider_ToggleBatterySaverMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DetailsProvider.5
       bool success = true;
       DetailsProvider_ToggleBatterySaverMode_ParamsDataView input_data_view(params, message);
       
@@ -1597,7 +1609,7 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleBatterySaverMode();
+      impl->ToggleBatterySaverMode(        );
       return true;
     }
   }
@@ -1620,6 +1632,8 @@ bool DetailsProviderStubDispatch::AcceptWithResponder(
               internal::DetailsProvider_GetTabDiscardsInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DetailsProvider.0
       bool success = true;
       DetailsProvider_GetTabDiscardsInfo_ParamsDataView input_data_view(params, message);
       
@@ -1645,6 +1659,8 @@ bool DetailsProviderStubDispatch::AcceptWithResponder(
               internal::DetailsProvider_SetAutoDiscardable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DetailsProvider.1
       bool success = true;
       int32_t p_tab_id{};
       bool p_is_auto_discardable{};
@@ -1666,9 +1682,9 @@ bool DetailsProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAutoDiscardable(
-std::move(p_tab_id), 
-std::move(p_is_auto_discardable), std::move(callback));
+      impl->SetAutoDiscardable(        
+        std::move(p_tab_id), 
+        std::move(p_is_auto_discardable), std::move(callback));
       return true;
     }
     case internal::kDetailsProvider_DiscardById_Name: {
@@ -1678,6 +1694,8 @@ std::move(p_is_auto_discardable), std::move(callback));
               internal::DetailsProvider_DiscardById_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DetailsProvider.2
       bool success = true;
       int32_t p_tab_id{};
       ::mojom::LifecycleUnitDiscardReason p_reason{};
@@ -1699,9 +1717,9 @@ std::move(p_is_auto_discardable), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DiscardById(
-std::move(p_tab_id), 
-std::move(p_reason), std::move(callback));
+      impl->DiscardById(        
+        std::move(p_tab_id), 
+        std::move(p_reason), std::move(callback));
       return true;
     }
     case internal::kDetailsProvider_LoadById_Name: {
@@ -1714,6 +1732,8 @@ std::move(p_reason), std::move(callback));
               internal::DetailsProvider_Discard_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DetailsProvider.4
       bool success = true;
       DetailsProvider_Discard_ParamsDataView input_data_view(params, message);
       
@@ -2515,6 +2535,8 @@ bool GraphChangeStreamStubDispatch::Accept(
           reinterpret_cast<internal::GraphChangeStream_FrameCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.0
       bool success = true;
       FrameInfoPtr p_frame{};
       GraphChangeStream_FrameCreated_ParamsDataView input_data_view(params, message);
@@ -2530,8 +2552,8 @@ bool GraphChangeStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameCreated(
-std::move(p_frame));
+      impl->FrameCreated(        
+        std::move(p_frame));
       return true;
     }
     case internal::kGraphChangeStream_PageCreated_Name: {
@@ -2541,6 +2563,8 @@ std::move(p_frame));
           reinterpret_cast<internal::GraphChangeStream_PageCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.1
       bool success = true;
       PageInfoPtr p_pages{};
       GraphChangeStream_PageCreated_ParamsDataView input_data_view(params, message);
@@ -2556,8 +2580,8 @@ std::move(p_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PageCreated(
-std::move(p_pages));
+      impl->PageCreated(        
+        std::move(p_pages));
       return true;
     }
     case internal::kGraphChangeStream_ProcessCreated_Name: {
@@ -2567,6 +2591,8 @@ std::move(p_pages));
           reinterpret_cast<internal::GraphChangeStream_ProcessCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.2
       bool success = true;
       ProcessInfoPtr p_process{};
       GraphChangeStream_ProcessCreated_ParamsDataView input_data_view(params, message);
@@ -2582,8 +2608,8 @@ std::move(p_pages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessCreated(
-std::move(p_process));
+      impl->ProcessCreated(        
+        std::move(p_process));
       return true;
     }
     case internal::kGraphChangeStream_WorkerCreated_Name: {
@@ -2593,6 +2619,8 @@ std::move(p_process));
           reinterpret_cast<internal::GraphChangeStream_WorkerCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.3
       bool success = true;
       WorkerInfoPtr p_worker{};
       GraphChangeStream_WorkerCreated_ParamsDataView input_data_view(params, message);
@@ -2608,8 +2636,8 @@ std::move(p_process));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WorkerCreated(
-std::move(p_worker));
+      impl->WorkerCreated(        
+        std::move(p_worker));
       return true;
     }
     case internal::kGraphChangeStream_FrameChanged_Name: {
@@ -2619,6 +2647,8 @@ std::move(p_worker));
           reinterpret_cast<internal::GraphChangeStream_FrameChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.4
       bool success = true;
       FrameInfoPtr p_frame{};
       GraphChangeStream_FrameChanged_ParamsDataView input_data_view(params, message);
@@ -2634,8 +2664,8 @@ std::move(p_worker));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameChanged(
-std::move(p_frame));
+      impl->FrameChanged(        
+        std::move(p_frame));
       return true;
     }
     case internal::kGraphChangeStream_PageChanged_Name: {
@@ -2645,6 +2675,8 @@ std::move(p_frame));
           reinterpret_cast<internal::GraphChangeStream_PageChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.5
       bool success = true;
       PageInfoPtr p_page{};
       GraphChangeStream_PageChanged_ParamsDataView input_data_view(params, message);
@@ -2660,8 +2692,8 @@ std::move(p_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PageChanged(
-std::move(p_page));
+      impl->PageChanged(        
+        std::move(p_page));
       return true;
     }
     case internal::kGraphChangeStream_ProcessChanged_Name: {
@@ -2671,6 +2703,8 @@ std::move(p_page));
           reinterpret_cast<internal::GraphChangeStream_ProcessChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.6
       bool success = true;
       ProcessInfoPtr p_process{};
       GraphChangeStream_ProcessChanged_ParamsDataView input_data_view(params, message);
@@ -2686,8 +2720,8 @@ std::move(p_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessChanged(
-std::move(p_process));
+      impl->ProcessChanged(        
+        std::move(p_process));
       return true;
     }
     case internal::kGraphChangeStream_WorkerChanged_Name: {
@@ -2697,6 +2731,8 @@ std::move(p_process));
           reinterpret_cast<internal::GraphChangeStream_WorkerChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.7
       bool success = true;
       WorkerInfoPtr p_worker{};
       GraphChangeStream_WorkerChanged_ParamsDataView input_data_view(params, message);
@@ -2712,8 +2748,8 @@ std::move(p_process));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WorkerChanged(
-std::move(p_worker));
+      impl->WorkerChanged(        
+        std::move(p_worker));
       return true;
     }
     case internal::kGraphChangeStream_FavIconDataAvailable_Name: {
@@ -2723,6 +2759,8 @@ std::move(p_worker));
           reinterpret_cast<internal::GraphChangeStream_FavIconDataAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.8
       bool success = true;
       FavIconInfoPtr p_favicon{};
       GraphChangeStream_FavIconDataAvailable_ParamsDataView input_data_view(params, message);
@@ -2738,8 +2776,8 @@ std::move(p_worker));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FavIconDataAvailable(
-std::move(p_favicon));
+      impl->FavIconDataAvailable(        
+        std::move(p_favicon));
       return true;
     }
     case internal::kGraphChangeStream_NodeDeleted_Name: {
@@ -2749,6 +2787,8 @@ std::move(p_favicon));
           reinterpret_cast<internal::GraphChangeStream_NodeDeleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphChangeStream.9
       bool success = true;
       int64_t p_node_id{};
       GraphChangeStream_NodeDeleted_ParamsDataView input_data_view(params, message);
@@ -2764,8 +2804,8 @@ std::move(p_favicon));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NodeDeleted(
-std::move(p_node_id));
+      impl->NodeDeleted(        
+        std::move(p_node_id));
       return true;
     }
   }
@@ -3096,6 +3136,8 @@ bool GraphDump_RequestNodeDescriptions_ForwardToCallback::Accept(
           internal::GraphDump_RequestNodeDescriptions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GraphDump.1
   bool success = true;
   base::flat_map<int64_t, std::string> p_node_descriptions_json{};
   GraphDump_RequestNodeDescriptions_ResponseParamsDataView input_data_view(params, message);
@@ -3182,6 +3224,8 @@ bool GraphDumpStubDispatch::Accept(
           reinterpret_cast<internal::GraphDump_SubscribeToChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GraphDump.0
       bool success = true;
       ::mojo::PendingRemote<GraphChangeStream> p_change_subscriber{};
       GraphDump_SubscribeToChanges_ParamsDataView input_data_view(params, message);
@@ -3199,8 +3243,8 @@ bool GraphDumpStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubscribeToChanges(
-std::move(p_change_subscriber));
+      impl->SubscribeToChanges(        
+        std::move(p_change_subscriber));
       return true;
     }
     case internal::kGraphDump_RequestNodeDescriptions_Name: {
@@ -3229,6 +3273,8 @@ bool GraphDumpStubDispatch::AcceptWithResponder(
               internal::GraphDump_RequestNodeDescriptions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GraphDump.1
       bool success = true;
       std::vector<int64_t> p_node_ids{};
       GraphDump_RequestNodeDescriptions_ParamsDataView input_data_view(params, message);
@@ -3247,8 +3293,8 @@ bool GraphDumpStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestNodeDescriptions(
-std::move(p_node_ids), std::move(callback));
+      impl->RequestNodeDescriptions(        
+        std::move(p_node_ids), std::move(callback));
       return true;
     }
   }

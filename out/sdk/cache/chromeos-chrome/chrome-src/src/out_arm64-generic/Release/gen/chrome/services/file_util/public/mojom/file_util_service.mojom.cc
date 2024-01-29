@@ -359,6 +359,8 @@ bool FileUtilServiceStubDispatch::Accept(
           reinterpret_cast<internal::FileUtilService_BindZipFileCreator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileUtilService.0
       bool success = true;
       ::mojo::PendingReceiver<::chrome::mojom::ZipFileCreator> p_receiver{};
       FileUtilService_BindZipFileCreator_ParamsDataView input_data_view(params, message);
@@ -376,8 +378,8 @@ bool FileUtilServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindZipFileCreator(
-std::move(p_receiver));
+      impl->BindZipFileCreator(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kFileUtilService_BindSafeArchiveAnalyzer_Name: {
@@ -387,6 +389,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::FileUtilService_BindSafeArchiveAnalyzer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileUtilService.1
       bool success = true;
       ::mojo::PendingReceiver<::chrome::mojom::SafeArchiveAnalyzer> p_receiver{};
       FileUtilService_BindSafeArchiveAnalyzer_ParamsDataView input_data_view(params, message);
@@ -404,8 +408,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSafeArchiveAnalyzer(
-std::move(p_receiver));
+      impl->BindSafeArchiveAnalyzer(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kFileUtilService_BindSingleFileTarFileExtractor_Name: {
@@ -415,6 +419,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::FileUtilService_BindSingleFileTarFileExtractor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileUtilService.2
       bool success = true;
       ::mojo::PendingReceiver<::chrome::mojom::SingleFileExtractor> p_receiver{};
       FileUtilService_BindSingleFileTarFileExtractor_ParamsDataView input_data_view(params, message);
@@ -432,8 +438,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSingleFileTarFileExtractor(
-std::move(p_receiver));
+      impl->BindSingleFileTarFileExtractor(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kFileUtilService_BindSingleFileTarXzFileExtractor_Name: {
@@ -443,6 +449,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::FileUtilService_BindSingleFileTarXzFileExtractor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FileUtilService.3
       bool success = true;
       ::mojo::PendingReceiver<::chrome::mojom::SingleFileExtractor> p_receiver{};
       FileUtilService_BindSingleFileTarXzFileExtractor_ParamsDataView input_data_view(params, message);
@@ -460,8 +468,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSingleFileTarXzFileExtractor(
-std::move(p_receiver));
+      impl->BindSingleFileTarXzFileExtractor(        
+        std::move(p_receiver));
       return true;
     }
   }

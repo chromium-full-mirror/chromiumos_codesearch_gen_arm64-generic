@@ -299,61 +299,63 @@ enum class AcceleratorAction : int32_t {
   
   kVolumeMuteToggle = 128,
   
-  kDebugClearUseKMeansPref = 129,
+  kDebugClearUseKMeansPref = 9000,
   
-  kDebugKeyboardBacklightToggle = 130,
+  kDebugKeyboardBacklightToggle = 9001,
   
-  kDebugMicrophoneMuteToggle = 131,
+  kDebugMicrophoneMuteToggle = 9002,
   
-  kDebugPrintLayerHierarchy = 132,
+  kDebugPrintLayerHierarchy = 9003,
   
-  kDebugPrintViewHierarchy = 133,
+  kDebugPrintViewHierarchy = 9004,
   
-  kDebugPrintWindowHierarchy = 134,
+  kDebugPrintWindowHierarchy = 9005,
   
-  kDebugShowInformedRestore = 135,
+  kDebugShowInformedRestore = 9006,
   
-  kDebugShowToast = 136,
+  kDebugShowToast = 9007,
   
-  kDebugShowSystemNudge = 137,
+  kDebugShowSystemNudge = 9008,
   
-  kDebugSystemUiStyleViewer = 138,
+  kDebugSystemUiStyleViewer = 9009,
   
-  kDebugToggleDarkMode = 139,
+  kDebugToggleDarkMode = 9010,
   
-  kDebugToggleDynamicColor = 140,
+  kDebugToggleDynamicColor = 9011,
   
-  kDebugTogglePowerButtonMenu = 141,
+  kDebugToggleFocusModeState = 9012,
   
-  kDebugToggleShowDebugBorders = 142,
+  kDebugTogglePowerButtonMenu = 9013,
   
-  kDebugToggleShowFpsCounter = 143,
+  kDebugToggleShowDebugBorders = 9014,
   
-  kDebugToggleShowPaintRects = 144,
+  kDebugToggleShowFpsCounter = 9015,
   
-  kDebugToggleTouchPad = 145,
+  kDebugToggleShowPaintRects = 9016,
   
-  kDebugToggleTouchScreen = 146,
+  kDebugToggleTouchPad = 9017,
   
-  kDebugToggleTabletMode = 147,
+  kDebugToggleTouchScreen = 9018,
   
-  kDebugToggleVideoConferenceCameraTrayIcon = 148,
+  kDebugToggleTabletMode = 9019,
   
-  kDebugToggleWallpaperMode = 149,
+  kDebugToggleVideoConferenceCameraTrayIcon = 9020,
   
-  kDebugTriggerCrash = 150,
+  kDebugToggleWallpaperMode = 9021,
   
-  kDebugToggleHudDisplay = 151,
+  kDebugTriggerCrash = 9022,
   
-  kDebugToggleVirtualTrackpad = 152,
+  kDebugToggleHudDisplay = 9023,
   
-  kDevAddRemoveDisplay = 153,
+  kDebugToggleVirtualTrackpad = 9024,
   
-  kDevToggleAppList = 154,
+  kDevAddRemoveDisplay = 9025,
   
-  kDevToggleUnifiedDesktop = 155,
+  kDevToggleAppList = 9026,
+  
+  kDevToggleUnifiedDesktop = 9027,
   kMinValue = 0,
-  kMaxValue = 155,
+  kMaxValue = 9027,
 };
 
  std::ostream& operator<<(std::ostream& os, AcceleratorAction value);

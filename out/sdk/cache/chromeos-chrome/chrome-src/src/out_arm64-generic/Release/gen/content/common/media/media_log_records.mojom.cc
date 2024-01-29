@@ -168,6 +168,8 @@ bool MediaInternalLogRecordsStubDispatch::Accept(
           reinterpret_cast<internal::MediaInternalLogRecords_Log_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaInternalLogRecords.0
       bool success = true;
       std::vector<::media::MediaLogRecord> p_events{};
       MediaInternalLogRecords_Log_ParamsDataView input_data_view(params, message);
@@ -183,8 +185,8 @@ bool MediaInternalLogRecordsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Log(
-std::move(p_events));
+      impl->Log(        
+        std::move(p_events));
       return true;
     }
   }

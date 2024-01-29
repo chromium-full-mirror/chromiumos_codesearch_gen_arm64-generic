@@ -422,6 +422,8 @@ bool DevicePostureProvider_AddListenerAndGetCurrentPosture_ForwardToCallback::Ac
           internal::DevicePostureProvider_AddListenerAndGetCurrentPosture_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePostureProvider.0
   bool success = true;
   DevicePostureType p_posture{};
   DevicePostureProvider_AddListenerAndGetCurrentPosture_ResponseParamsDataView input_data_view(params, message);
@@ -542,6 +544,8 @@ bool DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ForwardToCal
           internal::DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DevicePostureProvider.1
   bool success = true;
   WTF::Vector<::gfx::Rect> p_segments{};
   DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParamsDataView input_data_view(params, message);
@@ -634,6 +638,8 @@ bool DevicePostureProviderStubDispatch::Accept(
           reinterpret_cast<internal::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePostureProvider.2
       bool success = true;
       DevicePostureType p_posture{};
       DevicePostureProvider_OverrideDevicePostureForEmulation_ParamsDataView input_data_view(params, message);
@@ -649,8 +655,8 @@ bool DevicePostureProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OverrideDevicePostureForEmulation(
-std::move(p_posture));
+      impl->OverrideDevicePostureForEmulation(        
+        std::move(p_posture));
       return true;
     }
     case internal::kDevicePostureProvider_DisableDevicePostureOverrideForEmulation_Name: {
@@ -660,6 +666,8 @@ std::move(p_posture));
           reinterpret_cast<internal::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePostureProvider.3
       bool success = true;
       DevicePostureProvider_DisableDevicePostureOverrideForEmulation_ParamsDataView input_data_view(params, message);
       
@@ -672,7 +680,7 @@ std::move(p_posture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableDevicePostureOverrideForEmulation();
+      impl->DisableDevicePostureOverrideForEmulation(        );
       return true;
     }
   }
@@ -695,6 +703,8 @@ bool DevicePostureProviderStubDispatch::AcceptWithResponder(
               internal::DevicePostureProvider_AddListenerAndGetCurrentPosture_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePostureProvider.0
       bool success = true;
       ::mojo::PendingRemote<DevicePostureClient> p_client{};
       DevicePostureProvider_AddListenerAndGetCurrentPosture_ParamsDataView input_data_view(params, message);
@@ -715,8 +725,8 @@ bool DevicePostureProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddListenerAndGetCurrentPosture(
-std::move(p_client), std::move(callback));
+      impl->AddListenerAndGetCurrentPosture(        
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kDevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Name: {
@@ -726,6 +736,8 @@ std::move(p_client), std::move(callback));
               internal::DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DevicePostureProvider.1
       bool success = true;
       ::mojo::PendingRemote<DeviceViewportSegmentsClient> p_client{};
       DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ParamsDataView input_data_view(params, message);
@@ -746,8 +758,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddListenerAndGetCurrentViewportSegments(
-std::move(p_client), std::move(callback));
+      impl->AddListenerAndGetCurrentViewportSegments(        
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kDevicePostureProvider_OverrideDevicePostureForEmulation_Name: {
@@ -894,6 +906,8 @@ bool DevicePostureClientStubDispatch::Accept(
           reinterpret_cast<internal::DevicePostureClient_OnPostureChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevicePostureClient.0
       bool success = true;
       DevicePostureType p_posture{};
       DevicePostureClient_OnPostureChanged_ParamsDataView input_data_view(params, message);
@@ -909,8 +923,8 @@ bool DevicePostureClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPostureChanged(
-std::move(p_posture));
+      impl->OnPostureChanged(        
+        std::move(p_posture));
       return true;
     }
   }
@@ -1068,6 +1082,8 @@ bool DeviceViewportSegmentsClientStubDispatch::Accept(
           reinterpret_cast<internal::DeviceViewportSegmentsClient_OnViewportSegmentsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeviceViewportSegmentsClient.0
       bool success = true;
       WTF::Vector<::gfx::Rect> p_segments{};
       DeviceViewportSegmentsClient_OnViewportSegmentsChanged_ParamsDataView input_data_view(params, message);
@@ -1083,8 +1099,8 @@ bool DeviceViewportSegmentsClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnViewportSegmentsChanged(
-std::move(p_segments));
+      impl->OnViewportSegmentsChanged(        
+        std::move(p_segments));
       return true;
     }
   }

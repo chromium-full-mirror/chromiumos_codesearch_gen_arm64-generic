@@ -68,7 +68,7 @@ export class ByteReader {
         const codes = [];
         for (let i = 0; i < size; ++i) {
             const code = dataView.getUint8(pos + i);
-            if (code == 0) {
+            if (code === 0) {
                 break;
             }
             codes.push(code);
@@ -93,13 +93,13 @@ export class ByteReader {
         let littleEndian = false;
         let start = 0;
         if (bom) {
-            littleEndian = (dataView.getUint8(pos) == 0xFF);
+            littleEndian = (dataView.getUint8(pos) === 0xFF);
             start = 2;
         }
         const codes = [];
         for (let i = start; i < size; i += 2) {
             const code = dataView.getUint16(pos + i, littleEndian);
-            if (code == 0) {
+            if (code === 0) {
                 break;
             }
             codes.push(code);
@@ -215,7 +215,7 @@ export class ByteReader {
      * @param order Byte order. Either LITTLE_ENDIAN or BIG_ENDIAN.
      */
     setByteOrder(order) {
-        this.littleEndian_ = order == ByteOrder.LITTLE_ENDIAN;
+        this.littleEndian_ = order === ByteOrder.LITTLE_ENDIAN;
     }
     /**
      * Throw an error if the reader is at an invalid position, or if a read a read
@@ -228,7 +228,7 @@ export class ByteReader {
      * @param end Maximum position to read from.
      */
     validateRead(size, end) {
-        if (typeof end == 'undefined') {
+        if (typeof end === 'undefined') {
             end = this.view_.byteLength;
         }
         ByteReader.validateRead(this.pos_, size, end);
@@ -243,7 +243,7 @@ export class ByteReader {
         this.validateRead(width, end);
         const method = WIDTH_TO_DATA_VIEW_METHOD[width][signed ? 1 : 0];
         let rv;
-        if (method == 'getInt8' || method == 'getUint8') {
+        if (method === 'getInt8' || method === 'getUint8') {
             rv = this.view_[method](this.pos_);
         }
         else {
@@ -353,10 +353,10 @@ export class ByteReader {
     seek(pos, seekStart = SeekOrigin.SEEK_BEG, end) {
         end = end || this.view_.byteLength;
         let newPos;
-        if (seekStart == SeekOrigin.SEEK_CUR) {
+        if (seekStart === SeekOrigin.SEEK_CUR) {
             newPos = this.pos_ + pos;
         }
-        else if (seekStart == SeekOrigin.SEEK_END) {
+        else if (seekStart === SeekOrigin.SEEK_END) {
             newPos = end + pos;
         }
         else {
@@ -387,7 +387,7 @@ export class ByteReader {
      */
     popSeek() {
         const lastSeek = this.seekStack_.pop();
-        if (lastSeek != undefined) {
+        if (lastSeek !== undefined) {
             this.seek(lastSeek);
         }
     }

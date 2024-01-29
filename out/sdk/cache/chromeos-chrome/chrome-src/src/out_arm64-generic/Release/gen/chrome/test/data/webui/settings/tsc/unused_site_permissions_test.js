@@ -68,6 +68,7 @@ suite('CrSettingsUnusedSitePermissionsTest', function () {
     }
     function clickGotIt() {
         const button = testElement.shadowRoot.querySelector('.bulk-action-button');
+        assertTrue(!!button);
         button.click();
     }
     function clickUndo() {

@@ -92,20 +92,6 @@ async function assertNoColorSwatch(container) {
         await (0, helper_js_1.click)('[aria-label="#f00"]', { root: menu });
         await (0, elements_helpers_js_1.waitForCSSPropertyValue)('#inspected', 'color', '#f00');
     });
-    (0, mocha_extensions_js_1.it)('supports shift-clicking for color properties in the Computed pane', async () => {
-        await goToTestPageAndSelectTestElement();
-        await (0, elements_helpers_js_1.navigateToSidePane)('Computed');
-        await (0, elements_helpers_js_1.waitForElementsComputedSection)();
-        const property = await (0, elements_helpers_js_1.getPropertyFromComputedPane)('color');
-        if (!property) {
-            chai_1.assert.fail('Property not found');
-        }
-        await (0, elements_helpers_js_1.waitForPropertyValueInComputedPane)('color', 'rgb(255, 0, 0)');
-        await (0, elements_helpers_js_1.shiftClickColorSwatch)(property, 0);
-        const menu = await (0, context_menu_helpers_js_1.waitForSoftContextMenu)();
-        await (0, helper_js_1.click)('[aria-label="hsl(0deg 100% 50%)"]', { root: menu });
-        await (0, elements_helpers_js_1.waitForPropertyValueInComputedPane)('color', 'hsl(0deg 100% 50%)');
-    });
     (0, mocha_extensions_js_1.it)('supports shift-clicking for colors next to var() functions', async () => {
         await goToTestPageAndSelectTestElement();
         await (0, elements_helpers_js_1.waitForCSSPropertyValue)('#inspected', 'background-color', 'var(--variable)');

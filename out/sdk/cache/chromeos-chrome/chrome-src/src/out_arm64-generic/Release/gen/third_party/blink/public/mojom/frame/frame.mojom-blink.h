@@ -136,10 +136,10 @@ class CORE_EXPORT LocalFrameHost
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = true;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    38, 
     39, 
     40, 
-    41
+    41, 
+    42
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -183,6 +183,7 @@ class CORE_EXPORT LocalFrameHost
     kNavigateToNavigationApiKeyMinVersion = 0,
     kNavigateEventHandlerPresenceChangedMinVersion = 0,
     kUpdateTitleMinVersion = 0,
+    kUpdateAppTitleMinVersion = 0,
     kUpdateUserActivationStateMinVersion = 0,
     kDidConsumeHistoryUserActivationMinVersion = 0,
     kHandleAccessibilityFindInPageResultMinVersion = 0,
@@ -217,6 +218,7 @@ class CORE_EXPORT LocalFrameHost
     kReceivedDelegatedCapabilityMinVersion = 0,
     kSendFencedFrameReportingBeaconMinVersion = 0,
     kSendFencedFrameReportingBeaconToCustomURLMinVersion = 0,
+    kDisableUntrustedNetworkInFencedFrameMinVersion = 0,
     kSendLegacyTechEventMinVersion = 0,
     kSetFencedFrameAutomaticBeaconReportEventDataMinVersion = 0,
     kSendPrivateAggregationRequestsForFencedFrameEventMinVersion = 0,
@@ -322,6 +324,9 @@ class CORE_EXPORT LocalFrameHost
   struct UpdateTitle_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct UpdateAppTitle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct UpdateUserActivationState_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -422,6 +427,9 @@ class CORE_EXPORT LocalFrameHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SendFencedFrameReportingBeaconToCustomURL_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DisableUntrustedNetworkInFencedFrame_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SendLegacyTechEvent_Sym {
@@ -542,6 +550,9 @@ class CORE_EXPORT LocalFrameHost
 
   
   virtual void UpdateTitle(const ::WTF::String& title, ::base::i18n::TextDirection title_direction) = 0;
+
+  
+  virtual void UpdateAppTitle(const ::WTF::String& app_title) = 0;
 
   
   virtual void UpdateUserActivationState(::blink::mojom::blink::UserActivationUpdateType update_type, ::blink::mojom::blink::UserActivationNotificationType notification_type) = 0;
@@ -668,6 +679,11 @@ class CORE_EXPORT LocalFrameHost
 
   
   virtual void SendFencedFrameReportingBeaconToCustomURL(const ::blink::KURL& destination_url) = 0;
+
+
+  using DisableUntrustedNetworkInFencedFrameCallback = base::OnceCallback<void()>;
+  
+  virtual void DisableUntrustedNetworkInFencedFrame(DisableUntrustedNetworkInFencedFrameCallback callback) = 0;
 
   
   virtual void SendLegacyTechEvent(const WTF::String& type, LegacyTechEventCodeLocationPtr code_location) = 0;
@@ -1494,6 +1510,8 @@ class CORE_EXPORT LocalFrameHostProxy
   
   void UpdateTitle(const ::WTF::String& title, ::base::i18n::TextDirection title_direction) final;
   
+  void UpdateAppTitle(const ::WTF::String& app_title) final;
+  
   void UpdateUserActivationState(::blink::mojom::blink::UserActivationUpdateType update_type, ::blink::mojom::blink::UserActivationNotificationType notification_type) final;
   
   void DidConsumeHistoryUserActivation() final;
@@ -1569,6 +1587,8 @@ class CORE_EXPORT LocalFrameHostProxy
   void SendFencedFrameReportingBeacon(const WTF::String& event_data, const WTF::String& event_type, const WTF::Vector<::blink::FencedFrame::ReportingDestination>& destinations) final;
   
   void SendFencedFrameReportingBeaconToCustomURL(const ::blink::KURL& destination_url) final;
+  
+  void DisableUntrustedNetworkInFencedFrame(DisableUntrustedNetworkInFencedFrameCallback callback) final;
   
   void SendLegacyTechEvent(const WTF::String& type, LegacyTechEventCodeLocationPtr code_location) final;
   

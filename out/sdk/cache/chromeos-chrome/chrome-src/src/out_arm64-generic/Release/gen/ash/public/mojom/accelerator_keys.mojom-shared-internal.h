@@ -223,6 +223,22 @@ struct VKey_Data {
       case 252:
       case 253:
       case 254:
+      case 65280:
+      case 65281:
+      case 65282:
+      case 65283:
+      case 65284:
+      case 65285:
+      case 65286:
+      case 65287:
+      case 65288:
+      case 65289:
+      case 65290:
+      case 65291:
+      case 65292:
+      case 65293:
+      case 65294:
+      case 65295:
         return true;
     }
     return false;

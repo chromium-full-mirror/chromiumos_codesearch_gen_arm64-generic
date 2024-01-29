@@ -1852,7 +1852,7 @@ const char* TextEmphasis::GetJSPropertyName() const {
 
 
 CSSExposure TextSpacing::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTextSpacingTrimEnabled(execution_context)) {
+  if (!RuntimeEnabledFeatures::CSSTextSpacingEnabled(execution_context)) {
     return CSSExposure::kNone;
   }
   return CSSExposure::kWeb;

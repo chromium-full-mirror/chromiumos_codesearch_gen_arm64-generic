@@ -98,32 +98,19 @@ bool XRHitTestOptionsInit::FillV8ObjectWithMembers(ScriptState* script_state, v8
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (RuntimeEnabledFeatures::WebXRHitTestEntityTypesEnabled()) {
   if (hasEntityTypes()) {
-  if (!ToV8Traits<IDLArray<V8XRHitTestTrackableType>>::ToV8(script_state, member_entity_types_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLArray<V8XRHitTestTrackableType>>::ToV8(script_state, member_entity_types_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasOffsetRay()) {
-  if (!ToV8Traits<XRRay>::ToV8(script_state, member_offset_ray_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<XRRay>::ToV8(script_state, member_offset_ray_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasSpace()) {
-  if (!ToV8Traits<XRSpace>::ToV8(script_state, member_space_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<XRSpace>::ToV8(script_state, member_space_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

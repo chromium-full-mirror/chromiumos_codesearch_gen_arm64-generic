@@ -42,7 +42,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   void OpenRecentlyClosedEntry(int32_t session_id) override;
   void RequestTabOrganization() override;
   void RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) override;
-  void ResetSession() override;
+  void RestartSession() override;
   void SaveRecentlyClosedExpandedPref(bool expanded) override;
   void SetTabIndex(int32_t index) override;
   void StartTabGroupTutorial() override;
@@ -80,6 +80,7 @@ class  PageInterceptorForTesting : public Page {
   void TabsChanged(ProfileDataPtr profile_tabs) override;
   void TabUpdated(TabUpdateInfoPtr tabUpdateInfo) override;
   void TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) override;
+  void TabSearchTabIndexChanged(int32_t index) override;
 };
 class  PageAsyncWaiter {
  public:

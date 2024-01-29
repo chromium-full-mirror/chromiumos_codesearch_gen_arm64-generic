@@ -353,6 +353,8 @@ bool VizMainStubDispatch::Accept(
           reinterpret_cast<internal::VizMain_CreateFrameSinkManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VizMain.0
       bool success = true;
       FrameSinkManagerParamsPtr p_params{};
       VizMain_CreateFrameSinkManager_ParamsDataView input_data_view(params, message);
@@ -368,8 +370,8 @@ bool VizMainStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFrameSinkManager(
-std::move(p_params));
+      impl->CreateFrameSinkManager(        
+        std::move(p_params));
       return true;
     }
     case internal::kVizMain_CreateGpuService_Name: {
@@ -379,6 +381,8 @@ std::move(p_params));
           reinterpret_cast<internal::VizMain_CreateGpuService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VizMain.1
       bool success = true;
       ::mojo::PendingReceiver<::viz::mojom::GpuService> p_gpu_service{};
       ::mojo::PendingRemote<::viz::mojom::GpuHost> p_gpu_host{};
@@ -412,12 +416,12 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuService(
-std::move(p_gpu_service), 
-std::move(p_gpu_host), 
-std::move(p_discardable_memory_manager), 
-std::move(p_use_shader_cache_shm_count), 
-std::move(p_subpixel_rendering));
+      impl->CreateGpuService(        
+        std::move(p_gpu_service), 
+        std::move(p_gpu_host), 
+        std::move(p_discardable_memory_manager), 
+        std::move(p_use_shader_cache_shm_count), 
+        std::move(p_subpixel_rendering));
       return true;
     }
   }

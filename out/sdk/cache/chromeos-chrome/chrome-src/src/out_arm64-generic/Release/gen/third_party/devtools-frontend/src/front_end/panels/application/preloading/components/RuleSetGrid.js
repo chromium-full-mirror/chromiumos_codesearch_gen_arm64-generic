@@ -63,7 +63,7 @@ export class RuleSetGrid extends LegacyWrapper.LegacyWrapper.WrappableComponent 
         const reportsGridData = {
             columns: [
                 {
-                    id: 'ruleSet',
+                    id: 'rule-set',
                     title: i18nString(UIStrings.ruleSet),
                     widthWeighting: 20,
                     hideable: false,
@@ -100,7 +100,7 @@ export class RuleSetGrid extends LegacyWrapper.LegacyWrapper.WrappableComponent 
             cells: [
                 { columnId: 'id', value: row.ruleSet.id },
                 {
-                    columnId: 'ruleSet',
+                    columnId: 'rule-set',
                     value: '',
                     renderer: () => ruleSetRenderer(row.ruleSet, pageURL),
                 },
@@ -172,7 +172,7 @@ function ruleSetRenderer(ruleSet, pageURL) {
             if (request === null) {
                 return;
             }
-            const requestLocation = NetworkForward.UIRequestLocation.UIRequestLocation.tab(request, NetworkForward.UIRequestLocation.UIRequestTabs.Preview, { clearFilter: false });
+            const requestLocation = NetworkForward.UIRequestLocation.UIRequestLocation.tab(request, "preview" /* NetworkForward.UIRequestLocation.UIRequestTabs.Preview */, { clearFilter: false });
             await Common.Revealer.reveal(requestLocation);
         };
         // Disabled until https://crbug.com/1079231 is fixed.

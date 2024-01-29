@@ -9,7 +9,7 @@ import { deinitializeGlobalVars, describeWithEnvironment, initializeGlobalVars, 
 const { assert } = chai;
 let actionExecuted = false;
 const actionTitle = 'Mock action';
-const actionId = 'mockAction';
+const actionId = 'mock.action';
 class MockActionDelegate {
     handleAction(_context, _actionId) {
         actionExecuted = true;
@@ -22,7 +22,7 @@ describeWithEnvironment('Action registration', () => {
     before(async () => {
         UI.ActionRegistration.registerActionExtension({
             actionId,
-            category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+            category: "ELEMENTS" /* UI.ActionRegistration.ActionCategory.ELEMENTS */,
             title: i18n.i18n.lockedLazyString(actionTitle),
             async loadActionDelegate() {
                 return new MockActionDelegate();
@@ -83,7 +83,15 @@ describeWithEnvironment('Action registration', () => {
         assert.throws(() => {
             UI.ActionRegistration.registerActionExtension({
                 actionId,
-                category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+                category: "ELEMENTS" /* UI.ActionRegistration.ActionCategory.ELEMENTS */,
+            });
+        });
+    });
+    it('throws an error trying to register an action with an invalid id', () => {
+        assert.throws(() => {
+            UI.ActionRegistration.registerActionExtension({
+                actionId: 'quickOpen.show',
+                category: "GLOBAL" /* UI.ActionRegistration.ActionCategory.GLOBAL */,
             });
         });
     });
@@ -98,7 +106,7 @@ describeWithEnvironment('Action registration', () => {
         assert.doesNotThrow(() => {
             UI.ActionRegistration.registerActionExtension({
                 actionId,
-                category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+                category: "ELEMENTS" /* UI.ActionRegistration.ActionCategory.ELEMENTS */,
             });
         });
     });

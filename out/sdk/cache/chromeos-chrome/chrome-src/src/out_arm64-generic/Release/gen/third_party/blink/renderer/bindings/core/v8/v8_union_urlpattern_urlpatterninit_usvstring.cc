@@ -109,7 +109,7 @@ void V8UnionURLPatternOrURLPatternInitOrUSVString::Set(const V8UnionURLPatternIn
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionURLPatternOrURLPatternInitOrUSVString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionURLPatternOrURLPatternInitOrUSVString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kURLPattern: {
     return ToV8Traits<URLPattern>::ToV8(script_state, member_url_pattern_.Get());
@@ -123,7 +123,7 @@ v8::MaybeLocal<v8::Value> V8UnionURLPatternOrURLPatternInitOrUSVString::ToV8Valu
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionURLPatternOrURLPatternInitOrUSVString::Trace(Visitor* visitor) const {

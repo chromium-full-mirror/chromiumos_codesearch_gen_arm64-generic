@@ -415,8 +415,9 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
         this.clearingDataAlertString_ = loadTimeData.getString('clearingData');
         const tab = this.$.tabs.selectedItem;
         const dataTypes = this.getSelectedDataTypes_(tab);
-        const timePeriod = tab.querySelector('.time-range-select')
-            .pref.value;
+        const dropdownMenu = tab.querySelector('.time-range-select');
+        assert(dropdownMenu);
+        const timePeriod = dropdownMenu.pref.value;
         if (tab.id === 'basic-tab') {
             chrome.metricsPrivate.recordUserAction('ClearBrowsingData_BasicTab');
         }

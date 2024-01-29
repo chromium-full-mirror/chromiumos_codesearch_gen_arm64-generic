@@ -1000,6 +1000,16 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysErrorHighlight] = ui::SetAlpha({kCrosRefError40}, 0x4C);
   }
   if (dark_mode) {
+    mixer[kCrosSysInverseError] = {kCrosRefError40};
+  } else {
+    mixer[kCrosSysInverseError] = {kCrosRefError80};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysInverseOnError] = {kCrosRefError100};
+  } else {
+    mixer[kCrosSysInverseOnError] = {kCrosRefError20};
+  }
+  if (dark_mode) {
     mixer[kCrosSysSurfaceVariant] = {kCrosRefNeutralvariant30};
   } else {
     mixer[kCrosSysSurfaceVariant] = {kCrosRefNeutralvariant90};
@@ -2473,6 +2483,10 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-on_error_container";
     case kCrosSysErrorHighlight:
       return "--cros-sys-error_highlight";
+    case kCrosSysInverseError:
+      return "--cros-sys-inverse_error";
+    case kCrosSysInverseOnError:
+      return "--cros-sys-inverse_on_error";
     case kCrosSysSurfaceVariant:
       return "--cros-sys-surface_variant";
     case kCrosSysOnSurfaceVariantLight:

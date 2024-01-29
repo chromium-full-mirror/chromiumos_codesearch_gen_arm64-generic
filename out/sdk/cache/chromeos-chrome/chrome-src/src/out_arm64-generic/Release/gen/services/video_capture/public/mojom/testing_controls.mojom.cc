@@ -148,6 +148,8 @@ bool TestingControlsStubDispatch::Accept(
           reinterpret_cast<internal::TestingControls_Crash_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TestingControls.0
       bool success = true;
       TestingControls_Crash_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool TestingControlsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Crash();
+      impl->Crash(        );
       return true;
     }
   }

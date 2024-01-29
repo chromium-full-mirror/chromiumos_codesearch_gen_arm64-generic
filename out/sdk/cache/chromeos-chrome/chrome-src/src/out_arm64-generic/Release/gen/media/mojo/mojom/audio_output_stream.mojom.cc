@@ -315,6 +315,8 @@ bool AudioOutputStreamStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStream_Play_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStream.0
       bool success = true;
       AudioOutputStream_Play_ParamsDataView input_data_view(params, message);
       
@@ -327,7 +329,7 @@ bool AudioOutputStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Play();
+      impl->Play(        );
       return true;
     }
     case internal::kAudioOutputStream_Pause_Name: {
@@ -337,6 +339,8 @@ bool AudioOutputStreamStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStream_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStream.1
       bool success = true;
       AudioOutputStream_Pause_ParamsDataView input_data_view(params, message);
       
@@ -349,7 +353,7 @@ bool AudioOutputStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kAudioOutputStream_Flush_Name: {
@@ -359,6 +363,8 @@ bool AudioOutputStreamStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStream_Flush_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStream.2
       bool success = true;
       AudioOutputStream_Flush_ParamsDataView input_data_view(params, message);
       
@@ -371,7 +377,7 @@ bool AudioOutputStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Flush();
+      impl->Flush(        );
       return true;
     }
     case internal::kAudioOutputStream_SetVolume_Name: {
@@ -381,6 +387,8 @@ bool AudioOutputStreamStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStream_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStream.3
       bool success = true;
       double p_volume{};
       AudioOutputStream_SetVolume_ParamsDataView input_data_view(params, message);
@@ -396,8 +404,8 @@ bool AudioOutputStreamStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
   }
@@ -664,6 +672,8 @@ bool AudioOutputStreamObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStreamObserver_DidStartPlaying_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStreamObserver.0
       bool success = true;
       AudioOutputStreamObserver_DidStartPlaying_ParamsDataView input_data_view(params, message);
       
@@ -676,7 +686,7 @@ bool AudioOutputStreamObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStartPlaying();
+      impl->DidStartPlaying(        );
       return true;
     }
     case internal::kAudioOutputStreamObserver_DidStopPlaying_Name: {
@@ -686,6 +696,8 @@ bool AudioOutputStreamObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStreamObserver_DidStopPlaying_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStreamObserver.1
       bool success = true;
       AudioOutputStreamObserver_DidStopPlaying_ParamsDataView input_data_view(params, message);
       
@@ -698,7 +710,7 @@ bool AudioOutputStreamObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStopPlaying();
+      impl->DidStopPlaying(        );
       return true;
     }
     case internal::kAudioOutputStreamObserver_DidChangeAudibleState_Name: {
@@ -708,6 +720,8 @@ bool AudioOutputStreamObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStreamObserver_DidChangeAudibleState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStreamObserver.2
       bool success = true;
       bool p_is_audible{};
       AudioOutputStreamObserver_DidChangeAudibleState_ParamsDataView input_data_view(params, message);
@@ -723,8 +737,8 @@ bool AudioOutputStreamObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeAudibleState(
-std::move(p_is_audible));
+      impl->DidChangeAudibleState(        
+        std::move(p_is_audible));
       return true;
     }
   }
@@ -899,6 +913,8 @@ bool AudioOutputStreamProviderStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStreamProvider_Acquire_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStreamProvider.0
       bool success = true;
       ::media::AudioParameters p_params{};
       ::mojo::PendingRemote<AudioOutputStreamProviderClient> p_client{};
@@ -919,9 +935,9 @@ bool AudioOutputStreamProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Acquire(
-std::move(p_params), 
-std::move(p_client));
+      impl->Acquire(        
+        std::move(p_params), 
+        std::move(p_client));
       return true;
     }
   }
@@ -1086,6 +1102,8 @@ bool AudioOutputStreamProviderClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioOutputStreamProviderClient_Created_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioOutputStreamProviderClient.0
       bool success = true;
       ::mojo::PendingRemote<AudioOutputStream> p_stream{};
       ::media::mojom::ReadWriteAudioDataPipePtr p_data_pipe{};
@@ -1106,9 +1124,9 @@ bool AudioOutputStreamProviderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Created(
-std::move(p_stream), 
-std::move(p_data_pipe));
+      impl->Created(        
+        std::move(p_stream), 
+        std::move(p_data_pipe));
       return true;
     }
   }

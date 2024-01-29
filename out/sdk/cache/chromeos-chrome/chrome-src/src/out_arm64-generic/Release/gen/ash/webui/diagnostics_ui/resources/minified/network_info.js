@@ -1,0 +1,4 @@
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import"./cellular_info.js";import"./diagnostics_shared.css.js";import"./ethernet_info.js";import"./wifi_info.js";import{PolymerElement}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";import{NetworkType}from"./network_health_provider.mojom-webui.js";import{getTemplate}from"./network_info.html.js";export class NetworkInfoElement extends PolymerElement{static get is(){return"network-info"}static get template(){return getTemplate()}static get properties(){return{network:{type:Object}}}isWifiNetwork(){return this.network.type===NetworkType.kWiFi}isCellularNetwork(){return this.network.type===NetworkType.kCellular}isEthernetNetwork(){return this.network.type===NetworkType.kEthernet}}customElements.define(NetworkInfoElement.is,NetworkInfoElement);

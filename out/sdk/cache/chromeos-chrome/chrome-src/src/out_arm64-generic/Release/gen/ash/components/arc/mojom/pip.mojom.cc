@@ -157,6 +157,8 @@ bool PipHostStubDispatch::Accept(
           reinterpret_cast<internal::PipHost_OnPipEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PipHost.0
       bool success = true;
       ArcPipEvent p_event{};
       PipHost_OnPipEvent_ParamsDataView input_data_view(params, message);
@@ -172,8 +174,8 @@ bool PipHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPipEvent(
-std::move(p_event));
+      impl->OnPipEvent(        
+        std::move(p_event));
       return true;
     }
   }
@@ -500,6 +502,8 @@ bool PipInstance_Init_ForwardToCallback::Accept(
           internal::PipInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PipInstance.0
   bool success = true;
   PipInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -565,6 +569,8 @@ bool PipInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PipInstance_ClosePip_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PipInstance.1
       bool success = true;
       PipInstance_ClosePip_ParamsDataView input_data_view(params, message);
       
@@ -577,7 +583,7 @@ bool PipInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClosePip();
+      impl->ClosePip(        );
       return true;
     }
     case internal::kPipInstance_SetPipSuppressionStatus_Name: {
@@ -587,6 +593,8 @@ bool PipInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PipInstance_SetPipSuppressionStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PipInstance.2
       bool success = true;
       bool p_suppressed{};
       PipInstance_SetPipSuppressionStatus_ParamsDataView input_data_view(params, message);
@@ -602,8 +610,8 @@ bool PipInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPipSuppressionStatus(
-std::move(p_suppressed));
+      impl->SetPipSuppressionStatus(        
+        std::move(p_suppressed));
       return true;
     }
   }
@@ -626,6 +634,8 @@ bool PipInstanceStubDispatch::AcceptWithResponder(
               internal::PipInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PipInstance.0
       bool success = true;
       ::mojo::PendingRemote<PipHost> p_host_remote{};
       PipInstance_Init_ParamsDataView input_data_view(params, message);
@@ -646,8 +656,8 @@ bool PipInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kPipInstance_ClosePip_Name: {

@@ -22,6 +22,6 @@
   "v8_imminent_deprecation_warnings": false,
   "v8_optimized_debug": true,
   "v8_random_seed": "314159265",
-  "v8_use_perfetto": false,
+  "v8_use_perfetto": true,
   "v8_use_siphash": false
 }

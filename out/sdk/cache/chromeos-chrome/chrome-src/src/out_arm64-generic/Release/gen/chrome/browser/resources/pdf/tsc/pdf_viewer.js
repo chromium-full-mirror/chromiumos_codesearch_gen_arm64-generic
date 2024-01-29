@@ -16,7 +16,6 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { listenOnce } from 'chrome://resources/js/util.js';
 import { FittingType, SaveRequestType } from './constants.js';
 import { PluginController } from './controller.js';
-// 
 import { ChangePageOrigin } from './elements/viewer-bookmark.js';
 // 
 import { LocalStorageProxyImpl } from './local_storage_proxy.js';

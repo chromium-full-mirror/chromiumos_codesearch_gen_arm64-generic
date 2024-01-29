@@ -4,6 +4,9 @@
     "rootDir": "preprocessed",
     "outDir": "tsc",
     "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
       "//resources/js/*": [
         "./../../../../ui/webui/resources/tsc/js/*"

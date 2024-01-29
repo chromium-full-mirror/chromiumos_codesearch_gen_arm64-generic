@@ -91,9 +91,17 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
 void WebPrintJobTemplateAttributes::Trace(Visitor* visitor) const {
   TraceIfNeeded<uint32_t>::Trace(visitor, member_copies_);
 TraceIfNeeded<V8WebPrintingMultipleDocumentHandling>::Trace(visitor, member_multiple_document_handling_);
+TraceIfNeeded<V8WebPrintingOrientationRequested>::Trace(visitor, member_orientation_requested_);
 TraceIfNeeded<V8WebPrintColorMode>::Trace(visitor, member_print_color_mode_);
 TraceIfNeeded<V8WebPrintQuality>::Trace(visitor, member_print_quality_);
 TraceIfNeeded<Member<WebPrintingResolution>>::Trace(visitor, member_printer_resolution_);
@@ -106,54 +114,33 @@ bool WebPrintJobTemplateAttributes::FillV8ObjectWithMembers(ScriptState* script_
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasCopies()) {
-  if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_copies_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_copies_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasMultipleDocumentHandling()) {
-  if (!ToV8Traits<V8WebPrintingMultipleDocumentHandling>::ToV8(script_state, member_multiple_document_handling_).ToLocal(&v8_value)) {
-  return false;
+  v8_value = ToV8Traits<V8WebPrintingMultipleDocumentHandling>::ToV8(script_state, member_multiple_document_handling_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+if (hasOrientationRequested()) {
+  v8_value = ToV8Traits<V8WebPrintingOrientationRequested>::ToV8(script_state, member_orientation_requested_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasPrintColorMode()) {
-  if (!ToV8Traits<V8WebPrintColorMode>::ToV8(script_state, member_print_color_mode_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8WebPrintColorMode>::ToV8(script_state, member_print_color_mode_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasPrintQuality()) {
-  if (!ToV8Traits<V8WebPrintQuality>::ToV8(script_state, member_print_quality_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8WebPrintQuality>::ToV8(script_state, member_print_quality_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 if (hasPrinterResolution()) {
-  if (!ToV8Traits<WebPrintingResolution>::ToV8(script_state, member_printer_resolution_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<WebPrintingResolution>::ToV8(script_state, member_printer_resolution_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 if (hasSides()) {
-  if (!ToV8Traits<V8WebPrintingSides>::ToV8(script_state, member_sides_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8WebPrintingSides>::ToV8(script_state, member_sides_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -173,20 +160,24 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("multipleDocumentHa
 if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintingMultipleDocumentHandling, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_multiple_document_handling_, member_multiple_document_handling_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("orientationRequested");
+if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintingOrientationRequested, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_orientation_requested_, member_orientation_requested_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("printColorMode");
-if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintColorMode, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_print_color_mode_, member_print_color_mode_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintColorMode, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_print_color_mode_, member_print_color_mode_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("printQuality");
-if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintQuality, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_print_quality_, member_print_quality_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintQuality, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_print_quality_, member_print_quality_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("printerResolution");
-if (!bindings::GetDictionaryMemberFromV8Object<WebPrintingResolution, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_printer_resolution_, member_printer_resolution_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<WebPrintingResolution, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_printer_resolution_, member_printer_resolution_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sides");
-if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintingSides, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_sides_, member_sides_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintingSides, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), has_sides_, member_sides_, try_block, exception_state)) {
   return;
 }
 }
@@ -195,6 +186,7 @@ const base::span<const v8::Eternal<v8::Name>> WebPrintJobTemplateAttributes::Get
   static const char* const kOwnMemberNames[] = {
 "copies",
 "multipleDocumentHandling",
+"orientationRequested",
 "printColorMode",
 "printQuality",
 "printerResolution",

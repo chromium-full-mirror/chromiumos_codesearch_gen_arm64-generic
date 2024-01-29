@@ -6,7 +6,6 @@
  * information is passed to it appropriately.
  */
 import { canBulkPinningCloudPanelShow } from '../common/js/util.js';
-import { State } from '../externs/ts/state.js';
 import { getStore } from '../state/store.js';
 import { CloudPanelType, XfCloudPanel } from '../widgets/xf_cloud_panel.js';
 export const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;

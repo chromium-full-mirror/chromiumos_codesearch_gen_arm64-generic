@@ -677,30 +677,25 @@ bool NavigationTiming::Validate(
   return Data_::Validate(data, validation_context);
 }
 OldPageInfo::OldPageInfo()
-    : routing_id_for_old_main_frame(-1),
+    : frame_token_for_old_main_frame(),
       new_lifecycle_state_for_old_page() {}
 
 OldPageInfo::OldPageInfo(
-    int32_t routing_id_for_old_main_frame_in,
+    const ::blink::LocalFrameToken& frame_token_for_old_main_frame_in,
     ::blink::mojom::PageLifecycleStatePtr new_lifecycle_state_for_old_page_in)
-    : routing_id_for_old_main_frame(std::move(routing_id_for_old_main_frame_in)),
+    : frame_token_for_old_main_frame(std::move(frame_token_for_old_main_frame_in)),
       new_lifecycle_state_for_old_page(std::move(new_lifecycle_state_for_old_page_in)) {}
 
 OldPageInfo::~OldPageInfo() = default;
-size_t OldPageInfo::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->routing_id_for_old_main_frame);
-  seed = mojo::internal::Hash(seed, this->new_lifecycle_state_for_old_page);
-  return seed;
-}
 
 void OldPageInfo::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "routing_id_for_old_main_frame"), this->routing_id_for_old_main_frame,
+      "frame_token_for_old_main_frame"), this->frame_token_for_old_main_frame,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type int32_t>"
+      "<value of type const ::blink::LocalFrameToken&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1520,8 +1515,8 @@ bool StructTraits<::blink::mojom::OldPageInfo::DataView, ::blink::mojom::OldPage
   bool success = true;
   ::blink::mojom::OldPageInfoPtr result(::blink::mojom::OldPageInfo::New());
   
-      if (success)
-        result->routing_id_for_old_main_frame = input.routing_id_for_old_main_frame();
+      if (success && !input.ReadFrameTokenForOldMainFrame(&result->frame_token_for_old_main_frame))
+        success = false;
       if (success && !input.ReadNewLifecycleStateForOldPage(&result->new_lifecycle_state_for_old_page))
         success = false;
   *output = std::move(result);

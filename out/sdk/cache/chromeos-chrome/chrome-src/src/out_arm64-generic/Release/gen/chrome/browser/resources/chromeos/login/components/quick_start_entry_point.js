@@ -58,30 +58,6 @@ found in the LICENSE file.
   on-click="quickStartButtonClicked_"
 >
 </oobe-icon-button>
-<oobe-modal-dialog id="quickStartBluetoothDialog">
-  <div id="quickStartBluetoothTitle"
-    slot="title">
-    <p>[[i18nDynamic(locale, 'quickStartBluetoothTitle')]]</p>
-  </div>
-  <div id="quickStartBluetoothContent"
-    slot="content">[[i18nDynamic(locale, 'quickStartBluetoothContent')]]
-  </div>
-  <div slot="buttons">
-    <oobe-text-button
-      id="quickStartBluetoothCancelButton"
-      class="focus-on-show"
-      on-click="cancelBluetoothDialog_"
-      text-key="quickStartBluetoothCancelButton"
-    >
-    </oobe-text-button>
-    <oobe-text-button
-      id="quickStartBluetoothEnableButton"
-      on-click="turnOnBluetooth_"
-      text-key="quickStartBluetoothEnableButton"
-    >
-    </oobe-text-button>
-  </div>
-</oobe-modal-dialog>
 <!--_html_template_end_-->`;
   }
 
@@ -102,22 +78,6 @@ found in the LICENSE file.
     }));
   }
 
-  showQuickStartBluetoothDialog() {
-    this.$.quickStartBluetoothDialog.showDialog();
-  }
-
-  cancelBluetoothDialog_() {
-    this.$.quickStartBluetoothDialog.hideDialog();
-  }
-
-  turnOnBluetooth_() {
-    this.$.quickStartBluetoothDialog.hideDialog();
-    this.dispatchEvent(new CustomEvent('activate-quick-start', {
-      bubbles: true,
-      composed: true,
-      detail: {enableBluetooth: true},
-    }));
-  }
 }
 
 customElements.define(QuickStartEntryPoint.is, QuickStartEntryPoint);

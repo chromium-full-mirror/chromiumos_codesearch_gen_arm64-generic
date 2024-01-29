@@ -455,6 +455,8 @@ bool LCPCriticalPathPredictorHostStubDispatch::Accept(
           reinterpret_cast<internal::LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LCPCriticalPathPredictorHost.0
       bool success = true;
       std::string p_lcp_element_locator{};
       std::optional<uint32_t> p_predicted_lcp_index{};
@@ -474,9 +476,9 @@ bool LCPCriticalPathPredictorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLcpElementLocator(
-std::move(p_lcp_element_locator), 
-std::move(p_predicted_lcp_index));
+      impl->SetLcpElementLocator(        
+        std::move(p_lcp_element_locator), 
+        std::move(p_predicted_lcp_index));
       return true;
     }
     case internal::kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name: {
@@ -486,6 +488,8 @@ std::move(p_predicted_lcp_index));
           reinterpret_cast<internal::LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LCPCriticalPathPredictorHost.1
       bool success = true;
       WTF::Vector<::blink::KURL> p_lcp_influencer_scripts{};
       LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsDataView input_data_view(params, message);
@@ -501,8 +505,8 @@ std::move(p_predicted_lcp_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLcpInfluencerScriptUrls(
-std::move(p_lcp_influencer_scripts));
+      impl->SetLcpInfluencerScriptUrls(        
+        std::move(p_lcp_influencer_scripts));
       return true;
     }
     case internal::kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name: {
@@ -512,6 +516,8 @@ std::move(p_lcp_influencer_scripts));
           reinterpret_cast<internal::LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LCPCriticalPathPredictorHost.2
       bool success = true;
       ::blink::KURL p_font_url{};
       LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsDataView input_data_view(params, message);
@@ -527,8 +533,8 @@ std::move(p_lcp_influencer_scripts));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyFetchedFont(
-std::move(p_font_url));
+      impl->NotifyFetchedFont(        
+        std::move(p_font_url));
       return true;
     }
     case internal::kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name: {
@@ -538,6 +544,8 @@ std::move(p_font_url));
           reinterpret_cast<internal::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LCPCriticalPathPredictorHost.3
       bool success = true;
       ::blink::KURL p_subresource_url{};
       ::base::TimeDelta p_subresource_load_start{};
@@ -556,9 +564,9 @@ std::move(p_font_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyFetchedSubresource(
-std::move(p_subresource_url), 
-std::move(p_subresource_load_start));
+      impl->NotifyFetchedSubresource(        
+        std::move(p_subresource_url), 
+        std::move(p_subresource_load_start));
       return true;
     }
   }

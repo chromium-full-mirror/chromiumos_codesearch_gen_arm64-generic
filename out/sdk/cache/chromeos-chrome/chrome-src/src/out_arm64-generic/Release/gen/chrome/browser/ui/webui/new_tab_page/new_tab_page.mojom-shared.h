@@ -197,8 +197,10 @@ enum class NtpBackgroundImageSource : int32_t {
   kUploadedImage = 4,
   
   kWallpaperSearch = 5,
+  
+  kWallpaperSearchInspiration = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
 };
 
  std::ostream& operator<<(std::ostream& os, NtpBackgroundImageSource value);
@@ -706,9 +708,6 @@ class ThemeDataView {
   }
   bool is_dark() const {
     return data_->is_dark;
-  }
-  bool theme_realbox_icons() const {
-    return data_->theme_realbox_icons;
   }
   inline void GetLogoColorDataView(
       ::skia::mojom::SkColorDataView* output);
@@ -1916,7 +1915,6 @@ struct Serializer<::new_tab_page::mojom::ThemeDataView, MaybeConstUserType> {
     fragment->is_custom_background = Traits::is_custom_background(input);
     fragment->daily_refresh_enabled = Traits::daily_refresh_enabled(input);
     fragment->is_dark = Traits::is_dark(input);
-    fragment->theme_realbox_icons = Traits::theme_realbox_icons(input);
     decltype(Traits::logo_color(input)) in_logo_color = Traits::logo_color(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->logo_color)::BaseType> logo_color_fragment(

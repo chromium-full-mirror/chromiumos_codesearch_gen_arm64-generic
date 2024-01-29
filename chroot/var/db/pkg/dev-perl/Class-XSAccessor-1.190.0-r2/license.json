@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Class-XSAccessor", "version": "1.190.0", "revision": 2, "fullname": "dev-perl/Class-XSAccessor", "fullnamerev": "dev-perl/Class-XSAccessor-1.190.0-r2", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Class-XSAccessor"], "skip": false, "tainted": false, "ebuild_path": null}

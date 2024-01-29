@@ -33,6 +33,10 @@
 
 
 namespace on_device_model::mojom {
+class ResponseChunkDataView;
+
+class ResponseSummaryDataView;
+
 class InputOptionsDataView;
 
 
@@ -41,6 +45,20 @@ class InputOptionsDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::on_device_model::mojom::ResponseChunkDataView> {
+  using Data = ::on_device_model::mojom::internal::ResponseChunk_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::on_device_model::mojom::ResponseSummaryDataView> {
+  using Data = ::on_device_model::mojom::internal::ResponseSummary_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::on_device_model::mojom::InputOptionsDataView> {
@@ -54,22 +72,6 @@ struct MojomTypeTraits<::on_device_model::mojom::InputOptionsDataView> {
 
 
 namespace on_device_model::mojom {
-
-
-enum class ResponseStatus : int32_t {
-  
-  kOk = 0,
-  
-  kRetracted = 1,
-  kMinValue = 0,
-  kMaxValue = 1,
-};
-
- std::ostream& operator<<(std::ostream& os, ResponseStatus value);
-inline bool IsKnownEnumValue(ResponseStatus value) {
-  return internal::ResponseStatus_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
 
 
 enum class PerformanceClass : int32_t {
@@ -159,6 +161,88 @@ using OnDeviceModelAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<OnDeviceModelInterfaceBase>;
 
 
+class ResponseChunkDataView {
+ public:
+  ResponseChunkDataView() = default;
+
+  ResponseChunkDataView(
+      internal::ResponseChunk_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTextDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadText(UserType* output) {
+    
+    auto* pointer = data_->text.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetTsScoresDataView(
+      mojo::ArrayDataView<float>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTsScores(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<float>, UserType>(),
+    "Attempting to read the optional `ts_scores` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTsScores` instead "
+    "of `ReadTsScores if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->ts_scores.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<float>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ResponseChunk_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ResponseSummaryDataView {
+ public:
+  ResponseSummaryDataView() = default;
+
+  ResponseSummaryDataView(
+      internal::ResponseSummary_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTsScoresDataView(
+      mojo::ArrayDataView<float>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTsScores(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<float>, UserType>(),
+    "Attempting to read the optional `ts_scores` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTsScores` instead "
+    "of `ReadTsScores if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->ts_scores.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<float>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ResponseSummary_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class InputOptionsDataView {
  public:
   InputOptionsDataView() = default;
@@ -200,6 +284,12 @@ class InputOptionsDataView {
         ? absl::make_optional(data_->max_output_tokens_$value)
         : absl::nullopt;
   }
+  std::optional<uint32_t> ts_interval() const {
+
+    return data_->ts_interval_$flag
+        ? absl::make_optional(data_->ts_interval_$value)
+        : absl::nullopt;
+  }
  private:
   internal::InputOptions_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -209,10 +299,6 @@ class InputOptionsDataView {
 }  // on_device_model::mojom
 
 namespace std {
-
-template <>
-struct hash<::on_device_model::mojom::ResponseStatus>
-    : public mojo::internal::EnumHashImpl<::on_device_model::mojom::ResponseStatus> {};
 
 template <>
 struct hash<::on_device_model::mojom::PerformanceClass>
@@ -225,26 +311,6 @@ struct hash<::on_device_model::mojom::LoadModelResult>
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::on_device_model::mojom::ResponseStatus, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::on_device_model::mojom::ResponseStatus, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::on_device_model::mojom::ResponseStatus>(input)), output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -290,6 +356,96 @@ struct Serializer<::on_device_model::mojom::LoadModelResult, MaybeConstUserType>
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::on_device_model::mojom::ResponseChunkDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::on_device_model::mojom::ResponseChunkDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::on_device_model::mojom::internal::ResponseChunk_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::text(input)) in_text = Traits::text(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->text)::BaseType> text_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_text, text_fragment);
+    fragment->text.Set(
+        text_fragment.is_null() ? nullptr : text_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->text.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null text in ResponseChunk struct");
+    decltype(Traits::ts_scores(input)) in_ts_scores = Traits::ts_scores(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->ts_scores)::BaseType>
+        ts_scores_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& ts_scores_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<float>>(
+        in_ts_scores, ts_scores_fragment, &ts_scores_validate_params);
+    fragment->ts_scores.Set(
+        ts_scores_fragment.is_null() ? nullptr : ts_scores_fragment.data());
+  }
+
+  static bool Deserialize(::on_device_model::mojom::internal::ResponseChunk_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::on_device_model::mojom::ResponseChunkDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::on_device_model::mojom::ResponseSummaryDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::on_device_model::mojom::ResponseSummaryDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::on_device_model::mojom::internal::ResponseSummary_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::ts_scores(input)) in_ts_scores = Traits::ts_scores(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->ts_scores)::BaseType>
+        ts_scores_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& ts_scores_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<float>>(
+        in_ts_scores, ts_scores_fragment, &ts_scores_validate_params);
+    fragment->ts_scores.Set(
+        ts_scores_fragment.is_null() ? nullptr : ts_scores_fragment.data());
+  }
+
+  static bool Deserialize(::on_device_model::mojom::internal::ResponseSummary_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::on_device_model::mojom::ResponseSummaryDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::on_device_model::mojom::InputOptionsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::on_device_model::mojom::InputOptionsDataView, UserType>;
@@ -325,6 +481,10 @@ struct Serializer<::on_device_model::mojom::InputOptionsDataView, MaybeConstUser
     if (Traits::max_output_tokens(input).has_value()) {
       fragment->max_output_tokens_$value = Traits::max_output_tokens(input).value();
     }
+    fragment->ts_interval_$flag = Traits::ts_interval(input).has_value();
+    if (Traits::ts_interval(input).has_value()) {
+      fragment->ts_interval_$value = Traits::ts_interval(input).value();
+    }
   }
 
   static bool Deserialize(::on_device_model::mojom::internal::InputOptions_Data* input,
@@ -345,6 +505,25 @@ struct Serializer<::on_device_model::mojom::InputOptionsDataView, MaybeConstUser
 
 namespace on_device_model::mojom {
 
+inline void ResponseChunkDataView::GetTextDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->text.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ResponseChunkDataView::GetTsScoresDataView(
+    mojo::ArrayDataView<float>* output) {
+  auto pointer = data_->ts_scores.Get();
+  *output = mojo::ArrayDataView<float>(pointer, message_);
+}
+
+
+inline void ResponseSummaryDataView::GetTsScoresDataView(
+    mojo::ArrayDataView<float>* output) {
+  auto pointer = data_->ts_scores.Get();
+  *output = mojo::ArrayDataView<float>(pointer, message_);
+}
+
+
 inline void InputOptionsDataView::GetTextDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->text.Get();
@@ -357,15 +536,6 @@ inline void InputOptionsDataView::GetTextDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::on_device_model::mojom::ResponseStatus> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::on_device_model::mojom::ResponseStatus value);
-};
-
-} // namespace perfetto
 
 namespace perfetto {
 

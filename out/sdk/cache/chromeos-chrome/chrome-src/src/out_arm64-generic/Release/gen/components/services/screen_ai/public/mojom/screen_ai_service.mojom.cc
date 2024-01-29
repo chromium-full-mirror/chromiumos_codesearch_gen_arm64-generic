@@ -77,19 +77,31 @@ LineBox::LineBox()
       text_line(),
       language(),
       block_id(),
-      order_within_block() {}
+      order_within_block(),
+      bounding_box(),
+      bounding_box_angle(),
+      baseline_box(),
+      baseline_box_angle() {}
 
 LineBox::LineBox(
     std::vector<WordBoxPtr> words_in,
     const std::string& text_line_in,
     const std::string& language_in,
     int32_t block_id_in,
-    int32_t order_within_block_in)
+    int32_t order_within_block_in,
+    const ::gfx::Rect& bounding_box_in,
+    float bounding_box_angle_in,
+    const ::gfx::Rect& baseline_box_in,
+    float baseline_box_angle_in)
     : words(std::move(words_in)),
       text_line(std::move(text_line_in)),
       language(std::move(language_in)),
       block_id(std::move(block_id_in)),
-      order_within_block(std::move(order_within_block_in)) {}
+      order_within_block(std::move(order_within_block_in)),
+      bounding_box(std::move(bounding_box_in)),
+      bounding_box_angle(std::move(bounding_box_angle_in)),
+      baseline_box(std::move(baseline_box_in)),
+      baseline_box_angle(std::move(baseline_box_angle_in)) {}
 
 LineBox::~LineBox() = default;
 
@@ -141,6 +153,42 @@ void LineBox::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bounding_box"), this->bounding_box,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::Rect&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bounding_box_angle"), this->bounding_box_angle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "baseline_box"), this->baseline_box,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::Rect&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "baseline_box_angle"), this->baseline_box_angle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool LineBox::Validate(
@@ -152,26 +200,28 @@ WordBox::WordBox()
     : word(),
       dictionary_word(),
       language(),
-      has_space_after() {}
+      has_space_after(),
+      bounding_box(),
+      bounding_box_angle(),
+      direction() {}
 
 WordBox::WordBox(
     const std::string& word_in,
     bool dictionary_word_in,
     const std::string& language_in,
-    bool has_space_after_in)
+    bool has_space_after_in,
+    const ::gfx::Rect& bounding_box_in,
+    float bounding_box_angle_in,
+    Direction direction_in)
     : word(std::move(word_in)),
       dictionary_word(std::move(dictionary_word_in)),
       language(std::move(language_in)),
-      has_space_after(std::move(has_space_after_in)) {}
+      has_space_after(std::move(has_space_after_in)),
+      bounding_box(std::move(bounding_box_in)),
+      bounding_box_angle(std::move(bounding_box_angle_in)),
+      direction(std::move(direction_in)) {}
 
 WordBox::~WordBox() = default;
-size_t WordBox::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->word);
-  seed = mojo::internal::Hash(seed, this->dictionary_word);
-  seed = mojo::internal::Hash(seed, this->language);
-  seed = mojo::internal::Hash(seed, this->has_space_after);
-  return seed;
-}
 
 void WordBox::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -208,6 +258,33 @@ void WordBox::WriteIntoTrace(
       "has_space_after"), this->has_space_after,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bounding_box"), this->bounding_box,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::Rect&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bounding_box_angle"), this->bounding_box_angle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "direction"), this->direction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Direction>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -313,6 +390,17 @@ uint32_t ScreenAIAnnotator::PerformOcrAndReturnAnnotation_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+// static
+bool ScreenAIAnnotator::RuntimeFeature_IsEnabled_(bool expected) {
+  bool enabled = base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIOCREnabled);
+#if DCHECK_IS_ON()
+  if (expected) {
+    DCHECK(enabled) << "RuntimeFeature ::ax::mojom::features::kScreenAIOCREnabled for ScreenAIAnnotator is not enabled";
+  }
+#endif
+  return enabled;
+}
 
 class ScreenAIAnnotator_ExtractSemanticLayout_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -591,6 +679,8 @@ bool ScreenAIAnnotator_ExtractSemanticLayout_ForwardToCallback::Accept(
           internal::ScreenAIAnnotator_ExtractSemanticLayout_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIAnnotator.0
   bool success = true;
   ::ui::AXTreeID p_child_tree_id{};
   ScreenAIAnnotator_ExtractSemanticLayout_ResponseParamsDataView input_data_view(params, message);
@@ -718,6 +808,8 @@ bool ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_ForwardToCallback::Accept
           internal::ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIAnnotator.1
   bool success = true;
   ::ui::AXTreeUpdate p_update{};
   ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_ResponseParamsDataView input_data_view(params, message);
@@ -847,6 +939,8 @@ bool ScreenAIAnnotator_PerformOcrAndReturnAnnotation_ForwardToCallback::Accept(
           internal::ScreenAIAnnotator_PerformOcrAndReturnAnnotation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenAIAnnotator.2
   bool success = true;
   VisualAnnotationPtr p_visual_annotation{};
   ScreenAIAnnotator_PerformOcrAndReturnAnnotation_ResponseParamsDataView input_data_view(params, message);
@@ -953,6 +1047,8 @@ bool ScreenAIAnnotatorStubDispatch::AcceptWithResponder(
               internal::ScreenAIAnnotator_ExtractSemanticLayout_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIAnnotator.0
       bool success = true;
       ::SkBitmap p_image{};
       ::ui::AXTreeID p_parent_tree_id{};
@@ -974,9 +1070,9 @@ bool ScreenAIAnnotatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtractSemanticLayout(
-std::move(p_image), 
-std::move(p_parent_tree_id), std::move(callback));
+      impl->ExtractSemanticLayout(        
+        std::move(p_image), 
+        std::move(p_parent_tree_id), std::move(callback));
       return true;
     }
     case internal::kScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_Name: {
@@ -986,6 +1082,8 @@ std::move(p_parent_tree_id), std::move(callback));
               internal::ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIAnnotator.1
       bool success = true;
       ::SkBitmap p_image{};
       ScreenAIAnnotator_PerformOcrAndReturnAXTreeUpdate_ParamsDataView input_data_view(params, message);
@@ -1004,8 +1102,8 @@ std::move(p_parent_tree_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformOcrAndReturnAXTreeUpdate(
-std::move(p_image), std::move(callback));
+      impl->PerformOcrAndReturnAXTreeUpdate(        
+        std::move(p_image), std::move(callback));
       return true;
     }
     case internal::kScreenAIAnnotator_PerformOcrAndReturnAnnotation_Name: {
@@ -1015,6 +1113,8 @@ std::move(p_image), std::move(callback));
               internal::ScreenAIAnnotator_PerformOcrAndReturnAnnotation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenAIAnnotator.2
       bool success = true;
       ::SkBitmap p_image{};
       ScreenAIAnnotator_PerformOcrAndReturnAnnotation_ParamsDataView input_data_view(params, message);
@@ -1033,8 +1133,8 @@ std::move(p_image), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformOcrAndReturnAnnotation(
-std::move(p_image), std::move(callback));
+      impl->PerformOcrAndReturnAnnotation(        
+        std::move(p_image), std::move(callback));
       return true;
     }
   }
@@ -1182,6 +1282,8 @@ bool ScreenAIAnnotatorClientStubDispatch::Accept(
           reinterpret_cast<internal::ScreenAIAnnotatorClient_HandleAXTreeUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenAIAnnotatorClient.0
       bool success = true;
       ::ui::AXTreeUpdate p_update{};
       ScreenAIAnnotatorClient_HandleAXTreeUpdate_ParamsDataView input_data_view(params, message);
@@ -1197,8 +1299,8 @@ bool ScreenAIAnnotatorClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAXTreeUpdate(
-std::move(p_update));
+      impl->HandleAXTreeUpdate(        
+        std::move(p_update));
       return true;
     }
   }
@@ -1420,6 +1522,8 @@ bool Screen2xMainContentExtractor_ExtractMainContent_ForwardToCallback::Accept(
           internal::Screen2xMainContentExtractor_ExtractMainContent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Screen2xMainContentExtractor.0
   bool success = true;
   std::vector<int32_t> p_content_node_ids{};
   Screen2xMainContentExtractor_ExtractMainContent_ResponseParamsDataView input_data_view(params, message);
@@ -1522,6 +1626,8 @@ bool Screen2xMainContentExtractorStubDispatch::AcceptWithResponder(
               internal::Screen2xMainContentExtractor_ExtractMainContent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Screen2xMainContentExtractor.0
       bool success = true;
       ::ui::AXTreeUpdate p_snapshot{};
       int64_t p_ukm_source_id{};
@@ -1543,9 +1649,9 @@ bool Screen2xMainContentExtractorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtractMainContent(
-std::move(p_snapshot), 
-std::move(p_ukm_source_id), std::move(callback));
+      impl->ExtractMainContent(        
+        std::move(p_snapshot), 
+        std::move(p_ukm_source_id), std::move(callback));
       return true;
     }
   }
@@ -1642,6 +1748,17 @@ uint32_t OCRService::BindAnnotatorClient_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+// static
+bool OCRService::RuntimeFeature_IsEnabled_(bool expected) {
+  bool enabled = base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIOCREnabled);
+#if DCHECK_IS_ON()
+  if (expected) {
+    DCHECK(enabled) << "RuntimeFeature ::ax::mojom::features::kScreenAIOCREnabled for OCRService is not enabled";
+  }
+#endif
+  return enabled;
+}
+
 OCRServiceProxy::OCRServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1678,10 +1795,6 @@ void OCRServiceProxy::BindAnnotator(
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::screen_ai::mojom::ScreenAIAnnotatorInterfaceBase>>(
       in_annotator, &params->annotator, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->annotator),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid annotator in OCRService.BindAnnotator request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OCRService::Name_);
@@ -1724,10 +1837,6 @@ void OCRServiceProxy::BindAnnotatorClient(
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::screen_ai::mojom::ScreenAIAnnotatorClientInterfaceBase>>(
       in_annotator_client, &params->annotator_client, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->annotator_client),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid annotator_client in OCRService.BindAnnotatorClient request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OCRService::Name_);
@@ -1750,6 +1859,8 @@ bool OCRServiceStubDispatch::Accept(
           reinterpret_cast<internal::OCRService_BindAnnotator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OCRService.0
       bool success = true;
       ::mojo::PendingReceiver<ScreenAIAnnotator> p_annotator{};
       OCRService_BindAnnotator_ParamsDataView input_data_view(params, message);
@@ -1767,8 +1878,8 @@ bool OCRServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAnnotator(
-std::move(p_annotator));
+      impl->BindAnnotator(        
+        std::move(p_annotator));
       return true;
     }
     case internal::kOCRService_BindAnnotatorClient_Name: {
@@ -1778,6 +1889,8 @@ std::move(p_annotator));
           reinterpret_cast<internal::OCRService_BindAnnotatorClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OCRService.1
       bool success = true;
       ::mojo::PendingRemote<ScreenAIAnnotatorClient> p_annotator_client{};
       OCRService_BindAnnotatorClient_ParamsDataView input_data_view(params, message);
@@ -1795,8 +1908,8 @@ std::move(p_annotator));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAnnotatorClient(
-std::move(p_annotator_client));
+      impl->BindAnnotatorClient(        
+        std::move(p_annotator_client));
       return true;
     }
   }
@@ -1890,6 +2003,17 @@ uint32_t MainContentExtractionService::BindMainContentExtractor_Sym::IPCStableHa
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+// static
+bool MainContentExtractionService::RuntimeFeature_IsEnabled_(bool expected) {
+  bool enabled = base::FeatureList::IsEnabled(::ax::mojom::features::kScreenAIMainContentExtractionEnabled);
+#if DCHECK_IS_ON()
+  if (expected) {
+    DCHECK(enabled) << "RuntimeFeature ::ax::mojom::features::kScreenAIMainContentExtractionEnabled for MainContentExtractionService is not enabled";
+  }
+#endif
+  return enabled;
+}
+
 MainContentExtractionServiceProxy::MainContentExtractionServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1926,10 +2050,6 @@ void MainContentExtractionServiceProxy::BindMainContentExtractor(
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::screen_ai::mojom::Screen2xMainContentExtractorInterfaceBase>>(
       in_main_content_extractor, &params->main_content_extractor, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->main_content_extractor),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid main_content_extractor in MainContentExtractionService.BindMainContentExtractor request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MainContentExtractionService::Name_);
@@ -1952,6 +2072,8 @@ bool MainContentExtractionServiceStubDispatch::Accept(
           reinterpret_cast<internal::MainContentExtractionService_BindMainContentExtractor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MainContentExtractionService.0
       bool success = true;
       ::mojo::PendingReceiver<Screen2xMainContentExtractor> p_main_content_extractor{};
       MainContentExtractionService_BindMainContentExtractor_ParamsDataView input_data_view(params, message);
@@ -1969,8 +2091,8 @@ bool MainContentExtractionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMainContentExtractor(
-std::move(p_main_content_extractor));
+      impl->BindMainContentExtractor(        
+        std::move(p_main_content_extractor));
       return true;
     }
   }
@@ -2043,6 +2165,14 @@ bool StructTraits<::screen_ai::mojom::LineBox::DataView, ::screen_ai::mojom::Lin
         result->block_id = input.block_id();
       if (success)
         result->order_within_block = input.order_within_block();
+      if (success && !input.ReadBoundingBox(&result->bounding_box))
+        success = false;
+      if (success)
+        result->bounding_box_angle = input.bounding_box_angle();
+      if (success && !input.ReadBaselineBox(&result->baseline_box))
+        success = false;
+      if (success)
+        result->baseline_box_angle = input.baseline_box_angle();
   *output = std::move(result);
   return success;
 }
@@ -2063,6 +2193,12 @@ bool StructTraits<::screen_ai::mojom::WordBox::DataView, ::screen_ai::mojom::Wor
         success = false;
       if (success)
         result->has_space_after = input.has_space_after();
+      if (success && !input.ReadBoundingBox(&result->bounding_box))
+        success = false;
+      if (success)
+        result->bounding_box_angle = input.bounding_box_angle();
+      if (success && !input.ReadDirection(&result->direction))
+        success = false;
   *output = std::move(result);
   return success;
 }

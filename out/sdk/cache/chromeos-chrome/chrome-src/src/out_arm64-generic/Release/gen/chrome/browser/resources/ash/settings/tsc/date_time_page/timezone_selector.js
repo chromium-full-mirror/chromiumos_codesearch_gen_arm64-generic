@@ -5,7 +5,7 @@
  * @fileoverview 'timezone-selector' is the time zone selector dropdown.
  */
 import '../settings_shared.css.js';
-import '/shared/settings/controls/settings_dropdown_menu.js';
+import '../controls/settings_dropdown_menu.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { CrSettingsPrefs } from 'chrome://resources/cr_components/settings_prefs/prefs_types.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';

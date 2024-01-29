@@ -52,9 +52,6 @@ RenderMessageFilter::IPCStableHashFunction RenderMessageFilter::MessageToMethodI
     case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name: {
       return &RenderMessageFilter::GenerateFrameRoutingID_Sym::IPCStableHash;
     }
-    case internal::kRenderMessageFilter_HasGpuProcess_Name: {
-      return &RenderMessageFilter::HasGpuProcess_Sym::IPCStableHash;
-    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -68,15 +65,11 @@ const char* RenderMessageFilter::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name:
             return "Receive content::mojom::RenderMessageFilter::GenerateFrameRoutingID";
-      case internal::kRenderMessageFilter_HasGpuProcess_Name:
-            return "Receive content::mojom::RenderMessageFilter::HasGpuProcess";
     }
   } else {
     switch (message.name()) {
       case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name:
             return "Receive reply content::mojom::RenderMessageFilter::GenerateFrameRoutingID";
-      case internal::kRenderMessageFilter_HasGpuProcess_Name:
-            return "Receive reply content::mojom::RenderMessageFilter::HasGpuProcess";
     }
   }
   return "Receive unknown mojo message";
@@ -104,25 +97,8 @@ uint32_t RenderMessageFilter::GenerateFrameRoutingID_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t RenderMessageFilter::HasGpuProcess_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)content::mojom::RenderMessageFilter::HasGpuProcess");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 bool RenderMessageFilter::GenerateFrameRoutingID(int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token) {
-  NOTREACHED();
-  return false;
-}
-bool RenderMessageFilter::HasGpuProcess(bool* out_has_gpu_process) {
   NOTREACHED();
   return false;
 }
@@ -160,38 +136,6 @@ class RenderMessageFilter_GenerateFrameRoutingID_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   RenderMessageFilter::GenerateFrameRoutingIDCallback callback_;
-};
-class RenderMessageFilter_HasGpuProcess_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  RenderMessageFilter_HasGpuProcess_HandleSyncResponse(
-      bool* result, bool* out_has_gpu_process)
-      : result_(result), out_has_gpu_process_(out_has_gpu_process) {
-    DCHECK(!*result_);
-  }
-
-  RenderMessageFilter_HasGpuProcess_HandleSyncResponse(const RenderMessageFilter_HasGpuProcess_HandleSyncResponse&) = delete;
-  RenderMessageFilter_HasGpuProcess_HandleSyncResponse& operator=(const RenderMessageFilter_HasGpuProcess_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  bool* out_has_gpu_process_;};
-
-class RenderMessageFilter_HasGpuProcess_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  RenderMessageFilter_HasGpuProcess_ForwardToCallback(
-      RenderMessageFilter::HasGpuProcessCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  RenderMessageFilter_HasGpuProcess_ForwardToCallback(const RenderMessageFilter_HasGpuProcess_ForwardToCallback&) = delete;
-  RenderMessageFilter_HasGpuProcess_ForwardToCallback& operator=(const RenderMessageFilter_HasGpuProcess_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  RenderMessageFilter::HasGpuProcessCallback callback_;
 };
 
 RenderMessageFilterProxy::RenderMessageFilterProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -289,89 +233,6 @@ void RenderMessageFilterProxy::GenerateFrameRoutingID(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-bool RenderMessageFilterProxy::HasGpuProcess(
-    bool* out_param_has_gpu_process) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN0("mojom", "Call content::mojom::RenderMessageFilter::HasGpuProcess (sync)");
-#else
-  TRACE_EVENT0("mojom", "RenderMessageFilter::HasGpuProcess");
-#endif
-  
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kRenderMessageFilter_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::RenderMessageFilter_HasGpuProcess_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(RenderMessageFilter::Name_);
-  message.set_method_name("HasGpuProcess");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new RenderMessageFilter_HasGpuProcess_HandleSyncResponse(
-          &result, out_param_has_gpu_process));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "RenderMessageFilter::HasGpuProcess", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("has_gpu_process"), out_param_has_gpu_process,
-                        "<value of type bool>");
-   });
-#endif
-  return result;
-}
-
-void RenderMessageFilterProxy::HasGpuProcess(
-    HasGpuProcessCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send content::mojom::RenderMessageFilter::HasGpuProcess");
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kRenderMessageFilter_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::RenderMessageFilter_HasGpuProcess_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(RenderMessageFilter::Name_);
-  message.set_method_name("HasGpuProcess");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new RenderMessageFilter_HasGpuProcess_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
 class RenderMessageFilter_GenerateFrameRoutingID_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static RenderMessageFilter::GenerateFrameRoutingIDCallback CreateCallback(
@@ -430,6 +291,8 @@ bool RenderMessageFilter_GenerateFrameRoutingID_ForwardToCallback::Accept(
           internal::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RenderMessageFilter.0
   bool success = true;
   int32_t p_routing_id{};
   ::blink::LocalFrameToken p_frame_token{};
@@ -553,6 +416,8 @@ bool RenderMessageFilter_GenerateFrameRoutingID_HandleSyncResponse::Accept(
       reinterpret_cast<internal::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for RenderMessageFilter.0
   bool success = true;
   int32_t p_routing_id{};
   ::blink::LocalFrameToken p_frame_token{};
@@ -582,150 +447,6 @@ bool RenderMessageFilter_GenerateFrameRoutingID_HandleSyncResponse::Accept(
   *result_ = true;
   return true;
 }
-class RenderMessageFilter_HasGpuProcess_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static RenderMessageFilter::HasGpuProcessCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<RenderMessageFilter_HasGpuProcess_ProxyToResponder> proxy(
-        new RenderMessageFilter_HasGpuProcess_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&RenderMessageFilter_HasGpuProcess_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~RenderMessageFilter_HasGpuProcess_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  RenderMessageFilter_HasGpuProcess_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "RenderMessageFilter::HasGpuProcessCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_has_gpu_process);
-};
-
-bool RenderMessageFilter_HasGpuProcess_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_has_gpu_process{};
-  RenderMessageFilter_HasGpuProcess_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_has_gpu_process = input_data_view.has_gpu_process();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 1, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_has_gpu_process));
-  return true;
-}
-
-void RenderMessageFilter_HasGpuProcess_ProxyToResponder::Run(
-    bool in_has_gpu_process) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply content::mojom::RenderMessageFilter::HasGpuProcess", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("has_gpu_process"), in_has_gpu_process,
-                        "<value of type bool>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kRenderMessageFilter_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::content::mojom::internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->has_gpu_process = in_has_gpu_process;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(RenderMessageFilter::Name_);
-  message.set_method_name("HasGpuProcess");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool RenderMessageFilter_HasGpuProcess_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data* params =
-      reinterpret_cast<internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  bool p_has_gpu_process{};
-  RenderMessageFilter_HasGpuProcess_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_has_gpu_process = input_data_view.has_gpu_process();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        RenderMessageFilter::Name_, 1, true);
-    return false;
-  }
-  *out_has_gpu_process_ = std::move(p_has_gpu_process);
-  *result_ = true;
-  return true;
-}
 
 // static
 bool RenderMessageFilterStubDispatch::Accept(
@@ -733,9 +454,6 @@ bool RenderMessageFilterStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kRenderMessageFilter_GenerateFrameRoutingID_Name: {
-      break;
-    }
-    case internal::kRenderMessageFilter_HasGpuProcess_Name: {
       break;
     }
   }
@@ -758,6 +476,8 @@ bool RenderMessageFilterStubDispatch::AcceptWithResponder(
               internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RenderMessageFilter.0
       bool success = true;
       RenderMessageFilter_GenerateFrameRoutingID_ParamsDataView input_data_view(params, message);
       
@@ -776,31 +496,6 @@ bool RenderMessageFilterStubDispatch::AcceptWithResponder(
       impl->GenerateFrameRoutingID(std::move(callback));
       return true;
     }
-    case internal::kRenderMessageFilter_HasGpuProcess_Name: {
-
-      internal::RenderMessageFilter_HasGpuProcess_Params_Data* params =
-          reinterpret_cast<
-              internal::RenderMessageFilter_HasGpuProcess_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      RenderMessageFilter_HasGpuProcess_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            RenderMessageFilter::Name_, 1, false);
-        return false;
-      }
-      RenderMessageFilter::HasGpuProcessCallback callback =
-          RenderMessageFilter_HasGpuProcess_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->HasGpuProcess(std::move(callback));
-      return true;
-    }
   }
   return false;
 }
@@ -809,8 +504,6 @@ namespace {
 static const mojo::internal::GenericValidationInfo kRenderMessageFilterValidationInfo[] = {
     { &internal::RenderMessageFilter_GenerateFrameRoutingID_Params_Data::Validate,
      &internal::RenderMessageFilter_GenerateFrameRoutingID_ResponseParams_Data::Validate},
-    { &internal::RenderMessageFilter_HasGpuProcess_Params_Data::Validate,
-     &internal::RenderMessageFilter_HasGpuProcess_ResponseParams_Data::Validate},
 };
 
 bool RenderMessageFilterRequestValidator::Accept(mojo::Message* message) {
@@ -841,9 +534,6 @@ namespace content::mojom {
 
 void RenderMessageFilterInterceptorForTesting::GenerateFrameRoutingID(GenerateFrameRoutingIDCallback callback) {
   GetForwardingInterface()->GenerateFrameRoutingID(std::move(callback));
-}
-void RenderMessageFilterInterceptorForTesting::HasGpuProcess(HasGpuProcessCallback callback) {
-  GetForwardingInterface()->HasGpuProcess(std::move(callback));
 }
 RenderMessageFilterAsyncWaiter::RenderMessageFilterAsyncWaiter(
     RenderMessageFilter* proxy) : proxy_(proxy) {}
@@ -879,29 +569,6 @@ void RenderMessageFilterAsyncWaiter::GenerateFrameRoutingID(
 }
 
 
-
-void RenderMessageFilterAsyncWaiter::HasGpuProcess(
-    bool* out_has_gpu_process) {
-  base::RunLoop loop;
-  proxy_->HasGpuProcess(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_has_gpu_process
-,
-             bool has_gpu_process) {*out_has_gpu_process = std::move(has_gpu_process);
-            loop->Quit();
-          },
-          &loop,
-          out_has_gpu_process));
-  loop.Run();
-}
-
-bool RenderMessageFilterAsyncWaiter::HasGpuProcess(
-    ) {
-  bool async_wait_result;
-  HasGpuProcess(&async_wait_result);
-  return async_wait_result;
-}
 
 
 

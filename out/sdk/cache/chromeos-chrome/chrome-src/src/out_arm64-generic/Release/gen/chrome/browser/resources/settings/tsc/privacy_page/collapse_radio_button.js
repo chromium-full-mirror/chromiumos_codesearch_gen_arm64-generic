@@ -8,10 +8,10 @@ import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../settings_shared.css.js';
 import { CrRadioButtonMixin } from 'chrome://resources/cr_elements/cr_radio_button/cr_radio_button_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { PaperRippleBehavior } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './collapse_radio_button.html.js';
-const SettingsCollapseRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const SettingsCollapseRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 export class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElementBase {
     static get is() {
         return 'settings-collapse-radio-button';
@@ -74,7 +74,7 @@ export class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioBut
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');

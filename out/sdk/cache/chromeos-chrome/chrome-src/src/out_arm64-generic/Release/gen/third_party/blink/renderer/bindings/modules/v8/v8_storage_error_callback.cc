@@ -58,9 +58,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_error;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<DOMError>::ToV8(script_state, arg1_error).ToLocal(&v8_arg1_error)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_error = ToV8Traits<DOMError>::ToV8(script_state, arg1_error);
 argv[0] = v8_arg1_error;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -99,9 +97,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_error;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<DOMError>::ToV8(script_state, arg1_error).ToLocal(&v8_arg1_error)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_error = ToV8Traits<DOMError>::ToV8(script_state, arg1_error);
 argv[0] = v8_arg1_error;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

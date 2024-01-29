@@ -13,11 +13,12 @@ export const TabOrganizationStateSpec = { $: mojo.internal.Enum() };
 export var TabOrganizationState;
 (function (TabOrganizationState) {
     TabOrganizationState[TabOrganizationState["MIN_VALUE"] = 0] = "MIN_VALUE";
-    TabOrganizationState[TabOrganizationState["MAX_VALUE"] = 3] = "MAX_VALUE";
-    TabOrganizationState[TabOrganizationState["kNotStarted"] = 0] = "kNotStarted";
-    TabOrganizationState[TabOrganizationState["kInProgress"] = 1] = "kInProgress";
-    TabOrganizationState[TabOrganizationState["kSuccess"] = 2] = "kSuccess";
-    TabOrganizationState[TabOrganizationState["kFailure"] = 3] = "kFailure";
+    TabOrganizationState[TabOrganizationState["MAX_VALUE"] = 4] = "MAX_VALUE";
+    TabOrganizationState[TabOrganizationState["kInitializing"] = 0] = "kInitializing";
+    TabOrganizationState[TabOrganizationState["kNotStarted"] = 1] = "kNotStarted";
+    TabOrganizationState[TabOrganizationState["kInProgress"] = 2] = "kInProgress";
+    TabOrganizationState[TabOrganizationState["kSuccess"] = 3] = "kSuccess";
+    TabOrganizationState[TabOrganizationState["kFailure"] = 4] = "kFailure";
 })(TabOrganizationState || (TabOrganizationState = {}));
 export const TabOrganizationErrorSpec = { $: mojo.internal.Enum() };
 export var TabOrganizationError;
@@ -172,8 +173,8 @@ export class PageHandlerRemote {
             tab
         ]);
     }
-    resetSession() {
-        this.proxy.sendMessage(9, PageHandler_ResetSession_ParamsSpec.$, null, []);
+    restartSession() {
+        this.proxy.sendMessage(9, PageHandler_RestartSession_ParamsSpec.$, null, []);
     }
     saveRecentlyClosedExpandedPref(expanded) {
         this.proxy.sendMessage(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, [
@@ -235,7 +236,7 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(6, PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, null, impl.openRecentlyClosedEntry.bind(impl));
         this.helper_internal_.registerHandler(7, PageHandler_RequestTabOrganization_ParamsSpec.$, null, impl.requestTabOrganization.bind(impl));
         this.helper_internal_.registerHandler(8, PageHandler_RemoveTabFromOrganization_ParamsSpec.$, null, impl.removeTabFromOrganization.bind(impl));
-        this.helper_internal_.registerHandler(9, PageHandler_ResetSession_ParamsSpec.$, null, impl.resetSession.bind(impl));
+        this.helper_internal_.registerHandler(9, PageHandler_RestartSession_ParamsSpec.$, null, impl.restartSession.bind(impl));
         this.helper_internal_.registerHandler(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, impl.saveRecentlyClosedExpandedPref.bind(impl));
         this.helper_internal_.registerHandler(11, PageHandler_SetTabIndex_ParamsSpec.$, null, impl.setTabIndex.bind(impl));
         this.helper_internal_.registerHandler(12, PageHandler_StartTabGroupTutorial_ParamsSpec.$, null, impl.startTabGroupTutorial.bind(impl));
@@ -302,9 +303,9 @@ export class PageHandlerCallbackRouter {
         this.removeTabFromOrganization =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(8, PageHandler_RemoveTabFromOrganization_ParamsSpec.$, null, this.removeTabFromOrganization.createReceiverHandler(false /* expectsResponse */));
-        this.resetSession =
+        this.restartSession =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(9, PageHandler_ResetSession_ParamsSpec.$, null, this.resetSession.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(9, PageHandler_RestartSession_ParamsSpec.$, null, this.restartSession.createReceiverHandler(false /* expectsResponse */));
         this.saveRecentlyClosedExpandedPref =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, this.saveRecentlyClosedExpandedPref.createReceiverHandler(false /* expectsResponse */));
@@ -380,6 +381,11 @@ export class PageRemote {
             tabsRemovedInfo
         ]);
     }
+    tabSearchTabIndexChanged(index) {
+        this.proxy.sendMessage(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, [
+            index
+        ]);
+    }
 }
 ;
 /**
@@ -395,6 +401,7 @@ export class PageReceiver {
         this.helper_internal_.registerHandler(1, Page_TabsChanged_ParamsSpec.$, null, impl.tabsChanged.bind(impl));
         this.helper_internal_.registerHandler(2, Page_TabUpdated_ParamsSpec.$, null, impl.tabUpdated.bind(impl));
         this.helper_internal_.registerHandler(3, Page_TabsRemoved_ParamsSpec.$, null, impl.tabsRemoved.bind(impl));
+        this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, impl.tabSearchTabIndexChanged.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -436,6 +443,9 @@ export class PageCallbackRouter {
         this.tabsRemoved =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(3, Page_TabsRemoved_ParamsSpec.$, null, this.tabsRemoved.createReceiverHandler(false /* expectsResponse */));
+        this.tabSearchTabIndexChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, this.tabSearchTabIndexChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -469,7 +479,7 @@ export const PageHandler_SwitchToTab_ParamsSpec = { $: {} };
 export const PageHandler_OpenRecentlyClosedEntry_ParamsSpec = { $: {} };
 export const PageHandler_RequestTabOrganization_ParamsSpec = { $: {} };
 export const PageHandler_RemoveTabFromOrganization_ParamsSpec = { $: {} };
-export const PageHandler_ResetSession_ParamsSpec = { $: {} };
+export const PageHandler_RestartSession_ParamsSpec = { $: {} };
 export const PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec = { $: {} };
 export const PageHandler_SetTabIndex_ParamsSpec = { $: {} };
 export const PageHandler_StartTabGroupTutorial_ParamsSpec = { $: {} };
@@ -484,6 +494,7 @@ export const Page_TabOrganizationSessionUpdated_ParamsSpec = { $: {} };
 export const Page_TabsChanged_ParamsSpec = { $: {} };
 export const Page_TabUpdated_ParamsSpec = { $: {} };
 export const Page_TabsRemoved_ParamsSpec = { $: {} };
+export const Page_TabSearchTabIndexChanged_ParamsSpec = { $: {} };
 mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
     mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('tabGroups', 8, 0, mojo.internal.Array(TabGroupSpec.$, false), null, false /* nullable */, 0),
@@ -592,7 +603,7 @@ mojo.internal.Struct(PageHandler_RemoveTabFromOrganization_ParamsSpec.$, 'PageHa
     mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('tab', 8, 0, TabSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(PageHandler_ResetSession_ParamsSpec.$, 'PageHandler_ResetSession_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_RestartSession_ParamsSpec.$, 'PageHandler_RestartSession_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, 'PageHandler_SaveRecentlyClosedExpandedPref_Params', [
     mojo.internal.StructField('expanded', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -624,4 +635,7 @@ mojo.internal.Struct(Page_TabUpdated_ParamsSpec.$, 'Page_TabUpdated_Params', [
 ], [[0, 16],]);
 mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
     mojo.internal.StructField('tabsRemovedInfo', 0, 0, TabsRemovedInfoSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_TabSearchTabIndexChanged_ParamsSpec.$, 'Page_TabSearchTabIndexChanged_Params', [
+    mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
 ], [[0, 16],]);

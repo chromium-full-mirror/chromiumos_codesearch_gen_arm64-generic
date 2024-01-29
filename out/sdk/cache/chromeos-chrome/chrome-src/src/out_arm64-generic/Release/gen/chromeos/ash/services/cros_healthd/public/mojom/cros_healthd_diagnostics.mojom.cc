@@ -448,6 +448,8 @@ bool DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept
           internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DEPRECATED_LedLitUpRoutineReplier.0
   bool success = true;
   bool p_matched{};
   DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
@@ -538,6 +540,8 @@ bool DEPRECATED_LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
               internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DEPRECATED_LedLitUpRoutineReplier.0
       bool success = true;
       DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ParamsDataView input_data_view(params, message);
       

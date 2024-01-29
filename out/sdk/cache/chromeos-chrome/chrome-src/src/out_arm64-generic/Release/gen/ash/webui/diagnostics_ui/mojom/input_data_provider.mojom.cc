@@ -440,6 +440,8 @@ bool KeyboardObserverStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardObserver_OnKeyEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardObserver.0
       bool success = true;
       KeyEventPtr p_event{};
       KeyboardObserver_OnKeyEvent_ParamsDataView input_data_view(params, message);
@@ -455,8 +457,8 @@ bool KeyboardObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyEvent(
-std::move(p_event));
+      impl->OnKeyEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kKeyboardObserver_OnKeyEventsPaused_Name: {
@@ -466,6 +468,8 @@ std::move(p_event));
           reinterpret_cast<internal::KeyboardObserver_OnKeyEventsPaused_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardObserver.1
       bool success = true;
       KeyboardObserver_OnKeyEventsPaused_ParamsDataView input_data_view(params, message);
       
@@ -478,7 +482,7 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyEventsPaused();
+      impl->OnKeyEventsPaused(        );
       return true;
     }
     case internal::kKeyboardObserver_OnKeyEventsResumed_Name: {
@@ -488,6 +492,8 @@ std::move(p_event));
           reinterpret_cast<internal::KeyboardObserver_OnKeyEventsResumed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardObserver.2
       bool success = true;
       KeyboardObserver_OnKeyEventsResumed_ParamsDataView input_data_view(params, message);
       
@@ -500,7 +506,7 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyEventsResumed();
+      impl->OnKeyEventsResumed(        );
       return true;
     }
   }
@@ -656,6 +662,8 @@ bool InternalDisplayPowerStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::InternalDisplayPowerStateObserver_OnInternalDisplayPowerStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InternalDisplayPowerStateObserver.0
       bool success = true;
       bool p_is_display_on{};
       InternalDisplayPowerStateObserver_OnInternalDisplayPowerStateChanged_ParamsDataView input_data_view(params, message);
@@ -671,8 +679,8 @@ bool InternalDisplayPowerStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInternalDisplayPowerStateChanged(
-std::move(p_is_display_on));
+      impl->OnInternalDisplayPowerStateChanged(        
+        std::move(p_is_display_on));
       return true;
     }
   }
@@ -818,6 +826,8 @@ bool TabletModeObserverStubDispatch::Accept(
           reinterpret_cast<internal::TabletModeObserver_OnTabletModeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TabletModeObserver.0
       bool success = true;
       bool p_is_tablet_mode{};
       TabletModeObserver_OnTabletModeChanged_ParamsDataView input_data_view(params, message);
@@ -833,8 +843,8 @@ bool TabletModeObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTabletModeChanged(
-std::move(p_is_tablet_mode));
+      impl->OnTabletModeChanged(        
+        std::move(p_is_tablet_mode));
       return true;
     }
   }
@@ -980,6 +990,8 @@ bool LidStateObserverStubDispatch::Accept(
           reinterpret_cast<internal::LidStateObserver_OnLidStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LidStateObserver.0
       bool success = true;
       bool p_is_lid_open{};
       LidStateObserver_OnLidStateChanged_ParamsDataView input_data_view(params, message);
@@ -995,8 +1007,8 @@ bool LidStateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLidStateChanged(
-std::move(p_is_lid_open));
+      impl->OnLidStateChanged(        
+        std::move(p_is_lid_open));
       return true;
     }
   }
@@ -1345,6 +1357,8 @@ bool ConnectedDevicesObserverStubDispatch::Accept(
           reinterpret_cast<internal::ConnectedDevicesObserver_OnKeyboardConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectedDevicesObserver.0
       bool success = true;
       ::ash::diagnostics::mojom::KeyboardInfoPtr p_new_keyboard{};
       ConnectedDevicesObserver_OnKeyboardConnected_ParamsDataView input_data_view(params, message);
@@ -1360,8 +1374,8 @@ bool ConnectedDevicesObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardConnected(
-std::move(p_new_keyboard));
+      impl->OnKeyboardConnected(        
+        std::move(p_new_keyboard));
       return true;
     }
     case internal::kConnectedDevicesObserver_OnKeyboardDisconnected_Name: {
@@ -1371,6 +1385,8 @@ std::move(p_new_keyboard));
           reinterpret_cast<internal::ConnectedDevicesObserver_OnKeyboardDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectedDevicesObserver.1
       bool success = true;
       uint32_t p_id{};
       ConnectedDevicesObserver_OnKeyboardDisconnected_ParamsDataView input_data_view(params, message);
@@ -1386,8 +1402,8 @@ std::move(p_new_keyboard));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardDisconnected(
-std::move(p_id));
+      impl->OnKeyboardDisconnected(        
+        std::move(p_id));
       return true;
     }
     case internal::kConnectedDevicesObserver_OnTouchDeviceConnected_Name: {
@@ -1397,6 +1413,8 @@ std::move(p_id));
           reinterpret_cast<internal::ConnectedDevicesObserver_OnTouchDeviceConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectedDevicesObserver.2
       bool success = true;
       TouchDeviceInfoPtr p_new_touch_device{};
       ConnectedDevicesObserver_OnTouchDeviceConnected_ParamsDataView input_data_view(params, message);
@@ -1412,8 +1430,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTouchDeviceConnected(
-std::move(p_new_touch_device));
+      impl->OnTouchDeviceConnected(        
+        std::move(p_new_touch_device));
       return true;
     }
     case internal::kConnectedDevicesObserver_OnTouchDeviceDisconnected_Name: {
@@ -1423,6 +1441,8 @@ std::move(p_new_touch_device));
           reinterpret_cast<internal::ConnectedDevicesObserver_OnTouchDeviceDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectedDevicesObserver.3
       bool success = true;
       uint32_t p_id{};
       ConnectedDevicesObserver_OnTouchDeviceDisconnected_ParamsDataView input_data_view(params, message);
@@ -1438,8 +1458,8 @@ std::move(p_new_touch_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTouchDeviceDisconnected(
-std::move(p_id));
+      impl->OnTouchDeviceDisconnected(        
+        std::move(p_id));
       return true;
     }
   }
@@ -2197,6 +2217,8 @@ bool InputDataProvider_GetConnectedDevices_ForwardToCallback::Accept(
           internal::InputDataProvider_GetConnectedDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDataProvider.0
   bool success = true;
   std::vector<::ash::diagnostics::mojom::KeyboardInfoPtr> p_keyboards{};
   std::vector<TouchDeviceInfoPtr> p_touch_devices{};
@@ -2348,6 +2370,8 @@ bool InputDataProvider_ObserveTabletMode_ForwardToCallback::Accept(
           internal::InputDataProvider_ObserveTabletMode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDataProvider.3
   bool success = true;
   bool p_is_tablet_mode{};
   InputDataProvider_ObserveTabletMode_ResponseParamsDataView input_data_view(params, message);
@@ -2467,6 +2491,8 @@ bool InputDataProvider_ObserveLidState_ForwardToCallback::Accept(
           internal::InputDataProvider_ObserveLidState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputDataProvider.4
   bool success = true;
   bool p_is_lid_open{};
   InputDataProvider_ObserveLidState_ResponseParamsDataView input_data_view(params, message);
@@ -2544,6 +2570,8 @@ bool InputDataProviderStubDispatch::Accept(
           reinterpret_cast<internal::InputDataProvider_ObserveConnectedDevices_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.1
       bool success = true;
       ::mojo::PendingRemote<ConnectedDevicesObserver> p_observer{};
       InputDataProvider_ObserveConnectedDevices_ParamsDataView input_data_view(params, message);
@@ -2561,8 +2589,8 @@ bool InputDataProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveConnectedDevices(
-std::move(p_observer));
+      impl->ObserveConnectedDevices(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDataProvider_ObserveKeyEvents_Name: {
@@ -2572,6 +2600,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDataProvider_ObserveKeyEvents_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.2
       bool success = true;
       uint32_t p_id{};
       ::mojo::PendingRemote<KeyboardObserver> p_observer{};
@@ -2592,9 +2622,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveKeyEvents(
-std::move(p_id), 
-std::move(p_observer));
+      impl->ObserveKeyEvents(        
+        std::move(p_id), 
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDataProvider_ObserveTabletMode_Name: {
@@ -2610,6 +2640,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDataProvider_ObserveInternalDisplayPowerState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.5
       bool success = true;
       ::mojo::PendingRemote<InternalDisplayPowerStateObserver> p_observer{};
       InputDataProvider_ObserveInternalDisplayPowerState_ParamsDataView input_data_view(params, message);
@@ -2627,8 +2659,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveInternalDisplayPowerState(
-std::move(p_observer));
+      impl->ObserveInternalDisplayPowerState(        
+        std::move(p_observer));
       return true;
     }
     case internal::kInputDataProvider_MoveAppToTestingScreen_Name: {
@@ -2638,6 +2670,8 @@ std::move(p_observer));
           reinterpret_cast<internal::InputDataProvider_MoveAppToTestingScreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.6
       bool success = true;
       uint32_t p_evdev_id{};
       InputDataProvider_MoveAppToTestingScreen_ParamsDataView input_data_view(params, message);
@@ -2653,8 +2687,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveAppToTestingScreen(
-std::move(p_evdev_id));
+      impl->MoveAppToTestingScreen(        
+        std::move(p_evdev_id));
       return true;
     }
     case internal::kInputDataProvider_MoveAppBackToPreviousScreen_Name: {
@@ -2664,6 +2698,8 @@ std::move(p_evdev_id));
           reinterpret_cast<internal::InputDataProvider_MoveAppBackToPreviousScreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.7
       bool success = true;
       InputDataProvider_MoveAppBackToPreviousScreen_ParamsDataView input_data_view(params, message);
       
@@ -2676,7 +2712,7 @@ std::move(p_evdev_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MoveAppBackToPreviousScreen();
+      impl->MoveAppBackToPreviousScreen(        );
       return true;
     }
     case internal::kInputDataProvider_SetA11yTouchPassthrough_Name: {
@@ -2686,6 +2722,8 @@ std::move(p_evdev_id));
           reinterpret_cast<internal::InputDataProvider_SetA11yTouchPassthrough_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.8
       bool success = true;
       bool p_enabled{};
       InputDataProvider_SetA11yTouchPassthrough_ParamsDataView input_data_view(params, message);
@@ -2701,8 +2739,8 @@ std::move(p_evdev_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetA11yTouchPassthrough(
-std::move(p_enabled));
+      impl->SetA11yTouchPassthrough(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -2725,6 +2763,8 @@ bool InputDataProviderStubDispatch::AcceptWithResponder(
               internal::InputDataProvider_GetConnectedDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.0
       bool success = true;
       InputDataProvider_GetConnectedDevices_ParamsDataView input_data_view(params, message);
       
@@ -2756,6 +2796,8 @@ bool InputDataProviderStubDispatch::AcceptWithResponder(
               internal::InputDataProvider_ObserveTabletMode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.3
       bool success = true;
       ::mojo::PendingRemote<TabletModeObserver> p_observer{};
       InputDataProvider_ObserveTabletMode_ParamsDataView input_data_view(params, message);
@@ -2776,8 +2818,8 @@ bool InputDataProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveTabletMode(
-std::move(p_observer), std::move(callback));
+      impl->ObserveTabletMode(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kInputDataProvider_ObserveLidState_Name: {
@@ -2787,6 +2829,8 @@ std::move(p_observer), std::move(callback));
               internal::InputDataProvider_ObserveLidState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputDataProvider.4
       bool success = true;
       ::mojo::PendingRemote<LidStateObserver> p_observer{};
       InputDataProvider_ObserveLidState_ParamsDataView input_data_view(params, message);
@@ -2807,8 +2851,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObserveLidState(
-std::move(p_observer), std::move(callback));
+      impl->ObserveLidState(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kInputDataProvider_ObserveInternalDisplayPowerState_Name: {

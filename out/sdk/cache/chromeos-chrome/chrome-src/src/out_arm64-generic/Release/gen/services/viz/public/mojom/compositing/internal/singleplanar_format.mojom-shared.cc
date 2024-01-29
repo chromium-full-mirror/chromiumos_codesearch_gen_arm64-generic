@@ -60,6 +60,8 @@ NOINLINE static const char* SingleplanarFormatToStringHelper(SingleplanarFormat 
       return "RGBX_1010102";
     case SingleplanarFormat::BGRX_1010102:
       return "BGRX_1010102";
+    case SingleplanarFormat::R_F16:
+      return "R_F16";
     case SingleplanarFormat::YV12_LEGACY:
       return "YV12_LEGACY";
     case SingleplanarFormat::NV12_LEGACY:

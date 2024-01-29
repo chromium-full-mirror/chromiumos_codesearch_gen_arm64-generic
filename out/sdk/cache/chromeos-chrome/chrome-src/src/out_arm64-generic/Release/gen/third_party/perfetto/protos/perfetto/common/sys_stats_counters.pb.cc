@@ -332,19 +332,86 @@ bool VmstatCounters_IsValid(int value) {
     case 126:
     case 127:
     case 128:
+    case 129:
+    case 130:
+    case 131:
+    case 132:
+    case 133:
+    case 134:
+    case 135:
+    case 136:
+    case 137:
+    case 138:
+    case 139:
+    case 140:
+    case 141:
+    case 142:
+    case 143:
+    case 144:
+    case 145:
+    case 146:
+    case 147:
+    case 148:
+    case 149:
+    case 150:
+    case 151:
+    case 152:
+    case 153:
+    case 154:
+    case 155:
+    case 156:
+    case 157:
+    case 158:
+    case 159:
+    case 160:
+    case 161:
+    case 162:
+    case 163:
+    case 164:
+    case 165:
+    case 166:
+    case 167:
+    case 168:
+    case 169:
+    case 170:
+    case 171:
+    case 172:
+    case 173:
+    case 174:
+    case 175:
+    case 176:
+    case 177:
+    case 178:
+    case 179:
+    case 180:
+    case 181:
+    case 182:
+    case 183:
+    case 184:
+    case 185:
+    case 186:
+    case 187:
+    case 188:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmstatCounters_strings[129] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmstatCounters_strings[189] = {};
 
 static const char VmstatCounters_names[] =
   "VMSTAT_ALLOCSTALL"
+  "VMSTAT_ALLOCSTALL_DEVICE"
   "VMSTAT_ALLOCSTALL_DMA"
+  "VMSTAT_ALLOCSTALL_DMA32"
   "VMSTAT_ALLOCSTALL_MOVABLE"
   "VMSTAT_ALLOCSTALL_NORMAL"
+  "VMSTAT_BALLOON_DEFLATE"
+  "VMSTAT_BALLOON_INFLATE"
+  "VMSTAT_BALLOON_MIGRATE"
+  "VMSTAT_CMA_ALLOC_FAIL"
+  "VMSTAT_CMA_ALLOC_SUCCESS"
   "VMSTAT_COMPACT_DAEMON_FREE_SCANNED"
   "VMSTAT_COMPACT_DAEMON_MIGRATE_SCANNED"
   "VMSTAT_COMPACT_DAEMON_WAKE"
@@ -370,7 +437,11 @@ static const char VmstatCounters_names[] =
   "VMSTAT_NR_DIRTY_BACKGROUND_THRESHOLD"
   "VMSTAT_NR_DIRTY_THRESHOLD"
   "VMSTAT_NR_FASTRPC"
+  "VMSTAT_NR_FILE_HUGEPAGES"
   "VMSTAT_NR_FILE_PAGES"
+  "VMSTAT_NR_FILE_PMDMAPPED"
+  "VMSTAT_NR_FOLL_PIN_ACQUIRED"
+  "VMSTAT_NR_FOLL_PIN_RELEASED"
   "VMSTAT_NR_FREE_CMA"
   "VMSTAT_NR_FREE_PAGES"
   "VMSTAT_NR_GPU_HEAP"
@@ -388,6 +459,8 @@ static const char VmstatCounters_names[] =
   "VMSTAT_NR_OVERHEAD"
   "VMSTAT_NR_PAGES_SCANNED"
   "VMSTAT_NR_PAGE_TABLE_PAGES"
+  "VMSTAT_NR_SEC_PAGE_TABLE_PAGES"
+  "VMSTAT_NR_SHADOW_CALL_STACK"
   "VMSTAT_NR_SHADOW_CALL_STACK_BYTES"
   "VMSTAT_NR_SHMEM"
   "VMSTAT_NR_SHMEM_HUGEPAGES"
@@ -395,6 +468,8 @@ static const char VmstatCounters_names[] =
   "VMSTAT_NR_SLAB_RECLAIMABLE"
   "VMSTAT_NR_SLAB_UNRECLAIMABLE"
   "VMSTAT_NR_SWAPCACHE"
+  "VMSTAT_NR_SWAPCACHED"
+  "VMSTAT_NR_THROTTLED_WRITTEN"
   "VMSTAT_NR_UNEVICTABLE"
   "VMSTAT_NR_UNRECLAIMABLE_PAGES"
   "VMSTAT_NR_UNSTABLE"
@@ -413,10 +488,14 @@ static const char VmstatCounters_names[] =
   "VMSTAT_OOM_KILL"
   "VMSTAT_PAGEOUTRUN"
   "VMSTAT_PGACTIVATE"
+  "VMSTAT_PGALLOC_DEVICE"
   "VMSTAT_PGALLOC_DMA"
+  "VMSTAT_PGALLOC_DMA32"
   "VMSTAT_PGALLOC_MOVABLE"
   "VMSTAT_PGALLOC_NORMAL"
   "VMSTAT_PGDEACTIVATE"
+  "VMSTAT_PGDEMOTE_DIRECT"
+  "VMSTAT_PGDEMOTE_KSWAPD"
   "VMSTAT_PGFAULT"
   "VMSTAT_PGFREE"
   "VMSTAT_PGINODESTEAL"
@@ -432,23 +511,30 @@ static const char VmstatCounters_names[] =
   "VMSTAT_PGREFILL_DMA"
   "VMSTAT_PGREFILL_MOVABLE"
   "VMSTAT_PGREFILL_NORMAL"
+  "VMSTAT_PGREUSE"
   "VMSTAT_PGROTATED"
+  "VMSTAT_PGSCAN_ANON"
   "VMSTAT_PGSCAN_DIRECT"
   "VMSTAT_PGSCAN_DIRECT_DMA"
   "VMSTAT_PGSCAN_DIRECT_MOVABLE"
   "VMSTAT_PGSCAN_DIRECT_NORMAL"
   "VMSTAT_PGSCAN_DIRECT_THROTTLE"
+  "VMSTAT_PGSCAN_FILE"
   "VMSTAT_PGSCAN_KSWAPD"
   "VMSTAT_PGSCAN_KSWAPD_DMA"
   "VMSTAT_PGSCAN_KSWAPD_MOVABLE"
   "VMSTAT_PGSCAN_KSWAPD_NORMAL"
+  "VMSTAT_PGSKIP_DEVICE"
   "VMSTAT_PGSKIP_DMA"
+  "VMSTAT_PGSKIP_DMA32"
   "VMSTAT_PGSKIP_MOVABLE"
   "VMSTAT_PGSKIP_NORMAL"
+  "VMSTAT_PGSTEAL_ANON"
   "VMSTAT_PGSTEAL_DIRECT"
   "VMSTAT_PGSTEAL_DIRECT_DMA"
   "VMSTAT_PGSTEAL_DIRECT_MOVABLE"
   "VMSTAT_PGSTEAL_DIRECT_NORMAL"
+  "VMSTAT_PGSTEAL_FILE"
   "VMSTAT_PGSTEAL_KSWAPD"
   "VMSTAT_PGSTEAL_KSWAPD_DMA"
   "VMSTAT_PGSTEAL_KSWAPD_MOVABLE"
@@ -458,6 +544,29 @@ static const char VmstatCounters_names[] =
   "VMSTAT_SLABS_SCANNED"
   "VMSTAT_SWAP_RA"
   "VMSTAT_SWAP_RA_HIT"
+  "VMSTAT_THP_COLLAPSE_ALLOC"
+  "VMSTAT_THP_COLLAPSE_ALLOC_FAILED"
+  "VMSTAT_THP_DEFERRED_SPLIT_PAGE"
+  "VMSTAT_THP_FAULT_ALLOC"
+  "VMSTAT_THP_FAULT_FALLBACK"
+  "VMSTAT_THP_FAULT_FALLBACK_CHARGE"
+  "VMSTAT_THP_FILE_ALLOC"
+  "VMSTAT_THP_FILE_FALLBACK"
+  "VMSTAT_THP_FILE_FALLBACK_CHARGE"
+  "VMSTAT_THP_FILE_MAPPED"
+  "VMSTAT_THP_MIGRATION_FAIL"
+  "VMSTAT_THP_MIGRATION_SPLIT"
+  "VMSTAT_THP_MIGRATION_SUCCESS"
+  "VMSTAT_THP_SCAN_EXCEED_NONE_PTE"
+  "VMSTAT_THP_SCAN_EXCEED_SHARE_PTE"
+  "VMSTAT_THP_SCAN_EXCEED_SWAP_PTE"
+  "VMSTAT_THP_SPLIT_PAGE"
+  "VMSTAT_THP_SPLIT_PAGE_FAILED"
+  "VMSTAT_THP_SPLIT_PMD"
+  "VMSTAT_THP_SWPOUT"
+  "VMSTAT_THP_SWPOUT_FALLBACK"
+  "VMSTAT_THP_ZERO_PAGE_ALLOC"
+  "VMSTAT_THP_ZERO_PAGE_ALLOC_FAILED"
   "VMSTAT_UNEVICTABLE_PGS_CLEARED"
   "VMSTAT_UNEVICTABLE_PGS_CULLED"
   "VMSTAT_UNEVICTABLE_PGS_MLOCKED"
@@ -466,273 +575,404 @@ static const char VmstatCounters_names[] =
   "VMSTAT_UNEVICTABLE_PGS_SCANNED"
   "VMSTAT_UNEVICTABLE_PGS_STRANDED"
   "VMSTAT_UNSPECIFIED"
+  "VMSTAT_VMA_LOCK_ABORT"
+  "VMSTAT_VMA_LOCK_MISS"
+  "VMSTAT_VMA_LOCK_RETRY"
+  "VMSTAT_VMA_LOCK_SUCCESS"
   "VMSTAT_WORKINGSET_ACTIVATE"
+  "VMSTAT_WORKINGSET_ACTIVATE_ANON"
+  "VMSTAT_WORKINGSET_ACTIVATE_FILE"
   "VMSTAT_WORKINGSET_NODERECLAIM"
+  "VMSTAT_WORKINGSET_NODES"
   "VMSTAT_WORKINGSET_REFAULT"
-  "VMSTAT_WORKINGSET_RESTORE";
+  "VMSTAT_WORKINGSET_REFAULT_ANON"
+  "VMSTAT_WORKINGSET_REFAULT_FILE"
+  "VMSTAT_WORKINGSET_RESTORE"
+  "VMSTAT_WORKINGSET_RESTORE_ANON"
+  "VMSTAT_WORKINGSET_RESTORE_FILE";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry VmstatCounters_entries[] = {
   { {VmstatCounters_names + 0, 17}, 73 },
-  { {VmstatCounters_names + 17, 21}, 96 },
-  { {VmstatCounters_names + 38, 25}, 97 },
-  { {VmstatCounters_names + 63, 24}, 98 },
-  { {VmstatCounters_names + 87, 34}, 99 },
-  { {VmstatCounters_names + 121, 37}, 100 },
-  { {VmstatCounters_names + 158, 26}, 85 },
-  { {VmstatCounters_names + 184, 19}, 83 },
-  { {VmstatCounters_names + 203, 27}, 80 },
-  { {VmstatCounters_names + 230, 23}, 81 },
-  { {VmstatCounters_names + 253, 30}, 79 },
-  { {VmstatCounters_names + 283, 20}, 82 },
-  { {VmstatCounters_names + 303, 22}, 84 },
-  { {VmstatCounters_names + 325, 21}, 75 },
-  { {VmstatCounters_names + 346, 16}, 76 },
-  { {VmstatCounters_names + 362, 36}, 71 },
-  { {VmstatCounters_names + 398, 24}, 69 },
-  { {VmstatCounters_names + 422, 35}, 70 },
-  { {VmstatCounters_names + 457, 21}, 4 },
-  { {VmstatCounters_names + 478, 21}, 6 },
-  { {VmstatCounters_names + 499, 21}, 2 },
-  { {VmstatCounters_names + 520, 20}, 9 },
-  { {VmstatCounters_names + 540, 36}, 33 },
-  { {VmstatCounters_names + 576, 16}, 20 },
-  { {VmstatCounters_names + 592, 17}, 27 },
-  { {VmstatCounters_names + 609, 15}, 12 },
-  { {VmstatCounters_names + 624, 36}, 37 },
-  { {VmstatCounters_names + 660, 25}, 36 },
-  { {VmstatCounters_names + 685, 17}, 101 },
-  { {VmstatCounters_names + 702, 20}, 11 },
-  { {VmstatCounters_names + 722, 18}, 34 },
-  { {VmstatCounters_names + 740, 20}, 1 },
-  { {VmstatCounters_names + 760, 18}, 95 },
-  { {VmstatCounters_names + 778, 23}, 3 },
-  { {VmstatCounters_names + 801, 23}, 5 },
-  { {VmstatCounters_names + 824, 32}, 102 },
-  { {VmstatCounters_names + 856, 18}, 94 },
-  { {VmstatCounters_names + 874, 23}, 103 },
-  { {VmstatCounters_names + 897, 23}, 24 },
-  { {VmstatCounters_names + 920, 23}, 25 },
-  { {VmstatCounters_names + 943, 33}, 104 },
-  { {VmstatCounters_names + 976, 22}, 17 },
-  { {VmstatCounters_names + 998, 16}, 10 },
-  { {VmstatCounters_names + 1014, 15}, 8 },
-  { {VmstatCounters_names + 1029, 18}, 18 },
-  { {VmstatCounters_names + 1047, 23}, 29 },
-  { {VmstatCounters_names + 1070, 26}, 16 },
-  { {VmstatCounters_names + 1096, 33}, 105 },
-  { {VmstatCounters_names + 1129, 15}, 26 },
-  { {VmstatCounters_names + 1144, 25}, 106 },
-  { {VmstatCounters_names + 1169, 25}, 107 },
-  { {VmstatCounters_names + 1194, 26}, 14 },
-  { {VmstatCounters_names + 1220, 28}, 15 },
-  { {VmstatCounters_names + 1248, 19}, 35 },
-  { {VmstatCounters_names + 1267, 21}, 7 },
-  { {VmstatCounters_names + 1288, 29}, 108 },
-  { {VmstatCounters_names + 1317, 18}, 19 },
-  { {VmstatCounters_names + 1335, 34}, 22 },
-  { {VmstatCounters_names + 1369, 22}, 21 },
-  { {VmstatCounters_names + 1391, 19}, 13 },
-  { {VmstatCounters_names + 1410, 24}, 23 },
-  { {VmstatCounters_names + 1434, 17}, 28 },
-  { {VmstatCounters_names + 1451, 26}, 109 },
-  { {VmstatCounters_names + 1477, 26}, 110 },
-  { {VmstatCounters_names + 1503, 28}, 111 },
-  { {VmstatCounters_names + 1531, 28}, 112 },
-  { {VmstatCounters_names + 1559, 26}, 113 },
-  { {VmstatCounters_names + 1585, 28}, 114 },
-  { {VmstatCounters_names + 1613, 17}, 93 },
-  { {VmstatCounters_names + 1630, 15}, 115 },
-  { {VmstatCounters_names + 1645, 17}, 72 },
-  { {VmstatCounters_names + 1662, 17}, 47 },
-  { {VmstatCounters_names + 1679, 18}, 43 },
-  { {VmstatCounters_names + 1697, 22}, 45 },
-  { {VmstatCounters_names + 1719, 21}, 44 },
-  { {VmstatCounters_names + 1740, 19}, 48 },
-  { {VmstatCounters_names + 1759, 14}, 49 },
-  { {VmstatCounters_names + 1773, 13}, 46 },
-  { {VmstatCounters_names + 1786, 19}, 67 },
-  { {VmstatCounters_names + 1805, 17}, 116 },
-  { {VmstatCounters_names + 1822, 18}, 117 },
-  { {VmstatCounters_names + 1840, 17}, 50 },
-  { {VmstatCounters_names + 1857, 21}, 78 },
-  { {VmstatCounters_names + 1878, 24}, 77 },
-  { {VmstatCounters_names + 1902, 13}, 38 },
-  { {VmstatCounters_names + 1915, 14}, 39 },
-  { {VmstatCounters_names + 1929, 19}, 40 },
-  { {VmstatCounters_names + 1948, 15}, 118 },
-  { {VmstatCounters_names + 1963, 19}, 51 },
-  { {VmstatCounters_names + 1982, 23}, 53 },
-  { {VmstatCounters_names + 2005, 22}, 52 },
-  { {VmstatCounters_names + 2027, 16}, 74 },
-  { {VmstatCounters_names + 2043, 20}, 119 },
-  { {VmstatCounters_names + 2063, 24}, 63 },
-  { {VmstatCounters_names + 2087, 28}, 65 },
-  { {VmstatCounters_names + 2115, 27}, 64 },
-  { {VmstatCounters_names + 2142, 29}, 66 },
-  { {VmstatCounters_names + 2171, 20}, 120 },
-  { {VmstatCounters_names + 2191, 24}, 60 },
-  { {VmstatCounters_names + 2215, 28}, 62 },
-  { {VmstatCounters_names + 2243, 27}, 61 },
-  { {VmstatCounters_names + 2270, 17}, 121 },
-  { {VmstatCounters_names + 2287, 21}, 122 },
-  { {VmstatCounters_names + 2308, 20}, 123 },
-  { {VmstatCounters_names + 2328, 21}, 124 },
-  { {VmstatCounters_names + 2349, 25}, 57 },
-  { {VmstatCounters_names + 2374, 29}, 59 },
-  { {VmstatCounters_names + 2403, 28}, 58 },
-  { {VmstatCounters_names + 2431, 21}, 125 },
-  { {VmstatCounters_names + 2452, 25}, 54 },
-  { {VmstatCounters_names + 2477, 29}, 56 },
-  { {VmstatCounters_names + 2506, 28}, 55 },
-  { {VmstatCounters_names + 2534, 13}, 41 },
-  { {VmstatCounters_names + 2547, 14}, 42 },
-  { {VmstatCounters_names + 2561, 20}, 68 },
-  { {VmstatCounters_names + 2581, 14}, 126 },
-  { {VmstatCounters_names + 2595, 18}, 127 },
-  { {VmstatCounters_names + 2613, 30}, 91 },
-  { {VmstatCounters_names + 2643, 29}, 86 },
-  { {VmstatCounters_names + 2672, 30}, 89 },
-  { {VmstatCounters_names + 2702, 32}, 90 },
-  { {VmstatCounters_names + 2734, 30}, 88 },
-  { {VmstatCounters_names + 2764, 30}, 87 },
-  { {VmstatCounters_names + 2794, 31}, 92 },
-  { {VmstatCounters_names + 2825, 18}, 0 },
-  { {VmstatCounters_names + 2843, 26}, 31 },
-  { {VmstatCounters_names + 2869, 29}, 32 },
-  { {VmstatCounters_names + 2898, 25}, 30 },
-  { {VmstatCounters_names + 2923, 25}, 128 },
+  { {VmstatCounters_names + 17, 24}, 129 },
+  { {VmstatCounters_names + 41, 21}, 96 },
+  { {VmstatCounters_names + 62, 23}, 130 },
+  { {VmstatCounters_names + 85, 25}, 97 },
+  { {VmstatCounters_names + 110, 24}, 98 },
+  { {VmstatCounters_names + 134, 22}, 131 },
+  { {VmstatCounters_names + 156, 22}, 132 },
+  { {VmstatCounters_names + 178, 22}, 133 },
+  { {VmstatCounters_names + 200, 21}, 134 },
+  { {VmstatCounters_names + 221, 24}, 135 },
+  { {VmstatCounters_names + 245, 34}, 99 },
+  { {VmstatCounters_names + 279, 37}, 100 },
+  { {VmstatCounters_names + 316, 26}, 85 },
+  { {VmstatCounters_names + 342, 19}, 83 },
+  { {VmstatCounters_names + 361, 27}, 80 },
+  { {VmstatCounters_names + 388, 23}, 81 },
+  { {VmstatCounters_names + 411, 30}, 79 },
+  { {VmstatCounters_names + 441, 20}, 82 },
+  { {VmstatCounters_names + 461, 22}, 84 },
+  { {VmstatCounters_names + 483, 21}, 75 },
+  { {VmstatCounters_names + 504, 16}, 76 },
+  { {VmstatCounters_names + 520, 36}, 71 },
+  { {VmstatCounters_names + 556, 24}, 69 },
+  { {VmstatCounters_names + 580, 35}, 70 },
+  { {VmstatCounters_names + 615, 21}, 4 },
+  { {VmstatCounters_names + 636, 21}, 6 },
+  { {VmstatCounters_names + 657, 21}, 2 },
+  { {VmstatCounters_names + 678, 20}, 9 },
+  { {VmstatCounters_names + 698, 36}, 33 },
+  { {VmstatCounters_names + 734, 16}, 20 },
+  { {VmstatCounters_names + 750, 17}, 27 },
+  { {VmstatCounters_names + 767, 15}, 12 },
+  { {VmstatCounters_names + 782, 36}, 37 },
+  { {VmstatCounters_names + 818, 25}, 36 },
+  { {VmstatCounters_names + 843, 17}, 101 },
+  { {VmstatCounters_names + 860, 24}, 136 },
+  { {VmstatCounters_names + 884, 20}, 11 },
+  { {VmstatCounters_names + 904, 24}, 137 },
+  { {VmstatCounters_names + 928, 27}, 138 },
+  { {VmstatCounters_names + 955, 27}, 139 },
+  { {VmstatCounters_names + 982, 18}, 34 },
+  { {VmstatCounters_names + 1000, 20}, 1 },
+  { {VmstatCounters_names + 1020, 18}, 95 },
+  { {VmstatCounters_names + 1038, 23}, 3 },
+  { {VmstatCounters_names + 1061, 23}, 5 },
+  { {VmstatCounters_names + 1084, 32}, 102 },
+  { {VmstatCounters_names + 1116, 18}, 94 },
+  { {VmstatCounters_names + 1134, 23}, 103 },
+  { {VmstatCounters_names + 1157, 23}, 24 },
+  { {VmstatCounters_names + 1180, 23}, 25 },
+  { {VmstatCounters_names + 1203, 33}, 104 },
+  { {VmstatCounters_names + 1236, 22}, 17 },
+  { {VmstatCounters_names + 1258, 16}, 10 },
+  { {VmstatCounters_names + 1274, 15}, 8 },
+  { {VmstatCounters_names + 1289, 18}, 18 },
+  { {VmstatCounters_names + 1307, 23}, 29 },
+  { {VmstatCounters_names + 1330, 26}, 16 },
+  { {VmstatCounters_names + 1356, 30}, 140 },
+  { {VmstatCounters_names + 1386, 27}, 141 },
+  { {VmstatCounters_names + 1413, 33}, 105 },
+  { {VmstatCounters_names + 1446, 15}, 26 },
+  { {VmstatCounters_names + 1461, 25}, 106 },
+  { {VmstatCounters_names + 1486, 25}, 107 },
+  { {VmstatCounters_names + 1511, 26}, 14 },
+  { {VmstatCounters_names + 1537, 28}, 15 },
+  { {VmstatCounters_names + 1565, 19}, 35 },
+  { {VmstatCounters_names + 1584, 20}, 142 },
+  { {VmstatCounters_names + 1604, 27}, 143 },
+  { {VmstatCounters_names + 1631, 21}, 7 },
+  { {VmstatCounters_names + 1652, 29}, 108 },
+  { {VmstatCounters_names + 1681, 18}, 19 },
+  { {VmstatCounters_names + 1699, 34}, 22 },
+  { {VmstatCounters_names + 1733, 22}, 21 },
+  { {VmstatCounters_names + 1755, 19}, 13 },
+  { {VmstatCounters_names + 1774, 24}, 23 },
+  { {VmstatCounters_names + 1798, 17}, 28 },
+  { {VmstatCounters_names + 1815, 26}, 109 },
+  { {VmstatCounters_names + 1841, 26}, 110 },
+  { {VmstatCounters_names + 1867, 28}, 111 },
+  { {VmstatCounters_names + 1895, 28}, 112 },
+  { {VmstatCounters_names + 1923, 26}, 113 },
+  { {VmstatCounters_names + 1949, 28}, 114 },
+  { {VmstatCounters_names + 1977, 17}, 93 },
+  { {VmstatCounters_names + 1994, 15}, 115 },
+  { {VmstatCounters_names + 2009, 17}, 72 },
+  { {VmstatCounters_names + 2026, 17}, 47 },
+  { {VmstatCounters_names + 2043, 21}, 144 },
+  { {VmstatCounters_names + 2064, 18}, 43 },
+  { {VmstatCounters_names + 2082, 20}, 145 },
+  { {VmstatCounters_names + 2102, 22}, 45 },
+  { {VmstatCounters_names + 2124, 21}, 44 },
+  { {VmstatCounters_names + 2145, 19}, 48 },
+  { {VmstatCounters_names + 2164, 22}, 146 },
+  { {VmstatCounters_names + 2186, 22}, 147 },
+  { {VmstatCounters_names + 2208, 14}, 49 },
+  { {VmstatCounters_names + 2222, 13}, 46 },
+  { {VmstatCounters_names + 2235, 19}, 67 },
+  { {VmstatCounters_names + 2254, 17}, 116 },
+  { {VmstatCounters_names + 2271, 18}, 117 },
+  { {VmstatCounters_names + 2289, 17}, 50 },
+  { {VmstatCounters_names + 2306, 21}, 78 },
+  { {VmstatCounters_names + 2327, 24}, 77 },
+  { {VmstatCounters_names + 2351, 13}, 38 },
+  { {VmstatCounters_names + 2364, 14}, 39 },
+  { {VmstatCounters_names + 2378, 19}, 40 },
+  { {VmstatCounters_names + 2397, 15}, 118 },
+  { {VmstatCounters_names + 2412, 19}, 51 },
+  { {VmstatCounters_names + 2431, 23}, 53 },
+  { {VmstatCounters_names + 2454, 22}, 52 },
+  { {VmstatCounters_names + 2476, 14}, 148 },
+  { {VmstatCounters_names + 2490, 16}, 74 },
+  { {VmstatCounters_names + 2506, 18}, 149 },
+  { {VmstatCounters_names + 2524, 20}, 119 },
+  { {VmstatCounters_names + 2544, 24}, 63 },
+  { {VmstatCounters_names + 2568, 28}, 65 },
+  { {VmstatCounters_names + 2596, 27}, 64 },
+  { {VmstatCounters_names + 2623, 29}, 66 },
+  { {VmstatCounters_names + 2652, 18}, 150 },
+  { {VmstatCounters_names + 2670, 20}, 120 },
+  { {VmstatCounters_names + 2690, 24}, 60 },
+  { {VmstatCounters_names + 2714, 28}, 62 },
+  { {VmstatCounters_names + 2742, 27}, 61 },
+  { {VmstatCounters_names + 2769, 20}, 151 },
+  { {VmstatCounters_names + 2789, 17}, 121 },
+  { {VmstatCounters_names + 2806, 19}, 152 },
+  { {VmstatCounters_names + 2825, 21}, 122 },
+  { {VmstatCounters_names + 2846, 20}, 123 },
+  { {VmstatCounters_names + 2866, 19}, 153 },
+  { {VmstatCounters_names + 2885, 21}, 124 },
+  { {VmstatCounters_names + 2906, 25}, 57 },
+  { {VmstatCounters_names + 2931, 29}, 59 },
+  { {VmstatCounters_names + 2960, 28}, 58 },
+  { {VmstatCounters_names + 2988, 19}, 154 },
+  { {VmstatCounters_names + 3007, 21}, 125 },
+  { {VmstatCounters_names + 3028, 25}, 54 },
+  { {VmstatCounters_names + 3053, 29}, 56 },
+  { {VmstatCounters_names + 3082, 28}, 55 },
+  { {VmstatCounters_names + 3110, 13}, 41 },
+  { {VmstatCounters_names + 3123, 14}, 42 },
+  { {VmstatCounters_names + 3137, 20}, 68 },
+  { {VmstatCounters_names + 3157, 14}, 126 },
+  { {VmstatCounters_names + 3171, 18}, 127 },
+  { {VmstatCounters_names + 3189, 25}, 155 },
+  { {VmstatCounters_names + 3214, 32}, 156 },
+  { {VmstatCounters_names + 3246, 30}, 157 },
+  { {VmstatCounters_names + 3276, 22}, 158 },
+  { {VmstatCounters_names + 3298, 25}, 159 },
+  { {VmstatCounters_names + 3323, 32}, 160 },
+  { {VmstatCounters_names + 3355, 21}, 161 },
+  { {VmstatCounters_names + 3376, 24}, 162 },
+  { {VmstatCounters_names + 3400, 31}, 163 },
+  { {VmstatCounters_names + 3431, 22}, 164 },
+  { {VmstatCounters_names + 3453, 25}, 165 },
+  { {VmstatCounters_names + 3478, 26}, 166 },
+  { {VmstatCounters_names + 3504, 28}, 167 },
+  { {VmstatCounters_names + 3532, 31}, 168 },
+  { {VmstatCounters_names + 3563, 32}, 169 },
+  { {VmstatCounters_names + 3595, 31}, 170 },
+  { {VmstatCounters_names + 3626, 21}, 171 },
+  { {VmstatCounters_names + 3647, 28}, 172 },
+  { {VmstatCounters_names + 3675, 20}, 173 },
+  { {VmstatCounters_names + 3695, 17}, 174 },
+  { {VmstatCounters_names + 3712, 26}, 175 },
+  { {VmstatCounters_names + 3738, 26}, 176 },
+  { {VmstatCounters_names + 3764, 33}, 177 },
+  { {VmstatCounters_names + 3797, 30}, 91 },
+  { {VmstatCounters_names + 3827, 29}, 86 },
+  { {VmstatCounters_names + 3856, 30}, 89 },
+  { {VmstatCounters_names + 3886, 32}, 90 },
+  { {VmstatCounters_names + 3918, 30}, 88 },
+  { {VmstatCounters_names + 3948, 30}, 87 },
+  { {VmstatCounters_names + 3978, 31}, 92 },
+  { {VmstatCounters_names + 4009, 18}, 0 },
+  { {VmstatCounters_names + 4027, 21}, 178 },
+  { {VmstatCounters_names + 4048, 20}, 179 },
+  { {VmstatCounters_names + 4068, 21}, 180 },
+  { {VmstatCounters_names + 4089, 23}, 181 },
+  { {VmstatCounters_names + 4112, 26}, 31 },
+  { {VmstatCounters_names + 4138, 31}, 182 },
+  { {VmstatCounters_names + 4169, 31}, 183 },
+  { {VmstatCounters_names + 4200, 29}, 32 },
+  { {VmstatCounters_names + 4229, 23}, 184 },
+  { {VmstatCounters_names + 4252, 25}, 30 },
+  { {VmstatCounters_names + 4277, 30}, 185 },
+  { {VmstatCounters_names + 4307, 30}, 186 },
+  { {VmstatCounters_names + 4337, 25}, 128 },
+  { {VmstatCounters_names + 4362, 30}, 187 },
+  { {VmstatCounters_names + 4392, 30}, 188 },
 };
 
 static const int VmstatCounters_entries_by_number[] = {
-  124, // 0 -> VMSTAT_UNSPECIFIED
-  31, // 1 -> VMSTAT_NR_FREE_PAGES
-  20, // 2 -> VMSTAT_NR_ALLOC_BATCH
-  33, // 3 -> VMSTAT_NR_INACTIVE_ANON
-  18, // 4 -> VMSTAT_NR_ACTIVE_ANON
-  34, // 5 -> VMSTAT_NR_INACTIVE_FILE
-  19, // 6 -> VMSTAT_NR_ACTIVE_FILE
-  54, // 7 -> VMSTAT_NR_UNEVICTABLE
-  43, // 8 -> VMSTAT_NR_MLOCK
-  21, // 9 -> VMSTAT_NR_ANON_PAGES
-  42, // 10 -> VMSTAT_NR_MAPPED
-  29, // 11 -> VMSTAT_NR_FILE_PAGES
-  25, // 12 -> VMSTAT_NR_DIRTY
-  59, // 13 -> VMSTAT_NR_WRITEBACK
-  51, // 14 -> VMSTAT_NR_SLAB_RECLAIMABLE
-  52, // 15 -> VMSTAT_NR_SLAB_UNRECLAIMABLE
-  46, // 16 -> VMSTAT_NR_PAGE_TABLE_PAGES
-  41, // 17 -> VMSTAT_NR_KERNEL_STACK
-  44, // 18 -> VMSTAT_NR_OVERHEAD
-  56, // 19 -> VMSTAT_NR_UNSTABLE
-  23, // 20 -> VMSTAT_NR_BOUNCE
-  58, // 21 -> VMSTAT_NR_VMSCAN_WRITE
-  57, // 22 -> VMSTAT_NR_VMSCAN_IMMEDIATE_RECLAIM
-  60, // 23 -> VMSTAT_NR_WRITEBACK_TEMP
-  38, // 24 -> VMSTAT_NR_ISOLATED_ANON
-  39, // 25 -> VMSTAT_NR_ISOLATED_FILE
-  48, // 26 -> VMSTAT_NR_SHMEM
-  24, // 27 -> VMSTAT_NR_DIRTIED
-  61, // 28 -> VMSTAT_NR_WRITTEN
-  45, // 29 -> VMSTAT_NR_PAGES_SCANNED
-  127, // 30 -> VMSTAT_WORKINGSET_REFAULT
-  125, // 31 -> VMSTAT_WORKINGSET_ACTIVATE
-  126, // 32 -> VMSTAT_WORKINGSET_NODERECLAIM
-  22, // 33 -> VMSTAT_NR_ANON_TRANSPARENT_HUGEPAGES
-  30, // 34 -> VMSTAT_NR_FREE_CMA
-  53, // 35 -> VMSTAT_NR_SWAPCACHE
-  27, // 36 -> VMSTAT_NR_DIRTY_THRESHOLD
-  26, // 37 -> VMSTAT_NR_DIRTY_BACKGROUND_THRESHOLD
-  84, // 38 -> VMSTAT_PGPGIN
-  85, // 39 -> VMSTAT_PGPGOUT
-  86, // 40 -> VMSTAT_PGPGOUTCLEAN
-  112, // 41 -> VMSTAT_PSWPIN
-  113, // 42 -> VMSTAT_PSWPOUT
-  72, // 43 -> VMSTAT_PGALLOC_DMA
-  74, // 44 -> VMSTAT_PGALLOC_NORMAL
-  73, // 45 -> VMSTAT_PGALLOC_MOVABLE
-  77, // 46 -> VMSTAT_PGFREE
-  71, // 47 -> VMSTAT_PGACTIVATE
-  75, // 48 -> VMSTAT_PGDEACTIVATE
-  76, // 49 -> VMSTAT_PGFAULT
-  81, // 50 -> VMSTAT_PGMAJFAULT
-  88, // 51 -> VMSTAT_PGREFILL_DMA
-  90, // 52 -> VMSTAT_PGREFILL_NORMAL
-  89, // 53 -> VMSTAT_PGREFILL_MOVABLE
-  109, // 54 -> VMSTAT_PGSTEAL_KSWAPD_DMA
-  111, // 55 -> VMSTAT_PGSTEAL_KSWAPD_NORMAL
-  110, // 56 -> VMSTAT_PGSTEAL_KSWAPD_MOVABLE
-  105, // 57 -> VMSTAT_PGSTEAL_DIRECT_DMA
-  107, // 58 -> VMSTAT_PGSTEAL_DIRECT_NORMAL
-  106, // 59 -> VMSTAT_PGSTEAL_DIRECT_MOVABLE
-  98, // 60 -> VMSTAT_PGSCAN_KSWAPD_DMA
-  100, // 61 -> VMSTAT_PGSCAN_KSWAPD_NORMAL
-  99, // 62 -> VMSTAT_PGSCAN_KSWAPD_MOVABLE
-  93, // 63 -> VMSTAT_PGSCAN_DIRECT_DMA
-  95, // 64 -> VMSTAT_PGSCAN_DIRECT_NORMAL
-  94, // 65 -> VMSTAT_PGSCAN_DIRECT_MOVABLE
-  96, // 66 -> VMSTAT_PGSCAN_DIRECT_THROTTLE
-  78, // 67 -> VMSTAT_PGINODESTEAL
-  114, // 68 -> VMSTAT_SLABS_SCANNED
-  16, // 69 -> VMSTAT_KSWAPD_INODESTEAL
-  17, // 70 -> VMSTAT_KSWAPD_LOW_WMARK_HIT_QUICKLY
-  15, // 71 -> VMSTAT_KSWAPD_HIGH_WMARK_HIT_QUICKLY
-  70, // 72 -> VMSTAT_PAGEOUTRUN
+  173, // 0 -> VMSTAT_UNSPECIFIED
+  42, // 1 -> VMSTAT_NR_FREE_PAGES
+  27, // 2 -> VMSTAT_NR_ALLOC_BATCH
+  44, // 3 -> VMSTAT_NR_INACTIVE_ANON
+  25, // 4 -> VMSTAT_NR_ACTIVE_ANON
+  45, // 5 -> VMSTAT_NR_INACTIVE_FILE
+  26, // 6 -> VMSTAT_NR_ACTIVE_FILE
+  69, // 7 -> VMSTAT_NR_UNEVICTABLE
+  54, // 8 -> VMSTAT_NR_MLOCK
+  28, // 9 -> VMSTAT_NR_ANON_PAGES
+  53, // 10 -> VMSTAT_NR_MAPPED
+  37, // 11 -> VMSTAT_NR_FILE_PAGES
+  32, // 12 -> VMSTAT_NR_DIRTY
+  74, // 13 -> VMSTAT_NR_WRITEBACK
+  64, // 14 -> VMSTAT_NR_SLAB_RECLAIMABLE
+  65, // 15 -> VMSTAT_NR_SLAB_UNRECLAIMABLE
+  57, // 16 -> VMSTAT_NR_PAGE_TABLE_PAGES
+  52, // 17 -> VMSTAT_NR_KERNEL_STACK
+  55, // 18 -> VMSTAT_NR_OVERHEAD
+  71, // 19 -> VMSTAT_NR_UNSTABLE
+  30, // 20 -> VMSTAT_NR_BOUNCE
+  73, // 21 -> VMSTAT_NR_VMSCAN_WRITE
+  72, // 22 -> VMSTAT_NR_VMSCAN_IMMEDIATE_RECLAIM
+  75, // 23 -> VMSTAT_NR_WRITEBACK_TEMP
+  49, // 24 -> VMSTAT_NR_ISOLATED_ANON
+  50, // 25 -> VMSTAT_NR_ISOLATED_FILE
+  61, // 26 -> VMSTAT_NR_SHMEM
+  31, // 27 -> VMSTAT_NR_DIRTIED
+  76, // 28 -> VMSTAT_NR_WRITTEN
+  56, // 29 -> VMSTAT_NR_PAGES_SCANNED
+  183, // 30 -> VMSTAT_WORKINGSET_REFAULT
+  178, // 31 -> VMSTAT_WORKINGSET_ACTIVATE
+  181, // 32 -> VMSTAT_WORKINGSET_NODERECLAIM
+  29, // 33 -> VMSTAT_NR_ANON_TRANSPARENT_HUGEPAGES
+  41, // 34 -> VMSTAT_NR_FREE_CMA
+  66, // 35 -> VMSTAT_NR_SWAPCACHE
+  34, // 36 -> VMSTAT_NR_DIRTY_THRESHOLD
+  33, // 37 -> VMSTAT_NR_DIRTY_BACKGROUND_THRESHOLD
+  103, // 38 -> VMSTAT_PGPGIN
+  104, // 39 -> VMSTAT_PGPGOUT
+  105, // 40 -> VMSTAT_PGPGOUTCLEAN
+  138, // 41 -> VMSTAT_PSWPIN
+  139, // 42 -> VMSTAT_PSWPOUT
+  88, // 43 -> VMSTAT_PGALLOC_DMA
+  91, // 44 -> VMSTAT_PGALLOC_NORMAL
+  90, // 45 -> VMSTAT_PGALLOC_MOVABLE
+  96, // 46 -> VMSTAT_PGFREE
+  86, // 47 -> VMSTAT_PGACTIVATE
+  92, // 48 -> VMSTAT_PGDEACTIVATE
+  95, // 49 -> VMSTAT_PGFAULT
+  100, // 50 -> VMSTAT_PGMAJFAULT
+  107, // 51 -> VMSTAT_PGREFILL_DMA
+  109, // 52 -> VMSTAT_PGREFILL_NORMAL
+  108, // 53 -> VMSTAT_PGREFILL_MOVABLE
+  135, // 54 -> VMSTAT_PGSTEAL_KSWAPD_DMA
+  137, // 55 -> VMSTAT_PGSTEAL_KSWAPD_NORMAL
+  136, // 56 -> VMSTAT_PGSTEAL_KSWAPD_MOVABLE
+  130, // 57 -> VMSTAT_PGSTEAL_DIRECT_DMA
+  132, // 58 -> VMSTAT_PGSTEAL_DIRECT_NORMAL
+  131, // 59 -> VMSTAT_PGSTEAL_DIRECT_MOVABLE
+  120, // 60 -> VMSTAT_PGSCAN_KSWAPD_DMA
+  122, // 61 -> VMSTAT_PGSCAN_KSWAPD_NORMAL
+  121, // 62 -> VMSTAT_PGSCAN_KSWAPD_MOVABLE
+  114, // 63 -> VMSTAT_PGSCAN_DIRECT_DMA
+  116, // 64 -> VMSTAT_PGSCAN_DIRECT_NORMAL
+  115, // 65 -> VMSTAT_PGSCAN_DIRECT_MOVABLE
+  117, // 66 -> VMSTAT_PGSCAN_DIRECT_THROTTLE
+  97, // 67 -> VMSTAT_PGINODESTEAL
+  140, // 68 -> VMSTAT_SLABS_SCANNED
+  23, // 69 -> VMSTAT_KSWAPD_INODESTEAL
+  24, // 70 -> VMSTAT_KSWAPD_LOW_WMARK_HIT_QUICKLY
+  22, // 71 -> VMSTAT_KSWAPD_HIGH_WMARK_HIT_QUICKLY
+  85, // 72 -> VMSTAT_PAGEOUTRUN
   0, // 73 -> VMSTAT_ALLOCSTALL
-  91, // 74 -> VMSTAT_PGROTATED
-  13, // 75 -> VMSTAT_DROP_PAGECACHE
-  14, // 76 -> VMSTAT_DROP_SLAB
-  83, // 77 -> VMSTAT_PGMIGRATE_SUCCESS
-  82, // 78 -> VMSTAT_PGMIGRATE_FAIL
-  10, // 79 -> VMSTAT_COMPACT_MIGRATE_SCANNED
-  8, // 80 -> VMSTAT_COMPACT_FREE_SCANNED
-  9, // 81 -> VMSTAT_COMPACT_ISOLATED
-  11, // 82 -> VMSTAT_COMPACT_STALL
-  7, // 83 -> VMSTAT_COMPACT_FAIL
-  12, // 84 -> VMSTAT_COMPACT_SUCCESS
-  6, // 85 -> VMSTAT_COMPACT_DAEMON_WAKE
-  118, // 86 -> VMSTAT_UNEVICTABLE_PGS_CULLED
-  122, // 87 -> VMSTAT_UNEVICTABLE_PGS_SCANNED
-  121, // 88 -> VMSTAT_UNEVICTABLE_PGS_RESCUED
-  119, // 89 -> VMSTAT_UNEVICTABLE_PGS_MLOCKED
-  120, // 90 -> VMSTAT_UNEVICTABLE_PGS_MUNLOCKED
-  117, // 91 -> VMSTAT_UNEVICTABLE_PGS_CLEARED
-  123, // 92 -> VMSTAT_UNEVICTABLE_PGS_STRANDED
-  68, // 93 -> VMSTAT_NR_ZSPAGES
-  36, // 94 -> VMSTAT_NR_ION_HEAP
-  32, // 95 -> VMSTAT_NR_GPU_HEAP
-  1, // 96 -> VMSTAT_ALLOCSTALL_DMA
-  2, // 97 -> VMSTAT_ALLOCSTALL_MOVABLE
-  3, // 98 -> VMSTAT_ALLOCSTALL_NORMAL
-  4, // 99 -> VMSTAT_COMPACT_DAEMON_FREE_SCANNED
-  5, // 100 -> VMSTAT_COMPACT_DAEMON_MIGRATE_SCANNED
-  28, // 101 -> VMSTAT_NR_FASTRPC
-  35, // 102 -> VMSTAT_NR_INDIRECTLY_RECLAIMABLE
-  37, // 103 -> VMSTAT_NR_ION_HEAP_POOL
-  40, // 104 -> VMSTAT_NR_KERNEL_MISC_RECLAIMABLE
-  47, // 105 -> VMSTAT_NR_SHADOW_CALL_STACK_BYTES
-  49, // 106 -> VMSTAT_NR_SHMEM_HUGEPAGES
-  50, // 107 -> VMSTAT_NR_SHMEM_PMDMAPPED
-  55, // 108 -> VMSTAT_NR_UNRECLAIMABLE_PAGES
-  62, // 109 -> VMSTAT_NR_ZONE_ACTIVE_ANON
-  63, // 110 -> VMSTAT_NR_ZONE_ACTIVE_FILE
-  64, // 111 -> VMSTAT_NR_ZONE_INACTIVE_ANON
-  65, // 112 -> VMSTAT_NR_ZONE_INACTIVE_FILE
-  66, // 113 -> VMSTAT_NR_ZONE_UNEVICTABLE
-  67, // 114 -> VMSTAT_NR_ZONE_WRITE_PENDING
-  69, // 115 -> VMSTAT_OOM_KILL
-  79, // 116 -> VMSTAT_PGLAZYFREE
-  80, // 117 -> VMSTAT_PGLAZYFREED
-  87, // 118 -> VMSTAT_PGREFILL
-  92, // 119 -> VMSTAT_PGSCAN_DIRECT
-  97, // 120 -> VMSTAT_PGSCAN_KSWAPD
-  101, // 121 -> VMSTAT_PGSKIP_DMA
-  102, // 122 -> VMSTAT_PGSKIP_MOVABLE
-  103, // 123 -> VMSTAT_PGSKIP_NORMAL
-  104, // 124 -> VMSTAT_PGSTEAL_DIRECT
-  108, // 125 -> VMSTAT_PGSTEAL_KSWAPD
-  115, // 126 -> VMSTAT_SWAP_RA
-  116, // 127 -> VMSTAT_SWAP_RA_HIT
-  128, // 128 -> VMSTAT_WORKINGSET_RESTORE
+  111, // 74 -> VMSTAT_PGROTATED
+  20, // 75 -> VMSTAT_DROP_PAGECACHE
+  21, // 76 -> VMSTAT_DROP_SLAB
+  102, // 77 -> VMSTAT_PGMIGRATE_SUCCESS
+  101, // 78 -> VMSTAT_PGMIGRATE_FAIL
+  17, // 79 -> VMSTAT_COMPACT_MIGRATE_SCANNED
+  15, // 80 -> VMSTAT_COMPACT_FREE_SCANNED
+  16, // 81 -> VMSTAT_COMPACT_ISOLATED
+  18, // 82 -> VMSTAT_COMPACT_STALL
+  14, // 83 -> VMSTAT_COMPACT_FAIL
+  19, // 84 -> VMSTAT_COMPACT_SUCCESS
+  13, // 85 -> VMSTAT_COMPACT_DAEMON_WAKE
+  167, // 86 -> VMSTAT_UNEVICTABLE_PGS_CULLED
+  171, // 87 -> VMSTAT_UNEVICTABLE_PGS_SCANNED
+  170, // 88 -> VMSTAT_UNEVICTABLE_PGS_RESCUED
+  168, // 89 -> VMSTAT_UNEVICTABLE_PGS_MLOCKED
+  169, // 90 -> VMSTAT_UNEVICTABLE_PGS_MUNLOCKED
+  166, // 91 -> VMSTAT_UNEVICTABLE_PGS_CLEARED
+  172, // 92 -> VMSTAT_UNEVICTABLE_PGS_STRANDED
+  83, // 93 -> VMSTAT_NR_ZSPAGES
+  47, // 94 -> VMSTAT_NR_ION_HEAP
+  43, // 95 -> VMSTAT_NR_GPU_HEAP
+  2, // 96 -> VMSTAT_ALLOCSTALL_DMA
+  4, // 97 -> VMSTAT_ALLOCSTALL_MOVABLE
+  5, // 98 -> VMSTAT_ALLOCSTALL_NORMAL
+  11, // 99 -> VMSTAT_COMPACT_DAEMON_FREE_SCANNED
+  12, // 100 -> VMSTAT_COMPACT_DAEMON_MIGRATE_SCANNED
+  35, // 101 -> VMSTAT_NR_FASTRPC
+  46, // 102 -> VMSTAT_NR_INDIRECTLY_RECLAIMABLE
+  48, // 103 -> VMSTAT_NR_ION_HEAP_POOL
+  51, // 104 -> VMSTAT_NR_KERNEL_MISC_RECLAIMABLE
+  60, // 105 -> VMSTAT_NR_SHADOW_CALL_STACK_BYTES
+  62, // 106 -> VMSTAT_NR_SHMEM_HUGEPAGES
+  63, // 107 -> VMSTAT_NR_SHMEM_PMDMAPPED
+  70, // 108 -> VMSTAT_NR_UNRECLAIMABLE_PAGES
+  77, // 109 -> VMSTAT_NR_ZONE_ACTIVE_ANON
+  78, // 110 -> VMSTAT_NR_ZONE_ACTIVE_FILE
+  79, // 111 -> VMSTAT_NR_ZONE_INACTIVE_ANON
+  80, // 112 -> VMSTAT_NR_ZONE_INACTIVE_FILE
+  81, // 113 -> VMSTAT_NR_ZONE_UNEVICTABLE
+  82, // 114 -> VMSTAT_NR_ZONE_WRITE_PENDING
+  84, // 115 -> VMSTAT_OOM_KILL
+  98, // 116 -> VMSTAT_PGLAZYFREE
+  99, // 117 -> VMSTAT_PGLAZYFREED
+  106, // 118 -> VMSTAT_PGREFILL
+  113, // 119 -> VMSTAT_PGSCAN_DIRECT
+  119, // 120 -> VMSTAT_PGSCAN_KSWAPD
+  124, // 121 -> VMSTAT_PGSKIP_DMA
+  126, // 122 -> VMSTAT_PGSKIP_MOVABLE
+  127, // 123 -> VMSTAT_PGSKIP_NORMAL
+  129, // 124 -> VMSTAT_PGSTEAL_DIRECT
+  134, // 125 -> VMSTAT_PGSTEAL_KSWAPD
+  141, // 126 -> VMSTAT_SWAP_RA
+  142, // 127 -> VMSTAT_SWAP_RA_HIT
+  186, // 128 -> VMSTAT_WORKINGSET_RESTORE
+  1, // 129 -> VMSTAT_ALLOCSTALL_DEVICE
+  3, // 130 -> VMSTAT_ALLOCSTALL_DMA32
+  6, // 131 -> VMSTAT_BALLOON_DEFLATE
+  7, // 132 -> VMSTAT_BALLOON_INFLATE
+  8, // 133 -> VMSTAT_BALLOON_MIGRATE
+  9, // 134 -> VMSTAT_CMA_ALLOC_FAIL
+  10, // 135 -> VMSTAT_CMA_ALLOC_SUCCESS
+  36, // 136 -> VMSTAT_NR_FILE_HUGEPAGES
+  38, // 137 -> VMSTAT_NR_FILE_PMDMAPPED
+  39, // 138 -> VMSTAT_NR_FOLL_PIN_ACQUIRED
+  40, // 139 -> VMSTAT_NR_FOLL_PIN_RELEASED
+  58, // 140 -> VMSTAT_NR_SEC_PAGE_TABLE_PAGES
+  59, // 141 -> VMSTAT_NR_SHADOW_CALL_STACK
+  67, // 142 -> VMSTAT_NR_SWAPCACHED
+  68, // 143 -> VMSTAT_NR_THROTTLED_WRITTEN
+  87, // 144 -> VMSTAT_PGALLOC_DEVICE
+  89, // 145 -> VMSTAT_PGALLOC_DMA32
+  93, // 146 -> VMSTAT_PGDEMOTE_DIRECT
+  94, // 147 -> VMSTAT_PGDEMOTE_KSWAPD
+  110, // 148 -> VMSTAT_PGREUSE
+  112, // 149 -> VMSTAT_PGSCAN_ANON
+  118, // 150 -> VMSTAT_PGSCAN_FILE
+  123, // 151 -> VMSTAT_PGSKIP_DEVICE
+  125, // 152 -> VMSTAT_PGSKIP_DMA32
+  128, // 153 -> VMSTAT_PGSTEAL_ANON
+  133, // 154 -> VMSTAT_PGSTEAL_FILE
+  143, // 155 -> VMSTAT_THP_COLLAPSE_ALLOC
+  144, // 156 -> VMSTAT_THP_COLLAPSE_ALLOC_FAILED
+  145, // 157 -> VMSTAT_THP_DEFERRED_SPLIT_PAGE
+  146, // 158 -> VMSTAT_THP_FAULT_ALLOC
+  147, // 159 -> VMSTAT_THP_FAULT_FALLBACK
+  148, // 160 -> VMSTAT_THP_FAULT_FALLBACK_CHARGE
+  149, // 161 -> VMSTAT_THP_FILE_ALLOC
+  150, // 162 -> VMSTAT_THP_FILE_FALLBACK
+  151, // 163 -> VMSTAT_THP_FILE_FALLBACK_CHARGE
+  152, // 164 -> VMSTAT_THP_FILE_MAPPED
+  153, // 165 -> VMSTAT_THP_MIGRATION_FAIL
+  154, // 166 -> VMSTAT_THP_MIGRATION_SPLIT
+  155, // 167 -> VMSTAT_THP_MIGRATION_SUCCESS
+  156, // 168 -> VMSTAT_THP_SCAN_EXCEED_NONE_PTE
+  157, // 169 -> VMSTAT_THP_SCAN_EXCEED_SHARE_PTE
+  158, // 170 -> VMSTAT_THP_SCAN_EXCEED_SWAP_PTE
+  159, // 171 -> VMSTAT_THP_SPLIT_PAGE
+  160, // 172 -> VMSTAT_THP_SPLIT_PAGE_FAILED
+  161, // 173 -> VMSTAT_THP_SPLIT_PMD
+  162, // 174 -> VMSTAT_THP_SWPOUT
+  163, // 175 -> VMSTAT_THP_SWPOUT_FALLBACK
+  164, // 176 -> VMSTAT_THP_ZERO_PAGE_ALLOC
+  165, // 177 -> VMSTAT_THP_ZERO_PAGE_ALLOC_FAILED
+  174, // 178 -> VMSTAT_VMA_LOCK_ABORT
+  175, // 179 -> VMSTAT_VMA_LOCK_MISS
+  176, // 180 -> VMSTAT_VMA_LOCK_RETRY
+  177, // 181 -> VMSTAT_VMA_LOCK_SUCCESS
+  179, // 182 -> VMSTAT_WORKINGSET_ACTIVATE_ANON
+  180, // 183 -> VMSTAT_WORKINGSET_ACTIVATE_FILE
+  182, // 184 -> VMSTAT_WORKINGSET_NODES
+  184, // 185 -> VMSTAT_WORKINGSET_REFAULT_ANON
+  185, // 186 -> VMSTAT_WORKINGSET_REFAULT_FILE
+  187, // 187 -> VMSTAT_WORKINGSET_RESTORE_ANON
+  188, // 188 -> VMSTAT_WORKINGSET_RESTORE_FILE
 };
 
 const std::string& VmstatCounters_Name(
@@ -741,12 +981,12 @@ const std::string& VmstatCounters_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           VmstatCounters_entries,
           VmstatCounters_entries_by_number,
-          129, VmstatCounters_strings);
+          189, VmstatCounters_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       VmstatCounters_entries,
       VmstatCounters_entries_by_number,
-      129, value);
+      189, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      VmstatCounters_strings[idx].get();
 }
@@ -754,7 +994,7 @@ bool VmstatCounters_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmstatCounters* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      VmstatCounters_entries, 129, name, &int_value);
+      VmstatCounters_entries, 189, name, &int_value);
   if (success) {
     *value = static_cast<VmstatCounters>(int_value);
   }

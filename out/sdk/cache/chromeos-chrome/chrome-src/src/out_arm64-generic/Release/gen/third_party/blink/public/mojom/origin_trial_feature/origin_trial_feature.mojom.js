@@ -32,30 +32,30 @@
   OriginTrialFeature.kBackForwardCacheExperimentHTTPHeader = 7;
   OriginTrialFeature.kBackForwardCacheNotRestoredReasons = 8;
   OriginTrialFeature.kCacheStorageCodeCacheHint = 9;
-  OriginTrialFeature.kCompressionDictionaryTransport = 10;
-  OriginTrialFeature.kComputePressure = 11;
-  OriginTrialFeature.kCoopRestrictProperties = 12;
-  OriginTrialFeature.kDatabase = 13;
-  OriginTrialFeature.kDigitalGoods = 14;
-  OriginTrialFeature.kDisableDifferentOriginSubframeDialogSuppression = 15;
-  OriginTrialFeature.kDisableHardwareNoiseSuppression = 16;
-  OriginTrialFeature.kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning = 17;
-  OriginTrialFeature.kDisableThirdPartyStoragePartitioning = 18;
-  OriginTrialFeature.kDocumentPolicyNegotiation = 19;
-  OriginTrialFeature.kEditContext = 20;
-  OriginTrialFeature.kElementCapture = 21;
-  OriginTrialFeature.kFencedFrames = 22;
-  OriginTrialFeature.kFencedFramesAPIChanges = 23;
-  OriginTrialFeature.kFetchLaterAPI = 24;
-  OriginTrialFeature.kFledge = 25;
-  OriginTrialFeature.kFledgeBiddingAndAuctionServerAPI = 26;
-  OriginTrialFeature.kFocusgroup = 27;
-  OriginTrialFeature.kFullscreenPopupWindows = 28;
-  OriginTrialFeature.kGetAllScreensMedia = 29;
-  OriginTrialFeature.kHrefTranslate = 30;
-  OriginTrialFeature.kJavaScriptCompileHintsMagicRuntime = 31;
-  OriginTrialFeature.kLongAnimationFrameMonitoring = 32;
-  OriginTrialFeature.kLongAnimationFrameTiming = 33;
+  OriginTrialFeature.kCapturedSurfaceControl = 10;
+  OriginTrialFeature.kCompressionDictionaryTransport = 11;
+  OriginTrialFeature.kComputePressure = 12;
+  OriginTrialFeature.kCoopRestrictProperties = 13;
+  OriginTrialFeature.kDatabase = 14;
+  OriginTrialFeature.kDeprecateUnloadOptOut = 15;
+  OriginTrialFeature.kDigitalGoods = 16;
+  OriginTrialFeature.kDisableDifferentOriginSubframeDialogSuppression = 17;
+  OriginTrialFeature.kDisableHardwareNoiseSuppression = 18;
+  OriginTrialFeature.kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning = 19;
+  OriginTrialFeature.kDisableThirdPartyStoragePartitioning = 20;
+  OriginTrialFeature.kDocumentPolicyNegotiation = 21;
+  OriginTrialFeature.kEditContext = 22;
+  OriginTrialFeature.kElementCapture = 23;
+  OriginTrialFeature.kFencedFrames = 24;
+  OriginTrialFeature.kFencedFramesAPIChanges = 25;
+  OriginTrialFeature.kFetchLaterAPI = 26;
+  OriginTrialFeature.kFledge = 27;
+  OriginTrialFeature.kFledgeBiddingAndAuctionServerAPI = 28;
+  OriginTrialFeature.kFocusgroup = 29;
+  OriginTrialFeature.kFullscreenPopupWindows = 30;
+  OriginTrialFeature.kGetAllScreensMedia = 31;
+  OriginTrialFeature.kHrefTranslate = 32;
+  OriginTrialFeature.kJavaScriptCompileHintsMagicRuntime = 33;
   OriginTrialFeature.kMediaCaptureBackgroundBlur = 34;
   OriginTrialFeature.kMediaCaptureConfigurationChange = 35;
   OriginTrialFeature.kMediaSourceExtensionsForWebCodecs = 36;
@@ -108,30 +108,27 @@
   OriginTrialFeature.kSpeculationRulesPrefetchFuture = 83;
   OriginTrialFeature.kSpeculationRulesRelativeToDocument = 84;
   OriginTrialFeature.kStorageAccessAPIBeyondCookies = 85;
-  OriginTrialFeature.kStorageBuckets = 86;
-  OriginTrialFeature.kTextFragmentIdentifiers = 87;
-  OriginTrialFeature.kTopicsAPI = 88;
-  OriginTrialFeature.kTopicsDocumentAPI = 89;
+  OriginTrialFeature.kTextFragmentIdentifiers = 86;
+  OriginTrialFeature.kTopicsAPI = 87;
+  OriginTrialFeature.kTopicsDocumentAPI = 88;
+  OriginTrialFeature.kTopLevelTpcd = 89;
   OriginTrialFeature.kTouchEventFeatureDetection = 90;
   OriginTrialFeature.kTpcd = 91;
-  OriginTrialFeature.kTpcd1p = 92;
-  OriginTrialFeature.kUnrestrictedSharedArrayBuffer = 93;
-  OriginTrialFeature.kWebAppDarkMode = 94;
-  OriginTrialFeature.kWebAppLaunchHandler = 95;
-  OriginTrialFeature.kWebAppLaunchQueue = 96;
-  OriginTrialFeature.kWebAppScopeExtensions = 97;
-  OriginTrialFeature.kWebAppTabStrip = 98;
-  OriginTrialFeature.kWebAppTabStripCustomizations = 99;
-  OriginTrialFeature.kWebAppUrlHandling = 100;
-  OriginTrialFeature.kWebAppWindowControlsOverlay = 101;
-  OriginTrialFeature.kWebAssemblyGC = 102;
-  OriginTrialFeature.kWebAssemblyJSStringBuiltins = 103;
-  OriginTrialFeature.kWebTransportCustomCertificates = 104;
-  OriginTrialFeature.kWebViewXRequestedWithDeprecation = 105;
-  OriginTrialFeature.kWebXRImageTracking = 106;
-  OriginTrialFeature.kWebXRPlaneDetection = 107;
+  OriginTrialFeature.kUnrestrictedSharedArrayBuffer = 92;
+  OriginTrialFeature.kWebAppDarkMode = 93;
+  OriginTrialFeature.kWebAppLaunchHandler = 94;
+  OriginTrialFeature.kWebAppLaunchQueue = 95;
+  OriginTrialFeature.kWebAppScopeExtensions = 96;
+  OriginTrialFeature.kWebAppTabStrip = 97;
+  OriginTrialFeature.kWebAppTabStripCustomizations = 98;
+  OriginTrialFeature.kWebAppUrlHandling = 99;
+  OriginTrialFeature.kWebAssemblyJSStringBuiltins = 100;
+  OriginTrialFeature.kWebTransportCustomCertificates = 101;
+  OriginTrialFeature.kWebViewXRequestedWithDeprecation = 102;
+  OriginTrialFeature.kWebXRImageTracking = 103;
+  OriginTrialFeature.kWebXRPlaneDetection = 104;
   OriginTrialFeature.MIN_VALUE = 0;
-  OriginTrialFeature.MAX_VALUE = 107;
+  OriginTrialFeature.MAX_VALUE = 104;
 
   OriginTrialFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -240,9 +237,6 @@
     case 102:
     case 103:
     case 104:
-    case 105:
-    case 106:
-    case 107:
       return true;
     }
     return false;

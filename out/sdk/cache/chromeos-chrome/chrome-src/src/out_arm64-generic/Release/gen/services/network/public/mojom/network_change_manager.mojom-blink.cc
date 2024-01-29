@@ -220,6 +220,8 @@ bool NetworkChangeManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::NetworkChangeManagerClient_OnInitialConnectionType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkChangeManagerClient.0
       bool success = true;
       ConnectionType p_type{};
       NetworkChangeManagerClient_OnInitialConnectionType_ParamsDataView input_data_view(params, message);
@@ -235,8 +237,8 @@ bool NetworkChangeManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInitialConnectionType(
-std::move(p_type));
+      impl->OnInitialConnectionType(        
+        std::move(p_type));
       return true;
     }
     case internal::kNetworkChangeManagerClient_OnNetworkChanged_Name: {
@@ -246,6 +248,8 @@ std::move(p_type));
           reinterpret_cast<internal::NetworkChangeManagerClient_OnNetworkChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkChangeManagerClient.1
       bool success = true;
       ConnectionType p_type{};
       NetworkChangeManagerClient_OnNetworkChanged_ParamsDataView input_data_view(params, message);
@@ -261,8 +265,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkChanged(
-std::move(p_type));
+      impl->OnNetworkChanged(        
+        std::move(p_type));
       return true;
     }
   }
@@ -501,6 +505,8 @@ bool NetworkChangeManagerStubDispatch::Accept(
           reinterpret_cast<internal::NetworkChangeManager_RequestNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkChangeManager.0
       bool success = true;
       ::mojo::PendingRemote<NetworkChangeManagerClient> p_client_remote{};
       NetworkChangeManager_RequestNotifications_ParamsDataView input_data_view(params, message);
@@ -518,8 +524,8 @@ bool NetworkChangeManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestNotifications(
-std::move(p_client_remote));
+      impl->RequestNotifications(        
+        std::move(p_client_remote));
       return true;
     }
     case internal::kNetworkChangeManager_OnNetworkChanged_Name: {
@@ -529,6 +535,8 @@ std::move(p_client_remote));
           reinterpret_cast<internal::NetworkChangeManager_OnNetworkChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkChangeManager.1
       bool success = true;
       bool p_dns_changed{};
       bool p_ip_address_changed{};
@@ -559,13 +567,13 @@ std::move(p_client_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkChanged(
-std::move(p_dns_changed), 
-std::move(p_ip_address_changed), 
-std::move(p_connection_type_changed), 
-std::move(p_new_connection_type), 
-std::move(p_connection_subtype_changed), 
-std::move(p_new_connection_subtype));
+      impl->OnNetworkChanged(        
+        std::move(p_dns_changed), 
+        std::move(p_ip_address_changed), 
+        std::move(p_connection_type_changed), 
+        std::move(p_new_connection_type), 
+        std::move(p_connection_subtype_changed), 
+        std::move(p_new_connection_subtype));
       return true;
     }
   }

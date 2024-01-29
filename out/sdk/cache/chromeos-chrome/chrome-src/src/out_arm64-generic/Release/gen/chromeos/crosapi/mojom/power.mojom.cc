@@ -291,6 +291,8 @@ bool PowerStubDispatch::Accept(
           reinterpret_cast<internal::Power_AddPowerSaveBlocker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Power.0
       bool success = true;
       ::mojo::PendingRemote<PowerWakeLock> p_lock{};
       ::device::mojom::WakeLockType p_type{};
@@ -317,11 +319,11 @@ bool PowerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPowerSaveBlocker(
-std::move(p_lock), 
-std::move(p_type), 
-std::move(p_reason), 
-std::move(p_description));
+      impl->AddPowerSaveBlocker(        
+        std::move(p_lock), 
+        std::move(p_type), 
+        std::move(p_reason), 
+        std::move(p_description));
       return true;
     }
     case internal::kPower_ReportActivity_Name: {
@@ -331,6 +333,8 @@ std::move(p_description));
           reinterpret_cast<internal::Power_ReportActivity_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Power.1
       bool success = true;
       Power_ReportActivity_ParamsDataView input_data_view(params, message);
       
@@ -343,7 +347,7 @@ std::move(p_description));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportActivity();
+      impl->ReportActivity(        );
       return true;
     }
   }

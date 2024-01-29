@@ -12,7 +12,7 @@ export function testSlice() {
 export function testPush() {
     const m = new ArrayDataModel([0, 1, 2]);
     let count = 0;
-    m.addEventListener('splice', function (e) {
+    m.addEventListener('splice', (e) => {
         count++;
         assertEquals(3, e.detail.index);
         assertArrayEquals([], e.detail.removed);
@@ -44,7 +44,7 @@ export function testPermutation() {
     function doTest(sourceArray, spliceArgs) {
         const m = new ArrayDataModel(sourceArray.slice());
         let permutation = [];
-        m.addEventListener('permuted', function (event) {
+        m.addEventListener('permuted', (event) => {
             permutation = event.detail.permutation;
         });
         m.splice(...spliceArgs);
@@ -69,7 +69,7 @@ export function testPermutation() {
 export function testUpdateIndexes() {
     const m = new ArrayDataModel([1, 2, 3]);
     const changedIndexes = [];
-    m.addEventListener('change', function (event) {
+    m.addEventListener('change', (event) => {
         changedIndexes.push(event.detail.index);
     });
     m.updateIndexes([0, 1, 2]);
@@ -79,10 +79,10 @@ export function testReplaceItem() {
     const m = new ArrayDataModel([1, 2, 3]);
     let permutation = null;
     let changeIndex;
-    m.addEventListener('permuted', function (event) {
+    m.addEventListener('permuted', (event) => {
         permutation = event.detail.permutation;
     });
-    m.addEventListener('change', function (event) {
+    m.addEventListener('change', (event) => {
         changeIndex = event.detail.index;
     });
     m.replaceItem(2, 4);

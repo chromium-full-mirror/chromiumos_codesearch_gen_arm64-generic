@@ -2,12 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../common/js/progress_center_common.js';
-import { ProgressCenter } from '../../externs/background/progress_center.js';
-import { ProgressCenterPanelInterface } from '../../externs/progress_center_panel.js';
 /**
- * Implementation of {ProgressCenter} at the background page.
+ * Implementation of ProgressCenter at the background page.
  */
-export class ProgressCenterImpl {
+export class ProgressCenter {
     constructor() {
         /**
          * Current items managed by the progress center.

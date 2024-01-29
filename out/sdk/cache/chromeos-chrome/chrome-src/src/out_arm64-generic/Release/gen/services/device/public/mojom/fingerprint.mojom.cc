@@ -474,6 +474,8 @@ bool FingerprintObserverStubDispatch::Accept(
           reinterpret_cast<internal::FingerprintObserver_OnRestarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FingerprintObserver.0
       bool success = true;
       FingerprintObserver_OnRestarted_ParamsDataView input_data_view(params, message);
       
@@ -486,7 +488,7 @@ bool FingerprintObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRestarted();
+      impl->OnRestarted(        );
       return true;
     }
     case internal::kFingerprintObserver_OnStatusChanged_Name: {
@@ -496,6 +498,8 @@ bool FingerprintObserverStubDispatch::Accept(
           reinterpret_cast<internal::FingerprintObserver_OnStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FingerprintObserver.1
       bool success = true;
       BiometricsManagerStatus p_status{};
       FingerprintObserver_OnStatusChanged_ParamsDataView input_data_view(params, message);
@@ -511,8 +515,8 @@ bool FingerprintObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStatusChanged(
-std::move(p_status));
+      impl->OnStatusChanged(        
+        std::move(p_status));
       return true;
     }
     case internal::kFingerprintObserver_OnEnrollScanDone_Name: {
@@ -522,6 +526,8 @@ std::move(p_status));
           reinterpret_cast<internal::FingerprintObserver_OnEnrollScanDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FingerprintObserver.2
       bool success = true;
       ScanResult p_scan_result{};
       bool p_is_complete{};
@@ -543,10 +549,10 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEnrollScanDone(
-std::move(p_scan_result), 
-std::move(p_is_complete), 
-std::move(p_percent_complete));
+      impl->OnEnrollScanDone(        
+        std::move(p_scan_result), 
+        std::move(p_is_complete), 
+        std::move(p_percent_complete));
       return true;
     }
     case internal::kFingerprintObserver_OnAuthScanDone_Name: {
@@ -556,6 +562,8 @@ std::move(p_percent_complete));
           reinterpret_cast<internal::FingerprintObserver_OnAuthScanDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FingerprintObserver.3
       bool success = true;
       FingerprintMessagePtr p_msg{};
       base::flat_map<std::string, std::vector<std::string>> p_matches{};
@@ -574,9 +582,9 @@ std::move(p_percent_complete));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthScanDone(
-std::move(p_msg), 
-std::move(p_matches));
+      impl->OnAuthScanDone(        
+        std::move(p_msg), 
+        std::move(p_matches));
       return true;
     }
     case internal::kFingerprintObserver_OnSessionFailed_Name: {
@@ -586,6 +594,8 @@ std::move(p_matches));
           reinterpret_cast<internal::FingerprintObserver_OnSessionFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FingerprintObserver.4
       bool success = true;
       FingerprintObserver_OnSessionFailed_ParamsDataView input_data_view(params, message);
       
@@ -598,7 +608,7 @@ std::move(p_matches));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionFailed();
+      impl->OnSessionFailed(        );
       return true;
     }
   }
@@ -1598,6 +1608,8 @@ bool Fingerprint_GetRecordsForUser_ForwardToCallback::Accept(
           internal::Fingerprint_GetRecordsForUser_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.0
   bool success = true;
   base::flat_map<std::string, std::string> p_records{};
   bool p_success{};
@@ -1737,6 +1749,8 @@ bool Fingerprint_CancelCurrentEnrollSession_ForwardToCallback::Accept(
           internal::Fingerprint_CancelCurrentEnrollSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.2
   bool success = true;
   bool p_success{};
   Fingerprint_CancelCurrentEnrollSession_ResponseParamsDataView input_data_view(params, message);
@@ -1856,6 +1870,8 @@ bool Fingerprint_RequestRecordLabel_ForwardToCallback::Accept(
           internal::Fingerprint_RequestRecordLabel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.3
   bool success = true;
   std::string p_label{};
   Fingerprint_RequestRecordLabel_ResponseParamsDataView input_data_view(params, message);
@@ -1985,6 +2001,8 @@ bool Fingerprint_SetRecordLabel_ForwardToCallback::Accept(
           internal::Fingerprint_SetRecordLabel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.4
   bool success = true;
   bool p_success{};
   Fingerprint_SetRecordLabel_ResponseParamsDataView input_data_view(params, message);
@@ -2104,6 +2122,8 @@ bool Fingerprint_RemoveRecord_ForwardToCallback::Accept(
           internal::Fingerprint_RemoveRecord_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.5
   bool success = true;
   bool p_success{};
   Fingerprint_RemoveRecord_ResponseParamsDataView input_data_view(params, message);
@@ -2223,6 +2243,8 @@ bool Fingerprint_EndCurrentAuthSession_ForwardToCallback::Accept(
           internal::Fingerprint_EndCurrentAuthSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.7
   bool success = true;
   bool p_success{};
   Fingerprint_EndCurrentAuthSession_ResponseParamsDataView input_data_view(params, message);
@@ -2342,6 +2364,8 @@ bool Fingerprint_DestroyAllRecords_ForwardToCallback::Accept(
           internal::Fingerprint_DestroyAllRecords_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.8
   bool success = true;
   bool p_success{};
   Fingerprint_DestroyAllRecords_ResponseParamsDataView input_data_view(params, message);
@@ -2461,6 +2485,8 @@ bool Fingerprint_RequestType_ForwardToCallback::Accept(
           internal::Fingerprint_RequestType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Fingerprint.10
   bool success = true;
   BiometricType p_type{};
   Fingerprint_RequestType_ResponseParamsDataView input_data_view(params, message);
@@ -2539,6 +2565,8 @@ bool FingerprintStubDispatch::Accept(
           reinterpret_cast<internal::Fingerprint_StartEnrollSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Fingerprint.1
       bool success = true;
       std::string p_user_id{};
       std::string p_label{};
@@ -2557,9 +2585,9 @@ bool FingerprintStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEnrollSession(
-std::move(p_user_id), 
-std::move(p_label));
+      impl->StartEnrollSession(        
+        std::move(p_user_id), 
+        std::move(p_label));
       return true;
     }
     case internal::kFingerprint_CancelCurrentEnrollSession_Name: {
@@ -2581,6 +2609,8 @@ std::move(p_label));
           reinterpret_cast<internal::Fingerprint_StartAuthSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Fingerprint.6
       bool success = true;
       Fingerprint_StartAuthSession_ParamsDataView input_data_view(params, message);
       
@@ -2593,7 +2623,7 @@ std::move(p_label));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartAuthSession();
+      impl->StartAuthSession(        );
       return true;
     }
     case internal::kFingerprint_EndCurrentAuthSession_Name: {
@@ -2609,6 +2639,8 @@ std::move(p_label));
           reinterpret_cast<internal::Fingerprint_AddFingerprintObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Fingerprint.9
       bool success = true;
       ::mojo::PendingRemote<FingerprintObserver> p_observer{};
       Fingerprint_AddFingerprintObserver_ParamsDataView input_data_view(params, message);
@@ -2626,8 +2658,8 @@ std::move(p_label));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddFingerprintObserver(
-std::move(p_observer));
+      impl->AddFingerprintObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kFingerprint_RequestType_Name: {
@@ -2653,6 +2685,8 @@ bool FingerprintStubDispatch::AcceptWithResponder(
               internal::Fingerprint_GetRecordsForUser_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.0
       bool success = true;
       std::string p_user_id{};
       Fingerprint_GetRecordsForUser_ParamsDataView input_data_view(params, message);
@@ -2671,8 +2705,8 @@ bool FingerprintStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRecordsForUser(
-std::move(p_user_id), std::move(callback));
+      impl->GetRecordsForUser(        
+        std::move(p_user_id), std::move(callback));
       return true;
     }
     case internal::kFingerprint_StartEnrollSession_Name: {
@@ -2685,6 +2719,8 @@ std::move(p_user_id), std::move(callback));
               internal::Fingerprint_CancelCurrentEnrollSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.2
       bool success = true;
       Fingerprint_CancelCurrentEnrollSession_ParamsDataView input_data_view(params, message);
       
@@ -2710,6 +2746,8 @@ std::move(p_user_id), std::move(callback));
               internal::Fingerprint_RequestRecordLabel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.3
       bool success = true;
       std::string p_record_path{};
       Fingerprint_RequestRecordLabel_ParamsDataView input_data_view(params, message);
@@ -2728,8 +2766,8 @@ std::move(p_user_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestRecordLabel(
-std::move(p_record_path), std::move(callback));
+      impl->RequestRecordLabel(        
+        std::move(p_record_path), std::move(callback));
       return true;
     }
     case internal::kFingerprint_SetRecordLabel_Name: {
@@ -2739,6 +2777,8 @@ std::move(p_record_path), std::move(callback));
               internal::Fingerprint_SetRecordLabel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.4
       bool success = true;
       std::string p_record_path{};
       std::string p_new_label{};
@@ -2760,9 +2800,9 @@ std::move(p_record_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRecordLabel(
-std::move(p_record_path), 
-std::move(p_new_label), std::move(callback));
+      impl->SetRecordLabel(        
+        std::move(p_record_path), 
+        std::move(p_new_label), std::move(callback));
       return true;
     }
     case internal::kFingerprint_RemoveRecord_Name: {
@@ -2772,6 +2812,8 @@ std::move(p_new_label), std::move(callback));
               internal::Fingerprint_RemoveRecord_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.5
       bool success = true;
       std::string p_record_path{};
       Fingerprint_RemoveRecord_ParamsDataView input_data_view(params, message);
@@ -2790,8 +2832,8 @@ std::move(p_new_label), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveRecord(
-std::move(p_record_path), std::move(callback));
+      impl->RemoveRecord(        
+        std::move(p_record_path), std::move(callback));
       return true;
     }
     case internal::kFingerprint_StartAuthSession_Name: {
@@ -2804,6 +2846,8 @@ std::move(p_record_path), std::move(callback));
               internal::Fingerprint_EndCurrentAuthSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.7
       bool success = true;
       Fingerprint_EndCurrentAuthSession_ParamsDataView input_data_view(params, message);
       
@@ -2829,6 +2873,8 @@ std::move(p_record_path), std::move(callback));
               internal::Fingerprint_DestroyAllRecords_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.8
       bool success = true;
       Fingerprint_DestroyAllRecords_ParamsDataView input_data_view(params, message);
       
@@ -2857,6 +2903,8 @@ std::move(p_record_path), std::move(callback));
               internal::Fingerprint_RequestType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Fingerprint.10
       bool success = true;
       Fingerprint_RequestType_ParamsDataView input_data_view(params, message);
       

@@ -15163,9 +15163,202 @@ pub mod prepare_auth_factor_progress {
 }
 
 #[derive(PartialEq,Clone,Default,Debug)]
+// @@protoc_insertion_point(message:user_data_auth.AuthenticateStarted)
+pub struct AuthenticateStarted {
+    // message fields
+    // @@protoc_insertion_point(field:user_data_auth.AuthenticateStarted.operation_id)
+    pub operation_id: u64,
+    // message oneof groups
+    pub auth_factor: ::std::option::Option<authenticate_started::Auth_factor>,
+    // special fields
+    // @@protoc_insertion_point(special_field:user_data_auth.AuthenticateStarted.special_fields)
+    pub special_fields: ::protobuf::SpecialFields,
+}
+
+impl<'a> ::std::default::Default for &'a AuthenticateStarted {
+    fn default() -> &'a AuthenticateStarted {
+        <AuthenticateStarted as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl AuthenticateStarted {
+    pub fn new() -> AuthenticateStarted {
+        ::std::default::Default::default()
+    }
+
+    // .user_data_auth.AuthFactorType auth_factor_type = 2;
+
+    pub fn auth_factor_type(&self) -> super::auth_factor::AuthFactorType {
+        match self.auth_factor {
+            ::std::option::Option::Some(authenticate_started::Auth_factor::AuthFactorType(v)) => ::protobuf::EnumOrUnknown::enum_value_or_default(&v),
+            _ => super::auth_factor::AuthFactorType::AUTH_FACTOR_TYPE_UNSPECIFIED,
+        }
+    }
+
+    pub fn clear_auth_factor_type(&mut self) {
+        self.auth_factor = ::std::option::Option::None;
+    }
+
+    pub fn has_auth_factor_type(&self) -> bool {
+        match self.auth_factor {
+            ::std::option::Option::Some(authenticate_started::Auth_factor::AuthFactorType(..)) => true,
+            _ => false,
+        }
+    }
+
+    // Param is passed by value, moved
+    pub fn set_auth_factor_type(&mut self, v: super::auth_factor::AuthFactorType) {
+        self.auth_factor = ::std::option::Option::Some(authenticate_started::Auth_factor::AuthFactorType(::protobuf::EnumOrUnknown::new(v)))
+    }
+
+    // bool user_creation = 3;
+
+    pub fn user_creation(&self) -> bool {
+        match self.auth_factor {
+            ::std::option::Option::Some(authenticate_started::Auth_factor::UserCreation(v)) => v,
+            _ => false,
+        }
+    }
+
+    pub fn clear_user_creation(&mut self) {
+        self.auth_factor = ::std::option::Option::None;
+    }
+
+    pub fn has_user_creation(&self) -> bool {
+        match self.auth_factor {
+            ::std::option::Option::Some(authenticate_started::Auth_factor::UserCreation(..)) => true,
+            _ => false,
+        }
+    }
+
+    // Param is passed by value, moved
+    pub fn set_user_creation(&mut self, v: bool) {
+        self.auth_factor = ::std::option::Option::Some(authenticate_started::Auth_factor::UserCreation(v))
+    }
+}
+
+impl ::protobuf::Message for AuthenticateStarted {
+    const NAME: &'static str = "AuthenticateStarted";
+
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
+        while let Some(tag) = is.read_raw_tag_or_eof()? {
+            match tag {
+                8 => {
+                    self.operation_id = is.read_uint64()?;
+                },
+                16 => {
+                    self.auth_factor = ::std::option::Option::Some(authenticate_started::Auth_factor::AuthFactorType(is.read_enum_or_unknown()?));
+                },
+                24 => {
+                    self.auth_factor = ::std::option::Option::Some(authenticate_started::Auth_factor::UserCreation(is.read_bool()?));
+                },
+                tag => {
+                    ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u64 {
+        let mut my_size = 0;
+        if self.operation_id != 0 {
+            my_size += ::protobuf::rt::uint64_size(1, self.operation_id);
+        }
+        if let ::std::option::Option::Some(ref v) = self.auth_factor {
+            match v {
+                &authenticate_started::Auth_factor::AuthFactorType(v) => {
+                    my_size += ::protobuf::rt::int32_size(2, v.value());
+                },
+                &authenticate_started::Auth_factor::UserCreation(v) => {
+                    my_size += 1 + 1;
+                },
+            };
+        }
+        my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
+        self.special_fields.cached_size().set(my_size as u32);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
+        if self.operation_id != 0 {
+            os.write_uint64(1, self.operation_id)?;
+        }
+        if let ::std::option::Option::Some(ref v) = self.auth_factor {
+            match v {
+                &authenticate_started::Auth_factor::AuthFactorType(v) => {
+                    os.write_enum(2, ::protobuf::EnumOrUnknown::value(&v))?;
+                },
+                &authenticate_started::Auth_factor::UserCreation(v) => {
+                    os.write_bool(3, v)?;
+                },
+            };
+        }
+        os.write_unknown_fields(self.special_fields.unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn special_fields(&self) -> &::protobuf::SpecialFields {
+        &self.special_fields
+    }
+
+    fn mut_special_fields(&mut self) -> &mut ::protobuf::SpecialFields {
+        &mut self.special_fields
+    }
+
+    fn new() -> AuthenticateStarted {
+        AuthenticateStarted::new()
+    }
+
+    fn clear(&mut self) {
+        self.operation_id = 0;
+        self.auth_factor = ::std::option::Option::None;
+        self.auth_factor = ::std::option::Option::None;
+        self.special_fields.clear();
+    }
+
+    fn default_instance() -> &'static AuthenticateStarted {
+        static instance: AuthenticateStarted = AuthenticateStarted {
+            operation_id: 0,
+            auth_factor: ::std::option::Option::None,
+            special_fields: ::protobuf::SpecialFields::new(),
+        };
+        &instance
+    }
+}
+
+/// Nested message and enums of message `AuthenticateStarted`
+pub mod authenticate_started {
+
+    #[derive(Clone,PartialEq,Debug)]
+    #[non_exhaustive]
+    // @@protoc_insertion_point(oneof:user_data_auth.AuthenticateStarted.auth_factor)
+    pub enum Auth_factor {
+        // @@protoc_insertion_point(oneof_field:user_data_auth.AuthenticateStarted.auth_factor_type)
+        AuthFactorType(::protobuf::EnumOrUnknown<super::super::auth_factor::AuthFactorType>),
+        // @@protoc_insertion_point(oneof_field:user_data_auth.AuthenticateStarted.user_creation)
+        UserCreation(bool),
+    }
+
+    impl ::protobuf::Oneof for Auth_factor {
+    }
+
+    impl Auth_factor {
+    }
+}
+
+#[derive(PartialEq,Clone,Default,Debug)]
 // @@protoc_insertion_point(message:user_data_auth.AuthenticateAuthFactorCompleted)
 pub struct AuthenticateAuthFactorCompleted {
     // message fields
+    // @@protoc_insertion_point(field:user_data_auth.AuthenticateAuthFactorCompleted.operation_id)
+    pub operation_id: u64,
     // @@protoc_insertion_point(field:user_data_auth.AuthenticateAuthFactorCompleted.error)
     pub error: ::protobuf::EnumOrUnknown<CryptohomeErrorCode>,
     // @@protoc_insertion_point(field:user_data_auth.AuthenticateAuthFactorCompleted.error_info)
@@ -15249,6 +15442,9 @@ impl ::protobuf::Message for AuthenticateAuthFactorCompleted {
     fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
         while let Some(tag) = is.read_raw_tag_or_eof()? {
             match tag {
+                40 => {
+                    self.operation_id = is.read_uint64()?;
+                },
                 8 => {
                     self.error = is.read_enum_or_unknown()?;
                 },
@@ -15273,6 +15469,9 @@ impl ::protobuf::Message for AuthenticateAuthFactorCompleted {
     #[allow(unused_variables)]
     fn compute_size(&self) -> u64 {
         let mut my_size = 0;
+        if self.operation_id != 0 {
+            my_size += ::protobuf::rt::uint64_size(5, self.operation_id);
+        }
         if self.error != ::protobuf::EnumOrUnknown::new(CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
             my_size += ::protobuf::rt::int32_size(1, self.error.value());
         }
@@ -15296,6 +15495,9 @@ impl ::protobuf::Message for AuthenticateAuthFactorCompleted {
     }
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
+        if self.operation_id != 0 {
+            os.write_uint64(5, self.operation_id)?;
+        }
         if self.error != ::protobuf::EnumOrUnknown::new(CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
             os.write_enum(1, ::protobuf::EnumOrUnknown::value(&self.error))?;
         }
@@ -15329,6 +15531,7 @@ impl ::protobuf::Message for AuthenticateAuthFactorCompleted {
     }
 
     fn clear(&mut self) {
+        self.operation_id = 0;
         self.error = ::protobuf::EnumOrUnknown::new(CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET);
         self.error_info.clear();
         self.auth_factor = ::std::option::Option::None;
@@ -15338,6 +15541,7 @@ impl ::protobuf::Message for AuthenticateAuthFactorCompleted {
 
     fn default_instance() -> &'static AuthenticateAuthFactorCompleted {
         static instance: AuthenticateAuthFactorCompleted = AuthenticateAuthFactorCompleted {
+            operation_id: 0,
             error: ::protobuf::EnumOrUnknown::from_i32(0),
             error_info: ::protobuf::MessageField::none(),
             auth_factor: ::std::option::Option::None,
@@ -15364,6 +15568,186 @@ pub mod authenticate_auth_factor_completed {
     }
 
     impl Auth_factor {
+    }
+}
+
+#[derive(PartialEq,Clone,Default,Debug)]
+// @@protoc_insertion_point(message:user_data_auth.MountStarted)
+pub struct MountStarted {
+    // message fields
+    // @@protoc_insertion_point(field:user_data_auth.MountStarted.operation_id)
+    pub operation_id: u64,
+    // special fields
+    // @@protoc_insertion_point(special_field:user_data_auth.MountStarted.special_fields)
+    pub special_fields: ::protobuf::SpecialFields,
+}
+
+impl<'a> ::std::default::Default for &'a MountStarted {
+    fn default() -> &'a MountStarted {
+        <MountStarted as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl MountStarted {
+    pub fn new() -> MountStarted {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for MountStarted {
+    const NAME: &'static str = "MountStarted";
+
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
+        while let Some(tag) = is.read_raw_tag_or_eof()? {
+            match tag {
+                8 => {
+                    self.operation_id = is.read_uint64()?;
+                },
+                tag => {
+                    ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u64 {
+        let mut my_size = 0;
+        if self.operation_id != 0 {
+            my_size += ::protobuf::rt::uint64_size(1, self.operation_id);
+        }
+        my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
+        self.special_fields.cached_size().set(my_size as u32);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
+        if self.operation_id != 0 {
+            os.write_uint64(1, self.operation_id)?;
+        }
+        os.write_unknown_fields(self.special_fields.unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn special_fields(&self) -> &::protobuf::SpecialFields {
+        &self.special_fields
+    }
+
+    fn mut_special_fields(&mut self) -> &mut ::protobuf::SpecialFields {
+        &mut self.special_fields
+    }
+
+    fn new() -> MountStarted {
+        MountStarted::new()
+    }
+
+    fn clear(&mut self) {
+        self.operation_id = 0;
+        self.special_fields.clear();
+    }
+
+    fn default_instance() -> &'static MountStarted {
+        static instance: MountStarted = MountStarted {
+            operation_id: 0,
+            special_fields: ::protobuf::SpecialFields::new(),
+        };
+        &instance
+    }
+}
+
+#[derive(PartialEq,Clone,Default,Debug)]
+// @@protoc_insertion_point(message:user_data_auth.MountCompleted)
+pub struct MountCompleted {
+    // message fields
+    // @@protoc_insertion_point(field:user_data_auth.MountCompleted.operation_id)
+    pub operation_id: u64,
+    // special fields
+    // @@protoc_insertion_point(special_field:user_data_auth.MountCompleted.special_fields)
+    pub special_fields: ::protobuf::SpecialFields,
+}
+
+impl<'a> ::std::default::Default for &'a MountCompleted {
+    fn default() -> &'a MountCompleted {
+        <MountCompleted as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl MountCompleted {
+    pub fn new() -> MountCompleted {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for MountCompleted {
+    const NAME: &'static str = "MountCompleted";
+
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
+        while let Some(tag) = is.read_raw_tag_or_eof()? {
+            match tag {
+                8 => {
+                    self.operation_id = is.read_uint64()?;
+                },
+                tag => {
+                    ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u64 {
+        let mut my_size = 0;
+        if self.operation_id != 0 {
+            my_size += ::protobuf::rt::uint64_size(1, self.operation_id);
+        }
+        my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
+        self.special_fields.cached_size().set(my_size as u32);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
+        if self.operation_id != 0 {
+            os.write_uint64(1, self.operation_id)?;
+        }
+        os.write_unknown_fields(self.special_fields.unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn special_fields(&self) -> &::protobuf::SpecialFields {
+        &self.special_fields
+    }
+
+    fn mut_special_fields(&mut self) -> &mut ::protobuf::SpecialFields {
+        &mut self.special_fields
+    }
+
+    fn new() -> MountCompleted {
+        MountCompleted::new()
+    }
+
+    fn clear(&mut self) {
+        self.operation_id = 0;
+        self.special_fields.clear();
+    }
+
+    fn default_instance() -> &'static MountCompleted {
+        static instance: MountCompleted = MountCompleted {
+            operation_id: 0,
+            special_fields: ::protobuf::SpecialFields::new(),
+        };
+        &instance
     }
 }
 

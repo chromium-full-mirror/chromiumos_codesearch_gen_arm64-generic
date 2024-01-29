@@ -28,10 +28,10 @@ describeWithMockConnection('DOMStorageModel', () => {
         const manager = target.model(SDK.StorageKeyManager.StorageKeyManager);
         assertNotNullOrUndefined(manager);
         assert.isEmpty(domStorageModel.storages());
-        manager.dispatchEventToListeners(SDK.StorageKeyManager.Events.StorageKeyAdded, testKey);
+        manager.dispatchEventToListeners("StorageKeyAdded" /* SDK.StorageKeyManager.Events.StorageKeyAdded */, testKey);
         assertNotNullOrUndefined(domStorageModel.storageForId(testId));
         assertNotNullOrUndefined(domStorageModel.storageForId(testId));
-        manager.dispatchEventToListeners(SDK.StorageKeyManager.Events.StorageKeyRemoved, testKey);
+        manager.dispatchEventToListeners("StorageKeyRemoved" /* SDK.StorageKeyManager.Events.StorageKeyRemoved */, testKey);
         assert.isUndefined(domStorageModel.storageForId(testId));
     });
 });

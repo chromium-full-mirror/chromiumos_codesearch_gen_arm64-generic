@@ -25,8 +25,59 @@ class ValidationContext;
 
 namespace printing::mojom {
 namespace internal {
+class FlattenPdfResult_Data;
 
 #pragma pack(push, 1)
+class  FlattenPdfResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> flattened_pdf_region;
+  uint32_t page_count;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<FlattenPdfResult_Data>;
+
+  FlattenPdfResult_Data();
+  ~FlattenPdfResult_Data() = delete;
+};
+static_assert(sizeof(FlattenPdfResult_Data) == 24,
+              "Bad sizeof(FlattenPdfResult_Data)");
+// Used by FlattenPdfResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FlattenPdfResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FlattenPdfResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FlattenPdfResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FlattenPdfResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FlattenPdfResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

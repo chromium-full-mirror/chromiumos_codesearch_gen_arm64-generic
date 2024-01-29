@@ -108,6 +108,7 @@
     this.isOverlayCandidate = false;
     this.isBackedBySurfaceTexture = false;
     this.wantsPromotionHint = false;
+    this.needsDetiling = false;
     this.colorSpace = null;
     this.hdrMetadata = null;
     this.ycbcrInfo = null;
@@ -179,6 +180,7 @@
         return err;
 
 
+
     // validate TransferableResource.ycbcrInfo
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 64, vulkan_ycbcr_info$.VulkanYCbCrInfo, true);
     if (err !== validator.validationError.NONE)
@@ -209,6 +211,7 @@
     val.isOverlayCandidate = (packed >> 1) & 1 ? true : false;
     val.isBackedBySurfaceTexture = (packed >> 2) & 1 ? true : false;
     val.wantsPromotionHint = (packed >> 3) & 1 ? true : false;
+    val.needsDetiling = (packed >> 4) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -235,6 +238,7 @@
     packed |= (val.isOverlayCandidate & 1) << 1
     packed |= (val.isBackedBySurfaceTexture & 1) << 2
     packed |= (val.wantsPromotionHint & 1) << 3
+    packed |= (val.needsDetiling & 1) << 4
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

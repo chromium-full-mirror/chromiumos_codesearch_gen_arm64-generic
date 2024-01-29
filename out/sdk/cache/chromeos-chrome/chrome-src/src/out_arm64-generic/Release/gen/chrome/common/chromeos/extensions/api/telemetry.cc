@@ -3747,6 +3747,221 @@ base::Value::Dict StatefulPartitionInfo::ToValue() const {
 }
 
 
+const char* ToString(ThermalSensorSource enum_param) {
+  switch (enum_param) {
+    case ThermalSensorSource::kUnknown:
+      return "unknown";
+    case ThermalSensorSource::kEc:
+      return "ec";
+    case ThermalSensorSource::kSysFs:
+      return "sysFs";
+    case ThermalSensorSource::kNone:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+ThermalSensorSource ParseThermalSensorSource(base::StringPiece enum_string) {
+  if (enum_string == "unknown")
+    return ThermalSensorSource::kUnknown;
+  if (enum_string == "ec")
+    return ThermalSensorSource::kEc;
+  if (enum_string == "sysFs")
+    return ThermalSensorSource::kSysFs;
+  return ThermalSensorSource::kNone;
+}
+
+std::u16string GetThermalSensorSourceParseError(base::StringPiece enum_string) {
+  return u"expected \"unknown\" or \"ec\" or \"sysFs\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+}
+
+
+ThermalSensorInfo::ThermalSensorInfo()
+: source() {}
+
+ThermalSensorInfo::~ThermalSensorInfo() = default;
+ThermalSensorInfo::ThermalSensorInfo(ThermalSensorInfo&& rhs) noexcept = default;
+ThermalSensorInfo& ThermalSensorInfo::operator=(ThermalSensorInfo&& rhs) noexcept = default;
+ThermalSensorInfo ThermalSensorInfo::Clone() const {
+  ThermalSensorInfo out;
+  out.name = name;
+  out.temperature_celsius = temperature_celsius;
+  out.source = source;
+  return out;
+}
+
+// static
+bool ThermalSensorInfo::Populate(
+    const base::Value::Dict& dict, ThermalSensorInfo& out) {
+  out.source = ThermalSensorSource();
+  const base::Value* name_value = dict.Find("name");
+  if (name_value) {
+    {
+      auto* temp = (*name_value).GetIfString();
+      if (!temp) {
+        out.name = std::nullopt;
+        return false;
+      }
+      out.name = *temp;
+    }
+  }
+
+  const base::Value* temperature_celsius_value = dict.Find("temperatureCelsius");
+  if (temperature_celsius_value) {
+    {
+      auto temp = (*temperature_celsius_value).GetIfDouble();
+      if (!temp.has_value()) {
+        out.temperature_celsius = std::nullopt;
+        return false;
+      }
+      out.temperature_celsius = *temp;
+    }
+  }
+
+  const base::Value* source_value = dict.Find("source");
+  if (source_value) {
+    {
+      const std::string* thermal_sensor_source_as_string = (*source_value).GetIfString();
+      if (!thermal_sensor_source_as_string) {
+        return false;
+      }
+      out.source = ParseThermalSensorSource(*thermal_sensor_source_as_string);
+      if (out.source == ThermalSensorSource()) {
+        return false;
+      }
+    }
+    } else {
+    out.source = ThermalSensorSource();
+  }
+
+  return true;
+}
+
+// static
+bool ThermalSensorInfo::Populate(
+    const base::Value& value, ThermalSensorInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<ThermalSensorInfo> ThermalSensorInfo::FromValue(const base::Value::Dict& value) {
+  ThermalSensorInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<ThermalSensorInfo> ThermalSensorInfo::FromValue(const base::Value& value) {
+  ThermalSensorInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict ThermalSensorInfo::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  if (this->name) {
+    to_value_result.Set("name", *this->name);
+
+  }
+  if (this->temperature_celsius) {
+    to_value_result.Set("temperatureCelsius", *this->temperature_celsius);
+
+  }
+  if (this->source != ThermalSensorSource()) {
+    to_value_result.Set("source", os_telemetry::ToString(this->source));
+
+  }
+
+  return to_value_result;
+}
+
+
+ThermalInfo::ThermalInfo()
+ {}
+
+ThermalInfo::~ThermalInfo() = default;
+ThermalInfo::ThermalInfo(ThermalInfo&& rhs) noexcept = default;
+ThermalInfo& ThermalInfo::operator=(ThermalInfo&& rhs) noexcept = default;
+ThermalInfo ThermalInfo::Clone() const {
+  ThermalInfo out;
+  out.thermal_sensors.reserve(thermal_sensors.size());
+  for (const auto& element : thermal_sensors) {
+    json_schema_compiler::util::AppendToContainer(out.thermal_sensors, element.Clone());
+  }
+  return out;
+}
+
+// static
+bool ThermalInfo::Populate(
+    const base::Value::Dict& dict, ThermalInfo& out) {
+  const base::Value* thermal_sensors_value = dict.Find("thermalSensors");
+  if (!thermal_sensors_value) {
+    return false;
+  }
+  {
+    if (!(*thermal_sensors_value).is_list()) {
+      return false;
+    }
+    else {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*thermal_sensors_value).GetList(), out.thermal_sensors)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+// static
+bool ThermalInfo::Populate(
+    const base::Value& value, ThermalInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<ThermalInfo> ThermalInfo::FromValue(const base::Value::Dict& value) {
+  ThermalInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<ThermalInfo> ThermalInfo::FromValue(const base::Value& value) {
+  ThermalInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict ThermalInfo::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("thermalSensors", json_schema_compiler::util::CreateValueFromArray(this->thermal_sensors));
+
+
+  return to_value_result;
+}
+
+
 const char* ToString(TpmGSCVersion enum_param) {
   switch (enum_param) {
     case TpmGSCVersion::kNotGsc:
@@ -4442,6 +4657,17 @@ base::Value::List Results::Create(const DisplayInfo& display_info) {
   return create_results;
 }
 }  // namespace GetDisplayInfo
+
+namespace GetThermalInfo {
+
+base::Value::List Results::Create(const ThermalInfo& thermal_info) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((thermal_info).ToValue());
+
+  return create_results;
+}
+}  // namespace GetThermalInfo
 
 }  // namespace os_telemetry
 }  // namespace api

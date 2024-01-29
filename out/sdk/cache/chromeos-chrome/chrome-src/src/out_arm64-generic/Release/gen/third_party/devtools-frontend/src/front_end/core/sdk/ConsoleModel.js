@@ -32,16 +32,16 @@ import * as Host from '../host/host.js';
 import * as i18n from '../i18n/i18n.js';
 import * as Platform from '../platform/platform.js';
 import { FrontendMessageSource, FrontendMessageType } from './ConsoleModelTypes.js';
-export { FrontendMessageSource, FrontendMessageType } from './ConsoleModelTypes.js';
-import { CPUProfilerModel, Events as CPUProfilerModelEvents } from './CPUProfilerModel.js';
-import { Events as DebuggerModelEvents, COND_BREAKPOINT_SOURCE_URL, LOGPOINT_SOURCE_URL, } from './DebuggerModel.js';
+import { CPUProfilerModel } from './CPUProfilerModel.js';
+import { COND_BREAKPOINT_SOURCE_URL, Events as DebuggerModelEvents, LOGPOINT_SOURCE_URL, } from './DebuggerModel.js';
 import { LogModel } from './LogModel.js';
 import { RemoteObject } from './RemoteObject.js';
 import { Events as ResourceTreeModelEvents, ResourceTreeModel, } from './ResourceTreeModel.js';
 import { Events as RuntimeModelEvents, RuntimeModel, } from './RuntimeModel.js';
-import { Capability, Type } from './Target.js';
-import { TargetManager } from './TargetManager.js';
 import { SDKModel } from './SDKModel.js';
+import { Type } from './Target.js';
+import { TargetManager } from './TargetManager.js';
+export { FrontendMessageSource, FrontendMessageType } from './ConsoleModelTypes.js';
 const UIStrings = {
     /**
      *@description Text shown when the main frame (page) of the website was navigated to a different URL.
@@ -104,8 +104,8 @@ export class ConsoleModel extends SDKModel {
         const eventListeners = [];
         const cpuProfilerModel = target.model(CPUProfilerModel);
         if (cpuProfilerModel) {
-            eventListeners.push(cpuProfilerModel.addEventListener(CPUProfilerModelEvents.ConsoleProfileStarted, this.consoleProfileStarted.bind(this, cpuProfilerModel)));
-            eventListeners.push(cpuProfilerModel.addEventListener(CPUProfilerModelEvents.ConsoleProfileFinished, this.consoleProfileFinished.bind(this, cpuProfilerModel)));
+            eventListeners.push(cpuProfilerModel.addEventListener("ConsoleProfileStarted" /* CPUProfilerModelEvents.ConsoleProfileStarted */, this.consoleProfileStarted.bind(this, cpuProfilerModel)));
+            eventListeners.push(cpuProfilerModel.addEventListener("ConsoleProfileFinished" /* CPUProfilerModelEvents.ConsoleProfileFinished */, this.consoleProfileFinished.bind(this, cpuProfilerModel)));
         }
         const resourceTreeModel = target.model(ResourceTreeModel);
         if (resourceTreeModel && target.parentTarget()?.type() !== Type.Frame) {
@@ -376,10 +376,7 @@ export class ConsoleModel extends SDKModel {
             return;
         }
         const globalObject = result.object;
-        const callFunctionResult = 
-        // TODO(crbug.com/1172300) Ignored during the jsdoc to ts migration
-        // @ts-expect-error
-        await globalObject.callFunction(saveVariable, [RemoteObject.toCallArgument(remoteObject)]);
+        const callFunctionResult = await globalObject.callFunction(saveVariable, [RemoteObject.toCallArgument(remoteObject)]);
         globalObject.release();
         if (callFunctionResult.wasThrown || !callFunctionResult.object || callFunctionResult.object.type !== 'string') {
             failedToSave(callFunctionResult.object || null);
@@ -412,8 +409,6 @@ export class ConsoleModel extends SDKModel {
         }
     }
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
 export var Events;
 (function (Events) {
     Events["ConsoleCleared"] = "ConsoleCleared";
@@ -421,7 +416,6 @@ export var Events;
     Events["MessageUpdated"] = "MessageUpdated";
     Events["CommandEvaluated"] = "CommandEvaluated";
 })(Events || (Events = {}));
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function extractExceptionMetaData(metaData) {
     if (!metaData) {
         return undefined;
@@ -648,7 +642,7 @@ export class ConsoleMessage {
         return { callFrame: callFrames[lastBreakpointFrameIndex + 1], type };
     }
 }
-SDKModel.register(ConsoleModel, { capabilities: Capability.JS, autostart: true });
+SDKModel.register(ConsoleModel, { capabilities: 4 /* Capability.JS */, autostart: true });
 export const MessageSourceDisplayName = new Map(([
     ["xml" /* Protocol.Log.LogEntrySource.XML */, 'xml'],
     ["javascript" /* Protocol.Log.LogEntrySource.Javascript */, 'javascript'],

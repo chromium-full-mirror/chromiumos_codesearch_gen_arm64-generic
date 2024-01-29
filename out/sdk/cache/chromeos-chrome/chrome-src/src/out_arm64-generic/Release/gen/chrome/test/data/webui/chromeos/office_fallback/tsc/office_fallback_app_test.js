@@ -92,4 +92,15 @@ suite('<office-fallback>', () => {
         assertEquals(1, testProxy.handler.getCallCount('close'));
         assertDeepEquals([DialogChoice.kCancel], testProxy.handler.getArgs('close'));
     });
+    /**
+     * Tests that an "escape" keydown triggers the right `close`
+     * mojo request.
+     */
+    test('Escape', async () => {
+        await setUp();
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        await testProxy.handler.whenCalled('close');
+        assertEquals(1, testProxy.handler.getCallCount('close'));
+        assertDeepEquals([DialogChoice.kCancel], testProxy.handler.getArgs('close'));
+    });
 });

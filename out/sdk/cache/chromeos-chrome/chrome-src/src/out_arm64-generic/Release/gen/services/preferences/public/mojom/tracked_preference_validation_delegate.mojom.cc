@@ -305,6 +305,8 @@ bool TrackedPreferenceValidationDelegateStubDispatch::Accept(
           reinterpret_cast<internal::TrackedPreferenceValidationDelegate_OnAtomicPreferenceValidation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrackedPreferenceValidationDelegate.0
       bool success = true;
       std::string p_pref_path{};
       std::optional<::base::Value> p_value{};
@@ -332,12 +334,12 @@ bool TrackedPreferenceValidationDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAtomicPreferenceValidation(
-std::move(p_pref_path), 
-std::move(p_value), 
-std::move(p_value_state), 
-std::move(p_external_validation_value_state), 
-std::move(p_is_personal));
+      impl->OnAtomicPreferenceValidation(        
+        std::move(p_pref_path), 
+        std::move(p_value), 
+        std::move(p_value_state), 
+        std::move(p_external_validation_value_state), 
+        std::move(p_is_personal));
       return true;
     }
     case internal::kTrackedPreferenceValidationDelegate_OnSplitPreferenceValidation_Name: {
@@ -347,6 +349,8 @@ std::move(p_is_personal));
           reinterpret_cast<internal::TrackedPreferenceValidationDelegate_OnSplitPreferenceValidation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TrackedPreferenceValidationDelegate.1
       bool success = true;
       std::string p_pref_path{};
       std::vector<std::string> p_invalid_keys{};
@@ -377,13 +381,13 @@ std::move(p_is_personal));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSplitPreferenceValidation(
-std::move(p_pref_path), 
-std::move(p_invalid_keys), 
-std::move(p_external_validation_invalid_keys), 
-std::move(p_value_state), 
-std::move(p_external_validation_value_state), 
-std::move(p_is_personal));
+      impl->OnSplitPreferenceValidation(        
+        std::move(p_pref_path), 
+        std::move(p_invalid_keys), 
+        std::move(p_external_validation_invalid_keys), 
+        std::move(p_value_state), 
+        std::move(p_external_validation_value_state), 
+        std::move(p_is_personal));
       return true;
     }
   }

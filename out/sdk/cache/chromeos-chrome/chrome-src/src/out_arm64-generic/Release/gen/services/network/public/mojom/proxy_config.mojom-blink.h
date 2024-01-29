@@ -27,6 +27,7 @@
 #include "services/network/public/mojom/proxy_config.mojom-shared.h"
 #include "services/network/public/mojom/proxy_config.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_string.mojom-blink.h"
+#include "services/network/public/mojom/network_param.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
 #include "mojo/public/cpp/bindings/lib/wtf_hash_util.h"
@@ -220,7 +221,7 @@ class  ProxyList {
   ProxyList();
 
   explicit ProxyList(
-      WTF::Vector<WTF::Vector<WTF::String>> proxies);
+      WTF::Vector<::net::ProxyChain> proxies);
 
 
   ~ProxyList();
@@ -298,7 +299,7 @@ class  ProxyList {
   }
 
   
-  WTF::Vector<WTF::Vector<WTF::String>> proxies;
+  WTF::Vector<::net::ProxyChain> proxies;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -362,7 +363,6 @@ class  ProxyRules {
   ProxyRules(
       ProxyBypassRulesPtr bypass_rules,
       bool reverse_bypass,
-      bool restrict_to_network_service_proxy_allow_list,
       ProxyRulesType type,
       ProxyListPtr single_proxies,
       ProxyListPtr proxies_for_http,
@@ -451,8 +451,6 @@ ProxyRules& operator=(const ProxyRules&) = delete;
   ProxyBypassRulesPtr bypass_rules;
   
   bool reverse_bypass;
-  
-  bool restrict_to_network_service_proxy_allow_list;
   
   ProxyRulesType type;
   
@@ -693,7 +691,6 @@ ProxyRulesPtr ProxyRules::Clone() const {
   return New(
       mojo::Clone(bypass_rules),
       mojo::Clone(reverse_bypass),
-      mojo::Clone(restrict_to_network_service_proxy_allow_list),
       mojo::Clone(type),
       mojo::Clone(single_proxies),
       mojo::Clone(proxies_for_http),
@@ -708,8 +705,6 @@ bool ProxyRules::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->bypass_rules, other_struct.bypass_rules))
     return false;
   if (!mojo::Equals(this->reverse_bypass, other_struct.reverse_bypass))
-    return false;
-  if (!mojo::Equals(this->restrict_to_network_service_proxy_allow_list, other_struct.restrict_to_network_service_proxy_allow_list))
     return false;
   if (!mojo::Equals(this->type, other_struct.type))
     return false;
@@ -735,10 +730,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.reverse_bypass < rhs.reverse_bypass)
     return true;
   if (rhs.reverse_bypass < lhs.reverse_bypass)
-    return false;
-  if (lhs.restrict_to_network_service_proxy_allow_list < rhs.restrict_to_network_service_proxy_allow_list)
-    return true;
-  if (rhs.restrict_to_network_service_proxy_allow_list < lhs.restrict_to_network_service_proxy_allow_list)
     return false;
   if (lhs.type < rhs.type)
     return true;
@@ -867,11 +858,6 @@ struct  StructTraits<::network::mojom::blink::ProxyRules::DataView,
   static decltype(::network::mojom::blink::ProxyRules::reverse_bypass) reverse_bypass(
       const ::network::mojom::blink::ProxyRulesPtr& input) {
     return input->reverse_bypass;
-  }
-
-  static decltype(::network::mojom::blink::ProxyRules::restrict_to_network_service_proxy_allow_list) restrict_to_network_service_proxy_allow_list(
-      const ::network::mojom::blink::ProxyRulesPtr& input) {
-    return input->restrict_to_network_service_proxy_allow_list;
   }
 
   static decltype(::network::mojom::blink::ProxyRules::type) type(

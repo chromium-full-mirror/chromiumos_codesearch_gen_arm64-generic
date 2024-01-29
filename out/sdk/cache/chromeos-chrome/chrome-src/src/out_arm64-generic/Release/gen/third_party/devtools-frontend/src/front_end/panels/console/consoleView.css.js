@@ -33,7 +33,7 @@ styles.replaceSync(
   .console-message-wrapper:focus .devtools-link,
   .console-message-wrapper:focus:last-of-type .devtools-link{color:HighlightText!important}#console-messages .devtools-link,
   #console-messages .devtools-link:hover{color:linktext}#console-messages .link:focus-visible,
-  #console-messages .devtools-link:focus-visible{background:Highlight;color:HighlightText}.console-message-wrapper:focus [is="ui-icon"].icon-mask{background-color:HighlightText}.console-message-wrapper.console-error-level:focus,
+  #console-messages .devtools-link:focus-visible{background:Highlight;color:HighlightText}.console-message-wrapper:focus devtools-icon{color:HighlightText}.console-message-wrapper.console-error-level:focus,
   .console-message-wrapper.console-error-level:focus:last-of-type{--override-error-text-color:HighlightText}}
 /*# sourceURL=consoleView.css */
 `);

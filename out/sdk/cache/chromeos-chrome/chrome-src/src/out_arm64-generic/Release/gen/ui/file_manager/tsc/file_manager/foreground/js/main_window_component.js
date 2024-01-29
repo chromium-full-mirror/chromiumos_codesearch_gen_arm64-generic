@@ -9,8 +9,8 @@ import { isNewDirectoryTreeEnabled } from '../../common/js/flags.js';
 import { recordEnum } from '../../common/js/metrics.js';
 import { getEntryLabel, str } from '../../common/js/translations.js';
 import { RootType } from '../../common/js/volume_manager_types.js';
-import { DialogType } from '../../externs/ts/state.js';
 import { changeDirectory } from '../../state/ducks/current_directory.js';
+import { DialogType } from '../../state/state.js';
 import { getStore } from '../../state/store.js';
 import { Command } from './ui/command.js';
 import { FileTapHandler, TapEvent } from './ui/file_tap_handler.js';
@@ -78,7 +78,7 @@ export class MainWindowComponent {
         // Also the 2nd parameter of handleTouchEvents is just passed back to the
         // callback. Therefore we can pass a dummy value -1.
         this.tapHandler_.handleTouchEvents(event, -1, (_e, _index, eventType) => {
-            if (eventType == TapEvent.TAP) {
+            if (eventType === TapEvent.TAP) {
                 const target = event.target;
                 // Taps on the checkmark should only toggle select the item.
                 if (target.classList.contains('detail-checkmark') ||
@@ -359,7 +359,7 @@ export class MainWindowComponent {
         const dm = this.directoryModel_.getFileList();
         for (let index = 0; index < dm.length; ++index) {
             const name = dm.item(index).name;
-            if (name.substring(0, text.length).toLowerCase() == text) {
+            if (name.substring(0, text.length).toLowerCase() === text) {
                 const selectionModel = this.ui_.listContainer.currentList.selectionModel;
                 if (selectionModel) {
                     selectionModel.selectedIndexes = [index];

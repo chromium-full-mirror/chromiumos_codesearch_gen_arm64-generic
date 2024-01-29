@@ -45,6 +45,7 @@
 #include "services/network/public/mojom/ip_address_space.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_interface.mojom-blink.h"
 #include "services/network/public/mojom/proxy_config.mojom-blink-forward.h"
+#include "services/network/public/mojom/network_annotation_monitor.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_interface_change_listener.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_param.mojom-blink-forward.h"
 #include "services/network/public/mojom/network_quality_estimator_manager.mojom-blink-forward.h"
@@ -56,7 +57,6 @@
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-blink-forward.h"
 #include "services/network/public/mojom/url_response_head.mojom-blink-forward.h"
 #include "services/network/public/mojom/client_security_state.mojom-blink-forward.h"
-#include "services/network/public/mojom/cookie_encryption_provider.mojom-blink-forward.h"
 #include "url/mojom/origin.mojom-blink.h"
 #include "url/mojom/url.mojom-blink.h"
 #include "services/network/public/mojom/ct_log_info.mojom-blink-forward.h"
@@ -118,7 +118,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
     kSetUpHttpAuthMinVersion = 0,
     kConfigureHttpAuthPrefsMinVersion = 0,
     kSetRawHeadersAccessMinVersion = 0,
-    kSetMaxConnectionsPerProxyMinVersion = 0,
+    kSetMaxConnectionsPerProxyChainMinVersion = 0,
     kGetNetworkChangeManagerMinVersion = 0,
     kGetNetworkQualityEstimatorManagerMinVersion = 0,
     kGetDnsConfigChangeManagerMinVersion = 0,
@@ -142,7 +142,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
     kParseHeadersMinVersion = 0,
     kEnableDataUseUpdatesMinVersion = 0,
     kSetIPv6ReachabilityOverrideMinVersion = 0,
-    kSetCookieEncryptionProviderMinVersion = 0,
+    kSetNetworkAnnotationMonitorMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -178,7 +178,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
   struct SetRawHeadersAccess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetMaxConnectionsPerProxy_Sym {
+  struct SetMaxConnectionsPerProxyChain_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetNetworkChangeManager_Sym {
@@ -250,7 +250,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
   struct SetIPv6ReachabilityOverride_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetCookieEncryptionProvider_Sym {
+  struct SetNetworkAnnotationMonitor_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -287,7 +287,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
   virtual void SetRawHeadersAccess(int32_t process_id, const WTF::Vector<::scoped_refptr<const ::blink::SecurityOrigin>>& origins) = 0;
 
   
-  virtual void SetMaxConnectionsPerProxy(int32_t max_connections) = 0;
+  virtual void SetMaxConnectionsPerProxyChain(int32_t max_connections) = 0;
 
   
   virtual void GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::blink::NetworkChangeManager> network_change_manager) = 0;
@@ -371,7 +371,7 @@ class BLINK_PLATFORM_EXPORT NetworkService
   virtual void SetIPv6ReachabilityOverride(bool reachability_override) = 0;
 
   
-  virtual void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::blink::CookieEncryptionProvider> provider) = 0;
+  virtual void SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::blink::NetworkAnnotationMonitor> remote) = 0;
 };
 
 
@@ -403,7 +403,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceProxy
   
   void SetRawHeadersAccess(int32_t process_id, const WTF::Vector<::scoped_refptr<const ::blink::SecurityOrigin>>& origins) final;
   
-  void SetMaxConnectionsPerProxy(int32_t max_connections) final;
+  void SetMaxConnectionsPerProxyChain(int32_t max_connections) final;
   
   void GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::blink::NetworkChangeManager> network_change_manager) final;
   
@@ -451,7 +451,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceProxy
   
   void SetIPv6ReachabilityOverride(bool reachability_override) final;
   
-  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::blink::CookieEncryptionProvider> provider) final;
+  void SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::blink::NetworkAnnotationMonitor> remote) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

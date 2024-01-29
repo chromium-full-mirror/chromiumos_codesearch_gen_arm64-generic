@@ -247,6 +247,8 @@ bool StorageAccessAutomation_SetStorageAccess_ForwardToCallback::Accept(
           internal::StorageAccessAutomation_SetStorageAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StorageAccessAutomation.0
   bool success = true;
   bool p_success{};
   StorageAccessAutomation_SetStorageAccess_ResponseParamsDataView input_data_view(params, message);
@@ -337,6 +339,8 @@ bool StorageAccessAutomationStubDispatch::AcceptWithResponder(
               internal::StorageAccessAutomation_SetStorageAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StorageAccessAutomation.0
       bool success = true;
       WTF::String p_origin{};
       WTF::String p_embedding_origin{};
@@ -361,10 +365,10 @@ bool StorageAccessAutomationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetStorageAccess(
-std::move(p_origin), 
-std::move(p_embedding_origin), 
-std::move(p_allowed), std::move(callback));
+      impl->SetStorageAccess(        
+        std::move(p_origin), 
+        std::move(p_embedding_origin), 
+        std::move(p_allowed), std::move(callback));
       return true;
     }
   }

@@ -604,6 +604,8 @@ bool SiteDataProvider_GetSiteDataArray_ForwardToCallback::Accept(
           internal::SiteDataProvider_GetSiteDataArray_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SiteDataProvider.0
   bool success = true;
   SiteDataArrayPtr p_result{};
   SiteDataProvider_GetSiteDataArray_ResponseParamsDataView input_data_view(params, message);
@@ -729,6 +731,8 @@ bool SiteDataProvider_GetSiteDataDatabaseSize_ForwardToCallback::Accept(
           internal::SiteDataProvider_GetSiteDataDatabaseSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SiteDataProvider.1
   bool success = true;
   SiteDataDatabaseSizePtr p_db_size{};
   SiteDataProvider_GetSiteDataDatabaseSize_ResponseParamsDataView input_data_view(params, message);
@@ -828,6 +832,8 @@ bool SiteDataProviderStubDispatch::AcceptWithResponder(
               internal::SiteDataProvider_GetSiteDataArray_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SiteDataProvider.0
       bool success = true;
       std::vector<std::string> p_explicitly_requested_origins{};
       SiteDataProvider_GetSiteDataArray_ParamsDataView input_data_view(params, message);
@@ -846,8 +852,8 @@ bool SiteDataProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSiteDataArray(
-std::move(p_explicitly_requested_origins), std::move(callback));
+      impl->GetSiteDataArray(        
+        std::move(p_explicitly_requested_origins), std::move(callback));
       return true;
     }
     case internal::kSiteDataProvider_GetSiteDataDatabaseSize_Name: {
@@ -857,6 +863,8 @@ std::move(p_explicitly_requested_origins), std::move(callback));
               internal::SiteDataProvider_GetSiteDataDatabaseSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SiteDataProvider.1
       bool success = true;
       SiteDataProvider_GetSiteDataDatabaseSize_ParamsDataView input_data_view(params, message);
       

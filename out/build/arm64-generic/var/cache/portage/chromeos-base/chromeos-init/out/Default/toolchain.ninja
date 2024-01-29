@@ -34,12 +34,13 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/init/all.stamp
-build obj/init/all.stamp: stamp ./chromeos_startup ./clobber-state ./cros_sysrq_init ./file_attrs_cleaner_tool ./net_poll_tool ./periodic_scheduler ./process_killer ./static_node_tool ./usermode-helper obj/init/usr_share_cros_init_scripts.stamp
+build obj/init/all.stamp: stamp ./chromeos_startup ./clobber-state ./cros_sysrq_init ./file_attrs_cleaner_tool obj/init/install_setuid_restriction.stamp ./net_poll_tool ./periodic_scheduler ./process_killer ./static_node_tool ./usermode-helper obj/init/usr_share_cros_init_scripts.stamp
 subninja obj/init/chromeos_startup.ninja
 subninja obj/init/clobber-state.ninja
 subninja obj/init/cros_sysrq_init.ninja
 subninja obj/init/file_attrs_cleaner_lib.ninja
 subninja obj/init/file_attrs_cleaner_tool.ninja
+build obj/init/install_setuid_restriction.stamp: stamp
 subninja obj/init/libclobber.ninja
 subninja obj/init/libcrosstartup.ninja
 subninja obj/init/net_poll_tool.ninja

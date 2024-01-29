@@ -833,6 +833,8 @@ bool SensorProvider_GetSensor_ForwardToCallback::Accept(
           internal::SensorProvider_GetSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorProvider.0
   bool success = true;
   SensorCreationResult p_result{};
   SensorInitParamsPtr p_init_params{};
@@ -967,6 +969,8 @@ bool SensorProvider_CreateVirtualSensor_ForwardToCallback::Accept(
           internal::SensorProvider_CreateVirtualSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorProvider.1
   bool success = true;
   CreateVirtualSensorResult p_result{};
   SensorProvider_CreateVirtualSensor_ResponseParamsDataView input_data_view(params, message);
@@ -1087,6 +1091,8 @@ bool SensorProvider_UpdateVirtualSensor_ForwardToCallback::Accept(
           internal::SensorProvider_UpdateVirtualSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorProvider.2
   bool success = true;
   UpdateVirtualSensorResult p_result{};
   SensorProvider_UpdateVirtualSensor_ResponseParamsDataView input_data_view(params, message);
@@ -1207,6 +1213,8 @@ bool SensorProvider_RemoveVirtualSensor_ForwardToCallback::Accept(
           internal::SensorProvider_RemoveVirtualSensor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorProvider.3
   bool success = true;
   SensorProvider_RemoveVirtualSensor_ResponseParamsDataView input_data_view(params, message);
   
@@ -1314,6 +1322,8 @@ bool SensorProvider_GetVirtualSensorInformation_ForwardToCallback::Accept(
           internal::SensorProvider_GetVirtualSensorInformation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorProvider.4
   bool success = true;
   GetVirtualSensorInformationResultPtr p_result{};
   SensorProvider_GetVirtualSensorInformation_ResponseParamsDataView input_data_view(params, message);
@@ -1424,6 +1434,8 @@ bool SensorProviderStubDispatch::AcceptWithResponder(
               internal::SensorProvider_GetSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorProvider.0
       bool success = true;
       ::device::mojom::blink::SensorType p_type{};
       SensorProvider_GetSensor_ParamsDataView input_data_view(params, message);
@@ -1442,8 +1454,8 @@ bool SensorProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSensor(
-std::move(p_type), std::move(callback));
+      impl->GetSensor(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kSensorProvider_CreateVirtualSensor_Name: {
@@ -1453,6 +1465,8 @@ std::move(p_type), std::move(callback));
               internal::SensorProvider_CreateVirtualSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorProvider.1
       bool success = true;
       ::device::mojom::blink::SensorType p_type{};
       VirtualSensorMetadataPtr p_metadata{};
@@ -1474,9 +1488,9 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVirtualSensor(
-std::move(p_type), 
-std::move(p_metadata), std::move(callback));
+      impl->CreateVirtualSensor(        
+        std::move(p_type), 
+        std::move(p_metadata), std::move(callback));
       return true;
     }
     case internal::kSensorProvider_UpdateVirtualSensor_Name: {
@@ -1486,6 +1500,8 @@ std::move(p_metadata), std::move(callback));
               internal::SensorProvider_UpdateVirtualSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorProvider.2
       bool success = true;
       ::device::mojom::blink::SensorType p_type{};
       ::device::mojom::blink::SensorReadingRawPtr p_reading{};
@@ -1507,9 +1523,9 @@ std::move(p_metadata), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateVirtualSensor(
-std::move(p_type), 
-std::move(p_reading), std::move(callback));
+      impl->UpdateVirtualSensor(        
+        std::move(p_type), 
+        std::move(p_reading), std::move(callback));
       return true;
     }
     case internal::kSensorProvider_RemoveVirtualSensor_Name: {
@@ -1519,6 +1535,8 @@ std::move(p_reading), std::move(callback));
               internal::SensorProvider_RemoveVirtualSensor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorProvider.3
       bool success = true;
       ::device::mojom::blink::SensorType p_type{};
       SensorProvider_RemoveVirtualSensor_ParamsDataView input_data_view(params, message);
@@ -1537,8 +1555,8 @@ std::move(p_reading), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveVirtualSensor(
-std::move(p_type), std::move(callback));
+      impl->RemoveVirtualSensor(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kSensorProvider_GetVirtualSensorInformation_Name: {
@@ -1548,6 +1566,8 @@ std::move(p_type), std::move(callback));
               internal::SensorProvider_GetVirtualSensorInformation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorProvider.4
       bool success = true;
       ::device::mojom::blink::SensorType p_type{};
       SensorProvider_GetVirtualSensorInformation_ParamsDataView input_data_view(params, message);
@@ -1566,8 +1586,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVirtualSensorInformation(
-std::move(p_type), std::move(callback));
+      impl->GetVirtualSensorInformation(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }

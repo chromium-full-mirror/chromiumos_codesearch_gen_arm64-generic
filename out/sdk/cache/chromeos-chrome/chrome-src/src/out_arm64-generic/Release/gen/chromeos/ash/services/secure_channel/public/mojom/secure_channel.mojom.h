@@ -209,6 +209,65 @@ class ConnectionDelegate
   virtual void OnConnection(::mojo::PendingRemote<Channel> channel, ::mojo::PendingReceiver<MessageReceiver> message_receiver_receiver) = 0;
 };
 
+class SecureChannelStructuredMetricsLoggerProxy;
+
+template <typename ImplRefTraits>
+class SecureChannelStructuredMetricsLoggerStub;
+
+class SecureChannelStructuredMetricsLoggerRequestValidator;
+
+
+class SecureChannelStructuredMetricsLogger
+    : public SecureChannelStructuredMetricsLoggerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = SecureChannelStructuredMetricsLoggerInterfaceBase;
+  using Proxy_ = SecureChannelStructuredMetricsLoggerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = SecureChannelStructuredMetricsLoggerStub<ImplRefTraits>;
+
+  using RequestValidator_ = SecureChannelStructuredMetricsLoggerRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kLogDiscoveryAttemptMinVersion = 0,
+    kLogNearbyConnectionStateMinVersion = 0,
+    kLogSecureChannelStateMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct LogDiscoveryAttempt_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LogNearbyConnectionState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LogSecureChannelState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~SecureChannelStructuredMetricsLogger() = default;
+
+  
+  virtual void LogDiscoveryAttempt(DiscoveryResult result, std::optional<DiscoveryErrorCode> error_code) = 0;
+
+  
+  virtual void LogNearbyConnectionState(::ash::secure_channel::mojom::NearbyConnectionStep step, ::ash::secure_channel::mojom::NearbyConnectionStepResult status) = 0;
+
+  
+  virtual void LogSecureChannelState(SecureChannelState state) = 0;
+};
+
 class SecureChannelProxy;
 
 template <typename ImplRefTraits>
@@ -267,7 +326,7 @@ class SecureChannel
   virtual void ListenForConnectionFromDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) = 0;
 
   
-  virtual void InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) = 0;
+  virtual void InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate, ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger> secure_channel_structured_metrics_logger) = 0;
 
   
   virtual void SetNearbyConnector(::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector> nearby_connector) = 0;
@@ -331,6 +390,25 @@ class  ConnectionDelegateProxy
 
 
 
+class  SecureChannelStructuredMetricsLoggerProxy
+    : public SecureChannelStructuredMetricsLogger {
+ public:
+  using InterfaceType = SecureChannelStructuredMetricsLogger;
+
+  explicit SecureChannelStructuredMetricsLoggerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void LogDiscoveryAttempt(DiscoveryResult result, std::optional<DiscoveryErrorCode> error_code) final;
+  
+  void LogNearbyConnectionState(::ash::secure_channel::mojom::NearbyConnectionStep step, ::ash::secure_channel::mojom::NearbyConnectionStepResult status) final;
+  
+  void LogSecureChannelState(SecureChannelState state) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  SecureChannelProxy
     : public SecureChannel {
  public:
@@ -340,7 +418,7 @@ class  SecureChannelProxy
   
   void ListenForConnectionFromDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) final;
   
-  void InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate) final;
+  void InitiateConnectionToDevice(const ::ash::multidevice::RemoteDevice& device_to_connect, const ::ash::multidevice::RemoteDevice& local_device, const std::string& feature, ::ash::secure_channel::ConnectionMedium connection_medium, ::ash::secure_channel::ConnectionPriority connection_priority, ::mojo::PendingRemote<ConnectionDelegate> delegate, ::mojo::PendingRemote<SecureChannelStructuredMetricsLogger> secure_channel_structured_metrics_logger) final;
   
   void SetNearbyConnector(::mojo::PendingRemote<::ash::secure_channel::mojom::NearbyConnector> nearby_connector) final;
   
@@ -472,6 +550,47 @@ class ConnectionDelegateStub
  private:
   ImplPointerType sink_;
 };
+class  SecureChannelStructuredMetricsLoggerStubDispatch {
+ public:
+  static bool Accept(SecureChannelStructuredMetricsLogger* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      SecureChannelStructuredMetricsLogger* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<SecureChannelStructuredMetricsLogger>>
+class SecureChannelStructuredMetricsLoggerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  SecureChannelStructuredMetricsLoggerStub() = default;
+  ~SecureChannelStructuredMetricsLoggerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return SecureChannelStructuredMetricsLoggerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return SecureChannelStructuredMetricsLoggerStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  SecureChannelStubDispatch {
  public:
   static bool Accept(SecureChannel* impl, mojo::Message* message);
@@ -522,6 +641,10 @@ class  MessageReceiverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  ConnectionDelegateRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  SecureChannelStructuredMetricsLoggerRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

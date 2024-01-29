@@ -4,14 +4,14 @@
 import { getFileTasks } from '../../common/js/api.js';
 import { getNativeEntry } from '../../common/js/entry_utils.js';
 import { annotateTasks, getDefaultTask, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR } from '../../common/js/file_tasks.js';
+import { FakeEntry, FilesAppDirEntry, FilesAppEntry } from '../../common/js/files_app_entry_types.js';
 import { descriptorEqual } from '../../common/js/util.js';
 import { RootType } from '../../common/js/volume_manager_types.js';
-import { FakeEntry, FilesAppDirEntry, FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
-import { CurrentDirectory, DialogType, DirectoryContent, FileData, FileKey, FileTask, FileTasks, PropStatus, Selection, State } from '../../externs/ts/state.js';
 import { DEFAULT_CROSTINI_VM } from '../../foreground/js/constants.js';
 import { PathComponent } from '../../foreground/js/path_component.js';
 import { Slice } from '../../lib/base_store.js';
 import { keyedKeepFirst } from '../../lib/concurrency_models.js';
+import { DialogType, PropStatus } from '../../state/state.js';
 import { getStore } from '../store.js';
 import { cacheEntries } from './all_entries.js';
 /**

@@ -245,6 +245,8 @@ bool VolumeListObserverStubDispatch::Accept(
           reinterpret_cast<internal::VolumeListObserver_OnVolumeListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VolumeListObserver.0
       bool success = true;
       std::vector<VolumePtr> p_volume_list{};
       VolumeListObserver_OnVolumeListChanged_ParamsDataView input_data_view(params, message);
@@ -260,8 +262,8 @@ bool VolumeListObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVolumeListChanged(
-std::move(p_volume_list));
+      impl->OnVolumeListChanged(        
+        std::move(p_volume_list));
       return true;
     }
   }
@@ -616,6 +618,8 @@ bool VolumeManager_GetFullVolumeList_ForwardToCallback::Accept(
           internal::VolumeManager_GetFullVolumeList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VolumeManager.1
   bool success = true;
   std::vector<VolumePtr> p_result{};
   VolumeManager_GetFullVolumeList_ResponseParamsDataView input_data_view(params, message);
@@ -747,6 +751,8 @@ bool VolumeManager_GetVolumeMountInfo_ForwardToCallback::Accept(
           internal::VolumeManager_GetVolumeMountInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VolumeManager.2
   bool success = true;
   VolumePtr p_result{};
   VolumeManager_GetVolumeMountInfo_ResponseParamsDataView input_data_view(params, message);
@@ -827,6 +833,8 @@ bool VolumeManagerStubDispatch::Accept(
           reinterpret_cast<internal::VolumeManager_AddVolumeListObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VolumeManager.0
       bool success = true;
       ::mojo::PendingRemote<VolumeListObserver> p_observer{};
       VolumeManager_AddVolumeListObserver_ParamsDataView input_data_view(params, message);
@@ -844,8 +852,8 @@ bool VolumeManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVolumeListObserver(
-std::move(p_observer));
+      impl->AddVolumeListObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kVolumeManager_GetFullVolumeList_Name: {
@@ -877,6 +885,8 @@ bool VolumeManagerStubDispatch::AcceptWithResponder(
               internal::VolumeManager_GetFullVolumeList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VolumeManager.1
       bool success = true;
       VolumeManager_GetFullVolumeList_ParamsDataView input_data_view(params, message);
       
@@ -902,6 +912,8 @@ bool VolumeManagerStubDispatch::AcceptWithResponder(
               internal::VolumeManager_GetVolumeMountInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VolumeManager.2
       bool success = true;
       std::string p_volume_id{};
       VolumeManager_GetVolumeMountInfo_ParamsDataView input_data_view(params, message);
@@ -920,8 +932,8 @@ bool VolumeManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetVolumeMountInfo(
-std::move(p_volume_id), std::move(callback));
+      impl->GetVolumeMountInfo(        
+        std::move(p_volume_id), std::move(callback));
       return true;
     }
   }

@@ -2354,6 +2354,8 @@ bool InputMethod_OnFocus_ForwardToCallback::Accept(
           internal::InputMethod_OnFocus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethod.6
   bool success = true;
   bool p_success{};
   InputMethodMetadataPtr p_metadata{};
@@ -2487,6 +2489,8 @@ bool InputMethod_ProcessKeyEvent_ForwardToCallback::Accept(
           internal::InputMethod_ProcessKeyEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethod.2
   bool success = true;
   KeyEventResult p_result{};
   InputMethod_ProcessKeyEvent_ResponseParamsDataView input_data_view(params, message);
@@ -2607,6 +2611,8 @@ bool InputMethod_IsReadyForTesting_ForwardToCallback::Accept(
           internal::InputMethod_IsReadyForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InputMethod.8
   bool success = true;
   bool p_ready{};
   InputMethod_IsReadyForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2676,6 +2682,8 @@ bool InputMethod_IsReadyForTesting_HandleSyncResponse::Accept(
       reinterpret_cast<internal::InputMethod_IsReadyForTesting_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for InputMethod.8
   bool success = true;
   bool p_ready{};
   InputMethod_IsReadyForTesting_ResponseParamsDataView input_data_view(params, message);
@@ -2706,6 +2714,8 @@ bool InputMethodStubDispatch::Accept(
           reinterpret_cast<internal::InputMethod_OnFocusDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.0
       bool success = true;
       InputFieldInfoPtr p_input_field_info{};
       InputMethodSettingsPtr p_settings{};
@@ -2724,9 +2734,9 @@ bool InputMethodStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFocusDeprecated(
-std::move(p_input_field_info), 
-std::move(p_settings));
+      impl->OnFocusDeprecated(        
+        std::move(p_input_field_info), 
+        std::move(p_settings));
       return true;
     }
     case internal::kInputMethod_OnFocus_Name: {
@@ -2739,6 +2749,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputMethod_OnBlur_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.1
       bool success = true;
       InputMethod_OnBlur_ParamsDataView input_data_view(params, message);
       
@@ -2751,7 +2763,7 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBlur();
+      impl->OnBlur(        );
       return true;
     }
     case internal::kInputMethod_ProcessKeyEvent_Name: {
@@ -2764,6 +2776,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputMethod_OnSurroundingTextChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.3
       bool success = true;
       std::string p_text{};
       uint32_t p_offset{};
@@ -2785,10 +2799,10 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSurroundingTextChanged(
-std::move(p_text), 
-std::move(p_offset), 
-std::move(p_selection_range));
+      impl->OnSurroundingTextChanged(        
+        std::move(p_text), 
+        std::move(p_offset), 
+        std::move(p_selection_range));
       return true;
     }
     case internal::kInputMethod_OnCompositionCanceledBySystem_Name: {
@@ -2798,6 +2812,8 @@ std::move(p_selection_range));
           reinterpret_cast<internal::InputMethod_OnCompositionCanceledBySystem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.4
       bool success = true;
       InputMethod_OnCompositionCanceledBySystem_ParamsDataView input_data_view(params, message);
       
@@ -2810,7 +2826,7 @@ std::move(p_selection_range));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompositionCanceledBySystem();
+      impl->OnCompositionCanceledBySystem(        );
       return true;
     }
     case internal::kInputMethod_OnCandidateSelected_Name: {
@@ -2820,6 +2836,8 @@ std::move(p_selection_range));
           reinterpret_cast<internal::InputMethod_OnCandidateSelected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.5
       bool success = true;
       uint32_t p_selected_candidate_index{};
       InputMethod_OnCandidateSelected_ParamsDataView input_data_view(params, message);
@@ -2835,8 +2853,8 @@ std::move(p_selection_range));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCandidateSelected(
-std::move(p_selected_candidate_index));
+      impl->OnCandidateSelected(        
+        std::move(p_selected_candidate_index));
       return true;
     }
     case internal::kInputMethod_OnQuickSettingsUpdated_Name: {
@@ -2846,6 +2864,8 @@ std::move(p_selected_candidate_index));
           reinterpret_cast<internal::InputMethod_OnQuickSettingsUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.7
       bool success = true;
       InputMethodQuickSettingsPtr p_settings{};
       InputMethod_OnQuickSettingsUpdated_ParamsDataView input_data_view(params, message);
@@ -2861,8 +2881,8 @@ std::move(p_selected_candidate_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnQuickSettingsUpdated(
-std::move(p_settings));
+      impl->OnQuickSettingsUpdated(        
+        std::move(p_settings));
       return true;
     }
     case internal::kInputMethod_IsReadyForTesting_Name: {
@@ -2875,6 +2895,8 @@ std::move(p_settings));
           reinterpret_cast<internal::InputMethod_OnAssistiveWindowChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InputMethod.9
       bool success = true;
       ::ash::ime::AssistiveWindow p_window{};
       InputMethod_OnAssistiveWindowChanged_ParamsDataView input_data_view(params, message);
@@ -2890,8 +2912,8 @@ std::move(p_settings));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAssistiveWindowChanged(
-std::move(p_window));
+      impl->OnAssistiveWindowChanged(        
+        std::move(p_window));
       return true;
     }
   }
@@ -2917,6 +2939,8 @@ bool InputMethodStubDispatch::AcceptWithResponder(
               internal::InputMethod_OnFocus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethod.6
       bool success = true;
       InputFieldInfoPtr p_input_field_info{};
       InputMethodSettingsPtr p_deprecated_settings{};
@@ -2938,9 +2962,9 @@ bool InputMethodStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFocus(
-std::move(p_input_field_info), 
-std::move(p_deprecated_settings), std::move(callback));
+      impl->OnFocus(        
+        std::move(p_input_field_info), 
+        std::move(p_deprecated_settings), std::move(callback));
       return true;
     }
     case internal::kInputMethod_OnBlur_Name: {
@@ -2953,6 +2977,8 @@ std::move(p_deprecated_settings), std::move(callback));
               internal::InputMethod_ProcessKeyEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethod.2
       bool success = true;
       PhysicalKeyEventPtr p_event{};
       InputMethod_ProcessKeyEvent_ParamsDataView input_data_view(params, message);
@@ -2971,8 +2997,8 @@ std::move(p_deprecated_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessKeyEvent(
-std::move(p_event), std::move(callback));
+      impl->ProcessKeyEvent(        
+        std::move(p_event), std::move(callback));
       return true;
     }
     case internal::kInputMethod_OnSurroundingTextChanged_Name: {
@@ -2994,6 +3020,8 @@ std::move(p_event), std::move(callback));
               internal::InputMethod_IsReadyForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InputMethod.8
       bool success = true;
       InputMethod_IsReadyForTesting_ParamsDataView input_data_view(params, message);
       

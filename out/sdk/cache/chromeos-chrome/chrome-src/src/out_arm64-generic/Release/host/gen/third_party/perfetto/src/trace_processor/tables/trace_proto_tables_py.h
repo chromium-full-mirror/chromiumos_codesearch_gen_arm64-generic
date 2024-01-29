@@ -227,19 +227,19 @@ class ExperimentalProtoPathTable : public macros_internal::MacroTable {
         field_name_(ColumnStorage<ColumnType::field_name::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
           ColumnFlag::parent_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::field_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::field_type::stored_type>(
           ColumnFlag::field_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::field_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::field_name::stored_type>(
           ColumnFlag::field_name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -628,23 +628,23 @@ class ExperimentalProtoContentTable : public macros_internal::MacroTable {
         size_(ColumnStorage<ColumnType::size::stored_type>::Create<false>()),
         count_(ColumnStorage<ColumnType::count::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::path::stored_type>(
           ColumnFlag::path),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::path_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::path_id::stored_type>(
           ColumnFlag::path_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::total_size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::total_size::stored_type>(
           ColumnFlag::total_size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::size::stored_type>(
           ColumnFlag::size),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::count::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::count::stored_type>(
           ColumnFlag::count),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

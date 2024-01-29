@@ -25,6 +25,10 @@ export class CustomizeButtonDropdownItemElement extends PolymerElement {
             },
         };
     }
+    focus() {
+        super.focus();
+        this.$.container.focus();
+    }
     onDropdownItemSelected_() {
         this.dispatchEvent(new CustomEvent('customize-button-dropdown-selected', {
             bubbles: true,

@@ -8,7 +8,7 @@
 import 'chrome://resources/cr_components/app_management/icons.html.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
 import './metrics_consent_toggle_button.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
@@ -127,6 +127,25 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
                     return loadTimeData.getBoolean('showSpeakOnMuteDetectionPage');
                 },
             },
+            cameraFallbackMechanismEnabled_: {
+                type: Boolean,
+                value: false,
+            },
+            cameraRowSubtext_: {
+                type: String,
+                computed: 'computeCameraRowSubtext_(cameraFallbackMechanismEnabled_, ' +
+                    'prefs.ash.user.camera_allowed.*)',
+            },
+            microphoneRowSubtext_: {
+                type: String,
+                computed: 'computeMicrophoneRowSubtext_(' +
+                    'prefs.ash.user.microphone_allowed.*)',
+            },
+            microphoneToggleTooltipText_: {
+                type: String,
+                computed: 'computeMicrophoneToggleTooltipText_(isMicListEmpty_, ' +
+                    'microphoneHardwareToggleActive_)',
+            },
             /**
              * Used by DeepLinkingMixin to focus this page's deep links.
              */
@@ -162,6 +181,7 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
             this.cameraSwitchForceDisabled_ = disabled;
         });
         this.browserProxy_.getCameraLedFallbackState().then((enabled) => {
+            this.cameraFallbackMechanismEnabled_ = enabled;
             this.setCameraSubLabel_(enabled);
         });
         this.updateMediaDeviceLists_();
@@ -254,6 +274,38 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
     onGeolocationAreaClick_() {
         chrome.metricsPrivate.recordEnumerationValue('ChromeOS.PrivacyHub.LocationSubpage.UserAction', PrivacyHubSensorSubpageUserAction.SUBPAGE_OPENED, Object.keys(PrivacyHubSensorSubpageUserAction).length);
         Router.getInstance().navigateTo(routes.PRIVACY_HUB_GEOLOCATION);
+    }
+    computeCameraRowSubtext_() {
+        // Note: `this.getPref()` will assert the queried pref exists, but the prefs
+        // property may not be initialized yet when this element runs the first
+        // computation of this method. Ensure prefs is initialized first.
+        if (!this.prefs) {
+            return '';
+        }
+        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
+        if (cameraAllowed) {
+            return this.cameraFallbackMechanismEnabled_ ?
+                this.i18n('privacyHubPageCameraRowFallbackSubtext') :
+                this.i18n('privacyHubPageCameraRowSubtext');
+        }
+        return this.i18n('privacyHubCameraAccessBlockedText');
+    }
+    computeMicrophoneRowSubtext_() {
+        const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
+        return microphoneAllowed ?
+            this.i18n('privacyHubPageMicrophoneRowSubtext') :
+            this.i18n('privacyHubMicrophoneAccessBlockedText');
+    }
+    computeMicrophoneToggleTooltipText_() {
+        if (this.isMicListEmpty_) {
+            return this.i18n('privacyHubNoMicrophoneConnectedTooltipText');
+        }
+        else if (this.microphoneHardwareToggleActive_) {
+            return this.i18n('microphoneHwToggleTooltip');
+        }
+        else {
+            return '';
+        }
     }
 }
 customElements.define(SettingsPrivacyHubSubpage.is, SettingsPrivacyHubSubpage);

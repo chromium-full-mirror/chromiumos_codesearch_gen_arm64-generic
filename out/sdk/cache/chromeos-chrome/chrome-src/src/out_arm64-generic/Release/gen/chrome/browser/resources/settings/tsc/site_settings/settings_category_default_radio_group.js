@@ -7,7 +7,7 @@
  * a certain category under Site Settings.
  */
 import '../settings_shared.css.js';
-import '/shared/settings/controls/settings_radio_group.js';
+import '../controls/settings_radio_group.js';
 import '../privacy_page/collapse_radio_button.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
@@ -88,6 +88,7 @@ export class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDe
             case ContentSettingsTypes.FEDERATED_IDENTITY_API:
             case ContentSettingsTypes.IMAGES:
             case ContentSettingsTypes.JAVASCRIPT:
+            case ContentSettingsTypes.JAVASCRIPT_JIT:
             case ContentSettingsTypes.MIXEDSCRIPT:
             case ContentSettingsTypes.PAYMENT_HANDLER:
             case ContentSettingsTypes.POPUPS:
@@ -118,6 +119,7 @@ export class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDe
             case ContentSettingsTypes.USB_DEVICES:
             case ContentSettingsTypes.VR:
             case ContentSettingsTypes.WINDOW_MANAGEMENT:
+            case ContentSettingsTypes.WEB_PRINTING:
                 // "Ask" vs "Blocked".
                 return ContentSetting.ASK;
             default:

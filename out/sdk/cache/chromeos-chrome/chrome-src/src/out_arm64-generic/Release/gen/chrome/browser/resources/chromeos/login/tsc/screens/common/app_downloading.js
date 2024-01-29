@@ -12,20 +12,15 @@ import '../../components/buttons/oobe_text_button.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
+import { OobeCrLottie } from '../../components/oobe_cr_lottie.js';
 import { getTemplate } from './app_downloading.html.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
 const AppDownloadingBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior, LoginScreenBehavior], PolymerElement);
-class AppDownloading extends AppDownloadingBase {
+export class AppDownloading extends AppDownloadingBase {
     static get is() {
         return 'app-downloading-element';
     }
@@ -40,6 +35,7 @@ class AppDownloading extends AppDownloadingBase {
         this.initializeLoginScreen('AppDownloadingScreen');
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.ONBOARDING;
     }
@@ -47,23 +43,27 @@ class AppDownloading extends AppDownloadingBase {
      * Returns the control which should receive initial focus.
      */
     get defaultControl() {
-        return /** @type {HTMLElement} */ (this.$['app-downloading-dialog']);
+        return this.shadowRoot.querySelector('#app-downloading-dialog');
     }
     /** Called when dialog is shown */
     onBeforeShow() {
-        if (this.$.downloadingApps) {
-            this.$.downloadingApps.playing = true;
+        const downloadingApps = this.getDownloadingAppsLottiePlayer();
+        if (downloadingApps instanceof OobeCrLottie) {
+            downloadingApps.playing = true;
         }
     }
     /** Called when dialog is hidden */
     onBeforeHide() {
-        if (this.$.downloadingApps) {
-            this.$.downloadingApps.playing = false;
+        const downloadingApps = this.getDownloadingAppsLottiePlayer();
+        if (downloadingApps instanceof OobeCrLottie) {
+            downloadingApps.playing = false;
         }
     }
-    /** @private */
-    onContinue_() {
+    onContinue() {
         this.userActed('appDownloadingContinueSetup');
+    }
+    getDownloadingAppsLottiePlayer() {
+        return this.shadowRoot?.querySelector('#downloadingApps');
     }
 }
 customElements.define(AppDownloading.is, AppDownloading);

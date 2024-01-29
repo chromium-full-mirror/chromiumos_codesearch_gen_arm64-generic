@@ -149,6 +149,8 @@ bool EmojiPickerStubDispatch::Accept(
           reinterpret_cast<internal::EmojiPicker_ShowEmojiPicker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmojiPicker.0
       bool success = true;
       EmojiPicker_ShowEmojiPicker_ParamsDataView input_data_view(params, message);
       
@@ -161,7 +163,7 @@ bool EmojiPickerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowEmojiPicker();
+      impl->ShowEmojiPicker(        );
       return true;
     }
   }

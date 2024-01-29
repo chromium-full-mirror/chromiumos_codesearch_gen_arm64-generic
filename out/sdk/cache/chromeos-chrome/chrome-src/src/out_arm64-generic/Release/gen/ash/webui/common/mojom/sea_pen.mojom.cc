@@ -84,15 +84,63 @@ bool SeaPenThumbnail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SeaPenUserVisibleQuery::SeaPenUserVisibleQuery()
+    : text(),
+      template_title() {}
+
+SeaPenUserVisibleQuery::SeaPenUserVisibleQuery(
+    const std::string& text_in,
+    const std::string& template_title_in)
+    : text(std::move(text_in)),
+      template_title(std::move(template_title_in)) {}
+
+SeaPenUserVisibleQuery::~SeaPenUserVisibleQuery() = default;
+size_t SeaPenUserVisibleQuery::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->text);
+  seed = mojo::internal::Hash(seed, this->template_title);
+  return seed;
+}
+
+void SeaPenUserVisibleQuery::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "text"), this->text,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "template_title"), this->template_title,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SeaPenUserVisibleQuery::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 SeaPenTemplateQuery::SeaPenTemplateQuery()
     : id(),
-      options() {}
+      options(),
+      user_visible_query() {}
 
 SeaPenTemplateQuery::SeaPenTemplateQuery(
     SeaPenTemplateId id_in,
-    const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>& options_in)
+    const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>& options_in,
+    SeaPenUserVisibleQueryPtr user_visible_query_in)
     : id(std::move(id_in)),
-      options(std::move(options_in)) {}
+      options(std::move(options_in)),
+      user_visible_query(std::move(user_visible_query_in)) {}
 
 SeaPenTemplateQuery::~SeaPenTemplateQuery() = default;
 
@@ -117,9 +165,63 @@ void SeaPenTemplateQuery::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "user_visible_query"), this->user_visible_query,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SeaPenUserVisibleQueryPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool SeaPenTemplateQuery::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SeaPenFeedbackMetadata::SeaPenFeedbackMetadata()
+    : is_positive(),
+      log_id() {}
+
+SeaPenFeedbackMetadata::SeaPenFeedbackMetadata(
+    bool is_positive_in,
+    const std::string& log_id_in)
+    : is_positive(std::move(is_positive_in)),
+      log_id(std::move(log_id_in)) {}
+
+SeaPenFeedbackMetadata::~SeaPenFeedbackMetadata() = default;
+size_t SeaPenFeedbackMetadata::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->is_positive);
+  seed = mojo::internal::Hash(seed, this->log_id);
+  return seed;
+}
+
+void SeaPenFeedbackMetadata::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_positive"), this->is_positive,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "log_id"), this->log_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SeaPenFeedbackMetadata::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -198,6 +300,15 @@ SeaPenProvider::IPCStableHashFunction SeaPenProvider::MessageToMethodInfo_(mojo:
     case internal::kSeaPenProvider_DeleteRecentSeaPenImage_Name: {
       return &SeaPenProvider::DeleteRecentSeaPenImage_Sym::IPCStableHash;
     }
+    case internal::kSeaPenProvider_OpenFeedbackDialog_Name: {
+      return &SeaPenProvider::OpenFeedbackDialog_Sym::IPCStableHash;
+    }
+    case internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name: {
+      return &SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog_Sym::IPCStableHash;
+    }
+    case internal::kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name: {
+      return &SeaPenProvider::HandleSeaPenTermsOfServiceAccepted_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -221,6 +332,12 @@ const char* SeaPenProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::personalization_app::mojom::SeaPenProvider::GetRecentSeaPenImageThumbnail";
       case internal::kSeaPenProvider_DeleteRecentSeaPenImage_Name:
             return "Receive ash::personalization_app::mojom::SeaPenProvider::DeleteRecentSeaPenImage";
+      case internal::kSeaPenProvider_OpenFeedbackDialog_Name:
+            return "Receive ash::personalization_app::mojom::SeaPenProvider::OpenFeedbackDialog";
+      case internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name:
+            return "Receive ash::personalization_app::mojom::SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog";
+      case internal::kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name:
+            return "Receive ash::personalization_app::mojom::SeaPenProvider::HandleSeaPenTermsOfServiceAccepted";
     }
   } else {
     switch (message.name()) {
@@ -236,6 +353,12 @@ const char* SeaPenProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::personalization_app::mojom::SeaPenProvider::GetRecentSeaPenImageThumbnail";
       case internal::kSeaPenProvider_DeleteRecentSeaPenImage_Name:
             return "Receive reply ash::personalization_app::mojom::SeaPenProvider::DeleteRecentSeaPenImage";
+      case internal::kSeaPenProvider_OpenFeedbackDialog_Name:
+            return "Receive reply ash::personalization_app::mojom::SeaPenProvider::OpenFeedbackDialog";
+      case internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name:
+            return "Receive reply ash::personalization_app::mojom::SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog";
+      case internal::kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name:
+            return "Receive reply ash::personalization_app::mojom::SeaPenProvider::HandleSeaPenTermsOfServiceAccepted";
     }
   }
   return "Receive unknown mojo message";
@@ -324,6 +447,45 @@ uint32_t SeaPenProvider::DeleteRecentSeaPenImage_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::personalization_app::mojom::SeaPenProvider::DeleteRecentSeaPenImage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SeaPenProvider::OpenFeedbackDialog_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::SeaPenProvider::OpenFeedbackDialog");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SeaPenProvider::HandleSeaPenTermsOfServiceAccepted_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::personalization_app::mojom::SeaPenProvider::HandleSeaPenTermsOfServiceAccepted");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -424,6 +586,22 @@ class SeaPenProvider_DeleteRecentSeaPenImage_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   SeaPenProvider::DeleteRecentSeaPenImageCallback callback_;
+};
+
+class SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback(
+      SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialogCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback(const SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback&) = delete;
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback& operator=(const SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialogCallback callback_;
 };
 
 SeaPenProviderProxy::SeaPenProviderProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -711,6 +889,124 @@ void SeaPenProviderProxy::DeleteRecentSeaPenImage(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void SeaPenProviderProxy::OpenFeedbackDialog(
+    SeaPenFeedbackMetadataPtr in_metadata) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::personalization_app::mojom::SeaPenProvider::OpenFeedbackDialog", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("metadata"), in_metadata,
+                        "<value of type SeaPenFeedbackMetadataPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSeaPenProvider_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::SeaPenProvider_OpenFeedbackDialog_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->metadata)::BaseType> metadata_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::personalization_app::mojom::SeaPenFeedbackMetadataDataView>(
+      in_metadata, metadata_fragment);
+  params->metadata.Set(
+      metadata_fragment.is_null() ? nullptr : metadata_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->metadata.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null metadata in SeaPenProvider.OpenFeedbackDialog request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SeaPenProvider::Name_);
+  message.set_method_name("OpenFeedbackDialog");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void SeaPenProviderProxy::ShouldShowSeaPenTermsOfServiceDialog(
+    ShouldShowSeaPenTermsOfServiceDialogCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SeaPenProvider::Name_);
+  message.set_method_name("ShouldShowSeaPenTermsOfServiceDialog");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void SeaPenProviderProxy::HandleSeaPenTermsOfServiceAccepted(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::personalization_app::mojom::SeaPenProvider::HandleSeaPenTermsOfServiceAccepted");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SeaPenProvider::Name_);
+  message.set_method_name("HandleSeaPenTermsOfServiceAccepted");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
 class SeaPenProvider_SearchWallpaper_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static SeaPenProvider::SearchWallpaperCallback CreateCallback(
@@ -757,7 +1053,7 @@ class SeaPenProvider_SearchWallpaper_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      std::optional<std::vector<SeaPenThumbnailPtr>> in_images);
+      std::optional<std::vector<SeaPenThumbnailPtr>> in_images, ::manta::MantaStatusCode in_statusCode);
 };
 
 bool SeaPenProvider_SearchWallpaper_ForwardToCallback::Accept(
@@ -769,11 +1065,16 @@ bool SeaPenProvider_SearchWallpaper_ForwardToCallback::Accept(
           internal::SeaPenProvider_SearchWallpaper_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SeaPenProvider.0
   bool success = true;
   std::optional<std::vector<SeaPenThumbnailPtr>> p_images{};
+  ::manta::MantaStatusCode p_statusCode{};
   SeaPenProvider_SearchWallpaper_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadImages(&p_images))
+    success = false;
+  if (success && !input_data_view.ReadStatusCode(&p_statusCode))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -784,12 +1085,13 @@ bool SeaPenProvider_SearchWallpaper_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_images));
+std::move(p_images), 
+std::move(p_statusCode));
   return true;
 }
 
 void SeaPenProvider_SearchWallpaper_ProxyToResponder::Run(
-    std::optional<std::vector<SeaPenThumbnailPtr>> in_images) {
+    std::optional<std::vector<SeaPenThumbnailPtr>> in_images, ::manta::MantaStatusCode in_statusCode) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::personalization_app::mojom::SeaPenProvider::SearchWallpaper", "async_response_parameters",
@@ -798,6 +1100,9 @@ void SeaPenProvider_SearchWallpaper_ProxyToResponder::Run(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("images"), in_images,
                         "<value of type std::optional<std::vector<SeaPenThumbnailPtr>>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("statusCode"), in_statusCode,
+                        "<value of type ::manta::MantaStatusCode>");
    });
 #endif
   
@@ -821,6 +1126,8 @@ void SeaPenProvider_SearchWallpaper_ProxyToResponder::Run(
       in_images, images_fragment, &images_validate_params);
   params->images.Set(
       images_fragment.is_null() ? nullptr : images_fragment.data());
+  mojo::internal::Serialize<::ash::personalization_app::mojom::MantaStatusCode>(
+      in_statusCode, &params->statusCode);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SeaPenProvider::Name_);
@@ -896,6 +1203,8 @@ bool SeaPenProvider_SelectSeaPenThumbnail_ForwardToCallback::Accept(
           internal::SeaPenProvider_SelectSeaPenThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SeaPenProvider.1
   bool success = true;
   bool p_success{};
   SeaPenProvider_SelectSeaPenThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -1015,6 +1324,8 @@ bool SeaPenProvider_SelectRecentSeaPenImage_ForwardToCallback::Accept(
           internal::SeaPenProvider_SelectRecentSeaPenImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SeaPenProvider.2
   bool success = true;
   bool p_success{};
   SeaPenProvider_SelectRecentSeaPenImage_ResponseParamsDataView input_data_view(params, message);
@@ -1122,7 +1433,7 @@ class SeaPenProvider_GetRecentSeaPenImages_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      const std::optional<std::vector<::base::FilePath>>& in_images);
+      const std::vector<::base::FilePath>& in_images);
 };
 
 bool SeaPenProvider_GetRecentSeaPenImages_ForwardToCallback::Accept(
@@ -1134,8 +1445,10 @@ bool SeaPenProvider_GetRecentSeaPenImages_ForwardToCallback::Accept(
           internal::SeaPenProvider_GetRecentSeaPenImages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SeaPenProvider.3
   bool success = true;
-  std::optional<std::vector<::base::FilePath>> p_images{};
+  std::vector<::base::FilePath> p_images{};
   SeaPenProvider_GetRecentSeaPenImages_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadImages(&p_images))
@@ -1154,7 +1467,7 @@ std::move(p_images));
 }
 
 void SeaPenProvider_GetRecentSeaPenImages_ProxyToResponder::Run(
-    const std::optional<std::vector<::base::FilePath>>& in_images) {
+    const std::vector<::base::FilePath>& in_images) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::personalization_app::mojom::SeaPenProvider::GetRecentSeaPenImages", "async_response_parameters",
@@ -1162,7 +1475,7 @@ void SeaPenProvider_GetRecentSeaPenImages_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("images"), in_images,
-                        "<value of type const std::optional<std::vector<::base::FilePath>>&>");
+                        "<value of type const std::vector<::base::FilePath>&>");
    });
 #endif
   
@@ -1186,6 +1499,10 @@ void SeaPenProvider_GetRecentSeaPenImages_ProxyToResponder::Run(
       in_images, images_fragment, &images_validate_params);
   params->images.Set(
       images_fragment.is_null() ? nullptr : images_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->images.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null images in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SeaPenProvider::Name_);
@@ -1261,6 +1578,8 @@ bool SeaPenProvider_GetRecentSeaPenImageThumbnail_ForwardToCallback::Accept(
           internal::SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SeaPenProvider.4
   bool success = true;
   ::GURL p_url{};
   SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParamsDataView input_data_view(params, message);
@@ -1390,6 +1709,8 @@ bool SeaPenProvider_DeleteRecentSeaPenImage_ForwardToCallback::Accept(
           internal::SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SeaPenProvider.5
   bool success = true;
   bool p_success{};
   SeaPenProvider_DeleteRecentSeaPenImage_ResponseParamsDataView input_data_view(params, message);
@@ -1451,6 +1772,127 @@ void SeaPenProvider_DeleteRecentSeaPenImage_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialogCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder> proxy(
+        new SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialogCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_should_show_dialog);
+};
+
+bool SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for SeaPenProvider.7
+  bool success = true;
+  bool p_should_show_dialog{};
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_should_show_dialog = input_data_view.should_show_dialog();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        SeaPenProvider::Name_, 7, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_should_show_dialog));
+  return true;
+}
+
+void SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder::Run(
+    bool in_should_show_dialog) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::personalization_app::mojom::SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialog", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("should_show_dialog"), in_should_show_dialog,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::personalization_app::mojom::internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->should_show_dialog = in_should_show_dialog;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SeaPenProvider::Name_);
+  message.set_method_name("ShouldShowSeaPenTermsOfServiceDialog");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool SeaPenProviderStubDispatch::Accept(
@@ -1475,6 +1917,61 @@ bool SeaPenProviderStubDispatch::Accept(
     case internal::kSeaPenProvider_DeleteRecentSeaPenImage_Name: {
       break;
     }
+    case internal::kSeaPenProvider_OpenFeedbackDialog_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SeaPenProvider_OpenFeedbackDialog_Params_Data* params =
+          reinterpret_cast<internal::SeaPenProvider_OpenFeedbackDialog_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for SeaPenProvider.6
+      bool success = true;
+      SeaPenFeedbackMetadataPtr p_metadata{};
+      SeaPenProvider_OpenFeedbackDialog_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMetadata(&p_metadata))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SeaPenProvider::Name_, 6, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenFeedbackDialog(        
+        std::move(p_metadata));
+      return true;
+    }
+    case internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name: {
+      break;
+    }
+    case internal::kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data* params =
+          reinterpret_cast<internal::SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for SeaPenProvider.8
+      bool success = true;
+      SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SeaPenProvider::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->HandleSeaPenTermsOfServiceAccepted(        );
+      return true;
+    }
   }
   return false;
 }
@@ -1495,6 +1992,8 @@ bool SeaPenProviderStubDispatch::AcceptWithResponder(
               internal::SeaPenProvider_SearchWallpaper_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SeaPenProvider.0
       bool success = true;
       SeaPenQueryPtr p_query{};
       SeaPenProvider_SearchWallpaper_ParamsDataView input_data_view(params, message);
@@ -1513,8 +2012,8 @@ bool SeaPenProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SearchWallpaper(
-std::move(p_query), std::move(callback));
+      impl->SearchWallpaper(        
+        std::move(p_query), std::move(callback));
       return true;
     }
     case internal::kSeaPenProvider_SelectSeaPenThumbnail_Name: {
@@ -1524,6 +2023,8 @@ std::move(p_query), std::move(callback));
               internal::SeaPenProvider_SelectSeaPenThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SeaPenProvider.1
       bool success = true;
       uint32_t p_id{};
       SeaPenProvider_SelectSeaPenThumbnail_ParamsDataView input_data_view(params, message);
@@ -1542,8 +2043,8 @@ std::move(p_query), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectSeaPenThumbnail(
-std::move(p_id), std::move(callback));
+      impl->SelectSeaPenThumbnail(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kSeaPenProvider_SelectRecentSeaPenImage_Name: {
@@ -1553,6 +2054,8 @@ std::move(p_id), std::move(callback));
               internal::SeaPenProvider_SelectRecentSeaPenImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SeaPenProvider.2
       bool success = true;
       ::base::FilePath p_path{};
       SeaPenProvider_SelectRecentSeaPenImage_ParamsDataView input_data_view(params, message);
@@ -1571,8 +2074,8 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectRecentSeaPenImage(
-std::move(p_path), std::move(callback));
+      impl->SelectRecentSeaPenImage(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kSeaPenProvider_GetRecentSeaPenImages_Name: {
@@ -1582,6 +2085,8 @@ std::move(p_path), std::move(callback));
               internal::SeaPenProvider_GetRecentSeaPenImages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SeaPenProvider.3
       bool success = true;
       SeaPenProvider_GetRecentSeaPenImages_ParamsDataView input_data_view(params, message);
       
@@ -1607,6 +2112,8 @@ std::move(p_path), std::move(callback));
               internal::SeaPenProvider_GetRecentSeaPenImageThumbnail_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SeaPenProvider.4
       bool success = true;
       ::base::FilePath p_path{};
       SeaPenProvider_GetRecentSeaPenImageThumbnail_ParamsDataView input_data_view(params, message);
@@ -1625,8 +2132,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRecentSeaPenImageThumbnail(
-std::move(p_path), std::move(callback));
+      impl->GetRecentSeaPenImageThumbnail(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kSeaPenProvider_DeleteRecentSeaPenImage_Name: {
@@ -1636,6 +2143,8 @@ std::move(p_path), std::move(callback));
               internal::SeaPenProvider_DeleteRecentSeaPenImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SeaPenProvider.5
       bool success = true;
       ::base::FilePath p_path{};
       SeaPenProvider_DeleteRecentSeaPenImage_ParamsDataView input_data_view(params, message);
@@ -1654,9 +2163,42 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteRecentSeaPenImage(
-std::move(p_path), std::move(callback));
+      impl->DeleteRecentSeaPenImage(        
+        std::move(p_path), std::move(callback));
       return true;
+    }
+    case internal::kSeaPenProvider_OpenFeedbackDialog_Name: {
+      break;
+    }
+    case internal::kSeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Name: {
+
+      internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data* params =
+          reinterpret_cast<
+              internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for SeaPenProvider.7
+      bool success = true;
+      SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SeaPenProvider::Name_, 7, false);
+        return false;
+      }
+      SeaPenProvider::ShouldShowSeaPenTermsOfServiceDialogCallback callback =
+          SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShouldShowSeaPenTermsOfServiceDialog(std::move(callback));
+      return true;
+    }
+    case internal::kSeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Name: {
+      break;
     }
   }
   return false;
@@ -1676,6 +2218,12 @@ static const mojo::internal::GenericValidationInfo kSeaPenProviderValidationInfo
      &internal::SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParams_Data::Validate},
     { &internal::SeaPenProvider_DeleteRecentSeaPenImage_Params_Data::Validate,
      &internal::SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams_Data::Validate},
+    { &internal::SeaPenProvider_OpenFeedbackDialog_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data::Validate,
+     &internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data::Validate},
+    { &internal::SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool SeaPenProviderRequestValidator::Accept(mojo::Message* message) {
@@ -1712,6 +2260,22 @@ bool StructTraits<::ash::personalization_app::mojom::SeaPenThumbnail::DataView, 
 
 
 // static
+bool StructTraits<::ash::personalization_app::mojom::SeaPenUserVisibleQuery::DataView, ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr>::Read(
+    ::ash::personalization_app::mojom::SeaPenUserVisibleQuery::DataView input,
+    ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr* output) {
+  bool success = true;
+  ::ash::personalization_app::mojom::SeaPenUserVisibleQueryPtr result(::ash::personalization_app::mojom::SeaPenUserVisibleQuery::New());
+  
+      if (success && !input.ReadText(&result->text))
+        success = false;
+      if (success && !input.ReadTemplateTitle(&result->template_title))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::personalization_app::mojom::SeaPenTemplateQuery::DataView, ::ash::personalization_app::mojom::SeaPenTemplateQueryPtr>::Read(
     ::ash::personalization_app::mojom::SeaPenTemplateQuery::DataView input,
     ::ash::personalization_app::mojom::SeaPenTemplateQueryPtr* output) {
@@ -1721,6 +2285,24 @@ bool StructTraits<::ash::personalization_app::mojom::SeaPenTemplateQuery::DataVi
       if (success && !input.ReadId(&result->id))
         success = false;
       if (success && !input.ReadOptions(&result->options))
+        success = false;
+      if (success && !input.ReadUserVisibleQuery(&result->user_visible_query))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::personalization_app::mojom::SeaPenFeedbackMetadata::DataView, ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr>::Read(
+    ::ash::personalization_app::mojom::SeaPenFeedbackMetadata::DataView input,
+    ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr* output) {
+  bool success = true;
+  ::ash::personalization_app::mojom::SeaPenFeedbackMetadataPtr result(::ash::personalization_app::mojom::SeaPenFeedbackMetadata::New());
+  
+      if (success)
+        result->is_positive = input.is_positive();
+      if (success && !input.ReadLogId(&result->log_id))
         success = false;
   *output = std::move(result);
   return success;
@@ -1787,33 +2369,41 @@ void SeaPenProviderInterceptorForTesting::GetRecentSeaPenImageThumbnail(const ::
 void SeaPenProviderInterceptorForTesting::DeleteRecentSeaPenImage(const ::base::FilePath& path, DeleteRecentSeaPenImageCallback callback) {
   GetForwardingInterface()->DeleteRecentSeaPenImage(std::move(path), std::move(callback));
 }
+void SeaPenProviderInterceptorForTesting::OpenFeedbackDialog(SeaPenFeedbackMetadataPtr metadata) {
+  GetForwardingInterface()->OpenFeedbackDialog(std::move(metadata));
+}
+void SeaPenProviderInterceptorForTesting::ShouldShowSeaPenTermsOfServiceDialog(ShouldShowSeaPenTermsOfServiceDialogCallback callback) {
+  GetForwardingInterface()->ShouldShowSeaPenTermsOfServiceDialog(std::move(callback));
+}
+void SeaPenProviderInterceptorForTesting::HandleSeaPenTermsOfServiceAccepted() {
+  GetForwardingInterface()->HandleSeaPenTermsOfServiceAccepted();
+}
 SeaPenProviderAsyncWaiter::SeaPenProviderAsyncWaiter(
     SeaPenProvider* proxy) : proxy_(proxy) {}
 
 SeaPenProviderAsyncWaiter::~SeaPenProviderAsyncWaiter() = default;
 
 void SeaPenProviderAsyncWaiter::SearchWallpaper(
-    SeaPenQueryPtr query, std::optional<std::vector<SeaPenThumbnailPtr>>* out_images) {
+    SeaPenQueryPtr query, std::optional<std::vector<SeaPenThumbnailPtr>>* out_images, ::manta::MantaStatusCode* out_statusCode) {
   base::RunLoop loop;
   proxy_->SearchWallpaper(std::move(query),
       base::BindOnce(
           [](base::RunLoop* loop,
              std::optional<std::vector<SeaPenThumbnailPtr>>* out_images
 ,
-             std::optional<std::vector<SeaPenThumbnailPtr>> images) {*out_images = std::move(images);
+             ::manta::MantaStatusCode* out_statusCode
+,
+             std::optional<std::vector<SeaPenThumbnailPtr>> images,
+             ::manta::MantaStatusCode statusCode) {*out_images = std::move(images);*out_statusCode = std::move(statusCode);
             loop->Quit();
           },
           &loop,
-          out_images));
+          out_images,
+          out_statusCode));
   loop.Run();
 }
 
-std::optional<std::vector<SeaPenThumbnailPtr>> SeaPenProviderAsyncWaiter::SearchWallpaper(
-    SeaPenQueryPtr query) {
-  std::optional<std::vector<SeaPenThumbnailPtr>> async_wait_result;
-  SearchWallpaper(std::move(query),&async_wait_result);
-  return async_wait_result;
-}
+
 
 void SeaPenProviderAsyncWaiter::SelectSeaPenThumbnail(
     uint32_t id, bool* out_success) {
@@ -1862,14 +2452,14 @@ bool SeaPenProviderAsyncWaiter::SelectRecentSeaPenImage(
 }
 
 void SeaPenProviderAsyncWaiter::GetRecentSeaPenImages(
-    std::optional<std::vector<::base::FilePath>>* out_images) {
+    std::vector<::base::FilePath>* out_images) {
   base::RunLoop loop;
   proxy_->GetRecentSeaPenImages(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::optional<std::vector<::base::FilePath>>* out_images
+             std::vector<::base::FilePath>* out_images
 ,
-             const std::optional<std::vector<::base::FilePath>>& images) {*out_images = std::move(images);
+             const std::vector<::base::FilePath>& images) {*out_images = std::move(images);
             loop->Quit();
           },
           &loop,
@@ -1877,9 +2467,9 @@ void SeaPenProviderAsyncWaiter::GetRecentSeaPenImages(
   loop.Run();
 }
 
-std::optional<std::vector<::base::FilePath>> SeaPenProviderAsyncWaiter::GetRecentSeaPenImages(
+std::vector<::base::FilePath> SeaPenProviderAsyncWaiter::GetRecentSeaPenImages(
     ) {
-  std::optional<std::vector<::base::FilePath>> async_wait_result;
+  std::vector<::base::FilePath> async_wait_result;
   GetRecentSeaPenImages(&async_wait_result);
   return async_wait_result;
 }
@@ -1927,6 +2517,29 @@ bool SeaPenProviderAsyncWaiter::DeleteRecentSeaPenImage(
     const ::base::FilePath& path) {
   bool async_wait_result;
   DeleteRecentSeaPenImage(std::move(path),&async_wait_result);
+  return async_wait_result;
+}
+
+void SeaPenProviderAsyncWaiter::ShouldShowSeaPenTermsOfServiceDialog(
+    bool* out_should_show_dialog) {
+  base::RunLoop loop;
+  proxy_->ShouldShowSeaPenTermsOfServiceDialog(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_should_show_dialog
+,
+             bool should_show_dialog) {*out_should_show_dialog = std::move(should_show_dialog);
+            loop->Quit();
+          },
+          &loop,
+          out_should_show_dialog));
+  loop.Run();
+}
+
+bool SeaPenProviderAsyncWaiter::ShouldShowSeaPenTermsOfServiceDialog(
+    ) {
+  bool async_wait_result;
+  ShouldShowSeaPenTermsOfServiceDialog(&async_wait_result);
   return async_wait_result;
 }
 

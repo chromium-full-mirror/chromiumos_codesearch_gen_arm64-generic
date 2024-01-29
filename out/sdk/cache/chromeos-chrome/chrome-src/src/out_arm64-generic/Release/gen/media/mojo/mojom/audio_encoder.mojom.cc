@@ -567,6 +567,8 @@ bool AudioEncoder_Initialize_ForwardToCallback::Accept(
           internal::AudioEncoder_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioEncoder.0
   bool success = true;
   ::media::EncoderStatus p_status{};
   AudioEncoder_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -696,6 +698,8 @@ bool AudioEncoder_Encode_ForwardToCallback::Accept(
           internal::AudioEncoder_Encode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioEncoder.1
   bool success = true;
   ::media::EncoderStatus p_status{};
   AudioEncoder_Encode_ResponseParamsDataView input_data_view(params, message);
@@ -825,6 +829,8 @@ bool AudioEncoder_Flush_ForwardToCallback::Accept(
           internal::AudioEncoder_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioEncoder.2
   bool success = true;
   ::media::EncoderStatus p_status{};
   AudioEncoder_Flush_ResponseParamsDataView input_data_view(params, message);
@@ -931,6 +937,8 @@ bool AudioEncoderStubDispatch::AcceptWithResponder(
               internal::AudioEncoder_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioEncoder.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<AudioEncoderClient> p_client{};
       ::media::AudioEncoder::Options p_config{};
@@ -954,9 +962,9 @@ bool AudioEncoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_client), 
-std::move(p_config), std::move(callback));
+      impl->Initialize(        
+        std::move(p_client), 
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kAudioEncoder_Encode_Name: {
@@ -966,6 +974,8 @@ std::move(p_config), std::move(callback));
               internal::AudioEncoder_Encode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioEncoder.1
       bool success = true;
       ::media::mojom::AudioBufferPtr p_buffer{};
       AudioEncoder_Encode_ParamsDataView input_data_view(params, message);
@@ -984,8 +994,8 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Encode(
-std::move(p_buffer), std::move(callback));
+      impl->Encode(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kAudioEncoder_Flush_Name: {
@@ -995,6 +1005,8 @@ std::move(p_buffer), std::move(callback));
               internal::AudioEncoder_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioEncoder.2
       bool success = true;
       AudioEncoder_Flush_ParamsDataView input_data_view(params, message);
       
@@ -1174,6 +1186,8 @@ bool AudioEncoderClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioEncoderClient_OnEncodedBufferReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioEncoderClient.0
       bool success = true;
       ::media::EncodedAudioBuffer p_buffer{};
       std::vector<uint8_t> p_description{};
@@ -1192,9 +1206,9 @@ bool AudioEncoderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEncodedBufferReady(
-std::move(p_buffer), 
-std::move(p_description));
+      impl->OnEncodedBufferReady(        
+        std::move(p_buffer), 
+        std::move(p_description));
       return true;
     }
   }

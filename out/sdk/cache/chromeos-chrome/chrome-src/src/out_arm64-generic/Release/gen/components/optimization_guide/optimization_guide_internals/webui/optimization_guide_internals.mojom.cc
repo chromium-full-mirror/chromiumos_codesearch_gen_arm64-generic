@@ -436,6 +436,8 @@ bool PageHandlerFactory_RequestDownloadedModelsInfo_ForwardToCallback::Accept(
           internal::PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandlerFactory.1
   bool success = true;
   std::vector<DownloadedModelInfoPtr> p_downloaded_models_info{};
   PageHandlerFactory_RequestDownloadedModelsInfo_ResponseParamsDataView input_data_view(params, message);
@@ -567,6 +569,8 @@ bool PageHandlerFactory_RequestLoggedModelQualityClientIds_ForwardToCallback::Ac
           internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandlerFactory.2
   bool success = true;
   std::vector<LoggedClientIdsPtr> p_logged_client_ids{};
   PageHandlerFactory_RequestLoggedModelQualityClientIds_ResponseParamsDataView input_data_view(params, message);
@@ -653,6 +657,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       PageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -670,8 +676,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page));
+      impl->CreatePageHandler(        
+        std::move(p_page));
       return true;
     }
     case internal::kPageHandlerFactory_RequestDownloadedModelsInfo_Name: {
@@ -703,6 +709,8 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
               internal::PageHandlerFactory_RequestDownloadedModelsInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.1
       bool success = true;
       PageHandlerFactory_RequestDownloadedModelsInfo_ParamsDataView input_data_view(params, message);
       
@@ -728,6 +736,8 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
               internal::PageHandlerFactory_RequestLoggedModelQualityClientIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.2
       bool success = true;
       PageHandlerFactory_RequestLoggedModelQualityClientIds_ParamsDataView input_data_view(params, message);
       
@@ -928,6 +938,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnLogMessageAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       ::base::Time p_event_time{};
       ::optimization_guide_common::mojom::LogSource p_log_source{};
@@ -955,12 +967,12 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLogMessageAdded(
-std::move(p_event_time), 
-std::move(p_log_source), 
-std::move(p_source_file), 
-std::move(p_source_line), 
-std::move(p_message));
+      impl->OnLogMessageAdded(        
+        std::move(p_event_time), 
+        std::move(p_log_source), 
+        std::move(p_source_file), 
+        std::move(p_source_line), 
+        std::move(p_message));
       return true;
     }
   }

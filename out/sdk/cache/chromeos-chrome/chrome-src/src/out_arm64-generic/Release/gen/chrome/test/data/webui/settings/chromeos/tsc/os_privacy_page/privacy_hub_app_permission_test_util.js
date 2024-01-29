@@ -16,3 +16,13 @@ export function createFakeMetricsPrivate() {
     flush();
     return metrics;
 }
+export function getSystemServicesFromSubpage(subpage) {
+    return subpage.shadowRoot.querySelectorAll('settings-privacy-hub-system-service-row');
+}
+export function getSystemServicePermissionText(systemService) {
+    return systemService.shadowRoot
+        .querySelector('#permissionState').innerText.trim();
+}
+export function getSystemServiceName(systemService) {
+    return systemService.shadowRoot.querySelector('#serviceName').innerText.trim();
+}

@@ -34,6 +34,7 @@ const deviceRequestIdToStringId = new Map([
     [DeviceRequestId.kRemoveUSBCable, 'requestIdRemoveUsbCable'],
     [DeviceRequestId.kPressUnlock, 'requestIdPressUnlock'],
     [DeviceRequestId.kRemoveReplug, 'requestIdRemoveReplug'],
+    [DeviceRequestId.kReplugPower, 'requestIdReplugPower'],
 ]);
 /**
  * @fileoverview

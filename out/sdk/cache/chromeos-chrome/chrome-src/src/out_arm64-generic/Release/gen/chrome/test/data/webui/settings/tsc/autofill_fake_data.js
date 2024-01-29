@@ -9,6 +9,8 @@ export const STUB_USER_ACCOUNT_INFO = {
     email: 'stub-user@example.com',
     isSyncEnabledForAutofillProfiles: false,
     isEligibleForAddressAccountStorage: false,
+    isAutofillSyncToggleAvailable: false,
+    isAutofillSyncToggleEnabled: false,
 };
 /**
  * Creates a new fake address entry for testing.
@@ -168,6 +170,7 @@ export class TestAutofillManager extends TestBrowserProxy {
             'removeAddress',
             'removePersonalDataManagerListener',
             'setPersonalDataManagerListener',
+            'setAutofillSyncToggleEnabled',
         ]);
         // Set these to have non-empty data.
         this.data = {
@@ -176,6 +179,8 @@ export class TestAutofillManager extends TestBrowserProxy {
                 email: 'stub-user@example.com',
                 isSyncEnabledForAutofillProfiles: true,
                 isEligibleForAddressAccountStorage: false,
+                isAutofillSyncToggleAvailable: false,
+                isAutofillSyncToggleEnabled: false,
             },
         };
         // Holds the last callbacks so they can be called when needed.
@@ -201,6 +206,9 @@ export class TestAutofillManager extends TestBrowserProxy {
     saveAddress(_address) { }
     removeAddress(_guid) {
         this.methodCalled('removeAddress');
+    }
+    setAutofillSyncToggleEnabled(_enabled) {
+        this.methodCalled('setAutofillSyncToggleEnabled');
     }
     /**
      * Verifies expectations.

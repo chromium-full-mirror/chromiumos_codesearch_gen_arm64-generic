@@ -355,6 +355,8 @@ bool VideoEffectsConfigurationObserverStubDispatch::Accept(
           reinterpret_cast<internal::VideoEffectsConfigurationObserver_OnConfigurationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEffectsConfigurationObserver.0
       bool success = true;
       VideoEffectsConfigurationPtr p_configuration{};
       VideoEffectsConfigurationObserver_OnConfigurationChanged_ParamsDataView input_data_view(params, message);
@@ -370,8 +372,8 @@ bool VideoEffectsConfigurationObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConfigurationChanged(
-std::move(p_configuration));
+      impl->OnConfigurationChanged(        
+        std::move(p_configuration));
       return true;
     }
   }
@@ -725,6 +727,8 @@ bool VideoEffectsManager_GetConfiguration_ForwardToCallback::Accept(
           internal::VideoEffectsManager_GetConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEffectsManager.0
   bool success = true;
   VideoEffectsConfigurationPtr p_configuration{};
   VideoEffectsManager_GetConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -854,6 +858,8 @@ bool VideoEffectsManager_SetConfiguration_ForwardToCallback::Accept(
           internal::VideoEffectsManager_SetConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoEffectsManager.1
   bool success = true;
   SetConfigurationResult p_result{};
   VideoEffectsManager_SetConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -935,6 +941,8 @@ bool VideoEffectsManagerStubDispatch::Accept(
           reinterpret_cast<internal::VideoEffectsManager_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoEffectsManager.2
       bool success = true;
       ::mojo::PendingRemote<VideoEffectsConfigurationObserver> p_observer{};
       VideoEffectsManager_AddObserver_ParamsDataView input_data_view(params, message);
@@ -952,8 +960,8 @@ bool VideoEffectsManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -976,6 +984,8 @@ bool VideoEffectsManagerStubDispatch::AcceptWithResponder(
               internal::VideoEffectsManager_GetConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEffectsManager.0
       bool success = true;
       VideoEffectsManager_GetConfiguration_ParamsDataView input_data_view(params, message);
       
@@ -1001,6 +1011,8 @@ bool VideoEffectsManagerStubDispatch::AcceptWithResponder(
               internal::VideoEffectsManager_SetConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoEffectsManager.1
       bool success = true;
       VideoEffectsConfigurationPtr p_configuration{};
       VideoEffectsManager_SetConfiguration_ParamsDataView input_data_view(params, message);
@@ -1019,8 +1031,8 @@ bool VideoEffectsManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetConfiguration(
-std::move(p_configuration), std::move(callback));
+      impl->SetConfiguration(        
+        std::move(p_configuration), std::move(callback));
       return true;
     }
     case internal::kVideoEffectsManager_AddObserver_Name: {

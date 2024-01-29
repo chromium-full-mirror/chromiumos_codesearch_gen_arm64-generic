@@ -569,6 +569,8 @@ bool MessagePortStubDispatch::Accept(
           reinterpret_cast<internal::MessagePort_DispatchDisconnect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessagePort.0
       bool success = true;
       std::string p_error{};
       MessagePort_DispatchDisconnect_ParamsDataView input_data_view(params, message);
@@ -584,8 +586,8 @@ bool MessagePortStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchDisconnect(
-std::move(p_error));
+      impl->DispatchDisconnect(        
+        std::move(p_error));
       return true;
     }
     case internal::kMessagePort_DeliverMessage_Name: {
@@ -595,6 +597,8 @@ std::move(p_error));
           reinterpret_cast<internal::MessagePort_DeliverMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessagePort.1
       bool success = true;
       ::extensions::Message p_message{};
       MessagePort_DeliverMessage_ParamsDataView input_data_view(params, message);
@@ -610,8 +614,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeliverMessage(
-std::move(p_message));
+      impl->DeliverMessage(        
+        std::move(p_message));
       return true;
     }
   }
@@ -886,6 +890,8 @@ bool MessagePortHostStubDispatch::Accept(
           reinterpret_cast<internal::MessagePortHost_ClosePort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessagePortHost.0
       bool success = true;
       bool p_close_channel{};
       MessagePortHost_ClosePort_ParamsDataView input_data_view(params, message);
@@ -901,8 +907,8 @@ bool MessagePortHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClosePort(
-std::move(p_close_channel));
+      impl->ClosePort(        
+        std::move(p_close_channel));
       return true;
     }
     case internal::kMessagePortHost_PostMessage_Name: {
@@ -912,6 +918,8 @@ std::move(p_close_channel));
           reinterpret_cast<internal::MessagePortHost_PostMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessagePortHost.1
       bool success = true;
       ::extensions::Message p_message{};
       MessagePortHost_PostMessage_ParamsDataView input_data_view(params, message);
@@ -927,8 +935,8 @@ std::move(p_close_channel));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PostMessage(
-std::move(p_message));
+      impl->PostMessage(        
+        std::move(p_message));
       return true;
     }
     case internal::kMessagePortHost_ResponsePending_Name: {
@@ -938,6 +946,8 @@ std::move(p_message));
           reinterpret_cast<internal::MessagePortHost_ResponsePending_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MessagePortHost.2
       bool success = true;
       MessagePortHost_ResponsePending_ParamsDataView input_data_view(params, message);
       
@@ -950,7 +960,7 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResponsePending();
+      impl->ResponsePending(        );
       return true;
     }
   }

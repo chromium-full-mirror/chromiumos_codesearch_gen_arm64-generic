@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import"chrome://resources/polymer/v3_0/iron-icon/iron-icon.js";import"chrome://resources/polymer/v3_0/paper-tooltip/paper-tooltip.js";import"./diagnostics_shared.css.js";import"./icons.html.js";import{PolymerElement}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";import{getTemplate}from"./data_point.html.js";export class DataPointElement extends PolymerElement{static get is(){return"data-point"}static get template(){return getTemplate()}static get properties(){return{header:{type:String},value:{type:String,value:""},tooltipText:{type:String,value:""},warningState:{type:Boolean,value:false},orientation:{type:String,value:"vertical",reflectToAttribute:true}}}getValueClass(){return this.warningState?"value text-red":"value"}}customElements.define(DataPointElement.is,DataPointElement);

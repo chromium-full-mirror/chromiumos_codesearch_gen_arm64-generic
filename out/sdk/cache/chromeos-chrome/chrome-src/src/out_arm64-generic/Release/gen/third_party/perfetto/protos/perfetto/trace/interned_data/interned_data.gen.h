@@ -16,9 +16,16 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 class InternedData;
+class InternedString;
+class InternedV8Isolate;
+class InternedV8Isolate_CodeRange;
+class InternedV8WasmScript;
+class InternedV8JsScript;
+class V8String;
+class InternedV8JsFunction;
+class InternedV8String;
 class NetworkPacketContext;
 class NetworkPacketEvent;
-class InternedString;
 class InternedGpuRenderStageSpecification;
 class InternedGraphicsContext;
 class Callstack;
@@ -33,6 +40,8 @@ class DebugAnnotationValueTypeName;
 class DebugAnnotationName;
 class EventName;
 class EventCategory;
+enum InternedV8JsScript_Type : int;
+enum InternedV8JsFunction_Kind : int;
 enum TrafficDirection : int;
 enum InternedGpuRenderStageSpecification_RenderStageCategory : int;
 enum InternedGraphicsContext_Api : int;
@@ -73,6 +82,12 @@ class PERFETTO_EXPORT_COMPONENT InternedData : public ::protozero::CppMessageObj
     kKernelSymbolsFieldNumber = 26,
     kDebugAnnotationStringValuesFieldNumber = 29,
     kPacketContextFieldNumber = 30,
+    kV8JsFunctionNameFieldNumber = 31,
+    kV8JsFunctionFieldNumber = 32,
+    kV8JsScriptFieldNumber = 33,
+    kV8WasmScriptFieldNumber = 34,
+    kV8IsolateFieldNumber = 35,
+    kProtologStringArgsFieldNumber = 36,
   };
 
   InternedData();
@@ -221,6 +236,42 @@ class PERFETTO_EXPORT_COMPONENT InternedData : public ::protozero::CppMessageObj
   void clear_packet_context();
   NetworkPacketContext* add_packet_context();
 
+  const std::vector<InternedV8String>& v8_js_function_name() const { return v8_js_function_name_; }
+  std::vector<InternedV8String>* mutable_v8_js_function_name() { return &v8_js_function_name_; }
+  int v8_js_function_name_size() const;
+  void clear_v8_js_function_name();
+  InternedV8String* add_v8_js_function_name();
+
+  const std::vector<InternedV8JsFunction>& v8_js_function() const { return v8_js_function_; }
+  std::vector<InternedV8JsFunction>* mutable_v8_js_function() { return &v8_js_function_; }
+  int v8_js_function_size() const;
+  void clear_v8_js_function();
+  InternedV8JsFunction* add_v8_js_function();
+
+  const std::vector<InternedV8JsScript>& v8_js_script() const { return v8_js_script_; }
+  std::vector<InternedV8JsScript>* mutable_v8_js_script() { return &v8_js_script_; }
+  int v8_js_script_size() const;
+  void clear_v8_js_script();
+  InternedV8JsScript* add_v8_js_script();
+
+  const std::vector<InternedV8WasmScript>& v8_wasm_script() const { return v8_wasm_script_; }
+  std::vector<InternedV8WasmScript>* mutable_v8_wasm_script() { return &v8_wasm_script_; }
+  int v8_wasm_script_size() const;
+  void clear_v8_wasm_script();
+  InternedV8WasmScript* add_v8_wasm_script();
+
+  const std::vector<InternedV8Isolate>& v8_isolate() const { return v8_isolate_; }
+  std::vector<InternedV8Isolate>* mutable_v8_isolate() { return &v8_isolate_; }
+  int v8_isolate_size() const;
+  void clear_v8_isolate();
+  InternedV8Isolate* add_v8_isolate();
+
+  const std::vector<InternedString>& protolog_string_args() const { return protolog_string_args_; }
+  std::vector<InternedString>* mutable_protolog_string_args() { return &protolog_string_args_; }
+  int protolog_string_args_size() const;
+  void clear_protolog_string_args();
+  InternedString* add_protolog_string_args();
+
  private:
   std::vector<EventCategory> event_categories_;
   std::vector<EventName> event_names_;
@@ -244,12 +295,18 @@ class PERFETTO_EXPORT_COMPONENT InternedData : public ::protozero::CppMessageObj
   std::vector<InternedString> kernel_symbols_;
   std::vector<InternedString> debug_annotation_string_values_;
   std::vector<NetworkPacketContext> packet_context_;
+  std::vector<InternedV8String> v8_js_function_name_;
+  std::vector<InternedV8JsFunction> v8_js_function_;
+  std::vector<InternedV8JsScript> v8_js_script_;
+  std::vector<InternedV8WasmScript> v8_wasm_script_;
+  std::vector<InternedV8Isolate> v8_isolate_;
+  std::vector<InternedString> protolog_string_args_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<31> _has_field_{};
+  std::bitset<37> _has_field_{};
 };
 
 }  // namespace perfetto

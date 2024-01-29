@@ -160,6 +160,8 @@ bool BackupSettingsInstanceStubDispatch::Accept(
           reinterpret_cast<internal::BackupSettingsInstance_SetBackupEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackupSettingsInstance.0
       bool success = true;
       bool p_enabled{};
       bool p_managed{};
@@ -178,9 +180,9 @@ bool BackupSettingsInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBackupEnabled(
-std::move(p_enabled), 
-std::move(p_managed));
+      impl->SetBackupEnabled(        
+        std::move(p_enabled), 
+        std::move(p_managed));
       return true;
     }
   }

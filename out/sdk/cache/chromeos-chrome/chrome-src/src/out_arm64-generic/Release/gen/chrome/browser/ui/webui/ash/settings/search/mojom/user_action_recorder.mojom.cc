@@ -556,6 +556,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordPageFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.0
       bool success = true;
       UserActionRecorder_RecordPageFocus_ParamsDataView input_data_view(params, message);
       
@@ -568,7 +570,7 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordPageFocus();
+      impl->RecordPageFocus(        );
       return true;
     }
     case internal::kUserActionRecorder_RecordPageBlur_Name: {
@@ -578,6 +580,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordPageBlur_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.1
       bool success = true;
       UserActionRecorder_RecordPageBlur_ParamsDataView input_data_view(params, message);
       
@@ -590,7 +594,7 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordPageBlur();
+      impl->RecordPageBlur(        );
       return true;
     }
     case internal::kUserActionRecorder_RecordClick_Name: {
@@ -600,6 +604,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordClick_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.2
       bool success = true;
       UserActionRecorder_RecordClick_ParamsDataView input_data_view(params, message);
       
@@ -612,7 +618,7 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordClick();
+      impl->RecordClick(        );
       return true;
     }
     case internal::kUserActionRecorder_RecordNavigation_Name: {
@@ -622,6 +628,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.3
       bool success = true;
       UserActionRecorder_RecordNavigation_ParamsDataView input_data_view(params, message);
       
@@ -634,7 +642,7 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordNavigation();
+      impl->RecordNavigation(        );
       return true;
     }
     case internal::kUserActionRecorder_RecordSearch_Name: {
@@ -644,6 +652,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordSearch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.4
       bool success = true;
       UserActionRecorder_RecordSearch_ParamsDataView input_data_view(params, message);
       
@@ -656,7 +666,7 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordSearch();
+      impl->RecordSearch(        );
       return true;
     }
     case internal::kUserActionRecorder_RecordSettingChange_Name: {
@@ -666,6 +676,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordSettingChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.5
       bool success = true;
       UserActionRecorder_RecordSettingChange_ParamsDataView input_data_view(params, message);
       
@@ -678,7 +690,7 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordSettingChange();
+      impl->RecordSettingChange(        );
       return true;
     }
     case internal::kUserActionRecorder_RecordSettingChangeWithDetails_Name: {
@@ -688,6 +700,8 @@ bool UserActionRecorderStubDispatch::Accept(
           reinterpret_cast<internal::UserActionRecorder_RecordSettingChangeWithDetails_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserActionRecorder.6
       bool success = true;
       ::chromeos::settings::mojom::Setting p_setting{};
       SettingChangeValuePtr p_value{};
@@ -706,9 +720,9 @@ bool UserActionRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordSettingChangeWithDetails(
-std::move(p_setting), 
-std::move(p_value));
+      impl->RecordSettingChangeWithDetails(        
+        std::move(p_setting), 
+        std::move(p_value));
       return true;
     }
   }

@@ -2381,6 +2381,92 @@ base::Value::Dict PumpkinData::ToValue() const {
 }
 
 
+FaceGazeAssets::FaceGazeAssets()
+ {}
+
+FaceGazeAssets::~FaceGazeAssets() = default;
+FaceGazeAssets::FaceGazeAssets(FaceGazeAssets&& rhs) noexcept = default;
+FaceGazeAssets& FaceGazeAssets::operator=(FaceGazeAssets&& rhs) noexcept = default;
+FaceGazeAssets FaceGazeAssets::Clone() const {
+  FaceGazeAssets out;
+  out.model = model;
+  out.wasm = wasm;
+  return out;
+}
+
+// static
+bool FaceGazeAssets::Populate(
+    const base::Value::Dict& dict, FaceGazeAssets& out) {
+  const base::Value* model_value = dict.Find("model");
+  if (!model_value) {
+    return false;
+  }
+  {
+    if (!(*model_value).is_blob()) {
+      return false;
+    }
+    else {
+      out.model = (*model_value).GetBlob();
+    }
+  }
+
+  const base::Value* wasm_value = dict.Find("wasm");
+  if (!wasm_value) {
+    return false;
+  }
+  {
+    if (!(*wasm_value).is_blob()) {
+      return false;
+    }
+    else {
+      out.wasm = (*wasm_value).GetBlob();
+    }
+  }
+
+  return true;
+}
+
+// static
+bool FaceGazeAssets::Populate(
+    const base::Value& value, FaceGazeAssets& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<FaceGazeAssets> FaceGazeAssets::FromValue(const base::Value::Dict& value) {
+  FaceGazeAssets out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<FaceGazeAssets> FaceGazeAssets::FromValue(const base::Value& value) {
+  FaceGazeAssets out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict FaceGazeAssets::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("model", base::Value(this->model));
+
+  to_value_result.Set("wasm", base::Value(this->wasm));
+
+
+  return to_value_result;
+}
+
+
 
 //
 // Functions
@@ -2407,6 +2493,17 @@ base::Value::List Results::Create(const PumpkinData& data) {
   return create_results;
 }
 }  // namespace InstallPumpkinForDictation
+
+namespace InstallFaceGazeAssets {
+
+base::Value::List Results::Create(const FaceGazeAssets& assets) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((assets).ToValue());
+
+  return create_results;
+}
+}  // namespace InstallFaceGazeAssets
 
 namespace SetNativeAccessibilityEnabled {
 
@@ -2551,6 +2648,42 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
 
 
 }  // namespace SetHighlights
+
+namespace SetSelectToSpeakFocus {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& bounds_value = args[0];
+    {
+      if (!bounds_value.is_dict()) {
+        return std::nullopt;
+      }
+      if (!ScreenRect::Populate(bounds_value.GetDict(), params.bounds)) {
+        return std::nullopt;
+      }
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+}  // namespace SetSelectToSpeakFocus
 
 namespace SetKeyboardListener {
 
@@ -3806,6 +3939,20 @@ base::Value::List Create() {
 }
 
 }  // namespace OnSelectToSpeakContextMenuClicked
+
+namespace OnSelectToSpeakFocusChanged {
+
+const char kEventName[] = "accessibilityPrivate.onSelectToSpeakFocusChanged";
+
+base::Value::List Create(const ScreenRect& bounds) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append((bounds).ToValue());
+
+  return create_results;
+}
+
+}  // namespace OnSelectToSpeakFocusChanged
 
 namespace OnSelectToSpeakStateChangeRequested {
 

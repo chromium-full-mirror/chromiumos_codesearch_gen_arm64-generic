@@ -56,7 +56,6 @@
     "preprocessed/nearby_http_browser_proxy.ts",
     "preprocessed/cross_device_logs_browser_proxy.ts",
     "preprocessed/nearby_presence_browser_proxy.ts",
-    "preprocessed/push_notification_browser_proxy.ts",
     "preprocessed/nearby_prefs_browser_proxy.ts",
     "preprocessed/nearby_ui_trigger_browser_proxy.ts",
     "preprocessed/types.ts",

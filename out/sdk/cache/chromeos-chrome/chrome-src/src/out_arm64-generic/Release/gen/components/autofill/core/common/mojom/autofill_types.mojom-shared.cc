@@ -502,6 +502,8 @@ NOINLINE static const char* AutofillSuggestionTriggerSourceToStringHelper(Autofi
       return "kUnspecified";
     case AutofillSuggestionTriggerSource::kFormControlElementClicked:
       return "kFormControlElementClicked";
+    case AutofillSuggestionTriggerSource::kTextareaFocusedWithoutClick:
+      return "kTextareaFocusedWithoutClick";
     case AutofillSuggestionTriggerSource::kContentEditableClicked:
       return "kContentEditableClicked";
     case AutofillSuggestionTriggerSource::kTextFieldDidChange:
@@ -520,6 +522,8 @@ NOINLINE static const char* AutofillSuggestionTriggerSourceToStringHelper(Autofi
       return "kManualFallbackAddress";
     case AutofillSuggestionTriggerSource::kManualFallbackPayments:
       return "kManualFallbackPayments";
+    case AutofillSuggestionTriggerSource::kManualFallbackPasswords:
+      return "kManualFallbackPasswords";
     case AutofillSuggestionTriggerSource::kShowPromptAfterDialogClosed:
       return "kShowPromptAfterDialogClosed";
     default:
@@ -1192,6 +1196,50 @@ FormFieldData_Data::FormFieldData_Data()
 
 
 // static
+bool FormFieldData_FillData_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FormFieldData_FillData_Data* object =
+      static_cast<const FormFieldData_FillData_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->value, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->value, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->unique_renderer_id, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->section, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->section, validation_context))
+    return false;
+
+  return true;
+}
+
+FormFieldData_FillData_Data::FormFieldData_FillData_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool ButtonTitleInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1334,6 +1382,47 @@ FormData_Data::FormData_Data()
 
 
 // static
+bool FormData_FillData_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FormData_FillData_Data* object =
+      static_cast<const FormData_FillData_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->unique_renderer_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->fields, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->fields, validation_context,
+                                         &fields_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+FormData_FillData_Data::FormData_FillData_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool FormFieldDataPredictions_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1382,10 +1471,6 @@ bool FormFieldDataPredictions_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->server_type, 4, validation_context)) {
-    return false;
-  }
   constexpr const mojo::internal::ContainerValidateParams& server_type_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->server_type, validation_context,

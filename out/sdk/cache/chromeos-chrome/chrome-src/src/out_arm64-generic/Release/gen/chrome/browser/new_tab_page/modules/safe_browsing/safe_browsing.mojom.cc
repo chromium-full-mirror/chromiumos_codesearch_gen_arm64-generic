@@ -369,6 +369,8 @@ bool SafeBrowsingHandler_CanShowModule_ForwardToCallback::Accept(
           internal::SafeBrowsingHandler_CanShowModule_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SafeBrowsingHandler.0
   bool success = true;
   bool p_show{};
   SafeBrowsingHandler_CanShowModule_ResponseParamsDataView input_data_view(params, message);
@@ -446,6 +448,8 @@ bool SafeBrowsingHandlerStubDispatch::Accept(
           reinterpret_cast<internal::SafeBrowsingHandler_ProcessModuleClick_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SafeBrowsingHandler.1
       bool success = true;
       SafeBrowsingHandler_ProcessModuleClick_ParamsDataView input_data_view(params, message);
       
@@ -458,7 +462,7 @@ bool SafeBrowsingHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessModuleClick();
+      impl->ProcessModuleClick(        );
       return true;
     }
     case internal::kSafeBrowsingHandler_DismissModule_Name: {
@@ -468,6 +472,8 @@ bool SafeBrowsingHandlerStubDispatch::Accept(
           reinterpret_cast<internal::SafeBrowsingHandler_DismissModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SafeBrowsingHandler.2
       bool success = true;
       SafeBrowsingHandler_DismissModule_ParamsDataView input_data_view(params, message);
       
@@ -480,7 +486,7 @@ bool SafeBrowsingHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissModule();
+      impl->DismissModule(        );
       return true;
     }
     case internal::kSafeBrowsingHandler_RestoreModule_Name: {
@@ -490,6 +496,8 @@ bool SafeBrowsingHandlerStubDispatch::Accept(
           reinterpret_cast<internal::SafeBrowsingHandler_RestoreModule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SafeBrowsingHandler.3
       bool success = true;
       SafeBrowsingHandler_RestoreModule_ParamsDataView input_data_view(params, message);
       
@@ -502,7 +510,7 @@ bool SafeBrowsingHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreModule();
+      impl->RestoreModule(        );
       return true;
     }
   }
@@ -525,6 +533,8 @@ bool SafeBrowsingHandlerStubDispatch::AcceptWithResponder(
               internal::SafeBrowsingHandler_CanShowModule_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SafeBrowsingHandler.0
       bool success = true;
       SafeBrowsingHandler_CanShowModule_ParamsDataView input_data_view(params, message);
       

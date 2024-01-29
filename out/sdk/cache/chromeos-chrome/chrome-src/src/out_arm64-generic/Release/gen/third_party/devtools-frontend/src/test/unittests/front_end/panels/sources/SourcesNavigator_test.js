@@ -35,8 +35,8 @@ describeWithMockConnection('NetworkNavigatorView', () => {
         Persistence.Persistence.PersistenceImpl.instance({ forceNew: true, workspace, breakpointManager });
         Persistence.NetworkPersistenceManager.NetworkPersistenceManager.instance({ forceNew: true, workspace });
         UI.ShortcutRegistry.ShortcutRegistry.instance({ forceNew: true, actionRegistry: actionRegistryInstance });
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.AUTHORED_DEPLOYED_GROUPING, '');
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.JUST_MY_CODE, '');
+        Root.Runtime.experiments.register("authoredDeployedGrouping" /* Root.Runtime.ExperimentName.AUTHORED_DEPLOYED_GROUPING */, '');
+        Root.Runtime.experiments.register("justMyCode" /* Root.Runtime.ExperimentName.JUST_MY_CODE */, '');
     });
     const revealMainTarget = (targetFactory) => {
         let target;
@@ -77,7 +77,7 @@ describeWithMockConnection('NetworkNavigatorView', () => {
             assert.strictEqual(file?.title, 'script.js');
             project.removeProject();
         });
-        it('does not show XHR and Fetch requests', async () => {
+        it('does not show Fetch and XHR requests', async () => {
             const { project } = createContentProviderUISourceCodes({
                 items: [
                     {

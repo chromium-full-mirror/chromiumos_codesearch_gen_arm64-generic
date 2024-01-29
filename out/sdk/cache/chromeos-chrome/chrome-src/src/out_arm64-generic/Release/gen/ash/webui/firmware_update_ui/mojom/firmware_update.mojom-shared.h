@@ -135,8 +135,10 @@ enum class DeviceRequestId : int32_t {
   kPressUnlock = 4,
   
   kRemoveReplug = 5,
+  
+  kReplugPower = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
 };
 
  std::ostream& operator<<(std::ostream& os, DeviceRequestId value);
@@ -150,9 +152,9 @@ enum class DeviceRequestKind : int32_t {
   
   kUnknown = 0,
   
-  kImmediate = 1,
+  kPost = 1,
   
-  kPost = 2,
+  kImmediate = 2,
   kMinValue = 0,
   kMaxValue = 2,
 };

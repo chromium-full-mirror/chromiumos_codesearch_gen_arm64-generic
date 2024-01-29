@@ -123,6 +123,10 @@
         "cpp": "::std::unique_ptr<::display::DisplaySnapshot>",
         "mojom": "display.mojom.DisplaySnapshot",
         "move_only": true
+      },
+      {
+        "cpp": "::display::DisplaySnapshot::ColorInfo",
+        "mojom": "display.mojom.DisplaySnapshotColorInfo"
       }
     ]
   },

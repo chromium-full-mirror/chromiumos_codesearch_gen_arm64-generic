@@ -519,6 +519,8 @@ bool SessionObserverStubDispatch::Accept(
           reinterpret_cast<internal::SessionObserver_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.0
       bool success = true;
       SessionError p_error{};
       SessionObserver_OnError_ParamsDataView input_data_view(params, message);
@@ -534,8 +536,8 @@ bool SessionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error));
+      impl->OnError(        
+        std::move(p_error));
       return true;
     }
     case internal::kSessionObserver_DidStart_Name: {
@@ -545,6 +547,8 @@ std::move(p_error));
           reinterpret_cast<internal::SessionObserver_DidStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.1
       bool success = true;
       SessionObserver_DidStart_ParamsDataView input_data_view(params, message);
       
@@ -557,7 +561,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStart();
+      impl->DidStart(        );
       return true;
     }
     case internal::kSessionObserver_DidStop_Name: {
@@ -567,6 +571,8 @@ std::move(p_error));
           reinterpret_cast<internal::SessionObserver_DidStop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.2
       bool success = true;
       SessionObserver_DidStop_ParamsDataView input_data_view(params, message);
       
@@ -579,7 +585,7 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidStop();
+      impl->DidStop(        );
       return true;
     }
     case internal::kSessionObserver_LogInfoMessage_Name: {
@@ -589,6 +595,8 @@ std::move(p_error));
           reinterpret_cast<internal::SessionObserver_LogInfoMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.3
       bool success = true;
       std::string p_message{};
       SessionObserver_LogInfoMessage_ParamsDataView input_data_view(params, message);
@@ -604,8 +612,8 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogInfoMessage(
-std::move(p_message));
+      impl->LogInfoMessage(        
+        std::move(p_message));
       return true;
     }
     case internal::kSessionObserver_LogErrorMessage_Name: {
@@ -615,6 +623,8 @@ std::move(p_message));
           reinterpret_cast<internal::SessionObserver_LogErrorMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.4
       bool success = true;
       std::string p_message{};
       SessionObserver_LogErrorMessage_ParamsDataView input_data_view(params, message);
@@ -630,8 +640,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LogErrorMessage(
-std::move(p_message));
+      impl->LogErrorMessage(        
+        std::move(p_message));
       return true;
     }
     case internal::kSessionObserver_OnSourceChanged_Name: {
@@ -641,6 +651,8 @@ std::move(p_message));
           reinterpret_cast<internal::SessionObserver_OnSourceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.5
       bool success = true;
       SessionObserver_OnSourceChanged_ParamsDataView input_data_view(params, message);
       
@@ -653,7 +665,7 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSourceChanged();
+      impl->OnSourceChanged(        );
       return true;
     }
     case internal::kSessionObserver_OnRemotingStateChanged_Name: {
@@ -663,6 +675,8 @@ std::move(p_message));
           reinterpret_cast<internal::SessionObserver_OnRemotingStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionObserver.6
       bool success = true;
       bool p_is_remoting{};
       SessionObserver_OnRemotingStateChanged_ParamsDataView input_data_view(params, message);
@@ -678,8 +692,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemotingStateChanged(
-std::move(p_is_remoting));
+      impl->OnRemotingStateChanged(        
+        std::move(p_is_remoting));
       return true;
     }
   }

@@ -474,6 +474,8 @@ bool QuotaClient_GetBucketUsage_ForwardToCallback::Accept(
           internal::QuotaClient_GetBucketUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaClient.0
   bool success = true;
   int64_t p_usage{};
   QuotaClient_GetBucketUsage_ResponseParamsDataView input_data_view(params, message);
@@ -593,6 +595,8 @@ bool QuotaClient_GetStorageKeysForType_ForwardToCallback::Accept(
           internal::QuotaClient_GetStorageKeysForType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaClient.1
   bool success = true;
   std::vector<::blink::StorageKey> p_storage_keys{};
   QuotaClient_GetStorageKeysForType_ResponseParamsDataView input_data_view(params, message);
@@ -724,6 +728,8 @@ bool QuotaClient_DeleteBucketData_ForwardToCallback::Accept(
           internal::QuotaClient_DeleteBucketData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaClient.2
   bool success = true;
   ::blink::mojom::QuotaStatusCode p_status{};
   QuotaClient_DeleteBucketData_ResponseParamsDataView input_data_view(params, message);
@@ -844,6 +850,8 @@ bool QuotaClient_PerformStorageCleanup_ForwardToCallback::Accept(
           internal::QuotaClient_PerformStorageCleanup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaClient.3
   bool success = true;
   QuotaClient_PerformStorageCleanup_ResponseParamsDataView input_data_view(params, message);
   
@@ -931,6 +939,8 @@ bool QuotaClientStubDispatch::AcceptWithResponder(
               internal::QuotaClient_GetBucketUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaClient.0
       bool success = true;
       ::storage::BucketLocator p_bucket{};
       QuotaClient_GetBucketUsage_ParamsDataView input_data_view(params, message);
@@ -949,8 +959,8 @@ bool QuotaClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBucketUsage(
-std::move(p_bucket), std::move(callback));
+      impl->GetBucketUsage(        
+        std::move(p_bucket), std::move(callback));
       return true;
     }
     case internal::kQuotaClient_GetStorageKeysForType_Name: {
@@ -960,6 +970,8 @@ std::move(p_bucket), std::move(callback));
               internal::QuotaClient_GetStorageKeysForType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaClient.1
       bool success = true;
       ::blink::mojom::StorageType p_type{};
       QuotaClient_GetStorageKeysForType_ParamsDataView input_data_view(params, message);
@@ -978,8 +990,8 @@ std::move(p_bucket), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStorageKeysForType(
-std::move(p_type), std::move(callback));
+      impl->GetStorageKeysForType(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kQuotaClient_DeleteBucketData_Name: {
@@ -989,6 +1001,8 @@ std::move(p_type), std::move(callback));
               internal::QuotaClient_DeleteBucketData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaClient.2
       bool success = true;
       ::storage::BucketLocator p_bucket{};
       QuotaClient_DeleteBucketData_ParamsDataView input_data_view(params, message);
@@ -1007,8 +1021,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteBucketData(
-std::move(p_bucket), std::move(callback));
+      impl->DeleteBucketData(        
+        std::move(p_bucket), std::move(callback));
       return true;
     }
     case internal::kQuotaClient_PerformStorageCleanup_Name: {
@@ -1018,6 +1032,8 @@ std::move(p_bucket), std::move(callback));
               internal::QuotaClient_PerformStorageCleanup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaClient.3
       bool success = true;
       ::blink::mojom::StorageType p_type{};
       QuotaClient_PerformStorageCleanup_ParamsDataView input_data_view(params, message);
@@ -1036,8 +1052,8 @@ std::move(p_bucket), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PerformStorageCleanup(
-std::move(p_type), std::move(callback));
+      impl->PerformStorageCleanup(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }

@@ -346,8 +346,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) OldPageInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t routing_id_for_old_main_frame;
-  uint8_t pad0_[4];
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token_for_old_main_frame;
   mojo::internal::Pointer<::blink::mojom::internal::PageLifecycleState_Data> new_lifecycle_state_for_old_page;
 
  private:

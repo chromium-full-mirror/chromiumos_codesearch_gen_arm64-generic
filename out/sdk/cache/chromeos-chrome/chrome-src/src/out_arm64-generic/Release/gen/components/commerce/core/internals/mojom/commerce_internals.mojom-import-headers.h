@@ -6,5 +6,9 @@
 
 #ifndef COMPONENTS_COMMERCE_CORE_INTERNALS_MOJOM_COMMERCE_INTERNALS_MOJOM_IMPORT_HEADERS_H_
 #define COMPONENTS_COMMERCE_CORE_INTERNALS_MOJOM_COMMERCE_INTERNALS_MOJOM_IMPORT_HEADERS_H_
+#include "ui/webui/resources/cr_components/commerce/shopping_service.mojom.h"
+#include "ui/webui/resources/cr_components/commerce/shopping_service.mojom-import-headers.h"
+#include "url/mojom/url.mojom.h"
+#include "url/mojom/url.mojom-import-headers.h"
 
 #endif  // COMPONENTS_COMMERCE_CORE_INTERNALS_MOJOM_COMMERCE_INTERNALS_MOJOM_IMPORT_HEADERS_H_

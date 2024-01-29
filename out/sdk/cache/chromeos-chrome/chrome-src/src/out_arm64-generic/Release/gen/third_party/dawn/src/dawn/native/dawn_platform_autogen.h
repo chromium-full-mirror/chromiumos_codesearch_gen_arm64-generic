@@ -43,6 +43,38 @@ namespace dawn::native {
         return reinterpret_cast<AdapterProperties*>(rhs);
     }
 
+    inline const WGPUAdapterPropertiesD3D* ToAPI(const AdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<const WGPUAdapterPropertiesD3D*>(rhs);
+    }
+
+    inline WGPUAdapterPropertiesD3D* ToAPI(AdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<WGPUAdapterPropertiesD3D*>(rhs);
+    }
+
+    inline const AdapterPropertiesD3D* FromAPI(const WGPUAdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<const AdapterPropertiesD3D*>(rhs);
+    }
+
+    inline AdapterPropertiesD3D* FromAPI(WGPUAdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<AdapterPropertiesD3D*>(rhs);
+    }
+
+    inline const wgpu::AdapterPropertiesD3D* ToCppAPI(const AdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<const wgpu::AdapterPropertiesD3D*>(rhs);
+    }
+
+    inline wgpu::AdapterPropertiesD3D* ToCppAPI(AdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<wgpu::AdapterPropertiesD3D*>(rhs);
+    }
+
+    inline const AdapterPropertiesD3D* FromCppAPI(const wgpu::AdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<const AdapterPropertiesD3D*>(rhs);
+    }
+
+    inline AdapterPropertiesD3D* FromCppAPI(wgpu::AdapterPropertiesD3D* rhs) {
+        return reinterpret_cast<AdapterPropertiesD3D*>(rhs);
+    }
+
     inline const WGPUBindGroupEntry* ToAPI(const BindGroupEntry* rhs) {
         return reinterpret_cast<const WGPUBindGroupEntry*>(rhs);
     }
@@ -457,6 +489,70 @@ namespace dawn::native {
 
     inline CopyTextureForBrowserOptions* FromCppAPI(wgpu::CopyTextureForBrowserOptions* rhs) {
         return reinterpret_cast<CopyTextureForBrowserOptions*>(rhs);
+    }
+
+    inline const WGPUCreateComputePipelineAsyncCallbackInfo* ToAPI(const CreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const WGPUCreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline WGPUCreateComputePipelineAsyncCallbackInfo* ToAPI(CreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<WGPUCreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const CreateComputePipelineAsyncCallbackInfo* FromAPI(const WGPUCreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const CreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline CreateComputePipelineAsyncCallbackInfo* FromAPI(WGPUCreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<CreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const wgpu::CreateComputePipelineAsyncCallbackInfo* ToCppAPI(const CreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const wgpu::CreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline wgpu::CreateComputePipelineAsyncCallbackInfo* ToCppAPI(CreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<wgpu::CreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const CreateComputePipelineAsyncCallbackInfo* FromCppAPI(const wgpu::CreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const CreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline CreateComputePipelineAsyncCallbackInfo* FromCppAPI(wgpu::CreateComputePipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<CreateComputePipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const WGPUCreateRenderPipelineAsyncCallbackInfo* ToAPI(const CreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const WGPUCreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline WGPUCreateRenderPipelineAsyncCallbackInfo* ToAPI(CreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<WGPUCreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const CreateRenderPipelineAsyncCallbackInfo* FromAPI(const WGPUCreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const CreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline CreateRenderPipelineAsyncCallbackInfo* FromAPI(WGPUCreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<CreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const wgpu::CreateRenderPipelineAsyncCallbackInfo* ToCppAPI(const CreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const wgpu::CreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline wgpu::CreateRenderPipelineAsyncCallbackInfo* ToCppAPI(CreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<wgpu::CreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline const CreateRenderPipelineAsyncCallbackInfo* FromCppAPI(const wgpu::CreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<const CreateRenderPipelineAsyncCallbackInfo*>(rhs);
+    }
+
+    inline CreateRenderPipelineAsyncCallbackInfo* FromCppAPI(wgpu::CreateRenderPipelineAsyncCallbackInfo* rhs) {
+        return reinterpret_cast<CreateRenderPipelineAsyncCallbackInfo*>(rhs);
     }
 
     inline const WGPUDawnWGSLBlocklist* ToAPI(const DawnWGSLBlocklist* rhs) {
@@ -1705,6 +1801,38 @@ namespace dawn::native {
 
     inline RequestAdapterOptions* FromCppAPI(wgpu::RequestAdapterOptions* rhs) {
         return reinterpret_cast<RequestAdapterOptions*>(rhs);
+    }
+
+    inline const WGPURequestDeviceCallbackInfo* ToAPI(const RequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<const WGPURequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline WGPURequestDeviceCallbackInfo* ToAPI(RequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<WGPURequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline const RequestDeviceCallbackInfo* FromAPI(const WGPURequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<const RequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline RequestDeviceCallbackInfo* FromAPI(WGPURequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<RequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline const wgpu::RequestDeviceCallbackInfo* ToCppAPI(const RequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<const wgpu::RequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline wgpu::RequestDeviceCallbackInfo* ToCppAPI(RequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<wgpu::RequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline const RequestDeviceCallbackInfo* FromCppAPI(const wgpu::RequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<const RequestDeviceCallbackInfo*>(rhs);
+    }
+
+    inline RequestDeviceCallbackInfo* FromCppAPI(wgpu::RequestDeviceCallbackInfo* rhs) {
+        return reinterpret_cast<RequestDeviceCallbackInfo*>(rhs);
     }
 
     inline const WGPUSamplerBindingLayout* ToAPI(const SamplerBindingLayout* rhs) {
@@ -4664,7 +4792,7 @@ namespace dawn::native {
 
     template<>
     struct EnumCount<wgpu::AddressMode> {
-        static constexpr uint32_t value = 3;
+        static constexpr uint32_t value = 4;
     };
     template<>
     struct EnumCount<wgpu::BackendType> {
@@ -4672,11 +4800,11 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::BlendFactor> {
-        static constexpr uint32_t value = 17;
+        static constexpr uint32_t value = 18;
     };
     template<>
     struct EnumCount<wgpu::BlendOperation> {
-        static constexpr uint32_t value = 5;
+        static constexpr uint32_t value = 6;
     };
     template<>
     struct EnumCount<wgpu::BufferBindingType> {
@@ -4704,7 +4832,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::CullMode> {
-        static constexpr uint32_t value = 3;
+        static constexpr uint32_t value = 4;
     };
     template<>
     struct EnumCount<wgpu::DeviceLostReason> {
@@ -4720,11 +4848,11 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::FilterMode> {
-        static constexpr uint32_t value = 2;
+        static constexpr uint32_t value = 3;
     };
     template<>
     struct EnumCount<wgpu::FrontFace> {
-        static constexpr uint32_t value = 2;
+        static constexpr uint32_t value = 3;
     };
     template<>
     struct EnumCount<wgpu::IndexFormat> {
@@ -4736,7 +4864,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::MipmapFilterMode> {
-        static constexpr uint32_t value = 2;
+        static constexpr uint32_t value = 3;
     };
     template<>
     struct EnumCount<wgpu::PowerPreference> {
@@ -4744,7 +4872,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::PrimitiveTopology> {
-        static constexpr uint32_t value = 5;
+        static constexpr uint32_t value = 6;
     };
     template<>
     struct EnumCount<wgpu::QueueWorkDoneStatus> {
@@ -4768,7 +4896,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::StencilOperation> {
-        static constexpr uint32_t value = 8;
+        static constexpr uint32_t value = 9;
     };
     template<>
     struct EnumCount<wgpu::StorageTextureAccess> {
@@ -4780,11 +4908,11 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::TextureAspect> {
-        static constexpr uint32_t value = 6;
+        static constexpr uint32_t value = 7;
     };
     template<>
     struct EnumCount<wgpu::TextureDimension> {
-        static constexpr uint32_t value = 3;
+        static constexpr uint32_t value = 4;
     };
     template<>
     struct EnumCount<wgpu::TextureFormat> {
@@ -4804,7 +4932,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::VertexStepMode> {
-        static constexpr uint32_t value = 3;
+        static constexpr uint32_t value = 4;
     };
     template<>
     struct EnumCount<wgpu::WaitStatus> {

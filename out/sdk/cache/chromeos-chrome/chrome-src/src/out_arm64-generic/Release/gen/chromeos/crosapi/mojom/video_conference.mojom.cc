@@ -799,6 +799,8 @@ bool VideoConferenceManager_NotifyMediaUsageUpdate_ForwardToCallback::Accept(
           internal::VideoConferenceManager_NotifyMediaUsageUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoConferenceManager.0
   bool success = true;
   bool p_success{};
   VideoConferenceManager_NotifyMediaUsageUpdate_ResponseParamsDataView input_data_view(params, message);
@@ -918,6 +920,8 @@ bool VideoConferenceManager_RegisterMojoClient_ForwardToCallback::Accept(
           internal::VideoConferenceManager_RegisterMojoClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoConferenceManager.1
   bool success = true;
   bool p_success{};
   VideoConferenceManager_RegisterMojoClient_ResponseParamsDataView input_data_view(params, message);
@@ -1037,6 +1041,8 @@ bool VideoConferenceManager_NotifyDeviceUsedWhileDisabled_ForwardToCallback::Acc
           internal::VideoConferenceManager_NotifyDeviceUsedWhileDisabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoConferenceManager.2
   bool success = true;
   bool p_success{};
   VideoConferenceManager_NotifyDeviceUsedWhileDisabled_ResponseParamsDataView input_data_view(params, message);
@@ -1120,6 +1126,8 @@ bool VideoConferenceManagerStubDispatch::Accept(
           reinterpret_cast<internal::VideoConferenceManager_NotifyClientUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManager.3
       bool success = true;
       VideoConferenceClientUpdatePtr p_update{};
       VideoConferenceManager_NotifyClientUpdate_ParamsDataView input_data_view(params, message);
@@ -1135,8 +1143,8 @@ bool VideoConferenceManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyClientUpdate(
-std::move(p_update));
+      impl->NotifyClientUpdate(        
+        std::move(p_update));
       return true;
     }
   }
@@ -1159,6 +1167,8 @@ bool VideoConferenceManagerStubDispatch::AcceptWithResponder(
               internal::VideoConferenceManager_NotifyMediaUsageUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManager.0
       bool success = true;
       VideoConferenceMediaUsageStatusPtr p_status{};
       VideoConferenceManager_NotifyMediaUsageUpdate_ParamsDataView input_data_view(params, message);
@@ -1177,8 +1187,8 @@ bool VideoConferenceManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyMediaUsageUpdate(
-std::move(p_status), std::move(callback));
+      impl->NotifyMediaUsageUpdate(        
+        std::move(p_status), std::move(callback));
       return true;
     }
     case internal::kVideoConferenceManager_RegisterMojoClient_Name: {
@@ -1188,6 +1198,8 @@ std::move(p_status), std::move(callback));
               internal::VideoConferenceManager_RegisterMojoClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManager.1
       bool success = true;
       ::mojo::PendingRemote<VideoConferenceManagerClient> p_client{};
       ::base::UnguessableToken p_client_id{};
@@ -1211,9 +1223,9 @@ std::move(p_status), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterMojoClient(
-std::move(p_client), 
-std::move(p_client_id), std::move(callback));
+      impl->RegisterMojoClient(        
+        std::move(p_client), 
+        std::move(p_client_id), std::move(callback));
       return true;
     }
     case internal::kVideoConferenceManager_NotifyDeviceUsedWhileDisabled_Name: {
@@ -1223,6 +1235,8 @@ std::move(p_client_id), std::move(callback));
               internal::VideoConferenceManager_NotifyDeviceUsedWhileDisabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManager.2
       bool success = true;
       VideoConferenceMediaDevice p_device{};
       ::std::u16string p_app_name{};
@@ -1244,9 +1258,9 @@ std::move(p_client_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyDeviceUsedWhileDisabled(
-std::move(p_device), 
-std::move(p_app_name), std::move(callback));
+      impl->NotifyDeviceUsedWhileDisabled(        
+        std::move(p_device), 
+        std::move(p_app_name), std::move(callback));
       return true;
     }
     case internal::kVideoConferenceManager_NotifyClientUpdate_Name: {
@@ -1668,6 +1682,8 @@ bool VideoConferenceManagerClient_GetMediaApps_ForwardToCallback::Accept(
           internal::VideoConferenceManagerClient_GetMediaApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoConferenceManagerClient.0
   bool success = true;
   std::vector<VideoConferenceMediaAppInfoPtr> p_apps{};
   VideoConferenceManagerClient_GetMediaApps_ResponseParamsDataView input_data_view(params, message);
@@ -1799,6 +1815,8 @@ bool VideoConferenceManagerClient_ReturnToApp_ForwardToCallback::Accept(
           internal::VideoConferenceManagerClient_ReturnToApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoConferenceManagerClient.1
   bool success = true;
   bool p_success{};
   VideoConferenceManagerClient_ReturnToApp_ResponseParamsDataView input_data_view(params, message);
@@ -1918,6 +1936,8 @@ bool VideoConferenceManagerClient_SetSystemMediaDeviceStatus_ForwardToCallback::
           internal::VideoConferenceManagerClient_SetSystemMediaDeviceStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoConferenceManagerClient.2
   bool success = true;
   bool p_success{};
   VideoConferenceManagerClient_SetSystemMediaDeviceStatus_ResponseParamsDataView input_data_view(params, message);
@@ -2001,6 +2021,8 @@ bool VideoConferenceManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::VideoConferenceManagerClient_StopAllScreenShare_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManagerClient.3
       bool success = true;
       VideoConferenceManagerClient_StopAllScreenShare_ParamsDataView input_data_view(params, message);
       
@@ -2013,7 +2035,7 @@ bool VideoConferenceManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopAllScreenShare();
+      impl->StopAllScreenShare(        );
       return true;
     }
   }
@@ -2036,6 +2058,8 @@ bool VideoConferenceManagerClientStubDispatch::AcceptWithResponder(
               internal::VideoConferenceManagerClient_GetMediaApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManagerClient.0
       bool success = true;
       VideoConferenceManagerClient_GetMediaApps_ParamsDataView input_data_view(params, message);
       
@@ -2061,6 +2085,8 @@ bool VideoConferenceManagerClientStubDispatch::AcceptWithResponder(
               internal::VideoConferenceManagerClient_ReturnToApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManagerClient.1
       bool success = true;
       ::base::UnguessableToken p_id{};
       VideoConferenceManagerClient_ReturnToApp_ParamsDataView input_data_view(params, message);
@@ -2079,8 +2105,8 @@ bool VideoConferenceManagerClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReturnToApp(
-std::move(p_id), std::move(callback));
+      impl->ReturnToApp(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kVideoConferenceManagerClient_SetSystemMediaDeviceStatus_Name: {
@@ -2090,6 +2116,8 @@ std::move(p_id), std::move(callback));
               internal::VideoConferenceManagerClient_SetSystemMediaDeviceStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoConferenceManagerClient.2
       bool success = true;
       VideoConferenceMediaDevice p_device{};
       bool p_disabled{};
@@ -2111,9 +2139,9 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSystemMediaDeviceStatus(
-std::move(p_device), 
-std::move(p_disabled), std::move(callback));
+      impl->SetSystemMediaDeviceStatus(        
+        std::move(p_device), 
+        std::move(p_disabled), std::move(callback));
       return true;
     }
     case internal::kVideoConferenceManagerClient_StopAllScreenShare_Name: {

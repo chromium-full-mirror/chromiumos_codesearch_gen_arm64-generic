@@ -255,6 +255,7 @@ namespace dawn::wire {
         SwapChainGetCurrentTexture,
         SwapChainGetCurrentTextureView,
         SwapChainPresent,
+        TextureCreateErrorView,
         TextureCreateView,
         TextureDestroy,
         TextureSetLabel,
@@ -310,7 +311,8 @@ namespace dawn::wire {
 
 
     ObjectId adapterId;
-    uint64_t requestSerial;
+    ObjectHandle eventManagerHandle;
+    WGPUFuture future;
     ObjectHandle deviceObjectHandle;
     WGPUDeviceDescriptor const * descriptor;
 };
@@ -378,6 +380,7 @@ namespace dawn::wire {
 
 
     ObjectId bufferId;
+    ObjectHandle eventManagerHandle;
     WGPUFuture future;
     WGPUMapModeFlags mode;
     uint64_t offset;
@@ -1079,7 +1082,8 @@ namespace dawn::wire {
 
 
     ObjectId deviceId;
-    uint64_t requestSerial;
+    ObjectHandle eventManagerHandle;
+    WGPUFuture future;
     ObjectHandle pipelineObjectHandle;
     WGPUComputePipelineDescriptor const * descriptor;
 };
@@ -1259,7 +1263,8 @@ namespace dawn::wire {
 
 
     ObjectId deviceId;
-    uint64_t requestSerial;
+    ObjectHandle eventManagerHandle;
+    WGPUFuture future;
     ObjectHandle pipelineObjectHandle;
     WGPURenderPipelineDescriptor const * descriptor;
 };
@@ -1601,6 +1606,7 @@ namespace dawn::wire {
 
 
     ObjectId instanceId;
+    ObjectHandle eventManagerHandle;
     WGPUFuture future;
     ObjectHandle adapterObjectHandle;
     WGPURequestAdapterOptions const * options;
@@ -1709,6 +1715,7 @@ namespace dawn::wire {
 
 
     ObjectId queueId;
+    ObjectHandle eventManagerHandle;
     WGPUFuture future;
 };
 
@@ -2575,6 +2582,24 @@ namespace dawn::wire {
     WGPUSwapChain self;
 };
 
+    struct TextureCreateErrorViewCmd {
+    size_t GetRequiredSize() const;
+
+    WireResult Serialize(size_t commandSize, SerializeBuffer* serializeBuffer, const ObjectIdProvider& objectIdProvider) const;
+    // Override which produces a FatalError if any object is used.
+    WireResult Serialize(size_t commandSize, SerializeBuffer* serializeBuffer) const;
+
+    WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator, const ObjectIdResolver& resolver);
+    // Override which produces a FatalError if any object is used.
+    WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
+
+    ObjectId selfId;
+
+    WGPUTexture self;
+    WGPUTextureViewDescriptor const * descriptor;
+    ObjectHandle result;
+};
+
     struct TextureCreateViewCmd {
     size_t GetRequiredSize() const;
 
@@ -2656,8 +2681,8 @@ namespace dawn::wire {
     WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
 
 
-    ObjectHandle adapter;
-    uint64_t requestSerial;
+    ObjectHandle eventManager;
+    WGPUFuture future;
     WGPURequestDeviceStatus status;
     char const * message;
     WGPUSupportedLimits const * limits;
@@ -2677,9 +2702,9 @@ namespace dawn::wire {
     WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
 
 
-    ObjectHandle buffer;
+    ObjectHandle eventManager;
     WGPUFuture future;
-    uint32_t status;
+    WGPUBufferMapAsyncStatus status;
     uint64_t readDataUpdateInfoLength;
     uint8_t const * readDataUpdateInfo;
 };
@@ -2696,8 +2721,8 @@ namespace dawn::wire {
     WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
 
 
-    ObjectHandle device;
-    uint64_t requestSerial;
+    ObjectHandle eventManager;
+    WGPUFuture future;
     WGPUCreatePipelineAsyncStatus status;
     char const * message;
 };
@@ -2714,8 +2739,8 @@ namespace dawn::wire {
     WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
 
 
-    ObjectHandle device;
-    uint64_t requestSerial;
+    ObjectHandle eventManager;
+    WGPUFuture future;
     WGPUCreatePipelineAsyncStatus status;
     char const * message;
 };
@@ -2801,7 +2826,7 @@ namespace dawn::wire {
     WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
 
 
-    ObjectHandle instance;
+    ObjectHandle eventManager;
     WGPUFuture future;
     WGPURequestAdapterStatus status;
     char const * message;
@@ -2823,7 +2848,7 @@ namespace dawn::wire {
     WireResult Deserialize(DeserializeBuffer* deserializeBuffer, DeserializeAllocator* allocator);
 
 
-    ObjectHandle queue;
+    ObjectHandle eventManager;
     WGPUFuture future;
     WGPUQueueWorkDoneStatus status;
 };

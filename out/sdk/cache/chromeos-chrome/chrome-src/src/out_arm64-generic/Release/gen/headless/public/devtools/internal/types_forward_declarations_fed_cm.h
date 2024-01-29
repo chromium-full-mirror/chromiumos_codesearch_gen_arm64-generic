@@ -21,6 +21,8 @@ class SelectAccountParams;
 class SelectAccountResult;
 class ClickDialogButtonParams;
 class ClickDialogButtonResult;
+class OpenUrlParams;
+class OpenUrlResult;
 class DismissDialogParams;
 class DismissDialogResult;
 class ResetCooldownParams;
@@ -44,6 +46,11 @@ enum class DialogButton {
   CONFIRM_IDP_LOGIN_CONTINUE,
   ERROR_GOT_IT,
   ERROR_MORE_DETAILS
+};
+
+enum class AccountUrlType {
+  TERMS_OF_SERVICE,
+  PRIVACY_POLICY
 };
 
 }  // namespace fed_cm

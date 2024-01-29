@@ -247,6 +247,8 @@ bool MediaUIStubDispatch::Accept(
           reinterpret_cast<internal::MediaUI_RegisterDeviceService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaUI.0
       bool success = true;
       ::base::UnguessableToken p_id{};
       ::mojo::PendingRemote<::global_media_controls::mojom::DeviceService> p_service_remote{};
@@ -267,9 +269,9 @@ bool MediaUIStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterDeviceService(
-std::move(p_id), 
-std::move(p_service_remote));
+      impl->RegisterDeviceService(        
+        std::move(p_id), 
+        std::move(p_service_remote));
       return true;
     }
     case internal::kMediaUI_ShowDevicePicker_Name: {
@@ -279,6 +281,8 @@ std::move(p_service_remote));
           reinterpret_cast<internal::MediaUI_ShowDevicePicker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaUI.1
       bool success = true;
       std::string p_item_id{};
       MediaUI_ShowDevicePicker_ParamsDataView input_data_view(params, message);
@@ -294,8 +298,8 @@ std::move(p_service_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowDevicePicker(
-std::move(p_item_id));
+      impl->ShowDevicePicker(        
+        std::move(p_item_id));
       return true;
     }
   }

@@ -13,54 +13,28 @@ import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
-import { assert } from '//resources/ash/common/assert.js';
-import { NetworkList } from '//resources/ash/common/network/network_list_types.js';
 import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeAdaptiveDialog } from '../../components/dialogs/oobe_adaptive_dialog.js';
 import { NetworkSelectLogin } from '../../components/network_select_login.js';
 import { getTemplate } from './oobe_network.html.js';
-/**
- * UI mode for the screen.
- * @enum {string}
- */
-export const NetworkScreenStates = {
-    DEFAULT: 'default',
+export var NetworkScreenStates;
+(function (NetworkScreenStates) {
+    NetworkScreenStates["DEFAULT"] = "default";
     // This state is only used for quick start flow, but might be extended to
     // the regular OOBE flow as well.
-    QUICK_START_CONNECTING: 'quick-start-connecting',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- */
+    NetworkScreenStates["QUICK_START_CONNECTING"] = "quick-start-connecting";
+})(NetworkScreenStates || (NetworkScreenStates = {}));
 const NetworkScreenBase = mixinBehaviors([
     OobeI18nBehavior,
     OobeDialogHostBehavior,
     LoginScreenBehavior,
     MultiStepBehavior,
 ], PolymerElement);
-/**
- * @typedef {{
- *   networkSelectLogin:  NetworkSelectLogin,
- *   networkDialog:  HTMLElement,
- *   nextButton:  HTMLElement,
- * }}
- */
-NetworkScreenBase.$;
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   ssid: (string|undefined),
- *   useQuickStartSubtitle: (boolean|undefined),
- * }}
- */
-let NetworkScreenData;
 /**
  * @polymer
  */
@@ -75,40 +49,33 @@ class NetworkScreen extends NetworkScreenBase {
         return {
             /**
              * Network error message.
-             * @type {string}
-             * @private
              */
-            errorMessage_: {
+            errorMessage: {
                 type: String,
                 value: '',
             },
             /**
              * Whether device is connected to the network.
-             * @type {boolean}
-             * @private
              */
-            isConnected_: {
+            isNetworkConnected: {
                 type: Boolean,
                 value: false,
             },
             /**
              * Controls if periodic background Wi-Fi scans are enabled to update the
              * list of available networks. It is enabled by default so that when user
-             * gets to screen networks are already listed, but should be off when user
-             * leaves the screen, as scanning can reduce effective bandwidth.
-             * @private
+             * gets to screen networks are already listed, but should be off when
+             * user leaves the screen, as scanning can reduce effective bandwidth.
              */
-            enableWifiScans_: {
+            enableWifiScans: {
                 type: Boolean,
                 value: true,
             },
             /**
              * Whether Quick start feature is visible. If it's set the quick start
              * button will be shown in the network select login list as first item.
-             * @type {boolean}
-             * @private
              */
-            isQuickStartVisible_: {
+            isQuickStartVisible: {
                 type: Boolean,
                 value: false,
             },
@@ -119,7 +86,7 @@ class NetworkScreen extends NetworkScreenBase {
             },
             // Whether the QuickStart subtitle should be shown while showing the
             // network list
-            useQuickStartSubtitle_: {
+            useQuickStartSubtitle: {
                 type: Boolean,
                 value: false,
             },
@@ -133,47 +100,69 @@ class NetworkScreen extends NetworkScreenBase {
     }
     constructor() {
         super();
-        this.UI_STEPS = NetworkScreenStates;
     }
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
         return NetworkScreenStates.DEFAULT;
     }
+    get UI_STEPS() {
+        return NetworkScreenStates;
+    }
+    getNetworkSelectLogin() {
+        const networkSelectLogin = this.shadowRoot?.querySelector('#networkSelectLogin');
+        assert(networkSelectLogin instanceof NetworkSelectLogin);
+        return networkSelectLogin;
+    }
     /**
      * Called when dialog is shown.
-     * @param {NetworkScreenData} data Screen init payload.
+     * @param data Screen init payload.
      */
     onBeforeShow(data) {
         // Right now `ssid` is only set during quick start flow.
-        this.ssid = data && 'ssid' in data && data['ssid'];
+        if (data && 'ssid' in data && data['ssid']) {
+            this.ssid = data['ssid'];
+        }
+        else {
+            this.ssid = '';
+        }
         if (this.ssid) {
             this.setUIStep(NetworkScreenStates.QUICK_START_CONNECTING);
             return;
         }
-        this.useQuickStartSubtitle_ = data && 'useQuickStartSubtitle' in data &&
-            data['useQuickStartSubtitle'];
+        if (data && 'useQuickStartSubtitle' in data &&
+            data['useQuickStartSubtitle']) {
+            this.useQuickStartSubtitle = data['useQuickStartSubtitle'];
+        }
+        else {
+            this.useQuickStartSubtitle = false;
+        }
         this.setUIStep(NetworkScreenStates.DEFAULT);
-        this.enableWifiScans_ = true;
-        this.errorMessage_ = '';
-        this.$.networkSelectLogin.onBeforeShow();
+        this.enableWifiScans = true;
+        this.errorMessage = '';
+        this.getNetworkSelectLogin().onBeforeShow();
         this.show();
     }
     /** Called when dialog is hidden. */
     onBeforeHide() {
-        this.$.networkSelectLogin.onBeforeHide();
-        this.enableWifiScans_ = false;
+        this.getNetworkSelectLogin().onBeforeHide();
+        this.enableWifiScans = false;
     }
-    /** @override */
     ready() {
         super.ready();
         this.initializeLoginScreen('NetworkScreen');
         this.updateLocalizedContent();
     }
+    getNetworkDialog() {
+        const networkDialog = this.shadowRoot?.querySelector('#networkDialog');
+        assert(networkDialog instanceof OobeAdaptiveDialog);
+        return networkDialog;
+    }
     /** Shows the dialog. */
     show() {
-        this.$.networkDialog.show();
+        this.getNetworkDialog().show();
     }
     focus() {
-        this.$.networkDialog.focus();
+        this.getNetworkDialog().focus();
     }
     /** Updates localized elements of the UI. */
     updateLocalizedContent() {
@@ -181,64 +170,53 @@ class NetworkScreen extends NetworkScreenBase {
     }
     /**
      * Returns subtitle of the network dialog.
-     * @param {string} locale
-     * @param {string} errorMessage
-     * @return {string}
-     * @private
      */
-    getSubtitleMessage_(locale, errorMessage) {
+    getSubtitleMessage(locale, errorMessage, useQuickStartSubtitle) {
         if (errorMessage) {
             return errorMessage;
         }
-        if (this.useQuickStartSubtitle_) {
-            return this.i18n('quickStartNetworkNeededSubtitle');
+        if (useQuickStartSubtitle) {
+            return this.i18nDynamic(locale, 'quickStartNetworkNeededSubtitle');
         }
-        return this.i18n('networkSectionSubtitle');
+        return this.i18nDynamic(locale, 'networkSectionSubtitle');
     }
     /**
      * Sets the network error message.
-     * @param {string} message Message to be shown.
+     * @param message Message to be shown.
      */
     setError(message) {
-        this.errorMessage_ = message;
+        this.errorMessage = message;
     }
     setQuickStartVisible() {
-        this.isQuickStartVisible_ = true;
-    }
-    /**
-     * Returns element of the network list selected by the query.
-     * Used to simplify testing.
-     * @param {string} query
-     * @return {NetworkList.NetworkListItemType}
-     */
-    getNetworkListItemWithQueryForTest(query) {
-        const networkList = this.$.networkSelectLogin.shadowRoot.querySelector('#networkSelect')
-            .getNetworkListForTest();
-        assert(networkList);
-        return networkList.querySelector(query);
+        this.isQuickStartVisible = true;
     }
     /**
      * Returns element of the network list with the given name.
      * Used to simplify testing.
-     * @param {string} name
-     * @return {?NetworkList.NetworkListItemType}
      */
     getNetworkListItemByNameForTest(name) {
-        return this.$.networkSelectLogin.shadowRoot.querySelector('#networkSelect')
-            .getNetworkListItemByNameForTest(name);
+        const item = this.getNetworkSelectLogin()
+            ?.shadowRoot?.querySelector('#networkSelect')
+            ?.getNetworkListItemByNameForTest(name);
+        if (item !== undefined) {
+            return item;
+        }
+        return null;
     }
     /**
      * Called after dialog is shown. Refreshes the list of the networks.
-     * @private
      */
-    onShown_() {
-        this.$.networkSelectLogin.refresh();
+    onShown() {
+        const networkSelectLogin = this.getNetworkSelectLogin();
+        networkSelectLogin.refresh();
         setTimeout(() => {
-            if (this.isConnected_) {
-                this.$.nextButton.focus();
+            if (this.isNetworkConnected) {
+                const nextButton = this.shadowRoot?.querySelector('#nextButton');
+                assert(nextButton instanceof HTMLElement);
+                nextButton.focus();
             }
             else {
-                this.$.networkSelectLogin.focus();
+                networkSelectLogin.focus();
             }
         }, 300);
         // Timeout is a workaround to correctly propagate focus to
@@ -246,32 +224,28 @@ class NetworkScreen extends NetworkScreenBase {
     }
     /**
      * Quick start button click handler.
-     * @private
      */
-    onQuickStartClicked_() {
+    onQuickStartClicked() {
         this.userActed('activateQuickStart');
     }
     /**
      * Back button click handler.
-     * @private
      */
-    onBackClicked_() {
+    onBackClicked() {
         this.userActed('back');
     }
     /**
      * Cancels ongoing connection.
-     * @private
      */
-    onCancelClicked_() {
+    onCancelClicked() {
         this.userActed('cancel');
     }
     /**
      * Called when the network setup is completed. Either by clicking on
      * already connected network in the list or by directly clicking on the
      * next button in the bottom of the screen.
-     * @private
      */
-    onContinue_() {
+    onContinue() {
         this.userActed('continue');
     }
 }

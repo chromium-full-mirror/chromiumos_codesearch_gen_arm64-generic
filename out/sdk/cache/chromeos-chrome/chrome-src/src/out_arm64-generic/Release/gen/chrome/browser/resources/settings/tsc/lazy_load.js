@@ -60,15 +60,6 @@ import './reset_page/reset_page.js';
 // 
 // 
 export { FontsBrowserProxyImpl } from '/shared/settings/appearance_page/fonts_browser_proxy.js';
-export { ControlledButtonElement } from '/shared/settings/controls/controlled_button.js';
-export { SettingsRadioGroupElement } from '/shared/settings/controls/settings_radio_group.js';
-export { SettingsSliderElement } from '/shared/settings/controls/settings_slider.js';
-export { SettingsToggleButtonElement } from '/shared/settings/controls/settings_toggle_button.js';
-export { SecureDnsResolverType, SettingsSecureDnsElement } from '/shared/settings/privacy_page/secure_dns.js';
-// 
-export { SettingsSecureDnsDialogElement } from '/shared/settings/privacy_page/secure_dns_dialog.js';
-// 
-export { SecureDnsInputElement } from '/shared/settings/privacy_page/secure_dns_input.js';
 export { CrCheckboxElement } from 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
 export { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 export { CrIconButtonElement } from 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
@@ -78,6 +69,15 @@ export { CrSliderElement } from 'chrome://resources/cr_elements/cr_slider/cr_sli
 export { CrTextareaElement } from 'chrome://resources/cr_elements/cr_textarea/cr_textarea.js';
 export { getToastManager } from 'chrome://resources/cr_elements/cr_toast/cr_toast_manager.js';
 export { AccessibilityBrowserProxyImpl } from './a11y_page/a11y_browser_proxy.js';
+export { ControlledButtonElement } from './controls/controlled_button.js';
+export { SettingsRadioGroupElement } from './controls/settings_radio_group.js';
+export { SettingsSliderElement } from './controls/settings_slider.js';
+export { SettingsToggleButtonElement } from './controls/settings_toggle_button.js';
+export { SecureDnsResolverType, SettingsSecureDnsElement } from './privacy_page/secure_dns.js';
+// 
+export { SettingsSecureDnsDialogElement } from './privacy_page/secure_dns_dialog.js';
+// 
+export { SecureDnsInputElement } from './privacy_page/secure_dns_input.js';
 // clang-format off
 // 
 // clang-format on
@@ -142,6 +142,7 @@ export { HttpsFirstModeSetting, SafeBrowsingSetting, SettingsSecurityPageElement
 export { SettingsPrivacySandboxAdMeasurementSubpageElement } from './privacy_sandbox/privacy_sandbox_ad_measurement_subpage.js';
 export { SettingsPrivacySandboxFledgeSubpageElement } from './privacy_sandbox/privacy_sandbox_fledge_subpage.js';
 export { PrivacySandboxInterestItemElement } from './privacy_sandbox/privacy_sandbox_interest_item.js';
+export { SettingsPrivacySandboxManageTopicsSubpageElement } from './privacy_sandbox/privacy_sandbox_manage_topics_subpage.js';
 export { SettingsPrivacySandboxPageElement } from './privacy_sandbox/privacy_sandbox_page.js';
 export { SettingsPrivacySandboxTopicsSubpageElement } from './privacy_sandbox/privacy_sandbox_topics_subpage.js';
 export { SettingsResetPageElement } from './reset_page/reset_page.js';

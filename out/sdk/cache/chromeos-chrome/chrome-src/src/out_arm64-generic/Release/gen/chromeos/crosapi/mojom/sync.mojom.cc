@@ -242,6 +242,8 @@ bool SyncExplicitPassphraseClientObserverStubDispatch::Accept(
           reinterpret_cast<internal::SyncExplicitPassphraseClientObserver_OnPassphraseRequired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncExplicitPassphraseClientObserver.0
       bool success = true;
       SyncExplicitPassphraseClientObserver_OnPassphraseRequired_ParamsDataView input_data_view(params, message);
       
@@ -254,7 +256,7 @@ bool SyncExplicitPassphraseClientObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPassphraseRequired();
+      impl->OnPassphraseRequired(        );
       return true;
     }
     case internal::kSyncExplicitPassphraseClientObserver_OnPassphraseAvailable_Name: {
@@ -264,6 +266,8 @@ bool SyncExplicitPassphraseClientObserverStubDispatch::Accept(
           reinterpret_cast<internal::SyncExplicitPassphraseClientObserver_OnPassphraseAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncExplicitPassphraseClientObserver.1
       bool success = true;
       SyncExplicitPassphraseClientObserver_OnPassphraseAvailable_ParamsDataView input_data_view(params, message);
       
@@ -276,7 +280,7 @@ bool SyncExplicitPassphraseClientObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPassphraseAvailable();
+      impl->OnPassphraseAvailable(        );
       return true;
     }
   }
@@ -651,6 +655,8 @@ bool SyncExplicitPassphraseClient_GetDecryptionNigoriKey_ForwardToCallback::Acce
           internal::SyncExplicitPassphraseClient_GetDecryptionNigoriKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SyncExplicitPassphraseClient.1
   bool success = true;
   NigoriKeyPtr p_decryption_key{};
   SyncExplicitPassphraseClient_GetDecryptionNigoriKey_ResponseParamsDataView input_data_view(params, message);
@@ -731,6 +737,8 @@ bool SyncExplicitPassphraseClientStubDispatch::Accept(
           reinterpret_cast<internal::SyncExplicitPassphraseClient_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncExplicitPassphraseClient.0
       bool success = true;
       ::mojo::PendingRemote<SyncExplicitPassphraseClientObserver> p_observer{};
       SyncExplicitPassphraseClient_AddObserver_ParamsDataView input_data_view(params, message);
@@ -748,8 +756,8 @@ bool SyncExplicitPassphraseClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSyncExplicitPassphraseClient_GetDecryptionNigoriKey_Name: {
@@ -762,6 +770,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SyncExplicitPassphraseClient_SetDecryptionNigoriKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncExplicitPassphraseClient.2
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       NigoriKeyPtr p_decryption_key{};
@@ -780,9 +790,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDecryptionNigoriKey(
-std::move(p_account_key), 
-std::move(p_decryption_key));
+      impl->SetDecryptionNigoriKey(        
+        std::move(p_account_key), 
+        std::move(p_decryption_key));
       return true;
     }
   }
@@ -808,6 +818,8 @@ bool SyncExplicitPassphraseClientStubDispatch::AcceptWithResponder(
               internal::SyncExplicitPassphraseClient_GetDecryptionNigoriKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SyncExplicitPassphraseClient.1
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account_key{};
       SyncExplicitPassphraseClient_GetDecryptionNigoriKey_ParamsDataView input_data_view(params, message);
@@ -826,8 +838,8 @@ bool SyncExplicitPassphraseClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDecryptionNigoriKey(
-std::move(p_account_key), std::move(callback));
+      impl->GetDecryptionNigoriKey(        
+        std::move(p_account_key), std::move(callback));
       return true;
     }
     case internal::kSyncExplicitPassphraseClient_SetDecryptionNigoriKey_Name: {
@@ -969,6 +981,8 @@ bool SyncUserSettingsClientObserverStubDispatch::Accept(
           reinterpret_cast<internal::SyncUserSettingsClientObserver_OnAppsSyncEnabledChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncUserSettingsClientObserver.0
       bool success = true;
       bool p_enabled{};
       SyncUserSettingsClientObserver_OnAppsSyncEnabledChanged_ParamsDataView input_data_view(params, message);
@@ -984,8 +998,8 @@ bool SyncUserSettingsClientObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppsSyncEnabledChanged(
-std::move(p_enabled));
+      impl->OnAppsSyncEnabledChanged(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -1252,6 +1266,8 @@ bool SyncUserSettingsClient_IsAppsSyncEnabled_ForwardToCallback::Accept(
           internal::SyncUserSettingsClient_IsAppsSyncEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SyncUserSettingsClient.1
   bool success = true;
   bool p_enabled{};
   SyncUserSettingsClient_IsAppsSyncEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1326,6 +1342,8 @@ bool SyncUserSettingsClientStubDispatch::Accept(
           reinterpret_cast<internal::SyncUserSettingsClient_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncUserSettingsClient.0
       bool success = true;
       ::mojo::PendingRemote<SyncUserSettingsClientObserver> p_observer{};
       SyncUserSettingsClient_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1343,8 +1361,8 @@ bool SyncUserSettingsClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSyncUserSettingsClient_IsAppsSyncEnabled_Name: {
@@ -1373,6 +1391,8 @@ bool SyncUserSettingsClientStubDispatch::AcceptWithResponder(
               internal::SyncUserSettingsClient_IsAppsSyncEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SyncUserSettingsClient.1
       bool success = true;
       SyncUserSettingsClient_IsAppsSyncEnabled_ParamsDataView input_data_view(params, message);
       
@@ -1777,6 +1797,8 @@ bool SyncService_CreateSyncedSessionClient_ForwardToCallback::Accept(
           internal::SyncService_CreateSyncedSessionClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SyncService.3
   bool success = true;
   ::mojo::PendingRemote<::crosapi::mojom::SyncedSessionClient> p_sync_session_client{};
   SyncService_CreateSyncedSessionClient_ResponseParamsDataView input_data_view(params, message);
@@ -1854,6 +1876,8 @@ bool SyncServiceStubDispatch::Accept(
           reinterpret_cast<internal::SyncService_BindExplicitPassphraseClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncService.0
       bool success = true;
       ::mojo::PendingReceiver<SyncExplicitPassphraseClient> p_receiver{};
       SyncService_BindExplicitPassphraseClient_ParamsDataView input_data_view(params, message);
@@ -1871,8 +1895,8 @@ bool SyncServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindExplicitPassphraseClient(
-std::move(p_receiver));
+      impl->BindExplicitPassphraseClient(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kSyncService_BindUserSettingsClient_Name: {
@@ -1882,6 +1906,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::SyncService_BindUserSettingsClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncService.1
       bool success = true;
       ::mojo::PendingReceiver<SyncUserSettingsClient> p_receiver{};
       SyncService_BindUserSettingsClient_ParamsDataView input_data_view(params, message);
@@ -1899,8 +1925,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUserSettingsClient(
-std::move(p_receiver));
+      impl->BindUserSettingsClient(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kSyncService_DEPRECATED_BindSyncedSessionClient_Name: {
@@ -1910,6 +1936,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::SyncService_DEPRECATED_BindSyncedSessionClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SyncService.2
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::SyncedSessionClient> p_receiver{};
       SyncService_DEPRECATED_BindSyncedSessionClient_ParamsDataView input_data_view(params, message);
@@ -1927,8 +1955,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_BindSyncedSessionClient(
-std::move(p_receiver));
+      impl->DEPRECATED_BindSyncedSessionClient(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kSyncService_CreateSyncedSessionClient_Name: {
@@ -1963,6 +1991,8 @@ bool SyncServiceStubDispatch::AcceptWithResponder(
               internal::SyncService_CreateSyncedSessionClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SyncService.3
       bool success = true;
       SyncService_CreateSyncedSessionClient_ParamsDataView input_data_view(params, message);
       

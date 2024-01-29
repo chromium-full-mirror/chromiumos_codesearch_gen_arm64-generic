@@ -228,6 +228,8 @@ bool LanguageDetectionService_DetermineLanguage_ForwardToCallback::Accept(
           internal::LanguageDetectionService_DetermineLanguage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LanguageDetectionService.0
   bool success = true;
   std::string p_language{};
   bool p_is_reliable{};
@@ -336,6 +338,8 @@ bool LanguageDetectionServiceStubDispatch::AcceptWithResponder(
               internal::LanguageDetectionService_DetermineLanguage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LanguageDetectionService.0
       bool success = true;
       ::std::u16string p_text{};
       LanguageDetectionService_DetermineLanguage_ParamsDataView input_data_view(params, message);
@@ -354,8 +358,8 @@ bool LanguageDetectionServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetermineLanguage(
-std::move(p_text), std::move(callback));
+      impl->DetermineLanguage(        
+        std::move(p_text), std::move(callback));
       return true;
     }
   }

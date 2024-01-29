@@ -219,6 +219,8 @@ bool AecDumpAgentStubDispatch::Accept(
           reinterpret_cast<internal::AecDumpAgent_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AecDumpAgent.0
       bool success = true;
       ::base::File p_file{};
       AecDumpAgent_Start_ParamsDataView input_data_view(params, message);
@@ -234,8 +236,8 @@ bool AecDumpAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_file));
+      impl->Start(        
+        std::move(p_file));
       return true;
     }
     case internal::kAecDumpAgent_Stop_Name: {
@@ -245,6 +247,8 @@ std::move(p_file));
           reinterpret_cast<internal::AecDumpAgent_Stop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AecDumpAgent.1
       bool success = true;
       AecDumpAgent_Stop_ParamsDataView input_data_view(params, message);
       
@@ -257,7 +261,7 @@ std::move(p_file));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop();
+      impl->Stop(        );
       return true;
     }
   }
@@ -413,6 +417,8 @@ bool AecDumpManagerStubDispatch::Accept(
           reinterpret_cast<internal::AecDumpManager_Add_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AecDumpManager.0
       bool success = true;
       ::mojo::PendingRemote<AecDumpAgent> p_agent{};
       AecDumpManager_Add_ParamsDataView input_data_view(params, message);
@@ -430,8 +436,8 @@ bool AecDumpManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Add(
-std::move(p_agent));
+      impl->Add(        
+        std::move(p_agent));
       return true;
     }
   }

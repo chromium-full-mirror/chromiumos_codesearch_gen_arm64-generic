@@ -473,25 +473,25 @@ bool GetOpenDeviceResponse::Validate(
   return Data_::Validate(data, validation_context);
 }
 CapturedWheelAction::CapturedWheelAction()
-    : x(),
-      y(),
+    : relative_x(),
+      relative_y(),
       wheel_delta_x(),
       wheel_delta_y() {}
 
 CapturedWheelAction::CapturedWheelAction(
-    int32_t x_in,
-    int32_t y_in,
+    double relative_x_in,
+    double relative_y_in,
     int32_t wheel_delta_x_in,
     int32_t wheel_delta_y_in)
-    : x(std::move(x_in)),
-      y(std::move(y_in)),
+    : relative_x(std::move(relative_x_in)),
+      relative_y(std::move(relative_y_in)),
       wheel_delta_x(std::move(wheel_delta_x_in)),
       wheel_delta_y(std::move(wheel_delta_y_in)) {}
 
 CapturedWheelAction::~CapturedWheelAction() = default;
 size_t CapturedWheelAction::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->x);
-  seed = mojo::internal::Hash(seed, this->y);
+  seed = mojo::internal::Hash(seed, this->relative_x);
+  seed = mojo::internal::Hash(seed, this->relative_y);
   seed = mojo::internal::Hash(seed, this->wheel_delta_x);
   seed = mojo::internal::Hash(seed, this->wheel_delta_y);
   return seed;
@@ -502,18 +502,18 @@ void CapturedWheelAction::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "x"), this->x,
+      "relative_x"), this->relative_x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type int32_t>"
+      "<value of type double>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "y"), this->y,
+      "relative_y"), this->relative_y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type int32_t>"
+      "<value of type double>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -631,6 +631,9 @@ MediaStreamDeviceObserver::IPCStableHashFunction MediaStreamDeviceObserver::Mess
     case internal::kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name: {
       return &MediaStreamDeviceObserver::OnDeviceCaptureHandleChange_Sym::IPCStableHash;
     }
+    case internal::kMediaStreamDeviceObserver_OnZoomLevelChange_Name: {
+      return &MediaStreamDeviceObserver::OnZoomLevelChange_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -652,6 +655,8 @@ const char* MediaStreamDeviceObserver::MessageToMethodName_(mojo::Message& messa
             return "Receive blink::mojom::MediaStreamDeviceObserver::OnDeviceCaptureConfigurationChange";
       case internal::kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name:
             return "Receive blink::mojom::MediaStreamDeviceObserver::OnDeviceCaptureHandleChange";
+      case internal::kMediaStreamDeviceObserver_OnZoomLevelChange_Name:
+            return "Receive blink::mojom::MediaStreamDeviceObserver::OnZoomLevelChange";
     }
   } else {
     switch (message.name()) {
@@ -665,6 +670,8 @@ const char* MediaStreamDeviceObserver::MessageToMethodName_(mojo::Message& messa
             return "Receive reply blink::mojom::MediaStreamDeviceObserver::OnDeviceCaptureConfigurationChange";
       case internal::kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name:
             return "Receive reply blink::mojom::MediaStreamDeviceObserver::OnDeviceCaptureHandleChange";
+      case internal::kMediaStreamDeviceObserver_OnZoomLevelChange_Name:
+            return "Receive reply blink::mojom::MediaStreamDeviceObserver::OnZoomLevelChange";
     }
   }
   return "Receive unknown mojo message";
@@ -740,6 +747,19 @@ uint32_t MediaStreamDeviceObserver::OnDeviceCaptureHandleChange_Sym::IPCStableHa
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::MediaStreamDeviceObserver::OnDeviceCaptureHandleChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MediaStreamDeviceObserver::OnZoomLevelChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::MediaStreamDeviceObserver::OnZoomLevelChange");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1094,6 +1114,75 @@ void MediaStreamDeviceObserverProxy::OnDeviceCaptureHandleChange(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void MediaStreamDeviceObserverProxy::OnZoomLevelChange(
+    const std::string& in_label, const ::blink::MediaStreamDevice& in_device, int32_t in_zoom_level) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::MediaStreamDeviceObserver::OnZoomLevelChange", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("label"), in_label,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("device"), in_device,
+                        "<value of type const ::blink::MediaStreamDevice&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("zoom_level"), in_zoom_level,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaStreamDeviceObserver_OnZoomLevelChange_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->label)::BaseType> label_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_label, label_fragment);
+  params->label.Set(
+      label_fragment.is_null() ? nullptr : label_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->label.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null label in MediaStreamDeviceObserver.OnZoomLevelChange request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->device)::BaseType> device_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::MediaStreamDeviceDataView>(
+      in_device, device_fragment);
+  params->device.Set(
+      device_fragment.is_null() ? nullptr : device_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->device.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null device in MediaStreamDeviceObserver.OnZoomLevelChange request");
+  params->zoom_level = in_zoom_level;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaStreamDeviceObserver::Name_);
+  message.set_method_name("OnZoomLevelChange");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool MediaStreamDeviceObserverStubDispatch::Accept(
     MediaStreamDeviceObserver* impl,
@@ -1106,6 +1195,8 @@ bool MediaStreamDeviceObserverStubDispatch::Accept(
           reinterpret_cast<internal::MediaStreamDeviceObserver_OnDeviceStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDeviceObserver.0
       bool success = true;
       std::string p_label{};
       ::blink::MediaStreamDevice p_device{};
@@ -1124,9 +1215,9 @@ bool MediaStreamDeviceObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceStopped(
-std::move(p_label), 
-std::move(p_device));
+      impl->OnDeviceStopped(        
+        std::move(p_label), 
+        std::move(p_device));
       return true;
     }
     case internal::kMediaStreamDeviceObserver_OnDeviceChanged_Name: {
@@ -1136,6 +1227,8 @@ std::move(p_device));
           reinterpret_cast<internal::MediaStreamDeviceObserver_OnDeviceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDeviceObserver.1
       bool success = true;
       std::string p_label{};
       ::blink::MediaStreamDevice p_old_device{};
@@ -1157,10 +1250,10 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceChanged(
-std::move(p_label), 
-std::move(p_old_device), 
-std::move(p_new_device));
+      impl->OnDeviceChanged(        
+        std::move(p_label), 
+        std::move(p_old_device), 
+        std::move(p_new_device));
       return true;
     }
     case internal::kMediaStreamDeviceObserver_OnDeviceRequestStateChange_Name: {
@@ -1170,6 +1263,8 @@ std::move(p_new_device));
           reinterpret_cast<internal::MediaStreamDeviceObserver_OnDeviceRequestStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDeviceObserver.2
       bool success = true;
       std::string p_label{};
       ::blink::MediaStreamDevice p_device{};
@@ -1191,10 +1286,10 @@ std::move(p_new_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRequestStateChange(
-std::move(p_label), 
-std::move(p_device), 
-std::move(p_new_state));
+      impl->OnDeviceRequestStateChange(        
+        std::move(p_label), 
+        std::move(p_device), 
+        std::move(p_new_state));
       return true;
     }
     case internal::kMediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Name: {
@@ -1204,6 +1299,8 @@ std::move(p_new_state));
           reinterpret_cast<internal::MediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDeviceObserver.3
       bool success = true;
       std::string p_label{};
       ::blink::MediaStreamDevice p_device{};
@@ -1222,9 +1319,9 @@ std::move(p_new_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceCaptureConfigurationChange(
-std::move(p_label), 
-std::move(p_device));
+      impl->OnDeviceCaptureConfigurationChange(        
+        std::move(p_label), 
+        std::move(p_device));
       return true;
     }
     case internal::kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name: {
@@ -1234,6 +1331,8 @@ std::move(p_device));
           reinterpret_cast<internal::MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDeviceObserver.4
       bool success = true;
       std::string p_label{};
       ::blink::MediaStreamDevice p_device{};
@@ -1252,9 +1351,45 @@ std::move(p_device));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceCaptureHandleChange(
-std::move(p_label), 
-std::move(p_device));
+      impl->OnDeviceCaptureHandleChange(        
+        std::move(p_label), 
+        std::move(p_device));
+      return true;
+    }
+    case internal::kMediaStreamDeviceObserver_OnZoomLevelChange_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data* params =
+          reinterpret_cast<internal::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for MediaStreamDeviceObserver.5
+      bool success = true;
+      std::string p_label{};
+      ::blink::MediaStreamDevice p_device{};
+      int32_t p_zoom_level{};
+      MediaStreamDeviceObserver_OnZoomLevelChange_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLabel(&p_label))
+        success = false;
+      if (success && !input_data_view.ReadDevice(&p_device))
+        success = false;
+      if (success)
+        p_zoom_level = input_data_view.zoom_level();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaStreamDeviceObserver::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnZoomLevelChange(        
+        std::move(p_label), 
+        std::move(p_device), 
+        std::move(p_zoom_level));
       return true;
     }
   }
@@ -1285,6 +1420,9 @@ bool MediaStreamDeviceObserverStubDispatch::AcceptWithResponder(
     case internal::kMediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Name: {
       break;
     }
+    case internal::kMediaStreamDeviceObserver_OnZoomLevelChange_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1300,6 +1438,8 @@ static const mojo::internal::GenericValidationInfo kMediaStreamDeviceObserverVal
     { &internal::MediaStreamDeviceObserver_OnDeviceCaptureConfigurationChange_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MediaStreamDeviceObserver_OnZoomLevelChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2756,6 +2896,8 @@ bool MediaStreamDispatcherHost_GenerateStreams_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_GenerateStreams_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.0
   bool success = true;
   MediaStreamRequestResult p_result{};
   std::string p_label{};
@@ -2916,6 +3058,8 @@ bool MediaStreamDispatcherHost_OpenDevice_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_OpenDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.4
   bool success = true;
   bool p_success{};
   std::string p_label{};
@@ -3071,6 +3215,8 @@ bool MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.8
   bool success = true;
   ::media::mojom::ApplySubCaptureTargetResult p_result{};
   MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsDataView input_data_view(params, message);
@@ -3191,6 +3337,8 @@ bool MediaStreamDispatcherHost_SendWheel_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.9
   bool success = true;
   CapturedSurfaceControlResult p_result{};
   MediaStreamDispatcherHost_SendWheel_ResponseParamsDataView input_data_view(params, message);
@@ -3311,6 +3459,8 @@ bool MediaStreamDispatcherHost_GetZoomLevel_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.10
   bool success = true;
   std::optional<int32_t> p_zoom_level{};
   CapturedSurfaceControlResult p_result{};
@@ -3443,6 +3593,8 @@ bool MediaStreamDispatcherHost_SetZoomLevel_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.11
   bool success = true;
   CapturedSurfaceControlResult p_result{};
   MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsDataView input_data_view(params, message);
@@ -3563,6 +3715,8 @@ bool MediaStreamDispatcherHost_GetOpenDevice_ForwardToCallback::Accept(
           internal::MediaStreamDispatcherHost_GetOpenDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.12
   bool success = true;
   MediaStreamRequestResult p_result{};
   GetOpenDeviceResponsePtr p_response{};
@@ -3647,6 +3801,8 @@ bool MediaStreamDispatcherHost_GetOpenDevice_HandleSyncResponse::Accept(
       reinterpret_cast<internal::MediaStreamDispatcherHost_GetOpenDevice_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.12
   bool success = true;
   MediaStreamRequestResult p_result{};
   GetOpenDeviceResponsePtr p_response{};
@@ -3726,6 +3882,8 @@ bool MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ForwardToCallback::Acc
           internal::MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaStreamDispatcherHost.13
   bool success = true;
   bool p_device_found{};
   MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_ResponseParamsDataView input_data_view(params, message);
@@ -3803,6 +3961,8 @@ bool MediaStreamDispatcherHostStubDispatch::Accept(
           reinterpret_cast<internal::MediaStreamDispatcherHost_FocusCapturedSurface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.1
       bool success = true;
       std::string p_label{};
       bool p_focus{};
@@ -3821,9 +3981,9 @@ bool MediaStreamDispatcherHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusCapturedSurface(
-std::move(p_label), 
-std::move(p_focus));
+      impl->FocusCapturedSurface(        
+        std::move(p_label), 
+        std::move(p_focus));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_CancelRequest_Name: {
@@ -3833,6 +3993,8 @@ std::move(p_focus));
           reinterpret_cast<internal::MediaStreamDispatcherHost_CancelRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.2
       bool success = true;
       int32_t p_request_id{};
       MediaStreamDispatcherHost_CancelRequest_ParamsDataView input_data_view(params, message);
@@ -3848,8 +4010,8 @@ std::move(p_focus));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelRequest(
-std::move(p_request_id));
+      impl->CancelRequest(        
+        std::move(p_request_id));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_StopStreamDevice_Name: {
@@ -3859,6 +4021,8 @@ std::move(p_request_id));
           reinterpret_cast<internal::MediaStreamDispatcherHost_StopStreamDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.3
       bool success = true;
       std::string p_device_id{};
       std::optional<::base::UnguessableToken> p_session_id{};
@@ -3877,9 +4041,9 @@ std::move(p_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopStreamDevice(
-std::move(p_device_id), 
-std::move(p_session_id));
+      impl->StopStreamDevice(        
+        std::move(p_device_id), 
+        std::move(p_session_id));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_OpenDevice_Name: {
@@ -3892,6 +4056,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::MediaStreamDispatcherHost_CloseDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.5
       bool success = true;
       std::string p_label{};
       MediaStreamDispatcherHost_CloseDevice_ParamsDataView input_data_view(params, message);
@@ -3907,8 +4073,8 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseDevice(
-std::move(p_label));
+      impl->CloseDevice(        
+        std::move(p_label));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_SetCapturingLinkSecured_Name: {
@@ -3918,6 +4084,8 @@ std::move(p_label));
           reinterpret_cast<internal::MediaStreamDispatcherHost_SetCapturingLinkSecured_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.6
       bool success = true;
       std::optional<::base::UnguessableToken> p_session_id{};
       MediaStreamType p_type{};
@@ -3939,10 +4107,10 @@ std::move(p_label));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCapturingLinkSecured(
-std::move(p_session_id), 
-std::move(p_type), 
-std::move(p_is_secure));
+      impl->SetCapturingLinkSecured(        
+        std::move(p_session_id), 
+        std::move(p_type), 
+        std::move(p_is_secure));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_OnStreamStarted_Name: {
@@ -3952,6 +4120,8 @@ std::move(p_is_secure));
           reinterpret_cast<internal::MediaStreamDispatcherHost_OnStreamStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.7
       bool success = true;
       std::string p_label{};
       MediaStreamDispatcherHost_OnStreamStarted_ParamsDataView input_data_view(params, message);
@@ -3967,8 +4137,8 @@ std::move(p_is_secure));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStreamStarted(
-std::move(p_label));
+      impl->OnStreamStarted(        
+        std::move(p_label));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name: {
@@ -4009,6 +4179,8 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
               internal::MediaStreamDispatcherHost_GenerateStreams_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.0
       bool success = true;
       int32_t p_request_id{};
       ::blink::StreamControls p_controls{};
@@ -4036,11 +4208,11 @@ bool MediaStreamDispatcherHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateStreams(
-std::move(p_request_id), 
-std::move(p_controls), 
-std::move(p_user_gesture), 
-std::move(p_audio_stream_selection_info), std::move(callback));
+      impl->GenerateStreams(        
+        std::move(p_request_id), 
+        std::move(p_controls), 
+        std::move(p_user_gesture), 
+        std::move(p_audio_stream_selection_info), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_FocusCapturedSurface_Name: {
@@ -4059,6 +4231,8 @@ std::move(p_audio_stream_selection_info), std::move(callback));
               internal::MediaStreamDispatcherHost_OpenDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.4
       bool success = true;
       int32_t p_request_id{};
       std::string p_device_id{};
@@ -4083,10 +4257,10 @@ std::move(p_audio_stream_selection_info), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDevice(
-std::move(p_request_id), 
-std::move(p_device_id), 
-std::move(p_type), std::move(callback));
+      impl->OpenDevice(        
+        std::move(p_request_id), 
+        std::move(p_device_id), 
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_CloseDevice_Name: {
@@ -4105,6 +4279,8 @@ std::move(p_type), std::move(callback));
               internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.8
       bool success = true;
       ::base::UnguessableToken p_device_id{};
       ::media::mojom::SubCaptureTargetType p_type{};
@@ -4132,11 +4308,11 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplySubCaptureTarget(
-std::move(p_device_id), 
-std::move(p_type), 
-std::move(p_sub_capture_target), 
-std::move(p_sub_capture_target_version), std::move(callback));
+      impl->ApplySubCaptureTarget(        
+        std::move(p_device_id), 
+        std::move(p_type), 
+        std::move(p_sub_capture_target), 
+        std::move(p_sub_capture_target_version), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_SendWheel_Name: {
@@ -4146,6 +4322,8 @@ std::move(p_sub_capture_target_version), std::move(callback));
               internal::MediaStreamDispatcherHost_SendWheel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.9
       bool success = true;
       ::base::UnguessableToken p_device_id{};
       CapturedWheelActionPtr p_action{};
@@ -4167,9 +4345,9 @@ std::move(p_sub_capture_target_version), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendWheel(
-std::move(p_device_id), 
-std::move(p_action), std::move(callback));
+      impl->SendWheel(        
+        std::move(p_device_id), 
+        std::move(p_action), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_GetZoomLevel_Name: {
@@ -4179,6 +4357,8 @@ std::move(p_action), std::move(callback));
               internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.10
       bool success = true;
       ::base::UnguessableToken p_device_id{};
       MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView input_data_view(params, message);
@@ -4197,8 +4377,8 @@ std::move(p_action), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetZoomLevel(
-std::move(p_device_id), std::move(callback));
+      impl->GetZoomLevel(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_SetZoomLevel_Name: {
@@ -4208,6 +4388,8 @@ std::move(p_device_id), std::move(callback));
               internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.11
       bool success = true;
       ::base::UnguessableToken p_device_id{};
       int32_t p_zoom_level{};
@@ -4229,9 +4411,9 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetZoomLevel(
-std::move(p_device_id), 
-std::move(p_zoom_level), std::move(callback));
+      impl->SetZoomLevel(        
+        std::move(p_device_id), 
+        std::move(p_zoom_level), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
@@ -4241,6 +4423,8 @@ std::move(p_zoom_level), std::move(callback));
               internal::MediaStreamDispatcherHost_GetOpenDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.12
       bool success = true;
       int32_t p_request_id{};
       ::base::UnguessableToken p_session_id{};
@@ -4265,10 +4449,10 @@ std::move(p_zoom_level), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOpenDevice(
-std::move(p_request_id), 
-std::move(p_session_id), 
-std::move(p_transfer_id), std::move(callback));
+      impl->GetOpenDevice(        
+        std::move(p_request_id), 
+        std::move(p_session_id), 
+        std::move(p_transfer_id), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name: {
@@ -4278,6 +4462,8 @@ std::move(p_transfer_id), std::move(callback));
               internal::MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaStreamDispatcherHost.13
       bool success = true;
       ::base::UnguessableToken p_session_id{};
       ::base::UnguessableToken p_transfer_id{};
@@ -4299,9 +4485,9 @@ std::move(p_transfer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->KeepDeviceAliveForTransfer(
-std::move(p_session_id), 
-std::move(p_transfer_id), std::move(callback));
+      impl->KeepDeviceAliveForTransfer(        
+        std::move(p_session_id), 
+        std::move(p_transfer_id), std::move(callback));
       return true;
     }
   }
@@ -4530,6 +4716,8 @@ bool MediaStreamTrackMetricsHostStubDispatch::Accept(
           reinterpret_cast<internal::MediaStreamTrackMetricsHost_AddTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamTrackMetricsHost.0
       bool success = true;
       uint64_t p_id{};
       bool p_is_audio{};
@@ -4551,10 +4739,10 @@ bool MediaStreamTrackMetricsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddTrack(
-std::move(p_id), 
-std::move(p_is_audio), 
-std::move(p_is_remote));
+      impl->AddTrack(        
+        std::move(p_id), 
+        std::move(p_is_audio), 
+        std::move(p_is_remote));
       return true;
     }
     case internal::kMediaStreamTrackMetricsHost_RemoveTrack_Name: {
@@ -4564,6 +4752,8 @@ std::move(p_is_remote));
           reinterpret_cast<internal::MediaStreamTrackMetricsHost_RemoveTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaStreamTrackMetricsHost.1
       bool success = true;
       uint64_t p_id{};
       MediaStreamTrackMetricsHost_RemoveTrack_ParamsDataView input_data_view(params, message);
@@ -4579,8 +4769,8 @@ std::move(p_is_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveTrack(
-std::move(p_id));
+      impl->RemoveTrack(        
+        std::move(p_id));
       return true;
     }
   }
@@ -4753,9 +4943,9 @@ bool StructTraits<::blink::mojom::CapturedWheelAction::DataView, ::blink::mojom:
   ::blink::mojom::CapturedWheelActionPtr result(::blink::mojom::CapturedWheelAction::New());
   
       if (success)
-        result->x = input.x();
+        result->relative_x = input.relative_x();
       if (success)
-        result->y = input.y();
+        result->relative_y = input.relative_y();
       if (success)
         result->wheel_delta_x = input.wheel_delta_x();
       if (success)
@@ -4818,6 +5008,9 @@ void MediaStreamDeviceObserverInterceptorForTesting::OnDeviceCaptureConfiguratio
 }
 void MediaStreamDeviceObserverInterceptorForTesting::OnDeviceCaptureHandleChange(const std::string& label, const ::blink::MediaStreamDevice& device) {
   GetForwardingInterface()->OnDeviceCaptureHandleChange(std::move(label), std::move(device));
+}
+void MediaStreamDeviceObserverInterceptorForTesting::OnZoomLevelChange(const std::string& label, const ::blink::MediaStreamDevice& device, int32_t zoom_level) {
+  GetForwardingInterface()->OnZoomLevelChange(std::move(label), std::move(device), std::move(zoom_level));
 }
 MediaStreamDeviceObserverAsyncWaiter::MediaStreamDeviceObserverAsyncWaiter(
     MediaStreamDeviceObserver* proxy) : proxy_(proxy) {}

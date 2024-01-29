@@ -58,20 +58,22 @@ export class SettingsBluetoothBasePageElement extends SettingsBluetoothBasePageE
     }
     connectedCallback() {
         super.connectedCallback();
-        afterNextRender(this, () => {
-            if (!this.focusDefault) {
+        afterNextRender(this, () => this.focus());
+    }
+    focus() {
+        super.focus();
+        if (!this.focusDefault) {
+            return;
+        }
+        const buttons = this.shadowRoot.querySelectorAll('cr-button');
+        // Focus to the first non-disabled, from the end.
+        for (let i = buttons.length - 1; i >= 0; i--) {
+            const button = buttons.item(i);
+            if (!button.disabled) {
+                focusWithoutInk(button);
                 return;
             }
-            const buttons = this.shadowRoot.querySelectorAll('cr-button');
-            // Focus to the first non-disabled, from the end.
-            for (let i = buttons.length - 1; i >= 0; i--) {
-                const button = buttons.item(i);
-                if (!button.disabled) {
-                    focusWithoutInk(button);
-                    return;
-                }
-            }
-        });
+        }
     }
     onCancelClick_() {
         this.dispatchEvent(new CustomEvent('cancel', {

@@ -29,6 +29,7 @@
 #include "google/protobuf/message_lite.h"
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
+#include "google/protobuf/generated_enum_util.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -82,6 +83,30 @@ template <>
 PROTOBUF_NAMESPACE_CLOSE
 
 namespace featured {
+enum OverrideState : int {
+  OVERRIDE_USE_DEFAULT = 0,
+  OVERRIDE_DISABLE_FEATURE = 1,
+  OVERRIDE_ENABLE_FEATURE = 2,
+  OverrideState_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  OverrideState_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool OverrideState_IsValid(int value);
+constexpr OverrideState OverrideState_MIN = static_cast<OverrideState>(0);
+constexpr OverrideState OverrideState_MAX = static_cast<OverrideState>(2);
+constexpr int OverrideState_ARRAYSIZE = 2 + 1;
+const std::string& OverrideState_Name(OverrideState value);
+template <typename T>
+const std::string& OverrideState_Name(T value) {
+  static_assert(std::is_same<T, OverrideState>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to OverrideState_Name().");
+  return OverrideState_Name(static_cast<OverrideState>(value));
+}
+const std::string& OverrideState_Name(OverrideState value);
+bool OverrideState_Parse(absl::string_view name, OverrideState* value);
 
 // ===================================================================
 
@@ -372,6 +397,7 @@ class FeatureOverride final :
     kTrialNameFieldNumber = 4,
     kGroupNameFieldNumber = 5,
     kEnabledFieldNumber = 2,
+    kOverrideStateFieldNumber = 6,
   };
   // repeated .featured.Param params = 3;
   int params_size() const;
@@ -463,6 +489,16 @@ class FeatureOverride final :
   void _internal_set_enabled(bool value);
 
   public:
+  // .featured.OverrideState override_state = 6;
+  void clear_override_state() ;
+  ::featured::OverrideState override_state() const;
+  void set_override_state(::featured::OverrideState value);
+
+  private:
+  ::featured::OverrideState _internal_override_state() const;
+  void _internal_set_override_state(::featured::OverrideState value);
+
+  public:
   // @@protoc_insertion_point(class_scope:featured.FeatureOverride)
  private:
   class _Internal;
@@ -476,6 +512,7 @@ class FeatureOverride final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr trial_name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr group_name_;
     bool enabled_;
+    int override_state_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1585,6 +1622,26 @@ inline void FeatureOverride::set_allocated_group_name(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:featured.FeatureOverride.group_name)
 }
 
+// .featured.OverrideState override_state = 6;
+inline void FeatureOverride::clear_override_state() {
+  _impl_.override_state_ = 0;
+}
+inline ::featured::OverrideState FeatureOverride::override_state() const {
+  // @@protoc_insertion_point(field_get:featured.FeatureOverride.override_state)
+  return _internal_override_state();
+}
+inline void FeatureOverride::set_override_state(::featured::OverrideState value) {
+   _internal_set_override_state(value);
+  // @@protoc_insertion_point(field_set:featured.FeatureOverride.override_state)
+}
+inline ::featured::OverrideState FeatureOverride::_internal_override_state() const {
+  return static_cast<::featured::OverrideState>(_impl_.override_state_);
+}
+inline void FeatureOverride::_internal_set_override_state(::featured::OverrideState value) {
+  ;
+  _impl_.override_state_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // SeedDetails
@@ -2287,6 +2344,13 @@ inline void ComputedState::set_allocated_used_seed(::featured::SeedDetails* used
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace featured
 
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <>
+struct is_proto_enum<::featured::OverrideState> : std::true_type {};
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

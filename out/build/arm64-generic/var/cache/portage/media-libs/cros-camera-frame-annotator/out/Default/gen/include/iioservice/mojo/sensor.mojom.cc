@@ -528,6 +528,8 @@ bool SensorService_GetDeviceIds_ForwardToCallback::Accept(
           internal::SensorService_GetDeviceIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorService.0
   bool success = true;
   std::vector<int32_t> p_iio_device_ids{};
   SensorService_GetDeviceIds_ResponseParamsDataView input_data_view(params, message);
@@ -659,6 +661,8 @@ bool SensorService_GetAllDeviceIds_ForwardToCallback::Accept(
           internal::SensorService_GetAllDeviceIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorService.1
   bool success = true;
   base::flat_map<int32_t, std::vector<DeviceType>> p_iio_device_ids_types{};
   SensorService_GetAllDeviceIds_ResponseParamsDataView input_data_view(params, message);
@@ -751,6 +755,8 @@ bool SensorServiceStubDispatch::Accept(
           reinterpret_cast<internal::SensorService_GetDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorService.2
       bool success = true;
       int32_t p_iio_device_id{};
       ::mojo::PendingReceiver<SensorDevice> p_device_request{};
@@ -771,9 +777,9 @@ bool SensorServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevice(
-std::move(p_iio_device_id), 
-std::move(p_device_request));
+      impl->GetDevice(        
+        std::move(p_iio_device_id), 
+        std::move(p_device_request));
       return true;
     }
     case internal::kSensorService_RegisterNewDevicesObserver_Name: {
@@ -783,6 +789,8 @@ std::move(p_device_request));
           reinterpret_cast<internal::SensorService_RegisterNewDevicesObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorService.3
       bool success = true;
       ::mojo::PendingRemote<SensorServiceNewDevicesObserver> p_observer{};
       SensorService_RegisterNewDevicesObserver_ParamsDataView input_data_view(params, message);
@@ -800,8 +808,8 @@ std::move(p_device_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterNewDevicesObserver(
-std::move(p_observer));
+      impl->RegisterNewDevicesObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -824,6 +832,8 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
               internal::SensorService_GetDeviceIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorService.0
       bool success = true;
       DeviceType p_type{};
       SensorService_GetDeviceIds_ParamsDataView input_data_view(params, message);
@@ -842,8 +852,8 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDeviceIds(
-std::move(p_type), std::move(callback));
+      impl->GetDeviceIds(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kSensorService_GetAllDeviceIds_Name: {
@@ -853,6 +863,8 @@ std::move(p_type), std::move(callback));
               internal::SensorService_GetAllDeviceIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorService.1
       bool success = true;
       SensorService_GetAllDeviceIds_ParamsDataView input_data_view(params, message);
       
@@ -1960,6 +1972,8 @@ bool SensorDevice_GetAttributes_ForwardToCallback::Accept(
           internal::SensorDevice_GetAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.1
   bool success = true;
   std::vector<std::optional<std::string>> p_values{};
   SensorDevice_GetAttributes_ResponseParamsDataView input_data_view(params, message);
@@ -2091,6 +2105,8 @@ bool SensorDevice_SetFrequency_ForwardToCallback::Accept(
           internal::SensorDevice_SetFrequency_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.2
   bool success = true;
   double p_result_freq{};
   SensorDevice_SetFrequency_ResponseParamsDataView input_data_view(params, message);
@@ -2210,6 +2226,8 @@ bool SensorDevice_GetAllChannelIds_ForwardToCallback::Accept(
           internal::SensorDevice_GetAllChannelIds_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.5
   bool success = true;
   std::vector<std::string> p_iio_chn_ids{};
   SensorDevice_GetAllChannelIds_ResponseParamsDataView input_data_view(params, message);
@@ -2341,6 +2359,8 @@ bool SensorDevice_SetChannelsEnabled_ForwardToCallback::Accept(
           internal::SensorDevice_SetChannelsEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.6
   bool success = true;
   std::vector<int32_t> p_failed_indices{};
   SensorDevice_SetChannelsEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -2472,6 +2492,8 @@ bool SensorDevice_GetChannelsEnabled_ForwardToCallback::Accept(
           internal::SensorDevice_GetChannelsEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.7
   bool success = true;
   std::vector<bool> p_enabled{};
   SensorDevice_GetChannelsEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -2603,6 +2625,8 @@ bool SensorDevice_GetChannelsAttributes_ForwardToCallback::Accept(
           internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.8
   bool success = true;
   std::vector<std::optional<std::string>> p_values{};
   SensorDevice_GetChannelsAttributes_ResponseParamsDataView input_data_view(params, message);
@@ -2734,6 +2758,8 @@ bool SensorDevice_GetAllEvents_ForwardToCallback::Accept(
           internal::SensorDevice_GetAllEvents_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.9
   bool success = true;
   std::vector<IioEventPtr> p_iio_events{};
   SensorDevice_GetAllEvents_ResponseParamsDataView input_data_view(params, message);
@@ -2865,6 +2891,8 @@ bool SensorDevice_GetEventsAttributes_ForwardToCallback::Accept(
           internal::SensorDevice_GetEventsAttributes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SensorDevice.12
   bool success = true;
   std::vector<std::optional<std::string>> p_values{};
   SensorDevice_GetEventsAttributes_ResponseParamsDataView input_data_view(params, message);
@@ -2951,6 +2979,8 @@ bool SensorDeviceStubDispatch::Accept(
           reinterpret_cast<internal::SensorDevice_SetTimeout_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDevice.0
       bool success = true;
       uint32_t p_timeout{};
       SensorDevice_SetTimeout_ParamsDataView input_data_view(params, message);
@@ -2966,8 +2996,8 @@ bool SensorDeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTimeout(
-std::move(p_timeout));
+      impl->SetTimeout(        
+        std::move(p_timeout));
       return true;
     }
     case internal::kSensorDevice_GetAttributes_Name: {
@@ -2983,6 +3013,8 @@ std::move(p_timeout));
           reinterpret_cast<internal::SensorDevice_StartReadingSamples_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDevice.3
       bool success = true;
       ::mojo::PendingRemote<SensorDeviceSamplesObserver> p_observer{};
       SensorDevice_StartReadingSamples_ParamsDataView input_data_view(params, message);
@@ -3000,8 +3032,8 @@ std::move(p_timeout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartReadingSamples(
-std::move(p_observer));
+      impl->StartReadingSamples(        
+        std::move(p_observer));
       return true;
     }
     case internal::kSensorDevice_StopReadingSamples_Name: {
@@ -3011,6 +3043,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SensorDevice_StopReadingSamples_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDevice.4
       bool success = true;
       SensorDevice_StopReadingSamples_ParamsDataView input_data_view(params, message);
       
@@ -3023,7 +3057,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopReadingSamples();
+      impl->StopReadingSamples(        );
       return true;
     }
     case internal::kSensorDevice_GetAllChannelIds_Name: {
@@ -3051,6 +3085,8 @@ std::move(p_observer));
           reinterpret_cast<internal::SensorDevice_StartReadingEvents_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDevice.15
       bool success = true;
       std::vector<int32_t> p_iio_event_indices{};
       ::mojo::PendingRemote<SensorDeviceEventsObserver> p_observer{};
@@ -3071,9 +3107,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartReadingEvents(
-std::move(p_iio_event_indices), 
-std::move(p_observer));
+      impl->StartReadingEvents(        
+        std::move(p_iio_event_indices), 
+        std::move(p_observer));
       return true;
     }
   }
@@ -3099,6 +3135,8 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
               internal::SensorDevice_GetAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.1
       bool success = true;
       std::vector<std::string> p_attr_names{};
       SensorDevice_GetAttributes_ParamsDataView input_data_view(params, message);
@@ -3117,8 +3155,8 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAttributes(
-std::move(p_attr_names), std::move(callback));
+      impl->GetAttributes(        
+        std::move(p_attr_names), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_SetFrequency_Name: {
@@ -3128,6 +3166,8 @@ std::move(p_attr_names), std::move(callback));
               internal::SensorDevice_SetFrequency_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.2
       bool success = true;
       double p_frequency{};
       SensorDevice_SetFrequency_ParamsDataView input_data_view(params, message);
@@ -3146,8 +3186,8 @@ std::move(p_attr_names), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrequency(
-std::move(p_frequency), std::move(callback));
+      impl->SetFrequency(        
+        std::move(p_frequency), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_StartReadingSamples_Name: {
@@ -3163,6 +3203,8 @@ std::move(p_frequency), std::move(callback));
               internal::SensorDevice_GetAllChannelIds_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.5
       bool success = true;
       SensorDevice_GetAllChannelIds_ParamsDataView input_data_view(params, message);
       
@@ -3188,6 +3230,8 @@ std::move(p_frequency), std::move(callback));
               internal::SensorDevice_SetChannelsEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.6
       bool success = true;
       std::vector<int32_t> p_iio_chn_indices{};
       bool p_en{};
@@ -3209,9 +3253,9 @@ std::move(p_frequency), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetChannelsEnabled(
-std::move(p_iio_chn_indices), 
-std::move(p_en), std::move(callback));
+      impl->SetChannelsEnabled(        
+        std::move(p_iio_chn_indices), 
+        std::move(p_en), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetChannelsEnabled_Name: {
@@ -3221,6 +3265,8 @@ std::move(p_en), std::move(callback));
               internal::SensorDevice_GetChannelsEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.7
       bool success = true;
       std::vector<int32_t> p_iio_chn_indices{};
       SensorDevice_GetChannelsEnabled_ParamsDataView input_data_view(params, message);
@@ -3239,8 +3285,8 @@ std::move(p_en), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetChannelsEnabled(
-std::move(p_iio_chn_indices), std::move(callback));
+      impl->GetChannelsEnabled(        
+        std::move(p_iio_chn_indices), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetChannelsAttributes_Name: {
@@ -3250,6 +3296,8 @@ std::move(p_iio_chn_indices), std::move(callback));
               internal::SensorDevice_GetChannelsAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.8
       bool success = true;
       std::vector<int32_t> p_iio_chn_indices{};
       std::string p_attr_name{};
@@ -3271,9 +3319,9 @@ std::move(p_iio_chn_indices), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetChannelsAttributes(
-std::move(p_iio_chn_indices), 
-std::move(p_attr_name), std::move(callback));
+      impl->GetChannelsAttributes(        
+        std::move(p_iio_chn_indices), 
+        std::move(p_attr_name), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetAllEvents_Name: {
@@ -3283,6 +3331,8 @@ std::move(p_attr_name), std::move(callback));
               internal::SensorDevice_GetAllEvents_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.9
       bool success = true;
       SensorDevice_GetAllEvents_ParamsDataView input_data_view(params, message);
       
@@ -3308,6 +3358,8 @@ std::move(p_attr_name), std::move(callback));
               internal::SensorDevice_GetEventsAttributes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SensorDevice.12
       bool success = true;
       std::vector<int32_t> p_iio_event_indices{};
       std::string p_attr_name{};
@@ -3329,9 +3381,9 @@ std::move(p_attr_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEventsAttributes(
-std::move(p_iio_event_indices), 
-std::move(p_attr_name), std::move(callback));
+      impl->GetEventsAttributes(        
+        std::move(p_iio_event_indices), 
+        std::move(p_attr_name), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_StartReadingEvents_Name: {
@@ -3568,6 +3620,8 @@ bool SensorDeviceSamplesObserverStubDispatch::Accept(
           reinterpret_cast<internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDeviceSamplesObserver.0
       bool success = true;
       base::flat_map<int32_t, int64_t> p_sample{};
       SensorDeviceSamplesObserver_OnSampleUpdated_ParamsDataView input_data_view(params, message);
@@ -3583,8 +3637,8 @@ bool SensorDeviceSamplesObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSampleUpdated(
-std::move(p_sample));
+      impl->OnSampleUpdated(        
+        std::move(p_sample));
       return true;
     }
     case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
@@ -3594,6 +3648,8 @@ std::move(p_sample));
           reinterpret_cast<internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDeviceSamplesObserver.1
       bool success = true;
       ObserverErrorType p_type{};
       SensorDeviceSamplesObserver_OnErrorOccurred_ParamsDataView input_data_view(params, message);
@@ -3609,8 +3665,8 @@ std::move(p_sample));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnErrorOccurred(
-std::move(p_type));
+      impl->OnErrorOccurred(        
+        std::move(p_type));
       return true;
     }
   }
@@ -3657,6 +3713,9 @@ SensorServiceNewDevicesObserver::IPCStableHashFunction SensorServiceNewDevicesOb
     case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
       return &SensorServiceNewDevicesObserver::OnNewDeviceAdded_Sym::IPCStableHash;
     }
+    case internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name: {
+      return &SensorServiceNewDevicesObserver::OnDeviceRemoved_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -3670,11 +3729,15 @@ const char* SensorServiceNewDevicesObserver::MessageToMethodName_(mojo::Message&
     switch (message.name()) {
       case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name:
             return "Receive cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded";
+      case internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name:
+            return "Receive cros::mojom::SensorServiceNewDevicesObserver::OnDeviceRemoved";
     }
   } else {
     switch (message.name()) {
       case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name:
             return "Receive reply cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded";
+      case internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name:
+            return "Receive reply cros::mojom::SensorServiceNewDevicesObserver::OnDeviceRemoved";
     }
   }
   return "Receive unknown mojo message";
@@ -3698,6 +3761,19 @@ uint32_t SensorServiceNewDevicesObserver::OnNewDeviceAdded_Sym::IPCStableHash() 
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorServiceNewDevicesObserver::OnDeviceRemoved_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorServiceNewDevicesObserver::OnDeviceRemoved");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3765,6 +3841,47 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void SensorServiceNewDevicesObserverProxy::OnDeviceRemoved(
+    int32_t in_iio_device_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::SensorServiceNewDevicesObserver::OnDeviceRemoved", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("iio_device_id"), in_iio_device_id,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data> params(
+          message);
+  params.Allocate();
+  params->iio_device_id = in_iio_device_id;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SensorServiceNewDevicesObserver::Name_);
+  message.set_method_name("OnDeviceRemoved");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool SensorServiceNewDevicesObserverStubDispatch::Accept(
     SensorServiceNewDevicesObserver* impl,
@@ -3777,6 +3894,8 @@ bool SensorServiceNewDevicesObserverStubDispatch::Accept(
           reinterpret_cast<internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorServiceNewDevicesObserver.0
       bool success = true;
       int32_t p_iio_device_id{};
       std::vector<DeviceType> p_types{};
@@ -3795,9 +3914,37 @@ bool SensorServiceNewDevicesObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewDeviceAdded(
-std::move(p_iio_device_id), 
-std::move(p_types));
+      impl->OnNewDeviceAdded(        
+        std::move(p_iio_device_id), 
+        std::move(p_types));
+      return true;
+    }
+    case internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data* params =
+          reinterpret_cast<internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for SensorServiceNewDevicesObserver.1
+      bool success = true;
+      int32_t p_iio_device_id{};
+      SensorServiceNewDevicesObserver_OnDeviceRemoved_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_iio_device_id = input_data_view.iio_device_id();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SensorServiceNewDevicesObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnDeviceRemoved(        
+        std::move(p_iio_device_id));
       return true;
     }
   }
@@ -3816,6 +3963,9 @@ bool SensorServiceNewDevicesObserverStubDispatch::AcceptWithResponder(
     case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
       break;
     }
+    case internal::kSensorServiceNewDevicesObserver_OnDeviceRemoved_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -3823,6 +3973,8 @@ namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kSensorServiceNewDevicesObserverValidationInfo[] = {
     { &internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::SensorServiceNewDevicesObserver_OnDeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4015,6 +4167,8 @@ bool SensorDeviceEventsObserverStubDispatch::Accept(
           reinterpret_cast<internal::SensorDeviceEventsObserver_OnEventUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDeviceEventsObserver.0
       bool success = true;
       IioEventPtr p_iio_event{};
       SensorDeviceEventsObserver_OnEventUpdated_ParamsDataView input_data_view(params, message);
@@ -4030,8 +4184,8 @@ bool SensorDeviceEventsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEventUpdated(
-std::move(p_iio_event));
+      impl->OnEventUpdated(        
+        std::move(p_iio_event));
       return true;
     }
     case internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name: {
@@ -4041,6 +4195,8 @@ std::move(p_iio_event));
           reinterpret_cast<internal::SensorDeviceEventsObserver_OnErrorOccurred_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SensorDeviceEventsObserver.1
       bool success = true;
       ObserverErrorType p_type{};
       SensorDeviceEventsObserver_OnErrorOccurred_ParamsDataView input_data_view(params, message);
@@ -4056,8 +4212,8 @@ std::move(p_iio_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnErrorOccurred(
-std::move(p_type));
+      impl->OnErrorOccurred(        
+        std::move(p_type));
       return true;
     }
   }
@@ -4445,6 +4601,9 @@ SensorDeviceSamplesObserverAsyncWaiter::~SensorDeviceSamplesObserverAsyncWaiter(
 
 void SensorServiceNewDevicesObserverInterceptorForTesting::OnNewDeviceAdded(int32_t iio_device_id, const std::vector<DeviceType>& types) {
   GetForwardingInterface()->OnNewDeviceAdded(std::move(iio_device_id), std::move(types));
+}
+void SensorServiceNewDevicesObserverInterceptorForTesting::OnDeviceRemoved(int32_t iio_device_id) {
+  GetForwardingInterface()->OnDeviceRemoved(std::move(iio_device_id));
 }
 SensorServiceNewDevicesObserverAsyncWaiter::SensorServiceNewDevicesObserverAsyncWaiter(
     SensorServiceNewDevicesObserver* proxy) : proxy_(proxy) {}

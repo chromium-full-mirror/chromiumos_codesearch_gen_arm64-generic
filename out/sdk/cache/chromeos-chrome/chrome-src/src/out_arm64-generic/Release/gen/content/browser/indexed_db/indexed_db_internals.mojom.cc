@@ -426,6 +426,8 @@ bool IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ForwardToCallback::Ac
           internal::IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdbInternalsHandler.0
   bool success = true;
   std::optional<std::string> p_error{};
   std::vector<IdbPartitionMetadataPtr> p_partitions{};
@@ -571,6 +573,8 @@ bool IdbInternalsHandler_DownloadBucketData_ForwardToCallback::Accept(
           internal::IdbInternalsHandler_DownloadBucketData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdbInternalsHandler.1
   bool success = true;
   std::optional<std::string> p_error{};
   IdbInternalsHandler_DownloadBucketData_ResponseParamsDataView input_data_view(params, message);
@@ -696,6 +700,8 @@ bool IdbInternalsHandler_ForceClose_ForwardToCallback::Accept(
           internal::IdbInternalsHandler_ForceClose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IdbInternalsHandler.2
   bool success = true;
   std::optional<std::string> p_error{};
   IdbInternalsHandler_ForceClose_ResponseParamsDataView input_data_view(params, message);
@@ -798,6 +804,8 @@ bool IdbInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdbInternalsHandler.0
       bool success = true;
       IdbInternalsHandler_GetAllBucketsAcrossAllStorageKeys_ParamsDataView input_data_view(params, message);
       
@@ -823,6 +831,8 @@ bool IdbInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::IdbInternalsHandler_DownloadBucketData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdbInternalsHandler.1
       bool success = true;
       ::storage::BucketId p_bucketId{};
       IdbInternalsHandler_DownloadBucketData_ParamsDataView input_data_view(params, message);
@@ -841,8 +851,8 @@ bool IdbInternalsHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadBucketData(
-std::move(p_bucketId), std::move(callback));
+      impl->DownloadBucketData(        
+        std::move(p_bucketId), std::move(callback));
       return true;
     }
     case internal::kIdbInternalsHandler_ForceClose_Name: {
@@ -852,6 +862,8 @@ std::move(p_bucketId), std::move(callback));
               internal::IdbInternalsHandler_ForceClose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IdbInternalsHandler.2
       bool success = true;
       ::storage::BucketId p_bucketId{};
       IdbInternalsHandler_ForceClose_ParamsDataView input_data_view(params, message);
@@ -870,8 +882,8 @@ std::move(p_bucketId), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceClose(
-std::move(p_bucketId), std::move(callback));
+      impl->ForceClose(        
+        std::move(p_bucketId), std::move(callback));
       return true;
     }
   }

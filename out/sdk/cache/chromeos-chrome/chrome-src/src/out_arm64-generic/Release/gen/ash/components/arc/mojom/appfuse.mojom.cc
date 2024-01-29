@@ -394,6 +394,8 @@ bool AppfuseHost_Mount_ForwardToCallback::Accept(
           internal::AppfuseHost_Mount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppfuseHost.0
   bool success = true;
   ::mojo::ScopedHandle p_fd{};
   AppfuseHost_Mount_ResponseParamsDataView input_data_view(params, message);
@@ -514,6 +516,8 @@ bool AppfuseHost_Unmount_ForwardToCallback::Accept(
           internal::AppfuseHost_Unmount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppfuseHost.1
   bool success = true;
   bool p_success{};
   AppfuseHost_Unmount_ResponseParamsDataView input_data_view(params, message);
@@ -633,6 +637,8 @@ bool AppfuseHost_OpenFile_ForwardToCallback::Accept(
           internal::AppfuseHost_OpenFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppfuseHost.2
   bool success = true;
   ::mojo::ScopedHandle p_fd{};
   AppfuseHost_OpenFile_ResponseParamsDataView input_data_view(params, message);
@@ -730,6 +736,8 @@ bool AppfuseHostStubDispatch::AcceptWithResponder(
               internal::AppfuseHost_Mount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppfuseHost.0
       bool success = true;
       uint32_t p_uid{};
       int32_t p_mount_id{};
@@ -751,9 +759,9 @@ bool AppfuseHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Mount(
-std::move(p_uid), 
-std::move(p_mount_id), std::move(callback));
+      impl->Mount(        
+        std::move(p_uid), 
+        std::move(p_mount_id), std::move(callback));
       return true;
     }
     case internal::kAppfuseHost_Unmount_Name: {
@@ -763,6 +771,8 @@ std::move(p_mount_id), std::move(callback));
               internal::AppfuseHost_Unmount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppfuseHost.1
       bool success = true;
       uint32_t p_uid{};
       int32_t p_mount_id{};
@@ -784,9 +794,9 @@ std::move(p_mount_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Unmount(
-std::move(p_uid), 
-std::move(p_mount_id), std::move(callback));
+      impl->Unmount(        
+        std::move(p_uid), 
+        std::move(p_mount_id), std::move(callback));
       return true;
     }
     case internal::kAppfuseHost_OpenFile_Name: {
@@ -796,6 +806,8 @@ std::move(p_mount_id), std::move(callback));
               internal::AppfuseHost_OpenFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppfuseHost.2
       bool success = true;
       uint32_t p_uid{};
       int32_t p_mount_id{};
@@ -823,11 +835,11 @@ std::move(p_mount_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFile(
-std::move(p_uid), 
-std::move(p_mount_id), 
-std::move(p_file_id), 
-std::move(p_flags), std::move(callback));
+      impl->OpenFile(        
+        std::move(p_uid), 
+        std::move(p_mount_id), 
+        std::move(p_file_id), 
+        std::move(p_flags), std::move(callback));
       return true;
     }
   }
@@ -1032,6 +1044,8 @@ bool AppfuseInstance_Init_ForwardToCallback::Accept(
           internal::AppfuseInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppfuseInstance.0
   bool success = true;
   AppfuseInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1110,6 +1124,8 @@ bool AppfuseInstanceStubDispatch::AcceptWithResponder(
               internal::AppfuseInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppfuseInstance.0
       bool success = true;
       ::mojo::PendingRemote<AppfuseHost> p_host_remote{};
       AppfuseInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1130,8 +1146,8 @@ bool AppfuseInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

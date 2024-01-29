@@ -195,7 +195,7 @@ class  NetworkService_SetRawHeadersAccess_Params_Data {
 };
 static_assert(sizeof(NetworkService_SetRawHeadersAccess_Params_Data) == 24,
               "Bad sizeof(NetworkService_SetRawHeadersAccess_Params_Data)");
-class  NetworkService_SetMaxConnectionsPerProxy_Params_Data {
+class  NetworkService_SetMaxConnectionsPerProxyChain_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -205,13 +205,13 @@ class  NetworkService_SetMaxConnectionsPerProxy_Params_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<NetworkService_SetMaxConnectionsPerProxy_Params_Data>;
+  friend class mojo::internal::MessageFragment<NetworkService_SetMaxConnectionsPerProxyChain_Params_Data>;
 
-  NetworkService_SetMaxConnectionsPerProxy_Params_Data();
-  ~NetworkService_SetMaxConnectionsPerProxy_Params_Data() = delete;
+  NetworkService_SetMaxConnectionsPerProxyChain_Params_Data();
+  ~NetworkService_SetMaxConnectionsPerProxyChain_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkService_SetMaxConnectionsPerProxy_Params_Data) == 16,
-              "Bad sizeof(NetworkService_SetMaxConnectionsPerProxy_Params_Data)");
+static_assert(sizeof(NetworkService_SetMaxConnectionsPerProxyChain_Params_Data) == 16,
+              "Bad sizeof(NetworkService_SetMaxConnectionsPerProxyChain_Params_Data)");
 class  NetworkService_GetNetworkChangeManager_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -681,22 +681,22 @@ class  NetworkService_SetIPv6ReachabilityOverride_Params_Data {
 };
 static_assert(sizeof(NetworkService_SetIPv6ReachabilityOverride_Params_Data) == 16,
               "Bad sizeof(NetworkService_SetIPv6ReachabilityOverride_Params_Data)");
-class  NetworkService_SetCookieEncryptionProvider_Params_Data {
+class  NetworkService_SetNetworkAnnotationMonitor_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Interface_Data provider;
+  mojo::internal::Interface_Data remote;
 
  private:
-  friend class mojo::internal::MessageFragment<NetworkService_SetCookieEncryptionProvider_Params_Data>;
+  friend class mojo::internal::MessageFragment<NetworkService_SetNetworkAnnotationMonitor_Params_Data>;
 
-  NetworkService_SetCookieEncryptionProvider_Params_Data();
-  ~NetworkService_SetCookieEncryptionProvider_Params_Data() = delete;
+  NetworkService_SetNetworkAnnotationMonitor_Params_Data();
+  ~NetworkService_SetNetworkAnnotationMonitor_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkService_SetCookieEncryptionProvider_Params_Data) == 16,
-              "Bad sizeof(NetworkService_SetCookieEncryptionProvider_Params_Data)");
+static_assert(sizeof(NetworkService_SetNetworkAnnotationMonitor_Params_Data) == 16,
+              "Bad sizeof(NetworkService_SetNetworkAnnotationMonitor_Params_Data)");
 
 }  // namespace internal
 
@@ -1009,12 +1009,12 @@ class NetworkService_SetRawHeadersAccess_ParamsDataView {
 };
 
 
-class NetworkService_SetMaxConnectionsPerProxy_ParamsDataView {
+class NetworkService_SetMaxConnectionsPerProxyChain_ParamsDataView {
  public:
-  NetworkService_SetMaxConnectionsPerProxy_ParamsDataView() = default;
+  NetworkService_SetMaxConnectionsPerProxyChain_ParamsDataView() = default;
 
-  NetworkService_SetMaxConnectionsPerProxy_ParamsDataView(
-      internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data* data,
+  NetworkService_SetMaxConnectionsPerProxyChain_ParamsDataView(
+      internal::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -1023,7 +1023,7 @@ class NetworkService_SetMaxConnectionsPerProxy_ParamsDataView {
     return data_->max_connections;
   }
  private:
-  internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data* data_ = nullptr;
+  internal::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data* data_ = nullptr;
 };
 
 
@@ -1689,27 +1689,27 @@ class NetworkService_SetIPv6ReachabilityOverride_ParamsDataView {
 };
 
 
-class NetworkService_SetCookieEncryptionProvider_ParamsDataView {
+class NetworkService_SetNetworkAnnotationMonitor_ParamsDataView {
  public:
-  NetworkService_SetCookieEncryptionProvider_ParamsDataView() = default;
+  NetworkService_SetNetworkAnnotationMonitor_ParamsDataView() = default;
 
-  NetworkService_SetCookieEncryptionProvider_ParamsDataView(
-      internal::NetworkService_SetCookieEncryptionProvider_Params_Data* data,
+  NetworkService_SetNetworkAnnotationMonitor_ParamsDataView(
+      internal::NetworkService_SetNetworkAnnotationMonitor_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  UserType TakeProvider() {
+  UserType TakeRemote() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::network::mojom::CookieEncryptionProviderInterfaceBase>>(
-            &data_->provider, &result, message_);
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::network::mojom::NetworkAnnotationMonitorInterfaceBase>>(
+            &data_->remote, &result, message_);
     DCHECK(ret);
     return result;
   }
  private:
-  internal::NetworkService_SetCookieEncryptionProvider_Params_Data* data_ = nullptr;
+  internal::NetworkService_SetNetworkAnnotationMonitor_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 

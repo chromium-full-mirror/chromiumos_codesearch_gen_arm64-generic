@@ -247,25 +247,25 @@ void TorqueGeneratedModuleRequest<D, P>::set_specifier(Tagged<String> value, Wri
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
 template<class D, class P>
-Tagged<FixedArray> TorqueGeneratedModuleRequest<D, P>::import_assertions() const {
+Tagged<FixedArray> TorqueGeneratedModuleRequest<D, P>::import_attributes() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
-  return TorqueGeneratedModuleRequest::import_assertions(cage_base);
+  return TorqueGeneratedModuleRequest::import_attributes(cage_base);
 }
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
 template<class D, class P>
-Tagged<FixedArray> TorqueGeneratedModuleRequest<D, P>::import_assertions(PtrComprCageBase cage_base) const {
-  Tagged<FixedArray> value = TaggedField<Tagged<FixedArray>>::load(cage_base, *this, kImportAssertionsOffset);
+Tagged<FixedArray> TorqueGeneratedModuleRequest<D, P>::import_attributes(PtrComprCageBase cage_base) const {
+  Tagged<FixedArray> value = TaggedField<Tagged<FixedArray>>::load(cage_base, *this, kImportAttributesOffset);
   DCHECK(IsFixedArray(value));
   return value;
 }
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
 template<class D, class P>
-void TorqueGeneratedModuleRequest<D, P>::set_import_assertions(Tagged<FixedArray> value, WriteBarrierMode mode) {
+void TorqueGeneratedModuleRequest<D, P>::set_import_attributes(Tagged<FixedArray> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsFixedArray(value));
-  WRITE_FIELD(*this, kImportAssertionsOffset, value);
-  CONDITIONAL_WRITE_BARRIER(*this, kImportAssertionsOffset, value, mode);
+  WRITE_FIELD(*this, kImportAttributesOffset, value);
+  CONDITIONAL_WRITE_BARRIER(*this, kImportAttributesOffset, value, mode);
 }
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=58&c=3

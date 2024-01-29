@@ -540,6 +540,7 @@ PROTOBUF_CONSTEXPR ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(
   : ap_i2c_()
   , ec_i2c_()
   , tcpc_()
+  , touchscreen_()
   , probe_config_checksum_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , error_(0)
 {}
@@ -12663,7 +12664,8 @@ ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(::PROTOBUF_NAMESPACE_ID
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   ap_i2c_(arena),
   ec_i2c_(arena),
-  tcpc_(arena) {
+  tcpc_(arena),
+  touchscreen_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:runtime_probe.ProbeSsfcComponentsResponse)
 }
@@ -12671,7 +12673,8 @@ ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(const ProbeSsfcComponen
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       ap_i2c_(from.ap_i2c_),
       ec_i2c_(from.ec_i2c_),
-      tcpc_(from.tcpc_) {
+      tcpc_(from.tcpc_),
+      touchscreen_(from.touchscreen_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   probe_config_checksum_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -12720,6 +12723,7 @@ void ProbeSsfcComponentsResponse::Clear() {
   ap_i2c_.Clear();
   ec_i2c_.Clear();
   tcpc_.Clear();
+  touchscreen_.Clear();
   probe_config_checksum_.ClearToEmpty();
   error_ = 0;
   _internal_metadata_.Clear<std::string>();
@@ -12786,6 +12790,19 @@ const char* ProbeSsfcComponentsResponse::_InternalParse(const char* ptr, ::_pbi:
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .runtime_probe.InputDevice touchscreen = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_touchscreen(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<114>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -12859,6 +12876,14 @@ uint8_t* ProbeSsfcComponentsResponse::_InternalSerialize(
         InternalWriteMessage(13, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .runtime_probe.InputDevice touchscreen = 14;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_touchscreen_size()); i < n; i++) {
+    const auto& repfield = this->_internal_touchscreen(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(14, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -12892,6 +12917,13 @@ size_t ProbeSsfcComponentsResponse::ByteSizeLong() const {
   // repeated .runtime_probe.Tcpc tcpc = 13;
   total_size += 1UL * this->_internal_tcpc_size();
   for (const auto& msg : this->tcpc_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .runtime_probe.InputDevice touchscreen = 14;
+  total_size += 1UL * this->_internal_touchscreen_size();
+  for (const auto& msg : this->touchscreen_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -12932,6 +12964,7 @@ void ProbeSsfcComponentsResponse::MergeFrom(const ProbeSsfcComponentsResponse& f
   ap_i2c_.MergeFrom(from.ap_i2c_);
   ec_i2c_.MergeFrom(from.ec_i2c_);
   tcpc_.MergeFrom(from.tcpc_);
+  touchscreen_.MergeFrom(from.touchscreen_);
   if (!from._internal_probe_config_checksum().empty()) {
     _internal_set_probe_config_checksum(from._internal_probe_config_checksum());
   }
@@ -12960,6 +12993,7 @@ void ProbeSsfcComponentsResponse::InternalSwap(ProbeSsfcComponentsResponse* othe
   ap_i2c_.InternalSwap(&other->ap_i2c_);
   ec_i2c_.InternalSwap(&other->ec_i2c_);
   tcpc_.InternalSwap(&other->tcpc_);
+  touchscreen_.InternalSwap(&other->touchscreen_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &probe_config_checksum_, lhs_arena,
       &other->probe_config_checksum_, rhs_arena

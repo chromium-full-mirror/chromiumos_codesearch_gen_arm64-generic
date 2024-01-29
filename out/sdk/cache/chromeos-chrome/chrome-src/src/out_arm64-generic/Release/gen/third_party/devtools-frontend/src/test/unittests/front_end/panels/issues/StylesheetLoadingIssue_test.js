@@ -30,11 +30,11 @@ describeWithLocale('StylesheetLoadingIssue', () => {
         const stylesheetIssues = IssuesManager.StylesheetLoadingIssue.StylesheetLoadingIssue.fromInspectorIssue(mockModel, issue);
         assert.lengthOf(stylesheetIssues, 1);
         const stylesheetIssue = stylesheetIssues[0];
-        assert.strictEqual(stylesheetIssue.getCategory(), IssuesManager.Issue.IssueCategory.Other);
+        assert.strictEqual(stylesheetIssue.getCategory(), "Other" /* IssuesManager.Issue.IssueCategory.Other */);
         assert.deepStrictEqual(stylesheetIssue.sources(), [issueDetails.sourceCodeLocation]);
         const { url, requestId } = issueDetails.failedRequestInfo;
         assert.deepStrictEqual(stylesheetIssue.requests(), [{ url, requestId }]);
-        assert.strictEqual(stylesheetIssue.getKind(), IssuesManager.Issue.IssueKind.PageError);
+        assert.strictEqual(stylesheetIssue.getKind(), "PageError" /* IssuesManager.Issue.IssueKind.PageError */);
         assert.isNotNull(stylesheetIssue.getDescription());
     });
     it('can be created for late import rules', () => {
@@ -50,9 +50,9 @@ describeWithLocale('StylesheetLoadingIssue', () => {
         const stylesheetIssues = IssuesManager.StylesheetLoadingIssue.StylesheetLoadingIssue.fromInspectorIssue(mockModel, issue);
         assert.lengthOf(stylesheetIssues, 1);
         const stylesheetIssue = stylesheetIssues[0];
-        assert.strictEqual(stylesheetIssue.getCategory(), IssuesManager.Issue.IssueCategory.Other);
+        assert.strictEqual(stylesheetIssue.getCategory(), "Other" /* IssuesManager.Issue.IssueCategory.Other */);
         assert.deepStrictEqual(stylesheetIssue.sources(), [issueDetails.sourceCodeLocation]);
-        assert.strictEqual(stylesheetIssue.getKind(), IssuesManager.Issue.IssueKind.PageError);
+        assert.strictEqual(stylesheetIssue.getKind(), "PageError" /* IssuesManager.Issue.IssueKind.PageError */);
         assert.isNotNull(stylesheetIssue.getDescription());
     });
     it('correctly aggregates issues', () => {

@@ -45,7 +45,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionChildNodePartOrDocumentPartRoot::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionChildNodePartOrDocumentPartRoot::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kChildNodePart: {
     return ToV8Traits<ChildNodePart>::ToV8(script_state, member_child_node_part_.Get());
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionChildNodePartOrDocumentPartRoot::ToV8Value(Scri
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionChildNodePartOrDocumentPartRoot::Trace(Visitor* visitor) const {

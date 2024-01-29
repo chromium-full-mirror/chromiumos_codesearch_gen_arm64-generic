@@ -341,6 +341,8 @@ bool NetLogExporter_Start_ForwardToCallback::Accept(
           internal::NetLogExporter_Start_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetLogExporter.0
   bool success = true;
   int32_t p_net_error{};
   NetLogExporter_Start_ResponseParamsDataView input_data_view(params, message);
@@ -460,6 +462,8 @@ bool NetLogExporter_Stop_ForwardToCallback::Accept(
           internal::NetLogExporter_Stop_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetLogExporter.1
   bool success = true;
   int32_t p_net_error{};
   NetLogExporter_Stop_ResponseParamsDataView input_data_view(params, message);
@@ -553,6 +557,8 @@ bool NetLogExporterStubDispatch::AcceptWithResponder(
               internal::NetLogExporter_Start_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetLogExporter.0
       bool success = true;
       ::base::File p_destination{};
       ::base::Value::Dict p_extra_constants{};
@@ -580,11 +586,11 @@ bool NetLogExporterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_destination), 
-std::move(p_extra_constants), 
-std::move(p_capture_mode), 
-std::move(p_max_file_size), std::move(callback));
+      impl->Start(        
+        std::move(p_destination), 
+        std::move(p_extra_constants), 
+        std::move(p_capture_mode), 
+        std::move(p_max_file_size), std::move(callback));
       return true;
     }
     case internal::kNetLogExporter_Stop_Name: {
@@ -594,6 +600,8 @@ std::move(p_max_file_size), std::move(callback));
               internal::NetLogExporter_Stop_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetLogExporter.1
       bool success = true;
       ::base::Value::Dict p_polled_values{};
       NetLogExporter_Stop_ParamsDataView input_data_view(params, message);
@@ -612,8 +620,8 @@ std::move(p_max_file_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop(
-std::move(p_polled_values), std::move(callback));
+      impl->Stop(        
+        std::move(p_polled_values), std::move(callback));
       return true;
     }
   }
@@ -749,6 +757,8 @@ bool NetLogProxySourceStubDispatch::Accept(
           reinterpret_cast<internal::NetLogProxySource_UpdateCaptureModes_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetLogProxySource.0
       bool success = true;
       uint32_t p_modes{};
       NetLogProxySource_UpdateCaptureModes_ParamsDataView input_data_view(params, message);
@@ -764,8 +774,8 @@ bool NetLogProxySourceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCaptureModes(
-std::move(p_modes));
+      impl->UpdateCaptureModes(        
+        std::move(p_modes));
       return true;
     }
   }
@@ -958,6 +968,8 @@ bool NetLogProxySinkStubDispatch::Accept(
           reinterpret_cast<internal::NetLogProxySink_AddEntry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetLogProxySink.0
       bool success = true;
       uint32_t p_type{};
       ::net::NetLogSource p_net_log_source{};
@@ -985,12 +997,12 @@ bool NetLogProxySinkStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddEntry(
-std::move(p_type), 
-std::move(p_net_log_source), 
-std::move(p_phase), 
-std::move(p_time), 
-std::move(p_params));
+      impl->AddEntry(        
+        std::move(p_type), 
+        std::move(p_net_log_source), 
+        std::move(p_phase), 
+        std::move(p_time), 
+        std::move(p_params));
       return true;
     }
   }

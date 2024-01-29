@@ -313,6 +313,8 @@ bool ShareService_Share_ForwardToCallback::Accept(
           internal::ShareService_Share_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ShareService.0
   bool success = true;
   ::blink::mojom::blink::ShareError p_error{};
   ShareService_Share_ResponseParamsDataView input_data_view(params, message);
@@ -404,6 +406,8 @@ bool ShareServiceStubDispatch::AcceptWithResponder(
               internal::ShareService_Share_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ShareService.0
       bool success = true;
       WTF::String p_title{};
       WTF::String p_text{};
@@ -431,11 +435,11 @@ bool ShareServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Share(
-std::move(p_title), 
-std::move(p_text), 
-std::move(p_url), 
-std::move(p_files), std::move(callback));
+      impl->Share(        
+        std::move(p_title), 
+        std::move(p_text), 
+        std::move(p_url), 
+        std::move(p_files), std::move(callback));
       return true;
     }
   }

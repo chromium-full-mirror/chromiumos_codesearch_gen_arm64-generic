@@ -265,6 +265,8 @@ bool IndexedDBObserverStubDispatch::Accept(
           reinterpret_cast<internal::IndexedDBObserver_OnIndexedDBListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBObserver.0
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       IndexedDBObserver_OnIndexedDBListChanged_ParamsDataView input_data_view(params, message);
@@ -280,8 +282,8 @@ bool IndexedDBObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIndexedDBListChanged(
-std::move(p_bucket_locator));
+      impl->OnIndexedDBListChanged(        
+        std::move(p_bucket_locator));
       return true;
     }
     case internal::kIndexedDBObserver_OnIndexedDBContentChanged_Name: {
@@ -291,6 +293,8 @@ std::move(p_bucket_locator));
           reinterpret_cast<internal::IndexedDBObserver_OnIndexedDBContentChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBObserver.1
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       ::std::u16string p_database_name{};
@@ -312,10 +316,10 @@ std::move(p_bucket_locator));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIndexedDBContentChanged(
-std::move(p_bucket_locator), 
-std::move(p_database_name), 
-std::move(p_object_store_name));
+      impl->OnIndexedDBContentChanged(        
+        std::move(p_bucket_locator), 
+        std::move(p_database_name), 
+        std::move(p_object_store_name));
       return true;
     }
   }
@@ -1136,6 +1140,8 @@ bool IndexedDBControl_DeleteForStorageKey_ForwardToCallback::Accept(
           internal::IndexedDBControl_DeleteForStorageKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControl.1
   bool success = true;
   bool p_success{};
   IndexedDBControl_DeleteForStorageKey_ResponseParamsDataView input_data_view(params, message);
@@ -1255,6 +1261,8 @@ bool IndexedDBControl_ForceClose_ForwardToCallback::Accept(
           internal::IndexedDBControl_ForceClose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControl.2
   bool success = true;
   IndexedDBControl_ForceClose_ResponseParamsDataView input_data_view(params, message);
   
@@ -1362,6 +1370,8 @@ bool IndexedDBControl_DownloadBucketData_ForwardToCallback::Accept(
           internal::IndexedDBControl_DownloadBucketData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControl.3
   bool success = true;
   bool p_success{};
   ::base::FilePath p_temp_path{};
@@ -1517,6 +1527,8 @@ bool IndexedDBControl_GetAllBucketsDetails_ForwardToCallback::Accept(
           internal::IndexedDBControl_GetAllBucketsDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IndexedDBControl.4
   bool success = true;
   bool p_incognito{};
   std::vector<::storage::mojom::IdbOriginMetadataPtr> p_details{};
@@ -1611,6 +1623,8 @@ bool IndexedDBControlStubDispatch::Accept(
           reinterpret_cast<internal::IndexedDBControl_BindIndexedDB_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.0
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> p_client_state_checker_remote{};
@@ -1636,10 +1650,10 @@ bool IndexedDBControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindIndexedDB(
-std::move(p_bucket_locator), 
-std::move(p_client_state_checker_remote), 
-std::move(p_receiver));
+      impl->BindIndexedDB(        
+        std::move(p_bucket_locator), 
+        std::move(p_client_state_checker_remote), 
+        std::move(p_receiver));
       return true;
     }
     case internal::kIndexedDBControl_DeleteForStorageKey_Name: {
@@ -1661,6 +1675,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::IndexedDBControl_SetForceKeepSessionState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.5
       bool success = true;
       IndexedDBControl_SetForceKeepSessionState_ParamsDataView input_data_view(params, message);
       
@@ -1673,7 +1689,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetForceKeepSessionState();
+      impl->SetForceKeepSessionState(        );
       return true;
     }
     case internal::kIndexedDBControl_AddObserver_Name: {
@@ -1683,6 +1699,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::IndexedDBControl_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.6
       bool success = true;
       ::mojo::PendingRemote<IndexedDBObserver> p_observer{};
       IndexedDBControl_AddObserver_ParamsDataView input_data_view(params, message);
@@ -1700,8 +1718,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kIndexedDBControl_ApplyPolicyUpdates_Name: {
@@ -1711,6 +1729,8 @@ std::move(p_observer));
           reinterpret_cast<internal::IndexedDBControl_ApplyPolicyUpdates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.7
       bool success = true;
       std::vector<::storage::mojom::StoragePolicyUpdatePtr> p_policy_updates{};
       IndexedDBControl_ApplyPolicyUpdates_ParamsDataView input_data_view(params, message);
@@ -1726,8 +1746,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyPolicyUpdates(
-std::move(p_policy_updates));
+      impl->ApplyPolicyUpdates(        
+        std::move(p_policy_updates));
       return true;
     }
     case internal::kIndexedDBControl_BindTestInterface_Name: {
@@ -1737,6 +1757,8 @@ std::move(p_policy_updates));
           reinterpret_cast<internal::IndexedDBControl_BindTestInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.8
       bool success = true;
       ::mojo::PendingReceiver<::storage::mojom::IndexedDBControlTest> p_receiver{};
       IndexedDBControl_BindTestInterface_ParamsDataView input_data_view(params, message);
@@ -1754,8 +1776,8 @@ std::move(p_policy_updates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestInterface(
-std::move(p_receiver));
+      impl->BindTestInterface(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -1781,6 +1803,8 @@ bool IndexedDBControlStubDispatch::AcceptWithResponder(
               internal::IndexedDBControl_DeleteForStorageKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.1
       bool success = true;
       ::blink::StorageKey p_storage_key{};
       IndexedDBControl_DeleteForStorageKey_ParamsDataView input_data_view(params, message);
@@ -1799,8 +1823,8 @@ bool IndexedDBControlStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteForStorageKey(
-std::move(p_storage_key), std::move(callback));
+      impl->DeleteForStorageKey(        
+        std::move(p_storage_key), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControl_ForceClose_Name: {
@@ -1810,6 +1834,8 @@ std::move(p_storage_key), std::move(callback));
               internal::IndexedDBControl_ForceClose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.2
       bool success = true;
       ::storage::BucketId p_bucket_id{};
       ForceCloseReason p_reason{};
@@ -1831,9 +1857,9 @@ std::move(p_storage_key), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForceClose(
-std::move(p_bucket_id), 
-std::move(p_reason), std::move(callback));
+      impl->ForceClose(        
+        std::move(p_bucket_id), 
+        std::move(p_reason), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControl_DownloadBucketData_Name: {
@@ -1843,6 +1869,8 @@ std::move(p_reason), std::move(callback));
               internal::IndexedDBControl_DownloadBucketData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.3
       bool success = true;
       ::storage::BucketId p_bucket_id{};
       IndexedDBControl_DownloadBucketData_ParamsDataView input_data_view(params, message);
@@ -1861,8 +1889,8 @@ std::move(p_reason), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadBucketData(
-std::move(p_bucket_id), std::move(callback));
+      impl->DownloadBucketData(        
+        std::move(p_bucket_id), std::move(callback));
       return true;
     }
     case internal::kIndexedDBControl_GetAllBucketsDetails_Name: {
@@ -1872,6 +1900,8 @@ std::move(p_bucket_id), std::move(callback));
               internal::IndexedDBControl_GetAllBucketsDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IndexedDBControl.4
       bool success = true;
       IndexedDBControl_GetAllBucketsDetails_ParamsDataView input_data_view(params, message);
       

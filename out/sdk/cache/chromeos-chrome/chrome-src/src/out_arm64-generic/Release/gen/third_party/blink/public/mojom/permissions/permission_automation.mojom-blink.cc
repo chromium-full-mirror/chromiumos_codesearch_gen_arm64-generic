@@ -262,6 +262,8 @@ bool PermissionAutomation_SetPermission_ForwardToCallback::Accept(
           internal::PermissionAutomation_SetPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PermissionAutomation.0
   bool success = true;
   bool p_success{};
   PermissionAutomation_SetPermission_ResponseParamsDataView input_data_view(params, message);
@@ -352,6 +354,8 @@ bool PermissionAutomationStubDispatch::AcceptWithResponder(
               internal::PermissionAutomation_SetPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PermissionAutomation.0
       bool success = true;
       ::blink::mojom::blink::PermissionDescriptorPtr p_descriptor{};
       ::blink::mojom::blink::PermissionStatus p_status{};
@@ -379,11 +383,11 @@ bool PermissionAutomationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPermission(
-std::move(p_descriptor), 
-std::move(p_status), 
-std::move(p_origin), 
-std::move(p_embedding_origin), std::move(callback));
+      impl->SetPermission(        
+        std::move(p_descriptor), 
+        std::move(p_status), 
+        std::move(p_origin), 
+        std::move(p_embedding_origin), std::move(callback));
       return true;
     }
   }

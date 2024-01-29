@@ -131,7 +131,8 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.deltaMode.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WheelEvent.deltaMode.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8WheelEvent_DeltaMode_AttributeGetter);
 
@@ -154,7 +155,8 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.wheelDeltaX.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WheelEvent.wheelDeltaX.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWheelEventWheelDeltaX);
 
@@ -177,7 +179,8 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.wheelDeltaY.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WheelEvent.wheelDeltaY.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWheelEventWheelDeltaY);
 
@@ -200,7 +203,8 @@ BLINK_BINDINGS_TRACE_EVENT("WheelEvent.wheelDelta.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("WheelEvent.wheelDelta.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWheelEventWheelDelta);
 

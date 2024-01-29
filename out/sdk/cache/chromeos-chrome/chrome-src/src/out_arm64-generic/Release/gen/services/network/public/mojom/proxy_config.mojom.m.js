@@ -11,6 +11,11 @@ import {
   BigStringSpec as mojoBase_mojom_BigStringSpec
 } from '../../../../mojo/public/mojom/base/big_string.mojom.m.js';
 
+import {
+  ProxyChain as network_mojom_ProxyChain,
+  ProxyChainSpec as network_mojom_ProxyChainSpec
+} from './network_param.mojom.m.js';
+
 
 /**
  * @const { {$: !mojo.internal.MojomType} }
@@ -109,7 +114,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'proxies', 0,
         0,
-        mojo.internal.Array(mojo.internal.Array(mojo.internal.String, false), false),
+        mojo.internal.Array(network_mojom_ProxyChainSpec.$, false),
         null,
         false /* nullable */,
         0,
@@ -124,7 +129,7 @@ mojo.internal.Struct(
  */
 export class ProxyList {
   constructor() {
-    /** @type { !Array<!Array<!string>> } */
+    /** @type { !Array<!network_mojom_ProxyChain> } */
     this.proxies;
   }
 }
@@ -146,14 +151,6 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'reverseBypass', 8,
         0,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'restrictToNetworkServiceProxyAllowList', 8,
-        1,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -221,8 +218,6 @@ export class ProxyRules {
     this.bypassRules;
     /** @type { !boolean } */
     this.reverseBypass;
-    /** @type { !boolean } */
-    this.restrictToNetworkServiceProxyAllowList;
     /** @type { !ProxyRulesType } */
     this.type;
     /** @type { !ProxyList } */

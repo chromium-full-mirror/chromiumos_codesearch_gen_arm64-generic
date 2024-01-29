@@ -316,6 +316,8 @@ bool FileUtilitiesHost_GetFileInfo_ForwardToCallback::Accept(
           internal::FileUtilitiesHost_GetFileInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileUtilitiesHost.0
   bool success = true;
   std::optional<::base::File::Info> p_result{};
   FileUtilitiesHost_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
@@ -391,6 +393,8 @@ bool FileUtilitiesHost_GetFileInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::FileUtilitiesHost_GetFileInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FileUtilitiesHost.0
   bool success = true;
   std::optional<::base::File::Info> p_result{};
   FileUtilitiesHost_GetFileInfo_ResponseParamsDataView input_data_view(params, message);
@@ -437,6 +441,8 @@ bool FileUtilitiesHostStubDispatch::AcceptWithResponder(
               internal::FileUtilitiesHost_GetFileInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileUtilitiesHost.0
       bool success = true;
       ::base::FilePath p_path{};
       FileUtilitiesHost_GetFileInfo_ParamsDataView input_data_view(params, message);
@@ -455,8 +461,8 @@ bool FileUtilitiesHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileInfo(
-std::move(p_path), std::move(callback));
+      impl->GetFileInfo(        
+        std::move(p_path), std::move(callback));
       return true;
     }
   }

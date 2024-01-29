@@ -406,6 +406,8 @@ bool EchoPrivate_CheckRedeemOffersAllowed_ForwardToCallback::Accept(
           internal::EchoPrivate_CheckRedeemOffersAllowed_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EchoPrivate.0
   bool success = true;
   bool p_allowed{};
   EchoPrivate_CheckRedeemOffersAllowed_ResponseParamsDataView input_data_view(params, message);
@@ -525,6 +527,8 @@ bool EchoPrivate_GetOobeTimestamp_ForwardToCallback::Accept(
           internal::EchoPrivate_GetOobeTimestamp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EchoPrivate.1
   bool success = true;
   std::string p_timestamp{};
   EchoPrivate_GetOobeTimestamp_ResponseParamsDataView input_data_view(params, message);
@@ -654,6 +658,8 @@ bool EchoPrivate_GetRegistrationCode_ForwardToCallback::Accept(
           internal::EchoPrivate_GetRegistrationCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EchoPrivate.2
   bool success = true;
   std::string p_result{};
   EchoPrivate_GetRegistrationCode_ResponseParamsDataView input_data_view(params, message);
@@ -760,6 +766,8 @@ bool EchoPrivateStubDispatch::AcceptWithResponder(
               internal::EchoPrivate_CheckRedeemOffersAllowed_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EchoPrivate.0
       bool success = true;
       std::string p_window_id{};
       std::string p_service_name{};
@@ -784,10 +792,10 @@ bool EchoPrivateStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckRedeemOffersAllowed(
-std::move(p_window_id), 
-std::move(p_service_name), 
-std::move(p_origin), std::move(callback));
+      impl->CheckRedeemOffersAllowed(        
+        std::move(p_window_id), 
+        std::move(p_service_name), 
+        std::move(p_origin), std::move(callback));
       return true;
     }
     case internal::kEchoPrivate_GetOobeTimestamp_Name: {
@@ -797,6 +805,8 @@ std::move(p_origin), std::move(callback));
               internal::EchoPrivate_GetOobeTimestamp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EchoPrivate.1
       bool success = true;
       EchoPrivate_GetOobeTimestamp_ParamsDataView input_data_view(params, message);
       
@@ -822,6 +832,8 @@ std::move(p_origin), std::move(callback));
               internal::EchoPrivate_GetRegistrationCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EchoPrivate.2
       bool success = true;
       RegistrationCodeType p_type{};
       EchoPrivate_GetRegistrationCode_ParamsDataView input_data_view(params, message);
@@ -840,8 +852,8 @@ std::move(p_origin), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRegistrationCode(
-std::move(p_type), std::move(callback));
+      impl->GetRegistrationCode(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }

@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { assert, assertNotReached } from '../assert.js';
 import * as expert from '../expert.js';
+import { getBoard } from '../models/load_time_data.js';
 import * as localStorage from '../models/local_storage.js';
 import { AspectRatioSet, LocalStorageKey, Mode, PhotoResolutionLevel, Resolution, VideoResolutionLevel, } from '../type.js';
 import { toAspectRatioSet } from '../util.js';
@@ -391,18 +392,14 @@ export class CaptureCandidatePreferrer {
         return options;
     }
     buildPhotoOptions(deviceId, resolutions) {
-        const defaultPreferOrder = [
-            AspectRatioSet.RATIO_4_3,
-            AspectRatioSet.RATIO_16_9,
-            AspectRatioSet.RATIO_OTHER,
-        ];
+        const aspectRatioSetPreferOrder = getAspectRatioSetPreferOrder();
         // Making sure that the prefer aspect ratio has resolution which is equal to
         // or larger than 720p.
-        const prioritizedAspectRatioSet = defaultPreferOrder.find((ratio) => resolutions.some((r) => toAspectRatioSet(r) === ratio && r.height >= 720)) ??
-            defaultPreferOrder[0];
+        const prioritizedAspectRatioSet = aspectRatioSetPreferOrder.find((ratio) => resolutions.some((r) => toAspectRatioSet(r) === ratio && r.height >= 720)) ??
+            aspectRatioSetPreferOrder[0];
         this.preferPhotoAspectRatioOrder = [
             prioritizedAspectRatioSet,
-            ...defaultPreferOrder.filter((ratio) => ratio !== prioritizedAspectRatioSet),
+            ...aspectRatioSetPreferOrder.filter((ratio) => ratio !== prioritizedAspectRatioSet),
         ];
         /**
          * Categorizes the photo resolutions according to their aspect ratio and
@@ -502,6 +499,7 @@ export class CaptureCandidatePreferrer {
                 resolution: new Resolution(640, 360),
             },
         ];
+        resolutions.sort((r1, r2) => r2.area - r1.area);
         let matches = [];
         if (!expert.isEnabled(expert.ExpertOption.SHOW_ALL_RESOLUTIONS)) {
             for (const resolution of resolutions) {
@@ -516,7 +514,6 @@ export class CaptureCandidatePreferrer {
             }
         }
         if (matches.length === 0) {
-            resolutions.sort((r1, r2) => r2.area - r1.area);
             const threshold = resolutions[0].area * 0.6;
             const splitIndex = resolutions.findIndex((r) => r.area < threshold);
             if (splitIndex === -1) {
@@ -764,4 +761,21 @@ function getFallbackVideoResolutionLevel(options) {
         }
     }
     assertNotReached();
+}
+function getAspectRatioSetPreferOrder() {
+    const board = getBoard();
+    switch (board) {
+        case 'rex':
+            return [
+                AspectRatioSet.RATIO_16_9,
+                AspectRatioSet.RATIO_4_3,
+                AspectRatioSet.RATIO_OTHER,
+            ];
+        default:
+            return [
+                AspectRatioSet.RATIO_4_3,
+                AspectRatioSet.RATIO_16_9,
+                AspectRatioSet.RATIO_OTHER,
+            ];
+    }
 }

@@ -473,6 +473,8 @@ bool ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_Forward
           internal::ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProtectedBufferManager.0
   bool success = true;
   ::mojo::ScopedHandle p_shared_memory_handle{};
   ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_ResponseParamsDataView input_data_view(params, message);
@@ -597,6 +599,8 @@ bool ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_ForwardToCallback
           internal::ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProtectedBufferManager.1
   bool success = true;
   ::mojo::ScopedSharedBufferHandle p_shared_memory_handle{};
   ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_ResponseParamsDataView input_data_view(params, message);
@@ -717,6 +721,8 @@ bool ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ForwardToCa
           internal::ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProtectedBufferManager.2
   bool success = true;
   std::optional<::gfx::NativePixmapHandle> p_native_pixmap_handle{};
   ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ResponseParamsDataView input_data_view(params, message);
@@ -842,6 +848,8 @@ bool ProtectedBufferManager_IsProtectedNativePixmapHandle_ForwardToCallback::Acc
           internal::ProtectedBufferManager_IsProtectedNativePixmapHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProtectedBufferManager.3
   bool success = true;
   bool p_is_protected{};
   ProtectedBufferManager_IsProtectedNativePixmapHandle_ResponseParamsDataView input_data_view(params, message);
@@ -941,6 +949,8 @@ bool ProtectedBufferManagerStubDispatch::AcceptWithResponder(
               internal::ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProtectedBufferManager.0
       bool success = true;
       ::mojo::ScopedHandle p_dummy_handle{};
       ProtectedBufferManager_DeprecatedGetProtectedSharedMemoryFromHandle_ParamsDataView input_data_view(params, message);
@@ -959,8 +969,8 @@ bool ProtectedBufferManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeprecatedGetProtectedSharedMemoryFromHandle(
-std::move(p_dummy_handle), std::move(callback));
+      impl->DeprecatedGetProtectedSharedMemoryFromHandle(        
+        std::move(p_dummy_handle), std::move(callback));
       return true;
     }
     case internal::kProtectedBufferManager_GetProtectedSharedMemoryFromHandle_Name: {
@@ -970,6 +980,8 @@ std::move(p_dummy_handle), std::move(callback));
               internal::ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProtectedBufferManager.1
       bool success = true;
       ::mojo::ScopedHandle p_dummy_handle{};
       ProtectedBufferManager_GetProtectedSharedMemoryFromHandle_ParamsDataView input_data_view(params, message);
@@ -988,8 +1000,8 @@ std::move(p_dummy_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetProtectedSharedMemoryFromHandle(
-std::move(p_dummy_handle), std::move(callback));
+      impl->GetProtectedSharedMemoryFromHandle(        
+        std::move(p_dummy_handle), std::move(callback));
       return true;
     }
     case internal::kProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_Name: {
@@ -999,6 +1011,8 @@ std::move(p_dummy_handle), std::move(callback));
               internal::ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProtectedBufferManager.2
       bool success = true;
       ::mojo::ScopedHandle p_dummy_handle{};
       ProtectedBufferManager_GetProtectedNativePixmapHandleFromHandle_ParamsDataView input_data_view(params, message);
@@ -1017,8 +1031,8 @@ std::move(p_dummy_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetProtectedNativePixmapHandleFromHandle(
-std::move(p_dummy_handle), std::move(callback));
+      impl->GetProtectedNativePixmapHandleFromHandle(        
+        std::move(p_dummy_handle), std::move(callback));
       return true;
     }
     case internal::kProtectedBufferManager_IsProtectedNativePixmapHandle_Name: {
@@ -1028,6 +1042,8 @@ std::move(p_dummy_handle), std::move(callback));
               internal::ProtectedBufferManager_IsProtectedNativePixmapHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProtectedBufferManager.3
       bool success = true;
       ::mojo::ScopedHandle p_dummy_handle{};
       ProtectedBufferManager_IsProtectedNativePixmapHandle_ParamsDataView input_data_view(params, message);
@@ -1046,8 +1062,8 @@ std::move(p_dummy_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsProtectedNativePixmapHandle(
-std::move(p_dummy_handle), std::move(callback));
+      impl->IsProtectedNativePixmapHandle(        
+        std::move(p_dummy_handle), std::move(callback));
       return true;
     }
   }

@@ -84,18 +84,19 @@ void ReadOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
   // Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-if (!V8Clipboard::HasInstance(isolate, v8_receiver)) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Clipboard";
 const char* const property_name = "read";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
-exception_state.ThrowTypeError("Illegal invocation");
+if (!V8Clipboard::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
 return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIRead);
 
@@ -105,10 +106,12 @@ UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIRead)
 
 
 Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
-auto&& return_value = blink_receiver->read(script_state);
+auto&& return_value = blink_receiver->read(script_state, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -127,7 +130,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIUnsanitizedRead);
 
@@ -141,14 +145,16 @@ return;
 
 
 Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_formats = NativeValueTraits<ClipboardUnsanitizedFormats>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-auto&& return_value = blink_receiver->read(script_state, arg1_formats);
+auto&& return_value = blink_receiver->read(script_state, arg1_formats, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -174,18 +180,19 @@ BLINK_BINDINGS_TRACE_EVENT("Clipboard.readText");
 // Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-if (!V8Clipboard::HasInstance(isolate, v8_receiver)) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Clipboard";
 const char* const property_name = "readText";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
-exception_state.ThrowTypeError("Illegal invocation");
+if (!V8Clipboard::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
 return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIReadText);
 
@@ -195,10 +202,12 @@ UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIReadT
 
 
 Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
-auto&& return_value = blink_receiver->readText(script_state);
+auto&& return_value = blink_receiver->readText(script_state, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -220,7 +229,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIWrite);
 
@@ -234,14 +244,16 @@ return;
 
 
 Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_data = NativeValueTraits<IDLSequence<ClipboardItem>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-auto&& return_value = blink_receiver->write(script_state, arg1_data);
+auto&& return_value = blink_receiver->write(script_state, arg1_data, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -263,7 +275,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kAsyncClipboardAPIWriteText);
 
@@ -277,14 +290,16 @@ return;
 
 
 Clipboard* blink_receiver = V8Clipboard::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_data = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-auto&& return_value = blink_receiver->writeText(script_state, arg1_data);
+auto&& return_value = blink_receiver->writeText(script_state, arg1_data, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 

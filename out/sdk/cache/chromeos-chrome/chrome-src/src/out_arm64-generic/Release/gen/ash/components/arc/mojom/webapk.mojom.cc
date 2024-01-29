@@ -584,6 +584,8 @@ bool WebApkInstance_InstallWebApk_ForwardToCallback::Accept(
           internal::WebApkInstance_InstallWebApk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebApkInstance.0
   bool success = true;
   WebApkInstallResult p_result{};
   WebApkInstance_InstallWebApk_ResponseParamsDataView input_data_view(params, message);
@@ -704,6 +706,8 @@ bool WebApkInstance_GetWebApkInfo_ForwardToCallback::Accept(
           internal::WebApkInstance_GetWebApkInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebApkInstance.1
   bool success = true;
   WebApkInfoPtr p_result{};
   WebApkInstance_GetWebApkInfo_ResponseParamsDataView input_data_view(params, message);
@@ -803,6 +807,8 @@ bool WebApkInstanceStubDispatch::AcceptWithResponder(
               internal::WebApkInstance_InstallWebApk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebApkInstance.0
       bool success = true;
       std::string p_package_name{};
       uint32_t p_version{};
@@ -830,11 +836,11 @@ bool WebApkInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallWebApk(
-std::move(p_package_name), 
-std::move(p_version), 
-std::move(p_app_name), 
-std::move(p_token), std::move(callback));
+      impl->InstallWebApk(        
+        std::move(p_package_name), 
+        std::move(p_version), 
+        std::move(p_app_name), 
+        std::move(p_token), std::move(callback));
       return true;
     }
     case internal::kWebApkInstance_GetWebApkInfo_Name: {
@@ -844,6 +850,8 @@ std::move(p_token), std::move(callback));
               internal::WebApkInstance_GetWebApkInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebApkInstance.1
       bool success = true;
       std::string p_package_name{};
       WebApkInstance_GetWebApkInfo_ParamsDataView input_data_view(params, message);
@@ -862,8 +870,8 @@ std::move(p_token), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetWebApkInfo(
-std::move(p_package_name), std::move(callback));
+      impl->GetWebApkInfo(        
+        std::move(p_package_name), std::move(callback));
       return true;
     }
   }

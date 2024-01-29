@@ -13,7 +13,7 @@ export class AutofillManager extends Common.ObjectWrapper.ObjectWrapper {
     #autofillModel = null;
     constructor() {
         super();
-        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.AutofillModel.AutofillModel, SDK.AutofillModel.Events.AddressFormFilled, this.#addressFormFilled, this, { scoped: true });
+        SDK.TargetManager.TargetManager.instance().addModelListener(SDK.AutofillModel.AutofillModel, "AddressFormFilled" /* SDK.AutofillModel.Events.AddressFormFilled */, this.#addressFormFilled, this, { scoped: true });
         this.#autoOpenViewSetting = Common.Settings.Settings.instance().createSetting('autoOpenAutofillViewOnEvent', true);
     }
     static instance(opts = { forceNew: null }) {
@@ -30,7 +30,7 @@ export class AutofillManager extends Common.ObjectWrapper.ObjectWrapper {
         this.#autofillModel = data.autofillModel;
         this.#processAddressFormFilledData(data.event);
         if (this.#address) {
-            this.dispatchEventToListeners(Events.AddressFormFilled, {
+            this.dispatchEventToListeners("AddressFormFilled" /* Events.AddressFormFilled */, {
                 address: this.#address,
                 filledFields: this.#filledFields,
                 matches: this.#matches,
@@ -60,6 +60,9 @@ export class AutofillManager extends Common.ObjectWrapper.ObjectWrapper {
         // Populate a list of matches by searching in the address string for
         // occurences of filled field values.
         for (let i = 0; i < this.#filledFields.length; i++) {
+            if (this.#filledFields[i].value === '') {
+                continue;
+            }
             // Regex replaces whitespace or comma/dot followed by whitespace with a single space.
             const needle = this.#filledFields[i].value.replaceAll(/[.,]*\s+/g, ' ');
             const matches = this.#address.replaceAll(/\s/g, ' ').matchAll(new RegExp(needle, 'g'));
@@ -71,10 +74,4 @@ export class AutofillManager extends Common.ObjectWrapper.ObjectWrapper {
         }
     }
 }
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum
-export var Events;
-(function (Events) {
-    Events["AddressFormFilled"] = "AddressFormFilled";
-})(Events || (Events = {}));
 //# sourceMappingURL=AutofillManager.js.map

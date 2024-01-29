@@ -1,9 +1,6 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Tests for the Phone as a Security Key settings page.
- */
 import { SecurityKeysPhonesBrowserProxyImpl } from 'chrome://settings/lazy_load.js';
 import { assertDeepEquals, assertEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';

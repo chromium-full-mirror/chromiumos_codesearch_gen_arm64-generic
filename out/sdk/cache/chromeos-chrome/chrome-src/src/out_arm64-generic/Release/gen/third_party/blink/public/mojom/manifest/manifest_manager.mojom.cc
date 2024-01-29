@@ -398,6 +398,8 @@ bool ManifestManager_RequestManifest_ForwardToCallback::Accept(
           internal::ManifestManager_RequestManifest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ManifestManager.0
   bool success = true;
   ::GURL p_url{};
   ::blink::mojom::ManifestPtr p_manifest{};
@@ -541,6 +543,8 @@ bool ManifestManager_RequestManifestDebugInfo_ForwardToCallback::Accept(
           internal::ManifestManager_RequestManifestDebugInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ManifestManager.1
   bool success = true;
   ::GURL p_url{};
   ::blink::mojom::ManifestPtr p_parsed_manifest{};
@@ -698,6 +702,8 @@ bool ManifestManager_ParseManifestFromString_ForwardToCallback::Accept(
           internal::ManifestManager_ParseManifestFromString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ManifestManager.2
   bool success = true;
   ::blink::mojom::ManifestPtr p_parsed_manifest{};
   ManifestManager_ParseManifestFromString_ResponseParamsDataView input_data_view(params, message);
@@ -800,6 +806,8 @@ bool ManifestManagerStubDispatch::AcceptWithResponder(
               internal::ManifestManager_RequestManifest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ManifestManager.0
       bool success = true;
       ManifestManager_RequestManifest_ParamsDataView input_data_view(params, message);
       
@@ -825,6 +833,8 @@ bool ManifestManagerStubDispatch::AcceptWithResponder(
               internal::ManifestManager_RequestManifestDebugInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ManifestManager.1
       bool success = true;
       ManifestManager_RequestManifestDebugInfo_ParamsDataView input_data_view(params, message);
       
@@ -850,6 +860,8 @@ bool ManifestManagerStubDispatch::AcceptWithResponder(
               internal::ManifestManager_ParseManifestFromString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ManifestManager.2
       bool success = true;
       ::GURL p_document_url{};
       ::GURL p_manifest_url{};
@@ -874,10 +886,10 @@ bool ManifestManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseManifestFromString(
-std::move(p_document_url), 
-std::move(p_manifest_url), 
-std::move(p_manifest_content), std::move(callback));
+      impl->ParseManifestFromString(        
+        std::move(p_document_url), 
+        std::move(p_manifest_url), 
+        std::move(p_manifest_content), std::move(callback));
       return true;
     }
   }

@@ -8,6 +8,7 @@
  * of the snackbar apps.
  *
  */
+import 'google3/third_party/javascript/cros_components/snackbar/snackbar';
 import { html, LitElement } from 'lit';
 /**
  * SnackbarManager is responsible for handling requests to show the snackbar
@@ -62,10 +63,10 @@ export class SnackbarManager extends LitElement {
     }
     render() {
         return html `
-        <cros-snackbar @cros-snackbar-closed=${this.onCloseHandler}>
+        <cros-snackbar @toggle=${this.onToggle}>
           <cros-button
               slot="action"
-              buttonStyle="floating"
+              button-style="floating"
               inverted
               @click=${this.onButtonClick}>
           </cros-button>
@@ -74,14 +75,13 @@ export class SnackbarManager extends LitElement {
     }
     /** Close the snackbar if it is open. */
     closeSnackbar() {
-        this.snackbar.hidePopover();
+        this.snackbar?.hidePopover();
     }
-    /**
-     * Calls the onCloseAction if it is defined. Should run this when the
-     * snackbar closes.
-     */
-    onCloseHandler() {
-        this.onCloseAction?.();
+    onToggle(event) {
+        if (event.newState === 'closed') {
+            // Calls the `onCloseAction` if it is defined.
+            this.onCloseAction?.();
+        }
     }
     onButtonClick() {
         this.snackbar.hidePopover();

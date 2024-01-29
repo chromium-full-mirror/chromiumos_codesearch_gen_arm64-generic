@@ -12,10 +12,10 @@ import '//resources/cr_elements/cr_shared_vars.css.js';
 import '//resources/cr_elements/mwb_element_shared_style.css.js';
 import '//shopping-insights-side-panel.top-chrome/shared/sp_shared_style.css.js';
 import { ColorChangeUpdater } from '//resources/cr_components/color_change_listener/colors_css_updater.js';
+import { BrowserProxyImpl } from '//resources/cr_components/commerce/browser_proxy.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
 import { listenOnce } from '//resources/js/util.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { ShoppingServiceApiProxyImpl } from '//shopping-insights-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
 import { getTemplate } from './app.html.js';
 export class ShoppingInsightsAppElement extends PolymerElement {
     static get is() {
@@ -32,11 +32,15 @@ export class ShoppingInsightsAppElement extends PolymerElement {
                 type: Boolean,
                 value: false,
             },
+            isProductTracked_: {
+                type: Boolean,
+                value: false,
+            },
         };
     }
     constructor() {
         super();
-        this.shoppingApi_ = ShoppingServiceApiProxyImpl.getInstance();
+        this.shoppingApi_ = BrowserProxyImpl.getInstance();
         ColorChangeUpdater.forDocument().start();
     }
     async ready() {
@@ -46,6 +50,8 @@ export class ShoppingInsightsAppElement extends PolymerElement {
         const { priceInsightsInfo } = await this.shoppingApi_.getPriceInsightsInfoForCurrentUrl();
         this.priceInsightsInfo = priceInsightsInfo;
         const { eligible } = await this.shoppingApi_.isShoppingListEligible();
+        const { tracked } = await this.shoppingApi_.getPriceTrackingStatusForCurrentUrl();
+        this.isProductTracked_ = tracked;
         this.isProductTrackable_ =
             eligible && (priceInsightsInfo.clusterId !== BigInt(0));
     }

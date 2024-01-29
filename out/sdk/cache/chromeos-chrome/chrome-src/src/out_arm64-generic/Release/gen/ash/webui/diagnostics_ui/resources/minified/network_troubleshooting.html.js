@@ -1,0 +1,11 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="diagnostics-shared">:host-context(body.jelly-enabled) #troubleshootingText{font:var(--cros-body-2-font)}:host-context(body.jelly-enabled) #troubleshootingLinkText{font:var(--cros-body-2-font)}#troubleshootingText{color:var(--cros-text-color-primary);font-family:var(--diagnostics-roboto-font-family);font-size:13px;font-weight:var(--diagnostics-regular-font-weight);line-height:20px}#troubleshootingContainer{align-items:center;display:flex;flex-direction:column;justify-content:center;margin:20px 0;padding-bottom:20px;padding-top:16px}#troubleshootingLinkText{color:var(--cros-link-color);font-family:var(--diagnostics-roboto-font-family);font-size:13px;font-weight:var(--diagnostics-regular-font-weight);line-height:20px;margin-top:8px}</style>
+
+<div id="troubleshootingContainer" class="grey-container">
+  <span id="troubleshootingText">
+    [[troubleshootingInfo.header]]
+  </span>
+  <span id="troubleshootingLinkText" class="link-text" hidden$="[[!isLoggedIn]]" on-click="onLinkTextClicked">
+    [[troubleshootingInfo.linkText]]
+  </span>
+</div>
+<!--_html_template_end_-->`}

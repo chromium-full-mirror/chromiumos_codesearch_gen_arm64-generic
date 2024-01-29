@@ -89,7 +89,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCIceTra
 BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.role.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_Role_AttributeGetter);
 
@@ -108,7 +109,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCIceTra
 BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.state.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_State_AttributeGetter);
 
@@ -127,7 +129,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCIceTra
 BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.gatheringState.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GatheringState_AttributeGetter);
 
@@ -234,7 +237,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.getLocalCandidates");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetLocalCandidates_Method);
 
@@ -243,16 +247,12 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetL
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLocalCandidates();
-if (!ToV8Traits<IDLSequence<RTCIceCandidate>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<RTCIceCandidate>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -263,7 +263,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.getLocalParameters");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetLocalParameters_Method);
 
@@ -272,16 +273,12 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetL
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLocalParameters();
-if (!ToV8Traits<IDLNullable<RTCIceParameters>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<RTCIceParameters>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -292,7 +289,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.getRemoteCandidates");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetRemoteCandidates_Method);
 
@@ -301,16 +299,12 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetR
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getRemoteCandidates();
-if (!ToV8Traits<IDLSequence<RTCIceCandidate>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<RTCIceCandidate>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -321,7 +315,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.getRemoteParameters");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetRemoteParameters_Method);
 
@@ -330,16 +325,12 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetR
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getRemoteParameters();
-if (!ToV8Traits<IDLNullable<RTCIceParameters>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<RTCIceParameters>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -350,7 +341,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.getSelectedCandidatePair");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetSelectedCandidatePair_Method);
 
@@ -359,16 +351,12 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_GetS
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSelectedCandidatePair();
-if (!ToV8Traits<IDLNullable<RTCIceCandidatePair>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLNullable<RTCIceCandidatePair>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

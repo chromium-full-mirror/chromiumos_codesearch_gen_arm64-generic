@@ -1,7 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { isDebugStoreEnabled } from '../common/js/util.js';
+import { isDebugStoreEnabled } from './base_store.js';
 /**
  * A class implementing ReactiveController in order to provide an ergonomic
  * way to update Lit elements based on selected data.
@@ -49,10 +49,14 @@ export class SelectorNode {
      * @param name An optional human-readable name used for debugging purposes.
      *     Named selectors will log to the console when DEBUG_STORE is set,
      *     whenever they emit a new value.
+     * @param isEqual_ An optional comparison function which will be used
+     *     when compare the old value and the new value form the selector. By
+     *     default it will use triple equal.
      */
-    constructor(parents, select, name) {
+    constructor(parents, select, name, isEqual_ = strictlyEqual) {
         this.select = select;
         this.name = name;
+        this.isEqual_ = isEqual_;
         /** Last value emitted by the selector. */
         this.value_ = undefined;
         /** List of selector's current subscribers. */
@@ -142,7 +146,7 @@ export class SelectorNode {
     emit() {
         const parentValues = this.parents.map(p => p.get());
         const newValue = this.select(...parentValues);
-        if (newValue === this.value_) {
+        if (this.isEqual_(this.value_, newValue)) {
             return false;
         }
         if (isDebugStoreEnabled() && this.name) {
@@ -179,20 +183,20 @@ export class SelectorNode {
     }
 }
 /** Create a selector whose value derives from a single Selector. */
-export function combine1Selector(combineFunction, s1, name) {
-    return new SelectorNode([s1], combineFunction, name);
+export function combine1Selector(combineFunction, s1, name, isEqual = strictlyEqual) {
+    return new SelectorNode([s1], combineFunction, name, isEqual);
 }
 /** Create a selector whose value derives from 2 Selectors. */
-export function combine2Selectors(combineFunction, s1, s2, name) {
-    return new SelectorNode([s1, s2], combineFunction, name);
+export function combine2Selectors(combineFunction, s1, s2, name, isEqual = strictlyEqual) {
+    return new SelectorNode([s1, s2], combineFunction, name, isEqual);
 }
 /** Create a selector whose value derives from 3 Selectors. */
-export function combine3Selectors(combineFunction, s1, s2, s3, name) {
-    return new SelectorNode([s1, s2, s3], combineFunction, name);
+export function combine3Selectors(combineFunction, s1, s2, s3, name, isEqual = strictlyEqual) {
+    return new SelectorNode([s1, s2, s3], combineFunction, name, isEqual);
 }
 /** Create a selector whose value derives from 4 Selectors. */
-export function combine4Selectors(combineFunction, s1, s2, s3, s4, name) {
-    return new SelectorNode([s1, s2, s3, s4], combineFunction, name);
+export function combine4Selectors(combineFunction, s1, s2, s3, s4, name, isEqual = strictlyEqual) {
+    return new SelectorNode([s1, s2, s3, s4], combineFunction, name, isEqual);
 }
 /**
  * A DAG (Directed Acyclic Graph) representation of chains of selectors where
@@ -237,4 +241,27 @@ export class SelectorEmitter {
             }
         }
     }
+}
+// Comparison functions can be passed to selectors when initialized.
+/** strictlyEqual use triple equal to compare values. */
+export function strictlyEqual(oldValue, newValue) {
+    return oldValue === newValue;
+}
+/** shallowEqual compares the immediate property of the passed objects. */
+export function shallowEqual(oldValue, newValue) {
+    // Only throw error when `newValue` is not an object because `oldValue` could
+    // be `undefined` initially.
+    if (!(newValue && typeof newValue === 'object')) {
+        throw new Error('Can not use shallowEqual for non object comparison');
+    }
+    if (typeof oldValue !== 'object') {
+        return false;
+    }
+    const keys = Object.keys(newValue);
+    for (const key of keys) {
+        if (oldValue[key] !== newValue[key]) {
+            return false;
+        }
+    }
+    return true;
 }

@@ -63,6 +63,16 @@ void setCaches(bool value) {
   member_caches_ = value;
 }
 
+bool hasCookies() const {
+  return true;
+}
+bool cookies() const {
+  return member_cookies_;
+}
+void setCookies(bool value) {
+  member_cookies_ = value;
+}
+
 bool hasCreateObjectURL() const {
   return true;
 }
@@ -163,6 +173,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 bool member_broadcast_channel_{false};
 bool member_all_{false};
 bool member_caches_{false};
+bool member_cookies_{false};
 bool member_create_object_url_{false};
 bool member_estimate_{false};
 bool member_get_directory_{false};

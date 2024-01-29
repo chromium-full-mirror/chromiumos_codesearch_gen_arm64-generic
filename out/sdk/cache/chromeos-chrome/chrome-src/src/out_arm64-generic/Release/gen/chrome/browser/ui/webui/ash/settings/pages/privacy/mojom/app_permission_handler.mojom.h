@@ -72,6 +72,8 @@ class AppPermissionsHandler
   enum MethodMinVersions : uint32_t {
     kAddObserverMinVersion = 0,
     kGetAppsMinVersion = 0,
+    kGetSystemAppsThatUseCameraMinVersion = 0,
+    kGetSystemAppsThatUseMicrophoneMinVersion = 0,
     kOpenNativeSettingsMinVersion = 0,
     kSetPermissionMinVersion = 0,
   };
@@ -83,6 +85,12 @@ class AppPermissionsHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetApps_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetSystemAppsThatUseCamera_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetSystemAppsThatUseMicrophone_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OpenNativeSettings_Sym {
@@ -101,6 +109,16 @@ class AppPermissionsHandler
   using GetAppsCallback = base::OnceCallback<void(std::vector<AppPtr>)>;
   
   virtual void GetApps(GetAppsCallback callback) = 0;
+
+
+  using GetSystemAppsThatUseCameraCallback = base::OnceCallback<void(std::vector<AppPtr>)>;
+  
+  virtual void GetSystemAppsThatUseCamera(GetSystemAppsThatUseCameraCallback callback) = 0;
+
+
+  using GetSystemAppsThatUseMicrophoneCallback = base::OnceCallback<void(std::vector<AppPtr>)>;
+  
+  virtual void GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) = 0;
 
   
   virtual void OpenNativeSettings(const std::string& app_id) = 0;
@@ -173,6 +191,10 @@ class  AppPermissionsHandlerProxy
   void AddObserver(::mojo::PendingRemote<AppPermissionsObserver> observer) final;
   
   void GetApps(GetAppsCallback callback) final;
+  
+  void GetSystemAppsThatUseCamera(GetSystemAppsThatUseCameraCallback callback) final;
+  
+  void GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) final;
   
   void OpenNativeSettings(const std::string& app_id) final;
   

@@ -75,20 +75,17 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AnchorElementMetrics_Da
   mojo::internal::StructHeader header_;
   uint32_t anchor_id;
   float ratio_area;
-  float ratio_visible_area;
   float ratio_distance_top_to_visible_top;
-  float ratio_distance_center_to_visible_top;
   float ratio_distance_root_top;
-  float ratio_distance_root_bottom;
   uint8_t is_in_iframe : 1;
   uint8_t contains_image : 1;
   uint8_t is_same_host : 1;
   uint8_t is_url_incremented_by_one : 1;
   uint8_t has_text_sibling : 1;
-  uint8_t pad11_[3];
+  uint8_t pad8_[3];
   uint32_t font_size_px;
   uint32_t font_weight;
-  mojo::internal::Pointer<::url::mojom::internal::Url_Data> source_url;
+  uint8_t pad10_[4];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> target_url;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> viewport_size;
 
@@ -98,7 +95,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AnchorElementMetrics_Da
   AnchorElementMetrics_Data();
   ~AnchorElementMetrics_Data() = delete;
 };
-static_assert(sizeof(AnchorElementMetrics_Data) == 72,
+static_assert(sizeof(AnchorElementMetrics_Data) == 56,
               "Bad sizeof(AnchorElementMetrics_Data)");
 // Used by AnchorElementMetrics::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

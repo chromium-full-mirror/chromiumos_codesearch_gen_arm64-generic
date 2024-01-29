@@ -220,6 +220,8 @@ bool EmbeddedAccessibilityHelperClientStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedAccessibilityHelperClient_SpeakSelectedText_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedAccessibilityHelperClient.0
       bool success = true;
       EmbeddedAccessibilityHelperClient_SpeakSelectedText_ParamsDataView input_data_view(params, message);
       
@@ -232,7 +234,7 @@ bool EmbeddedAccessibilityHelperClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SpeakSelectedText();
+      impl->SpeakSelectedText(        );
       return true;
     }
     case internal::kEmbeddedAccessibilityHelperClient_FocusChanged_Name: {
@@ -242,6 +244,8 @@ bool EmbeddedAccessibilityHelperClientStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedAccessibilityHelperClient_FocusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedAccessibilityHelperClient.1
       bool success = true;
       ::gfx::Rect p_focus_bounds_in_screen{};
       EmbeddedAccessibilityHelperClient_FocusChanged_ParamsDataView input_data_view(params, message);
@@ -257,8 +261,8 @@ bool EmbeddedAccessibilityHelperClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusChanged(
-std::move(p_focus_bounds_in_screen));
+      impl->FocusChanged(        
+        std::move(p_focus_bounds_in_screen));
       return true;
     }
   }
@@ -420,6 +424,8 @@ bool EmbeddedAccessibilityHelperStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedAccessibilityHelper_ClipboardCopyInActiveGoogleDoc_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedAccessibilityHelper.0
       bool success = true;
       std::string p_url{};
       EmbeddedAccessibilityHelper_ClipboardCopyInActiveGoogleDoc_ParamsDataView input_data_view(params, message);
@@ -435,8 +441,8 @@ bool EmbeddedAccessibilityHelperStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClipboardCopyInActiveGoogleDoc(
-std::move(p_url));
+      impl->ClipboardCopyInActiveGoogleDoc(        
+        std::move(p_url));
       return true;
     }
   }
@@ -654,6 +660,8 @@ bool EmbeddedAccessibilityHelperClientFactoryStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedAccessibilityHelperClientFactory_BindEmbeddedAccessibilityHelperClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedAccessibilityHelperClientFactory.0
       bool success = true;
       ::mojo::PendingReceiver<EmbeddedAccessibilityHelperClient> p_embedded_ax_helper_client{};
       EmbeddedAccessibilityHelperClientFactory_BindEmbeddedAccessibilityHelperClient_ParamsDataView input_data_view(params, message);
@@ -671,8 +679,8 @@ bool EmbeddedAccessibilityHelperClientFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEmbeddedAccessibilityHelperClient(
-std::move(p_embedded_ax_helper_client));
+      impl->BindEmbeddedAccessibilityHelperClient(        
+        std::move(p_embedded_ax_helper_client));
       return true;
     }
     case internal::kEmbeddedAccessibilityHelperClientFactory_BindEmbeddedAccessibilityHelper_Name: {
@@ -682,6 +690,8 @@ std::move(p_embedded_ax_helper_client));
           reinterpret_cast<internal::EmbeddedAccessibilityHelperClientFactory_BindEmbeddedAccessibilityHelper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedAccessibilityHelperClientFactory.1
       bool success = true;
       ::mojo::PendingRemote<EmbeddedAccessibilityHelper> p_embedded_ax_helper{};
       EmbeddedAccessibilityHelperClientFactory_BindEmbeddedAccessibilityHelper_ParamsDataView input_data_view(params, message);
@@ -699,8 +709,8 @@ std::move(p_embedded_ax_helper_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEmbeddedAccessibilityHelper(
-std::move(p_embedded_ax_helper));
+      impl->BindEmbeddedAccessibilityHelper(        
+        std::move(p_embedded_ax_helper));
       return true;
     }
   }

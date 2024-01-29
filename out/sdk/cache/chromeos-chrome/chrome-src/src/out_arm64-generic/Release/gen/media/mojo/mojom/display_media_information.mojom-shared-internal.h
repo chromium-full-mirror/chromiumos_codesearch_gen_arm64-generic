@@ -88,7 +88,7 @@ class  DisplayMediaInformation_Data {
   uint8_t logical_surface : 1;
   uint8_t pad1_[3];
   int32_t cursor;
-  uint8_t pad2_[4];
+  int32_t initial_zoom_level;
   mojo::internal::Pointer<::media::mojom::internal::CaptureHandle_Data> capture_handle;
 
  private:

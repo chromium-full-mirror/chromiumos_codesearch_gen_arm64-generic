@@ -87,6 +87,38 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RendererHost_RecordUserMetri
 };
 static_assert(sizeof(RendererHost_RecordUserMetricsAction_Params_Data) == 16,
               "Bad sizeof(RendererHost_RecordUserMetricsAction_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RendererHost_HasGpuProcess_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<RendererHost_HasGpuProcess_Params_Data>;
+
+  RendererHost_HasGpuProcess_Params_Data();
+  ~RendererHost_HasGpuProcess_Params_Data() = delete;
+};
+static_assert(sizeof(RendererHost_HasGpuProcess_Params_Data) == 8,
+              "Bad sizeof(RendererHost_HasGpuProcess_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RendererHost_HasGpuProcess_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t has_gpu_process : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<RendererHost_HasGpuProcess_ResponseParams_Data>;
+
+  RendererHost_HasGpuProcess_ResponseParams_Data();
+  ~RendererHost_HasGpuProcess_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(RendererHost_HasGpuProcess_ResponseParams_Data) == 16,
+              "Bad sizeof(RendererHost_HasGpuProcess_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -186,6 +218,39 @@ class RendererHost_RecordUserMetricsAction_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class RendererHost_HasGpuProcess_ParamsDataView {
+ public:
+  RendererHost_HasGpuProcess_ParamsDataView() = default;
+
+  RendererHost_HasGpuProcess_ParamsDataView(
+      internal::RendererHost_HasGpuProcess_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::RendererHost_HasGpuProcess_Params_Data* data_ = nullptr;
+};
+
+
+class RendererHost_HasGpuProcess_ResponseParamsDataView {
+ public:
+  RendererHost_HasGpuProcess_ResponseParamsDataView() = default;
+
+  RendererHost_HasGpuProcess_ResponseParamsDataView(
+      internal::RendererHost_HasGpuProcess_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool has_gpu_process() const {
+    return data_->has_gpu_process;
+  }
+ private:
+  internal::RendererHost_HasGpuProcess_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void RendererHost_GetBrowserHistogram_ParamsDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
@@ -207,6 +272,10 @@ inline void RendererHost_RecordUserMetricsAction_ParamsDataView::GetActionDataVi
   auto pointer = data_->action.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
 
 
 

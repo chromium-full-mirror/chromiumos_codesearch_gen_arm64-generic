@@ -46,6 +46,90 @@ namespace internal {
 
 
 namespace ash::secure_channel::mojom {
+
+
+enum class NearbyConnectionStep : int32_t {
+  
+  kDiscoveringEndpointStarted = 0,
+  
+  kDiscoveringEndpointEnded = 1,
+  
+  kRequestingConnectionStarted = 2,
+  
+  kRequestingConnectionEnded = 3,
+  
+  kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted = 4,
+  
+  kWaitingForConnectionToBeAcceptedByRemoteDeviceEnded = 5,
+  
+  kConnected = 6,
+  
+  kUpgradedToWebRtc = 7,
+  
+  kDisconnectionStarted = 8,
+  
+  kDisconnectionFinished = 9,
+  kMinValue = 0,
+  kMaxValue = 9,
+};
+
+ std::ostream& operator<<(std::ostream& os, NearbyConnectionStep value);
+inline bool IsKnownEnumValue(NearbyConnectionStep value) {
+  return internal::NearbyConnectionStep_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class NearbyConnectionStepResult : int32_t {
+  
+  kSuccess = 0,
+  
+  kTimeoutTransitionState = 1,
+  
+  kError = 2,
+  
+  kOutOfOrderApiCall = 3,
+  
+  kAlreadyHaveActiveStrategy = 4,
+  
+  kAlreadyAdvertising = 5,
+  
+  kAlreadyDiscovering = 6,
+  
+  kEndpointIOError = 7,
+  
+  kEndpointUnknown = 8,
+  
+  kConnectionRejected = 9,
+  
+  kAlreadyConnectedToEndpoint = 10,
+  
+  kNotConnectedToEndpoint = 11,
+  
+  kBluetoothError = 12,
+  
+  kBleError = 13,
+  
+  kWifiLanError = 14,
+  
+  kPayloadUnknown = 15,
+  
+  kAlreadyListening = 16,
+  
+  kReset = 17,
+  
+  kTimeout = 18,
+  
+  kUnknown = 19,
+  kMinValue = 0,
+  kMaxValue = 19,
+};
+
+ std::ostream& operator<<(std::ostream& os, NearbyConnectionStepResult value);
+inline bool IsKnownEnumValue(NearbyConnectionStepResult value) {
+  return internal::NearbyConnectionStepResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class NearbyMessageSenderInterfaceBase {};
 
@@ -93,9 +177,57 @@ using NearbyConnectorAssociatedRequestDataView =
 
 namespace std {
 
+template <>
+struct hash<::ash::secure_channel::mojom::NearbyConnectionStep>
+    : public mojo::internal::EnumHashImpl<::ash::secure_channel::mojom::NearbyConnectionStep> {};
+
+template <>
+struct hash<::ash::secure_channel::mojom::NearbyConnectionStepResult>
+    : public mojo::internal::EnumHashImpl<::ash::secure_channel::mojom::NearbyConnectionStepResult> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::secure_channel::mojom::NearbyConnectionStep, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::secure_channel::mojom::NearbyConnectionStep, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::secure_channel::mojom::NearbyConnectionStep>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::secure_channel::mojom::NearbyConnectionStepResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::secure_channel::mojom::NearbyConnectionStepResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::secure_channel::mojom::NearbyConnectionStepResult>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 }  // namespace mojo
 
@@ -107,5 +239,23 @@ namespace ash::secure_channel::mojom {
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::secure_channel::mojom::NearbyConnectionStep> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::secure_channel::mojom::NearbyConnectionStep value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::secure_channel::mojom::NearbyConnectionStepResult> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::secure_channel::mojom::NearbyConnectionStepResult value);
+};
+
+} // namespace perfetto
 
 #endif  // CHROMEOS_ASH_SERVICES_SECURE_CHANNEL_PUBLIC_MOJOM_NEARBY_CONNECTOR_MOJOM_SHARED_H_

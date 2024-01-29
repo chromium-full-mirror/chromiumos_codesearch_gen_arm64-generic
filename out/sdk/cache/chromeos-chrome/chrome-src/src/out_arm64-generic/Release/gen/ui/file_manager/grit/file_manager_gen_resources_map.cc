@@ -88,6 +88,7 @@ const webui::ResourcePath kFileManagerGenResources[] = {
   {"file_manager/foreground/images/filetype/filetype_gmap.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_GMAP_SVG},
   {"file_manager/foreground/images/filetype/filetype_gsheet.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_GSHEET_SVG},
   {"file_manager/foreground/images/filetype/filetype_gsite.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_GSITE_SVG},
+  {"file_manager/foreground/images/filetype/filetype_gmaillayout.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_GMAILLAYOUT_SVG},
   {"file_manager/foreground/images/filetype/filetype_gslides.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_GSLIDES_SVG},
   {"file_manager/foreground/images/filetype/filetype_gtable.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_GTABLE_SVG},
   {"file_manager/foreground/images/filetype/filetype_image.svg", IDR_FILE_MANAGER_FOREGROUND_IMAGES_FILETYPE_FILETYPE_IMAGE_SVG},

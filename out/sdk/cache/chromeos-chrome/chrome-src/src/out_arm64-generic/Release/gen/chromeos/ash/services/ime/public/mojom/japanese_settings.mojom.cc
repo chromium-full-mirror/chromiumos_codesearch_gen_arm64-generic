@@ -398,6 +398,8 @@ bool JapaneseDecoder_FetchJapaneseConfig_ForwardToCallback::Accept(
           internal::JapaneseDecoder_FetchJapaneseConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for JapaneseDecoder.0
   bool success = true;
   JapaneseConfigPtr p_config{};
   JapaneseDecoder_FetchJapaneseConfig_ResponseParamsDataView input_data_view(params, message);
@@ -498,6 +500,8 @@ bool JapaneseDecoderStubDispatch::AcceptWithResponder(
               internal::JapaneseDecoder_FetchJapaneseConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for JapaneseDecoder.0
       bool success = true;
       JapaneseDecoder_FetchJapaneseConfig_ParamsDataView input_data_view(params, message);
       

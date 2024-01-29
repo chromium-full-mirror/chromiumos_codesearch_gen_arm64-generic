@@ -15,19 +15,21 @@ namespace internal {
 
 
 constexpr uint32_t kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name = 0;
+constexpr uint32_t kUntrustedPageHandlerFactory_ShouldShowUI_Name = 1;
 constexpr uint32_t kUntrustedPageHandler_OnCopy_Name = 0;
 constexpr uint32_t kUntrustedPageHandler_OnLineSpaceChange_Name = 1;
 constexpr uint32_t kUntrustedPageHandler_OnLetterSpaceChange_Name = 2;
 constexpr uint32_t kUntrustedPageHandler_OnFontChange_Name = 3;
 constexpr uint32_t kUntrustedPageHandler_OnFontSizeChange_Name = 4;
-constexpr uint32_t kUntrustedPageHandler_OnColorChange_Name = 5;
-constexpr uint32_t kUntrustedPageHandler_OnSpeechRateChange_Name = 6;
-constexpr uint32_t kUntrustedPageHandler_OnVoiceChange_Name = 7;
-constexpr uint32_t kUntrustedPageHandler_OnHighlightGranularityChanged_Name = 8;
-constexpr uint32_t kUntrustedPageHandler_OnLinkClicked_Name = 9;
-constexpr uint32_t kUntrustedPageHandler_OnSelectionChange_Name = 10;
-constexpr uint32_t kUntrustedPageHandler_OnCollapseSelection_Name = 11;
-constexpr uint32_t kUntrustedPageHandler_EnablePDFContentAccessibility_Name = 12;
+constexpr uint32_t kUntrustedPageHandler_OnLinksEnabledChanged_Name = 5;
+constexpr uint32_t kUntrustedPageHandler_OnColorChange_Name = 6;
+constexpr uint32_t kUntrustedPageHandler_OnSpeechRateChange_Name = 7;
+constexpr uint32_t kUntrustedPageHandler_OnVoiceChange_Name = 8;
+constexpr uint32_t kUntrustedPageHandler_OnHighlightGranularityChanged_Name = 9;
+constexpr uint32_t kUntrustedPageHandler_OnLinkClicked_Name = 10;
+constexpr uint32_t kUntrustedPageHandler_OnSelectionChange_Name = 11;
+constexpr uint32_t kUntrustedPageHandler_OnCollapseSelection_Name = 12;
+constexpr uint32_t kUntrustedPageHandler_EnablePDFContentAccessibility_Name = 13;
 constexpr uint32_t kUntrustedPage_AccessibilityEventReceived_Name = 0;
 constexpr uint32_t kUntrustedPage_OnActiveAXTreeIDChanged_Name = 1;
 constexpr uint32_t kUntrustedPage_OnAXTreeDestroyed_Name = 2;

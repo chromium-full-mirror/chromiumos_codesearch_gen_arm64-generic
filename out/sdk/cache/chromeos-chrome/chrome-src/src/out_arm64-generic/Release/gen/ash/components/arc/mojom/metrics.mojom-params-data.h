@@ -446,81 +446,6 @@ class  MetricsHost_ReportWaylandLateTimingEvent_Params_Data {
 };
 static_assert(sizeof(MetricsHost_ReportWaylandLateTimingEvent_Params_Data) == 24,
               "Bad sizeof(MetricsHost_ReportWaylandLateTimingEvent_Params_Data)");
-class  MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint32_t number_of_directories;
-  uint32_t number_of_non_directories;
-
- private:
-  friend class mojo::internal::MessageFragment<MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data>;
-
-  MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data();
-  ~MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data() = delete;
-};
-static_assert(sizeof(MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data) == 16,
-              "Bad sizeof(MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data)");
-class  MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint32_t number_of_directories;
-  uint32_t number_of_non_directories;
-  uint32_t size_in_kilobytes;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data>;
-
-  MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data();
-  ~MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data() = delete;
-};
-static_assert(sizeof(MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data) == 24,
-              "Bad sizeof(MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data)");
-class  MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint32_t number_of_directories;
-  uint32_t number_of_non_directories;
-  uint32_t size_in_kilobytes;
-  uint8_t pad2_[4];
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> duration;
-
- private:
-  friend class mojo::internal::MessageFragment<MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data>;
-
-  MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data();
-  ~MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data() = delete;
-};
-static_assert(sizeof(MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data) == 32,
-              "Bad sizeof(MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data)");
-class  MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t target;
-  uint32_t number_of_directories;
-  uint32_t number_of_non_directories;
-  uint32_t size_in_kilobytes;
-
- private:
-  friend class mojo::internal::MessageFragment<MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data>;
-
-  MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data();
-  ~MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data() = delete;
-};
-static_assert(sizeof(MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data) == 24,
-              "Bad sizeof(MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data)");
 class  MetricsHost_ReportWebViewProcessStarted_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -604,6 +529,22 @@ class  MetricsHost_ReportArcKeyMintError_Params_Data {
 };
 static_assert(sizeof(MetricsHost_ReportArcKeyMintError_Params_Data) == 16,
               "Bad sizeof(MetricsHost_ReportArcKeyMintError_Params_Data)");
+class  MetricsHost_ReportDragResizeLatency_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data>>> durations;
+
+ private:
+  friend class mojo::internal::MessageFragment<MetricsHost_ReportDragResizeLatency_Params_Data>;
+
+  MetricsHost_ReportDragResizeLatency_Params_Data();
+  ~MetricsHost_ReportDragResizeLatency_Params_Data() = delete;
+};
+static_assert(sizeof(MetricsHost_ReportDragResizeLatency_Params_Data) == 16,
+              "Bad sizeof(MetricsHost_ReportDragResizeLatency_Params_Data)");
 class  MetricsInstance_Init_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1331,120 +1272,6 @@ class MetricsHost_ReportWaylandLateTimingEvent_ParamsDataView {
 };
 
 
-class MetricsHost_ReportNonAndroidPlayFilesCount_ParamsDataView {
- public:
-  MetricsHost_ReportNonAndroidPlayFilesCount_ParamsDataView() = default;
-
-  MetricsHost_ReportNonAndroidPlayFilesCount_ParamsDataView(
-      internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint32_t number_of_directories() const {
-    return data_->number_of_directories;
-  }
-  uint32_t number_of_non_directories() const {
-    return data_->number_of_non_directories;
-  }
- private:
-  internal::MetricsHost_ReportNonAndroidPlayFilesCount_Params_Data* data_ = nullptr;
-};
-
-
-class MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_ParamsDataView {
- public:
-  MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_ParamsDataView() = default;
-
-  MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_ParamsDataView(
-      internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint32_t number_of_directories() const {
-    return data_->number_of_directories;
-  }
-  uint32_t number_of_non_directories() const {
-    return data_->number_of_non_directories;
-  }
-  uint32_t size_in_kilobytes() const {
-    return data_->size_in_kilobytes;
-  }
- private:
-  internal::MetricsHost_ReportPerAppFileStatsOfAndroidDataDirs_Params_Data* data_ = nullptr;
-};
-
-
-class MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_ParamsDataView {
- public:
-  MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_ParamsDataView() = default;
-
-  MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_ParamsDataView(
-      internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  uint32_t number_of_directories() const {
-    return data_->number_of_directories;
-  }
-  uint32_t number_of_non_directories() const {
-    return data_->number_of_non_directories;
-  }
-  uint32_t size_in_kilobytes() const {
-    return data_->size_in_kilobytes;
-  }
-  inline void GetDurationDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDuration(UserType* output) {
-    
-    auto* pointer = data_->duration.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_ParamsDataView {
- public:
-  MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_ParamsDataView() = default;
-
-  MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_ParamsDataView(
-      internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadTarget(UserType* output) const {
-    auto data_value = data_->target;
-    return mojo::internal::Deserialize<::arc::mojom::AndroidDataSubdirectory>(
-        data_value, output);
-  }
-  AndroidDataSubdirectory target() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::arc::mojom::AndroidDataSubdirectory>(data_->target));
-  }
-  uint32_t number_of_directories() const {
-    return data_->number_of_directories;
-  }
-  uint32_t number_of_non_directories() const {
-    return data_->number_of_non_directories;
-  }
-  uint32_t size_in_kilobytes() const {
-    return data_->size_in_kilobytes;
-  }
- private:
-  internal::MetricsHost_ReportTotalFileStatsOfAndroidDataSubdir_Params_Data* data_ = nullptr;
-};
-
-
 class MetricsHost_ReportWebViewProcessStarted_ParamsDataView {
  public:
   MetricsHost_ReportWebViewProcessStarted_ParamsDataView() = default;
@@ -1543,6 +1370,32 @@ class MetricsHost_ReportArcKeyMintError_ParamsDataView {
   }
  private:
   internal::MetricsHost_ReportArcKeyMintError_Params_Data* data_ = nullptr;
+};
+
+
+class MetricsHost_ReportDragResizeLatency_ParamsDataView {
+ public:
+  MetricsHost_ReportDragResizeLatency_ParamsDataView() = default;
+
+  MetricsHost_ReportDragResizeLatency_ParamsDataView(
+      internal::MetricsHost_ReportDragResizeLatency_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDurationsDataView(
+      mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDurations(UserType* output) {
+    
+    auto* pointer = data_->durations.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MetricsHost_ReportDragResizeLatency_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1756,23 +1609,17 @@ inline void MetricsHost_ReportWaylandLateTimingEvent_ParamsDataView::GetDuration
 
 
 
-inline void MetricsHost_ReportTotalFileStatsOfAndroidDataDirs_ParamsDataView::GetDurationDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->duration.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+
+
+
+
+
+
+inline void MetricsHost_ReportDragResizeLatency_ParamsDataView::GetDurationsDataView(
+    mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>* output) {
+  auto pointer = data_->durations.Get();
+  *output = mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>(pointer, message_);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

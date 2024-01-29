@@ -44,8 +44,12 @@ class WebPrinterAttributesDataView;
 
 class WebPrintJobTemplateAttributesDataView;
 
+class WebPrintJobUpdateDataView;
+
 class WebPrintJobInfoDataView;
 
+class GetPrintersResultDataView;
+class WebPrinterFetchResultDataView;
 class WebPrintResultDataView;
 
 
@@ -83,10 +87,31 @@ struct MojomTypeTraits<::blink::mojom::WebPrintJobTemplateAttributesDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::blink::mojom::WebPrintJobUpdateDataView> {
+  using Data = ::blink::mojom::internal::WebPrintJobUpdate_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::blink::mojom::WebPrintJobInfoDataView> {
   using Data = ::blink::mojom::internal::WebPrintJobInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::GetPrintersResultDataView> {
+  using Data = ::blink::mojom::internal::GetPrintersResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::blink::mojom::WebPrinterFetchResultDataView> {
+  using Data = ::blink::mojom::internal::WebPrinterFetchResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
@@ -153,6 +178,122 @@ inline bool IsKnownEnumValue(WebPrintColorMode value) {
 }
 
 
+enum class WebPrintingOrientationRequested : int32_t {
+  
+  kPortrait = 0,
+  
+  kLandscape = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, WebPrintingOrientationRequested value);
+inline bool IsKnownEnumValue(WebPrintingOrientationRequested value) {
+  return internal::WebPrintingOrientationRequested_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class WebPrinterState : int32_t {
+  
+  kIdle = 0,
+  
+  kProcessing = 1,
+  
+  kStopped = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, WebPrinterState value);
+inline bool IsKnownEnumValue(WebPrinterState value) {
+  return internal::WebPrinterState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class WebPrinterStateReason : int32_t {
+  
+  kNone = 0,
+  
+  kOther = 1,
+  
+  kConnectingToDevice = 2,
+  
+  kCoverOpen = 3,
+  
+  kDeveloperEmpty = 4,
+  
+  kDeveloperLow = 5,
+  
+  kDoorOpen = 6,
+  
+  kFuserOverTemp = 7,
+  
+  kFuserUnderTemp = 8,
+  
+  kInputTrayMissing = 9,
+  
+  kInterlockOpen = 10,
+  
+  kInterpreterResourceUnavailable = 11,
+  
+  kMarkerSupplyEmpty = 12,
+  
+  kMarkerSupplyLow = 13,
+  
+  kMarkerWasteAlmostFull = 14,
+  
+  kMarkerWasteFull = 15,
+  
+  kMediaEmpty = 16,
+  
+  kMediaJam = 17,
+  
+  kMediaLow = 18,
+  
+  kMediaNeeded = 19,
+  
+  kMovingToPaused = 20,
+  
+  kOpcLifeOver = 21,
+  
+  kOpcNearEol = 22,
+  
+  kOutputAreaAlmostFull = 23,
+  
+  kOutputAreaFull = 24,
+  
+  kOutputTrayMissing = 25,
+  
+  kPaused = 26,
+  
+  kShutdown = 27,
+  
+  kSpoolAreaFull = 28,
+  
+  kStoppedPartly = 29,
+  
+  kStopping = 30,
+  
+  kTimedOut = 31,
+  
+  kTonerEmpty = 32,
+  
+  kTonerLow = 33,
+  
+  kCupsPkiExpired = 34,
+  kMinValue = 0,
+  kMaxValue = 34,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, WebPrinterStateReason value);
+inline bool IsKnownEnumValue(WebPrinterStateReason value) {
+  return internal::WebPrinterStateReason_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class WebPrintJobState : int32_t {
   
   kPending = 0,
@@ -175,6 +316,36 @@ inline bool IsKnownEnumValue(WebPrintJobState value) {
 }
 
 
+enum class GetPrintersError : int32_t {
+  
+  kUserPermissionDenied = 0,
+  kMinValue = 0,
+  kMaxValue = 0,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, GetPrintersError value);
+inline bool IsKnownEnumValue(GetPrintersError value) {
+  return internal::GetPrintersError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class WebPrinterFetchError : int32_t {
+  
+  kPrinterUnreachable = 0,
+  
+  kUserPermissionDenied = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, WebPrinterFetchError value);
+inline bool IsKnownEnumValue(WebPrinterFetchError value) {
+  return internal::WebPrinterFetchError_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class WebPrintError : int32_t {
   
   kPrinterUnreachable = 0,
@@ -182,8 +353,10 @@ enum class WebPrintError : int32_t {
   kDocumentMalformed = 1,
   
   kPrintJobTemplateAttributesMismatch = 2,
+  
+  kUserPermissionDenied = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, WebPrintError value);
@@ -323,6 +496,26 @@ class WebPrinterAttributesDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WebPrintingMultipleDocumentHandling>>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrientationRequestedDefault(UserType* output) const {
+    auto data_value = data_->orientation_requested_default;
+    return mojo::internal::Deserialize<::blink::mojom::WebPrintingOrientationRequested>(
+        data_value, output);
+  }
+  WebPrintingOrientationRequested orientation_requested_default() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::WebPrintingOrientationRequested>(data_->orientation_requested_default));
+  }
+  inline void GetOrientationRequestedSupportedDataView(
+      mojo::ArrayDataView<WebPrintingOrientationRequested>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrientationRequestedSupported(UserType* output) {
+    
+    auto* pointer = data_->orientation_requested_supported.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WebPrintingOrientationRequested>>(
+        pointer, output, message_);
+  }
   inline void GetPrinterResolutionDefaultDataView(
       ::gfx::mojom::SizeDataView* output);
 
@@ -361,6 +554,36 @@ class WebPrinterAttributesDataView {
     
     auto* pointer = data_->print_color_mode_supported.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WebPrintColorMode>>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrinterState(UserType* output) const {
+    auto data_value = data_->printer_state;
+    return mojo::internal::Deserialize<::blink::mojom::WebPrinterState>(
+        data_value, output);
+  }
+  WebPrinterState printer_state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::WebPrinterState>(data_->printer_state));
+  }
+  inline void GetPrinterStateMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrinterStateMessage(UserType* output) {
+    
+    auto* pointer = data_->printer_state_message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPrinterStateReasonsDataView(
+      mojo::ArrayDataView<WebPrinterStateReason>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrinterStateReasons(UserType* output) {
+    
+    auto* pointer = data_->printer_state_reasons.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WebPrinterStateReason>>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -436,6 +659,23 @@ class WebPrintJobTemplateAttributesDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::WebPrintingMultipleDocumentHandling>(data_->multiple_document_handling_$value));
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrientationRequested(UserType* output) const {
+    if (!data_->orientation_requested_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::blink::mojom::WebPrintingOrientationRequested>(
+        data_->orientation_requested_$value, &output->emplace());
+  }
+  std::optional<WebPrintingOrientationRequested> orientation_requested() const {
+    if (!data_->orientation_requested_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::WebPrintingOrientationRequested>(data_->orientation_requested_$value));
+  }
   inline void GetPrinterResolutionDataView(
       ::gfx::mojom::SizeDataView* output);
 
@@ -496,6 +736,34 @@ static_assert(
 };
 
 
+class WebPrintJobUpdateDataView {
+ public:
+  WebPrintJobUpdateDataView() = default;
+
+  WebPrintJobUpdateDataView(
+      internal::WebPrintJobUpdate_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::blink::mojom::WebPrintJobState>(
+        data_value, output);
+  }
+  WebPrintJobState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::WebPrintJobState>(data_->state));
+  }
+  uint32_t pages_printed() const {
+    return data_->pages_printed;
+  }
+ private:
+  internal::WebPrintJobUpdate_Data* data_ = nullptr;
+};
+
+
 class WebPrintJobInfoDataView {
  public:
   WebPrintJobInfoDataView() = default;
@@ -516,6 +784,9 @@ class WebPrintJobInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  uint32_t job_pages() const {
+    return data_->job_pages;
+  }
   template <typename UserType>
   UserType TakeObserver() {
     UserType result;
@@ -529,6 +800,106 @@ class WebPrintJobInfoDataView {
   internal::WebPrintJobInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class GetPrintersResultDataView {
+ public:
+  using Tag = internal::GetPrintersResult_Data::GetPrintersResult_Tag;
+
+  GetPrintersResultDataView() = default;
+
+  GetPrintersResultDataView(
+      internal::GetPrintersResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_printers() const { return data_->tag == Tag::kPrinters; }
+  inline void GetPrintersDataView(
+      mojo::ArrayDataView<WebPrinterInfoDataView>* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrinters(UserType* output) const {
+    
+    CHECK(is_printers());
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WebPrinterInfoDataView>>(
+        data_->data.f_printers.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::blink::mojom::GetPrintersError>(
+        data_->data.f_error, output);
+  }
+  GetPrintersError error() const {
+    CHECK(is_error());
+    // TODO(dcheng): This seems incorrect, as it bypasses enum traits.
+    return ::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::GetPrintersError>(data_->data.f_error));
+  }
+
+ private:
+  internal::GetPrintersResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class WebPrinterFetchResultDataView {
+ public:
+  using Tag = internal::WebPrinterFetchResult_Data::WebPrinterFetchResult_Tag;
+
+  WebPrinterFetchResultDataView() = default;
+
+  WebPrinterFetchResultDataView(
+      internal::WebPrinterFetchResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_printer_attributes() const { return data_->tag == Tag::kPrinterAttributes; }
+  inline void GetPrinterAttributesDataView(
+      WebPrinterAttributesDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrinterAttributes(UserType* output) const {
+    
+    CHECK(is_printer_attributes());
+    return mojo::internal::Deserialize<::blink::mojom::WebPrinterAttributesDataView>(
+        data_->data.f_printer_attributes.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::blink::mojom::WebPrinterFetchError>(
+        data_->data.f_error, output);
+  }
+  WebPrinterFetchError error() const {
+    CHECK(is_error());
+    // TODO(dcheng): This seems incorrect, as it bypasses enum traits.
+    return ::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::WebPrinterFetchError>(data_->data.f_error));
+  }
+
+ private:
+  internal::WebPrinterFetchResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 
 
 class WebPrintResultDataView {
@@ -598,8 +969,28 @@ struct hash<::blink::mojom::WebPrintColorMode>
     : public mojo::internal::EnumHashImpl<::blink::mojom::WebPrintColorMode> {};
 
 template <>
+struct hash<::blink::mojom::WebPrintingOrientationRequested>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::WebPrintingOrientationRequested> {};
+
+template <>
+struct hash<::blink::mojom::WebPrinterState>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::WebPrinterState> {};
+
+template <>
+struct hash<::blink::mojom::WebPrinterStateReason>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::WebPrinterStateReason> {};
+
+template <>
 struct hash<::blink::mojom::WebPrintJobState>
     : public mojo::internal::EnumHashImpl<::blink::mojom::WebPrintJobState> {};
+
+template <>
+struct hash<::blink::mojom::GetPrintersError>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::GetPrintersError> {};
+
+template <>
+struct hash<::blink::mojom::WebPrinterFetchError>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::WebPrinterFetchError> {};
 
 template <>
 struct hash<::blink::mojom::WebPrintError>
@@ -673,6 +1064,66 @@ struct Serializer<::blink::mojom::WebPrintColorMode, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::WebPrintingOrientationRequested, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::WebPrintingOrientationRequested, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::WebPrintingOrientationRequested>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::WebPrinterState, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::WebPrinterState, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::WebPrinterState>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::WebPrinterStateReason, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::WebPrinterStateReason, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::WebPrinterStateReason>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::WebPrintJobState, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = EnumTraits<::blink::mojom::WebPrintJobState, UserType>;
@@ -684,6 +1135,46 @@ struct Serializer<::blink::mojom::WebPrintJobState, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::WebPrintJobState>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::GetPrintersError, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::GetPrintersError, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::GetPrintersError>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::WebPrinterFetchError, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::WebPrinterFetchError, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::WebPrinterFetchError>(input)), output);
   }
 };
 
@@ -831,6 +1322,22 @@ struct Serializer<::blink::mojom::WebPrinterAttributesDataView, MaybeConstUserTy
         fragment->multiple_document_handling_supported.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null multiple_document_handling_supported in WebPrinterAttributes struct");
+    mojo::internal::Serialize<::blink::mojom::WebPrintingOrientationRequested>(
+        Traits::orientation_requested_default(input), &fragment->orientation_requested_default);
+    decltype(Traits::orientation_requested_supported(input)) in_orientation_requested_supported = Traits::orientation_requested_supported(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->orientation_requested_supported)::BaseType>
+        orientation_requested_supported_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& orientation_requested_supported_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::WebPrintingOrientationRequested_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::WebPrintingOrientationRequested>>(
+        in_orientation_requested_supported, orientation_requested_supported_fragment, &orientation_requested_supported_validate_params);
+    fragment->orientation_requested_supported.Set(
+        orientation_requested_supported_fragment.is_null() ? nullptr : orientation_requested_supported_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->orientation_requested_supported.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null orientation_requested_supported in WebPrinterAttributes struct");
     decltype(Traits::printer_resolution_default(input)) in_printer_resolution_default = Traits::printer_resolution_default(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->printer_resolution_default)::BaseType> printer_resolution_default_fragment(
@@ -873,6 +1380,34 @@ struct Serializer<::blink::mojom::WebPrinterAttributesDataView, MaybeConstUserTy
         fragment->print_color_mode_supported.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null print_color_mode_supported in WebPrinterAttributes struct");
+    mojo::internal::Serialize<::blink::mojom::WebPrinterState>(
+        Traits::printer_state(input), &fragment->printer_state);
+    decltype(Traits::printer_state_message(input)) in_printer_state_message = Traits::printer_state_message(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->printer_state_message)::BaseType> printer_state_message_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_printer_state_message, printer_state_message_fragment);
+    fragment->printer_state_message.Set(
+        printer_state_message_fragment.is_null() ? nullptr : printer_state_message_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->printer_state_message.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null printer_state_message in WebPrinterAttributes struct");
+    decltype(Traits::printer_state_reasons(input)) in_printer_state_reasons = Traits::printer_state_reasons(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->printer_state_reasons)::BaseType>
+        printer_state_reasons_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& printer_state_reasons_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::blink::mojom::internal::WebPrinterStateReason_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::WebPrinterStateReason>>(
+        in_printer_state_reasons, printer_state_reasons_fragment, &printer_state_reasons_validate_params);
+    fragment->printer_state_reasons.Set(
+        printer_state_reasons_fragment.is_null() ? nullptr : printer_state_reasons_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->printer_state_reasons.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null printer_state_reasons in WebPrinterAttributes struct");
     fragment->sides_default_$flag = Traits::sides_default(input).has_value();
     if (Traits::sides_default(input).has_value()) {
       mojo::internal::Serialize<::blink::mojom::WebPrintingSides>(
@@ -945,6 +1480,14 @@ struct Serializer<::blink::mojom::WebPrintJobTemplateAttributesDataView, MaybeCo
       fragment->multiple_document_handling_$value =
           static_cast<int32_t>(::blink::mojom::WebPrintingMultipleDocumentHandling::kMinValue);
     }
+    fragment->orientation_requested_$flag = Traits::orientation_requested(input).has_value();
+    if (Traits::orientation_requested(input).has_value()) {
+      mojo::internal::Serialize<::blink::mojom::WebPrintingOrientationRequested>(
+          Traits::orientation_requested(input).value(), &fragment->orientation_requested_$value);
+    } else {
+      fragment->orientation_requested_$value =
+          static_cast<int32_t>(::blink::mojom::WebPrintingOrientationRequested::kMinValue);
+    }
     decltype(Traits::printer_resolution(input)) in_printer_resolution = Traits::printer_resolution(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->printer_resolution)::BaseType> printer_resolution_fragment(
@@ -988,6 +1531,38 @@ struct Serializer<::blink::mojom::WebPrintJobTemplateAttributesDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::WebPrintJobUpdateDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::blink::mojom::WebPrintJobUpdateDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::blink::mojom::internal::WebPrintJobUpdate_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::blink::mojom::WebPrintJobState>(
+        Traits::state(input), &fragment->state);
+    fragment->pages_printed = Traits::pages_printed(input);
+  }
+
+  static bool Deserialize(::blink::mojom::internal::WebPrintJobUpdate_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::WebPrintJobUpdateDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::WebPrintJobInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::WebPrintJobInfoDataView, UserType>;
@@ -1010,6 +1585,7 @@ struct Serializer<::blink::mojom::WebPrintJobInfoDataView, MaybeConstUserType> {
         fragment->job_name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null job_name in WebPrintJobInfo struct");
+    fragment->job_pages = Traits::job_pages(input);
     decltype(Traits::observer(input)) in_observer = Traits::observer(input);
     mojo::internal::Serialize<mojo::InterfaceRequestDataView<::blink::mojom::WebPrintJobStateObserverInterfaceBase>>(
         in_observer, &fragment->observer, &fragment.message());
@@ -1026,6 +1602,136 @@ struct Serializer<::blink::mojom::WebPrintJobInfoDataView, MaybeConstUserType> {
       return CallSetToNullIfExists<Traits>(output);
 
     ::blink::mojom::WebPrintJobInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::GetPrintersResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::blink::mojom::GetPrintersResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::blink::mojom::internal::GetPrintersResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::blink::mojom::GetPrintersResultDataView::Tag::kPrinters: {
+        decltype(Traits::printers(input))
+            in_printers = Traits::printers(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_printers)::BaseType>
+            value_fragment(fragment.message());
+        constexpr const mojo::internal::ContainerValidateParams& printers_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
+        mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::WebPrinterInfoDataView>>(
+            in_printers, value_fragment, &printers_validate_params);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null printers in GetPrintersResult union");
+        fragment->data.f_printers.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::blink::mojom::GetPrintersResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::Serialize<::blink::mojom::GetPrintersError>(
+            in_error, &fragment->data.f_error);
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::blink::mojom::internal::GetPrintersResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::GetPrintersResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::WebPrinterFetchResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::blink::mojom::WebPrinterFetchResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::blink::mojom::internal::WebPrinterFetchResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::blink::mojom::WebPrinterFetchResultDataView::Tag::kPrinterAttributes: {
+        decltype(Traits::printer_attributes(input))
+            in_printer_attributes = Traits::printer_attributes(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_printer_attributes)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::blink::mojom::WebPrinterAttributesDataView>(
+            in_printer_attributes, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null printer_attributes in WebPrinterFetchResult union");
+        fragment->data.f_printer_attributes.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::blink::mojom::WebPrinterFetchResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::Serialize<::blink::mojom::WebPrinterFetchError>(
+            in_error, &fragment->data.f_error);
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::blink::mojom::internal::WebPrinterFetchResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::blink::mojom::WebPrinterFetchResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1120,6 +1826,11 @@ inline void WebPrinterAttributesDataView::GetMultipleDocumentHandlingSupportedDa
   auto pointer = data_->multiple_document_handling_supported.Get();
   *output = mojo::ArrayDataView<WebPrintingMultipleDocumentHandling>(pointer, message_);
 }
+inline void WebPrinterAttributesDataView::GetOrientationRequestedSupportedDataView(
+    mojo::ArrayDataView<WebPrintingOrientationRequested>* output) {
+  auto pointer = data_->orientation_requested_supported.Get();
+  *output = mojo::ArrayDataView<WebPrintingOrientationRequested>(pointer, message_);
+}
 inline void WebPrinterAttributesDataView::GetPrinterResolutionDefaultDataView(
     ::gfx::mojom::SizeDataView* output) {
   auto pointer = data_->printer_resolution_default.Get();
@@ -1134,6 +1845,16 @@ inline void WebPrinterAttributesDataView::GetPrintColorModeSupportedDataView(
     mojo::ArrayDataView<WebPrintColorMode>* output) {
   auto pointer = data_->print_color_mode_supported.Get();
   *output = mojo::ArrayDataView<WebPrintColorMode>(pointer, message_);
+}
+inline void WebPrinterAttributesDataView::GetPrinterStateMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->printer_state_message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void WebPrinterAttributesDataView::GetPrinterStateReasonsDataView(
+    mojo::ArrayDataView<WebPrinterStateReason>* output) {
+  auto pointer = data_->printer_state_reasons.Get();
+  *output = mojo::ArrayDataView<WebPrinterStateReason>(pointer, message_);
 }
 inline void WebPrinterAttributesDataView::GetSidesSupportedDataView(
     mojo::ArrayDataView<WebPrintingSides>* output) {
@@ -1154,12 +1875,26 @@ inline void WebPrintJobTemplateAttributesDataView::GetPrinterResolutionDataView(
 }
 
 
+
+
 inline void WebPrintJobInfoDataView::GetJobNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->job_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
+
+inline void GetPrintersResultDataView::GetPrintersDataView(
+    mojo::ArrayDataView<WebPrinterInfoDataView>* output) const {
+  CHECK(is_printers());
+  *output = mojo::ArrayDataView<WebPrinterInfoDataView>(data_->data.f_printers.Get(), message_);
+}
+
+inline void WebPrinterFetchResultDataView::GetPrinterAttributesDataView(
+    WebPrinterAttributesDataView* output) const {
+  CHECK(is_printer_attributes());
+  *output = WebPrinterAttributesDataView(data_->data.f_printer_attributes.Get(), message_);
+}
 
 inline void WebPrintResultDataView::GetPrintJobInfoDataView(
     WebPrintJobInfoDataView* output) const {
@@ -1203,8 +1938,53 @@ struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::bl
 namespace perfetto {
 
 template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::WebPrintingOrientationRequested> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::WebPrintingOrientationRequested value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::WebPrinterState> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::WebPrinterState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::WebPrinterStateReason> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::WebPrinterStateReason value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::WebPrintJobState> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::WebPrintJobState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::GetPrintersError> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::GetPrintersError value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::WebPrinterFetchError> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::WebPrinterFetchError value);
 };
 
 } // namespace perfetto

@@ -81,15 +81,11 @@ bool DispatchEventParams_Data::Validate(
       static_cast<const DispatchEventParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->extension_id, 2, validation_context)) {
+          object->host_id, 2, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& extension_id_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->extension_id, validation_context,
-                                         &extension_id_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->host_id, validation_context))
     return false;
-  }
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->event_name, 3, validation_context)) {

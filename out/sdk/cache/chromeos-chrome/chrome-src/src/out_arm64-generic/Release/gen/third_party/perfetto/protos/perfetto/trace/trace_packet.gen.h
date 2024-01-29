@@ -17,15 +17,23 @@ namespace protos {
 namespace gen {
 class TracePacket;
 class TracePacketDefaults;
+class V8CodeDefaults;
 class PerfSampleDefaults;
 class PerfEvents_Timebase;
 class PerfEvents_RawEvent;
 class PerfEvents_Tracepoint;
 class TrackEventDefaults;
 class InternedData;
+class InternedString;
+class InternedV8Isolate;
+class InternedV8Isolate_CodeRange;
+class InternedV8WasmScript;
+class InternedV8JsScript;
+class V8String;
+class InternedV8JsFunction;
+class InternedV8String;
 class NetworkPacketContext;
 class NetworkPacketEvent;
-class InternedString;
 class InternedGpuRenderStageSpecification;
 class InternedGraphicsContext;
 class Callstack;
@@ -44,10 +52,26 @@ class TestEvent;
 class TestEvent_TestPayload;
 class DebugAnnotation;
 class DebugAnnotation_NestedValue;
+class AndroidInputEvent;
+class AndroidWindowInputDispatchEvent;
+class AndroidWindowInputDispatchEvent_DispatchedPointer;
+class AndroidMotionEvent_Pointer_AxisValue;
+class AndroidKeyEvent;
+class AndroidMotionEvent;
+class AndroidMotionEvent_Pointer;
+class V8CodeMove;
+class V8RegExpCode;
+class V8WasmCode;
+class V8InternalCode;
+class V8JsCode;
 class EtwTraceEventBundle;
 class EtwTraceEvent;
 class ReadyThreadEtwEvent;
 class CSwitchEtwEvent;
+class ProtoLogViewerConfig;
+class ProtoLogViewerConfig_Group;
+class ProtoLogViewerConfig_MessageData;
+class ProtoLogMessage;
 class ShellHandlerMappings;
 class ShellHandlerMapping;
 class ShellTransition;
@@ -96,6 +120,7 @@ class DescriptorProto_ReservedRange;
 class OneofDescriptorProto;
 class OneofOptions;
 class FtraceEventBundle;
+class FtraceEventBundle_FtraceError;
 class FtraceEventBundle_CompactSched;
 class FtraceEvent;
 class GpuWorkPeriodFtraceEvent;
@@ -654,6 +679,7 @@ class GpuCounterDescriptor;
 class GpuCounterDescriptor_GpuCounterBlock;
 class GpuCounterDescriptor_GpuCounterSpec;
 class ChromeMetadataPacket;
+class ChromeMetadataPacket_FinchHash;
 class BackgroundTracingMetadata;
 class BackgroundTracingMetadata_TriggerRule;
 class BackgroundTracingMetadata_TriggerRule_NamedRule;
@@ -743,6 +769,7 @@ class ChromeCompositorStateMachine_MajorState;
 class LogMessage;
 class TaskExecution;
 class SysStats;
+class SysStats_PsiSample;
 class SysStats_DiskStat;
 class SysStats_BuddyInfo;
 class SysStats_DevfreqValue;
@@ -771,15 +798,21 @@ class ProcessTree_Process;
 enum TracePacket_SequenceFlags : int;
 enum PerfEvents_Counter : int;
 enum PerfEvents_PerfClock : int;
+enum InternedV8JsScript_Type : int;
+enum InternedV8JsFunction_Kind : int;
 enum TrafficDirection : int;
 enum InternedGpuRenderStageSpecification_RenderStageCategory : int;
 enum InternedGraphicsContext_Api : int;
 enum DebugAnnotation_NestedValue_NestedType : int;
+enum V8WasmCode_Tier : int;
+enum V8InternalCode_Type : int;
+enum V8JsCode_Tier : int;
 enum ReadyThreadEtwEvent_AdjustReason : int;
 enum ReadyThreadEtwEvent_TraceFlag : int;
 enum CSwitchEtwEvent_OldThreadWaitReason : int;
 enum CSwitchEtwEvent_OldThreadWaitMode : int;
 enum CSwitchEtwEvent_OldThreadState : int;
+enum ProtoLogLevel : int;
 enum DisplayState_Changes : int;
 enum LayerState_ChangesLsb : int;
 enum LayerState_ChangesMsb : int;
@@ -791,6 +824,7 @@ enum HwcCompositionType : int;
 enum FieldDescriptorProto_Type : int;
 enum FieldDescriptorProto_Label : int;
 enum FtraceClock : int;
+enum FtraceParseStatus : int;
 enum ThreadDescriptor_ChromeThreadType : int;
 enum ProcessDescriptor_ChromeProcessType : int;
 enum CounterDescriptor_BuiltinCounterType : int;
@@ -857,6 +891,7 @@ enum ChromeCompositorStateMachine_MajorState_BeginMainFrameState : int;
 enum ChromeCompositorStateMachine_MajorState_LayerTreeFrameSinkState : int;
 enum ChromeCompositorStateMachine_MajorState_ForcedRedrawOnTimeoutState : int;
 enum LogMessage_Priority : int;
+enum SysStats_PsiSample_PsiResource : int;
 enum VmstatCounters : int;
 enum MeminfoCounters : int;
 enum ClockSnapshot_Clock_BuiltinClocks : int;
@@ -956,7 +991,15 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
     kSurfaceflingerTransactionsFieldNumber = 94,
     kShellTransitionFieldNumber = 96,
     kShellHandlerMappingsFieldNumber = 97,
+    kProtologMessageFieldNumber = 104,
+    kProtologViewerConfigFieldNumber = 105,
     kEtwEventsFieldNumber = 95,
+    kV8JsCodeFieldNumber = 99,
+    kV8InternalCodeFieldNumber = 100,
+    kV8WasmCodeFieldNumber = 101,
+    kV8RegExpCodeFieldNumber = 102,
+    kV8CodeMoveFieldNumber = 103,
+    kAndroidInputEventFieldNumber = 106,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -1254,9 +1297,41 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
   const ShellHandlerMappings& shell_handler_mappings() const { return *shell_handler_mappings_; }
   ShellHandlerMappings* mutable_shell_handler_mappings() { _has_field_.set(97); return shell_handler_mappings_.get(); }
 
+  bool has_protolog_message() const { return _has_field_[104]; }
+  const ProtoLogMessage& protolog_message() const { return *protolog_message_; }
+  ProtoLogMessage* mutable_protolog_message() { _has_field_.set(104); return protolog_message_.get(); }
+
+  bool has_protolog_viewer_config() const { return _has_field_[105]; }
+  const ProtoLogViewerConfig& protolog_viewer_config() const { return *protolog_viewer_config_; }
+  ProtoLogViewerConfig* mutable_protolog_viewer_config() { _has_field_.set(105); return protolog_viewer_config_.get(); }
+
   bool has_etw_events() const { return _has_field_[95]; }
   const EtwTraceEventBundle& etw_events() const { return *etw_events_; }
   EtwTraceEventBundle* mutable_etw_events() { _has_field_.set(95); return etw_events_.get(); }
+
+  bool has_v8_js_code() const { return _has_field_[99]; }
+  const V8JsCode& v8_js_code() const { return *v8_js_code_; }
+  V8JsCode* mutable_v8_js_code() { _has_field_.set(99); return v8_js_code_.get(); }
+
+  bool has_v8_internal_code() const { return _has_field_[100]; }
+  const V8InternalCode& v8_internal_code() const { return *v8_internal_code_; }
+  V8InternalCode* mutable_v8_internal_code() { _has_field_.set(100); return v8_internal_code_.get(); }
+
+  bool has_v8_wasm_code() const { return _has_field_[101]; }
+  const V8WasmCode& v8_wasm_code() const { return *v8_wasm_code_; }
+  V8WasmCode* mutable_v8_wasm_code() { _has_field_.set(101); return v8_wasm_code_.get(); }
+
+  bool has_v8_reg_exp_code() const { return _has_field_[102]; }
+  const V8RegExpCode& v8_reg_exp_code() const { return *v8_reg_exp_code_; }
+  V8RegExpCode* mutable_v8_reg_exp_code() { _has_field_.set(102); return v8_reg_exp_code_.get(); }
+
+  bool has_v8_code_move() const { return _has_field_[103]; }
+  const V8CodeMove& v8_code_move() const { return *v8_code_move_; }
+  V8CodeMove* mutable_v8_code_move() { _has_field_.set(103); return v8_code_move_.get(); }
+
+  bool has_android_input_event() const { return _has_field_[106]; }
+  const AndroidInputEvent& android_input_event() const { return *android_input_event_; }
+  AndroidInputEvent* mutable_android_input_event() { _has_field_.set(106); return android_input_event_.get(); }
 
   bool has_for_testing() const { return _has_field_[900]; }
   const TestEvent& for_testing() const { return *for_testing_; }
@@ -1370,7 +1445,15 @@ class PERFETTO_EXPORT_COMPONENT TracePacket : public ::protozero::CppMessageObj 
   ::protozero::CopyablePtr<TransactionTraceEntry> surfaceflinger_transactions_;
   ::protozero::CopyablePtr<ShellTransition> shell_transition_;
   ::protozero::CopyablePtr<ShellHandlerMappings> shell_handler_mappings_;
+  ::protozero::CopyablePtr<ProtoLogMessage> protolog_message_;
+  ::protozero::CopyablePtr<ProtoLogViewerConfig> protolog_viewer_config_;
   ::protozero::CopyablePtr<EtwTraceEventBundle> etw_events_;
+  ::protozero::CopyablePtr<V8JsCode> v8_js_code_;
+  ::protozero::CopyablePtr<V8InternalCode> v8_internal_code_;
+  ::protozero::CopyablePtr<V8WasmCode> v8_wasm_code_;
+  ::protozero::CopyablePtr<V8RegExpCode> v8_reg_exp_code_;
+  ::protozero::CopyablePtr<V8CodeMove> v8_code_move_;
+  ::protozero::CopyablePtr<AndroidInputEvent> android_input_event_;
   ::protozero::CopyablePtr<TestEvent> for_testing_;
   int32_t trusted_uid_{};
   uint32_t trusted_packet_sequence_id_{};

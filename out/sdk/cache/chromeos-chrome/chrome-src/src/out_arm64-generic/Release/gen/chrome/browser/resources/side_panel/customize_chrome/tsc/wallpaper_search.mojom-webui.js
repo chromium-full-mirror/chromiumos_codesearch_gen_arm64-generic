@@ -5,6 +5,14 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { TokenSpec as mojoBase_mojom_TokenSpec } from '//resources/mojo/mojo/public/mojom/base/token.mojom-webui.js';
 import { SkColorSpec as skia_mojom_SkColorSpec } from '//resources/mojo/skia/public/mojom/skcolor.mojom-webui.js';
+import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
+export const DescriptorDNameSpec = { $: mojo.internal.Enum() };
+export var DescriptorDName;
+(function (DescriptorDName) {
+    DescriptorDName[DescriptorDName["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DescriptorDName[DescriptorDName["MAX_VALUE"] = 0] = "MAX_VALUE";
+    DescriptorDName[DescriptorDName["kYellow"] = 0] = "kYellow";
+})(DescriptorDName || (DescriptorDName = {}));
 export const WallpaperSearchStatusSpec = { $: mojo.internal.Enum() };
 export var WallpaperSearchStatus;
 (function (WallpaperSearchStatus) {
@@ -117,41 +125,52 @@ export class WallpaperSearchHandlerRemote {
     getDescriptors() {
         return this.proxy.sendMessage(0, WallpaperSearchHandler_GetDescriptors_ParamsSpec.$, WallpaperSearchHandler_GetDescriptors_ResponseParamsSpec.$, []);
     }
-    getWallpaperSearchResults(descriptorA, descriptorB, descriptorC, descriptorDValue) {
-        return this.proxy.sendMessage(1, WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, [
-            descriptorA,
-            descriptorB,
-            descriptorC,
-            descriptorDValue
+    getInspirations() {
+        return this.proxy.sendMessage(1, WallpaperSearchHandler_GetInspirations_ParamsSpec.$, WallpaperSearchHandler_GetInspirations_ResponseParamsSpec.$, []);
+    }
+    getWallpaperSearchResults(resultDescriptors) {
+        return this.proxy.sendMessage(2, WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, [
+            resultDescriptors
         ]);
     }
     setResultRenderTime(resultIds, time) {
-        this.proxy.sendMessage(2, WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, null, [
+        this.proxy.sendMessage(3, WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, null, [
             resultIds,
             time
         ]);
     }
-    setBackgroundToHistoryImage(resultId) {
-        this.proxy.sendMessage(3, WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, null, [
-            resultId
+    setBackgroundToHistoryImage(resultId, descriptors) {
+        this.proxy.sendMessage(4, WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, null, [
+            resultId,
+            descriptors
         ]);
     }
-    setBackgroundToWallpaperSearchResult(resultId, time) {
-        this.proxy.sendMessage(4, WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, [
+    setBackgroundToInspirationImage(id, backgroundUrl) {
+        this.proxy.sendMessage(5, WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsSpec.$, null, [
+            id,
+            backgroundUrl
+        ]);
+    }
+    setBackgroundToWallpaperSearchResult(resultId, time, descriptors) {
+        this.proxy.sendMessage(6, WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, [
             resultId,
-            time
+            time,
+            descriptors
         ]);
     }
     updateHistory() {
-        this.proxy.sendMessage(5, WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(7, WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, null, []);
     }
     setUserFeedback(selectedOption) {
-        this.proxy.sendMessage(6, WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, null, [
+        this.proxy.sendMessage(8, WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, null, [
             selectedOption
         ]);
     }
     openHelpArticle() {
-        this.proxy.sendMessage(7, WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(9, WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, null, []);
+    }
+    launchHatsSurvey() {
+        this.proxy.sendMessage(10, WallpaperSearchHandler_LaunchHatsSurvey_ParamsSpec.$, null, []);
     }
 }
 ;
@@ -165,13 +184,16 @@ export class WallpaperSearchHandlerReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(WallpaperSearchHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, WallpaperSearchHandler_GetDescriptors_ParamsSpec.$, WallpaperSearchHandler_GetDescriptors_ResponseParamsSpec.$, impl.getDescriptors.bind(impl));
-        this.helper_internal_.registerHandler(1, WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, impl.getWallpaperSearchResults.bind(impl));
-        this.helper_internal_.registerHandler(2, WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, null, impl.setResultRenderTime.bind(impl));
-        this.helper_internal_.registerHandler(3, WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, null, impl.setBackgroundToHistoryImage.bind(impl));
-        this.helper_internal_.registerHandler(4, WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, impl.setBackgroundToWallpaperSearchResult.bind(impl));
-        this.helper_internal_.registerHandler(5, WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, null, impl.updateHistory.bind(impl));
-        this.helper_internal_.registerHandler(6, WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, null, impl.setUserFeedback.bind(impl));
-        this.helper_internal_.registerHandler(7, WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, null, impl.openHelpArticle.bind(impl));
+        this.helper_internal_.registerHandler(1, WallpaperSearchHandler_GetInspirations_ParamsSpec.$, WallpaperSearchHandler_GetInspirations_ResponseParamsSpec.$, impl.getInspirations.bind(impl));
+        this.helper_internal_.registerHandler(2, WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, impl.getWallpaperSearchResults.bind(impl));
+        this.helper_internal_.registerHandler(3, WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, null, impl.setResultRenderTime.bind(impl));
+        this.helper_internal_.registerHandler(4, WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, null, impl.setBackgroundToHistoryImage.bind(impl));
+        this.helper_internal_.registerHandler(5, WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsSpec.$, null, impl.setBackgroundToInspirationImage.bind(impl));
+        this.helper_internal_.registerHandler(6, WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, impl.setBackgroundToWallpaperSearchResult.bind(impl));
+        this.helper_internal_.registerHandler(7, WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, null, impl.updateHistory.bind(impl));
+        this.helper_internal_.registerHandler(8, WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, null, impl.setUserFeedback.bind(impl));
+        this.helper_internal_.registerHandler(9, WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, null, impl.openHelpArticle.bind(impl));
+        this.helper_internal_.registerHandler(10, WallpaperSearchHandler_LaunchHatsSurvey_ParamsSpec.$, null, impl.launchHatsSurvey.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -204,27 +226,36 @@ export class WallpaperSearchHandlerCallbackRouter {
         this.getDescriptors =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, WallpaperSearchHandler_GetDescriptors_ParamsSpec.$, WallpaperSearchHandler_GetDescriptors_ResponseParamsSpec.$, this.getDescriptors.createReceiverHandler(true /* expectsResponse */));
+        this.getInspirations =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, WallpaperSearchHandler_GetInspirations_ParamsSpec.$, WallpaperSearchHandler_GetInspirations_ResponseParamsSpec.$, this.getInspirations.createReceiverHandler(true /* expectsResponse */));
         this.getWallpaperSearchResults =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, this.getWallpaperSearchResults.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(2, WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, this.getWallpaperSearchResults.createReceiverHandler(true /* expectsResponse */));
         this.setResultRenderTime =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(2, WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, null, this.setResultRenderTime.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(3, WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, null, this.setResultRenderTime.createReceiverHandler(false /* expectsResponse */));
         this.setBackgroundToHistoryImage =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, null, this.setBackgroundToHistoryImage.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(4, WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, null, this.setBackgroundToHistoryImage.createReceiverHandler(false /* expectsResponse */));
+        this.setBackgroundToInspirationImage =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsSpec.$, null, this.setBackgroundToInspirationImage.createReceiverHandler(false /* expectsResponse */));
         this.setBackgroundToWallpaperSearchResult =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(4, WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, this.setBackgroundToWallpaperSearchResult.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(6, WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, null, this.setBackgroundToWallpaperSearchResult.createReceiverHandler(false /* expectsResponse */));
         this.updateHistory =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, null, this.updateHistory.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(7, WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, null, this.updateHistory.createReceiverHandler(false /* expectsResponse */));
         this.setUserFeedback =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(6, WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, null, this.setUserFeedback.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(8, WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, null, this.setUserFeedback.createReceiverHandler(false /* expectsResponse */));
         this.openHelpArticle =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(7, WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, null, this.openHelpArticle.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(9, WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, null, this.openHelpArticle.createReceiverHandler(false /* expectsResponse */));
+        this.launchHatsSurvey =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(10, WallpaperSearchHandler_LaunchHatsSurvey_ParamsSpec.$, null, this.launchHatsSurvey.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -312,18 +343,25 @@ export class WallpaperSearchClientCallbackRouter {
 export const DescriptorASpec = { $: {} };
 export const DescriptorBSpec = { $: {} };
 export const DescriptorsSpec = { $: {} };
+export const InspirationSpec = { $: {} };
+export const InspirationGroupSpec = { $: {} };
 export const WallpaperSearchResultSpec = { $: {} };
+export const ResultDescriptorsSpec = { $: {} };
 export const WallpaperSearchHandlerFactory_CreateWallpaperSearchHandler_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_GetDescriptors_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_GetDescriptors_ResponseParamsSpec = { $: {} };
+export const WallpaperSearchHandler_GetInspirations_ParamsSpec = { $: {} };
+export const WallpaperSearchHandler_GetInspirations_ResponseParamsSpec = { $: {} };
 export const WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec = { $: {} };
 export const WallpaperSearchHandler_SetResultRenderTime_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec = { $: {} };
+export const WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_UpdateHistory_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_SetUserFeedback_ParamsSpec = { $: {} };
 export const WallpaperSearchHandler_OpenHelpArticle_ParamsSpec = { $: {} };
+export const WallpaperSearchHandler_LaunchHatsSurvey_ParamsSpec = { $: {} };
 export const WallpaperSearchClient_SetHistory_ParamsSpec = { $: {} };
 export const DescriptorDValueSpec = { $: {} };
 mojo.internal.Struct(DescriptorASpec.$, 'DescriptorA', [
@@ -339,10 +377,27 @@ mojo.internal.Struct(DescriptorsSpec.$, 'Descriptors', [
     mojo.internal.StructField('descriptorB', 8, 0, mojo.internal.Array(DescriptorBSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('descriptorC', 16, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
 ], [[0, 32],]);
+mojo.internal.Struct(InspirationSpec.$, 'Inspiration', [
+    mojo.internal.StructField('id', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('description', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('backgroundUrl', 16, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('thumbnailUrl', 24, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(InspirationGroupSpec.$, 'InspirationGroup', [
+    mojo.internal.StructField('descriptors', 0, 0, ResultDescriptorsSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('inspirations', 8, 0, mojo.internal.Array(InspirationSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(WallpaperSearchResultSpec.$, 'WallpaperSearchResult', [
     mojo.internal.StructField('id', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('image', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 24],]);
+    mojo.internal.StructField('descriptors', 16, 0, ResultDescriptorsSpec.$, null, true /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(ResultDescriptorsSpec.$, 'ResultDescriptors', [
+    mojo.internal.StructField('subject', 0, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('style', 8, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('mood', 16, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('color', 24, 0, DescriptorDValueSpec.$, null, true /* nullable */, 0),
+], [[0, 48],]);
 mojo.internal.Struct(WallpaperSearchHandlerFactory_CreateWallpaperSearchHandler_ParamsSpec.$, 'WallpaperSearchHandlerFactory_CreateWallpaperSearchHandler_Params', [
     mojo.internal.StructField('client', 0, 0, mojo.internal.InterfaceProxy(WallpaperSearchClientRemote), null, false /* nullable */, 0),
     mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(WallpaperSearchHandlerPendingReceiver), null, false /* nullable */, 0),
@@ -351,12 +406,13 @@ mojo.internal.Struct(WallpaperSearchHandler_GetDescriptors_ParamsSpec.$, 'Wallpa
 mojo.internal.Struct(WallpaperSearchHandler_GetDescriptors_ResponseParamsSpec.$, 'WallpaperSearchHandler_GetDescriptors_ResponseParams', [
     mojo.internal.StructField('descriptors', 0, 0, DescriptorsSpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(WallpaperSearchHandler_GetInspirations_ParamsSpec.$, 'WallpaperSearchHandler_GetInspirations_Params', [], [[0, 8],]);
+mojo.internal.Struct(WallpaperSearchHandler_GetInspirations_ResponseParamsSpec.$, 'WallpaperSearchHandler_GetInspirations_ResponseParams', [
+    mojo.internal.StructField('inspirationGroups', 0, 0, mojo.internal.Array(InspirationGroupSpec.$, false), null, true /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(WallpaperSearchHandler_GetWallpaperSearchResults_ParamsSpec.$, 'WallpaperSearchHandler_GetWallpaperSearchResults_Params', [
-    mojo.internal.StructField('descriptorA', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('descriptorB', 8, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('descriptorC', 16, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('descriptorDValue', 24, 0, DescriptorDValueSpec.$, null, true /* nullable */, 0),
-], [[0, 48],]);
+    mojo.internal.StructField('resultDescriptors', 0, 0, ResultDescriptorsSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParamsSpec.$, 'WallpaperSearchHandler_GetWallpaperSearchResults_ResponseParams', [
     mojo.internal.StructField('status', 0, 0, WallpaperSearchStatusSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('results', 8, 0, mojo.internal.Array(WallpaperSearchResultSpec.$, false), null, false /* nullable */, 0),
@@ -367,16 +423,23 @@ mojo.internal.Struct(WallpaperSearchHandler_SetResultRenderTime_ParamsSpec.$, 'W
 ], [[0, 24],]);
 mojo.internal.Struct(WallpaperSearchHandler_SetBackgroundToHistoryImage_ParamsSpec.$, 'WallpaperSearchHandler_SetBackgroundToHistoryImage_Params', [
     mojo.internal.StructField('resultId', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
+    mojo.internal.StructField('descriptors', 8, 0, ResultDescriptorsSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(WallpaperSearchHandler_SetBackgroundToInspirationImage_ParamsSpec.$, 'WallpaperSearchHandler_SetBackgroundToInspirationImage_Params', [
+    mojo.internal.StructField('id', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('backgroundUrl', 8, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_ParamsSpec.$, 'WallpaperSearchHandler_SetBackgroundToWallpaperSearchResult_Params', [
     mojo.internal.StructField('resultId', 0, 0, mojoBase_mojom_TokenSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('time', 8, 0, mojo.internal.Double, 0, false /* nullable */, 0),
-], [[0, 24],]);
+    mojo.internal.StructField('descriptors', 16, 0, ResultDescriptorsSpec.$, null, false /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(WallpaperSearchHandler_UpdateHistory_ParamsSpec.$, 'WallpaperSearchHandler_UpdateHistory_Params', [], [[0, 8],]);
 mojo.internal.Struct(WallpaperSearchHandler_SetUserFeedback_ParamsSpec.$, 'WallpaperSearchHandler_SetUserFeedback_Params', [
     mojo.internal.StructField('selectedOption', 0, 0, UserFeedbackSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(WallpaperSearchHandler_OpenHelpArticle_ParamsSpec.$, 'WallpaperSearchHandler_OpenHelpArticle_Params', [], [[0, 8],]);
+mojo.internal.Struct(WallpaperSearchHandler_LaunchHatsSurvey_ParamsSpec.$, 'WallpaperSearchHandler_LaunchHatsSurvey_Params', [], [[0, 8],]);
 mojo.internal.Struct(WallpaperSearchClient_SetHistory_ParamsSpec.$, 'WallpaperSearchClient_SetHistory_Params', [
     mojo.internal.StructField('history', 0, 0, mojo.internal.Array(WallpaperSearchResultSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -388,5 +451,9 @@ mojo.internal.Union(DescriptorDValueSpec.$, 'DescriptorDValue', {
     'hue': {
         'ordinal': 1,
         'type': mojo.internal.Float,
+    },
+    'name': {
+        'ordinal': 2,
+        'type': DescriptorDNameSpec.$,
     },
 });

@@ -78,7 +78,7 @@ content_type_ = ContentType::kLongSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionInt32ArrayAllowSharedOrLongSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionInt32ArrayAllowSharedOrLongSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kInt32ArrayAllowShared: {
     return ToV8Traits<MaybeShared<DOMInt32Array>>::ToV8(script_state, member_int32_array_allow_shared_);
@@ -89,7 +89,7 @@ v8::MaybeLocal<v8::Value> V8UnionInt32ArrayAllowSharedOrLongSequence::ToV8Value(
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionInt32ArrayAllowSharedOrLongSequence::Trace(Visitor* visitor) const {

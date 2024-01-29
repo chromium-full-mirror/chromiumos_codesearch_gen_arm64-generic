@@ -19,6 +19,7 @@ class CONTENT_EXPORT RendererHostInterceptorForTesting : public RendererHost {
   void GetBrowserHistogram(const std::string& name, GetBrowserHistogramCallback callback) override;
   void SuddenTerminationChanged(bool enabled) override;
   void RecordUserMetricsAction(const std::string& action) override;
+  void HasGpuProcess(HasGpuProcessCallback callback) override;
 };
 class CONTENT_EXPORT RendererHostAsyncWaiter {
  public:
@@ -31,6 +32,9 @@ class CONTENT_EXPORT RendererHostAsyncWaiter {
   void GetBrowserHistogram(
       const std::string& name, std::string* out_histogram_json);
   std::string GetBrowserHistogram(const std::string& name);
+  void HasGpuProcess(
+      bool* out_has_gpu_process);
+  bool HasGpuProcess();
 
  private:
   RendererHost* const proxy_;

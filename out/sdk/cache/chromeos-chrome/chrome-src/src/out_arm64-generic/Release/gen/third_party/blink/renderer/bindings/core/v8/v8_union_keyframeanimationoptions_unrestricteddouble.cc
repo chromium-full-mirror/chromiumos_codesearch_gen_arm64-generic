@@ -57,7 +57,7 @@ return MakeGarbageCollected<V8UnionKeyframeAnimationOptionsOrUnrestrictedDouble>
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionKeyframeAnimationOptionsOrUnrestrictedDouble::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionKeyframeAnimationOptionsOrUnrestrictedDouble::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kKeyframeAnimationOptions: {
     return ToV8Traits<KeyframeAnimationOptions>::ToV8(script_state, member_keyframe_animation_options_.Get());
@@ -68,7 +68,7 @@ v8::MaybeLocal<v8::Value> V8UnionKeyframeAnimationOptionsOrUnrestrictedDouble::T
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionKeyframeAnimationOptionsOrUnrestrictedDouble::Trace(Visitor* visitor) const {

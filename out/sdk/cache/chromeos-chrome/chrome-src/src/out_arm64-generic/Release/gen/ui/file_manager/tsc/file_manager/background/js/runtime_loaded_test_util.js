@@ -911,7 +911,7 @@ test.util.executeTestMessage =
     (request, sendResponse) => {
         window.IN_TEST = true;
         // Check the function name.
-        if (!request.func || request.func[request.func.length - 1] == '_') {
+        if (!request.func || request.func[request.func.length - 1] === '_') {
             request.func = '';
         }
         // Prepare arguments.

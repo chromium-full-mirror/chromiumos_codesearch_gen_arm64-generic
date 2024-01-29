@@ -225,7 +225,7 @@ export class MetadataBoxController {
                 this.onDirectorySizeLoaded_ = null;
                 return;
             }
-            if (this.quickViewModel_.getSelectedEntry() != entry) {
+            if (this.quickViewModel_.getSelectedEntry() !== entry) {
                 return;
             }
             if (chrome.runtime.lastError) {

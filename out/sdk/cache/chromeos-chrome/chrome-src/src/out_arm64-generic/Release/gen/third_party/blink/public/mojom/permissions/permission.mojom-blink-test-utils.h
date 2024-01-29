@@ -32,10 +32,28 @@ class PLATFORM_EXPORT PermissionObserverAsyncWaiter {
 };
 
 
+class PLATFORM_EXPORT EmbeddedPermissionControlClientInterceptorForTesting : public EmbeddedPermissionControlClient {
+  virtual EmbeddedPermissionControlClient* GetForwardingInterface() = 0;
+  void OnEmbeddedPermissionControlRegistered(bool allow, const std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>& statuses) override;
+};
+class PLATFORM_EXPORT EmbeddedPermissionControlClientAsyncWaiter {
+ public:
+  explicit EmbeddedPermissionControlClientAsyncWaiter(EmbeddedPermissionControlClient* proxy);
+
+  EmbeddedPermissionControlClientAsyncWaiter(const EmbeddedPermissionControlClientAsyncWaiter&) = delete;
+  EmbeddedPermissionControlClientAsyncWaiter& operator=(const EmbeddedPermissionControlClientAsyncWaiter&) = delete;
+
+  ~EmbeddedPermissionControlClientAsyncWaiter();
+
+ private:
+  EmbeddedPermissionControlClient* const proxy_;
+};
+
+
 class PLATFORM_EXPORT PermissionServiceInterceptorForTesting : public PermissionService {
   virtual PermissionService* GetForwardingInterface() = 0;
   void HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) override;
-  void RegisterPageEmbeddedPermissionControl(WTF::Vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) override;
+  void RegisterPageEmbeddedPermissionControl(WTF::Vector<PermissionDescriptorPtr> permissions, ::mojo::PendingRemote<EmbeddedPermissionControlClient> client) override;
   void RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor, RequestPageEmbeddedPermissionCallback callback) override;
   void RequestPermission(PermissionDescriptorPtr permission, bool user_gesture, RequestPermissionCallback callback) override;
   void RequestPermissions(WTF::Vector<PermissionDescriptorPtr> permission, bool user_gesture, RequestPermissionsCallback callback) override;
@@ -54,9 +72,6 @@ class PLATFORM_EXPORT PermissionServiceAsyncWaiter {
   void HasPermission(
       PermissionDescriptorPtr permission, ::blink::mojom::blink::PermissionStatus* out_status);
   ::blink::mojom::blink::PermissionStatus HasPermission(PermissionDescriptorPtr permission);
-  void RegisterPageEmbeddedPermissionControl(
-      WTF::Vector<PermissionDescriptorPtr> permissions, bool* out_allowed, std::optional<WTF::Vector<::blink::mojom::blink::PermissionStatus>>* out_statuses);
-  
   void RequestPageEmbeddedPermission(
       EmbeddedPermissionRequestDescriptorPtr descriptor, EmbeddedPermissionControlResult* out_status);
   EmbeddedPermissionControlResult RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor);

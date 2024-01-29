@@ -228,6 +228,8 @@ bool PressureManager_AddClient_ForwardToCallback::Accept(
           internal::PressureManager_AddClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PressureManager.0
   bool success = true;
   PressureStatus p_status{};
   PressureManager_AddClient_ResponseParamsDataView input_data_view(params, message);
@@ -319,6 +321,8 @@ bool PressureManagerStubDispatch::AcceptWithResponder(
               internal::PressureManager_AddClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PressureManager.0
       bool success = true;
       ::mojo::PendingRemote<PressureClient> p_client{};
       ::device::mojom::PressureSource p_source{};
@@ -342,9 +346,9 @@ bool PressureManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddClient(
-std::move(p_client), 
-std::move(p_source), std::move(callback));
+      impl->AddClient(        
+        std::move(p_client), 
+        std::move(p_source), std::move(callback));
       return true;
     }
   }
@@ -488,6 +492,8 @@ bool PressureClientStubDispatch::Accept(
           reinterpret_cast<internal::PressureClient_OnPressureUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PressureClient.0
       bool success = true;
       ::device::mojom::PressureUpdatePtr p_update{};
       PressureClient_OnPressureUpdated_ParamsDataView input_data_view(params, message);
@@ -503,8 +509,8 @@ bool PressureClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPressureUpdated(
-std::move(p_update));
+      impl->OnPressureUpdated(        
+        std::move(p_update));
       return true;
     }
   }

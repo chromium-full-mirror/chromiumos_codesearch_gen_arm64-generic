@@ -37,7 +37,9 @@ PROTOBUF_CONSTEXPR FeatureOverride::FeatureOverride(
   , name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , trial_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , group_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , enabled_(false){}
+  , enabled_(false)
+  , override_state_(0)
+{}
 struct FeatureOverrideDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FeatureOverrideDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -108,6 +110,61 @@ struct ComputedStateDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ComputedStateDefaultTypeInternal _ComputedState_default_instance_;
 }  // namespace featured
 namespace featured {
+bool OverrideState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OverrideState_strings[3] = {};
+
+static const char OverrideState_names[] =
+  "OVERRIDE_DISABLE_FEATURE"
+  "OVERRIDE_ENABLE_FEATURE"
+  "OVERRIDE_USE_DEFAULT";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OverrideState_entries[] = {
+  { {OverrideState_names + 0, 24}, 1 },
+  { {OverrideState_names + 24, 23}, 2 },
+  { {OverrideState_names + 47, 20}, 0 },
+};
+
+static const int OverrideState_entries_by_number[] = {
+  2, // 0 -> OVERRIDE_USE_DEFAULT
+  0, // 1 -> OVERRIDE_DISABLE_FEATURE
+  1, // 2 -> OVERRIDE_ENABLE_FEATURE
+};
+
+const std::string& OverrideState_Name(
+    OverrideState value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          OverrideState_entries,
+          OverrideState_entries_by_number,
+          3, OverrideState_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      OverrideState_entries,
+      OverrideState_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     OverrideState_strings[idx].get();
+}
+bool OverrideState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OverrideState* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      OverrideState_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<OverrideState>(int_value);
+  }
+  return success;
+}
 
 // ===================================================================
 
@@ -390,7 +447,9 @@ FeatureOverride::FeatureOverride(const FeatureOverride& from)
     group_name_.Set(from._internal_group_name(), 
       GetArenaForAllocation());
   }
-  enabled_ = from.enabled_;
+  ::memcpy(&enabled_, &from.enabled_,
+    static_cast<size_t>(reinterpret_cast<char*>(&override_state_) -
+    reinterpret_cast<char*>(&enabled_)) + sizeof(override_state_));
   // @@protoc_insertion_point(copy_constructor:featured.FeatureOverride)
 }
 
@@ -407,7 +466,10 @@ group_name_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   group_name_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-enabled_ = false;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&enabled_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&override_state_) -
+    reinterpret_cast<char*>(&enabled_)) + sizeof(override_state_));
 }
 
 FeatureOverride::~FeatureOverride() {
@@ -440,7 +502,9 @@ void FeatureOverride::Clear() {
   name_.ClearToEmpty();
   trial_name_.ClearToEmpty();
   group_name_.ClearToEmpty();
-  enabled_ = false;
+  ::memset(&enabled_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&override_state_) -
+      reinterpret_cast<char*>(&enabled_)) + sizeof(override_state_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -498,6 +562,15 @@ const char* FeatureOverride::_InternalParse(const char* ptr, ::_pbi::ParseContex
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .featured.OverrideState override_state = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_override_state(static_cast<::featured::OverrideState>(val));
         } else
           goto handle_unusual;
         continue;
@@ -574,6 +647,13 @@ uint8_t* FeatureOverride::_InternalSerialize(
         5, this->_internal_group_name(), target);
   }
 
+  // .featured.OverrideState override_state = 6;
+  if (this->_internal_override_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_override_state(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -623,6 +703,12 @@ size_t FeatureOverride::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // .featured.OverrideState override_state = 6;
+  if (this->_internal_override_state() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_override_state());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -656,6 +742,9 @@ void FeatureOverride::MergeFrom(const FeatureOverride& from) {
   if (from._internal_enabled() != 0) {
     _internal_set_enabled(from._internal_enabled());
   }
+  if (from._internal_override_state() != 0) {
+    _internal_set_override_state(from._internal_override_state());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -688,7 +777,12 @@ void FeatureOverride::InternalSwap(FeatureOverride* other) {
       &group_name_, lhs_arena,
       &other->group_name_, rhs_arena
   );
-  swap(enabled_, other->enabled_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FeatureOverride, override_state_)
+      + sizeof(FeatureOverride::override_state_)
+      - PROTOBUF_FIELD_OFFSET(FeatureOverride, enabled_)>(
+          reinterpret_cast<char*>(&enabled_),
+          reinterpret_cast<char*>(&other->enabled_));
 }
 
 std::string FeatureOverride::GetTypeName() const {

@@ -3,14 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
-export const ResponseStatusSpec = { $: mojo.internal.Enum() };
-export var ResponseStatus;
-(function (ResponseStatus) {
-    ResponseStatus[ResponseStatus["MIN_VALUE"] = 0] = "MIN_VALUE";
-    ResponseStatus[ResponseStatus["MAX_VALUE"] = 1] = "MAX_VALUE";
-    ResponseStatus[ResponseStatus["kOk"] = 0] = "kOk";
-    ResponseStatus[ResponseStatus["kRetracted"] = 1] = "kRetracted";
-})(ResponseStatus || (ResponseStatus = {}));
 export const PerformanceClassSpec = { $: mojo.internal.Enum() };
 export var PerformanceClass;
 (function (PerformanceClass) {
@@ -49,14 +41,14 @@ export class StreamingResponderRemote {
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
-    onResponse(text) {
+    onResponse(chunk) {
         this.proxy.sendMessage(0, StreamingResponder_OnResponse_ParamsSpec.$, null, [
-            text
+            chunk
         ]);
     }
-    onComplete(status) {
+    onComplete(summary) {
         this.proxy.sendMessage(1, StreamingResponder_OnComplete_ParamsSpec.$, null, [
-            status
+            summary
         ]);
     }
 }
@@ -350,6 +342,8 @@ export class OnDeviceModelCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export const ResponseChunkSpec = { $: {} };
+export const ResponseSummarySpec = { $: {} };
 export const InputOptionsSpec = { $: {} };
 export const StreamingResponder_OnResponse_ParamsSpec = { $: {} };
 export const StreamingResponder_OnComplete_ParamsSpec = { $: {} };
@@ -357,6 +351,13 @@ export const ContextClient_OnComplete_ParamsSpec = { $: {} };
 export const Session_AddContext_ParamsSpec = { $: {} };
 export const Session_Execute_ParamsSpec = { $: {} };
 export const OnDeviceModel_StartSession_ParamsSpec = { $: {} };
+mojo.internal.Struct(ResponseChunkSpec.$, 'ResponseChunk', [
+    mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('tsScores', 8, 0, mojo.internal.Array(mojo.internal.Float, false), null, true /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(ResponseSummarySpec.$, 'ResponseSummary', [
+    mojo.internal.StructField('tsScores', 0, 0, mojo.internal.Array(mojo.internal.Float, false), null, true /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(InputOptionsSpec.$, 'InputOptions', [
     mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('max_tokens_$flag', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
@@ -387,12 +388,21 @@ mojo.internal.Struct(InputOptionsSpec.$, 'InputOptions', [
         isPrimary: false,
         originalFieldName: "maxOutputTokens",
     }),
-], [[0, 32],]);
+    mojo.internal.StructField('ts_interval_$flag', 8, 4, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "ts_interval_$value",
+        originalFieldName: "tsInterval",
+    }),
+    mojo.internal.StructField('ts_interval_$value', 24, 0, mojo.internal.Uint32, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "tsInterval",
+    }),
+], [[0, 40],]);
 mojo.internal.Struct(StreamingResponder_OnResponse_ParamsSpec.$, 'StreamingResponder_OnResponse_Params', [
-    mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('chunk', 0, 0, ResponseChunkSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(StreamingResponder_OnComplete_ParamsSpec.$, 'StreamingResponder_OnComplete_Params', [
-    mojo.internal.StructField('status', 0, 0, ResponseStatusSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('summary', 0, 0, ResponseSummarySpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(ContextClient_OnComplete_ParamsSpec.$, 'ContextClient_OnComplete_Params', [
     mojo.internal.StructField('tokensProcessed', 0, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),

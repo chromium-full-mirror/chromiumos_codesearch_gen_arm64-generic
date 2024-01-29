@@ -682,6 +682,8 @@ bool QuotaInternalsHandler_GetDiskAvailabilityAndTempPoolSize_ForwardToCallback:
           internal::QuotaInternalsHandler_GetDiskAvailabilityAndTempPoolSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaInternalsHandler.0
   bool success = true;
   int64_t p_total_space{};
   int64_t p_available_space{};
@@ -817,6 +819,8 @@ bool QuotaInternalsHandler_GetStatistics_ForwardToCallback::Accept(
           internal::QuotaInternalsHandler_GetStatistics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaInternalsHandler.1
   bool success = true;
   base::flat_map<std::string, std::string> p_eviction_statistics{};
   QuotaInternalsHandler_GetStatistics_ResponseParamsDataView input_data_view(params, message);
@@ -948,6 +952,8 @@ bool QuotaInternalsHandler_RetrieveBucketsTable_ForwardToCallback::Accept(
           internal::QuotaInternalsHandler_RetrieveBucketsTable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaInternalsHandler.3
   bool success = true;
   std::vector<BucketTableEntryPtr> p_entries{};
   QuotaInternalsHandler_RetrieveBucketsTable_ResponseParamsDataView input_data_view(params, message);
@@ -1079,6 +1085,8 @@ bool QuotaInternalsHandler_GetGlobalUsageForInternals_ForwardToCallback::Accept(
           internal::QuotaInternalsHandler_GetGlobalUsageForInternals_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaInternalsHandler.4
   bool success = true;
   int64_t p_usage{};
   int64_t p_unlimited_usage{};
@@ -1206,6 +1214,8 @@ bool QuotaInternalsHandler_IsSimulateStoragePressureAvailable_ForwardToCallback:
           internal::QuotaInternalsHandler_IsSimulateStoragePressureAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuotaInternalsHandler.5
   bool success = true;
   bool p_available{};
   QuotaInternalsHandler_IsSimulateStoragePressureAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -1286,6 +1296,8 @@ bool QuotaInternalsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::QuotaInternalsHandler_SimulateStoragePressure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for QuotaInternalsHandler.2
       bool success = true;
       ::url::Origin p_origin_url{};
       QuotaInternalsHandler_SimulateStoragePressure_ParamsDataView input_data_view(params, message);
@@ -1301,8 +1313,8 @@ bool QuotaInternalsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SimulateStoragePressure(
-std::move(p_origin_url));
+      impl->SimulateStoragePressure(        
+        std::move(p_origin_url));
       return true;
     }
     case internal::kQuotaInternalsHandler_RetrieveBucketsTable_Name: {
@@ -1334,6 +1346,8 @@ bool QuotaInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::QuotaInternalsHandler_GetDiskAvailabilityAndTempPoolSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaInternalsHandler.0
       bool success = true;
       QuotaInternalsHandler_GetDiskAvailabilityAndTempPoolSize_ParamsDataView input_data_view(params, message);
       
@@ -1359,6 +1373,8 @@ bool QuotaInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::QuotaInternalsHandler_GetStatistics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaInternalsHandler.1
       bool success = true;
       QuotaInternalsHandler_GetStatistics_ParamsDataView input_data_view(params, message);
       
@@ -1387,6 +1403,8 @@ bool QuotaInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::QuotaInternalsHandler_RetrieveBucketsTable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaInternalsHandler.3
       bool success = true;
       QuotaInternalsHandler_RetrieveBucketsTable_ParamsDataView input_data_view(params, message);
       
@@ -1412,6 +1430,8 @@ bool QuotaInternalsHandlerStubDispatch::AcceptWithResponder(
               internal::QuotaInternalsHandler_GetGlobalUsageForInternals_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaInternalsHandler.4
       bool success = true;
       ::blink::mojom::StorageType p_storage_type{};
       QuotaInternalsHandler_GetGlobalUsageForInternals_ParamsDataView input_data_view(params, message);
@@ -1430,8 +1450,8 @@ bool QuotaInternalsHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetGlobalUsageForInternals(
-std::move(p_storage_type), std::move(callback));
+      impl->GetGlobalUsageForInternals(        
+        std::move(p_storage_type), std::move(callback));
       return true;
     }
     case internal::kQuotaInternalsHandler_IsSimulateStoragePressureAvailable_Name: {
@@ -1441,6 +1461,8 @@ std::move(p_storage_type), std::move(callback));
               internal::QuotaInternalsHandler_IsSimulateStoragePressureAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuotaInternalsHandler.5
       bool success = true;
       QuotaInternalsHandler_IsSimulateStoragePressureAvailable_ParamsDataView input_data_view(params, message);
       

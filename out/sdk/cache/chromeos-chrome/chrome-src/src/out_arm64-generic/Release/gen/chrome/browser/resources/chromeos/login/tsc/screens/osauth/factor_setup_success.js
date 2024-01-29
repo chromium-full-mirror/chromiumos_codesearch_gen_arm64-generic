@@ -11,46 +11,36 @@ import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/buttons/oobe_text_button.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { getTemplate } from './factor_setup_success.html.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
 const FactorSetupSuccessBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior, LoginScreenBehavior], PolymerElement);
 // LINT.IfChange
 /**
  * Set of modified factors, determine title/subtitle.
- * @enum {string}
  */
-const ModifiedFactors = {
-    ONLINE_PASSWORD: 'online',
-    LOCAL_PASSWORD: 'local',
-    ONLINE_PASSWORD_AND_PIN: 'online+pin',
-    LOCAL_PASSWORD_AND_PIN: 'local+pin',
-    PIN: 'pin',
-};
+var ModifiedFactors;
+(function (ModifiedFactors) {
+    ModifiedFactors["ONLINE_PASSWORD"] = "online";
+    ModifiedFactors["LOCAL_PASSWORD"] = "local";
+    ModifiedFactors["ONLINE_PASSWORD_AND_PIN"] = "online+pin";
+    ModifiedFactors["LOCAL_PASSWORD_AND_PIN"] = "local+pin";
+    ModifiedFactors["PIN"] = "pin";
+})(ModifiedFactors || (ModifiedFactors = {}));
 /**
  * Determines if factors were changed as a part of
  * initial setup (set) or during recovery (updated)
- * @enum {string}
  */
-const ChangeMode = {
-    INITIAL_SETUP: 'set',
-    RECOVERY_FLOW: 'update',
-};
+var ChangeMode;
+(function (ChangeMode) {
+    ChangeMode["INITIAL_SETUP"] = "set";
+    ChangeMode["RECOVERY_FLOW"] = "update";
+})(ChangeMode || (ChangeMode = {}));
 const ACTION_PROCEED = 'proceed';
-// LINT.ThenChange(/chrome/browser/ash/login/screens/osauth/factor_setup_success_screen.cc)
-/**
- * @polymer
- */
-class FactorSetupSuccessScreen extends FactorSetupSuccessBase {
+export class FactorSetupSuccessScreen extends FactorSetupSuccessBase {
     static get is() {
         return 'factor-setup-success-element';
     }
@@ -60,23 +50,20 @@ class FactorSetupSuccessScreen extends FactorSetupSuccessBase {
     static get properties() {
         return {
             /**
-             * @private
              */
-            hasNextStep_: {
+            hasNextStep: {
                 type: Boolean,
                 value: true,
             },
             /**
-             * @private
              */
-            factors_: {
+            factors: {
                 type: String,
                 value: ModifiedFactors.ONLINE_PASSWORD,
             },
             /**
-             * @private
              */
-            changeMode_: {
+            changeMode: {
                 type: String,
                 value: ChangeMode.INITIAL_SETUP,
             },
@@ -87,6 +74,7 @@ class FactorSetupSuccessScreen extends FactorSetupSuccessBase {
         this.initializeLoginScreen('FactorSetupSuccessScreen');
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.BLOCKING;
     }
@@ -94,35 +82,35 @@ class FactorSetupSuccessScreen extends FactorSetupSuccessBase {
      * Invoked just before being shown. Contains all the data for the screen.
      */
     onBeforeShow(data) {
-        this.factors_ = data['modifiedFactors'];
-        this.changeMode_ = data['changeMode'];
-        this.hasNextStep_ = this.changeMode_ === ChangeMode.INITIAL_SETUP;
+        this.factors = data['modifiedFactors'];
+        this.changeMode = data['changeMode'];
+        this.hasNextStep = this.changeMode === ChangeMode.INITIAL_SETUP;
     }
-    getTitle_(locale, factors, changeMode) {
+    getTitle(locale, factors, changeMode) {
         if (changeMode === ChangeMode.INITIAL_SETUP) {
             if (factors === ModifiedFactors.LOCAL_PASSWORD) {
-                return this.i18n('factorSuccessTitleLocalPasswordSet');
+                return this.i18nDynamic(locale, 'factorSuccessTitleLocalPasswordSet');
             }
             // Add more strings here once we support more combinations of factors.
             // Fallback option:
-            return this.i18n('factorSuccessTitleLocalPasswordSet');
+            return this.i18nDynamic(locale, 'factorSuccessTitleLocalPasswordSet');
         }
         else {
             if (factors === ModifiedFactors.LOCAL_PASSWORD) {
-                return this.i18n('factorSuccessTitleLocalPasswordUpdated');
+                return this.i18nDynamic(locale, 'factorSuccessTitleLocalPasswordUpdated');
             }
             // Add more strings here once we support more combinations of factors.
             // Fallback option:
-            return this.i18n('factorSuccessTitleLocalPasswordUpdated');
+            return this.i18nDynamic(locale, 'factorSuccessTitleLocalPasswordUpdated');
         }
     }
-    getSubtitle_(locale, factors, changeMode) {
+    getSubtitle(locale, factors) {
         if (factors === ModifiedFactors.LOCAL_PASSWORD) {
-            return this.i18n('factorSuccessSubtitleLocalPassword');
+            return this.i18nDynamic(locale, 'factorSuccessSubtitleLocalPassword');
         }
         return undefined;
     }
-    onProceed_() {
+    onProceed() {
         this.userActed(ACTION_PROCEED);
     }
 }

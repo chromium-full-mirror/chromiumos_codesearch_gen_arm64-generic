@@ -5,7 +5,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { PerformanceBrowserProxyImpl } from '../performance_browser_proxy.js';
 export const MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH = 10 * 1024;
-export const TAB_DISCARD_EXCEPTIONS_PREF = 'performance_tuning.tab_discarding.exceptions';
+export const TAB_DISCARD_EXCEPTIONS_PREF = 'performance_tuning.tab_discarding.exceptions_with_time';
 export const TAB_DISCARD_EXCEPTIONS_MANAGED_PREF = 'performance_tuning.tab_discarding.exceptions_managed';
 export const ExceptionValidationMixin = dedupingMixin((superClass) => {
     const superClassBase = I18nMixin(superClass);

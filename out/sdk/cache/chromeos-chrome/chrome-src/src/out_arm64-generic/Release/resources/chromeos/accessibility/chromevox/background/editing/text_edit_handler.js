@@ -1,14 +1,14 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { AutomationPredicate } from '../../../common/automation_predicate.js';
-import { AutomationUtil } from '../../../common/automation_util.js';
-import { constants } from '../../../common/constants.js';
-import { CursorRange } from '../../../common/cursors/range.js';
+import { AutomationPredicate } from '/common/automation_predicate.js';
+import { AutomationUtil } from '/common/automation_util.js';
+import { constants } from '/common/constants.js';
+import { CursorRange } from '/common/cursors/range.js';
 import { ChromeVoxRange } from '../chromevox_range.js';
 import { EditableLine } from './editable_line.js';
 import { AutomationEditableText } from './editable_text.js';
-import { AutomationRichEditableText } from './rich_editable_text.js';
+import { RichEditableText } from './rich_editable_text.js';
 var Dir = constants.Dir;
 var IntentCommandType = chrome.automation.IntentCommandType;
 var RoleType = chrome.automation.RoleType;
@@ -68,7 +68,7 @@ export class TextEditHandler {
         const firstStaticText = this.node.find({ role: RoleType.STATIC_TEXT });
         EditableLine.includeOffscreen = !isTextArea || !firstStaticText ||
             firstStaticText.children.length < MAX_INLINE_TEXT_BOXES;
-        return useRichText ? new AutomationRichEditableText(this.node) :
+        return useRichText ? new RichEditableText(this.node) :
             new AutomationEditableText(this.node);
     }
     /**

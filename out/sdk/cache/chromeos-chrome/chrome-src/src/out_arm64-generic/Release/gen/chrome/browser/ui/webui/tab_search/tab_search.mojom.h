@@ -129,7 +129,7 @@ class PageHandler
     kOpenRecentlyClosedEntryMinVersion = 0,
     kRequestTabOrganizationMinVersion = 0,
     kRemoveTabFromOrganizationMinVersion = 0,
-    kResetSessionMinVersion = 0,
+    kRestartSessionMinVersion = 0,
     kSaveRecentlyClosedExpandedPrefMinVersion = 0,
     kSetTabIndexMinVersion = 0,
     kStartTabGroupTutorialMinVersion = 0,
@@ -172,7 +172,7 @@ class PageHandler
   struct RemoveTabFromOrganization_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct ResetSession_Sym {
+  struct RestartSession_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SaveRecentlyClosedExpandedPref_Sym {
@@ -240,7 +240,7 @@ class PageHandler
   virtual void RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) = 0;
 
   
-  virtual void ResetSession() = 0;
+  virtual void RestartSession() = 0;
 
   
   virtual void SaveRecentlyClosedExpandedPref(bool expanded) = 0;
@@ -306,6 +306,7 @@ class Page
     kTabsChangedMinVersion = 0,
     kTabUpdatedMinVersion = 0,
     kTabsRemovedMinVersion = 0,
+    kTabSearchTabIndexChangedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -323,6 +324,9 @@ class Page
   struct TabsRemoved_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct TabSearchTabIndexChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Page() = default;
 
@@ -337,6 +341,9 @@ class Page
 
   
   virtual void TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) = 0;
+
+  
+  virtual void TabSearchTabIndexChanged(int32_t index) = 0;
 };
 
 
@@ -381,7 +388,7 @@ class  PageHandlerProxy
   
   void RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) final;
   
-  void ResetSession() final;
+  void RestartSession() final;
   
   void SaveRecentlyClosedExpandedPref(bool expanded) final;
   
@@ -423,6 +430,8 @@ class  PageProxy
   void TabUpdated(TabUpdateInfoPtr tabUpdateInfo) final;
   
   void TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) final;
+  
+  void TabSearchTabIndexChanged(int32_t index) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

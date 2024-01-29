@@ -2162,6 +2162,8 @@ bool UsbDevice_Open_ForwardToCallback::Accept(
           internal::UsbDevice_Open_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.0
   bool success = true;
   UsbOpenDeviceResultPtr p_result{};
   UsbDevice_Open_ResponseParamsDataView input_data_view(params, message);
@@ -2289,6 +2291,8 @@ bool UsbDevice_Close_ForwardToCallback::Accept(
           internal::UsbDevice_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.1
   bool success = true;
   UsbDevice_Close_ResponseParamsDataView input_data_view(params, message);
   
@@ -2396,6 +2400,8 @@ bool UsbDevice_SetConfiguration_ForwardToCallback::Accept(
           internal::UsbDevice_SetConfiguration_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.2
   bool success = true;
   bool p_success{};
   UsbDevice_SetConfiguration_ResponseParamsDataView input_data_view(params, message);
@@ -2515,6 +2521,8 @@ bool UsbDevice_ClaimInterface_ForwardToCallback::Accept(
           internal::UsbDevice_ClaimInterface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.3
   bool success = true;
   UsbClaimInterfaceResult p_result{};
   UsbDevice_ClaimInterface_ResponseParamsDataView input_data_view(params, message);
@@ -2635,6 +2643,8 @@ bool UsbDevice_ReleaseInterface_ForwardToCallback::Accept(
           internal::UsbDevice_ReleaseInterface_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.4
   bool success = true;
   bool p_success{};
   UsbDevice_ReleaseInterface_ResponseParamsDataView input_data_view(params, message);
@@ -2754,6 +2764,8 @@ bool UsbDevice_SetInterfaceAlternateSetting_ForwardToCallback::Accept(
           internal::UsbDevice_SetInterfaceAlternateSetting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.5
   bool success = true;
   bool p_success{};
   UsbDevice_SetInterfaceAlternateSetting_ResponseParamsDataView input_data_view(params, message);
@@ -2873,6 +2885,8 @@ bool UsbDevice_Reset_ForwardToCallback::Accept(
           internal::UsbDevice_Reset_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.6
   bool success = true;
   bool p_success{};
   UsbDevice_Reset_ResponseParamsDataView input_data_view(params, message);
@@ -2992,6 +3006,8 @@ bool UsbDevice_ClearHalt_ForwardToCallback::Accept(
           internal::UsbDevice_ClearHalt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.7
   bool success = true;
   bool p_success{};
   UsbDevice_ClearHalt_ResponseParamsDataView input_data_view(params, message);
@@ -3111,6 +3127,8 @@ bool UsbDevice_ControlTransferIn_ForwardToCallback::Accept(
           internal::UsbDevice_ControlTransferIn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.8
   bool success = true;
   UsbTransferStatus p_status{};
   ::base::span<const ::uint8_t> p_data{};
@@ -3249,6 +3267,8 @@ bool UsbDevice_ControlTransferOut_ForwardToCallback::Accept(
           internal::UsbDevice_ControlTransferOut_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.9
   bool success = true;
   UsbTransferStatus p_status{};
   UsbDevice_ControlTransferOut_ResponseParamsDataView input_data_view(params, message);
@@ -3369,6 +3389,8 @@ bool UsbDevice_GenericTransferIn_ForwardToCallback::Accept(
           internal::UsbDevice_GenericTransferIn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.10
   bool success = true;
   UsbTransferStatus p_status{};
   ::base::span<const ::uint8_t> p_data{};
@@ -3507,6 +3529,8 @@ bool UsbDevice_GenericTransferOut_ForwardToCallback::Accept(
           internal::UsbDevice_GenericTransferOut_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.11
   bool success = true;
   UsbTransferStatus p_status{};
   UsbDevice_GenericTransferOut_ResponseParamsDataView input_data_view(params, message);
@@ -3627,6 +3651,8 @@ bool UsbDevice_IsochronousTransferIn_ForwardToCallback::Accept(
           internal::UsbDevice_IsochronousTransferIn_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.12
   bool success = true;
   ::base::span<const ::uint8_t> p_data{};
   std::vector<UsbIsochronousPacketPtr> p_packets{};
@@ -3776,6 +3802,8 @@ bool UsbDevice_IsochronousTransferOut_ForwardToCallback::Accept(
           internal::UsbDevice_IsochronousTransferOut_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDevice.13
   bool success = true;
   std::vector<UsbIsochronousPacketPtr> p_packets{};
   UsbDevice_IsochronousTransferOut_ResponseParamsDataView input_data_view(params, message);
@@ -3917,6 +3945,8 @@ bool UsbDeviceStubDispatch::AcceptWithResponder(
               internal::UsbDevice_Open_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.0
       bool success = true;
       UsbDevice_Open_ParamsDataView input_data_view(params, message);
       
@@ -3942,6 +3972,8 @@ bool UsbDeviceStubDispatch::AcceptWithResponder(
               internal::UsbDevice_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.1
       bool success = true;
       UsbDevice_Close_ParamsDataView input_data_view(params, message);
       
@@ -3967,6 +3999,8 @@ bool UsbDeviceStubDispatch::AcceptWithResponder(
               internal::UsbDevice_SetConfiguration_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.2
       bool success = true;
       uint8_t p_value{};
       UsbDevice_SetConfiguration_ParamsDataView input_data_view(params, message);
@@ -3985,8 +4019,8 @@ bool UsbDeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetConfiguration(
-std::move(p_value), std::move(callback));
+      impl->SetConfiguration(        
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_ClaimInterface_Name: {
@@ -3996,6 +4030,8 @@ std::move(p_value), std::move(callback));
               internal::UsbDevice_ClaimInterface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.3
       bool success = true;
       uint8_t p_interface_number{};
       UsbDevice_ClaimInterface_ParamsDataView input_data_view(params, message);
@@ -4014,8 +4050,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClaimInterface(
-std::move(p_interface_number), std::move(callback));
+      impl->ClaimInterface(        
+        std::move(p_interface_number), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_ReleaseInterface_Name: {
@@ -4025,6 +4061,8 @@ std::move(p_interface_number), std::move(callback));
               internal::UsbDevice_ReleaseInterface_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.4
       bool success = true;
       uint8_t p_interface_number{};
       UsbDevice_ReleaseInterface_ParamsDataView input_data_view(params, message);
@@ -4043,8 +4081,8 @@ std::move(p_interface_number), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReleaseInterface(
-std::move(p_interface_number), std::move(callback));
+      impl->ReleaseInterface(        
+        std::move(p_interface_number), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_SetInterfaceAlternateSetting_Name: {
@@ -4054,6 +4092,8 @@ std::move(p_interface_number), std::move(callback));
               internal::UsbDevice_SetInterfaceAlternateSetting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.5
       bool success = true;
       uint8_t p_interface_number{};
       uint8_t p_alternate_setting{};
@@ -4075,9 +4115,9 @@ std::move(p_interface_number), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInterfaceAlternateSetting(
-std::move(p_interface_number), 
-std::move(p_alternate_setting), std::move(callback));
+      impl->SetInterfaceAlternateSetting(        
+        std::move(p_interface_number), 
+        std::move(p_alternate_setting), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_Reset_Name: {
@@ -4087,6 +4127,8 @@ std::move(p_alternate_setting), std::move(callback));
               internal::UsbDevice_Reset_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.6
       bool success = true;
       UsbDevice_Reset_ParamsDataView input_data_view(params, message);
       
@@ -4112,6 +4154,8 @@ std::move(p_alternate_setting), std::move(callback));
               internal::UsbDevice_ClearHalt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.7
       bool success = true;
       UsbTransferDirection p_direction{};
       uint8_t p_endpoint_number{};
@@ -4133,9 +4177,9 @@ std::move(p_alternate_setting), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearHalt(
-std::move(p_direction), 
-std::move(p_endpoint_number), std::move(callback));
+      impl->ClearHalt(        
+        std::move(p_direction), 
+        std::move(p_endpoint_number), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_ControlTransferIn_Name: {
@@ -4145,6 +4189,8 @@ std::move(p_endpoint_number), std::move(callback));
               internal::UsbDevice_ControlTransferIn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.8
       bool success = true;
       UsbControlTransferParamsPtr p_params{};
       uint32_t p_length{};
@@ -4169,10 +4215,10 @@ std::move(p_endpoint_number), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ControlTransferIn(
-std::move(p_params), 
-std::move(p_length), 
-std::move(p_timeout), std::move(callback));
+      impl->ControlTransferIn(        
+        std::move(p_params), 
+        std::move(p_length), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_ControlTransferOut_Name: {
@@ -4182,6 +4228,8 @@ std::move(p_timeout), std::move(callback));
               internal::UsbDevice_ControlTransferOut_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.9
       bool success = true;
       UsbControlTransferParamsPtr p_params{};
       ::base::span<const ::uint8_t> p_data{};
@@ -4206,10 +4254,10 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ControlTransferOut(
-std::move(p_params), 
-std::move(p_data), 
-std::move(p_timeout), std::move(callback));
+      impl->ControlTransferOut(        
+        std::move(p_params), 
+        std::move(p_data), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_GenericTransferIn_Name: {
@@ -4219,6 +4267,8 @@ std::move(p_timeout), std::move(callback));
               internal::UsbDevice_GenericTransferIn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.10
       bool success = true;
       uint8_t p_endpoint_number{};
       uint32_t p_length{};
@@ -4243,10 +4293,10 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenericTransferIn(
-std::move(p_endpoint_number), 
-std::move(p_length), 
-std::move(p_timeout), std::move(callback));
+      impl->GenericTransferIn(        
+        std::move(p_endpoint_number), 
+        std::move(p_length), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_GenericTransferOut_Name: {
@@ -4256,6 +4306,8 @@ std::move(p_timeout), std::move(callback));
               internal::UsbDevice_GenericTransferOut_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.11
       bool success = true;
       uint8_t p_endpoint_number{};
       ::base::span<const ::uint8_t> p_data{};
@@ -4280,10 +4332,10 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenericTransferOut(
-std::move(p_endpoint_number), 
-std::move(p_data), 
-std::move(p_timeout), std::move(callback));
+      impl->GenericTransferOut(        
+        std::move(p_endpoint_number), 
+        std::move(p_data), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_IsochronousTransferIn_Name: {
@@ -4293,6 +4345,8 @@ std::move(p_timeout), std::move(callback));
               internal::UsbDevice_IsochronousTransferIn_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.12
       bool success = true;
       uint8_t p_endpoint_number{};
       std::vector<uint32_t> p_packet_lengths{};
@@ -4317,10 +4371,10 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsochronousTransferIn(
-std::move(p_endpoint_number), 
-std::move(p_packet_lengths), 
-std::move(p_timeout), std::move(callback));
+      impl->IsochronousTransferIn(        
+        std::move(p_endpoint_number), 
+        std::move(p_packet_lengths), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kUsbDevice_IsochronousTransferOut_Name: {
@@ -4330,6 +4384,8 @@ std::move(p_timeout), std::move(callback));
               internal::UsbDevice_IsochronousTransferOut_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDevice.13
       bool success = true;
       uint8_t p_endpoint_number{};
       ::base::span<const ::uint8_t> p_data{};
@@ -4357,11 +4413,11 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsochronousTransferOut(
-std::move(p_endpoint_number), 
-std::move(p_data), 
-std::move(p_packet_lengths), 
-std::move(p_timeout), std::move(callback));
+      impl->IsochronousTransferOut(        
+        std::move(p_endpoint_number), 
+        std::move(p_data), 
+        std::move(p_packet_lengths), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
   }
@@ -4566,6 +4622,8 @@ bool UsbDeviceClientStubDispatch::Accept(
           reinterpret_cast<internal::UsbDeviceClient_OnDeviceOpened_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceClient.0
       bool success = true;
       UsbDeviceClient_OnDeviceOpened_ParamsDataView input_data_view(params, message);
       
@@ -4578,7 +4636,7 @@ bool UsbDeviceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceOpened();
+      impl->OnDeviceOpened(        );
       return true;
     }
     case internal::kUsbDeviceClient_OnDeviceClosed_Name: {
@@ -4588,6 +4646,8 @@ bool UsbDeviceClientStubDispatch::Accept(
           reinterpret_cast<internal::UsbDeviceClient_OnDeviceClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceClient.1
       bool success = true;
       UsbDeviceClient_OnDeviceClosed_ParamsDataView input_data_view(params, message);
       
@@ -4600,7 +4660,7 @@ bool UsbDeviceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceClosed();
+      impl->OnDeviceClosed(        );
       return true;
     }
   }

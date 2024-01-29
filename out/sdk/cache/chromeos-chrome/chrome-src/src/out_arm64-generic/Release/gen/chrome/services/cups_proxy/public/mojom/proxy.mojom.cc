@@ -328,6 +328,8 @@ bool CupsProxier_ProxyRequest_ForwardToCallback::Accept(
           internal::CupsProxier_ProxyRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CupsProxier.0
   bool success = true;
   std::vector<ipp_converter::HttpHeader> p_headers{};
   std::vector<uint8_t> p_ipp_message{};
@@ -458,6 +460,8 @@ bool CupsProxierStubDispatch::AcceptWithResponder(
               internal::CupsProxier_ProxyRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CupsProxier.0
       bool success = true;
       std::string p_method{};
       std::string p_url{};
@@ -488,12 +492,12 @@ bool CupsProxierStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProxyRequest(
-std::move(p_method), 
-std::move(p_url), 
-std::move(p_version), 
-std::move(p_headers), 
-std::move(p_body), std::move(callback));
+      impl->ProxyRequest(        
+        std::move(p_method), 
+        std::move(p_url), 
+        std::move(p_version), 
+        std::move(p_headers), 
+        std::move(p_body), std::move(callback));
       return true;
     }
   }

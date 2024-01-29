@@ -2793,6 +2793,8 @@ bool DiagnosticsService_GetAvailableRoutines_ForwardToCallback::Accept(
           internal::DiagnosticsService_GetAvailableRoutines_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.0
   bool success = true;
   std::vector<DiagnosticsRoutineEnum> p_available_routines{};
   DiagnosticsService_GetAvailableRoutines_ResponseParamsDataView input_data_view(params, message);
@@ -2924,6 +2926,8 @@ bool DiagnosticsService_GetRoutineUpdate_ForwardToCallback::Accept(
           internal::DiagnosticsService_GetRoutineUpdate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.1
   bool success = true;
   DiagnosticsRoutineUpdatePtr p_routine_update{};
   DiagnosticsService_GetRoutineUpdate_ResponseParamsDataView input_data_view(params, message);
@@ -3053,6 +3057,8 @@ bool DiagnosticsService_RunBatteryCapacityRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.2
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3182,6 +3188,8 @@ bool DiagnosticsService_RunBatteryHealthRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.3
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3311,6 +3319,8 @@ bool DiagnosticsService_RunSmartctlCheckRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.4
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3440,6 +3450,8 @@ bool DiagnosticsService_RunAcPowerRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunAcPowerRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.5
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3569,6 +3581,8 @@ bool DiagnosticsService_RunCpuCacheRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.6
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3698,6 +3712,8 @@ bool DiagnosticsService_RunCpuStressRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunCpuStressRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.7
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3827,6 +3843,8 @@ bool DiagnosticsService_RunFloatingPointAccuracyRoutine_ForwardToCallback::Accep
           internal::DiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.8
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -3956,6 +3974,8 @@ bool DiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.9
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4085,6 +4105,8 @@ bool DiagnosticsService_RunNvmeSelfTestRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.10
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4214,6 +4236,8 @@ bool DiagnosticsService_RunDiskReadRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunDiskReadRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.11
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4343,6 +4367,8 @@ bool DiagnosticsService_RunPrimeSearchRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.12
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4472,6 +4498,8 @@ bool DiagnosticsService_RunBatteryDischargeRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.13
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4601,6 +4629,8 @@ bool DiagnosticsService_RunBatteryChargeRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.14
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4730,6 +4760,8 @@ bool DiagnosticsService_RunMemoryRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunMemoryRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.15
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunMemoryRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4859,6 +4891,8 @@ bool DiagnosticsService_RunLanConnectivityRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.16
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunLanConnectivityRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -4988,6 +5022,8 @@ bool DiagnosticsService_RunDnsResolutionRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.17
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5117,6 +5153,8 @@ bool DiagnosticsService_RunSignalStrengthRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.18
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5246,6 +5284,8 @@ bool DiagnosticsService_RunGatewayCanBePingedRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.19
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5375,6 +5415,8 @@ bool DiagnosticsService_RunDnsResolverPresentRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.20
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5504,6 +5546,8 @@ bool DiagnosticsService_RunSensitiveSensorRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.21
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5633,6 +5677,8 @@ bool DiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.22
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5762,6 +5808,8 @@ bool DiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.23
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -5891,6 +5939,8 @@ bool DiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.24
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6020,6 +6070,8 @@ bool DiagnosticsService_RunUfsLifetimeRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.25
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunUfsLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6149,6 +6201,8 @@ bool DiagnosticsService_RunPowerButtonRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.26
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunPowerButtonRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6278,6 +6332,8 @@ bool DiagnosticsService_RunAudioDriverRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.27
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6407,6 +6463,8 @@ bool DiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.28
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6536,6 +6594,8 @@ bool DiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.29
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6665,6 +6725,8 @@ bool DiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.30
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6794,6 +6856,8 @@ bool DiagnosticsService_RunFanRoutine_ForwardToCallback::Accept(
           internal::DiagnosticsService_RunFanRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiagnosticsService.31
   bool success = true;
   DiagnosticsRunRoutineResponsePtr p_response{};
   DiagnosticsService_RunFanRoutine_ResponseParamsDataView input_data_view(params, message);
@@ -6987,6 +7051,8 @@ bool DiagnosticsServiceStubDispatch::AcceptWithResponder(
               internal::DiagnosticsService_GetAvailableRoutines_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.0
       bool success = true;
       DiagnosticsService_GetAvailableRoutines_ParamsDataView input_data_view(params, message);
       
@@ -7012,6 +7078,8 @@ bool DiagnosticsServiceStubDispatch::AcceptWithResponder(
               internal::DiagnosticsService_GetRoutineUpdate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.1
       bool success = true;
       int32_t p_id{};
       DiagnosticsRoutineCommandEnum p_command{};
@@ -7036,10 +7104,10 @@ bool DiagnosticsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetRoutineUpdate(
-std::move(p_id), 
-std::move(p_command), 
-std::move(p_include_output), std::move(callback));
+      impl->GetRoutineUpdate(        
+        std::move(p_id), 
+        std::move(p_command), 
+        std::move(p_include_output), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunBatteryCapacityRoutine_Name: {
@@ -7049,6 +7117,8 @@ std::move(p_include_output), std::move(callback));
               internal::DiagnosticsService_RunBatteryCapacityRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.2
       bool success = true;
       DiagnosticsService_RunBatteryCapacityRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7074,6 +7144,8 @@ std::move(p_include_output), std::move(callback));
               internal::DiagnosticsService_RunBatteryHealthRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.3
       bool success = true;
       DiagnosticsService_RunBatteryHealthRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7099,6 +7171,8 @@ std::move(p_include_output), std::move(callback));
               internal::DiagnosticsService_RunSmartctlCheckRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.4
       bool success = true;
       ::crosapi::mojom::UInt32ValuePtr p_percentage_used_threshold{};
       DiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView input_data_view(params, message);
@@ -7117,8 +7191,8 @@ std::move(p_include_output), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunSmartctlCheckRoutine(
-std::move(p_percentage_used_threshold), std::move(callback));
+      impl->RunSmartctlCheckRoutine(        
+        std::move(p_percentage_used_threshold), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunAcPowerRoutine_Name: {
@@ -7128,6 +7202,8 @@ std::move(p_percentage_used_threshold), std::move(callback));
               internal::DiagnosticsService_RunAcPowerRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.5
       bool success = true;
       DiagnosticsAcPowerStatusEnum p_expected_status{};
       std::optional<std::string> p_expected_power_type{};
@@ -7149,9 +7225,9 @@ std::move(p_percentage_used_threshold), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunAcPowerRoutine(
-std::move(p_expected_status), 
-std::move(p_expected_power_type), std::move(callback));
+      impl->RunAcPowerRoutine(        
+        std::move(p_expected_status), 
+        std::move(p_expected_power_type), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunCpuCacheRoutine_Name: {
@@ -7161,6 +7237,8 @@ std::move(p_expected_power_type), std::move(callback));
               internal::DiagnosticsService_RunCpuCacheRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.6
       bool success = true;
       uint32_t p_length_seconds{};
       DiagnosticsService_RunCpuCacheRoutine_ParamsDataView input_data_view(params, message);
@@ -7179,8 +7257,8 @@ std::move(p_expected_power_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunCpuCacheRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunCpuCacheRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunCpuStressRoutine_Name: {
@@ -7190,6 +7268,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::DiagnosticsService_RunCpuStressRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.7
       bool success = true;
       uint32_t p_length_seconds{};
       DiagnosticsService_RunCpuStressRoutine_ParamsDataView input_data_view(params, message);
@@ -7208,8 +7288,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunCpuStressRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunCpuStressRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
@@ -7219,6 +7299,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::DiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.8
       bool success = true;
       uint32_t p_length_seconds{};
       DiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataView input_data_view(params, message);
@@ -7237,8 +7319,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunFloatingPointAccuracyRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunFloatingPointAccuracyRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
@@ -7248,6 +7330,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::DiagnosticsService_RunNvmeWearLevelRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.9
       bool success = true;
       uint32_t p_wear_level_threshold{};
       DiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
@@ -7266,8 +7350,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunNvmeWearLevelRoutine(
-std::move(p_wear_level_threshold), std::move(callback));
+      impl->RunNvmeWearLevelRoutine(        
+        std::move(p_wear_level_threshold), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunNvmeSelfTestRoutine_Name: {
@@ -7277,6 +7361,8 @@ std::move(p_wear_level_threshold), std::move(callback));
               internal::DiagnosticsService_RunNvmeSelfTestRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.10
       bool success = true;
       DiagnosticsNvmeSelfTestTypeEnum p_nvme_self_test_type{};
       DiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView input_data_view(params, message);
@@ -7295,8 +7381,8 @@ std::move(p_wear_level_threshold), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunNvmeSelfTestRoutine(
-std::move(p_nvme_self_test_type), std::move(callback));
+      impl->RunNvmeSelfTestRoutine(        
+        std::move(p_nvme_self_test_type), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunDiskReadRoutine_Name: {
@@ -7306,6 +7392,8 @@ std::move(p_nvme_self_test_type), std::move(callback));
               internal::DiagnosticsService_RunDiskReadRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.11
       bool success = true;
       DiagnosticsDiskReadRoutineTypeEnum p_type{};
       uint32_t p_length_seconds{};
@@ -7330,10 +7418,10 @@ std::move(p_nvme_self_test_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunDiskReadRoutine(
-std::move(p_type), 
-std::move(p_length_seconds), 
-std::move(p_file_size_mb), std::move(callback));
+      impl->RunDiskReadRoutine(        
+        std::move(p_type), 
+        std::move(p_length_seconds), 
+        std::move(p_file_size_mb), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunPrimeSearchRoutine_Name: {
@@ -7343,6 +7431,8 @@ std::move(p_file_size_mb), std::move(callback));
               internal::DiagnosticsService_RunPrimeSearchRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.12
       bool success = true;
       uint32_t p_length_seconds{};
       DiagnosticsService_RunPrimeSearchRoutine_ParamsDataView input_data_view(params, message);
@@ -7361,8 +7451,8 @@ std::move(p_file_size_mb), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunPrimeSearchRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunPrimeSearchRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunBatteryDischargeRoutine_Name: {
@@ -7372,6 +7462,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::DiagnosticsService_RunBatteryDischargeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.13
       bool success = true;
       uint32_t p_length_seconds{};
       uint32_t p_maximum_discharge_percent_allowed{};
@@ -7393,9 +7485,9 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBatteryDischargeRoutine(
-std::move(p_length_seconds), 
-std::move(p_maximum_discharge_percent_allowed), std::move(callback));
+      impl->RunBatteryDischargeRoutine(        
+        std::move(p_length_seconds), 
+        std::move(p_maximum_discharge_percent_allowed), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunBatteryChargeRoutine_Name: {
@@ -7405,6 +7497,8 @@ std::move(p_maximum_discharge_percent_allowed), std::move(callback));
               internal::DiagnosticsService_RunBatteryChargeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.14
       bool success = true;
       uint32_t p_length_seconds{};
       uint32_t p_minimum_charge_percent_required{};
@@ -7426,9 +7520,9 @@ std::move(p_maximum_discharge_percent_allowed), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBatteryChargeRoutine(
-std::move(p_length_seconds), 
-std::move(p_minimum_charge_percent_required), std::move(callback));
+      impl->RunBatteryChargeRoutine(        
+        std::move(p_length_seconds), 
+        std::move(p_minimum_charge_percent_required), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunMemoryRoutine_Name: {
@@ -7438,6 +7532,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunMemoryRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.15
       bool success = true;
       DiagnosticsService_RunMemoryRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7463,6 +7559,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunLanConnectivityRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.16
       bool success = true;
       DiagnosticsService_RunLanConnectivityRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7488,6 +7586,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunDnsResolutionRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.17
       bool success = true;
       DiagnosticsService_RunDnsResolutionRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7513,6 +7613,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunSignalStrengthRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.18
       bool success = true;
       DiagnosticsService_RunSignalStrengthRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7538,6 +7640,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.19
       bool success = true;
       DiagnosticsService_RunGatewayCanBePingedRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7563,6 +7667,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunDnsResolverPresentRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.20
       bool success = true;
       DiagnosticsService_RunDnsResolverPresentRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7588,6 +7694,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunSensitiveSensorRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.21
       bool success = true;
       DiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7613,6 +7721,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunFingerprintAliveRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.22
       bool success = true;
       DiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7638,6 +7748,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunEmmcLifetimeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.23
       bool success = true;
       DiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7663,6 +7775,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunBluetoothPowerRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.24
       bool success = true;
       DiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7688,6 +7802,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunUfsLifetimeRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.25
       bool success = true;
       DiagnosticsService_RunUfsLifetimeRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7713,6 +7829,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               internal::DiagnosticsService_RunPowerButtonRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.26
       bool success = true;
       uint32_t p_timeout_seconds{};
       DiagnosticsService_RunPowerButtonRoutine_ParamsDataView input_data_view(params, message);
@@ -7731,8 +7849,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunPowerButtonRoutine(
-std::move(p_timeout_seconds), std::move(callback));
+      impl->RunPowerButtonRoutine(        
+        std::move(p_timeout_seconds), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunAudioDriverRoutine_Name: {
@@ -7742,6 +7860,8 @@ std::move(p_timeout_seconds), std::move(callback));
               internal::DiagnosticsService_RunAudioDriverRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.27
       bool success = true;
       DiagnosticsService_RunAudioDriverRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7767,6 +7887,8 @@ std::move(p_timeout_seconds), std::move(callback));
               internal::DiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.28
       bool success = true;
       DiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7792,6 +7914,8 @@ std::move(p_timeout_seconds), std::move(callback));
               internal::DiagnosticsService_RunBluetoothScanningRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.29
       bool success = true;
       uint32_t p_length_seconds{};
       DiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView input_data_view(params, message);
@@ -7810,8 +7934,8 @@ std::move(p_timeout_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBluetoothScanningRoutine(
-std::move(p_length_seconds), std::move(callback));
+      impl->RunBluetoothScanningRoutine(        
+        std::move(p_length_seconds), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunBluetoothPairingRoutine_Name: {
@@ -7821,6 +7945,8 @@ std::move(p_length_seconds), std::move(callback));
               internal::DiagnosticsService_RunBluetoothPairingRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.30
       bool success = true;
       std::string p_peripheral_id{};
       DiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView input_data_view(params, message);
@@ -7839,8 +7965,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBluetoothPairingRoutine(
-std::move(p_peripheral_id), std::move(callback));
+      impl->RunBluetoothPairingRoutine(        
+        std::move(p_peripheral_id), std::move(callback));
       return true;
     }
     case internal::kDiagnosticsService_RunFanRoutine_Name: {
@@ -7850,6 +7976,8 @@ std::move(p_peripheral_id), std::move(callback));
               internal::DiagnosticsService_RunFanRoutine_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiagnosticsService.31
       bool success = true;
       DiagnosticsService_RunFanRoutine_ParamsDataView input_data_view(params, message);
       

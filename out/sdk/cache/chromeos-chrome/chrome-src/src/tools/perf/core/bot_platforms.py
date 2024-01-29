@@ -617,7 +617,8 @@ MAC_HIGH_END_LAPTOP = PerfPlatform(
     'mac-laptop_high_end-perf',
     'MacBook Pro, Core i7 2.8 GHz, 16GB RAM, 256GB SSD, Radeon 55',
     _MAC_HIGH_END_BENCHMARK_CONFIGS,
-    26,
+    # crbug/1522221. Reduce it from 26 to 20 until missing bots are recovered.
+    20,
     'mac',
     executables=_MAC_HIGH_END_EXECUTABLE_CONFIGS)
 MAC_HIGH_END_LAPTOP_PGO = PerfPlatform(
@@ -729,18 +730,6 @@ WIN_11_PGO = PerfPlatform('win-11-perf-pgo',
                           pinpoint_only=True)
 
 # Android
-ANDROID_GO = PerfPlatform('android-go-perf', 'Android O (gobo)',
-                          _ANDROID_GO_BENCHMARK_CONFIGS, 13, 'android')
-ANDROID_GO_PGO = PerfPlatform('android-go-perf-pgo',
-                              'Android O (gobo)',
-                              _ANDROID_GO_BENCHMARK_CONFIGS,
-                              13,
-                              'android',
-                              pinpoint_only=True)
-ANDROID_GO_WEBVIEW = PerfPlatform('android-go_webview-perf',
-                                  'Android OPM1.171019.021 (gobo)',
-                                  _ANDROID_GO_WEBVIEW_BENCHMARK_CONFIGS, 8,
-                                  'android')
 ANDROID_PIXEL2 = PerfPlatform('android-pixel2-perf',
                               'Android OPM1.171019.021',
                               _ANDROID_PIXEL2_BENCHMARK_CONFIGS,

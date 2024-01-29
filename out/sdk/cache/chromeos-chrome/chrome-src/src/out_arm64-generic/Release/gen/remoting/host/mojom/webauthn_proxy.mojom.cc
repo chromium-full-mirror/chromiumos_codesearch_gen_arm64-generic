@@ -383,6 +383,8 @@ bool WebAuthnRequestCanceller_Cancel_ForwardToCallback::Accept(
           internal::WebAuthnRequestCanceller_Cancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAuthnRequestCanceller.0
   bool success = true;
   bool p_was_canceled{};
   WebAuthnRequestCanceller_Cancel_ResponseParamsDataView input_data_view(params, message);
@@ -473,6 +475,8 @@ bool WebAuthnRequestCancellerStubDispatch::AcceptWithResponder(
               internal::WebAuthnRequestCanceller_Cancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAuthnRequestCanceller.0
       bool success = true;
       WebAuthnRequestCanceller_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -870,6 +874,8 @@ bool WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_ForwardToCallba
           internal::WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAuthnProxy.0
   bool success = true;
   bool p_is_available{};
   WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -989,6 +995,8 @@ bool WebAuthnProxy_Create_ForwardToCallback::Accept(
           internal::WebAuthnProxy_Create_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAuthnProxy.1
   bool success = true;
   WebAuthnCreateResponsePtr p_response{};
   WebAuthnProxy_Create_ResponseParamsDataView input_data_view(params, message);
@@ -1112,6 +1120,8 @@ bool WebAuthnProxy_Get_ForwardToCallback::Accept(
           internal::WebAuthnProxy_Get_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAuthnProxy.2
   bool success = true;
   WebAuthnGetResponsePtr p_response{};
   WebAuthnProxy_Get_ResponseParamsDataView input_data_view(params, message);
@@ -1212,6 +1222,8 @@ bool WebAuthnProxyStubDispatch::AcceptWithResponder(
               internal::WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAuthnProxy.0
       bool success = true;
       WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_ParamsDataView input_data_view(params, message);
       
@@ -1237,6 +1249,8 @@ bool WebAuthnProxyStubDispatch::AcceptWithResponder(
               internal::WebAuthnProxy_Create_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAuthnProxy.1
       bool success = true;
       std::string p_request_data{};
       ::mojo::PendingReceiver<WebAuthnRequestCanceller> p_request_canceller{};
@@ -1260,9 +1274,9 @@ bool WebAuthnProxyStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_request_data), 
-std::move(p_request_canceller), std::move(callback));
+      impl->Create(        
+        std::move(p_request_data), 
+        std::move(p_request_canceller), std::move(callback));
       return true;
     }
     case internal::kWebAuthnProxy_Get_Name: {
@@ -1272,6 +1286,8 @@ std::move(p_request_canceller), std::move(callback));
               internal::WebAuthnProxy_Get_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAuthnProxy.2
       bool success = true;
       std::string p_request_data{};
       ::mojo::PendingReceiver<WebAuthnRequestCanceller> p_request_canceller{};
@@ -1295,9 +1311,9 @@ std::move(p_request_canceller), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Get(
-std::move(p_request_data), 
-std::move(p_request_canceller), std::move(callback));
+      impl->Get(        
+        std::move(p_request_data), 
+        std::move(p_request_canceller), std::move(callback));
       return true;
     }
   }

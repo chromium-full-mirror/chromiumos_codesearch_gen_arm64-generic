@@ -322,10 +322,15 @@ bool ChromeMetadataPacket::operator==(const ChromeMetadataPacket& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
    && ::protozero::internal::gen_helpers::EqualsField(background_tracing_metadata_, other.background_tracing_metadata_)
    && ::protozero::internal::gen_helpers::EqualsField(chrome_version_code_, other.chrome_version_code_)
-   && ::protozero::internal::gen_helpers::EqualsField(enabled_categories_, other.enabled_categories_);
+   && ::protozero::internal::gen_helpers::EqualsField(enabled_categories_, other.enabled_categories_)
+   && ::protozero::internal::gen_helpers::EqualsField(field_trial_hashes_, other.field_trial_hashes_);
 }
 
+int ChromeMetadataPacket::field_trial_hashes_size() const { return static_cast<int>(field_trial_hashes_.size()); }
+void ChromeMetadataPacket::clear_field_trial_hashes() { field_trial_hashes_.clear(); }
+ChromeMetadataPacket_FinchHash* ChromeMetadataPacket::add_field_trial_hashes() { field_trial_hashes_.emplace_back(); return &field_trial_hashes_.back(); }
 bool ChromeMetadataPacket::ParseFromArray(const void* raw, size_t size) {
+  field_trial_hashes_.clear();
   unknown_fields_.clear();
   bool packed_error = false;
 
@@ -343,6 +348,10 @@ bool ChromeMetadataPacket::ParseFromArray(const void* raw, size_t size) {
         break;
       case 3 /* enabled_categories */:
         ::protozero::internal::gen_helpers::DeserializeString(field, &enabled_categories_);
+        break;
+      case 4 /* field_trial_hashes */:
+        field_trial_hashes_.emplace_back();
+        field_trial_hashes_.back().ParseFromArray(field.data(), field.size());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -378,6 +387,75 @@ void ChromeMetadataPacket::Serialize(::protozero::Message* msg) const {
   // Field 3: enabled_categories
   if (_has_field_[3]) {
     ::protozero::internal::gen_helpers::SerializeString(3, enabled_categories_, msg);
+  }
+
+  // Field 4: field_trial_hashes
+  for (auto& it : field_trial_hashes_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(4));
+  }
+
+  protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
+}
+
+
+ChromeMetadataPacket_FinchHash::ChromeMetadataPacket_FinchHash() = default;
+ChromeMetadataPacket_FinchHash::~ChromeMetadataPacket_FinchHash() = default;
+ChromeMetadataPacket_FinchHash::ChromeMetadataPacket_FinchHash(const ChromeMetadataPacket_FinchHash&) = default;
+ChromeMetadataPacket_FinchHash& ChromeMetadataPacket_FinchHash::operator=(const ChromeMetadataPacket_FinchHash&) = default;
+ChromeMetadataPacket_FinchHash::ChromeMetadataPacket_FinchHash(ChromeMetadataPacket_FinchHash&&) noexcept = default;
+ChromeMetadataPacket_FinchHash& ChromeMetadataPacket_FinchHash::operator=(ChromeMetadataPacket_FinchHash&&) = default;
+
+bool ChromeMetadataPacket_FinchHash::operator==(const ChromeMetadataPacket_FinchHash& other) const {
+  return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
+   && ::protozero::internal::gen_helpers::EqualsField(name_, other.name_)
+   && ::protozero::internal::gen_helpers::EqualsField(group_, other.group_);
+}
+
+bool ChromeMetadataPacket_FinchHash::ParseFromArray(const void* raw, size_t size) {
+  unknown_fields_.clear();
+  bool packed_error = false;
+
+  ::protozero::ProtoDecoder dec(raw, size);
+  for (auto field = dec.ReadField(); field.valid(); field = dec.ReadField()) {
+    if (field.id() < _has_field_.size()) {
+      _has_field_.set(field.id());
+    }
+    switch (field.id()) {
+      case 1 /* name */:
+        field.get(&name_);
+        break;
+      case 2 /* group */:
+        field.get(&group_);
+        break;
+      default:
+        field.SerializeAndAppendTo(&unknown_fields_);
+        break;
+    }
+  }
+  return !packed_error && !dec.bytes_left();
+}
+
+std::string ChromeMetadataPacket_FinchHash::SerializeAsString() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsString();
+}
+
+std::vector<uint8_t> ChromeMetadataPacket_FinchHash::SerializeAsArray() const {
+  ::protozero::internal::gen_helpers::MessageSerializer msg;
+  Serialize(msg.get());
+  return msg.SerializeAsArray();
+}
+
+void ChromeMetadataPacket_FinchHash::Serialize(::protozero::Message* msg) const {
+  // Field 1: name
+  if (_has_field_[1]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(1, name_, msg);
+  }
+
+  // Field 2: group
+  if (_has_field_[2]) {
+    ::protozero::internal::gen_helpers::SerializeVarInt(2, group_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

@@ -10,26 +10,18 @@ import '../../components/buttons/oobe_next_button.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
-import { OobeTextButton } from '../../components/buttons/oobe_text_button.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
-import { addSubmitListener } from '../../login_ui_tools.js';
 import { getTemplate } from './local_data_loss_warning.html.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
-const LocalDataLossWarningBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, OobeDialogHostBehavior], PolymerElement);
-/**
- * @polymer
- */
-class LocalDataLossWarning extends LocalDataLossWarningBase {
+const LocalDataLossWarningBase = mixinBehaviors([
+    OobeI18nBehavior,
+    OobeDialogHostBehavior,
+    LoginScreenBehavior,
+], PolymerElement);
+export class LocalDataLossWarning extends LocalDataLossWarningBase {
     static get is() {
         return 'local-data-loss-warning-element';
     }
@@ -57,14 +49,12 @@ class LocalDataLossWarning extends LocalDataLossWarningBase {
         super();
         this.disabled = false;
     }
-    /**
-     * @override
-     */
     ready() {
         super.ready();
         this.initializeLoginScreen('LocalDataLossWarningScreen');
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.PASSWORD_CHANGED;
     }
@@ -78,36 +68,34 @@ class LocalDataLossWarning extends LocalDataLossWarningBase {
     }
     /**
      * Returns the subtitle message for the data loss warning screen.
-     * @param {string} locale The i18n locale.
-     * @param {string} email The email address that the user is trying to recover.
-     * @returns {string} The translated subtitle message.
+     * @param locale The i18n locale.
+     * @param email The email address that the user is trying to recover.
+     * @return The translated subtitle message.
      */
-    getDataLossWarningSubtitleMessage_(locale, email) {
+    getDataLossWarningSubtitleMessage(locale, email) {
         return this.i18nAdvancedDynamic(locale, 'dataLossWarningSubtitle', { substitutions: [email] });
     }
-    /** @private */
-    onProceedClicked_() {
+    onProceedClicked() {
         if (this.disabled) {
             return;
         }
         this.disabled = true;
         this.userActed('recreateUser');
     }
-    /** @private */
-    onResetClicked_() {
+    onResetClicked() {
         if (this.disabled) {
             return;
         }
         this.disabled = true;
         this.userActed('powerwash');
     }
-    onBackButtonClicked_() {
+    onBackButtonClicked() {
         if (this.disabled) {
             return;
         }
         this.userActed('back');
     }
-    onCancelClicked_() {
+    onCancelClicked() {
         if (this.disabled) {
             return;
         }

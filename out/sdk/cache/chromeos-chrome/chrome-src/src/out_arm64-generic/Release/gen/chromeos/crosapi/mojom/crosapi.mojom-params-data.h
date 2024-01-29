@@ -378,6 +378,23 @@ class  Crosapi_BindCrosDisplayConfigController_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindCrosDisplayConfigController_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindCrosDisplayConfigController_Params_Data)");
+class  Crosapi_BindDebugInterfaceRegisterer_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindDebugInterfaceRegisterer_Params_Data>;
+
+  Crosapi_BindDebugInterfaceRegisterer_Params_Data();
+  ~Crosapi_BindDebugInterfaceRegisterer_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindDebugInterfaceRegisterer_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindDebugInterfaceRegisterer_Params_Data)");
 class  Crosapi_BindDesk_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -735,6 +752,23 @@ class  Crosapi_BindExtensionPublisher_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindExtensionPublisher_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindExtensionPublisher_Params_Data)");
+class  Crosapi_BindFileChangeServiceBridge_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindFileChangeServiceBridge_Params_Data>;
+
+  Crosapi_BindFileChangeServiceBridge_Params_Data();
+  ~Crosapi_BindFileChangeServiceBridge_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindFileChangeServiceBridge_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindFileChangeServiceBridge_Params_Data)");
 class  Crosapi_BindFileManager_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1228,6 +1262,23 @@ class  Crosapi_BindNetworkingAttributes_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindNetworkingAttributes_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindNetworkingAttributes_Params_Data)");
+class  Crosapi_BindOneDriveNotificationService_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindOneDriveNotificationService_Params_Data>;
+
+  Crosapi_BindOneDriveNotificationService_Params_Data();
+  ~Crosapi_BindOneDriveNotificationService_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindOneDriveNotificationService_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindOneDriveNotificationService_Params_Data)");
 class  Crosapi_BindParentAccess_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1313,6 +1364,23 @@ class  Crosapi_BindPrefs_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindPrefs_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindPrefs_Params_Data)");
+class  Crosapi_BindNonclosableAppToastService_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Crosapi_BindNonclosableAppToastService_Params_Data>;
+
+  Crosapi_BindNonclosableAppToastService_Params_Data();
+  ~Crosapi_BindNonclosableAppToastService_Params_Data() = delete;
+};
+static_assert(sizeof(Crosapi_BindNonclosableAppToastService_Params_Data) == 16,
+              "Bad sizeof(Crosapi_BindNonclosableAppToastService_Params_Data)");
 class  Crosapi_BindRemoteAppsLacrosBridge_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3297,6 +3365,31 @@ class Crosapi_BindCrosDisplayConfigController_ParamsDataView {
 };
 
 
+class Crosapi_BindDebugInterfaceRegisterer_ParamsDataView {
+ public:
+  Crosapi_BindDebugInterfaceRegisterer_ParamsDataView() = default;
+
+  Crosapi_BindDebugInterfaceRegisterer_ParamsDataView(
+      internal::Crosapi_BindDebugInterfaceRegisterer_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::DebugInterfaceRegistererInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindDebugInterfaceRegisterer_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Crosapi_BindDesk_ParamsDataView {
  public:
   Crosapi_BindDesk_ParamsDataView() = default;
@@ -3818,6 +3911,31 @@ class Crosapi_BindExtensionPublisher_ParamsDataView {
   }
  private:
   internal::Crosapi_BindExtensionPublisher_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Crosapi_BindFileChangeServiceBridge_ParamsDataView {
+ public:
+  Crosapi_BindFileChangeServiceBridge_ParamsDataView() = default;
+
+  Crosapi_BindFileChangeServiceBridge_ParamsDataView(
+      internal::Crosapi_BindFileChangeServiceBridge_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::FileChangeServiceBridgeInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindFileChangeServiceBridge_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -4547,6 +4665,31 @@ class Crosapi_BindNetworkingAttributes_ParamsDataView {
 };
 
 
+class Crosapi_BindOneDriveNotificationService_ParamsDataView {
+ public:
+  Crosapi_BindOneDriveNotificationService_ParamsDataView() = default;
+
+  Crosapi_BindOneDriveNotificationService_ParamsDataView(
+      internal::Crosapi_BindOneDriveNotificationService_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::OneDriveNotificationServiceInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindOneDriveNotificationService_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Crosapi_BindParentAccess_ParamsDataView {
  public:
   Crosapi_BindParentAccess_ParamsDataView() = default;
@@ -4668,6 +4811,31 @@ class Crosapi_BindPrefs_ParamsDataView {
   }
  private:
   internal::Crosapi_BindPrefs_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Crosapi_BindNonclosableAppToastService_ParamsDataView {
+ public:
+  Crosapi_BindNonclosableAppToastService_ParamsDataView() = default;
+
+  Crosapi_BindNonclosableAppToastService_ParamsDataView(
+      internal::Crosapi_BindNonclosableAppToastService_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::NonclosableAppToastServiceInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Crosapi_BindNonclosableAppToastService_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -6854,6 +7022,14 @@ inline void Crosapi_BindBrowserCdmFactory_ParamsDataView::GetReceiverDataView(
   auto pointer = data_->receiver.Get();
   *output = ::mojo_base::mojom::GenericPendingReceiverDataView(pointer, message_);
 }
+
+
+
+
+
+
+
+
 
 
 

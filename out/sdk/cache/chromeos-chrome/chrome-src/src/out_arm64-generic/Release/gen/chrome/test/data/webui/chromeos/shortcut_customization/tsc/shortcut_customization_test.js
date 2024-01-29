@@ -59,8 +59,9 @@ suite('shortcutCustomizationAppTest', function () {
         provider.setFakeAcceleratorConfig(fakeAcceleratorConfig);
         provider.setFakeAcceleratorLayoutInfos(fakeLayoutInfo);
         provider.setFakeGetDefaultAcceleratorsForId(fakeDefaultAccelerators);
-        provider.setFakeHasLauncherButton(true);
         provider.setFakeIsCustomizationAllowedByPolicy(true);
+        // The meta key is displayed as the launcher key in this test.
+        provider.setFakeHasLauncherButton(true);
         setShortcutProviderForTesting(provider);
         setShortcutInputProviderForTesting(shortcutInputProvider);
         // Set up SearchHandler.
@@ -620,18 +621,18 @@ suite('shortcutCustomizationAppTest', function () {
     test('ValidateAcceleratorShiftOnlyNotAllowed', async () => {
         const acceleratorConfigResult = AcceleratorConfigResult.kShiftOnlyNotAllowed;
         const expectedErrorMessage = 'Shortcut not available. Press a new shortcut using shift and 1 ' +
-            'more modifier key (ctrl, alt, search, or launcher).';
+            'more modifier key (ctrl, alt, or launcher).';
         await validateAcceleratorInDialog(acceleratorConfigResult, expectedErrorMessage);
     });
     test('ValidateAcceleratorMissingAccelerator', async () => {
         const acceleratorConfigResult = AcceleratorConfigResult.kMissingModifier;
         const expectedErrorMessage = 'Shortcut not available. Press a new shortcut using a modifier key ' +
-            '(ctrl, alt, shift, search, or launcher).';
+            '(ctrl, alt, shift, or launcher).';
         await validateAcceleratorInDialog(acceleratorConfigResult, expectedErrorMessage);
     });
     test('ValidateAcceleratorKeyNotAllowed', async () => {
         const acceleratorConfigResult = AcceleratorConfigResult.kKeyNotAllowed;
-        const expectedErrorMessage = 'Shortcut with top row keys need to include the search key.';
+        const expectedErrorMessage = 'Shortcut with top row keys need to include the launcher key.';
         await validateAcceleratorInDialog(acceleratorConfigResult, expectedErrorMessage);
     });
     test('ValidateAcceleratorConflict', async () => {

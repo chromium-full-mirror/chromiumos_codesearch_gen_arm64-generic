@@ -53,6 +53,13 @@ export class SettingsBluetoothPairingEnterCodeElement extends SettingsBluetoothP
             },
         };
     }
+    focus() {
+        super.focus();
+        const elem = this.shadowRoot?.querySelector('bluetooth-base-page');
+        if (elem) {
+            elem.focus();
+        }
+    }
     computeKeys_() {
         if (!this.code) {
             return [];

@@ -226,6 +226,8 @@ bool CborParser_Parse_ForwardToCallback::Accept(
           internal::CborParser_Parse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CborParser.0
   bool success = true;
   std::optional<::base::Value> p_result{};
   std::optional<std::string> p_error{};
@@ -334,6 +336,8 @@ bool CborParserStubDispatch::AcceptWithResponder(
               internal::CborParser_Parse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CborParser.0
       bool success = true;
       ::mojo_base::BigBuffer p_cbor{};
       CborParser_Parse_ParamsDataView input_data_view(params, message);
@@ -352,8 +356,8 @@ bool CborParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Parse(
-std::move(p_cbor), std::move(callback));
+      impl->Parse(        
+        std::move(p_cbor), std::move(callback));
       return true;
     }
   }

@@ -73,6 +73,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_SetActiveDirectoryManaged_Name: {
       return &PageHandler::SetActiveDirectoryManaged_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_SetIsInUserChildSession_Name: {
+      return &PageHandler::SetIsInUserChildSession_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_TriggerPrivacyIndicators_Name: {
       return &PageHandler::TriggerPrivacyIndicators_Sym::IPCStableHash;
     }
@@ -103,6 +106,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::mojom::status_area_internals::PageHandler::ToggleProjectorTray";
       case internal::kPageHandler_SetActiveDirectoryManaged_Name:
             return "Receive ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged";
+      case internal::kPageHandler_SetIsInUserChildSession_Name:
+            return "Receive ash::mojom::status_area_internals::PageHandler::SetIsInUserChildSession";
       case internal::kPageHandler_TriggerPrivacyIndicators_Name:
             return "Receive ash::mojom::status_area_internals::PageHandler::TriggerPrivacyIndicators";
     }
@@ -124,6 +129,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::mojom::status_area_internals::PageHandler::ToggleProjectorTray";
       case internal::kPageHandler_SetActiveDirectoryManaged_Name:
             return "Receive reply ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged";
+      case internal::kPageHandler_SetIsInUserChildSession_Name:
+            return "Receive reply ash::mojom::status_area_internals::PageHandler::SetIsInUserChildSession";
       case internal::kPageHandler_TriggerPrivacyIndicators_Name:
             return "Receive reply ash::mojom::status_area_internals::PageHandler::TriggerPrivacyIndicators";
     }
@@ -240,6 +247,19 @@ uint32_t PageHandler::SetActiveDirectoryManaged_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::mojom::status_area_internals::PageHandler::SetActiveDirectoryManaged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::SetIsInUserChildSession_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::mojom::status_area_internals::PageHandler::SetIsInUserChildSession");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -591,6 +611,47 @@ void PageHandlerProxy::SetActiveDirectoryManaged(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageHandlerProxy::SetIsInUserChildSession(
+    bool in_in_child_session) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::mojom::status_area_internals::PageHandler::SetIsInUserChildSession", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("in_child_session"), in_in_child_session,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_SetIsInUserChildSession_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::mojom::status_area_internals::internal::PageHandler_SetIsInUserChildSession_Params_Data> params(
+          message);
+  params.Allocate();
+  params->in_child_session = in_in_child_session;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("SetIsInUserChildSession");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void PageHandlerProxy::TriggerPrivacyIndicators(
     const std::string& in_app_id, const std::string& in_app_name, bool in_is_camera_used, bool in_is_microphone_used) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -676,6 +737,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ToggleImeTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleImeTray_ParamsDataView input_data_view(params, message);
@@ -691,8 +754,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleImeTray(
-std::move(p_visible));
+      impl->ToggleImeTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_TogglePaletteTray_Name: {
@@ -702,6 +765,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_TogglePaletteTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       bool p_visible{};
       PageHandler_TogglePaletteTray_ParamsDataView input_data_view(params, message);
@@ -717,8 +782,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TogglePaletteTray(
-std::move(p_visible));
+      impl->TogglePaletteTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_ToggleLogoutTray_Name: {
@@ -728,6 +793,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_ToggleLogoutTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleLogoutTray_ParamsDataView input_data_view(params, message);
@@ -743,8 +810,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleLogoutTray(
-std::move(p_visible));
+      impl->ToggleLogoutTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_ToggleVirtualKeyboardTray_Name: {
@@ -754,6 +821,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_ToggleVirtualKeyboardTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleVirtualKeyboardTray_ParamsDataView input_data_view(params, message);
@@ -769,8 +838,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleVirtualKeyboardTray(
-std::move(p_visible));
+      impl->ToggleVirtualKeyboardTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_ToggleDictationTray_Name: {
@@ -780,6 +849,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_ToggleDictationTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleDictationTray_ParamsDataView input_data_view(params, message);
@@ -795,8 +866,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleDictationTray(
-std::move(p_visible));
+      impl->ToggleDictationTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_ToggleVideoConferenceTray_Name: {
@@ -806,6 +877,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_ToggleVideoConferenceTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleVideoConferenceTray_ParamsDataView input_data_view(params, message);
@@ -821,8 +894,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleVideoConferenceTray(
-std::move(p_visible));
+      impl->ToggleVideoConferenceTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_ToggleProjectorTray_Name: {
@@ -832,6 +905,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_ToggleProjectorTray_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleProjectorTray_ParamsDataView input_data_view(params, message);
@@ -847,8 +922,8 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleProjectorTray(
-std::move(p_visible));
+      impl->ToggleProjectorTray(        
+        std::move(p_visible));
       return true;
     }
     case internal::kPageHandler_SetActiveDirectoryManaged_Name: {
@@ -858,6 +933,8 @@ std::move(p_visible));
           reinterpret_cast<internal::PageHandler_SetActiveDirectoryManaged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       bool p_managed{};
       PageHandler_SetActiveDirectoryManaged_ParamsDataView input_data_view(params, message);
@@ -873,8 +950,36 @@ std::move(p_visible));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetActiveDirectoryManaged(
-std::move(p_managed));
+      impl->SetActiveDirectoryManaged(        
+        std::move(p_managed));
+      return true;
+    }
+    case internal::kPageHandler_SetIsInUserChildSession_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_SetIsInUserChildSession_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_SetIsInUserChildSession_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for PageHandler.8
+      bool success = true;
+      bool p_in_child_session{};
+      PageHandler_SetIsInUserChildSession_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_in_child_session = input_data_view.in_child_session();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetIsInUserChildSession(        
+        std::move(p_in_child_session));
       return true;
     }
     case internal::kPageHandler_TriggerPrivacyIndicators_Name: {
@@ -884,6 +989,8 @@ std::move(p_managed));
           reinterpret_cast<internal::PageHandler_TriggerPrivacyIndicators_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       std::string p_app_id{};
       std::string p_app_name{};
@@ -903,16 +1010,16 @@ std::move(p_managed));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 8, false);
+            PageHandler::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerPrivacyIndicators(
-std::move(p_app_id), 
-std::move(p_app_name), 
-std::move(p_is_camera_used), 
-std::move(p_is_microphone_used));
+      impl->TriggerPrivacyIndicators(        
+        std::move(p_app_id), 
+        std::move(p_app_name), 
+        std::move(p_is_camera_used), 
+        std::move(p_is_microphone_used));
       return true;
     }
   }
@@ -952,6 +1059,9 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
     case internal::kPageHandler_SetActiveDirectoryManaged_Name: {
       break;
     }
+    case internal::kPageHandler_SetIsInUserChildSession_Name: {
+      break;
+    }
     case internal::kPageHandler_TriggerPrivacyIndicators_Name: {
       break;
     }
@@ -976,6 +1086,8 @@ static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] 
     { &internal::PageHandler_ToggleProjectorTray_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::PageHandler_SetActiveDirectoryManaged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_SetIsInUserChildSession_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::PageHandler_TriggerPrivacyIndicators_Params_Data::Validate,
      nullptr /* no response */},
@@ -1026,6 +1138,9 @@ void PageHandlerInterceptorForTesting::ToggleProjectorTray(bool visible) {
 }
 void PageHandlerInterceptorForTesting::SetActiveDirectoryManaged(bool managed) {
   GetForwardingInterface()->SetActiveDirectoryManaged(std::move(managed));
+}
+void PageHandlerInterceptorForTesting::SetIsInUserChildSession(bool in_child_session) {
+  GetForwardingInterface()->SetIsInUserChildSession(std::move(in_child_session));
 }
 void PageHandlerInterceptorForTesting::TriggerPrivacyIndicators(const std::string& app_id, const std::string& app_name, bool is_camera_used, bool is_microphone_used) {
   GetForwardingInterface()->TriggerPrivacyIndicators(std::move(app_id), std::move(app_name), std::move(is_camera_used), std::move(is_microphone_used));

@@ -454,6 +454,8 @@ bool TextSuggestionHostStubDispatch::Accept(
           reinterpret_cast<internal::TextSuggestionHost_StartSuggestionMenuTimer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionHost.0
       bool success = true;
       TextSuggestionHost_StartSuggestionMenuTimer_ParamsDataView input_data_view(params, message);
       
@@ -466,7 +468,7 @@ bool TextSuggestionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSuggestionMenuTimer();
+      impl->StartSuggestionMenuTimer(        );
       return true;
     }
     case internal::kTextSuggestionHost_ShowSpellCheckSuggestionMenu_Name: {
@@ -476,6 +478,8 @@ bool TextSuggestionHostStubDispatch::Accept(
           reinterpret_cast<internal::TextSuggestionHost_ShowSpellCheckSuggestionMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionHost.1
       bool success = true;
       double p_caret_x{};
       double p_caret_y{};
@@ -500,11 +504,11 @@ bool TextSuggestionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowSpellCheckSuggestionMenu(
-std::move(p_caret_x), 
-std::move(p_caret_y), 
-std::move(p_marked_text), 
-std::move(p_suggestions));
+      impl->ShowSpellCheckSuggestionMenu(        
+        std::move(p_caret_x), 
+        std::move(p_caret_y), 
+        std::move(p_marked_text), 
+        std::move(p_suggestions));
       return true;
     }
     case internal::kTextSuggestionHost_ShowTextSuggestionMenu_Name: {
@@ -514,6 +518,8 @@ std::move(p_suggestions));
           reinterpret_cast<internal::TextSuggestionHost_ShowTextSuggestionMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextSuggestionHost.2
       bool success = true;
       double p_caret_x{};
       double p_caret_y{};
@@ -538,11 +544,11 @@ std::move(p_suggestions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowTextSuggestionMenu(
-std::move(p_caret_x), 
-std::move(p_caret_y), 
-std::move(p_marked_text), 
-std::move(p_suggestions));
+      impl->ShowTextSuggestionMenu(        
+        std::move(p_caret_x), 
+        std::move(p_caret_y), 
+        std::move(p_marked_text), 
+        std::move(p_suggestions));
       return true;
     }
   }

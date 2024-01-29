@@ -74,9 +74,10 @@ blink.mojom.MediaStreamRequestResult = {
   KILL_SWITCH_ON: 14,
   SYSTEM_PERMISSION_DENIED: 15,
   DEVICE_IN_USE: 16,
-  NUM_MEDIA_REQUEST_RESULTS: 17,
+  REQUEST_CANCELLED: 17,
+  NUM_MEDIA_REQUEST_RESULTS: 18,
   MIN_VALUE: 0,
-  MAX_VALUE: 17,
+  MAX_VALUE: 18,
 };
 
 
@@ -155,9 +156,12 @@ blink.mojom.CapturedSurfaceControlResult = {
   kSuccess: 0,
   kUnknownError: 1,
   kNoPermissionError: 2,
-  kCapturedSurfaceNotFoundError: 3,
+  kCapturerNotFoundError: 3,
+  kCapturedSurfaceNotFoundError: 4,
+  kDisallowedForSelfCaptureError: 5,
+  kCapturerNotFocusedError: 6,
   MIN_VALUE: 0,
-  MAX_VALUE: 3,
+  MAX_VALUE: 6,
 };
 
 
@@ -312,6 +316,28 @@ blink.mojom.MediaStreamDeviceObserverRemote = class {
           device
         ]);
   }
+
+  
+  /**
+   * @param { !string } label
+   * @param { !blink.mojom.MediaStreamDevice } device
+   * @param { !number } zoomLevel
+   */
+
+  onZoomLevelChange(
+      label,
+      device,
+      zoomLevel) {
+    this.proxy.sendMessage(
+        5,
+        blink.mojom.MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+        null,
+        [
+          label,
+          device,
+          zoomLevel
+        ]);
+  }
 };
 
 /**
@@ -361,6 +387,11 @@ blink.mojom.MediaStreamDeviceObserverReceiver = class {
         blink.mojom.MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsSpec.$,
         null,
         impl.onDeviceCaptureHandleChange.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        blink.mojom.MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+        null,
+        impl.onZoomLevelChange.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -473,6 +504,18 @@ blink.mojom.MediaStreamDeviceObserverCallbackRouter = class {
         blink.mojom.MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsSpec.$,
         null,
         this.onDeviceCaptureHandleChange.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onZoomLevelChange =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        blink.mojom.MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+        null,
+        this.onZoomLevelChange.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1493,6 +1536,14 @@ blink.mojom.MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+blink.mojom.MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 blink.mojom.MediaStreamDispatcherHost_GenerateStreams_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2073,7 +2124,23 @@ mojo.internal.Struct(
     'CapturedWheelAction',
     [
       mojo.internal.StructField(
-        'x', 0,
+        'relativeX', 0,
+        0,
+        mojo.internal.Double,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'relativeY', 8,
+        0,
+        mojo.internal.Double,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'wheelDeltaX', 16,
         0,
         mojo.internal.Int32,
         0,
@@ -2081,23 +2148,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'wheelDeltaX', 8,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'wheelDeltaY', 12,
+        'wheelDeltaY', 20,
         0,
         mojo.internal.Int32,
         0,
@@ -2105,7 +2156,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -2115,9 +2166,9 @@ mojo.internal.Struct(
 blink.mojom.CapturedWheelAction = class {
   constructor() {
     /** @export { !number } */
-    this.x;
+    this.relativeX;
     /** @export { !number } */
-    this.y;
+    this.relativeY;
     /** @export { !number } */
     this.wheelDeltaX;
     /** @export { !number } */
@@ -2405,6 +2456,55 @@ blink.mojom.MediaStreamDeviceObserver_OnDeviceCaptureHandleChange_Params = class
     this.label;
     /** @export { !blink.mojom.MediaStreamDevice } */
     this.device;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.MediaStreamDeviceObserver_OnZoomLevelChange_ParamsSpec.$,
+    'MediaStreamDeviceObserver_OnZoomLevelChange_Params',
+    [
+      mojo.internal.StructField(
+        'label', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'device', 8,
+        0,
+        blink.mojom.MediaStreamDeviceSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'zoomLevel', 16,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 32],]);
+
+
+
+
+
+/** @record */
+blink.mojom.MediaStreamDeviceObserver_OnZoomLevelChange_Params = class {
+  constructor() {
+    /** @export { !string } */
+    this.label;
+    /** @export { !blink.mojom.MediaStreamDevice } */
+    this.device;
+    /** @export { !number } */
+    this.zoomLevel;
   }
 };
 

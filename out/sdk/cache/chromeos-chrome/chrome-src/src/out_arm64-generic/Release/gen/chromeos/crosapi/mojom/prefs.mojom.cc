@@ -165,6 +165,8 @@ bool PrefObserverStubDispatch::Accept(
           reinterpret_cast<internal::PrefObserver_OnPrefChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrefObserver.0
       bool success = true;
       ::base::Value p_value{};
       PrefObserver_OnPrefChanged_ParamsDataView input_data_view(params, message);
@@ -180,8 +182,8 @@ bool PrefObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrefChanged(
-std::move(p_value));
+      impl->OnPrefChanged(        
+        std::move(p_value));
       return true;
     }
   }
@@ -711,6 +713,8 @@ bool Prefs_GetPref_ForwardToCallback::Accept(
           internal::Prefs_GetPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Prefs.0
   bool success = true;
   std::optional<::base::Value> p_value{};
   Prefs_GetPref_ResponseParamsDataView input_data_view(params, message);
@@ -834,6 +838,8 @@ bool Prefs_GetExtensionPrefWithControl_ForwardToCallback::Accept(
           internal::Prefs_GetExtensionPrefWithControl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Prefs.3
   bool success = true;
   std::optional<::base::Value> p_value{};
   PrefControlState p_control{};
@@ -966,6 +972,8 @@ bool Prefs_SetPref_ForwardToCallback::Accept(
           internal::Prefs_SetPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Prefs.1
   bool success = true;
   Prefs_SetPref_ResponseParamsDataView input_data_view(params, message);
   
@@ -1073,6 +1081,8 @@ bool Prefs_ClearExtensionControlledPref_ForwardToCallback::Accept(
           internal::Prefs_ClearExtensionControlledPref_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Prefs.4
   bool success = true;
   Prefs_ClearExtensionControlledPref_ResponseParamsDataView input_data_view(params, message);
   
@@ -1147,6 +1157,8 @@ bool PrefsStubDispatch::Accept(
           reinterpret_cast<internal::Prefs_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Prefs.2
       bool success = true;
       PrefPath p_path{};
       ::mojo::PendingRemote<PrefObserver> p_observer{};
@@ -1167,9 +1179,9 @@ bool PrefsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_path), 
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_path), 
+        std::move(p_observer));
       return true;
     }
   }
@@ -1192,6 +1204,8 @@ bool PrefsStubDispatch::AcceptWithResponder(
               internal::Prefs_GetPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Prefs.0
       bool success = true;
       PrefPath p_path{};
       Prefs_GetPref_ParamsDataView input_data_view(params, message);
@@ -1210,8 +1224,8 @@ bool PrefsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPref(
-std::move(p_path), std::move(callback));
+      impl->GetPref(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kPrefs_GetExtensionPrefWithControl_Name: {
@@ -1221,6 +1235,8 @@ std::move(p_path), std::move(callback));
               internal::Prefs_GetExtensionPrefWithControl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Prefs.3
       bool success = true;
       PrefPath p_path{};
       Prefs_GetExtensionPrefWithControl_ParamsDataView input_data_view(params, message);
@@ -1239,8 +1255,8 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetExtensionPrefWithControl(
-std::move(p_path), std::move(callback));
+      impl->GetExtensionPrefWithControl(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kPrefs_SetPref_Name: {
@@ -1250,6 +1266,8 @@ std::move(p_path), std::move(callback));
               internal::Prefs_SetPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Prefs.1
       bool success = true;
       PrefPath p_path{};
       ::base::Value p_value{};
@@ -1271,9 +1289,9 @@ std::move(p_path), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPref(
-std::move(p_path), 
-std::move(p_value), std::move(callback));
+      impl->SetPref(        
+        std::move(p_path), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kPrefs_ClearExtensionControlledPref_Name: {
@@ -1283,6 +1301,8 @@ std::move(p_value), std::move(callback));
               internal::Prefs_ClearExtensionControlledPref_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Prefs.4
       bool success = true;
       PrefPath p_path{};
       Prefs_ClearExtensionControlledPref_ParamsDataView input_data_view(params, message);
@@ -1301,8 +1321,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearExtensionControlledPref(
-std::move(p_path), std::move(callback));
+      impl->ClearExtensionControlledPref(        
+        std::move(p_path), std::move(callback));
       return true;
     }
     case internal::kPrefs_AddObserver_Name: {

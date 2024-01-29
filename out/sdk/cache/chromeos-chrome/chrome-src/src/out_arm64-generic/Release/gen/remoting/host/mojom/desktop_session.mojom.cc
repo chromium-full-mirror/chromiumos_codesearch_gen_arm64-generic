@@ -1399,6 +1399,8 @@ bool DesktopSessionRequestHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DesktopSessionRequestHandler_ConnectDesktopChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionRequestHandler.0
       bool success = true;
       ::mojo::ScopedMessagePipeHandle p_desktop_pipe{};
       DesktopSessionRequestHandler_ConnectDesktopChannel_ParamsDataView input_data_view(params, message);
@@ -1414,8 +1416,8 @@ bool DesktopSessionRequestHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectDesktopChannel(
-std::move(p_desktop_pipe));
+      impl->ConnectDesktopChannel(        
+        std::move(p_desktop_pipe));
       return true;
     }
     case internal::kDesktopSessionRequestHandler_InjectSecureAttentionSequence_Name: {
@@ -1425,6 +1427,8 @@ std::move(p_desktop_pipe));
           reinterpret_cast<internal::DesktopSessionRequestHandler_InjectSecureAttentionSequence_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionRequestHandler.1
       bool success = true;
       DesktopSessionRequestHandler_InjectSecureAttentionSequence_ParamsDataView input_data_view(params, message);
       
@@ -1437,7 +1441,7 @@ std::move(p_desktop_pipe));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectSecureAttentionSequence();
+      impl->InjectSecureAttentionSequence(        );
       return true;
     }
     case internal::kDesktopSessionRequestHandler_CrashNetworkProcess_Name: {
@@ -1447,6 +1451,8 @@ std::move(p_desktop_pipe));
           reinterpret_cast<internal::DesktopSessionRequestHandler_CrashNetworkProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionRequestHandler.2
       bool success = true;
       DesktopSessionRequestHandler_CrashNetworkProcess_ParamsDataView input_data_view(params, message);
       
@@ -1459,7 +1465,7 @@ std::move(p_desktop_pipe));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CrashNetworkProcess();
+      impl->CrashNetworkProcess(        );
       return true;
     }
   }
@@ -1769,6 +1775,8 @@ bool DesktopSessionManagerStubDispatch::Accept(
           reinterpret_cast<internal::DesktopSessionManager_CreateDesktopSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionManager.0
       bool success = true;
       int32_t p_terminal_id{};
       ::remoting::ScreenResolution p_screen_resolution{};
@@ -1790,10 +1798,10 @@ bool DesktopSessionManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDesktopSession(
-std::move(p_terminal_id), 
-std::move(p_screen_resolution), 
-std::move(p_is_virtual_terminal));
+      impl->CreateDesktopSession(        
+        std::move(p_terminal_id), 
+        std::move(p_screen_resolution), 
+        std::move(p_is_virtual_terminal));
       return true;
     }
     case internal::kDesktopSessionManager_CloseDesktopSession_Name: {
@@ -1803,6 +1811,8 @@ std::move(p_is_virtual_terminal));
           reinterpret_cast<internal::DesktopSessionManager_CloseDesktopSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionManager.1
       bool success = true;
       int32_t p_terminal_id{};
       DesktopSessionManager_CloseDesktopSession_ParamsDataView input_data_view(params, message);
@@ -1818,8 +1828,8 @@ std::move(p_is_virtual_terminal));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseDesktopSession(
-std::move(p_terminal_id));
+      impl->CloseDesktopSession(        
+        std::move(p_terminal_id));
       return true;
     }
     case internal::kDesktopSessionManager_SetScreenResolution_Name: {
@@ -1829,6 +1839,8 @@ std::move(p_terminal_id));
           reinterpret_cast<internal::DesktopSessionManager_SetScreenResolution_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionManager.2
       bool success = true;
       int32_t p_terminal_id{};
       ::remoting::ScreenResolution p_screen_resolution{};
@@ -1847,9 +1859,9 @@ std::move(p_terminal_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScreenResolution(
-std::move(p_terminal_id), 
-std::move(p_screen_resolution));
+      impl->SetScreenResolution(        
+        std::move(p_terminal_id), 
+        std::move(p_screen_resolution));
       return true;
     }
   }
@@ -2105,6 +2117,8 @@ bool DesktopSessionAgent_Start_ForwardToCallback::Accept(
           internal::DesktopSessionAgent_Start_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DesktopSessionAgent.0
   bool success = true;
   ::mojo::PendingAssociatedRemote<DesktopSessionControl> p_desktop_session_control{};
   DesktopSessionAgent_Start_ResponseParamsDataView input_data_view(params, message);
@@ -2202,6 +2216,8 @@ bool DesktopSessionAgentStubDispatch::AcceptWithResponder(
               internal::DesktopSessionAgent_Start_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DesktopSessionAgent.0
       bool success = true;
       std::string p_authenticated_jid{};
       ::remoting::ScreenResolution p_resolution{};
@@ -2226,10 +2242,10 @@ bool DesktopSessionAgentStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_authenticated_jid), 
-std::move(p_resolution), 
-std::move(p_options), std::move(callback));
+      impl->Start(        
+        std::move(p_authenticated_jid), 
+        std::move(p_resolution), 
+        std::move(p_options), std::move(callback));
       return true;
     }
   }
@@ -2507,6 +2523,8 @@ bool FileWriter_WriteChunk_ForwardToCallback::Accept(
           internal::FileWriter_WriteChunk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileWriter.0
   bool success = true;
   std::optional<::remoting::protocol::FileTransfer_Error> p_error{};
   FileWriter_WriteChunk_ResponseParamsDataView input_data_view(params, message);
@@ -2632,6 +2650,8 @@ bool FileWriter_CloseFile_ForwardToCallback::Accept(
           internal::FileWriter_CloseFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileWriter.1
   bool success = true;
   std::optional<::remoting::protocol::FileTransfer_Error> p_error{};
   FileWriter_CloseFile_ResponseParamsDataView input_data_view(params, message);
@@ -2731,6 +2751,8 @@ bool FileWriterStubDispatch::AcceptWithResponder(
               internal::FileWriter_WriteChunk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileWriter.0
       bool success = true;
       std::vector<uint8_t> p_data{};
       FileWriter_WriteChunk_ParamsDataView input_data_view(params, message);
@@ -2749,8 +2771,8 @@ bool FileWriterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteChunk(
-std::move(p_data), std::move(callback));
+      impl->WriteChunk(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kFileWriter_CloseFile_Name: {
@@ -2760,6 +2782,8 @@ std::move(p_data), std::move(callback));
               internal::FileWriter_CloseFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileWriter.1
       bool success = true;
       FileWriter_CloseFile_ParamsDataView input_data_view(params, message);
       
@@ -2973,6 +2997,8 @@ bool FileReader_ReadChunk_ForwardToCallback::Accept(
           internal::FileReader_ReadChunk_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileReader.0
   bool success = true;
   ::remoting::protocol::FileTransferResult<std::vector<uint8_t>> p_result{};
   FileReader_ReadChunk_ResponseParamsDataView input_data_view(params, message);
@@ -3071,6 +3097,8 @@ bool FileReaderStubDispatch::AcceptWithResponder(
               internal::FileReader_ReadChunk_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileReader.0
       bool success = true;
       uint64_t p_bytes_to_read{};
       FileReader_ReadChunk_ParamsDataView input_data_view(params, message);
@@ -3089,8 +3117,8 @@ bool FileReaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadChunk(
-std::move(p_bytes_to_read), std::move(callback));
+      impl->ReadChunk(        
+        std::move(p_bytes_to_read), std::move(callback));
       return true;
     }
   }
@@ -4118,6 +4146,8 @@ bool DesktopSessionControl_BeginFileRead_ForwardToCallback::Accept(
           internal::DesktopSessionControl_BeginFileRead_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DesktopSessionControl.12
   bool success = true;
   BeginFileReadResultPtr p_result{};
   DesktopSessionControl_BeginFileRead_ResponseParamsDataView input_data_view(params, message);
@@ -4245,6 +4275,8 @@ bool DesktopSessionControl_BeginFileWrite_ForwardToCallback::Accept(
           internal::DesktopSessionControl_BeginFileWrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DesktopSessionControl.13
   bool success = true;
   BeginFileWriteResultPtr p_result{};
   DesktopSessionControl_BeginFileWrite_ResponseParamsDataView input_data_view(params, message);
@@ -4327,6 +4359,8 @@ bool DesktopSessionControlStubDispatch::Accept(
           reinterpret_cast<internal::DesktopSessionControl_CaptureFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.0
       bool success = true;
       DesktopSessionControl_CaptureFrame_ParamsDataView input_data_view(params, message);
       
@@ -4339,7 +4373,7 @@ bool DesktopSessionControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CaptureFrame();
+      impl->CaptureFrame(        );
       return true;
     }
     case internal::kDesktopSessionControl_SelectSource_Name: {
@@ -4349,6 +4383,8 @@ bool DesktopSessionControlStubDispatch::Accept(
           reinterpret_cast<internal::DesktopSessionControl_SelectSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.1
       bool success = true;
       int32_t p_desktop_display_id{};
       DesktopSessionControl_SelectSource_ParamsDataView input_data_view(params, message);
@@ -4364,8 +4400,8 @@ bool DesktopSessionControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectSource(
-std::move(p_desktop_display_id));
+      impl->SelectSource(        
+        std::move(p_desktop_display_id));
       return true;
     }
     case internal::kDesktopSessionControl_SetScreenResolution_Name: {
@@ -4375,6 +4411,8 @@ std::move(p_desktop_display_id));
           reinterpret_cast<internal::DesktopSessionControl_SetScreenResolution_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.2
       bool success = true;
       ::remoting::ScreenResolution p_new_resolution{};
       DesktopSessionControl_SetScreenResolution_ParamsDataView input_data_view(params, message);
@@ -4390,8 +4428,8 @@ std::move(p_desktop_display_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScreenResolution(
-std::move(p_new_resolution));
+      impl->SetScreenResolution(        
+        std::move(p_new_resolution));
       return true;
     }
     case internal::kDesktopSessionControl_LockWorkstation_Name: {
@@ -4401,6 +4439,8 @@ std::move(p_new_resolution));
           reinterpret_cast<internal::DesktopSessionControl_LockWorkstation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.3
       bool success = true;
       DesktopSessionControl_LockWorkstation_ParamsDataView input_data_view(params, message);
       
@@ -4413,7 +4453,7 @@ std::move(p_new_resolution));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LockWorkstation();
+      impl->LockWorkstation(        );
       return true;
     }
     case internal::kDesktopSessionControl_InjectSendAttentionSequence_Name: {
@@ -4423,6 +4463,8 @@ std::move(p_new_resolution));
           reinterpret_cast<internal::DesktopSessionControl_InjectSendAttentionSequence_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.4
       bool success = true;
       DesktopSessionControl_InjectSendAttentionSequence_ParamsDataView input_data_view(params, message);
       
@@ -4435,7 +4477,7 @@ std::move(p_new_resolution));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectSendAttentionSequence();
+      impl->InjectSendAttentionSequence(        );
       return true;
     }
     case internal::kDesktopSessionControl_InjectClipboardEvent_Name: {
@@ -4445,6 +4487,8 @@ std::move(p_new_resolution));
           reinterpret_cast<internal::DesktopSessionControl_InjectClipboardEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.5
       bool success = true;
       ::remoting::protocol::ClipboardEvent p_event{};
       DesktopSessionControl_InjectClipboardEvent_ParamsDataView input_data_view(params, message);
@@ -4460,8 +4504,8 @@ std::move(p_new_resolution));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectClipboardEvent(
-std::move(p_event));
+      impl->InjectClipboardEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kDesktopSessionControl_InjectKeyEvent_Name: {
@@ -4471,6 +4515,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionControl_InjectKeyEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.6
       bool success = true;
       ::remoting::protocol::KeyEvent p_event{};
       DesktopSessionControl_InjectKeyEvent_ParamsDataView input_data_view(params, message);
@@ -4486,8 +4532,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectKeyEvent(
-std::move(p_event));
+      impl->InjectKeyEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kDesktopSessionControl_InjectMouseEvent_Name: {
@@ -4497,6 +4543,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionControl_InjectMouseEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.7
       bool success = true;
       ::remoting::protocol::MouseEvent p_event{};
       DesktopSessionControl_InjectMouseEvent_ParamsDataView input_data_view(params, message);
@@ -4512,8 +4560,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectMouseEvent(
-std::move(p_event));
+      impl->InjectMouseEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kDesktopSessionControl_InjectTextEvent_Name: {
@@ -4523,6 +4571,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionControl_InjectTextEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.8
       bool success = true;
       ::remoting::protocol::TextEvent p_event{};
       DesktopSessionControl_InjectTextEvent_ParamsDataView input_data_view(params, message);
@@ -4538,8 +4588,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectTextEvent(
-std::move(p_event));
+      impl->InjectTextEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kDesktopSessionControl_InjectTouchEvent_Name: {
@@ -4549,6 +4599,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionControl_InjectTouchEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.9
       bool success = true;
       ::remoting::protocol::TouchEvent p_event{};
       DesktopSessionControl_InjectTouchEvent_ParamsDataView input_data_view(params, message);
@@ -4564,8 +4616,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectTouchEvent(
-std::move(p_event));
+      impl->InjectTouchEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kDesktopSessionControl_SetUpUrlForwarder_Name: {
@@ -4575,6 +4627,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionControl_SetUpUrlForwarder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.10
       bool success = true;
       DesktopSessionControl_SetUpUrlForwarder_ParamsDataView input_data_view(params, message);
       
@@ -4587,7 +4641,7 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpUrlForwarder();
+      impl->SetUpUrlForwarder(        );
       return true;
     }
     case internal::kDesktopSessionControl_SignalWebAuthnExtension_Name: {
@@ -4597,6 +4651,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionControl_SignalWebAuthnExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.11
       bool success = true;
       DesktopSessionControl_SignalWebAuthnExtension_ParamsDataView input_data_view(params, message);
       
@@ -4609,7 +4665,7 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SignalWebAuthnExtension();
+      impl->SignalWebAuthnExtension(        );
       return true;
     }
     case internal::kDesktopSessionControl_BeginFileRead_Name: {
@@ -4674,6 +4730,8 @@ bool DesktopSessionControlStubDispatch::AcceptWithResponder(
               internal::DesktopSessionControl_BeginFileRead_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.12
       bool success = true;
       DesktopSessionControl_BeginFileRead_ParamsDataView input_data_view(params, message);
       
@@ -4699,6 +4757,8 @@ bool DesktopSessionControlStubDispatch::AcceptWithResponder(
               internal::DesktopSessionControl_BeginFileWrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DesktopSessionControl.13
       bool success = true;
       ::base::FilePath p_file_path{};
       DesktopSessionControl_BeginFileWrite_ParamsDataView input_data_view(params, message);
@@ -4717,8 +4777,8 @@ bool DesktopSessionControlStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeginFileWrite(
-std::move(p_file_path), std::move(callback));
+      impl->BeginFileWrite(        
+        std::move(p_file_path), std::move(callback));
       return true;
     }
   }
@@ -5443,6 +5503,8 @@ bool DesktopSessionEventHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DesktopSessionEventHandler_OnClipboardEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.0
       bool success = true;
       ::remoting::protocol::ClipboardEvent p_event{};
       DesktopSessionEventHandler_OnClipboardEvent_ParamsDataView input_data_view(params, message);
@@ -5458,8 +5520,8 @@ bool DesktopSessionEventHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClipboardEvent(
-std::move(p_event));
+      impl->OnClipboardEvent(        
+        std::move(p_event));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnUrlForwarderStateChange_Name: {
@@ -5469,6 +5531,8 @@ std::move(p_event));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnUrlForwarderStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.1
       bool success = true;
       UrlForwarderState p_state{};
       DesktopSessionEventHandler_OnUrlForwarderStateChange_ParamsDataView input_data_view(params, message);
@@ -5484,8 +5548,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUrlForwarderStateChange(
-std::move(p_state));
+      impl->OnUrlForwarderStateChange(        
+        std::move(p_state));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnAudioPacket_Name: {
@@ -5495,6 +5559,8 @@ std::move(p_state));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnAudioPacket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.2
       bool success = true;
       ::std::unique_ptr<::remoting::AudioPacket> p_audio_packet{};
       DesktopSessionEventHandler_OnAudioPacket_ParamsDataView input_data_view(params, message);
@@ -5510,8 +5576,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAudioPacket(
-std::move(p_audio_packet));
+      impl->OnAudioPacket(        
+        std::move(p_audio_packet));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnSharedMemoryRegionCreated_Name: {
@@ -5521,6 +5587,8 @@ std::move(p_audio_packet));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnSharedMemoryRegionCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.3
       bool success = true;
       int32_t p_id{};
       ::base::ReadOnlySharedMemoryRegion p_region{};
@@ -5542,10 +5610,10 @@ std::move(p_audio_packet));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSharedMemoryRegionCreated(
-std::move(p_id), 
-std::move(p_region), 
-std::move(p_size));
+      impl->OnSharedMemoryRegionCreated(        
+        std::move(p_id), 
+        std::move(p_region), 
+        std::move(p_size));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnSharedMemoryRegionReleased_Name: {
@@ -5555,6 +5623,8 @@ std::move(p_size));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnSharedMemoryRegionReleased_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.4
       bool success = true;
       int32_t p_id{};
       DesktopSessionEventHandler_OnSharedMemoryRegionReleased_ParamsDataView input_data_view(params, message);
@@ -5570,8 +5640,8 @@ std::move(p_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSharedMemoryRegionReleased(
-std::move(p_id));
+      impl->OnSharedMemoryRegionReleased(        
+        std::move(p_id));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnCaptureResult_Name: {
@@ -5581,6 +5651,8 @@ std::move(p_id));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnCaptureResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.5
       bool success = true;
       CaptureResultPtr p_result{};
       DesktopSessionEventHandler_OnCaptureResult_ParamsDataView input_data_view(params, message);
@@ -5596,8 +5668,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCaptureResult(
-std::move(p_result));
+      impl->OnCaptureResult(        
+        std::move(p_result));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnDesktopDisplayChanged_Name: {
@@ -5607,6 +5679,8 @@ std::move(p_result));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnDesktopDisplayChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.6
       bool success = true;
       ::remoting::protocol::VideoLayout p_layout{};
       DesktopSessionEventHandler_OnDesktopDisplayChanged_ParamsDataView input_data_view(params, message);
@@ -5622,8 +5696,8 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDesktopDisplayChanged(
-std::move(p_layout));
+      impl->OnDesktopDisplayChanged(        
+        std::move(p_layout));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnMouseCursorChanged_Name: {
@@ -5633,6 +5707,8 @@ std::move(p_layout));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnMouseCursorChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.7
       bool success = true;
       ::webrtc::MouseCursor p_mouse_cursor{};
       DesktopSessionEventHandler_OnMouseCursorChanged_ParamsDataView input_data_view(params, message);
@@ -5648,8 +5724,8 @@ std::move(p_layout));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMouseCursorChanged(
-std::move(p_mouse_cursor));
+      impl->OnMouseCursorChanged(        
+        std::move(p_mouse_cursor));
       return true;
     }
     case internal::kDesktopSessionEventHandler_OnKeyboardLayoutChanged_Name: {
@@ -5659,6 +5735,8 @@ std::move(p_mouse_cursor));
           reinterpret_cast<internal::DesktopSessionEventHandler_OnKeyboardLayoutChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionEventHandler.8
       bool success = true;
       ::remoting::protocol::KeyboardLayout p_keyboard_layout{};
       DesktopSessionEventHandler_OnKeyboardLayoutChanged_ParamsDataView input_data_view(params, message);
@@ -5674,8 +5752,8 @@ std::move(p_mouse_cursor));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnKeyboardLayoutChanged(
-std::move(p_keyboard_layout));
+      impl->OnKeyboardLayoutChanged(        
+        std::move(p_keyboard_layout));
       return true;
     }
   }
@@ -5862,6 +5940,8 @@ bool DesktopSessionStateHandlerStubDispatch::Accept(
           reinterpret_cast<internal::DesktopSessionStateHandler_DisconnectSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DesktopSessionStateHandler.0
       bool success = true;
       ::remoting::protocol::ErrorCode p_error_code{};
       DesktopSessionStateHandler_DisconnectSession_ParamsDataView input_data_view(params, message);
@@ -5877,8 +5957,8 @@ bool DesktopSessionStateHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectSession(
-std::move(p_error_code));
+      impl->DisconnectSession(        
+        std::move(p_error_code));
       return true;
     }
   }
@@ -6052,6 +6132,8 @@ bool WorkerProcessControlStubDispatch::Accept(
           reinterpret_cast<internal::WorkerProcessControl_CrashProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WorkerProcessControl.0
       bool success = true;
       std::string p_function_name{};
       std::string p_file_name{};
@@ -6073,10 +6155,10 @@ bool WorkerProcessControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CrashProcess(
-std::move(p_function_name), 
-std::move(p_file_name), 
-std::move(p_line_number));
+      impl->CrashProcess(        
+        std::move(p_function_name), 
+        std::move(p_file_name), 
+        std::move(p_line_number));
       return true;
     }
   }

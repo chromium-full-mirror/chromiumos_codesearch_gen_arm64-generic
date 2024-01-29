@@ -170,6 +170,8 @@ bool PerformancePageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PerformancePageHandlerFactory_CreatePerformancePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PerformancePageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<PerformancePage> p_page{};
       ::mojo::PendingReceiver<PerformancePageHandler> p_handler{};
@@ -192,9 +194,9 @@ bool PerformancePageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePerformancePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePerformancePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -332,6 +334,8 @@ bool PerformancePageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PerformancePageHandler_ShowUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PerformancePageHandler.0
       bool success = true;
       PerformancePageHandler_ShowUI_ParamsDataView input_data_view(params, message);
       
@@ -344,7 +348,7 @@ bool PerformancePageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowUI();
+      impl->ShowUI(        );
       return true;
     }
   }
@@ -555,6 +559,8 @@ bool BatterySaverCardHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::BatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BatterySaverCardHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<BatterySaverCard> p_page{};
       ::mojo::PendingReceiver<BatterySaverCardHandler> p_handler{};
@@ -577,9 +583,9 @@ bool BatterySaverCardHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBatterySaverCardHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreateBatterySaverCardHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -841,6 +847,8 @@ bool MemorySaverCardHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::MemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MemorySaverCardHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<MemorySaverCard> p_page{};
       ::mojo::PendingReceiver<MemorySaverCardHandler> p_handler{};
@@ -863,9 +871,9 @@ bool MemorySaverCardHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateMemorySaverCardHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreateMemorySaverCardHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }

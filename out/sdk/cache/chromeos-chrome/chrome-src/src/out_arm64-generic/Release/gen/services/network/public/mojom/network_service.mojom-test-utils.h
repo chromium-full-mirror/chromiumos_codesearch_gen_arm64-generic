@@ -25,7 +25,7 @@ class  NetworkServiceInterceptorForTesting : public NetworkService {
   void SetUpHttpAuth(HttpAuthStaticParamsPtr http_auth_static_params) override;
   void ConfigureHttpAuthPrefs(HttpAuthDynamicParamsPtr http_auth_dynamic_params) override;
   void SetRawHeadersAccess(int32_t process_id, const std::vector<::url::Origin>& origins) override;
-  void SetMaxConnectionsPerProxy(int32_t max_connections) override;
+  void SetMaxConnectionsPerProxyChain(int32_t max_connections) override;
   void GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::NetworkChangeManager> network_change_manager) override;
   void GetNetworkQualityEstimatorManager(::mojo::PendingReceiver<::network::mojom::NetworkQualityEstimatorManager> receiver) override;
   void GetDnsConfigChangeManager(::mojo::PendingReceiver<::network::mojom::DnsConfigChangeManager> receiver) override;
@@ -49,7 +49,7 @@ class  NetworkServiceInterceptorForTesting : public NetworkService {
   void ParseHeaders(const ::GURL& url, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, ParseHeadersCallback callback) override;
   void EnableDataUseUpdates(bool enable) override;
   void SetIPv6ReachabilityOverride(bool reachability_override) override;
-  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> provider) override;
+  void SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor> remote) override;
 };
 class  NetworkServiceAsyncWaiter {
  public:

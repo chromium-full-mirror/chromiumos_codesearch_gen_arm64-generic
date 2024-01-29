@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_util.h>
 #include "protos/perfetto/common/sys_stats_counters.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -65,6 +66,9 @@ extern SysStats_InterruptCountDefaultTypeInternal _SysStats_InterruptCount_defau
 class SysStats_MeminfoValue;
 struct SysStats_MeminfoValueDefaultTypeInternal;
 extern SysStats_MeminfoValueDefaultTypeInternal _SysStats_MeminfoValue_default_instance_;
+class SysStats_PsiSample;
+struct SysStats_PsiSampleDefaultTypeInternal;
+extern SysStats_PsiSampleDefaultTypeInternal _SysStats_PsiSample_default_instance_;
 class SysStats_VmstatValue;
 struct SysStats_VmstatValueDefaultTypeInternal;
 extern SysStats_VmstatValueDefaultTypeInternal _SysStats_VmstatValue_default_instance_;
@@ -78,11 +82,36 @@ template<> ::perfetto::protos::SysStats_DevfreqValue* Arena::CreateMaybeMessage<
 template<> ::perfetto::protos::SysStats_DiskStat* Arena::CreateMaybeMessage<::perfetto::protos::SysStats_DiskStat>(Arena*);
 template<> ::perfetto::protos::SysStats_InterruptCount* Arena::CreateMaybeMessage<::perfetto::protos::SysStats_InterruptCount>(Arena*);
 template<> ::perfetto::protos::SysStats_MeminfoValue* Arena::CreateMaybeMessage<::perfetto::protos::SysStats_MeminfoValue>(Arena*);
+template<> ::perfetto::protos::SysStats_PsiSample* Arena::CreateMaybeMessage<::perfetto::protos::SysStats_PsiSample>(Arena*);
 template<> ::perfetto::protos::SysStats_VmstatValue* Arena::CreateMaybeMessage<::perfetto::protos::SysStats_VmstatValue>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace perfetto {
 namespace protos {
 
+enum SysStats_PsiSample_PsiResource : int {
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_UNSPECIFIED = 0,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_SOME = 1,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_FULL = 2,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_SOME = 3,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_FULL = 4,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_SOME = 5,
+  SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_FULL = 6
+};
+bool SysStats_PsiSample_PsiResource_IsValid(int value);
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample_PsiResource_PsiResource_MIN = SysStats_PsiSample_PsiResource_PSI_RESOURCE_UNSPECIFIED;
+constexpr SysStats_PsiSample_PsiResource SysStats_PsiSample_PsiResource_PsiResource_MAX = SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_FULL;
+constexpr int SysStats_PsiSample_PsiResource_PsiResource_ARRAYSIZE = SysStats_PsiSample_PsiResource_PsiResource_MAX + 1;
+
+const std::string& SysStats_PsiSample_PsiResource_Name(SysStats_PsiSample_PsiResource value);
+template<typename T>
+inline const std::string& SysStats_PsiSample_PsiResource_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SysStats_PsiSample_PsiResource>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SysStats_PsiSample_PsiResource_Name.");
+  return SysStats_PsiSample_PsiResource_Name(static_cast<SysStats_PsiSample_PsiResource>(enum_t_value));
+}
+bool SysStats_PsiSample_PsiResource_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SysStats_PsiSample_PsiResource* value);
 // ===================================================================
 
 class SysStats_MeminfoValue final :
@@ -1402,6 +1431,196 @@ class SysStats_DiskStat final :
 };
 // -------------------------------------------------------------------
 
+class SysStats_PsiSample final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.SysStats.PsiSample) */ {
+ public:
+  inline SysStats_PsiSample() : SysStats_PsiSample(nullptr) {}
+  ~SysStats_PsiSample() override;
+  explicit PROTOBUF_CONSTEXPR SysStats_PsiSample(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SysStats_PsiSample(const SysStats_PsiSample& from);
+  SysStats_PsiSample(SysStats_PsiSample&& from) noexcept
+    : SysStats_PsiSample() {
+    *this = ::std::move(from);
+  }
+
+  inline SysStats_PsiSample& operator=(const SysStats_PsiSample& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SysStats_PsiSample& operator=(SysStats_PsiSample&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const SysStats_PsiSample& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SysStats_PsiSample* internal_default_instance() {
+    return reinterpret_cast<const SysStats_PsiSample*>(
+               &_SysStats_PsiSample_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(SysStats_PsiSample& a, SysStats_PsiSample& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SysStats_PsiSample* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SysStats_PsiSample* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SysStats_PsiSample* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SysStats_PsiSample>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SysStats_PsiSample& from);
+  void MergeFrom(const SysStats_PsiSample& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SysStats_PsiSample* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "perfetto.protos.SysStats.PsiSample";
+  }
+  protected:
+  explicit SysStats_PsiSample(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef SysStats_PsiSample_PsiResource PsiResource;
+  static constexpr PsiResource PSI_RESOURCE_UNSPECIFIED =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_UNSPECIFIED;
+  static constexpr PsiResource PSI_RESOURCE_CPU_SOME =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_SOME;
+  static constexpr PsiResource PSI_RESOURCE_CPU_FULL =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_CPU_FULL;
+  static constexpr PsiResource PSI_RESOURCE_IO_SOME =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_SOME;
+  static constexpr PsiResource PSI_RESOURCE_IO_FULL =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_IO_FULL;
+  static constexpr PsiResource PSI_RESOURCE_MEMORY_SOME =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_SOME;
+  static constexpr PsiResource PSI_RESOURCE_MEMORY_FULL =
+    SysStats_PsiSample_PsiResource_PSI_RESOURCE_MEMORY_FULL;
+  static inline bool PsiResource_IsValid(int value) {
+    return SysStats_PsiSample_PsiResource_IsValid(value);
+  }
+  static constexpr PsiResource PsiResource_MIN =
+    SysStats_PsiSample_PsiResource_PsiResource_MIN;
+  static constexpr PsiResource PsiResource_MAX =
+    SysStats_PsiSample_PsiResource_PsiResource_MAX;
+  static constexpr int PsiResource_ARRAYSIZE =
+    SysStats_PsiSample_PsiResource_PsiResource_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& PsiResource_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, PsiResource>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function PsiResource_Name.");
+    return SysStats_PsiSample_PsiResource_Name(enum_t_value);
+  }
+  static inline bool PsiResource_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      PsiResource* value) {
+    return SysStats_PsiSample_PsiResource_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTotalNsFieldNumber = 2,
+    kResourceFieldNumber = 1,
+  };
+  // optional uint64 total_ns = 2;
+  bool has_total_ns() const;
+  private:
+  bool _internal_has_total_ns() const;
+  public:
+  void clear_total_ns();
+  uint64_t total_ns() const;
+  void set_total_ns(uint64_t value);
+  private:
+  uint64_t _internal_total_ns() const;
+  void _internal_set_total_ns(uint64_t value);
+  public:
+
+  // optional .perfetto.protos.SysStats.PsiSample.PsiResource resource = 1;
+  bool has_resource() const;
+  private:
+  bool _internal_has_resource() const;
+  public:
+  void clear_resource();
+  ::perfetto::protos::SysStats_PsiSample_PsiResource resource() const;
+  void set_resource(::perfetto::protos::SysStats_PsiSample_PsiResource value);
+  private:
+  ::perfetto::protos::SysStats_PsiSample_PsiResource _internal_resource() const;
+  void _internal_set_resource(::perfetto::protos::SysStats_PsiSample_PsiResource value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:perfetto.protos.SysStats.PsiSample)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint64_t total_ns_;
+  int resource_;
+  friend struct ::TableStruct_protos_2fperfetto_2ftrace_2fsys_5fstats_2fsys_5fstats_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SysStats final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.SysStats) */ {
  public:
@@ -1448,7 +1667,7 @@ class SysStats final :
                &_SysStats_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(SysStats& a, SysStats& b) {
     a.Swap(&b);
@@ -1516,6 +1735,7 @@ class SysStats final :
   typedef SysStats_DevfreqValue DevfreqValue;
   typedef SysStats_BuddyInfo BuddyInfo;
   typedef SysStats_DiskStat DiskStat;
+  typedef SysStats_PsiSample PsiSample;
 
   // accessors -------------------------------------------------------
 
@@ -1529,6 +1749,7 @@ class SysStats final :
     kCpufreqKhzFieldNumber = 11,
     kBuddyInfoFieldNumber = 12,
     kDiskStatFieldNumber = 13,
+    kPsiFieldNumber = 14,
     kNumForksFieldNumber = 4,
     kNumIrqTotalFieldNumber = 5,
     kNumSoftirqTotalFieldNumber = 7,
@@ -1700,6 +1921,24 @@ class SysStats final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_DiskStat >&
       disk_stat() const;
 
+  // repeated .perfetto.protos.SysStats.PsiSample psi = 14;
+  int psi_size() const;
+  private:
+  int _internal_psi_size() const;
+  public:
+  void clear_psi();
+  ::perfetto::protos::SysStats_PsiSample* mutable_psi(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_PsiSample >*
+      mutable_psi();
+  private:
+  const ::perfetto::protos::SysStats_PsiSample& _internal_psi(int index) const;
+  ::perfetto::protos::SysStats_PsiSample* _internal_add_psi();
+  public:
+  const ::perfetto::protos::SysStats_PsiSample& psi(int index) const;
+  ::perfetto::protos::SysStats_PsiSample* add_psi();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_PsiSample >&
+      psi() const;
+
   // optional uint64 num_forks = 4;
   bool has_num_forks() const;
   private:
@@ -1770,6 +2009,7 @@ class SysStats final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > cpufreq_khz_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_BuddyInfo > buddy_info_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_DiskStat > disk_stat_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_PsiSample > psi_;
   uint64_t num_forks_;
   uint64_t num_irq_total_;
   uint64_t num_softirq_total_;
@@ -2778,6 +3018,67 @@ inline void SysStats_DiskStat::set_flush_time_ms(uint64_t value) {
 
 // -------------------------------------------------------------------
 
+// SysStats_PsiSample
+
+// optional .perfetto.protos.SysStats.PsiSample.PsiResource resource = 1;
+inline bool SysStats_PsiSample::_internal_has_resource() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool SysStats_PsiSample::has_resource() const {
+  return _internal_has_resource();
+}
+inline void SysStats_PsiSample::clear_resource() {
+  resource_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::perfetto::protos::SysStats_PsiSample_PsiResource SysStats_PsiSample::_internal_resource() const {
+  return static_cast< ::perfetto::protos::SysStats_PsiSample_PsiResource >(resource_);
+}
+inline ::perfetto::protos::SysStats_PsiSample_PsiResource SysStats_PsiSample::resource() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.SysStats.PsiSample.resource)
+  return _internal_resource();
+}
+inline void SysStats_PsiSample::_internal_set_resource(::perfetto::protos::SysStats_PsiSample_PsiResource value) {
+  assert(::perfetto::protos::SysStats_PsiSample_PsiResource_IsValid(value));
+  _has_bits_[0] |= 0x00000002u;
+  resource_ = value;
+}
+inline void SysStats_PsiSample::set_resource(::perfetto::protos::SysStats_PsiSample_PsiResource value) {
+  _internal_set_resource(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.SysStats.PsiSample.resource)
+}
+
+// optional uint64 total_ns = 2;
+inline bool SysStats_PsiSample::_internal_has_total_ns() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SysStats_PsiSample::has_total_ns() const {
+  return _internal_has_total_ns();
+}
+inline void SysStats_PsiSample::clear_total_ns() {
+  total_ns_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint64_t SysStats_PsiSample::_internal_total_ns() const {
+  return total_ns_;
+}
+inline uint64_t SysStats_PsiSample::total_ns() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.SysStats.PsiSample.total_ns)
+  return _internal_total_ns();
+}
+inline void SysStats_PsiSample::_internal_set_total_ns(uint64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  total_ns_ = value;
+}
+inline void SysStats_PsiSample::set_total_ns(uint64_t value) {
+  _internal_set_total_ns(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.SysStats.PsiSample.total_ns)
+}
+
+// -------------------------------------------------------------------
+
 // SysStats
 
 // repeated .perfetto.protos.SysStats.MeminfoValue meminfo = 1;
@@ -3259,9 +3560,51 @@ SysStats::disk_stat() const {
   return disk_stat_;
 }
 
+// repeated .perfetto.protos.SysStats.PsiSample psi = 14;
+inline int SysStats::_internal_psi_size() const {
+  return psi_.size();
+}
+inline int SysStats::psi_size() const {
+  return _internal_psi_size();
+}
+inline void SysStats::clear_psi() {
+  psi_.Clear();
+}
+inline ::perfetto::protos::SysStats_PsiSample* SysStats::mutable_psi(int index) {
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.SysStats.psi)
+  return psi_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_PsiSample >*
+SysStats::mutable_psi() {
+  // @@protoc_insertion_point(field_mutable_list:perfetto.protos.SysStats.psi)
+  return &psi_;
+}
+inline const ::perfetto::protos::SysStats_PsiSample& SysStats::_internal_psi(int index) const {
+  return psi_.Get(index);
+}
+inline const ::perfetto::protos::SysStats_PsiSample& SysStats::psi(int index) const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.SysStats.psi)
+  return _internal_psi(index);
+}
+inline ::perfetto::protos::SysStats_PsiSample* SysStats::_internal_add_psi() {
+  return psi_.Add();
+}
+inline ::perfetto::protos::SysStats_PsiSample* SysStats::add_psi() {
+  ::perfetto::protos::SysStats_PsiSample* _add = _internal_add_psi();
+  // @@protoc_insertion_point(field_add:perfetto.protos.SysStats.psi)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::perfetto::protos::SysStats_PsiSample >&
+SysStats::psi() const {
+  // @@protoc_insertion_point(field_list:perfetto.protos.SysStats.psi)
+  return psi_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -3281,6 +3624,12 @@ SysStats::disk_stat() const {
 
 }  // namespace protos
 }  // namespace perfetto
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::perfetto::protos::SysStats_PsiSample_PsiResource> : ::std::true_type {};
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

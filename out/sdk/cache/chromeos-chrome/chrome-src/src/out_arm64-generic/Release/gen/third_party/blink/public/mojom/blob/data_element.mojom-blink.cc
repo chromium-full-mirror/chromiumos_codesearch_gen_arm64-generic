@@ -612,6 +612,8 @@ bool BytesProvider_RequestAsReply_ForwardToCallback::Accept(
           internal::BytesProvider_RequestAsReply_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BytesProvider.0
   bool success = true;
   WTF::Vector<uint8_t> p_data{};
   BytesProvider_RequestAsReply_ResponseParamsDataView input_data_view(params, message);
@@ -743,6 +745,8 @@ bool BytesProvider_RequestAsFile_ForwardToCallback::Accept(
           internal::BytesProvider_RequestAsFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BytesProvider.2
   bool success = true;
   std::optional<::base::Time> p_time_file_modified{};
   BytesProvider_RequestAsFile_ResponseParamsDataView input_data_view(params, message);
@@ -826,6 +830,8 @@ bool BytesProviderStubDispatch::Accept(
           reinterpret_cast<internal::BytesProvider_RequestAsStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BytesProvider.1
       bool success = true;
       ::mojo::ScopedDataPipeProducerHandle p_pipe{};
       BytesProvider_RequestAsStream_ParamsDataView input_data_view(params, message);
@@ -841,8 +847,8 @@ bool BytesProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAsStream(
-std::move(p_pipe));
+      impl->RequestAsStream(        
+        std::move(p_pipe));
       return true;
     }
     case internal::kBytesProvider_RequestAsFile_Name: {
@@ -868,6 +874,8 @@ bool BytesProviderStubDispatch::AcceptWithResponder(
               internal::BytesProvider_RequestAsReply_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BytesProvider.0
       bool success = true;
       BytesProvider_RequestAsReply_ParamsDataView input_data_view(params, message);
       
@@ -896,6 +904,8 @@ bool BytesProviderStubDispatch::AcceptWithResponder(
               internal::BytesProvider_RequestAsFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BytesProvider.2
       bool success = true;
       uint64_t p_source_offset{};
       uint64_t p_source_size{};
@@ -923,11 +933,11 @@ bool BytesProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAsFile(
-std::move(p_source_offset), 
-std::move(p_source_size), 
-std::move(p_file), 
-std::move(p_file_offset), std::move(callback));
+      impl->RequestAsFile(        
+        std::move(p_source_offset), 
+        std::move(p_source_size), 
+        std::move(p_file), 
+        std::move(p_file_offset), std::move(callback));
       return true;
     }
   }

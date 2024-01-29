@@ -257,7 +257,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& arg1_method_data = NativeValueTraits<IDLSequence<PaymentMethodData>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -313,8 +314,7 @@ return;
 
 
 PaymentRequest* blink_receiver = V8PaymentRequest::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->abort(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -343,7 +343,8 @@ return;
 // [HighEntropy]
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaymentRequest.canMakePayment", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaymentRequest_CanMakePayment_Method);
 
@@ -353,8 +354,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PaymentRequest_CanMa
 
 
 PaymentRequest* blink_receiver = V8PaymentRequest::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->canMakePayment(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -383,7 +383,8 @@ return;
 // [HighEntropy]
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("PaymentRequest.hasEnrolledInstrument", info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8PaymentRequest_HasEnrolledInstrument_Method);
 
@@ -393,8 +394,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8PaymentRequest_HasEn
 
 
 PaymentRequest* blink_receiver = V8PaymentRequest::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->hasEnrolledInstrument(script_state, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -430,8 +430,7 @@ ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 PaymentRequest* blink_receiver = V8PaymentRequest::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->show(script_state, exception_state);

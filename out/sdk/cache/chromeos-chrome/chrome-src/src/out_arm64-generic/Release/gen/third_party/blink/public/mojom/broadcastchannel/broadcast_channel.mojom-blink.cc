@@ -167,6 +167,8 @@ bool BroadcastChannelClientStubDispatch::Accept(
           reinterpret_cast<internal::BroadcastChannelClient_OnMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BroadcastChannelClient.0
       bool success = true;
       ::blink::BlinkCloneableMessage p_message{};
       BroadcastChannelClient_OnMessage_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool BroadcastChannelClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessage(
-std::move(p_message));
+      impl->OnMessage(        
+        std::move(p_message));
       return true;
     }
   }
@@ -357,6 +359,8 @@ bool BroadcastChannelProviderStubDispatch::Accept(
           reinterpret_cast<internal::BroadcastChannelProvider_ConnectToChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BroadcastChannelProvider.0
       bool success = true;
       WTF::String p_name{};
       ::mojo::PendingAssociatedRemote<BroadcastChannelClient> p_client{};
@@ -382,10 +386,10 @@ bool BroadcastChannelProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToChannel(
-std::move(p_name), 
-std::move(p_client), 
-std::move(p_connection));
+      impl->ConnectToChannel(        
+        std::move(p_name), 
+        std::move(p_client), 
+        std::move(p_connection));
       return true;
     }
   }

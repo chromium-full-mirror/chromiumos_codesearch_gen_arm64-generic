@@ -90,38 +90,21 @@ bool VideoEncoderEncodeOptions::FillV8ObjectWithMembers(ScriptState* script_stat
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAv1()) {
-  if (!ToV8Traits<VideoEncoderEncodeOptionsForAv1>::ToV8(script_state, member_av_1_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<VideoEncoderEncodeOptionsForAv1>::ToV8(script_state, member_av_1_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasAvc()) {
-  if (!ToV8Traits<VideoEncoderEncodeOptionsForAvc>::ToV8(script_state, member_avc_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<VideoEncoderEncodeOptionsForAvc>::ToV8(script_state, member_avc_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasKeyFrame()) {
-  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_key_frame_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_key_frame_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasVp9()) {
-  if (!ToV8Traits<VideoEncoderEncodeOptionsForVp9>::ToV8(script_state, member_vp_9_.Get()).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<VideoEncoderEncodeOptionsForVp9>::ToV8(script_state, member_vp_9_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

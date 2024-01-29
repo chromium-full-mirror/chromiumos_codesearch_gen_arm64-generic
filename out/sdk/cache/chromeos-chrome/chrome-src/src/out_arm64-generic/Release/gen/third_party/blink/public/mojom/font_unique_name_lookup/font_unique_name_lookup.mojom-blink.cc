@@ -354,6 +354,8 @@ bool FontUniqueNameLookup_GetUniqueNameLookupTableIfAvailable_ForwardToCallback:
           internal::FontUniqueNameLookup_GetUniqueNameLookupTableIfAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontUniqueNameLookup.0
   bool success = true;
   bool p_sync_available{};
   ::base::ReadOnlySharedMemoryRegion p_font_lookup_table{};
@@ -437,6 +439,8 @@ bool FontUniqueNameLookup_GetUniqueNameLookupTableIfAvailable_HandleSyncResponse
       reinterpret_cast<internal::FontUniqueNameLookup_GetUniqueNameLookupTableIfAvailable_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for FontUniqueNameLookup.0
   bool success = true;
   bool p_sync_available{};
   ::base::ReadOnlySharedMemoryRegion p_font_lookup_table{};
@@ -516,6 +520,8 @@ bool FontUniqueNameLookup_GetUniqueNameLookupTable_ForwardToCallback::Accept(
           internal::FontUniqueNameLookup_GetUniqueNameLookupTable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FontUniqueNameLookup.1
   bool success = true;
   ::base::ReadOnlySharedMemoryRegion p_font_lookup_table{};
   FontUniqueNameLookup_GetUniqueNameLookupTable_ResponseParamsDataView input_data_view(params, message);
@@ -615,6 +621,8 @@ bool FontUniqueNameLookupStubDispatch::AcceptWithResponder(
               internal::FontUniqueNameLookup_GetUniqueNameLookupTableIfAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontUniqueNameLookup.0
       bool success = true;
       FontUniqueNameLookup_GetUniqueNameLookupTableIfAvailable_ParamsDataView input_data_view(params, message);
       
@@ -640,6 +648,8 @@ bool FontUniqueNameLookupStubDispatch::AcceptWithResponder(
               internal::FontUniqueNameLookup_GetUniqueNameLookupTable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FontUniqueNameLookup.1
       bool success = true;
       FontUniqueNameLookup_GetUniqueNameLookupTable_ParamsDataView input_data_view(params, message);
       

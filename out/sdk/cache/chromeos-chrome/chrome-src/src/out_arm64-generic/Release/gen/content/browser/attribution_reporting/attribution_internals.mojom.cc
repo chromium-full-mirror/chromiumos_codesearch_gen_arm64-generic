@@ -1789,6 +1789,8 @@ bool ObserverStubDispatch::Accept(
           reinterpret_cast<internal::Observer_OnSourcesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.0
       bool success = true;
       Observer_OnSourcesChanged_ParamsDataView input_data_view(params, message);
       
@@ -1801,7 +1803,7 @@ bool ObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSourcesChanged();
+      impl->OnSourcesChanged(        );
       return true;
     }
     case internal::kObserver_OnReportsChanged_Name: {
@@ -1811,6 +1813,8 @@ bool ObserverStubDispatch::Accept(
           reinterpret_cast<internal::Observer_OnReportsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.1
       bool success = true;
       Observer_OnReportsChanged_ParamsDataView input_data_view(params, message);
       
@@ -1823,7 +1827,7 @@ bool ObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportsChanged();
+      impl->OnReportsChanged(        );
       return true;
     }
     case internal::kObserver_OnSourceHandled_Name: {
@@ -1833,6 +1837,8 @@ bool ObserverStubDispatch::Accept(
           reinterpret_cast<internal::Observer_OnSourceHandled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.2
       bool success = true;
       WebUISourceRegistrationPtr p_source{};
       Observer_OnSourceHandled_ParamsDataView input_data_view(params, message);
@@ -1848,8 +1854,8 @@ bool ObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSourceHandled(
-std::move(p_source));
+      impl->OnSourceHandled(        
+        std::move(p_source));
       return true;
     }
     case internal::kObserver_OnReportSent_Name: {
@@ -1859,6 +1865,8 @@ std::move(p_source));
           reinterpret_cast<internal::Observer_OnReportSent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.3
       bool success = true;
       WebUIReportPtr p_report{};
       Observer_OnReportSent_ParamsDataView input_data_view(params, message);
@@ -1874,8 +1882,8 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportSent(
-std::move(p_report));
+      impl->OnReportSent(        
+        std::move(p_report));
       return true;
     }
     case internal::kObserver_OnDebugReportSent_Name: {
@@ -1885,6 +1893,8 @@ std::move(p_report));
           reinterpret_cast<internal::Observer_OnDebugReportSent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.4
       bool success = true;
       WebUIDebugReportPtr p_report{};
       Observer_OnDebugReportSent_ParamsDataView input_data_view(params, message);
@@ -1900,8 +1910,8 @@ std::move(p_report));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDebugReportSent(
-std::move(p_report));
+      impl->OnDebugReportSent(        
+        std::move(p_report));
       return true;
     }
     case internal::kObserver_OnReportDropped_Name: {
@@ -1911,6 +1921,8 @@ std::move(p_report));
           reinterpret_cast<internal::Observer_OnReportDropped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.5
       bool success = true;
       WebUIReportPtr p_report{};
       Observer_OnReportDropped_ParamsDataView input_data_view(params, message);
@@ -1926,8 +1938,8 @@ std::move(p_report));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReportDropped(
-std::move(p_report));
+      impl->OnReportDropped(        
+        std::move(p_report));
       return true;
     }
     case internal::kObserver_OnTriggerHandled_Name: {
@@ -1937,6 +1949,8 @@ std::move(p_report));
           reinterpret_cast<internal::Observer_OnTriggerHandled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.6
       bool success = true;
       WebUITriggerPtr p_trigger{};
       Observer_OnTriggerHandled_ParamsDataView input_data_view(params, message);
@@ -1952,8 +1966,8 @@ std::move(p_report));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTriggerHandled(
-std::move(p_trigger));
+      impl->OnTriggerHandled(        
+        std::move(p_trigger));
       return true;
     }
     case internal::kObserver_OnOsRegistration_Name: {
@@ -1963,6 +1977,8 @@ std::move(p_trigger));
           reinterpret_cast<internal::Observer_OnOsRegistration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Observer.7
       bool success = true;
       WebUIOsRegistrationPtr p_registration{};
       Observer_OnOsRegistration_ParamsDataView input_data_view(params, message);
@@ -1978,8 +1994,8 @@ std::move(p_trigger));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOsRegistration(
-std::move(p_registration));
+      impl->OnOsRegistration(        
+        std::move(p_registration));
       return true;
     }
   }
@@ -2514,6 +2530,8 @@ bool Handler_IsAttributionReportingEnabled_ForwardToCallback::Accept(
           internal::Handler_IsAttributionReportingEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Handler.0
   bool success = true;
   bool p_enabled{};
   bool p_debug_mode{};
@@ -2650,6 +2668,8 @@ bool Handler_GetActiveSources_ForwardToCallback::Accept(
           internal::Handler_GetActiveSources_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Handler.1
   bool success = true;
   std::vector<WebUISourcePtr> p_sources{};
   Handler_GetActiveSources_ResponseParamsDataView input_data_view(params, message);
@@ -2781,6 +2801,8 @@ bool Handler_GetReports_ForwardToCallback::Accept(
           internal::Handler_GetReports_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Handler.2
   bool success = true;
   std::vector<WebUIReportPtr> p_reports{};
   Handler_GetReports_ResponseParamsDataView input_data_view(params, message);
@@ -2912,6 +2934,8 @@ bool Handler_SendReports_ForwardToCallback::Accept(
           internal::Handler_SendReports_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Handler.3
   bool success = true;
   Handler_SendReports_ResponseParamsDataView input_data_view(params, message);
   
@@ -3019,6 +3043,8 @@ bool Handler_ClearStorage_ForwardToCallback::Accept(
           internal::Handler_ClearStorage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Handler.4
   bool success = true;
   Handler_ClearStorage_ResponseParamsDataView input_data_view(params, message);
   
@@ -3109,6 +3135,8 @@ bool HandlerStubDispatch::AcceptWithResponder(
               internal::Handler_IsAttributionReportingEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Handler.0
       bool success = true;
       Handler_IsAttributionReportingEnabled_ParamsDataView input_data_view(params, message);
       
@@ -3134,6 +3162,8 @@ bool HandlerStubDispatch::AcceptWithResponder(
               internal::Handler_GetActiveSources_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Handler.1
       bool success = true;
       Handler_GetActiveSources_ParamsDataView input_data_view(params, message);
       
@@ -3159,6 +3189,8 @@ bool HandlerStubDispatch::AcceptWithResponder(
               internal::Handler_GetReports_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Handler.2
       bool success = true;
       Handler_GetReports_ParamsDataView input_data_view(params, message);
       
@@ -3184,6 +3216,8 @@ bool HandlerStubDispatch::AcceptWithResponder(
               internal::Handler_SendReports_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Handler.3
       bool success = true;
       std::vector<::content::AttributionReport::Id> p_ids{};
       Handler_SendReports_ParamsDataView input_data_view(params, message);
@@ -3202,8 +3236,8 @@ bool HandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendReports(
-std::move(p_ids), std::move(callback));
+      impl->SendReports(        
+        std::move(p_ids), std::move(callback));
       return true;
     }
     case internal::kHandler_ClearStorage_Name: {
@@ -3213,6 +3247,8 @@ std::move(p_ids), std::move(callback));
               internal::Handler_ClearStorage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Handler.4
       bool success = true;
       Handler_ClearStorage_ParamsDataView input_data_view(params, message);
       
@@ -3384,6 +3420,8 @@ bool FactoryStubDispatch::Accept(
           reinterpret_cast<internal::Factory_Create_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Factory.0
       bool success = true;
       ::mojo::PendingRemote<Observer> p_observer{};
       ::mojo::PendingReceiver<Handler> p_handler{};
@@ -3406,9 +3444,9 @@ bool FactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_observer), 
-std::move(p_handler));
+      impl->Create(        
+        std::move(p_observer), 
+        std::move(p_handler));
       return true;
     }
   }

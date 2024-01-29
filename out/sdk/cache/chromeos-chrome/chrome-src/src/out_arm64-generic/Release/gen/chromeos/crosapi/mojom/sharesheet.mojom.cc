@@ -426,6 +426,8 @@ bool Sharesheet_ShowBubble_ForwardToCallback::Accept(
           internal::Sharesheet_ShowBubble_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Sharesheet.0
   bool success = true;
   ::sharesheet::SharesheetResult p_sharesheet_result{};
   Sharesheet_ShowBubble_ResponseParamsDataView input_data_view(params, message);
@@ -546,6 +548,8 @@ bool Sharesheet_ShowBubbleWithOnClosed_ForwardToCallback::Accept(
           internal::Sharesheet_ShowBubbleWithOnClosed_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Sharesheet.1
   bool success = true;
   Sharesheet_ShowBubbleWithOnClosed_ResponseParamsDataView input_data_view(params, message);
   
@@ -614,6 +618,8 @@ bool SharesheetStubDispatch::Accept(
           reinterpret_cast<internal::Sharesheet_CloseBubble_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Sharesheet.2
       bool success = true;
       std::string p_window_id{};
       Sharesheet_CloseBubble_ParamsDataView input_data_view(params, message);
@@ -629,8 +635,8 @@ bool SharesheetStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseBubble(
-std::move(p_window_id));
+      impl->CloseBubble(        
+        std::move(p_window_id));
       return true;
     }
   }
@@ -653,6 +659,8 @@ bool SharesheetStubDispatch::AcceptWithResponder(
               internal::Sharesheet_ShowBubble_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Sharesheet.0
       bool success = true;
       std::string p_window_id{};
       ::sharesheet::LaunchSource p_source{};
@@ -677,10 +685,10 @@ bool SharesheetStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowBubble(
-std::move(p_window_id), 
-std::move(p_source), 
-std::move(p_intent), std::move(callback));
+      impl->ShowBubble(        
+        std::move(p_window_id), 
+        std::move(p_source), 
+        std::move(p_intent), std::move(callback));
       return true;
     }
     case internal::kSharesheet_ShowBubbleWithOnClosed_Name: {
@@ -690,6 +698,8 @@ std::move(p_intent), std::move(callback));
               internal::Sharesheet_ShowBubbleWithOnClosed_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Sharesheet.1
       bool success = true;
       std::string p_window_id{};
       ::sharesheet::LaunchSource p_source{};
@@ -714,10 +724,10 @@ std::move(p_intent), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowBubbleWithOnClosed(
-std::move(p_window_id), 
-std::move(p_source), 
-std::move(p_intent), std::move(callback));
+      impl->ShowBubbleWithOnClosed(        
+        std::move(p_window_id), 
+        std::move(p_source), 
+        std::move(p_intent), std::move(callback));
       return true;
     }
     case internal::kSharesheet_CloseBubble_Name: {

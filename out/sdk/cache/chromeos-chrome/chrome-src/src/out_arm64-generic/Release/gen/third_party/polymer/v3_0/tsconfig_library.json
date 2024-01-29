@@ -38,6 +38,7 @@
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/iron-selector/iron-selection.d.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/iron-selector/iron-selector.d.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/iron-test-helpers/mock-interactions.d.ts",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/paper-behaviors/paper-ripple-mixin.d.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/paper-progress/paper-progress.d.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/paper-ripple/paper-ripple.d.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/paper-spinner/paper-spinner-behavior.d.ts",

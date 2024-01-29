@@ -23,12 +23,20 @@
         "mojom": "autofill.mojom.FormData"
       },
       {
+        "cpp": "::autofill::FormData::FillData",
+        "mojom": "autofill.mojom.FormData_FillData"
+      },
+      {
         "cpp": "::autofill::FormDataPredictions",
         "mojom": "autofill.mojom.FormDataPredictions"
       },
       {
         "cpp": "::autofill::FormFieldData",
         "mojom": "autofill.mojom.FormFieldData"
+      },
+      {
+        "cpp": "::autofill::FormFieldData::FillData",
+        "mojom": "autofill.mojom.FormFieldData_FillData"
       },
       {
         "cpp": "::autofill::FormFieldDataPredictions",

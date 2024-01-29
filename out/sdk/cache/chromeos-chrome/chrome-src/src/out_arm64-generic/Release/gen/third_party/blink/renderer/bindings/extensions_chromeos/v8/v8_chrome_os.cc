@@ -15,18 +15,12 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
-#include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_accelerator_event.h"
 #include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_diagnostics.h"
-#include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_hid.h"
-#include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_telemetry.h"
-#include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_window_event.h"
-#include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_window_management.h"
+#include "third_party/blink/renderer/bindings/extensions_chromeos/v8/v8_cros_kiosk.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/extensions/chromeos/chromeos.h"
 #include "third_party/blink/renderer/extensions/chromeos/diagnostics/cros_diagnostics.h"
-#include "third_party/blink/renderer/extensions/chromeos/system_extensions/hid/cros_hid.h"
-#include "third_party/blink/renderer/extensions/chromeos/system_extensions/managed_device_health_services/telemetry/cros_telemetry.h"
-#include "third_party/blink/renderer/extensions/chromeos/system_extensions/window_management/cros_window_management.h"
+#include "third_party/blink/renderer/extensions/chromeos/kiosk/cros_kiosk.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/idl_member_installer.h"
 #include "third_party/blink/renderer/platform/bindings/runtime_call_stats.h"
@@ -81,60 +75,6 @@ namespace  {
 
 namespace v8_chrome_os {
 
-void WindowManagementAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_windowManagement_Getter");
-BLINK_BINDINGS_TRACE_EVENT("ChromeOS.windowManagement.get");
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
-ExecutionContext* execution_context = receiver_execution_context;
-auto&& return_value = blink_receiver->windowManagement(execution_context);
-bindings::V8SetReturnValue(info, return_value, blink_receiver);
-}
-
-
-void HidAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_hid_Getter");
-BLINK_BINDINGS_TRACE_EVENT("ChromeOS.hid.get");
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
-ExecutionContext* execution_context = receiver_execution_context;
-auto&& return_value = blink_receiver->hid(execution_context);
-bindings::V8SetReturnValue(info, return_value, blink_receiver);
-}
-
-
-void TelemetryAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_telemetry_Getter");
-BLINK_BINDINGS_TRACE_EVENT("ChromeOS.telemetry.get");
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
-ExecutionContext* execution_context = receiver_execution_context;
-auto&& return_value = blink_receiver->telemetry(execution_context);
-bindings::V8SetReturnValue(info, return_value, blink_receiver);
-}
-
-
 void DiagnosticsAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_diagnostics_Getter");
@@ -145,27 +85,31 @@ BLINK_BINDINGS_TRACE_EVENT("ChromeOS.diagnostics.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& return_value = blink_receiver->diagnostics(execution_context);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
 
-void CrosAcceleratorEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_CrosAcceleratorEvent_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("ChromeOS.CrosAcceleratorEvent");
+void KioskAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_kiosk_Getter");
+BLINK_BINDINGS_TRACE_EVENT("ChromeOS.kiosk.get");
 
-bindings::V8SetReturnValue(info, V8CrosAcceleratorEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ChromeOS* blink_receiver = V8ChromeOS::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
+ExecutionContext* execution_context = receiver_execution_context;
+auto&& return_value = blink_receiver->kiosk(execution_context);
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
-void CrosWindowEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ChromeOS_CrosWindowEvent_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("ChromeOS.CrosWindowEvent");
-
-bindings::V8SetReturnValue(info, V8CrosWindowEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
 
 
 }  // namespace v8_chrome_os
@@ -187,64 +131,27 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 
 
 
-v8::Local<v8::Template> instance_template = instance_object_template;
-v8::Local<v8::Template> prototype_template = prototype_object_template;
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 
-void V8ChromeOS::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
-  using bindings::IDLMemberInstaller;
-
-if (RuntimeEnabledFeatures::BlinkExtensionChromeOSWindowManagementEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"windowManagement", WindowManagementAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-if (RuntimeEnabledFeatures::BlinkExtensionChromeOSHIDEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"hid", HidAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-if (RuntimeEnabledFeatures::BlinkExtensionChromeOSTelemetryEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"telemetry", TelemetryAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
-
-
-
-if (RuntimeEnabledFeatures::BlinkExtensionChromeOSWindowManagementEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CrosAcceleratorEvent", CrosAcceleratorEventExposedConstructCallback}, 
-{"CrosWindowEvent", CrosWindowEventExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-
-
-
-}
 
 void V8ChromeOS::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   using bindings::IDLMemberInstaller;
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if (feature_selector.IsAll() && RuntimeEnabledFeatures::BlinkExtensionDiagnosticsEnabled(execution_context)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"diagnostics", DiagnosticsAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (feature_selector.IsAll() && RuntimeEnabledFeatures::BlinkExtensionChromeOSKioskEnabled(execution_context)) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"kiosk", KioskAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

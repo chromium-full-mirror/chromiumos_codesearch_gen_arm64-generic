@@ -30,6 +30,7 @@ export var ContentSettingsTypes;
     ContentSettingsTypes["IDLE_DETECTION"] = "idle-detection";
     ContentSettingsTypes["IMAGES"] = "images";
     ContentSettingsTypes["JAVASCRIPT"] = "javascript";
+    ContentSettingsTypes["JAVASCRIPT_JIT"] = "javascript-jit";
     ContentSettingsTypes["LOCAL_FONTS"] = "local-fonts";
     ContentSettingsTypes["MIC"] = "media-stream-mic";
     ContentSettingsTypes["MIDI"] = "midi";
@@ -50,6 +51,7 @@ export var ContentSettingsTypes;
     ContentSettingsTypes["VR"] = "vr";
     ContentSettingsTypes["WINDOW_MANAGEMENT"] = "window-placement";
     ContentSettingsTypes["ZOOM_LEVELS"] = "zoom-levels";
+    ContentSettingsTypes["WEB_PRINTING"] = "web-printing";
     // The following items are not in the C++ kContentSettingsTypeGroupNames, but
     // are used everywhere where ContentSettingsTypes is used in JS.
     ContentSettingsTypes["PDF_DOCUMENTS"] = "pdfDocuments";

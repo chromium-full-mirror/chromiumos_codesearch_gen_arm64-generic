@@ -899,6 +899,8 @@ bool VideoDecodeAccelerator_Initialize_ForwardToCallback::Accept(
           internal::VideoDecodeAccelerator_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecodeAccelerator.0
   bool success = true;
   VideoDecodeAccelerator::Result p_result{};
   VideoDecodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -1019,6 +1021,8 @@ bool VideoDecodeAccelerator_Reset_ForwardToCallback::Accept(
           internal::VideoDecodeAccelerator_Reset_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecodeAccelerator.5
   bool success = true;
   VideoDecodeAccelerator::Result p_result{};
   VideoDecodeAccelerator_Reset_ResponseParamsDataView input_data_view(params, message);
@@ -1139,6 +1143,8 @@ bool VideoDecodeAccelerator_Flush_ForwardToCallback::Accept(
           internal::VideoDecodeAccelerator_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoDecodeAccelerator.6
   bool success = true;
   VideoDecodeAccelerator::Result p_result{};
   VideoDecodeAccelerator_Flush_ResponseParamsDataView input_data_view(params, message);
@@ -1217,6 +1223,8 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
           reinterpret_cast<internal::VideoDecodeAccelerator_Decode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.1
       bool success = true;
       BitstreamBufferPtr p_bitstream_buffer{};
       VideoDecodeAccelerator_Decode_ParamsDataView input_data_view(params, message);
@@ -1232,8 +1240,8 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decode(
-std::move(p_bitstream_buffer));
+      impl->Decode(        
+        std::move(p_bitstream_buffer));
       return true;
     }
     case internal::kVideoDecodeAccelerator_AssignPictureBuffers_Name: {
@@ -1243,6 +1251,8 @@ std::move(p_bitstream_buffer));
           reinterpret_cast<internal::VideoDecodeAccelerator_AssignPictureBuffers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.2
       bool success = true;
       uint32_t p_count{};
       VideoDecodeAccelerator_AssignPictureBuffers_ParamsDataView input_data_view(params, message);
@@ -1258,8 +1268,8 @@ std::move(p_bitstream_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AssignPictureBuffers(
-std::move(p_count));
+      impl->AssignPictureBuffers(        
+        std::move(p_count));
       return true;
     }
     case internal::kVideoDecodeAccelerator_ImportBufferForPicture_Name: {
@@ -1269,6 +1279,8 @@ std::move(p_count));
           reinterpret_cast<internal::VideoDecodeAccelerator_ImportBufferForPicture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.9
       bool success = true;
       int32_t p_picture_buffer_id{};
       ::arc::mojom::HalPixelFormat p_format{};
@@ -1296,12 +1308,12 @@ std::move(p_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ImportBufferForPicture(
-std::move(p_picture_buffer_id), 
-std::move(p_format), 
-std::move(p_handle_fd), 
-std::move(p_planes), 
-std::move(p_modifier));
+      impl->ImportBufferForPicture(        
+        std::move(p_picture_buffer_id), 
+        std::move(p_format), 
+        std::move(p_handle_fd), 
+        std::move(p_planes), 
+        std::move(p_modifier));
       return true;
     }
     case internal::kVideoDecodeAccelerator_ReusePictureBuffer_Name: {
@@ -1311,6 +1323,8 @@ std::move(p_modifier));
           reinterpret_cast<internal::VideoDecodeAccelerator_ReusePictureBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.4
       bool success = true;
       int32_t p_picture_buffer_id{};
       VideoDecodeAccelerator_ReusePictureBuffer_ParamsDataView input_data_view(params, message);
@@ -1326,8 +1340,8 @@ std::move(p_modifier));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReusePictureBuffer(
-std::move(p_picture_buffer_id));
+      impl->ReusePictureBuffer(        
+        std::move(p_picture_buffer_id));
       return true;
     }
     case internal::kVideoDecodeAccelerator_Reset_Name: {
@@ -1356,6 +1370,8 @@ bool VideoDecodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::VideoDecodeAccelerator_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.0
       bool success = true;
       VideoDecodeAcceleratorConfigPtr p_config{};
       ::mojo::PendingRemote<VideoDecodeClient> p_client{};
@@ -1379,9 +1395,9 @@ bool VideoDecodeAcceleratorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_config), 
-std::move(p_client), std::move(callback));
+      impl->Initialize(        
+        std::move(p_config), 
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kVideoDecodeAccelerator_Decode_Name: {
@@ -1403,6 +1419,8 @@ std::move(p_client), std::move(callback));
               internal::VideoDecodeAccelerator_Reset_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.5
       bool success = true;
       VideoDecodeAccelerator_Reset_ParamsDataView input_data_view(params, message);
       
@@ -1428,6 +1446,8 @@ std::move(p_client), std::move(callback));
               internal::VideoDecodeAccelerator_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoDecodeAccelerator.6
       bool success = true;
       VideoDecodeAccelerator_Flush_ParamsDataView input_data_view(params, message);
       
@@ -1810,6 +1830,8 @@ bool VideoDecodeClientStubDispatch::Accept(
           reinterpret_cast<internal::VideoDecodeClient_PictureReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeClient.1
       bool success = true;
       PicturePtr p_picture{};
       VideoDecodeClient_PictureReady_ParamsDataView input_data_view(params, message);
@@ -1825,8 +1847,8 @@ bool VideoDecodeClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PictureReady(
-std::move(p_picture));
+      impl->PictureReady(        
+        std::move(p_picture));
       return true;
     }
     case internal::kVideoDecodeClient_NotifyEndOfBitstreamBuffer_Name: {
@@ -1836,6 +1858,8 @@ std::move(p_picture));
           reinterpret_cast<internal::VideoDecodeClient_NotifyEndOfBitstreamBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeClient.2
       bool success = true;
       int32_t p_bitstream_id{};
       VideoDecodeClient_NotifyEndOfBitstreamBuffer_ParamsDataView input_data_view(params, message);
@@ -1851,8 +1875,8 @@ std::move(p_picture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyEndOfBitstreamBuffer(
-std::move(p_bitstream_id));
+      impl->NotifyEndOfBitstreamBuffer(        
+        std::move(p_bitstream_id));
       return true;
     }
     case internal::kVideoDecodeClient_NotifyError_Name: {
@@ -1862,6 +1886,8 @@ std::move(p_bitstream_id));
           reinterpret_cast<internal::VideoDecodeClient_NotifyError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeClient.3
       bool success = true;
       VideoDecodeAccelerator::Result p_error{};
       VideoDecodeClient_NotifyError_ParamsDataView input_data_view(params, message);
@@ -1877,8 +1903,8 @@ std::move(p_bitstream_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyError(
-std::move(p_error));
+      impl->NotifyError(        
+        std::move(p_error));
       return true;
     }
     case internal::kVideoDecodeClient_ProvidePictureBuffers_Name: {
@@ -1888,6 +1914,8 @@ std::move(p_error));
           reinterpret_cast<internal::VideoDecodeClient_ProvidePictureBuffers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecodeClient.5
       bool success = true;
       PictureBufferFormatPtr p_format{};
       ::gfx::Rect p_visible_rect{};
@@ -1906,9 +1934,9 @@ std::move(p_error));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProvidePictureBuffers(
-std::move(p_format), 
-std::move(p_visible_rect));
+      impl->ProvidePictureBuffers(        
+        std::move(p_format), 
+        std::move(p_visible_rect));
       return true;
     }
   }

@@ -546,6 +546,8 @@ bool DiskQuotaHost_IsQuotaSupported_ForwardToCallback::Accept(
           internal::DiskQuotaHost_IsQuotaSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiskQuotaHost.0
   bool success = true;
   bool p_supported{};
   DiskQuotaHost_IsQuotaSupported_ResponseParamsDataView input_data_view(params, message);
@@ -665,6 +667,8 @@ bool DiskQuotaHost_GetCurrentSpaceForUid_ForwardToCallback::Accept(
           internal::DiskQuotaHost_GetCurrentSpaceForUid_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiskQuotaHost.1
   bool success = true;
   int64_t p_cur_space{};
   DiskQuotaHost_GetCurrentSpaceForUid_ResponseParamsDataView input_data_view(params, message);
@@ -784,6 +788,8 @@ bool DiskQuotaHost_GetCurrentSpaceForGid_ForwardToCallback::Accept(
           internal::DiskQuotaHost_GetCurrentSpaceForGid_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiskQuotaHost.2
   bool success = true;
   int64_t p_cur_space{};
   DiskQuotaHost_GetCurrentSpaceForGid_ResponseParamsDataView input_data_view(params, message);
@@ -903,6 +909,8 @@ bool DiskQuotaHost_GetCurrentSpaceForProjectId_ForwardToCallback::Accept(
           internal::DiskQuotaHost_GetCurrentSpaceForProjectId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiskQuotaHost.3
   bool success = true;
   int64_t p_cur_space{};
   DiskQuotaHost_GetCurrentSpaceForProjectId_ResponseParamsDataView input_data_view(params, message);
@@ -1022,6 +1030,8 @@ bool DiskQuotaHost_GetFreeDiskSpace_ForwardToCallback::Accept(
           internal::DiskQuotaHost_GetFreeDiskSpace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiskQuotaHost.5
   bool success = true;
   DiskSpacePtr p_free_space{};
   DiskQuotaHost_GetFreeDiskSpace_ResponseParamsDataView input_data_view(params, message);
@@ -1130,6 +1140,8 @@ bool DiskQuotaHostStubDispatch::AcceptWithResponder(
               internal::DiskQuotaHost_IsQuotaSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiskQuotaHost.0
       bool success = true;
       DiskQuotaHost_IsQuotaSupported_ParamsDataView input_data_view(params, message);
       
@@ -1155,6 +1167,8 @@ bool DiskQuotaHostStubDispatch::AcceptWithResponder(
               internal::DiskQuotaHost_GetCurrentSpaceForUid_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiskQuotaHost.1
       bool success = true;
       uint32_t p_uid{};
       DiskQuotaHost_GetCurrentSpaceForUid_ParamsDataView input_data_view(params, message);
@@ -1173,8 +1187,8 @@ bool DiskQuotaHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCurrentSpaceForUid(
-std::move(p_uid), std::move(callback));
+      impl->GetCurrentSpaceForUid(        
+        std::move(p_uid), std::move(callback));
       return true;
     }
     case internal::kDiskQuotaHost_GetCurrentSpaceForGid_Name: {
@@ -1184,6 +1198,8 @@ std::move(p_uid), std::move(callback));
               internal::DiskQuotaHost_GetCurrentSpaceForGid_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiskQuotaHost.2
       bool success = true;
       uint32_t p_gid{};
       DiskQuotaHost_GetCurrentSpaceForGid_ParamsDataView input_data_view(params, message);
@@ -1202,8 +1218,8 @@ std::move(p_uid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCurrentSpaceForGid(
-std::move(p_gid), std::move(callback));
+      impl->GetCurrentSpaceForGid(        
+        std::move(p_gid), std::move(callback));
       return true;
     }
     case internal::kDiskQuotaHost_GetCurrentSpaceForProjectId_Name: {
@@ -1213,6 +1229,8 @@ std::move(p_gid), std::move(callback));
               internal::DiskQuotaHost_GetCurrentSpaceForProjectId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiskQuotaHost.3
       bool success = true;
       uint32_t p_project_id{};
       DiskQuotaHost_GetCurrentSpaceForProjectId_ParamsDataView input_data_view(params, message);
@@ -1231,8 +1249,8 @@ std::move(p_gid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCurrentSpaceForProjectId(
-std::move(p_project_id), std::move(callback));
+      impl->GetCurrentSpaceForProjectId(        
+        std::move(p_project_id), std::move(callback));
       return true;
     }
     case internal::kDiskQuotaHost_GetFreeDiskSpace_Name: {
@@ -1242,6 +1260,8 @@ std::move(p_project_id), std::move(callback));
               internal::DiskQuotaHost_GetFreeDiskSpace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiskQuotaHost.5
       bool success = true;
       DiskQuotaHost_GetFreeDiskSpace_ParamsDataView input_data_view(params, message);
       
@@ -1467,6 +1487,8 @@ bool DiskQuotaInstance_Init_ForwardToCallback::Accept(
           internal::DiskQuotaInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DiskQuotaInstance.0
   bool success = true;
   DiskQuotaInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1545,6 +1567,8 @@ bool DiskQuotaInstanceStubDispatch::AcceptWithResponder(
               internal::DiskQuotaInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DiskQuotaInstance.0
       bool success = true;
       ::mojo::PendingRemote<DiskQuotaHost> p_host_remote{};
       DiskQuotaInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1565,8 +1589,8 @@ bool DiskQuotaInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

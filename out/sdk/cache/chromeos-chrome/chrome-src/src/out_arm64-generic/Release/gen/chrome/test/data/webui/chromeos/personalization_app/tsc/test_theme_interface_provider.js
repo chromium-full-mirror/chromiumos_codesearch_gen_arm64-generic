@@ -10,6 +10,7 @@ export class TestThemeProvider extends TestBrowserProxy {
             'setThemeObserver',
             'setColorModePref',
             'setColorModeAutoScheduleEnabled',
+            'enableGeolocationForSystemServices',
             'setColorScheme',
             'setStaticColor',
             'generateSampleColorSchemes',
@@ -17,11 +18,13 @@ export class TestThemeProvider extends TestBrowserProxy {
             'getStaticColor',
             'isDarkModeEnabled',
             'isColorModeAutoScheduleEnabled',
+            'isGeolocationEnabledForSystemServices',
         ]);
         this.staticColor = null;
     }
     isDarkModeEnabledResponse = true;
     isColorModeAutoScheduleEnabledResponse = true;
+    isGeolocationPermissionEnabledResponse = true;
     staticColor;
     colorScheme = ColorScheme.kTonalSpot;
     themeObserverRemote = null;
@@ -37,6 +40,9 @@ export class TestThemeProvider extends TestBrowserProxy {
     }
     setColorModeAutoScheduleEnabled(enabled) {
         this.methodCalled('setColorModeAutoScheduleEnabled', enabled);
+    }
+    enableGeolocationForSystemServices() {
+        this.methodCalled('enableGeolocationForSystemServices');
     }
     setColorScheme(colorScheme) {
         this.methodCalled('setColorScheme', colorScheme);
@@ -80,5 +86,9 @@ export class TestThemeProvider extends TestBrowserProxy {
     isColorModeAutoScheduleEnabled() {
         this.methodCalled('isColorModeAutoScheduleEnabled');
         return Promise.resolve({ enabled: this.isColorModeAutoScheduleEnabledResponse });
+    }
+    isGeolocationEnabledForSystemServices() {
+        this.methodCalled('isGeolocationEnabledForSystemServices');
+        return Promise.resolve({ geolocationEnabled: this.isGeolocationPermissionEnabledResponse });
     }
 }

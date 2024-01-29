@@ -88,6 +88,51 @@ class BLINK_COMMON_EXPORT PermissionObserver
   virtual void OnPermissionStatusChange(::blink::mojom::PermissionStatus status) = 0;
 };
 
+class EmbeddedPermissionControlClientProxy;
+
+template <typename ImplRefTraits>
+class EmbeddedPermissionControlClientStub;
+
+class EmbeddedPermissionControlClientRequestValidator;
+
+
+class BLINK_COMMON_EXPORT EmbeddedPermissionControlClient
+    : public EmbeddedPermissionControlClientInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = EmbeddedPermissionControlClientInterfaceBase;
+  using Proxy_ = EmbeddedPermissionControlClientProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = EmbeddedPermissionControlClientStub<ImplRefTraits>;
+
+  using RequestValidator_ = EmbeddedPermissionControlClientRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnEmbeddedPermissionControlRegisteredMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnEmbeddedPermissionControlRegistered_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~EmbeddedPermissionControlClient() = default;
+
+  
+  virtual void OnEmbeddedPermissionControlRegistered(bool allow, const std::optional<std::vector<::blink::mojom::PermissionStatus>>& statuses) = 0;
+};
+
 class PermissionServiceProxy;
 
 template <typename ImplRefTraits>
@@ -163,10 +208,8 @@ class BLINK_COMMON_EXPORT PermissionService
   
   virtual void HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) = 0;
 
-
-  using RegisterPageEmbeddedPermissionControlCallback = base::OnceCallback<void(bool, const std::optional<std::vector<::blink::mojom::PermissionStatus>>&)>;
   
-  virtual void RegisterPageEmbeddedPermissionControl(std::vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) = 0;
+  virtual void RegisterPageEmbeddedPermissionControl(std::vector<PermissionDescriptorPtr> permissions, ::mojo::PendingRemote<EmbeddedPermissionControlClient> client) = 0;
 
 
   using RequestPageEmbeddedPermissionCallback = base::OnceCallback<void(EmbeddedPermissionControlResult)>;
@@ -212,6 +255,21 @@ class BLINK_COMMON_EXPORT PermissionObserverProxy
 
 
 
+class BLINK_COMMON_EXPORT EmbeddedPermissionControlClientProxy
+    : public EmbeddedPermissionControlClient {
+ public:
+  using InterfaceType = EmbeddedPermissionControlClient;
+
+  explicit EmbeddedPermissionControlClientProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnEmbeddedPermissionControlRegistered(bool allow, const std::optional<std::vector<::blink::mojom::PermissionStatus>>& statuses) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class BLINK_COMMON_EXPORT PermissionServiceProxy
     : public PermissionService {
  public:
@@ -221,7 +279,7 @@ class BLINK_COMMON_EXPORT PermissionServiceProxy
   
   void HasPermission(PermissionDescriptorPtr permission, HasPermissionCallback callback) final;
   
-  void RegisterPageEmbeddedPermissionControl(std::vector<PermissionDescriptorPtr> permissions, RegisterPageEmbeddedPermissionControlCallback callback) final;
+  void RegisterPageEmbeddedPermissionControl(std::vector<PermissionDescriptorPtr> permissions, ::mojo::PendingRemote<EmbeddedPermissionControlClient> client) final;
   
   void RequestPageEmbeddedPermission(EmbeddedPermissionRequestDescriptorPtr descriptor, RequestPageEmbeddedPermissionCallback callback) final;
   
@@ -279,6 +337,47 @@ class PermissionObserverStub
  private:
   ImplPointerType sink_;
 };
+class BLINK_COMMON_EXPORT EmbeddedPermissionControlClientStubDispatch {
+ public:
+  static bool Accept(EmbeddedPermissionControlClient* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      EmbeddedPermissionControlClient* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<EmbeddedPermissionControlClient>>
+class EmbeddedPermissionControlClientStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  EmbeddedPermissionControlClientStub() = default;
+  ~EmbeddedPermissionControlClientStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return EmbeddedPermissionControlClientStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return EmbeddedPermissionControlClientStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class BLINK_COMMON_EXPORT PermissionServiceStubDispatch {
  public:
   static bool Accept(PermissionService* impl, mojo::Message* message);
@@ -321,6 +420,10 @@ class PermissionServiceStub
   ImplPointerType sink_;
 };
 class BLINK_COMMON_EXPORT PermissionObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class BLINK_COMMON_EXPORT EmbeddedPermissionControlClientRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

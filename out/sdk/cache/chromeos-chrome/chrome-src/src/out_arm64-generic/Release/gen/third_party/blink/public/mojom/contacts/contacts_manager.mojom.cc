@@ -354,6 +354,8 @@ bool ContactsManager_Select_ForwardToCallback::Accept(
           internal::ContactsManager_Select_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ContactsManager.0
   bool success = true;
   std::optional<std::vector<ContactInfoPtr>> p_contacts{};
   ContactsManager_Select_ResponseParamsDataView input_data_view(params, message);
@@ -452,6 +454,8 @@ bool ContactsManagerStubDispatch::AcceptWithResponder(
               internal::ContactsManager_Select_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ContactsManager.0
       bool success = true;
       bool p_multiple{};
       bool p_include_names{};
@@ -485,13 +489,13 @@ bool ContactsManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Select(
-std::move(p_multiple), 
-std::move(p_include_names), 
-std::move(p_include_emails), 
-std::move(p_include_tel), 
-std::move(p_include_addresses), 
-std::move(p_include_icons), std::move(callback));
+      impl->Select(        
+        std::move(p_multiple), 
+        std::move(p_include_names), 
+        std::move(p_include_emails), 
+        std::move(p_include_tel), 
+        std::move(p_include_addresses), 
+        std::move(p_include_icons), std::move(callback));
       return true;
     }
   }

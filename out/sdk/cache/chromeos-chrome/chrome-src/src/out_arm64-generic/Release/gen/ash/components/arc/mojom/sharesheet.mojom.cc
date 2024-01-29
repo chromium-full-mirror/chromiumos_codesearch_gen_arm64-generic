@@ -274,6 +274,8 @@ bool SharesheetInstance_Init_ForwardToCallback::Accept(
           internal::SharesheetInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharesheetInstance.0
   bool success = true;
   SharesheetInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -352,6 +354,8 @@ bool SharesheetInstanceStubDispatch::AcceptWithResponder(
               internal::SharesheetInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharesheetInstance.0
       bool success = true;
       ::mojo::PendingRemote<SharesheetHost> p_host_remote{};
       SharesheetInstance_Init_ParamsDataView input_data_view(params, message);
@@ -372,8 +376,8 @@ bool SharesheetInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

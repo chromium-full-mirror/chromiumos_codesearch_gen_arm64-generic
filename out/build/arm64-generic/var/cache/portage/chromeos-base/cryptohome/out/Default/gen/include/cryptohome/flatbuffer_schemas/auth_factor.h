@@ -63,6 +63,7 @@ namespace cryptohome {
 struct SerializedKnowledgeFactorHashInfo {
   std::optional<::cryptohome::SerializedKnowledgeFactorHashAlgorithm> algorithm;
   brillo::Blob salt;
+  std::optional<bool> should_generate_key_store;
 };
 
 }  // namespace cryptohome

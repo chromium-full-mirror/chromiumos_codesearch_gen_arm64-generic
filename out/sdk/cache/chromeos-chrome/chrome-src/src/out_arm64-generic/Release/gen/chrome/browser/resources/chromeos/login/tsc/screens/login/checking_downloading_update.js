@@ -36,24 +36,17 @@
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '//resources/polymer/v3_0/paper-progress/paper-progress.js';
 import '//resources/polymer/v3_0/paper-styles/color.js';
+import { OobeCrLottie } from '../../components/oobe_cr_lottie.js';
 import '../../components/oobe_icons.html.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { loadTimeData } from '//resources/js/load_time_data.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { getTemplate } from './checking_downloading_update.html.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {OobeI18nBehaviorInterface}
- */
 const CheckingDownloadingUpdateBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior], PolymerElement);
-/**
- * @polymer
- */
 export class CheckingDownloadingUpdate extends CheckingDownloadingUpdateBase {
     static get is() {
         return 'checking-downloading-update';
@@ -81,7 +74,10 @@ export class CheckingDownloadingUpdate extends CheckingDownloadingUpdateBase {
             /**
              * Estimated time left in seconds.
              */
-            estimatedTimeLeft: { type: Number, value: 0 },
+            estimatedTimeLeft: {
+                type: Number,
+                value: 0,
+            },
             /**
              * Shows estimatedTimeLeft.
              */
@@ -113,41 +109,45 @@ export class CheckingDownloadingUpdate extends CheckingDownloadingUpdateBase {
             /**
              * ID of the localized string shown while checking for updates.
              */
-            checkingForUpdatesKey: String,
+            checkingForUpdatesKey: {
+                type: String,
+            },
             /**
              * ID of the localized string shown while update is being downloaded.
              */
-            downloadingUpdatesKey: String,
+            downloadingUpdatesKey: {
+                type: String,
+            },
             /**
              * Message "3 minutes left".
              */
-            estimatedTimeLeftMsg_: {
+            estimatedTimeLeftMsg: {
                 type: String,
-                computed: 'computeEstimatedTimeLeftMsg_(estimatedTimeLeft)',
+                computed: 'computeEstimatedTimeLeftMsg(estimatedTimeLeft)',
             },
             /**
              * Message showing either estimated time left or default update status".
              */
-            progressMessage_: {
+            progressMessage: {
                 type: String,
-                computed: 'computeProgressMessage_(hasEstimate, defaultProgressMessage, ' +
-                    'estimatedTimeLeftMsg_)',
+                computed: 'computeProgressMessage(hasEstimate, defaultProgressMessage, ' +
+                    'estimatedTimeLeftMsg)',
             },
         };
     }
     static get observers() {
-        return ['playAnimation_(checkingForUpdate)'];
+        return ['playAnimation(checkingForUpdate)'];
     }
-    computeProgressMessage_(hasEstimate, defaultProgressMessage, estimatedTimeLeftMsg_) {
+    computeProgressMessage(hasEstimate, defaultProgressMessage, estimatedTimeLeftMsg) {
         if (hasEstimate) {
-            return estimatedTimeLeftMsg_;
+            return estimatedTimeLeftMsg;
         }
         return defaultProgressMessage;
     }
     /**
      * Sets estimated time left until download will complete.
      */
-    computeEstimatedTimeLeftMsg_(estimatedTimeLeft) {
+    computeEstimatedTimeLeftMsg(estimatedTimeLeft) {
         const seconds = estimatedTimeLeft;
         const minutes = Math.ceil(seconds / 60);
         let message = '';
@@ -171,21 +171,23 @@ export class CheckingDownloadingUpdate extends CheckingDownloadingUpdateBase {
     }
     /**
      * Calculates visibility of the updating dialog.
-     * @param {Boolean} checkingForUpdate If the screen is currently checking
+     * @param checkingForUpdate If the screen is currently checking
      * for updates.
-     * @param {Boolean} updateCompleted If update is completed and all
+     * @param updateCompleted If update is completed and all
      * intermediate status elements are hidden.
      */
-    isCheckingOrUpdateCompleted_(checkingForUpdate, updateCompleted) {
+    isCheckingOrUpdateCompleted(checkingForUpdate, updateCompleted) {
         return checkingForUpdate || updateCompleted;
     }
     /**
-     * @private
-     * @param {Boolean} checkingForUpdate If the screen is currently checking for
+     * @param checkingForUpdate If the screen is currently checking for
      *     updates.
      */
-    playAnimation_(checkingForUpdate) {
-        this.$.checkingAnimation.playing = checkingForUpdate;
+    playAnimation(checkingForUpdate) {
+        const animation = this.shadowRoot?.querySelector('#checkingAnimation');
+        if (animation instanceof OobeCrLottie) {
+            animation.playing = checkingForUpdate;
+        }
     }
 }
 customElements.define(CheckingDownloadingUpdate.is, CheckingDownloadingUpdate);

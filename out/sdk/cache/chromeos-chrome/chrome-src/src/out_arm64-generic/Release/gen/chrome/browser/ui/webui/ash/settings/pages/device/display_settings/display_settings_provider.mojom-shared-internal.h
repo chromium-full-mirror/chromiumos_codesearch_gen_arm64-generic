@@ -59,6 +59,33 @@ struct DisplaySettingsType_Data {
   }
 };
 
+struct DisplaySettingsOrientationOption_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 class  DisplaySettingsValue_Data {
  public:
@@ -69,7 +96,9 @@ class  DisplaySettingsValue_Data {
   uint8_t is_internal_display_$flag : 1;
   uint8_t is_internal_display_$value : 1;
   uint8_t display_id_$flag : 1;
-  uint8_t pad2_[7];
+  uint8_t orientation_$flag : 1;
+  uint8_t pad3_[3];
+  int32_t orientation_$value;
   int64_t display_id_$value;
 
  private:

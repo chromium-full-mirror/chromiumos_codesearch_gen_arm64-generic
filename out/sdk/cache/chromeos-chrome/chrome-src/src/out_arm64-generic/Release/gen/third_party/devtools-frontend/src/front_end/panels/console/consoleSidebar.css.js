@@ -9,8 +9,7 @@ styles.replaceSync(
   .tree-outline li.selected .tree-element-title,
   .tree-outline li:hover .count,
   .tree-outline li.selected .count{forced-color-adjust:none;color:HighlightText}.tree-outline li:hover devtools-icon,
-  .tree-outline li.selected devtools-icon,
-  .tree-outline li.selected:focus .spritesheet-mediumicons:not(.icon-mask){color:HighlightText!important}}
+  .tree-outline li.selected devtools-icon{color:HighlightText!important}}
 /*# sourceURL=consoleSidebar.css */
 `);
 

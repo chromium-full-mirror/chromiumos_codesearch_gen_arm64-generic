@@ -371,6 +371,8 @@ bool UrlHandler_GetExternalHandler_ForwardToCallback::Accept(
           internal::UrlHandler_GetExternalHandler_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UrlHandler.1
   bool success = true;
   std::optional<std::string> p_name{};
   UrlHandler_GetExternalHandler_ResponseParamsDataView input_data_view(params, message);
@@ -451,6 +453,8 @@ bool UrlHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UrlHandler_OpenUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UrlHandler.0
       bool success = true;
       ::GURL p_url{};
       UrlHandler_OpenUrl_ParamsDataView input_data_view(params, message);
@@ -466,8 +470,8 @@ bool UrlHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrl(
-std::move(p_url));
+      impl->OpenUrl(        
+        std::move(p_url));
       return true;
     }
     case internal::kUrlHandler_GetExternalHandler_Name: {
@@ -480,6 +484,8 @@ std::move(p_url));
           reinterpret_cast<internal::UrlHandler_OpenExternal_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UrlHandler.2
       bool success = true;
       ::GURL p_url{};
       UrlHandler_OpenExternal_ParamsDataView input_data_view(params, message);
@@ -495,8 +501,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenExternal(
-std::move(p_url));
+      impl->OpenExternal(        
+        std::move(p_url));
       return true;
     }
   }
@@ -522,6 +528,8 @@ bool UrlHandlerStubDispatch::AcceptWithResponder(
               internal::UrlHandler_GetExternalHandler_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UrlHandler.1
       bool success = true;
       ::GURL p_url{};
       UrlHandler_GetExternalHandler_ParamsDataView input_data_view(params, message);
@@ -540,8 +548,8 @@ bool UrlHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetExternalHandler(
-std::move(p_url), std::move(callback));
+      impl->GetExternalHandler(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kUrlHandler_OpenExternal_Name: {

@@ -47,6 +47,7 @@ class CORE_EXPORT LocalFrameHostInterceptorForTesting : public LocalFrameHost {
   void NavigateToNavigationApiKey(const WTF::String& key, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) override;
   void NavigateEventHandlerPresenceChanged(bool present) override;
   void UpdateTitle(const ::WTF::String& title, ::base::i18n::TextDirection title_direction) override;
+  void UpdateAppTitle(const ::WTF::String& app_title) override;
   void UpdateUserActivationState(::blink::mojom::blink::UserActivationUpdateType update_type, ::blink::mojom::blink::UserActivationNotificationType notification_type) override;
   void DidConsumeHistoryUserActivation() override;
   void HandleAccessibilityFindInPageResult(FindInPageResultAXParamsPtr params) override;
@@ -81,6 +82,7 @@ class CORE_EXPORT LocalFrameHostInterceptorForTesting : public LocalFrameHost {
   void ReceivedDelegatedCapability(::blink::mojom::blink::DelegatedCapability delegated_capability) override;
   void SendFencedFrameReportingBeacon(const WTF::String& event_data, const WTF::String& event_type, const WTF::Vector<::blink::FencedFrame::ReportingDestination>& destinations) override;
   void SendFencedFrameReportingBeaconToCustomURL(const ::blink::KURL& destination_url) override;
+  void DisableUntrustedNetworkInFencedFrame(DisableUntrustedNetworkInFencedFrameCallback callback) override;
   void SendLegacyTechEvent(const WTF::String& type, LegacyTechEventCodeLocationPtr code_location) override;
   void SetFencedFrameAutomaticBeaconReportEventData(::blink::mojom::blink::AutomaticBeaconType event_type, const WTF::String& event_data, const WTF::Vector<::blink::FencedFrame::ReportingDestination>& destinations, bool once, bool cross_origin_exposed) override;
   void SendPrivateAggregationRequestsForFencedFrameEvent(const WTF::String& event_type) override;
@@ -112,6 +114,9 @@ class CORE_EXPORT LocalFrameHostAsyncWaiter {
   void RunBeforeUnloadConfirm(
       bool is_reload, bool* out_success);
   bool RunBeforeUnloadConfirm(bool is_reload);
+  void DisableUntrustedNetworkInFencedFrame(
+      );
+  
 
  private:
   LocalFrameHost* const proxy_;

@@ -45,12 +45,15 @@ export class TabOrganizationNotStartedElement extends TabOrganizationNotStartedE
         this.syncBrowserProxy_.getSyncInfo().then(this.setSync_.bind(this));
         this.addWebUiListener('sync-info-changed', this.setSync_.bind(this));
     }
+    announceHeader() {
+        this.$.header.textContent = '';
+        this.$.header.textContent = this.getTitle_();
+    }
     setAccount_(account) {
         this.account_ = account;
     }
     setSync_(sync) {
         this.sync_ = sync;
-        this.dispatchEvent(new CustomEvent('sync-change', { bubbles: true, composed: true }));
     }
     getSyncState_() {
         if (!this.account_) {
@@ -105,6 +108,24 @@ export class TabOrganizationNotStartedElement extends TabOrganizationNotStartedE
     getAccountImageSrc_(image) {
         // image can be undefined if the account has not set an avatar photo.
         return image || 'chrome://theme/IDR_PROFILE_AVATAR_PLACEHOLDER_LARGE';
+    }
+    getButtonAriaLabel_() {
+        switch (this.getSyncState_()) {
+            case SyncState.SIGNED_OUT:
+            case SyncState.UNSYNCED:
+                return loadTimeData.getString('notStartedButtonUnsyncedAriaLabel');
+            case SyncState.SYNC_PAUSED:
+                return loadTimeData.getString('notStartedButtonSyncPausedAriaLabel');
+            case SyncState.UNSYNCED_HISTORY:
+                return loadTimeData.getString('notStartedButtonUnsyncedHistoryAriaLabel');
+            case SyncState.SYNCED:
+                if (this.showFre) {
+                    return loadTimeData.getString('notStartedButtonFREAriaLabel');
+                }
+                else {
+                    return loadTimeData.getString('notStartedButtonAriaLabel');
+                }
+        }
     }
     getButtonText_() {
         switch (this.getSyncState_()) {

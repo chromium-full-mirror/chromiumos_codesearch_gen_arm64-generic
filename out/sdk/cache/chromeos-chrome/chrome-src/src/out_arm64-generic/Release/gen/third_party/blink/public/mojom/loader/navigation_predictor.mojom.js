@@ -87,11 +87,8 @@
   AnchorElementMetrics.prototype.initDefaults_ = function() {
     this.anchorId = 0;
     this.ratioArea = 0;
-    this.ratioVisibleArea = 0;
     this.ratioDistanceTopToVisibleTop = 0;
-    this.ratioDistanceCenterToVisibleTop = 0;
     this.ratioDistanceRootTop = 0;
-    this.ratioDistanceRootBottom = 0;
     this.isInIframe = false;
     this.containsImage = false;
     this.isSameHost = false;
@@ -99,7 +96,6 @@
     this.hasTextSibling = false;
     this.fontSizePx = 0;
     this.fontWeight = 0;
-    this.sourceUrl = null;
     this.targetUrl = null;
     this.viewportSize = null;
   };
@@ -117,7 +113,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 72}
+      {version: 0, numBytes: 56}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -135,30 +131,21 @@
 
 
 
-
-
-
-    // validate AnchorElementMetrics.sourceUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, url$.Url, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
     // validate AnchorElementMetrics.targetUrl
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, url$.Url, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, url$.Url, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AnchorElementMetrics.viewportSize
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 56, geometry$.Size, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 40, geometry$.Size, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  AnchorElementMetrics.encodedSize = codec.kStructHeaderSize + 64;
+  AnchorElementMetrics.encodedSize = codec.kStructHeaderSize + 48;
 
   AnchorElementMetrics.decode = function(decoder) {
     var packed;
@@ -169,15 +156,9 @@
         decoder.decodeStruct(codec.Uint32);
     val.ratioArea =
         decoder.decodeStruct(codec.Float);
-    val.ratioVisibleArea =
-        decoder.decodeStruct(codec.Float);
     val.ratioDistanceTopToVisibleTop =
         decoder.decodeStruct(codec.Float);
-    val.ratioDistanceCenterToVisibleTop =
-        decoder.decodeStruct(codec.Float);
     val.ratioDistanceRootTop =
-        decoder.decodeStruct(codec.Float);
-    val.ratioDistanceRootBottom =
         decoder.decodeStruct(codec.Float);
     packed = decoder.readUint8();
     val.isInIframe = (packed >> 0) & 1 ? true : false;
@@ -192,8 +173,10 @@
         decoder.decodeStruct(codec.Uint32);
     val.fontWeight =
         decoder.decodeStruct(codec.Uint32);
-    val.sourceUrl =
-        decoder.decodeStructPointer(url$.Url);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.targetUrl =
         decoder.decodeStructPointer(url$.Url);
     val.viewportSize =
@@ -207,11 +190,8 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Uint32, val.anchorId);
     encoder.encodeStruct(codec.Float, val.ratioArea);
-    encoder.encodeStruct(codec.Float, val.ratioVisibleArea);
     encoder.encodeStruct(codec.Float, val.ratioDistanceTopToVisibleTop);
-    encoder.encodeStruct(codec.Float, val.ratioDistanceCenterToVisibleTop);
     encoder.encodeStruct(codec.Float, val.ratioDistanceRootTop);
-    encoder.encodeStruct(codec.Float, val.ratioDistanceRootBottom);
     packed = 0;
     packed |= (val.isInIframe & 1) << 0
     packed |= (val.containsImage & 1) << 1
@@ -224,7 +204,10 @@
     encoder.skip(1);
     encoder.encodeStruct(codec.Uint32, val.fontSizePx);
     encoder.encodeStruct(codec.Uint32, val.fontWeight);
-    encoder.encodeStructPointer(url$.Url, val.sourceUrl);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStructPointer(url$.Url, val.targetUrl);
     encoder.encodeStructPointer(geometry$.Size, val.viewportSize);
   };

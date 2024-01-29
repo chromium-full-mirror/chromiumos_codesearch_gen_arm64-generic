@@ -1719,8 +1719,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isWebgpuCompatible', 1,
+        'needsDetiling', 1,
         3,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'isWebgpuCompatible', 1,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1736,14 +1744,6 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'powerEfficient', 1,
-        4,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'textureOriginIsTopLeft', 1,
         5,
         mojo.internal.Bool,
         false,
@@ -1751,8 +1751,16 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasDeviceScaleFactor', 1,
+        'textureOriginIsTopLeft', 1,
         6,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'hasDeviceScaleFactor', 1,
+        7,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1767,8 +1775,8 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasPageScaleFactor', 1,
-        7,
+        'hasPageScaleFactor', 2,
+        0,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1784,7 +1792,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasRootScrollOffsetX', 2,
-        0,
+        1,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1800,7 +1808,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasRootScrollOffsetY', 2,
-        1,
+        2,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1816,7 +1824,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasTopControlsVisibleHeight', 2,
-        2,
+        3,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1856,7 +1864,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'hasRtpTimestamp', 2,
-        3,
+        4,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1888,7 +1896,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'frame_sequence_$flag', 2,
-        4,
+        5,
         mojo.internal.Bool,
         false,
         false, /* nullable */
@@ -1965,6 +1973,8 @@ media.mojom.VideoFrameMetadata = class {
     this.protectedVideo;
     /** @export { !boolean } */
     this.hwProtected;
+    /** @export { !boolean } */
+    this.needsDetiling;
     /** @export { !boolean } */
     this.isWebgpuCompatible;
     /** @export { (mojoBase.mojom.UnguessableToken|undefined) } */

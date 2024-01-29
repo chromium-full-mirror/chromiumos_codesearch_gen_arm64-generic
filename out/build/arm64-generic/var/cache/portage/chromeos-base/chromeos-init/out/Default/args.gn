@@ -12,8 +12,8 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-init"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-init-0.0.26-r5146/work/chromeos-init-0.0.26"
-libbase_ver = "1241304"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-init-0.0.26-r5167/work/chromeos-init-0.0.26"
+libbase_ver = "1252475"
 enable_exceptions = false
 external_cflags = [
   "-Os",
@@ -186,7 +186,7 @@ use = {
   proto_force_optimize_speed = false
   qualcomm_camx = false
   qrtr = false
-  report_requisition = false
+  reven_oobe_config = false
   reven_partition_migration = false
   secagentd_min_core_btf = false
   selinux = false

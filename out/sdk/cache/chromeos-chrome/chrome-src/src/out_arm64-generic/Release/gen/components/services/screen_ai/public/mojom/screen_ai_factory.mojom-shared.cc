@@ -58,10 +58,6 @@ bool ScreenAIServiceFactory_InitializeOCR_Params_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->ocr_service_receiver, 3, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateHandleOrInterface(object->ocr_service_receiver,
                                                  validation_context)) {
     return false;
@@ -131,10 +127,6 @@ bool ScreenAIServiceFactory_InitializeMainContentExtraction_Params_Data::Validat
     return false;
   }
 
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->main_content_extractor_service, 3, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateHandleOrInterface(object->main_content_extractor_service,
                                                  validation_context)) {
     return false;

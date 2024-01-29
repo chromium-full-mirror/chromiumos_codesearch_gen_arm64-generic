@@ -298,6 +298,8 @@ bool RollbackNetworkConfig_RollbackConfigImport_ForwardToCallback::Accept(
           internal::RollbackNetworkConfig_RollbackConfigImport_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RollbackNetworkConfig.0
   bool success = true;
   bool p_success{};
   RollbackNetworkConfig_RollbackConfigImport_ResponseParamsDataView input_data_view(params, message);
@@ -417,6 +419,8 @@ bool RollbackNetworkConfig_RollbackConfigExport_ForwardToCallback::Accept(
           internal::RollbackNetworkConfig_RollbackConfigExport_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RollbackNetworkConfig.1
   bool success = true;
   std::string p_config{};
   RollbackNetworkConfig_RollbackConfigExport_ResponseParamsDataView input_data_view(params, message);
@@ -520,6 +524,8 @@ bool RollbackNetworkConfigStubDispatch::AcceptWithResponder(
               internal::RollbackNetworkConfig_RollbackConfigImport_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RollbackNetworkConfig.0
       bool success = true;
       std::string p_config{};
       RollbackNetworkConfig_RollbackConfigImport_ParamsDataView input_data_view(params, message);
@@ -538,8 +544,8 @@ bool RollbackNetworkConfigStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RollbackConfigImport(
-std::move(p_config), std::move(callback));
+      impl->RollbackConfigImport(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kRollbackNetworkConfig_RollbackConfigExport_Name: {
@@ -549,6 +555,8 @@ std::move(p_config), std::move(callback));
               internal::RollbackNetworkConfig_RollbackConfigExport_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RollbackNetworkConfig.1
       bool success = true;
       RollbackNetworkConfig_RollbackConfigExport_ParamsDataView input_data_view(params, message);
       

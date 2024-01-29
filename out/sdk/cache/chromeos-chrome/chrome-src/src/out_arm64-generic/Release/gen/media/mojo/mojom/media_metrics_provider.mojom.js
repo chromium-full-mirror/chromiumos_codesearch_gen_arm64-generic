@@ -195,6 +195,62 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function MediaMetricsProvider_OnStarted_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MediaMetricsProvider_OnStarted_Params.prototype.initDefaults_ = function() {
+    this.status = null;
+  };
+  MediaMetricsProvider_OnStarted_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MediaMetricsProvider_OnStarted_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MediaMetricsProvider_OnStarted_Params.status
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, media_types$.PipelineStatus, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MediaMetricsProvider_OnStarted_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  MediaMetricsProvider_OnStarted_Params.decode = function(decoder) {
+    var packed;
+    var val = new MediaMetricsProvider_OnStarted_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.status =
+        decoder.decodeStructPointer(media_types$.PipelineStatus);
+    return val;
+  };
+
+  MediaMetricsProvider_OnStarted_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MediaMetricsProvider_OnStarted_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(media_types$.PipelineStatus, val.status);
+  };
   function MediaMetricsProvider_OnError_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1406,27 +1462,28 @@
     encoder.encodeStructPointer(media_types$.AudioPipelineInfo, val.info);
   };
   var kMediaMetricsProvider_Initialize_Name = 0;
-  var kMediaMetricsProvider_OnError_Name = 1;
-  var kMediaMetricsProvider_OnFallback_Name = 2;
-  var kMediaMetricsProvider_SetHasPlayed_Name = 3;
-  var kMediaMetricsProvider_SetHaveEnough_Name = 4;
-  var kMediaMetricsProvider_SetIsEME_Name = 5;
-  var kMediaMetricsProvider_SetTimeToMetadata_Name = 6;
-  var kMediaMetricsProvider_SetTimeToFirstFrame_Name = 7;
-  var kMediaMetricsProvider_SetTimeToPlayReady_Name = 8;
-  var kMediaMetricsProvider_SetRendererType_Name = 9;
-  var kMediaMetricsProvider_SetKeySystem_Name = 10;
-  var kMediaMetricsProvider_SetHasWaitingForKey_Name = 11;
-  var kMediaMetricsProvider_SetIsHardwareSecure_Name = 12;
-  var kMediaMetricsProvider_SetContainerName_Name = 13;
-  var kMediaMetricsProvider_AcquireWatchTimeRecorder_Name = 14;
-  var kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name = 15;
-  var kMediaMetricsProvider_AcquireLearningTaskController_Name = 16;
-  var kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name = 17;
-  var kMediaMetricsProvider_SetHasAudio_Name = 18;
-  var kMediaMetricsProvider_SetHasVideo_Name = 19;
-  var kMediaMetricsProvider_SetVideoPipelineInfo_Name = 20;
-  var kMediaMetricsProvider_SetAudioPipelineInfo_Name = 21;
+  var kMediaMetricsProvider_OnStarted_Name = 1;
+  var kMediaMetricsProvider_OnError_Name = 2;
+  var kMediaMetricsProvider_OnFallback_Name = 3;
+  var kMediaMetricsProvider_SetHasPlayed_Name = 4;
+  var kMediaMetricsProvider_SetHaveEnough_Name = 5;
+  var kMediaMetricsProvider_SetIsEME_Name = 6;
+  var kMediaMetricsProvider_SetTimeToMetadata_Name = 7;
+  var kMediaMetricsProvider_SetTimeToFirstFrame_Name = 8;
+  var kMediaMetricsProvider_SetTimeToPlayReady_Name = 9;
+  var kMediaMetricsProvider_SetRendererType_Name = 10;
+  var kMediaMetricsProvider_SetKeySystem_Name = 11;
+  var kMediaMetricsProvider_SetHasWaitingForKey_Name = 12;
+  var kMediaMetricsProvider_SetIsHardwareSecure_Name = 13;
+  var kMediaMetricsProvider_SetContainerName_Name = 14;
+  var kMediaMetricsProvider_AcquireWatchTimeRecorder_Name = 15;
+  var kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name = 16;
+  var kMediaMetricsProvider_AcquireLearningTaskController_Name = 17;
+  var kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name = 18;
+  var kMediaMetricsProvider_SetHasAudio_Name = 19;
+  var kMediaMetricsProvider_SetHasVideo_Name = 20;
+  var kMediaMetricsProvider_SetVideoPipelineInfo_Name = 21;
+  var kMediaMetricsProvider_SetAudioPipelineInfo_Name = 22;
 
   function MediaMetricsProviderPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(MediaMetricsProvider,
@@ -1460,6 +1517,21 @@
         kMediaMetricsProvider_Initialize_Name,
         codec.align(MediaMetricsProvider_Initialize_Params.encodedSize));
     builder.encodeStruct(MediaMetricsProvider_Initialize_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+  MediaMetricsProviderPtr.prototype.onStarted = function() {
+    return MediaMetricsProviderProxy.prototype.onStarted
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MediaMetricsProviderProxy.prototype.onStarted = function(status) {
+    var params_ = new MediaMetricsProvider_OnStarted_Params();
+    params_.status = status;
+    var builder = new codec.MessageV0Builder(
+        kMediaMetricsProvider_OnStarted_Name,
+        codec.align(MediaMetricsProvider_OnStarted_Params.encodedSize));
+    builder.encodeStruct(MediaMetricsProvider_OnStarted_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -1782,6 +1854,9 @@
   MediaMetricsProviderStub.prototype.initialize = function(isMse, urlScheme, streamType) {
     return this.delegate_ && this.delegate_.initialize && this.delegate_.initialize(isMse, urlScheme, streamType);
   }
+  MediaMetricsProviderStub.prototype.onStarted = function(status) {
+    return this.delegate_ && this.delegate_.onStarted && this.delegate_.onStarted(status);
+  }
   MediaMetricsProviderStub.prototype.onError = function(status) {
     return this.delegate_ && this.delegate_.onError && this.delegate_.onError(status);
   }
@@ -1852,6 +1927,10 @@
     case kMediaMetricsProvider_Initialize_Name:
       var params = reader.decodeStruct(MediaMetricsProvider_Initialize_Params);
       this.initialize(params.isMse, params.urlScheme, params.streamType);
+      return true;
+    case kMediaMetricsProvider_OnStarted_Name:
+      var params = reader.decodeStruct(MediaMetricsProvider_OnStarted_Params);
+      this.onStarted(params.status);
       return true;
     case kMediaMetricsProvider_OnError_Name:
       var params = reader.decodeStruct(MediaMetricsProvider_OnError_Params);
@@ -1958,6 +2037,10 @@
       case kMediaMetricsProvider_Initialize_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = MediaMetricsProvider_Initialize_Params;
+      break;
+      case kMediaMetricsProvider_OnStarted_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = MediaMetricsProvider_OnStarted_Params;
       break;
       case kMediaMetricsProvider_OnError_Name:
         if (!message.expectsResponse() && !message.isResponse())

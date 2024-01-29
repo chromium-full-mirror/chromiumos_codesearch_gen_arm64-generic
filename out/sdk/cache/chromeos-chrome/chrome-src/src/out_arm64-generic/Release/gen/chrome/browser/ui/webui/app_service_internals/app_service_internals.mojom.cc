@@ -550,6 +550,8 @@ bool AppServiceInternalsPageHandler_GetDebugInfo_ForwardToCallback::Accept(
           internal::AppServiceInternalsPageHandler_GetDebugInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AppServiceInternalsPageHandler.0
   bool success = true;
   DebugInfoPtr p_debug_info{};
   AppServiceInternalsPageHandler_GetDebugInfo_ResponseParamsDataView input_data_view(params, message);
@@ -646,6 +648,8 @@ bool AppServiceInternalsPageHandlerStubDispatch::AcceptWithResponder(
               internal::AppServiceInternalsPageHandler_GetDebugInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AppServiceInternalsPageHandler.0
       bool success = true;
       AppServiceInternalsPageHandler_GetDebugInfo_ParamsDataView input_data_view(params, message);
       

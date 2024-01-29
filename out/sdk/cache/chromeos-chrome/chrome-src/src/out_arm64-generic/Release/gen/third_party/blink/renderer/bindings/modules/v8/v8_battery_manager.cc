@@ -86,7 +86,8 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.charging.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("BatteryManager.charging.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_Charging_AttributeGetter);
 
@@ -109,7 +110,8 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.chargingTime.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("BatteryManager.chargingTime.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_ChargingTime_AttributeGetter);
 
@@ -130,7 +132,8 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.dischargingTime.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("BatteryManager.dischargingTime.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_DischargingTime_AttributeGetter);
 
@@ -151,7 +154,8 @@ BLINK_BINDINGS_TRACE_EVENT("BatteryManager.level.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("BatteryManager.level.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8BatteryManager_Level_AttributeGetter);
 

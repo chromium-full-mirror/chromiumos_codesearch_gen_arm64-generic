@@ -1546,6 +1546,8 @@ bool Renderer_PurgeResourceCache_ForwardToCallback::Accept(
           internal::Renderer_PurgeResourceCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Renderer.9
   bool success = true;
   Renderer_PurgeResourceCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -1608,6 +1610,8 @@ bool RendererStubDispatch::Accept(
           reinterpret_cast<internal::Renderer_CreateAgentSchedulingGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.0
       bool success = true;
       ::mojo::PendingReceiver<::IPC::mojom::ChannelBootstrap> p_bootstrap{};
       ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker> p_broker_remote{};
@@ -1630,9 +1634,9 @@ bool RendererStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAgentSchedulingGroup(
-std::move(p_bootstrap), 
-std::move(p_broker_remote));
+      impl->CreateAgentSchedulingGroup(        
+        std::move(p_bootstrap), 
+        std::move(p_broker_remote));
       return true;
     }
     case internal::kRenderer_CreateAssociatedAgentSchedulingGroup_Name: {
@@ -1642,6 +1646,8 @@ std::move(p_broker_remote));
           reinterpret_cast<internal::Renderer_CreateAssociatedAgentSchedulingGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.1
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::content::mojom::AgentSchedulingGroup> p_agent_scheduling_group{};
       ::mojo::PendingRemote<::blink::mojom::BrowserInterfaceBroker> p_broker_remote{};
@@ -1664,9 +1670,9 @@ std::move(p_broker_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAssociatedAgentSchedulingGroup(
-std::move(p_agent_scheduling_group), 
-std::move(p_broker_remote));
+      impl->CreateAssociatedAgentSchedulingGroup(        
+        std::move(p_agent_scheduling_group), 
+        std::move(p_broker_remote));
       return true;
     }
     case internal::kRenderer_OnNetworkConnectionChanged_Name: {
@@ -1676,6 +1682,8 @@ std::move(p_broker_remote));
           reinterpret_cast<internal::Renderer_OnNetworkConnectionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.2
       bool success = true;
       ::net::NetworkChangeNotifier::ConnectionType p_connection_type{};
       double p_max_bandwidth_mbps{};
@@ -1694,9 +1702,9 @@ std::move(p_broker_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkConnectionChanged(
-std::move(p_connection_type), 
-std::move(p_max_bandwidth_mbps));
+      impl->OnNetworkConnectionChanged(        
+        std::move(p_connection_type), 
+        std::move(p_max_bandwidth_mbps));
       return true;
     }
     case internal::kRenderer_OnNetworkQualityChanged_Name: {
@@ -1706,6 +1714,8 @@ std::move(p_max_bandwidth_mbps));
           reinterpret_cast<internal::Renderer_OnNetworkQualityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.3
       bool success = true;
       ::net::EffectiveConnectionType p_effective_connection_type{};
       ::base::TimeDelta p_http_rtt{};
@@ -1730,11 +1740,11 @@ std::move(p_max_bandwidth_mbps));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkQualityChanged(
-std::move(p_effective_connection_type), 
-std::move(p_http_rtt), 
-std::move(p_transport_rtt), 
-std::move(p_bandwidth_kbps));
+      impl->OnNetworkQualityChanged(        
+        std::move(p_effective_connection_type), 
+        std::move(p_http_rtt), 
+        std::move(p_transport_rtt), 
+        std::move(p_bandwidth_kbps));
       return true;
     }
     case internal::kRenderer_SetWebKitSharedTimersSuspended_Name: {
@@ -1744,6 +1754,8 @@ std::move(p_bandwidth_kbps));
           reinterpret_cast<internal::Renderer_SetWebKitSharedTimersSuspended_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.4
       bool success = true;
       bool p_suspend{};
       Renderer_SetWebKitSharedTimersSuspended_ParamsDataView input_data_view(params, message);
@@ -1759,8 +1771,8 @@ std::move(p_bandwidth_kbps));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWebKitSharedTimersSuspended(
-std::move(p_suspend));
+      impl->SetWebKitSharedTimersSuspended(        
+        std::move(p_suspend));
       return true;
     }
     case internal::kRenderer_UpdateScrollbarTheme_Name: {
@@ -1770,6 +1782,8 @@ std::move(p_suspend));
           reinterpret_cast<internal::Renderer_UpdateScrollbarTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.5
       bool success = true;
       UpdateScrollbarThemeParamsPtr p_params{};
       Renderer_UpdateScrollbarTheme_ParamsDataView input_data_view(params, message);
@@ -1785,8 +1799,8 @@ std::move(p_suspend));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateScrollbarTheme(
-std::move(p_params));
+      impl->UpdateScrollbarTheme(        
+        std::move(p_params));
       return true;
     }
     case internal::kRenderer_OnSystemColorsChanged_Name: {
@@ -1796,6 +1810,8 @@ std::move(p_params));
           reinterpret_cast<internal::Renderer_OnSystemColorsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.6
       bool success = true;
       int32_t p_aqua_color_variant{};
       Renderer_OnSystemColorsChanged_ParamsDataView input_data_view(params, message);
@@ -1811,8 +1827,8 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSystemColorsChanged(
-std::move(p_aqua_color_variant));
+      impl->OnSystemColorsChanged(        
+        std::move(p_aqua_color_variant));
       return true;
     }
     case internal::kRenderer_UpdateSystemColorInfo_Name: {
@@ -1822,6 +1838,8 @@ std::move(p_aqua_color_variant));
           reinterpret_cast<internal::Renderer_UpdateSystemColorInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.7
       bool success = true;
       UpdateSystemColorInfoParamsPtr p_params{};
       Renderer_UpdateSystemColorInfo_ParamsDataView input_data_view(params, message);
@@ -1837,8 +1855,8 @@ std::move(p_aqua_color_variant));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateSystemColorInfo(
-std::move(p_params));
+      impl->UpdateSystemColorInfo(        
+        std::move(p_params));
       return true;
     }
     case internal::kRenderer_PurgePluginListCache_Name: {
@@ -1848,6 +1866,8 @@ std::move(p_params));
           reinterpret_cast<internal::Renderer_PurgePluginListCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.8
       bool success = true;
       bool p_reload_pages{};
       Renderer_PurgePluginListCache_ParamsDataView input_data_view(params, message);
@@ -1863,8 +1883,8 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PurgePluginListCache(
-std::move(p_reload_pages));
+      impl->PurgePluginListCache(        
+        std::move(p_reload_pages));
       return true;
     }
     case internal::kRenderer_PurgeResourceCache_Name: {
@@ -1877,6 +1897,8 @@ std::move(p_reload_pages));
           reinterpret_cast<internal::Renderer_SetProcessState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.10
       bool success = true;
       RenderProcessBackgroundState p_background_state{};
       RenderProcessVisibleState p_visible_state{};
@@ -1895,9 +1917,9 @@ std::move(p_reload_pages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProcessState(
-std::move(p_background_state), 
-std::move(p_visible_state));
+      impl->SetProcessState(        
+        std::move(p_background_state), 
+        std::move(p_visible_state));
       return true;
     }
     case internal::kRenderer_SetBatterySaverMode_Name: {
@@ -1907,6 +1929,8 @@ std::move(p_visible_state));
           reinterpret_cast<internal::Renderer_SetBatterySaverMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.11
       bool success = true;
       bool p_battery_saver_mode_enabled{};
       Renderer_SetBatterySaverMode_ParamsDataView input_data_view(params, message);
@@ -1922,8 +1946,8 @@ std::move(p_visible_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBatterySaverMode(
-std::move(p_battery_saver_mode_enabled));
+      impl->SetBatterySaverMode(        
+        std::move(p_battery_saver_mode_enabled));
       return true;
     }
     case internal::kRenderer_SetIsLockedToSite_Name: {
@@ -1933,6 +1957,8 @@ std::move(p_battery_saver_mode_enabled));
           reinterpret_cast<internal::Renderer_SetIsLockedToSite_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.12
       bool success = true;
       Renderer_SetIsLockedToSite_ParamsDataView input_data_view(params, message);
       
@@ -1945,7 +1971,7 @@ std::move(p_battery_saver_mode_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsLockedToSite();
+      impl->SetIsLockedToSite(        );
       return true;
     }
     case internal::kRenderer_SetIsCrossOriginIsolated_Name: {
@@ -1955,6 +1981,8 @@ std::move(p_battery_saver_mode_enabled));
           reinterpret_cast<internal::Renderer_SetIsCrossOriginIsolated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.13
       bool success = true;
       bool p_value{};
       Renderer_SetIsCrossOriginIsolated_ParamsDataView input_data_view(params, message);
@@ -1970,8 +1998,8 @@ std::move(p_battery_saver_mode_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsCrossOriginIsolated(
-std::move(p_value));
+      impl->SetIsCrossOriginIsolated(        
+        std::move(p_value));
       return true;
     }
     case internal::kRenderer_SetIsWebSecurityDisabled_Name: {
@@ -1981,6 +2009,8 @@ std::move(p_value));
           reinterpret_cast<internal::Renderer_SetIsWebSecurityDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.14
       bool success = true;
       bool p_value{};
       Renderer_SetIsWebSecurityDisabled_ParamsDataView input_data_view(params, message);
@@ -1996,8 +2026,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsWebSecurityDisabled(
-std::move(p_value));
+      impl->SetIsWebSecurityDisabled(        
+        std::move(p_value));
       return true;
     }
     case internal::kRenderer_SetIsIsolatedContext_Name: {
@@ -2007,6 +2037,8 @@ std::move(p_value));
           reinterpret_cast<internal::Renderer_SetIsIsolatedContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.15
       bool success = true;
       bool p_value{};
       Renderer_SetIsIsolatedContext_ParamsDataView input_data_view(params, message);
@@ -2022,8 +2054,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsIsolatedContext(
-std::move(p_value));
+      impl->SetIsIsolatedContext(        
+        std::move(p_value));
       return true;
     }
     case internal::kRenderer_InitializeRenderer_Name: {
@@ -2033,6 +2065,8 @@ std::move(p_value));
           reinterpret_cast<internal::Renderer_InitializeRenderer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Renderer.16
       bool success = true;
       std::string p_user_agent{};
       ::blink::UserAgentMetadata p_metadata{};
@@ -2057,11 +2091,11 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeRenderer(
-std::move(p_user_agent), 
-std::move(p_metadata), 
-std::move(p_cors_exempt_header_list), 
-std::move(p_origin_trials_settings));
+      impl->InitializeRenderer(        
+        std::move(p_user_agent), 
+        std::move(p_metadata), 
+        std::move(p_cors_exempt_header_list), 
+        std::move(p_origin_trials_settings));
       return true;
     }
   }
@@ -2111,6 +2145,8 @@ bool RendererStubDispatch::AcceptWithResponder(
               internal::Renderer_PurgeResourceCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Renderer.9
       bool success = true;
       Renderer_PurgeResourceCache_ParamsDataView input_data_view(params, message);
       

@@ -103,9 +103,6 @@ AutofillAgent::IPCStableHashFunction AutofillAgent::MessageToMethodInfo_(mojo::M
     case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name: {
       return &AutofillAgent::EnableHeavyFormDataScraping_Sym::IPCStableHash;
     }
-    case internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name: {
-      return &AutofillAgent::SetFieldsEligibleForManualFilling_Sym::IPCStableHash;
-    }
     case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name: {
       return &AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvc_Sym::IPCStableHash;
     }
@@ -156,8 +153,6 @@ const char* AutofillAgent::MessageToMethodName_(mojo::Message& message) {
             return "Receive autofill::mojom::AutofillAgent::SetQueryPasswordSuggestion";
       case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name:
             return "Receive autofill::mojom::AutofillAgent::EnableHeavyFormDataScraping";
-      case internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name:
-            return "Receive autofill::mojom::AutofillAgent::SetFieldsEligibleForManualFilling";
       case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name:
             return "Receive autofill::mojom::AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvc";
     }
@@ -199,8 +194,6 @@ const char* AutofillAgent::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply autofill::mojom::AutofillAgent::SetQueryPasswordSuggestion";
       case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name:
             return "Receive reply autofill::mojom::AutofillAgent::EnableHeavyFormDataScraping";
-      case internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name:
-            return "Receive reply autofill::mojom::AutofillAgent::SetFieldsEligibleForManualFilling";
       case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name:
             return "Receive reply autofill::mojom::AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvc";
     }
@@ -451,19 +444,6 @@ uint32_t AutofillAgent::EnableHeavyFormDataScraping_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t AutofillAgent::SetFieldsEligibleForManualFilling_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)autofill::mojom::AutofillAgent::SetFieldsEligibleForManualFilling");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvc_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -599,7 +579,7 @@ void AutofillAgentProxy::TriggerFormExtractionWithResponse(
 }
 
 void AutofillAgentProxy::ApplyFormAction(
-    ::autofill::mojom::ActionType in_action_type, ::autofill::mojom::ActionPersistence in_action_persistence, ::autofill::FormRendererId in_form_renderer_id, const std::vector<::autofill::FormFieldData>& in_fields) {
+    ::autofill::mojom::ActionType in_action_type, ::autofill::mojom::ActionPersistence in_action_persistence, const ::autofill::FormData::FillData& in_form) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send autofill::mojom::AutofillAgent::ApplyFormAction", "input_parameters",
@@ -612,11 +592,8 @@ void AutofillAgentProxy::ApplyFormAction(
            dict.AddItem("action_persistence"), in_action_persistence,
                         "<value of type ::autofill::mojom::ActionPersistence>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("form_renderer_id"), in_form_renderer_id,
-                        "<value of type ::autofill::FormRendererId>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("fields"), in_fields,
-                        "<value of type const std::vector<::autofill::FormFieldData>&>");
+           dict.AddItem("form"), in_form,
+                        "<value of type const ::autofill::FormData::FillData&>");
    });
 #endif
 
@@ -642,29 +619,16 @@ void AutofillAgentProxy::ApplyFormAction(
   mojo::internal::Serialize<::autofill::mojom::ActionPersistence>(
       in_action_persistence, &params->action_persistence);
   mojo::internal::MessageFragment<
-      typename decltype(params->form_renderer_id)::BaseType> form_renderer_id_fragment(
+      typename decltype(params->form)::BaseType> form_fragment(
           params.message());
-  mojo::internal::Serialize<::autofill::mojom::FormRendererIdDataView>(
-      in_form_renderer_id, form_renderer_id_fragment);
-  params->form_renderer_id.Set(
-      form_renderer_id_fragment.is_null() ? nullptr : form_renderer_id_fragment.data());
+  mojo::internal::Serialize<::autofill::mojom::FormData_FillDataDataView>(
+      in_form, form_fragment);
+  params->form.Set(
+      form_fragment.is_null() ? nullptr : form_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->form_renderer_id.is_null(),
+      params->form.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null form_renderer_id in AutofillAgent.ApplyFormAction request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->fields)::BaseType>
-      fields_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>>(
-      in_fields, fields_fragment, &fields_validate_params);
-  params->fields.Set(
-      fields_fragment.is_null() ? nullptr : fields_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->fields.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null fields in AutofillAgent.ApplyFormAction request");
+      "null form in AutofillAgent.ApplyFormAction request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AutofillAgent::Name_);
@@ -1411,59 +1375,6 @@ void AutofillAgentProxy::EnableHeavyFormDataScraping(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void AutofillAgentProxy::SetFieldsEligibleForManualFilling(
-    const std::vector<::autofill::FieldRendererId>& in_fields) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send autofill::mojom::AutofillAgent::SetFieldsEligibleForManualFilling", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("fields"), in_fields,
-                        "<value of type const std::vector<::autofill::FieldRendererId>&>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::autofill::mojom::internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->fields)::BaseType>
-      fields_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<::autofill::mojom::FieldRendererIdDataView>>(
-      in_fields, fields_fragment, &fields_validate_params);
-  params->fields.Set(
-      fields_fragment.is_null() ? nullptr : fields_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->fields.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null fields in AutofillAgent.SetFieldsEligibleForManualFilling request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(AutofillAgent::Name_);
-  message.set_method_name("SetFieldsEligibleForManualFilling");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void AutofillAgentProxy::GetPotentialLastFourCombinationsForStandaloneCvc(
     GetPotentialLastFourCombinationsForStandaloneCvcCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1555,6 +1466,8 @@ bool AutofillAgent_TriggerFormExtractionWithResponse_ForwardToCallback::Accept(
           internal::AutofillAgent_TriggerFormExtractionWithResponse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AutofillAgent.1
   bool success = true;
   bool p_success{};
   AutofillAgent_TriggerFormExtractionWithResponse_ResponseParamsDataView input_data_view(params, message);
@@ -1674,6 +1587,8 @@ bool AutofillAgent_ExtractForm_ForwardToCallback::Accept(
           internal::AutofillAgent_ExtractForm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AutofillAgent.4
   bool success = true;
   std::optional<::autofill::FormData> p_form{};
   AutofillAgent_ExtractForm_ResponseParamsDataView input_data_view(params, message);
@@ -1799,6 +1714,8 @@ bool AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ForwardToCal
           internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AutofillAgent.18
   bool success = true;
   std::vector<std::string> p_potential_matches{};
   AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ResponseParamsDataView input_data_view(params, message);
@@ -1809,7 +1726,7 @@ bool AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ForwardToCal
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        AutofillAgent::Name_, 19, true);
+        AutofillAgent::Name_, 18, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1885,6 +1802,8 @@ bool AutofillAgentStubDispatch::Accept(
           reinterpret_cast<internal::AutofillAgent_TriggerFormExtraction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.0
       bool success = true;
       AutofillAgent_TriggerFormExtraction_ParamsDataView input_data_view(params, message);
       
@@ -1897,7 +1816,7 @@ bool AutofillAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerFormExtraction();
+      impl->TriggerFormExtraction(        );
       return true;
     }
     case internal::kAutofillAgent_TriggerFormExtractionWithResponse_Name: {
@@ -1910,20 +1829,19 @@ bool AutofillAgentStubDispatch::Accept(
           reinterpret_cast<internal::AutofillAgent_ApplyFormAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.2
       bool success = true;
       ::autofill::mojom::ActionType p_action_type{};
       ::autofill::mojom::ActionPersistence p_action_persistence{};
-      ::autofill::FormRendererId p_form_renderer_id{};
-      std::vector<::autofill::FormFieldData> p_fields{};
+      ::autofill::FormData::FillData p_form{};
       AutofillAgent_ApplyFormAction_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadActionType(&p_action_type))
         success = false;
       if (success && !input_data_view.ReadActionPersistence(&p_action_persistence))
         success = false;
-      if (success && !input_data_view.ReadFormRendererId(&p_form_renderer_id))
-        success = false;
-      if (success && !input_data_view.ReadFields(&p_fields))
+      if (success && !input_data_view.ReadForm(&p_form))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1934,11 +1852,10 @@ bool AutofillAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyFormAction(
-std::move(p_action_type), 
-std::move(p_action_persistence), 
-std::move(p_form_renderer_id), 
-std::move(p_fields));
+      impl->ApplyFormAction(        
+        std::move(p_action_type), 
+        std::move(p_action_persistence), 
+        std::move(p_form));
       return true;
     }
     case internal::kAutofillAgent_ApplyFieldAction_Name: {
@@ -1948,6 +1865,8 @@ std::move(p_fields));
           reinterpret_cast<internal::AutofillAgent_ApplyFieldAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.3
       bool success = true;
       ::autofill::mojom::ActionPersistence p_action_persistence{};
       ::autofill::mojom::TextReplacement p_text_replacement{};
@@ -1972,11 +1891,11 @@ std::move(p_fields));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ApplyFieldAction(
-std::move(p_action_persistence), 
-std::move(p_text_replacement), 
-std::move(p_field), 
-std::move(p_value));
+      impl->ApplyFieldAction(        
+        std::move(p_action_persistence), 
+        std::move(p_text_replacement), 
+        std::move(p_field), 
+        std::move(p_value));
       return true;
     }
     case internal::kAutofillAgent_ExtractForm_Name: {
@@ -1989,6 +1908,8 @@ std::move(p_value));
           reinterpret_cast<internal::AutofillAgent_FieldTypePredictionsAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.5
       bool success = true;
       std::vector<::autofill::FormDataPredictions> p_forms{};
       AutofillAgent_FieldTypePredictionsAvailable_ParamsDataView input_data_view(params, message);
@@ -2004,8 +1925,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FieldTypePredictionsAvailable(
-std::move(p_forms));
+      impl->FieldTypePredictionsAvailable(        
+        std::move(p_forms));
       return true;
     }
     case internal::kAutofillAgent_ClearSection_Name: {
@@ -2015,6 +1936,8 @@ std::move(p_forms));
           reinterpret_cast<internal::AutofillAgent_ClearSection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.6
       bool success = true;
       AutofillAgent_ClearSection_ParamsDataView input_data_view(params, message);
       
@@ -2027,7 +1950,7 @@ std::move(p_forms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearSection();
+      impl->ClearSection(        );
       return true;
     }
     case internal::kAutofillAgent_ClearPreviewedForm_Name: {
@@ -2037,6 +1960,8 @@ std::move(p_forms));
           reinterpret_cast<internal::AutofillAgent_ClearPreviewedForm_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.7
       bool success = true;
       AutofillAgent_ClearPreviewedForm_ParamsDataView input_data_view(params, message);
       
@@ -2049,7 +1974,7 @@ std::move(p_forms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearPreviewedForm();
+      impl->ClearPreviewedForm(        );
       return true;
     }
     case internal::kAutofillAgent_TriggerSuggestions_Name: {
@@ -2059,6 +1984,8 @@ std::move(p_forms));
           reinterpret_cast<internal::AutofillAgent_TriggerSuggestions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.8
       bool success = true;
       ::autofill::FieldRendererId p_field{};
       ::autofill::mojom::AutofillSuggestionTriggerSource p_trigger_source{};
@@ -2077,9 +2004,9 @@ std::move(p_forms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TriggerSuggestions(
-std::move(p_field), 
-std::move(p_trigger_source));
+      impl->TriggerSuggestions(        
+        std::move(p_field), 
+        std::move(p_trigger_source));
       return true;
     }
     case internal::kAutofillAgent_SetSuggestionAvailability_Name: {
@@ -2089,6 +2016,8 @@ std::move(p_trigger_source));
           reinterpret_cast<internal::AutofillAgent_SetSuggestionAvailability_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.9
       bool success = true;
       ::autofill::FieldRendererId p_field{};
       ::autofill::mojom::AutofillSuggestionAvailability p_suggestion_availability{};
@@ -2107,9 +2036,9 @@ std::move(p_trigger_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSuggestionAvailability(
-std::move(p_field), 
-std::move(p_suggestion_availability));
+      impl->SetSuggestionAvailability(        
+        std::move(p_field), 
+        std::move(p_suggestion_availability));
       return true;
     }
     case internal::kAutofillAgent_AcceptDataListSuggestion_Name: {
@@ -2119,6 +2048,8 @@ std::move(p_suggestion_availability));
           reinterpret_cast<internal::AutofillAgent_AcceptDataListSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.10
       bool success = true;
       ::autofill::FieldRendererId p_field{};
       ::std::u16string p_value{};
@@ -2137,9 +2068,9 @@ std::move(p_suggestion_availability));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcceptDataListSuggestion(
-std::move(p_field), 
-std::move(p_value));
+      impl->AcceptDataListSuggestion(        
+        std::move(p_field), 
+        std::move(p_value));
       return true;
     }
     case internal::kAutofillAgent_PreviewPasswordSuggestion_Name: {
@@ -2149,6 +2080,8 @@ std::move(p_value));
           reinterpret_cast<internal::AutofillAgent_PreviewPasswordSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.11
       bool success = true;
       ::std::u16string p_username{};
       ::std::u16string p_password{};
@@ -2167,9 +2100,9 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviewPasswordSuggestion(
-std::move(p_username), 
-std::move(p_password));
+      impl->PreviewPasswordSuggestion(        
+        std::move(p_username), 
+        std::move(p_password));
       return true;
     }
     case internal::kAutofillAgent_PreviewPasswordGenerationSuggestion_Name: {
@@ -2179,6 +2112,8 @@ std::move(p_password));
           reinterpret_cast<internal::AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.12
       bool success = true;
       ::std::u16string p_password{};
       AutofillAgent_PreviewPasswordGenerationSuggestion_ParamsDataView input_data_view(params, message);
@@ -2194,8 +2129,8 @@ std::move(p_password));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviewPasswordGenerationSuggestion(
-std::move(p_password));
+      impl->PreviewPasswordGenerationSuggestion(        
+        std::move(p_password));
       return true;
     }
     case internal::kAutofillAgent_SetUserGestureRequired_Name: {
@@ -2205,6 +2140,8 @@ std::move(p_password));
           reinterpret_cast<internal::AutofillAgent_SetUserGestureRequired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.13
       bool success = true;
       bool p_required{};
       AutofillAgent_SetUserGestureRequired_ParamsDataView input_data_view(params, message);
@@ -2220,8 +2157,8 @@ std::move(p_password));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUserGestureRequired(
-std::move(p_required));
+      impl->SetUserGestureRequired(        
+        std::move(p_required));
       return true;
     }
     case internal::kAutofillAgent_SetSecureContextRequired_Name: {
@@ -2231,6 +2168,8 @@ std::move(p_required));
           reinterpret_cast<internal::AutofillAgent_SetSecureContextRequired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.14
       bool success = true;
       bool p_required{};
       AutofillAgent_SetSecureContextRequired_ParamsDataView input_data_view(params, message);
@@ -2246,8 +2185,8 @@ std::move(p_required));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSecureContextRequired(
-std::move(p_required));
+      impl->SetSecureContextRequired(        
+        std::move(p_required));
       return true;
     }
     case internal::kAutofillAgent_SetFocusRequiresScroll_Name: {
@@ -2257,6 +2196,8 @@ std::move(p_required));
           reinterpret_cast<internal::AutofillAgent_SetFocusRequiresScroll_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.15
       bool success = true;
       bool p_require{};
       AutofillAgent_SetFocusRequiresScroll_ParamsDataView input_data_view(params, message);
@@ -2272,8 +2213,8 @@ std::move(p_required));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFocusRequiresScroll(
-std::move(p_require));
+      impl->SetFocusRequiresScroll(        
+        std::move(p_require));
       return true;
     }
     case internal::kAutofillAgent_SetQueryPasswordSuggestion_Name: {
@@ -2283,6 +2224,8 @@ std::move(p_require));
           reinterpret_cast<internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.16
       bool success = true;
       bool p_query{};
       AutofillAgent_SetQueryPasswordSuggestion_ParamsDataView input_data_view(params, message);
@@ -2298,8 +2241,8 @@ std::move(p_require));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetQueryPasswordSuggestion(
-std::move(p_query));
+      impl->SetQueryPasswordSuggestion(        
+        std::move(p_query));
       return true;
     }
     case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name: {
@@ -2309,6 +2252,8 @@ std::move(p_query));
           reinterpret_cast<internal::AutofillAgent_EnableHeavyFormDataScraping_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.17
       bool success = true;
       AutofillAgent_EnableHeavyFormDataScraping_ParamsDataView input_data_view(params, message);
       
@@ -2321,33 +2266,7 @@ std::move(p_query));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableHeavyFormDataScraping();
-      return true;
-    }
-    case internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data* params =
-          reinterpret_cast<internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      std::vector<::autofill::FieldRendererId> p_fields{};
-      AutofillAgent_SetFieldsEligibleForManualFilling_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadFields(&p_fields))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 18, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetFieldsEligibleForManualFilling(
-std::move(p_fields));
+      impl->EnableHeavyFormDataScraping(        );
       return true;
     }
     case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name: {
@@ -2376,6 +2295,8 @@ bool AutofillAgentStubDispatch::AcceptWithResponder(
               internal::AutofillAgent_TriggerFormExtractionWithResponse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.1
       bool success = true;
       AutofillAgent_TriggerFormExtractionWithResponse_ParamsDataView input_data_view(params, message);
       
@@ -2407,6 +2328,8 @@ bool AutofillAgentStubDispatch::AcceptWithResponder(
               internal::AutofillAgent_ExtractForm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.4
       bool success = true;
       ::autofill::FormRendererId p_form{};
       AutofillAgent_ExtractForm_ParamsDataView input_data_view(params, message);
@@ -2425,8 +2348,8 @@ bool AutofillAgentStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExtractForm(
-std::move(p_form), std::move(callback));
+      impl->ExtractForm(        
+        std::move(p_form), std::move(callback));
       return true;
     }
     case internal::kAutofillAgent_FieldTypePredictionsAvailable_Name: {
@@ -2468,9 +2391,6 @@ std::move(p_form), std::move(callback));
     case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name: {
       break;
     }
-    case internal::kAutofillAgent_SetFieldsEligibleForManualFilling_Name: {
-      break;
-    }
     case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name: {
 
       internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Params_Data* params =
@@ -2478,6 +2398,8 @@ std::move(p_form), std::move(callback));
               internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AutofillAgent.18
       bool success = true;
       AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ParamsDataView input_data_view(params, message);
       
@@ -2485,7 +2407,7 @@ std::move(p_form), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 19, false);
+            AutofillAgent::Name_, 18, false);
         return false;
       }
       AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvcCallback callback =
@@ -2537,8 +2459,6 @@ static const mojo::internal::GenericValidationInfo kAutofillAgentValidationInfo[
     { &internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AutofillAgent_EnableHeavyFormDataScraping_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::AutofillAgent_SetFieldsEligibleForManualFilling_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Params_Data::Validate,
      &internal::AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ResponseParams_Data::Validate},
@@ -3028,6 +2948,8 @@ bool PasswordAutofillAgentStubDispatch::Accept(
           reinterpret_cast<internal::PasswordAutofillAgent_SetPasswordFillData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordAutofillAgent.0
       bool success = true;
       ::autofill::PasswordFormFillData p_form_data{};
       PasswordAutofillAgent_SetPasswordFillData_ParamsDataView input_data_view(params, message);
@@ -3043,8 +2965,8 @@ bool PasswordAutofillAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPasswordFillData(
-std::move(p_form_data));
+      impl->SetPasswordFillData(        
+        std::move(p_form_data));
       return true;
     }
     case internal::kPasswordAutofillAgent_FillPasswordSuggestion_Name: {
@@ -3054,6 +2976,8 @@ std::move(p_form_data));
           reinterpret_cast<internal::PasswordAutofillAgent_FillPasswordSuggestion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordAutofillAgent.1
       bool success = true;
       ::std::u16string p_username{};
       ::std::u16string p_password{};
@@ -3072,9 +2996,9 @@ std::move(p_form_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FillPasswordSuggestion(
-std::move(p_username), 
-std::move(p_password));
+      impl->FillPasswordSuggestion(        
+        std::move(p_username), 
+        std::move(p_password));
       return true;
     }
     case internal::kPasswordAutofillAgent_InformNoSavedCredentials_Name: {
@@ -3084,6 +3008,8 @@ std::move(p_password));
           reinterpret_cast<internal::PasswordAutofillAgent_InformNoSavedCredentials_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordAutofillAgent.2
       bool success = true;
       bool p_should_show_popup_without_passwords{};
       PasswordAutofillAgent_InformNoSavedCredentials_ParamsDataView input_data_view(params, message);
@@ -3099,8 +3025,8 @@ std::move(p_password));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InformNoSavedCredentials(
-std::move(p_should_show_popup_without_passwords));
+      impl->InformNoSavedCredentials(        
+        std::move(p_should_show_popup_without_passwords));
       return true;
     }
     case internal::kPasswordAutofillAgent_FillIntoFocusedField_Name: {
@@ -3110,6 +3036,8 @@ std::move(p_should_show_popup_without_passwords));
           reinterpret_cast<internal::PasswordAutofillAgent_FillIntoFocusedField_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordAutofillAgent.3
       bool success = true;
       bool p_is_password{};
       ::std::u16string p_credential{};
@@ -3128,9 +3056,9 @@ std::move(p_should_show_popup_without_passwords));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FillIntoFocusedField(
-std::move(p_is_password), 
-std::move(p_credential));
+      impl->FillIntoFocusedField(        
+        std::move(p_is_password), 
+        std::move(p_credential));
       return true;
     }
     case internal::kPasswordAutofillAgent_SetLoggingState_Name: {
@@ -3140,6 +3068,8 @@ std::move(p_credential));
           reinterpret_cast<internal::PasswordAutofillAgent_SetLoggingState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordAutofillAgent.4
       bool success = true;
       bool p_active{};
       PasswordAutofillAgent_SetLoggingState_ParamsDataView input_data_view(params, message);
@@ -3155,8 +3085,8 @@ std::move(p_credential));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLoggingState(
-std::move(p_active));
+      impl->SetLoggingState(        
+        std::move(p_active));
       return true;
     }
     case internal::kPasswordAutofillAgent_AnnotateFieldsWithParsingResult_Name: {
@@ -3166,6 +3096,8 @@ std::move(p_active));
           reinterpret_cast<internal::PasswordAutofillAgent_AnnotateFieldsWithParsingResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordAutofillAgent.5
       bool success = true;
       ::autofill::ParsingResult p_parsing_result{};
       PasswordAutofillAgent_AnnotateFieldsWithParsingResult_ParamsDataView input_data_view(params, message);
@@ -3181,8 +3113,8 @@ std::move(p_active));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnnotateFieldsWithParsingResult(
-std::move(p_parsing_result));
+      impl->AnnotateFieldsWithParsingResult(        
+        std::move(p_parsing_result));
       return true;
     }
   }
@@ -3602,6 +3534,8 @@ bool PasswordGenerationAgent_TriggeredGeneratePassword_ForwardToCallback::Accept
           internal::PasswordGenerationAgent_TriggeredGeneratePassword_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasswordGenerationAgent.1
   bool success = true;
   std::optional<::autofill::password_generation::PasswordGenerationUIData> p_data{};
   PasswordGenerationAgent_TriggeredGeneratePassword_ResponseParamsDataView input_data_view(params, message);
@@ -3682,6 +3616,8 @@ bool PasswordGenerationAgentStubDispatch::Accept(
           reinterpret_cast<internal::PasswordGenerationAgent_GeneratedPasswordAccepted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationAgent.0
       bool success = true;
       ::std::u16string p_generated_password{};
       PasswordGenerationAgent_GeneratedPasswordAccepted_ParamsDataView input_data_view(params, message);
@@ -3697,8 +3633,8 @@ bool PasswordGenerationAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GeneratedPasswordAccepted(
-std::move(p_generated_password));
+      impl->GeneratedPasswordAccepted(        
+        std::move(p_generated_password));
       return true;
     }
     case internal::kPasswordGenerationAgent_TriggeredGeneratePassword_Name: {
@@ -3711,6 +3647,8 @@ std::move(p_generated_password));
           reinterpret_cast<internal::PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationAgent.2
       bool success = true;
       ::autofill::PasswordFormGenerationData p_form{};
       PasswordGenerationAgent_FoundFormEligibleForGeneration_ParamsDataView input_data_view(params, message);
@@ -3726,8 +3664,8 @@ std::move(p_generated_password));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FoundFormEligibleForGeneration(
-std::move(p_form));
+      impl->FoundFormEligibleForGeneration(        
+        std::move(p_form));
       return true;
     }
     case internal::kPasswordGenerationAgent_FocusNextFieldAfterPasswords_Name: {
@@ -3737,6 +3675,8 @@ std::move(p_form));
           reinterpret_cast<internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationAgent.3
       bool success = true;
       PasswordGenerationAgent_FocusNextFieldAfterPasswords_ParamsDataView input_data_view(params, message);
       
@@ -3749,7 +3689,7 @@ std::move(p_form));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusNextFieldAfterPasswords();
+      impl->FocusNextFieldAfterPasswords(        );
       return true;
     }
   }
@@ -3775,6 +3715,8 @@ bool PasswordGenerationAgentStubDispatch::AcceptWithResponder(
               internal::PasswordGenerationAgent_TriggeredGeneratePassword_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasswordGenerationAgent.1
       bool success = true;
       PasswordGenerationAgent_TriggeredGeneratePassword_ParamsDataView input_data_view(params, message);
       
@@ -3847,8 +3789,8 @@ void AutofillAgentInterceptorForTesting::TriggerFormExtraction() {
 void AutofillAgentInterceptorForTesting::TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) {
   GetForwardingInterface()->TriggerFormExtractionWithResponse(std::move(callback));
 }
-void AutofillAgentInterceptorForTesting::ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) {
-  GetForwardingInterface()->ApplyFormAction(std::move(action_type), std::move(action_persistence), std::move(form_renderer_id), std::move(fields));
+void AutofillAgentInterceptorForTesting::ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData::FillData& form) {
+  GetForwardingInterface()->ApplyFormAction(std::move(action_type), std::move(action_persistence), std::move(form));
 }
 void AutofillAgentInterceptorForTesting::ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) {
   GetForwardingInterface()->ApplyFieldAction(std::move(action_persistence), std::move(text_replacement), std::move(field), std::move(value));
@@ -3894,9 +3836,6 @@ void AutofillAgentInterceptorForTesting::SetQueryPasswordSuggestion(bool query) 
 }
 void AutofillAgentInterceptorForTesting::EnableHeavyFormDataScraping() {
   GetForwardingInterface()->EnableHeavyFormDataScraping();
-}
-void AutofillAgentInterceptorForTesting::SetFieldsEligibleForManualFilling(const std::vector<::autofill::FieldRendererId>& fields) {
-  GetForwardingInterface()->SetFieldsEligibleForManualFilling(std::move(fields));
 }
 void AutofillAgentInterceptorForTesting::GetPotentialLastFourCombinationsForStandaloneCvc(GetPotentialLastFourCombinationsForStandaloneCvcCallback callback) {
   GetForwardingInterface()->GetPotentialLastFourCombinationsForStandaloneCvc(std::move(callback));

@@ -748,6 +748,8 @@ bool UsbDeviceManager_EnumerateDevicesAndSetClient_ForwardToCallback::Accept(
           internal::UsbDeviceManager_EnumerateDevicesAndSetClient_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManager.0
   bool success = true;
   std::vector<::device::mojom::UsbDeviceInfoPtr> p_results{};
   UsbDeviceManager_EnumerateDevicesAndSetClient_ResponseParamsDataView input_data_view(params, message);
@@ -879,6 +881,8 @@ bool UsbDeviceManager_GetDevices_ForwardToCallback::Accept(
           internal::UsbDeviceManager_GetDevices_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManager.1
   bool success = true;
   std::vector<::device::mojom::UsbDeviceInfoPtr> p_results{};
   UsbDeviceManager_GetDevices_ResponseParamsDataView input_data_view(params, message);
@@ -1010,6 +1014,8 @@ bool UsbDeviceManager_CheckAccess_ForwardToCallback::Accept(
           internal::UsbDeviceManager_CheckAccess_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManager.4
   bool success = true;
   bool p_success{};
   UsbDeviceManager_CheckAccess_ResponseParamsDataView input_data_view(params, message);
@@ -1129,6 +1135,8 @@ bool UsbDeviceManager_OpenFileDescriptor_ForwardToCallback::Accept(
           internal::UsbDeviceManager_OpenFileDescriptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UsbDeviceManager.5
   bool success = true;
   ::base::File p_fd{};
   UsbDeviceManager_OpenFileDescriptor_ResponseParamsDataView input_data_view(params, message);
@@ -1215,6 +1223,8 @@ bool UsbDeviceManagerStubDispatch::Accept(
           reinterpret_cast<internal::UsbDeviceManager_GetDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.2
       bool success = true;
       std::string p_guid{};
       std::vector<uint8_t> p_blocked_interface_classes{};
@@ -1243,11 +1253,11 @@ bool UsbDeviceManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevice(
-std::move(p_guid), 
-std::move(p_blocked_interface_classes), 
-std::move(p_device_receiver), 
-std::move(p_device_client));
+      impl->GetDevice(        
+        std::move(p_guid), 
+        std::move(p_blocked_interface_classes), 
+        std::move(p_device_receiver), 
+        std::move(p_device_client));
       return true;
     }
     case internal::kUsbDeviceManager_GetSecurityKeyDevice_Name: {
@@ -1257,6 +1267,8 @@ std::move(p_device_client));
           reinterpret_cast<internal::UsbDeviceManager_GetSecurityKeyDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.3
       bool success = true;
       std::string p_guid{};
       ::mojo::PendingReceiver<::device::mojom::UsbDevice> p_device_receiver{};
@@ -1282,10 +1294,10 @@ std::move(p_device_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSecurityKeyDevice(
-std::move(p_guid), 
-std::move(p_device_receiver), 
-std::move(p_device_client));
+      impl->GetSecurityKeyDevice(        
+        std::move(p_guid), 
+        std::move(p_device_receiver), 
+        std::move(p_device_client));
       return true;
     }
     case internal::kUsbDeviceManager_CheckAccess_Name: {
@@ -1301,6 +1313,8 @@ std::move(p_device_client));
           reinterpret_cast<internal::UsbDeviceManager_SetClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.6
       bool success = true;
       ::mojo::PendingAssociatedRemote<::device::mojom::UsbDeviceManagerClient> p_client{};
       UsbDeviceManager_SetClient_ParamsDataView input_data_view(params, message);
@@ -1318,8 +1332,8 @@ std::move(p_device_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClient(
-std::move(p_client));
+      impl->SetClient(        
+        std::move(p_client));
       return true;
     }
   }
@@ -1342,6 +1356,8 @@ bool UsbDeviceManagerStubDispatch::AcceptWithResponder(
               internal::UsbDeviceManager_EnumerateDevicesAndSetClient_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<::device::mojom::UsbDeviceManagerClient> p_client{};
       UsbDeviceManager_EnumerateDevicesAndSetClient_ParamsDataView input_data_view(params, message);
@@ -1362,8 +1378,8 @@ bool UsbDeviceManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnumerateDevicesAndSetClient(
-std::move(p_client), std::move(callback));
+      impl->EnumerateDevicesAndSetClient(        
+        std::move(p_client), std::move(callback));
       return true;
     }
     case internal::kUsbDeviceManager_GetDevices_Name: {
@@ -1373,6 +1389,8 @@ std::move(p_client), std::move(callback));
               internal::UsbDeviceManager_GetDevices_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.1
       bool success = true;
       ::device::mojom::UsbEnumerationOptionsPtr p_options{};
       UsbDeviceManager_GetDevices_ParamsDataView input_data_view(params, message);
@@ -1391,8 +1409,8 @@ std::move(p_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDevices(
-std::move(p_options), std::move(callback));
+      impl->GetDevices(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kUsbDeviceManager_GetDevice_Name: {
@@ -1408,6 +1426,8 @@ std::move(p_options), std::move(callback));
               internal::UsbDeviceManager_CheckAccess_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.4
       bool success = true;
       std::string p_guid{};
       UsbDeviceManager_CheckAccess_ParamsDataView input_data_view(params, message);
@@ -1426,8 +1446,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckAccess(
-std::move(p_guid), std::move(callback));
+      impl->CheckAccess(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kUsbDeviceManager_OpenFileDescriptor_Name: {
@@ -1437,6 +1457,8 @@ std::move(p_guid), std::move(callback));
               internal::UsbDeviceManager_OpenFileDescriptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UsbDeviceManager.5
       bool success = true;
       std::string p_guid{};
       uint32_t p_allowed_interfaces_mask{};
@@ -1461,10 +1483,10 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFileDescriptor(
-std::move(p_guid), 
-std::move(p_allowed_interfaces_mask), 
-std::move(p_lifeline_fd), std::move(callback));
+      impl->OpenFileDescriptor(        
+        std::move(p_guid), 
+        std::move(p_allowed_interfaces_mask), 
+        std::move(p_lifeline_fd), std::move(callback));
       return true;
     }
     case internal::kUsbDeviceManager_SetClient_Name: {

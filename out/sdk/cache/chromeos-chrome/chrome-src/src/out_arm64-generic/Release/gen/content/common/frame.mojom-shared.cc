@@ -1330,38 +1330,6 @@ Frame_GetSerializedHtmlWithLocalLinks_Params_Data::Frame_GetSerializedHtmlWithLo
 
 
 // static
-bool Frame_SetResourceCache_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Frame_SetResourceCache_Params_Data* object =
-      static_cast<const Frame_SetResourceCache_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->remote, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->remote,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-Frame_SetResourceCache_Params_Data::Frame_SetResourceCache_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool FrameBindingsControl_AllowBindings_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

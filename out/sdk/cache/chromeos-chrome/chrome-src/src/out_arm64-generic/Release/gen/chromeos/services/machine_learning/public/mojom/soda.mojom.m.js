@@ -83,6 +83,24 @@ export const EndpointReason = {
   MAX_VALUE: 3,
 };
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const AsrSwitchResultSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const AsrSwitchResult = {
+  
+  DEFAULT_NO_SWITCH: 0,
+  SWITCH_SUCCEEDED: 1,
+  SWITCH_FAILED: 2,
+  SWITCH_SKIPPED_NO_LP: 3,
+  MIN_VALUE: 0,
+  MAX_VALUE: 3,
+};
+
 
 
 /**
@@ -594,6 +612,12 @@ export class SodaRecognizerCallbackRouter {
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const SodaMultilangConfigSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const SodaConfigSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -631,6 +655,12 @@ export const FinalResultSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const AudioLevelEventSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const LangIdEventSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -681,6 +711,45 @@ export const SodaRecognizer_MarkDone_ParamsSpec =
 export const SpeechRecognizerEventSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+
+
+
+mojo.internal.Struct(
+    SodaMultilangConfigSpec.$,
+    'SodaMultilangConfig',
+    [
+      mojo.internal.StructField(
+        'rewindWhenSwitchingLanguage', 0,
+        0,
+        mojo.internal.Bool,
+        true,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'localeToLanguagePackMap', 8,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class SodaMultilangConfig {
+  constructor() {
+    /** @type { !boolean } */
+    this.rewindWhenSwitchingLanguage;
+    /** @type { !Object<!string, !string> } */
+    this.localeToLanguagePackMap;
+  }
+}
 
 
 
@@ -768,8 +837,16 @@ mojo.internal.Struct(
         false /* nullable */,
         6,
       ),
+      mojo.internal.StructField(
+        'multiLangConfig', 48,
+        0,
+        SodaMultilangConfigSpec.$,
+        null,
+        true /* nullable */,
+        7,
+      ),
     ],
-    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],[6, 56],]);
+    [[0, 40],[2, 48],[3, 48],[4, 56],[5, 56],[6, 56],[7, 64],]);
 
 
 
@@ -798,6 +875,8 @@ export class SodaConfig {
     this.speakerChangeDetection;
     /** @type { !boolean } */
     this.includeLoggingOutput;
+    /** @type { (SodaMultilangConfig|undefined) } */
+    this.multiLangConfig;
   }
 }
 
@@ -1108,6 +1187,55 @@ export class AudioLevelEvent {
 
 
 mojo.internal.Struct(
+    LangIdEventSpec.$,
+    'LangIdEvent',
+    [
+      mojo.internal.StructField(
+        'language', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'confidenceLevel', 8,
+        0,
+        mojo.internal.Int32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'asrSwitchResult', 12,
+        0,
+        AsrSwitchResultSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class LangIdEvent {
+  constructor() {
+    /** @type { !string } */
+    this.language;
+    /** @type { !number } */
+    this.confidenceLevel;
+    /** @type { !AsrSwitchResult } */
+    this.asrSwitchResult;
+  }
+}
+
+
+
+mojo.internal.Struct(
     SodaClient_OnStart_ParamsSpec.$,
     'SodaClient_OnStart_Params',
     [
@@ -1277,6 +1405,10 @@ mojo.internal.Union(
         'ordinal': 3,
         'type': FinalResultSpec.$,
       },
+      'langidEvent': {
+        'ordinal': 4,
+        'type': LangIdEventSpec.$,
+      },
     });
 
 /**
@@ -1285,6 +1417,7 @@ mojo.internal.Union(
  *   partialResult: (!PartialResult|undefined),
  *   endpointerEvent: (!EndpointerEvent|undefined),
  *   finalResult: (!FinalResult|undefined),
+ *   langidEvent: (!LangIdEvent|undefined),
  * } }
  */
 export const SpeechRecognizerEvent = {};

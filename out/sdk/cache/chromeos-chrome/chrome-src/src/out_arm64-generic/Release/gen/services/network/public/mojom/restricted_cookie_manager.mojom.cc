@@ -1361,6 +1361,8 @@ bool RestrictedCookieManager_GetAllForUrl_ForwardToCallback::Accept(
           internal::RestrictedCookieManager_GetAllForUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.0
   bool success = true;
   std::vector<::net::CookieWithAccessResult> p_cookies{};
   RestrictedCookieManager_GetAllForUrl_ResponseParamsDataView input_data_view(params, message);
@@ -1492,6 +1494,8 @@ bool RestrictedCookieManager_SetCanonicalCookie_ForwardToCallback::Accept(
           internal::RestrictedCookieManager_SetCanonicalCookie_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.1
   bool success = true;
   bool p_success{};
   RestrictedCookieManager_SetCanonicalCookie_ResponseParamsDataView input_data_view(params, message);
@@ -1611,6 +1615,8 @@ bool RestrictedCookieManager_AddChangeListener_ForwardToCallback::Accept(
           internal::RestrictedCookieManager_AddChangeListener_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.2
   bool success = true;
   RestrictedCookieManager_AddChangeListener_ResponseParamsDataView input_data_view(params, message);
   
@@ -1718,6 +1724,8 @@ bool RestrictedCookieManager_SetCookieFromString_ForwardToCallback::Accept(
           internal::RestrictedCookieManager_SetCookieFromString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.3
   bool success = true;
   RestrictedCookieManager_SetCookieFromString_ResponseParamsDataView input_data_view(params, message);
   
@@ -1775,6 +1783,8 @@ bool RestrictedCookieManager_SetCookieFromString_HandleSyncResponse::Accept(
       reinterpret_cast<internal::RestrictedCookieManager_SetCookieFromString_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.3
   bool success = true;
   RestrictedCookieManager_SetCookieFromString_ResponseParamsDataView input_data_view(params, message);
   
@@ -1846,6 +1856,8 @@ bool RestrictedCookieManager_GetCookiesString_ForwardToCallback::Accept(
           internal::RestrictedCookieManager_GetCookiesString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.4
   bool success = true;
   uint64_t p_version{};
   ::base::ReadOnlySharedMemoryRegion p_version_buffer{};
@@ -1947,6 +1959,8 @@ bool RestrictedCookieManager_GetCookiesString_HandleSyncResponse::Accept(
       reinterpret_cast<internal::RestrictedCookieManager_GetCookiesString_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.4
   bool success = true;
   uint64_t p_version{};
   ::base::ReadOnlySharedMemoryRegion p_version_buffer{};
@@ -2030,6 +2044,8 @@ bool RestrictedCookieManager_CookiesEnabledFor_ForwardToCallback::Accept(
           internal::RestrictedCookieManager_CookiesEnabledFor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.5
   bool success = true;
   bool p_cookies_enabled{};
   RestrictedCookieManager_CookiesEnabledFor_ResponseParamsDataView input_data_view(params, message);
@@ -2099,6 +2115,8 @@ bool RestrictedCookieManager_CookiesEnabledFor_HandleSyncResponse::Accept(
       reinterpret_cast<internal::RestrictedCookieManager_CookiesEnabledFor_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for RestrictedCookieManager.5
   bool success = true;
   bool p_cookies_enabled{};
   RestrictedCookieManager_CookiesEnabledFor_ResponseParamsDataView input_data_view(params, message);
@@ -2160,6 +2178,8 @@ bool RestrictedCookieManagerStubDispatch::AcceptWithResponder(
               internal::RestrictedCookieManager_GetAllForUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedCookieManager.0
       bool success = true;
       ::GURL p_url{};
       ::net::SiteForCookies p_site_for_cookies{};
@@ -2193,13 +2213,13 @@ bool RestrictedCookieManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAllForUrl(
-std::move(p_url), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), 
-std::move(p_has_storage_access), 
-std::move(p_options), 
-std::move(p_is_ad_tagged), std::move(callback));
+      impl->GetAllForUrl(        
+        std::move(p_url), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), 
+        std::move(p_has_storage_access), 
+        std::move(p_options), 
+        std::move(p_is_ad_tagged), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_SetCanonicalCookie_Name: {
@@ -2209,6 +2229,8 @@ std::move(p_is_ad_tagged), std::move(callback));
               internal::RestrictedCookieManager_SetCanonicalCookie_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedCookieManager.1
       bool success = true;
       ::net::CanonicalCookie p_cookie{};
       ::GURL p_url{};
@@ -2242,13 +2264,13 @@ std::move(p_is_ad_tagged), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCanonicalCookie(
-std::move(p_cookie), 
-std::move(p_url), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), 
-std::move(p_has_storage_access), 
-std::move(p_status), std::move(callback));
+      impl->SetCanonicalCookie(        
+        std::move(p_cookie), 
+        std::move(p_url), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), 
+        std::move(p_has_storage_access), 
+        std::move(p_status), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_AddChangeListener_Name: {
@@ -2258,6 +2280,8 @@ std::move(p_status), std::move(callback));
               internal::RestrictedCookieManager_AddChangeListener_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedCookieManager.2
       bool success = true;
       ::GURL p_url{};
       ::net::SiteForCookies p_site_for_cookies{};
@@ -2290,12 +2314,12 @@ std::move(p_status), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddChangeListener(
-std::move(p_url), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), 
-std::move(p_has_storage_access), 
-std::move(p_listener), std::move(callback));
+      impl->AddChangeListener(        
+        std::move(p_url), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), 
+        std::move(p_has_storage_access), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_SetCookieFromString_Name: {
@@ -2305,6 +2329,8 @@ std::move(p_listener), std::move(callback));
               internal::RestrictedCookieManager_SetCookieFromString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedCookieManager.3
       bool success = true;
       ::GURL p_url{};
       ::net::SiteForCookies p_site_for_cookies{};
@@ -2335,12 +2361,12 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCookieFromString(
-std::move(p_url), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), 
-std::move(p_has_storage_access), 
-std::move(p_cookie), std::move(callback));
+      impl->SetCookieFromString(        
+        std::move(p_url), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), 
+        std::move(p_has_storage_access), 
+        std::move(p_cookie), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_GetCookiesString_Name: {
@@ -2350,6 +2376,8 @@ std::move(p_cookie), std::move(callback));
               internal::RestrictedCookieManager_GetCookiesString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedCookieManager.4
       bool success = true;
       ::GURL p_url{};
       ::net::SiteForCookies p_site_for_cookies{};
@@ -2383,13 +2411,13 @@ std::move(p_cookie), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCookiesString(
-std::move(p_url), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), 
-std::move(p_has_storage_access), 
-std::move(p_get_version_shared_memory), 
-std::move(p_is_ad_tagged), std::move(callback));
+      impl->GetCookiesString(        
+        std::move(p_url), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), 
+        std::move(p_has_storage_access), 
+        std::move(p_get_version_shared_memory), 
+        std::move(p_is_ad_tagged), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_CookiesEnabledFor_Name: {
@@ -2399,6 +2427,8 @@ std::move(p_is_ad_tagged), std::move(callback));
               internal::RestrictedCookieManager_CookiesEnabledFor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RestrictedCookieManager.5
       bool success = true;
       ::GURL p_url{};
       ::net::SiteForCookies p_site_for_cookies{};
@@ -2426,11 +2456,11 @@ std::move(p_is_ad_tagged), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CookiesEnabledFor(
-std::move(p_url), 
-std::move(p_site_for_cookies), 
-std::move(p_top_frame_origin), 
-std::move(p_has_storage_access), std::move(callback));
+      impl->CookiesEnabledFor(        
+        std::move(p_url), 
+        std::move(p_site_for_cookies), 
+        std::move(p_top_frame_origin), 
+        std::move(p_has_storage_access), std::move(callback));
       return true;
     }
   }

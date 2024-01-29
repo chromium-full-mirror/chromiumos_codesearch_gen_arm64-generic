@@ -218,6 +218,8 @@ pub struct DiskImage {
     pub block_size: u32,
     // @@protoc_insertion_point(field:vm_tools.concierge.DiskImage.o_direct)
     pub o_direct: bool,
+    // @@protoc_insertion_point(field:vm_tools.concierge.DiskImage.multiple_workers)
+    pub multiple_workers: bool,
     // special fields
     // @@protoc_insertion_point(special_field:vm_tools.concierge.DiskImage.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -275,6 +277,9 @@ impl ::protobuf::Message for DiskImage {
                 80 => {
                     self.o_direct = is.read_bool()?;
                 },
+                88 => {
+                    self.multiple_workers = is.read_bool()?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -317,6 +322,9 @@ impl ::protobuf::Message for DiskImage {
         if self.o_direct != false {
             my_size += 1 + 1;
         }
+        if self.multiple_workers != false {
+            my_size += 1 + 1;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -353,6 +361,9 @@ impl ::protobuf::Message for DiskImage {
         if self.o_direct != false {
             os.write_bool(10, self.o_direct)?;
         }
+        if self.multiple_workers != false {
+            os.write_bool(11, self.multiple_workers)?;
+        }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
     }
@@ -380,6 +391,7 @@ impl ::protobuf::Message for DiskImage {
         self.image_type = ::protobuf::EnumOrUnknown::new(DiskImageType::DISK_IMAGE_RAW);
         self.block_size = 0;
         self.o_direct = false;
+        self.multiple_workers = false;
         self.special_fields.clear();
     }
 
@@ -395,6 +407,7 @@ impl ::protobuf::Message for DiskImage {
             image_type: ::protobuf::EnumOrUnknown::from_i32(0),
             block_size: 0,
             o_direct: false,
+            multiple_workers: false,
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance
@@ -1475,6 +1488,8 @@ pub struct StartArcVmRequest {
     pub rootfs_o_direct: bool,
     // @@protoc_insertion_point(field:vm_tools.concierge.StartArcVmRequest.enable_s2idle)
     pub enable_s2idle: bool,
+    // @@protoc_insertion_point(field:vm_tools.concierge.StartArcVmRequest.rootfs_multiple_workers)
+    pub rootfs_multiple_workers: bool,
     // special fields
     // @@protoc_insertion_point(special_field:vm_tools.concierge.StartArcVmRequest.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -1604,6 +1619,9 @@ impl ::protobuf::Message for StartArcVmRequest {
                 368 => {
                     self.enable_s2idle = is.read_bool()?;
                 },
+                376 => {
+                    self.rootfs_multiple_workers = is.read_bool()?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -1721,6 +1739,9 @@ impl ::protobuf::Message for StartArcVmRequest {
         if self.enable_s2idle != false {
             my_size += 2 + 1;
         }
+        if self.rootfs_multiple_workers != false {
+            my_size += 2 + 1;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -1829,6 +1850,9 @@ impl ::protobuf::Message for StartArcVmRequest {
         if self.enable_s2idle != false {
             os.write_bool(46, self.enable_s2idle)?;
         }
+        if self.rootfs_multiple_workers != false {
+            os.write_bool(47, self.rootfs_multiple_workers)?;
+        }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
     }
@@ -1880,6 +1904,7 @@ impl ::protobuf::Message for StartArcVmRequest {
         self.guest_zram_mib = 0;
         self.rootfs_o_direct = false;
         self.enable_s2idle = false;
+        self.rootfs_multiple_workers = false;
         self.special_fields.clear();
     }
 
@@ -1919,6 +1944,7 @@ impl ::protobuf::Message for StartArcVmRequest {
             guest_zram_mib: 0,
             rootfs_o_direct: false,
             enable_s2idle: false,
+            rootfs_multiple_workers: false,
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

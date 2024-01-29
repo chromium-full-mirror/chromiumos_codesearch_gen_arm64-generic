@@ -321,6 +321,8 @@ bool ChildProcessHost_Ping_ForwardToCallback::Accept(
           internal::ChildProcessHost_Ping_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChildProcessHost.0
   bool success = true;
   ChildProcessHost_Ping_ResponseParamsDataView input_data_view(params, message);
   
@@ -386,6 +388,8 @@ bool ChildProcessHostStubDispatch::Accept(
           reinterpret_cast<internal::ChildProcessHost_BindHostReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcessHost.1
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       ChildProcessHost_BindHostReceiver_ParamsDataView input_data_view(params, message);
@@ -401,8 +405,8 @@ bool ChildProcessHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindHostReceiver(
-std::move(p_receiver));
+      impl->BindHostReceiver(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -425,6 +429,8 @@ bool ChildProcessHostStubDispatch::AcceptWithResponder(
               internal::ChildProcessHost_Ping_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChildProcessHost.0
       bool success = true;
       ChildProcessHost_Ping_ParamsDataView input_data_view(params, message);
       
@@ -1110,6 +1116,8 @@ bool ChildProcessStubDispatch::Accept(
           reinterpret_cast<internal::ChildProcess_ProcessShutdown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.0
       bool success = true;
       ChildProcess_ProcessShutdown_ParamsDataView input_data_view(params, message);
       
@@ -1122,7 +1130,7 @@ bool ChildProcessStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessShutdown();
+      impl->ProcessShutdown(        );
       return true;
     }
     case internal::kChildProcess_GetBackgroundTracingAgentProvider_Name: {
@@ -1132,6 +1140,8 @@ bool ChildProcessStubDispatch::Accept(
           reinterpret_cast<internal::ChildProcess_GetBackgroundTracingAgentProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.1
       bool success = true;
       ::mojo::PendingReceiver<::tracing::mojom::BackgroundTracingAgentProvider> p_receiver{};
       ChildProcess_GetBackgroundTracingAgentProvider_ParamsDataView input_data_view(params, message);
@@ -1149,8 +1159,8 @@ bool ChildProcessStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBackgroundTracingAgentProvider(
-std::move(p_receiver));
+      impl->GetBackgroundTracingAgentProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kChildProcess_EnableSystemTracingService_Name: {
@@ -1160,6 +1170,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ChildProcess_EnableSystemTracingService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.2
       bool success = true;
       ::mojo::PendingRemote<::tracing::mojom::SystemTracingService> p_remote{};
       ChildProcess_EnableSystemTracingService_ParamsDataView input_data_view(params, message);
@@ -1177,8 +1189,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableSystemTracingService(
-std::move(p_remote));
+      impl->EnableSystemTracingService(        
+        std::move(p_remote));
       return true;
     }
     case internal::kChildProcess_CrashHungProcess_Name: {
@@ -1188,6 +1200,8 @@ std::move(p_remote));
           reinterpret_cast<internal::ChildProcess_CrashHungProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.3
       bool success = true;
       ChildProcess_CrashHungProcess_ParamsDataView input_data_view(params, message);
       
@@ -1200,7 +1214,7 @@ std::move(p_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CrashHungProcess();
+      impl->CrashHungProcess(        );
       return true;
     }
     case internal::kChildProcess_RunServiceDeprecated_Name: {
@@ -1210,6 +1224,8 @@ std::move(p_remote));
           reinterpret_cast<internal::ChildProcess_RunServiceDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.4
       bool success = true;
       std::string p_service_name{};
       ::mojo::ScopedMessagePipeHandle p_service_pipe{};
@@ -1228,9 +1244,9 @@ std::move(p_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunServiceDeprecated(
-std::move(p_service_name), 
-std::move(p_service_pipe));
+      impl->RunServiceDeprecated(        
+        std::move(p_service_name), 
+        std::move(p_service_pipe));
       return true;
     }
     case internal::kChildProcess_BindServiceInterface_Name: {
@@ -1240,6 +1256,8 @@ std::move(p_service_pipe));
           reinterpret_cast<internal::ChildProcess_BindServiceInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.5
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       ChildProcess_BindServiceInterface_ParamsDataView input_data_view(params, message);
@@ -1255,8 +1273,8 @@ std::move(p_service_pipe));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindServiceInterface(
-std::move(p_receiver));
+      impl->BindServiceInterface(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kChildProcess_BindReceiver_Name: {
@@ -1266,6 +1284,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ChildProcess_BindReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.6
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       ChildProcess_BindReceiver_ParamsDataView input_data_view(params, message);
@@ -1281,8 +1301,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindReceiver(
-std::move(p_receiver));
+      impl->BindReceiver(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kChildProcess_SetPseudonymizationSalt_Name: {
@@ -1292,6 +1312,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ChildProcess_SetPseudonymizationSalt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.7
       bool success = true;
       uint32_t p_salt{};
       ChildProcess_SetPseudonymizationSalt_ParamsDataView input_data_view(params, message);
@@ -1307,8 +1329,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPseudonymizationSalt(
-std::move(p_salt));
+      impl->SetPseudonymizationSalt(        
+        std::move(p_salt));
       return true;
     }
     case internal::kChildProcess_ReinitializeLogging_Name: {
@@ -1318,6 +1340,8 @@ std::move(p_salt));
           reinterpret_cast<internal::ChildProcess_ReinitializeLogging_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChildProcess.8
       bool success = true;
       LoggingSettingsPtr p_settings{};
       ChildProcess_ReinitializeLogging_ParamsDataView input_data_view(params, message);
@@ -1333,8 +1357,8 @@ std::move(p_salt));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReinitializeLogging(
-std::move(p_settings));
+      impl->ReinitializeLogging(        
+        std::move(p_settings));
       return true;
     }
   }

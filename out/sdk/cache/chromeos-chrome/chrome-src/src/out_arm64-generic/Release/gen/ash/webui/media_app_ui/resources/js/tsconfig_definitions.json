@@ -45,12 +45,6 @@
     }
   },
   "files": [
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/app_context_test_support.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/error_reporter.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/launch.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/message_types.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/mojo_api_bootstrap.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/mojo_api_bootstrap_untrusted.js",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/piex_module_loader.js"
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/media_app_ui/resources/js/mojo_api_bootstrap.js"
   ]
 }

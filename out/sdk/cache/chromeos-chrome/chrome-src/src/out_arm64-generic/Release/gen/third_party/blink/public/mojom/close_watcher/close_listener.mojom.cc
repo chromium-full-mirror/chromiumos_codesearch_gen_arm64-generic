@@ -148,6 +148,8 @@ bool CloseListenerStubDispatch::Accept(
           reinterpret_cast<internal::CloseListener_Signal_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CloseListener.0
       bool success = true;
       CloseListener_Signal_ParamsDataView input_data_view(params, message);
       
@@ -160,7 +162,7 @@ bool CloseListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Signal();
+      impl->Signal(        );
       return true;
     }
   }

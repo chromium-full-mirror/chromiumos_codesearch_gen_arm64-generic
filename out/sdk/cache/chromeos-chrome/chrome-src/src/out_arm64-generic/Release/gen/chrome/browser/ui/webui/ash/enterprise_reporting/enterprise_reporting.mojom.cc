@@ -307,6 +307,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -329,9 +331,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -662,6 +664,8 @@ bool PageHandler_GetDebugState_ForwardToCallback::Accept(
           internal::PageHandler_GetDebugState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   bool p_state{};
   PageHandler_GetDebugState_ResponseParamsDataView input_data_view(params, message);
@@ -781,6 +785,8 @@ bool PageHandler_GetErpHistoryData_ForwardToCallback::Accept(
           internal::PageHandler_GetErpHistoryData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   ErpHistoryDataPtr p_history_data{};
   PageHandler_GetErpHistoryData_ResponseParamsDataView input_data_view(params, message);
@@ -865,6 +871,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_RecordDebugState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       bool p_state{};
       PageHandler_RecordDebugState_ParamsDataView input_data_view(params, message);
@@ -880,8 +888,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordDebugState(
-std::move(p_state));
+      impl->RecordDebugState(        
+        std::move(p_state));
       return true;
     }
     case internal::kPageHandler_GetDebugState_Name: {
@@ -913,6 +921,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetDebugState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetDebugState_ParamsDataView input_data_view(params, message);
       
@@ -938,6 +948,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetErpHistoryData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_GetErpHistoryData_ParamsDataView input_data_view(params, message);
       
@@ -1101,6 +1113,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_SetErpHistoryData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       ErpHistoryDataPtr p_history_data{};
       Page_SetErpHistoryData_ParamsDataView input_data_view(params, message);
@@ -1116,8 +1130,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetErpHistoryData(
-std::move(p_history_data));
+      impl->SetErpHistoryData(        
+        std::move(p_history_data));
       return true;
     }
   }

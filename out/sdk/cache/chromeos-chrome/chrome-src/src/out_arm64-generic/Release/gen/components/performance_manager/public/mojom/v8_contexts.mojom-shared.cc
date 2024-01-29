@@ -36,8 +36,8 @@ NOINLINE static const char* V8ContextWorldTypeToStringHelper(V8ContextWorldType 
       return "kIsolated";
     case V8ContextWorldType::kInspector:
       return "kInspector";
-    case V8ContextWorldType::kRegExp:
-      return "kRegExp";
+    case V8ContextWorldType::kBlinkInternalNonJSExposed:
+      return "kBlinkInternalNonJSExposed";
     default:
       return nullptr;
   }

@@ -1,0 +1,3 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_client.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_service.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/effects_pipeline.mojom-module

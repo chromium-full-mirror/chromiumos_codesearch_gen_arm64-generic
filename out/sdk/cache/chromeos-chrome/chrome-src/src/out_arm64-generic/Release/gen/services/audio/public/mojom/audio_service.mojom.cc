@@ -491,6 +491,8 @@ bool AudioServiceStubDispatch::Accept(
           reinterpret_cast<internal::AudioService_BindSystemInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.0
       bool success = true;
       ::mojo::PendingReceiver<::audio::mojom::SystemInfo> p_receiver{};
       AudioService_BindSystemInfo_ParamsDataView input_data_view(params, message);
@@ -508,8 +510,8 @@ bool AudioServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSystemInfo(
-std::move(p_receiver));
+      impl->BindSystemInfo(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kAudioService_BindDebugRecording_Name: {
@@ -519,6 +521,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::AudioService_BindDebugRecording_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.1
       bool success = true;
       ::mojo::PendingReceiver<::audio::mojom::DebugRecording> p_receiver{};
       AudioService_BindDebugRecording_ParamsDataView input_data_view(params, message);
@@ -536,8 +540,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDebugRecording(
-std::move(p_receiver));
+      impl->BindDebugRecording(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kAudioService_BindStreamFactory_Name: {
@@ -547,6 +551,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::AudioService_BindStreamFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.2
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioStreamFactory> p_receiver{};
       AudioService_BindStreamFactory_ParamsDataView input_data_view(params, message);
@@ -564,8 +570,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindStreamFactory(
-std::move(p_receiver));
+      impl->BindStreamFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kAudioService_BindDeviceNotifier_Name: {
@@ -575,6 +581,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::AudioService_BindDeviceNotifier_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.3
       bool success = true;
       ::mojo::PendingReceiver<::audio::mojom::DeviceNotifier> p_receiver{};
       AudioService_BindDeviceNotifier_ParamsDataView input_data_view(params, message);
@@ -592,8 +600,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeviceNotifier(
-std::move(p_receiver));
+      impl->BindDeviceNotifier(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kAudioService_BindLogFactoryManager_Name: {
@@ -603,6 +611,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::AudioService_BindLogFactoryManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.4
       bool success = true;
       ::mojo::PendingReceiver<::audio::mojom::LogFactoryManager> p_receiver{};
       AudioService_BindLogFactoryManager_ParamsDataView input_data_view(params, message);
@@ -620,8 +630,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLogFactoryManager(
-std::move(p_receiver));
+      impl->BindLogFactoryManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kAudioService_BindTestingApi_Name: {
@@ -631,6 +641,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::AudioService_BindTestingApi_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioService.5
       bool success = true;
       ::mojo::PendingReceiver<::audio::mojom::TestingApi> p_receiver{};
       AudioService_BindTestingApi_ParamsDataView input_data_view(params, message);
@@ -648,8 +660,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestingApi(
-std::move(p_receiver));
+      impl->BindTestingApi(        
+        std::move(p_receiver));
       return true;
     }
   }

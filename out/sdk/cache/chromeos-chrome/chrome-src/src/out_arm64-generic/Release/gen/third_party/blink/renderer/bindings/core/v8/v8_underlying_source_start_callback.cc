@@ -60,9 +60,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_controller;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<V8UnionReadableByteStreamControllerOrReadableStreamDefaultController>::ToV8(script_state, arg1_controller).ToLocal(&v8_arg1_controller)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_controller = ToV8Traits<V8UnionReadableByteStreamControllerOrReadableStreamDefaultController>::ToV8(script_state, arg1_controller);
 argv[0] = v8_arg1_controller;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();
@@ -101,9 +99,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_controller;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<V8UnionReadableByteStreamControllerOrReadableStreamDefaultController>::ToV8(script_state, arg1_controller).ToLocal(&v8_arg1_controller)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_controller = ToV8Traits<V8UnionReadableByteStreamControllerOrReadableStreamDefaultController>::ToV8(script_state, arg1_controller);
 argv[0] = v8_arg1_controller;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();

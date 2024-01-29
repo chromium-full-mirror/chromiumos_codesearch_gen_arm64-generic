@@ -161,6 +161,8 @@ bool QuickPairServiceStubDispatch::Accept(
           reinterpret_cast<internal::QuickPairService_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for QuickPairService.0
       bool success = true;
       ::mojo::PendingReceiver<::ash::quick_pair::mojom::FastPairDataParser> p_fast_pair_data_parser{};
       QuickPairService_Connect_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool QuickPairServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_fast_pair_data_parser));
+      impl->Connect(        
+        std::move(p_fast_pair_data_parser));
       return true;
     }
   }

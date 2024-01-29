@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r618/work/vtpm-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r643/work/vtpm-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -18,6 +18,7 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _vtpm_client-install_config: phony obj/vtpm/_vtpm_client-install_config.stamp
 build _vtpmd-install_config: phony obj/vtpm/_vtpmd-install_config.stamp
 build database_proto: phony ./libdatabase_proto.a
 build database_proto_gen: phony obj/vtpm/database_proto_gen.stamp
@@ -30,8 +31,10 @@ build interface_proto: phony ./libinterface_proto.a
 build interface_proto_gen: phony obj/vtpm/interface_proto_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build vtpm-adaptors: phony obj/vtpm/vtpm-adaptors.stamp
+build vtpm_proxies: phony obj/vtpm/vtpm_proxies.stamp
 build vtpm_server_library: phony obj/vtpm/vtpm_server_library.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build vtpm$:_vtpm_client-install_config: phony obj/vtpm/_vtpm_client-install_config.stamp
 build vtpm$:_vtpmd-install_config: phony obj/vtpm/_vtpmd-install_config.stamp
 build vtpm$:all: phony obj/vtpm/all.stamp
 build vtpm$:database_proto: phony ./libdatabase_proto.a
@@ -44,11 +47,14 @@ build vtpm$:install_tmpfiles_config: phony obj/vtpm/install_tmpfiles_config.stam
 build vtpm$:interface_proto: phony ./libinterface_proto.a
 build vtpm$:interface_proto_gen: phony obj/vtpm/interface_proto_gen.stamp
 build vtpm$:vtpm-adaptors: phony obj/vtpm/vtpm-adaptors.stamp
+build vtpm$:vtpm_client: phony ./vtpm_client
+build vtpm$:vtpm_proxies: phony obj/vtpm/vtpm_proxies.stamp
 build vtpm$:vtpm_server_library: phony obj/vtpm/vtpm_server_library.stamp
 build vtpm$:vtpmd: phony ./vtpmd
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
+    obj/vtpm/_vtpm_client-install_config.stamp $
     obj/vtpm/_vtpmd-install_config.stamp $
     obj/vtpm/all.stamp $
     ./libdatabase_proto.a $
@@ -61,6 +67,8 @@ build all: phony $
     ./libinterface_proto.a $
     obj/vtpm/interface_proto_gen.stamp $
     obj/vtpm/vtpm-adaptors.stamp $
+    ./vtpm_client $
+    obj/vtpm/vtpm_proxies.stamp $
     obj/vtpm/vtpm_server_library.stamp $
     ./vtpmd
 

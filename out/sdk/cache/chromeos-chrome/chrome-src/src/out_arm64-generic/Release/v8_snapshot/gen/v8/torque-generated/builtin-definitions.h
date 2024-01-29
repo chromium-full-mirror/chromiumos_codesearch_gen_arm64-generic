@@ -516,6 +516,7 @@ TFC(WasmTableGrow, WasmTableGrow) \
 TFC(WasmTableGet, WasmTableGet) \
 TFC(WasmTableSet, WasmTableSet) \
 TFC(WasmTableGetFuncRef, WasmTableGetFuncRef) \
+TFC(WasmFunctionTableGet, WasmFunctionTableGet) \
 TFC(WasmTableSetFuncRef, WasmTableSetFuncRef) \
 TFC(WasmRefFunc, WasmRefFunc) \
 TFC(WasmInternalFunctionCreateExternal, WasmInternalFunctionCreateExternal) \
@@ -604,13 +605,15 @@ TFC(WasmAnyConvertExtern, WasmAnyConvertExtern) \
 TFJ(WebAssemblyStringCast, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringTest, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromWtf16Array, kDontAdaptArgumentsSentinel) \
-TFJ(WebAssemblyStringFromWtf8Array, kDontAdaptArgumentsSentinel) \
+TFJ(WebAssemblyStringFromUtf8Array, kDontAdaptArgumentsSentinel) \
+TFJ(WebAssemblyStringIntoUtf8Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringToWtf16Array, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromCharCode, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringFromCodePoint, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringCodePointAt, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringCharCodeAt, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringLength, kDontAdaptArgumentsSentinel) \
+TFJ(WebAssemblyStringMeasureUtf8, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringConcat, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringSubstring, kDontAdaptArgumentsSentinel) \
 TFJ(WebAssemblyStringEquals, kDontAdaptArgumentsSentinel) \

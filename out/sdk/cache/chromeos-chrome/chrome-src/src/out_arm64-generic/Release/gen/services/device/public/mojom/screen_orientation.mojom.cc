@@ -272,6 +272,8 @@ bool ScreenOrientation_LockOrientation_ForwardToCallback::Accept(
           internal::ScreenOrientation_LockOrientation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenOrientation.0
   bool success = true;
   ::device::mojom::ScreenOrientationLockResult p_result{};
   ScreenOrientation_LockOrientation_ResponseParamsDataView input_data_view(params, message);
@@ -350,6 +352,8 @@ bool ScreenOrientationStubDispatch::Accept(
           reinterpret_cast<internal::ScreenOrientation_UnlockOrientation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScreenOrientation.1
       bool success = true;
       ScreenOrientation_UnlockOrientation_ParamsDataView input_data_view(params, message);
       
@@ -362,7 +366,7 @@ bool ScreenOrientationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnlockOrientation();
+      impl->UnlockOrientation(        );
       return true;
     }
   }
@@ -385,6 +389,8 @@ bool ScreenOrientationStubDispatch::AcceptWithResponder(
               internal::ScreenOrientation_LockOrientation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenOrientation.0
       bool success = true;
       ::device::mojom::ScreenOrientationLockType p_orientation{};
       ScreenOrientation_LockOrientation_ParamsDataView input_data_view(params, message);
@@ -403,8 +409,8 @@ bool ScreenOrientationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LockOrientation(
-std::move(p_orientation), std::move(callback));
+      impl->LockOrientation(        
+        std::move(p_orientation), std::move(callback));
       return true;
     }
     case internal::kScreenOrientation_UnlockOrientation_Name: {
@@ -597,6 +603,8 @@ bool ScreenOrientationListener_IsAutoRotateEnabledByUser_ForwardToCallback::Acce
           internal::ScreenOrientationListener_IsAutoRotateEnabledByUser_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ScreenOrientationListener.0
   bool success = true;
   bool p_enabled{};
   ScreenOrientationListener_IsAutoRotateEnabledByUser_ResponseParamsDataView input_data_view(params, message);
@@ -687,6 +695,8 @@ bool ScreenOrientationListenerStubDispatch::AcceptWithResponder(
               internal::ScreenOrientationListener_IsAutoRotateEnabledByUser_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ScreenOrientationListener.0
       bool success = true;
       ScreenOrientationListener_IsAutoRotateEnabledByUser_ParamsDataView input_data_view(params, message);
       

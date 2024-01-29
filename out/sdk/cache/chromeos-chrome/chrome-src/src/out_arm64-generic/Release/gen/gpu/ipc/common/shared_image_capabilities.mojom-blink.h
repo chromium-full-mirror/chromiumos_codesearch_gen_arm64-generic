@@ -79,6 +79,7 @@ class BLINK_PLATFORM_EXPORT SharedImageCapabilities {
       bool supports_scanout_shared_images,
       bool supports_luminance_shared_images,
       bool supports_r16_shared_images,
+      bool is_r16f_supported,
       bool disable_r8_shared_images,
       bool disable_webgpu_shared_images,
       bool shared_image_d3d,
@@ -167,6 +168,8 @@ class BLINK_PLATFORM_EXPORT SharedImageCapabilities {
   
   bool supports_r16_shared_images;
   
+  bool is_r16f_supported;
+  
   bool disable_r8_shared_images;
   
   bool disable_webgpu_shared_images;
@@ -210,6 +213,7 @@ SharedImageCapabilitiesPtr SharedImageCapabilities::Clone() const {
       mojo::Clone(supports_scanout_shared_images),
       mojo::Clone(supports_luminance_shared_images),
       mojo::Clone(supports_r16_shared_images),
+      mojo::Clone(is_r16f_supported),
       mojo::Clone(disable_r8_shared_images),
       mojo::Clone(disable_webgpu_shared_images),
       mojo::Clone(shared_image_d3d),
@@ -224,6 +228,8 @@ bool SharedImageCapabilities::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->supports_luminance_shared_images, other_struct.supports_luminance_shared_images))
     return false;
   if (!mojo::Equals(this->supports_r16_shared_images, other_struct.supports_r16_shared_images))
+    return false;
+  if (!mojo::Equals(this->is_r16f_supported, other_struct.is_r16f_supported))
     return false;
   if (!mojo::Equals(this->disable_r8_shared_images, other_struct.disable_r8_shared_images))
     return false;
@@ -249,6 +255,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.supports_r16_shared_images < rhs.supports_r16_shared_images)
     return true;
   if (rhs.supports_r16_shared_images < lhs.supports_r16_shared_images)
+    return false;
+  if (lhs.is_r16f_supported < rhs.is_r16f_supported)
+    return true;
+  if (rhs.is_r16f_supported < lhs.is_r16f_supported)
     return false;
   if (lhs.disable_r8_shared_images < rhs.disable_r8_shared_images)
     return true;
@@ -294,6 +304,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::gpu::mojom::blink::SharedImageCapabi
   static decltype(::gpu::mojom::blink::SharedImageCapabilities::supports_r16_shared_images) supports_r16_shared_images(
       const ::gpu::mojom::blink::SharedImageCapabilitiesPtr& input) {
     return input->supports_r16_shared_images;
+  }
+
+  static decltype(::gpu::mojom::blink::SharedImageCapabilities::is_r16f_supported) is_r16f_supported(
+      const ::gpu::mojom::blink::SharedImageCapabilitiesPtr& input) {
+    return input->is_r16f_supported;
   }
 
   static decltype(::gpu::mojom::blink::SharedImageCapabilities::disable_r8_shared_images) disable_r8_shared_images(

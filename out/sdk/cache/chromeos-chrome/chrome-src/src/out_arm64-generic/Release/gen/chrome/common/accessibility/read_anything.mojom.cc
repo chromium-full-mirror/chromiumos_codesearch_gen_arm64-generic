@@ -47,6 +47,7 @@ namespace read_anything::mojom {
 ReadAnythingTheme::ReadAnythingTheme()
     : font_name(),
       font_size(),
+      links_enabled(),
       foreground_color(),
       background_color(),
       line_spacing(),
@@ -55,12 +56,14 @@ ReadAnythingTheme::ReadAnythingTheme()
 ReadAnythingTheme::ReadAnythingTheme(
     const std::string& font_name_in,
     float font_size_in,
+    bool links_enabled_in,
     ::SkColor foreground_color_in,
     ::SkColor background_color_in,
     LineSpacing line_spacing_in,
     LetterSpacing letter_spacing_in)
     : font_name(std::move(font_name_in)),
       font_size(std::move(font_size_in)),
+      links_enabled(std::move(links_enabled_in)),
       foreground_color(std::move(foreground_color_in)),
       background_color(std::move(background_color_in)),
       line_spacing(std::move(line_spacing_in)),
@@ -85,6 +88,15 @@ void ReadAnythingTheme::WriteIntoTrace(
       "font_size"), this->font_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "links_enabled"), this->links_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -140,6 +152,9 @@ UntrustedPageHandlerFactory::IPCStableHashFunction UntrustedPageHandlerFactory::
     case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name: {
       return &UntrustedPageHandlerFactory::CreateUntrustedPageHandler_Sym::IPCStableHash;
     }
+    case internal::kUntrustedPageHandlerFactory_ShouldShowUI_Name: {
+      return &UntrustedPageHandlerFactory::ShouldShowUI_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -153,11 +168,15 @@ const char* UntrustedPageHandlerFactory::MessageToMethodName_(mojo::Message& mes
     switch (message.name()) {
       case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name:
             return "Receive read_anything::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler";
+      case internal::kUntrustedPageHandlerFactory_ShouldShowUI_Name:
+            return "Receive read_anything::mojom::UntrustedPageHandlerFactory::ShouldShowUI";
     }
   } else {
     switch (message.name()) {
       case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name:
             return "Receive reply read_anything::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler";
+      case internal::kUntrustedPageHandlerFactory_ShouldShowUI_Name:
+            return "Receive reply read_anything::mojom::UntrustedPageHandlerFactory::ShouldShowUI";
     }
   }
   return "Receive unknown mojo message";
@@ -181,6 +200,19 @@ uint32_t UntrustedPageHandlerFactory::CreateUntrustedPageHandler_Sym::IPCStableH
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)read_anything::mojom::UntrustedPageHandlerFactory::CreateUntrustedPageHandler");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t UntrustedPageHandlerFactory::ShouldShowUI_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)read_anything::mojom::UntrustedPageHandlerFactory::ShouldShowUI");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -246,6 +278,39 @@ void UntrustedPageHandlerFactoryProxy::CreateUntrustedPageHandler(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void UntrustedPageHandlerFactoryProxy::ShouldShowUI(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send read_anything::mojom::UntrustedPageHandlerFactory::ShouldShowUI");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUntrustedPageHandlerFactory_ShouldShowUI_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::read_anything::mojom::internal::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UntrustedPageHandlerFactory::Name_);
+  message.set_method_name("ShouldShowUI");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool UntrustedPageHandlerFactoryStubDispatch::Accept(
     UntrustedPageHandlerFactory* impl,
@@ -258,6 +323,8 @@ bool UntrustedPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<UntrustedPage> p_page{};
       ::mojo::PendingReceiver<UntrustedPageHandler> p_handler{};
@@ -280,9 +347,33 @@ bool UntrustedPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUntrustedPageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreateUntrustedPageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
+      return true;
+    }
+    case internal::kUntrustedPageHandlerFactory_ShouldShowUI_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data* params =
+          reinterpret_cast<internal::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for UntrustedPageHandlerFactory.1
+      bool success = true;
+      UntrustedPageHandlerFactory_ShouldShowUI_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UntrustedPageHandlerFactory::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ShouldShowUI(        );
       return true;
     }
   }
@@ -301,6 +392,9 @@ bool UntrustedPageHandlerFactoryStubDispatch::AcceptWithResponder(
     case internal::kUntrustedPageHandlerFactory_CreateUntrustedPageHandler_Name: {
       break;
     }
+    case internal::kUntrustedPageHandlerFactory_ShouldShowUI_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -308,6 +402,8 @@ namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kUntrustedPageHandlerFactoryValidationInfo[] = {
     { &internal::UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::UntrustedPageHandlerFactory_ShouldShowUI_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -335,6 +431,9 @@ UntrustedPageHandler::IPCStableHashFunction UntrustedPageHandler::MessageToMetho
     }
     case internal::kUntrustedPageHandler_OnFontSizeChange_Name: {
       return &UntrustedPageHandler::OnFontSizeChange_Sym::IPCStableHash;
+    }
+    case internal::kUntrustedPageHandler_OnLinksEnabledChanged_Name: {
+      return &UntrustedPageHandler::OnLinksEnabledChanged_Sym::IPCStableHash;
     }
     case internal::kUntrustedPageHandler_OnColorChange_Name: {
       return &UntrustedPageHandler::OnColorChange_Sym::IPCStableHash;
@@ -381,6 +480,8 @@ const char* UntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive read_anything::mojom::UntrustedPageHandler::OnFontChange";
       case internal::kUntrustedPageHandler_OnFontSizeChange_Name:
             return "Receive read_anything::mojom::UntrustedPageHandler::OnFontSizeChange";
+      case internal::kUntrustedPageHandler_OnLinksEnabledChanged_Name:
+            return "Receive read_anything::mojom::UntrustedPageHandler::OnLinksEnabledChanged";
       case internal::kUntrustedPageHandler_OnColorChange_Name:
             return "Receive read_anything::mojom::UntrustedPageHandler::OnColorChange";
       case internal::kUntrustedPageHandler_OnSpeechRateChange_Name:
@@ -410,6 +511,8 @@ const char* UntrustedPageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply read_anything::mojom::UntrustedPageHandler::OnFontChange";
       case internal::kUntrustedPageHandler_OnFontSizeChange_Name:
             return "Receive reply read_anything::mojom::UntrustedPageHandler::OnFontSizeChange";
+      case internal::kUntrustedPageHandler_OnLinksEnabledChanged_Name:
+            return "Receive reply read_anything::mojom::UntrustedPageHandler::OnLinksEnabledChanged";
       case internal::kUntrustedPageHandler_OnColorChange_Name:
             return "Receive reply read_anything::mojom::UntrustedPageHandler::OnColorChange";
       case internal::kUntrustedPageHandler_OnSpeechRateChange_Name:
@@ -501,6 +604,19 @@ uint32_t UntrustedPageHandler::OnFontSizeChange_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)read_anything::mojom::UntrustedPageHandler::OnFontSizeChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t UntrustedPageHandler::OnLinksEnabledChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)read_anything::mojom::UntrustedPageHandler::OnLinksEnabledChanged");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -818,6 +934,47 @@ void UntrustedPageHandlerProxy::OnFontSizeChange(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(UntrustedPageHandler::Name_);
   message.set_method_name("OnFontSizeChange");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void UntrustedPageHandlerProxy::OnLinksEnabledChanged(
+    bool in_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send read_anything::mojom::UntrustedPageHandler::OnLinksEnabledChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enabled"), in_enabled,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUntrustedPageHandler_OnLinksEnabledChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::read_anything::mojom::internal::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->enabled = in_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UntrustedPageHandler::Name_);
+  message.set_method_name("OnLinksEnabledChanged");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1226,6 +1383,8 @@ bool UntrustedPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPageHandler_OnCopy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.0
       bool success = true;
       UntrustedPageHandler_OnCopy_ParamsDataView input_data_view(params, message);
       
@@ -1238,7 +1397,7 @@ bool UntrustedPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCopy();
+      impl->OnCopy(        );
       return true;
     }
     case internal::kUntrustedPageHandler_OnLineSpaceChange_Name: {
@@ -1248,6 +1407,8 @@ bool UntrustedPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPageHandler_OnLineSpaceChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.1
       bool success = true;
       LineSpacing p_line_spacing{};
       UntrustedPageHandler_OnLineSpaceChange_ParamsDataView input_data_view(params, message);
@@ -1263,8 +1424,8 @@ bool UntrustedPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLineSpaceChange(
-std::move(p_line_spacing));
+      impl->OnLineSpaceChange(        
+        std::move(p_line_spacing));
       return true;
     }
     case internal::kUntrustedPageHandler_OnLetterSpaceChange_Name: {
@@ -1274,6 +1435,8 @@ std::move(p_line_spacing));
           reinterpret_cast<internal::UntrustedPageHandler_OnLetterSpaceChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.2
       bool success = true;
       LetterSpacing p_letter_spacing{};
       UntrustedPageHandler_OnLetterSpaceChange_ParamsDataView input_data_view(params, message);
@@ -1289,8 +1452,8 @@ std::move(p_line_spacing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLetterSpaceChange(
-std::move(p_letter_spacing));
+      impl->OnLetterSpaceChange(        
+        std::move(p_letter_spacing));
       return true;
     }
     case internal::kUntrustedPageHandler_OnFontChange_Name: {
@@ -1300,6 +1463,8 @@ std::move(p_letter_spacing));
           reinterpret_cast<internal::UntrustedPageHandler_OnFontChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.3
       bool success = true;
       std::string p_font{};
       UntrustedPageHandler_OnFontChange_ParamsDataView input_data_view(params, message);
@@ -1315,8 +1480,8 @@ std::move(p_letter_spacing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFontChange(
-std::move(p_font));
+      impl->OnFontChange(        
+        std::move(p_font));
       return true;
     }
     case internal::kUntrustedPageHandler_OnFontSizeChange_Name: {
@@ -1326,6 +1491,8 @@ std::move(p_font));
           reinterpret_cast<internal::UntrustedPageHandler_OnFontSizeChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.4
       bool success = true;
       double p_font_size{};
       UntrustedPageHandler_OnFontSizeChange_ParamsDataView input_data_view(params, message);
@@ -1341,8 +1508,36 @@ std::move(p_font));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFontSizeChange(
-std::move(p_font_size));
+      impl->OnFontSizeChange(        
+        std::move(p_font_size));
+      return true;
+    }
+    case internal::kUntrustedPageHandler_OnLinksEnabledChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data* params =
+          reinterpret_cast<internal::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for UntrustedPageHandler.5
+      bool success = true;
+      bool p_enabled{};
+      UntrustedPageHandler_OnLinksEnabledChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_enabled = input_data_view.enabled();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UntrustedPageHandler::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnLinksEnabledChanged(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kUntrustedPageHandler_OnColorChange_Name: {
@@ -1352,6 +1547,8 @@ std::move(p_font_size));
           reinterpret_cast<internal::UntrustedPageHandler_OnColorChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.6
       bool success = true;
       Colors p_color{};
       UntrustedPageHandler_OnColorChange_ParamsDataView input_data_view(params, message);
@@ -1362,13 +1559,13 @@ std::move(p_font_size));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 5, false);
+            UntrustedPageHandler::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnColorChange(
-std::move(p_color));
+      impl->OnColorChange(        
+        std::move(p_color));
       return true;
     }
     case internal::kUntrustedPageHandler_OnSpeechRateChange_Name: {
@@ -1378,6 +1575,8 @@ std::move(p_color));
           reinterpret_cast<internal::UntrustedPageHandler_OnSpeechRateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.7
       bool success = true;
       double p_rate{};
       UntrustedPageHandler_OnSpeechRateChange_ParamsDataView input_data_view(params, message);
@@ -1388,13 +1587,13 @@ std::move(p_color));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 6, false);
+            UntrustedPageHandler::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeechRateChange(
-std::move(p_rate));
+      impl->OnSpeechRateChange(        
+        std::move(p_rate));
       return true;
     }
     case internal::kUntrustedPageHandler_OnVoiceChange_Name: {
@@ -1404,6 +1603,8 @@ std::move(p_rate));
           reinterpret_cast<internal::UntrustedPageHandler_OnVoiceChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.8
       bool success = true;
       std::string p_voice{};
       std::string p_lang{};
@@ -1417,14 +1618,14 @@ std::move(p_rate));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 7, false);
+            UntrustedPageHandler::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVoiceChange(
-std::move(p_voice), 
-std::move(p_lang));
+      impl->OnVoiceChange(        
+        std::move(p_voice), 
+        std::move(p_lang));
       return true;
     }
     case internal::kUntrustedPageHandler_OnHighlightGranularityChanged_Name: {
@@ -1434,6 +1635,8 @@ std::move(p_lang));
           reinterpret_cast<internal::UntrustedPageHandler_OnHighlightGranularityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.9
       bool success = true;
       HighlightGranularity p_granularity{};
       UntrustedPageHandler_OnHighlightGranularityChanged_ParamsDataView input_data_view(params, message);
@@ -1444,13 +1647,13 @@ std::move(p_lang));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 8, false);
+            UntrustedPageHandler::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHighlightGranularityChanged(
-std::move(p_granularity));
+      impl->OnHighlightGranularityChanged(        
+        std::move(p_granularity));
       return true;
     }
     case internal::kUntrustedPageHandler_OnLinkClicked_Name: {
@@ -1460,6 +1663,8 @@ std::move(p_granularity));
           reinterpret_cast<internal::UntrustedPageHandler_OnLinkClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.10
       bool success = true;
       ::ui::AXTreeID p_target_tree_id{};
       int32_t p_target_node_id{};
@@ -1473,14 +1678,14 @@ std::move(p_granularity));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 9, false);
+            UntrustedPageHandler::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLinkClicked(
-std::move(p_target_tree_id), 
-std::move(p_target_node_id));
+      impl->OnLinkClicked(        
+        std::move(p_target_tree_id), 
+        std::move(p_target_node_id));
       return true;
     }
     case internal::kUntrustedPageHandler_OnSelectionChange_Name: {
@@ -1490,6 +1695,8 @@ std::move(p_target_node_id));
           reinterpret_cast<internal::UntrustedPageHandler_OnSelectionChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.11
       bool success = true;
       ::ui::AXTreeID p_target_tree_id{};
       int32_t p_anchor_node_id{};
@@ -1512,17 +1719,17 @@ std::move(p_target_node_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 10, false);
+            UntrustedPageHandler::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSelectionChange(
-std::move(p_target_tree_id), 
-std::move(p_anchor_node_id), 
-std::move(p_anchor_offset), 
-std::move(p_focus_node_id), 
-std::move(p_focus_offset));
+      impl->OnSelectionChange(        
+        std::move(p_target_tree_id), 
+        std::move(p_anchor_node_id), 
+        std::move(p_anchor_offset), 
+        std::move(p_focus_node_id), 
+        std::move(p_focus_offset));
       return true;
     }
     case internal::kUntrustedPageHandler_OnCollapseSelection_Name: {
@@ -1532,6 +1739,8 @@ std::move(p_focus_offset));
           reinterpret_cast<internal::UntrustedPageHandler_OnCollapseSelection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.12
       bool success = true;
       UntrustedPageHandler_OnCollapseSelection_ParamsDataView input_data_view(params, message);
       
@@ -1539,12 +1748,12 @@ std::move(p_focus_offset));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 11, false);
+            UntrustedPageHandler::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCollapseSelection();
+      impl->OnCollapseSelection(        );
       return true;
     }
     case internal::kUntrustedPageHandler_EnablePDFContentAccessibility_Name: {
@@ -1554,6 +1763,8 @@ std::move(p_focus_offset));
           reinterpret_cast<internal::UntrustedPageHandler_EnablePDFContentAccessibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.13
       bool success = true;
       ::ui::AXTreeID p_target_tree_id{};
       UntrustedPageHandler_EnablePDFContentAccessibility_ParamsDataView input_data_view(params, message);
@@ -1564,13 +1775,13 @@ std::move(p_focus_offset));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            UntrustedPageHandler::Name_, 12, false);
+            UntrustedPageHandler::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnablePDFContentAccessibility(
-std::move(p_target_tree_id));
+      impl->EnablePDFContentAccessibility(        
+        std::move(p_target_tree_id));
       return true;
     }
   }
@@ -1599,6 +1810,9 @@ bool UntrustedPageHandlerStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kUntrustedPageHandler_OnFontSizeChange_Name: {
+      break;
+    }
+    case internal::kUntrustedPageHandler_OnLinksEnabledChanged_Name: {
       break;
     }
     case internal::kUntrustedPageHandler_OnColorChange_Name: {
@@ -1640,6 +1854,8 @@ static const mojo::internal::GenericValidationInfo kUntrustedPageHandlerValidati
     { &internal::UntrustedPageHandler_OnFontChange_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::UntrustedPageHandler_OnFontSizeChange_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::UntrustedPageHandler_OnLinksEnabledChanged_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::UntrustedPageHandler_OnColorChange_Params_Data::Validate,
      nullptr /* no response */},
@@ -2147,7 +2363,7 @@ void UntrustedPageProxy::SetDefaultLanguageCode(
 }
 
 void UntrustedPageProxy::OnSettingsRestoredFromPrefs(
-    LineSpacing in_line_spacing, LetterSpacing in_letter_spacing, const std::string& in_font, double in_font_size, Colors in_color, double in_speech_rate, ::base::Value::Dict in_voices, HighlightGranularity in_granularity) {
+    LineSpacing in_line_spacing, LetterSpacing in_letter_spacing, const std::string& in_font, double in_font_size, bool in_links_enabled, Colors in_color, double in_speech_rate, ::base::Value::Dict in_voices, HighlightGranularity in_granularity) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send read_anything::mojom::UntrustedPage::OnSettingsRestoredFromPrefs", "input_parameters",
@@ -2165,6 +2381,9 @@ void UntrustedPageProxy::OnSettingsRestoredFromPrefs(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("font_size"), in_font_size,
                         "<value of type double>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("links_enabled"), in_links_enabled,
+                        "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
                         "<value of type Colors>");
@@ -2213,6 +2432,7 @@ void UntrustedPageProxy::OnSettingsRestoredFromPrefs(
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null font in UntrustedPage.OnSettingsRestoredFromPrefs request");
   params->font_size = in_font_size;
+  params->links_enabled = in_links_enabled;
   mojo::internal::Serialize<::read_anything::mojom::Colors>(
       in_color, &params->color);
   params->speech_rate = in_speech_rate;
@@ -2284,6 +2504,8 @@ bool UntrustedPageStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPage_AccessibilityEventReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.0
       bool success = true;
       ::ui::AXTreeID p_tree_id{};
       std::vector<::ui::AXTreeUpdate> p_updates{};
@@ -2305,10 +2527,10 @@ bool UntrustedPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AccessibilityEventReceived(
-std::move(p_tree_id), 
-std::move(p_updates), 
-std::move(p_events));
+      impl->AccessibilityEventReceived(        
+        std::move(p_tree_id), 
+        std::move(p_updates), 
+        std::move(p_events));
       return true;
     }
     case internal::kUntrustedPage_OnActiveAXTreeIDChanged_Name: {
@@ -2318,6 +2540,8 @@ std::move(p_events));
           reinterpret_cast<internal::UntrustedPage_OnActiveAXTreeIDChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.1
       bool success = true;
       ::ui::AXTreeID p_tree_id{};
       int64_t p_ukm_source_id{};
@@ -2342,11 +2566,11 @@ std::move(p_events));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnActiveAXTreeIDChanged(
-std::move(p_tree_id), 
-std::move(p_ukm_source_id), 
-std::move(p_url), 
-std::move(p_force_update_state));
+      impl->OnActiveAXTreeIDChanged(        
+        std::move(p_tree_id), 
+        std::move(p_ukm_source_id), 
+        std::move(p_url), 
+        std::move(p_force_update_state));
       return true;
     }
     case internal::kUntrustedPage_OnAXTreeDestroyed_Name: {
@@ -2356,6 +2580,8 @@ std::move(p_force_update_state));
           reinterpret_cast<internal::UntrustedPage_OnAXTreeDestroyed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.2
       bool success = true;
       ::ui::AXTreeID p_tree_id{};
       UntrustedPage_OnAXTreeDestroyed_ParamsDataView input_data_view(params, message);
@@ -2371,8 +2597,8 @@ std::move(p_force_update_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAXTreeDestroyed(
-std::move(p_tree_id));
+      impl->OnAXTreeDestroyed(        
+        std::move(p_tree_id));
       return true;
     }
     case internal::kUntrustedPage_OnThemeChanged_Name: {
@@ -2382,6 +2608,8 @@ std::move(p_tree_id));
           reinterpret_cast<internal::UntrustedPage_OnThemeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.3
       bool success = true;
       ReadAnythingThemePtr p_new_theme{};
       UntrustedPage_OnThemeChanged_ParamsDataView input_data_view(params, message);
@@ -2397,8 +2625,8 @@ std::move(p_tree_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnThemeChanged(
-std::move(p_new_theme));
+      impl->OnThemeChanged(        
+        std::move(p_new_theme));
       return true;
     }
     case internal::kUntrustedPage_SetDefaultLanguageCode_Name: {
@@ -2408,6 +2636,8 @@ std::move(p_new_theme));
           reinterpret_cast<internal::UntrustedPage_SetDefaultLanguageCode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.4
       bool success = true;
       std::string p_code{};
       UntrustedPage_SetDefaultLanguageCode_ParamsDataView input_data_view(params, message);
@@ -2423,8 +2653,8 @@ std::move(p_new_theme));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDefaultLanguageCode(
-std::move(p_code));
+      impl->SetDefaultLanguageCode(        
+        std::move(p_code));
       return true;
     }
     case internal::kUntrustedPage_OnSettingsRestoredFromPrefs_Name: {
@@ -2434,11 +2664,14 @@ std::move(p_code));
           reinterpret_cast<internal::UntrustedPage_OnSettingsRestoredFromPrefs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.5
       bool success = true;
       LineSpacing p_line_spacing{};
       LetterSpacing p_letter_spacing{};
       std::string p_font{};
       double p_font_size{};
+      bool p_links_enabled{};
       Colors p_color{};
       double p_speech_rate{};
       ::base::Value::Dict p_voices{};
@@ -2453,6 +2686,8 @@ std::move(p_code));
         success = false;
       if (success)
         p_font_size = input_data_view.font_size();
+      if (success)
+        p_links_enabled = input_data_view.links_enabled();
       if (success && !input_data_view.ReadColor(&p_color))
         success = false;
       if (success)
@@ -2470,15 +2705,16 @@ std::move(p_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSettingsRestoredFromPrefs(
-std::move(p_line_spacing), 
-std::move(p_letter_spacing), 
-std::move(p_font), 
-std::move(p_font_size), 
-std::move(p_color), 
-std::move(p_speech_rate), 
-std::move(p_voices), 
-std::move(p_granularity));
+      impl->OnSettingsRestoredFromPrefs(        
+        std::move(p_line_spacing), 
+        std::move(p_letter_spacing), 
+        std::move(p_font), 
+        std::move(p_font_size), 
+        std::move(p_links_enabled), 
+        std::move(p_color), 
+        std::move(p_speech_rate), 
+        std::move(p_voices), 
+        std::move(p_granularity));
       return true;
     }
     case internal::kUntrustedPage_ScreenAIServiceReady_Name: {
@@ -2488,6 +2724,8 @@ std::move(p_granularity));
           reinterpret_cast<internal::UntrustedPage_ScreenAIServiceReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPage.6
       bool success = true;
       UntrustedPage_ScreenAIServiceReady_ParamsDataView input_data_view(params, message);
       
@@ -2500,7 +2738,7 @@ std::move(p_granularity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScreenAIServiceReady();
+      impl->ScreenAIServiceReady(        );
       return true;
     }
   }
@@ -2583,6 +2821,8 @@ bool StructTraits<::read_anything::mojom::ReadAnythingTheme::DataView, ::read_an
         success = false;
       if (success)
         result->font_size = input.font_size();
+      if (success)
+        result->links_enabled = input.links_enabled();
       if (success && !input.ReadForegroundColor(&result->foreground_color))
         success = false;
       if (success && !input.ReadBackgroundColor(&result->background_color))
@@ -2608,6 +2848,9 @@ namespace read_anything::mojom {
 void UntrustedPageHandlerFactoryInterceptorForTesting::CreateUntrustedPageHandler(::mojo::PendingRemote<UntrustedPage> page, ::mojo::PendingReceiver<UntrustedPageHandler> handler) {
   GetForwardingInterface()->CreateUntrustedPageHandler(std::move(page), std::move(handler));
 }
+void UntrustedPageHandlerFactoryInterceptorForTesting::ShouldShowUI() {
+  GetForwardingInterface()->ShouldShowUI();
+}
 UntrustedPageHandlerFactoryAsyncWaiter::UntrustedPageHandlerFactoryAsyncWaiter(
     UntrustedPageHandlerFactory* proxy) : proxy_(proxy) {}
 
@@ -2630,6 +2873,9 @@ void UntrustedPageHandlerInterceptorForTesting::OnFontChange(const std::string& 
 }
 void UntrustedPageHandlerInterceptorForTesting::OnFontSizeChange(double font_size) {
   GetForwardingInterface()->OnFontSizeChange(std::move(font_size));
+}
+void UntrustedPageHandlerInterceptorForTesting::OnLinksEnabledChanged(bool enabled) {
+  GetForwardingInterface()->OnLinksEnabledChanged(std::move(enabled));
 }
 void UntrustedPageHandlerInterceptorForTesting::OnColorChange(Colors color) {
   GetForwardingInterface()->OnColorChange(std::move(color));
@@ -2678,8 +2924,8 @@ void UntrustedPageInterceptorForTesting::OnThemeChanged(ReadAnythingThemePtr new
 void UntrustedPageInterceptorForTesting::SetDefaultLanguageCode(const std::string& code) {
   GetForwardingInterface()->SetDefaultLanguageCode(std::move(code));
 }
-void UntrustedPageInterceptorForTesting::OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) {
-  GetForwardingInterface()->OnSettingsRestoredFromPrefs(std::move(line_spacing), std::move(letter_spacing), std::move(font), std::move(font_size), std::move(color), std::move(speech_rate), std::move(voices), std::move(granularity));
+void UntrustedPageInterceptorForTesting::OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, bool links_enabled, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) {
+  GetForwardingInterface()->OnSettingsRestoredFromPrefs(std::move(line_spacing), std::move(letter_spacing), std::move(font), std::move(font_size), std::move(links_enabled), std::move(color), std::move(speech_rate), std::move(voices), std::move(granularity));
 }
 void UntrustedPageInterceptorForTesting::ScreenAIServiceReady() {
   GetForwardingInterface()->ScreenAIServiceReady();

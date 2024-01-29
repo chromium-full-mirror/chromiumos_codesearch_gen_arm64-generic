@@ -50,14 +50,29 @@ const char PageHandler::Name_[] = "privacy_sandbox_internals.mojom.PageHandler";
 PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
+    case internal::kPageHandler_ReadPref_Name: {
+      return &PageHandler::ReadPref_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_GetCookieSettings_Name: {
       return &PageHandler::GetCookieSettings_Sym::IPCStableHash;
     }
     case internal::kPageHandler_GetTpcdMetadataGrants_Name: {
       return &PageHandler::GetTpcdMetadataGrants_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_GetTpcdHeuristicsGrants_Name: {
+      return &PageHandler::GetTpcdHeuristicsGrants_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_GetTpcdTrial_Name: {
+      return &PageHandler::GetTpcdTrial_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_GetTopLevelTpcdTrial_Name: {
+      return &PageHandler::GetTopLevelTpcdTrial_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_ContentSettingsPatternToString_Name: {
       return &PageHandler::ContentSettingsPatternToString_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_StringToContentSettingsPattern_Name: {
+      return &PageHandler::StringToContentSettingsPattern_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -70,21 +85,41 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
+      case internal::kPageHandler_ReadPref_Name:
+            return "Receive privacy_sandbox_internals::mojom::PageHandler::ReadPref";
       case internal::kPageHandler_GetCookieSettings_Name:
             return "Receive privacy_sandbox_internals::mojom::PageHandler::GetCookieSettings";
       case internal::kPageHandler_GetTpcdMetadataGrants_Name:
             return "Receive privacy_sandbox_internals::mojom::PageHandler::GetTpcdMetadataGrants";
+      case internal::kPageHandler_GetTpcdHeuristicsGrants_Name:
+            return "Receive privacy_sandbox_internals::mojom::PageHandler::GetTpcdHeuristicsGrants";
+      case internal::kPageHandler_GetTpcdTrial_Name:
+            return "Receive privacy_sandbox_internals::mojom::PageHandler::GetTpcdTrial";
+      case internal::kPageHandler_GetTopLevelTpcdTrial_Name:
+            return "Receive privacy_sandbox_internals::mojom::PageHandler::GetTopLevelTpcdTrial";
       case internal::kPageHandler_ContentSettingsPatternToString_Name:
             return "Receive privacy_sandbox_internals::mojom::PageHandler::ContentSettingsPatternToString";
+      case internal::kPageHandler_StringToContentSettingsPattern_Name:
+            return "Receive privacy_sandbox_internals::mojom::PageHandler::StringToContentSettingsPattern";
     }
   } else {
     switch (message.name()) {
+      case internal::kPageHandler_ReadPref_Name:
+            return "Receive reply privacy_sandbox_internals::mojom::PageHandler::ReadPref";
       case internal::kPageHandler_GetCookieSettings_Name:
             return "Receive reply privacy_sandbox_internals::mojom::PageHandler::GetCookieSettings";
       case internal::kPageHandler_GetTpcdMetadataGrants_Name:
             return "Receive reply privacy_sandbox_internals::mojom::PageHandler::GetTpcdMetadataGrants";
+      case internal::kPageHandler_GetTpcdHeuristicsGrants_Name:
+            return "Receive reply privacy_sandbox_internals::mojom::PageHandler::GetTpcdHeuristicsGrants";
+      case internal::kPageHandler_GetTpcdTrial_Name:
+            return "Receive reply privacy_sandbox_internals::mojom::PageHandler::GetTpcdTrial";
+      case internal::kPageHandler_GetTopLevelTpcdTrial_Name:
+            return "Receive reply privacy_sandbox_internals::mojom::PageHandler::GetTopLevelTpcdTrial";
       case internal::kPageHandler_ContentSettingsPatternToString_Name:
             return "Receive reply privacy_sandbox_internals::mojom::PageHandler::ContentSettingsPatternToString";
+      case internal::kPageHandler_StringToContentSettingsPattern_Name:
+            return "Receive reply privacy_sandbox_internals::mojom::PageHandler::StringToContentSettingsPattern";
     }
   }
   return "Receive unknown mojo message";
@@ -99,6 +134,19 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t PageHandler::ReadPref_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)privacy_sandbox_internals::mojom::PageHandler::ReadPref");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t PageHandler::GetCookieSettings_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -125,6 +173,45 @@ uint32_t PageHandler::GetTpcdMetadataGrants_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::GetTpcdHeuristicsGrants_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)privacy_sandbox_internals::mojom::PageHandler::GetTpcdHeuristicsGrants");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::GetTpcdTrial_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)privacy_sandbox_internals::mojom::PageHandler::GetTpcdTrial");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::GetTopLevelTpcdTrial_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)privacy_sandbox_internals::mojom::PageHandler::GetTopLevelTpcdTrial");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t PageHandler::ContentSettingsPatternToString_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -138,7 +225,36 @@ uint32_t PageHandler::ContentSettingsPatternToString_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::StringToContentSettingsPattern_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)privacy_sandbox_internals::mojom::PageHandler::StringToContentSettingsPattern");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class PageHandler_ReadPref_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_ReadPref_ForwardToCallback(
+      PageHandler::ReadPrefCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_ReadPref_ForwardToCallback(const PageHandler_ReadPref_ForwardToCallback&) = delete;
+  PageHandler_ReadPref_ForwardToCallback& operator=(const PageHandler_ReadPref_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::ReadPrefCallback callback_;
+};
 
 class PageHandler_GetCookieSettings_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -172,6 +288,54 @@ class PageHandler_GetTpcdMetadataGrants_ForwardToCallback
   PageHandler::GetTpcdMetadataGrantsCallback callback_;
 };
 
+class PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback(
+      PageHandler::GetTpcdHeuristicsGrantsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback(const PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback&) = delete;
+  PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback& operator=(const PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetTpcdHeuristicsGrantsCallback callback_;
+};
+
+class PageHandler_GetTpcdTrial_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetTpcdTrial_ForwardToCallback(
+      PageHandler::GetTpcdTrialCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetTpcdTrial_ForwardToCallback(const PageHandler_GetTpcdTrial_ForwardToCallback&) = delete;
+  PageHandler_GetTpcdTrial_ForwardToCallback& operator=(const PageHandler_GetTpcdTrial_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetTpcdTrialCallback callback_;
+};
+
+class PageHandler_GetTopLevelTpcdTrial_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetTopLevelTpcdTrial_ForwardToCallback(
+      PageHandler::GetTopLevelTpcdTrialCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetTopLevelTpcdTrial_ForwardToCallback(const PageHandler_GetTopLevelTpcdTrial_ForwardToCallback&) = delete;
+  PageHandler_GetTopLevelTpcdTrial_ForwardToCallback& operator=(const PageHandler_GetTopLevelTpcdTrial_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetTopLevelTpcdTrialCallback callback_;
+};
+
 class PageHandler_ContentSettingsPatternToString_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -188,8 +352,76 @@ class PageHandler_ContentSettingsPatternToString_ForwardToCallback
   PageHandler::ContentSettingsPatternToStringCallback callback_;
 };
 
+class PageHandler_StringToContentSettingsPattern_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_StringToContentSettingsPattern_ForwardToCallback(
+      PageHandler::StringToContentSettingsPatternCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_StringToContentSettingsPattern_ForwardToCallback(const PageHandler_StringToContentSettingsPattern_ForwardToCallback&) = delete;
+  PageHandler_StringToContentSettingsPattern_ForwardToCallback& operator=(const PageHandler_StringToContentSettingsPattern_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::StringToContentSettingsPatternCallback callback_;
+};
+
 PageHandlerProxy::PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
+}
+
+void PageHandlerProxy::ReadPref(
+    const std::string& in_pref_name, ReadPrefCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send privacy_sandbox_internals::mojom::PageHandler::ReadPref", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("pref_name"), in_pref_name,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_ReadPref_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_ReadPref_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->pref_name)::BaseType> pref_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_pref_name, pref_name_fragment);
+  params->pref_name.Set(
+      pref_name_fragment.is_null() ? nullptr : pref_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->pref_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null pref_name in PageHandler.ReadPref request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("ReadPref");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_ReadPref_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void PageHandlerProxy::GetCookieSettings(
@@ -260,6 +492,108 @@ void PageHandlerProxy::GetTpcdMetadataGrants(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
+void PageHandlerProxy::GetTpcdHeuristicsGrants(
+    GetTpcdHeuristicsGrantsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send privacy_sandbox_internals::mojom::PageHandler::GetTpcdHeuristicsGrants");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetTpcdHeuristicsGrants_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_GetTpcdHeuristicsGrants_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetTpcdHeuristicsGrants");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::GetTpcdTrial(
+    GetTpcdTrialCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send privacy_sandbox_internals::mojom::PageHandler::GetTpcdTrial");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetTpcdTrial_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_GetTpcdTrial_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetTpcdTrial");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetTpcdTrial_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::GetTopLevelTpcdTrial(
+    GetTopLevelTpcdTrialCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send privacy_sandbox_internals::mojom::PageHandler::GetTopLevelTpcdTrial");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetTopLevelTpcdTrial_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_GetTopLevelTpcdTrial_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetTopLevelTpcdTrial");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetTopLevelTpcdTrial_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void PageHandlerProxy::ContentSettingsPatternToString(
     const ::ContentSettingsPattern& in_pattern, ContentSettingsPatternToStringCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -310,6 +644,187 @@ void PageHandlerProxy::ContentSettingsPatternToString(
       new PageHandler_ContentSettingsPatternToString_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::StringToContentSettingsPattern(
+    const std::string& in_s, StringToContentSettingsPatternCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send privacy_sandbox_internals::mojom::PageHandler::StringToContentSettingsPattern", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("s"), in_s,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_StringToContentSettingsPattern_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_StringToContentSettingsPattern_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->s)::BaseType> s_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_s, s_fragment);
+  params->s.Set(
+      s_fragment.is_null() ? nullptr : s_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->s.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null s in PageHandler.StringToContentSettingsPattern request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("StringToContentSettingsPattern");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_StringToContentSettingsPattern_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class PageHandler_ReadPref_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::ReadPrefCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_ReadPref_ProxyToResponder> proxy(
+        new PageHandler_ReadPref_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_ReadPref_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_ReadPref_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_ReadPref_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::ReadPrefCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::base::Value in_s);
+};
+
+bool PageHandler_ReadPref_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_ReadPref_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_ReadPref_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for PageHandler.0
+  bool success = true;
+  ::base::Value p_s{};
+  PageHandler_ReadPref_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadS(&p_s))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_s));
+  return true;
+}
+
+void PageHandler_ReadPref_ProxyToResponder::Run(
+    ::base::Value in_s) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply privacy_sandbox_internals::mojom::PageHandler::ReadPref", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("s"), in_s,
+                        "<value of type ::base::Value>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_ReadPref_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_ReadPref_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->s)>
+      s_fragment(params.message());
+  s_fragment.Claim(&params->s);
+  mojo::internal::Serialize<::mojo_base::mojom::ValueDataView>(
+      in_s, s_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->s.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null s in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("ReadPref");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 class PageHandler_GetCookieSettings_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -369,6 +884,8 @@ bool PageHandler_GetCookieSettings_ForwardToCallback::Accept(
           internal::PageHandler_GetCookieSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   std::vector<::ContentSettingPatternSource> p_content_settings{};
   PageHandler_GetCookieSettings_ResponseParamsDataView input_data_view(params, message);
@@ -379,7 +896,7 @@ bool PageHandler_GetCookieSettings_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 0, true);
+        PageHandler::Name_, 1, true);
     return false;
   }
   if (!callback_.is_null())
@@ -500,6 +1017,8 @@ bool PageHandler_GetTpcdMetadataGrants_ForwardToCallback::Accept(
           internal::PageHandler_GetTpcdMetadataGrants_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   std::vector<::ContentSettingPatternSource> p_content_settings{};
   PageHandler_GetTpcdMetadataGrants_ResponseParamsDataView input_data_view(params, message);
@@ -510,7 +1029,7 @@ bool PageHandler_GetTpcdMetadataGrants_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 1, true);
+        PageHandler::Name_, 2, true);
     return false;
   }
   if (!callback_.is_null())
@@ -560,6 +1079,405 @@ void PageHandler_GetTpcdMetadataGrants_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
   message.set_method_name("GetTpcdMetadataGrants");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetTpcdHeuristicsGrantsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder> proxy(
+        new PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetTpcdHeuristicsGrantsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::vector<::ContentSettingPatternSource>& in_content_settings);
+};
+
+bool PageHandler_GetTpcdHeuristicsGrants_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for PageHandler.3
+  bool success = true;
+  std::vector<::ContentSettingPatternSource> p_content_settings{};
+  PageHandler_GetTpcdHeuristicsGrants_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadContentSettings(&p_content_settings))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_content_settings));
+  return true;
+}
+
+void PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder::Run(
+    const std::vector<::ContentSettingPatternSource>& in_content_settings) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply privacy_sandbox_internals::mojom::PageHandler::GetTpcdHeuristicsGrants", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("content_settings"), in_content_settings,
+                        "<value of type const std::vector<::ContentSettingPatternSource>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetTpcdHeuristicsGrants_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->content_settings)::BaseType>
+      content_settings_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>>(
+      in_content_settings, content_settings_fragment, &content_settings_validate_params);
+  params->content_settings.Set(
+      content_settings_fragment.is_null() ? nullptr : content_settings_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->content_settings.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null content_settings in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetTpcdHeuristicsGrants");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class PageHandler_GetTpcdTrial_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetTpcdTrialCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetTpcdTrial_ProxyToResponder> proxy(
+        new PageHandler_GetTpcdTrial_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetTpcdTrial_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetTpcdTrial_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetTpcdTrial_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetTpcdTrialCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::vector<::ContentSettingPatternSource>& in_content_settings);
+};
+
+bool PageHandler_GetTpcdTrial_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetTpcdTrial_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetTpcdTrial_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for PageHandler.4
+  bool success = true;
+  std::vector<::ContentSettingPatternSource> p_content_settings{};
+  PageHandler_GetTpcdTrial_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadContentSettings(&p_content_settings))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 4, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_content_settings));
+  return true;
+}
+
+void PageHandler_GetTpcdTrial_ProxyToResponder::Run(
+    const std::vector<::ContentSettingPatternSource>& in_content_settings) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply privacy_sandbox_internals::mojom::PageHandler::GetTpcdTrial", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("content_settings"), in_content_settings,
+                        "<value of type const std::vector<::ContentSettingPatternSource>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetTpcdTrial_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_GetTpcdTrial_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->content_settings)::BaseType>
+      content_settings_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>>(
+      in_content_settings, content_settings_fragment, &content_settings_validate_params);
+  params->content_settings.Set(
+      content_settings_fragment.is_null() ? nullptr : content_settings_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->content_settings.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null content_settings in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetTpcdTrial");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class PageHandler_GetTopLevelTpcdTrial_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetTopLevelTpcdTrialCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetTopLevelTpcdTrial_ProxyToResponder> proxy(
+        new PageHandler_GetTopLevelTpcdTrial_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetTopLevelTpcdTrial_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetTopLevelTpcdTrial_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetTopLevelTpcdTrial_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetTopLevelTpcdTrialCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::vector<::ContentSettingPatternSource>& in_content_settings);
+};
+
+bool PageHandler_GetTopLevelTpcdTrial_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for PageHandler.5
+  bool success = true;
+  std::vector<::ContentSettingPatternSource> p_content_settings{};
+  PageHandler_GetTopLevelTpcdTrial_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadContentSettings(&p_content_settings))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_content_settings));
+  return true;
+}
+
+void PageHandler_GetTopLevelTpcdTrial_ProxyToResponder::Run(
+    const std::vector<::ContentSettingPatternSource>& in_content_settings) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply privacy_sandbox_internals::mojom::PageHandler::GetTopLevelTpcdTrial", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("content_settings"), in_content_settings,
+                        "<value of type const std::vector<::ContentSettingPatternSource>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetTopLevelTpcdTrial_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->content_settings)::BaseType>
+      content_settings_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::content_settings::mojom::ContentSettingPatternSourceDataView>>(
+      in_content_settings, content_settings_fragment, &content_settings_validate_params);
+  params->content_settings.Set(
+      content_settings_fragment.is_null() ? nullptr : content_settings_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->content_settings.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null content_settings in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetTopLevelTpcdTrial");
 #endif
 
   message.set_request_id(request_id_);
@@ -631,6 +1549,8 @@ bool PageHandler_ContentSettingsPatternToString_ForwardToCallback::Accept(
           internal::PageHandler_ContentSettingsPatternToString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.6
   bool success = true;
   std::string p_s{};
   PageHandler_ContentSettingsPatternToString_ResponseParamsDataView input_data_view(params, message);
@@ -641,7 +1561,7 @@ bool PageHandler_ContentSettingsPatternToString_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 2, true);
+        PageHandler::Name_, 6, true);
     return false;
   }
   if (!callback_.is_null())
@@ -702,19 +1622,165 @@ void PageHandler_ContentSettingsPatternToString_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class PageHandler_StringToContentSettingsPattern_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::StringToContentSettingsPatternCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_StringToContentSettingsPattern_ProxyToResponder> proxy(
+        new PageHandler_StringToContentSettingsPattern_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_StringToContentSettingsPattern_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_StringToContentSettingsPattern_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_StringToContentSettingsPattern_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::StringToContentSettingsPatternCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const ::ContentSettingsPattern& in_pattern);
+};
+
+bool PageHandler_StringToContentSettingsPattern_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_StringToContentSettingsPattern_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_StringToContentSettingsPattern_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for PageHandler.7
+  bool success = true;
+  ::ContentSettingsPattern p_pattern{};
+  PageHandler_StringToContentSettingsPattern_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadPattern(&p_pattern))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 7, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_pattern));
+  return true;
+}
+
+void PageHandler_StringToContentSettingsPattern_ProxyToResponder::Run(
+    const ::ContentSettingsPattern& in_pattern) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply privacy_sandbox_internals::mojom::PageHandler::StringToContentSettingsPattern", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("pattern"), in_pattern,
+                        "<value of type const ::ContentSettingsPattern&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_StringToContentSettingsPattern_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::privacy_sandbox_internals::mojom::internal::PageHandler_StringToContentSettingsPattern_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->pattern)::BaseType> pattern_fragment(
+          params.message());
+  mojo::internal::Serialize<::content_settings::mojom::ContentSettingsPatternDataView>(
+      in_pattern, pattern_fragment);
+  params->pattern.Set(
+      pattern_fragment.is_null() ? nullptr : pattern_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->pattern.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null pattern in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("StringToContentSettingsPattern");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool PageHandlerStubDispatch::Accept(
     PageHandler* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
+    case internal::kPageHandler_ReadPref_Name: {
+      break;
+    }
     case internal::kPageHandler_GetCookieSettings_Name: {
       break;
     }
     case internal::kPageHandler_GetTpcdMetadataGrants_Name: {
       break;
     }
+    case internal::kPageHandler_GetTpcdHeuristicsGrants_Name: {
+      break;
+    }
+    case internal::kPageHandler_GetTpcdTrial_Name: {
+      break;
+    }
+    case internal::kPageHandler_GetTopLevelTpcdTrial_Name: {
+      break;
+    }
     case internal::kPageHandler_ContentSettingsPatternToString_Name: {
+      break;
+    }
+    case internal::kPageHandler_StringToContentSettingsPattern_Name: {
       break;
     }
   }
@@ -730,6 +1796,37 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
+    case internal::kPageHandler_ReadPref_Name: {
+
+      internal::PageHandler_ReadPref_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_ReadPref_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for PageHandler.0
+      bool success = true;
+      std::string p_pref_name{};
+      PageHandler_ReadPref_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPrefName(&p_pref_name))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 0, false);
+        return false;
+      }
+      PageHandler::ReadPrefCallback callback =
+          PageHandler_ReadPref_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ReadPref(        
+        std::move(p_pref_name), std::move(callback));
+      return true;
+    }
     case internal::kPageHandler_GetCookieSettings_Name: {
 
       internal::PageHandler_GetCookieSettings_Params_Data* params =
@@ -737,6 +1834,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetCookieSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetCookieSettings_ParamsDataView input_data_view(params, message);
       
@@ -744,7 +1843,7 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 0, false);
+            PageHandler::Name_, 1, false);
         return false;
       }
       PageHandler::GetCookieSettingsCallback callback =
@@ -762,6 +1861,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetTpcdMetadataGrants_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_GetTpcdMetadataGrants_ParamsDataView input_data_view(params, message);
       
@@ -769,7 +1870,7 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 1, false);
+            PageHandler::Name_, 2, false);
         return false;
       }
       PageHandler::GetTpcdMetadataGrantsCallback callback =
@@ -780,6 +1881,87 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       impl->GetTpcdMetadataGrants(std::move(callback));
       return true;
     }
+    case internal::kPageHandler_GetTpcdHeuristicsGrants_Name: {
+
+      internal::PageHandler_GetTpcdHeuristicsGrants_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetTpcdHeuristicsGrants_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for PageHandler.3
+      bool success = true;
+      PageHandler_GetTpcdHeuristicsGrants_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 3, false);
+        return false;
+      }
+      PageHandler::GetTpcdHeuristicsGrantsCallback callback =
+          PageHandler_GetTpcdHeuristicsGrants_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetTpcdHeuristicsGrants(std::move(callback));
+      return true;
+    }
+    case internal::kPageHandler_GetTpcdTrial_Name: {
+
+      internal::PageHandler_GetTpcdTrial_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetTpcdTrial_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for PageHandler.4
+      bool success = true;
+      PageHandler_GetTpcdTrial_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 4, false);
+        return false;
+      }
+      PageHandler::GetTpcdTrialCallback callback =
+          PageHandler_GetTpcdTrial_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetTpcdTrial(std::move(callback));
+      return true;
+    }
+    case internal::kPageHandler_GetTopLevelTpcdTrial_Name: {
+
+      internal::PageHandler_GetTopLevelTpcdTrial_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetTopLevelTpcdTrial_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for PageHandler.5
+      bool success = true;
+      PageHandler_GetTopLevelTpcdTrial_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 5, false);
+        return false;
+      }
+      PageHandler::GetTopLevelTpcdTrialCallback callback =
+          PageHandler_GetTopLevelTpcdTrial_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetTopLevelTpcdTrial(std::move(callback));
+      return true;
+    }
     case internal::kPageHandler_ContentSettingsPatternToString_Name: {
 
       internal::PageHandler_ContentSettingsPatternToString_Params_Data* params =
@@ -787,6 +1969,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_ContentSettingsPatternToString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       ::ContentSettingsPattern p_pattern{};
       PageHandler_ContentSettingsPatternToString_ParamsDataView input_data_view(params, message);
@@ -797,7 +1981,7 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 2, false);
+            PageHandler::Name_, 6, false);
         return false;
       }
       PageHandler::ContentSettingsPatternToStringCallback callback =
@@ -805,8 +1989,39 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContentSettingsPatternToString(
-std::move(p_pattern), std::move(callback));
+      impl->ContentSettingsPatternToString(        
+        std::move(p_pattern), std::move(callback));
+      return true;
+    }
+    case internal::kPageHandler_StringToContentSettingsPattern_Name: {
+
+      internal::PageHandler_StringToContentSettingsPattern_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_StringToContentSettingsPattern_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for PageHandler.7
+      bool success = true;
+      std::string p_s{};
+      PageHandler_StringToContentSettingsPattern_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadS(&p_s))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 7, false);
+        return false;
+      }
+      PageHandler::StringToContentSettingsPatternCallback callback =
+          PageHandler_StringToContentSettingsPattern_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->StringToContentSettingsPattern(        
+        std::move(p_s), std::move(callback));
       return true;
     }
   }
@@ -815,12 +2030,22 @@ std::move(p_pattern), std::move(callback));
 namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
+    { &internal::PageHandler_ReadPref_Params_Data::Validate,
+     &internal::PageHandler_ReadPref_ResponseParams_Data::Validate},
     { &internal::PageHandler_GetCookieSettings_Params_Data::Validate,
      &internal::PageHandler_GetCookieSettings_ResponseParams_Data::Validate},
     { &internal::PageHandler_GetTpcdMetadataGrants_Params_Data::Validate,
      &internal::PageHandler_GetTpcdMetadataGrants_ResponseParams_Data::Validate},
+    { &internal::PageHandler_GetTpcdHeuristicsGrants_Params_Data::Validate,
+     &internal::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data::Validate},
+    { &internal::PageHandler_GetTpcdTrial_Params_Data::Validate,
+     &internal::PageHandler_GetTpcdTrial_ResponseParams_Data::Validate},
+    { &internal::PageHandler_GetTopLevelTpcdTrial_Params_Data::Validate,
+     &internal::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data::Validate},
     { &internal::PageHandler_ContentSettingsPatternToString_Params_Data::Validate,
      &internal::PageHandler_ContentSettingsPatternToString_ResponseParams_Data::Validate},
+    { &internal::PageHandler_StringToContentSettingsPattern_Params_Data::Validate,
+     &internal::PageHandler_StringToContentSettingsPattern_ResponseParams_Data::Validate},
 };
 
 bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -900,19 +2125,57 @@ namespace mojo {
 namespace privacy_sandbox_internals::mojom {
 
 
+void PageHandlerInterceptorForTesting::ReadPref(const std::string& pref_name, ReadPrefCallback callback) {
+  GetForwardingInterface()->ReadPref(std::move(pref_name), std::move(callback));
+}
 void PageHandlerInterceptorForTesting::GetCookieSettings(GetCookieSettingsCallback callback) {
   GetForwardingInterface()->GetCookieSettings(std::move(callback));
 }
 void PageHandlerInterceptorForTesting::GetTpcdMetadataGrants(GetTpcdMetadataGrantsCallback callback) {
   GetForwardingInterface()->GetTpcdMetadataGrants(std::move(callback));
 }
+void PageHandlerInterceptorForTesting::GetTpcdHeuristicsGrants(GetTpcdHeuristicsGrantsCallback callback) {
+  GetForwardingInterface()->GetTpcdHeuristicsGrants(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::GetTpcdTrial(GetTpcdTrialCallback callback) {
+  GetForwardingInterface()->GetTpcdTrial(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::GetTopLevelTpcdTrial(GetTopLevelTpcdTrialCallback callback) {
+  GetForwardingInterface()->GetTopLevelTpcdTrial(std::move(callback));
+}
 void PageHandlerInterceptorForTesting::ContentSettingsPatternToString(const ::ContentSettingsPattern& pattern, ContentSettingsPatternToStringCallback callback) {
   GetForwardingInterface()->ContentSettingsPatternToString(std::move(pattern), std::move(callback));
+}
+void PageHandlerInterceptorForTesting::StringToContentSettingsPattern(const std::string& s, StringToContentSettingsPatternCallback callback) {
+  GetForwardingInterface()->StringToContentSettingsPattern(std::move(s), std::move(callback));
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}
 
 PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
+
+void PageHandlerAsyncWaiter::ReadPref(
+    const std::string& pref_name, ::base::Value* out_s) {
+  base::RunLoop loop;
+  proxy_->ReadPref(std::move(pref_name),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::base::Value* out_s
+,
+             ::base::Value s) {*out_s = std::move(s);
+            loop->Quit();
+          },
+          &loop,
+          out_s));
+  loop.Run();
+}
+
+::base::Value PageHandlerAsyncWaiter::ReadPref(
+    const std::string& pref_name) {
+  ::base::Value async_wait_result;
+  ReadPref(std::move(pref_name),&async_wait_result);
+  return async_wait_result;
+}
 
 void PageHandlerAsyncWaiter::GetCookieSettings(
     std::vector<::ContentSettingPatternSource>* out_content_settings) {
@@ -960,6 +2223,75 @@ std::vector<::ContentSettingPatternSource> PageHandlerAsyncWaiter::GetTpcdMetada
   return async_wait_result;
 }
 
+void PageHandlerAsyncWaiter::GetTpcdHeuristicsGrants(
+    std::vector<::ContentSettingPatternSource>* out_content_settings) {
+  base::RunLoop loop;
+  proxy_->GetTpcdHeuristicsGrants(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<::ContentSettingPatternSource>* out_content_settings
+,
+             const std::vector<::ContentSettingPatternSource>& content_settings) {*out_content_settings = std::move(content_settings);
+            loop->Quit();
+          },
+          &loop,
+          out_content_settings));
+  loop.Run();
+}
+
+std::vector<::ContentSettingPatternSource> PageHandlerAsyncWaiter::GetTpcdHeuristicsGrants(
+    ) {
+  std::vector<::ContentSettingPatternSource> async_wait_result;
+  GetTpcdHeuristicsGrants(&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerAsyncWaiter::GetTpcdTrial(
+    std::vector<::ContentSettingPatternSource>* out_content_settings) {
+  base::RunLoop loop;
+  proxy_->GetTpcdTrial(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<::ContentSettingPatternSource>* out_content_settings
+,
+             const std::vector<::ContentSettingPatternSource>& content_settings) {*out_content_settings = std::move(content_settings);
+            loop->Quit();
+          },
+          &loop,
+          out_content_settings));
+  loop.Run();
+}
+
+std::vector<::ContentSettingPatternSource> PageHandlerAsyncWaiter::GetTpcdTrial(
+    ) {
+  std::vector<::ContentSettingPatternSource> async_wait_result;
+  GetTpcdTrial(&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerAsyncWaiter::GetTopLevelTpcdTrial(
+    std::vector<::ContentSettingPatternSource>* out_content_settings) {
+  base::RunLoop loop;
+  proxy_->GetTopLevelTpcdTrial(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<::ContentSettingPatternSource>* out_content_settings
+,
+             const std::vector<::ContentSettingPatternSource>& content_settings) {*out_content_settings = std::move(content_settings);
+            loop->Quit();
+          },
+          &loop,
+          out_content_settings));
+  loop.Run();
+}
+
+std::vector<::ContentSettingPatternSource> PageHandlerAsyncWaiter::GetTopLevelTpcdTrial(
+    ) {
+  std::vector<::ContentSettingPatternSource> async_wait_result;
+  GetTopLevelTpcdTrial(&async_wait_result);
+  return async_wait_result;
+}
+
 void PageHandlerAsyncWaiter::ContentSettingsPatternToString(
     const ::ContentSettingsPattern& pattern, std::string* out_s) {
   base::RunLoop loop;
@@ -980,6 +2312,29 @@ std::string PageHandlerAsyncWaiter::ContentSettingsPatternToString(
     const ::ContentSettingsPattern& pattern) {
   std::string async_wait_result;
   ContentSettingsPatternToString(std::move(pattern),&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerAsyncWaiter::StringToContentSettingsPattern(
+    const std::string& s, ::ContentSettingsPattern* out_pattern) {
+  base::RunLoop loop;
+  proxy_->StringToContentSettingsPattern(std::move(s),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ContentSettingsPattern* out_pattern
+,
+             const ::ContentSettingsPattern& pattern) {*out_pattern = std::move(pattern);
+            loop->Quit();
+          },
+          &loop,
+          out_pattern));
+  loop.Run();
+}
+
+::ContentSettingsPattern PageHandlerAsyncWaiter::StringToContentSettingsPattern(
+    const std::string& s) {
+  ::ContentSettingsPattern async_wait_result;
+  StringToContentSettingsPattern(std::move(s),&async_wait_result);
   return async_wait_result;
 }
 

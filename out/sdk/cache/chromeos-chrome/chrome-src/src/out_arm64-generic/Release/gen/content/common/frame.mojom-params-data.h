@@ -247,22 +247,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Frame_GetSerializedHtmlWithL
 };
 static_assert(sizeof(Frame_GetSerializedHtmlWithLocalLinks_Params_Data) == 40,
               "Bad sizeof(Frame_GetSerializedHtmlWithLocalLinks_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) Frame_SetResourceCache_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Interface_Data remote;
-
- private:
-  friend class mojo::internal::MessageFragment<Frame_SetResourceCache_Params_Data>;
-
-  Frame_SetResourceCache_Params_Data();
-  ~Frame_SetResourceCache_Params_Data() = delete;
-};
-static_assert(sizeof(Frame_SetResourceCache_Params_Data) == 16,
-              "Bad sizeof(Frame_SetResourceCache_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) FrameBindingsControl_AllowBindings_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1021,31 +1005,6 @@ class Frame_GetSerializedHtmlWithLocalLinks_ParamsDataView {
   }
  private:
   internal::Frame_GetSerializedHtmlWithLocalLinks_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class Frame_SetResourceCache_ParamsDataView {
- public:
-  Frame_SetResourceCache_ParamsDataView() = default;
-
-  Frame_SetResourceCache_ParamsDataView(
-      internal::Frame_SetResourceCache_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  UserType TakeRemote() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::blink::mojom::ResourceCacheInterfaceBase>>(
-            &data_->remote, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
- private:
-  internal::Frame_SetResourceCache_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1861,8 +1820,6 @@ inline void Frame_GetSerializedHtmlWithLocalLinks_ParamsDataView::GetFrameTokenM
   auto pointer = data_->frame_token_map.Get();
   *output = mojo::MapDataView<::blink::mojom::FrameTokenDataView, ::mojo_base::mojom::FilePathDataView>(pointer, message_);
 }
-
-
 
 
 

@@ -53,7 +53,7 @@ return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFe
 const WrapperTypeInfo V8CaptureController::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8CaptureController::InstallInterfaceTemplate,
-    nullptr,
+    V8CaptureController::InstallContextDependentProperties,
     "CaptureController",
     V8EventTarget::GetWrapperTypeInfo(),
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -113,10 +113,15 @@ void OncapturedzoomlevelchangeAttributeGetCallback(const v8::FunctionCallbackInf
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_oncapturedzoomlevelchange_Getter");
 BLINK_BINDINGS_TRACE_EVENT("CaptureController.oncapturedzoomlevelchange.get");
-
-
-
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl);
+
+
+
 v8::Local<v8::Object> v8_receiver = info.This();
 CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->oncapturedzoomlevelchange();
@@ -127,12 +132,17 @@ void OncapturedzoomlevelchangeAttributeSetCallback(const v8::FunctionCallbackInf
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_oncapturedzoomlevelchange_Setter");
 BLINK_BINDINGS_TRACE_EVENT("CaptureController.oncapturedzoomlevelchange.set");
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl);
 
 v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
 CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncapturedzoomlevelchange(event_handler);
@@ -159,47 +169,12 @@ return;
 
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& return_value = CaptureController::Create(execution_context);
 v8::Local<v8::Object> v8_wrapper = return_value->AssociateWithWrapper(isolate, V8CaptureController::GetWrapperTypeInfo(), v8_receiver);
 bindings::V8SetReturnValue(info, v8_wrapper);
-}
-
-void GetMaxZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getMaxZoomLevel");
-BLINK_BINDINGS_TRACE_EVENT("CaptureController.getMaxZoomLevel");
-
-
-
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->getMaxZoomLevel();
-bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
-}
-
-void GetMinZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getMinZoomLevel");
-BLINK_BINDINGS_TRACE_EVENT("CaptureController.getMinZoomLevel");
-
-
-
-
-
-
-
-
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->getMinZoomLevel();
-bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
 
 void GetZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -219,6 +194,11 @@ exception_state.ThrowTypeError("Illegal invocation");
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl);
 
 
 
@@ -226,8 +206,7 @@ return;
 
 
 CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->getZoomLevel(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -250,6 +229,11 @@ if (!V8CaptureController::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl);
 
 
 
@@ -261,8 +245,7 @@ return;
 
 
 CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_action = NativeValueTraits<CapturedWheelAction>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -279,7 +262,8 @@ BLINK_BINDINGS_TRACE_EVENT("CaptureController.setFocusBehavior");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kConditionalFocus);
 
@@ -326,6 +310,11 @@ if (!V8CaptureController::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl);
 
 
 
@@ -337,8 +326,7 @@ return;
 
 
 CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_zoom_level = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -346,6 +334,29 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 auto&& return_value = blink_receiver->setZoomLevel(script_state, arg1_zoom_level);
 bindings::V8SetReturnValue(info, return_value);
+}
+
+void GetSupportedZoomLevelsStaticOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getSupportedZoomLevels");
+BLINK_BINDINGS_TRACE_EVENT("CaptureController.getSupportedZoomLevels");
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl);
+
+
+
+
+
+
+ScriptState* script_state = current_script_state;
+auto&& return_value = CaptureController::getSupportedZoomLevels();
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<IDLLong>>::ToV8(script_state, return_value);
+bindings::V8SetReturnValue(info, v8_return_value);
 }
 
 
@@ -408,34 +419,47 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::CapturedSurfaceControlEnabled()) {
+
+
+
+
+
+
+}
+
+void V8CaptureController::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
+  using bindings::IDLMemberInstaller;
+
+ScriptState* script_state = ScriptState::From(context);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::CapturedSurfaceControlEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kCapturedSurfaceControl)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"oncapturedzoomlevelchange", OncapturedzoomlevelchangeAttributeGetCallback, OncapturedzoomlevelchangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
+v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
 
 
 
 
-if (RuntimeEnabledFeatures::CapturedSurfaceControlEnabled()) {
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::CapturedSurfaceControlEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kCapturedSurfaceControl)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"getMaxZoomLevel", GetMaxZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"getMinZoomLevel", GetMinZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getZoomLevel", GetZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"sendWheel", SendWheelOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setZoomLevel", SetZoomLevelOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getSupportedZoomLevels", GetSupportedZoomLevelsStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
+v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
 }
 
 
 }
-
 
 
 }  // namespace blink

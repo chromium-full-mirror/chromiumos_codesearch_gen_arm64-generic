@@ -23,11 +23,16 @@ export function getTemplate() {
   </template>
   <template is="dom-if" if="[[showAppPermissions_]]">
     <div id="cameraRow" class="settings-box no-padding">
-      <cr-link-row id="cameraSubpageLink" start-icon="app-management:camera" label="$i18n{cameraToggleTitle}" sub-label="[[cameraSubLabel_]]" on-click="onCameraSubpageLinkClick_">
+      <cr-link-row id="cameraSubpageLink" start-icon="app-management:camera" label="$i18n{cameraToggleTitle}" sub-label="[[cameraRowSubtext_]]" on-click="onCameraSubpageLinkClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="separator"></div>
-      <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]">
-      </cr-toggle>
+      <div id="cameraToggleWrapper">
+        <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraSubLabel_]]">
+        </cr-toggle>
+      </div>
+      <paper-tooltip id="cameraToggleTooltip" hidden="[[!isCameraListEmpty_]]" aria-hidden="true" for="cameraToggleWrapper" fit-to-visible-bounds>
+        $i18n{privacyHubNoCameraConnectedTooltipText}
+      </paper-tooltip>
     </div>
   </template>
 </div>
@@ -56,15 +61,15 @@ export function getTemplate() {
   </template>
   <template is="dom-if" if="[[showAppPermissions_]]">
     <div id="microphoneRow" class="settings-box no-padding">
-      <cr-link-row id="microphoneSubpageLink" start-icon="app-management:microphone" label="$i18n{microphoneToggleTitle}" sub-label="$i18n{microphoneToggleSubtext}" on-click="onMicrophoneSubpageLinkClick_">
+      <cr-link-row id="microphoneSubpageLink" start-icon="app-management:microphone" label="$i18n{microphoneToggleTitle}" sub-label="[[microphoneRowSubtext_]]" on-click="onMicrophoneSubpageLinkClick_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <div class="separator"></div>
       <div id="microphoneToggleWrapper">
-        <cr-toggle id="microphoneToggle" class="margin-matches-padding" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]">
+        <cr-toggle id="microphoneToggle" class="margin-matches-padding" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]" aria-label="$i18n{microphoneToggleTitle}" aria-description="[[microphoneRowSubtext_]]">
         </cr-toggle>
       </div>
-      <paper-tooltip id="microphoneToggleTooltip" hidden="[[!microphoneHardwareToggleActive_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
-        $i18n{microphoneHwToggleTooltip}
+      <paper-tooltip id="microphoneToggleTooltip" hidden="[[!shouldDisableMicrophoneToggle_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
+        [[microphoneToggleTooltipText_]]
       </paper-tooltip>
     </div>
   </template>

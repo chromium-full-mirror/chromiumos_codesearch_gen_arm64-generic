@@ -53,6 +53,9 @@ MediaMetricsProvider::IPCStableHashFunction MediaMetricsProvider::MessageToMetho
     case internal::kMediaMetricsProvider_Initialize_Name: {
       return &MediaMetricsProvider::Initialize_Sym::IPCStableHash;
     }
+    case internal::kMediaMetricsProvider_OnStarted_Name: {
+      return &MediaMetricsProvider::OnStarted_Sym::IPCStableHash;
+    }
     case internal::kMediaMetricsProvider_OnError_Name: {
       return &MediaMetricsProvider::OnError_Sym::IPCStableHash;
     }
@@ -129,6 +132,8 @@ const char* MediaMetricsProvider::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kMediaMetricsProvider_Initialize_Name:
             return "Receive media::mojom::MediaMetricsProvider::Initialize";
+      case internal::kMediaMetricsProvider_OnStarted_Name:
+            return "Receive media::mojom::MediaMetricsProvider::OnStarted";
       case internal::kMediaMetricsProvider_OnError_Name:
             return "Receive media::mojom::MediaMetricsProvider::OnError";
       case internal::kMediaMetricsProvider_OnFallback_Name:
@@ -176,6 +181,8 @@ const char* MediaMetricsProvider::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kMediaMetricsProvider_Initialize_Name:
             return "Receive reply media::mojom::MediaMetricsProvider::Initialize";
+      case internal::kMediaMetricsProvider_OnStarted_Name:
+            return "Receive reply media::mojom::MediaMetricsProvider::OnStarted";
       case internal::kMediaMetricsProvider_OnError_Name:
             return "Receive reply media::mojom::MediaMetricsProvider::OnError";
       case internal::kMediaMetricsProvider_OnFallback_Name:
@@ -241,6 +248,19 @@ uint32_t MediaMetricsProvider::Initialize_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)media::mojom::MediaMetricsProvider::Initialize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MediaMetricsProvider::OnStarted_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)media::mojom::MediaMetricsProvider::OnStarted");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -569,6 +589,57 @@ void MediaMetricsProviderProxy::Initialize(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaMetricsProvider::Name_);
   message.set_method_name("Initialize");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MediaMetricsProviderProxy::OnStarted(
+    ::media::mojom::blink::PipelineStatusPtr in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send media::mojom::MediaMetricsProvider::OnStarted", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type ::media::mojom::blink::PipelineStatusPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaMetricsProvider_OnStarted_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media::mojom::internal::MediaMetricsProvider_OnStarted_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->status)::BaseType> status_fragment(
+          params.message());
+  mojo::internal::Serialize<::media::mojom::PipelineStatusDataView>(
+      in_status, status_fragment);
+  params->status.Set(
+      status_fragment.is_null() ? nullptr : status_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->status.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null status in MediaMetricsProvider.OnStarted request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaMetricsProvider::Name_);
+  message.set_method_name("OnStarted");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1540,6 +1611,8 @@ bool MediaMetricsProviderStubDispatch::Accept(
           reinterpret_cast<internal::MediaMetricsProvider_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.0
       bool success = true;
       bool p_is_mse{};
       MediaURLScheme p_url_scheme{};
@@ -1561,22 +1634,24 @@ bool MediaMetricsProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_is_mse), 
-std::move(p_url_scheme), 
-std::move(p_stream_type));
+      impl->Initialize(        
+        std::move(p_is_mse), 
+        std::move(p_url_scheme), 
+        std::move(p_stream_type));
       return true;
     }
-    case internal::kMediaMetricsProvider_OnError_Name: {
+    case internal::kMediaMetricsProvider_OnStarted_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_OnError_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_OnError_Params_Data*>(
+      internal::MediaMetricsProvider_OnStarted_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_OnStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.1
       bool success = true;
       ::media::mojom::blink::PipelineStatusPtr p_status{};
-      MediaMetricsProvider_OnError_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_OnStarted_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStatus(&p_status))
         success = false;
@@ -1589,20 +1664,22 @@ std::move(p_stream_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_status));
+      impl->OnStarted(        
+        std::move(p_status));
       return true;
     }
-    case internal::kMediaMetricsProvider_OnFallback_Name: {
+    case internal::kMediaMetricsProvider_OnError_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_OnFallback_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_OnFallback_Params_Data*>(
+      internal::MediaMetricsProvider_OnError_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.2
       bool success = true;
       ::media::mojom::blink::PipelineStatusPtr p_status{};
-      MediaMetricsProvider_OnFallback_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_OnError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStatus(&p_status))
         success = false;
@@ -1615,20 +1692,25 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFallback(
-std::move(p_status));
+      impl->OnError(        
+        std::move(p_status));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetHasPlayed_Name: {
+    case internal::kMediaMetricsProvider_OnFallback_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetHasPlayed_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetHasPlayed_Params_Data*>(
+      internal::MediaMetricsProvider_OnFallback_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_OnFallback_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      MediaMetricsProvider_SetHasPlayed_ParamsDataView input_data_view(params, message);
       
+      // Validation for MediaMetricsProvider.3
+      bool success = true;
+      ::media::mojom::blink::PipelineStatusPtr p_status{};
+      MediaMetricsProvider_OnFallback_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadStatus(&p_status))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1638,18 +1720,21 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHasPlayed();
+      impl->OnFallback(        
+        std::move(p_status));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetHaveEnough_Name: {
+    case internal::kMediaMetricsProvider_SetHasPlayed_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetHaveEnough_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetHaveEnough_Params_Data*>(
+      internal::MediaMetricsProvider_SetHasPlayed_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetHasPlayed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.4
       bool success = true;
-      MediaMetricsProvider_SetHaveEnough_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_SetHasPlayed_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1660,18 +1745,20 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHaveEnough();
+      impl->SetHasPlayed(        );
       return true;
     }
-    case internal::kMediaMetricsProvider_SetIsEME_Name: {
+    case internal::kMediaMetricsProvider_SetHaveEnough_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetIsEME_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetIsEME_Params_Data*>(
+      internal::MediaMetricsProvider_SetHaveEnough_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetHaveEnough_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.5
       bool success = true;
-      MediaMetricsProvider_SetIsEME_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_SetHaveEnough_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1682,22 +1769,21 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsEME();
+      impl->SetHaveEnough(        );
       return true;
     }
-    case internal::kMediaMetricsProvider_SetTimeToMetadata_Name: {
+    case internal::kMediaMetricsProvider_SetIsEME_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetTimeToMetadata_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetTimeToMetadata_Params_Data*>(
+      internal::MediaMetricsProvider_SetIsEME_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetIsEME_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      ::base::TimeDelta p_elapsed{};
-      MediaMetricsProvider_SetTimeToMetadata_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadElapsed(&p_elapsed))
-        success = false;
+      // Validation for MediaMetricsProvider.6
+      bool success = true;
+      MediaMetricsProvider_SetIsEME_ParamsDataView input_data_view(params, message);
+      
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1707,20 +1793,21 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTimeToMetadata(
-std::move(p_elapsed));
+      impl->SetIsEME(        );
       return true;
     }
-    case internal::kMediaMetricsProvider_SetTimeToFirstFrame_Name: {
+    case internal::kMediaMetricsProvider_SetTimeToMetadata_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetTimeToFirstFrame_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetTimeToFirstFrame_Params_Data*>(
+      internal::MediaMetricsProvider_SetTimeToMetadata_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetTimeToMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.7
       bool success = true;
       ::base::TimeDelta p_elapsed{};
-      MediaMetricsProvider_SetTimeToFirstFrame_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_SetTimeToMetadata_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadElapsed(&p_elapsed))
         success = false;
@@ -1733,20 +1820,22 @@ std::move(p_elapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTimeToFirstFrame(
-std::move(p_elapsed));
+      impl->SetTimeToMetadata(        
+        std::move(p_elapsed));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetTimeToPlayReady_Name: {
+    case internal::kMediaMetricsProvider_SetTimeToFirstFrame_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetTimeToPlayReady_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetTimeToPlayReady_Params_Data*>(
+      internal::MediaMetricsProvider_SetTimeToFirstFrame_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetTimeToFirstFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.8
       bool success = true;
       ::base::TimeDelta p_elapsed{};
-      MediaMetricsProvider_SetTimeToPlayReady_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_SetTimeToFirstFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadElapsed(&p_elapsed))
         success = false;
@@ -1759,22 +1848,24 @@ std::move(p_elapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTimeToPlayReady(
-std::move(p_elapsed));
+      impl->SetTimeToFirstFrame(        
+        std::move(p_elapsed));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetRendererType_Name: {
+    case internal::kMediaMetricsProvider_SetTimeToPlayReady_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetRendererType_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetRendererType_Params_Data*>(
+      internal::MediaMetricsProvider_SetTimeToPlayReady_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetTimeToPlayReady_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      ::media::mojom::blink::RendererType p_renderer_type{};
-      MediaMetricsProvider_SetRendererType_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadRendererType(&p_renderer_type))
+      // Validation for MediaMetricsProvider.9
+      bool success = true;
+      ::base::TimeDelta p_elapsed{};
+      MediaMetricsProvider_SetTimeToPlayReady_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadElapsed(&p_elapsed))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1785,22 +1876,24 @@ std::move(p_elapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRendererType(
-std::move(p_renderer_type));
+      impl->SetTimeToPlayReady(        
+        std::move(p_elapsed));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetKeySystem_Name: {
+    case internal::kMediaMetricsProvider_SetRendererType_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetKeySystem_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetKeySystem_Params_Data*>(
+      internal::MediaMetricsProvider_SetRendererType_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetRendererType_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      WTF::String p_key_system{};
-      MediaMetricsProvider_SetKeySystem_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadKeySystem(&p_key_system))
+      // Validation for MediaMetricsProvider.10
+      bool success = true;
+      ::media::mojom::blink::RendererType p_renderer_type{};
+      MediaMetricsProvider_SetRendererType_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadRendererType(&p_renderer_type))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1811,20 +1904,25 @@ std::move(p_renderer_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetKeySystem(
-std::move(p_key_system));
+      impl->SetRendererType(        
+        std::move(p_renderer_type));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name: {
+    case internal::kMediaMetricsProvider_SetKeySystem_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data*>(
+      internal::MediaMetricsProvider_SetKeySystem_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetKeySystem_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      MediaMetricsProvider_SetHasWaitingForKey_ParamsDataView input_data_view(params, message);
       
+      // Validation for MediaMetricsProvider.11
+      bool success = true;
+      WTF::String p_key_system{};
+      MediaMetricsProvider_SetKeySystem_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadKeySystem(&p_key_system))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1834,18 +1932,21 @@ std::move(p_key_system));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHasWaitingForKey();
+      impl->SetKeySystem(        
+        std::move(p_key_system));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name: {
+    case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetIsHardwareSecure_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetIsHardwareSecure_Params_Data*>(
+      internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.12
       bool success = true;
-      MediaMetricsProvider_SetIsHardwareSecure_ParamsDataView input_data_view(params, message);
+      MediaMetricsProvider_SetHasWaitingForKey_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1856,7 +1957,31 @@ std::move(p_key_system));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsHardwareSecure();
+      impl->SetHasWaitingForKey(        );
+      return true;
+    }
+    case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MediaMetricsProvider_SetIsHardwareSecure_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetIsHardwareSecure_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for MediaMetricsProvider.13
+      bool success = true;
+      MediaMetricsProvider_SetIsHardwareSecure_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaMetricsProvider::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetIsHardwareSecure(        );
       return true;
     }
     case internal::kMediaMetricsProvider_SetContainerName_Name: {
@@ -1866,6 +1991,8 @@ std::move(p_key_system));
           reinterpret_cast<internal::MediaMetricsProvider_SetContainerName_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.14
       bool success = true;
       ::media::mojom::blink::MediaContainerName p_container_name{};
       MediaMetricsProvider_SetContainerName_ParamsDataView input_data_view(params, message);
@@ -1876,13 +2003,13 @@ std::move(p_key_system));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 13, false);
+            MediaMetricsProvider::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetContainerName(
-std::move(p_container_name));
+      impl->SetContainerName(        
+        std::move(p_container_name));
       return true;
     }
     case internal::kMediaMetricsProvider_AcquireWatchTimeRecorder_Name: {
@@ -1892,6 +2019,8 @@ std::move(p_container_name));
           reinterpret_cast<internal::MediaMetricsProvider_AcquireWatchTimeRecorder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.15
       bool success = true;
       ::media::mojom::blink::PlaybackPropertiesPtr p_properties{};
       ::mojo::PendingReceiver<::media::mojom::blink::WatchTimeRecorder> p_recorder{};
@@ -1907,14 +2036,14 @@ std::move(p_container_name));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 14, false);
+            MediaMetricsProvider::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcquireWatchTimeRecorder(
-std::move(p_properties), 
-std::move(p_recorder));
+      impl->AcquireWatchTimeRecorder(        
+        std::move(p_properties), 
+        std::move(p_recorder));
       return true;
     }
     case internal::kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name: {
@@ -1924,6 +2053,8 @@ std::move(p_recorder));
           reinterpret_cast<internal::MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.16
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::blink::VideoDecodeStatsRecorder> p_recorder{};
       MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_ParamsDataView input_data_view(params, message);
@@ -1936,13 +2067,13 @@ std::move(p_recorder));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 15, false);
+            MediaMetricsProvider::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcquireVideoDecodeStatsRecorder(
-std::move(p_recorder));
+      impl->AcquireVideoDecodeStatsRecorder(        
+        std::move(p_recorder));
       return true;
     }
     case internal::kMediaMetricsProvider_AcquireLearningTaskController_Name: {
@@ -1952,6 +2083,8 @@ std::move(p_recorder));
           reinterpret_cast<internal::MediaMetricsProvider_AcquireLearningTaskController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.17
       bool success = true;
       WTF::String p_taskName{};
       ::mojo::PendingReceiver<::media::learning::mojom::blink::LearningTaskController> p_controller{};
@@ -1967,14 +2100,14 @@ std::move(p_recorder));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 16, false);
+            MediaMetricsProvider::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcquireLearningTaskController(
-std::move(p_taskName), 
-std::move(p_controller));
+      impl->AcquireLearningTaskController(        
+        std::move(p_taskName), 
+        std::move(p_controller));
       return true;
     }
     case internal::kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name: {
@@ -1984,6 +2117,8 @@ std::move(p_controller));
           reinterpret_cast<internal::MediaMetricsProvider_AcquirePlaybackEventsRecorder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.18
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::blink::PlaybackEventsRecorder> p_receiver{};
       MediaMetricsProvider_AcquirePlaybackEventsRecorder_ParamsDataView input_data_view(params, message);
@@ -1996,13 +2131,13 @@ std::move(p_controller));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 17, false);
+            MediaMetricsProvider::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcquirePlaybackEventsRecorder(
-std::move(p_receiver));
+      impl->AcquirePlaybackEventsRecorder(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kMediaMetricsProvider_SetHasAudio_Name: {
@@ -2012,35 +2147,11 @@ std::move(p_receiver));
           reinterpret_cast<internal::MediaMetricsProvider_SetHasAudio_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.19
       bool success = true;
       ::media::mojom::blink::AudioCodec p_codec{};
       MediaMetricsProvider_SetHasAudio_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadCodec(&p_codec))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 18, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetHasAudio(
-std::move(p_codec));
-      return true;
-    }
-    case internal::kMediaMetricsProvider_SetHasVideo_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetHasVideo_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetHasVideo_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::media::mojom::blink::VideoCodec p_codec{};
-      MediaMetricsProvider_SetHasVideo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCodec(&p_codec))
         success = false;
@@ -2053,22 +2164,24 @@ std::move(p_codec));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHasVideo(
-std::move(p_codec));
+      impl->SetHasAudio(        
+        std::move(p_codec));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetVideoPipelineInfo_Name: {
+    case internal::kMediaMetricsProvider_SetHasVideo_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetVideoPipelineInfo_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetVideoPipelineInfo_Params_Data*>(
+      internal::MediaMetricsProvider_SetHasVideo_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetHasVideo_Params_Data*>(
               message->mutable_payload());
       
-      bool success = true;
-      ::media::mojom::blink::VideoPipelineInfoPtr p_info{};
-      MediaMetricsProvider_SetVideoPipelineInfo_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadInfo(&p_info))
+      // Validation for MediaMetricsProvider.20
+      bool success = true;
+      ::media::mojom::blink::VideoCodec p_codec{};
+      MediaMetricsProvider_SetHasVideo_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCodec(&p_codec))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -2079,20 +2192,22 @@ std::move(p_codec));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVideoPipelineInfo(
-std::move(p_info));
+      impl->SetHasVideo(        
+        std::move(p_codec));
       return true;
     }
-    case internal::kMediaMetricsProvider_SetAudioPipelineInfo_Name: {
+    case internal::kMediaMetricsProvider_SetVideoPipelineInfo_Name: {
 
       DCHECK(message->is_serialized());
-      internal::MediaMetricsProvider_SetAudioPipelineInfo_Params_Data* params =
-          reinterpret_cast<internal::MediaMetricsProvider_SetAudioPipelineInfo_Params_Data*>(
+      internal::MediaMetricsProvider_SetVideoPipelineInfo_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetVideoPipelineInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaMetricsProvider.21
       bool success = true;
-      ::media::mojom::blink::AudioPipelineInfoPtr p_info{};
-      MediaMetricsProvider_SetAudioPipelineInfo_ParamsDataView input_data_view(params, message);
+      ::media::mojom::blink::VideoPipelineInfoPtr p_info{};
+      MediaMetricsProvider_SetVideoPipelineInfo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))
         success = false;
@@ -2105,8 +2220,36 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAudioPipelineInfo(
-std::move(p_info));
+      impl->SetVideoPipelineInfo(        
+        std::move(p_info));
+      return true;
+    }
+    case internal::kMediaMetricsProvider_SetAudioPipelineInfo_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MediaMetricsProvider_SetAudioPipelineInfo_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetAudioPipelineInfo_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for MediaMetricsProvider.22
+      bool success = true;
+      ::media::mojom::blink::AudioPipelineInfoPtr p_info{};
+      MediaMetricsProvider_SetAudioPipelineInfo_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadInfo(&p_info))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaMetricsProvider::Name_, 22, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAudioPipelineInfo(        
+        std::move(p_info));
       return true;
     }
   }
@@ -2123,6 +2266,9 @@ bool MediaMetricsProviderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kMediaMetricsProvider_Initialize_Name: {
+      break;
+    }
+    case internal::kMediaMetricsProvider_OnStarted_Name: {
       break;
     }
     case internal::kMediaMetricsProvider_OnError_Name: {
@@ -2196,6 +2342,8 @@ namespace {
 static const mojo::internal::GenericValidationInfo kMediaMetricsProviderValidationInfo[] = {
     { &internal::MediaMetricsProvider_Initialize_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::MediaMetricsProvider_OnStarted_Params_Data::Validate,
+     nullptr /* no response */},
     { &internal::MediaMetricsProvider_OnError_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::MediaMetricsProvider_OnFallback_Params_Data::Validate,
@@ -2264,6 +2412,9 @@ namespace media::mojom::blink {
 
 void MediaMetricsProviderInterceptorForTesting::Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::blink::MediaStreamType stream_type) {
   GetForwardingInterface()->Initialize(std::move(is_mse), std::move(url_scheme), std::move(stream_type));
+}
+void MediaMetricsProviderInterceptorForTesting::OnStarted(::media::mojom::blink::PipelineStatusPtr status) {
+  GetForwardingInterface()->OnStarted(std::move(status));
 }
 void MediaMetricsProviderInterceptorForTesting::OnError(::media::mojom::blink::PipelineStatusPtr status) {
   GetForwardingInterface()->OnError(std::move(status));

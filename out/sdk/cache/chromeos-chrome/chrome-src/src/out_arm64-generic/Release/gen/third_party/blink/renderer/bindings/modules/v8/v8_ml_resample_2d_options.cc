@@ -147,38 +147,21 @@ bool MLResample2dOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8:
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasAxes()) {
-  if (!ToV8Traits<IDLSequence<IDLUnsignedLongEnforceRange>>::ToV8(script_state, member_axes_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLongEnforceRange>>::ToV8(script_state, member_axes_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasMode()) {
-  if (!ToV8Traits<V8MLInterpolationMode>::ToV8(script_state, member_mode_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8MLInterpolationMode>::ToV8(script_state, member_mode_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasScales()) {
-  if (!ToV8Traits<IDLSequence<IDLFloat>>::ToV8(script_state, member_scales_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLFloat>>::ToV8(script_state, member_scales_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasSizes()) {
-  if (!ToV8Traits<IDLSequence<IDLUnsignedLongEnforceRange>>::ToV8(script_state, member_sizes_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLongEnforceRange>>::ToV8(script_state, member_sizes_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }

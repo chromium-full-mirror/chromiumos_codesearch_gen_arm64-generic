@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { ComponentType } from './shimless_rma.mojom-webui.js';
-/**
- * @type {!Object<!ComponentType, string>}
- */
 export const ComponentTypeToId = {
     [ComponentType.kAudioCodec]: 'componentAudio',
     [ComponentType.kBattery]: 'componentBattery',

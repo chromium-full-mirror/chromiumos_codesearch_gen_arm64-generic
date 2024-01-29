@@ -1427,6 +1427,7 @@ class LineBox final :
     kUtf8StringFieldNumber = 3,
     kLanguageFieldNumber = 4,
     kBoundingBoxFieldNumber = 2,
+    kBaselineBoxFieldNumber = 9,
     kBlockIdFieldNumber = 5,
     kOrderWithinBlockFieldNumber = 6,
     kDirectionFieldNumber = 7,
@@ -1496,6 +1497,24 @@ class LineBox final :
       ::chrome_screen_ai::Rect* bounding_box);
   ::chrome_screen_ai::Rect* unsafe_arena_release_bounding_box();
 
+  // .chrome_screen_ai.Rect baseline_box = 9;
+  bool has_baseline_box() const;
+  private:
+  bool _internal_has_baseline_box() const;
+  public:
+  void clear_baseline_box();
+  const ::chrome_screen_ai::Rect& baseline_box() const;
+  PROTOBUF_NODISCARD ::chrome_screen_ai::Rect* release_baseline_box();
+  ::chrome_screen_ai::Rect* mutable_baseline_box();
+  void set_allocated_baseline_box(::chrome_screen_ai::Rect* baseline_box);
+  private:
+  const ::chrome_screen_ai::Rect& _internal_baseline_box() const;
+  ::chrome_screen_ai::Rect* _internal_mutable_baseline_box();
+  public:
+  void unsafe_arena_set_allocated_baseline_box(
+      ::chrome_screen_ai::Rect* baseline_box);
+  ::chrome_screen_ai::Rect* unsafe_arena_release_baseline_box();
+
   // int32 block_id = 5;
   void clear_block_id();
   int32_t block_id() const;
@@ -1543,6 +1562,7 @@ class LineBox final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr utf8_string_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr language_;
   ::chrome_screen_ai::Rect* bounding_box_;
+  ::chrome_screen_ai::Rect* baseline_box_;
   int32_t block_id_;
   int32_t order_within_block_;
   int direction_;
@@ -2891,6 +2911,96 @@ inline void LineBox::_internal_set_content_type(::chrome_screen_ai::ContentType 
 inline void LineBox::set_content_type(::chrome_screen_ai::ContentType value) {
   _internal_set_content_type(value);
   // @@protoc_insertion_point(field_set:chrome_screen_ai.LineBox.content_type)
+}
+
+// .chrome_screen_ai.Rect baseline_box = 9;
+inline bool LineBox::_internal_has_baseline_box() const {
+  return this != internal_default_instance() && baseline_box_ != nullptr;
+}
+inline bool LineBox::has_baseline_box() const {
+  return _internal_has_baseline_box();
+}
+inline void LineBox::clear_baseline_box() {
+  if (GetArenaForAllocation() == nullptr && baseline_box_ != nullptr) {
+    delete baseline_box_;
+  }
+  baseline_box_ = nullptr;
+}
+inline const ::chrome_screen_ai::Rect& LineBox::_internal_baseline_box() const {
+  const ::chrome_screen_ai::Rect* p = baseline_box_;
+  return p != nullptr ? *p : reinterpret_cast<const ::chrome_screen_ai::Rect&>(
+      ::chrome_screen_ai::_Rect_default_instance_);
+}
+inline const ::chrome_screen_ai::Rect& LineBox::baseline_box() const {
+  // @@protoc_insertion_point(field_get:chrome_screen_ai.LineBox.baseline_box)
+  return _internal_baseline_box();
+}
+inline void LineBox::unsafe_arena_set_allocated_baseline_box(
+    ::chrome_screen_ai::Rect* baseline_box) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(baseline_box_);
+  }
+  baseline_box_ = baseline_box;
+  if (baseline_box) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:chrome_screen_ai.LineBox.baseline_box)
+}
+inline ::chrome_screen_ai::Rect* LineBox::release_baseline_box() {
+  
+  ::chrome_screen_ai::Rect* temp = baseline_box_;
+  baseline_box_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::chrome_screen_ai::Rect* LineBox::unsafe_arena_release_baseline_box() {
+  // @@protoc_insertion_point(field_release:chrome_screen_ai.LineBox.baseline_box)
+  
+  ::chrome_screen_ai::Rect* temp = baseline_box_;
+  baseline_box_ = nullptr;
+  return temp;
+}
+inline ::chrome_screen_ai::Rect* LineBox::_internal_mutable_baseline_box() {
+  
+  if (baseline_box_ == nullptr) {
+    auto* p = CreateMaybeMessage<::chrome_screen_ai::Rect>(GetArenaForAllocation());
+    baseline_box_ = p;
+  }
+  return baseline_box_;
+}
+inline ::chrome_screen_ai::Rect* LineBox::mutable_baseline_box() {
+  ::chrome_screen_ai::Rect* _msg = _internal_mutable_baseline_box();
+  // @@protoc_insertion_point(field_mutable:chrome_screen_ai.LineBox.baseline_box)
+  return _msg;
+}
+inline void LineBox::set_allocated_baseline_box(::chrome_screen_ai::Rect* baseline_box) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete baseline_box_;
+  }
+  if (baseline_box) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(baseline_box);
+    if (message_arena != submessage_arena) {
+      baseline_box = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, baseline_box, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  baseline_box_ = baseline_box;
+  // @@protoc_insertion_point(field_set_allocated:chrome_screen_ai.LineBox.baseline_box)
 }
 
 // -------------------------------------------------------------------

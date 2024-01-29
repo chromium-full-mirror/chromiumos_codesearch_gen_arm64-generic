@@ -43,8 +43,8 @@ class PLATFORM_EXPORT RuntimeFeatureStateOverrideContext
       send_runtime_features_to_browser_(send_runtime_features_to_browser) {
   DCHECK(binding_context);
   DCHECK(use_counter);
-  override_values_.reserve(6);
-  origin_trial_overrides_.reserve(6);
+  override_values_.reserve(7);
+  origin_trial_overrides_.reserve(7);
 }
 
   void ApplyOverrideValuesFromParams(
@@ -62,6 +62,14 @@ class PLATFORM_EXPORT RuntimeFeatureStateOverrideContext
   void SetBlinkExtensionChromeOSForceDisabled();
 
   void SetBlinkExtensionChromeOSForceEnabled();
+
+  bool IsBlinkExtensionChromeOSKioskForceDisabled() const;
+
+  bool IsBlinkExtensionChromeOSKioskForceEnabled() const;
+
+  void SetBlinkExtensionChromeOSKioskForceDisabled();
+
+  void SetBlinkExtensionChromeOSKioskForceEnabled();
 
   bool IsBlinkExtensionDiagnosticsForceDisabled() const;
 

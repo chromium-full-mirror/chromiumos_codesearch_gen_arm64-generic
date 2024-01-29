@@ -191,6 +191,8 @@ bool WebTransportConnectorStubDispatch::Accept(
           reinterpret_cast<internal::WebTransportConnector_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebTransportConnector.0
       bool success = true;
       ::GURL p_url{};
       std::vector<::network::mojom::WebTransportCertificateFingerprintPtr> p_fingerprints{};
@@ -214,10 +216,10 @@ bool WebTransportConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_url), 
-std::move(p_fingerprints), 
-std::move(p_client));
+      impl->Connect(        
+        std::move(p_url), 
+        std::move(p_fingerprints), 
+        std::move(p_client));
       return true;
     }
   }

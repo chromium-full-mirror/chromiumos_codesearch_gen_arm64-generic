@@ -104,7 +104,7 @@ void TorqueGeneratedJSGlobalProxy<JSGlobalProxy, JSSpecialObject>::JSGlobalProxy
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=110&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=106&c=1
 bool IsJSGlobalObject_NonInline(Tagged<HeapObject> o) {
   return IsJSGlobalObject(o);
 }
@@ -118,7 +118,7 @@ void TorqueGeneratedJSGlobalObject<JSGlobalObject, JSSpecialObject>::JSGlobalObj
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=118&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=111&c=1
 bool IsJSPrimitiveWrapper_NonInline(Tagged<HeapObject> o) {
   return IsJSPrimitiveWrapper(o);
 }
@@ -132,7 +132,7 @@ void TorqueGeneratedJSPrimitiveWrapper<JSPrimitiveWrapper, JSCustomElementsObjec
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=122&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=115&c=1
 bool IsJSMessageObject_NonInline(Tagged<HeapObject> o) {
   return IsJSMessageObject(o);
 }
@@ -146,7 +146,7 @@ void TorqueGeneratedJSMessageObject<JSMessageObject, JSObject>::JSMessageObjectV
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=141&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=134&c=1
 bool IsJSDate_NonInline(Tagged<HeapObject> o) {
   return IsJSDate(o);
 }
@@ -160,7 +160,7 @@ void TorqueGeneratedJSDate<JSDate, JSObject>::JSDateVerify(Isolate* isolate) {
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=161&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=154&c=1
 bool IsJSAsyncFromSyncIterator_NonInline(Tagged<HeapObject> o) {
   return IsJSAsyncFromSyncIterator(o);
 }
@@ -174,7 +174,7 @@ void TorqueGeneratedJSAsyncFromSyncIterator<JSAsyncFromSyncIterator, JSObject>::
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=168&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=161&c=1
 bool IsJSStringIterator_NonInline(Tagged<HeapObject> o) {
   return IsJSStringIterator(o);
 }
@@ -188,7 +188,7 @@ void TorqueGeneratedJSStringIterator<JSStringIterator, JSObject>::JSStringIterat
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=177&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-objects.tq?l=170&c=1
 bool IsJSValidIteratorWrapper_NonInline(Tagged<HeapObject> o) {
   return IsJSValidIteratorWrapper(o);
 }

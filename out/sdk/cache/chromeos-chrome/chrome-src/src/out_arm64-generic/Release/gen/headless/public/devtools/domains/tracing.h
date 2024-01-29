@@ -41,9 +41,9 @@ class HEADLESS_EXPORT Observer : public ExperimentalObserver {
   // Experimental: Contains a bucket of collected trace events. When tracing is stopped collected events will be
   // sent as a sequence of dataCollected events followed by tracingComplete event.
   virtual void OnDataCollected(const DataCollectedParams& params) final {}
-  // Experimental: Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+  // Signals that tracing is stopped and there is no trace buffers pending flush, all data were
   // delivered via dataCollected events.
-  virtual void OnTracingComplete(const TracingCompleteParams& params) final {}
+  virtual void OnTracingComplete(const TracingCompleteParams& params) {}
 };
 
 class HEADLESS_EXPORT Domain {
@@ -59,6 +59,16 @@ class HEADLESS_EXPORT Domain {
   // Return the experimental interface for this domain. Note that experimental
   // commands may be changed or removed at any time.
   ExperimentalDomain* GetExperimental();
+
+  // Stop trace events collection.
+  void End(std::unique_ptr<EndParams> params, base::OnceCallback<void(std::unique_ptr<EndResult>)> callback = base::OnceCallback<void(std::unique_ptr<EndResult>)>());
+  void End(base::OnceClosure callback = base::OnceClosure());
+  void End(std::unique_ptr<EndParams> params, base::OnceClosure callback);
+
+  // Start trace events collection.
+  void Start(std::unique_ptr<StartParams> params, base::OnceCallback<void(std::unique_ptr<StartResult>)> callback = base::OnceCallback<void(std::unique_ptr<StartResult>)>());
+  void Start(base::OnceClosure callback = base::OnceClosure());
+  void Start(std::unique_ptr<StartParams> params, base::OnceClosure callback);
 
  protected:
   Domain(internal::MessageDispatcher* dispatcher);
@@ -99,9 +109,6 @@ class ExperimentalDomain : public Domain {
   void AddObserver(ExperimentalObserver* observer);
   void RemoveObserver(ExperimentalObserver* observer);
 
-  // Stop trace events collection.
-  void End(std::unique_ptr<EndParams> params, base::OnceCallback<void(std::unique_ptr<EndResult>)> callback = base::OnceCallback<void(std::unique_ptr<EndResult>)>());
-
   // Gets supported tracing categories.
   void GetCategories(std::unique_ptr<GetCategoriesParams> params, base::OnceCallback<void(std::unique_ptr<GetCategoriesResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetCategoriesResult>)>());
 
@@ -110,9 +117,6 @@ class ExperimentalDomain : public Domain {
 
   // Request a global memory dump.
   void RequestMemoryDump(std::unique_ptr<RequestMemoryDumpParams> params, base::OnceCallback<void(std::unique_ptr<RequestMemoryDumpResult>)> callback = base::OnceCallback<void(std::unique_ptr<RequestMemoryDumpResult>)>());
-
-  // Start trace events collection.
-  void Start(std::unique_ptr<StartParams> params, base::OnceCallback<void(std::unique_ptr<StartResult>)> callback = base::OnceCallback<void(std::unique_ptr<StartResult>)>());
 
 };
 

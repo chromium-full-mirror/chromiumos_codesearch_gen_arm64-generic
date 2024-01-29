@@ -168,6 +168,8 @@ bool AssistiveTechnologyControllerStubDispatch::Accept(
           reinterpret_cast<internal::AssistiveTechnologyController_EnableAssistiveTechnology_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AssistiveTechnologyController.0
       bool success = true;
       std::vector<::ax::mojom::AssistiveTechnologyType> p_enabled_features{};
       AssistiveTechnologyController_EnableAssistiveTechnology_ParamsDataView input_data_view(params, message);
@@ -183,8 +185,8 @@ bool AssistiveTechnologyControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAssistiveTechnology(
-std::move(p_enabled_features));
+      impl->EnableAssistiveTechnology(        
+        std::move(p_enabled_features));
       return true;
     }
   }
@@ -488,6 +490,8 @@ bool AccessibilityServiceStubDispatch::Accept(
           reinterpret_cast<internal::AccessibilityService_BindAccessibilityServiceClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityService.0
       bool success = true;
       ::mojo::PendingRemote<AccessibilityServiceClient> p_accessibility_service_client{};
       AccessibilityService_BindAccessibilityServiceClient_ParamsDataView input_data_view(params, message);
@@ -505,8 +509,8 @@ bool AccessibilityServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAccessibilityServiceClient(
-std::move(p_accessibility_service_client));
+      impl->BindAccessibilityServiceClient(        
+        std::move(p_accessibility_service_client));
       return true;
     }
     case internal::kAccessibilityService_BindAssistiveTechnologyController_Name: {
@@ -516,6 +520,8 @@ std::move(p_accessibility_service_client));
           reinterpret_cast<internal::AccessibilityService_BindAssistiveTechnologyController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityService.1
       bool success = true;
       ::mojo::PendingReceiver<AssistiveTechnologyController> p_at_controller{};
       std::vector<::ax::mojom::AssistiveTechnologyType> p_enabled_features{};
@@ -536,9 +542,9 @@ std::move(p_accessibility_service_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAssistiveTechnologyController(
-std::move(p_at_controller), 
-std::move(p_enabled_features));
+      impl->BindAssistiveTechnologyController(        
+        std::move(p_at_controller), 
+        std::move(p_enabled_features));
       return true;
     }
     case internal::kAccessibilityService_ConnectDevToolsAgent_Name: {
@@ -548,6 +554,8 @@ std::move(p_enabled_features));
           reinterpret_cast<internal::AccessibilityService_ConnectDevToolsAgent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityService.2
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> p_agent{};
       ::ax::mojom::AssistiveTechnologyType p_type{};
@@ -568,9 +576,9 @@ std::move(p_enabled_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectDevToolsAgent(
-std::move(p_agent), 
-std::move(p_type));
+      impl->ConnectDevToolsAgent(        
+        std::move(p_agent), 
+        std::move(p_type));
       return true;
     }
   }
@@ -1193,6 +1201,8 @@ bool AccessibilityServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::AccessibilityServiceClient_BindAutomation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<::ax::mojom::Automation> p_automation{};
       AccessibilityServiceClient_BindAutomation_ParamsDataView input_data_view(params, message);
@@ -1210,8 +1220,8 @@ bool AccessibilityServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutomation(
-std::move(p_automation));
+      impl->BindAutomation(        
+        std::move(p_automation));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindAutomationClient_Name: {
@@ -1221,6 +1231,8 @@ std::move(p_automation));
           reinterpret_cast<internal::AccessibilityServiceClient_BindAutomationClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.1
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::AutomationClient> p_automation_client{};
       AccessibilityServiceClient_BindAutomationClient_ParamsDataView input_data_view(params, message);
@@ -1238,8 +1250,8 @@ std::move(p_automation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutomationClient(
-std::move(p_automation_client));
+      impl->BindAutomationClient(        
+        std::move(p_automation_client));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindAutoclickClient_Name: {
@@ -1249,6 +1261,8 @@ std::move(p_automation_client));
           reinterpret_cast<internal::AccessibilityServiceClient_BindAutoclickClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.2
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::AutoclickClient> p_autoclick_client{};
       AccessibilityServiceClient_BindAutoclickClient_ParamsDataView input_data_view(params, message);
@@ -1266,8 +1280,8 @@ std::move(p_automation_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutoclickClient(
-std::move(p_autoclick_client));
+      impl->BindAutoclickClient(        
+        std::move(p_autoclick_client));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindSpeechRecognition_Name: {
@@ -1277,6 +1291,8 @@ std::move(p_autoclick_client));
           reinterpret_cast<internal::AccessibilityServiceClient_BindSpeechRecognition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.3
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::SpeechRecognition> p_sr_receiver{};
       AccessibilityServiceClient_BindSpeechRecognition_ParamsDataView input_data_view(params, message);
@@ -1294,8 +1310,8 @@ std::move(p_autoclick_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSpeechRecognition(
-std::move(p_sr_receiver));
+      impl->BindSpeechRecognition(        
+        std::move(p_sr_receiver));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindTts_Name: {
@@ -1305,6 +1321,8 @@ std::move(p_sr_receiver));
           reinterpret_cast<internal::AccessibilityServiceClient_BindTts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.4
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::Tts> p_tts_receiver{};
       AccessibilityServiceClient_BindTts_ParamsDataView input_data_view(params, message);
@@ -1322,8 +1340,8 @@ std::move(p_sr_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTts(
-std::move(p_tts_receiver));
+      impl->BindTts(        
+        std::move(p_tts_receiver));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindUserInput_Name: {
@@ -1333,6 +1351,8 @@ std::move(p_tts_receiver));
           reinterpret_cast<internal::AccessibilityServiceClient_BindUserInput_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.5
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::UserInput> p_user_input_receiver{};
       AccessibilityServiceClient_BindUserInput_ParamsDataView input_data_view(params, message);
@@ -1350,8 +1370,8 @@ std::move(p_tts_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUserInput(
-std::move(p_user_input_receiver));
+      impl->BindUserInput(        
+        std::move(p_user_input_receiver));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindUserInterface_Name: {
@@ -1361,6 +1381,8 @@ std::move(p_user_input_receiver));
           reinterpret_cast<internal::AccessibilityServiceClient_BindUserInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.6
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::UserInterface> p_user_interface_receiver{};
       AccessibilityServiceClient_BindUserInterface_ParamsDataView input_data_view(params, message);
@@ -1378,8 +1400,8 @@ std::move(p_user_input_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUserInterface(
-std::move(p_user_interface_receiver));
+      impl->BindUserInterface(        
+        std::move(p_user_interface_receiver));
       return true;
     }
     case internal::kAccessibilityServiceClient_BindAccessibilityFileLoader_Name: {
@@ -1389,6 +1411,8 @@ std::move(p_user_interface_receiver));
           reinterpret_cast<internal::AccessibilityServiceClient_BindAccessibilityFileLoader_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AccessibilityServiceClient.7
       bool success = true;
       ::mojo::PendingReceiver<::ax::mojom::AccessibilityFileLoader> p_file_loader_receiver{};
       AccessibilityServiceClient_BindAccessibilityFileLoader_ParamsDataView input_data_view(params, message);
@@ -1406,8 +1430,8 @@ std::move(p_user_interface_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAccessibilityFileLoader(
-std::move(p_file_loader_receiver));
+      impl->BindAccessibilityFileLoader(        
+        std::move(p_file_loader_receiver));
       return true;
     }
   }

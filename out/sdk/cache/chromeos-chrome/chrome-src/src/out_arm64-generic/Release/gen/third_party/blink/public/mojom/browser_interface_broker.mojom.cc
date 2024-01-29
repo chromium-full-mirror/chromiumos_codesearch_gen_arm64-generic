@@ -166,6 +166,8 @@ bool BrowserInterfaceBrokerStubDispatch::Accept(
           reinterpret_cast<internal::BrowserInterfaceBroker_GetInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserInterfaceBroker.0
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       BrowserInterfaceBroker_GetInterface_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool BrowserInterfaceBrokerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetInterface(
-std::move(p_receiver));
+      impl->GetInterface(        
+        std::move(p_receiver));
       return true;
     }
   }

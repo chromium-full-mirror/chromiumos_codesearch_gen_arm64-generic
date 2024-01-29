@@ -42,8 +42,8 @@ export class CommandButton extends CrButtonElement {
             this.command_.removeEventListener('disabledChange', this);
             this.command_.removeEventListener('hiddenChange', this);
         }
-        if (typeof command == 'string') {
-            assert(command[0] == '#');
+        if (typeof command === 'string') {
+            assert(command[0] === '#');
             command = this.ownerDocument.body.querySelector(command);
             assert(command);
             crInjectTypeAndInit(command, Command);

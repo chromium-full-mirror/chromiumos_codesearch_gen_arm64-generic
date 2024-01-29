@@ -438,8 +438,40 @@ enum class VKey : int32_t {
   kDictate = 238,
   
   kAllApplications = 239,
+  
+  kButton0 = 65280,
+  
+  kButton1 = 65281,
+  
+  kButton2 = 65282,
+  
+  kButton3 = 65283,
+  
+  kButton4 = 65284,
+  
+  kButton5 = 65285,
+  
+  kButton6 = 65286,
+  
+  kButton7 = 65287,
+  
+  kButton8 = 65288,
+  
+  kButton9 = 65289,
+  
+  kButtonA = 65290,
+  
+  kButtonB = 65291,
+  
+  kButtonC = 65292,
+  
+  kButtonX = 65293,
+  
+  kButtonY = 65294,
+  
+  kButtonZ = 65295,
   kMinValue = 0,
-  kMaxValue = 254,
+  kMaxValue = 65295,
 };
 
  std::ostream& operator<<(std::ostream& os, VKey value);

@@ -687,6 +687,8 @@ bool DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_ForwardToCallback:
           internal::DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentCoordinationUnit.8
   bool success = true;
   ::performance_manager::mojom::blink::WebMemoryMeasurementPtr p_measurement{};
   DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_ResponseParamsDataView input_data_view(params, message);
@@ -771,6 +773,8 @@ bool DocumentCoordinationUnitStubDispatch::Accept(
           reinterpret_cast<internal::DocumentCoordinationUnit_SetNetworkAlmostIdle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.0
       bool success = true;
       DocumentCoordinationUnit_SetNetworkAlmostIdle_ParamsDataView input_data_view(params, message);
       
@@ -783,7 +787,7 @@ bool DocumentCoordinationUnitStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNetworkAlmostIdle();
+      impl->SetNetworkAlmostIdle(        );
       return true;
     }
     case internal::kDocumentCoordinationUnit_SetLifecycleState_Name: {
@@ -793,6 +797,8 @@ bool DocumentCoordinationUnitStubDispatch::Accept(
           reinterpret_cast<internal::DocumentCoordinationUnit_SetLifecycleState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.1
       bool success = true;
       ::performance_manager::mojom::blink::LifecycleState p_state{};
       DocumentCoordinationUnit_SetLifecycleState_ParamsDataView input_data_view(params, message);
@@ -808,8 +814,8 @@ bool DocumentCoordinationUnitStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLifecycleState(
-std::move(p_state));
+      impl->SetLifecycleState(        
+        std::move(p_state));
       return true;
     }
     case internal::kDocumentCoordinationUnit_SetHasNonEmptyBeforeUnload_Name: {
@@ -819,6 +825,8 @@ std::move(p_state));
           reinterpret_cast<internal::DocumentCoordinationUnit_SetHasNonEmptyBeforeUnload_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.2
       bool success = true;
       bool p_has_nonempty_beforeunload{};
       DocumentCoordinationUnit_SetHasNonEmptyBeforeUnload_ParamsDataView input_data_view(params, message);
@@ -834,8 +842,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHasNonEmptyBeforeUnload(
-std::move(p_has_nonempty_beforeunload));
+      impl->SetHasNonEmptyBeforeUnload(        
+        std::move(p_has_nonempty_beforeunload));
       return true;
     }
     case internal::kDocumentCoordinationUnit_SetHadFormInteraction_Name: {
@@ -845,6 +853,8 @@ std::move(p_has_nonempty_beforeunload));
           reinterpret_cast<internal::DocumentCoordinationUnit_SetHadFormInteraction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.3
       bool success = true;
       DocumentCoordinationUnit_SetHadFormInteraction_ParamsDataView input_data_view(params, message);
       
@@ -857,7 +867,7 @@ std::move(p_has_nonempty_beforeunload));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHadFormInteraction();
+      impl->SetHadFormInteraction(        );
       return true;
     }
     case internal::kDocumentCoordinationUnit_SetHadUserEdits_Name: {
@@ -867,6 +877,8 @@ std::move(p_has_nonempty_beforeunload));
           reinterpret_cast<internal::DocumentCoordinationUnit_SetHadUserEdits_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.4
       bool success = true;
       DocumentCoordinationUnit_SetHadUserEdits_ParamsDataView input_data_view(params, message);
       
@@ -879,7 +891,7 @@ std::move(p_has_nonempty_beforeunload));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHadUserEdits();
+      impl->SetHadUserEdits(        );
       return true;
     }
     case internal::kDocumentCoordinationUnit_SetIsAdFrame_Name: {
@@ -889,6 +901,8 @@ std::move(p_has_nonempty_beforeunload));
           reinterpret_cast<internal::DocumentCoordinationUnit_SetIsAdFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.5
       bool success = true;
       bool p_is_ad_frame{};
       DocumentCoordinationUnit_SetIsAdFrame_ParamsDataView input_data_view(params, message);
@@ -904,8 +918,8 @@ std::move(p_has_nonempty_beforeunload));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIsAdFrame(
-std::move(p_is_ad_frame));
+      impl->SetIsAdFrame(        
+        std::move(p_is_ad_frame));
       return true;
     }
     case internal::kDocumentCoordinationUnit_OnNonPersistentNotificationCreated_Name: {
@@ -915,6 +929,8 @@ std::move(p_is_ad_frame));
           reinterpret_cast<internal::DocumentCoordinationUnit_OnNonPersistentNotificationCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.6
       bool success = true;
       DocumentCoordinationUnit_OnNonPersistentNotificationCreated_ParamsDataView input_data_view(params, message);
       
@@ -927,7 +943,7 @@ std::move(p_is_ad_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNonPersistentNotificationCreated();
+      impl->OnNonPersistentNotificationCreated(        );
       return true;
     }
     case internal::kDocumentCoordinationUnit_OnFirstContentfulPaint_Name: {
@@ -937,6 +953,8 @@ std::move(p_is_ad_frame));
           reinterpret_cast<internal::DocumentCoordinationUnit_OnFirstContentfulPaint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.7
       bool success = true;
       ::base::TimeDelta p_time_since_navigation_start{};
       DocumentCoordinationUnit_OnFirstContentfulPaint_ParamsDataView input_data_view(params, message);
@@ -952,8 +970,8 @@ std::move(p_is_ad_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFirstContentfulPaint(
-std::move(p_time_since_navigation_start));
+      impl->OnFirstContentfulPaint(        
+        std::move(p_time_since_navigation_start));
       return true;
     }
     case internal::kDocumentCoordinationUnit_OnWebMemoryMeasurementRequested_Name: {
@@ -1003,6 +1021,8 @@ bool DocumentCoordinationUnitStubDispatch::AcceptWithResponder(
               internal::DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentCoordinationUnit.8
       bool success = true;
       ::performance_manager::mojom::blink::WebMemoryMeasurement::Mode p_mode{};
       DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_ParamsDataView input_data_view(params, message);
@@ -1021,8 +1041,8 @@ bool DocumentCoordinationUnitStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWebMemoryMeasurementRequested(
-std::move(p_mode), std::move(callback));
+      impl->OnWebMemoryMeasurementRequested(        
+        std::move(p_mode), std::move(callback));
       return true;
     }
   }
@@ -1650,6 +1670,8 @@ bool ProcessCoordinationUnitStubDispatch::Accept(
           reinterpret_cast<internal::ProcessCoordinationUnit_SetMainThreadTaskLoadIsLow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.0
       bool success = true;
       bool p_main_thread_task_load_is_low{};
       ProcessCoordinationUnit_SetMainThreadTaskLoadIsLow_ParamsDataView input_data_view(params, message);
@@ -1665,8 +1687,8 @@ bool ProcessCoordinationUnitStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMainThreadTaskLoadIsLow(
-std::move(p_main_thread_task_load_is_low));
+      impl->SetMainThreadTaskLoadIsLow(        
+        std::move(p_main_thread_task_load_is_low));
       return true;
     }
     case internal::kProcessCoordinationUnit_OnV8ContextCreated_Name: {
@@ -1676,6 +1698,8 @@ std::move(p_main_thread_task_load_is_low));
           reinterpret_cast<internal::ProcessCoordinationUnit_OnV8ContextCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.1
       bool success = true;
       ::performance_manager::mojom::blink::V8ContextDescriptionPtr p_description{};
       ::performance_manager::mojom::blink::IframeAttributionDataPtr p_iframe_attribution_data{};
@@ -1694,9 +1718,9 @@ std::move(p_main_thread_task_load_is_low));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnV8ContextCreated(
-std::move(p_description), 
-std::move(p_iframe_attribution_data));
+      impl->OnV8ContextCreated(        
+        std::move(p_description), 
+        std::move(p_iframe_attribution_data));
       return true;
     }
     case internal::kProcessCoordinationUnit_OnV8ContextDetached_Name: {
@@ -1706,6 +1730,8 @@ std::move(p_iframe_attribution_data));
           reinterpret_cast<internal::ProcessCoordinationUnit_OnV8ContextDetached_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.2
       bool success = true;
       ::blink::V8ContextToken p_v8_context_token{};
       ProcessCoordinationUnit_OnV8ContextDetached_ParamsDataView input_data_view(params, message);
@@ -1721,8 +1747,8 @@ std::move(p_iframe_attribution_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnV8ContextDetached(
-std::move(p_v8_context_token));
+      impl->OnV8ContextDetached(        
+        std::move(p_v8_context_token));
       return true;
     }
     case internal::kProcessCoordinationUnit_OnV8ContextDestroyed_Name: {
@@ -1732,6 +1758,8 @@ std::move(p_v8_context_token));
           reinterpret_cast<internal::ProcessCoordinationUnit_OnV8ContextDestroyed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.3
       bool success = true;
       ::blink::V8ContextToken p_v8_context_token{};
       ProcessCoordinationUnit_OnV8ContextDestroyed_ParamsDataView input_data_view(params, message);
@@ -1747,8 +1775,8 @@ std::move(p_v8_context_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnV8ContextDestroyed(
-std::move(p_v8_context_token));
+      impl->OnV8ContextDestroyed(        
+        std::move(p_v8_context_token));
       return true;
     }
     case internal::kProcessCoordinationUnit_OnRemoteIframeAttached_Name: {
@@ -1758,6 +1786,8 @@ std::move(p_v8_context_token));
           reinterpret_cast<internal::ProcessCoordinationUnit_OnRemoteIframeAttached_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.4
       bool success = true;
       ::blink::LocalFrameToken p_parent_frame_token{};
       ::blink::RemoteFrameToken p_remote_frame_token{};
@@ -1779,10 +1809,10 @@ std::move(p_v8_context_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemoteIframeAttached(
-std::move(p_parent_frame_token), 
-std::move(p_remote_frame_token), 
-std::move(p_iframe_attribution_data));
+      impl->OnRemoteIframeAttached(        
+        std::move(p_parent_frame_token), 
+        std::move(p_remote_frame_token), 
+        std::move(p_iframe_attribution_data));
       return true;
     }
     case internal::kProcessCoordinationUnit_OnRemoteIframeDetached_Name: {
@@ -1792,6 +1822,8 @@ std::move(p_iframe_attribution_data));
           reinterpret_cast<internal::ProcessCoordinationUnit_OnRemoteIframeDetached_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.5
       bool success = true;
       ::blink::LocalFrameToken p_parent_frame_token{};
       ::blink::RemoteFrameToken p_remote_frame_token{};
@@ -1810,9 +1842,9 @@ std::move(p_iframe_attribution_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemoteIframeDetached(
-std::move(p_parent_frame_token), 
-std::move(p_remote_frame_token));
+      impl->OnRemoteIframeDetached(        
+        std::move(p_parent_frame_token), 
+        std::move(p_remote_frame_token));
       return true;
     }
     case internal::kProcessCoordinationUnit_FireBackgroundTracingTrigger_Name: {
@@ -1822,6 +1854,8 @@ std::move(p_remote_frame_token));
           reinterpret_cast<internal::ProcessCoordinationUnit_FireBackgroundTracingTrigger_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProcessCoordinationUnit.6
       bool success = true;
       WTF::String p_trigger_name{};
       ProcessCoordinationUnit_FireBackgroundTracingTrigger_ParamsDataView input_data_view(params, message);
@@ -1837,8 +1871,8 @@ std::move(p_remote_frame_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FireBackgroundTracingTrigger(
-std::move(p_trigger_name));
+      impl->FireBackgroundTracingTrigger(        
+        std::move(p_trigger_name));
       return true;
     }
   }

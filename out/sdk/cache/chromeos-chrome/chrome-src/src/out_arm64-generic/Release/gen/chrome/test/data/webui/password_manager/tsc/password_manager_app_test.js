@@ -113,7 +113,7 @@ suite('PasswordManagerAppTest', function () {
         });
         Router.getInstance().navigateTo(Page.PASSWORD_DETAILS, group);
         await flushTasks();
-        assertFalse(app.$.removalToast.open);
+        assertFalse(app.$.toast.open);
         const detailsSection = app.shadowRoot.querySelector('password-details-section');
         assertTrue(!!detailsSection);
         detailsSection.dispatchEvent(new CustomEvent('password-removed', {
@@ -123,7 +123,7 @@ suite('PasswordManagerAppTest', function () {
                 removedFromStores: chrome.passwordsPrivate.PasswordStoreSet.DEVICE,
             },
         }));
-        assertTrue(app.$.removalToast.open);
+        assertTrue(app.$.toast.open);
         const undoButton = app.shadowRoot.querySelector('#undo-removal');
         assertTrue(!!undoButton);
         assertFalse(undoButton.hidden);
@@ -139,18 +139,45 @@ suite('PasswordManagerAppTest', function () {
         });
         Router.getInstance().navigateTo(Page.PASSWORD_DETAILS, group);
         await flushTasks();
-        assertFalse(app.$.removalToast.open);
+        assertFalse(app.$.toast.open);
         const detailsSection = app.shadowRoot.querySelector('password-details-section');
         assertTrue(!!detailsSection);
         detailsSection.dispatchEvent(new CustomEvent('passkey-removed', {
             bubbles: true,
             composed: true,
         }));
-        assertTrue(app.$.removalToast.open);
+        assertTrue(app.$.toast.open);
         // The undo button should be hidden for passkeys.
         const undoButton = app.shadowRoot.querySelector('#undo-removal');
         assertTrue(!!undoButton);
         assertTrue(undoButton.hidden);
+    });
+    test('Test password moved toast', async () => {
+        const testEmail = 'test.user@gmail.com';
+        const group = createCredentialGroup({
+            name: 'test.com',
+            credentials: [
+                createPasswordEntry({ id: 0, username: 'test1' }),
+            ],
+        });
+        Router.getInstance().navigateTo(Page.PASSWORD_DETAILS, group);
+        await flushTasks();
+        assertFalse(app.$.toast.open);
+        const detailsSection = app.shadowRoot.querySelector('password-details-section');
+        assertTrue(!!detailsSection);
+        detailsSection.dispatchEvent(new CustomEvent('password-moved', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                accountEmail: testEmail,
+            },
+        }));
+        assertTrue(app.$.toast.open);
+        const undoButton = app.shadowRoot.querySelector('#undo-removal');
+        assertTrue(!!undoButton);
+        assertFalse(isVisible(undoButton));
+        assertTrue(app.$.toast.querySelector('#removalNotification').textContent.trim()
+            .includes(testEmail));
     });
     test('import can be triggered from empty state', async function () {
         // This is done to avoid flakiness.

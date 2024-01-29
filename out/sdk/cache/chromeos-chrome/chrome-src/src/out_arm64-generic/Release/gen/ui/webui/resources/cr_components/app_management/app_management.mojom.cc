@@ -856,6 +856,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -878,9 +880,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -2373,6 +2375,8 @@ bool PageHandler_GetApps_ForwardToCallback::Accept(
           internal::PageHandler_GetApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::vector<AppPtr> p_apps{};
   PageHandler_GetApps_ResponseParamsDataView input_data_view(params, message);
@@ -2504,6 +2508,8 @@ bool PageHandler_GetApp_ForwardToCallback::Accept(
           internal::PageHandler_GetApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   AppPtr p_app{};
   PageHandler_GetApp_ResponseParamsDataView input_data_view(params, message);
@@ -2629,6 +2635,8 @@ bool PageHandler_GetSubAppToParentMap_ForwardToCallback::Accept(
           internal::PageHandler_GetSubAppToParentMap_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   base::flat_map<std::string, std::string> p_sub_app_to_parent_map{};
   PageHandler_GetSubAppToParentMap_ResponseParamsDataView input_data_view(params, message);
@@ -2760,6 +2768,8 @@ bool PageHandler_GetExtensionAppPermissionMessages_ForwardToCallback::Accept(
           internal::PageHandler_GetExtensionAppPermissionMessages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   std::vector<ExtensionAppPermissionMessagePtr> p_messages{};
   PageHandler_GetExtensionAppPermissionMessages_ResponseParamsDataView input_data_view(params, message);
@@ -2891,6 +2901,8 @@ bool PageHandler_GetOverlappingPreferredApps_ForwardToCallback::Accept(
           internal::PageHandler_GetOverlappingPreferredApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.10
   bool success = true;
   std::vector<std::string> p_app_ids{};
   PageHandler_GetOverlappingPreferredApps_ResponseParamsDataView input_data_view(params, message);
@@ -2989,6 +3001,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_SetPinned_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       std::string p_app_id{};
       bool p_pinned{};
@@ -3007,9 +3021,9 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPinned(
-std::move(p_app_id), 
-std::move(p_pinned));
+      impl->SetPinned(        
+        std::move(p_app_id), 
+        std::move(p_pinned));
       return true;
     }
     case internal::kPageHandler_SetPermission_Name: {
@@ -3019,6 +3033,8 @@ std::move(p_pinned));
           reinterpret_cast<internal::PageHandler_SetPermission_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       std::string p_app_id{};
       ::apps::PermissionPtr p_permission{};
@@ -3037,9 +3053,9 @@ std::move(p_pinned));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPermission(
-std::move(p_app_id), 
-std::move(p_permission));
+      impl->SetPermission(        
+        std::move(p_app_id), 
+        std::move(p_permission));
       return true;
     }
     case internal::kPageHandler_SetResizeLocked_Name: {
@@ -3049,6 +3065,8 @@ std::move(p_permission));
           reinterpret_cast<internal::PageHandler_SetResizeLocked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       std::string p_app_id{};
       bool p_locked{};
@@ -3067,9 +3085,9 @@ std::move(p_permission));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetResizeLocked(
-std::move(p_app_id), 
-std::move(p_locked));
+      impl->SetResizeLocked(        
+        std::move(p_app_id), 
+        std::move(p_locked));
       return true;
     }
     case internal::kPageHandler_Uninstall_Name: {
@@ -3079,6 +3097,8 @@ std::move(p_locked));
           reinterpret_cast<internal::PageHandler_Uninstall_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       std::string p_app_id{};
       PageHandler_Uninstall_ParamsDataView input_data_view(params, message);
@@ -3094,8 +3114,8 @@ std::move(p_locked));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Uninstall(
-std::move(p_app_id));
+      impl->Uninstall(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kPageHandler_OpenNativeSettings_Name: {
@@ -3105,6 +3125,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::PageHandler_OpenNativeSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       std::string p_app_id{};
       PageHandler_OpenNativeSettings_ParamsDataView input_data_view(params, message);
@@ -3120,8 +3142,8 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenNativeSettings(
-std::move(p_app_id));
+      impl->OpenNativeSettings(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kPageHandler_SetPreferredApp_Name: {
@@ -3131,6 +3153,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::PageHandler_SetPreferredApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       std::string p_app_id{};
       bool p_is_preferred_app{};
@@ -3149,9 +3173,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPreferredApp(
-std::move(p_app_id), 
-std::move(p_is_preferred_app));
+      impl->SetPreferredApp(        
+        std::move(p_app_id), 
+        std::move(p_is_preferred_app));
       return true;
     }
     case internal::kPageHandler_GetOverlappingPreferredApps_Name: {
@@ -3164,6 +3188,8 @@ std::move(p_is_preferred_app));
           reinterpret_cast<internal::PageHandler_UpdateAppSize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       std::string p_app_id{};
       PageHandler_UpdateAppSize_ParamsDataView input_data_view(params, message);
@@ -3179,8 +3205,8 @@ std::move(p_is_preferred_app));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateAppSize(
-std::move(p_app_id));
+      impl->UpdateAppSize(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kPageHandler_SetWindowMode_Name: {
@@ -3190,6 +3216,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::PageHandler_SetWindowMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       std::string p_app_id{};
       ::apps::WindowMode p_window_mode{};
@@ -3208,9 +3236,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWindowMode(
-std::move(p_app_id), 
-std::move(p_window_mode));
+      impl->SetWindowMode(        
+        std::move(p_app_id), 
+        std::move(p_window_mode));
       return true;
     }
     case internal::kPageHandler_SetRunOnOsLoginMode_Name: {
@@ -3220,6 +3248,8 @@ std::move(p_window_mode));
           reinterpret_cast<internal::PageHandler_SetRunOnOsLoginMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       std::string p_app_id{};
       ::apps::RunOnOsLoginMode p_run_on_os_login_mode{};
@@ -3238,9 +3268,9 @@ std::move(p_window_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRunOnOsLoginMode(
-std::move(p_app_id), 
-std::move(p_run_on_os_login_mode));
+      impl->SetRunOnOsLoginMode(        
+        std::move(p_app_id), 
+        std::move(p_run_on_os_login_mode));
       return true;
     }
     case internal::kPageHandler_SetFileHandlingEnabled_Name: {
@@ -3250,6 +3280,8 @@ std::move(p_run_on_os_login_mode));
           reinterpret_cast<internal::PageHandler_SetFileHandlingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.14
       bool success = true;
       std::string p_app_id{};
       bool p_enabled{};
@@ -3268,9 +3300,9 @@ std::move(p_run_on_os_login_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFileHandlingEnabled(
-std::move(p_app_id), 
-std::move(p_enabled));
+      impl->SetFileHandlingEnabled(        
+        std::move(p_app_id), 
+        std::move(p_enabled));
       return true;
     }
     case internal::kPageHandler_ShowDefaultAppAssociationsUi_Name: {
@@ -3280,6 +3312,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::PageHandler_ShowDefaultAppAssociationsUi_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.15
       bool success = true;
       PageHandler_ShowDefaultAppAssociationsUi_ParamsDataView input_data_view(params, message);
       
@@ -3292,7 +3326,7 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowDefaultAppAssociationsUi();
+      impl->ShowDefaultAppAssociationsUi(        );
       return true;
     }
     case internal::kPageHandler_OpenStorePage_Name: {
@@ -3302,6 +3336,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::PageHandler_OpenStorePage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.16
       bool success = true;
       std::string p_app_id{};
       PageHandler_OpenStorePage_ParamsDataView input_data_view(params, message);
@@ -3317,8 +3353,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenStorePage(
-std::move(p_app_id));
+      impl->OpenStorePage(        
+        std::move(p_app_id));
       return true;
     }
     case internal::kPageHandler_SetAppLocale_Name: {
@@ -3328,6 +3364,8 @@ std::move(p_app_id));
           reinterpret_cast<internal::PageHandler_SetAppLocale_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.17
       bool success = true;
       std::string p_app_id{};
       std::string p_locale_tag{};
@@ -3346,9 +3384,9 @@ std::move(p_app_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAppLocale(
-std::move(p_app_id), 
-std::move(p_locale_tag));
+      impl->SetAppLocale(        
+        std::move(p_app_id), 
+        std::move(p_locale_tag));
       return true;
     }
   }
@@ -3371,6 +3409,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetApps_ParamsDataView input_data_view(params, message);
       
@@ -3396,6 +3436,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       std::string p_app_id{};
       PageHandler_GetApp_ParamsDataView input_data_view(params, message);
@@ -3414,8 +3456,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetApp(
-std::move(p_app_id), std::move(callback));
+      impl->GetApp(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetSubAppToParentMap_Name: {
@@ -3425,6 +3467,8 @@ std::move(p_app_id), std::move(callback));
               internal::PageHandler_GetSubAppToParentMap_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_GetSubAppToParentMap_ParamsDataView input_data_view(params, message);
       
@@ -3450,6 +3494,8 @@ std::move(p_app_id), std::move(callback));
               internal::PageHandler_GetExtensionAppPermissionMessages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       std::string p_app_id{};
       PageHandler_GetExtensionAppPermissionMessages_ParamsDataView input_data_view(params, message);
@@ -3468,8 +3514,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetExtensionAppPermissionMessages(
-std::move(p_app_id), std::move(callback));
+      impl->GetExtensionAppPermissionMessages(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kPageHandler_SetPinned_Name: {
@@ -3497,6 +3543,8 @@ std::move(p_app_id), std::move(callback));
               internal::PageHandler_GetOverlappingPreferredApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       std::string p_app_id{};
       PageHandler_GetOverlappingPreferredApps_ParamsDataView input_data_view(params, message);
@@ -3515,8 +3563,8 @@ std::move(p_app_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOverlappingPreferredApps(
-std::move(p_app_id), std::move(callback));
+      impl->GetOverlappingPreferredApps(        
+        std::move(p_app_id), std::move(callback));
       return true;
     }
     case internal::kPageHandler_UpdateAppSize_Name: {
@@ -3857,6 +3905,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnAppAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       AppPtr p_app{};
       Page_OnAppAdded_ParamsDataView input_data_view(params, message);
@@ -3872,8 +3922,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppAdded(
-std::move(p_app));
+      impl->OnAppAdded(        
+        std::move(p_app));
       return true;
     }
     case internal::kPage_OnAppChanged_Name: {
@@ -3883,6 +3933,8 @@ std::move(p_app));
           reinterpret_cast<internal::Page_OnAppChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       AppPtr p_update{};
       Page_OnAppChanged_ParamsDataView input_data_view(params, message);
@@ -3898,8 +3950,8 @@ std::move(p_app));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppChanged(
-std::move(p_update));
+      impl->OnAppChanged(        
+        std::move(p_update));
       return true;
     }
     case internal::kPage_OnAppRemoved_Name: {
@@ -3909,6 +3961,8 @@ std::move(p_update));
           reinterpret_cast<internal::Page_OnAppRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       std::string p_app_id{};
       Page_OnAppRemoved_ParamsDataView input_data_view(params, message);
@@ -3924,8 +3978,8 @@ std::move(p_update));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppRemoved(
-std::move(p_app_id));
+      impl->OnAppRemoved(        
+        std::move(p_app_id));
       return true;
     }
   }

@@ -98,6 +98,7 @@ struct MediaStreamRequestResult_Data {
       case 15:
       case 16:
       case 17:
+      case 18:
         return true;
     }
     return false;
@@ -199,6 +200,9 @@ struct CapturedSurfaceControlResult_Data {
       case 1:
       case 2:
       case 3:
+      case 4:
+      case 5:
+      case 6:
         return true;
     }
     return false;
@@ -490,8 +494,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) CapturedWheelAction_Dat
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t x;
-  int32_t y;
+  double relative_x;
+  double relative_y;
   int32_t wheel_delta_x;
   int32_t wheel_delta_y;
 
@@ -501,7 +505,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) CapturedWheelAction_Dat
   CapturedWheelAction_Data();
   ~CapturedWheelAction_Data() = delete;
 };
-static_assert(sizeof(CapturedWheelAction_Data) == 24,
+static_assert(sizeof(CapturedWheelAction_Data) == 32,
               "Bad sizeof(CapturedWheelAction_Data)");
 // Used by CapturedWheelAction::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

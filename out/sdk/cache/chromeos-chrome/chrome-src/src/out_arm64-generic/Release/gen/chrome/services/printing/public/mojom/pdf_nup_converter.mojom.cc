@@ -514,6 +514,8 @@ bool PdfNupConverter_NupPageConvert_ForwardToCallback::Accept(
           internal::PdfNupConverter_NupPageConvert_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PdfNupConverter.0
   bool success = true;
   PdfNupConverter::Status p_status{};
   ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
@@ -648,6 +650,8 @@ bool PdfNupConverter_NupDocumentConvert_ForwardToCallback::Accept(
           internal::PdfNupConverter_NupDocumentConvert_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PdfNupConverter.1
   bool success = true;
   PdfNupConverter::Status p_status{};
   ::base::ReadOnlySharedMemoryRegion p_pdf_region{};
@@ -743,6 +747,8 @@ bool PdfNupConverterStubDispatch::Accept(
           reinterpret_cast<internal::PdfNupConverter_SetWebContentsURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfNupConverter.2
       bool success = true;
       ::GURL p_url{};
       PdfNupConverter_SetWebContentsURL_ParamsDataView input_data_view(params, message);
@@ -758,8 +764,8 @@ bool PdfNupConverterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWebContentsURL(
-std::move(p_url));
+      impl->SetWebContentsURL(        
+        std::move(p_url));
       return true;
     }
     case internal::kPdfNupConverter_SetUseSkiaRendererPolicy_Name: {
@@ -769,6 +775,8 @@ std::move(p_url));
           reinterpret_cast<internal::PdfNupConverter_SetUseSkiaRendererPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfNupConverter.3
       bool success = true;
       bool p_use_skia{};
       PdfNupConverter_SetUseSkiaRendererPolicy_ParamsDataView input_data_view(params, message);
@@ -784,8 +792,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUseSkiaRendererPolicy(
-std::move(p_use_skia));
+      impl->SetUseSkiaRendererPolicy(        
+        std::move(p_use_skia));
       return true;
     }
   }
@@ -808,6 +816,8 @@ bool PdfNupConverterStubDispatch::AcceptWithResponder(
               internal::PdfNupConverter_NupPageConvert_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PdfNupConverter.0
       bool success = true;
       uint32_t p_pages_per_sheet{};
       ::gfx::Size p_page_size{};
@@ -835,11 +845,11 @@ bool PdfNupConverterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NupPageConvert(
-std::move(p_pages_per_sheet), 
-std::move(p_page_size), 
-std::move(p_printable_area), 
-std::move(p_pdf_page_regions), std::move(callback));
+      impl->NupPageConvert(        
+        std::move(p_pages_per_sheet), 
+        std::move(p_page_size), 
+        std::move(p_printable_area), 
+        std::move(p_pdf_page_regions), std::move(callback));
       return true;
     }
     case internal::kPdfNupConverter_NupDocumentConvert_Name: {
@@ -849,6 +859,8 @@ std::move(p_pdf_page_regions), std::move(callback));
               internal::PdfNupConverter_NupDocumentConvert_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PdfNupConverter.1
       bool success = true;
       uint32_t p_pages_per_sheet{};
       ::gfx::Size p_page_size{};
@@ -876,11 +888,11 @@ std::move(p_pdf_page_regions), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NupDocumentConvert(
-std::move(p_pages_per_sheet), 
-std::move(p_page_size), 
-std::move(p_printable_area), 
-std::move(p_src_pdf_region), std::move(callback));
+      impl->NupDocumentConvert(        
+        std::move(p_pages_per_sheet), 
+        std::move(p_page_size), 
+        std::move(p_printable_area), 
+        std::move(p_src_pdf_region), std::move(callback));
       return true;
     }
     case internal::kPdfNupConverter_SetWebContentsURL_Name: {

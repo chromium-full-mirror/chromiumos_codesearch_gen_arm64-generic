@@ -51,7 +51,7 @@ return MakeGarbageCollected<V8UnionCSSNumericValueOrDouble>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionCSSNumericValueOrDouble::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionCSSNumericValueOrDouble::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kCSSNumericValue: {
     return ToV8Traits<CSSNumericValue>::ToV8(script_state, member_css_numeric_value_.Get());
@@ -62,7 +62,7 @@ v8::MaybeLocal<v8::Value> V8UnionCSSNumericValueOrDouble::ToV8Value(ScriptState*
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionCSSNumericValueOrDouble::Trace(Visitor* visitor) const {

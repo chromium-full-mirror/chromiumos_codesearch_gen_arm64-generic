@@ -2746,8 +2746,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kOBSOLETE_ShapeDetection_FaceDetectorConstructor";
     case WebFeature::kOBSOLETE_ShapeDetection_TextDetectorConstructor:
       return "kOBSOLETE_ShapeDetection_TextDetectorConstructor";
-    case WebFeature::kInertAttribute:
-      return "kInertAttribute";
+    case WebFeature::kOBSOLETE_InertAttribute:
+      return "kOBSOLETE_InertAttribute";
     case WebFeature::kPluginInstanceAccessFromIsolatedWorld:
       return "kPluginInstanceAccessFromIsolatedWorld";
     case WebFeature::kPluginInstanceAccessFromMainWorld:
@@ -7502,8 +7502,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kCSSValueAppearanceSliderthumbVertical";
     case WebFeature::kServiceWorkerBypassFetchHandlerForAllWithRaceNetworkRequestByOriginTrial:
       return "kServiceWorkerBypassFetchHandlerForAllWithRaceNetworkRequestByOriginTrial";
-    case WebFeature::kEventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved:
-      return "kEventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved";
+    case WebFeature::kOBSOLETE_EventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved:
+      return "kOBSOLETE_EventTimingPaintedPresentationPromiseResolvedWithEarlierPromiseUnresolved";
     case WebFeature::kLinkRelPreloadAsFont:
       return "kLinkRelPreloadAsFont";
     case WebFeature::kCrossWindowAccessToBrowserGeneratedDocument:
@@ -7576,8 +7576,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kOBSOLETE_TextWrapPrettyFail";
     case WebFeature::kContainerQueryEvalUnknown:
       return "kContainerQueryEvalUnknown";
-    case WebFeature::kEventTimingPresentationPromiseResolvedAfterReport:
-      return "kEventTimingPresentationPromiseResolvedAfterReport";
+    case WebFeature::kOBSOLETE_EventTimingPresentationPromiseResolvedAfterReport:
+      return "kOBSOLETE_EventTimingPresentationPromiseResolvedAfterReport";
     case WebFeature::kGetCoalescedEventsInInsecureContext:
       return "kGetCoalescedEventsInInsecureContext";
     case WebFeature::kCSPEESameOriginBlanketEnforcement:
@@ -7902,6 +7902,70 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kViewTransitionNameAuto";
     case WebFeature::kV8WasmJavaScriptPromiseIntegration:
       return "kV8WasmJavaScriptPromiseIntegration";
+    case WebFeature::kWindowMinimize:
+      return "kWindowMinimize";
+    case WebFeature::kWindowMaximize:
+      return "kWindowMaximize";
+    case WebFeature::kWindowRestore:
+      return "kWindowRestore";
+    case WebFeature::kWindowSetResizable:
+      return "kWindowSetResizable";
+    case WebFeature::kV8WasmReturnCall:
+      return "kV8WasmReturnCall";
+    case WebFeature::kV8WasmExtendedConst:
+      return "kV8WasmExtendedConst";
+    case WebFeature::kV8WasmRelaxedSimd:
+      return "kV8WasmRelaxedSimd";
+    case WebFeature::kV8WasmTypeReflection:
+      return "kV8WasmTypeReflection";
+    case WebFeature::kV8WasmExnRef:
+      return "kV8WasmExnRef";
+    case WebFeature::kV8WasmTypedFuncRef:
+      return "kV8WasmTypedFuncRef";
+    case WebFeature::kHTMLButtonInSelect:
+      return "kHTMLButtonInSelect";
+    case WebFeature::kHTMLDatalistInSelect:
+      return "kHTMLDatalistInSelect";
+    case WebFeature::kEffectiveAlignContentForBlock:
+      return "kEffectiveAlignContentForBlock";
+    case WebFeature::kEffectiveAlignContentForTableCell:
+      return "kEffectiveAlignContentForTableCell";
+    case WebFeature::kUserFeatureNgOptimizedImage:
+      return "kUserFeatureNgOptimizedImage";
+    case WebFeature::kCSSAtRulePageMargin:
+      return "kCSSAtRulePageMargin";
+    case WebFeature::kThirdPartyCookieDeprecation_AllowByEnterprisePolicyCookieAllowedForUrls:
+      return "kThirdPartyCookieDeprecation_AllowByEnterprisePolicyCookieAllowedForUrls";
+    case WebFeature::kUserFeatureNgAfterRender:
+      return "kUserFeatureNgAfterRender";
+    case WebFeature::kUserFeatureNgHydration:
+      return "kUserFeatureNgHydration";
+    case WebFeature::kCapturedSurfaceControl:
+      return "kCapturedSurfaceControl";
+    case WebFeature::kElementGetHTML:
+      return "kElementGetHTML";
+    case WebFeature::kElementAttachSerializableShadow:
+      return "kElementAttachSerializableShadow";
+    case WebFeature::kCSSBareDeclarationShift:
+      return "kCSSBareDeclarationShift";
+    case WebFeature::kCSSNestedGroupRuleSpecificity:
+      return "kCSSNestedGroupRuleSpecificity";
+    case WebFeature::kCSSRuleWithSignalingChildModified:
+      return "kCSSRuleWithSignalingChildModified";
+    case WebFeature::kUserFeatureNextThirdPartiesGA:
+      return "kUserFeatureNextThirdPartiesGA";
+    case WebFeature::kUserFeatureNextThirdPartiesGTM:
+      return "kUserFeatureNextThirdPartiesGTM";
+    case WebFeature::kUserFeatureNextThirdPartiesYouTubeEmbed:
+      return "kUserFeatureNextThirdPartiesYouTubeEmbed";
+    case WebFeature::kUserFeatureNextThirdPartiesGoogleMapsEmbed:
+      return "kUserFeatureNextThirdPartiesGoogleMapsEmbed";
+    case WebFeature::kStorageAccessAPI_hasUnpartitionedCookieAccess:
+      return "kStorageAccessAPI_hasUnpartitionedCookieAccess";
+    case WebFeature::kStorageAccessAPI_requestStorageAccess_BeyondCookies_cookies:
+      return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_cookies";
+    case WebFeature::kVisualViewportScrollEndFired:
+      return "kVisualViewportScrollEndFired";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

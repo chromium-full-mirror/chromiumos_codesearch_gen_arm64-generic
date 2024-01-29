@@ -167,6 +167,8 @@ bool TimeZoneObserverStubDispatch::Accept(
           reinterpret_cast<internal::TimeZoneObserver_OnTimeZoneChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimeZoneObserver.0
       bool success = true;
       ::std::u16string p_zone_id{};
       TimeZoneObserver_OnTimeZoneChanged_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool TimeZoneObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTimeZoneChanged(
-std::move(p_zone_id));
+      impl->OnTimeZoneChanged(        
+        std::move(p_zone_id));
       return true;
     }
   }
@@ -335,6 +337,8 @@ bool TimeZoneServiceStubDispatch::Accept(
           reinterpret_cast<internal::TimeZoneService_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TimeZoneService.0
       bool success = true;
       ::mojo::PendingRemote<TimeZoneObserver> p_observer{};
       TimeZoneService_AddObserver_ParamsDataView input_data_view(params, message);
@@ -352,8 +356,8 @@ bool TimeZoneServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
   }

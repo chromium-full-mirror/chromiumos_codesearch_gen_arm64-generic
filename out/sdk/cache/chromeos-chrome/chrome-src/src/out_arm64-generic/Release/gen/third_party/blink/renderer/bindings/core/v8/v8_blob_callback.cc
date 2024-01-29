@@ -58,9 +58,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_blob;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLNullable<Blob>>::ToV8(script_state, arg1_blob).ToLocal(&v8_arg1_blob)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_blob = ToV8Traits<IDLNullable<Blob>>::ToV8(script_state, arg1_blob);
 argv[0] = v8_arg1_blob;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -99,9 +97,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_blob;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLNullable<Blob>>::ToV8(script_state, arg1_blob).ToLocal(&v8_arg1_blob)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_blob = ToV8Traits<IDLNullable<Blob>>::ToV8(script_state, arg1_blob);
 argv[0] = v8_arg1_blob;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

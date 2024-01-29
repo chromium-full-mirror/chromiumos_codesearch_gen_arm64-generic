@@ -11,23 +11,14 @@ import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/buttons/oobe_text_button.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { OobeDialogHostBehavior } from '../../components/behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
 import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { getTemplate } from './osauth_error.html.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- */
-const OSAuthErrorBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior, LoginScreenBehavior], PolymerElement);
-/**
- * @polymer
- */
-class OSAuthErrorScreen extends OSAuthErrorBase {
+const OsAuthErrorBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior, LoginScreenBehavior], PolymerElement);
+export class OsAuthErrorScreen extends OsAuthErrorBase {
     static get is() {
         return 'osauth-error-element';
     }
@@ -42,15 +33,12 @@ class OSAuthErrorScreen extends OSAuthErrorBase {
         this.initializeLoginScreen('OSAuthErrorScreen');
     }
     /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.BLOCKING;
     }
-    /**
-     * Invoked just before being shown. Contains all the data for the screen.
-     */
-    onBeforeShow(data) { }
-    onRetryLoginButtonPressed_() {
+    onRetryLoginButtonPressed() {
         this.userActed('cancelLoginFlow');
     }
 }
-customElements.define(OSAuthErrorScreen.is, OSAuthErrorScreen);
+customElements.define(OsAuthErrorScreen.is, OsAuthErrorScreen);

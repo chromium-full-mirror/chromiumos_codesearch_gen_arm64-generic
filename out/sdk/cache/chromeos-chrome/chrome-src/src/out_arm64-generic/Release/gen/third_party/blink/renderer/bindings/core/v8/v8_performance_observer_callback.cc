@@ -60,19 +60,13 @@ const int argc = 3;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_entries;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<PerformanceObserverEntryList>::ToV8(script_state, arg1_entries).ToLocal(&v8_arg1_entries)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_entries = ToV8Traits<PerformanceObserverEntryList>::ToV8(script_state, arg1_entries);
 argv[0] = v8_arg1_entries;
 v8::Local<v8::Value> v8_arg2_observer;
-if (!ToV8Traits<PerformanceObserver>::ToV8(script_state, arg2_observer).ToLocal(&v8_arg2_observer)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_observer = ToV8Traits<PerformanceObserver>::ToV8(script_state, arg2_observer);
 argv[1] = v8_arg2_observer;
 v8::Local<v8::Value> v8_arg3_options;
-if (!ToV8Traits<PerformanceObserverCallbackOptions>::ToV8(script_state, arg3_options).ToLocal(&v8_arg3_options)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_options = ToV8Traits<PerformanceObserverCallbackOptions>::ToV8(script_state, arg3_options);
 argv[2] = v8_arg3_options;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -111,19 +105,13 @@ const int argc = 3;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_entries;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<PerformanceObserverEntryList>::ToV8(script_state, arg1_entries).ToLocal(&v8_arg1_entries)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_entries = ToV8Traits<PerformanceObserverEntryList>::ToV8(script_state, arg1_entries);
 argv[0] = v8_arg1_entries;
 v8::Local<v8::Value> v8_arg2_observer;
-if (!ToV8Traits<PerformanceObserver>::ToV8(script_state, arg2_observer).ToLocal(&v8_arg2_observer)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_observer = ToV8Traits<PerformanceObserver>::ToV8(script_state, arg2_observer);
 argv[1] = v8_arg2_observer;
 v8::Local<v8::Value> v8_arg3_options;
-if (!ToV8Traits<PerformanceObserverCallbackOptions>::ToV8(script_state, arg3_options).ToLocal(&v8_arg3_options)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_options = ToV8Traits<PerformanceObserverCallbackOptions>::ToV8(script_state, arg3_options);
 argv[2] = v8_arg3_options;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

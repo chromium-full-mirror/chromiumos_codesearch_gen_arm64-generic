@@ -109,8 +109,7 @@ BLINK_BINDINGS_TRACE_EVENT("BackgroundFetchRecord.responseReady.get");
 
 
 BackgroundFetchRecord* blink_receiver = V8BackgroundFetchRecord::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->responseReady(script_state);
 bindings::V8SetReturnValue(info, return_value);

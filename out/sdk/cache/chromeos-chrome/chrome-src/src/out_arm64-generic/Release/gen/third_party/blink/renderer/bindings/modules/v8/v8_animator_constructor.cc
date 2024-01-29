@@ -57,14 +57,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_options;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_options).ToLocal(&v8_arg1_options)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_options = ToV8Traits<IDLAny>::ToV8(script_state, arg1_options);
 argv[0] = v8_arg1_options;
 v8::Local<v8::Value> v8_arg2_state;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_state).ToLocal(&v8_arg2_state)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg2_state = ToV8Traits<IDLAny>::ToV8(script_state, arg2_state);
 argv[1] = v8_arg2_state;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();
@@ -103,14 +99,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_options;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg1_options).ToLocal(&v8_arg1_options)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg1_options = ToV8Traits<IDLAny>::ToV8(script_state, arg1_options);
 argv[0] = v8_arg1_options;
 v8::Local<v8::Value> v8_arg2_state;
-if (!ToV8Traits<IDLAny>::ToV8(script_state, arg2_state).ToLocal(&v8_arg2_state)) {
-  return v8::Nothing<ScriptValue>();
-}
+v8_arg2_state = ToV8Traits<IDLAny>::ToV8(script_state, arg2_state);
 argv[1] = v8_arg2_state;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<ScriptValue>();

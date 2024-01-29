@@ -161,6 +161,8 @@ bool RendererAutomationRegistryStubDispatch::Accept(
           reinterpret_cast<internal::RendererAutomationRegistry_BindAutomation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererAutomationRegistry.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<::ax::mojom::Automation> p_automation{};
       RendererAutomationRegistry_BindAutomation_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool RendererAutomationRegistryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutomation(
-std::move(p_automation));
+      impl->BindAutomation(        
+        std::move(p_automation));
       return true;
     }
   }

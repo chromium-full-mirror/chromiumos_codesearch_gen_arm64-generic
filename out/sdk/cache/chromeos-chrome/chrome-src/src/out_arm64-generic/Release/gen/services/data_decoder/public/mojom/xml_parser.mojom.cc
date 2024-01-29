@@ -242,6 +242,8 @@ bool XmlParser_Parse_ForwardToCallback::Accept(
           internal::XmlParser_Parse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XmlParser.0
   bool success = true;
   std::optional<::base::Value> p_result{};
   std::optional<std::string> p_error{};
@@ -350,6 +352,8 @@ bool XmlParserStubDispatch::AcceptWithResponder(
               internal::XmlParser_Parse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XmlParser.0
       bool success = true;
       std::string p_xml{};
       XmlParser::WhitespaceBehavior p_whitespace_behavior{};
@@ -371,9 +375,9 @@ bool XmlParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Parse(
-std::move(p_xml), 
-std::move(p_whitespace_behavior), std::move(callback));
+      impl->Parse(        
+        std::move(p_xml), 
+        std::move(p_whitespace_behavior), std::move(callback));
       return true;
     }
   }

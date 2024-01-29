@@ -176,6 +176,8 @@ bool PublicIpAddressGeolocationProviderStubDispatch::Accept(
           reinterpret_cast<internal::PublicIpAddressGeolocationProvider_CreateGeolocation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PublicIpAddressGeolocationProvider.0
       bool success = true;
       ::network::mojom::blink::MutablePartialNetworkTrafficAnnotationTagPtr p_tag{};
       ::mojo::PendingReceiver<::device::mojom::blink::Geolocation> p_receiver{};
@@ -196,9 +198,9 @@ bool PublicIpAddressGeolocationProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGeolocation(
-std::move(p_tag), 
-std::move(p_receiver));
+      impl->CreateGeolocation(        
+        std::move(p_tag), 
+        std::move(p_receiver));
       return true;
     }
   }

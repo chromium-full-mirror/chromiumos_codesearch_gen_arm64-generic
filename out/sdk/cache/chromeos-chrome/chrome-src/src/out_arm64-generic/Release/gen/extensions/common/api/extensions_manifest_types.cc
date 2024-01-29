@@ -45,7 +45,6 @@ Automation::Object Automation::Object::Clone() const {
   Object out;
   out.desktop = desktop;
   out.matches = matches;
-  out.interact = interact;
   return out;
 }
 
@@ -83,20 +82,6 @@ bool Automation::Object::Populate(
           return false;
         }
       }
-    }
-  }
-
-  const base::Value* interact_value = dict.Find("interact");
-  if (interact_value) {
-    {
-      auto temp = (*interact_value).GetIfBool();
-      if (!temp.has_value()) {
-        DCHECK(error.empty());
-        error = u"'interact': expected interact, got " + UTF8ToUTF16(base::Value::GetTypeName((*interact_value).type()));
-        out.interact = std::nullopt;
-        return false;
-      }
-      out.interact = *temp;
     }
   }
 
@@ -147,10 +132,6 @@ base::Value::Dict Automation::Object::ToValue() const {
   }
   if (this->matches) {
     to_value_result.Set("matches", json_schema_compiler::util::CreateValueFromArray(*this->matches));
-
-  }
-  if (this->interact) {
-    to_value_result.Set("interact", *this->interact);
 
   }
 

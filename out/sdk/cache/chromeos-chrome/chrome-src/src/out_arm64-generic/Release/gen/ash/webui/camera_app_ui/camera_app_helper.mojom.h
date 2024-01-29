@@ -479,6 +479,7 @@ class CameraAppHelper
     kStartStorageMonitorMinVersion = 0,
     kStopStorageMonitorMinVersion = 0,
     kOpenStorageManagementMinVersion = 0,
+    kOpenWifiDialogMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -554,6 +555,9 @@ class CameraAppHelper
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OpenStorageManagement_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenWifiDialog_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -658,6 +662,9 @@ class CameraAppHelper
 
   
   virtual void OpenStorageManagement() = 0;
+
+  
+  virtual void OpenWifiDialog(WifiConfigPtr config) = 0;
 };
 
 
@@ -835,6 +842,8 @@ class  CameraAppHelperProxy
   void StopStorageMonitor() final;
   
   void OpenStorageManagement() final;
+  
+  void OpenWifiDialog(WifiConfigPtr config) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1216,9 +1225,277 @@ class  CameraAppHelperResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+class  WifiConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<WifiConfig, T>::value>;
+  using DataView = WifiConfigDataView;
+  using Data_ = internal::WifiConfig_Data;
+
+  template <typename... Args>
+  static WifiConfigPtr New(Args&&... args) {
+    return WifiConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static WifiConfigPtr From(const U& u) {
+    return mojo::TypeConverter<WifiConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, WifiConfig>::Convert(*this);
+  }
+
+
+  WifiConfig();
+
+  WifiConfig(
+      const std::string& ssid,
+      WifiSecurityType security,
+      const std::optional<std::string>& password,
+      std::optional<WifiEapMethod> eap_method,
+      std::optional<WifiEapPhase2Method> eap_phase2_method,
+      const std::optional<std::string>& eap_identity,
+      const std::optional<std::string>& eap_anonymous_identity);
+
+
+  ~WifiConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = WifiConfigPtr>
+  WifiConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        WifiConfig::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        WifiConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::WifiConfig_UnserializedMessageContext<
+            UserType, WifiConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<WifiConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return WifiConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::WifiConfig_UnserializedMessageContext<
+            UserType, WifiConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<WifiConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string ssid;
+  
+  WifiSecurityType security;
+  
+  std::optional<std::string> password;
+  
+  std::optional<WifiEapMethod> eap_method;
+  
+  std::optional<WifiEapPhase2Method> eap_phase2_method;
+  
+  std::optional<std::string> eap_identity;
+  
+  std::optional<std::string> eap_anonymous_identity;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, WifiConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+template <typename StructPtrType>
+WifiConfigPtr WifiConfig::Clone() const {
+  return New(
+      mojo::Clone(ssid),
+      mojo::Clone(security),
+      mojo::Clone(password),
+      mojo::Clone(eap_method),
+      mojo::Clone(eap_phase2_method),
+      mojo::Clone(eap_identity),
+      mojo::Clone(eap_anonymous_identity)
+  );
+}
+
+template <typename T, WifiConfig::EnableIfSame<T>*>
+bool WifiConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->ssid, other_struct.ssid))
+    return false;
+  if (!mojo::Equals(this->security, other_struct.security))
+    return false;
+  if (!mojo::Equals(this->password, other_struct.password))
+    return false;
+  if (!mojo::Equals(this->eap_method, other_struct.eap_method))
+    return false;
+  if (!mojo::Equals(this->eap_phase2_method, other_struct.eap_phase2_method))
+    return false;
+  if (!mojo::Equals(this->eap_identity, other_struct.eap_identity))
+    return false;
+  if (!mojo::Equals(this->eap_anonymous_identity, other_struct.eap_anonymous_identity))
+    return false;
+  return true;
+}
+
+template <typename T, WifiConfig::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.ssid < rhs.ssid)
+    return true;
+  if (rhs.ssid < lhs.ssid)
+    return false;
+  if (lhs.security < rhs.security)
+    return true;
+  if (rhs.security < lhs.security)
+    return false;
+  if (lhs.password < rhs.password)
+    return true;
+  if (rhs.password < lhs.password)
+    return false;
+  if (lhs.eap_method < rhs.eap_method)
+    return true;
+  if (rhs.eap_method < lhs.eap_method)
+    return false;
+  if (lhs.eap_phase2_method < rhs.eap_phase2_method)
+    return true;
+  if (rhs.eap_phase2_method < lhs.eap_phase2_method)
+    return false;
+  if (lhs.eap_identity < rhs.eap_identity)
+    return true;
+  if (rhs.eap_identity < lhs.eap_identity)
+    return false;
+  if (lhs.eap_anonymous_identity < rhs.eap_anonymous_identity)
+    return true;
+  if (rhs.eap_anonymous_identity < lhs.eap_anonymous_identity)
+    return false;
+  return false;
+}
+
+
 }  // ash::camera_app::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::ash::camera_app::mojom::WifiConfig::DataView,
+                                         ::ash::camera_app::mojom::WifiConfigPtr> {
+  static bool IsNull(const ::ash::camera_app::mojom::WifiConfigPtr& input) { return !input; }
+  static void SetToNull(::ash::camera_app::mojom::WifiConfigPtr* output) { output->reset(); }
+
+  static const decltype(::ash::camera_app::mojom::WifiConfig::ssid)& ssid(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->ssid;
+  }
+
+  static decltype(::ash::camera_app::mojom::WifiConfig::security) security(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->security;
+  }
+
+  static const decltype(::ash::camera_app::mojom::WifiConfig::password)& password(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->password;
+  }
+
+  static decltype(::ash::camera_app::mojom::WifiConfig::eap_method) eap_method(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->eap_method;
+  }
+
+  static decltype(::ash::camera_app::mojom::WifiConfig::eap_phase2_method) eap_phase2_method(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->eap_phase2_method;
+  }
+
+  static const decltype(::ash::camera_app::mojom::WifiConfig::eap_identity)& eap_identity(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->eap_identity;
+  }
+
+  static const decltype(::ash::camera_app::mojom::WifiConfig::eap_anonymous_identity)& eap_anonymous_identity(
+      const ::ash::camera_app::mojom::WifiConfigPtr& input) {
+    return input->eap_anonymous_identity;
+  }
+
+  static bool Read(::ash::camera_app::mojom::WifiConfig::DataView input, ::ash::camera_app::mojom::WifiConfigPtr* output);
+};
 
 }  // namespace mojo
 

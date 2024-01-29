@@ -30,6 +30,8 @@
 #include "services/network/public/mojom/client_security_state.mojom-import-headers.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom.h"
 #include "services/network/public/mojom/cookie_access_observer.mojom-import-headers.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-import-headers.h"
 #include "services/network/public/mojom/cookie_manager.mojom.h"
 #include "services/network/public/mojom/cookie_manager.mojom-import-headers.h"
 #include "services/network/public/mojom/cookie_setting_overrides.mojom.h"

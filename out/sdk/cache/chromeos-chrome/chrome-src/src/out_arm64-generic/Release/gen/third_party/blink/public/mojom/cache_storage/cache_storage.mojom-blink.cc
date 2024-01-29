@@ -1321,6 +1321,8 @@ bool CacheStorageCache_Match_ForwardToCallback::Accept(
           internal::CacheStorageCache_Match_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageCache.0
   bool success = true;
   MatchResultPtr p_result{};
   CacheStorageCache_Match_ResponseParamsDataView input_data_view(params, message);
@@ -1448,6 +1450,8 @@ bool CacheStorageCache_MatchAll_ForwardToCallback::Accept(
           internal::CacheStorageCache_MatchAll_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageCache.1
   bool success = true;
   MatchAllResultPtr p_result{};
   CacheStorageCache_MatchAll_ResponseParamsDataView input_data_view(params, message);
@@ -1575,6 +1579,8 @@ bool CacheStorageCache_GetAllMatchedEntries_ForwardToCallback::Accept(
           internal::CacheStorageCache_GetAllMatchedEntries_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageCache.2
   bool success = true;
   GetAllMatchedEntriesResultPtr p_result{};
   CacheStorageCache_GetAllMatchedEntries_ResponseParamsDataView input_data_view(params, message);
@@ -1702,6 +1708,8 @@ bool CacheStorageCache_Keys_ForwardToCallback::Accept(
           internal::CacheStorageCache_Keys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageCache.3
   bool success = true;
   CacheKeysResultPtr p_result{};
   CacheStorageCache_Keys_ResponseParamsDataView input_data_view(params, message);
@@ -1829,6 +1837,8 @@ bool CacheStorageCache_Batch_ForwardToCallback::Accept(
           internal::CacheStorageCache_Batch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageCache.4
   bool success = true;
   CacheStorageVerboseErrorPtr p_result{};
   CacheStorageCache_Batch_ResponseParamsDataView input_data_view(params, message);
@@ -1958,6 +1968,8 @@ bool CacheStorageCache_WriteSideData_ForwardToCallback::Accept(
           internal::CacheStorageCache_WriteSideData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorageCache.5
   bool success = true;
   CacheStorageError p_result{};
   CacheStorageCache_WriteSideData_ResponseParamsDataView input_data_view(params, message);
@@ -2064,6 +2076,8 @@ bool CacheStorageCacheStubDispatch::AcceptWithResponder(
               internal::CacheStorageCache_Match_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageCache.0
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request{};
       CacheQueryOptionsPtr p_query_options{};
@@ -2094,12 +2108,12 @@ bool CacheStorageCacheStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Match(
-std::move(p_request), 
-std::move(p_query_options), 
-std::move(p_in_related_fetch_event), 
-std::move(p_in_range_fetch_event), 
-std::move(p_trace_id), std::move(callback));
+      impl->Match(        
+        std::move(p_request), 
+        std::move(p_query_options), 
+        std::move(p_in_related_fetch_event), 
+        std::move(p_in_range_fetch_event), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorageCache_MatchAll_Name: {
@@ -2109,6 +2123,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorageCache_MatchAll_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageCache.1
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request{};
       CacheQueryOptionsPtr p_query_options{};
@@ -2133,10 +2149,10 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MatchAll(
-std::move(p_request), 
-std::move(p_query_options), 
-std::move(p_trace_id), std::move(callback));
+      impl->MatchAll(        
+        std::move(p_request), 
+        std::move(p_query_options), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorageCache_GetAllMatchedEntries_Name: {
@@ -2146,6 +2162,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorageCache_GetAllMatchedEntries_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageCache.2
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request{};
       CacheQueryOptionsPtr p_query_options{};
@@ -2170,10 +2188,10 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAllMatchedEntries(
-std::move(p_request), 
-std::move(p_query_options), 
-std::move(p_trace_id), std::move(callback));
+      impl->GetAllMatchedEntries(        
+        std::move(p_request), 
+        std::move(p_query_options), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorageCache_Keys_Name: {
@@ -2183,6 +2201,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorageCache_Keys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageCache.3
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request{};
       CacheQueryOptionsPtr p_query_options{};
@@ -2207,10 +2227,10 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Keys(
-std::move(p_request), 
-std::move(p_query_options), 
-std::move(p_trace_id), std::move(callback));
+      impl->Keys(        
+        std::move(p_request), 
+        std::move(p_query_options), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorageCache_Batch_Name: {
@@ -2220,6 +2240,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorageCache_Batch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageCache.4
       bool success = true;
       WTF::Vector<BatchOperationPtr> p_batch_operations{};
       int64_t p_trace_id{};
@@ -2241,9 +2263,9 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Batch(
-std::move(p_batch_operations), 
-std::move(p_trace_id), std::move(callback));
+      impl->Batch(        
+        std::move(p_batch_operations), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorageCache_WriteSideData_Name: {
@@ -2253,6 +2275,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorageCache_WriteSideData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorageCache.5
       bool success = true;
       ::blink::KURL p_url{};
       ::base::Time p_expected_response_time{};
@@ -2280,11 +2304,11 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteSideData(
-std::move(p_url), 
-std::move(p_expected_response_time), 
-std::move(p_data), 
-std::move(p_trace_id), std::move(callback));
+      impl->WriteSideData(        
+        std::move(p_url), 
+        std::move(p_expected_response_time), 
+        std::move(p_data), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
   }
@@ -2880,6 +2904,8 @@ bool CacheStorage_Has_ForwardToCallback::Accept(
           internal::CacheStorage_Has_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorage.0
   bool success = true;
   CacheStorageError p_result{};
   CacheStorage_Has_ResponseParamsDataView input_data_view(params, message);
@@ -3000,6 +3026,8 @@ bool CacheStorage_Delete_ForwardToCallback::Accept(
           internal::CacheStorage_Delete_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorage.1
   bool success = true;
   CacheStorageError p_result{};
   CacheStorage_Delete_ResponseParamsDataView input_data_view(params, message);
@@ -3120,6 +3148,8 @@ bool CacheStorage_Keys_ForwardToCallback::Accept(
           internal::CacheStorage_Keys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorage.2
   bool success = true;
   WTF::Vector<::WTF::String> p_keys{};
   CacheStorage_Keys_ResponseParamsDataView input_data_view(params, message);
@@ -3251,6 +3281,8 @@ bool CacheStorage_Match_ForwardToCallback::Accept(
           internal::CacheStorage_Match_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorage.3
   bool success = true;
   MatchResultPtr p_result{};
   CacheStorage_Match_ResponseParamsDataView input_data_view(params, message);
@@ -3378,6 +3410,8 @@ bool CacheStorage_Open_ForwardToCallback::Accept(
           internal::CacheStorage_Open_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CacheStorage.4
   bool success = true;
   OpenResultPtr p_result{};
   CacheStorage_Open_ResponseParamsDataView input_data_view(params, message);
@@ -3488,6 +3522,8 @@ bool CacheStorageStubDispatch::AcceptWithResponder(
               internal::CacheStorage_Has_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorage.0
       bool success = true;
       ::WTF::String p_cache_name{};
       int64_t p_trace_id{};
@@ -3509,9 +3545,9 @@ bool CacheStorageStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Has(
-std::move(p_cache_name), 
-std::move(p_trace_id), std::move(callback));
+      impl->Has(        
+        std::move(p_cache_name), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorage_Delete_Name: {
@@ -3521,6 +3557,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorage_Delete_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorage.1
       bool success = true;
       ::WTF::String p_cache_name{};
       int64_t p_trace_id{};
@@ -3542,9 +3580,9 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Delete(
-std::move(p_cache_name), 
-std::move(p_trace_id), std::move(callback));
+      impl->Delete(        
+        std::move(p_cache_name), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorage_Keys_Name: {
@@ -3554,6 +3592,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorage_Keys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorage.2
       bool success = true;
       int64_t p_trace_id{};
       CacheStorage_Keys_ParamsDataView input_data_view(params, message);
@@ -3572,8 +3612,8 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Keys(
-std::move(p_trace_id), std::move(callback));
+      impl->Keys(        
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorage_Match_Name: {
@@ -3583,6 +3623,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorage_Match_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorage.3
       bool success = true;
       ::blink::mojom::blink::FetchAPIRequestPtr p_request{};
       MultiCacheQueryOptionsPtr p_match_options{};
@@ -3613,12 +3655,12 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Match(
-std::move(p_request), 
-std::move(p_match_options), 
-std::move(p_in_related_fetch_event), 
-std::move(p_in_range_fetch_event), 
-std::move(p_trace_id), std::move(callback));
+      impl->Match(        
+        std::move(p_request), 
+        std::move(p_match_options), 
+        std::move(p_in_related_fetch_event), 
+        std::move(p_in_range_fetch_event), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kCacheStorage_Open_Name: {
@@ -3628,6 +3670,8 @@ std::move(p_trace_id), std::move(callback));
               internal::CacheStorage_Open_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CacheStorage.4
       bool success = true;
       ::WTF::String p_cache_name{};
       int64_t p_trace_id{};
@@ -3649,9 +3693,9 @@ std::move(p_trace_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Open(
-std::move(p_cache_name), 
-std::move(p_trace_id), std::move(callback));
+      impl->Open(        
+        std::move(p_cache_name), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
   }

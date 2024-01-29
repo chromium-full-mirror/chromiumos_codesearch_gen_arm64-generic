@@ -233,7 +233,9 @@
   AdditionalCertificates.prototype.initDefaults_ = function() {
     this.allCertificates = null;
     this.trustAnchors = null;
+    this.trustAnchorsWithEnforcedConstraints = null;
     this.distrustedSpkis = null;
+    this.includeSystemTrustStore = true;
   };
   AdditionalCertificates.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -249,7 +251,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -257,26 +259,33 @@
 
 
     // validate AdditionalCertificates.allCertificates
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AdditionalCertificates.trustAnchors
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(network_param$.X509Certificate), false, [0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate AdditionalCertificates.trustAnchorsWithEnforcedConstraints
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate AdditionalCertificates.distrustedSpkis
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 24, 8, new codec.ArrayOf(codec.Uint8), false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
+
 
     return validator.validationError.NONE;
   };
 
-  AdditionalCertificates.encodedSize = codec.kStructHeaderSize + 24;
+  AdditionalCertificates.encodedSize = codec.kStructHeaderSize + 40;
 
   AdditionalCertificates.decode = function(decoder) {
     var packed;
@@ -284,11 +293,22 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.allCertificates =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.Uint8));
     val.trustAnchors =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate));
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.Uint8));
+    val.trustAnchorsWithEnforcedConstraints =
+        decoder.decodeArrayPointer(new codec.ArrayOf(codec.Uint8));
     val.distrustedSpkis =
         decoder.decodeArrayPointer(new codec.ArrayOf(codec.Uint8));
+    packed = decoder.readUint8();
+    val.includeSystemTrustStore = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
@@ -296,9 +316,20 @@
     var packed;
     encoder.writeUint32(AdditionalCertificates.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.allCertificates);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.X509Certificate), val.trustAnchors);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.Uint8), val.allCertificates);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.Uint8), val.trustAnchors);
+    encoder.encodeArrayPointer(new codec.ArrayOf(codec.Uint8), val.trustAnchorsWithEnforcedConstraints);
     encoder.encodeArrayPointer(new codec.ArrayOf(codec.Uint8), val.distrustedSpkis);
+    packed = 0;
+    packed |= (val.includeSystemTrustStore & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
   function URLLoaderFactoryConnector_CreateURLLoaderFactory_Params(values) {
     this.initDefaults_();

@@ -36,6 +36,7 @@ export var DeviceReportingType;
     DeviceReportingType["CRD_SESSIONS"] = "crd sessions";
     DeviceReportingType["PERIPHERALS"] = "peripherals";
     DeviceReportingType["LEGACY_TECH"] = "legacy-tech";
+    DeviceReportingType["WEBSITE_INFO_AND_ACTIVITY"] = "website info and activity";
 })(DeviceReportingType || (DeviceReportingType = {}));
 export class ManagementBrowserProxyImpl {
     getExtensions() {

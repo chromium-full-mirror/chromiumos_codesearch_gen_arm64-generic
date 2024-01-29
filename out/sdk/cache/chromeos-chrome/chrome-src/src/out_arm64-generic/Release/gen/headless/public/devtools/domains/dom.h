@@ -125,6 +125,13 @@ class HEADLESS_EXPORT Domain {
   void DescribeNode(std::unique_ptr<DescribeNodeParams> params, base::OnceCallback<void(std::unique_ptr<DescribeNodeResult>)> callback = base::OnceCallback<void(std::unique_ptr<DescribeNodeResult>)>());
   void DescribeNode(base::OnceCallback<void(std::unique_ptr<DescribeNodeResult>)> callback = base::OnceCallback<void(std::unique_ptr<DescribeNodeResult>)>());
 
+  // Scrolls the specified rect of the given node into view if not already visible.
+  // Note: exactly one between nodeId, backendNodeId and objectId should be passed
+  // to identify the node.
+  void ScrollIntoViewIfNeeded(std::unique_ptr<ScrollIntoViewIfNeededParams> params, base::OnceCallback<void(std::unique_ptr<ScrollIntoViewIfNeededResult>)> callback = base::OnceCallback<void(std::unique_ptr<ScrollIntoViewIfNeededResult>)>());
+  void ScrollIntoViewIfNeeded(base::OnceClosure callback = base::OnceClosure());
+  void ScrollIntoViewIfNeeded(std::unique_ptr<ScrollIntoViewIfNeededParams> params, base::OnceClosure callback);
+
   // Disables DOM agent for the given page.
   void Disable(std::unique_ptr<DisableParams> params, base::OnceCallback<void(std::unique_ptr<DisableResult>)> callback = base::OnceCallback<void(std::unique_ptr<DisableResult>)>());
   void Disable(base::OnceClosure callback = base::OnceClosure());
@@ -353,11 +360,6 @@ class ExperimentalDomain : public Domain {
   // Creates a deep copy of the specified node and places it into the target container before the
   // given anchor.
   void CopyTo(std::unique_ptr<CopyToParams> params, base::OnceCallback<void(std::unique_ptr<CopyToResult>)> callback = base::OnceCallback<void(std::unique_ptr<CopyToResult>)>());
-
-  // Scrolls the specified rect of the given node into view if not already visible.
-  // Note: exactly one between nodeId, backendNodeId and objectId should be passed
-  // to identify the node.
-  void ScrollIntoViewIfNeeded(std::unique_ptr<ScrollIntoViewIfNeededParams> params, base::OnceCallback<void(std::unique_ptr<ScrollIntoViewIfNeededResult>)> callback = base::OnceCallback<void(std::unique_ptr<ScrollIntoViewIfNeededResult>)>());
 
   // Discards search results from the session with the given id. `getSearchResults` should no longer
   // be called for that search.

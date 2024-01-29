@@ -88,10 +88,10 @@ TNode<String> LoadModuleRequestSpecifier_0(compiler::CodeAssemblerState* state_,
 void StoreModuleRequestSpecifier_0(compiler::CodeAssemblerState* state_, TNode<ModuleRequest> p_o, TNode<String> p_v);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
-TNode<FixedArray> LoadModuleRequestImportAssertions_0(compiler::CodeAssemblerState* state_, TNode<ModuleRequest> p_o);
+TNode<FixedArray> LoadModuleRequestImportAttributes_0(compiler::CodeAssemblerState* state_, TNode<ModuleRequest> p_o);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
-void StoreModuleRequestImportAssertions_0(compiler::CodeAssemblerState* state_, TNode<ModuleRequest> p_o, TNode<FixedArray> p_v);
+void StoreModuleRequestImportAttributes_0(compiler::CodeAssemblerState* state_, TNode<ModuleRequest> p_o, TNode<FixedArray> p_v);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=58&c=3
 TNode<Smi> LoadModuleRequestPosition_0(compiler::CodeAssemblerState* state_, TNode<ModuleRequest> p_o);

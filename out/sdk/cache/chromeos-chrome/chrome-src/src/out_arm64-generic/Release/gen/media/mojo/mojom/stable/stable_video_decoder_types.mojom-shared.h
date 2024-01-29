@@ -289,7 +289,7 @@ enum class VideoCodecProfile : int32_t {
   
   kDolbyVisionProfile0 = 19,
   
-  kDolbyVisionProfile4 = 20,
+  kDeprecatedDolbyVisionProfile4 = 20,
   
   kDolbyVisionProfile5 = 21,
   
@@ -1632,6 +1632,11 @@ class VideoFrameMetadataDataView {
   bool hw_protected() const {
     return data_->hw_protected;
   }
+  bool needs_detiling() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->needs_detiling;
+  }
  private:
   internal::VideoFrameMetadata_Data* data_ = nullptr;
 };
@@ -2968,6 +2973,7 @@ struct Serializer<::media::stable::mojom::VideoFrameMetadataDataView, MaybeConst
     fragment.Allocate();
     fragment->protected_video = Traits::protected_video(input);
     fragment->hw_protected = Traits::hw_protected(input);
+    fragment->needs_detiling = Traits::needs_detiling(input);
   }
 
   static bool Deserialize(::media::stable::mojom::internal::VideoFrameMetadata_Data* input,

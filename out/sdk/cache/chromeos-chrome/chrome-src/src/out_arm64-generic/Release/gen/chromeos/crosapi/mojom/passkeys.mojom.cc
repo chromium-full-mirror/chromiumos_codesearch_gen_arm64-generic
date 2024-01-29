@@ -664,6 +664,8 @@ bool PasskeyAuthenticator_Create_ForwardToCallback::Accept(
           internal::PasskeyAuthenticator_Create_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasskeyAuthenticator.1
   bool success = true;
   PasskeyCreationResultPtr p_result{};
   PasskeyAuthenticator_Create_ResponseParamsDataView input_data_view(params, message);
@@ -791,6 +793,8 @@ bool PasskeyAuthenticator_Assert_ForwardToCallback::Accept(
           internal::PasskeyAuthenticator_Assert_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PasskeyAuthenticator.0
   bool success = true;
   PasskeyAssertionResultPtr p_result{};
   PasskeyAuthenticator_Assert_ResponseParamsDataView input_data_view(params, message);
@@ -892,6 +896,8 @@ bool PasskeyAuthenticatorStubDispatch::AcceptWithResponder(
               internal::PasskeyAuthenticator_Create_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasskeyAuthenticator.1
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account{};
       PasskeyCreationRequestPtr p_request{};
@@ -913,9 +919,9 @@ bool PasskeyAuthenticatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Create(
-std::move(p_account), 
-std::move(p_request), std::move(callback));
+      impl->Create(        
+        std::move(p_account), 
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kPasskeyAuthenticator_Assert_Name: {
@@ -925,6 +931,8 @@ std::move(p_request), std::move(callback));
               internal::PasskeyAuthenticator_Assert_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PasskeyAuthenticator.0
       bool success = true;
       ::crosapi::mojom::AccountKeyPtr p_account{};
       PasskeyAssertionRequestPtr p_request{};
@@ -946,9 +954,9 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Assert(
-std::move(p_account), 
-std::move(p_request), std::move(callback));
+      impl->Assert(        
+        std::move(p_account), 
+        std::move(p_request), std::move(callback));
       return true;
     }
   }

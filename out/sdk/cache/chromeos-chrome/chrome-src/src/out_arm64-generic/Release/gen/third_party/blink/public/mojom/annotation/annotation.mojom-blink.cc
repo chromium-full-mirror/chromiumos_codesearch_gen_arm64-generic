@@ -213,6 +213,8 @@ bool AnnotationAgentStubDispatch::Accept(
           reinterpret_cast<internal::AnnotationAgent_ScrollIntoView_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnnotationAgent.0
       bool success = true;
       AnnotationAgent_ScrollIntoView_ParamsDataView input_data_view(params, message);
       
@@ -225,7 +227,7 @@ bool AnnotationAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScrollIntoView();
+      impl->ScrollIntoView(        );
       return true;
     }
   }
@@ -381,6 +383,8 @@ bool AnnotationAgentHostStubDispatch::Accept(
           reinterpret_cast<internal::AnnotationAgentHost_DidFinishAttachment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnnotationAgentHost.0
       bool success = true;
       ::gfx::Rect p_document_relative_rect{};
       AnnotationAgentHost_DidFinishAttachment_ParamsDataView input_data_view(params, message);
@@ -396,8 +400,8 @@ bool AnnotationAgentHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFinishAttachment(
-std::move(p_document_relative_rect));
+      impl->DidFinishAttachment(        
+        std::move(p_document_relative_rect));
       return true;
     }
   }
@@ -700,6 +704,8 @@ bool AnnotationAgentContainer_CreateAgentFromSelection_ForwardToCallback::Accept
           internal::AnnotationAgentContainer_CreateAgentFromSelection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AnnotationAgentContainer.1
   bool success = true;
   SelectorCreationResultPtr p_result{};
   ::shared_highlighting::LinkGenerationError p_error{};
@@ -798,6 +804,8 @@ bool AnnotationAgentContainerStubDispatch::Accept(
           reinterpret_cast<internal::AnnotationAgentContainer_CreateAgent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnnotationAgentContainer.0
       bool success = true;
       ::mojo::PendingRemote<AnnotationAgentHost> p_host_remote{};
       ::mojo::PendingReceiver<AnnotationAgent> p_agent_receiver{};
@@ -826,11 +834,11 @@ bool AnnotationAgentContainerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAgent(
-std::move(p_host_remote), 
-std::move(p_agent_receiver), 
-std::move(p_type), 
-std::move(p_serialized_selector));
+      impl->CreateAgent(        
+        std::move(p_host_remote), 
+        std::move(p_agent_receiver), 
+        std::move(p_type), 
+        std::move(p_serialized_selector));
       return true;
     }
     case internal::kAnnotationAgentContainer_CreateAgentFromSelection_Name: {
@@ -859,6 +867,8 @@ bool AnnotationAgentContainerStubDispatch::AcceptWithResponder(
               internal::AnnotationAgentContainer_CreateAgentFromSelection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AnnotationAgentContainer.1
       bool success = true;
       AnnotationType p_type{};
       AnnotationAgentContainer_CreateAgentFromSelection_ParamsDataView input_data_view(params, message);
@@ -877,8 +887,8 @@ bool AnnotationAgentContainerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAgentFromSelection(
-std::move(p_type), std::move(callback));
+      impl->CreateAgentFromSelection(        
+        std::move(p_type), std::move(callback));
       return true;
     }
   }

@@ -1500,6 +1500,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(16844813860515784834),
+      {
+        Blink_FrameLoader::kEntryName,
+        {
+          
+    {Blink_FrameLoader::kCommitDocumentLoaderTimeNameHash, Blink_FrameLoader::kCommitDocumentLoaderTimeName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(11969773594143228030),
       {
         Blink_HTMLParsing::kEntryName,
@@ -1507,11 +1519,23 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
           
     {Blink_HTMLParsing::kChunkCountNameHash, Blink_HTMLParsing::kChunkCountName},
 
+    {Blink_HTMLParsing::kFetchQueuedPreloadsTimeNameHash, Blink_HTMLParsing::kFetchQueuedPreloadsTimeName},
+
     {Blink_HTMLParsing::kParsingTimeMaxNameHash, Blink_HTMLParsing::kParsingTimeMaxName},
 
     {Blink_HTMLParsing::kParsingTimeMinNameHash, Blink_HTMLParsing::kParsingTimeMinName},
 
     {Blink_HTMLParsing::kParsingTimeTotalNameHash, Blink_HTMLParsing::kParsingTimeTotalName},
+
+    {Blink_HTMLParsing::kPreloadTimeNameHash, Blink_HTMLParsing::kPreloadTimeName},
+
+    {Blink_HTMLParsing::kPrepareToStopParsingTimeNameHash, Blink_HTMLParsing::kPrepareToStopParsingTimeName},
+
+    {Blink_HTMLParsing::kPumpTokenizerTimeNameHash, Blink_HTMLParsing::kPumpTokenizerTimeName},
+
+    {Blink_HTMLParsing::kScanAndPreloadTimeNameHash, Blink_HTMLParsing::kScanAndPreloadTimeName},
+
+    {Blink_HTMLParsing::kScanTimeNameHash, Blink_HTMLParsing::kScanTimeName},
 
     {Blink_HTMLParsing::kTokensParsedAverageNameHash, Blink_HTMLParsing::kTokensParsedAverageName},
 
@@ -1599,7 +1623,7 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {Blink_PageLoad::kParseStyleSheetNameHash, Blink_PageLoad::kParseStyleSheetName},
 
-    {Blink_PageLoad::kPossibleSynchronizedScrollCountNameHash, Blink_PageLoad::kPossibleSynchronizedScrollCountName},
+    {Blink_PageLoad::kPossibleSynchronizedScrollCount2NameHash, Blink_PageLoad::kPossibleSynchronizedScrollCount2Name},
 
     {Blink_PageLoad::kPrePaintNameHash, Blink_PageLoad::kPrePaintName},
 
@@ -1739,9 +1763,9 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {Blink_UpdateTime::kParseStyleSheetBeginMainFrameNameHash, Blink_UpdateTime::kParseStyleSheetBeginMainFrameName},
 
-    {Blink_UpdateTime::kPossibleSynchronizedScrollCountNameHash, Blink_UpdateTime::kPossibleSynchronizedScrollCountName},
+    {Blink_UpdateTime::kPossibleSynchronizedScrollCount2NameHash, Blink_UpdateTime::kPossibleSynchronizedScrollCount2Name},
 
-    {Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameNameHash, Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameName},
+    {Blink_UpdateTime::kPossibleSynchronizedScrollCount2BeginMainFrameNameHash, Blink_UpdateTime::kPossibleSynchronizedScrollCount2BeginMainFrameName},
 
     {Blink_UpdateTime::kPrePaintNameHash, Blink_UpdateTime::kPrePaintName},
 
@@ -2218,6 +2242,56 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(3985288542356389988),
+      {
+        Compose_PageEvents::kEntryName,
+        {
+          
+    {Compose_PageEvents::kComposeTextInsertedNameHash, Compose_PageEvents::kComposeTextInsertedName},
+
+    {Compose_PageEvents::kMenuItemClickedNameHash, Compose_PageEvents::kMenuItemClickedName},
+
+    {Compose_PageEvents::kMenuItemShownNameHash, Compose_PageEvents::kMenuItemShownName},
+
+    {Compose_PageEvents::kMissingFormDataNameHash, Compose_PageEvents::kMissingFormDataName},
+
+    {Compose_PageEvents::kMissingFormFieldDataNameHash, Compose_PageEvents::kMissingFormFieldDataName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(17644213575895096611),
+      {
+        Compose_SessionProgress::kEntryName,
+        {
+          
+    {Compose_SessionProgress::kCanceledNameHash, Compose_SessionProgress::kCanceledName},
+
+    {Compose_SessionProgress::kCasualCountNameHash, Compose_SessionProgress::kCasualCountName},
+
+    {Compose_SessionProgress::kComposeCountNameHash, Compose_SessionProgress::kComposeCountName},
+
+    {Compose_SessionProgress::kDialogShownCountNameHash, Compose_SessionProgress::kDialogShownCountName},
+
+    {Compose_SessionProgress::kFormalCountNameHash, Compose_SessionProgress::kFormalCountName},
+
+    {Compose_SessionProgress::kInsertedResultsNameHash, Compose_SessionProgress::kInsertedResultsName},
+
+    {Compose_SessionProgress::kLengthenCountNameHash, Compose_SessionProgress::kLengthenCountName},
+
+    {Compose_SessionProgress::kRegenerateCountNameHash, Compose_SessionProgress::kRegenerateCountName},
+
+    {Compose_SessionProgress::kShortenCountNameHash, Compose_SessionProgress::kShortenCountName},
+
+    {Compose_SessionProgress::kUndoCountNameHash, Compose_SessionProgress::kUndoCountName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(2872551356235666049),
       {
         Compose_TextElementUsage::kEntryName,
@@ -2386,12 +2460,12 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
-      UINT64_C(13054846304569977294),
+      UINT64_C(17351264935773153751),
       {
-        Cookies_FirstPartyPartitionedInCrossSiteContext::kEntryName,
+        Cookies_FirstPartyPartitionedInCrossSiteContextV2::kEntryName,
         {
           
-    {Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentNameHash, Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentName},
+    {Cookies_FirstPartyPartitionedInCrossSiteContextV2::kCookiePresentNameHash, Cookies_FirstPartyPartitionedInCrossSiteContextV2::kCookiePresentName},
 
         }
       }
@@ -2696,6 +2770,22 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(12205595443714861014),
+      {
+        Event_ScrollJank_PredictorJank::kEntryName,
+        {
+          
+    {Event_ScrollJank_PredictorJank::kMaxDeltaNameHash, Event_ScrollJank_PredictorJank::kMaxDeltaName},
+
+    {Event_ScrollJank_PredictorJank::kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2NameHash, Event_ScrollJank_PredictorJank::kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2Name},
+
+    {Event_ScrollJank_PredictorJank::kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2NameHash, Event_ScrollJank_PredictorJank::kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2Name},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(7257623327097011244),
       {
         Event_ScrollUpdate_Touch::kEntryName,
@@ -2784,6 +2874,20 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(4648922300412212646),
+      {
+        FamilyLinkUser_BlockedContent::kEntryName,
+        {
+          
+    {FamilyLinkUser_BlockedContent::kMainFrameBlockedNameHash, FamilyLinkUser_BlockedContent::kMainFrameBlockedName},
+
+    {FamilyLinkUser_BlockedContent::kNumBlockedIframesNameHash, FamilyLinkUser_BlockedContent::kNumBlockedIframesName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(15744625327213391071),
       {
         FileSystemAPI_WebRequest::kEntryName,
@@ -2804,6 +2908,30 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
         {
           
     {FlocPageLoad::kFlocIdNameHash, FlocPageLoad::kFlocIdName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(17828670494812061854),
+      {
+        Fullscreen_Enter::kEntryName,
+        {
+          
+    {Fullscreen_Enter::kLockStateNameHash, Fullscreen_Enter::kLockStateName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(5280816973080484130),
+      {
+        Fullscreen_Exit::kEntryName,
+        {
+          
+    {Fullscreen_Exit::kSessionDurationNameHash, Fullscreen_Exit::kSessionDurationName},
 
         }
       }
@@ -4645,11 +4773,17 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {NewTabPage_HistoryClusters::kDidEngageWithModuleNameHash, NewTabPage_HistoryClusters::kDidEngageWithModuleName},
 
+    {NewTabPage_HistoryClusters::kDidMarkAsDoneNameHash, NewTabPage_HistoryClusters::kDidMarkAsDoneName},
+
     {NewTabPage_HistoryClusters::kLayoutTypeShownNameHash, NewTabPage_HistoryClusters::kLayoutTypeShownName},
 
     {NewTabPage_HistoryClusters::kMinutesSinceMostRecentVisitNameHash, NewTabPage_HistoryClusters::kMinutesSinceMostRecentVisitName},
 
     {NewTabPage_HistoryClusters::kNumAbandonedCartsNameHash, NewTabPage_HistoryClusters::kNumAbandonedCartsName},
+
+    {NewTabPage_HistoryClusters::kNumTimesSeenLast24hNameHash, NewTabPage_HistoryClusters::kNumTimesSeenLast24hName},
+
+    {NewTabPage_HistoryClusters::kNumTimesUsedLast24hNameHash, NewTabPage_HistoryClusters::kNumTimesUsedLast24hName},
 
     {NewTabPage_HistoryClusters::kNumTotalVisitsNameHash, NewTabPage_HistoryClusters::kNumTotalVisitsName},
 
@@ -5221,6 +5355,8 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {PasswordForm::kManagerFill_AssistanceNameHash, PasswordForm::kManagerFill_AssistanceName},
 
+    {PasswordForm::kManagerFill_AssistanceForSingleUsernameNameHash, PasswordForm::kManagerFill_AssistanceForSingleUsernameName},
+
     {PasswordForm::kParsingDiffFillingAndSavingNameHash, PasswordForm::kParsingDiffFillingAndSavingName},
 
     {PasswordForm::kReadonlyWhenFillingNameHash, PasswordForm::kReadonlyWhenFillingName},
@@ -5270,6 +5406,20 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {PasswordManager_LeakWarningDialog::kPasswordLeakDetectionDialogDismissalReasonNameHash, PasswordManager_LeakWarningDialog::kPasswordLeakDetectionDialogDismissalReasonName},
 
     {PasswordManager_LeakWarningDialog::kPasswordLeakDetectionDialogTypeNameHash, PasswordManager_LeakWarningDialog::kPasswordLeakDetectionDialogTypeName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(3312101392374499085),
+      {
+        PasswordManager_NewlySavedPassword::kEntryName,
+        {
+          
+    {PasswordManager_NewlySavedPassword::kHasEmptyUsernameNameHash, PasswordManager_NewlySavedPassword::kHasEmptyUsernameName},
+
+    {PasswordManager_NewlySavedPassword::kIsPasswordGeneratedNameHash, PasswordManager_NewlySavedPassword::kIsPasswordGeneratedName},
 
         }
       }
@@ -9977,11 +10127,13 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
         WebAPK_Install::kEntryName,
         {
           
-    {WebAPK_Install::kAppVersionNameHash, WebAPK_Install::kAppVersionName},
+    {WebAPK_Install::kDisplayModeNameHash, WebAPK_Install::kDisplayModeName},
 
     {WebAPK_Install::kDistributorNameHash, WebAPK_Install::kDistributorName},
 
     {WebAPK_Install::kInstallNameHash, WebAPK_Install::kInstallName},
+
+    {WebAPK_Install::kInstallSourceNameHash, WebAPK_Install::kInstallSourceName},
 
         }
       }

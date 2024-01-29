@@ -182,20 +182,11 @@ class AnchorElementMetricsDataView {
   float ratio_area() const {
     return data_->ratio_area;
   }
-  float ratio_visible_area() const {
-    return data_->ratio_visible_area;
-  }
   float ratio_distance_top_to_visible_top() const {
     return data_->ratio_distance_top_to_visible_top;
   }
-  float ratio_distance_center_to_visible_top() const {
-    return data_->ratio_distance_center_to_visible_top;
-  }
   float ratio_distance_root_top() const {
     return data_->ratio_distance_root_top;
-  }
-  float ratio_distance_root_bottom() const {
-    return data_->ratio_distance_root_bottom;
   }
   bool is_in_iframe() const {
     return data_->is_in_iframe;
@@ -217,16 +208,6 @@ class AnchorElementMetricsDataView {
   }
   uint32_t font_weight() const {
     return data_->font_weight;
-  }
-  inline void GetSourceUrlDataView(
-      ::url::mojom::UrlDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadSourceUrl(UserType* output) {
-    
-    auto* pointer = data_->source_url.Get();
-    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
-        pointer, output, message_);
   }
   inline void GetTargetUrlDataView(
       ::url::mojom::UrlDataView* output);
@@ -546,11 +527,8 @@ struct Serializer<::blink::mojom::AnchorElementMetricsDataView, MaybeConstUserTy
     fragment.Allocate();
     fragment->anchor_id = Traits::anchor_id(input);
     fragment->ratio_area = Traits::ratio_area(input);
-    fragment->ratio_visible_area = Traits::ratio_visible_area(input);
     fragment->ratio_distance_top_to_visible_top = Traits::ratio_distance_top_to_visible_top(input);
-    fragment->ratio_distance_center_to_visible_top = Traits::ratio_distance_center_to_visible_top(input);
     fragment->ratio_distance_root_top = Traits::ratio_distance_root_top(input);
-    fragment->ratio_distance_root_bottom = Traits::ratio_distance_root_bottom(input);
     fragment->is_in_iframe = Traits::is_in_iframe(input);
     fragment->contains_image = Traits::contains_image(input);
     fragment->is_same_host = Traits::is_same_host(input);
@@ -558,18 +536,6 @@ struct Serializer<::blink::mojom::AnchorElementMetricsDataView, MaybeConstUserTy
     fragment->has_text_sibling = Traits::has_text_sibling(input);
     fragment->font_size_px = Traits::font_size_px(input);
     fragment->font_weight = Traits::font_weight(input);
-    decltype(Traits::source_url(input)) in_source_url = Traits::source_url(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->source_url)::BaseType> source_url_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::url::mojom::UrlDataView>(
-        in_source_url, source_url_fragment);
-    fragment->source_url.Set(
-        source_url_fragment.is_null() ? nullptr : source_url_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->source_url.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null source_url in AnchorElementMetrics struct");
     decltype(Traits::target_url(input)) in_target_url = Traits::target_url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->target_url)::BaseType> target_url_fragment(
@@ -953,11 +919,6 @@ struct Serializer<::blink::mojom::AnchorElementPointerDownDataView, MaybeConstUs
 
 namespace blink::mojom {
 
-inline void AnchorElementMetricsDataView::GetSourceUrlDataView(
-    ::url::mojom::UrlDataView* output) {
-  auto pointer = data_->source_url.Get();
-  *output = ::url::mojom::UrlDataView(pointer, message_);
-}
 inline void AnchorElementMetricsDataView::GetTargetUrlDataView(
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->target_url.Get();

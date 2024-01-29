@@ -30,7 +30,7 @@ export function getTemplate() {
   </template>
   <template is="dom-if" if="[[isProductTrackable_]]" restamp>
     <div class="divider sp-cards-separator"></div>
-    <price-tracking-section class="section sp-card" id="priceTrackingSection" product-info="[[productInfo]]" price-insights-info="[[priceInsightsInfo]]">
+    <price-tracking-section class="section sp-card" id="priceTrackingSection" product-info="[[productInfo]]" price-insights-info="[[priceInsightsInfo]]" is-product-tracked="[[isProductTracked_]]">
     </price-tracking-section>
   </template>
 </div><!--_html_template_end_-->`;

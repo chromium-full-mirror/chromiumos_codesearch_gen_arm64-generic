@@ -26,6 +26,8 @@ NOINLINE static const char* RuntimeFeatureToStringHelper(RuntimeFeature value) {
   switch(value) {
     case RuntimeFeature::kBlinkExtensionChromeOS:
       return "kBlinkExtensionChromeOS";
+    case RuntimeFeature::kBlinkExtensionChromeOSKiosk:
+      return "kBlinkExtensionChromeOSKiosk";
     case RuntimeFeature::kBlinkExtensionDiagnostics:
       return "kBlinkExtensionDiagnostics";
     case RuntimeFeature::kDisableThirdPartyStoragePartitioning:

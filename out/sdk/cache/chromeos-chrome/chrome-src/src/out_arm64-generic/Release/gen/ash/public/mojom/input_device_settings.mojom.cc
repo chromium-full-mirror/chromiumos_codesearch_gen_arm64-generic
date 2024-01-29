@@ -231,18 +231,78 @@ bool InputDeviceSettingsFkeyPolicy::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+InputDeviceSettingsSixPackKeyPolicy::InputDeviceSettingsSixPackKeyPolicy()
+    : policy_status(),
+      value() {}
+
+InputDeviceSettingsSixPackKeyPolicy::InputDeviceSettingsSixPackKeyPolicy(
+    PolicyStatus policy_status_in,
+    ::ui::mojom::SixPackShortcutModifier value_in)
+    : policy_status(std::move(policy_status_in)),
+      value(std::move(value_in)) {}
+
+InputDeviceSettingsSixPackKeyPolicy::~InputDeviceSettingsSixPackKeyPolicy() = default;
+size_t InputDeviceSettingsSixPackKeyPolicy::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->policy_status);
+  seed = mojo::internal::Hash(seed, this->value);
+  return seed;
+}
+
+void InputDeviceSettingsSixPackKeyPolicy::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "policy_status"), this->policy_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PolicyStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "value"), this->value,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ui::mojom::SixPackShortcutModifier>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool InputDeviceSettingsSixPackKeyPolicy::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 KeyboardPolicies::KeyboardPolicies()
     : top_row_are_fkeys_policy(),
       enable_meta_fkey_rewrites_policy(),
-      extended_fkeys_policy() {}
+      f11_key_policy(),
+      f12_key_policy(),
+      home_and_end_keys_policy(),
+      page_up_and_page_down_keys_policy(),
+      delete_key_policy(),
+      insert_key_policy() {}
 
 KeyboardPolicies::KeyboardPolicies(
     InputDeviceSettingsPolicyPtr top_row_are_fkeys_policy_in,
     InputDeviceSettingsPolicyPtr enable_meta_fkey_rewrites_policy_in,
-    InputDeviceSettingsFkeyPolicyPtr extended_fkeys_policy_in)
+    InputDeviceSettingsFkeyPolicyPtr f11_key_policy_in,
+    InputDeviceSettingsFkeyPolicyPtr f12_key_policy_in,
+    InputDeviceSettingsSixPackKeyPolicyPtr home_and_end_keys_policy_in,
+    InputDeviceSettingsSixPackKeyPolicyPtr page_up_and_page_down_keys_policy_in,
+    InputDeviceSettingsSixPackKeyPolicyPtr delete_key_policy_in,
+    InputDeviceSettingsSixPackKeyPolicyPtr insert_key_policy_in)
     : top_row_are_fkeys_policy(std::move(top_row_are_fkeys_policy_in)),
       enable_meta_fkey_rewrites_policy(std::move(enable_meta_fkey_rewrites_policy_in)),
-      extended_fkeys_policy(std::move(extended_fkeys_policy_in)) {}
+      f11_key_policy(std::move(f11_key_policy_in)),
+      f12_key_policy(std::move(f12_key_policy_in)),
+      home_and_end_keys_policy(std::move(home_and_end_keys_policy_in)),
+      page_up_and_page_down_keys_policy(std::move(page_up_and_page_down_keys_policy_in)),
+      delete_key_policy(std::move(delete_key_policy_in)),
+      insert_key_policy(std::move(insert_key_policy_in)) {}
 
 KeyboardPolicies::~KeyboardPolicies() = default;
 
@@ -269,9 +329,54 @@ void KeyboardPolicies::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "extended_fkeys_policy"), this->extended_fkeys_policy,
+      "f11_key_policy"), this->f11_key_policy,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type InputDeviceSettingsFkeyPolicyPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "f12_key_policy"), this->f12_key_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputDeviceSettingsFkeyPolicyPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "home_and_end_keys_policy"), this->home_and_end_keys_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputDeviceSettingsSixPackKeyPolicyPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "page_up_and_page_down_keys_policy"), this->page_up_and_page_down_keys_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputDeviceSettingsSixPackKeyPolicyPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "delete_key_policy"), this->delete_key_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputDeviceSettingsSixPackKeyPolicyPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "insert_key_policy"), this->insert_key_policy,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputDeviceSettingsSixPackKeyPolicyPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -517,6 +622,7 @@ Mouse::Mouse()
       id(),
       device_key(),
       customization_restriction(),
+      mouse_button_config(),
       settings() {}
 
 Mouse::Mouse(
@@ -525,12 +631,14 @@ Mouse::Mouse(
     uint32_t id_in,
     const std::string& device_key_in,
     CustomizationRestriction customization_restriction_in,
+    MouseButtonConfig mouse_button_config_in,
     MouseSettingsPtr settings_in)
     : name(std::move(name_in)),
       is_external(std::move(is_external_in)),
       id(std::move(id_in)),
       device_key(std::move(device_key_in)),
       customization_restriction(std::move(customization_restriction_in)),
+      mouse_button_config(std::move(mouse_button_config_in)),
       settings(std::move(settings_in)) {}
 
 Mouse::~Mouse() = default;
@@ -579,6 +687,15 @@ void Mouse::WriteIntoTrace(
       "customization_restriction"), this->customization_restriction,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type CustomizationRestriction>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mouse_button_config"), this->mouse_button_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type MouseButtonConfig>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1527,6 +1644,22 @@ bool StructTraits<::ash::mojom::InputDeviceSettingsFkeyPolicy::DataView, ::ash::
 
 
 // static
+bool StructTraits<::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::DataView, ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr>::Read(
+    ::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::DataView input,
+    ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr* output) {
+  bool success = true;
+  ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyPtr result(::ash::mojom::InputDeviceSettingsSixPackKeyPolicy::New());
+  
+      if (success && !input.ReadPolicyStatus(&result->policy_status))
+        success = false;
+      if (success && !input.ReadValue(&result->value))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::mojom::KeyboardPolicies::DataView, ::ash::mojom::KeyboardPoliciesPtr>::Read(
     ::ash::mojom::KeyboardPolicies::DataView input,
     ::ash::mojom::KeyboardPoliciesPtr* output) {
@@ -1537,7 +1670,17 @@ bool StructTraits<::ash::mojom::KeyboardPolicies::DataView, ::ash::mojom::Keyboa
         success = false;
       if (success && !input.ReadEnableMetaFkeyRewritesPolicy(&result->enable_meta_fkey_rewrites_policy))
         success = false;
-      if (success && !input.ReadExtendedFkeysPolicy(&result->extended_fkeys_policy))
+      if (success && !input.ReadF11KeyPolicy(&result->f11_key_policy))
+        success = false;
+      if (success && !input.ReadF12KeyPolicy(&result->f12_key_policy))
+        success = false;
+      if (success && !input.ReadHomeAndEndKeysPolicy(&result->home_and_end_keys_policy))
+        success = false;
+      if (success && !input.ReadPageUpAndPageDownKeysPolicy(&result->page_up_and_page_down_keys_policy))
+        success = false;
+      if (success && !input.ReadDeleteKeyPolicy(&result->delete_key_policy))
+        success = false;
+      if (success && !input.ReadInsertKeyPolicy(&result->insert_key_policy))
         success = false;
   *output = std::move(result);
   return success;
@@ -1628,6 +1771,8 @@ bool StructTraits<::ash::mojom::Mouse::DataView, ::ash::mojom::MousePtr>::Read(
       if (success && !input.ReadDeviceKey(&result->device_key))
         success = false;
       if (success && !input.ReadCustomizationRestriction(&result->customization_restriction))
+        success = false;
+      if (success && !input.ReadMouseButtonConfig(&result->mouse_button_config))
         success = false;
       if (success && !input.ReadSettings(&result->settings))
         success = false;

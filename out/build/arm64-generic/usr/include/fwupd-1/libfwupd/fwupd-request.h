@@ -140,6 +140,24 @@ typedef enum {
 #define FWUPD_REQUEST_FLAG_ALLOW_GENERIC_IMAGE (1u << 1)
 
 /**
+ * FWUPD_REQUEST_FLAG_NON_GENERIC_MESSAGE:
+ *
+ * Device requires a non-generic interaction with custom non-translatable text.
+ *
+ * Since: 1.9.10
+ */
+#define FWUPD_REQUEST_FLAG_NON_GENERIC_MESSAGE (1ull << 2)
+
+/**
+ * FWUPD_REQUEST_FLAG_NON_GENERIC_IMAGE:
+ *
+ * Device requires to show the user a custom image for the action to make sense.
+ *
+ * Since: 1.9.10
+ */
+#define FWUPD_REQUEST_FLAG_NON_GENERIC_IMAGE (1ull << 3)
+
+/**
  * FWUPD_REQUEST_FLAG_UNKNOWN:
  *
  * The request flag is unknown, typically caused by using mismatched client and daemon.
@@ -168,43 +186,44 @@ fwupd_request_flag_from_string(const gchar *flag);
 FwupdRequest *
 fwupd_request_new(void);
 gchar *
-fwupd_request_to_string(FwupdRequest *self);
+fwupd_request_to_string(FwupdRequest *self) G_GNUC_NON_NULL(1);
 
 const gchar *
-fwupd_request_get_id(FwupdRequest *self);
+fwupd_request_get_id(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_id(FwupdRequest *self, const gchar *id);
+fwupd_request_set_id(FwupdRequest *self, const gchar *id) G_GNUC_NON_NULL(1);
 guint64
-fwupd_request_get_created(FwupdRequest *self);
+fwupd_request_get_created(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_created(FwupdRequest *self, guint64 created);
+fwupd_request_set_created(FwupdRequest *self, guint64 created) G_GNUC_NON_NULL(1);
 const gchar *
-fwupd_request_get_device_id(FwupdRequest *self);
+fwupd_request_get_device_id(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_device_id(FwupdRequest *self, const gchar *device_id);
+fwupd_request_set_device_id(FwupdRequest *self, const gchar *device_id) G_GNUC_NON_NULL(1);
 const gchar *
-fwupd_request_get_message(FwupdRequest *self);
+fwupd_request_get_message(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_message(FwupdRequest *self, const gchar *message);
+fwupd_request_set_message(FwupdRequest *self, const gchar *message) G_GNUC_NON_NULL(1);
 const gchar *
-fwupd_request_get_image(FwupdRequest *self);
+fwupd_request_get_image(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_image(FwupdRequest *self, const gchar *image);
+fwupd_request_set_image(FwupdRequest *self, const gchar *image) G_GNUC_NON_NULL(1);
 FwupdRequestKind
-fwupd_request_get_kind(FwupdRequest *self);
+fwupd_request_get_kind(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_kind(FwupdRequest *self, FwupdRequestKind kind);
+fwupd_request_set_kind(FwupdRequest *self, FwupdRequestKind kind) G_GNUC_NON_NULL(1);
 
 FwupdRequestFlags
-fwupd_request_get_flags(FwupdRequest *self);
+fwupd_request_get_flags(FwupdRequest *self) G_GNUC_NON_NULL(1);
 void
-fwupd_request_set_flags(FwupdRequest *self, FwupdRequestFlags flags);
+fwupd_request_set_flags(FwupdRequest *self, FwupdRequestFlags flags) G_GNUC_NON_NULL(1);
 void
-fwupd_request_add_flag(FwupdRequest *self, FwupdRequestFlags flag);
+fwupd_request_add_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_NON_NULL(1);
 void
-fwupd_request_remove_flag(FwupdRequest *self, FwupdRequestFlags flag);
+fwupd_request_remove_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_NON_NULL(1);
 gboolean
-fwupd_request_has_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_WARN_UNUSED_RESULT;
+fwupd_request_has_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_WARN_UNUSED_RESULT
+    G_GNUC_NON_NULL(1);
 
 FwupdRequest *
 fwupd_request_from_variant(GVariant *value);

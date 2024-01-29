@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Mocha = require("mocha");
 const screenshot_error_js_1 = require("../shared/screenshot-error.js");
 const ResultsDb = require("./resultsdb.js");
-const { EVENT_TEST_FAIL, EVENT_TEST_PASS, EVENT_TEST_PENDING, } = Mocha.Runner.constants;
+const { EVENT_TEST_FAIL, EVENT_TEST_PASS, EVENT_TEST_RETRY, EVENT_TEST_PENDING, } = Mocha.Runner.constants;
 function sanitize(message) {
     return message.replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
@@ -40,6 +40,7 @@ class ResultsDbReporter extends Mocha.reporters.Spec {
         this.suitePrefix = options?.suiteName;
         runner.on(EVENT_TEST_PASS, this.onTestPass.bind(this));
         runner.on(EVENT_TEST_FAIL, this.onTestFail.bind(this));
+        runner.on(EVENT_TEST_RETRY, this.onTestFail.bind(this));
         runner.on(EVENT_TEST_PENDING, this.onTestSkip.bind(this));
     }
     onTestPass(test) {
@@ -69,9 +70,11 @@ class ResultsDbReporter extends Mocha.reporters.Spec {
     buildDefaultTestResultFrom(test) {
         let testId = this.suitePrefix ? this.suitePrefix + '/' : '';
         testId += test.titlePath().join('/'); // Chrome groups test by a path logic.
+        const testRetry = test;
         return {
             testId: ResultsDb.sanitizedTestId(testId),
             duration: `${test.duration || 0}ms`,
+            tags: [{ key: 'run', 'value': String(testRetry.currentRetry() + 1) }],
         };
     }
 }

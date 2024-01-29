@@ -170,6 +170,8 @@ bool FeedSidePanelHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::FeedSidePanelHandlerFactory_CreateFeedSidePanelHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedSidePanelHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<FeedSidePanelHandler> p_handler{};
       ::mojo::PendingRemote<FeedSidePanel> p_side_panel{};
@@ -192,9 +194,9 @@ bool FeedSidePanelHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFeedSidePanelHandler(
-std::move(p_handler), 
-std::move(p_side_panel));
+      impl->CreateFeedSidePanelHandler(        
+        std::move(p_handler), 
+        std::move(p_side_panel));
       return true;
     }
   }
@@ -332,6 +334,8 @@ bool FeedSidePanelHandlerStubDispatch::Accept(
           reinterpret_cast<internal::FeedSidePanelHandler_DoSomething_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedSidePanelHandler.0
       bool success = true;
       FeedSidePanelHandler_DoSomething_ParamsDataView input_data_view(params, message);
       
@@ -344,7 +348,7 @@ bool FeedSidePanelHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoSomething();
+      impl->DoSomething(        );
       return true;
     }
   }
@@ -500,6 +504,8 @@ bool FeedSidePanelStubDispatch::Accept(
           reinterpret_cast<internal::FeedSidePanel_OnEventOccurred_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedSidePanel.0
       bool success = true;
       std::string p_name{};
       FeedSidePanel_OnEventOccurred_ParamsDataView input_data_view(params, message);
@@ -515,8 +521,8 @@ bool FeedSidePanelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEventOccurred(
-std::move(p_name));
+      impl->OnEventOccurred(        
+        std::move(p_name));
       return true;
     }
   }

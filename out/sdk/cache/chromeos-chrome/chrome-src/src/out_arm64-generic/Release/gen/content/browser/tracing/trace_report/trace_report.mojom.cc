@@ -282,6 +282,8 @@ bool TraceReportHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::TraceReportHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TraceReportHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -304,9 +306,9 @@ bool TraceReportHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -840,6 +842,8 @@ bool PageHandler_GetAllTraceReports_ForwardToCallback::Accept(
           internal::PageHandler_GetAllTraceReports_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::vector<ClientTraceReportPtr> p_reports{};
   PageHandler_GetAllTraceReports_ResponseParamsDataView input_data_view(params, message);
@@ -971,6 +975,8 @@ bool PageHandler_DeleteSingleTrace_ForwardToCallback::Accept(
           internal::PageHandler_DeleteSingleTrace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   bool p_success{};
   PageHandler_DeleteSingleTrace_ResponseParamsDataView input_data_view(params, message);
@@ -1090,6 +1096,8 @@ bool PageHandler_DeleteAllTraces_ForwardToCallback::Accept(
           internal::PageHandler_DeleteAllTraces_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   bool p_success{};
   PageHandler_DeleteAllTraces_ResponseParamsDataView input_data_view(params, message);
@@ -1209,6 +1217,8 @@ bool PageHandler_UserUploadSingleTrace_ForwardToCallback::Accept(
           internal::PageHandler_UserUploadSingleTrace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.3
   bool success = true;
   bool p_success{};
   PageHandler_UserUploadSingleTrace_ResponseParamsDataView input_data_view(params, message);
@@ -1328,6 +1338,8 @@ bool PageHandler_DownloadTrace_ForwardToCallback::Accept(
           internal::PageHandler_DownloadTrace_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_trace{};
   PageHandler_DownloadTrace_ResponseParamsDataView input_data_view(params, message);
@@ -1434,6 +1446,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetAllTraceReports_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetAllTraceReports_ParamsDataView input_data_view(params, message);
       
@@ -1459,6 +1473,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_DeleteSingleTrace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       ::base::Token p_uuid{};
       PageHandler_DeleteSingleTrace_ParamsDataView input_data_view(params, message);
@@ -1477,8 +1493,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteSingleTrace(
-std::move(p_uuid), std::move(callback));
+      impl->DeleteSingleTrace(        
+        std::move(p_uuid), std::move(callback));
       return true;
     }
     case internal::kPageHandler_DeleteAllTraces_Name: {
@@ -1488,6 +1504,8 @@ std::move(p_uuid), std::move(callback));
               internal::PageHandler_DeleteAllTraces_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_DeleteAllTraces_ParamsDataView input_data_view(params, message);
       
@@ -1513,6 +1531,8 @@ std::move(p_uuid), std::move(callback));
               internal::PageHandler_UserUploadSingleTrace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       ::base::Token p_uuid{};
       PageHandler_UserUploadSingleTrace_ParamsDataView input_data_view(params, message);
@@ -1531,8 +1551,8 @@ std::move(p_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UserUploadSingleTrace(
-std::move(p_uuid), std::move(callback));
+      impl->UserUploadSingleTrace(        
+        std::move(p_uuid), std::move(callback));
       return true;
     }
     case internal::kPageHandler_DownloadTrace_Name: {
@@ -1542,6 +1562,8 @@ std::move(p_uuid), std::move(callback));
               internal::PageHandler_DownloadTrace_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       ::base::Token p_uuid{};
       PageHandler_DownloadTrace_ParamsDataView input_data_view(params, message);
@@ -1560,8 +1582,8 @@ std::move(p_uuid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadTrace(
-std::move(p_uuid), std::move(callback));
+      impl->DownloadTrace(        
+        std::move(p_uuid), std::move(callback));
       return true;
     }
   }

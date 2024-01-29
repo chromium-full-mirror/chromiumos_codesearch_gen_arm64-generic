@@ -1,4 +1,4 @@
-import { mojo as mojo$1 } from '//resources/mojo/mojo/public/js/bindings.js';
+import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -61,10 +61,10 @@ function assert(value, message) {
 class PageHandlerPendingReceiver {
     handle;
     constructor(handle) {
-        this.handle = mojo$1.internal.interfaceSupport.getEndpointForReceiver(handle);
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
     bindInBrowser(scope = 'context') {
-        mojo$1.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.PageHandler', scope);
+        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.PageHandler', scope);
     }
 }
 class PageHandlerRemote {
@@ -73,8 +73,8 @@ class PageHandlerRemote {
     onConnectionError;
     constructor(handle) {
         this.proxy =
-            new mojo$1.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
-        this.$ = new mojo$1.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
     setPage(page) {
@@ -101,10 +101,10 @@ class PageHandler {
 class PagePendingReceiver {
     handle;
     constructor(handle) {
-        this.handle = mojo$1.internal.interfaceSupport.getEndpointForReceiver(handle);
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
     bindInBrowser(scope = 'context') {
-        mojo$1.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.Page', scope);
+        mojo.internal.interfaceSupport.bind(this.handle, 'color_change_listener.mojom.Page', scope);
     }
 }
 class PageRemote {
@@ -113,8 +113,8 @@ class PageRemote {
     onConnectionError;
     constructor(handle) {
         this.proxy =
-            new mojo$1.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
-        this.$ = new mojo$1.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
     onColorProviderChanged() {
@@ -134,11 +134,11 @@ class PageCallbackRouter {
     onColorProviderChanged;
     onConnectionError;
     constructor() {
-        this.helper_internal_ = new mojo$1.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
-        this.$ = new mojo$1.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo$1.internal.interfaceSupport.CallbackRouter;
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
         this.onColorProviderChanged =
-            new mojo$1.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, Page_OnColorProviderChanged_ParamsSpec.$, null, this.onColorProviderChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
@@ -152,10 +152,10 @@ class PageCallbackRouter {
 }
 const PageHandler_SetPage_ParamsSpec = { $: {} };
 const Page_OnColorProviderChanged_ParamsSpec = { $: {} };
-mojo$1.internal.Struct(PageHandler_SetPage_ParamsSpec.$, 'PageHandler_SetPage_Params', [
-    mojo$1.internal.StructField('page', 0, 0, mojo$1.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
+mojo.internal.Struct(PageHandler_SetPage_ParamsSpec.$, 'PageHandler_SetPage_Params', [
+    mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote), null, false /* nullable */, 0),
 ], [[0, 16],]);
-mojo$1.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProviderChanged_Params', [], [[0, 8],]);
+mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProviderChanged_Params', [], [[0, 8],]);
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -576,1635 +576,370 @@ class MessagePipe {
     }
 }
 
-// Copyright 2020 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
  * @fileoverview
  * Message definitions passed over the MediaApp privileged/unprivileged pipe.
  */
-
-/**
- * Enum for message types.
- * @enum {string}
- */
-const Message = {
-  DELETE_FILE: 'delete-file',
-  EDIT_IN_PHOTOS: 'edit-in-photos',
-  IFRAME_READY: 'iframe-ready',
-  IS_FILE_ARC_WRITABLE: 'is-file-arc-writable',
-  IS_FILE_BROWSER_WRITABLE: 'is-file-browser-writable',
-  LOAD_EXTRA_FILES: 'load-extra-files',
-  LOAD_FILES: 'load-files',
-  MAYBE_TRIGGER_PDF_HATS: 'maybe-trigger-pdf-hats',
-  NAVIGATE: 'navigate',
-  NOTIFY_CURRENT_FILE: 'notify-current-file',
-  OPEN_ALLOWED_FILE: 'open-allowed-file',
-  OPEN_FEEDBACK_DIALOG: 'open-feedback-dialog',
-  OPEN_FILES_WITH_PICKER: 'open-files-with-picker',
-  OPEN_IN_SANDBOXED_VIEWER: 'open-in-sandboxed-viewer',
-  OVERWRITE_FILE: 'overwrite-file',
-  RELOAD_MAIN_FRAME: 'reload-main-frame',
-  RENAME_FILE: 'rename-file',
-  REQUEST_SAVE_FILE: 'request-save-file',
-  SAVE_AS: 'save-as',
-  TOGGLE_BROWSER_FULLSCREEN_MODE: 'toggle-browser-fullscreen-mode',
-};
-
-/**
- * Enum for results of renaming a file.
- * @enum {number}
- */
-const RenameResult = {
-  FILE_NO_LONGER_IN_LAST_OPENED_DIRECTORY: -1,
-  SUCCESS: 0,
-  FILE_EXISTS: 1,
-};
-
-// ui/gfx/geometry/mojom/geometry.mojom-lite.js is auto generated by mojom_bindings_generator.py, do not edit
-
-
-
-mojo.internal.exportModule('gfx.mojom');
-
-
-
-
-
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.PointSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.PointFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.Point3FSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.SizeSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.SizeFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.RectSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.RectFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.InsetsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.InsetsFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.Vector2dSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.Vector2dFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.Vector3dFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.QuaternionSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-gfx.mojom.QuadFSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.PointSpec.$,
-    'Point',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Point = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.PointFSpec.$,
-    'PointF',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.PointF = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.Point3FSpec.$,
-    'Point3F',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'z', 8,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Point3F = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-    /** @export { !number } */
-    this.z;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.SizeSpec.$,
-    'Size',
-    [
-      mojo.internal.StructField(
-        'width', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'height', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Size = class {
-  constructor() {
-    /** @export { !number } */
-    this.width;
-    /** @export { !number } */
-    this.height;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.SizeFSpec.$,
-    'SizeF',
-    [
-      mojo.internal.StructField(
-        'width', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'height', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.SizeF = class {
-  constructor() {
-    /** @export { !number } */
-    this.width;
-    /** @export { !number } */
-    this.height;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.RectSpec.$,
-    'Rect',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'width', 8,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'height', 12,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Rect = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-    /** @export { !number } */
-    this.width;
-    /** @export { !number } */
-    this.height;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.RectFSpec.$,
-    'RectF',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'width', 8,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'height', 12,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.RectF = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-    /** @export { !number } */
-    this.width;
-    /** @export { !number } */
-    this.height;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.InsetsSpec.$,
-    'Insets',
-    [
-      mojo.internal.StructField(
-        'top', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'left', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'bottom', 8,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'right', 12,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Insets = class {
-  constructor() {
-    /** @export { !number } */
-    this.top;
-    /** @export { !number } */
-    this.left;
-    /** @export { !number } */
-    this.bottom;
-    /** @export { !number } */
-    this.right;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.InsetsFSpec.$,
-    'InsetsF',
-    [
-      mojo.internal.StructField(
-        'top', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'left', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'bottom', 8,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'right', 12,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.InsetsF = class {
-  constructor() {
-    /** @export { !number } */
-    this.top;
-    /** @export { !number } */
-    this.left;
-    /** @export { !number } */
-    this.bottom;
-    /** @export { !number } */
-    this.right;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.Vector2dSpec.$,
-    'Vector2d',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Vector2d = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.Vector2dFSpec.$,
-    'Vector2dF',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Vector2dF = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.Vector3dFSpec.$,
-    'Vector3dF',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 4,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'z', 8,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Vector3dF = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-    /** @export { !number } */
-    this.z;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.QuaternionSpec.$,
-    'Quaternion',
-    [
-      mojo.internal.StructField(
-        'x', 0,
-        0,
-        mojo.internal.Double,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'y', 8,
-        0,
-        mojo.internal.Double,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'z', 16,
-        0,
-        mojo.internal.Double,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'w', 24,
-        0,
-        mojo.internal.Double,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 40],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.Quaternion = class {
-  constructor() {
-    /** @export { !number } */
-    this.x;
-    /** @export { !number } */
-    this.y;
-    /** @export { !number } */
-    this.z;
-    /** @export { !number } */
-    this.w;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    gfx.mojom.QuadFSpec.$,
-    'QuadF',
-    [
-      mojo.internal.StructField(
-        'p1', 0,
-        0,
-        gfx.mojom.PointFSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'p2', 8,
-        0,
-        gfx.mojom.PointFSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'p3', 16,
-        0,
-        gfx.mojom.PointFSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'p4', 24,
-        0,
-        gfx.mojom.PointFSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 40],]);
-
-
-
-
-
-/** @record */
-gfx.mojom.QuadF = class {
-  constructor() {
-    /** @export { !gfx.mojom.PointF } */
-    this.p1;
-    /** @export { !gfx.mojom.PointF } */
-    this.p2;
-    /** @export { !gfx.mojom.PointF } */
-    this.p3;
-    /** @export { !gfx.mojom.PointF } */
-    this.p4;
-  }
-};
-
-// ash/webui/media_app_ui/media_app_ui_untrusted.mojom-lite.js is auto generated by mojom_bindings_generator.py, do not edit
-
-
-
-mojo.internal.exportModule('ash.mediaAppUi.mojom');
-
-
-
-
-
-
-
-
-/**
- * @implements {mojo.internal.interfaceSupport.PendingReceiver}
- * @export
- */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryPendingReceiver = class {
-  /**
-   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
-   */
-  constructor(handle) {
-    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
-    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-  }
-
-  /** @param {string=} scope */
-  bindInBrowser(scope = 'context') {
-    mojo.internal.interfaceSupport.bind(
-        this.handle,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory.$interfaceName,
-        scope);
-  }
-};
-
-
-
-/**
- * @export
- * @implements { ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryInterface }
- */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote = class {
-  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
-  constructor(handle = undefined) {
-    /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryPendingReceiver>}
-     */
-    this.proxy =
-        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryPendingReceiver,
-          handle);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryPendingReceiver>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-  }
-
-  
-  /**
-   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } receiver
-   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } page
-   */
-
-  createOcrUntrustedPageHandler(
-      receiver,
-      page) {
-    this.proxy.sendMessage(
-        0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
-        null,
-        [
-          receiver,
-          page
+/** Enum for message types. */
+var Message;
+(function (Message) {
+    Message["DELETE_FILE"] = "delete-file";
+    Message["EDIT_IN_PHOTOS"] = "edit-in-photos";
+    Message["IFRAME_READY"] = "iframe-ready";
+    Message["IS_FILE_ARC_WRITABLE"] = "is-file-arc-writable";
+    Message["IS_FILE_BROWSER_WRITABLE"] = "is-file-browser-writable";
+    Message["LOAD_EXTRA_FILES"] = "load-extra-files";
+    Message["LOAD_FILES"] = "load-files";
+    Message["MAYBE_TRIGGER_PDF_HATS"] = "maybe-trigger-pdf-hats";
+    Message["NAVIGATE"] = "navigate";
+    Message["NOTIFY_CURRENT_FILE"] = "notify-current-file";
+    Message["OPEN_ALLOWED_FILE"] = "open-allowed-file";
+    Message["OPEN_FEEDBACK_DIALOG"] = "open-feedback-dialog";
+    Message["OPEN_FILES_WITH_PICKER"] = "open-files-with-picker";
+    Message["OPEN_IN_SANDBOXED_VIEWER"] = "open-in-sandboxed-viewer";
+    Message["OVERWRITE_FILE"] = "overwrite-file";
+    Message["RELOAD_MAIN_FRAME"] = "reload-main-frame";
+    Message["RENAME_FILE"] = "rename-file";
+    Message["REQUEST_SAVE_FILE"] = "request-save-file";
+    Message["SAVE_AS"] = "save-as";
+    Message["TOGGLE_BROWSER_FULLSCREEN_MODE"] = "toggle-browser-fullscreen-mode";
+})(Message || (Message = {}));
+/** Enum for results of renaming a file. */
+var RenameResult;
+(function (RenameResult) {
+    RenameResult[RenameResult["FILE_NO_LONGER_IN_LAST_OPENED_DIRECTORY"] = -1] = "FILE_NO_LONGER_IN_LAST_OPENED_DIRECTORY";
+    RenameResult[RenameResult["SUCCESS"] = 0] = "SUCCESS";
+    RenameResult[RenameResult["FILE_EXISTS"] = 1] = "FILE_EXISTS";
+})(RenameResult || (RenameResult = {}));
+
+// ui/gfx/geometry/mojom/geometry.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const PointSpec = { $: {} };
+const PointFSpec = { $: {} };
+const Point3FSpec = { $: {} };
+const SizeSpec = { $: {} };
+const SizeFSpec = { $: {} };
+const RectSpec = { $: {} };
+const RectFSpec = { $: {} };
+const InsetsSpec = { $: {} };
+const InsetsFSpec = { $: {} };
+const Vector2dSpec = { $: {} };
+const Vector2dFSpec = { $: {} };
+const Vector3dFSpec = { $: {} };
+const QuaternionSpec = { $: {} };
+const QuadFSpec = { $: {} };
+mojo.internal.Struct(PointSpec.$, 'Point', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PointFSpec.$, 'PointF', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Point3FSpec.$, 'Point3F', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('z', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(SizeSpec.$, 'Size', [
+    mojo.internal.StructField('width', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('height', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SizeFSpec.$, 'SizeF', [
+    mojo.internal.StructField('width', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('height', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(RectSpec.$, 'Rect', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('width', 8, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('height', 12, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(RectFSpec.$, 'RectF', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('width', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('height', 12, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(InsetsSpec.$, 'Insets', [
+    mojo.internal.StructField('top', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('left', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('bottom', 8, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('right', 12, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(InsetsFSpec.$, 'InsetsF', [
+    mojo.internal.StructField('top', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('left', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('bottom', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('right', 12, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(Vector2dSpec.$, 'Vector2d', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Vector2dFSpec.$, 'Vector2dF', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Vector3dFSpec.$, 'Vector3dF', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+    mojo.internal.StructField('z', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(QuaternionSpec.$, 'Quaternion', [
+    mojo.internal.StructField('x', 0, 0, mojo.internal.Double, 0, false /* nullable */, 0),
+    mojo.internal.StructField('y', 8, 0, mojo.internal.Double, 0, false /* nullable */, 0),
+    mojo.internal.StructField('z', 16, 0, mojo.internal.Double, 0, false /* nullable */, 0),
+    mojo.internal.StructField('w', 24, 0, mojo.internal.Double, 0, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(QuadFSpec.$, 'QuadF', [
+    mojo.internal.StructField('p1', 0, 0, PointFSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('p2', 8, 0, PointFSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('p3', 16, 0, PointFSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('p4', 24, 0, PointFSpec.$, null, false /* nullable */, 0),
+], [[0, 40],]);
+
+// ash/webui/media_app_ui/media_app_ui_untrusted.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class UntrustedPageHandlerFactoryPendingReceiver {
+    handle;
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.media_app_ui.mojom.UntrustedPageHandlerFactory', scope);
+    }
+}
+class UntrustedPageHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(UntrustedPageHandlerFactoryPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    createOcrUntrustedPageHandler(receiver, page) {
+        this.proxy.sendMessage(0, UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$, null, [
+            receiver,
+            page
         ]);
-  }
-};
-
-/**
- * An object which receives request messages for the UntrustedPageHandlerFactory
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- *
- * @export
- */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryReceiver = class {
-  /**
-   * @param {!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryInterface } impl
-   */
-  constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote>} */
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote);
-
+    }
+}
+class UntrustedPageHandlerFactory {
+    static get $interfaceName() {
+        return "ash.media_app_ui.mojom.UntrustedPageHandlerFactory";
+    }
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote>}
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
      */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-
-    this.helper_internal_.registerHandler(
-        0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
-        null,
-        impl.createOcrUntrustedPageHandler.bind(impl));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-};
-
-/**
- *  @export
- */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory = class {
-  /**
-   * @return {!string}
-   */
-  static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPageHandlerFactory";
-  }
-
-  /**
-   * Returns a remote for this interface which sends messages to the browser.
-   * The browser must have an interface request binder registered for this
-   * interface and accessible to the calling document's frame.
-   *
-   * @return {!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote}
-   * @export
-   */
-  static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote;
-    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-    return remote;
-  }
-};
-
-
-/**
- * An object which receives request messages for the UntrustedPageHandlerFactory
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- *
- * @export
- */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryCallbackRouter = class {
-  constructor() {
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.createOcrUntrustedPageHandler =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
-        null,
-        this.createOcrUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-
-  /**
-   * @param {number} id An ID returned by a prior call to addListener.
-   * @return {boolean} True iff the identified listener was found and removed.
-   * @export
-   */
-  removeListener(id) {
-    return this.router_.removeListener(id);
-  }
-};
-
-
-
-
-/**
- * @implements {mojo.internal.interfaceSupport.PendingReceiver}
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver = class {
-  /**
-   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
-   */
-  constructor(handle) {
-    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
-    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-  }
-
-  /** @param {string=} scope */
-  bindInBrowser(scope = 'context') {
-    mojo.internal.interfaceSupport.bind(
-        this.handle,
-        ash.mediaAppUi.mojom.OcrUntrustedPageHandler.$interfaceName,
-        scope);
-  }
-};
-
-
-
-/**
- * @export
- * @implements { ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface }
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote = class {
-  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
-  constructor(handle = undefined) {
-    /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver>}
-     */
-    this.proxy =
-        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver,
-          handle);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-  }
-
-  
-  /**
-   * @param { !gfx.mojom.RectF } viewportBox
-   * @param { !number } scaleFactor
-   */
-
-  viewportUpdated(
-      viewportBox,
-      scaleFactor) {
-    this.proxy.sendMessage(
-        0,
-        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
-        null,
-        [
-          viewportBox,
-          scaleFactor
+    static getRemote() {
+        let remote = new UntrustedPageHandlerFactoryRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+class OcrUntrustedPageHandlerPendingReceiver {
+    handle;
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.media_app_ui.mojom.OcrUntrustedPageHandler', scope);
+    }
+}
+class OcrUntrustedPageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(OcrUntrustedPageHandlerPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    pageMetadataUpdated(pageMetadata) {
+        this.proxy.sendMessage(0, OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec.$, null, [
+            pageMetadata
         ]);
-  }
-};
-
-/**
- * An object which receives request messages for the OcrUntrustedPageHandler
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- *
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandlerReceiver = class {
-  /**
-   * @param {!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface } impl
-   */
-  constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>} */
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-
-    this.helper_internal_.registerHandler(
-        0,
-        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
-        null,
-        impl.viewportUpdated.bind(impl));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-};
-
-/**
- *  @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandler = class {
-  /**
-   * @return {!string}
-   */
-  static get $interfaceName() {
-    return "ash.media_app_ui.mojom.OcrUntrustedPageHandler";
-  }
-
-  /**
-   * Returns a remote for this interface which sends messages to the browser.
-   * The browser must have an interface request binder registered for this
-   * interface and accessible to the calling document's frame.
-   *
-   * @return {!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote}
-   * @export
-   */
-  static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote;
-    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-    return remote;
-  }
-};
-
-
-/**
- * An object which receives request messages for the OcrUntrustedPageHandler
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- *
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandlerCallbackRouter = class {
-  constructor() {
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.viewportUpdated =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        0,
-        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
-        null,
-        this.viewportUpdated.createReceiverHandler(false /* expectsResponse */));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-
-  /**
-   * @param {number} id An ID returned by a prior call to addListener.
-   * @return {boolean} True iff the identified listener was found and removed.
-   * @export
-   */
-  removeListener(id) {
-    return this.router_.removeListener(id);
-  }
-};
-
-
-
-
-/**
- * @implements {mojo.internal.interfaceSupport.PendingReceiver}
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver = class {
-  /**
-   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
-   */
-  constructor(handle) {
-    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
-    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-  }
-
-  /** @param {string=} scope */
-  bindInBrowser(scope = 'context') {
-    mojo.internal.interfaceSupport.bind(
-        this.handle,
-        ash.mediaAppUi.mojom.OcrUntrustedPage.$interfaceName,
-        scope);
-  }
-};
-
-
-
-/**
- * @export
- * @implements { ash.mediaAppUi.mojom.OcrUntrustedPageInterface }
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageRemote = class {
-  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
-  constructor(handle = undefined) {
-    /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver>}
-     */
-    this.proxy =
-        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver,
-          handle);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-  }
-
-  
-  /**
-   * @param { !gfx.mojom.RectF } viewportBox
-   */
-
-  setViewport(
-      viewportBox) {
-    this.proxy.sendMessage(
-        0,
-        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
-        null,
-        [
-          viewportBox
+    }
+    viewportUpdated(viewportBox, scaleFactor) {
+        this.proxy.sendMessage(1, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, [
+            viewportBox,
+            scaleFactor
         ]);
-  }
-};
-
-/**
- * An object which receives request messages for the OcrUntrustedPage
- * mojom interface. Must be constructed over an object which implements that
- * interface.
- *
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageReceiver = class {
-  /**
-   * @param {!ash.mediaAppUi.mojom.OcrUntrustedPageInterface } impl
-   */
-  constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>} */
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.OcrUntrustedPageRemote);
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>}
-     */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-
-    this.helper_internal_.registerHandler(
-        0,
-        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
-        null,
-        impl.setViewport.bind(impl));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-};
-
-/**
- *  @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPage = class {
-  /**
-   * @return {!string}
-   */
-  static get $interfaceName() {
-    return "ash.media_app_ui.mojom.OcrUntrustedPage";
-  }
-
-  /**
-   * Returns a remote for this interface which sends messages to the browser.
-   * The browser must have an interface request binder registered for this
-   * interface and accessible to the calling document's frame.
-   *
-   * @return {!ash.mediaAppUi.mojom.OcrUntrustedPageRemote}
-   * @export
-   */
-  static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.OcrUntrustedPageRemote;
-    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-    return remote;
-  }
-};
-
-
+    }
+}
+class OcrUntrustedPagePendingReceiver {
+    handle;
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.media_app_ui.mojom.OcrUntrustedPage', scope);
+    }
+}
+class OcrUntrustedPageRemote {
+    proxy;
+    $;
+    onConnectionError;
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(OcrUntrustedPagePendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    setViewport(viewportBox) {
+        this.proxy.sendMessage(0, OcrUntrustedPage_SetViewport_ParamsSpec.$, null, [
+            viewportBox
+        ]);
+    }
+}
 /**
  * An object which receives request messages for the OcrUntrustedPage
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
- *
- * @export
  */
-ash.mediaAppUi.mojom.OcrUntrustedPageCallbackRouter = class {
-  constructor() {
-    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.OcrUntrustedPageRemote);
-
+class OcrUntrustedPageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    setViewport;
+    onConnectionError;
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OcrUntrustedPageRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.setViewport =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, OcrUntrustedPage_SetViewport_ParamsSpec.$, null, this.setViewport.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>}
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
      */
-    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-
-    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.setViewport =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        0,
-        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
-        null,
-        this.setViewport.createReceiverHandler(false /* expectsResponse */));
-    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
-    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-  }
-
-  /**
-   * @param {number} id An ID returned by a prior call to addListener.
-   * @return {boolean} True iff the identified listener was found and removed.
-   * @export
-   */
-  removeListener(id) {
-    return this.router_.removeListener(id);
-  }
-};
-
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-
-
-mojo.internal.Struct(
-    ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
-    'UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params',
-    [
-      mojo.internal.StructField(
-        'receiver', 0,
-        0,
-        mojo.internal.InterfaceRequest(ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'page', 4,
-        0,
-        mojo.internal.InterfaceProxy(ash.mediaAppUi.mojom.OcrUntrustedPageRemote),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params = class {
-  constructor() {
-    /** @export { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } */
-    this.receiver;
-    /** @export { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } */
-    this.page;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
-    'OcrUntrustedPageHandler_ViewportUpdated_Params',
-    [
-      mojo.internal.StructField(
-        'viewportBox', 0,
-        0,
-        gfx.mojom.RectFSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'scaleFactor', 8,
-        0,
-        mojo.internal.Float,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_Params = class {
-  constructor() {
-    /** @export { !gfx.mojom.RectF } */
-    this.viewportBox;
-    /** @export { !number } */
-    this.scaleFactor;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
-    'OcrUntrustedPage_SetViewport_Params',
-    [
-      mojo.internal.StructField(
-        'viewportBox', 0,
-        0,
-        gfx.mojom.RectFSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_Params = class {
-  constructor() {
-    /** @export { !gfx.mojom.RectF } */
-    this.viewportBox;
-  }
-};
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+}
+const PageMetadataSpec = { $: {} };
+const UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec = { $: {} };
+const OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec = { $: {} };
+const OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec = { $: {} };
+const OcrUntrustedPage_SetViewport_ParamsSpec = { $: {} };
+mojo.internal.Struct(PageMetadataSpec.$, 'PageMetadata', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('rect', 8, 0, RectFSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$, 'UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params', [
+    mojo.internal.StructField('receiver', 0, 0, mojo.internal.InterfaceRequest(OcrUntrustedPageHandlerPendingReceiver), null, false /* nullable */, 0),
+    mojo.internal.StructField('page', 4, 0, mojo.internal.InterfaceProxy(OcrUntrustedPageRemote), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_PageMetadataUpdated_Params', [
+    mojo.internal.StructField('pageMetadata', 0, 0, mojo.internal.Array(PageMetadataSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_ViewportUpdated_Params', [
+    mojo.internal.StructField('viewportBox', 0, 0, RectFSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('scaleFactor', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(OcrUntrustedPage_SetViewport_ParamsSpec.$, 'OcrUntrustedPage_SetViewport_Params', [
+    mojo.internal.StructField('viewportBox', 0, 0, RectFSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-
 // Used to make calls on the remote OcrUntrustedPageHandler interface. Singleton
 // that client modules can use directly.
-// TODO(b/316239558): The client should use the result of connectToOcrHandler()
-// directly instead of us exporting this.
-let ocrUntrustedPageHandler;
-
+let ocrUntrustedPageHandler$1;
 // Use this subscribe to events e.g.
 // `ocrCallbackRouter.onEventOccurred.addListener(handleEvent)`.
-const ocrCallbackRouter =
-    new ash.mediaAppUi.mojom.OcrUntrustedPageCallbackRouter();
-
+const ocrCallbackRouter = new OcrUntrustedPageCallbackRouter();
 // Used to create a connection to OcrUntrustedPageHandler.
-const factoryRemote =
-    ash.mediaAppUi.mojom.UntrustedPageHandlerFactory.getRemote();
-
+const factoryRemote = UntrustedPageHandlerFactory.getRemote();
 // Called when a new file that may require OCR is loaded. Closes the existing
 // pipe and establishes a new one.
 function connectToOcrHandler() {
-  if (ocrUntrustedPageHandler) {
-    ocrUntrustedPageHandler.$.close();
-  }
-  ocrUntrustedPageHandler =
-      new ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote();
-  factoryRemote.createOcrUntrustedPageHandler(
-      ocrUntrustedPageHandler.$.bindNewPipeAndPassReceiver(),
-      ocrCallbackRouter.$.bindNewPipeAndPassRemote());
-  return ocrUntrustedPageHandler;
+    if (ocrUntrustedPageHandler$1) {
+        ocrUntrustedPageHandler$1.$.close();
+    }
+    ocrUntrustedPageHandler$1 = new OcrUntrustedPageHandlerRemote();
+    factoryRemote.createOcrUntrustedPageHandler(ocrUntrustedPageHandler$1.$.bindNewPipeAndPassReceiver(), ocrCallbackRouter.$.bindNewPipeAndPassRemote());
+    return ocrUntrustedPageHandler$1;
 }
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-/** @type {?Promise<function(!ArrayBuffer): !Promise<!File>>} */
 let _piexLoadPromise = null;
-
 /**
  * Loads PIEX, the "Preview Image Extractor", via wasm.
- * @type {!Promise<function(!ArrayBuffer): !Promise<!File>>}
  */
-function loadPiex() {
-  async function startLoad() {
-    function loadJs(/** string */ path, /** boolean */ module) {
-      return new Promise((resolve, reject) => {
-        const script =
-            /** @type {!HTMLScriptElement} */ (
-                document.createElement('script'));
-        script.onload = resolve;
-        script.onerror = reject;
-        if (module) {
-          script.type = 'module';
+async function loadPiex() {
+    async function startLoad() {
+        function loadJs(path, module) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.onload = resolve;
+                script.onerror = reject;
+                if (module) {
+                    script.type = 'module';
+                }
+                script.src = path;
+                if (document.head) {
+                    document.head.appendChild(script);
+                }
+            });
         }
-        script.src = path;
-        if (document.head) {
-          document.head.appendChild(script);
-        }  // else not reached (but needed to placate closure).
-      });
+        await loadJs('piex/piex.js.wasm', false);
+        await loadJs('piex_module.js', true);
+        return window.extractFromRawImageBuffer;
     }
-    await loadJs('piex/piex.js.wasm', false);
-    await loadJs('piex_module.js', true);
-    return window['extractFromRawImageBuffer'];
-  }
-  if (!_piexLoadPromise) {
-    _piexLoadPromise = startLoad();
-  }
-  return _piexLoadPromise;
+    if (!_piexLoadPromise) {
+        _piexLoadPromise = startLoad();
+    }
+    return _piexLoadPromise;
 }
 
-// Copyright 2020 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
  * @fileoverview Support code running in the released app to facilitate
  * testing. This file is present in the real app (not just tests), so it should
  * only be used for coverage of tests cases that can not be injected by the
  * test framework.
  */
-
 // Event handlers for tests in MediaAppIntegrationTest for testing crash report
 // integration. These can't be injected because errors on lines of injected code
 // do not go to the error handlers installed on window in the real app context.
 window.addEventListener('simulate-type-error-for-test', event => {
-  /** @type {{notAFunction: function()}} */ (event).notAFunction();
+    event.notAFunction();
 });
-
-window.addEventListener('simulate-unhandled-rejection-for-test', event => {
-  new Promise(resolve => {
-    const error = new Error('fake_throw');
-    error.name = 'FakeErrorName';
-    throw error;
-  });
-});
-
-window.addEventListener(
-    'simulate-unhandled-rejection-with-dom-exception-for-test', event => {
-      new Promise(resolve => {
-        throw new DOMException('Not a file.', 'NotAFile');
-      });
+window.addEventListener('simulate-unhandled-rejection-for-test', _event => {
+    new Promise(_resolve => {
+        const error = new Error('fake_throw');
+        error.name = 'FakeErrorName';
+        throw error;
     });
+});
+window.addEventListener('simulate-unhandled-rejection-with-dom-exception-for-test', _event => {
+    new Promise(_resolve => {
+        throw new DOMException('Not a file.', 'NotAFile');
+    });
+});
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -2418,6 +1153,7 @@ parentMessagePipe.registerHandler(Message.LOAD_EXTRA_FILES, async (extraFilesMes
 // As soon as the LOAD_FILES handler is installed, signal readiness to the
 // parent frame (privileged context).
 parentMessagePipe.sendMessage(Message.IFRAME_READY);
+let ocrUntrustedPageHandler;
 ocrCallbackRouter.setViewport.addListener((viewportBox) => {
     const app = getApp();
     if (app) {
@@ -2454,7 +1190,7 @@ const DELEGATE = {
     notifyCurrentFile(name, type) {
         parentMessagePipe.sendMessage(Message.NOTIFY_CURRENT_FILE, { name, type });
         if (type === 'application/pdf') {
-            connectToOcrHandler();
+            ocrUntrustedPageHandler = connectToOcrHandler();
         }
     },
     async extractPreview(file) {
@@ -2481,6 +1217,16 @@ const DELEGATE = {
         parentMessagePipe.sendMessage(Message.MAYBE_TRIGGER_PDF_HATS);
     },
     // TODO(b/219631600): Implement openUrlInBrowserTab() for LacrOS if needed.
+    // All methods below are on the guest / untrusted frame.
+    async pageMetadataUpdated(pageMetadata) {
+        const metadata = [];
+        for (let i = 0; i < pageMetadata.length; ++i) {
+            const rect = pageMetadata[i].rect;
+            const convertedRect = { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+            metadata.push({ ...pageMetadata[i], rect: convertedRect });
+        }
+        await ocrUntrustedPageHandler?.pageMetadataUpdated(metadata);
+    },
     async viewportUpdated(viewportBox, scaleFactor) {
         await ocrUntrustedPageHandler?.viewportUpdated({
             x: viewportBox.left,
@@ -2494,7 +1240,8 @@ const DELEGATE = {
  * Returns the media app if it can find it in the DOM.
  */
 function getApp() {
-    return document.querySelector('backlight-app');
+    const app = document.querySelector('backlight-app');
+    return app;
 }
 /**
  * Loads a file list into the media app.

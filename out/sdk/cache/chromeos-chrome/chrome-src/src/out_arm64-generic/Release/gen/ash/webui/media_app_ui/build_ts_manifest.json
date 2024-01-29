@@ -1,1 +1,1 @@
-{"base_dir": "gen/ash/webui/media_app_ui", "files": ["receiver.js", "app_context_test_support.js", "error_reporter.js", "launch.js", "message_types.js", "mojo_api_bootstrap.js", "mojo_api_bootstrap_untrusted.js", "piex_module_loader.js", "piex_module.js"]}
+{"base_dir": "gen/ash/webui/media_app_ui/tsc", "files": ["app_context_test_support.js", "error_reporter.js", "launch.js", "message_types.js", "mojo_api_bootstrap_untrusted.js", "piex_module.js", "piex_module_loader.js", "receiver.js", "mojo_api_bootstrap.js", "piex_loader.js", "media_app_ui_untrusted.mojom-webui.js"]}

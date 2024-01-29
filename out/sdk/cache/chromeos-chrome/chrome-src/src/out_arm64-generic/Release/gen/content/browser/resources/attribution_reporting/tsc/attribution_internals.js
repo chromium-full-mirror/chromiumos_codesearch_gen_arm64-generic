@@ -216,7 +216,7 @@ class Source {
         this.triggerSpecs = mojo.triggerSpecsJson;
         this.aggregatableReportWindowTime =
             new Date(mojo.aggregatableReportWindowTime);
-        this.maxEventLevelReports = BigInt(mojo.maxEventLevelReports);
+        this.maxEventLevelReports = mojo.maxEventLevelReports;
         this.sourceType = sourceTypeText[mojo.sourceType];
         this.priority = mojo.priority;
         this.filterData = JSON.stringify(mojo.filterData.filterValues, null, ' ');

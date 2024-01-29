@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Exception-Class", "version": "1.450.0", "revision": 0, "fullname": "dev-perl/Exception-Class", "fullnamerev": "dev-perl/Exception-Class-1.450.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Exception-Class"], "skip": false, "tainted": false, "ebuild_path": null}

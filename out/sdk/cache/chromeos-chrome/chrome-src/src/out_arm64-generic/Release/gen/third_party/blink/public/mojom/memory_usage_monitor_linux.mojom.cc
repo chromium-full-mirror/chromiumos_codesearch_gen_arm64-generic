@@ -180,6 +180,8 @@ bool MemoryUsageMonitorLinuxStubDispatch::Accept(
           reinterpret_cast<internal::MemoryUsageMonitorLinux_SetProcFiles_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MemoryUsageMonitorLinux.0
       bool success = true;
       ::base::File p_statm_file{};
       ::base::File p_status_file{};
@@ -198,9 +200,9 @@ bool MemoryUsageMonitorLinuxStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProcFiles(
-std::move(p_statm_file), 
-std::move(p_status_file));
+      impl->SetProcFiles(        
+        std::move(p_statm_file), 
+        std::move(p_status_file));
       return true;
     }
   }

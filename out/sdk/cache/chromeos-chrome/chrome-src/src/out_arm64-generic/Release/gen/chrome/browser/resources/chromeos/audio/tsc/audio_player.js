@@ -24,10 +24,8 @@ export class AudioPlayer extends HTMLElement {
         const clone = getRequiredElement('audioPlayer-template')
             .content.cloneNode(true);
         this.audioDiv = clone.querySelector('div');
-        this.audioPlay =
-            this.audioDiv.querySelector('#play-btn');
-        this.audioQuery =
-            this.audioDiv.querySelector('#output-qs');
+        this.audioPlay = this.audioDiv.querySelector('#play-btn');
+        this.audioQuery = this.audioDiv.querySelector('#output-qs');
         this.audioNameTag = this.audioDiv.querySelectorAll('p')[0];
         this.audioExpectation = this.audioDiv.querySelectorAll('p')[1];
         this.prevLink = this.audioDiv.querySelector('#back');

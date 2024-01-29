@@ -8,9 +8,13 @@
 #define COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #include "skia/public/mojom/bitmap.mojom.h"
 #include "skia/public/mojom/bitmap.mojom-import-headers.h"
+#include "ui/accessibility/ax_features.mojom.h"
+#include "ui/accessibility/ax_features.mojom-import-headers.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-import-headers.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_update.mojom-import-headers.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 
 #endif  // COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_SERVICE_MOJOM_IMPORT_HEADERS_H_

@@ -25,12 +25,12 @@ namespace mojom {
 NOINLINE static const char* ScreenStateToStringHelper(ScreenState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case ScreenState::ON:
-      return "ON";
-    case ScreenState::OFF:
-      return "OFF";
-    case ScreenState::OFF_AUTO:
-      return "OFF_AUTO";
+    case ScreenState::kOn:
+      return "kOn";
+    case ScreenState::kOff:
+      return "kOff";
+    case ScreenState::kOffAuto:
+      return "kOffAuto";
     default:
       return nullptr;
   }
@@ -48,17 +48,107 @@ std::ostream& operator<<(std::ostream& os, ScreenState value) {
   return os << ScreenStateToString(value);
 }
 
+NOINLINE static const char* WifiSecurityTypeToStringHelper(WifiSecurityType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WifiSecurityType::kNone:
+      return "kNone";
+    case WifiSecurityType::kEap:
+      return "kEap";
+    case WifiSecurityType::kWep:
+      return "kWep";
+    case WifiSecurityType::kWpa:
+      return "kWpa";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WifiSecurityTypeToString(WifiSecurityType value) {
+  const char *str = WifiSecurityTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WifiSecurityType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WifiSecurityType value) {
+  return os << WifiSecurityTypeToString(value);
+}
+
+NOINLINE static const char* WifiEapMethodToStringHelper(WifiEapMethod value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WifiEapMethod::kEapTls:
+      return "kEapTls";
+    case WifiEapMethod::kEapTtls:
+      return "kEapTtls";
+    case WifiEapMethod::kLeap:
+      return "kLeap";
+    case WifiEapMethod::kPeap:
+      return "kPeap";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WifiEapMethodToString(WifiEapMethod value) {
+  const char *str = WifiEapMethodToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WifiEapMethod value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WifiEapMethod value) {
+  return os << WifiEapMethodToString(value);
+}
+
+NOINLINE static const char* WifiEapPhase2MethodToStringHelper(WifiEapPhase2Method value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case WifiEapPhase2Method::kAutomatic:
+      return "kAutomatic";
+    case WifiEapPhase2Method::kChap:
+      return "kChap";
+    case WifiEapPhase2Method::kGtc:
+      return "kGtc";
+    case WifiEapPhase2Method::kMd5:
+      return "kMd5";
+    case WifiEapPhase2Method::kMschap:
+      return "kMschap";
+    case WifiEapPhase2Method::kMschapv2:
+      return "kMschapv2";
+    case WifiEapPhase2Method::kPap:
+      return "kPap";
+    default:
+      return nullptr;
+  }
+}
+
+std::string WifiEapPhase2MethodToString(WifiEapPhase2Method value) {
+  const char *str = WifiEapPhase2MethodToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown WifiEapPhase2Method value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, WifiEapPhase2Method value) {
+  return os << WifiEapPhase2MethodToString(value);
+}
+
 NOINLINE static const char* WindowStateTypeToStringHelper(WindowStateType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case WindowStateType::MINIMIZED:
-      return "MINIMIZED";
-    case WindowStateType::MAXIMIZED:
-      return "MAXIMIZED";
-    case WindowStateType::FULLSCREEN:
-      return "FULLSCREEN";
-    case WindowStateType::REGULAR:
-      return "REGULAR";
+    case WindowStateType::kMinimized:
+      return "kMinimized";
+    case WindowStateType::kMaximized:
+      return "kMaximized";
+    case WindowStateType::kFullscreen:
+      return "kFullscreen";
+    case WindowStateType::kRegular:
+      return "kRegular";
     default:
       return nullptr;
   }
@@ -79,12 +169,12 @@ std::ostream& operator<<(std::ostream& os, WindowStateType value) {
 NOINLINE static const char* FileMonitorResultToStringHelper(FileMonitorResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case FileMonitorResult::DELETED:
-      return "DELETED";
-    case FileMonitorResult::CANCELED:
-      return "CANCELED";
-    case FileMonitorResult::ERROR:
-      return "ERROR";
+    case FileMonitorResult::kDeleted:
+      return "kDeleted";
+    case FileMonitorResult::kCanceled:
+      return "kCanceled";
+    case FileMonitorResult::kError:
+      return "kError";
     default:
       return nullptr;
   }
@@ -105,16 +195,16 @@ std::ostream& operator<<(std::ostream& os, FileMonitorResult value) {
 NOINLINE static const char* StorageMonitorStatusToStringHelper(StorageMonitorStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case StorageMonitorStatus::NORMAL:
-      return "NORMAL";
-    case StorageMonitorStatus::LOW:
-      return "LOW";
-    case StorageMonitorStatus::CRITICALLY_LOW:
-      return "CRITICALLY_LOW";
-    case StorageMonitorStatus::CANCELED:
-      return "CANCELED";
-    case StorageMonitorStatus::ERROR:
-      return "ERROR";
+    case StorageMonitorStatus::kNormal:
+      return "kNormal";
+    case StorageMonitorStatus::kLow:
+      return "kLow";
+    case StorageMonitorStatus::kCriticallyLow:
+      return "kCriticallyLow";
+    case StorageMonitorStatus::kCanceled:
+      return "kCanceled";
+    case StorageMonitorStatus::kError:
+      return "kError";
     default:
       return nullptr;
   }
@@ -135,16 +225,16 @@ std::ostream& operator<<(std::ostream& os, StorageMonitorStatus value) {
 NOINLINE static const char* ToteMetricFormatToStringHelper(ToteMetricFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case ToteMetricFormat::PHOTO:
-      return "PHOTO";
-    case ToteMetricFormat::SCAN_JPG:
-      return "SCAN_JPG";
-    case ToteMetricFormat::SCAN_PDF:
-      return "SCAN_PDF";
-    case ToteMetricFormat::VIDEO_GIF:
-      return "VIDEO_GIF";
-    case ToteMetricFormat::VIDEO_MP4:
-      return "VIDEO_MP4";
+    case ToteMetricFormat::kPhoto:
+      return "kPhoto";
+    case ToteMetricFormat::kScanJpg:
+      return "kScanJpg";
+    case ToteMetricFormat::kScanPdf:
+      return "kScanPdf";
+    case ToteMetricFormat::kVideoGif:
+      return "kVideoGif";
+    case ToteMetricFormat::kVideoMp4:
+      return "kVideoMp4";
     default:
       return nullptr;
   }
@@ -165,10 +255,10 @@ std::ostream& operator<<(std::ostream& os, ToteMetricFormat value) {
 NOINLINE static const char* DocumentOutputFormatToStringHelper(DocumentOutputFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case DocumentOutputFormat::JPEG:
-      return "JPEG";
-    case DocumentOutputFormat::PDF:
-      return "PDF";
+    case DocumentOutputFormat::kJpeg:
+      return "kJpeg";
+    case DocumentOutputFormat::kPdf:
+      return "kPdf";
     default:
       return nullptr;
   }
@@ -187,6 +277,76 @@ std::ostream& operator<<(std::ostream& os, DocumentOutputFormat value) {
 }
 
 namespace internal {
+
+
+// static
+bool WifiConfig_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 56, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WifiConfig_Data* object =
+      static_cast<const WifiConfig_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->ssid, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& ssid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->ssid, validation_context,
+                                         &ssid_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::camera_app::mojom::internal::WifiSecurityType_Data
+        ::Validate(object->security, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& password_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->password, validation_context,
+                                         &password_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::camera_app::mojom::internal::WifiEapMethod_Data
+        ::Validate(object->eap_method_$value, validation_context))
+    return false;
+
+
+  if (!::ash::camera_app::mojom::internal::WifiEapPhase2Method_Data
+        ::Validate(object->eap_phase2_method_$value, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& eap_identity_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->eap_identity, validation_context,
+                                         &eap_identity_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& eap_anonymous_identity_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->eap_anonymous_identity, validation_context,
+                                         &eap_anonymous_identity_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WifiConfig_Data::WifiConfig_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -1872,6 +2032,36 @@ bool CameraAppHelper_OpenStorageManagement_Params_Data::Validate(
 CameraAppHelper_OpenStorageManagement_Params_Data::CameraAppHelper_OpenStorageManagement_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool CameraAppHelper_OpenWifiDialog_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAppHelper_OpenWifiDialog_Params_Data* object =
+      static_cast<const CameraAppHelper_OpenWifiDialog_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->config, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->config, validation_context))
+    return false;
+
+  return true;
+}
+
+CameraAppHelper_OpenWifiDialog_Params_Data::CameraAppHelper_OpenWifiDialog_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace camera_app
@@ -1883,6 +2073,36 @@ namespace perfetto {
 void TraceFormatTraits<::ash::camera_app::mojom::ScreenState>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::camera_app::mojom::ScreenState value) {
   return std::move(context).WriteString(::ash::camera_app::mojom::ScreenStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::camera_app::mojom::WifiSecurityType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::camera_app::mojom::WifiSecurityType value) {
+  return std::move(context).WriteString(::ash::camera_app::mojom::WifiSecurityTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::camera_app::mojom::WifiEapMethod>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::camera_app::mojom::WifiEapMethod value) {
+  return std::move(context).WriteString(::ash::camera_app::mojom::WifiEapMethodToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::camera_app::mojom::WifiEapPhase2Method>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::camera_app::mojom::WifiEapPhase2Method value) {
+  return std::move(context).WriteString(::ash::camera_app::mojom::WifiEapPhase2MethodToString(value));
 }
 
 } // namespace perfetto

@@ -269,6 +269,8 @@ bool VirtualKeyboard_RestrictFeatures_ForwardToCallback::Accept(
           internal::VirtualKeyboard_RestrictFeatures_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VirtualKeyboard.0
   bool success = true;
   VirtualKeyboardRestrictionsPtr p_updated{};
   VirtualKeyboard_RestrictFeatures_ResponseParamsDataView input_data_view(params, message);
@@ -369,6 +371,8 @@ bool VirtualKeyboardStubDispatch::AcceptWithResponder(
               internal::VirtualKeyboard_RestrictFeatures_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VirtualKeyboard.0
       bool success = true;
       VirtualKeyboardRestrictionsPtr p_restrictions{};
       VirtualKeyboard_RestrictFeatures_ParamsDataView input_data_view(params, message);
@@ -387,8 +391,8 @@ bool VirtualKeyboardStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestrictFeatures(
-std::move(p_restrictions), std::move(callback));
+      impl->RestrictFeatures(        
+        std::move(p_restrictions), std::move(callback));
       return true;
     }
   }

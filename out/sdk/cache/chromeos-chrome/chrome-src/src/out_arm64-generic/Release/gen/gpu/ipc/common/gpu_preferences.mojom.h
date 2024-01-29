@@ -121,6 +121,7 @@ class  GpuPreferences {
       bool enable_webgpu,
       bool enable_unsafe_webgpu,
       bool enable_webgpu_developer_features,
+      bool enable_webgpu_experimental_features,
       WebGPUAdapterName use_webgpu_adapter,
       WebGPUPowerPreference use_webgpu_power_preference,
       bool force_webgpu_compat,
@@ -301,6 +302,8 @@ class  GpuPreferences {
   
   bool enable_webgpu_developer_features;
   
+  bool enable_webgpu_experimental_features;
+  
   WebGPUAdapterName use_webgpu_adapter;
   
   WebGPUPowerPreference use_webgpu_power_preference;
@@ -401,6 +404,7 @@ GpuPreferencesPtr GpuPreferences::Clone() const {
       mojo::Clone(enable_webgpu),
       mojo::Clone(enable_unsafe_webgpu),
       mojo::Clone(enable_webgpu_developer_features),
+      mojo::Clone(enable_webgpu_experimental_features),
       mojo::Clone(use_webgpu_adapter),
       mojo::Clone(use_webgpu_power_preference),
       mojo::Clone(force_webgpu_compat),
@@ -508,6 +512,8 @@ bool GpuPreferences::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->enable_unsafe_webgpu, other_struct.enable_unsafe_webgpu))
     return false;
   if (!mojo::Equals(this->enable_webgpu_developer_features, other_struct.enable_webgpu_developer_features))
+    return false;
+  if (!mojo::Equals(this->enable_webgpu_experimental_features, other_struct.enable_webgpu_experimental_features))
     return false;
   if (!mojo::Equals(this->use_webgpu_adapter, other_struct.use_webgpu_adapter))
     return false;
@@ -719,6 +725,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.enable_webgpu_developer_features < rhs.enable_webgpu_developer_features)
     return true;
   if (rhs.enable_webgpu_developer_features < lhs.enable_webgpu_developer_features)
+    return false;
+  if (lhs.enable_webgpu_experimental_features < rhs.enable_webgpu_experimental_features)
+    return true;
+  if (rhs.enable_webgpu_experimental_features < lhs.enable_webgpu_experimental_features)
     return false;
   if (lhs.use_webgpu_adapter < rhs.use_webgpu_adapter)
     return true;
@@ -1007,6 +1017,11 @@ struct  StructTraits<::gpu::mojom::GpuPreferences::DataView,
   static decltype(::gpu::mojom::GpuPreferences::enable_webgpu_developer_features) enable_webgpu_developer_features(
       const ::gpu::mojom::GpuPreferencesPtr& input) {
     return input->enable_webgpu_developer_features;
+  }
+
+  static decltype(::gpu::mojom::GpuPreferences::enable_webgpu_experimental_features) enable_webgpu_experimental_features(
+      const ::gpu::mojom::GpuPreferencesPtr& input) {
+    return input->enable_webgpu_experimental_features;
   }
 
   static decltype(::gpu::mojom::GpuPreferences::use_webgpu_adapter) use_webgpu_adapter(

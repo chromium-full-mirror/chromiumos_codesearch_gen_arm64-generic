@@ -120,6 +120,40 @@ ShoppingListEligibleDetail_Data::ShoppingListEligibleDetail_Data()
 
 
 // static
+bool Subscription_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Subscription_Data* object =
+      static_cast<const Subscription_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->product_infos, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& product_infos_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->product_infos, validation_context,
+                                         &product_infos_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Subscription_Data::Subscription_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CommerceInternalsHandlerFactory_CreateCommerceInternalsHandler_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -279,6 +313,123 @@ bool CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data::Validate(
 }
 
 CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data::CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CommerceInternalsHandler_GetProductInfoForUrl_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CommerceInternalsHandler_GetProductInfoForUrl_Params_Data* object =
+      static_cast<const CommerceInternalsHandler_GetProductInfoForUrl_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->url, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->url, validation_context))
+    return false;
+
+  return true;
+}
+
+CommerceInternalsHandler_GetProductInfoForUrl_Params_Data::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data* object =
+      static_cast<const CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->info, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->info, validation_context))
+    return false;
+
+  return true;
+}
+
+CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CommerceInternalsHandler_GetSubscriptionDetails_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CommerceInternalsHandler_GetSubscriptionDetails_Params_Data* object =
+      static_cast<const CommerceInternalsHandler_GetSubscriptionDetails_Params_Data*>(data);
+
+  return true;
+}
+
+CommerceInternalsHandler_GetSubscriptionDetails_Params_Data::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data* object =
+      static_cast<const CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->subscriptions, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& subscriptions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->subscriptions, validation_context,
+                                         &subscriptions_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

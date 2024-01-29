@@ -1,0 +1,8 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/gfx.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_common.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_decode_accelerator.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_decoder.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_encode_accelerator.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_frame_pool.mojom-shared-message-ids.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/components/arc/mojom/video_protected_buffer_allocator.mojom-shared-message-ids.h

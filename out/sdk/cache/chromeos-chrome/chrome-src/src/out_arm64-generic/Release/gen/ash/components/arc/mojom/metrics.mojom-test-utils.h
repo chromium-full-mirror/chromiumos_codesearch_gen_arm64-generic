@@ -40,15 +40,12 @@ class  MetricsHostInterceptorForTesting : public MetricsHost {
   void ReportMemoryPressure(const std::vector<uint8_t>& psi_file_contents) override;
   void ReportProvisioningPreSignIn() override;
   void ReportWaylandLateTimingEvent(WaylandTimingEvent event, ::base::TimeDelta duration) override;
-  void ReportNonAndroidPlayFilesCount(uint32_t number_of_directories, uint32_t number_of_non_directories) override;
-  void ReportPerAppFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) override;
-  void ReportTotalFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes, ::base::TimeDelta duration) override;
-  void ReportTotalFileStatsOfAndroidDataSubdir(AndroidDataSubdirectory target, uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) override;
   void ReportWebViewProcessStarted() override;
   void ReportVpnServiceBuilderCompatApiUsage(VpnServiceBuilderCompatApiId api_id) override;
   void ReportNewQosSocketCount(int32_t count) override;
   void ReportQosSocketPercentage(int32_t perc) override;
   void ReportArcKeyMintError(ArcKeyMintError error) override;
+  void ReportDragResizeLatency(const std::vector<::base::TimeDelta>& durations) override;
 };
 class  MetricsHostAsyncWaiter {
  public:

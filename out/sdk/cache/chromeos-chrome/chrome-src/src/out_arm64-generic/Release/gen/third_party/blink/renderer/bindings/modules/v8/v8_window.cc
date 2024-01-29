@@ -36,6 +36,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_before_unload_event.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_blob.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_byte_length_queuing_strategy.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_caret_position.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_cdata_section.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_character_bounds_update_event.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_character_data.h"
@@ -295,6 +296,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_node_iterator.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_node_list.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_node_part.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_not_restored_reason_details.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_not_restored_reasons.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_observable.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_offscreen_canvas.h"
@@ -746,6 +748,9 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream_track_processor.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream_track_video_stats.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_merchant_validation_event.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_midi_access.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_midi_connection_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_midi_input.h"
@@ -763,6 +768,8 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_graph_builder.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_model_loader.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_model_generic_session.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_model_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_navigation_preload_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_navigator_login.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_navigator_managed_data.h"
@@ -809,6 +816,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_pressure_observer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_pressure_record.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_private_attribution.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_protected_audience.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_public_key_credential.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_push_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_push_subscription.h"
@@ -1056,6 +1064,8 @@
 #include "third_party/blink/renderer/modules/launch/dom_window_launch_queue.h"
 #include "third_party/blink/renderer/modules/launch/launch_queue.h"
 #include "third_party/blink/renderer/modules/lock_screen/lock_screen_data.h"
+#include "third_party/blink/renderer/modules/model_execution/model_manager.h"
+#include "third_party/blink/renderer/modules/model_execution/window_model.h"
 #include "third_party/blink/renderer/modules/payments/goods/dom_window_digital_goods.h"
 #include "third_party/blink/renderer/modules/private_attribution/private_attribution.h"
 #include "third_party/blink/renderer/modules/private_attribution/window_private_attribution.h"
@@ -1295,8 +1305,7 @@ BLINK_BINDINGS_TRACE_EVENT("Window.customElements.get");
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->customElements(script_state);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
@@ -1361,7 +1370,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.locationbar.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropLocationbar);
 
@@ -1379,7 +1389,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.locationbar.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropLocationbar);
 
@@ -1407,7 +1418,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.menubar.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropMenubar);
 
@@ -1425,7 +1437,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.menubar.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropMenubar);
 
@@ -1453,7 +1466,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.personalbar.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropPersonalbar);
 
@@ -1471,7 +1485,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.personalbar.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropPersonalbar);
 
@@ -1499,7 +1514,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.scrollbars.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropScrollbars);
 
@@ -1517,7 +1533,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.scrollbars.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropScrollbars);
 
@@ -1545,7 +1562,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.statusbar.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropStatusbar);
 
@@ -1563,7 +1581,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.statusbar.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropStatusbar);
 
@@ -1591,7 +1610,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.toolbar.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropToolbar);
 
@@ -1609,7 +1629,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.toolbar.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kBarPropToolbar);
 
@@ -1678,7 +1699,8 @@ const char* const property_name = "closed";
 blink_receiver->ReportCoopAccess(property_name);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowClosed);
 
@@ -1934,7 +1956,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& return_value = blink_receiver->frameElement();
 if (!BindingSecurity::ShouldAllowAccessTo(ToLocalDOMWindow(current_context), return_value)) {
-  ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+  ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 UseCounter::Count(current_execution_context, WebFeature::kCrossOriginWindowFrameElement);
 bindings::V8SetReturnValue(info, nullptr);
 return;
@@ -1943,8 +1966,7 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->GetFrame()->Parent();
 DCHECK(IsA<LocalFrame>(blink_frame));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
   // Don't wrap the return value if its frame is in the process of detaching and
@@ -1953,10 +1975,7 @@ if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowPr
 bindings::V8SetReturnValue(info, nullptr);
 return;
 }
-v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLNullable<Element>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_value = ToV8Traits<IDLNullable<Element>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value);
 bindings::V8SetReturnValue(info, v8_value);
 }
 }
@@ -1967,8 +1986,7 @@ void NavigatorAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& in
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_navigator_Getter");
 BLINK_BINDINGS_TRACE_EVENT("Window.navigator.get");
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
@@ -2119,7 +2137,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.innerWidth.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.innerWidth.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowInnerWidth);
 
@@ -2141,7 +2160,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.innerWidth.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.innerWidth.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowInnerWidth);
 
@@ -2171,7 +2191,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.innerHeight.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.innerHeight.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowInnerHeight);
 
@@ -2193,7 +2214,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.innerHeight.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.innerHeight.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowInnerHeight);
 
@@ -2223,7 +2245,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.scrollX.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.scrollX.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScrollX);
 
@@ -2245,7 +2268,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.scrollX.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.scrollX.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScrollX);
 
@@ -2275,7 +2299,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.pageXOffset.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.pageXOffset.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowPageXOffset);
 
@@ -2297,7 +2322,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.pageXOffset.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.pageXOffset.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowPageXOffset);
 
@@ -2327,7 +2353,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.scrollY.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.scrollY.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScrollY);
 
@@ -2349,7 +2376,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.scrollY.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.scrollY.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScrollY);
 
@@ -2379,7 +2407,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.pageYOffset.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.pageYOffset.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowPageYOffset);
 
@@ -2401,7 +2430,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.pageYOffset.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.pageYOffset.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowPageYOffset);
 
@@ -2469,7 +2499,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenX.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenX.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenX);
 
@@ -2491,7 +2522,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenX.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenX.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenX);
 
@@ -2521,7 +2553,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenY.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenY.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenY);
 
@@ -2543,7 +2576,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenY.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenY.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenY);
 
@@ -2573,7 +2607,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.outerWidth.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.outerWidth.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOuterWidth);
 
@@ -2595,7 +2630,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.outerWidth.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.outerWidth.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOuterWidth);
 
@@ -2625,7 +2661,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.outerHeight.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.outerHeight.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOuterHeight);
 
@@ -2647,7 +2684,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.outerHeight.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.outerHeight.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOuterHeight);
 
@@ -2677,7 +2715,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.devicePixelRatio.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.devicePixelRatio.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowDevicePixelRatio);
 
@@ -2699,7 +2738,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.devicePixelRatio.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.devicePixelRatio.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowDevicePixelRatio);
 
@@ -2757,7 +2797,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.orientation.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.orientation.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOrientation);
 
@@ -2806,7 +2847,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.event.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowEvent);
 
@@ -2814,8 +2856,7 @@ UseCounter::Count(current_execution_context, WebFeature::kWindowEvent);
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->event(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -2827,7 +2868,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.event.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowEvent);
 
@@ -2855,7 +2897,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.clientInformation.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowClientInformation);
 
@@ -2873,7 +2916,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.clientInformation.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowClientInformation);
 
@@ -2901,7 +2945,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.offscreenBuffering.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOffscreenBuffering);
 
@@ -2919,7 +2964,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.offscreenBuffering.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowOffscreenBuffering);
 
@@ -2949,7 +2995,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenLeft.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenLeft.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenLeft);
 
@@ -2971,7 +3018,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenLeft.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenLeft.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenLeft);
 
@@ -3001,7 +3049,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenTop.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenTop.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenTop);
 
@@ -3023,7 +3072,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.screenTop.set");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.screenTop.set", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowScreenTop);
 
@@ -3051,7 +3101,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.defaultStatus.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowDefaultStatus);
 
@@ -3069,7 +3120,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.defaultStatus.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowDefaultStatus);
 
@@ -3096,7 +3148,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.defaultstatus.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowDefaultstatus);
 
@@ -3114,7 +3167,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.defaultstatus.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowDefaultstatus);
 
@@ -3141,7 +3195,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.styleMedia.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kStyleMedia);
 
@@ -3205,8 +3260,7 @@ BLINK_BINDINGS_TRACE_EVENT("Window.trustedTypes.get");
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->trustedTypes(script_state);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
@@ -3355,7 +3409,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.caches.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kGlobalCacheStorage);
 
@@ -3515,6 +3570,20 @@ bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
 
+void ModelAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_model_Getter");
+BLINK_BINDINGS_TRACE_EVENT("Window.model.get");
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+auto&& return_value = WindowModel::model(*blink_receiver);
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
+
 void PrivateAttributionAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_privateAttribution_Getter");
@@ -3559,7 +3628,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.sharedStorage.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSharedStorageAPI_SharedStorage_DOMReference);
 
@@ -3585,7 +3655,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow
 BLINK_BINDINGS_TRACE_EVENT("Window.speechSynthesis.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_SpeechSynthesis_AttributeGetter);
 
@@ -3603,8 +3674,7 @@ void SessionStorageAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_sessionStorage_Getter");
 BLINK_BINDINGS_TRACE_EVENT("Window.sessionStorage.get");
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
@@ -3631,8 +3701,7 @@ void LocalStorageAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>&
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_localStorage_Getter");
 BLINK_BINDINGS_TRACE_EVENT("Window.localStorage.get");
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
@@ -8067,6 +8136,13 @@ BLINK_BINDINGS_TRACE_EVENT("Window.CapturedMouseEvent");
 bindings::V8SetReturnValue(info, V8CapturedMouseEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void CaretPositionExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CaretPosition_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.CaretPosition");
+
+bindings::V8SetReturnValue(info, V8CaretPosition::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void ChannelMergerNodeExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_ChannelMergerNode_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.ChannelMergerNode");
@@ -10447,6 +10523,27 @@ BLINK_BINDINGS_TRACE_EVENT("Window.MerchantValidationEvent");
 bindings::V8SetReturnValue(info, V8MerchantValidationEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void Mesh2DIndexBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_Mesh2DIndexBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.Mesh2DIndexBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DIndexBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DUVBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_Mesh2DUVBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.Mesh2DUVBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DUVBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DVertexBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_Mesh2DVertexBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.Mesh2DVertexBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DVertexBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void MessageChannelExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_MessageChannel_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.MessageChannel");
@@ -10480,6 +10577,20 @@ void MimeTypeArrayExposedConstructCallback(v8::Local<v8::Name> v8_property_name,
 BLINK_BINDINGS_TRACE_EVENT("Window.MimeTypeArray");
 
 bindings::V8SetReturnValue(info, V8MimeTypeArray::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void ModelGenericSessionExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_ModelGenericSession_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.ModelGenericSession");
+
+bindings::V8SetReturnValue(info, V8ModelGenericSession::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void ModelManagerExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_ModelManager_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.ModelManager");
+
+bindings::V8SetReturnValue(info, V8ModelManager::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void MojoExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -10704,6 +10815,13 @@ void NodePartExposedConstructCallback(v8::Local<v8::Name> v8_property_name, cons
 BLINK_BINDINGS_TRACE_EVENT("Window.NodePart");
 
 bindings::V8SetReturnValue(info, V8NodePart::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void NotRestoredReasonDetailsExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_NotRestoredReasonDetails_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.NotRestoredReasonDetails");
+
+bindings::V8SetReturnValue(info, V8NotRestoredReasonDetails::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void NotRestoredReasonsExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -11208,6 +11326,13 @@ void PromiseRejectionEventExposedConstructCallback(v8::Local<v8::Name> v8_proper
 BLINK_BINDINGS_TRACE_EVENT("Window.PromiseRejectionEvent");
 
 bindings::V8SetReturnValue(info, V8PromiseRejectionEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void ProtectedAudienceExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_ProtectedAudience_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.ProtectedAudience");
+
+bindings::V8SetReturnValue(info, V8ProtectedAudience::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void PublicKeyCredentialExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -13763,7 +13888,8 @@ void WebKitMutationObserverLegacyWindowAliasCallback(v8::Local<v8::Name> v8_prop
 BLINK_BINDINGS_TRACE_EVENT("Window.WebKitMutationObserver");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kPrefixedMutationObserverConstructor);
 
@@ -13775,7 +13901,8 @@ void WebkitMediaStreamLegacyWindowAliasCallback(v8::Local<v8::Name> v8_property_
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitMediaStream");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitMediaStream_ConstructorGetter);
 
@@ -13787,7 +13914,8 @@ void WebkitRTCPeerConnectionLegacyWindowAliasCallback(v8::Local<v8::Name> v8_pro
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitRTCPeerConnection");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitRTCPeerConnection_ConstructorGetter);
 
@@ -13799,7 +13927,8 @@ void WebkitSpeechGrammarLegacyWindowAliasCallback(v8::Local<v8::Name> v8_propert
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitSpeechGrammar");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitSpeechGrammar_ConstructorGetter);
 
@@ -13811,7 +13940,8 @@ void WebkitSpeechGrammarListLegacyWindowAliasCallback(v8::Local<v8::Name> v8_pro
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitSpeechGrammarList");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitSpeechGrammarList_ConstructorGetter);
 
@@ -13823,7 +13953,8 @@ void WebkitSpeechRecognitionLegacyWindowAliasCallback(v8::Local<v8::Name> v8_pro
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitSpeechRecognition");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitSpeechRecognition_ConstructorGetter);
 
@@ -13835,7 +13966,8 @@ void WebkitSpeechRecognitionErrorLegacyWindowAliasCallback(v8::Local<v8::Name> v
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitSpeechRecognitionError");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitSpeechRecognitionError_ConstructorGetter);
 
@@ -13847,7 +13979,8 @@ void WebkitSpeechRecognitionEventLegacyWindowAliasCallback(v8::Local<v8::Name> v
 BLINK_BINDINGS_TRACE_EVENT("Window.webkitSpeechRecognitionEvent");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_WebkitSpeechRecognitionEvent_ConstructorGetter);
 
@@ -13879,7 +14012,8 @@ HTMLAudioElement* return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 if (non_undefined_argument_length <= 0) {
   return_value = HTMLAudioElement::CreateForJSConstructor(*bindings::ToDocumentFromExecutionContext(execution_context));
@@ -13920,8 +14054,7 @@ if (!v8_legacy_factory_function->IsUndefined()) {
   return;
 }
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_value;
 if (!bindings::CreateLegacyFactoryFunctionFunction(
@@ -13957,7 +14090,8 @@ HTMLImageElement* return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 if (non_undefined_argument_length <= 0) {
   return_value = HTMLImageElement::CreateForJSConstructor(*bindings::ToDocumentFromExecutionContext(execution_context));
@@ -14006,8 +14140,7 @@ if (!v8_legacy_factory_function->IsUndefined()) {
   return;
 }
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_value;
 if (!bindings::CreateLegacyFactoryFunctionFunction(
@@ -14043,7 +14176,8 @@ HTMLOptionElement* return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_data;
 if (info[0]->IsUndefined()) {
@@ -14108,8 +14242,7 @@ if (!v8_legacy_factory_function->IsUndefined()) {
   return;
 }
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_value;
 if (!bindings::CreateLegacyFactoryFunctionFunction(
@@ -14131,7 +14264,8 @@ void AlertOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_Alert_Method);
 
@@ -14142,8 +14276,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_Alert_Method)
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 blink_receiver->alert(script_state);
 
@@ -14153,7 +14286,8 @@ void AlertOperationOverload2(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_Alert_Method);
 
@@ -14172,8 +14306,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
@@ -14367,7 +14500,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.captureEvents");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowCaptureEvents);
 
@@ -14476,7 +14610,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.confirm");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_Confirm_Method);
 
@@ -14487,8 +14622,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_Confirm_Metho
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
@@ -14535,8 +14669,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_image_bitmap = NativeValueTraits<V8UnionBlobOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -14583,8 +14716,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_image_bitmap = NativeValueTraits<V8UnionBlobOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrSVGImageElementOrVideoFrame>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -14684,8 +14816,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_input = NativeValueTraits<V8UnionRequestOrUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -14715,7 +14846,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.fetchLater");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_FetchLater_Method);
 
@@ -14733,8 +14865,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_input = NativeValueTraits<V8UnionRequestOrUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -14764,7 +14895,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.find");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowFind);
 
@@ -14891,8 +15023,7 @@ return;
 
 
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_element = NativeValueTraits<Element>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -14967,7 +15098,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kDigitalGoodsGetDigitalGoodsService);
 
@@ -14980,8 +15112,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_payment_method = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -15018,8 +15149,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& return_value = LockScreenData::getLockScreenData(script_state, *blink_receiver);
@@ -15044,7 +15174,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_GetScreenDetails_Method);
 
@@ -15053,8 +15184,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_GetScreenDeta
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& return_value = WindowScreenDetails::getScreenDetails(script_state, *blink_receiver, exception_state);
@@ -15090,7 +15220,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.matchMedia");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Window.matchMedia", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_MatchMedia_Method);
 
@@ -15143,14 +15274,18 @@ if (!V8Window::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kWindowMaximize);
 
 
 
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& return_value = AdditionalWindowingControls::maximize(script_state, *blink_receiver, exception_state);
@@ -15177,14 +15312,18 @@ if (!V8Window::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kWindowMinimize);
 
 
 
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& return_value = AdditionalWindowingControls::minimize(script_state, *blink_receiver, exception_state);
@@ -15201,7 +15340,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.moveBy");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowMove);
 
@@ -15239,7 +15379,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.moveTo");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowMove);
 
@@ -15329,12 +15470,12 @@ BLINK_BINDINGS_TRACE_EVENT("Window.openDatabase");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kOpenWebDatabase);
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
@@ -15517,7 +15658,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.print");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_Print_Method);
 
@@ -15528,8 +15670,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_Print_Method)
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 blink_receiver->print(script_state);
 
@@ -15542,7 +15683,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.prompt");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_Prompt_Method);
 
@@ -15553,8 +15695,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_Prompt_Method
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
@@ -15612,7 +15753,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_QueryLocalFonts_Method);
 
@@ -15621,8 +15763,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_QueryLocalFon
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 decltype(NativeValueTraits<QueryOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
@@ -15688,7 +15829,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.releaseEvents");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowReleaseEvents);
 
@@ -15725,8 +15867,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_e = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -15743,7 +15884,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.requestAnimationFrame");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kUnprefixedRequestAnimationFrame);
 
@@ -15786,7 +15928,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.requestIdleCallback");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_RequestIdleCallback_Method);
 
@@ -15829,7 +15972,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.resizeBy");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowResize);
 
@@ -15870,7 +16014,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.resizeTo");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowResize);
 
@@ -15921,14 +16066,18 @@ if (!V8Window::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kWindowRestore);
 
 
 
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& return_value = AdditionalWindowingControls::restore(script_state, *blink_receiver, exception_state);
@@ -16181,8 +16330,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_handler = NativeValueTraits<V8Function>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -16222,8 +16370,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
@@ -16255,8 +16402,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 const int arg_count = std::min(info.Length(), 3);
 do {  // Dummy loop for use of 'break'.
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) {
   if (arg_count == 3) {
@@ -16329,6 +16476,11 @@ if (!V8Window::HasInstance(isolate, v8_receiver)) {
 return;
 }
 
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kWindowSetResizable);
 
 
 
@@ -16339,8 +16491,7 @@ return;
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_resizable = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -16372,8 +16523,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_handler = NativeValueTraits<V8Function>::ArgumentValue(isolate, 0, info[0], exception_state);
@@ -16413,8 +16563,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
@@ -16446,8 +16595,8 @@ scheduler::CooperativeSchedulingManager::Instance()->Safepoint();
 const int arg_count = std::min(info.Length(), 3);
 do {  // Dummy loop for use of 'break'.
   v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 if (execution_context->IsWindow() || execution_context->IsWorkerGlobalScope()) {
   if (arg_count == 3) {
@@ -16521,7 +16670,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_ShowDirectoryPicker_Method);
 
@@ -16530,8 +16680,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_ShowDirectory
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 decltype(NativeValueTraits<DirectoryPickerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
@@ -16568,7 +16717,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_ShowOpenFilePicker_Method);
 
@@ -16577,8 +16727,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_ShowOpenFileP
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 decltype(NativeValueTraits<OpenFilePickerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
@@ -16615,7 +16764,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8Window_ShowSaveFilePicker_Method);
 
@@ -16624,8 +16774,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8Window_ShowSaveFileP
 
 
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 decltype(NativeValueTraits<SaveFilePickerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
@@ -16683,8 +16832,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_value = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -16713,7 +16861,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.webkitCancelAnimationFrame");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedCancelAnimationFrame);
 
@@ -16747,7 +16896,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.webkitRequestAnimationFrame");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [DeprecateAs]
 Deprecation::CountDeprecation(current_execution_context, WebFeature::kPrefixedRequestAnimationFrame);
 
@@ -16790,7 +16940,8 @@ BLINK_BINDINGS_TRACE_EVENT("Window.webkitRequestFileSystem");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRequestFileSystem);
 
@@ -16986,7 +17137,8 @@ const char* const property_name = "closed";
 blink_receiver->ReportCoopAccess(property_name);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kWindowClosed);
 
@@ -18081,6 +18233,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"NavigationHistoryEntry", NavigationHistoryEntryExposedConstructCallback}, 
 {"NavigationTransition", NavigationTransitionExposedConstructCallback}, 
 {"Navigator", NavigatorExposedConstructCallback}, 
+{"NavigatorUAData", NavigatorUADataExposedConstructCallback}, 
 {"NetworkInformation", NetworkInformationExposedConstructCallback}, 
 {"Node", NodeExposedConstructCallback}, 
 {"NodeFilter", NodeFilterExposedConstructCallback}, 
@@ -18315,6 +18468,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"VideoFrame", VideoFrameExposedConstructCallback}, 
 {"ViewTransition", ViewTransitionExposedConstructCallback}, 
 {"VirtualKeyboardGeometryChangeEvent", VirtualKeyboardGeometryChangeEventExposedConstructCallback}, 
+{"VisibilityStateEntry", VisibilityStateEntryExposedConstructCallback}, 
 {"VisualViewport", VisualViewportExposedConstructCallback}, 
 {"WaveShaperNode", WaveShaperNodeExposedConstructCallback}, 
 {"WebGL2RenderingContext", WebGL2RenderingContextExposedConstructCallback}, 
@@ -18337,6 +18491,8 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"WebSocket", WebSocketExposedConstructCallback}, 
 {"WheelEvent", WheelEventExposedConstructCallback}, 
 {"Window", WindowExposedConstructCallback}, 
+{"WindowControlsOverlay", WindowControlsOverlayExposedConstructCallback}, 
+{"WindowControlsOverlayGeometryChangeEvent", WindowControlsOverlayGeometryChangeEventExposedConstructCallback}, 
 {"Worker", WorkerExposedConstructCallback}, 
 {"WritableStream", WritableStreamExposedConstructCallback}, 
 {"WritableStreamDefaultController", WritableStreamDefaultControllerExposedConstructCallback}, 
@@ -18453,6 +18609,14 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 if (RuntimeEnabledFeatures::AnonymousIframeEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"credentialless", CredentiallessAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::ModelExecutionAPIEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"model", ModelAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18636,6 +18800,14 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
+if (RuntimeEnabledFeatures::CaretPositionFromPointEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"CaretPosition", CaretPositionExposedConstructCallback}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
+}
 if (RuntimeEnabledFeatures::CloseWatcherEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"CloseWatcher", CloseWatcherExposedConstructCallback}, 
@@ -18763,6 +18935,25 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
+if (RuntimeEnabledFeatures::Canvas2dMeshEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"Mesh2DIndexBuffer", Mesh2DIndexBufferExposedConstructCallback}, 
+{"Mesh2DUVBuffer", Mesh2DUVBufferExposedConstructCallback}, 
+{"Mesh2DVertexBuffer", Mesh2DVertexBufferExposedConstructCallback}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
+}
+if (RuntimeEnabledFeatures::ModelExecutionAPIEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"ModelGenericSession", ModelGenericSessionExposedConstructCallback}, 
+{"ModelManager", ModelManagerExposedConstructCallback}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
+}
 if (RuntimeEnabledFeatures::MojoJSTestEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"MojoInterfaceInterceptor", MojoInterfaceInterceptorExposedConstructCallback}, 
@@ -18783,14 +18974,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, 
 if (RuntimeEnabledFeatures::NavigationActivationEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"NavigationActivation", NavigationActivationExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::UserAgentClientHintEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"NavigatorUAData", NavigatorUADataExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18837,17 +19020,10 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::PaymentAppEnabled()) {
+if (RuntimeEnabledFeatures::LongAnimationFrameTimingEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"PaymentManager", PaymentManagerExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::PaymentRequestEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"PaymentRequestUpdateEvent", PaymentRequestUpdateEventExposedConstructCallback}, 
+{"PerformanceLongAnimationFrameTiming", PerformanceLongAnimationFrameTimingExposedConstructCallback}, 
+{"PerformanceScriptTiming", PerformanceScriptTimingExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18958,14 +19134,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::VisibilityStateEntryEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"VisibilityStateEntry", VisibilityStateEntryExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::WebSocketStreamEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"WebSocketStream", WebSocketStreamExposedConstructCallback}, 
@@ -19024,7 +19192,7 @@ if (instance_object.IsEmpty()) {
 }
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::FencedFramesEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFencedFrames)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"fence", FenceAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -19561,6 +19729,7 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 }
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::BackForwardCacheNotRestoredReasonsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kBackForwardCacheNotRestoredReasons)) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"NotRestoredReasonDetails", NotRestoredReasonDetailsExposedConstructCallback}, 
 {"NotRestoredReasons", NotRestoredReasonsExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
@@ -19581,7 +19750,17 @@ if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures:
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"PaymentAddress", PaymentAddressExposedConstructCallback}, 
 {"PaymentRequest", PaymentRequestExposedConstructCallback}, 
+{"PaymentRequestUpdateEvent", PaymentRequestUpdateEventExposedConstructCallback}, 
 {"PaymentResponse", PaymentResponseExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::PaymentAppEnabled())) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"PaymentManager", PaymentManagerExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19602,16 +19781,6 @@ if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures
 {"PendingBeacon", PendingBeaconExposedConstructCallback}, 
 {"PendingGetBeacon", PendingGetBeaconExposedConstructCallback}, 
 {"PendingPostBeacon", PendingPostBeaconExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::LongAnimationFrameTimingEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kLongAnimationFrameTiming)) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"PerformanceLongAnimationFrameTiming", PerformanceLongAnimationFrameTimingExposedConstructCallback}, 
-{"PerformanceScriptTiming", PerformanceScriptTimingExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19657,6 +19826,15 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::InteroperablePrivateAttributionEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"PrivateAttribution", PrivateAttributionExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FledgeFeatureDetectionEnabled())) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"ProtectedAudience", ProtectedAudienceExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19732,7 +19910,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::StorageBucketsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kStorageBuckets))) {
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::StorageBucketsEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"StorageBucket", StorageBucketExposedConstructCallback}, 
 {"StorageBucketManager", StorageBucketManagerExposedConstructCallback}, 
@@ -19816,16 +19994,6 @@ if (is_in_isolated_context && is_in_secure_context && (feature_selector.IsAll() 
 {"WebPrintJob", WebPrintJobExposedConstructCallback}, 
 {"WebPrinter", WebPrinterExposedConstructCallback}, 
 {"WebPrintingManager", WebPrintingManagerExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::WebAppWindowControlsOverlayEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kWebAppWindowControlsOverlay)) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"WindowControlsOverlay", WindowControlsOverlayExposedConstructCallback}, 
-{"WindowControlsOverlayGeometryChangeEvent", WindowControlsOverlayGeometryChangeEventExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -20628,6 +20796,7 @@ reinterpret_cast<intptr_t>(NavigationDestinationExposedConstructCallback),
 reinterpret_cast<intptr_t>(NavigationHistoryEntryExposedConstructCallback),
 reinterpret_cast<intptr_t>(NavigationTransitionExposedConstructCallback),
 reinterpret_cast<intptr_t>(NavigatorExposedConstructCallback),
+reinterpret_cast<intptr_t>(NavigatorUADataExposedConstructCallback),
 reinterpret_cast<intptr_t>(NetworkInformationExposedConstructCallback),
 reinterpret_cast<intptr_t>(NodeExposedConstructCallback),
 reinterpret_cast<intptr_t>(NodeFilterExposedConstructCallback),
@@ -20862,6 +21031,7 @@ reinterpret_cast<intptr_t>(VideoColorSpaceExposedConstructCallback),
 reinterpret_cast<intptr_t>(VideoFrameExposedConstructCallback),
 reinterpret_cast<intptr_t>(ViewTransitionExposedConstructCallback),
 reinterpret_cast<intptr_t>(VirtualKeyboardGeometryChangeEventExposedConstructCallback),
+reinterpret_cast<intptr_t>(VisibilityStateEntryExposedConstructCallback),
 reinterpret_cast<intptr_t>(VisualViewportExposedConstructCallback),
 reinterpret_cast<intptr_t>(WaveShaperNodeExposedConstructCallback),
 reinterpret_cast<intptr_t>(WebGL2RenderingContextExposedConstructCallback),
@@ -20884,6 +21054,8 @@ reinterpret_cast<intptr_t>(WebGLVertexArrayObjectExposedConstructCallback),
 reinterpret_cast<intptr_t>(WebSocketExposedConstructCallback),
 reinterpret_cast<intptr_t>(WheelEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(WindowExposedConstructCallback),
+reinterpret_cast<intptr_t>(WindowControlsOverlayExposedConstructCallback),
+reinterpret_cast<intptr_t>(WindowControlsOverlayGeometryChangeEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(WorkerExposedConstructCallback),
 reinterpret_cast<intptr_t>(WritableStreamExposedConstructCallback),
 reinterpret_cast<intptr_t>(WritableStreamDefaultControllerExposedConstructCallback),
@@ -21027,6 +21199,15 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype
 if (RuntimeEnabledFeatures::AnonymousIframeEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"credentialless", CredentiallessAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::ModelExecutionAPIEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"model", ModelAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21231,6 +21412,15 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
+if (RuntimeEnabledFeatures::CaretPositionFromPointEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"CaretPosition", CaretPositionExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
 if (RuntimeEnabledFeatures::CloseWatcherEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"CloseWatcher", CloseWatcherExposedConstructCallback}, 
@@ -21373,6 +21563,27 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
+if (RuntimeEnabledFeatures::Canvas2dMeshEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"Mesh2DIndexBuffer", Mesh2DIndexBufferExposedConstructCallback}, 
+{"Mesh2DUVBuffer", Mesh2DUVBufferExposedConstructCallback}, 
+{"Mesh2DVertexBuffer", Mesh2DVertexBufferExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if (RuntimeEnabledFeatures::ModelExecutionAPIEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"ModelGenericSession", ModelGenericSessionExposedConstructCallback}, 
+{"ModelManager", ModelManagerExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
 if (RuntimeEnabledFeatures::MojoJSTestEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"MojoInterfaceInterceptor", MojoInterfaceInterceptorExposedConstructCallback}, 
@@ -21395,15 +21606,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (RuntimeEnabledFeatures::NavigationActivationEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"NavigationActivation", NavigationActivationExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::UserAgentClientHintEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"NavigatorUAData", NavigatorUADataExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21456,18 +21658,10 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::PaymentAppEnabled()) {
+if (RuntimeEnabledFeatures::LongAnimationFrameTimingEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"PaymentManager", PaymentManagerExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::PaymentRequestEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"PaymentRequestUpdateEvent", PaymentRequestUpdateEventExposedConstructCallback}, 
+{"PerformanceLongAnimationFrameTiming", PerformanceLongAnimationFrameTimingExposedConstructCallback}, 
+{"PerformanceScriptTiming", PerformanceScriptTimingExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21585,15 +21779,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (RuntimeEnabledFeatures::VideoTrackGeneratorInWindowEnabled() && RuntimeEnabledFeatures::VideoTrackGeneratorEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"VideoTrackGenerator", VideoTrackGeneratorExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::VisibilityStateEntryEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"VisibilityStateEntry", VisibilityStateEntryExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

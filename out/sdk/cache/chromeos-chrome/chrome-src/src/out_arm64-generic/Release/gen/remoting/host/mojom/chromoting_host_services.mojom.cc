@@ -161,6 +161,8 @@ bool ChromotingHostServicesStubDispatch::Accept(
           reinterpret_cast<internal::ChromotingHostServices_BindSessionServices_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromotingHostServices.0
       bool success = true;
       ::mojo::PendingReceiver<ChromotingSessionServices> p_receiver{};
       ChromotingHostServices_BindSessionServices_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool ChromotingHostServicesStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSessionServices(
-std::move(p_receiver));
+      impl->BindSessionServices(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -396,6 +398,8 @@ bool ChromotingSessionServicesStubDispatch::Accept(
           reinterpret_cast<internal::ChromotingSessionServices_BindWebAuthnProxy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromotingSessionServices.0
       bool success = true;
       ::mojo::PendingReceiver<::remoting::mojom::WebAuthnProxy> p_receiver{};
       ChromotingSessionServices_BindWebAuthnProxy_ParamsDataView input_data_view(params, message);
@@ -413,8 +417,8 @@ bool ChromotingSessionServicesStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWebAuthnProxy(
-std::move(p_receiver));
+      impl->BindWebAuthnProxy(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kChromotingSessionServices_BindRemoteUrlOpener_Name: {
@@ -424,6 +428,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::ChromotingSessionServices_BindRemoteUrlOpener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromotingSessionServices.1
       bool success = true;
       ::mojo::PendingReceiver<::remoting::mojom::RemoteUrlOpener> p_receiver{};
       ChromotingSessionServices_BindRemoteUrlOpener_ParamsDataView input_data_view(params, message);
@@ -441,8 +447,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRemoteUrlOpener(
-std::move(p_receiver));
+      impl->BindRemoteUrlOpener(        
+        std::move(p_receiver));
       return true;
     }
   }

@@ -6,8 +6,6 @@
 import { css, html, LitElement } from 'lit';
 /**
  * A ChromeOS compliant tag.
- * See spec
- * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?type=design&node-id=9644-165677&mode=design&t=0xBcgechLxIMCLG0-0
  */
 export class Tag extends LitElement {
     static { this.HEIGHT = 32; }

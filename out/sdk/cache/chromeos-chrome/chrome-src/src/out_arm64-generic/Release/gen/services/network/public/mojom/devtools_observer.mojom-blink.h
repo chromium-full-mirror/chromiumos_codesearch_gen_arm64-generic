@@ -628,6 +628,7 @@ class BLINK_PLATFORM_EXPORT URLResponseHeadDevToolsInfo {
       ::base::Time response_time,
       ::network::mojom::blink::HttpResponseHeadersPtr headers,
       const WTF::String& mime_type,
+      const WTF::String& charset,
       ::network::mojom::blink::LoadTimingInfoPtr load_timing,
       uint32_t cert_status,
       int64_t encoded_data_length,
@@ -726,6 +727,8 @@ URLResponseHeadDevToolsInfo& operator=(const URLResponseHeadDevToolsInfo&) = del
   ::network::mojom::blink::HttpResponseHeadersPtr headers;
   
   WTF::String mime_type;
+  
+  WTF::String charset;
   
   ::network::mojom::blink::LoadTimingInfoPtr load_timing;
   
@@ -855,6 +858,7 @@ URLResponseHeadDevToolsInfoPtr URLResponseHeadDevToolsInfo::Clone() const {
       mojo::Clone(response_time),
       mojo::Clone(headers),
       mojo::Clone(mime_type),
+      mojo::Clone(charset),
       mojo::Clone(load_timing),
       mojo::Clone(cert_status),
       mojo::Clone(encoded_data_length),
@@ -879,6 +883,8 @@ bool URLResponseHeadDevToolsInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->headers, other_struct.headers))
     return false;
   if (!mojo::Equals(this->mime_type, other_struct.mime_type))
+    return false;
+  if (!mojo::Equals(this->charset, other_struct.charset))
     return false;
   if (!mojo::Equals(this->load_timing, other_struct.load_timing))
     return false;
@@ -924,6 +930,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.mime_type < rhs.mime_type)
     return true;
   if (rhs.mime_type < lhs.mime_type)
+    return false;
+  if (lhs.charset < rhs.charset)
+    return true;
+  if (rhs.charset < lhs.charset)
     return false;
   if (lhs.load_timing < rhs.load_timing)
     return true;
@@ -1076,6 +1086,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLResponseHe
   static const decltype(::network::mojom::blink::URLResponseHeadDevToolsInfo::mime_type)& mime_type(
       const ::network::mojom::blink::URLResponseHeadDevToolsInfoPtr& input) {
     return input->mime_type;
+  }
+
+  static const decltype(::network::mojom::blink::URLResponseHeadDevToolsInfo::charset)& charset(
+      const ::network::mojom::blink::URLResponseHeadDevToolsInfoPtr& input) {
+    return input->charset;
   }
 
   static const decltype(::network::mojom::blink::URLResponseHeadDevToolsInfo::load_timing)& load_timing(

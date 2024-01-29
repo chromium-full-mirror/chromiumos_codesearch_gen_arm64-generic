@@ -928,6 +928,16 @@ export const EXTENSION_TO_TYPE = new Map([
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
+    [".gmaillayout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
     [".pdf", {
             "extensions": [
                 ".pdf"
@@ -1716,6 +1726,16 @@ export const MIME_TO_TYPE = new Map([
             "mime": "application/vnd.google-apps.site",
             "subtype": "site",
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
+    ["application/vnd.google-apps.mail-layout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
     ["application/pdf", {

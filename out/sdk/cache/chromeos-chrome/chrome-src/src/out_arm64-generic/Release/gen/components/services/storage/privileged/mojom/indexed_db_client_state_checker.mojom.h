@@ -70,12 +70,16 @@ class IndexedDBClientStateChecker
   using ResponseValidator_ = IndexedDBClientStateCheckerResponseValidator;
   enum MethodMinVersions : uint32_t {
     kDisallowInactiveClientMinVersion = 0,
+    kMakeCloneMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct DisallowInactiveClient_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MakeClone_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -85,6 +89,9 @@ class IndexedDBClientStateChecker
   using DisallowInactiveClientCallback = base::OnceCallback<void(bool)>;
   
   virtual void DisallowInactiveClient(DisallowInactiveClientReason reason, ::mojo::PendingReceiver<IndexedDBClientKeepActive> keep_active, DisallowInactiveClientCallback callback) = 0;
+
+  
+  virtual void MakeClone(::mojo::PendingReceiver<IndexedDBClientStateChecker> receiver) = 0;
 };
 
 class IndexedDBClientKeepActiveProxy;
@@ -135,6 +142,8 @@ class  IndexedDBClientStateCheckerProxy
   explicit IndexedDBClientStateCheckerProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void DisallowInactiveClient(DisallowInactiveClientReason reason, ::mojo::PendingReceiver<IndexedDBClientKeepActive> keep_active, DisallowInactiveClientCallback callback) final;
+  
+  void MakeClone(::mojo::PendingReceiver<IndexedDBClientStateChecker> receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

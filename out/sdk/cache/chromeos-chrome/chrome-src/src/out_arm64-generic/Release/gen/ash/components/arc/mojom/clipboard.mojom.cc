@@ -400,6 +400,8 @@ bool ClipboardHost_GetClipContent_ForwardToCallback::Accept(
           internal::ClipboardHost_GetClipContent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardHost.4
   bool success = true;
   ClipDataPtr p_data{};
   ClipboardHost_GetClipContent_ResponseParamsDataView input_data_view(params, message);
@@ -484,6 +486,8 @@ bool ClipboardHostStubDispatch::Accept(
           reinterpret_cast<internal::ClipboardHost_SetClipContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.2
       bool success = true;
       ClipDataPtr p_data{};
       ClipboardHost_SetClipContent_ParamsDataView input_data_view(params, message);
@@ -499,8 +503,8 @@ bool ClipboardHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetClipContent(
-std::move(p_data));
+      impl->SetClipContent(        
+        std::move(p_data));
       return true;
     }
     case internal::kClipboardHost_GetClipContent_Name: {
@@ -529,6 +533,8 @@ bool ClipboardHostStubDispatch::AcceptWithResponder(
               internal::ClipboardHost_GetClipContent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardHost.4
       bool success = true;
       ClipboardHost_GetClipContent_ParamsDataView input_data_view(params, message);
       
@@ -803,6 +809,8 @@ bool ClipboardInstance_Init_ForwardToCallback::Accept(
           internal::ClipboardInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClipboardInstance.3
   bool success = true;
   ClipboardInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -868,6 +876,8 @@ bool ClipboardInstanceStubDispatch::Accept(
           reinterpret_cast<internal::ClipboardInstance_OnHostClipboardUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClipboardInstance.2
       bool success = true;
       ClipboardInstance_OnHostClipboardUpdated_ParamsDataView input_data_view(params, message);
       
@@ -880,7 +890,7 @@ bool ClipboardInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHostClipboardUpdated();
+      impl->OnHostClipboardUpdated(        );
       return true;
     }
   }
@@ -903,6 +913,8 @@ bool ClipboardInstanceStubDispatch::AcceptWithResponder(
               internal::ClipboardInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClipboardInstance.3
       bool success = true;
       ::mojo::PendingRemote<ClipboardHost> p_host_remote{};
       ClipboardInstance_Init_ParamsDataView input_data_view(params, message);
@@ -923,8 +935,8 @@ bool ClipboardInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kClipboardInstance_OnHostClipboardUpdated_Name: {

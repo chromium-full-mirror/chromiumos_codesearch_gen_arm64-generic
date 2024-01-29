@@ -210,6 +210,8 @@ bool VmDiagnosticsProvider_GetPluginVmDiagnostics_ForwardToCallback::Accept(
           internal::VmDiagnosticsProvider_GetPluginVmDiagnostics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VmDiagnosticsProvider.0
   bool success = true;
   ::guest_os::mojom::DiagnosticsPtr p_diagnostics{};
   VmDiagnosticsProvider_GetPluginVmDiagnostics_ResponseParamsDataView input_data_view(params, message);
@@ -310,6 +312,8 @@ bool VmDiagnosticsProviderStubDispatch::AcceptWithResponder(
               internal::VmDiagnosticsProvider_GetPluginVmDiagnostics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VmDiagnosticsProvider.0
       bool success = true;
       VmDiagnosticsProvider_GetPluginVmDiagnostics_ParamsDataView input_data_view(params, message);
       

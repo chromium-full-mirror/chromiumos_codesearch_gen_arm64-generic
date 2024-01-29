@@ -568,6 +568,8 @@ bool PeerConnectionManagerStubDispatch::Accept(
           reinterpret_cast<internal::PeerConnectionManager_OnSuspend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.0
       bool success = true;
       PeerConnectionManager_OnSuspend_ParamsDataView input_data_view(params, message);
       
@@ -580,7 +582,7 @@ bool PeerConnectionManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSuspend();
+      impl->OnSuspend(        );
       return true;
     }
     case internal::kPeerConnectionManager_OnThermalStateChange_Name: {
@@ -590,6 +592,8 @@ bool PeerConnectionManagerStubDispatch::Accept(
           reinterpret_cast<internal::PeerConnectionManager_OnThermalStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.1
       bool success = true;
       DeviceThermalState p_thermal_state{};
       PeerConnectionManager_OnThermalStateChange_ParamsDataView input_data_view(params, message);
@@ -605,8 +609,8 @@ bool PeerConnectionManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnThermalStateChange(
-std::move(p_thermal_state));
+      impl->OnThermalStateChange(        
+        std::move(p_thermal_state));
       return true;
     }
     case internal::kPeerConnectionManager_OnSpeedLimitChange_Name: {
@@ -616,6 +620,8 @@ std::move(p_thermal_state));
           reinterpret_cast<internal::PeerConnectionManager_OnSpeedLimitChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.2
       bool success = true;
       int32_t p_speed_limit{};
       PeerConnectionManager_OnSpeedLimitChange_ParamsDataView input_data_view(params, message);
@@ -631,8 +637,8 @@ std::move(p_thermal_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSpeedLimitChange(
-std::move(p_speed_limit));
+      impl->OnSpeedLimitChange(        
+        std::move(p_speed_limit));
       return true;
     }
     case internal::kPeerConnectionManager_StartEventLog_Name: {
@@ -642,6 +648,8 @@ std::move(p_speed_limit));
           reinterpret_cast<internal::PeerConnectionManager_StartEventLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.3
       bool success = true;
       int32_t p_peer_connection_local_id{};
       int32_t p_output_period_ms{};
@@ -660,9 +668,9 @@ std::move(p_speed_limit));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartEventLog(
-std::move(p_peer_connection_local_id), 
-std::move(p_output_period_ms));
+      impl->StartEventLog(        
+        std::move(p_peer_connection_local_id), 
+        std::move(p_output_period_ms));
       return true;
     }
     case internal::kPeerConnectionManager_StopEventLog_Name: {
@@ -672,6 +680,8 @@ std::move(p_output_period_ms));
           reinterpret_cast<internal::PeerConnectionManager_StopEventLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.4
       bool success = true;
       int32_t p_peer_connection_local_id{};
       PeerConnectionManager_StopEventLog_ParamsDataView input_data_view(params, message);
@@ -687,8 +697,8 @@ std::move(p_output_period_ms));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopEventLog(
-std::move(p_peer_connection_local_id));
+      impl->StopEventLog(        
+        std::move(p_peer_connection_local_id));
       return true;
     }
     case internal::kPeerConnectionManager_GetStandardStats_Name: {
@@ -698,6 +708,8 @@ std::move(p_peer_connection_local_id));
           reinterpret_cast<internal::PeerConnectionManager_GetStandardStats_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.5
       bool success = true;
       PeerConnectionManager_GetStandardStats_ParamsDataView input_data_view(params, message);
       
@@ -710,7 +722,7 @@ std::move(p_peer_connection_local_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStandardStats();
+      impl->GetStandardStats(        );
       return true;
     }
     case internal::kPeerConnectionManager_GetCurrentState_Name: {
@@ -720,6 +732,8 @@ std::move(p_peer_connection_local_id));
           reinterpret_cast<internal::PeerConnectionManager_GetCurrentState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionManager.6
       bool success = true;
       PeerConnectionManager_GetCurrentState_ParamsDataView input_data_view(params, message);
       
@@ -732,7 +746,7 @@ std::move(p_peer_connection_local_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCurrentState();
+      impl->GetCurrentState(        );
       return true;
     }
   }
@@ -1948,6 +1962,8 @@ bool PeerConnectionTrackerHostStubDispatch::Accept(
           reinterpret_cast<internal::PeerConnectionTrackerHost_AddPeerConnection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.0
       bool success = true;
       PeerConnectionInfoPtr p_info{};
       PeerConnectionTrackerHost_AddPeerConnection_ParamsDataView input_data_view(params, message);
@@ -1963,8 +1979,8 @@ bool PeerConnectionTrackerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPeerConnection(
-std::move(p_info));
+      impl->AddPeerConnection(        
+        std::move(p_info));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_RemovePeerConnection_Name: {
@@ -1974,6 +1990,8 @@ std::move(p_info));
           reinterpret_cast<internal::PeerConnectionTrackerHost_RemovePeerConnection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.1
       bool success = true;
       int32_t p_lid{};
       PeerConnectionTrackerHost_RemovePeerConnection_ParamsDataView input_data_view(params, message);
@@ -1989,8 +2007,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovePeerConnection(
-std::move(p_lid));
+      impl->RemovePeerConnection(        
+        std::move(p_lid));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_UpdatePeerConnection_Name: {
@@ -2000,6 +2018,8 @@ std::move(p_lid));
           reinterpret_cast<internal::PeerConnectionTrackerHost_UpdatePeerConnection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.2
       bool success = true;
       int32_t p_lid{};
       WTF::String p_type{};
@@ -2021,10 +2041,10 @@ std::move(p_lid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdatePeerConnection(
-std::move(p_lid), 
-std::move(p_type), 
-std::move(p_value));
+      impl->UpdatePeerConnection(        
+        std::move(p_lid), 
+        std::move(p_type), 
+        std::move(p_value));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_OnPeerConnectionSessionIdSet_Name: {
@@ -2034,6 +2054,8 @@ std::move(p_value));
           reinterpret_cast<internal::PeerConnectionTrackerHost_OnPeerConnectionSessionIdSet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.3
       bool success = true;
       int32_t p_lid{};
       WTF::String p_session_id{};
@@ -2052,9 +2074,9 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPeerConnectionSessionIdSet(
-std::move(p_lid), 
-std::move(p_session_id));
+      impl->OnPeerConnectionSessionIdSet(        
+        std::move(p_lid), 
+        std::move(p_session_id));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_GetUserMedia_Name: {
@@ -2064,6 +2086,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::PeerConnectionTrackerHost_GetUserMedia_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.4
       bool success = true;
       int32_t p_request_id{};
       bool p_audio{};
@@ -2091,12 +2115,12 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserMedia(
-std::move(p_request_id), 
-std::move(p_audio), 
-std::move(p_video), 
-std::move(p_audio_constraints), 
-std::move(p_video_constraints));
+      impl->GetUserMedia(        
+        std::move(p_request_id), 
+        std::move(p_audio), 
+        std::move(p_video), 
+        std::move(p_audio_constraints), 
+        std::move(p_video_constraints));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_GetUserMediaSuccess_Name: {
@@ -2106,6 +2130,8 @@ std::move(p_video_constraints));
           reinterpret_cast<internal::PeerConnectionTrackerHost_GetUserMediaSuccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.5
       bool success = true;
       int32_t p_request_id{};
       WTF::String p_stream_id{};
@@ -2130,11 +2156,11 @@ std::move(p_video_constraints));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserMediaSuccess(
-std::move(p_request_id), 
-std::move(p_stream_id), 
-std::move(p_audio_track_info), 
-std::move(p_video_track_info));
+      impl->GetUserMediaSuccess(        
+        std::move(p_request_id), 
+        std::move(p_stream_id), 
+        std::move(p_audio_track_info), 
+        std::move(p_video_track_info));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_GetUserMediaFailure_Name: {
@@ -2144,6 +2170,8 @@ std::move(p_video_track_info));
           reinterpret_cast<internal::PeerConnectionTrackerHost_GetUserMediaFailure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.6
       bool success = true;
       int32_t p_request_id{};
       WTF::String p_error{};
@@ -2165,10 +2193,10 @@ std::move(p_video_track_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetUserMediaFailure(
-std::move(p_request_id), 
-std::move(p_error), 
-std::move(p_error_message));
+      impl->GetUserMediaFailure(        
+        std::move(p_request_id), 
+        std::move(p_error), 
+        std::move(p_error_message));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_GetDisplayMedia_Name: {
@@ -2178,6 +2206,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::PeerConnectionTrackerHost_GetDisplayMedia_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.7
       bool success = true;
       int32_t p_request_id{};
       bool p_audio{};
@@ -2205,12 +2235,12 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDisplayMedia(
-std::move(p_request_id), 
-std::move(p_audio), 
-std::move(p_video), 
-std::move(p_audio_constraints), 
-std::move(p_video_constraints));
+      impl->GetDisplayMedia(        
+        std::move(p_request_id), 
+        std::move(p_audio), 
+        std::move(p_video), 
+        std::move(p_audio_constraints), 
+        std::move(p_video_constraints));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_GetDisplayMediaSuccess_Name: {
@@ -2220,6 +2250,8 @@ std::move(p_video_constraints));
           reinterpret_cast<internal::PeerConnectionTrackerHost_GetDisplayMediaSuccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.8
       bool success = true;
       int32_t p_request_id{};
       WTF::String p_stream_id{};
@@ -2244,11 +2276,11 @@ std::move(p_video_constraints));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDisplayMediaSuccess(
-std::move(p_request_id), 
-std::move(p_stream_id), 
-std::move(p_audio_track_info), 
-std::move(p_video_track_info));
+      impl->GetDisplayMediaSuccess(        
+        std::move(p_request_id), 
+        std::move(p_stream_id), 
+        std::move(p_audio_track_info), 
+        std::move(p_video_track_info));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_GetDisplayMediaFailure_Name: {
@@ -2258,6 +2290,8 @@ std::move(p_video_track_info));
           reinterpret_cast<internal::PeerConnectionTrackerHost_GetDisplayMediaFailure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.9
       bool success = true;
       int32_t p_request_id{};
       WTF::String p_error{};
@@ -2279,10 +2313,10 @@ std::move(p_video_track_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDisplayMediaFailure(
-std::move(p_request_id), 
-std::move(p_error), 
-std::move(p_error_message));
+      impl->GetDisplayMediaFailure(        
+        std::move(p_request_id), 
+        std::move(p_error), 
+        std::move(p_error_message));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_WebRtcEventLogWrite_Name: {
@@ -2292,6 +2326,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::PeerConnectionTrackerHost_WebRtcEventLogWrite_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.10
       bool success = true;
       int32_t p_lid{};
       WTF::Vector<uint8_t> p_output{};
@@ -2310,9 +2346,9 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WebRtcEventLogWrite(
-std::move(p_lid), 
-std::move(p_output));
+      impl->WebRtcEventLogWrite(        
+        std::move(p_lid), 
+        std::move(p_output));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_AddStandardStats_Name: {
@@ -2322,6 +2358,8 @@ std::move(p_output));
           reinterpret_cast<internal::PeerConnectionTrackerHost_AddStandardStats_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.11
       bool success = true;
       int32_t p_lid{};
       ::base::Value::List p_value{};
@@ -2340,9 +2378,9 @@ std::move(p_output));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddStandardStats(
-std::move(p_lid), 
-std::move(p_value));
+      impl->AddStandardStats(        
+        std::move(p_lid), 
+        std::move(p_value));
       return true;
     }
     case internal::kPeerConnectionTrackerHost_AddLegacyStats_Name: {
@@ -2352,6 +2390,8 @@ std::move(p_value));
           reinterpret_cast<internal::PeerConnectionTrackerHost_AddLegacyStats_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PeerConnectionTrackerHost.12
       bool success = true;
       int32_t p_lid{};
       ::base::Value::List p_value{};
@@ -2370,9 +2410,9 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLegacyStats(
-std::move(p_lid), 
-std::move(p_value));
+      impl->AddLegacyStats(        
+        std::move(p_lid), 
+        std::move(p_value));
       return true;
     }
   }

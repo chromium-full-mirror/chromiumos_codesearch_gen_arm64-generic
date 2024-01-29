@@ -392,6 +392,8 @@ bool TrustedVaultEncryptionKeysExtension_SetEncryptionKeys_ForwardToCallback::Ac
           internal::TrustedVaultEncryptionKeysExtension_SetEncryptionKeys_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedVaultEncryptionKeysExtension.0
   bool success = true;
   TrustedVaultEncryptionKeysExtension_SetEncryptionKeys_ResponseParamsDataView input_data_view(params, message);
   
@@ -499,6 +501,8 @@ bool TrustedVaultEncryptionKeysExtension_AddTrustedRecoveryMethod_ForwardToCallb
           internal::TrustedVaultEncryptionKeysExtension_AddTrustedRecoveryMethod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrustedVaultEncryptionKeysExtension.1
   bool success = true;
   TrustedVaultEncryptionKeysExtension_AddTrustedRecoveryMethod_ResponseParamsDataView input_data_view(params, message);
   
@@ -580,6 +584,8 @@ bool TrustedVaultEncryptionKeysExtensionStubDispatch::AcceptWithResponder(
               internal::TrustedVaultEncryptionKeysExtension_SetEncryptionKeys_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedVaultEncryptionKeysExtension.0
       bool success = true;
       std::string p_gaia_id{};
       base::flat_map<std::string, std::vector<TrustedVaultKeyPtr>> p_encryption_keys{};
@@ -601,9 +607,9 @@ bool TrustedVaultEncryptionKeysExtensionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEncryptionKeys(
-std::move(p_gaia_id), 
-std::move(p_encryption_keys), std::move(callback));
+      impl->SetEncryptionKeys(        
+        std::move(p_gaia_id), 
+        std::move(p_encryption_keys), std::move(callback));
       return true;
     }
     case internal::kTrustedVaultEncryptionKeysExtension_AddTrustedRecoveryMethod_Name: {
@@ -613,6 +619,8 @@ std::move(p_encryption_keys), std::move(callback));
               internal::TrustedVaultEncryptionKeysExtension_AddTrustedRecoveryMethod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrustedVaultEncryptionKeysExtension.1
       bool success = true;
       std::string p_gaia_id{};
       std::vector<uint8_t> p_public_key{};
@@ -637,10 +645,10 @@ std::move(p_encryption_keys), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddTrustedRecoveryMethod(
-std::move(p_gaia_id), 
-std::move(p_public_key), 
-std::move(p_method_type_hint), std::move(callback));
+      impl->AddTrustedRecoveryMethod(        
+        std::move(p_gaia_id), 
+        std::move(p_public_key), 
+        std::move(p_method_type_hint), std::move(callback));
       return true;
     }
   }

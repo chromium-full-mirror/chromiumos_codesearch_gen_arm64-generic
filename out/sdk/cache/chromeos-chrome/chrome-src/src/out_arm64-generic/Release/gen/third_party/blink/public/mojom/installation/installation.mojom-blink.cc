@@ -149,6 +149,8 @@ bool InstallationServiceStubDispatch::Accept(
           reinterpret_cast<internal::InstallationService_OnInstall_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InstallationService.0
       bool success = true;
       InstallationService_OnInstall_ParamsDataView input_data_view(params, message);
       
@@ -161,7 +163,7 @@ bool InstallationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnInstall();
+      impl->OnInstall(        );
       return true;
     }
   }

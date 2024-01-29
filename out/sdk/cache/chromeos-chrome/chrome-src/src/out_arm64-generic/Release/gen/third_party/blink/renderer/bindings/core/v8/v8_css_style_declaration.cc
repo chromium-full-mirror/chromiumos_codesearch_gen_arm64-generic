@@ -115,8 +115,7 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.Holder();
 CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& blink_property_value = NativeValueTraits<IDLAny>::ArgumentValue(isolate, 1, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -245,9 +244,13 @@ blink_receiver->NamedPropertyEnumerator(blink_property_names, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 bindings::V8SetReturnValue(
     info,
-    ToV8(blink_property_names, v8_receiver, isolate));
+    ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state,
+                                             blink_property_names)
+         .As<v8::Array>());
 
 }
 
@@ -424,8 +427,8 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
@@ -500,8 +503,8 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
@@ -684,8 +687,8 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ExecutionContext* receiver_execution_context = ToExecutionContext(receiver_script_state);
 ExecutionContext* execution_context = receiver_execution_context;
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

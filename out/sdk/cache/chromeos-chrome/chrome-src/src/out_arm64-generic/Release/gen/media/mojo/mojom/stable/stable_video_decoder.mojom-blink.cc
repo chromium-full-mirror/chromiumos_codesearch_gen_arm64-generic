@@ -168,6 +168,8 @@ bool MediaLogStubDispatch::Accept(
           reinterpret_cast<internal::MediaLog_AddLogRecord_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaLog.0
       bool success = true;
       ::media::stable::mojom::blink::MediaLogRecordPtr p_event{};
       MediaLog_AddLogRecord_ParamsDataView input_data_view(params, message);
@@ -183,8 +185,8 @@ bool MediaLogStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLogRecord(
-std::move(p_event));
+      impl->AddLogRecord(        
+        std::move(p_event));
       return true;
     }
   }
@@ -341,6 +343,8 @@ bool VideoFrameHandleReleaserStubDispatch::Accept(
           reinterpret_cast<internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFrameHandleReleaser.0
       bool success = true;
       ::base::UnguessableToken p_release_token{};
       VideoFrameHandleReleaser_ReleaseVideoFrame_ParamsDataView input_data_view(params, message);
@@ -356,8 +360,8 @@ bool VideoFrameHandleReleaserStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReleaseVideoFrame(
-std::move(p_release_token));
+      impl->ReleaseVideoFrame(        
+        std::move(p_release_token));
       return true;
     }
   }
@@ -594,6 +598,8 @@ bool VideoDecoderClientStubDispatch::Accept(
           reinterpret_cast<internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecoderClient.0
       bool success = true;
       ::media::stable::mojom::blink::VideoFramePtr p_frame{};
       bool p_can_read_without_stalling{};
@@ -615,10 +621,10 @@ bool VideoDecoderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVideoFrameDecoded(
-std::move(p_frame), 
-std::move(p_can_read_without_stalling), 
-std::move(p_release_token));
+      impl->OnVideoFrameDecoded(        
+        std::move(p_frame), 
+        std::move(p_can_read_without_stalling), 
+        std::move(p_release_token));
       return true;
     }
     case internal::kVideoDecoderClient_OnWaiting_Name: {
@@ -628,6 +634,8 @@ std::move(p_release_token));
           reinterpret_cast<internal::VideoDecoderClient_OnWaiting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoDecoderClient.1
       bool success = true;
       ::media::stable::mojom::blink::WaitingReason p_reason{};
       VideoDecoderClient_OnWaiting_ParamsDataView input_data_view(params, message);
@@ -643,8 +651,8 @@ std::move(p_release_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWaiting(
-std::move(p_reason));
+      impl->OnWaiting(        
+        std::move(p_reason));
       return true;
     }
   }
@@ -797,6 +805,8 @@ bool CdmContextEventCallbackStubDispatch::Accept(
           reinterpret_cast<internal::CdmContextEventCallback_EventCallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmContextEventCallback.0
       bool success = true;
       ::media::stable::mojom::blink::CdmContextEvent p_event{};
       CdmContextEventCallback_EventCallback_ParamsDataView input_data_view(params, message);
@@ -812,8 +822,8 @@ bool CdmContextEventCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EventCallback(
-std::move(p_event));
+      impl->EventCallback(        
+        std::move(p_event));
       return true;
     }
   }
@@ -868,6 +878,9 @@ StableCdmContext::IPCStableHashFunction StableCdmContext::MessageToMethodInfo_(m
     case internal::kStableCdmContext_AllocateSecureBuffer_Name: {
       return &StableCdmContext::AllocateSecureBuffer_Sym::IPCStableHash;
     }
+    case internal::kStableCdmContext_ParseEncryptedSliceHeader_Name: {
+      return &StableCdmContext::ParseEncryptedSliceHeader_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -889,6 +902,8 @@ const char* StableCdmContext::MessageToMethodName_(mojo::Message& message) {
             return "Receive media::stable::mojom::StableCdmContext::GetScreenResolutions";
       case internal::kStableCdmContext_AllocateSecureBuffer_Name:
             return "Receive media::stable::mojom::StableCdmContext::AllocateSecureBuffer";
+      case internal::kStableCdmContext_ParseEncryptedSliceHeader_Name:
+            return "Receive media::stable::mojom::StableCdmContext::ParseEncryptedSliceHeader";
     }
   } else {
     switch (message.name()) {
@@ -902,6 +917,8 @@ const char* StableCdmContext::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply media::stable::mojom::StableCdmContext::GetScreenResolutions";
       case internal::kStableCdmContext_AllocateSecureBuffer_Name:
             return "Receive reply media::stable::mojom::StableCdmContext::AllocateSecureBuffer";
+      case internal::kStableCdmContext_ParseEncryptedSliceHeader_Name:
+            return "Receive reply media::stable::mojom::StableCdmContext::ParseEncryptedSliceHeader";
     }
   }
   return "Receive unknown mojo message";
@@ -981,6 +998,19 @@ uint32_t StableCdmContext::AllocateSecureBuffer_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t StableCdmContext::ParseEncryptedSliceHeader_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)media::stable::mojom::StableCdmContext::ParseEncryptedSliceHeader");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class StableCdmContext_GetHwKeyData_ForwardToCallback
@@ -1045,6 +1075,22 @@ class StableCdmContext_AllocateSecureBuffer_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   StableCdmContext::AllocateSecureBufferCallback callback_;
+};
+
+class StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback(
+      StableCdmContext::ParseEncryptedSliceHeaderCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback(const StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback&) = delete;
+  StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback& operator=(const StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  StableCdmContext::ParseEncryptedSliceHeaderCallback callback_;
 };
 
 StableCdmContextProxy::StableCdmContextProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1274,6 +1320,68 @@ void StableCdmContextProxy::AllocateSecureBuffer(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void StableCdmContextProxy::ParseEncryptedSliceHeader(
+    uint64_t in_secure_handle, uint32_t in_offset, const WTF::Vector<uint8_t>& in_stream_data, ParseEncryptedSliceHeaderCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send media::stable::mojom::StableCdmContext::ParseEncryptedSliceHeader", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("secure_handle"), in_secure_handle,
+                        "<value of type uint64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("offset"), in_offset,
+                        "<value of type uint32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("stream_data"), in_stream_data,
+                        "<value of type const WTF::Vector<uint8_t>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStableCdmContext_ParseEncryptedSliceHeader_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media::stable::mojom::internal::StableCdmContext_ParseEncryptedSliceHeader_Params_Data> params(
+          message);
+  params.Allocate();
+  params->secure_handle = in_secure_handle;
+  params->offset = in_offset;
+  mojo::internal::MessageFragment<
+      typename decltype(params->stream_data)::BaseType>
+      stream_data_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& stream_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+      in_stream_data, stream_data_fragment, &stream_data_validate_params);
+  params->stream_data.Set(
+      stream_data_fragment.is_null() ? nullptr : stream_data_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->stream_data.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null stream_data in StableCdmContext.ParseEncryptedSliceHeader request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StableCdmContext::Name_);
+  message.set_method_name("ParseEncryptedSliceHeader");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class StableCdmContext_GetHwKeyData_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static StableCdmContext::GetHwKeyDataCallback CreateCallback(
@@ -1332,6 +1440,8 @@ bool StableCdmContext_GetHwKeyData_ForwardToCallback::Accept(
           internal::StableCdmContext_GetHwKeyData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableCdmContext.0
   bool success = true;
   ::media::stable::mojom::blink::DecryptStatus p_status{};
   WTF::Vector<uint8_t> p_key_data{};
@@ -1472,6 +1582,8 @@ bool StableCdmContext_GetHwConfigData_ForwardToCallback::Accept(
           internal::StableCdmContext_GetHwConfigData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableCdmContext.2
   bool success = true;
   bool p_success{};
   WTF::Vector<uint8_t> p_config_data{};
@@ -1611,6 +1723,8 @@ bool StableCdmContext_GetScreenResolutions_ForwardToCallback::Accept(
           internal::StableCdmContext_GetScreenResolutions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableCdmContext.3
   bool success = true;
   WTF::Vector<::gfx::Size> p_resolutions{};
   StableCdmContext_GetScreenResolutions_ResponseParamsDataView input_data_view(params, message);
@@ -1742,6 +1856,8 @@ bool StableCdmContext_AllocateSecureBuffer_ForwardToCallback::Accept(
           internal::StableCdmContext_AllocateSecureBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableCdmContext.4
   bool success = true;
   ::mojo::PlatformHandle p_secure_buffer{};
   StableCdmContext_AllocateSecureBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -1804,6 +1920,147 @@ void StableCdmContext_AllocateSecureBuffer_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static StableCdmContext::ParseEncryptedSliceHeaderCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder> proxy(
+        new StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "StableCdmContext::ParseEncryptedSliceHeaderCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success, const WTF::Vector<uint8_t>& in_slice_header);
+};
+
+bool StableCdmContext_ParseEncryptedSliceHeader_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for StableCdmContext.5
+  bool success = true;
+  bool p_success{};
+  WTF::Vector<uint8_t> p_slice_header{};
+  StableCdmContext_ParseEncryptedSliceHeader_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (success && !input_data_view.ReadSliceHeader(&p_slice_header))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        StableCdmContext::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success), 
+std::move(p_slice_header));
+  return true;
+}
+
+void StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder::Run(
+    bool in_success, const WTF::Vector<uint8_t>& in_slice_header) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply media::stable::mojom::StableCdmContext::ParseEncryptedSliceHeader", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("slice_header"), in_slice_header,
+                        "<value of type const WTF::Vector<uint8_t>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kStableCdmContext_ParseEncryptedSliceHeader_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media::stable::mojom::internal::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+  mojo::internal::MessageFragment<
+      typename decltype(params->slice_header)::BaseType>
+      slice_header_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& slice_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+      in_slice_header, slice_header_fragment, &slice_header_validate_params);
+  params->slice_header.Set(
+      slice_header_fragment.is_null() ? nullptr : slice_header_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->slice_header.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null slice_header in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StableCdmContext::Name_);
+  message.set_method_name("ParseEncryptedSliceHeader");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool StableCdmContextStubDispatch::Accept(
@@ -1820,6 +2077,8 @@ bool StableCdmContextStubDispatch::Accept(
           reinterpret_cast<internal::StableCdmContext_RegisterEventCallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StableCdmContext.1
       bool success = true;
       ::mojo::PendingRemote<CdmContextEventCallback> p_callback{};
       StableCdmContext_RegisterEventCallback_ParamsDataView input_data_view(params, message);
@@ -1837,8 +2096,8 @@ bool StableCdmContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterEventCallback(
-std::move(p_callback));
+      impl->RegisterEventCallback(        
+        std::move(p_callback));
       return true;
     }
     case internal::kStableCdmContext_GetHwConfigData_Name: {
@@ -1848,6 +2107,9 @@ std::move(p_callback));
       break;
     }
     case internal::kStableCdmContext_AllocateSecureBuffer_Name: {
+      break;
+    }
+    case internal::kStableCdmContext_ParseEncryptedSliceHeader_Name: {
       break;
     }
   }
@@ -1870,6 +2132,8 @@ bool StableCdmContextStubDispatch::AcceptWithResponder(
               internal::StableCdmContext_GetHwKeyData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableCdmContext.0
       bool success = true;
       ::media::stable::mojom::blink::DecryptConfigPtr p_decrypt_config{};
       WTF::Vector<uint8_t> p_hw_identifier{};
@@ -1891,9 +2155,9 @@ bool StableCdmContextStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHwKeyData(
-std::move(p_decrypt_config), 
-std::move(p_hw_identifier), std::move(callback));
+      impl->GetHwKeyData(        
+        std::move(p_decrypt_config), 
+        std::move(p_hw_identifier), std::move(callback));
       return true;
     }
     case internal::kStableCdmContext_RegisterEventCallback_Name: {
@@ -1906,6 +2170,8 @@ std::move(p_hw_identifier), std::move(callback));
               internal::StableCdmContext_GetHwConfigData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableCdmContext.2
       bool success = true;
       StableCdmContext_GetHwConfigData_ParamsDataView input_data_view(params, message);
       
@@ -1931,6 +2197,8 @@ std::move(p_hw_identifier), std::move(callback));
               internal::StableCdmContext_GetScreenResolutions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableCdmContext.3
       bool success = true;
       StableCdmContext_GetScreenResolutions_ParamsDataView input_data_view(params, message);
       
@@ -1956,6 +2224,8 @@ std::move(p_hw_identifier), std::move(callback));
               internal::StableCdmContext_AllocateSecureBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableCdmContext.4
       bool success = true;
       uint32_t p_size{};
       StableCdmContext_AllocateSecureBuffer_ParamsDataView input_data_view(params, message);
@@ -1974,8 +2244,47 @@ std::move(p_hw_identifier), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllocateSecureBuffer(
-std::move(p_size), std::move(callback));
+      impl->AllocateSecureBuffer(        
+        std::move(p_size), std::move(callback));
+      return true;
+    }
+    case internal::kStableCdmContext_ParseEncryptedSliceHeader_Name: {
+
+      internal::StableCdmContext_ParseEncryptedSliceHeader_Params_Data* params =
+          reinterpret_cast<
+              internal::StableCdmContext_ParseEncryptedSliceHeader_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for StableCdmContext.5
+      bool success = true;
+      uint64_t p_secure_handle{};
+      uint32_t p_offset{};
+      WTF::Vector<uint8_t> p_stream_data{};
+      StableCdmContext_ParseEncryptedSliceHeader_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_secure_handle = input_data_view.secure_handle();
+      if (success)
+        p_offset = input_data_view.offset();
+      if (success && !input_data_view.ReadStreamData(&p_stream_data))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StableCdmContext::Name_, 5, false);
+        return false;
+      }
+      StableCdmContext::ParseEncryptedSliceHeaderCallback callback =
+          StableCdmContext_ParseEncryptedSliceHeader_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ParseEncryptedSliceHeader(        
+        std::move(p_secure_handle), 
+        std::move(p_offset), 
+        std::move(p_stream_data), std::move(callback));
       return true;
     }
   }
@@ -1994,6 +2303,8 @@ static const mojo::internal::GenericValidationInfo kStableCdmContextValidationIn
      &internal::StableCdmContext_GetScreenResolutions_ResponseParams_Data::Validate},
     { &internal::StableCdmContext_AllocateSecureBuffer_Params_Data::Validate,
      &internal::StableCdmContext_AllocateSecureBuffer_ResponseParams_Data::Validate},
+    { &internal::StableCdmContext_ParseEncryptedSliceHeader_Params_Data::Validate,
+     &internal::StableCdmContext_ParseEncryptedSliceHeader_ResponseParams_Data::Validate},
 };
 
 bool StableCdmContextRequestValidator::Accept(mojo::Message* message) {
@@ -2534,6 +2845,8 @@ bool StableVideoDecoder_GetSupportedConfigs_ForwardToCallback::Accept(
           internal::StableVideoDecoder_GetSupportedConfigs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableVideoDecoder.0
   bool success = true;
   WTF::Vector<::media::stable::mojom::blink::SupportedVideoDecoderConfigPtr> p_supported_configs{};
   ::media::stable::mojom::blink::VideoDecoderType p_decoder_type{};
@@ -2674,6 +2987,8 @@ bool StableVideoDecoder_Initialize_ForwardToCallback::Accept(
           internal::StableVideoDecoder_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableVideoDecoder.2
   bool success = true;
   ::media::stable::mojom::blink::StatusPtr p_status{};
   bool p_needs_bitstream_conversion{};
@@ -2836,6 +3151,8 @@ bool StableVideoDecoder_Decode_ForwardToCallback::Accept(
           internal::StableVideoDecoder_Decode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableVideoDecoder.3
   bool success = true;
   ::media::stable::mojom::blink::StatusPtr p_status{};
   StableVideoDecoder_Decode_ResponseParamsDataView input_data_view(params, message);
@@ -2965,6 +3282,8 @@ bool StableVideoDecoder_Reset_ForwardToCallback::Accept(
           internal::StableVideoDecoder_Reset_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StableVideoDecoder.4
   bool success = true;
   StableVideoDecoder_Reset_ResponseParamsDataView input_data_view(params, message);
   
@@ -3030,6 +3349,8 @@ bool StableVideoDecoderStubDispatch::Accept(
           reinterpret_cast<internal::StableVideoDecoder_Construct_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoder.1
       bool success = true;
       ::mojo::PendingAssociatedRemote<VideoDecoderClient> p_client{};
       ::mojo::PendingRemote<MediaLog> p_media_log{};
@@ -3063,12 +3384,12 @@ bool StableVideoDecoderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Construct(
-std::move(p_client), 
-std::move(p_media_log), 
-std::move(p_video_frame_handle_releaser), 
-std::move(p_decoder_buffer_pipe), 
-std::move(p_target_color_space));
+      impl->Construct(        
+        std::move(p_client), 
+        std::move(p_media_log), 
+        std::move(p_video_frame_handle_releaser), 
+        std::move(p_decoder_buffer_pipe), 
+        std::move(p_target_color_space));
       return true;
     }
     case internal::kStableVideoDecoder_Initialize_Name: {
@@ -3100,6 +3421,8 @@ bool StableVideoDecoderStubDispatch::AcceptWithResponder(
               internal::StableVideoDecoder_GetSupportedConfigs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoder.0
       bool success = true;
       StableVideoDecoder_GetSupportedConfigs_ParamsDataView input_data_view(params, message);
       
@@ -3128,6 +3451,8 @@ bool StableVideoDecoderStubDispatch::AcceptWithResponder(
               internal::StableVideoDecoder_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoder.2
       bool success = true;
       ::media::stable::mojom::blink::VideoDecoderConfigPtr p_config{};
       bool p_low_delay{};
@@ -3154,10 +3479,10 @@ bool StableVideoDecoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_config), 
-std::move(p_low_delay), 
-std::move(p_cdm_context), std::move(callback));
+      impl->Initialize(        
+        std::move(p_config), 
+        std::move(p_low_delay), 
+        std::move(p_cdm_context), std::move(callback));
       return true;
     }
     case internal::kStableVideoDecoder_Decode_Name: {
@@ -3167,6 +3492,8 @@ std::move(p_cdm_context), std::move(callback));
               internal::StableVideoDecoder_Decode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoder.3
       bool success = true;
       ::media::stable::mojom::blink::DecoderBufferPtr p_buffer{};
       StableVideoDecoder_Decode_ParamsDataView input_data_view(params, message);
@@ -3185,8 +3512,8 @@ std::move(p_cdm_context), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decode(
-std::move(p_buffer), std::move(callback));
+      impl->Decode(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kStableVideoDecoder_Reset_Name: {
@@ -3196,6 +3523,8 @@ std::move(p_buffer), std::move(callback));
               internal::StableVideoDecoder_Reset_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoder.4
       bool success = true;
       StableVideoDecoder_Reset_ParamsDataView input_data_view(params, message);
       
@@ -3416,6 +3745,8 @@ bool StableVideoDecoderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::StableVideoDecoderFactory_CreateStableVideoDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoderFactory.0
       bool success = true;
       ::mojo::PendingReceiver<StableVideoDecoder> p_receiver{};
       ::mojo::PendingRemote<StableVideoDecoderTracker> p_tracker{};
@@ -3438,9 +3769,9 @@ bool StableVideoDecoderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateStableVideoDecoder(
-std::move(p_receiver), 
-std::move(p_tracker));
+      impl->CreateStableVideoDecoder(        
+        std::move(p_receiver), 
+        std::move(p_tracker));
       return true;
     }
   }
@@ -3609,6 +3940,8 @@ bool StableVideoDecoderFactoryProcessStubDispatch::Accept(
           reinterpret_cast<internal::StableVideoDecoderFactoryProcess_InitializeStableVideoDecoderFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StableVideoDecoderFactoryProcess.0
       bool success = true;
       ::gpu::mojom::blink::GpuFeatureInfoPtr p_gpu_feature_info{};
       bool p_enable_direct_video_decoder{};
@@ -3632,10 +3965,10 @@ bool StableVideoDecoderFactoryProcessStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeStableVideoDecoderFactory(
-std::move(p_gpu_feature_info), 
-std::move(p_enable_direct_video_decoder), 
-std::move(p_receiver));
+      impl->InitializeStableVideoDecoderFactory(        
+        std::move(p_gpu_feature_info), 
+        std::move(p_enable_direct_video_decoder), 
+        std::move(p_receiver));
       return true;
     }
   }
@@ -3748,6 +4081,9 @@ void StableCdmContextInterceptorForTesting::GetScreenResolutions(GetScreenResolu
 void StableCdmContextInterceptorForTesting::AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) {
   GetForwardingInterface()->AllocateSecureBuffer(std::move(size), std::move(callback));
 }
+void StableCdmContextInterceptorForTesting::ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const WTF::Vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) {
+  GetForwardingInterface()->ParseEncryptedSliceHeader(std::move(secure_handle), std::move(offset), std::move(stream_data), std::move(callback));
+}
 StableCdmContextAsyncWaiter::StableCdmContextAsyncWaiter(
     StableCdmContext* proxy) : proxy_(proxy) {}
 
@@ -3842,6 +4178,28 @@ void StableCdmContextAsyncWaiter::AllocateSecureBuffer(
   AllocateSecureBuffer(std::move(size),&async_wait_result);
   return async_wait_result;
 }
+
+void StableCdmContextAsyncWaiter::ParseEncryptedSliceHeader(
+    uint64_t secure_handle, uint32_t offset, const WTF::Vector<uint8_t>& stream_data, bool* out_success, WTF::Vector<uint8_t>* out_slice_header) {
+  base::RunLoop loop;
+  proxy_->ParseEncryptedSliceHeader(std::move(secure_handle),std::move(offset),std::move(stream_data),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             WTF::Vector<uint8_t>* out_slice_header
+,
+             bool success,
+             const WTF::Vector<uint8_t>& slice_header) {*out_success = std::move(success);*out_slice_header = std::move(slice_header);
+            loop->Quit();
+          },
+          &loop,
+          out_success,
+          out_slice_header));
+  loop.Run();
+}
+
+
 
 
 

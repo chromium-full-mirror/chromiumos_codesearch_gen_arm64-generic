@@ -512,7 +512,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'enableWebkitScrollbarStyling', 83,
+        'prefersDefaultScrollbarStyles', 83,
         3,
         mojo.internal.Bool,
         false,
@@ -1352,7 +1352,7 @@ blink.mojom.WebPreferences = class {
     /** @export { !boolean } */
     this.hideScrollbars;
     /** @export { !boolean } */
-    this.enableWebkitScrollbarStyling;
+    this.prefersDefaultScrollbarStyles;
     /** @export { !boolean } */
     this.accelerated2dCanvasEnabled;
     /** @export { !boolean } */

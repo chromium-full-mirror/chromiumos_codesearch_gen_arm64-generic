@@ -2175,6 +2175,8 @@ bool ChapsService_GetSlotList_ForwardToCallback::Accept(
           internal::ChapsService_GetSlotList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.0
   bool success = true;
   std::vector<uint64_t> p_slot_list{};
   uint32_t p_result{};
@@ -2314,6 +2316,8 @@ bool ChapsService_GetMechanismList_ForwardToCallback::Accept(
           internal::ChapsService_GetMechanismList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.1
   bool success = true;
   std::vector<uint64_t> p_mechanism_list{};
   uint32_t p_result{};
@@ -2453,6 +2457,8 @@ bool ChapsService_OpenSession_ForwardToCallback::Accept(
           internal::ChapsService_OpenSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.2
   bool success = true;
   uint64_t p_session_id{};
   uint32_t p_result{};
@@ -2580,6 +2586,8 @@ bool ChapsService_CloseSession_ForwardToCallback::Accept(
           internal::ChapsService_CloseSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.3
   bool success = true;
   uint32_t p_result{};
   ChapsService_CloseSession_ResponseParamsDataView input_data_view(params, message);
@@ -2699,6 +2707,8 @@ bool ChapsService_CreateObject_ForwardToCallback::Accept(
           internal::ChapsService_CreateObject_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.4
   bool success = true;
   uint64_t p_new_object_handle{};
   uint32_t p_result{};
@@ -2826,6 +2836,8 @@ bool ChapsService_DestroyObject_ForwardToCallback::Accept(
           internal::ChapsService_DestroyObject_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.5
   bool success = true;
   uint32_t p_result{};
   ChapsService_DestroyObject_ResponseParamsDataView input_data_view(params, message);
@@ -2945,6 +2957,8 @@ bool ChapsService_GetAttributeValue_ForwardToCallback::Accept(
           internal::ChapsService_GetAttributeValue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.6
   bool success = true;
   std::vector<uint8_t> p_attributes_out{};
   uint32_t p_result{};
@@ -3084,6 +3098,8 @@ bool ChapsService_SetAttributeValue_ForwardToCallback::Accept(
           internal::ChapsService_SetAttributeValue_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.7
   bool success = true;
   uint32_t p_result{};
   ChapsService_SetAttributeValue_ResponseParamsDataView input_data_view(params, message);
@@ -3203,6 +3219,8 @@ bool ChapsService_FindObjectsInit_ForwardToCallback::Accept(
           internal::ChapsService_FindObjectsInit_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.8
   bool success = true;
   uint32_t p_result{};
   ChapsService_FindObjectsInit_ResponseParamsDataView input_data_view(params, message);
@@ -3322,6 +3340,8 @@ bool ChapsService_FindObjects_ForwardToCallback::Accept(
           internal::ChapsService_FindObjects_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.9
   bool success = true;
   std::vector<uint64_t> p_object_list{};
   uint32_t p_result{};
@@ -3461,6 +3481,8 @@ bool ChapsService_FindObjectsFinal_ForwardToCallback::Accept(
           internal::ChapsService_FindObjectsFinal_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.10
   bool success = true;
   uint32_t p_result{};
   ChapsService_FindObjectsFinal_ResponseParamsDataView input_data_view(params, message);
@@ -3580,6 +3602,8 @@ bool ChapsService_EncryptInit_ForwardToCallback::Accept(
           internal::ChapsService_EncryptInit_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.11
   bool success = true;
   uint32_t p_result{};
   ChapsService_EncryptInit_ResponseParamsDataView input_data_view(params, message);
@@ -3699,6 +3723,8 @@ bool ChapsService_Encrypt_ForwardToCallback::Accept(
           internal::ChapsService_Encrypt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.12
   bool success = true;
   uint64_t p_actual_out_length{};
   std::vector<uint8_t> p_data{};
@@ -3846,6 +3872,8 @@ bool ChapsService_DecryptInit_ForwardToCallback::Accept(
           internal::ChapsService_DecryptInit_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.13
   bool success = true;
   uint32_t p_result{};
   ChapsService_DecryptInit_ResponseParamsDataView input_data_view(params, message);
@@ -3965,6 +3993,8 @@ bool ChapsService_Decrypt_ForwardToCallback::Accept(
           internal::ChapsService_Decrypt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.14
   bool success = true;
   uint64_t p_actual_out_length{};
   std::vector<uint8_t> p_data{};
@@ -4112,6 +4142,8 @@ bool ChapsService_SignInit_ForwardToCallback::Accept(
           internal::ChapsService_SignInit_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.15
   bool success = true;
   uint32_t p_result{};
   ChapsService_SignInit_ResponseParamsDataView input_data_view(params, message);
@@ -4231,6 +4263,8 @@ bool ChapsService_Sign_ForwardToCallback::Accept(
           internal::ChapsService_Sign_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.16
   bool success = true;
   uint64_t p_actual_out_length{};
   std::vector<uint8_t> p_signature{};
@@ -4378,6 +4412,8 @@ bool ChapsService_GenerateKeyPair_ForwardToCallback::Accept(
           internal::ChapsService_GenerateKeyPair_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.17
   bool success = true;
   uint64_t p_public_key_handle{};
   uint64_t p_private_key_handle{};
@@ -4513,6 +4549,8 @@ bool ChapsService_WrapKey_ForwardToCallback::Accept(
           internal::ChapsService_WrapKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.18
   bool success = true;
   uint64_t p_actual_out_length{};
   std::vector<uint8_t> p_wrapped_key{};
@@ -4660,6 +4698,8 @@ bool ChapsService_UnwrapKey_ForwardToCallback::Accept(
           internal::ChapsService_UnwrapKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.19
   bool success = true;
   uint64_t p_key_handle{};
   uint32_t p_result{};
@@ -4787,6 +4827,8 @@ bool ChapsService_DeriveKey_ForwardToCallback::Accept(
           internal::ChapsService_DeriveKey_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChapsService.20
   bool success = true;
   uint64_t p_key_handle{};
   uint32_t p_result{};
@@ -4945,6 +4987,8 @@ bool ChapsServiceStubDispatch::AcceptWithResponder(
               internal::ChapsService_GetSlotList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.0
       bool success = true;
       bool p_token_present{};
       ChapsService_GetSlotList_ParamsDataView input_data_view(params, message);
@@ -4963,8 +5007,8 @@ bool ChapsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSlotList(
-std::move(p_token_present), std::move(callback));
+      impl->GetSlotList(        
+        std::move(p_token_present), std::move(callback));
       return true;
     }
     case internal::kChapsService_GetMechanismList_Name: {
@@ -4974,6 +5018,8 @@ std::move(p_token_present), std::move(callback));
               internal::ChapsService_GetMechanismList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.1
       bool success = true;
       uint64_t p_slot_id{};
       ChapsService_GetMechanismList_ParamsDataView input_data_view(params, message);
@@ -4992,8 +5038,8 @@ std::move(p_token_present), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMechanismList(
-std::move(p_slot_id), std::move(callback));
+      impl->GetMechanismList(        
+        std::move(p_slot_id), std::move(callback));
       return true;
     }
     case internal::kChapsService_OpenSession_Name: {
@@ -5003,6 +5049,8 @@ std::move(p_slot_id), std::move(callback));
               internal::ChapsService_OpenSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.2
       bool success = true;
       uint64_t p_slot_id{};
       uint64_t p_flags{};
@@ -5024,9 +5072,9 @@ std::move(p_slot_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenSession(
-std::move(p_slot_id), 
-std::move(p_flags), std::move(callback));
+      impl->OpenSession(        
+        std::move(p_slot_id), 
+        std::move(p_flags), std::move(callback));
       return true;
     }
     case internal::kChapsService_CloseSession_Name: {
@@ -5036,6 +5084,8 @@ std::move(p_flags), std::move(callback));
               internal::ChapsService_CloseSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.3
       bool success = true;
       uint64_t p_session_id{};
       ChapsService_CloseSession_ParamsDataView input_data_view(params, message);
@@ -5054,8 +5104,8 @@ std::move(p_flags), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseSession(
-std::move(p_session_id), std::move(callback));
+      impl->CloseSession(        
+        std::move(p_session_id), std::move(callback));
       return true;
     }
     case internal::kChapsService_CreateObject_Name: {
@@ -5065,6 +5115,8 @@ std::move(p_session_id), std::move(callback));
               internal::ChapsService_CreateObject_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.4
       bool success = true;
       uint64_t p_session_id{};
       std::vector<uint8_t> p_attributes{};
@@ -5086,9 +5138,9 @@ std::move(p_session_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateObject(
-std::move(p_session_id), 
-std::move(p_attributes), std::move(callback));
+      impl->CreateObject(        
+        std::move(p_session_id), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
     case internal::kChapsService_DestroyObject_Name: {
@@ -5098,6 +5150,8 @@ std::move(p_attributes), std::move(callback));
               internal::ChapsService_DestroyObject_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.5
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_object_handle{};
@@ -5119,9 +5173,9 @@ std::move(p_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyObject(
-std::move(p_session_id), 
-std::move(p_object_handle), std::move(callback));
+      impl->DestroyObject(        
+        std::move(p_session_id), 
+        std::move(p_object_handle), std::move(callback));
       return true;
     }
     case internal::kChapsService_GetAttributeValue_Name: {
@@ -5131,6 +5185,8 @@ std::move(p_object_handle), std::move(callback));
               internal::ChapsService_GetAttributeValue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.6
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_object_handle{};
@@ -5155,10 +5211,10 @@ std::move(p_object_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAttributeValue(
-std::move(p_session_id), 
-std::move(p_object_handle), 
-std::move(p_attributes), std::move(callback));
+      impl->GetAttributeValue(        
+        std::move(p_session_id), 
+        std::move(p_object_handle), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
     case internal::kChapsService_SetAttributeValue_Name: {
@@ -5168,6 +5224,8 @@ std::move(p_attributes), std::move(callback));
               internal::ChapsService_SetAttributeValue_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.7
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_object_handle{};
@@ -5192,10 +5250,10 @@ std::move(p_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAttributeValue(
-std::move(p_session_id), 
-std::move(p_object_handle), 
-std::move(p_attributes), std::move(callback));
+      impl->SetAttributeValue(        
+        std::move(p_session_id), 
+        std::move(p_object_handle), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
     case internal::kChapsService_FindObjectsInit_Name: {
@@ -5205,6 +5263,8 @@ std::move(p_attributes), std::move(callback));
               internal::ChapsService_FindObjectsInit_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.8
       bool success = true;
       uint64_t p_session_id{};
       std::vector<uint8_t> p_attributes{};
@@ -5226,9 +5286,9 @@ std::move(p_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindObjectsInit(
-std::move(p_session_id), 
-std::move(p_attributes), std::move(callback));
+      impl->FindObjectsInit(        
+        std::move(p_session_id), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
     case internal::kChapsService_FindObjects_Name: {
@@ -5238,6 +5298,8 @@ std::move(p_attributes), std::move(callback));
               internal::ChapsService_FindObjects_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.9
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_max_object_count{};
@@ -5259,9 +5321,9 @@ std::move(p_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindObjects(
-std::move(p_session_id), 
-std::move(p_max_object_count), std::move(callback));
+      impl->FindObjects(        
+        std::move(p_session_id), 
+        std::move(p_max_object_count), std::move(callback));
       return true;
     }
     case internal::kChapsService_FindObjectsFinal_Name: {
@@ -5271,6 +5333,8 @@ std::move(p_max_object_count), std::move(callback));
               internal::ChapsService_FindObjectsFinal_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.10
       bool success = true;
       uint64_t p_session_id{};
       ChapsService_FindObjectsFinal_ParamsDataView input_data_view(params, message);
@@ -5289,8 +5353,8 @@ std::move(p_max_object_count), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FindObjectsFinal(
-std::move(p_session_id), std::move(callback));
+      impl->FindObjectsFinal(        
+        std::move(p_session_id), std::move(callback));
       return true;
     }
     case internal::kChapsService_EncryptInit_Name: {
@@ -5300,6 +5364,8 @@ std::move(p_session_id), std::move(callback));
               internal::ChapsService_EncryptInit_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.11
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5327,11 +5393,11 @@ std::move(p_session_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EncryptInit(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_key_handle), std::move(callback));
+      impl->EncryptInit(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_key_handle), std::move(callback));
       return true;
     }
     case internal::kChapsService_Encrypt_Name: {
@@ -5341,6 +5407,8 @@ std::move(p_key_handle), std::move(callback));
               internal::ChapsService_Encrypt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.12
       bool success = true;
       uint64_t p_session_id{};
       std::vector<uint8_t> p_data{};
@@ -5365,10 +5433,10 @@ std::move(p_key_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Encrypt(
-std::move(p_session_id), 
-std::move(p_data), 
-std::move(p_max_out_length), std::move(callback));
+      impl->Encrypt(        
+        std::move(p_session_id), 
+        std::move(p_data), 
+        std::move(p_max_out_length), std::move(callback));
       return true;
     }
     case internal::kChapsService_DecryptInit_Name: {
@@ -5378,6 +5446,8 @@ std::move(p_max_out_length), std::move(callback));
               internal::ChapsService_DecryptInit_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.13
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5405,11 +5475,11 @@ std::move(p_max_out_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecryptInit(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_key_handle), std::move(callback));
+      impl->DecryptInit(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_key_handle), std::move(callback));
       return true;
     }
     case internal::kChapsService_Decrypt_Name: {
@@ -5419,6 +5489,8 @@ std::move(p_key_handle), std::move(callback));
               internal::ChapsService_Decrypt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.14
       bool success = true;
       uint64_t p_session_id{};
       std::vector<uint8_t> p_data{};
@@ -5443,10 +5515,10 @@ std::move(p_key_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decrypt(
-std::move(p_session_id), 
-std::move(p_data), 
-std::move(p_max_out_length), std::move(callback));
+      impl->Decrypt(        
+        std::move(p_session_id), 
+        std::move(p_data), 
+        std::move(p_max_out_length), std::move(callback));
       return true;
     }
     case internal::kChapsService_SignInit_Name: {
@@ -5456,6 +5528,8 @@ std::move(p_max_out_length), std::move(callback));
               internal::ChapsService_SignInit_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.15
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5483,11 +5557,11 @@ std::move(p_max_out_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SignInit(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_key_handle), std::move(callback));
+      impl->SignInit(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_key_handle), std::move(callback));
       return true;
     }
     case internal::kChapsService_Sign_Name: {
@@ -5497,6 +5571,8 @@ std::move(p_key_handle), std::move(callback));
               internal::ChapsService_Sign_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.16
       bool success = true;
       uint64_t p_session_id{};
       std::vector<uint8_t> p_data{};
@@ -5521,10 +5597,10 @@ std::move(p_key_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Sign(
-std::move(p_session_id), 
-std::move(p_data), 
-std::move(p_max_out_length), std::move(callback));
+      impl->Sign(        
+        std::move(p_session_id), 
+        std::move(p_data), 
+        std::move(p_max_out_length), std::move(callback));
       return true;
     }
     case internal::kChapsService_GenerateKeyPair_Name: {
@@ -5534,6 +5610,8 @@ std::move(p_max_out_length), std::move(callback));
               internal::ChapsService_GenerateKeyPair_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.17
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5564,12 +5642,12 @@ std::move(p_max_out_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateKeyPair(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_public_attributes), 
-std::move(p_private_attributes), std::move(callback));
+      impl->GenerateKeyPair(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_public_attributes), 
+        std::move(p_private_attributes), std::move(callback));
       return true;
     }
     case internal::kChapsService_WrapKey_Name: {
@@ -5579,6 +5657,8 @@ std::move(p_private_attributes), std::move(callback));
               internal::ChapsService_WrapKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.18
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5612,13 +5692,13 @@ std::move(p_private_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WrapKey(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_wrapping_key_handle), 
-std::move(p_key_handle), 
-std::move(p_max_out_length), std::move(callback));
+      impl->WrapKey(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_wrapping_key_handle), 
+        std::move(p_key_handle), 
+        std::move(p_max_out_length), std::move(callback));
       return true;
     }
     case internal::kChapsService_UnwrapKey_Name: {
@@ -5628,6 +5708,8 @@ std::move(p_max_out_length), std::move(callback));
               internal::ChapsService_UnwrapKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.19
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5661,13 +5743,13 @@ std::move(p_max_out_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnwrapKey(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_wrapping_key_handle), 
-std::move(p_wrapped_key), 
-std::move(p_attributes), std::move(callback));
+      impl->UnwrapKey(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_wrapping_key_handle), 
+        std::move(p_wrapped_key), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
     case internal::kChapsService_DeriveKey_Name: {
@@ -5677,6 +5759,8 @@ std::move(p_attributes), std::move(callback));
               internal::ChapsService_DeriveKey_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChapsService.20
       bool success = true;
       uint64_t p_session_id{};
       uint64_t p_mechanism_type{};
@@ -5707,12 +5791,12 @@ std::move(p_attributes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeriveKey(
-std::move(p_session_id), 
-std::move(p_mechanism_type), 
-std::move(p_mechanism_parameter), 
-std::move(p_base_key_handle), 
-std::move(p_attributes), std::move(callback));
+      impl->DeriveKey(        
+        std::move(p_session_id), 
+        std::move(p_mechanism_type), 
+        std::move(p_mechanism_parameter), 
+        std::move(p_base_key_handle), 
+        std::move(p_attributes), std::move(callback));
       return true;
     }
   }

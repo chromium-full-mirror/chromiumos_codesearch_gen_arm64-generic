@@ -32,7 +32,8 @@ namespace blink {
 
 bool V8PaymentRequestUpdateEvent::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::PaymentRequestEnabled();
+const bool is_in_secure_context = execution_context->IsSecureContext();
+return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::PaymentRequestEnabled();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -115,7 +116,8 @@ return;
 }
 
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 ExecutionContext* execution_context = current_execution_context;
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -157,8 +159,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 PaymentRequestUpdateEvent* blink_receiver = V8PaymentRequestUpdateEvent::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_details_promise = NativeValueTraits<IDLPromise>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

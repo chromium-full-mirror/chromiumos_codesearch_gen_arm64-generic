@@ -70,9 +70,6 @@ suite(`CrComponentsEsimFlowUiTest${suiteSuffix}`, function () {
         await flushAsync();
         endFlowAndVerifyResult(ESimSetupFlowResult.ERROR_FETCHING_PROFILES);
     });
-    function setSmdsSupportEnabled(value) {
-        eSimPage.smdsSupportEnabled_ = value;
-    }
     setup(async function () {
         networkConfigRemote = new FakeNetworkConfig();
         addOnlineWifiNetwork();
@@ -85,7 +82,6 @@ suite(`CrComponentsEsimFlowUiTest${suiteSuffix}`, function () {
         eSimPage = document.createElement('esim-flow-ui');
         eSimPage.delegate = new FakeCellularSetupDelegate();
         document.body.appendChild(eSimPage);
-        setSmdsSupportEnabled(false);
         flush();
         ironPages = eSimPage.shadowRoot.querySelector('iron-pages');
         profileLoadingPage =
@@ -114,6 +110,9 @@ suite(`CrComponentsEsimFlowUiTest${suiteSuffix}`, function () {
         assertTrue(!!activationCodePage);
         assertTrue(!!confirmationCodePageLegacy);
         assertTrue(!!finalPage);
+    });
+    suiteSetup(() => {
+        loadTimeData.overrideValues({ isSmdsSupportEnabled: false });
     });
     function assertSelectedPage(pageName, page) {
         assertEquals(ironPages.selected, pageName);

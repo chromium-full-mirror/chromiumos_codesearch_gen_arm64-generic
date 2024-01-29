@@ -1811,6 +1811,8 @@ bool PaymentRequestClient_AllowConnectToSource_ForwardToCallback::Accept(
           internal::PaymentRequestClient_AllowConnectToSource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaymentRequestClient.11
   bool success = true;
   bool p_allow{};
   PaymentRequestClient_AllowConnectToSource_ResponseParamsDataView input_data_view(params, message);
@@ -1885,6 +1887,8 @@ bool PaymentRequestClientStubDispatch::Accept(
           reinterpret_cast<internal::PaymentRequestClient_OnPaymentMethodChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.0
       bool success = true;
       std::string p_method_name{};
       std::string p_stringified_details{};
@@ -1903,9 +1907,9 @@ bool PaymentRequestClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPaymentMethodChange(
-std::move(p_method_name), 
-std::move(p_stringified_details));
+      impl->OnPaymentMethodChange(        
+        std::move(p_method_name), 
+        std::move(p_stringified_details));
       return true;
     }
     case internal::kPaymentRequestClient_OnShippingAddressChange_Name: {
@@ -1915,6 +1919,8 @@ std::move(p_stringified_details));
           reinterpret_cast<internal::PaymentRequestClient_OnShippingAddressChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.1
       bool success = true;
       ::payments::mojom::PaymentAddressPtr p_address{};
       PaymentRequestClient_OnShippingAddressChange_ParamsDataView input_data_view(params, message);
@@ -1930,8 +1936,8 @@ std::move(p_stringified_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShippingAddressChange(
-std::move(p_address));
+      impl->OnShippingAddressChange(        
+        std::move(p_address));
       return true;
     }
     case internal::kPaymentRequestClient_OnShippingOptionChange_Name: {
@@ -1941,6 +1947,8 @@ std::move(p_address));
           reinterpret_cast<internal::PaymentRequestClient_OnShippingOptionChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.2
       bool success = true;
       std::string p_shipping_option_id{};
       PaymentRequestClient_OnShippingOptionChange_ParamsDataView input_data_view(params, message);
@@ -1956,8 +1964,8 @@ std::move(p_address));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShippingOptionChange(
-std::move(p_shipping_option_id));
+      impl->OnShippingOptionChange(        
+        std::move(p_shipping_option_id));
       return true;
     }
     case internal::kPaymentRequestClient_OnPayerDetailChange_Name: {
@@ -1967,6 +1975,8 @@ std::move(p_shipping_option_id));
           reinterpret_cast<internal::PaymentRequestClient_OnPayerDetailChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.3
       bool success = true;
       PayerDetailPtr p_detail{};
       PaymentRequestClient_OnPayerDetailChange_ParamsDataView input_data_view(params, message);
@@ -1982,8 +1992,8 @@ std::move(p_shipping_option_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPayerDetailChange(
-std::move(p_detail));
+      impl->OnPayerDetailChange(        
+        std::move(p_detail));
       return true;
     }
     case internal::kPaymentRequestClient_OnPaymentResponse_Name: {
@@ -1993,6 +2003,8 @@ std::move(p_detail));
           reinterpret_cast<internal::PaymentRequestClient_OnPaymentResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.4
       bool success = true;
       PaymentResponsePtr p_response{};
       PaymentRequestClient_OnPaymentResponse_ParamsDataView input_data_view(params, message);
@@ -2008,8 +2020,8 @@ std::move(p_detail));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPaymentResponse(
-std::move(p_response));
+      impl->OnPaymentResponse(        
+        std::move(p_response));
       return true;
     }
     case internal::kPaymentRequestClient_OnError_Name: {
@@ -2019,6 +2031,8 @@ std::move(p_response));
           reinterpret_cast<internal::PaymentRequestClient_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.5
       bool success = true;
       PaymentErrorReason p_error{};
       std::string p_error_message{};
@@ -2037,9 +2051,9 @@ std::move(p_response));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_error), 
-std::move(p_error_message));
+      impl->OnError(        
+        std::move(p_error), 
+        std::move(p_error_message));
       return true;
     }
     case internal::kPaymentRequestClient_OnComplete_Name: {
@@ -2049,6 +2063,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::PaymentRequestClient_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.6
       bool success = true;
       PaymentRequestClient_OnComplete_ParamsDataView input_data_view(params, message);
       
@@ -2061,7 +2077,7 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete();
+      impl->OnComplete(        );
       return true;
     }
     case internal::kPaymentRequestClient_OnAbort_Name: {
@@ -2071,6 +2087,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::PaymentRequestClient_OnAbort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.7
       bool success = true;
       bool p_aborted_successfully{};
       PaymentRequestClient_OnAbort_ParamsDataView input_data_view(params, message);
@@ -2086,8 +2104,8 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAbort(
-std::move(p_aborted_successfully));
+      impl->OnAbort(        
+        std::move(p_aborted_successfully));
       return true;
     }
     case internal::kPaymentRequestClient_OnCanMakePayment_Name: {
@@ -2097,6 +2115,8 @@ std::move(p_aborted_successfully));
           reinterpret_cast<internal::PaymentRequestClient_OnCanMakePayment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.8
       bool success = true;
       CanMakePaymentQueryResult p_result{};
       PaymentRequestClient_OnCanMakePayment_ParamsDataView input_data_view(params, message);
@@ -2112,8 +2132,8 @@ std::move(p_aborted_successfully));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCanMakePayment(
-std::move(p_result));
+      impl->OnCanMakePayment(        
+        std::move(p_result));
       return true;
     }
     case internal::kPaymentRequestClient_OnHasEnrolledInstrument_Name: {
@@ -2123,6 +2143,8 @@ std::move(p_result));
           reinterpret_cast<internal::PaymentRequestClient_OnHasEnrolledInstrument_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.9
       bool success = true;
       HasEnrolledInstrumentQueryResult p_result{};
       PaymentRequestClient_OnHasEnrolledInstrument_ParamsDataView input_data_view(params, message);
@@ -2138,8 +2160,8 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHasEnrolledInstrument(
-std::move(p_result));
+      impl->OnHasEnrolledInstrument(        
+        std::move(p_result));
       return true;
     }
     case internal::kPaymentRequestClient_WarnNoFavicon_Name: {
@@ -2149,6 +2171,8 @@ std::move(p_result));
           reinterpret_cast<internal::PaymentRequestClient_WarnNoFavicon_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.10
       bool success = true;
       PaymentRequestClient_WarnNoFavicon_ParamsDataView input_data_view(params, message);
       
@@ -2161,7 +2185,7 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WarnNoFavicon();
+      impl->WarnNoFavicon(        );
       return true;
     }
     case internal::kPaymentRequestClient_AllowConnectToSource_Name: {
@@ -2220,6 +2244,8 @@ bool PaymentRequestClientStubDispatch::AcceptWithResponder(
               internal::PaymentRequestClient_AllowConnectToSource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaymentRequestClient.11
       bool success = true;
       ::GURL p_url{};
       ::GURL p_url_before_redirects{};
@@ -2244,10 +2270,10 @@ bool PaymentRequestClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllowConnectToSource(
-std::move(p_url), 
-std::move(p_url_before_redirects), 
-std::move(p_did_follow_redirect), std::move(callback));
+      impl->AllowConnectToSource(        
+        std::move(p_url), 
+        std::move(p_url_before_redirects), 
+        std::move(p_did_follow_redirect), std::move(callback));
       return true;
     }
   }
@@ -2933,6 +2959,8 @@ bool PaymentRequestStubDispatch::Accept(
           reinterpret_cast<internal::PaymentRequest_Init_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.0
       bool success = true;
       ::mojo::PendingRemote<PaymentRequestClient> p_client{};
       std::vector<PaymentMethodDataPtr> p_method_data{};
@@ -2959,11 +2987,11 @@ bool PaymentRequestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_client), 
-std::move(p_method_data), 
-std::move(p_details), 
-std::move(p_options));
+      impl->Init(        
+        std::move(p_client), 
+        std::move(p_method_data), 
+        std::move(p_details), 
+        std::move(p_options));
       return true;
     }
     case internal::kPaymentRequest_Show_Name: {
@@ -2973,6 +3001,8 @@ std::move(p_options));
           reinterpret_cast<internal::PaymentRequest_Show_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.1
       bool success = true;
       bool p_wait_for_updated_details{};
       bool p_had_user_activation{};
@@ -2991,9 +3021,9 @@ std::move(p_options));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Show(
-std::move(p_wait_for_updated_details), 
-std::move(p_had_user_activation));
+      impl->Show(        
+        std::move(p_wait_for_updated_details), 
+        std::move(p_had_user_activation));
       return true;
     }
     case internal::kPaymentRequest_UpdateWith_Name: {
@@ -3003,6 +3033,8 @@ std::move(p_had_user_activation));
           reinterpret_cast<internal::PaymentRequest_UpdateWith_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.2
       bool success = true;
       PaymentDetailsPtr p_details{};
       PaymentRequest_UpdateWith_ParamsDataView input_data_view(params, message);
@@ -3018,8 +3050,8 @@ std::move(p_had_user_activation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateWith(
-std::move(p_details));
+      impl->UpdateWith(        
+        std::move(p_details));
       return true;
     }
     case internal::kPaymentRequest_OnPaymentDetailsNotUpdated_Name: {
@@ -3029,6 +3061,8 @@ std::move(p_details));
           reinterpret_cast<internal::PaymentRequest_OnPaymentDetailsNotUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.3
       bool success = true;
       PaymentRequest_OnPaymentDetailsNotUpdated_ParamsDataView input_data_view(params, message);
       
@@ -3041,7 +3075,7 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPaymentDetailsNotUpdated();
+      impl->OnPaymentDetailsNotUpdated(        );
       return true;
     }
     case internal::kPaymentRequest_Abort_Name: {
@@ -3051,6 +3085,8 @@ std::move(p_details));
           reinterpret_cast<internal::PaymentRequest_Abort_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.4
       bool success = true;
       PaymentRequest_Abort_ParamsDataView input_data_view(params, message);
       
@@ -3063,7 +3099,7 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Abort();
+      impl->Abort(        );
       return true;
     }
     case internal::kPaymentRequest_Complete_Name: {
@@ -3073,6 +3109,8 @@ std::move(p_details));
           reinterpret_cast<internal::PaymentRequest_Complete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.5
       bool success = true;
       PaymentComplete p_result{};
       PaymentRequest_Complete_ParamsDataView input_data_view(params, message);
@@ -3088,8 +3126,8 @@ std::move(p_details));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Complete(
-std::move(p_result));
+      impl->Complete(        
+        std::move(p_result));
       return true;
     }
     case internal::kPaymentRequest_Retry_Name: {
@@ -3099,6 +3137,8 @@ std::move(p_result));
           reinterpret_cast<internal::PaymentRequest_Retry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.6
       bool success = true;
       ::payments::mojom::PaymentValidationErrorsPtr p_errors{};
       PaymentRequest_Retry_ParamsDataView input_data_view(params, message);
@@ -3114,8 +3154,8 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Retry(
-std::move(p_errors));
+      impl->Retry(        
+        std::move(p_errors));
       return true;
     }
     case internal::kPaymentRequest_CanMakePayment_Name: {
@@ -3125,6 +3165,8 @@ std::move(p_errors));
           reinterpret_cast<internal::PaymentRequest_CanMakePayment_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.7
       bool success = true;
       PaymentRequest_CanMakePayment_ParamsDataView input_data_view(params, message);
       
@@ -3137,7 +3179,7 @@ std::move(p_errors));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CanMakePayment();
+      impl->CanMakePayment(        );
       return true;
     }
     case internal::kPaymentRequest_HasEnrolledInstrument_Name: {
@@ -3147,6 +3189,8 @@ std::move(p_errors));
           reinterpret_cast<internal::PaymentRequest_HasEnrolledInstrument_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaymentRequest.8
       bool success = true;
       PaymentRequest_HasEnrolledInstrument_ParamsDataView input_data_view(params, message);
       
@@ -3159,7 +3203,7 @@ std::move(p_errors));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HasEnrolledInstrument();
+      impl->HasEnrolledInstrument(        );
       return true;
     }
   }

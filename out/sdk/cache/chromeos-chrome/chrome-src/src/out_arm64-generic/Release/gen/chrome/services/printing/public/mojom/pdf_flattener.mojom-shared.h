@@ -34,12 +34,21 @@
 
 
 namespace printing::mojom {
+class FlattenPdfResultDataView;
+
 
 
 }  // printing::mojom
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::printing::mojom::FlattenPdfResultDataView> {
+  using Data = ::printing::mojom::internal::FlattenPdfResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -59,6 +68,35 @@ using PdfFlattenerAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<PdfFlattenerInterfaceBase>;
 
 
+class FlattenPdfResultDataView {
+ public:
+  FlattenPdfResultDataView() = default;
+
+  FlattenPdfResultDataView(
+      internal::FlattenPdfResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFlattenedPdfRegionDataView(
+      ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFlattenedPdfRegion(UserType* output) {
+    
+    auto* pointer = data_->flattened_pdf_region.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
+        pointer, output, message_);
+  }
+  uint32_t page_count() const {
+    return data_->page_count;
+  }
+ private:
+  internal::FlattenPdfResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // printing::mojom
 
 namespace std {
@@ -67,10 +105,59 @@ namespace std {
 
 namespace mojo {
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::printing::mojom::FlattenPdfResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::printing::mojom::FlattenPdfResultDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::printing::mojom::internal::FlattenPdfResult_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::flattened_pdf_region(input)) in_flattened_pdf_region = Traits::flattened_pdf_region(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->flattened_pdf_region)::BaseType> flattened_pdf_region_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
+        in_flattened_pdf_region, flattened_pdf_region_fragment);
+    fragment->flattened_pdf_region.Set(
+        flattened_pdf_region_fragment.is_null() ? nullptr : flattened_pdf_region_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->flattened_pdf_region.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null flattened_pdf_region in FlattenPdfResult struct");
+    fragment->page_count = Traits::page_count(input);
+  }
+
+  static bool Deserialize(::printing::mojom::internal::FlattenPdfResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::printing::mojom::FlattenPdfResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace printing::mojom {
+
+inline void FlattenPdfResultDataView::GetFlattenedPdfRegionDataView(
+    ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {
+  auto pointer = data_->flattened_pdf_region.Get();
+  *output = ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView(pointer, message_);
+}
+
 
 
 }  // printing::mojom

@@ -419,6 +419,8 @@ bool EchoService_EchoString_ForwardToCallback::Accept(
           internal::EchoService_EchoString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EchoService.0
   bool success = true;
   std::string p_echoed_input{};
   EchoService_EchoString_ResponseParamsDataView input_data_view(params, message);
@@ -506,6 +508,8 @@ bool EchoServiceStubDispatch::Accept(
           reinterpret_cast<internal::EchoService_EchoStringToSharedMemory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EchoService.1
       bool success = true;
       std::string p_input{};
       ::base::UnsafeSharedMemoryRegion p_region{};
@@ -524,9 +528,9 @@ bool EchoServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EchoStringToSharedMemory(
-std::move(p_input), 
-std::move(p_region));
+      impl->EchoStringToSharedMemory(        
+        std::move(p_input), 
+        std::move(p_region));
       return true;
     }
     case internal::kEchoService_Quit_Name: {
@@ -536,6 +540,8 @@ std::move(p_region));
           reinterpret_cast<internal::EchoService_Quit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EchoService.2
       bool success = true;
       EchoService_Quit_ParamsDataView input_data_view(params, message);
       
@@ -548,7 +554,7 @@ std::move(p_region));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Quit();
+      impl->Quit(        );
       return true;
     }
     case internal::kEchoService_Crash_Name: {
@@ -558,6 +564,8 @@ std::move(p_region));
           reinterpret_cast<internal::EchoService_Crash_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EchoService.3
       bool success = true;
       EchoService_Crash_ParamsDataView input_data_view(params, message);
       
@@ -570,7 +578,7 @@ std::move(p_region));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Crash();
+      impl->Crash(        );
       return true;
     }
   }
@@ -593,6 +601,8 @@ bool EchoServiceStubDispatch::AcceptWithResponder(
               internal::EchoService_EchoString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EchoService.0
       bool success = true;
       std::string p_input{};
       EchoService_EchoString_ParamsDataView input_data_view(params, message);
@@ -611,8 +621,8 @@ bool EchoServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EchoString(
-std::move(p_input), std::move(callback));
+      impl->EchoString(        
+        std::move(p_input), std::move(callback));
       return true;
     }
     case internal::kEchoService_EchoStringToSharedMemory_Name: {

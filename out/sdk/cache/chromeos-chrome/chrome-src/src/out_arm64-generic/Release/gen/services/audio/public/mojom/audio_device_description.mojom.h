@@ -72,7 +72,8 @@ class  AudioDeviceDescription {
   AudioDeviceDescription(
       const std::string& device_name,
       const std::string& unique_id,
-      const std::string& group_id);
+      const std::string& group_id,
+      bool is_system_default);
 
 
   ~AudioDeviceDescription();
@@ -155,6 +156,8 @@ class  AudioDeviceDescription {
   std::string unique_id;
   
   std::string group_id;
+  
+  bool is_system_default;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -193,7 +196,8 @@ AudioDeviceDescriptionPtr AudioDeviceDescription::Clone() const {
   return New(
       mojo::Clone(device_name),
       mojo::Clone(unique_id),
-      mojo::Clone(group_id)
+      mojo::Clone(group_id),
+      mojo::Clone(is_system_default)
   );
 }
 
@@ -204,6 +208,8 @@ bool AudioDeviceDescription::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->unique_id, other_struct.unique_id))
     return false;
   if (!mojo::Equals(this->group_id, other_struct.group_id))
+    return false;
+  if (!mojo::Equals(this->is_system_default, other_struct.is_system_default))
     return false;
   return true;
 }
@@ -221,6 +227,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.group_id < rhs.group_id)
     return true;
   if (rhs.group_id < lhs.group_id)
+    return false;
+  if (lhs.is_system_default < rhs.is_system_default)
+    return true;
+  if (rhs.is_system_default < lhs.is_system_default)
     return false;
   return false;
 }
@@ -250,6 +260,11 @@ struct  StructTraits<::audio::mojom::AudioDeviceDescription::DataView,
   static const decltype(::audio::mojom::AudioDeviceDescription::group_id)& group_id(
       const ::audio::mojom::AudioDeviceDescriptionPtr& input) {
     return input->group_id;
+  }
+
+  static decltype(::audio::mojom::AudioDeviceDescription::is_system_default) is_system_default(
+      const ::audio::mojom::AudioDeviceDescriptionPtr& input) {
+    return input->is_system_default;
   }
 
   static bool Read(::audio::mojom::AudioDeviceDescription::DataView input, ::audio::mojom::AudioDeviceDescriptionPtr* output);

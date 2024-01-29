@@ -70,6 +70,11 @@ class HEADLESS_EXPORT Domain {
   void ClearGeolocationOverride(base::OnceClosure callback = base::OnceClosure());
   void ClearGeolocationOverride(std::unique_ptr<ClearGeolocationOverrideParams> params, base::OnceClosure callback);
 
+  // Enables CPU throttling to emulate slow CPUs.
+  void SetCPUThrottlingRate(std::unique_ptr<SetCPUThrottlingRateParams> params, base::OnceCallback<void(std::unique_ptr<SetCPUThrottlingRateResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetCPUThrottlingRateResult>)>());
+  void SetCPUThrottlingRate(double rate, base::OnceClosure callback = base::OnceClosure());
+  void SetCPUThrottlingRate(std::unique_ptr<SetCPUThrottlingRateParams> params, base::OnceClosure callback);
+
   // Sets or clears an override of the default background color of the frame. This override is used
   // if the content does not specify one.
   void SetDefaultBackgroundColorOverride(std::unique_ptr<SetDefaultBackgroundColorOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetDefaultBackgroundColorOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetDefaultBackgroundColorOverrideResult>)>());
@@ -88,11 +93,26 @@ class HEADLESS_EXPORT Domain {
   void SetEmulatedMedia(base::OnceClosure callback = base::OnceClosure());
   void SetEmulatedMedia(std::unique_ptr<SetEmulatedMediaParams> params, base::OnceClosure callback);
 
+  // Emulates the given vision deficiency.
+  void SetEmulatedVisionDeficiency(std::unique_ptr<SetEmulatedVisionDeficiencyParams> params, base::OnceCallback<void(std::unique_ptr<SetEmulatedVisionDeficiencyResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetEmulatedVisionDeficiencyResult>)>());
+  void SetEmulatedVisionDeficiency(::headless::emulation::SetEmulatedVisionDeficiencyType type, base::OnceClosure callback = base::OnceClosure());
+  void SetEmulatedVisionDeficiency(std::unique_ptr<SetEmulatedVisionDeficiencyParams> params, base::OnceClosure callback);
+
   // Overrides the Geolocation Position or Error. Omitting any of the parameters emulates position
   // unavailable.
   void SetGeolocationOverride(std::unique_ptr<SetGeolocationOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetGeolocationOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetGeolocationOverrideResult>)>());
   void SetGeolocationOverride(base::OnceClosure callback = base::OnceClosure());
   void SetGeolocationOverride(std::unique_ptr<SetGeolocationOverrideParams> params, base::OnceClosure callback);
+
+  // Overrides the Idle state.
+  void SetIdleOverride(std::unique_ptr<SetIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetIdleOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetIdleOverrideResult>)>());
+  void SetIdleOverride(bool is_user_active, bool is_screen_unlocked, base::OnceClosure callback = base::OnceClosure());
+  void SetIdleOverride(std::unique_ptr<SetIdleOverrideParams> params, base::OnceClosure callback);
+
+  // Clears Idle state overrides.
+  void ClearIdleOverride(std::unique_ptr<ClearIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<ClearIdleOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClearIdleOverrideResult>)>());
+  void ClearIdleOverride(base::OnceClosure callback = base::OnceClosure());
+  void ClearIdleOverride(std::unique_ptr<ClearIdleOverrideParams> params, base::OnceClosure callback);
 
   // Switches script execution in the page.
   void SetScriptExecutionDisabled(std::unique_ptr<SetScriptExecutionDisabledParams> params, base::OnceCallback<void(std::unique_ptr<SetScriptExecutionDisabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetScriptExecutionDisabledResult>)>());
@@ -103,6 +123,11 @@ class HEADLESS_EXPORT Domain {
   void SetTouchEmulationEnabled(std::unique_ptr<SetTouchEmulationEnabledParams> params, base::OnceCallback<void(std::unique_ptr<SetTouchEmulationEnabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetTouchEmulationEnabledResult>)>());
   void SetTouchEmulationEnabled(bool enabled, base::OnceClosure callback = base::OnceClosure());
   void SetTouchEmulationEnabled(std::unique_ptr<SetTouchEmulationEnabledParams> params, base::OnceClosure callback);
+
+  // Overrides default host system timezone with the specified one.
+  void SetTimezoneOverride(std::unique_ptr<SetTimezoneOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetTimezoneOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetTimezoneOverrideResult>)>());
+  void SetTimezoneOverride(const std::string& timezone_id, base::OnceClosure callback = base::OnceClosure());
+  void SetTimezoneOverride(std::unique_ptr<SetTimezoneOverrideParams> params, base::OnceClosure callback);
 
   // Allows overriding user agent with the given string.
   void SetUserAgentOverride(std::unique_ptr<SetUserAgentOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetUserAgentOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetUserAgentOverrideResult>)>());
@@ -182,17 +207,11 @@ class ExperimentalDomain : public Domain {
   // Automatically render all web contents using a dark theme.
   void SetAutoDarkModeOverride(std::unique_ptr<SetAutoDarkModeOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetAutoDarkModeOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAutoDarkModeOverrideResult>)>());
 
-  // Enables CPU throttling to emulate slow CPUs.
-  void SetCPUThrottlingRate(std::unique_ptr<SetCPUThrottlingRateParams> params, base::OnceCallback<void(std::unique_ptr<SetCPUThrottlingRateResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetCPUThrottlingRateResult>)>());
-
   void SetScrollbarsHidden(std::unique_ptr<SetScrollbarsHiddenParams> params, base::OnceCallback<void(std::unique_ptr<SetScrollbarsHiddenResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetScrollbarsHiddenResult>)>());
 
   void SetDocumentCookieDisabled(std::unique_ptr<SetDocumentCookieDisabledParams> params, base::OnceCallback<void(std::unique_ptr<SetDocumentCookieDisabledResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetDocumentCookieDisabledResult>)>());
 
   void SetEmitTouchEventsForMouse(std::unique_ptr<SetEmitTouchEventsForMouseParams> params, base::OnceCallback<void(std::unique_ptr<SetEmitTouchEventsForMouseResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetEmitTouchEventsForMouseResult>)>());
-
-  // Emulates the given vision deficiency.
-  void SetEmulatedVisionDeficiency(std::unique_ptr<SetEmulatedVisionDeficiencyParams> params, base::OnceCallback<void(std::unique_ptr<SetEmulatedVisionDeficiencyResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetEmulatedVisionDeficiencyResult>)>());
 
   void GetOverriddenSensorInformation(std::unique_ptr<GetOverriddenSensorInformationParams> params, base::OnceCallback<void(std::unique_ptr<GetOverriddenSensorInformationResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetOverriddenSensorInformationResult>)>());
 
@@ -207,12 +226,6 @@ class ExperimentalDomain : public Domain {
   // by setSensorOverrideEnabled.
   void SetSensorOverrideReadings(std::unique_ptr<SetSensorOverrideReadingsParams> params, base::OnceCallback<void(std::unique_ptr<SetSensorOverrideReadingsResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetSensorOverrideReadingsResult>)>());
 
-  // Overrides the Idle state.
-  void SetIdleOverride(std::unique_ptr<SetIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetIdleOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetIdleOverrideResult>)>());
-
-  // Clears Idle state overrides.
-  void ClearIdleOverride(std::unique_ptr<ClearIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<ClearIdleOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClearIdleOverrideResult>)>());
-
   // Overrides value returned by the javascript navigator object.
   void SetNavigatorOverrides(std::unique_ptr<SetNavigatorOverridesParams> params, base::OnceCallback<void(std::unique_ptr<SetNavigatorOverridesResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetNavigatorOverridesResult>)>());
 
@@ -225,9 +238,6 @@ class ExperimentalDomain : public Domain {
 
   // Overrides default host system locale with the specified one.
   void SetLocaleOverride(std::unique_ptr<SetLocaleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetLocaleOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetLocaleOverrideResult>)>());
-
-  // Overrides default host system timezone with the specified one.
-  void SetTimezoneOverride(std::unique_ptr<SetTimezoneOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetTimezoneOverrideResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetTimezoneOverrideResult>)>());
 
   // Resizes the frame/viewport of the page. Note that this does not affect the frame's container
   // (e.g. browser window). Can be used to produce screenshots of the specified size. Not supported

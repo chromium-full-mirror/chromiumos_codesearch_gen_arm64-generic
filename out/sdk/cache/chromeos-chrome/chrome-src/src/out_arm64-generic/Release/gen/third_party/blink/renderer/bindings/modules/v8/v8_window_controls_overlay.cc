@@ -33,7 +33,7 @@ namespace blink {
 
 bool V8WindowControlsOverlay::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAppWindowControlsOverlayEnabled(execution_context);
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due

@@ -1966,6 +1966,8 @@ bool XRTestHook_OnFrameSubmitted_ForwardToCallback::Accept(
           internal::XRTestHook_OnFrameSubmitted_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.0
   bool success = true;
   XRTestHook_OnFrameSubmitted_ResponseParamsDataView input_data_view(params, message);
   
@@ -2023,6 +2025,8 @@ bool XRTestHook_OnFrameSubmitted_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_OnFrameSubmitted_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.0
   bool success = true;
   XRTestHook_OnFrameSubmitted_ResponseParamsDataView input_data_view(params, message);
   
@@ -2094,6 +2098,8 @@ bool XRTestHook_WaitGetDeviceConfig_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetDeviceConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.1
   bool success = true;
   DeviceConfigPtr p_config{};
   XRTestHook_WaitGetDeviceConfig_ResponseParamsDataView input_data_view(params, message);
@@ -2173,6 +2179,8 @@ bool XRTestHook_WaitGetDeviceConfig_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetDeviceConfig_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.1
   bool success = true;
   DeviceConfigPtr p_config{};
   XRTestHook_WaitGetDeviceConfig_ResponseParamsDataView input_data_view(params, message);
@@ -2248,6 +2256,8 @@ bool XRTestHook_WaitGetPresentingPose_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetPresentingPose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.2
   bool success = true;
   PoseFrameDataPtr p_data{};
   XRTestHook_WaitGetPresentingPose_ResponseParamsDataView input_data_view(params, message);
@@ -2327,6 +2337,8 @@ bool XRTestHook_WaitGetPresentingPose_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetPresentingPose_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.2
   bool success = true;
   PoseFrameDataPtr p_data{};
   XRTestHook_WaitGetPresentingPose_ResponseParamsDataView input_data_view(params, message);
@@ -2402,6 +2414,8 @@ bool XRTestHook_WaitGetMagicWindowPose_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetMagicWindowPose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.3
   bool success = true;
   PoseFrameDataPtr p_data{};
   XRTestHook_WaitGetMagicWindowPose_ResponseParamsDataView input_data_view(params, message);
@@ -2481,6 +2495,8 @@ bool XRTestHook_WaitGetMagicWindowPose_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetMagicWindowPose_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.3
   bool success = true;
   PoseFrameDataPtr p_data{};
   XRTestHook_WaitGetMagicWindowPose_ResponseParamsDataView input_data_view(params, message);
@@ -2556,6 +2572,8 @@ bool XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ForwardToCallback::Ac
           internal::XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.4
   bool success = true;
   ControllerRole p_role{};
   XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ResponseParamsDataView input_data_view(params, message);
@@ -2626,6 +2644,8 @@ bool XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_HandleSyncResponse::A
       reinterpret_cast<internal::XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.4
   bool success = true;
   ControllerRole p_role{};
   XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ResponseParamsDataView input_data_view(params, message);
@@ -2701,6 +2721,8 @@ bool XRTestHook_WaitGetTrackedDeviceClass_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetTrackedDeviceClass_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.5
   bool success = true;
   TrackedDeviceClass p_device_class{};
   XRTestHook_WaitGetTrackedDeviceClass_ResponseParamsDataView input_data_view(params, message);
@@ -2771,6 +2793,8 @@ bool XRTestHook_WaitGetTrackedDeviceClass_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetTrackedDeviceClass_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.5
   bool success = true;
   TrackedDeviceClass p_device_class{};
   XRTestHook_WaitGetTrackedDeviceClass_ResponseParamsDataView input_data_view(params, message);
@@ -2846,6 +2870,8 @@ bool XRTestHook_WaitGetControllerData_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetControllerData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.6
   bool success = true;
   ControllerFrameDataPtr p_data{};
   XRTestHook_WaitGetControllerData_ResponseParamsDataView input_data_view(params, message);
@@ -2925,6 +2951,8 @@ bool XRTestHook_WaitGetControllerData_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetControllerData_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.6
   bool success = true;
   ControllerFrameDataPtr p_data{};
   XRTestHook_WaitGetControllerData_ResponseParamsDataView input_data_view(params, message);
@@ -3000,6 +3028,8 @@ bool XRTestHook_WaitGetEventData_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetEventData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.7
   bool success = true;
   EventDataPtr p_data{};
   XRTestHook_WaitGetEventData_ResponseParamsDataView input_data_view(params, message);
@@ -3079,6 +3109,8 @@ bool XRTestHook_WaitGetEventData_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetEventData_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.7
   bool success = true;
   EventDataPtr p_data{};
   XRTestHook_WaitGetEventData_ResponseParamsDataView input_data_view(params, message);
@@ -3154,6 +3186,8 @@ bool XRTestHook_WaitGetCanCreateSession_ForwardToCallback::Accept(
           internal::XRTestHook_WaitGetCanCreateSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRTestHook.8
   bool success = true;
   bool p_can_create_session{};
   XRTestHook_WaitGetCanCreateSession_ResponseParamsDataView input_data_view(params, message);
@@ -3223,6 +3257,8 @@ bool XRTestHook_WaitGetCanCreateSession_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRTestHook_WaitGetCanCreateSession_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRTestHook.8
   bool success = true;
   bool p_can_create_session{};
   XRTestHook_WaitGetCanCreateSession_ResponseParamsDataView input_data_view(params, message);
@@ -3293,6 +3329,8 @@ bool XRTestHookStubDispatch::AcceptWithResponder(
               internal::XRTestHook_OnFrameSubmitted_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.0
       bool success = true;
       std::vector<ViewDataPtr> p_frame_data{};
       XRTestHook_OnFrameSubmitted_ParamsDataView input_data_view(params, message);
@@ -3311,8 +3349,8 @@ bool XRTestHookStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameSubmitted(
-std::move(p_frame_data), std::move(callback));
+      impl->OnFrameSubmitted(        
+        std::move(p_frame_data), std::move(callback));
       return true;
     }
     case internal::kXRTestHook_WaitGetDeviceConfig_Name: {
@@ -3322,6 +3360,8 @@ std::move(p_frame_data), std::move(callback));
               internal::XRTestHook_WaitGetDeviceConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.1
       bool success = true;
       XRTestHook_WaitGetDeviceConfig_ParamsDataView input_data_view(params, message);
       
@@ -3347,6 +3387,8 @@ std::move(p_frame_data), std::move(callback));
               internal::XRTestHook_WaitGetPresentingPose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.2
       bool success = true;
       XRTestHook_WaitGetPresentingPose_ParamsDataView input_data_view(params, message);
       
@@ -3372,6 +3414,8 @@ std::move(p_frame_data), std::move(callback));
               internal::XRTestHook_WaitGetMagicWindowPose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.3
       bool success = true;
       XRTestHook_WaitGetMagicWindowPose_ParamsDataView input_data_view(params, message);
       
@@ -3397,6 +3441,8 @@ std::move(p_frame_data), std::move(callback));
               internal::XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.4
       bool success = true;
       uint32_t p_index{};
       XRTestHook_WaitGetControllerRoleForTrackedDeviceIndex_ParamsDataView input_data_view(params, message);
@@ -3415,8 +3461,8 @@ std::move(p_frame_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WaitGetControllerRoleForTrackedDeviceIndex(
-std::move(p_index), std::move(callback));
+      impl->WaitGetControllerRoleForTrackedDeviceIndex(        
+        std::move(p_index), std::move(callback));
       return true;
     }
     case internal::kXRTestHook_WaitGetTrackedDeviceClass_Name: {
@@ -3426,6 +3472,8 @@ std::move(p_index), std::move(callback));
               internal::XRTestHook_WaitGetTrackedDeviceClass_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.5
       bool success = true;
       uint32_t p_index{};
       XRTestHook_WaitGetTrackedDeviceClass_ParamsDataView input_data_view(params, message);
@@ -3444,8 +3492,8 @@ std::move(p_index), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WaitGetTrackedDeviceClass(
-std::move(p_index), std::move(callback));
+      impl->WaitGetTrackedDeviceClass(        
+        std::move(p_index), std::move(callback));
       return true;
     }
     case internal::kXRTestHook_WaitGetControllerData_Name: {
@@ -3455,6 +3503,8 @@ std::move(p_index), std::move(callback));
               internal::XRTestHook_WaitGetControllerData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.6
       bool success = true;
       uint32_t p_index{};
       XRTestHook_WaitGetControllerData_ParamsDataView input_data_view(params, message);
@@ -3473,8 +3523,8 @@ std::move(p_index), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WaitGetControllerData(
-std::move(p_index), std::move(callback));
+      impl->WaitGetControllerData(        
+        std::move(p_index), std::move(callback));
       return true;
     }
     case internal::kXRTestHook_WaitGetEventData_Name: {
@@ -3484,6 +3534,8 @@ std::move(p_index), std::move(callback));
               internal::XRTestHook_WaitGetEventData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.7
       bool success = true;
       XRTestHook_WaitGetEventData_ParamsDataView input_data_view(params, message);
       
@@ -3509,6 +3561,8 @@ std::move(p_index), std::move(callback));
               internal::XRTestHook_WaitGetCanCreateSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRTestHook.8
       bool success = true;
       XRTestHook_WaitGetCanCreateSession_ParamsDataView input_data_view(params, message);
       
@@ -3938,6 +3992,8 @@ bool XRServiceTestHook_SetTestHook_ForwardToCallback::Accept(
           internal::XRServiceTestHook_SetTestHook_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRServiceTestHook.0
   bool success = true;
   XRServiceTestHook_SetTestHook_ResponseParamsDataView input_data_view(params, message);
   
@@ -3995,6 +4051,8 @@ bool XRServiceTestHook_SetTestHook_HandleSyncResponse::Accept(
       reinterpret_cast<internal::XRServiceTestHook_SetTestHook_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRServiceTestHook.0
   bool success = true;
   XRServiceTestHook_SetTestHook_ResponseParamsDataView input_data_view(params, message);
   
@@ -4066,6 +4124,8 @@ bool XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ForwardToCallback
           internal::XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRServiceTestHook.1
   bool success = true;
   XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -4123,6 +4183,8 @@ bool XRServiceTestHook_TerminateDeviceServiceProcessForTesting_HandleSyncRespons
       reinterpret_cast<internal::XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for XRServiceTestHook.1
   bool success = true;
   XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ResponseParamsDataView input_data_view(params, message);
   
@@ -4168,6 +4230,8 @@ bool XRServiceTestHookStubDispatch::AcceptWithResponder(
               internal::XRServiceTestHook_SetTestHook_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRServiceTestHook.0
       bool success = true;
       ::mojo::PendingRemote<XRTestHook> p_hook{};
       XRServiceTestHook_SetTestHook_ParamsDataView input_data_view(params, message);
@@ -4188,8 +4252,8 @@ bool XRServiceTestHookStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTestHook(
-std::move(p_hook), std::move(callback));
+      impl->SetTestHook(        
+        std::move(p_hook), std::move(callback));
       return true;
     }
     case internal::kXRServiceTestHook_TerminateDeviceServiceProcessForTesting_Name: {
@@ -4199,6 +4263,8 @@ std::move(p_hook), std::move(callback));
               internal::XRServiceTestHook_TerminateDeviceServiceProcessForTesting_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRServiceTestHook.1
       bool success = true;
       XRServiceTestHook_TerminateDeviceServiceProcessForTesting_ParamsDataView input_data_view(params, message);
       

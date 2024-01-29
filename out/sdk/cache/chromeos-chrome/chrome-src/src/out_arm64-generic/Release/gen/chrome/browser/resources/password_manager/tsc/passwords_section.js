@@ -18,9 +18,11 @@ import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_eleme
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { MoveToAccountStoreTrigger } from './dialogs/move_passwords_dialog.js';
 import { PasswordManagerImpl } from './password_manager_proxy.js';
 import { getTemplate } from './passwords_section.html.js';
 import { PromoCardId } from './promo_cards/promo_card.js';
@@ -74,7 +76,7 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
                     'isSyncingPasswords, accountEmail)',
             },
             passwordsOnDevice_: {
-                type: Number,
+                type: Array,
                 computed: 'computePasswordsOnDevice_(groups_)',
             },
             showMovePasswords_: {
@@ -95,6 +97,17 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
                 computed: 'computePasswordManagerDisabled_(' +
                     'prefs.credentials_enable_service.enforcement, ' +
                     'prefs.credentials_enable_service.value)',
+            },
+            enableButterOnDesktopFollowup_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('enableButterOnDesktopFollowup');
+                },
+            },
+            shouldShowPromoCard_: {
+                type: Boolean,
+                computed: 'computeShouldShowPromoCard_(' +
+                    'promoCard_, isAccountStoreUser, passwordsOnDevice_)',
             },
             /**
              * The element to return focus to, when moving from details page to
@@ -193,7 +206,11 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
             .filter(entry => localStorage.includes(entry.storedIn));
     }
     computeShowMovePasswords_() {
-        // TODO(crbug.com/1420548): Check for conflicts if needed.
+        // Should not show the old entry to move passwords if followup for the
+        // butter on desktop feature is enabled.
+        if (this.enableButterOnDesktopFollowup_) {
+            return false;
+        }
         return this.computePasswordsOnDevice_().length > 0 &&
             this.isAccountStoreUser && !this.searchTerm_;
     }
@@ -258,6 +275,10 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
     showNoPasswordsFound_() {
         return this.hideGroupsList_() && this.groups_.length > 0;
     }
+    getMovePasswordsDialogTrigger_() {
+        return MoveToAccountStoreTrigger
+            .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS;
+    }
     onPasswordDetailsShown_(e) {
         this.activeListItem_ = e.detail;
     }
@@ -287,6 +308,20 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
             }
             return doesNameMatchA ? -1 : 1;
         };
+    }
+    computeShouldShowPromoCard_() {
+        if (!this.promoCard_) {
+            return false;
+        }
+        if (this.promoCard_.id !== PromoCardId.MOVE_PASSWORDS) {
+            return true;
+        }
+        // Check if there are local passwords and they can be moved to account.
+        if (this.computePasswordsOnDevice_().length === 0 ||
+            !this.isAccountStoreUser) {
+            return false;
+        }
+        return true;
     }
 }
 customElements.define(PasswordsSectionElement.is, PasswordsSectionElement);

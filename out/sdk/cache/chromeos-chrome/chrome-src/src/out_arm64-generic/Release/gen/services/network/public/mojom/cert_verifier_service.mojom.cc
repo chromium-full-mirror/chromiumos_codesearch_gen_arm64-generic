@@ -188,15 +188,21 @@ bool CertVerifierConfig::Validate(
 AdditionalCertificates::AdditionalCertificates()
     : all_certificates(),
       trust_anchors(),
-      distrusted_spkis() {}
+      trust_anchors_with_enforced_constraints(),
+      distrusted_spkis(),
+      include_system_trust_store(true) {}
 
 AdditionalCertificates::AdditionalCertificates(
-    std::vector<::scoped_refptr<::net::X509Certificate>> all_certificates_in,
-    std::vector<::scoped_refptr<::net::X509Certificate>> trust_anchors_in,
-    std::vector<std::vector<uint8_t>> distrusted_spkis_in)
+    std::vector<std::vector<uint8_t>> all_certificates_in,
+    std::vector<std::vector<uint8_t>> trust_anchors_in,
+    std::vector<std::vector<uint8_t>> trust_anchors_with_enforced_constraints_in,
+    std::vector<std::vector<uint8_t>> distrusted_spkis_in,
+    bool include_system_trust_store_in)
     : all_certificates(std::move(all_certificates_in)),
       trust_anchors(std::move(trust_anchors_in)),
-      distrusted_spkis(std::move(distrusted_spkis_in)) {}
+      trust_anchors_with_enforced_constraints(std::move(trust_anchors_with_enforced_constraints_in)),
+      distrusted_spkis(std::move(distrusted_spkis_in)),
+      include_system_trust_store(std::move(include_system_trust_store_in)) {}
 
 AdditionalCertificates::~AdditionalCertificates() = default;
 
@@ -207,7 +213,7 @@ void AdditionalCertificates::WriteIntoTrace(
     dict.AddItem(
       "all_certificates"), this->all_certificates,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<::scoped_refptr<::net::X509Certificate>>&>"
+      "<value of type const std::vector<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -216,7 +222,16 @@ void AdditionalCertificates::WriteIntoTrace(
     dict.AddItem(
       "trust_anchors"), this->trust_anchors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<::scoped_refptr<::net::X509Certificate>>&>"
+      "<value of type const std::vector<std::vector<uint8_t>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trust_anchors_with_enforced_constraints"), this->trust_anchors_with_enforced_constraints,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -226,6 +241,15 @@ void AdditionalCertificates::WriteIntoTrace(
       "distrusted_spkis"), this->distrusted_spkis,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::vector<uint8_t>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "include_system_trust_store"), this->include_system_trust_store,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -354,6 +378,8 @@ bool URLLoaderFactoryConnectorStubDispatch::Accept(
           reinterpret_cast<internal::URLLoaderFactoryConnector_CreateURLLoaderFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderFactoryConnector.0
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::URLLoaderFactory> p_url_loader_factory{};
       URLLoaderFactoryConnector_CreateURLLoaderFactory_ParamsDataView input_data_view(params, message);
@@ -371,8 +397,8 @@ bool URLLoaderFactoryConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateURLLoaderFactory(
-std::move(p_url_loader_factory));
+      impl->CreateURLLoaderFactory(        
+        std::move(p_url_loader_factory));
       return true;
     }
   }
@@ -693,6 +719,8 @@ bool CertVerifierServiceStubDispatch::Accept(
           reinterpret_cast<internal::CertVerifierService_EnableNetworkAccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierService.0
       bool success = true;
       ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> p_url_loader_factory{};
       ::mojo::PendingRemote<URLLoaderFactoryConnector> p_reconnector{};
@@ -715,9 +743,9 @@ bool CertVerifierServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableNetworkAccess(
-std::move(p_url_loader_factory), 
-std::move(p_reconnector));
+      impl->EnableNetworkAccess(        
+        std::move(p_url_loader_factory), 
+        std::move(p_reconnector));
       return true;
     }
     case internal::kCertVerifierService_Verify_Name: {
@@ -727,6 +755,8 @@ std::move(p_reconnector));
           reinterpret_cast<internal::CertVerifierService_Verify_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierService.1
       bool success = true;
       ::net::CertVerifier::RequestParams p_params{};
       ::net::NetLogSource p_net_log_source{};
@@ -750,10 +780,10 @@ std::move(p_reconnector));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Verify(
-std::move(p_params), 
-std::move(p_net_log_source), 
-std::move(p_cert_verifier_request));
+      impl->Verify(        
+        std::move(p_params), 
+        std::move(p_net_log_source), 
+        std::move(p_cert_verifier_request));
       return true;
     }
     case internal::kCertVerifierService_SetConfig_Name: {
@@ -763,6 +793,8 @@ std::move(p_cert_verifier_request));
           reinterpret_cast<internal::CertVerifierService_SetConfig_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierService.2
       bool success = true;
       ::net::CertVerifier::Config p_config{};
       CertVerifierService_SetConfig_ParamsDataView input_data_view(params, message);
@@ -778,8 +810,8 @@ std::move(p_cert_verifier_request));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetConfig(
-std::move(p_config));
+      impl->SetConfig(        
+        std::move(p_config));
       return true;
     }
   }
@@ -945,6 +977,8 @@ bool CertVerifierServiceUpdaterStubDispatch::Accept(
           reinterpret_cast<internal::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceUpdater.0
       bool success = true;
       AdditionalCertificatesPtr p_certificates{};
       CertVerifierServiceUpdater_UpdateAdditionalCertificates_ParamsDataView input_data_view(params, message);
@@ -960,8 +994,8 @@ bool CertVerifierServiceUpdaterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateAdditionalCertificates(
-std::move(p_certificates));
+      impl->UpdateAdditionalCertificates(        
+        std::move(p_certificates));
       return true;
     }
   }
@@ -1099,6 +1133,8 @@ bool CertVerifierServiceClientStubDispatch::Accept(
           reinterpret_cast<internal::CertVerifierServiceClient_OnCertVerifierChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierServiceClient.0
       bool success = true;
       CertVerifierServiceClient_OnCertVerifierChanged_ParamsDataView input_data_view(params, message);
       
@@ -1111,7 +1147,7 @@ bool CertVerifierServiceClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCertVerifierChanged();
+      impl->OnCertVerifierChanged(        );
       return true;
     }
   }
@@ -1271,6 +1307,8 @@ bool CertVerifierRequestStubDispatch::Accept(
           reinterpret_cast<internal::CertVerifierRequest_Complete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertVerifierRequest.0
       bool success = true;
       ::net::CertVerifyResult p_result{};
       int32_t p_net_error{};
@@ -1289,9 +1327,9 @@ bool CertVerifierRequestStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Complete(
-std::move(p_result), 
-std::move(p_net_error));
+      impl->Complete(        
+        std::move(p_result), 
+        std::move(p_net_error));
       return true;
     }
   }
@@ -1386,8 +1424,12 @@ bool StructTraits<::cert_verifier::mojom::AdditionalCertificates::DataView, ::ce
         success = false;
       if (success && !input.ReadTrustAnchors(&result->trust_anchors))
         success = false;
+      if (success && !input.ReadTrustAnchorsWithEnforcedConstraints(&result->trust_anchors_with_enforced_constraints))
+        success = false;
       if (success && !input.ReadDistrustedSpkis(&result->distrusted_spkis))
         success = false;
+      if (success)
+        result->include_system_trust_store = input.include_system_trust_store();
   *output = std::move(result);
   return success;
 }

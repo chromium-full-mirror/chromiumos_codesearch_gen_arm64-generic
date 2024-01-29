@@ -1534,6 +1534,8 @@ bool CustomTabSessionStubDispatch::Accept(
           reinterpret_cast<internal::CustomTabSession_OnOpenInChromeClicked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CustomTabSession.0
       bool success = true;
       CustomTabSession_OnOpenInChromeClicked_ParamsDataView input_data_view(params, message);
       
@@ -1546,7 +1548,7 @@ bool CustomTabSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenInChromeClicked();
+      impl->OnOpenInChromeClicked(        );
       return true;
     }
   }
@@ -3065,6 +3067,8 @@ bool IntentHelperHost_OnOpenCustomTab_ForwardToCallback::Accept(
           internal::IntentHelperHost_OnOpenCustomTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperHost.17
   bool success = true;
   ::mojo::PendingRemote<CustomTabSession> p_session{};
   IntentHelperHost_OnOpenCustomTab_ResponseParamsDataView input_data_view(params, message);
@@ -3187,6 +3191,8 @@ bool IntentHelperHost_IsChromeAppEnabled_ForwardToCallback::Accept(
           internal::IntentHelperHost_IsChromeAppEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperHost.15
   bool success = true;
   bool p_is_enabled{};
   IntentHelperHost_IsChromeAppEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -3261,6 +3267,8 @@ bool IntentHelperHostStubDispatch::Accept(
           reinterpret_cast<internal::IntentHelperHost_OnIconInvalidated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.1
       bool success = true;
       std::string p_package_name{};
       IntentHelperHost_OnIconInvalidated_ParamsDataView input_data_view(params, message);
@@ -3276,8 +3284,8 @@ bool IntentHelperHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIconInvalidated(
-std::move(p_package_name));
+      impl->OnIconInvalidated(        
+        std::move(p_package_name));
       return true;
     }
     case internal::kIntentHelperHost_OnIntentFiltersUpdated_Name: {
@@ -3287,6 +3295,8 @@ std::move(p_package_name));
           reinterpret_cast<internal::IntentHelperHost_OnIntentFiltersUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.5
       bool success = true;
       std::vector<::arc::IntentFilter> p_intent_filters{};
       IntentHelperHost_OnIntentFiltersUpdated_ParamsDataView input_data_view(params, message);
@@ -3302,8 +3312,8 @@ std::move(p_package_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIntentFiltersUpdated(
-std::move(p_intent_filters));
+      impl->OnIntentFiltersUpdated(        
+        std::move(p_intent_filters));
       return true;
     }
     case internal::kIntentHelperHost_OnOpenDownloads_Name: {
@@ -3313,6 +3323,8 @@ std::move(p_intent_filters));
           reinterpret_cast<internal::IntentHelperHost_OnOpenDownloads_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.2
       bool success = true;
       IntentHelperHost_OnOpenDownloads_ParamsDataView input_data_view(params, message);
       
@@ -3325,7 +3337,7 @@ std::move(p_intent_filters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenDownloads();
+      impl->OnOpenDownloads(        );
       return true;
     }
     case internal::kIntentHelperHost_OnOpenUrl_Name: {
@@ -3335,6 +3347,8 @@ std::move(p_intent_filters));
           reinterpret_cast<internal::IntentHelperHost_OnOpenUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.0
       bool success = true;
       std::string p_url{};
       IntentHelperHost_OnOpenUrl_ParamsDataView input_data_view(params, message);
@@ -3350,8 +3364,8 @@ std::move(p_intent_filters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenUrl(
-std::move(p_url));
+      impl->OnOpenUrl(        
+        std::move(p_url));
       return true;
     }
     case internal::kIntentHelperHost_OnOpenCustomTab_Name: {
@@ -3364,6 +3378,8 @@ std::move(p_url));
           reinterpret_cast<internal::IntentHelperHost_OpenWallpaperPicker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.3
       bool success = true;
       IntentHelperHost_OpenWallpaperPicker_ParamsDataView input_data_view(params, message);
       
@@ -3376,7 +3392,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenWallpaperPicker();
+      impl->OpenWallpaperPicker(        );
       return true;
     }
     case internal::kIntentHelperHost_OpenVolumeControl_Name: {
@@ -3386,6 +3402,8 @@ std::move(p_url));
           reinterpret_cast<internal::IntentHelperHost_OpenVolumeControl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.6
       bool success = true;
       IntentHelperHost_OpenVolumeControl_ParamsDataView input_data_view(params, message);
       
@@ -3398,7 +3416,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenVolumeControl();
+      impl->OpenVolumeControl(        );
       return true;
     }
     case internal::kIntentHelperHost_OnOpenChromePage_Name: {
@@ -3408,6 +3426,8 @@ std::move(p_url));
           reinterpret_cast<internal::IntentHelperHost_OnOpenChromePage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.7
       bool success = true;
       ChromePage p_page{};
       IntentHelperHost_OnOpenChromePage_ParamsDataView input_data_view(params, message);
@@ -3423,8 +3443,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenChromePage(
-std::move(p_page));
+      impl->OnOpenChromePage(        
+        std::move(p_page));
       return true;
     }
     case internal::kIntentHelperHost_OnOpenWebApp_Name: {
@@ -3434,6 +3454,8 @@ std::move(p_page));
           reinterpret_cast<internal::IntentHelperHost_OnOpenWebApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.8
       bool success = true;
       std::string p_url{};
       IntentHelperHost_OnOpenWebApp_ParamsDataView input_data_view(params, message);
@@ -3449,8 +3471,8 @@ std::move(p_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenWebApp(
-std::move(p_url));
+      impl->OnOpenWebApp(        
+        std::move(p_url));
       return true;
     }
     case internal::kIntentHelperHost_FactoryResetArc_Name: {
@@ -3460,6 +3482,8 @@ std::move(p_url));
           reinterpret_cast<internal::IntentHelperHost_FactoryResetArc_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.11
       bool success = true;
       IntentHelperHost_FactoryResetArc_ParamsDataView input_data_view(params, message);
       
@@ -3472,7 +3496,7 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FactoryResetArc();
+      impl->FactoryResetArc(        );
       return true;
     }
     case internal::kIntentHelperHost_LaunchCameraApp_Name: {
@@ -3482,6 +3506,8 @@ std::move(p_url));
           reinterpret_cast<internal::IntentHelperHost_LaunchCameraApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.12
       bool success = true;
       uint32_t p_intent_id{};
       ::arc::mojom::CameraIntentMode p_mode{};
@@ -3512,13 +3538,13 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchCameraApp(
-std::move(p_intent_id), 
-std::move(p_mode), 
-std::move(p_should_handle_result), 
-std::move(p_should_down_scale), 
-std::move(p_is_secure), 
-std::move(p_task_id));
+      impl->LaunchCameraApp(        
+        std::move(p_intent_id), 
+        std::move(p_mode), 
+        std::move(p_should_handle_result), 
+        std::move(p_should_down_scale), 
+        std::move(p_is_secure), 
+        std::move(p_task_id));
       return true;
     }
     case internal::kIntentHelperHost_OnIntentFiltersUpdatedForPackage_Name: {
@@ -3528,6 +3554,8 @@ std::move(p_task_id));
           reinterpret_cast<internal::IntentHelperHost_OnIntentFiltersUpdatedForPackage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.13
       bool success = true;
       std::string p_package_name{};
       std::vector<::arc::IntentFilter> p_intent_filters{};
@@ -3546,9 +3574,9 @@ std::move(p_task_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIntentFiltersUpdatedForPackage(
-std::move(p_package_name), 
-std::move(p_intent_filters));
+      impl->OnIntentFiltersUpdatedForPackage(        
+        std::move(p_package_name), 
+        std::move(p_intent_filters));
       return true;
     }
     case internal::kIntentHelperHost_CloseCameraApp_Name: {
@@ -3558,6 +3586,8 @@ std::move(p_intent_filters));
           reinterpret_cast<internal::IntentHelperHost_CloseCameraApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.14
       bool success = true;
       IntentHelperHost_CloseCameraApp_ParamsDataView input_data_view(params, message);
       
@@ -3570,7 +3600,7 @@ std::move(p_intent_filters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseCameraApp();
+      impl->CloseCameraApp(        );
       return true;
     }
     case internal::kIntentHelperHost_IsChromeAppEnabled_Name: {
@@ -3583,6 +3613,8 @@ std::move(p_intent_filters));
           reinterpret_cast<internal::IntentHelperHost_OnSupportedLinksChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.20
       bool success = true;
       std::vector<SupportedLinksPackagePtr> p_added_packages{};
       std::vector<SupportedLinksPackagePtr> p_removed_packages{};
@@ -3604,10 +3636,10 @@ std::move(p_intent_filters));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSupportedLinksChanged(
-std::move(p_added_packages), 
-std::move(p_removed_packages), 
-std::move(p_source));
+      impl->OnSupportedLinksChanged(        
+        std::move(p_added_packages), 
+        std::move(p_removed_packages), 
+        std::move(p_source));
       return true;
     }
     case internal::kIntentHelperHost_OnDownloadAddedDeprecated_Name: {
@@ -3617,6 +3649,8 @@ std::move(p_source));
           reinterpret_cast<internal::IntentHelperHost_OnDownloadAddedDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.18
       bool success = true;
       std::string p_relative_path{};
       std::string p_owner_package_name{};
@@ -3635,9 +3669,9 @@ std::move(p_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDownloadAddedDeprecated(
-std::move(p_relative_path), 
-std::move(p_owner_package_name));
+      impl->OnDownloadAddedDeprecated(        
+        std::move(p_relative_path), 
+        std::move(p_owner_package_name));
       return true;
     }
     case internal::kIntentHelperHost_OnOpenAppWithIntent_Name: {
@@ -3647,6 +3681,8 @@ std::move(p_owner_package_name));
           reinterpret_cast<internal::IntentHelperHost_OnOpenAppWithIntent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.19
       bool success = true;
       ::GURL p_start_url{};
       LaunchIntentPtr p_intent{};
@@ -3665,9 +3701,9 @@ std::move(p_owner_package_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenAppWithIntent(
-std::move(p_start_url), 
-std::move(p_intent));
+      impl->OnOpenAppWithIntent(        
+        std::move(p_start_url), 
+        std::move(p_intent));
       return true;
     }
     case internal::kIntentHelperHost_OnOpenGlobalActions_Name: {
@@ -3677,6 +3713,8 @@ std::move(p_intent));
           reinterpret_cast<internal::IntentHelperHost_OnOpenGlobalActions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.21
       bool success = true;
       IntentHelperHost_OnOpenGlobalActions_ParamsDataView input_data_view(params, message);
       
@@ -3689,7 +3727,7 @@ std::move(p_intent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenGlobalActions();
+      impl->OnOpenGlobalActions(        );
       return true;
     }
     case internal::kIntentHelperHost_OnCloseSystemDialogs_Name: {
@@ -3699,6 +3737,8 @@ std::move(p_intent));
           reinterpret_cast<internal::IntentHelperHost_OnCloseSystemDialogs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.22
       bool success = true;
       IntentHelperHost_OnCloseSystemDialogs_ParamsDataView input_data_view(params, message);
       
@@ -3711,7 +3751,7 @@ std::move(p_intent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCloseSystemDialogs();
+      impl->OnCloseSystemDialogs(        );
       return true;
     }
     case internal::kIntentHelperHost_OnAndroidSettingChange_Name: {
@@ -3721,6 +3761,8 @@ std::move(p_intent));
           reinterpret_cast<internal::IntentHelperHost_OnAndroidSettingChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.23
       bool success = true;
       AndroidSetting p_setting{};
       bool p_is_enabled{};
@@ -3739,9 +3781,9 @@ std::move(p_intent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAndroidSettingChange(
-std::move(p_setting), 
-std::move(p_is_enabled));
+      impl->OnAndroidSettingChange(        
+        std::move(p_setting), 
+        std::move(p_is_enabled));
       return true;
     }
   }
@@ -3776,6 +3818,8 @@ bool IntentHelperHostStubDispatch::AcceptWithResponder(
               internal::IntentHelperHost_OnOpenCustomTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.17
       bool success = true;
       std::string p_url{};
       int32_t p_task_id{};
@@ -3797,9 +3841,9 @@ bool IntentHelperHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnOpenCustomTab(
-std::move(p_url), 
-std::move(p_task_id), std::move(callback));
+      impl->OnOpenCustomTab(        
+        std::move(p_url), 
+        std::move(p_task_id), std::move(callback));
       return true;
     }
     case internal::kIntentHelperHost_OpenWallpaperPicker_Name: {
@@ -3833,6 +3877,8 @@ std::move(p_task_id), std::move(callback));
               internal::IntentHelperHost_IsChromeAppEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperHost.15
       bool success = true;
       ChromeApp p_app{};
       IntentHelperHost_IsChromeAppEnabled_ParamsDataView input_data_view(params, message);
@@ -3851,8 +3897,8 @@ std::move(p_task_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsChromeAppEnabled(
-std::move(p_app), std::move(callback));
+      impl->IsChromeAppEnabled(        
+        std::move(p_app), std::move(callback));
       return true;
     }
     case internal::kIntentHelperHost_OnSupportedLinksChanged_Name: {
@@ -5391,6 +5437,8 @@ bool IntentHelperInstance_Init_ForwardToCallback::Accept(
           internal::IntentHelperInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.13
   bool success = true;
   IntentHelperInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -5498,6 +5546,8 @@ bool IntentHelperInstance_RequestActivityIcons_ForwardToCallback::Accept(
           internal::IntentHelperInstance_RequestActivityIcons_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.4
   bool success = true;
   std::vector<ActivityIconPtr> p_icons{};
   IntentHelperInstance_RequestActivityIcons_ResponseParamsDataView input_data_view(params, message);
@@ -5629,6 +5679,8 @@ bool IntentHelperInstance_RequestIntentHandlerList_ForwardToCallback::Accept(
           internal::IntentHelperInstance_RequestIntentHandlerList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.9
   bool success = true;
   std::vector<IntentHandlerInfoPtr> p_handlers{};
   IntentHelperInstance_RequestIntentHandlerList_ResponseParamsDataView input_data_view(params, message);
@@ -5760,6 +5812,8 @@ bool IntentHelperInstance_RequestUrlHandlerList_ForwardToCallback::Accept(
           internal::IntentHelperInstance_RequestUrlHandlerList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.3
   bool success = true;
   std::vector<IntentHandlerInfoPtr> p_handlers{};
   IntentHelperInstance_RequestUrlHandlerList_ResponseParamsDataView input_data_view(params, message);
@@ -5891,6 +5945,8 @@ bool IntentHelperInstance_RequestUrlListHandlerList_ForwardToCallback::Accept(
           internal::IntentHelperInstance_RequestUrlListHandlerList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.6
   bool success = true;
   std::vector<IntentHandlerInfoPtr> p_handlers{};
   IntentHelperInstance_RequestUrlListHandlerList_ResponseParamsDataView input_data_view(params, message);
@@ -6022,6 +6078,8 @@ bool IntentHelperInstance_RequestTextSelectionActions_ForwardToCallback::Accept(
           internal::IntentHelperInstance_RequestTextSelectionActions_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.15
   bool success = true;
   std::vector<TextSelectionActionPtr> p_actions{};
   IntentHelperInstance_RequestTextSelectionActions_ResponseParamsDataView input_data_view(params, message);
@@ -6153,6 +6211,8 @@ bool IntentHelperInstance_HandleCameraResult_ForwardToCallback::Accept(
           internal::IntentHelperInstance_HandleCameraResult_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IntentHelperInstance.16
   bool success = true;
   bool p_is_success{};
   IntentHelperInstance_HandleCameraResult_ResponseParamsDataView input_data_view(params, message);
@@ -6227,6 +6287,8 @@ bool IntentHelperInstanceStubDispatch::Accept(
           reinterpret_cast<internal::IntentHelperInstance_AddPreferredPackage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.8
       bool success = true;
       std::string p_package_name{};
       IntentHelperInstance_AddPreferredPackage_ParamsDataView input_data_view(params, message);
@@ -6242,8 +6304,8 @@ bool IntentHelperInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPreferredPackage(
-std::move(p_package_name));
+      impl->AddPreferredPackage(        
+        std::move(p_package_name));
       return true;
     }
     case internal::kIntentHelperInstance_SetVerifiedLinks_Name: {
@@ -6253,6 +6315,8 @@ std::move(p_package_name));
           reinterpret_cast<internal::IntentHelperInstance_SetVerifiedLinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.21
       bool success = true;
       std::vector<std::string> p_package_names{};
       bool p_always_open{};
@@ -6271,9 +6335,9 @@ std::move(p_package_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVerifiedLinks(
-std::move(p_package_names), 
-std::move(p_always_open));
+      impl->SetVerifiedLinks(        
+        std::move(p_package_names), 
+        std::move(p_always_open));
       return true;
     }
     case internal::kIntentHelperInstance_HandleIntent_Name: {
@@ -6283,6 +6347,8 @@ std::move(p_always_open));
           reinterpret_cast<internal::IntentHelperInstance_HandleIntent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.10
       bool success = true;
       IntentInfoPtr p_intent{};
       ::arc::mojom::ActivityNamePtr p_activity{};
@@ -6301,9 +6367,9 @@ std::move(p_always_open));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleIntent(
-std::move(p_intent), 
-std::move(p_activity));
+      impl->HandleIntent(        
+        std::move(p_intent), 
+        std::move(p_activity));
       return true;
     }
     case internal::kIntentHelperInstance_HandleIntentWithWindowInfo_Name: {
@@ -6313,6 +6379,8 @@ std::move(p_activity));
           reinterpret_cast<internal::IntentHelperInstance_HandleIntentWithWindowInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.20
       bool success = true;
       IntentInfoPtr p_intent{};
       ::arc::mojom::ActivityNamePtr p_activity{};
@@ -6334,10 +6402,10 @@ std::move(p_activity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleIntentWithWindowInfo(
-std::move(p_intent), 
-std::move(p_activity), 
-std::move(p_window_info));
+      impl->HandleIntentWithWindowInfo(        
+        std::move(p_intent), 
+        std::move(p_activity), 
+        std::move(p_window_info));
       return true;
     }
     case internal::kIntentHelperInstance_HandleUrl_Name: {
@@ -6347,6 +6415,8 @@ std::move(p_window_info));
           reinterpret_cast<internal::IntentHelperInstance_HandleUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.2
       bool success = true;
       std::string p_url{};
       std::string p_package_name{};
@@ -6365,9 +6435,9 @@ std::move(p_window_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleUrl(
-std::move(p_url), 
-std::move(p_package_name));
+      impl->HandleUrl(        
+        std::move(p_url), 
+        std::move(p_package_name));
       return true;
     }
     case internal::kIntentHelperInstance_Init_Name: {
@@ -6392,6 +6462,8 @@ std::move(p_package_name));
           reinterpret_cast<internal::IntentHelperInstance_SendBroadcast_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.1
       bool success = true;
       std::string p_action{};
       std::string p_package_name{};
@@ -6416,11 +6488,11 @@ std::move(p_package_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendBroadcast(
-std::move(p_action), 
-std::move(p_package_name), 
-std::move(p_cls), 
-std::move(p_extras));
+      impl->SendBroadcast(        
+        std::move(p_action), 
+        std::move(p_package_name), 
+        std::move(p_cls), 
+        std::move(p_extras));
       return true;
     }
     case internal::kIntentHelperInstance_RequestTextSelectionActions_Name: {
@@ -6436,6 +6508,8 @@ std::move(p_extras));
           reinterpret_cast<internal::IntentHelperInstance_RequestDomainVerificationStatusUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.19
       bool success = true;
       IntentHelperInstance_RequestDomainVerificationStatusUpdate_ParamsDataView input_data_view(params, message);
       
@@ -6448,7 +6522,7 @@ std::move(p_extras));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestDomainVerificationStatusUpdate();
+      impl->RequestDomainVerificationStatusUpdate(        );
       return true;
     }
     case internal::kIntentHelperInstance_SetCaptionStyle_Name: {
@@ -6458,6 +6532,8 @@ std::move(p_extras));
           reinterpret_cast<internal::IntentHelperInstance_SetCaptionStyle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.22
       bool success = true;
       CaptionStylePtr p_style{};
       IntentHelperInstance_SetCaptionStyle_ParamsDataView input_data_view(params, message);
@@ -6473,8 +6549,8 @@ std::move(p_extras));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCaptionStyle(
-std::move(p_style));
+      impl->SetCaptionStyle(        
+        std::move(p_style));
       return true;
     }
     case internal::kIntentHelperInstance_EnableAccessibilityFeatures_Name: {
@@ -6484,6 +6560,8 @@ std::move(p_style));
           reinterpret_cast<internal::IntentHelperInstance_EnableAccessibilityFeatures_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.23
       bool success = true;
       AccessibilityFeaturesPtr p_features{};
       IntentHelperInstance_EnableAccessibilityFeatures_ParamsDataView input_data_view(params, message);
@@ -6499,8 +6577,8 @@ std::move(p_style));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAccessibilityFeatures(
-std::move(p_features));
+      impl->EnableAccessibilityFeatures(        
+        std::move(p_features));
       return true;
     }
   }
@@ -6538,6 +6616,8 @@ bool IntentHelperInstanceStubDispatch::AcceptWithResponder(
               internal::IntentHelperInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.13
       bool success = true;
       ::mojo::PendingRemote<IntentHelperHost> p_host_remote{};
       IntentHelperInstance_Init_ParamsDataView input_data_view(params, message);
@@ -6558,8 +6638,8 @@ bool IntentHelperInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_RequestActivityIcons_Name: {
@@ -6569,6 +6649,8 @@ std::move(p_host_remote), std::move(callback));
               internal::IntentHelperInstance_RequestActivityIcons_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.4
       bool success = true;
       std::vector<::arc::mojom::ActivityNamePtr> p_activities{};
       ::arc::mojom::ScaleFactor p_scale_factor{};
@@ -6590,9 +6672,9 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestActivityIcons(
-std::move(p_activities), 
-std::move(p_scale_factor), std::move(callback));
+      impl->RequestActivityIcons(        
+        std::move(p_activities), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_RequestIntentHandlerList_Name: {
@@ -6602,6 +6684,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::IntentHelperInstance_RequestIntentHandlerList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.9
       bool success = true;
       IntentInfoPtr p_intent{};
       IntentHelperInstance_RequestIntentHandlerList_ParamsDataView input_data_view(params, message);
@@ -6620,8 +6704,8 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestIntentHandlerList(
-std::move(p_intent), std::move(callback));
+      impl->RequestIntentHandlerList(        
+        std::move(p_intent), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_RequestUrlHandlerList_Name: {
@@ -6631,6 +6715,8 @@ std::move(p_intent), std::move(callback));
               internal::IntentHelperInstance_RequestUrlHandlerList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.3
       bool success = true;
       std::string p_url{};
       IntentHelperInstance_RequestUrlHandlerList_ParamsDataView input_data_view(params, message);
@@ -6649,8 +6735,8 @@ std::move(p_intent), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestUrlHandlerList(
-std::move(p_url), std::move(callback));
+      impl->RequestUrlHandlerList(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_RequestUrlListHandlerList_Name: {
@@ -6660,6 +6746,8 @@ std::move(p_url), std::move(callback));
               internal::IntentHelperInstance_RequestUrlListHandlerList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.6
       bool success = true;
       std::vector<UrlWithMimeTypePtr> p_urls{};
       IntentHelperInstance_RequestUrlListHandlerList_ParamsDataView input_data_view(params, message);
@@ -6678,8 +6766,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestUrlListHandlerList(
-std::move(p_urls), std::move(callback));
+      impl->RequestUrlListHandlerList(        
+        std::move(p_urls), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_SendBroadcast_Name: {
@@ -6692,6 +6780,8 @@ std::move(p_urls), std::move(callback));
               internal::IntentHelperInstance_RequestTextSelectionActions_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.15
       bool success = true;
       std::string p_text{};
       ::arc::mojom::ScaleFactor p_scale_factor{};
@@ -6713,9 +6803,9 @@ std::move(p_urls), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestTextSelectionActions(
-std::move(p_text), 
-std::move(p_scale_factor), std::move(callback));
+      impl->RequestTextSelectionActions(        
+        std::move(p_text), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_HandleCameraResult_Name: {
@@ -6725,6 +6815,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::IntentHelperInstance_HandleCameraResult_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IntentHelperInstance.16
       bool success = true;
       uint32_t p_intent_id{};
       ::arc::mojom::CameraIntentAction p_action{};
@@ -6749,10 +6841,10 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleCameraResult(
-std::move(p_intent_id), 
-std::move(p_action), 
-std::move(p_data), std::move(callback));
+      impl->HandleCameraResult(        
+        std::move(p_intent_id), 
+        std::move(p_action), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kIntentHelperInstance_RequestDomainVerificationStatusUpdate_Name: {

@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:24px;padding-block-start:24px}:host-context(body:not(.jelly-enabled)) .title{font-family:'Google Sans';font-size:16px;font-weight:400;line-height:24px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:340px}[slot=body]{padding-top:5px}.title{color:var(--cros-primary-text-color);margin:0;padding-block-end:24px;padding-block-start:24px}</style>
 <cr-dialog id="dialog">
   <div slot="title" class="title">$i18n{nearbyShareDeviceNameDialogTitle}</div>
   <div slot="body">

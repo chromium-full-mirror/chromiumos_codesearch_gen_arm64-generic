@@ -10,6 +10,7 @@ import 'chrome://resources/polymer/v3_0/iron-selector/iron-selector.js';
 import './strings.m.js';
 import './tab_organization_shared_style.css.js';
 import './tab_search_item.js';
+import { CrFeedbackOption } from 'chrome://resources/cr_elements/cr_feedback_buttons/cr_feedback_buttons.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { TabData, TabItemType } from './tab_data.js';
@@ -32,6 +33,10 @@ export class TabOrganizationResultsElement extends PolymerElement {
                 observer: 'onAvailableHeightChange_',
             },
             isLastOrganization: Boolean,
+            organizationId: {
+                type: Number,
+                observer: 'onOrganizationIdChange_',
+            },
             lastFocusedIndex_: {
                 type: Number,
                 value: 0,
@@ -45,10 +50,21 @@ export class TabOrganizationResultsElement extends PolymerElement {
                 value: () => [],
                 computed: 'computeTabDatas_(tabs.*)',
             },
+            feedbackSelectedOption_: {
+                type: String,
+                value: CrFeedbackOption.UNSPECIFIED,
+            },
         };
     }
     static get template() {
         return getTemplate();
+    }
+    announceHeader() {
+        this.$.header.textContent = '';
+        this.$.header.textContent = this.getTitle_();
+    }
+    focusInput() {
+        this.$.input.focus();
     }
     computeTabDatas_() {
         return this.tabs.map(tab => new TabData(tab, TabItemType.OPEN_TAB, new URL(tab.url.url).hostname));
@@ -57,6 +73,9 @@ export class TabOrganizationResultsElement extends PolymerElement {
         if (this.lastFocusedIndex_ > this.tabs.length - 1) {
             this.lastFocusedIndex_ = 0;
         }
+    }
+    getTitle_() {
+        return loadTimeData.getString('successTitle');
     }
     getRefreshButtonText_() {
         if (this.isLastOrganization) {
@@ -71,6 +90,12 @@ export class TabOrganizationResultsElement extends PolymerElement {
         const maxHeight = Math.max(MINIMUM_SCROLLABLE_MAX_HEIGHT, (this.availableHeight - NON_SCROLLABLE_VERTICAL_SPACING));
         this.$.scrollable.style.maxHeight = maxHeight + 'px';
     }
+    onOrganizationIdChange_() {
+        this.feedbackSelectedOption_ = CrFeedbackOption.UNSPECIFIED;
+    }
+    getInputAriaLabel_() {
+        return loadTimeData.getStringF('inputAriaLabel', this.name);
+    }
     onInputFocus_() {
         this.$.input.select();
     }
@@ -81,20 +106,29 @@ export class TabOrganizationResultsElement extends PolymerElement {
         }
     }
     onListKeyDown_(event) {
-        if (event.shiftKey) {
-            return;
-        }
         const selector = this.$.selector;
         if (selector.selected === undefined) {
             return;
         }
-        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        let handled = false;
+        if (event.shiftKey && event.key === 'Tab') {
+            // Explicitly focus the element prior to the list in focus order and
+            // override the default behavior, which would be to focus the row that
+            // the currently focused close button is in.
+            this.$.input.focus();
+            handled = true;
+        }
+        else if (!event.shiftKey) {
             if (event.key === 'ArrowUp') {
                 selector.selectPrevious();
+                handled = true;
             }
-            else {
+            else if (event.key === 'ArrowDown') {
                 selector.selectNext();
+                handled = true;
             }
+        }
+        if (handled) {
             event.stopPropagation();
             event.preventDefault();
         }
@@ -177,6 +211,7 @@ export class TabOrganizationResultsElement extends PolymerElement {
         focusableElements[nextFocusedIndex].focus();
     }
     onFeedbackSelectedOptionChanged_(event) {
+        this.feedbackSelectedOption_ = event.detail.value;
         this.dispatchEvent(new CustomEvent('feedback', {
             bubbles: true,
             composed: true,

@@ -161,6 +161,8 @@ bool IioSensorHostStubDispatch::Accept(
           reinterpret_cast<internal::IioSensorHost_RegisterSensorHalClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IioSensorHost.0
       bool success = true;
       ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> p_client{};
       IioSensorHost_RegisterSensorHalClient_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool IioSensorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterSensorHalClient(
-std::move(p_client));
+      impl->RegisterSensorHalClient(        
+        std::move(p_client));
       return true;
     }
   }
@@ -453,6 +455,8 @@ bool IioSensorInstance_Init_ForwardToCallback::Accept(
           internal::IioSensorInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IioSensorInstance.0
   bool success = true;
   IioSensorInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -518,6 +522,8 @@ bool IioSensorInstanceStubDispatch::Accept(
           reinterpret_cast<internal::IioSensorInstance_OnTabletModeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IioSensorInstance.1
       bool success = true;
       bool p_is_tablet_mode_on{};
       IioSensorInstance_OnTabletModeChanged_ParamsDataView input_data_view(params, message);
@@ -533,8 +539,8 @@ bool IioSensorInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTabletModeChanged(
-std::move(p_is_tablet_mode_on));
+      impl->OnTabletModeChanged(        
+        std::move(p_is_tablet_mode_on));
       return true;
     }
   }
@@ -557,6 +563,8 @@ bool IioSensorInstanceStubDispatch::AcceptWithResponder(
               internal::IioSensorInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IioSensorInstance.0
       bool success = true;
       ::mojo::PendingRemote<IioSensorHost> p_host_remote{};
       IioSensorInstance_Init_ParamsDataView input_data_view(params, message);
@@ -577,8 +585,8 @@ bool IioSensorInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kIioSensorInstance_OnTabletModeChanged_Name: {

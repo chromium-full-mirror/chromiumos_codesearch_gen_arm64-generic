@@ -117,6 +117,8 @@ inline const char* const kPaths[] = {
   mojom::kAudioAndCaptionsSubpagePath,
   mojom::kTextToSpeechSubpagePath,
   mojom::kSwitchAccessOptionsSubpagePath,
+  mojom::kFaceGazeCursorSettingsSubpagePath,
+  mojom::kFaceGazeFacialExpressionsSettingsSubpagePath,
   mojom::kResetSectionPath,
   mojom::kAboutChromeOsSectionPath,
   mojom::kDetailedBuildInfoSubpagePath,

@@ -415,6 +415,8 @@ bool AudioFocusObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioFocusObserver_OnFocusGained_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusObserver.0
       bool success = true;
       AudioFocusRequestStatePtr p_state{};
       AudioFocusObserver_OnFocusGained_ParamsDataView input_data_view(params, message);
@@ -430,8 +432,8 @@ bool AudioFocusObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFocusGained(
-std::move(p_state));
+      impl->OnFocusGained(        
+        std::move(p_state));
       return true;
     }
     case internal::kAudioFocusObserver_OnFocusLost_Name: {
@@ -441,6 +443,8 @@ std::move(p_state));
           reinterpret_cast<internal::AudioFocusObserver_OnFocusLost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusObserver.1
       bool success = true;
       AudioFocusRequestStatePtr p_state{};
       AudioFocusObserver_OnFocusLost_ParamsDataView input_data_view(params, message);
@@ -456,8 +460,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFocusLost(
-std::move(p_state));
+      impl->OnFocusLost(        
+        std::move(p_state));
       return true;
     }
     case internal::kAudioFocusObserver_OnRequestIdReleased_Name: {
@@ -467,6 +471,8 @@ std::move(p_state));
           reinterpret_cast<internal::AudioFocusObserver_OnRequestIdReleased_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusObserver.2
       bool success = true;
       ::base::UnguessableToken p_request_id{};
       AudioFocusObserver_OnRequestIdReleased_ParamsDataView input_data_view(params, message);
@@ -482,8 +488,8 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRequestIdReleased(
-std::move(p_request_id));
+      impl->OnRequestIdReleased(        
+        std::move(p_request_id));
       return true;
     }
   }
@@ -840,6 +846,8 @@ bool AudioFocusRequestClient_RequestAudioFocus_ForwardToCallback::Accept(
           internal::AudioFocusRequestClient_RequestAudioFocus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioFocusRequestClient.0
   bool success = true;
   AudioFocusRequestClient_RequestAudioFocus_ResponseParamsDataView input_data_view(params, message);
   
@@ -905,6 +913,8 @@ bool AudioFocusRequestClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioFocusRequestClient_AbandonAudioFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusRequestClient.1
       bool success = true;
       AudioFocusRequestClient_AbandonAudioFocus_ParamsDataView input_data_view(params, message);
       
@@ -917,7 +927,7 @@ bool AudioFocusRequestClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AbandonAudioFocus();
+      impl->AbandonAudioFocus(        );
       return true;
     }
     case internal::kAudioFocusRequestClient_MediaSessionInfoChanged_Name: {
@@ -927,6 +937,8 @@ bool AudioFocusRequestClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioFocusRequestClient_MediaSessionInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusRequestClient.2
       bool success = true;
       ::media_session::mojom::blink::MediaSessionInfoPtr p_session_info{};
       AudioFocusRequestClient_MediaSessionInfoChanged_ParamsDataView input_data_view(params, message);
@@ -942,8 +954,8 @@ bool AudioFocusRequestClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaSessionInfoChanged(
-std::move(p_session_info));
+      impl->MediaSessionInfoChanged(        
+        std::move(p_session_info));
       return true;
     }
   }
@@ -966,6 +978,8 @@ bool AudioFocusRequestClientStubDispatch::AcceptWithResponder(
               internal::AudioFocusRequestClient_RequestAudioFocus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioFocusRequestClient.0
       bool success = true;
       ::media_session::mojom::blink::MediaSessionInfoPtr p_session_info{};
       AudioFocusType p_type{};
@@ -987,9 +1001,9 @@ bool AudioFocusRequestClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAudioFocus(
-std::move(p_session_info), 
-std::move(p_type), std::move(callback));
+      impl->RequestAudioFocus(        
+        std::move(p_session_info), 
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kAudioFocusRequestClient_AbandonAudioFocus_Name: {
@@ -1890,6 +1904,8 @@ bool AudioFocusManager_RequestAudioFocus_ForwardToCallback::Accept(
           internal::AudioFocusManager_RequestAudioFocus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioFocusManager.0
   bool success = true;
   ::base::UnguessableToken p_request_id{};
   AudioFocusManager_RequestAudioFocus_ResponseParamsDataView input_data_view(params, message);
@@ -2019,6 +2035,8 @@ bool AudioFocusManager_RequestGroupedAudioFocus_ForwardToCallback::Accept(
           internal::AudioFocusManager_RequestGroupedAudioFocus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioFocusManager.4
   bool success = true;
   bool p_success{};
   AudioFocusManager_RequestGroupedAudioFocus_ResponseParamsDataView input_data_view(params, message);
@@ -2138,6 +2156,8 @@ bool AudioFocusManager_GetFocusRequests_ForwardToCallback::Accept(
           internal::AudioFocusManager_GetFocusRequests_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioFocusManager.1
   bool success = true;
   WTF::Vector<AudioFocusRequestStatePtr> p_requests{};
   AudioFocusManager_GetFocusRequests_ResponseParamsDataView input_data_view(params, message);
@@ -2269,6 +2289,8 @@ bool AudioFocusManager_GetSourceFocusRequests_ForwardToCallback::Accept(
           internal::AudioFocusManager_GetSourceFocusRequests_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioFocusManager.8
   bool success = true;
   WTF::Vector<AudioFocusRequestStatePtr> p_requests{};
   AudioFocusManager_GetSourceFocusRequests_ResponseParamsDataView input_data_view(params, message);
@@ -2364,6 +2386,8 @@ bool AudioFocusManagerStubDispatch::Accept(
           reinterpret_cast<internal::AudioFocusManager_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.2
       bool success = true;
       ::mojo::PendingRemote<AudioFocusObserver> p_observer{};
       AudioFocusManager_AddObserver_ParamsDataView input_data_view(params, message);
@@ -2381,8 +2405,8 @@ bool AudioFocusManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAudioFocusManager_SetSource_Name: {
@@ -2392,6 +2416,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AudioFocusManager_SetSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.6
       bool success = true;
       ::base::UnguessableToken p_identity{};
       WTF::String p_name{};
@@ -2410,9 +2436,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSource(
-std::move(p_identity), 
-std::move(p_name));
+      impl->SetSource(        
+        std::move(p_identity), 
+        std::move(p_name));
       return true;
     }
     case internal::kAudioFocusManager_SetEnforcementMode_Name: {
@@ -2422,6 +2448,8 @@ std::move(p_name));
           reinterpret_cast<internal::AudioFocusManager_SetEnforcementMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.5
       bool success = true;
       EnforcementMode p_mode{};
       AudioFocusManager_SetEnforcementMode_ParamsDataView input_data_view(params, message);
@@ -2437,8 +2465,8 @@ std::move(p_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEnforcementMode(
-std::move(p_mode));
+      impl->SetEnforcementMode(        
+        std::move(p_mode));
       return true;
     }
     case internal::kAudioFocusManager_AddSourceObserver_Name: {
@@ -2448,6 +2476,8 @@ std::move(p_mode));
           reinterpret_cast<internal::AudioFocusManager_AddSourceObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.7
       bool success = true;
       ::base::UnguessableToken p_source_id{};
       ::mojo::PendingRemote<AudioFocusObserver> p_observer{};
@@ -2468,9 +2498,9 @@ std::move(p_mode));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSourceObserver(
-std::move(p_source_id), 
-std::move(p_observer));
+      impl->AddSourceObserver(        
+        std::move(p_source_id), 
+        std::move(p_observer));
       return true;
     }
     case internal::kAudioFocusManager_GetSourceFocusRequests_Name: {
@@ -2483,6 +2513,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AudioFocusManager_RequestIdReleased_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.9
       bool success = true;
       ::base::UnguessableToken p_request_id{};
       AudioFocusManager_RequestIdReleased_ParamsDataView input_data_view(params, message);
@@ -2498,8 +2530,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestIdReleased(
-std::move(p_request_id));
+      impl->RequestIdReleased(        
+        std::move(p_request_id));
       return true;
     }
   }
@@ -2522,6 +2554,8 @@ bool AudioFocusManagerStubDispatch::AcceptWithResponder(
               internal::AudioFocusManager_RequestAudioFocus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.0
       bool success = true;
       ::mojo::PendingReceiver<AudioFocusRequestClient> p_client{};
       ::mojo::PendingRemote<::media_session::mojom::blink::MediaSession> p_session{};
@@ -2553,11 +2587,11 @@ bool AudioFocusManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAudioFocus(
-std::move(p_client), 
-std::move(p_session), 
-std::move(p_session_info), 
-std::move(p_type), std::move(callback));
+      impl->RequestAudioFocus(        
+        std::move(p_client), 
+        std::move(p_session), 
+        std::move(p_session_info), 
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kAudioFocusManager_RequestGroupedAudioFocus_Name: {
@@ -2567,6 +2601,8 @@ std::move(p_type), std::move(callback));
               internal::AudioFocusManager_RequestGroupedAudioFocus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.4
       bool success = true;
       ::base::UnguessableToken p_request_id{};
       ::mojo::PendingReceiver<AudioFocusRequestClient> p_client{};
@@ -2604,13 +2640,13 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGroupedAudioFocus(
-std::move(p_request_id), 
-std::move(p_client), 
-std::move(p_session), 
-std::move(p_session_info), 
-std::move(p_type), 
-std::move(p_group_id), std::move(callback));
+      impl->RequestGroupedAudioFocus(        
+        std::move(p_request_id), 
+        std::move(p_client), 
+        std::move(p_session), 
+        std::move(p_session_info), 
+        std::move(p_type), 
+        std::move(p_group_id), std::move(callback));
       return true;
     }
     case internal::kAudioFocusManager_GetFocusRequests_Name: {
@@ -2620,6 +2656,8 @@ std::move(p_group_id), std::move(callback));
               internal::AudioFocusManager_GetFocusRequests_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.1
       bool success = true;
       AudioFocusManager_GetFocusRequests_ParamsDataView input_data_view(params, message);
       
@@ -2657,6 +2695,8 @@ std::move(p_group_id), std::move(callback));
               internal::AudioFocusManager_GetSourceFocusRequests_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioFocusManager.8
       bool success = true;
       ::base::UnguessableToken p_source_id{};
       AudioFocusManager_GetSourceFocusRequests_ParamsDataView input_data_view(params, message);
@@ -2675,8 +2715,8 @@ std::move(p_group_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSourceFocusRequests(
-std::move(p_source_id), std::move(callback));
+      impl->GetSourceFocusRequests(        
+        std::move(p_source_id), std::move(callback));
       return true;
     }
     case internal::kAudioFocusManager_RequestIdReleased_Name: {
@@ -2903,6 +2943,8 @@ bool AudioFocusManagerDebug_GetDebugInfoForRequest_ForwardToCallback::Accept(
           internal::AudioFocusManagerDebug_GetDebugInfoForRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioFocusManagerDebug.0
   bool success = true;
   ::media_session::mojom::blink::MediaSessionDebugInfoPtr p_debug_info{};
   AudioFocusManagerDebug_GetDebugInfoForRequest_ResponseParamsDataView input_data_view(params, message);
@@ -3003,6 +3045,8 @@ bool AudioFocusManagerDebugStubDispatch::AcceptWithResponder(
               internal::AudioFocusManagerDebug_GetDebugInfoForRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioFocusManagerDebug.0
       bool success = true;
       ::base::UnguessableToken p_request_id{};
       AudioFocusManagerDebug_GetDebugInfoForRequest_ParamsDataView input_data_view(params, message);
@@ -3021,8 +3065,8 @@ bool AudioFocusManagerDebugStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDebugInfoForRequest(
-std::move(p_request_id), std::move(callback));
+      impl->GetDebugInfoForRequest(        
+        std::move(p_request_id), std::move(callback));
       return true;
     }
   }

@@ -166,6 +166,8 @@ bool FieldTrialRecorderStubDispatch::Accept(
           reinterpret_cast<internal::FieldTrialRecorder_FieldTrialActivated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FieldTrialRecorder.0
       bool success = true;
       std::string p_trial_name{};
       FieldTrialRecorder_FieldTrialActivated_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool FieldTrialRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FieldTrialActivated(
-std::move(p_trial_name));
+      impl->FieldTrialActivated(        
+        std::move(p_trial_name));
       return true;
     }
   }

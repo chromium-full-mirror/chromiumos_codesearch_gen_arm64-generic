@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/mems_setup-0.0.1-r918/work/mems_setup-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/mems_setup-0.0.1-r931/work/mems_setup-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

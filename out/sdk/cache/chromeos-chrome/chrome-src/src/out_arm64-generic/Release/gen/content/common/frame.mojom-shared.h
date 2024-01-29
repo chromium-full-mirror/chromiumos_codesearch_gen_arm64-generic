@@ -60,7 +60,6 @@
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom-shared.h"
 #include "third_party/blink/public/mojom/frame/tree_scope_type.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/referrer.mojom-shared.h"
-#include "third_party/blink/public/mojom/loader/resource_cache.mojom-shared.h"
 #include "third_party/blink/public/mojom/navigation/navigation_policy.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/resource_load_info.mojom-shared.h"
 #include "third_party/blink/public/mojom/loader/url_loader_factory_bundle.mojom-shared.h"

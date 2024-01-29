@@ -8,7 +8,6 @@ export function needsLogging(element) {
 export function getLoggingConfig(element) {
     return parseJsLog(element.getAttribute(LOGGING_ATTRIBUTE) || '');
 }
-// eslint-disable-next-line rulesdir/const_enum
 var VisualElements;
 (function (VisualElements) {
     VisualElements[VisualElements["TreeItem"] = 1] = "TreeItem";
@@ -19,7 +18,7 @@ var VisualElements;
     VisualElements[VisualElements["Toggle"] = 6] = "Toggle";
     VisualElements[VisualElements["Tree"] = 7] = "Tree";
     VisualElements[VisualElements["TextField"] = 8] = "TextField";
-    VisualElements[VisualElements["ShowAllStyleProperties"] = 9] = "ShowAllStyleProperties";
+    /* 9 used to be ShowAllStyleProperties, but free to grab now */
     VisualElements[VisualElements["Section"] = 10] = "Section";
     VisualElements[VisualElements["StylePropertiesSectionSeparator"] = 11] = "StylePropertiesSectionSeparator";
     /* 12 used to be StylesPane, but free to grab now */
@@ -32,7 +31,7 @@ var VisualElements;
     /* 19 used to be CssLayersPane, but free to grab now */
     VisualElements[VisualElements["DropDown"] = 20] = "DropDown";
     /* 21 used to be StylesMetricsPane, but free to grab now */
-    VisualElements[VisualElements["JumpToSource"] = 22] = "JumpToSource";
+    /* 22 used to be JumpToSource, but free to grab now */
     VisualElements[VisualElements["MetricsBox"] = 23] = "MetricsBox";
     VisualElements[VisualElements["MetricsBoxPart"] = 24] = "MetricsBoxPart";
     /* 25 used to be DOMBreakpointsPane, but free to grab now */
@@ -46,29 +45,29 @@ var VisualElements;
     VisualElements[VisualElements["BezierEditor"] = 33] = "BezierEditor";
     VisualElements[VisualElements["BezierPresetCategory"] = 34] = "BezierPresetCategory";
     VisualElements[VisualElements["Preview"] = 35] = "Preview";
-    VisualElements[VisualElements["ColorCanvas"] = 36] = "ColorCanvas";
+    VisualElements[VisualElements["Canvas"] = 36] = "Canvas";
     VisualElements[VisualElements["ColorEyeDropper"] = 37] = "ColorEyeDropper";
     VisualElements[VisualElements["ColorPicker"] = 38] = "ColorPicker";
-    VisualElements[VisualElements["CopyColor"] = 39] = "CopyColor";
+    /* 39 used to be CopyColor, but free to grab now */
     VisualElements[VisualElements["CssAngleEditor"] = 40] = "CssAngleEditor";
     VisualElements[VisualElements["CssFlexboxEditor"] = 41] = "CssFlexboxEditor";
     VisualElements[VisualElements["CssGridEditor"] = 42] = "CssGridEditor";
     VisualElements[VisualElements["CssShadowEditor"] = 43] = "CssShadowEditor";
     VisualElements[VisualElements["Link"] = 44] = "Link";
-    VisualElements[VisualElements["Next"] = 45] = "Next";
+    /* 45 used to be Next, but free to grab now */
     VisualElements[VisualElements["Item"] = 46] = "Item";
     VisualElements[VisualElements["PaletteColorShades"] = 47] = "PaletteColorShades";
     VisualElements[VisualElements["Panel"] = 48] = "Panel";
-    VisualElements[VisualElements["Previous"] = 49] = "Previous";
+    /* 49 used to be Previous, but free to grab now */
     VisualElements[VisualElements["ShowStyleEditor"] = 50] = "ShowStyleEditor";
     VisualElements[VisualElements["Slider"] = 51] = "Slider";
     VisualElements[VisualElements["CssColorMix"] = 52] = "CssColorMix";
     VisualElements[VisualElements["Value"] = 53] = "Value";
     VisualElements[VisualElements["Key"] = 54] = "Key";
-    VisualElements[VisualElements["GridSettings"] = 55] = "GridSettings";
-    VisualElements[VisualElements["FlexboxOverlays"] = 56] = "FlexboxOverlays";
-    VisualElements[VisualElements["GridOverlays"] = 57] = "GridOverlays";
-    VisualElements[VisualElements["JumpToElement"] = 58] = "JumpToElement";
+    /* 55 used to be GridSettings, but free to grab now */
+    /* 56 used to be FlexboxOverlays, but free to grab now */
+    /* 57 used to be GridOverlays, but free to grab now */
+    /* 58 used to be JumpToElement, but free to grab now */
     VisualElements[VisualElements["PieChart"] = 59] = "PieChart";
     VisualElements[VisualElements["PieChartSlice"] = 60] = "PieChartSlice";
     VisualElements[VisualElements["PieChartTotal"] = 61] = "PieChartTotal";
@@ -81,7 +80,7 @@ var VisualElements;
     /* 68 used to be DeveloperResourcesPanel, but free to grab now */
     VisualElements[VisualElements["TableHeader"] = 69] = "TableHeader";
     VisualElements[VisualElements["TableCell"] = 70] = "TableCell";
-    VisualElements[VisualElements["StylesComputedPane"] = 71] = "StylesComputedPane";
+    /* 71 used to be StylesComputedPane, but free to grab now */
     VisualElements[VisualElements["Pane"] = 72] = "Pane";
     VisualElements[VisualElements["ResponsivePresets"] = 73] = "ResponsivePresets";
     VisualElements[VisualElements["DeviceModeRuler"] = 74] = "DeviceModeRuler";

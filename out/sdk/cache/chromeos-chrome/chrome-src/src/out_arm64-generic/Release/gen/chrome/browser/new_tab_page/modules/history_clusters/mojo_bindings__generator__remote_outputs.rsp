@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters_layout_type.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters_layout_type.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters_layout_type.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters_layout_type.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/new_tab_page/modules/history_clusters/history_clusters_layout_type.mojom.h

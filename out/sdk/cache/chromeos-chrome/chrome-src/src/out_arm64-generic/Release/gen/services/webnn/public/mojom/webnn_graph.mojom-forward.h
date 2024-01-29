@@ -72,6 +72,8 @@ class GatherDataView;
 
 class GemmDataView;
 
+class HardSigmoidDataView;
+
 class LayerNormalizationDataView;
 
 class LeakyReluDataView;
@@ -90,6 +92,8 @@ class SoftmaxDataView;
 
 class SoftplusDataView;
 
+class SoftsignDataView;
+
 class SplitDataView;
 
 class TanhDataView;
@@ -105,10 +109,9 @@ class GraphInfoDataView;
 class PaddingModeDataView;
 class ActivationDataView;
 class OperationDataView;
+class ComputeResultDataView;
 
 enum class InputOperandLayout : int32_t;
-
-enum class ComputeResult : int32_t;
 
 enum class Operand_DataType : int32_t;
 
@@ -202,6 +205,9 @@ using GatherPtr = mojo::InlinedStructPtr<Gather>;
 class Gemm;
 using GemmPtr = mojo::StructPtr<Gemm>;
 
+class HardSigmoid;
+using HardSigmoidPtr = mojo::InlinedStructPtr<HardSigmoid>;
+
 class LayerNormalization;
 using LayerNormalizationPtr = mojo::StructPtr<LayerNormalization>;
 
@@ -228,6 +234,9 @@ using SoftmaxPtr = mojo::InlinedStructPtr<Softmax>;
 
 class Softplus;
 using SoftplusPtr = mojo::InlinedStructPtr<Softplus>;
+
+class Softsign;
+using SoftsignPtr = mojo::InlinedStructPtr<Softsign>;
 
 class Split;
 using SplitPtr = mojo::StructPtr<Split>;
@@ -258,6 +267,10 @@ using ActivationPtr = mojo::StructPtr<Activation>;
 class Operation;
 
 using OperationPtr = mojo::StructPtr<Operation>;
+
+class ComputeResult;
+
+using ComputeResultPtr = mojo::StructPtr<ComputeResult>;
 
 class WebNNGraph;
 

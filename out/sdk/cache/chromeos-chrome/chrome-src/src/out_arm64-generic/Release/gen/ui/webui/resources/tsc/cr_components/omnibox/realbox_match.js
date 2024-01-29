@@ -10,7 +10,7 @@ import '//resources/cr_elements/cr_hidden_style.css.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
 import { sanitizeInnerHtml } from '//resources/js/parse_html_subset.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { NavigationPredictor, SelectionLineState } from './omnibox.mojom-webui.js';
+import { NavigationPredictor, SelectionLineState, SideType } from './omnibox.mojom-webui.js';
 import { RealboxBrowserProxy } from './realbox_browser_proxy.js';
 import { getTemplate } from './realbox_match.html.js';
 import { decodeString16, mojoTimeTicks, sideTypeToClass } from './utils.js';
@@ -71,6 +71,12 @@ export class RealboxMatchElement extends PolymerElement {
                 computed: `computeHasImage_(match)`,
                 reflectToAttribute: true,
             },
+            /** Whether action chip is inlined. */
+            inlinedActions: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('omniboxActionsUISimplification'),
+                reflectToAttribute: true,
+            },
             /**
              * Whether the match is an entity suggestion (with or without an image).
              */
@@ -100,6 +106,11 @@ export class RealboxMatchElement extends PolymerElement {
             realboxConsistentRowHeight: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('realboxCr23ConsistentRowHeight'),
+                reflectToAttribute: true,
+            },
+            showCrNonInlinedHoverFill: {
+                type: Boolean,
+                computed: 'computeShowCrNonInlinedHoverFill_(hasAction)',
                 reflectToAttribute: true,
             },
             sideType: Number,
@@ -295,17 +306,22 @@ export class RealboxMatchElement extends PolymerElement {
             loadTimeData.getString('realboxSeparator') :
             '';
     }
+    computeShowCrNonInlinedHoverFill_() {
+        return !this.inlinedActions &&
+            loadTimeData.getBoolean('realboxCr23HoverFillShape') && this.hasAction;
+    }
     computeSideTypeClass_() {
         return sideTypeToClass(this.sideType);
     }
     showActionsInlined_() {
         // Always show inlined div when feature is enabled, so that it will
         // grow and push other elements like remove button to the right.
-        return loadTimeData.getBoolean('omniboxActionsUISimplification');
+        return this.inlinedActions && !this.showCrNonInlinedHoverFill &&
+            this.sideType === SideType.kDefaultPrimary;
     }
     showActionsUnderneath_(match) {
-        return match.actions.length > 0 &&
-            !loadTimeData.getBoolean('omniboxActionsUISimplification');
+        return match.actions.length > 0 && !this.inlinedActions &&
+            !this.showCrNonInlinedHoverFill;
     }
     /**
      * Decodes the AcMatchClassificationStyle enteries encoded in the given
@@ -353,11 +369,14 @@ export class RealboxMatchElement extends PolymerElement {
         }, document.createElement('span'));
     }
     updateSelection(selection) {
-        this.$.remove.classList.toggle('selected', selection.state === SelectionLineState.kFocusedButtonRemoveSuggestion);
-        const actions = Array.from(this.shadowRoot.querySelectorAll('cr-realbox-action'));
-        actions.forEach((action, index) => {
+        this.$['focus-indicator'].classList.toggle('selected-within', selection.state !== SelectionLineState.kNormal &&
+            selection.line === this.matchIndex);
+        this.$.remove.classList.toggle('selected', selection.state === SelectionLineState.kFocusedButtonRemoveSuggestion &&
+            selection.line === this.matchIndex);
+        [...this.shadowRoot.querySelectorAll('cr-realbox-action')].forEach((action, index) => {
             action.classList.toggle('selected', selection.state === SelectionLineState.kFocusedButtonAction &&
-                selection.actionIndex === index);
+                selection.actionIndex === index &&
+                selection.line === this.matchIndex);
         });
     }
 }

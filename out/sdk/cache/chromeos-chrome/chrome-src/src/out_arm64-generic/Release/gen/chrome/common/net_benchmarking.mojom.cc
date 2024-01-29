@@ -664,6 +664,8 @@ bool NetBenchmarking_CloseCurrentConnections_ForwardToCallback::Accept(
           internal::NetBenchmarking_CloseCurrentConnections_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.0
   bool success = true;
   NetBenchmarking_CloseCurrentConnections_ResponseParamsDataView input_data_view(params, message);
   
@@ -721,6 +723,8 @@ bool NetBenchmarking_CloseCurrentConnections_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NetBenchmarking_CloseCurrentConnections_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.0
   bool success = true;
   NetBenchmarking_CloseCurrentConnections_ResponseParamsDataView input_data_view(params, message);
   
@@ -792,6 +796,8 @@ bool NetBenchmarking_ClearCache_ForwardToCallback::Accept(
           internal::NetBenchmarking_ClearCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.1
   bool success = true;
   NetBenchmarking_ClearCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -849,6 +855,8 @@ bool NetBenchmarking_ClearCache_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NetBenchmarking_ClearCache_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.1
   bool success = true;
   NetBenchmarking_ClearCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -920,6 +928,8 @@ bool NetBenchmarking_ClearHostResolverCache_ForwardToCallback::Accept(
           internal::NetBenchmarking_ClearHostResolverCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.2
   bool success = true;
   NetBenchmarking_ClearHostResolverCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -977,6 +987,8 @@ bool NetBenchmarking_ClearHostResolverCache_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NetBenchmarking_ClearHostResolverCache_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.2
   bool success = true;
   NetBenchmarking_ClearHostResolverCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -1048,6 +1060,8 @@ bool NetBenchmarking_ClearPredictorCache_ForwardToCallback::Accept(
           internal::NetBenchmarking_ClearPredictorCache_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.3
   bool success = true;
   NetBenchmarking_ClearPredictorCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -1105,6 +1119,8 @@ bool NetBenchmarking_ClearPredictorCache_HandleSyncResponse::Accept(
       reinterpret_cast<internal::NetBenchmarking_ClearPredictorCache_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for NetBenchmarking.3
   bool success = true;
   NetBenchmarking_ClearPredictorCache_ResponseParamsDataView input_data_view(params, message);
   
@@ -1156,6 +1172,8 @@ bool NetBenchmarkingStubDispatch::AcceptWithResponder(
               internal::NetBenchmarking_CloseCurrentConnections_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetBenchmarking.0
       bool success = true;
       NetBenchmarking_CloseCurrentConnections_ParamsDataView input_data_view(params, message);
       
@@ -1181,6 +1199,8 @@ bool NetBenchmarkingStubDispatch::AcceptWithResponder(
               internal::NetBenchmarking_ClearCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetBenchmarking.1
       bool success = true;
       NetBenchmarking_ClearCache_ParamsDataView input_data_view(params, message);
       
@@ -1206,6 +1226,8 @@ bool NetBenchmarkingStubDispatch::AcceptWithResponder(
               internal::NetBenchmarking_ClearHostResolverCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetBenchmarking.2
       bool success = true;
       NetBenchmarking_ClearHostResolverCache_ParamsDataView input_data_view(params, message);
       
@@ -1231,6 +1253,8 @@ bool NetBenchmarkingStubDispatch::AcceptWithResponder(
               internal::NetBenchmarking_ClearPredictorCache_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetBenchmarking.3
       bool success = true;
       NetBenchmarking_ClearPredictorCache_ParamsDataView input_data_view(params, message);
       

@@ -488,6 +488,8 @@ bool Gzipper_Deflate_ForwardToCallback::Accept(
           internal::Gzipper_Deflate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Gzipper.0
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_deflated_data{};
   Gzipper_Deflate_ResponseParamsDataView input_data_view(params, message);
@@ -611,6 +613,8 @@ bool Gzipper_Inflate_ForwardToCallback::Accept(
           internal::Gzipper_Inflate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Gzipper.1
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_inflated_data{};
   Gzipper_Inflate_ResponseParamsDataView input_data_view(params, message);
@@ -734,6 +738,8 @@ bool Gzipper_Compress_ForwardToCallback::Accept(
           internal::Gzipper_Compress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Gzipper.2
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_compressed_data{};
   Gzipper_Compress_ResponseParamsDataView input_data_view(params, message);
@@ -857,6 +863,8 @@ bool Gzipper_Uncompress_ForwardToCallback::Accept(
           internal::Gzipper_Uncompress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Gzipper.3
   bool success = true;
   std::optional<::mojo_base::BigBuffer> p_data{};
   Gzipper_Uncompress_ResponseParamsDataView input_data_view(params, message);
@@ -960,6 +968,8 @@ bool GzipperStubDispatch::AcceptWithResponder(
               internal::Gzipper_Deflate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Gzipper.0
       bool success = true;
       ::mojo_base::BigBuffer p_data{};
       Gzipper_Deflate_ParamsDataView input_data_view(params, message);
@@ -978,8 +988,8 @@ bool GzipperStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Deflate(
-std::move(p_data), std::move(callback));
+      impl->Deflate(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kGzipper_Inflate_Name: {
@@ -989,6 +999,8 @@ std::move(p_data), std::move(callback));
               internal::Gzipper_Inflate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Gzipper.1
       bool success = true;
       ::mojo_base::BigBuffer p_data{};
       uint64_t p_max_uncompressed_size{};
@@ -1010,9 +1022,9 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Inflate(
-std::move(p_data), 
-std::move(p_max_uncompressed_size), std::move(callback));
+      impl->Inflate(        
+        std::move(p_data), 
+        std::move(p_max_uncompressed_size), std::move(callback));
       return true;
     }
     case internal::kGzipper_Compress_Name: {
@@ -1022,6 +1034,8 @@ std::move(p_max_uncompressed_size), std::move(callback));
               internal::Gzipper_Compress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Gzipper.2
       bool success = true;
       ::mojo_base::BigBuffer p_data{};
       Gzipper_Compress_ParamsDataView input_data_view(params, message);
@@ -1040,8 +1054,8 @@ std::move(p_max_uncompressed_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Compress(
-std::move(p_data), std::move(callback));
+      impl->Compress(        
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kGzipper_Uncompress_Name: {
@@ -1051,6 +1065,8 @@ std::move(p_data), std::move(callback));
               internal::Gzipper_Uncompress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Gzipper.3
       bool success = true;
       ::mojo_base::BigBuffer p_compressed_data{};
       Gzipper_Uncompress_ParamsDataView input_data_view(params, message);
@@ -1069,8 +1085,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Uncompress(
-std::move(p_compressed_data), std::move(callback));
+      impl->Uncompress(        
+        std::move(p_compressed_data), std::move(callback));
       return true;
     }
   }

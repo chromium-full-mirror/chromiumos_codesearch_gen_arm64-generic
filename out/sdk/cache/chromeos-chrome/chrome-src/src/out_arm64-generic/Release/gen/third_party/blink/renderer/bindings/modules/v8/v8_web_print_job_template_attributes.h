@@ -15,6 +15,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_print_color_mode.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_print_quality.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_multiple_document_handling.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_orientation_requested.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_sides.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
@@ -77,6 +78,28 @@ has_multiple_document_handling_ = true;
 void setMultipleDocumentHandling(V8WebPrintingMultipleDocumentHandling::Enum value) {
   member_multiple_document_handling_ = V8WebPrintingMultipleDocumentHandling(value);
 has_multiple_document_handling_ = true;
+}
+
+bool hasOrientationRequested() const {
+  return has_orientation_requested_;
+}
+V8WebPrintingOrientationRequested orientationRequested() const {
+  DCHECK(hasOrientationRequested());
+return member_orientation_requested_;
+}
+V8WebPrintingOrientationRequested getOrientationRequestedOr(V8WebPrintingOrientationRequested fallback_value) const {
+  if (!hasOrientationRequested()) {
+  return fallback_value;
+}
+return member_orientation_requested_;
+}
+void setOrientationRequested(V8WebPrintingOrientationRequested value) {
+  member_orientation_requested_ = value;
+has_orientation_requested_ = true;
+}
+void setOrientationRequested(V8WebPrintingOrientationRequested::Enum value) {
+  member_orientation_requested_ = V8WebPrintingOrientationRequested(value);
+has_orientation_requested_ = true;
 }
 
 bool hasPrintColorMode() const {
@@ -170,6 +193,10 @@ void setMultipleDocumentHandling(const String& value) {
   member_multiple_document_handling_ = V8WebPrintingMultipleDocumentHandling::Create(value).value();
 has_multiple_document_handling_ = true;
 }
+void setOrientationRequested(const String& value) {
+  member_orientation_requested_ = V8WebPrintingOrientationRequested::Create(value).value();
+has_orientation_requested_ = true;
+}
 void setPrintColorMode(const String& value) {
   member_print_color_mode_ = V8WebPrintColorMode::Create(value).value();
 has_print_color_mode_ = true;
@@ -197,6 +224,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 bool has_copies_ = false;
 bool has_multiple_document_handling_ = false;
+bool has_orientation_requested_ = false;
 bool has_print_color_mode_ = false;
 bool has_print_quality_ = false;
 bool has_printer_resolution_ = false;
@@ -204,6 +232,7 @@ bool has_sides_ = false;
 
 uint32_t member_copies_;
 V8WebPrintingMultipleDocumentHandling member_multiple_document_handling_{static_cast<V8WebPrintingMultipleDocumentHandling::Enum>(0)};
+V8WebPrintingOrientationRequested member_orientation_requested_{static_cast<V8WebPrintingOrientationRequested::Enum>(0)};
 V8WebPrintColorMode member_print_color_mode_{static_cast<V8WebPrintColorMode::Enum>(0)};
 V8WebPrintQuality member_print_quality_{static_cast<V8WebPrintQuality::Enum>(0)};
 Member<WebPrintingResolution> member_printer_resolution_;

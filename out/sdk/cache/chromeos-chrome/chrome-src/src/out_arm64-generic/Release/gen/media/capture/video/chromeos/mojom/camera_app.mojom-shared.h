@@ -54,9 +54,9 @@ namespace cros::mojom {
 
 enum class Effect : int32_t {
   
-  NO_EFFECT = 0,
+  kNoEffect = 0,
   
-  PORTRAIT_MODE = 1,
+  kPortraitMode = 1,
   kMinValue = 0,
   kMaxValue = 1,
 };
@@ -70,15 +70,15 @@ inline bool IsKnownEnumValue(Effect value) {
 
 enum class StreamType : int32_t {
   
-  PREVIEW_OUTPUT = 0,
+  kPreviewOutput = 0,
   
-  JPEG_OUTPUT = 1,
+  kJpegOutput = 1,
   
-  JPEG_PORTRAIT_OUTPUT = 2,
+  kJpegPortraitOutput = 2,
   
-  RECORDIND_OUTPUT = 3,
+  kRecordingOutput = 3,
   
-  UNKNOWN = 4,
+  kUnknown = 4,
   kMinValue = 0,
   kMaxValue = 4,
 };
@@ -92,9 +92,9 @@ inline bool IsKnownEnumValue(StreamType value) {
 
 enum class GetCameraAppDeviceStatus : int32_t {
   
-  SUCCESS = 0,
+  kSuccess = 0,
   
-  ERROR_INVALID_ID = 1,
+  kErrorInvalidId = 1,
   kMinValue = 0,
   kMaxValue = 1,
 };
@@ -108,13 +108,13 @@ inline bool IsKnownEnumValue(GetCameraAppDeviceStatus value) {
 
 enum class CaptureIntent : int32_t {
   
-  DEFAULT = 0,
+  kDefault = 0,
   
-  VIDEO_RECORD = 1,
+  kVideoRecord = 1,
   
-  STILL_CAPTURE = 2,
+  kStillCapture = 2,
   
-  PORTRAIT_CAPTURE = 3,
+  kPortraitCapture = 3,
   kMinValue = 0,
   kMaxValue = 3,
 };

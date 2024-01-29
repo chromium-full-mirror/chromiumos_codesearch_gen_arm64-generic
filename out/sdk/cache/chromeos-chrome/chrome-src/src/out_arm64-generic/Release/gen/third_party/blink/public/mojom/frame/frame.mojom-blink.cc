@@ -630,6 +630,9 @@ LocalFrameHost::IPCStableHashFunction LocalFrameHost::MessageToMethodInfo_(mojo:
     case internal::kLocalFrameHost_UpdateTitle_Name: {
       return &LocalFrameHost::UpdateTitle_Sym::IPCStableHash;
     }
+    case internal::kLocalFrameHost_UpdateAppTitle_Name: {
+      return &LocalFrameHost::UpdateAppTitle_Sym::IPCStableHash;
+    }
     case internal::kLocalFrameHost_UpdateUserActivationState_Name: {
       return &LocalFrameHost::UpdateUserActivationState_Sym::IPCStableHash;
     }
@@ -732,6 +735,9 @@ LocalFrameHost::IPCStableHashFunction LocalFrameHost::MessageToMethodInfo_(mojo:
     case internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name: {
       return &LocalFrameHost::SendFencedFrameReportingBeaconToCustomURL_Sym::IPCStableHash;
     }
+    case internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name: {
+      return &LocalFrameHost::DisableUntrustedNetworkInFencedFrame_Sym::IPCStableHash;
+    }
     case internal::kLocalFrameHost_SendLegacyTechEvent_Name: {
       return &LocalFrameHost::SendLegacyTechEvent_Sym::IPCStableHash;
     }
@@ -826,6 +832,8 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrameHost::NavigateEventHandlerPresenceChanged";
       case internal::kLocalFrameHost_UpdateTitle_Name:
             return "Receive blink::mojom::LocalFrameHost::UpdateTitle";
+      case internal::kLocalFrameHost_UpdateAppTitle_Name:
+            return "Receive blink::mojom::LocalFrameHost::UpdateAppTitle";
       case internal::kLocalFrameHost_UpdateUserActivationState_Name:
             return "Receive blink::mojom::LocalFrameHost::UpdateUserActivationState";
       case internal::kLocalFrameHost_DidConsumeHistoryUserActivation_Name:
@@ -894,6 +902,8 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrameHost::SendFencedFrameReportingBeacon";
       case internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name:
             return "Receive blink::mojom::LocalFrameHost::SendFencedFrameReportingBeaconToCustomURL";
+      case internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name:
+            return "Receive blink::mojom::LocalFrameHost::DisableUntrustedNetworkInFencedFrame";
       case internal::kLocalFrameHost_SendLegacyTechEvent_Name:
             return "Receive blink::mojom::LocalFrameHost::SendLegacyTechEvent";
       case internal::kLocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Name:
@@ -973,6 +983,8 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrameHost::NavigateEventHandlerPresenceChanged";
       case internal::kLocalFrameHost_UpdateTitle_Name:
             return "Receive reply blink::mojom::LocalFrameHost::UpdateTitle";
+      case internal::kLocalFrameHost_UpdateAppTitle_Name:
+            return "Receive reply blink::mojom::LocalFrameHost::UpdateAppTitle";
       case internal::kLocalFrameHost_UpdateUserActivationState_Name:
             return "Receive reply blink::mojom::LocalFrameHost::UpdateUserActivationState";
       case internal::kLocalFrameHost_DidConsumeHistoryUserActivation_Name:
@@ -1041,6 +1053,8 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrameHost::SendFencedFrameReportingBeacon";
       case internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name:
             return "Receive reply blink::mojom::LocalFrameHost::SendFencedFrameReportingBeaconToCustomURL";
+      case internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name:
+            return "Receive reply blink::mojom::LocalFrameHost::DisableUntrustedNetworkInFencedFrame";
       case internal::kLocalFrameHost_SendLegacyTechEvent_Name:
             return "Receive reply blink::mojom::LocalFrameHost::SendLegacyTechEvent";
       case internal::kLocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Name:
@@ -1468,6 +1482,19 @@ uint32_t LocalFrameHost::UpdateTitle_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::LocalFrameHost::UpdateTitle");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t LocalFrameHost::UpdateAppTitle_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalFrameHost::UpdateAppTitle");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1914,6 +1941,19 @@ uint32_t LocalFrameHost::SendFencedFrameReportingBeaconToCustomURL_Sym::IPCStabl
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t LocalFrameHost::DisableUntrustedNetworkInFencedFrame_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalFrameHost::DisableUntrustedNetworkInFencedFrame");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t LocalFrameHost::SendLegacyTechEvent_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -2165,6 +2205,22 @@ class LocalFrameHost_RunBeforeUnloadConfirm_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   LocalFrameHost::RunBeforeUnloadConfirmCallback callback_;
+};
+
+class LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback(
+      LocalFrameHost::DisableUntrustedNetworkInFencedFrameCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback(const LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback&) = delete;
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback& operator=(const LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  LocalFrameHost::DisableUntrustedNetworkInFencedFrameCallback callback_;
 };
 
 LocalFrameHostProxy::LocalFrameHostProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -3629,6 +3685,57 @@ void LocalFrameHostProxy::UpdateTitle(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrameHost::Name_);
   message.set_method_name("UpdateTitle");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalFrameHostProxy::UpdateAppTitle(
+    const ::WTF::String& in_app_title) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::LocalFrameHost::UpdateAppTitle", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_title"), in_app_title,
+                        "<value of type const ::WTF::String&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrameHost_UpdateAppTitle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalFrameHost_UpdateAppTitle_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_title)::BaseType> app_title_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
+      in_app_title, app_title_fragment);
+  params->app_title.Set(
+      app_title_fragment.is_null() ? nullptr : app_title_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_title.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_title in LocalFrameHost.UpdateAppTitle request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrameHost::Name_);
+  message.set_method_name("UpdateAppTitle");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -5801,6 +5908,40 @@ void LocalFrameHostProxy::SendFencedFrameReportingBeaconToCustomURL(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void LocalFrameHostProxy::DisableUntrustedNetworkInFencedFrame(
+    DisableUntrustedNetworkInFencedFrameCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DisableUntrustedNetworkInFencedFrame");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrameHost::Name_);
+  message.set_method_name("DisableUntrustedNetworkInFencedFrame");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void LocalFrameHostProxy::SendLegacyTechEvent(
     const WTF::String& in_type, LegacyTechEventCodeLocationPtr in_code_location) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6352,6 +6493,8 @@ bool LocalFrameHost_EnterFullscreen_ForwardToCallback::Accept(
           internal::LocalFrameHost_EnterFullscreen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.0
   bool success = true;
   bool p_granted{};
   LocalFrameHost_EnterFullscreen_ResponseParamsDataView input_data_view(params, message);
@@ -6471,6 +6614,8 @@ bool LocalFrameHost_RunModalAlertDialog_ForwardToCallback::Accept(
           internal::LocalFrameHost_RunModalAlertDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.39
   bool success = true;
   LocalFrameHost_RunModalAlertDialog_ResponseParamsDataView input_data_view(params, message);
   
@@ -6478,7 +6623,7 @@ bool LocalFrameHost_RunModalAlertDialog_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 38, true);
+        LocalFrameHost::Name_, 39, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6528,6 +6673,8 @@ bool LocalFrameHost_RunModalAlertDialog_HandleSyncResponse::Accept(
       reinterpret_cast<internal::LocalFrameHost_RunModalAlertDialog_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.39
   bool success = true;
   LocalFrameHost_RunModalAlertDialog_ResponseParamsDataView input_data_view(params, message);
   
@@ -6535,7 +6682,7 @@ bool LocalFrameHost_RunModalAlertDialog_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 38, true);
+        LocalFrameHost::Name_, 39, true);
     return false;
   }
   *result_ = true;
@@ -6599,6 +6746,8 @@ bool LocalFrameHost_RunModalConfirmDialog_ForwardToCallback::Accept(
           internal::LocalFrameHost_RunModalConfirmDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.40
   bool success = true;
   bool p_success{};
   LocalFrameHost_RunModalConfirmDialog_ResponseParamsDataView input_data_view(params, message);
@@ -6609,7 +6758,7 @@ bool LocalFrameHost_RunModalConfirmDialog_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 39, true);
+        LocalFrameHost::Name_, 40, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6668,6 +6817,8 @@ bool LocalFrameHost_RunModalConfirmDialog_HandleSyncResponse::Accept(
       reinterpret_cast<internal::LocalFrameHost_RunModalConfirmDialog_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.40
   bool success = true;
   bool p_success{};
   LocalFrameHost_RunModalConfirmDialog_ResponseParamsDataView input_data_view(params, message);
@@ -6678,7 +6829,7 @@ bool LocalFrameHost_RunModalConfirmDialog_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 39, true);
+        LocalFrameHost::Name_, 40, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -6743,6 +6894,8 @@ bool LocalFrameHost_RunModalPromptDialog_ForwardToCallback::Accept(
           internal::LocalFrameHost_RunModalPromptDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.41
   bool success = true;
   bool p_success{};
   ::WTF::String p_result{};
@@ -6756,7 +6909,7 @@ bool LocalFrameHost_RunModalPromptDialog_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 40, true);
+        LocalFrameHost::Name_, 41, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6830,6 +6983,8 @@ bool LocalFrameHost_RunModalPromptDialog_HandleSyncResponse::Accept(
       reinterpret_cast<internal::LocalFrameHost_RunModalPromptDialog_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.41
   bool success = true;
   bool p_success{};
   ::WTF::String p_result{};
@@ -6843,7 +6998,7 @@ bool LocalFrameHost_RunModalPromptDialog_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 40, true);
+        LocalFrameHost::Name_, 41, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -6909,6 +7064,8 @@ bool LocalFrameHost_RunBeforeUnloadConfirm_ForwardToCallback::Accept(
           internal::LocalFrameHost_RunBeforeUnloadConfirm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.42
   bool success = true;
   bool p_success{};
   LocalFrameHost_RunBeforeUnloadConfirm_ResponseParamsDataView input_data_view(params, message);
@@ -6919,7 +7076,7 @@ bool LocalFrameHost_RunBeforeUnloadConfirm_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 41, true);
+        LocalFrameHost::Name_, 42, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6978,6 +7135,8 @@ bool LocalFrameHost_RunBeforeUnloadConfirm_HandleSyncResponse::Accept(
       reinterpret_cast<internal::LocalFrameHost_RunBeforeUnloadConfirm_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.42
   bool success = true;
   bool p_success{};
   LocalFrameHost_RunBeforeUnloadConfirm_ResponseParamsDataView input_data_view(params, message);
@@ -6988,12 +7147,121 @@ bool LocalFrameHost_RunBeforeUnloadConfirm_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 41, true);
+        LocalFrameHost::Name_, 42, true);
     return false;
   }
   *out_success_ = std::move(p_success);
   *result_ = true;
   return true;
+}
+class LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static LocalFrameHost::DisableUntrustedNetworkInFencedFrameCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder> proxy(
+        new LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "LocalFrameHost::DisableUntrustedNetworkInFencedFrameCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for LocalFrameHost.66
+  bool success = true;
+  LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        LocalFrameHost::Name_, 66, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply blink::mojom::LocalFrameHost::DisableUntrustedNetworkInFencedFrame");
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrameHost::Name_);
+  message.set_method_name("DisableUntrustedNetworkInFencedFrame");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
@@ -7011,6 +7279,8 @@ bool LocalFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::LocalFrameHost_ExitFullscreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.1
       bool success = true;
       LocalFrameHost_ExitFullscreen_ParamsDataView input_data_view(params, message);
       
@@ -7023,7 +7293,7 @@ bool LocalFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExitFullscreen();
+      impl->ExitFullscreen(        );
       return true;
     }
     case internal::kLocalFrameHost_FullscreenStateChanged_Name: {
@@ -7033,6 +7303,8 @@ bool LocalFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::LocalFrameHost_FullscreenStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.2
       bool success = true;
       bool p_is_fullscreen{};
       ::blink::mojom::blink::FullscreenOptionsPtr p_options{};
@@ -7051,9 +7323,9 @@ bool LocalFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FullscreenStateChanged(
-std::move(p_is_fullscreen), 
-std::move(p_options));
+      impl->FullscreenStateChanged(        
+        std::move(p_is_fullscreen), 
+        std::move(p_options));
       return true;
     }
     case internal::kLocalFrameHost_RegisterProtocolHandler_Name: {
@@ -7063,6 +7335,8 @@ std::move(p_options));
           reinterpret_cast<internal::LocalFrameHost_RegisterProtocolHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.3
       bool success = true;
       WTF::String p_scheme{};
       ::blink::KURL p_url{};
@@ -7084,10 +7358,10 @@ std::move(p_options));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterProtocolHandler(
-std::move(p_scheme), 
-std::move(p_url), 
-std::move(p_user_gesture));
+      impl->RegisterProtocolHandler(        
+        std::move(p_scheme), 
+        std::move(p_url), 
+        std::move(p_user_gesture));
       return true;
     }
     case internal::kLocalFrameHost_UnregisterProtocolHandler_Name: {
@@ -7097,6 +7371,8 @@ std::move(p_user_gesture));
           reinterpret_cast<internal::LocalFrameHost_UnregisterProtocolHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.4
       bool success = true;
       WTF::String p_scheme{};
       ::blink::KURL p_url{};
@@ -7118,10 +7394,10 @@ std::move(p_user_gesture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnregisterProtocolHandler(
-std::move(p_scheme), 
-std::move(p_url), 
-std::move(p_user_gesture));
+      impl->UnregisterProtocolHandler(        
+        std::move(p_scheme), 
+        std::move(p_url), 
+        std::move(p_user_gesture));
       return true;
     }
     case internal::kLocalFrameHost_DidDisplayInsecureContent_Name: {
@@ -7131,6 +7407,8 @@ std::move(p_user_gesture));
           reinterpret_cast<internal::LocalFrameHost_DidDisplayInsecureContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.5
       bool success = true;
       LocalFrameHost_DidDisplayInsecureContent_ParamsDataView input_data_view(params, message);
       
@@ -7143,7 +7421,7 @@ std::move(p_user_gesture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDisplayInsecureContent();
+      impl->DidDisplayInsecureContent(        );
       return true;
     }
     case internal::kLocalFrameHost_DidContainInsecureFormAction_Name: {
@@ -7153,6 +7431,8 @@ std::move(p_user_gesture));
           reinterpret_cast<internal::LocalFrameHost_DidContainInsecureFormAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.6
       bool success = true;
       LocalFrameHost_DidContainInsecureFormAction_ParamsDataView input_data_view(params, message);
       
@@ -7165,7 +7445,7 @@ std::move(p_user_gesture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidContainInsecureFormAction();
+      impl->DidContainInsecureFormAction(        );
       return true;
     }
     case internal::kLocalFrameHost_MainDocumentElementAvailable_Name: {
@@ -7175,6 +7455,8 @@ std::move(p_user_gesture));
           reinterpret_cast<internal::LocalFrameHost_MainDocumentElementAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.7
       bool success = true;
       bool p_uses_temporary_zoom_level{};
       LocalFrameHost_MainDocumentElementAvailable_ParamsDataView input_data_view(params, message);
@@ -7190,8 +7472,8 @@ std::move(p_user_gesture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MainDocumentElementAvailable(
-std::move(p_uses_temporary_zoom_level));
+      impl->MainDocumentElementAvailable(        
+        std::move(p_uses_temporary_zoom_level));
       return true;
     }
     case internal::kLocalFrameHost_SetNeedsOcclusionTracking_Name: {
@@ -7201,6 +7483,8 @@ std::move(p_uses_temporary_zoom_level));
           reinterpret_cast<internal::LocalFrameHost_SetNeedsOcclusionTracking_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.8
       bool success = true;
       bool p_needs_tracking{};
       LocalFrameHost_SetNeedsOcclusionTracking_ParamsDataView input_data_view(params, message);
@@ -7216,8 +7500,8 @@ std::move(p_uses_temporary_zoom_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNeedsOcclusionTracking(
-std::move(p_needs_tracking));
+      impl->SetNeedsOcclusionTracking(        
+        std::move(p_needs_tracking));
       return true;
     }
     case internal::kLocalFrameHost_SetVirtualKeyboardMode_Name: {
@@ -7227,6 +7511,8 @@ std::move(p_needs_tracking));
           reinterpret_cast<internal::LocalFrameHost_SetVirtualKeyboardMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.9
       bool success = true;
       ::ui::mojom::blink::VirtualKeyboardMode p_type{};
       LocalFrameHost_SetVirtualKeyboardMode_ParamsDataView input_data_view(params, message);
@@ -7242,8 +7528,8 @@ std::move(p_needs_tracking));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVirtualKeyboardMode(
-std::move(p_type));
+      impl->SetVirtualKeyboardMode(        
+        std::move(p_type));
       return true;
     }
     case internal::kLocalFrameHost_VisibilityChanged_Name: {
@@ -7253,6 +7539,8 @@ std::move(p_type));
           reinterpret_cast<internal::LocalFrameHost_VisibilityChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.10
       bool success = true;
       ::blink::mojom::blink::FrameVisibility p_visibility{};
       LocalFrameHost_VisibilityChanged_ParamsDataView input_data_view(params, message);
@@ -7268,8 +7556,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->VisibilityChanged(
-std::move(p_visibility));
+      impl->VisibilityChanged(        
+        std::move(p_visibility));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeThemeColor_Name: {
@@ -7279,6 +7567,8 @@ std::move(p_visibility));
           reinterpret_cast<internal::LocalFrameHost_DidChangeThemeColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.11
       bool success = true;
       std::optional<::SkColor> p_theme_color{};
       LocalFrameHost_DidChangeThemeColor_ParamsDataView input_data_view(params, message);
@@ -7294,8 +7584,8 @@ std::move(p_visibility));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeThemeColor(
-std::move(p_theme_color));
+      impl->DidChangeThemeColor(        
+        std::move(p_theme_color));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeBackgroundColor_Name: {
@@ -7305,6 +7595,8 @@ std::move(p_theme_color));
           reinterpret_cast<internal::LocalFrameHost_DidChangeBackgroundColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.12
       bool success = true;
       ::SkColor4f p_background_color{};
       bool p_color_adjust{};
@@ -7323,9 +7615,9 @@ std::move(p_theme_color));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeBackgroundColor(
-std::move(p_background_color), 
-std::move(p_color_adjust));
+      impl->DidChangeBackgroundColor(        
+        std::move(p_background_color), 
+        std::move(p_color_adjust));
       return true;
     }
     case internal::kLocalFrameHost_DidFailLoadWithError_Name: {
@@ -7335,6 +7627,8 @@ std::move(p_color_adjust));
           reinterpret_cast<internal::LocalFrameHost_DidFailLoadWithError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.13
       bool success = true;
       ::blink::KURL p_url{};
       int32_t p_error_code{};
@@ -7353,9 +7647,9 @@ std::move(p_color_adjust));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFailLoadWithError(
-std::move(p_url), 
-std::move(p_error_code));
+      impl->DidFailLoadWithError(        
+        std::move(p_url), 
+        std::move(p_error_code));
       return true;
     }
     case internal::kLocalFrameHost_DidFocusFrame_Name: {
@@ -7365,6 +7659,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::LocalFrameHost_DidFocusFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.14
       bool success = true;
       LocalFrameHost_DidFocusFrame_ParamsDataView input_data_view(params, message);
       
@@ -7377,7 +7673,7 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFocusFrame();
+      impl->DidFocusFrame(        );
       return true;
     }
     case internal::kLocalFrameHost_DidCallFocus_Name: {
@@ -7387,6 +7683,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::LocalFrameHost_DidCallFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.15
       bool success = true;
       LocalFrameHost_DidCallFocus_ParamsDataView input_data_view(params, message);
       
@@ -7399,7 +7697,7 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCallFocus();
+      impl->DidCallFocus(        );
       return true;
     }
     case internal::kLocalFrameHost_EnforceInsecureRequestPolicy_Name: {
@@ -7409,6 +7707,8 @@ std::move(p_error_code));
           reinterpret_cast<internal::LocalFrameHost_EnforceInsecureRequestPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.16
       bool success = true;
       ::blink::mojom::blink::InsecureRequestPolicy p_policy_bitmap{};
       LocalFrameHost_EnforceInsecureRequestPolicy_ParamsDataView input_data_view(params, message);
@@ -7424,8 +7724,8 @@ std::move(p_error_code));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnforceInsecureRequestPolicy(
-std::move(p_policy_bitmap));
+      impl->EnforceInsecureRequestPolicy(        
+        std::move(p_policy_bitmap));
       return true;
     }
     case internal::kLocalFrameHost_EnforceInsecureNavigationsSet_Name: {
@@ -7435,6 +7735,8 @@ std::move(p_policy_bitmap));
           reinterpret_cast<internal::LocalFrameHost_EnforceInsecureNavigationsSet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.17
       bool success = true;
       WTF::Vector<uint32_t> p_set{};
       LocalFrameHost_EnforceInsecureNavigationsSet_ParamsDataView input_data_view(params, message);
@@ -7450,8 +7752,8 @@ std::move(p_policy_bitmap));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnforceInsecureNavigationsSet(
-std::move(p_set));
+      impl->EnforceInsecureNavigationsSet(        
+        std::move(p_set));
       return true;
     }
     case internal::kLocalFrameHost_SuddenTerminationDisablerChanged_Name: {
@@ -7461,6 +7763,8 @@ std::move(p_set));
           reinterpret_cast<internal::LocalFrameHost_SuddenTerminationDisablerChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.18
       bool success = true;
       bool p_present{};
       ::blink::mojom::blink::SuddenTerminationDisablerType p_disabler_type{};
@@ -7479,9 +7783,9 @@ std::move(p_set));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SuddenTerminationDisablerChanged(
-std::move(p_present), 
-std::move(p_disabler_type));
+      impl->SuddenTerminationDisablerChanged(        
+        std::move(p_present), 
+        std::move(p_disabler_type));
       return true;
     }
     case internal::kLocalFrameHost_HadStickyUserActivationBeforeNavigationChanged_Name: {
@@ -7491,6 +7795,8 @@ std::move(p_disabler_type));
           reinterpret_cast<internal::LocalFrameHost_HadStickyUserActivationBeforeNavigationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.19
       bool success = true;
       bool p_has_gesture{};
       LocalFrameHost_HadStickyUserActivationBeforeNavigationChanged_ParamsDataView input_data_view(params, message);
@@ -7506,8 +7812,8 @@ std::move(p_disabler_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HadStickyUserActivationBeforeNavigationChanged(
-std::move(p_has_gesture));
+      impl->HadStickyUserActivationBeforeNavigationChanged(        
+        std::move(p_has_gesture));
       return true;
     }
     case internal::kLocalFrameHost_ScrollRectToVisibleInParentFrame_Name: {
@@ -7517,6 +7823,8 @@ std::move(p_has_gesture));
           reinterpret_cast<internal::LocalFrameHost_ScrollRectToVisibleInParentFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.20
       bool success = true;
       ::gfx::RectF p_rect_to_scroll{};
       ::blink::mojom::blink::ScrollIntoViewParamsPtr p_params{};
@@ -7535,9 +7843,9 @@ std::move(p_has_gesture));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScrollRectToVisibleInParentFrame(
-std::move(p_rect_to_scroll), 
-std::move(p_params));
+      impl->ScrollRectToVisibleInParentFrame(        
+        std::move(p_rect_to_scroll), 
+        std::move(p_params));
       return true;
     }
     case internal::kLocalFrameHost_BubbleLogicalScrollInParentFrame_Name: {
@@ -7547,6 +7855,8 @@ std::move(p_params));
           reinterpret_cast<internal::LocalFrameHost_BubbleLogicalScrollInParentFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.21
       bool success = true;
       ::blink::mojom::blink::ScrollDirection p_direction{};
       ::ui::ScrollGranularity p_granularity{};
@@ -7565,9 +7875,9 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BubbleLogicalScrollInParentFrame(
-std::move(p_direction), 
-std::move(p_granularity));
+      impl->BubbleLogicalScrollInParentFrame(        
+        std::move(p_direction), 
+        std::move(p_granularity));
       return true;
     }
     case internal::kLocalFrameHost_StartLoadingForAsyncNavigationApiCommit_Name: {
@@ -7577,6 +7887,8 @@ std::move(p_granularity));
           reinterpret_cast<internal::LocalFrameHost_StartLoadingForAsyncNavigationApiCommit_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.22
       bool success = true;
       LocalFrameHost_StartLoadingForAsyncNavigationApiCommit_ParamsDataView input_data_view(params, message);
       
@@ -7589,7 +7901,7 @@ std::move(p_granularity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartLoadingForAsyncNavigationApiCommit();
+      impl->StartLoadingForAsyncNavigationApiCommit(        );
       return true;
     }
     case internal::kLocalFrameHost_DidBlockNavigation_Name: {
@@ -7599,6 +7911,8 @@ std::move(p_granularity));
           reinterpret_cast<internal::LocalFrameHost_DidBlockNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.23
       bool success = true;
       ::blink::KURL p_blocked_url{};
       ::blink::KURL p_initiator_url{};
@@ -7620,10 +7934,10 @@ std::move(p_granularity));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidBlockNavigation(
-std::move(p_blocked_url), 
-std::move(p_initiator_url), 
-std::move(p_reason));
+      impl->DidBlockNavigation(        
+        std::move(p_blocked_url), 
+        std::move(p_initiator_url), 
+        std::move(p_reason));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeLoadProgress_Name: {
@@ -7633,6 +7947,8 @@ std::move(p_reason));
           reinterpret_cast<internal::LocalFrameHost_DidChangeLoadProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.24
       bool success = true;
       double p_load_progress{};
       LocalFrameHost_DidChangeLoadProgress_ParamsDataView input_data_view(params, message);
@@ -7648,8 +7964,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeLoadProgress(
-std::move(p_load_progress));
+      impl->DidChangeLoadProgress(        
+        std::move(p_load_progress));
       return true;
     }
     case internal::kLocalFrameHost_DidFinishLoad_Name: {
@@ -7659,6 +7975,8 @@ std::move(p_load_progress));
           reinterpret_cast<internal::LocalFrameHost_DidFinishLoad_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.25
       bool success = true;
       ::blink::KURL p_validated_url{};
       LocalFrameHost_DidFinishLoad_ParamsDataView input_data_view(params, message);
@@ -7674,8 +7992,8 @@ std::move(p_load_progress));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFinishLoad(
-std::move(p_validated_url));
+      impl->DidFinishLoad(        
+        std::move(p_validated_url));
       return true;
     }
     case internal::kLocalFrameHost_DispatchLoad_Name: {
@@ -7685,6 +8003,8 @@ std::move(p_validated_url));
           reinterpret_cast<internal::LocalFrameHost_DispatchLoad_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.26
       bool success = true;
       LocalFrameHost_DispatchLoad_ParamsDataView input_data_view(params, message);
       
@@ -7697,7 +8017,7 @@ std::move(p_validated_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchLoad();
+      impl->DispatchLoad(        );
       return true;
     }
     case internal::kLocalFrameHost_GoToEntryAtOffset_Name: {
@@ -7707,6 +8027,8 @@ std::move(p_validated_url));
           reinterpret_cast<internal::LocalFrameHost_GoToEntryAtOffset_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.27
       bool success = true;
       int32_t p_offset{};
       bool p_has_user_gesture{};
@@ -7728,10 +8050,10 @@ std::move(p_validated_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GoToEntryAtOffset(
-std::move(p_offset), 
-std::move(p_has_user_gesture), 
-std::move(p_soft_navigation_heuristics_task_id));
+      impl->GoToEntryAtOffset(        
+        std::move(p_offset), 
+        std::move(p_has_user_gesture), 
+        std::move(p_soft_navigation_heuristics_task_id));
       return true;
     }
     case internal::kLocalFrameHost_NavigateToNavigationApiKey_Name: {
@@ -7741,6 +8063,8 @@ std::move(p_soft_navigation_heuristics_task_id));
           reinterpret_cast<internal::LocalFrameHost_NavigateToNavigationApiKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.28
       bool success = true;
       WTF::String p_key{};
       bool p_has_user_gesture{};
@@ -7762,10 +8086,10 @@ std::move(p_soft_navigation_heuristics_task_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NavigateToNavigationApiKey(
-std::move(p_key), 
-std::move(p_has_user_gesture), 
-std::move(p_soft_navigation_heuristics_task_id));
+      impl->NavigateToNavigationApiKey(        
+        std::move(p_key), 
+        std::move(p_has_user_gesture), 
+        std::move(p_soft_navigation_heuristics_task_id));
       return true;
     }
     case internal::kLocalFrameHost_NavigateEventHandlerPresenceChanged_Name: {
@@ -7775,6 +8099,8 @@ std::move(p_soft_navigation_heuristics_task_id));
           reinterpret_cast<internal::LocalFrameHost_NavigateEventHandlerPresenceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.29
       bool success = true;
       bool p_present{};
       LocalFrameHost_NavigateEventHandlerPresenceChanged_ParamsDataView input_data_view(params, message);
@@ -7790,8 +8116,8 @@ std::move(p_soft_navigation_heuristics_task_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NavigateEventHandlerPresenceChanged(
-std::move(p_present));
+      impl->NavigateEventHandlerPresenceChanged(        
+        std::move(p_present));
       return true;
     }
     case internal::kLocalFrameHost_UpdateTitle_Name: {
@@ -7801,6 +8127,8 @@ std::move(p_present));
           reinterpret_cast<internal::LocalFrameHost_UpdateTitle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.30
       bool success = true;
       ::WTF::String p_title{};
       ::base::i18n::TextDirection p_title_direction{};
@@ -7819,9 +8147,37 @@ std::move(p_present));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTitle(
-std::move(p_title), 
-std::move(p_title_direction));
+      impl->UpdateTitle(        
+        std::move(p_title), 
+        std::move(p_title_direction));
+      return true;
+    }
+    case internal::kLocalFrameHost_UpdateAppTitle_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrameHost_UpdateAppTitle_Params_Data* params =
+          reinterpret_cast<internal::LocalFrameHost_UpdateAppTitle_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for LocalFrameHost.31
+      bool success = true;
+      ::WTF::String p_app_title{};
+      LocalFrameHost_UpdateAppTitle_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadAppTitle(&p_app_title))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 31, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateAppTitle(        
+        std::move(p_app_title));
       return true;
     }
     case internal::kLocalFrameHost_UpdateUserActivationState_Name: {
@@ -7831,6 +8187,8 @@ std::move(p_title_direction));
           reinterpret_cast<internal::LocalFrameHost_UpdateUserActivationState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.32
       bool success = true;
       ::blink::mojom::blink::UserActivationUpdateType p_update_type{};
       ::blink::mojom::blink::UserActivationNotificationType p_notification_type{};
@@ -7844,14 +8202,14 @@ std::move(p_title_direction));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 31, false);
+            LocalFrameHost::Name_, 32, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateUserActivationState(
-std::move(p_update_type), 
-std::move(p_notification_type));
+      impl->UpdateUserActivationState(        
+        std::move(p_update_type), 
+        std::move(p_notification_type));
       return true;
     }
     case internal::kLocalFrameHost_DidConsumeHistoryUserActivation_Name: {
@@ -7861,6 +8219,8 @@ std::move(p_notification_type));
           reinterpret_cast<internal::LocalFrameHost_DidConsumeHistoryUserActivation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.33
       bool success = true;
       LocalFrameHost_DidConsumeHistoryUserActivation_ParamsDataView input_data_view(params, message);
       
@@ -7868,12 +8228,12 @@ std::move(p_notification_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 32, false);
+            LocalFrameHost::Name_, 33, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidConsumeHistoryUserActivation();
+      impl->DidConsumeHistoryUserActivation(        );
       return true;
     }
     case internal::kLocalFrameHost_HandleAccessibilityFindInPageResult_Name: {
@@ -7883,6 +8243,8 @@ std::move(p_notification_type));
           reinterpret_cast<internal::LocalFrameHost_HandleAccessibilityFindInPageResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.34
       bool success = true;
       FindInPageResultAXParamsPtr p_params{};
       LocalFrameHost_HandleAccessibilityFindInPageResult_ParamsDataView input_data_view(params, message);
@@ -7893,13 +8255,13 @@ std::move(p_notification_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 33, false);
+            LocalFrameHost::Name_, 34, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAccessibilityFindInPageResult(
-std::move(p_params));
+      impl->HandleAccessibilityFindInPageResult(        
+        std::move(p_params));
       return true;
     }
     case internal::kLocalFrameHost_HandleAccessibilityFindInPageTermination_Name: {
@@ -7909,30 +8271,10 @@ std::move(p_params));
           reinterpret_cast<internal::LocalFrameHost_HandleAccessibilityFindInPageTermination_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.35
       bool success = true;
       LocalFrameHost_HandleAccessibilityFindInPageTermination_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 34, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->HandleAccessibilityFindInPageTermination();
-      return true;
-    }
-    case internal::kLocalFrameHost_DocumentOnLoadCompleted_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::LocalFrameHost_DocumentOnLoadCompleted_Params_Data* params =
-          reinterpret_cast<internal::LocalFrameHost_DocumentOnLoadCompleted_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      LocalFrameHost_DocumentOnLoadCompleted_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -7943,7 +8285,31 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DocumentOnLoadCompleted();
+      impl->HandleAccessibilityFindInPageTermination(        );
+      return true;
+    }
+    case internal::kLocalFrameHost_DocumentOnLoadCompleted_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrameHost_DocumentOnLoadCompleted_Params_Data* params =
+          reinterpret_cast<internal::LocalFrameHost_DocumentOnLoadCompleted_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for LocalFrameHost.36
+      bool success = true;
+      LocalFrameHost_DocumentOnLoadCompleted_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 36, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DocumentOnLoadCompleted(        );
       return true;
     }
     case internal::kLocalFrameHost_ForwardResourceTimingToParent_Name: {
@@ -7953,6 +8319,8 @@ std::move(p_params));
           reinterpret_cast<internal::LocalFrameHost_ForwardResourceTimingToParent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.37
       bool success = true;
       ::blink::mojom::blink::ResourceTimingInfoPtr p_timing{};
       LocalFrameHost_ForwardResourceTimingToParent_ParamsDataView input_data_view(params, message);
@@ -7963,13 +8331,13 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 36, false);
+            LocalFrameHost::Name_, 37, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForwardResourceTimingToParent(
-std::move(p_timing));
+      impl->ForwardResourceTimingToParent(        
+        std::move(p_timing));
       return true;
     }
     case internal::kLocalFrameHost_DidDispatchDOMContentLoadedEvent_Name: {
@@ -7979,6 +8347,8 @@ std::move(p_timing));
           reinterpret_cast<internal::LocalFrameHost_DidDispatchDOMContentLoadedEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.38
       bool success = true;
       LocalFrameHost_DidDispatchDOMContentLoadedEvent_ParamsDataView input_data_view(params, message);
       
@@ -7986,12 +8356,12 @@ std::move(p_timing));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 37, false);
+            LocalFrameHost::Name_, 38, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDispatchDOMContentLoadedEvent();
+      impl->DidDispatchDOMContentLoadedEvent(        );
       return true;
     }
     case internal::kLocalFrameHost_RunModalAlertDialog_Name: {
@@ -8013,6 +8383,8 @@ std::move(p_timing));
           reinterpret_cast<internal::LocalFrameHost_UpdateFaviconURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.43
       bool success = true;
       WTF::Vector<::blink::mojom::blink::FaviconURLPtr> p_favicon_urls{};
       LocalFrameHost_UpdateFaviconURL_ParamsDataView input_data_view(params, message);
@@ -8023,13 +8395,13 @@ std::move(p_timing));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 42, false);
+            LocalFrameHost::Name_, 43, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateFaviconURL(
-std::move(p_favicon_urls));
+      impl->UpdateFaviconURL(        
+        std::move(p_favicon_urls));
       return true;
     }
     case internal::kLocalFrameHost_DownloadURL_Name: {
@@ -8039,6 +8411,8 @@ std::move(p_favicon_urls));
           reinterpret_cast<internal::LocalFrameHost_DownloadURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.44
       bool success = true;
       DownloadURLParamsPtr p_params{};
       LocalFrameHost_DownloadURL_ParamsDataView input_data_view(params, message);
@@ -8049,13 +8423,13 @@ std::move(p_favicon_urls));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 43, false);
+            LocalFrameHost::Name_, 44, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DownloadURL(
-std::move(p_params));
+      impl->DownloadURL(        
+        std::move(p_params));
       return true;
     }
     case internal::kLocalFrameHost_FocusedElementChanged_Name: {
@@ -8065,6 +8439,8 @@ std::move(p_params));
           reinterpret_cast<internal::LocalFrameHost_FocusedElementChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.45
       bool success = true;
       bool p_is_editable_element{};
       bool p_is_richly_editable_element{};
@@ -8084,16 +8460,16 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 44, false);
+            LocalFrameHost::Name_, 45, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusedElementChanged(
-std::move(p_is_editable_element), 
-std::move(p_is_richly_editable_element), 
-std::move(p_bounds_in_frame_widget), 
-std::move(p_focus_type));
+      impl->FocusedElementChanged(        
+        std::move(p_is_editable_element), 
+        std::move(p_is_richly_editable_element), 
+        std::move(p_bounds_in_frame_widget), 
+        std::move(p_focus_type));
       return true;
     }
     case internal::kLocalFrameHost_TextSelectionChanged_Name: {
@@ -8103,6 +8479,8 @@ std::move(p_focus_type));
           reinterpret_cast<internal::LocalFrameHost_TextSelectionChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.46
       bool success = true;
       ::WTF::String p_text{};
       uint32_t p_offset{};
@@ -8119,15 +8497,15 @@ std::move(p_focus_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 45, false);
+            LocalFrameHost::Name_, 46, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TextSelectionChanged(
-std::move(p_text), 
-std::move(p_offset), 
-std::move(p_range));
+      impl->TextSelectionChanged(        
+        std::move(p_text), 
+        std::move(p_offset), 
+        std::move(p_range));
       return true;
     }
     case internal::kLocalFrameHost_ShowPopupMenu_Name: {
@@ -8137,6 +8515,8 @@ std::move(p_range));
           reinterpret_cast<internal::LocalFrameHost_ShowPopupMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.47
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::PopupMenuClient> p_popup_client{};
       ::gfx::Rect p_bounds{};
@@ -8170,20 +8550,20 @@ std::move(p_range));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 46, false);
+            LocalFrameHost::Name_, 47, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowPopupMenu(
-std::move(p_popup_client), 
-std::move(p_bounds), 
-std::move(p_item_height), 
-std::move(p_font_size), 
-std::move(p_selected_item), 
-std::move(p_menu_items), 
-std::move(p_right_aligned), 
-std::move(p_allow_multiple_selection));
+      impl->ShowPopupMenu(        
+        std::move(p_popup_client), 
+        std::move(p_bounds), 
+        std::move(p_item_height), 
+        std::move(p_font_size), 
+        std::move(p_selected_item), 
+        std::move(p_menu_items), 
+        std::move(p_right_aligned), 
+        std::move(p_allow_multiple_selection));
       return true;
     }
     case internal::kLocalFrameHost_CreateNewPopupWidget_Name: {
@@ -8193,6 +8573,8 @@ std::move(p_allow_multiple_selection));
           reinterpret_cast<internal::LocalFrameHost_CreateNewPopupWidget_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.48
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::blink::PopupWidgetHost> p_popup_host{};
       ::mojo::PendingAssociatedReceiver<::blink::mojom::blink::WidgetHost> p_blink_widget_host{};
@@ -8215,15 +8597,15 @@ std::move(p_allow_multiple_selection));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 47, false);
+            LocalFrameHost::Name_, 48, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNewPopupWidget(
-std::move(p_popup_host), 
-std::move(p_blink_widget_host), 
-std::move(p_blink_widget));
+      impl->CreateNewPopupWidget(        
+        std::move(p_popup_host), 
+        std::move(p_blink_widget_host), 
+        std::move(p_blink_widget));
       return true;
     }
     case internal::kLocalFrameHost_ShowContextMenu_Name: {
@@ -8233,6 +8615,8 @@ std::move(p_blink_widget));
           reinterpret_cast<internal::LocalFrameHost_ShowContextMenu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.49
       bool success = true;
       ::mojo::PendingAssociatedRemote<::blink::mojom::blink::ContextMenuClient> p_client{};
       ::blink::UntrustworthyContextMenuParams p_params{};
@@ -8248,14 +8632,14 @@ std::move(p_blink_widget));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 48, false);
+            LocalFrameHost::Name_, 49, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenu(
-std::move(p_client), 
-std::move(p_params));
+      impl->ShowContextMenu(        
+        std::move(p_client), 
+        std::move(p_params));
       return true;
     }
     case internal::kLocalFrameHost_DidLoadResourceFromMemoryCache_Name: {
@@ -8265,6 +8649,8 @@ std::move(p_params));
           reinterpret_cast<internal::LocalFrameHost_DidLoadResourceFromMemoryCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.50
       bool success = true;
       ::blink::KURL p_url{};
       WTF::String p_http_method{};
@@ -8287,17 +8673,17 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 49, false);
+            LocalFrameHost::Name_, 50, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidLoadResourceFromMemoryCache(
-std::move(p_url), 
-std::move(p_http_method), 
-std::move(p_mime_type), 
-std::move(p_request_destination), 
-std::move(p_include_credentials));
+      impl->DidLoadResourceFromMemoryCache(        
+        std::move(p_url), 
+        std::move(p_http_method), 
+        std::move(p_mime_type), 
+        std::move(p_request_destination), 
+        std::move(p_include_credentials));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeFrameOwnerProperties_Name: {
@@ -8307,6 +8693,8 @@ std::move(p_include_credentials));
           reinterpret_cast<internal::LocalFrameHost_DidChangeFrameOwnerProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.51
       bool success = true;
       ::blink::FrameToken p_child_frame_token{};
       ::blink::mojom::blink::FrameOwnerPropertiesPtr p_frame_owner_properties{};
@@ -8320,14 +8708,14 @@ std::move(p_include_credentials));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 50, false);
+            LocalFrameHost::Name_, 51, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeFrameOwnerProperties(
-std::move(p_child_frame_token), 
-std::move(p_frame_owner_properties));
+      impl->DidChangeFrameOwnerProperties(        
+        std::move(p_child_frame_token), 
+        std::move(p_frame_owner_properties));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeOpener_Name: {
@@ -8337,6 +8725,8 @@ std::move(p_frame_owner_properties));
           reinterpret_cast<internal::LocalFrameHost_DidChangeOpener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.52
       bool success = true;
       std::optional<::blink::LocalFrameToken> p_opener_frame{};
       LocalFrameHost_DidChangeOpener_ParamsDataView input_data_view(params, message);
@@ -8347,13 +8737,13 @@ std::move(p_frame_owner_properties));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 51, false);
+            LocalFrameHost::Name_, 52, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeOpener(
-std::move(p_opener_frame));
+      impl->DidChangeOpener(        
+        std::move(p_opener_frame));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeFramePolicy_Name: {
@@ -8363,6 +8753,8 @@ std::move(p_opener_frame));
           reinterpret_cast<internal::LocalFrameHost_DidChangeFramePolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.53
       bool success = true;
       ::blink::FrameToken p_child_frame_token{};
       ::blink::FramePolicy p_frame_policy{};
@@ -8376,14 +8768,14 @@ std::move(p_opener_frame));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 52, false);
+            LocalFrameHost::Name_, 53, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeFramePolicy(
-std::move(p_child_frame_token), 
-std::move(p_frame_policy));
+      impl->DidChangeFramePolicy(        
+        std::move(p_child_frame_token), 
+        std::move(p_frame_policy));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeIframeAttributes_Name: {
@@ -8393,6 +8785,8 @@ std::move(p_frame_policy));
           reinterpret_cast<internal::LocalFrameHost_DidChangeIframeAttributes_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.54
       bool success = true;
       ::blink::FrameToken p_child_frame_token{};
       IframeAttributesPtr p_attributes{};
@@ -8406,14 +8800,14 @@ std::move(p_frame_policy));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 53, false);
+            LocalFrameHost::Name_, 54, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeIframeAttributes(
-std::move(p_child_frame_token), 
-std::move(p_attributes));
+      impl->DidChangeIframeAttributes(        
+        std::move(p_child_frame_token), 
+        std::move(p_attributes));
       return true;
     }
     case internal::kLocalFrameHost_CapturePaintPreviewOfSubframe_Name: {
@@ -8423,6 +8817,8 @@ std::move(p_attributes));
           reinterpret_cast<internal::LocalFrameHost_CapturePaintPreviewOfSubframe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.55
       bool success = true;
       ::gfx::Rect p_clip_rect{};
       ::base::UnguessableToken p_guid{};
@@ -8436,14 +8832,14 @@ std::move(p_attributes));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 54, false);
+            LocalFrameHost::Name_, 55, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CapturePaintPreviewOfSubframe(
-std::move(p_clip_rect), 
-std::move(p_guid));
+      impl->CapturePaintPreviewOfSubframe(        
+        std::move(p_clip_rect), 
+        std::move(p_guid));
       return true;
     }
     case internal::kLocalFrameHost_SetCloseListener_Name: {
@@ -8453,6 +8849,8 @@ std::move(p_guid));
           reinterpret_cast<internal::LocalFrameHost_SetCloseListener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.56
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::CloseListener> p_listener{};
       LocalFrameHost_SetCloseListener_ParamsDataView input_data_view(params, message);
@@ -8465,13 +8863,13 @@ std::move(p_guid));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 55, false);
+            LocalFrameHost::Name_, 56, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCloseListener(
-std::move(p_listener));
+      impl->SetCloseListener(        
+        std::move(p_listener));
       return true;
     }
     case internal::kLocalFrameHost_Detach_Name: {
@@ -8481,6 +8879,8 @@ std::move(p_listener));
           reinterpret_cast<internal::LocalFrameHost_Detach_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.57
       bool success = true;
       LocalFrameHost_Detach_ParamsDataView input_data_view(params, message);
       
@@ -8488,12 +8888,12 @@ std::move(p_listener));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 56, false);
+            LocalFrameHost::Name_, 57, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Detach();
+      impl->Detach(        );
       return true;
     }
     case internal::kLocalFrameHost_GetKeepAliveHandleFactory_Name: {
@@ -8503,6 +8903,8 @@ std::move(p_listener));
           reinterpret_cast<internal::LocalFrameHost_GetKeepAliveHandleFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.58
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::KeepAliveHandleFactory> p_factory{};
       LocalFrameHost_GetKeepAliveHandleFactory_ParamsDataView input_data_view(params, message);
@@ -8515,13 +8917,13 @@ std::move(p_listener));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 57, false);
+            LocalFrameHost::Name_, 58, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetKeepAliveHandleFactory(
-std::move(p_factory));
+      impl->GetKeepAliveHandleFactory(        
+        std::move(p_factory));
       return true;
     }
     case internal::kLocalFrameHost_DidAddMessageToConsole_Name: {
@@ -8531,6 +8933,8 @@ std::move(p_factory));
           reinterpret_cast<internal::LocalFrameHost_DidAddMessageToConsole_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.59
       bool success = true;
       ::blink::mojom::blink::ConsoleMessageLevel p_log_level{};
       ::WTF::String p_msg{};
@@ -8553,17 +8957,17 @@ std::move(p_factory));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 58, false);
+            LocalFrameHost::Name_, 59, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidAddMessageToConsole(
-std::move(p_log_level), 
-std::move(p_msg), 
-std::move(p_line_number), 
-std::move(p_source_id), 
-std::move(p_untrusted_stack_trace));
+      impl->DidAddMessageToConsole(        
+        std::move(p_log_level), 
+        std::move(p_msg), 
+        std::move(p_line_number), 
+        std::move(p_source_id), 
+        std::move(p_untrusted_stack_trace));
       return true;
     }
     case internal::kLocalFrameHost_FrameSizeChanged_Name: {
@@ -8573,6 +8977,8 @@ std::move(p_untrusted_stack_trace));
           reinterpret_cast<internal::LocalFrameHost_FrameSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.60
       bool success = true;
       ::gfx::Size p_size{};
       LocalFrameHost_FrameSizeChanged_ParamsDataView input_data_view(params, message);
@@ -8583,13 +8989,13 @@ std::move(p_untrusted_stack_trace));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 59, false);
+            LocalFrameHost::Name_, 60, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameSizeChanged(
-std::move(p_size));
+      impl->FrameSizeChanged(        
+        std::move(p_size));
       return true;
     }
     case internal::kLocalFrameHost_DidInferColorScheme_Name: {
@@ -8599,6 +9005,8 @@ std::move(p_size));
           reinterpret_cast<internal::LocalFrameHost_DidInferColorScheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.61
       bool success = true;
       ::blink::mojom::blink::PreferredColorScheme p_color_scheme{};
       LocalFrameHost_DidInferColorScheme_ParamsDataView input_data_view(params, message);
@@ -8609,13 +9017,13 @@ std::move(p_size));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 60, false);
+            LocalFrameHost::Name_, 61, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidInferColorScheme(
-std::move(p_color_scheme));
+      impl->DidInferColorScheme(        
+        std::move(p_color_scheme));
       return true;
     }
     case internal::kLocalFrameHost_DidChangeSrcDoc_Name: {
@@ -8625,6 +9033,8 @@ std::move(p_color_scheme));
           reinterpret_cast<internal::LocalFrameHost_DidChangeSrcDoc_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.62
       bool success = true;
       ::blink::FrameToken p_child_frame_token{};
       WTF::String p_srcdoc_value{};
@@ -8638,14 +9048,14 @@ std::move(p_color_scheme));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 61, false);
+            LocalFrameHost::Name_, 62, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeSrcDoc(
-std::move(p_child_frame_token), 
-std::move(p_srcdoc_value));
+      impl->DidChangeSrcDoc(        
+        std::move(p_child_frame_token), 
+        std::move(p_srcdoc_value));
       return true;
     }
     case internal::kLocalFrameHost_ReceivedDelegatedCapability_Name: {
@@ -8655,6 +9065,8 @@ std::move(p_srcdoc_value));
           reinterpret_cast<internal::LocalFrameHost_ReceivedDelegatedCapability_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.63
       bool success = true;
       ::blink::mojom::blink::DelegatedCapability p_delegated_capability{};
       LocalFrameHost_ReceivedDelegatedCapability_ParamsDataView input_data_view(params, message);
@@ -8665,13 +9077,13 @@ std::move(p_srcdoc_value));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 62, false);
+            LocalFrameHost::Name_, 63, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceivedDelegatedCapability(
-std::move(p_delegated_capability));
+      impl->ReceivedDelegatedCapability(        
+        std::move(p_delegated_capability));
       return true;
     }
     case internal::kLocalFrameHost_SendFencedFrameReportingBeacon_Name: {
@@ -8681,6 +9093,8 @@ std::move(p_delegated_capability));
           reinterpret_cast<internal::LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.64
       bool success = true;
       WTF::String p_event_data{};
       WTF::String p_event_type{};
@@ -8697,15 +9111,15 @@ std::move(p_delegated_capability));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 63, false);
+            LocalFrameHost::Name_, 64, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendFencedFrameReportingBeacon(
-std::move(p_event_data), 
-std::move(p_event_type), 
-std::move(p_destinations));
+      impl->SendFencedFrameReportingBeacon(        
+        std::move(p_event_data), 
+        std::move(p_event_type), 
+        std::move(p_destinations));
       return true;
     }
     case internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name: {
@@ -8715,6 +9129,8 @@ std::move(p_destinations));
           reinterpret_cast<internal::LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.65
       bool success = true;
       ::blink::KURL p_destination_url{};
       LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataView input_data_view(params, message);
@@ -8725,14 +9141,17 @@ std::move(p_destinations));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 64, false);
+            LocalFrameHost::Name_, 65, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendFencedFrameReportingBeaconToCustomURL(
-std::move(p_destination_url));
+      impl->SendFencedFrameReportingBeaconToCustomURL(        
+        std::move(p_destination_url));
       return true;
+    }
+    case internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name: {
+      break;
     }
     case internal::kLocalFrameHost_SendLegacyTechEvent_Name: {
 
@@ -8741,6 +9160,8 @@ std::move(p_destination_url));
           reinterpret_cast<internal::LocalFrameHost_SendLegacyTechEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.67
       bool success = true;
       WTF::String p_type{};
       LegacyTechEventCodeLocationPtr p_code_location{};
@@ -8754,14 +9175,14 @@ std::move(p_destination_url));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 65, false);
+            LocalFrameHost::Name_, 67, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendLegacyTechEvent(
-std::move(p_type), 
-std::move(p_code_location));
+      impl->SendLegacyTechEvent(        
+        std::move(p_type), 
+        std::move(p_code_location));
       return true;
     }
     case internal::kLocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Name: {
@@ -8771,6 +9192,8 @@ std::move(p_code_location));
           reinterpret_cast<internal::LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.68
       bool success = true;
       ::blink::mojom::blink::AutomaticBeaconType p_event_type{};
       WTF::String p_event_data{};
@@ -8793,17 +9216,17 @@ std::move(p_code_location));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 66, false);
+            LocalFrameHost::Name_, 68, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFencedFrameAutomaticBeaconReportEventData(
-std::move(p_event_type), 
-std::move(p_event_data), 
-std::move(p_destinations), 
-std::move(p_once), 
-std::move(p_cross_origin_exposed));
+      impl->SetFencedFrameAutomaticBeaconReportEventData(        
+        std::move(p_event_type), 
+        std::move(p_event_data), 
+        std::move(p_destinations), 
+        std::move(p_once), 
+        std::move(p_cross_origin_exposed));
       return true;
     }
     case internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name: {
@@ -8813,6 +9236,8 @@ std::move(p_cross_origin_exposed));
           reinterpret_cast<internal::LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.69
       bool success = true;
       WTF::String p_event_type{};
       LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_ParamsDataView input_data_view(params, message);
@@ -8823,13 +9248,13 @@ std::move(p_cross_origin_exposed));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 67, false);
+            LocalFrameHost::Name_, 69, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendPrivateAggregationRequestsForFencedFrameEvent(
-std::move(p_event_type));
+      impl->SendPrivateAggregationRequestsForFencedFrameEvent(        
+        std::move(p_event_type));
       return true;
     }
     case internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name: {
@@ -8839,6 +9264,8 @@ std::move(p_event_type));
           reinterpret_cast<internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.70
       bool success = true;
       ::network::AttributionReportingRuntimeFeatures p_features{};
       LocalFrameHost_SetAttributionReportingRuntimeFeatures_ParamsDataView input_data_view(params, message);
@@ -8849,13 +9276,13 @@ std::move(p_event_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 68, false);
+            LocalFrameHost::Name_, 70, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAttributionReportingRuntimeFeatures(
-std::move(p_features));
+      impl->SetAttributionReportingRuntimeFeatures(        
+        std::move(p_features));
       return true;
     }
     case internal::kLocalFrameHost_CreateFencedFrame_Name: {
@@ -8865,6 +9292,8 @@ std::move(p_features));
           reinterpret_cast<internal::LocalFrameHost_CreateFencedFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.71
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::blink::FencedFrameOwnerHost> p_fenced_frame{};
       ::blink::mojom::blink::RemoteFrameInterfacesFromRendererPtr p_remote_frame_interfaces{};
@@ -8886,16 +9315,16 @@ std::move(p_features));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 69, false);
+            LocalFrameHost::Name_, 71, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFencedFrame(
-std::move(p_fenced_frame), 
-std::move(p_remote_frame_interfaces), 
-std::move(p_frame_token), 
-std::move(p_devtools_frame_token));
+      impl->CreateFencedFrame(        
+        std::move(p_fenced_frame), 
+        std::move(p_remote_frame_interfaces), 
+        std::move(p_frame_token), 
+        std::move(p_devtools_frame_token));
       return true;
     }
     case internal::kLocalFrameHost_OnViewTransitionOptInChanged_Name: {
@@ -8905,6 +9334,8 @@ std::move(p_devtools_frame_token));
           reinterpret_cast<internal::LocalFrameHost_OnViewTransitionOptInChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.72
       bool success = true;
       ViewTransitionSameOriginOptIn p_view_transition_opt_in{};
       LocalFrameHost_OnViewTransitionOptInChanged_ParamsDataView input_data_view(params, message);
@@ -8915,13 +9346,13 @@ std::move(p_devtools_frame_token));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 70, false);
+            LocalFrameHost::Name_, 72, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnViewTransitionOptInChanged(
-std::move(p_view_transition_opt_in));
+      impl->OnViewTransitionOptInChanged(        
+        std::move(p_view_transition_opt_in));
       return true;
     }
     case internal::kLocalFrameHost_StartDragging_Name: {
@@ -8931,6 +9362,8 @@ std::move(p_view_transition_opt_in));
           reinterpret_cast<internal::LocalFrameHost_StartDragging_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.73
       bool success = true;
       ::blink::WebDragData p_drag_data{};
       ::blink::DragOperationsMask p_operations_allowed{};
@@ -8956,18 +9389,18 @@ std::move(p_view_transition_opt_in));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 71, false);
+            LocalFrameHost::Name_, 73, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDragging(
-std::move(p_drag_data), 
-std::move(p_operations_allowed), 
-std::move(p_image), 
-std::move(p_cursor_offset_in_dip), 
-std::move(p_drag_obj_rect_in_dip), 
-std::move(p_event_info));
+      impl->StartDragging(        
+        std::move(p_drag_data), 
+        std::move(p_operations_allowed), 
+        std::move(p_image), 
+        std::move(p_cursor_offset_in_dip), 
+        std::move(p_drag_obj_rect_in_dip), 
+        std::move(p_event_info));
       return true;
     }
   }
@@ -8990,6 +9423,8 @@ bool LocalFrameHostStubDispatch::AcceptWithResponder(
               internal::LocalFrameHost_EnterFullscreen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.0
       bool success = true;
       ::blink::mojom::blink::FullscreenOptionsPtr p_options{};
       LocalFrameHost_EnterFullscreen_ParamsDataView input_data_view(params, message);
@@ -9008,8 +9443,8 @@ bool LocalFrameHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnterFullscreen(
-std::move(p_options), std::move(callback));
+      impl->EnterFullscreen(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_ExitFullscreen_Name: {
@@ -9102,6 +9537,9 @@ std::move(p_options), std::move(callback));
     case internal::kLocalFrameHost_UpdateTitle_Name: {
       break;
     }
+    case internal::kLocalFrameHost_UpdateAppTitle_Name: {
+      break;
+    }
     case internal::kLocalFrameHost_UpdateUserActivationState_Name: {
       break;
     }
@@ -9130,6 +9568,8 @@ std::move(p_options), std::move(callback));
               internal::LocalFrameHost_RunModalAlertDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.39
       bool success = true;
       ::WTF::String p_alert_message{};
       bool p_disable_third_party_subframe_suppresion{};
@@ -9143,7 +9583,7 @@ std::move(p_options), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 38, false);
+            LocalFrameHost::Name_, 39, false);
         return false;
       }
       LocalFrameHost::RunModalAlertDialogCallback callback =
@@ -9151,9 +9591,9 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunModalAlertDialog(
-std::move(p_alert_message), 
-std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
+      impl->RunModalAlertDialog(        
+        std::move(p_alert_message), 
+        std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_RunModalConfirmDialog_Name: {
@@ -9163,6 +9603,8 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
               internal::LocalFrameHost_RunModalConfirmDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.40
       bool success = true;
       ::WTF::String p_alert_message{};
       bool p_disable_third_party_subframe_suppresion{};
@@ -9176,7 +9618,7 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 39, false);
+            LocalFrameHost::Name_, 40, false);
         return false;
       }
       LocalFrameHost::RunModalConfirmDialogCallback callback =
@@ -9184,9 +9626,9 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunModalConfirmDialog(
-std::move(p_alert_message), 
-std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
+      impl->RunModalConfirmDialog(        
+        std::move(p_alert_message), 
+        std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_RunModalPromptDialog_Name: {
@@ -9196,6 +9638,8 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
               internal::LocalFrameHost_RunModalPromptDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.41
       bool success = true;
       ::WTF::String p_alert_message{};
       ::WTF::String p_default_value{};
@@ -9212,7 +9656,7 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 40, false);
+            LocalFrameHost::Name_, 41, false);
         return false;
       }
       LocalFrameHost::RunModalPromptDialogCallback callback =
@@ -9220,10 +9664,10 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunModalPromptDialog(
-std::move(p_alert_message), 
-std::move(p_default_value), 
-std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
+      impl->RunModalPromptDialog(        
+        std::move(p_alert_message), 
+        std::move(p_default_value), 
+        std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_RunBeforeUnloadConfirm_Name: {
@@ -9233,6 +9677,8 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
               internal::LocalFrameHost_RunBeforeUnloadConfirm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.42
       bool success = true;
       bool p_is_reload{};
       LocalFrameHost_RunBeforeUnloadConfirm_ParamsDataView input_data_view(params, message);
@@ -9243,7 +9689,7 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 41, false);
+            LocalFrameHost::Name_, 42, false);
         return false;
       }
       LocalFrameHost::RunBeforeUnloadConfirmCallback callback =
@@ -9251,8 +9697,8 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunBeforeUnloadConfirm(
-std::move(p_is_reload), std::move(callback));
+      impl->RunBeforeUnloadConfirm(        
+        std::move(p_is_reload), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_UpdateFaviconURL_Name: {
@@ -9323,6 +9769,33 @@ std::move(p_is_reload), std::move(callback));
     }
     case internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name: {
       break;
+    }
+    case internal::kLocalFrameHost_DisableUntrustedNetworkInFencedFrame_Name: {
+
+      internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data* params =
+          reinterpret_cast<
+              internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for LocalFrameHost.66
+      bool success = true;
+      LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 66, false);
+        return false;
+      }
+      LocalFrameHost::DisableUntrustedNetworkInFencedFrameCallback callback =
+          LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DisableUntrustedNetworkInFencedFrame(std::move(callback));
+      return true;
     }
     case internal::kLocalFrameHost_SendLegacyTechEvent_Name: {
       break;
@@ -9413,6 +9886,8 @@ static const mojo::internal::GenericValidationInfo kLocalFrameHostValidationInfo
      nullptr /* no response */},
     { &internal::LocalFrameHost_UpdateTitle_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::LocalFrameHost_UpdateAppTitle_Params_Data::Validate,
+     nullptr /* no response */},
     { &internal::LocalFrameHost_UpdateUserActivationState_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::LocalFrameHost_DidConsumeHistoryUserActivation_Params_Data::Validate,
@@ -9481,6 +9956,8 @@ static const mojo::internal::GenericValidationInfo kLocalFrameHostValidationInfo
      nullptr /* no response */},
     { &internal::LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_Params_Data::Validate,
+     &internal::LocalFrameHost_DisableUntrustedNetworkInFencedFrame_ResponseParams_Data::Validate},
     { &internal::LocalFrameHost_SendLegacyTechEvent_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Validate,
@@ -9630,6 +10107,8 @@ bool NonAssociatedLocalFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::NonAssociatedLocalFrameHost_MaybeStartOutermostMainFrameNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NonAssociatedLocalFrameHost.0
       bool success = true;
       WTF::Vector<::blink::KURL> p_urls{};
       NonAssociatedLocalFrameHost_MaybeStartOutermostMainFrameNavigation_ParamsDataView input_data_view(params, message);
@@ -9645,8 +10124,8 @@ bool NonAssociatedLocalFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeStartOutermostMainFrameNavigation(
-std::move(p_urls));
+      impl->MaybeStartOutermostMainFrameNavigation(        
+        std::move(p_urls));
       return true;
     }
   }
@@ -13281,6 +13760,8 @@ bool LocalFrame_GetTextSurroundingSelection_ForwardToCallback::Accept(
           internal::LocalFrame_GetTextSurroundingSelection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.0
   bool success = true;
   ::WTF::String p_content{};
   uint32_t p_start_offset{};
@@ -13426,6 +13907,8 @@ bool LocalFrame_BeforeUnload_ForwardToCallback::Accept(
           internal::LocalFrame_BeforeUnload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.17
   bool success = true;
   bool p_proceed{};
   ::base::TimeTicks p_before_unload_start_time{};
@@ -13581,6 +14064,8 @@ bool LocalFrame_RequestVideoFrameAt_ForwardToCallback::Accept(
           internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.19
   bool success = true;
   ::gfx::ImageSkia p_image{};
   LocalFrame_RequestVideoFrameAt_ResponseParamsDataView input_data_view(params, message);
@@ -13710,6 +14195,8 @@ bool LocalFrame_JavaScriptMethodExecuteRequest_ForwardToCallback::Accept(
           internal::LocalFrame_JavaScriptMethodExecuteRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.26
   bool success = true;
   ::base::Value p_result{};
   LocalFrame_JavaScriptMethodExecuteRequest_ResponseParamsDataView input_data_view(params, message);
@@ -13837,6 +14324,8 @@ bool LocalFrame_JavaScriptExecuteRequest_ForwardToCallback::Accept(
           internal::LocalFrame_JavaScriptExecuteRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.27
   bool success = true;
   ::base::Value p_result{};
   LocalFrame_JavaScriptExecuteRequest_ResponseParamsDataView input_data_view(params, message);
@@ -13964,6 +14453,8 @@ bool LocalFrame_JavaScriptExecuteRequestForTests_ForwardToCallback::Accept(
           internal::LocalFrame_JavaScriptExecuteRequestForTests_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.28
   bool success = true;
   JavaScriptExecutionResultType p_result_type{};
   ::base::Value p_result{};
@@ -14100,6 +14591,8 @@ bool LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_ForwardToCallback::Accep
           internal::LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.29
   bool success = true;
   ::base::Value p_result{};
   LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_ResponseParamsDataView input_data_view(params, message);
@@ -14227,6 +14720,8 @@ bool LocalFrame_GetSavableResourceLinks_ForwardToCallback::Accept(
           internal::LocalFrame_GetSavableResourceLinks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.32
   bool success = true;
   GetSavableResourceLinksReplyPtr p_reply{};
   LocalFrame_GetSavableResourceLinks_ResponseParamsDataView input_data_view(params, message);
@@ -14352,6 +14847,8 @@ bool LocalFrame_GetCanonicalUrlForSharing_ForwardToCallback::Accept(
           internal::LocalFrame_GetCanonicalUrlForSharing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.36
   bool success = true;
   std::optional<::blink::KURL> p_canonical_url{};
   LocalFrame_GetCanonicalUrlForSharing_ResponseParamsDataView input_data_view(params, message);
@@ -14477,6 +14974,8 @@ bool LocalFrame_GetOpenGraphMetadata_ForwardToCallback::Accept(
           internal::LocalFrame_GetOpenGraphMetadata_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.37
   bool success = true;
   ::blink::mojom::blink::OpenGraphMetadataPtr p_metadata{};
   LocalFrame_GetOpenGraphMetadata_ResponseParamsDataView input_data_view(params, message);
@@ -14606,6 +15105,8 @@ bool LocalFrame_SnapshotDocumentForViewTransition_ForwardToCallback::Accept(
           internal::LocalFrame_SnapshotDocumentForViewTransition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.42
   bool success = true;
   ::blink::ViewTransitionState p_view_transition_state{};
   LocalFrame_SnapshotDocumentForViewTransition_ResponseParamsDataView input_data_view(params, message);
@@ -14693,6 +15194,8 @@ bool LocalFrameStubDispatch::Accept(
           reinterpret_cast<internal::LocalFrame_SendInterventionReport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.1
       bool success = true;
       WTF::String p_id{};
       WTF::String p_message{};
@@ -14711,9 +15214,9 @@ bool LocalFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendInterventionReport(
-std::move(p_id), 
-std::move(p_message));
+      impl->SendInterventionReport(        
+        std::move(p_id), 
+        std::move(p_message));
       return true;
     }
     case internal::kLocalFrame_SetFrameOwnerProperties_Name: {
@@ -14723,6 +15226,8 @@ std::move(p_message));
           reinterpret_cast<internal::LocalFrame_SetFrameOwnerProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.2
       bool success = true;
       ::blink::mojom::blink::FrameOwnerPropertiesPtr p_properties{};
       LocalFrame_SetFrameOwnerProperties_ParamsDataView input_data_view(params, message);
@@ -14738,8 +15243,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrameOwnerProperties(
-std::move(p_properties));
+      impl->SetFrameOwnerProperties(        
+        std::move(p_properties));
       return true;
     }
     case internal::kLocalFrame_NotifyUserActivation_Name: {
@@ -14749,6 +15254,8 @@ std::move(p_properties));
           reinterpret_cast<internal::LocalFrame_NotifyUserActivation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.3
       bool success = true;
       ::blink::mojom::blink::UserActivationNotificationType p_notification_type{};
       LocalFrame_NotifyUserActivation_ParamsDataView input_data_view(params, message);
@@ -14764,8 +15271,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyUserActivation(
-std::move(p_notification_type));
+      impl->NotifyUserActivation(        
+        std::move(p_notification_type));
       return true;
     }
     case internal::kLocalFrame_NotifyVirtualKeyboardOverlayRect_Name: {
@@ -14775,6 +15282,8 @@ std::move(p_notification_type));
           reinterpret_cast<internal::LocalFrame_NotifyVirtualKeyboardOverlayRect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.4
       bool success = true;
       ::gfx::Rect p_keyboard_rect{};
       LocalFrame_NotifyVirtualKeyboardOverlayRect_ParamsDataView input_data_view(params, message);
@@ -14790,8 +15299,8 @@ std::move(p_notification_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyVirtualKeyboardOverlayRect(
-std::move(p_keyboard_rect));
+      impl->NotifyVirtualKeyboardOverlayRect(        
+        std::move(p_keyboard_rect));
       return true;
     }
     case internal::kLocalFrame_AddMessageToConsole_Name: {
@@ -14801,6 +15310,8 @@ std::move(p_keyboard_rect));
           reinterpret_cast<internal::LocalFrame_AddMessageToConsole_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.5
       bool success = true;
       ::blink::mojom::blink::ConsoleMessageLevel p_level{};
       WTF::String p_message{};
@@ -14822,10 +15333,10 @@ std::move(p_keyboard_rect));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMessageToConsole(
-std::move(p_level), 
-std::move(p_message), 
-std::move(p_discard_duplicates));
+      impl->AddMessageToConsole(        
+        std::move(p_level), 
+        std::move(p_message), 
+        std::move(p_discard_duplicates));
       return true;
     }
     case internal::kLocalFrame_SwapInImmediately_Name: {
@@ -14835,6 +15346,8 @@ std::move(p_discard_duplicates));
           reinterpret_cast<internal::LocalFrame_SwapInImmediately_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.6
       bool success = true;
       LocalFrame_SwapInImmediately_ParamsDataView input_data_view(params, message);
       
@@ -14847,7 +15360,7 @@ std::move(p_discard_duplicates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SwapInImmediately();
+      impl->SwapInImmediately(        );
       return true;
     }
     case internal::kLocalFrame_CheckCompleted_Name: {
@@ -14857,6 +15370,8 @@ std::move(p_discard_duplicates));
           reinterpret_cast<internal::LocalFrame_CheckCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.7
       bool success = true;
       LocalFrame_CheckCompleted_ParamsDataView input_data_view(params, message);
       
@@ -14869,7 +15384,7 @@ std::move(p_discard_duplicates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckCompleted();
+      impl->CheckCompleted(        );
       return true;
     }
     case internal::kLocalFrame_StopLoading_Name: {
@@ -14879,6 +15394,8 @@ std::move(p_discard_duplicates));
           reinterpret_cast<internal::LocalFrame_StopLoading_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.8
       bool success = true;
       LocalFrame_StopLoading_ParamsDataView input_data_view(params, message);
       
@@ -14891,7 +15408,7 @@ std::move(p_discard_duplicates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopLoading();
+      impl->StopLoading(        );
       return true;
     }
     case internal::kLocalFrame_Collapse_Name: {
@@ -14901,6 +15418,8 @@ std::move(p_discard_duplicates));
           reinterpret_cast<internal::LocalFrame_Collapse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.9
       bool success = true;
       bool p_collapsed{};
       LocalFrame_Collapse_ParamsDataView input_data_view(params, message);
@@ -14916,8 +15435,8 @@ std::move(p_discard_duplicates));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Collapse(
-std::move(p_collapsed));
+      impl->Collapse(        
+        std::move(p_collapsed));
       return true;
     }
     case internal::kLocalFrame_EnableViewSourceMode_Name: {
@@ -14927,6 +15446,8 @@ std::move(p_collapsed));
           reinterpret_cast<internal::LocalFrame_EnableViewSourceMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.10
       bool success = true;
       LocalFrame_EnableViewSourceMode_ParamsDataView input_data_view(params, message);
       
@@ -14939,7 +15460,7 @@ std::move(p_collapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableViewSourceMode();
+      impl->EnableViewSourceMode(        );
       return true;
     }
     case internal::kLocalFrame_Focus_Name: {
@@ -14949,6 +15470,8 @@ std::move(p_collapsed));
           reinterpret_cast<internal::LocalFrame_Focus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.11
       bool success = true;
       LocalFrame_Focus_ParamsDataView input_data_view(params, message);
       
@@ -14961,7 +15484,7 @@ std::move(p_collapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Focus();
+      impl->Focus(        );
       return true;
     }
     case internal::kLocalFrame_ClearFocusedElement_Name: {
@@ -14971,6 +15494,8 @@ std::move(p_collapsed));
           reinterpret_cast<internal::LocalFrame_ClearFocusedElement_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.12
       bool success = true;
       LocalFrame_ClearFocusedElement_ParamsDataView input_data_view(params, message);
       
@@ -14983,7 +15508,7 @@ std::move(p_collapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearFocusedElement();
+      impl->ClearFocusedElement(        );
       return true;
     }
     case internal::kLocalFrame_CopyImageAt_Name: {
@@ -14993,6 +15518,8 @@ std::move(p_collapsed));
           reinterpret_cast<internal::LocalFrame_CopyImageAt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.13
       bool success = true;
       ::gfx::Point p_window_point{};
       LocalFrame_CopyImageAt_ParamsDataView input_data_view(params, message);
@@ -15008,8 +15535,8 @@ std::move(p_collapsed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyImageAt(
-std::move(p_window_point));
+      impl->CopyImageAt(        
+        std::move(p_window_point));
       return true;
     }
     case internal::kLocalFrame_SaveImageAt_Name: {
@@ -15019,6 +15546,8 @@ std::move(p_window_point));
           reinterpret_cast<internal::LocalFrame_SaveImageAt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.14
       bool success = true;
       ::gfx::Point p_window_point{};
       LocalFrame_SaveImageAt_ParamsDataView input_data_view(params, message);
@@ -15034,8 +15563,8 @@ std::move(p_window_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SaveImageAt(
-std::move(p_window_point));
+      impl->SaveImageAt(        
+        std::move(p_window_point));
       return true;
     }
     case internal::kLocalFrame_ReportBlinkFeatureUsage_Name: {
@@ -15045,6 +15574,8 @@ std::move(p_window_point));
           reinterpret_cast<internal::LocalFrame_ReportBlinkFeatureUsage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.15
       bool success = true;
       WTF::Vector<::blink::mojom::blink::WebFeature> p_features{};
       LocalFrame_ReportBlinkFeatureUsage_ParamsDataView input_data_view(params, message);
@@ -15060,8 +15591,8 @@ std::move(p_window_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportBlinkFeatureUsage(
-std::move(p_features));
+      impl->ReportBlinkFeatureUsage(        
+        std::move(p_features));
       return true;
     }
     case internal::kLocalFrame_RenderFallbackContent_Name: {
@@ -15071,6 +15602,8 @@ std::move(p_features));
           reinterpret_cast<internal::LocalFrame_RenderFallbackContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.16
       bool success = true;
       LocalFrame_RenderFallbackContent_ParamsDataView input_data_view(params, message);
       
@@ -15083,7 +15616,7 @@ std::move(p_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RenderFallbackContent();
+      impl->RenderFallbackContent(        );
       return true;
     }
     case internal::kLocalFrame_BeforeUnload_Name: {
@@ -15096,6 +15629,8 @@ std::move(p_features));
           reinterpret_cast<internal::LocalFrame_MediaPlayerActionAt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.18
       bool success = true;
       ::gfx::Point p_location{};
       ::blink::mojom::blink::MediaPlayerActionPtr p_action{};
@@ -15114,9 +15649,9 @@ std::move(p_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MediaPlayerActionAt(
-std::move(p_location), 
-std::move(p_action));
+      impl->MediaPlayerActionAt(        
+        std::move(p_location), 
+        std::move(p_action));
       return true;
     }
     case internal::kLocalFrame_RequestVideoFrameAt_Name: {
@@ -15129,6 +15664,8 @@ std::move(p_action));
           reinterpret_cast<internal::LocalFrame_PluginActionAt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.20
       bool success = true;
       ::gfx::Point p_location{};
       PluginActionType p_action{};
@@ -15147,9 +15684,9 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PluginActionAt(
-std::move(p_location), 
-std::move(p_action));
+      impl->PluginActionAt(        
+        std::move(p_location), 
+        std::move(p_action));
       return true;
     }
     case internal::kLocalFrame_AdvanceFocusInFrame_Name: {
@@ -15159,6 +15696,8 @@ std::move(p_action));
           reinterpret_cast<internal::LocalFrame_AdvanceFocusInFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.21
       bool success = true;
       ::blink::mojom::blink::FocusType p_focus_type{};
       std::optional<::blink::RemoteFrameToken> p_source_frame_token{};
@@ -15177,9 +15716,9 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdvanceFocusInFrame(
-std::move(p_focus_type), 
-std::move(p_source_frame_token));
+      impl->AdvanceFocusInFrame(        
+        std::move(p_focus_type), 
+        std::move(p_source_frame_token));
       return true;
     }
     case internal::kLocalFrame_AdvanceFocusForIME_Name: {
@@ -15189,6 +15728,8 @@ std::move(p_source_frame_token));
           reinterpret_cast<internal::LocalFrame_AdvanceFocusForIME_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.22
       bool success = true;
       ::blink::mojom::blink::FocusType p_focus_type{};
       LocalFrame_AdvanceFocusForIME_ParamsDataView input_data_view(params, message);
@@ -15204,8 +15745,8 @@ std::move(p_source_frame_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdvanceFocusForIME(
-std::move(p_focus_type));
+      impl->AdvanceFocusForIME(        
+        std::move(p_focus_type));
       return true;
     }
     case internal::kLocalFrame_ReportContentSecurityPolicyViolation_Name: {
@@ -15215,6 +15756,8 @@ std::move(p_focus_type));
           reinterpret_cast<internal::LocalFrame_ReportContentSecurityPolicyViolation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.23
       bool success = true;
       ::network::mojom::blink::CSPViolationPtr p_violation{};
       LocalFrame_ReportContentSecurityPolicyViolation_ParamsDataView input_data_view(params, message);
@@ -15230,8 +15773,8 @@ std::move(p_focus_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportContentSecurityPolicyViolation(
-std::move(p_violation));
+      impl->ReportContentSecurityPolicyViolation(        
+        std::move(p_violation));
       return true;
     }
     case internal::kLocalFrame_DidUpdateFramePolicy_Name: {
@@ -15241,6 +15784,8 @@ std::move(p_violation));
           reinterpret_cast<internal::LocalFrame_DidUpdateFramePolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.24
       bool success = true;
       ::blink::FramePolicy p_frame_policy{};
       LocalFrame_DidUpdateFramePolicy_ParamsDataView input_data_view(params, message);
@@ -15256,8 +15801,8 @@ std::move(p_violation));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidUpdateFramePolicy(
-std::move(p_frame_policy));
+      impl->DidUpdateFramePolicy(        
+        std::move(p_frame_policy));
       return true;
     }
     case internal::kLocalFrame_PostMessageEvent_Name: {
@@ -15267,6 +15812,8 @@ std::move(p_frame_policy));
           reinterpret_cast<internal::LocalFrame_PostMessageEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.25
       bool success = true;
       std::optional<::blink::RemoteFrameToken> p_source_frame_token{};
       ::WTF::String p_source_origin{};
@@ -15291,11 +15838,11 @@ std::move(p_frame_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PostMessageEvent(
-std::move(p_source_frame_token), 
-std::move(p_source_origin), 
-std::move(p_target_origin), 
-std::move(p_message));
+      impl->PostMessageEvent(        
+        std::move(p_source_frame_token), 
+        std::move(p_source_origin), 
+        std::move(p_target_origin), 
+        std::move(p_message));
       return true;
     }
     case internal::kLocalFrame_JavaScriptMethodExecuteRequest_Name: {
@@ -15317,6 +15864,8 @@ std::move(p_message));
           reinterpret_cast<internal::LocalFrame_BindReportingObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.30
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::ReportingObserver> p_receiver{};
       LocalFrame_BindReportingObserver_ParamsDataView input_data_view(params, message);
@@ -15334,8 +15883,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindReportingObserver(
-std::move(p_receiver));
+      impl->BindReportingObserver(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kLocalFrame_UpdateOpener_Name: {
@@ -15345,6 +15894,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::LocalFrame_UpdateOpener_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.31
       bool success = true;
       std::optional<::blink::FrameToken> p_opener_frame_token{};
       LocalFrame_UpdateOpener_ParamsDataView input_data_view(params, message);
@@ -15360,8 +15911,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateOpener(
-std::move(p_opener_frame_token));
+      impl->UpdateOpener(        
+        std::move(p_opener_frame_token));
       return true;
     }
     case internal::kLocalFrame_GetSavableResourceLinks_Name: {
@@ -15374,6 +15925,8 @@ std::move(p_opener_frame_token));
           reinterpret_cast<internal::LocalFrame_MixedContentFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.33
       bool success = true;
       ::blink::KURL p_main_resource_url{};
       ::blink::KURL p_mixed_content_url{};
@@ -15407,14 +15960,14 @@ std::move(p_opener_frame_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MixedContentFound(
-std::move(p_main_resource_url), 
-std::move(p_mixed_content_url), 
-std::move(p_request_context), 
-std::move(p_was_allowed), 
-std::move(p_url_before_redirects), 
-std::move(p_had_redirect), 
-std::move(p_source_location));
+      impl->MixedContentFound(        
+        std::move(p_main_resource_url), 
+        std::move(p_mixed_content_url), 
+        std::move(p_request_context), 
+        std::move(p_was_allowed), 
+        std::move(p_url_before_redirects), 
+        std::move(p_had_redirect), 
+        std::move(p_source_location));
       return true;
     }
     case internal::kLocalFrame_BindDevToolsAgent_Name: {
@@ -15424,6 +15977,8 @@ std::move(p_source_location));
           reinterpret_cast<internal::LocalFrame_BindDevToolsAgent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.34
       bool success = true;
       ::mojo::PendingAssociatedRemote<::blink::mojom::blink::DevToolsAgentHost> p_agent_host{};
       ::mojo::PendingAssociatedReceiver<::blink::mojom::blink::DevToolsAgent> p_agent{};
@@ -15446,9 +16001,9 @@ std::move(p_source_location));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDevToolsAgent(
-std::move(p_agent_host), 
-std::move(p_agent));
+      impl->BindDevToolsAgent(        
+        std::move(p_agent_host), 
+        std::move(p_agent));
       return true;
     }
     case internal::kLocalFrame_HandleRendererDebugURL_Name: {
@@ -15458,6 +16013,8 @@ std::move(p_agent));
           reinterpret_cast<internal::LocalFrame_HandleRendererDebugURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.35
       bool success = true;
       ::blink::KURL p_url{};
       LocalFrame_HandleRendererDebugURL_ParamsDataView input_data_view(params, message);
@@ -15473,8 +16030,8 @@ std::move(p_agent));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleRendererDebugURL(
-std::move(p_url));
+      impl->HandleRendererDebugURL(        
+        std::move(p_url));
       return true;
     }
     case internal::kLocalFrame_GetCanonicalUrlForSharing_Name: {
@@ -15490,6 +16047,8 @@ std::move(p_url));
           reinterpret_cast<internal::LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.38
       bool success = true;
       ::blink::mojom::blink::NavigationApiHistoryEntryArraysPtr p_entry_arrays{};
       NavigationApiEntryRestoreReason p_restore_reason{};
@@ -15508,9 +16067,9 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNavigationApiHistoryEntriesForRestore(
-std::move(p_entry_arrays), 
-std::move(p_restore_reason));
+      impl->SetNavigationApiHistoryEntriesForRestore(        
+        std::move(p_entry_arrays), 
+        std::move(p_restore_reason));
       return true;
     }
     case internal::kLocalFrame_NotifyNavigationApiOfDisposedEntries_Name: {
@@ -15520,6 +16079,8 @@ std::move(p_restore_reason));
           reinterpret_cast<internal::LocalFrame_NotifyNavigationApiOfDisposedEntries_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.39
       bool success = true;
       WTF::Vector<WTF::String> p_keys{};
       LocalFrame_NotifyNavigationApiOfDisposedEntries_ParamsDataView input_data_view(params, message);
@@ -15535,8 +16096,8 @@ std::move(p_restore_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyNavigationApiOfDisposedEntries(
-std::move(p_keys));
+      impl->NotifyNavigationApiOfDisposedEntries(        
+        std::move(p_keys));
       return true;
     }
     case internal::kLocalFrame_TraverseCancelled_Name: {
@@ -15546,6 +16107,8 @@ std::move(p_keys));
           reinterpret_cast<internal::LocalFrame_TraverseCancelled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.40
       bool success = true;
       WTF::String p_navigation_api_key{};
       TraverseCancelledReason p_reason{};
@@ -15564,9 +16127,9 @@ std::move(p_keys));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TraverseCancelled(
-std::move(p_navigation_api_key), 
-std::move(p_reason));
+      impl->TraverseCancelled(        
+        std::move(p_navigation_api_key), 
+        std::move(p_reason));
       return true;
     }
     case internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name: {
@@ -15576,6 +16139,8 @@ std::move(p_reason));
           reinterpret_cast<internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.41
       bool success = true;
       ::blink::KURL p_url{};
       std::string p_page_state{};
@@ -15597,10 +16162,10 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchNavigateEventForCrossDocumentTraversal(
-std::move(p_url), 
-std::move(p_page_state), 
-std::move(p_is_browser_initiated));
+      impl->DispatchNavigateEventForCrossDocumentTraversal(        
+        std::move(p_url), 
+        std::move(p_page_state), 
+        std::move(p_is_browser_initiated));
       return true;
     }
     case internal::kLocalFrame_SnapshotDocumentForViewTransition_Name: {
@@ -15613,6 +16178,8 @@ std::move(p_is_browser_initiated));
           reinterpret_cast<internal::LocalFrame_AddResourceTimingEntryForFailedSubframeNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.43
       bool success = true;
       ::blink::FrameToken p_subframe_token{};
       ::blink::KURL p_initial_url{};
@@ -15670,22 +16237,22 @@ std::move(p_is_browser_initiated));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddResourceTimingEntryForFailedSubframeNavigation(
-std::move(p_subframe_token), 
-std::move(p_initial_url), 
-std::move(p_start_time), 
-std::move(p_redirect_time), 
-std::move(p_request_start), 
-std::move(p_response_start), 
-std::move(p_response_code), 
-std::move(p_mime_type), 
-std::move(p_load_timing_info), 
-std::move(p_connection_info), 
-std::move(p_alpn_negotiated_protocol), 
-std::move(p_is_secure_transport), 
-std::move(p_is_validated), 
-std::move(p_normalized_server_timing), 
-std::move(p_completion_status));
+      impl->AddResourceTimingEntryForFailedSubframeNavigation(        
+        std::move(p_subframe_token), 
+        std::move(p_initial_url), 
+        std::move(p_start_time), 
+        std::move(p_redirect_time), 
+        std::move(p_request_start), 
+        std::move(p_response_start), 
+        std::move(p_response_code), 
+        std::move(p_mime_type), 
+        std::move(p_load_timing_info), 
+        std::move(p_connection_info), 
+        std::move(p_alpn_negotiated_protocol), 
+        std::move(p_is_secure_transport), 
+        std::move(p_is_validated), 
+        std::move(p_normalized_server_timing), 
+        std::move(p_completion_status));
       return true;
     }
     case internal::kLocalFrame_RequestFullscreenDocumentElement_Name: {
@@ -15695,6 +16262,8 @@ std::move(p_completion_status));
           reinterpret_cast<internal::LocalFrame_RequestFullscreenDocumentElement_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.44
       bool success = true;
       LocalFrame_RequestFullscreenDocumentElement_ParamsDataView input_data_view(params, message);
       
@@ -15707,7 +16276,7 @@ std::move(p_completion_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestFullscreenDocumentElement();
+      impl->RequestFullscreenDocumentElement(        );
       return true;
     }
   }
@@ -15730,6 +16299,8 @@ bool LocalFrameStubDispatch::AcceptWithResponder(
               internal::LocalFrame_GetTextSurroundingSelection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.0
       bool success = true;
       uint32_t p_max_length{};
       LocalFrame_GetTextSurroundingSelection_ParamsDataView input_data_view(params, message);
@@ -15748,8 +16319,8 @@ bool LocalFrameStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetTextSurroundingSelection(
-std::move(p_max_length), std::move(callback));
+      impl->GetTextSurroundingSelection(        
+        std::move(p_max_length), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_SendInterventionReport_Name: {
@@ -15807,6 +16378,8 @@ std::move(p_max_length), std::move(callback));
               internal::LocalFrame_BeforeUnload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.17
       bool success = true;
       bool p_is_reload{};
       LocalFrame_BeforeUnload_ParamsDataView input_data_view(params, message);
@@ -15825,8 +16398,8 @@ std::move(p_max_length), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeforeUnload(
-std::move(p_is_reload), std::move(callback));
+      impl->BeforeUnload(        
+        std::move(p_is_reload), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_MediaPlayerActionAt_Name: {
@@ -15839,6 +16412,8 @@ std::move(p_is_reload), std::move(callback));
               internal::LocalFrame_RequestVideoFrameAt_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.19
       bool success = true;
       ::gfx::Point p_location{};
       ::gfx::Size p_max_size{};
@@ -15863,10 +16438,10 @@ std::move(p_is_reload), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestVideoFrameAt(
-std::move(p_location), 
-std::move(p_max_size), 
-std::move(p_max_area), std::move(callback));
+      impl->RequestVideoFrameAt(        
+        std::move(p_location), 
+        std::move(p_max_size), 
+        std::move(p_max_area), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_PluginActionAt_Name: {
@@ -15894,6 +16469,8 @@ std::move(p_max_area), std::move(callback));
               internal::LocalFrame_JavaScriptMethodExecuteRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.26
       bool success = true;
       ::WTF::String p_object_name{};
       ::WTF::String p_method_name{};
@@ -15921,11 +16498,11 @@ std::move(p_max_area), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JavaScriptMethodExecuteRequest(
-std::move(p_object_name), 
-std::move(p_method_name), 
-std::move(p_arguments), 
-std::move(p_wants_result), std::move(callback));
+      impl->JavaScriptMethodExecuteRequest(        
+        std::move(p_object_name), 
+        std::move(p_method_name), 
+        std::move(p_arguments), 
+        std::move(p_wants_result), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_JavaScriptExecuteRequest_Name: {
@@ -15935,6 +16512,8 @@ std::move(p_wants_result), std::move(callback));
               internal::LocalFrame_JavaScriptExecuteRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.27
       bool success = true;
       ::WTF::String p_javascript{};
       bool p_wants_result{};
@@ -15956,9 +16535,9 @@ std::move(p_wants_result), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JavaScriptExecuteRequest(
-std::move(p_javascript), 
-std::move(p_wants_result), std::move(callback));
+      impl->JavaScriptExecuteRequest(        
+        std::move(p_javascript), 
+        std::move(p_wants_result), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_JavaScriptExecuteRequestForTests_Name: {
@@ -15968,6 +16547,8 @@ std::move(p_wants_result), std::move(callback));
               internal::LocalFrame_JavaScriptExecuteRequestForTests_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.28
       bool success = true;
       ::WTF::String p_javascript{};
       bool p_has_user_gesture{};
@@ -15995,11 +16576,11 @@ std::move(p_wants_result), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JavaScriptExecuteRequestForTests(
-std::move(p_javascript), 
-std::move(p_has_user_gesture), 
-std::move(p_resolve_promises), 
-std::move(p_world_id), std::move(callback));
+      impl->JavaScriptExecuteRequestForTests(        
+        std::move(p_javascript), 
+        std::move(p_has_user_gesture), 
+        std::move(p_resolve_promises), 
+        std::move(p_world_id), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_JavaScriptExecuteRequestInIsolatedWorld_Name: {
@@ -16009,6 +16590,8 @@ std::move(p_world_id), std::move(callback));
               internal::LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.29
       bool success = true;
       ::WTF::String p_javascript{};
       bool p_wants_result{};
@@ -16033,10 +16616,10 @@ std::move(p_world_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JavaScriptExecuteRequestInIsolatedWorld(
-std::move(p_javascript), 
-std::move(p_wants_result), 
-std::move(p_world_id), std::move(callback));
+      impl->JavaScriptExecuteRequestInIsolatedWorld(        
+        std::move(p_javascript), 
+        std::move(p_wants_result), 
+        std::move(p_world_id), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_BindReportingObserver_Name: {
@@ -16052,6 +16635,8 @@ std::move(p_world_id), std::move(callback));
               internal::LocalFrame_GetSavableResourceLinks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.32
       bool success = true;
       LocalFrame_GetSavableResourceLinks_ParamsDataView input_data_view(params, message);
       
@@ -16086,6 +16671,8 @@ std::move(p_world_id), std::move(callback));
               internal::LocalFrame_GetCanonicalUrlForSharing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.36
       bool success = true;
       LocalFrame_GetCanonicalUrlForSharing_ParamsDataView input_data_view(params, message);
       
@@ -16111,6 +16698,8 @@ std::move(p_world_id), std::move(callback));
               internal::LocalFrame_GetOpenGraphMetadata_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.37
       bool success = true;
       LocalFrame_GetOpenGraphMetadata_ParamsDataView input_data_view(params, message);
       
@@ -16148,6 +16737,8 @@ std::move(p_world_id), std::move(callback));
               internal::LocalFrame_SnapshotDocumentForViewTransition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.42
       bool success = true;
       LocalFrame_SnapshotDocumentForViewTransition_ParamsDataView input_data_view(params, message);
       
@@ -16453,6 +17044,8 @@ bool HighPriorityLocalFrame_DispatchBeforeUnload_ForwardToCallback::Accept(
           internal::HighPriorityLocalFrame_DispatchBeforeUnload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HighPriorityLocalFrame.0
   bool success = true;
   bool p_proceed{};
   ::base::TimeTicks p_before_unload_start_time{};
@@ -16579,6 +17172,8 @@ bool HighPriorityLocalFrameStubDispatch::AcceptWithResponder(
               internal::HighPriorityLocalFrame_DispatchBeforeUnload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HighPriorityLocalFrame.0
       bool success = true;
       bool p_is_reload{};
       HighPriorityLocalFrame_DispatchBeforeUnload_ParamsDataView input_data_view(params, message);
@@ -16597,8 +17192,8 @@ bool HighPriorityLocalFrameStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchBeforeUnload(
-std::move(p_is_reload), std::move(callback));
+      impl->DispatchBeforeUnload(        
+        std::move(p_is_reload), std::move(callback));
       return true;
     }
   }
@@ -17416,6 +18011,8 @@ bool LocalMainFrame_ClosePage_ForwardToCallback::Accept(
           internal::LocalMainFrame_ClosePage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalMainFrame.2
   bool success = true;
   LocalMainFrame_ClosePage_ResponseParamsDataView input_data_view(params, message);
   
@@ -17523,6 +18120,8 @@ bool LocalMainFrame_GetFullPageSize_ForwardToCallback::Accept(
           internal::LocalMainFrame_GetFullPageSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalMainFrame.3
   bool success = true;
   ::gfx::Size p_full_page_size{};
   LocalMainFrame_GetFullPageSize_ResponseParamsDataView input_data_view(params, message);
@@ -17607,6 +18206,8 @@ bool LocalMainFrameStubDispatch::Accept(
           reinterpret_cast<internal::LocalMainFrame_AnimateDoubleTapZoom_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.0
       bool success = true;
       ::gfx::Point p_point{};
       ::gfx::Rect p_rect{};
@@ -17625,9 +18226,9 @@ bool LocalMainFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnimateDoubleTapZoom(
-std::move(p_point), 
-std::move(p_rect));
+      impl->AnimateDoubleTapZoom(        
+        std::move(p_point), 
+        std::move(p_rect));
       return true;
     }
     case internal::kLocalMainFrame_SetScaleFactor_Name: {
@@ -17637,6 +18238,8 @@ std::move(p_rect));
           reinterpret_cast<internal::LocalMainFrame_SetScaleFactor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.1
       bool success = true;
       float p_scale{};
       LocalMainFrame_SetScaleFactor_ParamsDataView input_data_view(params, message);
@@ -17652,8 +18255,8 @@ std::move(p_rect));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetScaleFactor(
-std::move(p_scale));
+      impl->SetScaleFactor(        
+        std::move(p_scale));
       return true;
     }
     case internal::kLocalMainFrame_ClosePage_Name: {
@@ -17669,6 +18272,8 @@ std::move(p_scale));
           reinterpret_cast<internal::LocalMainFrame_SetInitialFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.4
       bool success = true;
       bool p_reverse{};
       LocalMainFrame_SetInitialFocus_ParamsDataView input_data_view(params, message);
@@ -17684,8 +18289,8 @@ std::move(p_scale));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInitialFocus(
-std::move(p_reverse));
+      impl->SetInitialFocus(        
+        std::move(p_reverse));
       return true;
     }
     case internal::kLocalMainFrame_EnablePreferredSizeChangedMode_Name: {
@@ -17695,6 +18300,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrame_EnablePreferredSizeChangedMode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.5
       bool success = true;
       LocalMainFrame_EnablePreferredSizeChangedMode_ParamsDataView input_data_view(params, message);
       
@@ -17707,7 +18314,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnablePreferredSizeChangedMode();
+      impl->EnablePreferredSizeChangedMode(        );
       return true;
     }
     case internal::kLocalMainFrame_ZoomToFindInPageRect_Name: {
@@ -17717,6 +18324,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrame_ZoomToFindInPageRect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.6
       bool success = true;
       ::gfx::Rect p_rect_in_root_frame{};
       LocalMainFrame_ZoomToFindInPageRect_ParamsDataView input_data_view(params, message);
@@ -17732,8 +18341,8 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ZoomToFindInPageRect(
-std::move(p_rect_in_root_frame));
+      impl->ZoomToFindInPageRect(        
+        std::move(p_rect_in_root_frame));
       return true;
     }
     case internal::kLocalMainFrame_InstallCoopAccessMonitor_Name: {
@@ -17743,6 +18352,8 @@ std::move(p_rect_in_root_frame));
           reinterpret_cast<internal::LocalMainFrame_InstallCoopAccessMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.7
       bool success = true;
       ::blink::FrameToken p_accessed_window{};
       ::network::mojom::blink::CrossOriginOpenerPolicyReporterParamsPtr p_coop_reporter_info{};
@@ -17764,10 +18375,10 @@ std::move(p_rect_in_root_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallCoopAccessMonitor(
-std::move(p_accessed_window), 
-std::move(p_coop_reporter_info), 
-std::move(p_is_in_same_virtual_coop_related_group));
+      impl->InstallCoopAccessMonitor(        
+        std::move(p_accessed_window), 
+        std::move(p_coop_reporter_info), 
+        std::move(p_is_in_same_virtual_coop_related_group));
       return true;
     }
     case internal::kLocalMainFrame_UpdateBrowserControlsState_Name: {
@@ -17777,6 +18388,8 @@ std::move(p_is_in_same_virtual_coop_related_group));
           reinterpret_cast<internal::LocalMainFrame_UpdateBrowserControlsState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.8
       bool success = true;
       ::cc::BrowserControlsState p_constraints{};
       ::cc::BrowserControlsState p_current{};
@@ -17798,10 +18411,10 @@ std::move(p_is_in_same_virtual_coop_related_group));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateBrowserControlsState(
-std::move(p_constraints), 
-std::move(p_current), 
-std::move(p_animate));
+      impl->UpdateBrowserControlsState(        
+        std::move(p_constraints), 
+        std::move(p_current), 
+        std::move(p_animate));
       return true;
     }
     case internal::kLocalMainFrame_SetV8CompileHints_Name: {
@@ -17811,6 +18424,8 @@ std::move(p_animate));
           reinterpret_cast<internal::LocalMainFrame_SetV8CompileHints_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.9
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_data{};
       LocalMainFrame_SetV8CompileHints_ParamsDataView input_data_view(params, message);
@@ -17826,8 +18441,8 @@ std::move(p_animate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetV8CompileHints(
-std::move(p_data));
+      impl->SetV8CompileHints(        
+        std::move(p_data));
       return true;
     }
   }
@@ -17856,6 +18471,8 @@ bool LocalMainFrameStubDispatch::AcceptWithResponder(
               internal::LocalMainFrame_ClosePage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.2
       bool success = true;
       LocalMainFrame_ClosePage_ParamsDataView input_data_view(params, message);
       
@@ -17881,6 +18498,8 @@ bool LocalMainFrameStubDispatch::AcceptWithResponder(
               internal::LocalMainFrame_GetFullPageSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalMainFrame.3
       bool success = true;
       LocalMainFrame_GetFullPageSize_ParamsDataView input_data_view(params, message);
       
@@ -19033,6 +19652,8 @@ bool LocalMainFrameHost_UpdateTargetURL_ForwardToCallback::Accept(
           internal::LocalMainFrameHost_UpdateTargetURL_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalMainFrameHost.5
   bool success = true;
   LocalMainFrameHost_UpdateTargetURL_ResponseParamsDataView input_data_view(params, message);
   
@@ -19140,6 +19761,8 @@ bool LocalMainFrameHost_ShowCreatedWindow_ForwardToCallback::Accept(
           internal::LocalMainFrameHost_ShowCreatedWindow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalMainFrameHost.7
   bool success = true;
   LocalMainFrameHost_ShowCreatedWindow_ResponseParamsDataView input_data_view(params, message);
   
@@ -19247,6 +19870,8 @@ bool LocalMainFrameHost_SetWindowRect_ForwardToCallback::Accept(
           internal::LocalMainFrameHost_SetWindowRect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalMainFrameHost.8
   bool success = true;
   LocalMainFrameHost_SetWindowRect_ResponseParamsDataView input_data_view(params, message);
   
@@ -19309,6 +19934,8 @@ bool LocalMainFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::LocalMainFrameHost_ScaleFactorChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.0
       bool success = true;
       float p_scale{};
       LocalMainFrameHost_ScaleFactorChanged_ParamsDataView input_data_view(params, message);
@@ -19324,8 +19951,8 @@ bool LocalMainFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScaleFactorChanged(
-std::move(p_scale));
+      impl->ScaleFactorChanged(        
+        std::move(p_scale));
       return true;
     }
     case internal::kLocalMainFrameHost_ContentsPreferredSizeChanged_Name: {
@@ -19335,6 +19962,8 @@ std::move(p_scale));
           reinterpret_cast<internal::LocalMainFrameHost_ContentsPreferredSizeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.1
       bool success = true;
       ::gfx::Size p_pref_size{};
       LocalMainFrameHost_ContentsPreferredSizeChanged_ParamsDataView input_data_view(params, message);
@@ -19350,8 +19979,8 @@ std::move(p_scale));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContentsPreferredSizeChanged(
-std::move(p_pref_size));
+      impl->ContentsPreferredSizeChanged(        
+        std::move(p_pref_size));
       return true;
     }
     case internal::kLocalMainFrameHost_TextAutosizerPageInfoChanged_Name: {
@@ -19361,6 +19990,8 @@ std::move(p_pref_size));
           reinterpret_cast<internal::LocalMainFrameHost_TextAutosizerPageInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.2
       bool success = true;
       ::blink::mojom::blink::TextAutosizerPageInfoPtr p_page_info{};
       LocalMainFrameHost_TextAutosizerPageInfoChanged_ParamsDataView input_data_view(params, message);
@@ -19376,8 +20007,8 @@ std::move(p_pref_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TextAutosizerPageInfoChanged(
-std::move(p_page_info));
+      impl->TextAutosizerPageInfoChanged(        
+        std::move(p_page_info));
       return true;
     }
     case internal::kLocalMainFrameHost_FocusPage_Name: {
@@ -19387,6 +20018,8 @@ std::move(p_page_info));
           reinterpret_cast<internal::LocalMainFrameHost_FocusPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.3
       bool success = true;
       LocalMainFrameHost_FocusPage_ParamsDataView input_data_view(params, message);
       
@@ -19399,7 +20032,7 @@ std::move(p_page_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusPage();
+      impl->FocusPage(        );
       return true;
     }
     case internal::kLocalMainFrameHost_TakeFocus_Name: {
@@ -19409,6 +20042,8 @@ std::move(p_page_info));
           reinterpret_cast<internal::LocalMainFrameHost_TakeFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.4
       bool success = true;
       bool p_reverse{};
       LocalMainFrameHost_TakeFocus_ParamsDataView input_data_view(params, message);
@@ -19424,8 +20059,8 @@ std::move(p_page_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TakeFocus(
-std::move(p_reverse));
+      impl->TakeFocus(        
+        std::move(p_reverse));
       return true;
     }
     case internal::kLocalMainFrameHost_UpdateTargetURL_Name: {
@@ -19438,6 +20073,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_RequestClose_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.6
       bool success = true;
       LocalMainFrameHost_RequestClose_ParamsDataView input_data_view(params, message);
       
@@ -19450,7 +20087,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestClose();
+      impl->RequestClose(        );
       return true;
     }
     case internal::kLocalMainFrameHost_ShowCreatedWindow_Name: {
@@ -19466,6 +20103,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_DidFirstVisuallyNonEmptyPaint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.9
       bool success = true;
       LocalMainFrameHost_DidFirstVisuallyNonEmptyPaint_ParamsDataView input_data_view(params, message);
       
@@ -19478,7 +20117,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidFirstVisuallyNonEmptyPaint();
+      impl->DidFirstVisuallyNonEmptyPaint(        );
       return true;
     }
     case internal::kLocalMainFrameHost_DidAccessInitialMainDocument_Name: {
@@ -19488,6 +20127,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_DidAccessInitialMainDocument_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.10
       bool success = true;
       LocalMainFrameHost_DidAccessInitialMainDocument_ParamsDataView input_data_view(params, message);
       
@@ -19500,7 +20141,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidAccessInitialMainDocument();
+      impl->DidAccessInitialMainDocument(        );
       return true;
     }
     case internal::kLocalMainFrameHost_Maximize_Name: {
@@ -19510,6 +20151,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_Maximize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.11
       bool success = true;
       LocalMainFrameHost_Maximize_ParamsDataView input_data_view(params, message);
       
@@ -19522,7 +20165,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Maximize();
+      impl->Maximize(        );
       return true;
     }
     case internal::kLocalMainFrameHost_Minimize_Name: {
@@ -19532,6 +20175,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_Minimize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.12
       bool success = true;
       LocalMainFrameHost_Minimize_ParamsDataView input_data_view(params, message);
       
@@ -19544,7 +20189,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Minimize();
+      impl->Minimize(        );
       return true;
     }
     case internal::kLocalMainFrameHost_Restore_Name: {
@@ -19554,6 +20199,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_Restore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.13
       bool success = true;
       LocalMainFrameHost_Restore_ParamsDataView input_data_view(params, message);
       
@@ -19566,7 +20213,7 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Restore();
+      impl->Restore(        );
       return true;
     }
     case internal::kLocalMainFrameHost_SetResizable_Name: {
@@ -19576,6 +20223,8 @@ std::move(p_reverse));
           reinterpret_cast<internal::LocalMainFrameHost_SetResizable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.14
       bool success = true;
       bool p_resizable{};
       LocalMainFrameHost_SetResizable_ParamsDataView input_data_view(params, message);
@@ -19591,8 +20240,8 @@ std::move(p_reverse));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetResizable(
-std::move(p_resizable));
+      impl->SetResizable(        
+        std::move(p_resizable));
       return true;
     }
   }
@@ -19630,6 +20279,8 @@ bool LocalMainFrameHostStubDispatch::AcceptWithResponder(
               internal::LocalMainFrameHost_UpdateTargetURL_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.5
       bool success = true;
       ::blink::KURL p_url{};
       LocalMainFrameHost_UpdateTargetURL_ParamsDataView input_data_view(params, message);
@@ -19648,8 +20299,8 @@ bool LocalMainFrameHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTargetURL(
-std::move(p_url), std::move(callback));
+      impl->UpdateTargetURL(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kLocalMainFrameHost_RequestClose_Name: {
@@ -19662,6 +20313,8 @@ std::move(p_url), std::move(callback));
               internal::LocalMainFrameHost_ShowCreatedWindow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.7
       bool success = true;
       ::blink::LocalFrameToken p_opener_frame_token{};
       ::ui::mojom::blink::WindowOpenDisposition p_disposition{};
@@ -19689,11 +20342,11 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowCreatedWindow(
-std::move(p_opener_frame_token), 
-std::move(p_disposition), 
-std::move(p_window_features), 
-std::move(p_opened_by_user_gesture), std::move(callback));
+      impl->ShowCreatedWindow(        
+        std::move(p_opener_frame_token), 
+        std::move(p_disposition), 
+        std::move(p_window_features), 
+        std::move(p_opened_by_user_gesture), std::move(callback));
       return true;
     }
     case internal::kLocalMainFrameHost_SetWindowRect_Name: {
@@ -19703,6 +20356,8 @@ std::move(p_opened_by_user_gesture), std::move(callback));
               internal::LocalMainFrameHost_SetWindowRect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalMainFrameHost.8
       bool success = true;
       ::gfx::Rect p_bounds{};
       LocalMainFrameHost_SetWindowRect_ParamsDataView input_data_view(params, message);
@@ -19721,8 +20376,8 @@ std::move(p_opened_by_user_gesture), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWindowRect(
-std::move(p_bounds), std::move(callback));
+      impl->SetWindowRect(        
+        std::move(p_bounds), std::move(callback));
       return true;
     }
     case internal::kLocalMainFrameHost_DidFirstVisuallyNonEmptyPaint_Name: {
@@ -20038,6 +20693,9 @@ void LocalFrameHostInterceptorForTesting::NavigateEventHandlerPresenceChanged(bo
 void LocalFrameHostInterceptorForTesting::UpdateTitle(const ::WTF::String& title, ::base::i18n::TextDirection title_direction) {
   GetForwardingInterface()->UpdateTitle(std::move(title), std::move(title_direction));
 }
+void LocalFrameHostInterceptorForTesting::UpdateAppTitle(const ::WTF::String& app_title) {
+  GetForwardingInterface()->UpdateAppTitle(std::move(app_title));
+}
 void LocalFrameHostInterceptorForTesting::UpdateUserActivationState(::blink::mojom::blink::UserActivationUpdateType update_type, ::blink::mojom::blink::UserActivationNotificationType notification_type) {
   GetForwardingInterface()->UpdateUserActivationState(std::move(update_type), std::move(notification_type));
 }
@@ -20139,6 +20797,9 @@ void LocalFrameHostInterceptorForTesting::SendFencedFrameReportingBeacon(const W
 }
 void LocalFrameHostInterceptorForTesting::SendFencedFrameReportingBeaconToCustomURL(const ::blink::KURL& destination_url) {
   GetForwardingInterface()->SendFencedFrameReportingBeaconToCustomURL(std::move(destination_url));
+}
+void LocalFrameHostInterceptorForTesting::DisableUntrustedNetworkInFencedFrame(DisableUntrustedNetworkInFencedFrameCallback callback) {
+  GetForwardingInterface()->DisableUntrustedNetworkInFencedFrame(std::move(callback));
 }
 void LocalFrameHostInterceptorForTesting::SendLegacyTechEvent(const WTF::String& type, LegacyTechEventCodeLocationPtr code_location) {
   GetForwardingInterface()->SendLegacyTechEvent(std::move(type), std::move(code_location));
@@ -20270,6 +20931,20 @@ bool LocalFrameHostAsyncWaiter::RunBeforeUnloadConfirm(
   RunBeforeUnloadConfirm(std::move(is_reload),&async_wait_result);
   return async_wait_result;
 }
+
+void LocalFrameHostAsyncWaiter::DisableUntrustedNetworkInFencedFrame(
+    ) {
+  base::RunLoop loop;
+  proxy_->DisableUntrustedNetworkInFencedFrame(
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
 
 
 

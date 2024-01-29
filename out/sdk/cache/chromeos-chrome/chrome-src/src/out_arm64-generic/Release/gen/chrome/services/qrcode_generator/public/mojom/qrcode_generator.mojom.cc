@@ -351,6 +351,8 @@ bool QRCodeGeneratorService_GenerateQRCode_ForwardToCallback::Accept(
           internal::QRCodeGeneratorService_GenerateQRCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QRCodeGeneratorService.0
   bool success = true;
   GenerateQRCodeResponsePtr p_response{};
   QRCodeGeneratorService_GenerateQRCode_ResponseParamsDataView input_data_view(params, message);
@@ -451,6 +453,8 @@ bool QRCodeGeneratorServiceStubDispatch::AcceptWithResponder(
               internal::QRCodeGeneratorService_GenerateQRCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QRCodeGeneratorService.0
       bool success = true;
       GenerateQRCodeRequestPtr p_request{};
       QRCodeGeneratorService_GenerateQRCode_ParamsDataView input_data_view(params, message);
@@ -469,8 +473,8 @@ bool QRCodeGeneratorServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GenerateQRCode(
-std::move(p_request), std::move(callback));
+      impl->GenerateQRCode(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }

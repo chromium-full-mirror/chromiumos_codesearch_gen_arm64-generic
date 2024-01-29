@@ -345,6 +345,8 @@ bool Debugger_ShouldFetchMirroringStats_ForwardToCallback::Accept(
           internal::Debugger_ShouldFetchMirroringStats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Debugger.0
   bool success = true;
   bool p_should_fetch{};
   Debugger_ShouldFetchMirroringStats_ResponseParamsDataView input_data_view(params, message);
@@ -422,6 +424,8 @@ bool DebuggerStubDispatch::Accept(
           reinterpret_cast<internal::Debugger_OnMirroringStats_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Debugger.1
       bool success = true;
       ::base::Value p_json_stats{};
       Debugger_OnMirroringStats_ParamsDataView input_data_view(params, message);
@@ -437,8 +441,8 @@ bool DebuggerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMirroringStats(
-std::move(p_json_stats));
+      impl->OnMirroringStats(        
+        std::move(p_json_stats));
       return true;
     }
     case internal::kDebugger_BindReceiver_Name: {
@@ -448,6 +452,8 @@ std::move(p_json_stats));
           reinterpret_cast<internal::Debugger_BindReceiver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Debugger.2
       bool success = true;
       ::mojo::PendingReceiver<Debugger> p_receiver{};
       Debugger_BindReceiver_ParamsDataView input_data_view(params, message);
@@ -465,8 +471,8 @@ std::move(p_json_stats));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindReceiver(
-std::move(p_receiver));
+      impl->BindReceiver(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -489,6 +495,8 @@ bool DebuggerStubDispatch::AcceptWithResponder(
               internal::Debugger_ShouldFetchMirroringStats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Debugger.0
       bool success = true;
       Debugger_ShouldFetchMirroringStats_ParamsDataView input_data_view(params, message);
       

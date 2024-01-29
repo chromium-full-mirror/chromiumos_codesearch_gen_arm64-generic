@@ -599,6 +599,8 @@ bool MjpegDecodeAccelerator_Initialize_ForwardToCallback::Accept(
           internal::MjpegDecodeAccelerator_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MjpegDecodeAccelerator.0
   bool success = true;
   bool p_success{};
   MjpegDecodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -718,6 +720,8 @@ bool MjpegDecodeAccelerator_Decode_ForwardToCallback::Accept(
           internal::MjpegDecodeAccelerator_Decode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MjpegDecodeAccelerator.1
   bool success = true;
   int32_t p_bitstream_buffer_id{};
   ::chromeos_camera::MjpegDecodeAccelerator::Error p_error{};
@@ -846,6 +850,8 @@ bool MjpegDecodeAccelerator_DecodeWithDmaBuf_ForwardToCallback::Accept(
           internal::MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MjpegDecodeAccelerator.3
   bool success = true;
   ::chromeos_camera::MjpegDecodeAccelerator::Error p_error{};
   MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParamsDataView input_data_view(params, message);
@@ -930,6 +936,8 @@ bool MjpegDecodeAcceleratorStubDispatch::Accept(
           reinterpret_cast<internal::MjpegDecodeAccelerator_Uninitialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MjpegDecodeAccelerator.4
       bool success = true;
       MjpegDecodeAccelerator_Uninitialize_ParamsDataView input_data_view(params, message);
       
@@ -942,7 +950,7 @@ bool MjpegDecodeAcceleratorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Uninitialize();
+      impl->Uninitialize(        );
       return true;
     }
   }
@@ -965,6 +973,8 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::MjpegDecodeAccelerator_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MjpegDecodeAccelerator.0
       bool success = true;
       MjpegDecodeAccelerator_Initialize_ParamsDataView input_data_view(params, message);
       
@@ -990,6 +1000,8 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
               internal::MjpegDecodeAccelerator_Decode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MjpegDecodeAccelerator.1
       bool success = true;
       ::media::BitstreamBuffer p_input_buffer{};
       ::gfx::Size p_coded_size{};
@@ -1017,11 +1029,11 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decode(
-std::move(p_input_buffer), 
-std::move(p_coded_size), 
-std::move(p_output_handle), 
-std::move(p_output_buffer_size), std::move(callback));
+      impl->Decode(        
+        std::move(p_input_buffer), 
+        std::move(p_coded_size), 
+        std::move(p_output_handle), 
+        std::move(p_output_buffer_size), std::move(callback));
       return true;
     }
     case internal::kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name: {
@@ -1031,6 +1043,8 @@ std::move(p_output_buffer_size), std::move(callback));
               internal::MjpegDecodeAccelerator_DecodeWithDmaBuf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MjpegDecodeAccelerator.3
       bool success = true;
       int32_t p_task_id{};
       ::mojo::ScopedHandle p_src_dmabuf_fd{};
@@ -1061,12 +1075,12 @@ std::move(p_output_buffer_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecodeWithDmaBuf(
-std::move(p_task_id), 
-std::move(p_src_dmabuf_fd), 
-std::move(p_src_size), 
-std::move(p_src_offset), 
-std::move(p_dst_frame), std::move(callback));
+      impl->DecodeWithDmaBuf(        
+        std::move(p_task_id), 
+        std::move(p_src_dmabuf_fd), 
+        std::move(p_src_size), 
+        std::move(p_src_offset), 
+        std::move(p_dst_frame), std::move(callback));
       return true;
     }
     case internal::kMjpegDecodeAccelerator_Uninitialize_Name: {

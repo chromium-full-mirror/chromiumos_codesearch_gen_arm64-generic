@@ -1,8 +1,8 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { SearchData, SearchLocation, SearchOptions, SearchRecency, State } from '../../externs/ts/state.js';
 import { Slice } from '../../lib/base_store.js';
+import { SearchLocation, SearchRecency } from '../../state/state.js';
 /**
  * @fileoverview Search slice of the store.
  */

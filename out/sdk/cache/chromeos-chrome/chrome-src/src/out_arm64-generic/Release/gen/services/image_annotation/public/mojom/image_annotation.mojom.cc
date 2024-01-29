@@ -315,6 +315,8 @@ bool ImageProcessor_GetJpgImageData_ForwardToCallback::Accept(
           internal::ImageProcessor_GetJpgImageData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImageProcessor.0
   bool success = true;
   std::vector<uint8_t> p_bytes{};
   int32_t p_width{};
@@ -433,6 +435,8 @@ bool ImageProcessorStubDispatch::AcceptWithResponder(
               internal::ImageProcessor_GetJpgImageData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImageProcessor.0
       bool success = true;
       ImageProcessor_GetJpgImageData_ParamsDataView input_data_view(params, message);
       
@@ -677,6 +681,8 @@ bool Annotator_AnnotateImage_ForwardToCallback::Accept(
           internal::Annotator_AnnotateImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Annotator.0
   bool success = true;
   AnnotateImageResultPtr p_result{};
   Annotator_AnnotateImage_ResponseParamsDataView input_data_view(params, message);
@@ -775,6 +781,8 @@ bool AnnotatorStubDispatch::AcceptWithResponder(
               internal::Annotator_AnnotateImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Annotator.0
       bool success = true;
       std::string p_source_id{};
       std::string p_description_language_tag{};
@@ -801,10 +809,10 @@ bool AnnotatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnnotateImage(
-std::move(p_source_id), 
-std::move(p_description_language_tag), 
-std::move(p_image_processor), std::move(callback));
+      impl->AnnotateImage(        
+        std::move(p_source_id), 
+        std::move(p_description_language_tag), 
+        std::move(p_image_processor), std::move(callback));
       return true;
     }
   }
@@ -943,6 +951,8 @@ bool ImageAnnotationServiceStubDispatch::Accept(
           reinterpret_cast<internal::ImageAnnotationService_BindAnnotator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImageAnnotationService.0
       bool success = true;
       ::mojo::PendingReceiver<Annotator> p_receiver{};
       ImageAnnotationService_BindAnnotator_ParamsDataView input_data_view(params, message);
@@ -960,8 +970,8 @@ bool ImageAnnotationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAnnotator(
-std::move(p_receiver));
+      impl->BindAnnotator(        
+        std::move(p_receiver));
       return true;
     }
   }

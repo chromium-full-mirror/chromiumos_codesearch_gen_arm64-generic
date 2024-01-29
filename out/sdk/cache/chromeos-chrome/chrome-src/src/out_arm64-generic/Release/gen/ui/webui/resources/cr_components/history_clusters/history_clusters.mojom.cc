@@ -1329,6 +1329,8 @@ bool PageHandler_ToggleVisibility_ForwardToCallback::Accept(
           internal::PageHandler_ToggleVisibility_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.5
   bool success = true;
   bool p_visible{};
   PageHandler_ToggleVisibility_ResponseParamsDataView input_data_view(params, message);
@@ -1448,6 +1450,8 @@ bool PageHandler_HideVisits_ForwardToCallback::Accept(
           internal::PageHandler_HideVisits_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   bool p_success{};
   PageHandler_HideVisits_ResponseParamsDataView input_data_view(params, message);
@@ -1567,6 +1571,8 @@ bool PageHandler_RemoveVisits_ForwardToCallback::Accept(
           internal::PageHandler_RemoveVisits_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.9
   bool success = true;
   bool p_success{};
   PageHandler_RemoveVisits_ResponseParamsDataView input_data_view(params, message);
@@ -1641,6 +1647,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_OpenHistoryCluster_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       ::GURL p_url{};
       ::ui::mojom::ClickModifiersPtr p_click_modifiers{};
@@ -1659,9 +1667,9 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenHistoryCluster(
-std::move(p_url), 
-std::move(p_click_modifiers));
+      impl->OpenHistoryCluster(        
+        std::move(p_url), 
+        std::move(p_click_modifiers));
       return true;
     }
     case internal::kPageHandler_SetPage_Name: {
@@ -1671,6 +1679,8 @@ std::move(p_click_modifiers));
           reinterpret_cast<internal::PageHandler_SetPage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       PageHandler_SetPage_ParamsDataView input_data_view(params, message);
@@ -1688,8 +1698,8 @@ std::move(p_click_modifiers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPage(
-std::move(p_page));
+      impl->SetPage(        
+        std::move(p_page));
       return true;
     }
     case internal::kPageHandler_ShowContextMenuForSearchbox_Name: {
@@ -1699,6 +1709,8 @@ std::move(p_page));
           reinterpret_cast<internal::PageHandler_ShowContextMenuForSearchbox_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       std::string p_query{};
       ::gfx::Point p_point{};
@@ -1717,9 +1729,9 @@ std::move(p_page));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenuForSearchbox(
-std::move(p_query), 
-std::move(p_point));
+      impl->ShowContextMenuForSearchbox(        
+        std::move(p_query), 
+        std::move(p_point));
       return true;
     }
     case internal::kPageHandler_ShowContextMenuForURL_Name: {
@@ -1729,6 +1741,8 @@ std::move(p_point));
           reinterpret_cast<internal::PageHandler_ShowContextMenuForURL_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       ::GURL p_url{};
       ::gfx::Point p_point{};
@@ -1747,9 +1761,9 @@ std::move(p_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowContextMenuForURL(
-std::move(p_url), 
-std::move(p_point));
+      impl->ShowContextMenuForURL(        
+        std::move(p_url), 
+        std::move(p_point));
       return true;
     }
     case internal::kPageHandler_ShowSidePanelUI_Name: {
@@ -1759,6 +1773,8 @@ std::move(p_point));
           reinterpret_cast<internal::PageHandler_ShowSidePanelUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_ShowSidePanelUI_ParamsDataView input_data_view(params, message);
       
@@ -1771,7 +1787,7 @@ std::move(p_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowSidePanelUI();
+      impl->ShowSidePanelUI(        );
       return true;
     }
     case internal::kPageHandler_ToggleVisibility_Name: {
@@ -1784,6 +1800,8 @@ std::move(p_point));
           reinterpret_cast<internal::PageHandler_StartQueryClusters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       std::string p_query{};
       bool p_recluster{};
@@ -1802,9 +1820,9 @@ std::move(p_point));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartQueryClusters(
-std::move(p_query), 
-std::move(p_recluster));
+      impl->StartQueryClusters(        
+        std::move(p_query), 
+        std::move(p_recluster));
       return true;
     }
     case internal::kPageHandler_LoadMoreClusters_Name: {
@@ -1814,6 +1832,8 @@ std::move(p_recluster));
           reinterpret_cast<internal::PageHandler_LoadMoreClusters_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       std::string p_query{};
       PageHandler_LoadMoreClusters_ParamsDataView input_data_view(params, message);
@@ -1829,8 +1849,8 @@ std::move(p_recluster));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadMoreClusters(
-std::move(p_query));
+      impl->LoadMoreClusters(        
+        std::move(p_query));
       return true;
     }
     case internal::kPageHandler_HideVisits_Name: {
@@ -1846,6 +1866,8 @@ std::move(p_query));
           reinterpret_cast<internal::PageHandler_OpenVisitUrlsInTabGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_visits{};
       std::optional<std::string> p_tab_group_name{};
@@ -1864,9 +1886,9 @@ std::move(p_query));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenVisitUrlsInTabGroup(
-std::move(p_visits), 
-std::move(p_tab_group_name));
+      impl->OpenVisitUrlsInTabGroup(        
+        std::move(p_visits), 
+        std::move(p_tab_group_name));
       return true;
     }
     case internal::kPageHandler_RecordVisitAction_Name: {
@@ -1876,6 +1898,8 @@ std::move(p_tab_group_name));
           reinterpret_cast<internal::PageHandler_RecordVisitAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       VisitAction p_visit_action{};
       uint32_t p_visit_index{};
@@ -1897,10 +1921,10 @@ std::move(p_tab_group_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordVisitAction(
-std::move(p_visit_action), 
-std::move(p_visit_index), 
-std::move(p_visit_type));
+      impl->RecordVisitAction(        
+        std::move(p_visit_action), 
+        std::move(p_visit_index), 
+        std::move(p_visit_type));
       return true;
     }
     case internal::kPageHandler_RecordRelatedSearchAction_Name: {
@@ -1910,6 +1934,8 @@ std::move(p_visit_type));
           reinterpret_cast<internal::PageHandler_RecordRelatedSearchAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       RelatedSearchAction p_action{};
       uint32_t p_visit_index{};
@@ -1928,9 +1954,9 @@ std::move(p_visit_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordRelatedSearchAction(
-std::move(p_action), 
-std::move(p_visit_index));
+      impl->RecordRelatedSearchAction(        
+        std::move(p_action), 
+        std::move(p_visit_index));
       return true;
     }
     case internal::kPageHandler_RecordClusterAction_Name: {
@@ -1940,6 +1966,8 @@ std::move(p_visit_index));
           reinterpret_cast<internal::PageHandler_RecordClusterAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       ClusterAction p_cluster_action{};
       uint32_t p_cluster_index{};
@@ -1958,9 +1986,9 @@ std::move(p_visit_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordClusterAction(
-std::move(p_cluster_action), 
-std::move(p_cluster_index));
+      impl->RecordClusterAction(        
+        std::move(p_cluster_action), 
+        std::move(p_cluster_index));
       return true;
     }
     case internal::kPageHandler_RecordToggledVisibility_Name: {
@@ -1970,6 +1998,8 @@ std::move(p_cluster_index));
           reinterpret_cast<internal::PageHandler_RecordToggledVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.14
       bool success = true;
       bool p_visible{};
       PageHandler_RecordToggledVisibility_ParamsDataView input_data_view(params, message);
@@ -1985,8 +2015,8 @@ std::move(p_cluster_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordToggledVisibility(
-std::move(p_visible));
+      impl->RecordToggledVisibility(        
+        std::move(p_visible));
       return true;
     }
   }
@@ -2024,6 +2054,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_ToggleVisibility_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       bool p_visible{};
       PageHandler_ToggleVisibility_ParamsDataView input_data_view(params, message);
@@ -2042,8 +2074,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleVisibility(
-std::move(p_visible), std::move(callback));
+      impl->ToggleVisibility(        
+        std::move(p_visible), std::move(callback));
       return true;
     }
     case internal::kPageHandler_StartQueryClusters_Name: {
@@ -2059,6 +2091,8 @@ std::move(p_visible), std::move(callback));
               internal::PageHandler_HideVisits_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_visits{};
       PageHandler_HideVisits_ParamsDataView input_data_view(params, message);
@@ -2077,8 +2111,8 @@ std::move(p_visible), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideVisits(
-std::move(p_visits), std::move(callback));
+      impl->HideVisits(        
+        std::move(p_visits), std::move(callback));
       return true;
     }
     case internal::kPageHandler_RemoveVisits_Name: {
@@ -2088,6 +2122,8 @@ std::move(p_visits), std::move(callback));
               internal::PageHandler_RemoveVisits_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_visits{};
       PageHandler_RemoveVisits_ParamsDataView input_data_view(params, message);
@@ -2106,8 +2142,8 @@ std::move(p_visits), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveVisits(
-std::move(p_visits), std::move(callback));
+      impl->RemoveVisits(        
+        std::move(p_visits), std::move(callback));
       return true;
     }
     case internal::kPageHandler_OpenVisitUrlsInTabGroup_Name: {
@@ -2639,6 +2675,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnClustersQueryResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       QueryResultPtr p_result{};
       Page_OnClustersQueryResult_ParamsDataView input_data_view(params, message);
@@ -2654,8 +2692,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClustersQueryResult(
-std::move(p_result));
+      impl->OnClustersQueryResult(        
+        std::move(p_result));
       return true;
     }
     case internal::kPage_OnClusterImageUpdated_Name: {
@@ -2665,6 +2703,8 @@ std::move(p_result));
           reinterpret_cast<internal::Page_OnClusterImageUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       int32_t p_cluster_index{};
       ::GURL p_image_url{};
@@ -2683,9 +2723,9 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClusterImageUpdated(
-std::move(p_cluster_index), 
-std::move(p_image_url));
+      impl->OnClusterImageUpdated(        
+        std::move(p_cluster_index), 
+        std::move(p_image_url));
       return true;
     }
     case internal::kPage_OnVisitsHidden_Name: {
@@ -2695,6 +2735,8 @@ std::move(p_image_url));
           reinterpret_cast<internal::Page_OnVisitsHidden_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_hidden_visits{};
       Page_OnVisitsHidden_ParamsDataView input_data_view(params, message);
@@ -2710,8 +2752,8 @@ std::move(p_image_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisitsHidden(
-std::move(p_hidden_visits));
+      impl->OnVisitsHidden(        
+        std::move(p_hidden_visits));
       return true;
     }
     case internal::kPage_OnVisitsRemoved_Name: {
@@ -2721,6 +2763,8 @@ std::move(p_hidden_visits));
           reinterpret_cast<internal::Page_OnVisitsRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.3
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_removed_visits{};
       Page_OnVisitsRemoved_ParamsDataView input_data_view(params, message);
@@ -2736,8 +2780,8 @@ std::move(p_hidden_visits));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisitsRemoved(
-std::move(p_removed_visits));
+      impl->OnVisitsRemoved(        
+        std::move(p_removed_visits));
       return true;
     }
     case internal::kPage_OnHistoryDeleted_Name: {
@@ -2747,6 +2791,8 @@ std::move(p_removed_visits));
           reinterpret_cast<internal::Page_OnHistoryDeleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.4
       bool success = true;
       Page_OnHistoryDeleted_ParamsDataView input_data_view(params, message);
       
@@ -2759,7 +2805,7 @@ std::move(p_removed_visits));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnHistoryDeleted();
+      impl->OnHistoryDeleted(        );
       return true;
     }
     case internal::kPage_OnQueryChangedByUser_Name: {
@@ -2769,6 +2815,8 @@ std::move(p_removed_visits));
           reinterpret_cast<internal::Page_OnQueryChangedByUser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.5
       bool success = true;
       std::string p_query{};
       Page_OnQueryChangedByUser_ParamsDataView input_data_view(params, message);
@@ -2784,8 +2832,8 @@ std::move(p_removed_visits));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnQueryChangedByUser(
-std::move(p_query));
+      impl->OnQueryChangedByUser(        
+        std::move(p_query));
       return true;
     }
   }

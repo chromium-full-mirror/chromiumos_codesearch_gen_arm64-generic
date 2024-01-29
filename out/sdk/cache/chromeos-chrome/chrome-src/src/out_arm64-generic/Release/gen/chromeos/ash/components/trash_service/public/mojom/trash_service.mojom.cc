@@ -228,6 +228,8 @@ bool TrashService_ParseTrashInfoFile_ForwardToCallback::Accept(
           internal::TrashService_ParseTrashInfoFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TrashService.0
   bool success = true;
   ::base::File::Error p_error{};
   ::base::FilePath p_restore_path{};
@@ -355,6 +357,8 @@ bool TrashServiceStubDispatch::AcceptWithResponder(
               internal::TrashService_ParseTrashInfoFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TrashService.0
       bool success = true;
       ::base::File p_trash_info_file{};
       TrashService_ParseTrashInfoFile_ParamsDataView input_data_view(params, message);
@@ -373,8 +377,8 @@ bool TrashServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseTrashInfoFile(
-std::move(p_trash_info_file), std::move(callback));
+      impl->ParseTrashInfoFile(        
+        std::move(p_trash_info_file), std::move(callback));
       return true;
     }
   }

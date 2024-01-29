@@ -71,7 +71,7 @@ content_type_ = ContentType::kStringElementRecord;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionFloatOrStringElementRecord::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionFloatOrStringElementRecord::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kFloat: {
     return ToV8Traits<IDLFloat>::ToV8(script_state, member_float_);
@@ -82,7 +82,7 @@ v8::MaybeLocal<v8::Value> V8UnionFloatOrStringElementRecord::ToV8Value(ScriptSta
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionFloatOrStringElementRecord::Trace(Visitor* visitor) const {

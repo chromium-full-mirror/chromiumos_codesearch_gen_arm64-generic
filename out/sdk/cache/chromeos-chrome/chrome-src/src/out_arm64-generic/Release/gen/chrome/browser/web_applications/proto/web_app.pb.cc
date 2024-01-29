@@ -112,7 +112,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR ChromeOSDataProto::ChromeOSDataProto(
     ::_pbi::ConstantInitialized)
   : show_in_launcher_(false)
-  , show_in_search_(false)
+  , show_in_search_and_shelf_(false)
   , show_in_management_(false)
   , is_disabled_(false)
   , oem_installed_(false)
@@ -915,9 +915,6 @@ class WebAppFileHandlerAcceptProto::_Internal {
   static void set_has_mimetype(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
-  }
 };
 
 WebAppFileHandlerAcceptProto::WebAppFileHandlerAcceptProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -990,7 +987,7 @@ const char* WebAppFileHandlerAcceptProto::_InternalParse(const char* ptr, ::_pbi
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string mimetype = 1;
+      // optional string mimetype = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_mimetype();
@@ -1044,7 +1041,7 @@ uint8_t* WebAppFileHandlerAcceptProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string mimetype = 1;
+  // optional string mimetype = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_mimetype(), target);
@@ -1068,12 +1065,6 @@ size_t WebAppFileHandlerAcceptProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppFileHandlerAcceptProto)
   size_t total_size = 0;
 
-  // required string mimetype = 1;
-  if (_internal_has_mimetype()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_mimetype());
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1084,6 +1075,14 @@ size_t WebAppFileHandlerAcceptProto::ByteSizeLong() const {
   for (int i = 0, n = file_extensions_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       file_extensions_.Get(i));
+  }
+
+  // optional string mimetype = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mimetype());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1121,7 +1120,6 @@ void WebAppFileHandlerAcceptProto::CopyFrom(const WebAppFileHandlerAcceptProto& 
 }
 
 bool WebAppFileHandlerAcceptProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -1156,9 +1154,6 @@ class WebAppFileHandlerProto::_Internal {
   }
   static void set_has_launch_type(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000005) ^ 0x00000005) != 0;
   }
 };
 
@@ -1259,7 +1254,7 @@ const char* WebAppFileHandlerProto::_InternalParse(const char* ptr, ::_pbi::Pars
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string action = 1;
+      // optional string action = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_action();
@@ -1303,7 +1298,7 @@ const char* WebAppFileHandlerProto::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // required .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
+      // optional .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -1347,7 +1342,7 @@ uint8_t* WebAppFileHandlerProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string action = 1;
+  // optional string action = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_action(), target);
@@ -1375,7 +1370,7 @@ uint8_t* WebAppFileHandlerProto::_InternalSerialize(
         4, this->_internal_display_name(), target);
   }
 
-  // required .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
+  // optional .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
@@ -1390,42 +1385,10 @@ uint8_t* WebAppFileHandlerProto::_InternalSerialize(
   return target;
 }
 
-size_t WebAppFileHandlerProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.WebAppFileHandlerProto)
-  size_t total_size = 0;
-
-  if (_internal_has_action()) {
-    // required string action = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_action());
-  }
-
-  if (_internal_has_launch_type()) {
-    // required .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_launch_type());
-  }
-
-  return total_size;
-}
 size_t WebAppFileHandlerProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppFileHandlerProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000005) ^ 0x00000005) == 0) {  // All required fields are present.
-    // required string action = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_action());
-
-    // required .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_launch_type());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1444,14 +1407,29 @@ size_t WebAppFileHandlerProto::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // optional string display_name = 4;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000002u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_display_name());
-  }
+  if (cached_has_bits & 0x00000007u) {
+    // optional string action = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_action());
+    }
 
+    // optional string display_name = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_display_name());
+    }
+
+    // optional .web_app.WebAppFileHandlerProto.LaunchType launch_type = 5;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_launch_type());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1498,9 +1476,6 @@ void WebAppFileHandlerProto::CopyFrom(const WebAppFileHandlerProto& from) {
 }
 
 bool WebAppFileHandlerProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(accept_))
-    return false;
   return true;
 }
 
@@ -1538,9 +1513,6 @@ class WebAppProtocolHandler::_Internal {
   }
   static void set_has_url(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
   }
 };
 
@@ -1629,7 +1601,7 @@ const char* WebAppProtocolHandler::_InternalParse(const char* ptr, ::_pbi::Parse
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string protocol = 1;
+      // optional string protocol = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_protocol();
@@ -1638,7 +1610,7 @@ const char* WebAppProtocolHandler::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
-      // required string url = 2;
+      // optional string url = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_url();
@@ -1678,13 +1650,13 @@ uint8_t* WebAppProtocolHandler::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string protocol = 1;
+  // optional string protocol = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_protocol(), target);
   }
 
-  // required string url = 2;
+  // optional string url = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_url(), target);
@@ -1698,48 +1670,31 @@ uint8_t* WebAppProtocolHandler::_InternalSerialize(
   return target;
 }
 
-size_t WebAppProtocolHandler::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.WebAppProtocolHandler)
-  size_t total_size = 0;
-
-  if (_internal_has_protocol()) {
-    // required string protocol = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_protocol());
-  }
-
-  if (_internal_has_url()) {
-    // required string url = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_url());
-  }
-
-  return total_size;
-}
 size_t WebAppProtocolHandler::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppProtocolHandler)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string protocol = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_protocol());
-
-    // required string url = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_url());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string protocol = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_protocol());
+    }
+
+    // optional string url = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_url());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1780,7 +1735,6 @@ void WebAppProtocolHandler::CopyFrom(const WebAppProtocolHandler& from) {
 }
 
 bool WebAppProtocolHandler::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -1815,9 +1769,6 @@ class WebAppUrlHandlerProto::_Internal {
   }
   static void set_has_has_origin_wildcard(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
   }
 };
 
@@ -1891,7 +1842,7 @@ const char* WebAppUrlHandlerProto::_InternalParse(const char* ptr, ::_pbi::Parse
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string origin = 1;
+      // optional string origin = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_origin();
@@ -1900,7 +1851,7 @@ const char* WebAppUrlHandlerProto::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
-      // required bool has_origin_wildcard = 2;
+      // optional bool has_origin_wildcard = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_has_origin_wildcard(&has_bits);
@@ -1940,13 +1891,13 @@ uint8_t* WebAppUrlHandlerProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string origin = 1;
+  // optional string origin = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_origin(), target);
   }
 
-  // required bool has_origin_wildcard = 2;
+  // optional bool has_origin_wildcard = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_has_origin_wildcard(), target);
@@ -1960,44 +1911,29 @@ uint8_t* WebAppUrlHandlerProto::_InternalSerialize(
   return target;
 }
 
-size_t WebAppUrlHandlerProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.WebAppUrlHandlerProto)
-  size_t total_size = 0;
-
-  if (_internal_has_origin()) {
-    // required string origin = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_origin());
-  }
-
-  if (_internal_has_has_origin_wildcard()) {
-    // required bool has_origin_wildcard = 2;
-    total_size += 1 + 1;
-  }
-
-  return total_size;
-}
 size_t WebAppUrlHandlerProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppUrlHandlerProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string origin = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_origin());
-
-    // required bool has_origin_wildcard = 2;
-    total_size += 1 + 1;
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string origin = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_origin());
+    }
+
+    // optional bool has_origin_wildcard = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2039,7 +1975,6 @@ void WebAppUrlHandlerProto::CopyFrom(const WebAppUrlHandlerProto& from) {
 }
 
 bool WebAppUrlHandlerProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -2071,9 +2006,6 @@ class WebAppScopeExtensionProto::_Internal {
   }
   static void set_has_has_origin_wildcard(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
   }
 };
 
@@ -2147,7 +2079,7 @@ const char* WebAppScopeExtensionProto::_InternalParse(const char* ptr, ::_pbi::P
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string origin = 1;
+      // optional string origin = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_origin();
@@ -2156,7 +2088,7 @@ const char* WebAppScopeExtensionProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // required bool has_origin_wildcard = 2;
+      // optional bool has_origin_wildcard = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_has_origin_wildcard(&has_bits);
@@ -2196,13 +2128,13 @@ uint8_t* WebAppScopeExtensionProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string origin = 1;
+  // optional string origin = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_origin(), target);
   }
 
-  // required bool has_origin_wildcard = 2;
+  // optional bool has_origin_wildcard = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_has_origin_wildcard(), target);
@@ -2216,44 +2148,29 @@ uint8_t* WebAppScopeExtensionProto::_InternalSerialize(
   return target;
 }
 
-size_t WebAppScopeExtensionProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.WebAppScopeExtensionProto)
-  size_t total_size = 0;
-
-  if (_internal_has_origin()) {
-    // required string origin = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_origin());
-  }
-
-  if (_internal_has_has_origin_wildcard()) {
-    // required bool has_origin_wildcard = 2;
-    total_size += 1 + 1;
-  }
-
-  return total_size;
-}
 size_t WebAppScopeExtensionProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppScopeExtensionProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string origin = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_origin());
-
-    // required bool has_origin_wildcard = 2;
-    total_size += 1 + 1;
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string origin = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_origin());
+    }
+
+    // optional bool has_origin_wildcard = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2295,7 +2212,6 @@ void WebAppScopeExtensionProto::CopyFrom(const WebAppScopeExtensionProto& from) 
 }
 
 bool WebAppScopeExtensionProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -2354,9 +2270,6 @@ class SourcesProto::_Internal {
   }
   static void set_has_aps_default(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x0000001f) ^ 0x0000001f) != 0;
   }
 };
 
@@ -2428,7 +2341,7 @@ const char* SourcesProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required bool system = 1;
+      // optional bool system = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_system(&has_bits);
@@ -2437,7 +2350,7 @@ const char* SourcesProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // required bool policy = 2;
+      // optional bool policy = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_policy(&has_bits);
@@ -2446,7 +2359,7 @@ const char* SourcesProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // required bool web_app_store = 3;
+      // optional bool web_app_store = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_web_app_store(&has_bits);
@@ -2455,7 +2368,7 @@ const char* SourcesProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // required bool sync = 4;
+      // optional bool sync = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_sync(&has_bits);
@@ -2464,7 +2377,7 @@ const char* SourcesProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // required bool default = 5;
+      // optional bool default = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_default_(&has_bits);
@@ -2558,31 +2471,31 @@ uint8_t* SourcesProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required bool system = 1;
+  // optional bool system = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_system(), target);
   }
 
-  // required bool policy = 2;
+  // optional bool policy = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_policy(), target);
   }
 
-  // required bool web_app_store = 3;
+  // optional bool web_app_store = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_web_app_store(), target);
   }
 
-  // required bool sync = 4;
+  // optional bool sync = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_sync(), target);
   }
 
-  // required bool default = 5;
+  // optional bool default = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_default_(), target);
@@ -2632,66 +2545,41 @@ uint8_t* SourcesProto::_InternalSerialize(
   return target;
 }
 
-size_t SourcesProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.SourcesProto)
-  size_t total_size = 0;
-
-  if (_internal_has_system()) {
-    // required bool system = 1;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_policy()) {
-    // required bool policy = 2;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_web_app_store()) {
-    // required bool web_app_store = 3;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_sync()) {
-    // required bool sync = 4;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_default_()) {
-    // required bool default = 5;
-    total_size += 1 + 1;
-  }
-
-  return total_size;
-}
 size_t SourcesProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.SourcesProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x0000001f) ^ 0x0000001f) == 0) {  // All required fields are present.
-    // required bool system = 1;
-    total_size += 1 + 1;
-
-    // required bool policy = 2;
-    total_size += 1 + 1;
-
-    // required bool web_app_store = 3;
-    total_size += 1 + 1;
-
-    // required bool sync = 4;
-    total_size += 1 + 1;
-
-    // required bool default = 5;
-    total_size += 1 + 1;
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000e0u) {
+  if (cached_has_bits & 0x000000ffu) {
+    // optional bool system = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool policy = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool web_app_store = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool sync = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool default = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 1;
+    }
+
     // optional bool sub_app = 6;
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 + 1;
@@ -2796,7 +2684,6 @@ void SourcesProto::CopyFrom(const SourcesProto& from) {
 }
 
 bool SourcesProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -2825,7 +2712,7 @@ class ChromeOSDataProto::_Internal {
   static void set_has_show_in_launcher(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static void set_has_show_in_search(HasBits* has_bits) {
+  static void set_has_show_in_search_and_shelf(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_show_in_management(HasBits* has_bits) {
@@ -2839,9 +2726,6 @@ class ChromeOSDataProto::_Internal {
   }
   static void set_has_handles_file_open_intents(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x0000000f) ^ 0x0000000f) != 0;
   }
 };
 
@@ -2908,7 +2792,7 @@ const char* ChromeOSDataProto::_InternalParse(const char* ptr, ::_pbi::ParseCont
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required bool show_in_launcher = 1;
+      // optional bool show_in_launcher = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_show_in_launcher(&has_bits);
@@ -2917,16 +2801,16 @@ const char* ChromeOSDataProto::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // required bool show_in_search = 2;
+      // optional bool show_in_search_and_shelf = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _Internal::set_has_show_in_search(&has_bits);
-          show_in_search_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _Internal::set_has_show_in_search_and_shelf(&has_bits);
+          show_in_search_and_shelf_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // required bool show_in_management = 3;
+      // optional bool show_in_management = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_show_in_management(&has_bits);
@@ -2935,7 +2819,7 @@ const char* ChromeOSDataProto::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // required bool is_disabled = 4;
+      // optional bool is_disabled = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_is_disabled(&has_bits);
@@ -2993,25 +2877,25 @@ uint8_t* ChromeOSDataProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required bool show_in_launcher = 1;
+  // optional bool show_in_launcher = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_show_in_launcher(), target);
   }
 
-  // required bool show_in_search = 2;
+  // optional bool show_in_search_and_shelf = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_show_in_search(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_show_in_search_and_shelf(), target);
   }
 
-  // required bool show_in_management = 3;
+  // optional bool show_in_management = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_show_in_management(), target);
   }
 
-  // required bool is_disabled = 4;
+  // optional bool is_disabled = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_is_disabled(), target);
@@ -3037,58 +2921,36 @@ uint8_t* ChromeOSDataProto::_InternalSerialize(
   return target;
 }
 
-size_t ChromeOSDataProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.ChromeOSDataProto)
-  size_t total_size = 0;
-
-  if (_internal_has_show_in_launcher()) {
-    // required bool show_in_launcher = 1;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_show_in_search()) {
-    // required bool show_in_search = 2;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_show_in_management()) {
-    // required bool show_in_management = 3;
-    total_size += 1 + 1;
-  }
-
-  if (_internal_has_is_disabled()) {
-    // required bool is_disabled = 4;
-    total_size += 1 + 1;
-  }
-
-  return total_size;
-}
 size_t ChromeOSDataProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.ChromeOSDataProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
-    // required bool show_in_launcher = 1;
-    total_size += 1 + 1;
-
-    // required bool show_in_search = 2;
-    total_size += 1 + 1;
-
-    // required bool show_in_management = 3;
-    total_size += 1 + 1;
-
-    // required bool is_disabled = 4;
-    total_size += 1 + 1;
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000030u) {
+  if (cached_has_bits & 0x0000003fu) {
+    // optional bool show_in_launcher = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool show_in_search_and_shelf = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool show_in_management = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool is_disabled = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 1;
+    }
+
     // optional bool oem_installed = 5;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 + 1;
@@ -3126,7 +2988,7 @@ void ChromeOSDataProto::MergeFrom(const ChromeOSDataProto& from) {
       show_in_launcher_ = from.show_in_launcher_;
     }
     if (cached_has_bits & 0x00000002u) {
-      show_in_search_ = from.show_in_search_;
+      show_in_search_and_shelf_ = from.show_in_search_and_shelf_;
     }
     if (cached_has_bits & 0x00000004u) {
       show_in_management_ = from.show_in_management_;
@@ -3153,7 +3015,6 @@ void ChromeOSDataProto::CopyFrom(const ChromeOSDataProto& from) {
 }
 
 bool ChromeOSDataProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -3385,9 +3246,6 @@ class WebAppShortcutsMenuItemInfoProto::_Internal {
   static void set_has_url(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
-  }
 };
 
 void WebAppShortcutsMenuItemInfoProto::clear_shortcut_manifest_icons() {
@@ -3493,7 +3351,7 @@ const char* WebAppShortcutsMenuItemInfoProto::_InternalParse(const char* ptr, ::
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required string name = 1;
+      // optional string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
@@ -3502,7 +3360,7 @@ const char* WebAppShortcutsMenuItemInfoProto::_InternalParse(const char* ptr, ::
         } else
           goto handle_unusual;
         continue;
-      // required string url = 2;
+      // optional string url = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_url();
@@ -3581,13 +3439,13 @@ uint8_t* WebAppShortcutsMenuItemInfoProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required string name = 1;
+  // optional string name = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_name(), target);
   }
 
-  // required string url = 2;
+  // optional string url = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_url(), target);
@@ -3625,44 +3483,10 @@ uint8_t* WebAppShortcutsMenuItemInfoProto::_InternalSerialize(
   return target;
 }
 
-size_t WebAppShortcutsMenuItemInfoProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.WebAppShortcutsMenuItemInfoProto)
-  size_t total_size = 0;
-
-  if (_internal_has_name()) {
-    // required string name = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  if (_internal_has_url()) {
-    // required string url = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_url());
-  }
-
-  return total_size;
-}
 size_t WebAppShortcutsMenuItemInfoProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppShortcutsMenuItemInfoProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string name = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-
-    // required string url = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_url());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3688,6 +3512,23 @@ size_t WebAppShortcutsMenuItemInfoProto::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string name = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_name());
+    }
+
+    // optional string url = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_url());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3731,7 +3572,6 @@ void WebAppShortcutsMenuItemInfoProto::CopyFrom(const WebAppShortcutsMenuItemInf
 }
 
 bool WebAppShortcutsMenuItemInfoProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   return true;
 }
 
@@ -6551,9 +6391,6 @@ class WebAppProto::_Internal {
   static void set_has_supported_links_offer_dismiss_count(HasBits* has_bits) {
     (*has_bits)[1] |= 4096u;
   }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00080301) ^ 0x00080301) != 0;
-  }
 };
 
 const ::sync_pb::WebAppSpecifics&
@@ -6986,7 +6823,7 @@ const char* WebAppProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required .sync_pb.WebAppSpecifics sync_data = 1;
+      // optional .sync_pb.WebAppSpecifics sync_data = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_sync_data(), ptr);
@@ -6994,7 +6831,7 @@ const char* WebAppProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // required string name = 2;
+      // optional string name = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
@@ -7043,7 +6880,7 @@ const char* WebAppProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // required .web_app.SourcesProto sources = 7;
+      // optional .web_app.SourcesProto sources = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_sources(), ptr);
@@ -7051,7 +6888,7 @@ const char* WebAppProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // required bool is_locally_installed = 8;
+      // optional bool is_locally_installed = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _Internal::set_has_is_locally_installed(&_has_bits_);
@@ -7698,14 +7535,14 @@ uint8_t* WebAppProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required .sync_pb.WebAppSpecifics sync_data = 1;
+  // optional .sync_pb.WebAppSpecifics sync_data = 1;
   if (cached_has_bits & 0x00000100u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::sync_data(this),
         _Internal::sync_data(this).GetCachedSize(), target, stream);
   }
 
-  // required string name = 2;
+  // optional string name = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_name(), target);
@@ -7738,14 +7575,14 @@ uint8_t* WebAppProto::_InternalSerialize(
         6, this->_internal_scope(), target);
   }
 
-  // required .web_app.SourcesProto sources = 7;
+  // optional .web_app.SourcesProto sources = 7;
   if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(7, _Internal::sources(this),
         _Internal::sources(this).GetCachedSize(), target, stream);
   }
 
-  // required bool is_locally_installed = 8;
+  // optional bool is_locally_installed = 8;
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_is_locally_installed(), target);
@@ -8141,64 +7978,10 @@ uint8_t* WebAppProto::_InternalSerialize(
   return target;
 }
 
-size_t WebAppProto::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:web_app.WebAppProto)
-  size_t total_size = 0;
-
-  if (_internal_has_name()) {
-    // required string name = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  if (_internal_has_sync_data()) {
-    // required .sync_pb.WebAppSpecifics sync_data = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *sync_data_);
-  }
-
-  if (_internal_has_sources()) {
-    // required .web_app.SourcesProto sources = 7;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *sources_);
-  }
-
-  if (_internal_has_is_locally_installed()) {
-    // required bool is_locally_installed = 8;
-    total_size += 1 + 1;
-  }
-
-  return total_size;
-}
 size_t WebAppProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:web_app.WebAppProto)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00080301) ^ 0x00080301) == 0) {  // All required fields are present.
-    // required string name = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-
-    // required .sync_pb.WebAppSpecifics sync_data = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *sync_data_);
-
-    // required .web_app.SourcesProto sources = 7;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *sources_);
-
-    // required bool is_locally_installed = 8;
-    total_size += 1 + 1;
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -8335,7 +8118,14 @@ size_t WebAppProto::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000feu) {
+  if (cached_has_bits & 0x000000ffu) {
+    // optional string name = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_name());
+    }
+
     // optional string description = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -8386,7 +8176,21 @@ size_t WebAppProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x0000fc00u) {
+  if (cached_has_bits & 0x0000ff00u) {
+    // optional .sync_pb.WebAppSpecifics sync_data = 1;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *sync_data_);
+    }
+
+    // optional .web_app.SourcesProto sources = 7;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *sources_);
+    }
+
     // optional .web_app.ChromeOSDataProto chromeos_data = 14;
     if (cached_has_bits & 0x00000400u) {
       total_size += 1 +
@@ -8430,7 +8234,7 @@ size_t WebAppProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00070000u) {
+  if (cached_has_bits & 0x00ff0000u) {
     // optional .web_app.IsolationDataProto isolation_data = 60;
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
@@ -8450,8 +8254,11 @@ size_t WebAppProto::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_theme_color());
     }
 
-  }
-  if (cached_has_bits & 0x00f00000u) {
+    // optional bool is_locally_installed = 8;
+    if (cached_has_bits & 0x00080000u) {
+      total_size += 1 + 1;
+    }
+
     // optional bool is_from_sync_and_pending_installation = 9;
     if (cached_has_bits & 0x00100000u) {
       total_size += 1 + 1;
@@ -8833,28 +8640,6 @@ void WebAppProto::CopyFrom(const WebAppProto& from) {
 }
 
 bool WebAppProto::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(file_handlers_))
-    return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(protocol_handlers_))
-    return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(shortcuts_menu_item_infos_))
-    return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(url_handlers_))
-    return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(scope_extensions_))
-    return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(scope_extensions_validated_))
-    return false;
-  if (_internal_has_sources()) {
-    if (!sources_->IsInitialized()) return false;
-  }
-  if (_internal_has_chromeos_data()) {
-    if (!chromeos_data_->IsInitialized()) return false;
-  }
-  if (_internal_has_share_target()) {
-    if (!share_target_->IsInitialized()) return false;
-  }
   return true;
 }
 

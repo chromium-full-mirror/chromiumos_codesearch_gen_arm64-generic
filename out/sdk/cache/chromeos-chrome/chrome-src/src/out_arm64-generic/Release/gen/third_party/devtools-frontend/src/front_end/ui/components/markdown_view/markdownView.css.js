@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.message{line-height:20px;font-size:14px;color:var(--override-markdown-view-message-color,--sys-color-token-subtle);margin-bottom:4px;user-select:text}.message p{margin-bottom:16px;margin-block-start:2px}.message ul{list-style-type:none;list-style-position:inside;padding-inline-start:0}.message li{margin-top:8px;display:list-item}.message li::before{content:"→";-webkit-mask-image:none;padding-right:5px;position:relative;top:-1px}.message code{color:var(--sys-color-on-surface);font-size:12px;user-select:text;cursor:text;background:var(--sys-color-surface1)}.devtools-link{color:var(--sys-color-primary);outline-offset:2px;text-decoration:none}.devtools-link:hover{text-decoration:underline}
+`.message{line-height:20px;font-size:14px;color:var(--override-markdown-view-message-color,--sys-color-token-subtle);margin-bottom:4px;user-select:text}.message p{margin-bottom:16px;margin-block-start:2px}.message ul{list-style-type:none;list-style-position:inside;padding-inline-start:0}.message li{margin-top:8px;display:list-item}.message li::before{content:"→";mask-image:none;padding-right:5px;position:relative;top:-1px}.message code{color:var(--sys-color-on-surface);font-size:12px;user-select:text;cursor:text;background:var(--sys-color-surface1)}.devtools-link{color:var(--sys-color-primary);outline-offset:2px;text-decoration:none}.devtools-link:hover{text-decoration:underline}
 /*# sourceURL=markdownView.css */
 `);
 

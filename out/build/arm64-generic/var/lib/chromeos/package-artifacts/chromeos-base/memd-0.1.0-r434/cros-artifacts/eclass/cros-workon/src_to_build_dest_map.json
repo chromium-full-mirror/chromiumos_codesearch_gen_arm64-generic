@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/memd-0.1.0-r434/work/memd-0.1.0"
+    }
+  ]
+}

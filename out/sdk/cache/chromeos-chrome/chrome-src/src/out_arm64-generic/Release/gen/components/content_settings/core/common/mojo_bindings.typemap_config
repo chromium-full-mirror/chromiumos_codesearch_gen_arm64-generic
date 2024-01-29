@@ -22,10 +22,6 @@
         "mojom": "content_settings.mojom.ContentSettingsPattern"
       },
       {
-        "cpp": "::ContentSettingsType",
-        "mojom": "content_settings.mojom.ContentSettingsType"
-      },
-      {
         "cpp": "::ContentSetting",
         "mojom": "content_settings.mojom.ContentSetting"
       },

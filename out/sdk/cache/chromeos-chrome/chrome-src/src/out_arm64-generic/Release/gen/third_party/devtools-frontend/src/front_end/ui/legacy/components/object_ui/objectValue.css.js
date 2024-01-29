@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.value.object-value-node:hover{background-color:var(--item-hover-color)}.object-value-function-prefix,
+`.value.object-value-node:hover{background-color:var(--sys-color-state-hover-on-subtle)}.object-value-function-prefix,
 .object-value-boolean{color:var(--sys-color-token-attribute-value)}.object-value-function{font-style:italic}.object-value-function.linkified:hover{--override-linkified-hover-background:rgb(0 0 0/10%);background-color:var(--override-linkified-hover-background);cursor:pointer}.-theme-with-dark-background .object-value-function.linkified:hover,
 :host-context(.-theme-with-dark-background) .object-value-function.linkified:hover{--override-linkified-hover-background:rgb(230 230 230/10%)}.object-value-number{color:var(--sys-color-token-attribute-value)}.object-value-bigint{color:var(--sys-color-token-comment)}.object-value-string,
 .object-value-regexp,

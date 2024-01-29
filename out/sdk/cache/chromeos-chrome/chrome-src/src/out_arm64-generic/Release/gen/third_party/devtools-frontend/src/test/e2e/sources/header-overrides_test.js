@@ -43,7 +43,7 @@ async function openHeadersTab() {
     await (0, helper_js_1.waitFor)(ACTIVE_HEADERS_TAB_SELECTOR, networkView);
 }
 async function editorTabHasPurpleDot() {
-    const tabHeaderIcon = await (0, helper_js_1.waitFor)('.tabbed-pane-header-tab-icon .spritesheet-mediumicons');
+    const tabHeaderIcon = await (0, helper_js_1.waitFor)('.tabbed-pane-header-tab-icon devtools-icon');
     return await tabHeaderIcon?.evaluate(node => node.classList.contains('dot') && node.classList.contains('purple'));
 }
 async function fileTreeEntryIsSelectedAndHasPurpleDot() {

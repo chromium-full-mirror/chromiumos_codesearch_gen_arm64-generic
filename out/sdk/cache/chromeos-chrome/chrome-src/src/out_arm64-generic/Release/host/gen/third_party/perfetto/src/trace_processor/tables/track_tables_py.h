@@ -204,15 +204,15 @@ class TrackTable : public macros_internal::MacroTable {
         parent_id_(ColumnStorage<ColumnType::parent_id::stored_type>::Create<false>()),
         source_arg_set_id_(ColumnStorage<ColumnType::source_arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::name::stored_type>(
           ColumnFlag::name),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_id::stored_type>(
           ColumnFlag::parent_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::source_arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::source_arg_set_id::stored_type>(
           ColumnFlag::source_arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -566,11 +566,11 @@ class CounterTrackTable : public macros_internal::MacroTable {
         parent_(parent), unit_(ColumnStorage<ColumnType::unit::stored_type>::Create<false>()),
         description_(ColumnStorage<ColumnType::description::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::unit::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::unit::stored_type>(
           ColumnFlag::unit),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
           ColumnFlag::description),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -738,11 +738,11 @@ class CounterTrackTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::description::stored_type> description)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::unit::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::unit::stored_type>(
           ColumnFlag::unit),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
           ColumnFlag::description),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(unit.size() == parent_overlay.size());
@@ -1003,7 +1003,7 @@ class CpuCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), cpu_(ColumnStorage<ColumnType::cpu::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1175,7 +1175,7 @@ class CpuCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::cpu::stored_type> cpu)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(cpu.size() == parent_overlay.size());
@@ -1392,7 +1392,7 @@ class CpuTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), cpu_(ColumnStorage<ColumnType::cpu::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1540,7 +1540,7 @@ class CpuTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::cpu::stored_type> cpu)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(cpu.size() == parent_overlay.size());
@@ -1841,15 +1841,15 @@ class EnergyCounterTrackTable : public macros_internal::MacroTable {
         consumer_type_(ColumnStorage<ColumnType::consumer_type::stored_type>::Create<false>()),
         ordinal_(ColumnStorage<ColumnType::ordinal::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
           ColumnFlag::consumer_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::consumer_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::consumer_type::stored_type>(
           ColumnFlag::consumer_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ordinal::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ordinal::stored_type>(
           ColumnFlag::ordinal),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2061,15 +2061,15 @@ class EnergyCounterTrackTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::ordinal::stored_type> ordinal)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
           ColumnFlag::consumer_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::consumer_type::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::consumer_type::stored_type>(
           ColumnFlag::consumer_type),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ordinal::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ordinal::stored_type>(
           ColumnFlag::ordinal),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(consumer_id.size() == parent_overlay.size());
@@ -2336,7 +2336,7 @@ class UidCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), uid_(ColumnStorage<ColumnType::uid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2508,7 +2508,7 @@ class UidCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::uid::stored_type> uid)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(uid.size() == parent_overlay.size());
@@ -2782,7 +2782,7 @@ class EnergyPerUidCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), consumer_id_(ColumnStorage<ColumnType::consumer_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
           ColumnFlag::consumer_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -2966,7 +2966,7 @@ class EnergyPerUidCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::consumer_id::stored_type> consumer_id)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::consumer_id::stored_type>(
           ColumnFlag::consumer_id),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(consumer_id.size() == parent_overlay.size());
@@ -3221,7 +3221,7 @@ class GpuCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), gpu_id_(ColumnStorage<ColumnType::gpu_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
           ColumnFlag::gpu_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3393,7 +3393,7 @@ class GpuCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::gpu_id::stored_type> gpu_id)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
           ColumnFlag::gpu_id),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(gpu_id.size() == parent_overlay.size());
@@ -3656,15 +3656,15 @@ class GpuTrackTable : public macros_internal::MacroTable {
         description_(ColumnStorage<ColumnType::description::stored_type>::Create<false>()),
         context_id_(ColumnStorage<ColumnType::context_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::scope::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::scope::stored_type>(
           ColumnFlag::scope),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
           ColumnFlag::description),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
           ColumnFlag::context_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -3852,15 +3852,15 @@ class GpuTrackTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::context_id::stored_type> context_id)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::scope::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::scope::stored_type>(
           ColumnFlag::scope),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::description::stored_type>(
           ColumnFlag::description),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::context_id::stored_type>(
           ColumnFlag::context_id),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(scope.size() == parent_overlay.size());
@@ -4089,7 +4089,7 @@ class UidTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), uid_(ColumnStorage<ColumnType::uid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -4237,7 +4237,7 @@ class UidTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::uid::stored_type> uid)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::uid::stored_type>(
           ColumnFlag::uid),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(uid.size() == parent_overlay.size());
@@ -4473,7 +4473,7 @@ class GpuWorkPeriodTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), gpu_id_(ColumnStorage<ColumnType::gpu_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
           ColumnFlag::gpu_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -4633,7 +4633,7 @@ class GpuWorkPeriodTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::gpu_id::stored_type> gpu_id)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::gpu_id::stored_type>(
           ColumnFlag::gpu_id),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(gpu_id.size() == parent_overlay.size());
@@ -4888,7 +4888,7 @@ class IrqCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), irq_(ColumnStorage<ColumnType::irq::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::irq::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::irq::stored_type>(
           ColumnFlag::irq),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -5060,7 +5060,7 @@ class IrqCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::irq::stored_type> irq)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::irq::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::irq::stored_type>(
           ColumnFlag::irq),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(irq.size() == parent_overlay.size());
@@ -5361,15 +5361,15 @@ class PerfCounterTrackTable : public macros_internal::MacroTable {
         cpu_(ColumnStorage<ColumnType::cpu::stored_type>::Create<false>()),
         is_timebase_(ColumnStorage<ColumnType::is_timebase::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_session_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_session_id::stored_type>(
           ColumnFlag::perf_session_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::is_timebase::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::is_timebase::stored_type>(
           ColumnFlag::is_timebase),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -5581,15 +5581,15 @@ class PerfCounterTrackTable : public macros_internal::MacroTable {
 , ColumnStorage<ColumnType::is_timebase::stored_type> is_timebase)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::perf_session_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::perf_session_id::stored_type>(
           ColumnFlag::perf_session_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::cpu::stored_type>(
           ColumnFlag::cpu),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::is_timebase::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::is_timebase::stored_type>(
           ColumnFlag::is_timebase),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(perf_session_id.size() == parent_overlay.size());
@@ -5856,7 +5856,7 @@ class ProcessCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -6028,7 +6028,7 @@ class ProcessCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::upid::stored_type> upid)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(upid.size() == parent_overlay.size());
@@ -6245,7 +6245,7 @@ class ProcessTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), upid_(ColumnStorage<ColumnType::upid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -6393,7 +6393,7 @@ class ProcessTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::upid::stored_type> upid)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::upid::stored_type>(
           ColumnFlag::upid),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(upid.size() == parent_overlay.size());
@@ -6648,7 +6648,7 @@ class SoftirqCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), softirq_(ColumnStorage<ColumnType::softirq::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::softirq::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::softirq::stored_type>(
           ColumnFlag::softirq),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -6820,7 +6820,7 @@ class SoftirqCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::softirq::stored_type> softirq)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::softirq::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::softirq::stored_type>(
           ColumnFlag::softirq),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(softirq.size() == parent_overlay.size());
@@ -7075,7 +7075,7 @@ class ThreadCounterTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), utid_(ColumnStorage<ColumnType::utid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -7247,7 +7247,7 @@ class ThreadCounterTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::utid::stored_type> utid)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(utid.size() == parent_overlay.size());
@@ -7464,7 +7464,7 @@ class ThreadTrackTable : public macros_internal::MacroTable {
       : macros_internal::MacroTable(pool, parent),
         parent_(parent), utid_(ColumnStorage<ColumnType::utid::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -7612,7 +7612,7 @@ class ThreadTrackTable : public macros_internal::MacroTable {
             ColumnStorage<ColumnType::utid::stored_type> utid)
       : macros_internal::MacroTable(pool, parent, parent_overlay) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::utid::stored_type>(
           ColumnFlag::utid),
         "Column type and flag combination is not valid");
     PERFETTO_DCHECK(utid.size() == parent_overlay.size());

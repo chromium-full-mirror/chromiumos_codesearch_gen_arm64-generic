@@ -28,6 +28,8 @@ class InputDeviceSettingsPolicyDataView;
 
 class InputDeviceSettingsFkeyPolicyDataView;
 
+class InputDeviceSettingsSixPackKeyPolicyDataView;
+
 class KeyboardPoliciesDataView;
 
 class MousePoliciesDataView;
@@ -69,6 +71,8 @@ enum class TopRowActionKey : int32_t;
 
 enum class CustomizableButton : int32_t;
 
+enum class MouseButtonConfig : int32_t;
+
 enum class StaticShortcutAction : int32_t;
 
 enum class CustomizationRestriction : int32_t;
@@ -80,6 +84,9 @@ using InputDeviceSettingsPolicyPtr = mojo::InlinedStructPtr<InputDeviceSettingsP
 
 class InputDeviceSettingsFkeyPolicy;
 using InputDeviceSettingsFkeyPolicyPtr = mojo::InlinedStructPtr<InputDeviceSettingsFkeyPolicy>;
+
+class InputDeviceSettingsSixPackKeyPolicy;
+using InputDeviceSettingsSixPackKeyPolicyPtr = mojo::InlinedStructPtr<InputDeviceSettingsSixPackKeyPolicy>;
 
 class KeyboardPolicies;
 using KeyboardPoliciesPtr = mojo::StructPtr<KeyboardPolicies>;

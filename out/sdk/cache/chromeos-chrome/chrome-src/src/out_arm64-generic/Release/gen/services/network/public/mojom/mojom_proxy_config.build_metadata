@@ -1,5 +1,6 @@
 {
   "deps": [
+    "mojom_network_param.build_metadata",
     "../../../../mojo/public/mojom/base/base.build_metadata"
   ],
   "sources": [

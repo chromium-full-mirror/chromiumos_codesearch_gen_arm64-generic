@@ -44,6 +44,46 @@
 
 
 namespace printing::mojom {
+FlattenPdfResult::FlattenPdfResult()
+    : flattened_pdf_region(),
+      page_count() {}
+
+FlattenPdfResult::FlattenPdfResult(
+    ::base::ReadOnlySharedMemoryRegion flattened_pdf_region_in,
+    uint32_t page_count_in)
+    : flattened_pdf_region(std::move(flattened_pdf_region_in)),
+      page_count(std::move(page_count_in)) {}
+
+FlattenPdfResult::~FlattenPdfResult() = default;
+
+void FlattenPdfResult::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "flattened_pdf_region"), this->flattened_pdf_region,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::ReadOnlySharedMemoryRegion>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "page_count"), this->page_count,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FlattenPdfResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char PdfFlattener::Name_[] = "printing.mojom.PdfFlattener";
 
 PdfFlattener::IPCStableHashFunction PdfFlattener::MessageToMethodInfo_(mojo::Message& message) {
@@ -277,7 +317,7 @@ class PdfFlattener_FlattenPdf_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      ::base::ReadOnlySharedMemoryRegion in_flattened_pdf_region);
+      FlattenPdfResultPtr in_result);
 };
 
 bool PdfFlattener_FlattenPdf_ForwardToCallback::Accept(
@@ -289,11 +329,13 @@ bool PdfFlattener_FlattenPdf_ForwardToCallback::Accept(
           internal::PdfFlattener_FlattenPdf_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PdfFlattener.0
   bool success = true;
-  ::base::ReadOnlySharedMemoryRegion p_flattened_pdf_region{};
+  FlattenPdfResultPtr p_result{};
   PdfFlattener_FlattenPdf_ResponseParamsDataView input_data_view(params, message);
   
-  if (success && !input_data_view.ReadFlattenedPdfRegion(&p_flattened_pdf_region))
+  if (success && !input_data_view.ReadResult(&p_result))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -304,20 +346,20 @@ bool PdfFlattener_FlattenPdf_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_flattened_pdf_region));
+std::move(p_result));
   return true;
 }
 
 void PdfFlattener_FlattenPdf_ProxyToResponder::Run(
-    ::base::ReadOnlySharedMemoryRegion in_flattened_pdf_region) {
+    FlattenPdfResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply printing::mojom::PdfFlattener::FlattenPdf", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("flattened_pdf_region"), in_flattened_pdf_region,
-                        "<value of type ::base::ReadOnlySharedMemoryRegion>");
+           dict.AddItem("result"), in_result,
+                        "<value of type FlattenPdfResultPtr>");
    });
 #endif
   
@@ -333,12 +375,12 @@ void PdfFlattener_FlattenPdf_ProxyToResponder::Run(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->flattened_pdf_region)::BaseType> flattened_pdf_region_fragment(
+      typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView>(
-      in_flattened_pdf_region, flattened_pdf_region_fragment);
-  params->flattened_pdf_region.Set(
-      flattened_pdf_region_fragment.is_null() ? nullptr : flattened_pdf_region_fragment.data());
+  mojo::internal::Serialize<::printing::mojom::FlattenPdfResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PdfFlattener::Name_);
@@ -372,6 +414,8 @@ bool PdfFlattenerStubDispatch::Accept(
           reinterpret_cast<internal::PdfFlattener_SetUseSkiaRendererPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PdfFlattener.1
       bool success = true;
       bool p_use_skia{};
       PdfFlattener_SetUseSkiaRendererPolicy_ParamsDataView input_data_view(params, message);
@@ -387,8 +431,8 @@ bool PdfFlattenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUseSkiaRendererPolicy(
-std::move(p_use_skia));
+      impl->SetUseSkiaRendererPolicy(        
+        std::move(p_use_skia));
       return true;
     }
   }
@@ -411,6 +455,8 @@ bool PdfFlattenerStubDispatch::AcceptWithResponder(
               internal::PdfFlattener_FlattenPdf_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PdfFlattener.0
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_src_pdf_region{};
       PdfFlattener_FlattenPdf_ParamsDataView input_data_view(params, message);
@@ -429,8 +475,8 @@ bool PdfFlattenerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FlattenPdf(
-std::move(p_src_pdf_region), std::move(callback));
+      impl->FlattenPdf(        
+        std::move(p_src_pdf_region), std::move(callback));
       return true;
     }
     case internal::kPdfFlattener_SetUseSkiaRendererPolicy_Name: {
@@ -464,6 +510,22 @@ bool PdfFlattenerResponseValidator::Accept(mojo::Message* message) {
 
 namespace mojo {
 
+
+// static
+bool StructTraits<::printing::mojom::FlattenPdfResult::DataView, ::printing::mojom::FlattenPdfResultPtr>::Read(
+    ::printing::mojom::FlattenPdfResult::DataView input,
+    ::printing::mojom::FlattenPdfResultPtr* output) {
+  bool success = true;
+  ::printing::mojom::FlattenPdfResultPtr result(::printing::mojom::FlattenPdfResult::New());
+  
+      if (success && !input.ReadFlattenedPdfRegion(&result->flattened_pdf_region))
+        success = false;
+      if (success)
+        result->page_count = input.page_count();
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -486,24 +548,24 @@ PdfFlattenerAsyncWaiter::PdfFlattenerAsyncWaiter(
 PdfFlattenerAsyncWaiter::~PdfFlattenerAsyncWaiter() = default;
 
 void PdfFlattenerAsyncWaiter::FlattenPdf(
-    ::base::ReadOnlySharedMemoryRegion src_pdf_region, ::base::ReadOnlySharedMemoryRegion* out_flattened_pdf_region) {
+    ::base::ReadOnlySharedMemoryRegion src_pdf_region, FlattenPdfResultPtr* out_result) {
   base::RunLoop loop;
   proxy_->FlattenPdf(std::move(src_pdf_region),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::base::ReadOnlySharedMemoryRegion* out_flattened_pdf_region
+             FlattenPdfResultPtr* out_result
 ,
-             ::base::ReadOnlySharedMemoryRegion flattened_pdf_region) {*out_flattened_pdf_region = std::move(flattened_pdf_region);
+             FlattenPdfResultPtr result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
-          out_flattened_pdf_region));
+          out_result));
   loop.Run();
 }
 
-::base::ReadOnlySharedMemoryRegion PdfFlattenerAsyncWaiter::FlattenPdf(
+FlattenPdfResultPtr PdfFlattenerAsyncWaiter::FlattenPdf(
     ::base::ReadOnlySharedMemoryRegion src_pdf_region) {
-  ::base::ReadOnlySharedMemoryRegion async_wait_result;
+  FlattenPdfResultPtr async_wait_result;
   FlattenPdf(std::move(src_pdf_region),&async_wait_result);
   return async_wait_result;
 }

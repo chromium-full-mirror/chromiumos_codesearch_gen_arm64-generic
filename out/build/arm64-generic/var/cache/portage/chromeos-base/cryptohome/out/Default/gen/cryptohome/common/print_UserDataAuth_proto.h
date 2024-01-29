@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5637/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5665/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
@@ -675,11 +675,20 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const PrepareAuthFactorProgress& value);
+std::string GetProtoDebugStringWithIndent(const AuthenticateStarted& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthenticateStarted& value);
 std::string GetProtoDebugStringWithIndent(
     const AuthenticateAuthFactorCompleted& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const AuthenticateAuthFactorCompleted& value);
+std::string GetProtoDebugStringWithIndent(const MountStarted& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const MountStarted& value);
+std::string GetProtoDebugStringWithIndent(const MountCompleted& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const MountCompleted& value);
 std::string GetProtoDebugStringWithIndent(const EvictedKeyRestored& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const EvictedKeyRestored& value);

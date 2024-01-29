@@ -85,7 +85,8 @@ BLINK_BINDINGS_TRACE_EVENT("InputDeviceCapabilities.firesTouchEvents.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("InputDeviceCapabilities.firesTouchEvents.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8InputDeviceCapabilities_FiresTouchEvents_AttributeGetter);
 

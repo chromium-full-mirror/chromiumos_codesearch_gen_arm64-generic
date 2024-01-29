@@ -394,6 +394,8 @@ bool KeyboardLockService_RequestKeyboardLock_ForwardToCallback::Accept(
           internal::KeyboardLockService_RequestKeyboardLock_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyboardLockService.0
   bool success = true;
   KeyboardLockRequestResult p_result{};
   KeyboardLockService_RequestKeyboardLock_ResponseParamsDataView input_data_view(params, message);
@@ -514,6 +516,8 @@ bool KeyboardLockService_GetKeyboardLayoutMap_ForwardToCallback::Accept(
           internal::KeyboardLockService_GetKeyboardLayoutMap_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyboardLockService.2
   bool success = true;
   GetKeyboardLayoutMapResultPtr p_result{};
   KeyboardLockService_GetKeyboardLayoutMap_ResponseParamsDataView input_data_view(params, message);
@@ -601,6 +605,8 @@ bool KeyboardLockServiceStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardLockService_CancelKeyboardLock_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardLockService.1
       bool success = true;
       KeyboardLockService_CancelKeyboardLock_ParamsDataView input_data_view(params, message);
       
@@ -613,7 +619,7 @@ bool KeyboardLockServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelKeyboardLock();
+      impl->CancelKeyboardLock(        );
       return true;
     }
     case internal::kKeyboardLockService_GetKeyboardLayoutMap_Name: {
@@ -639,6 +645,8 @@ bool KeyboardLockServiceStubDispatch::AcceptWithResponder(
               internal::KeyboardLockService_RequestKeyboardLock_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyboardLockService.0
       bool success = true;
       WTF::Vector<WTF::String> p_key_codes{};
       KeyboardLockService_RequestKeyboardLock_ParamsDataView input_data_view(params, message);
@@ -657,8 +665,8 @@ bool KeyboardLockServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestKeyboardLock(
-std::move(p_key_codes), std::move(callback));
+      impl->RequestKeyboardLock(        
+        std::move(p_key_codes), std::move(callback));
       return true;
     }
     case internal::kKeyboardLockService_CancelKeyboardLock_Name: {
@@ -671,6 +679,8 @@ std::move(p_key_codes), std::move(callback));
               internal::KeyboardLockService_GetKeyboardLayoutMap_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyboardLockService.2
       bool success = true;
       KeyboardLockService_GetKeyboardLayoutMap_ParamsDataView input_data_view(params, message);
       

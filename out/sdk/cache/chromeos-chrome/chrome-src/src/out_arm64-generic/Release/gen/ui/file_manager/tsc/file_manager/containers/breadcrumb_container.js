@@ -5,8 +5,8 @@ import '../widgets/xf_breadcrumb.js';
 import { recordUserAction } from '../common/js/metrics.js';
 import { str } from '../common/js/translations.js';
 import { SEARCH_RESULTS_KEY } from '../common/js/url_constants.js';
-import { PathComponent, PropStatus, State } from '../externs/ts/state.js';
 import { changeDirectory } from '../state/ducks/current_directory.js';
+import { PropStatus } from '../state/state.js';
 import { getStore, getVolumeType } from '../state/store.js';
 import { XfBreadcrumb } from '../widgets/xf_breadcrumb.js';
 /**
@@ -57,7 +57,7 @@ export class BreadcrumbContainer {
                 }
             }
         }
-        if (currentDirectory.status == PropStatus.SUCCESS &&
+        if (currentDirectory.status === PropStatus.SUCCESS &&
             this.currentFileKey_ !== key) {
             this.show_(state.currentDirectory?.key || '', state.currentDirectory?.pathComponents || []);
         }

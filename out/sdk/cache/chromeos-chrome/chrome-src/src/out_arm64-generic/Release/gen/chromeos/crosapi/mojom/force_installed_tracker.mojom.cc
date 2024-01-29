@@ -149,6 +149,8 @@ bool ForceInstalledTrackerStubDispatch::Accept(
           reinterpret_cast<internal::ForceInstalledTracker_OnForceInstalledExtensionsReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ForceInstalledTracker.0
       bool success = true;
       ForceInstalledTracker_OnForceInstalledExtensionsReady_ParamsDataView input_data_view(params, message);
       
@@ -161,7 +163,7 @@ bool ForceInstalledTrackerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnForceInstalledExtensionsReady();
+      impl->OnForceInstalledExtensionsReady(        );
       return true;
     }
   }

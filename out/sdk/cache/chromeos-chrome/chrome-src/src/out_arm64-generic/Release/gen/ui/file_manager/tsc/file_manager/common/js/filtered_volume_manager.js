@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
-import { EntryLocation } from '../../externs/entry_location.js';
-import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
-import { ArrayDataModel } from './array_data_model.js';
-import { FilesEventTarget } from './files_event_target.js';
+import { VolumeInfoList } from '../../background/js/volume_info_list.js';
+import { VolumeManager } from '../../background/js/volume_manager.js';
+import { FilesAppEntry } from '../../common/js/files_app_entry_types.js';
+import {} from './array_data_model.js';
 import { isFuseBoxDebugEnabled } from './flags.js';
 import { AllowedPaths, ARCHIVE_OPENED_EVENT_TYPE, isNative, VolumeType } from './volume_manager_types.js';
 /**
@@ -15,7 +15,7 @@ import { AllowedPaths, ARCHIVE_OPENED_EVENT_TYPE, isNative, VolumeType } from '.
  * The inner list ownership is shared between FilteredVolumeInfoList and
  * FilteredVolumeManager to enforce these constraints.
  */
-export class FilteredVolumeInfoList extends ArrayDataModel {
+export class FilteredVolumeInfoList extends VolumeInfoList {
     add(_volumeInfo) {
         throw new Error('FilteredVolumeInfoList.add not allowed in foreground');
     }
@@ -40,7 +40,7 @@ const MEDIA_STORE_VOLUME_TYPES = [
  * for example, Drive volumes are dropped if Drive is disabled, and read-only
  * volumes are dropped in save-as dialogs.
  */
-export class FilteredVolumeManager extends FilesEventTarget {
+export class FilteredVolumeManager extends VolumeManager {
     /**
      * @param allowedPaths_ Which paths are supported in the Files app dialog.
      * @param writableOnly_ If true, only writable volumes are returned.
@@ -60,7 +60,7 @@ export class FilteredVolumeManager extends FilesEventTarget {
         this.volumeManagerGetter_ = volumeManagerGetter_;
         this.disabledVolumes_ = disabledVolumes_;
         // VolumeManager.volumeInfoList property accessed by callers.
-        this.volumeInfoList = new FilteredVolumeInfoList([]);
+        this.volumeInfoList = new FilteredVolumeInfoList();
         this.volumeManager_ = null;
         this.disposed_ = false;
         this.onEventBound_ = this.onEvent_.bind(this);

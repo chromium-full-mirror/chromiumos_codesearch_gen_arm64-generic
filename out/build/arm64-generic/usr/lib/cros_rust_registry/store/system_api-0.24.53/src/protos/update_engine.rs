@@ -722,6 +722,8 @@ pub struct InstallParams {
     pub omaha_url: ::std::string::String,
     // @@protoc_insertion_point(field:update_engine.InstallParams.scaled)
     pub scaled: bool,
+    // @@protoc_insertion_point(field:update_engine.InstallParams.force_ota)
+    pub force_ota: bool,
     // special fields
     // @@protoc_insertion_point(special_field:update_engine.InstallParams.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -758,6 +760,9 @@ impl ::protobuf::Message for InstallParams {
                 24 => {
                     self.scaled = is.read_bool()?;
                 },
+                32 => {
+                    self.force_ota = is.read_bool()?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -779,6 +784,9 @@ impl ::protobuf::Message for InstallParams {
         if self.scaled != false {
             my_size += 1 + 1;
         }
+        if self.force_ota != false {
+            my_size += 1 + 1;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -793,6 +801,9 @@ impl ::protobuf::Message for InstallParams {
         }
         if self.scaled != false {
             os.write_bool(3, self.scaled)?;
+        }
+        if self.force_ota != false {
+            os.write_bool(4, self.force_ota)?;
         }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -814,6 +825,7 @@ impl ::protobuf::Message for InstallParams {
         self.id.clear();
         self.omaha_url.clear();
         self.scaled = false;
+        self.force_ota = false;
         self.special_fields.clear();
     }
 
@@ -822,6 +834,7 @@ impl ::protobuf::Message for InstallParams {
             id: ::std::string::String::new(),
             omaha_url: ::std::string::String::new(),
             scaled: false,
+            force_ota: false,
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

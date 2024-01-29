@@ -373,6 +373,16 @@ void setTorch(bool value) {
   member_torch_ = value;
 }
 
+bool hasVoiceIsolation() const {
+  return true;
+}
+bool voiceIsolation() const {
+  return member_voice_isolation_;
+}
+void setVoiceIsolation(bool value) {
+  member_voice_isolation_ = value;
+}
+
 bool hasWhiteBalanceMode() const {
   return true;
 }
@@ -454,6 +464,7 @@ bool member_sharpness_{true};
 bool member_suppress_local_audio_playback_{true};
 bool member_tilt_{true};
 bool member_torch_{true};
+bool member_voice_isolation_{true};
 bool member_white_balance_mode_{true};
 bool member_width_{true};
 bool member_zoom_{true};

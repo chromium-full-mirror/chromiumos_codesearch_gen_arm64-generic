@@ -38,6 +38,8 @@ class CapabilitiesResponseDataView;
 
 class PoliciesDataView;
 
+class PrintJobUpdateDataView;
+
 class OAuthNotNeededDataView;
 
 class OAuthErrorDataView;
@@ -86,6 +88,9 @@ using CapabilitiesResponsePtr = mojo::StructPtr<CapabilitiesResponse>;
 
 class Policies;
 using PoliciesPtr = mojo::StructPtr<Policies>;
+
+class PrintJobUpdate;
+using PrintJobUpdatePtr = mojo::InlinedStructPtr<PrintJobUpdate>;
 
 class OAuthNotNeeded;
 using OAuthNotNeededPtr = mojo::InlinedStructPtr<OAuthNotNeeded>;

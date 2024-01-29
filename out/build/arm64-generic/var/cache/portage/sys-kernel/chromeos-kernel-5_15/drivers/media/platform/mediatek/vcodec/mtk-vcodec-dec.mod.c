@@ -27,7 +27,7 @@ MODULE_INFO(intree, "Y");
 MODULE_INFO(retpoline, "Y");
 #endif
 
-MODULE_INFO(depends, "mtk-vcodec-common");
+MODULE_INFO(depends, "mtk-vcodec-common,mtk-vcodec-dbgfs");
 
 MODULE_ALIAS("of:N*T*Cmediatek,mt8173-vcodec-dec");
 MODULE_ALIAS("of:N*T*Cmediatek,mt8173-vcodec-decC*");

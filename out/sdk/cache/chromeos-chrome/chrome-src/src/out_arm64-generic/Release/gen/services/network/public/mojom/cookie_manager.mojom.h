@@ -27,6 +27,7 @@
 #include "services/network/public/mojom/cookie_manager.mojom-shared.h"
 #include "services/network/public/mojom/cookie_manager.mojom-forward.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
+#include "components/content_settings/core/common/content_settings_types.mojom.h"
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "sandbox/policy/mojom/context.mojom-forward.h"
 #include "services/network/public/mojom/cookie_partition_key.mojom.h"
@@ -40,8 +41,6 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
-#include "mojo/public/cpp/bindings/lib/native_enum_serialization.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 #include "services/network/public/cpp/cookie_manager_mojom_traits.h"
 #include "services/network/public/cpp/cookie_manager_shared_mojom_traits.h"
 
@@ -143,6 +142,7 @@ class CookieManager
     kBlockTruncatedCookiesMinVersion = 0,
     kSetMitigationsEnabledFor3pcdMinVersion = 0,
     kSetTrackingProtectionEnabledFor3pcdMinVersion = 0,
+    kSetPreCommitCallbackDelayForTestingMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -200,6 +200,9 @@ class CookieManager
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetTrackingProtectionEnabledFor3pcd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetPreCommitCallbackDelayForTesting_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -262,7 +265,7 @@ class CookieManager
 
   using SetContentSettingsCallback = base::OnceCallback<void()>;
   
-  virtual void SetContentSettings(::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings, SetContentSettingsCallback callback) = 0;
+  virtual void SetContentSettings(::content_settings::mojom::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings, SetContentSettingsCallback callback) = 0;
 
   
   virtual void SetForceKeepSessionState() = 0;
@@ -278,6 +281,9 @@ class CookieManager
 
   
   virtual void SetTrackingProtectionEnabledFor3pcd(bool enable) = 0;
+
+  
+  virtual void SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) = 0;
 };
 
 
@@ -328,7 +334,7 @@ class  CookieManagerProxy
   
   void AllowFileSchemeCookies(bool allow, AllowFileSchemeCookiesCallback callback) final;
   
-  void SetContentSettings(::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings, SetContentSettingsCallback callback) final;
+  void SetContentSettings(::content_settings::mojom::ContentSettingsType content_settings_type, const std::vector<::ContentSettingPatternSource>& settings, SetContentSettingsCallback callback) final;
   
   void SetForceKeepSessionState() final;
   
@@ -339,6 +345,8 @@ class  CookieManagerProxy
   void SetMitigationsEnabledFor3pcd(bool enable) final;
   
   void SetTrackingProtectionEnabledFor3pcd(bool enable) final;
+  
+  void SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -904,7 +912,7 @@ class  CookieManagerParams {
       bool block_truncated_cookies,
       bool tracking_protection_enabled_for_3pcd,
       bool mitigations_enabled_for_3pcd,
-      const base::flat_map<::ContentSettingsType, std::vector<::ContentSettingPatternSource>>& content_settings,
+      const base::flat_map<::content_settings::mojom::ContentSettingsType, std::vector<::ContentSettingPatternSource>>& content_settings,
       std::vector<std::string> secure_origin_cookies_allowed_schemes,
       std::vector<std::string> matching_scheme_cookies_allowed_schemes,
       std::vector<std::string> third_party_cookies_allowed_schemes,
@@ -995,7 +1003,7 @@ class  CookieManagerParams {
   
   bool mitigations_enabled_for_3pcd;
   
-  base::flat_map<::ContentSettingsType, std::vector<::ContentSettingPatternSource>> content_settings;
+  base::flat_map<::content_settings::mojom::ContentSettingsType, std::vector<::ContentSettingPatternSource>> content_settings;
   
   std::vector<std::string> secure_origin_cookies_allowed_schemes;
   

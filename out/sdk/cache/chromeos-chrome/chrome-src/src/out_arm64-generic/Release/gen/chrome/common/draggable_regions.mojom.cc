@@ -208,6 +208,8 @@ bool DraggableRegionsStubDispatch::Accept(
           reinterpret_cast<internal::DraggableRegions_UpdateDraggableRegions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DraggableRegions.0
       bool success = true;
       std::vector<DraggableRegionPtr> p_draggable_region{};
       DraggableRegions_UpdateDraggableRegions_ParamsDataView input_data_view(params, message);
@@ -223,8 +225,8 @@ bool DraggableRegionsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDraggableRegions(
-std::move(p_draggable_region));
+      impl->UpdateDraggableRegions(        
+        std::move(p_draggable_region));
       return true;
     }
   }

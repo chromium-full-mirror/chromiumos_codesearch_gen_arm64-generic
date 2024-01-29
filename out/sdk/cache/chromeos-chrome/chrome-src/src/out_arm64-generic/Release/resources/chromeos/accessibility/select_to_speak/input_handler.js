@@ -1,7 +1,7 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { RectUtil } from '../common/rect_util.js';
+import { RectUtil } from '/common/rect_util.js';
 import { SelectToSpeakConstants } from './select_to_speak_constants.js';
 /**
  * Class to handle user-input, from mouse, keyboard, and copy-paste events.

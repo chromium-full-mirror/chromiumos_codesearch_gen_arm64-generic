@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "components/content_settings/common/content_settings_manager.mojom-shared-internal.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-shared.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-shared.h"
 #include "third_party/blink/public/mojom/tokens/tokens.mojom-shared.h"

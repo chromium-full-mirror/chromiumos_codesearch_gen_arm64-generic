@@ -58,9 +58,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_description;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<RTCSessionDescriptionInit>::ToV8(script_state, arg1_description).ToLocal(&v8_arg1_description)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_description = ToV8Traits<RTCSessionDescriptionInit>::ToV8(script_state, arg1_description);
 argv[0] = v8_arg1_description;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -99,9 +97,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_description;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<RTCSessionDescriptionInit>::ToV8(script_state, arg1_description).ToLocal(&v8_arg1_description)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_description = ToV8Traits<RTCSessionDescriptionInit>::ToV8(script_state, arg1_description);
 argv[0] = v8_arg1_description;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

@@ -432,6 +432,8 @@ bool PrintJobsObserverStubDispatch::Accept(
           reinterpret_cast<internal::PrintJobsObserver_OnAllPrintJobsDeleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintJobsObserver.0
       bool success = true;
       PrintJobsObserver_OnAllPrintJobsDeleted_ParamsDataView input_data_view(params, message);
       
@@ -444,7 +446,7 @@ bool PrintJobsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAllPrintJobsDeleted();
+      impl->OnAllPrintJobsDeleted(        );
       return true;
     }
     case internal::kPrintJobsObserver_OnPrintJobUpdate_Name: {
@@ -454,6 +456,8 @@ bool PrintJobsObserverStubDispatch::Accept(
           reinterpret_cast<internal::PrintJobsObserver_OnPrintJobUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintJobsObserver.1
       bool success = true;
       PrintJobInfoPtr p_print_job{};
       PrintJobsObserver_OnPrintJobUpdate_ParamsDataView input_data_view(params, message);
@@ -469,8 +473,8 @@ bool PrintJobsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintJobUpdate(
-std::move(p_print_job));
+      impl->OnPrintJobUpdate(        
+        std::move(p_print_job));
       return true;
     }
   }
@@ -1056,6 +1060,8 @@ bool PrintingMetadataProvider_ObservePrintJobs_ForwardToCallback::Accept(
           internal::PrintingMetadataProvider_ObservePrintJobs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetadataProvider.0
   bool success = true;
   PrintingMetadataProvider_ObservePrintJobs_ResponseParamsDataView input_data_view(params, message);
   
@@ -1163,6 +1169,8 @@ bool PrintingMetadataProvider_GetPrintJobs_ForwardToCallback::Accept(
           internal::PrintingMetadataProvider_GetPrintJobs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetadataProvider.1
   bool success = true;
   std::vector<PrintJobInfoPtr> p_print_jobs{};
   PrintingMetadataProvider_GetPrintJobs_ResponseParamsDataView input_data_view(params, message);
@@ -1294,6 +1302,8 @@ bool PrintingMetadataProvider_DeleteAllPrintJobs_ForwardToCallback::Accept(
           internal::PrintingMetadataProvider_DeleteAllPrintJobs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetadataProvider.2
   bool success = true;
   bool p_success{};
   PrintingMetadataProvider_DeleteAllPrintJobs_ResponseParamsDataView input_data_view(params, message);
@@ -1413,6 +1423,8 @@ bool PrintingMetadataProvider_CancelPrintJob_ForwardToCallback::Accept(
           internal::PrintingMetadataProvider_CancelPrintJob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetadataProvider.3
   bool success = true;
   bool p_attempted_cancel{};
   PrintingMetadataProvider_CancelPrintJob_ResponseParamsDataView input_data_view(params, message);
@@ -1532,6 +1544,8 @@ bool PrintingMetadataProvider_GetDeletePrintJobHistoryAllowedByPolicy_ForwardToC
           internal::PrintingMetadataProvider_GetDeletePrintJobHistoryAllowedByPolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetadataProvider.4
   bool success = true;
   bool p_is_allowed_by_policy{};
   PrintingMetadataProvider_GetDeletePrintJobHistoryAllowedByPolicy_ResponseParamsDataView input_data_view(params, message);
@@ -1651,6 +1665,8 @@ bool PrintingMetadataProvider_GetPrintJobHistoryExpirationPeriod_ForwardToCallba
           internal::PrintingMetadataProvider_GetPrintJobHistoryExpirationPeriod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PrintingMetadataProvider.5
   bool success = true;
   int16_t p_expiration_period_in_days{};
   bool p_is_from_policy{};
@@ -1764,6 +1780,8 @@ bool PrintingMetadataProviderStubDispatch::AcceptWithResponder(
               internal::PrintingMetadataProvider_ObservePrintJobs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetadataProvider.0
       bool success = true;
       ::mojo::PendingRemote<PrintJobsObserver> p_observer{};
       PrintingMetadataProvider_ObservePrintJobs_ParamsDataView input_data_view(params, message);
@@ -1784,8 +1802,8 @@ bool PrintingMetadataProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ObservePrintJobs(
-std::move(p_observer), std::move(callback));
+      impl->ObservePrintJobs(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kPrintingMetadataProvider_GetPrintJobs_Name: {
@@ -1795,6 +1813,8 @@ std::move(p_observer), std::move(callback));
               internal::PrintingMetadataProvider_GetPrintJobs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetadataProvider.1
       bool success = true;
       PrintingMetadataProvider_GetPrintJobs_ParamsDataView input_data_view(params, message);
       
@@ -1820,6 +1840,8 @@ std::move(p_observer), std::move(callback));
               internal::PrintingMetadataProvider_DeleteAllPrintJobs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetadataProvider.2
       bool success = true;
       PrintingMetadataProvider_DeleteAllPrintJobs_ParamsDataView input_data_view(params, message);
       
@@ -1845,6 +1867,8 @@ std::move(p_observer), std::move(callback));
               internal::PrintingMetadataProvider_CancelPrintJob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetadataProvider.3
       bool success = true;
       std::string p_id{};
       PrintingMetadataProvider_CancelPrintJob_ParamsDataView input_data_view(params, message);
@@ -1863,8 +1887,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPrintJob(
-std::move(p_id), std::move(callback));
+      impl->CancelPrintJob(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kPrintingMetadataProvider_GetDeletePrintJobHistoryAllowedByPolicy_Name: {
@@ -1874,6 +1898,8 @@ std::move(p_id), std::move(callback));
               internal::PrintingMetadataProvider_GetDeletePrintJobHistoryAllowedByPolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetadataProvider.4
       bool success = true;
       PrintingMetadataProvider_GetDeletePrintJobHistoryAllowedByPolicy_ParamsDataView input_data_view(params, message);
       
@@ -1899,6 +1925,8 @@ std::move(p_id), std::move(callback));
               internal::PrintingMetadataProvider_GetPrintJobHistoryExpirationPeriod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PrintingMetadataProvider.5
       bool success = true;
       PrintingMetadataProvider_GetPrintJobHistoryExpirationPeriod_ParamsDataView input_data_view(params, message);
       
@@ -2059,6 +2087,8 @@ bool PrintManagementHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PrintManagementHandler_LaunchPrinterSettings_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintManagementHandler.0
       bool success = true;
       LaunchSource p_source{};
       PrintManagementHandler_LaunchPrinterSettings_ParamsDataView input_data_view(params, message);
@@ -2074,8 +2104,8 @@ bool PrintManagementHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchPrinterSettings(
-std::move(p_source));
+      impl->LaunchPrinterSettings(        
+        std::move(p_source));
       return true;
     }
   }

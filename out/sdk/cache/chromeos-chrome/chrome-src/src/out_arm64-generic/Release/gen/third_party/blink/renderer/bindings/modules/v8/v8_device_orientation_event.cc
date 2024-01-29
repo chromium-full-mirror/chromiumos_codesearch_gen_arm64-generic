@@ -202,7 +202,8 @@ BLINK_BINDINGS_TRACE_EVENT("DeviceOrientationEvent.requestPermission");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kDeviceOrientationPermissionRequested);
 
@@ -211,7 +212,6 @@ UseCounter::Count(current_execution_context, WebFeature::kDeviceOrientationPermi
 
 
 
-ScriptState* current_script_state = ScriptState::From(current_context);
 ScriptState* script_state = current_script_state;
 auto&& return_value = DeviceOrientationEvent::requestPermission(script_state);
 bindings::V8SetReturnValue(info, return_value);

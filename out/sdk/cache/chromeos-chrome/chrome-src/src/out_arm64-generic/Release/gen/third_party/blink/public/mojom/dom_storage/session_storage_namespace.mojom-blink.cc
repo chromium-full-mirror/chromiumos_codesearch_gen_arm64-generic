@@ -167,6 +167,8 @@ bool SessionStorageNamespaceStubDispatch::Accept(
           reinterpret_cast<internal::SessionStorageNamespace_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionStorageNamespace.0
       bool success = true;
       WTF::String p_clone_to_namespace{};
       SessionStorageNamespace_Clone_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool SessionStorageNamespaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_clone_to_namespace));
+      impl->Clone(        
+        std::move(p_clone_to_namespace));
       return true;
     }
   }

@@ -3,9 +3,7 @@
 // found in the LICENSE file.
 import { assertDeepEquals } from 'chrome://webui-test/chromeos/chai_assert.js';
 import { MockVolumeManager } from '../background/js/mock_volume_manager.js';
-import { Crostini } from '../externs/background/crostini.js';
-import { FilesAppDirEntry } from '../externs/files_app_entry_interfaces.js';
-import { DialogType, FileKey, PropStatus, State } from '../externs/ts/state.js';
+import { FilesAppDirEntry } from '../common/js/files_app_entry_types.js';
 import { DirectoryTreeNamingController } from '../foreground/js/directory_tree_naming_controller.js';
 import { FakeFileSelectionHandler } from '../foreground/js/fake_file_selection_handler.js';
 import { MetadataModel } from '../foreground/js/metadata/metadata_model.js';
@@ -14,6 +12,7 @@ import { createFakeDirectoryModel } from '../foreground/js/mock_directory_model.
 import { TaskController } from '../foreground/js/task_controller.js';
 import { updateMetadata } from './ducks/all_entries.js';
 import { changeDirectory, updateDirectoryContent, updateSelection } from './ducks/current_directory.js';
+import { DialogType, PropStatus } from './state.js';
 import { getEmptyState, getStore, waitForState } from './store.js';
 /**
  * Compares 2 State objects and fails with nicely formatted message when it
@@ -157,7 +156,7 @@ export function createFakeVolumeMetadata(volumeInfo) {
         isParentDevice: undefined,
         isReadOnly: volumeInfo.isReadOnly,
         isReadOnlyRemovableDevice: volumeInfo.isReadOnlyRemovableDevice,
-        hasMedia: volumeInfo.hasMedia,
+        hasMedia: false,
         mountCondition: undefined,
         mountContext: undefined,
         diskFileSystemType: volumeInfo.diskFileSystemType,

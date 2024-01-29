@@ -401,6 +401,7 @@ class ThemeObserver
     kOnColorSchemeChangedMinVersion = 0,
     kOnSampleColorSchemesChangedMinVersion = 0,
     kOnStaticColorChangedMinVersion = 0,
+    kOnGeolocationPermissionForSystemServicesChangedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -421,6 +422,9 @@ class ThemeObserver
   struct OnStaticColorChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnGeolocationPermissionForSystemServicesChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~ThemeObserver() = default;
 
@@ -438,6 +442,9 @@ class ThemeObserver
 
   
   virtual void OnStaticColorChanged(std::optional<::SkColor> color) = 0;
+
+  
+  virtual void OnGeolocationPermissionForSystemServicesChanged(bool enabled) = 0;
 };
 
 class ThemeProviderProxy;
@@ -475,11 +482,13 @@ class ThemeProvider
     kSetColorModeAutoScheduleEnabledMinVersion = 0,
     kSetColorSchemeMinVersion = 0,
     kSetStaticColorMinVersion = 0,
+    kEnableGeolocationForSystemServicesMinVersion = 0,
     kGetColorSchemeMinVersion = 0,
     kGetStaticColorMinVersion = 0,
     kGenerateSampleColorSchemesMinVersion = 0,
     kIsColorModeAutoScheduleEnabledMinVersion = 0,
     kIsDarkModeEnabledMinVersion = 0,
+    kIsGeolocationEnabledForSystemServicesMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -500,6 +509,9 @@ class ThemeProvider
   struct SetStaticColor_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct EnableGeolocationForSystemServices_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct GetColorScheme_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -513,6 +525,9 @@ class ThemeProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct IsDarkModeEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct IsGeolocationEnabledForSystemServices_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -532,6 +547,9 @@ class ThemeProvider
 
   
   virtual void SetStaticColor(::SkColor static_color) = 0;
+
+  
+  virtual void EnableGeolocationForSystemServices() = 0;
 
 
   using GetColorSchemeCallback = base::OnceCallback<void(::ash::style::mojom::ColorScheme)>;
@@ -557,6 +575,11 @@ class ThemeProvider
   using IsDarkModeEnabledCallback = base::OnceCallback<void(bool)>;
   
   virtual void IsDarkModeEnabled(IsDarkModeEnabledCallback callback) = 0;
+
+
+  using IsGeolocationEnabledForSystemServicesCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) = 0;
 };
 
 class UserImageObserverProxy;
@@ -761,6 +784,7 @@ class AmbientObserver
     kOnAlbumsChangedMinVersion = 0,
     kOnPreviewsFetchedMinVersion = 0,
     kOnAmbientUiVisibilityChangedMinVersion = 0,
+    kOnGeolocationPermissionForSystemServicesChangedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -790,6 +814,9 @@ class AmbientObserver
   struct OnAmbientUiVisibilityChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnGeolocationPermissionForSystemServicesChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~AmbientObserver() = default;
 
@@ -816,6 +843,9 @@ class AmbientObserver
 
   
   virtual void OnAmbientUiVisibilityChanged(::ash::AmbientUiVisibility visibility) = 0;
+
+  
+  virtual void OnGeolocationPermissionForSystemServicesChanged(bool enabled) = 0;
 };
 
 class AmbientProviderProxy;
@@ -861,6 +891,8 @@ class AmbientProvider
     kStartScreenSaverPreviewMinVersion = 0,
     kShouldShowTimeOfDayBannerMinVersion = 0,
     kHandleTimeOfDayBannerDismissedMinVersion = 0,
+    kIsGeolocationEnabledForSystemServicesMinVersion = 0,
+    kEnableGeolocationForSystemServicesMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -903,6 +935,12 @@ class AmbientProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct HandleTimeOfDayBannerDismissed_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct IsGeolocationEnabledForSystemServices_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct EnableGeolocationForSystemServices_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -950,6 +988,14 @@ class AmbientProvider
 
   
   virtual void HandleTimeOfDayBannerDismissed() = 0;
+
+
+  using IsGeolocationEnabledForSystemServicesCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) = 0;
+
+  
+  virtual void EnableGeolocationForSystemServices() = 0;
 };
 
 class KeyboardBacklightObserverProxy;
@@ -1182,6 +1228,8 @@ class  ThemeObserverProxy
   void OnSampleColorSchemesChanged(const std::vector<::ash::SampleColorScheme>& sample_color_schemes) final;
   
   void OnStaticColorChanged(std::optional<::SkColor> color) final;
+  
+  void OnGeolocationPermissionForSystemServicesChanged(bool enabled) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1206,6 +1254,8 @@ class  ThemeProviderProxy
   
   void SetStaticColor(::SkColor static_color) final;
   
+  void EnableGeolocationForSystemServices() final;
+  
   void GetColorScheme(GetColorSchemeCallback callback) final;
   
   void GetStaticColor(GetStaticColorCallback callback) final;
@@ -1215,6 +1265,8 @@ class  ThemeProviderProxy
   void IsColorModeAutoScheduleEnabled(IsColorModeAutoScheduleEnabledCallback callback) final;
   
   void IsDarkModeEnabled(IsDarkModeEnabledCallback callback) final;
+  
+  void IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1294,6 +1346,8 @@ class  AmbientObserverProxy
   void OnPreviewsFetched(const std::vector<::GURL>& previews) final;
   
   void OnAmbientUiVisibilityChanged(::ash::AmbientUiVisibility visibility) final;
+  
+  void OnGeolocationPermissionForSystemServicesChanged(bool enabled) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1333,6 +1387,10 @@ class  AmbientProviderProxy
   void ShouldShowTimeOfDayBanner(ShouldShowTimeOfDayBannerCallback callback) final;
   
   void HandleTimeOfDayBannerDismissed() final;
+  
+  void IsGeolocationEnabledForSystemServices(IsGeolocationEnabledForSystemServicesCallback callback) final;
+  
+  void EnableGeolocationForSystemServices() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

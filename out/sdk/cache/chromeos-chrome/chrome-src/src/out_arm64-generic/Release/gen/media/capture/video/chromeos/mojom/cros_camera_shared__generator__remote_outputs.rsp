@@ -1,0 +1,15 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_client.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_client.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_client.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_client.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_client.mojom-shared.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_service.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_service.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_service.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_service.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/cros_camera_service.mojom-shared.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/effects_pipeline.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/effects_pipeline.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared.h

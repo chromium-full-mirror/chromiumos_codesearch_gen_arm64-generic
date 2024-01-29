@@ -25,6 +25,7 @@
 
 #include "services/network/public/mojom/cookie_manager.mojom-shared-internal.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "sandbox/policy/mojom/context.mojom-shared.h"
 #include "services/network/public/mojom/cookie_partition_key.mojom-shared.h"
@@ -35,8 +36,6 @@
 #include "mojo/public/cpp/system/data_pipe.h"
 
 
-#include "mojo/public/cpp/bindings/native_enum.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 

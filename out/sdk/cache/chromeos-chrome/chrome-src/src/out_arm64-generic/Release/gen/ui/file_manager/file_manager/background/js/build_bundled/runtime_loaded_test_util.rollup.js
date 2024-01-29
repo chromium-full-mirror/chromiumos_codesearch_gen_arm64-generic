@@ -1,4 +1,5 @@
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
+import 'chrome://resources/js/cr.js';
 
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -163,9 +164,9 @@ class ProgressCenterItem {
     }
     /** Whether the item can be canceled or not. */
     get cancelable() {
-        return !!(this.state == ProgressItemState.PROGRESSING &&
+        return !!(this.state === ProgressItemState.PROGRESSING &&
             this.cancelCallback && this.single) ||
-            !!(this.state == ProgressItemState.PAUSED && this.cancelCallback);
+            !!(this.state === ProgressItemState.PAUSED && this.cancelCallback);
     }
     /** Clones the item. */
     clone() {
@@ -334,15 +335,6 @@ var FileErrorToDomError;
 function descriptorEqual(left, right) {
     return left.appId === right.appId && left.taskType === right.taskType &&
         left.actionId === right.actionId;
-}
-/**
- * Check if the DEBUG_STORE is set or not. When it's set, action data will be
- * logged in the console for debugging purpose.
- *
- * Run `localStorage.setItem('DEBUG_STORE', '1')` in the console to enable it.
- */
-function isDebugStoreEnabled() {
-    return localStorage.getItem('DEBUG_STORE') === '1';
 }
 
 // Copyright 2015 The Chromium Authors
@@ -1026,6 +1018,167 @@ test.getSwaAppId = async () => {
     return String(window.appID);
 };
 
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'canPin',
+    'hosted',
+    'pinned',
+];
+/**
+ * These metadata is expected to be cached to accelerate computeAdditional.
+ * See: crbug.com/458915.
+ */
+const FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'availableOffline',
+    'contentMimeType',
+    'hosted',
+    'canPin',
+];
+/**
+ * Metadata property names used by FileTable and FileGrid.
+ * These metadata is expected to be cached.
+ * TODO(sashab): Store capabilities as a set of flags to save memory. See
+ * https://crbug.com/849997
+ *
+ */
+const LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'availableOffline',
+    'contentMimeType',
+    'customIconUrl',
+    'hosted',
+    'modificationTime',
+    'modificationByMeTime',
+    'pinned',
+    'shared',
+    'size',
+    'canCopy',
+    'canDelete',
+    'canRename',
+    'canAddChildren',
+    'canShare',
+    'canPin',
+    'isMachineRoot',
+    'isExternalMedia',
+    'isArbitrarySyncFolder',
+];
+/**
+ * Metadata properties used to inform the user about DLP (Data Leak Prevention)
+ * Files restrictions. These metadata is expected to be cached.
+ */
+const DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
+    'isDlpRestricted',
+    'sourceUrl',
+    'isRestrictedForDestination',
+];
+/**
+ * All icon types.
+ */
+const ICON_TYPES = {
+    ANDROID_FILES: 'android_files',
+    ARCHIVE: 'archive',
+    AUDIO: 'audio',
+    // Explicitly request the icon to be 0x0. Used to avoid the scenario where a
+    // `type` is not specifically supplied vs. actually wanting a blank icon.
+    BLANK: 'blank',
+    BRUSCHETTA: 'bruschetta',
+    BULK_PINNING_BATTERY_SAVER: 'bulk_pinning_battery_saver',
+    BULK_PINNING_DONE: 'bulk_pinning_done',
+    BULK_PINNING_OFFLINE: 'bulk_pinning_offline',
+    CAMERA_FOLDER: 'camera-folder',
+    CANT_PIN: 'cant-pin',
+    CHECK: 'check',
+    CLOUD_DONE: 'cloud_done',
+    CLOUD_ERROR: 'cloud_error',
+    CLOUD_OFFLINE: 'cloud_offline',
+    CLOUD_PAUSED: 'cloud_paused',
+    CLOUD_SYNC: 'cloud_sync',
+    CLOUD: 'cloud',
+    COMPUTER: 'computer',
+    COMPUTERS_GRAND_ROOT: 'computers_grand_root',
+    CROSTINI: 'crostini',
+    DOWNLOADS: 'downloads',
+    DRIVE_BULK_PINNING: 'drive_bulk_pinning',
+    DRIVE_LOGO: 'drive_logo',
+    DRIVE_OFFLINE: 'drive_offline',
+    DRIVE_RECENT: 'drive_recent',
+    DRIVE_SHARED_WITH_ME: 'drive_shared_with_me',
+    DRIVE: 'drive',
+    ERROR: 'error',
+    ERROR_BANNER: 'error_banner',
+    EXCEL: 'excel',
+    EXTERNAL_MEDIA: 'external_media',
+    FOLDER: 'folder',
+    GENERIC: 'generic',
+    GOOGLE_DOC: 'gdoc',
+    GOOGLE_DRAW: 'gdraw',
+    GOOGLE_FORM: 'gform',
+    GOOGLE_LINK: 'glink',
+    GOOGLE_MAP: 'gmap',
+    GOOGLE_SHEET: 'gsheet',
+    GOOGLE_SITE: 'gsite',
+    GOOGLE_SLIDES: 'gslides',
+    GOOGLE_TABLE: 'gtable',
+    IMAGE: 'image',
+    MTP: 'mtp',
+    MY_FILES: 'my_files',
+    OFFLINE: 'offline',
+    OPTICAL: 'optical',
+    PDF: 'pdf',
+    PLUGIN_VM: 'plugin_vm',
+    POWERPOINT: 'ppt',
+    RAW: 'raw',
+    RECENT: 'recent',
+    REMOVABLE: 'removable',
+    SCRIPT: 'script',
+    SD_CARD: 'sd',
+    SERVICE_DRIVE: 'service_drive',
+    SHARED_DRIVE: 'shared_drive',
+    SHARED_DRIVES_GRAND_ROOT: 'shared_drives_grand_root',
+    SHARED_FOLDER: 'shared_folder',
+    SHORTCUT: 'shortcut',
+    SITES: 'sites',
+    SMB: 'smb',
+    TEAM_DRIVE: 'team_drive',
+    THUMBNAIL_GENERIC: 'thumbnail_generic',
+    TINI: 'tini',
+    TRASH: 'trash',
+    UNKNOWN_REMOVABLE: 'unknown_removable',
+    USB: 'usb',
+    VIDEO: 'video',
+    WORD: 'word',
+};
+/**
+ * Extension ID for OneDrive FSP, also used as ProviderId.
+ */
+const ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This file contains utils for working with icons.
+ */
+/** Return icon name for the VM type. */
+function vmTypeToIconName(vmType) {
+    if (vmType === undefined) {
+        console.error('vmType: is undefined');
+        return '';
+    }
+    switch (vmType) {
+        case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
+            return ICON_TYPES.BRUSCHETTA;
+        case chrome.fileManagerPrivate.VmType.ARCVM:
+            return ICON_TYPES.ANDROID_FILES;
+        case chrome.fileManagerPrivate.VmType.TERMINA:
+            return ICON_TYPES.CROSTINI;
+        default:
+            console.error('Unable to determine icon for vmType: ' + vmType);
+            return '';
+    }
+}
+
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -1245,12 +1398,9 @@ const SHARED_DRIVES_DIRECTORY_PATH = '/' + SHARED_DRIVES_DIRECTORY_NAME;
 const COMPUTERS_DIRECTORY_NAME = 'Computers';
 const COMPUTERS_DIRECTORY_PATH = '/' + COMPUTERS_DIRECTORY_NAME;
 
-// Copyright 2020 The Chromium Authors
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Interfaces for the Files app Entry Types.
- */
 /**
  * FilesAppEntry represents a single Entry (file, folder or root) in the Files
  * app. Previously, we used the Entry type directly, but this limits the code to
@@ -1398,278 +1548,6 @@ class FilesAppDirEntry extends FilesAppEntry {
         }
     }
 }
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- * @enum {string}
- */
-const DialogType = {
-    SELECT_FOLDER: 'folder',
-    SELECT_UPLOAD_FOLDER: 'upload-folder',
-    SELECT_SAVEAS_FILE: 'saveas-file',
-    SELECT_OPEN_FILE: 'open-file',
-    SELECT_OPEN_MULTI_FILE: 'open-multi-file',
-    FULL_PAGE: 'full-page',
-};
-/**
- * @enum {string}
- */
-const EntryType = {
-    // Entries from the FileSystem API.
-    FS_API: 'FS_API',
-    // The root of a volume is an Entry from the FileSystem API, but it aggregates
-    // more data from the volume.
-    VOLUME_ROOT: 'VOLUME_ROOT',
-    // A directory-like entry to aggregate other entries.
-    ENTRY_LIST: 'ENTRY_LIST',
-    // Placeholder that is replaced for another entry, for Crostini/GuestOS.
-    PLACEHOLDER: 'PLACEHOLDER',
-    // Root for the Trash.
-    TRASH: 'TRASH',
-    // Root for the Recent.
-    RECENT: 'RECENT',
-};
-/**
- * The status of a property, for properties that have their state updated via
- * asynchronous steps.
- * @enum {string}
- */
-const PropStatus = {
-    STARTED: 'STARTED',
-    // Finished:
-    SUCCESS: 'SUCCESS',
-    ERROR: 'ERROR',
-};
-/**
- * Used to group volumes in the navigation tree.
- * Sections:
- *      - TOP: Recents, Shortcuts.
- *      - MY_FILES: My Files (which includes Downloads, Crostini and Arc++ as
- *                  its children).
- *      - TRASH: trash.
- *      - GOOGLE_DRIVE: Just Google Drive.
- *      - ODFS: Just ODFS.
- *      - CLOUD: All other cloud: SMBs, FSPs and Documents Providers.
- *      - ANDROID_APPS: ANDROID picker apps.
- *      - REMOVABLE: Archives, MTPs, Media Views and Removables.
- * @enum {string}
- */
-const NavigationSection = {
-    TOP: 'top',
-    MY_FILES: 'my_files',
-    GOOGLE_DRIVE: 'google_drive',
-    ODFS: 'odfs',
-    CLOUD: 'cloud',
-    TRASH: 'trash',
-    ANDROID_APPS: 'android_apps',
-    REMOVABLE: 'removable',
-};
-/**
- * @enum {string}
- */
-const NavigationType = {
-    SHORTCUT: 'shortcut',
-    VOLUME: 'volume',
-    RECENT: 'recent',
-    CROSTINI: 'crostini',
-    GUEST_OS: 'guest_os',
-    ENTRY_LIST: 'entry_list',
-    DRIVE: 'drive',
-    ANDROID_APPS: 'android_apps',
-    TRASH: 'trash',
-    // Materialized view is used for Recent and in the future for Search.
-    MATERIALIZED_VIEW: 'materialized_view',
-};
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'canPin',
-    'hosted',
-    'pinned',
-];
-/**
- * These metadata is expected to be cached to accelerate computeAdditional.
- * See: crbug.com/458915.
- */
-const FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'availableOffline',
-    'contentMimeType',
-    'hosted',
-    'canPin',
-];
-/**
- * Metadata property names used by FileTable and FileGrid.
- * These metadata is expected to be cached.
- * TODO(sashab): Store capabilities as a set of flags to save memory. See
- * https://crbug.com/849997
- *
- */
-const LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'availableOffline',
-    'contentMimeType',
-    'customIconUrl',
-    'hosted',
-    'modificationTime',
-    'modificationByMeTime',
-    'pinned',
-    'shared',
-    'size',
-    'canCopy',
-    'canDelete',
-    'canRename',
-    'canAddChildren',
-    'canShare',
-    'canPin',
-    'isMachineRoot',
-    'isExternalMedia',
-    'isArbitrarySyncFolder',
-];
-/**
- * Metadata properties used to inform the user about DLP (Data Leak Prevention)
- * Files restrictions. These metadata is expected to be cached.
- */
-const DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
-    'isDlpRestricted',
-    'sourceUrl',
-    'isRestrictedForDestination',
-];
-/**
- * All icon types.
- */
-const ICON_TYPES = {
-    ANDROID_FILES: 'android_files',
-    ARCHIVE: 'archive',
-    AUDIO: 'audio',
-    // Explicitly request the icon to be 0x0. Used to avoid the scenario where a
-    // `type` is not specifically supplied vs. actually wanting a blank icon.
-    BLANK: 'blank',
-    BRUSCHETTA: 'bruschetta',
-    BULK_PINNING_BATTERY_SAVER: 'bulk_pinning_battery_saver',
-    BULK_PINNING_DONE: 'bulk_pinning_done',
-    BULK_PINNING_OFFLINE: 'bulk_pinning_offline',
-    CAMERA_FOLDER: 'camera-folder',
-    CANT_PIN: 'cant-pin',
-    CHECK: 'check',
-    CLOUD_DONE: 'cloud_done',
-    CLOUD_ERROR: 'cloud_error',
-    CLOUD_OFFLINE: 'cloud_offline',
-    CLOUD_PAUSED: 'cloud_paused',
-    CLOUD_SYNC: 'cloud_sync',
-    CLOUD: 'cloud',
-    COMPUTER: 'computer',
-    COMPUTERS_GRAND_ROOT: 'computers_grand_root',
-    CROSTINI: 'crostini',
-    DOWNLOADS: 'downloads',
-    DRIVE_BULK_PINNING: 'drive_bulk_pinning',
-    DRIVE_LOGO: 'drive_logo',
-    DRIVE_OFFLINE: 'drive_offline',
-    DRIVE_RECENT: 'drive_recent',
-    DRIVE_SHARED_WITH_ME: 'drive_shared_with_me',
-    DRIVE: 'drive',
-    ERROR: 'error',
-    ERROR_BANNER: 'error_banner',
-    EXCEL: 'excel',
-    EXTERNAL_MEDIA: 'external_media',
-    FOLDER: 'folder',
-    GENERIC: 'generic',
-    GOOGLE_DOC: 'gdoc',
-    GOOGLE_DRAW: 'gdraw',
-    GOOGLE_FORM: 'gform',
-    GOOGLE_LINK: 'glink',
-    GOOGLE_MAP: 'gmap',
-    GOOGLE_SHEET: 'gsheet',
-    GOOGLE_SITE: 'gsite',
-    GOOGLE_SLIDES: 'gslides',
-    GOOGLE_TABLE: 'gtable',
-    IMAGE: 'image',
-    MTP: 'mtp',
-    MY_FILES: 'my_files',
-    OFFLINE: 'offline',
-    OPTICAL: 'optical',
-    PDF: 'pdf',
-    PLUGIN_VM: 'plugin_vm',
-    POWERPOINT: 'ppt',
-    RAW: 'raw',
-    RECENT: 'recent',
-    REMOVABLE: 'removable',
-    SCRIPT: 'script',
-    SD_CARD: 'sd',
-    SERVICE_DRIVE: 'service_drive',
-    SHARED_DRIVE: 'shared_drive',
-    SHARED_DRIVES_GRAND_ROOT: 'shared_drives_grand_root',
-    SHARED_FOLDER: 'shared_folder',
-    SHORTCUT: 'shortcut',
-    SITES: 'sites',
-    SMB: 'smb',
-    TEAM_DRIVE: 'team_drive',
-    THUMBNAIL_GENERIC: 'thumbnail_generic',
-    TINI: 'tini',
-    TRASH: 'trash',
-    UNKNOWN_REMOVABLE: 'unknown_removable',
-    USB: 'usb',
-    VIDEO: 'video',
-    WORD: 'word',
-};
-/**
- * Extension ID for OneDrive FSP, also used as ProviderId.
- */
-const ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file contains utils for working with icons.
- */
-/** Return icon name for the VM type. */
-function vmTypeToIconName(vmType) {
-    if (vmType === undefined) {
-        console.error('vmType: is undefined');
-        return '';
-    }
-    switch (vmType) {
-        case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
-            return ICON_TYPES.BRUSCHETTA;
-        case chrome.fileManagerPrivate.VmType.ARCVM:
-            return ICON_TYPES.ANDROID_FILES;
-        case chrome.fileManagerPrivate.VmType.TERMINA:
-            return ICON_TYPES.CROSTINI;
-        default:
-            console.error('Unable to determine icon for vmType: ' + vmType);
-            return '';
-    }
-}
-
-// Copyright 2018 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Entry-like types for Files app UI.
- * This file defines the interface |FilesAppEntry| and some specialized
- * implementations of it.
- *
- * These entries are intended to behave like the browser native FileSystemEntry
- * (aka Entry) and FileSystemDirectoryEntry (aka DirectoryEntry), providing an
- * unified API for Files app UI components. UI components should be able to
- * display any implementation of FilesAppEntry.
- *
- * The main intention of those types is to be able to provide alternative
- * implementations and from other sources for "entries", as well as be able to
- * extend the native "entry" types.
- *
- * Native Entry:
- * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemEntry
- * Native DirectoryEntry:
- * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
- */
 /**
  * A reader compatible with DirectoryEntry.createReader (from Web Standards)
  * that reads a static list of entries, provided at construction time.
@@ -1828,7 +1706,7 @@ class EntryList extends FilesAppDirEntry {
         // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
         // which is then used on LocationInfo/PathComponent.
         const volumeEntry = entry;
-        if (volumeEntry.typeName == 'VolumeEntry') {
+        if (volumeEntry.typeName === 'VolumeEntry') {
             volumeEntry.setPrefix(this);
         }
     }
@@ -2009,10 +1887,10 @@ class VolumeEntry extends FilesAppDirEntry {
     }
     /** String used to determine the icon. */
     get iconName() {
-        if (this.volumeInfo.volumeType == VolumeType.GUEST_OS) {
+        if (this.volumeInfo.volumeType === VolumeType.GUEST_OS) {
             return vmTypeToIconName(this.volumeInfo.vmType);
         }
-        if (this.volumeInfo.volumeType == VolumeType.DOWNLOADS) {
+        if (this.volumeInfo.volumeType === VolumeType.DOWNLOADS) {
             return VolumeType.MY_FILES;
         }
         return this.volumeInfo.volumeType;
@@ -2069,7 +1947,7 @@ class VolumeEntry extends FilesAppDirEntry {
         // VolumeInfo, which is then used on
         // LocationInfo/PathComponent.
         const volumeEntry = entry;
-        if (volumeEntry.typeName == 'VolumeEntry') {
+        if (volumeEntry.typeName === 'VolumeEntry') {
             volumeEntry.setPrefix(this);
         }
     }
@@ -2259,14 +2137,14 @@ function getEntryLabel(locationInfo, entry) {
         }
     }
     // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
-    if (locationInfo && locationInfo.rootType == RootType.DOWNLOADS) {
-        if (entry.fullPath == '/Downloads') {
+    if (locationInfo && locationInfo.rootType === RootType.DOWNLOADS) {
+        if (entry.fullPath === '/Downloads') {
             return str('DOWNLOADS_DIRECTORY_LABEL');
         }
-        if (entry.fullPath == '/PvmDefault') {
+        if (entry.fullPath === '/PvmDefault') {
             return str('PLUGIN_VM_DIRECTORY_LABEL');
         }
-        if (entry.fullPath == '/Camera') {
+        if (entry.fullPath === '/Camera') {
             return str('CAMERA_DIRECTORY_LABEL');
         }
     }
@@ -2340,10 +2218,14 @@ class SelectorNode {
      * @param name An optional human-readable name used for debugging purposes.
      *     Named selectors will log to the console when DEBUG_STORE is set,
      *     whenever they emit a new value.
+     * @param isEqual_ An optional comparison function which will be used
+     *     when compare the old value and the new value form the selector. By
+     *     default it will use triple equal.
      */
-    constructor(parents, select, name) {
+    constructor(parents, select, name, isEqual_ = strictlyEqual) {
         this.select = select;
         this.name = name;
+        this.isEqual_ = isEqual_;
         /** Last value emitted by the selector. */
         this.value_ = undefined;
         /** List of selector's current subscribers. */
@@ -2433,7 +2315,7 @@ class SelectorNode {
     emit() {
         const parentValues = this.parents.map(p => p.get());
         const newValue = this.select(...parentValues);
-        if (newValue === this.value_) {
+        if (this.isEqual_(this.value_, newValue)) {
             return false;
         }
         if (isDebugStoreEnabled() && this.name) {
@@ -2512,6 +2394,11 @@ class SelectorEmitter {
             }
         }
     }
+}
+// Comparison functions can be passed to selectors when initialized.
+/** strictlyEqual use triple equal to compare values. */
+function strictlyEqual(oldValue, newValue) {
+    return oldValue === newValue;
 }
 
 // Copyright 2023 The Chromium Authors
@@ -2722,6 +2609,18 @@ class BaseStore {
             this.dispatchInternal_(action);
         }
     }
+    /**
+     * Enable/Disable the debug mode for the store. More logs will be displayed in
+     * the console with debug mode on.
+     */
+    setDebug(isDebug) {
+        if (isDebug) {
+            localStorage.setItem('DEBUG_STORE', '1');
+        }
+        else {
+            localStorage.removeItem('DEBUG_STORE');
+        }
+    }
     /** Synchronously call apply the `action` by calling the reducer.  */
     dispatchInternal_(action) {
         this.reduce(action);
@@ -2808,6 +2707,145 @@ function isInvalidationError(error) {
     }
     return false;
 }
+/**
+ * Check if the store is in debug mode or not. When it's set, action data will
+ * be logged in the console for debugging purpose.
+ *
+ * Run `fileManager.store_.setDebug(true)` in the console to enable it.
+ */
+function isDebugStoreEnabled() {
+    return localStorage.getItem('DEBUG_STORE') === '1';
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ */
+var DialogType;
+(function (DialogType) {
+    DialogType["SELECT_FOLDER"] = "folder";
+    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
+    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
+    DialogType["SELECT_OPEN_FILE"] = "open-file";
+    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
+    DialogType["FULL_PAGE"] = "full-page";
+})(DialogType || (DialogType = {}));
+var EntryType;
+(function (EntryType) {
+    // Entries from the FileSystem API.
+    EntryType["FS_API"] = "FS_API";
+    // The root of a volume is an Entry from the FileSystem API, but it aggregates
+    // more data from the volume.
+    EntryType["VOLUME_ROOT"] = "VOLUME_ROOT";
+    // A directory-like entry to aggregate other entries.
+    EntryType["ENTRY_LIST"] = "ENTRY_LIST";
+    // Placeholder that is replaced for another entry, for Crostini/GuestOS.
+    EntryType["PLACEHOLDER"] = "PLACEHOLDER";
+    // Root for the Trash.
+    EntryType["TRASH"] = "TRASH";
+    // Root for the Recent.
+    EntryType["RECENT"] = "RECENT";
+})(EntryType || (EntryType = {}));
+/**
+ * The status of a property, for properties that have their state updated via
+ * asynchronous steps.
+ */
+var PropStatus;
+(function (PropStatus) {
+    PropStatus["STARTED"] = "STARTED";
+    // Finished:
+    PropStatus["SUCCESS"] = "SUCCESS";
+    PropStatus["ERROR"] = "ERROR";
+})(PropStatus || (PropStatus = {}));
+/**
+ * Task type is the source of the task, or what type of the app is this type
+ * from. It has to match the `taskType` returned in the FileManagerPrivate.
+ *
+ * For more details see //chrome/browser/ash/file_manager/file_tasks.h
+ */
+var FileTaskType;
+(function (FileTaskType) {
+    FileTaskType["UNKNOWN"] = "";
+    // The task is from a chrome app/extension that has File Browser Handler in
+    // its manifest.
+    FileTaskType["FILE"] = "file";
+    // The task is from a chrome app/extension that has File Handler in its
+    // manifest.
+    FileTaskType["APP"] = "app";
+    // The task is from an Android app.
+    FileTaskType["ARC"] = "arc";
+    // The task is from a Crostini app.
+    FileTaskType["CROSTINI"] = "crostini";
+    // The task is from a Parallels app.
+    FileTaskType["PLUGIN_VM"] = "pluginvm";
+    // The task is from a Web app/PWA/SWA.
+    FileTaskType["WEB"] = "web";
+})(FileTaskType || (FileTaskType = {}));
+/**
+ * Enumeration of all supported search locations. If new location is added,
+ * please update this enum.
+ */
+var SearchLocation;
+(function (SearchLocation) {
+    SearchLocation["EVERYWHERE"] = "everywhere";
+    SearchLocation["ROOT_FOLDER"] = "root_folder";
+    SearchLocation["THIS_FOLDER"] = "this_folder";
+})(SearchLocation || (SearchLocation = {}));
+/**
+ * Enumeration of all supported how-recent time spans.
+ */
+var SearchRecency;
+(function (SearchRecency) {
+    SearchRecency["ANYTIME"] = "anytime";
+    SearchRecency["TODAY"] = "today";
+    SearchRecency["YESTERDAY"] = "yesterday";
+    SearchRecency["LAST_WEEK"] = "last_week";
+    SearchRecency["LAST_MONTH"] = "last_month";
+    SearchRecency["LAST_YEAR"] = "last_year";
+})(SearchRecency || (SearchRecency = {}));
+/**
+ * Used to group volumes in the navigation tree.
+ * Sections:
+ *      - TOP: Recents, Shortcuts.
+ *      - MY_FILES: My Files (which includes Downloads, Crostini and Arc++ as
+ *                  its children).
+ *      - TRASH: trash.
+ *      - GOOGLE_DRIVE: Just Google Drive.
+ *      - ODFS: Just ODFS.
+ *      - CLOUD: All other cloud: SMBs, FSPs and Documents Providers.
+ *      - ANDROID_APPS: ANDROID picker apps.
+ *      - REMOVABLE: Archives, MTPs, Media Views and Removables.
+ */
+var NavigationSection;
+(function (NavigationSection) {
+    NavigationSection["TOP"] = "top";
+    NavigationSection["MY_FILES"] = "my_files";
+    NavigationSection["GOOGLE_DRIVE"] = "google_drive";
+    NavigationSection["ODFS"] = "odfs";
+    NavigationSection["CLOUD"] = "cloud";
+    NavigationSection["TRASH"] = "trash";
+    NavigationSection["ANDROID_APPS"] = "android_apps";
+    NavigationSection["REMOVABLE"] = "removable";
+})(NavigationSection || (NavigationSection = {}));
+var NavigationType;
+(function (NavigationType) {
+    NavigationType["SHORTCUT"] = "shortcut";
+    NavigationType["VOLUME"] = "volume";
+    NavigationType["RECENT"] = "recent";
+    NavigationType["CROSTINI"] = "crostini";
+    NavigationType["GUEST_OS"] = "guest_os";
+    NavigationType["ENTRY_LIST"] = "entry_list";
+    NavigationType["DRIVE"] = "drive";
+    NavigationType["ANDROID_APPS"] = "android_apps";
+    NavigationType["TRASH"] = "trash";
+    // Materialized view is used for Recent and in the future for Search.
+    NavigationType["MATERIALIZED_VIEW"] = "materialized_view";
+})(NavigationType || (NavigationType = {}));
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -3738,6 +3776,16 @@ const EXTENSION_TO_TYPE = new Map([
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
+    [".gmaillayout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
     [".pdf", {
             "extensions": [
                 ".pdf"
@@ -4528,6 +4576,16 @@ const MIME_TO_TYPE = new Map([
             "translationKey": "GSITE_DOCUMENT_FILE_TYPE",
             "type": "hosted"
         }],
+    ["application/vnd.google-apps.mail-layout", {
+            "extensions": [
+                ".gmaillayout"
+            ],
+            "icon": "gmaillayout",
+            "mime": "application/vnd.google-apps.mail-layout",
+            "subtype": "emaillayouts",
+            "translationKey": "EMAIL_LAYOUTS_DOCUMENT_FILE_TYPE",
+            "type": "hosted"
+        }],
     ["application/pdf", {
             "extensions": [
                 ".pdf"
@@ -4901,7 +4959,7 @@ class StorageChangeTracker {
     /** Processes storage event and notifies listeners. */
     onStorageEvent_(event) {
         const { key, newValue } = event;
-        if (key == null || newValue == null) {
+        if (key === null || newValue === null) {
             return;
         }
         const changedKeys = {};
@@ -6718,6 +6776,12 @@ function addVolumeReducer(currentState, payload) {
             driveFakeRoot =
                 new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
             cacheEntries(currentState, [driveFakeRoot]);
+        }
+        // When Drive is disabled via pref change, the root key in `uiEntries` will
+        // be removed immediately but the corresponding entry in `allEntries` is
+        // removed asynchronously. When Drive is enabled again, it's possible the
+        // entry is still in `allEntries` but we don't have root key in `uiEntries`.
+        if (!currentState.uiEntries.includes(driveFakeRoot.toURL())) {
             currentState.uiEntries =
                 [...currentState.uiEntries, driveFakeRoot.toURL()];
         }
@@ -6784,7 +6848,7 @@ function addVolumeReducer(currentState, payload) {
             Object.values(currentState.volumes).some(v => {
                 return (v.volumeType === VolumeType.REMOVABLE &&
                     removableGroupKey(v) === groupingKey &&
-                    v.volumeId != volumeInfo.volumeId);
+                    v.volumeId !== volumeInfo.volumeId);
             });
         if (shouldGroup) {
             const parentKey = makeRemovableParentKey(volumeMetadata);
@@ -8014,7 +8078,7 @@ test.util.executeTestMessage =
     (request, sendResponse) => {
         window.IN_TEST = true;
         // Check the function name.
-        if (!request.func || request.func[request.func.length - 1] == '_') {
+        if (!request.func || request.func[request.func.length - 1] === '_') {
             request.func = '';
         }
         // Prepare arguments.

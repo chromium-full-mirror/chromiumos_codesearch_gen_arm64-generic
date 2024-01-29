@@ -20,6 +20,13 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { AppManagementBrowserProxy } from '../app_management/browser_proxy.js';
 import { getTemplate } from './app_language_selection_dialog.html.js';
+// Keep this in sync with tools/metrics/histograms/metadata/arc/histograms.xml
+// Arc.AppLanguageSwitch.{SettingsPage}.TargetLanguage.
+export var AppLanguageSelectionDialogEntryPoint;
+(function (AppLanguageSelectionDialogEntryPoint) {
+    AppLanguageSelectionDialogEntryPoint["APPS_MANAGEMENT_PAGE"] = "AppsManagementPage";
+    AppLanguageSelectionDialogEntryPoint["LANGUAGES_PAGE"] = "LanguagesPage";
+})(AppLanguageSelectionDialogEntryPoint || (AppLanguageSelectionDialogEntryPoint = {}));
 const AppLanguageSelectionDialogElementBase = PrefsMixin(I18nMixin(PolymerElement));
 export class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialogElementBase {
     constructor() {
@@ -41,6 +48,7 @@ export class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialo
                 type: Array,
                 computed: 'getFilteredLanguages_(searchQuery_.length, suggestedLanguages_)',
             },
+            entryPoint: String,
         };
     }
     ready() {
@@ -52,6 +60,7 @@ export class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialo
     }
     onActionButtonClick_() {
         AppManagementBrowserProxy.getInstance().handler.setAppLocale(this.app.id, this.selectedLanguage_.localeTag);
+        chrome.metricsPrivate.recordSparseValueWithHashMetricName(`Arc.AppLanguageSwitch.${this.entryPoint}.TargetLanguage`, this.selectedLanguage_.localeTag);
         this.$.dialog.close();
     }
     shouldDisableActionButton_() {

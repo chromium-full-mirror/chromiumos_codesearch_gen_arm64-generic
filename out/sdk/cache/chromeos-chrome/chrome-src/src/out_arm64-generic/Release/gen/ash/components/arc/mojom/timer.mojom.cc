@@ -451,6 +451,8 @@ bool TimerHost_CreateTimers_ForwardToCallback::Accept(
           internal::TimerHost_CreateTimers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TimerHost.0
   bool success = true;
   ArcTimerResult p_result{};
   TimerHost_CreateTimers_ResponseParamsDataView input_data_view(params, message);
@@ -571,6 +573,8 @@ bool TimerHost_StartTimer_ForwardToCallback::Accept(
           internal::TimerHost_StartTimer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TimerHost.1
   bool success = true;
   ArcTimerResult p_result{};
   TimerHost_StartTimer_ResponseParamsDataView input_data_view(params, message);
@@ -691,6 +695,8 @@ bool TimerHost_SetTime_ForwardToCallback::Accept(
           internal::TimerHost_SetTime_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TimerHost.2
   bool success = true;
   ArcTimerResult p_result{};
   TimerHost_SetTime_ResponseParamsDataView input_data_view(params, message);
@@ -788,6 +794,8 @@ bool TimerHostStubDispatch::AcceptWithResponder(
               internal::TimerHost_CreateTimers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TimerHost.0
       bool success = true;
       std::vector<CreateTimerRequestPtr> p_timer_requests{};
       TimerHost_CreateTimers_ParamsDataView input_data_view(params, message);
@@ -806,8 +814,8 @@ bool TimerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTimers(
-std::move(p_timer_requests), std::move(callback));
+      impl->CreateTimers(        
+        std::move(p_timer_requests), std::move(callback));
       return true;
     }
     case internal::kTimerHost_StartTimer_Name: {
@@ -817,6 +825,8 @@ std::move(p_timer_requests), std::move(callback));
               internal::TimerHost_StartTimer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TimerHost.1
       bool success = true;
       ::clockid_t p_clock_id{};
       ::base::TimeTicks p_absolute_expiration_time{};
@@ -838,9 +848,9 @@ std::move(p_timer_requests), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartTimer(
-std::move(p_clock_id), 
-std::move(p_absolute_expiration_time), std::move(callback));
+      impl->StartTimer(        
+        std::move(p_clock_id), 
+        std::move(p_absolute_expiration_time), std::move(callback));
       return true;
     }
     case internal::kTimerHost_SetTime_Name: {
@@ -850,6 +860,8 @@ std::move(p_absolute_expiration_time), std::move(callback));
               internal::TimerHost_SetTime_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TimerHost.2
       bool success = true;
       ::base::Time p_time{};
       TimerHost_SetTime_ParamsDataView input_data_view(params, message);
@@ -868,8 +880,8 @@ std::move(p_absolute_expiration_time), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTime(
-std::move(p_time), std::move(callback));
+      impl->SetTime(        
+        std::move(p_time), std::move(callback));
       return true;
     }
   }
@@ -1074,6 +1086,8 @@ bool TimerInstance_Init_ForwardToCallback::Accept(
           internal::TimerInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TimerInstance.0
   bool success = true;
   TimerInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -1152,6 +1166,8 @@ bool TimerInstanceStubDispatch::AcceptWithResponder(
               internal::TimerInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TimerInstance.0
       bool success = true;
       ::mojo::PendingRemote<TimerHost> p_host_remote{};
       TimerInstance_Init_ParamsDataView input_data_view(params, message);
@@ -1172,8 +1188,8 @@ bool TimerInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

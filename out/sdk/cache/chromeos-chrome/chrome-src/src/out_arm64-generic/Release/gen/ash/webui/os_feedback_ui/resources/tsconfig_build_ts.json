@@ -13,6 +13,12 @@
       "chrome://resources/ash/common/*": [
         "./../../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -30,12 +36,6 @@
       ],
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
-      ],
-      "//resources/cr_elements/*": [
-        "./../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../ui/webui/resources/tsc/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../ui/webui/resources/tsc/js/*"
@@ -85,13 +85,13 @@
       "path": "../../common/resources/tsconfig_build_ts.json"
     },
     {
+      "path": "../../common/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
       "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
     },
     {
       "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
-    },
-    {
-      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"

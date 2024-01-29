@@ -35,7 +35,7 @@ rule nacl_bootstrap_rust_rlib
   depfile = ${output_dir}/lib${target_output_name}${output_extension}.d
   deps = gcc
 rule nacl_bootstrap_cxx
-  command =  armv7a-cros-linux-gnueabihf-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc}  --gomacc-path /home/chrome-bot/goma/gomacc -c ${in} -o ${out}
+  command =  armv7a-cros-linux-gnueabihf-clang++ -MD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} --rewrapper-path ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient/rewrapper --rewrapper-cfg ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient_cfgs/linux_chroot/chromium-browser-clang/rewrapper_linux.cfg -c ${in} -o ${out}
   description = CXX ${out}
   depfile = ${out}.d
   deps = gcc
@@ -69,12 +69,12 @@ rule nacl_bootstrap_alink
   rspfile = ${out}.rsp
   rspfile_content = ${in}
 rule nacl_bootstrap_cc
-  command =  armv7a-cros-linux-gnueabihf-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c}  --gomacc-path /home/chrome-bot/goma/gomacc -c ${in} -o ${out}
+  command =  armv7a-cros-linux-gnueabihf-clang -MD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} --rewrapper-path ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient/rewrapper --rewrapper-cfg ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/reclient_cfgs/linux_chroot/chromium-browser-clang/rewrapper_linux.cfg -c ${in} -o ${out}
   description = CC ${out}
   depfile = ${out}.d
   deps = gcc
 rule nacl_bootstrap_asm
-  command = armv7a-cros-linux-gnueabihf-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  command = armv7a-cros-linux-gnueabihf-clang -MD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
   description = ASM ${out}
   depfile = ${out}.d
   deps = gcc

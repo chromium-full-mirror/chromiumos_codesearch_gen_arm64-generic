@@ -256,6 +256,8 @@ bool FilePatcher_PatchFilePuffPatch_ForwardToCallback::Accept(
           internal::FilePatcher_PatchFilePuffPatch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FilePatcher.0
   bool success = true;
   int32_t p_result{};
   FilePatcher_PatchFilePuffPatch_ResponseParamsDataView input_data_view(params, message);
@@ -346,6 +348,8 @@ bool FilePatcherStubDispatch::AcceptWithResponder(
               internal::FilePatcher_PatchFilePuffPatch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FilePatcher.0
       bool success = true;
       ::base::File p_input_file{};
       ::base::File p_patch_file{};
@@ -370,10 +374,10 @@ bool FilePatcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PatchFilePuffPatch(
-std::move(p_input_file), 
-std::move(p_patch_file), 
-std::move(p_output_file), std::move(callback));
+      impl->PatchFilePuffPatch(        
+        std::move(p_input_file), 
+        std::move(p_patch_file), 
+        std::move(p_output_file), std::move(callback));
       return true;
     }
   }

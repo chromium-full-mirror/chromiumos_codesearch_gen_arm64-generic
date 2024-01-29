@@ -2842,6 +2842,36 @@ NetHost_NotifySocketConnectionEvent_Params_Data::NetHost_NotifySocketConnectionE
 
 
 // static
+bool NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data* object =
+      static_cast<const NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->msg, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->msg, validation_context))
+    return false;
+
+  return true;
+}
+
+NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data::NetHost_NotifyARCVPNSocketConnectionEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool NetInstance_Init_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

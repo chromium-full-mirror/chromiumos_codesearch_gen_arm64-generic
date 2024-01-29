@@ -1,7 +1,7 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { KeyCodeData } from '../common/key_code.js';
+import { KeyCodeData } from '/common/key_code.js';
 export var SelectToSpeakConstants;
 (function (SelectToSpeakConstants) {
     SelectToSpeakConstants.SEARCH_KEY_CODE = KeyCodeData.SEARCH.code;

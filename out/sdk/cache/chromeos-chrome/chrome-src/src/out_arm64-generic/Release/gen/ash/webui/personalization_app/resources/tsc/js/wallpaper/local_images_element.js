@@ -7,11 +7,11 @@
  * and display the images. It also caches the list of wallpaper images by
  * wallpaper collection id to avoid refetching data unnecessarily.
  */
-import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
+import 'chrome://resources/ash/common/personalization/wallpaper.css.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
-import '../../css/wallpaper.css.js';
+import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
 import '../../common/icons.html.js';
-import '../../css/common.css.js';
 import { isImageDataUrl, isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

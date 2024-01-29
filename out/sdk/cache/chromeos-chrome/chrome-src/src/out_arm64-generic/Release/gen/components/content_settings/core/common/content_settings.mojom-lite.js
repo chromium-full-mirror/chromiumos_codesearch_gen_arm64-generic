@@ -20,21 +20,6 @@ mojo.internal.exportModule('contentSettings.mojom');
  * @const { {$: !mojo.internal.MojomType} }
  * @export
  */
-contentSettings.mojom.ContentSettingsTypeSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- * @export
- */
-contentSettings.mojom.ContentSettingsType = {
-  
-};
-
-
-/**
- * @const { {$: !mojo.internal.MojomType} }
- * @export
- */
 contentSettings.mojom.ContentSettingSpec = { $: mojo.internal.Enum() };
 
 /**

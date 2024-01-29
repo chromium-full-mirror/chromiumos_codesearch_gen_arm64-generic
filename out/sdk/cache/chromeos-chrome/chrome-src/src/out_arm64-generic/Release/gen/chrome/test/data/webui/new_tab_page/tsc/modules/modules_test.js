@@ -333,6 +333,7 @@ suite('NewTabPageModulesModulesTest', () => {
         // Act.
         await waitAfterNextRender(modulesElement);
         const undoRemoveModuleButton = modulesElement.shadowRoot.querySelector('#undoRemoveModuleButton');
+        assertTrue(!!undoRemoveModuleButton);
         undoRemoveModuleButton.click();
         // Assert.
         assertNotStyle(moduleWrappers[0], 'display', 'none');
@@ -392,6 +393,7 @@ suite('NewTabPageModulesModulesTest', () => {
         // Act.
         await waitAfterNextRender(modulesElement);
         const undoRemoveModuleButton = modulesElement.shadowRoot.querySelector('#undoRemoveModuleButton');
+        assertTrue(!!undoRemoveModuleButton);
         undoRemoveModuleButton.click();
         // Assert.
         assertDeepEquals(['foo', false], handler.getArgs('setModuleDisabled')[1]);
@@ -682,6 +684,7 @@ suite('NewTabPageModulesModulesTest', () => {
             // // Act.
             await waitAfterNextRender(modulesElement);
             const undoRemoveModuleButton = modulesElement.shadowRoot.querySelector('#undoRemoveModuleButton');
+            assertTrue(!!undoRemoveModuleButton);
             undoRemoveModuleButton.click();
             // Assert.
             assertDeepEquals(['bar', false], handler.getArgs('setModuleDisabled')[1]);

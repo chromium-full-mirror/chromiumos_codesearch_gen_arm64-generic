@@ -5,7 +5,6 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { NativeLayerImpl } from '../native_layer.js';
-// 
 import { NativeLayerCrosImpl } from '../native_layer_cros.js';
 import { createDestinationKey, createRecentDestinationKey, Destination, DestinationOrigin, GooglePromotedDestinationId, isPdfPrinter, PDF_DESTINATION_KEY, PrinterType } from './destination.js';
 // 
@@ -19,7 +18,6 @@ import { getStatusReasonFromPrinterStatus, PrinterStatusReason } from './printer
 // 
 /**
  * Printer search statuses used by the destination store.
- * @enum {string}
  */
 var DestinationStorePrinterSearchStatus;
 (function (DestinationStorePrinterSearchStatus) {

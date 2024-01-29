@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`:host{display:inline}.stack-preview-async-description{padding:3px 0 1px;font-style:italic}.stack-preview-container .ignore-list-link{opacity:60%}.stack-preview-container > tr{height:16px;line-height:16px}.stack-preview-container td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-inline:2px}.stack-preview-container .function-name{max-width:80em}.stack-preview-container:not(.show-hidden-rows) > tr.hidden-row{display:none}.stack-preview-container > tr.show-all-link,
+`:host{display:inline-block;width:100%}.stack-preview-async-description{padding:3px 0 1px;font-style:italic}.stack-preview-container{display:block;width:100%}.stack-preview-container .ignore-list-link{opacity:60%}.stack-preview-container > tr{height:16px;line-height:16px}.stack-preview-container td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-inline:2px}.stack-preview-container td.link{width:100%;max-width:0}.stack-preview-container .function-name{max-width:80em}.stack-preview-container:not(.show-hidden-rows) > tr.hidden-row{display:none}.stack-preview-container > tr.show-all-link,
 .stack-preview-container > tr.show-less-link{font-style:italic}.stack-preview-container.show-hidden-rows > tr.show-all-link{display:none}.stack-preview-container:not(.show-hidden-rows) > tr.show-less-link{display:none}
 /*# sourceURL=jsUtils.css */
 `);

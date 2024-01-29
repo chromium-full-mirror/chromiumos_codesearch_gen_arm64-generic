@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { AllowedPaths } from '../../common/js/volume_manager_types.js';
-import { DialogType } from '../../externs/ts/state.js';
+import { DialogType } from '../../state/state.js';
 /**
  * Parsed options used to launch a new Files app window.
  */

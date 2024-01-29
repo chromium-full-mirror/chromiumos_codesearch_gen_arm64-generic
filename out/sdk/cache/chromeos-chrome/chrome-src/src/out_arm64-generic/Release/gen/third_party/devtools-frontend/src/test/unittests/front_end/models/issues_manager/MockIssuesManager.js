@@ -7,9 +7,9 @@ import { MockIssuesModel } from './MockIssuesModel.js';
 export class MockIssuesManager extends Common.ObjectWrapper.ObjectWrapper {
     mockIssues;
     issueCounts = new Map([
-        [IssuesManager.Issue.IssueKind.Improvement, 0],
-        [IssuesManager.Issue.IssueKind.BreakingChange, 1],
-        [IssuesManager.Issue.IssueKind.PageError, 2],
+        ["Improvement" /* IssuesManager.Issue.IssueKind.Improvement */, 0],
+        ["BreakingChange" /* IssuesManager.Issue.IssueKind.BreakingChange */, 1],
+        ["PageError" /* IssuesManager.Issue.IssueKind.PageError */, 2],
     ]);
     // An empty model to pass along for the IssuesManager.Events.IssueAdded event.
     mockModel = new MockIssuesModel([]);

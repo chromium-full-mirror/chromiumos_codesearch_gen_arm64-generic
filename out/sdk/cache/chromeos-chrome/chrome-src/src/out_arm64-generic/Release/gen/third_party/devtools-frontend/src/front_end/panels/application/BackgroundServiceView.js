@@ -179,7 +179,7 @@ export class BackgroundServiceView extends UI.Widget.VBox {
         if (!this.storageKeyManager) {
             throw new Error('StorageKeyManager instance is missing');
         }
-        this.storageKeyManager.addEventListener(SDK.StorageKeyManager.Events.MainStorageKeyChanged, () => this.onStorageKeyChanged());
+        this.storageKeyManager.addEventListener("MainStorageKeyChanged" /* SDK.StorageKeyManager.Events.MainStorageKeyChanged */, () => this.onStorageKeyChanged());
         this.recordAction = UI.ActionRegistry.ActionRegistry.instance().getAction('background-service.toggle-recording');
         this.toolbar = new UI.Toolbar.Toolbar('background-service-toolbar', this.contentElement);
         void this.setupToolbar();
@@ -208,11 +208,11 @@ export class BackgroundServiceView extends UI.Widget.VBox {
         this.recordButton = UI.Toolbar.Toolbar.createActionButton(this.recordAction);
         this.toolbar.appendToolbarItem(this.recordButton);
         const clearButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.clear), 'clear', undefined, 'background-service.clear');
-        clearButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, () => this.clearEvents());
+        clearButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => this.clearEvents());
         this.toolbar.appendToolbarItem(clearButton);
         this.toolbar.appendSeparator();
         this.saveButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.saveEvents), 'download', undefined, 'background-service.save-events');
-        this.saveButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, _event => {
+        this.saveButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, _event => {
             void this.saveToFile();
         });
         this.saveButton.setEnabled(false);
@@ -303,11 +303,11 @@ export class BackgroundServiceView extends UI.Widget.VBox {
         const columns = [
             { id: 'id', title: '#', weight: 1 },
             { id: 'timestamp', title: i18nString(UIStrings.timestamp), weight: 7 },
-            { id: 'eventName', title: i18nString(UIStrings.event), weight: 8 },
+            { id: 'event-name', title: i18nString(UIStrings.event), weight: 8 },
             { id: 'origin', title: i18nString(UIStrings.origin), weight: 8 },
-            { id: 'storageKey', title: i18nString(UIStrings.storageKey), weight: 8 },
-            { id: 'swScope', title: i18nString(UIStrings.swScope), weight: 4 },
-            { id: 'instanceId', title: i18nString(UIStrings.instanceId), weight: 8 },
+            { id: 'storage-key', title: i18nString(UIStrings.storageKey), weight: 8 },
+            { id: 'sw-scope', title: i18nString(UIStrings.swScope), weight: 4 },
+            { id: 'instance-id', title: i18nString(UIStrings.instanceId), weight: 8 },
         ];
         const dataGrid = new DataGrid.DataGrid.DataGridImpl({
             displayName: i18nString(UIStrings.backgroundServices),
@@ -317,7 +317,7 @@ export class BackgroundServiceView extends UI.Widget.VBox {
             deleteCallback: undefined,
         });
         dataGrid.setStriped(true);
-        dataGrid.addEventListener(DataGrid.DataGrid.Events.SelectedNode, event => this.showPreview(event.data));
+        dataGrid.addEventListener("SelectedNode" /* DataGrid.DataGrid.Events.SelectedNode */, event => this.showPreview(event.data));
         return dataGrid;
     }
     /**
@@ -336,10 +336,10 @@ export class BackgroundServiceView extends UI.Widget.VBox {
             id: this.dataGrid.rootNode().children.length + 1,
             timestamp: UI.UIUtils.formatTimestamp(serviceEvent.timestamp * 1000, /* full= */ true),
             origin: serviceEvent.origin,
-            storageKey: serviceEvent.storageKey,
-            swScope,
-            eventName: serviceEvent.eventName,
-            instanceId: serviceEvent.instanceId,
+            'storage-key': serviceEvent.storageKey,
+            'sw-scope': swScope,
+            'event-name': serviceEvent.eventName,
+            'instance-id': serviceEvent.instanceId,
         };
     }
     /**

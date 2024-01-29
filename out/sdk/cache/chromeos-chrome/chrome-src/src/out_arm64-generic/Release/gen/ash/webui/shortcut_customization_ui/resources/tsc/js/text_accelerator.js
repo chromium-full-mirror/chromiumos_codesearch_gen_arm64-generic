@@ -64,6 +64,7 @@ export class TextAcceleratorElement extends PolymerElement {
     }
     parseAndDisplayTextParts() {
         const container = this.shadowRoot.querySelector('.parts-container');
+        assert(container);
         assert(window.trustedTypes);
         container.innerHTML = window.trustedTypes.emptyHTML;
         const textParts = [];
@@ -116,7 +117,7 @@ export class TextAcceleratorElement extends PolymerElement {
         if (!isCustomizationAllowed()) {
             return false;
         }
-        return !this.lookupManager.isCategoryLocked(this.lookupManager.getAcceleratorCategory(this.source, this.action));
+        return !this.lookupManager.isSubcategoryLocked(this.lookupManager.getAcceleratorSubcategory(this.source, this.action));
     }
     areAllPartsTextParts() {
         return this.parts.every(part => part.type === TextAcceleratorPartType.kPlainText);

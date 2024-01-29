@@ -31,7 +31,7 @@ found in the LICENSE file.
     [[i18nDynamic(locale,'dataLossWarningTitle')]]
   </h1>
   <div slot="subtitle">
-    [[getDataLossWarningSubtitleMessage_(locale, email)]]
+    [[getDataLossWarningSubtitleMessage(locale, email)]]
   </div>
   <div slot="content" class="flex layout vertical center
       center-justified">
@@ -41,18 +41,18 @@ found in the LICENSE file.
   </div>
   <div slot="back-navigation">
     <oobe-back-button id="backButton" hidden="[[!canGoBack]]"
-      on-click="onBackButtonClicked_">
+      on-click="onBackButtonClicked">
     </oobe-back-button>
   </div>
   <div slot="bottom-buttons">
     <oobe-text-button hidden="[[isOwner]]" id="proceedRemove"
-        on-click="onProceedClicked_" text-key="continueAnywayButtonLabel">
+        on-click="onProceedClicked" text-key="continueAnywayButtonLabel">
     </oobe-text-button>
     <oobe-text-button hidden= "[[!isOwner]]" id="powerwash"
-        on-click="onResetClicked_" text-key="powerwashButtonLabel">
+        on-click="onResetClicked" text-key="powerwashButtonLabel">
     </oobe-text-button>
     <oobe-text-button id="cancel"
-        on-click="onCancelClicked_" text-key="cancelButtonLabel">
+        on-click="onCancelClicked" text-key="cancelButtonLabel">
     </oobe-text-button>
   </div>
 </oobe-adaptive-dialog>

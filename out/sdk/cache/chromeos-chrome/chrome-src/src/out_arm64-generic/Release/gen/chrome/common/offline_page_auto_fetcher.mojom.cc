@@ -271,6 +271,8 @@ bool OfflinePageAutoFetcher_TrySchedule_ForwardToCallback::Accept(
           internal::OfflinePageAutoFetcher_TrySchedule_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for OfflinePageAutoFetcher.0
   bool success = true;
   OfflinePageAutoFetcherScheduleResult p_out{};
   OfflinePageAutoFetcher_TrySchedule_ResponseParamsDataView input_data_view(params, message);
@@ -349,6 +351,8 @@ bool OfflinePageAutoFetcherStubDispatch::Accept(
           reinterpret_cast<internal::OfflinePageAutoFetcher_CancelSchedule_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for OfflinePageAutoFetcher.1
       bool success = true;
       OfflinePageAutoFetcher_CancelSchedule_ParamsDataView input_data_view(params, message);
       
@@ -361,7 +365,7 @@ bool OfflinePageAutoFetcherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelSchedule();
+      impl->CancelSchedule(        );
       return true;
     }
   }
@@ -384,6 +388,8 @@ bool OfflinePageAutoFetcherStubDispatch::AcceptWithResponder(
               internal::OfflinePageAutoFetcher_TrySchedule_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for OfflinePageAutoFetcher.0
       bool success = true;
       bool p_user_requested{};
       OfflinePageAutoFetcher_TrySchedule_ParamsDataView input_data_view(params, message);
@@ -402,8 +408,8 @@ bool OfflinePageAutoFetcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TrySchedule(
-std::move(p_user_requested), std::move(callback));
+      impl->TrySchedule(        
+        std::move(p_user_requested), std::move(callback));
       return true;
     }
     case internal::kOfflinePageAutoFetcher_CancelSchedule_Name: {

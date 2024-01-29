@@ -11,14 +11,14 @@ import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_lazy_render/cr_lazy_render.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import './network_device_info_dialog.js';
-import { ESimManagerListenerBehavior } from 'chrome://resources/ash/common/cellular_setup/esim_manager_listener_behavior.js';
+import { ESimManagerListenerMixin } from 'chrome://resources/ash/common/cellular_setup/esim_manager_listener_mixin.js';
 import { getEuicc } from 'chrome://resources/ash/common/cellular_setup/esim_manager_utils.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
 import { getTemplate } from './internet_subpage_menu.html.js';
-const SettingsInternetSubpageMenuElementBase = mixinBehaviors([ESimManagerListenerBehavior], WebUiListenerMixin(PolymerElement));
+const SettingsInternetSubpageMenuElementBase = ESimManagerListenerMixin(WebUiListenerMixin(PolymerElement));
 export class SettingsInternetSubpageMenuElement extends SettingsInternetSubpageMenuElementBase {
     static get is() {
         return 'settings-internet-subpage-menu';

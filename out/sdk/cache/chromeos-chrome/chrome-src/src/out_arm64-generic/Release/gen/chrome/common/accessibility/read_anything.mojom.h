@@ -75,6 +75,7 @@ class UntrustedPageHandlerFactory
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kCreateUntrustedPageHandlerMinVersion = 0,
+    kShouldShowUIMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -83,11 +84,17 @@ class UntrustedPageHandlerFactory
   struct CreateUntrustedPageHandler_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct ShouldShowUI_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~UntrustedPageHandlerFactory() = default;
 
   
   virtual void CreateUntrustedPageHandler(::mojo::PendingRemote<UntrustedPage> page, ::mojo::PendingReceiver<UntrustedPageHandler> handler) = 0;
+
+  
+  virtual void ShouldShowUI() = 0;
 };
 
 class UntrustedPageHandlerProxy;
@@ -124,6 +131,7 @@ class UntrustedPageHandler
     kOnLetterSpaceChangeMinVersion = 0,
     kOnFontChangeMinVersion = 0,
     kOnFontSizeChangeMinVersion = 0,
+    kOnLinksEnabledChangedMinVersion = 0,
     kOnColorChangeMinVersion = 0,
     kOnSpeechRateChangeMinVersion = 0,
     kOnVoiceChangeMinVersion = 0,
@@ -150,6 +158,9 @@ class UntrustedPageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnFontSizeChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnLinksEnabledChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnColorChange_Sym {
@@ -193,6 +204,9 @@ class UntrustedPageHandler
 
   
   virtual void OnFontSizeChange(double font_size) = 0;
+
+  
+  virtual void OnLinksEnabledChanged(bool enabled) = 0;
 
   
   virtual void OnColorChange(Colors color) = 0;
@@ -300,7 +314,7 @@ class UntrustedPage
   virtual void SetDefaultLanguageCode(const std::string& code) = 0;
 
   
-  virtual void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) = 0;
+  virtual void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, bool links_enabled, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) = 0;
 
   
   virtual void ScreenAIServiceReady() = 0;
@@ -316,6 +330,8 @@ class  UntrustedPageHandlerFactoryProxy
   explicit UntrustedPageHandlerFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void CreateUntrustedPageHandler(::mojo::PendingRemote<UntrustedPage> page, ::mojo::PendingReceiver<UntrustedPageHandler> handler) final;
+  
+  void ShouldShowUI() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -339,6 +355,8 @@ class  UntrustedPageHandlerProxy
   void OnFontChange(const std::string& font) final;
   
   void OnFontSizeChange(double font_size) final;
+  
+  void OnLinksEnabledChanged(bool enabled) final;
   
   void OnColorChange(Colors color) final;
   
@@ -379,7 +397,7 @@ class  UntrustedPageProxy
   
   void SetDefaultLanguageCode(const std::string& code) final;
   
-  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) final;
+  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, bool links_enabled, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) final;
   
   void ScreenAIServiceReady() final;
 
@@ -558,6 +576,7 @@ class  ReadAnythingTheme {
   ReadAnythingTheme(
       const std::string& font_name,
       float font_size,
+      bool links_enabled,
       ::SkColor foreground_color,
       ::SkColor background_color,
       LineSpacing line_spacing,
@@ -643,6 +662,8 @@ class  ReadAnythingTheme {
   
   float font_size;
   
+  bool links_enabled;
+  
   ::SkColor foreground_color;
   
   ::SkColor background_color;
@@ -685,6 +706,7 @@ ReadAnythingThemePtr ReadAnythingTheme::Clone() const {
   return New(
       mojo::Clone(font_name),
       mojo::Clone(font_size),
+      mojo::Clone(links_enabled),
       mojo::Clone(foreground_color),
       mojo::Clone(background_color),
       mojo::Clone(line_spacing),
@@ -697,6 +719,8 @@ bool ReadAnythingTheme::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->font_name, other_struct.font_name))
     return false;
   if (!mojo::Equals(this->font_size, other_struct.font_size))
+    return false;
+  if (!mojo::Equals(this->links_enabled, other_struct.links_enabled))
     return false;
   if (!mojo::Equals(this->foreground_color, other_struct.foreground_color))
     return false;
@@ -718,6 +742,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.font_size < rhs.font_size)
     return true;
   if (rhs.font_size < lhs.font_size)
+    return false;
+  if (lhs.links_enabled < rhs.links_enabled)
+    return true;
+  if (rhs.links_enabled < lhs.links_enabled)
     return false;
   if (lhs.foreground_color < rhs.foreground_color)
     return true;
@@ -758,6 +786,11 @@ struct  StructTraits<::read_anything::mojom::ReadAnythingTheme::DataView,
   static decltype(::read_anything::mojom::ReadAnythingTheme::font_size) font_size(
       const ::read_anything::mojom::ReadAnythingThemePtr& input) {
     return input->font_size;
+  }
+
+  static decltype(::read_anything::mojom::ReadAnythingTheme::links_enabled) links_enabled(
+      const ::read_anything::mojom::ReadAnythingThemePtr& input) {
+    return input->links_enabled;
   }
 
   static const decltype(::read_anything::mojom::ReadAnythingTheme::foreground_color)& foreground_color(

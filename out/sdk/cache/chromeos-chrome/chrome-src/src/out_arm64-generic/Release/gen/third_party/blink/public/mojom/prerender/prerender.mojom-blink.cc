@@ -284,6 +284,8 @@ bool NoStatePrefetchProcessorStubDispatch::Accept(
           reinterpret_cast<internal::NoStatePrefetchProcessor_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NoStatePrefetchProcessor.0
       bool success = true;
       PrerenderAttributesPtr p_prerender_attribute{};
       NoStatePrefetchProcessor_Start_ParamsDataView input_data_view(params, message);
@@ -299,8 +301,8 @@ bool NoStatePrefetchProcessorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_prerender_attribute));
+      impl->Start(        
+        std::move(p_prerender_attribute));
       return true;
     }
     case internal::kNoStatePrefetchProcessor_Cancel_Name: {
@@ -310,6 +312,8 @@ std::move(p_prerender_attribute));
           reinterpret_cast<internal::NoStatePrefetchProcessor_Cancel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NoStatePrefetchProcessor.1
       bool success = true;
       NoStatePrefetchProcessor_Cancel_ParamsDataView input_data_view(params, message);
       
@@ -322,7 +326,7 @@ std::move(p_prerender_attribute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel();
+      impl->Cancel(        );
       return true;
     }
   }

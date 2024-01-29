@@ -340,6 +340,8 @@ bool WallpaperHost_GetWallpaper_ForwardToCallback::Accept(
           internal::WallpaperHost_GetWallpaper_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperHost.0
   bool success = true;
   std::vector<uint8_t> p_wallpaper{};
   WallpaperHost_GetWallpaper_ResponseParamsDataView input_data_view(params, message);
@@ -429,6 +431,8 @@ bool WallpaperHostStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperHost_SetWallpaper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperHost.1
       bool success = true;
       std::vector<uint8_t> p_data{};
       int32_t p_wallpaper_id{};
@@ -447,9 +451,9 @@ bool WallpaperHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWallpaper(
-std::move(p_data), 
-std::move(p_wallpaper_id));
+      impl->SetWallpaper(        
+        std::move(p_data), 
+        std::move(p_wallpaper_id));
       return true;
     }
     case internal::kWallpaperHost_SetDefaultWallpaper_Name: {
@@ -459,6 +463,8 @@ std::move(p_wallpaper_id));
           reinterpret_cast<internal::WallpaperHost_SetDefaultWallpaper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperHost.2
       bool success = true;
       WallpaperHost_SetDefaultWallpaper_ParamsDataView input_data_view(params, message);
       
@@ -471,7 +477,7 @@ std::move(p_wallpaper_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDefaultWallpaper();
+      impl->SetDefaultWallpaper(        );
       return true;
     }
   }
@@ -494,6 +500,8 @@ bool WallpaperHostStubDispatch::AcceptWithResponder(
               internal::WallpaperHost_GetWallpaper_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperHost.0
       bool success = true;
       WallpaperHost_GetWallpaper_ParamsDataView input_data_view(params, message);
       
@@ -781,6 +789,8 @@ bool WallpaperInstance_Init_ForwardToCallback::Accept(
           internal::WallpaperInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WallpaperInstance.3
   bool success = true;
   WallpaperInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -846,6 +856,8 @@ bool WallpaperInstanceStubDispatch::Accept(
           reinterpret_cast<internal::WallpaperInstance_OnWallpaperChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WallpaperInstance.1
       bool success = true;
       int32_t p_wallpaper_id{};
       WallpaperInstance_OnWallpaperChanged_ParamsDataView input_data_view(params, message);
@@ -861,8 +873,8 @@ bool WallpaperInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWallpaperChanged(
-std::move(p_wallpaper_id));
+      impl->OnWallpaperChanged(        
+        std::move(p_wallpaper_id));
       return true;
     }
   }
@@ -885,6 +897,8 @@ bool WallpaperInstanceStubDispatch::AcceptWithResponder(
               internal::WallpaperInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WallpaperInstance.3
       bool success = true;
       ::mojo::PendingRemote<WallpaperHost> p_host_remote{};
       WallpaperInstance_Init_ParamsDataView input_data_view(params, message);
@@ -905,8 +919,8 @@ bool WallpaperInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kWallpaperInstance_OnWallpaperChanged_Name: {

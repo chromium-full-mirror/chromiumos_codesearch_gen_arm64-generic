@@ -224,6 +224,8 @@ bool SharedWorkerStubDispatch::Accept(
           reinterpret_cast<internal::SharedWorker_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorker.0
       bool success = true;
       int32_t p_connection_id{};
       ::blink::MessagePortDescriptor p_message_port{};
@@ -242,9 +244,9 @@ bool SharedWorkerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_connection_id), 
-std::move(p_message_port));
+      impl->Connect(        
+        std::move(p_connection_id), 
+        std::move(p_message_port));
       return true;
     }
     case internal::kSharedWorker_Terminate_Name: {
@@ -254,6 +256,8 @@ std::move(p_message_port));
           reinterpret_cast<internal::SharedWorker_Terminate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedWorker.1
       bool success = true;
       SharedWorker_Terminate_ParamsDataView input_data_view(params, message);
       
@@ -266,7 +270,7 @@ std::move(p_message_port));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Terminate();
+      impl->Terminate(        );
       return true;
     }
   }

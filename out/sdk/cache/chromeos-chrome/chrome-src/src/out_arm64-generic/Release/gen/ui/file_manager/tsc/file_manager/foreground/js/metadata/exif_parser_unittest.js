@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assertEquals, assertTrue } from 'chrome://webui-test/chromeos/chai_assert.js';
-import { ExifEntry } from '../../../externs/exif_entry.js';
 import { ByteOrder, ByteReader } from './byte_reader.js';
 import { ExifTag } from './exif_constants.js';
 import { ExifParser } from './exif_parser.js';
@@ -108,7 +107,7 @@ class ByteWriter {
      */
     writeString(str) {
         this.validateWrite(str.length);
-        for (let i = 0; i != str.length; i++) {
+        for (let i = 0; i !== str.length; i++) {
             this.view_.setUint8(this.pos_++, str.charCodeAt(i));
         }
     }

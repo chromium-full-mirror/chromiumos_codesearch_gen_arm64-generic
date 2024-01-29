@@ -169,6 +169,8 @@ bool StructuredMetricsServiceStubDispatch::Accept(
           reinterpret_cast<internal::StructuredMetricsService_Record_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StructuredMetricsService.0
       bool success = true;
       std::vector<::metrics::structured::Event> p_events{};
       StructuredMetricsService_Record_ParamsDataView input_data_view(params, message);
@@ -184,8 +186,8 @@ bool StructuredMetricsServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Record(
-std::move(p_events));
+      impl->Record(        
+        std::move(p_events));
       return true;
     }
   }

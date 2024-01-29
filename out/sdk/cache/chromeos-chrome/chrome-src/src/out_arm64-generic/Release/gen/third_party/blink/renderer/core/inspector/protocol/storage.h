@@ -20,7 +20,10 @@ using SerializedStorageKey = String;
 using StorageType = String;
 class UsageForType;
 class TrustTokens;
+using InterestGroupAuctionId = String;
 using InterestGroupAccessType = String;
+using InterestGroupAuctionEventType = String;
+using InterestGroupAuctionFetchType = String;
 class InterestGroupAd;
 class InterestGroupDetails;
 using SharedStorageAccessType = String;
@@ -82,8 +85,23 @@ CORE_EXPORT extern const char Bid[];
 CORE_EXPORT extern const char Win[];
 CORE_EXPORT extern const char AdditionalBid[];
 CORE_EXPORT extern const char AdditionalBidWin[];
+CORE_EXPORT extern const char TopLevelBid[];
+CORE_EXPORT extern const char TopLevelAdditionalBid[];
 CORE_EXPORT extern const char Clear[];
 } // namespace InterestGroupAccessTypeEnum
+
+namespace InterestGroupAuctionEventTypeEnum {
+CORE_EXPORT extern const char Started[];
+CORE_EXPORT extern const char ConfigResolved[];
+} // namespace InterestGroupAuctionEventTypeEnum
+
+namespace InterestGroupAuctionFetchTypeEnum {
+CORE_EXPORT extern const char BidderJs[];
+CORE_EXPORT extern const char BidderWasm[];
+CORE_EXPORT extern const char SellerJs[];
+CORE_EXPORT extern const char BidderTrustedSignals[];
+CORE_EXPORT extern const char SellerTrustedSignals[];
+} // namespace InterestGroupAuctionFetchTypeEnum
 
 namespace SharedStorageAccessTypeEnum {
 CORE_EXPORT extern const char DocumentAddModule[];
@@ -2345,6 +2363,7 @@ public:
     virtual DispatchResponse clearTrustTokens(const String& in_issuerOrigin, bool* out_didDeleteTokens) = 0;
     virtual DispatchResponse getInterestGroupDetails(const String& in_ownerOrigin, const String& in_name, std::unique_ptr<protocol::Storage::InterestGroupDetails>* out_details) = 0;
     virtual DispatchResponse setInterestGroupTracking(bool in_enable) = 0;
+    virtual DispatchResponse setInterestGroupAuctionTracking(bool in_enable) = 0;
     virtual DispatchResponse getSharedStorageMetadata(const String& in_ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageMetadata>* out_metadata) = 0;
     virtual DispatchResponse getSharedStorageEntries(const String& in_ownerOrigin, std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageEntry>>* out_entries) = 0;
     virtual DispatchResponse setSharedStorageEntry(const String& in_ownerOrigin, const String& in_key, const String& in_value, Maybe<bool> in_ignoreIfPresent) = 0;
@@ -2373,7 +2392,9 @@ public:
     void cacheStorageListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void indexedDBContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& databaseName, const String& objectStoreName);
     void indexedDBListUpdated(const String& origin, const String& storageKey, const String& bucketId);
-    void interestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);
+    void interestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name, Maybe<String> componentSellerOrigin = Maybe<String>(), Maybe<double> bid = Maybe<double>(), Maybe<String> bidCurrency = Maybe<String>(), Maybe<String> uniqueAuctionId = Maybe<String>());
+    void interestGroupAuctionEventOccurred(double eventTime, const String& type, const String& uniqueAuctionId, Maybe<String> parentAuctionId = Maybe<String>(), Maybe<protocol::DictionaryValue> auctionConfig = Maybe<protocol::DictionaryValue>());
+    void interestGroupAuctionNetworkRequestCreated(const String& type, const String& requestId, std::unique_ptr<protocol::Array<String>> auctions);
     void sharedStorageAccessed(double accessTime, const String& type, const String& mainFrameId, const String& ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageAccessParams> params);
     void storageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucketInfo);
     void storageBucketDeleted(const String& bucketId);

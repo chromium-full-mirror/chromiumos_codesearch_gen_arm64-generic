@@ -61,6 +61,9 @@ extern GetCertificateReplyDefaultTypeInternal _GetCertificateReply_default_insta
 class GetCertificateRequest;
 struct GetCertificateRequestDefaultTypeInternal;
 extern GetCertificateRequestDefaultTypeInternal _GetCertificateRequest_default_instance_;
+class RksCertificateAndSignature;
+struct RksCertificateAndSignatureDefaultTypeInternal;
+extern RksCertificateAndSignatureDefaultTypeInternal _RksCertificateAndSignature_default_instance_;
 }  // namespace pca_agent
 }  // namespace attestation
 PROTOBUF_NAMESPACE_OPEN
@@ -72,6 +75,8 @@ template <>
 ::attestation::pca_agent::GetCertificateReply* Arena::CreateMaybeMessage<::attestation::pca_agent::GetCertificateReply>(Arena*);
 template <>
 ::attestation::pca_agent::GetCertificateRequest* Arena::CreateMaybeMessage<::attestation::pca_agent::GetCertificateRequest>(Arena*);
+template <>
+::attestation::pca_agent::RksCertificateAndSignature* Arena::CreateMaybeMessage<::attestation::pca_agent::RksCertificateAndSignature>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 namespace attestation {
@@ -728,6 +733,178 @@ class GetCertificateReply final :
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_pca_5fagent_2eproto;
+};// -------------------------------------------------------------------
+
+class RksCertificateAndSignature final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:attestation.pca_agent.RksCertificateAndSignature) */ {
+ public:
+  inline RksCertificateAndSignature() : RksCertificateAndSignature(nullptr) {}
+  ~RksCertificateAndSignature() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RksCertificateAndSignature(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RksCertificateAndSignature(const RksCertificateAndSignature& from);
+  RksCertificateAndSignature(RksCertificateAndSignature&& from) noexcept
+    : RksCertificateAndSignature() {
+    *this = ::std::move(from);
+  }
+
+  inline RksCertificateAndSignature& operator=(const RksCertificateAndSignature& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RksCertificateAndSignature& operator=(RksCertificateAndSignature&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RksCertificateAndSignature& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RksCertificateAndSignature* internal_default_instance() {
+    return reinterpret_cast<const RksCertificateAndSignature*>(
+               &_RksCertificateAndSignature_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(RksCertificateAndSignature& a, RksCertificateAndSignature& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RksCertificateAndSignature* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RksCertificateAndSignature* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RksCertificateAndSignature* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RksCertificateAndSignature>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RksCertificateAndSignature& from);
+  void MergeFrom(const RksCertificateAndSignature& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RksCertificateAndSignature* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "attestation.pca_agent.RksCertificateAndSignature";
+  }
+  protected:
+  explicit RksCertificateAndSignature(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCertificateXmlFieldNumber = 1,
+    kSignatureXmlFieldNumber = 2,
+  };
+  // optional string certificate_xml = 1;
+  bool has_certificate_xml() const;
+  void clear_certificate_xml() ;
+  const std::string& certificate_xml() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_certificate_xml(Arg_&& arg, Args_... args);
+  std::string* mutable_certificate_xml();
+  PROTOBUF_NODISCARD std::string* release_certificate_xml();
+  void set_allocated_certificate_xml(std::string* ptr);
+
+  private:
+  const std::string& _internal_certificate_xml() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_certificate_xml(
+      const std::string& value);
+  std::string* _internal_mutable_certificate_xml();
+
+  public:
+  // optional string signature_xml = 2;
+  bool has_signature_xml() const;
+  void clear_signature_xml() ;
+  const std::string& signature_xml() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_signature_xml(Arg_&& arg, Args_... args);
+  std::string* mutable_signature_xml();
+  PROTOBUF_NODISCARD std::string* release_signature_xml();
+  void set_allocated_signature_xml(std::string* ptr);
+
+  private:
+  const std::string& _internal_signature_xml() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_signature_xml(
+      const std::string& value);
+  std::string* _internal_mutable_signature_xml();
+
+  public:
+  // @@protoc_insertion_point(class_scope:attestation.pca_agent.RksCertificateAndSignature)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr certificate_xml_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signature_xml_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_pca_5fagent_2eproto;
 };
 
 // ===================================================================
@@ -1120,6 +1297,140 @@ inline void GetCertificateReply::set_allocated_response(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:attestation.pca_agent.GetCertificateReply.response)
+}
+
+// -------------------------------------------------------------------
+
+// RksCertificateAndSignature
+
+// optional string certificate_xml = 1;
+inline bool RksCertificateAndSignature::has_certificate_xml() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void RksCertificateAndSignature::clear_certificate_xml() {
+  _impl_.certificate_xml_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& RksCertificateAndSignature::certificate_xml() const {
+  // @@protoc_insertion_point(field_get:attestation.pca_agent.RksCertificateAndSignature.certificate_xml)
+  return _internal_certificate_xml();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RksCertificateAndSignature::set_certificate_xml(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.certificate_xml_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.pca_agent.RksCertificateAndSignature.certificate_xml)
+}
+inline std::string* RksCertificateAndSignature::mutable_certificate_xml() {
+  std::string* _s = _internal_mutable_certificate_xml();
+  // @@protoc_insertion_point(field_mutable:attestation.pca_agent.RksCertificateAndSignature.certificate_xml)
+  return _s;
+}
+inline const std::string& RksCertificateAndSignature::_internal_certificate_xml() const {
+  return _impl_.certificate_xml_.Get();
+}
+inline void RksCertificateAndSignature::_internal_set_certificate_xml(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+
+
+  _impl_.certificate_xml_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RksCertificateAndSignature::_internal_mutable_certificate_xml() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.certificate_xml_.Mutable( GetArenaForAllocation());
+}
+inline std::string* RksCertificateAndSignature::release_certificate_xml() {
+  // @@protoc_insertion_point(field_release:attestation.pca_agent.RksCertificateAndSignature.certificate_xml)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.certificate_xml_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certificate_xml_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void RksCertificateAndSignature::set_allocated_certificate_xml(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.certificate_xml_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.certificate_xml_.IsDefault()) {
+          _impl_.certificate_xml_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.pca_agent.RksCertificateAndSignature.certificate_xml)
+}
+
+// optional string signature_xml = 2;
+inline bool RksCertificateAndSignature::has_signature_xml() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void RksCertificateAndSignature::clear_signature_xml() {
+  _impl_.signature_xml_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& RksCertificateAndSignature::signature_xml() const {
+  // @@protoc_insertion_point(field_get:attestation.pca_agent.RksCertificateAndSignature.signature_xml)
+  return _internal_signature_xml();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RksCertificateAndSignature::set_signature_xml(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.signature_xml_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.pca_agent.RksCertificateAndSignature.signature_xml)
+}
+inline std::string* RksCertificateAndSignature::mutable_signature_xml() {
+  std::string* _s = _internal_mutable_signature_xml();
+  // @@protoc_insertion_point(field_mutable:attestation.pca_agent.RksCertificateAndSignature.signature_xml)
+  return _s;
+}
+inline const std::string& RksCertificateAndSignature::_internal_signature_xml() const {
+  return _impl_.signature_xml_.Get();
+}
+inline void RksCertificateAndSignature::_internal_set_signature_xml(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+
+
+  _impl_.signature_xml_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RksCertificateAndSignature::_internal_mutable_signature_xml() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  return _impl_.signature_xml_.Mutable( GetArenaForAllocation());
+}
+inline std::string* RksCertificateAndSignature::release_signature_xml() {
+  // @@protoc_insertion_point(field_release:attestation.pca_agent.RksCertificateAndSignature.signature_xml)
+  if ((_impl_._has_bits_[0] & 0x00000002u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  auto* released = _impl_.signature_xml_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.signature_xml_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void RksCertificateAndSignature::set_allocated_signature_xml(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.signature_xml_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.signature_xml_.IsDefault()) {
+          _impl_.signature_xml_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.pca_agent.RksCertificateAndSignature.signature_xml)
 }
 
 #ifdef __GNUC__

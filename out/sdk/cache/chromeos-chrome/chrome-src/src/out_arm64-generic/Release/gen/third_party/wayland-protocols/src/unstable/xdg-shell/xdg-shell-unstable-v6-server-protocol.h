@@ -795,7 +795,9 @@ struct zxdg_surface_v6_interface {
 	 * destroy the xdg_surface
 	 *
 	 * Destroy the xdg_surface object. An xdg_surface must only be
-	 * destroyed after its role object has been destroyed.
+	 * destroyed after its role object has been destroyed. If the role
+	 * object still exists when this request is issued, the
+	 * zxdg_shell_v6.defunct_surfaces is raised.
 	 */
 	void (*destroy)(struct wl_client *client,
 			struct wl_resource *resource);
@@ -803,7 +805,9 @@ struct zxdg_surface_v6_interface {
 	 * assign the xdg_toplevel surface role
 	 *
 	 * This creates an xdg_toplevel object for the given xdg_surface
-	 * and gives the associated wl_surface the xdg_toplevel role.
+	 * and gives the associated wl_surface the xdg_toplevel role. If
+	 * the surface already had a role, the zxdg_shell_v6.role error is
+	 * raised.
 	 *
 	 * See the documentation of xdg_toplevel for more details about
 	 * what an xdg_toplevel is and how it is used.
@@ -815,7 +819,9 @@ struct zxdg_surface_v6_interface {
 	 * assign the xdg_popup surface role
 	 *
 	 * This creates an xdg_popup object for the given xdg_surface and
-	 * gives the associated wl_surface the xdg_popup role.
+	 * gives the associated wl_surface the xdg_popup role. If the
+	 * surface already had a role, the zxdg_shell_v6.role error is
+	 * raised.
 	 *
 	 * See the documentation of xdg_popup for more details about what
 	 * an xdg_popup is and how it is used.
@@ -884,6 +890,9 @@ struct zxdg_surface_v6_interface {
 	 * committing, but only the last request sent before a commit
 	 * indicates which configure event the client really is responding
 	 * to.
+	 *
+	 * If an invalid serial is used, the
+	 * zxdg_shell_v6.invalid_surface_state error is raised.
 	 * @param serial the serial from the configure event
 	 */
 	void (*ack_configure)(struct wl_client *client,
@@ -973,15 +982,17 @@ enum zxdg_toplevel_v6_state {
 	 * the surface is maximized
 	 *
 	 * The surface is maximized. The window geometry specified in the
-	 * configure event must be obeyed by the client.
+	 * configure event must be obeyed by the client. If the window
+	 * geometry is not obyed, the zxdg_shell_v6.invalid_surface_state
+	 * error is raised.
 	 */
 	ZXDG_TOPLEVEL_V6_STATE_MAXIMIZED = 1,
 	/**
 	 * the surface is fullscreen
 	 * the surface is fullscreen
 	 *
-	 * The surface is fullscreen. The window geometry specified in
-	 * the configure event must be obeyed by the client.
+	 * The surface is fullscreen. See set_fullscreen for more
+	 * information.
 	 */
 	ZXDG_TOPLEVEL_V6_STATE_FULLSCREEN = 2,
 	/**
@@ -990,8 +1001,10 @@ enum zxdg_toplevel_v6_state {
 	 *
 	 * The surface is being resized. The window geometry specified in
 	 * the configure event is a maximum; the client cannot resize
-	 * beyond it. Clients that have aspect ratio or cell sizing
-	 * configuration can use a smaller size, however.
+	 * beyond it. If the client attempts to resize above it, the
+	 * zxdg_shell_v6.invalid_surface_state error is raised. Clients
+	 * that have aspect ratio or cell sizing configuration can use a
+	 * smaller size, however.
 	 */
 	ZXDG_TOPLEVEL_V6_STATE_RESIZING = 3,
 	/**
@@ -1207,7 +1220,7 @@ struct zxdg_toplevel_v6_interface {
 	 *
 	 * The width and height must be greater than or equal to zero.
 	 * Using strictly negative values for width and height will result
-	 * in a protocol error.
+	 * in the zxdg_shell_v6.invalid_surface_state error being raised.
 	 */
 	void (*set_max_size)(struct wl_client *client,
 			     struct wl_resource *resource,
@@ -1249,7 +1262,7 @@ struct zxdg_toplevel_v6_interface {
 	 *
 	 * The width and height must be greater than or equal to zero.
 	 * Using strictly negative values for width and height will result
-	 * in a protocol error.
+	 * in the zxdg_shell_v6.invalid_surface_state error being raised.
 	 */
 	void (*set_min_size)(struct wl_client *client,
 			     struct wl_resource *resource,
@@ -1274,6 +1287,11 @@ struct zxdg_toplevel_v6_interface {
 	 *
 	 * If the surface was already maximized, the compositor will still
 	 * emit a configure event with the "maximized" state.
+	 *
+	 * Note that unrelated compositor side state changes may cause
+	 * configure events to be emitted at any time, meaning trying to
+	 * match this request to a specific future configure event is
+	 * futile.
 	 */
 	void (*set_maximized)(struct wl_client *client,
 			      struct wl_resource *resource);
@@ -1297,6 +1315,11 @@ struct zxdg_toplevel_v6_interface {
 	 *
 	 * If the surface was already not maximized, the compositor will
 	 * still emit a configure event without the "maximized" state.
+	 *
+	 * Note that unrelated changes in the state of compositor may cause
+	 * configure events to be emitted by the compositor between
+	 * processing this request and emitting corresponding configure
+	 * event, so trying to match the request with the event is futile.
 	 */
 	void (*unset_maximized)(struct wl_client *client,
 				struct wl_resource *resource);

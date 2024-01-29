@@ -161,6 +161,8 @@ bool UntrustedPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<UntrustedPageHandler> p_handler{};
       UntrustedPageHandlerFactory_CreatePageHandler_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool UntrustedPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_handler));
       return true;
     }
   }
@@ -388,6 +390,8 @@ bool UntrustedPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPageHandler_ToggleFullscreen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.0
       bool success = true;
       UntrustedPageHandler_ToggleFullscreen_ParamsDataView input_data_view(params, message);
       
@@ -400,7 +404,7 @@ bool UntrustedPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ToggleFullscreen();
+      impl->ToggleFullscreen(        );
       return true;
     }
     case internal::kUntrustedPageHandler_LaunchApp_Name: {
@@ -410,6 +414,8 @@ bool UntrustedPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::UntrustedPageHandler_LaunchApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UntrustedPageHandler.1
       bool success = true;
       std::string p_app_id{};
       UntrustedPageHandler_LaunchApp_ParamsDataView input_data_view(params, message);
@@ -425,8 +431,8 @@ bool UntrustedPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchApp(
-std::move(p_app_id));
+      impl->LaunchApp(        
+        std::move(p_app_id));
       return true;
     }
   }

@@ -412,6 +412,8 @@ bool XRSessionControllerStubDispatch::Accept(
           reinterpret_cast<internal::XRSessionController_SetFrameDataRestricted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRSessionController.0
       bool success = true;
       bool p_restricted{};
       XRSessionController_SetFrameDataRestricted_ParamsDataView input_data_view(params, message);
@@ -427,8 +429,8 @@ bool XRSessionControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrameDataRestricted(
-std::move(p_restricted));
+      impl->SetFrameDataRestricted(        
+        std::move(p_restricted));
       return true;
     }
   }
@@ -628,6 +630,8 @@ bool XRRuntimeEventListenerStubDispatch::Accept(
           reinterpret_cast<internal::XRRuntimeEventListener_OnVisibilityStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRRuntimeEventListener.0
       bool success = true;
       ::device::mojom::XRVisibilityState p_visibility_state{};
       XRRuntimeEventListener_OnVisibilityStateChanged_ParamsDataView input_data_view(params, message);
@@ -643,8 +647,8 @@ bool XRRuntimeEventListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnVisibilityStateChanged(
-std::move(p_visibility_state));
+      impl->OnVisibilityStateChanged(        
+        std::move(p_visibility_state));
       return true;
     }
     case internal::kXRRuntimeEventListener_OnExitPresent_Name: {
@@ -654,6 +658,8 @@ std::move(p_visibility_state));
           reinterpret_cast<internal::XRRuntimeEventListener_OnExitPresent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRRuntimeEventListener.1
       bool success = true;
       XRRuntimeEventListener_OnExitPresent_ParamsDataView input_data_view(params, message);
       
@@ -666,7 +672,7 @@ std::move(p_visibility_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnExitPresent();
+      impl->OnExitPresent(        );
       return true;
     }
   }
@@ -1025,6 +1031,8 @@ bool XRRuntime_RequestSession_ForwardToCallback::Accept(
           internal::XRRuntime_RequestSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRRuntime.0
   bool success = true;
   XRRuntimeSessionResultPtr p_session{};
   XRRuntime_RequestSession_ResponseParamsDataView input_data_view(params, message);
@@ -1150,6 +1158,8 @@ bool XRRuntime_ShutdownSession_ForwardToCallback::Accept(
           internal::XRRuntime_ShutdownSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for XRRuntime.1
   bool success = true;
   XRRuntime_ShutdownSession_ResponseParamsDataView input_data_view(params, message);
   
@@ -1218,6 +1228,8 @@ bool XRRuntimeStubDispatch::Accept(
           reinterpret_cast<internal::XRRuntime_ListenToDeviceChanges_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRRuntime.2
       bool success = true;
       ::mojo::PendingAssociatedRemote<XRRuntimeEventListener> p_listener{};
       XRRuntime_ListenToDeviceChanges_ParamsDataView input_data_view(params, message);
@@ -1235,8 +1247,8 @@ bool XRRuntimeStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ListenToDeviceChanges(
-std::move(p_listener));
+      impl->ListenToDeviceChanges(        
+        std::move(p_listener));
       return true;
     }
   }
@@ -1259,6 +1271,8 @@ bool XRRuntimeStubDispatch::AcceptWithResponder(
               internal::XRRuntime_RequestSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRRuntime.0
       bool success = true;
       XRRuntimeSessionOptionsPtr p_options{};
       XRRuntime_RequestSession_ParamsDataView input_data_view(params, message);
@@ -1277,8 +1291,8 @@ bool XRRuntimeStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestSession(
-std::move(p_options), std::move(callback));
+      impl->RequestSession(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kXRRuntime_ShutdownSession_Name: {
@@ -1288,6 +1302,8 @@ std::move(p_options), std::move(callback));
               internal::XRRuntime_ShutdownSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for XRRuntime.1
       bool success = true;
       XRRuntime_ShutdownSession_ParamsDataView input_data_view(params, message);
       
@@ -1762,6 +1778,8 @@ bool ImmersiveOverlay_RequestNextOverlayPose_ForwardToCallback::Accept(
           internal::ImmersiveOverlay_RequestNextOverlayPose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImmersiveOverlay.0
   bool success = true;
   XRRenderInfoPtr p_render_info{};
   ImmersiveOverlay_RequestNextOverlayPose_ResponseParamsDataView input_data_view(params, message);
@@ -1891,6 +1909,8 @@ bool ImmersiveOverlay_SubmitOverlayTexture_ForwardToCallback::Accept(
           internal::ImmersiveOverlay_SubmitOverlayTexture_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImmersiveOverlay.1
   bool success = true;
   bool p_success{};
   ImmersiveOverlay_SubmitOverlayTexture_ResponseParamsDataView input_data_view(params, message);
@@ -2010,6 +2030,8 @@ bool ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_ForwardToCallback::Acc
           internal::ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ImmersiveOverlay.3
   bool success = true;
   ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_ResponseParamsDataView input_data_view(params, message);
   
@@ -2078,6 +2100,8 @@ bool ImmersiveOverlayStubDispatch::Accept(
           reinterpret_cast<internal::ImmersiveOverlay_SetOverlayAndWebXRVisibility_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ImmersiveOverlay.2
       bool success = true;
       bool p_overlay_visible{};
       bool p_webxr_visible{};
@@ -2096,9 +2120,9 @@ bool ImmersiveOverlayStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOverlayAndWebXRVisibility(
-std::move(p_overlay_visible), 
-std::move(p_webxr_visible));
+      impl->SetOverlayAndWebXRVisibility(        
+        std::move(p_overlay_visible), 
+        std::move(p_webxr_visible));
       return true;
     }
     case internal::kImmersiveOverlay_RequestNotificationOnWebXrSubmitted_Name: {
@@ -2124,6 +2148,8 @@ bool ImmersiveOverlayStubDispatch::AcceptWithResponder(
               internal::ImmersiveOverlay_RequestNextOverlayPose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImmersiveOverlay.0
       bool success = true;
       ImmersiveOverlay_RequestNextOverlayPose_ParamsDataView input_data_view(params, message);
       
@@ -2149,6 +2175,8 @@ bool ImmersiveOverlayStubDispatch::AcceptWithResponder(
               internal::ImmersiveOverlay_SubmitOverlayTexture_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImmersiveOverlay.1
       bool success = true;
       int16_t p_frame_id{};
       ::mojo::PlatformHandle p_texture{};
@@ -2179,12 +2207,12 @@ bool ImmersiveOverlayStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitOverlayTexture(
-std::move(p_frame_id), 
-std::move(p_texture), 
-std::move(p_sync_token), 
-std::move(p_left_bounds), 
-std::move(p_right_bounds), std::move(callback));
+      impl->SubmitOverlayTexture(        
+        std::move(p_frame_id), 
+        std::move(p_texture), 
+        std::move(p_sync_token), 
+        std::move(p_left_bounds), 
+        std::move(p_right_bounds), std::move(callback));
       return true;
     }
     case internal::kImmersiveOverlay_SetOverlayAndWebXRVisibility_Name: {
@@ -2197,6 +2225,8 @@ std::move(p_right_bounds), std::move(callback));
               internal::ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ImmersiveOverlay.3
       bool success = true;
       ImmersiveOverlay_RequestNotificationOnWebXrSubmitted_ParamsDataView input_data_view(params, message);
       
@@ -2357,6 +2387,8 @@ bool XRCompositorHostStubDispatch::Accept(
           reinterpret_cast<internal::XRCompositorHost_CreateImmersiveOverlay_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRCompositorHost.0
       bool success = true;
       ::mojo::PendingReceiver<ImmersiveOverlay> p_overlay{};
       XRCompositorHost_CreateImmersiveOverlay_ParamsDataView input_data_view(params, message);
@@ -2374,8 +2406,8 @@ bool XRCompositorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateImmersiveOverlay(
-std::move(p_overlay));
+      impl->CreateImmersiveOverlay(        
+        std::move(p_overlay));
       return true;
     }
   }
@@ -2669,6 +2701,8 @@ bool IsolatedXRRuntimeProviderClientStubDispatch::Accept(
           reinterpret_cast<internal::IsolatedXRRuntimeProviderClient_OnDeviceAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IsolatedXRRuntimeProviderClient.0
       bool success = true;
       ::mojo::PendingRemote<XRRuntime> p_runtime{};
       ::mojo::PendingRemote<XRCompositorHost> p_compositor_host{};
@@ -2697,11 +2731,11 @@ bool IsolatedXRRuntimeProviderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceAdded(
-std::move(p_runtime), 
-std::move(p_compositor_host), 
-std::move(p_device_data), 
-std::move(p_device_id));
+      impl->OnDeviceAdded(        
+        std::move(p_runtime), 
+        std::move(p_compositor_host), 
+        std::move(p_device_data), 
+        std::move(p_device_id));
       return true;
     }
     case internal::kIsolatedXRRuntimeProviderClient_OnDeviceRemoved_Name: {
@@ -2711,6 +2745,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::IsolatedXRRuntimeProviderClient_OnDeviceRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IsolatedXRRuntimeProviderClient.1
       bool success = true;
       ::device::mojom::XRDeviceId p_device_index{};
       IsolatedXRRuntimeProviderClient_OnDeviceRemoved_ParamsDataView input_data_view(params, message);
@@ -2726,8 +2762,8 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceRemoved(
-std::move(p_device_index));
+      impl->OnDeviceRemoved(        
+        std::move(p_device_index));
       return true;
     }
     case internal::kIsolatedXRRuntimeProviderClient_OnDevicesEnumerated_Name: {
@@ -2737,6 +2773,8 @@ std::move(p_device_index));
           reinterpret_cast<internal::IsolatedXRRuntimeProviderClient_OnDevicesEnumerated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IsolatedXRRuntimeProviderClient.2
       bool success = true;
       IsolatedXRRuntimeProviderClient_OnDevicesEnumerated_ParamsDataView input_data_view(params, message);
       
@@ -2749,7 +2787,7 @@ std::move(p_device_index));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicesEnumerated();
+      impl->OnDevicesEnumerated(        );
       return true;
     }
   }
@@ -2910,6 +2948,8 @@ bool IsolatedXRRuntimeProviderStubDispatch::Accept(
           reinterpret_cast<internal::IsolatedXRRuntimeProvider_RequestDevices_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IsolatedXRRuntimeProvider.0
       bool success = true;
       ::mojo::PendingRemote<IsolatedXRRuntimeProviderClient> p_client{};
       IsolatedXRRuntimeProvider_RequestDevices_ParamsDataView input_data_view(params, message);
@@ -2927,8 +2967,8 @@ bool IsolatedXRRuntimeProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestDevices(
-std::move(p_client));
+      impl->RequestDevices(        
+        std::move(p_client));
       return true;
     }
   }
@@ -3154,6 +3194,8 @@ bool XRDeviceServiceStubDispatch::Accept(
           reinterpret_cast<internal::XRDeviceService_BindRuntimeProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRDeviceService.0
       bool success = true;
       ::mojo::PendingReceiver<IsolatedXRRuntimeProvider> p_receiver{};
       ::mojo::PendingRemote<XRDeviceServiceHost> p_host{};
@@ -3176,9 +3218,9 @@ bool XRDeviceServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRuntimeProvider(
-std::move(p_receiver), 
-std::move(p_host));
+      impl->BindRuntimeProvider(        
+        std::move(p_receiver), 
+        std::move(p_host));
       return true;
     }
     case internal::kXRDeviceService_BindTestHook_Name: {
@@ -3188,6 +3230,8 @@ std::move(p_host));
           reinterpret_cast<internal::XRDeviceService_BindTestHook_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRDeviceService.1
       bool success = true;
       ::mojo::PendingReceiver<::device_test::mojom::XRServiceTestHook> p_receiver{};
       XRDeviceService_BindTestHook_ParamsDataView input_data_view(params, message);
@@ -3205,8 +3249,8 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestHook(
-std::move(p_receiver));
+      impl->BindTestHook(        
+        std::move(p_receiver));
       return true;
     }
   }
@@ -3362,6 +3406,8 @@ bool XRDeviceServiceHostStubDispatch::Accept(
           reinterpret_cast<internal::XRDeviceServiceHost_BindGpu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for XRDeviceServiceHost.0
       bool success = true;
       ::mojo::PendingReceiver<::viz::mojom::Gpu> p_receiver{};
       XRDeviceServiceHost_BindGpu_ParamsDataView input_data_view(params, message);
@@ -3379,8 +3425,8 @@ bool XRDeviceServiceHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGpu(
-std::move(p_receiver));
+      impl->BindGpu(        
+        std::move(p_receiver));
       return true;
     }
   }

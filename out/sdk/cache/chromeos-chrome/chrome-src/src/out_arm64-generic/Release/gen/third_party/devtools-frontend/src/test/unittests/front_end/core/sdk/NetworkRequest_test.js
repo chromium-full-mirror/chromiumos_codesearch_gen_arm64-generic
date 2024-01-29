@@ -6,7 +6,8 @@ import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Platform from '../../../../../front_end/core/platform/platform.js';
 import { expectCookie } from '../../helpers/Cookies.js';
 import { createTarget } from '../../helpers/EnvironmentHelpers.js';
-import { describeWithMockConnection } from '../../helpers/MockConnection.js';
+import { describeWithMockConnection, setMockConnectionResponseHandler } from '../../helpers/MockConnection.js';
+import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 describe('NetworkRequest', () => {
     it('can parse statusText from the first line of responseReceivedExtraInfo\'s headersText', () => {
         assert.strictEqual(SDK.NetworkRequest.NetworkRequest.parseStatusTextFromResponseHeadersText('HTTP/1.1 304 not modified'), 'not modified');
@@ -47,13 +48,13 @@ describe('NetworkRequest', () => {
         const request = SDK.NetworkRequest.NetworkRequest.createWithoutBackendRequest('requestId', 'url', 'documentURL', null);
         request.addExtraResponseInfo({
             blockedResponseCookies: [],
-            responseHeaders: [{ name: 'Set-Cookie', value: 'foo=bar' }, { name: 'Set-Cookie', value: 'baz=qux' }],
+            responseHeaders: [{ name: 'Set-Cookie', value: 'foo=bar' }, { name: 'Set-Cookie', value: 'baz=qux; Secure;Partitioned' }],
             resourceIPAddressSpace: 'Public',
             cookiePartitionKey: 'partitionKey',
         });
         assert.strictEqual(request.responseCookies.length, 2);
-        expectCookie(request.responseCookies[0], { name: 'foo', value: 'bar', partitionKey: 'partitionKey', size: 8 });
-        expectCookie(request.responseCookies[1], { name: 'baz', value: 'qux', partitionKey: 'partitionKey', size: 7 });
+        expectCookie(request.responseCookies[0], { name: 'foo', value: 'bar', size: 8 });
+        expectCookie(request.responseCookies[1], { name: 'baz', value: 'qux', secure: true, partitionKey: 'partitionKey', size: 27 });
     });
     it('determines whether the response headers have been overridden', () => {
         const request = SDK.NetworkRequest.NetworkRequest.createWithoutBackendRequest('requestId', 'url', 'documentURL', null);
@@ -125,14 +126,24 @@ describe('NetworkRequest', () => {
     });
 });
 describeWithMockConnection('NetworkRequest', () => {
-    it('adds blocked cookies to cookieModel', () => {
+    let networkManagerForRequestStub;
+    let cookie;
+    let addBlockedCookieSpy;
+    let networkDispatcher;
+    beforeEach(() => {
         const target = createTarget();
         const networkManager = target.model(SDK.NetworkManager.NetworkManager);
-        const networkManagerForRequestStub = sinon.stub(SDK.NetworkManager.NetworkManager, 'forRequest').returns(networkManager);
-        const cookie = new SDK.Cookie.Cookie('name', 'value');
+        networkDispatcher = new SDK.NetworkManager.NetworkDispatcher(networkManager);
+        networkManagerForRequestStub = sinon.stub(SDK.NetworkManager.NetworkManager, 'forRequest').returns(networkManager);
+        cookie = new SDK.Cookie.Cookie('name', 'value');
         const cookieModel = target.model(SDK.CookieModel.CookieModel);
         Platform.assertNotNullOrUndefined(cookieModel);
-        const addBlockedCookieSpy = sinon.spy(cookieModel, 'addBlockedCookie');
+        addBlockedCookieSpy = sinon.spy(cookieModel, 'addBlockedCookie');
+    });
+    afterEach(() => {
+        networkManagerForRequestStub.restore();
+    });
+    it('adds blocked response cookies to cookieModel', () => {
         const request = SDK.NetworkRequest.NetworkRequest.create('requestId', 'url', 'documentURL', null, null, null);
         request.addExtraResponseInfo({
             responseHeaders: [{ name: 'Set-Cookie', value: 'name=value; Path=/' }],
@@ -150,7 +161,126 @@ describeWithMockConnection('NetworkRequest', () => {
                 attribute: null,
                 uiString: 'Setting this cookie was blocked due to third-party cookie phaseout. Learn more in the Issues tab.',
             }]));
-        networkManagerForRequestStub.restore();
+    });
+    it('adds blocked request cookies to cookieModel', () => {
+        const requestWillBeSentEvent = { requestId: 'requestId', request: { url: 'example.com' } };
+        networkDispatcher.requestWillBeSent(requestWillBeSentEvent);
+        const request = networkDispatcher.requestForId('requestId');
+        Platform.assertNotNullOrUndefined(request);
+        request.addExtraRequestInfo({
+            blockedRequestCookies: [{ blockedReasons: ["SameSiteLax" /* Protocol.Network.CookieBlockedReason.SameSiteLax */], cookie }],
+            requestHeaders: [],
+            includedRequestCookies: [],
+            connectTiming: { requestTime: 42 },
+        });
+        networkDispatcher.loadingFinished({ requestId: 'requestId', timestamp: 42, encodedDataLength: 42 });
+        assert.isTrue(addBlockedCookieSpy.calledOnceWith(cookie, [
+            {
+                attribute: "same-site" /* SDK.Cookie.Attributes.SameSite */,
+                uiString: 'This cookie was blocked because it had the "SameSite=Lax" attribute and the request was made from a different site and was not initiated by a top-level navigation.',
+            },
+        ]));
+    });
+});
+describeWithMockConnection('ServerSentEvents', () => {
+    let target;
+    let networkManager;
+    beforeEach(() => {
+        target = createTarget();
+        networkManager = target.model(SDK.NetworkManager.NetworkManager);
+    });
+    it('sends EventSourceMessageAdded events for EventSource text/event-stream', () => {
+        networkManager.dispatcher.requestWillBeSent({
+            requestId: '1',
+            request: {
+                url: 'https://example.com/sse',
+            },
+            type: 'EventSource',
+        });
+        networkManager.dispatcher.responseReceived({
+            requestId: '1',
+            response: {
+                url: 'https://example.com/sse',
+                mimeType: 'text/event-stream',
+            },
+        });
+        const request = networkManager.requestForId('1');
+        assertNotNullOrUndefined(request);
+        const networkEvents = [];
+        request.addEventListener(SDK.NetworkRequest.Events.EventSourceMessageAdded, ({ data }) => networkEvents.push(data));
+        networkManager.dispatcher.eventSourceMessageReceived({
+            requestId: '1',
+            timestamp: 21,
+            data: 'foo',
+            eventId: 'fooId',
+            eventName: 'fooName',
+        });
+        networkManager.dispatcher.eventSourceMessageReceived({
+            requestId: '1',
+            timestamp: 42,
+            data: 'bar',
+            eventId: 'barId',
+            eventName: 'barName',
+        });
+        assert.lengthOf(networkEvents, 2);
+        assert.deepStrictEqual(networkEvents[0], { data: 'foo', eventId: 'fooId', eventName: 'fooName', time: 21 });
+        assert.deepStrictEqual(networkEvents[1], { data: 'bar', eventId: 'barId', eventName: 'barName', time: 42 });
+    });
+    it('sends EventSourceMessageAdded events for raw text/event-stream', async () => {
+        setMockConnectionResponseHandler('Network.streamResourceContent', () => ({
+            getError() {
+                return undefined;
+            },
+            bufferedData: '',
+        }));
+        networkManager.dispatcher.requestWillBeSent({
+            requestId: '1',
+            request: {
+                url: 'https://example.com/sse',
+            },
+            type: 'Fetch',
+        });
+        networkManager.dispatcher.responseReceived({
+            requestId: '1',
+            response: {
+                url: 'https://example.com/sse',
+                mimeType: 'text/event-stream',
+            },
+        });
+        const request = networkManager.requestForId('1');
+        assertNotNullOrUndefined(request);
+        const networkEvents = [];
+        const { promise: twoEventsReceivedPromise, resolve } = Platform.PromiseUtilities.promiseWithResolvers();
+        request.addEventListener(SDK.NetworkRequest.Events.EventSourceMessageAdded, ({ data }) => {
+            networkEvents.push(data);
+            if (networkEvents.length === 2) {
+                resolve();
+            }
+        });
+        const message = `
+id: fooId
+event: fooName
+data: foo
+
+id: barId
+event: barName
+data: bar\n\n`;
+        // Send `message` piecemeal via dataReceived events.
+        let time = 0;
+        for (const c of message) {
+            networkManager.dispatcher.dataReceived({
+                requestId: '1',
+                dataLength: 1,
+                encodedDataLength: 1,
+                timestamp: time++,
+                data: window.btoa(c),
+            });
+        }
+        await twoEventsReceivedPromise;
+        // Omit time from expectation as the dataReceived loop is racing against the text decoder.
+        assert.lengthOf(networkEvents, 2);
+        assert.deepInclude(networkEvents[0], { data: 'foo', eventId: 'fooId', eventName: 'fooName' });
+        assert.deepInclude(networkEvents[1], { data: 'bar', eventId: 'barId', eventName: 'barName' });
     });
 });
 //# sourceMappingURL=NetworkRequest_test.js.map

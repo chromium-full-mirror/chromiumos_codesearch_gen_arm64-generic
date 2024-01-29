@@ -226,6 +226,8 @@ bool QuickStartDecoder_DecodeQuickStartMessage_ForwardToCallback::Accept(
           internal::QuickStartDecoder_DecodeQuickStartMessage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for QuickStartDecoder.0
   bool success = true;
   ::ash::quick_start::mojom::QuickStartMessagePtr p_result{};
   std::optional<::ash::quick_start::mojom::QuickStartDecoderError> p_error{};
@@ -336,6 +338,8 @@ bool QuickStartDecoderStubDispatch::AcceptWithResponder(
               internal::QuickStartDecoder_DecodeQuickStartMessage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for QuickStartDecoder.0
       bool success = true;
       std::optional<std::vector<uint8_t>> p_data{};
       QuickStartDecoder_DecodeQuickStartMessage_ParamsDataView input_data_view(params, message);
@@ -354,8 +358,8 @@ bool QuickStartDecoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecodeQuickStartMessage(
-std::move(p_data), std::move(callback));
+      impl->DecodeQuickStartMessage(        
+        std::move(p_data), std::move(callback));
       return true;
     }
   }

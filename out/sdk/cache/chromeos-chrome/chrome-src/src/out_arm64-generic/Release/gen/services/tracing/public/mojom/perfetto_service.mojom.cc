@@ -59,7 +59,6 @@ const char kSystemTraceDataSourceName[] = "org.chromium.trace_system";
 const char kArcTraceDataSourceName[] = "org.chromium.trace_arc";
 const char kSamplerProfilerSourceName[] = "org.chromium.sampler_profiler";
 const char kJavaHeapProfilerSourceName[] = "org.chromium.java_heap_profiler";
-const char kReachedCodeProfilerSourceName[] = "org.chromium.reached_code_profiler";
 const char kNativeHeapProfilerSourceName[] = "org.chromium.native_heap_profiler";
 ChunksToMove::ChunksToMove()
     : page(),
@@ -1271,6 +1270,8 @@ bool ProducerHost_CommitData_ForwardToCallback::Accept(
           internal::ProducerHost_CommitData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProducerHost.0
   bool success = true;
   ProducerHost_CommitData_ResponseParamsDataView input_data_view(params, message);
   
@@ -1336,6 +1337,8 @@ bool ProducerHostStubDispatch::Accept(
           reinterpret_cast<internal::ProducerHost_RegisterDataSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProducerHost.1
       bool success = true;
       ::perfetto::DataSourceDescriptor p_registration_info{};
       ProducerHost_RegisterDataSource_ParamsDataView input_data_view(params, message);
@@ -1351,8 +1354,8 @@ bool ProducerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterDataSource(
-std::move(p_registration_info));
+      impl->RegisterDataSource(        
+        std::move(p_registration_info));
       return true;
     }
     case internal::kProducerHost_RegisterTraceWriter_Name: {
@@ -1362,6 +1365,8 @@ std::move(p_registration_info));
           reinterpret_cast<internal::ProducerHost_RegisterTraceWriter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProducerHost.2
       bool success = true;
       uint32_t p_writer_id{};
       uint32_t p_target_buffer{};
@@ -1380,9 +1385,9 @@ std::move(p_registration_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterTraceWriter(
-std::move(p_writer_id), 
-std::move(p_target_buffer));
+      impl->RegisterTraceWriter(        
+        std::move(p_writer_id), 
+        std::move(p_target_buffer));
       return true;
     }
     case internal::kProducerHost_UnregisterTraceWriter_Name: {
@@ -1392,6 +1397,8 @@ std::move(p_target_buffer));
           reinterpret_cast<internal::ProducerHost_UnregisterTraceWriter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProducerHost.3
       bool success = true;
       uint32_t p_writer_id{};
       ProducerHost_UnregisterTraceWriter_ParamsDataView input_data_view(params, message);
@@ -1407,8 +1414,8 @@ std::move(p_target_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnregisterTraceWriter(
-std::move(p_writer_id));
+      impl->UnregisterTraceWriter(        
+        std::move(p_writer_id));
       return true;
     }
   }
@@ -1431,6 +1438,8 @@ bool ProducerHostStubDispatch::AcceptWithResponder(
               internal::ProducerHost_CommitData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProducerHost.0
       bool success = true;
       ::perfetto::CommitDataRequest p_data_request{};
       ProducerHost_CommitData_ParamsDataView input_data_view(params, message);
@@ -1449,8 +1458,8 @@ bool ProducerHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CommitData(
-std::move(p_data_request), std::move(callback));
+      impl->CommitData(        
+        std::move(p_data_request), std::move(callback));
       return true;
     }
     case internal::kProducerHost_RegisterDataSource_Name: {
@@ -1936,6 +1945,8 @@ bool ProducerClient_StartDataSource_ForwardToCallback::Accept(
           internal::ProducerClient_StartDataSource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProducerClient.1
   bool success = true;
   ProducerClient_StartDataSource_ResponseParamsDataView input_data_view(params, message);
   
@@ -2043,6 +2054,8 @@ bool ProducerClient_StopDataSource_ForwardToCallback::Accept(
           internal::ProducerClient_StopDataSource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ProducerClient.2
   bool success = true;
   ProducerClient_StopDataSource_ResponseParamsDataView input_data_view(params, message);
   
@@ -2105,6 +2118,8 @@ bool ProducerClientStubDispatch::Accept(
           reinterpret_cast<internal::ProducerClient_OnTracingStart_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProducerClient.0
       bool success = true;
       ProducerClient_OnTracingStart_ParamsDataView input_data_view(params, message);
       
@@ -2117,7 +2132,7 @@ bool ProducerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTracingStart();
+      impl->OnTracingStart(        );
       return true;
     }
     case internal::kProducerClient_StartDataSource_Name: {
@@ -2133,6 +2148,8 @@ bool ProducerClientStubDispatch::Accept(
           reinterpret_cast<internal::ProducerClient_Flush_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProducerClient.3
       bool success = true;
       uint64_t p_flush_request_id{};
       std::vector<uint64_t> p_data_source_ids{};
@@ -2151,9 +2168,9 @@ bool ProducerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Flush(
-std::move(p_flush_request_id), 
-std::move(p_data_source_ids));
+      impl->Flush(        
+        std::move(p_flush_request_id), 
+        std::move(p_data_source_ids));
       return true;
     }
     case internal::kProducerClient_ClearIncrementalState_Name: {
@@ -2163,6 +2180,8 @@ std::move(p_data_source_ids));
           reinterpret_cast<internal::ProducerClient_ClearIncrementalState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProducerClient.4
       bool success = true;
       ProducerClient_ClearIncrementalState_ParamsDataView input_data_view(params, message);
       
@@ -2175,7 +2194,7 @@ std::move(p_data_source_ids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearIncrementalState();
+      impl->ClearIncrementalState(        );
       return true;
     }
   }
@@ -2201,6 +2220,8 @@ bool ProducerClientStubDispatch::AcceptWithResponder(
               internal::ProducerClient_StartDataSource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProducerClient.1
       bool success = true;
       uint64_t p_id{};
       ::perfetto::DataSourceConfig p_data_source_config{};
@@ -2222,9 +2243,9 @@ bool ProducerClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDataSource(
-std::move(p_id), 
-std::move(p_data_source_config), std::move(callback));
+      impl->StartDataSource(        
+        std::move(p_id), 
+        std::move(p_data_source_config), std::move(callback));
       return true;
     }
     case internal::kProducerClient_StopDataSource_Name: {
@@ -2234,6 +2255,8 @@ std::move(p_data_source_config), std::move(callback));
               internal::ProducerClient_StopDataSource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ProducerClient.2
       bool success = true;
       uint64_t p_id{};
       ProducerClient_StopDataSource_ParamsDataView input_data_view(params, message);
@@ -2252,8 +2275,8 @@ std::move(p_data_source_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopDataSource(
-std::move(p_id), std::move(callback));
+      impl->StopDataSource(        
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kProducerClient_Flush_Name: {
@@ -2433,6 +2456,8 @@ bool PerfettoServiceStubDispatch::Accept(
           reinterpret_cast<internal::PerfettoService_ConnectToProducerHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PerfettoService.0
       bool success = true;
       ::mojo::PendingRemote<ProducerClient> p_producer_client{};
       ::mojo::PendingReceiver<ProducerHost> p_producer_host_receiver{};
@@ -2461,11 +2486,11 @@ bool PerfettoServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToProducerHost(
-std::move(p_producer_client), 
-std::move(p_producer_host_receiver), 
-std::move(p_shared_memory), 
-std::move(p_shared_memory_buffer_page_size_bytes));
+      impl->ConnectToProducerHost(        
+        std::move(p_producer_client), 
+        std::move(p_producer_host_receiver), 
+        std::move(p_shared_memory), 
+        std::move(p_shared_memory_buffer_page_size_bytes));
       return true;
     }
   }
@@ -2649,6 +2674,8 @@ bool ConsumerHostStubDispatch::Accept(
           reinterpret_cast<internal::ConsumerHost_EnableTracing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConsumerHost.0
       bool success = true;
       ::mojo::PendingReceiver<TracingSessionHost> p_tracing_session_host{};
       ::mojo::PendingRemote<TracingSessionClient> p_tracing_session_client{};
@@ -2677,11 +2704,11 @@ bool ConsumerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableTracing(
-std::move(p_tracing_session_host), 
-std::move(p_tracing_session_client), 
-std::move(p_config), 
-std::move(p_output_file));
+      impl->EnableTracing(        
+        std::move(p_tracing_session_host), 
+        std::move(p_tracing_session_client), 
+        std::move(p_config), 
+        std::move(p_output_file));
       return true;
     }
   }
@@ -3189,6 +3216,8 @@ bool TracingSessionHost_ReadBuffers_ForwardToCallback::Accept(
           internal::TracingSessionHost_ReadBuffers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracingSessionHost.2
   bool success = true;
   TracingSessionHost_ReadBuffers_ResponseParamsDataView input_data_view(params, message);
   
@@ -3296,6 +3325,8 @@ bool TracingSessionHost_RequestBufferUsage_ForwardToCallback::Accept(
           internal::TracingSessionHost_RequestBufferUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracingSessionHost.3
   bool success = true;
   bool p_success{};
   float p_percent_full{};
@@ -3431,6 +3462,8 @@ bool TracingSessionHost_DisableTracingAndEmitJson_ForwardToCallback::Accept(
           internal::TracingSessionHost_DisableTracingAndEmitJson_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TracingSessionHost.4
   bool success = true;
   TracingSessionHost_DisableTracingAndEmitJson_ResponseParamsDataView input_data_view(params, message);
   
@@ -3493,6 +3526,8 @@ bool TracingSessionHostStubDispatch::Accept(
           reinterpret_cast<internal::TracingSessionHost_ChangeTraceConfig_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingSessionHost.0
       bool success = true;
       ::perfetto::TraceConfig p_config{};
       TracingSessionHost_ChangeTraceConfig_ParamsDataView input_data_view(params, message);
@@ -3508,8 +3543,8 @@ bool TracingSessionHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChangeTraceConfig(
-std::move(p_config));
+      impl->ChangeTraceConfig(        
+        std::move(p_config));
       return true;
     }
     case internal::kTracingSessionHost_DisableTracing_Name: {
@@ -3519,6 +3554,8 @@ std::move(p_config));
           reinterpret_cast<internal::TracingSessionHost_DisableTracing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingSessionHost.1
       bool success = true;
       TracingSessionHost_DisableTracing_ParamsDataView input_data_view(params, message);
       
@@ -3531,7 +3568,7 @@ std::move(p_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableTracing();
+      impl->DisableTracing(        );
       return true;
     }
     case internal::kTracingSessionHost_ReadBuffers_Name: {
@@ -3569,6 +3606,8 @@ bool TracingSessionHostStubDispatch::AcceptWithResponder(
               internal::TracingSessionHost_ReadBuffers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracingSessionHost.2
       bool success = true;
       ::mojo::ScopedDataPipeProducerHandle p_stream{};
       TracingSessionHost_ReadBuffers_ParamsDataView input_data_view(params, message);
@@ -3587,8 +3626,8 @@ bool TracingSessionHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadBuffers(
-std::move(p_stream), std::move(callback));
+      impl->ReadBuffers(        
+        std::move(p_stream), std::move(callback));
       return true;
     }
     case internal::kTracingSessionHost_RequestBufferUsage_Name: {
@@ -3598,6 +3637,8 @@ std::move(p_stream), std::move(callback));
               internal::TracingSessionHost_RequestBufferUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracingSessionHost.3
       bool success = true;
       TracingSessionHost_RequestBufferUsage_ParamsDataView input_data_view(params, message);
       
@@ -3623,6 +3664,8 @@ std::move(p_stream), std::move(callback));
               internal::TracingSessionHost_DisableTracingAndEmitJson_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TracingSessionHost.4
       bool success = true;
       std::string p_agent_label_filter{};
       ::mojo::ScopedDataPipeProducerHandle p_stream{};
@@ -3647,10 +3690,10 @@ std::move(p_stream), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableTracingAndEmitJson(
-std::move(p_agent_label_filter), 
-std::move(p_stream), 
-std::move(p_privacy_filtering_enabled), std::move(callback));
+      impl->DisableTracingAndEmitJson(        
+        std::move(p_agent_label_filter), 
+        std::move(p_stream), 
+        std::move(p_privacy_filtering_enabled), std::move(callback));
       return true;
     }
   }
@@ -3845,6 +3888,8 @@ bool TracingSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::TracingSessionClient_OnTracingEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingSessionClient.0
       bool success = true;
       TracingSessionClient_OnTracingEnabled_ParamsDataView input_data_view(params, message);
       
@@ -3857,7 +3902,7 @@ bool TracingSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTracingEnabled();
+      impl->OnTracingEnabled(        );
       return true;
     }
     case internal::kTracingSessionClient_OnTracingDisabled_Name: {
@@ -3867,6 +3912,8 @@ bool TracingSessionClientStubDispatch::Accept(
           reinterpret_cast<internal::TracingSessionClient_OnTracingDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TracingSessionClient.1
       bool success = true;
       bool p_tracing_succeeded{};
       TracingSessionClient_OnTracingDisabled_ParamsDataView input_data_view(params, message);
@@ -3882,8 +3929,8 @@ bool TracingSessionClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTracingDisabled(
-std::move(p_tracing_succeeded));
+      impl->OnTracingDisabled(        
+        std::move(p_tracing_succeeded));
       return true;
     }
   }

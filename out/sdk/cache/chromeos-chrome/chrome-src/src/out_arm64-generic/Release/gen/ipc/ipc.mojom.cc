@@ -339,6 +339,8 @@ bool ChannelStubDispatch::Accept(
           reinterpret_cast<internal::Channel_SetPeerPid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Channel.0
       bool success = true;
       int32_t p_pid{};
       Channel_SetPeerPid_ParamsDataView input_data_view(params, message);
@@ -354,8 +356,8 @@ bool ChannelStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPeerPid(
-std::move(p_pid));
+      impl->SetPeerPid(        
+        std::move(p_pid));
       return true;
     }
     case internal::kChannel_Receive_Name: {
@@ -365,6 +367,8 @@ std::move(p_pid));
           reinterpret_cast<internal::Channel_Receive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Channel.1
       bool success = true;
       ::IPC::MessageView p_message{};
       Channel_Receive_ParamsDataView input_data_view(params, message);
@@ -380,8 +384,8 @@ std::move(p_pid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Receive(
-std::move(p_message));
+      impl->Receive(        
+        std::move(p_message));
       return true;
     }
     case internal::kChannel_GetAssociatedInterface_Name: {
@@ -391,6 +395,8 @@ std::move(p_message));
           reinterpret_cast<internal::Channel_GetAssociatedInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Channel.2
       bool success = true;
       ::mojo::GenericPendingAssociatedReceiver p_receiver{};
       Channel_GetAssociatedInterface_ParamsDataView input_data_view(params, message);
@@ -406,8 +412,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAssociatedInterface(
-std::move(p_receiver));
+      impl->GetAssociatedInterface(        
+        std::move(p_receiver));
       return true;
     }
   }

@@ -61,6 +61,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleDisableResponse(base::OnceCallback<void(std::unique_ptr<DisableResult>)> callback, const base::Value& response);
   static void HandleSelectAccountResponse(base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)> callback, const base::Value& response);
   static void HandleClickDialogButtonResponse(base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback, const base::Value& response);
+  static void HandleOpenUrlResponse(base::OnceCallback<void(std::unique_ptr<OpenUrlResult>)> callback, const base::Value& response);
   static void HandleDismissDialogResponse(base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)> callback, const base::Value& response);
   static void HandleResetCooldownResponse(base::OnceCallback<void(std::unique_ptr<ResetCooldownResult>)> callback, const base::Value& response);
 
@@ -99,6 +100,8 @@ class ExperimentalDomain : public Domain {
   void SelectAccount(std::unique_ptr<SelectAccountParams> params, base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)> callback = base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)>());
 
   void ClickDialogButton(std::unique_ptr<ClickDialogButtonParams> params, base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)>());
+
+  void OpenUrl(std::unique_ptr<OpenUrlParams> params, base::OnceCallback<void(std::unique_ptr<OpenUrlResult>)> callback = base::OnceCallback<void(std::unique_ptr<OpenUrlResult>)>());
 
   void DismissDialog(std::unique_ptr<DismissDialogParams> params, base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)> callback = base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)>());
 

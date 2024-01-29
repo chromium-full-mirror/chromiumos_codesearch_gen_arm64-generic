@@ -403,6 +403,8 @@ bool ServiceWorkerFetchResponseCallbackStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerFetchResponseCallback_OnResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerFetchResponseCallback.0
       bool success = true;
       ::blink::mojom::FetchAPIResponsePtr p_response{};
       ServiceWorkerFetchEventTimingPtr p_timing{};
@@ -421,9 +423,9 @@ bool ServiceWorkerFetchResponseCallbackStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResponse(
-std::move(p_response), 
-std::move(p_timing));
+      impl->OnResponse(        
+        std::move(p_response), 
+        std::move(p_timing));
       return true;
     }
     case internal::kServiceWorkerFetchResponseCallback_OnResponseStream_Name: {
@@ -433,6 +435,8 @@ std::move(p_timing));
           reinterpret_cast<internal::ServiceWorkerFetchResponseCallback_OnResponseStream_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerFetchResponseCallback.1
       bool success = true;
       ::blink::mojom::FetchAPIResponsePtr p_response{};
       ::blink::mojom::ServiceWorkerStreamHandlePtr p_body_as_stream{};
@@ -454,10 +458,10 @@ std::move(p_timing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResponseStream(
-std::move(p_response), 
-std::move(p_body_as_stream), 
-std::move(p_timing));
+      impl->OnResponseStream(        
+        std::move(p_response), 
+        std::move(p_body_as_stream), 
+        std::move(p_timing));
       return true;
     }
     case internal::kServiceWorkerFetchResponseCallback_OnFallback_Name: {
@@ -467,6 +471,8 @@ std::move(p_timing));
           reinterpret_cast<internal::ServiceWorkerFetchResponseCallback_OnFallback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerFetchResponseCallback.2
       bool success = true;
       std::optional<::network::DataElementChunkedDataPipe> p_request_body{};
       ServiceWorkerFetchEventTimingPtr p_timing{};
@@ -485,9 +491,9 @@ std::move(p_timing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFallback(
-std::move(p_request_body), 
-std::move(p_timing));
+      impl->OnFallback(        
+        std::move(p_request_body), 
+        std::move(p_timing));
       return true;
     }
   }

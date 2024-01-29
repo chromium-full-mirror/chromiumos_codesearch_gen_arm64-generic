@@ -307,7 +307,7 @@ export class DeviceModeToolbar {
         toolbar.appendToolbarItem(this.scaleItem);
         toolbar.appendToolbarItem(this.wrapToolbarItem(this.createEmptyToolbarElement()));
         this.deviceScaleItem =
-            new UI.Toolbar.ToolbarMenuButton(this.appendDeviceScaleMenuItems.bind(this), undefined, 'devicePixelRatio');
+            new UI.Toolbar.ToolbarMenuButton(this.appendDeviceScaleMenuItems.bind(this), undefined, 'device-pixel-ratio');
         this.deviceScaleItem.setVisible(this.showDeviceScaleFactorSetting.get());
         setTitleForButton(this.deviceScaleItem, i18nString(UIStrings.devicePixelRatio));
         this.deviceScaleItem.setGlyph('');
@@ -328,17 +328,17 @@ export class DeviceModeToolbar {
     }
     fillModeToolbar(toolbar) {
         toolbar.appendToolbarItem(this.wrapToolbarItem(this.createEmptyToolbarElement()));
-        this.modeButton = new UI.Toolbar.ToolbarButton('', 'screen-rotation', undefined, 'screenRotation');
-        this.modeButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.modeMenuClicked, this);
+        this.modeButton = new UI.Toolbar.ToolbarButton('', 'screen-rotation', undefined, 'screen-rotation');
+        this.modeButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.modeMenuClicked, this);
         toolbar.appendToolbarItem(this.modeButton);
         // Show dual screen toolbar.
-        this.spanButton = new UI.Toolbar.ToolbarButton('', 'device-fold', undefined, 'deviceFold');
-        this.spanButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.spanClicked, this);
+        this.spanButton = new UI.Toolbar.ToolbarButton('', 'device-fold', undefined, 'device-fold');
+        this.spanButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.spanClicked, this);
         toolbar.appendToolbarItem(this.spanButton);
         // Show posture toolbar menu for foldable devices.
         toolbar.appendToolbarItem(this.wrapToolbarItem(this.createEmptyToolbarElement()));
         this.postureItem =
-            new UI.Toolbar.ToolbarMenuButton(this.appendDevicePostureItems.bind(this), undefined, 'devicePosture');
+            new UI.Toolbar.ToolbarMenuButton(this.appendDevicePostureItems.bind(this), undefined, 'device-posture');
         this.postureItem.setGlyph('');
         this.postureItem.turnIntoSelect();
         this.postureItem.setDarkText();
@@ -354,7 +354,7 @@ export class DeviceModeToolbar {
         this.experimentalButton = new UI.Toolbar.ToolbarToggle(title, 'experiment-check');
         this.experimentalButton.setToggled(this.model.webPlatformExperimentalFeaturesEnabled());
         this.experimentalButton.setEnabled(true);
-        this.experimentalButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.experimentalClicked, this);
+        this.experimentalButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.experimentalClicked, this);
         toolbar.appendToolbarItem(this.experimentalButton);
     }
     experimentalClicked() {
@@ -362,7 +362,7 @@ export class DeviceModeToolbar {
     }
     fillOptionsToolbar(toolbar) {
         toolbar.appendToolbarItem(this.wrapToolbarItem(this.createEmptyToolbarElement()));
-        const moreOptionsButton = new UI.Toolbar.ToolbarMenuButton(this.appendOptionsMenuItems.bind(this), undefined, 'moreOptions');
+        const moreOptionsButton = new UI.Toolbar.ToolbarMenuButton(this.appendOptionsMenuItems.bind(this), undefined, 'more-options');
         setTitleForButton(moreOptionsButton, i18nString(UIStrings.moreOptions));
         toolbar.appendToolbarItem(moreOptionsButton);
     }
@@ -382,9 +382,9 @@ export class DeviceModeToolbar {
     }
     appendScaleMenuItems(contextMenu) {
         if (this.model.type() === EmulationModel.DeviceModeModel.Type.Device) {
-            contextMenu.footerSection().appendItem(i18nString(UIStrings.fitToWindowF, { PH1: this.getPrettyFitZoomPercentage() }), this.onScaleMenuChanged.bind(this, this.model.fitScale()), { jslogContext: 'fitToWindow' });
+            contextMenu.footerSection().appendItem(i18nString(UIStrings.fitToWindowF, { PH1: this.getPrettyFitZoomPercentage() }), this.onScaleMenuChanged.bind(this, this.model.fitScale()), { jslogContext: 'fit-to-window' });
         }
-        contextMenu.footerSection().appendCheckboxItem(i18nString(UIStrings.autoadjustZoom), this.onAutoAdjustScaleChanged.bind(this), this.autoAdjustScaleSetting.get(), undefined, undefined, undefined, 'autoAdjustZoom');
+        contextMenu.footerSection().appendCheckboxItem(i18nString(UIStrings.autoadjustZoom), this.onAutoAdjustScaleChanged.bind(this), this.autoAdjustScaleSetting.get(), undefined, undefined, undefined, 'auto-adjust-zoom');
         const boundAppendScaleItem = appendScaleItem.bind(this);
         boundAppendScaleItem('50%', 0.5);
         boundAppendScaleItem('75%', 0.75);
@@ -404,8 +404,8 @@ export class DeviceModeToolbar {
     }
     appendDeviceScaleMenuItems(contextMenu) {
         const deviceScaleFactorSetting = this.model.deviceScaleFactorSetting();
-        const defaultValue = this.model.uaSetting().get() === EmulationModel.DeviceModeModel.UA.Mobile ||
-            this.model.uaSetting().get() === EmulationModel.DeviceModeModel.UA.MobileNoTouch ?
+        const defaultValue = this.model.uaSetting().get() === "Mobile" /* EmulationModel.DeviceModeModel.UA.Mobile */ ||
+            this.model.uaSetting().get() === "Mobile (no touch)" /* EmulationModel.DeviceModeModel.UA.MobileNoTouch */ ?
             EmulationModel.DeviceModeModel.defaultMobileScaleFactor :
             window.devicePixelRatio;
         appendDeviceScaleFactorItem(contextMenu.headerSection(), i18nString(UIStrings.defaultF, { PH1: defaultValue }), 0, 'DPR: default');
@@ -418,24 +418,24 @@ export class DeviceModeToolbar {
     }
     appendUserAgentMenuItems(contextMenu) {
         const uaSetting = this.model.uaSetting();
-        appendUAItem(EmulationModel.DeviceModeModel.UA.Mobile, EmulationModel.DeviceModeModel.UA.Mobile);
-        appendUAItem(EmulationModel.DeviceModeModel.UA.MobileNoTouch, EmulationModel.DeviceModeModel.UA.MobileNoTouch);
-        appendUAItem(EmulationModel.DeviceModeModel.UA.Desktop, EmulationModel.DeviceModeModel.UA.Desktop);
-        appendUAItem(EmulationModel.DeviceModeModel.UA.DesktopTouch, EmulationModel.DeviceModeModel.UA.DesktopTouch);
+        appendUAItem("Mobile" /* EmulationModel.DeviceModeModel.UA.Mobile */, "Mobile" /* EmulationModel.DeviceModeModel.UA.Mobile */);
+        appendUAItem("Mobile (no touch)" /* EmulationModel.DeviceModeModel.UA.MobileNoTouch */, "Mobile (no touch)" /* EmulationModel.DeviceModeModel.UA.MobileNoTouch */);
+        appendUAItem("Desktop" /* EmulationModel.DeviceModeModel.UA.Desktop */, "Desktop" /* EmulationModel.DeviceModeModel.UA.Desktop */);
+        appendUAItem("Desktop (touch)" /* EmulationModel.DeviceModeModel.UA.DesktopTouch */, "Desktop (touch)" /* EmulationModel.DeviceModeModel.UA.DesktopTouch */);
         function appendUAItem(title, value) {
             contextMenu.defaultSection().appendCheckboxItem(title, uaSetting.set.bind(uaSetting, value), uaSetting.get() === value, undefined, undefined, undefined, value);
         }
     }
     appendOptionsMenuItems(contextMenu) {
         const model = this.model;
-        appendToggleItem(contextMenu.headerSection(), this.deviceOutlineSetting, i18nString(UIStrings.hideDeviceFrame), i18nString(UIStrings.showDeviceFrame), model.type() !== EmulationModel.DeviceModeModel.Type.Device, 'deviceFrame');
-        appendToggleItem(contextMenu.headerSection(), this.showMediaInspectorSetting, i18nString(UIStrings.hideMediaQueries), i18nString(UIStrings.showMediaQueries), undefined, 'mediaQueries');
+        appendToggleItem(contextMenu.headerSection(), this.deviceOutlineSetting, i18nString(UIStrings.hideDeviceFrame), i18nString(UIStrings.showDeviceFrame), model.type() !== EmulationModel.DeviceModeModel.Type.Device, 'device-frame');
+        appendToggleItem(contextMenu.headerSection(), this.showMediaInspectorSetting, i18nString(UIStrings.hideMediaQueries), i18nString(UIStrings.showMediaQueries), undefined, 'media-queries');
         appendToggleItem(contextMenu.headerSection(), this.showRulersSetting, i18nString(UIStrings.hideRulers), i18nString(UIStrings.showRulers), undefined, 'rulers');
-        appendToggleItem(contextMenu.defaultSection(), this.showDeviceScaleFactorSetting, i18nString(UIStrings.removeDevicePixelRatio), i18nString(UIStrings.addDevicePixelRatio), undefined, 'devicePixelRatio');
-        appendToggleItem(contextMenu.defaultSection(), this.showUserAgentTypeSetting, i18nString(UIStrings.removeDeviceType), i18nString(UIStrings.addDeviceType), undefined, 'deviceType');
+        appendToggleItem(contextMenu.defaultSection(), this.showDeviceScaleFactorSetting, i18nString(UIStrings.removeDevicePixelRatio), i18nString(UIStrings.addDevicePixelRatio), undefined, 'device-pixel-ratio');
+        appendToggleItem(contextMenu.defaultSection(), this.showUserAgentTypeSetting, i18nString(UIStrings.removeDeviceType), i18nString(UIStrings.addDeviceType), undefined, 'device-type');
         contextMenu.appendItemsAtLocation('deviceModeMenu');
-        contextMenu.footerSection().appendItem(i18nString(UIStrings.resetToDefaults), this.reset.bind(this), { jslogContext: 'resetToDefaults' });
-        contextMenu.footerSection().appendItem(i18nString(UIStrings.closeDevtools), Host.InspectorFrontendHost.InspectorFrontendHostInstance.closeWindow.bind(Host.InspectorFrontendHost.InspectorFrontendHostInstance), { jslogContext: 'closeDevTools' });
+        contextMenu.footerSection().appendItem(i18nString(UIStrings.resetToDefaults), this.reset.bind(this), { jslogContext: 'reset-to-defaults' });
+        contextMenu.footerSection().appendItem(i18nString(UIStrings.closeDevtools), Host.InspectorFrontendHost.InspectorFrontendHostInstance.closeWindow.bind(Host.InspectorFrontendHost.InspectorFrontendHostInstance), { jslogContext: 'close-dev-tools' });
         function appendToggleItem(section, setting, title1, title2, disabled, context) {
             if (typeof disabled === 'undefined') {
                 disabled = model.type() === EmulationModel.DeviceModeModel.Type.None;

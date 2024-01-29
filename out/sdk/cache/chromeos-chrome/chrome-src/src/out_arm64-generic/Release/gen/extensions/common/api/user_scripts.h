@@ -123,8 +123,8 @@ struct RegisteredUserScript {
   std::optional<bool> all_frames;
 
   // Excludes pages that this user script would otherwise be injected into. See <a
-  // href="match_patterns">Match Patterns</a> for more details on the syntax of
-  // these strings.
+  // href="develop/concepts/match-patterns">Match Patterns</a> for more details on
+  // the syntax of these strings.
   std::optional<std::vector<std::string>> exclude_matches;
 
   // The ID of the user script specified in the API call. This property must not
@@ -143,8 +143,9 @@ struct RegisteredUserScript {
   std::vector<ScriptSource> js;
 
   // Specifies which pages this user script will be injected into. See <a
-  // href="match_patterns">Match Patterns</a> for more details on the syntax of
-  // these strings. This property must be specified for ${ref:register}.
+  // href="develop/concepts/match-patterns">Match Patterns</a> for more details on
+  // the syntax of these strings. This property must be specified for
+  // ${ref:register}.
   std::optional<std::vector<std::string>> matches;
 
   // Specifies when JavaScript files are injected into the web page. The preferred

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66\x65\x61tured.proto\x12\x08\x66\x65\x61tured\"#\n\x05Param\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"y\n\x0f\x46\x65\x61tureOverride\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08\x12\x1f\n\x06params\x18\x03 \x03(\x0b\x32\x0f.featured.Param\x12\x12\n\ntrial_name\x18\x04 \x01(\t\x12\x12\n\ngroup_name\x18\x05 \x01(\t\"\xe0\x01\n\x0bSeedDetails\x12\x0e\n\x06locale\x18\x04 \x01(\t\x12\x11\n\tmilestone\x18\x05 \x01(\x05\x12%\n\x1dpermanent_consistency_country\x18\x06 \x01(\t\x12#\n\x1bsession_consistency_country\x18\x07 \x01(\t\x12\x11\n\tsignature\x18\x08 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\t \x01(\x03\x12\x12\n\nfetch_time\x18\n \x01(\x03\x12\x1b\n\x13\x62\x36\x34_compressed_data\x18\x0b \x01(\x0cJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"<\n\x0cOverridesSet\x12,\n\toverrides\x18\x01 \x03(\x0b\x32\x19.featured.FeatureOverride\"\x95\x01\n\x05Store\x12,\n$boot_attempts_since_last_seed_update\x18\x01 \x01(\r\x12-\n\x0elast_good_seed\x18\x02 \x01(\x0b\x32\x15.featured.SeedDetails\x12\x11\n\toverrides\x18\x04 \x01(\x0c\x12\x16\n\x0eoverrides_hmac\x18\x05 \x01(\x0cJ\x04\x08\x03\x10\x04\"g\n\rComputedState\x12,\n\toverrides\x18\x01 \x03(\x0b\x32\x19.featured.FeatureOverride\x12(\n\tused_seed\x18\x02 \x01(\x0b\x32\x15.featured.SeedDetailsB(H\x03Z$chromiumos/system_api/featured_protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66\x65\x61tured.proto\x12\x08\x66\x65\x61tured\"#\n\x05Param\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xaa\x01\n\x0f\x46\x65\x61tureOverride\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08\x12\x1f\n\x06params\x18\x03 \x03(\x0b\x32\x0f.featured.Param\x12\x12\n\ntrial_name\x18\x04 \x01(\t\x12\x12\n\ngroup_name\x18\x05 \x01(\t\x12/\n\x0eoverride_state\x18\x06 \x01(\x0e\x32\x17.featured.OverrideState\"\xe0\x01\n\x0bSeedDetails\x12\x0e\n\x06locale\x18\x04 \x01(\t\x12\x11\n\tmilestone\x18\x05 \x01(\x05\x12%\n\x1dpermanent_consistency_country\x18\x06 \x01(\t\x12#\n\x1bsession_consistency_country\x18\x07 \x01(\t\x12\x11\n\tsignature\x18\x08 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\t \x01(\x03\x12\x12\n\nfetch_time\x18\n \x01(\x03\x12\x1b\n\x13\x62\x36\x34_compressed_data\x18\x0b \x01(\x0cJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"<\n\x0cOverridesSet\x12,\n\toverrides\x18\x01 \x03(\x0b\x32\x19.featured.FeatureOverride\"\x95\x01\n\x05Store\x12,\n$boot_attempts_since_last_seed_update\x18\x01 \x01(\r\x12-\n\x0elast_good_seed\x18\x02 \x01(\x0b\x32\x15.featured.SeedDetails\x12\x11\n\toverrides\x18\x04 \x01(\x0c\x12\x16\n\x0eoverrides_hmac\x18\x05 \x01(\x0cJ\x04\x08\x03\x10\x04\"g\n\rComputedState\x12,\n\toverrides\x18\x01 \x03(\x0b\x32\x19.featured.FeatureOverride\x12(\n\tused_seed\x18\x02 \x01(\x0b\x32\x15.featured.SeedDetails*d\n\rOverrideState\x12\x18\n\x14OVERRIDE_USE_DEFAULT\x10\x00\x12\x1c\n\x18OVERRIDE_DISABLE_FEATURE\x10\x01\x12\x1b\n\x17OVERRIDE_ENABLE_FEATURE\x10\x02\x42(H\x03Z$chromiumos/system_api/featured_protob\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'featured_pb2', globals())
@@ -21,16 +21,18 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003Z$chromiumos/system_api/featured_proto'
+  _OVERRIDESTATE._serialized_start=784
+  _OVERRIDESTATE._serialized_end=884
   _PARAM._serialized_start=28
   _PARAM._serialized_end=63
-  _FEATUREOVERRIDE._serialized_start=65
-  _FEATUREOVERRIDE._serialized_end=186
-  _SEEDDETAILS._serialized_start=189
-  _SEEDDETAILS._serialized_end=413
-  _OVERRIDESSET._serialized_start=415
-  _OVERRIDESSET._serialized_end=475
-  _STORE._serialized_start=478
-  _STORE._serialized_end=627
-  _COMPUTEDSTATE._serialized_start=629
-  _COMPUTEDSTATE._serialized_end=732
+  _FEATUREOVERRIDE._serialized_start=66
+  _FEATUREOVERRIDE._serialized_end=236
+  _SEEDDETAILS._serialized_start=239
+  _SEEDDETAILS._serialized_end=463
+  _OVERRIDESSET._serialized_start=465
+  _OVERRIDESSET._serialized_end=525
+  _STORE._serialized_start=528
+  _STORE._serialized_end=677
+  _COMPUTEDSTATE._serialized_start=679
+  _COMPUTEDSTATE._serialized_end=782
 # @@protoc_insertion_point(module_scope)

@@ -17,7 +17,7 @@ namespace blink {
 
 
 constexpr const char* const V8WebPrintingOrientationRequested::string_table_[] = {
-"portrait", "landscape", "reverse-landscape", "reverse-portrait"
+"portrait", "landscape"
 };
 
 V8WebPrintingOrientationRequested V8WebPrintingOrientationRequested::Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state) {

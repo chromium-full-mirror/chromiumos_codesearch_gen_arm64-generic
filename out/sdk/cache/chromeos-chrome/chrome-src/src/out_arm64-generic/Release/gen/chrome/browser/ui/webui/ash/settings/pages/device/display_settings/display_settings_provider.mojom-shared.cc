@@ -64,6 +64,36 @@ std::ostream& operator<<(std::ostream& os, DisplaySettingsType value) {
   return os << DisplaySettingsTypeToString(value);
 }
 
+NOINLINE static const char* DisplaySettingsOrientationOptionToStringHelper(DisplaySettingsOrientationOption value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DisplaySettingsOrientationOption::kAuto:
+      return "kAuto";
+    case DisplaySettingsOrientationOption::k0Degree:
+      return "k0Degree";
+    case DisplaySettingsOrientationOption::k90Degree:
+      return "k90Degree";
+    case DisplaySettingsOrientationOption::k180Degree:
+      return "k180Degree";
+    case DisplaySettingsOrientationOption::k270Degree:
+      return "k270Degree";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DisplaySettingsOrientationOptionToString(DisplaySettingsOrientationOption value) {
+  const char *str = DisplaySettingsOrientationOptionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DisplaySettingsOrientationOption value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DisplaySettingsOrientationOption value) {
+  return os << DisplaySettingsOrientationOptionToString(value);
+}
+
 namespace internal {
 
 
@@ -82,6 +112,11 @@ bool DisplaySettingsValue_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const DisplaySettingsValue_Data* object =
       static_cast<const DisplaySettingsValue_Data*>(data);
+
+
+  if (!::ash::settings::mojom::internal::DisplaySettingsOrientationOption_Data
+        ::Validate(object->orientation_$value, validation_context))
+    return false;
 
   return true;
 }
@@ -268,6 +303,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::settings::mojom::DisplaySettingsType>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsType value) {
   return std::move(context).WriteString(::ash::settings::mojom::DisplaySettingsTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::settings::mojom::DisplaySettingsOrientationOption>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsOrientationOption value) {
+  return std::move(context).WriteString(::ash::settings::mojom::DisplaySettingsOrientationOptionToString(value));
 }
 
 } // namespace perfetto

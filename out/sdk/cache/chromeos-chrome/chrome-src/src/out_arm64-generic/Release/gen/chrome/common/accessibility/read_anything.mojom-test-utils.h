@@ -16,6 +16,7 @@ namespace read_anything::mojom {
 class  UntrustedPageHandlerFactoryInterceptorForTesting : public UntrustedPageHandlerFactory {
   virtual UntrustedPageHandlerFactory* GetForwardingInterface() = 0;
   void CreateUntrustedPageHandler(::mojo::PendingRemote<UntrustedPage> page, ::mojo::PendingReceiver<UntrustedPageHandler> handler) override;
+  void ShouldShowUI() override;
 };
 class  UntrustedPageHandlerFactoryAsyncWaiter {
  public:
@@ -38,6 +39,7 @@ class  UntrustedPageHandlerInterceptorForTesting : public UntrustedPageHandler {
   void OnLetterSpaceChange(LetterSpacing letter_spacing) override;
   void OnFontChange(const std::string& font) override;
   void OnFontSizeChange(double font_size) override;
+  void OnLinksEnabledChanged(bool enabled) override;
   void OnColorChange(Colors color) override;
   void OnSpeechRateChange(double rate) override;
   void OnVoiceChange(const std::string& voice, const std::string& lang) override;
@@ -68,7 +70,7 @@ class  UntrustedPageInterceptorForTesting : public UntrustedPage {
   void OnAXTreeDestroyed(const ::ui::AXTreeID& tree_id) override;
   void OnThemeChanged(ReadAnythingThemePtr new_theme) override;
   void SetDefaultLanguageCode(const std::string& code) override;
-  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) override;
+  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, bool links_enabled, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) override;
   void ScreenAIServiceReady() override;
 };
 class  UntrustedPageAsyncWaiter {

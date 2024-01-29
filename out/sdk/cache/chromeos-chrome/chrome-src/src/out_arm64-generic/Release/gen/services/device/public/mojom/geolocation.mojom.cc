@@ -271,6 +271,8 @@ bool Geolocation_QueryNextPosition_ForwardToCallback::Accept(
           internal::Geolocation_QueryNextPosition_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Geolocation.1
   bool success = true;
   ::device::mojom::GeopositionResultPtr p_result{};
   Geolocation_QueryNextPosition_ResponseParamsDataView input_data_view(params, message);
@@ -353,6 +355,8 @@ bool GeolocationStubDispatch::Accept(
           reinterpret_cast<internal::Geolocation_SetHighAccuracy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Geolocation.0
       bool success = true;
       bool p_high_accuracy{};
       Geolocation_SetHighAccuracy_ParamsDataView input_data_view(params, message);
@@ -368,8 +372,8 @@ bool GeolocationStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHighAccuracy(
-std::move(p_high_accuracy));
+      impl->SetHighAccuracy(        
+        std::move(p_high_accuracy));
       return true;
     }
     case internal::kGeolocation_QueryNextPosition_Name: {
@@ -398,6 +402,8 @@ bool GeolocationStubDispatch::AcceptWithResponder(
               internal::Geolocation_QueryNextPosition_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Geolocation.1
       bool success = true;
       Geolocation_QueryNextPosition_ParamsDataView input_data_view(params, message);
       

@@ -74,20 +74,26 @@
 </style>
 
 <div class="tab-organization-container">
-  <div class="tab-organization-header">$i18n{successTitle}</div>
+  <div id="header"
+      class="tab-organization-header"
+      aria-live="polite"
+      aria-relevant="all">
+    [[getTitle_()]]
+  </div>
   <div class="results">
     <div id="scrollable">
       <cr-input id="input" type="text" value="{{name}}"
+          aria-label="[[getInputAriaLabel_(name)]]"
           on-focus="onInputFocus_"
           on-keydown="onInputKeyDown_">
       </cr-input>
-      <iron-selector id="selector" role="list"
+      <iron-selector id="selector" role="listbox"
           on-keydown="onListKeyDown_"
           selected-class="selected"
           on-iron-select="onSelectedChanged_">
         <template is="dom-repeat" items="[[tabDatas_]]">
           <tab-search-item class="mwb-list-item" data="[[item]]"
-              role="listitem"
+              role="option"
               tabindex$="[[getTabIndex_(index, lastFocusedIndex_)]]"
               on-close="onTabRemove_"
               on-focus="onTabFocus_"
@@ -115,12 +121,14 @@
           on-click="onLearnMoreClick_"
           on-keydown="onLearnMoreKeyDown_"
           role="link"
-          tabindex="0">
+          tabindex="0"
+          aria-label="$i18n{learnMoreAriaLabel}">
         $i18n{learnMore}
       </div>
     </div>
     <cr-feedback-buttons id="feedbackButtons"
         tabindex="-1"
+        selected-option="[[feedbackSelectedOption_]]"
         on-selected-option-changed="onFeedbackSelectedOptionChanged_">
     </cr-feedback-buttons>
   </div>

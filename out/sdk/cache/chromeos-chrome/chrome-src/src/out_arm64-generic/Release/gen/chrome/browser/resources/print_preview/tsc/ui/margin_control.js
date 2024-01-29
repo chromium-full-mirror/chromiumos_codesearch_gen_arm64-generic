@@ -4,9 +4,9 @@
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input_style.css.js';
 import '../strings.m.js';
-import { assert } from 'chrome://resources/js/assert.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { CustomMarginsOrientation } from '../data/margins.js';
 import { observerDepsDefined } from '../print_preview_utils.js';

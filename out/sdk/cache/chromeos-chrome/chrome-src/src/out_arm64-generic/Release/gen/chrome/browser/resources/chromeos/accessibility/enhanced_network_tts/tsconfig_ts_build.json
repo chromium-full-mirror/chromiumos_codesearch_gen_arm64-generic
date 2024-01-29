@@ -1,17 +1,20 @@
 {
   "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility",
+    "rootDir": "ts_build_staging",
     "outDir": "tsc",
     "paths": {
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "/common/*": [
+        "./../common/tsc/*"
       ]
     }
   },
   "files": [
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/enhanced_network_tts/background.ts",
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/enhanced_network_tts/enhanced_network_tts.ts",
+    "ts_build_staging/background.ts",
+    "ts_build_staging/enhanced_network_tts.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/enhanced_network_tts/mojo_bindings_externs.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/extensions.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/extension_types.d.ts",
@@ -20,5 +23,10 @@
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/tts.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/chromeos/accessibility/definitions/tts_engine.d.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/windows.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../common/tsconfig_ts_build.json"
+    }
   ]
 }

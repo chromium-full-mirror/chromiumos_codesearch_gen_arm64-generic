@@ -302,6 +302,8 @@ bool NotificationDelegateStubDispatch::Accept(
           reinterpret_cast<internal::NotificationDelegate_AddOrUpdateNotification_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.0
       bool success = true;
       ::ash::assistant::AssistantNotification p_notification{};
       NotificationDelegate_AddOrUpdateNotification_ParamsDataView input_data_view(params, message);
@@ -317,8 +319,8 @@ bool NotificationDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddOrUpdateNotification(
-std::move(p_notification));
+      impl->AddOrUpdateNotification(        
+        std::move(p_notification));
       return true;
     }
     case internal::kNotificationDelegate_RemoveNotificationByGroupingKey_Name: {
@@ -328,6 +330,8 @@ std::move(p_notification));
           reinterpret_cast<internal::NotificationDelegate_RemoveNotificationByGroupingKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.1
       bool success = true;
       std::string p_grouping_key{};
       bool p_from_server{};
@@ -346,9 +350,9 @@ std::move(p_notification));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveNotificationByGroupingKey(
-std::move(p_grouping_key), 
-std::move(p_from_server));
+      impl->RemoveNotificationByGroupingKey(        
+        std::move(p_grouping_key), 
+        std::move(p_from_server));
       return true;
     }
     case internal::kNotificationDelegate_RemoveAllNotifications_Name: {
@@ -358,6 +362,8 @@ std::move(p_from_server));
           reinterpret_cast<internal::NotificationDelegate_RemoveAllNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NotificationDelegate.2
       bool success = true;
       bool p_from_server{};
       NotificationDelegate_RemoveAllNotifications_ParamsDataView input_data_view(params, message);
@@ -373,8 +379,8 @@ std::move(p_from_server));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveAllNotifications(
-std::move(p_from_server));
+      impl->RemoveAllNotifications(        
+        std::move(p_from_server));
       return true;
     }
   }

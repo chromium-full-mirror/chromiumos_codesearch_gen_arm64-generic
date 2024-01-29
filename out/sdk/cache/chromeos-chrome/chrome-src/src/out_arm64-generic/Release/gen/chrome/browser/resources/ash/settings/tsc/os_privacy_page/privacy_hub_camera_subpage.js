@@ -38,8 +38,14 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
         return {
             /**
              * Apps with camera permission defined.
+             * Only contains apps that are displayed in the App Management page.
+             * Does not contain system apps.
              */
             appList_: {
+                type: Array,
+                value: [],
+            },
+            systemApps_: {
                 type: Array,
                 value: [],
             },
@@ -63,6 +69,15 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
                 computed: 'computeShouldDisableCameraToggle_(isCameraListEmpty_, ' +
                     'cameraSwitchForceDisabled_)',
             },
+            cameraFallbackMechanismEnabled_: {
+                type: Boolean,
+                value: false,
+            },
+            cameraAccessStateText_: {
+                type: String,
+                computed: 'computeCameraAccessStateText_(' +
+                    'cameraFallbackMechanismEnabled_, prefs.ash.user.camera_allowed.*)',
+            },
         };
     }
     constructor() {
@@ -79,6 +94,9 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
         this.browserProxy_.getInitialCameraSwitchForceDisabledState().then((disabled) => {
             this.cameraSwitchForceDisabled_ = disabled;
         });
+        this.browserProxy_.getCameraLedFallbackState().then((enabled) => {
+            this.cameraFallbackMechanismEnabled_ = enabled;
+        });
         this.updateCameraList_();
         MediaDevicesProxy.getMediaDevices().addEventListener('devicechange', () => this.updateCameraList_());
     }
@@ -87,15 +105,31 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
         this.appPermissionsObserverReceiver_ =
             new AppPermissionsObserverReceiver(this);
         this.mojoInterfaceProvider_.addObserver(this.appPermissionsObserverReceiver_.$.bindNewPipeAndPassRemote());
-        this.updateAppList_();
+        this.updateAppLists_();
     }
     disconnectedCallback() {
         super.disconnectedCallback();
         this.appPermissionsObserverReceiver_.$.close();
     }
-    async updateAppList_() {
+    async updateAppLists_() {
         const apps = (await this.mojoInterfaceProvider_.getApps()).apps;
         this.appList_ = apps.filter(hasCameraPermission);
+        this.systemApps_ =
+            (await this.mojoInterfaceProvider_.getSystemAppsThatUseCamera()).apps;
+    }
+    isCameraAllowed_() {
+        return this.getPref('ash.user.camera_allowed').value;
+    }
+    getSystemServicesPermissionText_() {
+        return this.isCameraAllowed_() ?
+            this.i18n('privacyHubSystemServicesAllowedText') :
+            this.i18n('privacyHubSystemServicesBlockedText');
+    }
+    /**
+     * The function is used for sorting app names alphabetically.
+     */
+    alphabeticalSort_(first, second) {
+        return first.name.localeCompare(second.name);
     }
     isCameraPermissionEnabled_(app) {
         const permission = castExists(app.permissions[PermissionType.kCamera]);
@@ -137,13 +171,18 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
         return this.connectedCameras_.length === 0;
     }
     computeOnOffText_() {
-        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
-        return cameraAllowed ? this.i18n('deviceOn') : this.i18n('deviceOff');
+        return this.isCameraAllowed_() ? this.i18n('deviceOn') :
+            this.i18n('deviceOff');
     }
-    computeOnOffSubtext_() {
-        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
-        return cameraAllowed ? this.i18n('cameraToggleSubtext') :
-            this.i18n('blockedForAllText');
+    computeCameraAccessStateText_() {
+        if (this.isCameraAllowed_()) {
+            return this.cameraFallbackMechanismEnabled_ ?
+                this.i18n('cameraToggleFallbackSubtext') :
+                this.i18n('cameraToggleSubtext');
+        }
+        else {
+            return this.i18n('privacyHubCameraAccessBlockedText');
+        }
     }
     computeShouldDisableCameraToggle_() {
         return this.cameraSwitchForceDisabled_ || this.isCameraListEmpty_;

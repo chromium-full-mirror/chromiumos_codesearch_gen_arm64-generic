@@ -191,7 +191,8 @@ struct SerializedKnowledgeFactorHashInfo FLATBUFFERS_FINAL_CLASS : private ::fla
   typedef SerializedKnowledgeFactorHashInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ALGORITHM = 4,
-    VT_SALT = 6
+    VT_SALT = 6,
+    VT_SHOULD_GENERATE_KEY_STORE = 8
   };
   ::flatbuffers::Optional<cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm> algorithm() const {
     return GetOptional<int32_t, cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm>(VT_ALGORITHM);
@@ -199,11 +200,15 @@ struct SerializedKnowledgeFactorHashInfo FLATBUFFERS_FINAL_CLASS : private ::fla
   const ::flatbuffers::Vector<uint8_t> *salt() const {
     return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
+  ::flatbuffers::Optional<bool> should_generate_key_store() const {
+    return GetOptional<uint8_t, bool>(VT_SHOULD_GENERATE_KEY_STORE);
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int32_t>(verifier, VT_ALGORITHM, 4) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
+           VerifyField<uint8_t>(verifier, VT_SHOULD_GENERATE_KEY_STORE, 1) &&
            verifier.EndTable();
   }
 };
@@ -217,6 +222,9 @@ struct SerializedKnowledgeFactorHashInfoBuilder {
   }
   void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(SerializedKnowledgeFactorHashInfo::VT_SALT, salt);
+  }
+  void add_should_generate_key_store(bool should_generate_key_store) {
+    fbb_.AddElement<uint8_t>(SerializedKnowledgeFactorHashInfo::VT_SHOULD_GENERATE_KEY_STORE, static_cast<uint8_t>(should_generate_key_store));
   }
   explicit SerializedKnowledgeFactorHashInfoBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -232,22 +240,26 @@ struct SerializedKnowledgeFactorHashInfoBuilder {
 inline ::flatbuffers::Offset<SerializedKnowledgeFactorHashInfo> CreateSerializedKnowledgeFactorHashInfo(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Optional<cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm> algorithm = ::flatbuffers::nullopt,
-    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Optional<bool> should_generate_key_store = ::flatbuffers::nullopt) {
   SerializedKnowledgeFactorHashInfoBuilder builder_(_fbb);
   builder_.add_salt(salt);
   if(algorithm) { builder_.add_algorithm(*algorithm); }
+  if(should_generate_key_store) { builder_.add_should_generate_key_store(*should_generate_key_store); }
   return builder_.Finish();
 }
 
 inline ::flatbuffers::Offset<SerializedKnowledgeFactorHashInfo> CreateSerializedKnowledgeFactorHashInfoDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Optional<cryptohome::_serialized_::SerializedKnowledgeFactorHashAlgorithm> algorithm = ::flatbuffers::nullopt,
-    const std::vector<uint8_t> *salt = nullptr) {
+    const std::vector<uint8_t> *salt = nullptr,
+    ::flatbuffers::Optional<bool> should_generate_key_store = ::flatbuffers::nullopt) {
   auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
   return cryptohome::_serialized_::CreateSerializedKnowledgeFactorHashInfo(
       _fbb,
       algorithm,
-      salt__);
+      salt__,
+      should_generate_key_store);
 }
 
 struct CommonMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {

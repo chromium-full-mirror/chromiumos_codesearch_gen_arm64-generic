@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.components/sync/protocol/client_commands.proto\x12\x07sync_pb\"9\n\x10\x43ustomNudgeDelay\x12\x13\n\x0b\x64\x61tatype_id\x18\x01 \x01(\x05\x12\x10\n\x08\x64\x65lay_ms\x18\x02 \x01(\x05\"\xd9\x03\n\rClientCommand\x12\x1e\n\x16set_sync_poll_interval\x18\x01 \x01(\x05\x12\'\n\x1bset_sync_long_poll_interval\x18\x02 \x01(\x05\x42\x02\x18\x01\x12\x1d\n\x15max_commit_batch_size\x18\x03 \x01(\x05\x12%\n\x1dsessions_commit_delay_seconds\x18\x04 \x01(\x05\x12\x1e\n\x16throttle_delay_seconds\x18\x05 \x01(\x05\x12\x30\n$client_invalidation_hint_buffer_size\x18\x06 \x01(\x05\x42\x02\x18\x01\x12\x1e\n\x16gu_retry_delay_seconds\x18\x07 \x01(\x05\x12\x36\n\x13\x63ustom_nudge_delays\x18\x08 \x03(\x0b\x32\x19.sync_pb.CustomNudgeDelay\x12\"\n\x1a\x65xtension_types_max_tokens\x18\t \x01(\x05\x12/\n\'extension_types_refill_interval_seconds\x18\n \x01(\x05\x12:\n2extension_types_depleted_quota_nudge_delay_seconds\x18\x0b \x01(\x05\x42+\n%org.chromium.components.sync.protocolH\x03P\x01')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.components/sync/protocol/client_commands.proto\x12\x07sync_pb\"9\n\x10\x43ustomNudgeDelay\x12\x13\n\x0b\x64\x61tatype_id\x18\x01 \x01(\x05\x12\x10\n\x08\x64\x65lay_ms\x18\x02 \x01(\x05\"\xd7\x03\n\rClientCommand\x12\x1e\n\x16set_sync_poll_interval\x18\x01 \x01(\x05\x12\'\n\x1bset_sync_long_poll_interval\x18\x02 \x01(\x05\x42\x02\x18\x01\x12\x1d\n\x15max_commit_batch_size\x18\x03 \x01(\x05\x12\x1e\n\x16throttle_delay_seconds\x18\x05 \x01(\x05\x12\x30\n$client_invalidation_hint_buffer_size\x18\x06 \x01(\x05\x42\x02\x18\x01\x12\x1e\n\x16gu_retry_delay_seconds\x18\x07 \x01(\x05\x12\x36\n\x13\x63ustom_nudge_delays\x18\x08 \x03(\x0b\x32\x19.sync_pb.CustomNudgeDelay\x12\"\n\x1a\x65xtension_types_max_tokens\x18\t \x01(\x05\x12/\n\'extension_types_refill_interval_seconds\x18\n \x01(\x05\x12:\n2extension_types_depleted_quota_nudge_delay_seconds\x18\x0b \x01(\x05J\x04\x08\x04\x10\x05R\x1dsessions_commit_delay_secondsB+\n%org.chromium.components.sync.protocolH\x03P\x01')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.sync.protocol.client_commands_pb2', globals())
@@ -28,5 +28,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CUSTOMNUDGEDELAY._serialized_start=59
   _CUSTOMNUDGEDELAY._serialized_end=116
   _CLIENTCOMMAND._serialized_start=119
-  _CLIENTCOMMAND._serialized_end=592
+  _CLIENTCOMMAND._serialized_end=590
 # @@protoc_insertion_point(module_scope)

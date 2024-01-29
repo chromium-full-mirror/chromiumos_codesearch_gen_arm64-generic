@@ -9,7 +9,7 @@
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import '../icons.html.js';
 import '../settings_shared.css.js';
-import '/shared/settings/controls/settings_dropdown_menu.js';
+import '../controls/settings_dropdown_menu.js';
 import './input_device_settings_shared.css.js';
 import './fkey_row.js';
 import './keyboard_remap_modifier_key_row.js';
@@ -23,7 +23,7 @@ import { Router, routes } from '../router.js';
 import { getInputDeviceSettingsProvider } from './input_device_mojo_interface_provider.js';
 import { ExtendedFkeysModifier, MetaKey, ModifierKey, PolicyStatus, SixPackKey, SixPackShortcutModifier } from './input_device_settings_types.js';
 import { getTemplate } from './per_device_keyboard_remap_keys.html.js';
-function getFkeyPrefPolicyFields(policy) {
+function getPrefPolicyFields(policy) {
     if (policy) {
         const enforcement = policy.policyStatus === PolicyStatus.kManaged ?
             chrome.settingsPrivate.Enforcement.ENFORCED :
@@ -344,17 +344,20 @@ export class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDevice
         });
         if (this.isAltClickAndSixPackCustomizationEnabled) {
             this.setSixPackKeyRemappings();
+            // Potentially overrides some/all "six pack" settings based on
+            // the keyboard policies.
+            this.setSixPackKeyRemappingsForPolicies();
         }
         if (this.shouldShowFkeys()) {
             this.set('f11KeyPref.value', searchedKeyboard.settings?.f11);
             this.set('f12KeyPref.value', searchedKeyboard.settings?.f12);
             this.f11KeyPref = {
                 ...this.f11KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f11KeyPolicy),
             };
             this.f12KeyPref = {
                 ...this.f12KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f12KeyPolicy),
             };
         }
         this.isInitialized = true;
@@ -374,6 +377,28 @@ export class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDevice
             return;
         }
         this.initializeKeyboard();
+    }
+    setSixPackKeyRemappingsForPolicies() {
+        const homeAndEndPrefPolicyFields = getPrefPolicyFields(this.keyboardPolicies?.homeAndEndKeysPolicy);
+        this.homePref = { ...this.homePref, ...homeAndEndPrefPolicyFields };
+        this.endPref = { ...this.endPref, ...homeAndEndPrefPolicyFields };
+        const pageUpAndPageDownPrefPolicyFields = getPrefPolicyFields(this.keyboardPolicies?.pageUpAndPageDownKeysPolicy);
+        this.pageUpPref = {
+            ...this.pageUpPref,
+            ...pageUpAndPageDownPrefPolicyFields,
+        };
+        this.pageDownPref = {
+            ...this.pageDownPref,
+            ...pageUpAndPageDownPrefPolicyFields,
+        };
+        this.deletePref = {
+            ...this.deletePref,
+            ...getPrefPolicyFields(this.keyboardPolicies?.deleteKeyPolicy),
+        };
+        this.insertPref = {
+            ...this.insertPref,
+            ...getPrefPolicyFields(this.keyboardPolicies?.insertKeyPolicy),
+        };
     }
     /**
      * Sets all prefs to the "identity" value which so they can be updated by the
@@ -506,9 +531,11 @@ export class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDevice
         return this.i18n('remapKeyboardKeysDescription', keyboardName);
     }
     setSixPackKeyRemappings() {
-        Object
-            .entries(this.keyboard.settings.sixPackKeyRemappings)
-            .forEach(([key, modifier]) => {
+        const sixPackKeyRemappings = this.keyboard.settings?.sixPackKeyRemappings;
+        if (!sixPackKeyRemappings) {
+            return;
+        }
+        Object.entries(sixPackKeyRemappings).forEach(([key, modifier]) => {
             switch (key) {
                 case SixPackKey.DELETE:
                     this.set('deletePref.value', modifier);
@@ -550,13 +577,14 @@ export class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDevice
         if (this.shouldShowFkeys()) {
             this.f11KeyPref = {
                 ...this.f11KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f11KeyPolicy),
             };
             this.f12KeyPref = {
                 ...this.f12KeyPref,
-                ...getFkeyPrefPolicyFields(this.keyboardPolicies.extendedFkeysPolicy),
+                ...getPrefPolicyFields(this.keyboardPolicies?.f12KeyPolicy),
             };
         }
+        this.setSixPackKeyRemappingsForPolicies();
     }
 }
 customElements.define(SettingsPerDeviceKeyboardRemapKeysElement.is, SettingsPerDeviceKeyboardRemapKeysElement);

@@ -338,6 +338,8 @@ bool SubresourceFilterRulesetObserverStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceFilterRulesetObserver_SetRulesetForProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterRulesetObserver.0
       bool success = true;
       ::base::File p_ruleset_file{};
       SubresourceFilterRulesetObserver_SetRulesetForProcess_ParamsDataView input_data_view(params, message);
@@ -353,8 +355,8 @@ bool SubresourceFilterRulesetObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRulesetForProcess(
-std::move(p_ruleset_file));
+      impl->SetRulesetForProcess(        
+        std::move(p_ruleset_file));
       return true;
     }
   }

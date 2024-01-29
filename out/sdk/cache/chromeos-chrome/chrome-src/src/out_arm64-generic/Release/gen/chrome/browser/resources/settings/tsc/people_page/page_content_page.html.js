@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}.additional-section{border-top:var(--cr-separator-line);padding-inline-start:var(--cr-section-padding)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}</style>
 <settings-toggle-button id="pageContentToggle" pref="{{prefs.page_content_collection.enabled}}" label="$i18n{pageContentToggleLabel}" sub-label="$i18n{pageContentToggleSublabel}">
 </settings-toggle-button>
 <div class="settings-columned-section">
@@ -38,12 +38,5 @@ export function getTemplate() {
     </ul>
   </div>
 </div>
-<template is="dom-if" if="[[showComposeToggle_]]">
-  <div class="additional-section">
-    <h2>$i18n{privacyGuideComposeAdditionalSettings}</h2>
-    <settings-toggle-button id="composeToggle" pref="{{prefs.autofill_assistance.enabled}}" label="$i18n{privacyGuideComposeHeader}" sub-label="$i18n{privacyGuideComposeDescription}">
-    </settings-toggle-button>
-  </div>
-</template>
 <!--_html_template_end_-->`;
 }

@@ -757,6 +757,8 @@ bool PaintPreviewCompositor_BeginSeparatedFrameComposite_ForwardToCallback::Acce
           internal::PaintPreviewCompositor_BeginSeparatedFrameComposite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewCompositor.0
   bool success = true;
   PaintPreviewCompositor::BeginCompositeStatus p_status{};
   PaintPreviewBeginCompositeResponsePtr p_response{};
@@ -891,6 +893,8 @@ bool PaintPreviewCompositor_BitmapForSeparatedFrame_ForwardToCallback::Accept(
           internal::PaintPreviewCompositor_BitmapForSeparatedFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewCompositor.1
   bool success = true;
   PaintPreviewCompositor::BitmapStatus p_status{};
   ::SkBitmap p_bitmap{};
@@ -1025,6 +1029,8 @@ bool PaintPreviewCompositor_BeginMainFrameComposite_ForwardToCallback::Accept(
           internal::PaintPreviewCompositor_BeginMainFrameComposite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewCompositor.2
   bool success = true;
   PaintPreviewCompositor::BeginCompositeStatus p_status{};
   PaintPreviewBeginCompositeResponsePtr p_response{};
@@ -1159,6 +1165,8 @@ bool PaintPreviewCompositor_BitmapForMainFrame_ForwardToCallback::Accept(
           internal::PaintPreviewCompositor_BitmapForMainFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewCompositor.3
   bool success = true;
   PaintPreviewCompositor::BitmapStatus p_status{};
   ::SkBitmap p_bitmap{};
@@ -1260,6 +1268,8 @@ bool PaintPreviewCompositorStubDispatch::Accept(
           reinterpret_cast<internal::PaintPreviewCompositor_SetRootFrameUrl_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositor.4
       bool success = true;
       ::GURL p_url{};
       PaintPreviewCompositor_SetRootFrameUrl_ParamsDataView input_data_view(params, message);
@@ -1275,8 +1285,8 @@ bool PaintPreviewCompositorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRootFrameUrl(
-std::move(p_url));
+      impl->SetRootFrameUrl(        
+        std::move(p_url));
       return true;
     }
   }
@@ -1299,6 +1309,8 @@ bool PaintPreviewCompositorStubDispatch::AcceptWithResponder(
               internal::PaintPreviewCompositor_BeginSeparatedFrameComposite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositor.0
       bool success = true;
       PaintPreviewBeginCompositeRequestPtr p_request{};
       PaintPreviewCompositor_BeginSeparatedFrameComposite_ParamsDataView input_data_view(params, message);
@@ -1317,8 +1329,8 @@ bool PaintPreviewCompositorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeginSeparatedFrameComposite(
-std::move(p_request), std::move(callback));
+      impl->BeginSeparatedFrameComposite(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kPaintPreviewCompositor_BitmapForSeparatedFrame_Name: {
@@ -1328,6 +1340,8 @@ std::move(p_request), std::move(callback));
               internal::PaintPreviewCompositor_BitmapForSeparatedFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositor.1
       bool success = true;
       ::base::UnguessableToken p_frame_guid{};
       ::gfx::Rect p_clip_rect{};
@@ -1352,10 +1366,10 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BitmapForSeparatedFrame(
-std::move(p_frame_guid), 
-std::move(p_clip_rect), 
-std::move(p_scale_factor), std::move(callback));
+      impl->BitmapForSeparatedFrame(        
+        std::move(p_frame_guid), 
+        std::move(p_clip_rect), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kPaintPreviewCompositor_BeginMainFrameComposite_Name: {
@@ -1365,6 +1379,8 @@ std::move(p_scale_factor), std::move(callback));
               internal::PaintPreviewCompositor_BeginMainFrameComposite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositor.2
       bool success = true;
       PaintPreviewBeginCompositeRequestPtr p_request{};
       PaintPreviewCompositor_BeginMainFrameComposite_ParamsDataView input_data_view(params, message);
@@ -1383,8 +1399,8 @@ std::move(p_scale_factor), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeginMainFrameComposite(
-std::move(p_request), std::move(callback));
+      impl->BeginMainFrameComposite(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kPaintPreviewCompositor_BitmapForMainFrame_Name: {
@@ -1394,6 +1410,8 @@ std::move(p_request), std::move(callback));
               internal::PaintPreviewCompositor_BitmapForMainFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositor.3
       bool success = true;
       ::gfx::Rect p_clip_rect{};
       float p_scale_factor{};
@@ -1415,9 +1433,9 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BitmapForMainFrame(
-std::move(p_clip_rect), 
-std::move(p_scale_factor), std::move(callback));
+      impl->BitmapForMainFrame(        
+        std::move(p_clip_rect), 
+        std::move(p_scale_factor), std::move(callback));
       return true;
     }
     case internal::kPaintPreviewCompositor_SetRootFrameUrl_Name: {
@@ -1827,6 +1845,8 @@ bool PaintPreviewCompositorCollection_CreateCompositor_ForwardToCallback::Accept
           internal::PaintPreviewCompositorCollection_CreateCompositor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewCompositorCollection.1
   bool success = true;
   ::base::UnguessableToken p_compositor_id{};
   PaintPreviewCompositorCollection_CreateCompositor_ResponseParamsDataView input_data_view(params, message);
@@ -1956,6 +1976,8 @@ bool PaintPreviewCompositorCollection_ListCompositors_ForwardToCallback::Accept(
           internal::PaintPreviewCompositorCollection_ListCompositors_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewCompositorCollection.3
   bool success = true;
   std::vector<::base::UnguessableToken> p_compositor_ids{};
   PaintPreviewCompositorCollection_ListCompositors_ResponseParamsDataView input_data_view(params, message);
@@ -2042,6 +2064,8 @@ bool PaintPreviewCompositorCollectionStubDispatch::Accept(
           reinterpret_cast<internal::PaintPreviewCompositorCollection_SetDiscardableSharedMemoryManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositorCollection.0
       bool success = true;
       ::mojo::PendingRemote<::discardable_memory::mojom::DiscardableSharedMemoryManager> p_manager{};
       PaintPreviewCompositorCollection_SetDiscardableSharedMemoryManager_ParamsDataView input_data_view(params, message);
@@ -2059,8 +2083,8 @@ bool PaintPreviewCompositorCollectionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDiscardableSharedMemoryManager(
-std::move(p_manager));
+      impl->SetDiscardableSharedMemoryManager(        
+        std::move(p_manager));
       return true;
     }
     case internal::kPaintPreviewCompositorCollection_CreateCompositor_Name: {
@@ -2073,6 +2097,8 @@ std::move(p_manager));
           reinterpret_cast<internal::PaintPreviewCompositorCollection_OnMemoryPressure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositorCollection.2
       bool success = true;
       ::base::MemoryPressureListener::MemoryPressureLevel p_memory_pressure_level{};
       PaintPreviewCompositorCollection_OnMemoryPressure_ParamsDataView input_data_view(params, message);
@@ -2088,8 +2114,8 @@ std::move(p_manager));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMemoryPressure(
-std::move(p_memory_pressure_level));
+      impl->OnMemoryPressure(        
+        std::move(p_memory_pressure_level));
       return true;
     }
     case internal::kPaintPreviewCompositorCollection_ListCompositors_Name: {
@@ -2118,6 +2144,8 @@ bool PaintPreviewCompositorCollectionStubDispatch::AcceptWithResponder(
               internal::PaintPreviewCompositorCollection_CreateCompositor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositorCollection.1
       bool success = true;
       ::mojo::PendingReceiver<PaintPreviewCompositor> p_compositor{};
       PaintPreviewCompositorCollection_CreateCompositor_ParamsDataView input_data_view(params, message);
@@ -2138,8 +2166,8 @@ bool PaintPreviewCompositorCollectionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCompositor(
-std::move(p_compositor), std::move(callback));
+      impl->CreateCompositor(        
+        std::move(p_compositor), std::move(callback));
       return true;
     }
     case internal::kPaintPreviewCompositorCollection_OnMemoryPressure_Name: {
@@ -2152,6 +2180,8 @@ std::move(p_compositor), std::move(callback));
               internal::PaintPreviewCompositorCollection_ListCompositors_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewCompositorCollection.3
       bool success = true;
       PaintPreviewCompositorCollection_ListCompositors_ParamsDataView input_data_view(params, message);
       

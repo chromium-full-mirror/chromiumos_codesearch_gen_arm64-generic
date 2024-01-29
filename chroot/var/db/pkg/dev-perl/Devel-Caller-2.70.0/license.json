@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Devel-Caller", "version": "2.70.0", "revision": 0, "fullname": "dev-perl/Devel-Caller", "fullnamerev": "dev-perl/Devel-Caller-2.70.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Devel-Caller"], "skip": false, "tainted": false, "ebuild_path": null}

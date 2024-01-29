@@ -434,6 +434,8 @@ bool SystemSignalsService_GetFileSystemSignals_ForwardToCallback::Accept(
           internal::SystemSignalsService_GetFileSystemSignals_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SystemSignalsService.0
   bool success = true;
   std::vector<::device_signals::FileSystemItem> p_items{};
   SystemSignalsService_GetFileSystemSignals_ResponseParamsDataView input_data_view(params, message);
@@ -536,6 +538,8 @@ bool SystemSignalsServiceStubDispatch::AcceptWithResponder(
               internal::SystemSignalsService_GetFileSystemSignals_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SystemSignalsService.0
       bool success = true;
       std::vector<::device_signals::GetFileSystemInfoOptions> p_requests{};
       SystemSignalsService_GetFileSystemSignals_ParamsDataView input_data_view(params, message);
@@ -554,8 +558,8 @@ bool SystemSignalsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFileSystemSignals(
-std::move(p_requests), std::move(callback));
+      impl->GetFileSystemSignals(        
+        std::move(p_requests), std::move(callback));
       return true;
     }
   }

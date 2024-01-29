@@ -1053,6 +1053,8 @@ bool CompositorFrameSink_SubmitCompositorFrameSync_ForwardToCallback::Accept(
           internal::CompositorFrameSink_SubmitCompositorFrameSync_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CompositorFrameSink.5
   bool success = true;
   std::vector<::viz::ReturnedResource> p_resources{};
   CompositorFrameSink_SubmitCompositorFrameSync_ResponseParamsDataView input_data_view(params, message);
@@ -1134,6 +1136,8 @@ bool CompositorFrameSink_SubmitCompositorFrameSync_HandleSyncResponse::Accept(
       reinterpret_cast<internal::CompositorFrameSink_SubmitCompositorFrameSync_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for CompositorFrameSink.5
   bool success = true;
   std::vector<::viz::ReturnedResource> p_resources{};
   CompositorFrameSink_SubmitCompositorFrameSync_ResponseParamsDataView input_data_view(params, message);
@@ -1164,6 +1168,8 @@ bool CompositorFrameSinkStubDispatch::Accept(
           reinterpret_cast<internal::CompositorFrameSink_SetNeedsBeginFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.0
       bool success = true;
       bool p_needs_begin_frame{};
       CompositorFrameSink_SetNeedsBeginFrame_ParamsDataView input_data_view(params, message);
@@ -1179,8 +1185,8 @@ bool CompositorFrameSinkStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetNeedsBeginFrame(
-std::move(p_needs_begin_frame));
+      impl->SetNeedsBeginFrame(        
+        std::move(p_needs_begin_frame));
       return true;
     }
     case internal::kCompositorFrameSink_SetWantsAnimateOnlyBeginFrames_Name: {
@@ -1190,6 +1196,8 @@ std::move(p_needs_begin_frame));
           reinterpret_cast<internal::CompositorFrameSink_SetWantsAnimateOnlyBeginFrames_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.1
       bool success = true;
       CompositorFrameSink_SetWantsAnimateOnlyBeginFrames_ParamsDataView input_data_view(params, message);
       
@@ -1202,7 +1210,7 @@ std::move(p_needs_begin_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWantsAnimateOnlyBeginFrames();
+      impl->SetWantsAnimateOnlyBeginFrames(        );
       return true;
     }
     case internal::kCompositorFrameSink_SetWantsBeginFrameAcks_Name: {
@@ -1212,6 +1220,8 @@ std::move(p_needs_begin_frame));
           reinterpret_cast<internal::CompositorFrameSink_SetWantsBeginFrameAcks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.2
       bool success = true;
       CompositorFrameSink_SetWantsBeginFrameAcks_ParamsDataView input_data_view(params, message);
       
@@ -1224,7 +1234,7 @@ std::move(p_needs_begin_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWantsBeginFrameAcks();
+      impl->SetWantsBeginFrameAcks(        );
       return true;
     }
     case internal::kCompositorFrameSink_SetAutoNeedsBeginFrame_Name: {
@@ -1234,6 +1244,8 @@ std::move(p_needs_begin_frame));
           reinterpret_cast<internal::CompositorFrameSink_SetAutoNeedsBeginFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.3
       bool success = true;
       CompositorFrameSink_SetAutoNeedsBeginFrame_ParamsDataView input_data_view(params, message);
       
@@ -1246,7 +1258,7 @@ std::move(p_needs_begin_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAutoNeedsBeginFrame();
+      impl->SetAutoNeedsBeginFrame(        );
       return true;
     }
     case internal::kCompositorFrameSink_SubmitCompositorFrame_Name: {
@@ -1256,6 +1268,8 @@ std::move(p_needs_begin_frame));
           reinterpret_cast<internal::CompositorFrameSink_SubmitCompositorFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.4
       bool success = true;
       ::viz::LocalSurfaceId p_local_surface_id{};
       ::viz::CompositorFrame p_frame{};
@@ -1280,11 +1294,11 @@ std::move(p_needs_begin_frame));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitCompositorFrame(
-std::move(p_local_surface_id), 
-std::move(p_frame), 
-std::move(p_hit_test_region_list), 
-std::move(p_submit_time));
+      impl->SubmitCompositorFrame(        
+        std::move(p_local_surface_id), 
+        std::move(p_frame), 
+        std::move(p_hit_test_region_list), 
+        std::move(p_submit_time));
       return true;
     }
     case internal::kCompositorFrameSink_SubmitCompositorFrameSync_Name: {
@@ -1297,6 +1311,8 @@ std::move(p_submit_time));
           reinterpret_cast<internal::CompositorFrameSink_DidNotProduceFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.6
       bool success = true;
       ::viz::BeginFrameAck p_ack{};
       CompositorFrameSink_DidNotProduceFrame_ParamsDataView input_data_view(params, message);
@@ -1312,8 +1328,8 @@ std::move(p_submit_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidNotProduceFrame(
-std::move(p_ack));
+      impl->DidNotProduceFrame(        
+        std::move(p_ack));
       return true;
     }
     case internal::kCompositorFrameSink_DidAllocateSharedBitmap_Name: {
@@ -1323,6 +1339,8 @@ std::move(p_ack));
           reinterpret_cast<internal::CompositorFrameSink_DidAllocateSharedBitmap_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.7
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_region{};
       ::gpu::Mailbox p_id{};
@@ -1341,9 +1359,9 @@ std::move(p_ack));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidAllocateSharedBitmap(
-std::move(p_region), 
-std::move(p_id));
+      impl->DidAllocateSharedBitmap(        
+        std::move(p_region), 
+        std::move(p_id));
       return true;
     }
     case internal::kCompositorFrameSink_DidDeleteSharedBitmap_Name: {
@@ -1353,6 +1371,8 @@ std::move(p_id));
           reinterpret_cast<internal::CompositorFrameSink_DidDeleteSharedBitmap_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.8
       bool success = true;
       ::gpu::Mailbox p_id{};
       CompositorFrameSink_DidDeleteSharedBitmap_ParamsDataView input_data_view(params, message);
@@ -1368,8 +1388,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDeleteSharedBitmap(
-std::move(p_id));
+      impl->DidDeleteSharedBitmap(        
+        std::move(p_id));
       return true;
     }
     case internal::kCompositorFrameSink_InitializeCompositorFrameSinkType_Name: {
@@ -1379,6 +1399,8 @@ std::move(p_id));
           reinterpret_cast<internal::CompositorFrameSink_InitializeCompositorFrameSinkType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.9
       bool success = true;
       CompositorFrameSinkType p_type{};
       CompositorFrameSink_InitializeCompositorFrameSinkType_ParamsDataView input_data_view(params, message);
@@ -1394,8 +1416,8 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitializeCompositorFrameSinkType(
-std::move(p_type));
+      impl->InitializeCompositorFrameSinkType(        
+        std::move(p_type));
       return true;
     }
     case internal::kCompositorFrameSink_BindLayerContext_Name: {
@@ -1405,6 +1427,8 @@ std::move(p_type));
           reinterpret_cast<internal::CompositorFrameSink_BindLayerContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.10
       bool success = true;
       ::viz::mojom::PendingLayerContextPtr p_context{};
       CompositorFrameSink_BindLayerContext_ParamsDataView input_data_view(params, message);
@@ -1420,8 +1444,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLayerContext(
-std::move(p_context));
+      impl->BindLayerContext(        
+        std::move(p_context));
       return true;
     }
   }
@@ -1459,6 +1483,8 @@ bool CompositorFrameSinkStubDispatch::AcceptWithResponder(
               internal::CompositorFrameSink_SubmitCompositorFrameSync_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSink.5
       bool success = true;
       ::viz::LocalSurfaceId p_local_surface_id{};
       ::viz::CompositorFrame p_frame{};
@@ -1486,11 +1512,11 @@ bool CompositorFrameSinkStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SubmitCompositorFrameSync(
-std::move(p_local_surface_id), 
-std::move(p_frame), 
-std::move(p_hit_test_region_list), 
-std::move(p_submit_time), std::move(callback));
+      impl->SubmitCompositorFrameSync(        
+        std::move(p_local_surface_id), 
+        std::move(p_frame), 
+        std::move(p_hit_test_region_list), 
+        std::move(p_submit_time), std::move(callback));
       return true;
     }
     case internal::kCompositorFrameSink_DidNotProduceFrame_Name: {
@@ -2044,6 +2070,8 @@ bool CompositorFrameSinkClientStubDispatch::Accept(
           reinterpret_cast<internal::CompositorFrameSinkClient_DidReceiveCompositorFrameAck_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSinkClient.0
       bool success = true;
       std::vector<::viz::ReturnedResource> p_resources{};
       CompositorFrameSinkClient_DidReceiveCompositorFrameAck_ParamsDataView input_data_view(params, message);
@@ -2059,8 +2087,8 @@ bool CompositorFrameSinkClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidReceiveCompositorFrameAck(
-std::move(p_resources));
+      impl->DidReceiveCompositorFrameAck(        
+        std::move(p_resources));
       return true;
     }
     case internal::kCompositorFrameSinkClient_OnBeginFrame_Name: {
@@ -2070,6 +2098,8 @@ std::move(p_resources));
           reinterpret_cast<internal::CompositorFrameSinkClient_OnBeginFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSinkClient.1
       bool success = true;
       ::viz::BeginFrameArgs p_args{};
       base::flat_map<uint32_t, ::viz::FrameTimingDetails> p_details{};
@@ -2094,11 +2124,11 @@ std::move(p_resources));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBeginFrame(
-std::move(p_args), 
-std::move(p_details), 
-std::move(p_frame_ack), 
-std::move(p_resources));
+      impl->OnBeginFrame(        
+        std::move(p_args), 
+        std::move(p_details), 
+        std::move(p_frame_ack), 
+        std::move(p_resources));
       return true;
     }
     case internal::kCompositorFrameSinkClient_OnBeginFramePausedChanged_Name: {
@@ -2108,6 +2138,8 @@ std::move(p_resources));
           reinterpret_cast<internal::CompositorFrameSinkClient_OnBeginFramePausedChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSinkClient.2
       bool success = true;
       bool p_paused{};
       CompositorFrameSinkClient_OnBeginFramePausedChanged_ParamsDataView input_data_view(params, message);
@@ -2123,8 +2155,8 @@ std::move(p_resources));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBeginFramePausedChanged(
-std::move(p_paused));
+      impl->OnBeginFramePausedChanged(        
+        std::move(p_paused));
       return true;
     }
     case internal::kCompositorFrameSinkClient_ReclaimResources_Name: {
@@ -2134,6 +2166,8 @@ std::move(p_paused));
           reinterpret_cast<internal::CompositorFrameSinkClient_ReclaimResources_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSinkClient.3
       bool success = true;
       std::vector<::viz::ReturnedResource> p_resources{};
       CompositorFrameSinkClient_ReclaimResources_ParamsDataView input_data_view(params, message);
@@ -2149,8 +2183,8 @@ std::move(p_paused));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReclaimResources(
-std::move(p_resources));
+      impl->ReclaimResources(        
+        std::move(p_resources));
       return true;
     }
     case internal::kCompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Name: {
@@ -2160,6 +2194,8 @@ std::move(p_resources));
           reinterpret_cast<internal::CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSinkClient.4
       bool success = true;
       uint32_t p_sequence_id{};
       CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsDataView input_data_view(params, message);
@@ -2175,8 +2211,8 @@ std::move(p_resources));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCompositorFrameTransitionDirectiveProcessed(
-std::move(p_sequence_id));
+      impl->OnCompositorFrameTransitionDirectiveProcessed(        
+        std::move(p_sequence_id));
       return true;
     }
     case internal::kCompositorFrameSinkClient_OnSurfaceEvicted_Name: {
@@ -2186,6 +2222,8 @@ std::move(p_sequence_id));
           reinterpret_cast<internal::CompositorFrameSinkClient_OnSurfaceEvicted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CompositorFrameSinkClient.5
       bool success = true;
       ::viz::LocalSurfaceId p_local_surface_id{};
       CompositorFrameSinkClient_OnSurfaceEvicted_ParamsDataView input_data_view(params, message);
@@ -2201,8 +2239,8 @@ std::move(p_sequence_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSurfaceEvicted(
-std::move(p_local_surface_id));
+      impl->OnSurfaceEvicted(        
+        std::move(p_local_surface_id));
       return true;
     }
   }

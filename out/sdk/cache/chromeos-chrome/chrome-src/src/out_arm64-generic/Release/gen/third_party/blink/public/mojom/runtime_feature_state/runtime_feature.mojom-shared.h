@@ -44,17 +44,19 @@ enum class RuntimeFeature : int32_t {
   
   kBlinkExtensionChromeOS = 0,
   
-  kBlinkExtensionDiagnostics = 1,
+  kBlinkExtensionChromeOSKiosk = 1,
   
-  kDisableThirdPartyStoragePartitioning = 2,
+  kBlinkExtensionDiagnostics = 2,
   
-  kFedCmIdpSigninStatus = 3,
+  kDisableThirdPartyStoragePartitioning = 3,
   
-  kOriginTrialsSampleAPIBrowserReadWrite = 4,
+  kFedCmIdpSigninStatus = 4,
   
-  kTestFeature = 5,
+  kOriginTrialsSampleAPIBrowserReadWrite = 5,
+  
+  kTestFeature = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, RuntimeFeature value);

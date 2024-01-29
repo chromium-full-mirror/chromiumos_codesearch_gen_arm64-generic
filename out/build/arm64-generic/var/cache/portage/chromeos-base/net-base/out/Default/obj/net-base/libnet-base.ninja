@@ -1,90 +1,93 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -Wconversion -Wextra -Werror -Wno-unused-parameter -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -pthread -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -DPROTOBUF_USE_DLLS
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -Wconversion -Wextra -Werror -Wno-unused-parameter -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libnet-base
 
-build obj/net-base/libnet-base.ares_interface.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/ares_interface.cc
+build obj/net-base/libnet-base.ares_interface.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/ares_interface.cc
   source_file_part = ares_interface.cc
   source_name_part = ares_interface
-build obj/net-base/libnet-base.attribute_list.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/attribute_list.cc
+build obj/net-base/libnet-base.attribute_list.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/attribute_list.cc
   source_file_part = attribute_list.cc
   source_name_part = attribute_list
-build obj/net-base/libnet-base.byte_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/byte_utils.cc
+build obj/net-base/libnet-base.byte_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/byte_utils.cc
   source_file_part = byte_utils.cc
   source_name_part = byte_utils
-build obj/net-base/libnet-base.control_netlink_attribute.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/control_netlink_attribute.cc
+build obj/net-base/libnet-base.control_netlink_attribute.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/control_netlink_attribute.cc
   source_file_part = control_netlink_attribute.cc
   source_name_part = control_netlink_attribute
-build obj/net-base/libnet-base.dns_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/dns_client.cc
+build obj/net-base/libnet-base.dns_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/dns_client.cc
   source_file_part = dns_client.cc
   source_name_part = dns_client
-build obj/net-base/libnet-base.generic_netlink_message.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/generic_netlink_message.cc
+build obj/net-base/libnet-base.generic_netlink_message.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/generic_netlink_message.cc
   source_file_part = generic_netlink_message.cc
   source_name_part = generic_netlink_message
-build obj/net-base/libnet-base.http_url.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/http_url.cc
+build obj/net-base/libnet-base.http_url.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/http_url.cc
   source_file_part = http_url.cc
   source_name_part = http_url
-build obj/net-base/libnet-base.ip_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/ip_address.cc
+build obj/net-base/libnet-base.ip_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/ip_address.cc
   source_file_part = ip_address.cc
   source_name_part = ip_address
-build obj/net-base/libnet-base.ip_address_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/ip_address_utils.cc
+build obj/net-base/libnet-base.ip_address_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/ip_address_utils.cc
   source_file_part = ip_address_utils.cc
   source_name_part = ip_address_utils
-build obj/net-base/libnet-base.ipv4_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/ipv4_address.cc
+build obj/net-base/libnet-base.ipv4_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/ipv4_address.cc
   source_file_part = ipv4_address.cc
   source_name_part = ipv4_address
-build obj/net-base/libnet-base.ipv6_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/ipv6_address.cc
+build obj/net-base/libnet-base.ipv6_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/ipv6_address.cc
   source_file_part = ipv6_address.cc
   source_name_part = ipv6_address
-build obj/net-base/libnet-base.mac_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/mac_address.cc
+build obj/net-base/libnet-base.mac_address.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/mac_address.cc
   source_file_part = mac_address.cc
   source_name_part = mac_address
-build obj/net-base/libnet-base.netlink_attribute.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/netlink_attribute.cc
+build obj/net-base/libnet-base.netlink_attribute.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/netlink_attribute.cc
   source_file_part = netlink_attribute.cc
   source_name_part = netlink_attribute
-build obj/net-base/libnet-base.netlink_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/netlink_manager.cc
+build obj/net-base/libnet-base.netlink_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/netlink_manager.cc
   source_file_part = netlink_manager.cc
   source_name_part = netlink_manager
-build obj/net-base/libnet-base.netlink_message.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/netlink_message.cc
+build obj/net-base/libnet-base.netlink_message.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/netlink_message.cc
   source_file_part = netlink_message.cc
   source_name_part = netlink_message
-build obj/net-base/libnet-base.netlink_packet.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/netlink_packet.cc
+build obj/net-base/libnet-base.netlink_packet.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/netlink_packet.cc
   source_file_part = netlink_packet.cc
   source_name_part = netlink_packet
-build obj/net-base/libnet-base.netlink_sock_diag.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/netlink_sock_diag.cc
+build obj/net-base/libnet-base.netlink_sock_diag.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/netlink_sock_diag.cc
   source_file_part = netlink_sock_diag.cc
   source_name_part = netlink_sock_diag
-build obj/net-base/libnet-base.netlink_socket.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/netlink_socket.cc
+build obj/net-base/libnet-base.netlink_socket.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/netlink_socket.cc
   source_file_part = netlink_socket.cc
   source_name_part = netlink_socket
-build obj/net-base/libnet-base.network_config.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/network_config.cc
+build obj/net-base/libnet-base.network_config.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/network_config.cc
   source_file_part = network_config.cc
   source_name_part = network_config
-build obj/net-base/libnet-base.network_priority.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/network_priority.cc
+build obj/net-base/libnet-base.network_priority.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/network_priority.cc
   source_file_part = network_priority.cc
   source_name_part = network_priority
-build obj/net-base/libnet-base.proc_fs_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/proc_fs_stub.cc
+build obj/net-base/libnet-base.proc_fs_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/proc_fs_stub.cc
   source_file_part = proc_fs_stub.cc
   source_name_part = proc_fs_stub
-build obj/net-base/libnet-base.process_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/process_manager.cc
+build obj/net-base/libnet-base.process_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/process_manager.cc
   source_file_part = process_manager.cc
   source_name_part = process_manager
-build obj/net-base/libnet-base.rtnl_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/rtnl_handler.cc
+build obj/net-base/libnet-base.rtnl_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/rtnl_handler.cc
   source_file_part = rtnl_handler.cc
   source_name_part = rtnl_handler
-build obj/net-base/libnet-base.rtnl_listener.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/rtnl_listener.cc
+build obj/net-base/libnet-base.rtnl_listener.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/rtnl_listener.cc
   source_file_part = rtnl_listener.cc
   source_name_part = rtnl_listener
-build obj/net-base/libnet-base.rtnl_message.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/rtnl_message.cc
+build obj/net-base/libnet-base.rtnl_message.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/rtnl_message.cc
   source_file_part = rtnl_message.cc
   source_name_part = rtnl_message
-build obj/net-base/libnet-base.socket.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r169/work/net-base-0.0.1/net-base/socket.cc
+build obj/net-base/libnet-base.socket.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/socket.cc
   source_file_part = socket.cc
   source_name_part = socket
+build obj/net-base/libnet-base.socket_forwarder.o: cxx ../../../../../../../tmp/portage/chromeos-base/net-base-0.0.1-r182/work/net-base-0.0.1/net-base/socket_forwarder.cc
+  source_file_part = socket_forwarder.cc
+  source_name_part = socket_forwarder
 
-build ./lib/libnet-base.so: solink obj/net-base/libnet-base.ares_interface.o obj/net-base/libnet-base.attribute_list.o obj/net-base/libnet-base.byte_utils.o obj/net-base/libnet-base.control_netlink_attribute.o obj/net-base/libnet-base.dns_client.o obj/net-base/libnet-base.generic_netlink_message.o obj/net-base/libnet-base.http_url.o obj/net-base/libnet-base.ip_address.o obj/net-base/libnet-base.ip_address_utils.o obj/net-base/libnet-base.ipv4_address.o obj/net-base/libnet-base.ipv6_address.o obj/net-base/libnet-base.mac_address.o obj/net-base/libnet-base.netlink_attribute.o obj/net-base/libnet-base.netlink_manager.o obj/net-base/libnet-base.netlink_message.o obj/net-base/libnet-base.netlink_packet.o obj/net-base/libnet-base.netlink_sock_diag.o obj/net-base/libnet-base.netlink_socket.o obj/net-base/libnet-base.network_config.o obj/net-base/libnet-base.network_priority.o obj/net-base/libnet-base.proc_fs_stub.o obj/net-base/libnet-base.process_manager.o obj/net-base/libnet-base.rtnl_handler.o obj/net-base/libnet-base.rtnl_listener.o obj/net-base/libnet-base.rtnl_message.o obj/net-base/libnet-base.socket.o || obj/net-base/_libnet-base-install_config.stamp
+build ./lib/libnet-base.so: solink obj/net-base/libnet-base.ares_interface.o obj/net-base/libnet-base.attribute_list.o obj/net-base/libnet-base.byte_utils.o obj/net-base/libnet-base.control_netlink_attribute.o obj/net-base/libnet-base.dns_client.o obj/net-base/libnet-base.generic_netlink_message.o obj/net-base/libnet-base.http_url.o obj/net-base/libnet-base.ip_address.o obj/net-base/libnet-base.ip_address_utils.o obj/net-base/libnet-base.ipv4_address.o obj/net-base/libnet-base.ipv6_address.o obj/net-base/libnet-base.mac_address.o obj/net-base/libnet-base.netlink_attribute.o obj/net-base/libnet-base.netlink_manager.o obj/net-base/libnet-base.netlink_message.o obj/net-base/libnet-base.netlink_packet.o obj/net-base/libnet-base.netlink_sock_diag.o obj/net-base/libnet-base.netlink_socket.o obj/net-base/libnet-base.network_config.o obj/net-base/libnet-base.network_priority.o obj/net-base/libnet-base.proc_fs_stub.o obj/net-base/libnet-base.process_manager.o obj/net-base/libnet-base.rtnl_handler.o obj/net-base/libnet-base.rtnl_listener.o obj/net-base/libnet-base.rtnl_message.o obj/net-base/libnet-base.socket.o obj/net-base/libnet-base.socket_forwarder.o || obj/net-base/_libnet-base-install_config.stamp
   ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -L/build/arm64-generic/usr/lib64
   libs = -lbrillo -lcares -lbase -lpthread -lminijail
   frameworks =

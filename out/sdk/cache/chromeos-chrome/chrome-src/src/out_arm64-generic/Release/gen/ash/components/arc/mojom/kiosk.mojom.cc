@@ -221,6 +221,8 @@ bool KioskHostStubDispatch::Accept(
           reinterpret_cast<internal::KioskHost_OnMaintenanceSessionCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KioskHost.0
       bool success = true;
       int32_t p_session_id{};
       KioskHost_OnMaintenanceSessionCreated_ParamsDataView input_data_view(params, message);
@@ -236,8 +238,8 @@ bool KioskHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMaintenanceSessionCreated(
-std::move(p_session_id));
+      impl->OnMaintenanceSessionCreated(        
+        std::move(p_session_id));
       return true;
     }
     case internal::kKioskHost_OnMaintenanceSessionFinished_Name: {
@@ -247,6 +249,8 @@ std::move(p_session_id));
           reinterpret_cast<internal::KioskHost_OnMaintenanceSessionFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KioskHost.1
       bool success = true;
       int32_t p_session_id{};
       bool p_succeeded{};
@@ -265,9 +269,9 @@ std::move(p_session_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMaintenanceSessionFinished(
-std::move(p_session_id), 
-std::move(p_succeeded));
+      impl->OnMaintenanceSessionFinished(        
+        std::move(p_session_id), 
+        std::move(p_succeeded));
       return true;
     }
   }
@@ -485,6 +489,8 @@ bool KioskInstance_Init_ForwardToCallback::Accept(
           internal::KioskInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KioskInstance.1
   bool success = true;
   KioskInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -563,6 +569,8 @@ bool KioskInstanceStubDispatch::AcceptWithResponder(
               internal::KioskInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KioskInstance.1
       bool success = true;
       ::mojo::PendingRemote<KioskHost> p_host_remote{};
       KioskInstance_Init_ParamsDataView input_data_view(params, message);
@@ -583,8 +591,8 @@ bool KioskInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

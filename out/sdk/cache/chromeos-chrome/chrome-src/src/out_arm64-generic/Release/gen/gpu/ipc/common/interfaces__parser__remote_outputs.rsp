@@ -1,0 +1,14 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/capabilities.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/context_result.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/device_perf_info.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/dx_diag_node.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/gpu_disk_cache_type.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/gpu_feature_info.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/gpu_info.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/gpu_peak_memory.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/mailbox.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/mailbox_holder.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/memory_stats.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/shared_image_capabilities.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/sync_token.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/gpu/ipc/common/vulkan_ycbcr_info.mojom-module

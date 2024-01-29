@@ -291,6 +291,8 @@ bool AshCertDatabaseObserverStubDispatch::Accept(
           reinterpret_cast<internal::AshCertDatabaseObserver_OnCertsChangedInAsh_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AshCertDatabaseObserver.0
       bool success = true;
       CertDatabaseChangeType p_change_type{};
       AshCertDatabaseObserver_OnCertsChangedInAsh_ParamsDataView input_data_view(params, message);
@@ -306,8 +308,8 @@ bool AshCertDatabaseObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCertsChangedInAsh(
-std::move(p_change_type));
+      impl->OnCertsChangedInAsh(        
+        std::move(p_change_type));
       return true;
     }
   }
@@ -723,6 +725,8 @@ bool CertDatabase_GetCertDatabaseInfo_ForwardToCallback::Accept(
           internal::CertDatabase_GetCertDatabaseInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertDatabase.0
   bool success = true;
   GetCertDatabaseInfoResultPtr p_result{};
   CertDatabase_GetCertDatabaseInfo_ResponseParamsDataView input_data_view(params, message);
@@ -806,6 +810,8 @@ bool CertDatabaseStubDispatch::Accept(
           reinterpret_cast<internal::CertDatabase_OnCertsChangedInLacros_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertDatabase.1
       bool success = true;
       CertDatabaseChangeType p_change_type{};
       CertDatabase_OnCertsChangedInLacros_ParamsDataView input_data_view(params, message);
@@ -821,8 +827,8 @@ bool CertDatabaseStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCertsChangedInLacros(
-std::move(p_change_type));
+      impl->OnCertsChangedInLacros(        
+        std::move(p_change_type));
       return true;
     }
     case internal::kCertDatabase_AddAshCertDatabaseObserver_Name: {
@@ -832,6 +838,8 @@ std::move(p_change_type));
           reinterpret_cast<internal::CertDatabase_AddAshCertDatabaseObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertDatabase.2
       bool success = true;
       ::mojo::PendingRemote<AshCertDatabaseObserver> p_observer{};
       CertDatabase_AddAshCertDatabaseObserver_ParamsDataView input_data_view(params, message);
@@ -849,8 +857,8 @@ std::move(p_change_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAshCertDatabaseObserver(
-std::move(p_observer));
+      impl->AddAshCertDatabaseObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCertDatabase_SetCertsProvidedByExtension_Name: {
@@ -860,6 +868,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CertDatabase_SetCertsProvidedByExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertDatabase.3
       bool success = true;
       std::string p_extension_id{};
       std::vector<::chromeos::certificate_provider::CertificateInfo> p_cert_infos{};
@@ -878,9 +888,9 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCertsProvidedByExtension(
-std::move(p_extension_id), 
-std::move(p_cert_infos));
+      impl->SetCertsProvidedByExtension(        
+        std::move(p_extension_id), 
+        std::move(p_cert_infos));
       return true;
     }
   }
@@ -903,6 +913,8 @@ bool CertDatabaseStubDispatch::AcceptWithResponder(
               internal::CertDatabase_GetCertDatabaseInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertDatabase.0
       bool success = true;
       CertDatabase_GetCertDatabaseInfo_ParamsDataView input_data_view(params, message);
       

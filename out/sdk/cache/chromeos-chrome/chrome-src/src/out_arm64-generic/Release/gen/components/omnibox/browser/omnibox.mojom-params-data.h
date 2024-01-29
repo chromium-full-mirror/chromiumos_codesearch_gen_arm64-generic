@@ -231,6 +231,7 @@ class  Page_UpdateSelection_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::OmniboxPopupSelection_Data> old_selection;
   mojo::internal::Pointer<internal::OmniboxPopupSelection_Data> selection;
 
  private:
@@ -239,7 +240,7 @@ class  Page_UpdateSelection_Params_Data {
   Page_UpdateSelection_Params_Data();
   ~Page_UpdateSelection_Params_Data() = delete;
 };
-static_assert(sizeof(Page_UpdateSelection_Params_Data) == 16,
+static_assert(sizeof(Page_UpdateSelection_Params_Data) == 24,
               "Bad sizeof(Page_UpdateSelection_Params_Data)");
 
 }  // namespace internal
@@ -587,6 +588,16 @@ class Page_UpdateSelection_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetOldSelectionDataView(
+      OmniboxPopupSelectionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOldSelection(UserType* output) {
+    
+    auto* pointer = data_->old_selection.Get();
+    return mojo::internal::Deserialize<::omnibox::mojom::OmniboxPopupSelectionDataView>(
+        pointer, output, message_);
+  }
   inline void GetSelectionDataView(
       OmniboxPopupSelectionDataView* output);
 
@@ -664,6 +675,11 @@ inline void Page_AutocompleteResultChanged_ParamsDataView::GetResultDataView(
 }
 
 
+inline void Page_UpdateSelection_ParamsDataView::GetOldSelectionDataView(
+    OmniboxPopupSelectionDataView* output) {
+  auto pointer = data_->old_selection.Get();
+  *output = OmniboxPopupSelectionDataView(pointer, message_);
+}
 inline void Page_UpdateSelection_ParamsDataView::GetSelectionDataView(
     OmniboxPopupSelectionDataView* output) {
   auto pointer = data_->selection.Get();

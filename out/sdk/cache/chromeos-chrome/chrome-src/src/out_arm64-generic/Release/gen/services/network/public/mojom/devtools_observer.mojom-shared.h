@@ -231,6 +231,16 @@ class URLResponseHeadDevToolsInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetCharsetDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCharset(UserType* output) {
+    
+    auto* pointer = data_->charset.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
   inline void GetLoadTimingDataView(
       ::network::mojom::LoadTimingInfoDataView* output);
 
@@ -488,6 +498,18 @@ struct Serializer<::network::mojom::URLResponseHeadDevToolsInfoDataView, MaybeCo
         fragment->mime_type.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null mime_type in URLResponseHeadDevToolsInfo struct");
+    decltype(Traits::charset(input)) in_charset = Traits::charset(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->charset)::BaseType> charset_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_charset, charset_fragment);
+    fragment->charset.Set(
+        charset_fragment.is_null() ? nullptr : charset_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->charset.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null charset in URLResponseHeadDevToolsInfo struct");
     decltype(Traits::load_timing(input)) in_load_timing = Traits::load_timing(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->load_timing)::BaseType> load_timing_fragment(
@@ -642,6 +664,11 @@ inline void URLResponseHeadDevToolsInfoDataView::GetHeadersDataView(
 inline void URLResponseHeadDevToolsInfoDataView::GetMimeTypeDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->mime_type.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void URLResponseHeadDevToolsInfoDataView::GetCharsetDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->charset.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void URLResponseHeadDevToolsInfoDataView::GetLoadTimingDataView(

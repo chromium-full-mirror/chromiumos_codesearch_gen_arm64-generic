@@ -8,12 +8,11 @@ import { FilesAppState } from '../../common/js/files_app_state.js';
 import { recordInterval } from '../../common/js/metrics.js';
 import { isInGuestMode } from '../../common/js/util.js';
 import { ARCHIVE_OPENED_EVENT_TYPE, Source, VOLUME_ALREADY_MOUNTED, VolumeError, VolumeType } from '../../common/js/volume_manager_types.js';
-import { ProgressCenter } from '../../externs/background/progress_center.js';
 import { AppWindowWrapper } from './app_window_wrapper.js';
-import { CrostiniImpl } from './crostini.js';
+import { Crostini } from './crostini.js';
 import { DriveSyncHandlerImpl } from './drive_sync_handler.js';
 import { FileOperationHandler } from './file_operation_handler.js';
-import { ProgressCenterImpl } from './progress_center.js';
+import { ProgressCenter } from './progress_center.js';
 import { volumeManagerFactory } from './volume_manager_factory.js';
 /**
  * Root class of the former background page.
@@ -28,12 +27,12 @@ export class FileManagerBase {
         /**
          * Progress center of the background page.
          */
-        this.progressCenter = new ProgressCenterImpl();
+        this.progressCenter = new ProgressCenter();
         /**
          * Drive sync handler.
          */
         this.driveSyncHandler = new DriveSyncHandlerImpl(this.progressCenter);
-        this.crostini = new CrostiniImpl();
+        this.crostini = new Crostini();
         /**
          * String assets.
          */

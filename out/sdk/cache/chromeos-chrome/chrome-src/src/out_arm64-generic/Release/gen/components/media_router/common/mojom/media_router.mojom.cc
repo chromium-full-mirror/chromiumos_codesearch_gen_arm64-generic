@@ -764,8 +764,8 @@ MediaRouteProvider::IPCStableHashFunction MediaRouteProvider::MessageToMethodInf
     case internal::kMediaRouteProvider_DiscoverSinksNow_Name: {
       return &MediaRouteProvider::DiscoverSinksNow_Sym::IPCStableHash;
     }
-    case internal::kMediaRouteProvider_CreateMediaRouteController_Name: {
-      return &MediaRouteProvider::CreateMediaRouteController_Sym::IPCStableHash;
+    case internal::kMediaRouteProvider_BindMediaController_Name: {
+      return &MediaRouteProvider::BindMediaController_Sym::IPCStableHash;
     }
     case internal::kMediaRouteProvider_GetState_Name: {
       return &MediaRouteProvider::GetState_Sym::IPCStableHash;
@@ -803,8 +803,8 @@ const char* MediaRouteProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive media_router::mojom::MediaRouteProvider::EnableMdnsDiscovery";
       case internal::kMediaRouteProvider_DiscoverSinksNow_Name:
             return "Receive media_router::mojom::MediaRouteProvider::DiscoverSinksNow";
-      case internal::kMediaRouteProvider_CreateMediaRouteController_Name:
-            return "Receive media_router::mojom::MediaRouteProvider::CreateMediaRouteController";
+      case internal::kMediaRouteProvider_BindMediaController_Name:
+            return "Receive media_router::mojom::MediaRouteProvider::BindMediaController";
       case internal::kMediaRouteProvider_GetState_Name:
             return "Receive media_router::mojom::MediaRouteProvider::GetState";
     }
@@ -832,8 +832,8 @@ const char* MediaRouteProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply media_router::mojom::MediaRouteProvider::EnableMdnsDiscovery";
       case internal::kMediaRouteProvider_DiscoverSinksNow_Name:
             return "Receive reply media_router::mojom::MediaRouteProvider::DiscoverSinksNow";
-      case internal::kMediaRouteProvider_CreateMediaRouteController_Name:
-            return "Receive reply media_router::mojom::MediaRouteProvider::CreateMediaRouteController";
+      case internal::kMediaRouteProvider_BindMediaController_Name:
+            return "Receive reply media_router::mojom::MediaRouteProvider::BindMediaController";
       case internal::kMediaRouteProvider_GetState_Name:
             return "Receive reply media_router::mojom::MediaRouteProvider::GetState";
     }
@@ -993,7 +993,7 @@ uint32_t MediaRouteProvider::DiscoverSinksNow_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t MediaRouteProvider::CreateMediaRouteController_Sym::IPCStableHash() {
+uint32_t MediaRouteProvider::BindMediaController_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1001,7 +1001,7 @@ uint32_t MediaRouteProvider::CreateMediaRouteController_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)media_router::mojom::MediaRouteProvider::CreateMediaRouteController");
+          "(Impl)media_router::mojom::MediaRouteProvider::BindMediaController");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1069,20 +1069,20 @@ class MediaRouteProvider_TerminateRoute_ForwardToCallback
   MediaRouteProvider::TerminateRouteCallback callback_;
 };
 
-class MediaRouteProvider_CreateMediaRouteController_ForwardToCallback
+class MediaRouteProvider_BindMediaController_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  MediaRouteProvider_CreateMediaRouteController_ForwardToCallback(
-      MediaRouteProvider::CreateMediaRouteControllerCallback callback
+  MediaRouteProvider_BindMediaController_ForwardToCallback(
+      MediaRouteProvider::BindMediaControllerCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  MediaRouteProvider_CreateMediaRouteController_ForwardToCallback(const MediaRouteProvider_CreateMediaRouteController_ForwardToCallback&) = delete;
-  MediaRouteProvider_CreateMediaRouteController_ForwardToCallback& operator=(const MediaRouteProvider_CreateMediaRouteController_ForwardToCallback&) = delete;
+  MediaRouteProvider_BindMediaController_ForwardToCallback(const MediaRouteProvider_BindMediaController_ForwardToCallback&) = delete;
+  MediaRouteProvider_BindMediaController_ForwardToCallback& operator=(const MediaRouteProvider_BindMediaController_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  MediaRouteProvider::CreateMediaRouteControllerCallback callback_;
+  MediaRouteProvider::BindMediaControllerCallback callback_;
 };
 
 class MediaRouteProvider_GetState_ForwardToCallback
@@ -1751,11 +1751,11 @@ void MediaRouteProviderProxy::DiscoverSinksNow(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void MediaRouteProviderProxy::CreateMediaRouteController(
-    const std::string& in_route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> in_media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> in_observer, CreateMediaRouteControllerCallback callback) {
+void MediaRouteProviderProxy::BindMediaController(
+    const std::string& in_route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> in_media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> in_observer, BindMediaControllerCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send media_router::mojom::MediaRouteProvider::CreateMediaRouteController", "input_parameters",
+    "mojom", "Send media_router::mojom::MediaRouteProvider::BindMediaController", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -1782,9 +1782,9 @@ void MediaRouteProviderProxy::CreateMediaRouteController(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kMediaRouteProvider_CreateMediaRouteController_Name, kFlags, 0, 0, nullptr);
+      internal::kMediaRouteProvider_BindMediaController_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::media_router::mojom::internal::MediaRouteProvider_CreateMediaRouteController_Params_Data> params(
+      ::media_router::mojom::internal::MediaRouteProvider_BindMediaController_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -1797,26 +1797,26 @@ void MediaRouteProviderProxy::CreateMediaRouteController(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->route_id.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null route_id in MediaRouteProvider.CreateMediaRouteController request");
+      "null route_id in MediaRouteProvider.BindMediaController request");
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::media_router::mojom::MediaControllerInterfaceBase>>(
       in_media_controller, &params->media_controller, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->media_controller),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid media_controller in MediaRouteProvider.CreateMediaRouteController request");
+      "invalid media_controller in MediaRouteProvider.BindMediaController request");
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::media_router::mojom::MediaStatusObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in MediaRouteProvider.CreateMediaRouteController request");
+      "invalid observer in MediaRouteProvider.BindMediaController request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaRouteProvider::Name_);
-  message.set_method_name("CreateMediaRouteController");
+  message.set_method_name("BindMediaController");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new MediaRouteProvider_CreateMediaRouteController_ForwardToCallback(
+      new MediaRouteProvider_BindMediaController_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1912,6 +1912,8 @@ bool MediaRouteProvider_CreateRoute_ForwardToCallback::Accept(
           internal::MediaRouteProvider_CreateRoute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouteProvider.0
   bool success = true;
   std::optional<::media_router::MediaRoute> p_route{};
   RoutePresentationConnectionPtr p_connection{};
@@ -2074,6 +2076,8 @@ bool MediaRouteProvider_JoinRoute_ForwardToCallback::Accept(
           internal::MediaRouteProvider_JoinRoute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouteProvider.1
   bool success = true;
   std::optional<::media_router::MediaRoute> p_route{};
   RoutePresentationConnectionPtr p_connection{};
@@ -2236,6 +2240,8 @@ bool MediaRouteProvider_TerminateRoute_ForwardToCallback::Accept(
           internal::MediaRouteProvider_TerminateRoute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouteProvider.2
   bool success = true;
   std::optional<std::string> p_error_text{};
   ::media_router::mojom::RouteRequestResultCode p_result_code{};
@@ -2312,19 +2318,19 @@ void MediaRouteProvider_TerminateRoute_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class MediaRouteProvider_CreateMediaRouteController_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class MediaRouteProvider_BindMediaController_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static MediaRouteProvider::CreateMediaRouteControllerCallback CreateCallback(
+  static MediaRouteProvider::BindMediaControllerCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<MediaRouteProvider_CreateMediaRouteController_ProxyToResponder> proxy(
-        new MediaRouteProvider_CreateMediaRouteController_ProxyToResponder(
+    std::unique_ptr<MediaRouteProvider_BindMediaController_ProxyToResponder> proxy(
+        new MediaRouteProvider_BindMediaController_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&MediaRouteProvider_CreateMediaRouteController_ProxyToResponder::Run,
+    return base::BindOnce(&MediaRouteProvider_BindMediaController_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~MediaRouteProvider_CreateMediaRouteController_ProxyToResponder() {
+  ~MediaRouteProvider_BindMediaController_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -2341,7 +2347,7 @@ class MediaRouteProvider_CreateMediaRouteController_ProxyToResponder : public ::
   }
 
  private:
-  MediaRouteProvider_CreateMediaRouteController_ProxyToResponder(
+  MediaRouteProvider_BindMediaController_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -2350,7 +2356,7 @@ class MediaRouteProvider_CreateMediaRouteController_ProxyToResponder : public ::
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "MediaRouteProvider::CreateMediaRouteControllerCallback was destroyed without "
+        << "MediaRouteProvider::BindMediaControllerCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -2361,18 +2367,20 @@ class MediaRouteProvider_CreateMediaRouteController_ProxyToResponder : public ::
       bool in_success);
 };
 
-bool MediaRouteProvider_CreateMediaRouteController_ForwardToCallback::Accept(
+bool MediaRouteProvider_BindMediaController_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data* params =
+  internal::MediaRouteProvider_BindMediaController_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data*>(
+          internal::MediaRouteProvider_BindMediaController_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouteProvider.11
   bool success = true;
   bool p_success{};
-  MediaRouteProvider_CreateMediaRouteController_ResponseParamsDataView input_data_view(params, message);
+  MediaRouteProvider_BindMediaController_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
     p_success = input_data_view.success();
@@ -2389,11 +2397,11 @@ std::move(p_success));
   return true;
 }
 
-void MediaRouteProvider_CreateMediaRouteController_ProxyToResponder::Run(
+void MediaRouteProvider_BindMediaController_ProxyToResponder::Run(
     bool in_success) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply media_router::mojom::MediaRouteProvider::CreateMediaRouteController", "async_response_parameters",
+    "mojom", "Send reply media_router::mojom::MediaRouteProvider::BindMediaController", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2408,16 +2416,16 @@ void MediaRouteProvider_CreateMediaRouteController_ProxyToResponder::Run(
       ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kMediaRouteProvider_CreateMediaRouteController_Name, kFlags, 0, 0, nullptr);
+      internal::kMediaRouteProvider_BindMediaController_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::media_router::mojom::internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data> params(
+      ::media_router::mojom::internal::MediaRouteProvider_BindMediaController_ResponseParams_Data> params(
           message);
   params.Allocate();
   params->success = in_success;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaRouteProvider::Name_);
-  message.set_method_name("CreateMediaRouteController");
+  message.set_method_name("BindMediaController");
 #endif
 
   message.set_request_id(request_id_);
@@ -2489,6 +2497,8 @@ bool MediaRouteProvider_GetState_ForwardToCallback::Accept(
           internal::MediaRouteProvider_GetState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouteProvider.12
   bool success = true;
   ProviderStatePtr p_state{};
   MediaRouteProvider_GetState_ResponseParamsDataView input_data_view(params, message);
@@ -2576,6 +2586,8 @@ bool MediaRouteProviderStubDispatch::Accept(
           reinterpret_cast<internal::MediaRouteProvider_SendRouteMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.3
       bool success = true;
       std::string p_media_route_id{};
       std::string p_message{};
@@ -2594,9 +2606,9 @@ bool MediaRouteProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendRouteMessage(
-std::move(p_media_route_id), 
-std::move(p_message));
+      impl->SendRouteMessage(        
+        std::move(p_media_route_id), 
+        std::move(p_message));
       return true;
     }
     case internal::kMediaRouteProvider_SendRouteBinaryMessage_Name: {
@@ -2606,6 +2618,8 @@ std::move(p_message));
           reinterpret_cast<internal::MediaRouteProvider_SendRouteBinaryMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.4
       bool success = true;
       std::string p_media_route_id{};
       std::vector<uint8_t> p_data{};
@@ -2624,9 +2638,9 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendRouteBinaryMessage(
-std::move(p_media_route_id), 
-std::move(p_data));
+      impl->SendRouteBinaryMessage(        
+        std::move(p_media_route_id), 
+        std::move(p_data));
       return true;
     }
     case internal::kMediaRouteProvider_StartObservingMediaSinks_Name: {
@@ -2636,6 +2650,8 @@ std::move(p_data));
           reinterpret_cast<internal::MediaRouteProvider_StartObservingMediaSinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.5
       bool success = true;
       std::string p_media_source{};
       MediaRouteProvider_StartObservingMediaSinks_ParamsDataView input_data_view(params, message);
@@ -2651,8 +2667,8 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartObservingMediaSinks(
-std::move(p_media_source));
+      impl->StartObservingMediaSinks(        
+        std::move(p_media_source));
       return true;
     }
     case internal::kMediaRouteProvider_StopObservingMediaSinks_Name: {
@@ -2662,6 +2678,8 @@ std::move(p_media_source));
           reinterpret_cast<internal::MediaRouteProvider_StopObservingMediaSinks_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.6
       bool success = true;
       std::string p_media_source{};
       MediaRouteProvider_StopObservingMediaSinks_ParamsDataView input_data_view(params, message);
@@ -2677,8 +2695,8 @@ std::move(p_media_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopObservingMediaSinks(
-std::move(p_media_source));
+      impl->StopObservingMediaSinks(        
+        std::move(p_media_source));
       return true;
     }
     case internal::kMediaRouteProvider_StartObservingMediaRoutes_Name: {
@@ -2688,6 +2706,8 @@ std::move(p_media_source));
           reinterpret_cast<internal::MediaRouteProvider_StartObservingMediaRoutes_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.7
       bool success = true;
       MediaRouteProvider_StartObservingMediaRoutes_ParamsDataView input_data_view(params, message);
       
@@ -2700,7 +2720,7 @@ std::move(p_media_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartObservingMediaRoutes();
+      impl->StartObservingMediaRoutes(        );
       return true;
     }
     case internal::kMediaRouteProvider_DetachRoute_Name: {
@@ -2710,6 +2730,8 @@ std::move(p_media_source));
           reinterpret_cast<internal::MediaRouteProvider_DetachRoute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.8
       bool success = true;
       std::string p_route_id{};
       MediaRouteProvider_DetachRoute_ParamsDataView input_data_view(params, message);
@@ -2725,8 +2747,8 @@ std::move(p_media_source));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetachRoute(
-std::move(p_route_id));
+      impl->DetachRoute(        
+        std::move(p_route_id));
       return true;
     }
     case internal::kMediaRouteProvider_EnableMdnsDiscovery_Name: {
@@ -2736,6 +2758,8 @@ std::move(p_route_id));
           reinterpret_cast<internal::MediaRouteProvider_EnableMdnsDiscovery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.9
       bool success = true;
       MediaRouteProvider_EnableMdnsDiscovery_ParamsDataView input_data_view(params, message);
       
@@ -2748,7 +2772,7 @@ std::move(p_route_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableMdnsDiscovery();
+      impl->EnableMdnsDiscovery(        );
       return true;
     }
     case internal::kMediaRouteProvider_DiscoverSinksNow_Name: {
@@ -2758,6 +2782,8 @@ std::move(p_route_id));
           reinterpret_cast<internal::MediaRouteProvider_DiscoverSinksNow_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.10
       bool success = true;
       MediaRouteProvider_DiscoverSinksNow_ParamsDataView input_data_view(params, message);
       
@@ -2770,10 +2796,10 @@ std::move(p_route_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DiscoverSinksNow();
+      impl->DiscoverSinksNow(        );
       return true;
     }
-    case internal::kMediaRouteProvider_CreateMediaRouteController_Name: {
+    case internal::kMediaRouteProvider_BindMediaController_Name: {
       break;
     }
     case internal::kMediaRouteProvider_GetState_Name: {
@@ -2799,6 +2825,8 @@ bool MediaRouteProviderStubDispatch::AcceptWithResponder(
               internal::MediaRouteProvider_CreateRoute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.0
       bool success = true;
       std::string p_media_source{};
       std::string p_sink_id{};
@@ -2832,13 +2860,13 @@ bool MediaRouteProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRoute(
-std::move(p_media_source), 
-std::move(p_sink_id), 
-std::move(p_original_presentation_id), 
-std::move(p_origin), 
-std::move(p_frame_tree_node_id), 
-std::move(p_timeout), std::move(callback));
+      impl->CreateRoute(        
+        std::move(p_media_source), 
+        std::move(p_sink_id), 
+        std::move(p_original_presentation_id), 
+        std::move(p_origin), 
+        std::move(p_frame_tree_node_id), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kMediaRouteProvider_JoinRoute_Name: {
@@ -2848,6 +2876,8 @@ std::move(p_timeout), std::move(callback));
               internal::MediaRouteProvider_JoinRoute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.1
       bool success = true;
       std::string p_media_source{};
       std::string p_presentation_id{};
@@ -2878,12 +2908,12 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JoinRoute(
-std::move(p_media_source), 
-std::move(p_presentation_id), 
-std::move(p_origin), 
-std::move(p_frame_tree_node_id), 
-std::move(p_timeout), std::move(callback));
+      impl->JoinRoute(        
+        std::move(p_media_source), 
+        std::move(p_presentation_id), 
+        std::move(p_origin), 
+        std::move(p_frame_tree_node_id), 
+        std::move(p_timeout), std::move(callback));
       return true;
     }
     case internal::kMediaRouteProvider_TerminateRoute_Name: {
@@ -2893,6 +2923,8 @@ std::move(p_timeout), std::move(callback));
               internal::MediaRouteProvider_TerminateRoute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.2
       bool success = true;
       std::string p_route_id{};
       MediaRouteProvider_TerminateRoute_ParamsDataView input_data_view(params, message);
@@ -2911,8 +2943,8 @@ std::move(p_timeout), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TerminateRoute(
-std::move(p_route_id), std::move(callback));
+      impl->TerminateRoute(        
+        std::move(p_route_id), std::move(callback));
       return true;
     }
     case internal::kMediaRouteProvider_SendRouteMessage_Name: {
@@ -2939,18 +2971,20 @@ std::move(p_route_id), std::move(callback));
     case internal::kMediaRouteProvider_DiscoverSinksNow_Name: {
       break;
     }
-    case internal::kMediaRouteProvider_CreateMediaRouteController_Name: {
+    case internal::kMediaRouteProvider_BindMediaController_Name: {
 
-      internal::MediaRouteProvider_CreateMediaRouteController_Params_Data* params =
+      internal::MediaRouteProvider_BindMediaController_Params_Data* params =
           reinterpret_cast<
-              internal::MediaRouteProvider_CreateMediaRouteController_Params_Data*>(
+              internal::MediaRouteProvider_BindMediaController_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.11
       bool success = true;
       std::string p_route_id{};
       ::mojo::PendingReceiver<::media_router::mojom::MediaController> p_media_controller{};
       ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> p_observer{};
-      MediaRouteProvider_CreateMediaRouteController_ParamsDataView input_data_view(params, message);
+      MediaRouteProvider_BindMediaController_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRouteId(&p_route_id))
         success = false;
@@ -2969,15 +3003,15 @@ std::move(p_route_id), std::move(callback));
             MediaRouteProvider::Name_, 11, false);
         return false;
       }
-      MediaRouteProvider::CreateMediaRouteControllerCallback callback =
-          MediaRouteProvider_CreateMediaRouteController_ProxyToResponder::CreateCallback(
+      MediaRouteProvider::BindMediaControllerCallback callback =
+          MediaRouteProvider_BindMediaController_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateMediaRouteController(
-std::move(p_route_id), 
-std::move(p_media_controller), 
-std::move(p_observer), std::move(callback));
+      impl->BindMediaController(        
+        std::move(p_route_id), 
+        std::move(p_media_controller), 
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kMediaRouteProvider_GetState_Name: {
@@ -2987,6 +3021,8 @@ std::move(p_observer), std::move(callback));
               internal::MediaRouteProvider_GetState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouteProvider.12
       bool success = true;
       MediaRouteProvider_GetState_ParamsDataView input_data_view(params, message);
       
@@ -3033,8 +3069,8 @@ static const mojo::internal::GenericValidationInfo kMediaRouteProviderValidation
      nullptr /* no response */},
     { &internal::MediaRouteProvider_DiscoverSinksNow_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::MediaRouteProvider_CreateMediaRouteController_Params_Data::Validate,
-     &internal::MediaRouteProvider_CreateMediaRouteController_ResponseParams_Data::Validate},
+    { &internal::MediaRouteProvider_BindMediaController_Params_Data::Validate,
+     &internal::MediaRouteProvider_BindMediaController_ResponseParams_Data::Validate},
     { &internal::MediaRouteProvider_GetState_Params_Data::Validate,
      &internal::MediaRouteProvider_GetState_ResponseParams_Data::Validate},
 };
@@ -4068,6 +4104,8 @@ bool MediaRouter_GetMediaSinkServiceStatus_ForwardToCallback::Accept(
           internal::MediaRouter_GetMediaSinkServiceStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouter.8
   bool success = true;
   std::string p_status{};
   MediaRouter_GetMediaSinkServiceStatus_ResponseParamsDataView input_data_view(params, message);
@@ -4197,6 +4235,8 @@ bool MediaRouter_GetLogsAsString_ForwardToCallback::Accept(
           internal::MediaRouter_GetLogsAsString_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaRouter.11
   bool success = true;
   std::string p_logs{};
   MediaRouter_GetLogsAsString_ResponseParamsDataView input_data_view(params, message);
@@ -4281,6 +4321,8 @@ bool MediaRouterStubDispatch::Accept(
           reinterpret_cast<internal::MediaRouter_RegisterMediaRouteProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.0
       bool success = true;
       ::media_router::mojom::MediaRouteProviderId p_provider_id{};
       ::mojo::PendingRemote<MediaRouteProvider> p_media_router_provider{};
@@ -4301,9 +4343,9 @@ bool MediaRouterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterMediaRouteProvider(
-std::move(p_provider_id), 
-std::move(p_media_router_provider));
+      impl->RegisterMediaRouteProvider(        
+        std::move(p_provider_id), 
+        std::move(p_media_router_provider));
       return true;
     }
     case internal::kMediaRouter_OnSinksReceived_Name: {
@@ -4313,6 +4355,8 @@ std::move(p_media_router_provider));
           reinterpret_cast<internal::MediaRouter_OnSinksReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.1
       bool success = true;
       ::media_router::mojom::MediaRouteProviderId p_provider_id{};
       std::string p_media_source{};
@@ -4337,11 +4381,11 @@ std::move(p_media_router_provider));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSinksReceived(
-std::move(p_provider_id), 
-std::move(p_media_source), 
-std::move(p_sinks), 
-std::move(p_origins));
+      impl->OnSinksReceived(        
+        std::move(p_provider_id), 
+        std::move(p_media_source), 
+        std::move(p_sinks), 
+        std::move(p_origins));
       return true;
     }
     case internal::kMediaRouter_OnIssue_Name: {
@@ -4351,6 +4395,8 @@ std::move(p_origins));
           reinterpret_cast<internal::MediaRouter_OnIssue_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.2
       bool success = true;
       ::media_router::IssueInfo p_issue{};
       MediaRouter_OnIssue_ParamsDataView input_data_view(params, message);
@@ -4366,8 +4412,8 @@ std::move(p_origins));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnIssue(
-std::move(p_issue));
+      impl->OnIssue(        
+        std::move(p_issue));
       return true;
     }
     case internal::kMediaRouter_ClearTopIssueForSink_Name: {
@@ -4377,6 +4423,8 @@ std::move(p_issue));
           reinterpret_cast<internal::MediaRouter_ClearTopIssueForSink_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.3
       bool success = true;
       std::string p_sink_id{};
       MediaRouter_ClearTopIssueForSink_ParamsDataView input_data_view(params, message);
@@ -4392,8 +4440,8 @@ std::move(p_issue));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearTopIssueForSink(
-std::move(p_sink_id));
+      impl->ClearTopIssueForSink(        
+        std::move(p_sink_id));
       return true;
     }
     case internal::kMediaRouter_OnRoutesUpdated_Name: {
@@ -4403,6 +4451,8 @@ std::move(p_sink_id));
           reinterpret_cast<internal::MediaRouter_OnRoutesUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.4
       bool success = true;
       ::media_router::mojom::MediaRouteProviderId p_provider_id{};
       std::vector<::media_router::MediaRoute> p_routes{};
@@ -4421,9 +4471,9 @@ std::move(p_sink_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRoutesUpdated(
-std::move(p_provider_id), 
-std::move(p_routes));
+      impl->OnRoutesUpdated(        
+        std::move(p_provider_id), 
+        std::move(p_routes));
       return true;
     }
     case internal::kMediaRouter_OnPresentationConnectionStateChanged_Name: {
@@ -4433,6 +4483,8 @@ std::move(p_routes));
           reinterpret_cast<internal::MediaRouter_OnPresentationConnectionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.5
       bool success = true;
       std::string p_route_id{};
       ::blink::mojom::PresentationConnectionState p_state{};
@@ -4451,9 +4503,9 @@ std::move(p_routes));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPresentationConnectionStateChanged(
-std::move(p_route_id), 
-std::move(p_state));
+      impl->OnPresentationConnectionStateChanged(        
+        std::move(p_route_id), 
+        std::move(p_state));
       return true;
     }
     case internal::kMediaRouter_OnPresentationConnectionClosed_Name: {
@@ -4463,6 +4515,8 @@ std::move(p_state));
           reinterpret_cast<internal::MediaRouter_OnPresentationConnectionClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.6
       bool success = true;
       std::string p_route_id{};
       ::blink::mojom::PresentationConnectionCloseReason p_reason{};
@@ -4484,10 +4538,10 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPresentationConnectionClosed(
-std::move(p_route_id), 
-std::move(p_reason), 
-std::move(p_message));
+      impl->OnPresentationConnectionClosed(        
+        std::move(p_route_id), 
+        std::move(p_reason), 
+        std::move(p_message));
       return true;
     }
     case internal::kMediaRouter_OnRouteMessagesReceived_Name: {
@@ -4497,6 +4551,8 @@ std::move(p_message));
           reinterpret_cast<internal::MediaRouter_OnRouteMessagesReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.7
       bool success = true;
       std::string p_route_id{};
       std::vector<RouteMessagePtr> p_messages{};
@@ -4515,9 +4571,9 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRouteMessagesReceived(
-std::move(p_route_id), 
-std::move(p_messages));
+      impl->OnRouteMessagesReceived(        
+        std::move(p_route_id), 
+        std::move(p_messages));
       return true;
     }
     case internal::kMediaRouter_GetMediaSinkServiceStatus_Name: {
@@ -4530,6 +4586,8 @@ std::move(p_messages));
           reinterpret_cast<internal::MediaRouter_GetLogger_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.9
       bool success = true;
       ::mojo::PendingReceiver<::media_router::mojom::Logger> p_receiver{};
       MediaRouter_GetLogger_ParamsDataView input_data_view(params, message);
@@ -4547,8 +4605,8 @@ std::move(p_messages));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetLogger(
-std::move(p_receiver));
+      impl->GetLogger(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kMediaRouter_GetDebugger_Name: {
@@ -4558,6 +4616,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::MediaRouter_GetDebugger_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaRouter.10
       bool success = true;
       ::mojo::PendingReceiver<::media_router::mojom::Debugger> p_receiver{};
       MediaRouter_GetDebugger_ParamsDataView input_data_view(params, message);
@@ -4575,8 +4635,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDebugger(
-std::move(p_receiver));
+      impl->GetDebugger(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kMediaRouter_GetLogsAsString_Name: {
@@ -4626,6 +4686,8 @@ bool MediaRouterStubDispatch::AcceptWithResponder(
               internal::MediaRouter_GetMediaSinkServiceStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouter.8
       bool success = true;
       MediaRouter_GetMediaSinkServiceStatus_ParamsDataView input_data_view(params, message);
       
@@ -4657,6 +4719,8 @@ bool MediaRouterStubDispatch::AcceptWithResponder(
               internal::MediaRouter_GetLogsAsString_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaRouter.11
       bool success = true;
       MediaRouter_GetLogsAsString_ParamsDataView input_data_view(params, message);
       
@@ -5009,8 +5073,8 @@ void MediaRouteProviderInterceptorForTesting::EnableMdnsDiscovery() {
 void MediaRouteProviderInterceptorForTesting::DiscoverSinksNow() {
   GetForwardingInterface()->DiscoverSinksNow();
 }
-void MediaRouteProviderInterceptorForTesting::CreateMediaRouteController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, CreateMediaRouteControllerCallback callback) {
-  GetForwardingInterface()->CreateMediaRouteController(std::move(route_id), std::move(media_controller), std::move(observer), std::move(callback));
+void MediaRouteProviderInterceptorForTesting::BindMediaController(const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, BindMediaControllerCallback callback) {
+  GetForwardingInterface()->BindMediaController(std::move(route_id), std::move(media_controller), std::move(observer), std::move(callback));
 }
 void MediaRouteProviderInterceptorForTesting::GetState(GetStateCallback callback) {
   GetForwardingInterface()->GetState(std::move(callback));
@@ -5102,10 +5166,10 @@ void MediaRouteProviderAsyncWaiter::TerminateRoute(
 
 
 
-void MediaRouteProviderAsyncWaiter::CreateMediaRouteController(
+void MediaRouteProviderAsyncWaiter::BindMediaController(
     const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer, bool* out_success) {
   base::RunLoop loop;
-  proxy_->CreateMediaRouteController(std::move(route_id),std::move(media_controller),std::move(observer),
+  proxy_->BindMediaController(std::move(route_id),std::move(media_controller),std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_success
@@ -5118,10 +5182,10 @@ void MediaRouteProviderAsyncWaiter::CreateMediaRouteController(
   loop.Run();
 }
 
-bool MediaRouteProviderAsyncWaiter::CreateMediaRouteController(
+bool MediaRouteProviderAsyncWaiter::BindMediaController(
     const std::string& route_id, ::mojo::PendingReceiver<::media_router::mojom::MediaController> media_controller, ::mojo::PendingRemote<::media_router::mojom::MediaStatusObserver> observer) {
   bool async_wait_result;
-  CreateMediaRouteController(std::move(route_id),std::move(media_controller),std::move(observer),&async_wait_result);
+  BindMediaController(std::move(route_id),std::move(media_controller),std::move(observer),&async_wait_result);
   return async_wait_result;
 }
 

@@ -1,5 +1,5 @@
 import { a as assertNotReached, l as listenOnce, C as CrSearchFieldMixin, I as I18nMixin, W as WebUiListenerMixin, b as assert, R as RelaunchMixin, c as RestartType, P as PrefsMixin, i as isMac, d as IronResizableBehavior, e as RouteObserverMixin, E as EventTracker, f as Router, g as focusWithoutInk, h as CrPolicyPrefMixin, j as PrefControlMixin, B as BaseMixin, r as routes, M as MetricsBrowserProxyImpl, k as PrivacyGuideInteractions, m as PrivacyGuideAvailabilityMixin, n as PrivacyPageBrowserProxyImpl, S as SiteSettingsPrefsBrowserProxyImpl, o as SafetyHubBrowserProxyImpl, p as SettingsState, q as ContentSettingsTypes, s as ContentSetting, t as ChooserType, u as SafetyHubEvent, v as SafetyHubEntryPoint, w as PluralStringProxyImpl, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, x as CookieControlsMode, y as sanitizeInnerHtml, z as SafetyCheckInteractions, O as OpenWindowProxyImpl, A as PasswordManagerImpl, D as PasswordCheckReferrer, F as PasswordManagerPage, G as getInstance, J as getTrustedScriptURL, K as FocusRowMixin, L as SyncBrowserProxyImpl, N as isChromeOS, Q as getImage, U as ListPropertyUpdateMixin, V as TooltipMixin, X as NetworkPredictionOptions, Y as CrSettingsPrefs, Z as ResetBrowserProxyImpl, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, a0 as PromiseResolver, a1 as IronSelectableBehavior, a2 as FocusOutlineManager, a3 as CrContainerShadowMixin, a4 as pageVisibility, a5 as setGlobalScrollTarget, a6 as resetGlobalScrollTargetForTesting } from './shared.rollup.js';
-export { a7 as ControlledRadioButtonElement, ao as CrActionMenuElement, ap as CrButtonElement, aq as CrDialogElement, ar as CrLinkRowElement, as as CrRadioButtonElement, at as CrRadioGroupElement, au as CrToggleElement, ay as CvcDeletionUserAction, a9 as DEFAULT_CHECKED_VALUE, aa as DEFAULT_UNCHECKED_VALUE, az as DeleteBrowsingDataAction, ad as ExtensionControlBrowserProxyImpl, a8 as ExtensionControlledIndicatorElement, ae as LifetimeBrowserProxyImpl, aK as MAX_SIGNIN_PROMO_IMPRESSION, af as PageStatus, aA as PrivacyElementInteractions, aB as PrivacyGuideSettingsStates, aC as PrivacyGuideStepsEligibleAndReached, aM as PrivacySandboxBrowserProxyImpl, aO as Route, aD as SafeBrowsingInteractions, aw as SafeBrowsingSetting, aE as SafetyCheckNotificationsModuleInteractions, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, aG as SafetyHubCardState, aH as SafetyHubModuleType, aI as SafetyHubSurfaces, aP as SearchEnginesInteractions, aj as SecureDnsMode, ak as SecureDnsUiManagementMode, ax as SecurityPageInteraction, ab as SettingsDropdownMenuElement, an as SettingsPrefsElement, aL as SettingsSyncAccountControlElement, ac as SettingsToggleButtonElement, aQ as SiteFaviconElement, ag as StatusAction, ai as TrustedVaultBannerState, aN as buildRouter, av as getTrustedHTML, al as prefToString, aJ as setPageVisibilityForTesting, am as stringToPrefValue, ah as syncPrefsIndividualDataTypes } from './shared.rollup.js';
+export { at as ControlledRadioButtonElement, al as CrActionMenuElement, am as CrButtonElement, an as CrDialogElement, ao as CrLinkRowElement, ap as CrRadioButtonElement, aq as CrRadioGroupElement, ar as CrToggleElement, ay as CvcDeletionUserAction, a8 as DEFAULT_CHECKED_VALUE, a9 as DEFAULT_UNCHECKED_VALUE, az as DeleteBrowsingDataAction, aa as ExtensionControlBrowserProxyImpl, a7 as ExtensionControlledIndicatorElement, ab as LifetimeBrowserProxyImpl, aK as MAX_SIGNIN_PROMO_IMPRESSION, ac as PageStatus, aA as PrivacyElementInteractions, aB as PrivacyGuideSettingsStates, aC as PrivacyGuideStepsEligibleAndReached, aM as PrivacySandboxBrowserProxyImpl, aO as Route, aD as SafeBrowsingInteractions, aw as SafeBrowsingSetting, aE as SafetyCheckNotificationsModuleInteractions, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, aG as SafetyHubCardState, aH as SafetyHubModuleType, aI as SafetyHubSurfaces, aP as SearchEnginesInteractions, ag as SecureDnsMode, ah as SecureDnsUiManagementMode, ax as SecurityPageInteraction, au as SettingsDropdownMenuElement, ak as SettingsPrefsElement, aL as SettingsSyncAccountControlElement, av as SettingsToggleButtonElement, aQ as SiteFaviconElement, ad as StatusAction, af as TrustedVaultBannerState, aN as buildRouter, as as getTrustedHTML, ai as prefToString, aJ as setPageVisibilityForTesting, aj as stringToPrefValue, ae as syncPrefsIndividualDataTypes } from './shared.rollup.js';
 import { html, PolymerElement, dedupingMixin, mixinBehaviors, afterNextRender, flush, templatize, beforeNextRender, microTask, DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -134,7 +134,7 @@ customElements.define(CrDrawerElement.is, CrDrawerElement);
 
 function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
-                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+                var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -144,7 +144,7 @@ function getTemplate$J() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -186,7 +186,6 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'showingSearchChanged_',
                 reflectToAttribute: true,
             },
             disabled: {
@@ -258,29 +257,22 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
     onSearchTermKeydown_(e) {
         if (e.key === 'Escape') {
             this.showingSearch = false;
+            this.setValue('');
+            this.getSearchInput().blur();
         }
     }
     showSearch_(e) {
         if (e.target !== this.shadowRoot.querySelector('#clearSearch')) {
             this.showingSearch = true;
         }
+        if (this.narrow) {
+            this.focus_();
+        }
     }
     clearSearch_() {
         this.setValue('');
         this.focus_();
         this.spinnerActive = false;
-    }
-    showingSearchChanged_(_current, previous) {
-        // Prevent unnecessary 'search-changed' event from firing on startup.
-        if (previous === undefined) {
-            return;
-        }
-        if (this.showingSearch) {
-            this.focus_();
-            return;
-        }
-        this.setValue('');
-        this.getSearchInput().blur();
     }
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
@@ -934,13 +926,13 @@ customElements.define(SettingsAboutPageElement.is, SettingsAboutPageElement);
 function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-frame{padding-inline-end:0}.list-frame settings-toggle-button{padding-inline-start:0}</style>
 
-<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeatureMainLabel}" sub-label="$i18n{experimentalAdvancedFeatureMainSublabel}" on-settings-boolean-control-change="onToggleChange_">
+<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiPageMainLabel}" sub-label="$i18n{aiPageMainSublabel}" on-settings-boolean-control-change="onToggleChange_">
 </settings-toggle-button>
 
 <iron-collapse opened="[[isExpanded_(
     prefs.optimization_guide.model_execution_main_toggle_setting_state.value)]]">
   <div class="list-frame">
-    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature1Label}" sub-label="$i18n{experimentalAdvancedFeature1Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiComposeLabel}" sub-label="$i18n{aiComposeSublabel}" on-settings-boolean-control-change="onToggleChange_">
     </settings-toggle-button>
     <settings-toggle-button class$="[[getTabOrganizationHrCssClass_(showComposeControl_)]]" hidden="[[!showTabOrganizationControl_]]" pref="{{prefs.optimization_guide.tab_organization_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature2Label}" sub-label="$i18n{experimentalAdvancedFeature2Sublabel}" on-settings-boolean-control-change="onToggleChange_">
     </settings-toggle-button>
@@ -2360,6 +2352,18 @@ function getTemplate$y() {
       </template>
 
 
+      <template is="dom-if" route-path="/content/v8">
+        <settings-subpage page-title="$i18n{siteSettingsCategoryJavascriptJit}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
+          <div class="content-settings-header secondary">
+            $i18n{siteSettingsJavascriptJitDescription}
+          </div>
+          <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.JAVASCRIPT_JIT]]" allow-option-label="$i18n{siteSettingsJavascriptJitAllowed}" allow-option-sub-label="$i18n{siteSettingsJavascriptJitAllowedSubLabel}" block-option-label="$i18n{siteSettingsJavascriptJitBlocked}" block-option-sub-label="$i18n{siteSettingsJavascriptJitBlockedSubLabel}">
+          </settings-category-default-radio-group>
+          <category-setting-exceptions category="[[contentSettingsTypesEnum_.JAVASCRIPT_JIT]]" allow-header="$i18n{siteSettingsJavascriptJitAllowedExceptions}" block-header="$i18n{siteSettingsJavascriptJitBlockedExceptions}" search-filter="[[searchFilter_]]">
+          </category-setting-exceptions>
+        </settings-subpage>
+      </template>
+
       <template is="dom-if" if="[[enableSecurityKeysSubpage_]]">
         <template is="dom-if" route-path="/securityKeys">
           <settings-subpage associated-control="[[$$('#securityLinkRow')]]" page-title="$i18n{securityKeysTitle}">
@@ -2408,8 +2412,15 @@ function getTemplate$y() {
 
       <template is="dom-if" route-path="/adPrivacy/interests" no-search="[[isPrivacySandboxRestricted_]]">
         <settings-subpage id="privacy-sandbox-topics" page-title="$i18n{topicsPageTitle}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
-          <settings-privacy-sandbox-topics-subpage prefs="{{prefs}}">
+          <settings-privacy-sandbox-topics-subpage prefs="{{prefs}}" focus-config="[[focusConfig_]]">
           </settings-privacy-sandbox-topics-subpage>
+        </settings-subpage>
+      </template>
+      <template is="dom-if" route-path="/adPrivacy/interests/manage" no-search="[[shouldShowManageTopics_(
+            isProactiveTopicsBlockingEnabled_, isPrivacySandboxRestricted_)]]">
+        <settings-subpage id="privacy-sandbox-manage-topics" page-title="$i18n{manageTopicsHeading}" associated-control="[[$$('#privacySandboxLinkRow')]]" learn-more-url="$i18n{adPrivacyLearnMoreURL}">
+          <settings-privacy-sandbox-manage-topics-subpage focus-config="[[focusConfig_]]" prefs="{{prefs}}">
+          </settings-privacy-sandbox-manage-topics-subpage>
         </settings-subpage>
       </template>
 
@@ -2443,6 +2454,19 @@ function getTemplate$y() {
           <category-setting-exceptions category="[[contentSettingsTypesEnum_.AUTOMATIC_DOWNLOADS]]" allow-header="$i18n{siteSettingsAutomaticDownloadsAllowedExceptions}" block-header="$i18n{siteSettingsAutomaticDownloadsBlockedExceptions}" search-filter="[[searchFilter_]]">
           </category-setting-exceptions>
         </settings-subpage>
+      </template>
+      <template is="dom-if" if="[[enableWebPrintingContentSetting_]]">
+        <template is="dom-if" route-path="/content/webPrinting" no-search>
+          <settings-subpage page-title="$i18n{siteSettingsWebPrinting}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
+            <div class="content-settings-header secondary">
+                $i18n{siteSettingsWebPrintingDescription}
+            </div>
+            <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.WEB_PRINTING]]" allow-option-label="$i18n{siteSettingsWebPrintingAsk}" allow-option-icon="settings:printer" block-option-label="$i18n{siteSettingsWebPrintingBlock}" block-option-icon="settings:printer-off">
+            </settings-category-default-radio-group>
+            <category-setting-exceptions category="[[contentSettingsTypesEnum_.WEB_PRINTING]]" allow-header="$i18n{siteSettingsWebPrintingAllowedExceptions}" block-header="$i18n{siteSettingsWebPrintingBlockedExceptions}" search-filter="[[searchFilter_]]">
+            </category-setting-exceptions>
+          </settings-subpage>
+        </template>
       </template>
       <template is="dom-if" route-path="/content/backgroundSync" no-search>
         <settings-subpage page-title="$i18n{siteSettingsBackgroundSync}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
@@ -3091,6 +3115,10 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('enableWebBluetoothNewPermissionsBackend'),
             },
+            enableWebPrintingContentSetting_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('enableWebPrintingContentSetting'),
+            },
             showNotificationPermissionsReview_: {
                 type: Boolean,
                 value: false,
@@ -3133,6 +3161,10 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
             blockMidiByDefault_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('blockMidiByDefault'),
+            },
+            isProactiveTopicsBlockingEnabled_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
             },
             focusConfig_: {
                 type: Object,
@@ -3366,11 +3398,6 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     interactedWithPage_() {
         HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.USED_PRIVACY_CARD);
     }
-    computePrivacySandboxSublabel_() {
-        const enabled = this.getPref('privacy_sandbox.apis_enabled_v2').value;
-        return enabled ? this.i18n('privacySandboxTrialsEnabled') :
-            this.i18n('privacySandboxTrialsDisabled');
-    }
     computeAdPrivacySublabel_() {
         // When the privacy sandbox is restricted with a notice, the sublabel
         // wording indicates measurement only, rather than general ad privacy.
@@ -3400,6 +3427,10 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
     shouldShowAdPrivacy_() {
         return !this.isPrivacySandboxRestricted_ ||
             this.isPrivacySandboxRestrictedNoticeEnabled_;
+    }
+    shouldShowManageTopics_() {
+        return this.isProactiveTopicsBlockingEnabled_ &&
+            !this.isPrivacySandboxRestricted_;
     }
     onSafetyHubButtonClick_() {
         this.metricsBrowserProxy_.recordSafetyHubEntryPointClicked(SafetyHubEntryPoint.NOTIFICATIONS);
@@ -4440,7 +4471,7 @@ function getTemplate$r() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">cr-link-row{--cr-icon-button-margin-start:20px}cr-link-row:not([hidden])~cr-link-row{border-top:var(--cr-separator-line)}</style>
     <settings-animated-pages id="pages" section="autofill" focus-config="[[focusConfig_]]">
       <div route-path="default">
-        <cr-link-row id="passwordManagerButton" start-icon="settings20:vpn-key" label="$i18n{localPasswordManager}" on-click="onPasswordsClick_" role-description="$i18n{subpageArrowRoleDescription}" external>
+        <cr-link-row id="passwordManagerButton" label="$i18n{localPasswordManager}" on-click="onPasswordsClick_" role-description="$i18n{subpageArrowRoleDescription}" start-icon="cr20:password" external>
         </cr-link-row>
         <template is="dom-if" if="[[isPlusAddressSettingEnabled_]]">
           <cr-link-row id="plusAddressManagerButton" label="$i18n{plusAddressSettings}" on-click="onPlusAddressClick_" role-description="$i18n{subpageArrowRoleDescription}" external>
@@ -6255,6 +6286,25 @@ class SettingsBatteryPageElement extends SettingsBatteryPageElementBase {
 }
 customElements.define(SettingsBatteryPageElement.is, SettingsBatteryPageElement);
 
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const WINDOWS_EPOCH = Date.UTC(1601, 0, 1, 0, 0, 0, 0);
+const UNIX_EPOCH = Date.UTC(1970, 0, 1, 0, 0, 0, 0);
+/**
+ * Converts a JavaScript Date() object to a string that represents microseconds
+ * since the Windows FILETIME epoch.
+ *
+ * The JS Date() is based off of the number of milliseconds since the UNIX epoch
+ * (1970-01-01 00::00:00 UTC), while times stored within prefs are represented
+ * as the number of microseconds since the Windows FILETIME epoch
+ * (1601-01-01 00:00:00 UTC).
+ */
+function convertDateToWindowsEpoch(date = Date.now()) {
+    const epochDeltaMs = UNIX_EPOCH - WINDOWS_EPOCH;
+    return `${(date + epochDeltaMs) * 1000}`;
+}
+
 function getTemplate$k() {
     return html `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{addSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
 </cr-input>
@@ -6296,7 +6346,7 @@ let instance$2 = null;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 const MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH = 10 * 1024;
-const TAB_DISCARD_EXCEPTIONS_PREF = 'performance_tuning.tab_discarding.exceptions';
+const TAB_DISCARD_EXCEPTIONS_PREF = 'performance_tuning.tab_discarding.exceptions_with_time';
 const TAB_DISCARD_EXCEPTIONS_MANAGED_PREF = 'performance_tuning.tab_discarding.exceptions_managed';
 const ExceptionValidationMixin = dedupingMixin((superClass) => {
     const superClassBase = I18nMixin(superClass);
@@ -6356,7 +6406,7 @@ class ExceptionAddInputElement extends ExceptionAddInputElementBase {
     submit() {
         assert(!this.submitDisabled);
         const rule = this.rule.trim();
-        this.appendPrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, rule);
+        this.setPrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, rule, convertDateToWindowsEpoch());
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.ADD_MANUAL);
     }
 }
@@ -6441,13 +6491,8 @@ class ExceptionEditInputElement extends ExceptionEditInputElementBase {
         assert(!this.submitDisabled);
         const rule = this.rule.trim();
         if (rule !== this.ruleToEdit) {
-            if (this.getPref(TAB_DISCARD_EXCEPTIONS_PREF).value.includes(rule)) {
-                // delete instead of update, otherwise there would be a duplicate
-                this.deletePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.ruleToEdit);
-            }
-            else {
-                this.updatePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.ruleToEdit, rule);
-            }
+            this.deletePrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, this.ruleToEdit);
+            this.setPrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, rule, convertDateToWindowsEpoch());
         }
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.EDIT);
     }
@@ -6765,7 +6810,7 @@ class ExceptionCurrentSitesListElement extends ExceptionCurrentSitesListElementB
         return this.updateIntervalID_ !== undefined;
     }
     async updateCurrentSites_() {
-        const existingSites = new Set(this.getPref(TAB_DISCARD_EXCEPTIONS_PREF).value);
+        const existingSites = new Set(Object.keys(this.getPref(TAB_DISCARD_EXCEPTIONS_PREF).value));
         const currentSites = (await this.browserProxy_.getCurrentOpenSites())
             .filter(rule => !existingSites.has(rule));
         // Remove sites from selected set that are no longer in the list.
@@ -6801,7 +6846,7 @@ class ExceptionCurrentSitesListElement extends ExceptionCurrentSitesListElementB
     submit() {
         assert(!this.submitDisabled);
         this.selectedSites_.forEach(rule => {
-            this.appendPrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, rule);
+            this.setPrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, rule, convertDateToWindowsEpoch());
         });
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.ADD_FROM_CURRENT);
     }
@@ -7062,7 +7107,7 @@ class ExceptionListElement extends ExceptionListElementBase {
         this.$.menu.get().close();
     }
     onDeleteClick_() {
-        this.deletePrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, this.selectedRule_);
+        this.deletePrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, this.selectedRule_);
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.REMOVE);
         this.$.menu.get().close();
     }
@@ -7081,10 +7126,15 @@ class ExceptionListElement extends ExceptionListElementBase {
             TAB_DISCARD_EXCEPTIONS_PREF]) {
             // Annotate sites with their managed status and append them to newSites
             // with managed sites first.
-            const { value: sites, enforcement } = this.getPref(pref);
+            const prefObject = this.getPref(pref);
+            let sites = prefObject.value;
+            if (sites.constructor.name === 'Object') {
+                sites = Object.keys(sites);
+            }
             const siteToExceptionEntry = (site) => ({
                 site,
-                managed: enforcement === chrome.settingsPrivate.Enforcement.ENFORCED,
+                managed: prefObject.enforcement ===
+                    chrome.settingsPrivate.Enforcement.ENFORCED,
             });
             newSites.push(...sites.map(siteToExceptionEntry));
         }
@@ -7450,11 +7500,14 @@ function getTemplate$8() {
               $i18n{searchEnginesChange}
             </cr-button>
             <template is="dom-if" if="[[showSearchEngineListDialog_]]" restamp>
-              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_">
+              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_" on-search-engine-changed="onDefaultSearchEngineChangedInDialog_">
               </settings-search-engine-list-dialog>
             </template>
           </div>
         </div>
+        <cr-toast id="confirmationToast" duration="10000">
+          <div>[[confirmationToastLabel_]]</div>
+        </cr-toast>
       </template>
       <template is="dom-if" if="[[!searchEngineChoiceSettingsUi_]]">
         <div id="searchExplanation" class="flex cr-padded-text">
@@ -7506,7 +7559,7 @@ function getTemplate$8() {
  * @fileoverview
  * 'settings-search-page' is the settings page containing search settings.
  */
-const SettingsSearchPageElementBase = BaseMixin(WebUiListenerMixin(PolymerElement));
+const SettingsSearchPageElementBase = BaseMixin(WebUiListenerMixin(I18nMixin(PolymerElement)));
 class SettingsSearchPageElement extends SettingsSearchPageElementBase {
     constructor() {
         super(...arguments);
@@ -7551,6 +7604,9 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
             focusConfig_: Object,
             // Boolean to check whether we need to show the dialog or not.
             showSearchEngineListDialog_: Boolean,
+            // The label of the confirmation toast that is displayed when the user
+            // chooses a default search engine.
+            confirmationToastLabel_: String,
         };
     }
     ready() {
@@ -7604,6 +7660,10 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         assert(this.searchEngineChoiceSettingsUi_);
         this.showSearchEngineListDialog_ = true;
         chrome.metricsPrivate.recordUserAction('ChooseDefaultSearchEngine');
+    }
+    onDefaultSearchEngineChangedInDialog_(e) {
+        this.confirmationToastLabel_ = this.i18n('searchEnginesConfirmationToastLabel', e.detail.searchEngine.name);
+        this.shadowRoot.querySelector('#confirmationToast').show();
     }
     onSearchEngineListDialogClose_() {
         assert(this.searchEngineChoiceSettingsUi_);
@@ -8449,7 +8509,7 @@ function getTemplate$7() {
           </settings-section>
         </template>
         <template is="dom-if" if="[[showExperimentalAdvancedPage_(pageVisibility.ai)]]" restamp>
-          <settings-section page-title="$i18n{experimentalAdvancedPageTitle}" section="ai">
+          <settings-section page-title="$i18n{aiPageTitle}" section="ai">
             <settings-ai-page prefs="{{prefs}}"></settings-ai-page>
           </settings-section>
         </template>
@@ -8700,8 +8760,9 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         return visibility !== false;
     }
     getIdleLoad_() {
-        return this.shadowRoot.querySelector('#advancedPageTemplate')
-            .get();
+        const idleLoad = this.shadowRoot.querySelector('#advancedPageTemplate');
+        assert(idleLoad);
+        return idleLoad.get();
     }
     updatePrivacyGuidePromoVisibility_() {
         if (!this.isPrivacyGuideAvailable ||
@@ -9060,7 +9121,7 @@ function getTemplate$5() {
         <a role="menuitem" href="/ai" hidden="[[!showExperimentalMenuItem_(
                 showAdvancedFeaturesMainControl_, pageVisibility.ai)]]" class="cr-nav-menu-item">
           <iron-icon icon="settings20:ai"></iron-icon>
-          $i18n{experimentalAdvancedPageTitle}
+          $i18n{aiPageTitle}
           <paper-ripple></paper-ripple>
         </a>
         <a role="menuitem" id="appearance" href="/appearance" hidden="[[!pageVisibility.appearance]]" class="cr-nav-menu-item">
@@ -9685,6 +9746,13 @@ class SettingsSearchEngineListDialogElement extends SettingsSearchEngineListDial
         const searchEngine = this.searchEngines.find(engine => engine.id === parseInt(this.selectedEngineId_));
         assert(searchEngine);
         this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex, ChoiceMadeLocation.SEARCH_SETTINGS);
+        this.dispatchEvent(new CustomEvent('search-engine-changed', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                searchEngine: searchEngine,
+            },
+        }));
         this.$.dialog.close();
     }
     onCancelClick_() {
@@ -9701,5 +9769,5 @@ class SettingsSearchEngineListDialogElement extends SettingsSearchEngineListDial
 }
 customElements.define(SettingsSearchEngineListDialogElement.is, SettingsSearchEngineListDialogElement);
 
-export { AboutPageBrowserProxyImpl, AccountManagerBrowserProxyImpl, AppearanceBrowserProxyImpl, BATTERY_SAVER_MODE_PREF, BaseMixin, BatterySaverModeState, ChoiceMadeLocation, ColorSchemeMode, CrDrawerElement, CrSettingsPrefs, CrToolbarElement, CrToolbarSearchFieldElement, CustomizeColorSchemeModeBrowserProxy, CustomizeColorSchemeModeClientCallbackRouter, CustomizeColorSchemeModeClientRemote, CustomizeColorSchemeModeHandlerRemote, EDIT_STARTUP_URL_EVENT, ExceptionAddDialogElement, ExceptionAddDialogTabs, ExceptionEditDialogElement, ExceptionEntryElement, ExceptionListElement, ExceptionTabbedAddDialogElement, FeatureOptInState, HatsBrowserProxyImpl, HomeUrlInputElement, MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH, MEMORY_SAVER_MODE_PREF, MemorySaverModeExceptionListAction, MemorySaverModeState, MetricsBrowserProxyImpl, OnStartupBrowserProxyImpl, OpenWindowProxyImpl, PasswordCheckReferrer, PasswordManagerImpl, PasswordManagerPage, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, PrefsMixin, PrivacyGuideBrowserProxyImpl, PrivacyGuideInteractions, PrivacyPageBrowserProxyImpl, ProfileInfoBrowserProxyImpl, RelaunchMixin, ResetBrowserProxyImpl, RestartType, Router, SafetyCheckBrowserProxyImpl, SafetyCheckCallbackConstants, SafetyCheckExtensionsBrowserProxyImpl, SafetyCheckExtensionsElement, SafetyCheckExtensionsStatus, SafetyCheckIconStatus, SafetyCheckInteractions, SafetyCheckParentStatus, SafetyCheckPasswordsStatus, SafetyCheckSafeBrowsingStatus, SafetyCheckUpdatesStatus, SafetyHubEntryPoint, SearchEnginesBrowserProxyImpl, SearchRequest, SettingsAboutPageElement, SettingsAiPageElement, SettingsAiPageFeaturePrefName, SettingsAppearancePageElement, SettingsAutofillPageElement, SettingsBasicPageElement, SettingsBatteryPageElement, SettingsCheckboxListEntryElement, SettingsIdleLoadElement, SettingsMainElement, SettingsMenuElement, SettingsOnStartupPageElement, SettingsPeoplePageElement, SettingsPerformancePageElement, PluralStringProxyImpl as SettingsPluralStringProxyImpl, SettingsPrivacyPageElement, SettingsResetProfileBannerElement, SettingsSafetyCheckChildElement, SettingsSafetyCheckExtensionsChildElement, SettingsSafetyCheckNotificationPermissionsElement, SettingsSafetyCheckPageElement, SettingsSafetyCheckPasswordsChildElement, SettingsSafetyCheckSafeBrowsingChildElement, SettingsSafetyCheckUnusedSitePermissionsElement, SettingsSafetyCheckUpdatesChildElement, SettingsSearchEngineListDialogElement, SettingsSearchPageElement, SettingsSectionElement, SettingsStartupUrlDialogElement, SettingsStartupUrlEntryElement, SettingsStartupUrlsPageElement, SettingsUiElement, SpeedPageElement, StartupUrlsPageBrowserProxyImpl, SyncBrowserProxyImpl, SystemTheme, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF, TooltipMixin, TrustSafetyInteraction, UpdateStatus, getSearchManager, pageVisibility, routes, setSearchManagerForTesting };
+export { AboutPageBrowserProxyImpl, AccountManagerBrowserProxyImpl, AppearanceBrowserProxyImpl, BATTERY_SAVER_MODE_PREF, BaseMixin, BatterySaverModeState, ChoiceMadeLocation, ColorSchemeMode, CrDrawerElement, CrSettingsPrefs, CrToolbarElement, CrToolbarSearchFieldElement, CustomizeColorSchemeModeBrowserProxy, CustomizeColorSchemeModeClientCallbackRouter, CustomizeColorSchemeModeClientRemote, CustomizeColorSchemeModeHandlerRemote, EDIT_STARTUP_URL_EVENT, ExceptionAddDialogElement, ExceptionAddDialogTabs, ExceptionEditDialogElement, ExceptionEntryElement, ExceptionListElement, ExceptionTabbedAddDialogElement, FeatureOptInState, HatsBrowserProxyImpl, HomeUrlInputElement, MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH, MEMORY_SAVER_MODE_PREF, MemorySaverModeExceptionListAction, MemorySaverModeState, MetricsBrowserProxyImpl, OnStartupBrowserProxyImpl, OpenWindowProxyImpl, PasswordCheckReferrer, PasswordManagerImpl, PasswordManagerPage, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, PrefsMixin, PrivacyGuideBrowserProxyImpl, PrivacyGuideInteractions, PrivacyPageBrowserProxyImpl, ProfileInfoBrowserProxyImpl, RelaunchMixin, ResetBrowserProxyImpl, RestartType, Router, SafetyCheckBrowserProxyImpl, SafetyCheckCallbackConstants, SafetyCheckExtensionsBrowserProxyImpl, SafetyCheckExtensionsElement, SafetyCheckExtensionsStatus, SafetyCheckIconStatus, SafetyCheckInteractions, SafetyCheckParentStatus, SafetyCheckPasswordsStatus, SafetyCheckSafeBrowsingStatus, SafetyCheckUpdatesStatus, SafetyHubEntryPoint, SearchEnginesBrowserProxyImpl, SearchRequest, SettingsAboutPageElement, SettingsAiPageElement, SettingsAiPageFeaturePrefName, SettingsAppearancePageElement, SettingsAutofillPageElement, SettingsBasicPageElement, SettingsBatteryPageElement, SettingsCheckboxListEntryElement, SettingsIdleLoadElement, SettingsMainElement, SettingsMenuElement, SettingsOnStartupPageElement, SettingsPeoplePageElement, SettingsPerformancePageElement, PluralStringProxyImpl as SettingsPluralStringProxyImpl, SettingsPrivacyPageElement, SettingsResetProfileBannerElement, SettingsSafetyCheckChildElement, SettingsSafetyCheckExtensionsChildElement, SettingsSafetyCheckNotificationPermissionsElement, SettingsSafetyCheckPageElement, SettingsSafetyCheckPasswordsChildElement, SettingsSafetyCheckSafeBrowsingChildElement, SettingsSafetyCheckUnusedSitePermissionsElement, SettingsSafetyCheckUpdatesChildElement, SettingsSearchEngineListDialogElement, SettingsSearchPageElement, SettingsSectionElement, SettingsStartupUrlDialogElement, SettingsStartupUrlEntryElement, SettingsStartupUrlsPageElement, SettingsUiElement, SpeedPageElement, StartupUrlsPageBrowserProxyImpl, SyncBrowserProxyImpl, SystemTheme, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF, TooltipMixin, TrustSafetyInteraction, UpdateStatus, convertDateToWindowsEpoch, getSearchManager, pageVisibility, routes, setSearchManagerForTesting };
 //# sourceMappingURL=settings.rollup.js.map

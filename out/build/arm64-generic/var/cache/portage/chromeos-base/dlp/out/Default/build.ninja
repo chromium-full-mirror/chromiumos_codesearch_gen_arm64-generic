@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r584/work/dlp-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -22,19 +22,11 @@ build _dlp-install_config: phony obj/dlp/_dlp-install_config.stamp
 build _dlp_init-install_config: phony obj/dlp/_dlp_init-install_config.stamp
 build dbus_adaptors_generator: phony obj/dlp/dbus_adaptors_generator.stamp
 build dbus_proxies_generator: phony obj/dlp/dbus_proxies_generator.stamp
-build featured-adaptors: phony obj/featured/featured-adaptors.stamp
 build install_init: phony obj/dlp/install_init.stamp
 build install_seccomp_policy: phony obj/dlp/install_seccomp_policy.stamp
 build install_system-services: phony obj/dlp/install_system-services.stamp
 build install_systemd: phony obj/dlp/install_systemd.stamp
-build libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
 build libdlp_static: phony ./libdlp_static.a
-build libfake_platform_features: phony ./lib/libfake_platform_features.so
-build libfeatured: phony ./libfeatured.a
-build libfeatures: phony ./lib/libfeatures.so
-build libfeatures_c: phony ./lib/libfeatures_c.so
-build libstore_impl: phony ./libstore_impl.a
-build libtmp_storage_impl: phony ./libtmp_storage_impl.a
 build root: phony obj/common-mk/gn_root/root.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 build dlp$:_dlp-install_config: phony obj/dlp/_dlp-install_config.stamp
@@ -49,16 +41,6 @@ build dlp$:install_seccomp_policy: phony obj/dlp/install_seccomp_policy.stamp
 build dlp$:install_system-services: phony obj/dlp/install_system-services.stamp
 build dlp$:install_systemd: phony obj/dlp/install_systemd.stamp
 build dlp$:libdlp_static: phony ./libdlp_static.a
-build featured$:all: phony obj/featured/all.stamp
-build featured$:featured: phony ./featured
-build featured$:featured-adaptors: phony obj/featured/featured-adaptors.stamp
-build featured$:libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
-build featured$:libfake_platform_features: phony ./lib/libfake_platform_features.so
-build featured$:libfeatured: phony ./libfeatured.a
-build featured$:libfeatures: phony ./lib/libfeatures.so
-build featured$:libfeatures_c: phony ./lib/libfeatures_c.so
-build featured$:libstore_impl: phony ./libstore_impl.a
-build featured$:libtmp_storage_impl: phony ./libtmp_storage_impl.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
@@ -73,16 +55,6 @@ build all: phony $
     obj/dlp/install_seccomp_policy.stamp $
     obj/dlp/install_system-services.stamp $
     obj/dlp/install_systemd.stamp $
-    ./libdlp_static.a $
-    obj/featured/all.stamp $
-    ./featured $
-    obj/featured/featured-adaptors.stamp $
-    ./lib/libc_fake_feature_library.so $
-    ./lib/libfake_platform_features.so $
-    ./libfeatured.a $
-    ./lib/libfeatures.so $
-    ./lib/libfeatures_c.so $
-    ./libstore_impl.a $
-    ./libtmp_storage_impl.a
+    ./libdlp_static.a
 
 default all

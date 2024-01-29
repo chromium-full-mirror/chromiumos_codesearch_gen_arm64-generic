@@ -10,7 +10,6 @@ import { vmTypeToIconName } from '../common/js/icon_util.js';
 import { recordEnum, recordUserAction } from '../common/js/metrics.js';
 import { str, strf } from '../common/js/translations.js';
 import { RootTypesForUMA, VolumeType } from '../common/js/volume_manager_types.js';
-import { AndroidApp, CurrentDirectory, FileData, FileKey, NavigationKey, NavigationRoot, NavigationType, PropStatus, SearchLocation, State } from '../externs/ts/state.js';
 import { ICON_TYPES } from '../foreground/js/constants.js';
 import { DirectoryModel } from '../foreground/js/directory_model.js';
 import { Command } from '../foreground/js/ui/command.js';
@@ -21,6 +20,7 @@ import { changeDirectory } from '../state/ducks/current_directory.js';
 import { refreshNavigationRoots } from '../state/ducks/navigation.js';
 import { clearSearch } from '../state/ducks/search.js';
 import { driveRootEntryListKey } from '../state/ducks/volumes.js';
+import { NavigationType, PropStatus, SearchLocation } from '../state/state.js';
 import { getEntry, getFileData, getStore, getVolume } from '../state/store.js';
 import { XfTree } from '../widgets/xf_tree.js';
 import { XfTreeItem } from '../widgets/xf_tree_item.js';
@@ -429,7 +429,7 @@ export class DirectoryTreeContainer {
         if (!volumeData) {
             return;
         }
-        if (volumeData.volumeType == VolumeType.GUEST_OS) {
+        if (volumeData.volumeType === VolumeType.GUEST_OS) {
             element.setAttribute('volume-type-for-testing', vmTypeToIconName(volumeData.vmType));
         }
         else {
@@ -500,9 +500,22 @@ export class DirectoryTreeContainer {
             element.expanded = true;
             return;
         }
-        // Only read the sub entries when it's the top level item (navigation root).
-        // For other items, its children will be read when it's expanded.
-        if (navigationRoot && navigationRoot.type !== NavigationType.SHORTCUT) {
+        // Check if we need to read sub directories to check directory children or
+        // not, we are doing this to see if we need to show expand icon or not.
+        let shouldCheckDirectoryChildren;
+        if (navigationRoot) {
+            // For navigation root items, we always check except for Shortcut items.
+            shouldCheckDirectoryChildren =
+                navigationRoot.type !== NavigationType.SHORTCUT;
+        }
+        else {
+            // For other items, we only check if it's parent is expanded. Usually
+            // non-root item's children directory will be checked when expanded, but
+            // volume could be added when it's already expanded (e.g. Crostini/Android
+            // can be mounted when MyFiles is expanded).
+            shouldCheckDirectoryChildren = !!(element.parentItem?.expanded);
+        }
+        if (shouldCheckDirectoryChildren) {
             this.store_.dispatch(readSubDirectoriesToCheckDirectoryChildren(entry));
         }
     }
@@ -742,7 +755,9 @@ export class DirectoryTreeContainer {
     /** Activate the directory behind the item. */
     activateDirectory_(element, isRoot, fileData, androidAppData) {
         if (androidAppData) {
-            chrome.fileManagerPrivate.selectAndroidPickerApp(androidAppData, () => {
+            // Exclude "icon" filed before sending it to the API.
+            const { icon: _, ...androidAppDataForApi } = androidAppData;
+            chrome.fileManagerPrivate.selectAndroidPickerApp(androidAppDataForApi, () => {
                 if (chrome.runtime.lastError) {
                     console.error('selectAndroidPickerApp error: ', chrome.runtime.lastError.message);
                 }

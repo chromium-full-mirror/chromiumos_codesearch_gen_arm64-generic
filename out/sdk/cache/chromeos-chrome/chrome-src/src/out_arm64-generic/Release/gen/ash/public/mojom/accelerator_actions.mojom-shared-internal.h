@@ -156,33 +156,34 @@ struct AcceleratorAction_Data {
       case 126:
       case 127:
       case 128:
-      case 129:
-      case 130:
-      case 131:
-      case 132:
-      case 133:
-      case 134:
-      case 135:
-      case 136:
-      case 137:
-      case 138:
-      case 139:
-      case 140:
-      case 141:
-      case 142:
-      case 143:
-      case 144:
-      case 145:
-      case 146:
-      case 147:
-      case 148:
-      case 149:
-      case 150:
-      case 151:
-      case 152:
-      case 153:
-      case 154:
-      case 155:
+      case 9000:
+      case 9001:
+      case 9002:
+      case 9003:
+      case 9004:
+      case 9005:
+      case 9006:
+      case 9007:
+      case 9008:
+      case 9009:
+      case 9010:
+      case 9011:
+      case 9012:
+      case 9013:
+      case 9014:
+      case 9015:
+      case 9016:
+      case 9017:
+      case 9018:
+      case 9019:
+      case 9020:
+      case 9021:
+      case 9022:
+      case 9023:
+      case 9024:
+      case 9025:
+      case 9026:
+      case 9027:
         return true;
     }
     return false;

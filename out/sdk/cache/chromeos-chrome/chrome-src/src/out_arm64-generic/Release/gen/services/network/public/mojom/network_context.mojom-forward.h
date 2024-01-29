@@ -18,9 +18,7 @@
 
 
 
-namespace mojo {
-enum class NativeEnum;
-}  // namespace mojo
+
 
 
 namespace network::mojom {
@@ -113,6 +111,8 @@ class TrustedURLLoaderHeaderClient;
 class NetworkContextClient;
 
 class IpProtectionConfigGetter;
+
+class IpProtectionProxyDelegate;
 
 class NetworkContext;
 

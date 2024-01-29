@@ -72,7 +72,7 @@ return nullptr;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionGPUBufferBindingOrGPUExternalTextureOrGPUSamplerOrGPUTextureView::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionGPUBufferBindingOrGPUExternalTextureOrGPUSamplerOrGPUTextureView::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kGPUBufferBinding: {
     return ToV8Traits<GPUBufferBinding>::ToV8(script_state, member_gpu_buffer_binding_.Get());
@@ -89,7 +89,7 @@ v8::MaybeLocal<v8::Value> V8UnionGPUBufferBindingOrGPUExternalTextureOrGPUSample
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionGPUBufferBindingOrGPUExternalTextureOrGPUSamplerOrGPUTextureView::Trace(Visitor* visitor) const {

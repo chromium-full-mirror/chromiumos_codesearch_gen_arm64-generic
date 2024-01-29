@@ -149,6 +149,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo()
     : response_time(),
       headers(),
       mime_type(),
+      charset(),
       load_timing(),
       cert_status(),
       encoded_data_length(),
@@ -168,6 +169,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo(
     ::base::Time response_time_in,
     const ::scoped_refptr<::net::HttpResponseHeaders>& headers_in,
     const std::string& mime_type_in,
+    const std::string& charset_in,
     const ::net::LoadTimingInfo& load_timing_in,
     uint32_t cert_status_in,
     int64_t encoded_data_length_in,
@@ -185,6 +187,7 @@ URLResponseHeadDevToolsInfo::URLResponseHeadDevToolsInfo(
     : response_time(std::move(response_time_in)),
       headers(std::move(headers_in)),
       mime_type(std::move(mime_type_in)),
+      charset(std::move(charset_in)),
       load_timing(std::move(load_timing_in)),
       cert_status(std::move(cert_status_in)),
       encoded_data_length(std::move(encoded_data_length_in)),
@@ -226,6 +229,15 @@ void URLResponseHeadDevToolsInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "mime_type"), this->mime_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "charset"), this->charset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -1859,6 +1871,8 @@ bool DevToolsObserverStubDispatch::Accept(
           reinterpret_cast<internal::DevToolsObserver_OnRawRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.0
       bool success = true;
       std::string p_devtool_request_id{};
       std::vector<::net::CookieWithAccessResult> p_cookies_with_access_result{};
@@ -1889,13 +1903,13 @@ bool DevToolsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRawRequest(
-std::move(p_devtool_request_id), 
-std::move(p_cookies_with_access_result), 
-std::move(p_headers), 
-std::move(p_timestamp), 
-std::move(p_client_security_state), 
-std::move(p_other_partition_info));
+      impl->OnRawRequest(        
+        std::move(p_devtool_request_id), 
+        std::move(p_cookies_with_access_result), 
+        std::move(p_headers), 
+        std::move(p_timestamp), 
+        std::move(p_client_security_state), 
+        std::move(p_other_partition_info));
       return true;
     }
     case internal::kDevToolsObserver_OnRawResponse_Name: {
@@ -1905,6 +1919,8 @@ std::move(p_other_partition_info));
           reinterpret_cast<internal::DevToolsObserver_OnRawResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.1
       bool success = true;
       std::string p_devtool_request_id{};
       std::vector<::net::CookieAndLineWithAccessResult> p_cookies_with_access_result{};
@@ -1938,14 +1954,14 @@ std::move(p_other_partition_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRawResponse(
-std::move(p_devtool_request_id), 
-std::move(p_cookies_with_access_result), 
-std::move(p_headers), 
-std::move(p_raw_response_headers), 
-std::move(p_resource_address_space), 
-std::move(p_http_status_code), 
-std::move(p_cookie_partition_key));
+      impl->OnRawResponse(        
+        std::move(p_devtool_request_id), 
+        std::move(p_cookies_with_access_result), 
+        std::move(p_headers), 
+        std::move(p_raw_response_headers), 
+        std::move(p_resource_address_space), 
+        std::move(p_http_status_code), 
+        std::move(p_cookie_partition_key));
       return true;
     }
     case internal::kDevToolsObserver_OnPrivateNetworkRequest_Name: {
@@ -1955,6 +1971,8 @@ std::move(p_cookie_partition_key));
           reinterpret_cast<internal::DevToolsObserver_OnPrivateNetworkRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.2
       bool success = true;
       std::optional<std::string> p_devtool_request_id{};
       ::GURL p_url{};
@@ -1982,12 +2000,12 @@ std::move(p_cookie_partition_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrivateNetworkRequest(
-std::move(p_devtool_request_id), 
-std::move(p_url), 
-std::move(p_is_warning), 
-std::move(p_resource_address_space), 
-std::move(p_client_security_state));
+      impl->OnPrivateNetworkRequest(        
+        std::move(p_devtool_request_id), 
+        std::move(p_url), 
+        std::move(p_is_warning), 
+        std::move(p_resource_address_space), 
+        std::move(p_client_security_state));
       return true;
     }
     case internal::kDevToolsObserver_OnCorsPreflightRequest_Name: {
@@ -1997,6 +2015,8 @@ std::move(p_client_security_state));
           reinterpret_cast<internal::DevToolsObserver_OnCorsPreflightRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.3
       bool success = true;
       ::base::UnguessableToken p_devtool_request_id{};
       ::net::HttpRequestHeaders p_request_headers{};
@@ -2024,12 +2044,12 @@ std::move(p_client_security_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCorsPreflightRequest(
-std::move(p_devtool_request_id), 
-std::move(p_request_headers), 
-std::move(p_request_info), 
-std::move(p_initiator_url), 
-std::move(p_initiator_devtool_request_id));
+      impl->OnCorsPreflightRequest(        
+        std::move(p_devtool_request_id), 
+        std::move(p_request_headers), 
+        std::move(p_request_info), 
+        std::move(p_initiator_url), 
+        std::move(p_initiator_devtool_request_id));
       return true;
     }
     case internal::kDevToolsObserver_OnCorsPreflightResponse_Name: {
@@ -2039,6 +2059,8 @@ std::move(p_initiator_devtool_request_id));
           reinterpret_cast<internal::DevToolsObserver_OnCorsPreflightResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.4
       bool success = true;
       ::base::UnguessableToken p_devtool_request_id{};
       ::GURL p_url{};
@@ -2060,10 +2082,10 @@ std::move(p_initiator_devtool_request_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCorsPreflightResponse(
-std::move(p_devtool_request_id), 
-std::move(p_url), 
-std::move(p_head));
+      impl->OnCorsPreflightResponse(        
+        std::move(p_devtool_request_id), 
+        std::move(p_url), 
+        std::move(p_head));
       return true;
     }
     case internal::kDevToolsObserver_OnCorsPreflightRequestCompleted_Name: {
@@ -2073,6 +2095,8 @@ std::move(p_head));
           reinterpret_cast<internal::DevToolsObserver_OnCorsPreflightRequestCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.5
       bool success = true;
       ::base::UnguessableToken p_devtool_request_id{};
       ::network::URLLoaderCompletionStatus p_status{};
@@ -2091,9 +2115,9 @@ std::move(p_head));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCorsPreflightRequestCompleted(
-std::move(p_devtool_request_id), 
-std::move(p_status));
+      impl->OnCorsPreflightRequestCompleted(        
+        std::move(p_devtool_request_id), 
+        std::move(p_status));
       return true;
     }
     case internal::kDevToolsObserver_OnTrustTokenOperationDone_Name: {
@@ -2103,6 +2127,8 @@ std::move(p_status));
           reinterpret_cast<internal::DevToolsObserver_OnTrustTokenOperationDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.6
       bool success = true;
       std::string p_devtool_request_id{};
       ::network::mojom::TrustTokenOperationResultPtr p_result{};
@@ -2121,9 +2147,9 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTrustTokenOperationDone(
-std::move(p_devtool_request_id), 
-std::move(p_result));
+      impl->OnTrustTokenOperationDone(        
+        std::move(p_devtool_request_id), 
+        std::move(p_result));
       return true;
     }
     case internal::kDevToolsObserver_OnCorsError_Name: {
@@ -2133,6 +2159,8 @@ std::move(p_result));
           reinterpret_cast<internal::DevToolsObserver_OnCorsError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.7
       bool success = true;
       std::optional<std::string> p_devtool_request_id{};
       std::optional<::url::Origin> p_initiator_origin{};
@@ -2163,13 +2191,13 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCorsError(
-std::move(p_devtool_request_id), 
-std::move(p_initiator_origin), 
-std::move(p_client_security_state), 
-std::move(p_url), 
-std::move(p_status), 
-std::move(p_is_warning));
+      impl->OnCorsError(        
+        std::move(p_devtool_request_id), 
+        std::move(p_initiator_origin), 
+        std::move(p_client_security_state), 
+        std::move(p_url), 
+        std::move(p_status), 
+        std::move(p_is_warning));
       return true;
     }
     case internal::kDevToolsObserver_OnCorbError_Name: {
@@ -2179,6 +2207,8 @@ std::move(p_is_warning));
           reinterpret_cast<internal::DevToolsObserver_OnCorbError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.8
       bool success = true;
       std::optional<std::string> p_devtools_request_id{};
       ::GURL p_url{};
@@ -2197,9 +2227,9 @@ std::move(p_is_warning));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCorbError(
-std::move(p_devtools_request_id), 
-std::move(p_url));
+      impl->OnCorbError(        
+        std::move(p_devtools_request_id), 
+        std::move(p_url));
       return true;
     }
     case internal::kDevToolsObserver_OnSubresourceWebBundleMetadata_Name: {
@@ -2209,6 +2239,8 @@ std::move(p_url));
           reinterpret_cast<internal::DevToolsObserver_OnSubresourceWebBundleMetadata_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.9
       bool success = true;
       std::string p_devtool_request_id{};
       std::vector<::GURL> p_urls{};
@@ -2227,9 +2259,9 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubresourceWebBundleMetadata(
-std::move(p_devtool_request_id), 
-std::move(p_urls));
+      impl->OnSubresourceWebBundleMetadata(        
+        std::move(p_devtool_request_id), 
+        std::move(p_urls));
       return true;
     }
     case internal::kDevToolsObserver_OnSubresourceWebBundleMetadataError_Name: {
@@ -2239,6 +2271,8 @@ std::move(p_urls));
           reinterpret_cast<internal::DevToolsObserver_OnSubresourceWebBundleMetadataError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.10
       bool success = true;
       std::string p_devtool_request_id{};
       std::string p_error_message{};
@@ -2257,9 +2291,9 @@ std::move(p_urls));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubresourceWebBundleMetadataError(
-std::move(p_devtool_request_id), 
-std::move(p_error_message));
+      impl->OnSubresourceWebBundleMetadataError(        
+        std::move(p_devtool_request_id), 
+        std::move(p_error_message));
       return true;
     }
     case internal::kDevToolsObserver_OnSubresourceWebBundleInnerResponse_Name: {
@@ -2269,6 +2303,8 @@ std::move(p_error_message));
           reinterpret_cast<internal::DevToolsObserver_OnSubresourceWebBundleInnerResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.11
       bool success = true;
       std::string p_inner_request_devtools_id{};
       ::GURL p_url{};
@@ -2290,10 +2326,10 @@ std::move(p_error_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubresourceWebBundleInnerResponse(
-std::move(p_inner_request_devtools_id), 
-std::move(p_url), 
-std::move(p_bundle_request_devtools_id));
+      impl->OnSubresourceWebBundleInnerResponse(        
+        std::move(p_inner_request_devtools_id), 
+        std::move(p_url), 
+        std::move(p_bundle_request_devtools_id));
       return true;
     }
     case internal::kDevToolsObserver_OnSubresourceWebBundleInnerResponseError_Name: {
@@ -2303,6 +2339,8 @@ std::move(p_bundle_request_devtools_id));
           reinterpret_cast<internal::DevToolsObserver_OnSubresourceWebBundleInnerResponseError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.12
       bool success = true;
       std::string p_inner_request_devtools_id{};
       ::GURL p_url{};
@@ -2327,11 +2365,11 @@ std::move(p_bundle_request_devtools_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSubresourceWebBundleInnerResponseError(
-std::move(p_inner_request_devtools_id), 
-std::move(p_url), 
-std::move(p_error_message), 
-std::move(p_bundle_request_devtools_id));
+      impl->OnSubresourceWebBundleInnerResponseError(        
+        std::move(p_inner_request_devtools_id), 
+        std::move(p_url), 
+        std::move(p_error_message), 
+        std::move(p_bundle_request_devtools_id));
       return true;
     }
     case internal::kDevToolsObserver_Clone_Name: {
@@ -2341,6 +2379,8 @@ std::move(p_bundle_request_devtools_id));
           reinterpret_cast<internal::DevToolsObserver_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DevToolsObserver.13
       bool success = true;
       ::mojo::PendingReceiver<DevToolsObserver> p_listener{};
       DevToolsObserver_Clone_ParamsDataView input_data_view(params, message);
@@ -2358,8 +2398,8 @@ std::move(p_bundle_request_devtools_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_listener));
+      impl->Clone(        
+        std::move(p_listener));
       return true;
     }
   }
@@ -2504,6 +2544,8 @@ bool StructTraits<::network::mojom::URLResponseHeadDevToolsInfo::DataView, ::net
       if (success && !input.ReadHeaders(&result->headers))
         success = false;
       if (success && !input.ReadMimeType(&result->mime_type))
+        success = false;
+      if (success && !input.ReadCharset(&result->charset))
         success = false;
       if (success && !input.ReadLoadTiming(&result->load_timing))
         success = false;

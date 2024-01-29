@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "services/network/public/mojom/schemeful_site.mojom-shared-internal.h"
+#include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-shared-internal.h"
 #include "third_party/blink/public/mojom/permissions_policy/permissions_policy_feature.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "url/mojom/url.mojom-shared-internal.h"
@@ -33,6 +34,7 @@ namespace internal {
 class AdAuctionData_Data;
 class URNConfigPair_Data;
 class SharedStorageBudgetMetadata_Data;
+class ParentPermissionsInfo_Data;
 class FencedFrameConfig_Data;
 class FencedFrameProperties_Data;
 class PotentiallyOpaqueURL_Data;
@@ -656,6 +658,55 @@ struct SharedStorageBudgetMetadata_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SharedStorageBudgetMetadata_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ParentPermissionsInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::blink::mojom::internal::ParsedPermissionsPolicyDeclaration_Data>>> parsed_permissions_policy;
+  mojo::internal::Pointer<::url::mojom::internal::Origin_Data> origin;
+
+ private:
+  friend class mojo::internal::MessageFragment<ParentPermissionsInfo_Data>;
+
+  ParentPermissionsInfo_Data();
+  ~ParentPermissionsInfo_Data() = delete;
+};
+static_assert(sizeof(ParentPermissionsInfo_Data) == 24,
+              "Bad sizeof(ParentPermissionsInfo_Data)");
+// Used by ParentPermissionsInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ParentPermissionsInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ParentPermissionsInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ParentPermissionsInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ParentPermissionsInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ParentPermissionsInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FencedFrameConfig_Data {
  public:
   static bool Validate(const void* data,
@@ -673,6 +724,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FencedFrameConfig_Data 
   int32_t mode;
   uint8_t pad8_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> effective_enabled_permissions;
+  mojo::internal::Pointer<internal::ParentPermissionsInfo_Data> parent_permissions_info;
 
  private:
   friend class mojo::internal::MessageFragment<FencedFrameConfig_Data>;
@@ -680,7 +732,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FencedFrameConfig_Data 
   FencedFrameConfig_Data();
   ~FencedFrameConfig_Data() = delete;
 };
-static_assert(sizeof(FencedFrameConfig_Data) == 144,
+static_assert(sizeof(FencedFrameConfig_Data) == 152,
               "Bad sizeof(FencedFrameConfig_Data)");
 // Used by FencedFrameConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -728,9 +780,11 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FencedFrameProperties_D
   internal::PotentiallyOpaqueURNConfigVector_Data nested_urn_config_pairs;
   internal::PotentiallyOpaqueSharedStorageBudgetMetadata_Data shared_storage_budget_metadata;
   uint8_t has_fenced_frame_reporting : 1;
-  uint8_t pad7_[3];
+  uint8_t can_disable_untrusted_network : 1;
+  uint8_t pad8_[3];
   int32_t mode;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> effective_enabled_permissions;
+  mojo::internal::Pointer<internal::ParentPermissionsInfo_Data> parent_permissions_info;
 
  private:
   friend class mojo::internal::MessageFragment<FencedFrameProperties_Data>;
@@ -738,7 +792,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FencedFrameProperties_D
   FencedFrameProperties_Data();
   ~FencedFrameProperties_Data() = delete;
 };
-static_assert(sizeof(FencedFrameProperties_Data) == 136,
+static_assert(sizeof(FencedFrameProperties_Data) == 144,
               "Bad sizeof(FencedFrameProperties_Data)");
 // Used by FencedFrameProperties::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

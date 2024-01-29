@@ -1,9 +1,9 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { CurrentDirectory, EntryType, FileData } from '../../externs/ts/state.js';
 import { ODFS_EXTENSION_ID } from '../../foreground/js/constants.js';
 import { driveRootEntryListKey, myFilesEntryListKey, recentRootKey, trashRootKey } from '../../state/ducks/volumes.js';
+import { EntryType } from '../../state/state.js';
 import { getEntry, getStore } from '../../state/store.js';
 import { createDOMError } from './dom_utils.js';
 import { EntryList, FakeEntryImpl, VolumeEntry } from './files_app_entry_types.js';
@@ -181,7 +181,7 @@ export function isTeamDriveRoot(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree.length == 3 && isSharedDriveEntry(entry);
+    return tree.length === 3 && isSharedDriveEntry(entry);
 }
 /**
  * Obtains whether an entry is the grand root directory of Shared Drives.
@@ -191,7 +191,7 @@ export function isTeamDrivesGrandRoot(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree.length == 2 && isSharedDriveEntry(entry);
+    return tree.length === 2 && isSharedDriveEntry(entry);
 }
 /**
  * Obtains whether an entry is descendant of the Shared Drives directory.
@@ -201,7 +201,7 @@ export function isSharedDriveEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' && tree[1] == SHARED_DRIVES_DIRECTORY_NAME;
+    return tree[0] === '' && tree[1] === SHARED_DRIVES_DIRECTORY_NAME;
 }
 /**
  * Extracts Shared Drive name from entry path.
@@ -222,7 +222,7 @@ export function getTeamDriveName(entry) {
  * Returns true if the given root type is for a container of recent files.
  */
 export function isRecentRootType(rootType) {
-    return rootType == RootType.RECENT;
+    return rootType === RootType.RECENT;
 }
 /**
  * Returns true if the given entry is the root folder of recent files.
@@ -241,7 +241,7 @@ export function isComputersRoot(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree.length == 3 && isComputersEntry(entry);
+    return tree.length === 3 && isComputersEntry(entry);
 }
 /**
  * Obtains whether an entry is descendant of the My Computers directory.
@@ -251,13 +251,13 @@ export function isComputersEntry(entry) {
         return false;
     }
     const tree = entry.fullPath.split('/');
-    return tree[0] == '' && tree[1] == COMPUTERS_DIRECTORY_NAME;
+    return tree[0] === '' && tree[1] === COMPUTERS_DIRECTORY_NAME;
 }
 /**
  * Returns true if the given root type is Trash.
  */
 export function isTrashRootType(rootType) {
-    return rootType == RootType.TRASH;
+    return rootType === RootType.TRASH;
 }
 /**
  * Returns true if the given entry is the root folder of Trash.
@@ -328,11 +328,11 @@ export function isSameFileSystem(fileSystem1, fileSystem2) {
 export function isSiblingEntry(entry1, entry2) {
     const path1 = entry1.fullPath.split('/');
     const path2 = entry2.fullPath.split('/');
-    if (path1.length != path2.length) {
+    if (path1.length !== path2.length) {
         return false;
     }
     for (let i = 0; i < path1.length - 1; i++) {
-        if (path1[i] != path2[i]) {
+        if (path1[i] !== path2[i]) {
             return false;
         }
     }

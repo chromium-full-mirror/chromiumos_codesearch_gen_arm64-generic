@@ -561,6 +561,8 @@ bool CrosDiagnostics_GetCpuInfo_ForwardToCallback::Accept(
           internal::CrosDiagnostics_GetCpuInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDiagnostics.0
   bool success = true;
   GetCpuInfoResultPtr p_result{};
   CrosDiagnostics_GetCpuInfo_ResponseParamsDataView input_data_view(params, message);
@@ -688,6 +690,8 @@ bool CrosDiagnostics_GetNetworkInterfaces_ForwardToCallback::Accept(
           internal::CrosDiagnostics_GetNetworkInterfaces_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrosDiagnostics.1
   bool success = true;
   GetNetworkInterfacesResultPtr p_network_interfaces{};
   CrosDiagnostics_GetNetworkInterfaces_ResponseParamsDataView input_data_view(params, message);
@@ -789,6 +793,8 @@ bool CrosDiagnosticsStubDispatch::AcceptWithResponder(
               internal::CrosDiagnostics_GetCpuInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDiagnostics.0
       bool success = true;
       CrosDiagnostics_GetCpuInfo_ParamsDataView input_data_view(params, message);
       
@@ -814,6 +820,8 @@ bool CrosDiagnosticsStubDispatch::AcceptWithResponder(
               internal::CrosDiagnostics_GetNetworkInterfaces_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrosDiagnostics.1
       bool success = true;
       CrosDiagnostics_GetNetworkInterfaces_ParamsDataView input_data_view(params, message);
       

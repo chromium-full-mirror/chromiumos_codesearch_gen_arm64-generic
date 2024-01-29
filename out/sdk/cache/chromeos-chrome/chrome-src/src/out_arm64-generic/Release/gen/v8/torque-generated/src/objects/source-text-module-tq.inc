@@ -198,11 +198,11 @@ class TorqueGeneratedModuleRequest : public P {
   inline void set_specifier(Tagged<String> value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
-  inline Tagged<FixedArray> import_assertions() const;
+  inline Tagged<FixedArray> import_attributes() const;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
-  inline Tagged<FixedArray> import_assertions(PtrComprCageBase cage_base) const;
+  inline Tagged<FixedArray> import_attributes(PtrComprCageBase cage_base) const;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
-  inline void set_import_assertions(Tagged<FixedArray> value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
+  inline void set_import_attributes(Tagged<FixedArray> value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=58&c=3
   inline int position() const;
@@ -228,10 +228,10 @@ class TorqueGeneratedModuleRequest : public P {
   static constexpr int kSpecifierOffset = P::kHeaderSize;
   static constexpr int kSpecifierOffsetEnd = kSpecifierOffset + kTaggedSize - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=55&c=3
-  static constexpr int kImportAssertionsOffset = kSpecifierOffsetEnd + 1;
-  static constexpr int kImportAssertionsOffsetEnd = kImportAssertionsOffset + kTaggedSize - 1;
+  static constexpr int kImportAttributesOffset = kSpecifierOffsetEnd + 1;
+  static constexpr int kImportAttributesOffsetEnd = kImportAttributesOffset + kTaggedSize - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/source-text-module.tq?l=58&c=3
-  static constexpr int kPositionOffset = kImportAssertionsOffsetEnd + 1;
+  static constexpr int kPositionOffset = kImportAttributesOffsetEnd + 1;
   static constexpr int kPositionOffsetEnd = kPositionOffset + kTaggedSize - 1;
   static constexpr int kEndOfStrongFieldsOffset = kPositionOffsetEnd + 1;
   static constexpr int kStartOfWeakFieldsOffset = kPositionOffsetEnd + 1;

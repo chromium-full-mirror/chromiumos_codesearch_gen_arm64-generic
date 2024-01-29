@@ -228,6 +228,8 @@ bool SpellCheckService_CreateDictionary_ForwardToCallback::Accept(
           internal::SpellCheckService_CreateDictionary_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpellCheckService.0
   bool success = true;
   ::mojo::PendingRemote<SpellCheckDictionary> p_dictionary{};
   SpellCheckService_CreateDictionary_ResponseParamsDataView input_data_view(params, message);
@@ -321,6 +323,8 @@ bool SpellCheckServiceStubDispatch::AcceptWithResponder(
               internal::SpellCheckService_CreateDictionary_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpellCheckService.0
       bool success = true;
       ::base::File p_dictionary_file{};
       SpellCheckService_CreateDictionary_ParamsDataView input_data_view(params, message);
@@ -339,8 +343,8 @@ bool SpellCheckServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDictionary(
-std::move(p_dictionary_file), std::move(callback));
+      impl->CreateDictionary(        
+        std::move(p_dictionary_file), std::move(callback));
       return true;
     }
   }
@@ -546,6 +550,8 @@ bool SpellCheckDictionary_CheckSpelling_ForwardToCallback::Accept(
           internal::SpellCheckDictionary_CheckSpelling_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpellCheckDictionary.0
   bool success = true;
   bool p_correctness{};
   SpellCheckDictionary_CheckSpelling_ResponseParamsDataView input_data_view(params, message);
@@ -636,6 +642,8 @@ bool SpellCheckDictionaryStubDispatch::AcceptWithResponder(
               internal::SpellCheckDictionary_CheckSpelling_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpellCheckDictionary.0
       bool success = true;
       std::string p_word{};
       SpellCheckDictionary_CheckSpelling_ParamsDataView input_data_view(params, message);
@@ -654,8 +662,8 @@ bool SpellCheckDictionaryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CheckSpelling(
-std::move(p_word), std::move(callback));
+      impl->CheckSpelling(        
+        std::move(p_word), std::move(callback));
       return true;
     }
   }

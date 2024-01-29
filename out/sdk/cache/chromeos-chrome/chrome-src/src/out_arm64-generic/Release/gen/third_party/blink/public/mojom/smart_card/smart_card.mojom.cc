@@ -210,6 +210,8 @@ bool SmartCardService_CreateContext_ForwardToCallback::Accept(
           internal::SmartCardService_CreateContext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartCardService.0
   bool success = true;
   ::device::mojom::SmartCardCreateContextResultPtr p_result{};
   SmartCardService_CreateContext_ResponseParamsDataView input_data_view(params, message);
@@ -308,6 +310,8 @@ bool SmartCardServiceStubDispatch::AcceptWithResponder(
               internal::SmartCardService_CreateContext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartCardService.0
       bool success = true;
       SmartCardService_CreateContext_ParamsDataView input_data_view(params, message);
       

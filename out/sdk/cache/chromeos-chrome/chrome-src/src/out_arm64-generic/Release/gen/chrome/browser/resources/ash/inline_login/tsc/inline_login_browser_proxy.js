@@ -15,9 +15,6 @@ export class InlineLoginBrowserProxyImpl {
     completeLogin(credentials) {
         chrome.send('completeLogin', [credentials]);
     }
-    lstFetchResults(arg) {
-        chrome.send('lstFetchResults', [arg]);
-    }
     recordAction(metricsAction) {
         chrome.send('metricsHandler:recordAction', [metricsAction]);
     }

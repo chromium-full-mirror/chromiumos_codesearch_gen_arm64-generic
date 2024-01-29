@@ -245,6 +245,8 @@ bool CarrierPortalHandlerStubDispatch::Accept(
           reinterpret_cast<internal::CarrierPortalHandler_OnCarrierPortalStatusChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CarrierPortalHandler.0
       bool success = true;
       CarrierPortalStatus p_status{};
       CarrierPortalHandler_OnCarrierPortalStatusChange_ParamsDataView input_data_view(params, message);
@@ -260,8 +262,8 @@ bool CarrierPortalHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCarrierPortalStatusChange(
-std::move(p_status));
+      impl->OnCarrierPortalStatusChange(        
+        std::move(p_status));
       return true;
     }
   }
@@ -479,6 +481,8 @@ bool ActivationDelegateStubDispatch::Accept(
           reinterpret_cast<internal::ActivationDelegate_OnActivationStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ActivationDelegate.0
       bool success = true;
       CellularMetadataPtr p_metadata{};
       ActivationDelegate_OnActivationStarted_ParamsDataView input_data_view(params, message);
@@ -494,8 +498,8 @@ bool ActivationDelegateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnActivationStarted(
-std::move(p_metadata));
+      impl->OnActivationStarted(        
+        std::move(p_metadata));
       return true;
     }
     case internal::kActivationDelegate_OnActivationFinished_Name: {
@@ -505,6 +509,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::ActivationDelegate_OnActivationFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ActivationDelegate.1
       bool success = true;
       ActivationResult p_result{};
       ActivationDelegate_OnActivationFinished_ParamsDataView input_data_view(params, message);
@@ -520,8 +526,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnActivationFinished(
-std::move(p_result));
+      impl->OnActivationFinished(        
+        std::move(p_result));
       return true;
     }
   }
@@ -739,6 +745,8 @@ bool CellularSetup_StartActivation_ForwardToCallback::Accept(
           internal::CellularSetup_StartActivation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CellularSetup.0
   bool success = true;
   ::mojo::PendingRemote<CarrierPortalHandler> p_observer{};
   CellularSetup_StartActivation_ResponseParamsDataView input_data_view(params, message);
@@ -836,6 +844,8 @@ bool CellularSetupStubDispatch::AcceptWithResponder(
               internal::CellularSetup_StartActivation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CellularSetup.0
       bool success = true;
       ::mojo::PendingRemote<ActivationDelegate> p_delegate{};
       CellularSetup_StartActivation_ParamsDataView input_data_view(params, message);
@@ -856,8 +866,8 @@ bool CellularSetupStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartActivation(
-std::move(p_delegate), std::move(callback));
+      impl->StartActivation(        
+        std::move(p_delegate), std::move(callback));
       return true;
     }
   }

@@ -10,9 +10,10 @@ import { BackgroundGraphicsModeRestriction } from '../native_layer.js';
 import { ColorModeRestriction, DuplexModeRestriction, PinModeRestriction } from '../native_layer.js';
 import { DestinationOrigin, GooglePromotedDestinationId, PrinterType } from './destination.js';
 import { CustomMarginsOrientation, MarginsType } from './margins.js';
-import { ScalingType } from './scaling.js';
 // 
 import { PrinterStatusReason } from './printer_status_cros.js';
+// 
+import { ScalingType } from './scaling.js';
 /**
  * Constant values matching printing::DuplexMode enum.
  */

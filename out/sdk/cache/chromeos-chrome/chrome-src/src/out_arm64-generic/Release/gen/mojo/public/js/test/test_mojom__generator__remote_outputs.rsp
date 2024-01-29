@@ -1,0 +1,15 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_a.test-mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_a.test-mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_a.test-mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_a.test-mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_a.test-mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_1.test-mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_1.test-mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_1.test-mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_1.test-mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_1.test-mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_2.test-mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_2.test-mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_2.test-mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_2.test-mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/js/test/module_b_2.test-mojom.h

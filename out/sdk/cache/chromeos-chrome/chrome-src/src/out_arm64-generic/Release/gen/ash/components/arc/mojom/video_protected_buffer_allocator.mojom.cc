@@ -395,6 +395,8 @@ bool VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ForwardToCallba
           internal::VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoProtectedBufferAllocator.0
   bool success = true;
   bool p_result{};
   VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParamsDataView input_data_view(params, message);
@@ -514,6 +516,8 @@ bool VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ForwardToCallba
           internal::VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoProtectedBufferAllocator.1
   bool success = true;
   bool p_result{};
   VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParamsDataView input_data_view(params, message);
@@ -594,6 +598,8 @@ bool VideoProtectedBufferAllocatorStubDispatch::Accept(
           reinterpret_cast<internal::VideoProtectedBufferAllocator_ReleaseProtectedBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoProtectedBufferAllocator.2
       bool success = true;
       ::mojo::ScopedHandle p_handle_fd{};
       VideoProtectedBufferAllocator_ReleaseProtectedBuffer_ParamsDataView input_data_view(params, message);
@@ -609,8 +615,8 @@ bool VideoProtectedBufferAllocatorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReleaseProtectedBuffer(
-std::move(p_handle_fd));
+      impl->ReleaseProtectedBuffer(        
+        std::move(p_handle_fd));
       return true;
     }
   }
@@ -633,6 +639,8 @@ bool VideoProtectedBufferAllocatorStubDispatch::AcceptWithResponder(
               internal::VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoProtectedBufferAllocator.0
       bool success = true;
       ::mojo::ScopedHandle p_handle_fd{};
       uint64_t p_size{};
@@ -654,9 +662,9 @@ bool VideoProtectedBufferAllocatorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllocateProtectedSharedMemory(
-std::move(p_handle_fd), 
-std::move(p_size), std::move(callback));
+      impl->AllocateProtectedSharedMemory(        
+        std::move(p_handle_fd), 
+        std::move(p_size), std::move(callback));
       return true;
     }
     case internal::kVideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Name: {
@@ -666,6 +674,8 @@ std::move(p_size), std::move(callback));
               internal::VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoProtectedBufferAllocator.1
       bool success = true;
       ::mojo::ScopedHandle p_handle_fd{};
       ::arc::mojom::HalPixelFormat p_pixel_format{};
@@ -690,10 +700,10 @@ std::move(p_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllocateProtectedNativePixmap(
-std::move(p_handle_fd), 
-std::move(p_pixel_format), 
-std::move(p_picture_size), std::move(callback));
+      impl->AllocateProtectedNativePixmap(        
+        std::move(p_handle_fd), 
+        std::move(p_pixel_format), 
+        std::move(p_picture_size), std::move(callback));
       return true;
     }
     case internal::kVideoProtectedBufferAllocator_ReleaseProtectedBuffer_Name: {

@@ -543,6 +543,8 @@ bool MediaEngagementScoreDetailsProvider_GetMediaEngagementScoreDetails_ForwardT
           internal::MediaEngagementScoreDetailsProvider_GetMediaEngagementScoreDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaEngagementScoreDetailsProvider.0
   bool success = true;
   std::vector<MediaEngagementScoreDetailsPtr> p_info{};
   MediaEngagementScoreDetailsProvider_GetMediaEngagementScoreDetails_ResponseParamsDataView input_data_view(params, message);
@@ -674,6 +676,8 @@ bool MediaEngagementScoreDetailsProvider_GetMediaEngagementConfig_ForwardToCallb
           internal::MediaEngagementScoreDetailsProvider_GetMediaEngagementConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MediaEngagementScoreDetailsProvider.1
   bool success = true;
   MediaEngagementConfigPtr p_config{};
   MediaEngagementScoreDetailsProvider_GetMediaEngagementConfig_ResponseParamsDataView input_data_view(params, message);
@@ -777,6 +781,8 @@ bool MediaEngagementScoreDetailsProviderStubDispatch::AcceptWithResponder(
               internal::MediaEngagementScoreDetailsProvider_GetMediaEngagementScoreDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaEngagementScoreDetailsProvider.0
       bool success = true;
       MediaEngagementScoreDetailsProvider_GetMediaEngagementScoreDetails_ParamsDataView input_data_view(params, message);
       
@@ -802,6 +808,8 @@ bool MediaEngagementScoreDetailsProviderStubDispatch::AcceptWithResponder(
               internal::MediaEngagementScoreDetailsProvider_GetMediaEngagementConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MediaEngagementScoreDetailsProvider.1
       bool success = true;
       MediaEngagementScoreDetailsProvider_GetMediaEngagementConfig_ParamsDataView input_data_view(params, message);
       

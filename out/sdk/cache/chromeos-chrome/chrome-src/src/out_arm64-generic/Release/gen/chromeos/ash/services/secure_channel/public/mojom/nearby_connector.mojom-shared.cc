@@ -22,6 +22,106 @@ namespace ash {
 namespace secure_channel {
 namespace mojom {
 
+NOINLINE static const char* NearbyConnectionStepToStringHelper(NearbyConnectionStep value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case NearbyConnectionStep::kDiscoveringEndpointStarted:
+      return "kDiscoveringEndpointStarted";
+    case NearbyConnectionStep::kDiscoveringEndpointEnded:
+      return "kDiscoveringEndpointEnded";
+    case NearbyConnectionStep::kRequestingConnectionStarted:
+      return "kRequestingConnectionStarted";
+    case NearbyConnectionStep::kRequestingConnectionEnded:
+      return "kRequestingConnectionEnded";
+    case NearbyConnectionStep::kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted:
+      return "kWaitingForConnectionToBeAcceptedByRemoteDeviceStarted";
+    case NearbyConnectionStep::kWaitingForConnectionToBeAcceptedByRemoteDeviceEnded:
+      return "kWaitingForConnectionToBeAcceptedByRemoteDeviceEnded";
+    case NearbyConnectionStep::kConnected:
+      return "kConnected";
+    case NearbyConnectionStep::kUpgradedToWebRtc:
+      return "kUpgradedToWebRtc";
+    case NearbyConnectionStep::kDisconnectionStarted:
+      return "kDisconnectionStarted";
+    case NearbyConnectionStep::kDisconnectionFinished:
+      return "kDisconnectionFinished";
+    default:
+      return nullptr;
+  }
+}
+
+std::string NearbyConnectionStepToString(NearbyConnectionStep value) {
+  const char *str = NearbyConnectionStepToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown NearbyConnectionStep value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, NearbyConnectionStep value) {
+  return os << NearbyConnectionStepToString(value);
+}
+
+NOINLINE static const char* NearbyConnectionStepResultToStringHelper(NearbyConnectionStepResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case NearbyConnectionStepResult::kSuccess:
+      return "kSuccess";
+    case NearbyConnectionStepResult::kTimeoutTransitionState:
+      return "kTimeoutTransitionState";
+    case NearbyConnectionStepResult::kError:
+      return "kError";
+    case NearbyConnectionStepResult::kOutOfOrderApiCall:
+      return "kOutOfOrderApiCall";
+    case NearbyConnectionStepResult::kAlreadyHaveActiveStrategy:
+      return "kAlreadyHaveActiveStrategy";
+    case NearbyConnectionStepResult::kAlreadyAdvertising:
+      return "kAlreadyAdvertising";
+    case NearbyConnectionStepResult::kAlreadyDiscovering:
+      return "kAlreadyDiscovering";
+    case NearbyConnectionStepResult::kEndpointIOError:
+      return "kEndpointIOError";
+    case NearbyConnectionStepResult::kEndpointUnknown:
+      return "kEndpointUnknown";
+    case NearbyConnectionStepResult::kConnectionRejected:
+      return "kConnectionRejected";
+    case NearbyConnectionStepResult::kAlreadyConnectedToEndpoint:
+      return "kAlreadyConnectedToEndpoint";
+    case NearbyConnectionStepResult::kNotConnectedToEndpoint:
+      return "kNotConnectedToEndpoint";
+    case NearbyConnectionStepResult::kBluetoothError:
+      return "kBluetoothError";
+    case NearbyConnectionStepResult::kBleError:
+      return "kBleError";
+    case NearbyConnectionStepResult::kWifiLanError:
+      return "kWifiLanError";
+    case NearbyConnectionStepResult::kPayloadUnknown:
+      return "kPayloadUnknown";
+    case NearbyConnectionStepResult::kAlreadyListening:
+      return "kAlreadyListening";
+    case NearbyConnectionStepResult::kReset:
+      return "kReset";
+    case NearbyConnectionStepResult::kTimeout:
+      return "kTimeout";
+    case NearbyConnectionStepResult::kUnknown:
+      return "kUnknown";
+    default:
+      return nullptr;
+  }
+}
+
+std::string NearbyConnectionStepResultToString(NearbyConnectionStepResult value) {
+  const char *str = NearbyConnectionStepResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown NearbyConnectionStepResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, NearbyConnectionStepResult value) {
+  return os << NearbyConnectionStepResultToString(value);
+}
+
 namespace internal {
 
 
@@ -268,3 +368,23 @@ NearbyConnector_Connect_ResponseParams_Data::NearbyConnector_Connect_ResponsePar
 }  // namespace mojom
 }  // namespace secure_channel
 }  // namespace ash
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::secure_channel::mojom::NearbyConnectionStep>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::secure_channel::mojom::NearbyConnectionStep value) {
+  return std::move(context).WriteString(::ash::secure_channel::mojom::NearbyConnectionStepToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::secure_channel::mojom::NearbyConnectionStepResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::secure_channel::mojom::NearbyConnectionStepResult value) {
+  return std::move(context).WriteString(::ash::secure_channel::mojom::NearbyConnectionStepResultToString(value));
+}
+
+} // namespace perfetto

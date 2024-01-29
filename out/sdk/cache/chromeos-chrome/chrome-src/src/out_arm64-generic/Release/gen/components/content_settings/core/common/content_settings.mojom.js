@@ -33,23 +33,6 @@
   }
 
 
-  var ContentSettingsType = {};
-
-  ContentSettingsType.isKnownEnumValue = function(value) {
-    return false;
-  };
-
-  ContentSettingsType.toKnownEnumValue = function(value) {
-    return value;
-  };
-
-  ContentSettingsType.validate = function(enumValue) {
-    const isExtensible = false;
-    if (isExtensible || this.isKnownEnumValue(enumValue))
-      return validator.validationError.NONE;
-
-    return validator.validationError.UNKNOWN_ENUM_VALUE;
-  };
   var ContentSetting = {};
   ContentSetting.DEFAULT = 0;
   ContentSetting.ALLOW = 1;
@@ -638,7 +621,6 @@
     encoder.encodeArrayPointer(new codec.PointerTo(ContentSettingPatternSource), val.mixedContentRules);
     encoder.encodeArrayPointer(new codec.PointerTo(ContentSettingPatternSource), val.autoDarkContentRules);
   };
-  exports.ContentSettingsType = ContentSettingsType;
   exports.ContentSetting = ContentSetting;
   exports.SessionModel = SessionModel;
   exports.PatternParts = PatternParts;

@@ -259,6 +259,8 @@ bool WorkletDevToolsHostStubDispatch::Accept(
           reinterpret_cast<internal::WorkletDevToolsHost_OnReadyForInspection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WorkletDevToolsHost.0
       bool success = true;
       ::mojo::PendingRemote<::blink::mojom::blink::DevToolsAgent> p_agent{};
       ::mojo::PendingReceiver<::blink::mojom::blink::DevToolsAgentHost> p_agent_host{};
@@ -281,9 +283,9 @@ bool WorkletDevToolsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReadyForInspection(
-std::move(p_agent), 
-std::move(p_agent_host));
+      impl->OnReadyForInspection(        
+        std::move(p_agent), 
+        std::move(p_agent_host));
       return true;
     }
   }

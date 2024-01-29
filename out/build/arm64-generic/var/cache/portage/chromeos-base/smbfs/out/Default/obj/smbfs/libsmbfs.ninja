@@ -1,54 +1,54 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=26
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2 -I/build/arm64-generic/usr/include
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -pthread -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -Wno-cast-qual -Wno-cast-align -I/build/arm64-generic/usr/include/fuse -D_FILE_OFFSET_BITS=64 -I/build/arm64-generic/usr/include/samba-4.0 -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -Wno-cast-qual -Wno-cast-align
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -Wno-cast-qual -Wno-cast-align -I/build/arm64-generic/usr/include/fuse -D_FILE_OFFSET_BITS=64 -I/build/arm64-generic/usr/include/samba-4.0 -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1252475 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -Wno-cast-qual -Wno-cast-align
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libsmbfs
 
 build obj/smbfs/libsmbfs.inputdeps.stamp: stamp obj/smbfs/dbus_bindings.stamp obj/smbfs/mojo_bindings_gen.stamp
-build obj/smbfs/libsmbfs.filesystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/filesystem.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.filesystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/filesystem.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = filesystem.cc
   source_name_part = filesystem
-build obj/smbfs/libsmbfs.fuse_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/fuse_session.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.fuse_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/fuse_session.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = fuse_session.cc
   source_name_part = fuse_session
-build obj/smbfs/libsmbfs.inode_map.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/inode_map.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.inode_map.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/inode_map.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = inode_map.cc
   source_name_part = inode_map
-build obj/smbfs/libsmbfs.kerberos_artifact_synchronizer.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/kerberos_artifact_synchronizer.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.kerberos_artifact_synchronizer.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/kerberos_artifact_synchronizer.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = kerberos_artifact_synchronizer.cc
   source_name_part = kerberos_artifact_synchronizer
-build obj/smbfs/libsmbfs.kerberos_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/kerberos_client.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.kerberos_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/kerberos_client.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = kerberos_client.cc
   source_name_part = kerberos_client
-build obj/smbfs/libsmbfs.mojo_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/mojo_session.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.mojo_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/mojo_session.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = mojo_session.cc
   source_name_part = mojo_session
-build obj/smbfs/libsmbfs.recursive_delete_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/recursive_delete_operation.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.recursive_delete_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/recursive_delete_operation.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = recursive_delete_operation.cc
   source_name_part = recursive_delete_operation
-build obj/smbfs/libsmbfs.request.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/request.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.request.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/request.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = request.cc
   source_name_part = request
-build obj/smbfs/libsmbfs.samba_interface_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/samba_interface_impl.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.samba_interface_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/samba_interface_impl.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = samba_interface_impl.cc
   source_name_part = samba_interface_impl
-build obj/smbfs/libsmbfs.smb_filesystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/smb_filesystem.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.smb_filesystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/smb_filesystem.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = smb_filesystem.cc
   source_name_part = smb_filesystem
-build obj/smbfs/libsmbfs.smbfs_bootstrap_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/smbfs_bootstrap_impl.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.smbfs_bootstrap_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/smbfs_bootstrap_impl.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = smbfs_bootstrap_impl.cc
   source_name_part = smbfs_bootstrap_impl
-build obj/smbfs/libsmbfs.smbfs_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/smbfs_daemon.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.smbfs_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/smbfs_daemon.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = smbfs_daemon.cc
   source_name_part = smbfs_daemon
-build obj/smbfs/libsmbfs.smbfs_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/smbfs_impl.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.smbfs_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/smbfs_impl.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = smbfs_impl.cc
   source_name_part = smbfs_impl
-build obj/smbfs/libsmbfs.test_filesystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/test_filesystem.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.test_filesystem.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/test_filesystem.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = test_filesystem.cc
   source_name_part = test_filesystem
-build obj/smbfs/libsmbfs.util.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2/smbfs/util.cc || obj/smbfs/libsmbfs.inputdeps.stamp
+build obj/smbfs/libsmbfs.util.o: cxx ../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r551/work/smbfs-0.0.1/platform2/smbfs/util.cc || obj/smbfs/libsmbfs.inputdeps.stamp
   source_file_part = util.cc
   source_name_part = util
 

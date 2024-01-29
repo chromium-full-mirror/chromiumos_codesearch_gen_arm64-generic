@@ -117,14 +117,12 @@ export class WordUtils {
      * Regular expression to find the start of the next word after a word
      * boundary. We cannot use \b\W to find the next word because it does not
      * match many unicode characters.
-     * @type {RegExp}
      */
     WordUtils.WORD_START_REGEXP = /\b\S/;
     /**
      * Regular expression to find the end of the next word, which is followed by
      * whitespace. We cannot use \w\b to find the end of the previous word because
      * \w does not know about many unicode characters.
-     * @type {RegExp}
      */
     WordUtils.WORD_END_REGEXP = /\S\s/;
 })(WordUtils || (WordUtils = {}));

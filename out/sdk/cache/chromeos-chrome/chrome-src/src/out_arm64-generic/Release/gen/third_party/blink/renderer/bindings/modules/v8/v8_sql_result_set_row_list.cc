@@ -79,8 +79,7 @@ SQLResultSetRowList* blink_receiver = V8SQLResultSetRowList::ToWrappableUnsafe(i
 if (index >= blink_receiver->length())
   return;  // Do not intercept.  Fallback to OrdinaryGetOwnProperty.
 
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyGetter;
 const char* const class_like_name = "SQLResultSetRowList";
@@ -255,8 +254,7 @@ return;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 SQLResultSetRowList* blink_receiver = V8SQLResultSetRowList::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {

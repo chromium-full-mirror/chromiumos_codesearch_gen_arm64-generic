@@ -1,0 +1,3 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/mojo/public/interfaces/bindings/interface_control_messages.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/mojo/public/interfaces/bindings/native_struct.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/nacl_helper_arm32/gen/mojo/public/interfaces/bindings/pipe_control_messages.mojom-module

@@ -1804,7 +1804,6 @@ class ClientToServerMessage final :
     kBagOfChipsFieldNumber = 11,
     kClientStatusFieldNumber = 13,
     kClearServerDataFieldNumber = 15,
-    kSyncProblemDetectedFieldNumber = 8,
     kProtocolVersionFieldNumber = 2,
     kMessageContentsFieldNumber = 3,
   };
@@ -1988,19 +1987,6 @@ class ClientToServerMessage final :
       ::sync_pb::ClearServerDataMessage* clear_server_data);
   ::sync_pb::ClearServerDataMessage* unsafe_arena_release_clear_server_data();
 
-  // optional bool sync_problem_detected = 8 [default = false];
-  bool has_sync_problem_detected() const;
-  private:
-  bool _internal_has_sync_problem_detected() const;
-  public:
-  void clear_sync_problem_detected();
-  bool sync_problem_detected() const;
-  void set_sync_problem_detected(bool value);
-  private:
-  bool _internal_sync_problem_detected() const;
-  void _internal_set_sync_problem_detected(bool value);
-  public:
-
   // optional int32 protocol_version = 2 [default = 99];
   bool has_protocol_version() const;
   private:
@@ -2049,7 +2035,6 @@ class ClientToServerMessage final :
   ::sync_pb::ChipBag* bag_of_chips_;
   ::sync_pb::ClientStatus* client_status_;
   ::sync_pb::ClearServerDataMessage* clear_server_data_;
-  bool sync_problem_detected_;
   int32_t protocol_version_;
   int message_contents_;
   friend struct ::TableStruct_components_2fsync_2fprotocol_2fsync_2eproto;
@@ -5135,7 +5120,7 @@ inline void ClientToServerMessage::set_allocated_share(std::string* share) {
 
 // optional int32 protocol_version = 2 [default = 99];
 inline bool ClientToServerMessage::_internal_has_protocol_version() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool ClientToServerMessage::has_protocol_version() const {
@@ -5143,7 +5128,7 @@ inline bool ClientToServerMessage::has_protocol_version() const {
 }
 inline void ClientToServerMessage::clear_protocol_version() {
   protocol_version_ = 99;
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline int32_t ClientToServerMessage::_internal_protocol_version() const {
   return protocol_version_;
@@ -5153,7 +5138,7 @@ inline int32_t ClientToServerMessage::protocol_version() const {
   return _internal_protocol_version();
 }
 inline void ClientToServerMessage::_internal_set_protocol_version(int32_t value) {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00000400u;
   protocol_version_ = value;
 }
 inline void ClientToServerMessage::set_protocol_version(int32_t value) {
@@ -5163,7 +5148,7 @@ inline void ClientToServerMessage::set_protocol_version(int32_t value) {
 
 // required .sync_pb.ClientToServerMessage.Contents message_contents = 3;
 inline bool ClientToServerMessage::_internal_has_message_contents() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
 inline bool ClientToServerMessage::has_message_contents() const {
@@ -5171,7 +5156,7 @@ inline bool ClientToServerMessage::has_message_contents() const {
 }
 inline void ClientToServerMessage::clear_message_contents() {
   message_contents_ = 1;
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline ::sync_pb::ClientToServerMessage_Contents ClientToServerMessage::_internal_message_contents() const {
   return static_cast< ::sync_pb::ClientToServerMessage_Contents >(message_contents_);
@@ -5182,7 +5167,7 @@ inline ::sync_pb::ClientToServerMessage_Contents ClientToServerMessage::message_
 }
 inline void ClientToServerMessage::_internal_set_message_contents(::sync_pb::ClientToServerMessage_Contents value) {
   assert(::sync_pb::ClientToServerMessage_Contents_IsValid(value));
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00000800u;
   message_contents_ = value;
 }
 inline void ClientToServerMessage::set_message_contents(::sync_pb::ClientToServerMessage_Contents value) {
@@ -5436,34 +5421,6 @@ inline void ClientToServerMessage::set_allocated_store_birthday(std::string* sto
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:sync_pb.ClientToServerMessage.store_birthday)
-}
-
-// optional bool sync_problem_detected = 8 [default = false];
-inline bool ClientToServerMessage::_internal_has_sync_problem_detected() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
-  return value;
-}
-inline bool ClientToServerMessage::has_sync_problem_detected() const {
-  return _internal_has_sync_problem_detected();
-}
-inline void ClientToServerMessage::clear_sync_problem_detected() {
-  sync_problem_detected_ = false;
-  _has_bits_[0] &= ~0x00000400u;
-}
-inline bool ClientToServerMessage::_internal_sync_problem_detected() const {
-  return sync_problem_detected_;
-}
-inline bool ClientToServerMessage::sync_problem_detected() const {
-  // @@protoc_insertion_point(field_get:sync_pb.ClientToServerMessage.sync_problem_detected)
-  return _internal_sync_problem_detected();
-}
-inline void ClientToServerMessage::_internal_set_sync_problem_detected(bool value) {
-  _has_bits_[0] |= 0x00000400u;
-  sync_problem_detected_ = value;
-}
-inline void ClientToServerMessage::set_sync_problem_detected(bool value) {
-  _internal_set_sync_problem_detected(value);
-  // @@protoc_insertion_point(field_set:sync_pb.ClientToServerMessage.sync_problem_detected)
 }
 
 // optional .sync_pb.DebugInfo debug_info = 10;

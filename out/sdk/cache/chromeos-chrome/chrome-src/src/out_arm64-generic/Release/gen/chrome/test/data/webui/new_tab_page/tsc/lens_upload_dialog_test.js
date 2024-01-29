@@ -54,6 +54,7 @@ suite('LensUploadDialogTest', () => {
     test('hides when close button is clicked', async () => {
         // Act.
         const closeButton = uploadDialog.shadowRoot.querySelector('#closeButton');
+        assertTrue(!!closeButton);
         closeButton.click();
         // Assert.
         assertTrue(uploadDialog.$.dialog.hidden);
@@ -145,7 +146,8 @@ suite('LensUploadDialogTest', () => {
         // Arrange.
         windowProxy.setResultFor('onLine', true);
         // Act.
-        uploadDialog.shadowRoot.querySelector('#offlineRetryButton').click();
+        uploadDialog.shadowRoot
+            .querySelector('#offlineRetryButton').click();
         await waitAfterNextRender(uploadDialog);
         // Assert.
         assertFalse(uploadDialog.hasAttribute('is-offline_'));

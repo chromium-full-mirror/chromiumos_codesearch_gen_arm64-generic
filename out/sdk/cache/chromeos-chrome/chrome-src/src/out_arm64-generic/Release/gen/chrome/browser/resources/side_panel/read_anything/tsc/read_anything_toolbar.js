@@ -25,12 +25,17 @@ var ReadAnythingSettingsChange;
     ReadAnythingSettingsChange[ReadAnythingSettingsChange["THEME_CHANGE"] = 2] = "THEME_CHANGE";
     ReadAnythingSettingsChange[ReadAnythingSettingsChange["LINE_HEIGHT_CHANGE"] = 3] = "LINE_HEIGHT_CHANGE";
     ReadAnythingSettingsChange[ReadAnythingSettingsChange["LETTER_SPACING_CHANGE"] = 4] = "LETTER_SPACING_CHANGE";
+    ReadAnythingSettingsChange[ReadAnythingSettingsChange["LINKS_ENABLED_CHANGE"] = 5] = "LINKS_ENABLED_CHANGE";
     // Must be last.
-    ReadAnythingSettingsChange[ReadAnythingSettingsChange["COUNT"] = 5] = "COUNT";
+    ReadAnythingSettingsChange[ReadAnythingSettingsChange["COUNT"] = 6] = "COUNT";
 })(ReadAnythingSettingsChange || (ReadAnythingSettingsChange = {}));
 const SETTINGS_CHANGE_UMA = 'Accessibility.ReadAnything.SettingsChange';
 const moreOptionsClass = '.more-options-icon';
 const activeClass = ' active';
+// Link toggle button constants.
+const LINKS_ENABLED_ICON = 'read-anything:links-enabled';
+const LINKS_DISABLED_ICON = 'read-anything:links-disabled';
+const LINK_TOGGLE_BUTTON_ID = 'link-toggle-button';
 const ReadAnythingToolbarElementBase = WebUiListenerMixin(PolymerElement);
 export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
     constructor() {
@@ -76,6 +81,17 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
                 icon: 'read-anything:line-spacing-very-loose',
                 data: chrome.readingMode.getLineSpacingValue(chrome.readingMode.veryLooseLineSpacing),
                 callback: () => chrome.readingMode.onVeryLooseLineSpacing(),
+            },
+        ];
+        this.textStyleToggles_ = [
+            {
+                id: LINK_TOGGLE_BUTTON_ID,
+                icon: chrome.readingMode.linksEnabled ?
+                    LINKS_ENABLED_ICON : LINKS_DISABLED_ICON,
+                ariaLabel: chrome.readingMode.linksEnabled ?
+                    loadTimeData.getString('disableLinksLabel') :
+                    loadTimeData.getString('enableLinksLabel'),
+                callback: this.onToggleLinksClick_.bind(this),
             },
         ];
         this.colorOptions_ = [
@@ -139,8 +155,6 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
             anchorAlignmentY: AnchorAlignment.AFTER_END,
         };
         this.isHighlightOn_ = true;
-        // If Read Aloud is in the paused state.
-        this.isPaused_ = true;
     }
     static get is() {
         return 'read-anything-toolbar';
@@ -156,6 +170,8 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
             colorOptions_: Array,
             rateOptions_: Array,
             textStyleOptions_: Array,
+            textStyleToggles_: Array,
+            paused: Boolean,
         };
     }
     // This function has to be static because it's called from the ResizeObserver
@@ -175,9 +191,11 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
         buttonsOnToolbarToMaybeHide.forEach(btn => {
             ReadAnythingToolbarElement.showElement(btn);
         });
-        // When scroll width and client width are the different, then the content
-        // has overflowed.
-        if (toolbar.scrollWidth !== toolbar.clientWidth) {
+        const parentWidth = toolbar.offsetParent?.clientWidth;
+        assert(parentWidth);
+        // When the toolbar's width exceeds the parent width, then the content has
+        // overflowed.
+        if (toolbar.clientWidth > parentWidth) {
             ReadAnythingToolbarElement.showElement(moreOptionsButton);
             // Hide all the buttons on the toolbar that are in the more options menu
             buttonsOnToolbarToMaybeHide.forEach(btn => {
@@ -218,11 +236,27 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
             assert(shadowRoot);
             const toolbar = shadowRoot.getElementById('toolbar-container');
             assert(toolbar);
-            new ResizeObserver(this.onToolbarResize_).observe(toolbar);
+            this.toolbarContainerObserver_ =
+                new ResizeObserver(this.onToolbarResize_);
+            this.toolbarContainerObserver_.observe(toolbar);
+            this.dragResizeCallback_ = this.onDragResize_.bind(this);
+            window.addEventListener('resize', this.dragResizeCallback_);
         }
         this.textStyleOptions_ =
             this.textStyleOptions_.concat(this.moreOptionsButtons_);
         this.updateFonts();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this.dragResizeCallback_) {
+            window.removeEventListener('resize', this.dragResizeCallback_);
+        }
+        this.toolbarContainerObserver_?.disconnect();
+    }
+    onDragResize_() {
+        const toolbar = this.shadowRoot?.getElementById('toolbar-container');
+        assert(toolbar);
+        ReadAnythingToolbarElement.maybeUpdateMoreOptions(toolbar);
     }
     onToolbarResize_(entries) {
         assert(entries.length === 1);
@@ -235,6 +269,20 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
         if (this.isReadAloudEnabled_) {
             fontOptions = Array.from(this.$.fontMenu.children);
             this.setCheckMarkForMenu_(this.$.fontMenu, currentFontIndex);
+            // Setting the custom fonts on each of the elements in the dropdown is
+            // technically possible when Read Aloud is disabled, but it can cause
+            // an issue where the first instance of opening the dropdown shows a
+            // scrollbar because the height is calculated before the font is set.
+            // Therefore, only set the custom fonts on the individual items when
+            // Read Aloud is enabled.
+            fontOptions.forEach(element => {
+                assert(element instanceof HTMLElement);
+                if (!element.innerText) {
+                    return;
+                }
+                // Update the font of each button to be the same as the font text.
+                element.style.fontFamily = element.innerText;
+            });
         }
         else {
             const shadowRoot = this.shadowRoot;
@@ -244,17 +292,10 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
             fontOptions = Array.from(select.options);
             select.selectedIndex = currentFontIndex;
         }
-        fontOptions.forEach(element => {
-            assert(element instanceof HTMLElement);
-            if (!element.innerText) {
-                return;
-            }
-            // Update the font of each button to be the same as the font text.
-            element.style.fontFamily = element.innerText;
-        });
     }
     restoreSettingsFromPrefs(colorSuffix) {
         this.restoreFontMenu_();
+        this.updateLinkToggleButton();
         if (this.isReadAloudEnabled_) {
             const speechRate = parseFloat(chrome.readingMode.speechRate.toFixed(1));
             this.setRateIcon_(speechRate);
@@ -276,23 +317,6 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
             this.fontOptions_.push(element);
         });
         this.$.fontTemplate.render();
-    }
-    updateUiForPlaying() {
-        const shadowRoot = this.shadowRoot;
-        assert(shadowRoot);
-        const button = shadowRoot.getElementById('play-pause');
-        assert(button);
-        button.setAttribute('iron-icon', 'read-anything-20:pause');
-        button.setAttribute('aria-label', loadTimeData.getString('pauseLabel'));
-        this.isPaused_ = false;
-        this.updateStyles({
-            '--audio-controls-background': 'var(--color-sys-tonal-container)',
-            '--audio-controls-right-padding': '4px',
-            '--audio-controls-right-margin': '6px',
-        });
-        const toolbar = shadowRoot.getElementById('toolbar-container');
-        assert(toolbar);
-        ReadAnythingToolbarElement.maybeUpdateMoreOptions(toolbar);
     }
     showVoicePreviewPlaying(voice) {
         if (!voice) {
@@ -318,22 +342,12 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
                 },
             }));
     }
-    updateUiForPausing() {
-        const shadowRoot = this.shadowRoot;
-        assert(shadowRoot);
-        const button = shadowRoot.getElementById('play-pause');
-        assert(button);
-        button.setAttribute('iron-icon', 'read-anything-20:play');
-        button.setAttribute('aria-label', loadTimeData.getString('playLabel'));
-        this.isPaused_ = true;
-        this.updateStyles({
-            '--audio-controls-background': 'transparent',
-            '--audio-controls-right-padding': '0px',
-            '--audio-controls-right-margin': '2px',
-        });
-        const toolbar = shadowRoot.getElementById('toolbar-container');
-        assert(toolbar);
-        ReadAnythingToolbarElement.maybeUpdateMoreOptions(toolbar);
+    playPauseButtonAriaLabel_(paused) {
+        return paused ? loadTimeData.getString('playLabel') :
+            loadTimeData.getString('pauseLabel');
+    }
+    playPauseButtonIronIcon_(paused) {
+        return paused ? 'read-anything-20:play' : 'read-anything-20:pause';
     }
     closeMenus_() {
         this.$.rateMenu.close();
@@ -545,6 +559,28 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
     onFontSizeDecreaseClick_() {
         this.updateFontSize_(false);
     }
+    onToggleButtonClick_(event) {
+        event.model.item.callback(event);
+    }
+    onToggleLinksClick_(event) {
+        if (!event.target) {
+            return;
+        }
+        chrome.metricsPrivate.recordEnumerationValue(SETTINGS_CHANGE_UMA, ReadAnythingSettingsChange.LINKS_ENABLED_CHANGE, ReadAnythingSettingsChange.COUNT);
+        chrome.readingMode.onLinksEnabledToggled();
+        this.contentPage?.updateContent();
+        this.updateLinkToggleButton();
+    }
+    updateLinkToggleButton() {
+        const button = this.shadowRoot?.getElementById(LINK_TOGGLE_BUTTON_ID);
+        if (button) {
+            button.ironIcon = chrome.readingMode.linksEnabled ? LINKS_ENABLED_ICON :
+                LINKS_DISABLED_ICON;
+            button.ariaLabel = chrome.readingMode.linksEnabled ?
+                loadTimeData.getString('disableLinksLabel') :
+                loadTimeData.getString('enableLinksLabel');
+        }
+    }
     updateFontSize_(increase) {
         chrome.metricsPrivate.recordEnumerationValue(SETTINGS_CHANGE_UMA, ReadAnythingSettingsChange.FONT_SIZE_CHANGE, ReadAnythingSettingsChange.COUNT);
         chrome.readingMode.onFontSizeChanged(increase);
@@ -561,17 +597,14 @@ export class ReadAnythingToolbarElement extends ReadAnythingToolbarElementBase {
         }
     }
     onPlayPauseClick() {
-        if (this.isPaused_) {
-            this.updateUiForPlaying();
-            if (this.contentPage) {
-                this.contentPage.playSpeech();
-            }
+        if (!this.contentPage) {
+            return;
+        }
+        if (this.paused) {
+            this.contentPage.playSpeech();
         }
         else {
-            this.updateUiForPausing();
-            if (this.contentPage) {
-                this.contentPage.stopSpeech();
-            }
+            this.contentPage.stopSpeech();
         }
     }
     onToolbarKeyDown_(e) {

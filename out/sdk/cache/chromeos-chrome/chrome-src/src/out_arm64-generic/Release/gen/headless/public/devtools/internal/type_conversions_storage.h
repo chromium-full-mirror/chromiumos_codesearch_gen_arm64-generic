@@ -117,6 +117,7 @@ inline base::Value ToValue(const storage::TrustTokens& value) {
   return value.Serialize();
 }
 
+
 template <>
 struct FromValue<storage::InterestGroupAccessType> {
   static storage::InterestGroupAccessType Parse(const base::Value& value, ErrorReporter* errors) {
@@ -140,6 +141,10 @@ struct FromValue<storage::InterestGroupAccessType> {
       return storage::InterestGroupAccessType::ADDITIONAL_BID;
     if (value.GetString() == "additionalBidWin")
       return storage::InterestGroupAccessType::ADDITIONAL_BID_WIN;
+    if (value.GetString() == "topLevelBid")
+      return storage::InterestGroupAccessType::TOP_LEVEL_BID;
+    if (value.GetString() == "topLevelAdditionalBid")
+      return storage::InterestGroupAccessType::TOP_LEVEL_ADDITIONAL_BID;
     if (value.GetString() == "clear")
       return storage::InterestGroupAccessType::CLEAR;
     errors->AddError("invalid enum value");
@@ -166,8 +171,78 @@ inline base::Value ToValue(const storage::InterestGroupAccessType& value) {
       return base::Value("additionalBid");
     case storage::InterestGroupAccessType::ADDITIONAL_BID_WIN:
       return base::Value("additionalBidWin");
+    case storage::InterestGroupAccessType::TOP_LEVEL_BID:
+      return base::Value("topLevelBid");
+    case storage::InterestGroupAccessType::TOP_LEVEL_ADDITIONAL_BID:
+      return base::Value("topLevelAdditionalBid");
     case storage::InterestGroupAccessType::CLEAR:
       return base::Value("clear");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+template <>
+struct FromValue<storage::InterestGroupAuctionEventType> {
+  static storage::InterestGroupAuctionEventType Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return storage::InterestGroupAuctionEventType::STARTED;
+    }
+    if (value.GetString() == "started")
+      return storage::InterestGroupAuctionEventType::STARTED;
+    if (value.GetString() == "configResolved")
+      return storage::InterestGroupAuctionEventType::CONFIG_RESOLVED;
+    errors->AddError("invalid enum value");
+    return storage::InterestGroupAuctionEventType::STARTED;
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::InterestGroupAuctionEventType& value) {
+  switch (value) {
+    case storage::InterestGroupAuctionEventType::STARTED:
+      return base::Value("started");
+    case storage::InterestGroupAuctionEventType::CONFIG_RESOLVED:
+      return base::Value("configResolved");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+template <>
+struct FromValue<storage::InterestGroupAuctionFetchType> {
+  static storage::InterestGroupAuctionFetchType Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return storage::InterestGroupAuctionFetchType::BIDDER_JS;
+    }
+    if (value.GetString() == "bidderJs")
+      return storage::InterestGroupAuctionFetchType::BIDDER_JS;
+    if (value.GetString() == "bidderWasm")
+      return storage::InterestGroupAuctionFetchType::BIDDER_WASM;
+    if (value.GetString() == "sellerJs")
+      return storage::InterestGroupAuctionFetchType::SELLER_JS;
+    if (value.GetString() == "bidderTrustedSignals")
+      return storage::InterestGroupAuctionFetchType::BIDDER_TRUSTED_SIGNALS;
+    if (value.GetString() == "sellerTrustedSignals")
+      return storage::InterestGroupAuctionFetchType::SELLER_TRUSTED_SIGNALS;
+    errors->AddError("invalid enum value");
+    return storage::InterestGroupAuctionFetchType::BIDDER_JS;
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::InterestGroupAuctionFetchType& value) {
+  switch (value) {
+    case storage::InterestGroupAuctionFetchType::BIDDER_JS:
+      return base::Value("bidderJs");
+    case storage::InterestGroupAuctionFetchType::BIDDER_WASM:
+      return base::Value("bidderWasm");
+    case storage::InterestGroupAuctionFetchType::SELLER_JS:
+      return base::Value("sellerJs");
+    case storage::InterestGroupAuctionFetchType::BIDDER_TRUSTED_SIGNALS:
+      return base::Value("bidderTrustedSignals");
+    case storage::InterestGroupAuctionFetchType::SELLER_TRUSTED_SIGNALS:
+      return base::Value("sellerTrustedSignals");
   };
   NOTREACHED();
   return base::Value();
@@ -1398,6 +1473,32 @@ inline base::Value ToValue(const storage::SetInterestGroupTrackingResult& value)
 
 
 template <>
+struct FromValue<storage::SetInterestGroupAuctionTrackingParams> {
+  static std::unique_ptr<storage::SetInterestGroupAuctionTrackingParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::SetInterestGroupAuctionTrackingParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::SetInterestGroupAuctionTrackingParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::SetInterestGroupAuctionTrackingResult> {
+  static std::unique_ptr<storage::SetInterestGroupAuctionTrackingResult> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::SetInterestGroupAuctionTrackingResult::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::SetInterestGroupAuctionTrackingResult& value) {
+  return value.Serialize();
+}
+
+
+template <>
 struct FromValue<storage::GetSharedStorageMetadataParams> {
   static std::unique_ptr<storage::GetSharedStorageMetadataParams> Parse(const base::Value& value, ErrorReporter* errors) {
     return storage::GetSharedStorageMetadataParams::Parse(value, errors);
@@ -1770,6 +1871,32 @@ struct FromValue<storage::InterestGroupAccessedParams> {
 
 template <>
 inline base::Value ToValue(const storage::InterestGroupAccessedParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::InterestGroupAuctionEventOccurredParams> {
+  static std::unique_ptr<storage::InterestGroupAuctionEventOccurredParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::InterestGroupAuctionEventOccurredParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::InterestGroupAuctionEventOccurredParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::InterestGroupAuctionNetworkRequestCreatedParams> {
+  static std::unique_ptr<storage::InterestGroupAuctionNetworkRequestCreatedParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::InterestGroupAuctionNetworkRequestCreatedParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::InterestGroupAuctionNetworkRequestCreatedParams& value) {
   return value.Serialize();
 }
 

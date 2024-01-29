@@ -133,8 +133,8 @@ export function splitExtension(path) {
     if (dotPosition <= path.lastIndexOf('/')) {
         dotPosition = -1;
     }
-    const filename = dotPosition != -1 ? path.substr(0, dotPosition) : path;
-    const extension = dotPosition != -1 ? path.substr(dotPosition) : '';
+    const filename = dotPosition !== -1 ? path.substr(0, dotPosition) : path;
+    const extension = dotPosition !== -1 ? path.substr(dotPosition) : '';
     return [filename, extension];
 }
 /**
@@ -234,13 +234,4 @@ export function canBulkPinningCloudPanelShow(stage, enabled) {
         return true;
     }
     return false;
-}
-/**
- * Check if the DEBUG_STORE is set or not. When it's set, action data will be
- * logged in the console for debugging purpose.
- *
- * Run `localStorage.setItem('DEBUG_STORE', '1')` in the console to enable it.
- */
-export function isDebugStoreEnabled() {
-    return localStorage.getItem('DEBUG_STORE') === '1';
 }

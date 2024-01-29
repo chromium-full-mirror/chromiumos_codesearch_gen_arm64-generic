@@ -167,6 +167,8 @@ bool DiskAllocatorStubDispatch::Accept(
           reinterpret_cast<internal::DiskAllocator_ProvideTemporaryFile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DiskAllocator.0
       bool success = true;
       ::base::File p_file{};
       DiskAllocator_ProvideTemporaryFile_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool DiskAllocatorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProvideTemporaryFile(
-std::move(p_file));
+      impl->ProvideTemporaryFile(        
+        std::move(p_file));
       return true;
     }
   }

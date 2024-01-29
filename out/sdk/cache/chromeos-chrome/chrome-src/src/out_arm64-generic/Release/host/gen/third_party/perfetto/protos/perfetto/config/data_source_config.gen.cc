@@ -55,12 +55,14 @@ bool DataSourceConfig::operator==(const DataSourceConfig& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(statsd_tracing_config_, other.statsd_tracing_config_)
    && ::protozero::internal::gen_helpers::EqualsField(system_info_config_, other.system_info_config_)
    && ::protozero::internal::gen_helpers::EqualsField(chrome_config_, other.chrome_config_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_config_, other.v8_config_)
    && ::protozero::internal::gen_helpers::EqualsField(interceptor_config_, other.interceptor_config_)
    && ::protozero::internal::gen_helpers::EqualsField(network_packet_trace_config_, other.network_packet_trace_config_)
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_layers_config_, other.surfaceflinger_layers_config_)
    && ::protozero::internal::gen_helpers::EqualsField(surfaceflinger_transactions_config_, other.surfaceflinger_transactions_config_)
    && ::protozero::internal::gen_helpers::EqualsField(android_sdk_sysprop_guard_config_, other.android_sdk_sysprop_guard_config_)
    && ::protozero::internal::gen_helpers::EqualsField(etw_config_, other.etw_config_)
+   && ::protozero::internal::gen_helpers::EqualsField(protolog_config_, other.protolog_config_)
    && ::protozero::internal::gen_helpers::EqualsField(legacy_config_, other.legacy_config_)
    && ::protozero::internal::gen_helpers::EqualsField(for_testing_, other.for_testing_);
 }
@@ -156,6 +158,9 @@ bool DataSourceConfig::ParseFromArray(const void* raw, size_t size) {
       case 101 /* chrome_config */:
         (*chrome_config_).ParseFromArray(field.data(), field.size());
         break;
+      case 127 /* v8_config */:
+        ::protozero::internal::gen_helpers::DeserializeString(field, &v8_config_);
+        break;
       case 115 /* interceptor_config */:
         (*interceptor_config_).ParseFromArray(field.data(), field.size());
         break;
@@ -173,6 +178,9 @@ bool DataSourceConfig::ParseFromArray(const void* raw, size_t size) {
         break;
       case 125 /* etw_config */:
         ::protozero::internal::gen_helpers::DeserializeString(field, &etw_config_);
+        break;
+      case 126 /* protolog_config */:
+        ::protozero::internal::gen_helpers::DeserializeString(field, &protolog_config_);
         break;
       case 1000 /* legacy_config */:
         ::protozero::internal::gen_helpers::DeserializeString(field, &legacy_config_);
@@ -336,6 +344,11 @@ void DataSourceConfig::Serialize(::protozero::Message* msg) const {
     (*chrome_config_).Serialize(msg->BeginNestedMessage<::protozero::Message>(101));
   }
 
+  // Field 127: v8_config
+  if (_has_field_[127]) {
+    msg->AppendString(127, v8_config_);
+  }
+
   // Field 115: interceptor_config
   if (_has_field_[115]) {
     (*interceptor_config_).Serialize(msg->BeginNestedMessage<::protozero::Message>(115));
@@ -364,6 +377,11 @@ void DataSourceConfig::Serialize(::protozero::Message* msg) const {
   // Field 125: etw_config
   if (_has_field_[125]) {
     msg->AppendString(125, etw_config_);
+  }
+
+  // Field 126: protolog_config
+  if (_has_field_[126]) {
+    msg->AppendString(126, protolog_config_);
   }
 
   // Field 1000: legacy_config

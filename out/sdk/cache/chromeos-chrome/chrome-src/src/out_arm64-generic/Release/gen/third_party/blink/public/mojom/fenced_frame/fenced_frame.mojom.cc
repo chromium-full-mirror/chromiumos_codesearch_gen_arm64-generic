@@ -262,6 +262,8 @@ bool FencedFrameOwnerHostStubDispatch::Accept(
           reinterpret_cast<internal::FencedFrameOwnerHost_Navigate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FencedFrameOwnerHost.0
       bool success = true;
       ::GURL p_url{};
       ::base::TimeTicks p_navigation_start_time{};
@@ -283,10 +285,10 @@ bool FencedFrameOwnerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Navigate(
-std::move(p_url), 
-std::move(p_navigation_start_time), 
-std::move(p_embedder_shared_storage_context));
+      impl->Navigate(        
+        std::move(p_url), 
+        std::move(p_navigation_start_time), 
+        std::move(p_embedder_shared_storage_context));
       return true;
     }
     case internal::kFencedFrameOwnerHost_DidChangeFramePolicy_Name: {
@@ -296,6 +298,8 @@ std::move(p_embedder_shared_storage_context));
           reinterpret_cast<internal::FencedFrameOwnerHost_DidChangeFramePolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FencedFrameOwnerHost.1
       bool success = true;
       ::blink::FramePolicy p_frame_policy{};
       FencedFrameOwnerHost_DidChangeFramePolicy_ParamsDataView input_data_view(params, message);
@@ -311,8 +315,8 @@ std::move(p_embedder_shared_storage_context));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeFramePolicy(
-std::move(p_frame_policy));
+      impl->DidChangeFramePolicy(        
+        std::move(p_frame_policy));
       return true;
     }
   }

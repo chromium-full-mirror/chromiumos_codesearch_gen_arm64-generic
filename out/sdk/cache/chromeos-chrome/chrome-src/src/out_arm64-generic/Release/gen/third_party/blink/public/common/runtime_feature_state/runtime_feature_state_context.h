@@ -43,6 +43,11 @@ class BLINK_COMMON_EXPORT RuntimeFeatureStateContext
         blink::mojom::RuntimeFeature::kBlinkExtensionChromeOS,
         enabled);
   }
+  void SetBlinkExtensionChromeOSKioskEnabled(bool enabled) {
+    return SetIsEnabled(
+        blink::mojom::RuntimeFeature::kBlinkExtensionChromeOSKiosk,
+        enabled);
+  }
   void SetBlinkExtensionDiagnosticsEnabled(bool enabled) {
     return SetIsEnabled(
         blink::mojom::RuntimeFeature::kBlinkExtensionDiagnostics,

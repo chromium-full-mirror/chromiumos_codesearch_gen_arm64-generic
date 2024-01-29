@@ -34,3 +34,4 @@ export const AcceleratorAction = AcceleratorActionTypes.AcceleratorAction;
 export const CustomizableButton = InputDeviceSettingsTypes.CustomizableButton;
 export const StaticShortcutAction = InputDeviceSettingsTypes.StaticShortcutAction;
 export const CustomizationRestriction = InputDeviceSettingsTypes.CustomizationRestriction;
+export const MouseButtonConfig = InputDeviceSettingsTypes.MouseButtonConfig;

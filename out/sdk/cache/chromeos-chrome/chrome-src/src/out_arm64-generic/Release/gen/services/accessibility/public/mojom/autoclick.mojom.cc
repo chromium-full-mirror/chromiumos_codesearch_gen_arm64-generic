@@ -166,6 +166,8 @@ bool AutoclickStubDispatch::Accept(
           reinterpret_cast<internal::Autoclick_RequestScrollableBoundsForPoint_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Autoclick.0
       bool success = true;
       ::gfx::Point p_point{};
       Autoclick_RequestScrollableBoundsForPoint_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool AutoclickStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestScrollableBoundsForPoint(
-std::move(p_point));
+      impl->RequestScrollableBoundsForPoint(        
+        std::move(p_point));
       return true;
     }
   }
@@ -453,6 +455,8 @@ bool AutoclickClient_BindAutoclick_ForwardToCallback::Accept(
           internal::AutoclickClient_BindAutoclick_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AutoclickClient.1
   bool success = true;
   ::mojo::PendingReceiver<Autoclick> p_autoclick_receiver{};
   AutoclickClient_BindAutoclick_ResponseParamsDataView input_data_view(params, message);
@@ -534,6 +538,8 @@ bool AutoclickClientStubDispatch::Accept(
           reinterpret_cast<internal::AutoclickClient_HandleScrollableBoundsForPointFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AutoclickClient.0
       bool success = true;
       ::gfx::Rect p_bounds{};
       AutoclickClient_HandleScrollableBoundsForPointFound_ParamsDataView input_data_view(params, message);
@@ -549,8 +555,8 @@ bool AutoclickClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleScrollableBoundsForPointFound(
-std::move(p_bounds));
+      impl->HandleScrollableBoundsForPointFound(        
+        std::move(p_bounds));
       return true;
     }
     case internal::kAutoclickClient_BindAutoclick_Name: {
@@ -579,6 +585,8 @@ bool AutoclickClientStubDispatch::AcceptWithResponder(
               internal::AutoclickClient_BindAutoclick_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AutoclickClient.1
       bool success = true;
       AutoclickClient_BindAutoclick_ParamsDataView input_data_view(params, message);
       

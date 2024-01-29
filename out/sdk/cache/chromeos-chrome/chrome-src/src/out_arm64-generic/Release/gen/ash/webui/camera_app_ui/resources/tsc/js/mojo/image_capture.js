@@ -78,7 +78,7 @@ export class CrosImageCapture {
             }
             else {
                 assert(photoEffects.length === 1 &&
-                    photoEffects[0] === Effect.PORTRAIT_MODE);
+                    photoEffects[0] === Effect.kPortraitMode);
                 const portraitBlobs = await deviceOperator.takePortraitModePhoto(this.deviceId);
                 blobs.push(...portraitBlobs);
             }
@@ -141,7 +141,7 @@ export class CrosImageCapture {
             assertExists(this.pendingResultForMetadata.shift())
                 .signal(parsedMetadata);
         };
-        this.metadataObserver = await deviceOperator.addMetadataObserver(this.deviceId, callback, StreamType.JPEG_OUTPUT);
+        this.metadataObserver = await deviceOperator.addMetadataObserver(this.deviceId, callback, StreamType.kJpegOutput);
     }
     removeMetadataObserver() {
         if (this.metadataObserver === null) {

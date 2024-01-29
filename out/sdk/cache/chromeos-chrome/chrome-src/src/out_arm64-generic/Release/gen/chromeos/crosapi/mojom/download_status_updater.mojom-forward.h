@@ -22,7 +22,12 @@
 
 
 namespace crosapi::mojom {
+class DownloadProgressDataView;
+
 class DownloadStatusDataView;
+
+class DownloadProgress;
+using DownloadProgressPtr = mojo::InlinedStructPtr<DownloadProgress>;
 
 class DownloadStatus;
 using DownloadStatusPtr = mojo::StructPtr<DownloadStatus>;

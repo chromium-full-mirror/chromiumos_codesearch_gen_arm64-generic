@@ -151,8 +151,6 @@ enum class VideoCodecProfile : int32_t {
   
   DOLBYVISION_PROFILE0 = 19,
   
-  DOLBYVISION_PROFILE4 = 20,
-  
   DOLBYVISION_PROFILE5 = 21,
   
   DOLBYVISION_PROFILE7 = 22,

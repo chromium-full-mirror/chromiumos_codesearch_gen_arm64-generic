@@ -4,7 +4,7 @@
 import { dispatchSimpleEvent } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { assert, assertInstanceof, assertNotReached } from 'chrome://resources/js/assert.js';
 import { queryRequiredElement } from '../../../common/js/dom_utils.js';
-import { DialogType } from '../../../externs/ts/state.js';
+import { DialogType } from '../../../state/state.js';
 import { FileListModel, GROUP_BY_FIELD_DIRECTORY, GROUP_BY_FIELD_MODIFICATION_TIME } from '../file_list_model.js';
 import { ListThumbnailLoader } from '../list_thumbnail_loader.js';
 import { FileGrid } from './file_grid.js';
@@ -78,7 +78,7 @@ export class ListContainer {
             }
         }, { passive: true });
         this.element.addEventListener('touchend', (e) => {
-            if (e.touches.length == 0) {
+            if (e.touches.length === 0) {
                 // contextmenu event will be sent right after touchend.
                 setTimeout(() => this.allowContextMenuByTouch_ = false);
             }
@@ -225,7 +225,7 @@ export class ListContainer {
     onKeyDown_(event) {
         // Ignore keydown handler in the rename input box.
         const srcElement = event.srcElement;
-        if (srcElement?.tagName == 'INPUT') {
+        if (srcElement?.tagName === 'INPUT') {
             event.stopImmediatePropagation();
             return;
         }
@@ -237,7 +237,7 @@ export class ListContainer {
     onKeyPress_(event) {
         const srcElement = event.srcElement;
         // Ignore keypress handler in the rename input box.
-        if (srcElement?.tagName == 'INPUT' || event.ctrlKey || event.metaKey ||
+        if (srcElement?.tagName === 'INPUT' || event.ctrlKey || event.metaKey ||
             event.altKey) {
             event.stopImmediatePropagation();
             return;

@@ -50,7 +50,22 @@ export class FakeMediaDevices {
         return false;
     }
     getSupportedConstraints() {
-        return {};
+        return {
+            whiteBalanceMode: false,
+            exposureMode: false,
+            focusMode: false,
+            pointsOfInterest: false,
+            exposureCompensation: false,
+            colorTemperature: false,
+            iso: false,
+            brightness: false,
+            contrast: false,
+            saturation: false,
+            sharpness: false,
+            focusDistance: false,
+            zoom: false,
+            torch: false,
+        };
     }
     ondevicechange() { }
     removeEventListener() { }

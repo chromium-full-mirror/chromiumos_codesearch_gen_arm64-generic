@@ -76,7 +76,7 @@ content_type_ = ContentType::kInternalEnumSequence;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionInternalEnumOrInternalEnumSequence::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionInternalEnumOrInternalEnumSequence::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kInternalEnum: {
     return ToV8Traits<V8InternalEnum>::ToV8(script_state, member_internal_enum_);
@@ -87,7 +87,7 @@ v8::MaybeLocal<v8::Value> V8UnionInternalEnumOrInternalEnumSequence::ToV8Value(S
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionInternalEnumOrInternalEnumSequence::Trace(Visitor* visitor) const {

@@ -251,6 +251,8 @@ bool EndpointDiscoveryListenerStubDispatch::Accept(
           reinterpret_cast<internal::EndpointDiscoveryListener_OnEndpointFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EndpointDiscoveryListener.0
       bool success = true;
       std::string p_endpoint_id{};
       ::nearby::connections::mojom::DiscoveredEndpointInfoPtr p_info{};
@@ -269,9 +271,9 @@ bool EndpointDiscoveryListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEndpointFound(
-std::move(p_endpoint_id), 
-std::move(p_info));
+      impl->OnEndpointFound(        
+        std::move(p_endpoint_id), 
+        std::move(p_info));
       return true;
     }
     case internal::kEndpointDiscoveryListener_OnEndpointLost_Name: {
@@ -281,6 +283,8 @@ std::move(p_info));
           reinterpret_cast<internal::EndpointDiscoveryListener_OnEndpointLost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EndpointDiscoveryListener.1
       bool success = true;
       std::string p_endpoint_id{};
       EndpointDiscoveryListener_OnEndpointLost_ParamsDataView input_data_view(params, message);
@@ -296,8 +300,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnEndpointLost(
-std::move(p_endpoint_id));
+      impl->OnEndpointLost(        
+        std::move(p_endpoint_id));
       return true;
     }
   }
@@ -766,6 +770,8 @@ bool ConnectionLifecycleListenerStubDispatch::Accept(
           reinterpret_cast<internal::ConnectionLifecycleListener_OnConnectionInitiated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionLifecycleListener.0
       bool success = true;
       std::string p_endpoint_id{};
       ::nearby::connections::mojom::ConnectionInfoPtr p_info{};
@@ -784,9 +790,9 @@ bool ConnectionLifecycleListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionInitiated(
-std::move(p_endpoint_id), 
-std::move(p_info));
+      impl->OnConnectionInitiated(        
+        std::move(p_endpoint_id), 
+        std::move(p_info));
       return true;
     }
     case internal::kConnectionLifecycleListener_OnConnectionAccepted_Name: {
@@ -796,6 +802,8 @@ std::move(p_info));
           reinterpret_cast<internal::ConnectionLifecycleListener_OnConnectionAccepted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionLifecycleListener.1
       bool success = true;
       std::string p_endpoint_id{};
       ConnectionLifecycleListener_OnConnectionAccepted_ParamsDataView input_data_view(params, message);
@@ -811,8 +819,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionAccepted(
-std::move(p_endpoint_id));
+      impl->OnConnectionAccepted(        
+        std::move(p_endpoint_id));
       return true;
     }
     case internal::kConnectionLifecycleListener_OnConnectionRejected_Name: {
@@ -822,6 +830,8 @@ std::move(p_endpoint_id));
           reinterpret_cast<internal::ConnectionLifecycleListener_OnConnectionRejected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionLifecycleListener.2
       bool success = true;
       std::string p_endpoint_id{};
       ::nearby::connections::mojom::Status p_status{};
@@ -840,9 +850,9 @@ std::move(p_endpoint_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionRejected(
-std::move(p_endpoint_id), 
-std::move(p_status));
+      impl->OnConnectionRejected(        
+        std::move(p_endpoint_id), 
+        std::move(p_status));
       return true;
     }
     case internal::kConnectionLifecycleListener_OnDisconnected_Name: {
@@ -852,6 +862,8 @@ std::move(p_status));
           reinterpret_cast<internal::ConnectionLifecycleListener_OnDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionLifecycleListener.3
       bool success = true;
       std::string p_endpoint_id{};
       ConnectionLifecycleListener_OnDisconnected_ParamsDataView input_data_view(params, message);
@@ -867,8 +879,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDisconnected(
-std::move(p_endpoint_id));
+      impl->OnDisconnected(        
+        std::move(p_endpoint_id));
       return true;
     }
     case internal::kConnectionLifecycleListener_OnBandwidthChanged_Name: {
@@ -878,6 +890,8 @@ std::move(p_endpoint_id));
           reinterpret_cast<internal::ConnectionLifecycleListener_OnBandwidthChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionLifecycleListener.4
       bool success = true;
       std::string p_endpoint_id{};
       ::nearby::connections::mojom::Medium p_medium{};
@@ -896,9 +910,9 @@ std::move(p_endpoint_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBandwidthChanged(
-std::move(p_endpoint_id), 
-std::move(p_medium));
+      impl->OnBandwidthChanged(        
+        std::move(p_endpoint_id), 
+        std::move(p_medium));
       return true;
     }
   }
@@ -1173,6 +1187,8 @@ bool PayloadListenerStubDispatch::Accept(
           reinterpret_cast<internal::PayloadListener_OnPayloadReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PayloadListener.0
       bool success = true;
       std::string p_endpoint_id{};
       ::nearby::connections::mojom::PayloadPtr p_payload{};
@@ -1191,9 +1207,9 @@ bool PayloadListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPayloadReceived(
-std::move(p_endpoint_id), 
-std::move(p_payload));
+      impl->OnPayloadReceived(        
+        std::move(p_endpoint_id), 
+        std::move(p_payload));
       return true;
     }
     case internal::kPayloadListener_OnPayloadTransferUpdate_Name: {
@@ -1203,6 +1219,8 @@ std::move(p_payload));
           reinterpret_cast<internal::PayloadListener_OnPayloadTransferUpdate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PayloadListener.1
       bool success = true;
       std::string p_endpoint_id{};
       ::nearby::connections::mojom::PayloadTransferUpdatePtr p_update{};
@@ -1221,9 +1239,9 @@ std::move(p_payload));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPayloadTransferUpdate(
-std::move(p_endpoint_id), 
-std::move(p_update));
+      impl->OnPayloadTransferUpdate(        
+        std::move(p_endpoint_id), 
+        std::move(p_update));
       return true;
     }
   }
@@ -1469,6 +1487,8 @@ bool ConnectionListenerV3StubDispatch::Accept(
           reinterpret_cast<internal::ConnectionListenerV3_OnConnectionInitiated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionListenerV3.0
       bool success = true;
       ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
       ::nearby::connections::mojom::InitialConnectionInfoV3Ptr p_info{};
@@ -1487,9 +1507,9 @@ bool ConnectionListenerV3StubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionInitiated(
-std::move(p_remote_device), 
-std::move(p_info));
+      impl->OnConnectionInitiated(        
+        std::move(p_remote_device), 
+        std::move(p_info));
       return true;
     }
     case internal::kConnectionListenerV3_OnDisconnected_Name: {
@@ -1499,6 +1519,8 @@ std::move(p_info));
           reinterpret_cast<internal::ConnectionListenerV3_OnDisconnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ConnectionListenerV3.1
       bool success = true;
       ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
       ConnectionListenerV3_OnDisconnected_ParamsDataView input_data_view(params, message);
@@ -1514,8 +1536,8 @@ std::move(p_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDisconnected(
-std::move(p_remote_device));
+      impl->OnDisconnected(        
+        std::move(p_remote_device));
       return true;
     }
   }
@@ -3665,6 +3687,8 @@ bool NearbyConnections_StartAdvertising_ForwardToCallback::Accept(
           internal::NearbyConnections_StartAdvertising_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.0
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_StartAdvertising_ResponseParamsDataView input_data_view(params, message);
@@ -3785,6 +3809,8 @@ bool NearbyConnections_StopAdvertising_ForwardToCallback::Accept(
           internal::NearbyConnections_StopAdvertising_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.1
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_StopAdvertising_ResponseParamsDataView input_data_view(params, message);
@@ -3905,6 +3931,8 @@ bool NearbyConnections_StartDiscovery_ForwardToCallback::Accept(
           internal::NearbyConnections_StartDiscovery_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.2
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_StartDiscovery_ResponseParamsDataView input_data_view(params, message);
@@ -4025,6 +4053,8 @@ bool NearbyConnections_StopDiscovery_ForwardToCallback::Accept(
           internal::NearbyConnections_StopDiscovery_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.3
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_StopDiscovery_ResponseParamsDataView input_data_view(params, message);
@@ -4145,6 +4175,8 @@ bool NearbyConnections_InjectBluetoothEndpoint_ForwardToCallback::Accept(
           internal::NearbyConnections_InjectBluetoothEndpoint_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.4
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_InjectBluetoothEndpoint_ResponseParamsDataView input_data_view(params, message);
@@ -4265,6 +4297,8 @@ bool NearbyConnections_RequestConnection_ForwardToCallback::Accept(
           internal::NearbyConnections_RequestConnection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.5
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_RequestConnection_ResponseParamsDataView input_data_view(params, message);
@@ -4385,6 +4419,8 @@ bool NearbyConnections_AcceptConnection_ForwardToCallback::Accept(
           internal::NearbyConnections_AcceptConnection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.6
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_AcceptConnection_ResponseParamsDataView input_data_view(params, message);
@@ -4505,6 +4541,8 @@ bool NearbyConnections_RejectConnection_ForwardToCallback::Accept(
           internal::NearbyConnections_RejectConnection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.7
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_RejectConnection_ResponseParamsDataView input_data_view(params, message);
@@ -4625,6 +4663,8 @@ bool NearbyConnections_DisconnectFromEndpoint_ForwardToCallback::Accept(
           internal::NearbyConnections_DisconnectFromEndpoint_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.8
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_DisconnectFromEndpoint_ResponseParamsDataView input_data_view(params, message);
@@ -4745,6 +4785,8 @@ bool NearbyConnections_SendPayload_ForwardToCallback::Accept(
           internal::NearbyConnections_SendPayload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.9
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_SendPayload_ResponseParamsDataView input_data_view(params, message);
@@ -4865,6 +4907,8 @@ bool NearbyConnections_CancelPayload_ForwardToCallback::Accept(
           internal::NearbyConnections_CancelPayload_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.10
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_CancelPayload_ResponseParamsDataView input_data_view(params, message);
@@ -4985,6 +5029,8 @@ bool NearbyConnections_StopAllEndpoints_ForwardToCallback::Accept(
           internal::NearbyConnections_StopAllEndpoints_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.11
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_StopAllEndpoints_ResponseParamsDataView input_data_view(params, message);
@@ -5105,6 +5151,8 @@ bool NearbyConnections_InitiateBandwidthUpgrade_ForwardToCallback::Accept(
           internal::NearbyConnections_InitiateBandwidthUpgrade_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.12
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_InitiateBandwidthUpgrade_ResponseParamsDataView input_data_view(params, message);
@@ -5225,6 +5273,8 @@ bool NearbyConnections_RegisterPayloadFile_ForwardToCallback::Accept(
           internal::NearbyConnections_RegisterPayloadFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.13
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_RegisterPayloadFile_ResponseParamsDataView input_data_view(params, message);
@@ -5345,6 +5395,8 @@ bool NearbyConnections_RequestConnectionV3_ForwardToCallback::Accept(
           internal::NearbyConnections_RequestConnectionV3_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.14
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_RequestConnectionV3_ResponseParamsDataView input_data_view(params, message);
@@ -5465,6 +5517,8 @@ bool NearbyConnections_AcceptConnectionV3_ForwardToCallback::Accept(
           internal::NearbyConnections_AcceptConnectionV3_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.15
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_AcceptConnectionV3_ResponseParamsDataView input_data_view(params, message);
@@ -5585,6 +5639,8 @@ bool NearbyConnections_RejectConnectionV3_ForwardToCallback::Accept(
           internal::NearbyConnections_RejectConnectionV3_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.16
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_RejectConnectionV3_ResponseParamsDataView input_data_view(params, message);
@@ -5705,6 +5761,8 @@ bool NearbyConnections_DisconnectFromDeviceV3_ForwardToCallback::Accept(
           internal::NearbyConnections_DisconnectFromDeviceV3_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NearbyConnections.17
   bool success = true;
   ::nearby::connections::mojom::Status p_status{};
   NearbyConnections_DisconnectFromDeviceV3_ResponseParamsDataView input_data_view(params, message);
@@ -5847,6 +5905,8 @@ bool NearbyConnectionsStubDispatch::AcceptWithResponder(
               internal::NearbyConnections_StartAdvertising_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.0
       bool success = true;
       std::string p_service_id{};
       std::vector<uint8_t> p_endpoint_info{};
@@ -5876,11 +5936,11 @@ bool NearbyConnectionsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartAdvertising(
-std::move(p_service_id), 
-std::move(p_endpoint_info), 
-std::move(p_options), 
-std::move(p_listener), std::move(callback));
+      impl->StartAdvertising(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_info), 
+        std::move(p_options), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_StopAdvertising_Name: {
@@ -5890,6 +5950,8 @@ std::move(p_listener), std::move(callback));
               internal::NearbyConnections_StopAdvertising_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.1
       bool success = true;
       std::string p_service_id{};
       NearbyConnections_StopAdvertising_ParamsDataView input_data_view(params, message);
@@ -5908,8 +5970,8 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopAdvertising(
-std::move(p_service_id), std::move(callback));
+      impl->StopAdvertising(        
+        std::move(p_service_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_StartDiscovery_Name: {
@@ -5919,6 +5981,8 @@ std::move(p_service_id), std::move(callback));
               internal::NearbyConnections_StartDiscovery_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.2
       bool success = true;
       std::string p_service_id{};
       ::nearby::connections::mojom::DiscoveryOptionsPtr p_options{};
@@ -5945,10 +6009,10 @@ std::move(p_service_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDiscovery(
-std::move(p_service_id), 
-std::move(p_options), 
-std::move(p_listener), std::move(callback));
+      impl->StartDiscovery(        
+        std::move(p_service_id), 
+        std::move(p_options), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_StopDiscovery_Name: {
@@ -5958,6 +6022,8 @@ std::move(p_listener), std::move(callback));
               internal::NearbyConnections_StopDiscovery_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.3
       bool success = true;
       std::string p_service_id{};
       NearbyConnections_StopDiscovery_ParamsDataView input_data_view(params, message);
@@ -5976,8 +6042,8 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopDiscovery(
-std::move(p_service_id), std::move(callback));
+      impl->StopDiscovery(        
+        std::move(p_service_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_InjectBluetoothEndpoint_Name: {
@@ -5987,6 +6053,8 @@ std::move(p_service_id), std::move(callback));
               internal::NearbyConnections_InjectBluetoothEndpoint_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.4
       bool success = true;
       std::string p_service_id{};
       std::string p_endpoint_id{};
@@ -6014,11 +6082,11 @@ std::move(p_service_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InjectBluetoothEndpoint(
-std::move(p_service_id), 
-std::move(p_endpoint_id), 
-std::move(p_endpoint_info), 
-std::move(p_remote_bluetooth_mac_address), std::move(callback));
+      impl->InjectBluetoothEndpoint(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_id), 
+        std::move(p_endpoint_info), 
+        std::move(p_remote_bluetooth_mac_address), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_RequestConnection_Name: {
@@ -6028,6 +6096,8 @@ std::move(p_remote_bluetooth_mac_address), std::move(callback));
               internal::NearbyConnections_RequestConnection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.5
       bool success = true;
       std::string p_service_id{};
       std::vector<uint8_t> p_endpoint_info{};
@@ -6060,12 +6130,12 @@ std::move(p_remote_bluetooth_mac_address), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestConnection(
-std::move(p_service_id), 
-std::move(p_endpoint_info), 
-std::move(p_endpoint_id), 
-std::move(p_options), 
-std::move(p_listener), std::move(callback));
+      impl->RequestConnection(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_info), 
+        std::move(p_endpoint_id), 
+        std::move(p_options), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_AcceptConnection_Name: {
@@ -6075,6 +6145,8 @@ std::move(p_listener), std::move(callback));
               internal::NearbyConnections_AcceptConnection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.6
       bool success = true;
       std::string p_service_id{};
       std::string p_endpoint_id{};
@@ -6101,10 +6173,10 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcceptConnection(
-std::move(p_service_id), 
-std::move(p_endpoint_id), 
-std::move(p_listener), std::move(callback));
+      impl->AcceptConnection(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_id), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_RejectConnection_Name: {
@@ -6114,6 +6186,8 @@ std::move(p_listener), std::move(callback));
               internal::NearbyConnections_RejectConnection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.7
       bool success = true;
       std::string p_service_id{};
       std::string p_endpoint_id{};
@@ -6135,9 +6209,9 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RejectConnection(
-std::move(p_service_id), 
-std::move(p_endpoint_id), std::move(callback));
+      impl->RejectConnection(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_DisconnectFromEndpoint_Name: {
@@ -6147,6 +6221,8 @@ std::move(p_endpoint_id), std::move(callback));
               internal::NearbyConnections_DisconnectFromEndpoint_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.8
       bool success = true;
       std::string p_service_id{};
       std::string p_endpoint_id{};
@@ -6168,9 +6244,9 @@ std::move(p_endpoint_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectFromEndpoint(
-std::move(p_service_id), 
-std::move(p_endpoint_id), std::move(callback));
+      impl->DisconnectFromEndpoint(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_SendPayload_Name: {
@@ -6180,6 +6256,8 @@ std::move(p_endpoint_id), std::move(callback));
               internal::NearbyConnections_SendPayload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.9
       bool success = true;
       std::string p_service_id{};
       std::vector<std::string> p_endpoint_ids{};
@@ -6204,10 +6282,10 @@ std::move(p_endpoint_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendPayload(
-std::move(p_service_id), 
-std::move(p_endpoint_ids), 
-std::move(p_payload), std::move(callback));
+      impl->SendPayload(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_ids), 
+        std::move(p_payload), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_CancelPayload_Name: {
@@ -6217,6 +6295,8 @@ std::move(p_payload), std::move(callback));
               internal::NearbyConnections_CancelPayload_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.10
       bool success = true;
       std::string p_service_id{};
       int64_t p_payload_id{};
@@ -6238,9 +6318,9 @@ std::move(p_payload), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPayload(
-std::move(p_service_id), 
-std::move(p_payload_id), std::move(callback));
+      impl->CancelPayload(        
+        std::move(p_service_id), 
+        std::move(p_payload_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_StopAllEndpoints_Name: {
@@ -6250,6 +6330,8 @@ std::move(p_payload_id), std::move(callback));
               internal::NearbyConnections_StopAllEndpoints_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.11
       bool success = true;
       std::string p_service_id{};
       NearbyConnections_StopAllEndpoints_ParamsDataView input_data_view(params, message);
@@ -6268,8 +6350,8 @@ std::move(p_payload_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopAllEndpoints(
-std::move(p_service_id), std::move(callback));
+      impl->StopAllEndpoints(        
+        std::move(p_service_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_InitiateBandwidthUpgrade_Name: {
@@ -6279,6 +6361,8 @@ std::move(p_service_id), std::move(callback));
               internal::NearbyConnections_InitiateBandwidthUpgrade_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.12
       bool success = true;
       std::string p_service_id{};
       std::string p_endpoint_id{};
@@ -6300,9 +6384,9 @@ std::move(p_service_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InitiateBandwidthUpgrade(
-std::move(p_service_id), 
-std::move(p_endpoint_id), std::move(callback));
+      impl->InitiateBandwidthUpgrade(        
+        std::move(p_service_id), 
+        std::move(p_endpoint_id), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_RegisterPayloadFile_Name: {
@@ -6312,6 +6396,8 @@ std::move(p_endpoint_id), std::move(callback));
               internal::NearbyConnections_RegisterPayloadFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.13
       bool success = true;
       std::string p_service_id{};
       int64_t p_payload_id{};
@@ -6339,11 +6425,11 @@ std::move(p_endpoint_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterPayloadFile(
-std::move(p_service_id), 
-std::move(p_payload_id), 
-std::move(p_input_file), 
-std::move(p_output_file), std::move(callback));
+      impl->RegisterPayloadFile(        
+        std::move(p_service_id), 
+        std::move(p_payload_id), 
+        std::move(p_input_file), 
+        std::move(p_output_file), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_RequestConnectionV3_Name: {
@@ -6353,6 +6439,8 @@ std::move(p_output_file), std::move(callback));
               internal::NearbyConnections_RequestConnectionV3_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.14
       bool success = true;
       std::string p_service_id{};
       ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
@@ -6382,11 +6470,11 @@ std::move(p_output_file), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestConnectionV3(
-std::move(p_service_id), 
-std::move(p_remote_device), 
-std::move(p_connection_options), 
-std::move(p_listener), std::move(callback));
+      impl->RequestConnectionV3(        
+        std::move(p_service_id), 
+        std::move(p_remote_device), 
+        std::move(p_connection_options), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_AcceptConnectionV3_Name: {
@@ -6396,6 +6484,8 @@ std::move(p_listener), std::move(callback));
               internal::NearbyConnections_AcceptConnectionV3_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.15
       bool success = true;
       std::string p_service_id{};
       ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
@@ -6422,10 +6512,10 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AcceptConnectionV3(
-std::move(p_service_id), 
-std::move(p_remote_device), 
-std::move(p_listener), std::move(callback));
+      impl->AcceptConnectionV3(        
+        std::move(p_service_id), 
+        std::move(p_remote_device), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_RejectConnectionV3_Name: {
@@ -6435,6 +6525,8 @@ std::move(p_listener), std::move(callback));
               internal::NearbyConnections_RejectConnectionV3_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.16
       bool success = true;
       std::string p_service_id{};
       ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
@@ -6456,9 +6548,9 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RejectConnectionV3(
-std::move(p_service_id), 
-std::move(p_remote_device), std::move(callback));
+      impl->RejectConnectionV3(        
+        std::move(p_service_id), 
+        std::move(p_remote_device), std::move(callback));
       return true;
     }
     case internal::kNearbyConnections_DisconnectFromDeviceV3_Name: {
@@ -6468,6 +6560,8 @@ std::move(p_remote_device), std::move(callback));
               internal::NearbyConnections_DisconnectFromDeviceV3_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NearbyConnections.17
       bool success = true;
       std::string p_service_id{};
       ::ash::nearby::presence::mojom::PresenceDevicePtr p_remote_device{};
@@ -6489,9 +6583,9 @@ std::move(p_remote_device), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectFromDeviceV3(
-std::move(p_service_id), 
-std::move(p_remote_device), std::move(callback));
+      impl->DisconnectFromDeviceV3(        
+        std::move(p_service_id), 
+        std::move(p_remote_device), std::move(callback));
       return true;
     }
   }

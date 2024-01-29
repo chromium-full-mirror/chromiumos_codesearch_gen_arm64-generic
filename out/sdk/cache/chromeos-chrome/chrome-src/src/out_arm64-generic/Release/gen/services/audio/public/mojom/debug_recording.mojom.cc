@@ -301,6 +301,8 @@ bool DebugRecordingFileProvider_CreateWavFile_ForwardToCallback::Accept(
           internal::DebugRecordingFileProvider_CreateWavFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DebugRecordingFileProvider.0
   bool success = true;
   ::base::File p_file{};
   DebugRecordingFileProvider_CreateWavFile_ResponseParamsDataView input_data_view(params, message);
@@ -426,6 +428,8 @@ bool DebugRecordingFileProvider_CreateAecdumpFile_ForwardToCallback::Accept(
           internal::DebugRecordingFileProvider_CreateAecdumpFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DebugRecordingFileProvider.1
   bool success = true;
   ::base::File p_file{};
   DebugRecordingFileProvider_CreateAecdumpFile_ResponseParamsDataView input_data_view(params, message);
@@ -525,6 +529,8 @@ bool DebugRecordingFileProviderStubDispatch::AcceptWithResponder(
               internal::DebugRecordingFileProvider_CreateWavFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DebugRecordingFileProvider.0
       bool success = true;
       ::media::AudioDebugRecordingStreamType p_stream_type{};
       uint32_t p_id{};
@@ -546,9 +552,9 @@ bool DebugRecordingFileProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateWavFile(
-std::move(p_stream_type), 
-std::move(p_id), std::move(callback));
+      impl->CreateWavFile(        
+        std::move(p_stream_type), 
+        std::move(p_id), std::move(callback));
       return true;
     }
     case internal::kDebugRecordingFileProvider_CreateAecdumpFile_Name: {
@@ -558,6 +564,8 @@ std::move(p_id), std::move(callback));
               internal::DebugRecordingFileProvider_CreateAecdumpFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DebugRecordingFileProvider.1
       bool success = true;
       uint32_t p_id{};
       DebugRecordingFileProvider_CreateAecdumpFile_ParamsDataView input_data_view(params, message);
@@ -576,8 +584,8 @@ std::move(p_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAecdumpFile(
-std::move(p_id), std::move(callback));
+      impl->CreateAecdumpFile(        
+        std::move(p_id), std::move(callback));
       return true;
     }
   }
@@ -718,6 +726,8 @@ bool DebugRecordingStubDispatch::Accept(
           reinterpret_cast<internal::DebugRecording_Enable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DebugRecording.0
       bool success = true;
       ::mojo::PendingRemote<DebugRecordingFileProvider> p_file_provider{};
       DebugRecording_Enable_ParamsDataView input_data_view(params, message);
@@ -735,8 +745,8 @@ bool DebugRecordingStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Enable(
-std::move(p_file_provider));
+      impl->Enable(        
+        std::move(p_file_provider));
       return true;
     }
   }

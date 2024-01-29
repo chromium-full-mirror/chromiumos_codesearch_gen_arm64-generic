@@ -270,6 +270,7 @@ const char WebTransportSticky[] = "WebTransportSticky";
 const char WebSocketSticky[] = "WebSocketSticky";
 const char SmartCard[] = "SmartCard";
 const char LiveMediaStreamTrack[] = "LiveMediaStreamTrack";
+const char UnloadHandler[] = "UnloadHandler";
 const char ContentSecurityHandler[] = "ContentSecurityHandler";
 const char ContentWebAuthenticationAPI[] = "ContentWebAuthenticationAPI";
 const char ContentFileChooser[] = "ContentFileChooser";

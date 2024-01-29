@@ -75,6 +75,8 @@ class GetInterestGroupDetailsParams;
 class GetInterestGroupDetailsResult;
 class SetInterestGroupTrackingParams;
 class SetInterestGroupTrackingResult;
+class SetInterestGroupAuctionTrackingParams;
+class SetInterestGroupAuctionTrackingResult;
 class GetSharedStorageMetadataParams;
 class GetSharedStorageMetadataResult;
 class GetSharedStorageEntriesParams;
@@ -104,6 +106,8 @@ class CacheStorageListUpdatedParams;
 class IndexedDBContentUpdatedParams;
 class IndexedDBListUpdatedParams;
 class InterestGroupAccessedParams;
+class InterestGroupAuctionEventOccurredParams;
+class InterestGroupAuctionNetworkRequestCreatedParams;
 class SharedStorageAccessedParams;
 class StorageBucketCreatedOrUpdatedParams;
 class StorageBucketDeletedParams;
@@ -136,7 +140,22 @@ enum class InterestGroupAccessType {
   WIN,
   ADDITIONAL_BID,
   ADDITIONAL_BID_WIN,
+  TOP_LEVEL_BID,
+  TOP_LEVEL_ADDITIONAL_BID,
   CLEAR
+};
+
+enum class InterestGroupAuctionEventType {
+  STARTED,
+  CONFIG_RESOLVED
+};
+
+enum class InterestGroupAuctionFetchType {
+  BIDDER_JS,
+  BIDDER_WASM,
+  SELLER_JS,
+  BIDDER_TRUSTED_SIGNALS,
+  SELLER_TRUSTED_SIGNALS
 };
 
 enum class SharedStorageAccessType {

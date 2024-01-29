@@ -17,7 +17,7 @@ import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import './change_device_language_dialog.js';
 import './os_add_languages_dialog.js';
 import 'chrome://resources/cr_components/localized_link/localized_link.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';

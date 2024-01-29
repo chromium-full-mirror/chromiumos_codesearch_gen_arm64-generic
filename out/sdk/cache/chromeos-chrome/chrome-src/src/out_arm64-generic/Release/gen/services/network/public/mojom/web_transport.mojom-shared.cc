@@ -723,7 +723,7 @@ bool WebTransportClient_OnClosed_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -733,6 +733,13 @@ bool WebTransportClient_OnClosed_Params_Data::Validate(
       static_cast<const WebTransportClient_OnClosed_Params_Data*>(data);
 
   if (!mojo::internal::ValidateStruct(object->close_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->final_stats, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->final_stats, validation_context))
     return false;
 
   return true;
@@ -749,7 +756,7 @@ bool WebTransportHandshakeClient_OnConnectionEstablished_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -781,6 +788,13 @@ bool WebTransportHandshakeClient_OnConnectionEstablished_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->response_headers, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->initial_stats, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->initial_stats, validation_context))
     return false;
 
   return true;

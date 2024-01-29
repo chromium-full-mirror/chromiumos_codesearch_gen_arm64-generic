@@ -79,10 +79,7 @@ struct WebAccessibleResource {
   std::vector<std::string> resources;
 
   // List of <a
-  // href="https://developer.chrome.com/docs/extensions/mv3/match_patterns/">match
-  // patterns</a> to which "resources" are accessible. These patterns should have
-  // an effective path of "*". Each match will be checked against the initiating
-  // origin.
+  // href="https://developer.chrome.com/docs/extensions/develop/concepts/match-patterns"> match patterns</a> to which "resources" are accessible. These patterns should have an effective path of "*". Each match will be checked against the initiating origin.
   std::optional<std::vector<std::string>> matches;
 
   // List of extension IDs the "resources" are accessible to. A wildcard can be

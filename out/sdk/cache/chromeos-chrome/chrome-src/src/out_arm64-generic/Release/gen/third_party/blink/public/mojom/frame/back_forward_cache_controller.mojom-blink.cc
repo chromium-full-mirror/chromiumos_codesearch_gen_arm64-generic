@@ -307,6 +307,8 @@ bool BackForwardCacheControllerHostStubDispatch::Accept(
           reinterpret_cast<internal::BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackForwardCacheControllerHost.0
       bool success = true;
       ::blink::mojom::blink::RendererEvictionReason p_reason{};
       BackForwardCacheControllerHost_EvictFromBackForwardCache_ParamsDataView input_data_view(params, message);
@@ -322,8 +324,8 @@ bool BackForwardCacheControllerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EvictFromBackForwardCache(
-std::move(p_reason));
+      impl->EvictFromBackForwardCache(        
+        std::move(p_reason));
       return true;
     }
     case internal::kBackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_Name: {
@@ -333,6 +335,8 @@ std::move(p_reason));
           reinterpret_cast<internal::BackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BackForwardCacheControllerHost.1
       bool success = true;
       WTF::Vector<BlockingDetailsPtr> p_details{};
       BackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_ParamsDataView input_data_view(params, message);
@@ -348,8 +352,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChangeBackForwardCacheDisablingFeatures(
-std::move(p_details));
+      impl->DidChangeBackForwardCacheDisablingFeatures(        
+        std::move(p_details));
       return true;
     }
   }

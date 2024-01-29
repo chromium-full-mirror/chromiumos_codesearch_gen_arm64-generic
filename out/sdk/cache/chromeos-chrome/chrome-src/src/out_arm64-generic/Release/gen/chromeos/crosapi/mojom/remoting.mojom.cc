@@ -299,6 +299,8 @@ bool Remoting_GetSupportHostDetails_ForwardToCallback::Accept(
           internal::Remoting_GetSupportHostDetails_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Remoting.0
   bool success = true;
   ::remoting::mojom::SupportHostDetailsPtr p_host_details{};
   Remoting_GetSupportHostDetails_ResponseParamsDataView input_data_view(params, message);
@@ -428,6 +430,8 @@ bool Remoting_StartSupportSession_ForwardToCallback::Accept(
           internal::Remoting_StartSupportSession_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Remoting.1
   bool success = true;
   ::remoting::mojom::StartSupportSessionResponsePtr p_response{};
   Remoting_StartSupportSession_ResponseParamsDataView input_data_view(params, message);
@@ -529,6 +533,8 @@ bool RemotingStubDispatch::AcceptWithResponder(
               internal::Remoting_GetSupportHostDetails_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Remoting.0
       bool success = true;
       Remoting_GetSupportHostDetails_ParamsDataView input_data_view(params, message);
       
@@ -554,6 +560,8 @@ bool RemotingStubDispatch::AcceptWithResponder(
               internal::Remoting_StartSupportSession_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Remoting.1
       bool success = true;
       ::remoting::mojom::SupportSessionParamsPtr p_params{};
       Remoting_StartSupportSession_ParamsDataView input_data_view(params, message);
@@ -572,8 +580,8 @@ bool RemotingStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartSupportSession(
-std::move(p_params), std::move(callback));
+      impl->StartSupportSession(        
+        std::move(p_params), std::move(callback));
       return true;
     }
   }

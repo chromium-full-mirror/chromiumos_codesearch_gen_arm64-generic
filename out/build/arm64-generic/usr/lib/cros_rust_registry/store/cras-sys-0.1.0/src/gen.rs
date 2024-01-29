@@ -622,12 +622,13 @@ pub const ionode_attr_IONODE_ATTR_CAPTURE_GAIN: ionode_attr = 2;
 pub const ionode_attr_IONODE_ATTR_SWAP_LEFT_RIGHT: ionode_attr = 3;
 pub const ionode_attr_IONODE_ATTR_DISPLAY_ROTATION: ionode_attr = 4;
 pub type ionode_attr = ::std::os::raw::c_uint;
-#[repr(u32)]
+#[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum CRAS_DSP_PROC_STATE {
-    DSP_PROC_NOT_STARTED = 0,
-    DSP_PROC_ON_CRAS = 1,
-    DSP_PROC_ON_DSP = 2,
+    DSP_PROC_UNSUPPORTED = -22,
+    DSP_PROC_NOT_STARTED = -1,
+    DSP_PROC_ON_CRAS = 0,
+    DSP_PROC_ON_DSP = 1,
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]

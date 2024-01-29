@@ -94,6 +94,7 @@ ComputedStyleBase::ComputedStyleBase() :
     , static_cast<unsigned>(false) // has_em_units_
     , static_cast<unsigned>(false) // has_explicit_inheritance_
     , static_cast<unsigned>(false) // has_glyph_relative_units_
+    , static_cast<unsigned>(false) // has_logical_direction_relative_units_
     , static_cast<unsigned>(false) // has_root_font_relative_units_
     , static_cast<unsigned>(false) // has_variable_declaration_
     , static_cast<unsigned>(false) // has_variable_reference_
@@ -1620,6 +1621,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "has_line_height_relative_units_";
    case DebugField::has_line_if_empty_:
      return "has_line_if_empty_";
+   case DebugField::has_logical_direction_relative_units_:
+     return "has_logical_direction_relative_units_";
    case DebugField::has_non_ua_highlight_pseudo_styles_:
      return "has_non_ua_highlight_pseudo_styles_";
    case DebugField::has_non_universal_highlight_pseudo_styles_:
@@ -1636,6 +1639,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "height_";
    case DebugField::highlight_data_:
      return "highlight_data_";
+   case DebugField::highlights_depend_on_size_container_queries_:
+     return "highlights_depend_on_size_container_queries_";
    case DebugField::horizontal_border_spacing_:
      return "horizontal_border_spacing_";
    case DebugField::hyphenate_limit_chars_:
@@ -2146,6 +2151,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "view_timeline_inset_";
    case DebugField::view_timeline_name_:
      return "view_timeline_name_";
+   case DebugField::view_transition_class_:
+     return "view_transition_class_";
    case DebugField::view_transition_name_:
      return "view_transition_name_";
    case DebugField::viewport_unit_flags_:
@@ -3593,6 +3600,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
     }
 
   // Group: rare-non-inherited-usage-less-than-14-percent-sub
+  if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_)) {
+      DebugDiff d;
+      d.field = DebugField::view_transition_class_;
+      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_);
+      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_class_);
+      diff.push_back(std::move(d));
+    }
   if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_name_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->view_transition_name_)) {
       DebugDiff d;
       d.field = DebugField::view_transition_name_;
@@ -5702,6 +5716,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
     , timeline_data_(StyleTimelineData::Create())
     , will_change_data_(StyleWillChangeData::Create())
     , math_data_(StyleMathData::Create())
+      , view_transition_class_(Vector<AtomicString, 0>())
       , view_transition_name_(AtomicString())
       , display_layout_custom_name_(g_null_atom)
       , display_layout_custom_parent_name_(g_null_atom)
@@ -5711,7 +5726,6 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , counter_directives_(nullptr)
       , animations_(nullptr)
       , transitions_(nullptr)
-      , paint_images_(nullptr)
       , non_inherited_variables_(nullptr)
       , callback_selectors_(Vector<String>())
       , mask_(FillLayer(EFillLayerType::kMask, true))
@@ -5723,6 +5737,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , position_fallback_(nullptr)
       , position_fallback_bounds_(nullptr)
       , document_rules_selectors_(nullptr)
+      , paint_images_(nullptr)
       , initial_letter_(StyleInitialLetter())
       , page_size_(gfx::SizeF())
       , popover_hide_delay_(HUGE_VALF)
@@ -5766,6 +5781,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , has_line_height_relative_units_(static_cast<unsigned>(false))
       , has_non_ua_highlight_pseudo_styles_(static_cast<unsigned>(false))
       , has_non_universal_highlight_pseudo_styles_(static_cast<unsigned>(false))
+      , highlights_depend_on_size_container_queries_(static_cast<unsigned>(false))
       , inline_style_lost_cascade_(static_cast<unsigned>(false))
       , is_running_backdrop_filter_animation_on_compositor_(static_cast<unsigned>(false))
       , is_running_filter_animation_on_compositor_(static_cast<unsigned>(false))
@@ -5791,6 +5807,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , timeline_data_(other.timeline_data_)
       , will_change_data_(other.will_change_data_)
       , math_data_(other.math_data_)
+      , view_transition_class_(other.view_transition_class_)
       , view_transition_name_(other.view_transition_name_)
       , display_layout_custom_name_(other.display_layout_custom_name_)
       , display_layout_custom_parent_name_(other.display_layout_custom_parent_name_)
@@ -5800,7 +5817,6 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , counter_directives_(MemberCopy(other.counter_directives_))
       , animations_(MemberCopy(other.animations_))
       , transitions_(MemberCopy(other.transitions_))
-      , paint_images_(MemberCopy(other.paint_images_))
       , non_inherited_variables_(MemberCopy(other.non_inherited_variables_))
       , callback_selectors_(other.callback_selectors_)
       , mask_(other.mask_)
@@ -5812,6 +5828,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , position_fallback_(MemberCopy(other.position_fallback_))
       , position_fallback_bounds_(MemberCopy(other.position_fallback_bounds_))
       , document_rules_selectors_(MemberCopy(other.document_rules_selectors_))
+      , paint_images_(MemberCopy(other.paint_images_))
       , initial_letter_(other.initial_letter_)
       , page_size_(other.page_size_)
       , popover_hide_delay_(other.popover_hide_delay_)
@@ -5855,6 +5872,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , has_line_height_relative_units_(other.has_line_height_relative_units_)
       , has_non_ua_highlight_pseudo_styles_(other.has_non_ua_highlight_pseudo_styles_)
       , has_non_universal_highlight_pseudo_styles_(other.has_non_universal_highlight_pseudo_styles_)
+      , highlights_depend_on_size_container_queries_(other.highlights_depend_on_size_container_queries_)
       , inline_style_lost_cascade_(other.inline_style_lost_cascade_)
       , is_running_backdrop_filter_animation_on_compositor_(other.is_running_backdrop_filter_animation_on_compositor_)
       , is_running_filter_animation_on_compositor_(other.is_running_filter_animation_on_compositor_)
@@ -6256,6 +6274,7 @@ ComputedStyleBuilderBase::ComputedStyleBuilderBase(
     , source_for_noninherited.data_.has_em_units_
     , source_for_noninherited.data_.has_explicit_inheritance_
     , source_for_noninherited.data_.has_glyph_relative_units_
+    , source_for_noninherited.data_.has_logical_direction_relative_units_
     , source_for_noninherited.data_.has_root_font_relative_units_
     , source_for_noninherited.data_.has_variable_declaration_
     , source_for_noninherited.data_.has_variable_reference_
@@ -6302,6 +6321,9 @@ ComputedStyleBuilderBase::ComputedStyleBuilderBase(
     }
     if (rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->has_non_universal_highlight_pseudo_styles_ != static_cast<unsigned>(false)) {
       Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->has_non_universal_highlight_pseudo_styles_ = static_cast<unsigned>(false);
+    }
+    if (rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->highlights_depend_on_size_container_queries_ != static_cast<unsigned>(false)) {
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->highlights_depend_on_size_container_queries_ = static_cast<unsigned>(false);
     }
 }
 

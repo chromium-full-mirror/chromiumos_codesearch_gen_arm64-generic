@@ -57,24 +57,16 @@ const int argc = 4;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_local_name;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_local_name).ToLocal(&v8_arg1_local_name)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_local_name = ToV8Traits<IDLString>::ToV8(script_state, arg1_local_name);
 argv[0] = v8_arg1_local_name;
 v8::Local<v8::Value> v8_arg2_old_value;
-if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg2_old_value).ToLocal(&v8_arg2_old_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_old_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg2_old_value);
 argv[1] = v8_arg2_old_value;
 v8::Local<v8::Value> v8_arg3_new_value;
-if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg3_new_value).ToLocal(&v8_arg3_new_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_new_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg3_new_value);
 argv[2] = v8_arg3_new_value;
 v8::Local<v8::Value> v8_arg4_attr_namespace;
-if (!ToV8Traits<IDLNullable<IDLUSVString>>::ToV8(script_state, arg4_attr_namespace).ToLocal(&v8_arg4_attr_namespace)) {
-  return v8::Nothing<void>();
-}
+v8_arg4_attr_namespace = ToV8Traits<IDLNullable<IDLUSVString>>::ToV8(script_state, arg4_attr_namespace);
 argv[3] = v8_arg4_attr_namespace;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -113,24 +105,16 @@ const int argc = 4;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_local_name;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_local_name).ToLocal(&v8_arg1_local_name)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_local_name = ToV8Traits<IDLString>::ToV8(script_state, arg1_local_name);
 argv[0] = v8_arg1_local_name;
 v8::Local<v8::Value> v8_arg2_old_value;
-if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg2_old_value).ToLocal(&v8_arg2_old_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_old_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg2_old_value);
 argv[1] = v8_arg2_old_value;
 v8::Local<v8::Value> v8_arg3_new_value;
-if (!ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg3_new_value).ToLocal(&v8_arg3_new_value)) {
-  return v8::Nothing<void>();
-}
+v8_arg3_new_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, arg3_new_value);
 argv[2] = v8_arg3_new_value;
 v8::Local<v8::Value> v8_arg4_attr_namespace;
-if (!ToV8Traits<IDLNullable<IDLUSVString>>::ToV8(script_state, arg4_attr_namespace).ToLocal(&v8_arg4_attr_namespace)) {
-  return v8::Nothing<void>();
-}
+v8_arg4_attr_namespace = ToV8Traits<IDLNullable<IDLUSVString>>::ToV8(script_state, arg4_attr_namespace);
 argv[3] = v8_arg4_attr_namespace;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

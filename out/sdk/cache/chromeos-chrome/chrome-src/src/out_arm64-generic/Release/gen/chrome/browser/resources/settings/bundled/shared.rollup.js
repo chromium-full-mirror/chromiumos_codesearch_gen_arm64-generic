@@ -1,4 +1,4 @@
-import { html, Polymer, Base, dom, mixinBehaviors, PolymerElement, dedupingMixin, useShadow, dashToCamelCase, FlattenedNodesObserver, microTask, DomIf, afterNextRender, Templatizer, OptionalMutableDataBehavior, animationFrame, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, templatize, calculateSplices } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, Base, dom, dedupingMixin, PolymerElement, useShadow, dashToCamelCase, FlattenedNodesObserver, microTask, DomIf, afterNextRender, Templatizer, OptionalMutableDataBehavior, animationFrame, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, templatize, calculateSplices } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import './strings.m.js';
 import { addWebUiListener, removeWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
@@ -1652,126 +1652,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$P() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
@@ -1825,7 +1825,7 @@ function getTemplate$P() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
@@ -2276,6 +2276,9 @@ const template$6 = html `
       </g>
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
+      </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
       </g>
       
         <g id="banner-warning">
@@ -3344,6 +3347,16 @@ const template$3 = html `
       </g>
 
       
+      <g id="printer" viewBox="0 -960 960 960">
+        <path d="M648-624v-120H312v120h-72v-192h480v192h-72Zm-480 72h625-625Zm539.789 96Q723-456 733.5-466.289q10.5-10.29 10.5-25.5Q744-507 733.711-517.5q-10.29-10.5-25.5-10.5Q693-528 682.5-517.711q-10.5 10.29-10.5 25.5Q672-477 682.289-466.5q10.29 10.5 25.5 10.5ZM648-216v-144H312v144h336Zm72 72H240v-144H96v-240q0-40 28-68t68-28h576q40 0 68 28t28 68v240H720v144Zm73-216v-153.672Q793-530 781-541t-28-11H206q-16.15 0-27.075 11.04T168-513.6V-360h72v-72h480v72h73Z"/>
+      </g>
+
+      
+      <g id="printer-off" viewBox="0 -960 960 960">
+        <path d="m768-90-54-54H240v-144H96v-240q0-40 28-68t68-28h42L90-768l51-51 678 678-51 51ZM312-216h330L498-360H312v144Zm462-72-72-72h90v-153.672Q792-530 781.075-541T754-552H510l-72-72h330q40 0 68 28t28 68v240h-90Zm-606-72h72v-72h186L306-552h-99q-16 0-27.5 11.04T168-513.6V-360Zm480-264v-120H318l-72-72h474v192h-72Zm59.789 168Q723-456 733.5-466.289q10.5-10.29 10.5-25.5Q744-507 733.711-517.5q-10.29-10.5-25.5-10.5Q693-528 682.5-517.711q-10.5 10.29-10.5 25.5Q672-477 682.289-466.5q10.29 10.5 25.5 10.5ZM207-552h99-138 39Zm547 0h39-283 244Z"/>
+      </g>
+
+      
       <g id="block"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"></path></g>
 
       
@@ -3411,6 +3424,7 @@ const template$3 = html `
       <g id="local-fonts-off"><path d="M4.83,2H20c1.1,0,2,0.9,2,2v15.17l-2-2V4H6.83L4.83,2z M10.92,6l-0.57,1.52l1.36,1.36l0.23-0.66h0.1l0.54,1.52l3.04,3.04 L13.07,6H10.92z M20.49,23.31L19.17,22H4c-1.1,0-2-0.9-2-2V4.83L0.69,3.51L2.1,2.1l19.8,19.8L20.49,23.31z M17.17,20l-5.07-5.07 H9.58L8.49,18H6.41l2.39-6.37L4,6.83V20H17.17z"></path></g>
       <g id="location-on"><path d="M12,2C8.13,2,5,5.13,5,9c0,5.34,4.21,6.79,6.03,12.28C11.17,21.7,11.55,22,12,22s0.83-0.3,0.97-0.72 C14.79,15.79,19,14.34,19,9C19,5.13,15.87,2,12,2z M12,11.5c-1.38,0-2.5-1.12-2.5-2.5c0-1.38,1.12-2.5,2.5-2.5s2.5,1.12,2.5,2.5 C14.5,10.38,13.38,11.5,12,11.5z"></path></g>
       <g id="location-off"><path d="M12,6.88c1.38,0,2.5,1.12,2.5,2.5c0,0.64-0.25,1.21-0.64,1.65l3.38,3.38C18.24,12.95,19,11.39,19,9.13c0-3.87-3.13-7-7-7 c-1.94,0-3.7,0.79-4.97,2.07l3.32,3.32C10.79,7.13,11.36,6.88,12,6.88z"></path><path d="M2.81,2.81L1.39,4.22l3.72,3.72C5.04,8.33,5,8.72,5,9.13c0,5.34,4.21,6.79,6.03,12.28c0.14,0.42,0.52,0.72,0.97,0.72 s0.83-0.3,0.97-0.72c0.49-1.49,1.17-2.68,1.88-3.74l4.93,4.93l1.41-1.41L2.81,2.81z"></path></g>
+      <g id="lock-outline"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"></path></g>
       <g id="mic-off"><path d="M19,11h-2c0,0.91-0.25,1.76-0.68,2.49l1.45,1.45C18.54,13.82,19,12.47,19,11z M2.81,2.81L1.39,4.22l11.66,11.66 C12.71,15.96,12.36,16,12,16c-2.76,0-5-2.24-5-5H5c0,3.53,2.61,6.43,6,6.92V21h2v-3.08c0.57-0.08,1.12-0.24,1.64-0.45l5.14,5.14 l1.41-1.41L2.81,2.81z M15,11V5c0-1.66-1.34-3-3-3S9,3.34,9,5v1.17l5.81,5.81C14.92,11.67,15,11.35,15,11z"></path></g>
       <g id="midi"><path d="M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M14,14.5h0.25V19h-4.5v-4.5H10 c0.55,0,1-0.45,1-1V5h2v8.5C13,14.05,13.45,14.5,14,14.5z M5,5h2v8.5c0,0.55,0.45,1,1,1h0.25V19H5V5z M19,19h-3.25v-4.5H16 c0.55,0,1-0.45,1-1V5h2V19z"></path></g>
       <g id="midi-off"><path d="M21.19,21.19L2.81,2.81L1.39,4.22L3,5.83V19c0,1.1,0.9,2,2,2h13.17l1.61,1.61L21.19,21.19z M8.25,19H5V7.83l2,2v3.67 c0,0.55,0.45,1,1,1h0.25V19z M9.75,19v-4.5H10c0.46,0,0.82-0.31,0.94-0.73l3.31,3.31V19H9.75z M11,8.17L5.83,3H19c1.1,0,2,0.9,2,2 v13.17l-2-2V5h-2v8.5c0,0.19-0.07,0.36-0.16,0.51L13,10.17V5h-2V8.17z"></path></g>
@@ -4168,7 +4182,7 @@ const styleMod$8 = document.createElement('dom-module');
 styleMod$8.appendChild(html `
   <template>
     <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
@@ -4178,7 +4192,7 @@ const styleMod$7 = document.createElement('dom-module');
 styleMod$7.appendChild(html `
   <template>
     <style include="cr-shared-style search-highlight-style cros-color-overrides">
-a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;color:var(--cr-secondary-text-color);display:flex;font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{flex-shrink:0}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}iron-list{user-select:none}iron-list[risk-selection]{user-select:text}.separator+cr-icon-button{margin-inline-start:var(--cr-icon-ripple-margin)}.settings-box settings-toggle-button cr-button:last-of-type{margin-inline-end:16px}.settings-box controlled-button+controlled-button,.settings-box controlled-button+cr-button,.settings-box cr-button+controlled-button,.settings-box cr-button+cr-button{margin-inline-start:8px}a[href]{color:var(--cr-link-color)}.inherit-color{color:inherit!important}.primary-toggle{color:var(--cr-secondary-text-color);font-weight:500}.primary-toggle[checked]{color:var(--google-blue-500)}collapse-radio-button,controlled-radio-button,cr-radio-button{min-height:var(--cr-section-min-height)}cr-radio-group{width:100%}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-min-width{min-width:0}.header-aligned-button{margin-top:12px}.link-wrapper{align-items:center;display:flex;flex-grow:1}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.list-item{align-items:center;display:flex;min-height:var(--cr-section-min-height);padding:0}.list-item.underbar{border-bottom:var(--cr-separator-line)}.list-item.selected{font-weight:500}.list-item .middle{flex:1;margin:8px 16px}.list-item>.start{flex:1}.list-button[is=action-link]{align-items:center;display:flex;flex:1;font-weight:500;min-height:inherit}:host-context(html:not(.focus-outline-visible)) .list-button[is=action-link]{outline:0}.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.settings-box.no-padding{padding:0}.settings-box.no-padding .margin-matches-padding{margin:0 var(--cr-section-padding)}.settings-box.no-padding>.link-wrapper{padding:0 var(--cr-section-padding)}.settings-box.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box-text{box-sizing:border-box;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding)}.settings-box.continuation,.settings-box.first{border-top:none}h2.first{padding-top:0}.settings-box.block{display:block}.single-column{align-items:flex-start;flex-direction:column;justify-content:center}.settings-box.line-only{min-height:0}.settings-box.embedded{padding-inline-start:var(--cr-section-indent-padding)}.secondary{color:var(--cr-secondary-text-color);font-weight:400}.secondary:empty{margin:0}.settings-box .middle{align-items:center;flex:auto;padding-inline-start:16px}.settings-box .middle.two-line,.settings-box .start.two-line{display:flex}.settings-box .start{align-items:center;flex:auto}.settings-row{align-items:center;display:flex;flex-direction:row;max-width:100%;min-width:0}.no-outline{background:0 0;outline:0}.list-item,[scrollable],iron-list{--cr-icon-button-margin-end:0}.vertical-list>:not(:first-of-type){border-top:var(--cr-separator-line)}.separator{border-inline-start:var(--cr-separator-line);flex-shrink:0;height:32px;margin:0 16px}.settings-box.no-padding>.link-wrapper~.separator{margin:0}.column-header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:400}.error-message{color:#fff;font:13px;padding-bottom:15px;padding-top:15px;text-align:center;white-space:normal}.url-directionality{direction:ltr;unicode-bidi:embed}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-title-1-font)}
+a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;color:var(--cr-secondary-text-color);display:flex;font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{flex-shrink:0}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}iron-list{user-select:none}iron-list[risk-selection]{user-select:text}.separator+cr-icon-button{margin-inline-start:var(--cr-icon-ripple-margin)}.settings-box settings-toggle-button cr-button:last-of-type{margin-inline-end:16px}.settings-box controlled-button+controlled-button,.settings-box controlled-button+cr-button,.settings-box cr-button+controlled-button,.settings-box cr-button+cr-button{margin-inline-start:8px}a[href]{color:var(--cr-link-color)}.inherit-color{color:inherit!important}collapse-radio-button,controlled-radio-button,cr-radio-button{min-height:var(--cr-section-min-height)}cr-radio-group{width:100%}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-min-width{min-width:0}.header-aligned-button{margin-top:12px}.link-wrapper{align-items:center;display:flex;flex-grow:1}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.list-item{align-items:center;display:flex;min-height:var(--cr-section-min-height);padding:0}.list-item.underbar{border-bottom:var(--cr-separator-line)}.list-item.selected{font-weight:500}.list-item .middle{flex:1;margin:8px 16px}.list-item>.start{flex:1}.list-button[is=action-link]{align-items:center;display:flex;flex:1;font-weight:500;min-height:inherit}:host-context(html:not(.focus-outline-visible)) .list-button[is=action-link]{outline:0}.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.settings-box.no-padding{padding:0}.settings-box.no-padding .margin-matches-padding{margin:0 var(--cr-section-padding)}.settings-box.no-padding>.link-wrapper{padding:0 var(--cr-section-padding)}.settings-box.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box-text{box-sizing:border-box;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding)}.settings-box.continuation,.settings-box.first{border-top:none}h2.first{padding-top:0}.settings-box.block{display:block}.single-column{align-items:flex-start;flex-direction:column;justify-content:center}.settings-box.line-only{min-height:0}.settings-box.embedded{padding-inline-start:var(--cr-section-indent-padding)}.secondary{color:var(--cr-secondary-text-color);font-weight:400}.secondary:empty{margin:0}.settings-box .middle{align-items:center;flex:auto;padding-inline-start:16px}.settings-box .middle.two-line,.settings-box .start.two-line{display:flex}.settings-box .start{align-items:center;flex:auto}.settings-row{align-items:center;display:flex;flex-direction:row;max-width:100%;min-width:0}.no-outline{background:0 0;outline:0}.list-item,[scrollable],iron-list{--cr-icon-button-margin-end:0}.vertical-list>:not(:first-of-type){border-top:var(--cr-separator-line)}.separator{border-inline-start:var(--cr-separator-line);flex-shrink:0;height:32px;margin:0 16px}.settings-box.no-padding>.link-wrapper~.separator{margin:0}.column-header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:400}.error-message{color:#fff;font:13px;padding-bottom:15px;padding-top:15px;text-align:center;white-space:normal}.url-directionality{direction:ltr;unicode-bidi:embed}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-title-1-font)}
     </style>
   </template>
 `.content);
@@ -4289,7 +4303,7 @@ function getTemplate$O() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -4455,7 +4469,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -5062,7 +5076,7 @@ function getTemplate$M() {
  * intentional.
  */
 const MOVE_THRESHOLD_PX = 5;
-const CrToggleElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrToggleElementBase = PaperRippleMixin(PolymerElement);
 class CrToggleElement extends CrToggleElementBase {
     constructor() {
         super(...arguments);
@@ -5221,7 +5235,7 @@ class CrToggleElement extends CrToggleElementBase {
             this.toggleState_(/* fromKeyboard= */ true);
         }
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.knob;
@@ -6509,6 +6523,11 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
         return this.learnMoreAriaLabel ? 'learn-more-aria-label' :
             'sub-label-text learn-more';
     }
+    getBubbleAnchor() {
+        const anchor = this.shadowRoot.querySelector('#control');
+        assert(anchor);
+        return anchor;
+    }
     onDisableOrPrefChange_() {
         this.toggleAttribute('effectively-disabled_', this.controlDisabled());
     }
@@ -6560,7 +6579,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
 customElements.define(SettingsToggleButtonElement.is, SettingsToggleButtonElement);
 
 function getTemplate$I() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
             var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
@@ -7258,6 +7277,27 @@ const PrefsMixin = dedupingMixin((superClass) => {
                 this.splice(`prefs.${key}.value`, index, 1);
             }
         }
+        /**
+         * Updates the entry in the pref dictionary to the new key value pair.
+         * Asserts if the pref itself is not found or is not a dictionary type.
+         */
+        setPrefDictEntry(prefPath, key, value) {
+            const pref = this.getPref(prefPath);
+            assert(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            pref.value[key] = value;
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
+        /**
+         * Deletes the given key from the pref dictionary if it is
+         * found. Asserts if the pref itself is not found or is not a dictionary
+         * type.
+         */
+        deletePrefDictEntry(prefPath, key) {
+            const pref = this.getPref(prefPath);
+            assert(pref && pref.type === chrome.settingsPrivate.PrefType.DICTIONARY);
+            delete pref.value[key];
+            this.set('prefs.' + prefPath + '.value', { ...pref.value });
+        }
     }
     return PrefsMixin;
 });
@@ -7905,7 +7945,7 @@ function getTemplate$G() {
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const ControlledRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PrefControlMixin(PolymerElement)));
+const ControlledRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PrefControlMixin(PolymerElement)));
 class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
     static get is() {
         return 'controlled-radio-button';
@@ -7922,7 +7962,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
@@ -8053,7 +8093,7 @@ function getTemplate$E() {
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const CrRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const CrRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class CrRadioButtonElement extends CrRadioButtonElementBase {
     static get is() {
         return 'cr-radio-button';
@@ -8065,7 +8105,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
@@ -10285,10 +10325,6 @@ customElements.define(SettingsDropdownMenuElement.is, SettingsDropdownMenuElemen
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Provides a couple of helper methods used by several Polymer
- * elements.
- */
 const BaseMixin = dedupingMixin((superClass) => {
     class BaseMixin extends superClass {
         $$(query) {
@@ -10375,6 +10411,10 @@ function addPrivacyChildRoutes(r) {
         r.PRIVACY_SANDBOX = r.PRIVACY.createChild('/adPrivacy');
         r.PRIVACY_SANDBOX_TOPICS =
             r.PRIVACY_SANDBOX.createChild('/adPrivacy/interests');
+        if (loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled')) {
+            r.PRIVACY_SANDBOX_MANAGE_TOPICS =
+                r.PRIVACY_SANDBOX_TOPICS.createChild('/adPrivacy/interests/manage');
+        }
         r.PRIVACY_SANDBOX_FLEDGE =
             r.PRIVACY_SANDBOX.createChild('/adPrivacy/sites');
         r.PRIVACY_SANDBOX_AD_MEASUREMENT =
@@ -10421,6 +10461,7 @@ function addPrivacyChildRoutes(r) {
     r.SITE_SETTINGS_IMAGES = r.SITE_SETTINGS.createChild('images');
     r.SITE_SETTINGS_MIXEDSCRIPT = r.SITE_SETTINGS.createChild('insecureContent');
     r.SITE_SETTINGS_JAVASCRIPT = r.SITE_SETTINGS.createChild('javascript');
+    r.SITE_SETTINGS_JAVASCRIPT_JIT = r.SITE_SETTINGS.createChild('v8');
     r.SITE_SETTINGS_SOUND = r.SITE_SETTINGS.createChild('sound');
     r.SITE_SETTINGS_SENSORS = r.SITE_SETTINGS.createChild('sensors');
     r.SITE_SETTINGS_LOCATION = r.SITE_SETTINGS.createChild('location');
@@ -10431,6 +10472,9 @@ function addPrivacyChildRoutes(r) {
     r.SITE_SETTINGS_USB_DEVICES = r.SITE_SETTINGS.createChild('usbDevices');
     r.SITE_SETTINGS_HID_DEVICES = r.SITE_SETTINGS.createChild('hidDevices');
     r.SITE_SETTINGS_SERIAL_PORTS = r.SITE_SETTINGS.createChild('serialPorts');
+    if (loadTimeData.getBoolean('enableWebPrintingContentSetting')) {
+        r.SITE_SETTINGS_WEB_PRINTING = r.SITE_SETTINGS.createChild('webPrinting');
+    }
     if (loadTimeData.getBoolean('enableWebBluetoothNewPermissionsBackend')) {
         r.SITE_SETTINGS_BLUETOOTH_DEVICES =
             r.SITE_SETTINGS.createChild('bluetoothDevices');
@@ -10485,7 +10529,7 @@ function createBrowserSettingsRoutes() {
     const visibility = pageVisibility || {};
     if (visibility.ai !== false &&
         loadTimeData.getBoolean('showAdvancedFeaturesMainControl')) {
-        r.AI = r.BASIC.createSection('/ai', 'ai', loadTimeData.getString('experimentalAdvancedPageTitle'));
+        r.AI = r.BASIC.createSection('/ai', 'ai', loadTimeData.getString('aiPageTitle'));
     }
     // 
     if (visibility.appearance !== false) {
@@ -10555,7 +10599,8 @@ function getTemplate$w() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
+    </cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -10585,7 +10630,6 @@ class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -10607,13 +10651,12 @@ class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
-                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
-                observer: 'onIconChange_',
             },
+            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -10624,7 +10667,10 @@ class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
+        return [
+            'updateAriaExpanded_(disabled, expanded)',
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
     }
     ready() {
         super.ready();
@@ -10649,14 +10695,8 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
     updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
@@ -10717,7 +10757,7 @@ function getTemplate$v() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const SettingsCollapseRadioButtonElementBase = mixinBehaviors([PaperRippleBehavior], CrRadioButtonMixin(PolymerElement));
+const SettingsCollapseRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElementBase {
     static get is() {
         return 'settings-collapse-radio-button';
@@ -10780,7 +10820,7 @@ class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElem
     getPaperRipple() {
         return this.getRipple();
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
@@ -11853,6 +11893,7 @@ var ContentSettingsTypes;
     ContentSettingsTypes["IDLE_DETECTION"] = "idle-detection";
     ContentSettingsTypes["IMAGES"] = "images";
     ContentSettingsTypes["JAVASCRIPT"] = "javascript";
+    ContentSettingsTypes["JAVASCRIPT_JIT"] = "javascript-jit";
     ContentSettingsTypes["LOCAL_FONTS"] = "local-fonts";
     ContentSettingsTypes["MIC"] = "media-stream-mic";
     ContentSettingsTypes["MIDI"] = "midi";
@@ -11873,6 +11914,7 @@ var ContentSettingsTypes;
     ContentSettingsTypes["VR"] = "vr";
     ContentSettingsTypes["WINDOW_MANAGEMENT"] = "window-placement";
     ContentSettingsTypes["ZOOM_LEVELS"] = "zoom-levels";
+    ContentSettingsTypes["WEB_PRINTING"] = "web-printing";
     // The following items are not in the C++ kContentSettingsTypeGroupNames, but
     // are used everywhere where ContentSettingsTypes is used in JS.
     ContentSettingsTypes["PDF_DOCUMENTS"] = "pdfDocuments";
@@ -12201,10 +12243,6 @@ let instance$b = null;
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Behavior common to Site Settings classes.
- */
-// clang-format off
 const SiteSettingsMixin = dedupingMixin((superClass) => {
     class SiteSettingsMixin extends superClass {
         static get properties() {
@@ -12419,6 +12457,7 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
             case ContentSettingsTypes.FEDERATED_IDENTITY_API:
             case ContentSettingsTypes.IMAGES:
             case ContentSettingsTypes.JAVASCRIPT:
+            case ContentSettingsTypes.JAVASCRIPT_JIT:
             case ContentSettingsTypes.MIXEDSCRIPT:
             case ContentSettingsTypes.PAYMENT_HANDLER:
             case ContentSettingsTypes.POPUPS:
@@ -12449,6 +12488,7 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
             case ContentSettingsTypes.USB_DEVICES:
             case ContentSettingsTypes.VR:
             case ContentSettingsTypes.WINDOW_MANAGEMENT:
+            case ContentSettingsTypes.WEB_PRINTING:
                 // "Ask" vs "Blocked".
                 return ContentSetting.ASK;
             default:
@@ -16264,6 +16304,7 @@ function getTemplate$e() {
         </cr-link-row>
     </template>
 
+    <cr-link-row id="v8-setting-link" class="hr" on-click="onV8SettingsClick_" label="$i18n{securityV8LinkTitle}" sub-label="$i18n{securityV8LinkDescription}" role-description="$i18n{subpageArrowRoleDescription}" external></cr-link-row>
     <template is="dom-if" if="[[enableSecurityKeysSubpage_]]">
         <cr-link-row id="security-keys-subpage-trigger" class="hr" label="$i18n{securityKeysTitle}" sub-label="$i18n{securityKeysDesc}" on-click="onSecurityKeysClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
     </template>
@@ -16654,6 +16695,9 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
     }
     onAdvancedProtectionProgramLinkClick_() {
         window.open(loadTimeData.getString('advancedProtectionURL'));
+    }
+    onV8SettingsClick_() {
+        Router.getInstance().navigateTo(routes.SITE_SETTINGS_JAVASCRIPT_JIT);
     }
     onSecurityKeysClick_() {
         Router.getInstance().navigateTo(routes.SECURITY_KEYS);
@@ -21799,7 +21843,7 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
 customElements.define(CrPolicyIndicatorElement.is, CrPolicyIndicatorElement);
 
 function getTemplate$3() {
-    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}.additional-section{border-top:var(--cr-separator-line);padding-inline-start:var(--cr-section-padding)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}</style>
 <settings-toggle-button id="pageContentToggle" pref="{{prefs.page_content_collection.enabled}}" label="$i18n{pageContentToggleLabel}" sub-label="$i18n{pageContentToggleSublabel}">
 </settings-toggle-button>
 <div class="settings-columned-section">
@@ -21837,13 +21881,6 @@ function getTemplate$3() {
     </ul>
   </div>
 </div>
-<template is="dom-if" if="[[showComposeToggle_]]">
-  <div class="additional-section">
-    <h2>$i18n{privacyGuideComposeAdditionalSettings}</h2>
-    <settings-toggle-button id="composeToggle" pref="{{prefs.autofill_assistance.enabled}}" label="$i18n{privacyGuideComposeHeader}" sub-label="$i18n{privacyGuideComposeDescription}">
-    </settings-toggle-button>
-  </div>
-</template>
 <!--_html_template_end_-->`;
 }
 
@@ -21855,8 +21892,7 @@ function getTemplate$3() {
  * 'settings-page-content-page' contains settings related to features accessing
  * page content.
  */
-const SettingsPageContentPageElementBase = PrefsMixin(PolymerElement);
-class SettingsPageContentPageElement extends SettingsPageContentPageElementBase {
+class SettingsPageContentPageElement extends PolymerElement {
     static get is() {
         return 'settings-page-content-page';
     }
@@ -21869,17 +21905,7 @@ class SettingsPageContentPageElement extends SettingsPageContentPageElementBase 
                 type: Object,
                 notify: true,
             },
-            showComposeToggle_: {
-                type: Boolean,
-                computed: `computeShowComposeToggle(prefs.page_content_collection.enabled.value)`,
-            },
         };
-    }
-    computeShowComposeToggle() {
-        // 
-        // 
-        return false;
-        // 
     }
 }
 customElements.define(SettingsPageContentPageElement.is, SettingsPageContentPageElement);
@@ -22389,12 +22415,14 @@ const ListPropertyUpdateMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate$1() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+
     <template is="dom-repeat" items="[[tabNames]]">
       <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
         <div class="tab-icon" style$="[[getIconStyle_(index)]]">
         </div>
         [[item]]
+        <div class="tab-indicator-background"></div>
         <div class="tab-indicator"></div>
       </div>
     </template>
@@ -22591,7 +22619,7 @@ function getTemplate() {
  *  --cr-checkbox-size
  *  --cr-checkbox-unchecked-box-color
  */
-const CrCheckboxElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrCheckboxElementBase = PaperRippleMixin(PolymerElement);
 class CrCheckboxElement extends CrCheckboxElementBase {
     static get is() {
         return 'cr-checkbox';
@@ -22708,7 +22736,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         // :host shouldn't have a tabindex because it's set on #checkbox.
         this.removeAttribute('tabindex');
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.checkbox;
@@ -22788,11 +22816,8 @@ var SearchEnginesInteractions;
 /**
  * The location from which the search engine choice was made.
  *
- * These values are persisted to logs. Entries should not be renumbered and
- * numeric values should never be reused.
- *
  * Must be kept in sync with the ChoiceMadeLocation enum in
- * search_engine_choice_utils.h
+ * //components/search_engines/choice_made_location.h
  */
 var ChoiceMadeLocation;
 (function (ChoiceMadeLocation) {
@@ -22803,6 +22828,11 @@ var ChoiceMadeLocation;
     // The search engine choice dialog for existing users or the profile picker
     // for new users. This value should not be used in settings.
     ChoiceMadeLocation[ChoiceMadeLocation["CHOICE_SCREEN"] = 2] = "CHOICE_SCREEN";
+    // Some other source, not matching some requirements that the full search
+    // engine choice surfaces are compatible with. Might be used for example when
+    // automatically changing default search engine via an extension, or some
+    // enterprise policy.
+    ChoiceMadeLocation[ChoiceMadeLocation["OTHER"] = 3] = "OTHER";
 })(ChoiceMadeLocation || (ChoiceMadeLocation = {}));
 class SearchEnginesBrowserProxyImpl {
     setDefaultSearchEngine(modelIndex, choiceMadeLocation) {
@@ -22954,6 +22984,12 @@ class PrivacySandboxBrowserProxyImpl {
     topicsToggleChanged(newToggleValue) {
         chrome.send('topicsToggleChanged', [newToggleValue]);
     }
+    getFirstLevelTopics() {
+        return sendWithPromise('getFirstLevelTopics');
+    }
+    getChildTopicsCurrentlyAssigned(topic) {
+        return sendWithPromise('getChildTopicsCurrentlyAssigned', topic.topicId, topic.taxonomyVersion);
+    }
     static getInstance() {
         return instance || (instance = new PrivacySandboxBrowserProxyImpl());
     }
@@ -22963,5 +22999,5 @@ class PrivacySandboxBrowserProxyImpl {
 }
 let instance = null;
 
-export { ChoiceMadeLocation as $, PasswordManagerImpl as A, BaseMixin as B, CrSearchFieldMixin as C, PasswordCheckReferrer as D, EventTracker as E, PasswordManagerPage as F, getInstance as G, HatsBrowserProxyImpl as H, I18nMixin as I, getTrustedScriptURL as J, FocusRowMixin as K, SyncBrowserProxyImpl as L, MetricsBrowserProxyImpl as M, isChromeOS as N, OpenWindowProxyImpl as O, PrefsMixin as P, getImage as Q, RelaunchMixin as R, SiteSettingsPrefsBrowserProxyImpl as S, TrustSafetyInteraction as T, ListPropertyUpdateMixin as U, TooltipMixin as V, WebUiListenerMixin as W, NetworkPredictionOptions as X, CrSettingsPrefs as Y, ResetBrowserProxyImpl as Z, SearchEnginesBrowserProxyImpl as _, assertNotReached as a, AllSitesDialog as a$, PromiseResolver as a0, IronSelectableBehavior as a1, FocusOutlineManager as a2, CrContainerShadowMixin as a3, pageVisibility as a4, setGlobalScrollTarget as a5, resetGlobalScrollTargetForTesting as a6, ControlledRadioButtonElement as a7, ExtensionControlledIndicatorElement as a8, DEFAULT_CHECKED_VALUE as a9, PrivacyElementInteractions as aA, PrivacyGuideSettingsStates as aB, PrivacyGuideStepsEligibleAndReached as aC, SafeBrowsingInteractions as aD, SafetyCheckNotificationsModuleInteractions as aE, SafetyCheckUnusedSitePermissionsModuleInteractions as aF, SafetyHubCardState as aG, SafetyHubModuleType as aH, SafetyHubSurfaces as aI, setPageVisibilityForTesting as aJ, MAX_SIGNIN_PROMO_IMPRESSION as aK, SettingsSyncAccountControlElement as aL, PrivacySandboxBrowserProxyImpl as aM, buildRouter as aN, Route as aO, SearchEnginesInteractions as aP, SiteFaviconElement as aQ, PaperRippleBehavior as aR, AnchorAlignment as aS, SettingsBooleanControlMixin as aT, ClearBrowsingDataBrowserProxyImpl as aU, GlobalScrollTargetMixin as aV, SiteSettingsMixin as aW, ContentSettingProvider as aX, CardState as aY, AllSitesAction2 as aZ, SortMethod as a_, DEFAULT_UNCHECKED_VALUE as aa, SettingsDropdownMenuElement as ab, SettingsToggleButtonElement as ac, ExtensionControlBrowserProxyImpl as ad, LifetimeBrowserProxyImpl as ae, PageStatus as af, StatusAction as ag, syncPrefsIndividualDataTypes as ah, TrustedVaultBannerState as ai, SecureDnsMode as aj, SecureDnsUiManagementMode as ak, prefToString as al, stringToPrefValue as am, SettingsPrefsElement as an, CrActionMenuElement as ao, CrButtonElement as ap, CrDialogElement as aq, CrLinkRowElement as ar, CrRadioButtonElement as as, CrRadioGroupElement as at, CrToggleElement as au, getTrustedHTML as av, SafeBrowsingSetting$1 as aw, SecurityPageInteraction as ax, CvcDeletionUserAction as ay, DeleteBrowsingDataAction as az, assert as b, SiteSettingSource as b0, MODEL_UPDATE_DELAY_MS as b1, isUndoKeyboardEvent as b2, CookiesExceptionType as b3, SITE_EXCEPTION_WILDCARD as b4, INVALID_CATEGORY_SUBTYPE as b5, CrPolicyIndicatorType as b6, CookiePrimarySetting as b7, SettingsRadioGroupElement as b8, SecureDnsResolverType as b9, SettingsSafetyHubModuleElement as bA, SettingsSimpleConfirmationDialogElement as bB, SettingsCategoryDefaultRadioGroupElement as bC, SettingsSecureDnsElement as ba, SettingsSecureDnsDialogElement as bb, SecureDnsInputElement as bc, CrCheckboxElement as bd, CrIconButtonElement as be, CrInputElement as bf, CrLazyRenderElement as bg, CrTextareaElement as bh, SettingsPageContentPageElement as bi, SettingsCollapseRadioButtonElement as bj, PreloadingPageElement as bk, PrivacyGuideStep as bl, PrivacyGuideCompletionFragmentElement as bm, PrivacyGuideCookiesFragmentElement as bn, PrivacyGuideDescriptionItemElement as bo, SettingsPrivacyGuideDialogElement as bp, PrivacyGuideHistorySyncFragmentElement as bq, PrivacyGuideMsbbFragmentElement as br, SettingsPrivacyGuidePageElement as bs, PrivacyGuideSafeBrowsingFragmentElement as bt, PrivacyGuideSearchSuggestionsFragmentElement as bu, PrivacyGuideWelcomeFragmentElement as bv, HttpsFirstModeSetting as bw, SafeBrowsingSetting as bx, SettingsSecurityPageElement as by, SettingsSafetyHubEntryPointElement as bz, RestartType as c, IronResizableBehavior as d, RouteObserverMixin as e, Router as f, focusWithoutInk as g, CrPolicyPrefMixin as h, isMac as i, PrefControlMixin as j, PrivacyGuideInteractions as k, listenOnce as l, PrivacyGuideAvailabilityMixin as m, PrivacyPageBrowserProxyImpl as n, SafetyHubBrowserProxyImpl as o, SettingsState as p, ContentSettingsTypes as q, routes as r, ContentSetting as s, ChooserType as t, SafetyHubEvent as u, SafetyHubEntryPoint as v, PluralStringProxyImpl as w, CookieControlsMode as x, sanitizeInnerHtml as y, SafetyCheckInteractions as z };
+export { ChoiceMadeLocation as $, PasswordManagerImpl as A, BaseMixin as B, CrSearchFieldMixin as C, PasswordCheckReferrer as D, EventTracker as E, PasswordManagerPage as F, getInstance as G, HatsBrowserProxyImpl as H, I18nMixin as I, getTrustedScriptURL as J, FocusRowMixin as K, SyncBrowserProxyImpl as L, MetricsBrowserProxyImpl as M, isChromeOS as N, OpenWindowProxyImpl as O, PrefsMixin as P, getImage as Q, RelaunchMixin as R, SiteSettingsPrefsBrowserProxyImpl as S, TrustSafetyInteraction as T, ListPropertyUpdateMixin as U, TooltipMixin as V, WebUiListenerMixin as W, NetworkPredictionOptions as X, CrSettingsPrefs as Y, ResetBrowserProxyImpl as Z, SearchEnginesBrowserProxyImpl as _, assertNotReached as a, AllSitesDialog as a$, PromiseResolver as a0, IronSelectableBehavior as a1, FocusOutlineManager as a2, CrContainerShadowMixin as a3, pageVisibility as a4, setGlobalScrollTarget as a5, resetGlobalScrollTargetForTesting as a6, ExtensionControlledIndicatorElement as a7, DEFAULT_CHECKED_VALUE as a8, DEFAULT_UNCHECKED_VALUE as a9, PrivacyElementInteractions as aA, PrivacyGuideSettingsStates as aB, PrivacyGuideStepsEligibleAndReached as aC, SafeBrowsingInteractions as aD, SafetyCheckNotificationsModuleInteractions as aE, SafetyCheckUnusedSitePermissionsModuleInteractions as aF, SafetyHubCardState as aG, SafetyHubModuleType as aH, SafetyHubSurfaces as aI, setPageVisibilityForTesting as aJ, MAX_SIGNIN_PROMO_IMPRESSION as aK, SettingsSyncAccountControlElement as aL, PrivacySandboxBrowserProxyImpl as aM, buildRouter as aN, Route as aO, SearchEnginesInteractions as aP, SiteFaviconElement as aQ, PaperRippleMixin as aR, AnchorAlignment as aS, SettingsBooleanControlMixin as aT, ClearBrowsingDataBrowserProxyImpl as aU, GlobalScrollTargetMixin as aV, SiteSettingsMixin as aW, ContentSettingProvider as aX, CardState as aY, AllSitesAction2 as aZ, SortMethod as a_, ExtensionControlBrowserProxyImpl as aa, LifetimeBrowserProxyImpl as ab, PageStatus as ac, StatusAction as ad, syncPrefsIndividualDataTypes as ae, TrustedVaultBannerState as af, SecureDnsMode as ag, SecureDnsUiManagementMode as ah, prefToString as ai, stringToPrefValue as aj, SettingsPrefsElement as ak, CrActionMenuElement as al, CrButtonElement as am, CrDialogElement as an, CrLinkRowElement as ao, CrRadioButtonElement as ap, CrRadioGroupElement as aq, CrToggleElement as ar, getTrustedHTML as as, ControlledRadioButtonElement as at, SettingsDropdownMenuElement as au, SettingsToggleButtonElement as av, SafeBrowsingSetting$1 as aw, SecurityPageInteraction as ax, CvcDeletionUserAction as ay, DeleteBrowsingDataAction as az, assert as b, SiteSettingSource as b0, MODEL_UPDATE_DELAY_MS as b1, isUndoKeyboardEvent as b2, CookiesExceptionType as b3, SITE_EXCEPTION_WILDCARD as b4, INVALID_CATEGORY_SUBTYPE as b5, HelpBubbleMixin as b6, CrPolicyIndicatorType as b7, CookiePrimarySetting as b8, CrCheckboxElement as b9, SettingsSafetyHubEntryPointElement as bA, SettingsSafetyHubModuleElement as bB, SettingsSimpleConfirmationDialogElement as bC, SettingsCategoryDefaultRadioGroupElement as bD, CrIconButtonElement as ba, CrInputElement as bb, CrLazyRenderElement as bc, CrTextareaElement as bd, SettingsRadioGroupElement as be, SecureDnsResolverType as bf, SettingsSecureDnsElement as bg, SettingsSecureDnsDialogElement as bh, SecureDnsInputElement as bi, SettingsPageContentPageElement as bj, SettingsCollapseRadioButtonElement as bk, PreloadingPageElement as bl, PrivacyGuideStep as bm, PrivacyGuideCompletionFragmentElement as bn, PrivacyGuideCookiesFragmentElement as bo, PrivacyGuideDescriptionItemElement as bp, SettingsPrivacyGuideDialogElement as bq, PrivacyGuideHistorySyncFragmentElement as br, PrivacyGuideMsbbFragmentElement as bs, SettingsPrivacyGuidePageElement as bt, PrivacyGuideSafeBrowsingFragmentElement as bu, PrivacyGuideSearchSuggestionsFragmentElement as bv, PrivacyGuideWelcomeFragmentElement as bw, HttpsFirstModeSetting as bx, SafeBrowsingSetting as by, SettingsSecurityPageElement as bz, RestartType as c, IronResizableBehavior as d, RouteObserverMixin as e, Router as f, focusWithoutInk as g, CrPolicyPrefMixin as h, isMac as i, PrefControlMixin as j, PrivacyGuideInteractions as k, listenOnce as l, PrivacyGuideAvailabilityMixin as m, PrivacyPageBrowserProxyImpl as n, SafetyHubBrowserProxyImpl as o, SettingsState as p, ContentSettingsTypes as q, routes as r, ContentSetting as s, ChooserType as t, SafetyHubEvent as u, SafetyHubEntryPoint as v, PluralStringProxyImpl as w, CookieControlsMode as x, sanitizeInnerHtml as y, SafetyCheckInteractions as z };
 //# sourceMappingURL=shared.rollup.js.map

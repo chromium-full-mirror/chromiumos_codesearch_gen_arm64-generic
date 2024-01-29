@@ -299,7 +299,7 @@ async function checkOpacityCheckmark(filter, opacity) {
         filterInput.focus();
         await (0, helper_js_1.typeText)('foo');
         await openRequestTypeDropdown();
-        let categoryXHRFilter = await getCategoryTypeFilter('XHR and Fetch');
+        let categoryXHRFilter = await getCategoryTypeFilter('Fetch and XHR');
         chai_1.assert.isTrue(await checkOpacityCheckmark(categoryXHRFilter, '0'));
         await categoryXHRFilter.click();
         await (0, helper_js_1.reloadDevTools)({ selectedPanel: { name: 'network' } });
@@ -307,14 +307,14 @@ async function checkOpacityCheckmark(filter, opacity) {
         const filterText = await filterInput.evaluate(x => x.innerText);
         chai_1.assert.strictEqual(filterText, 'foo');
         await openRequestTypeDropdown();
-        categoryXHRFilter = await getCategoryTypeFilter('XHR and Fetch');
+        categoryXHRFilter = await getCategoryTypeFilter('Fetch and XHR');
         chai_1.assert.isTrue(await checkOpacityCheckmark(categoryXHRFilter, '1'));
     });
     (0, mocha_extensions_js_1.it)('unchecks all filters and the all option is checked automatically - by checkmark opacity', async () => {
         await (0, network_helpers_js_1.navigateToNetworkTab)(SIMPLE_PAGE_URL);
         await (0, network_helpers_js_1.waitForSomeRequestsToAppear)(SIMPLE_PAGE_REQUEST_NUMBER);
         await openRequestTypeDropdown();
-        const categoryXHRFilter = await getCategoryTypeFilter('XHR and Fetch');
+        const categoryXHRFilter = await getCategoryTypeFilter('Fetch and XHR');
         const categoryAllFilter = await getCategoryTypeFilter('All');
         let names = await (0, network_helpers_js_1.getAllRequestNames)();
         await (0, helper_js_1.step)('verify the initial state when the "All" filter is selected', async () => {

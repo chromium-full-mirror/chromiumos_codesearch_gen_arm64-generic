@@ -105,7 +105,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
     #nodeElementToIssue = new Map();
     constructor(omitRootDOMNode, selectEnabled, hideGutter) {
         super();
-        if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.HIGHLIGHT_ERRORS_ELEMENTS_PANEL)) {
+        if (Root.Runtime.experiments.isEnabled("highlightErrorsElementsPanel" /* Root.Runtime.ExperimentName.HIGHLIGHT_ERRORS_ELEMENTS_PANEL */)) {
             this.#issuesManager = IssuesManager.IssuesManager.IssuesManager.instance();
             this.#issuesManager.addEventListener("IssueAdded" /* IssuesManager.IssuesManager.Events.IssueAdded */, this.#onIssueEventReceived, this);
             for (const issue of this.#issuesManager.issues()) {
@@ -170,7 +170,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
         this.showHTMLCommentsSetting = Common.Settings.Settings.instance().moduleSetting('showHTMLComments');
         this.showHTMLCommentsSetting.addChangeListener(this.onShowHTMLCommentsChange.bind(this));
         this.setUseLightSelectionColor(true);
-        if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.HIGHLIGHT_ERRORS_ELEMENTS_PANEL)) {
+        if (Root.Runtime.experiments.isEnabled("highlightErrorsElementsPanel" /* Root.Runtime.ExperimentName.HIGHLIGHT_ERRORS_ELEMENTS_PANEL */)) {
             this.#popupHelper = new UI.PopoverHelper.PopoverHelper(this.elementInternal, event => {
                 const hoveredNode = event.composedPath()[0];
                 if (!hoveredNode || !hoveredNode.matches('.violating-element')) {
@@ -778,7 +778,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
             textNode = null;
         }
         const commentNode = node.enclosingNodeOrSelfWithClass('webkit-html-comment');
-        contextMenu.saveSection().appendItem(i18nString(UIStrings.storeAsGlobalVariable), this.saveNodeToTempVariable.bind(this, treeElement.node()), { jslogContext: 'storeAsGlobalVariable' });
+        contextMenu.saveSection().appendItem(i18nString(UIStrings.storeAsGlobalVariable), this.saveNodeToTempVariable.bind(this, treeElement.node()), { jslogContext: 'store-as-global-variable' });
         if (textNode) {
             treeElement.populateTextContextMenu(contextMenu, textNode);
         }
@@ -793,7 +793,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
         }
         contextMenu.viewSection().appendItem(i18nString(UIStrings.adornerSettings), () => {
             ElementsPanel.instance().showAdornerSettingsPane();
-        }, { jslogContext: 'showAdornerSettings' });
+        }, { jslogContext: 'show-adorner-settings' });
         contextMenu.appendApplicableItems(treeElement.node());
         void contextMenu.show();
     }
@@ -994,7 +994,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
         this.reset();
         if (domModel.existingDocument()) {
             this.rootDOMNode = domModel.existingDocument();
-            if (Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.HIGHLIGHT_ERRORS_ELEMENTS_PANEL)) {
+            if (Root.Runtime.experiments.isEnabled("highlightErrorsElementsPanel" /* Root.Runtime.ExperimentName.HIGHLIGHT_ERRORS_ELEMENTS_PANEL */)) {
                 this.#addAllElementIssues();
             }
         }
@@ -1360,8 +1360,6 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
     static treeOutlineSymbol = Symbol('treeOutline');
 }
 (function (ElementsTreeOutline) {
-    // TODO(crbug.com/1167717): Make this a const enum again
-    // eslint-disable-next-line rulesdir/const_enum
     let Events;
     (function (Events) {
         Events["SelectedNodeChanged"] = "SelectedNodeChanged";

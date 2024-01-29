@@ -4696,6 +4696,63 @@ bool TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::Validat
 TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool TestController_IsToastShown_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_IsToastShown_Params_Data* object =
+      static_cast<const TestController_IsToastShown_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->toast_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& toast_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->toast_id, validation_context,
+                                         &toast_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TestController_IsToastShown_Params_Data::TestController_IsToastShown_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_IsToastShown_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_IsToastShown_ResponseParams_Data* object =
+      static_cast<const TestController_IsToastShown_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+TestController_IsToastShown_ResponseParams_Data::TestController_IsToastShown_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace crosapi

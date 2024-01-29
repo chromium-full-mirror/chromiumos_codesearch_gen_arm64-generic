@@ -45,7 +45,7 @@ return MakeGarbageCollected<V8UnionOpaquePropertyOrUnsignedLong>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionOpaquePropertyOrUnsignedLong::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionOpaquePropertyOrUnsignedLong::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kOpaqueProperty: {
     return ToV8Traits<V8OpaqueProperty>::ToV8(script_state, member_opaque_property_);
@@ -56,7 +56,7 @@ v8::MaybeLocal<v8::Value> V8UnionOpaquePropertyOrUnsignedLong::ToV8Value(ScriptS
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionOpaquePropertyOrUnsignedLong::Trace(Visitor* visitor) const {

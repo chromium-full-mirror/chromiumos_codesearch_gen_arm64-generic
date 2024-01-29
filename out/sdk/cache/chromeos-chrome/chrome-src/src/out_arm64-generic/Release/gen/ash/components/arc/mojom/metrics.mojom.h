@@ -57,7 +57,7 @@ class MetricsHost
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 31;
+  static constexpr uint32_t Version_ = 32;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -95,15 +95,12 @@ class MetricsHost
     kReportMemoryPressureMinVersion = 21,
     kReportProvisioningPreSignInMinVersion = 22,
     kReportWaylandLateTimingEventMinVersion = 26,
-    kReportNonAndroidPlayFilesCountMinVersion = 25,
-    kReportPerAppFileStatsOfAndroidDataDirsMinVersion = 25,
-    kReportTotalFileStatsOfAndroidDataDirsMinVersion = 25,
-    kReportTotalFileStatsOfAndroidDataSubdirMinVersion = 25,
     kReportWebViewProcessStartedMinVersion = 27,
     kReportVpnServiceBuilderCompatApiUsageMinVersion = 29,
     kReportNewQosSocketCountMinVersion = 30,
     kReportQosSocketPercentageMinVersion = 30,
     kReportArcKeyMintErrorMinVersion = 31,
+    kReportDragResizeLatencyMinVersion = 32,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -184,18 +181,6 @@ class MetricsHost
   struct ReportWaylandLateTimingEvent_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct ReportNonAndroidPlayFilesCount_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ReportPerAppFileStatsOfAndroidDataDirs_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ReportTotalFileStatsOfAndroidDataDirs_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ReportTotalFileStatsOfAndroidDataSubdir_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct ReportWebViewProcessStarted_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -209,6 +194,9 @@ class MetricsHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ReportArcKeyMintError_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReportDragResizeLatency_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -290,18 +278,6 @@ class MetricsHost
   virtual void ReportWaylandLateTimingEvent(WaylandTimingEvent event, ::base::TimeDelta duration) = 0;
 
   
-  virtual void ReportNonAndroidPlayFilesCount(uint32_t number_of_directories, uint32_t number_of_non_directories) = 0;
-
-  
-  virtual void ReportPerAppFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) = 0;
-
-  
-  virtual void ReportTotalFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes, ::base::TimeDelta duration) = 0;
-
-  
-  virtual void ReportTotalFileStatsOfAndroidDataSubdir(AndroidDataSubdirectory target, uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) = 0;
-
-  
   virtual void ReportWebViewProcessStarted() = 0;
 
   
@@ -315,6 +291,9 @@ class MetricsHost
 
   
   virtual void ReportArcKeyMintError(ArcKeyMintError error) = 0;
+
+  
+  virtual void ReportDragResizeLatency(const std::vector<::base::TimeDelta>& durations) = 0;
 };
 
 class MetricsInstanceProxy;
@@ -433,14 +412,6 @@ class  MetricsHostProxy
   
   void ReportWaylandLateTimingEvent(WaylandTimingEvent event, ::base::TimeDelta duration) final;
   
-  void ReportNonAndroidPlayFilesCount(uint32_t number_of_directories, uint32_t number_of_non_directories) final;
-  
-  void ReportPerAppFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) final;
-  
-  void ReportTotalFileStatsOfAndroidDataDirs(uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes, ::base::TimeDelta duration) final;
-  
-  void ReportTotalFileStatsOfAndroidDataSubdir(AndroidDataSubdirectory target, uint32_t number_of_directories, uint32_t number_of_non_directories, uint32_t size_in_kilobytes) final;
-  
   void ReportWebViewProcessStarted() final;
   
   void ReportVpnServiceBuilderCompatApiUsage(VpnServiceBuilderCompatApiId api_id) final;
@@ -450,6 +421,8 @@ class  MetricsHostProxy
   void ReportQosSocketPercentage(int32_t perc) final;
   
   void ReportArcKeyMintError(ArcKeyMintError error) final;
+  
+  void ReportDragResizeLatency(const std::vector<::base::TimeDelta>& durations) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

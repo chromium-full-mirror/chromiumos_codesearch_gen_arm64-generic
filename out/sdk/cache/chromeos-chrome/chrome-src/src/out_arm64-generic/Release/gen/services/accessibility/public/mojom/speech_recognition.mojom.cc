@@ -542,6 +542,8 @@ bool SpeechRecognitionEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionEventObserver_OnStop_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionEventObserver.0
       bool success = true;
       SpeechRecognitionEventObserver_OnStop_ParamsDataView input_data_view(params, message);
       
@@ -554,7 +556,7 @@ bool SpeechRecognitionEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStop();
+      impl->OnStop(        );
       return true;
     }
     case internal::kSpeechRecognitionEventObserver_OnResult_Name: {
@@ -564,6 +566,8 @@ bool SpeechRecognitionEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognitionEventObserver_OnResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionEventObserver.1
       bool success = true;
       SpeechRecognitionResultEventPtr p_event{};
       SpeechRecognitionEventObserver_OnResult_ParamsDataView input_data_view(params, message);
@@ -579,8 +583,8 @@ bool SpeechRecognitionEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnResult(
-std::move(p_event));
+      impl->OnResult(        
+        std::move(p_event));
       return true;
     }
     case internal::kSpeechRecognitionEventObserver_OnError_Name: {
@@ -590,6 +594,8 @@ std::move(p_event));
           reinterpret_cast<internal::SpeechRecognitionEventObserver_OnError_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognitionEventObserver.2
       bool success = true;
       SpeechRecognitionErrorEventPtr p_event{};
       SpeechRecognitionEventObserver_OnError_ParamsDataView input_data_view(params, message);
@@ -605,8 +611,8 @@ std::move(p_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnError(
-std::move(p_event));
+      impl->OnError(        
+        std::move(p_event));
       return true;
     }
   }
@@ -922,6 +928,8 @@ bool SpeechRecognition_Start_ForwardToCallback::Accept(
           internal::SpeechRecognition_Start_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpeechRecognition.0
   bool success = true;
   SpeechRecognitionStartInfoPtr p_info{};
   SpeechRecognition_Start_ResponseParamsDataView input_data_view(params, message);
@@ -1051,6 +1059,8 @@ bool SpeechRecognition_Stop_ForwardToCallback::Accept(
           internal::SpeechRecognition_Stop_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SpeechRecognition.1
   bool success = true;
   std::optional<std::string> p_error{};
   SpeechRecognition_Stop_ResponseParamsDataView input_data_view(params, message);
@@ -1150,6 +1160,8 @@ bool SpeechRecognitionStubDispatch::AcceptWithResponder(
               internal::SpeechRecognition_Start_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpeechRecognition.0
       bool success = true;
       StartOptionsPtr p_options{};
       SpeechRecognition_Start_ParamsDataView input_data_view(params, message);
@@ -1168,8 +1180,8 @@ bool SpeechRecognitionStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start(
-std::move(p_options), std::move(callback));
+      impl->Start(        
+        std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kSpeechRecognition_Stop_Name: {
@@ -1179,6 +1191,8 @@ std::move(p_options), std::move(callback));
               internal::SpeechRecognition_Stop_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SpeechRecognition.1
       bool success = true;
       StopOptionsPtr p_options{};
       SpeechRecognition_Stop_ParamsDataView input_data_view(params, message);
@@ -1197,8 +1211,8 @@ std::move(p_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Stop(
-std::move(p_options), std::move(callback));
+      impl->Stop(        
+        std::move(p_options), std::move(callback));
       return true;
     }
   }

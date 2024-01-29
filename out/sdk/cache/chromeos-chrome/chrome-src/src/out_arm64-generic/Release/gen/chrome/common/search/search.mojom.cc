@@ -171,6 +171,8 @@ bool EmbeddedSearchConnectorStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedSearchConnector_Connect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearchConnector.0
       bool success = true;
       ::mojo::PendingAssociatedReceiver<EmbeddedSearch> p_embedded_search{};
       ::mojo::PendingAssociatedRemote<EmbeddedSearchClient> p_client{};
@@ -193,9 +195,9 @@ bool EmbeddedSearchConnectorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_embedded_search), 
-std::move(p_client));
+      impl->Connect(        
+        std::move(p_embedded_search), 
+        std::move(p_client));
       return true;
     }
   }
@@ -556,6 +558,8 @@ bool EmbeddedSearchStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedSearch_FocusOmnibox_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearch.0
       bool success = true;
       int32_t p_page_seq_no{};
       bool p_focus{};
@@ -574,9 +578,9 @@ bool EmbeddedSearchStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusOmnibox(
-std::move(p_page_seq_no), 
-std::move(p_focus));
+      impl->FocusOmnibox(        
+        std::move(p_page_seq_no), 
+        std::move(p_focus));
       return true;
     }
     case internal::kEmbeddedSearch_DeleteMostVisitedItem_Name: {
@@ -586,6 +590,8 @@ std::move(p_focus));
           reinterpret_cast<internal::EmbeddedSearch_DeleteMostVisitedItem_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearch.1
       bool success = true;
       int32_t p_page_seq_no{};
       ::GURL p_url{};
@@ -604,9 +610,9 @@ std::move(p_focus));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteMostVisitedItem(
-std::move(p_page_seq_no), 
-std::move(p_url));
+      impl->DeleteMostVisitedItem(        
+        std::move(p_page_seq_no), 
+        std::move(p_url));
       return true;
     }
     case internal::kEmbeddedSearch_UndoAllMostVisitedDeletions_Name: {
@@ -616,6 +622,8 @@ std::move(p_url));
           reinterpret_cast<internal::EmbeddedSearch_UndoAllMostVisitedDeletions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearch.2
       bool success = true;
       int32_t p_page_seq_no{};
       EmbeddedSearch_UndoAllMostVisitedDeletions_ParamsDataView input_data_view(params, message);
@@ -631,8 +639,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UndoAllMostVisitedDeletions(
-std::move(p_page_seq_no));
+      impl->UndoAllMostVisitedDeletions(        
+        std::move(p_page_seq_no));
       return true;
     }
     case internal::kEmbeddedSearch_UndoMostVisitedDeletion_Name: {
@@ -642,6 +650,8 @@ std::move(p_page_seq_no));
           reinterpret_cast<internal::EmbeddedSearch_UndoMostVisitedDeletion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearch.3
       bool success = true;
       int32_t p_page_seq_no{};
       ::GURL p_url{};
@@ -660,9 +670,9 @@ std::move(p_page_seq_no));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UndoMostVisitedDeletion(
-std::move(p_page_seq_no), 
-std::move(p_url));
+      impl->UndoMostVisitedDeletion(        
+        std::move(p_page_seq_no), 
+        std::move(p_url));
       return true;
     }
   }
@@ -1093,6 +1103,8 @@ bool EmbeddedSearchClientStubDispatch::Accept(
           reinterpret_cast<internal::EmbeddedSearchClient_SetPageSequenceNumber_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearchClient.0
       bool success = true;
       int32_t p_page_seq_no{};
       EmbeddedSearchClient_SetPageSequenceNumber_ParamsDataView input_data_view(params, message);
@@ -1108,8 +1120,8 @@ bool EmbeddedSearchClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPageSequenceNumber(
-std::move(p_page_seq_no));
+      impl->SetPageSequenceNumber(        
+        std::move(p_page_seq_no));
       return true;
     }
     case internal::kEmbeddedSearchClient_FocusChanged_Name: {
@@ -1119,6 +1131,8 @@ std::move(p_page_seq_no));
           reinterpret_cast<internal::EmbeddedSearchClient_FocusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearchClient.1
       bool success = true;
       ::OmniboxFocusState p_new_focus_state{};
       ::OmniboxFocusChangeReason p_reason{};
@@ -1137,9 +1151,9 @@ std::move(p_page_seq_no));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FocusChanged(
-std::move(p_new_focus_state), 
-std::move(p_reason));
+      impl->FocusChanged(        
+        std::move(p_new_focus_state), 
+        std::move(p_reason));
       return true;
     }
     case internal::kEmbeddedSearchClient_MostVisitedInfoChanged_Name: {
@@ -1149,6 +1163,8 @@ std::move(p_reason));
           reinterpret_cast<internal::EmbeddedSearchClient_MostVisitedInfoChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearchClient.2
       bool success = true;
       ::InstantMostVisitedInfo p_most_visited_info{};
       EmbeddedSearchClient_MostVisitedInfoChanged_ParamsDataView input_data_view(params, message);
@@ -1164,8 +1180,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MostVisitedInfoChanged(
-std::move(p_most_visited_info));
+      impl->MostVisitedInfoChanged(        
+        std::move(p_most_visited_info));
       return true;
     }
     case internal::kEmbeddedSearchClient_SetInputInProgress_Name: {
@@ -1175,6 +1191,8 @@ std::move(p_most_visited_info));
           reinterpret_cast<internal::EmbeddedSearchClient_SetInputInProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearchClient.3
       bool success = true;
       bool p_input_in_progress{};
       EmbeddedSearchClient_SetInputInProgress_ParamsDataView input_data_view(params, message);
@@ -1190,8 +1208,8 @@ std::move(p_most_visited_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetInputInProgress(
-std::move(p_input_in_progress));
+      impl->SetInputInProgress(        
+        std::move(p_input_in_progress));
       return true;
     }
     case internal::kEmbeddedSearchClient_ThemeChanged_Name: {
@@ -1201,6 +1219,8 @@ std::move(p_input_in_progress));
           reinterpret_cast<internal::EmbeddedSearchClient_ThemeChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for EmbeddedSearchClient.4
       bool success = true;
       ::NtpTheme p_theme{};
       EmbeddedSearchClient_ThemeChanged_ParamsDataView input_data_view(params, message);
@@ -1216,8 +1236,8 @@ std::move(p_input_in_progress));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ThemeChanged(
-std::move(p_theme));
+      impl->ThemeChanged(        
+        std::move(p_theme));
       return true;
     }
   }

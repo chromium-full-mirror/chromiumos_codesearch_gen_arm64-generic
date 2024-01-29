@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-libs/modp_b64-0.0.1-r435/work/modp_b64-0.0.1/platform2"
+    },
+    {
+      "src_path": "src/third_party/../third_party/modp_b64",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-libs/modp_b64-0.0.1-r435/work/modp_b64-0.0.1/platform2/modp_b64"
+    }
+  ]
+}

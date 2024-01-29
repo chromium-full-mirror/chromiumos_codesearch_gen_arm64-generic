@@ -650,23 +650,28 @@ SharedStorageWorkletServiceClient_SharedStorageRemainingBudget_ResponseParams_Da
 
 
 // static
-bool SharedStorageWorkletServiceClient_ConsoleLog_Params_Data::Validate(
+bool SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const SharedStorageWorkletServiceClient_ConsoleLog_Params_Data* object =
-      static_cast<const SharedStorageWorkletServiceClient_ConsoleLog_Params_Data*>(data);
+  [[maybe_unused]] const SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data* object =
+      static_cast<const SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data*>(data);
+
+
+  if (!::blink::mojom::internal::ConsoleMessageLevel_Data
+        ::Validate(object->log_level, validation_context))
+    return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->message, 1, validation_context)) {
+          object->message, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
@@ -679,7 +684,7 @@ bool SharedStorageWorkletServiceClient_ConsoleLog_Params_Data::Validate(
   return true;
 }
 
-SharedStorageWorkletServiceClient_ConsoleLog_Params_Data::SharedStorageWorkletServiceClient_ConsoleLog_Params_Data()
+SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data::SharedStorageWorkletServiceClient_DidAddMessageToConsole_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

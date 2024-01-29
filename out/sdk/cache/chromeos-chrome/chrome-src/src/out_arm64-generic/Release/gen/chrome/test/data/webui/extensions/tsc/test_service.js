@@ -28,6 +28,7 @@ export class TestService extends TestBrowserProxy {
             'deleteErrors',
             'deleteItem',
             'deleteItems',
+            'dismissSafetyHubExtensionsMenuNotification',
             'uninstallItem',
             'downloadActivities',
             'getExtensionActivityLog',
@@ -303,5 +304,8 @@ export class TestService extends TestBrowserProxy {
     updateSiteAccess(site, updates) {
         this.methodCalled('updateSiteAccess', site, updates);
         return Promise.resolve();
+    }
+    dismissSafetyHubExtensionsMenuNotification() {
+        this.methodCalled('dismissSafetyHubExtensionsMenuNotification');
     }
 }

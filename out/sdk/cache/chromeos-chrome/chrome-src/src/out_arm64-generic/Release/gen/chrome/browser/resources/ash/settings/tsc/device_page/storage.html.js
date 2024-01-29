@@ -33,7 +33,7 @@ export function getTemplate() {
 </template>
 <div class="settings-box first">
   <div id="barArea">
-    <progress id="bar" class$="[[getBarClass_(sizeStat_.spaceState)]]" value="[[sizeStat_.usedRatio]]" aria-label="$i18n{storageOverviewAriaLabel}" aria-describedby="barLabels">
+    <progress id="bar" class$="[[getBarClass_(sizeStat_.spaceState)]]" value="[[roundTo2DecimalPoints_(sizeStat_.usedRatio)]]" aria-label="$i18n{storageOverviewAriaLabel}" aria-valuetext$="[[sizeStat_.usedSize]]" aria-describedby="barLabels">
     </progress>
     <div id="barLabels" aria-hidden="true">
       <div id="inUseLabelArea" class="bar-label">
@@ -72,7 +72,7 @@ export function getTemplate() {
   </cr-link-row>
 </template>
 <template is="dom-if" if="[[!isEphemeralUser_]]">
-  <div id="systemSize" class="settings-box two-line single-column stretch settings-box-text" aria-describedby="systemSizeLabel" aria-labelledby="systemSizeSubLabel">
+  <div id="systemSize" class="settings-box two-line single-column stretch settings-box-text" aria-describedby="systemSizeSubLabel" aria-labelledby="systemSizeLabel">
     <div id="systemSizeLabel" class="label" aria-hidden="true">
       $i18n{storageItemSystem}
     </div>

@@ -16,6 +16,7 @@ namespace storage::mojom {
 class  IndexedDBClientStateCheckerInterceptorForTesting : public IndexedDBClientStateChecker {
   virtual IndexedDBClientStateChecker* GetForwardingInterface() = 0;
   void DisallowInactiveClient(DisallowInactiveClientReason reason, ::mojo::PendingReceiver<IndexedDBClientKeepActive> keep_active, DisallowInactiveClientCallback callback) override;
+  void MakeClone(::mojo::PendingReceiver<IndexedDBClientStateChecker> receiver) override;
 };
 class  IndexedDBClientStateCheckerAsyncWaiter {
  public:

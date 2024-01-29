@@ -8,5 +8,7 @@
 #define CONTENT_COMMON_ASSOCIATED_INTERFACES_MOJOM_IMPORT_HEADERS_H_
 #include "third_party/blink/public/mojom/associated_interfaces/associated_interfaces.mojom.h"
 #include "third_party/blink/public/mojom/associated_interfaces/associated_interfaces.mojom-import-headers.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom-import-headers.h"
 
 #endif  // CONTENT_COMMON_ASSOCIATED_INTERFACES_MOJOM_IMPORT_HEADERS_H_

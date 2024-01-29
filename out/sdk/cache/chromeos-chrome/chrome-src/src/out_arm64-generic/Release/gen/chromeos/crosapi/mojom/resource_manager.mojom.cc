@@ -306,6 +306,8 @@ bool MemoryPressureObserverStubDispatch::Accept(
           reinterpret_cast<internal::MemoryPressureObserver_MemoryPressure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MemoryPressureObserver.0
       bool success = true;
       MemoryPressurePtr p_pressure{};
       MemoryPressureObserver_MemoryPressure_ParamsDataView input_data_view(params, message);
@@ -321,8 +323,8 @@ bool MemoryPressureObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MemoryPressure(
-std::move(p_pressure));
+      impl->MemoryPressure(        
+        std::move(p_pressure));
       return true;
     }
   }
@@ -620,6 +622,8 @@ bool ResourceManagerStubDispatch::Accept(
           reinterpret_cast<internal::ResourceManager_AddMemoryPressureObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceManager.0
       bool success = true;
       ::mojo::PendingRemote<MemoryPressureObserver> p_observer{};
       ResourceManager_AddMemoryPressureObserver_ParamsDataView input_data_view(params, message);
@@ -637,8 +641,8 @@ bool ResourceManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMemoryPressureObserver(
-std::move(p_observer));
+      impl->AddMemoryPressureObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kResourceManager_DEPRECATED_ReportBackgroundProcesses_Name: {
@@ -648,6 +652,8 @@ std::move(p_observer));
           reinterpret_cast<internal::ResourceManager_DEPRECATED_ReportBackgroundProcesses_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceManager.1
       bool success = true;
       std::vector<int32_t> p_pids{};
       ResourceManager_DEPRECATED_ReportBackgroundProcesses_ParamsDataView input_data_view(params, message);
@@ -663,8 +669,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DEPRECATED_ReportBackgroundProcesses(
-std::move(p_pids));
+      impl->DEPRECATED_ReportBackgroundProcesses(        
+        std::move(p_pids));
       return true;
     }
     case internal::kResourceManager_ReportPageProcesses_Name: {
@@ -674,6 +680,8 @@ std::move(p_pids));
           reinterpret_cast<internal::ResourceManager_ReportPageProcesses_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResourceManager.2
       bool success = true;
       std::vector<PageProcessPtr> p_processes{};
       ResourceManager_ReportPageProcesses_ParamsDataView input_data_view(params, message);
@@ -689,8 +697,8 @@ std::move(p_pids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportPageProcesses(
-std::move(p_processes));
+      impl->ReportPageProcesses(        
+        std::move(p_processes));
       return true;
     }
   }

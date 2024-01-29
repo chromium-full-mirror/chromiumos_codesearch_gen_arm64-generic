@@ -58,6 +58,9 @@ RendererHost::IPCStableHashFunction RendererHost::MessageToMethodInfo_(mojo::Mes
     case internal::kRendererHost_RecordUserMetricsAction_Name: {
       return &RendererHost::RecordUserMetricsAction_Sym::IPCStableHash;
     }
+    case internal::kRendererHost_HasGpuProcess_Name: {
+      return &RendererHost::HasGpuProcess_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -75,6 +78,8 @@ const char* RendererHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive content::mojom::RendererHost::SuddenTerminationChanged";
       case internal::kRendererHost_RecordUserMetricsAction_Name:
             return "Receive content::mojom::RendererHost::RecordUserMetricsAction";
+      case internal::kRendererHost_HasGpuProcess_Name:
+            return "Receive content::mojom::RendererHost::HasGpuProcess";
     }
   } else {
     switch (message.name()) {
@@ -84,6 +89,8 @@ const char* RendererHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply content::mojom::RendererHost::SuddenTerminationChanged";
       case internal::kRendererHost_RecordUserMetricsAction_Name:
             return "Receive reply content::mojom::RendererHost::RecordUserMetricsAction";
+      case internal::kRendererHost_HasGpuProcess_Name:
+            return "Receive reply content::mojom::RendererHost::HasGpuProcess";
     }
   }
   return "Receive unknown mojo message";
@@ -137,8 +144,25 @@ uint32_t RendererHost::RecordUserMetricsAction_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t RendererHost::HasGpuProcess_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)content::mojom::RendererHost::HasGpuProcess");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 bool RendererHost::GetBrowserHistogram(const std::string& name, std::string* out_histogram_json) {
+  NOTREACHED();
+  return false;
+}
+bool RendererHost::HasGpuProcess(bool* out_has_gpu_process) {
   NOTREACHED();
   return false;
 }
@@ -173,6 +197,38 @@ class RendererHost_GetBrowserHistogram_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   RendererHost::GetBrowserHistogramCallback callback_;
+};
+class RendererHost_HasGpuProcess_HandleSyncResponse
+    : public mojo::MessageReceiver {
+ public:
+  RendererHost_HasGpuProcess_HandleSyncResponse(
+      bool* result, bool* out_has_gpu_process)
+      : result_(result), out_has_gpu_process_(out_has_gpu_process) {
+    DCHECK(!*result_);
+  }
+
+  RendererHost_HasGpuProcess_HandleSyncResponse(const RendererHost_HasGpuProcess_HandleSyncResponse&) = delete;
+  RendererHost_HasGpuProcess_HandleSyncResponse& operator=(const RendererHost_HasGpuProcess_HandleSyncResponse&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  bool* result_;
+  bool* out_has_gpu_process_;};
+
+class RendererHost_HasGpuProcess_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  RendererHost_HasGpuProcess_ForwardToCallback(
+      RendererHost::HasGpuProcessCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  RendererHost_HasGpuProcess_ForwardToCallback(const RendererHost_HasGpuProcess_ForwardToCallback&) = delete;
+  RendererHost_HasGpuProcess_ForwardToCallback& operator=(const RendererHost_HasGpuProcess_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  RendererHost::HasGpuProcessCallback callback_;
 };
 
 RendererHostProxy::RendererHostProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -389,6 +445,89 @@ void RendererHostProxy::RecordUserMetricsAction(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
+bool RendererHostProxy::HasGpuProcess(
+    bool* out_param_has_gpu_process) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_BEGIN0("mojom", "Call content::mojom::RendererHost::HasGpuProcess (sync)");
+#else
+  TRACE_EVENT0("mojom", "RendererHost::HasGpuProcess");
+#endif
+  
+  const bool kExpectsResponse = true;
+  const bool kIsSync = true;
+  const bool kAllowInterrupt =
+      true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::content::mojom::internal::RendererHost_HasGpuProcess_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("HasGpuProcess");
+#endif
+
+  bool result = false;
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new RendererHost_HasGpuProcess_HandleSyncResponse(
+          &result, out_param_has_gpu_process));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_END1(
+    "mojom", "RendererHost::HasGpuProcess", "sync_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("has_gpu_process"), out_param_has_gpu_process,
+                        "<value of type bool>");
+   });
+#endif
+  return result;
+}
+
+void RendererHostProxy::HasGpuProcess(
+    HasGpuProcessCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send content::mojom::RendererHost::HasGpuProcess");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::content::mojom::internal::RendererHost_HasGpuProcess_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("HasGpuProcess");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new RendererHost_HasGpuProcess_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class RendererHost_GetBrowserHistogram_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static RendererHost::GetBrowserHistogramCallback CreateCallback(
@@ -447,6 +586,8 @@ bool RendererHost_GetBrowserHistogram_ForwardToCallback::Accept(
           internal::RendererHost_GetBrowserHistogram_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RendererHost.0
   bool success = true;
   std::string p_histogram_json{};
   RendererHost_GetBrowserHistogram_ResponseParamsDataView input_data_view(params, message);
@@ -526,6 +667,8 @@ bool RendererHost_GetBrowserHistogram_HandleSyncResponse::Accept(
       reinterpret_cast<internal::RendererHost_GetBrowserHistogram_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for RendererHost.0
   bool success = true;
   std::string p_histogram_json{};
   RendererHost_GetBrowserHistogram_ResponseParamsDataView input_data_view(params, message);
@@ -540,6 +683,154 @@ bool RendererHost_GetBrowserHistogram_HandleSyncResponse::Accept(
     return false;
   }
   *out_histogram_json_ = std::move(p_histogram_json);
+  *result_ = true;
+  return true;
+}
+class RendererHost_HasGpuProcess_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static RendererHost::HasGpuProcessCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<RendererHost_HasGpuProcess_ProxyToResponder> proxy(
+        new RendererHost_HasGpuProcess_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&RendererHost_HasGpuProcess_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~RendererHost_HasGpuProcess_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  RendererHost_HasGpuProcess_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "RendererHost::HasGpuProcessCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_has_gpu_process);
+};
+
+bool RendererHost_HasGpuProcess_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::RendererHost_HasGpuProcess_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::RendererHost_HasGpuProcess_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for RendererHost.3
+  bool success = true;
+  bool p_has_gpu_process{};
+  RendererHost_HasGpuProcess_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_has_gpu_process = input_data_view.has_gpu_process();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        RendererHost::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_has_gpu_process));
+  return true;
+}
+
+void RendererHost_HasGpuProcess_ProxyToResponder::Run(
+    bool in_has_gpu_process) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply content::mojom::RendererHost::HasGpuProcess", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("has_gpu_process"), in_has_gpu_process,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kRendererHost_HasGpuProcess_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::content::mojom::internal::RendererHost_HasGpuProcess_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->has_gpu_process = in_has_gpu_process;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RendererHost::Name_);
+  message.set_method_name("HasGpuProcess");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+bool RendererHost_HasGpuProcess_HandleSyncResponse::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::RendererHost_HasGpuProcess_ResponseParams_Data* params =
+      reinterpret_cast<internal::RendererHost_HasGpuProcess_ResponseParams_Data*>(
+          message->mutable_payload());
+  
+  
+  // Validation for RendererHost.3
+  bool success = true;
+  bool p_has_gpu_process{};
+  RendererHost_HasGpuProcess_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_has_gpu_process = input_data_view.has_gpu_process();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        RendererHost::Name_, 3, true);
+    return false;
+  }
+  *out_has_gpu_process_ = std::move(p_has_gpu_process);
   *result_ = true;
   return true;
 }
@@ -559,6 +850,8 @@ bool RendererHostStubDispatch::Accept(
           reinterpret_cast<internal::RendererHost_SuddenTerminationChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererHost.1
       bool success = true;
       bool p_enabled{};
       RendererHost_SuddenTerminationChanged_ParamsDataView input_data_view(params, message);
@@ -574,8 +867,8 @@ bool RendererHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SuddenTerminationChanged(
-std::move(p_enabled));
+      impl->SuddenTerminationChanged(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kRendererHost_RecordUserMetricsAction_Name: {
@@ -585,6 +878,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::RendererHost_RecordUserMetricsAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererHost.2
       bool success = true;
       std::string p_action{};
       RendererHost_RecordUserMetricsAction_ParamsDataView input_data_view(params, message);
@@ -600,9 +895,12 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordUserMetricsAction(
-std::move(p_action));
+      impl->RecordUserMetricsAction(        
+        std::move(p_action));
       return true;
+    }
+    case internal::kRendererHost_HasGpuProcess_Name: {
+      break;
     }
   }
   return false;
@@ -624,6 +922,8 @@ bool RendererHostStubDispatch::AcceptWithResponder(
               internal::RendererHost_GetBrowserHistogram_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RendererHost.0
       bool success = true;
       std::string p_name{};
       RendererHost_GetBrowserHistogram_ParamsDataView input_data_view(params, message);
@@ -642,8 +942,8 @@ bool RendererHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBrowserHistogram(
-std::move(p_name), std::move(callback));
+      impl->GetBrowserHistogram(        
+        std::move(p_name), std::move(callback));
       return true;
     }
     case internal::kRendererHost_SuddenTerminationChanged_Name: {
@@ -651,6 +951,33 @@ std::move(p_name), std::move(callback));
     }
     case internal::kRendererHost_RecordUserMetricsAction_Name: {
       break;
+    }
+    case internal::kRendererHost_HasGpuProcess_Name: {
+
+      internal::RendererHost_HasGpuProcess_Params_Data* params =
+          reinterpret_cast<
+              internal::RendererHost_HasGpuProcess_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for RendererHost.3
+      bool success = true;
+      RendererHost_HasGpuProcess_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RendererHost::Name_, 3, false);
+        return false;
+      }
+      RendererHost::HasGpuProcessCallback callback =
+          RendererHost_HasGpuProcess_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->HasGpuProcess(std::move(callback));
+      return true;
     }
   }
   return false;
@@ -664,6 +991,8 @@ static const mojo::internal::GenericValidationInfo kRendererHostValidationInfo[]
      nullptr /* no response */},
     { &internal::RendererHost_RecordUserMetricsAction_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::RendererHost_HasGpuProcess_Params_Data::Validate,
+     &internal::RendererHost_HasGpuProcess_ResponseParams_Data::Validate},
 };
 
 bool RendererHostRequestValidator::Accept(mojo::Message* message) {
@@ -701,6 +1030,9 @@ void RendererHostInterceptorForTesting::SuddenTerminationChanged(bool enabled) {
 void RendererHostInterceptorForTesting::RecordUserMetricsAction(const std::string& action) {
   GetForwardingInterface()->RecordUserMetricsAction(std::move(action));
 }
+void RendererHostInterceptorForTesting::HasGpuProcess(HasGpuProcessCallback callback) {
+  GetForwardingInterface()->HasGpuProcess(std::move(callback));
+}
 RendererHostAsyncWaiter::RendererHostAsyncWaiter(
     RendererHost* proxy) : proxy_(proxy) {}
 
@@ -726,6 +1058,29 @@ std::string RendererHostAsyncWaiter::GetBrowserHistogram(
     const std::string& name) {
   std::string async_wait_result;
   GetBrowserHistogram(std::move(name),&async_wait_result);
+  return async_wait_result;
+}
+
+void RendererHostAsyncWaiter::HasGpuProcess(
+    bool* out_has_gpu_process) {
+  base::RunLoop loop;
+  proxy_->HasGpuProcess(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_has_gpu_process
+,
+             bool has_gpu_process) {*out_has_gpu_process = std::move(has_gpu_process);
+            loop->Quit();
+          },
+          &loop,
+          out_has_gpu_process));
+  loop.Run();
+}
+
+bool RendererHostAsyncWaiter::HasGpuProcess(
+    ) {
+  bool async_wait_result;
+  HasGpuProcess(&async_wait_result);
   return async_wait_result;
 }
 

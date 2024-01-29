@@ -272,6 +272,8 @@ bool IncomingMessagesListenerStubDispatch::Accept(
           reinterpret_cast<internal::IncomingMessagesListener_OnMessage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IncomingMessagesListener.0
       bool success = true;
       std::string p_message{};
       IncomingMessagesListener_OnMessage_ParamsDataView input_data_view(params, message);
@@ -287,8 +289,8 @@ bool IncomingMessagesListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMessage(
-std::move(p_message));
+      impl->OnMessage(        
+        std::move(p_message));
       return true;
     }
     case internal::kIncomingMessagesListener_OnComplete_Name: {
@@ -298,6 +300,8 @@ std::move(p_message));
           reinterpret_cast<internal::IncomingMessagesListener_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for IncomingMessagesListener.1
       bool success = true;
       bool p_success{};
       IncomingMessagesListener_OnComplete_ParamsDataView input_data_view(params, message);
@@ -313,8 +317,8 @@ std::move(p_message));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete(
-std::move(p_success));
+      impl->OnComplete(        
+        std::move(p_success));
       return true;
     }
   }
@@ -457,6 +461,8 @@ bool ReceiveMessagesSessionStubDispatch::Accept(
           reinterpret_cast<internal::ReceiveMessagesSession_StopReceivingMessages_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ReceiveMessagesSession.0
       bool success = true;
       ReceiveMessagesSession_StopReceivingMessages_ParamsDataView input_data_view(params, message);
       
@@ -469,7 +475,7 @@ bool ReceiveMessagesSessionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopReceivingMessages();
+      impl->StopReceivingMessages(        );
       return true;
     }
   }
@@ -1083,6 +1089,8 @@ bool WebRtcSignalingMessenger_SendMessage_ForwardToCallback::Accept(
           internal::WebRtcSignalingMessenger_SendMessage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebRtcSignalingMessenger.0
   bool success = true;
   bool p_success{};
   WebRtcSignalingMessenger_SendMessage_ResponseParamsDataView input_data_view(params, message);
@@ -1152,6 +1160,8 @@ bool WebRtcSignalingMessenger_SendMessage_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebRtcSignalingMessenger_SendMessage_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebRtcSignalingMessenger.0
   bool success = true;
   bool p_success{};
   WebRtcSignalingMessenger_SendMessage_ResponseParamsDataView input_data_view(params, message);
@@ -1227,6 +1237,8 @@ bool WebRtcSignalingMessenger_StartReceivingMessages_ForwardToCallback::Accept(
           internal::WebRtcSignalingMessenger_StartReceivingMessages_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebRtcSignalingMessenger.1
   bool success = true;
   bool p_success{};
   ::mojo::PendingRemote<ReceiveMessagesSession> p_session{};
@@ -1307,6 +1319,8 @@ bool WebRtcSignalingMessenger_StartReceivingMessages_HandleSyncResponse::Accept(
       reinterpret_cast<internal::WebRtcSignalingMessenger_StartReceivingMessages_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for WebRtcSignalingMessenger.1
   bool success = true;
   bool p_success{};
   ::mojo::PendingRemote<ReceiveMessagesSession> p_session{};
@@ -1362,6 +1376,8 @@ bool WebRtcSignalingMessengerStubDispatch::AcceptWithResponder(
               internal::WebRtcSignalingMessenger_SendMessage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebRtcSignalingMessenger.0
       bool success = true;
       std::string p_self_id{};
       std::string p_peer_id{};
@@ -1389,11 +1405,11 @@ bool WebRtcSignalingMessengerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendMessage(
-std::move(p_self_id), 
-std::move(p_peer_id), 
-std::move(p_location_hint), 
-std::move(p_message), std::move(callback));
+      impl->SendMessage(        
+        std::move(p_self_id), 
+        std::move(p_peer_id), 
+        std::move(p_location_hint), 
+        std::move(p_message), std::move(callback));
       return true;
     }
     case internal::kWebRtcSignalingMessenger_StartReceivingMessages_Name: {
@@ -1403,6 +1419,8 @@ std::move(p_message), std::move(callback));
               internal::WebRtcSignalingMessenger_StartReceivingMessages_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebRtcSignalingMessenger.1
       bool success = true;
       std::string p_self_id{};
       LocationHintPtr p_location_hint{};
@@ -1429,10 +1447,10 @@ std::move(p_message), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartReceivingMessages(
-std::move(p_self_id), 
-std::move(p_location_hint), 
-std::move(p_listener), std::move(callback));
+      impl->StartReceivingMessages(        
+        std::move(p_self_id), 
+        std::move(p_location_hint), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
   }

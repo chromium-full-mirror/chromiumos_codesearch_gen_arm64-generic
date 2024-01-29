@@ -120,32 +120,6 @@ const base::Value::Dict& root_dict, base::StringPiece key, _3D& out, std::u16str
 }
 
 
-ManifestKeys::Requirements::Window::Window()
- {}
-
-ManifestKeys::Requirements::Window::~Window() = default;
-ManifestKeys::Requirements::Window::Window(Window&& rhs) noexcept = default;
-ManifestKeys::Requirements::Window& ManifestKeys::Requirements::Window::operator=(Window&& rhs) noexcept = default;
-// static
-constexpr char ManifestKeys::Requirements::Window::kShape[];
-
-//static
-bool ManifestKeys::Requirements::Window::ParseFromDictionary(
-const base::Value::Dict& root_dict, base::StringPiece key, Window& out, std::u16string& error, std::vector<base::StringPiece>& error_path_reversed) {
-
-  const base::Value* value = ::json_schema_compiler::manifest_parse_util::FindKeyOfType(root_dict, key, base::Value::Type::DICT, error, error_path_reversed);
-  if (!value)
-    return false;
-  const base::Value::Dict& dict = value->GetDict();
-  if (!::json_schema_compiler::manifest_parse_util::ParseFromDictionary(dict, kShape, out.shape, error, error_path_reversed)) {
-    error_path_reversed.push_back(key);
-    return false;
-  }
-
-  return true;
-}
-
-
 
 ManifestKeys::Requirements::Requirements()
  {}
@@ -157,8 +131,6 @@ ManifestKeys::Requirements& ManifestKeys::Requirements::operator=(Requirements&&
 constexpr char ManifestKeys::Requirements::kPlugins[];
 // static
 constexpr char ManifestKeys::Requirements::k3d[];
-// static
-constexpr char ManifestKeys::Requirements::kWindow[];
 
 //static
 bool ManifestKeys::Requirements::ParseFromDictionary(
@@ -174,11 +146,6 @@ const base::Value::Dict& root_dict, base::StringPiece key, Requirements& out, st
   }
 
   if (!::json_schema_compiler::manifest_parse_util::ParseFromDictionary(dict, k3d, out._3d, error, error_path_reversed)) {
-    error_path_reversed.push_back(key);
-    return false;
-  }
-
-  if (!::json_schema_compiler::manifest_parse_util::ParseFromDictionary(dict, kWindow, out.window, error, error_path_reversed)) {
     error_path_reversed.push_back(key);
     return false;
   }

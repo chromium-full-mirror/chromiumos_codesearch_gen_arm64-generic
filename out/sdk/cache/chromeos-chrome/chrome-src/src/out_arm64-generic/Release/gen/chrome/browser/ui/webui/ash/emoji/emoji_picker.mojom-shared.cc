@@ -30,8 +30,6 @@ NOINLINE static const char* FeatureToStringHelper(Feature value) {
       return "EMOJI_PICKER_SEARCH_EXTENSION";
     case Feature::EMOJI_PICKER_GIF_SUPPORT:
       return "EMOJI_PICKER_GIF_SUPPORT";
-    case Feature::EMOJI_PICKER_JELLY_SUPPORT:
-      return "EMOJI_PICKER_JELLY_SUPPORT";
     case Feature::EMOJI_PICKER_SEAL_SUPPORT:
       return "EMOJI_PICKER_SEAL_SUPPORT";
     case Feature::EMOJI_PICKER_VARIANT_GROUPING_SUPPORT:

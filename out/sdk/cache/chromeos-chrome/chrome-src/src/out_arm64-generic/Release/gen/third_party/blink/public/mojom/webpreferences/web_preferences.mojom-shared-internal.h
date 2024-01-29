@@ -282,7 +282,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPreferences_Data {
   uint8_t privileged_webgl_extensions_enabled : 1;
   uint8_t webgl_errors_to_console_enabled : 1;
   uint8_t hide_scrollbars : 1;
-  uint8_t enable_webkit_scrollbar_styling : 1;
+  uint8_t prefers_default_scrollbar_styles : 1;
   uint8_t accelerated_2d_canvas_enabled : 1;
   uint8_t canvas_2d_layers_enabled : 1;
   uint8_t antialiased_2d_canvas_disabled : 1;

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "system-locales", "version": "2.37", "revision": 1, "fullname": "chromeos-base/system-locales", "fullnamerev": "chromeos-base/system-locales-2.37-r1", "license_names": ["public-domain"], "license_text_scanned": [], "homepages": ["http://dev.chromium.org/"], "skip": false, "tainted": false, "ebuild_path": null}

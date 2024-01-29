@@ -237,6 +237,11 @@ class  VideoFrameMetadata {
       bool protected_video,
       bool hw_protected);
 
+  VideoFrameMetadata(
+      bool protected_video,
+      bool hw_protected,
+      bool needs_detiling);
+
 
   ~VideoFrameMetadata();
 
@@ -317,6 +322,8 @@ class  VideoFrameMetadata {
   bool protected_video;
   
   bool hw_protected;
+  
+  bool needs_detiling;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2981,7 +2988,8 @@ template <typename StructPtrType>
 VideoFrameMetadataPtr VideoFrameMetadata::Clone() const {
   return New(
       mojo::Clone(protected_video),
-      mojo::Clone(hw_protected)
+      mojo::Clone(hw_protected),
+      mojo::Clone(needs_detiling)
   );
 }
 
@@ -2990,6 +2998,8 @@ bool VideoFrameMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->protected_video, other_struct.protected_video))
     return false;
   if (!mojo::Equals(this->hw_protected, other_struct.hw_protected))
+    return false;
+  if (!mojo::Equals(this->needs_detiling, other_struct.needs_detiling))
     return false;
   return true;
 }
@@ -3003,6 +3013,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.hw_protected < rhs.hw_protected)
     return true;
   if (rhs.hw_protected < lhs.hw_protected)
+    return false;
+  if (lhs.needs_detiling < rhs.needs_detiling)
+    return true;
+  if (rhs.needs_detiling < lhs.needs_detiling)
     return false;
   return false;
 }
@@ -3573,6 +3587,11 @@ struct  StructTraits<::media::stable::mojom::blink::VideoFrameMetadata::DataView
   static decltype(::media::stable::mojom::blink::VideoFrameMetadata::hw_protected) hw_protected(
       const ::media::stable::mojom::blink::VideoFrameMetadataPtr& input) {
     return input->hw_protected;
+  }
+
+  static decltype(::media::stable::mojom::blink::VideoFrameMetadata::needs_detiling) needs_detiling(
+      const ::media::stable::mojom::blink::VideoFrameMetadataPtr& input) {
+    return input->needs_detiling;
   }
 
   static bool Read(::media::stable::mojom::blink::VideoFrameMetadata::DataView input, ::media::stable::mojom::blink::VideoFrameMetadataPtr* output);

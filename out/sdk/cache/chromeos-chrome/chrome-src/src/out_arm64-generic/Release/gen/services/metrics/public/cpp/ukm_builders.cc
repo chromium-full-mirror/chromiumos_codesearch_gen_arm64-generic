@@ -4410,6 +4410,29 @@ Blink_FindInPage& Blink_FindInPage::SetDidSearch(int64_t value) {
 }
 
 
+const char Blink_FrameLoader::kEntryName[] = "Blink.FrameLoader";
+const uint64_t Blink_FrameLoader::kEntryNameHash;
+
+Blink_FrameLoader::Blink_FrameLoader(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Blink_FrameLoader::Blink_FrameLoader(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Blink_FrameLoader::~Blink_FrameLoader() = default;
+
+
+const char Blink_FrameLoader::kCommitDocumentLoaderTimeName[] = "CommitDocumentLoaderTime";
+const uint64_t Blink_FrameLoader::kCommitDocumentLoaderTimeNameHash;
+
+Blink_FrameLoader& Blink_FrameLoader::SetCommitDocumentLoaderTime(int64_t value) {
+  SetMetricInternal(kCommitDocumentLoaderTimeNameHash, value);
+  return *this;
+}
+
+
 const char Blink_HTMLParsing::kEntryName[] = "Blink.HTMLParsing";
 const uint64_t Blink_HTMLParsing::kEntryNameHash;
 
@@ -4429,6 +4452,14 @@ const uint64_t Blink_HTMLParsing::kChunkCountNameHash;
 
 Blink_HTMLParsing& Blink_HTMLParsing::SetChunkCount(int64_t value) {
   SetMetricInternal(kChunkCountNameHash, value);
+  return *this;
+}
+
+const char Blink_HTMLParsing::kFetchQueuedPreloadsTimeName[] = "FetchQueuedPreloadsTime";
+const uint64_t Blink_HTMLParsing::kFetchQueuedPreloadsTimeNameHash;
+
+Blink_HTMLParsing& Blink_HTMLParsing::SetFetchQueuedPreloadsTime(int64_t value) {
+  SetMetricInternal(kFetchQueuedPreloadsTimeNameHash, value);
   return *this;
 }
 
@@ -4453,6 +4484,46 @@ const uint64_t Blink_HTMLParsing::kParsingTimeTotalNameHash;
 
 Blink_HTMLParsing& Blink_HTMLParsing::SetParsingTimeTotal(int64_t value) {
   SetMetricInternal(kParsingTimeTotalNameHash, value);
+  return *this;
+}
+
+const char Blink_HTMLParsing::kPreloadTimeName[] = "PreloadTime";
+const uint64_t Blink_HTMLParsing::kPreloadTimeNameHash;
+
+Blink_HTMLParsing& Blink_HTMLParsing::SetPreloadTime(int64_t value) {
+  SetMetricInternal(kPreloadTimeNameHash, value);
+  return *this;
+}
+
+const char Blink_HTMLParsing::kPrepareToStopParsingTimeName[] = "PrepareToStopParsingTime";
+const uint64_t Blink_HTMLParsing::kPrepareToStopParsingTimeNameHash;
+
+Blink_HTMLParsing& Blink_HTMLParsing::SetPrepareToStopParsingTime(int64_t value) {
+  SetMetricInternal(kPrepareToStopParsingTimeNameHash, value);
+  return *this;
+}
+
+const char Blink_HTMLParsing::kPumpTokenizerTimeName[] = "PumpTokenizerTime";
+const uint64_t Blink_HTMLParsing::kPumpTokenizerTimeNameHash;
+
+Blink_HTMLParsing& Blink_HTMLParsing::SetPumpTokenizerTime(int64_t value) {
+  SetMetricInternal(kPumpTokenizerTimeNameHash, value);
+  return *this;
+}
+
+const char Blink_HTMLParsing::kScanAndPreloadTimeName[] = "ScanAndPreloadTime";
+const uint64_t Blink_HTMLParsing::kScanAndPreloadTimeNameHash;
+
+Blink_HTMLParsing& Blink_HTMLParsing::SetScanAndPreloadTime(int64_t value) {
+  SetMetricInternal(kScanAndPreloadTimeNameHash, value);
+  return *this;
+}
+
+const char Blink_HTMLParsing::kScanTimeName[] = "ScanTime";
+const uint64_t Blink_HTMLParsing::kScanTimeNameHash;
+
+Blink_HTMLParsing& Blink_HTMLParsing::SetScanTime(int64_t value) {
+  SetMetricInternal(kScanTimeNameHash, value);
   return *this;
 }
 
@@ -4750,11 +4821,11 @@ Blink_PageLoad& Blink_PageLoad::SetParseStyleSheet(int64_t value) {
   return *this;
 }
 
-const char Blink_PageLoad::kPossibleSynchronizedScrollCountName[] = "PossibleSynchronizedScrollCount";
-const uint64_t Blink_PageLoad::kPossibleSynchronizedScrollCountNameHash;
+const char Blink_PageLoad::kPossibleSynchronizedScrollCount2Name[] = "PossibleSynchronizedScrollCount2";
+const uint64_t Blink_PageLoad::kPossibleSynchronizedScrollCount2NameHash;
 
-Blink_PageLoad& Blink_PageLoad::SetPossibleSynchronizedScrollCount(int64_t value) {
-  SetMetricInternal(kPossibleSynchronizedScrollCountNameHash, value);
+Blink_PageLoad& Blink_PageLoad::SetPossibleSynchronizedScrollCount2(int64_t value) {
+  SetMetricInternal(kPossibleSynchronizedScrollCount2NameHash, value);
   return *this;
 }
 
@@ -5235,19 +5306,19 @@ Blink_UpdateTime& Blink_UpdateTime::SetParseStyleSheetBeginMainFrame(int64_t val
   return *this;
 }
 
-const char Blink_UpdateTime::kPossibleSynchronizedScrollCountName[] = "PossibleSynchronizedScrollCount";
-const uint64_t Blink_UpdateTime::kPossibleSynchronizedScrollCountNameHash;
+const char Blink_UpdateTime::kPossibleSynchronizedScrollCount2Name[] = "PossibleSynchronizedScrollCount2";
+const uint64_t Blink_UpdateTime::kPossibleSynchronizedScrollCount2NameHash;
 
-Blink_UpdateTime& Blink_UpdateTime::SetPossibleSynchronizedScrollCount(int64_t value) {
-  SetMetricInternal(kPossibleSynchronizedScrollCountNameHash, value);
+Blink_UpdateTime& Blink_UpdateTime::SetPossibleSynchronizedScrollCount2(int64_t value) {
+  SetMetricInternal(kPossibleSynchronizedScrollCount2NameHash, value);
   return *this;
 }
 
-const char Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameName[] = "PossibleSynchronizedScrollCountBeginMainFrame";
-const uint64_t Blink_UpdateTime::kPossibleSynchronizedScrollCountBeginMainFrameNameHash;
+const char Blink_UpdateTime::kPossibleSynchronizedScrollCount2BeginMainFrameName[] = "PossibleSynchronizedScrollCount2BeginMainFrame";
+const uint64_t Blink_UpdateTime::kPossibleSynchronizedScrollCount2BeginMainFrameNameHash;
 
-Blink_UpdateTime& Blink_UpdateTime::SetPossibleSynchronizedScrollCountBeginMainFrame(int64_t value) {
-  SetMetricInternal(kPossibleSynchronizedScrollCountBeginMainFrameNameHash, value);
+Blink_UpdateTime& Blink_UpdateTime::SetPossibleSynchronizedScrollCount2BeginMainFrame(int64_t value) {
+  SetMetricInternal(kPossibleSynchronizedScrollCount2BeginMainFrameNameHash, value);
   return *this;
 }
 
@@ -6607,6 +6678,156 @@ Companion_PageView& Companion_PageView::SetVQS_VisualSearchTriggeredCount(int64_
 }
 
 
+const char Compose_PageEvents::kEntryName[] = "Compose.PageEvents";
+const uint64_t Compose_PageEvents::kEntryNameHash;
+
+Compose_PageEvents::Compose_PageEvents(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Compose_PageEvents::Compose_PageEvents(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Compose_PageEvents::~Compose_PageEvents() = default;
+
+
+const char Compose_PageEvents::kComposeTextInsertedName[] = "ComposeTextInserted";
+const uint64_t Compose_PageEvents::kComposeTextInsertedNameHash;
+
+Compose_PageEvents& Compose_PageEvents::SetComposeTextInserted(int64_t value) {
+  SetMetricInternal(kComposeTextInsertedNameHash, value);
+  return *this;
+}
+
+const char Compose_PageEvents::kMenuItemClickedName[] = "MenuItemClicked";
+const uint64_t Compose_PageEvents::kMenuItemClickedNameHash;
+
+Compose_PageEvents& Compose_PageEvents::SetMenuItemClicked(int64_t value) {
+  SetMetricInternal(kMenuItemClickedNameHash, value);
+  return *this;
+}
+
+const char Compose_PageEvents::kMenuItemShownName[] = "MenuItemShown";
+const uint64_t Compose_PageEvents::kMenuItemShownNameHash;
+
+Compose_PageEvents& Compose_PageEvents::SetMenuItemShown(int64_t value) {
+  SetMetricInternal(kMenuItemShownNameHash, value);
+  return *this;
+}
+
+const char Compose_PageEvents::kMissingFormDataName[] = "MissingFormData";
+const uint64_t Compose_PageEvents::kMissingFormDataNameHash;
+
+Compose_PageEvents& Compose_PageEvents::SetMissingFormData(int64_t value) {
+  SetMetricInternal(kMissingFormDataNameHash, value);
+  return *this;
+}
+
+const char Compose_PageEvents::kMissingFormFieldDataName[] = "MissingFormFieldData";
+const uint64_t Compose_PageEvents::kMissingFormFieldDataNameHash;
+
+Compose_PageEvents& Compose_PageEvents::SetMissingFormFieldData(int64_t value) {
+  SetMetricInternal(kMissingFormFieldDataNameHash, value);
+  return *this;
+}
+
+
+const char Compose_SessionProgress::kEntryName[] = "Compose.SessionProgress";
+const uint64_t Compose_SessionProgress::kEntryNameHash;
+
+Compose_SessionProgress::Compose_SessionProgress(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Compose_SessionProgress::Compose_SessionProgress(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Compose_SessionProgress::~Compose_SessionProgress() = default;
+
+
+const char Compose_SessionProgress::kCanceledName[] = "Canceled";
+const uint64_t Compose_SessionProgress::kCanceledNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetCanceled(int64_t value) {
+  SetMetricInternal(kCanceledNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kCasualCountName[] = "CasualCount";
+const uint64_t Compose_SessionProgress::kCasualCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetCasualCount(int64_t value) {
+  SetMetricInternal(kCasualCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kComposeCountName[] = "ComposeCount";
+const uint64_t Compose_SessionProgress::kComposeCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetComposeCount(int64_t value) {
+  SetMetricInternal(kComposeCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kDialogShownCountName[] = "DialogShownCount";
+const uint64_t Compose_SessionProgress::kDialogShownCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetDialogShownCount(int64_t value) {
+  SetMetricInternal(kDialogShownCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kFormalCountName[] = "FormalCount";
+const uint64_t Compose_SessionProgress::kFormalCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetFormalCount(int64_t value) {
+  SetMetricInternal(kFormalCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kInsertedResultsName[] = "InsertedResults";
+const uint64_t Compose_SessionProgress::kInsertedResultsNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetInsertedResults(int64_t value) {
+  SetMetricInternal(kInsertedResultsNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kLengthenCountName[] = "LengthenCount";
+const uint64_t Compose_SessionProgress::kLengthenCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetLengthenCount(int64_t value) {
+  SetMetricInternal(kLengthenCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kRegenerateCountName[] = "RegenerateCount";
+const uint64_t Compose_SessionProgress::kRegenerateCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetRegenerateCount(int64_t value) {
+  SetMetricInternal(kRegenerateCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kShortenCountName[] = "ShortenCount";
+const uint64_t Compose_SessionProgress::kShortenCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetShortenCount(int64_t value) {
+  SetMetricInternal(kShortenCountNameHash, value);
+  return *this;
+}
+
+const char Compose_SessionProgress::kUndoCountName[] = "UndoCount";
+const uint64_t Compose_SessionProgress::kUndoCountNameHash;
+
+Compose_SessionProgress& Compose_SessionProgress::SetUndoCount(int64_t value) {
+  SetMetricInternal(kUndoCountNameHash, value);
+  return *this;
+}
+
+
 const char Compose_TextElementUsage::kEntryName[] = "Compose.TextElementUsage";
 const uint64_t Compose_TextElementUsage::kEntryNameHash;
 
@@ -7004,24 +7225,24 @@ CookieHasNonAsciiCharacter& CookieHasNonAsciiCharacter::SetValue(int64_t value) 
 }
 
 
-const char Cookies_FirstPartyPartitionedInCrossSiteContext::kEntryName[] = "Cookies.FirstPartyPartitionedInCrossSiteContext";
-const uint64_t Cookies_FirstPartyPartitionedInCrossSiteContext::kEntryNameHash;
+const char Cookies_FirstPartyPartitionedInCrossSiteContextV2::kEntryName[] = "Cookies.FirstPartyPartitionedInCrossSiteContextV2";
+const uint64_t Cookies_FirstPartyPartitionedInCrossSiteContextV2::kEntryNameHash;
 
-Cookies_FirstPartyPartitionedInCrossSiteContext::Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceId source_id) :
+Cookies_FirstPartyPartitionedInCrossSiteContextV2::Cookies_FirstPartyPartitionedInCrossSiteContextV2(ukm::SourceId source_id) :
   ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
 }
 
-Cookies_FirstPartyPartitionedInCrossSiteContext::Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceIdObj source_id) :
+Cookies_FirstPartyPartitionedInCrossSiteContextV2::Cookies_FirstPartyPartitionedInCrossSiteContextV2(ukm::SourceIdObj source_id) :
   ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
 }
 
-Cookies_FirstPartyPartitionedInCrossSiteContext::~Cookies_FirstPartyPartitionedInCrossSiteContext() = default;
+Cookies_FirstPartyPartitionedInCrossSiteContextV2::~Cookies_FirstPartyPartitionedInCrossSiteContextV2() = default;
 
 
-const char Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentName[] = "CookiePresent";
-const uint64_t Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentNameHash;
+const char Cookies_FirstPartyPartitionedInCrossSiteContextV2::kCookiePresentName[] = "CookiePresent";
+const uint64_t Cookies_FirstPartyPartitionedInCrossSiteContextV2::kCookiePresentNameHash;
 
-Cookies_FirstPartyPartitionedInCrossSiteContext& Cookies_FirstPartyPartitionedInCrossSiteContext::SetCookiePresent(int64_t value) {
+Cookies_FirstPartyPartitionedInCrossSiteContextV2& Cookies_FirstPartyPartitionedInCrossSiteContextV2::SetCookiePresent(int64_t value) {
   SetMetricInternal(kCookiePresentNameHash, value);
   return *this;
 }
@@ -7819,6 +8040,45 @@ Event_ScrollBegin_Wheel& Event_ScrollBegin_Wheel::SetTimeToScrollUpdateSwapBegin
 }
 
 
+const char Event_ScrollJank_PredictorJank::kEntryName[] = "Event.ScrollJank.PredictorJank";
+const uint64_t Event_ScrollJank_PredictorJank::kEntryNameHash;
+
+Event_ScrollJank_PredictorJank::Event_ScrollJank_PredictorJank(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Event_ScrollJank_PredictorJank::Event_ScrollJank_PredictorJank(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Event_ScrollJank_PredictorJank::~Event_ScrollJank_PredictorJank() = default;
+
+
+const char Event_ScrollJank_PredictorJank::kMaxDeltaName[] = "MaxDelta";
+const uint64_t Event_ScrollJank_PredictorJank::kMaxDeltaNameHash;
+
+Event_ScrollJank_PredictorJank& Event_ScrollJank_PredictorJank::SetMaxDelta(int64_t value) {
+  SetMetricInternal(kMaxDeltaNameHash, value);
+  return *this;
+}
+
+const char Event_ScrollJank_PredictorJank::kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2Name[] = "ScrollUpdate.MissedVsync.FrameAboveJankyThreshold2";
+const uint64_t Event_ScrollJank_PredictorJank::kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2NameHash;
+
+Event_ScrollJank_PredictorJank& Event_ScrollJank_PredictorJank::SetScrollUpdate_MissedVsync_FrameAboveJankyThreshold2(int64_t value) {
+  SetMetricInternal(kScrollUpdate_MissedVsync_FrameAboveJankyThreshold2NameHash, value);
+  return *this;
+}
+
+const char Event_ScrollJank_PredictorJank::kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2Name[] = "ScrollUpdate.NoMissedVsync.FrameAboveJankyThreshold2";
+const uint64_t Event_ScrollJank_PredictorJank::kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2NameHash;
+
+Event_ScrollJank_PredictorJank& Event_ScrollJank_PredictorJank::SetScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2(int64_t value) {
+  SetMetricInternal(kScrollUpdate_NoMissedVsync_FrameAboveJankyThreshold2NameHash, value);
+  return *this;
+}
+
+
 const char Event_ScrollUpdate_Touch::kEntryName[] = "Event.ScrollUpdate.Touch";
 const uint64_t Event_ScrollUpdate_Touch::kEntryNameHash;
 
@@ -8046,6 +8306,37 @@ Extensions_WebRequest_KeepaliveRequestFinished& Extensions_WebRequest_KeepaliveR
 }
 
 
+const char FamilyLinkUser_BlockedContent::kEntryName[] = "FamilyLinkUser.BlockedContent";
+const uint64_t FamilyLinkUser_BlockedContent::kEntryNameHash;
+
+FamilyLinkUser_BlockedContent::FamilyLinkUser_BlockedContent(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+FamilyLinkUser_BlockedContent::FamilyLinkUser_BlockedContent(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+FamilyLinkUser_BlockedContent::~FamilyLinkUser_BlockedContent() = default;
+
+
+const char FamilyLinkUser_BlockedContent::kMainFrameBlockedName[] = "MainFrameBlocked";
+const uint64_t FamilyLinkUser_BlockedContent::kMainFrameBlockedNameHash;
+
+FamilyLinkUser_BlockedContent& FamilyLinkUser_BlockedContent::SetMainFrameBlocked(int64_t value) {
+  SetMetricInternal(kMainFrameBlockedNameHash, value);
+  return *this;
+}
+
+const char FamilyLinkUser_BlockedContent::kNumBlockedIframesName[] = "NumBlockedIframes";
+const uint64_t FamilyLinkUser_BlockedContent::kNumBlockedIframesNameHash;
+
+FamilyLinkUser_BlockedContent& FamilyLinkUser_BlockedContent::SetNumBlockedIframes(int64_t value) {
+  SetMetricInternal(kNumBlockedIframesNameHash, value);
+  return *this;
+}
+
+
 const char FileSystemAPI_WebRequest::kEntryName[] = "FileSystemAPI.WebRequest";
 const uint64_t FileSystemAPI_WebRequest::kEntryNameHash;
 
@@ -8096,6 +8387,52 @@ const uint64_t FlocPageLoad::kFlocIdNameHash;
 
 FlocPageLoad& FlocPageLoad::SetFlocId(int64_t value) {
   SetMetricInternal(kFlocIdNameHash, value);
+  return *this;
+}
+
+
+const char Fullscreen_Enter::kEntryName[] = "Fullscreen.Enter";
+const uint64_t Fullscreen_Enter::kEntryNameHash;
+
+Fullscreen_Enter::Fullscreen_Enter(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Fullscreen_Enter::Fullscreen_Enter(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Fullscreen_Enter::~Fullscreen_Enter() = default;
+
+
+const char Fullscreen_Enter::kLockStateName[] = "LockState";
+const uint64_t Fullscreen_Enter::kLockStateNameHash;
+
+Fullscreen_Enter& Fullscreen_Enter::SetLockState(int64_t value) {
+  SetMetricInternal(kLockStateNameHash, value);
+  return *this;
+}
+
+
+const char Fullscreen_Exit::kEntryName[] = "Fullscreen.Exit";
+const uint64_t Fullscreen_Exit::kEntryNameHash;
+
+Fullscreen_Exit::Fullscreen_Exit(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Fullscreen_Exit::Fullscreen_Exit(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Fullscreen_Exit::~Fullscreen_Exit() = default;
+
+
+const char Fullscreen_Exit::kSessionDurationName[] = "SessionDuration";
+const uint64_t Fullscreen_Exit::kSessionDurationNameHash;
+
+Fullscreen_Exit& Fullscreen_Exit::SetSessionDuration(int64_t value) {
+  SetMetricInternal(kSessionDurationNameHash, value);
   return *this;
 }
 
@@ -13509,6 +13846,14 @@ NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetDidEngageWithModule(i
   return *this;
 }
 
+const char NewTabPage_HistoryClusters::kDidMarkAsDoneName[] = "DidMarkAsDone";
+const uint64_t NewTabPage_HistoryClusters::kDidMarkAsDoneNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetDidMarkAsDone(int64_t value) {
+  SetMetricInternal(kDidMarkAsDoneNameHash, value);
+  return *this;
+}
+
 const char NewTabPage_HistoryClusters::kLayoutTypeShownName[] = "LayoutTypeShown";
 const uint64_t NewTabPage_HistoryClusters::kLayoutTypeShownNameHash;
 
@@ -13530,6 +13875,22 @@ const uint64_t NewTabPage_HistoryClusters::kNumAbandonedCartsNameHash;
 
 NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetNumAbandonedCarts(int64_t value) {
   SetMetricInternal(kNumAbandonedCartsNameHash, value);
+  return *this;
+}
+
+const char NewTabPage_HistoryClusters::kNumTimesSeenLast24hName[] = "NumTimesSeenLast24h";
+const uint64_t NewTabPage_HistoryClusters::kNumTimesSeenLast24hNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetNumTimesSeenLast24h(int64_t value) {
+  SetMetricInternal(kNumTimesSeenLast24hNameHash, value);
+  return *this;
+}
+
+const char NewTabPage_HistoryClusters::kNumTimesUsedLast24hName[] = "NumTimesUsedLast24h";
+const uint64_t NewTabPage_HistoryClusters::kNumTimesUsedLast24hNameHash;
+
+NewTabPage_HistoryClusters& NewTabPage_HistoryClusters::SetNumTimesUsedLast24h(int64_t value) {
+  SetMetricInternal(kNumTimesUsedLast24hNameHash, value);
   return *this;
 }
 
@@ -15213,6 +15574,14 @@ PasswordForm& PasswordForm::SetManagerFill_Assistance(int64_t value) {
   return *this;
 }
 
+const char PasswordForm::kManagerFill_AssistanceForSingleUsernameName[] = "ManagerFill.AssistanceForSingleUsername";
+const uint64_t PasswordForm::kManagerFill_AssistanceForSingleUsernameNameHash;
+
+PasswordForm& PasswordForm::SetManagerFill_AssistanceForSingleUsername(int64_t value) {
+  SetMetricInternal(kManagerFill_AssistanceForSingleUsernameNameHash, value);
+  return *this;
+}
+
 const char PasswordForm::kParsingDiffFillingAndSavingName[] = "ParsingDiffFillingAndSaving";
 const uint64_t PasswordForm::kParsingDiffFillingAndSavingNameHash;
 
@@ -15385,6 +15754,37 @@ const uint64_t PasswordManager_LeakWarningDialog::kPasswordLeakDetectionDialogTy
 
 PasswordManager_LeakWarningDialog& PasswordManager_LeakWarningDialog::SetPasswordLeakDetectionDialogType(int64_t value) {
   SetMetricInternal(kPasswordLeakDetectionDialogTypeNameHash, value);
+  return *this;
+}
+
+
+const char PasswordManager_NewlySavedPassword::kEntryName[] = "PasswordManager.NewlySavedPassword";
+const uint64_t PasswordManager_NewlySavedPassword::kEntryNameHash;
+
+PasswordManager_NewlySavedPassword::PasswordManager_NewlySavedPassword(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+PasswordManager_NewlySavedPassword::PasswordManager_NewlySavedPassword(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+PasswordManager_NewlySavedPassword::~PasswordManager_NewlySavedPassword() = default;
+
+
+const char PasswordManager_NewlySavedPassword::kHasEmptyUsernameName[] = "HasEmptyUsername";
+const uint64_t PasswordManager_NewlySavedPassword::kHasEmptyUsernameNameHash;
+
+PasswordManager_NewlySavedPassword& PasswordManager_NewlySavedPassword::SetHasEmptyUsername(int64_t value) {
+  SetMetricInternal(kHasEmptyUsernameNameHash, value);
+  return *this;
+}
+
+const char PasswordManager_NewlySavedPassword::kIsPasswordGeneratedName[] = "IsPasswordGenerated";
+const uint64_t PasswordManager_NewlySavedPassword::kIsPasswordGeneratedNameHash;
+
+PasswordManager_NewlySavedPassword& PasswordManager_NewlySavedPassword::SetIsPasswordGenerated(int64_t value) {
+  SetMetricInternal(kIsPasswordGeneratedNameHash, value);
   return *this;
 }
 
@@ -31087,11 +31487,11 @@ WebAPK_Install::WebAPK_Install(ukm::SourceIdObj source_id) :
 WebAPK_Install::~WebAPK_Install() = default;
 
 
-const char WebAPK_Install::kAppVersionName[] = "AppVersion";
-const uint64_t WebAPK_Install::kAppVersionNameHash;
+const char WebAPK_Install::kDisplayModeName[] = "DisplayMode";
+const uint64_t WebAPK_Install::kDisplayModeNameHash;
 
-WebAPK_Install& WebAPK_Install::SetAppVersion(int64_t value) {
-  SetMetricInternal(kAppVersionNameHash, value);
+WebAPK_Install& WebAPK_Install::SetDisplayMode(int64_t value) {
+  SetMetricInternal(kDisplayModeNameHash, value);
   return *this;
 }
 
@@ -31108,6 +31508,14 @@ const uint64_t WebAPK_Install::kInstallNameHash;
 
 WebAPK_Install& WebAPK_Install::SetInstall(int64_t value) {
   SetMetricInternal(kInstallNameHash, value);
+  return *this;
+}
+
+const char WebAPK_Install::kInstallSourceName[] = "InstallSource";
+const uint64_t WebAPK_Install::kInstallSourceNameHash;
+
+WebAPK_Install& WebAPK_Install::SetInstallSource(int64_t value) {
+  SetMetricInternal(kInstallSourceNameHash, value);
   return *this;
 }
 

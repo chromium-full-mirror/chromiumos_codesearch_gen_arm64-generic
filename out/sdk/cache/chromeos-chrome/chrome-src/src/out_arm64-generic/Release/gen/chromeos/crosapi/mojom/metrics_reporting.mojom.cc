@@ -167,6 +167,8 @@ bool MetricsReportingObserverStubDispatch::Accept(
           reinterpret_cast<internal::MetricsReportingObserver_OnMetricsReportingChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsReportingObserver.0
       bool success = true;
       bool p_enabled{};
       std::optional<std::string> p_client_id{};
@@ -185,9 +187,9 @@ bool MetricsReportingObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMetricsReportingChanged(
-std::move(p_enabled), 
-std::move(p_client_id));
+      impl->OnMetricsReportingChanged(        
+        std::move(p_enabled), 
+        std::move(p_client_id));
       return true;
     }
   }
@@ -462,6 +464,8 @@ bool MetricsReporting_SetMetricsReportingEnabled_ForwardToCallback::Accept(
           internal::MetricsReporting_SetMetricsReportingEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MetricsReporting.1
   bool success = true;
   MetricsReporting_SetMetricsReportingEnabled_ResponseParamsDataView input_data_view(params, message);
   
@@ -524,6 +528,8 @@ bool MetricsReportingStubDispatch::Accept(
           reinterpret_cast<internal::MetricsReporting_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MetricsReporting.0
       bool success = true;
       ::mojo::PendingRemote<MetricsReportingObserver> p_observer{};
       MetricsReporting_AddObserver_ParamsDataView input_data_view(params, message);
@@ -541,8 +547,8 @@ bool MetricsReportingStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kMetricsReporting_SetMetricsReportingEnabled_Name: {
@@ -571,6 +577,8 @@ bool MetricsReportingStubDispatch::AcceptWithResponder(
               internal::MetricsReporting_SetMetricsReportingEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MetricsReporting.1
       bool success = true;
       bool p_enabled{};
       MetricsReporting_SetMetricsReportingEnabled_ParamsDataView input_data_view(params, message);
@@ -589,8 +597,8 @@ bool MetricsReportingStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMetricsReportingEnabled(
-std::move(p_enabled), std::move(callback));
+      impl->SetMetricsReportingEnabled(        
+        std::move(p_enabled), std::move(callback));
       return true;
     }
   }

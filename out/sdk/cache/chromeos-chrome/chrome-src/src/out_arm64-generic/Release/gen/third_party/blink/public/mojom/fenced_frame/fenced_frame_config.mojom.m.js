@@ -27,6 +27,11 @@ import {
 } from '../../../../../url/mojom/url.mojom.m.js';
 
 import {
+  ParsedPermissionsPolicyDeclaration as blink_mojom_ParsedPermissionsPolicyDeclaration,
+  ParsedPermissionsPolicyDeclarationSpec as blink_mojom_ParsedPermissionsPolicyDeclarationSpec
+} from '../permissions_policy/permissions_policy.mojom.m.js';
+
+import {
   PermissionsPolicyFeature as blink_mojom_PermissionsPolicyFeature,
   PermissionsPolicyFeatureSpec as blink_mojom_PermissionsPolicyFeatureSpec
 } from '../permissions_policy/permissions_policy_feature.mojom.m.js';
@@ -116,6 +121,12 @@ export const URNConfigPairSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const SharedStorageBudgetMetadataSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const ParentPermissionsInfoSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -303,6 +314,45 @@ export class SharedStorageBudgetMetadata {
 
 
 mojo.internal.Struct(
+    ParentPermissionsInfoSpec.$,
+    'ParentPermissionsInfo',
+    [
+      mojo.internal.StructField(
+        'parsedPermissionsPolicy', 0,
+        0,
+        mojo.internal.Array(blink_mojom_ParsedPermissionsPolicyDeclarationSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'origin', 8,
+        0,
+        url_mojom_OriginSpec.$,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class ParentPermissionsInfo {
+  constructor() {
+    /** @type { !Array<!blink_mojom_ParsedPermissionsPolicyDeclaration> } */
+    this.parsedPermissionsPolicy;
+    /** @type { !url_mojom_Origin } */
+    this.origin;
+  }
+}
+
+
+
+mojo.internal.Struct(
     FencedFrameConfigSpec.$,
     'FencedFrameConfig',
     [
@@ -386,8 +436,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'parentPermissionsInfo', 136,
+        0,
+        ParentPermissionsInfoSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
     ],
-    [[0, 144],]);
+    [[0, 152],]);
 
 
 
@@ -416,6 +474,8 @@ export class FencedFrameConfig {
     this.mode;
     /** @type { !Array<!blink_mojom_PermissionsPolicyFeature> } */
     this.effectiveEnabledPermissions;
+    /** @type { (ParentPermissionsInfo|undefined) } */
+    this.parentPermissionsInfo;
   }
 }
 
@@ -505,8 +565,24 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'parentPermissionsInfo', 128,
+        0,
+        ParentPermissionsInfoSpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'canDisableUntrustedNetwork', 112,
+        1,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 136],]);
+    [[0, 144],]);
 
 
 
@@ -535,6 +611,10 @@ export class FencedFrameProperties {
     this.mode;
     /** @type { !Array<!blink_mojom_PermissionsPolicyFeature> } */
     this.effectiveEnabledPermissions;
+    /** @type { (ParentPermissionsInfo|undefined) } */
+    this.parentPermissionsInfo;
+    /** @type { !boolean } */
+    this.canDisableUntrustedNetwork;
   }
 }
 

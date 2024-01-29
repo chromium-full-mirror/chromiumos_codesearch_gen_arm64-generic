@@ -3,7 +3,7 @@ export function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex"></style>
 
 <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-  <cr-link-row id="appNotificationsManagerRow" class="settings-box" label="$i18n{appNotificationsManagerLabel}" sub-label="[[getNotificationsCountSublabel_(appList_)]]" on-click="onClickAppNotifications_">
+  <cr-link-row id="appNotificationsManagerRow" class="settings-box first" label="$i18n{appNotificationsManagerLabel}" sub-label="[[getNotificationsCountSublabel_(appList_)]]" on-click="onClickAppNotifications_">
   </cr-link-row>
 </template>
 

@@ -878,6 +878,8 @@ bool ParentAccessUiHandler_GetOauthToken_ForwardToCallback::Accept(
           internal::ParentAccessUiHandler_GetOauthToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccessUiHandler.0
   bool success = true;
   GetOauthTokenStatus p_status{};
   std::string p_oauth_token{};
@@ -1016,6 +1018,8 @@ bool ParentAccessUiHandler_OnParentAccessCallbackReceived_ForwardToCallback::Acc
           internal::ParentAccessUiHandler_OnParentAccessCallbackReceived_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccessUiHandler.1
   bool success = true;
   ParentAccessServerMessagePtr p_message{};
   ParentAccessUiHandler_OnParentAccessCallbackReceived_ResponseParamsDataView input_data_view(params, message);
@@ -1145,6 +1149,8 @@ bool ParentAccessUiHandler_GetParentAccessParams_ForwardToCallback::Accept(
           internal::ParentAccessUiHandler_GetParentAccessParams_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccessUiHandler.2
   bool success = true;
   ParentAccessParamsPtr p_params{};
   ParentAccessUiHandler_GetParentAccessParams_ResponseParamsDataView input_data_view(params, message);
@@ -1274,6 +1280,8 @@ bool ParentAccessUiHandler_GetParentAccessUrl_ForwardToCallback::Accept(
           internal::ParentAccessUiHandler_GetParentAccessUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccessUiHandler.3
   bool success = true;
   std::string p_url{};
   ParentAccessUiHandler_GetParentAccessUrl_ResponseParamsDataView input_data_view(params, message);
@@ -1403,6 +1411,8 @@ bool ParentAccessUiHandler_OnParentAccessDone_ForwardToCallback::Accept(
           internal::ParentAccessUiHandler_OnParentAccessDone_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccessUiHandler.4
   bool success = true;
   ParentAccessUiHandler_OnParentAccessDone_ResponseParamsDataView input_data_view(params, message);
   
@@ -1510,6 +1520,8 @@ bool ParentAccessUiHandler_OnBeforeScreenDone_ForwardToCallback::Accept(
           internal::ParentAccessUiHandler_OnBeforeScreenDone_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ParentAccessUiHandler.5
   bool success = true;
   ParentAccessUiHandler_OnBeforeScreenDone_ResponseParamsDataView input_data_view(params, message);
   
@@ -1603,6 +1615,8 @@ bool ParentAccessUiHandlerStubDispatch::AcceptWithResponder(
               internal::ParentAccessUiHandler_GetOauthToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccessUiHandler.0
       bool success = true;
       ParentAccessUiHandler_GetOauthToken_ParamsDataView input_data_view(params, message);
       
@@ -1628,6 +1642,8 @@ bool ParentAccessUiHandlerStubDispatch::AcceptWithResponder(
               internal::ParentAccessUiHandler_OnParentAccessCallbackReceived_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccessUiHandler.1
       bool success = true;
       std::string p_encoded_parent_access_callback_proto{};
       ParentAccessUiHandler_OnParentAccessCallbackReceived_ParamsDataView input_data_view(params, message);
@@ -1646,8 +1662,8 @@ bool ParentAccessUiHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnParentAccessCallbackReceived(
-std::move(p_encoded_parent_access_callback_proto), std::move(callback));
+      impl->OnParentAccessCallbackReceived(        
+        std::move(p_encoded_parent_access_callback_proto), std::move(callback));
       return true;
     }
     case internal::kParentAccessUiHandler_GetParentAccessParams_Name: {
@@ -1657,6 +1673,8 @@ std::move(p_encoded_parent_access_callback_proto), std::move(callback));
               internal::ParentAccessUiHandler_GetParentAccessParams_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccessUiHandler.2
       bool success = true;
       ParentAccessUiHandler_GetParentAccessParams_ParamsDataView input_data_view(params, message);
       
@@ -1682,6 +1700,8 @@ std::move(p_encoded_parent_access_callback_proto), std::move(callback));
               internal::ParentAccessUiHandler_GetParentAccessUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccessUiHandler.3
       bool success = true;
       ParentAccessUiHandler_GetParentAccessUrl_ParamsDataView input_data_view(params, message);
       
@@ -1707,6 +1727,8 @@ std::move(p_encoded_parent_access_callback_proto), std::move(callback));
               internal::ParentAccessUiHandler_OnParentAccessDone_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccessUiHandler.4
       bool success = true;
       ParentAccessResult p_result{};
       ParentAccessUiHandler_OnParentAccessDone_ParamsDataView input_data_view(params, message);
@@ -1725,8 +1747,8 @@ std::move(p_encoded_parent_access_callback_proto), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnParentAccessDone(
-std::move(p_result), std::move(callback));
+      impl->OnParentAccessDone(        
+        std::move(p_result), std::move(callback));
       return true;
     }
     case internal::kParentAccessUiHandler_OnBeforeScreenDone_Name: {
@@ -1736,6 +1758,8 @@ std::move(p_result), std::move(callback));
               internal::ParentAccessUiHandler_OnBeforeScreenDone_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ParentAccessUiHandler.5
       bool success = true;
       ParentAccessUiHandler_OnBeforeScreenDone_ParamsDataView input_data_view(params, message);
       

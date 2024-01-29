@@ -426,6 +426,8 @@ bool AuthenticationDeprecated_REMOVED_0_ForwardToCallback::Accept(
           internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthenticationDeprecated.0
   bool success = true;
   CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr p_result{};
   AuthenticationDeprecated_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
@@ -553,6 +555,8 @@ bool AuthenticationDeprecated_REMOVED_1_ForwardToCallback::Accept(
           internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthenticationDeprecated.1
   bool success = true;
   bool p_allowed{};
   AuthenticationDeprecated_REMOVED_1_ResponseParamsDataView input_data_view(params, message);
@@ -646,6 +650,8 @@ bool AuthenticationDeprecatedStubDispatch::AcceptWithResponder(
               internal::AuthenticationDeprecated_REMOVED_0_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthenticationDeprecated.0
       bool success = true;
       std::string p_password{};
       AuthenticationDeprecated_REMOVED_0_ParamsDataView input_data_view(params, message);
@@ -664,8 +670,8 @@ bool AuthenticationDeprecatedStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_0(
-std::move(p_password), std::move(callback));
+      impl->REMOVED_0(        
+        std::move(p_password), std::move(callback));
       return true;
     }
     case internal::kAuthenticationDeprecated_REMOVED_1_Name: {
@@ -675,6 +681,8 @@ std::move(p_password), std::move(callback));
               internal::AuthenticationDeprecated_REMOVED_1_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthenticationDeprecated.1
       bool success = true;
       ::base::TimeDelta p_auth_token_lifetime{};
       AuthenticationDeprecated_REMOVED_1_ParamsDataView input_data_view(params, message);
@@ -693,8 +701,8 @@ std::move(p_password), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_1(
-std::move(p_auth_token_lifetime), std::move(callback));
+      impl->REMOVED_1(        
+        std::move(p_auth_token_lifetime), std::move(callback));
       return true;
     }
   }

@@ -314,6 +314,8 @@ bool ContentCaptureReceiverStubDispatch::Accept(
           reinterpret_cast<internal::ContentCaptureReceiver_DidCaptureContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentCaptureReceiver.0
       bool success = true;
       ::content_capture::ContentCaptureData p_data{};
       bool p_first_data{};
@@ -332,9 +334,9 @@ bool ContentCaptureReceiverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCaptureContent(
-std::move(p_data), 
-std::move(p_first_data));
+      impl->DidCaptureContent(        
+        std::move(p_data), 
+        std::move(p_first_data));
       return true;
     }
     case internal::kContentCaptureReceiver_DidUpdateContent_Name: {
@@ -344,6 +346,8 @@ std::move(p_first_data));
           reinterpret_cast<internal::ContentCaptureReceiver_DidUpdateContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentCaptureReceiver.1
       bool success = true;
       ::content_capture::ContentCaptureData p_data{};
       ContentCaptureReceiver_DidUpdateContent_ParamsDataView input_data_view(params, message);
@@ -359,8 +363,8 @@ std::move(p_first_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidUpdateContent(
-std::move(p_data));
+      impl->DidUpdateContent(        
+        std::move(p_data));
       return true;
     }
     case internal::kContentCaptureReceiver_DidRemoveContent_Name: {
@@ -370,6 +374,8 @@ std::move(p_data));
           reinterpret_cast<internal::ContentCaptureReceiver_DidRemoveContent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentCaptureReceiver.2
       bool success = true;
       std::vector<int64_t> p_ids{};
       ContentCaptureReceiver_DidRemoveContent_ParamsDataView input_data_view(params, message);
@@ -385,8 +391,8 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidRemoveContent(
-std::move(p_ids));
+      impl->DidRemoveContent(        
+        std::move(p_ids));
       return true;
     }
   }
@@ -587,6 +593,8 @@ bool ContentCaptureSenderStubDispatch::Accept(
           reinterpret_cast<internal::ContentCaptureSender_StartCapture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentCaptureSender.0
       bool success = true;
       ContentCaptureSender_StartCapture_ParamsDataView input_data_view(params, message);
       
@@ -599,7 +607,7 @@ bool ContentCaptureSenderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartCapture();
+      impl->StartCapture(        );
       return true;
     }
     case internal::kContentCaptureSender_StopCapture_Name: {
@@ -609,6 +617,8 @@ bool ContentCaptureSenderStubDispatch::Accept(
           reinterpret_cast<internal::ContentCaptureSender_StopCapture_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ContentCaptureSender.1
       bool success = true;
       ContentCaptureSender_StopCapture_ParamsDataView input_data_view(params, message);
       
@@ -621,7 +631,7 @@ bool ContentCaptureSenderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopCapture();
+      impl->StopCapture(        );
       return true;
     }
   }

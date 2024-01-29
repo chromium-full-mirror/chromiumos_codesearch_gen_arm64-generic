@@ -36,6 +36,8 @@ class  CommerceInternalsHandlerInterceptorForTesting : public CommerceInternalsH
   void GetIsShoppingListEligible(GetIsShoppingListEligibleCallback callback) override;
   void GetShoppingListEligibleDetails(GetShoppingListEligibleDetailsCallback callback) override;
   void ResetPriceTrackingEmailPref() override;
+  void GetProductInfoForUrl(const ::GURL& url, GetProductInfoForUrlCallback callback) override;
+  void GetSubscriptionDetails(GetSubscriptionDetailsCallback callback) override;
 };
 class  CommerceInternalsHandlerAsyncWaiter {
  public:
@@ -51,6 +53,12 @@ class  CommerceInternalsHandlerAsyncWaiter {
   void GetShoppingListEligibleDetails(
       ShoppingListEligibleDetailPtr* out_detail);
   ShoppingListEligibleDetailPtr GetShoppingListEligibleDetails();
+  void GetProductInfoForUrl(
+      const ::GURL& url, ::shopping_service::mojom::ProductInfoPtr* out_info);
+  ::shopping_service::mojom::ProductInfoPtr GetProductInfoForUrl(const ::GURL& url);
+  void GetSubscriptionDetails(
+      std::vector<SubscriptionPtr>* out_subscriptions);
+  std::vector<SubscriptionPtr> GetSubscriptionDetails();
 
  private:
   CommerceInternalsHandler* const proxy_;

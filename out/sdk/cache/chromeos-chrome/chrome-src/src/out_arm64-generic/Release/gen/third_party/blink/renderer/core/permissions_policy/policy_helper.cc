@@ -131,6 +131,8 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
                                  mojom::PermissionsPolicyFeature::kBrowsingTopicsBackwardCompatible);
     default_feature_name_map.Set(kCameraPolicyName,
                                  mojom::PermissionsPolicyFeature::kCamera);
+    default_feature_name_map.Set(kCapturedSurfaceControlPolicyName,
+                                 mojom::PermissionsPolicyFeature::kCapturedSurfaceControl);
     default_feature_name_map.Set(kClientHintDPRPolicyName,
                                  mojom::PermissionsPolicyFeature::kClientHintDPR);
     default_feature_name_map.Set(kClientHintDeviceMemoryPolicyName,
@@ -238,10 +240,6 @@ const FeatureNameMap& GetDefaultFeatureNameMap() {
     if (RuntimeEnabledFeatures::BlockingFocusWithoutUserActivationEnabled()) {
       default_feature_name_map.Set(kFocusWithoutUserActivationPolicyName,
                                    mojom::PermissionsPolicyFeature::kFocusWithoutUserActivation);
-    }
-    if (RuntimeEnabledFeatures::CapturedSurfaceControlEnabled()) {
-      default_feature_name_map.Set(kCapturedSurfaceControlPolicyName,
-                                   mojom::PermissionsPolicyFeature::kCapturedSurfaceControl);
     }
     if (RuntimeEnabledFeatures::DesktopPWAsSubAppsEnabled()) {
       default_feature_name_map.Set(kSubAppsPolicyName,
@@ -381,6 +379,9 @@ bool DisabledByOriginTrial(const String& feature_name,
   }
   if (feature_name == kBrowsingTopicsBackwardCompatiblePolicyName) {
     return !RuntimeEnabledFeatures::TopicsAPIEnabled(feature_context);
+  }
+  if (feature_name == kCapturedSurfaceControlPolicyName) {
+    return !RuntimeEnabledFeatures::CapturedSurfaceControlEnabled(feature_context);
   }
   if (feature_name == kComputePressurePolicyName) {
     return !RuntimeEnabledFeatures::ComputePressureEnabled(feature_context);

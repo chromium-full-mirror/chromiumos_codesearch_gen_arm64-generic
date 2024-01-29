@@ -4,8 +4,8 @@
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import '../strings.m.js';
 import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
-import { ShoppingServiceApiProxyImpl } from '//shopping-insights-side-panel.top-chrome/shared/commerce/shopping_service_api_proxy.js';
-import { PriceInsightsInfo_PriceBucket } from '//shopping-insights-side-panel.top-chrome/shared/shopping_list.mojom-webui.js';
+import { BrowserProxyImpl } from '//resources/cr_components/commerce/browser_proxy.js';
+import { PriceInsightsInfo_PriceBucket } from '//resources/cr_components/commerce/shopping_service.mojom-webui.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './price_tracking_section.html.js';
@@ -16,7 +16,7 @@ export class PriceTrackingSection extends PolymerElement {
     constructor() {
         super(...arguments);
         this.listenerIds_ = [];
-        this.shoppingApi_ = ShoppingServiceApiProxyImpl.getInstance();
+        this.shoppingApi_ = BrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'price-tracking-section';
@@ -27,7 +27,7 @@ export class PriceTrackingSection extends PolymerElement {
     static get properties() {
         return {
             productInfo: Object,
-            isProductTracked_: {
+            isProductTracked: {
                 type: Boolean,
                 value: false,
             },
@@ -37,9 +37,7 @@ export class PriceTrackingSection extends PolymerElement {
         super.connectedCallback();
         const callbackRouter = this.shoppingApi_.getCallbackRouter();
         this.listenerIds_.push(callbackRouter.priceTrackedForBookmark.addListener((product) => this.onBookmarkPriceTracked(product)), callbackRouter.priceUntrackedForBookmark.addListener((product) => this.onBookmarkPriceUntracked(product)), callbackRouter.operationFailedForBookmark.addListener((product, attemptedTrack) => this.onBookmarkOperationFailed(product, attemptedTrack)), callbackRouter.onProductBookmarkMoved.addListener((product) => this.onProductBookmarkMoved(product)));
-        this.shoppingApi_.getPriceTrackingStatusForCurrentUrl().then(res => {
-            this.updatePriceTrackingSection_(res.tracked);
-        });
+        this.updatePriceTrackingSection_(this.isProductTracked);
     }
     async updatePriceTrackingSection_(tracked) {
         if (!tracked) {
@@ -54,7 +52,7 @@ export class PriceTrackingSection extends PolymerElement {
                 loadTimeData.getString('trackPriceSaveDescription');
         }
         this.updateSaveLocationText(this.folderName_);
-        this.isProductTracked_ = tracked;
+        this.isProductTracked = tracked;
     }
     updateSaveLocationText(folderName) {
         if (folderName.length === 0) {
@@ -76,8 +74,8 @@ export class PriceTrackingSection extends PolymerElement {
         this.listenerIds_.forEach(id => this.shoppingApi_.getCallbackRouter().removeListener(id));
     }
     onPriceTrackingToggled_() {
-        this.shoppingApi_.setPriceTrackingStatusForCurrentUrl(this.isProductTracked_);
-        chrome.metricsPrivate.recordEnumerationValue(this.isProductTracked_ ?
+        this.shoppingApi_.setPriceTrackingStatusForCurrentUrl(this.isProductTracked);
+        chrome.metricsPrivate.recordEnumerationValue(this.isProductTracked ?
             'Commerce.PriceTracking.PriceInsightsSidePanel.Track' :
             'Commerce.PriceTracking.PriceInsightsSidePanel.Untrack', this.priceInsightsInfo.bucket, PriceInsightsInfo_PriceBucket.MAX_VALUE + 1);
     }
@@ -105,11 +103,11 @@ export class PriceTrackingSection extends PolymerElement {
         this.toggleAnnotationText_ = loadTimeData.getString('trackPriceError');
         this.folderName_ = '';
         this.updateSaveLocationText('');
-        this.isProductTracked_ = !attemptedTrack;
+        this.isProductTracked = !attemptedTrack;
     }
     async onProductBookmarkMoved(product) {
         if (product.info.clusterId === this.productInfo.clusterId &&
-            this.isProductTracked_) {
+            this.isProductTracked) {
             const { name } = await this.shoppingApi_.getParentBookmarkFolderNameForCurrentUrl();
             this.folderName_ = decodeString16(name);
         }

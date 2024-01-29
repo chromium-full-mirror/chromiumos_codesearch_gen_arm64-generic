@@ -1,0 +1,6 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/barcodedetection.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/barcodedetection_provider.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/facedetection.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/facedetection_provider.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/shape_detection_service.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/shape_detection/public/mojom/textdetection.mojom-module

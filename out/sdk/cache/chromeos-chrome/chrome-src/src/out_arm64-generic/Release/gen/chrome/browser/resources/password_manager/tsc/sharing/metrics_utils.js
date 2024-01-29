@@ -23,12 +23,14 @@ export var PasswordSharingActions;
     PasswordSharingActions[PasswordSharingActions["FAMILY_PICKER_CANCELED"] = 9] = "FAMILY_PICKER_CANCELED";
     PasswordSharingActions[PasswordSharingActions["FAMILY_PICKER_VIEW_FAMILY_CLICKED"] = 10] = "FAMILY_PICKER_VIEW_FAMILY_CLICKED";
     PasswordSharingActions[PasswordSharingActions["CONFIRMATION_DIALOG_SHARING_CANCELED"] = 11] = "CONFIRMATION_DIALOG_SHARING_CANCELED";
-    PasswordSharingActions[PasswordSharingActions["CONFIRMATION_DIALOG_LEARN_MORE_CLICKED"] = 12] = "CONFIRMATION_DIALOG_LEARN_MORE_CLICKED";
+    /*  Deprecated in M122 (b/317798360).
+    CONFIRMATION_DIALOG_LEARN_MORE_CLICKED = 12,
+    */
     PasswordSharingActions[PasswordSharingActions["CONFIRMATION_DIALOG_CHANGE_PASSWORD_CLICKED"] = 13] = "CONFIRMATION_DIALOG_CHANGE_PASSWORD_CLICKED";
     PasswordSharingActions[PasswordSharingActions["DIALOG_HEADER_HELP_ICON_BUTTON_CLICKED"] = 14] = "DIALOG_HEADER_HELP_ICON_BUTTON_CLICKED";
     // Must be last.
     PasswordSharingActions[PasswordSharingActions["COUNT"] = 15] = "COUNT";
-    // LINT.ThenChange(//tools/metrics/histograms/enums.xml)
+    // LINT.ThenChange(//tools/metrics/histograms/metadata/password/enums.xml)
 })(PasswordSharingActions || (PasswordSharingActions = {}));
 export function recordPasswordSharingInteraction(interaction) {
     chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PasswordSharingDesktop.UserAction', interaction, PasswordSharingActions.COUNT);

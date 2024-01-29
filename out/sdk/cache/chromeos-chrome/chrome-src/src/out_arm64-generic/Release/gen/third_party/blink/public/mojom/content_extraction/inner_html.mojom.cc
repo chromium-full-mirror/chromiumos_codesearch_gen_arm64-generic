@@ -210,6 +210,8 @@ bool InnerHtmlAgent_GetInnerHtml_ForwardToCallback::Accept(
           internal::InnerHtmlAgent_GetInnerHtml_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InnerHtmlAgent.0
   bool success = true;
   std::string p_inner_html{};
   InnerHtmlAgent_GetInnerHtml_ResponseParamsDataView input_data_view(params, message);
@@ -310,6 +312,8 @@ bool InnerHtmlAgentStubDispatch::AcceptWithResponder(
               internal::InnerHtmlAgent_GetInnerHtml_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InnerHtmlAgent.0
       bool success = true;
       InnerHtmlAgent_GetInnerHtml_ParamsDataView input_data_view(params, message);
       

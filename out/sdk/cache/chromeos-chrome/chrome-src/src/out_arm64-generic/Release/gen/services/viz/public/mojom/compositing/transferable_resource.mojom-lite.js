@@ -141,6 +141,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'needsDetiling', 44,
+        4,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'ycbcrInfo', 64,
         0,
         gpu.mojom.VulkanYCbCrInfoSpec.$,
@@ -180,6 +188,8 @@ viz.mojom.TransferableResource = class {
     this.colorSpace;
     /** @export { !gfx.mojom.HDRMetadata } */
     this.hdrMetadata;
+    /** @export { !boolean } */
+    this.needsDetiling;
     /** @export { (gpu.mojom.VulkanYCbCrInfo|undefined) } */
     this.ycbcrInfo;
   }

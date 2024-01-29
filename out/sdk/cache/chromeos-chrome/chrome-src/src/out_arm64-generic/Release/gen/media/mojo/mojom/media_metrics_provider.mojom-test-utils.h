@@ -16,6 +16,7 @@ namespace media::mojom {
 class  MediaMetricsProviderInterceptorForTesting : public MediaMetricsProvider {
   virtual MediaMetricsProvider* GetForwardingInterface() = 0;
   void Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::MediaStreamType stream_type) override;
+  void OnStarted(const ::media::PipelineStatus& status) override;
   void OnError(const ::media::PipelineStatus& status) override;
   void OnFallback(const ::media::PipelineStatus& status) override;
   void SetHasPlayed() override;

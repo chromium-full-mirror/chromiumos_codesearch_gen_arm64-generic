@@ -29,6 +29,12 @@
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
       ],
+      "//resources/cr_components/commerce/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/commerce/*"
+      ],
+      "chrome://resources/cr_components/commerce/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/commerce/*"
+      ],
       "//resources/cr_elements/*": [
         "./../../../../../ui/webui/resources/tsc/cr_elements/*"
       ],
@@ -77,6 +83,9 @@
     },
     {
       "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/commerce/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"

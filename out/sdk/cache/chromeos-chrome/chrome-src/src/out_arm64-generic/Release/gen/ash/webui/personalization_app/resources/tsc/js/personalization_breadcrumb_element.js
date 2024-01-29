@@ -7,15 +7,17 @@
  * navigate.
  */
 import '/strings.m.js';
-import 'chrome://resources/cr_elements/cr_icons.css.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
+import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/cr_icons.css.js';
 import 'chrome://resources/cr_elements/icons.html.js';
-import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/iron-a11y-keys/iron-a11y-keys.js';
+import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/iron-selector/iron-selector.js';
-import '../css/common.css.js';
-import '../css/cros_button_style.css.js';
 import { assert } from 'chrome://resources/ash/common/assert.js';
+import { getSeaPenTemplates } from 'chrome://resources/ash/common/sea_pen/constants.js';
+import { isSeaPenEnabled } from 'chrome://resources/ash/common/sea_pen/load_time_booleans.js';
 import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { AnchorAlignment } from 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
 import { TopicSource } from '../personalization_app.mojom-webui.js';
@@ -23,8 +25,6 @@ import { getTemplate } from './personalization_breadcrumb_element.html.js';
 import { isPathValid, Paths, PersonalizationRouterElement } from './personalization_router_element.js';
 import { WithPersonalizationStore } from './personalization_store.js';
 import { inBetween } from './utils.js';
-import { getSeaPenTemplates } from './wallpaper/sea_pen/constants.js';
-import { isSeaPenEnabled } from './wallpaper/sea_pen/load_time_booleans.js';
 import { findAlbumById } from './wallpaper/utils.js';
 export function stringToTopicSource(x) {
     const num = parseInt(x, 10);
@@ -64,6 +64,7 @@ export class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
             breadcrumbs_: {
                 type: Array,
                 computed: 'computeBreadcrumbs_(path, collections_, collectionId, albums_, albumsShared_, googlePhotosAlbumId, seaPenTemplates_, seaPenTemplateId, topicSource)',
+                observer: 'onBreadcrumbsChanged_',
             },
             collections_: {
                 type: Array,
@@ -94,6 +95,20 @@ export class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
         this.watch('albums_', state => state.wallpaper.googlePhotos.albums);
         this.watch('albumsShared_', state => state.wallpaper.googlePhotos.albumsShared);
         this.updateFromStore();
+    }
+    onBreadcrumbsChanged_() {
+        requestAnimationFrame(() => {
+            // Note that only 1 breadcrumb is focusable at any given time. When
+            // breadcrumbs change, the previously selected breadcrumb might not be in
+            // DOM anymore. To allow keyboard users to focus the breadcrumbs again, we
+            // add the first breadcrumb back to tab order.
+            const allBreadcrumbs = this.$.selector.items;
+            const hasFocusableBreadcrumb = allBreadcrumbs.some(el => el.getAttribute('tabindex') === '0');
+            if (!hasFocusableBreadcrumb && allBreadcrumbs.length > 0) {
+                this.$.selector.selectIndex(0);
+                allBreadcrumbs[0].setAttribute('tabindex', '0');
+            }
+        });
     }
     /** Handle keyboard navigation. */
     onKeysPress_(e) {
@@ -163,15 +178,13 @@ export class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
                 break;
             case Paths.SEA_PEN_COLLECTION:
                 breadcrumbs.push(this.i18n('wallpaperLabel'));
-                // TODO(b/308200616): Add real text
-                breadcrumbs.push('Sea Pen');
+                breadcrumbs.push(this.i18n('seaPenLabel'));
                 break;
             case Paths.SEA_PEN_RESULTS:
                 breadcrumbs.push(this.i18n('wallpaperLabel'));
-                // TODO(b/308200616): Add real text
-                breadcrumbs.push('Sea Pen');
+                breadcrumbs.push(this.i18n('seaPenLabel'));
                 if (this.seaPenTemplateId && isNonEmptyArray(this.seaPenTemplates_)) {
-                    const template = this.seaPenTemplates_.find(template => template.id === this.seaPenTemplateId);
+                    const template = this.seaPenTemplates_.find(template => template.id.toString() === this.seaPenTemplateId);
                     if (template) {
                         breadcrumbs.push(template.title);
                     }
@@ -226,27 +239,33 @@ export class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
                 PersonalizationRouterElement.instance().goToRoute(newPath);
             }
         }
+        // If the user clicks the last breadcrumb and the sea pen dropdown is
+        // present, open the dropdown.
+        const targetElement = e.currentTarget;
+        if (index === this.breadcrumbs_.length - 1 &&
+            !!targetElement.querySelector('#seaPenDropdown')) {
+            this.onClickMenuIcon_(e);
+        }
     }
     onClickMenuIcon_(e) {
         const targetElement = e.currentTarget;
-        const menuIconContainerRect = targetElement.getBoundingClientRect();
         const config = {
-            // 8px is the padding of .menu-icon-container.
-            top: menuIconContainerRect.top - 8,
-            left: menuIconContainerRect.left - menuIconContainerRect.width / 2,
-            height: menuIconContainerRect.height,
-            width: menuIconContainerRect.width,
-            anchorAlignmentX: AnchorAlignment.CENTER,
-            anchorAlignmentY: AnchorAlignment.AFTER_END,
+            anchorAlignmentX: AnchorAlignment.AFTER_START,
+            anchorAlignmentY: AnchorAlignment.AFTER_START,
         };
         const menuElement = this.shadowRoot.querySelector('cr-action-menu');
-        menuElement.showAtPosition(config);
+        menuElement.showAt(targetElement, config);
     }
     onClickMenuItem_(e) {
         const targetElement = e.currentTarget;
         const templateId = targetElement.dataset['id'];
         assert(!!templateId, 'templateId is required');
         PersonalizationRouterElement.instance().goToRoute(Paths.SEA_PEN_RESULTS, { seaPenTemplateId: templateId });
+        this.closeOptionMenu_();
+    }
+    closeOptionMenu_() {
+        const menuElement = this.shadowRoot.querySelector('cr-action-menu');
+        menuElement.close();
     }
     shouldShowSeaPenDropdown_(path, breadcrumb) {
         if (!isSeaPenEnabled()) {
@@ -256,7 +275,7 @@ export class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
         return path === Paths.SEA_PEN_RESULTS && !!template;
     }
     getAriaSelected_(templateId, seaPenTemplateId) {
-        return templateId === seaPenTemplateId ? 'true' : 'false';
+        return templateId.toString() === seaPenTemplateId ? 'true' : 'false';
     }
     onHomeIconClick_() {
         PersonalizationRouterElement.instance().goToRoute(Paths.ROOT);

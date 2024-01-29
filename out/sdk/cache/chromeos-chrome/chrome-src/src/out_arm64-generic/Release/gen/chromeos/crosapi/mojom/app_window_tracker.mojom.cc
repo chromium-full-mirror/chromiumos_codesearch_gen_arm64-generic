@@ -266,6 +266,8 @@ bool AppWindowTrackerStubDispatch::Accept(
           reinterpret_cast<internal::AppWindowTracker_OnAppWindowAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppWindowTracker.0
       bool success = true;
       std::string p_app_id{};
       std::string p_window_id{};
@@ -284,9 +286,9 @@ bool AppWindowTrackerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppWindowAdded(
-std::move(p_app_id), 
-std::move(p_window_id));
+      impl->OnAppWindowAdded(        
+        std::move(p_app_id), 
+        std::move(p_window_id));
       return true;
     }
     case internal::kAppWindowTracker_OnAppWindowRemoved_Name: {
@@ -296,6 +298,8 @@ std::move(p_window_id));
           reinterpret_cast<internal::AppWindowTracker_OnAppWindowRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AppWindowTracker.1
       bool success = true;
       std::string p_app_id{};
       std::string p_window_id{};
@@ -314,9 +318,9 @@ std::move(p_window_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAppWindowRemoved(
-std::move(p_app_id), 
-std::move(p_window_id));
+      impl->OnAppWindowRemoved(        
+        std::move(p_app_id), 
+        std::move(p_window_id));
       return true;
     }
   }

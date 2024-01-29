@@ -892,7 +892,7 @@ enum WorldType : int32_t {
   WORLD_MAIN = 1,
   WORLD_ISOLATED = 2,
   WORLD_INSPECTOR_ISOLATED = 3,
-  WORLD_REG_EXP = 4,
+  WORLD_BLINK_INTERNAL_NON_JS_EXPOSED = 4,
   WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = 5,
   WORLD_WORKER = 6,
   WORLD_SHADOW_REALM = 7,
@@ -920,8 +920,8 @@ const char* BlinkExecutionContext_WorldType_Name(::perfetto::protos::pbzero::Bli
   case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_INSPECTOR_ISOLATED:
     return "WORLD_INSPECTOR_ISOLATED";
 
-  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_REG_EXP:
-    return "WORLD_REG_EXP";
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_BLINK_INTERNAL_NON_JS_EXPOSED:
+    return "WORLD_BLINK_INTERNAL_NON_JS_EXPOSED";
 
   case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN:
     return "WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN";
@@ -1766,7 +1766,7 @@ enum TaskType : int32_t {
   TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = 80,
   TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = 81,
   TASK_TYPE_STORAGE = 82,
-  TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = 83,
+  TASK_TYPE_NETWORKING_UNFREEZABLE_RENDER_BLOCKING_LOADING = 83,
   TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY = 84,
   TASK_TYPE_CLIPBOARD = 85,
 };
@@ -2000,8 +2000,8 @@ const char* RendererMainThreadTaskExecution_TaskType_Name(::perfetto::protos::pb
   case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_STORAGE:
     return "TASK_TYPE_STORAGE";
 
-  case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING:
-    return "TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING";
+  case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_RENDER_BLOCKING_LOADING:
+    return "TASK_TYPE_NETWORKING_UNFREEZABLE_RENDER_BLOCKING_LOADING";
 
   case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY:
     return "TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY";
@@ -2618,6 +2618,106 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class EventForwarder_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  EventForwarder_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit EventForwarder_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit EventForwarder_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_history_size() const { return at<1>().valid(); }
+  int32_t history_size() const { return at<1>().as_int32(); }
+  bool has_time_ns() const { return at<2>().valid(); }
+  int64_t time_ns() const { return at<2>().as_int64(); }
+  bool has_x_pixel() const { return at<3>().valid(); }
+  float x_pixel() const { return at<3>().as_float(); }
+  bool has_y_pixel() const { return at<4>().valid(); }
+  float y_pixel() const { return at<4>().as_float(); }
+};
+
+class EventForwarder : public ::protozero::Message {
+ public:
+  using Decoder = EventForwarder_Decoder;
+  enum : int32_t {
+    kHistorySizeFieldNumber = 1,
+    kTimeNsFieldNumber = 2,
+    kXPixelFieldNumber = 3,
+    kYPixelFieldNumber = 4,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.EventForwarder"; }
+
+
+  using FieldMetadata_HistorySize =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_HistorySize kHistorySize{};
+  void set_history_size(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_HistorySize::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TimeNs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_TimeNs kTimeNs{};
+  void set_time_ns(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TimeNs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_XPixel =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_XPixel kXPixel{};
+  void set_x_pixel(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_XPixel::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_YPixel =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      EventForwarder>;
+
+  static constexpr FieldMetadata_YPixel kYPixel{};
+  void set_y_pixel(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_YPixel::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class WebContentInteraction_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -5445,7 +5545,7 @@ class BlinkExecutionContext : public ::protozero::Message {
   static inline const WorldType WORLD_MAIN = WorldType::WORLD_MAIN;
   static inline const WorldType WORLD_ISOLATED = WorldType::WORLD_ISOLATED;
   static inline const WorldType WORLD_INSPECTOR_ISOLATED = WorldType::WORLD_INSPECTOR_ISOLATED;
-  static inline const WorldType WORLD_REG_EXP = WorldType::WORLD_REG_EXP;
+  static inline const WorldType WORLD_BLINK_INTERNAL_NON_JS_EXPOSED = WorldType::WORLD_BLINK_INTERNAL_NON_JS_EXPOSED;
   static inline const WorldType WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN;
   static inline const WorldType WORLD_WORKER = WorldType::WORLD_WORKER;
   static inline const WorldType WORLD_SHADOW_REALM = WorldType::WORLD_SHADOW_REALM;
@@ -6396,7 +6496,7 @@ class ProcessSingleton : public ::protozero::Message {
   }
 };
 
-class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   EventLatency_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit EventLatency_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -6411,6 +6511,8 @@ class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   int64_t event_latency_id() const { return at<4>().as_int64(); }
   bool has_is_janky_scrolled_frame() const { return at<5>().valid(); }
   bool is_janky_scrolled_frame() const { return at<5>().as_bool(); }
+  bool has_vsync_interval_ms() const { return at<6>().valid(); }
+  double vsync_interval_ms() const { return at<6>().as_double(); }
 };
 
 class EventLatency : public ::protozero::Message {
@@ -6422,6 +6524,7 @@ class EventLatency : public ::protozero::Message {
     kHighLatencyStageFieldNumber = 3,
     kEventLatencyIdFieldNumber = 4,
     kIsJankyScrolledFrameFieldNumber = 5,
+    kVsyncIntervalMsFieldNumber = 6,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.EventLatency"; }
 
@@ -6554,6 +6657,24 @@ class EventLatency : public ::protozero::Message {
       ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
+
+  using FieldMetadata_VsyncIntervalMs =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      EventLatency>;
+
+  static constexpr FieldMetadata_VsyncIntervalMs kVsyncIntervalMs{};
+  void set_vsync_interval_ms(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_VsyncIntervalMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
+        ::Append(*this, field_id, value);
+  }
 };
 
 class RendererMainThreadTaskExecution_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
@@ -6668,7 +6789,7 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
   static inline const TaskType TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION;
   static inline const TaskType TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
   static inline const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
-  static inline const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
+  static inline const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_RENDER_BLOCKING_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_RENDER_BLOCKING_LOADING;
   static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY;
   static inline const TaskType TASK_TYPE_CLIPBOARD = TaskType::TASK_TYPE_CLIPBOARD;
   static inline const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
@@ -11536,6 +11657,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_WebContentInteraction kWebContentInteraction{};
   template <typename T = WebContentInteraction> T* set_web_content_interaction() {
     return BeginNestedMessage<T>(1058);
+  }
+
+
+  using FieldMetadata_EventForwarder =
+    ::protozero::proto_utils::FieldMetadata<
+      1059,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EventForwarder,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_EventForwarder kEventForwarder{};
+  template <typename T = EventForwarder> T* set_event_forwarder() {
+    return BeginNestedMessage<T>(1059);
   }
 
 };

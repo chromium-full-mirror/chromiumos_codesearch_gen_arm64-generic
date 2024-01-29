@@ -68,7 +68,7 @@ content_type_ = ContentType::kString;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionFormattedTextRunOrString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionFormattedTextRunOrString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kFormattedTextRun: {
     return ToV8Traits<FormattedTextRun>::ToV8(script_state, member_formatted_text_run_.Get());
@@ -79,7 +79,7 @@ v8::MaybeLocal<v8::Value> V8UnionFormattedTextRunOrString::ToV8Value(ScriptState
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionFormattedTextRunOrString::Trace(Visitor* visitor) const {

@@ -28,8 +28,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RouteProvider_GetRoute_Param
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t routing_id;
+  mojo::internal::Pointer<::blink::mojom::internal::LocalFrameToken_Data> frame_token;
   mojo::internal::AssociatedEndpointHandle_Data receiver;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<RouteProvider_GetRoute_Params_Data>;
@@ -37,7 +38,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) RouteProvider_GetRoute_Param
   RouteProvider_GetRoute_Params_Data();
   ~RouteProvider_GetRoute_Params_Data() = delete;
 };
-static_assert(sizeof(RouteProvider_GetRoute_Params_Data) == 16,
+static_assert(sizeof(RouteProvider_GetRoute_Params_Data) == 24,
               "Bad sizeof(RouteProvider_GetRoute_Params_Data)");
 
 }  // namespace internal
@@ -53,8 +54,15 @@ class RouteProvider_GetRoute_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  int32_t routing_id() const {
-    return data_->routing_id;
+  inline void GetFrameTokenDataView(
+      ::blink::mojom::LocalFrameTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrameToken(UserType* output) {
+    
+    auto* pointer = data_->frame_token.Get();
+    return mojo::internal::Deserialize<::blink::mojom::LocalFrameTokenDataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   UserType TakeReceiver() {
@@ -70,6 +78,11 @@ class RouteProvider_GetRoute_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+inline void RouteProvider_GetRoute_ParamsDataView::GetFrameTokenDataView(
+    ::blink::mojom::LocalFrameTokenDataView* output) {
+  auto pointer = data_->frame_token.Get();
+  *output = ::blink::mojom::LocalFrameTokenDataView(pointer, message_);
+}
 
 
 

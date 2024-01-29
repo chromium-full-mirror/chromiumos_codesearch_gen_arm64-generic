@@ -211,6 +211,8 @@ bool CookieEncryptionProvider_GetEncryptor_ForwardToCallback::Accept(
           internal::CookieEncryptionProvider_GetEncryptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CookieEncryptionProvider.0
   bool success = true;
   ::os_crypt_async::mojom::blink::EncryptorPtr p_encryptor{};
   CookieEncryptionProvider_GetEncryptor_ResponseParamsDataView input_data_view(params, message);
@@ -311,6 +313,8 @@ bool CookieEncryptionProviderStubDispatch::AcceptWithResponder(
               internal::CookieEncryptionProvider_GetEncryptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CookieEncryptionProvider.0
       bool success = true;
       CookieEncryptionProvider_GetEncryptor_ParamsDataView input_data_view(params, message);
       

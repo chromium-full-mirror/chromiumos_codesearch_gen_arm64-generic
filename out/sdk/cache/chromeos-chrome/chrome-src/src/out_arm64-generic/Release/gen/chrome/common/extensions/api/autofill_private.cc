@@ -37,7 +37,9 @@ namespace autofill_private {
 
 AccountInfo::AccountInfo()
 : is_sync_enabled_for_autofill_profiles(false),
-is_eligible_for_address_account_storage(false) {}
+is_eligible_for_address_account_storage(false),
+is_autofill_sync_toggle_available(false),
+is_autofill_sync_toggle_enabled(false) {}
 
 AccountInfo::~AccountInfo() = default;
 AccountInfo::AccountInfo(AccountInfo&& rhs) noexcept = default;
@@ -47,6 +49,8 @@ AccountInfo AccountInfo::Clone() const {
   out.email = email;
   out.is_sync_enabled_for_autofill_profiles = is_sync_enabled_for_autofill_profiles;
   out.is_eligible_for_address_account_storage = is_eligible_for_address_account_storage;
+  out.is_autofill_sync_toggle_available = is_autofill_sync_toggle_available;
+  out.is_autofill_sync_toggle_enabled = is_autofill_sync_toggle_enabled;
   return out;
 }
 
@@ -89,6 +93,30 @@ bool AccountInfo::Populate(
     out.is_eligible_for_address_account_storage = *temp;
   }
 
+  const base::Value* is_autofill_sync_toggle_available_value = dict.Find("isAutofillSyncToggleAvailable");
+  if (!is_autofill_sync_toggle_available_value) {
+    return false;
+  }
+  {
+    auto temp = (*is_autofill_sync_toggle_available_value).GetIfBool();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out.is_autofill_sync_toggle_available = *temp;
+  }
+
+  const base::Value* is_autofill_sync_toggle_enabled_value = dict.Find("isAutofillSyncToggleEnabled");
+  if (!is_autofill_sync_toggle_enabled_value) {
+    return false;
+  }
+  {
+    auto temp = (*is_autofill_sync_toggle_enabled_value).GetIfBool();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out.is_autofill_sync_toggle_enabled = *temp;
+  }
+
   return true;
 }
 
@@ -129,6 +157,10 @@ base::Value::Dict AccountInfo::ToValue() const {
   to_value_result.Set("isSyncEnabledForAutofillProfiles", this->is_sync_enabled_for_autofill_profiles);
 
   to_value_result.Set("isEligibleForAddressAccountStorage", this->is_eligible_for_address_account_storage);
+
+  to_value_result.Set("isAutofillSyncToggleAvailable", this->is_autofill_sync_toggle_available);
+
+  to_value_result.Set("isAutofillSyncToggleEnabled", this->is_autofill_sync_toggle_enabled);
 
 
   return to_value_result;
@@ -275,8 +307,6 @@ const char* ToString(FieldType enum_param) {
       return "ADDRESS_HOME_ADDRESS_WITH_NAME";
     case FieldType::kAddressHomeFloor:
       return "ADDRESS_HOME_FLOOR";
-    case FieldType::kNameFullWithHonorificPrefix:
-      return "NAME_FULL_WITH_HONORIFIC_PREFIX";
     case FieldType::kBirthdateDay:
       return "BIRTHDATE_DAY";
     case FieldType::kBirthdateMonth:
@@ -315,6 +345,12 @@ const char* ToString(FieldType enum_param) {
       return "ADDRESS_HOME_BETWEEN_STREETS";
     case FieldType::kAddressHomeBetweenStreetsOrLandmark:
       return "ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK";
+    case FieldType::kAddressHomeStreetLocationAndLocality:
+      return "ADDRESS_HOME_STREET_LOCATION_AND_LOCALITY";
+    case FieldType::kAddressHomeStreetLocationAndLandmark:
+      return "ADDRESS_HOME_STREET_LOCATION_AND_LANDMARK";
+    case FieldType::kAddressHomeDependentLocalityAndLandmark:
+      return "ADDRESS_HOME_DEPENDENT_LOCALITY_AND_LANDMARK";
     case FieldType::kAddressHomeBetweenStreets1:
       return "ADDRESS_HOME_BETWEEN_STREETS_1";
     case FieldType::kAddressHomeBetweenStreets2:
@@ -475,8 +511,6 @@ FieldType ParseFieldType(base::StringPiece enum_string) {
     return FieldType::kAddressHomeAddressWithName;
   if (enum_string == "ADDRESS_HOME_FLOOR")
     return FieldType::kAddressHomeFloor;
-  if (enum_string == "NAME_FULL_WITH_HONORIFIC_PREFIX")
-    return FieldType::kNameFullWithHonorificPrefix;
   if (enum_string == "BIRTHDATE_DAY")
     return FieldType::kBirthdateDay;
   if (enum_string == "BIRTHDATE_MONTH")
@@ -515,6 +549,12 @@ FieldType ParseFieldType(base::StringPiece enum_string) {
     return FieldType::kAddressHomeBetweenStreets;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK")
     return FieldType::kAddressHomeBetweenStreetsOrLandmark;
+  if (enum_string == "ADDRESS_HOME_STREET_LOCATION_AND_LOCALITY")
+    return FieldType::kAddressHomeStreetLocationAndLocality;
+  if (enum_string == "ADDRESS_HOME_STREET_LOCATION_AND_LANDMARK")
+    return FieldType::kAddressHomeStreetLocationAndLandmark;
+  if (enum_string == "ADDRESS_HOME_DEPENDENT_LOCALITY_AND_LANDMARK")
+    return FieldType::kAddressHomeDependentLocalityAndLandmark;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS_1")
     return FieldType::kAddressHomeBetweenStreets1;
   if (enum_string == "ADDRESS_HOME_BETWEEN_STREETS_2")
@@ -533,7 +573,7 @@ FieldType ParseFieldType(base::StringPiece enum_string) {
 }
 
 std::u16string GetFieldTypeParseError(base::StringPiece enum_string) {
-  return u"expected \"NO_SERVER_DATA\" or \"UNKNOWN_TYPE\" or \"EMPTY_TYPE\" or \"NAME_FIRST\" or \"NAME_MIDDLE\" or \"NAME_LAST\" or \"NAME_MIDDLE_INITIAL\" or \"NAME_FULL\" or \"NAME_SUFFIX\" or \"EMAIL_ADDRESS\" or \"PHONE_HOME_NUMBER\" or \"PHONE_HOME_CITY_CODE\" or \"PHONE_HOME_COUNTRY_CODE\" or \"PHONE_HOME_CITY_AND_NUMBER\" or \"PHONE_HOME_WHOLE_NUMBER\" or \"ADDRESS_HOME_LINE1\" or \"ADDRESS_HOME_LINE2\" or \"ADDRESS_HOME_APT_NUM\" or \"ADDRESS_HOME_CITY\" or \"ADDRESS_HOME_STATE\" or \"ADDRESS_HOME_ZIP\" or \"ADDRESS_HOME_COUNTRY\" or \"CREDIT_CARD_NAME_FULL\" or \"CREDIT_CARD_NUMBER\" or \"CREDIT_CARD_EXP_MONTH\" or \"CREDIT_CARD_EXP_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_4_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_4_DIGIT_YEAR\" or \"CREDIT_CARD_TYPE\" or \"CREDIT_CARD_VERIFICATION_CODE\" or \"COMPANY_NAME\" or \"FIELD_WITH_DEFAULT_VALUE\" or \"MERCHANT_EMAIL_SIGNUP\" or \"MERCHANT_PROMO_CODE\" or \"PASSWORD\" or \"ACCOUNT_CREATION_PASSWORD\" or \"ADDRESS_HOME_STREET_ADDRESS\" or \"ADDRESS_HOME_SORTING_CODE\" or \"ADDRESS_HOME_DEPENDENT_LOCALITY\" or \"ADDRESS_HOME_LINE3\" or \"NOT_ACCOUNT_CREATION_PASSWORD\" or \"USERNAME\" or \"USERNAME_AND_EMAIL_ADDRESS\" or \"NEW_PASSWORD\" or \"PROBABLY_NEW_PASSWORD\" or \"NOT_NEW_PASSWORD\" or \"CREDIT_CARD_NAME_FIRST\" or \"CREDIT_CARD_NAME_LAST\" or \"PHONE_HOME_EXTENSION\" or \"CONFIRMATION_PASSWORD\" or \"AMBIGUOUS_TYPE\" or \"SEARCH_TERM\" or \"PRICE\" or \"NOT_PASSWORD\" or \"SINGLE_USERNAME\" or \"NOT_USERNAME\" or \"UPI_VPA\" or \"ADDRESS_HOME_STREET_NAME\" or \"ADDRESS_HOME_HOUSE_NUMBER\" or \"ADDRESS_HOME_SUBPREMISE\" or \"ADDRESS_HOME_OTHER_SUBUNIT\" or \"NAME_LAST_FIRST\" or \"NAME_LAST_CONJUNCTION\" or \"NAME_LAST_SECOND\" or \"NAME_HONORIFIC_PREFIX\" or \"ADDRESS_HOME_ADDRESS\" or \"ADDRESS_HOME_ADDRESS_WITH_NAME\" or \"ADDRESS_HOME_FLOOR\" or \"NAME_FULL_WITH_HONORIFIC_PREFIX\" or \"BIRTHDATE_DAY\" or \"BIRTHDATE_MONTH\" or \"BIRTHDATE_4_DIGIT_YEAR\" or \"PHONE_HOME_CITY_CODE_WITH_TRUNK_PREFIX\" or \"PHONE_HOME_CITY_AND_NUMBER_WITHOUT_TRUNK_PREFIX\" or \"PHONE_HOME_NUMBER_PREFIX\" or \"PHONE_HOME_NUMBER_SUFFIX\" or \"IBAN_VALUE\" or \"CREDIT_CARD_STANDALONE_VERIFICATION_CODE\" or \"NUMERIC_QUANTITY\" or \"ONE_TIME_CODE\" or \"DELIVERY_INSTRUCTIONS\" or \"ADDRESS_HOME_OVERFLOW\" or \"ADDRESS_HOME_LANDMARK\" or \"ADDRESS_HOME_OVERFLOW_AND_LANDMARK\" or \"ADDRESS_HOME_ADMIN_LEVEL2\" or \"ADDRESS_HOME_STREET_LOCATION\" or \"ADDRESS_HOME_BETWEEN_STREETS\" or \"ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK\" or \"ADDRESS_HOME_BETWEEN_STREETS_1\" or \"ADDRESS_HOME_BETWEEN_STREETS_2\" or \"SINGLE_USERNAME_FORGOT_PASSWORD\" or \"ADDRESS_HOME_APT\" or \"ADDRESS_HOME_APT_TYPE\" or \"SINGLE_USERNAME_WITH_INTERMEDIATE_VALUES\" or \"MAX_VALID_FIELD_TYPE\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
+  return u"expected \"NO_SERVER_DATA\" or \"UNKNOWN_TYPE\" or \"EMPTY_TYPE\" or \"NAME_FIRST\" or \"NAME_MIDDLE\" or \"NAME_LAST\" or \"NAME_MIDDLE_INITIAL\" or \"NAME_FULL\" or \"NAME_SUFFIX\" or \"EMAIL_ADDRESS\" or \"PHONE_HOME_NUMBER\" or \"PHONE_HOME_CITY_CODE\" or \"PHONE_HOME_COUNTRY_CODE\" or \"PHONE_HOME_CITY_AND_NUMBER\" or \"PHONE_HOME_WHOLE_NUMBER\" or \"ADDRESS_HOME_LINE1\" or \"ADDRESS_HOME_LINE2\" or \"ADDRESS_HOME_APT_NUM\" or \"ADDRESS_HOME_CITY\" or \"ADDRESS_HOME_STATE\" or \"ADDRESS_HOME_ZIP\" or \"ADDRESS_HOME_COUNTRY\" or \"CREDIT_CARD_NAME_FULL\" or \"CREDIT_CARD_NUMBER\" or \"CREDIT_CARD_EXP_MONTH\" or \"CREDIT_CARD_EXP_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_4_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_2_DIGIT_YEAR\" or \"CREDIT_CARD_EXP_DATE_4_DIGIT_YEAR\" or \"CREDIT_CARD_TYPE\" or \"CREDIT_CARD_VERIFICATION_CODE\" or \"COMPANY_NAME\" or \"FIELD_WITH_DEFAULT_VALUE\" or \"MERCHANT_EMAIL_SIGNUP\" or \"MERCHANT_PROMO_CODE\" or \"PASSWORD\" or \"ACCOUNT_CREATION_PASSWORD\" or \"ADDRESS_HOME_STREET_ADDRESS\" or \"ADDRESS_HOME_SORTING_CODE\" or \"ADDRESS_HOME_DEPENDENT_LOCALITY\" or \"ADDRESS_HOME_LINE3\" or \"NOT_ACCOUNT_CREATION_PASSWORD\" or \"USERNAME\" or \"USERNAME_AND_EMAIL_ADDRESS\" or \"NEW_PASSWORD\" or \"PROBABLY_NEW_PASSWORD\" or \"NOT_NEW_PASSWORD\" or \"CREDIT_CARD_NAME_FIRST\" or \"CREDIT_CARD_NAME_LAST\" or \"PHONE_HOME_EXTENSION\" or \"CONFIRMATION_PASSWORD\" or \"AMBIGUOUS_TYPE\" or \"SEARCH_TERM\" or \"PRICE\" or \"NOT_PASSWORD\" or \"SINGLE_USERNAME\" or \"NOT_USERNAME\" or \"UPI_VPA\" or \"ADDRESS_HOME_STREET_NAME\" or \"ADDRESS_HOME_HOUSE_NUMBER\" or \"ADDRESS_HOME_SUBPREMISE\" or \"ADDRESS_HOME_OTHER_SUBUNIT\" or \"NAME_LAST_FIRST\" or \"NAME_LAST_CONJUNCTION\" or \"NAME_LAST_SECOND\" or \"NAME_HONORIFIC_PREFIX\" or \"ADDRESS_HOME_ADDRESS\" or \"ADDRESS_HOME_ADDRESS_WITH_NAME\" or \"ADDRESS_HOME_FLOOR\" or \"BIRTHDATE_DAY\" or \"BIRTHDATE_MONTH\" or \"BIRTHDATE_4_DIGIT_YEAR\" or \"PHONE_HOME_CITY_CODE_WITH_TRUNK_PREFIX\" or \"PHONE_HOME_CITY_AND_NUMBER_WITHOUT_TRUNK_PREFIX\" or \"PHONE_HOME_NUMBER_PREFIX\" or \"PHONE_HOME_NUMBER_SUFFIX\" or \"IBAN_VALUE\" or \"CREDIT_CARD_STANDALONE_VERIFICATION_CODE\" or \"NUMERIC_QUANTITY\" or \"ONE_TIME_CODE\" or \"DELIVERY_INSTRUCTIONS\" or \"ADDRESS_HOME_OVERFLOW\" or \"ADDRESS_HOME_LANDMARK\" or \"ADDRESS_HOME_OVERFLOW_AND_LANDMARK\" or \"ADDRESS_HOME_ADMIN_LEVEL2\" or \"ADDRESS_HOME_STREET_LOCATION\" or \"ADDRESS_HOME_BETWEEN_STREETS\" or \"ADDRESS_HOME_BETWEEN_STREETS_OR_LANDMARK\" or \"ADDRESS_HOME_STREET_LOCATION_AND_LOCALITY\" or \"ADDRESS_HOME_STREET_LOCATION_AND_LANDMARK\" or \"ADDRESS_HOME_DEPENDENT_LOCALITY_AND_LANDMARK\" or \"ADDRESS_HOME_BETWEEN_STREETS_1\" or \"ADDRESS_HOME_BETWEEN_STREETS_2\" or \"SINGLE_USERNAME_FORGOT_PASSWORD\" or \"ADDRESS_HOME_APT\" or \"ADDRESS_HOME_APT_TYPE\" or \"SINGLE_USERNAME_WITH_INTERMEDIATE_VALUES\" or \"MAX_VALID_FIELD_TYPE\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
@@ -2231,6 +2271,41 @@ base::Value::List Results::Create(bool is_device_auth_available) {
 namespace BulkDeleteAllCvcs {
 
 }  // namespace BulkDeleteAllCvcs
+
+namespace SetAutofillSyncToggleEnabled {
+
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
+
+// static
+std::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return std::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& enabled_value = args[0];
+    {
+      auto temp = enabled_value.GetIfBool();
+      if (!temp.has_value()) {
+        return std::nullopt;
+      }
+      params.enabled = *temp;
+    }
+  }
+  else {
+    return std::nullopt;
+  }
+
+  return params;
+}
+
+
+}  // namespace SetAutofillSyncToggleEnabled
 
 //
 // Events

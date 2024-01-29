@@ -10,7 +10,11 @@
 
 const webui::ResourcePath kAshVcBackgroundResources[] = {
   {"index.html", IDR_ASH_VC_BACKGROUND_INDEX_HTML},
+  {"js/vc_background_app.js", IDR_ASH_VC_BACKGROUND_JS_VC_BACKGROUND_APP_JS},
+  {"js/vc_background_breadcrumb_element.js", IDR_ASH_VC_BACKGROUND_JS_VC_BACKGROUND_BREADCRUMB_ELEMENT_JS},
   {"vc_background_ui.js", IDR_ASH_VC_BACKGROUND_VC_BACKGROUND_UI_JS},
+  {"js/vc_background_app.html.js", IDR_ASH_VC_BACKGROUND_JS_VC_BACKGROUND_APP_HTML_JS},
+  {"js/vc_background_breadcrumb_element.html.js", IDR_ASH_VC_BACKGROUND_JS_VC_BACKGROUND_BREADCRUMB_ELEMENT_HTML_JS},
 };
 
 const size_t kAshVcBackgroundResourcesSize = std::size(kAshVcBackgroundResources);

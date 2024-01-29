@@ -40,8 +40,10 @@ class SectionFieldIdentifier_Data;
 class Section_Data;
 class AutocompleteParsingResult_Data;
 class FormFieldData_Data;
+class FormFieldData_FillData_Data;
 class ButtonTitleInfo_Data;
 class FormData_Data;
+class FormData_FillData_Data;
 class FormFieldDataPredictions_Data;
 class FormDataPredictions_Data;
 class PasswordAndMetadata_Data;
@@ -450,6 +452,8 @@ struct AutofillSuggestionTriggerSource_Data {
       case 9:
       case 10:
       case 11:
+      case 12:
+      case 13:
         return true;
     }
     return false;
@@ -1135,6 +1139,59 @@ struct FormFieldData_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FormFieldData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FormFieldData_FillData_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> value;
+  mojo::internal::Pointer<internal::FieldRendererId_Data> unique_renderer_id;
+  uint8_t is_autofilled : 1;
+  uint8_t force_override : 1;
+  uint8_t pad3_[7];
+  mojo::internal::Pointer<internal::Section_Data> section;
+
+ private:
+  friend class mojo::internal::MessageFragment<FormFieldData_FillData_Data>;
+
+  FormFieldData_FillData_Data();
+  ~FormFieldData_FillData_Data() = delete;
+};
+static_assert(sizeof(FormFieldData_FillData_Data) == 40,
+              "Bad sizeof(FormFieldData_FillData_Data)");
+// Used by FormFieldData_FillData::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FormFieldData_FillData_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FormFieldData_FillData_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FormFieldData_FillData_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FormFieldData_FillData_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FormFieldData_FillData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ButtonTitleInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -1246,6 +1303,55 @@ struct FormData_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FormData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FormData_FillData_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::FormRendererId_Data> unique_renderer_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FormFieldData_FillData_Data>>> fields;
+
+ private:
+  friend class mojo::internal::MessageFragment<FormData_FillData_Data>;
+
+  FormData_FillData_Data();
+  ~FormData_FillData_Data() = delete;
+};
+static_assert(sizeof(FormData_FillData_Data) == 24,
+              "Bad sizeof(FormData_FillData_Data)");
+// Used by FormData_FillData::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FormData_FillData_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FormData_FillData_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FormData_FillData_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FormData_FillData_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FormData_FillData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  FormFieldDataPredictions_Data {
  public:
   static bool Validate(const void* data,

@@ -509,6 +509,8 @@ bool PushMessaging_Subscribe_ForwardToCallback::Accept(
           internal::PushMessaging_Subscribe_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushMessaging.0
   bool success = true;
   ::blink::mojom::blink::PushRegistrationStatus p_status{};
   PushSubscriptionPtr p_subscription{};
@@ -643,6 +645,8 @@ bool PushMessaging_Unsubscribe_ForwardToCallback::Accept(
           internal::PushMessaging_Unsubscribe_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushMessaging.1
   bool success = true;
   PushErrorType p_error_type{};
   bool p_did_unsubscribe{};
@@ -785,6 +789,8 @@ bool PushMessaging_GetSubscription_ForwardToCallback::Accept(
           internal::PushMessaging_GetSubscription_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PushMessaging.2
   bool success = true;
   ::blink::mojom::blink::PushGetRegistrationStatus p_status{};
   PushSubscriptionPtr p_subscription{};
@@ -896,6 +902,8 @@ bool PushMessagingStubDispatch::AcceptWithResponder(
               internal::PushMessaging_Subscribe_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushMessaging.0
       bool success = true;
       int64_t p_service_worker_registration_id{};
       PushSubscriptionOptionsPtr p_options{};
@@ -920,10 +928,10 @@ bool PushMessagingStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Subscribe(
-std::move(p_service_worker_registration_id), 
-std::move(p_options), 
-std::move(p_user_gesture), std::move(callback));
+      impl->Subscribe(        
+        std::move(p_service_worker_registration_id), 
+        std::move(p_options), 
+        std::move(p_user_gesture), std::move(callback));
       return true;
     }
     case internal::kPushMessaging_Unsubscribe_Name: {
@@ -933,6 +941,8 @@ std::move(p_user_gesture), std::move(callback));
               internal::PushMessaging_Unsubscribe_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushMessaging.1
       bool success = true;
       int64_t p_service_worker_registration_id{};
       PushMessaging_Unsubscribe_ParamsDataView input_data_view(params, message);
@@ -951,8 +961,8 @@ std::move(p_user_gesture), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Unsubscribe(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->Unsubscribe(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
     case internal::kPushMessaging_GetSubscription_Name: {
@@ -962,6 +972,8 @@ std::move(p_service_worker_registration_id), std::move(callback));
               internal::PushMessaging_GetSubscription_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PushMessaging.2
       bool success = true;
       int64_t p_service_worker_registration_id{};
       PushMessaging_GetSubscription_ParamsDataView input_data_view(params, message);
@@ -980,8 +992,8 @@ std::move(p_service_worker_registration_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSubscription(
-std::move(p_service_worker_registration_id), std::move(callback));
+      impl->GetSubscription(        
+        std::move(p_service_worker_registration_id), std::move(callback));
       return true;
     }
   }

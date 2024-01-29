@@ -1238,6 +1238,8 @@ bool LocalFrame_ExecuteCode_ForwardToCallback::Accept(
           internal::LocalFrame_ExecuteCode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.6
   bool success = true;
   std::string p_error{};
   ::GURL p_url{};
@@ -1397,6 +1399,8 @@ bool LocalFrame_DispatchOnConnect_ForwardToCallback::Accept(
           internal::LocalFrame_DispatchOnConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrame.9
   bool success = true;
   bool p_success{};
   LocalFrame_DispatchOnConnect_ResponseParamsDataView input_data_view(params, message);
@@ -1471,6 +1475,8 @@ bool LocalFrameStubDispatch::Accept(
           reinterpret_cast<internal::LocalFrame_SetFrameName_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.0
       bool success = true;
       std::string p_frame_name{};
       LocalFrame_SetFrameName_ParamsDataView input_data_view(params, message);
@@ -1486,8 +1492,8 @@ bool LocalFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFrameName(
-std::move(p_frame_name));
+      impl->SetFrameName(        
+        std::move(p_frame_name));
       return true;
     }
     case internal::kLocalFrame_SetSpatialNavigationEnabled_Name: {
@@ -1497,6 +1503,8 @@ std::move(p_frame_name));
           reinterpret_cast<internal::LocalFrame_SetSpatialNavigationEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.1
       bool success = true;
       bool p_spatial_nav_enabled{};
       LocalFrame_SetSpatialNavigationEnabled_ParamsDataView input_data_view(params, message);
@@ -1512,8 +1520,8 @@ std::move(p_frame_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSpatialNavigationEnabled(
-std::move(p_spatial_nav_enabled));
+      impl->SetSpatialNavigationEnabled(        
+        std::move(p_spatial_nav_enabled));
       return true;
     }
     case internal::kLocalFrame_SetTabId_Name: {
@@ -1523,6 +1531,8 @@ std::move(p_spatial_nav_enabled));
           reinterpret_cast<internal::LocalFrame_SetTabId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.2
       bool success = true;
       int32_t p_tab_id{};
       LocalFrame_SetTabId_ParamsDataView input_data_view(params, message);
@@ -1538,8 +1548,8 @@ std::move(p_spatial_nav_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTabId(
-std::move(p_tab_id));
+      impl->SetTabId(        
+        std::move(p_tab_id));
       return true;
     }
     case internal::kLocalFrame_AppWindowClosed_Name: {
@@ -1549,6 +1559,8 @@ std::move(p_tab_id));
           reinterpret_cast<internal::LocalFrame_AppWindowClosed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.3
       bool success = true;
       bool p_send_onclosed{};
       LocalFrame_AppWindowClosed_ParamsDataView input_data_view(params, message);
@@ -1564,8 +1576,8 @@ std::move(p_tab_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AppWindowClosed(
-std::move(p_send_onclosed));
+      impl->AppWindowClosed(        
+        std::move(p_send_onclosed));
       return true;
     }
     case internal::kLocalFrame_NotifyRenderViewType_Name: {
@@ -1575,6 +1587,8 @@ std::move(p_send_onclosed));
           reinterpret_cast<internal::LocalFrame_NotifyRenderViewType_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.4
       bool success = true;
       ::extensions::mojom::ViewType p_view_type{};
       LocalFrame_NotifyRenderViewType_ParamsDataView input_data_view(params, message);
@@ -1590,8 +1604,8 @@ std::move(p_send_onclosed));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyRenderViewType(
-std::move(p_view_type));
+      impl->NotifyRenderViewType(        
+        std::move(p_view_type));
       return true;
     }
     case internal::kLocalFrame_MessageInvoke_Name: {
@@ -1601,6 +1615,8 @@ std::move(p_view_type));
           reinterpret_cast<internal::LocalFrame_MessageInvoke_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.5
       bool success = true;
       std::string p_extension_id{};
       std::string p_module_name{};
@@ -1625,11 +1641,11 @@ std::move(p_view_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MessageInvoke(
-std::move(p_extension_id), 
-std::move(p_module_name), 
-std::move(p_function_name), 
-std::move(p_args));
+      impl->MessageInvoke(        
+        std::move(p_extension_id), 
+        std::move(p_module_name), 
+        std::move(p_function_name), 
+        std::move(p_args));
       return true;
     }
     case internal::kLocalFrame_ExecuteCode_Name: {
@@ -1642,6 +1658,8 @@ std::move(p_args));
           reinterpret_cast<internal::LocalFrame_ExecuteDeclarativeScript_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.7
       bool success = true;
       int32_t p_tab_id{};
       std::string p_extension_id{};
@@ -1666,11 +1684,11 @@ std::move(p_args));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteDeclarativeScript(
-std::move(p_tab_id), 
-std::move(p_extension_id), 
-std::move(p_script_id), 
-std::move(p_url));
+      impl->ExecuteDeclarativeScript(        
+        std::move(p_tab_id), 
+        std::move(p_extension_id), 
+        std::move(p_script_id), 
+        std::move(p_url));
       return true;
     }
     case internal::kLocalFrame_UpdateBrowserWindowId_Name: {
@@ -1680,6 +1698,8 @@ std::move(p_url));
           reinterpret_cast<internal::LocalFrame_UpdateBrowserWindowId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrame.8
       bool success = true;
       int32_t p_window_id{};
       LocalFrame_UpdateBrowserWindowId_ParamsDataView input_data_view(params, message);
@@ -1695,8 +1715,8 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateBrowserWindowId(
-std::move(p_window_id));
+      impl->UpdateBrowserWindowId(        
+        std::move(p_window_id));
       return true;
     }
     case internal::kLocalFrame_DispatchOnConnect_Name: {
@@ -1740,6 +1760,8 @@ bool LocalFrameStubDispatch::AcceptWithResponder(
               internal::LocalFrame_ExecuteCode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.6
       bool success = true;
       ExecuteCodeParamsPtr p_param{};
       LocalFrame_ExecuteCode_ParamsDataView input_data_view(params, message);
@@ -1758,8 +1780,8 @@ bool LocalFrameStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteCode(
-std::move(p_param), std::move(callback));
+      impl->ExecuteCode(        
+        std::move(p_param), std::move(callback));
       return true;
     }
     case internal::kLocalFrame_ExecuteDeclarativeScript_Name: {
@@ -1775,6 +1797,8 @@ std::move(p_param), std::move(callback));
               internal::LocalFrame_DispatchOnConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrame.9
       bool success = true;
       ::extensions::PortId p_port_id{};
       ::extensions::mojom::ChannelType p_channel_type{};
@@ -1815,14 +1839,14 @@ std::move(p_param), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchOnConnect(
-std::move(p_port_id), 
-std::move(p_channel_type), 
-std::move(p_channel_name), 
-std::move(p_tab_info), 
-std::move(p_external_connection_info), 
-std::move(p_port), 
-std::move(p_port_host), std::move(callback));
+      impl->DispatchOnConnect(        
+        std::move(p_port_id), 
+        std::move(p_channel_type), 
+        std::move(p_channel_name), 
+        std::move(p_tab_info), 
+        std::move(p_external_connection_info), 
+        std::move(p_port), 
+        std::move(p_port_host), std::move(callback));
       return true;
     }
   }
@@ -3153,6 +3177,8 @@ bool LocalFrameHost_RequestScriptInjectionPermission_ForwardToCallback::Accept(
           internal::LocalFrameHost_RequestScriptInjectionPermission_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.0
   bool success = true;
   bool p_granted{};
   LocalFrameHost_RequestScriptInjectionPermission_ResponseParamsDataView input_data_view(params, message);
@@ -3272,6 +3298,8 @@ bool LocalFrameHost_GetAppInstallState_ForwardToCallback::Accept(
           internal::LocalFrameHost_GetAppInstallState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.1
   bool success = true;
   std::string p_state{};
   LocalFrameHost_GetAppInstallState_ResponseParamsDataView input_data_view(params, message);
@@ -3401,6 +3429,8 @@ bool LocalFrameHost_Request_ForwardToCallback::Accept(
           internal::LocalFrameHost_Request_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalFrameHost.2
   bool success = true;
   bool p_success{};
   ::base::Value::List p_response_wrapper{};
@@ -3535,6 +3565,8 @@ bool LocalFrameHostStubDispatch::Accept(
           reinterpret_cast<internal::LocalFrameHost_ResponseAck_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.3
       bool success = true;
       ::base::Uuid p_request_uuid{};
       LocalFrameHost_ResponseAck_ParamsDataView input_data_view(params, message);
@@ -3550,8 +3582,8 @@ bool LocalFrameHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResponseAck(
-std::move(p_request_uuid));
+      impl->ResponseAck(        
+        std::move(p_request_uuid));
       return true;
     }
     case internal::kLocalFrameHost_WatchedPageChange_Name: {
@@ -3561,6 +3593,8 @@ std::move(p_request_uuid));
           reinterpret_cast<internal::LocalFrameHost_WatchedPageChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.4
       bool success = true;
       std::vector<std::string> p_css_selectors{};
       LocalFrameHost_WatchedPageChange_ParamsDataView input_data_view(params, message);
@@ -3576,8 +3610,8 @@ std::move(p_request_uuid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WatchedPageChange(
-std::move(p_css_selectors));
+      impl->WatchedPageChange(        
+        std::move(p_css_selectors));
       return true;
     }
     case internal::kLocalFrameHost_DetailedConsoleMessageAdded_Name: {
@@ -3587,6 +3621,8 @@ std::move(p_css_selectors));
           reinterpret_cast<internal::LocalFrameHost_DetailedConsoleMessageAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.5
       bool success = true;
       ::std::u16string p_message{};
       ::std::u16string p_source{};
@@ -3611,11 +3647,11 @@ std::move(p_css_selectors));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetailedConsoleMessageAdded(
-std::move(p_message), 
-std::move(p_source), 
-std::move(p_stack_trace), 
-std::move(p_level));
+      impl->DetailedConsoleMessageAdded(        
+        std::move(p_message), 
+        std::move(p_source), 
+        std::move(p_stack_trace), 
+        std::move(p_level));
       return true;
     }
     case internal::kLocalFrameHost_ContentScriptsExecuting_Name: {
@@ -3625,6 +3661,8 @@ std::move(p_level));
           reinterpret_cast<internal::LocalFrameHost_ContentScriptsExecuting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.6
       bool success = true;
       base::flat_map<std::string, std::vector<std::string>> p_extension_id_to_scripts{};
       ::GURL p_frame_url{};
@@ -3643,9 +3681,9 @@ std::move(p_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ContentScriptsExecuting(
-std::move(p_extension_id_to_scripts), 
-std::move(p_frame_url));
+      impl->ContentScriptsExecuting(        
+        std::move(p_extension_id_to_scripts), 
+        std::move(p_frame_url));
       return true;
     }
     case internal::kLocalFrameHost_IncrementLazyKeepaliveCount_Name: {
@@ -3655,6 +3693,8 @@ std::move(p_frame_url));
           reinterpret_cast<internal::LocalFrameHost_IncrementLazyKeepaliveCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.7
       bool success = true;
       LocalFrameHost_IncrementLazyKeepaliveCount_ParamsDataView input_data_view(params, message);
       
@@ -3667,7 +3707,7 @@ std::move(p_frame_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IncrementLazyKeepaliveCount();
+      impl->IncrementLazyKeepaliveCount(        );
       return true;
     }
     case internal::kLocalFrameHost_DecrementLazyKeepaliveCount_Name: {
@@ -3677,6 +3717,8 @@ std::move(p_frame_url));
           reinterpret_cast<internal::LocalFrameHost_DecrementLazyKeepaliveCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.8
       bool success = true;
       LocalFrameHost_DecrementLazyKeepaliveCount_ParamsDataView input_data_view(params, message);
       
@@ -3689,7 +3731,7 @@ std::move(p_frame_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DecrementLazyKeepaliveCount();
+      impl->DecrementLazyKeepaliveCount(        );
       return true;
     }
     case internal::kLocalFrameHost_UpdateDraggableRegions_Name: {
@@ -3699,6 +3741,8 @@ std::move(p_frame_url));
           reinterpret_cast<internal::LocalFrameHost_UpdateDraggableRegions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.9
       bool success = true;
       std::vector<DraggableRegionPtr> p_regions{};
       LocalFrameHost_UpdateDraggableRegions_ParamsDataView input_data_view(params, message);
@@ -3714,8 +3758,8 @@ std::move(p_frame_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDraggableRegions(
-std::move(p_regions));
+      impl->UpdateDraggableRegions(        
+        std::move(p_regions));
       return true;
     }
     case internal::kLocalFrameHost_AppWindowReady_Name: {
@@ -3725,6 +3769,8 @@ std::move(p_regions));
           reinterpret_cast<internal::LocalFrameHost_AppWindowReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.10
       bool success = true;
       LocalFrameHost_AppWindowReady_ParamsDataView input_data_view(params, message);
       
@@ -3737,7 +3783,7 @@ std::move(p_regions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AppWindowReady();
+      impl->AppWindowReady(        );
       return true;
     }
     case internal::kLocalFrameHost_OpenChannelToExtension_Name: {
@@ -3747,6 +3793,8 @@ std::move(p_regions));
           reinterpret_cast<internal::LocalFrameHost_OpenChannelToExtension_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.11
       bool success = true;
       ::extensions::mojom::ExternalConnectionInfoPtr p_info{};
       ::extensions::mojom::ChannelType p_channel_type{};
@@ -3781,13 +3829,13 @@ std::move(p_regions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToExtension(
-std::move(p_info), 
-std::move(p_channel_type), 
-std::move(p_channel_name), 
-std::move(p_port_id), 
-std::move(p_port), 
-std::move(p_port_host));
+      impl->OpenChannelToExtension(        
+        std::move(p_info), 
+        std::move(p_channel_type), 
+        std::move(p_channel_name), 
+        std::move(p_port_id), 
+        std::move(p_port), 
+        std::move(p_port_host));
       return true;
     }
     case internal::kLocalFrameHost_OpenChannelToNativeApp_Name: {
@@ -3797,6 +3845,8 @@ std::move(p_port_host));
           reinterpret_cast<internal::LocalFrameHost_OpenChannelToNativeApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.12
       bool success = true;
       std::string p_native_app_name{};
       ::extensions::PortId p_port_id{};
@@ -3825,11 +3875,11 @@ std::move(p_port_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToNativeApp(
-std::move(p_native_app_name), 
-std::move(p_port_id), 
-std::move(p_port), 
-std::move(p_port_host));
+      impl->OpenChannelToNativeApp(        
+        std::move(p_native_app_name), 
+        std::move(p_port_id), 
+        std::move(p_port), 
+        std::move(p_port_host));
       return true;
     }
     case internal::kLocalFrameHost_OpenChannelToTab_Name: {
@@ -3839,6 +3889,8 @@ std::move(p_port_host));
           reinterpret_cast<internal::LocalFrameHost_OpenChannelToTab_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.13
       bool success = true;
       int32_t p_tab_id{};
       int32_t p_frame_id{};
@@ -3879,15 +3931,15 @@ std::move(p_port_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToTab(
-std::move(p_tab_id), 
-std::move(p_frame_id), 
-std::move(p_document_id), 
-std::move(p_channel_type), 
-std::move(p_channel_name), 
-std::move(p_port_id), 
-std::move(p_port), 
-std::move(p_port_host));
+      impl->OpenChannelToTab(        
+        std::move(p_tab_id), 
+        std::move(p_frame_id), 
+        std::move(p_document_id), 
+        std::move(p_channel_type), 
+        std::move(p_channel_name), 
+        std::move(p_port_id), 
+        std::move(p_port), 
+        std::move(p_port_host));
       return true;
     }
   }
@@ -3910,6 +3962,8 @@ bool LocalFrameHostStubDispatch::AcceptWithResponder(
               internal::LocalFrameHost_RequestScriptInjectionPermission_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.0
       bool success = true;
       std::string p_extension_id{};
       ::extensions::mojom::InjectionType p_script_type{};
@@ -3934,10 +3988,10 @@ bool LocalFrameHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestScriptInjectionPermission(
-std::move(p_extension_id), 
-std::move(p_script_type), 
-std::move(p_run_location), std::move(callback));
+      impl->RequestScriptInjectionPermission(        
+        std::move(p_extension_id), 
+        std::move(p_script_type), 
+        std::move(p_run_location), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_GetAppInstallState_Name: {
@@ -3947,6 +4001,8 @@ std::move(p_run_location), std::move(callback));
               internal::LocalFrameHost_GetAppInstallState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.1
       bool success = true;
       ::GURL p_url{};
       LocalFrameHost_GetAppInstallState_ParamsDataView input_data_view(params, message);
@@ -3965,8 +4021,8 @@ std::move(p_run_location), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAppInstallState(
-std::move(p_url), std::move(callback));
+      impl->GetAppInstallState(        
+        std::move(p_url), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_Request_Name: {
@@ -3976,6 +4032,8 @@ std::move(p_url), std::move(callback));
               internal::LocalFrameHost_Request_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalFrameHost.2
       bool success = true;
       RequestParamsPtr p_params{};
       LocalFrameHost_Request_ParamsDataView input_data_view(params, message);
@@ -3994,8 +4052,8 @@ std::move(p_url), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Request(
-std::move(p_params), std::move(callback));
+      impl->Request(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kLocalFrameHost_ResponseAck_Name: {

@@ -416,6 +416,14 @@
       {
         "cpp": "::printing::mojom::DuplexMode",
         "mojom": "blink.mojom.WebPrintingSides"
+      },
+      {
+        "cpp": "ipp_pstate_t",
+        "mojom": "blink.mojom.WebPrinterState"
+      },
+      {
+        "cpp": "::printing::PrinterStatus::PrinterReason::Reason",
+        "mojom": "blink.mojom.WebPrinterStateReason"
       }
     ]
   },

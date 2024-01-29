@@ -18,9 +18,7 @@
 
 
 
-namespace mojo {
-enum class NativeEnum;
-}  // namespace mojo
+
 
 
 namespace content_settings::mojom {
@@ -34,7 +32,6 @@ class ContentSettingPatternSourceDataView;
 
 class RendererContentSettingRulesDataView;
 
-using ContentSettingsType = mojo::NativeEnum;
 
 enum class ContentSetting : int32_t;
 

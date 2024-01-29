@@ -44,57 +44,134 @@
 
 
 namespace crosapi::mojom {
+DownloadProgress::DownloadProgress()
+    : loop(),
+      received_bytes(),
+      total_bytes(),
+      visible() {}
+
+DownloadProgress::DownloadProgress(
+    bool loop_in,
+    int64_t received_bytes_in,
+    int64_t total_bytes_in,
+    bool visible_in)
+    : loop(std::move(loop_in)),
+      received_bytes(std::move(received_bytes_in)),
+      total_bytes(std::move(total_bytes_in)),
+      visible(std::move(visible_in)) {}
+
+DownloadProgress::~DownloadProgress() = default;
+size_t DownloadProgress::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->loop);
+  seed = mojo::internal::Hash(seed, this->received_bytes);
+  seed = mojo::internal::Hash(seed, this->total_bytes);
+  seed = mojo::internal::Hash(seed, this->visible);
+  return seed;
+}
+
+void DownloadProgress::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "loop"), this->loop,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "received_bytes"), this->received_bytes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "total_bytes"), this->total_bytes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "visible"), this->visible,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DownloadProgress::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 DownloadStatus::DownloadStatus()
     : guid(),
       state(),
-      received_bytes(),
-      total_bytes(),
+      received_bytes_deprecated(),
+      total_bytes_deprecated(),
       target_file_path(),
       full_path(),
       cancellable(),
       pausable(),
       resumable(),
-      status_text() {}
+      status_text(),
+      image(),
+      progress() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
     ::crosapi::mojom::DownloadState state_in)
     : guid(std::move(guid_in)),
       state(std::move(state_in)),
-      received_bytes(),
-      total_bytes(),
+      received_bytes_deprecated(),
+      total_bytes_deprecated(),
       target_file_path(),
       full_path(),
       cancellable(),
       pausable(),
       resumable(),
-      status_text() {}
+      status_text(),
+      image(),
+      progress() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
     ::crosapi::mojom::DownloadState state_in,
-    std::optional<int64_t> received_bytes_in,
-    std::optional<int64_t> total_bytes_in,
+    std::optional<int64_t> received_bytes_deprecated_in,
+    std::optional<int64_t> total_bytes_deprecated_in,
     const std::optional<::base::FilePath>& target_file_path_in,
     std::optional<bool> cancellable_in,
     std::optional<bool> pausable_in,
     std::optional<bool> resumable_in)
     : guid(std::move(guid_in)),
       state(std::move(state_in)),
-      received_bytes(std::move(received_bytes_in)),
-      total_bytes(std::move(total_bytes_in)),
+      received_bytes_deprecated(std::move(received_bytes_deprecated_in)),
+      total_bytes_deprecated(std::move(total_bytes_deprecated_in)),
       target_file_path(std::move(target_file_path_in)),
       full_path(),
       cancellable(std::move(cancellable_in)),
       pausable(std::move(pausable_in)),
       resumable(std::move(resumable_in)),
-      status_text() {}
+      status_text(),
+      image(),
+      progress() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
     ::crosapi::mojom::DownloadState state_in,
-    std::optional<int64_t> received_bytes_in,
-    std::optional<int64_t> total_bytes_in,
+    std::optional<int64_t> received_bytes_deprecated_in,
+    std::optional<int64_t> total_bytes_deprecated_in,
     const std::optional<::base::FilePath>& target_file_path_in,
     const std::optional<::base::FilePath>& full_path_in,
     std::optional<bool> cancellable_in,
@@ -102,20 +179,22 @@ DownloadStatus::DownloadStatus(
     std::optional<bool> resumable_in)
     : guid(std::move(guid_in)),
       state(std::move(state_in)),
-      received_bytes(std::move(received_bytes_in)),
-      total_bytes(std::move(total_bytes_in)),
+      received_bytes_deprecated(std::move(received_bytes_deprecated_in)),
+      total_bytes_deprecated(std::move(total_bytes_deprecated_in)),
       target_file_path(std::move(target_file_path_in)),
       full_path(std::move(full_path_in)),
       cancellable(std::move(cancellable_in)),
       pausable(std::move(pausable_in)),
       resumable(std::move(resumable_in)),
-      status_text() {}
+      status_text(),
+      image(),
+      progress() {}
 
 DownloadStatus::DownloadStatus(
     const std::string& guid_in,
     ::crosapi::mojom::DownloadState state_in,
-    std::optional<int64_t> received_bytes_in,
-    std::optional<int64_t> total_bytes_in,
+    std::optional<int64_t> received_bytes_deprecated_in,
+    std::optional<int64_t> total_bytes_deprecated_in,
     const std::optional<::base::FilePath>& target_file_path_in,
     const std::optional<::base::FilePath>& full_path_in,
     std::optional<bool> cancellable_in,
@@ -124,14 +203,67 @@ DownloadStatus::DownloadStatus(
     const std::optional<::std::u16string>& status_text_in)
     : guid(std::move(guid_in)),
       state(std::move(state_in)),
-      received_bytes(std::move(received_bytes_in)),
-      total_bytes(std::move(total_bytes_in)),
+      received_bytes_deprecated(std::move(received_bytes_deprecated_in)),
+      total_bytes_deprecated(std::move(total_bytes_deprecated_in)),
       target_file_path(std::move(target_file_path_in)),
       full_path(std::move(full_path_in)),
       cancellable(std::move(cancellable_in)),
       pausable(std::move(pausable_in)),
       resumable(std::move(resumable_in)),
-      status_text(std::move(status_text_in)) {}
+      status_text(std::move(status_text_in)),
+      image(),
+      progress() {}
+
+DownloadStatus::DownloadStatus(
+    const std::string& guid_in,
+    ::crosapi::mojom::DownloadState state_in,
+    std::optional<int64_t> received_bytes_deprecated_in,
+    std::optional<int64_t> total_bytes_deprecated_in,
+    const std::optional<::base::FilePath>& target_file_path_in,
+    const std::optional<::base::FilePath>& full_path_in,
+    std::optional<bool> cancellable_in,
+    std::optional<bool> pausable_in,
+    std::optional<bool> resumable_in,
+    const std::optional<::std::u16string>& status_text_in,
+    const ::gfx::ImageSkia& image_in)
+    : guid(std::move(guid_in)),
+      state(std::move(state_in)),
+      received_bytes_deprecated(std::move(received_bytes_deprecated_in)),
+      total_bytes_deprecated(std::move(total_bytes_deprecated_in)),
+      target_file_path(std::move(target_file_path_in)),
+      full_path(std::move(full_path_in)),
+      cancellable(std::move(cancellable_in)),
+      pausable(std::move(pausable_in)),
+      resumable(std::move(resumable_in)),
+      status_text(std::move(status_text_in)),
+      image(std::move(image_in)),
+      progress() {}
+
+DownloadStatus::DownloadStatus(
+    const std::string& guid_in,
+    ::crosapi::mojom::DownloadState state_in,
+    std::optional<int64_t> received_bytes_deprecated_in,
+    std::optional<int64_t> total_bytes_deprecated_in,
+    const std::optional<::base::FilePath>& target_file_path_in,
+    const std::optional<::base::FilePath>& full_path_in,
+    std::optional<bool> cancellable_in,
+    std::optional<bool> pausable_in,
+    std::optional<bool> resumable_in,
+    const std::optional<::std::u16string>& status_text_in,
+    const ::gfx::ImageSkia& image_in,
+    DownloadProgressPtr progress_in)
+    : guid(std::move(guid_in)),
+      state(std::move(state_in)),
+      received_bytes_deprecated(std::move(received_bytes_deprecated_in)),
+      total_bytes_deprecated(std::move(total_bytes_deprecated_in)),
+      target_file_path(std::move(target_file_path_in)),
+      full_path(std::move(full_path_in)),
+      cancellable(std::move(cancellable_in)),
+      pausable(std::move(pausable_in)),
+      resumable(std::move(resumable_in)),
+      status_text(std::move(status_text_in)),
+      image(std::move(image_in)),
+      progress(std::move(progress_in)) {}
 
 DownloadStatus::~DownloadStatus() = default;
 
@@ -158,7 +290,7 @@ void DownloadStatus::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "received_bytes"), this->received_bytes,
+      "received_bytes_deprecated"), this->received_bytes_deprecated,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<int64_t>>"
 #else
@@ -167,7 +299,7 @@ void DownloadStatus::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "total_bytes"), this->total_bytes,
+      "total_bytes_deprecated"), this->total_bytes_deprecated,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<int64_t>>"
 #else
@@ -224,6 +356,24 @@ void DownloadStatus::WriteIntoTrace(
       "status_text"), this->status_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<::std::u16string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "image"), this->image,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::ImageSkia&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "progress"), this->progress,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DownloadProgressPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -684,6 +834,8 @@ bool DownloadStatusUpdaterClient_Cancel_ForwardToCallback::Accept(
           internal::DownloadStatusUpdaterClient_Cancel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DownloadStatusUpdaterClient.0
   bool success = true;
   bool p_handled{};
   DownloadStatusUpdaterClient_Cancel_ResponseParamsDataView input_data_view(params, message);
@@ -803,6 +955,8 @@ bool DownloadStatusUpdaterClient_Pause_ForwardToCallback::Accept(
           internal::DownloadStatusUpdaterClient_Pause_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DownloadStatusUpdaterClient.1
   bool success = true;
   bool p_handled{};
   DownloadStatusUpdaterClient_Pause_ResponseParamsDataView input_data_view(params, message);
@@ -922,6 +1076,8 @@ bool DownloadStatusUpdaterClient_Resume_ForwardToCallback::Accept(
           internal::DownloadStatusUpdaterClient_Resume_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DownloadStatusUpdaterClient.2
   bool success = true;
   bool p_handled{};
   DownloadStatusUpdaterClient_Resume_ResponseParamsDataView input_data_view(params, message);
@@ -1041,6 +1197,8 @@ bool DownloadStatusUpdaterClient_ShowInBrowser_ForwardToCallback::Accept(
           internal::DownloadStatusUpdaterClient_ShowInBrowser_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DownloadStatusUpdaterClient.3
   bool success = true;
   bool p_handled{};
   DownloadStatusUpdaterClient_ShowInBrowser_ResponseParamsDataView input_data_view(params, message);
@@ -1140,6 +1298,8 @@ bool DownloadStatusUpdaterClientStubDispatch::AcceptWithResponder(
               internal::DownloadStatusUpdaterClient_Cancel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DownloadStatusUpdaterClient.0
       bool success = true;
       std::string p_guid{};
       DownloadStatusUpdaterClient_Cancel_ParamsDataView input_data_view(params, message);
@@ -1158,8 +1318,8 @@ bool DownloadStatusUpdaterClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Cancel(
-std::move(p_guid), std::move(callback));
+      impl->Cancel(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kDownloadStatusUpdaterClient_Pause_Name: {
@@ -1169,6 +1329,8 @@ std::move(p_guid), std::move(callback));
               internal::DownloadStatusUpdaterClient_Pause_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DownloadStatusUpdaterClient.1
       bool success = true;
       std::string p_guid{};
       DownloadStatusUpdaterClient_Pause_ParamsDataView input_data_view(params, message);
@@ -1187,8 +1349,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause(
-std::move(p_guid), std::move(callback));
+      impl->Pause(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kDownloadStatusUpdaterClient_Resume_Name: {
@@ -1198,6 +1360,8 @@ std::move(p_guid), std::move(callback));
               internal::DownloadStatusUpdaterClient_Resume_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DownloadStatusUpdaterClient.2
       bool success = true;
       std::string p_guid{};
       DownloadStatusUpdaterClient_Resume_ParamsDataView input_data_view(params, message);
@@ -1216,8 +1380,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Resume(
-std::move(p_guid), std::move(callback));
+      impl->Resume(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kDownloadStatusUpdaterClient_ShowInBrowser_Name: {
@@ -1227,6 +1391,8 @@ std::move(p_guid), std::move(callback));
               internal::DownloadStatusUpdaterClient_ShowInBrowser_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DownloadStatusUpdaterClient.3
       bool success = true;
       std::string p_guid{};
       DownloadStatusUpdaterClient_ShowInBrowser_ParamsDataView input_data_view(params, message);
@@ -1245,8 +1411,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowInBrowser(
-std::move(p_guid), std::move(callback));
+      impl->ShowInBrowser(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
   }
@@ -1463,6 +1629,8 @@ bool DownloadStatusUpdaterStubDispatch::Accept(
           reinterpret_cast<internal::DownloadStatusUpdater_BindClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadStatusUpdater.1
       bool success = true;
       ::mojo::PendingRemote<DownloadStatusUpdaterClient> p_client{};
       DownloadStatusUpdater_BindClient_ParamsDataView input_data_view(params, message);
@@ -1480,8 +1648,8 @@ bool DownloadStatusUpdaterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindClient(
-std::move(p_client));
+      impl->BindClient(        
+        std::move(p_client));
       return true;
     }
     case internal::kDownloadStatusUpdater_Update_Name: {
@@ -1491,6 +1659,8 @@ std::move(p_client));
           reinterpret_cast<internal::DownloadStatusUpdater_Update_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DownloadStatusUpdater.0
       bool success = true;
       DownloadStatusPtr p_status{};
       DownloadStatusUpdater_Update_ParamsDataView input_data_view(params, message);
@@ -1506,8 +1676,8 @@ std::move(p_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Update(
-std::move(p_status));
+      impl->Update(        
+        std::move(p_status));
       return true;
     }
   }
@@ -1555,6 +1725,26 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::crosapi::mojom::DownloadProgress::DataView, ::crosapi::mojom::DownloadProgressPtr>::Read(
+    ::crosapi::mojom::DownloadProgress::DataView input,
+    ::crosapi::mojom::DownloadProgressPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::DownloadProgressPtr result(::crosapi::mojom::DownloadProgress::New());
+  
+      if (success)
+        result->loop = input.loop();
+      if (success)
+        result->received_bytes = input.received_bytes();
+      if (success)
+        result->total_bytes = input.total_bytes();
+      if (success)
+        result->visible = input.visible();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::crosapi::mojom::DownloadStatus::DataView, ::crosapi::mojom::DownloadStatusPtr>::Read(
     ::crosapi::mojom::DownloadStatus::DataView input,
     ::crosapi::mojom::DownloadStatusPtr* output) {
@@ -1566,10 +1756,10 @@ bool StructTraits<::crosapi::mojom::DownloadStatus::DataView, ::crosapi::mojom::
       if (success && !input.ReadState(&result->state))
         success = false;
       if (success) {
-        result->received_bytes = input.received_bytes();
+        result->received_bytes_deprecated = input.received_bytes_deprecated();
       }
       if (success) {
-        result->total_bytes = input.total_bytes();
+        result->total_bytes_deprecated = input.total_bytes_deprecated();
       }
       if (success && !input.ReadTargetFilePath(&result->target_file_path))
         success = false;
@@ -1585,6 +1775,10 @@ bool StructTraits<::crosapi::mojom::DownloadStatus::DataView, ::crosapi::mojom::
       if (success && !input.ReadFullPath(&result->full_path))
         success = false;
       if (success && !input.ReadStatusText(&result->status_text))
+        success = false;
+      if (success && !input.ReadImage(&result->image))
+        success = false;
+      if (success && !input.ReadProgress(&result->progress))
         success = false;
   *output = std::move(result);
   return success;

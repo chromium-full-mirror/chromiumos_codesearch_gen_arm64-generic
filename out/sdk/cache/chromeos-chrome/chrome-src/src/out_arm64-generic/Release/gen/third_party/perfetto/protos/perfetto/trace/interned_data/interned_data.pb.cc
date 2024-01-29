@@ -42,7 +42,13 @@ PROTOBUF_CONSTEXPR InternedData::InternedData(
   , debug_annotation_value_type_names_()
   , unsymbolized_source_locations_()
   , debug_annotation_string_values_()
-  , packet_context_(){}
+  , packet_context_()
+  , v8_js_function_name_()
+  , v8_js_function_()
+  , v8_js_script_()
+  , v8_wasm_script_()
+  , v8_isolate_()
+  , protolog_string_args_(){}
 struct InternedDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR InternedDataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -129,6 +135,24 @@ void InternedData::clear_debug_annotation_string_values() {
 void InternedData::clear_packet_context() {
   packet_context_.Clear();
 }
+void InternedData::clear_v8_js_function_name() {
+  v8_js_function_name_.Clear();
+}
+void InternedData::clear_v8_js_function() {
+  v8_js_function_.Clear();
+}
+void InternedData::clear_v8_js_script() {
+  v8_js_script_.Clear();
+}
+void InternedData::clear_v8_wasm_script() {
+  v8_wasm_script_.Clear();
+}
+void InternedData::clear_v8_isolate() {
+  v8_isolate_.Clear();
+}
+void InternedData::clear_protolog_string_args() {
+  protolog_string_args_.Clear();
+}
 InternedData::InternedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
@@ -153,7 +177,13 @@ InternedData::InternedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   debug_annotation_value_type_names_(arena),
   unsymbolized_source_locations_(arena),
   debug_annotation_string_values_(arena),
-  packet_context_(arena) {
+  packet_context_(arena),
+  v8_js_function_name_(arena),
+  v8_js_function_(arena),
+  v8_js_script_(arena),
+  v8_wasm_script_(arena),
+  v8_isolate_(arena),
+  protolog_string_args_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:perfetto.protos.InternedData)
 }
@@ -180,7 +210,13 @@ InternedData::InternedData(const InternedData& from)
       debug_annotation_value_type_names_(from.debug_annotation_value_type_names_),
       unsymbolized_source_locations_(from.unsymbolized_source_locations_),
       debug_annotation_string_values_(from.debug_annotation_string_values_),
-      packet_context_(from.packet_context_) {
+      packet_context_(from.packet_context_),
+      v8_js_function_name_(from.v8_js_function_name_),
+      v8_js_function_(from.v8_js_function_),
+      v8_js_script_(from.v8_js_script_),
+      v8_wasm_script_(from.v8_wasm_script_),
+      v8_isolate_(from.v8_isolate_),
+      protolog_string_args_(from.protolog_string_args_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:perfetto.protos.InternedData)
 }
@@ -233,6 +269,12 @@ void InternedData::Clear() {
   unsymbolized_source_locations_.Clear();
   debug_annotation_string_values_.Clear();
   packet_context_.Clear();
+  v8_js_function_name_.Clear();
+  v8_js_function_.Clear();
+  v8_js_script_.Clear();
+  v8_wasm_script_.Clear();
+  v8_isolate_.Clear();
+  protolog_string_args_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -528,6 +570,84 @@ const char* InternedData::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
+      // repeated .perfetto.protos.InternedV8String v8_js_function_name = 31;
+      case 31:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 250)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_v8_js_function_name(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<250>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .perfetto.protos.InternedV8JsFunction v8_js_function = 32;
+      case 32:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 2)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_v8_js_function(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<258>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .perfetto.protos.InternedV8JsScript v8_js_script = 33;
+      case 33:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_v8_js_script(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<266>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .perfetto.protos.InternedV8WasmScript v8_wasm_script = 34;
+      case 34:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_v8_wasm_script(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<274>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .perfetto.protos.InternedV8Isolate v8_isolate = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_v8_isolate(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<282>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .perfetto.protos.InternedString protolog_string_args = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_protolog_string_args(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<290>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -733,6 +853,54 @@ uint8_t* InternedData::_InternalSerialize(
         InternalWriteMessage(30, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .perfetto.protos.InternedV8String v8_js_function_name = 31;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_v8_js_function_name_size()); i < n; i++) {
+    const auto& repfield = this->_internal_v8_js_function_name(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(31, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .perfetto.protos.InternedV8JsFunction v8_js_function = 32;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_v8_js_function_size()); i < n; i++) {
+    const auto& repfield = this->_internal_v8_js_function(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(32, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .perfetto.protos.InternedV8JsScript v8_js_script = 33;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_v8_js_script_size()); i < n; i++) {
+    const auto& repfield = this->_internal_v8_js_script(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(33, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .perfetto.protos.InternedV8WasmScript v8_wasm_script = 34;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_v8_wasm_script_size()); i < n; i++) {
+    const auto& repfield = this->_internal_v8_wasm_script(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(34, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .perfetto.protos.InternedV8Isolate v8_isolate = 35;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_v8_isolate_size()); i < n; i++) {
+    const auto& repfield = this->_internal_v8_isolate(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(35, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .perfetto.protos.InternedString protolog_string_args = 36;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_protolog_string_args_size()); i < n; i++) {
+    const auto& repfield = this->_internal_protolog_string_args(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(36, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -903,6 +1071,48 @@ size_t InternedData::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .perfetto.protos.InternedV8String v8_js_function_name = 31;
+  total_size += 2UL * this->_internal_v8_js_function_name_size();
+  for (const auto& msg : this->v8_js_function_name_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .perfetto.protos.InternedV8JsFunction v8_js_function = 32;
+  total_size += 2UL * this->_internal_v8_js_function_size();
+  for (const auto& msg : this->v8_js_function_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .perfetto.protos.InternedV8JsScript v8_js_script = 33;
+  total_size += 2UL * this->_internal_v8_js_script_size();
+  for (const auto& msg : this->v8_js_script_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .perfetto.protos.InternedV8WasmScript v8_wasm_script = 34;
+  total_size += 2UL * this->_internal_v8_wasm_script_size();
+  for (const auto& msg : this->v8_wasm_script_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .perfetto.protos.InternedV8Isolate v8_isolate = 35;
+  total_size += 2UL * this->_internal_v8_isolate_size();
+  for (const auto& msg : this->v8_isolate_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .perfetto.protos.InternedString protolog_string_args = 36;
+  total_size += 2UL * this->_internal_protolog_string_args_size();
+  for (const auto& msg : this->protolog_string_args_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -945,6 +1155,12 @@ void InternedData::MergeFrom(const InternedData& from) {
   unsymbolized_source_locations_.MergeFrom(from.unsymbolized_source_locations_);
   debug_annotation_string_values_.MergeFrom(from.debug_annotation_string_values_);
   packet_context_.MergeFrom(from.packet_context_);
+  v8_js_function_name_.MergeFrom(from.v8_js_function_name_);
+  v8_js_function_.MergeFrom(from.v8_js_function_);
+  v8_js_script_.MergeFrom(from.v8_js_script_);
+  v8_wasm_script_.MergeFrom(from.v8_wasm_script_);
+  v8_isolate_.MergeFrom(from.v8_isolate_);
+  protolog_string_args_.MergeFrom(from.protolog_string_args_);
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -984,6 +1200,12 @@ void InternedData::InternalSwap(InternedData* other) {
   unsymbolized_source_locations_.InternalSwap(&other->unsymbolized_source_locations_);
   debug_annotation_string_values_.InternalSwap(&other->debug_annotation_string_values_);
   packet_context_.InternalSwap(&other->packet_context_);
+  v8_js_function_name_.InternalSwap(&other->v8_js_function_name_);
+  v8_js_function_.InternalSwap(&other->v8_js_function_);
+  v8_js_script_.InternalSwap(&other->v8_js_script_);
+  v8_wasm_script_.InternalSwap(&other->v8_wasm_script_);
+  v8_isolate_.InternalSwap(&other->v8_isolate_);
+  protolog_string_args_.InternalSwap(&other->protolog_string_args_);
 }
 
 std::string InternedData::GetTypeName() const {

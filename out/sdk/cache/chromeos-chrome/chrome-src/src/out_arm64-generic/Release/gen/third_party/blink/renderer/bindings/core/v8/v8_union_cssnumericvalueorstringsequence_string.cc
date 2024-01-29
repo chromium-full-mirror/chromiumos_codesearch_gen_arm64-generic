@@ -97,7 +97,7 @@ content_type_ = ContentType::kString;
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionCSSNumericValueOrStringSequenceOrString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionCSSNumericValueOrStringSequenceOrString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kCSSNumericValueOrStringSequence: {
     return ToV8Traits<IDLSequence<V8UnionCSSNumericValueOrString>>::ToV8(script_state, member_css_numeric_value_or_string_sequence_);
@@ -108,7 +108,7 @@ v8::MaybeLocal<v8::Value> V8UnionCSSNumericValueOrStringSequenceOrString::ToV8Va
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionCSSNumericValueOrStringSequenceOrString::Trace(Visitor* visitor) const {

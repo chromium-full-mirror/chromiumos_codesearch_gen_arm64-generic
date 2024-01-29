@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import 'chrome://os-settings/strings.m.js';
 import 'chrome://resources/ash/common/network/network_config_select.js';
+import { SecurityType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 suite('NetworkConfigSelectTest', function () {
     /** @type {!NetworkConfigSelect|undefined} */
@@ -67,5 +68,26 @@ suite('NetworkConfigSelectTest', function () {
         flush();
         optionEnabled = !optionEl.disabled;
         assertFalse(optionEnabled);
+    });
+    test('Validation for Pre-filled value', function () {
+        assertTrue(!!configSelect);
+        configSelect.key = 'security';
+        configSelect.oncPrefix = 'WiFi.Security';
+        configSelect.items = [SecurityType.kNone, SecurityType.kWpaEap];
+        const testCases = [
+            { prefilledValue: null, shouldBeValid: false },
+            { prefilledValue: SecurityType.kWepPsk, shouldBeValid: false },
+            { prefilledValue: SecurityType.kNone, shouldBeValid: true },
+            { prefilledValue: SecurityType.kWpaEap, shouldBeValid: true },
+        ];
+        for (const { prefilledValue, shouldBeValid } of testCases) {
+            configSelect.prefilledValue = prefilledValue;
+            if (shouldBeValid) {
+                assertEquals(configSelect.value, configSelect.prefilledValue);
+            }
+            else {
+                assertNotEquals(configSelect.value, configSelect.prefilledValue);
+            }
+        }
     });
 });

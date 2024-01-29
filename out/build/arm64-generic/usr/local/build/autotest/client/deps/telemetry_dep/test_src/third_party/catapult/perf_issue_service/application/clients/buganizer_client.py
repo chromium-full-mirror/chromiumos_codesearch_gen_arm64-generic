@@ -84,9 +84,13 @@ class BuganizerClient:
 
     if labels:
       label_list = labels.split(',')
-      hotlists = b_utils.FindBuganizerHotlists(label_list)
+      hotlists, extra_labels = b_utils.FindBuganizerHotlists(label_list)
       if hotlists:
         query_string += ' AND hotlistid:%s' % '|'.join(hotlists)
+      if extra_labels:
+        custom_field_name = b_utils.GetCustomField(project)
+        query_string += ' AND %s:(%s)' % (custom_field_name, '|'.join(extra_labels))
+
 
     logging.info('[PerfIssueService] GetIssueList Query: %s', query_string)
     request = self._service.issues().list(
@@ -116,11 +120,16 @@ class BuganizerClient:
       an issue.
       (The issues are now in Monorail format before consumers are updated.)
     """
-    del project
+    err_msg = 'Cannot find the migrated id for crbug %s in %s' % (
+      issue_id, project)
+    issue_id = b_utils.FindBuganizerIdByMonorailId(project, issue_id)
+    if not issue_id:
+      return {'error': err_msg}
+
     request = self._service.issues().get(issueId=issue_id, view='FULL')
     buganizer_issue = self._ExecuteRequest(request)
 
-    logging.debug('Buganizer Comments for %s: %s', issue_id, buganizer_issue)
+    logging.debug('Buganizer Issue for %s: %s', issue_id, buganizer_issue)
 
     monorail_issue = b_utils.ReconcileBuganizerIssue(buganizer_issue)
 
@@ -145,12 +154,16 @@ class BuganizerClient:
       a list of updates of the issue.
     (The updates are now in Monorail format before consumers are updated.)
     """
-    del project
+    err_msg = 'Cannot find the migrated id for crbug %s in %s' % (
+      issue_id, project)
+    issue_id = b_utils.FindBuganizerIdByMonorailId(project, issue_id)
+    if not issue_id:
+      return {'error': err_msg}
 
     request = self._service.issues().issueUpdates().list(issueId=issue_id)
     response = self._ExecuteRequest(request)
 
-    logging.debug('Buganizer Issue for %s: %s', issue_id, response)
+    logging.debug('Buganizer Comments for %s: %s', issue_id, response)
 
     schema = self._service._schema.get('IssueState')
     status_enum = schema['properties']['status']['enum']
@@ -245,7 +258,7 @@ class BuganizerClient:
         {'emailAddress': email} for email in emails if email
       ]
 
-    if 'Restrict-View-Google' in labels:
+    if labels and 'Restrict-View-Google' in labels:
       access_limit = {
         'accessLevel': 'LIMIT_VIEW_TRUSTED'
       }
@@ -254,8 +267,17 @@ class BuganizerClient:
 
     if labels:
       labels = [label for label in labels if not label.startswith('Pri-')]
-      hotlist_list = b_utils.FindBuganizerHotlists(labels)
+      hotlist_list, extra_labels = b_utils.FindBuganizerHotlists(labels)
       new_issue_state['hotlistIds'] = [hotlist for hotlist in hotlist_list]
+
+      custom_field_id = b_utils.GetCustomFieldId(project)
+      custom_field_value = {
+        'customFieldId': custom_field_id,
+        'repeatedTextValue': {
+          'values': extra_labels
+        }
+      }
+      new_issue_state['customFields'] = [custom_field_value]
 
     new_issue = {
       'issueState': new_issue_state,
@@ -335,22 +357,11 @@ class BuganizerClient:
       return {
         'error': '[PerfIssueService] Missing issue id on PostIssueComment'
         }
-    if issue_id < 2000000:
-      # This is a hack to handle the use case that:
-      #  - we have the monorail issue id in our database
-      #  - the issue is migrated to buganizer
-      #  - we need to update the issue but we don't know the id on buganizer
-      # Assuming all monorail id are less than 2000000, trying to access an
-      # issue using buganizer client and a monorail id means the project has
-      # been migrated.
-      # In this case, we should find the buganizer id first.
-      logging.debug('Looking for b/ id for crbug %s in %s', issue_id, project)
-      b_issue_id = b_utils.FindBuganizerIdByMonorailId(project, issue_id)
-      if not b_issue_id:
-        err_msg = 'Cannot find the migrated id for crbug %s in %s' % (issue_id, project)
-        logging.error(err_msg)
-        return {'error': err_msg}
-      issue_id = b_issue_id
+    err_msg = 'Cannot find the migrated id for crbug %s in %s' % (
+      issue_id, project)
+    issue_id = b_utils.FindBuganizerIdByMonorailId(project, issue_id)
+    if not issue_id:
+      return {'error': err_msg}
 
     add_issue_state, remove_issue_state = {}, {}
 
@@ -388,8 +399,23 @@ class BuganizerClient:
       add_issue_state['priority'] = priority
       labels = [label for label in labels if not label.startswith('Pri-')]
 
-    #TODO: Add handling for 'Restrict-View-Google'.
-    # Needs update on the public API to have UpdateIssueAccessLimitRequest.
+    # Update the access limit if 'Restrict-View-Google' exists
+    if labels and 'Restrict-View-Google' in labels:
+      access_limit = {
+        'accessLevel': 'LIMIT_VIEW_TRUSTED'
+      }
+      update_issue_access_request = {
+        'issueAccessLimit': access_limit
+      }
+      logging.debug(
+        '[PerfIssueService] Updating Access level to trusted only: %s',
+        update_issue_access_request)
+      request = self._service.issues().updateIssueAccessLimit(
+        issueId=str(issue_id), body=update_issue_access_request)
+      response = self._ExecuteRequest(request)
+      logging.debug('[PerfIssueService] Update access response %s', response)
+
+      labels.remove('Restrict-View-Google')
 
     if components:
       if len(components)>1:
@@ -411,11 +437,36 @@ class BuganizerClient:
       labels_to_remove = [
         label[1:] for label in labels if label.startswith('-') and len(label)>1
       ]
-      hotlists_to_remove = b_utils.FindBuganizerHotlists(labels_to_remove)
+      hotlists_to_remove, extra_labels_to_remove = b_utils.FindBuganizerHotlists(labels_to_remove)
       labels_to_add = [
         label for label in labels if label and not label.startswith('-')
       ]
-      hotlists_to_add = b_utils.FindBuganizerHotlists(labels_to_add)
+      hotlists_to_add, extra_labels_to_add = b_utils.FindBuganizerHotlists(labels_to_add)
+
+      if extra_labels_to_add or extra_labels_to_remove:
+        get_request = self._service.issues().get(issueId=str(issue_id))
+        current_state = self._ExecuteRequest(get_request)
+        logging.debug('[PerfIssueService] IssueState: %s', current_state)
+        custom_field_id = b_utils.GetCustomFieldId(project)
+        all_custom_fields = current_state['issueState'].get('customFields', [])
+        custom_labels = []
+        for custom_field in all_custom_fields:
+          if custom_field['customFieldId'] == str(custom_field_id):
+            custom_labels = custom_field['repeatedTextValue'].get('values', [])
+        logging.debug('[PerfIssueService] Loaded labels %s.', custom_labels)
+        if extra_labels_to_add:
+          custom_labels = set(custom_labels) | set(extra_labels_to_add)
+        if extra_labels_to_remove:
+          custom_labels = set(custom_labels) - set(extra_labels_to_remove)
+        logging.debug('[PerfIssueService] New labels %s', custom_labels)
+
+        custom_field_value = {
+          'customFieldId': custom_field_id,
+          'repeatedTextValue': {
+            'values': list(custom_labels)
+          }
+        }
+        add_issue_state['customFields'] = [custom_field_value]
 
       for hotlist_id in hotlists_to_add:
         hotlist_entry_request = {

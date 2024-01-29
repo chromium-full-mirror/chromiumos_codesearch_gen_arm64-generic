@@ -1,7 +1,6 @@
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 import { ResetBrowserProxyImpl, Router, routes } from 'chrome://settings/settings.js';
 import { assertEquals, assertFalse, assertNotEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { TestResetBrowserProxy } from './test_reset_browser_proxy.js';

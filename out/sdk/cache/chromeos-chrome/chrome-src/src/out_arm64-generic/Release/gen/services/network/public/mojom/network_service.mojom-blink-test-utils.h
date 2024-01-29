@@ -26,7 +26,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceInterceptorForTesting : public Network
   void SetUpHttpAuth(HttpAuthStaticParamsPtr http_auth_static_params) override;
   void ConfigureHttpAuthPrefs(HttpAuthDynamicParamsPtr http_auth_dynamic_params) override;
   void SetRawHeadersAccess(int32_t process_id, const WTF::Vector<::scoped_refptr<const ::blink::SecurityOrigin>>& origins) override;
-  void SetMaxConnectionsPerProxy(int32_t max_connections) override;
+  void SetMaxConnectionsPerProxyChain(int32_t max_connections) override;
   void GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::blink::NetworkChangeManager> network_change_manager) override;
   void GetNetworkQualityEstimatorManager(::mojo::PendingReceiver<::network::mojom::blink::NetworkQualityEstimatorManager> receiver) override;
   void GetDnsConfigChangeManager(::mojo::PendingReceiver<::network::mojom::blink::DnsConfigChangeManager> receiver) override;
@@ -50,7 +50,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceInterceptorForTesting : public Network
   void ParseHeaders(const ::blink::KURL& url, ::network::mojom::blink::HttpResponseHeadersPtr headers, ParseHeadersCallback callback) override;
   void EnableDataUseUpdates(bool enable) override;
   void SetIPv6ReachabilityOverride(bool reachability_override) override;
-  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::blink::CookieEncryptionProvider> provider) override;
+  void SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::blink::NetworkAnnotationMonitor> remote) override;
 };
 class BLINK_PLATFORM_EXPORT NetworkServiceAsyncWaiter {
  public:

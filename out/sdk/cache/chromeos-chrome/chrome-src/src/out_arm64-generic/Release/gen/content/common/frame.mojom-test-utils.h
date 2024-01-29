@@ -44,7 +44,6 @@ class CONTENT_EXPORT FrameInterceptorForTesting : public Frame {
   void GetInterfaceProvider(::mojo::PendingReceiver<::service_manager::mojom::InterfaceProvider> interfaces) override;
   void SnapshotAccessibilityTree(SnapshotAccessibilityTreeParamsPtr params, SnapshotAccessibilityTreeCallback callback) override;
   void GetSerializedHtmlWithLocalLinks(const base::flat_map<::GURL, ::base::FilePath>& url_map, const base::flat_map<::blink::FrameToken, ::base::FilePath>& frame_token_map, bool save_with_empty_url, ::mojo::PendingRemote<FrameHTMLSerializerHandler> handler_remote) override;
-  void SetResourceCache(::mojo::PendingRemote<::blink::mojom::ResourceCache> remote) override;
 };
 class CONTENT_EXPORT FrameAsyncWaiter {
  public:

@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include "protos/perfetto/trace/chrome/v8.pb.h"
 #include "protos/perfetto/trace/profiling/profile_packet.pb.h"
 #include "protos/perfetto/trace/track_event/track_event.pb.h"
 // @@protoc_insertion_point(includes)
@@ -170,6 +171,7 @@ class TracePacketDefaults final :
   enum : int {
     kTrackEventDefaultsFieldNumber = 11,
     kPerfSampleDefaultsFieldNumber = 12,
+    kV8CodeDefaultsFieldNumber = 99,
     kTimestampClockIdFieldNumber = 58,
   };
   // optional .perfetto.protos.TrackEventDefaults track_event_defaults = 11;
@@ -208,6 +210,24 @@ class TracePacketDefaults final :
       ::perfetto::protos::PerfSampleDefaults* perf_sample_defaults);
   ::perfetto::protos::PerfSampleDefaults* unsafe_arena_release_perf_sample_defaults();
 
+  // optional .perfetto.protos.V8CodeDefaults v8_code_defaults = 99;
+  bool has_v8_code_defaults() const;
+  private:
+  bool _internal_has_v8_code_defaults() const;
+  public:
+  void clear_v8_code_defaults();
+  const ::perfetto::protos::V8CodeDefaults& v8_code_defaults() const;
+  PROTOBUF_NODISCARD ::perfetto::protos::V8CodeDefaults* release_v8_code_defaults();
+  ::perfetto::protos::V8CodeDefaults* mutable_v8_code_defaults();
+  void set_allocated_v8_code_defaults(::perfetto::protos::V8CodeDefaults* v8_code_defaults);
+  private:
+  const ::perfetto::protos::V8CodeDefaults& _internal_v8_code_defaults() const;
+  ::perfetto::protos::V8CodeDefaults* _internal_mutable_v8_code_defaults();
+  public:
+  void unsafe_arena_set_allocated_v8_code_defaults(
+      ::perfetto::protos::V8CodeDefaults* v8_code_defaults);
+  ::perfetto::protos::V8CodeDefaults* unsafe_arena_release_v8_code_defaults();
+
   // optional uint32 timestamp_clock_id = 58;
   bool has_timestamp_clock_id() const;
   private:
@@ -232,6 +252,7 @@ class TracePacketDefaults final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::perfetto::protos::TrackEventDefaults* track_event_defaults_;
   ::perfetto::protos::PerfSampleDefaults* perf_sample_defaults_;
+  ::perfetto::protos::V8CodeDefaults* v8_code_defaults_;
   uint32_t timestamp_clock_id_;
   friend struct ::TableStruct_protos_2fperfetto_2ftrace_2ftrace_5fpacket_5fdefaults_2eproto;
 };
@@ -248,7 +269,7 @@ class TracePacketDefaults final :
 
 // optional uint32 timestamp_clock_id = 58;
 inline bool TracePacketDefaults::_internal_has_timestamp_clock_id() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool TracePacketDefaults::has_timestamp_clock_id() const {
@@ -256,7 +277,7 @@ inline bool TracePacketDefaults::has_timestamp_clock_id() const {
 }
 inline void TracePacketDefaults::clear_timestamp_clock_id() {
   timestamp_clock_id_ = 0u;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline uint32_t TracePacketDefaults::_internal_timestamp_clock_id() const {
   return timestamp_clock_id_;
@@ -266,7 +287,7 @@ inline uint32_t TracePacketDefaults::timestamp_clock_id() const {
   return _internal_timestamp_clock_id();
 }
 inline void TracePacketDefaults::_internal_set_timestamp_clock_id(uint32_t value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   timestamp_clock_id_ = value;
 }
 inline void TracePacketDefaults::set_timestamp_clock_id(uint32_t value) {
@@ -446,6 +467,93 @@ inline void TracePacketDefaults::set_allocated_perf_sample_defaults(::perfetto::
   }
   perf_sample_defaults_ = perf_sample_defaults;
   // @@protoc_insertion_point(field_set_allocated:perfetto.protos.TracePacketDefaults.perf_sample_defaults)
+}
+
+// optional .perfetto.protos.V8CodeDefaults v8_code_defaults = 99;
+inline bool TracePacketDefaults::_internal_has_v8_code_defaults() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || v8_code_defaults_ != nullptr);
+  return value;
+}
+inline bool TracePacketDefaults::has_v8_code_defaults() const {
+  return _internal_has_v8_code_defaults();
+}
+inline const ::perfetto::protos::V8CodeDefaults& TracePacketDefaults::_internal_v8_code_defaults() const {
+  const ::perfetto::protos::V8CodeDefaults* p = v8_code_defaults_;
+  return p != nullptr ? *p : reinterpret_cast<const ::perfetto::protos::V8CodeDefaults&>(
+      ::perfetto::protos::_V8CodeDefaults_default_instance_);
+}
+inline const ::perfetto::protos::V8CodeDefaults& TracePacketDefaults::v8_code_defaults() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.TracePacketDefaults.v8_code_defaults)
+  return _internal_v8_code_defaults();
+}
+inline void TracePacketDefaults::unsafe_arena_set_allocated_v8_code_defaults(
+    ::perfetto::protos::V8CodeDefaults* v8_code_defaults) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(v8_code_defaults_);
+  }
+  v8_code_defaults_ = v8_code_defaults;
+  if (v8_code_defaults) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:perfetto.protos.TracePacketDefaults.v8_code_defaults)
+}
+inline ::perfetto::protos::V8CodeDefaults* TracePacketDefaults::release_v8_code_defaults() {
+  _has_bits_[0] &= ~0x00000004u;
+  ::perfetto::protos::V8CodeDefaults* temp = v8_code_defaults_;
+  v8_code_defaults_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::perfetto::protos::V8CodeDefaults* TracePacketDefaults::unsafe_arena_release_v8_code_defaults() {
+  // @@protoc_insertion_point(field_release:perfetto.protos.TracePacketDefaults.v8_code_defaults)
+  _has_bits_[0] &= ~0x00000004u;
+  ::perfetto::protos::V8CodeDefaults* temp = v8_code_defaults_;
+  v8_code_defaults_ = nullptr;
+  return temp;
+}
+inline ::perfetto::protos::V8CodeDefaults* TracePacketDefaults::_internal_mutable_v8_code_defaults() {
+  _has_bits_[0] |= 0x00000004u;
+  if (v8_code_defaults_ == nullptr) {
+    auto* p = CreateMaybeMessage<::perfetto::protos::V8CodeDefaults>(GetArenaForAllocation());
+    v8_code_defaults_ = p;
+  }
+  return v8_code_defaults_;
+}
+inline ::perfetto::protos::V8CodeDefaults* TracePacketDefaults::mutable_v8_code_defaults() {
+  ::perfetto::protos::V8CodeDefaults* _msg = _internal_mutable_v8_code_defaults();
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.TracePacketDefaults.v8_code_defaults)
+  return _msg;
+}
+inline void TracePacketDefaults::set_allocated_v8_code_defaults(::perfetto::protos::V8CodeDefaults* v8_code_defaults) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(v8_code_defaults_);
+  }
+  if (v8_code_defaults) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(v8_code_defaults));
+    if (message_arena != submessage_arena) {
+      v8_code_defaults = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, v8_code_defaults, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  v8_code_defaults_ = v8_code_defaults;
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.TracePacketDefaults.v8_code_defaults)
 }
 
 #ifdef __GNUC__

@@ -114,6 +114,13 @@ static void ThreadDispatchAdapterRequestDevice(WGPUAdapter adapter, WGPUDeviceDe
     }
     proc(adapter, descriptor, callback, userdata);
 }
+static WGPUFuture ThreadDispatchAdapterRequestDeviceF(WGPUAdapter adapter, WGPUDeviceDescriptor const * options, WGPURequestDeviceCallbackInfo callbackInfo) {
+    auto* proc = perThreadProcs.adapterRequestDeviceF;
+    if (!proc) {
+        proc = defaultProc.adapterRequestDeviceF;
+    }
+return     proc(adapter, options, callbackInfo);
+}
 static void ThreadDispatchAdapterReference(WGPUAdapter adapter) {
     auto* proc = perThreadProcs.adapterReference;
     if (!proc) {
@@ -555,6 +562,13 @@ static void ThreadDispatchDeviceCreateComputePipelineAsync(WGPUDevice device, WG
     }
     proc(device, descriptor, callback, userdata);
 }
+static WGPUFuture ThreadDispatchDeviceCreateComputePipelineAsyncF(WGPUDevice device, WGPUComputePipelineDescriptor const * descriptor, WGPUCreateComputePipelineAsyncCallbackInfo callbackInfo) {
+    auto* proc = perThreadProcs.deviceCreateComputePipelineAsyncF;
+    if (!proc) {
+        proc = defaultProc.deviceCreateComputePipelineAsyncF;
+    }
+return     proc(device, descriptor, callbackInfo);
+}
 static WGPUBuffer ThreadDispatchDeviceCreateErrorBuffer(WGPUDevice device, WGPUBufferDescriptor const * descriptor) {
     auto* proc = perThreadProcs.deviceCreateErrorBuffer;
     if (!proc) {
@@ -624,6 +638,13 @@ static void ThreadDispatchDeviceCreateRenderPipelineAsync(WGPUDevice device, WGP
         proc = defaultProc.deviceCreateRenderPipelineAsync;
     }
     proc(device, descriptor, callback, userdata);
+}
+static WGPUFuture ThreadDispatchDeviceCreateRenderPipelineAsyncF(WGPUDevice device, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallbackInfo callbackInfo) {
+    auto* proc = perThreadProcs.deviceCreateRenderPipelineAsyncF;
+    if (!proc) {
+        proc = defaultProc.deviceCreateRenderPipelineAsyncF;
+    }
+return     proc(device, descriptor, callbackInfo);
 }
 static WGPUSampler ThreadDispatchDeviceCreateSampler(WGPUDevice device, WGPUSamplerDescriptor const * descriptor) {
     auto* proc = perThreadProcs.deviceCreateSampler;
@@ -1535,6 +1556,13 @@ static void ThreadDispatchSwapChainRelease(WGPUSwapChain swapChain) {
     }
     proc(swapChain);
 }
+static WGPUTextureView ThreadDispatchTextureCreateErrorView(WGPUTexture texture, WGPUTextureViewDescriptor const * descriptor) {
+    auto* proc = perThreadProcs.textureCreateErrorView;
+    if (!proc) {
+        proc = defaultProc.textureCreateErrorView;
+    }
+return     proc(texture, descriptor);
+}
 static WGPUTextureView ThreadDispatchTextureCreateView(WGPUTexture texture, WGPUTextureViewDescriptor const * descriptor) {
     auto* proc = perThreadProcs.textureCreateView;
     if (!proc) {
@@ -1663,6 +1691,7 @@ extern "C" {
         ThreadDispatchAdapterGetProperties,
         ThreadDispatchAdapterHasFeature,
         ThreadDispatchAdapterRequestDevice,
+        ThreadDispatchAdapterRequestDeviceF,
         ThreadDispatchAdapterReference,
         ThreadDispatchAdapterRelease,
         ThreadDispatchBindGroupSetLabel,
@@ -1726,6 +1755,7 @@ extern "C" {
         ThreadDispatchDeviceCreateCommandEncoder,
         ThreadDispatchDeviceCreateComputePipeline,
         ThreadDispatchDeviceCreateComputePipelineAsync,
+        ThreadDispatchDeviceCreateComputePipelineAsyncF,
         ThreadDispatchDeviceCreateErrorBuffer,
         ThreadDispatchDeviceCreateErrorExternalTexture,
         ThreadDispatchDeviceCreateErrorShaderModule,
@@ -1736,6 +1766,7 @@ extern "C" {
         ThreadDispatchDeviceCreateRenderBundleEncoder,
         ThreadDispatchDeviceCreateRenderPipeline,
         ThreadDispatchDeviceCreateRenderPipelineAsync,
+        ThreadDispatchDeviceCreateRenderPipelineAsyncF,
         ThreadDispatchDeviceCreateSampler,
         ThreadDispatchDeviceCreateShaderModule,
         ThreadDispatchDeviceCreateSwapChain,
@@ -1866,6 +1897,7 @@ extern "C" {
         ThreadDispatchSwapChainPresent,
         ThreadDispatchSwapChainReference,
         ThreadDispatchSwapChainRelease,
+        ThreadDispatchTextureCreateErrorView,
         ThreadDispatchTextureCreateView,
         ThreadDispatchTextureDestroy,
         ThreadDispatchTextureGetDepthOrArrayLayers,

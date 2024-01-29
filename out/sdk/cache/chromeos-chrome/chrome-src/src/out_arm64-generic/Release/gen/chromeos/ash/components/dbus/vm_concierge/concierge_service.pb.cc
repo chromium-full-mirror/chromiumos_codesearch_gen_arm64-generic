@@ -44,11 +44,12 @@ PROTOBUF_CONSTEXPR DiskImage::DiskImage(
   , fstype_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , flags_(uint64_t{0u})
+  , image_type_(0)
+
   , writable_(false)
   , do_mount_(false)
   , o_direct_(false)
-  , image_type_(0)
-
+  , multiple_workers_(false)
   , block_size_(0u){}
 struct DiskImageDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DiskImageDefaultTypeInternal()
@@ -186,7 +187,8 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , guest_zram_mib_(0u)
   , enable_vmm_swap_(false)
   , rootfs_o_direct_(false)
-  , enable_s2idle_(false){}
+  , enable_s2idle_(false)
+  , rootfs_multiple_workers_(false){}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3255,6 +3257,14 @@ const char* DiskImage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
         } else
           goto handle_unusual;
         continue;
+      // bool multiple_workers = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          multiple_workers_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3361,6 +3371,12 @@ uint8_t* DiskImage::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_o_direct(), target);
   }
 
+  // bool multiple_workers = 11;
+  if (this->_internal_multiple_workers() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_multiple_workers(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3410,6 +3426,12 @@ size_t DiskImage::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_flags());
   }
 
+  // .vm_tools.concierge.DiskImageType image_type = 8;
+  if (this->_internal_image_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_image_type());
+  }
+
   // bool writable = 6;
   if (this->_internal_writable() != 0) {
     total_size += 1 + 1;
@@ -3425,10 +3447,9 @@ size_t DiskImage::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // .vm_tools.concierge.DiskImageType image_type = 8;
-  if (this->_internal_image_type() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_image_type());
+  // bool multiple_workers = 11;
+  if (this->_internal_multiple_workers() != 0) {
+    total_size += 1 + 1;
   }
 
   // uint32 block_size = 9;
@@ -3471,6 +3492,9 @@ void DiskImage::MergeFrom(const DiskImage& from) {
   if (from._internal_flags() != 0) {
     _internal_set_flags(from._internal_flags());
   }
+  if (from._internal_image_type() != 0) {
+    _internal_set_image_type(from._internal_image_type());
+  }
   if (from._internal_writable() != 0) {
     _internal_set_writable(from._internal_writable());
   }
@@ -3480,8 +3504,8 @@ void DiskImage::MergeFrom(const DiskImage& from) {
   if (from._internal_o_direct() != 0) {
     _internal_set_o_direct(from._internal_o_direct());
   }
-  if (from._internal_image_type() != 0) {
-    _internal_set_image_type(from._internal_image_type());
+  if (from._internal_multiple_workers() != 0) {
+    _internal_set_multiple_workers(from._internal_multiple_workers());
   }
   if (from._internal_block_size() != 0) {
     _internal_set_block_size(from._internal_block_size());
@@ -5430,8 +5454,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     mini_instance_request_ = nullptr;
   }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&enable_s2idle_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(enable_s2idle_));
+    static_cast<size_t>(reinterpret_cast<char*>(&rootfs_multiple_workers_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(rootfs_multiple_workers_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5450,8 +5474,8 @@ fstab_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_s2idle_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(enable_s2idle_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&rootfs_multiple_workers_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(rootfs_multiple_workers_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5495,8 +5519,8 @@ void StartArcVmRequest::Clear() {
   }
   mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&enable_s2idle_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(enable_s2idle_));
+      reinterpret_cast<char*>(&rootfs_multiple_workers_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(rootfs_multiple_workers_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5793,6 +5817,14 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
+      // bool rootfs_multiple_workers = 47;
+      case 47:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          rootfs_multiple_workers_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -6046,6 +6078,12 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(46, this->_internal_enable_s2idle(), target);
   }
 
+  // bool rootfs_multiple_workers = 47;
+  if (this->_internal_rootfs_multiple_workers() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(47, this->_internal_rootfs_multiple_workers(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6260,6 +6298,11 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
+  // bool rootfs_multiple_workers = 47;
+  if (this->_internal_rootfs_multiple_workers() != 0) {
+    total_size += 2 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -6380,6 +6423,9 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_enable_s2idle() != 0) {
     _internal_set_enable_s2idle(from._internal_enable_s2idle());
   }
+  if (from._internal_rootfs_multiple_workers() != 0) {
+    _internal_set_rootfs_multiple_workers(from._internal_rootfs_multiple_workers());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6413,8 +6459,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, enable_s2idle_)
-      + sizeof(StartArcVmRequest::enable_s2idle_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, rootfs_multiple_workers_)
+      + sizeof(StartArcVmRequest::rootfs_multiple_workers_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

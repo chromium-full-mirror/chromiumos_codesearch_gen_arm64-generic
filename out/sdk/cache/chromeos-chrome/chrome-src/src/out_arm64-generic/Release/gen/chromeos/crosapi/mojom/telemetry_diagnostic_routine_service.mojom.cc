@@ -902,6 +902,8 @@ bool TelemetryDiagnosticRoutineControl_GetState_ForwardToCallback::Accept(
           internal::TelemetryDiagnosticRoutineControl_GetState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TelemetryDiagnosticRoutineControl.0
   bool success = true;
   TelemetryDiagnosticRoutineStatePtr p_state{};
   TelemetryDiagnosticRoutineControl_GetState_ResponseParamsDataView input_data_view(params, message);
@@ -989,6 +991,8 @@ bool TelemetryDiagnosticRoutineControlStubDispatch::Accept(
           reinterpret_cast<internal::TelemetryDiagnosticRoutineControl_Start_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TelemetryDiagnosticRoutineControl.1
       bool success = true;
       TelemetryDiagnosticRoutineControl_Start_ParamsDataView input_data_view(params, message);
       
@@ -1001,7 +1005,7 @@ bool TelemetryDiagnosticRoutineControlStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Start();
+      impl->Start(        );
       return true;
     }
   }
@@ -1024,6 +1028,8 @@ bool TelemetryDiagnosticRoutineControlStubDispatch::AcceptWithResponder(
               internal::TelemetryDiagnosticRoutineControl_GetState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TelemetryDiagnosticRoutineControl.0
       bool success = true;
       TelemetryDiagnosticRoutineControl_GetState_ParamsDataView input_data_view(params, message);
       
@@ -1188,6 +1194,8 @@ bool TelemetryDiagnosticRoutineObserverStubDispatch::Accept(
           reinterpret_cast<internal::TelemetryDiagnosticRoutineObserver_OnRoutineStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TelemetryDiagnosticRoutineObserver.0
       bool success = true;
       TelemetryDiagnosticRoutineStatePtr p_state{};
       TelemetryDiagnosticRoutineObserver_OnRoutineStateChange_ParamsDataView input_data_view(params, message);
@@ -1203,8 +1211,8 @@ bool TelemetryDiagnosticRoutineObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRoutineStateChange(
-std::move(p_state));
+      impl->OnRoutineStateChange(        
+        std::move(p_state));
       return true;
     }
   }
@@ -1504,6 +1512,8 @@ bool TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_ForwardToCall
           internal::TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TelemetryDiagnosticRoutinesService.1
   bool success = true;
   ::crosapi::mojom::TelemetryExtensionSupportStatusPtr p_status{};
   TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView input_data_view(params, message);
@@ -1586,6 +1596,8 @@ bool TelemetryDiagnosticRoutinesServiceStubDispatch::Accept(
           reinterpret_cast<internal::TelemetryDiagnosticRoutinesService_CreateRoutine_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TelemetryDiagnosticRoutinesService.0
       bool success = true;
       TelemetryDiagnosticRoutineArgumentPtr p_routine_argument{};
       ::mojo::PendingReceiver<TelemetryDiagnosticRoutineControl> p_routine_receiver{};
@@ -1611,10 +1623,10 @@ bool TelemetryDiagnosticRoutinesServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateRoutine(
-std::move(p_routine_argument), 
-std::move(p_routine_receiver), 
-std::move(p_routine_observer));
+      impl->CreateRoutine(        
+        std::move(p_routine_argument), 
+        std::move(p_routine_receiver), 
+        std::move(p_routine_observer));
       return true;
     }
     case internal::kTelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_Name: {
@@ -1643,6 +1655,8 @@ bool TelemetryDiagnosticRoutinesServiceStubDispatch::AcceptWithResponder(
               internal::TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TelemetryDiagnosticRoutinesService.1
       bool success = true;
       TelemetryDiagnosticRoutineArgumentPtr p_routine_argument{};
       TelemetryDiagnosticRoutinesService_IsRoutineArgumentSupported_ParamsDataView input_data_view(params, message);
@@ -1661,8 +1675,8 @@ bool TelemetryDiagnosticRoutinesServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsRoutineArgumentSupported(
-std::move(p_routine_argument), std::move(callback));
+      impl->IsRoutineArgumentSupported(        
+        std::move(p_routine_argument), std::move(callback));
       return true;
     }
   }

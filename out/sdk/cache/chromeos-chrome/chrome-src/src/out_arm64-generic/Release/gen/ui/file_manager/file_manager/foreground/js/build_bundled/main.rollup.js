@@ -1,8 +1,9 @@
-import { s as startInterval, r as recordEnum, i as internals, _ as __decorate$1, a as requestUpdateOnAriaChange, b as isActivationClick, d as dispatchActivationClick, m as mixinElementInternals, A as AsyncQueue, o as openWindow, R as RootType, c as assert, N as NativeEventTarget, e as RateLimiter, g as getStore, u as unwrapEntry, t as toFilesAppURL, f as urlToEntry, h as strf, j as str, v as visitURL, V as VolumeType, k as startIOTask, l as checkAPIError, n as getFileErrorString, p as isRecentRootType, q as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, S as SHARED_DRIVES_DIRECTORY_NAME, C as COMPUTERS_DIRECTORY_NAME, w as assert$1, x as promisify, y as VolumeError, z as removeVolume, B as isSameFileSystem, D as isSameEntry, E as isFakeEntry, G as getRootType, H as SHARED_DRIVES_DIRECTORY_PATH, I as isTeamDriveRoot, J as COMPUTERS_DIRECTORY_PATH, K as isComputersRoot, L as getRootTypeFromVolumeType, M as getMediaViewRootTypeFromVolumeId, O as MediaViewRootType, P as timeoutPromise, Q as addVolume, T as recordInterval, U as VOLUME_ALREADY_MOUNTED, W as isInGuestMode, X as getDirectory, Y as ARCHIVE_OPENED_EVENT_TYPE, Z as Source, $ as assertNotReached, a0 as descriptorEqual, a1 as XfBase, a2 as isCrosComponentsEnabled, a3 as DialogType, a4 as isFuseBoxDebugEnabled, a5 as AllowedPaths, a6 as isNative, a7 as parseTrashInfoFiles, a8 as recordMediumCount, a9 as isFileEntry, aa as isDirectoryEntry, ab as getLocaleBasedWeekStart, ac as SearchRecency, ad as getMediaType, ae as isImage, af as isVideo, ag as isRaw, ah as isPDF, ai as getType, aj as getContentMetadata, ak as testSendMessage, al as getContentMimeType, am as isDlpEnabled, an as getDlpMetadata, ao as entriesToURLs, ap as isTrashEntry$1, aq as compareName, ar as compareLabel, as as collator, at as dispatchSimpleEvent, au as createDOMError, av as FileErrorToDomError, aw as getDefaultSearchOptions, ax as readEntriesRecursively, ay as isDriveRootType, az as SearchLocation, aA as CROSTINI_CONNECT_ERR, aB as mountGuest, aC as LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES, aD as ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES, aE as FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES, aF as DLP_METADATA_PREFETCH_PROPERTY_NAMES, aG as ConcurrentQueue, aH as isType, aI as dispatchPropertyChange, aJ as Aggregator, aK as PropStatus, aL as recordUserAction, aM as FileSystemType, aN as getVolumeTypeFromRootType, aO as convertURLsToEntries, aP as isNativeEntry, aQ as isOneDriveId, aR as getFileData, aS as getVolume, aT as getMyFiles, aU as changeDirectory, aV as getEntryLabel, aW as clearSearch, aX as isGuestOs, aY as updateSearch, aZ as crInjectTypeAndInit, a_ as boolAttrSetter, a$ as convertToKebabCase, b0 as domAttrSetter, b1 as assertInstanceof, b2 as CrButtonElement, b3 as isTreeItem$1, b4 as isXfTree$1, b5 as handleTreeSlotChange, b6 as refreshNavigationRoots, b7 as NavigationType, b8 as isVolumeEntry, b9 as isOneDrive, ba as isDriveRootEntryList, bb as ICON_TYPES, bc as shouldSupportDriveSpecificIcons, bd as vmTypeToIconName, be as isMyFilesEntry$1, bf as readSubDirectoriesToCheckDirectoryChildren, bg as updateFileData, bh as readSubDirectories, bi as shouldDelayLoadingChildren, bj as isEntryScannable, bk as RootTypesForUMA, bl as maybeShowTooltip, bm as convertEntryToFileData, bn as isEntryInsideDrive, bo as isGrandRootEntryInDrives, bp as getEntry, bq as driveRootEntryListKey, br as VolumeEntry, bs as traverseAndExpandPathEntries, bt as getTrustedHTML, bu as isNewDirectoryTreeEnabled, bv as storage, bw as isSameVolume, bx as FSP_ACTION_HIDDEN_ONEDRIVE_URL, by as FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL, bz as FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED, bA as recordBoolean, bB as updateSelection, bC as isEncrypted, bD as refreshFolderShortcut, bE as recordSmallCount, bF as getPreferences, bG as comparePath, bH as addFolderShortcut, bI as removeFolderShortcut, bJ as Group, bK as addAndroidApps, bL as assertNotReached$1, bM as EntryList, bN as isGuestOsEnabled, bO as isArcVmEnabled, bP as isSinglePartitionFormatEnabled, bQ as getPropertyDescriptor, bR as PropertyKind, bS as assertInstanceof$1, bT as isSharedDriveEntry, bU as isComputersEntry, bV as isDescendantEntry, bW as getIconOverrides, bX as compareLabelAndGroupBottomEntries, bY as iconSetToCSSBackgroundImageValue, bZ as shouldProvideIcons, b_ as FocusOutlineManager, b$ as mouseEnterMaybeShowTooltip, c0 as getCrActionMenuTop, c1 as SEARCH_RESULTS_KEY, c2 as getVolumeType, c3 as XfCloudPanel, c4 as canBulkPinningCloudPanelShow, c5 as CloudPanelType, c6 as queryRequiredElement, c7 as isSearchEmpty, c8 as PathComponent, c9 as bytesToString, ca as recordValue, cb as PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID, cc as DEFAULT_CROSTINI_VM, cd as PLUGIN_VM$1, ce as isGoogleOneOfferFilesBannerEligibleAndEnabled, cf as getTeamDriveName, cg as getDriveQuotaMetadata, ch as getSizeStats, ci as isNullOrUndefined, cj as queryDecoratedElement, ck as getFilesAppModalDialogInstance, cl as jsSetter, cm as getFileTypeForName, cn as getKeyModifiers, co as getCurrentLocaleOrDefault, cp as isAudio, cq as getIcon, cr as secondsToRemainingTimeString, cs as PanelType, ct as getFocusedTreeItem, cu as getTreeItemEntry, cv as isRecentRoot, cw as validateEntryName, cx as renameEntry, cy as readSubDirectoriesForRenamedEntry, cz as isTrashRoot, cA as getDisallowedTransfers, cB as htmlEscape, cC as isDirectoryTreeItem, cD as isDirectoryTree, cE as isSiblingEntry, cF as isNonModifiable, cG as grantAccess, cH as getParentEntry$1, cI as getFile, cJ as validateFileName, cK as UserCanceledError, cL as getFileTasks, cM as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, cN as annotateTasks, cO as getDefaultTask, cP as getExtension, cQ as recordTime, cR as parseActionId, cS as isFilesAppId, cT as splitExtension, cU as LEGACY_FILES_EXTENSION_ID, cV as executeTask, cW as isTeleported, cX as makeTaskID, cY as extractFilePath, cZ as USER_CANCELLED, c_ as updateMetadata, c$ as TaskHistory, d0 as EventType$2, d1 as getFilesData, d2 as fetchFileTasks, d3 as getMimeType, d4 as recordDirectoryListLoadWithTolerance, d5 as waitForState, d6 as isInteractiveVolume, d7 as isTeamDrivesGrandRoot, d8 as isTrashRootType, d9 as isRecentArcEntry, da as getHoldingSpaceState, db as getDlpRestrictionDetails, dc as isMirrorSyncEnabled, dd as DEFAULT_BRUSCHETTA_VM, de as addUiEntry, df as removeUiEntry, dg as crostiniPlaceHolderKey, dh as getODFSMetadataQueryEntry, di as updateIsInteractiveVolume, dj as createChild, dk as listMountableGuests, dl as GuestOsPlaceholder, dm as toSandboxedURL, dn as updateDirectoryContent, dp as getLastVisitedURL, dq as getBulkPinProgress, dr as updateBulkPinProgress, ds as getEmptyState, dt as setLaunchParameters, du as runningInBrowser, dv as getDialogCaller, dw as getDlpBlockedComponents, dx as updatePreferences, dy as getDriveConnectionState, dz as updateDriveConnectionStatus, dA as updateDeviceConnectionState, dB as trashRootKey } from './shared.rollup.js';
+import { s as startInterval, r as recordEnum, i as internals, _ as __decorate$1, a as requestUpdateOnAriaChange, b as isActivationClick, d as dispatchActivationClick, m as mixinElementInternals, A as AsyncQueue, o as openWindow, R as RootType, c as assert, N as NativeEventTarget, e as RateLimiter, g as getStore, u as unwrapEntry, t as toFilesAppURL, f as urlToEntry, h as strf, j as str, v as visitURL, V as VolumeType, k as startIOTask, l as checkAPIError, n as getFileErrorString, p as isRecentRootType, q as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, S as SHARED_DRIVES_DIRECTORY_NAME, C as COMPUTERS_DIRECTORY_NAME, w as assert$1, x as promisify, y as VolumeError, z as removeVolume, B as isSameFileSystem, D as isSameEntry, E as isFakeEntry, G as getRootType, H as SHARED_DRIVES_DIRECTORY_PATH, I as isTeamDriveRoot, J as COMPUTERS_DIRECTORY_PATH, K as isComputersRoot, L as getRootTypeFromVolumeType, M as getMediaViewRootTypeFromVolumeId, O as MediaViewRootType, P as timeoutPromise, Q as addVolume, T as recordInterval, U as VOLUME_ALREADY_MOUNTED, W as isInGuestMode, X as getDirectory, Y as ARCHIVE_OPENED_EVENT_TYPE, Z as Source, $ as assertNotReached, a0 as descriptorEqual, a1 as XfBase, a2 as isCrosComponentsEnabled, a3 as DialogType, a4 as isFuseBoxDebugEnabled, a5 as AllowedPaths, a6 as isNative, a7 as parseTrashInfoFiles, a8 as recordMediumCount, a9 as isFileEntry, aa as isDirectoryEntry, ab as getLocaleBasedWeekStart, ac as SearchRecency, ad as getMediaType, ae as isImage, af as isVideo, ag as isRaw, ah as isPDF, ai as getType, aj as getContentMetadata, ak as testSendMessage, al as getContentMimeType, am as isDlpEnabled, an as getDlpMetadata, ao as entriesToURLs, ap as isTrashEntry$1, aq as compareName, ar as compareLabel, as as collator, at as dispatchSimpleEvent, au as createDOMError, av as FileErrorToDomError, aw as getDefaultSearchOptions, ax as readEntriesRecursively, ay as isDriveRootType, az as SearchLocation, aA as CROSTINI_CONNECT_ERR, aB as mountGuest, aC as LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES, aD as ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES, aE as FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES, aF as DLP_METADATA_PREFETCH_PROPERTY_NAMES, aG as ConcurrentQueue, aH as isType, aI as dispatchPropertyChange, aJ as Aggregator, aK as PropStatus, aL as recordUserAction, aM as FileSystemType, aN as getVolumeTypeFromRootType, aO as convertURLsToEntries, aP as isNativeEntry, aQ as isOneDriveId, aR as getFileData, aS as getVolume, aT as getMyFiles, aU as changeDirectory, aV as getEntryLabel, aW as clearSearch, aX as isGuestOs, aY as updateSearch, aZ as crInjectTypeAndInit, a_ as boolAttrSetter, a$ as convertToKebabCase, b0 as domAttrSetter, b1 as assertInstanceof, b2 as CrButtonElement, b3 as isTreeItem$1, b4 as isXfTree$1, b5 as handleTreeSlotChange, b6 as refreshNavigationRoots, b7 as NavigationType, b8 as isVolumeEntry, b9 as isOneDrive, ba as isDriveRootEntryList, bb as ICON_TYPES, bc as shouldSupportDriveSpecificIcons, bd as vmTypeToIconName, be as isMyFilesEntry$1, bf as readSubDirectoriesToCheckDirectoryChildren, bg as updateFileData, bh as readSubDirectories, bi as shouldDelayLoadingChildren, bj as isEntryScannable, bk as RootTypesForUMA, bl as maybeShowTooltip, bm as convertEntryToFileData, bn as isEntryInsideDrive, bo as isGrandRootEntryInDrives, bp as getEntry, bq as driveRootEntryListKey, br as VolumeEntry, bs as traverseAndExpandPathEntries, bt as getTrustedHTML, bu as isNewDirectoryTreeEnabled, bv as storage, bw as isSameVolume, bx as FSP_ACTION_HIDDEN_ONEDRIVE_URL, by as FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL, bz as FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED, bA as recordBoolean, bB as updateSelection, bC as isEncrypted, bD as refreshFolderShortcut, bE as recordSmallCount, bF as getPreferences, bG as comparePath, bH as addFolderShortcut, bI as removeFolderShortcut, bJ as Group, bK as addAndroidApps, bL as assertNotReached$1, bM as EntryList, bN as isGuestOsEnabled, bO as isArcVmEnabled, bP as isSinglePartitionFormatEnabled, bQ as getPropertyDescriptor, bR as PropertyKind, bS as assertInstanceof$1, bT as isSharedDriveEntry, bU as isComputersEntry, bV as isDescendantEntry, bW as getIconOverrides, bX as compareLabelAndGroupBottomEntries, bY as iconSetToCSSBackgroundImageValue, bZ as shouldProvideIcons, b_ as FocusOutlineManager, b$ as mouseEnterMaybeShowTooltip, c0 as getCrActionMenuTop, c1 as SEARCH_RESULTS_KEY, c2 as getVolumeType, c3 as XfCloudPanel, c4 as canBulkPinningCloudPanelShow, c5 as CloudPanelType, c6 as queryRequiredElement, c7 as isSearchEmpty, c8 as PathComponent, c9 as bytesToString, ca as recordValue, cb as PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID, cc as DEFAULT_CROSTINI_VM, cd as PLUGIN_VM$1, ce as isGoogleOneOfferFilesBannerEligibleAndEnabled, cf as getTeamDriveName, cg as getDriveQuotaMetadata, ch as getSizeStats, ci as isNullOrUndefined, cj as queryDecoratedElement, ck as getFilesAppModalDialogInstance, cl as jsSetter, cm as getFileTypeForName, cn as getKeyModifiers, co as getCurrentLocaleOrDefault, cp as isAudio, cq as getIcon, cr as secondsToRemainingTimeString, cs as PanelType, ct as getFocusedTreeItem, cu as getTreeItemEntry, cv as isRecentRoot, cw as isInteractiveVolume, cx as isTeamDrivesGrandRoot, cy as isTrashRootType, cz as isDirectoryTree, cA as isDirectoryTreeItem, cB as isTrashRoot, cC as isNonModifiable, cD as isRecentArcEntry, cE as getHoldingSpaceState, cF as getDlpRestrictionDetails, cG as getExtension, cH as isMirrorSyncEnabled, cI as DEFAULT_BRUSCHETTA_VM, cJ as addUiEntry, cK as removeUiEntry, cL as crostiniPlaceHolderKey, cM as UserCanceledError, cN as validateEntryName, cO as renameEntry, cP as readSubDirectoriesForRenamedEntry, cQ as getODFSMetadataQueryEntry, cR as updateIsInteractiveVolume, cS as getDisallowedTransfers, cT as htmlEscape, cU as isSiblingEntry, cV as grantAccess, cW as getParentEntry$1, cX as getFile, cY as updateMetadata, cZ as TaskHistory, c_ as EventType$2, c$ as getFilesData, d0 as fetchFileTasks, d1 as getMimeType, d2 as recordDirectoryListLoadWithTolerance, d3 as waitForState, d4 as getDefaultTask, d5 as getFileTasks, d6 as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, d7 as annotateTasks, d8 as recordTime, d9 as parseActionId, da as isFilesAppId, db as splitExtension, dc as LEGACY_FILES_EXTENSION_ID, dd as executeTask, de as isTeleported, df as makeTaskID, dg as extractFilePath, dh as USER_CANCELLED, di as createChild, dj as listMountableGuests, dk as GuestOsPlaceholder, dl as toSandboxedURL, dm as validateFileName, dn as updateDirectoryContent, dp as getLastVisitedURL, dq as getBulkPinProgress, dr as updateBulkPinProgress, ds as getEmptyState, dt as setLaunchParameters, du as runningInBrowser, dv as getDialogCaller, dw as getDlpBlockedComponents, dx as updatePreferences, dy as getDriveConnectionState, dz as updateDriveConnectionStatus, dA as updateDeviceConnectionState, dB as trashRootKey } from './shared.rollup.js';
 import 'chrome://file-manager/strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { isServer, property, query, html, classMap, nothing, LitElement, css, customElement, state, ifDefined, styleMap } from 'chrome://resources/mwc/lit/index.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
+import 'chrome://resources/js/cr.js';
 import { html as html$1, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 
 // Copyright 2016 The Chromium Authors
@@ -966,6 +967,289 @@ customElements.define('cros-switch', Switch);
 class MetadataItem {
 }
 
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/** Coordinates the creation of new windows for Files app.  */
+class AppWindowWrapper {
+    constructor() {
+        this.appState_ = null;
+        this.openingOrOpened_ = false;
+        this.queue_ = new AsyncQueue();
+    }
+    /**
+     * Gets the launch lock, used to synchronize the asynchronous initialization
+     * steps.
+     */
+    async getLaunchLock() {
+        return this.queue_.lock();
+    }
+    /**
+     * Opens the window.
+     * @return Resolves when the window is launched.
+     */
+    async launch(appState) {
+        // Check if the window is opened or not.
+        if (this.openingOrOpened_) {
+            console.warn('The window is already opened.');
+            return Promise.resolve();
+        }
+        this.openingOrOpened_ = true;
+        // Save application state.
+        this.appState_ = appState;
+        return this.launch_();
+    }
+    /**
+     * Opens a new window for the SWA. Returns a Promise which resolves when the
+     * window is launched.
+     */
+    async launch_() {
+        const unlock = await this.getLaunchLock();
+        try {
+            await this.createWindow_();
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            unlock();
+        }
+    }
+    /**
+     * Return a Promise which resolves when the new window is opened.
+     */
+    async createWindow_() {
+        const url = this.appState_.currentDirectoryURL?.toString() || '';
+        const result = await openWindow({
+            currentDirectoryURL: url,
+            selectionURL: this.appState_.selectionURL,
+        });
+        if (!result) {
+            throw new Error(`Failed to create window for ${url}`);
+        }
+    }
+}
+
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Handles shares for Crostini VMs.
+ */
+/**
+ * Default Crostini VM is 'termina'.
+ */
+const DEFAULT_VM = 'termina';
+/**
+ * Plugin VM 'PvmDefault'.
+ */
+const PLUGIN_VM = 'PvmDefault';
+/**
+ * Valid root types to their share location.
+ */
+const VALID_ROOT_TYPES_FOR_SHARE = new Map([
+    [RootType.DOWNLOADS, 'Downloads'],
+    [RootType.REMOVABLE, 'Removable'],
+    [RootType.ANDROID_FILES, 'AndroidFiles'],
+    [RootType.COMPUTERS_GRAND_ROOT, 'DriveComputers'],
+    [RootType.COMPUTER, 'DriveComputers'],
+    [RootType.DRIVE, 'MyDrive'],
+    [RootType.SHARED_DRIVES_GRAND_ROOT, 'TeamDrive'],
+    [RootType.SHARED_DRIVE, 'TeamDrive'],
+    [RootType.DRIVE_SHARED_WITH_ME, 'SharedWithMe'],
+    [RootType.CROSTINI, 'Crostini'],
+    [RootType.GUEST_OS, 'GuestOs'],
+    [RootType.ARCHIVE, 'Archive'],
+    [RootType.SMB, 'SMB'],
+]);
+/**
+ * Implementation of Crostini shared path state handler.
+ */
+class Crostini {
+    constructor() {
+        /**
+         * Keys maintaining enablement state for VMs that is keyed by vm then subkeyed
+         * by the container name.
+         */
+        this.enabled_ = {};
+        /**
+         * A list of shared paths keyed by the VM name.
+         */
+        this.sharedPaths_ = {};
+        /**
+         * The volume manager instance.
+         */
+        this.volumeManager_ = null;
+    }
+    /**
+     * Initialize enabled settings and register for any shared path changes.
+     * Must be done after loadTimeData is available.
+     */
+    initEnabled() {
+        const guests = loadTimeData.getValue('VMS_FOR_SHARING');
+        for (const guest of guests) {
+            this.setEnabled(guest.vmName, guest.containerName, true);
+        }
+        chrome.fileManagerPrivate.onCrostiniChanged.addListener(this.onCrostiniChanged_.bind(this));
+    }
+    /**
+     * Initialize Volume Manager.
+     */
+    initVolumeManager(volumeManager) {
+        this.volumeManager_ = volumeManager;
+    }
+    /**
+     * Set whether the specified Guest is enabled.
+     */
+    setEnabled(vmName, containerName, enabled) {
+        if (!this.enabled_[vmName]) {
+            this.enabled_[vmName] = {};
+        }
+        this.enabled_[vmName][containerName] = enabled;
+    }
+    /**
+     * Returns true if the specified VM is enabled.
+     */
+    isEnabled(vmName) {
+        return (!!this.enabled_[vmName]) &&
+            Object.values(this.enabled_[vmName]).includes(true);
+    }
+    /**
+     * Get the root type for the supplied `entry`.
+     */
+    getRoot_(entry) {
+        const info = this.volumeManager_ && this.volumeManager_.getLocationInfo(entry);
+        return info && info.rootType;
+    }
+    /**
+     * Registers an entry as a shared path for the specified VM.
+     */
+    registerSharedPath(vmName, entry) {
+        const url = entry.toURL();
+        // Remove any existing paths that are children of the new path.
+        // These paths will still be shared as a result of a parent path being
+        // shared, but if the parent is unshared in the future, these children
+        // paths should not remain.
+        for (const [path, _] of Object.entries(this.sharedPaths_)) {
+            if (path.startsWith(url)) {
+                this.unregisterSharedPath_(vmName, path);
+            }
+        }
+        if (this.sharedPaths_[url]) {
+            this.sharedPaths_[url].push(vmName);
+        }
+        else {
+            this.sharedPaths_[url] = [vmName];
+        }
+    }
+    /**
+     * Unregisters path as a shared path from the specified VM.
+     */
+    unregisterSharedPath_(vmName, path) {
+        const vms = this.sharedPaths_[path];
+        if (vms) {
+            const newVms = vms.filter(vm => vm !== vmName);
+            if (newVms.length > 0) {
+                this.sharedPaths_[path] = newVms;
+            }
+            else {
+                delete this.sharedPaths_[path];
+            }
+        }
+    }
+    /**
+     * Unregisters entry as a shared path from the specified VM.
+     */
+    unregisterSharedPath(vmName, entry) {
+        this.unregisterSharedPath_(vmName, entry.toURL());
+    }
+    /**
+     * Handles events for enable/disable, share/unshare.
+     */
+    onCrostiniChanged_(event) {
+        const CrostiniEventType = chrome.fileManagerPrivate.CrostiniEventType;
+        switch (event.eventType) {
+            case CrostiniEventType.ENABLE:
+                this.setEnabled(event.vmName, event.containerName, true);
+                break;
+            case CrostiniEventType.DISABLE:
+                this.setEnabled(event.vmName, event.containerName, false);
+                break;
+            case CrostiniEventType.SHARE:
+                for (const entry of event.entries) {
+                    this.registerSharedPath(event.vmName, assert(entry));
+                }
+                break;
+            case CrostiniEventType.UNSHARE:
+                for (const entry of event.entries) {
+                    this.unregisterSharedPath(event.vmName, assert(entry));
+                }
+                break;
+        }
+    }
+    /**
+     * Returns true if entry is shared with the specified VM. Returns true if path
+     * is shared either by a direct share or from one of its ancestor directories.
+     */
+    isPathShared(vmName, entry) {
+        // Check path and all ancestor directories.
+        let path = entry.toURL();
+        let root = path;
+        if (entry && entry.filesystem && entry.filesystem.root) {
+            root = entry.filesystem.root.toURL();
+        }
+        while (path.length > root.length) {
+            const vms = this.sharedPaths_[path];
+            if (vms && vms.includes(vmName)) {
+                return true;
+            }
+            path = path.substring(0, path.lastIndexOf('/'));
+        }
+        const rootVms = this.sharedPaths_[root];
+        return !!rootVms && rootVms.includes(vmName);
+    }
+    /**
+     * Returns true if entry can be shared with the specified VM.
+     */
+    canSharePath(vmName, entry, persist) {
+        if (!this.isEnabled(vmName)) {
+            return false;
+        }
+        // Only directories for persistent shares.
+        if (persist && !entry.isDirectory) {
+            return false;
+        }
+        const root = this.getRoot_(entry);
+        // TODO(crbug.com/917920): Remove when DriveFS enforces allowed write paths.
+        // Disallow Computers Grand Root, and Computer Root.
+        if (root === RootType.COMPUTERS_GRAND_ROOT ||
+            (root === RootType.COMPUTER && entry.fullPath.split('/').length <= 3)) {
+            return false;
+        }
+        // TODO(crbug.com/958840): Sharing Play files root is disallowed until
+        // we can ensure it will not also share Downloads.
+        if (root === RootType.ANDROID_FILES && entry.fullPath === '/') {
+            return false;
+        }
+        // Special case to disallow PluginVm sharing on /MyFiles/PluginVm and
+        // subfolders since it gets shared by default.
+        if (vmName === PLUGIN_VM && root === RootType.DOWNLOADS &&
+            entry.fullPath.split('/')[1] === PLUGIN_VM) {
+            return false;
+        }
+        // Disallow sharing LinuxFiles with itself.
+        if (vmName === DEFAULT_VM && root === RootType.CROSTINI) {
+            return false;
+        }
+        // Cannot share root of Shared with me since it represents 2 dirs:
+        // `.files-by-id` and `.shortcut-targets-by-id`.
+        if (root === RootType.DRIVE_SHARED_WITH_ME && entry.fullPath === '/') {
+            return false;
+        }
+        return !!root && VALID_ROOT_TYPES_FOR_SHARE.has(root);
+    }
+}
+
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -1129,297 +1413,14 @@ class ProgressCenterItem {
     }
     /** Whether the item can be canceled or not. */
     get cancelable() {
-        return !!(this.state == ProgressItemState.PROGRESSING &&
+        return !!(this.state === ProgressItemState.PROGRESSING &&
             this.cancelCallback && this.single) ||
-            !!(this.state == ProgressItemState.PAUSED && this.cancelCallback);
+            !!(this.state === ProgressItemState.PAUSED && this.cancelCallback);
     }
     /** Clones the item. */
     clone() {
         const clonedItem = Object.assign(new ProgressCenterItem(), this);
         return /** @type {!ProgressCenterItem} */ (clonedItem);
-    }
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** Coordinates the creation of new windows for Files app.  */
-class AppWindowWrapper {
-    constructor() {
-        this.appState_ = null;
-        this.openingOrOpened_ = false;
-        this.queue_ = new AsyncQueue();
-    }
-    /**
-     * Gets the launch lock, used to synchronize the asynchronous initialization
-     * steps.
-     */
-    async getLaunchLock() {
-        return this.queue_.lock();
-    }
-    /**
-     * Opens the window.
-     * @return Resolves when the window is launched.
-     */
-    async launch(appState) {
-        // Check if the window is opened or not.
-        if (this.openingOrOpened_) {
-            console.warn('The window is already opened.');
-            return Promise.resolve();
-        }
-        this.openingOrOpened_ = true;
-        // Save application state.
-        this.appState_ = appState;
-        return this.launch_();
-    }
-    /**
-     * Opens a new window for the SWA. Returns a Promise which resolves when the
-     * window is launched.
-     */
-    async launch_() {
-        const unlock = await this.getLaunchLock();
-        try {
-            await this.createWindow_();
-        }
-        catch (error) {
-            console.error(error);
-        }
-        finally {
-            unlock();
-        }
-    }
-    /**
-     * Return a Promise which resolves when the new window is opened.
-     */
-    async createWindow_() {
-        const url = this.appState_.currentDirectoryURL?.toString() || '';
-        const result = await openWindow({
-            currentDirectoryURL: url,
-            selectionURL: this.appState_.selectionURL,
-        });
-        if (!result) {
-            throw new Error(`Failed to create window for ${url}`);
-        }
-    }
-}
-
-// Copyright 2018 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Handles shares for Crostini VMs.
- */
-/**
- * Default Crostini VM is 'termina'.
- */
-const DEFAULT_VM = 'termina';
-/**
- * Plugin VM 'PvmDefault'.
- */
-const PLUGIN_VM = 'PvmDefault';
-/**
- * Valid root types to their share location.
- */
-const VALID_ROOT_TYPES_FOR_SHARE = new Map([
-    [RootType.DOWNLOADS, 'Downloads'],
-    [RootType.REMOVABLE, 'Removable'],
-    [RootType.ANDROID_FILES, 'AndroidFiles'],
-    [RootType.COMPUTERS_GRAND_ROOT, 'DriveComputers'],
-    [RootType.COMPUTER, 'DriveComputers'],
-    [RootType.DRIVE, 'MyDrive'],
-    [RootType.SHARED_DRIVES_GRAND_ROOT, 'TeamDrive'],
-    [RootType.SHARED_DRIVE, 'TeamDrive'],
-    [RootType.DRIVE_SHARED_WITH_ME, 'SharedWithMe'],
-    [RootType.CROSTINI, 'Crostini'],
-    [RootType.GUEST_OS, 'GuestOs'],
-    [RootType.ARCHIVE, 'Archive'],
-    [RootType.SMB, 'SMB'],
-]);
-/**
- * Implementation of Crostini shared path state handler.
- */
-class CrostiniImpl {
-    constructor() {
-        /**
-         * Keys maintaining enablement state for VMs that is keyed by vm then subkeyed
-         * by the container name.
-         */
-        this.enabled_ = {};
-        /**
-         * A list of shared paths keyed by the VM name.
-         */
-        this.sharedPaths_ = {};
-        /**
-         * The volume manager instance.
-         */
-        this.volumeManager_ = null;
-    }
-    /**
-     * Initialize enabled settings and register for any shared path changes.
-     * Must be done after loadTimeData is available.
-     */
-    initEnabled() {
-        const guests = loadTimeData.getValue('VMS_FOR_SHARING');
-        for (const guest of guests) {
-            this.setEnabled(guest.vmName, guest.containerName, true);
-        }
-        chrome.fileManagerPrivate.onCrostiniChanged.addListener(this.onCrostiniChanged_.bind(this));
-    }
-    /**
-     * Initialize Volume Manager.
-     */
-    initVolumeManager(volumeManager) {
-        this.volumeManager_ = volumeManager;
-    }
-    /**
-     * Set whether the specified Guest is enabled.
-     */
-    setEnabled(vmName, containerName, enabled) {
-        if (!this.enabled_[vmName]) {
-            this.enabled_[vmName] = {};
-        }
-        this.enabled_[vmName][containerName] = enabled;
-    }
-    /**
-     * Returns true if the specified VM is enabled.
-     */
-    isEnabled(vmName) {
-        return (!!this.enabled_[vmName]) &&
-            Object.values(this.enabled_[vmName]).includes(true);
-    }
-    /**
-     * Get the root type for the supplied `entry`.
-     */
-    getRoot_(entry) {
-        const info = this.volumeManager_ && this.volumeManager_.getLocationInfo(entry);
-        return info && info.rootType;
-    }
-    /**
-     * Registers an entry as a shared path for the specified VM.
-     */
-    registerSharedPath(vmName, entry) {
-        const url = entry.toURL();
-        // Remove any existing paths that are children of the new path.
-        // These paths will still be shared as a result of a parent path being
-        // shared, but if the parent is unshared in the future, these children
-        // paths should not remain.
-        for (const [path, _] of Object.entries(this.sharedPaths_)) {
-            if (path.startsWith(url)) {
-                this.unregisterSharedPath_(vmName, path);
-            }
-        }
-        if (this.sharedPaths_[url]) {
-            this.sharedPaths_[url].push(vmName);
-        }
-        else {
-            this.sharedPaths_[url] = [vmName];
-        }
-    }
-    /**
-     * Unregisters path as a shared path from the specified VM.
-     */
-    unregisterSharedPath_(vmName, path) {
-        const vms = this.sharedPaths_[path];
-        if (vms) {
-            const newVms = vms.filter(vm => vm != vmName);
-            if (newVms.length > 0) {
-                this.sharedPaths_[path] = newVms;
-            }
-            else {
-                delete this.sharedPaths_[path];
-            }
-        }
-    }
-    /**
-     * Unregisters entry as a shared path from the specified VM.
-     */
-    unregisterSharedPath(vmName, entry) {
-        this.unregisterSharedPath_(vmName, entry.toURL());
-    }
-    /**
-     * Handles events for enable/disable, share/unshare.
-     */
-    onCrostiniChanged_(event) {
-        const CrostiniEventType = chrome.fileManagerPrivate.CrostiniEventType;
-        switch (event.eventType) {
-            case CrostiniEventType.ENABLE:
-                this.setEnabled(event.vmName, event.containerName, true);
-                break;
-            case CrostiniEventType.DISABLE:
-                this.setEnabled(event.vmName, event.containerName, false);
-                break;
-            case CrostiniEventType.SHARE:
-                for (const entry of event.entries) {
-                    this.registerSharedPath(event.vmName, assert(entry));
-                }
-                break;
-            case CrostiniEventType.UNSHARE:
-                for (const entry of event.entries) {
-                    this.unregisterSharedPath(event.vmName, assert(entry));
-                }
-                break;
-        }
-    }
-    /**
-     * Returns true if entry is shared with the specified VM. Returns true if path
-     * is shared either by a direct share or from one of its ancestor directories.
-     */
-    isPathShared(vmName, entry) {
-        // Check path and all ancestor directories.
-        let path = entry.toURL();
-        let root = path;
-        if (entry && entry.filesystem && entry.filesystem.root) {
-            root = entry.filesystem.root.toURL();
-        }
-        while (path.length > root.length) {
-            const vms = this.sharedPaths_[path];
-            if (vms && vms.includes(vmName)) {
-                return true;
-            }
-            path = path.substring(0, path.lastIndexOf('/'));
-        }
-        const rootVms = this.sharedPaths_[root];
-        return !!rootVms && rootVms.includes(vmName);
-    }
-    /**
-     * Returns true if entry can be shared with the specified VM.
-     */
-    canSharePath(vmName, entry, persist) {
-        if (!this.isEnabled(vmName)) {
-            return false;
-        }
-        // Only directories for persistent shares.
-        if (persist && !entry.isDirectory) {
-            return false;
-        }
-        const root = this.getRoot_(entry);
-        // TODO(crbug.com/917920): Remove when DriveFS enforces allowed write paths.
-        // Disallow Computers Grand Root, and Computer Root.
-        if (root === RootType.COMPUTERS_GRAND_ROOT ||
-            (root === RootType.COMPUTER && entry.fullPath.split('/').length <= 3)) {
-            return false;
-        }
-        // TODO(crbug.com/958840): Sharing Play files root is disallowed until
-        // we can ensure it will not also share Downloads.
-        if (root === RootType.ANDROID_FILES && entry.fullPath === '/') {
-            return false;
-        }
-        // Special case to disallow PluginVm sharing on /MyFiles/PluginVm and
-        // subfolders since it gets shared by default.
-        if (vmName === PLUGIN_VM && root === RootType.DOWNLOADS &&
-            entry.fullPath.split('/')[1] === PLUGIN_VM) {
-            return false;
-        }
-        // Disallow sharing LinuxFiles with itself.
-        if (vmName === DEFAULT_VM && root === RootType.CROSTINI) {
-            return false;
-        }
-        // Cannot share root of Shared with me since it represents 2 dirs:
-        // `.files-by-id` and `.shortcut-targets-by-id`.
-        if (root === RootType.DRIVE_SHARED_WITH_ME && entry.fullPath === '/') {
-            return false;
-        }
-        return !!root && VALID_ROOT_TYPES_FOR_SHARE.has(root);
     }
 }
 
@@ -1432,7 +1433,12 @@ class CrostiniImpl {
 /**
  * Shorthand for metadata keys.
  */
-const { SYNC_STATUS, PROGRESS, SYNC_COMPLETED_TIME, AVAILABLE_OFFLINE, PINNED, CAN_PIN, } = chrome.fileManagerPrivate.EntryPropertyName;
+const SYNC_STATUS = 'syncStatus';
+const PROGRESS = 'progress';
+const SYNC_COMPLETED_TIME = 'syncCompletedTime';
+const AVAILABLE_OFFLINE = 'availableOffline';
+const PINNED = 'pinned';
+const CAN_PIN = 'canPin';
 /**
  * Shorthand for sync statuses.
  */
@@ -1654,9 +1660,9 @@ class DriveSyncHandlerImpl extends NativeEventTarget {
             // If offline, hide any sync progress notifications. When online again,
             // the Drive sync client may retry syncing and trigger
             // onFileTransfersUpdated events, causing it to be shown again.
-            if (state.type ==
+            if (state.type ===
                 chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE &&
-                state.reason ==
+                state.reason ===
                     chrome.fileManagerPrivate.DriveOfflineReason.NO_NETWORK) {
                 this.dispatchEvent(new Event(this.getCompletedEventName()));
             }
@@ -1686,7 +1692,7 @@ class FileOperationHandler {
             item = new ProgressCenterItem();
             newItem = true;
             item.id = taskId;
-            item.type = getTypeFromIOTaskType(event.type);
+            item.type = getTypeFromIoTaskType(event.type);
             item.itemCount = event.itemCount;
             const state = getStore().getState();
             const volume = state.volumes[event.destinationVolumeId];
@@ -1699,12 +1705,12 @@ class FileOperationHandler {
         item.sourceMessage = event.sourceName;
         item.destinationMessage = event.destinationName;
         switch (event.state) {
-            case chrome.fileManagerPrivate.IOTaskState.QUEUED:
+            case chrome.fileManagerPrivate.IoTaskState.QUEUED:
                 item.progressMax = event.totalBytes;
                 item.progressValue = event.bytesTransferred;
                 item.remainingTime = event.remainingSeconds;
                 break;
-            case chrome.fileManagerPrivate.IOTaskState.SCANNING:
+            case chrome.fileManagerPrivate.IoTaskState.SCANNING:
                 item.sourceMessage = event.sourceName;
                 item.destinationMessage = event.destinationName;
                 item.state = ProgressItemState.SCANNING;
@@ -1714,7 +1720,7 @@ class FileOperationHandler {
                 item.progressValue = event.sourcesScanned;
                 item.remainingTime = event.remainingSeconds;
                 break;
-            case chrome.fileManagerPrivate.IOTaskState.PAUSED:
+            case chrome.fileManagerPrivate.IoTaskState.PAUSED:
                 // Check if the task is paused because of warning level restrictions.
                 if (event.pauseParams && event.pauseParams.policyParams) {
                     item.state = ProgressItemState.PAUSED;
@@ -1740,20 +1746,20 @@ class FileOperationHandler {
                     break;
                 }
             // Otherwise same is in-progress - fall through
-            case chrome.fileManagerPrivate.IOTaskState.IN_PROGRESS:
+            case chrome.fileManagerPrivate.IoTaskState.IN_PROGRESS:
                 item.progressMax = event.totalBytes;
                 item.progressValue = event.bytesTransferred;
                 item.remainingTime = event.remainingSeconds;
                 item.state = ProgressItemState.PROGRESSING;
                 break;
-            case chrome.fileManagerPrivate.IOTaskState.SUCCESS:
-            case chrome.fileManagerPrivate.IOTaskState.CANCELLED:
-            case chrome.fileManagerPrivate.IOTaskState.ERROR:
+            case chrome.fileManagerPrivate.IoTaskState.SUCCESS:
+            case chrome.fileManagerPrivate.IoTaskState.CANCELLED:
+            case chrome.fileManagerPrivate.IoTaskState.ERROR:
                 if (newItem) {
                     // ERROR events can be dispatched before BEGIN events.
                     item.progressMax = 1;
                 }
-                if (event.state === chrome.fileManagerPrivate.IOTaskState.SUCCESS) {
+                if (event.state === chrome.fileManagerPrivate.IoTaskState.SUCCESS) {
                     item.state = ProgressItemState.COMPLETED;
                     item.progressValue = item.progressMax;
                     item.remainingTime = event.remainingSeconds;
@@ -1761,12 +1767,12 @@ class FileOperationHandler {
                         const infoEntries = (event.outputs ||
                             []).filter((o) => o.name.endsWith('.trashinfo'));
                         item.setExtraButton(ProgressItemState.COMPLETED, str('UNDO_DELETE_ACTION_LABEL'), () => {
-                            startIOTask(chrome.fileManagerPrivate.IOTaskType.RESTORE, infoEntries, 
+                            startIOTask(chrome.fileManagerPrivate.IoTaskType.RESTORE, infoEntries, 
                             /*params=*/ {});
                         });
                     }
                 }
-                else if (event.state === chrome.fileManagerPrivate.IOTaskState.CANCELLED) {
+                else if (event.state === chrome.fileManagerPrivate.IoTaskState.CANCELLED) {
                     item.state = ProgressItemState.CANCELED;
                 }
                 else { // ERROR
@@ -1804,12 +1810,12 @@ class FileOperationHandler {
                     }
                 }
                 break;
-            case chrome.fileManagerPrivate.IOTaskState.NEED_PASSWORD:
+            case chrome.fileManagerPrivate.IoTaskState.NEED_PASSWORD:
                 // Set state to canceled so notification doesn't display.
                 item.state = ProgressItemState.CANCELED;
                 break;
             default:
-                console.error(`Invalid IOTaskState: ${event.state}`);
+                console.error(`Invalid IoTaskState: ${event.state}`);
         }
         if (!event.showNotification) {
             // Set state to canceled so notification doesn't display.
@@ -1821,25 +1827,25 @@ class FileOperationHandler {
 /**
  * Obtains ProgressItemType from OperationType of ProgressStatus.type.
  */
-function getTypeFromIOTaskType(type) {
+function getTypeFromIoTaskType(type) {
     switch (type) {
-        case chrome.fileManagerPrivate.IOTaskType.COPY:
+        case chrome.fileManagerPrivate.IoTaskType.COPY:
             return ProgressItemType.COPY;
-        case chrome.fileManagerPrivate.IOTaskType.DELETE:
+        case chrome.fileManagerPrivate.IoTaskType.DELETE:
             return ProgressItemType.DELETE;
-        case chrome.fileManagerPrivate.IOTaskType.EMPTY_TRASH:
+        case chrome.fileManagerPrivate.IoTaskType.EMPTY_TRASH:
             return ProgressItemType.EMPTY_TRASH;
-        case chrome.fileManagerPrivate.IOTaskType.EXTRACT:
+        case chrome.fileManagerPrivate.IoTaskType.EXTRACT:
             return ProgressItemType.EXTRACT;
-        case chrome.fileManagerPrivate.IOTaskType.MOVE:
+        case chrome.fileManagerPrivate.IoTaskType.MOVE:
             return ProgressItemType.MOVE;
-        case chrome.fileManagerPrivate.IOTaskType.RESTORE:
+        case chrome.fileManagerPrivate.IoTaskType.RESTORE:
             return ProgressItemType.RESTORE;
-        case chrome.fileManagerPrivate.IOTaskType.RESTORE_TO_DESTINATION:
+        case chrome.fileManagerPrivate.IoTaskType.RESTORE_TO_DESTINATION:
             return ProgressItemType.RESTORE_TO_DESTINATION;
-        case chrome.fileManagerPrivate.IOTaskType.TRASH:
+        case chrome.fileManagerPrivate.IoTaskType.TRASH:
             return ProgressItemType.TRASH;
-        case chrome.fileManagerPrivate.IOTaskType.ZIP:
+        case chrome.fileManagerPrivate.IoTaskType.ZIP:
             return ProgressItemType.ZIP;
         default:
             console.error('Unknown operation type: ' + type);
@@ -1852,38 +1858,38 @@ function getTypeFromIOTaskType(type) {
 function getMessageFromProgressEvent(event) {
     // The non-error states text is managed directly in the
     // ProgressCenterPanel.
-    if (event.state !== chrome.fileManagerPrivate.IOTaskState.ERROR) {
+    if (event.state !== chrome.fileManagerPrivate.IoTaskState.ERROR) {
         return '';
     }
     // TODO(b/295438773): Remove this special case for the "in use" error once
     // the files app error strings are made consistent and an "in use" string is
     // properly added.
-    if (event.errorName == 'InUseError' && event.itemCount == 1) {
+    if (event.errorName === 'InUseError' && event.itemCount === 1) {
         switch (event.type) {
-            case chrome.fileManagerPrivate.IOTaskType.MOVE:
+            case chrome.fileManagerPrivate.IoTaskType.MOVE:
                 return str('MOVE_IN_USE_ERROR');
-            case chrome.fileManagerPrivate.IOTaskType.DELETE:
+            case chrome.fileManagerPrivate.IoTaskType.DELETE:
                 return str('DELETE_IN_USE_ERROR');
         }
     }
     const detail = getFileErrorString(event.errorName);
     switch (event.type) {
-        case chrome.fileManagerPrivate.IOTaskType.COPY:
+        case chrome.fileManagerPrivate.IoTaskType.COPY:
             return strf('COPY_FILESYSTEM_ERROR', detail);
-        case chrome.fileManagerPrivate.IOTaskType.EMPTY_TRASH:
+        case chrome.fileManagerPrivate.IoTaskType.EMPTY_TRASH:
             return str('EMPTY_TRASH_UNEXPECTED_ERROR');
-        case chrome.fileManagerPrivate.IOTaskType.EXTRACT:
+        case chrome.fileManagerPrivate.IoTaskType.EXTRACT:
             return strf('EXTRACT_FILESYSTEM_ERROR', detail);
-        case chrome.fileManagerPrivate.IOTaskType.MOVE:
+        case chrome.fileManagerPrivate.IoTaskType.MOVE:
             return strf('MOVE_FILESYSTEM_ERROR', detail);
-        case chrome.fileManagerPrivate.IOTaskType.ZIP:
+        case chrome.fileManagerPrivate.IoTaskType.ZIP:
             return strf('ZIP_FILESYSTEM_ERROR', detail);
-        case chrome.fileManagerPrivate.IOTaskType.DELETE:
+        case chrome.fileManagerPrivate.IoTaskType.DELETE:
             return str('DELETE_ERROR');
-        case chrome.fileManagerPrivate.IOTaskType.RESTORE:
-        case chrome.fileManagerPrivate.IOTaskType.RESTORE_TO_DESTINATION:
+        case chrome.fileManagerPrivate.IoTaskType.RESTORE:
+        case chrome.fileManagerPrivate.IoTaskType.RESTORE_TO_DESTINATION:
             return str('RESTORE_FROM_TRASH_ERROR');
-        case chrome.fileManagerPrivate.IOTaskType.TRASH:
+        case chrome.fileManagerPrivate.IoTaskType.TRASH:
             return str('TRASH_UNEXPECTED_ERROR');
         default:
             console.warn(`Unexpected operation type: ${event.type}`);
@@ -1916,7 +1922,7 @@ function getPolicyErrorFromIOTaskPolicyError(error) {
  * operation types.
  */
 function getPolicyExtraButtonText(event) {
-    if (event.state === chrome.fileManagerPrivate.IOTaskState.PAUSED &&
+    if (event.state === chrome.fileManagerPrivate.IoTaskState.PAUSED &&
         event.pauseParams && event.pauseParams.policyParams) {
         if (event.pauseParams.policyParams.policyFileCount > 1 ||
             event.pauseParams.policyParams.alwaysShowReview) {
@@ -1924,17 +1930,17 @@ function getPolicyExtraButtonText(event) {
         }
         // Single item:
         switch (event.type) {
-            case chrome.fileManagerPrivate.IOTaskType.COPY:
+            case chrome.fileManagerPrivate.IoTaskType.COPY:
                 return str('DLP_FILES_COPY_WARN_CONTINUE_BUTTON');
-            case chrome.fileManagerPrivate.IOTaskType.MOVE:
-            case chrome.fileManagerPrivate.IOTaskType.RESTORE_TO_DESTINATION:
+            case chrome.fileManagerPrivate.IoTaskType.MOVE:
+            case chrome.fileManagerPrivate.IoTaskType.RESTORE_TO_DESTINATION:
                 return str('DLP_FILES_MOVE_WARN_CONTINUE_BUTTON');
             default:
                 console.error('Unexpected operation type: ' + event.type);
                 return '';
         }
     }
-    if (event.state === chrome.fileManagerPrivate.IOTaskState.ERROR &&
+    if (event.state === chrome.fileManagerPrivate.IoTaskState.ERROR &&
         event.policyError) {
         if (event.policyError.type !== PolicyErrorType.DLP_WARNING_TIMEOUT &&
             (event.policyError.policyFileCount > 1 ||
@@ -1952,9 +1958,9 @@ function getPolicyExtraButtonText(event) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * Implementation of {ProgressCenter} at the background page.
+ * Implementation of ProgressCenter at the background page.
  */
-class ProgressCenterImpl {
+class ProgressCenter {
     constructor() {
         /**
          * Current items managed by the progress center.
@@ -2216,9 +2222,8 @@ class FilesEventTarget extends EventTarget {
 /**
  * Location information which shows where the path points in FileManager's
  * file system.
- * @implements {EntryLocation}
  */
-class EntryLocationImpl {
+class EntryLocation {
     constructor(volumeInfo, rootType, isRootEntry, isReadOnly) {
         this.volumeInfo = volumeInfo;
         this.rootType = rootType;
@@ -2251,46 +2256,39 @@ class EntryLocationImpl {
  * Represents each volume, such as "drive", "download directory", each "USB
  * flush storage", or "mounted zip archive" etc.
  */
-class VolumeInfoImpl {
+class VolumeInfo {
     /**
-     * `volumeType` is the type of the volume.
-     * `volumeId` is the ID of the volume.
-     * `fileSystem` is the file system object for this volume.
-     * `error` is the error if an error is found.
-     * `deviceType` is the type of device
+     * @param volumeType is the type of the volume.
+     * @param volumeId is the ID of the volume.
+     * @param fileSystem is the file system object for this volume.
+     * @param error is the error if an error is found. Note: This represents if
+     *     the mounting of the volume is successfully done or not. (If error is
+     *     empty string, the mount is successfully done).
+     * @param deviceType is the type of device
      *     ('usb'|'sd'|'optical'|'mobile'|'unknown') (as defined in
      *     chromeos/ash/components/disks/disk_mount_manager.cc). Can be undefined.
-     * `devicePath` is the dentifier of the device that the
-     *     volume belongs to. Can be undefined.
-     * `isReadOnly` is true if the volume is read only.
-     * `isReadOnlyRemovableDevice` is true if the volume is read only
+     * @param devicePath is the identifier of the device that the volume belongs
+     *     to. Can be undefined.
+     * @param isReadOnly is true if the volume is read only.
+     * @param isReadOnlyRemovableDevice is true if the volume is read only
      *     removable device.
-     * `profile` is the profile information.
-     * `label` is the abel of the volume.
-     * `providerId` is the Id of the provider for this volume.
-     *     Undefined for non-FSP volumes.
-     * `hasMedia` is true when the volume has been identified
-     *     as containing media such as photos or videos.
-     * `configurable` is true when the volume can be configured.
-     * `watchable` is true when the volume can be watched.
-     * `source` is the source of the volume's data.
-     * `diskFileSystemType` is the file system type identifier.
-     * `iconSet` is the set of icons for this volume.
-     * `driveLabel` is the drive label of the volume. Removable
-     *     partitions belonging to the same device will share the same drive
-     *     label.
-     * `remoteMountPath` is the path on the remote host
-     *     where this volume is mounted, for crostini this is the user's homedir
-     *     (/home/<username>).
-     * `vmType` is the type of the VM which owns the volume if this is a
+     * @param profile is the profile information.
+     * @param label is the abel of the volume.
+     * @param providerId is the Id of the provider for this volume. Undefined for
+     *     non-FSP volumes.
+     * @param configurable is true when the volume can be configured.
+     * @param watchable is true when the volume can be watched.
+     * @param source is the source of the volume's data.
+     * @param diskFileSystemType is the file system type identifier.
+     * @param iconSet is the set of icons for this volume.
+     * @param driveLabel is the drive label of the volume. Removable partitions
+     *     belonging to the same device will share the same drive label.
+     * @param remoteMountPath is the path on the remote host where this volume is
+     *     mounted, for crostini this is the user's homedir (/home/<username>).
+     * @param vmType is the type of the VM which owns the volume if this is a
      *     GuestOS volume.
      */
-    constructor(volumeType_, volumeId_, fileSystem_, 
-    // Note: This represents if the mounting of the volume is successfully
-    // done or not. (If error is empty string, the mount is successfully
-    // done).
-    // TODO(hidehiko): Rename to make this more understandable.
-    error_, deviceType_, devicePath_, isReadOnly_, isReadOnlyRemovableDevice_, profile_, label_, providerId_, hasMedia_, configurable_, watchable_, source_, diskFileSystemType_, iconSet_, driveLabel_, remoteMountPath_, vmType_) {
+    constructor(volumeType_, volumeId_, fileSystem_, error_, deviceType_, devicePath_, isReadOnly_, isReadOnlyRemovableDevice_, profile_, label_, providerId_, configurable_, watchable_, source_, diskFileSystemType_, iconSet_, driveLabel_, remoteMountPath_, vmType_) {
         this.volumeType_ = volumeType_;
         this.volumeId_ = volumeId_;
         this.fileSystem_ = fileSystem_;
@@ -2302,7 +2300,6 @@ class VolumeInfoImpl {
         this.profile_ = profile_;
         this.label_ = label_;
         this.providerId_ = providerId_;
-        this.hasMedia_ = hasMedia_;
         this.configurable_ = configurable_;
         this.watchable_ = watchable_;
         this.source_ = source_;
@@ -2361,15 +2358,31 @@ class VolumeInfoImpl {
     get computersDisplayRoot() {
         return this.computersDisplayRoot_;
     }
+    /**
+     * The volume's fake entries such as Recent, Offline, Shared with me, etc...
+     * in Google Drive.
+     */
     get fakeEntries() {
         return this.fakeEntries_;
     }
+    /**
+     * This represents if the mounting of the volume is successfully done or
+     * not. (If error is empty string, the mount is successfully done)
+     */
     get error() {
         return this.error_;
     }
+    /**
+     * The type of device. (e.g. USB, SD card, DVD etc.)
+     */
     get deviceType() {
         return this.deviceType_;
     }
+    /**
+     * If the volume is removable, devicePath is the path of the system device
+     * this device's block is a part of. (e.g.
+     * /sys/devices/pci0000:00/.../8:0:0:0/) Otherwise, this should be empty.
+     */
     get devicePath() {
         return this.devicePath_;
     }
@@ -2386,25 +2399,28 @@ class VolumeInfoImpl {
         return this.profile_;
     }
     /**
-     * Label for the volume.
+     * Label for the volume if the volume is either removable or a provided file
+     * system. In case of removables, if disk is a parent, then its label, else
+     * parent's label (e.g. "TransMemory").
      */
     get label() {
         return this.label_;
     }
+    /**
+     * ID of a provider for this volume.
+     */
     get providerId() {
         return this.providerId_;
     }
-    get hasMedia() {
-        return this.hasMedia_;
-    }
     /**
      * True if the volume is configurable.
+     * See https://developer.chrome.com/apps/fileSystemProvider.
      */
     get configurable() {
         return this.configurable_;
     }
     /**
-     * True if the volume is watchable.
+     * True if the volume notifies about changes via file/directory watchers.
      */
     get watchable() {
         return this.watchable_;
@@ -2442,8 +2458,9 @@ class VolumeInfoImpl {
         return this.remoteMountPath_;
     }
     /**
-     * An entry to be used as prefix of this volume on breadcrumbs, e.g. "My Files
-     * > Downloads", "My Files" is a prefixEntry on "Downloads" VolumeInfo.
+     * An entry to be used as prefix of this volume on breadcrumbs,
+     * e.g. "My Files > Downloads"
+     * "My Files" is a prefixEntry on "Downloads" VolumeInfo.
      */
     get prefixEntry() {
         return this.prefixEntry_;
@@ -2472,12 +2489,12 @@ class VolumeInfoImpl {
         if (!this.fileSystem_) {
             return Promise.reject(this.error);
         }
-        return VolumeInfoImpl
+        return VolumeInfo
             .resolveFileSystemUrl_(this.fileSystem_.root.toURL() + SHARED_DRIVES_DIRECTORY_NAME)
             .then(sharedDrivesRoot => {
             this.sharedDriveDisplayRoot_ = sharedDrivesRoot;
         }, error => {
-            if (error.name != 'NotFoundError') {
+            if (error.name !== 'NotFoundError') {
                 throw error;
             }
         });
@@ -2495,12 +2512,12 @@ class VolumeInfoImpl {
         if (!this.fileSystem_) {
             return Promise.reject(this.error);
         }
-        return VolumeInfoImpl
+        return VolumeInfo
             .resolveFileSystemUrl_(this.fileSystem_.root.toURL() + COMPUTERS_DIRECTORY_NAME)
             .then((computersRoot) => {
             this.computersDisplayRoot_ = computersRoot;
         }, (error) => {
-            if (error.name != 'NotFoundError') {
+            if (error.name !== 'NotFoundError') {
                 throw error;
             }
         });
@@ -2519,7 +2536,7 @@ class VolumeInfoImpl {
         // For Drive, we need to resolve.
         const displayRootURL = this.fileSystem_.root.toURL() + 'root';
         const [displayRoot] = await Promise.all([
-            VolumeInfoImpl.resolveFileSystemUrl_(displayRootURL),
+            VolumeInfo.resolveFileSystemUrl_(displayRootURL),
             this.resolveSharedDrivesRoot_(),
             this.resolveComputersRoot_(),
         ]);
@@ -2527,6 +2544,13 @@ class VolumeInfoImpl {
         this.displayRoot_ = displayRoot;
         return this.displayRoot_;
     }
+    /**
+     * Starts resolving the display root and obtains it.  It may take long time
+     * for Drive. Once resolved, it is cached.
+     *
+     * @param onSuccess Success callback with the display root directory as an
+     *     argument.
+     */
     resolveDisplayRoot(optOnSuccess, optOnFailure) {
         if (optOnSuccess) {
             this.displayRootPromise_.then(optOnSuccess, optOnFailure);
@@ -2652,7 +2676,7 @@ class ArrayDataModel extends FilesEventTarget {
      */
     slice(from, to) {
         const arr = this.array_;
-        return this.indexes_.slice(from, to).map(function (index) {
+        return this.indexes_.slice(from, to).map((index) => {
             return arr[index];
         });
     }
@@ -2708,7 +2732,7 @@ class ArrayDataModel extends FilesEventTarget {
         // if sortStatus.field is null, this restores original order.
         const sortPermutation = this.doSort_(this.sortStatus.field, this.sortStatus.direction);
         if (sortPermutation) {
-            const splicePermutation = deletePermutation.map(function (element) {
+            const splicePermutation = deletePermutation.map((element) => {
                 return element !== -1 ? sortPermutation[element] : -1;
             });
             this.dispatchPermutedEvent_(splicePermutation);
@@ -2842,7 +2866,7 @@ class ArrayDataModel extends FilesEventTarget {
         for (let i = 0; i < this.length; i++) {
             positions[this.indexes_[i]] = i;
         }
-        const sorted = this.indexes_.every(function (element, index, array) {
+        const sorted = this.indexes_.every((element, index, array) => {
             return index === 0 || compareFunction(element, array[index - 1]) >= 0;
         });
         if (!sorted) {
@@ -2920,10 +2944,17 @@ class ArrayDataModel extends FilesEventTarget {
 /**
  * @fileoverview The container of the VolumeInfo for each mounted volume.
  */
-class VolumeInfoListImpl extends ArrayDataModel {
+/**
+ * The container of the VolumeInfo for each mounted volume.
+ */
+class VolumeInfoList extends ArrayDataModel {
     constructor() {
         super([]);
     }
+    /**
+     * Adds the volumeInfo to the appropriate position. If there already exists,
+     * just replaces it.
+     */
     add(volumeInfo) {
         const index = this.findIndex(volumeInfo.volumeId);
         if (index !== -1) {
@@ -2933,6 +2964,9 @@ class VolumeInfoListImpl extends ArrayDataModel {
             super.push(volumeInfo);
         }
     }
+    /**
+     * Removes the VolumeInfo having the given ID.
+     */
     remove(volumeId) {
         const index = this.findIndex(volumeId);
         if (index !== -1) {
@@ -3034,7 +3068,7 @@ async function createVolumeInfo(volumeMetadata) {
     }), TIMEOUT, TIMEOUT_STR_REQUEST_FILE_SYSTEM + ': ' + volumeMetadata.volumeId)
         .then(rootDirectoryEntry => {
         console.debug(`Got file system '${volumeMetadata.volumeId}'`);
-        return new VolumeInfoImpl(volumeMetadata.volumeType, volumeMetadata.volumeId, rootDirectoryEntry.filesystem, volumeMetadata.mountCondition, volumeMetadata.deviceType, volumeMetadata.devicePath, volumeMetadata.isReadOnly, volumeMetadata.isReadOnlyRemovableDevice, volumeMetadata.profile, localizedLabel, volumeMetadata.providerId, volumeMetadata.hasMedia, volumeMetadata.configurable, volumeMetadata.watchable, volumeMetadata.source, volumeMetadata.diskFileSystemType, volumeMetadata.iconSet, volumeMetadata.driveLabel, volumeMetadata.remoteMountPath, volumeMetadata.vmType);
+        return new VolumeInfo(volumeMetadata.volumeType, volumeMetadata.volumeId, rootDirectoryEntry.filesystem, volumeMetadata.mountCondition, volumeMetadata.deviceType, volumeMetadata.devicePath, volumeMetadata.isReadOnly, volumeMetadata.isReadOnlyRemovableDevice, volumeMetadata.profile, localizedLabel, volumeMetadata.providerId, volumeMetadata.configurable, volumeMetadata.watchable, volumeMetadata.source, volumeMetadata.diskFileSystemType, volumeMetadata.iconSet, volumeMetadata.driveLabel, volumeMetadata.remoteMountPath, volumeMetadata.vmType);
     })
         .then(async (volumeInfo) => {
         // resolveDisplayRoot() is a promise, but instead of using await here,
@@ -3048,22 +3082,24 @@ async function createVolumeInfo(volumeMetadata) {
         .catch(error => {
         console.warn(`Cannot mount file system '${volumeMetadata.volumeId}': ${error.stack || error}`);
         // TODO(crbug/847729): Report a mount error via UMA.
-        return new VolumeInfoImpl(volumeMetadata.volumeType, volumeMetadata.volumeId, null, // File system is not found.
-        volumeMetadata.mountCondition, volumeMetadata.deviceType, volumeMetadata.devicePath, volumeMetadata.isReadOnly, volumeMetadata.isReadOnlyRemovableDevice, volumeMetadata.profile, localizedLabel, volumeMetadata.providerId, volumeMetadata.hasMedia, volumeMetadata.configurable, volumeMetadata.watchable, volumeMetadata.source, volumeMetadata.diskFileSystemType, volumeMetadata.iconSet, volumeMetadata.driveLabel, volumeMetadata.remoteMountPath, volumeMetadata.vmType);
+        return new VolumeInfo(volumeMetadata.volumeType, volumeMetadata.volumeId, null, // File system is not found.
+        volumeMetadata.mountCondition, volumeMetadata.deviceType, volumeMetadata.devicePath, volumeMetadata.isReadOnly, volumeMetadata.isReadOnlyRemovableDevice, volumeMetadata.profile, localizedLabel, volumeMetadata.providerId, volumeMetadata.configurable, volumeMetadata.watchable, volumeMetadata.source, volumeMetadata.diskFileSystemType, volumeMetadata.iconSet, volumeMetadata.driveLabel, volumeMetadata.remoteMountPath, volumeMetadata.vmType);
     });
 }
 /**
  * VolumeManager is responsible for tracking list of mounted volumes.
  */
-class VolumeManagerImpl extends FilesEventTarget {
+class VolumeManager extends FilesEventTarget {
     constructor(createVolumeInfo_ = createVolumeInfo) {
         super();
         this.createVolumeInfo_ = createVolumeInfo_;
-        this.volumeInfoList = new VolumeInfoListImpl();
+        /**
+         * The list of VolumeInfo instances for each mounted volume.
+         */
+        this.volumeInfoList = new VolumeInfoList();
         /**
          * The list of archives requested to mount. We will show contents once
          * archive is mounted, but only for mounts from within this filebrowser tab.
-         * TODO: Add interface to replace `any` below.
          */
         this.requests_ = {};
         // The status should be merged into VolumeManager.
@@ -3089,12 +3125,26 @@ class VolumeManagerImpl extends FilesEventTarget {
         // waitForInitialization_ above.
         chrome.fileManagerPrivate.onMountCompleted.addListener(this.onMountCompleted_.bind(this));
     }
+    /**
+     * Gets the 'fusebox-only' filter state: true if enabled, false if disabled.
+     * The filter is only enabled by the SelectFileAsh (Lacros) file picker, and
+     * implemented by {FilteredVolumeManager} override.
+     */
     getFuseBoxOnlyFilterEnabled() {
         return false;
     }
+    /**
+     * Gets the 'media-store-files-only' filter state: true if enabled, false if
+     * disabled. The filter is only enabled by the Android (ARC) file picker, and
+     * implemented by {FilteredVolumeManager} override.
+     */
     getMediaStoreFilesOnlyFilterEnabled() {
         return false;
     }
+    /**
+     * Disposes the instance. After the invocation of this method, any other
+     * method should not be called.
+     */
     dispose() { }
     /**
      * Invoked when the drive connection status is changed.
@@ -3105,6 +3155,9 @@ class VolumeManagerImpl extends FilesEventTarget {
             this.dispatchEvent(new CustomEvent('drive-connection-changed'));
         });
     }
+    /**
+     * Returns the drive connection state.
+     */
     getDriveConnectionState() {
         return this.driveConnectionState_;
     }
@@ -3200,8 +3253,8 @@ class VolumeManagerImpl extends FilesEventTarget {
                     // Finish after all volumes have been processed, or at least Downloads
                     // or Drive.
                     const isDriveOrDownloads = volumeInfo &&
-                        (volumeInfo.volumeType == VolumeType.DOWNLOADS ||
-                            volumeInfo.volumeType == VolumeType.DRIVE);
+                        (volumeInfo.volumeType === VolumeType.DOWNLOADS ||
+                            volumeInfo.volumeType === VolumeType.DRIVE);
                     if (counter === volumeMetadataList.length || isDriveOrDownloads) {
                         finishInitialization();
                     }
@@ -3316,16 +3369,31 @@ class VolumeManagerImpl extends FilesEventTarget {
     makeRequestKey_(requestType, argument) {
         return requestType + ':' + argument;
     }
+    /**
+     * @param fileUrl File url to the archive file.
+     * @param password Password to decrypt archive file.
+     * @return Fulfilled on success, otherwise rejected with a VolumeError.
+     */
     async mountArchive(fileUrl, password) {
         const path = await promisify(chrome.fileManagerPrivate.addMount, fileUrl, password);
         console.debug(`Mounting '${path}'`);
         const key = this.makeRequestKey_('mount', path);
         return this.startRequest_(key);
     }
+    /**
+     * Cancels mounting an archive.
+     * @param fileUrl File url to the archive file.
+     * @return Fulfilled on success, otherwise rejected with a VolumeError.
+     */
     async cancelMounting(fileUrl) {
         console.debug(`Cancelling mounting archive at '${fileUrl}'`);
         return promisify(chrome.fileManagerPrivate.cancelMounting, fileUrl);
     }
+    /**
+     * Unmounts a volume.
+     * @param volumeInfo Volume to be unmounted.
+     * @return Fulfilled on success, otherwise rejected with a VolumeError.
+     */
     async unmount({ volumeId }) {
         console.debug(`Unmounting '${volumeId}'`);
         const key = this.makeRequestKey_('unmount', volumeId);
@@ -3333,9 +3401,18 @@ class VolumeManagerImpl extends FilesEventTarget {
         await promisify(chrome.fileManagerPrivate.removeMount, volumeId);
         await request;
     }
+    /**
+     * Configures a volume.
+     * @param volumeInfo Volume to be configured.
+     * @return Fulfilled on success, otherwise rejected with an error message.
+     */
     configure(volumeInfo) {
         return promisify(chrome.fileManagerPrivate.configureVolume, volumeInfo.volumeId);
     }
+    /**
+     * Obtains a volume info containing the passed entry.
+     * @param entry Entry on the volume to be returned. Can be fake.
+     */
     getVolumeInfo(entry) {
         if (!entry) {
             console.warn(`Invalid entry passed to getVolumeInfo: ${entry}`);
@@ -3348,8 +3425,7 @@ class VolumeManagerImpl extends FilesEventTarget {
                 return volumeInfo;
             }
             // Additionally, check fake entries.
-            for (const key in volumeInfo.fakeEntries) {
-                const fakeEntry = volumeInfo.fakeEntries[key];
+            for (const fakeEntry of Object.values(volumeInfo.fakeEntries)) {
                 if (isSameEntry(fakeEntry, entry)) {
                     return volumeInfo;
                 }
@@ -3357,6 +3433,9 @@ class VolumeManagerImpl extends FilesEventTarget {
         }
         return null;
     }
+    /**
+     * Obtains volume information of the current profile.
+     */
     getCurrentProfileVolumeInfo(volumeType) {
         for (let i = 0; i < this.volumeInfoList.length; i++) {
             const volumeInfo = this.volumeInfoList.item(i);
@@ -3367,6 +3446,10 @@ class VolumeManagerImpl extends FilesEventTarget {
         }
         return null;
     }
+    /**
+     * Obtains location information from an entry.
+     * @param entry File or directory entry. It can be a fake entry.
+     */
     getLocationInfo(entry) {
         if (!entry) {
             console.warn(`Invalid entry passed to getLocationInfo: ${entry}`);
@@ -3383,7 +3466,7 @@ class VolumeManagerImpl extends FilesEventTarget {
             if (rootType === RootType.RECENT || rootType === RootType.TRASH) {
                 isReadOnly = false;
             }
-            return new EntryLocationImpl(volumeInfo, rootType, true /* The entry points a root directory. */, isReadOnly);
+            return new EntryLocation(volumeInfo, rootType, true /* The entry points a root directory. */, isReadOnly);
         }
         if (!volumeInfo) {
             return null;
@@ -3394,14 +3477,15 @@ class VolumeManagerImpl extends FilesEventTarget {
         if (volumeInfo.volumeType === VolumeType.DRIVE) {
             // For Drive, the roots are /root, /team_drives, /Computers and /other,
             // instead of /. Root URLs contain trailing slashes.
-            if (entry.fullPath == '/root' || entry.fullPath.indexOf('/root/') === 0) {
+            if (entry.fullPath === '/root' ||
+                entry.fullPath.indexOf('/root/') === 0) {
                 rootType = RootType.DRIVE;
                 isReadOnly = volumeInfo.isReadOnly;
                 isRootEntry = entry.fullPath === '/root';
             }
-            else if (entry.fullPath == SHARED_DRIVES_DIRECTORY_PATH ||
+            else if (entry.fullPath === SHARED_DRIVES_DIRECTORY_PATH ||
                 entry.fullPath.indexOf(SHARED_DRIVES_DIRECTORY_PATH + '/') === 0) {
-                if (entry.fullPath == SHARED_DRIVES_DIRECTORY_PATH) {
+                if (entry.fullPath === SHARED_DRIVES_DIRECTORY_PATH) {
                     rootType = RootType.SHARED_DRIVES_GRAND_ROOT;
                     isReadOnly = true;
                     isRootEntry = true;
@@ -3419,9 +3503,9 @@ class VolumeManagerImpl extends FilesEventTarget {
                     }
                 }
             }
-            else if (entry.fullPath == COMPUTERS_DIRECTORY_PATH ||
+            else if (entry.fullPath === COMPUTERS_DIRECTORY_PATH ||
                 entry.fullPath.indexOf(COMPUTERS_DIRECTORY_PATH + '/') === 0) {
-                if (entry.fullPath == COMPUTERS_DIRECTORY_PATH) {
+                if (entry.fullPath === COMPUTERS_DIRECTORY_PATH) {
                     rootType = RootType.COMPUTERS_GRAND_ROOT;
                     isReadOnly = true;
                     isRootEntry = true;
@@ -3477,15 +3561,21 @@ class VolumeManagerImpl extends FilesEventTarget {
             // we prohibit write operations on it in the UI level to avoid confusion.
             // Users can still have write access in sub directories like
             // /Play files/Pictures, /Play files/DCIM, etc...
-            if (volumeInfo.volumeType == VolumeType.ANDROID_FILES && isRootEntry) {
+            if (volumeInfo.volumeType === VolumeType.ANDROID_FILES && isRootEntry) {
                 isReadOnly = true;
             }
             else {
                 isReadOnly = volumeInfo.isReadOnly;
             }
         }
-        return new EntryLocationImpl(volumeInfo, rootType, isRootEntry, isReadOnly);
+        return new EntryLocation(volumeInfo, rootType, isRootEntry, isReadOnly);
     }
+    /**
+     * Searches the information of the volume that exists on the given device
+     * path.
+     * @param devicePath Path of the device to search.
+     * @return The volume's information, or null if not found.
+     */
     findByDevicePath(devicePath) {
         for (let i = 0; i < this.volumeInfoList.length; i++) {
             const volumeInfo = this.volumeInfoList.item(i);
@@ -3495,6 +3585,12 @@ class VolumeManagerImpl extends FilesEventTarget {
         }
         return null;
     }
+    /**
+     * Returns a promise that will be resolved when volume info, identified by
+     * `volumeId` is created.
+     * @return Resolved with the `VolumeInfo`. It won't resolve if the volume is
+     *     never mounted.
+     */
     whenVolumeInfoReady(volumeId) {
         return new Promise((fulfill) => {
             const handler = () => {
@@ -3508,8 +3604,12 @@ class VolumeManagerImpl extends FilesEventTarget {
             handler();
         });
     }
+    /**
+     * Obtains the default display root entry.
+     * @param callback Callback passed the default display root.
+     */
     getDefaultDisplayRoot(callback) {
-        console.warn('Unexpected call to VolumeManagerImpl.getDefaultDisplayRoot');
+        console.warn('Unexpected call to VolumeManager.getDefaultDisplayRoot');
         callback(null);
     }
     /**
@@ -3569,12 +3669,25 @@ class VolumeManagerImpl extends FilesEventTarget {
             request.errorCallbacks.map(cb => cb(status));
         }
     }
+    /**
+     * Checks if any volumes are disabled for selection.
+     * See overridden implementation in `FilteredVolumeManager`.
+     */
     hasDisabledVolumes() {
         return false;
     }
+    /**
+     * Checks whether the given volume is disabled for selection.
+     * See overridden implementation in `FilteredVolumeManager`.
+     * @param volume Volume to check.
+     */
     isDisabled(_volume) {
         return false;
     }
+    /**
+     * Checks if a volume is allowed.
+     * See overridden implementation in `FilteredVolumeManager`.
+     */
     isAllowedVolume(_volumeInfo) {
         return true;
     }
@@ -3597,7 +3710,7 @@ const volumeManagerFactory = (() => {
      */
     async function getInstance() {
         if (!instance) {
-            instance = new VolumeManagerImpl();
+            instance = new VolumeManager();
             instanceInitialized = instance.initialize();
         }
         await instanceInitialized;
@@ -3641,12 +3754,12 @@ class FileManagerBase {
         /**
          * Progress center of the background page.
          */
-        this.progressCenter = new ProgressCenterImpl();
+        this.progressCenter = new ProgressCenter();
         /**
          * Drive sync handler.
          */
         this.driveSyncHandler = new DriveSyncHandlerImpl(this.progressCenter);
-        this.crostini = new CrostiniImpl();
+        this.crostini = new Crostini();
         /**
          * String assets.
          */
@@ -4873,15 +4986,15 @@ class ColorChangeUpdater {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 function isModal(type) {
-    return type == DialogType.SELECT_FOLDER ||
-        type == DialogType.SELECT_UPLOAD_FOLDER ||
-        type == DialogType.SELECT_SAVEAS_FILE ||
-        type == DialogType.SELECT_OPEN_FILE ||
-        type == DialogType.SELECT_OPEN_MULTI_FILE;
+    return type === DialogType.SELECT_FOLDER ||
+        type === DialogType.SELECT_UPLOAD_FOLDER ||
+        type === DialogType.SELECT_SAVEAS_FILE ||
+        type === DialogType.SELECT_OPEN_FILE ||
+        type === DialogType.SELECT_OPEN_MULTI_FILE;
 }
 function isFolderDialogType(type) {
-    return type == DialogType.SELECT_FOLDER ||
-        type == DialogType.SELECT_UPLOAD_FOLDER;
+    return type === DialogType.SELECT_FOLDER ||
+        type === DialogType.SELECT_UPLOAD_FOLDER;
 }
 
 // Copyright 2023 The Chromium Authors
@@ -4894,7 +5007,7 @@ function isFolderDialogType(type) {
  * The inner list ownership is shared between FilteredVolumeInfoList and
  * FilteredVolumeManager to enforce these constraints.
  */
-class FilteredVolumeInfoList extends ArrayDataModel {
+class FilteredVolumeInfoList extends VolumeInfoList {
     add(_volumeInfo) {
         throw new Error('FilteredVolumeInfoList.add not allowed in foreground');
     }
@@ -4919,7 +5032,7 @@ const MEDIA_STORE_VOLUME_TYPES = [
  * for example, Drive volumes are dropped if Drive is disabled, and read-only
  * volumes are dropped in save-as dialogs.
  */
-class FilteredVolumeManager extends FilesEventTarget {
+class FilteredVolumeManager extends VolumeManager {
     /**
      * @param allowedPaths_ Which paths are supported in the Files app dialog.
      * @param writableOnly_ If true, only writable volumes are returned.
@@ -4939,7 +5052,7 @@ class FilteredVolumeManager extends FilesEventTarget {
         this.volumeManagerGetter_ = volumeManagerGetter_;
         this.disabledVolumes_ = disabledVolumes_;
         // VolumeManager.volumeInfoList property accessed by callers.
-        this.volumeInfoList = new FilteredVolumeInfoList([]);
+        this.volumeInfoList = new FilteredVolumeInfoList();
         this.volumeManager_ = null;
         this.disposed_ = false;
         this.onEventBound_ = this.onEvent_.bind(this);
@@ -5716,7 +5829,7 @@ class TrashDirectoryReader {
         }
         success(result);
         if (entriesToDelete.length > 0) {
-            startIOTask(chrome.fileManagerPrivate.IOTaskType.DELETE, entriesToDelete, {
+            startIOTask(chrome.fileManagerPrivate.IoTaskType.DELETE, entriesToDelete, {
                 showNotification: false,
                 destinationFolder: undefined,
                 password: undefined,
@@ -6157,7 +6270,7 @@ class LoadImageResponse {
       return;
     }
 
-    // Response result defined only when status == SUCCESS.
+    // Response result defined only when status === SUCCESS.
     assert(opt_result);
 
     /** @type {number|undefined} */
@@ -6195,7 +6308,7 @@ class LoadImageResponse {
       return null;
     }
 
-    // Response result defined only when status == SUCCESS.
+    // Response result defined only when status === SUCCESS.
     assert(response.width);
     assert(response.height);
     assert(response.data);
@@ -6443,6 +6556,8 @@ class ImageLoaderClient {
         ImageLoaderClient.recordBinary('Cached', true);
         let cachedValue = this.cache_.get(cacheKey);
         // Check if the image in cache is up to date. If not, then remove it.
+        // It relies on comparing `null` equals to `undefined`.
+        // eslint-disable-next-line eqeqeq
         if (cachedValue && cachedValue.timestamp != request.timestamp) {
           this.cache_.remove(cacheKey);
           cachedValue = null;
@@ -6518,7 +6633,7 @@ class ImageLoaderClient {
    */
   static loadToImage(request, image, onSuccess, onError) {
     const callback = (result) => {
-      if (!result || result.status == LoadImageResponseStatus.ERROR) {
+      if (!result || result.status === LoadImageResponseStatus.ERROR) {
         onError();
         return;
       }
@@ -7437,7 +7552,7 @@ class DlpMetadataProvider extends MetadataProvider {
         }
         try {
             const dlpMetadataList = await getDlpMetadata(entries);
-            if (dlpMetadataList.length != entries.length) {
+            if (dlpMetadataList.length !== entries.length) {
                 console.warn(`Requested ${entries.length} entries, got ${dlpMetadataList.length}.`);
                 return requests.map(() => new MetadataItem());
             }
@@ -9653,7 +9768,7 @@ class FileFilter extends NativeEventTarget {
                 if (entry.fullPath) {
                     const components = entry.fullPath.split('/');
                     if (components[1] &&
-                        DEFAULT_ANDROID_FOLDERS.indexOf(components[1]) == -1) {
+                        DEFAULT_ANDROID_FOLDERS.indexOf(components[1]) === -1) {
                         return false;
                     }
                 }
@@ -10782,7 +10897,7 @@ class FileListSelectionModel extends ListSelectionModel {
     adjustToReordering(permutation) {
         // Look at the old state.
         const oldSelectedItemsCount = this.selectedIndexes.length;
-        const newSelectedItemsCount = this.selectedIndexes.filter(i => permutation[i] != -1).length;
+        const newSelectedItemsCount = this.selectedIndexes.filter(i => permutation[i] !== -1).length;
         // Call the superclass function.
         super.adjustToReordering(permutation);
         // Leave check-select mode if all items have been deleted.
@@ -11103,7 +11218,7 @@ class DirectoryModel extends FilesEventTarget {
      */
     isOnNative() {
         const rootType = this.getCurrentRootType();
-        return rootType != null && !isRecentRootType(rootType) &&
+        return rootType !== null && !isRecentRootType(rootType) &&
             isNative(getVolumeTypeFromRootType(rootType));
     }
     /**
@@ -11122,7 +11237,7 @@ class DirectoryModel extends FilesEventTarget {
      */
     isCurrentRootVolumeType_(volumeType) {
         const rootType = this.getCurrentRootType();
-        return rootType != null && !isRecentRootType(rootType) &&
+        return rootType !== null && !isRecentRootType(rootType) &&
             getVolumeTypeFromRootType(rootType) === volumeType;
     }
     /**
@@ -11664,8 +11779,8 @@ class DirectoryModel extends FilesEventTarget {
             // If nothing is selected after update, then select file next to the
             // latest selection
             let forceChangeEvent = false;
-            if (this.fileListSelection_.selectedIndexes.length == 0 &&
-                selectedIndices.length != 0) {
+            if (this.fileListSelection_.selectedIndexes.length === 0 &&
+                selectedIndices.length !== 0) {
                 const maxIdx = Math.max.apply(null, selectedIndices);
                 this.selectIndex(Math.min(maxIdx - selectedIndices.length + 2, this.getFileList().length) -
                     1);
@@ -12054,11 +12169,11 @@ class DirectoryModel extends FilesEventTarget {
      */
     isSearchDirectory(entry, query) {
         const rootType = getRootType(entry);
-        if (isRecentRootType(rootType) || rootType == RootType.CROSTINI ||
-            rootType == RootType.DRIVE_FAKE_ROOT) {
+        if (isRecentRootType(rootType) || rootType === RootType.CROSTINI ||
+            rootType === RootType.DRIVE_FAKE_ROOT) {
             return true;
         }
-        if (rootType == RootType.MY_FILES) {
+        if (rootType === RootType.MY_FILES) {
             return false;
         }
         if ((query || '').trimStart()) {
@@ -12066,7 +12181,7 @@ class DirectoryModel extends FilesEventTarget {
         }
         const locationInfo = this.volumeManager_.getLocationInfo(entry);
         if (locationInfo &&
-            (locationInfo.rootType == RootType.MEDIA_VIEW ||
+            (locationInfo.rootType === RootType.MEDIA_VIEW ||
                 locationInfo.isSpecialSearchRoot)) {
             return true;
         }
@@ -12091,27 +12206,27 @@ class DirectoryModel extends FilesEventTarget {
         // TODO(b/271485133): Make sure the entry here is a fake entry, not real
         // volume entry.
         const rootType = getRootType(entry);
-        if (rootType == RootType.CROSTINI) {
+        if (rootType === RootType.CROSTINI) {
             return () => {
                 return new CrostiniMounter();
             };
         }
-        if (rootType == RootType.GUEST_OS) {
+        if (rootType === RootType.GUEST_OS) {
             return () => {
                 return new GuestOsMounter(entry.guest_id);
             };
         }
-        if (rootType == RootType.MY_FILES) {
+        if (rootType === RootType.MY_FILES) {
             return () => {
                 return new DirectoryContentScanner(entry);
             };
         }
-        if (rootType == RootType.DRIVE_FAKE_ROOT) {
+        if (rootType === RootType.DRIVE_FAKE_ROOT) {
             return () => {
                 return new EmptyContentScanner();
             };
         }
-        if (rootType == RootType.TRASH) {
+        if (rootType === RootType.TRASH) {
             return () => {
                 return new TrashContentScanner(this.volumeManager_);
             };
@@ -12123,7 +12238,7 @@ class DirectoryModel extends FilesEventTarget {
                 entry, sanitizedQuery, options || getDefaultSearchOptions());
             };
         }
-        if (locationInfo && locationInfo.rootType == RootType.MEDIA_VIEW) {
+        if (locationInfo && locationInfo.rootType === RootType.MEDIA_VIEW) {
             return () => {
                 return new MediaViewContentScanner(entry);
             };
@@ -12271,7 +12386,7 @@ class DirectoryModel extends FilesEventTarget {
         if (!rescan) {
             return;
         }
-        const isIOTaskFinished = event.state === chrome.fileManagerPrivate.IOTaskState.SUCCESS;
+        const isIOTaskFinished = event.state === chrome.fileManagerPrivate.IoTaskState.SUCCESS;
         if (isIOTaskFinished) {
             this.rescanLater(/* refresh= */ false, /* invalidateCache= */ true);
         }
@@ -12508,7 +12623,7 @@ class MenuItem extends HTMLElement {
             }
         });
         let shortcutText = '';
-        ['CTRL', 'ALT', 'SHIFT', 'META'].forEach(function (mod) {
+        ['CTRL', 'ALT', 'SHIFT', 'META'].forEach((mod) => {
             if (mods[mod]) {
                 shortcutText += loadTimeData.getString('SHORTCUT_' + mod) + '+';
             }
@@ -12659,7 +12774,7 @@ function swallowDoubleClick(e) {
     // The following 'click' event (if e.type === 'mouseup') mustn't be taken
     // into account (it mustn't stop tracking clicks). Start event listening
     // after zero timeout.
-    setTimeout(function () {
+    setTimeout(() => {
         doc.addEventListener('click', onclick, true);
         doc.addEventListener('dblclick', swallow, true);
     });
@@ -13368,10 +13483,10 @@ class MultiMenu extends Menu {
                                 if (subMenu.hidden) {
                                     break;
                                 }
-                                if (this.subMenuOnLeft && key == 'ArrowLeft') {
+                                if (this.subMenuOnLeft && key === 'ArrowLeft') {
                                     this.moveSelectionToSubMenu_(subMenu);
                                 }
-                                else if (this.subMenuOnLeft === false && key == 'ArrowRight') {
+                                else if (this.subMenuOnLeft === false && key === 'ArrowRight') {
                                     this.moveSelectionToSubMenu_(subMenu);
                                 }
                             }
@@ -13379,11 +13494,11 @@ class MultiMenu extends Menu {
                         else {
                             const subMenu = this.currentMenu;
                             // We only move off the sub-menu if we're on the top item
-                            if (subMenu.selectedIndex == 0) {
-                                if (this.subMenuOnLeft && key == 'ArrowRight') {
+                            if (subMenu.selectedIndex === 0) {
+                                if (this.subMenuOnLeft && key === 'ArrowRight') {
                                     this.moveSelectionToTopMenu_(subMenu);
                                 }
-                                else if (this.subMenuOnLeft === false && key == 'ArrowLeft') {
+                                else if (this.subMenuOnLeft === false && key === 'ArrowLeft') {
                                     this.moveSelectionToTopMenu_(subMenu);
                                 }
                             }
@@ -15122,16 +15237,6 @@ let XfTree = XfTree_1 = class XfTree extends XfBase {
          */
         this.ariaSetSize_ = 0;
     }
-    // Inside the tree, there's at most 1 tree item is focusable (tabindex = 0)
-    // "delegatesFocus = true" will make sure when the tree is focused (either
-    // via click or focus() call on the host element), the only focusable tree
-    // item will get the focus.
-    static get shadowRootOptions() {
-        return {
-            ...XfBase.shadowRootOptions,
-            delegatesFocus: true,
-        };
-    }
     static get events() {
         return {
             /** Triggers when a tree item has been selected. */
@@ -15162,6 +15267,18 @@ let XfTree = XfTree_1 = class XfTree extends XfBase {
     }
     static get styles() {
         return getCSS$3();
+    }
+    /**
+     * The <xf-tree> itself is not focusable, it will delegate the focus down to
+     * its `focusedItem_`.
+     *
+     * Note: previously we use `delegatesFocus: true` in the shadowRootOptions,
+     * but it triggers weird behavior b/320580121, hence the override here.
+     */
+    focus() {
+        if (this.focusedItem_) {
+            this.focusedItem_.focus();
+        }
     }
     render() {
         return html `
@@ -15904,7 +16021,7 @@ class DirectoryTreeContainer {
         if (!volumeData) {
             return;
         }
-        if (volumeData.volumeType == VolumeType.GUEST_OS) {
+        if (volumeData.volumeType === VolumeType.GUEST_OS) {
             element.setAttribute('volume-type-for-testing', vmTypeToIconName(volumeData.vmType));
         }
         else {
@@ -15975,9 +16092,22 @@ class DirectoryTreeContainer {
             element.expanded = true;
             return;
         }
-        // Only read the sub entries when it's the top level item (navigation root).
-        // For other items, its children will be read when it's expanded.
-        if (navigationRoot && navigationRoot.type !== NavigationType.SHORTCUT) {
+        // Check if we need to read sub directories to check directory children or
+        // not, we are doing this to see if we need to show expand icon or not.
+        let shouldCheckDirectoryChildren;
+        if (navigationRoot) {
+            // For navigation root items, we always check except for Shortcut items.
+            shouldCheckDirectoryChildren =
+                navigationRoot.type !== NavigationType.SHORTCUT;
+        }
+        else {
+            // For other items, we only check if it's parent is expanded. Usually
+            // non-root item's children directory will be checked when expanded, but
+            // volume could be added when it's already expanded (e.g. Crostini/Android
+            // can be mounted when MyFiles is expanded).
+            shouldCheckDirectoryChildren = !!(element.parentItem?.expanded);
+        }
+        if (shouldCheckDirectoryChildren) {
             this.store_.dispatch(readSubDirectoriesToCheckDirectoryChildren(entry));
         }
     }
@@ -16217,7 +16347,9 @@ class DirectoryTreeContainer {
     /** Activate the directory behind the item. */
     activateDirectory_(element, isRoot, fileData, androidAppData) {
         if (androidAppData) {
-            chrome.fileManagerPrivate.selectAndroidPickerApp(androidAppData, () => {
+            // Exclude "icon" filed before sending it to the API.
+            const { icon: _, ...androidAppDataForApi } = androidAppData;
+            chrome.fileManagerPrivate.selectAndroidPickerApp(androidAppDataForApi, () => {
                 if (chrome.runtime.lastError) {
                     console.error('selectAndroidPickerApp error: ', chrome.runtime.lastError.message);
                 }
@@ -17393,7 +17525,7 @@ class DriveToggleOfflineAction {
     }
     execute() {
         const entries = this.entries_;
-        if (entries.length == 0) {
+        if (entries.length === 0) {
             return;
         }
         let currentEntry;
@@ -18308,7 +18440,7 @@ class FolderShortcutsDataModel extends FilesEventTarget {
             }
         }
         // If value is not added yet, add it at the last.
-        if (addedIndex == -1) {
+        if (addedIndex === -1) {
             this.array_.push(value);
             addedIndex = this.length;
         }
@@ -18848,8 +18980,8 @@ class NavigationModelAndroidAppItem extends NavigationModelItem {
 class NavigationModelVolumeItem extends NavigationModelItem {
     /**
      * @param {string} label Label.
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
-     *     Volume info for the volume. Cannot be null.
+     * @param {!import('../../background/js/volume_info.js').VolumeInfo}
+     *     volumeInfo Volume info for the volume. Cannot be null.
      */
     constructor(label, volumeInfo) {
         super(label, NavigationModelItemType.VOLUME);
@@ -18884,7 +19016,7 @@ class NavigationModelFakeItem extends NavigationModelItem {
  */
 class NavigationListModel extends NativeEventTarget {
     /**
-     * @param {!import('../../externs/volume_manager.js').VolumeManager}
+     * @param {!import('../../background/js/volume_manager.js').VolumeManager}
      *     volumeManager VolumeManager instance.
      * @param {!FolderShortcutsDataModel} shortcutListModel The list of folder
      *     shortcut.
@@ -18896,7 +19028,7 @@ class NavigationListModel extends NativeEventTarget {
     constructor(volumeManager, shortcutListModel, recentModelItem, directoryModel, androidAppListModel, dialogType) {
         super();
         /**
-         * @private @type {!import('../../externs/volume_manager.js').VolumeManager}
+         * @private @type {!import('../../background/js/volume_manager.js').VolumeManager}
          * @const
          */
         this.volumeManager_ = volumeManager;
@@ -19012,7 +19144,7 @@ class NavigationListModel extends NativeEventTarget {
         const permutedHandler = function (listType, event) {
             let permutation;
             // Build the volumeList.
-            if (listType == ListType.VOLUME_LIST) {
+            if (listType === ListType.VOLUME_LIST) {
                 // The volume is mounted or unmounted.
                 const newList = [];
                 // Use the old instances if they just move.
@@ -19040,7 +19172,7 @@ class NavigationListModel extends NativeEventTarget {
                     permutation.push(i + this.volumeList_.length);
                 }
             }
-            else if (listType == ListType.SHORTCUT_LIST) {
+            else if (listType === ListType.SHORTCUT_LIST) {
                 // Build the shortcutList.
                 // volumeList part has not been changed, so the permutation should be
                 // identity mapping.
@@ -19102,7 +19234,7 @@ class NavigationListModel extends NativeEventTarget {
                 }
                 this.shortcutList_ = newList;
             }
-            else if (listType == ListType.ANDROID_APP_LIST) {
+            else if (listType === ListType.ANDROID_APP_LIST) {
                 this.androidAppList_ = [];
                 // @ts-ignore: error TS2551: Property 'androidAppListModel_' does not
                 // exist on type 'permutedHandler'. Did you mean 'androidAppList_'?
@@ -19429,7 +19561,7 @@ class NavigationListModel extends NativeEventTarget {
             // type 'FilesAppEntry | EntryList | VolumeEntry'.
             for (const volume of myFilesEntry.getUiChildren()) {
                 if (!volume.volumeInfo ||
-                    volume.volumeInfo.volumeType != VolumeType.GUEST_OS) {
+                    volume.volumeInfo.volumeType !== VolumeType.GUEST_OS) {
                     continue;
                 }
                 // @ts-ignore: error TS7006: Parameter 'v' implicitly has an 'any' type.
@@ -19504,7 +19636,7 @@ class NavigationListModel extends NativeEventTarget {
         const removableModels = new Map();
         const disableRemovables = this.volumeManager_.isDisabled(VolumeType.REMOVABLE);
         for (const [devicePath, removableGroup] of groupRemovables().entries()) {
-            if (removableGroup.length == 1 && !isSinglePartitionFormatEnabled()) {
+            if (removableGroup.length === 1 && !isSinglePartitionFormatEnabled()) {
                 // Add unpartitioned removable device as a regular volume.
                 this.navigationItems_.push(removableGroup[0]);
                 removableGroup[0].section = NavigationSection.REMOVABLE;
@@ -19643,7 +19775,7 @@ class NavigationListModel extends NativeEventTarget {
     findDownloadsVolumeIndex_() {
         for (let i = 0; i < this.volumeList_.length; i++) {
             // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            if (this.volumeList_[i].volumeInfo.volumeType == VolumeType.DOWNLOADS) {
+            if (this.volumeList_[i].volumeInfo.volumeType === VolumeType.DOWNLOADS) {
                 return i;
             }
         }
@@ -20221,7 +20353,7 @@ const treeItemProto = (function () {
  * @extends {HTMLElement}
  */
 // @ts-ignore: error TS8022: JSDoc '@extends' is not attached to a class.
-const TreeItem = define(function () {
+const TreeItem = define(() => {
     const treeItem = treeItemProto.cloneNode(true);
     // @ts-ignore: error TS2339: Property 'id' does not exist on type 'Node'.
     treeItem.id = 'tree-item-autogen-id-' + treeItemAutoGeneratedIdCounter++;
@@ -20733,7 +20865,7 @@ TreeItem.prototype = {
             // Make sure that double clicks do not expand and collapse the tree
             // item.
             const eventsToStop = ['mousedown', 'mouseup', 'contextmenu', 'dblclick'];
-            eventsToStop.forEach(function (type) {
+            eventsToStop.forEach((type) => {
                 // @ts-ignore: error TS7005: Variable 'input' implicitly has an 'any'
                 // type.
                 input.addEventListener(type, stopPropagation);
@@ -21416,7 +21548,7 @@ class DirectoryItem extends FilesTreeItem {
         this.lastElementChild.removeChild(/** @type {!TreeItem} */ (child));
         // @ts-ignore: error TS2339: Property 'items' does not exist on type
         // 'DirectoryItem'.
-        if (this.items.length == 0) {
+        if (this.items.length === 0) {
             this.hasChildren = false;
         }
     }
@@ -22148,8 +22280,8 @@ class VolumeItem extends DirectoryItem {
     /**
      * Set up icon of this volume item.
      * @param {Element} icon Icon element to be setup.
-     * @param {import('../../../externs/volume_info.js').VolumeInfo} volumeInfo
-     *     VolumeInfo determines the icon type.
+     * @param {import('../../../background/js/volume_info.js').VolumeInfo}
+     *     volumeInfo VolumeInfo determines the icon type.
      * @private
      */
     setupIcon_(icon, volumeInfo) {
@@ -22161,7 +22293,7 @@ class VolumeItem extends DirectoryItem {
         else if (shouldProvideIcons(assert(volumeInfo.volumeType))) {
             icon.setAttribute('use-generic-provided-icon', '');
         }
-        if (volumeInfo.volumeType == VolumeType.GUEST_OS) {
+        if (volumeInfo.volumeType === VolumeType.GUEST_OS) {
             icon.setAttribute('volume-type-icon', vmTypeToIconName(volumeInfo.vmType));
         }
         else {
@@ -22197,7 +22329,7 @@ class VolumeItem extends DirectoryItem {
         return this.volumeInfo_.displayRoot;
     }
     /**
-     * @type {!import('../../../externs/volume_info.js').VolumeInfo}
+     * @type {!import('../../../background/js/volume_info.js').VolumeInfo}
      */
     get volumeInfo() {
         return this.volumeInfo_;
@@ -22467,8 +22599,8 @@ class DriveVolumeItem extends VolumeItem {
         // @ts-ignore: error TS2341: Property 'fakeEntriesVisible_' is private and
         // only accessible within class 'DirectoryTree'.
         if (this.parentTree_.fakeEntriesVisible_) {
-            for (const key in this.volumeInfo_.fakeEntries) {
-                fakeEntries.push(this.volumeInfo_.fakeEntries[key]);
+            for (const fakeEntry of Object.values(this.volumeInfo_.fakeEntries)) {
+                fakeEntries.push(fakeEntry);
             }
             // This list is sorted by URL on purpose.
             fakeEntries.sort((a, b) => {
@@ -22952,8 +23084,8 @@ class DirectoryTree extends Tree {
         // 'DirectoryModel'.
         this.directoryModel_ = null;
         /**
-         * @type {import('../../../externs/volume_manager.js').VolumeManager} this
-         *     is set in decorate()
+         * @type {import('../../../background/js/volume_manager.js').VolumeManager}
+         *     this is set in decorate()
          */
         // @ts-ignore: error TS2322: Type 'null' is not assignable to type
         // 'VolumeManager'.
@@ -22981,7 +23113,7 @@ class DirectoryTree extends Tree {
     /**
      * Decorates an element.
      * @param {!DirectoryModel} directoryModel Current DirectoryModel.
-     * @param {!import('../../../externs/volume_manager.js').VolumeManager}
+     * @param {!import('../../../background/js/volume_manager.js').VolumeManager}
      *     volumeManager VolumeManager of the system.
      * @param {!MetadataModel} metadataModel Shared MetadataModel instance.
      * @param {boolean} fakeEntriesVisible True if it should show the fakeEntries.
@@ -23021,7 +23153,7 @@ class DirectoryTree extends Tree {
         // For Search V2 subscribe to the store so that we can listen to search
         // becoming active and inactive. We use this to hide or show the highlight
         // of the active item in the directory tree.
-        /** @type {!SearchData|undefined} */
+        /** @type {!import('../../../state/state.js').SearchData|undefined} */
         // @ts-ignore: error TS2739: Type '{}' is missing the following properties
         // from type 'SearchData': status, query, options
         this.cachedSearchState_ = {};
@@ -23036,7 +23168,7 @@ class DirectoryTree extends Tree {
         getStore().subscribe(this);
     }
     /**
-     * @param {!State} state
+     * @param {!import('../../../state/state.js').State} state
      */
     onStateChanged(state) {
         // Search.
@@ -23284,7 +23416,9 @@ class DirectoryTree extends Tree {
             if (!(await this.searchAndSelectByEntry(entry))) {
                 this.selectedItem = null;
             }
-        }, (error) => {
+        }, 
+        /** @param {any} error */
+        (error) => {
             console.warn('Failed to select by entry due to', error);
         });
     }
@@ -23556,7 +23690,7 @@ class DirectoryTree extends Tree {
     }
     /**
      * The VolumeManager instance of the system.
-     * @type {import('../../../externs/volume_manager.js').VolumeManager}
+     * @type {import('../../../background/js/volume_manager.js').VolumeManager}
      */
     get volumeManager() {
         return this.volumeManager_;
@@ -23588,7 +23722,7 @@ class DirectoryTree extends Tree {
  * Decorates an element.
  * @param {HTMLElement} el Element to be DirectoryTree.
  * @param {!DirectoryModel} directoryModel Current DirectoryModel.
- * @param {!import('../../../externs/volume_manager.js').VolumeManager}
+ * @param {!import('../../../background/js/volume_manager.js').VolumeManager}
  *     volumeManager VolumeManager of the system.
  * @param {!MetadataModel} metadataModel Shared MetadataModel instance.
  * @param {boolean} fakeEntriesVisible True if it should show the fakeEntries.
@@ -23723,6 +23857,7 @@ const template = html$1 `
       <g id="gmap"><path fill="#EA4335" d="M15 3c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2zm0 2H5v10h10V5zm-5 1c1.657 0 3 1.328 3 2.965 0 .967-.858 2.51-2.59 4.559l-.23.27L10 14l-.18-.206C7.935 11.61 7 9.974 7 8.965 7 7.328 8.343 6 10 6zm0 2a1 1 0 100 2 1 1 0 000-2z"/></g>
       <g id="gsheet"><path fill="#34A853" d="M15 3a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2zm0 2H5v10h10V5zm-5 1v2h4v2h-4v4H8v-4H6V8h2V6h2z"/></g>
       <g id="gsite"><path fill="#796EEE" d="M5 3h10a2 2 0 012 1.85V15a2 2 0 01-1.85 2H5a2 2 0 01-2-1.85V5a2 2 0 011.85-2H15zm10 2H5v10h10V5zm-5 5v3H6v-3h4zm4 0v3h-3v-3h3zm0-3v2H6V7h8z"/></g>
+      <g id="gmaillayout"><path fill="#EA4335" d="M6.4 13.21h1.12V9.66L10 11.43l2.46-1.77v3.55h1.05a.7.7 0 0 0 .43-.14.43.43 0 0 0 .18-.37V7.6a.7.7 0 0 0-.27-.57.95.95 0 0 0-.62-.23l-.3.03a.71.71 0 0 0-.26.13l-2.69 2.2-2.61-2.13a1.19 1.19 0 0 0-.29-.16.93.93 0 0 0-.33-.06.91.91 0 0 0-.62.22.7.7 0 0 0-.25.56v5.08c0 .14.05.26.15.37.11.11.23.17.37.17ZM4.93 17c-.54 0-1-.19-1.37-.56A1.86 1.86 0 0 1 3 15.07V4.93c0-.54.19-1 .56-1.37C3.94 3.2 4.4 3 4.93 3h10.14c.54 0 1 .19 1.37.56.37.38.56.83.56 1.37v10.14c0 .54-.19 1-.56 1.37-.38.37-.83.56-1.37.56H4.93Zm0-1.93h10.14V4.93H4.93v10.14Z"/></g>
       <g id="gslides"><path fill="#FBBC04" d="M15 3a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2zm0 2H5v10h10V5zm-1 2v6H6V7h8z"/></g>
       <g id="gtable"><path fill="#34A853" d="M5 3h10a2 2 0 012 1.85V15a2 2 0 01-1.85 2H5a2 2 0 01-2-1.85V5a2 2 0 011.85-2H15zm10 2H5v10h10V5zm-1 2.01v2.5l-4 4-2-2-2 2V11l2-2 2 2 4-4z"/></g>
       <g id="image"><path fill="#EA4335" d="M15 3H5a2 2 0 00-2 2v10c0 1.1.9 2 2 2h10a2 2 0 002-2V5a2 2 0 00-2-2zm0 12H5V5h10v10zm-3.67-6L9.5 12 8 10.6 6 14h8l-2.67-5z"/></g>
@@ -24985,7 +25120,7 @@ class BreadcrumbContainer {
                 }
             }
         }
-        if (currentDirectory.status == PropStatus.SUCCESS &&
+        if (currentDirectory.status === PropStatus.SUCCESS &&
             this.currentFileKey_ !== key) {
             this.show_(state.currentDirectory?.key || '', state.currentDirectory?.pathComponents || []);
         }
@@ -25346,7 +25481,7 @@ let XfSelect = XfSelect_1 = class XfSelect extends XfBase {
      * the one at the given index.
      */
     updateSelectedOption_(index) {
-        if (index != this.selectedOption_.index) {
+        if (index !== this.selectedOption_.index) {
             if (index >= 0 && index < this.options.length) {
                 this.selectedOption_ = {
                     index: index,
@@ -25711,7 +25846,7 @@ var SearchInputState;
  * directory.
  */
 function isInRecent(dir) {
-    return dir?.rootType == RootType.RECENT;
+    return dir?.rootType === RootType.RECENT;
 }
 /**
  * Creates location options. These always consist of 'Everywhere' and the
@@ -25816,27 +25951,27 @@ function createFileCategoryOptions(state) {
         {
             value: chrome.fileManagerPrivate.FileCategory.ALL,
             text: str('SEARCH_OPTIONS_TYPES_ALL_TYPES'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.ALL,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.ALL,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.AUDIO,
             text: str('SEARCH_OPTIONS_TYPES_AUDIO'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.AUDIO,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.AUDIO,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.DOCUMENT,
             text: str('SEARCH_OPTIONS_TYPES_DOCUMENTS'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.DOCUMENT,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.DOCUMENT,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.IMAGE,
             text: str('SEARCH_OPTIONS_TYPES_IMAGES'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.IMAGE,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.IMAGE,
         },
         {
             value: chrome.fileManagerPrivate.FileCategory.VIDEO,
             text: str('SEARCH_OPTIONS_TYPES_VIDEOS'),
-            default: fileCategory == chrome.fileManagerPrivate.FileCategory.VIDEO,
+            default: fileCategory === chrome.fileManagerPrivate.FileCategory.VIDEO,
         },
     ];
 }
@@ -26635,7 +26770,7 @@ let XfSplitter = XfSplitter_1 = class XfSplitter extends XfBase {
                 this.afterResizingElement_.clientWidth;
         this.classList.add('splitter-active');
         this.isRTLlayout_ =
-            window.getComputedStyle(this).getPropertyValue('direction') == 'rtl';
+            window.getComputedStyle(this).getPropertyValue('direction') === 'rtl';
     }
     finishDrag_() {
         assert$1(!!this.handlers_);
@@ -27020,7 +27155,7 @@ class DlpRestrictedBanner extends StateBanner {
      * determines the text used in the banner.
      */
     onFilteredContext(context) {
-        if (!context || context.type == null) {
+        if (!context || context.type === null) {
             console.warn('Context not supplied or dialog type key missing.');
             return;
         }
@@ -27673,7 +27808,7 @@ class DriveLowIndividualSpaceBanner extends WarningBanner {
      * context to the banner.
      */
     onFilteredContext(context) {
-        if (!context || context.totalBytes == null || context.usedBytes == null) {
+        if (!context || context.totalBytes === null || context.usedBytes === null) {
             console.warn('Context not supplied or missing data');
             return;
         }
@@ -27741,7 +27876,7 @@ class DriveLowSharedDriveSpaceBanner extends WarningBanner {
      * context to the banner.
      */
     onFilteredContext(context) {
-        if (!context || context.totalBytes == null || context.usedBytes == null) {
+        if (!context || context.totalBytes === null || context.usedBytes === null) {
             console.warn('Context not supplied or missing data');
             return;
         }
@@ -30112,7 +30247,7 @@ class BaseDialog {
         this.show_(title, onOk, onCancel, onShow);
     }
     findFocusableElements_(doc) {
-        let elements = Array.prototype.filter.call(doc.querySelectorAll('*'), function (n) {
+        let elements = Array.prototype.filter.call(doc.querySelectorAll('*'), (n) => {
             return n.tabIndex >= 0;
         });
         const iframes = doc.querySelectorAll('iframe');
@@ -30173,13 +30308,13 @@ class BaseDialog {
             }
         }
         const self = this;
-        setTimeout(function () {
+        setTimeout(() => {
             // Check that hide() was not called in between.
             if (self.showing_) {
                 self.container.classList.add('shown');
                 self.initialFocusElement_.focus();
             }
-            setTimeout(function () {
+            setTimeout(() => {
                 if (onShow) {
                     onShow();
                 }
@@ -30211,7 +30346,7 @@ class BaseDialog {
             this.document_.body.focus();
         }
         const self = this;
-        setTimeout(function () {
+        setTimeout(() => {
             // Wait until the transition is done before removing the dialog.
             // Check show() was not called in between.
             // It is also possible to show/hide/show/hide and have hide called twice
@@ -32084,11 +32219,11 @@ class DefaultTaskDialog extends FileManagerDialogBase {
     }
     onContainerKeyDown(event) {
         // Handle Escape.
-        if (event.keyCode == 27) {
+        if (event.keyCode === 27) {
             this.hide();
             event.preventDefault();
         }
-        else if (event.keyCode == 32 || event.keyCode == 13) {
+        else if (event.keyCode === 32 || event.keyCode === 13) {
             this.onSelected_();
             event.preventDefault();
         }
@@ -32345,7 +32480,7 @@ class DialogFooter {
                         // Set the first time.
                         description = currentDescription;
                     }
-                    else if (description != currentDescription) {
+                    else if (description !== currentDescription) {
                         // No single description, fall through to the extension list.
                         description = null;
                         break;
@@ -32411,7 +32546,7 @@ class DialogFooter {
     }
     selectTargetNameInFilenameInput() {
         const selectionEnd = this.filenameInput.value.lastIndexOf('.');
-        if (selectionEnd == -1) {
+        if (selectionEnd === -1) {
             this.filenameInput.select();
         }
         else {
@@ -33086,7 +33221,7 @@ class DragSelector {
         // Collect items within the selection rect.
         const currentSelection = state.target.getHitElements(borderBounds.left, borderBounds.top, borderBounds.width, borderBounds.height);
         const pointedElements = state.target.getHitElements(pos.x, pos.y);
-        const leadIndex = pointedElements[0] != undefined ? pointedElements[0] : -1;
+        const leadIndex = pointedElements[0] !== undefined ? pointedElements[0] : -1;
         // Diff the selection between currentSelection and this.lastSelection_.
         const selectionFlag = [];
         for (const index of this.lastSelection_) {
@@ -33113,20 +33248,20 @@ class DragSelector {
             // If the flag equals to (IN_LAST_SELECTION | IN_CURRENT_SELECTION),
             // this is included in both the last selection and the current selection.
             // We have nothing to do for this item.
-            if (flag == SelectionFlag.IN_LAST_SELECTION) {
+            if (flag === SelectionFlag.IN_LAST_SELECTION) {
                 // If the flag equals to IN_LAST_SELECTION,
                 // then the item is included in lastSelection but not in
                 // currentSelection. Revert the selection state to
                 // this.originalSelection_.
-                selectionModel.setIndexSelected(index, this.originalSelection_.indexOf(index) != -1);
+                selectionModel.setIndexSelected(index, this.originalSelection_.indexOf(index) !== -1);
             }
-            else if (flag == SelectionFlag.IN_CURRENT_SELECTION) {
+            else if (flag === SelectionFlag.IN_CURRENT_SELECTION) {
                 // If the flag equals to IN_CURRENT_SELECTION,
                 // this is included in currentSelection but not in lastSelection.
                 selectionModel.setIndexSelected(index, true);
             }
         }
-        if (leadIndex != -1) {
+        if (leadIndex !== -1) {
             selectionModel.leadIndex = leadIndex;
             selectionModel.anchorIndex = leadIndex;
         }
@@ -33439,7 +33574,7 @@ class TableColumnModel extends NativeEventTarget {
         if (index < 0 || index >= this.columns_.length) {
             return;
         }
-        if (name != this.columns_[index].name) {
+        if (name !== this.columns_[index].name) {
             return;
         }
         this.columns_[index].name = name;
@@ -33472,7 +33607,7 @@ class TableColumnModel extends NativeEventTarget {
         }
         const column = this.columns_[index];
         width = Math.max(width, MIMIMAL_WIDTH);
-        if (width == column.absoluteWidth) {
+        if (width === column.absoluteWidth) {
             return;
         }
         column.width = width;
@@ -33526,7 +33661,7 @@ class TableColumnModel extends NativeEventTarget {
      * Normalizes widths to make their sum 100%.
      */
     normalizeWidths(contentWidth) {
-        if (this.size == 0) {
+        if (this.size === 0) {
             return;
         }
         const c = this.columns_[0];
@@ -33547,7 +33682,7 @@ class TableColumnModel extends NativeEventTarget {
      */
     indexOf(id) {
         for (let i = 0; i < this.size; i++) {
-            if (this.getId(i) == id) {
+            if (this.getId(i) === id) {
                 return i;
             }
         }
@@ -33563,7 +33698,7 @@ class TableColumnModel extends NativeEventTarget {
             return;
         }
         const column = this.columns_[index];
-        if (column.visible == visible) {
+        if (column.visible === visible) {
             return;
         }
         // Changing column visibility alters the width.  Save the total width
@@ -33931,7 +34066,7 @@ class TableHeader extends HTMLDivElement {
     }
     endBatchUpdates() {
         this.batchCount_--;
-        if (this.batchCount_ == 0) {
+        if (this.batchCount_ === 0) {
             this.redraw();
         }
     }
@@ -33939,7 +34074,7 @@ class TableHeader extends HTMLDivElement {
      * Redraws table header.
      */
     redraw() {
-        if (this.batchCount_ != 0) {
+        if (this.batchCount_ !== 0) {
             return;
         }
         assert$1(this.table_);
@@ -34037,7 +34172,7 @@ class TableHeader extends HTMLDivElement {
      * to a splitter starts dragging.
      */
     handleTouchStart_(e) {
-        if (e.touches.length != 1) {
+        if (e.touches.length !== 1) {
             return;
         }
         const clientX = e.touches[0].clientX;
@@ -34078,12 +34213,12 @@ class TableHeader extends HTMLDivElement {
         const cm = this.table.columnModel;
         // If the number of columns in the model has changed, a full redraw is
         // needed.
-        if (headerCells.length != cm.size) {
+        if (headerCells.length !== cm.size) {
             return true;
         }
         // If the column visibility has changed, a full redraw is required.
         for (let i = 0; i < cm.size; i++) {
-            if (cm.isVisible(i) == headerCells[i].hidden) {
+            if (cm.isVisible(i) === headerCells[i].hidden) {
                 return true;
             }
         }
@@ -34134,7 +34269,7 @@ class TableList extends List {
     resizeCells_() {
         const cm = this.table_.columnModel;
         for (let row = this.firstElementChild; row; row = row.nextElementSibling) {
-            if (row.tagName != 'LI') {
+            if (row.tagName !== 'LI') {
                 continue;
             }
             for (let i = 0; i < cm.size; i++) {
@@ -34151,7 +34286,7 @@ class TableList extends List {
      * Redraws the viewport.
      */
     redraw() {
-        if (this.batchCount_ != 0) {
+        if (this.batchCount_ !== 0) {
             return;
         }
         this.updateScrollbars_();
@@ -34166,7 +34301,7 @@ class TableList extends List {
     getAfterFillerHeight(lastIndex) {
         // If the list is empty set height to 1 to show horizontal
         // scroll bar.
-        return lastIndex == 0 ?
+        return lastIndex === 0 ?
             1 :
             List.prototype.getAfterFillerHeight.call(this, lastIndex);
     }
@@ -34177,8 +34312,8 @@ class TableList extends List {
     updateScrollbars_() {
         const cm = this.table_.columnModel;
         const style = this.style;
-        if (!cm || cm.size == 0) {
-            if (style.overflow != 'hidden') {
+        if (!cm || cm.size === 0) {
+            if (style.overflow !== 'hidden') {
                 style.overflow = 'hidden';
                 return true;
             }
@@ -34190,7 +34325,7 @@ class TableList extends List {
         let changed = false;
         const offsetWidth = this.offsetWidth;
         if (cm.totalWidth > offsetWidth) {
-            if (style.overflowX != 'scroll') {
+            if (style.overflowX !== 'scroll') {
                 style.overflowX = 'scroll';
             }
             // Once we sure there will be horizontal
@@ -34198,7 +34333,7 @@ class TableList extends List {
             height = this.clientHeight;
         }
         if (this.areAllItemsVisible_(height)) {
-            if (cm.totalWidth <= offsetWidth && style.overflowX != 'hidden') {
+            if (cm.totalWidth <= offsetWidth && style.overflowX !== 'hidden') {
                 style.overflowX = 'hidden';
             }
             changed = this.showVerticalScrollBar_(false);
@@ -34206,7 +34341,7 @@ class TableList extends List {
         else {
             changed = this.showVerticalScrollBar_(true);
             const x = cm.totalWidth <= this.clientWidth ? 'hidden' : 'scroll';
-            if (style.overflowX != x) {
+            if (style.overflowX !== x) {
                 style.overflowX = x;
             }
         }
@@ -34219,10 +34354,10 @@ class TableList extends List {
      */
     showVerticalScrollBar_(show) {
         const style = this.style;
-        if (show && style.overflowY == 'scroll') {
+        if (show && style.overflowY === 'scroll') {
             return false;
         }
-        if (!show && style.overflowY == 'hidden') {
+        if (!show && style.overflowY === 'hidden') {
             return false;
         }
         style.overflowY = show ? 'scroll' : 'hidden';
@@ -34234,7 +34369,7 @@ class TableList extends List {
      *                   visibleHeight pixels.
      */
     areAllItemsVisible_(visibleHeight) {
-        if (!this.dataModel || this.dataModel.length == 0) {
+        if (!this.dataModel || this.dataModel.length === 0) {
             return true;
         }
         return this.getItemTop(this.dataModel.length) <= visibleHeight;
@@ -34255,13 +34390,13 @@ class TableList extends List {
         const row = this.firstElementChild;
         // If the number of columns in the model has changed, a full redraw is
         // needed.
-        if (row.children.length != cm.size) {
+        if (row.children.length !== cm.size) {
             return true;
         }
         // If the column visibility has changed, a full redraw is required.
         for (let i = 0; i < cm.size; ++i) {
             const child = row.children[i];
-            if (cm.isVisible(i) == child.hidden) {
+            if (cm.isVisible(i) === child.hidden) {
                 return true;
             }
         }
@@ -34355,7 +34490,7 @@ class Table extends HTMLDivElement {
         return this.list.selectionModel;
     }
     set selectionModel(selectionModel) {
-        if (this.list.selectionModel != selectionModel) {
+        if (this.list.selectionModel !== selectionModel) {
             if (this.dataModel) {
                 selectionModel.adjustLength(this.dataModel.length);
             }
@@ -34537,14 +34672,14 @@ class Table extends HTMLDivElement {
     sort(i) {
         const cm = this.columnModel_;
         const sortStatus = this.list.dataModel.sortStatus;
-        if (sortStatus.field == cm.getId(i)) {
-            const sortDirection = sortStatus.direction == 'desc' ? 'asc' : 'desc';
+        if (sortStatus.field === cm.getId(i)) {
+            const sortDirection = sortStatus.direction === 'desc' ? 'asc' : 'desc';
             this.list.dataModel.sort(sortStatus.field, sortDirection);
         }
         else {
             this.list.dataModel.sort(cm.getId(i), cm.getDefaultOrder(i));
         }
-        if (this.selectionModel.selectedIndex == -1) {
+        if (this.selectionModel.selectedIndex === -1) {
             this.list.scrollTop = 0;
         }
     }
@@ -38219,7 +38354,7 @@ class GearMenu {
             console.warn('Failed get space info', error);
             return;
         }
-        if (this.spaceInfoPromise_ != spaceInfoPromise) {
+        if (this.spaceInfoPromise_ !== spaceInfoPromise) {
             return;
         }
         this.volumeSpaceInnerBar_.removeAttribute('pending');
@@ -38428,7 +38563,8 @@ class InstallLinuxPackageDialog extends FileManagerDialogBase {
      * notification, rather than the file manager.
      */
     onInstallLinuxPackage_(status) {
-        if (status == chrome.fileManagerPrivate.InstallLinuxPackageStatus.STARTED) {
+        if (status ===
+            chrome.fileManagerPrivate.InstallLinuxPackageStatus.STARTED) {
             this.text.textContent = str('INSTALL_LINUX_PACKAGE_INSTALLATION_STARTED');
             return;
         }
@@ -38509,7 +38645,7 @@ class ListContainer {
             }
         }, { passive: true });
         this.element.addEventListener('touchend', (e) => {
-            if (e.touches.length == 0) {
+            if (e.touches.length === 0) {
                 // contextmenu event will be sent right after touchend.
                 setTimeout(() => this.allowContextMenuByTouch_ = false);
             }
@@ -38656,7 +38792,7 @@ class ListContainer {
     onKeyDown_(event) {
         // Ignore keydown handler in the rename input box.
         const srcElement = event.srcElement;
-        if (srcElement?.tagName == 'INPUT') {
+        if (srcElement?.tagName === 'INPUT') {
             event.stopImmediatePropagation();
             return;
         }
@@ -38668,7 +38804,7 @@ class ListContainer {
     onKeyPress_(event) {
         const srcElement = event.srcElement;
         // Ignore keypress handler in the rename input box.
-        if (srcElement?.tagName == 'INPUT' || event.ctrlKey || event.metaKey ||
+        if (srcElement?.tagName === 'INPUT' || event.ctrlKey || event.metaKey ||
             event.altKey) {
             event.stopImmediatePropagation();
             return;
@@ -38879,13 +39015,13 @@ class ProgressCenterPanel {
                         return strf('DELETE_FILE_NAME', source);
                     }
                     if (item.type === ProgressItemType.TRASH) {
-                        return item.state == ProgressItemState.PROGRESSING ?
+                        return item.state === ProgressItemState.PROGRESSING ?
                             strf('MOVE_TO_TRASH_FILE_NAME', source) :
                             strf('UNDO_DELETE_ONE', source);
                     }
                     if (item.type === ProgressItemType.RESTORE_TO_DESTINATION ||
                         item.type === ProgressItemType.RESTORE) {
-                        return item.state == ProgressItemState.PROGRESSING ?
+                        return item.state === ProgressItemState.PROGRESSING ?
                             strf('RESTORING_FROM_TRASH_FILE_NAME', source) :
                             strf('RESTORE_TRASH_FILE_NAME', source);
                     }
@@ -38900,7 +39036,7 @@ class ProgressCenterPanel {
                         strf('FILE_ITEMS_COPIED', source);
                 }
                 if (item.type === ProgressItemType.EXTRACT) {
-                    return item.state == ProgressItemState.PROGRESSING ?
+                    return item.state === ProgressItemState.PROGRESSING ?
                         strf('EXTRACT_ITEMS_REMAINING', count) :
                         strf('FILE_ITEMS_EXTRACTED', count);
                 }
@@ -38918,13 +39054,13 @@ class ProgressCenterPanel {
                     return strf('DELETE_ITEMS_REMAINING', count);
                 }
                 if (item.type === ProgressItemType.TRASH) {
-                    return item.state == ProgressItemState.PROGRESSING ?
+                    return item.state === ProgressItemState.PROGRESSING ?
                         strf('MOVE_TO_TRASH_ITEMS_REMAINING', count) :
                         strf('UNDO_DELETE_SOME', count);
                 }
                 if (item.type === ProgressItemType.RESTORE_TO_DESTINATION ||
                     item.type === ProgressItemType.RESTORE) {
-                    return item.state == ProgressItemState.PROGRESSING ?
+                    return item.state === ProgressItemState.PROGRESSING ?
                         strf('RESTORING_FROM_TRASH_ITEMS_REMAINING', count) :
                         strf('RESTORE_TRASH_MANY_ITEMS', count);
                 }
@@ -38948,11 +39084,11 @@ class ProgressCenterPanel {
                     item.skippedEncryptedFiles.length > 0) {
                     switch (item.type) {
                         case ProgressItemType.COPY:
-                            return item.skippedEncryptedFiles.length == 1 ?
+                            return item.skippedEncryptedFiles.length === 1 ?
                                 strf('COPY_SKIPPED_ENCRYPTED_SINGLE_FILE', item.skippedEncryptedFiles[0]) :
                                 strf('COPY_SKIPPED_ENCRYPTED_FILES', item.skippedEncryptedFiles.length);
                         case ProgressItemType.MOVE:
-                            return item.skippedEncryptedFiles.length == 1 ?
+                            return item.skippedEncryptedFiles.length === 1 ?
                                 strf('MOVE_SKIPPED_ENCRYPTED_SINGLE_FILE', item.skippedEncryptedFiles[0]) :
                                 strf('MOVE_SKIPPED_ENCRYPTED_FILES', item.skippedEncryptedFiles.length);
                     }
@@ -39305,7 +39441,7 @@ class ProgressCenterPanel {
                 this.items_[item.id] = item.clone();
                 break;
             default:
-                if (this.items_[item.id] == null) {
+                if (this.items_[item.id] === null) {
                     console.warn('ProgressCenterItem not updated: ${item.id} state: ${item.state}');
                 }
                 break;
@@ -39634,7 +39770,7 @@ class FileManagerUI {
         // Set the initial focus. When there is no focus, the active element is the
         // <body>.
         let targetElement = null;
-        if (this.dialogType_ == DialogType.SELECT_SAVEAS_FILE) {
+        if (this.dialogType_ === DialogType.SELECT_SAVEAS_FILE) {
             targetElement = this.dialogFooter.filenameInput;
         }
         else if (this.listContainer.currentListType !== ListType.UNINITIALIZED) {
@@ -40214,3376 +40350,6 @@ const DEFAULT_SORT_FIELD = 'modificationTime';
  */
 const DEFAULT_SORT_DIRECTION = 'desc';
 
-// Copyright 2015 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Naming controller for directory tree.
- */
-class DirectoryTreeNamingController {
-    constructor(directoryModel_, directoryTree_, directoryTreeContainer_, alertDialog_) {
-        this.directoryModel_ = directoryModel_;
-        this.directoryTree_ = directoryTree_;
-        this.directoryTreeContainer_ = directoryTreeContainer_;
-        this.alertDialog_ = alertDialog_;
-        this.currentDirectoryItem_ = null;
-        this.editing_ = false;
-        /**
-         * Whether the entry being renamed is a root of a removable partition/volume.
-         */
-        this.isRemovableRoot_ = false;
-        this.volumeInfo_ = null;
-        this.inputElement_ =
-            document.createElement('input');
-        this.inputElement_.type = 'text';
-        this.inputElement_.spellcheck = false;
-        this.inputElement_.addEventListener('keydown', this.onKeyDown_.bind(this));
-        this.inputElement_.addEventListener('blur', this.commitRename_.bind(this));
-        this.inputElement_.addEventListener('click', event => {
-            // Stop propagation of click event to prevent it being captured by
-            // directory item and current directory is changed to editing item.
-            event.stopPropagation();
-        });
-        // These events propagation needs to be stopped otherwise ripple will show
-        // on the tree item when the input is clicked.
-        // Note: 'up/down' are events from <paper-ripple> component.
-        const suppressedEvents = ['mouseup', 'mousedown', 'up', 'down'];
-        suppressedEvents.forEach(event => {
-            this.inputElement_.addEventListener(event, event => {
-                event.stopPropagation();
-            });
-        });
-    }
-    /**
-     * Returns input element.
-     */
-    getInputElement() {
-        return this.inputElement_;
-    }
-    /**
-     * Returns the '.label' class element child of this.currentDirectoryItem_.
-     */
-    getLabelElement_() {
-        const element = this.currentDirectoryItem_.firstElementChild;
-        const label = element.querySelector('.label');
-        assert$1(label);
-        return label;
-    }
-    /**
-     * Attaches naming controller to specified directory item and start rename.
-     * @param directoryItem An html element of a node of the target.
-     * @param isRemovableRoot Indicates whether the target is a removable volume
-     *     root or not.
-     * @param volumeInfo A volume information about the target entry. |volumeInfo|
-     *     can be null if method is invoked on a folder that is in the tree view
-     *     and is not root of an external drive.
-     */
-    attachAndStart(directoryItem, isRemovableRoot, volumeInfo) {
-        this.isRemovableRoot_ = isRemovableRoot;
-        if (this.isRemovableRoot_) {
-            assert$1(volumeInfo);
-            this.volumeInfo_ = volumeInfo;
-        }
-        else {
-            this.volumeInfo_ = null;
-        }
-        if (this.currentDirectoryItem_) {
-            return;
-        }
-        this.currentDirectoryItem_ = directoryItem;
-        this.currentDirectoryItem_.setAttribute('renaming', 'true');
-        if (isTreeItem$1(directoryItem)) { // XfTreeItem instance
-            this.inputElement_.slot = 'rename';
-            this.currentDirectoryItem_.appendChild(this.inputElement_);
-        }
-        else { // DirectoryItem instance
-            const renameInputElementPlaceholder = this.currentDirectoryItem_.firstElementChild.getElementsByClassName('rename-placeholder');
-            if (this.isRemovableRoot_ && renameInputElementPlaceholder.length === 1) {
-                renameInputElementPlaceholder[0].appendChild(this.inputElement_);
-            }
-            else {
-                const label = this.getLabelElement_();
-                label.insertAdjacentElement('afterend', this.inputElement_);
-            }
-        }
-        this.inputElement_.value = this.currentDirectoryItem_.label;
-        this.inputElement_.select();
-        this.inputElement_.focus();
-        this.editing_ = true;
-    }
-    /**
-     * Commits rename.
-     */
-    async commitRename_() {
-        const contextMenu = this.inputElement_.contextMenu;
-        if (!this.editing_ || (contextMenu && !contextMenu.hidden)) {
-            return;
-        }
-        this.editing_ = false;
-        const entry = getTreeItemEntry(this.currentDirectoryItem_);
-        assert$1(entry);
-        const newName = this.inputElement_.value;
-        // If new name is the same as current name or empty, do nothing.
-        if (newName === this.currentDirectoryItem_.label || newName.length == 0) {
-            this.detach_();
-            return;
-        }
-        try {
-            await validateEntryName(entry, newName, this.directoryModel_.getFileFilter().isHiddenFilesVisible(), this.volumeInfo_, this.isRemovableRoot_);
-            await this.performRename_(entry, newName);
-        }
-        catch (error) {
-            await this.alertDialog_.showAsync(error.message);
-            this.editing_ = true;
-        }
-    }
-    /**
-     * Performs rename operation.
-     * @param newName Validated name.
-     */
-    async performRename_(entry, newName) {
-        const renamingCurrentDirectory = isSameEntry(entry, this.directoryModel_.getCurrentDirEntry());
-        if (renamingCurrentDirectory) {
-            this.directoryModel_.setIgnoringCurrentDirectoryDeletion(true /* ignore */);
-        }
-        // TODO(yawano): Rename might take time on some volumes. Optimistically show
-        // new name in the UI before actual rename is completed.
-        try {
-            const newEntry = await renameEntry(entry, newName, this.volumeInfo_, this.isRemovableRoot_);
-            // Put the new name in the .label element before detaching the <input> to
-            // prevent showing the old name.
-            if (isNewDirectoryTreeEnabled()) {
-                this.currentDirectoryItem_.label = newName;
-            }
-            else {
-                this.getLabelElement_().textContent = newName;
-                if (window.IN_TEST) {
-                    this.currentDirectoryItem_.setAttribute('entry-label', newName);
-                }
-            }
-            // We currently don't have promises/callbacks for when removableRoots are
-            // successfully renamed, so we can't update their subdirectories or update
-            // the current directory to them at this point.
-            if (this.isRemovableRoot_) {
-                return;
-            }
-            if (isNewDirectoryTreeEnabled() && this.directoryTreeContainer_) {
-                getStore().dispatch(readSubDirectoriesForRenamedEntry(newEntry));
-                this.directoryTreeContainer_.focusItemWithKeyWhenRendered(newEntry.toURL());
-            }
-            else {
-                assert$1(!isTreeItem$1(this.currentDirectoryItem_));
-                assert$1(this.currentDirectoryItem_ instanceof SubDirectoryItem);
-                this.currentDirectoryItem_.entry = newEntry;
-                this.currentDirectoryItem_.updateSubDirectories(/* recursive= */ true);
-            }
-            // If renamed directory was current directory, change it to new one.
-            if (renamingCurrentDirectory) {
-                this.directoryModel_.changeDirectoryEntry(newEntry, this.directoryModel_.setIgnoringCurrentDirectoryDeletion.bind(this.directoryModel_, /* ignore= */ false));
-            }
-        }
-        catch (error) {
-            this.directoryModel_.setIgnoringCurrentDirectoryDeletion(
-            /* ignore= */ false);
-            this.alertDialog_.show(error.message);
-        }
-        finally {
-            this.detach_();
-        }
-    }
-    cancelRename_() {
-        if (!this.editing_) {
-            return;
-        }
-        this.editing_ = false;
-        this.detach_();
-    }
-    /**
-     * Detaches controller from current directory item.
-     */
-    detach_() {
-        assert$1(!!this.currentDirectoryItem_);
-        this.inputElement_.remove();
-        this.currentDirectoryItem_.removeAttribute('renaming');
-        this.currentDirectoryItem_ = null;
-        // Restore focus to directory tree.
-        this.directoryTree_.focus();
-    }
-    /**
-     * Handles keydown event.
-     */
-    onKeyDown_(event) {
-        event.stopPropagation();
-        switch (getKeyModifiers(event) + event.key) {
-            case 'Escape':
-                this.cancelRename_();
-                event.preventDefault();
-                break;
-            case 'Enter':
-                this.commitRename_();
-                event.preventDefault();
-                break;
-        }
-    }
-}
-
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Global (placed in the window object) variable name to hold internal
- * file dragging information. Needed to show visual feedback while dragging
- * since DataTransfer object is in protected state. Reachable from other
- * file manager instances.
- */
-const DRAG_AND_DROP_GLOBAL_DATA = '__drag_and_drop_global_data';
-/**
- * The key under which we store if the file content is missing. This property
- * tells us if we are attemptint to use a drive file while Drive is
- * disconnected.
- */
-const MISSING_FILE_CONTENTS = 'missingFileContents';
-/**
- * The key under which we store the root of the file system of files on which
- * we operate. This allows us to set the correct drag effect.
- */
-const SOURCE_ROOT_URL = 'sourceRootURL';
-/**
- * The key under which we store the flag denoting that the dragged file is
- * encrypted with Google Drive CSE. Given that decrypting of such files is not
- * implemented at the moment (May 2023), this allows us to unset the drag effect
- * when moving such a file outside Drive.
- */
-const ENCRYPTED = 'encrypted';
-/**
- * Confirmation message types.
- */
-var TransferConfirmationType;
-(function (TransferConfirmationType) {
-    TransferConfirmationType[TransferConfirmationType["NONE"] = 0] = "NONE";
-    TransferConfirmationType[TransferConfirmationType["COPY_TO_SHARED_DRIVE"] = 1] = "COPY_TO_SHARED_DRIVE";
-    TransferConfirmationType[TransferConfirmationType["MOVE_TO_SHARED_DRIVE"] = 2] = "MOVE_TO_SHARED_DRIVE";
-    TransferConfirmationType[TransferConfirmationType["MOVE_BETWEEN_SHARED_DRIVES"] = 3] = "MOVE_BETWEEN_SHARED_DRIVES";
-    TransferConfirmationType[TransferConfirmationType["MOVE_FROM_SHARED_DRIVE_TO_OTHER"] = 4] = "MOVE_FROM_SHARED_DRIVE_TO_OTHER";
-    TransferConfirmationType[TransferConfirmationType["MOVE_FROM_OTHER_TO_SHARED_DRIVE"] = 5] = "MOVE_FROM_OTHER_TO_SHARED_DRIVE";
-    TransferConfirmationType[TransferConfirmationType["COPY_FROM_OTHER_TO_SHARED_DRIVE"] = 6] = "COPY_FROM_OTHER_TO_SHARED_DRIVE";
-})(TransferConfirmationType || (TransferConfirmationType = {}));
-var DropEffectType;
-(function (DropEffectType) {
-    DropEffectType["NONE"] = "none";
-    DropEffectType["COPY"] = "copy";
-    DropEffectType["MOVE"] = "move";
-    DropEffectType["LINK"] = "link";
-})(DropEffectType || (DropEffectType = {}));
-/**
- * Extracts the `DataTransfer` from a generic event ensuring it's type asserted.
- */
-const getClipboardData = (event) => {
-    const isClipboardEvent = (event) => 'clipboardData' in event;
-    return isClipboardEvent(event) ? event.clipboardData : null;
-};
-/**
- * The type of a file operation error.
- */
-var FileOperationErrorType;
-(function (FileOperationErrorType) {
-    FileOperationErrorType[FileOperationErrorType["UNEXPECTED_SOURCE_FILE"] = 0] = "UNEXPECTED_SOURCE_FILE";
-    FileOperationErrorType[FileOperationErrorType["TARGET_EXISTS"] = 1] = "TARGET_EXISTS";
-    FileOperationErrorType[FileOperationErrorType["FILESYSTEM_ERROR"] = 2] = "FILESYSTEM_ERROR";
-})(FileOperationErrorType || (FileOperationErrorType = {}));
-/**
- * Error class used to report problems with a copy operation.
- * If the code is UNEXPECTED_SOURCE_FILE, data should be a path of the file.
- * If the code is TARGET_EXISTS, data should be the existing Entry.
- * If the code is FILESYSTEM_ERROR, data should be the FileError.
- */
-class FileOperationError {
-    /**
-     * @param code Error type.
-     * @param data Additional data.
-     */
-    constructor(code, data) {
-        this.code = code;
-        this.data = data;
-    }
-}
-/**
- * Resolves a path to either a DirectoryEntry or a FileEntry, regardless of
- * whether the path is a directory or file.
- *
- * @param root The root of the filesystem to search.
- * @param path The path to be resolved.
- * @return Promise fulfilled with the resolved entry, or rejected with
- *     FileError.
- */
-async function resolvePath(root, path) {
-    if (path === '' || path === '/') {
-        return root;
-    }
-    try {
-        return await getFile(root, path, { create: false });
-    }
-    catch (error) {
-        const errorHasName = error && typeof error === 'object' && 'name' in error;
-        if (errorHasName && error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) {
-            // Bah. It's a directory, ask again.
-            return getDirectory(root, path, { create: false });
-        }
-        throw error;
-    }
-}
-/**
- * Checks if an entry exists at |relativePath| in |dirEntry|.
- * If exists, tries to deduplicate the path by inserting parenthesized number,
- * such as " (1)", before the extension. If it still exists, tries the
- * deduplication again by increasing the number.
- * For example, suppose "file.txt" is given, "file.txt", "file (1).txt",
- * "file (2).txt", ... will be tried.
- *
- * @param dirEntry The target directory entry.
- * @param optSuccessCallback Callback run with the deduplicated path on success.
- * @param optErrorCallback Callback run on error.
- * @return  Promise fulfilled with available path.
- */
-async function deduplicatePath(dirEntry, relativePath) {
-    // Crack the path into three part. The parenthesized number (if exists)
-    // will be replaced by incremented number for retry. For example, suppose
-    // |relativePath| is "file (10).txt", the second check path will be
-    // "file (11).txt".
-    const match = /^(.*?)(?: \((\d+)\))?(\.[^.]*?)?$/.exec(relativePath);
-    const prefix = match[1];
-    const ext = match[3] || '';
-    // Check to see if the target exists.
-    async function customResolvePath(trialPath, copyNumber) {
-        try {
-            await resolvePath(dirEntry, trialPath);
-            const newTrialPath = prefix + ' (' + copyNumber + ')' + ext;
-            return await customResolvePath(newTrialPath, copyNumber + 1);
-        }
-        catch (error) {
-            // We expect to be unable to resolve the target file, since
-            // we're going to create it during the copy.  However, if the
-            // resolve fails with anything other than NOT_FOUND, that's
-            // trouble.
-            const errorHasName = error && typeof error === 'object' && 'name' in error;
-            if (errorHasName && error.name === FileErrorToDomError.NOT_FOUND_ERR) {
-                return trialPath;
-            }
-            throw error;
-        }
-    }
-    try {
-        return await customResolvePath(relativePath, 1);
-    }
-    catch (error) {
-        if (error instanceof Error) {
-            throw error;
-        }
-        throw new FileOperationError(FileOperationErrorType.FILESYSTEM_ERROR, error);
-    }
-}
-/**
- * Filters the entry in the same directory
- *
- * @param sourceEntries Entries of the source files.
- * @param targetEntry The destination entry of the target directory.
- * @param isMove True if the operation is "move", otherwise (i.e. if the
- *     operation is "copy") false.
- * @return Promise fulfilled with the filtered entry. This is not rejected.
- */
-async function filterSameDirectoryEntry(sourceEntries, targetEntry, isMove) {
-    if (!isMove) {
-        return sourceEntries;
-    }
-    // Check all file entries and keeps only those need sharing operation.
-    async function processEntry(entry) {
-        try {
-            const inParentEntry = await getParentEntry$1(entry);
-            return isSameEntry(inParentEntry, targetEntry) ? null : entry;
-        }
-        catch (error) {
-            console.warn(error.stack || error);
-            return null;
-        }
-    }
-    // Call processEntry for each item of sourceEntries.
-    const result = await Promise.all(sourceEntries.map(processEntry));
-    // Remove null entries.
-    return result.filter(entry => !!entry);
-}
-/**
- * Writes file to destination dir. This function is called when an image is
- * dragged from a web page. In this case there is no FileSystem Entry to copy
- * or move, just the JS File object with attached Blob. This operation does
- * not use EventRouter or queue the task since it is not possible to track
- * progress of the FileWriter.write().
- *
- * @param file The file entry to be written.
- * @param dir The destination directory to write to.
- */
-async function writeFile(file, dir) {
-    const name = await deduplicatePath(dir, file.name);
-    return new Promise((resolve, reject) => {
-        dir.getFile(name, { create: true, exclusive: true }, f => {
-            f.createWriter(writer => {
-                writer.onwriteend = () => resolve(f);
-                writer.onerror = reject;
-                writer.write(file);
-            }, reject);
-        }, reject);
-    });
-}
-class FileTransferController {
-    constructor(document_, listContainer_, directoryTree, confirmationCallback_, progressCenter_, 
-    /**
-     * Note: We use synchronous `getCache` method under assumption that fields
-     * we request are already cached. See constants.js, specifically
-     * LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES for list of fields
-     * which are safe to use.
-     */
-    metadataModel_, directoryModel_, volumeManager_, selectionHandler_, filesToast_) {
-        this.document_ = document_;
-        this.listContainer_ = listContainer_;
-        this.confirmationCallback_ = confirmationCallback_;
-        this.progressCenter_ = progressCenter_;
-        this.metadataModel_ = metadataModel_;
-        this.directoryModel_ = directoryModel_;
-        this.volumeManager_ = volumeManager_;
-        this.selectionHandler_ = selectionHandler_;
-        this.filesToast_ = filesToast_;
-        /**
-         * The array of the pending task IDs.
-         */
-        this.pendingTaskIds = [];
-        /**
-         * File objects for selected files.
-         */
-        this.selectedAsyncData_ = {};
-        /**
-         * Drag selector.
-         */
-        this.dragSelector_ = new DragSelector();
-        /**
-         * Whether a user is touching the device or not.
-         */
-        this.touching_ = false;
-        this.copyCommand_ = queryRequiredElement('command#copy', this.document_.body);
-        this.cutCommand_ = queryRequiredElement('command#cut', this.document_.body);
-        this.destinationEntry_ = null;
-        this.lastEnteredTarget_ = null;
-        this.dropTarget_ = null;
-        /**
-         * The element for showing a label while dragging files.
-         */
-        this.dropLabel_ = null;
-        this.navigateTimer_ = 0;
-        // Register the events.
-        this.selectionHandler_.addEventListener(EventType$1.CHANGE_THROTTLED, this.onFileSelectionChangedThrottled_.bind(this));
-        this.attachDragSource_(this.listContainer_.table.list);
-        this.attachFileListDropTarget_(this.listContainer_.table.list);
-        this.attachDragSource_(this.listContainer_.grid);
-        this.attachFileListDropTarget_(this.listContainer_.grid);
-        this.attachTreeDropTarget_(directoryTree);
-        this.attachCopyPasteHandlers_();
-        // Allow to drag external files to the browser window.
-        chrome.fileManagerPrivate.enableExternalFileScheme();
-    }
-    /**
-     * Attaches items in the `list` that will be draggable.
-     */
-    attachDragSource_(list) {
-        if ('webkitUserDrag' in list.style) {
-            list.style.webkitUserDrag = 'element';
-        }
-        list.addEventListener('dragstart', this.onDragStart_.bind(this, list));
-        list.addEventListener('dragend', this.onDragEnd_.bind(this));
-        list.addEventListener('touchstart', this.onTouchStart_.bind(this));
-        list.ownerDocument.addEventListener('touchend', this.onTouchEnd_.bind(this), true);
-        list.ownerDocument.addEventListener('touchcancel', this.onTouchEnd_.bind(this), true);
-    }
-    attachFileListDropTarget_(list) {
-        list.addEventListener('dragover', this.onDragOver_.bind(this, false, list));
-        list.addEventListener('dragenter', this.onDragEnterFileList_.bind(this, list));
-        list.addEventListener('dragleave', this.onDragLeave_.bind(this));
-        list.addEventListener('drop', this.onDrop_.bind(this, false));
-    }
-    attachTreeDropTarget_(tree) {
-        tree.addEventListener('dragover', this.onDragOver_.bind(this, true, tree));
-        tree.addEventListener('dragenter', this.onDragEnterTree_.bind(this, tree));
-        tree.addEventListener('dragleave', this.onDragLeave_.bind(this));
-        tree.addEventListener('drop', this.onDrop_.bind(this, true));
-    }
-    /**
-     * Attach handlers of copy, cut and paste operations to the document.
-     */
-    attachCopyPasteHandlers_() {
-        this.document_.addEventListener('beforecopy', this.onBeforeCutOrCopy_.bind(this, false /* not move operation */));
-        this.document_.addEventListener('copy', this.onCutOrCopy_.bind(this, false /* not move operation */));
-        this.document_.addEventListener('beforecut', this.onBeforeCutOrCopy_.bind(this, true /* move operation */));
-        this.document_.addEventListener('cut', this.onCutOrCopy_.bind(this, true /* move operation */));
-        this.document_.addEventListener('onbeforepaste', this.onBeforePaste_.bind(this));
-        this.document_.addEventListener('paste', this.onPaste_.bind(this));
-    }
-    /**
-     * Write the current selection to system clipboard.
-     */
-    cutOrCopy_(clipboardData, effectAllowed) {
-        const currentDirEntry = this.directoryModel_.getCurrentDirEntry();
-        if (!currentDirEntry) {
-            return;
-        }
-        let entry = currentDirEntry;
-        if (isRecentRoot(currentDirEntry)) {
-            entry = this.selectionHandler_.selection.entries[0];
-        }
-        else if (isTrashRoot(currentDirEntry)) {
-            // In the event the entry resides in the Trash root, delegate to the item
-            // in .Trash/files to get the source filesystem.
-            const trashEntry = this.selectionHandler_.selection.entries[0];
-            entry = trashEntry.filesEntry;
-        }
-        const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
-        if (!volumeInfo) {
-            return;
-        }
-        this.appendCutOrCopyInfo_(clipboardData, effectAllowed, volumeInfo, this.selectionHandler_.selection.entries, !this.selectionHandler_.isAvailable());
-        this.appendFiles_(clipboardData, this.selectionHandler_.selection.entries);
-    }
-    /**
-     * Appends copy or cut information of |entries| to |clipboardData|.
-     */
-    appendCutOrCopyInfo_(clipboardData, effectAllowed, sourceVolumeInfo, entries, missingFileContents) {
-        if (!clipboardData) {
-            return;
-        }
-        // Tag to check it's filemanager data.
-        clipboardData.setData('fs/tag', 'filemanager-data');
-        clipboardData.setData(`fs/${SOURCE_ROOT_URL}`, sourceVolumeInfo.fileSystem.root.toURL());
-        // In the event a cut event has begun from the TrashRoot, the sources should
-        // be delegated to the underlying files to ensure any validation done
-        // onDrop_ (e.g. DLP scanning) is done on the actual file.
-        if (entries.every(isTrashEntry$1)) {
-            entries = entries.map(e => e.filesEntry);
-        }
-        const encrypted = this.metadataModel_.getCache(entries, ['contentMimeType'])
-            .every((metadata, i) => entries[i] ?
-            isEncrypted(entries[i], metadata.contentMimeType) :
-            false);
-        const sourceURLs = entriesToURLs(entries);
-        clipboardData.setData('fs/sources', sourceURLs.join('\n'));
-        clipboardData.effectAllowed = effectAllowed;
-        clipboardData.setData('fs/effectallowed', effectAllowed);
-        clipboardData.setData(`fs/${ENCRYPTED}`, encrypted.toString());
-        clipboardData.setData(`fs/${MISSING_FILE_CONTENTS}`, missingFileContents.toString());
-    }
-    /**
-     * Appends files of |entries| to |clipboardData|.
-     */
-    appendFiles_(clipboardData, entries) {
-        if (!clipboardData) {
-            return;
-        }
-        for (let i = 0; i < entries.length; i++) {
-            const url = entries[i]?.toURL();
-            if (!url || !this.selectedAsyncData_[url]) {
-                continue;
-            }
-            if (this.selectedAsyncData_[url]?.file) {
-                clipboardData.items.add(this.selectedAsyncData_[url].file);
-            }
-        }
-    }
-    getDragAndDropGlobalData_() {
-        const storage = window.localStorage;
-        const sourceRootURL = storage.getItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${SOURCE_ROOT_URL}`);
-        const missingFileContents = storage.getItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${MISSING_FILE_CONTENTS}`);
-        const encrypted = storage.getItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${ENCRYPTED}`) === 'true';
-        if (sourceRootURL !== null && missingFileContents !== null) {
-            return { sourceRootURL, missingFileContents, encrypted };
-        }
-        return null;
-    }
-    /**
-     * Extracts source root URL from the |clipboardData| or |dragAndDropData|
-     * object.
-     */
-    getSourceRootUrl_(clipboardData, dragAndDropData) {
-        const sourceRootURL = clipboardData.getData(`fs/${SOURCE_ROOT_URL}`);
-        if (sourceRootURL) {
-            return sourceRootURL;
-        }
-        // |clipboardData| in protected mode.
-        if (dragAndDropData) {
-            return dragAndDropData.sourceRootURL;
-        }
-        // Unknown source.
-        return '';
-    }
-    isMissingFileContents_(clipboardData) {
-        let data = clipboardData.getData(`fs/${MISSING_FILE_CONTENTS}`);
-        if (!data) {
-            // |clipboardData| in protected mode.
-            const globalData = this.getDragAndDropGlobalData_();
-            if (globalData) {
-                data = globalData.missingFileContents;
-            }
-        }
-        return data === 'true';
-    }
-    isEncrypted_(clipboardData) {
-        const data = clipboardData.getData(`fs/${ENCRYPTED}`);
-        if (data) {
-            return data === 'true';
-        }
-        // |clipboardData| in protected mode.
-        const globalData = this.getDragAndDropGlobalData_();
-        if (globalData) {
-            return globalData.encrypted;
-        }
-        return false;
-    }
-    /**
-     * Calls executePaste with |pastePlan| if paste is allowed by Data Leak
-     * Prevention policy. If paste is not allowed, it shows a toast to the
-     * user.
-     */
-    async executePasteIfAllowed_(pastePlan) {
-        const sourceEntries = await pastePlan.resolveEntries();
-        let disallowedTransfers = [];
-        try {
-            if (isDlpEnabled()) {
-                const destinationDir = unwrapEntry(pastePlan.destinationEntry);
-                disallowedTransfers = await getDisallowedTransfers(sourceEntries, destinationDir, pastePlan.isMove);
-            }
-        }
-        catch (error) {
-            disallowedTransfers = [];
-            console.warn(error);
-        }
-        if (disallowedTransfers && disallowedTransfers.length != 0) {
-            let toastText;
-            if (pastePlan.isMove) {
-                if (disallowedTransfers.length == 1) {
-                    toastText = str('DLP_BLOCK_MOVE_TOAST');
-                }
-                else {
-                    toastText =
-                        strf('DLP_BLOCK_MOVE_TOAST_PLURAL', disallowedTransfers.length);
-                }
-            }
-            else {
-                if (disallowedTransfers.length == 1) {
-                    toastText = str('DLP_BLOCK_COPY_TOAST');
-                }
-                else {
-                    toastText =
-                        strf('DLP_BLOCK_COPY_TOAST_PLURAL', disallowedTransfers.length);
-                }
-            }
-            this.filesToast_.show(toastText, {
-                text: str('DLP_TOAST_BUTTON_LABEL'),
-                callback: () => {
-                    visitURL('https://support.google.com/chrome/a/?p=chromeos_datacontrols');
-                },
-            });
-            return 'dlp-blocked';
-        }
-        if (sourceEntries.length == 0) {
-            // This can happen when copied files were deleted before pasting
-            // them. We execute the plan as-is, so as to share the post-copy
-            // logic. This is basically same as getting empty by filtering
-            // same-directory entries.
-            return this.executePaste(pastePlan);
-        }
-        const confirmationType = pastePlan.getConfirmationType();
-        if (confirmationType == TransferConfirmationType.NONE) {
-            return this.executePaste(pastePlan);
-        }
-        const messages = pastePlan.getConfirmationMessages(confirmationType);
-        const userApproved = await this.confirmationCallback_(pastePlan.isMove, messages);
-        if (!userApproved) {
-            return 'user-cancelled';
-        }
-        return this.executePaste(pastePlan);
-    }
-    /**
-     * Collects parameters of paste operation by the given command and the current
-     * system clipboard.
-     * @param writeFileFunc Used for unittest.
-     */
-    preparePaste(clipboardData, destinationEntry, effect, writeFileFunc = writeFile) {
-        destinationEntry =
-            destinationEntry || this.directoryModel_.getCurrentDirEntry();
-        assert$1(destinationEntry);
-        // When FilesApp does drag and drop to itself, it uses fs/sources to
-        // populate sourceURLs, and it will resolve sourceEntries later using
-        // webkitResolveLocalFileSystemURL().
-        const sourceURLs = clipboardData?.getData('fs/sources') ?
-            clipboardData.getData('fs/sources').split('\n') :
-            [];
-        // When FilesApp is the paste target for other apps such as crostini,
-        // the file URL is either not provided, or it is not compatible. We use
-        // DataTransferItem.webkitGetAsEntry() to get the entry now.
-        const sourceEntries = [];
-        if (sourceURLs.length === 0 && clipboardData?.items) {
-            for (let i = 0; i < clipboardData.items.length; i++) {
-                if (clipboardData.items[i]?.kind === 'file') {
-                    const item = clipboardData.items[i];
-                    const entry = item.webkitGetAsEntry();
-                    if (entry !== null) {
-                        sourceEntries.push(entry);
-                        continue;
-                    }
-                    else {
-                        // A File which does not resolve for webkitGetAsEntry() must be an
-                        // image drag drop from the browser. Write it to destination dir.
-                        writeFileFunc(item.getAsFile(), destinationEntry);
-                    }
-                }
-            }
-        }
-        // effectAllowed set in copy/paste handlers stay uninitialized. DnD handlers
-        // work fine.
-        const effectAllowed = clipboardData?.effectAllowed !== 'uninitialized' ?
-            clipboardData?.effectAllowed :
-            clipboardData.getData('fs/effectallowed');
-        const toMove = isDropEffectAllowed(effectAllowed, 'move') &&
-            (!isDropEffectAllowed(effectAllowed, 'copy') || effect === 'move');
-        const destinationLocationInfo = this.volumeManager_.getLocationInfo(destinationEntry);
-        if (!destinationLocationInfo) {
-            console.warn('Failed to get destination location for ' + destinationEntry.toURL() +
-                ' while attempting to paste files.');
-        }
-        assert$1(destinationLocationInfo);
-        return new PastePlan(sourceURLs, sourceEntries, destinationEntry, this.metadataModel_, toMove);
-    }
-    /**
-     * Queue up a file copy operation based on the current system clipboard and
-     * drag-and-drop global object.
-     */
-    async paste(clipboardData, destinationEntry, effect) {
-        const pastePlan = this.preparePaste(clipboardData, destinationEntry, effect);
-        return this.executePasteIfAllowed_(pastePlan);
-    }
-    /**
-     * Queue up a file copy operation.
-     */
-    executePaste(pastePlan) {
-        const toMove = pastePlan.isMove;
-        const destinationEntry = pastePlan.destinationEntry;
-        // Execute the IOTask in asynchronously.
-        (async () => {
-            try {
-                const sourceEntries = await pastePlan.resolveEntries();
-                const entries = await filterSameDirectoryEntry(sourceEntries, destinationEntry, toMove);
-                if (entries.length > 0) {
-                    if (isAllTrashEntries(entries, this.volumeManager_)) {
-                        await startIOTask(chrome.fileManagerPrivate.IOTaskType.RESTORE_TO_DESTINATION, entries, { destinationFolder: destinationEntry });
-                        return;
-                    }
-                    const taskType = toMove ? chrome.fileManagerPrivate.IOTaskType.MOVE :
-                        chrome.fileManagerPrivate.IOTaskType.COPY;
-                    await startIOTask(taskType, entries, { destinationFolder: destinationEntry });
-                }
-            }
-            catch (error) {
-                console.warn(error.stack ? error.stack : error);
-            }
-            finally {
-                // Publish source not found error item.
-                for (let i = 0; i < pastePlan.failureUrls.length; i++) {
-                    const url = pastePlan.failureUrls[i];
-                    if (!url) {
-                        continue;
-                    }
-                    // Extract the file name.
-                    const fileName = decodeURIComponent(url.replace(/^.+\//, ''));
-                    const item = new ProgressCenterItem();
-                    item.id = `source-not-found-${url}`;
-                    item.state = ProgressItemState.ERROR;
-                    item.message = toMove ?
-                        strf('MOVE_SOURCE_NOT_FOUND_ERROR', fileName) :
-                        strf('COPY_SOURCE_NOT_FOUND_ERROR', fileName);
-                    this.progressCenter_.updateItem(item);
-                }
-            }
-        })();
-        return toMove ? 'move' : 'copy';
-    }
-    /**
-     * Renders a drag-and-drop thumbnail.
-     */
-    renderThumbnail_() {
-        const entry = this.selectionHandler_.selection.entries[0];
-        const index = this.selectionHandler_.selection.indexes[0];
-        const items = this.selectionHandler_.selection.entries.length;
-        const container = this.document_.body.querySelector('#drag-container');
-        const html = `
-      ${items > 1 ? `<div class='drag-box drag-multiple'></div>` : ''}
-      <div class='drag-box drag-contents'>
-        <div class='detail-icon'></div>
-        <div class='label'>${htmlEscape(entry.name)}</div>
-      </div>
-      ${items > 1 ? `<div class='drag-bubble'>${items}</div>` : ''}
-    `;
-        container.innerHTML = sanitizeInnerHtml(html, { attrs: ['class'] });
-        const icon = container.querySelector('.detail-icon');
-        const thumbnail = this.listContainer_.currentView.getThumbnail(index);
-        if (thumbnail) {
-            icon.style.backgroundImage = thumbnail.style.backgroundImage;
-            icon.style.backgroundSize = 'cover';
-        }
-        else {
-            icon.setAttribute('file-type-icon', getIcon(entry));
-        }
-        return container;
-    }
-    onDragStart_(list, event) {
-        // If renaming is in progress, drag operation should be used for selecting
-        // substring of the text. So we don't drag files here.
-        if ('currentEntry' in this.listContainer_.renameInput &&
-            this.listContainer_.renameInput.currentEntry) {
-            event.preventDefault();
-            return;
-        }
-        // If this drag operation is initiated by mouse, check if we should start
-        // selecting area.
-        if (!this.touching_ && list.shouldStartDragSelection(event)) {
-            event.preventDefault();
-            this.dragSelector_.startDragSelection(list, event);
-            return;
-        }
-        // If the drag starts outside the files list on a touch device, cancel the
-        // drag.
-        if (this.touching_ && !list.hasDragHitElement(event)) {
-            event.preventDefault();
-            list.selectionModel.unselectAll();
-            return;
-        }
-        // Nothing selected.
-        if (!this.selectionHandler_.selection.entries.length) {
-            event.preventDefault();
-            return;
-        }
-        const dataTransfer = event.dataTransfer;
-        const canCopy = this.canCopyOrDrag();
-        const canCut = this.canCutOrDrag();
-        if (canCopy || canCut) {
-            if (canCopy && canCut) {
-                this.cutOrCopy_(dataTransfer, 'all');
-            }
-            else if (canCopy) {
-                this.cutOrCopy_(dataTransfer, 'copyLink');
-            }
-            else {
-                this.cutOrCopy_(dataTransfer, 'move');
-            }
-        }
-        else {
-            event.preventDefault();
-            return;
-        }
-        const thumbnailElement = this.renderThumbnail_();
-        let thumbnailX = 0;
-        if (this.document_.querySelector(':root[dir=rtl]')) {
-            thumbnailX = thumbnailElement.clientWidth * window.devicePixelRatio;
-        }
-        dataTransfer.setDragImage(thumbnailElement, thumbnailX, /*y=*/ 0);
-        const storage = window.localStorage;
-        storage.setItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${SOURCE_ROOT_URL}`, dataTransfer.getData(`fs/${SOURCE_ROOT_URL}`));
-        storage.setItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${MISSING_FILE_CONTENTS}`, dataTransfer.getData(`fs/${MISSING_FILE_CONTENTS}`));
-        storage.setItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${ENCRYPTED}`, dataTransfer.getData(`fs/${ENCRYPTED}`));
-    }
-    onDragEnd_() {
-        // TODO(fukino): This is workaround for crbug.com/373125.
-        // This should be removed after the bug is fixed.
-        this.touching_ = false;
-        const container = this.document_.body.querySelector('#drag-container');
-        container.textContent = '';
-        this.clearDropTarget_();
-        const storage = window.localStorage;
-        storage.removeItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${SOURCE_ROOT_URL}`);
-        storage.removeItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${MISSING_FILE_CONTENTS}`);
-        storage.removeItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${ENCRYPTED}`);
-    }
-    onDragOver_(onlyIntoDirectories, _, event) {
-        event.preventDefault();
-        let entry = this.destinationEntry_;
-        if (!entry && !onlyIntoDirectories) {
-            entry = this.directoryModel_.getCurrentDirEntry();
-        }
-        event.dataTransfer.dropEffect =
-            this.selectDropEffect_(event, this.getDragAndDropGlobalData_(), entry);
-        event.preventDefault();
-    }
-    onDragEnterFileList_(list, event) {
-        event.preventDefault(); // Required to prevent the cursor flicker.
-        this.lastEnteredTarget_ = event.target;
-        let item = list.getListItemAncestor(this.lastEnteredTarget_);
-        item = item && list.isItem(item) ? item : null;
-        if (item === this.dropTarget_) {
-            return;
-        }
-        const entry = item && list.dataModel.item(item.listIndex);
-        if (entry && event.dataTransfer) {
-            this.setDropTarget_(item, event.dataTransfer, entry);
-        }
-        else {
-            this.clearDropTarget_();
-        }
-    }
-    onDragEnterTree_(_, event) {
-        event.preventDefault(); // Required to prevent the cursor flicker.
-        if (!event.relatedTarget) {
-            if (event.dataTransfer) {
-                event.dataTransfer.dropEffect = 'move';
-            }
-            return;
-        }
-        this.lastEnteredTarget_ = event.target;
-        let item = event.target;
-        while (item && !(item instanceof TreeItem || item instanceof XfTreeItem)) {
-            item = item.parentNode;
-        }
-        if (item === this.dropTarget_) {
-            return;
-        }
-        if (item && 'entry' in item && item.entry && event.dataTransfer) {
-            this.setDropTarget_(item, event.dataTransfer, item.entry);
-        }
-        else {
-            this.clearDropTarget_();
-        }
-    }
-    onDragLeave_(event) {
-        // If mouse moves from one element to another the 'dragenter'
-        // event for the new element comes before the 'dragleave' event for
-        // the old one. In this case event.target !== this.lastEnteredTarget_
-        // and handler of the 'dragenter' event has already carried of
-        // drop target. So event.target === this.lastEnteredTarget_
-        // could only be if mouse goes out of listened element.
-        if (event.target === this.lastEnteredTarget_) {
-            this.clearDropTarget_();
-            this.lastEnteredTarget_ = null;
-        }
-        // TODO(files-ng): dropLabel_ is not used in files-ng, remove it.
-        if (this.dropLabel_) {
-            this.dropLabel_.style.display = 'none';
-        }
-    }
-    async onDrop_(onlyIntoDirectories, event) {
-        if (onlyIntoDirectories && !this.dropTarget_) {
-            return;
-        }
-        const destinationEntry = this.destinationEntry_ || this.directoryModel_.getCurrentDirEntry();
-        assert$1(destinationEntry);
-        if (getRootType(destinationEntry) === RootType.TRASH &&
-            this.canTrashSelection_(getRootType(destinationEntry), event.dataTransfer)) {
-            event.preventDefault();
-            const sourceURLs = (event?.dataTransfer?.getData('fs/sources') || '').split('\n');
-            const { entries, failureUrls } = await convertURLsToEntriesWithAccess(sourceURLs);
-            // The list of entries should not be special entries (e.g. Camera, Linux
-            // files) and should not already exist in Trash (i.e. you can't trash
-            // something that's already trashed).
-            const isModifiableAndNotInTrashRoot = (entry) => {
-                return !isNonModifiable(this.volumeManager_, entry) &&
-                    !isTrashEntry$1(entry);
-            };
-            const canTrashEntries = entries && entries.length > 0 &&
-                entries.every(isModifiableAndNotInTrashRoot);
-            if (canTrashEntries && (!failureUrls || failureUrls.length === 0)) {
-                startIOTask(chrome.fileManagerPrivate.IOTaskType.TRASH, entries, 
-                /*params=*/ {});
-            }
-            this.clearDropTarget_();
-            return;
-        }
-        if (!this.canPasteOrDrop_(event.dataTransfer, destinationEntry)) {
-            return;
-        }
-        event.preventDefault();
-        this.paste(event.dataTransfer, destinationEntry, this.selectDropEffect_(event, this.getDragAndDropGlobalData_(), destinationEntry));
-        this.clearDropTarget_();
-    }
-    /**
-     * Change to the drop target directory.
-     */
-    changeToDropTargetDirectory_() {
-        // Do custom action.
-        if (isDirectoryTreeItem(this.dropTarget_)) {
-            this.dropTarget_.doDropTargetAction();
-        }
-        if (!this.destinationEntry_) {
-            return;
-        }
-        this.directoryModel_.changeDirectoryEntry(this.destinationEntry_);
-    }
-    /**
-     * Sets the drop target.
-     */
-    setDropTarget_(domElement, clipboardData, destinationEntry) {
-        if (this.dropTarget_ === domElement) {
-            return;
-        }
-        // Remove the old drop target.
-        this.clearDropTarget_();
-        // Set the new drop target.
-        this.dropTarget_ = domElement;
-        if (!domElement || !destinationEntry.isDirectory) {
-            return;
-        }
-        assert$1(destinationEntry.isDirectory);
-        // Assume the destination directory won't accept this drop.
-        domElement.classList.remove('accepts');
-        domElement.classList.add('denies');
-        // Disallow dropping a directory on itself.
-        const entries = this.selectionHandler_.selection.entries;
-        for (const entry of entries) {
-            if (isSameEntry(entry, destinationEntry)) {
-                return;
-            }
-        }
-        // Disallow drop target for disabled destination entries.
-        const fileData = getFileData(getStore().getState(), destinationEntry.toURL());
-        if (fileData?.disabled) {
-            return;
-        }
-        this.destinationEntry_ = destinationEntry;
-        // Add accept classes if the directory can accept this drop.
-        if (this.canPasteOrDrop_(clipboardData, destinationEntry)) {
-            domElement.classList.remove('denies');
-            domElement.classList.add('accepts');
-        }
-        // Change directory immediately if it's a fake entry for Crostini.
-        if (getRootType(destinationEntry) === RootType.CROSTINI) {
-            this.changeToDropTargetDirectory_();
-            return;
-        }
-        // Change to the directory after the drag target hover time out.
-        const navigate = this.changeToDropTargetDirectory_.bind(this);
-        this.navigateTimer_ = setTimeout(navigate, this.dragTargetHoverTime_());
-    }
-    /**
-     * Return the drag target hover time in milliseconds.
-     */
-    dragTargetHoverTime_() {
-        return window.IN_TEST ? 500 : 2000;
-    }
-    /**
-     * Handles touch start.
-     */
-    onTouchStart_() {
-        this.touching_ = true;
-    }
-    /**
-     * Handles touch end.
-     */
-    onTouchEnd_() {
-        // TODO(fukino): We have to check if event.touches.length be 0 to support
-        // multi-touch operations, but event.touches has incorrect value by a bug
-        // (crbug.com/373125).
-        // After the bug is fixed, we should check event.touches.
-        this.touching_ = false;
-    }
-    /**
-     * Clears the drop target.
-     */
-    clearDropTarget_() {
-        if (this.dropTarget_) {
-            this.dropTarget_.classList.remove('accepts', 'denies');
-        }
-        this.dropTarget_ = null;
-        this.destinationEntry_ = null;
-        if (this.navigateTimer_) {
-            clearTimeout(this.navigateTimer_);
-            this.navigateTimer_ = 0;
-        }
-    }
-    isDocumentWideEvent_() {
-        const element = this.document_.activeElement;
-        const tagName = this.document_.activeElement?.nodeName.toLowerCase();
-        return !((tagName === 'input' &&
-            (element && 'type' in element && element?.type === 'text')) ||
-            tagName === 'cr-input');
-    }
-    onCutOrCopy_(isMove, event) {
-        if (!this.isDocumentWideEvent_() || !this.canCutOrCopy_(isMove)) {
-            return;
-        }
-        event.preventDefault();
-        const clipboardData = getClipboardData(event);
-        const effectAllowed = isMove ? 'move' : 'copy';
-        // If current focus is on DirectoryTree, write selected item of
-        // DirectoryTree to system clipboard.
-        if (document.activeElement && isDirectoryTree(document.activeElement)) {
-            const focusedItem = getFocusedTreeItem(document.activeElement);
-            this.cutOrCopyFromDirectoryTree(focusedItem, clipboardData, effectAllowed);
-            return;
-        }
-        if (document.activeElement && isTreeItem$1(document.activeElement)) {
-            this.cutOrCopyFromDirectoryTree(document.activeElement, clipboardData, effectAllowed);
-            return;
-        }
-        // If current focus is not on DirectoryTree, write the current selection in
-        // the list to system clipboard.
-        this.cutOrCopy_(clipboardData, effectAllowed);
-        this.blinkSelection_();
-    }
-    /**
-     * Performs cut or copy operation dispatched from directory tree.
-     */
-    cutOrCopyFromDirectoryTree(focusedItem, clipboardData, effectAllowed) {
-        if (focusedItem === null) {
-            return;
-        }
-        if (!('entry' in focusedItem)) {
-            return;
-        }
-        const entry = focusedItem.entry;
-        const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
-        if (!volumeInfo) {
-            return;
-        }
-        // When this value is false, we cannot copy between different sources.
-        const missingFileContents = volumeInfo.volumeType === VolumeType.DRIVE &&
-            this.volumeManager_.getDriveConnectionState().type ===
-                chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE;
-        this.appendCutOrCopyInfo_(clipboardData, effectAllowed, volumeInfo, [entry], missingFileContents);
-    }
-    onBeforeCutOrCopy_(isMove, event) {
-        if (!this.isDocumentWideEvent_()) {
-            return;
-        }
-        // queryCommandEnabled returns true if event.defaultPrevented is true.
-        if (this.canCutOrCopy_(isMove)) {
-            event.preventDefault();
-        }
-    }
-    canCutOrCopy_(isMove) {
-        const command = isMove ? this.cutCommand_ : this.copyCommand_;
-        command.canExecuteChange(this.document_.activeElement);
-        return !command.disabled;
-    }
-    canCopyOrDrag() {
-        if (!this.selectionHandler_.isAvailable()) {
-            return false;
-        }
-        if (this.selectionHandler_.selection.entries.length <= 0) {
-            return false;
-        }
-        // Trash entries are only allowed to be restored which is analogous to a
-        // cut event, so disallow the copy.
-        if (this.selectionHandler_.selection.entries.every(isTrashEntry$1)) {
-            return false;
-        }
-        const entries = this.selectionHandler_.selection.entries;
-        for (let i = 0; i < entries.length; i++) {
-            if (!entries[i]) {
-                continue;
-            }
-            if (isTeamDriveRoot(entries[i])) {
-                return false;
-            }
-            // If selected entries are not in the same directory, we can't copy them
-            // by a single operation at this moment.
-            if (i > 0 && !isSiblingEntry(entries[0], entries[i])) {
-                return false;
-            }
-        }
-        // Don't allow copy of encrypted files.
-        if (this.metadataModel_.getCache(entries, ['contentMimeType'])
-            .every((metadata, i) => entries[i] ?
-            isEncrypted(entries[i], metadata.contentMimeType) :
-            false)) {
-            return false;
-        }
-        // Check if canCopy is true or undefined, but not false (see
-        // https://crbug.com/849999).
-        return this.metadataModel_.getCache(entries, ['canCopy'])
-            .every(item => item.canCopy !== false);
-    }
-    canCutOrDrag() {
-        if (this.directoryModel_.isReadOnly() ||
-            !this.selectionHandler_.isAvailable() ||
-            this.selectionHandler_.selection.entries.length <= 0) {
-            return false;
-        }
-        const entries = this.selectionHandler_.selection.entries;
-        // All entries need the 'canDelete' permission.
-        const metadata = this.metadataModel_.getCache(entries, ['canDelete']);
-        if (metadata.some(item => item.canDelete === false)) {
-            return false;
-        }
-        for (let i = 0; i < entries.length; i++) {
-            if (entries[i] && isNonModifiable(this.volumeManager_, entries[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-    onPaste_(event) {
-        // If the event has destDirectory property, paste files into the directory.
-        // This occurs when the command fires from menu item 'Paste into folder'.
-        const destination = (('destDirectory' in event && event.destDirectory) ||
-            this.directoryModel_.getCurrentDirEntry());
-        // Need to update here since 'beforepaste' doesn't fire.
-        if (!this.isDocumentWideEvent_() ||
-            !this.canPasteOrDrop_(getClipboardData(event), destination)) {
-            return;
-        }
-        event.preventDefault();
-        this.paste(getClipboardData(event), destination).then(effect => {
-            // On cut, we clear the clipboard after the file is pasted/moved so we
-            // don't try to move/delete the original file again.
-            if (effect === 'move') {
-                this.simulateCommand_('cut', (event) => {
-                    event.preventDefault();
-                    const clipboardData = getClipboardData(event);
-                    if (clipboardData) {
-                        clipboardData.setData('fs/clear', '');
-                    }
-                });
-            }
-        });
-    }
-    onBeforePaste_(event) {
-        if (!this.isDocumentWideEvent_()) {
-            return;
-        }
-        // queryCommandEnabled returns true if event.defaultPrevented is true.
-        const currentDirEntry = this.directoryModel_.getCurrentDirEntry();
-        if (currentDirEntry &&
-            this.canPasteOrDrop_(getClipboardData(event), currentDirEntry)) {
-            event.preventDefault();
-        }
-    }
-    canPasteOrDrop_(clipboardData, destinationEntry) {
-        if (!clipboardData) {
-            return false;
-        }
-        if (!destinationEntry) {
-            return false;
-        }
-        const destinationLocationInfo = this.volumeManager_.getLocationInfo(destinationEntry);
-        if (!destinationLocationInfo || destinationLocationInfo.isReadOnly) {
-            return false;
-        }
-        // Recent isn't read-only, but it doesn't support paste/drop.
-        if (destinationLocationInfo.rootType === RootType.RECENT) {
-            return false;
-        }
-        if (destinationLocationInfo.volumeInfo &&
-            destinationLocationInfo.volumeInfo.error) {
-            return false;
-        }
-        // DataTransfer type will be 'fs/tag' when the source was FilesApp or exo,
-        // or 'Files' when the source was any other app.
-        const types = clipboardData.types;
-        if (!types || !(types.includes('fs/tag') || types.includes('Files'))) {
-            return false; // Unsupported type of content.
-        }
-        // A drop on the Trash root should always perform a "Send to Trash"
-        // operation.
-        if (destinationLocationInfo.rootType === RootType.TRASH) {
-            return this.canTrashSelection_(getRootType(destinationLocationInfo), clipboardData);
-        }
-        const sourceUrls = (clipboardData.getData('fs/sources') || '').split('\n');
-        assert$1(destinationLocationInfo.volumeInfo);
-        if (this.getSourceRootUrl_(clipboardData, this.getDragAndDropGlobalData_()) !==
-            destinationLocationInfo.volumeInfo.fileSystem.root.toURL()) {
-            // Copying between different sources requires all files to be available.
-            if (this.isMissingFileContents_(clipboardData)) {
-                return false;
-            }
-            // Moving an encrypted files outside of Google Drive is not supported.
-            if (this.isEncrypted_(clipboardData)) {
-                return false;
-            }
-            // Block transferring hosted files between different sources in order to
-            // prevent hosted files from being transferred outside of Drive. This is
-            // done because hosted files aren't 'real' files, so it doesn't make sense
-            // to allow a 'local' copy (e.g. in Downloads, or on a USB), where the
-            // file can't be accessed offline (or necessarily accessed at all) by the
-            // person who tries to open it. It also blocks copying hosted files to
-            // other profiles, as the files would need to be shared in Drive first.
-            if (sourceUrls.some(source => getFileTypeForName(source).type === 'hosted')) {
-                return false;
-            }
-        }
-        // If the destination is sub-tree of any of the sources paste isn't allowed.
-        const addTrailingSlash = (s) => {
-            if (!s.endsWith('/')) {
-                s += '/';
-            }
-            return s;
-        };
-        const destinationUrl = addTrailingSlash(destinationEntry.toURL());
-        if (sourceUrls.some(source => destinationUrl.startsWith(addTrailingSlash(source)))) {
-            return false;
-        }
-        // Destination entry needs the 'canAddChildren' permission.
-        const metadata = this.metadataModel_.getCache([destinationEntry], ['canAddChildren']);
-        if (metadata[0]?.canAddChildren === false) {
-            return false;
-        }
-        return true;
-    }
-    /**
-     * Execute paste command.
-     */
-    queryPasteCommandEnabled(destinationEntry) {
-        if (!this.isDocumentWideEvent_()) {
-            return false;
-        }
-        // HACK(serya): return this.document_.queryCommandEnabled('paste')
-        // should be used.
-        let result;
-        this.simulateCommand_('paste', (event) => {
-            result = this.canPasteOrDrop_(getClipboardData(event), destinationEntry);
-        });
-        return result;
-    }
-    /**
-     * Allows to simulate commands to get access to clipboard.
-     */
-    simulateCommand_(command, handler) {
-        const iframe = this.document_.body.querySelector('#command-dispatcher');
-        const doc = iframe.contentDocument;
-        if (!doc) {
-            return;
-        }
-        doc.addEventListener(command, handler);
-        doc.execCommand(command);
-        doc.removeEventListener(command, handler);
-    }
-    onFileSelectionChangedThrottled_() {
-        // Remove file objects that are no longer in the selection.
-        const asyncData = {};
-        const entries = this.selectionHandler_.selection.entries;
-        for (const entry of entries) {
-            const entryUrl = entry.toURL();
-            if (entryUrl in this.selectedAsyncData_) {
-                asyncData[entryUrl] = this.selectedAsyncData_[entryUrl];
-            }
-        }
-        this.selectedAsyncData_ = asyncData;
-        const fileEntries = [];
-        for (const entry of entries) {
-            if (entry.isFile) {
-                fileEntries.push(entry);
-            }
-            const entryUrl = entry.toURL();
-            if (!(entryUrl in asyncData)) {
-                asyncData[entryUrl] = { externalFileUrl: '', file: undefined };
-            }
-        }
-        const containsDirectory = this.selectionHandler_.selection.directoryCount > 0;
-        // File object must be prepeared in advance for clipboard operations
-        // (copy, paste and drag). DataTransfer object closes for write after
-        // returning control from that handlers so they may not have
-        // asynchronous operations.
-        if (!containsDirectory) {
-            for (let i = 0; i < fileEntries.length; i++) {
-                (fileEntry => {
-                    const fileEntryURL = fileEntry?.toURL();
-                    if (!(fileEntryURL && asyncData[fileEntryURL]?.file) && fileEntry) {
-                        fileEntry.file(file => {
-                            if (asyncData[fileEntryURL]) {
-                                asyncData[fileEntryURL].file = file;
-                            }
-                        });
-                    }
-                })(fileEntries[i]);
-            }
-        }
-        this.metadataModel_
-            .get(entries, ['alternateUrl', 'externalFileUrl', 'hosted'])
-            .then(metadataList => {
-            for (let i = 0; i < entries.length; i++) {
-                if (!entries[i]) {
-                    continue;
-                }
-                const entryUrl = entries[i].toURL();
-                if (entries[i].isFile) {
-                    if (metadataList[i]?.hosted) {
-                        asyncData[entryUrl].externalFileUrl =
-                            metadataList[i].alternateUrl;
-                    }
-                    else {
-                        asyncData[entryUrl].externalFileUrl =
-                            metadataList[i].externalFileUrl;
-                    }
-                }
-            }
-        });
-    }
-    selectDropEffect_(event, dragAndDropData, destinationEntry) {
-        if (!destinationEntry) {
-            return DropEffectType.NONE;
-        }
-        const destinationLocationInfo = this.volumeManager_.getLocationInfo(destinationEntry);
-        if (!destinationLocationInfo) {
-            return DropEffectType.NONE;
-        }
-        if (destinationLocationInfo.volumeInfo &&
-            destinationLocationInfo.volumeInfo.error) {
-            return DropEffectType.NONE;
-        }
-        // Recent isn't read-only, but it doesn't support drop.
-        if (destinationLocationInfo.rootType === RootType.RECENT) {
-            return DropEffectType.NONE;
-        }
-        if (destinationLocationInfo.isReadOnly) {
-            if (destinationLocationInfo.isSpecialSearchRoot) {
-                // The location is a fake entry that corresponds to special search.
-                return DropEffectType.NONE;
-            }
-            if (destinationLocationInfo.rootType == RootType.CROSTINI) {
-                // The location is a the fake entry for crostini.  Start container.
-                return DropEffectType.NONE;
-            }
-            if (destinationLocationInfo.volumeInfo &&
-                destinationLocationInfo.volumeInfo.isReadOnlyRemovableDevice) {
-                return DropEffectType.NONE;
-            }
-            // The disk device is not write-protected but read-only.
-            // Currently, the only remaining possibility is that write access to
-            // removable drives is restricted by device policy.
-            return DropEffectType.NONE;
-        }
-        // Decryption of CSE files is not currently supported on ChromeOS. However,
-        // moving such a file around Google Drive works fine.
-        if (dragAndDropData && dragAndDropData.encrypted &&
-            destinationLocationInfo.rootType !== RootType.DRIVE) {
-            return DropEffectType.NONE;
-        }
-        const destinationMetadata = this.metadataModel_.getCache([destinationEntry], ['canAddChildren']);
-        if (destinationMetadata.length === 1 &&
-            destinationMetadata[0].canAddChildren === false) {
-            // TODO(sashab): Distinguish between copy/move operations and display
-            // corresponding warning text here.
-            return DropEffectType.NONE;
-        }
-        // Files can be dragged onto the TrashRootEntry, but they must reside on a
-        // volume that is trashable.
-        if (destinationLocationInfo.rootType === RootType.TRASH) {
-            const effect = (this.canTrashSelection_(getRootType(destinationLocationInfo), event.dataTransfer)) ?
-                DropEffectType.MOVE :
-                DropEffectType.NONE;
-            return effect;
-        }
-        if (isDropEffectAllowed(event.dataTransfer.effectAllowed, 'move')) {
-            if (!isDropEffectAllowed(event.dataTransfer.effectAllowed, 'copy')) {
-                return DropEffectType.MOVE;
-            }
-            // TODO(mtomasz): Use volumeId instead of comparing roots, as soon as
-            // volumeId gets unique.
-            assert$1(destinationLocationInfo.volumeInfo);
-            if (this.getSourceRootUrl_(event.dataTransfer, dragAndDropData) ===
-                destinationLocationInfo.volumeInfo.fileSystem.root.toURL() &&
-                !event.ctrlKey) {
-                return DropEffectType.MOVE;
-            }
-            if (event.shiftKey) {
-                return DropEffectType.MOVE;
-            }
-        }
-        return DropEffectType.COPY;
-    }
-    /**
-     * Identifies if the current selection can be sent to the trash. Items can be
-     * dragged and dropped onto the TrashRootEntry, but they must all come from a
-     * valid location that supports trash.
-     * The URLs are compared against the volumes that are enabled for trashing.
-     * This is to avoid blocking the drag drop operation with resolution of the
-     * URLs to entries. This has the unfortunate side effect of not being able to
-     * identify any non modifiable entries after a directory change but prior to
-     * the drop event occurring.
-     */
-    canTrashSelection_(rootType, clipboardData) {
-        if (!rootType) {
-            return false;
-        }
-        if (rootType !== RootType.TRASH) {
-            return false;
-        }
-        if (!clipboardData) {
-            return false;
-        }
-        const enabledTrashURLs = getEnabledTrashVolumeURLs(this.volumeManager_);
-        // When the dragDrop event starts the selectionHandler_ contains the initial
-        // selection, this is preferable to identify whether the selection is
-        // available or not as the sources have resolved entries already.
-        const { entries } = this.selectionHandler_.selection;
-        if (entries && entries.length > 0) {
-            for (const entry of entries) {
-                if (isNonModifiable(this.volumeManager_, entry)) {
-                    return false;
-                }
-                const entryURL = entry.toURL();
-                if (enabledTrashURLs.some(volumeURL => entryURL.startsWith(volumeURL))) {
-                    continue;
-                }
-                return false;
-            }
-            return true;
-        }
-        // If the selection is cleared the directory may have changed but the drag
-        // event is still active. The only way to validate if the selection is
-        // trashable now is to compare the `sourceRootURL` against the enabled trash
-        // locations.
-        // TODO(b/241517469): At this point the sourceRootURL may be on an enabled
-        // location but the entry may not be trashable (e.g. Downloads and the
-        // Camera folder). When the drop event occurs the URLs get resolved to
-        // entries to ensure the operation can occur, but this may result in a move
-        // operation showing as allowed when the drop doesn't accept it.
-        const sourceRootURL = this.getSourceRootUrl_(clipboardData, this.getDragAndDropGlobalData_());
-        return enabledTrashURLs.some(volumeURL => sourceRootURL.startsWith(volumeURL));
-    }
-    /**
-     * Blinks the selection. Used to give feedback when copying or cutting the
-     * selection.
-     */
-    blinkSelection_() {
-        const selection = this.selectionHandler_.selection;
-        if (!selection || selection.totalCount == 0) {
-            return;
-        }
-        const listItems = [];
-        for (let i = 0; i < selection.entries.length; i++) {
-            const selectedIndex = selection.indexes[i];
-            const listItem = this.listContainer_.currentList.getListItemByIndex(selectedIndex);
-            if (listItem) {
-                listItem.classList.add('blink');
-                listItems.push(listItem);
-            }
-        }
-        setTimeout(() => {
-            for (let i = 0; i < listItems.length; i++) {
-                listItems[i].classList.remove('blink');
-            }
-        }, 100);
-    }
-}
-/**
- * Container for defining a copy/move operation.
- */
-class PastePlan {
-    constructor(sourceURLs, sourceEntries, destinationEntry, metadataModel_, isMove) {
-        this.sourceURLs = sourceURLs;
-        this.sourceEntries = sourceEntries;
-        this.destinationEntry = destinationEntry;
-        this.metadataModel_ = metadataModel_;
-        this.isMove = isMove;
-        this.failureUrls = [];
-    }
-    /**
-     * Resolves sourceEntries from sourceURLs if needed and returns them.
-     */
-    async resolveEntries() {
-        if (!this.sourceEntries.length) {
-            const result = await convertURLsToEntriesWithAccess(this.sourceURLs);
-            this.sourceEntries = result.entries;
-            this.failureUrls = result.failureUrls;
-        }
-        return this.sourceEntries;
-    }
-    /**
-     * Obtains whether the planned operation requires user's confirmation, as well
-     * as its type.
-     */
-    getConfirmationType() {
-        assert$1(this.sourceEntries[0]);
-        // Confirmation type for local drive.
-        const sourceEntryCache = this.metadataModel_.getCache([this.sourceEntries[0]], ['shared']);
-        const destinationEntryCache = this.metadataModel_.getCache([this.destinationEntry], ['shared']);
-        // The shared property tells us whether an entry is shared on Drive, and is
-        // potentially undefined.
-        const isSharedSource = sourceEntryCache[0]?.shared === true;
-        const isSharedDestination = destinationEntryCache[0]?.shared === true;
-        // See crbug.com/731583#c20.
-        if (!isSharedSource && isSharedDestination) {
-            return this.isMove ? TransferConfirmationType.MOVE_TO_SHARED_DRIVE :
-                TransferConfirmationType.COPY_TO_SHARED_DRIVE;
-        }
-        // Confirmation type for team drives.
-        const source = {
-            isTeamDrive: isSharedDriveEntry(this.sourceEntries[0]),
-            teamDriveName: getTeamDriveName(this.sourceEntries[0]),
-        };
-        const destination = {
-            isTeamDrive: isSharedDriveEntry(this.destinationEntry),
-            teamDriveName: getTeamDriveName(this.destinationEntry),
-        };
-        if (this.isMove) {
-            if (source.isTeamDrive) {
-                if (destination.isTeamDrive) {
-                    if (source.teamDriveName == destination.teamDriveName) {
-                        return TransferConfirmationType.NONE;
-                    }
-                    else {
-                        return TransferConfirmationType.MOVE_BETWEEN_SHARED_DRIVES;
-                    }
-                }
-                else {
-                    return TransferConfirmationType.MOVE_FROM_SHARED_DRIVE_TO_OTHER;
-                }
-            }
-            else if (destination.isTeamDrive) {
-                return TransferConfirmationType.MOVE_FROM_OTHER_TO_SHARED_DRIVE;
-            }
-            return TransferConfirmationType.NONE;
-        }
-        else {
-            if (!destination.isTeamDrive) {
-                return TransferConfirmationType.NONE;
-            }
-            // Copying to Shared Drive.
-            if (!(source.isTeamDrive &&
-                source.teamDriveName == destination.teamDriveName)) {
-                // This is not a copy within the same Shared Drive.
-                return TransferConfirmationType.COPY_FROM_OTHER_TO_SHARED_DRIVE;
-            }
-            return TransferConfirmationType.NONE;
-        }
-    }
-    /**
-     * Composes a confirmation message for the given type.
-     */
-    getConfirmationMessages(confirmationType) {
-        assert$1(this.sourceEntries.length != 0);
-        const sourceName = getTeamDriveName(this.sourceEntries[0]);
-        const destinationName = getTeamDriveName(this.destinationEntry);
-        switch (confirmationType) {
-            case TransferConfirmationType.COPY_TO_SHARED_DRIVE:
-                return [strf('DRIVE_CONFIRM_COPY_TO_SHARED_DRIVE', this.destinationEntry.fullPath.split('/').pop())];
-            case TransferConfirmationType.MOVE_TO_SHARED_DRIVE:
-                return [strf('DRIVE_CONFIRM_MOVE_TO_SHARED_DRIVE', this.destinationEntry.fullPath.split('/').pop())];
-            case TransferConfirmationType.MOVE_BETWEEN_SHARED_DRIVES:
-                return [
-                    strf('DRIVE_CONFIRM_TD_MEMBERS_LOSE_ACCESS', sourceName),
-                    strf('DRIVE_CONFIRM_TD_MEMBERS_GAIN_ACCESS_TO_COPY', destinationName),
-                ];
-            // TODO(yamaguchi): notify ownership transfer if the two Shared Drives
-            // belong to different domains.
-            case TransferConfirmationType.MOVE_FROM_SHARED_DRIVE_TO_OTHER:
-                return [
-                    strf('DRIVE_CONFIRM_TD_MEMBERS_LOSE_ACCESS', sourceName),
-                    // TODO(yamaguchi): Warn if the operation moves at least one
-                    // directory to My Drive, as it's no undoable.
-                ];
-            case TransferConfirmationType.MOVE_FROM_OTHER_TO_SHARED_DRIVE:
-                return [strf('DRIVE_CONFIRM_TD_MEMBERS_GAIN_ACCESS', destinationName)];
-            case TransferConfirmationType.COPY_FROM_OTHER_TO_SHARED_DRIVE:
-                return [strf('DRIVE_CONFIRM_TD_MEMBERS_GAIN_ACCESS_TO_COPY', destinationName)];
-        }
-        assertNotReached$1('Invalid confirmation type: ' + confirmationType);
-        return [];
-    }
-}
-/**
- * Converts list of urls to list of Entries with granting R/W permissions to
- * them, which is essential when pasting files from a different profile.
- */
-const convertURLsToEntriesWithAccess = async (urls) => {
-    await grantAccess(urls);
-    return convertURLsToEntries(urls);
-};
-/**
- * Checks if the specified set of allowed effects contains the given effect.
- * See: http://www.w3.org/TR/html5/editing.html#the-datatransfer-interface
- */
-const isDropEffectAllowed = (effectAllowed, dropEffect) => {
-    return effectAllowed === 'all' ||
-        effectAllowed?.toLowerCase().indexOf(dropEffect) !== -1;
-};
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Controller to handle naming.
- */
-class NamingController {
-    constructor(listContainer_, alertDialog_, confirmDialog_, directoryModel_, fileFilter_, selectionHandler_) {
-        this.listContainer_ = listContainer_;
-        this.alertDialog_ = alertDialog_;
-        this.confirmDialog_ = confirmDialog_;
-        this.directoryModel_ = directoryModel_;
-        this.fileFilter_ = fileFilter_;
-        this.selectionHandler_ = selectionHandler_;
-        /**
-         * Whether the entry being renamed is a root of a removable
-         * partition/volume.
-         */
-        this.isRemovableRoot_ = false;
-        this.volumeInfo_ = null;
-        // Register events.
-        this.listContainer_.renameInput.addEventListener('keydown', this.onRenameInputKeyDown_.bind(this));
-        this.listContainer_.renameInput.addEventListener('blur', this.onRenameInputBlur_.bind(this));
-    }
-    /**
-     * Verifies the user entered name for file or folder to be created or
-     * renamed to. See also validateFileName.
-     * Returns true immediately if the name is valid, else returns false
-     * after the user has dismissed the error dialog.
-     *
-     * @param parentEntry The URL of the parent directory entry.
-     * @param name New file or folder name.
-     * @return True if valid.
-     */
-    async validateFileName_(parentEntry, name) {
-        try {
-            await validateFileName(parentEntry, name, this.fileFilter_.isHiddenFilesVisible());
-            return true;
-        }
-        catch (error) {
-            await this.alertDialog_.showAsync(error.message);
-            return false;
-        }
-    }
-    async validateFileNameForSaving(filename) {
-        const directory = this.directoryModel_.getCurrentDirEntry();
-        const currentDirUrl = directory.toURL().replace(/\/?$/, '/');
-        const fileUrl = currentDirUrl + encodeURIComponent(filename);
-        try {
-            const isValid = await this.validateFileName_(directory, filename);
-            if (!isValid) {
-                throw new Error('Invalid filename.');
-            }
-            if (directory && isFakeEntry(directory)) {
-                // Can't save a file into a fake directory.
-                throw new Error('Cannot save into fake entry.');
-            }
-            await getFile(directory, filename, { create: false });
-        }
-        catch (error) {
-            if (error instanceof DOMException) {
-                if (error.name == FileErrorToDomError.NOT_FOUND_ERR) {
-                    // The file does not exist, so it should be ok to create a new file.
-                    return fileUrl;
-                }
-                if (error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) {
-                    // A directory is found. Do not allow to overwrite directory.
-                    this.alertDialog_.show(strf('DIRECTORY_ALREADY_EXISTS', filename));
-                    throw error;
-                }
-                // Unexpected error.
-                console.warn('File save failed:', error.code);
-            }
-            throw error;
-        }
-        // An existing file is found. Show confirmation dialog to overwrite it.
-        // If the user selects "OK", save it.
-        return new Promise((fulfill, reject) => {
-            this.confirmDialog_.show(strf('CONFIRM_OVERWRITE_FILE', filename), () => fulfill(fileUrl), () => reject(new UserCanceledError('Canceled')));
-        });
-    }
-    isRenamingInProgress() {
-        return !!this.getRenameInput_().currentEntry;
-    }
-    /**
-     * Start the renaming flow. The `isRemovableRoot` parameter indicates whether
-     * the target is a removable volume root or not. The `volumeInfo` parameter
-     * provides a volume information about the target entry. The `volumeInfo`
-     * parameter can be null if method is invoked on a folder that is in the
-     * tree view and is not root of an external drive.
-     */
-    initiateRename(isRemovableRoot = false, volumeInfo = null) {
-        this.isRemovableRoot_ = isRemovableRoot;
-        if (isRemovableRoot) {
-            assert$1(volumeInfo);
-            this.volumeInfo_ = volumeInfo;
-        }
-        else {
-            this.volumeInfo_ = null;
-        }
-        const selectedIndex = this.listContainer_.selectionModel?.selectedIndex ?? -1;
-        const item = this.listContainer_.currentList.getListItemByIndex(selectedIndex);
-        if (!item) {
-            return;
-        }
-        const label = item.querySelector('.filename-label');
-        const input = this.listContainer_.renameInput;
-        const dataModel = this.listContainer_.currentList.dataModel;
-        const currentEntry = dataModel.item(item.listIndex);
-        input.value = label.textContent ?? '';
-        item.setAttribute('renaming', '');
-        label.parentNode.appendChild(input);
-        input.focus();
-        const selectionEnd = input.value.lastIndexOf('.');
-        if (currentEntry.isFile && selectionEnd !== -1) {
-            input.selectionStart = 0;
-            input.selectionEnd = selectionEnd;
-        }
-        else {
-            input.select();
-        }
-        // This has to be set late in the process so we don't handle spurious
-        // blur events.
-        this.getRenameInput_().currentEntry = currentEntry;
-        this.listContainer_.startBatchUpdates();
-    }
-    /**
-     * Restores the item which is being renamed while refreshing the file list. Do
-     * nothing if no item is being renamed or such an item disappeared.
-     *
-     * While refreshing file list it gets repopulated with new file entries.
-     * There is not a big difference whether DOM items stay the same or not.
-     * Except for the item that the user is renaming.
-     */
-    restoreItemBeingRenamed() {
-        if (!this.isRenamingInProgress()) {
-            return;
-        }
-        const dm = this.directoryModel_;
-        const leadIndex = dm.getFileListSelection().leadIndex;
-        if (leadIndex < 0) {
-            return;
-        }
-        const leadEntry = dm.getFileList().item(leadIndex);
-        if (!isSameEntry(this.getRenameInput_().currentEntry, leadEntry)) {
-            return;
-        }
-        const leadListItem = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
-        if (this.listContainer_.currentListType == ListType.DETAIL) {
-            this.listContainer_.table.updateFileMetadata(leadListItem, leadEntry);
-        }
-        this.listContainer_.currentList.restoreLeadItem(leadListItem);
-    }
-    /**
-     * Convenience method to access HTMLInputElement with the type that contains
-     * all extra properties we set on it.
-     */
-    getRenameInput_() {
-        return this.listContainer_.renameInput;
-    }
-    onRenameInputKeyDown_(event) {
-        if (!this.isRenamingInProgress()) {
-            return;
-        }
-        // Do not move selection or lead item in list during rename.
-        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-            event.stopPropagation();
-        }
-        switch (getKeyModifiers(event) + event.key) {
-            case 'Escape':
-                this.cancelRename_();
-                event.preventDefault();
-                break;
-            case 'Enter':
-                this.commitRename_();
-                event.preventDefault();
-                break;
-        }
-    }
-    onRenameInputBlur_() {
-        const contextMenu = this.getRenameInput_().contextMenu;
-        if (contextMenu && !contextMenu.hidden) {
-            return;
-        }
-        if (this.isRenamingInProgress() && !this.getRenameInput_().validation) {
-            this.commitRename_();
-        }
-    }
-    /**
-     * Returns a promise that resolves when done renaming - both when renaming is
-     * successful and when it fails.
-     */
-    async commitRename_() {
-        const input = this.getRenameInput_();
-        const entry = this.getRenameInput_().currentEntry;
-        const newName = input.value;
-        const renamedItemElement = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
-        const nameNode = renamedItemElement.querySelector('.filename-label');
-        if (!newName || newName == nameNode?.textContent) {
-            this.cancelRename_();
-            return;
-        }
-        const volumeInfo = this.volumeInfo_;
-        const isRemovableRoot = this.isRemovableRoot_;
-        try {
-            input.validation = true;
-            await validateEntryName(entry, newName, this.fileFilter_.isHiddenFilesVisible(), volumeInfo, isRemovableRoot);
-        }
-        catch (error) {
-            await this.alertDialog_.showAsync(error.message);
-            // Cancel rename if it fails to restore focus from alert dialog.
-            // Otherwise, just cancel the commitment and continue to rename.
-            if (document.activeElement !== input) {
-                this.cancelRename_();
-            }
-            return;
-        }
-        finally {
-            input.validation = false;
-        }
-        // Validation succeeded. Do renaming.
-        this.getRenameInput_().currentEntry = null;
-        if (this.listContainer_.renameInput.parentNode) {
-            this.listContainer_.renameInput.parentNode.removeChild(this.listContainer_.renameInput);
-        }
-        // Optimistically apply new name immediately to avoid flickering in
-        // case of success.
-        nameNode.textContent = newName;
-        try {
-            const newEntry = await renameEntry(entry, newName, volumeInfo, isRemovableRoot);
-            // RemovableRoot doesn't have a callback to report renaming is done.
-            if (!isRemovableRoot) {
-                await this.directoryModel_.onRenameEntry(entry, newEntry);
-            }
-            const selectionModel = this.listContainer_.currentList.selectionModel;
-            // Select new entry.
-            selectionModel.selectedIndex =
-                this.directoryModel_.getFileList().indexOf(newEntry);
-            // Force to update selection immediately.
-            this.selectionHandler_.onFileSelectionChanged();
-            renamedItemElement.removeAttribute('renaming');
-            this.listContainer_.endBatchUpdates();
-            // Focus may go out of the list. Back it to the list.
-            this.listContainer_.currentList.focus();
-        }
-        catch (error) {
-            // Write back to the old name.
-            nameNode.textContent = entry.name;
-            renamedItemElement.removeAttribute('renaming');
-            this.listContainer_.endBatchUpdates();
-            // Show error dialog.
-            this.alertDialog_.show(error.message);
-        }
-    }
-    cancelRename_() {
-        this.getRenameInput_().currentEntry = null;
-        const item = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
-        if (item) {
-            item.removeAttribute('renaming');
-        }
-        const parent = this.listContainer_.renameInput.parentNode;
-        if (parent) {
-            parent.removeChild(this.listContainer_.renameInput);
-        }
-        this.listContainer_.endBatchUpdates();
-        // Focus may go out of the list. Back it to the list.
-        this.listContainer_.currentList.focus();
-    }
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Controller for spinners. Spinner requests can be stacked. Eg. if show()
- * is called 3 times, the hide callback has to be called 3 times to make the
- * spinner invisible.
- */
-class SpinnerController {
-    constructor(element_) {
-        this.element_ = element_;
-        this.activeSpinners_ = 0;
-        this.pendingSpinnerTimerIds_ = new Set();
-        this.blinkDuration_ = 1000; // In milliseconds.
-    }
-    /**
-     * Blinks the spinner for a short period of time. Hides automatically.
-     */
-    blink() {
-        const hideCallback = this.show();
-        setTimeout(hideCallback, this.blinkDuration_);
-    }
-    /**
-     * Shows the spinner immediately until the returned callback is called.
-     * @return Hide callback.
-     */
-    show() {
-        return this.showWithDelay(0, () => { });
-    }
-    /**
-     * Shows the spinner until hide is called. The returned callback must be
-     * called when the spinner is not necessary anymore.
-     * @param delay Delay in milliseconds.
-     * @param callback Show callback.
-     * @return Hide callback.
-     */
-    showWithDelay(delay, callback) {
-        const timerId = setTimeout(() => {
-            this.activeSpinners_++;
-            if (this.activeSpinners_ === 1) {
-                this.element_.hidden = false;
-            }
-            this.pendingSpinnerTimerIds_.delete(timerId);
-            callback();
-        }, delay);
-        this.pendingSpinnerTimerIds_.add(timerId);
-        return this.maybeHide_.bind(this, timerId);
-    }
-    /**
-     * Sets blink duration to the given `duration` value that must
-     * be specified in milliseconds.
-     */
-    setBlinkDurationForTesting(duration) {
-        this.blinkDuration_ = duration;
-    }
-    maybeHide_(timerId) {
-        if (this.pendingSpinnerTimerIds_.has(timerId)) {
-            clearTimeout(timerId);
-            this.pendingSpinnerTimerIds_.delete(timerId);
-            return;
-        }
-        this.activeSpinners_--;
-        if (this.activeSpinners_ === 0) {
-            this.element_.hidden = true;
-        }
-    }
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// File generated by //ui/file_manager/base/gn/uma_enums_generate.py.
-/**
- * List of file extensions to record in UMA, from enums.xml ViewFileType.
- */
-const UMA_INDEX_KNOWN_EXTENSIONS = Object.freeze([
-    'other', '.3ga', '.3gp',
-    '.aac', '.alac', '.asf',
-    '.avi', '.bmp', '.csv',
-    '.doc', '.docx', '.flac',
-    '.gif', '.jpeg', '.jpg',
-    '.log', '.m3u', '.m3u8',
-    '.m4a', '.m4v', '.mid',
-    '.mkv', '.mov', '.mp3',
-    '.mp4', '.mpg', '.odf',
-    '.odp', '.ods', '.odt',
-    '.oga', '.ogg', '.ogv',
-    '.pdf', '.png', '.ppt',
-    '.pptx', '.ra', '.ram',
-    '.rar', '.rm', '.rtf',
-    '.wav', '.webm', '.webp',
-    '.wma', '.wmv', '.xls',
-    '.xlsx', '.crdownload', '.crx',
-    '.dmg', '.exe', '.html',
-    '.htm', '.jar', '.ps',
-    '.torrent', '.txt', '.zip',
-    'directory', 'no extension', 'unknown extension',
-    '.mhtml', '.gdoc', '.gsheet',
-    '.gslides', '.arw', '.cr2',
-    '.dng', '.nef', '.nrw',
-    '.orf', '.raf', '.rw2',
-    '.tini',
-]);
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Office file handlers UMA values (must be consistent with OfficeFileHandler in
- * tools/metrics/histograms/enums.xml).
- * @const @enum {number}
- */
-const OfficeFileHandlersHistogramValues = {
-    OTHER: 0,
-    WEB_DRIVE_OFFICE: 1,
-    QUICK_OFFICE: 2,
-};
-/**
- * Represents a collection of available tasks to execute for a specific list
- * of entries.
- */
-class FileTasks {
-    constructor(volumeManager_, metadataModel_, directoryModel_, ui_, fileTransferController_, entries_, resultingTasks_, defaultTask_, taskHistory_, progressCenter_, taskController_) {
-        this.volumeManager_ = volumeManager_;
-        this.metadataModel_ = metadataModel_;
-        this.directoryModel_ = directoryModel_;
-        this.ui_ = ui_;
-        this.fileTransferController_ = fileTransferController_;
-        this.entries_ = entries_;
-        this.resultingTasks_ = resultingTasks_;
-        this.defaultTask_ = defaultTask_;
-        this.taskHistory_ = taskHistory_;
-        this.progressCenter_ = progressCenter_;
-        this.taskController_ = taskController_;
-        this.mutex_ = new AsyncQueue();
-    }
-    /**
-     * Creates an instance of FileTasks for the specified list of entries with
-     * mime types.
-     */
-    static async create(volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, taskHistory, crostini, progressCenter, taskController) {
-        let resultingTasks = {
-            tasks: [],
-            policyDefaultHandlerStatus: undefined,
-        };
-        // Cannot use fake entries with getFileTasks.
-        entries = entries.filter(e => !isFakeEntry(e));
-        const dlpSourceUrls = metadataModel.getCache(entries, ['sourceUrl'])
-            .map(m => m.sourceUrl || '');
-        if (entries.length !== 0) {
-            resultingTasks = await getFileTasks(entries, dlpSourceUrls);
-            if (!resultingTasks || !resultingTasks.tasks) {
-                throw new Error('Cannot get file tasks.');
-            }
-        }
-        // Linux package installation is currently only supported for a single
-        // file which is inside the Linux container, or in a shareable volume.
-        // TODO(timloh): Instead of filtering these out, we probably should show a
-        // dialog with an error message, similar to when attempting to run
-        // Crostini tasks with non-Crostini entries.
-        if (entries.length !== 1 ||
-            !(isCrostiniEntry(entries[0], volumeManager) ||
-                crostini.canSharePath(DEFAULT_CROSTINI_VM, entries[0], false /* persist */))) {
-            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
-        }
-        const tasks = annotateTasks(resultingTasks.tasks, entries);
-        resultingTasks.tasks = tasks;
-        const defaultTask = getDefaultTask(tasks, resultingTasks.policyDefaultHandlerStatus, taskHistory);
-        return new FileTasks(volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, resultingTasks, defaultTask, taskHistory, progressCenter, taskController);
-    }
-    /** Creates FileTasks instance based on the data from the Store. */
-    static fromStoreTasks(tasks, volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, taskHistory, progressCenter, taskController) {
-        return new FileTasks(volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, tasks, tasks.defaultTask ?? null, taskHistory, progressCenter, taskController);
-    }
-    get entries() {
-        return this.entries_;
-    }
-    get defaultTask() {
-        return this.defaultTask_;
-    }
-    getAnnotatedTasks() {
-        // resultingTasks_.tasks is annotated at create().
-        return this.resultingTasks_.tasks;
-    }
-    /** Gets the policy default handler status.  */
-    getPolicyDefaultHandlerStatus() {
-        return this.resultingTasks_.policyDefaultHandlerStatus;
-    }
-    /** Returns whether the system is currently offline. */
-    static isOffline_(volumeManager) {
-        const connection = volumeManager.getDriveConnectionState();
-        return connection.type ==
-            chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE &&
-            connection.reason ==
-                chrome.fileManagerPrivate.DriveOfflineReason.NO_NETWORK;
-    }
-    /**
-     * Records a metric, as well as recording online and offline versions of it.
-     *
-     * @param name Metric name.
-     * @param value Enum value.
-     * @param values Array of valid values.
-     */
-    static recordEnumWithOnlineAndOffline_(volumeManager, name, value, values) {
-        recordEnum(name, value, values);
-        if (FileTasks.isOffline_(volumeManager)) {
-            recordEnum(name + '.Offline', value, values);
-        }
-        else {
-            recordEnum(name + '.Online', value, values);
-        }
-    }
-    /**
-     * Returns ViewFileType enum or 'other' for the given entry.
-     * @return A ViewFileType enum or 'other'.
-     */
-    static getViewFileType(entry) {
-        let extension = getExtension(entry).toLowerCase();
-        if (UMA_INDEX_KNOWN_EXTENSIONS.indexOf(extension) < 0) {
-            extension = 'other';
-        }
-        return extension;
-    }
-    /** Records trial of opening file grouped by extensions.  */
-    static recordViewingFileTypeUma_(volumeManager, entries) {
-        for (const entry of entries) {
-            FileTasks.recordEnumWithOnlineAndOffline_(volumeManager, 'ViewingFileType', FileTasks.getViewFileType(entry), UMA_INDEX_KNOWN_EXTENSIONS);
-        }
-    }
-    /**
-     * Records trial of opening file grouped by root types.
-     * @param rootType The type of the root where entries are being opened.
-     */
-    static recordViewingRootTypeUma_(volumeManager, rootType) {
-        if (rootType !== null) {
-            FileTasks.recordEnumWithOnlineAndOffline_(volumeManager, 'ViewingRootType', rootType, RootTypesForUMA);
-        }
-    }
-    /**
-     * Records the elapsed time for mounting a ZIP file as a ZipMountTime
-     * histogram value.
-     * @param rootType The type of the root where the ZIP file has been mounted
-     *     from.
-     * @param time Time to be recorded in milliseconds.
-     */
-    static recordZipMountTimeUma_(rootType, time) {
-        let root;
-        switch (rootType) {
-            case RootType.MY_FILES:
-            case RootType.DOWNLOADS:
-                root = 'MyFiles';
-                break;
-            case RootType.DRIVE:
-                root = 'Drive';
-                break;
-            default:
-                root = 'Other';
-        }
-        recordTime(`ZipMountTime.${root}`, time);
-    }
-    /**
-     * Records trial of opening Office file grouped by file handlers.
-     * @param entries The entries to be opened.
-     * @param rootType The type of the root where entries are being opened.
-     */
-    static recordOfficeFileHandlerUma_(volumeManager, entries, rootType, task) {
-        if (!task) {
-            return;
-        }
-        // This UMA is only applicable to Office files.
-        if (!entries.every(entry => hasOfficeExtension(entry))) {
-            return;
-        }
-        let histogramName = 'OfficeFiles.FileHandler';
-        switch (rootType) {
-            case RootType.DRIVE:
-                histogramName += '.Drive';
-                break;
-            default:
-                histogramName += '.NotDrive';
-        }
-        if (FileTasks.isOffline_(volumeManager)) {
-            histogramName += '.Offline';
-        }
-        else {
-            histogramName += '.Online';
-        }
-        let fileHandler = OfficeFileHandlersHistogramValues.OTHER;
-        switch (parseActionId(task.descriptor.actionId)) {
-            case 'open-web-drive-office-word':
-            case 'open-web-drive-office-excel':
-            case 'open-web-drive-office-powerpoint':
-                fileHandler = OfficeFileHandlersHistogramValues.WEB_DRIVE_OFFICE;
-                break;
-            case 'qo_documents':
-                fileHandler = OfficeFileHandlersHistogramValues.QUICK_OFFICE;
-                break;
-        }
-        recordEnum(histogramName, fileHandler, Object.values(OfficeFileHandlersHistogramValues));
-    }
-    /** Returns true if the descriptor is for an internal task.  */
-    static isInternalTask_(descriptor) {
-        const { appId, taskType, actionId } = descriptor;
-        if (!isFilesAppId(appId)) {
-            return false;
-        }
-        // Legacy Files app task type is 'app', Files SWA is 'web'.
-        if (!(taskType === 'app' || taskType == 'web')) {
-            return false;
-        }
-        const parsedActionId = parseActionId(actionId);
-        switch (parsedActionId) {
-            case 'mount-archive':
-            case 'install-linux-package':
-            case 'import-crostini-image':
-                return true;
-            default:
-                return false;
-        }
-    }
-    /**
-     * Show dialog when user opens or drags a file with PluginVM and the file
-     * is not in PvmSharedDir or shared with PluginVM. The dialog tells the
-     * user to move or copy the file to PvmSharedDir and offers an action to do
-     * that.
-     *
-     * @param entries Selected entries to be moved or copied.
-     * @param ui FileManager UI to show dialog.
-     * @param moveMessage Message if files are local and can be moved.
-     * @param copyMessage Message if files should be copied.
-     */
-    static showPluginVmNotSharedDialog(entries, volumeManager, metadataModel, ui, moveMessage, copyMessage, fileTransferController, directoryModel) {
-        assert(entries.length > 0);
-        const isMyFiles = isMyFilesEntry(entries[0], volumeManager);
-        const dialog = new FilesConfirmDialog(ui.element);
-        dialog.setOkLabel(str(isMyFiles ? 'CONFIRM_MOVE_BUTTON_LABEL' : 'CONFIRM_COPY_BUTTON_LABEL'));
-        dialog.show(isMyFiles ? moveMessage : copyMessage, async () => {
-            if (!fileTransferController) {
-                console.warn('FileTransferController not set');
-                return;
-            }
-            const pvmDir = await FileTasks.getPvmSharedDir_(volumeManager);
-            assert(volumeManager.getLocationInfo(pvmDir));
-            fileTransferController.executePaste(new PastePlan(entries.map(e => e.toURL()), [], pvmDir, metadataModel, 
-            /*isMove=*/ isMyFiles));
-            directoryModel.changeDirectoryEntry(pvmDir);
-        });
-    }
-    /** Executes default task.  */
-    async executeDefault() {
-        FileTasks.recordViewingFileTypeUma_(this.volumeManager_, this.entries_);
-        FileTasks.recordViewingRootTypeUma_(this.volumeManager_, this.directoryModel_.getCurrentRootType());
-        FileTasks.recordOfficeFileHandlerUma_(this.volumeManager_, this.entries_, this.directoryModel_.getCurrentRootType(), this.defaultTask_);
-        return this.executeDefaultInternal_();
-    }
-    async executeDefaultInternal_() {
-        if (this.defaultTask_) {
-            this.executeInternal_(this.defaultTask_);
-            return;
-        }
-        // If there's policy involved and |defaultTask_| is null, means that policy
-        // assignment was incorrect. We should not execute anything in this case.
-        if (this.getPolicyDefaultHandlerStatus()) {
-            console.assert(this.getPolicyDefaultHandlerStatus() ===
-                chrome.fileManagerPrivate.PolicyDefaultHandlerStatus
-                    .INCORRECT_ASSIGNMENT, 'policyDefaultHandlerStatus expected to be INCORRECT, thus not executing the task');
-            return;
-        }
-        const nonGenericTasks = this.resultingTasks_.tasks.filter(t => !t.isGenericFileHandler);
-        // If there is only one task that is not a generic file handler, it should
-        // be executed as a default task. If there are multiple tasks that are not
-        // generic file handlers, and none of them are considered as default, we
-        // show a task picker to ask the user to choose one.
-        if (nonGenericTasks.length >= 2) {
-            this.showTaskPicker(this.ui_.defaultTaskPicker, str('OPEN_WITH_BUTTON_LABEL'), '', task => {
-                this.execute(task);
-            }, TaskPickerType.OpenWith);
-            return;
-        }
-        // We don't have tasks, so try to show a file in a browser tab.
-        // We only do that for single selection to avoid confusion.
-        if (this.entries_.length !== 1) {
-            return;
-        }
-        const filename = this.entries_[0].name;
-        const extension = splitExtension(filename)[1] || null;
-        try {
-            await this.checkAvailability_();
-        }
-        catch (error) {
-            console.warn('Rejected after checking availability due to', error);
-            return;
-        }
-        try {
-            const descriptor = {
-                appId: LEGACY_FILES_EXTENSION_ID,
-                taskType: 'file',
-                actionId: 'view-in-browser',
-            };
-            const result = await executeTask(descriptor, this.entries_);
-            switch (result) {
-                case 'opened':
-                    break;
-                case 'message_sent':
-                    isTeleported().then(teleported => {
-                        if (teleported) {
-                            this.ui_.showOpenInOtherDesktopAlert(this.entries_);
-                        }
-                    });
-                    break;
-                case 'empty':
-                    break;
-                case 'failed':
-                    throw new Error();
-            }
-        }
-        catch {
-            let textMessageId;
-            let titleMessageId;
-            switch (extension) {
-                case '.exe':
-                case '.msi':
-                    textMessageId = 'NO_TASK_FOR_EXECUTABLE';
-                    break;
-                case '.dmg':
-                    textMessageId = 'NO_TASK_FOR_DMG';
-                    break;
-                case '.crx':
-                    textMessageId = 'NO_TASK_FOR_CRX';
-                    titleMessageId = 'NO_TASK_FOR_CRX_TITLE';
-                    break;
-                default:
-                    textMessageId = 'NO_TASK_FOR_FILE';
-            }
-            const text = strf(textMessageId, str('NO_TASK_FOR_FILE_URL'));
-            const title = titleMessageId ? str(titleMessageId) : filename;
-            this.ui_.alertDialog.showHtml(title, text);
-        }
-    }
-    /** Executes a single task.  */
-    execute(task) {
-        FileTasks.recordViewingFileTypeUma_(this.volumeManager_, this.entries_);
-        FileTasks.recordViewingRootTypeUma_(this.volumeManager_, this.directoryModel_.getCurrentRootType());
-        FileTasks.recordOfficeFileHandlerUma_(this.volumeManager_, this.entries_, this.directoryModel_.getCurrentRootType(), task);
-        this.executeInternal_(task);
-    }
-    /** The core implementation to execute a single task. */
-    async executeInternal_(task) {
-        const entries = this.entries_;
-        try {
-            await this.checkAvailability_();
-        }
-        catch (error) {
-            console.warn('Rejected after checking availability due to', error);
-            return;
-        }
-        this.taskHistory_.recordTaskExecuted(task.descriptor);
-        const msg = (entries.length === 1) ?
-            strf('OPEN_A11Y', entries[0].name) :
-            strf('OPEN_A11Y_PLURAL', entries.length);
-        this.ui_.speakA11yMessage(msg);
-        if (FileTasks.isInternalTask_(task.descriptor)) {
-            this.executeInternalTask_(task.descriptor);
-            return;
-        }
-        try {
-            const result = await executeTask(task.descriptor, entries);
-            const TaskResult = chrome.fileManagerPrivate.TaskResult;
-            switch (result) {
-                case TaskResult.MESSAGE_SENT:
-                    isTeleported().then((teleported) => {
-                        if (teleported) {
-                            this.ui_.showOpenInOtherDesktopAlert(entries);
-                        }
-                    });
-                    break;
-                case TaskResult.FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED:
-                    const moveMessage = strf('UNABLE_TO_OPEN_WITH_PLUGIN_VM_DIRECTORY_NOT_SHARED_MESSAGE', task.title);
-                    const copyMessage = strf('UNABLE_TO_OPEN_WITH_PLUGIN_VM_EXTERNAL_DRIVE_MESSAGE', task.title);
-                    FileTasks.showPluginVmNotSharedDialog(entries, this.volumeManager_, this.metadataModel_, this.ui_, moveMessage, copyMessage, this.fileTransferController_, this.directoryModel_);
-                    break;
-            }
-        }
-        catch (error) {
-            console.warn(`Failed to execute task ${JSON.stringify(task.descriptor)}: ${error}`);
-        }
-    }
-    /**
-     * Ensures that the all files are available right now.
-     * Must not call before initialization.
-     * Resolved when checking is completed and all files are available
-     * Rejected/throws if the user cancels the confirmation dialog for downloading
-     * in cellular/metered network dialog.
-     */
-    async checkAvailability_() {
-        const areAll = (entries, props, name) => {
-            let okEntriesNum = 0;
-            for (let i = 0; i < entries.length; i++) {
-                // If got no properties, we safely assume that item is available.
-                if (props[i] && (props[i][name] || entries[i]?.isDirectory)) {
-                    okEntriesNum++;
-                }
-            }
-            return okEntriesNum === props.length;
-        };
-        const containsDriveEntries = this.entries_.some(entry => {
-            const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
-            return volumeInfo && volumeInfo.volumeType === VolumeType.DRIVE;
-        });
-        // Availability is not checked for non-Drive files, as availableOffline, nor
-        // availableWhenMetered are not exposed for other types of volumes at this
-        // moment.
-        if (!containsDriveEntries) {
-            return;
-        }
-        const isDriveOffline = this.volumeManager_.getDriveConnectionState().type ===
-            chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE;
-        if (isDriveOffline) {
-            const props = await this.metadataModel_.get(this.entries_, ['availableOffline', 'hosted']);
-            if (areAll(this.entries_, props, 'availableOffline')) {
-                return;
-            }
-            const msg = props[0].hosted ?
-                str(this.entries_.length === 1 ? 'HOSTED_OFFLINE_MESSAGE' :
-                    'HOSTED_OFFLINE_MESSAGE_PLURAL') :
-                strf(this.entries_.length === 1 ? 'OFFLINE_MESSAGE' :
-                    'OFFLINE_MESSAGE_PLURAL', str('OFFLINE_COLUMN_LABEL'));
-            this.ui_.alertDialog.showHtml(str('OFFLINE_HEADER'), msg);
-            const isBulkPinningEnabled = !!getStore().getState()?.preferences?.driveFsBulkPinningEnabled;
-            for (const entry of this.entries_) {
-                recordEnum('DriveOfflineOpen.Unavailable', FileTasks.getViewFileType(entry), UMA_INDEX_KNOWN_EXTENSIONS);
-                if (isBulkPinningEnabled) {
-                    recordEnum('GoogleDrive.BulkPinning.OfflineOpen', FileTasks.getViewFileType(entry), UMA_INDEX_KNOWN_EXTENSIONS);
-                }
-            }
-            return Promise.reject('drive is offline');
-        }
-        const isOnMetered = this.volumeManager_.getDriveConnectionState().type ===
-            chrome.fileManagerPrivate.DriveConnectionStateType.METERED;
-        if (!isOnMetered) {
-            return;
-        }
-        const props = await this.metadataModel_.get(this.entries_, ['availableWhenMetered', 'size']);
-        if (areAll(this.entries_, props, 'availableWhenMetered')) {
-            return;
-        }
-        let sizeToDownload = 0;
-        for (let i = 0; i !== this.entries_.length; i++) {
-            if (!props[i].availableWhenMetered) {
-                sizeToDownload += (props[i].size || 0);
-            }
-        }
-        const msg = strf(this.entries_.length === 1 ? 'CONFIRM_MOBILE_DATA_USE' :
-            'CONFIRM_MOBILE_DATA_USE_PLURAL', bytesToString(sizeToDownload));
-        return new Promise((resolve, reject) => this.ui_.confirmDialog.show(msg, resolve, reject));
-    }
-    /**
-     * Executes an internal task, which is a task Files app handles internally
-     * without calling into fileManagerPrivate to execute it.
-     */
-    executeInternalTask_(descriptor) {
-        const parsedActionId = parseActionId(descriptor.actionId);
-        if (parsedActionId === 'mount-archive') {
-            this.mountArchives_();
-            return;
-        }
-        if (parsedActionId === 'install-linux-package') {
-            this.installLinuxPackageInternal_();
-            return;
-        }
-        if (parsedActionId === 'import-crostini-image') {
-            this.importCrostiniImageInternal_();
-            return;
-        }
-        console.error('The specified task is not a valid internal task: ' +
-            makeTaskID(descriptor));
-    }
-    /** Install a Linux Package in the Linux container.  */
-    installLinuxPackageInternal_() {
-        assert(this.entries_.length === 1);
-        this.ui_.installLinuxPackageDialog.showInstallLinuxPackageDialog(this.entries_[0]);
-    }
-    /**
-     * Imports a Crostini Image File (.tini). This overrides the existing Linux
-     * apps and files.
-     */
-    importCrostiniImageInternal_() {
-        assert(this.entries_.length === 1);
-        this.ui_.importCrostiniImageDialog.showImportCrostiniImageDialog(this.entries_[0]);
-    }
-    /**
-     * Mounts an archive file. Asks for password and retries if necessary.
-     * @param url URL of the archive file to mount.
-     */
-    async mountArchive_(url) {
-        const filename = extractFilePath(url)?.split('/').pop() || '';
-        const item = new ProgressCenterItem();
-        item.id = 'Mounting: ' + url;
-        item.type = ProgressItemType.MOUNT_ARCHIVE;
-        item.message = strf('ARCHIVE_MOUNT_MESSAGE', filename);
-        item.cancelCallback = async () => {
-            // Remove progress panel.
-            item.state = ProgressItemState.CANCELED;
-            this.progressCenter_.updateItem(item);
-            // Cancel archive mounting.
-            try {
-                await this.volumeManager_.cancelMounting(url);
-            }
-            catch (error) {
-                console.warn('Cannot cancel archive (redacted):', error);
-                console.log(`Cannot cancel archive '${url}':`, error);
-            }
-        };
-        // Display progress panel.
-        item.state = ProgressItemState.PROGRESSING;
-        this.progressCenter_.updateItem(item);
-        // First time, try without providing a password.
-        try {
-            return await this.volumeManager_.mountArchive(url);
-        }
-        catch (error) {
-            // If error is not about needing a password, propagate it.
-            if (error !== VolumeError.NEED_PASSWORD) {
-                throw error;
-            }
-        }
-        finally {
-            // Remove progress panel.
-            item.state = ProgressItemState.COMPLETED;
-            this.progressCenter_.updateItem(item);
-        }
-        // We need a password.
-        const unlock = await this.mutex_.lock();
-        try {
-            /** @type {?string} */ let password = null;
-            while (true) {
-                // Ask for password.
-                do {
-                    const dialog = this.ui_.passwordDialog;
-                    password = await dialog.askForPassword(filename, password);
-                } while (!password);
-                // Display progress panel.
-                item.state = ProgressItemState.PROGRESSING;
-                this.progressCenter_.updateItem(item);
-                // Mount archive with password.
-                try {
-                    return await this.volumeManager_.mountArchive(url, password);
-                }
-                catch (error) {
-                    // If error is not about needing a password, propagate it.
-                    if (error !== VolumeError.NEED_PASSWORD) {
-                        throw error;
-                    }
-                }
-                finally {
-                    // Remove progress panel.
-                    item.state = ProgressItemState.COMPLETED;
-                    this.progressCenter_.updateItem(item);
-                }
-            }
-        }
-        finally {
-            unlock();
-        }
-    }
-    /**
-     * Mounts an archive file and changes directory. Asks for password if
-     * necessary. Displays error message if necessary.
-     * @param url URL of the archive file to moumt.
-     * @return a promise that is never rejected.
-     */
-    async mountArchiveAndChangeDirectory_(tracker, url) {
-        try {
-            const startTime = Date.now();
-            const volumeInfo = await this.mountArchive_(url);
-            // On mountArchive_ success, record mount time UMA.
-            FileTasks.recordZipMountTimeUma_(this.directoryModel_.getCurrentRootType(), Date.now() - startTime);
-            if (tracker.hasChanged) {
-                return;
-            }
-            try {
-                const displayRoot = await volumeInfo.resolveDisplayRoot();
-                if (tracker.hasChanged) {
-                    return;
-                }
-                this.directoryModel_.changeDirectoryEntry(displayRoot);
-            }
-            catch (error) {
-                console.error('Cannot resolve display root after mounting:', error);
-            }
-        }
-        catch (error) {
-            // No need to display an error message if user canceled mounting or
-            // canceled the password prompt.
-            if (error === USER_CANCELLED || error === VolumeError.CANCELLED) {
-                return;
-            }
-            const filename = extractFilePath(url)?.split('/').pop() || '';
-            const item = new ProgressCenterItem();
-            item.id = 'Cannot mount: ' + url;
-            item.type = ProgressItemType.MOUNT_ARCHIVE;
-            const msgId = error === VolumeError.INVALID_PATH ?
-                'ARCHIVE_MOUNT_INVALID_PATH' :
-                'ARCHIVE_MOUNT_FAILED';
-            item.message = strf(msgId, filename);
-            item.state = ProgressItemState.ERROR;
-            this.progressCenter_.updateItem(item);
-            console.warn('Cannot mount (redacted):', error);
-            console.debug(`Cannot mount '${url}':`, error);
-        }
-    }
-    /** Mounts the selected archive(s). Asks for password if necessary. */
-    async mountArchives_() {
-        const tracker = this.directoryModel_.createDirectoryChangeTracker();
-        tracker.start();
-        try {
-            // TODO(mtomasz): Move conversion from entry to url to custom bindings.
-            // crbug.com/345527.
-            const urls = entriesToURLs(this.entries_);
-            const promises = urls.map(url => this.mountArchiveAndChangeDirectory_(tracker, url));
-            await Promise.all(promises);
-        }
-        finally {
-            tracker.stop();
-        }
-    }
-    /**
-     * Shows modal task picker dialog with currently available list of tasks.
-     *
-     * @param taskDialog Task dialog to show and update.
-     * @param onSuccess Callback to pass selected task.
-     * @param pickerType Task picker type.
-     */
-    showTaskPicker(taskDialog, title, message, onSuccess, pickerType) {
-        let items = this.taskController_.createItems(this);
-        if (pickerType === TaskPickerType.ChangeDefault) {
-            items = items.filter(item => !item.isGenericFileHandler);
-        }
-        let defaultIdx = 0;
-        if (this.defaultTask_) {
-            for (let j = 0; j < items.length; j++) {
-                if (descriptorEqual(items[j].task.descriptor, this.defaultTask_.descriptor)) {
-                    defaultIdx = j;
-                }
-            }
-        }
-        taskDialog.showDefaultTaskDialog(title, message, items, defaultIdx, (item) => {
-            onSuccess(item.task);
-        });
-    }
-    static async getPvmSharedDir_(volumeManager) {
-        const volumeInfo = volumeManager.getCurrentProfileVolumeInfo(VolumeType.DOWNLOADS);
-        if (!volumeInfo) {
-            throw new Error(`Error getting PvmDefault dir`);
-        }
-        return await getDirectory(volumeInfo.fileSystem.root, 'PvmDefault', { create: false });
-    }
-}
-/**
- * Dialog types to show a task picker.
- * @enum {string}
- */
-const TaskPickerType = {
-    ChangeDefault: 'ChangeDefault',
-    OpenWith: 'OpenWith',
-};
-/** Office file extensions. */
-const OFFICE_EXTENSIONS = new Set(['.doc', '.docx', '.xls', 'xlsm', '.xlsx', '.ppt', '.pptx']);
-function hasOfficeExtension(entry) {
-    return OFFICE_EXTENSIONS.has(getExtension(entry));
-}
-function isCrostiniEntry(entry, volumeManager) {
-    const location = volumeManager.getLocationInfo(entry);
-    return !!location && location.rootType === RootType.CROSTINI;
-}
-function isMyFilesEntry(entry, volumeManager) {
-    const location = volumeManager.getLocationInfo(entry);
-    return !!location && location.rootType === RootType.DOWNLOADS;
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** Number of milliseconds in a day. */
-const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
-/** Controller for list contents update. */
-class MetadataUpdateController {
-    constructor(listContainer_, directoryModel_, metadataModel_, fileMetadataFormatter_) {
-        this.listContainer_ = listContainer_;
-        this.directoryModel_ = directoryModel_;
-        this.metadataModel_ = metadataModel_;
-        this.fileMetadataFormatter_ = fileMetadataFormatter_;
-        this.store_ = getStore();
-        chrome.fileManagerPrivate.onPreferencesChanged.addListener(this.onPreferencesChanged_.bind(this));
-        this.onPreferencesChanged_();
-        this.metadataModel_.addEventListener('update', this.onCachedMetadataUpdate_.bind(this));
-        // Update metadata to change 'Today' and 'Yesterday' dates.
-        const today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        today.setMilliseconds(0);
-        setTimeout(this.dailyUpdateModificationTime_.bind(this), today.getTime() + MILLISECONDS_IN_DAY - Date.now() + 1000);
-    }
-    /** Clears metadata cache for the current directory and its descendants. */
-    refreshCurrentDirectoryMetadata() {
-        const entries = this.directoryModel_.getFileList().slice();
-        const directoryEntry = this.directoryModel_.getCurrentDirEntry();
-        if (!directoryEntry) {
-            return;
-        }
-        const changedEntries = (isFakeEntry(directoryEntry) ? [] : [
-            unwrapEntry(directoryEntry),
-        ]).concat(entries);
-        this.metadataModel_.notifyEntriesChanged(changedEntries);
-        // We don't pass callback here. When new metadata arrives, we have an
-        // observer registered to update the UI.
-        this.metadataModel_.get(changedEntries, this.directoryModel_.getPrefetchPropertyNames());
-    }
-    /**
-     * Handles local metadata changes in the current directory.
-     * @param event Change event.
-     */
-    onCachedMetadataUpdate_(event) {
-        this.updateStore_(event.entries);
-        this.listContainer_.dataModel?.refreshGroupBySnapshot();
-        // TODO(hirono): Specify property name instead of metadata type.
-        this.listContainer_.currentView.updateListItemsMetadata('filesystem', event.entries);
-        this.listContainer_.currentView.updateListItemsMetadata('external', event.entries);
-    }
-    dailyUpdateModificationTime_() {
-        const entries = this.directoryModel_.getFileList().slice();
-        this.metadataModel_.get(entries, ['modificationTime']).then(() => {
-            this.listContainer_.currentView.updateListItemsMetadata('filesystem', entries);
-        });
-        setTimeout(this.dailyUpdateModificationTime_.bind(this), MILLISECONDS_IN_DAY);
-    }
-    onPreferencesChanged_() {
-        chrome.fileManagerPrivate.getPreferences(prefs => {
-            const use12hourClock = !prefs.use24hourClock;
-            this.fileMetadataFormatter_.setDateTimeFormat(use12hourClock);
-            // TODO(oka): Remove these two lines, and add fileMetadataFormatter to
-            // constructor for each field instead.
-            this.listContainer_.table.setDateTimeFormat(use12hourClock);
-            this.refreshCurrentDirectoryMetadata();
-        });
-    }
-    /** Sends the new metadata to the Store. */
-    updateStore_(entries) {
-        const metadata = entries.map((e) => ({
-            entry: e,
-            metadata: this.metadataModel_.getCache([e], this.directoryModel_.getPrefetchPropertyNames())[0],
-        }));
-        this.store_.dispatch(updateMetadata({ metadata }));
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class TaskController {
-    constructor(volumeManager_, ui_, metadataModel_, directoryModel_, selectionHandler_, metadataUpdateController_, crostini_, progressCenter_) {
-        this.volumeManager_ = volumeManager_;
-        this.ui_ = ui_;
-        this.metadataModel_ = metadataModel_;
-        this.directoryModel_ = directoryModel_;
-        this.selectionHandler_ = selectionHandler_;
-        this.metadataUpdateController_ = metadataUpdateController_;
-        this.crostini_ = crostini_;
-        this.progressCenter_ = progressCenter_;
-        this.fileTransferController_ = null;
-        this.canExecuteDefaultTask_ = false;
-        this.shouldHideDefaultTask_ = true;
-        this.canExecuteOpenActions_ = false;
-        /**
-         * Cached promise used to avoid initializing the same FileTasks
-         * multiple times.
-         */
-        this.tasks_ = null;
-        /** Map used to track extract IOTasks in progress.  */
-        this.extractTasks_ = new Map();
-        this.selectionFilesData_ = [];
-        this.selectionKeys_ = [];
-        this.taskHistory_ = new TaskHistory();
-        this.defaultTaskCommand_ =
-            assertInstanceof$1(document.querySelector('#default-task'), Command);
-        this.openWithCommand_ =
-            assertInstanceof$1(document.querySelector('#open-with'), Command);
-        this.store_ = getStore();
-        this.store_.subscribe(this);
-        ui_.taskMenuButton.addEventListener('combobutton-select', this.onTaskItemClicked_.bind(this));
-        // TODO: Move the following events to the Store.
-        this.taskHistory_.addEventListener(EventType$2.UPDATE, this.updateTasks_.bind(this));
-        chrome.fileManagerPrivate.onIOTaskProgressStatus.addListener(this.onIoTaskProgressStatus_.bind(this));
-        chrome.fileManagerPrivate.onAppsUpdated.addListener(this.clearCacheAndUpdateTasks_.bind(this));
-    }
-    onStateChanged(newState) {
-        const keys = newState.currentDirectory?.selection.keys ?? [];
-        const tasks = newState.currentDirectory?.selection.fileTasks;
-        // If the selection changed.
-        if (keys !== this.selectionKeys_ &&
-            (keys.length > 0 || this.selectionKeys_.length > 0)) {
-            this.selectionKeys_ = keys;
-            this.selectionFilesData_ = getFilesData(newState, keys ?? []);
-            // Kickoff the async/ActionsProducer to fetch the tasks for the new
-            // selection. If the new selection is empty, still need to update the
-            // store so no old file task lingers.
-            this.tasks_ = null;
-            this.store_.dispatch(fetchFileTasks(this.selectionFilesData_));
-            // Hides the button while fetching the tasks.
-            this.maybeHideButton();
-        }
-        // If the file tasks changed.
-        if (tasks !== this.selectionTasks_) {
-            this.selectionTasks_ = tasks;
-            if (tasks?.status === PropStatus.SUCCESS) {
-                this.updateTasks_();
-            }
-        }
-    }
-    setFileTransferController(fileTransferController) {
-        this.fileTransferController_ = fileTransferController;
-    }
-    /**
-     * Exposes the TaskHistory instance for the ActionsProducer.
-     *
-     * NOTE: This is a temporary workaround until the TaskHistory is migrated to
-     * the store.
-     */
-    get taskHistory() {
-        return this.taskHistory_;
-    }
-    /**
-     * Task combobox handler.
-     *
-     * @param event Event containing task which was clicked.
-     */
-    async onTaskItemClicked_(event) {
-        // If the clicked target has an associated command, the click event should
-        // not be handled here since it is handled as a command.
-        // TODO(lucmult): Add TS definition for these events instead of using any.
-        if (event.target && event.target.command) {
-            return;
-        }
-        const item = event.detail;
-        if (!item) {
-            return;
-        }
-        try {
-            const tasks = await this.getFileTasks();
-            switch (item.type) {
-                case TaskMenuItemType.SHOW_MENU:
-                    this.ui_.taskMenuButton.showMenu(false);
-                    break;
-                case TaskMenuItemType.RUN_TASK:
-                    tasks.execute(item.task);
-                    break;
-                case TaskMenuItemType.CHANGE_DEFAULT_TASK:
-                    const selection = this.selectionHandler_.selection;
-                    const extensions = [];
-                    for (let i = 0; i < selection.entries.length; i++) {
-                        const match = /\.(\w+)$/g.exec(selection.entries[i].toURL());
-                        if (match) {
-                            const ext = match[1].toUpperCase();
-                            if (extensions.indexOf(ext) == -1) {
-                                extensions.push(ext);
-                            }
-                        }
-                    }
-                    let format = '';
-                    if (extensions.length == 1) {
-                        format = extensions[0];
-                    }
-                    // Change default was clicked. We should open "change default"
-                    // dialog.
-                    tasks.showTaskPicker(this.ui_.defaultTaskPicker, str('CHANGE_DEFAULT_MENU_ITEM'), strf('CHANGE_DEFAULT_CAPTION', format), this.changeDefaultTask_.bind(this, selection), TaskPickerType.ChangeDefault);
-                    break;
-                default:
-                    assertNotReached$1('Unknown task.');
-            }
-        }
-        catch (error) {
-            if (error) {
-                console.warn(error.stack || error);
-            }
-        }
-    }
-    /**
-     * Sets the given task as default, when this task is applicable.
-     *
-     * @param selection File selection.
-     * @param task Task to set as default.
-     */
-    async changeDefaultTask_(selection, task) {
-        const entries = selection.entries.map(entry => unwrapEntry(entry));
-        const mimeTypes = await Promise.all(entries.map(entry => this.getMimeType_(entry)));
-        chrome.fileManagerPrivate.setDefaultTask(task.descriptor, entries, mimeTypes, checkAPIError);
-        this.metadataUpdateController_.refreshCurrentDirectoryMetadata();
-        // Update task menu button unless the task button was updated by other
-        // selection.
-        if (this.selectionHandler_.selection === selection) {
-            this.tasks_ = null;
-            try {
-                const tasks = await this.getFileTasks();
-                this.display_(tasks);
-            }
-            catch (error) {
-                if (error) {
-                    console.warn(error.stack || error);
-                }
-            }
-        }
-        this.selectionHandler_.onFileSelectionChanged();
-    }
-    /** Displays the list of tasks in a open task picker combobutton. */
-    display_(fileTasks) {
-        this.updateTasksDropdown_(fileTasks);
-    }
-    /**
-     * Populate the #tasks-menu with the open-with tasks. The menu is managed by
-     * the top task menu Open combobutton, but it is also used as the
-     * right-click open-with context menu.
-     */
-    updateTasksDropdown_(fileTasks) {
-        const combobutton = this.ui_.taskMenuButton;
-        const tasks = fileTasks.getAnnotatedTasks();
-        combobutton.hidden =
-            tasks.length == 0 || fileTasks.entries.some(e => e.isDirectory);
-        // Even if the task menu button is hidden, we still update the items if
-        // tasks exist since they are used for the right-click context menu.
-        if (tasks.length == 0) {
-            return;
-        }
-        combobutton.clear();
-        const defaultTask = fileTasks.defaultTask;
-        // If there exist defaultTask show it on the combobutton.
-        if (defaultTask) {
-            combobutton.defaultItem =
-                createDropdownItem(defaultTask, str('TASK_OPEN'));
-        }
-        else {
-            combobutton.defaultItem = {
-                type: TaskMenuItemType.SHOW_MENU,
-                label: str('OPEN_WITH_BUTTON_LABEL'),
-            };
-        }
-        // If there exist 2 or more available tasks, show them in context menu
-        // (including defaultTask). If only one generic task is available, we
-        // also show it in the context menu.
-        const items = this.createItems(fileTasks);
-        if (items.length > 1 || (items.length === 1 && !defaultTask)) {
-            for (const item of items) {
-                combobutton.addDropDownItem(item);
-            }
-            // If there exist non generic task (i.e. defaultTask is set) and this
-            // default is not set by policy, we show an item to change default task.
-            if (defaultTask && !fileTasks.getPolicyDefaultHandlerStatus()) {
-                combobutton.addSeparator();
-                // TODO(greengrape): Ensure that the passed object is a
-                // `DropdownItem`.
-                const changeDefaultMenuItem = combobutton.addDropDownItem({
-                    type: TaskMenuItemType.CHANGE_DEFAULT_TASK,
-                    label: str('CHANGE_DEFAULT_MENU_ITEM'),
-                    isDefault: false,
-                    isPolicyDefault: false,
-                });
-                changeDefaultMenuItem.classList.add('change-default');
-            }
-        }
-    }
-    /**
-     * Creates sorted array of available task descriptions such as title and
-     * icon.
-     *
-     * @param fileTasks File Tasks to create items.
-     * @return Created array can be used to feed combobox, menus and so on.
-     */
-    createItems(fileTasks) {
-        const tasks = fileTasks.getAnnotatedTasks();
-        const items = [];
-        // Create items.
-        for (const task of tasks) {
-            if (task === fileTasks.defaultTask) {
-                const title = task.title + ' ' + str('DEFAULT_TASK_LABEL');
-                items.push(createDropdownItem(task, title, /*isDefault=*/ true, 
-                /*isPolicyDefault=*/
-                !!fileTasks.getPolicyDefaultHandlerStatus()));
-            }
-            else {
-                items.push(createDropdownItem(task));
-            }
-        }
-        // Sort items (Sort order: isDefault, lastExecutedTime, label).
-        items.sort((a, b) => {
-            // Sort by isDefaultTask.
-            const isDefault = (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0);
-            if (isDefault !== 0) {
-                return isDefault;
-            }
-            // Sort by last-executed time.
-            const aTime = this.taskHistory_.getLastExecutedTime(a.task.descriptor);
-            const bTime = this.taskHistory_.getLastExecutedTime(b.task.descriptor);
-            if (aTime !== bTime) {
-                return bTime - aTime;
-            }
-            // Sort by label.
-            return a.label.localeCompare(b.label);
-        });
-        return items;
-    }
-    /** Executes default task from the dropdown menu. */
-    async executeDefaultTask() {
-        try {
-            const tasks = await this.getFileTasks();
-            const task = {
-                descriptor: this.ui_.defaultTaskMenuItem.descriptor,
-                title: this.ui_.defaultTaskMenuItem.label,
-                get iconUrl() {
-                    console.assert(false);
-                    return '';
-                },
-                get isDefault() {
-                    console.assert(false);
-                    return false;
-                },
-                get isGenericFileHandler() {
-                    console.assert(false);
-                    return false;
-                },
-                isDlpBlocked: false,
-            };
-            tasks.execute(task);
-        }
-        catch (error) {
-            if (error) {
-                console.warn(error.stack || error);
-            }
-        }
-    }
-    /**
-     * Get MIME type for an entry. This method first tries to obtain the MIME
-     * type from metadata. If it fails, this falls back to obtain the MIME type
-     * from its content or name.
-     * @param entry An entry to obtain its mime type.
-     */
-    async getMimeType_(entry) {
-        const properties = await this.metadataModel_.get([entry], ['contentMimeType']);
-        if (properties && properties[0].contentMimeType) {
-            return properties[0].contentMimeType;
-        }
-        const mimeType = await getMimeType(entry);
-        return mimeType || '';
-    }
-    /**
-     * Explicitly removes the cached tasks first and and re-calculates the
-     * current tasks.
-     */
-    clearCacheAndUpdateTasks_() {
-        this.tasks_ = null;
-        // Dispatch an empty fetch to invalidate any ongoing fetch.
-        this.store_.dispatch(fetchFileTasks([]));
-        this.updateTasks_();
-    }
-    maybeHideButton() {
-        // For the Store version the other conditions are checked in the store.
-        const shouldDisableTasks = (this.selectionTasks_?.tasks ?? []).length === 0;
-        if (shouldDisableTasks) {
-            this.ui_.taskMenuButton.hidden = true;
-            this.updateContextMenuTaskItems_([]);
-            if (window.IN_TEST) {
-                this.ui_.taskMenuButton.toggleAttribute('get-tasks-completed', true);
-            }
-            return true;
-        }
-        return false;
-    }
-    /** Updates available tasks opened from context menu or the open button.  */
-    async updateTasks_() {
-        if (this.maybeHideButton()) {
-            return;
-        }
-        try {
-            const metricName = 'UpdateAvailableApps';
-            startInterval(metricName);
-            const tasks = await this.getFileTasks();
-            // Update the DOM.
-            this.display_(tasks);
-            const openTaskItems = tasks.getAnnotatedTasks();
-            this.updateContextMenuTaskItems_(openTaskItems, tasks.getPolicyDefaultHandlerStatus());
-            if (window.IN_TEST) {
-                this.ui_.taskMenuButton.toggleAttribute('get-tasks-completed', true);
-            }
-            recordDirectoryListLoadWithTolerance(metricName, openTaskItems.length, [10, 100], /*tolerance=*/ 0.8);
-        }
-        catch (error) {
-            if (error) {
-                console.warn(error.stack || error);
-            }
-        }
-    }
-    async getFileTasks() {
-        return this.getFileTasksStore_();
-    }
-    async getFileTasksStore_() {
-        if (this.tasks_) {
-            return this.tasks_;
-        }
-        if (this.selectionKeys_ === undefined) {
-            throw new Error('No selection to fulfill getFileTasks()');
-        }
-        // Request to fetch the tasks just to double check.
-        this.store_.dispatch(fetchFileTasks(this.selectionFilesData_));
-        await waitForState(this.store_, (st) => st.currentDirectory?.selection.fileTasks.status ===
-            PropStatus.SUCCESS);
-        const entries = this.selectionFilesData_.map(fd => fd.entry);
-        this.tasks_ = Promise.resolve(FileTasks.fromStoreTasks(this.selectionTasks_, this.volumeManager_, this.metadataModel_, this.directoryModel_, this.ui_, this.fileTransferController_, entries, this.taskHistory_, this.progressCenter_, this));
-        return this.tasks_;
-    }
-    /** Returns whether default task command can be executed or not. */
-    canExecuteDefaultTask() {
-        return this.canExecuteDefaultTask_;
-    }
-    /** Returns whether default task command should be hidden or not. */
-    shouldHideDefaultTask() {
-        return this.shouldHideDefaultTask_;
-    }
-    /** Returns whether open with command can be executed or not. */
-    canExecuteOpenActions() {
-        return this.canExecuteOpenActions_;
-    }
-    /**
-     * Updates tasks menu item to match passed task items.
-     * @param openTasks List of OPEN tasks.
-     */
-    updateContextMenuTaskItems_(tasks, policyDefaultHandlerStatus) {
-        const taskCount = tasks.length;
-        const defaultTask = getDefaultTask(tasks, policyDefaultHandlerStatus, this.taskHistory_);
-        if (taskCount > 0) {
-            if (defaultTask) {
-                const menuItem = this.ui_.defaultTaskMenuItem;
-                menuItem.setIsDefaultAttribute();
-                /**
-                 * Menu icon can be controlled by either `iconEndImage` or
-                 * `iconEndFileType`, since the default task menu item DOM is shared,
-                 * before updating it, we should remove the previous one, e.g. reset
-                 * both `iconEndImage` and `iconEndFileType`.
-                 */
-                menuItem.iconEndImage = '';
-                menuItem.removeIconEndFileType();
-                // If default is set by policy, we hide the original app icon and show
-                // only the managed one.
-                if (policyDefaultHandlerStatus) {
-                    menuItem.setIconEndHidden(true);
-                    menuItem.toggleManagedIcon(/*visible=*/ true);
-                }
-                else {
-                    menuItem.setIconEndHidden(false);
-                    menuItem.toggleManagedIcon(/*visible=*/ false);
-                    // iconType is defined for some tasks in FileTasks.annotate_().
-                    const iconType = defaultTask.iconType;
-                    if (iconType) {
-                        menuItem.iconEndFileType = iconType;
-                    }
-                    else if (defaultTask.iconUrl) {
-                        menuItem.iconEndImage = 'url(' + defaultTask.iconUrl + ')';
-                    }
-                    else {
-                        menuItem.setIconEndHidden(true);
-                    }
-                }
-                menuItem.label = defaultTask.title;
-                menuItem.descriptor = defaultTask.descriptor;
-            }
-        }
-        this.canExecuteDefaultTask_ =
-            defaultTask != null && !defaultTask.isDlpBlocked;
-        this.shouldHideDefaultTask_ = defaultTask == null;
-        this.defaultTaskCommand_.canExecuteChange(this.ui_.listContainer.element);
-        this.canExecuteOpenActions_ =
-            taskCount > 1 || (taskCount === 1 && !defaultTask);
-        this.openWithCommand_.canExecuteChange(this.ui_.listContainer.element);
-        this.ui_.tasksSeparator.hidden = taskCount === 0;
-    }
-    /**
-     * Return the tasks for the `entry`.
-     * @param entry
-     */
-    async getEntryFileTasks(entry) {
-        return FileTasks.create(this.volumeManager_, this.metadataModel_, this.directoryModel_, this.ui_, this.fileTransferController_, [entry], this.taskHistory_, this.crostini_, this.progressCenter_, this);
-    }
-    async executeEntryTask(entry) {
-        const tasks = await this.getEntryFileTasks(entry);
-        tasks.executeDefault();
-    }
-    /** Removes information about an extract archive task.  */
-    deleteExtractTaskDetails_(taskId) {
-        this.extractTasks_.delete(taskId);
-    }
-    onIoTaskProgressStatus_(event) {
-        const taskId = event.taskId;
-        if (!taskId) {
-            console.warn('IOTask ProgressStatus without taskId');
-            return;
-        }
-        // TaskController only manages IOTasks related to zip extract that were
-        // started in this window.
-        if (!(this.extractTasks_.has(taskId) &&
-            event.type === chrome.fileManagerPrivate.IOTaskType.EXTRACT)) {
-            return;
-        }
-        switch (event.state) {
-            case chrome.fileManagerPrivate.IOTaskState.SUCCESS:
-            case chrome.fileManagerPrivate.IOTaskState.CANCELLED:
-            case chrome.fileManagerPrivate.IOTaskState.ERROR:
-                this.deleteExtractTaskDetails_(taskId);
-                break;
-            case chrome.fileManagerPrivate.IOTaskState.NEED_PASSWORD:
-                this.handleMissingPassword_(taskId);
-                break;
-        }
-    }
-    /**
-     * Starts the Zip extract Here IO Task.
-     * @param {!Array<!Entry|FilesAppEntry>} entries
-     * @param {!DirectoryEntry|!FilesAppDirEntry} destination
-     * @return {!Promise<void>} resolved with taskId.
-     */
-    async startExtractIoTask(entries, destination) {
-        const params = {
-            destinationFolder: destination,
-        };
-        return this.startExtractTask_(entries, params);
-    }
-    /**
-     * Starts extraction for a single entry and stores the task details.
-     * @return resolved with taskId.
-     */
-    async startExtractTask_(entries, params) {
-        try {
-            const taskId = await startIOTask(chrome.fileManagerPrivate.IOTaskType.EXTRACT, entries, params);
-            this.extractTasks_.set(taskId, { entries, params });
-        }
-        catch (error) {
-            console.warn('Error getting extract taskID', error);
-        }
-    }
-    /**
-     * Triggers a password dialog and starts an extract task with the
-     * password (unless cancel is clicked on the dialog).
-     */
-    async startGetPasswordThenExtractTask_(entry, params) {
-        let password = null;
-        // Ask for password.
-        try {
-            const dialog = this.ui_.passwordDialog;
-            password = await dialog.askForPassword(entry.fullPath, password);
-        }
-        catch (error) {
-            console.warn('User cancelled password fetch ', error);
-            return;
-        }
-        params['password'] = password;
-        await this.startExtractTask_([entry], params);
-    }
-    /**
-     * If an extract operation has finished due to missing password,
-     * see if we have the operation stored and if so, pop up a password
-     * dialog and try to restart another IO operation for it.
-     */
-    handleMissingPassword_(taskId) {
-        const existingOperation = this.extractTasks_.get(taskId);
-        if (existingOperation) {
-            // If we have multiple entries (from a multi-select extract) then
-            // we need to start a new task for each of them individually so
-            // that the password dialog is presented once for every file
-            // that's encrypted.
-            const selectionEntries = existingOperation['entries'];
-            const params = existingOperation['params'];
-            if (selectionEntries.length == 1) {
-                this.startGetPasswordThenExtractTask_(selectionEntries[0], params);
-            }
-            else {
-                for (const entry of selectionEntries) {
-                    this.startExtractTask_([entry], params);
-                }
-            }
-        }
-        // Remove the failed operation reference since it's finished.
-        this.deleteExtractTaskDetails_(taskId);
-    }
-}
-/** Type of the task in the dropdown menu. */
-var TaskMenuItemType;
-(function (TaskMenuItemType) {
-    TaskMenuItemType["SHOW_MENU"] = "ShowMenu";
-    TaskMenuItemType["RUN_TASK"] = "RunTask";
-    TaskMenuItemType["CHANGE_DEFAULT_TASK"] = "ChangeDefaultTask";
-})(TaskMenuItemType || (TaskMenuItemType = {}));
-/**
- * Creates dropdown item based on task.
- * @param isDefault Mark the item as default item.
- */
-function createDropdownItem(task, title, isDefault, isPolicyDefault) {
-    return {
-        type: TaskMenuItemType.RUN_TASK,
-        label: title || task.title,
-        iconUrl: task.iconUrl || '',
-        iconType: task.iconType || '',
-        task: task,
-        isDefault: isDefault || false,
-        isPolicyDefault: isPolicyDefault || false,
-        isGenericFileHandler: task.isGenericFileHandler,
-        isDlpBlocked: task.isDlpBlocked,
-    };
-}
-
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -43821,7 +40587,7 @@ function isRootEntry(volumeManager, entry) {
  * @return True if the event was triggered by the selection menu button.
  */
 function isFromSelectionMenu(event) {
-    return event.target.id == 'selection-menu-button';
+    return event.target.id === 'selection-menu-button';
 }
 /**
  * If entry is fake/invalid/non-interactive/root, we don't show menu items
@@ -43866,7 +40632,7 @@ function shouldShowMenuItemsForEntry(volumeManager, entry) {
  * @param capability Name of the capability to check for.
  */
 function hasCapability(fileManager, entries, capability) {
-    if (entries.length == 0) {
+    if (entries.length === 0) {
         return false;
     }
     // Check if the capability is true or undefined, but not false. A capability
@@ -44066,7 +40832,7 @@ class UnmountCommand extends FilesCommand {
             catch (error) {
                 console.warn('Cannot unmount (redacted):', error);
                 console.debug(`Cannot unmount '${volume.volumeId}':`, error);
-                if (error != VolumeError.PATH_NOT_MOUNTED) {
+                if (error !== VolumeError.PATH_NOT_MOUNTED) {
                     errorCallback(volume.volumeType);
                 }
             }
@@ -44149,7 +40915,7 @@ class FormatCommand extends FilesCommand {
         }
         // |root| is null for unrecognized volumes. Enable format command for such
         // volumes.
-        const isUnrecognizedVolume = (root == null);
+        const isUnrecognizedVolume = (root === null);
         // See the comment in execute() for why doing this.
         if (!root) {
             root = directoryModel.getCurrentDirEntry();
@@ -44412,10 +41178,10 @@ class ToggleHiddenAndroidFoldersCommand extends FilesCommand {
     canExecute(event, fileManager) {
         const hasAndroidFilesVolumeInfo = !!fileManager.volumeManager.getCurrentProfileVolumeInfo(VolumeType.ANDROID_FILES);
         const currentRootType = fileManager.directoryModel.getCurrentRootType();
-        const isInMyFiles = currentRootType == RootType.MY_FILES ||
-            currentRootType == RootType.DOWNLOADS ||
-            currentRootType == RootType.CROSTINI ||
-            currentRootType == RootType.ANDROID_FILES;
+        const isInMyFiles = currentRootType === RootType.MY_FILES ||
+            currentRootType === RootType.DOWNLOADS ||
+            currentRootType === RootType.CROSTINI ||
+            currentRootType === RootType.ANDROID_FILES;
         event.canExecute = hasAndroidFilesVolumeInfo && isInMyFiles;
         event.command.setHidden(!event.canExecute);
         event.command.checked = fileManager.fileFilter.isAllAndroidFoldersVisible();
@@ -44511,7 +41277,7 @@ class DeleteCommand extends FilesCommand {
         if (!permanentlyDelete &&
             shouldMoveToTrash(entries, fileManager.volumeManager) &&
             fileManager.trashEnabled) {
-            startIOTask(chrome.fileManagerPrivate.IOTaskType.TRASH, entries, 
+            startIOTask(chrome.fileManagerPrivate.IoTaskType.TRASH, entries, 
             /*params=*/ {});
             return;
         }
@@ -44528,7 +41294,7 @@ class DeleteCommand extends FilesCommand {
         const deleteAction = () => {
             dialogDoneCallback();
             // Start the permanent delete.
-            startIOTask(chrome.fileManagerPrivate.IOTaskType.DELETE, entries, /*params=*/ {});
+            startIOTask(chrome.fileManagerPrivate.IoTaskType.DELETE, entries, /*params=*/ {});
         };
         const cancelAction = () => {
             dialogDoneCallback();
@@ -44639,7 +41405,7 @@ class RestoreFromTrashCommand extends FilesCommand {
             fileManager.ui.alertDialog.show(str('CANT_RESTORE_SOME_ITEMS'));
             return;
         }
-        startIOTask(chrome.fileManagerPrivate.IOTaskType.RESTORE, infoEntries, 
+        startIOTask(chrome.fileManagerPrivate.IoTaskType.RESTORE, infoEntries, 
         /*params=*/ {});
     }
     execute(event, fileManager) {
@@ -44682,7 +41448,7 @@ class RestoreFromTrashCommand extends FilesCommand {
 class EmptyTrashCommand extends FilesCommand {
     execute(_event, fileManager) {
         fileManager.ui.emptyTrashConfirmDialog.showWithTitle(str('CONFIRM_EMPTY_TRASH_TITLE'), str('CONFIRM_EMPTY_TRASH_DESC'), () => {
-            startIOTask(chrome.fileManagerPrivate.IOTaskType.EMPTY_TRASH, /*entries=*/ [], 
+            startIOTask(chrome.fileManagerPrivate.IoTaskType.EMPTY_TRASH, /*entries=*/ [], 
             /*params=*/ {});
         });
     }
@@ -45488,7 +42254,7 @@ class ZipSelectionCommand extends FilesCommand {
             return;
         }
         const selectionEntries = fileManager.getSelection().entries;
-        startIOTask(chrome.fileManagerPrivate.IOTaskType.ZIP, selectionEntries, { destinationFolder: dirEntry });
+        startIOTask(chrome.fileManagerPrivate.IoTaskType.ZIP, selectionEntries, { destinationFolder: dirEntry });
     }
     canExecute(event, fileManager) {
         if (isOnTrashRoot(fileManager)) {
@@ -45709,13 +42475,13 @@ class GuestOsShareCommand extends FilesCommand {
         };
         // Show a confirmation dialog if we are sharing the root of a volume.
         // Non-Drive volume roots are always '/'.
-        if (entry.fullPath == '/') {
+        if (entry.fullPath === '/') {
             fileManager.ui.confirmDialog.showHtml(str(`SHARE_ROOT_FOLDER_WITH_${this.typeForStrings_}_TITLE`), strf(`SHARE_ROOT_FOLDER_WITH_${this.typeForStrings_}`, info.volumeInfo?.label), share, () => { });
         }
         else if (info.isRootEntry &&
-            (info.rootType == RootType.DRIVE ||
-                info.rootType == RootType.COMPUTERS_GRAND_ROOT ||
-                info.rootType == RootType.SHARED_DRIVES_GRAND_ROOT)) {
+            (info.rootType === RootType.DRIVE ||
+                info.rootType === RootType.COMPUTERS_GRAND_ROOT ||
+                info.rootType === RootType.SHARED_DRIVES_GRAND_ROOT)) {
             // Only show the dialog for My Drive, Shared Drives Grand Root and
             // Computers Grand Root.  Do not show for roots of a single Shared
             // Drive or Computer.
@@ -46115,12 +42881,12 @@ class VolumeStorageCommand extends FilesCommand {
             return;
         }
         // Can execute only for local file systems.
-        if (currentVolumeInfo.volumeType == VolumeType.MY_FILES ||
-            currentVolumeInfo.volumeType == VolumeType.DOWNLOADS ||
-            currentVolumeInfo.volumeType == VolumeType.CROSTINI ||
-            currentVolumeInfo.volumeType == VolumeType.GUEST_OS ||
-            currentVolumeInfo.volumeType == VolumeType.ANDROID_FILES ||
-            currentVolumeInfo.volumeType == VolumeType.DOCUMENTS_PROVIDER) {
+        if (currentVolumeInfo.volumeType === VolumeType.MY_FILES ||
+            currentVolumeInfo.volumeType === VolumeType.DOWNLOADS ||
+            currentVolumeInfo.volumeType === VolumeType.CROSTINI ||
+            currentVolumeInfo.volumeType === VolumeType.GUEST_OS ||
+            currentVolumeInfo.volumeType === VolumeType.ANDROID_FILES ||
+            currentVolumeInfo.volumeType === VolumeType.DOCUMENTS_PROVIDER) {
             event.canExecute = true;
         }
     }
@@ -46482,10 +43248,10 @@ class CrostiniController {
             });
         };
         const toast = (count, msgSingle, msgPlural, action, subPage, umaItem) => {
-            if (!showToast || count == 0) {
+            if (!showToast || count === 0) {
                 return;
             }
-            filesToast.show(count == 1 ? str(msgSingle) : strf(msgPlural, count), {
+            filesToast.show(count === 1 ? str(msgSingle) : strf(msgPlural, count), {
                 text: str(action),
                 callback: () => {
                     chrome.fileManagerPrivate.openSettingsSubpage(subPage);
@@ -46695,8 +43461,8 @@ class DialogActionController {
             }
         };
         // Record the root types of chosen files in OPEN dialog.
-        if (this.dialogType_ == DialogType.SELECT_OPEN_FILE ||
-            this.dialogType_ == DialogType.SELECT_OPEN_MULTI_FILE) {
+        if (this.dialogType_ === DialogType.SELECT_OPEN_FILE ||
+            this.dialogType_ === DialogType.SELECT_OPEN_MULTI_FILE) {
             recordEnum('OpenFiles.RootType', currentRootType, RootTypesForUMA);
         }
         if (selection.multiple) {
@@ -46838,6 +43604,219 @@ class DialogActionController {
     }
 }
 
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Naming controller for directory tree.
+ */
+class DirectoryTreeNamingController {
+    constructor(directoryModel_, directoryTree_, directoryTreeContainer_, alertDialog_) {
+        this.directoryModel_ = directoryModel_;
+        this.directoryTree_ = directoryTree_;
+        this.directoryTreeContainer_ = directoryTreeContainer_;
+        this.alertDialog_ = alertDialog_;
+        this.currentDirectoryItem_ = null;
+        this.editing_ = false;
+        /**
+         * Whether the entry being renamed is a root of a removable partition/volume.
+         */
+        this.isRemovableRoot_ = false;
+        this.volumeInfo_ = null;
+        this.inputElement_ =
+            document.createElement('input');
+        this.inputElement_.type = 'text';
+        this.inputElement_.spellcheck = false;
+        this.inputElement_.addEventListener('keydown', this.onKeyDown_.bind(this));
+        this.inputElement_.addEventListener('blur', this.commitRename_.bind(this));
+        this.inputElement_.addEventListener('click', event => {
+            // Stop propagation of click event to prevent it being captured by
+            // directory item and current directory is changed to editing item.
+            event.stopPropagation();
+        });
+        // These events propagation needs to be stopped otherwise ripple will show
+        // on the tree item when the input is clicked.
+        // Note: 'up/down' are events from <paper-ripple> component.
+        const suppressedEvents = ['mouseup', 'mousedown', 'up', 'down'];
+        suppressedEvents.forEach(event => {
+            this.inputElement_.addEventListener(event, event => {
+                event.stopPropagation();
+            });
+        });
+    }
+    /**
+     * Returns input element.
+     */
+    getInputElement() {
+        return this.inputElement_;
+    }
+    /**
+     * Returns the '.label' class element child of this.currentDirectoryItem_.
+     */
+    getLabelElement_() {
+        const element = this.currentDirectoryItem_.firstElementChild;
+        const label = element.querySelector('.label');
+        assert$1(label);
+        return label;
+    }
+    /**
+     * Attaches naming controller to specified directory item and start rename.
+     * @param directoryItem An html element of a node of the target.
+     * @param isRemovableRoot Indicates whether the target is a removable volume
+     *     root or not.
+     * @param volumeInfo A volume information about the target entry. |volumeInfo|
+     *     can be null if method is invoked on a folder that is in the tree view
+     *     and is not root of an external drive.
+     */
+    attachAndStart(directoryItem, isRemovableRoot, volumeInfo) {
+        this.isRemovableRoot_ = isRemovableRoot;
+        if (this.isRemovableRoot_) {
+            assert$1(volumeInfo);
+            this.volumeInfo_ = volumeInfo;
+        }
+        else {
+            this.volumeInfo_ = null;
+        }
+        if (this.currentDirectoryItem_) {
+            return;
+        }
+        this.currentDirectoryItem_ = directoryItem;
+        this.currentDirectoryItem_.setAttribute('renaming', 'true');
+        if (isTreeItem$1(directoryItem)) { // XfTreeItem instance
+            this.inputElement_.slot = 'rename';
+            this.currentDirectoryItem_.appendChild(this.inputElement_);
+        }
+        else { // DirectoryItem instance
+            const renameInputElementPlaceholder = this.currentDirectoryItem_.firstElementChild.getElementsByClassName('rename-placeholder');
+            if (this.isRemovableRoot_ && renameInputElementPlaceholder.length === 1) {
+                renameInputElementPlaceholder[0].appendChild(this.inputElement_);
+            }
+            else {
+                const label = this.getLabelElement_();
+                label.insertAdjacentElement('afterend', this.inputElement_);
+            }
+        }
+        this.inputElement_.value = this.currentDirectoryItem_.label;
+        this.inputElement_.select();
+        this.inputElement_.focus();
+        this.editing_ = true;
+    }
+    /**
+     * Commits rename.
+     */
+    async commitRename_() {
+        const contextMenu = this.inputElement_.contextMenu;
+        if (!this.editing_ || (contextMenu && !contextMenu.hidden)) {
+            return;
+        }
+        this.editing_ = false;
+        const entry = getTreeItemEntry(this.currentDirectoryItem_);
+        assert$1(entry);
+        const newName = this.inputElement_.value;
+        // If new name is the same as current name or empty, do nothing.
+        if (newName === this.currentDirectoryItem_.label || newName.length === 0) {
+            this.detach_();
+            return;
+        }
+        try {
+            await validateEntryName(entry, newName, this.directoryModel_.getFileFilter().isHiddenFilesVisible(), this.volumeInfo_, this.isRemovableRoot_);
+            await this.performRename_(entry, newName);
+        }
+        catch (error) {
+            await this.alertDialog_.showAsync(error.message);
+            this.editing_ = true;
+        }
+    }
+    /**
+     * Performs rename operation.
+     * @param newName Validated name.
+     */
+    async performRename_(entry, newName) {
+        const renamingCurrentDirectory = isSameEntry(entry, this.directoryModel_.getCurrentDirEntry());
+        if (renamingCurrentDirectory) {
+            this.directoryModel_.setIgnoringCurrentDirectoryDeletion(true /* ignore */);
+        }
+        // TODO(yawano): Rename might take time on some volumes. Optimistically show
+        // new name in the UI before actual rename is completed.
+        try {
+            const newEntry = await renameEntry(entry, newName, this.volumeInfo_, this.isRemovableRoot_);
+            // Put the new name in the .label element before detaching the <input> to
+            // prevent showing the old name.
+            if (isNewDirectoryTreeEnabled()) {
+                this.currentDirectoryItem_.label = newName;
+            }
+            else {
+                this.getLabelElement_().textContent = newName;
+                if (window.IN_TEST) {
+                    this.currentDirectoryItem_.setAttribute('entry-label', newName);
+                }
+            }
+            // We currently don't have promises/callbacks for when removableRoots are
+            // successfully renamed, so we can't update their subdirectories or update
+            // the current directory to them at this point.
+            if (this.isRemovableRoot_) {
+                return;
+            }
+            if (isNewDirectoryTreeEnabled() && this.directoryTreeContainer_) {
+                getStore().dispatch(readSubDirectoriesForRenamedEntry(newEntry));
+                this.directoryTreeContainer_.focusItemWithKeyWhenRendered(newEntry.toURL());
+            }
+            else {
+                assert$1(!isTreeItem$1(this.currentDirectoryItem_));
+                assert$1(this.currentDirectoryItem_ instanceof SubDirectoryItem);
+                this.currentDirectoryItem_.entry = newEntry;
+                this.currentDirectoryItem_.updateSubDirectories(/* recursive= */ true);
+            }
+            // If renamed directory was current directory, change it to new one.
+            if (renamingCurrentDirectory) {
+                this.directoryModel_.changeDirectoryEntry(newEntry, this.directoryModel_.setIgnoringCurrentDirectoryDeletion.bind(this.directoryModel_, /* ignore= */ false));
+            }
+        }
+        catch (error) {
+            this.directoryModel_.setIgnoringCurrentDirectoryDeletion(
+            /* ignore= */ false);
+            this.alertDialog_.show(error.message);
+        }
+        finally {
+            this.detach_();
+        }
+    }
+    cancelRename_() {
+        if (!this.editing_) {
+            return;
+        }
+        this.editing_ = false;
+        this.detach_();
+    }
+    /**
+     * Detaches controller from current directory item.
+     */
+    detach_() {
+        assert$1(!!this.currentDirectoryItem_);
+        this.inputElement_.remove();
+        this.currentDirectoryItem_.removeAttribute('renaming');
+        this.currentDirectoryItem_ = null;
+        // Restore focus to directory tree.
+        this.directoryTree_.focus();
+    }
+    /**
+     * Handles keydown event.
+     */
+    onKeyDown_(event) {
+        event.stopPropagation();
+        switch (getKeyModifiers(event) + event.key) {
+            case 'Escape':
+                this.cancelRename_();
+                event.preventDefault();
+                break;
+            case 'Enter':
+                this.commitRename_();
+                event.preventDefault();
+                break;
+        }
+    }
+}
+
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -46948,7 +43927,7 @@ class EmptyFolderController {
         }
         // If the error is not NO_MODIFICATION_ALLOWED_ERR, return. This is
         // equivalent to the ACCESS_DENIED error thrown by ODFS.
-        if (event.detail.error.name !=
+        if (event.detail.error.name !==
             FileErrorToDomError.NO_MODIFICATION_ALLOWED_ERR) {
             this.updateUi_();
             return;
@@ -47081,7 +44060,7 @@ class EmptyFolderController {
             this.showMessage_(str('EMPTY_TRASH_FOLDER_TITLE'), str('EMPTY_TRASH_FOLDER_DESC'));
             return;
         }
-        if (svgRef == ODFS_REAUTHENTICATION_REQUIRED) {
+        if (svgRef === ODFS_REAUTHENTICATION_REQUIRED) {
             this.showOdfsReauthenticationMessage_();
             return;
         }
@@ -47106,6 +44085,2825 @@ class EmptyFolderController {
                 this.showMessage_(str('RECENT_EMPTY_FOLDER'));
         }
     }
+}
+
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Global (placed in the window object) variable name to hold internal
+ * file dragging information. Needed to show visual feedback while dragging
+ * since DataTransfer object is in protected state. Reachable from other
+ * file manager instances.
+ */
+const DRAG_AND_DROP_GLOBAL_DATA = '__drag_and_drop_global_data';
+/**
+ * The key under which we store if the file content is missing. This property
+ * tells us if we are attemptint to use a drive file while Drive is
+ * disconnected.
+ */
+const MISSING_FILE_CONTENTS = 'missingFileContents';
+/**
+ * The key under which we store the root of the file system of files on which
+ * we operate. This allows us to set the correct drag effect.
+ */
+const SOURCE_ROOT_URL = 'sourceRootURL';
+/**
+ * The key under which we store the flag denoting that the dragged file is
+ * encrypted with Google Drive CSE. Given that decrypting of such files is not
+ * implemented at the moment (May 2023), this allows us to unset the drag effect
+ * when moving such a file outside Drive.
+ */
+const ENCRYPTED = 'encrypted';
+/**
+ * Confirmation message types.
+ */
+var TransferConfirmationType;
+(function (TransferConfirmationType) {
+    TransferConfirmationType[TransferConfirmationType["NONE"] = 0] = "NONE";
+    TransferConfirmationType[TransferConfirmationType["COPY_TO_SHARED_DRIVE"] = 1] = "COPY_TO_SHARED_DRIVE";
+    TransferConfirmationType[TransferConfirmationType["MOVE_TO_SHARED_DRIVE"] = 2] = "MOVE_TO_SHARED_DRIVE";
+    TransferConfirmationType[TransferConfirmationType["MOVE_BETWEEN_SHARED_DRIVES"] = 3] = "MOVE_BETWEEN_SHARED_DRIVES";
+    TransferConfirmationType[TransferConfirmationType["MOVE_FROM_SHARED_DRIVE_TO_OTHER"] = 4] = "MOVE_FROM_SHARED_DRIVE_TO_OTHER";
+    TransferConfirmationType[TransferConfirmationType["MOVE_FROM_OTHER_TO_SHARED_DRIVE"] = 5] = "MOVE_FROM_OTHER_TO_SHARED_DRIVE";
+    TransferConfirmationType[TransferConfirmationType["COPY_FROM_OTHER_TO_SHARED_DRIVE"] = 6] = "COPY_FROM_OTHER_TO_SHARED_DRIVE";
+})(TransferConfirmationType || (TransferConfirmationType = {}));
+var DropEffectType;
+(function (DropEffectType) {
+    DropEffectType["NONE"] = "none";
+    DropEffectType["COPY"] = "copy";
+    DropEffectType["MOVE"] = "move";
+    DropEffectType["LINK"] = "link";
+})(DropEffectType || (DropEffectType = {}));
+/**
+ * Extracts the `DataTransfer` from a generic event ensuring it's type asserted.
+ */
+const getClipboardData = (event) => {
+    const isClipboardEvent = (event) => 'clipboardData' in event;
+    return isClipboardEvent(event) ? event.clipboardData : null;
+};
+/**
+ * The type of a file operation error.
+ */
+var FileOperationErrorType;
+(function (FileOperationErrorType) {
+    FileOperationErrorType[FileOperationErrorType["UNEXPECTED_SOURCE_FILE"] = 0] = "UNEXPECTED_SOURCE_FILE";
+    FileOperationErrorType[FileOperationErrorType["TARGET_EXISTS"] = 1] = "TARGET_EXISTS";
+    FileOperationErrorType[FileOperationErrorType["FILESYSTEM_ERROR"] = 2] = "FILESYSTEM_ERROR";
+})(FileOperationErrorType || (FileOperationErrorType = {}));
+/**
+ * Error class used to report problems with a copy operation.
+ * If the code is UNEXPECTED_SOURCE_FILE, data should be a path of the file.
+ * If the code is TARGET_EXISTS, data should be the existing Entry.
+ * If the code is FILESYSTEM_ERROR, data should be the FileError.
+ */
+class FileOperationError {
+    /**
+     * @param code Error type.
+     * @param data Additional data.
+     */
+    constructor(code, data) {
+        this.code = code;
+        this.data = data;
+    }
+}
+/**
+ * Resolves a path to either a DirectoryEntry or a FileEntry, regardless of
+ * whether the path is a directory or file.
+ *
+ * @param root The root of the filesystem to search.
+ * @param path The path to be resolved.
+ * @return Promise fulfilled with the resolved entry, or rejected with
+ *     FileError.
+ */
+async function resolvePath(root, path) {
+    if (path === '' || path === '/') {
+        return root;
+    }
+    try {
+        return await getFile(root, path, { create: false });
+    }
+    catch (error) {
+        const errorHasName = error && typeof error === 'object' && 'name' in error;
+        if (errorHasName && error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) {
+            // Bah. It's a directory, ask again.
+            return getDirectory(root, path, { create: false });
+        }
+        throw error;
+    }
+}
+/**
+ * Checks if an entry exists at |relativePath| in |dirEntry|.
+ * If exists, tries to deduplicate the path by inserting parenthesized number,
+ * such as " (1)", before the extension. If it still exists, tries the
+ * deduplication again by increasing the number.
+ * For example, suppose "file.txt" is given, "file.txt", "file (1).txt",
+ * "file (2).txt", ... will be tried.
+ *
+ * @param dirEntry The target directory entry.
+ * @param optSuccessCallback Callback run with the deduplicated path on success.
+ * @param optErrorCallback Callback run on error.
+ * @return  Promise fulfilled with available path.
+ */
+async function deduplicatePath(dirEntry, relativePath) {
+    // Crack the path into three part. The parenthesized number (if exists)
+    // will be replaced by incremented number for retry. For example, suppose
+    // |relativePath| is "file (10).txt", the second check path will be
+    // "file (11).txt".
+    const match = /^(.*?)(?: \((\d+)\))?(\.[^.]*?)?$/.exec(relativePath);
+    const prefix = match[1];
+    const ext = match[3] || '';
+    // Check to see if the target exists.
+    async function customResolvePath(trialPath, copyNumber) {
+        try {
+            await resolvePath(dirEntry, trialPath);
+            const newTrialPath = prefix + ' (' + copyNumber + ')' + ext;
+            return await customResolvePath(newTrialPath, copyNumber + 1);
+        }
+        catch (error) {
+            // We expect to be unable to resolve the target file, since
+            // we're going to create it during the copy.  However, if the
+            // resolve fails with anything other than NOT_FOUND, that's
+            // trouble.
+            const errorHasName = error && typeof error === 'object' && 'name' in error;
+            if (errorHasName && error.name === FileErrorToDomError.NOT_FOUND_ERR) {
+                return trialPath;
+            }
+            throw error;
+        }
+    }
+    try {
+        return await customResolvePath(relativePath, 1);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            throw error;
+        }
+        throw new FileOperationError(FileOperationErrorType.FILESYSTEM_ERROR, error);
+    }
+}
+/**
+ * Filters the entry in the same directory
+ *
+ * @param sourceEntries Entries of the source files.
+ * @param targetEntry The destination entry of the target directory.
+ * @param isMove True if the operation is "move", otherwise (i.e. if the
+ *     operation is "copy") false.
+ * @return Promise fulfilled with the filtered entry. This is not rejected.
+ */
+async function filterSameDirectoryEntry(sourceEntries, targetEntry, isMove) {
+    if (!isMove) {
+        return sourceEntries;
+    }
+    // Check all file entries and keeps only those need sharing operation.
+    async function processEntry(entry) {
+        try {
+            const inParentEntry = await getParentEntry$1(entry);
+            return isSameEntry(inParentEntry, targetEntry) ? null : entry;
+        }
+        catch (error) {
+            console.warn(error.stack || error);
+            return null;
+        }
+    }
+    // Call processEntry for each item of sourceEntries.
+    const result = await Promise.all(sourceEntries.map(processEntry));
+    // Remove null entries.
+    return result.filter(entry => !!entry);
+}
+/**
+ * Writes file to destination dir. This function is called when an image is
+ * dragged from a web page. In this case there is no FileSystem Entry to copy
+ * or move, just the JS File object with attached Blob. This operation does
+ * not use EventRouter or queue the task since it is not possible to track
+ * progress of the FileWriter.write().
+ *
+ * @param file The file entry to be written.
+ * @param dir The destination directory to write to.
+ */
+async function writeFile(file, dir) {
+    const name = await deduplicatePath(dir, file.name);
+    return new Promise((resolve, reject) => {
+        dir.getFile(name, { create: true, exclusive: true }, f => {
+            f.createWriter(writer => {
+                writer.onwriteend = () => resolve(f);
+                writer.onerror = reject;
+                writer.write(file);
+            }, reject);
+        }, reject);
+    });
+}
+class FileTransferController {
+    constructor(document_, listContainer_, directoryTree, confirmationCallback_, progressCenter_, 
+    /**
+     * Note: We use synchronous `getCache` method under assumption that fields
+     * we request are already cached. See constants.js, specifically
+     * LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES for list of fields
+     * which are safe to use.
+     */
+    metadataModel_, directoryModel_, volumeManager_, selectionHandler_, filesToast_) {
+        this.document_ = document_;
+        this.listContainer_ = listContainer_;
+        this.confirmationCallback_ = confirmationCallback_;
+        this.progressCenter_ = progressCenter_;
+        this.metadataModel_ = metadataModel_;
+        this.directoryModel_ = directoryModel_;
+        this.volumeManager_ = volumeManager_;
+        this.selectionHandler_ = selectionHandler_;
+        this.filesToast_ = filesToast_;
+        /**
+         * The array of the pending task IDs.
+         */
+        this.pendingTaskIds = [];
+        /**
+         * File objects for selected files.
+         */
+        this.selectedAsyncData_ = {};
+        /**
+         * Drag selector.
+         */
+        this.dragSelector_ = new DragSelector();
+        /**
+         * Whether a user is touching the device or not.
+         */
+        this.touching_ = false;
+        this.copyCommand_ = queryRequiredElement('command#copy', this.document_.body);
+        this.cutCommand_ = queryRequiredElement('command#cut', this.document_.body);
+        this.destinationEntry_ = null;
+        this.lastEnteredTarget_ = null;
+        this.dropTarget_ = null;
+        /**
+         * The element for showing a label while dragging files.
+         */
+        this.dropLabel_ = null;
+        this.navigateTimer_ = 0;
+        // Register the events.
+        this.selectionHandler_.addEventListener(EventType$1.CHANGE_THROTTLED, this.onFileSelectionChangedThrottled_.bind(this));
+        this.attachDragSource_(this.listContainer_.table.list);
+        this.attachFileListDropTarget_(this.listContainer_.table.list);
+        this.attachDragSource_(this.listContainer_.grid);
+        this.attachFileListDropTarget_(this.listContainer_.grid);
+        this.attachTreeDropTarget_(directoryTree);
+        this.attachCopyPasteHandlers_();
+        // Allow to drag external files to the browser window.
+        chrome.fileManagerPrivate.enableExternalFileScheme();
+    }
+    /**
+     * Attaches items in the `list` that will be draggable.
+     */
+    attachDragSource_(list) {
+        if ('webkitUserDrag' in list.style) {
+            list.style.webkitUserDrag = 'element';
+        }
+        list.addEventListener('dragstart', this.onDragStart_.bind(this, list));
+        list.addEventListener('dragend', this.onDragEnd_.bind(this));
+        list.addEventListener('touchstart', this.onTouchStart_.bind(this));
+        list.ownerDocument.addEventListener('touchend', this.onTouchEnd_.bind(this), true);
+        list.ownerDocument.addEventListener('touchcancel', this.onTouchEnd_.bind(this), true);
+    }
+    attachFileListDropTarget_(list) {
+        list.addEventListener('dragover', this.onDragOver_.bind(this, false, list));
+        list.addEventListener('dragenter', this.onDragEnterFileList_.bind(this, list));
+        list.addEventListener('dragleave', this.onDragLeave_.bind(this));
+        list.addEventListener('drop', this.onDrop_.bind(this, false));
+    }
+    attachTreeDropTarget_(tree) {
+        tree.addEventListener('dragover', this.onDragOver_.bind(this, true, tree));
+        tree.addEventListener('dragenter', this.onDragEnterTree_.bind(this, tree));
+        tree.addEventListener('dragleave', this.onDragLeave_.bind(this));
+        tree.addEventListener('drop', this.onDrop_.bind(this, true));
+    }
+    /**
+     * Attach handlers of copy, cut and paste operations to the document.
+     */
+    attachCopyPasteHandlers_() {
+        this.document_.addEventListener('beforecopy', this.onBeforeCutOrCopy_.bind(this, false /* not move operation */));
+        this.document_.addEventListener('copy', this.onCutOrCopy_.bind(this, false /* not move operation */));
+        this.document_.addEventListener('beforecut', this.onBeforeCutOrCopy_.bind(this, true /* move operation */));
+        this.document_.addEventListener('cut', this.onCutOrCopy_.bind(this, true /* move operation */));
+        this.document_.addEventListener('onbeforepaste', this.onBeforePaste_.bind(this));
+        this.document_.addEventListener('paste', this.onPaste_.bind(this));
+    }
+    /**
+     * Write the current selection to system clipboard.
+     */
+    cutOrCopy_(clipboardData, effectAllowed) {
+        const currentDirEntry = this.directoryModel_.getCurrentDirEntry();
+        if (!currentDirEntry) {
+            return;
+        }
+        let entry = currentDirEntry;
+        if (isRecentRoot(currentDirEntry)) {
+            entry = this.selectionHandler_.selection.entries[0];
+        }
+        else if (isTrashRoot(currentDirEntry)) {
+            // In the event the entry resides in the Trash root, delegate to the item
+            // in .Trash/files to get the source filesystem.
+            const trashEntry = this.selectionHandler_.selection.entries[0];
+            entry = trashEntry.filesEntry;
+        }
+        const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
+        if (!volumeInfo) {
+            return;
+        }
+        this.appendCutOrCopyInfo_(clipboardData, effectAllowed, volumeInfo, this.selectionHandler_.selection.entries, !this.selectionHandler_.isAvailable());
+        this.appendFiles_(clipboardData, this.selectionHandler_.selection.entries);
+    }
+    /**
+     * Appends copy or cut information of |entries| to |clipboardData|.
+     */
+    appendCutOrCopyInfo_(clipboardData, effectAllowed, sourceVolumeInfo, entries, missingFileContents) {
+        if (!clipboardData) {
+            return;
+        }
+        // Tag to check it's filemanager data.
+        clipboardData.setData('fs/tag', 'filemanager-data');
+        clipboardData.setData(`fs/${SOURCE_ROOT_URL}`, sourceVolumeInfo.fileSystem.root.toURL());
+        // In the event a cut event has begun from the TrashRoot, the sources should
+        // be delegated to the underlying files to ensure any validation done
+        // onDrop_ (e.g. DLP scanning) is done on the actual file.
+        if (entries.every(isTrashEntry$1)) {
+            entries = entries.map(e => e.filesEntry);
+        }
+        const encrypted = this.metadataModel_.getCache(entries, ['contentMimeType'])
+            .every((metadata, i) => entries[i] ?
+            isEncrypted(entries[i], metadata.contentMimeType) :
+            false);
+        const sourceURLs = entriesToURLs(entries);
+        clipboardData.setData('fs/sources', sourceURLs.join('\n'));
+        clipboardData.effectAllowed = effectAllowed;
+        clipboardData.setData('fs/effectallowed', effectAllowed);
+        clipboardData.setData(`fs/${ENCRYPTED}`, encrypted.toString());
+        clipboardData.setData(`fs/${MISSING_FILE_CONTENTS}`, missingFileContents.toString());
+    }
+    /**
+     * Appends files of |entries| to |clipboardData|.
+     */
+    appendFiles_(clipboardData, entries) {
+        if (!clipboardData) {
+            return;
+        }
+        for (let i = 0; i < entries.length; i++) {
+            const url = entries[i]?.toURL();
+            if (!url || !this.selectedAsyncData_[url]) {
+                continue;
+            }
+            if (this.selectedAsyncData_[url]?.file) {
+                clipboardData.items.add(this.selectedAsyncData_[url].file);
+            }
+        }
+    }
+    getDragAndDropGlobalData_() {
+        const storage = window.localStorage;
+        const sourceRootURL = storage.getItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${SOURCE_ROOT_URL}`);
+        const missingFileContents = storage.getItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${MISSING_FILE_CONTENTS}`);
+        const encrypted = storage.getItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${ENCRYPTED}`) === 'true';
+        if (sourceRootURL !== null && missingFileContents !== null) {
+            return { sourceRootURL, missingFileContents, encrypted };
+        }
+        return null;
+    }
+    /**
+     * Extracts source root URL from the |clipboardData| or |dragAndDropData|
+     * object.
+     */
+    getSourceRootUrl_(clipboardData, dragAndDropData) {
+        const sourceRootURL = clipboardData.getData(`fs/${SOURCE_ROOT_URL}`);
+        if (sourceRootURL) {
+            return sourceRootURL;
+        }
+        // |clipboardData| in protected mode.
+        if (dragAndDropData) {
+            return dragAndDropData.sourceRootURL;
+        }
+        // Unknown source.
+        return '';
+    }
+    isMissingFileContents_(clipboardData) {
+        let data = clipboardData.getData(`fs/${MISSING_FILE_CONTENTS}`);
+        if (!data) {
+            // |clipboardData| in protected mode.
+            const globalData = this.getDragAndDropGlobalData_();
+            if (globalData) {
+                data = globalData.missingFileContents;
+            }
+        }
+        return data === 'true';
+    }
+    isEncrypted_(clipboardData) {
+        const data = clipboardData.getData(`fs/${ENCRYPTED}`);
+        if (data) {
+            return data === 'true';
+        }
+        // |clipboardData| in protected mode.
+        const globalData = this.getDragAndDropGlobalData_();
+        if (globalData) {
+            return globalData.encrypted;
+        }
+        return false;
+    }
+    /**
+     * Calls executePaste with |pastePlan| if paste is allowed by Data Leak
+     * Prevention policy. If paste is not allowed, it shows a toast to the
+     * user.
+     */
+    async executePasteIfAllowed_(pastePlan) {
+        const sourceEntries = await pastePlan.resolveEntries();
+        let disallowedTransfers = [];
+        try {
+            if (isDlpEnabled()) {
+                const destinationDir = unwrapEntry(pastePlan.destinationEntry);
+                disallowedTransfers = await getDisallowedTransfers(sourceEntries, destinationDir, pastePlan.isMove);
+            }
+        }
+        catch (error) {
+            disallowedTransfers = [];
+            console.warn(error);
+        }
+        if (disallowedTransfers && disallowedTransfers.length !== 0) {
+            let toastText;
+            if (pastePlan.isMove) {
+                if (disallowedTransfers.length === 1) {
+                    toastText = str('DLP_BLOCK_MOVE_TOAST');
+                }
+                else {
+                    toastText =
+                        strf('DLP_BLOCK_MOVE_TOAST_PLURAL', disallowedTransfers.length);
+                }
+            }
+            else {
+                if (disallowedTransfers.length === 1) {
+                    toastText = str('DLP_BLOCK_COPY_TOAST');
+                }
+                else {
+                    toastText =
+                        strf('DLP_BLOCK_COPY_TOAST_PLURAL', disallowedTransfers.length);
+                }
+            }
+            this.filesToast_.show(toastText, {
+                text: str('DLP_TOAST_BUTTON_LABEL'),
+                callback: () => {
+                    visitURL('https://support.google.com/chrome/a/?p=chromeos_datacontrols');
+                },
+            });
+            return 'dlp-blocked';
+        }
+        if (sourceEntries.length === 0) {
+            // This can happen when copied files were deleted before pasting
+            // them. We execute the plan as-is, so as to share the post-copy
+            // logic. This is basically same as getting empty by filtering
+            // same-directory entries.
+            return this.executePaste(pastePlan);
+        }
+        const confirmationType = pastePlan.getConfirmationType();
+        if (confirmationType === TransferConfirmationType.NONE) {
+            return this.executePaste(pastePlan);
+        }
+        const messages = pastePlan.getConfirmationMessages(confirmationType);
+        const userApproved = await this.confirmationCallback_(pastePlan.isMove, messages);
+        if (!userApproved) {
+            return 'user-cancelled';
+        }
+        return this.executePaste(pastePlan);
+    }
+    /**
+     * Collects parameters of paste operation by the given command and the current
+     * system clipboard.
+     * @param writeFileFunc Used for unittest.
+     */
+    preparePaste(clipboardData, destinationEntry, effect, writeFileFunc = writeFile) {
+        destinationEntry =
+            destinationEntry || this.directoryModel_.getCurrentDirEntry();
+        assert$1(destinationEntry);
+        // When FilesApp does drag and drop to itself, it uses fs/sources to
+        // populate sourceURLs, and it will resolve sourceEntries later using
+        // webkitResolveLocalFileSystemURL().
+        const sourceURLs = clipboardData?.getData('fs/sources') ?
+            clipboardData.getData('fs/sources').split('\n') :
+            [];
+        // When FilesApp is the paste target for other apps such as crostini,
+        // the file URL is either not provided, or it is not compatible. We use
+        // DataTransferItem.webkitGetAsEntry() to get the entry now.
+        const sourceEntries = [];
+        if (sourceURLs.length === 0 && clipboardData?.items) {
+            for (let i = 0; i < clipboardData.items.length; i++) {
+                if (clipboardData.items[i]?.kind === 'file') {
+                    const item = clipboardData.items[i];
+                    const entry = item.webkitGetAsEntry();
+                    if (entry !== null) {
+                        sourceEntries.push(entry);
+                        continue;
+                    }
+                    else {
+                        // A File which does not resolve for webkitGetAsEntry() must be an
+                        // image drag drop from the browser. Write it to destination dir.
+                        writeFileFunc(item.getAsFile(), destinationEntry);
+                    }
+                }
+            }
+        }
+        // effectAllowed set in copy/paste handlers stay uninitialized. DnD handlers
+        // work fine.
+        const effectAllowed = clipboardData?.effectAllowed !== 'uninitialized' ?
+            clipboardData?.effectAllowed :
+            clipboardData.getData('fs/effectallowed');
+        const toMove = isDropEffectAllowed(effectAllowed, 'move') &&
+            (!isDropEffectAllowed(effectAllowed, 'copy') || effect === 'move');
+        const destinationLocationInfo = this.volumeManager_.getLocationInfo(destinationEntry);
+        if (!destinationLocationInfo) {
+            console.warn('Failed to get destination location for ' + destinationEntry.toURL() +
+                ' while attempting to paste files.');
+        }
+        assert$1(destinationLocationInfo);
+        return new PastePlan(sourceURLs, sourceEntries, destinationEntry, this.metadataModel_, toMove);
+    }
+    /**
+     * Queue up a file copy operation based on the current system clipboard and
+     * drag-and-drop global object.
+     */
+    async paste(clipboardData, destinationEntry, effect) {
+        const pastePlan = this.preparePaste(clipboardData, destinationEntry, effect);
+        return this.executePasteIfAllowed_(pastePlan);
+    }
+    /**
+     * Queue up a file copy operation.
+     */
+    executePaste(pastePlan) {
+        const toMove = pastePlan.isMove;
+        const destinationEntry = pastePlan.destinationEntry;
+        // Execute the IOTask in asynchronously.
+        (async () => {
+            try {
+                const sourceEntries = await pastePlan.resolveEntries();
+                const entries = await filterSameDirectoryEntry(sourceEntries, destinationEntry, toMove);
+                if (entries.length > 0) {
+                    if (isAllTrashEntries(entries, this.volumeManager_)) {
+                        await startIOTask(chrome.fileManagerPrivate.IoTaskType.RESTORE_TO_DESTINATION, entries, { destinationFolder: destinationEntry });
+                        return;
+                    }
+                    const taskType = toMove ? chrome.fileManagerPrivate.IoTaskType.MOVE :
+                        chrome.fileManagerPrivate.IoTaskType.COPY;
+                    await startIOTask(taskType, entries, { destinationFolder: destinationEntry });
+                }
+            }
+            catch (error) {
+                console.warn(error.stack ? error.stack : error);
+            }
+            finally {
+                // Publish source not found error item.
+                for (let i = 0; i < pastePlan.failureUrls.length; i++) {
+                    const url = pastePlan.failureUrls[i];
+                    if (!url) {
+                        continue;
+                    }
+                    // Extract the file name.
+                    const fileName = decodeURIComponent(url.replace(/^.+\//, ''));
+                    const item = new ProgressCenterItem();
+                    item.id = `source-not-found-${url}`;
+                    item.state = ProgressItemState.ERROR;
+                    item.message = toMove ?
+                        strf('MOVE_SOURCE_NOT_FOUND_ERROR', fileName) :
+                        strf('COPY_SOURCE_NOT_FOUND_ERROR', fileName);
+                    this.progressCenter_.updateItem(item);
+                }
+            }
+        })();
+        return toMove ? 'move' : 'copy';
+    }
+    /**
+     * Renders a drag-and-drop thumbnail.
+     */
+    renderThumbnail_() {
+        const entry = this.selectionHandler_.selection.entries[0];
+        const index = this.selectionHandler_.selection.indexes[0];
+        const items = this.selectionHandler_.selection.entries.length;
+        const container = this.document_.body.querySelector('#drag-container');
+        const html = `
+      ${items > 1 ? `<div class='drag-box drag-multiple'></div>` : ''}
+      <div class='drag-box drag-contents'>
+        <div class='detail-icon'></div>
+        <div class='label'>${htmlEscape(entry.name)}</div>
+      </div>
+      ${items > 1 ? `<div class='drag-bubble'>${items}</div>` : ''}
+    `;
+        container.innerHTML = sanitizeInnerHtml(html, { attrs: ['class'] });
+        const icon = container.querySelector('.detail-icon');
+        const thumbnail = this.listContainer_.currentView.getThumbnail(index);
+        if (thumbnail) {
+            icon.style.backgroundImage = thumbnail.style.backgroundImage;
+            icon.style.backgroundSize = 'cover';
+        }
+        else {
+            icon.setAttribute('file-type-icon', getIcon(entry));
+        }
+        return container;
+    }
+    onDragStart_(list, event) {
+        // If renaming is in progress, drag operation should be used for selecting
+        // substring of the text. So we don't drag files here.
+        if ('currentEntry' in this.listContainer_.renameInput &&
+            this.listContainer_.renameInput.currentEntry) {
+            event.preventDefault();
+            return;
+        }
+        // If this drag operation is initiated by mouse, check if we should start
+        // selecting area.
+        if (!this.touching_ && list.shouldStartDragSelection(event)) {
+            event.preventDefault();
+            this.dragSelector_.startDragSelection(list, event);
+            return;
+        }
+        // If the drag starts outside the files list on a touch device, cancel the
+        // drag.
+        if (this.touching_ && !list.hasDragHitElement(event)) {
+            event.preventDefault();
+            list.selectionModel.unselectAll();
+            return;
+        }
+        // Nothing selected.
+        if (!this.selectionHandler_.selection.entries.length) {
+            event.preventDefault();
+            return;
+        }
+        const dataTransfer = event.dataTransfer;
+        const canCopy = this.canCopyOrDrag();
+        const canCut = this.canCutOrDrag();
+        if (canCopy || canCut) {
+            if (canCopy && canCut) {
+                this.cutOrCopy_(dataTransfer, 'all');
+            }
+            else if (canCopy) {
+                this.cutOrCopy_(dataTransfer, 'copyLink');
+            }
+            else {
+                this.cutOrCopy_(dataTransfer, 'move');
+            }
+        }
+        else {
+            event.preventDefault();
+            return;
+        }
+        const thumbnailElement = this.renderThumbnail_();
+        let thumbnailX = 0;
+        if (this.document_.querySelector(':root[dir=rtl]')) {
+            thumbnailX = thumbnailElement.clientWidth * window.devicePixelRatio;
+        }
+        dataTransfer.setDragImage(thumbnailElement, thumbnailX, /*y=*/ 0);
+        const storage = window.localStorage;
+        storage.setItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${SOURCE_ROOT_URL}`, dataTransfer.getData(`fs/${SOURCE_ROOT_URL}`));
+        storage.setItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${MISSING_FILE_CONTENTS}`, dataTransfer.getData(`fs/${MISSING_FILE_CONTENTS}`));
+        storage.setItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${ENCRYPTED}`, dataTransfer.getData(`fs/${ENCRYPTED}`));
+    }
+    onDragEnd_() {
+        // TODO(fukino): This is workaround for crbug.com/373125.
+        // This should be removed after the bug is fixed.
+        this.touching_ = false;
+        const container = this.document_.body.querySelector('#drag-container');
+        container.textContent = '';
+        this.clearDropTarget_();
+        const storage = window.localStorage;
+        storage.removeItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${SOURCE_ROOT_URL}`);
+        storage.removeItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${MISSING_FILE_CONTENTS}`);
+        storage.removeItem(`${DRAG_AND_DROP_GLOBAL_DATA}.${ENCRYPTED}`);
+    }
+    onDragOver_(onlyIntoDirectories, _, event) {
+        event.preventDefault();
+        let entry = this.destinationEntry_;
+        if (!entry && !onlyIntoDirectories) {
+            entry = this.directoryModel_.getCurrentDirEntry();
+        }
+        event.dataTransfer.dropEffect =
+            this.selectDropEffect_(event, this.getDragAndDropGlobalData_(), entry);
+        event.preventDefault();
+    }
+    onDragEnterFileList_(list, event) {
+        event.preventDefault(); // Required to prevent the cursor flicker.
+        this.lastEnteredTarget_ = event.target;
+        let item = list.getListItemAncestor(this.lastEnteredTarget_);
+        item = item && list.isItem(item) ? item : null;
+        if (item === this.dropTarget_) {
+            return;
+        }
+        const entry = item && list.dataModel.item(item.listIndex);
+        if (entry && event.dataTransfer) {
+            this.setDropTarget_(item, event.dataTransfer, entry);
+        }
+        else {
+            this.clearDropTarget_();
+        }
+    }
+    onDragEnterTree_(_, event) {
+        event.preventDefault(); // Required to prevent the cursor flicker.
+        if (!event.relatedTarget) {
+            if (event.dataTransfer) {
+                event.dataTransfer.dropEffect = 'move';
+            }
+            return;
+        }
+        this.lastEnteredTarget_ = event.target;
+        let item = event.target;
+        while (item && !(item instanceof TreeItem || item instanceof XfTreeItem)) {
+            item = item.parentNode;
+        }
+        if (item === this.dropTarget_) {
+            return;
+        }
+        if (item && 'entry' in item && item.entry && event.dataTransfer) {
+            this.setDropTarget_(item, event.dataTransfer, item.entry);
+        }
+        else {
+            this.clearDropTarget_();
+        }
+    }
+    onDragLeave_(event) {
+        // If mouse moves from one element to another the 'dragenter'
+        // event for the new element comes before the 'dragleave' event for
+        // the old one. In this case event.target !== this.lastEnteredTarget_
+        // and handler of the 'dragenter' event has already carried of
+        // drop target. So event.target === this.lastEnteredTarget_
+        // could only be if mouse goes out of listened element.
+        if (event.target === this.lastEnteredTarget_) {
+            this.clearDropTarget_();
+            this.lastEnteredTarget_ = null;
+        }
+        // TODO(files-ng): dropLabel_ is not used in files-ng, remove it.
+        if (this.dropLabel_) {
+            this.dropLabel_.style.display = 'none';
+        }
+    }
+    async onDrop_(onlyIntoDirectories, event) {
+        if (onlyIntoDirectories && !this.dropTarget_) {
+            return;
+        }
+        const destinationEntry = this.destinationEntry_ || this.directoryModel_.getCurrentDirEntry();
+        assert$1(destinationEntry);
+        if (getRootType(destinationEntry) === RootType.TRASH &&
+            this.canTrashSelection_(getRootType(destinationEntry), event.dataTransfer)) {
+            event.preventDefault();
+            const sourceURLs = (event?.dataTransfer?.getData('fs/sources') || '').split('\n');
+            const { entries, failureUrls } = await convertURLsToEntriesWithAccess(sourceURLs);
+            // The list of entries should not be special entries (e.g. Camera, Linux
+            // files) and should not already exist in Trash (i.e. you can't trash
+            // something that's already trashed).
+            const isModifiableAndNotInTrashRoot = (entry) => {
+                return !isNonModifiable(this.volumeManager_, entry) &&
+                    !isTrashEntry$1(entry);
+            };
+            const canTrashEntries = entries && entries.length > 0 &&
+                entries.every(isModifiableAndNotInTrashRoot);
+            if (canTrashEntries && (!failureUrls || failureUrls.length === 0)) {
+                startIOTask(chrome.fileManagerPrivate.IoTaskType.TRASH, entries, 
+                /*params=*/ {});
+            }
+            this.clearDropTarget_();
+            return;
+        }
+        if (!this.canPasteOrDrop_(event.dataTransfer, destinationEntry)) {
+            return;
+        }
+        event.preventDefault();
+        this.paste(event.dataTransfer, destinationEntry, this.selectDropEffect_(event, this.getDragAndDropGlobalData_(), destinationEntry));
+        this.clearDropTarget_();
+    }
+    /**
+     * Change to the drop target directory.
+     */
+    changeToDropTargetDirectory_() {
+        // Do custom action.
+        if (isDirectoryTreeItem(this.dropTarget_)) {
+            this.dropTarget_.doDropTargetAction();
+        }
+        if (!this.destinationEntry_) {
+            return;
+        }
+        this.directoryModel_.changeDirectoryEntry(this.destinationEntry_);
+    }
+    /**
+     * Sets the drop target.
+     */
+    setDropTarget_(domElement, clipboardData, destinationEntry) {
+        if (this.dropTarget_ === domElement) {
+            return;
+        }
+        // Remove the old drop target.
+        this.clearDropTarget_();
+        // Set the new drop target.
+        this.dropTarget_ = domElement;
+        if (!domElement || !destinationEntry.isDirectory) {
+            return;
+        }
+        assert$1(destinationEntry.isDirectory);
+        // Assume the destination directory won't accept this drop.
+        domElement.classList.remove('accepts');
+        domElement.classList.add('denies');
+        // Disallow dropping a directory on itself.
+        const entries = this.selectionHandler_.selection.entries;
+        for (const entry of entries) {
+            if (isSameEntry(entry, destinationEntry)) {
+                return;
+            }
+        }
+        // Disallow drop target for disabled destination entries.
+        const fileData = getFileData(getStore().getState(), destinationEntry.toURL());
+        if (fileData?.disabled) {
+            return;
+        }
+        this.destinationEntry_ = destinationEntry;
+        // Add accept classes if the directory can accept this drop.
+        if (this.canPasteOrDrop_(clipboardData, destinationEntry)) {
+            domElement.classList.remove('denies');
+            domElement.classList.add('accepts');
+        }
+        // Change directory immediately if it's a fake entry for Crostini.
+        if (getRootType(destinationEntry) === RootType.CROSTINI) {
+            this.changeToDropTargetDirectory_();
+            return;
+        }
+        // Change to the directory after the drag target hover time out.
+        const navigate = this.changeToDropTargetDirectory_.bind(this);
+        this.navigateTimer_ = setTimeout(navigate, this.dragTargetHoverTime_());
+    }
+    /**
+     * Return the drag target hover time in milliseconds.
+     */
+    dragTargetHoverTime_() {
+        return window.IN_TEST ? 500 : 2000;
+    }
+    /**
+     * Handles touch start.
+     */
+    onTouchStart_() {
+        this.touching_ = true;
+    }
+    /**
+     * Handles touch end.
+     */
+    onTouchEnd_() {
+        // TODO(fukino): We have to check if event.touches.length be 0 to support
+        // multi-touch operations, but event.touches has incorrect value by a bug
+        // (crbug.com/373125).
+        // After the bug is fixed, we should check event.touches.
+        this.touching_ = false;
+    }
+    /**
+     * Clears the drop target.
+     */
+    clearDropTarget_() {
+        if (this.dropTarget_) {
+            this.dropTarget_.classList.remove('accepts', 'denies');
+        }
+        this.dropTarget_ = null;
+        this.destinationEntry_ = null;
+        if (this.navigateTimer_) {
+            clearTimeout(this.navigateTimer_);
+            this.navigateTimer_ = 0;
+        }
+    }
+    isDocumentWideEvent_() {
+        const element = this.document_.activeElement;
+        const tagName = this.document_.activeElement?.nodeName.toLowerCase();
+        return !((tagName === 'input' &&
+            (element && 'type' in element && element?.type === 'text')) ||
+            tagName === 'cr-input');
+    }
+    onCutOrCopy_(isMove, event) {
+        if (!this.isDocumentWideEvent_() || !this.canCutOrCopy_(isMove)) {
+            return;
+        }
+        event.preventDefault();
+        const clipboardData = getClipboardData(event);
+        const effectAllowed = isMove ? 'move' : 'copy';
+        // If current focus is on DirectoryTree, write selected item of
+        // DirectoryTree to system clipboard.
+        if (document.activeElement && isDirectoryTree(document.activeElement)) {
+            const focusedItem = getFocusedTreeItem(document.activeElement);
+            this.cutOrCopyFromDirectoryTree(focusedItem, clipboardData, effectAllowed);
+            return;
+        }
+        if (document.activeElement && isTreeItem$1(document.activeElement)) {
+            this.cutOrCopyFromDirectoryTree(document.activeElement, clipboardData, effectAllowed);
+            return;
+        }
+        // If current focus is not on DirectoryTree, write the current selection in
+        // the list to system clipboard.
+        this.cutOrCopy_(clipboardData, effectAllowed);
+        this.blinkSelection_();
+    }
+    /**
+     * Performs cut or copy operation dispatched from directory tree.
+     */
+    cutOrCopyFromDirectoryTree(focusedItem, clipboardData, effectAllowed) {
+        if (focusedItem === null) {
+            return;
+        }
+        if (!('entry' in focusedItem)) {
+            return;
+        }
+        const entry = focusedItem.entry;
+        const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
+        if (!volumeInfo) {
+            return;
+        }
+        // When this value is false, we cannot copy between different sources.
+        const missingFileContents = volumeInfo.volumeType === VolumeType.DRIVE &&
+            this.volumeManager_.getDriveConnectionState().type ===
+                chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE;
+        this.appendCutOrCopyInfo_(clipboardData, effectAllowed, volumeInfo, [entry], missingFileContents);
+    }
+    onBeforeCutOrCopy_(isMove, event) {
+        if (!this.isDocumentWideEvent_()) {
+            return;
+        }
+        // queryCommandEnabled returns true if event.defaultPrevented is true.
+        if (this.canCutOrCopy_(isMove)) {
+            event.preventDefault();
+        }
+    }
+    canCutOrCopy_(isMove) {
+        const command = isMove ? this.cutCommand_ : this.copyCommand_;
+        command.canExecuteChange(this.document_.activeElement);
+        return !command.disabled;
+    }
+    canCopyOrDrag() {
+        if (!this.selectionHandler_.isAvailable()) {
+            return false;
+        }
+        if (this.selectionHandler_.selection.entries.length <= 0) {
+            return false;
+        }
+        // Trash entries are only allowed to be restored which is analogous to a
+        // cut event, so disallow the copy.
+        if (this.selectionHandler_.selection.entries.every(isTrashEntry$1)) {
+            return false;
+        }
+        const entries = this.selectionHandler_.selection.entries;
+        for (let i = 0; i < entries.length; i++) {
+            if (!entries[i]) {
+                continue;
+            }
+            if (isTeamDriveRoot(entries[i])) {
+                return false;
+            }
+            // If selected entries are not in the same directory, we can't copy them
+            // by a single operation at this moment.
+            if (i > 0 && !isSiblingEntry(entries[0], entries[i])) {
+                return false;
+            }
+        }
+        // Don't allow copy of encrypted files.
+        if (this.metadataModel_.getCache(entries, ['contentMimeType'])
+            .every((metadata, i) => entries[i] ?
+            isEncrypted(entries[i], metadata.contentMimeType) :
+            false)) {
+            return false;
+        }
+        // Check if canCopy is true or undefined, but not false (see
+        // https://crbug.com/849999).
+        return this.metadataModel_.getCache(entries, ['canCopy'])
+            .every(item => item.canCopy !== false);
+    }
+    canCutOrDrag() {
+        if (this.directoryModel_.isReadOnly() ||
+            !this.selectionHandler_.isAvailable() ||
+            this.selectionHandler_.selection.entries.length <= 0) {
+            return false;
+        }
+        const entries = this.selectionHandler_.selection.entries;
+        // All entries need the 'canDelete' permission.
+        const metadata = this.metadataModel_.getCache(entries, ['canDelete']);
+        if (metadata.some(item => item.canDelete === false)) {
+            return false;
+        }
+        for (let i = 0; i < entries.length; i++) {
+            if (entries[i] && isNonModifiable(this.volumeManager_, entries[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    onPaste_(event) {
+        // If the event has destDirectory property, paste files into the directory.
+        // This occurs when the command fires from menu item 'Paste into folder'.
+        const destination = (('destDirectory' in event && event.destDirectory) ||
+            this.directoryModel_.getCurrentDirEntry());
+        // Need to update here since 'beforepaste' doesn't fire.
+        if (!this.isDocumentWideEvent_() ||
+            !this.canPasteOrDrop_(getClipboardData(event), destination)) {
+            return;
+        }
+        event.preventDefault();
+        this.paste(getClipboardData(event), destination).then(effect => {
+            // On cut, we clear the clipboard after the file is pasted/moved so we
+            // don't try to move/delete the original file again.
+            if (effect === 'move') {
+                this.simulateCommand_('cut', (event) => {
+                    event.preventDefault();
+                    const clipboardData = getClipboardData(event);
+                    if (clipboardData) {
+                        clipboardData.setData('fs/clear', '');
+                    }
+                });
+            }
+        });
+    }
+    onBeforePaste_(event) {
+        if (!this.isDocumentWideEvent_()) {
+            return;
+        }
+        // queryCommandEnabled returns true if event.defaultPrevented is true.
+        const currentDirEntry = this.directoryModel_.getCurrentDirEntry();
+        if (currentDirEntry &&
+            this.canPasteOrDrop_(getClipboardData(event), currentDirEntry)) {
+            event.preventDefault();
+        }
+    }
+    canPasteOrDrop_(clipboardData, destinationEntry) {
+        if (!clipboardData) {
+            return false;
+        }
+        if (!destinationEntry) {
+            return false;
+        }
+        const destinationLocationInfo = this.volumeManager_.getLocationInfo(destinationEntry);
+        if (!destinationLocationInfo || destinationLocationInfo.isReadOnly) {
+            return false;
+        }
+        // Recent isn't read-only, but it doesn't support paste/drop.
+        if (destinationLocationInfo.rootType === RootType.RECENT) {
+            return false;
+        }
+        if (destinationLocationInfo.volumeInfo &&
+            destinationLocationInfo.volumeInfo.error) {
+            return false;
+        }
+        // DataTransfer type will be 'fs/tag' when the source was FilesApp or exo,
+        // or 'Files' when the source was any other app.
+        const types = clipboardData.types;
+        if (!types || !(types.includes('fs/tag') || types.includes('Files'))) {
+            return false; // Unsupported type of content.
+        }
+        // A drop on the Trash root should always perform a "Send to Trash"
+        // operation.
+        if (destinationLocationInfo.rootType === RootType.TRASH) {
+            return this.canTrashSelection_(getRootType(destinationLocationInfo), clipboardData);
+        }
+        const sourceUrls = (clipboardData.getData('fs/sources') || '').split('\n');
+        assert$1(destinationLocationInfo.volumeInfo);
+        if (this.getSourceRootUrl_(clipboardData, this.getDragAndDropGlobalData_()) !==
+            destinationLocationInfo.volumeInfo.fileSystem.root.toURL()) {
+            // Copying between different sources requires all files to be available.
+            if (this.isMissingFileContents_(clipboardData)) {
+                return false;
+            }
+            // Moving an encrypted files outside of Google Drive is not supported.
+            if (this.isEncrypted_(clipboardData)) {
+                return false;
+            }
+            // Block transferring hosted files between different sources in order to
+            // prevent hosted files from being transferred outside of Drive. This is
+            // done because hosted files aren't 'real' files, so it doesn't make sense
+            // to allow a 'local' copy (e.g. in Downloads, or on a USB), where the
+            // file can't be accessed offline (or necessarily accessed at all) by the
+            // person who tries to open it. It also blocks copying hosted files to
+            // other profiles, as the files would need to be shared in Drive first.
+            if (sourceUrls.some(source => getFileTypeForName(source).type === 'hosted')) {
+                return false;
+            }
+        }
+        // If the destination is sub-tree of any of the sources paste isn't allowed.
+        const addTrailingSlash = (s) => {
+            if (!s.endsWith('/')) {
+                s += '/';
+            }
+            return s;
+        };
+        const destinationUrl = addTrailingSlash(destinationEntry.toURL());
+        if (sourceUrls.some(source => destinationUrl.startsWith(addTrailingSlash(source)))) {
+            return false;
+        }
+        // Destination entry needs the 'canAddChildren' permission.
+        const metadata = this.metadataModel_.getCache([destinationEntry], ['canAddChildren']);
+        if (metadata[0]?.canAddChildren === false) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Execute paste command.
+     */
+    queryPasteCommandEnabled(destinationEntry) {
+        if (!this.isDocumentWideEvent_()) {
+            return false;
+        }
+        // HACK(serya): return this.document_.queryCommandEnabled('paste')
+        // should be used.
+        let result;
+        this.simulateCommand_('paste', (event) => {
+            result = this.canPasteOrDrop_(getClipboardData(event), destinationEntry);
+        });
+        return result;
+    }
+    /**
+     * Allows to simulate commands to get access to clipboard.
+     */
+    simulateCommand_(command, handler) {
+        const iframe = this.document_.body.querySelector('#command-dispatcher');
+        const doc = iframe.contentDocument;
+        if (!doc) {
+            return;
+        }
+        doc.addEventListener(command, handler);
+        doc.execCommand(command);
+        doc.removeEventListener(command, handler);
+    }
+    onFileSelectionChangedThrottled_() {
+        // Remove file objects that are no longer in the selection.
+        const asyncData = {};
+        const entries = this.selectionHandler_.selection.entries;
+        for (const entry of entries) {
+            const entryUrl = entry.toURL();
+            if (entryUrl in this.selectedAsyncData_) {
+                asyncData[entryUrl] = this.selectedAsyncData_[entryUrl];
+            }
+        }
+        this.selectedAsyncData_ = asyncData;
+        const fileEntries = [];
+        for (const entry of entries) {
+            if (entry.isFile) {
+                fileEntries.push(entry);
+            }
+            const entryUrl = entry.toURL();
+            if (!(entryUrl in asyncData)) {
+                asyncData[entryUrl] = { externalFileUrl: '', file: undefined };
+            }
+        }
+        const containsDirectory = this.selectionHandler_.selection.directoryCount > 0;
+        // File object must be prepeared in advance for clipboard operations
+        // (copy, paste and drag). DataTransfer object closes for write after
+        // returning control from that handlers so they may not have
+        // asynchronous operations.
+        if (!containsDirectory) {
+            for (let i = 0; i < fileEntries.length; i++) {
+                (fileEntry => {
+                    const fileEntryURL = fileEntry?.toURL();
+                    if (!(fileEntryURL && asyncData[fileEntryURL]?.file) && fileEntry) {
+                        fileEntry.file(file => {
+                            if (asyncData[fileEntryURL]) {
+                                asyncData[fileEntryURL].file = file;
+                            }
+                        });
+                    }
+                })(fileEntries[i]);
+            }
+        }
+        this.metadataModel_
+            .get(entries, ['alternateUrl', 'externalFileUrl', 'hosted'])
+            .then(metadataList => {
+            for (let i = 0; i < entries.length; i++) {
+                if (!entries[i]) {
+                    continue;
+                }
+                const entryUrl = entries[i].toURL();
+                if (entries[i].isFile) {
+                    if (metadataList[i]?.hosted) {
+                        asyncData[entryUrl].externalFileUrl =
+                            metadataList[i].alternateUrl;
+                    }
+                    else {
+                        asyncData[entryUrl].externalFileUrl =
+                            metadataList[i].externalFileUrl;
+                    }
+                }
+            }
+        });
+    }
+    selectDropEffect_(event, dragAndDropData, destinationEntry) {
+        if (!destinationEntry) {
+            return DropEffectType.NONE;
+        }
+        const destinationLocationInfo = this.volumeManager_.getLocationInfo(destinationEntry);
+        if (!destinationLocationInfo) {
+            return DropEffectType.NONE;
+        }
+        if (destinationLocationInfo.volumeInfo &&
+            destinationLocationInfo.volumeInfo.error) {
+            return DropEffectType.NONE;
+        }
+        // Recent isn't read-only, but it doesn't support drop.
+        if (destinationLocationInfo.rootType === RootType.RECENT) {
+            return DropEffectType.NONE;
+        }
+        if (destinationLocationInfo.isReadOnly) {
+            if (destinationLocationInfo.isSpecialSearchRoot) {
+                // The location is a fake entry that corresponds to special search.
+                return DropEffectType.NONE;
+            }
+            if (destinationLocationInfo.rootType === RootType.CROSTINI) {
+                // The location is a the fake entry for crostini.  Start container.
+                return DropEffectType.NONE;
+            }
+            if (destinationLocationInfo.volumeInfo &&
+                destinationLocationInfo.volumeInfo.isReadOnlyRemovableDevice) {
+                return DropEffectType.NONE;
+            }
+            // The disk device is not write-protected but read-only.
+            // Currently, the only remaining possibility is that write access to
+            // removable drives is restricted by device policy.
+            return DropEffectType.NONE;
+        }
+        // Decryption of CSE files is not currently supported on ChromeOS. However,
+        // moving such a file around Google Drive works fine.
+        if (dragAndDropData && dragAndDropData.encrypted &&
+            destinationLocationInfo.rootType !== RootType.DRIVE) {
+            return DropEffectType.NONE;
+        }
+        const destinationMetadata = this.metadataModel_.getCache([destinationEntry], ['canAddChildren']);
+        if (destinationMetadata.length === 1 &&
+            destinationMetadata[0].canAddChildren === false) {
+            // TODO(sashab): Distinguish between copy/move operations and display
+            // corresponding warning text here.
+            return DropEffectType.NONE;
+        }
+        // Files can be dragged onto the TrashRootEntry, but they must reside on a
+        // volume that is trashable.
+        if (destinationLocationInfo.rootType === RootType.TRASH) {
+            const effect = (this.canTrashSelection_(getRootType(destinationLocationInfo), event.dataTransfer)) ?
+                DropEffectType.MOVE :
+                DropEffectType.NONE;
+            return effect;
+        }
+        if (isDropEffectAllowed(event.dataTransfer.effectAllowed, 'move')) {
+            if (!isDropEffectAllowed(event.dataTransfer.effectAllowed, 'copy')) {
+                return DropEffectType.MOVE;
+            }
+            // TODO(mtomasz): Use volumeId instead of comparing roots, as soon as
+            // volumeId gets unique.
+            assert$1(destinationLocationInfo.volumeInfo);
+            if (this.getSourceRootUrl_(event.dataTransfer, dragAndDropData) ===
+                destinationLocationInfo.volumeInfo.fileSystem.root.toURL() &&
+                !event.ctrlKey) {
+                return DropEffectType.MOVE;
+            }
+            if (event.shiftKey) {
+                return DropEffectType.MOVE;
+            }
+        }
+        return DropEffectType.COPY;
+    }
+    /**
+     * Identifies if the current selection can be sent to the trash. Items can be
+     * dragged and dropped onto the TrashRootEntry, but they must all come from a
+     * valid location that supports trash.
+     * The URLs are compared against the volumes that are enabled for trashing.
+     * This is to avoid blocking the drag drop operation with resolution of the
+     * URLs to entries. This has the unfortunate side effect of not being able to
+     * identify any non modifiable entries after a directory change but prior to
+     * the drop event occurring.
+     */
+    canTrashSelection_(rootType, clipboardData) {
+        if (!rootType) {
+            return false;
+        }
+        if (rootType !== RootType.TRASH) {
+            return false;
+        }
+        if (!clipboardData) {
+            return false;
+        }
+        const enabledTrashURLs = getEnabledTrashVolumeURLs(this.volumeManager_);
+        // When the dragDrop event starts the selectionHandler_ contains the initial
+        // selection, this is preferable to identify whether the selection is
+        // available or not as the sources have resolved entries already.
+        const { entries } = this.selectionHandler_.selection;
+        if (entries && entries.length > 0) {
+            for (const entry of entries) {
+                if (isNonModifiable(this.volumeManager_, entry)) {
+                    return false;
+                }
+                const entryURL = entry.toURL();
+                if (enabledTrashURLs.some(volumeURL => entryURL.startsWith(volumeURL))) {
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        }
+        // If the selection is cleared the directory may have changed but the drag
+        // event is still active. The only way to validate if the selection is
+        // trashable now is to compare the `sourceRootURL` against the enabled trash
+        // locations.
+        // TODO(b/241517469): At this point the sourceRootURL may be on an enabled
+        // location but the entry may not be trashable (e.g. Downloads and the
+        // Camera folder). When the drop event occurs the URLs get resolved to
+        // entries to ensure the operation can occur, but this may result in a move
+        // operation showing as allowed when the drop doesn't accept it.
+        const sourceRootURL = this.getSourceRootUrl_(clipboardData, this.getDragAndDropGlobalData_());
+        return enabledTrashURLs.some(volumeURL => sourceRootURL.startsWith(volumeURL));
+    }
+    /**
+     * Blinks the selection. Used to give feedback when copying or cutting the
+     * selection.
+     */
+    blinkSelection_() {
+        const selection = this.selectionHandler_.selection;
+        if (!selection || selection.totalCount === 0) {
+            return;
+        }
+        const listItems = [];
+        for (let i = 0; i < selection.entries.length; i++) {
+            const selectedIndex = selection.indexes[i];
+            const listItem = this.listContainer_.currentList.getListItemByIndex(selectedIndex);
+            if (listItem) {
+                listItem.classList.add('blink');
+                listItems.push(listItem);
+            }
+        }
+        setTimeout(() => {
+            for (let i = 0; i < listItems.length; i++) {
+                listItems[i].classList.remove('blink');
+            }
+        }, 100);
+    }
+}
+/**
+ * Container for defining a copy/move operation.
+ */
+class PastePlan {
+    constructor(sourceURLs, sourceEntries, destinationEntry, metadataModel_, isMove) {
+        this.sourceURLs = sourceURLs;
+        this.sourceEntries = sourceEntries;
+        this.destinationEntry = destinationEntry;
+        this.metadataModel_ = metadataModel_;
+        this.isMove = isMove;
+        this.failureUrls = [];
+    }
+    /**
+     * Resolves sourceEntries from sourceURLs if needed and returns them.
+     */
+    async resolveEntries() {
+        if (!this.sourceEntries.length) {
+            const result = await convertURLsToEntriesWithAccess(this.sourceURLs);
+            this.sourceEntries = result.entries;
+            this.failureUrls = result.failureUrls;
+        }
+        return this.sourceEntries;
+    }
+    /**
+     * Obtains whether the planned operation requires user's confirmation, as well
+     * as its type.
+     */
+    getConfirmationType() {
+        assert$1(this.sourceEntries[0]);
+        // Confirmation type for local drive.
+        const sourceEntryCache = this.metadataModel_.getCache([this.sourceEntries[0]], ['shared']);
+        const destinationEntryCache = this.metadataModel_.getCache([this.destinationEntry], ['shared']);
+        // The shared property tells us whether an entry is shared on Drive, and is
+        // potentially undefined.
+        const isSharedSource = sourceEntryCache[0]?.shared === true;
+        const isSharedDestination = destinationEntryCache[0]?.shared === true;
+        // See crbug.com/731583#c20.
+        if (!isSharedSource && isSharedDestination) {
+            return this.isMove ? TransferConfirmationType.MOVE_TO_SHARED_DRIVE :
+                TransferConfirmationType.COPY_TO_SHARED_DRIVE;
+        }
+        // Confirmation type for team drives.
+        const source = {
+            isTeamDrive: isSharedDriveEntry(this.sourceEntries[0]),
+            teamDriveName: getTeamDriveName(this.sourceEntries[0]),
+        };
+        const destination = {
+            isTeamDrive: isSharedDriveEntry(this.destinationEntry),
+            teamDriveName: getTeamDriveName(this.destinationEntry),
+        };
+        if (this.isMove) {
+            if (source.isTeamDrive) {
+                if (destination.isTeamDrive) {
+                    if (source.teamDriveName === destination.teamDriveName) {
+                        return TransferConfirmationType.NONE;
+                    }
+                    else {
+                        return TransferConfirmationType.MOVE_BETWEEN_SHARED_DRIVES;
+                    }
+                }
+                else {
+                    return TransferConfirmationType.MOVE_FROM_SHARED_DRIVE_TO_OTHER;
+                }
+            }
+            else if (destination.isTeamDrive) {
+                return TransferConfirmationType.MOVE_FROM_OTHER_TO_SHARED_DRIVE;
+            }
+            return TransferConfirmationType.NONE;
+        }
+        else {
+            if (!destination.isTeamDrive) {
+                return TransferConfirmationType.NONE;
+            }
+            // Copying to Shared Drive.
+            if (!(source.isTeamDrive &&
+                source.teamDriveName === destination.teamDriveName)) {
+                // This is not a copy within the same Shared Drive.
+                return TransferConfirmationType.COPY_FROM_OTHER_TO_SHARED_DRIVE;
+            }
+            return TransferConfirmationType.NONE;
+        }
+    }
+    /**
+     * Composes a confirmation message for the given type.
+     */
+    getConfirmationMessages(confirmationType) {
+        assert$1(this.sourceEntries.length !== 0);
+        const sourceName = getTeamDriveName(this.sourceEntries[0]);
+        const destinationName = getTeamDriveName(this.destinationEntry);
+        switch (confirmationType) {
+            case TransferConfirmationType.COPY_TO_SHARED_DRIVE:
+                return [strf('DRIVE_CONFIRM_COPY_TO_SHARED_DRIVE', this.destinationEntry.fullPath.split('/').pop())];
+            case TransferConfirmationType.MOVE_TO_SHARED_DRIVE:
+                return [strf('DRIVE_CONFIRM_MOVE_TO_SHARED_DRIVE', this.destinationEntry.fullPath.split('/').pop())];
+            case TransferConfirmationType.MOVE_BETWEEN_SHARED_DRIVES:
+                return [
+                    strf('DRIVE_CONFIRM_TD_MEMBERS_LOSE_ACCESS', sourceName),
+                    strf('DRIVE_CONFIRM_TD_MEMBERS_GAIN_ACCESS_TO_COPY', destinationName),
+                ];
+            // TODO(yamaguchi): notify ownership transfer if the two Shared Drives
+            // belong to different domains.
+            case TransferConfirmationType.MOVE_FROM_SHARED_DRIVE_TO_OTHER:
+                return [
+                    strf('DRIVE_CONFIRM_TD_MEMBERS_LOSE_ACCESS', sourceName),
+                    // TODO(yamaguchi): Warn if the operation moves at least one
+                    // directory to My Drive, as it's no undoable.
+                ];
+            case TransferConfirmationType.MOVE_FROM_OTHER_TO_SHARED_DRIVE:
+                return [strf('DRIVE_CONFIRM_TD_MEMBERS_GAIN_ACCESS', destinationName)];
+            case TransferConfirmationType.COPY_FROM_OTHER_TO_SHARED_DRIVE:
+                return [strf('DRIVE_CONFIRM_TD_MEMBERS_GAIN_ACCESS_TO_COPY', destinationName)];
+        }
+        assertNotReached$1('Invalid confirmation type: ' + confirmationType);
+        return [];
+    }
+}
+/**
+ * Converts list of urls to list of Entries with granting R/W permissions to
+ * them, which is essential when pasting files from a different profile.
+ */
+const convertURLsToEntriesWithAccess = async (urls) => {
+    await grantAccess(urls);
+    return convertURLsToEntries(urls);
+};
+/**
+ * Checks if the specified set of allowed effects contains the given effect.
+ * See: http://www.w3.org/TR/html5/editing.html#the-datatransfer-interface
+ */
+const isDropEffectAllowed = (effectAllowed, dropEffect) => {
+    return effectAllowed === 'all' ||
+        effectAllowed?.toLowerCase().indexOf(dropEffect) !== -1;
+};
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/** Number of milliseconds in a day. */
+const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+/** Controller for list contents update. */
+class MetadataUpdateController {
+    constructor(listContainer_, directoryModel_, metadataModel_, fileMetadataFormatter_) {
+        this.listContainer_ = listContainer_;
+        this.directoryModel_ = directoryModel_;
+        this.metadataModel_ = metadataModel_;
+        this.fileMetadataFormatter_ = fileMetadataFormatter_;
+        this.store_ = getStore();
+        chrome.fileManagerPrivate.onPreferencesChanged.addListener(this.onPreferencesChanged_.bind(this));
+        this.onPreferencesChanged_();
+        this.metadataModel_.addEventListener('update', this.onCachedMetadataUpdate_.bind(this));
+        // Update metadata to change 'Today' and 'Yesterday' dates.
+        const today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        setTimeout(this.dailyUpdateModificationTime_.bind(this), today.getTime() + MILLISECONDS_IN_DAY - Date.now() + 1000);
+    }
+    /** Clears metadata cache for the current directory and its descendants. */
+    refreshCurrentDirectoryMetadata() {
+        const entries = this.directoryModel_.getFileList().slice();
+        const directoryEntry = this.directoryModel_.getCurrentDirEntry();
+        if (!directoryEntry) {
+            return;
+        }
+        const changedEntries = (isFakeEntry(directoryEntry) ? [] : [
+            unwrapEntry(directoryEntry),
+        ]).concat(entries);
+        this.metadataModel_.notifyEntriesChanged(changedEntries);
+        // We don't pass callback here. When new metadata arrives, we have an
+        // observer registered to update the UI.
+        this.metadataModel_.get(changedEntries, this.directoryModel_.getPrefetchPropertyNames());
+    }
+    /**
+     * Handles local metadata changes in the current directory.
+     * @param event Change event.
+     */
+    onCachedMetadataUpdate_(event) {
+        this.updateStore_(event.entries);
+        this.listContainer_.dataModel?.refreshGroupBySnapshot();
+        // TODO(hirono): Specify property name instead of metadata type.
+        this.listContainer_.currentView.updateListItemsMetadata('filesystem', event.entries);
+        this.listContainer_.currentView.updateListItemsMetadata('external', event.entries);
+    }
+    dailyUpdateModificationTime_() {
+        const entries = this.directoryModel_.getFileList().slice();
+        this.metadataModel_.get(entries, ['modificationTime']).then(() => {
+            this.listContainer_.currentView.updateListItemsMetadata('filesystem', entries);
+        });
+        setTimeout(this.dailyUpdateModificationTime_.bind(this), MILLISECONDS_IN_DAY);
+    }
+    onPreferencesChanged_() {
+        chrome.fileManagerPrivate.getPreferences(prefs => {
+            const use12hourClock = !prefs.use24hourClock;
+            this.fileMetadataFormatter_.setDateTimeFormat(use12hourClock);
+            // TODO(oka): Remove these two lines, and add fileMetadataFormatter to
+            // constructor for each field instead.
+            this.listContainer_.table.setDateTimeFormat(use12hourClock);
+            this.refreshCurrentDirectoryMetadata();
+        });
+    }
+    /** Sends the new metadata to the Store. */
+    updateStore_(entries) {
+        const metadata = entries.map((e) => ({
+            entry: e,
+            metadata: this.metadataModel_.getCache([e], this.directoryModel_.getPrefetchPropertyNames())[0],
+        }));
+        this.store_.dispatch(updateMetadata({ metadata }));
+    }
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TaskController {
+    constructor(volumeManager_, ui_, metadataModel_, directoryModel_, selectionHandler_, metadataUpdateController_, crostini_, progressCenter_) {
+        this.volumeManager_ = volumeManager_;
+        this.ui_ = ui_;
+        this.metadataModel_ = metadataModel_;
+        this.directoryModel_ = directoryModel_;
+        this.selectionHandler_ = selectionHandler_;
+        this.metadataUpdateController_ = metadataUpdateController_;
+        this.crostini_ = crostini_;
+        this.progressCenter_ = progressCenter_;
+        this.fileTransferController_ = null;
+        this.canExecuteDefaultTask_ = false;
+        this.shouldHideDefaultTask_ = true;
+        this.canExecuteOpenActions_ = false;
+        /**
+         * Cached promise used to avoid initializing the same FileTasks
+         * multiple times.
+         */
+        this.tasks_ = null;
+        /** Map used to track extract IOTasks in progress.  */
+        this.extractTasks_ = new Map();
+        this.selectionFilesData_ = [];
+        this.selectionKeys_ = [];
+        this.taskHistory_ = new TaskHistory();
+        this.defaultTaskCommand_ =
+            assertInstanceof$1(document.querySelector('#default-task'), Command);
+        this.openWithCommand_ =
+            assertInstanceof$1(document.querySelector('#open-with'), Command);
+        this.store_ = getStore();
+        this.store_.subscribe(this);
+        ui_.taskMenuButton.addEventListener('combobutton-select', this.onTaskItemClicked_.bind(this));
+        // TODO: Move the following events to the Store.
+        this.taskHistory_.addEventListener(EventType$2.UPDATE, this.updateTasks_.bind(this));
+        chrome.fileManagerPrivate.onIOTaskProgressStatus.addListener(this.onIoTaskProgressStatus_.bind(this));
+        chrome.fileManagerPrivate.onAppsUpdated.addListener(this.clearCacheAndUpdateTasks_.bind(this));
+    }
+    onStateChanged(newState) {
+        const keys = newState.currentDirectory?.selection.keys ?? [];
+        const tasks = newState.currentDirectory?.selection.fileTasks;
+        // If the selection changed.
+        if (keys !== this.selectionKeys_ &&
+            (keys.length > 0 || this.selectionKeys_.length > 0)) {
+            this.selectionKeys_ = keys;
+            this.selectionFilesData_ = getFilesData(newState, keys ?? []);
+            // Kickoff the async/ActionsProducer to fetch the tasks for the new
+            // selection. If the new selection is empty, still need to update the
+            // store so no old file task lingers.
+            this.tasks_ = null;
+            this.store_.dispatch(fetchFileTasks(this.selectionFilesData_));
+            // Hides the button while fetching the tasks.
+            this.maybeHideButton();
+        }
+        // If the file tasks changed.
+        if (tasks !== this.selectionTasks_) {
+            this.selectionTasks_ = tasks;
+            if (tasks?.status === PropStatus.SUCCESS) {
+                this.updateTasks_();
+            }
+        }
+    }
+    setFileTransferController(fileTransferController) {
+        this.fileTransferController_ = fileTransferController;
+    }
+    /**
+     * Exposes the TaskHistory instance for the ActionsProducer.
+     *
+     * NOTE: This is a temporary workaround until the TaskHistory is migrated to
+     * the store.
+     */
+    get taskHistory() {
+        return this.taskHistory_;
+    }
+    /**
+     * Task combobox handler.
+     *
+     * @param event Event containing task which was clicked.
+     */
+    async onTaskItemClicked_(event) {
+        // If the clicked target has an associated command, the click event should
+        // not be handled here since it is handled as a command.
+        // TODO(lucmult): Add TS definition for these events instead of using any.
+        if (event.target && event.target.command) {
+            return;
+        }
+        const item = event.detail;
+        if (!item) {
+            return;
+        }
+        try {
+            const tasks = await this.getFileTasks();
+            switch (item.type) {
+                case TaskMenuItemType.SHOW_MENU:
+                    this.ui_.taskMenuButton.showMenu(false);
+                    break;
+                case TaskMenuItemType.RUN_TASK:
+                    tasks.execute(item.task);
+                    break;
+                case TaskMenuItemType.CHANGE_DEFAULT_TASK:
+                    const selection = this.selectionHandler_.selection;
+                    const extensions = [];
+                    for (let i = 0; i < selection.entries.length; i++) {
+                        const match = /\.(\w+)$/g.exec(selection.entries[i].toURL());
+                        if (match) {
+                            const ext = match[1].toUpperCase();
+                            if (extensions.indexOf(ext) === -1) {
+                                extensions.push(ext);
+                            }
+                        }
+                    }
+                    let format = '';
+                    if (extensions.length === 1) {
+                        format = extensions[0];
+                    }
+                    // Change default was clicked. We should open "change default"
+                    // dialog.
+                    tasks.showTaskPicker(this.ui_.defaultTaskPicker, str('CHANGE_DEFAULT_MENU_ITEM'), strf('CHANGE_DEFAULT_CAPTION', format), this.changeDefaultTask_.bind(this, selection), TaskPickerType.ChangeDefault);
+                    break;
+                default:
+                    assertNotReached$1('Unknown task.');
+            }
+        }
+        catch (error) {
+            if (error) {
+                console.warn(error.stack || error);
+            }
+        }
+    }
+    /**
+     * Sets the given task as default, when this task is applicable.
+     *
+     * @param selection File selection.
+     * @param task Task to set as default.
+     */
+    async changeDefaultTask_(selection, task) {
+        const entries = selection.entries.map(entry => unwrapEntry(entry));
+        const mimeTypes = await Promise.all(entries.map(entry => this.getMimeType_(entry)));
+        chrome.fileManagerPrivate.setDefaultTask(task.descriptor, entries, mimeTypes, checkAPIError);
+        this.metadataUpdateController_.refreshCurrentDirectoryMetadata();
+        // Update task menu button unless the task button was updated by other
+        // selection.
+        if (this.selectionHandler_.selection === selection) {
+            this.tasks_ = null;
+            try {
+                const tasks = await this.getFileTasks();
+                this.display_(tasks);
+            }
+            catch (error) {
+                if (error) {
+                    console.warn(error.stack || error);
+                }
+            }
+        }
+        this.selectionHandler_.onFileSelectionChanged();
+    }
+    /** Displays the list of tasks in a open task picker combobutton. */
+    display_(fileTasks) {
+        this.updateTasksDropdown_(fileTasks);
+    }
+    /**
+     * Populate the #tasks-menu with the open-with tasks. The menu is managed by
+     * the top task menu Open combobutton, but it is also used as the
+     * right-click open-with context menu.
+     */
+    updateTasksDropdown_(fileTasks) {
+        const combobutton = this.ui_.taskMenuButton;
+        const tasks = fileTasks.getAnnotatedTasks();
+        combobutton.hidden =
+            tasks.length === 0 || fileTasks.entries.some(e => e.isDirectory);
+        // Even if the task menu button is hidden, we still update the items if
+        // tasks exist since they are used for the right-click context menu.
+        if (tasks.length === 0) {
+            return;
+        }
+        combobutton.clear();
+        const defaultTask = fileTasks.defaultTask;
+        // If there exist defaultTask show it on the combobutton.
+        if (defaultTask) {
+            combobutton.defaultItem =
+                createDropdownItem(defaultTask, str('TASK_OPEN'));
+        }
+        else {
+            combobutton.defaultItem = {
+                type: TaskMenuItemType.SHOW_MENU,
+                label: str('OPEN_WITH_BUTTON_LABEL'),
+            };
+        }
+        // If there exist 2 or more available tasks, show them in context menu
+        // (including defaultTask). If only one generic task is available, we
+        // also show it in the context menu.
+        const items = this.createItems(fileTasks);
+        if (items.length > 1 || (items.length === 1 && !defaultTask)) {
+            for (const item of items) {
+                combobutton.addDropDownItem(item);
+            }
+            // If there exist non generic task (i.e. defaultTask is set) and this
+            // default is not set by policy, we show an item to change default task.
+            if (defaultTask && !fileTasks.getPolicyDefaultHandlerStatus()) {
+                combobutton.addSeparator();
+                // TODO(greengrape): Ensure that the passed object is a
+                // `DropdownItem`.
+                const changeDefaultMenuItem = combobutton.addDropDownItem({
+                    type: TaskMenuItemType.CHANGE_DEFAULT_TASK,
+                    label: str('CHANGE_DEFAULT_MENU_ITEM'),
+                    isDefault: false,
+                    isPolicyDefault: false,
+                });
+                changeDefaultMenuItem.classList.add('change-default');
+            }
+        }
+    }
+    /**
+     * Creates sorted array of available task descriptions such as title and
+     * icon.
+     *
+     * @param fileTasks File Tasks to create items.
+     * @return Created array can be used to feed combobox, menus and so on.
+     */
+    createItems(fileTasks) {
+        const tasks = fileTasks.getAnnotatedTasks();
+        const items = [];
+        // Create items.
+        for (const task of tasks) {
+            if (task === fileTasks.defaultTask) {
+                const title = task.title + ' ' + str('DEFAULT_TASK_LABEL');
+                items.push(createDropdownItem(task, title, /*isDefault=*/ true, 
+                /*isPolicyDefault=*/
+                !!fileTasks.getPolicyDefaultHandlerStatus()));
+            }
+            else {
+                items.push(createDropdownItem(task));
+            }
+        }
+        // Sort items (Sort order: isDefault, lastExecutedTime, label).
+        items.sort((a, b) => {
+            // Sort by isDefaultTask.
+            const isDefault = (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0);
+            if (isDefault !== 0) {
+                return isDefault;
+            }
+            // Sort by last-executed time.
+            const aTime = this.taskHistory_.getLastExecutedTime(a.task.descriptor);
+            const bTime = this.taskHistory_.getLastExecutedTime(b.task.descriptor);
+            if (aTime !== bTime) {
+                return bTime - aTime;
+            }
+            // Sort by label.
+            return a.label.localeCompare(b.label);
+        });
+        return items;
+    }
+    /** Executes default task from the dropdown menu. */
+    async executeDefaultTask() {
+        try {
+            const tasks = await this.getFileTasks();
+            const task = {
+                descriptor: this.ui_.defaultTaskMenuItem.descriptor,
+                title: this.ui_.defaultTaskMenuItem.label,
+                get iconUrl() {
+                    console.assert(false);
+                    return '';
+                },
+                get isDefault() {
+                    console.assert(false);
+                    return false;
+                },
+                get isGenericFileHandler() {
+                    console.assert(false);
+                    return false;
+                },
+                isDlpBlocked: false,
+            };
+            tasks.execute(task);
+        }
+        catch (error) {
+            if (error) {
+                console.warn(error.stack || error);
+            }
+        }
+    }
+    /**
+     * Get MIME type for an entry. This method first tries to obtain the MIME
+     * type from metadata. If it fails, this falls back to obtain the MIME type
+     * from its content or name.
+     * @param entry An entry to obtain its mime type.
+     */
+    async getMimeType_(entry) {
+        const properties = await this.metadataModel_.get([entry], ['contentMimeType']);
+        if (properties && properties[0].contentMimeType) {
+            return properties[0].contentMimeType;
+        }
+        const mimeType = await getMimeType(entry);
+        return mimeType || '';
+    }
+    /**
+     * Explicitly removes the cached tasks first and and re-calculates the
+     * current tasks.
+     */
+    clearCacheAndUpdateTasks_() {
+        this.tasks_ = null;
+        // Dispatch an empty fetch to invalidate any ongoing fetch.
+        this.store_.dispatch(fetchFileTasks([]));
+        this.updateTasks_();
+    }
+    maybeHideButton() {
+        // For the Store version the other conditions are checked in the store.
+        const shouldDisableTasks = (this.selectionTasks_?.tasks ?? []).length === 0;
+        if (shouldDisableTasks) {
+            this.ui_.taskMenuButton.hidden = true;
+            this.updateContextMenuTaskItems_([]);
+            if (window.IN_TEST) {
+                this.ui_.taskMenuButton.toggleAttribute('get-tasks-completed', true);
+            }
+            return true;
+        }
+        return false;
+    }
+    /** Updates available tasks opened from context menu or the open button.  */
+    async updateTasks_() {
+        if (this.maybeHideButton()) {
+            return;
+        }
+        try {
+            const metricName = 'UpdateAvailableApps';
+            startInterval(metricName);
+            const tasks = await this.getFileTasks();
+            // Update the DOM.
+            this.display_(tasks);
+            const openTaskItems = tasks.getAnnotatedTasks();
+            this.updateContextMenuTaskItems_(openTaskItems, tasks.getPolicyDefaultHandlerStatus());
+            if (window.IN_TEST) {
+                this.ui_.taskMenuButton.toggleAttribute('get-tasks-completed', true);
+            }
+            recordDirectoryListLoadWithTolerance(metricName, openTaskItems.length, [10, 100], /*tolerance=*/ 0.8);
+        }
+        catch (error) {
+            if (error) {
+                console.warn(error.stack || error);
+            }
+        }
+    }
+    async getFileTasks() {
+        return this.getFileTasksStore_();
+    }
+    async getFileTasksStore_() {
+        if (this.tasks_) {
+            return this.tasks_;
+        }
+        if (this.selectionKeys_ === undefined) {
+            throw new Error('No selection to fulfill getFileTasks()');
+        }
+        // Request to fetch the tasks just to double check.
+        this.store_.dispatch(fetchFileTasks(this.selectionFilesData_));
+        await waitForState(this.store_, (st) => st.currentDirectory?.selection.fileTasks.status ===
+            PropStatus.SUCCESS);
+        const entries = this.selectionFilesData_.map(fd => fd.entry);
+        this.tasks_ = Promise.resolve(FileTasks.fromStoreTasks(this.selectionTasks_, this.volumeManager_, this.metadataModel_, this.directoryModel_, this.ui_, this.fileTransferController_, entries, this.taskHistory_, this.progressCenter_, this));
+        return this.tasks_;
+    }
+    /** Returns whether default task command can be executed or not. */
+    canExecuteDefaultTask() {
+        return this.canExecuteDefaultTask_;
+    }
+    /** Returns whether default task command should be hidden or not. */
+    shouldHideDefaultTask() {
+        return this.shouldHideDefaultTask_;
+    }
+    /** Returns whether open with command can be executed or not. */
+    canExecuteOpenActions() {
+        return this.canExecuteOpenActions_;
+    }
+    /**
+     * Updates tasks menu item to match passed task items.
+     * @param openTasks List of OPEN tasks.
+     */
+    updateContextMenuTaskItems_(tasks, policyDefaultHandlerStatus) {
+        const taskCount = tasks.length;
+        const defaultTask = getDefaultTask(tasks, policyDefaultHandlerStatus, this.taskHistory_);
+        if (taskCount > 0) {
+            if (defaultTask) {
+                const menuItem = this.ui_.defaultTaskMenuItem;
+                menuItem.setIsDefaultAttribute();
+                /**
+                 * Menu icon can be controlled by either `iconEndImage` or
+                 * `iconEndFileType`, since the default task menu item DOM is shared,
+                 * before updating it, we should remove the previous one, e.g. reset
+                 * both `iconEndImage` and `iconEndFileType`.
+                 */
+                menuItem.iconEndImage = '';
+                menuItem.removeIconEndFileType();
+                // If default is set by policy, we hide the original app icon and show
+                // only the managed one.
+                if (policyDefaultHandlerStatus) {
+                    menuItem.setIconEndHidden(true);
+                    menuItem.toggleManagedIcon(/*visible=*/ true);
+                }
+                else {
+                    menuItem.setIconEndHidden(false);
+                    menuItem.toggleManagedIcon(/*visible=*/ false);
+                    // iconType is defined for some tasks in FileTasks.annotate_().
+                    const iconType = defaultTask.iconType;
+                    if (iconType) {
+                        menuItem.iconEndFileType = iconType;
+                    }
+                    else if (defaultTask.iconUrl) {
+                        menuItem.iconEndImage = 'url(' + defaultTask.iconUrl + ')';
+                    }
+                    else {
+                        menuItem.setIconEndHidden(true);
+                    }
+                }
+                menuItem.label = defaultTask.title;
+                menuItem.descriptor = defaultTask.descriptor;
+            }
+        }
+        this.canExecuteDefaultTask_ =
+            defaultTask !== null && !defaultTask.isDlpBlocked;
+        this.shouldHideDefaultTask_ = defaultTask === null;
+        this.defaultTaskCommand_.canExecuteChange(this.ui_.listContainer.element);
+        this.canExecuteOpenActions_ =
+            taskCount > 1 || (taskCount === 1 && !defaultTask);
+        this.openWithCommand_.canExecuteChange(this.ui_.listContainer.element);
+        this.ui_.tasksSeparator.hidden = taskCount === 0;
+    }
+    /**
+     * Return the tasks for the `entry`.
+     * @param entry
+     */
+    async getEntryFileTasks(entry) {
+        return FileTasks.create(this.volumeManager_, this.metadataModel_, this.directoryModel_, this.ui_, this.fileTransferController_, [entry], this.taskHistory_, this.crostini_, this.progressCenter_, this);
+    }
+    async executeEntryTask(entry) {
+        const tasks = await this.getEntryFileTasks(entry);
+        tasks.executeDefault();
+    }
+    /** Removes information about an extract archive task.  */
+    deleteExtractTaskDetails_(taskId) {
+        this.extractTasks_.delete(taskId);
+    }
+    onIoTaskProgressStatus_(event) {
+        const taskId = event.taskId;
+        if (!taskId) {
+            console.warn('IOTask ProgressStatus without taskId');
+            return;
+        }
+        // TaskController only manages IOTasks related to zip extract that were
+        // started in this window.
+        if (!(this.extractTasks_.has(taskId) &&
+            event.type === chrome.fileManagerPrivate.IoTaskType.EXTRACT)) {
+            return;
+        }
+        switch (event.state) {
+            case chrome.fileManagerPrivate.IoTaskState.SUCCESS:
+            case chrome.fileManagerPrivate.IoTaskState.CANCELLED:
+            case chrome.fileManagerPrivate.IoTaskState.ERROR:
+                this.deleteExtractTaskDetails_(taskId);
+                break;
+            case chrome.fileManagerPrivate.IoTaskState.NEED_PASSWORD:
+                this.handleMissingPassword_(taskId);
+                break;
+        }
+    }
+    /**
+     * Starts the Zip extract Here IO Task.
+     * @param {!Array<!Entry|FilesAppEntry>} entries
+     * @param {!DirectoryEntry|!FilesAppDirEntry} destination
+     * @return {!Promise<void>} resolved with taskId.
+     */
+    async startExtractIoTask(entries, destination) {
+        const params = {
+            destinationFolder: destination,
+        };
+        return this.startExtractTask_(entries, params);
+    }
+    /**
+     * Starts extraction for a single entry and stores the task details.
+     * @return resolved with taskId.
+     */
+    async startExtractTask_(entries, params) {
+        try {
+            const taskId = await startIOTask(chrome.fileManagerPrivate.IoTaskType.EXTRACT, entries, params);
+            this.extractTasks_.set(taskId, { entries, params });
+        }
+        catch (error) {
+            console.warn('Error getting extract taskID', error);
+        }
+    }
+    /**
+     * Triggers a password dialog and starts an extract task with the
+     * password (unless cancel is clicked on the dialog).
+     */
+    async startGetPasswordThenExtractTask_(entry, params) {
+        let password = null;
+        // Ask for password.
+        try {
+            const dialog = this.ui_.passwordDialog;
+            password = await dialog.askForPassword(entry.fullPath, password);
+        }
+        catch (error) {
+            console.warn('User cancelled password fetch ', error);
+            return;
+        }
+        params['password'] = password;
+        await this.startExtractTask_([entry], params);
+    }
+    /**
+     * If an extract operation has finished due to missing password,
+     * see if we have the operation stored and if so, pop up a password
+     * dialog and try to restart another IO operation for it.
+     */
+    handleMissingPassword_(taskId) {
+        const existingOperation = this.extractTasks_.get(taskId);
+        if (existingOperation) {
+            // If we have multiple entries (from a multi-select extract) then
+            // we need to start a new task for each of them individually so
+            // that the password dialog is presented once for every file
+            // that's encrypted.
+            const selectionEntries = existingOperation['entries'];
+            const params = existingOperation['params'];
+            if (selectionEntries.length === 1) {
+                this.startGetPasswordThenExtractTask_(selectionEntries[0], params);
+            }
+            else {
+                for (const entry of selectionEntries) {
+                    this.startExtractTask_([entry], params);
+                }
+            }
+        }
+        // Remove the failed operation reference since it's finished.
+        this.deleteExtractTaskDetails_(taskId);
+    }
+}
+/** Type of the task in the dropdown menu. */
+var TaskMenuItemType;
+(function (TaskMenuItemType) {
+    TaskMenuItemType["SHOW_MENU"] = "ShowMenu";
+    TaskMenuItemType["RUN_TASK"] = "RunTask";
+    TaskMenuItemType["CHANGE_DEFAULT_TASK"] = "ChangeDefaultTask";
+})(TaskMenuItemType || (TaskMenuItemType = {}));
+/**
+ * Creates dropdown item based on task.
+ * @param isDefault Mark the item as default item.
+ */
+function createDropdownItem(task, title, isDefault, isPolicyDefault) {
+    return {
+        type: TaskMenuItemType.RUN_TASK,
+        label: title || task.title,
+        iconUrl: task.iconUrl || '',
+        iconType: task.iconType || '',
+        task: task,
+        isDefault: isDefault || false,
+        isPolicyDefault: isPolicyDefault || false,
+        isGenericFileHandler: task.isGenericFileHandler,
+        isDlpBlocked: task.isDlpBlocked,
+    };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// File generated by //ui/file_manager/base/gn/uma_enums_generate.py.
+/**
+ * List of file extensions to record in UMA, from enums.xml ViewFileType.
+ */
+const UMA_INDEX_KNOWN_EXTENSIONS = Object.freeze([
+    'other', '.3ga', '.3gp',
+    '.aac', '.alac', '.asf',
+    '.avi', '.bmp', '.csv',
+    '.doc', '.docx', '.flac',
+    '.gif', '.jpeg', '.jpg',
+    '.log', '.m3u', '.m3u8',
+    '.m4a', '.m4v', '.mid',
+    '.mkv', '.mov', '.mp3',
+    '.mp4', '.mpg', '.odf',
+    '.odp', '.ods', '.odt',
+    '.oga', '.ogg', '.ogv',
+    '.pdf', '.png', '.ppt',
+    '.pptx', '.ra', '.ram',
+    '.rar', '.rm', '.rtf',
+    '.wav', '.webm', '.webp',
+    '.wma', '.wmv', '.xls',
+    '.xlsx', '.crdownload', '.crx',
+    '.dmg', '.exe', '.html',
+    '.htm', '.jar', '.ps',
+    '.torrent', '.txt', '.zip',
+    'directory', 'no extension', 'unknown extension',
+    '.mhtml', '.gdoc', '.gsheet',
+    '.gslides', '.arw', '.cr2',
+    '.dng', '.nef', '.nrw',
+    '.orf', '.raf', '.rw2',
+    '.tini',
+]);
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Office file handlers UMA values (must be consistent with OfficeFileHandler in
+ * tools/metrics/histograms/enums.xml).
+ * @const @enum {number}
+ */
+const OfficeFileHandlersHistogramValues = {
+    OTHER: 0,
+    WEB_DRIVE_OFFICE: 1,
+    QUICK_OFFICE: 2,
+};
+/**
+ * Represents a collection of available tasks to execute for a specific list
+ * of entries.
+ */
+class FileTasks {
+    constructor(volumeManager_, metadataModel_, directoryModel_, ui_, fileTransferController_, entries_, resultingTasks_, defaultTask_, taskHistory_, progressCenter_, taskController_) {
+        this.volumeManager_ = volumeManager_;
+        this.metadataModel_ = metadataModel_;
+        this.directoryModel_ = directoryModel_;
+        this.ui_ = ui_;
+        this.fileTransferController_ = fileTransferController_;
+        this.entries_ = entries_;
+        this.resultingTasks_ = resultingTasks_;
+        this.defaultTask_ = defaultTask_;
+        this.taskHistory_ = taskHistory_;
+        this.progressCenter_ = progressCenter_;
+        this.taskController_ = taskController_;
+        this.mutex_ = new AsyncQueue();
+    }
+    /**
+     * Creates an instance of FileTasks for the specified list of entries with
+     * mime types.
+     */
+    static async create(volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, taskHistory, crostini, progressCenter, taskController) {
+        let resultingTasks = {
+            tasks: [],
+            policyDefaultHandlerStatus: undefined,
+        };
+        // Cannot use fake entries with getFileTasks.
+        entries = entries.filter(e => !isFakeEntry(e));
+        const dlpSourceUrls = metadataModel.getCache(entries, ['sourceUrl'])
+            .map(m => m.sourceUrl || '');
+        if (entries.length !== 0) {
+            resultingTasks = await getFileTasks(entries, dlpSourceUrls);
+            if (!resultingTasks || !resultingTasks.tasks) {
+                throw new Error('Cannot get file tasks.');
+            }
+        }
+        // Linux package installation is currently only supported for a single
+        // file which is inside the Linux container, or in a shareable volume.
+        // TODO(timloh): Instead of filtering these out, we probably should show a
+        // dialog with an error message, similar to when attempting to run
+        // Crostini tasks with non-Crostini entries.
+        if (entries.length !== 1 ||
+            !(isCrostiniEntry(entries[0], volumeManager) ||
+                crostini.canSharePath(DEFAULT_CROSTINI_VM, entries[0], false /* persist */))) {
+            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
+        }
+        const tasks = annotateTasks(resultingTasks.tasks, entries);
+        resultingTasks.tasks = tasks;
+        const defaultTask = getDefaultTask(tasks, resultingTasks.policyDefaultHandlerStatus, taskHistory);
+        return new FileTasks(volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, resultingTasks, defaultTask, taskHistory, progressCenter, taskController);
+    }
+    /** Creates FileTasks instance based on the data from the Store. */
+    static fromStoreTasks(tasks, volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, taskHistory, progressCenter, taskController) {
+        return new FileTasks(volumeManager, metadataModel, directoryModel, ui, fileTransferController, entries, tasks, tasks.defaultTask ?? null, taskHistory, progressCenter, taskController);
+    }
+    get entries() {
+        return this.entries_;
+    }
+    get defaultTask() {
+        return this.defaultTask_;
+    }
+    getAnnotatedTasks() {
+        // resultingTasks_.tasks is annotated at create().
+        return this.resultingTasks_.tasks;
+    }
+    /** Gets the policy default handler status.  */
+    getPolicyDefaultHandlerStatus() {
+        return this.resultingTasks_.policyDefaultHandlerStatus;
+    }
+    /** Returns whether the system is currently offline. */
+    static isOffline_(volumeManager) {
+        const connection = volumeManager.getDriveConnectionState();
+        return connection.type ===
+            chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE &&
+            connection.reason ===
+                chrome.fileManagerPrivate.DriveOfflineReason.NO_NETWORK;
+    }
+    /**
+     * Records a metric, as well as recording online and offline versions of it.
+     *
+     * @param name Metric name.
+     * @param value Enum value.
+     * @param values Array of valid values.
+     */
+    static recordEnumWithOnlineAndOffline_(volumeManager, name, value, values) {
+        recordEnum(name, value, values);
+        if (FileTasks.isOffline_(volumeManager)) {
+            recordEnum(name + '.Offline', value, values);
+        }
+        else {
+            recordEnum(name + '.Online', value, values);
+        }
+    }
+    /**
+     * Returns ViewFileType enum or 'other' for the given entry.
+     * @return A ViewFileType enum or 'other'.
+     */
+    static getViewFileType(entry) {
+        let extension = getExtension(entry).toLowerCase();
+        if (UMA_INDEX_KNOWN_EXTENSIONS.indexOf(extension) < 0) {
+            extension = 'other';
+        }
+        return extension;
+    }
+    /** Records trial of opening file grouped by extensions.  */
+    static recordViewingFileTypeUma_(volumeManager, entries) {
+        for (const entry of entries) {
+            FileTasks.recordEnumWithOnlineAndOffline_(volumeManager, 'ViewingFileType', FileTasks.getViewFileType(entry), UMA_INDEX_KNOWN_EXTENSIONS);
+        }
+    }
+    /**
+     * Records trial of opening file grouped by root types.
+     * @param rootType The type of the root where entries are being opened.
+     */
+    static recordViewingRootTypeUma_(volumeManager, rootType) {
+        if (rootType !== null) {
+            FileTasks.recordEnumWithOnlineAndOffline_(volumeManager, 'ViewingRootType', rootType, RootTypesForUMA);
+        }
+    }
+    /**
+     * Records the elapsed time for mounting a ZIP file as a ZipMountTime
+     * histogram value.
+     * @param rootType The type of the root where the ZIP file has been mounted
+     *     from.
+     * @param time Time to be recorded in milliseconds.
+     */
+    static recordZipMountTimeUma_(rootType, time) {
+        let root;
+        switch (rootType) {
+            case RootType.MY_FILES:
+            case RootType.DOWNLOADS:
+                root = 'MyFiles';
+                break;
+            case RootType.DRIVE:
+                root = 'Drive';
+                break;
+            default:
+                root = 'Other';
+        }
+        recordTime(`ZipMountTime.${root}`, time);
+    }
+    /**
+     * Records trial of opening Office file grouped by file handlers.
+     * @param entries The entries to be opened.
+     * @param rootType The type of the root where entries are being opened.
+     */
+    static recordOfficeFileHandlerUma_(volumeManager, entries, rootType, task) {
+        if (!task) {
+            return;
+        }
+        // This UMA is only applicable to Office files.
+        if (!entries.every(entry => hasOfficeExtension(entry))) {
+            return;
+        }
+        let histogramName = 'OfficeFiles.FileHandler';
+        switch (rootType) {
+            case RootType.DRIVE:
+                histogramName += '.Drive';
+                break;
+            default:
+                histogramName += '.NotDrive';
+        }
+        if (FileTasks.isOffline_(volumeManager)) {
+            histogramName += '.Offline';
+        }
+        else {
+            histogramName += '.Online';
+        }
+        let fileHandler = OfficeFileHandlersHistogramValues.OTHER;
+        switch (parseActionId(task.descriptor.actionId)) {
+            case 'open-web-drive-office-word':
+            case 'open-web-drive-office-excel':
+            case 'open-web-drive-office-powerpoint':
+                fileHandler = OfficeFileHandlersHistogramValues.WEB_DRIVE_OFFICE;
+                break;
+            case 'qo_documents':
+                fileHandler = OfficeFileHandlersHistogramValues.QUICK_OFFICE;
+                break;
+        }
+        recordEnum(histogramName, fileHandler, Object.values(OfficeFileHandlersHistogramValues));
+    }
+    /** Returns true if the descriptor is for an internal task.  */
+    static isInternalTask_(descriptor) {
+        const { appId, taskType, actionId } = descriptor;
+        if (!isFilesAppId(appId)) {
+            return false;
+        }
+        // Legacy Files app task type is 'app', Files SWA is 'web'.
+        if (!(taskType === 'app' || taskType === 'web')) {
+            return false;
+        }
+        const parsedActionId = parseActionId(actionId);
+        switch (parsedActionId) {
+            case 'mount-archive':
+            case 'install-linux-package':
+            case 'import-crostini-image':
+                return true;
+            default:
+                return false;
+        }
+    }
+    /**
+     * Show dialog when user opens or drags a file with PluginVM and the file
+     * is not in PvmSharedDir or shared with PluginVM. The dialog tells the
+     * user to move or copy the file to PvmSharedDir and offers an action to do
+     * that.
+     *
+     * @param entries Selected entries to be moved or copied.
+     * @param ui FileManager UI to show dialog.
+     * @param moveMessage Message if files are local and can be moved.
+     * @param copyMessage Message if files should be copied.
+     */
+    static showPluginVmNotSharedDialog(entries, volumeManager, metadataModel, ui, moveMessage, copyMessage, fileTransferController, directoryModel) {
+        assert(entries.length > 0);
+        const isMyFiles = isMyFilesEntry(entries[0], volumeManager);
+        const dialog = new FilesConfirmDialog(ui.element);
+        dialog.setOkLabel(str(isMyFiles ? 'CONFIRM_MOVE_BUTTON_LABEL' : 'CONFIRM_COPY_BUTTON_LABEL'));
+        dialog.show(isMyFiles ? moveMessage : copyMessage, async () => {
+            if (!fileTransferController) {
+                console.warn('FileTransferController not set');
+                return;
+            }
+            const pvmDir = await FileTasks.getPvmSharedDir_(volumeManager);
+            assert(volumeManager.getLocationInfo(pvmDir));
+            fileTransferController.executePaste(new PastePlan(entries.map(e => e.toURL()), [], pvmDir, metadataModel, 
+            /*isMove=*/ isMyFiles));
+            directoryModel.changeDirectoryEntry(pvmDir);
+        });
+    }
+    /** Executes default task.  */
+    async executeDefault() {
+        FileTasks.recordViewingFileTypeUma_(this.volumeManager_, this.entries_);
+        FileTasks.recordViewingRootTypeUma_(this.volumeManager_, this.directoryModel_.getCurrentRootType());
+        FileTasks.recordOfficeFileHandlerUma_(this.volumeManager_, this.entries_, this.directoryModel_.getCurrentRootType(), this.defaultTask_);
+        return this.executeDefaultInternal_();
+    }
+    async executeDefaultInternal_() {
+        if (this.defaultTask_) {
+            this.executeInternal_(this.defaultTask_);
+            return;
+        }
+        // If there's policy involved and |defaultTask_| is null, means that policy
+        // assignment was incorrect. We should not execute anything in this case.
+        if (this.getPolicyDefaultHandlerStatus()) {
+            console.assert(this.getPolicyDefaultHandlerStatus() ===
+                chrome.fileManagerPrivate.PolicyDefaultHandlerStatus
+                    .INCORRECT_ASSIGNMENT, 'policyDefaultHandlerStatus expected to be INCORRECT, thus not executing the task');
+            return;
+        }
+        const nonGenericTasks = this.resultingTasks_.tasks.filter(t => !t.isGenericFileHandler);
+        // If there is only one task that is not a generic file handler, it should
+        // be executed as a default task. If there are multiple tasks that are not
+        // generic file handlers, and none of them are considered as default, we
+        // show a task picker to ask the user to choose one.
+        if (nonGenericTasks.length >= 2) {
+            this.showTaskPicker(this.ui_.defaultTaskPicker, str('OPEN_WITH_BUTTON_LABEL'), '', task => {
+                this.execute(task);
+            }, TaskPickerType.OpenWith);
+            return;
+        }
+        // We don't have tasks, so try to show a file in a browser tab.
+        // We only do that for single selection to avoid confusion.
+        if (this.entries_.length !== 1) {
+            return;
+        }
+        const filename = this.entries_[0].name;
+        const extension = splitExtension(filename)[1] || null;
+        try {
+            await this.checkAvailability_();
+        }
+        catch (error) {
+            console.warn('Rejected after checking availability due to', error);
+            return;
+        }
+        try {
+            const descriptor = {
+                appId: LEGACY_FILES_EXTENSION_ID,
+                taskType: 'file',
+                actionId: 'view-in-browser',
+            };
+            const result = await executeTask(descriptor, this.entries_);
+            switch (result) {
+                case 'opened':
+                    break;
+                case 'message_sent':
+                    isTeleported().then(teleported => {
+                        if (teleported) {
+                            this.ui_.showOpenInOtherDesktopAlert(this.entries_);
+                        }
+                    });
+                    break;
+                case 'empty':
+                    break;
+                case 'failed':
+                    throw new Error();
+            }
+        }
+        catch {
+            let textMessageId;
+            let titleMessageId;
+            switch (extension) {
+                case '.exe':
+                case '.msi':
+                    textMessageId = 'NO_TASK_FOR_EXECUTABLE';
+                    break;
+                case '.dmg':
+                    textMessageId = 'NO_TASK_FOR_DMG';
+                    break;
+                case '.crx':
+                    textMessageId = 'NO_TASK_FOR_CRX';
+                    titleMessageId = 'NO_TASK_FOR_CRX_TITLE';
+                    break;
+                default:
+                    textMessageId = 'NO_TASK_FOR_FILE';
+            }
+            const text = strf(textMessageId, str('NO_TASK_FOR_FILE_URL'));
+            const title = titleMessageId ? str(titleMessageId) : filename;
+            this.ui_.alertDialog.showHtml(title, text);
+        }
+    }
+    /** Executes a single task.  */
+    execute(task) {
+        FileTasks.recordViewingFileTypeUma_(this.volumeManager_, this.entries_);
+        FileTasks.recordViewingRootTypeUma_(this.volumeManager_, this.directoryModel_.getCurrentRootType());
+        FileTasks.recordOfficeFileHandlerUma_(this.volumeManager_, this.entries_, this.directoryModel_.getCurrentRootType(), task);
+        this.executeInternal_(task);
+    }
+    /** The core implementation to execute a single task. */
+    async executeInternal_(task) {
+        const entries = this.entries_;
+        try {
+            await this.checkAvailability_();
+        }
+        catch (error) {
+            console.warn('Rejected after checking availability due to', error);
+            return;
+        }
+        this.taskHistory_.recordTaskExecuted(task.descriptor);
+        const msg = (entries.length === 1) ?
+            strf('OPEN_A11Y', entries[0].name) :
+            strf('OPEN_A11Y_PLURAL', entries.length);
+        this.ui_.speakA11yMessage(msg);
+        if (FileTasks.isInternalTask_(task.descriptor)) {
+            this.executeInternalTask_(task.descriptor);
+            return;
+        }
+        try {
+            const result = await executeTask(task.descriptor, entries);
+            const TaskResult = chrome.fileManagerPrivate.TaskResult;
+            switch (result) {
+                case TaskResult.MESSAGE_SENT:
+                    isTeleported().then((teleported) => {
+                        if (teleported) {
+                            this.ui_.showOpenInOtherDesktopAlert(entries);
+                        }
+                    });
+                    break;
+                case TaskResult.FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED:
+                    const moveMessage = strf('UNABLE_TO_OPEN_WITH_PLUGIN_VM_DIRECTORY_NOT_SHARED_MESSAGE', task.title);
+                    const copyMessage = strf('UNABLE_TO_OPEN_WITH_PLUGIN_VM_EXTERNAL_DRIVE_MESSAGE', task.title);
+                    FileTasks.showPluginVmNotSharedDialog(entries, this.volumeManager_, this.metadataModel_, this.ui_, moveMessage, copyMessage, this.fileTransferController_, this.directoryModel_);
+                    break;
+            }
+        }
+        catch (error) {
+            console.warn(`Failed to execute task ${JSON.stringify(task.descriptor)}: ${error}`);
+        }
+    }
+    /**
+     * Ensures that the all files are available right now.
+     * Must not call before initialization.
+     * Resolved when checking is completed and all files are available
+     * Rejected/throws if the user cancels the confirmation dialog for downloading
+     * in cellular/metered network dialog.
+     */
+    async checkAvailability_() {
+        const areAll = (entries, props, name) => {
+            let okEntriesNum = 0;
+            for (let i = 0; i < entries.length; i++) {
+                // If got no properties, we safely assume that item is available.
+                if (props[i] && (props[i][name] || entries[i]?.isDirectory)) {
+                    okEntriesNum++;
+                }
+            }
+            return okEntriesNum === props.length;
+        };
+        const containsDriveEntries = this.entries_.some(entry => {
+            const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
+            return volumeInfo && volumeInfo.volumeType === VolumeType.DRIVE;
+        });
+        // Availability is not checked for non-Drive files, as availableOffline, nor
+        // availableWhenMetered are not exposed for other types of volumes at this
+        // moment.
+        if (!containsDriveEntries) {
+            return;
+        }
+        const isDriveOffline = this.volumeManager_.getDriveConnectionState().type ===
+            chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE;
+        if (isDriveOffline) {
+            const props = await this.metadataModel_.get(this.entries_, ['availableOffline', 'hosted']);
+            if (areAll(this.entries_, props, 'availableOffline')) {
+                return;
+            }
+            const msg = props[0].hosted ?
+                str(this.entries_.length === 1 ? 'HOSTED_OFFLINE_MESSAGE' :
+                    'HOSTED_OFFLINE_MESSAGE_PLURAL') :
+                strf(this.entries_.length === 1 ? 'OFFLINE_MESSAGE' :
+                    'OFFLINE_MESSAGE_PLURAL', str('OFFLINE_COLUMN_LABEL'));
+            this.ui_.alertDialog.showHtml(str('OFFLINE_HEADER'), msg);
+            const isBulkPinningEnabled = !!getStore().getState()?.preferences?.driveFsBulkPinningEnabled;
+            for (const entry of this.entries_) {
+                recordEnum('DriveOfflineOpen.Unavailable', FileTasks.getViewFileType(entry), UMA_INDEX_KNOWN_EXTENSIONS);
+                if (isBulkPinningEnabled) {
+                    recordEnum('GoogleDrive.BulkPinning.OfflineOpen', FileTasks.getViewFileType(entry), UMA_INDEX_KNOWN_EXTENSIONS);
+                }
+            }
+            return Promise.reject('drive is offline');
+        }
+        const isOnMetered = this.volumeManager_.getDriveConnectionState().type ===
+            chrome.fileManagerPrivate.DriveConnectionStateType.METERED;
+        if (!isOnMetered) {
+            return;
+        }
+        const props = await this.metadataModel_.get(this.entries_, ['availableWhenMetered', 'size']);
+        if (areAll(this.entries_, props, 'availableWhenMetered')) {
+            return;
+        }
+        let sizeToDownload = 0;
+        for (let i = 0; i !== this.entries_.length; i++) {
+            if (!props[i].availableWhenMetered) {
+                sizeToDownload += (props[i].size || 0);
+            }
+        }
+        const msg = strf(this.entries_.length === 1 ? 'CONFIRM_MOBILE_DATA_USE' :
+            'CONFIRM_MOBILE_DATA_USE_PLURAL', bytesToString(sizeToDownload));
+        return new Promise((resolve, reject) => this.ui_.confirmDialog.show(msg, resolve, reject));
+    }
+    /**
+     * Executes an internal task, which is a task Files app handles internally
+     * without calling into fileManagerPrivate to execute it.
+     */
+    executeInternalTask_(descriptor) {
+        const parsedActionId = parseActionId(descriptor.actionId);
+        if (parsedActionId === 'mount-archive') {
+            this.mountArchives_();
+            return;
+        }
+        if (parsedActionId === 'install-linux-package') {
+            this.installLinuxPackageInternal_();
+            return;
+        }
+        if (parsedActionId === 'import-crostini-image') {
+            this.importCrostiniImageInternal_();
+            return;
+        }
+        console.error('The specified task is not a valid internal task: ' +
+            makeTaskID(descriptor));
+    }
+    /** Install a Linux Package in the Linux container.  */
+    installLinuxPackageInternal_() {
+        assert(this.entries_.length === 1);
+        this.ui_.installLinuxPackageDialog.showInstallLinuxPackageDialog(this.entries_[0]);
+    }
+    /**
+     * Imports a Crostini Image File (.tini). This overrides the existing Linux
+     * apps and files.
+     */
+    importCrostiniImageInternal_() {
+        assert(this.entries_.length === 1);
+        this.ui_.importCrostiniImageDialog.showImportCrostiniImageDialog(this.entries_[0]);
+    }
+    /**
+     * Mounts an archive file. Asks for password and retries if necessary.
+     * @param url URL of the archive file to mount.
+     */
+    async mountArchive_(url) {
+        const filename = extractFilePath(url)?.split('/').pop() || '';
+        const item = new ProgressCenterItem();
+        item.id = 'Mounting: ' + url;
+        item.type = ProgressItemType.MOUNT_ARCHIVE;
+        item.message = strf('ARCHIVE_MOUNT_MESSAGE', filename);
+        item.cancelCallback = async () => {
+            // Remove progress panel.
+            item.state = ProgressItemState.CANCELED;
+            this.progressCenter_.updateItem(item);
+            // Cancel archive mounting.
+            try {
+                await this.volumeManager_.cancelMounting(url);
+            }
+            catch (error) {
+                console.warn('Cannot cancel archive (redacted):', error);
+                console.log(`Cannot cancel archive '${url}':`, error);
+            }
+        };
+        // Display progress panel.
+        item.state = ProgressItemState.PROGRESSING;
+        this.progressCenter_.updateItem(item);
+        // First time, try without providing a password.
+        try {
+            return await this.volumeManager_.mountArchive(url);
+        }
+        catch (error) {
+            // If error is not about needing a password, propagate it.
+            if (error !== VolumeError.NEED_PASSWORD) {
+                throw error;
+            }
+        }
+        finally {
+            // Remove progress panel.
+            item.state = ProgressItemState.COMPLETED;
+            this.progressCenter_.updateItem(item);
+        }
+        // We need a password.
+        const unlock = await this.mutex_.lock();
+        try {
+            /** @type {?string} */ let password = null;
+            while (true) {
+                // Ask for password.
+                do {
+                    const dialog = this.ui_.passwordDialog;
+                    password = await dialog.askForPassword(filename, password);
+                } while (!password);
+                // Display progress panel.
+                item.state = ProgressItemState.PROGRESSING;
+                this.progressCenter_.updateItem(item);
+                // Mount archive with password.
+                try {
+                    return await this.volumeManager_.mountArchive(url, password);
+                }
+                catch (error) {
+                    // If error is not about needing a password, propagate it.
+                    if (error !== VolumeError.NEED_PASSWORD) {
+                        throw error;
+                    }
+                }
+                finally {
+                    // Remove progress panel.
+                    item.state = ProgressItemState.COMPLETED;
+                    this.progressCenter_.updateItem(item);
+                }
+            }
+        }
+        finally {
+            unlock();
+        }
+    }
+    /**
+     * Mounts an archive file and changes directory. Asks for password if
+     * necessary. Displays error message if necessary.
+     * @param url URL of the archive file to moumt.
+     * @return a promise that is never rejected.
+     */
+    async mountArchiveAndChangeDirectory_(tracker, url) {
+        try {
+            const startTime = Date.now();
+            const volumeInfo = await this.mountArchive_(url);
+            // On mountArchive_ success, record mount time UMA.
+            FileTasks.recordZipMountTimeUma_(this.directoryModel_.getCurrentRootType(), Date.now() - startTime);
+            if (tracker.hasChanged) {
+                return;
+            }
+            try {
+                const displayRoot = await volumeInfo.resolveDisplayRoot();
+                if (tracker.hasChanged) {
+                    return;
+                }
+                this.directoryModel_.changeDirectoryEntry(displayRoot);
+            }
+            catch (error) {
+                console.error('Cannot resolve display root after mounting:', error);
+            }
+        }
+        catch (error) {
+            // No need to display an error message if user canceled mounting or
+            // canceled the password prompt.
+            if (error === USER_CANCELLED || error === VolumeError.CANCELLED) {
+                return;
+            }
+            const filename = extractFilePath(url)?.split('/').pop() || '';
+            const item = new ProgressCenterItem();
+            item.id = 'Cannot mount: ' + url;
+            item.type = ProgressItemType.MOUNT_ARCHIVE;
+            const msgId = error === VolumeError.INVALID_PATH ?
+                'ARCHIVE_MOUNT_INVALID_PATH' :
+                'ARCHIVE_MOUNT_FAILED';
+            item.message = strf(msgId, filename);
+            item.state = ProgressItemState.ERROR;
+            this.progressCenter_.updateItem(item);
+            console.warn('Cannot mount (redacted):', error);
+            console.debug(`Cannot mount '${url}':`, error);
+        }
+    }
+    /** Mounts the selected archive(s). Asks for password if necessary. */
+    async mountArchives_() {
+        const tracker = this.directoryModel_.createDirectoryChangeTracker();
+        tracker.start();
+        try {
+            // TODO(mtomasz): Move conversion from entry to url to custom bindings.
+            // crbug.com/345527.
+            const urls = entriesToURLs(this.entries_);
+            const promises = urls.map(url => this.mountArchiveAndChangeDirectory_(tracker, url));
+            await Promise.all(promises);
+        }
+        finally {
+            tracker.stop();
+        }
+    }
+    /**
+     * Shows modal task picker dialog with currently available list of tasks.
+     *
+     * @param taskDialog Task dialog to show and update.
+     * @param onSuccess Callback to pass selected task.
+     * @param pickerType Task picker type.
+     */
+    showTaskPicker(taskDialog, title, message, onSuccess, pickerType) {
+        let items = this.taskController_.createItems(this);
+        if (pickerType === TaskPickerType.ChangeDefault) {
+            items = items.filter(item => !item.isGenericFileHandler);
+        }
+        let defaultIdx = 0;
+        if (this.defaultTask_) {
+            for (let j = 0; j < items.length; j++) {
+                if (descriptorEqual(items[j].task.descriptor, this.defaultTask_.descriptor)) {
+                    defaultIdx = j;
+                }
+            }
+        }
+        taskDialog.showDefaultTaskDialog(title, message, items, defaultIdx, (item) => {
+            onSuccess(item.task);
+        });
+    }
+    static async getPvmSharedDir_(volumeManager) {
+        const volumeInfo = volumeManager.getCurrentProfileVolumeInfo(VolumeType.DOWNLOADS);
+        if (!volumeInfo) {
+            throw new Error(`Error getting PvmDefault dir`);
+        }
+        return await getDirectory(volumeInfo.fileSystem.root, 'PvmDefault', { create: false });
+    }
+}
+/**
+ * Dialog types to show a task picker.
+ * @enum {string}
+ */
+const TaskPickerType = {
+    ChangeDefault: 'ChangeDefault',
+    OpenWith: 'OpenWith',
+};
+/** Office file extensions. */
+const OFFICE_EXTENSIONS = new Set(['.doc', '.docx', '.xls', 'xlsm', '.xlsx', '.ppt', '.pptx']);
+function hasOfficeExtension(entry) {
+    return OFFICE_EXTENSIONS.has(getExtension(entry));
+}
+function isCrostiniEntry(entry, volumeManager) {
+    const location = volumeManager.getLocationInfo(entry);
+    return !!location && location.rootType === RootType.CROSTINI;
+}
+function isMyFilesEntry(entry, volumeManager) {
+    const location = volumeManager.getLocationInfo(entry);
+    return !!location && location.rootType === RootType.DOWNLOADS;
 }
 
 // Copyright 2020 The Chromium Authors
@@ -47323,7 +47121,7 @@ class GearMenuController {
     onShowGearMenu_() {
         this.refreshRemainingSpace_();
         this.providersModel_.getMountableProviders().then(providers => {
-            const shouldHide = providers.length == 0;
+            const shouldHide = providers.length === 0;
             if (!shouldHide) {
                 // Trigger an update of the providers submenu.
                 this.providersMenu_.updateSubMenu();
@@ -47355,13 +47153,13 @@ class GearMenuController {
         }
         // TODO(mtomasz): Add support for remaining space indication for provided
         // file systems.
-        if (currentVolumeInfo.volumeType == VolumeType.PROVIDED ||
-            currentVolumeInfo.volumeType == VolumeType.MEDIA_VIEW ||
-            currentVolumeInfo.volumeType == VolumeType.ARCHIVE) {
+        if (currentVolumeInfo.volumeType === VolumeType.PROVIDED ||
+            currentVolumeInfo.volumeType === VolumeType.MEDIA_VIEW ||
+            currentVolumeInfo.volumeType === VolumeType.ARCHIVE) {
             this.gearMenu_.setSpaceInfo(null, false);
             return;
         }
-        if (currentVolumeInfo.volumeType == VolumeType.DRIVE) {
+        if (currentVolumeInfo.volumeType === VolumeType.DRIVE) {
             this.gearMenu_.setSpaceInfo(getDriveQuotaMetadata(currentDirectory)
                 .then((quota) => {
                 if (!quota) {
@@ -47449,7 +47247,7 @@ class GuestOsController {
         const newGuestOsPlaceholders = guests.map(guest => {
             const guestOsEntry = new GuestOsPlaceholder(guest.displayName, guest.id, guest.vmType);
             const navigationModelItem = new NavigationModelFakeItem(guest.displayName, NavigationModelItemType.GUEST_OS, guestOsEntry);
-            const volumeType = guest.vmType == chrome.fileManagerPrivate.VmType.ARCVM ?
+            const volumeType = guest.vmType === chrome.fileManagerPrivate.VmType.ARCVM ?
                 VolumeType.ANDROID_FILES :
                 VolumeType.GUEST_OS;
             navigationModelItem.disabled = this.volumeManager_.isDisabled(volumeType);
@@ -47556,7 +47354,7 @@ class MainWindowComponent {
         // Also the 2nd parameter of handleTouchEvents is just passed back to the
         // callback. Therefore we can pass a dummy value -1.
         this.tapHandler_.handleTouchEvents(event, -1, (_e, _index, eventType) => {
-            if (eventType == TapEvent.TAP) {
+            if (eventType === TapEvent.TAP) {
                 const target = event.target;
                 // Taps on the checkmark should only toggle select the item.
                 if (target.classList.contains('detail-checkmark') ||
@@ -47837,7 +47635,7 @@ class MainWindowComponent {
         const dm = this.directoryModel_.getFileList();
         for (let index = 0; index < dm.length; ++index) {
             const name = dm.item(index).name;
-            if (name.substring(0, text.length).toLowerCase() == text) {
+            if (name.substring(0, text.length).toLowerCase() === text) {
                 const selectionModel = this.ui_.listContainer.currentList.selectionModel;
                 if (selectionModel) {
                     selectionModel.selectedIndexes = [index];
@@ -49142,7 +48940,7 @@ class MetadataBoxController {
                 this.onDirectorySizeLoaded_ = null;
                 return;
             }
-            if (this.quickViewModel_.getSelectedEntry() != entry) {
+            if (this.quickViewModel_.getSelectedEntry() !== entry) {
                 return;
             }
             if (chrome.runtime.lastError) {
@@ -49179,6 +48977,276 @@ const EXTRA_METADATA_NAMES = [
     'mediaTrack',
     'mediaYearRecorded',
 ];
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Controller to handle naming.
+ */
+class NamingController {
+    constructor(listContainer_, alertDialog_, confirmDialog_, directoryModel_, fileFilter_, selectionHandler_) {
+        this.listContainer_ = listContainer_;
+        this.alertDialog_ = alertDialog_;
+        this.confirmDialog_ = confirmDialog_;
+        this.directoryModel_ = directoryModel_;
+        this.fileFilter_ = fileFilter_;
+        this.selectionHandler_ = selectionHandler_;
+        /**
+         * Whether the entry being renamed is a root of a removable
+         * partition/volume.
+         */
+        this.isRemovableRoot_ = false;
+        this.volumeInfo_ = null;
+        // Register events.
+        this.listContainer_.renameInput.addEventListener('keydown', this.onRenameInputKeyDown_.bind(this));
+        this.listContainer_.renameInput.addEventListener('blur', this.onRenameInputBlur_.bind(this));
+    }
+    /**
+     * Verifies the user entered name for file or folder to be created or
+     * renamed to. See also validateFileName.
+     * Returns true immediately if the name is valid, else returns false
+     * after the user has dismissed the error dialog.
+     *
+     * @param parentEntry The URL of the parent directory entry.
+     * @param name New file or folder name.
+     * @return True if valid.
+     */
+    async validateFileName_(parentEntry, name) {
+        try {
+            await validateFileName(parentEntry, name, this.fileFilter_.isHiddenFilesVisible());
+            return true;
+        }
+        catch (error) {
+            await this.alertDialog_.showAsync(error.message);
+            return false;
+        }
+    }
+    async validateFileNameForSaving(filename) {
+        const directory = this.directoryModel_.getCurrentDirEntry();
+        const currentDirUrl = directory.toURL().replace(/\/?$/, '/');
+        const fileUrl = currentDirUrl + encodeURIComponent(filename);
+        try {
+            const isValid = await this.validateFileName_(directory, filename);
+            if (!isValid) {
+                throw new Error('Invalid filename.');
+            }
+            if (directory && isFakeEntry(directory)) {
+                // Can't save a file into a fake directory.
+                throw new Error('Cannot save into fake entry.');
+            }
+            await getFile(directory, filename, { create: false });
+        }
+        catch (error) {
+            if (error instanceof DOMException) {
+                if (error.name === FileErrorToDomError.NOT_FOUND_ERR) {
+                    // The file does not exist, so it should be ok to create a new file.
+                    return fileUrl;
+                }
+                if (error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) {
+                    // A directory is found. Do not allow to overwrite directory.
+                    this.alertDialog_.show(strf('DIRECTORY_ALREADY_EXISTS', filename));
+                    throw error;
+                }
+                // Unexpected error.
+                console.warn('File save failed:', error.code);
+            }
+            throw error;
+        }
+        // An existing file is found. Show confirmation dialog to overwrite it.
+        // If the user selects "OK", save it.
+        return new Promise((fulfill, reject) => {
+            this.confirmDialog_.show(strf('CONFIRM_OVERWRITE_FILE', filename), () => fulfill(fileUrl), () => reject(new UserCanceledError('Canceled')));
+        });
+    }
+    isRenamingInProgress() {
+        return !!this.getRenameInput_().currentEntry;
+    }
+    /**
+     * Start the renaming flow. The `isRemovableRoot` parameter indicates whether
+     * the target is a removable volume root or not. The `volumeInfo` parameter
+     * provides a volume information about the target entry. The `volumeInfo`
+     * parameter can be null if method is invoked on a folder that is in the
+     * tree view and is not root of an external drive.
+     */
+    initiateRename(isRemovableRoot = false, volumeInfo = null) {
+        this.isRemovableRoot_ = isRemovableRoot;
+        if (isRemovableRoot) {
+            assert$1(volumeInfo);
+            this.volumeInfo_ = volumeInfo;
+        }
+        else {
+            this.volumeInfo_ = null;
+        }
+        const selectedIndex = this.listContainer_.selectionModel?.selectedIndex ?? -1;
+        const item = this.listContainer_.currentList.getListItemByIndex(selectedIndex);
+        if (!item) {
+            return;
+        }
+        const label = item.querySelector('.filename-label');
+        const input = this.listContainer_.renameInput;
+        const dataModel = this.listContainer_.currentList.dataModel;
+        const currentEntry = dataModel.item(item.listIndex);
+        input.value = label.textContent ?? '';
+        item.setAttribute('renaming', '');
+        label.parentNode.appendChild(input);
+        input.focus();
+        const selectionEnd = input.value.lastIndexOf('.');
+        if (currentEntry.isFile && selectionEnd !== -1) {
+            input.selectionStart = 0;
+            input.selectionEnd = selectionEnd;
+        }
+        else {
+            input.select();
+        }
+        // This has to be set late in the process so we don't handle spurious
+        // blur events.
+        this.getRenameInput_().currentEntry = currentEntry;
+        this.listContainer_.startBatchUpdates();
+    }
+    /**
+     * Restores the item which is being renamed while refreshing the file list. Do
+     * nothing if no item is being renamed or such an item disappeared.
+     *
+     * While refreshing file list it gets repopulated with new file entries.
+     * There is not a big difference whether DOM items stay the same or not.
+     * Except for the item that the user is renaming.
+     */
+    restoreItemBeingRenamed() {
+        if (!this.isRenamingInProgress()) {
+            return;
+        }
+        const dm = this.directoryModel_;
+        const leadIndex = dm.getFileListSelection().leadIndex;
+        if (leadIndex < 0) {
+            return;
+        }
+        const leadEntry = dm.getFileList().item(leadIndex);
+        if (!isSameEntry(this.getRenameInput_().currentEntry, leadEntry)) {
+            return;
+        }
+        const leadListItem = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
+        if (this.listContainer_.currentListType === ListType.DETAIL) {
+            this.listContainer_.table.updateFileMetadata(leadListItem, leadEntry);
+        }
+        this.listContainer_.currentList.restoreLeadItem(leadListItem);
+    }
+    /**
+     * Convenience method to access HTMLInputElement with the type that contains
+     * all extra properties we set on it.
+     */
+    getRenameInput_() {
+        return this.listContainer_.renameInput;
+    }
+    onRenameInputKeyDown_(event) {
+        if (!this.isRenamingInProgress()) {
+            return;
+        }
+        // Do not move selection or lead item in list during rename.
+        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            event.stopPropagation();
+        }
+        switch (getKeyModifiers(event) + event.key) {
+            case 'Escape':
+                this.cancelRename_();
+                event.preventDefault();
+                break;
+            case 'Enter':
+                this.commitRename_();
+                event.preventDefault();
+                break;
+        }
+    }
+    onRenameInputBlur_() {
+        const contextMenu = this.getRenameInput_().contextMenu;
+        if (contextMenu && !contextMenu.hidden) {
+            return;
+        }
+        if (this.isRenamingInProgress() && !this.getRenameInput_().validation) {
+            this.commitRename_();
+        }
+    }
+    /**
+     * Returns a promise that resolves when done renaming - both when renaming is
+     * successful and when it fails.
+     */
+    async commitRename_() {
+        const input = this.getRenameInput_();
+        const entry = this.getRenameInput_().currentEntry;
+        const newName = input.value;
+        const renamedItemElement = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
+        const nameNode = renamedItemElement.querySelector('.filename-label');
+        if (!newName || newName === nameNode?.textContent) {
+            this.cancelRename_();
+            return;
+        }
+        const volumeInfo = this.volumeInfo_;
+        const isRemovableRoot = this.isRemovableRoot_;
+        try {
+            input.validation = true;
+            await validateEntryName(entry, newName, this.fileFilter_.isHiddenFilesVisible(), volumeInfo, isRemovableRoot);
+        }
+        catch (error) {
+            await this.alertDialog_.showAsync(error.message);
+            // Cancel rename if it fails to restore focus from alert dialog.
+            // Otherwise, just cancel the commitment and continue to rename.
+            if (document.activeElement !== input) {
+                this.cancelRename_();
+            }
+            return;
+        }
+        finally {
+            input.validation = false;
+        }
+        // Validation succeeded. Do renaming.
+        this.getRenameInput_().currentEntry = null;
+        if (this.listContainer_.renameInput.parentNode) {
+            this.listContainer_.renameInput.parentNode.removeChild(this.listContainer_.renameInput);
+        }
+        // Optimistically apply new name immediately to avoid flickering in
+        // case of success.
+        nameNode.textContent = newName;
+        try {
+            const newEntry = await renameEntry(entry, newName, volumeInfo, isRemovableRoot);
+            // RemovableRoot doesn't have a callback to report renaming is done.
+            if (!isRemovableRoot) {
+                await this.directoryModel_.onRenameEntry(entry, newEntry);
+            }
+            const selectionModel = this.listContainer_.currentList.selectionModel;
+            // Select new entry.
+            selectionModel.selectedIndex =
+                this.directoryModel_.getFileList().indexOf(newEntry);
+            // Force to update selection immediately.
+            this.selectionHandler_.onFileSelectionChanged();
+            renamedItemElement.removeAttribute('renaming');
+            this.listContainer_.endBatchUpdates();
+            // Focus may go out of the list. Back it to the list.
+            this.listContainer_.currentList.focus();
+        }
+        catch (error) {
+            // Write back to the old name.
+            nameNode.textContent = entry.name;
+            renamedItemElement.removeAttribute('renaming');
+            this.listContainer_.endBatchUpdates();
+            // Show error dialog.
+            this.alertDialog_.show(error.message);
+        }
+    }
+    cancelRename_() {
+        this.getRenameInput_().currentEntry = null;
+        const item = this.listContainer_.findListItemForNode(this.listContainer_.renameInput);
+        if (item) {
+            item.removeAttribute('renaming');
+        }
+        const parent = this.listContainer_.renameInput.parentNode;
+        if (parent) {
+            parent.removeChild(this.listContainer_.renameInput);
+        }
+        this.listContainer_.endBatchUpdates();
+        // Focus may go out of the list. Back it to the list.
+        this.listContainer_.currentList.focus();
+    }
+}
 
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -49630,7 +49698,7 @@ class QuickViewController {
     async onMetadataLoaded_(entry, items, fileTasks, canDelete) {
         const tasks = fileTasks.getAnnotatedTasks();
         const params = await this.getQuickViewParameters_(entry, items, tasks, canDelete);
-        if (this.quickViewModel_.getSelectedEntry() != entry) {
+        if (this.quickViewModel_.getSelectedEntry() !== entry) {
             return; // Bail: there's no point drawing a stale selection.
         }
         const emptySourceContent = {
@@ -49682,13 +49750,13 @@ class QuickViewController {
             if (thumbnailUrl) {
                 const result = await this.loadThumbnailFromDrive_(thumbnailUrl, modificationTime);
                 if (result.status === LoadImageResponseStatus.SUCCESS) {
-                    if (params.type == 'video') {
+                    if (params.type === 'video') {
                         params.videoPoster = {
                             data: result.data,
                             dataType: 'url',
                         };
                     }
-                    else if (params.type == 'image') {
+                    else if (params.type === 'image') {
                         params.sourceContent = {
                             data: result.data,
                             dataType: 'url',
@@ -49842,7 +49910,7 @@ class QuickViewController {
      */
     async loadRawFileThumbnailFromImageLoader_(entry) {
         return new Promise((resolve, reject) => {
-            entry.file(function requestFileThumbnail(file) {
+            entry.file((file) => {
                 const request = LoadImageRequest.createForUrl(entry.toURL());
                 request.maxWidth = THUMBNAIL_MAX_WIDTH;
                 request.maxHeight = THUMBNAIL_MAX_HEIGHT;
@@ -49884,6 +49952,74 @@ const LOCAL_VOLUME_TYPES_ = [
 const UNSUPPORTED_IMAGE_SUBTYPES_ = [
     'TIFF', // crbug.com/624109
 ];
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Controller for spinners. Spinner requests can be stacked. Eg. if show()
+ * is called 3 times, the hide callback has to be called 3 times to make the
+ * spinner invisible.
+ */
+class SpinnerController {
+    constructor(element_) {
+        this.element_ = element_;
+        this.activeSpinners_ = 0;
+        this.pendingSpinnerTimerIds_ = new Set();
+        this.blinkDuration_ = 1000; // In milliseconds.
+    }
+    /**
+     * Blinks the spinner for a short period of time. Hides automatically.
+     */
+    blink() {
+        const hideCallback = this.show();
+        setTimeout(hideCallback, this.blinkDuration_);
+    }
+    /**
+     * Shows the spinner immediately until the returned callback is called.
+     * @return Hide callback.
+     */
+    show() {
+        return this.showWithDelay(0, () => { });
+    }
+    /**
+     * Shows the spinner until hide is called. The returned callback must be
+     * called when the spinner is not necessary anymore.
+     * @param delay Delay in milliseconds.
+     * @param callback Show callback.
+     * @return Hide callback.
+     */
+    showWithDelay(delay, callback) {
+        const timerId = setTimeout(() => {
+            this.activeSpinners_++;
+            if (this.activeSpinners_ === 1) {
+                this.element_.hidden = false;
+            }
+            this.pendingSpinnerTimerIds_.delete(timerId);
+            callback();
+        }, delay);
+        this.pendingSpinnerTimerIds_.add(timerId);
+        return this.maybeHide_.bind(this, timerId);
+    }
+    /**
+     * Sets blink duration to the given `duration` value that must
+     * be specified in milliseconds.
+     */
+    setBlinkDurationForTesting(duration) {
+        this.blinkDuration_ = duration;
+    }
+    maybeHide_(timerId) {
+        if (this.pendingSpinnerTimerIds_.has(timerId)) {
+            clearTimeout(timerId);
+            this.pendingSpinnerTimerIds_.delete(timerId);
+            return;
+        }
+        this.activeSpinners_--;
+        if (this.activeSpinners_ === 0) {
+            this.element_.hidden = true;
+        }
+    }
+}
 
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -50246,18 +50382,18 @@ class ToolbarController {
             text = '';
         }
         else if (selection.totalCount === 1) {
-            if (selection.directoryCount == 0) {
+            if (selection.directoryCount === 0) {
                 text = str('ONE_FILE_SELECTED');
             }
-            else if (selection.fileCount == 0) {
+            else if (selection.fileCount === 0) {
                 text = str('ONE_DIRECTORY_SELECTED');
             }
         }
         else {
-            if (selection.directoryCount == 0) {
+            if (selection.directoryCount === 0) {
                 text = strf('MANY_FILES_SELECTED', selection.fileCount);
             }
-            else if (selection.fileCount == 0) {
+            else if (selection.fileCount === 0) {
                 text = strf('MANY_DIRECTORIES_SELECTED', selection.directoryCount);
             }
             else {
@@ -50281,7 +50417,7 @@ class ToolbarController {
             this.moveToTrashCommand.canExecuteChange(this.listContainer_.currentList);
         }
         // Update visibility of the restore-from-trash button.
-        this.restoreFromTrashButton_.hidden = (selection.totalCount == 0) ||
+        this.restoreFromTrashButton_.hidden = (selection.totalCount === 0) ||
             this.directoryModel_.getCurrentRootType() !== RootType.TRASH;
         this.togglePinnedCommand_.canExecuteChange(this.listContainer_.currentList);
         // Set .selecting class to containing element to change the view
@@ -50293,7 +50429,7 @@ class ToolbarController {
         if (this.directoryModel_.getFileListSelection().multiple) {
             const bodyClassList = this.filesSelectedLabel_.ownerDocument.body.classList;
             bodyClassList.toggle('selecting', selection.totalCount > 0);
-            if (bodyClassList.contains('check-select') !=
+            if (bodyClassList.contains('check-select') !==
                 this.directoryModel_.getFileListSelection()
                     .getCheckSelectMode()) {
                 bodyClassList.toggle('check-select');
@@ -50490,8 +50626,8 @@ class CommandButton extends CrButtonElement {
             this.command_.removeEventListener('disabledChange', this);
             this.command_.removeEventListener('hiddenChange', this);
         }
-        if (typeof command == 'string') {
-            assert$1(command[0] == '#');
+        if (typeof command === 'string') {
+            assert$1(command[0] === '#');
             command = this.ownerDocument.body.querySelector(command);
             assert$1(command);
             crInjectTypeAndInit(command, Command);
@@ -51230,7 +51366,7 @@ class FileManager {
         const dom = this.dialogDom_;
         assert$1(dom);
         const table = queryRequiredElement('.detail-table', dom);
-        FileTable.decorate(table, this.metadataModel_, this.volumeManager_, this.ui, this.dialogType == DialogType.FULL_PAGE);
+        FileTable.decorate(table, this.metadataModel_, this.volumeManager_, this.ui, this.dialogType === DialogType.FULL_PAGE);
         const grid = queryRequiredElement('.thumbnail-grid', dom);
         FileGrid.decorate(grid, this.metadataModel_, this.volumeManager_, this.ui);
         assertInstanceof(table, FileTable);
@@ -51253,10 +51389,10 @@ class FileManager {
      * Constructs table and grid (heavy operation).
      */
     async initFileList_() {
-        const singleSelection = this.dialogType == DialogType.SELECT_OPEN_FILE ||
-            this.dialogType == DialogType.SELECT_FOLDER ||
-            this.dialogType == DialogType.SELECT_UPLOAD_FOLDER ||
-            this.dialogType == DialogType.SELECT_SAVEAS_FILE;
+        const singleSelection = this.dialogType === DialogType.SELECT_OPEN_FILE ||
+            this.dialogType === DialogType.SELECT_FOLDER ||
+            this.dialogType === DialogType.SELECT_UPLOAD_FOLDER ||
+            this.dialogType === DialogType.SELECT_SAVEAS_FILE;
         assert$1(this.volumeManager_);
         assert$1(this.metadataModel_);
         assert$1(this.fileFilter_);
@@ -51450,7 +51586,7 @@ class FileManager {
         // Resolve the selectionURL to selectionEntry or to currentDirectoryEntry in
         // case of being a display root or a default directory to open files.
         if (this.launchParams_.selectionURL) {
-            if (this.launchParams_.selectionURL == this.recentEntry_.toURL()) {
+            if (this.launchParams_.selectionURL === this.recentEntry_.toURL()) {
                 nextCurrentDirEntry = this.recentEntry_;
             }
             else {
@@ -51632,11 +51768,12 @@ class FileManager {
             }
         }
         // Check directory change.
-        tracker.stop();
         if (!tracker.hasChanged) {
             // Finish setup current directory.
             await this.finishSetupCurrentDirectory_(nextCurrentDirEntry, selectionEntry, this.launchParams_.targetName);
         }
+        // Only stop the tracker after finishing the directory change.
+        tracker.stop();
     }
     /**
      * @param directoryEntry Directory to be opened.
@@ -51727,7 +51864,7 @@ class FileManager {
         // loading unpacked extensions).
         if (allowedPaths === AllowedPaths.NATIVE_PATH &&
             !isFolderDialogType(this.launchParams_.type)) {
-            if (this.launchParams_.type == DialogType.SELECT_SAVEAS_FILE) {
+            if (this.launchParams_.type === DialogType.SELECT_SAVEAS_FILE) {
                 allowedPaths = AllowedPaths.NATIVE_PATH;
             }
             else {
@@ -51742,7 +51879,7 @@ class FileManager {
      */
     getSourceRestriction_() {
         const allowedPaths = this.getAllowedPaths_();
-        if (allowedPaths == AllowedPaths.NATIVE_PATH) {
+        if (allowedPaths === AllowedPaths.NATIVE_PATH) {
             return chrome.fileManagerPrivate.SourceRestriction.NATIVE_SOURCE;
         }
         return chrome.fileManagerPrivate.SourceRestriction.ANY_SOURCE;
@@ -51870,15 +52007,15 @@ class FileManager {
         if (!isXfTree$1(this.ui_.directoryTree)) {
             this.ui_.directoryTree.dataModel.fakeTrashItem = null;
         }
-        this.navigateAwayFromDisabledRoot_(this.fakeTrashItem_);
+        this.navigateAwayFromDisabledRoot_(this.fakeTrashItem_?.entry || null);
     }
     /**
      * Toggles the drive root visibility when the `driveEnabled` preference is
      * updated.
      */
     toggleDriveRootOnPreferencesUpdate_() {
+        let driveFakeRoot = getEntry(this.store_.getState(), driveRootEntryListKey);
         if (this.driveEnabled_) {
-            let driveFakeRoot = getEntry(this.store_.getState(), driveRootEntryListKey);
             if (!driveFakeRoot) {
                 driveFakeRoot = new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
                 this.store_.dispatch(addUiEntry(driveFakeRoot));
@@ -51900,25 +52037,28 @@ class FileManager {
         assert$1(this.ui.directoryTree);
         if (!isXfTree$1(this.ui.directoryTree)) {
             this.ui.directoryTree.dataModel.fakeDriveItem = null;
+            this.navigateAwayFromDisabledRoot_(this.fakeDriveItem_?.entry || null);
         }
-        this.navigateAwayFromDisabledRoot_(this.fakeDriveItem_);
+        else {
+            this.navigateAwayFromDisabledRoot_(driveFakeRoot);
+        }
     }
     /**
      * If the root item has been disabled but it is the current visible entry,
      * navigate away from it to the default display root.
-     * @param rootItem The item to navigate away from.
+     * @param entry The entry to navigate away from.
      */
-    navigateAwayFromDisabledRoot_(rootItem) {
-        if (!rootItem) {
+    navigateAwayFromDisabledRoot_(entry) {
+        if (!entry) {
             return;
         }
         assert$1(this.directoryModel_);
         assert$1(this.volumeManager_);
         // The fake root item is being hidden so navigate away if it's the
         // current directory.
-        if (this.directoryModel_.getCurrentDirEntry() === rootItem.entry) {
+        if (this.directoryModel_.getCurrentDirEntry() === entry) {
             this.volumeManager_.getDefaultDisplayRoot((displayRoot) => {
-                if (this.directoryModel_.getCurrentDirEntry() === rootItem.entry &&
+                if (this.directoryModel_.getCurrentDirEntry() === entry &&
                     displayRoot) {
                     this.directoryModel_.changeDirectoryEntry(displayRoot);
                 }

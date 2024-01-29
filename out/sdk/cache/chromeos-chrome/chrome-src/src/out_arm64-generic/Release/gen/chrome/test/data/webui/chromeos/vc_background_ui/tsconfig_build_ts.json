@@ -4,8 +4,23 @@
     "rootDir": "preprocessed",
     "outDir": "tsc",
     "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://vc-background/*": [
+        "./../../../../../../ash/webui/vc_background_ui/resources/tsc/*"
       ],
       "chrome://webui-test/*": [
         "./../../tsc/*"
@@ -20,7 +35,13 @@
       "path": "../../tsconfig_build_ts.json"
     },
     {
+      "path": "../../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
       "path": "../../../../../../ash/webui/vc_background_ui/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
     }
   ]
 }

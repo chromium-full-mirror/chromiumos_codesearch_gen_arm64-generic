@@ -316,6 +316,8 @@ bool Hyphenation_OpenDictionary_ForwardToCallback::Accept(
           internal::Hyphenation_OpenDictionary_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Hyphenation.0
   bool success = true;
   ::base::File p_hyphenation_dictionary_handle{};
   Hyphenation_OpenDictionary_ResponseParamsDataView input_data_view(params, message);
@@ -391,6 +393,8 @@ bool Hyphenation_OpenDictionary_HandleSyncResponse::Accept(
       reinterpret_cast<internal::Hyphenation_OpenDictionary_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for Hyphenation.0
   bool success = true;
   ::base::File p_hyphenation_dictionary_handle{};
   Hyphenation_OpenDictionary_ResponseParamsDataView input_data_view(params, message);
@@ -437,6 +441,8 @@ bool HyphenationStubDispatch::AcceptWithResponder(
               internal::Hyphenation_OpenDictionary_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Hyphenation.0
       bool success = true;
       WTF::String p_locale{};
       Hyphenation_OpenDictionary_ParamsDataView input_data_view(params, message);
@@ -455,8 +461,8 @@ bool HyphenationStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDictionary(
-std::move(p_locale), std::move(callback));
+      impl->OpenDictionary(        
+        std::move(p_locale), std::move(callback));
       return true;
     }
   }

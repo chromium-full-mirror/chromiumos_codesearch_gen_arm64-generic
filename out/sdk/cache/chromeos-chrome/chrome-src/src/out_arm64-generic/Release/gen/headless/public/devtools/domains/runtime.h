@@ -153,6 +153,22 @@ class HEADLESS_EXPORT Domain {
   void SetAsyncCallStackDepth(int max_depth, base::OnceClosure callback = base::OnceClosure());
   void SetAsyncCallStackDepth(std::unique_ptr<SetAsyncCallStackDepthParams> params, base::OnceClosure callback);
 
+  // If executionContextId is empty, adds binding with the given name on the
+  // global objects of all inspected contexts, including those created later,
+  // bindings survive reloads.
+  // Binding function takes exactly one argument, this argument should be string,
+  // in case of any other input, function throws an exception.
+  // Each binding function call produces Runtime.bindingCalled notification.
+  void AddBinding(std::unique_ptr<AddBindingParams> params, base::OnceCallback<void(std::unique_ptr<AddBindingResult>)> callback = base::OnceCallback<void(std::unique_ptr<AddBindingResult>)>());
+  void AddBinding(const std::string& name, base::OnceClosure callback = base::OnceClosure());
+  void AddBinding(std::unique_ptr<AddBindingParams> params, base::OnceClosure callback);
+
+  // This method does not remove binding function from global object but
+  // unsubscribes current runtime agent from Runtime.bindingCalled notifications.
+  void RemoveBinding(std::unique_ptr<RemoveBindingParams> params, base::OnceCallback<void(std::unique_ptr<RemoveBindingResult>)> callback = base::OnceCallback<void(std::unique_ptr<RemoveBindingResult>)>());
+  void RemoveBinding(const std::string& name, base::OnceClosure callback = base::OnceClosure());
+  void RemoveBinding(std::unique_ptr<RemoveBindingParams> params, base::OnceClosure callback);
+
  protected:
   Domain(internal::MessageDispatcher* dispatcher);
   ~Domain();
@@ -229,18 +245,6 @@ class ExperimentalDomain : public Domain {
   // Terminate current or next JavaScript execution.
   // Will cancel the termination when the outer-most script execution ends.
   void TerminateExecution(std::unique_ptr<TerminateExecutionParams> params, base::OnceCallback<void(std::unique_ptr<TerminateExecutionResult>)> callback = base::OnceCallback<void(std::unique_ptr<TerminateExecutionResult>)>());
-
-  // If executionContextId is empty, adds binding with the given name on the
-  // global objects of all inspected contexts, including those created later,
-  // bindings survive reloads.
-  // Binding function takes exactly one argument, this argument should be string,
-  // in case of any other input, function throws an exception.
-  // Each binding function call produces Runtime.bindingCalled notification.
-  void AddBinding(std::unique_ptr<AddBindingParams> params, base::OnceCallback<void(std::unique_ptr<AddBindingResult>)> callback = base::OnceCallback<void(std::unique_ptr<AddBindingResult>)>());
-
-  // This method does not remove binding function from global object but
-  // unsubscribes current runtime agent from Runtime.bindingCalled notifications.
-  void RemoveBinding(std::unique_ptr<RemoveBindingParams> params, base::OnceCallback<void(std::unique_ptr<RemoveBindingResult>)> callback = base::OnceCallback<void(std::unique_ptr<RemoveBindingResult>)>());
 
   // This method tries to lookup and populate exception details for a
   // JavaScript Error object.

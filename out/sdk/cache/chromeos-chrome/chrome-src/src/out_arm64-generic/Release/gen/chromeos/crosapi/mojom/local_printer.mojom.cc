@@ -887,6 +887,51 @@ bool Policies::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+PrintJobUpdate::PrintJobUpdate()
+    : status(),
+      pages_printed() {}
+
+PrintJobUpdate::PrintJobUpdate(
+    PrintJobStatus status_in,
+    uint32_t pages_printed_in)
+    : status(std::move(status_in)),
+      pages_printed(std::move(pages_printed_in)) {}
+
+PrintJobUpdate::~PrintJobUpdate() = default;
+size_t PrintJobUpdate::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->status);
+  seed = mojo::internal::Hash(seed, this->pages_printed);
+  return seed;
+}
+
+void PrintJobUpdate::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "status"), this->status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PrintJobStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pages_printed"), this->pages_printed,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PrintJobUpdate::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 OAuthNotNeeded::OAuthNotNeeded() {}
 
 OAuthNotNeeded::~OAuthNotNeeded() = default;
@@ -1210,6 +1255,8 @@ bool PrintServerObserverStubDispatch::Accept(
           reinterpret_cast<internal::PrintServerObserver_OnPrintServersChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintServerObserver.0
       bool success = true;
       PrintServersConfigPtr p_config{};
       PrintServerObserver_OnPrintServersChanged_ParamsDataView input_data_view(params, message);
@@ -1225,8 +1272,8 @@ bool PrintServerObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintServersChanged(
-std::move(p_config));
+      impl->OnPrintServersChanged(        
+        std::move(p_config));
       return true;
     }
     case internal::kPrintServerObserver_OnServerPrintersChanged_Name: {
@@ -1236,6 +1283,8 @@ std::move(p_config));
           reinterpret_cast<internal::PrintServerObserver_OnServerPrintersChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintServerObserver.1
       bool success = true;
       PrintServerObserver_OnServerPrintersChanged_ParamsDataView input_data_view(params, message);
       
@@ -1248,7 +1297,7 @@ std::move(p_config));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServerPrintersChanged();
+      impl->OnServerPrintersChanged(        );
       return true;
     }
   }
@@ -1293,6 +1342,9 @@ constexpr base::Token PrintJobObserver::Uuid_;
 PrintJobObserver::IPCStableHashFunction PrintJobObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
+    case internal::kPrintJobObserver_OnPrintJobUpdateDeprecated_Name: {
+      return &PrintJobObserver::OnPrintJobUpdateDeprecated_Sym::IPCStableHash;
+    }
     case internal::kPrintJobObserver_OnPrintJobUpdate_Name: {
       return &PrintJobObserver::OnPrintJobUpdate_Sym::IPCStableHash;
     }
@@ -1307,11 +1359,15 @@ const char* PrintJobObserver::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
+      case internal::kPrintJobObserver_OnPrintJobUpdateDeprecated_Name:
+            return "Receive crosapi::mojom::PrintJobObserver::OnPrintJobUpdateDeprecated";
       case internal::kPrintJobObserver_OnPrintJobUpdate_Name:
             return "Receive crosapi::mojom::PrintJobObserver::OnPrintJobUpdate";
     }
   } else {
     switch (message.name()) {
+      case internal::kPrintJobObserver_OnPrintJobUpdateDeprecated_Name:
+            return "Receive reply crosapi::mojom::PrintJobObserver::OnPrintJobUpdateDeprecated";
       case internal::kPrintJobObserver_OnPrintJobUpdate_Name:
             return "Receive reply crosapi::mojom::PrintJobObserver::OnPrintJobUpdate";
     }
@@ -1328,6 +1384,19 @@ const char* PrintJobObserver::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t PrintJobObserver::OnPrintJobUpdateDeprecated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::PrintJobObserver::OnPrintJobUpdateDeprecated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t PrintJobObserver::OnPrintJobUpdate_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1347,8 +1416,68 @@ PrintJobObserverProxy::PrintJobObserverProxy(mojo::MessageReceiverWithResponder*
     : receiver_(receiver) {
 }
 
-void PrintJobObserverProxy::OnPrintJobUpdate(
+void PrintJobObserverProxy::OnPrintJobUpdateDeprecated(
     const std::string& in_printer_id, uint32_t in_job_id, PrintJobStatus in_status) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::PrintJobObserver::OnPrintJobUpdateDeprecated", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("printer_id"), in_printer_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("job_id"), in_job_id,
+                        "<value of type uint32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type PrintJobStatus>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPrintJobObserver_OnPrintJobUpdateDeprecated_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->printer_id)::BaseType> printer_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_printer_id, printer_id_fragment);
+  params->printer_id.Set(
+      printer_id_fragment.is_null() ? nullptr : printer_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->printer_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null printer_id in PrintJobObserver.OnPrintJobUpdateDeprecated request");
+  params->job_id = in_job_id;
+  mojo::internal::Serialize<::crosapi::mojom::PrintJobStatus>(
+      in_status, &params->status);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PrintJobObserver::Name_);
+  message.set_method_name("OnPrintJobUpdateDeprecated");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PrintJobObserverProxy::OnPrintJobUpdate(
+    const std::string& in_printer_id, uint32_t in_job_id, PrintJobUpdatePtr in_update) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::PrintJobObserver::OnPrintJobUpdate", "input_parameters",
@@ -1361,8 +1490,8 @@ void PrintJobObserverProxy::OnPrintJobUpdate(
            dict.AddItem("job_id"), in_job_id,
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("status"), in_status,
-                        "<value of type PrintJobStatus>");
+           dict.AddItem("update"), in_update,
+                        "<value of type PrintJobUpdatePtr>");
    });
 #endif
 
@@ -1395,8 +1524,17 @@ void PrintJobObserverProxy::OnPrintJobUpdate(
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null printer_id in PrintJobObserver.OnPrintJobUpdate request");
   params->job_id = in_job_id;
-  mojo::internal::Serialize<::crosapi::mojom::PrintJobStatus>(
-      in_status, &params->status);
+  mojo::internal::MessageFragment<
+      typename decltype(params->update)::BaseType> update_fragment(
+          params.message());
+  mojo::internal::Serialize<::crosapi::mojom::PrintJobUpdateDataView>(
+      in_update, update_fragment);
+  params->update.Set(
+      update_fragment.is_null() ? nullptr : update_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->update.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null update in PrintJobObserver.OnPrintJobUpdate request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PrintJobObserver::Name_);
@@ -1412,18 +1550,20 @@ bool PrintJobObserverStubDispatch::Accept(
     PrintJobObserver* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kPrintJobObserver_OnPrintJobUpdate_Name: {
+    case internal::kPrintJobObserver_OnPrintJobUpdateDeprecated_Name: {
 
       DCHECK(message->is_serialized());
-      internal::PrintJobObserver_OnPrintJobUpdate_Params_Data* params =
-          reinterpret_cast<internal::PrintJobObserver_OnPrintJobUpdate_Params_Data*>(
+      internal::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data* params =
+          reinterpret_cast<internal::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PrintJobObserver.0
       bool success = true;
       std::string p_printer_id{};
       uint32_t p_job_id{};
       PrintJobStatus p_status{};
-      PrintJobObserver_OnPrintJobUpdate_ParamsDataView input_data_view(params, message);
+      PrintJobObserver_OnPrintJobUpdateDeprecated_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPrinterId(&p_printer_id))
         success = false;
@@ -1440,10 +1580,46 @@ bool PrintJobObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPrintJobUpdate(
-std::move(p_printer_id), 
-std::move(p_job_id), 
-std::move(p_status));
+      impl->OnPrintJobUpdateDeprecated(        
+        std::move(p_printer_id), 
+        std::move(p_job_id), 
+        std::move(p_status));
+      return true;
+    }
+    case internal::kPrintJobObserver_OnPrintJobUpdate_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PrintJobObserver_OnPrintJobUpdate_Params_Data* params =
+          reinterpret_cast<internal::PrintJobObserver_OnPrintJobUpdate_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for PrintJobObserver.1
+      bool success = true;
+      std::string p_printer_id{};
+      uint32_t p_job_id{};
+      PrintJobUpdatePtr p_update{};
+      PrintJobObserver_OnPrintJobUpdate_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPrinterId(&p_printer_id))
+        success = false;
+      if (success)
+        p_job_id = input_data_view.job_id();
+      if (success && !input_data_view.ReadUpdate(&p_update))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PrintJobObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnPrintJobUpdate(        
+        std::move(p_printer_id), 
+        std::move(p_job_id), 
+        std::move(p_update));
       return true;
     }
   }
@@ -1459,6 +1635,9 @@ bool PrintJobObserverStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
+    case internal::kPrintJobObserver_OnPrintJobUpdateDeprecated_Name: {
+      break;
+    }
     case internal::kPrintJobObserver_OnPrintJobUpdate_Name: {
       break;
     }
@@ -1468,6 +1647,8 @@ bool PrintJobObserverStubDispatch::AcceptWithResponder(
 namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kPrintJobObserverValidationInfo[] = {
+    { &internal::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data::Validate,
+     nullptr /* no response */},
     { &internal::PrintJobObserver_OnPrintJobUpdate_Params_Data::Validate,
      nullptr /* no response */},
 };
@@ -1601,6 +1782,8 @@ bool LocalPrintersObserverStubDispatch::Accept(
           reinterpret_cast<internal::LocalPrintersObserver_OnLocalPrintersUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LocalPrintersObserver.0
       bool success = true;
       std::vector<LocalDestinationInfoPtr> p_printers{};
       LocalPrintersObserver_OnLocalPrintersUpdated_ParamsDataView input_data_view(params, message);
@@ -1616,8 +1799,8 @@ bool LocalPrintersObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLocalPrintersUpdated(
-std::move(p_printers));
+      impl->OnLocalPrintersUpdated(        
+        std::move(p_printers));
       return true;
     }
   }
@@ -3132,6 +3315,8 @@ bool LocalPrinter_GetPrinters_ForwardToCallback::Accept(
           internal::LocalPrinter_GetPrinters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.0
   bool success = true;
   std::vector<LocalDestinationInfoPtr> p_printers{};
   LocalPrinter_GetPrinters_ResponseParamsDataView input_data_view(params, message);
@@ -3263,6 +3448,8 @@ bool LocalPrinter_GetCapability_ForwardToCallback::Accept(
           internal::LocalPrinter_GetCapability_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.1
   bool success = true;
   CapabilitiesResponsePtr p_capabilities{};
   LocalPrinter_GetCapability_ResponseParamsDataView input_data_view(params, message);
@@ -3388,6 +3575,8 @@ bool LocalPrinter_GetEulaUrl_ForwardToCallback::Accept(
           internal::LocalPrinter_GetEulaUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.2
   bool success = true;
   ::GURL p_url{};
   LocalPrinter_GetEulaUrl_ResponseParamsDataView input_data_view(params, message);
@@ -3517,6 +3706,8 @@ bool LocalPrinter_GetStatus_ForwardToCallback::Accept(
           internal::LocalPrinter_GetStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.3
   bool success = true;
   PrinterStatusPtr p_status{};
   LocalPrinter_GetStatus_ResponseParamsDataView input_data_view(params, message);
@@ -3646,6 +3837,8 @@ bool LocalPrinter_ShowSystemPrintSettings_ForwardToCallback::Accept(
           internal::LocalPrinter_ShowSystemPrintSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.4
   bool success = true;
   LocalPrinter_ShowSystemPrintSettings_ResponseParamsDataView input_data_view(params, message);
   
@@ -3753,6 +3946,8 @@ bool LocalPrinter_CreatePrintJob_ForwardToCallback::Accept(
           internal::LocalPrinter_CreatePrintJob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.5
   bool success = true;
   LocalPrinter_CreatePrintJob_ResponseParamsDataView input_data_view(params, message);
   
@@ -3860,6 +4055,8 @@ bool LocalPrinter_CancelPrintJob_ForwardToCallback::Accept(
           internal::LocalPrinter_CancelPrintJob_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.12
   bool success = true;
   bool p_attempted{};
   LocalPrinter_CancelPrintJob_ResponseParamsDataView input_data_view(params, message);
@@ -3979,6 +4176,8 @@ bool LocalPrinter_GetPrintServersConfig_ForwardToCallback::Accept(
           internal::LocalPrinter_GetPrintServersConfig_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.6
   bool success = true;
   PrintServersConfigPtr p_config{};
   LocalPrinter_GetPrintServersConfig_ResponseParamsDataView input_data_view(params, message);
@@ -4108,6 +4307,8 @@ bool LocalPrinter_ChoosePrintServers_ForwardToCallback::Accept(
           internal::LocalPrinter_ChoosePrintServers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.7
   bool success = true;
   LocalPrinter_ChoosePrintServers_ResponseParamsDataView input_data_view(params, message);
   
@@ -4215,6 +4416,8 @@ bool LocalPrinter_AddPrintServerObserver_ForwardToCallback::Accept(
           internal::LocalPrinter_AddPrintServerObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.8
   bool success = true;
   LocalPrinter_AddPrintServerObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -4322,6 +4525,8 @@ bool LocalPrinter_GetPolicies_ForwardToCallback::Accept(
           internal::LocalPrinter_GetPolicies_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.9
   bool success = true;
   PoliciesPtr p_policies{};
   LocalPrinter_GetPolicies_ResponseParamsDataView input_data_view(params, message);
@@ -4451,6 +4656,8 @@ bool LocalPrinter_GetUsernamePerPolicy_ForwardToCallback::Accept(
           internal::LocalPrinter_GetUsernamePerPolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.10
   bool success = true;
   std::optional<std::string> p_username{};
   LocalPrinter_GetUsernamePerPolicy_ResponseParamsDataView input_data_view(params, message);
@@ -4576,6 +4783,8 @@ bool LocalPrinter_GetPrinterTypeDenyList_ForwardToCallback::Accept(
           internal::LocalPrinter_GetPrinterTypeDenyList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.11
   bool success = true;
   std::vector<::printing::mojom::PrinterType> p_deny_list{};
   LocalPrinter_GetPrinterTypeDenyList_ResponseParamsDataView input_data_view(params, message);
@@ -4707,6 +4916,8 @@ bool LocalPrinter_AddPrintJobObserver_ForwardToCallback::Accept(
           internal::LocalPrinter_AddPrintJobObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.13
   bool success = true;
   LocalPrinter_AddPrintJobObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -4814,6 +5025,8 @@ bool LocalPrinter_GetOAuthAccessToken_ForwardToCallback::Accept(
           internal::LocalPrinter_GetOAuthAccessToken_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.14
   bool success = true;
   GetOAuthAccessTokenResultPtr p_oauth_result{};
   LocalPrinter_GetOAuthAccessToken_ResponseParamsDataView input_data_view(params, message);
@@ -4941,6 +5154,8 @@ bool LocalPrinter_GetIppClientInfo_ForwardToCallback::Accept(
           internal::LocalPrinter_GetIppClientInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.15
   bool success = true;
   std::vector<::printing::mojom::IppClientInfoPtr> p_settings{};
   LocalPrinter_GetIppClientInfo_ResponseParamsDataView input_data_view(params, message);
@@ -5072,6 +5287,8 @@ bool LocalPrinter_AddLocalPrintersObserver_ForwardToCallback::Accept(
           internal::LocalPrinter_AddLocalPrintersObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LocalPrinter.16
   bool success = true;
   std::vector<LocalDestinationInfoPtr> p_printers{};
   LocalPrinter_AddLocalPrintersObserver_ResponseParamsDataView input_data_view(params, message);
@@ -5222,6 +5439,8 @@ bool LocalPrinterStubDispatch::AcceptWithResponder(
               internal::LocalPrinter_GetPrinters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.0
       bool success = true;
       LocalPrinter_GetPrinters_ParamsDataView input_data_view(params, message);
       
@@ -5247,6 +5466,8 @@ bool LocalPrinterStubDispatch::AcceptWithResponder(
               internal::LocalPrinter_GetCapability_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.1
       bool success = true;
       std::string p_printer_id{};
       LocalPrinter_GetCapability_ParamsDataView input_data_view(params, message);
@@ -5265,8 +5486,8 @@ bool LocalPrinterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCapability(
-std::move(p_printer_id), std::move(callback));
+      impl->GetCapability(        
+        std::move(p_printer_id), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_GetEulaUrl_Name: {
@@ -5276,6 +5497,8 @@ std::move(p_printer_id), std::move(callback));
               internal::LocalPrinter_GetEulaUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.2
       bool success = true;
       std::string p_printer_id{};
       LocalPrinter_GetEulaUrl_ParamsDataView input_data_view(params, message);
@@ -5294,8 +5517,8 @@ std::move(p_printer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetEulaUrl(
-std::move(p_printer_id), std::move(callback));
+      impl->GetEulaUrl(        
+        std::move(p_printer_id), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_GetStatus_Name: {
@@ -5305,6 +5528,8 @@ std::move(p_printer_id), std::move(callback));
               internal::LocalPrinter_GetStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.3
       bool success = true;
       std::string p_printer_id{};
       LocalPrinter_GetStatus_ParamsDataView input_data_view(params, message);
@@ -5323,8 +5548,8 @@ std::move(p_printer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetStatus(
-std::move(p_printer_id), std::move(callback));
+      impl->GetStatus(        
+        std::move(p_printer_id), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_ShowSystemPrintSettings_Name: {
@@ -5334,6 +5559,8 @@ std::move(p_printer_id), std::move(callback));
               internal::LocalPrinter_ShowSystemPrintSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.4
       bool success = true;
       LocalPrinter_ShowSystemPrintSettings_ParamsDataView input_data_view(params, message);
       
@@ -5359,6 +5586,8 @@ std::move(p_printer_id), std::move(callback));
               internal::LocalPrinter_CreatePrintJob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.5
       bool success = true;
       PrintJobPtr p_job{};
       LocalPrinter_CreatePrintJob_ParamsDataView input_data_view(params, message);
@@ -5377,8 +5606,8 @@ std::move(p_printer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePrintJob(
-std::move(p_job), std::move(callback));
+      impl->CreatePrintJob(        
+        std::move(p_job), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_CancelPrintJob_Name: {
@@ -5388,6 +5617,8 @@ std::move(p_job), std::move(callback));
               internal::LocalPrinter_CancelPrintJob_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.12
       bool success = true;
       std::string p_printer_id{};
       uint32_t p_job_id{};
@@ -5409,9 +5640,9 @@ std::move(p_job), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPrintJob(
-std::move(p_printer_id), 
-std::move(p_job_id), std::move(callback));
+      impl->CancelPrintJob(        
+        std::move(p_printer_id), 
+        std::move(p_job_id), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_GetPrintServersConfig_Name: {
@@ -5421,6 +5652,8 @@ std::move(p_job_id), std::move(callback));
               internal::LocalPrinter_GetPrintServersConfig_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.6
       bool success = true;
       LocalPrinter_GetPrintServersConfig_ParamsDataView input_data_view(params, message);
       
@@ -5446,6 +5679,8 @@ std::move(p_job_id), std::move(callback));
               internal::LocalPrinter_ChoosePrintServers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.7
       bool success = true;
       std::vector<std::string> p_print_server_ids{};
       LocalPrinter_ChoosePrintServers_ParamsDataView input_data_view(params, message);
@@ -5464,8 +5699,8 @@ std::move(p_job_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ChoosePrintServers(
-std::move(p_print_server_ids), std::move(callback));
+      impl->ChoosePrintServers(        
+        std::move(p_print_server_ids), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_AddPrintServerObserver_Name: {
@@ -5475,6 +5710,8 @@ std::move(p_print_server_ids), std::move(callback));
               internal::LocalPrinter_AddPrintServerObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.8
       bool success = true;
       ::mojo::PendingRemote<PrintServerObserver> p_observer{};
       LocalPrinter_AddPrintServerObserver_ParamsDataView input_data_view(params, message);
@@ -5495,8 +5732,8 @@ std::move(p_print_server_ids), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPrintServerObserver(
-std::move(p_observer), std::move(callback));
+      impl->AddPrintServerObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_GetPolicies_Name: {
@@ -5506,6 +5743,8 @@ std::move(p_observer), std::move(callback));
               internal::LocalPrinter_GetPolicies_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.9
       bool success = true;
       LocalPrinter_GetPolicies_ParamsDataView input_data_view(params, message);
       
@@ -5531,6 +5770,8 @@ std::move(p_observer), std::move(callback));
               internal::LocalPrinter_GetUsernamePerPolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.10
       bool success = true;
       LocalPrinter_GetUsernamePerPolicy_ParamsDataView input_data_view(params, message);
       
@@ -5556,6 +5797,8 @@ std::move(p_observer), std::move(callback));
               internal::LocalPrinter_GetPrinterTypeDenyList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.11
       bool success = true;
       LocalPrinter_GetPrinterTypeDenyList_ParamsDataView input_data_view(params, message);
       
@@ -5581,6 +5824,8 @@ std::move(p_observer), std::move(callback));
               internal::LocalPrinter_AddPrintJobObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.13
       bool success = true;
       ::mojo::PendingRemote<PrintJobObserver> p_observer{};
       PrintJobSource p_source{};
@@ -5604,9 +5849,9 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPrintJobObserver(
-std::move(p_observer), 
-std::move(p_source), std::move(callback));
+      impl->AddPrintJobObserver(        
+        std::move(p_observer), 
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_GetOAuthAccessToken_Name: {
@@ -5616,6 +5861,8 @@ std::move(p_source), std::move(callback));
               internal::LocalPrinter_GetOAuthAccessToken_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.14
       bool success = true;
       std::string p_printer_id{};
       LocalPrinter_GetOAuthAccessToken_ParamsDataView input_data_view(params, message);
@@ -5634,8 +5881,8 @@ std::move(p_source), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetOAuthAccessToken(
-std::move(p_printer_id), std::move(callback));
+      impl->GetOAuthAccessToken(        
+        std::move(p_printer_id), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_GetIppClientInfo_Name: {
@@ -5645,6 +5892,8 @@ std::move(p_printer_id), std::move(callback));
               internal::LocalPrinter_GetIppClientInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.15
       bool success = true;
       std::string p_printer_id{};
       LocalPrinter_GetIppClientInfo_ParamsDataView input_data_view(params, message);
@@ -5663,8 +5912,8 @@ std::move(p_printer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetIppClientInfo(
-std::move(p_printer_id), std::move(callback));
+      impl->GetIppClientInfo(        
+        std::move(p_printer_id), std::move(callback));
       return true;
     }
     case internal::kLocalPrinter_AddLocalPrintersObserver_Name: {
@@ -5674,6 +5923,8 @@ std::move(p_printer_id), std::move(callback));
               internal::LocalPrinter_AddLocalPrintersObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LocalPrinter.16
       bool success = true;
       ::mojo::PendingRemote<LocalPrintersObserver> p_observer{};
       LocalPrinter_AddLocalPrintersObserver_ParamsDataView input_data_view(params, message);
@@ -5694,8 +5945,8 @@ std::move(p_printer_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLocalPrintersObserver(
-std::move(p_observer), std::move(callback));
+      impl->AddLocalPrintersObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
   }
@@ -5956,6 +6207,22 @@ bool StructTraits<::crosapi::mojom::Policies::DataView, ::crosapi::mojom::Polici
 
 
 // static
+bool StructTraits<::crosapi::mojom::PrintJobUpdate::DataView, ::crosapi::mojom::PrintJobUpdatePtr>::Read(
+    ::crosapi::mojom::PrintJobUpdate::DataView input,
+    ::crosapi::mojom::PrintJobUpdatePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::PrintJobUpdatePtr result(::crosapi::mojom::PrintJobUpdate::New());
+  
+      if (success && !input.ReadStatus(&result->status))
+        success = false;
+      if (success)
+        result->pages_printed = input.pages_printed();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::crosapi::mojom::OAuthNotNeeded::DataView, ::crosapi::mojom::OAuthNotNeededPtr>::Read(
     ::crosapi::mojom::OAuthNotNeeded::DataView input,
     ::crosapi::mojom::OAuthNotNeededPtr* output) {
@@ -6058,8 +6325,11 @@ PrintServerObserverAsyncWaiter::~PrintServerObserverAsyncWaiter() = default;
 
 
 
-void PrintJobObserverInterceptorForTesting::OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) {
-  GetForwardingInterface()->OnPrintJobUpdate(std::move(printer_id), std::move(job_id), std::move(status));
+void PrintJobObserverInterceptorForTesting::OnPrintJobUpdateDeprecated(const std::string& printer_id, uint32_t job_id, PrintJobStatus status) {
+  GetForwardingInterface()->OnPrintJobUpdateDeprecated(std::move(printer_id), std::move(job_id), std::move(status));
+}
+void PrintJobObserverInterceptorForTesting::OnPrintJobUpdate(const std::string& printer_id, uint32_t job_id, PrintJobUpdatePtr update) {
+  GetForwardingInterface()->OnPrintJobUpdate(std::move(printer_id), std::move(job_id), std::move(update));
 }
 PrintJobObserverAsyncWaiter::PrintJobObserverAsyncWaiter(
     PrintJobObserver* proxy) : proxy_(proxy) {}

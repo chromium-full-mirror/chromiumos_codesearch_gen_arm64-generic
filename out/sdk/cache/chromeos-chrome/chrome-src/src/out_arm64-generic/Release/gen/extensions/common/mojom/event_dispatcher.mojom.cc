@@ -146,7 +146,7 @@ bool EventFilteringInfo::Validate(
 }
 DispatchEventParams::DispatchEventParams()
     : worker_thread_id(),
-      extension_id(),
+      host_id(),
       event_name(),
       event_id(),
       is_user_gesture(),
@@ -154,13 +154,13 @@ DispatchEventParams::DispatchEventParams()
 
 DispatchEventParams::DispatchEventParams(
     int32_t worker_thread_id_in,
-    const std::string& extension_id_in,
+    ::extensions::mojom::HostIDPtr host_id_in,
     const std::string& event_name_in,
     int32_t event_id_in,
     bool is_user_gesture_in,
     EventFilteringInfoPtr filtering_info_in)
     : worker_thread_id(std::move(worker_thread_id_in)),
-      extension_id(std::move(extension_id_in)),
+      host_id(std::move(host_id_in)),
       event_name(std::move(event_name_in)),
       event_id(std::move(event_id_in)),
       is_user_gesture(std::move(is_user_gesture_in)),
@@ -182,9 +182,9 @@ void DispatchEventParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "extension_id"), this->extension_id,
+      "host_id"), this->host_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
+      "<value of type ::extensions::mojom::HostIDPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -430,6 +430,8 @@ bool EventDispatcher_DispatchEvent_ForwardToCallback::Accept(
           internal::EventDispatcher_DispatchEvent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EventDispatcher.0
   bool success = true;
   bool p_event_will_run_in_lazy_background_page_script{};
   EventDispatcher_DispatchEvent_ResponseParamsDataView input_data_view(params, message);
@@ -520,6 +522,8 @@ bool EventDispatcherStubDispatch::AcceptWithResponder(
               internal::EventDispatcher_DispatchEvent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EventDispatcher.0
       bool success = true;
       DispatchEventParamsPtr p_params{};
       ::base::Value::List p_event_args{};
@@ -541,9 +545,9 @@ bool EventDispatcherStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DispatchEvent(
-std::move(p_params), 
-std::move(p_event_args), std::move(callback));
+      impl->DispatchEvent(        
+        std::move(p_params), 
+        std::move(p_event_args), std::move(callback));
       return true;
     }
   }
@@ -608,7 +612,7 @@ bool StructTraits<::extensions::mojom::DispatchEventParams::DataView, ::extensio
   
       if (success)
         result->worker_thread_id = input.worker_thread_id();
-      if (success && !input.ReadExtensionId(&result->extension_id))
+      if (success && !input.ReadHostId(&result->host_id))
         success = false;
       if (success && !input.ReadEventName(&result->event_name))
         success = false;

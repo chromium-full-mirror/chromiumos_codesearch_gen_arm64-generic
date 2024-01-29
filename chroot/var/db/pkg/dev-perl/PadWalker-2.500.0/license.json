@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "PadWalker", "version": "2.500.0", "revision": 0, "fullname": "dev-perl/PadWalker", "fullnamerev": "dev-perl/PadWalker-2.500.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/PadWalker"], "skip": false, "tainted": false, "ebuild_path": null}

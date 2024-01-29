@@ -610,6 +610,8 @@ bool SubAppsService_Add_ForwardToCallback::Accept(
           internal::SubAppsService_Add_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SubAppsService.0
   bool success = true;
   std::vector<SubAppsServiceAddResultPtr> p_result{};
   SubAppsService_Add_ResponseParamsDataView input_data_view(params, message);
@@ -741,6 +743,8 @@ bool SubAppsService_List_ForwardToCallback::Accept(
           internal::SubAppsService_List_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SubAppsService.1
   bool success = true;
   SubAppsServiceListResultPtr p_result{};
   SubAppsService_List_ResponseParamsDataView input_data_view(params, message);
@@ -870,6 +874,8 @@ bool SubAppsService_Remove_ForwardToCallback::Accept(
           internal::SubAppsService_Remove_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SubAppsService.2
   bool success = true;
   std::vector<SubAppsServiceRemoveResultPtr> p_result{};
   SubAppsService_Remove_ResponseParamsDataView input_data_view(params, message);
@@ -978,6 +984,8 @@ bool SubAppsServiceStubDispatch::AcceptWithResponder(
               internal::SubAppsService_Add_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SubAppsService.0
       bool success = true;
       std::vector<SubAppsServiceAddParametersPtr> p_sub_apps_to_add{};
       SubAppsService_Add_ParamsDataView input_data_view(params, message);
@@ -996,8 +1004,8 @@ bool SubAppsServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Add(
-std::move(p_sub_apps_to_add), std::move(callback));
+      impl->Add(        
+        std::move(p_sub_apps_to_add), std::move(callback));
       return true;
     }
     case internal::kSubAppsService_List_Name: {
@@ -1007,6 +1015,8 @@ std::move(p_sub_apps_to_add), std::move(callback));
               internal::SubAppsService_List_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SubAppsService.1
       bool success = true;
       SubAppsService_List_ParamsDataView input_data_view(params, message);
       
@@ -1032,6 +1042,8 @@ std::move(p_sub_apps_to_add), std::move(callback));
               internal::SubAppsService_Remove_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SubAppsService.2
       bool success = true;
       std::vector<std::string> p_manifest_id_paths{};
       SubAppsService_Remove_ParamsDataView input_data_view(params, message);
@@ -1050,8 +1062,8 @@ std::move(p_sub_apps_to_add), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Remove(
-std::move(p_manifest_id_paths), std::move(callback));
+      impl->Remove(        
+        std::move(p_manifest_id_paths), std::move(callback));
       return true;
     }
   }

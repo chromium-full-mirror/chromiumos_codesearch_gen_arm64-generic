@@ -1204,6 +1204,8 @@ bool PepperHost_GetPluginInfo_ForwardToCallback::Accept(
           internal::PepperHost_GetPluginInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PepperHost.2
   bool success = true;
   bool p_found{};
   ::content::WebPluginInfo p_plugin_info{};
@@ -1309,6 +1311,8 @@ bool PepperHost_GetPluginInfo_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PepperHost_GetPluginInfo_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PepperHost.2
   bool success = true;
   bool p_found{};
   ::content::WebPluginInfo p_plugin_info{};
@@ -1392,6 +1396,8 @@ bool PepperHost_DidCreateOutOfProcessPepperInstance_ForwardToCallback::Accept(
           internal::PepperHost_DidCreateOutOfProcessPepperInstance_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PepperHost.5
   bool success = true;
   PepperHost_DidCreateOutOfProcessPepperInstance_ResponseParamsDataView input_data_view(params, message);
   
@@ -1449,6 +1455,8 @@ bool PepperHost_DidCreateOutOfProcessPepperInstance_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PepperHost_DidCreateOutOfProcessPepperInstance_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PepperHost.5
   bool success = true;
   PepperHost_DidCreateOutOfProcessPepperInstance_ResponseParamsDataView input_data_view(params, message);
   
@@ -1520,6 +1528,8 @@ bool PepperHost_OpenChannelToPepperPlugin_ForwardToCallback::Accept(
           internal::PepperHost_OpenChannelToPepperPlugin_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PepperHost.7
   bool success = true;
   ::mojo::ScopedMessagePipeHandle p_handle_to_channel{};
   ::base::ProcessId p_plugin_pid{};
@@ -1616,6 +1626,8 @@ bool PepperHost_OpenChannelToPepperPlugin_HandleSyncResponse::Accept(
       reinterpret_cast<internal::PepperHost_OpenChannelToPepperPlugin_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for PepperHost.7
   bool success = true;
   ::mojo::ScopedMessagePipeHandle p_handle_to_channel{};
   ::base::ProcessId p_plugin_pid{};
@@ -1654,6 +1666,8 @@ bool PepperHostStubDispatch::Accept(
           reinterpret_cast<internal::PepperHost_InstanceCreated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperHost.0
       bool success = true;
       int32_t p_instance_id{};
       ::mojo::PendingAssociatedRemote<PepperPluginInstance> p_instance{};
@@ -1679,10 +1693,10 @@ bool PepperHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstanceCreated(
-std::move(p_instance_id), 
-std::move(p_instance), 
-std::move(p_host));
+      impl->InstanceCreated(        
+        std::move(p_instance_id), 
+        std::move(p_instance), 
+        std::move(p_host));
       return true;
     }
     case internal::kPepperHost_BindHungDetectorHost_Name: {
@@ -1692,6 +1706,8 @@ std::move(p_host));
           reinterpret_cast<internal::PepperHost_BindHungDetectorHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperHost.1
       bool success = true;
       ::mojo::PendingReceiver<PepperHungDetectorHost> p_host{};
       int32_t p_plugin_child_id{};
@@ -1715,10 +1731,10 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindHungDetectorHost(
-std::move(p_host), 
-std::move(p_plugin_child_id), 
-std::move(p_plugin_path));
+      impl->BindHungDetectorHost(        
+        std::move(p_host), 
+        std::move(p_plugin_child_id), 
+        std::move(p_plugin_path));
       return true;
     }
     case internal::kPepperHost_GetPluginInfo_Name: {
@@ -1731,6 +1747,8 @@ std::move(p_plugin_path));
           reinterpret_cast<internal::PepperHost_DidCreateInProcessInstance_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperHost.3
       bool success = true;
       int32_t p_instance_id{};
       int32_t p_frame_routing_id{};
@@ -1755,11 +1773,11 @@ std::move(p_plugin_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCreateInProcessInstance(
-std::move(p_instance_id), 
-std::move(p_frame_routing_id), 
-std::move(p_document_url), 
-std::move(p_plugin_url));
+      impl->DidCreateInProcessInstance(        
+        std::move(p_instance_id), 
+        std::move(p_frame_routing_id), 
+        std::move(p_document_url), 
+        std::move(p_plugin_url));
       return true;
     }
     case internal::kPepperHost_DidDeleteInProcessInstance_Name: {
@@ -1769,6 +1787,8 @@ std::move(p_plugin_url));
           reinterpret_cast<internal::PepperHost_DidDeleteInProcessInstance_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperHost.4
       bool success = true;
       int32_t p_instance_id{};
       PepperHost_DidDeleteInProcessInstance_ParamsDataView input_data_view(params, message);
@@ -1784,8 +1804,8 @@ std::move(p_plugin_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDeleteInProcessInstance(
-std::move(p_instance_id));
+      impl->DidDeleteInProcessInstance(        
+        std::move(p_instance_id));
       return true;
     }
     case internal::kPepperHost_DidCreateOutOfProcessPepperInstance_Name: {
@@ -1798,6 +1818,8 @@ std::move(p_instance_id));
           reinterpret_cast<internal::PepperHost_DidDeleteOutOfProcessPepperInstance_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperHost.6
       bool success = true;
       int32_t p_plugin_child_id{};
       int32_t p_pp_instance{};
@@ -1819,10 +1841,10 @@ std::move(p_instance_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDeleteOutOfProcessPepperInstance(
-std::move(p_plugin_child_id), 
-std::move(p_pp_instance), 
-std::move(p_is_external));
+      impl->DidDeleteOutOfProcessPepperInstance(        
+        std::move(p_plugin_child_id), 
+        std::move(p_pp_instance), 
+        std::move(p_is_external));
       return true;
     }
     case internal::kPepperHost_OpenChannelToPepperPlugin_Name: {
@@ -1854,6 +1876,8 @@ bool PepperHostStubDispatch::AcceptWithResponder(
               internal::PepperHost_GetPluginInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PepperHost.2
       bool success = true;
       ::GURL p_url{};
       std::string p_mime_type{};
@@ -1875,9 +1899,9 @@ bool PepperHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPluginInfo(
-std::move(p_url), 
-std::move(p_mime_type), std::move(callback));
+      impl->GetPluginInfo(        
+        std::move(p_url), 
+        std::move(p_mime_type), std::move(callback));
       return true;
     }
     case internal::kPepperHost_DidCreateInProcessInstance_Name: {
@@ -1893,6 +1917,8 @@ std::move(p_mime_type), std::move(callback));
               internal::PepperHost_DidCreateOutOfProcessPepperInstance_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PepperHost.5
       bool success = true;
       int32_t p_plugin_child_id{};
       int32_t p_pp_instance{};
@@ -1929,14 +1955,14 @@ std::move(p_mime_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidCreateOutOfProcessPepperInstance(
-std::move(p_plugin_child_id), 
-std::move(p_pp_instance), 
-std::move(p_is_external), 
-std::move(p_frame_routing_id), 
-std::move(p_document_url), 
-std::move(p_plugin_url), 
-std::move(p_is_privileged_context), std::move(callback));
+      impl->DidCreateOutOfProcessPepperInstance(        
+        std::move(p_plugin_child_id), 
+        std::move(p_pp_instance), 
+        std::move(p_is_external), 
+        std::move(p_frame_routing_id), 
+        std::move(p_document_url), 
+        std::move(p_plugin_url), 
+        std::move(p_is_privileged_context), std::move(callback));
       return true;
     }
     case internal::kPepperHost_DidDeleteOutOfProcessPepperInstance_Name: {
@@ -1949,6 +1975,8 @@ std::move(p_is_privileged_context), std::move(callback));
               internal::PepperHost_OpenChannelToPepperPlugin_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PepperHost.7
       bool success = true;
       ::url::Origin p_embedder_origin{};
       ::base::FilePath p_path{};
@@ -1973,10 +2001,10 @@ std::move(p_is_privileged_context), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenChannelToPepperPlugin(
-std::move(p_embedder_origin), 
-std::move(p_path), 
-std::move(p_origin_lock), std::move(callback));
+      impl->OpenChannelToPepperPlugin(        
+        std::move(p_embedder_origin), 
+        std::move(p_path), 
+        std::move(p_origin_lock), std::move(callback));
       return true;
     }
   }
@@ -2124,6 +2152,8 @@ bool PepperHungDetectorHostStubDispatch::Accept(
           reinterpret_cast<internal::PepperHungDetectorHost_PluginHung_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperHungDetectorHost.0
       bool success = true;
       bool p_is_hung{};
       PepperHungDetectorHost_PluginHung_ParamsDataView input_data_view(params, message);
@@ -2139,8 +2169,8 @@ bool PepperHungDetectorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PluginHung(
-std::move(p_is_hung));
+      impl->PluginHung(        
+        std::move(p_is_hung));
       return true;
     }
   }
@@ -2416,6 +2446,8 @@ bool PepperPluginInstanceHostStubDispatch::Accept(
           reinterpret_cast<internal::PepperPluginInstanceHost_StartsPlayback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperPluginInstanceHost.0
       bool success = true;
       PepperPluginInstanceHost_StartsPlayback_ParamsDataView input_data_view(params, message);
       
@@ -2428,7 +2460,7 @@ bool PepperPluginInstanceHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartsPlayback();
+      impl->StartsPlayback(        );
       return true;
     }
     case internal::kPepperPluginInstanceHost_StopsPlayback_Name: {
@@ -2438,6 +2470,8 @@ bool PepperPluginInstanceHostStubDispatch::Accept(
           reinterpret_cast<internal::PepperPluginInstanceHost_StopsPlayback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperPluginInstanceHost.1
       bool success = true;
       PepperPluginInstanceHost_StopsPlayback_ParamsDataView input_data_view(params, message);
       
@@ -2450,7 +2484,7 @@ bool PepperPluginInstanceHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopsPlayback();
+      impl->StopsPlayback(        );
       return true;
     }
     case internal::kPepperPluginInstanceHost_InstanceCrashed_Name: {
@@ -2460,6 +2494,8 @@ bool PepperPluginInstanceHostStubDispatch::Accept(
           reinterpret_cast<internal::PepperPluginInstanceHost_InstanceCrashed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperPluginInstanceHost.2
       bool success = true;
       ::base::FilePath p_plugin_path{};
       ::base::ProcessId p_plugin_pid{};
@@ -2478,9 +2514,9 @@ bool PepperPluginInstanceHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstanceCrashed(
-std::move(p_plugin_path), 
-std::move(p_plugin_pid));
+      impl->InstanceCrashed(        
+        std::move(p_plugin_path), 
+        std::move(p_plugin_pid));
       return true;
     }
   }
@@ -2636,6 +2672,8 @@ bool PepperPluginInstanceStubDispatch::Accept(
           reinterpret_cast<internal::PepperPluginInstance_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PepperPluginInstance.0
       bool success = true;
       double p_volume{};
       PepperPluginInstance_SetVolume_ParamsDataView input_data_view(params, message);
@@ -2651,8 +2689,8 @@ bool PepperPluginInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
   }

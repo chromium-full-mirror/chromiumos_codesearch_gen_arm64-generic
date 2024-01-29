@@ -57,9 +57,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_prefix;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLString>::ToV8(script_state, arg1_prefix).ToLocal(&v8_arg1_prefix)) {
-  return v8::Nothing<String>();
-}
+v8_arg1_prefix = ToV8Traits<IDLString>::ToV8(script_state, arg1_prefix);
 argv[0] = v8_arg1_prefix;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<String>();

@@ -45,6 +45,8 @@ class  SeaPenProvider_SearchWallpaper_ResponseParams_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::SeaPenThumbnail_Data>>> images;
+  int32_t statusCode;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<SeaPenProvider_SearchWallpaper_ResponseParams_Data>;
@@ -52,7 +54,7 @@ class  SeaPenProvider_SearchWallpaper_ResponseParams_Data {
   SeaPenProvider_SearchWallpaper_ResponseParams_Data();
   ~SeaPenProvider_SearchWallpaper_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(SeaPenProvider_SearchWallpaper_ResponseParams_Data) == 16,
+static_assert(sizeof(SeaPenProvider_SearchWallpaper_ResponseParams_Data) == 24,
               "Bad sizeof(SeaPenProvider_SearchWallpaper_ResponseParams_Data)");
 class  SeaPenProvider_SelectSeaPenThumbnail_Params_Data {
  public:
@@ -217,6 +219,69 @@ class  SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams_Data {
 };
 static_assert(sizeof(SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams_Data) == 16,
               "Bad sizeof(SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams_Data)");
+class  SeaPenProvider_OpenFeedbackDialog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::SeaPenFeedbackMetadata_Data> metadata;
+
+ private:
+  friend class mojo::internal::MessageFragment<SeaPenProvider_OpenFeedbackDialog_Params_Data>;
+
+  SeaPenProvider_OpenFeedbackDialog_Params_Data();
+  ~SeaPenProvider_OpenFeedbackDialog_Params_Data() = delete;
+};
+static_assert(sizeof(SeaPenProvider_OpenFeedbackDialog_Params_Data) == 16,
+              "Bad sizeof(SeaPenProvider_OpenFeedbackDialog_Params_Data)");
+class  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data>;
+
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data();
+  ~SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data() = delete;
+};
+static_assert(sizeof(SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data) == 8,
+              "Bad sizeof(SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data)");
+class  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t should_show_dialog : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data>;
+
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data();
+  ~SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data) == 16,
+              "Bad sizeof(SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data)");
+class  SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data>;
+
+  SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data();
+  ~SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data() = delete;
+};
+static_assert(sizeof(SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data) == 8,
+              "Bad sizeof(SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data)");
 
 }  // namespace internal
 
@@ -276,6 +341,16 @@ static_assert(
     auto* pointer = data_->images.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::personalization_app::mojom::SeaPenThumbnailDataView>>(
         pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatusCode(UserType* output) const {
+    auto data_value = data_->statusCode;
+    return mojo::internal::Deserialize<::ash::personalization_app::mojom::MantaStatusCode>(
+        data_value, output);
+  }
+  MantaStatusCode statusCode() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::personalization_app::mojom::MantaStatusCode>(data_->statusCode));
   }
  private:
   internal::SeaPenProvider_SearchWallpaper_ResponseParams_Data* data_ = nullptr;
@@ -394,16 +469,6 @@ class SeaPenProvider_GetRecentSeaPenImages_ResponseParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadImages(UserType* output) {
     
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>, UserType>(),
-    "Attempting to read the optional `images` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadImages` instead "
-    "of `ReadImages if you're fine with null values being "
-    "silently ignored in this case.");
     auto* pointer = data_->images.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>>(
         pointer, output, message_);
@@ -509,6 +574,80 @@ class SeaPenProvider_DeleteRecentSeaPenImage_ResponseParamsDataView {
   internal::SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams_Data* data_ = nullptr;
 };
 
+
+class SeaPenProvider_OpenFeedbackDialog_ParamsDataView {
+ public:
+  SeaPenProvider_OpenFeedbackDialog_ParamsDataView() = default;
+
+  SeaPenProvider_OpenFeedbackDialog_ParamsDataView(
+      internal::SeaPenProvider_OpenFeedbackDialog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMetadataDataView(
+      SeaPenFeedbackMetadataDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMetadata(UserType* output) {
+    
+    auto* pointer = data_->metadata.Get();
+    return mojo::internal::Deserialize<::ash::personalization_app::mojom::SeaPenFeedbackMetadataDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SeaPenProvider_OpenFeedbackDialog_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ParamsDataView {
+ public:
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ParamsDataView() = default;
+
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ParamsDataView(
+      internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_Params_Data* data_ = nullptr;
+};
+
+
+class SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParamsDataView {
+ public:
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParamsDataView() = default;
+
+  SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParamsDataView(
+      internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool should_show_dialog() const {
+    return data_->should_show_dialog;
+  }
+ private:
+  internal::SeaPenProvider_ShouldShowSeaPenTermsOfServiceDialog_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_ParamsDataView {
+ public:
+  SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_ParamsDataView() = default;
+
+  SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_ParamsDataView(
+      internal::SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::SeaPenProvider_HandleSeaPenTermsOfServiceAccepted_Params_Data* data_ = nullptr;
+};
+
 inline void SeaPenProvider_SearchWallpaper_ParamsDataView::GetQueryDataView(
     SeaPenQueryDataView* output) {
   auto pointer = &data_->query;
@@ -564,6 +703,19 @@ inline void SeaPenProvider_DeleteRecentSeaPenImage_ParamsDataView::GetPathDataVi
   auto pointer = data_->path.Get();
   *output = ::mojo_base::mojom::FilePathDataView(pointer, message_);
 }
+
+
+
+
+inline void SeaPenProvider_OpenFeedbackDialog_ParamsDataView::GetMetadataDataView(
+    SeaPenFeedbackMetadataDataView* output) {
+  auto pointer = data_->metadata.Get();
+  *output = SeaPenFeedbackMetadataDataView(pointer, message_);
+}
+
+
+
+
 
 
 

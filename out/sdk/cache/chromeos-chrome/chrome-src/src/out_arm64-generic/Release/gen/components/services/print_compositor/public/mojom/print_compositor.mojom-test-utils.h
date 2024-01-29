@@ -24,6 +24,7 @@ class  PrintCompositorInterceptorForTesting : public PrintCompositor {
   void FinishDocumentComposition(uint32_t pages_count, FinishDocumentCompositionCallback callback) override;
   void SetWebContentsURL(const ::GURL& url) override;
   void SetUserAgent(const std::string& user_agent) override;
+  void SetTitle(const std::string& title) override;
 };
 class  PrintCompositorAsyncWaiter {
  public:

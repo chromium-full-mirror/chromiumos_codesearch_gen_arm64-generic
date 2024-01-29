@@ -136,7 +136,8 @@ PROTOBUF_CONSTEXPR LcppStat::LcppStat(
   : lcp_element_locator_stat_(nullptr)
   , lcp_script_url_stat_(nullptr)
   , fetched_font_url_stat_(nullptr)
-  , fetched_subresource_url_stat_(nullptr){}
+  , fetched_subresource_url_stat_(nullptr)
+  , preconnect_origin_stat_(nullptr){}
 struct LcppStatDefaultTypeInternal {
   PROTOBUF_CONSTEXPR LcppStatDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2173,6 +2174,10 @@ class LcppStat::_Internal {
   static void set_has_fetched_subresource_url_stat(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
+  static const ::predictors::LcppStringFrequencyStatData& preconnect_origin_stat(const LcppStat* msg);
+  static void set_has_preconnect_origin_stat(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 const ::predictors::LcpElementLocatorStat&
@@ -2190,6 +2195,10 @@ LcppStat::_Internal::fetched_font_url_stat(const LcppStat* msg) {
 const ::predictors::LcppStringFrequencyStatData&
 LcppStat::_Internal::fetched_subresource_url_stat(const LcppStat* msg) {
   return *msg->fetched_subresource_url_stat_;
+}
+const ::predictors::LcppStringFrequencyStatData&
+LcppStat::_Internal::preconnect_origin_stat(const LcppStat* msg) {
+  return *msg->preconnect_origin_stat_;
 }
 LcppStat::LcppStat(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -2221,14 +2230,19 @@ LcppStat::LcppStat(const LcppStat& from)
   } else {
     fetched_subresource_url_stat_ = nullptr;
   }
+  if (from._internal_has_preconnect_origin_stat()) {
+    preconnect_origin_stat_ = new ::predictors::LcppStringFrequencyStatData(*from.preconnect_origin_stat_);
+  } else {
+    preconnect_origin_stat_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:predictors.LcppStat)
 }
 
 inline void LcppStat::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&lcp_element_locator_stat_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&fetched_subresource_url_stat_) -
-    reinterpret_cast<char*>(&lcp_element_locator_stat_)) + sizeof(fetched_subresource_url_stat_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&preconnect_origin_stat_) -
+    reinterpret_cast<char*>(&lcp_element_locator_stat_)) + sizeof(preconnect_origin_stat_));
 }
 
 LcppStat::~LcppStat() {
@@ -2246,6 +2260,7 @@ inline void LcppStat::SharedDtor() {
   if (this != internal_default_instance()) delete lcp_script_url_stat_;
   if (this != internal_default_instance()) delete fetched_font_url_stat_;
   if (this != internal_default_instance()) delete fetched_subresource_url_stat_;
+  if (this != internal_default_instance()) delete preconnect_origin_stat_;
 }
 
 void LcppStat::SetCachedSize(int size) const {
@@ -2259,7 +2274,7 @@ void LcppStat::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(lcp_element_locator_stat_ != nullptr);
       lcp_element_locator_stat_->Clear();
@@ -2275,6 +2290,10 @@ void LcppStat::Clear() {
     if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(fetched_subresource_url_stat_ != nullptr);
       fetched_subresource_url_stat_->Clear();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      GOOGLE_DCHECK(preconnect_origin_stat_ != nullptr);
+      preconnect_origin_stat_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -2316,6 +2335,14 @@ const char* LcppStat::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_fetched_subresource_url_stat(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .predictors.LcppStringFrequencyStatData preconnect_origin_stat = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_preconnect_origin_stat(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2379,6 +2406,13 @@ uint8_t* LcppStat::_InternalSerialize(
         _Internal::fetched_subresource_url_stat(this).GetCachedSize(), target, stream);
   }
 
+  // optional .predictors.LcppStringFrequencyStatData preconnect_origin_stat = 5;
+  if (cached_has_bits & 0x00000010u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::preconnect_origin_stat(this),
+        _Internal::preconnect_origin_stat(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2396,7 +2430,7 @@ size_t LcppStat::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional .predictors.LcpElementLocatorStat lcp_element_locator_stat = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -2425,6 +2459,13 @@ size_t LcppStat::ByteSizeLong() const {
           *fetched_subresource_url_stat_);
     }
 
+    // optional .predictors.LcppStringFrequencyStatData preconnect_origin_stat = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *preconnect_origin_stat_);
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -2447,7 +2488,7 @@ void LcppStat::MergeFrom(const LcppStat& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_lcp_element_locator_stat()->::predictors::LcpElementLocatorStat::MergeFrom(from._internal_lcp_element_locator_stat());
     }
@@ -2459,6 +2500,9 @@ void LcppStat::MergeFrom(const LcppStat& from) {
     }
     if (cached_has_bits & 0x00000008u) {
       _internal_mutable_fetched_subresource_url_stat()->::predictors::LcppStringFrequencyStatData::MergeFrom(from._internal_fetched_subresource_url_stat());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _internal_mutable_preconnect_origin_stat()->::predictors::LcppStringFrequencyStatData::MergeFrom(from._internal_preconnect_origin_stat());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2480,8 +2524,8 @@ void LcppStat::InternalSwap(LcppStat* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(LcppStat, fetched_subresource_url_stat_)
-      + sizeof(LcppStat::fetched_subresource_url_stat_)
+      PROTOBUF_FIELD_OFFSET(LcppStat, preconnect_origin_stat_)
+      + sizeof(LcppStat::preconnect_origin_stat_)
       - PROTOBUF_FIELD_OFFSET(LcppStat, lcp_element_locator_stat_)>(
           reinterpret_cast<char*>(&lcp_element_locator_stat_),
           reinterpret_cast<char*>(&other->lcp_element_locator_stat_));

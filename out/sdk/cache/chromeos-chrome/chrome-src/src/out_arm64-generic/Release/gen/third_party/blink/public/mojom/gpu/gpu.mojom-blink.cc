@@ -316,6 +316,8 @@ bool GpuDataManager_Are3DAPIsBlockedForUrl_ForwardToCallback::Accept(
           internal::GpuDataManager_Are3DAPIsBlockedForUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuDataManager.0
   bool success = true;
   bool p_blocked{};
   GpuDataManager_Are3DAPIsBlockedForUrl_ResponseParamsDataView input_data_view(params, message);
@@ -385,6 +387,8 @@ bool GpuDataManager_Are3DAPIsBlockedForUrl_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuDataManager_Are3DAPIsBlockedForUrl_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuDataManager.0
   bool success = true;
   bool p_blocked{};
   GpuDataManager_Are3DAPIsBlockedForUrl_ResponseParamsDataView input_data_view(params, message);
@@ -431,6 +435,8 @@ bool GpuDataManagerStubDispatch::AcceptWithResponder(
               internal::GpuDataManager_Are3DAPIsBlockedForUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuDataManager.0
       bool success = true;
       ::blink::KURL p_url{};
       GpuDataManager_Are3DAPIsBlockedForUrl_ParamsDataView input_data_view(params, message);
@@ -449,8 +455,8 @@ bool GpuDataManagerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Are3DAPIsBlockedForUrl(
-std::move(p_url), std::move(callback));
+      impl->Are3DAPIsBlockedForUrl(        
+        std::move(p_url), std::move(callback));
       return true;
     }
   }

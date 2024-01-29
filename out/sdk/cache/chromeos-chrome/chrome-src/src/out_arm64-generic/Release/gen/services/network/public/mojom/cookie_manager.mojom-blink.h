@@ -26,7 +26,8 @@
 #include "services/network/public/mojom/cookie_manager.mojom-features.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared.h"
 #include "services/network/public/mojom/cookie_manager.mojom-blink-forward.h"
-#include "components/content_settings/core/common/content_settings.mojom-blink.h"
+#include "components/content_settings/core/common/content_settings.mojom-blink-forward.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-blink.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "sandbox/policy/mojom/context.mojom-blink-forward.h"
 #include "services/network/public/mojom/cookie_partition_key.mojom-blink.h"
@@ -43,8 +44,6 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
-#include "mojo/public/cpp/bindings/lib/native_enum_serialization.h"
-#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 #include "services/network/public/cpp/cookie_manager_mojom_traits.h"
 #include "services/network/public/cpp/cookie_manager_shared_mojom_traits.h"
 #include "third_party/blink/public/platform/web_common.h"
@@ -147,6 +146,7 @@ class BLINK_PLATFORM_EXPORT CookieManager
     kBlockTruncatedCookiesMinVersion = 0,
     kSetMitigationsEnabledFor3pcdMinVersion = 0,
     kSetTrackingProtectionEnabledFor3pcdMinVersion = 0,
+    kSetPreCommitCallbackDelayForTestingMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -204,6 +204,9 @@ class BLINK_PLATFORM_EXPORT CookieManager
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetTrackingProtectionEnabledFor3pcd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetPreCommitCallbackDelayForTesting_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -282,6 +285,9 @@ class BLINK_PLATFORM_EXPORT CookieManager
 
   
   virtual void SetTrackingProtectionEnabledFor3pcd(bool enable) = 0;
+
+  
+  virtual void SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) = 0;
 };
 
 
@@ -343,6 +349,8 @@ class BLINK_PLATFORM_EXPORT CookieManagerProxy
   void SetMitigationsEnabledFor3pcd(bool enable) final;
   
   void SetTrackingProtectionEnabledFor3pcd(bool enable) final;
+  
+  void SetPreCommitCallbackDelayForTesting(::base::TimeDelta delay) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

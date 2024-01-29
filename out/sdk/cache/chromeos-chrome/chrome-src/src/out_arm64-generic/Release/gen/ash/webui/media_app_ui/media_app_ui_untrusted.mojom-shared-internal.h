@@ -25,8 +25,58 @@ class ValidationContext;
 
 namespace ash::media_app_ui::mojom {
 namespace internal {
+class PageMetadata_Data;
 
 #pragma pack(push, 1)
+class  PageMetadata_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
+  mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> rect;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageMetadata_Data>;
+
+  PageMetadata_Data();
+  ~PageMetadata_Data() = delete;
+};
+static_assert(sizeof(PageMetadata_Data) == 24,
+              "Bad sizeof(PageMetadata_Data)");
+// Used by PageMetadata::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PageMetadata_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PageMetadata_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PageMetadata_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PageMetadata_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PageMetadata_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

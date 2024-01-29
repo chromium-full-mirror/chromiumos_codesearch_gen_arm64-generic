@@ -1284,6 +1284,8 @@ bool AuthHost_RequestPrimaryAccount_ForwardToCallback::Accept(
           internal::AuthHost_RequestPrimaryAccount_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthHost.18
   bool success = true;
   std::string p_account_name{};
   ChromeAccountType p_account_type{};
@@ -1422,6 +1424,8 @@ bool AuthHost_RequestPrimaryAccountInfo_ForwardToCallback::Accept(
           internal::AuthHost_RequestPrimaryAccountInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthHost.12
   bool success = true;
   ArcAuthCodeStatus p_status{};
   AccountInfoPtr p_account_info{};
@@ -1556,6 +1560,8 @@ bool AuthHost_RequestAccountInfo_ForwardToCallback::Accept(
           internal::AuthHost_RequestAccountInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthHost.13
   bool success = true;
   ArcAuthCodeStatus p_status{};
   AccountInfoPtr p_account_info{};
@@ -1698,6 +1704,8 @@ bool AuthHost_IsAccountManagerAvailable_ForwardToCallback::Accept(
           internal::AuthHost_IsAccountManagerAvailable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthHost.14
   bool success = true;
   bool p_is_available{};
   AuthHost_IsAccountManagerAvailable_ResponseParamsDataView input_data_view(params, message);
@@ -1772,6 +1780,8 @@ bool AuthHostStubDispatch::Accept(
           reinterpret_cast<internal::AuthHost_OnAuthorizationResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.19
       bool success = true;
       ArcSignInResultPtr p_result{};
       ArcSignInAccountPtr p_account{};
@@ -1790,9 +1800,9 @@ bool AuthHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAuthorizationResult(
-std::move(p_result), 
-std::move(p_account));
+      impl->OnAuthorizationResult(        
+        std::move(p_result), 
+        std::move(p_account));
       return true;
     }
     case internal::kAuthHost_ReportMetrics_Name: {
@@ -1802,6 +1812,8 @@ std::move(p_account));
           reinterpret_cast<internal::AuthHost_ReportMetrics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.8
       bool success = true;
       MetricsType p_metrics_type{};
       int32_t p_value{};
@@ -1820,9 +1832,9 @@ std::move(p_account));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportMetrics(
-std::move(p_metrics_type), 
-std::move(p_value));
+      impl->ReportMetrics(        
+        std::move(p_metrics_type), 
+        std::move(p_value));
       return true;
     }
     case internal::kAuthHost_ReportAccountCheckStatus_Name: {
@@ -1832,6 +1844,8 @@ std::move(p_value));
           reinterpret_cast<internal::AuthHost_ReportAccountCheckStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.9
       bool success = true;
       AccountCheckStatus p_status{};
       AuthHost_ReportAccountCheckStatus_ParamsDataView input_data_view(params, message);
@@ -1847,8 +1861,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAccountCheckStatus(
-std::move(p_status));
+      impl->ReportAccountCheckStatus(        
+        std::move(p_status));
       return true;
     }
     case internal::kAuthHost_ReportManagementChangeStatus_Name: {
@@ -1858,6 +1872,8 @@ std::move(p_status));
           reinterpret_cast<internal::AuthHost_ReportManagementChangeStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.11
       bool success = true;
       ManagementChangeStatus p_status{};
       AuthHost_ReportManagementChangeStatus_ParamsDataView input_data_view(params, message);
@@ -1873,8 +1889,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportManagementChangeStatus(
-std::move(p_status));
+      impl->ReportManagementChangeStatus(        
+        std::move(p_status));
       return true;
     }
     case internal::kAuthHost_RequestPrimaryAccount_Name: {
@@ -1896,6 +1912,8 @@ std::move(p_status));
           reinterpret_cast<internal::AuthHost_HandleAddAccountRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.15
       bool success = true;
       AuthHost_HandleAddAccountRequest_ParamsDataView input_data_view(params, message);
       
@@ -1908,7 +1926,7 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleAddAccountRequest();
+      impl->HandleAddAccountRequest(        );
       return true;
     }
     case internal::kAuthHost_HandleRemoveAccountRequest_Name: {
@@ -1918,6 +1936,8 @@ std::move(p_status));
           reinterpret_cast<internal::AuthHost_HandleRemoveAccountRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.16
       bool success = true;
       std::string p_account_name{};
       AuthHost_HandleRemoveAccountRequest_ParamsDataView input_data_view(params, message);
@@ -1933,8 +1953,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleRemoveAccountRequest(
-std::move(p_account_name));
+      impl->HandleRemoveAccountRequest(        
+        std::move(p_account_name));
       return true;
     }
     case internal::kAuthHost_HandleUpdateCredentialsRequest_Name: {
@@ -1944,6 +1964,8 @@ std::move(p_account_name));
           reinterpret_cast<internal::AuthHost_HandleUpdateCredentialsRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.17
       bool success = true;
       std::string p_account_name{};
       AuthHost_HandleUpdateCredentialsRequest_ParamsDataView input_data_view(params, message);
@@ -1959,8 +1981,8 @@ std::move(p_account_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleUpdateCredentialsRequest(
-std::move(p_account_name));
+      impl->HandleUpdateCredentialsRequest(        
+        std::move(p_account_name));
       return true;
     }
     case internal::kAuthHost_ReportAccountReauthReason_Name: {
@@ -1970,6 +1992,8 @@ std::move(p_account_name));
           reinterpret_cast<internal::AuthHost_ReportAccountReauthReason_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthHost.20
       bool success = true;
       ReauthReason p_reason{};
       AuthHost_ReportAccountReauthReason_ParamsDataView input_data_view(params, message);
@@ -1985,8 +2009,8 @@ std::move(p_account_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAccountReauthReason(
-std::move(p_reason));
+      impl->ReportAccountReauthReason(        
+        std::move(p_reason));
       return true;
     }
   }
@@ -2021,6 +2045,8 @@ bool AuthHostStubDispatch::AcceptWithResponder(
               internal::AuthHost_RequestPrimaryAccount_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthHost.18
       bool success = true;
       AuthHost_RequestPrimaryAccount_ParamsDataView input_data_view(params, message);
       
@@ -2046,6 +2072,8 @@ bool AuthHostStubDispatch::AcceptWithResponder(
               internal::AuthHost_RequestPrimaryAccountInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthHost.12
       bool success = true;
       AuthHost_RequestPrimaryAccountInfo_ParamsDataView input_data_view(params, message);
       
@@ -2071,6 +2099,8 @@ bool AuthHostStubDispatch::AcceptWithResponder(
               internal::AuthHost_RequestAccountInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthHost.13
       bool success = true;
       std::string p_account_name{};
       AuthHost_RequestAccountInfo_ParamsDataView input_data_view(params, message);
@@ -2089,8 +2119,8 @@ bool AuthHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestAccountInfo(
-std::move(p_account_name), std::move(callback));
+      impl->RequestAccountInfo(        
+        std::move(p_account_name), std::move(callback));
       return true;
     }
     case internal::kAuthHost_IsAccountManagerAvailable_Name: {
@@ -2100,6 +2130,8 @@ std::move(p_account_name), std::move(callback));
               internal::AuthHost_IsAccountManagerAvailable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthHost.14
       bool success = true;
       AuthHost_IsAccountManagerAvailable_ParamsDataView input_data_view(params, message);
       
@@ -2648,6 +2680,8 @@ bool AuthInstance_Init_ForwardToCallback::Accept(
           internal::AuthInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthInstance.2
   bool success = true;
   AuthInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -2755,6 +2789,8 @@ bool AuthInstance_GetGoogleAccounts_ForwardToCallback::Accept(
           internal::AuthInstance_GetGoogleAccounts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthInstance.4
   bool success = true;
   std::vector<ArcAccountInfoPtr> p_accounts{};
   AuthInstance_GetGoogleAccounts_ResponseParamsDataView input_data_view(params, message);
@@ -2886,6 +2922,8 @@ bool AuthInstance_GetMainAccountResolutionStatus_ForwardToCallback::Accept(
           internal::AuthInstance_GetMainAccountResolutionStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AuthInstance.5
   bool success = true;
   MainAccountResolutionStatus p_status{};
   AuthInstance_GetMainAccountResolutionStatus_ResponseParamsDataView input_data_view(params, message);
@@ -2964,6 +3002,8 @@ bool AuthInstanceStubDispatch::Accept(
           reinterpret_cast<internal::AuthInstance_OnAccountUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthInstance.3
       bool success = true;
       std::string p_account_name{};
       AccountUpdateType p_update_type{};
@@ -2982,9 +3022,9 @@ bool AuthInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAccountUpdated(
-std::move(p_account_name), 
-std::move(p_update_type));
+      impl->OnAccountUpdated(        
+        std::move(p_account_name), 
+        std::move(p_update_type));
       return true;
     }
     case internal::kAuthInstance_GetGoogleAccounts_Name: {
@@ -3000,6 +3040,8 @@ std::move(p_update_type));
           reinterpret_cast<internal::AuthInstance_SetAccounts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuthInstance.6
       bool success = true;
       std::vector<ArcAccountInfoPtr> p_accounts{};
       AuthInstance_SetAccounts_ParamsDataView input_data_view(params, message);
@@ -3015,8 +3057,8 @@ std::move(p_update_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAccounts(
-std::move(p_accounts));
+      impl->SetAccounts(        
+        std::move(p_accounts));
       return true;
     }
   }
@@ -3039,6 +3081,8 @@ bool AuthInstanceStubDispatch::AcceptWithResponder(
               internal::AuthInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthInstance.2
       bool success = true;
       ::mojo::PendingRemote<AuthHost> p_host_remote{};
       AuthInstance_Init_ParamsDataView input_data_view(params, message);
@@ -3059,8 +3103,8 @@ bool AuthInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kAuthInstance_OnAccountUpdated_Name: {
@@ -3073,6 +3117,8 @@ std::move(p_host_remote), std::move(callback));
               internal::AuthInstance_GetGoogleAccounts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthInstance.4
       bool success = true;
       AuthInstance_GetGoogleAccounts_ParamsDataView input_data_view(params, message);
       
@@ -3098,6 +3144,8 @@ std::move(p_host_remote), std::move(callback));
               internal::AuthInstance_GetMainAccountResolutionStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AuthInstance.5
       bool success = true;
       AuthInstance_GetMainAccountResolutionStatus_ParamsDataView input_data_view(params, message);
       

@@ -133,6 +133,12 @@
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/proxy_config.mojom', 'proxy_config.mojom.js');
   }
+  var network_annotation_monitor$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/network_annotation_monitor.mojom', 'network_annotation_monitor.mojom.js');
+  }
   var network_interface_change_listener$ =
       mojo.internal.exposeNamespace('network.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -198,12 +204,6 @@
   if (mojo.config.autoLoadMojomDeps) {
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/client_security_state.mojom', 'client_security_state.mojom.js');
-  }
-  var cookie_encryption_provider$ =
-      mojo.internal.exposeNamespace('network.mojom');
-  if (mojo.config.autoLoadMojomDeps) {
-    mojo.internal.loadMojomIfNecessary(
-        'services/network/public/mojom/cookie_encryption_provider.mojom', 'cookie_encryption_provider.mojom.js');
   }
   var origin$ =
       mojo.internal.exposeNamespace('url.mojom');
@@ -1374,23 +1374,23 @@
     encoder.skip(1);
     encoder.encodeArrayPointer(new codec.PointerTo(origin$.Origin), val.origins);
   };
-  function NetworkService_SetMaxConnectionsPerProxy_Params(values) {
+  function NetworkService_SetMaxConnectionsPerProxyChain_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  NetworkService_SetMaxConnectionsPerProxy_Params.prototype.initDefaults_ = function() {
+  NetworkService_SetMaxConnectionsPerProxyChain_Params.prototype.initDefaults_ = function() {
     this.maxConnections = 0;
   };
-  NetworkService_SetMaxConnectionsPerProxy_Params.prototype.initFields_ = function(fields) {
+  NetworkService_SetMaxConnectionsPerProxyChain_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  NetworkService_SetMaxConnectionsPerProxy_Params.validate = function(messageValidator, offset) {
+  NetworkService_SetMaxConnectionsPerProxyChain_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1407,11 +1407,11 @@
     return validator.validationError.NONE;
   };
 
-  NetworkService_SetMaxConnectionsPerProxy_Params.encodedSize = codec.kStructHeaderSize + 8;
+  NetworkService_SetMaxConnectionsPerProxyChain_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  NetworkService_SetMaxConnectionsPerProxy_Params.decode = function(decoder) {
+  NetworkService_SetMaxConnectionsPerProxyChain_Params.decode = function(decoder) {
     var packed;
-    var val = new NetworkService_SetMaxConnectionsPerProxy_Params();
+    var val = new NetworkService_SetMaxConnectionsPerProxyChain_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.maxConnections =
@@ -1423,9 +1423,9 @@
     return val;
   };
 
-  NetworkService_SetMaxConnectionsPerProxy_Params.encode = function(encoder, val) {
+  NetworkService_SetMaxConnectionsPerProxyChain_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(NetworkService_SetMaxConnectionsPerProxy_Params.encodedSize);
+    encoder.writeUint32(NetworkService_SetMaxConnectionsPerProxyChain_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.maxConnections);
     encoder.skip(1);
@@ -3086,23 +3086,23 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function NetworkService_SetCookieEncryptionProvider_Params(values) {
+  function NetworkService_SetNetworkAnnotationMonitor_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  NetworkService_SetCookieEncryptionProvider_Params.prototype.initDefaults_ = function() {
-    this.provider = new cookie_encryption_provider$.CookieEncryptionProviderPtr();
+  NetworkService_SetNetworkAnnotationMonitor_Params.prototype.initDefaults_ = function() {
+    this.remote = new network_annotation_monitor$.NetworkAnnotationMonitorPtr();
   };
-  NetworkService_SetCookieEncryptionProvider_Params.prototype.initFields_ = function(fields) {
+  NetworkService_SetNetworkAnnotationMonitor_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  NetworkService_SetCookieEncryptionProvider_Params.validate = function(messageValidator, offset) {
+  NetworkService_SetNetworkAnnotationMonitor_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -3116,7 +3116,7 @@
         return err;
 
 
-    // validate NetworkService_SetCookieEncryptionProvider_Params.provider
+    // validate NetworkService_SetNetworkAnnotationMonitor_Params.remote
     err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 0, false);
     if (err !== validator.validationError.NONE)
         return err;
@@ -3124,23 +3124,23 @@
     return validator.validationError.NONE;
   };
 
-  NetworkService_SetCookieEncryptionProvider_Params.encodedSize = codec.kStructHeaderSize + 8;
+  NetworkService_SetNetworkAnnotationMonitor_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  NetworkService_SetCookieEncryptionProvider_Params.decode = function(decoder) {
+  NetworkService_SetNetworkAnnotationMonitor_Params.decode = function(decoder) {
     var packed;
-    var val = new NetworkService_SetCookieEncryptionProvider_Params();
+    var val = new NetworkService_SetNetworkAnnotationMonitor_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.provider =
-        decoder.decodeStruct(new codec.Interface(cookie_encryption_provider$.CookieEncryptionProviderPtr));
+    val.remote =
+        decoder.decodeStruct(new codec.Interface(network_annotation_monitor$.NetworkAnnotationMonitorPtr));
     return val;
   };
 
-  NetworkService_SetCookieEncryptionProvider_Params.encode = function(encoder, val) {
+  NetworkService_SetNetworkAnnotationMonitor_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(NetworkService_SetCookieEncryptionProvider_Params.encodedSize);
+    encoder.writeUint32(NetworkService_SetNetworkAnnotationMonitor_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(new codec.Interface(cookie_encryption_provider$.CookieEncryptionProviderPtr), val.provider);
+    encoder.encodeStruct(new codec.Interface(network_annotation_monitor$.NetworkAnnotationMonitorPtr), val.remote);
   };
   var kNetworkService_SetParams_Name = 0;
   var kNetworkService_StartNetLog_Name = 1;
@@ -3152,7 +3152,7 @@
   var kNetworkService_SetUpHttpAuth_Name = 7;
   var kNetworkService_ConfigureHttpAuthPrefs_Name = 8;
   var kNetworkService_SetRawHeadersAccess_Name = 9;
-  var kNetworkService_SetMaxConnectionsPerProxy_Name = 10;
+  var kNetworkService_SetMaxConnectionsPerProxyChain_Name = 10;
   var kNetworkService_GetNetworkChangeManager_Name = 11;
   var kNetworkService_GetNetworkQualityEstimatorManager_Name = 12;
   var kNetworkService_GetDnsConfigChangeManager_Name = 13;
@@ -3176,7 +3176,7 @@
   var kNetworkService_ParseHeaders_Name = 31;
   var kNetworkService_EnableDataUseUpdates_Name = 32;
   var kNetworkService_SetIPv6ReachabilityOverride_Name = 33;
-  var kNetworkService_SetCookieEncryptionProvider_Name = 34;
+  var kNetworkService_SetNetworkAnnotationMonitor_Name = 34;
 
   function NetworkServicePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(NetworkService,
@@ -3354,18 +3354,18 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  NetworkServicePtr.prototype.setMaxConnectionsPerProxy = function() {
-    return NetworkServiceProxy.prototype.setMaxConnectionsPerProxy
+  NetworkServicePtr.prototype.setMaxConnectionsPerProxyChain = function() {
+    return NetworkServiceProxy.prototype.setMaxConnectionsPerProxyChain
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkServiceProxy.prototype.setMaxConnectionsPerProxy = function(maxConnections) {
-    var params_ = new NetworkService_SetMaxConnectionsPerProxy_Params();
+  NetworkServiceProxy.prototype.setMaxConnectionsPerProxyChain = function(maxConnections) {
+    var params_ = new NetworkService_SetMaxConnectionsPerProxyChain_Params();
     params_.maxConnections = maxConnections;
     var builder = new codec.MessageV0Builder(
-        kNetworkService_SetMaxConnectionsPerProxy_Name,
-        codec.align(NetworkService_SetMaxConnectionsPerProxy_Params.encodedSize));
-    builder.encodeStruct(NetworkService_SetMaxConnectionsPerProxy_Params, params_);
+        kNetworkService_SetMaxConnectionsPerProxyChain_Name,
+        codec.align(NetworkService_SetMaxConnectionsPerProxyChain_Params.encodedSize));
+    builder.encodeStruct(NetworkService_SetMaxConnectionsPerProxyChain_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -3773,18 +3773,18 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  NetworkServicePtr.prototype.setCookieEncryptionProvider = function() {
-    return NetworkServiceProxy.prototype.setCookieEncryptionProvider
+  NetworkServicePtr.prototype.setNetworkAnnotationMonitor = function() {
+    return NetworkServiceProxy.prototype.setNetworkAnnotationMonitor
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkServiceProxy.prototype.setCookieEncryptionProvider = function(provider) {
-    var params_ = new NetworkService_SetCookieEncryptionProvider_Params();
-    params_.provider = provider;
+  NetworkServiceProxy.prototype.setNetworkAnnotationMonitor = function(remote) {
+    var params_ = new NetworkService_SetNetworkAnnotationMonitor_Params();
+    params_.remote = remote;
     var builder = new codec.MessageV0Builder(
-        kNetworkService_SetCookieEncryptionProvider_Name,
-        codec.align(NetworkService_SetCookieEncryptionProvider_Params.encodedSize));
-    builder.encodeStruct(NetworkService_SetCookieEncryptionProvider_Params, params_);
+        kNetworkService_SetNetworkAnnotationMonitor_Name,
+        codec.align(NetworkService_SetNetworkAnnotationMonitor_Params.encodedSize));
+    builder.encodeStruct(NetworkService_SetNetworkAnnotationMonitor_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -3822,8 +3822,8 @@
   NetworkServiceStub.prototype.setRawHeadersAccess = function(processId, origins) {
     return this.delegate_ && this.delegate_.setRawHeadersAccess && this.delegate_.setRawHeadersAccess(processId, origins);
   }
-  NetworkServiceStub.prototype.setMaxConnectionsPerProxy = function(maxConnections) {
-    return this.delegate_ && this.delegate_.setMaxConnectionsPerProxy && this.delegate_.setMaxConnectionsPerProxy(maxConnections);
+  NetworkServiceStub.prototype.setMaxConnectionsPerProxyChain = function(maxConnections) {
+    return this.delegate_ && this.delegate_.setMaxConnectionsPerProxyChain && this.delegate_.setMaxConnectionsPerProxyChain(maxConnections);
   }
   NetworkServiceStub.prototype.getNetworkChangeManager = function(networkChangeManager) {
     return this.delegate_ && this.delegate_.getNetworkChangeManager && this.delegate_.getNetworkChangeManager(networkChangeManager);
@@ -3894,8 +3894,8 @@
   NetworkServiceStub.prototype.setIPv6ReachabilityOverride = function(reachabilityOverride) {
     return this.delegate_ && this.delegate_.setIPv6ReachabilityOverride && this.delegate_.setIPv6ReachabilityOverride(reachabilityOverride);
   }
-  NetworkServiceStub.prototype.setCookieEncryptionProvider = function(provider) {
-    return this.delegate_ && this.delegate_.setCookieEncryptionProvider && this.delegate_.setCookieEncryptionProvider(provider);
+  NetworkServiceStub.prototype.setNetworkAnnotationMonitor = function(remote) {
+    return this.delegate_ && this.delegate_.setNetworkAnnotationMonitor && this.delegate_.setNetworkAnnotationMonitor(remote);
   }
 
   NetworkServiceStub.prototype.accept = function(message) {
@@ -3941,9 +3941,9 @@
       var params = reader.decodeStruct(NetworkService_SetRawHeadersAccess_Params);
       this.setRawHeadersAccess(params.processId, params.origins);
       return true;
-    case kNetworkService_SetMaxConnectionsPerProxy_Name:
-      var params = reader.decodeStruct(NetworkService_SetMaxConnectionsPerProxy_Params);
-      this.setMaxConnectionsPerProxy(params.maxConnections);
+    case kNetworkService_SetMaxConnectionsPerProxyChain_Name:
+      var params = reader.decodeStruct(NetworkService_SetMaxConnectionsPerProxyChain_Params);
+      this.setMaxConnectionsPerProxyChain(params.maxConnections);
       return true;
     case kNetworkService_GetNetworkChangeManager_Name:
       var params = reader.decodeStruct(NetworkService_GetNetworkChangeManager_Params);
@@ -4013,9 +4013,9 @@
       var params = reader.decodeStruct(NetworkService_SetIPv6ReachabilityOverride_Params);
       this.setIPv6ReachabilityOverride(params.reachabilityOverride);
       return true;
-    case kNetworkService_SetCookieEncryptionProvider_Name:
-      var params = reader.decodeStruct(NetworkService_SetCookieEncryptionProvider_Params);
-      this.setCookieEncryptionProvider(params.provider);
+    case kNetworkService_SetNetworkAnnotationMonitor_Name:
+      var params = reader.decodeStruct(NetworkService_SetNetworkAnnotationMonitor_Params);
+      this.setNetworkAnnotationMonitor(params.remote);
       return true;
     default:
       return false;
@@ -4167,9 +4167,9 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = NetworkService_SetRawHeadersAccess_Params;
       break;
-      case kNetworkService_SetMaxConnectionsPerProxy_Name:
+      case kNetworkService_SetMaxConnectionsPerProxyChain_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = NetworkService_SetMaxConnectionsPerProxy_Params;
+          paramsClass = NetworkService_SetMaxConnectionsPerProxyChain_Params;
       break;
       case kNetworkService_GetNetworkChangeManager_Name:
         if (!message.expectsResponse() && !message.isResponse())
@@ -4263,9 +4263,9 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = NetworkService_SetIPv6ReachabilityOverride_Params;
       break;
-      case kNetworkService_SetCookieEncryptionProvider_Name:
+      case kNetworkService_SetNetworkAnnotationMonitor_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = NetworkService_SetCookieEncryptionProvider_Params;
+          paramsClass = NetworkService_SetNetworkAnnotationMonitor_Params;
       break;
     }
     if (paramsClass === null)

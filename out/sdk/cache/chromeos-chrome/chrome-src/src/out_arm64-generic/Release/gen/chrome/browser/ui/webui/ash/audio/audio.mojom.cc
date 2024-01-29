@@ -280,6 +280,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -302,9 +304,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -680,6 +682,8 @@ bool PageHandler_GetActiveOutputDeviceName_ForwardToCallback::Accept(
           internal::PageHandler_GetActiveOutputDeviceName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   std::optional<std::string> p_device_name{};
   PageHandler_GetActiveOutputDeviceName_ResponseParamsDataView input_data_view(params, message);
@@ -805,6 +809,8 @@ bool PageHandler_GetActiveInputDeviceName_ForwardToCallback::Accept(
           internal::PageHandler_GetActiveInputDeviceName_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   std::optional<std::string> p_device_name{};
   PageHandler_GetActiveInputDeviceName_ResponseParamsDataView input_data_view(params, message);
@@ -885,6 +891,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_GetAudioDeviceInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetAudioDeviceInfo_ParamsDataView input_data_view(params, message);
       
@@ -897,7 +905,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAudioDeviceInfo();
+      impl->GetAudioDeviceInfo(        );
       return true;
     }
     case internal::kPageHandler_GetActiveOutputDeviceName_Name: {
@@ -913,6 +921,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_OpenFeedbackDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_OpenFeedbackDialog_ParamsDataView input_data_view(params, message);
       
@@ -925,7 +935,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenFeedbackDialog();
+      impl->OpenFeedbackDialog(        );
       return true;
     }
   }
@@ -951,6 +961,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetActiveOutputDeviceName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_GetActiveOutputDeviceName_ParamsDataView input_data_view(params, message);
       
@@ -976,6 +988,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetActiveInputDeviceName_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_GetActiveInputDeviceName_ParamsDataView input_data_view(params, message);
       
@@ -1276,6 +1290,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_UpdateDeviceInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       base::flat_map<uint64_t, DeviceDataPtr> p_devices{};
       Page_UpdateDeviceInfo_ParamsDataView input_data_view(params, message);
@@ -1291,8 +1307,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDeviceInfo(
-std::move(p_devices));
+      impl->UpdateDeviceInfo(        
+        std::move(p_devices));
       return true;
     }
     case internal::kPage_UpdateDeviceVolume_Name: {
@@ -1302,6 +1318,8 @@ std::move(p_devices));
           reinterpret_cast<internal::Page_UpdateDeviceVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       uint64_t p_node_id{};
       int32_t p_volume{};
@@ -1320,9 +1338,9 @@ std::move(p_devices));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDeviceVolume(
-std::move(p_node_id), 
-std::move(p_volume));
+      impl->UpdateDeviceVolume(        
+        std::move(p_node_id), 
+        std::move(p_volume));
       return true;
     }
     case internal::kPage_UpdateDeviceMute_Name: {
@@ -1332,6 +1350,8 @@ std::move(p_volume));
           reinterpret_cast<internal::Page_UpdateDeviceMute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.2
       bool success = true;
       uint64_t p_node_id{};
       bool p_is_muted{};
@@ -1350,9 +1370,9 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDeviceMute(
-std::move(p_node_id), 
-std::move(p_is_muted));
+      impl->UpdateDeviceMute(        
+        std::move(p_node_id), 
+        std::move(p_is_muted));
       return true;
     }
   }

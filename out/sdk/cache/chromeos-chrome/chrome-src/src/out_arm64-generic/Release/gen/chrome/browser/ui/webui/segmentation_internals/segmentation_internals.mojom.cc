@@ -351,6 +351,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_handler{};
@@ -373,9 +375,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -714,6 +716,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_GetServiceStatus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetServiceStatus_ParamsDataView input_data_view(params, message);
       
@@ -726,7 +730,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetServiceStatus();
+      impl->GetServiceStatus(        );
       return true;
     }
     case internal::kPageHandler_ExecuteModel_Name: {
@@ -736,6 +740,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ExecuteModel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       int32_t p_segment_id{};
       PageHandler_ExecuteModel_ParamsDataView input_data_view(params, message);
@@ -751,8 +757,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteModel(
-std::move(p_segment_id));
+      impl->ExecuteModel(        
+        std::move(p_segment_id));
       return true;
     }
     case internal::kPageHandler_OverwriteResult_Name: {
@@ -762,6 +768,8 @@ std::move(p_segment_id));
           reinterpret_cast<internal::PageHandler_OverwriteResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       int32_t p_segment_id{};
       float p_result{};
@@ -780,9 +788,9 @@ std::move(p_segment_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OverwriteResult(
-std::move(p_segment_id), 
-std::move(p_result));
+      impl->OverwriteResult(        
+        std::move(p_segment_id), 
+        std::move(p_result));
       return true;
     }
     case internal::kPageHandler_SetSelected_Name: {
@@ -792,6 +800,8 @@ std::move(p_result));
           reinterpret_cast<internal::PageHandler_SetSelected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       std::string p_segmentation_key{};
       int32_t p_optimization_target{};
@@ -810,9 +820,9 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSelected(
-std::move(p_segmentation_key), 
-std::move(p_optimization_target));
+      impl->SetSelected(        
+        std::move(p_segmentation_key), 
+        std::move(p_optimization_target));
       return true;
     }
   }
@@ -1050,6 +1060,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnServiceStatusChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       bool p_is_initialized{};
       int32_t p_status_flag{};
@@ -1068,9 +1080,9 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceStatusChanged(
-std::move(p_is_initialized), 
-std::move(p_status_flag));
+      impl->OnServiceStatusChanged(        
+        std::move(p_is_initialized), 
+        std::move(p_status_flag));
       return true;
     }
     case internal::kPage_OnClientInfoAvailable_Name: {
@@ -1080,6 +1092,8 @@ std::move(p_status_flag));
           reinterpret_cast<internal::Page_OnClientInfoAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.1
       bool success = true;
       std::vector<ClientInfoPtr> p_client_info{};
       Page_OnClientInfoAvailable_ParamsDataView input_data_view(params, message);
@@ -1095,8 +1109,8 @@ std::move(p_status_flag));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientInfoAvailable(
-std::move(p_client_info));
+      impl->OnClientInfoAvailable(        
+        std::move(p_client_info));
       return true;
     }
   }

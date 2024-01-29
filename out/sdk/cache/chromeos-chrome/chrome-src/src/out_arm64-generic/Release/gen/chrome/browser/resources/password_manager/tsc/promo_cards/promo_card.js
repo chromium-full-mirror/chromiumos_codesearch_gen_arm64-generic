@@ -22,6 +22,7 @@ export var PromoCardId;
     PromoCardId["SHORTCUT"] = "password_shortcut_promo";
     PromoCardId["ACCESS_ON_ANY_DEVICE"] = "access_on_any_device_promo";
     PromoCardId["RELAUNCH_CHROME"] = "relaunch_chrome_promo";
+    PromoCardId["MOVE_PASSWORDS"] = "move_passwords_promo";
 })(PromoCardId || (PromoCardId = {}));
 /**
  * These values are persisted to logs. Entries should not be renumbered and
@@ -36,8 +37,9 @@ var PromoCardMetricId;
     PromoCardMetricId[PromoCardMetricId["SHORTCUT"] = 2] = "SHORTCUT";
     PromoCardMetricId[PromoCardMetricId["UNUSED_ACCESS_ON_ANY_DEVICE"] = 3] = "UNUSED_ACCESS_ON_ANY_DEVICE";
     PromoCardMetricId[PromoCardMetricId["RELAUNCH_CHROME"] = 4] = "RELAUNCH_CHROME";
+    PromoCardMetricId[PromoCardMetricId["MOVE_PASSWORDS"] = 5] = "MOVE_PASSWORDS";
     // Must be last.
-    PromoCardMetricId[PromoCardMetricId["COUNT"] = 5] = "COUNT";
+    PromoCardMetricId[PromoCardMetricId["COUNT"] = 6] = "COUNT";
 })(PromoCardMetricId || (PromoCardMetricId = {}));
 function recordPromoCardAction(card) {
     chrome.metricsPrivate.recordEnumerationValue('PasswordManager.PromoCard.ActionButtonClicked', card, PromoCardMetricId.COUNT);
@@ -89,6 +91,10 @@ export class PromoCardElement extends PolymerElement {
                 chrome.send('restartBrowser');
                 recordPromoCardAction(PromoCardMetricId.RELAUNCH_CHROME);
                 break;
+            case PromoCardId.MOVE_PASSWORDS:
+                this.dispatchEvent(new CustomEvent('move-passwords-clicked', { bubbles: true, composed: true }));
+                recordPromoCardAction(PromoCardMetricId.MOVE_PASSWORDS);
+                return;
             default:
                 assertNotReached();
         }

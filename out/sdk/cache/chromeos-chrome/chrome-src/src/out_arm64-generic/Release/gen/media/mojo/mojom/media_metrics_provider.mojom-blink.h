@@ -79,6 +79,7 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProvider
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kInitializeMinVersion = 0,
+    kOnStartedMinVersion = 0,
     kOnErrorMinVersion = 0,
     kOnFallbackMinVersion = 0,
     kSetHasPlayedMinVersion = 0,
@@ -106,6 +107,9 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProvider
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct Initialize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnStarted_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnError_Sym {
@@ -176,6 +180,9 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProvider
 
   
   virtual void Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::blink::MediaStreamType stream_type) = 0;
+
+  
+  virtual void OnStarted(::media::mojom::blink::PipelineStatusPtr status) = 0;
 
   
   virtual void OnError(::media::mojom::blink::PipelineStatusPtr status) = 0;
@@ -251,6 +258,8 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProviderProxy
   explicit MediaMetricsProviderProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void Initialize(bool is_mse, MediaURLScheme url_scheme, ::media::mojom::blink::MediaStreamType stream_type) final;
+  
+  void OnStarted(::media::mojom::blink::PipelineStatusPtr status) final;
   
   void OnError(::media::mojom::blink::PipelineStatusPtr status) final;
   

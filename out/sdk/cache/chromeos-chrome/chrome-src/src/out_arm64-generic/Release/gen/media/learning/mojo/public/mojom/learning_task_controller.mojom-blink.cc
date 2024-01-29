@@ -565,6 +565,8 @@ bool LearningTaskController_PredictDistribution_ForwardToCallback::Accept(
           internal::LearningTaskController_PredictDistribution_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LearningTaskController.4
   bool success = true;
   std::optional<::media::learning::TargetHistogram> p_predicted{};
   LearningTaskController_PredictDistribution_ResponseParamsDataView input_data_view(params, message);
@@ -645,6 +647,8 @@ bool LearningTaskControllerStubDispatch::Accept(
           reinterpret_cast<internal::LearningTaskController_BeginObservation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LearningTaskController.0
       bool success = true;
       ::base::UnguessableToken p_id{};
       WTF::Vector<::media::learning::FeatureValue> p_features{};
@@ -666,10 +670,10 @@ bool LearningTaskControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BeginObservation(
-std::move(p_id), 
-std::move(p_features), 
-std::move(p_default_target));
+      impl->BeginObservation(        
+        std::move(p_id), 
+        std::move(p_features), 
+        std::move(p_default_target));
       return true;
     }
     case internal::kLearningTaskController_CompleteObservation_Name: {
@@ -679,6 +683,8 @@ std::move(p_default_target));
           reinterpret_cast<internal::LearningTaskController_CompleteObservation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LearningTaskController.1
       bool success = true;
       ::base::UnguessableToken p_id{};
       ::media::learning::ObservationCompletion p_completion{};
@@ -697,9 +703,9 @@ std::move(p_default_target));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CompleteObservation(
-std::move(p_id), 
-std::move(p_completion));
+      impl->CompleteObservation(        
+        std::move(p_id), 
+        std::move(p_completion));
       return true;
     }
     case internal::kLearningTaskController_CancelObservation_Name: {
@@ -709,6 +715,8 @@ std::move(p_completion));
           reinterpret_cast<internal::LearningTaskController_CancelObservation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LearningTaskController.2
       bool success = true;
       ::base::UnguessableToken p_id{};
       LearningTaskController_CancelObservation_ParamsDataView input_data_view(params, message);
@@ -724,8 +732,8 @@ std::move(p_completion));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelObservation(
-std::move(p_id));
+      impl->CancelObservation(        
+        std::move(p_id));
       return true;
     }
     case internal::kLearningTaskController_UpdateDefaultTarget_Name: {
@@ -735,6 +743,8 @@ std::move(p_id));
           reinterpret_cast<internal::LearningTaskController_UpdateDefaultTarget_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LearningTaskController.3
       bool success = true;
       ::base::UnguessableToken p_id{};
       std::optional<::media::learning::TargetValue> p_default_target{};
@@ -753,9 +763,9 @@ std::move(p_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDefaultTarget(
-std::move(p_id), 
-std::move(p_default_target));
+      impl->UpdateDefaultTarget(        
+        std::move(p_id), 
+        std::move(p_default_target));
       return true;
     }
     case internal::kLearningTaskController_PredictDistribution_Name: {
@@ -793,6 +803,8 @@ bool LearningTaskControllerStubDispatch::AcceptWithResponder(
               internal::LearningTaskController_PredictDistribution_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LearningTaskController.4
       bool success = true;
       WTF::Vector<::media::learning::FeatureValue> p_features{};
       LearningTaskController_PredictDistribution_ParamsDataView input_data_view(params, message);
@@ -811,8 +823,8 @@ bool LearningTaskControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PredictDistribution(
-std::move(p_features), std::move(callback));
+      impl->PredictDistribution(        
+        std::move(p_features), std::move(callback));
       return true;
     }
   }

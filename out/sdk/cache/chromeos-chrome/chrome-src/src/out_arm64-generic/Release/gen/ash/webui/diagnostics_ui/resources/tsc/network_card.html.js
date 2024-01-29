@@ -1,26 +1,10 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="diagnostics-shared">
-  #cardTitle {
-    align-items: center;
-    display: flex;
-  }
-
-  #icon {
-    padding-inline-end: 12px;
-  }
-
-  #troubleShootingContainer {
-    padding-inline: 20px;
-  }
-</style>
-<diagnostics-card is-networking-card
-    hide-data-points="[[!showNetworkDataPoints]]">
+    return html `<!--_html_template_start_--><style include="diagnostics-shared">#cardTitle{align-items:center;display:flex}#icon{padding-inline-end:12px}#troubleShootingContainer{padding-inline:20px}</style>
+<diagnostics-card is-networking-card hide-data-points="[[!showNetworkDataPoints]]">
   <template is="dom-if" if="[[showTroubleshootingCard]]">
     <div slot="left-panel" id="troubleShootingContainer">
-      <network-troubleshooting id="networkTroubleshooting"
-          slot="left-panel"
-          troubleshooting-info="[[troubleshootingInfo]]">
+      <network-troubleshooting id="networkTroubleshooting" slot="left-panel" troubleshooting-info="[[troubleshootingInfo]]">
       </network-troubleshooting>
     </div>
   </template>
@@ -32,16 +16,14 @@ export function getTemplate() {
     </span>
   </div>
   <template is="dom-if" if="[[macAddress]]">
-    <div id="macAddressChip" slot="chip" class="diagnostics-chip"
-        tabindex="0">
+    <div id="macAddressChip" slot="chip" class="diagnostics-chip" tabindex="0">
       [[getMacAddress(macAddress)]]
     </div>
   </template>
   <template is="dom-if" if="[[showNetworkDataPoints]]">
     <network-info slot="body" guid="[[guid]]" network="[[network]]">
     </network-info>
-    <ip-config-info-drawer id="ipConfigInfoDrawer" network="[[network]]"
-        slot="routines">
+    <ip-config-info-drawer id="ipConfigInfoDrawer" network="[[network]]" slot="routines">
     </ip-config-info-drawer>
   </template>
 </diagnostics-card>

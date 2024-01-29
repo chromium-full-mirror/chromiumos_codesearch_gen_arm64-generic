@@ -71,6 +71,10 @@ void wgpuAdapterRequestDevice(WGPUAdapter adapter, WGPUDeviceDescriptor const * 
     procs.adapterRequestDevice(adapter, descriptor, callback, userdata);
 }
 DAWN_NO_SANITIZE("cfi-icall")
+WGPUFuture wgpuAdapterRequestDeviceF(WGPUAdapter adapter, WGPUDeviceDescriptor const * options, WGPURequestDeviceCallbackInfo callbackInfo) {
+return     procs.adapterRequestDeviceF(adapter, options, callbackInfo);
+}
+DAWN_NO_SANITIZE("cfi-icall")
 void wgpuAdapterReference(WGPUAdapter adapter) {
     procs.adapterReference(adapter);
 }
@@ -331,6 +335,10 @@ void wgpuDeviceCreateComputePipelineAsync(WGPUDevice device, WGPUComputePipeline
     procs.deviceCreateComputePipelineAsync(device, descriptor, callback, userdata);
 }
 DAWN_NO_SANITIZE("cfi-icall")
+WGPUFuture wgpuDeviceCreateComputePipelineAsyncF(WGPUDevice device, WGPUComputePipelineDescriptor const * descriptor, WGPUCreateComputePipelineAsyncCallbackInfo callbackInfo) {
+return     procs.deviceCreateComputePipelineAsyncF(device, descriptor, callbackInfo);
+}
+DAWN_NO_SANITIZE("cfi-icall")
 WGPUBuffer wgpuDeviceCreateErrorBuffer(WGPUDevice device, WGPUBufferDescriptor const * descriptor) {
 return     procs.deviceCreateErrorBuffer(device, descriptor);
 }
@@ -369,6 +377,10 @@ return     procs.deviceCreateRenderPipeline(device, descriptor);
 DAWN_NO_SANITIZE("cfi-icall")
 void wgpuDeviceCreateRenderPipelineAsync(WGPUDevice device, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallback callback, void * userdata) {
     procs.deviceCreateRenderPipelineAsync(device, descriptor, callback, userdata);
+}
+DAWN_NO_SANITIZE("cfi-icall")
+WGPUFuture wgpuDeviceCreateRenderPipelineAsyncF(WGPUDevice device, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallbackInfo callbackInfo) {
+return     procs.deviceCreateRenderPipelineAsyncF(device, descriptor, callbackInfo);
 }
 DAWN_NO_SANITIZE("cfi-icall")
 WGPUSampler wgpuDeviceCreateSampler(WGPUDevice device, WGPUSamplerDescriptor const * descriptor) {
@@ -906,6 +918,10 @@ void wgpuSwapChainRelease(WGPUSwapChain swapChain) {
     procs.swapChainRelease(swapChain);
 }
 
+DAWN_NO_SANITIZE("cfi-icall")
+WGPUTextureView wgpuTextureCreateErrorView(WGPUTexture texture, WGPUTextureViewDescriptor const * descriptor) {
+return     procs.textureCreateErrorView(texture, descriptor);
+}
 DAWN_NO_SANITIZE("cfi-icall")
 WGPUTextureView wgpuTextureCreateView(WGPUTexture texture, WGPUTextureViewDescriptor const * descriptor) {
 return     procs.textureCreateView(texture, descriptor);

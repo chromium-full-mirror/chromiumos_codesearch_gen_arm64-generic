@@ -368,19 +368,6 @@ suite('AutofillSectionAddressTests', function () {
             });
         });
     });
-    test('verifyHonorificIsSaved', async function () {
-        loadTimeData.overrideValues({ showHonorific: true });
-        const address = createEmptyAddressEntry();
-        const dialog = await createAddressDialog(address);
-        const honorificElement = dialog.$.dialog.querySelectorAll('cr-textarea, cr-input')[0];
-        assertEquals(undefined, honorificElement.value);
-        assertFalse(!!getAddressFieldValue(address, FieldType.NAME_HONORIFIC_PREFIX));
-        const honorific = 'Lord';
-        honorificElement.value = honorific;
-        await expectEvent(dialog, 'save-address', () => dialog.$.saveButton.click());
-        assertEquals(honorific, honorificElement.value);
-        assertEquals(honorific, getAddressFieldValue(address, FieldType.NAME_HONORIFIC_PREFIX));
-    });
     // TODO(crbug.com/1473847): Fix the flakiness.
     test.skip('verifyPhoneAndEmailAreRemoved', function () {
         const address = createEmptyAddressEntry();
@@ -419,7 +406,6 @@ suite('AutofillSectionAddressTests', function () {
     // save button is enabled, then it will clear the field and verify that the
     // save button is disabled. Test passes after all elements have been tested.
     test('verifySaveIsNotClickableIfAllInputFieldsAreEmpty', async function () {
-        loadTimeData.overrideValues({ showHonorific: true });
         const dialog = await createAddressDialog(createEmptyAddressEntry());
         const saveButton = dialog.$.saveButton;
         const testElements = dialog.$.dialog.querySelectorAll('cr-textarea, cr-input');
@@ -430,10 +416,10 @@ suite('AutofillSectionAddressTests', function () {
             countrySelect.value = '';
             countrySelect.dispatchEvent(new CustomEvent('change'));
         });
-        // Default country is 'US' expecting: Honorific, Name, Organization,
+        // Default country is 'US' expecting: Name, Organization,
         // Street address, City, State, ZIP code, Phone, and Email.
-        // Unless Company name or honorific is disabled.
-        assertEquals(9, testElements.length);
+        // Unless Company name is disabled.
+        assertEquals(8, testElements.length);
         assertTrue(saveButton.disabled);
         for (const element of testElements) {
             await expectEvent(dialog, 'on-update-can-save', function () {
@@ -500,6 +486,7 @@ suite('AutofillSectionAddressTests', function () {
     // TODO(crbug.com/1473847): Fix the flakiness.
     test.skip('verifySyncSourceNoticeForNewAddress', async () => {
         const section = await createAutofillSection([], {}, {
+            ...STUB_USER_ACCOUNT_INFO,
             email: 'stub-user@example.com',
             isSyncEnabledForAutofillProfiles: true,
             isEligibleForAddressAccountStorage: false,
@@ -511,6 +498,7 @@ suite('AutofillSectionAddressTests', function () {
     test('verifyAccountSourceNoticeForNewAddress', async () => {
         const email = 'stub-user@example.com';
         const section = await createAutofillSection([], {}, {
+            ...STUB_USER_ACCOUNT_INFO,
             email,
             isSyncEnabledForAutofillProfiles: true,
             isEligibleForAddressAccountStorage: true,
@@ -519,6 +507,82 @@ suite('AutofillSectionAddressTests', function () {
         assertTrue(isVisible(dialog.$.accountSourceNotice), 'account notice should be visible as the user is eligible');
         assertEquals(dialog.$.accountSourceNotice.innerText, section.i18n('newAccountAddressSourceNotice', email));
         document.body.removeChild(section);
+    });
+    // TODO(crbug.com/1502843): Remove when toggle becomes available on the Sync
+    // page for non-syncing users.
+    test('verifyAutofillSyncToggleAvailability', async () => {
+        const autofillManager = new TestAutofillManager();
+        autofillManager.data.accountInfo = {
+            ...STUB_USER_ACCOUNT_INFO,
+            isAutofillSyncToggleAvailable: false,
+        };
+        AutofillManagerImpl.setInstance(autofillManager);
+        const section = document.createElement('settings-autofill-section');
+        document.body.appendChild(section);
+        await autofillManager.whenCalled('getAddressList');
+        await flushTasks();
+        assertFalse(isVisible(section.$.autofillSyncToggle), 'The toggle should not be visible because of ' +
+            'accountInfo.isAutofillSyncToggleAvailable == false');
+        const changeListener = autofillManager.lastCallback.setPersonalDataManagerListener;
+        assertTrue(!!changeListener, 'PersonalDataChangedListener should be set in the section element');
+        // Imitate native code `PersonalDataChangedListener` triggering.
+        changeListener([], [], [], {
+            ...STUB_USER_ACCOUNT_INFO,
+            isAutofillSyncToggleAvailable: true,
+            isAutofillSyncToggleEnabled: false,
+        });
+        await flushTasks();
+        assertTrue(isVisible(section.$.autofillSyncToggle), 'The toggle should be visible because of ' +
+            'accountInfo.isAutofillSyncToggleAvailable == true');
+        assertFalse(section.$.autofillSyncToggle.checked, 'The toggle should not be checked because of ' +
+            'accountInfo.isAutofillSyncToggleEnabled == false');
+        // Imitate native code `PersonalDataChangedListener` triggering.
+        changeListener([], [], [], {
+            ...STUB_USER_ACCOUNT_INFO,
+            isAutofillSyncToggleAvailable: true,
+            isAutofillSyncToggleEnabled: true,
+        });
+        await flushTasks();
+        assertTrue(isVisible(section.$.autofillSyncToggle), 'The toggle should be visible because of ' +
+            'accountInfo.isAutofillSyncToggleAvailable == true');
+        assertTrue(section.$.autofillSyncToggle.checked, 'The toggle should be checked because of ' +
+            'accountInfo.isAutofillSyncToggleEnabled == true');
+    });
+    // TODO(crbug.com/1502843): Remove as part of the cleanup work for the ticket.
+    test('verifyAutofillSyncToggleChanges', async () => {
+        const autofillManager = new TestAutofillManager();
+        autofillManager.data.accountInfo = {
+            ...STUB_USER_ACCOUNT_INFO,
+            isAutofillSyncToggleAvailable: true,
+            isAutofillSyncToggleEnabled: false,
+        };
+        AutofillManagerImpl.setInstance(autofillManager);
+        const section = document.createElement('settings-autofill-section');
+        document.body.appendChild(section);
+        await autofillManager.whenCalled('getAddressList');
+        await flushTasks();
+        const changeListener = autofillManager.lastCallback.setPersonalDataManagerListener;
+        assertTrue(!!changeListener, 'PersonalDataChangedListener should be set in the section element');
+        assertFalse(section.$.autofillSyncToggle.checked, 'The toggle should not be checked because of initial ' +
+            'accountInfo.isAutofillSyncToggleEnabled == false');
+        section.$.autofillSyncToggle.click();
+        assertTrue(section.$.autofillSyncToggle.checked, 'The toggle should be checked after the click.');
+        assertEquals(autofillManager.getCallCount('setAutofillSyncToggleEnabled'), 1);
+        section.$.autofillSyncToggle.click();
+        assertFalse(section.$.autofillSyncToggle.checked, 'The toggle should not be checked after another click.');
+        assertEquals(autofillManager.getCallCount('setAutofillSyncToggleEnabled'), 2);
+        // Imitate native code `PersonalDataChangedListener` triggering. Notice
+        // that it was unchecked after the second click, but the listener was
+        // given `true`, the following assert checks it an covers the case when
+        // the toggle was not updated in the native code for some reason.
+        changeListener([], [], [], {
+            ...STUB_USER_ACCOUNT_INFO,
+            isAutofillSyncToggleAvailable: true,
+            isAutofillSyncToggleEnabled: true,
+        });
+        await flushTasks();
+        assertTrue(section.$.autofillSyncToggle.checked, 'The toggle should be checked because of ' +
+            'accountInfo.isAutofillSyncToggleEnabled == true');
     });
 });
 suite('AutofillSectionAddressLocaleTests', function () {
@@ -530,13 +594,8 @@ suite('AutofillSectionAddressLocaleTests', function () {
     });
     // US address has 3 fields on the same line.
     test('verifyEditingUSAddress', function () {
-        loadTimeData.overrideValues({ showHonorific: true });
         const address = createEmptyAddressEntry();
         address.fields = [
-            {
-                type: FieldType.NAME_HONORIFIC_PREFIX,
-                value: 'Honorific',
-            },
             { type: FieldType.NAME_FULL, value: 'Name' },
             { type: FieldType.COMPANY_NAME, value: 'Organization' },
             {
@@ -552,7 +611,7 @@ suite('AutofillSectionAddressLocaleTests', function () {
         ];
         return createAddressDialog(address).then(function (dialog) {
             const rows = dialog.$.dialog.querySelectorAll('.address-row');
-            assertEquals(7, rows.length);
+            assertEquals(6, rows.length);
             let index = 0;
             // Country
             let row = rows[index];
@@ -560,15 +619,9 @@ suite('AutofillSectionAddressLocaleTests', function () {
             assertTrue(!!countrySelect);
             assertEquals('United States', countrySelect.selectedOptions[0].textContent.trim());
             index++;
-            // Honorific
-            row = rows[index];
-            let cols = row.querySelectorAll('.address-column');
-            assertEquals(1, cols.length);
-            assertEquals(getAddressFieldValue(address, FieldType.NAME_HONORIFIC_PREFIX), cols[0].value);
-            index++;
             // Name
             row = rows[index];
-            cols = row.querySelectorAll('.address-column');
+            let cols = row.querySelectorAll('.address-column');
             assertEquals(1, cols.length);
             assertEquals(getAddressFieldValue(address, FieldType.NAME_FULL), cols[0].value);
             index++;
@@ -602,10 +655,8 @@ suite('AutofillSectionAddressLocaleTests', function () {
     });
     // GB address has 1 field per line for all lines that change.
     test('verifyEditingGBAddress', function () {
-        loadTimeData.overrideValues({ showHonorific: true });
         const address = createEmptyAddressEntry();
         address.fields = [
-            { type: FieldType.NAME_HONORIFIC_PREFIX, value: 'Lord' },
             { type: FieldType.NAME_FULL, value: 'Name' },
             { type: FieldType.COMPANY_NAME, value: 'Organization' },
             {
@@ -621,7 +672,7 @@ suite('AutofillSectionAddressLocaleTests', function () {
         ];
         return createAddressDialog(address).then(function (dialog) {
             const rows = dialog.$.dialog.querySelectorAll('.address-row');
-            assertEquals(9, rows.length);
+            assertEquals(8, rows.length);
             let index = 0;
             // Country
             let row = rows[index];
@@ -629,15 +680,9 @@ suite('AutofillSectionAddressLocaleTests', function () {
             assertTrue(!!countrySelect);
             assertEquals('United Kingdom', countrySelect.selectedOptions[0].textContent.trim());
             index++;
-            // Honorific
-            row = rows[index];
-            let cols = row.querySelectorAll('.address-column');
-            assertEquals(1, cols.length);
-            assertEquals(getAddressFieldValue(address, FieldType.NAME_HONORIFIC_PREFIX), cols[0].value);
-            index++;
             // Name
             row = rows[index];
-            cols = row.querySelectorAll('.address-column');
+            let cols = row.querySelectorAll('.address-column');
             assertEquals(1, cols.length);
             assertEquals(getAddressFieldValue(address, FieldType.NAME_FULL), cols[0].value);
             index++;
@@ -682,13 +727,8 @@ suite('AutofillSectionAddressLocaleTests', function () {
     // IL address has 2 fields on the same line and is an RTL locale.
     // RTL locale shouldn't affect this test.
     test('verifyEditingILAddress', function () {
-        loadTimeData.overrideValues({ showHonorific: true });
         const address = createEmptyAddressEntry();
         address.fields = [
-            {
-                type: FieldType.NAME_HONORIFIC_PREFIX,
-                value: 'Honorific',
-            },
             { type: FieldType.NAME_FULL, value: 'Name' },
             { type: FieldType.COMPANY_NAME, value: 'Organization' },
             {
@@ -704,7 +744,7 @@ suite('AutofillSectionAddressLocaleTests', function () {
         ];
         return createAddressDialog(address).then(function (dialog) {
             const rows = dialog.$.dialog.querySelectorAll('.address-row');
-            assertEquals(7, rows.length);
+            assertEquals(6, rows.length);
             let index = 0;
             // Country
             let row = rows[index];
@@ -712,15 +752,9 @@ suite('AutofillSectionAddressLocaleTests', function () {
             assertTrue(!!countrySelect);
             assertEquals('Israel', countrySelect.selectedOptions[0].textContent.trim());
             index++;
-            // Honorific
-            row = rows[index];
-            let cols = row.querySelectorAll('.address-column');
-            assertEquals(1, cols.length);
-            assertEquals(getAddressFieldValue(address, FieldType.NAME_HONORIFIC_PREFIX), cols[0].value);
-            index++;
             // Name
             row = rows[index];
-            cols = row.querySelectorAll('.address-column');
+            let cols = row.querySelectorAll('.address-column');
             assertEquals(1, cols.length);
             assertEquals(getAddressFieldValue(address, FieldType.NAME_FULL), cols[0].value);
             index++;
@@ -754,9 +788,8 @@ suite('AutofillSectionAddressLocaleTests', function () {
     // US has an extra field 'State'. Validate that this field is
     // persisted when switching to IL then back to US.
     test('verifyAddressPersistanceWhenSwitchingCountries', function () {
-        loadTimeData.overrideValues({ showHonorific: true });
         const address = createEmptyAddressEntry();
-        const experimental_fields_count = 2;
+        const experimental_fields_count = 1;
         address.fields.push({ type: FieldType.ADDRESS_HOME_COUNTRY, value: 'US' });
         return createAddressDialog(address).then(function (dialog) {
             const city = 'Los Angeles';

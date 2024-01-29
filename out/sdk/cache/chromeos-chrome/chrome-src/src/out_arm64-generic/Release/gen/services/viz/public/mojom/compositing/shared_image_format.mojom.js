@@ -32,8 +32,9 @@
   PlaneConfig.kY_V_U = 1;
   PlaneConfig.kY_UV = 2;
   PlaneConfig.kY_UV_A = 3;
+  PlaneConfig.kY_U_V_A = 4;
   PlaneConfig.MIN_VALUE = 0;
-  PlaneConfig.MAX_VALUE = 3;
+  PlaneConfig.MAX_VALUE = 4;
 
   PlaneConfig.isKnownEnumValue = function(value) {
     switch (value) {
@@ -41,6 +42,7 @@
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     }
     return false;

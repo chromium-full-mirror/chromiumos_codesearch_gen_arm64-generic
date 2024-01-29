@@ -764,7 +764,7 @@ async function testWarnings(event, headerExpected, sectionsExpected) {
     const warningsUpdatedPromise = new Promise(resolve => {
         const model = target.model(SDK.PreloadingModel.PreloadingModel);
         assertNotNullOrUndefined(model);
-        model.addEventListener(SDK.PreloadingModel.Events.WarningsUpdated, _ => resolve());
+        model.addEventListener("WarningsUpdated" /* SDK.PreloadingModel.Events.WarningsUpdated */, _ => resolve());
     });
     const view = createRuleSetView(target);
     view.wasShown();

@@ -25,6 +25,36 @@ namespace internal {
 
 
 // static
+bool FlattenPdfResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FlattenPdfResult_Data* object =
+      static_cast<const FlattenPdfResult_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->flattened_pdf_region, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->flattened_pdf_region, validation_context))
+    return false;
+
+  return true;
+}
+
+FlattenPdfResult_Data::FlattenPdfResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PdfFlattener_FlattenPdf_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -70,7 +100,7 @@ bool PdfFlattener_FlattenPdf_ResponseParams_Data::Validate(
   [[maybe_unused]] const PdfFlattener_FlattenPdf_ResponseParams_Data* object =
       static_cast<const PdfFlattener_FlattenPdf_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->flattened_pdf_region, validation_context))
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
     return false;
 
   return true;

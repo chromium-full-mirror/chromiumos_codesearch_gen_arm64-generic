@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5637/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5665/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
@@ -6172,6 +6172,58 @@ std::string GetProtoDebugStringWithIndent(
   return output;
 }
 
+std::string GetProtoDebugString(const AuthenticateStarted& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthenticateStarted& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_operation_id(); }) {
+      if (!value.has_operation_id()) {
+        return;
+      }
+    }
+    output += indent + "  operation_id: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.operation_id(), value.operation_id());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_auth_factor_type(); }) {
+      if (!value.has_auth_factor_type()) {
+        return;
+      }
+    }
+    output += indent + "  auth_factor_type: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_user_creation(); }) {
+      if (!value.has_user_creation()) {
+        return;
+      }
+    }
+    output += indent + "  user_creation: ";
+    base::StringAppendF(&output, "%s",
+                        value.user_creation() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
 std::string GetProtoDebugString(const AuthenticateAuthFactorCompleted& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -6183,6 +6235,18 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_operation_id(); }) {
+      if (!value.has_operation_id()) {
+        return;
+      }
+    }
+    output += indent + "  operation_id: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.operation_id(), value.operation_id());
+    output += "\n";
+  }(value, indent_size, indent, output);
   []<typename T>(const T& value, int indent_size, const std::string& indent,
                  std::string& output) {
     if constexpr (requires(T t) { t.has_error(); }) {
@@ -6234,6 +6298,58 @@ std::string GetProtoDebugStringWithIndent(
     output += indent + "  user_creation: ";
     base::StringAppendF(&output, "%s",
                         value.user_creation() ? "true" : "false");
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
+std::string GetProtoDebugString(const MountStarted& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const MountStarted& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_operation_id(); }) {
+      if (!value.has_operation_id()) {
+        return;
+      }
+    }
+    output += indent + "  operation_id: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.operation_id(), value.operation_id());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  output += indent + "}";
+  return output;
+}
+
+std::string GetProtoDebugString(const MountCompleted& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const MountCompleted& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_operation_id(); }) {
+      if (!value.has_operation_id()) {
+        return;
+      }
+    }
+    output += indent + "  operation_id: ";
+    base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                        value.operation_id(), value.operation_id());
     output += "\n";
   }(value, indent_size, indent, output);
   output += indent + "}";

@@ -60,7 +60,7 @@ export class Modes {
                         return;
                     }
                     const deviceId = constraints.deviceId;
-                    await deviceOperator.setCaptureIntent(deviceId, CaptureIntent.VIDEO_RECORD);
+                    await deviceOperator.setCaptureIntent(deviceId, CaptureIntent.kVideoRecord);
                     await deviceOperator.setMultipleStreamsEnabled(deviceId, expert.isEnabled(expert.ExpertOption.ENABLE_MULTISTREAM_RECORDING));
                     if (expert.isEnabled(expert.ExpertOption.ENABLE_MULTISTREAM_RECORDING_CHROME)) {
                         const captureResolution = assertExists(this.getCaptureParams().captureResolution);
@@ -91,7 +91,7 @@ export class Modes {
                 },
                 isSupported: () => Promise.resolve(true),
                 isSupportPTZ: checkSupportPTZForPhotoMode,
-                prepareDevice: async (constraints, resolution) => prepareDeviceForPhoto(constraints, resolution, CaptureIntent.STILL_CAPTURE),
+                prepareDevice: async (constraints, resolution) => prepareDeviceForPhoto(constraints, resolution, CaptureIntent.kStillCapture),
                 fallbackMode: Mode.SCAN,
             },
             [Mode.PORTRAIT]: {
@@ -110,7 +110,7 @@ export class Modes {
                     return deviceOperator.isPortraitModeSupported(deviceId);
                 },
                 isSupportPTZ: checkSupportPTZForPhotoMode,
-                prepareDevice: async (constraints, resolution) => prepareDeviceForPhoto(constraints, resolution, CaptureIntent.PORTRAIT_CAPTURE),
+                prepareDevice: async (constraints, resolution) => prepareDeviceForPhoto(constraints, resolution, CaptureIntent.kPortraitCapture),
                 fallbackMode: Mode.PHOTO,
             },
             [Mode.SCAN]: {
@@ -120,7 +120,7 @@ export class Modes {
                 },
                 isSupported: async () => Promise.resolve(true),
                 isSupportPTZ: checkSupportPTZForPhotoMode,
-                prepareDevice: async (constraints, resolution) => prepareDeviceForPhoto(constraints, resolution, CaptureIntent.STILL_CAPTURE),
+                prepareDevice: async (constraints, resolution) => prepareDeviceForPhoto(constraints, resolution, CaptureIntent.kStillCapture),
                 fallbackMode: Mode.PHOTO,
             },
         };

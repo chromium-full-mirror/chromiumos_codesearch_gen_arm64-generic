@@ -189,6 +189,8 @@ bool FakeDriveFsLauncherStubDispatch::Accept(
           reinterpret_cast<internal::FakeDriveFsLauncher_LaunchDriveFs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FakeDriveFsLauncher.0
       bool success = true;
       ::base::FilePath p_datadir_path{};
       ::base::FilePath p_mount_path{};
@@ -210,10 +212,10 @@ bool FakeDriveFsLauncherStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchDriveFs(
-std::move(p_datadir_path), 
-std::move(p_mount_path), 
-std::move(p_mojo_socket_handle));
+      impl->LaunchDriveFs(        
+        std::move(p_datadir_path), 
+        std::move(p_mount_path), 
+        std::move(p_mojo_socket_handle));
       return true;
     }
   }

@@ -225,6 +225,8 @@ bool ZipListenerStubDispatch::Accept(
           reinterpret_cast<internal::ZipListener_OnProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ZipListener.0
       bool success = true;
       uint64_t p_bytes{};
       uint32_t p_files{};
@@ -246,10 +248,10 @@ bool ZipListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProgress(
-std::move(p_bytes), 
-std::move(p_files), 
-std::move(p_directories));
+      impl->OnProgress(        
+        std::move(p_bytes), 
+        std::move(p_files), 
+        std::move(p_directories));
       return true;
     }
     case internal::kZipListener_OnFinished_Name: {
@@ -259,6 +261,8 @@ std::move(p_directories));
           reinterpret_cast<internal::ZipListener_OnFinished_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ZipListener.1
       bool success = true;
       bool p_success{};
       ZipListener_OnFinished_ParamsDataView input_data_view(params, message);
@@ -274,8 +278,8 @@ std::move(p_directories));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFinished(
-std::move(p_success));
+      impl->OnFinished(        
+        std::move(p_success));
       return true;
     }
   }
@@ -470,6 +474,8 @@ bool ZipFileCreatorStubDispatch::Accept(
           reinterpret_cast<internal::ZipFileCreator_CreateZipFile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ZipFileCreator.0
       bool success = true;
       ::mojo::PendingRemote<::filesystem::mojom::Directory> p_src_dir{};
       std::vector<::base::FilePath> p_relative_paths{};
@@ -498,11 +504,11 @@ bool ZipFileCreatorStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateZipFile(
-std::move(p_src_dir), 
-std::move(p_relative_paths), 
-std::move(p_zip_file), 
-std::move(p_listener));
+      impl->CreateZipFile(        
+        std::move(p_src_dir), 
+        std::move(p_relative_paths), 
+        std::move(p_zip_file), 
+        std::move(p_listener));
       return true;
     }
   }

@@ -25,6 +25,7 @@
 
 #include "ui/display/mojom/display_snapshot.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom-shared.h"
 #include "ui/display/mojom/display_constants.mojom-shared.h"
 #include "ui/display/mojom/display_mode.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
@@ -38,6 +39,8 @@
 
 
 namespace display::mojom {
+class DisplaySnapshotColorInfoDataView;
+
 class DisplaySnapshotDataView;
 
 
@@ -46,6 +49,13 @@ class DisplaySnapshotDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::display::mojom::DisplaySnapshotColorInfoDataView> {
+  using Data = ::display::mojom::internal::DisplaySnapshotColorInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::display::mojom::DisplaySnapshotDataView> {
@@ -59,6 +69,71 @@ struct MojomTypeTraits<::display::mojom::DisplaySnapshotDataView> {
 
 
 namespace display::mojom {
+
+
+class DisplaySnapshotColorInfoDataView {
+ public:
+  DisplaySnapshotColorInfoDataView() = default;
+
+  DisplaySnapshotColorInfoDataView(
+      internal::DisplaySnapshotColorInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetColorSpaceDataView(
+      ::gfx::mojom::ColorSpaceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadColorSpace(UserType* output) {
+    
+    auto* pointer = data_->color_space.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::ColorSpaceDataView>(
+        pointer, output, message_);
+  }
+  inline void GetEdidPrimariesDataView(
+      ::skia::mojom::SkColorSpacePrimariesDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEdidPrimaries(UserType* output) {
+    
+    auto* pointer = data_->edid_primaries.Get();
+    return mojo::internal::Deserialize<::skia::mojom::SkColorSpacePrimariesDataView>(
+        pointer, output, message_);
+  }
+  float edid_gamma() const {
+    return data_->edid_gamma;
+  }
+  inline void GetHdrStaticMetadataDataView(
+      ::gfx::mojom::HDRStaticMetadataDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHdrStaticMetadata(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::gfx::mojom::HDRStaticMetadataDataView, UserType>(),
+    "Attempting to read the optional `hdr_static_metadata` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadHdrStaticMetadata` instead "
+    "of `ReadHdrStaticMetadata if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->hdr_static_metadata.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::HDRStaticMetadataDataView>(
+        pointer, output, message_);
+  }
+  bool supports_color_temperature_adjustment() const {
+    return data_->supports_color_temperature_adjustment;
+  }
+  uint32_t bits_per_channel() const {
+    return data_->bits_per_channel;
+  }
+ private:
+  internal::DisplaySnapshotColorInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class DisplaySnapshotDataView {
@@ -145,40 +220,14 @@ class DisplaySnapshotDataView {
   bool has_content_protection_key() const {
     return data_->has_content_protection_key;
   }
-  bool has_color_correction_matrix() const {
-    return data_->has_color_correction_matrix;
-  }
-  inline void GetColorSpaceDataView(
-      ::gfx::mojom::ColorSpaceDataView* output);
+  inline void GetColorInfoDataView(
+      DisplaySnapshotColorInfoDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadColorSpace(UserType* output) {
+  [[nodiscard]] bool ReadColorInfo(UserType* output) {
     
-    auto* pointer = data_->color_space.Get();
-    return mojo::internal::Deserialize<::gfx::mojom::ColorSpaceDataView>(
-        pointer, output, message_);
-  }
-  uint32_t bits_per_channel() const {
-    return data_->bits_per_channel;
-  }
-  inline void GetHdrStaticMetadataDataView(
-      ::gfx::mojom::HDRStaticMetadataDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadHdrStaticMetadata(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::gfx::mojom::HDRStaticMetadataDataView, UserType>(),
-    "Attempting to read the optional `hdr_static_metadata` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadHdrStaticMetadata` instead "
-    "of `ReadHdrStaticMetadata if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->hdr_static_metadata.Get();
-    return mojo::internal::Deserialize<::gfx::mojom::HDRStaticMetadataDataView>(
+    auto* pointer = data_->color_info.Get();
+    return mojo::internal::Deserialize<::display::mojom::DisplaySnapshotColorInfoDataView>(
         pointer, output, message_);
   }
   inline void GetDisplayNameDataView(
@@ -300,6 +349,70 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::display::mojom::DisplaySnapshotColorInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::display::mojom::DisplaySnapshotColorInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::display::mojom::internal::DisplaySnapshotColorInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::color_space(input)) in_color_space = Traits::color_space(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->color_space)::BaseType> color_space_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::ColorSpaceDataView>(
+        in_color_space, color_space_fragment);
+    fragment->color_space.Set(
+        color_space_fragment.is_null() ? nullptr : color_space_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->color_space.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null color_space in DisplaySnapshotColorInfo struct");
+    decltype(Traits::edid_primaries(input)) in_edid_primaries = Traits::edid_primaries(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->edid_primaries)::BaseType> edid_primaries_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::skia::mojom::SkColorSpacePrimariesDataView>(
+        in_edid_primaries, edid_primaries_fragment);
+    fragment->edid_primaries.Set(
+        edid_primaries_fragment.is_null() ? nullptr : edid_primaries_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->edid_primaries.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null edid_primaries in DisplaySnapshotColorInfo struct");
+    fragment->edid_gamma = Traits::edid_gamma(input);
+    decltype(Traits::hdr_static_metadata(input)) in_hdr_static_metadata = Traits::hdr_static_metadata(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->hdr_static_metadata)::BaseType> hdr_static_metadata_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::HDRStaticMetadataDataView>(
+        in_hdr_static_metadata, hdr_static_metadata_fragment);
+    fragment->hdr_static_metadata.Set(
+        hdr_static_metadata_fragment.is_null() ? nullptr : hdr_static_metadata_fragment.data());
+    fragment->supports_color_temperature_adjustment = Traits::supports_color_temperature_adjustment(input);
+    fragment->bits_per_channel = Traits::bits_per_channel(input);
+  }
+
+  static bool Deserialize(::display::mojom::internal::DisplaySnapshotColorInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::display::mojom::DisplaySnapshotColorInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::display::mojom::DisplaySnapshotDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::display::mojom::DisplaySnapshotDataView, UserType>;
@@ -360,28 +473,18 @@ struct Serializer<::display::mojom::DisplaySnapshotDataView, MaybeConstUserType>
     mojo::internal::Serialize<::display::mojom::PrivacyScreenState>(
         Traits::privacy_screen_state(input), &fragment->privacy_screen_state);
     fragment->has_content_protection_key = Traits::has_content_protection_key(input);
-    fragment->has_color_correction_matrix = Traits::has_color_correction_matrix(input);
-    decltype(Traits::color_space(input)) in_color_space = Traits::color_space(input);
+    decltype(Traits::color_info(input)) in_color_info = Traits::color_info(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->color_space)::BaseType> color_space_fragment(
+        typename decltype(fragment->color_info)::BaseType> color_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::gfx::mojom::ColorSpaceDataView>(
-        in_color_space, color_space_fragment);
-    fragment->color_space.Set(
-        color_space_fragment.is_null() ? nullptr : color_space_fragment.data());
+    mojo::internal::Serialize<::display::mojom::DisplaySnapshotColorInfoDataView>(
+        in_color_info, color_info_fragment);
+    fragment->color_info.Set(
+        color_info_fragment.is_null() ? nullptr : color_info_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->color_space.is_null(),
+        fragment->color_info.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null color_space in DisplaySnapshot struct");
-    fragment->bits_per_channel = Traits::bits_per_channel(input);
-    decltype(Traits::hdr_static_metadata(input)) in_hdr_static_metadata = Traits::hdr_static_metadata(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->hdr_static_metadata)::BaseType> hdr_static_metadata_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::gfx::mojom::HDRStaticMetadataDataView>(
-        in_hdr_static_metadata, hdr_static_metadata_fragment);
-    fragment->hdr_static_metadata.Set(
-        hdr_static_metadata_fragment.is_null() ? nullptr : hdr_static_metadata_fragment.data());
+        "null color_info in DisplaySnapshot struct");
     decltype(Traits::display_name(input)) in_display_name = Traits::display_name(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->display_name)::BaseType> display_name_fragment(
@@ -491,6 +594,23 @@ struct Serializer<::display::mojom::DisplaySnapshotDataView, MaybeConstUserType>
 
 namespace display::mojom {
 
+inline void DisplaySnapshotColorInfoDataView::GetColorSpaceDataView(
+    ::gfx::mojom::ColorSpaceDataView* output) {
+  auto pointer = data_->color_space.Get();
+  *output = ::gfx::mojom::ColorSpaceDataView(pointer, message_);
+}
+inline void DisplaySnapshotColorInfoDataView::GetEdidPrimariesDataView(
+    ::skia::mojom::SkColorSpacePrimariesDataView* output) {
+  auto pointer = data_->edid_primaries.Get();
+  *output = ::skia::mojom::SkColorSpacePrimariesDataView(pointer, message_);
+}
+inline void DisplaySnapshotColorInfoDataView::GetHdrStaticMetadataDataView(
+    ::gfx::mojom::HDRStaticMetadataDataView* output) {
+  auto pointer = data_->hdr_static_metadata.Get();
+  *output = ::gfx::mojom::HDRStaticMetadataDataView(pointer, message_);
+}
+
+
 inline void DisplaySnapshotDataView::GetOriginDataView(
     ::gfx::mojom::PointDataView* output) {
   auto pointer = data_->origin.Get();
@@ -506,15 +626,10 @@ inline void DisplaySnapshotDataView::GetPathTopologyDataView(
   auto pointer = data_->path_topology.Get();
   *output = mojo::ArrayDataView<uint64_t>(pointer, message_);
 }
-inline void DisplaySnapshotDataView::GetColorSpaceDataView(
-    ::gfx::mojom::ColorSpaceDataView* output) {
-  auto pointer = data_->color_space.Get();
-  *output = ::gfx::mojom::ColorSpaceDataView(pointer, message_);
-}
-inline void DisplaySnapshotDataView::GetHdrStaticMetadataDataView(
-    ::gfx::mojom::HDRStaticMetadataDataView* output) {
-  auto pointer = data_->hdr_static_metadata.Get();
-  *output = ::gfx::mojom::HDRStaticMetadataDataView(pointer, message_);
+inline void DisplaySnapshotDataView::GetColorInfoDataView(
+    DisplaySnapshotColorInfoDataView* output) {
+  auto pointer = data_->color_info.Get();
+  *output = DisplaySnapshotColorInfoDataView(pointer, message_);
 }
 inline void DisplaySnapshotDataView::GetDisplayNameDataView(
     mojo::StringDataView* output) {

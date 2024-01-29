@@ -6,7 +6,7 @@ import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input
 import { getKeyModifiers, queryRequiredElement } from '../../../common/js/dom_utils.js';
 import { getFileTypeForName } from '../../../common/js/file_types_base.js';
 import { str } from '../../../common/js/translations.js';
-import { DialogType } from '../../../externs/ts/state.js';
+import { DialogType } from '../../../state/state.js';
 import { FileListModel } from '../file_list_model.js';
 /**
  * Obtains the label of OK button for the dialog type.
@@ -255,7 +255,7 @@ export class DialogFooter {
                         // Set the first time.
                         description = currentDescription;
                     }
-                    else if (description != currentDescription) {
+                    else if (description !== currentDescription) {
                         // No single description, fall through to the extension list.
                         description = null;
                         break;
@@ -321,7 +321,7 @@ export class DialogFooter {
     }
     selectTargetNameInFilenameInput() {
         const selectionEnd = this.filenameInput.value.lastIndexOf('.');
-        if (selectionEnd == -1) {
+        if (selectionEnd === -1) {
             this.filenameInput.select();
         }
         else {

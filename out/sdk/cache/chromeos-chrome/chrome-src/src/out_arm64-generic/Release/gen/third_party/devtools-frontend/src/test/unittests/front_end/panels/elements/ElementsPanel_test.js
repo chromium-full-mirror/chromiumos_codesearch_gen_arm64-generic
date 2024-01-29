@@ -15,7 +15,7 @@ describeWithMockConnection('ElementsPanel', () => {
     beforeEach(() => {
         stubNoopSettings();
         target = createTarget();
-        Root.Runtime.experiments.register(Root.Runtime.ExperimentName.FULL_ACCESSIBILITY_TREE, '');
+        Root.Runtime.experiments.register("fullAccessibilityTree" /* Root.Runtime.ExperimentName.FULL_ACCESSIBILITY_TREE */, '');
         Root.Runtime.experiments.register('APCA', '');
         setMockConnectionResponseHandler('DOM.requestChildNodes', () => ({}));
         setMockConnectionResponseHandler('DOM.getDocument', () => ({
@@ -49,12 +49,12 @@ describeWithMockConnection('ElementsPanel', () => {
         assertNotNullOrUndefined(panel.sidebarPaneView);
         const tabbedPane = panel.sidebarPaneView.tabbedPane();
         // The first event is not recorded
-        tabbedPane.selectTab("Styles" /* Elements.ElementsPanel.SidebarPaneTabId.Styles */);
-        tabbedPane.selectTab("Computed" /* Elements.ElementsPanel.SidebarPaneTabId.Computed */);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ElementsSidebarTabShown, Host.UserMetrics.ElementsSidebarTabCodes.Computed), 'Expected "Computed" tab to show up in metrics');
-        assert.isFalse(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ElementsSidebarTabShown, Host.UserMetrics.ElementsSidebarTabCodes.Styles), 'Expected "Styles" tab to not show up in metrics');
-        tabbedPane.selectTab("Styles" /* Elements.ElementsPanel.SidebarPaneTabId.Styles */);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ElementsSidebarTabShown, Host.UserMetrics.ElementsSidebarTabCodes.Styles), 'Expected "Styles" tab to show up in metrics');
+        tabbedPane.selectTab("styles" /* Elements.ElementsPanel.SidebarPaneTabId.Styles */);
+        tabbedPane.selectTab("computed" /* Elements.ElementsPanel.SidebarPaneTabId.Computed */);
+        assert.isTrue(recordedMetricsContain("DevTools.Elements.SidebarTabShown" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ElementsSidebarTabShown */, Host.UserMetrics.ElementsSidebarTabCodes.computed), 'Expected "computed" tab to show up in metrics');
+        assert.isFalse(recordedMetricsContain("DevTools.Elements.SidebarTabShown" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ElementsSidebarTabShown */, Host.UserMetrics.ElementsSidebarTabCodes.styles), 'Expected "Styles" tab to not show up in metrics');
+        tabbedPane.selectTab("styles" /* Elements.ElementsPanel.SidebarPaneTabId.Styles */);
+        assert.isTrue(recordedMetricsContain("DevTools.Elements.SidebarTabShown" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ElementsSidebarTabShown */, Host.UserMetrics.ElementsSidebarTabCodes.styles), 'Expected "Styles" tab to show up in metrics');
     });
     const createsTreeOutlines = (inScope) => () => {
         SDK.TargetManager.TargetManager.instance().setScopeTarget(inScope ? target : null);

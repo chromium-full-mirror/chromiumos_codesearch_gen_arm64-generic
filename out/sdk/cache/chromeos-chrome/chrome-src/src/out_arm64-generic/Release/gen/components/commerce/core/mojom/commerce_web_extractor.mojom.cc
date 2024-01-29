@@ -210,6 +210,8 @@ bool CommerceWebExtractor_ExtractMetaInfo_ForwardToCallback::Accept(
           internal::CommerceWebExtractor_ExtractMetaInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CommerceWebExtractor.0
   bool success = true;
   ::base::Value p_result{};
   CommerceWebExtractor_ExtractMetaInfo_ResponseParamsDataView input_data_view(params, message);
@@ -308,6 +310,8 @@ bool CommerceWebExtractorStubDispatch::AcceptWithResponder(
               internal::CommerceWebExtractor_ExtractMetaInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CommerceWebExtractor.0
       bool success = true;
       CommerceWebExtractor_ExtractMetaInfo_ParamsDataView input_data_view(params, message);
       

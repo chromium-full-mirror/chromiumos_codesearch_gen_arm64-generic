@@ -212,7 +212,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ElementIn
 BLINK_BINDINGS_TRACE_EVENT("ElementInternals.states.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kElementInternalsStates);
 
@@ -231,7 +232,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ElementIn
 BLINK_BINDINGS_TRACE_EVENT("ElementInternals.shadowRoot.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kElementInternalsShadowRoot);
 
@@ -2187,18 +2189,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaControlsElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaControlsAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaControlsElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaControlsElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2222,12 +2219,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaControlsAttr, arg1_value);
+blink_receiver->setAriaControlsElements(script_state, arg1_value);
 
 }
 
@@ -2238,18 +2237,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaDescribedByElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaDescribedbyAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaDescribedByElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaDescribedByElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2273,12 +2267,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaDescribedbyAttr, arg1_value);
+blink_receiver->setAriaDescribedByElements(script_state, arg1_value);
 
 }
 
@@ -2289,18 +2285,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaDetailsElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaDetailsAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaDetailsElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaDetailsElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2324,12 +2315,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaDetailsAttr, arg1_value);
+blink_receiver->setAriaDetailsElements(script_state, arg1_value);
 
 }
 
@@ -2340,18 +2333,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaErrorMessageElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaErrormessageAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaErrorMessageElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaErrorMessageElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2375,12 +2363,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaErrormessageAttr, arg1_value);
+blink_receiver->setAriaErrorMessageElements(script_state, arg1_value);
 
 }
 
@@ -2391,18 +2381,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaFlowToElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaFlowtoAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaFlowToElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaFlowToElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2426,12 +2411,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaFlowtoAttr, arg1_value);
+blink_receiver->setAriaFlowToElements(script_state, arg1_value);
 
 }
 
@@ -2442,18 +2429,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaLabelledByElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaLabelledbyAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaLabelledByElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaLabelledByElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2477,12 +2459,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaLabelledbyAttr, arg1_value);
+blink_receiver->setAriaLabelledByElements(script_state, arg1_value);
 
 }
 
@@ -2493,18 +2477,13 @@ BLINK_BINDINGS_TRACE_EVENT("ElementInternals.ariaOwnsElements.get");
 
 
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
-auto&& return_value = blink_receiver->GetElementArrayAttribute(html_names::kAriaOwnsAttr);
-if (!ToV8Traits<IDLNullable<IDLArray<Element>>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
-bindings::V8SetReturnValue(info, v8_return_value);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& return_value = blink_receiver->ariaOwnsElements(script_state);
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void AriaOwnsElementsAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -2528,12 +2507,14 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 ElementInternals* blink_receiver = V8ElementInternals::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
-auto&& arg1_value = NativeValueTraits<IDLNullable<IDLArray<Element>>>::NativeValue(isolate, v8_property_value, exception_state);
+auto&& arg1_value = NativeValueTraits<IDLNullable<IDLObject>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->SetElementArrayAttribute(html_names::kAriaOwnsAttr, arg1_value);
+blink_receiver->setAriaOwnsElements(script_state, arg1_value);
 
 }
 

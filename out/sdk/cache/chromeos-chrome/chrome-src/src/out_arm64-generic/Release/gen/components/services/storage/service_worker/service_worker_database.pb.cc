@@ -521,13 +521,14 @@ bool ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destinat
     case 23:
     case 24:
     case 25:
+    case 26:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings[26] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings[27] = {};
 
 static const char ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names[] =
   "kAudioDestination"
@@ -541,6 +542,7 @@ static const char ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Req
   "kFrameDestination"
   "kIframeDestination"
   "kImageDestination"
+  "kJsonDestination"
   "kManifestDestination"
   "kObjectDestination"
   "kPaintWorkletDestination"
@@ -569,21 +571,22 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ServiceWorkerRegistrat
   { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 156, 17}, 6 },
   { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 173, 18}, 7 },
   { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 191, 17}, 8 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 208, 20}, 9 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 228, 18}, 10 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 246, 24}, 11 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 270, 18}, 12 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 288, 18}, 13 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 306, 25}, 14 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 331, 24}, 15 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 355, 28}, 25 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 383, 17}, 16 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 400, 17}, 17 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 417, 17}, 18 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 434, 21}, 19 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 455, 23}, 23 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 478, 18}, 20 },
-  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 496, 16}, 21 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 208, 16}, 26 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 224, 20}, 9 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 244, 18}, 10 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 262, 24}, 11 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 286, 18}, 12 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 304, 18}, 13 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 322, 25}, 14 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 347, 24}, 15 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 371, 28}, 25 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 399, 17}, 16 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 416, 17}, 17 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 433, 17}, 18 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 450, 21}, 19 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 471, 23}, 23 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 494, 18}, 20 },
+  { {ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_names + 512, 16}, 21 },
 };
 
 static const int ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries_by_number[] = {
@@ -596,23 +599,24 @@ static const int ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Requ
   8, // 6 -> kFrameDestination
   9, // 7 -> kIframeDestination
   10, // 8 -> kImageDestination
-  11, // 9 -> kManifestDestination
-  12, // 10 -> kObjectDestination
-  13, // 11 -> kPaintWorkletDestination
-  14, // 12 -> kReportDestination
-  15, // 13 -> kScriptDestination
-  16, // 14 -> kServiceWorkerDestination
-  17, // 15 -> kSharedWorkerDestination
-  19, // 16 -> kStyleDestination
-  20, // 17 -> kTrackDestination
-  21, // 18 -> kVideoDestination
-  22, // 19 -> kWebBundleDestination
-  24, // 20 -> kWorkerDestination
-  25, // 21 -> kXsltDestination
+  12, // 9 -> kManifestDestination
+  13, // 10 -> kObjectDestination
+  14, // 11 -> kPaintWorkletDestination
+  15, // 12 -> kReportDestination
+  16, // 13 -> kScriptDestination
+  17, // 14 -> kServiceWorkerDestination
+  18, // 15 -> kSharedWorkerDestination
+  20, // 16 -> kStyleDestination
+  21, // 17 -> kTrackDestination
+  22, // 18 -> kVideoDestination
+  23, // 19 -> kWebBundleDestination
+  25, // 20 -> kWorkerDestination
+  26, // 21 -> kXsltDestination
   6, // 22 -> kFencedframeDestination
-  23, // 23 -> kWebIdentityDestination
+  24, // 23 -> kWebIdentityDestination
   2, // 24 -> kDictionaryDestination
-  18, // 25 -> kSpeculationRulesDestination
+  19, // 25 -> kSpeculationRulesDestination
+  11, // 26 -> kJsonDestination
 };
 
 const std::string& ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_Name(
@@ -621,12 +625,12 @@ const std::string& ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Re
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries,
           ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries_by_number,
-          26, ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings);
+          27, ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries,
       ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries_by_number,
-      26, value);
+      27, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_strings[idx].get();
 }
@@ -634,7 +638,7 @@ bool ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destinat
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries, 26, name, &int_value);
+      ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination_entries, 27, name, &int_value);
   if (success) {
     *value = static_cast<ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination>(int_value);
   }
@@ -667,6 +671,7 @@ constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Des
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kWebIdentityDestination;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kDictionaryDestination;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kSpeculationRulesDestination;
+constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::kJsonDestination;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::Destination_MIN;
 constexpr ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request_Destination ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::Destination_MAX;
 constexpr int ServiceWorkerRegistrationData_RouterRules_RuleV1_Condition_Request::Destination_ARRAYSIZE;

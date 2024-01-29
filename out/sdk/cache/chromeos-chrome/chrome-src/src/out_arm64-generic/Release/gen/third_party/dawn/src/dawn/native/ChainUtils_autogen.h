@@ -134,6 +134,9 @@ template <>
 constexpr inline wgpu::SType STypeForImpl<AdapterPropertiesMemoryHeaps> =
     wgpu::SType::AdapterPropertiesMemoryHeaps;
 template <>
+constexpr inline wgpu::SType STypeForImpl<AdapterPropertiesD3D> =
+    wgpu::SType::AdapterPropertiesD3D;
+template <>
 constexpr inline wgpu::SType STypeForImpl<DawnComputePipelineFullSubgroups> =
     wgpu::SType::DawnComputePipelineFullSubgroups;
 template <>
@@ -263,6 +266,7 @@ struct UnpackedPtrTypeFor<AdapterProperties> {
         AdditionalExtensions<AdapterProperties>::List
         , DawnAdapterPropertiesPowerPreference*
         , AdapterPropertiesMemoryHeaps*
+        , AdapterPropertiesD3D*
     >::Type;
 };
 template <>
@@ -352,6 +356,24 @@ struct UnpackedPtrTypeFor<CopyTextureForBrowserOptions> {
 };
 template <>
 constexpr inline Extensibility ExtensibilityFor<CopyTextureForBrowserOptions> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<CreateComputePipelineAsyncCallbackInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CreateComputePipelineAsyncCallbackInfo>::List
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CreateComputePipelineAsyncCallbackInfo> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<CreateRenderPipelineAsyncCallbackInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<CreateRenderPipelineAsyncCallbackInfo>::List
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<CreateRenderPipelineAsyncCallbackInfo> = Extensibility::In;
 
 template <>
 struct UnpackedPtrTypeFor<InstanceFeatures> {
@@ -464,6 +486,15 @@ struct UnpackedPtrTypeFor<RequestAdapterOptions> {
 };
 template <>
 constexpr inline Extensibility ExtensibilityFor<RequestAdapterOptions> = Extensibility::In;
+
+template <>
+struct UnpackedPtrTypeFor<RequestDeviceCallbackInfo> {
+    using Type = UnpackedPtrChain<
+        AdditionalExtensions<RequestDeviceCallbackInfo>::List
+    >::Type;
+};
+template <>
+constexpr inline Extensibility ExtensibilityFor<RequestDeviceCallbackInfo> = Extensibility::In;
 
 template <>
 struct UnpackedPtrTypeFor<SamplerBindingLayout> {

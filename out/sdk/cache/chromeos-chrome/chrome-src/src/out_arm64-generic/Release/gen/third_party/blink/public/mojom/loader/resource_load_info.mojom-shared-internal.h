@@ -63,6 +63,7 @@ struct ResourceType_Data {
       case 17:
       case 19:
       case 20:
+      case 21:
         return true;
     }
     return false;

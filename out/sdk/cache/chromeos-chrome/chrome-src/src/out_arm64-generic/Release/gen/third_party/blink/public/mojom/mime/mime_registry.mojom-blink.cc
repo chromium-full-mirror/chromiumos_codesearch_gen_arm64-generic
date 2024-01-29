@@ -316,6 +316,8 @@ bool MimeRegistry_GetMimeTypeFromExtension_ForwardToCallback::Accept(
           internal::MimeRegistry_GetMimeTypeFromExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MimeRegistry.0
   bool success = true;
   WTF::String p_mime_type{};
   MimeRegistry_GetMimeTypeFromExtension_ResponseParamsDataView input_data_view(params, message);
@@ -395,6 +397,8 @@ bool MimeRegistry_GetMimeTypeFromExtension_HandleSyncResponse::Accept(
       reinterpret_cast<internal::MimeRegistry_GetMimeTypeFromExtension_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for MimeRegistry.0
   bool success = true;
   WTF::String p_mime_type{};
   MimeRegistry_GetMimeTypeFromExtension_ResponseParamsDataView input_data_view(params, message);
@@ -441,6 +445,8 @@ bool MimeRegistryStubDispatch::AcceptWithResponder(
               internal::MimeRegistry_GetMimeTypeFromExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MimeRegistry.0
       bool success = true;
       WTF::String p_extension{};
       MimeRegistry_GetMimeTypeFromExtension_ParamsDataView input_data_view(params, message);
@@ -459,8 +465,8 @@ bool MimeRegistryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMimeTypeFromExtension(
-std::move(p_extension), std::move(callback));
+      impl->GetMimeTypeFromExtension(        
+        std::move(p_extension), std::move(callback));
       return true;
     }
   }

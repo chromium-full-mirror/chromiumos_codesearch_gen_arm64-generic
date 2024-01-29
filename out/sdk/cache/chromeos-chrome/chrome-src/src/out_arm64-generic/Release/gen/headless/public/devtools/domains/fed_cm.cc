@@ -52,6 +52,9 @@ void ExperimentalDomain::SelectAccount(std::unique_ptr<SelectAccountParams> para
 void ExperimentalDomain::ClickDialogButton(std::unique_ptr<ClickDialogButtonParams> params, base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback) {
   dispatcher_->SendMessage("FedCm.clickDialogButton", params->Serialize(), base::BindOnce(&Domain::HandleClickDialogButtonResponse, std::move(callback)));
 }
+void ExperimentalDomain::OpenUrl(std::unique_ptr<OpenUrlParams> params, base::OnceCallback<void(std::unique_ptr<OpenUrlResult>)> callback) {
+  dispatcher_->SendMessage("FedCm.openUrl", params->Serialize(), base::BindOnce(&Domain::HandleOpenUrlResponse, std::move(callback)));
+}
 void ExperimentalDomain::DismissDialog(std::unique_ptr<DismissDialogParams> params, base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)> callback) {
   dispatcher_->SendMessage("FedCm.dismissDialog", params->Serialize(), base::BindOnce(&Domain::HandleDismissDialogResponse, std::move(callback)));
 }
@@ -116,6 +119,21 @@ void Domain::HandleClickDialogButtonResponse(base::OnceCallback<void(std::unique
   }
   ErrorReporter errors;
   std::unique_ptr<ClickDialogButtonResult> result = ClickDialogButtonResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleOpenUrlResponse(base::OnceCallback<void(std::unique_ptr<OpenUrlResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<OpenUrlResult> result = OpenUrlResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

@@ -550,6 +550,8 @@ bool DocumentScanner_DetectCornersFromNV12Image_ForwardToCallback::Accept(
           internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScanner.0
   bool success = true;
   DetectCornersResultPtr p_result{};
   DocumentScanner_DetectCornersFromNV12Image_ResponseParamsDataView input_data_view(params, message);
@@ -679,6 +681,8 @@ bool DocumentScanner_DetectCornersFromJPEGImage_ForwardToCallback::Accept(
           internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScanner.1
   bool success = true;
   DetectCornersResultPtr p_result{};
   DocumentScanner_DetectCornersFromJPEGImage_ResponseParamsDataView input_data_view(params, message);
@@ -808,6 +812,8 @@ bool DocumentScanner_DoPostProcessing_ForwardToCallback::Accept(
           internal::DocumentScanner_DoPostProcessing_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DocumentScanner.2
   bool success = true;
   DoPostProcessingResultPtr p_result{};
   DocumentScanner_DoPostProcessing_ResponseParamsDataView input_data_view(params, message);
@@ -914,6 +920,8 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
               internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScanner.0
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_nv12_image{};
       DocumentScanner_DetectCornersFromNV12Image_ParamsDataView input_data_view(params, message);
@@ -932,8 +940,8 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetectCornersFromNV12Image(
-std::move(p_nv12_image), std::move(callback));
+      impl->DetectCornersFromNV12Image(        
+        std::move(p_nv12_image), std::move(callback));
       return true;
     }
     case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
@@ -943,6 +951,8 @@ std::move(p_nv12_image), std::move(callback));
               internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScanner.1
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_jpeg_image{};
       DocumentScanner_DetectCornersFromJPEGImage_ParamsDataView input_data_view(params, message);
@@ -961,8 +971,8 @@ std::move(p_nv12_image), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetectCornersFromJPEGImage(
-std::move(p_jpeg_image), std::move(callback));
+      impl->DetectCornersFromJPEGImage(        
+        std::move(p_jpeg_image), std::move(callback));
       return true;
     }
     case internal::kDocumentScanner_DoPostProcessing_Name: {
@@ -972,6 +982,8 @@ std::move(p_jpeg_image), std::move(callback));
               internal::DocumentScanner_DoPostProcessing_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DocumentScanner.2
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_jpeg_image{};
       std::vector<::gfx::PointF> p_corners{};
@@ -996,10 +1008,10 @@ std::move(p_jpeg_image), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DoPostProcessing(
-std::move(p_jpeg_image), 
-std::move(p_corners), 
-std::move(p_rotation), std::move(callback));
+      impl->DoPostProcessing(        
+        std::move(p_jpeg_image), 
+        std::move(p_corners), 
+        std::move(p_rotation), std::move(callback));
       return true;
     }
   }

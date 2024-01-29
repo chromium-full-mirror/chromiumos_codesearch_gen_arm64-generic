@@ -17,7 +17,7 @@ namespace blink {
 
 
 constexpr const char* const V8RequestDestination::string_table_[] = {
-"", "audio", "audioworklet", "document", "embed", "font", "frame", "iframe", "image", "manifest", "object", "paintworklet", "report", "script", "sharedworker", "style", "track", "video", "worker", "xslt", "fencedframe", "dictionary", "speculationrules"
+"", "audio", "audioworklet", "document", "embed", "font", "frame", "iframe", "image", "json", "manifest", "object", "paintworklet", "report", "script", "sharedworker", "style", "track", "video", "worker", "xslt", "fencedframe", "dictionary", "speculationrules"
 };
 
 V8RequestDestination V8RequestDestination::Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state) {

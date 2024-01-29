@@ -118,6 +118,69 @@ class  CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data {
 };
 static_assert(sizeof(CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data) == 8,
               "Bad sizeof(CommerceInternalsHandler_ResetPriceTrackingEmailPref_Params_Data)");
+class  CommerceInternalsHandler_GetProductInfoForUrl_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
+
+ private:
+  friend class mojo::internal::MessageFragment<CommerceInternalsHandler_GetProductInfoForUrl_Params_Data>;
+
+  CommerceInternalsHandler_GetProductInfoForUrl_Params_Data();
+  ~CommerceInternalsHandler_GetProductInfoForUrl_Params_Data() = delete;
+};
+static_assert(sizeof(CommerceInternalsHandler_GetProductInfoForUrl_Params_Data) == 16,
+              "Bad sizeof(CommerceInternalsHandler_GetProductInfoForUrl_Params_Data)");
+class  CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::shopping_service::mojom::internal::ProductInfo_Data> info;
+
+ private:
+  friend class mojo::internal::MessageFragment<CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data>;
+
+  CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data();
+  ~CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data) == 16,
+              "Bad sizeof(CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data)");
+class  CommerceInternalsHandler_GetSubscriptionDetails_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CommerceInternalsHandler_GetSubscriptionDetails_Params_Data>;
+
+  CommerceInternalsHandler_GetSubscriptionDetails_Params_Data();
+  ~CommerceInternalsHandler_GetSubscriptionDetails_Params_Data() = delete;
+};
+static_assert(sizeof(CommerceInternalsHandler_GetSubscriptionDetails_Params_Data) == 8,
+              "Bad sizeof(CommerceInternalsHandler_GetSubscriptionDetails_Params_Data)");
+class  CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Subscription_Data>>> subscriptions;
+
+ private:
+  friend class mojo::internal::MessageFragment<CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data>;
+
+  CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data();
+  ~CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data) == 16,
+              "Bad sizeof(CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data)");
 class  CommerceInternalsPage_OnShoppingListEligibilityChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -262,6 +325,99 @@ class CommerceInternalsHandler_ResetPriceTrackingEmailPref_ParamsDataView {
 };
 
 
+class CommerceInternalsHandler_GetProductInfoForUrl_ParamsDataView {
+ public:
+  CommerceInternalsHandler_GetProductInfoForUrl_ParamsDataView() = default;
+
+  CommerceInternalsHandler_GetProductInfoForUrl_ParamsDataView(
+      internal::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrl(UserType* output) {
+    
+    auto* pointer = data_->url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CommerceInternalsHandler_GetProductInfoForUrl_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsDataView {
+ public:
+  CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsDataView() = default;
+
+  CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsDataView(
+      internal::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInfoDataView(
+      ::shopping_service::mojom::ProductInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) {
+    
+    auto* pointer = data_->info.Get();
+    return mojo::internal::Deserialize<::shopping_service::mojom::ProductInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CommerceInternalsHandler_GetProductInfoForUrl_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CommerceInternalsHandler_GetSubscriptionDetails_ParamsDataView {
+ public:
+  CommerceInternalsHandler_GetSubscriptionDetails_ParamsDataView() = default;
+
+  CommerceInternalsHandler_GetSubscriptionDetails_ParamsDataView(
+      internal::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CommerceInternalsHandler_GetSubscriptionDetails_Params_Data* data_ = nullptr;
+};
+
+
+class CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsDataView {
+ public:
+  CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsDataView() = default;
+
+  CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsDataView(
+      internal::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSubscriptionsDataView(
+      mojo::ArrayDataView<SubscriptionDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubscriptions(UserType* output) {
+    
+    auto* pointer = data_->subscriptions.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::commerce::mojom::SubscriptionDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CommerceInternalsHandler_GetSubscriptionDetails_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class CommerceInternalsPage_OnShoppingListEligibilityChanged_ParamsDataView {
  public:
   CommerceInternalsPage_OnShoppingListEligibilityChanged_ParamsDataView() = default;
@@ -294,6 +450,29 @@ inline void CommerceInternalsHandler_GetShoppingListEligibleDetails_ResponsePara
 }
 
 
+
+
+inline void CommerceInternalsHandler_GetProductInfoForUrl_ParamsDataView::GetUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+
+
+inline void CommerceInternalsHandler_GetProductInfoForUrl_ResponseParamsDataView::GetInfoDataView(
+    ::shopping_service::mojom::ProductInfoDataView* output) {
+  auto pointer = data_->info.Get();
+  *output = ::shopping_service::mojom::ProductInfoDataView(pointer, message_);
+}
+
+
+
+
+inline void CommerceInternalsHandler_GetSubscriptionDetails_ResponseParamsDataView::GetSubscriptionsDataView(
+    mojo::ArrayDataView<SubscriptionDataView>* output) {
+  auto pointer = data_->subscriptions.Get();
+  *output = mojo::ArrayDataView<SubscriptionDataView>(pointer, message_);
+}
 
 
 

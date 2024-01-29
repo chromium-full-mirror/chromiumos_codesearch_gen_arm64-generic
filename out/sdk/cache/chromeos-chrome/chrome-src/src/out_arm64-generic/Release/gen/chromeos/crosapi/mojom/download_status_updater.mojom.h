@@ -29,6 +29,7 @@
 #include "mojo/public/mojom/base/string16.mojom.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
+#include "ui/gfx/image/mojom/image.mojom.h"
 #include <string>
 #include <vector>
 
@@ -310,6 +311,157 @@ class  DownloadStatusUpdaterClientResponseValidator : public mojo::MessageReceiv
 
 
 
+class  DownloadProgress {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DownloadProgress, T>::value>;
+  using DataView = DownloadProgressDataView;
+  using Data_ = internal::DownloadProgress_Data;
+
+  template <typename... Args>
+  static DownloadProgressPtr New(Args&&... args) {
+    return DownloadProgressPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DownloadProgressPtr From(const U& u) {
+    return mojo::TypeConverter<DownloadProgressPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DownloadProgress>::Convert(*this);
+  }
+
+
+  DownloadProgress();
+
+  DownloadProgress(
+      bool loop,
+      int64_t received_bytes,
+      int64_t total_bytes,
+      bool visible);
+
+
+  ~DownloadProgress();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DownloadProgressPtr>
+  DownloadProgressPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DownloadProgress::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DownloadProgress::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DownloadProgress_UnserializedMessageContext<
+            UserType, DownloadProgress::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DownloadProgress::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DownloadProgress::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DownloadProgress_UnserializedMessageContext<
+            UserType, DownloadProgress::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DownloadProgress::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool loop;
+  
+  int64_t received_bytes;
+  
+  int64_t total_bytes;
+  
+  bool visible;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DownloadProgress::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 
 
@@ -346,8 +498,8 @@ class  DownloadStatus {
   DownloadStatus(
       const std::string& guid,
       ::crosapi::mojom::DownloadState state,
-      std::optional<int64_t> received_bytes,
-      std::optional<int64_t> total_bytes,
+      std::optional<int64_t> received_bytes_deprecated,
+      std::optional<int64_t> total_bytes_deprecated,
       const std::optional<::base::FilePath>& target_file_path,
       std::optional<bool> cancellable,
       std::optional<bool> pausable,
@@ -356,8 +508,8 @@ class  DownloadStatus {
   DownloadStatus(
       const std::string& guid,
       ::crosapi::mojom::DownloadState state,
-      std::optional<int64_t> received_bytes,
-      std::optional<int64_t> total_bytes,
+      std::optional<int64_t> received_bytes_deprecated,
+      std::optional<int64_t> total_bytes_deprecated,
       const std::optional<::base::FilePath>& target_file_path,
       const std::optional<::base::FilePath>& full_path,
       std::optional<bool> cancellable,
@@ -367,8 +519,8 @@ class  DownloadStatus {
   DownloadStatus(
       const std::string& guid,
       ::crosapi::mojom::DownloadState state,
-      std::optional<int64_t> received_bytes,
-      std::optional<int64_t> total_bytes,
+      std::optional<int64_t> received_bytes_deprecated,
+      std::optional<int64_t> total_bytes_deprecated,
       const std::optional<::base::FilePath>& target_file_path,
       const std::optional<::base::FilePath>& full_path,
       std::optional<bool> cancellable,
@@ -376,6 +528,35 @@ class  DownloadStatus {
       std::optional<bool> resumable,
       const std::optional<::std::u16string>& status_text);
 
+  DownloadStatus(
+      const std::string& guid,
+      ::crosapi::mojom::DownloadState state,
+      std::optional<int64_t> received_bytes_deprecated,
+      std::optional<int64_t> total_bytes_deprecated,
+      const std::optional<::base::FilePath>& target_file_path,
+      const std::optional<::base::FilePath>& full_path,
+      std::optional<bool> cancellable,
+      std::optional<bool> pausable,
+      std::optional<bool> resumable,
+      const std::optional<::std::u16string>& status_text,
+      const ::gfx::ImageSkia& image);
+
+  DownloadStatus(
+      const std::string& guid,
+      ::crosapi::mojom::DownloadState state,
+      std::optional<int64_t> received_bytes_deprecated,
+      std::optional<int64_t> total_bytes_deprecated,
+      const std::optional<::base::FilePath>& target_file_path,
+      const std::optional<::base::FilePath>& full_path,
+      std::optional<bool> cancellable,
+      std::optional<bool> pausable,
+      std::optional<bool> resumable,
+      const std::optional<::std::u16string>& status_text,
+      const ::gfx::ImageSkia& image,
+      DownloadProgressPtr progress);
+
+DownloadStatus(const DownloadStatus&) = delete;
+DownloadStatus& operator=(const DownloadStatus&) = delete;
 
   ~DownloadStatus();
 
@@ -396,11 +577,6 @@ class  DownloadStatus {
 
   template <typename T, DownloadStatus::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DownloadStatus::DataView, std::vector<uint8_t>>(input);
-  }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -456,9 +632,9 @@ class  DownloadStatus {
   
   ::crosapi::mojom::DownloadState state;
   
-  std::optional<int64_t> received_bytes;
+  std::optional<int64_t> received_bytes_deprecated;
   
-  std::optional<int64_t> total_bytes;
+  std::optional<int64_t> total_bytes_deprecated;
   
   std::optional<::base::FilePath> target_file_path;
   
@@ -471,6 +647,10 @@ class  DownloadStatus {
   std::optional<bool> resumable;
   
   std::optional<::std::u16string> status_text;
+  
+  ::gfx::ImageSkia image;
+  
+  DownloadProgressPtr progress;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -502,18 +682,63 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
+DownloadProgressPtr DownloadProgress::Clone() const {
+  return New(
+      mojo::Clone(loop),
+      mojo::Clone(received_bytes),
+      mojo::Clone(total_bytes),
+      mojo::Clone(visible)
+  );
+}
+
+template <typename T, DownloadProgress::EnableIfSame<T>*>
+bool DownloadProgress::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->loop, other_struct.loop))
+    return false;
+  if (!mojo::Equals(this->received_bytes, other_struct.received_bytes))
+    return false;
+  if (!mojo::Equals(this->total_bytes, other_struct.total_bytes))
+    return false;
+  if (!mojo::Equals(this->visible, other_struct.visible))
+    return false;
+  return true;
+}
+
+template <typename T, DownloadProgress::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.loop < rhs.loop)
+    return true;
+  if (rhs.loop < lhs.loop)
+    return false;
+  if (lhs.received_bytes < rhs.received_bytes)
+    return true;
+  if (rhs.received_bytes < lhs.received_bytes)
+    return false;
+  if (lhs.total_bytes < rhs.total_bytes)
+    return true;
+  if (rhs.total_bytes < lhs.total_bytes)
+    return false;
+  if (lhs.visible < rhs.visible)
+    return true;
+  if (rhs.visible < lhs.visible)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 DownloadStatusPtr DownloadStatus::Clone() const {
   return New(
       mojo::Clone(guid),
       mojo::Clone(state),
-      mojo::Clone(received_bytes),
-      mojo::Clone(total_bytes),
+      mojo::Clone(received_bytes_deprecated),
+      mojo::Clone(total_bytes_deprecated),
       mojo::Clone(target_file_path),
       mojo::Clone(full_path),
       mojo::Clone(cancellable),
       mojo::Clone(pausable),
       mojo::Clone(resumable),
-      mojo::Clone(status_text)
+      mojo::Clone(status_text),
+      mojo::Clone(image),
+      mojo::Clone(progress)
   );
 }
 
@@ -523,9 +748,9 @@ bool DownloadStatus::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->state, other_struct.state))
     return false;
-  if (!mojo::Equals(this->received_bytes, other_struct.received_bytes))
+  if (!mojo::Equals(this->received_bytes_deprecated, other_struct.received_bytes_deprecated))
     return false;
-  if (!mojo::Equals(this->total_bytes, other_struct.total_bytes))
+  if (!mojo::Equals(this->total_bytes_deprecated, other_struct.total_bytes_deprecated))
     return false;
   if (!mojo::Equals(this->target_file_path, other_struct.target_file_path))
     return false;
@@ -538,6 +763,10 @@ bool DownloadStatus::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->resumable, other_struct.resumable))
     return false;
   if (!mojo::Equals(this->status_text, other_struct.status_text))
+    return false;
+  if (!mojo::Equals(this->image, other_struct.image))
+    return false;
+  if (!mojo::Equals(this->progress, other_struct.progress))
     return false;
   return true;
 }
@@ -552,13 +781,13 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.state < lhs.state)
     return false;
-  if (lhs.received_bytes < rhs.received_bytes)
+  if (lhs.received_bytes_deprecated < rhs.received_bytes_deprecated)
     return true;
-  if (rhs.received_bytes < lhs.received_bytes)
+  if (rhs.received_bytes_deprecated < lhs.received_bytes_deprecated)
     return false;
-  if (lhs.total_bytes < rhs.total_bytes)
+  if (lhs.total_bytes_deprecated < rhs.total_bytes_deprecated)
     return true;
-  if (rhs.total_bytes < lhs.total_bytes)
+  if (rhs.total_bytes_deprecated < lhs.total_bytes_deprecated)
     return false;
   if (lhs.target_file_path < rhs.target_file_path)
     return true;
@@ -584,6 +813,14 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.status_text < lhs.status_text)
     return false;
+  if (lhs.image < rhs.image)
+    return true;
+  if (rhs.image < lhs.image)
+    return false;
+  if (lhs.progress < rhs.progress)
+    return true;
+  if (rhs.progress < lhs.progress)
+    return false;
   return false;
 }
 
@@ -591,6 +828,36 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // crosapi::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::DownloadProgress::DataView,
+                                         ::crosapi::mojom::DownloadProgressPtr> {
+  static bool IsNull(const ::crosapi::mojom::DownloadProgressPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::DownloadProgressPtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::DownloadProgress::loop) loop(
+      const ::crosapi::mojom::DownloadProgressPtr& input) {
+    return input->loop;
+  }
+
+  static decltype(::crosapi::mojom::DownloadProgress::received_bytes) received_bytes(
+      const ::crosapi::mojom::DownloadProgressPtr& input) {
+    return input->received_bytes;
+  }
+
+  static decltype(::crosapi::mojom::DownloadProgress::total_bytes) total_bytes(
+      const ::crosapi::mojom::DownloadProgressPtr& input) {
+    return input->total_bytes;
+  }
+
+  static decltype(::crosapi::mojom::DownloadProgress::visible) visible(
+      const ::crosapi::mojom::DownloadProgressPtr& input) {
+    return input->visible;
+  }
+
+  static bool Read(::crosapi::mojom::DownloadProgress::DataView input, ::crosapi::mojom::DownloadProgressPtr* output);
+};
 
 
 template <>
@@ -609,14 +876,14 @@ struct  StructTraits<::crosapi::mojom::DownloadStatus::DataView,
     return input->state;
   }
 
-  static decltype(::crosapi::mojom::DownloadStatus::received_bytes) received_bytes(
+  static decltype(::crosapi::mojom::DownloadStatus::received_bytes_deprecated) received_bytes_deprecated(
       const ::crosapi::mojom::DownloadStatusPtr& input) {
-    return input->received_bytes;
+    return input->received_bytes_deprecated;
   }
 
-  static decltype(::crosapi::mojom::DownloadStatus::total_bytes) total_bytes(
+  static decltype(::crosapi::mojom::DownloadStatus::total_bytes_deprecated) total_bytes_deprecated(
       const ::crosapi::mojom::DownloadStatusPtr& input) {
-    return input->total_bytes;
+    return input->total_bytes_deprecated;
   }
 
   static const decltype(::crosapi::mojom::DownloadStatus::target_file_path)& target_file_path(
@@ -647,6 +914,16 @@ struct  StructTraits<::crosapi::mojom::DownloadStatus::DataView,
   static const decltype(::crosapi::mojom::DownloadStatus::status_text)& status_text(
       const ::crosapi::mojom::DownloadStatusPtr& input) {
     return input->status_text;
+  }
+
+  static  decltype(::crosapi::mojom::DownloadStatus::image)& image(
+       ::crosapi::mojom::DownloadStatusPtr& input) {
+    return input->image;
+  }
+
+  static const decltype(::crosapi::mojom::DownloadStatus::progress)& progress(
+      const ::crosapi::mojom::DownloadStatusPtr& input) {
+    return input->progress;
   }
 
   static bool Read(::crosapi::mojom::DownloadStatus::DataView input, ::crosapi::mojom::DownloadStatusPtr* output);

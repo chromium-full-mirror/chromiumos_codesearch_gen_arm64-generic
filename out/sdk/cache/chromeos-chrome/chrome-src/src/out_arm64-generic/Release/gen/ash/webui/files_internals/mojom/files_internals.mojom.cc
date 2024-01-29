@@ -1076,6 +1076,8 @@ bool PageHandler_GetSmbfsEnableVerboseLogging_ForwardToCallback::Accept(
           internal::PageHandler_GetSmbfsEnableVerboseLogging_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   bool p_enabled{};
   PageHandler_GetSmbfsEnableVerboseLogging_ResponseParamsDataView input_data_view(params, message);
@@ -1195,6 +1197,8 @@ bool PageHandler_GetOfficeFileHandlers_ForwardToCallback::Accept(
           internal::PageHandler_GetOfficeFileHandlers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   std::string p_handlers{};
   PageHandler_GetOfficeFileHandlers_ResponseParamsDataView input_data_view(params, message);
@@ -1324,6 +1328,8 @@ bool PageHandler_GetMoveConfirmationShownForDrive_ForwardToCallback::Accept(
           internal::PageHandler_GetMoveConfirmationShownForDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.4
   bool success = true;
   bool p_confirmation_shown{};
   PageHandler_GetMoveConfirmationShownForDrive_ResponseParamsDataView input_data_view(params, message);
@@ -1443,6 +1449,8 @@ bool PageHandler_GetMoveConfirmationShownForOneDrive_ForwardToCallback::Accept(
           internal::PageHandler_GetMoveConfirmationShownForOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.5
   bool success = true;
   bool p_confirmation_shown{};
   PageHandler_GetMoveConfirmationShownForOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -1562,6 +1570,8 @@ bool PageHandler_GetMoveConfirmationShownForLocalToDrive_ForwardToCallback::Acce
           internal::PageHandler_GetMoveConfirmationShownForLocalToDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.6
   bool success = true;
   bool p_confirmation_shown{};
   PageHandler_GetMoveConfirmationShownForLocalToDrive_ResponseParamsDataView input_data_view(params, message);
@@ -1681,6 +1691,8 @@ bool PageHandler_GetMoveConfirmationShownForLocalToOneDrive_ForwardToCallback::A
           internal::PageHandler_GetMoveConfirmationShownForLocalToOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.7
   bool success = true;
   bool p_confirmation_shown{};
   PageHandler_GetMoveConfirmationShownForLocalToOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -1800,6 +1812,8 @@ bool PageHandler_GetMoveConfirmationShownForCloudToDrive_ForwardToCallback::Acce
           internal::PageHandler_GetMoveConfirmationShownForCloudToDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.8
   bool success = true;
   bool p_confirmation_shown{};
   PageHandler_GetMoveConfirmationShownForCloudToDrive_ResponseParamsDataView input_data_view(params, message);
@@ -1919,6 +1933,8 @@ bool PageHandler_GetMoveConfirmationShownForCloudToOneDrive_ForwardToCallback::A
           internal::PageHandler_GetMoveConfirmationShownForCloudToOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.9
   bool success = true;
   bool p_confirmation_shown{};
   PageHandler_GetMoveConfirmationShownForCloudToOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2038,6 +2054,8 @@ bool PageHandler_GetAlwaysMoveOfficeFilesToDrive_ForwardToCallback::Accept(
           internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.10
   bool success = true;
   bool p_always_move{};
   PageHandler_GetAlwaysMoveOfficeFilesToDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2157,6 +2175,8 @@ bool PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ForwardToCallback::Accept(
           internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.12
   bool success = true;
   bool p_always_move{};
   PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ResponseParamsDataView input_data_view(params, message);
@@ -2234,6 +2254,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_SetSmbfsEnableVerboseLogging_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       bool p_enabled{};
       PageHandler_SetSmbfsEnableVerboseLogging_ParamsDataView input_data_view(params, message);
@@ -2249,8 +2271,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSmbfsEnableVerboseLogging(
-std::move(p_enabled));
+      impl->SetSmbfsEnableVerboseLogging(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kPageHandler_GetOfficeFileHandlers_Name: {
@@ -2263,6 +2285,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::PageHandler_ClearOfficeFileHandlers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       PageHandler_ClearOfficeFileHandlers_ParamsDataView input_data_view(params, message);
       
@@ -2275,7 +2299,7 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearOfficeFileHandlers();
+      impl->ClearOfficeFileHandlers(        );
       return true;
     }
     case internal::kPageHandler_GetMoveConfirmationShownForDrive_Name: {
@@ -2306,6 +2330,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::PageHandler_SetAlwaysMoveOfficeFilesToDrive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.11
       bool success = true;
       bool p_always_move{};
       PageHandler_SetAlwaysMoveOfficeFilesToDrive_ParamsDataView input_data_view(params, message);
@@ -2321,8 +2347,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlwaysMoveOfficeFilesToDrive(
-std::move(p_always_move));
+      impl->SetAlwaysMoveOfficeFilesToDrive(        
+        std::move(p_always_move));
       return true;
     }
     case internal::kPageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Name: {
@@ -2335,6 +2361,8 @@ std::move(p_always_move));
           reinterpret_cast<internal::PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.13
       bool success = true;
       bool p_always_move{};
       PageHandler_SetAlwaysMoveOfficeFilesToOneDrive_ParamsDataView input_data_view(params, message);
@@ -2350,8 +2378,8 @@ std::move(p_always_move));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAlwaysMoveOfficeFilesToOneDrive(
-std::move(p_always_move));
+      impl->SetAlwaysMoveOfficeFilesToOneDrive(        
+        std::move(p_always_move));
       return true;
     }
   }
@@ -2374,6 +2402,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetSmbfsEnableVerboseLogging_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetSmbfsEnableVerboseLogging_ParamsDataView input_data_view(params, message);
       
@@ -2402,6 +2432,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetOfficeFileHandlers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       PageHandler_GetOfficeFileHandlers_ParamsDataView input_data_view(params, message);
       
@@ -2430,6 +2462,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMoveConfirmationShownForDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       PageHandler_GetMoveConfirmationShownForDrive_ParamsDataView input_data_view(params, message);
       
@@ -2455,6 +2489,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMoveConfirmationShownForOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       PageHandler_GetMoveConfirmationShownForOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -2480,6 +2516,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMoveConfirmationShownForLocalToDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       PageHandler_GetMoveConfirmationShownForLocalToDrive_ParamsDataView input_data_view(params, message);
       
@@ -2505,6 +2543,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMoveConfirmationShownForLocalToOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       PageHandler_GetMoveConfirmationShownForLocalToOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -2530,6 +2570,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMoveConfirmationShownForCloudToDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       PageHandler_GetMoveConfirmationShownForCloudToDrive_ParamsDataView input_data_view(params, message);
       
@@ -2555,6 +2597,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetMoveConfirmationShownForCloudToOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.9
       bool success = true;
       PageHandler_GetMoveConfirmationShownForCloudToOneDrive_ParamsDataView input_data_view(params, message);
       
@@ -2580,6 +2624,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetAlwaysMoveOfficeFilesToDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.10
       bool success = true;
       PageHandler_GetAlwaysMoveOfficeFilesToDrive_ParamsDataView input_data_view(params, message);
       
@@ -2608,6 +2654,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.12
       bool success = true;
       PageHandler_GetAlwaysMoveOfficeFilesToOneDrive_ParamsDataView input_data_view(params, message);
       

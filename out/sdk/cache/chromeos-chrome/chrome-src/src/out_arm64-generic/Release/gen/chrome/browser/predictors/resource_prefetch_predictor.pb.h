@@ -1525,6 +1525,7 @@ class LcppStat final :
     kLcpScriptUrlStatFieldNumber = 2,
     kFetchedFontUrlStatFieldNumber = 3,
     kFetchedSubresourceUrlStatFieldNumber = 4,
+    kPreconnectOriginStatFieldNumber = 5,
   };
   // optional .predictors.LcpElementLocatorStat lcp_element_locator_stat = 1;
   bool has_lcp_element_locator_stat() const;
@@ -1598,6 +1599,24 @@ class LcppStat final :
       ::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat);
   ::predictors::LcppStringFrequencyStatData* unsafe_arena_release_fetched_subresource_url_stat();
 
+  // optional .predictors.LcppStringFrequencyStatData preconnect_origin_stat = 5;
+  bool has_preconnect_origin_stat() const;
+  private:
+  bool _internal_has_preconnect_origin_stat() const;
+  public:
+  void clear_preconnect_origin_stat();
+  const ::predictors::LcppStringFrequencyStatData& preconnect_origin_stat() const;
+  PROTOBUF_NODISCARD ::predictors::LcppStringFrequencyStatData* release_preconnect_origin_stat();
+  ::predictors::LcppStringFrequencyStatData* mutable_preconnect_origin_stat();
+  void set_allocated_preconnect_origin_stat(::predictors::LcppStringFrequencyStatData* preconnect_origin_stat);
+  private:
+  const ::predictors::LcppStringFrequencyStatData& _internal_preconnect_origin_stat() const;
+  ::predictors::LcppStringFrequencyStatData* _internal_mutable_preconnect_origin_stat();
+  public:
+  void unsafe_arena_set_allocated_preconnect_origin_stat(
+      ::predictors::LcppStringFrequencyStatData* preconnect_origin_stat);
+  ::predictors::LcppStringFrequencyStatData* unsafe_arena_release_preconnect_origin_stat();
+
   // @@protoc_insertion_point(class_scope:predictors.LcppStat)
  private:
   class _Internal;
@@ -1611,6 +1630,7 @@ class LcppStat final :
   ::predictors::LcppStringFrequencyStatData* lcp_script_url_stat_;
   ::predictors::LcppStringFrequencyStatData* fetched_font_url_stat_;
   ::predictors::LcppStringFrequencyStatData* fetched_subresource_url_stat_;
+  ::predictors::LcppStringFrequencyStatData* preconnect_origin_stat_;
   friend struct ::TableStruct_resource_5fprefetch_5fpredictor_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3168,6 +3188,96 @@ inline void LcppStat::set_allocated_fetched_subresource_url_stat(::predictors::L
   }
   fetched_subresource_url_stat_ = fetched_subresource_url_stat;
   // @@protoc_insertion_point(field_set_allocated:predictors.LcppStat.fetched_subresource_url_stat)
+}
+
+// optional .predictors.LcppStringFrequencyStatData preconnect_origin_stat = 5;
+inline bool LcppStat::_internal_has_preconnect_origin_stat() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || preconnect_origin_stat_ != nullptr);
+  return value;
+}
+inline bool LcppStat::has_preconnect_origin_stat() const {
+  return _internal_has_preconnect_origin_stat();
+}
+inline void LcppStat::clear_preconnect_origin_stat() {
+  if (preconnect_origin_stat_ != nullptr) preconnect_origin_stat_->Clear();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const ::predictors::LcppStringFrequencyStatData& LcppStat::_internal_preconnect_origin_stat() const {
+  const ::predictors::LcppStringFrequencyStatData* p = preconnect_origin_stat_;
+  return p != nullptr ? *p : reinterpret_cast<const ::predictors::LcppStringFrequencyStatData&>(
+      ::predictors::_LcppStringFrequencyStatData_default_instance_);
+}
+inline const ::predictors::LcppStringFrequencyStatData& LcppStat::preconnect_origin_stat() const {
+  // @@protoc_insertion_point(field_get:predictors.LcppStat.preconnect_origin_stat)
+  return _internal_preconnect_origin_stat();
+}
+inline void LcppStat::unsafe_arena_set_allocated_preconnect_origin_stat(
+    ::predictors::LcppStringFrequencyStatData* preconnect_origin_stat) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(preconnect_origin_stat_);
+  }
+  preconnect_origin_stat_ = preconnect_origin_stat;
+  if (preconnect_origin_stat) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:predictors.LcppStat.preconnect_origin_stat)
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::release_preconnect_origin_stat() {
+  _has_bits_[0] &= ~0x00000010u;
+  ::predictors::LcppStringFrequencyStatData* temp = preconnect_origin_stat_;
+  preconnect_origin_stat_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::unsafe_arena_release_preconnect_origin_stat() {
+  // @@protoc_insertion_point(field_release:predictors.LcppStat.preconnect_origin_stat)
+  _has_bits_[0] &= ~0x00000010u;
+  ::predictors::LcppStringFrequencyStatData* temp = preconnect_origin_stat_;
+  preconnect_origin_stat_ = nullptr;
+  return temp;
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::_internal_mutable_preconnect_origin_stat() {
+  _has_bits_[0] |= 0x00000010u;
+  if (preconnect_origin_stat_ == nullptr) {
+    auto* p = CreateMaybeMessage<::predictors::LcppStringFrequencyStatData>(GetArenaForAllocation());
+    preconnect_origin_stat_ = p;
+  }
+  return preconnect_origin_stat_;
+}
+inline ::predictors::LcppStringFrequencyStatData* LcppStat::mutable_preconnect_origin_stat() {
+  ::predictors::LcppStringFrequencyStatData* _msg = _internal_mutable_preconnect_origin_stat();
+  // @@protoc_insertion_point(field_mutable:predictors.LcppStat.preconnect_origin_stat)
+  return _msg;
+}
+inline void LcppStat::set_allocated_preconnect_origin_stat(::predictors::LcppStringFrequencyStatData* preconnect_origin_stat) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete preconnect_origin_stat_;
+  }
+  if (preconnect_origin_stat) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(preconnect_origin_stat);
+    if (message_arena != submessage_arena) {
+      preconnect_origin_stat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, preconnect_origin_stat, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  preconnect_origin_stat_ = preconnect_origin_stat;
+  // @@protoc_insertion_point(field_set_allocated:predictors.LcppStat.preconnect_origin_stat)
 }
 
 // -------------------------------------------------------------------

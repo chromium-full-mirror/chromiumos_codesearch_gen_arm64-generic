@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-rust", "name": "featured", "version": "0.1.0", "revision": 83, "fullname": "dev-rust/featured", "fullnamerev": "dev-rust/featured-0.1.0-r83", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/featured/"], "skip": false, "tainted": false, "ebuild_path": null}

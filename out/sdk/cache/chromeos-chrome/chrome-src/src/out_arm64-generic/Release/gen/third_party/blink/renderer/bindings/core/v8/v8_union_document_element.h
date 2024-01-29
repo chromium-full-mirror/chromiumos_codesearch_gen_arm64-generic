@@ -73,7 +73,7 @@ content_type_ = ContentType::kElement;
 }
 
 
-v8::MaybeLocal<v8::Value> ToV8Value(ScriptState* script_state) const override;
+v8::Local<v8::Value> ToV8(ScriptState* script_state) const override;
 
 void Trace(Visitor* visitor) const override;
 

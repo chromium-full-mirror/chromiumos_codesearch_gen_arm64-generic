@@ -1,0 +1,10 @@
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/cellular_setup.mojom-blink.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-blink-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-blink-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-blink-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-blink.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-blink.h

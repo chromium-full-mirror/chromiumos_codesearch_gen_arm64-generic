@@ -298,6 +298,8 @@ bool SocketBroker_CreateTcpSocket_ForwardToCallback::Accept(
           internal::SocketBroker_CreateTcpSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SocketBroker.0
   bool success = true;
   ::network::TransferableSocket p_created_socket{};
   int32_t p_rv{};
@@ -435,6 +437,8 @@ bool SocketBroker_CreateUdpSocket_ForwardToCallback::Accept(
           internal::SocketBroker_CreateUdpSocket_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SocketBroker.1
   bool success = true;
   ::network::TransferableSocket p_created_socket{};
   int32_t p_rv{};
@@ -546,6 +550,8 @@ bool SocketBrokerStubDispatch::AcceptWithResponder(
               internal::SocketBroker_CreateTcpSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SocketBroker.0
       bool success = true;
       ::net::AddressFamily p_address_family{};
       SocketBroker_CreateTcpSocket_ParamsDataView input_data_view(params, message);
@@ -564,8 +570,8 @@ bool SocketBrokerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateTcpSocket(
-std::move(p_address_family), std::move(callback));
+      impl->CreateTcpSocket(        
+        std::move(p_address_family), std::move(callback));
       return true;
     }
     case internal::kSocketBroker_CreateUdpSocket_Name: {
@@ -575,6 +581,8 @@ std::move(p_address_family), std::move(callback));
               internal::SocketBroker_CreateUdpSocket_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SocketBroker.1
       bool success = true;
       ::net::AddressFamily p_address_family{};
       SocketBroker_CreateUdpSocket_ParamsDataView input_data_view(params, message);
@@ -593,8 +601,8 @@ std::move(p_address_family), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateUdpSocket(
-std::move(p_address_family), std::move(callback));
+      impl->CreateUdpSocket(        
+        std::move(p_address_family), std::move(callback));
       return true;
     }
   }

@@ -753,175 +753,176 @@ struct CSSPropStringPool_t
     char CSSPropStringPool_str515[sizeof("text-spacing-trim")];
     char CSSPropStringPool_str516[sizeof("-internal-visited-stroke")];
     char CSSPropStringPool_str517[sizeof("view-timeline-name")];
-    char CSSPropStringPool_str518[sizeof("perspective-origin")];
-    char CSSPropStringPool_str519[sizeof("max-width")];
-    char CSSPropStringPool_str520[sizeof("-internal-visited-column-rule-color")];
-    char CSSPropStringPool_str521[sizeof("-webkit-flex")];
-    char CSSPropStringPool_str522[sizeof("flex-flow")];
-    char CSSPropStringPool_str523[sizeof("-webkit-shape-margin")];
-    char CSSPropStringPool_str524[sizeof("stroke-dasharray")];
-    char CSSPropStringPool_str525[sizeof("border-left-width")];
-    char CSSPropStringPool_str526[sizeof("overflow")];
-    char CSSPropStringPool_str527[sizeof("-webkit-app-region")];
-    char CSSPropStringPool_str528[sizeof("-webkit-padding-before")];
-    char CSSPropStringPool_str529[sizeof("border-right-style")];
-    char CSSPropStringPool_str530[sizeof("view-transition-name")];
-    char CSSPropStringPool_str531[sizeof("overflow-inline")];
-    char CSSPropStringPool_str532[sizeof("-internal-visited-border-top-color")];
-    char CSSPropStringPool_str533[sizeof("dynamic-range-limit")];
-    char CSSPropStringPool_str534[sizeof("contain-intrinsic-size")];
-    char CSSPropStringPool_str535[sizeof("visibility")];
-    char CSSPropStringPool_str536[sizeof("font-synthesis-small-caps")];
-    char CSSPropStringPool_str537[sizeof("math-shift")];
-    char CSSPropStringPool_str538[sizeof("-webkit-flex-direction")];
-    char CSSPropStringPool_str539[sizeof("scroll-margin-right")];
-    char CSSPropStringPool_str540[sizeof("vector-effect")];
-    char CSSPropStringPool_str541[sizeof("-epub-text-emphasis")];
-    char CSSPropStringPool_str542[sizeof("-internal-visited-border-inline-start-color")];
-    char CSSPropStringPool_str543[sizeof("contain-intrinsic-inline-size")];
-    char CSSPropStringPool_str544[sizeof("-webkit-print-color-adjust")];
-    char CSSPropStringPool_str545[sizeof("-webkit-perspective")];
-    char CSSPropStringPool_str546[sizeof("-webkit-transform-style")];
-    char CSSPropStringPool_str547[sizeof("-webkit-text-fill-color")];
-    char CSSPropStringPool_str548[sizeof("-webkit-transition-duration")];
-    char CSSPropStringPool_str549[sizeof("-internal-visited-border-inline-end-color")];
-    char CSSPropStringPool_str550[sizeof("-epub-text-emphasis-color")];
-    char CSSPropStringPool_str551[sizeof("size-adjust")];
-    char CSSPropStringPool_str552[sizeof("-webkit-user-modify")];
-    char CSSPropStringPool_str553[sizeof("box-shadow")];
-    char CSSPropStringPool_str554[sizeof("text-decoration-thickness")];
-    char CSSPropStringPool_str555[sizeof("flex-shrink")];
-    char CSSPropStringPool_str556[sizeof("-webkit-font-feature-settings")];
-    char CSSPropStringPool_str557[sizeof("max-block-size")];
-    char CSSPropStringPool_str558[sizeof("-internal-overflow-inline")];
-    char CSSPropStringPool_str559[sizeof("-webkit-transform-origin-y")];
-    char CSSPropStringPool_str560[sizeof("-webkit-border-horizontal-spacing")];
-    char CSSPropStringPool_str561[sizeof("-webkit-border-top-right-radius")];
-    char CSSPropStringPool_str562[sizeof("border-block-start-width")];
-    char CSSPropStringPool_str563[sizeof("-internal-visited-fill")];
-    char CSSPropStringPool_str564[sizeof("-webkit-perspective-origin")];
-    char CSSPropStringPool_str565[sizeof("scroll-behavior")];
-    char CSSPropStringPool_str566[sizeof("-webkit-transform-origin-x")];
-    char CSSPropStringPool_str567[sizeof("hyphens")];
-    char CSSPropStringPool_str568[sizeof("-webkit-border-bottom-right-radius")];
-    char CSSPropStringPool_str569[sizeof("-webkit-mask-box-image")];
-    char CSSPropStringPool_str570[sizeof("-webkit-font-smoothing")];
-    char CSSPropStringPool_str571[sizeof("-webkit-box-orient")];
-    char CSSPropStringPool_str572[sizeof("-webkit-mask-box-image-slice")];
-    char CSSPropStringPool_str573[sizeof("-webkit-mask-clip")];
-    char CSSPropStringPool_str574[sizeof("-webkit-flex-basis")];
-    char CSSPropStringPool_str575[sizeof("-webkit-mask-box-image-repeat")];
-    char CSSPropStringPool_str576[sizeof("additive-symbols")];
-    char CSSPropStringPool_str577[sizeof("border-right-width")];
-    char CSSPropStringPool_str578[sizeof("-webkit-border-before-style")];
-    char CSSPropStringPool_str579[sizeof("-webkit-box-direction")];
-    char CSSPropStringPool_str580[sizeof("-webkit-column-rule-width")];
-    char CSSPropStringPool_str581[sizeof("justify-content")];
-    char CSSPropStringPool_str582[sizeof("-webkit-mask-origin")];
-    char CSSPropStringPool_str583[sizeof("-webkit-mask-box-image-source")];
-    char CSSPropStringPool_str584[sizeof("-webkit-mask-box-image-outset")];
-    char CSSPropStringPool_str585[sizeof("-webkit-box-reflect")];
-    char CSSPropStringPool_str586[sizeof("-webkit-border-end-style")];
-    char CSSPropStringPool_str587[sizeof("-webkit-box-decoration-break")];
-    char CSSPropStringPool_str588[sizeof("text-emphasis-style")];
-    char CSSPropStringPool_str589[sizeof("-webkit-border-image")];
-    char CSSPropStringPool_str590[sizeof("-internal-visited-border-bottom-color")];
-    char CSSPropStringPool_str591[sizeof("contain-intrinsic-width")];
-    char CSSPropStringPool_str592[sizeof("view-timeline-axis")];
-    char CSSPropStringPool_str593[sizeof("-webkit-text-security")];
-    char CSSPropStringPool_str594[sizeof("-webkit-border-start-width")];
-    char CSSPropStringPool_str595[sizeof("justify-items")];
-    char CSSPropStringPool_str596[sizeof("max-height")];
-    char CSSPropStringPool_str597[sizeof("-internal-visited-background-color")];
-    char CSSPropStringPool_str598[sizeof("-epub-text-combine")];
-    char CSSPropStringPool_str599[sizeof("overflow-clip-margin")];
-    char CSSPropStringPool_str600[sizeof("-webkit-transform-origin-z")];
-    char CSSPropStringPool_str601[sizeof("overflow-wrap")];
-    char CSSPropStringPool_str602[sizeof("stroke-dashoffset")];
-    char CSSPropStringPool_str603[sizeof("buffered-rendering")];
-    char CSSPropStringPool_str604[sizeof("-webkit-flex-grow")];
-    char CSSPropStringPool_str605[sizeof("-webkit-text-emphasis")];
-    char CSSPropStringPool_str606[sizeof("-webkit-logical-width")];
-    char CSSPropStringPool_str607[sizeof("overflow-block")];
-    char CSSPropStringPool_str608[sizeof("-webkit-text-emphasis-color")];
-    char CSSPropStringPool_str609[sizeof("-webkit-text-emphasis-position")];
-    char CSSPropStringPool_str610[sizeof("-internal-visited-border-left-color")];
-    char CSSPropStringPool_str611[sizeof("-webkit-border-after-style")];
-    char CSSPropStringPool_str612[sizeof("-webkit-column-width")];
-    char CSSPropStringPool_str613[sizeof("-internal-visited-border-block-start-color")];
-    char CSSPropStringPool_str614[sizeof("contain-intrinsic-block-size")];
-    char CSSPropStringPool_str615[sizeof("font-variant-ligatures")];
-    char CSSPropStringPool_str616[sizeof("-webkit-tap-highlight-color")];
-    char CSSPropStringPool_str617[sizeof("-internal-visited-border-block-end-color")];
-    char CSSPropStringPool_str618[sizeof("-webkit-box-align")];
-    char CSSPropStringPool_str619[sizeof("-internal-visited-text-decoration-color")];
-    char CSSPropStringPool_str620[sizeof("border-inline-width")];
-    char CSSPropStringPool_str621[sizeof("-internal-overflow-block")];
-    char CSSPropStringPool_str622[sizeof("-webkit-background-clip")];
-    char CSSPropStringPool_str623[sizeof("overscroll-behavior")];
-    char CSSPropStringPool_str624[sizeof("-webkit-flex-wrap")];
-    char CSSPropStringPool_str625[sizeof("font-synthesis-style")];
-    char CSSPropStringPool_str626[sizeof("overscroll-behavior-inline")];
-    char CSSPropStringPool_str627[sizeof("-webkit-text-decorations-in-effect")];
-    char CSSPropStringPool_str628[sizeof("border-bottom-right-radius")];
-    char CSSPropStringPool_str629[sizeof("-webkit-background-origin")];
-    char CSSPropStringPool_str630[sizeof("font-size-adjust")];
-    char CSSPropStringPool_str631[sizeof("-webkit-transition-timing-function")];
-    char CSSPropStringPool_str632[sizeof("-webkit-transition-property")];
-    char CSSPropStringPool_str633[sizeof("-webkit-text-orientation")];
-    char CSSPropStringPool_str634[sizeof("overflow-y")];
-    char CSSPropStringPool_str635[sizeof("-webkit-transition-delay")];
-    char CSSPropStringPool_str636[sizeof("-internal-visited-text-stroke-color")];
-    char CSSPropStringPool_str637[sizeof("overflow-x")];
-    char CSSPropStringPool_str638[sizeof("text-overflow")];
-    char CSSPropStringPool_str639[sizeof("-internal-empty-line-height")];
-    char CSSPropStringPool_str640[sizeof("justify-self")];
-    char CSSPropStringPool_str641[sizeof("contain-intrinsic-height")];
-    char CSSPropStringPool_str642[sizeof("-webkit-text-size-adjust")];
-    char CSSPropStringPool_str643[sizeof("-epub-text-emphasis-style")];
-    char CSSPropStringPool_str644[sizeof("-webkit-border-before-width")];
-    char CSSPropStringPool_str645[sizeof("overflow-anchor")];
-    char CSSPropStringPool_str646[sizeof("popover-hide-delay")];
-    char CSSPropStringPool_str647[sizeof("-webkit-border-end-width")];
-    char CSSPropStringPool_str648[sizeof("-webkit-logical-height")];
-    char CSSPropStringPool_str649[sizeof("-webkit-flex-flow")];
-    char CSSPropStringPool_str650[sizeof("-webkit-perspective-origin-y")];
-    char CSSPropStringPool_str651[sizeof("-internal-visited-border-right-color")];
-    char CSSPropStringPool_str652[sizeof("-webkit-shape-outside")];
-    char CSSPropStringPool_str653[sizeof("border-bottom-width")];
-    char CSSPropStringPool_str654[sizeof("-webkit-perspective-origin-x")];
-    char CSSPropStringPool_str655[sizeof("-webkit-box-flex")];
-    char CSSPropStringPool_str656[sizeof("text-size-adjust")];
-    char CSSPropStringPool_str657[sizeof("-internal-visited-text-fill-color")];
-    char CSSPropStringPool_str658[sizeof("-webkit-box-shadow")];
-    char CSSPropStringPool_str659[sizeof("shape-image-threshold")];
-    char CSSPropStringPool_str660[sizeof("-webkit-flex-shrink")];
-    char CSSPropStringPool_str661[sizeof("-webkit-text-stroke-width")];
-    char CSSPropStringPool_str662[sizeof("-webkit-border-after-width")];
-    char CSSPropStringPool_str663[sizeof("overscroll-behavior-block")];
-    char CSSPropStringPool_str664[sizeof("-webkit-box-ordinal-group")];
-    char CSSPropStringPool_str665[sizeof("hyphenate-character")];
-    char CSSPropStringPool_str666[sizeof("backface-visibility")];
-    char CSSPropStringPool_str667[sizeof("-webkit-text-emphasis-style")];
-    char CSSPropStringPool_str668[sizeof("popover-show-delay")];
-    char CSSPropStringPool_str669[sizeof("content-visibility")];
-    char CSSPropStringPool_str670[sizeof("overscroll-behavior-y")];
-    char CSSPropStringPool_str671[sizeof("-webkit-min-logical-width")];
-    char CSSPropStringPool_str672[sizeof("overscroll-behavior-x")];
-    char CSSPropStringPool_str673[sizeof("-webkit-shape-image-threshold")];
-    char CSSPropStringPool_str674[sizeof("-internal-visited-text-emphasis-color")];
-    char CSSPropStringPool_str675[sizeof("-webkit-mask-box-image-width")];
-    char CSSPropStringPool_str676[sizeof("hyphenate-limit-chars")];
-    char CSSPropStringPool_str677[sizeof("font-synthesis-weight")];
-    char CSSPropStringPool_str678[sizeof("-webkit-justify-content")];
-    char CSSPropStringPool_str679[sizeof("-webkit-background-size")];
-    char CSSPropStringPool_str680[sizeof("-webkit-min-logical-height")];
-    char CSSPropStringPool_str681[sizeof("object-view-box")];
-    char CSSPropStringPool_str682[sizeof("-webkit-box-sizing")];
-    char CSSPropStringPool_str683[sizeof("-webkit-hyphenate-character")];
-    char CSSPropStringPool_str684[sizeof("-webkit-max-logical-width")];
-    char CSSPropStringPool_str685[sizeof("-webkit-backface-visibility")];
-    char CSSPropStringPool_str686[sizeof("-webkit-max-logical-height")];
+    char CSSPropStringPool_str518[sizeof("view-transition-class")];
+    char CSSPropStringPool_str519[sizeof("perspective-origin")];
+    char CSSPropStringPool_str520[sizeof("max-width")];
+    char CSSPropStringPool_str521[sizeof("-internal-visited-column-rule-color")];
+    char CSSPropStringPool_str522[sizeof("-webkit-flex")];
+    char CSSPropStringPool_str523[sizeof("flex-flow")];
+    char CSSPropStringPool_str524[sizeof("-webkit-shape-margin")];
+    char CSSPropStringPool_str525[sizeof("stroke-dasharray")];
+    char CSSPropStringPool_str526[sizeof("border-left-width")];
+    char CSSPropStringPool_str527[sizeof("overflow")];
+    char CSSPropStringPool_str528[sizeof("-webkit-app-region")];
+    char CSSPropStringPool_str529[sizeof("-webkit-padding-before")];
+    char CSSPropStringPool_str530[sizeof("border-right-style")];
+    char CSSPropStringPool_str531[sizeof("view-transition-name")];
+    char CSSPropStringPool_str532[sizeof("overflow-inline")];
+    char CSSPropStringPool_str533[sizeof("-internal-visited-border-top-color")];
+    char CSSPropStringPool_str534[sizeof("dynamic-range-limit")];
+    char CSSPropStringPool_str535[sizeof("contain-intrinsic-size")];
+    char CSSPropStringPool_str536[sizeof("visibility")];
+    char CSSPropStringPool_str537[sizeof("font-synthesis-small-caps")];
+    char CSSPropStringPool_str538[sizeof("math-shift")];
+    char CSSPropStringPool_str539[sizeof("-webkit-flex-direction")];
+    char CSSPropStringPool_str540[sizeof("scroll-margin-right")];
+    char CSSPropStringPool_str541[sizeof("vector-effect")];
+    char CSSPropStringPool_str542[sizeof("-epub-text-emphasis")];
+    char CSSPropStringPool_str543[sizeof("-internal-visited-border-inline-start-color")];
+    char CSSPropStringPool_str544[sizeof("contain-intrinsic-inline-size")];
+    char CSSPropStringPool_str545[sizeof("-webkit-print-color-adjust")];
+    char CSSPropStringPool_str546[sizeof("-webkit-perspective")];
+    char CSSPropStringPool_str547[sizeof("-webkit-transform-style")];
+    char CSSPropStringPool_str548[sizeof("-webkit-text-fill-color")];
+    char CSSPropStringPool_str549[sizeof("-webkit-transition-duration")];
+    char CSSPropStringPool_str550[sizeof("-internal-visited-border-inline-end-color")];
+    char CSSPropStringPool_str551[sizeof("-epub-text-emphasis-color")];
+    char CSSPropStringPool_str552[sizeof("size-adjust")];
+    char CSSPropStringPool_str553[sizeof("-webkit-user-modify")];
+    char CSSPropStringPool_str554[sizeof("box-shadow")];
+    char CSSPropStringPool_str555[sizeof("text-decoration-thickness")];
+    char CSSPropStringPool_str556[sizeof("flex-shrink")];
+    char CSSPropStringPool_str557[sizeof("-webkit-font-feature-settings")];
+    char CSSPropStringPool_str558[sizeof("max-block-size")];
+    char CSSPropStringPool_str559[sizeof("-internal-overflow-inline")];
+    char CSSPropStringPool_str560[sizeof("-webkit-transform-origin-y")];
+    char CSSPropStringPool_str561[sizeof("-webkit-border-horizontal-spacing")];
+    char CSSPropStringPool_str562[sizeof("-webkit-border-top-right-radius")];
+    char CSSPropStringPool_str563[sizeof("border-block-start-width")];
+    char CSSPropStringPool_str564[sizeof("-internal-visited-fill")];
+    char CSSPropStringPool_str565[sizeof("-webkit-perspective-origin")];
+    char CSSPropStringPool_str566[sizeof("scroll-behavior")];
+    char CSSPropStringPool_str567[sizeof("-webkit-transform-origin-x")];
+    char CSSPropStringPool_str568[sizeof("hyphens")];
+    char CSSPropStringPool_str569[sizeof("-webkit-border-bottom-right-radius")];
+    char CSSPropStringPool_str570[sizeof("-webkit-mask-box-image")];
+    char CSSPropStringPool_str571[sizeof("-webkit-font-smoothing")];
+    char CSSPropStringPool_str572[sizeof("-webkit-box-orient")];
+    char CSSPropStringPool_str573[sizeof("-webkit-mask-box-image-slice")];
+    char CSSPropStringPool_str574[sizeof("-webkit-mask-clip")];
+    char CSSPropStringPool_str575[sizeof("-webkit-flex-basis")];
+    char CSSPropStringPool_str576[sizeof("-webkit-mask-box-image-repeat")];
+    char CSSPropStringPool_str577[sizeof("additive-symbols")];
+    char CSSPropStringPool_str578[sizeof("border-right-width")];
+    char CSSPropStringPool_str579[sizeof("-webkit-border-before-style")];
+    char CSSPropStringPool_str580[sizeof("-webkit-box-direction")];
+    char CSSPropStringPool_str581[sizeof("-webkit-column-rule-width")];
+    char CSSPropStringPool_str582[sizeof("justify-content")];
+    char CSSPropStringPool_str583[sizeof("-webkit-mask-origin")];
+    char CSSPropStringPool_str584[sizeof("-webkit-mask-box-image-source")];
+    char CSSPropStringPool_str585[sizeof("-webkit-mask-box-image-outset")];
+    char CSSPropStringPool_str586[sizeof("-webkit-box-reflect")];
+    char CSSPropStringPool_str587[sizeof("-webkit-border-end-style")];
+    char CSSPropStringPool_str588[sizeof("-webkit-box-decoration-break")];
+    char CSSPropStringPool_str589[sizeof("text-emphasis-style")];
+    char CSSPropStringPool_str590[sizeof("-webkit-border-image")];
+    char CSSPropStringPool_str591[sizeof("-internal-visited-border-bottom-color")];
+    char CSSPropStringPool_str592[sizeof("contain-intrinsic-width")];
+    char CSSPropStringPool_str593[sizeof("view-timeline-axis")];
+    char CSSPropStringPool_str594[sizeof("-webkit-text-security")];
+    char CSSPropStringPool_str595[sizeof("-webkit-border-start-width")];
+    char CSSPropStringPool_str596[sizeof("justify-items")];
+    char CSSPropStringPool_str597[sizeof("max-height")];
+    char CSSPropStringPool_str598[sizeof("-internal-visited-background-color")];
+    char CSSPropStringPool_str599[sizeof("-epub-text-combine")];
+    char CSSPropStringPool_str600[sizeof("overflow-clip-margin")];
+    char CSSPropStringPool_str601[sizeof("-webkit-transform-origin-z")];
+    char CSSPropStringPool_str602[sizeof("overflow-wrap")];
+    char CSSPropStringPool_str603[sizeof("stroke-dashoffset")];
+    char CSSPropStringPool_str604[sizeof("buffered-rendering")];
+    char CSSPropStringPool_str605[sizeof("-webkit-flex-grow")];
+    char CSSPropStringPool_str606[sizeof("-webkit-text-emphasis")];
+    char CSSPropStringPool_str607[sizeof("-webkit-logical-width")];
+    char CSSPropStringPool_str608[sizeof("overflow-block")];
+    char CSSPropStringPool_str609[sizeof("-webkit-text-emphasis-color")];
+    char CSSPropStringPool_str610[sizeof("-webkit-text-emphasis-position")];
+    char CSSPropStringPool_str611[sizeof("-internal-visited-border-left-color")];
+    char CSSPropStringPool_str612[sizeof("-webkit-border-after-style")];
+    char CSSPropStringPool_str613[sizeof("-webkit-column-width")];
+    char CSSPropStringPool_str614[sizeof("-internal-visited-border-block-start-color")];
+    char CSSPropStringPool_str615[sizeof("contain-intrinsic-block-size")];
+    char CSSPropStringPool_str616[sizeof("font-variant-ligatures")];
+    char CSSPropStringPool_str617[sizeof("-webkit-tap-highlight-color")];
+    char CSSPropStringPool_str618[sizeof("-internal-visited-border-block-end-color")];
+    char CSSPropStringPool_str619[sizeof("-webkit-box-align")];
+    char CSSPropStringPool_str620[sizeof("-internal-visited-text-decoration-color")];
+    char CSSPropStringPool_str621[sizeof("border-inline-width")];
+    char CSSPropStringPool_str622[sizeof("-internal-overflow-block")];
+    char CSSPropStringPool_str623[sizeof("-webkit-background-clip")];
+    char CSSPropStringPool_str624[sizeof("overscroll-behavior")];
+    char CSSPropStringPool_str625[sizeof("-webkit-flex-wrap")];
+    char CSSPropStringPool_str626[sizeof("font-synthesis-style")];
+    char CSSPropStringPool_str627[sizeof("overscroll-behavior-inline")];
+    char CSSPropStringPool_str628[sizeof("-webkit-text-decorations-in-effect")];
+    char CSSPropStringPool_str629[sizeof("border-bottom-right-radius")];
+    char CSSPropStringPool_str630[sizeof("-webkit-background-origin")];
+    char CSSPropStringPool_str631[sizeof("font-size-adjust")];
+    char CSSPropStringPool_str632[sizeof("-webkit-transition-timing-function")];
+    char CSSPropStringPool_str633[sizeof("-webkit-transition-property")];
+    char CSSPropStringPool_str634[sizeof("-webkit-text-orientation")];
+    char CSSPropStringPool_str635[sizeof("overflow-y")];
+    char CSSPropStringPool_str636[sizeof("-webkit-transition-delay")];
+    char CSSPropStringPool_str637[sizeof("-internal-visited-text-stroke-color")];
+    char CSSPropStringPool_str638[sizeof("overflow-x")];
+    char CSSPropStringPool_str639[sizeof("text-overflow")];
+    char CSSPropStringPool_str640[sizeof("-internal-empty-line-height")];
+    char CSSPropStringPool_str641[sizeof("justify-self")];
+    char CSSPropStringPool_str642[sizeof("contain-intrinsic-height")];
+    char CSSPropStringPool_str643[sizeof("-webkit-text-size-adjust")];
+    char CSSPropStringPool_str644[sizeof("-epub-text-emphasis-style")];
+    char CSSPropStringPool_str645[sizeof("-webkit-border-before-width")];
+    char CSSPropStringPool_str646[sizeof("overflow-anchor")];
+    char CSSPropStringPool_str647[sizeof("popover-hide-delay")];
+    char CSSPropStringPool_str648[sizeof("-webkit-border-end-width")];
+    char CSSPropStringPool_str649[sizeof("-webkit-logical-height")];
+    char CSSPropStringPool_str650[sizeof("-webkit-flex-flow")];
+    char CSSPropStringPool_str651[sizeof("-webkit-perspective-origin-y")];
+    char CSSPropStringPool_str652[sizeof("-internal-visited-border-right-color")];
+    char CSSPropStringPool_str653[sizeof("-webkit-shape-outside")];
+    char CSSPropStringPool_str654[sizeof("border-bottom-width")];
+    char CSSPropStringPool_str655[sizeof("-webkit-perspective-origin-x")];
+    char CSSPropStringPool_str656[sizeof("-webkit-box-flex")];
+    char CSSPropStringPool_str657[sizeof("text-size-adjust")];
+    char CSSPropStringPool_str658[sizeof("-internal-visited-text-fill-color")];
+    char CSSPropStringPool_str659[sizeof("-webkit-box-shadow")];
+    char CSSPropStringPool_str660[sizeof("shape-image-threshold")];
+    char CSSPropStringPool_str661[sizeof("-webkit-flex-shrink")];
+    char CSSPropStringPool_str662[sizeof("-webkit-text-stroke-width")];
+    char CSSPropStringPool_str663[sizeof("-webkit-border-after-width")];
+    char CSSPropStringPool_str664[sizeof("overscroll-behavior-block")];
+    char CSSPropStringPool_str665[sizeof("-webkit-box-ordinal-group")];
+    char CSSPropStringPool_str666[sizeof("hyphenate-character")];
+    char CSSPropStringPool_str667[sizeof("backface-visibility")];
+    char CSSPropStringPool_str668[sizeof("-webkit-text-emphasis-style")];
+    char CSSPropStringPool_str669[sizeof("popover-show-delay")];
+    char CSSPropStringPool_str670[sizeof("content-visibility")];
+    char CSSPropStringPool_str671[sizeof("overscroll-behavior-y")];
+    char CSSPropStringPool_str672[sizeof("-webkit-min-logical-width")];
+    char CSSPropStringPool_str673[sizeof("overscroll-behavior-x")];
+    char CSSPropStringPool_str674[sizeof("-webkit-shape-image-threshold")];
+    char CSSPropStringPool_str675[sizeof("-internal-visited-text-emphasis-color")];
+    char CSSPropStringPool_str676[sizeof("-webkit-mask-box-image-width")];
+    char CSSPropStringPool_str677[sizeof("hyphenate-limit-chars")];
+    char CSSPropStringPool_str678[sizeof("font-synthesis-weight")];
+    char CSSPropStringPool_str679[sizeof("-webkit-justify-content")];
+    char CSSPropStringPool_str680[sizeof("-webkit-background-size")];
+    char CSSPropStringPool_str681[sizeof("-webkit-min-logical-height")];
+    char CSSPropStringPool_str682[sizeof("object-view-box")];
+    char CSSPropStringPool_str683[sizeof("-webkit-box-sizing")];
+    char CSSPropStringPool_str684[sizeof("-webkit-hyphenate-character")];
+    char CSSPropStringPool_str685[sizeof("-webkit-max-logical-width")];
+    char CSSPropStringPool_str686[sizeof("-webkit-backface-visibility")];
+    char CSSPropStringPool_str687[sizeof("-webkit-max-logical-height")];
   };
 static const struct CSSPropStringPool_t CSSPropStringPool_contents =
   {
@@ -1443,6 +1444,7 @@ static const struct CSSPropStringPool_t CSSPropStringPool_contents =
     "text-spacing-trim",
     "-internal-visited-stroke",
     "view-timeline-name",
+    "view-transition-class",
     "perspective-origin",
     "max-width",
     "-internal-visited-column-rule-color",
@@ -1619,7 +1621,7 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
 {
   enum
     {
-      TOTAL_KEYWORDS = 687,
+      TOTAL_KEYWORDS = 688,
       MIN_WORD_LENGTH = 1,
       MAX_WORD_LENGTH = 43,
       MIN_HASH_VALUE = 4,
@@ -2146,175 +2148,176 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
       {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str515, static_cast<int>(CSSPropertyID::kTextSpacingTrim)},
       {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str516, static_cast<int>(CSSPropertyID::kInternalVisitedStroke)},
       {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str517, static_cast<int>(CSSPropertyID::kViewTimelineName)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str518, static_cast<int>(CSSPropertyID::kPerspectiveOrigin)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str519, static_cast<int>(CSSPropertyID::kMaxWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str520, static_cast<int>(CSSPropertyID::kInternalVisitedColumnRuleColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str521, static_cast<int>(CSSPropertyID::kAliasWebkitFlex)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str522, static_cast<int>(CSSPropertyID::kFlexFlow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str523, static_cast<int>(CSSPropertyID::kAliasWebkitShapeMargin)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str524, static_cast<int>(CSSPropertyID::kStrokeDasharray)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str525, static_cast<int>(CSSPropertyID::kBorderLeftWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str526, static_cast<int>(CSSPropertyID::kOverflow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str527, static_cast<int>(CSSPropertyID::kAliasWebkitAppRegion)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str528, static_cast<int>(CSSPropertyID::kAliasWebkitPaddingBefore)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str529, static_cast<int>(CSSPropertyID::kBorderRightStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str530, static_cast<int>(CSSPropertyID::kViewTransitionName)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str531, static_cast<int>(CSSPropertyID::kOverflowInline)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str532, static_cast<int>(CSSPropertyID::kInternalVisitedBorderTopColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str533, static_cast<int>(CSSPropertyID::kDynamicRangeLimit)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str534, static_cast<int>(CSSPropertyID::kContainIntrinsicSize)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str535, static_cast<int>(CSSPropertyID::kVisibility)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str536, static_cast<int>(CSSPropertyID::kFontSynthesisSmallCaps)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str537, static_cast<int>(CSSPropertyID::kMathShift)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str538, static_cast<int>(CSSPropertyID::kAliasWebkitFlexDirection)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str539, static_cast<int>(CSSPropertyID::kScrollMarginRight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str540, static_cast<int>(CSSPropertyID::kVectorEffect)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str541, static_cast<int>(CSSPropertyID::kAliasEpubTextEmphasis)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str542, static_cast<int>(CSSPropertyID::kInternalVisitedBorderInlineStartColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str543, static_cast<int>(CSSPropertyID::kContainIntrinsicInlineSize)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str544, static_cast<int>(CSSPropertyID::kWebkitPrintColorAdjust)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str545, static_cast<int>(CSSPropertyID::kAliasWebkitPerspective)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str546, static_cast<int>(CSSPropertyID::kAliasWebkitTransformStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str547, static_cast<int>(CSSPropertyID::kWebkitTextFillColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str548, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionDuration)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str549, static_cast<int>(CSSPropertyID::kInternalVisitedBorderInlineEndColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str550, static_cast<int>(CSSPropertyID::kAliasEpubTextEmphasisColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str551, static_cast<int>(CSSPropertyID::kSizeAdjust)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str552, static_cast<int>(CSSPropertyID::kWebkitUserModify)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str553, static_cast<int>(CSSPropertyID::kBoxShadow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str554, static_cast<int>(CSSPropertyID::kTextDecorationThickness)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str555, static_cast<int>(CSSPropertyID::kFlexShrink)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str556, static_cast<int>(CSSPropertyID::kAliasWebkitFontFeatureSettings)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str557, static_cast<int>(CSSPropertyID::kMaxBlockSize)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str558, static_cast<int>(CSSPropertyID::kInternalOverflowInline)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str559, static_cast<int>(CSSPropertyID::kWebkitTransformOriginY)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str560, static_cast<int>(CSSPropertyID::kWebkitBorderHorizontalSpacing)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str561, static_cast<int>(CSSPropertyID::kAliasWebkitBorderTopRightRadius)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str562, static_cast<int>(CSSPropertyID::kBorderBlockStartWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str563, static_cast<int>(CSSPropertyID::kInternalVisitedFill)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str564, static_cast<int>(CSSPropertyID::kAliasWebkitPerspectiveOrigin)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str565, static_cast<int>(CSSPropertyID::kScrollBehavior)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str566, static_cast<int>(CSSPropertyID::kWebkitTransformOriginX)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str567, static_cast<int>(CSSPropertyID::kHyphens)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str568, static_cast<int>(CSSPropertyID::kAliasWebkitBorderBottomRightRadius)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str569, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImage)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str570, static_cast<int>(CSSPropertyID::kWebkitFontSmoothing)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str571, static_cast<int>(CSSPropertyID::kWebkitBoxOrient)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str572, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageSlice)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str573, static_cast<int>(CSSPropertyID::kWebkitMaskClip)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str574, static_cast<int>(CSSPropertyID::kAliasWebkitFlexBasis)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str575, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageRepeat)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str576, static_cast<int>(CSSPropertyID::kAdditiveSymbols)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str577, static_cast<int>(CSSPropertyID::kBorderRightWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str578, static_cast<int>(CSSPropertyID::kAliasWebkitBorderBeforeStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str579, static_cast<int>(CSSPropertyID::kWebkitBoxDirection)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str580, static_cast<int>(CSSPropertyID::kAliasWebkitColumnRuleWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str581, static_cast<int>(CSSPropertyID::kJustifyContent)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str582, static_cast<int>(CSSPropertyID::kWebkitMaskOrigin)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str583, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageSource)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str584, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageOutset)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str585, static_cast<int>(CSSPropertyID::kWebkitBoxReflect)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str586, static_cast<int>(CSSPropertyID::kAliasWebkitBorderEndStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str587, static_cast<int>(CSSPropertyID::kWebkitBoxDecorationBreak)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str588, static_cast<int>(CSSPropertyID::kTextEmphasisStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str589, static_cast<int>(CSSPropertyID::kWebkitBorderImage)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str590, static_cast<int>(CSSPropertyID::kInternalVisitedBorderBottomColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str591, static_cast<int>(CSSPropertyID::kContainIntrinsicWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str592, static_cast<int>(CSSPropertyID::kViewTimelineAxis)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str593, static_cast<int>(CSSPropertyID::kWebkitTextSecurity)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str594, static_cast<int>(CSSPropertyID::kAliasWebkitBorderStartWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str595, static_cast<int>(CSSPropertyID::kJustifyItems)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str596, static_cast<int>(CSSPropertyID::kMaxHeight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str597, static_cast<int>(CSSPropertyID::kInternalVisitedBackgroundColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str598, static_cast<int>(CSSPropertyID::kAliasEpubTextCombine)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str599, static_cast<int>(CSSPropertyID::kOverflowClipMargin)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str600, static_cast<int>(CSSPropertyID::kWebkitTransformOriginZ)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str601, static_cast<int>(CSSPropertyID::kOverflowWrap)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str602, static_cast<int>(CSSPropertyID::kStrokeDashoffset)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str603, static_cast<int>(CSSPropertyID::kBufferedRendering)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str604, static_cast<int>(CSSPropertyID::kAliasWebkitFlexGrow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str605, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasis)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str606, static_cast<int>(CSSPropertyID::kAliasWebkitLogicalWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str607, static_cast<int>(CSSPropertyID::kOverflowBlock)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str608, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasisColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str609, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasisPosition)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str610, static_cast<int>(CSSPropertyID::kInternalVisitedBorderLeftColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str611, static_cast<int>(CSSPropertyID::kAliasWebkitBorderAfterStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str612, static_cast<int>(CSSPropertyID::kAliasWebkitColumnWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str613, static_cast<int>(CSSPropertyID::kInternalVisitedBorderBlockStartColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str614, static_cast<int>(CSSPropertyID::kContainIntrinsicBlockSize)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str615, static_cast<int>(CSSPropertyID::kFontVariantLigatures)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str616, static_cast<int>(CSSPropertyID::kWebkitTapHighlightColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str617, static_cast<int>(CSSPropertyID::kInternalVisitedBorderBlockEndColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str618, static_cast<int>(CSSPropertyID::kWebkitBoxAlign)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str619, static_cast<int>(CSSPropertyID::kInternalVisitedTextDecorationColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str620, static_cast<int>(CSSPropertyID::kBorderInlineWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str621, static_cast<int>(CSSPropertyID::kInternalOverflowBlock)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str622, static_cast<int>(CSSPropertyID::kAliasWebkitBackgroundClip)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str623, static_cast<int>(CSSPropertyID::kOverscrollBehavior)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str624, static_cast<int>(CSSPropertyID::kAliasWebkitFlexWrap)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str625, static_cast<int>(CSSPropertyID::kFontSynthesisStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str626, static_cast<int>(CSSPropertyID::kOverscrollBehaviorInline)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str627, static_cast<int>(CSSPropertyID::kWebkitTextDecorationsInEffect)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str628, static_cast<int>(CSSPropertyID::kBorderBottomRightRadius)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str629, static_cast<int>(CSSPropertyID::kAliasWebkitBackgroundOrigin)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str630, static_cast<int>(CSSPropertyID::kFontSizeAdjust)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str631, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionTimingFunction)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str632, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionProperty)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str633, static_cast<int>(CSSPropertyID::kWebkitTextOrientation)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str634, static_cast<int>(CSSPropertyID::kOverflowY)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str635, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionDelay)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str636, static_cast<int>(CSSPropertyID::kInternalVisitedTextStrokeColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str637, static_cast<int>(CSSPropertyID::kOverflowX)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str638, static_cast<int>(CSSPropertyID::kTextOverflow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str639, static_cast<int>(CSSPropertyID::kInternalEmptyLineHeight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str640, static_cast<int>(CSSPropertyID::kJustifySelf)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str641, static_cast<int>(CSSPropertyID::kContainIntrinsicHeight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str642, static_cast<int>(CSSPropertyID::kAliasWebkitTextSizeAdjust)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str643, static_cast<int>(CSSPropertyID::kAliasEpubTextEmphasisStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str644, static_cast<int>(CSSPropertyID::kAliasWebkitBorderBeforeWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str645, static_cast<int>(CSSPropertyID::kOverflowAnchor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str646, static_cast<int>(CSSPropertyID::kPopoverHideDelay)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str647, static_cast<int>(CSSPropertyID::kAliasWebkitBorderEndWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str648, static_cast<int>(CSSPropertyID::kAliasWebkitLogicalHeight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str649, static_cast<int>(CSSPropertyID::kAliasWebkitFlexFlow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str650, static_cast<int>(CSSPropertyID::kWebkitPerspectiveOriginY)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str651, static_cast<int>(CSSPropertyID::kInternalVisitedBorderRightColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str652, static_cast<int>(CSSPropertyID::kAliasWebkitShapeOutside)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str653, static_cast<int>(CSSPropertyID::kBorderBottomWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str654, static_cast<int>(CSSPropertyID::kWebkitPerspectiveOriginX)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str655, static_cast<int>(CSSPropertyID::kWebkitBoxFlex)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str656, static_cast<int>(CSSPropertyID::kTextSizeAdjust)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str657, static_cast<int>(CSSPropertyID::kInternalVisitedTextFillColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str658, static_cast<int>(CSSPropertyID::kAliasWebkitBoxShadow)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str659, static_cast<int>(CSSPropertyID::kShapeImageThreshold)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str660, static_cast<int>(CSSPropertyID::kAliasWebkitFlexShrink)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str661, static_cast<int>(CSSPropertyID::kWebkitTextStrokeWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str662, static_cast<int>(CSSPropertyID::kAliasWebkitBorderAfterWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str663, static_cast<int>(CSSPropertyID::kOverscrollBehaviorBlock)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str664, static_cast<int>(CSSPropertyID::kWebkitBoxOrdinalGroup)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str665, static_cast<int>(CSSPropertyID::kHyphenateCharacter)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str666, static_cast<int>(CSSPropertyID::kBackfaceVisibility)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str667, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasisStyle)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str668, static_cast<int>(CSSPropertyID::kPopoverShowDelay)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str669, static_cast<int>(CSSPropertyID::kContentVisibility)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str670, static_cast<int>(CSSPropertyID::kOverscrollBehaviorY)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str671, static_cast<int>(CSSPropertyID::kAliasWebkitMinLogicalWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str672, static_cast<int>(CSSPropertyID::kOverscrollBehaviorX)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str673, static_cast<int>(CSSPropertyID::kAliasWebkitShapeImageThreshold)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str674, static_cast<int>(CSSPropertyID::kInternalVisitedTextEmphasisColor)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str675, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str676, static_cast<int>(CSSPropertyID::kHyphenateLimitChars)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str677, static_cast<int>(CSSPropertyID::kFontSynthesisWeight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str678, static_cast<int>(CSSPropertyID::kAliasWebkitJustifyContent)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str679, static_cast<int>(CSSPropertyID::kAliasWebkitBackgroundSize)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str680, static_cast<int>(CSSPropertyID::kAliasWebkitMinLogicalHeight)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str681, static_cast<int>(CSSPropertyID::kObjectViewBox)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str682, static_cast<int>(CSSPropertyID::kAliasWebkitBoxSizing)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str683, static_cast<int>(CSSPropertyID::kAliasWebkitHyphenateCharacter)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str684, static_cast<int>(CSSPropertyID::kAliasWebkitMaxLogicalWidth)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str685, static_cast<int>(CSSPropertyID::kAliasWebkitBackfaceVisibility)},
-      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str686, static_cast<int>(CSSPropertyID::kAliasWebkitMaxLogicalHeight)}
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str518, static_cast<int>(CSSPropertyID::kViewTransitionClass)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str519, static_cast<int>(CSSPropertyID::kPerspectiveOrigin)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str520, static_cast<int>(CSSPropertyID::kMaxWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str521, static_cast<int>(CSSPropertyID::kInternalVisitedColumnRuleColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str522, static_cast<int>(CSSPropertyID::kAliasWebkitFlex)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str523, static_cast<int>(CSSPropertyID::kFlexFlow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str524, static_cast<int>(CSSPropertyID::kAliasWebkitShapeMargin)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str525, static_cast<int>(CSSPropertyID::kStrokeDasharray)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str526, static_cast<int>(CSSPropertyID::kBorderLeftWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str527, static_cast<int>(CSSPropertyID::kOverflow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str528, static_cast<int>(CSSPropertyID::kAliasWebkitAppRegion)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str529, static_cast<int>(CSSPropertyID::kAliasWebkitPaddingBefore)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str530, static_cast<int>(CSSPropertyID::kBorderRightStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str531, static_cast<int>(CSSPropertyID::kViewTransitionName)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str532, static_cast<int>(CSSPropertyID::kOverflowInline)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str533, static_cast<int>(CSSPropertyID::kInternalVisitedBorderTopColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str534, static_cast<int>(CSSPropertyID::kDynamicRangeLimit)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str535, static_cast<int>(CSSPropertyID::kContainIntrinsicSize)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str536, static_cast<int>(CSSPropertyID::kVisibility)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str537, static_cast<int>(CSSPropertyID::kFontSynthesisSmallCaps)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str538, static_cast<int>(CSSPropertyID::kMathShift)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str539, static_cast<int>(CSSPropertyID::kAliasWebkitFlexDirection)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str540, static_cast<int>(CSSPropertyID::kScrollMarginRight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str541, static_cast<int>(CSSPropertyID::kVectorEffect)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str542, static_cast<int>(CSSPropertyID::kAliasEpubTextEmphasis)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str543, static_cast<int>(CSSPropertyID::kInternalVisitedBorderInlineStartColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str544, static_cast<int>(CSSPropertyID::kContainIntrinsicInlineSize)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str545, static_cast<int>(CSSPropertyID::kWebkitPrintColorAdjust)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str546, static_cast<int>(CSSPropertyID::kAliasWebkitPerspective)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str547, static_cast<int>(CSSPropertyID::kAliasWebkitTransformStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str548, static_cast<int>(CSSPropertyID::kWebkitTextFillColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str549, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionDuration)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str550, static_cast<int>(CSSPropertyID::kInternalVisitedBorderInlineEndColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str551, static_cast<int>(CSSPropertyID::kAliasEpubTextEmphasisColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str552, static_cast<int>(CSSPropertyID::kSizeAdjust)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str553, static_cast<int>(CSSPropertyID::kWebkitUserModify)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str554, static_cast<int>(CSSPropertyID::kBoxShadow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str555, static_cast<int>(CSSPropertyID::kTextDecorationThickness)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str556, static_cast<int>(CSSPropertyID::kFlexShrink)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str557, static_cast<int>(CSSPropertyID::kAliasWebkitFontFeatureSettings)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str558, static_cast<int>(CSSPropertyID::kMaxBlockSize)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str559, static_cast<int>(CSSPropertyID::kInternalOverflowInline)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str560, static_cast<int>(CSSPropertyID::kWebkitTransformOriginY)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str561, static_cast<int>(CSSPropertyID::kWebkitBorderHorizontalSpacing)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str562, static_cast<int>(CSSPropertyID::kAliasWebkitBorderTopRightRadius)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str563, static_cast<int>(CSSPropertyID::kBorderBlockStartWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str564, static_cast<int>(CSSPropertyID::kInternalVisitedFill)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str565, static_cast<int>(CSSPropertyID::kAliasWebkitPerspectiveOrigin)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str566, static_cast<int>(CSSPropertyID::kScrollBehavior)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str567, static_cast<int>(CSSPropertyID::kWebkitTransformOriginX)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str568, static_cast<int>(CSSPropertyID::kHyphens)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str569, static_cast<int>(CSSPropertyID::kAliasWebkitBorderBottomRightRadius)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str570, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImage)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str571, static_cast<int>(CSSPropertyID::kWebkitFontSmoothing)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str572, static_cast<int>(CSSPropertyID::kWebkitBoxOrient)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str573, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageSlice)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str574, static_cast<int>(CSSPropertyID::kWebkitMaskClip)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str575, static_cast<int>(CSSPropertyID::kAliasWebkitFlexBasis)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str576, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageRepeat)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str577, static_cast<int>(CSSPropertyID::kAdditiveSymbols)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str578, static_cast<int>(CSSPropertyID::kBorderRightWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str579, static_cast<int>(CSSPropertyID::kAliasWebkitBorderBeforeStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str580, static_cast<int>(CSSPropertyID::kWebkitBoxDirection)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str581, static_cast<int>(CSSPropertyID::kAliasWebkitColumnRuleWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str582, static_cast<int>(CSSPropertyID::kJustifyContent)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str583, static_cast<int>(CSSPropertyID::kWebkitMaskOrigin)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str584, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageSource)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str585, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageOutset)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str586, static_cast<int>(CSSPropertyID::kWebkitBoxReflect)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str587, static_cast<int>(CSSPropertyID::kAliasWebkitBorderEndStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str588, static_cast<int>(CSSPropertyID::kWebkitBoxDecorationBreak)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str589, static_cast<int>(CSSPropertyID::kTextEmphasisStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str590, static_cast<int>(CSSPropertyID::kWebkitBorderImage)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str591, static_cast<int>(CSSPropertyID::kInternalVisitedBorderBottomColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str592, static_cast<int>(CSSPropertyID::kContainIntrinsicWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str593, static_cast<int>(CSSPropertyID::kViewTimelineAxis)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str594, static_cast<int>(CSSPropertyID::kWebkitTextSecurity)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str595, static_cast<int>(CSSPropertyID::kAliasWebkitBorderStartWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str596, static_cast<int>(CSSPropertyID::kJustifyItems)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str597, static_cast<int>(CSSPropertyID::kMaxHeight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str598, static_cast<int>(CSSPropertyID::kInternalVisitedBackgroundColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str599, static_cast<int>(CSSPropertyID::kAliasEpubTextCombine)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str600, static_cast<int>(CSSPropertyID::kOverflowClipMargin)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str601, static_cast<int>(CSSPropertyID::kWebkitTransformOriginZ)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str602, static_cast<int>(CSSPropertyID::kOverflowWrap)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str603, static_cast<int>(CSSPropertyID::kStrokeDashoffset)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str604, static_cast<int>(CSSPropertyID::kBufferedRendering)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str605, static_cast<int>(CSSPropertyID::kAliasWebkitFlexGrow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str606, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasis)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str607, static_cast<int>(CSSPropertyID::kAliasWebkitLogicalWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str608, static_cast<int>(CSSPropertyID::kOverflowBlock)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str609, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasisColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str610, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasisPosition)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str611, static_cast<int>(CSSPropertyID::kInternalVisitedBorderLeftColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str612, static_cast<int>(CSSPropertyID::kAliasWebkitBorderAfterStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str613, static_cast<int>(CSSPropertyID::kAliasWebkitColumnWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str614, static_cast<int>(CSSPropertyID::kInternalVisitedBorderBlockStartColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str615, static_cast<int>(CSSPropertyID::kContainIntrinsicBlockSize)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str616, static_cast<int>(CSSPropertyID::kFontVariantLigatures)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str617, static_cast<int>(CSSPropertyID::kWebkitTapHighlightColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str618, static_cast<int>(CSSPropertyID::kInternalVisitedBorderBlockEndColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str619, static_cast<int>(CSSPropertyID::kWebkitBoxAlign)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str620, static_cast<int>(CSSPropertyID::kInternalVisitedTextDecorationColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str621, static_cast<int>(CSSPropertyID::kBorderInlineWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str622, static_cast<int>(CSSPropertyID::kInternalOverflowBlock)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str623, static_cast<int>(CSSPropertyID::kAliasWebkitBackgroundClip)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str624, static_cast<int>(CSSPropertyID::kOverscrollBehavior)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str625, static_cast<int>(CSSPropertyID::kAliasWebkitFlexWrap)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str626, static_cast<int>(CSSPropertyID::kFontSynthesisStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str627, static_cast<int>(CSSPropertyID::kOverscrollBehaviorInline)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str628, static_cast<int>(CSSPropertyID::kWebkitTextDecorationsInEffect)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str629, static_cast<int>(CSSPropertyID::kBorderBottomRightRadius)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str630, static_cast<int>(CSSPropertyID::kAliasWebkitBackgroundOrigin)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str631, static_cast<int>(CSSPropertyID::kFontSizeAdjust)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str632, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionTimingFunction)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str633, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionProperty)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str634, static_cast<int>(CSSPropertyID::kWebkitTextOrientation)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str635, static_cast<int>(CSSPropertyID::kOverflowY)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str636, static_cast<int>(CSSPropertyID::kAliasWebkitTransitionDelay)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str637, static_cast<int>(CSSPropertyID::kInternalVisitedTextStrokeColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str638, static_cast<int>(CSSPropertyID::kOverflowX)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str639, static_cast<int>(CSSPropertyID::kTextOverflow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str640, static_cast<int>(CSSPropertyID::kInternalEmptyLineHeight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str641, static_cast<int>(CSSPropertyID::kJustifySelf)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str642, static_cast<int>(CSSPropertyID::kContainIntrinsicHeight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str643, static_cast<int>(CSSPropertyID::kAliasWebkitTextSizeAdjust)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str644, static_cast<int>(CSSPropertyID::kAliasEpubTextEmphasisStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str645, static_cast<int>(CSSPropertyID::kAliasWebkitBorderBeforeWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str646, static_cast<int>(CSSPropertyID::kOverflowAnchor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str647, static_cast<int>(CSSPropertyID::kPopoverHideDelay)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str648, static_cast<int>(CSSPropertyID::kAliasWebkitBorderEndWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str649, static_cast<int>(CSSPropertyID::kAliasWebkitLogicalHeight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str650, static_cast<int>(CSSPropertyID::kAliasWebkitFlexFlow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str651, static_cast<int>(CSSPropertyID::kWebkitPerspectiveOriginY)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str652, static_cast<int>(CSSPropertyID::kInternalVisitedBorderRightColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str653, static_cast<int>(CSSPropertyID::kAliasWebkitShapeOutside)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str654, static_cast<int>(CSSPropertyID::kBorderBottomWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str655, static_cast<int>(CSSPropertyID::kWebkitPerspectiveOriginX)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str656, static_cast<int>(CSSPropertyID::kWebkitBoxFlex)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str657, static_cast<int>(CSSPropertyID::kTextSizeAdjust)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str658, static_cast<int>(CSSPropertyID::kInternalVisitedTextFillColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str659, static_cast<int>(CSSPropertyID::kAliasWebkitBoxShadow)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str660, static_cast<int>(CSSPropertyID::kShapeImageThreshold)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str661, static_cast<int>(CSSPropertyID::kAliasWebkitFlexShrink)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str662, static_cast<int>(CSSPropertyID::kWebkitTextStrokeWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str663, static_cast<int>(CSSPropertyID::kAliasWebkitBorderAfterWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str664, static_cast<int>(CSSPropertyID::kOverscrollBehaviorBlock)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str665, static_cast<int>(CSSPropertyID::kWebkitBoxOrdinalGroup)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str666, static_cast<int>(CSSPropertyID::kHyphenateCharacter)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str667, static_cast<int>(CSSPropertyID::kBackfaceVisibility)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str668, static_cast<int>(CSSPropertyID::kAliasWebkitTextEmphasisStyle)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str669, static_cast<int>(CSSPropertyID::kPopoverShowDelay)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str670, static_cast<int>(CSSPropertyID::kContentVisibility)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str671, static_cast<int>(CSSPropertyID::kOverscrollBehaviorY)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str672, static_cast<int>(CSSPropertyID::kAliasWebkitMinLogicalWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str673, static_cast<int>(CSSPropertyID::kOverscrollBehaviorX)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str674, static_cast<int>(CSSPropertyID::kAliasWebkitShapeImageThreshold)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str675, static_cast<int>(CSSPropertyID::kInternalVisitedTextEmphasisColor)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str676, static_cast<int>(CSSPropertyID::kWebkitMaskBoxImageWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str677, static_cast<int>(CSSPropertyID::kHyphenateLimitChars)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str678, static_cast<int>(CSSPropertyID::kFontSynthesisWeight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str679, static_cast<int>(CSSPropertyID::kAliasWebkitJustifyContent)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str680, static_cast<int>(CSSPropertyID::kAliasWebkitBackgroundSize)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str681, static_cast<int>(CSSPropertyID::kAliasWebkitMinLogicalHeight)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str682, static_cast<int>(CSSPropertyID::kObjectViewBox)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str683, static_cast<int>(CSSPropertyID::kAliasWebkitBoxSizing)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str684, static_cast<int>(CSSPropertyID::kAliasWebkitHyphenateCharacter)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str685, static_cast<int>(CSSPropertyID::kAliasWebkitMaxLogicalWidth)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str686, static_cast<int>(CSSPropertyID::kAliasWebkitBackfaceVisibility)},
+      {(int)(size_t)&((struct CSSPropStringPool_t *)0)->CSSPropStringPool_str687, static_cast<int>(CSSPropertyID::kAliasWebkitMaxLogicalHeight)}
     };
 
   static const short lookup[] =
@@ -2524,132 +2527,131 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 513,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1, 514, 515,  -1, 516, 517,  -1,  -1,
+       -1,  -1,  -1, 518,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1, 519,  -1,  -1,  -1,  -1, 520,  -1,  -1, 521,
+       -1,  -1, 522,  -1, 523,  -1,  -1,  -1,  -1, 524,
+       -1,  -1,  -1,  -1, 525,  -1, 526, 527,  -1, 528,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1, 518,  -1,  -1,  -1,  -1, 519,  -1,  -1, 520,
-       -1,  -1, 521,  -1, 522,  -1,  -1,  -1,  -1, 523,
-       -1,  -1,  -1,  -1, 524,  -1, 525, 526,  -1, 527,
+       -1,  -1,  -1, 529,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1, 530,  -1, 531,  -1,  -1, 532,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 533,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 528,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1, 529,  -1, 530,  -1,  -1, 531,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 532,  -1,
+       -1,  -1,  -1,  -1, 534,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1, 535, 536,  -1,  -1,  -1, 537,  -1,
+      538,  -1,  -1,  -1,  -1, 539, 540,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1, 541,  -1,  -1,  -1,  -1,  -1,
+       -1, 542, 543, 544,  -1, 545,  -1,  -1,  -1,  -1,
+      546,  -1,  -1, 547,  -1,  -1, 548,  -1,  -1, 549,
+       -1, 550,  -1,  -1,  -1,  -1, 551,  -1,  -1,  -1,
+      552,  -1,  -1,  -1,  -1,  -1, 553,  -1,  -1,  -1,
+       -1,  -1, 554,  -1,  -1,  -1,  -1,  -1, 555,  -1,
+       -1,  -1,  -1,  -1, 556,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1, 557, 558,  -1,  -1,  -1, 559,  -1,  -1,
+       -1,  -1, 560,  -1,  -1,  -1,  -1,  -1, 561,  -1,
+       -1,  -1, 562,  -1,  -1,  -1,  -1,  -1, 563,  -1,
+      564,  -1, 565,  -1,  -1,  -1,  -1,  -1,  -1, 566,
+       -1,  -1,  -1, 567,  -1,  -1,  -1, 568,  -1, 569,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 570,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 533,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 534, 535,  -1,  -1,  -1, 536,  -1,
-      537,  -1,  -1,  -1,  -1, 538, 539,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 540,  -1,  -1,  -1,  -1,  -1,
-       -1, 541, 542, 543,  -1, 544,  -1,  -1,  -1,  -1,
-      545,  -1,  -1, 546,  -1,  -1, 547,  -1,  -1, 548,
-       -1, 549,  -1,  -1,  -1,  -1, 550,  -1,  -1,  -1,
-      551,  -1,  -1,  -1,  -1,  -1, 552,  -1,  -1,  -1,
-       -1,  -1, 553,  -1,  -1,  -1,  -1,  -1, 554,  -1,
-       -1,  -1,  -1,  -1, 555,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1, 556, 557,  -1,  -1,  -1, 558,  -1,  -1,
-       -1,  -1, 559,  -1,  -1,  -1,  -1,  -1, 560,  -1,
-       -1,  -1, 561,  -1,  -1,  -1,  -1,  -1, 562,  -1,
-      563,  -1, 564,  -1,  -1,  -1,  -1,  -1,  -1, 565,
-       -1,  -1,  -1, 566,  -1,  -1,  -1, 567,  -1, 568,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 569,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 571,  -1,  -1,
+       -1,  -1, 572,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+      573,  -1,  -1,  -1,  -1,  -1, 574, 575,  -1, 576,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 570,  -1,  -1,
-       -1,  -1, 571,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      572,  -1,  -1,  -1,  -1,  -1, 573, 574,  -1, 575,
+       -1,  -1,  -1,  -1, 577,  -1,  -1, 578,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 576,  -1,  -1, 577,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 579,  -1, 580,
+       -1,  -1,  -1, 581,  -1,  -1,  -1,  -1,  -1,  -1,
+      582,  -1,  -1,  -1,  -1,  -1, 583,  -1, 584, 585,
+       -1,  -1,  -1, 586,  -1,  -1,  -1,  -1,  -1, 587,
+       -1,  -1,  -1, 588,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 578,  -1, 579,
-       -1,  -1,  -1, 580,  -1,  -1,  -1,  -1,  -1,  -1,
-      581,  -1,  -1,  -1,  -1,  -1, 582,  -1, 583, 584,
-       -1,  -1,  -1, 585,  -1,  -1,  -1,  -1,  -1, 586,
-       -1,  -1,  -1, 587,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1, 589,  -1,  -1,  -1, 590,
+       -1, 591,  -1,  -1,  -1,  -1,  -1, 592, 593,  -1,
+       -1, 594,  -1,  -1,  -1, 595,  -1,  -1,  -1,  -1,
+       -1, 596,  -1, 597,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 598,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1, 588,  -1,  -1,  -1, 589,
-       -1, 590,  -1,  -1,  -1,  -1,  -1, 591, 592,  -1,
-       -1, 593,  -1,  -1,  -1, 594,  -1,  -1,  -1,  -1,
-       -1, 595,  -1, 596,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 597,  -1,  -1,
+      599,  -1, 600,  -1, 601,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      598,  -1, 599,  -1, 600,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1, 602,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 603,
+       -1, 604,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1, 605, 606,  -1,  -1,  -1,  -1,
+      607,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 608,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1, 601,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 602,
-       -1, 603,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 604, 605,  -1,  -1,  -1,  -1,
-      606,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 607,  -1,
+      609,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      608,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+      610,  -1, 611,  -1,  -1,  -1,  -1, 612,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      609,  -1, 610,  -1,  -1,  -1,  -1, 611,  -1,  -1,
+       -1,  -1,  -1, 613,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1, 614, 615,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1, 616,  -1,  -1,  -1,  -1, 617,  -1,  -1,
+       -1,  -1, 618,  -1,  -1,  -1,  -1,  -1, 619,  -1,
+       -1,  -1,  -1,  -1,  -1, 620,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 612,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 613, 614,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1, 615,  -1,  -1,  -1,  -1, 616,  -1,  -1,
-       -1,  -1, 617,  -1,  -1,  -1,  -1,  -1, 618,  -1,
-       -1,  -1,  -1,  -1,  -1, 619,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 621,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 622,  -1,
+      623,  -1,  -1, 624,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 620,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 621,  -1,
-      622,  -1,  -1, 623,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1, 625,  -1,  -1,  -1,  -1,
+       -1, 626,  -1, 627,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1, 628,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1, 629,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+      630,  -1,  -1,  -1,  -1,  -1, 631,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 632, 633,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1, 624,  -1,  -1,  -1,  -1,
-       -1, 625,  -1, 626,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1, 627,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1, 628,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      629,  -1,  -1,  -1,  -1,  -1, 630,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 631, 632,
+       -1, 634, 635,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1, 633, 634,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 635,  -1,
-       -1, 636,  -1, 637,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 638,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 639,  -1,
-      640,  -1,  -1,  -1, 641,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 636,  -1,
+       -1, 637,  -1, 638,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 639,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 640,  -1,
+      641,  -1,  -1,  -1, 642,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 642, 643,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 644, 645,
-       -1,  -1,  -1,  -1, 646,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      647,  -1,  -1,  -1,  -1,  -1,  -1, 648,  -1,  -1,
-       -1,  -1, 649,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 650,  -1,  -1,
-      651,  -1,  -1,  -1,  -1, 652,  -1,  -1, 653,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 643, 644,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 645, 646,
+       -1,  -1,  -1,  -1, 647,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 654, 655,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 656,  -1,  -1,  -1,  -1,  -1,  -1,
+      648,  -1,  -1,  -1,  -1,  -1,  -1, 649,  -1,  -1,
+       -1,  -1, 650,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 651,  -1,  -1,
+      652,  -1,  -1,  -1,  -1, 653,  -1,  -1, 654,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1, 657,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 655, 656,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1, 657,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1, 658,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1, 659,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 659,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 660,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1, 661,  -1,  -1, 662,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 660,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 661,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1, 662,  -1,  -1, 663,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 663,  -1, 664,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 665,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1, 666,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1, 664,  -1, 665,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 666,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1, 667,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 667,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 668,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 669,  -1,  -1,
+       -1,  -1,  -1, 668,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1, 669,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 670,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2657,32 +2659,32 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 670,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 671,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 671, 672,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 673,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 672, 673,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 674,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1, 674,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1, 675,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 675,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 676,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 676,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 677,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-      677,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 678,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+      678,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 679,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1, 679,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1, 680,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2700,8 +2702,8 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1, 680,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1, 681,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2711,11 +2713,11 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 681,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 682,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1, 682,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1, 683,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2723,11 +2725,6 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1, 683,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2739,6 +2736,7 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1, 685,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2764,7 +2762,12 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1,  -1,  -1,  -1,  -1,  -1, 685,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+       -1,  -1,  -1,  -1,  -1,  -1,  -1, 686,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
@@ -2773,7 +2776,7 @@ CSSPropertyNamesHash::findPropertyImpl (const char *str, size_t len)
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
        -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
-       -1,  -1, 686
+       -1,  -1, 687
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -3684,6 +3687,8 @@ mojom::blink::CSSSampleId GetCSSSampleId(CSSPropertyID id) {
       return mojom::blink::CSSSampleId::kViewTimelineInset;
     case CSSPropertyID::kViewTimelineName:
       return mojom::blink::CSSSampleId::kViewTimelineName;
+    case CSSPropertyID::kViewTransitionClass:
+      return mojom::blink::CSSSampleId::kViewTransitionClass;
     case CSSPropertyID::kViewTransitionName:
       return mojom::blink::CSSSampleId::kViewTransitionName;
     case CSSPropertyID::kVisibility:
@@ -4266,29 +4271,29 @@ int ResolveCSSPropertyAlias(int value) {
     271,
     269,
     267,
-    505,
     506,
-    514,
+    507,
     515,
-    496,
-    551,
+    516,
+    497,
+    552,
     124,
-    473,
-    575,
+    474,
+    576,
     407,
     409,
     32,
     414,
-    488,
+    489,
     33,
     38,
     39,
     40,
-    498,
+    499,
+    496,
     495,
-    494,
     46,
-    493,
+    494,
     49,
     50,
     51,
@@ -4302,7 +4307,7 @@ int ResolveCSSPropertyAlias(int value) {
     74,
     86,
     87,
-    519,
+    520,
     113,
     114,
     118,
@@ -4310,18 +4315,18 @@ int ResolveCSSPropertyAlias(int value) {
     128,
     134,
     136,
-    525,
+    526,
     137,
     138,
     139,
     140,
     141,
-    526,
+    527,
     168,
-    529,
+    530,
     169,
     170,
-    530,
+    531,
     171,
     172,
     173,
@@ -4335,7 +4340,7 @@ int ResolveCSSPropertyAlias(int value) {
     371,
     372,
     373,
-    575,
+    576,
     407,
     408,
     409,
@@ -4343,7 +4348,7 @@ int ResolveCSSPropertyAlias(int value) {
     421,
     423,
     424,
-    577,
+    578,
     426,
     427,
     428,
@@ -4351,7 +4356,7 @@ int ResolveCSSPropertyAlias(int value) {
     433,
     298,
   };
-  return kLookupTable[value - 587];
+  return kLookupTable[value - 588];
 }
 
 }  // namespace blink

@@ -11,7 +11,7 @@ import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
 import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-collapse/iron-collapse.js';
-import '/shared/settings/controls/settings_toggle_button.js';
+import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
 import './recent_site_permissions.js';
 import './unused_site_permissions.js';
@@ -131,6 +131,15 @@ function getCategoryItemMap() {
             disabledLabel: 'siteSettingsLocationBlocked',
         },
         {
+            route: routes.SITE_SETTINGS_WEB_PRINTING,
+            id: Id.WEB_PRINTING,
+            label: 'siteSettingsWebPrinting',
+            icon: 'settings:printer',
+            enabledLabel: 'siteSettingsWebPrintingAsk',
+            disabledLabel: 'siteSettingsWebPrintingBlock',
+            shouldShow: () => loadTimeData.getBoolean('enableWebPrintingContentSetting'),
+        },
+        {
             route: routes.SITE_SETTINGS_HID_DEVICES,
             id: Id.HID_DEVICES,
             label: 'siteSettingsHidDevices',
@@ -161,6 +170,14 @@ function getCategoryItemMap() {
             icon: 'settings:code',
             enabledLabel: 'siteSettingsJavascriptAllowed',
             disabledLabel: 'siteSettingsJavascriptBlocked',
+        },
+        {
+            route: routes.SITE_SETTINGS_JAVASCRIPT_JIT,
+            id: Id.JAVASCRIPT_JIT,
+            label: 'siteSettingsJavascriptJit',
+            icon: 'settings:lock-outline',
+            enabledLabel: 'siteSettingsJavascriptJitAllowed',
+            disabledLabel: 'siteSettingsJavascriptJitBlocked',
         },
         {
             route: routes.SITE_SETTINGS_MICROPHONE,
@@ -426,6 +443,7 @@ export class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageEle
                                 Id.AR,
                                 Id.VR,
                                 Id.IDLE_DETECTION,
+                                Id.WEB_PRINTING,
                                 Id.WINDOW_MANAGEMENT,
                                 Id.LOCAL_FONTS,
                                 Id.AUTO_PICTURE_IN_PICTURE,
@@ -448,6 +466,7 @@ export class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageEle
                             Id.ANTI_ABUSE,
                             Id.SITE_DATA,
                             Id.PERFORMANCE,
+                            Id.JAVASCRIPT_JIT,
                         ]),
                     };
                 },

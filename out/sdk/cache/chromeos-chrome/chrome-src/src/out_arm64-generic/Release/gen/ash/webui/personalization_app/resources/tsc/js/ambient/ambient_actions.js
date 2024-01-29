@@ -16,6 +16,7 @@ export var AmbientActionName;
     AmbientActionName["SET_TOPIC_SOURCE"] = "set_topic_source";
     AmbientActionName["SET_AMBIENT_UI_VISIBILITY"] = "set_ambient_ui_visibility";
     AmbientActionName["SET_SHOULD_SHOW_TIME_OF_DAY_BANNER"] = "set_should_show_time_of_day_banner";
+    AmbientActionName["SET_GEOLOCATION_PERMISSION_ENABLED"] = "set_geolocation_permission_enabled";
 })(AmbientActionName || (AmbientActionName = {}));
 /**
  * Sets the current value of the albums.
@@ -79,4 +80,7 @@ export function setShouldShowTimeOfDayBannerAction(shouldShowTimeOfDayBanner) {
         name: AmbientActionName.SET_SHOULD_SHOW_TIME_OF_DAY_BANNER,
         shouldShowTimeOfDayBanner,
     };
+}
+export function setGeolocationPermissionEnabledAction(enabled) {
+    return { name: AmbientActionName.SET_GEOLOCATION_PERMISSION_ENABLED, enabled };
 }

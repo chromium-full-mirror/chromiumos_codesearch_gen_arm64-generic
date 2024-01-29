@@ -1519,6 +1519,8 @@ bool RfcommListeningSocketClientStubDispatch::Accept(
           reinterpret_cast<internal::RfcommListeningSocketClient_OnAccepted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RfcommListeningSocketClient.0
       bool success = true;
       BluetoothRfcommConnectionPtr p_connection{};
       RfcommListeningSocketClient_OnAccepted_ParamsDataView input_data_view(params, message);
@@ -1534,8 +1536,8 @@ bool RfcommListeningSocketClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAccepted(
-std::move(p_connection));
+      impl->OnAccepted(        
+        std::move(p_connection));
       return true;
     }
   }
@@ -1744,6 +1746,8 @@ bool RfcommConnectingSocketClientStubDispatch::Accept(
           reinterpret_cast<internal::RfcommConnectingSocketClient_OnConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RfcommConnectingSocketClient.0
       bool success = true;
       BluetoothRfcommConnectionPtr p_connection{};
       RfcommConnectingSocketClient_OnConnected_ParamsDataView input_data_view(params, message);
@@ -1759,8 +1763,8 @@ bool RfcommConnectingSocketClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnected(
-std::move(p_connection));
+      impl->OnConnected(        
+        std::move(p_connection));
       return true;
     }
     case internal::kRfcommConnectingSocketClient_OnConnectFailed_Name: {
@@ -1770,6 +1774,8 @@ std::move(p_connection));
           reinterpret_cast<internal::RfcommConnectingSocketClient_OnConnectFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RfcommConnectingSocketClient.1
       bool success = true;
       RfcommConnectingSocketClient_OnConnectFailed_ParamsDataView input_data_view(params, message);
       
@@ -1782,7 +1788,7 @@ std::move(p_connection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectFailed();
+      impl->OnConnectFailed(        );
       return true;
     }
   }
@@ -1943,6 +1949,8 @@ bool BluetoothListenSocketClientStubDispatch::Accept(
           reinterpret_cast<internal::BluetoothListenSocketClient_OnAccepted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothListenSocketClient.0
       bool success = true;
       BluetoothSocketConnectionPtr p_connection{};
       BluetoothListenSocketClient_OnAccepted_ParamsDataView input_data_view(params, message);
@@ -1958,8 +1966,8 @@ bool BluetoothListenSocketClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAccepted(
-std::move(p_connection));
+      impl->OnAccepted(        
+        std::move(p_connection));
       return true;
     }
   }
@@ -2168,6 +2176,8 @@ bool BluetoothConnectSocketClientStubDispatch::Accept(
           reinterpret_cast<internal::BluetoothConnectSocketClient_OnConnected_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothConnectSocketClient.0
       bool success = true;
       BluetoothSocketConnectionPtr p_connection{};
       BluetoothConnectSocketClient_OnConnected_ParamsDataView input_data_view(params, message);
@@ -2183,8 +2193,8 @@ bool BluetoothConnectSocketClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnected(
-std::move(p_connection));
+      impl->OnConnected(        
+        std::move(p_connection));
       return true;
     }
     case internal::kBluetoothConnectSocketClient_OnConnectFailed_Name: {
@@ -2194,6 +2204,8 @@ std::move(p_connection));
           reinterpret_cast<internal::BluetoothConnectSocketClient_OnConnectFailed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothConnectSocketClient.1
       bool success = true;
       BluetoothConnectSocketClient_OnConnectFailed_ParamsDataView input_data_view(params, message);
       
@@ -2206,7 +2218,7 @@ std::move(p_connection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectFailed();
+      impl->OnConnectFailed(        );
       return true;
     }
   }
@@ -5760,6 +5772,8 @@ bool BluetoothHost_EnableAdapter_ForwardToCallback::Accept(
           internal::BluetoothHost_EnableAdapter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.0
   bool success = true;
   BluetoothAdapterState p_state{};
   BluetoothHost_EnableAdapter_ResponseParamsDataView input_data_view(params, message);
@@ -5880,6 +5894,8 @@ bool BluetoothHost_DisableAdapter_ForwardToCallback::Accept(
           internal::BluetoothHost_DisableAdapter_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.1
   bool success = true;
   BluetoothAdapterState p_state{};
   BluetoothHost_DisableAdapter_ResponseParamsDataView input_data_view(params, message);
@@ -6000,6 +6016,8 @@ bool BluetoothHost_GetConnectionState_ForwardToCallback::Accept(
           internal::BluetoothHost_GetConnectionState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.13
   bool success = true;
   bool p_connected{};
   BluetoothHost_GetConnectionState_ResponseParamsDataView input_data_view(params, message);
@@ -6119,6 +6137,8 @@ bool BluetoothHost_ReadGattCharacteristic_ForwardToCallback::Accept(
           internal::BluetoothHost_ReadGattCharacteristic_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.22
   bool success = true;
   BluetoothGattValuePtr p_value{};
   BluetoothHost_ReadGattCharacteristic_ResponseParamsDataView input_data_view(params, message);
@@ -6248,6 +6268,8 @@ bool BluetoothHost_WriteGattCharacteristic_ForwardToCallback::Accept(
           internal::BluetoothHost_WriteGattCharacteristic_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.23
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_WriteGattCharacteristic_ResponseParamsDataView input_data_view(params, message);
@@ -6368,6 +6390,8 @@ bool BluetoothHost_ReadGattDescriptor_ForwardToCallback::Accept(
           internal::BluetoothHost_ReadGattDescriptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.24
   bool success = true;
   BluetoothGattValuePtr p_value{};
   BluetoothHost_ReadGattDescriptor_ResponseParamsDataView input_data_view(params, message);
@@ -6497,6 +6521,8 @@ bool BluetoothHost_WriteGattDescriptor_ForwardToCallback::Accept(
           internal::BluetoothHost_WriteGattDescriptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.25
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_WriteGattDescriptor_ResponseParamsDataView input_data_view(params, message);
@@ -6617,6 +6643,8 @@ bool BluetoothHost_ExecuteWrite_ForwardToCallback::Accept(
           internal::BluetoothHost_ExecuteWrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.44
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_ExecuteWrite_ResponseParamsDataView input_data_view(params, message);
@@ -6737,6 +6765,8 @@ bool BluetoothHost_RegisterForGattNotification_ForwardToCallback::Accept(
           internal::BluetoothHost_RegisterForGattNotification_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.26
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_RegisterForGattNotification_ResponseParamsDataView input_data_view(params, message);
@@ -6857,6 +6887,8 @@ bool BluetoothHost_DeregisterForGattNotification_ForwardToCallback::Accept(
           internal::BluetoothHost_DeregisterForGattNotification_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.27
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_DeregisterForGattNotification_ResponseParamsDataView input_data_view(params, message);
@@ -6977,6 +7009,8 @@ bool BluetoothHost_ReadRemoteRssi_ForwardToCallback::Accept(
           internal::BluetoothHost_ReadRemoteRssi_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.28
   bool success = true;
   int32_t p_rssi{};
   BluetoothHost_ReadRemoteRssi_ResponseParamsDataView input_data_view(params, message);
@@ -7096,6 +7130,8 @@ bool BluetoothHost_AddService_ForwardToCallback::Accept(
           internal::BluetoothHost_AddService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.30
   bool success = true;
   int32_t p_service_handle{};
   BluetoothHost_AddService_ResponseParamsDataView input_data_view(params, message);
@@ -7215,6 +7251,8 @@ bool BluetoothHost_AddCharacteristic_ForwardToCallback::Accept(
           internal::BluetoothHost_AddCharacteristic_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.31
   bool success = true;
   int32_t p_characteristic_handle{};
   BluetoothHost_AddCharacteristic_ResponseParamsDataView input_data_view(params, message);
@@ -7334,6 +7372,8 @@ bool BluetoothHost_AddDescriptor_ForwardToCallback::Accept(
           internal::BluetoothHost_AddDescriptor_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.32
   bool success = true;
   int32_t p_descriptor_handle{};
   BluetoothHost_AddDescriptor_ResponseParamsDataView input_data_view(params, message);
@@ -7453,6 +7493,8 @@ bool BluetoothHost_StartService_ForwardToCallback::Accept(
           internal::BluetoothHost_StartService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.33
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_StartService_ResponseParamsDataView input_data_view(params, message);
@@ -7573,6 +7615,8 @@ bool BluetoothHost_StopService_ForwardToCallback::Accept(
           internal::BluetoothHost_StopService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.34
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_StopService_ResponseParamsDataView input_data_view(params, message);
@@ -7693,6 +7737,8 @@ bool BluetoothHost_DeleteService_ForwardToCallback::Accept(
           internal::BluetoothHost_DeleteService_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.35
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_DeleteService_ResponseParamsDataView input_data_view(params, message);
@@ -7813,6 +7859,8 @@ bool BluetoothHost_SendIndication_ForwardToCallback::Accept(
           internal::BluetoothHost_SendIndication_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.36
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_SendIndication_ResponseParamsDataView input_data_view(params, message);
@@ -7933,6 +7981,8 @@ bool BluetoothHost_CreateSdpRecord_ForwardToCallback::Accept(
           internal::BluetoothHost_CreateSdpRecord_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.38
   bool success = true;
   BluetoothCreateSdpRecordResultPtr p_result{};
   BluetoothHost_CreateSdpRecord_ResponseParamsDataView input_data_view(params, message);
@@ -8062,6 +8112,8 @@ bool BluetoothHost_RemoveSdpRecord_ForwardToCallback::Accept(
           internal::BluetoothHost_RemoveSdpRecord_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.39
   bool success = true;
   BluetoothStatus p_status{};
   BluetoothHost_RemoveSdpRecord_ResponseParamsDataView input_data_view(params, message);
@@ -8182,6 +8234,8 @@ bool BluetoothHost_ReserveAdvertisementHandle_ForwardToCallback::Accept(
           internal::BluetoothHost_ReserveAdvertisementHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.40
   bool success = true;
   BluetoothGattStatus p_status{};
   int32_t p_adv_handle{};
@@ -8310,6 +8364,8 @@ bool BluetoothHost_EnableAdvertisement_ForwardToCallback::Accept(
           internal::BluetoothHost_EnableAdvertisement_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.41
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_EnableAdvertisement_ResponseParamsDataView input_data_view(params, message);
@@ -8430,6 +8486,8 @@ bool BluetoothHost_ReleaseAdvertisementHandle_ForwardToCallback::Accept(
           internal::BluetoothHost_ReleaseAdvertisementHandle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.42
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_ReleaseAdvertisementHandle_ResponseParamsDataView input_data_view(params, message);
@@ -8550,6 +8608,8 @@ bool BluetoothHost_DisableAdvertisement_ForwardToCallback::Accept(
           internal::BluetoothHost_DisableAdvertisement_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.43
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothHost_DisableAdvertisement_ResponseParamsDataView input_data_view(params, message);
@@ -8670,6 +8730,8 @@ bool BluetoothHost_BluetoothSocketListen_ForwardToCallback::Accept(
           internal::BluetoothHost_BluetoothSocketListen_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.47
   bool success = true;
   BluetoothStatus p_status{};
   int32_t p_port{};
@@ -8809,6 +8871,8 @@ bool BluetoothHost_BluetoothSocketConnect_ForwardToCallback::Accept(
           internal::BluetoothHost_BluetoothSocketConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothHost.48
   bool success = true;
   BluetoothStatus p_status{};
   ::mojo::PendingReceiver<BluetoothConnectSocketClient> p_client{};
@@ -8901,6 +8965,8 @@ bool BluetoothHostStubDispatch::Accept(
           reinterpret_cast<internal::BluetoothHost_GetAdapterProperty_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.2
       bool success = true;
       BluetoothPropertyType p_type{};
       BluetoothHost_GetAdapterProperty_ParamsDataView input_data_view(params, message);
@@ -8916,8 +8982,8 @@ bool BluetoothHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAdapterProperty(
-std::move(p_type));
+      impl->GetAdapterProperty(        
+        std::move(p_type));
       return true;
     }
     case internal::kBluetoothHost_SetAdapterProperty_Name: {
@@ -8927,6 +8993,8 @@ std::move(p_type));
           reinterpret_cast<internal::BluetoothHost_SetAdapterProperty_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.3
       bool success = true;
       BluetoothPropertyPtr p_property{};
       BluetoothHost_SetAdapterProperty_ParamsDataView input_data_view(params, message);
@@ -8942,8 +9010,8 @@ std::move(p_type));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetAdapterProperty(
-std::move(p_property));
+      impl->SetAdapterProperty(        
+        std::move(p_property));
       return true;
     }
     case internal::kBluetoothHost_StartDiscovery_Name: {
@@ -8953,6 +9021,8 @@ std::move(p_property));
           reinterpret_cast<internal::BluetoothHost_StartDiscovery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.8
       bool success = true;
       BluetoothHost_StartDiscovery_ParamsDataView input_data_view(params, message);
       
@@ -8965,7 +9035,7 @@ std::move(p_property));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDiscovery();
+      impl->StartDiscovery(        );
       return true;
     }
     case internal::kBluetoothHost_CancelDiscovery_Name: {
@@ -8975,6 +9045,8 @@ std::move(p_property));
           reinterpret_cast<internal::BluetoothHost_CancelDiscovery_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.9
       bool success = true;
       BluetoothHost_CancelDiscovery_ParamsDataView input_data_view(params, message);
       
@@ -8987,7 +9059,7 @@ std::move(p_property));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelDiscovery();
+      impl->CancelDiscovery(        );
       return true;
     }
     case internal::kBluetoothHost_CreateBond_Name: {
@@ -8997,6 +9069,8 @@ std::move(p_property));
           reinterpret_cast<internal::BluetoothHost_CreateBond_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.10
       bool success = true;
       BluetoothAddressPtr p_addr{};
       int32_t p_transport{};
@@ -9015,9 +9089,9 @@ std::move(p_property));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBond(
-std::move(p_addr), 
-std::move(p_transport));
+      impl->CreateBond(        
+        std::move(p_addr), 
+        std::move(p_transport));
       return true;
     }
     case internal::kBluetoothHost_RemoveBond_Name: {
@@ -9027,6 +9101,8 @@ std::move(p_transport));
           reinterpret_cast<internal::BluetoothHost_RemoveBond_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.11
       bool success = true;
       BluetoothAddressPtr p_addr{};
       BluetoothHost_RemoveBond_ParamsDataView input_data_view(params, message);
@@ -9042,8 +9118,8 @@ std::move(p_transport));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveBond(
-std::move(p_addr));
+      impl->RemoveBond(        
+        std::move(p_addr));
       return true;
     }
     case internal::kBluetoothHost_CancelBond_Name: {
@@ -9053,6 +9129,8 @@ std::move(p_addr));
           reinterpret_cast<internal::BluetoothHost_CancelBond_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.12
       bool success = true;
       BluetoothAddressPtr p_addr{};
       BluetoothHost_CancelBond_ParamsDataView input_data_view(params, message);
@@ -9068,8 +9146,8 @@ std::move(p_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelBond(
-std::move(p_addr));
+      impl->CancelBond(        
+        std::move(p_addr));
       return true;
     }
     case internal::kBluetoothHost_GetConnectionState_Name: {
@@ -9082,6 +9160,8 @@ std::move(p_addr));
           reinterpret_cast<internal::BluetoothHost_StartLEScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.14
       bool success = true;
       BluetoothHost_StartLEScan_ParamsDataView input_data_view(params, message);
       
@@ -9094,7 +9174,7 @@ std::move(p_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartLEScan();
+      impl->StartLEScan(        );
       return true;
     }
     case internal::kBluetoothHost_StopLEScan_Name: {
@@ -9104,6 +9184,8 @@ std::move(p_addr));
           reinterpret_cast<internal::BluetoothHost_StopLEScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.15
       bool success = true;
       BluetoothHost_StopLEScan_ParamsDataView input_data_view(params, message);
       
@@ -9116,7 +9198,7 @@ std::move(p_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopLEScan();
+      impl->StopLEScan(        );
       return true;
     }
     case internal::kBluetoothHost_ConnectLEDevice_Name: {
@@ -9126,6 +9208,8 @@ std::move(p_addr));
           reinterpret_cast<internal::BluetoothHost_ConnectLEDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.16
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothHost_ConnectLEDevice_ParamsDataView input_data_view(params, message);
@@ -9141,8 +9225,8 @@ std::move(p_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectLEDevice(
-std::move(p_remote_addr));
+      impl->ConnectLEDevice(        
+        std::move(p_remote_addr));
       return true;
     }
     case internal::kBluetoothHost_DisconnectLEDevice_Name: {
@@ -9152,6 +9236,8 @@ std::move(p_remote_addr));
           reinterpret_cast<internal::BluetoothHost_DisconnectLEDevice_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.17
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothHost_DisconnectLEDevice_ParamsDataView input_data_view(params, message);
@@ -9167,8 +9253,8 @@ std::move(p_remote_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisconnectLEDevice(
-std::move(p_remote_addr));
+      impl->DisconnectLEDevice(        
+        std::move(p_remote_addr));
       return true;
     }
     case internal::kBluetoothHost_SearchService_Name: {
@@ -9178,6 +9264,8 @@ std::move(p_remote_addr));
           reinterpret_cast<internal::BluetoothHost_SearchService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.18
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothHost_SearchService_ParamsDataView input_data_view(params, message);
@@ -9193,8 +9281,8 @@ std::move(p_remote_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SearchService(
-std::move(p_remote_addr));
+      impl->SearchService(        
+        std::move(p_remote_addr));
       return true;
     }
     case internal::kBluetoothHost_GetGattDB_Name: {
@@ -9204,6 +9292,8 @@ std::move(p_remote_addr));
           reinterpret_cast<internal::BluetoothHost_GetGattDB_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.19
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothHost_GetGattDB_ParamsDataView input_data_view(params, message);
@@ -9219,8 +9309,8 @@ std::move(p_remote_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetGattDB(
-std::move(p_remote_addr));
+      impl->GetGattDB(        
+        std::move(p_remote_addr));
       return true;
     }
     case internal::kBluetoothHost_ReadGattCharacteristic_Name: {
@@ -9275,6 +9365,8 @@ std::move(p_remote_addr));
           reinterpret_cast<internal::BluetoothHost_GetSdpRecords_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.37
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       ::device::BluetoothUUID p_target_uuid{};
@@ -9293,9 +9385,9 @@ std::move(p_remote_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSdpRecords(
-std::move(p_remote_addr), 
-std::move(p_target_uuid));
+      impl->GetSdpRecords(        
+        std::move(p_remote_addr), 
+        std::move(p_target_uuid));
       return true;
     }
     case internal::kBluetoothHost_CreateSdpRecord_Name: {
@@ -9342,6 +9434,8 @@ bool BluetoothHostStubDispatch::AcceptWithResponder(
               internal::BluetoothHost_EnableAdapter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.0
       bool success = true;
       BluetoothHost_EnableAdapter_ParamsDataView input_data_view(params, message);
       
@@ -9367,6 +9461,8 @@ bool BluetoothHostStubDispatch::AcceptWithResponder(
               internal::BluetoothHost_DisableAdapter_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.1
       bool success = true;
       BluetoothHost_DisableAdapter_ParamsDataView input_data_view(params, message);
       
@@ -9413,6 +9509,8 @@ bool BluetoothHostStubDispatch::AcceptWithResponder(
               internal::BluetoothHost_GetConnectionState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.13
       bool success = true;
       BluetoothAddressPtr p_addr{};
       BluetoothHost_GetConnectionState_ParamsDataView input_data_view(params, message);
@@ -9431,8 +9529,8 @@ bool BluetoothHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetConnectionState(
-std::move(p_addr), std::move(callback));
+      impl->GetConnectionState(        
+        std::move(p_addr), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_StartLEScan_Name: {
@@ -9460,6 +9558,8 @@ std::move(p_addr), std::move(callback));
               internal::BluetoothHost_ReadGattCharacteristic_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.22
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -9484,10 +9584,10 @@ std::move(p_addr), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadGattCharacteristic(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), std::move(callback));
+      impl->ReadGattCharacteristic(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_WriteGattCharacteristic_Name: {
@@ -9497,6 +9597,8 @@ std::move(p_char_id), std::move(callback));
               internal::BluetoothHost_WriteGattCharacteristic_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.23
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -9527,12 +9629,12 @@ std::move(p_char_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteGattCharacteristic(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), 
-std::move(p_value), 
-std::move(p_prepare), std::move(callback));
+      impl->WriteGattCharacteristic(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), 
+        std::move(p_value), 
+        std::move(p_prepare), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_ReadGattDescriptor_Name: {
@@ -9542,6 +9644,8 @@ std::move(p_prepare), std::move(callback));
               internal::BluetoothHost_ReadGattDescriptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.24
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -9569,11 +9673,11 @@ std::move(p_prepare), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadGattDescriptor(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), 
-std::move(p_desc_id), std::move(callback));
+      impl->ReadGattDescriptor(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), 
+        std::move(p_desc_id), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_WriteGattDescriptor_Name: {
@@ -9583,6 +9687,8 @@ std::move(p_desc_id), std::move(callback));
               internal::BluetoothHost_WriteGattDescriptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.25
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -9613,12 +9719,12 @@ std::move(p_desc_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WriteGattDescriptor(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), 
-std::move(p_desc_id), 
-std::move(p_value), std::move(callback));
+      impl->WriteGattDescriptor(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), 
+        std::move(p_desc_id), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_ExecuteWrite_Name: {
@@ -9628,6 +9734,8 @@ std::move(p_value), std::move(callback));
               internal::BluetoothHost_ExecuteWrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.44
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       bool p_execute{};
@@ -9649,9 +9757,9 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteWrite(
-std::move(p_remote_addr), 
-std::move(p_execute), std::move(callback));
+      impl->ExecuteWrite(        
+        std::move(p_remote_addr), 
+        std::move(p_execute), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_RegisterForGattNotification_Name: {
@@ -9661,6 +9769,8 @@ std::move(p_execute), std::move(callback));
               internal::BluetoothHost_RegisterForGattNotification_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.26
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -9685,10 +9795,10 @@ std::move(p_execute), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterForGattNotification(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), std::move(callback));
+      impl->RegisterForGattNotification(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_DeregisterForGattNotification_Name: {
@@ -9698,6 +9808,8 @@ std::move(p_char_id), std::move(callback));
               internal::BluetoothHost_DeregisterForGattNotification_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.27
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -9722,10 +9834,10 @@ std::move(p_char_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeregisterForGattNotification(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), std::move(callback));
+      impl->DeregisterForGattNotification(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_ReadRemoteRssi_Name: {
@@ -9735,6 +9847,8 @@ std::move(p_char_id), std::move(callback));
               internal::BluetoothHost_ReadRemoteRssi_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.28
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothHost_ReadRemoteRssi_ParamsDataView input_data_view(params, message);
@@ -9753,8 +9867,8 @@ std::move(p_char_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReadRemoteRssi(
-std::move(p_remote_addr), std::move(callback));
+      impl->ReadRemoteRssi(        
+        std::move(p_remote_addr), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_AddService_Name: {
@@ -9764,6 +9878,8 @@ std::move(p_remote_addr), std::move(callback));
               internal::BluetoothHost_AddService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.30
       bool success = true;
       BluetoothGattServiceIDPtr p_service_id{};
       int32_t p_num_handles{};
@@ -9785,9 +9901,9 @@ std::move(p_remote_addr), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddService(
-std::move(p_service_id), 
-std::move(p_num_handles), std::move(callback));
+      impl->AddService(        
+        std::move(p_service_id), 
+        std::move(p_num_handles), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_AddCharacteristic_Name: {
@@ -9797,6 +9913,8 @@ std::move(p_num_handles), std::move(callback));
               internal::BluetoothHost_AddCharacteristic_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.31
       bool success = true;
       int32_t p_service_handle{};
       ::device::BluetoothUUID p_uuid{};
@@ -9824,11 +9942,11 @@ std::move(p_num_handles), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCharacteristic(
-std::move(p_service_handle), 
-std::move(p_uuid), 
-std::move(p_properties), 
-std::move(p_permissions), std::move(callback));
+      impl->AddCharacteristic(        
+        std::move(p_service_handle), 
+        std::move(p_uuid), 
+        std::move(p_properties), 
+        std::move(p_permissions), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_AddDescriptor_Name: {
@@ -9838,6 +9956,8 @@ std::move(p_permissions), std::move(callback));
               internal::BluetoothHost_AddDescriptor_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.32
       bool success = true;
       int32_t p_service_handle{};
       ::device::BluetoothUUID p_uuid{};
@@ -9862,10 +9982,10 @@ std::move(p_permissions), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDescriptor(
-std::move(p_service_handle), 
-std::move(p_uuid), 
-std::move(p_permissions), std::move(callback));
+      impl->AddDescriptor(        
+        std::move(p_service_handle), 
+        std::move(p_uuid), 
+        std::move(p_permissions), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_StartService_Name: {
@@ -9875,6 +9995,8 @@ std::move(p_permissions), std::move(callback));
               internal::BluetoothHost_StartService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.33
       bool success = true;
       int32_t p_service_handle{};
       BluetoothHost_StartService_ParamsDataView input_data_view(params, message);
@@ -9893,8 +10015,8 @@ std::move(p_permissions), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartService(
-std::move(p_service_handle), std::move(callback));
+      impl->StartService(        
+        std::move(p_service_handle), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_StopService_Name: {
@@ -9904,6 +10026,8 @@ std::move(p_service_handle), std::move(callback));
               internal::BluetoothHost_StopService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.34
       bool success = true;
       int32_t p_service_handle{};
       BluetoothHost_StopService_ParamsDataView input_data_view(params, message);
@@ -9922,8 +10046,8 @@ std::move(p_service_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopService(
-std::move(p_service_handle), std::move(callback));
+      impl->StopService(        
+        std::move(p_service_handle), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_DeleteService_Name: {
@@ -9933,6 +10057,8 @@ std::move(p_service_handle), std::move(callback));
               internal::BluetoothHost_DeleteService_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.35
       bool success = true;
       int32_t p_service_handle{};
       BluetoothHost_DeleteService_ParamsDataView input_data_view(params, message);
@@ -9951,8 +10077,8 @@ std::move(p_service_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteService(
-std::move(p_service_handle), std::move(callback));
+      impl->DeleteService(        
+        std::move(p_service_handle), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_SendIndication_Name: {
@@ -9962,6 +10088,8 @@ std::move(p_service_handle), std::move(callback));
               internal::BluetoothHost_SendIndication_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.36
       bool success = true;
       int32_t p_attribute_handle{};
       BluetoothAddressPtr p_address{};
@@ -9989,11 +10117,11 @@ std::move(p_service_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendIndication(
-std::move(p_attribute_handle), 
-std::move(p_address), 
-std::move(p_confirm), 
-std::move(p_value), std::move(callback));
+      impl->SendIndication(        
+        std::move(p_attribute_handle), 
+        std::move(p_address), 
+        std::move(p_confirm), 
+        std::move(p_value), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_GetSdpRecords_Name: {
@@ -10006,6 +10134,8 @@ std::move(p_value), std::move(callback));
               internal::BluetoothHost_CreateSdpRecord_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.38
       bool success = true;
       BluetoothSdpRecordPtr p_record{};
       BluetoothHost_CreateSdpRecord_ParamsDataView input_data_view(params, message);
@@ -10024,8 +10154,8 @@ std::move(p_value), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateSdpRecord(
-std::move(p_record), std::move(callback));
+      impl->CreateSdpRecord(        
+        std::move(p_record), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_RemoveSdpRecord_Name: {
@@ -10035,6 +10165,8 @@ std::move(p_record), std::move(callback));
               internal::BluetoothHost_RemoveSdpRecord_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.39
       bool success = true;
       uint32_t p_service_handle{};
       BluetoothHost_RemoveSdpRecord_ParamsDataView input_data_view(params, message);
@@ -10053,8 +10185,8 @@ std::move(p_record), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveSdpRecord(
-std::move(p_service_handle), std::move(callback));
+      impl->RemoveSdpRecord(        
+        std::move(p_service_handle), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_ReserveAdvertisementHandle_Name: {
@@ -10064,6 +10196,8 @@ std::move(p_service_handle), std::move(callback));
               internal::BluetoothHost_ReserveAdvertisementHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.40
       bool success = true;
       BluetoothHost_ReserveAdvertisementHandle_ParamsDataView input_data_view(params, message);
       
@@ -10089,6 +10223,8 @@ std::move(p_service_handle), std::move(callback));
               internal::BluetoothHost_EnableAdvertisement_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.41
       bool success = true;
       int32_t p_adv_handle{};
       ::std::unique_ptr<::device::BluetoothAdvertisement::Data> p_adv{};
@@ -10110,9 +10246,9 @@ std::move(p_service_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableAdvertisement(
-std::move(p_adv_handle), 
-std::move(p_adv), std::move(callback));
+      impl->EnableAdvertisement(        
+        std::move(p_adv_handle), 
+        std::move(p_adv), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_ReleaseAdvertisementHandle_Name: {
@@ -10122,6 +10258,8 @@ std::move(p_adv), std::move(callback));
               internal::BluetoothHost_ReleaseAdvertisementHandle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.42
       bool success = true;
       int32_t p_adv_handle{};
       BluetoothHost_ReleaseAdvertisementHandle_ParamsDataView input_data_view(params, message);
@@ -10140,8 +10278,8 @@ std::move(p_adv), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReleaseAdvertisementHandle(
-std::move(p_adv_handle), std::move(callback));
+      impl->ReleaseAdvertisementHandle(        
+        std::move(p_adv_handle), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_DisableAdvertisement_Name: {
@@ -10151,6 +10289,8 @@ std::move(p_adv_handle), std::move(callback));
               internal::BluetoothHost_DisableAdvertisement_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.43
       bool success = true;
       int32_t p_adv_handle{};
       BluetoothHost_DisableAdvertisement_ParamsDataView input_data_view(params, message);
@@ -10169,8 +10309,8 @@ std::move(p_adv_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableAdvertisement(
-std::move(p_adv_handle), std::move(callback));
+      impl->DisableAdvertisement(        
+        std::move(p_adv_handle), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_BluetoothSocketListen_Name: {
@@ -10180,6 +10320,8 @@ std::move(p_adv_handle), std::move(callback));
               internal::BluetoothHost_BluetoothSocketListen_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.47
       bool success = true;
       BluetoothSocketType p_sock_type{};
       BluetoothSocketFlagsPtr p_sock_flags{};
@@ -10204,10 +10346,10 @@ std::move(p_adv_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BluetoothSocketListen(
-std::move(p_sock_type), 
-std::move(p_sock_flags), 
-std::move(p_port), std::move(callback));
+      impl->BluetoothSocketListen(        
+        std::move(p_sock_type), 
+        std::move(p_sock_flags), 
+        std::move(p_port), std::move(callback));
       return true;
     }
     case internal::kBluetoothHost_BluetoothSocketConnect_Name: {
@@ -10217,6 +10359,8 @@ std::move(p_port), std::move(callback));
               internal::BluetoothHost_BluetoothSocketConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothHost.48
       bool success = true;
       BluetoothSocketType p_sock_type{};
       BluetoothSocketFlagsPtr p_sock_flags{};
@@ -10244,11 +10388,11 @@ std::move(p_port), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BluetoothSocketConnect(
-std::move(p_sock_type), 
-std::move(p_sock_flags), 
-std::move(p_remote_addr), 
-std::move(p_remote_port), std::move(callback));
+      impl->BluetoothSocketConnect(        
+        std::move(p_sock_type), 
+        std::move(p_sock_flags), 
+        std::move(p_remote_addr), 
+        std::move(p_remote_port), std::move(callback));
       return true;
     }
   }
@@ -12100,6 +12244,8 @@ bool BluetoothInstance_Init_ForwardToCallback::Accept(
           internal::BluetoothInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInstance.18
   bool success = true;
   BluetoothInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -12207,6 +12353,8 @@ bool BluetoothInstance_RequestGattRead_ForwardToCallback::Accept(
           internal::BluetoothInstance_RequestGattRead_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInstance.14
   bool success = true;
   BluetoothGattStatus p_status{};
   std::vector<uint8_t> p_value{};
@@ -12347,6 +12495,8 @@ bool BluetoothInstance_RequestGattWrite_ForwardToCallback::Accept(
           internal::BluetoothInstance_RequestGattWrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInstance.15
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothInstance_RequestGattWrite_ResponseParamsDataView input_data_view(params, message);
@@ -12467,6 +12617,8 @@ bool BluetoothInstance_RequestGattExecuteWrite_ForwardToCallback::Accept(
           internal::BluetoothInstance_RequestGattExecuteWrite_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BluetoothInstance.20
   bool success = true;
   BluetoothGattStatus p_status{};
   BluetoothInstance_RequestGattExecuteWrite_ResponseParamsDataView input_data_view(params, message);
@@ -12545,6 +12697,8 @@ bool BluetoothInstanceStubDispatch::Accept(
           reinterpret_cast<internal::BluetoothInstance_OnAdapterProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.1
       bool success = true;
       BluetoothStatus p_status{};
       std::vector<BluetoothPropertyPtr> p_properties{};
@@ -12563,9 +12717,9 @@ bool BluetoothInstanceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdapterProperties(
-std::move(p_status), 
-std::move(p_properties));
+      impl->OnAdapterProperties(        
+        std::move(p_status), 
+        std::move(p_properties));
       return true;
     }
     case internal::kBluetoothInstance_OnDeviceFound_Name: {
@@ -12575,6 +12729,8 @@ std::move(p_properties));
           reinterpret_cast<internal::BluetoothInstance_OnDeviceFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.3
       bool success = true;
       std::vector<BluetoothPropertyPtr> p_properties{};
       BluetoothInstance_OnDeviceFound_ParamsDataView input_data_view(params, message);
@@ -12590,8 +12746,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceFound(
-std::move(p_properties));
+      impl->OnDeviceFound(        
+        std::move(p_properties));
       return true;
     }
     case internal::kBluetoothInstance_OnDevicePropertiesChanged_Name: {
@@ -12601,6 +12757,8 @@ std::move(p_properties));
           reinterpret_cast<internal::BluetoothInstance_OnDevicePropertiesChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.22
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       std::vector<BluetoothPropertyPtr> p_properties{};
@@ -12619,9 +12777,9 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDevicePropertiesChanged(
-std::move(p_remote_addr), 
-std::move(p_properties));
+      impl->OnDevicePropertiesChanged(        
+        std::move(p_remote_addr), 
+        std::move(p_properties));
       return true;
     }
     case internal::kBluetoothInstance_OnDiscoveryStateChanged_Name: {
@@ -12631,6 +12789,8 @@ std::move(p_properties));
           reinterpret_cast<internal::BluetoothInstance_OnDiscoveryStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.4
       bool success = true;
       BluetoothDiscoveryState p_state{};
       BluetoothInstance_OnDiscoveryStateChanged_ParamsDataView input_data_view(params, message);
@@ -12646,8 +12806,8 @@ std::move(p_properties));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiscoveryStateChanged(
-std::move(p_state));
+      impl->OnDiscoveryStateChanged(        
+        std::move(p_state));
       return true;
     }
     case internal::kBluetoothInstance_OnBondStateChanged_Name: {
@@ -12657,6 +12817,8 @@ std::move(p_state));
           reinterpret_cast<internal::BluetoothInstance_OnBondStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.5
       bool success = true;
       BluetoothStatus p_status{};
       BluetoothAddressPtr p_remote_addr{};
@@ -12678,10 +12840,10 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBondStateChanged(
-std::move(p_status), 
-std::move(p_remote_addr), 
-std::move(p_state));
+      impl->OnBondStateChanged(        
+        std::move(p_status), 
+        std::move(p_remote_addr), 
+        std::move(p_state));
       return true;
     }
     case internal::kBluetoothInstance_OnConnectionStateChanged_Name: {
@@ -12691,6 +12853,8 @@ std::move(p_state));
           reinterpret_cast<internal::BluetoothInstance_OnConnectionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.23
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       ::device::BluetoothTransport p_device_type{};
@@ -12712,10 +12876,10 @@ std::move(p_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConnectionStateChanged(
-std::move(p_remote_addr), 
-std::move(p_device_type), 
-std::move(p_connected));
+      impl->OnConnectionStateChanged(        
+        std::move(p_remote_addr), 
+        std::move(p_device_type), 
+        std::move(p_connected));
       return true;
     }
     case internal::kBluetoothInstance_OnLEDeviceFound_Name: {
@@ -12725,6 +12889,8 @@ std::move(p_connected));
           reinterpret_cast<internal::BluetoothInstance_OnLEDeviceFound_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.21
       bool success = true;
       BluetoothAddressPtr p_addr{};
       int32_t p_rssi{};
@@ -12746,10 +12912,10 @@ std::move(p_connected));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLEDeviceFound(
-std::move(p_addr), 
-std::move(p_rssi), 
-std::move(p_eir));
+      impl->OnLEDeviceFound(        
+        std::move(p_addr), 
+        std::move(p_rssi), 
+        std::move(p_eir));
       return true;
     }
     case internal::kBluetoothInstance_OnLEConnectionStateChange_Name: {
@@ -12759,6 +12925,8 @@ std::move(p_eir));
           reinterpret_cast<internal::BluetoothInstance_OnLEConnectionStateChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.8
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       bool p_connected{};
@@ -12777,9 +12945,9 @@ std::move(p_eir));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLEConnectionStateChange(
-std::move(p_remote_addr), 
-std::move(p_connected));
+      impl->OnLEConnectionStateChange(        
+        std::move(p_remote_addr), 
+        std::move(p_connected));
       return true;
     }
     case internal::kBluetoothInstance_OnLEDeviceAddressChange_Name: {
@@ -12789,6 +12957,8 @@ std::move(p_connected));
           reinterpret_cast<internal::BluetoothInstance_OnLEDeviceAddressChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.16
       bool success = true;
       BluetoothAddressPtr p_old_addr{};
       BluetoothAddressPtr p_new_addr{};
@@ -12807,9 +12977,9 @@ std::move(p_connected));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLEDeviceAddressChange(
-std::move(p_old_addr), 
-std::move(p_new_addr));
+      impl->OnLEDeviceAddressChange(        
+        std::move(p_old_addr), 
+        std::move(p_new_addr));
       return true;
     }
     case internal::kBluetoothInstance_OnSearchComplete_Name: {
@@ -12819,6 +12989,8 @@ std::move(p_new_addr));
           reinterpret_cast<internal::BluetoothInstance_OnSearchComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.9
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattStatus p_status{};
@@ -12837,9 +13009,9 @@ std::move(p_new_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSearchComplete(
-std::move(p_remote_addr), 
-std::move(p_status));
+      impl->OnSearchComplete(        
+        std::move(p_remote_addr), 
+        std::move(p_status));
       return true;
     }
     case internal::kBluetoothInstance_OnGetGattDB_Name: {
@@ -12849,6 +13021,8 @@ std::move(p_status));
           reinterpret_cast<internal::BluetoothInstance_OnGetGattDB_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.10
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       std::vector<BluetoothGattDBElementPtr> p_db{};
@@ -12867,9 +13041,9 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGetGattDB(
-std::move(p_remote_addr), 
-std::move(p_db));
+      impl->OnGetGattDB(        
+        std::move(p_remote_addr), 
+        std::move(p_db));
       return true;
     }
     case internal::kBluetoothInstance_OnGattNotify_Name: {
@@ -12879,6 +13053,8 @@ std::move(p_db));
           reinterpret_cast<internal::BluetoothInstance_OnGattNotify_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.13
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothGattServiceIDPtr p_service_id{};
@@ -12906,12 +13082,12 @@ std::move(p_db));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGattNotify(
-std::move(p_remote_addr), 
-std::move(p_service_id), 
-std::move(p_char_id), 
-std::move(p_is_notify), 
-std::move(p_value));
+      impl->OnGattNotify(        
+        std::move(p_remote_addr), 
+        std::move(p_service_id), 
+        std::move(p_char_id), 
+        std::move(p_is_notify), 
+        std::move(p_value));
       return true;
     }
     case internal::kBluetoothInstance_OnServiceChanged_Name: {
@@ -12921,6 +13097,8 @@ std::move(p_value));
           reinterpret_cast<internal::BluetoothInstance_OnServiceChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.24
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       BluetoothInstance_OnServiceChanged_ParamsDataView input_data_view(params, message);
@@ -12936,8 +13114,8 @@ std::move(p_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnServiceChanged(
-std::move(p_remote_addr));
+      impl->OnServiceChanged(        
+        std::move(p_remote_addr));
       return true;
     }
     case internal::kBluetoothInstance_RequestGattRead_Name: {
@@ -12956,6 +13134,8 @@ std::move(p_remote_addr));
           reinterpret_cast<internal::BluetoothInstance_OnMTUReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.19
       bool success = true;
       BluetoothAddressPtr p_remote_addr{};
       uint16_t p_mtu{};
@@ -12974,9 +13154,9 @@ std::move(p_remote_addr));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMTUReceived(
-std::move(p_remote_addr), 
-std::move(p_mtu));
+      impl->OnMTUReceived(        
+        std::move(p_remote_addr), 
+        std::move(p_mtu));
       return true;
     }
     case internal::kBluetoothInstance_OnGetSdpRecords_Name: {
@@ -12986,6 +13166,8 @@ std::move(p_mtu));
           reinterpret_cast<internal::BluetoothInstance_OnGetSdpRecords_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.17
       bool success = true;
       BluetoothStatus p_status{};
       BluetoothAddressPtr p_remote_addr{};
@@ -13010,11 +13192,11 @@ std::move(p_mtu));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnGetSdpRecords(
-std::move(p_status), 
-std::move(p_remote_addr), 
-std::move(p_target_uuid), 
-std::move(p_records));
+      impl->OnGetSdpRecords(        
+        std::move(p_status), 
+        std::move(p_remote_addr), 
+        std::move(p_target_uuid), 
+        std::move(p_records));
       return true;
     }
   }
@@ -13037,6 +13219,8 @@ bool BluetoothInstanceStubDispatch::AcceptWithResponder(
               internal::BluetoothInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.18
       bool success = true;
       ::mojo::PendingRemote<BluetoothHost> p_host_remote{};
       BluetoothInstance_Init_ParamsDataView input_data_view(params, message);
@@ -13057,8 +13241,8 @@ bool BluetoothInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kBluetoothInstance_OnAdapterProperties_Name: {
@@ -13107,6 +13291,8 @@ std::move(p_host_remote), std::move(callback));
               internal::BluetoothInstance_RequestGattRead_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.14
       bool success = true;
       BluetoothAddressPtr p_address{};
       int32_t p_attribute_handle{};
@@ -13137,12 +13323,12 @@ std::move(p_host_remote), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGattRead(
-std::move(p_address), 
-std::move(p_attribute_handle), 
-std::move(p_offset), 
-std::move(p_is_long), 
-std::move(p_attribute_type), std::move(callback));
+      impl->RequestGattRead(        
+        std::move(p_address), 
+        std::move(p_attribute_handle), 
+        std::move(p_offset), 
+        std::move(p_is_long), 
+        std::move(p_attribute_type), std::move(callback));
       return true;
     }
     case internal::kBluetoothInstance_RequestGattWrite_Name: {
@@ -13152,6 +13338,8 @@ std::move(p_attribute_type), std::move(callback));
               internal::BluetoothInstance_RequestGattWrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.15
       bool success = true;
       BluetoothAddressPtr p_address{};
       int32_t p_attribute_handle{};
@@ -13185,13 +13373,13 @@ std::move(p_attribute_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGattWrite(
-std::move(p_address), 
-std::move(p_attribute_handle), 
-std::move(p_offset), 
-std::move(p_value), 
-std::move(p_attribute_type), 
-std::move(p_is_prepare), std::move(callback));
+      impl->RequestGattWrite(        
+        std::move(p_address), 
+        std::move(p_attribute_handle), 
+        std::move(p_offset), 
+        std::move(p_value), 
+        std::move(p_attribute_type), 
+        std::move(p_is_prepare), std::move(callback));
       return true;
     }
     case internal::kBluetoothInstance_RequestGattExecuteWrite_Name: {
@@ -13201,6 +13389,8 @@ std::move(p_is_prepare), std::move(callback));
               internal::BluetoothInstance_RequestGattExecuteWrite_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BluetoothInstance.20
       bool success = true;
       BluetoothAddressPtr p_address{};
       bool p_execute{};
@@ -13222,9 +13412,9 @@ std::move(p_is_prepare), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestGattExecuteWrite(
-std::move(p_address), 
-std::move(p_execute), std::move(callback));
+      impl->RequestGattExecuteWrite(        
+        std::move(p_address), 
+        std::move(p_execute), std::move(callback));
       return true;
     }
     case internal::kBluetoothInstance_OnMTUReceived_Name: {

@@ -78,8 +78,18 @@ void ExperimentalDomain::SetFocusEmulationEnabled(std::unique_ptr<SetFocusEmulat
 void ExperimentalDomain::SetAutoDarkModeOverride(std::unique_ptr<SetAutoDarkModeOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetAutoDarkModeOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setAutoDarkModeOverride", params->Serialize(), base::BindOnce(&Domain::HandleSetAutoDarkModeOverrideResponse, std::move(callback)));
 }
-void ExperimentalDomain::SetCPUThrottlingRate(std::unique_ptr<SetCPUThrottlingRateParams> params, base::OnceCallback<void(std::unique_ptr<SetCPUThrottlingRateResult>)> callback) {
+void Domain::SetCPUThrottlingRate(std::unique_ptr<SetCPUThrottlingRateParams> params, base::OnceCallback<void(std::unique_ptr<SetCPUThrottlingRateResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setCPUThrottlingRate", params->Serialize(), base::BindOnce(&Domain::HandleSetCPUThrottlingRateResponse, std::move(callback)));
+}
+
+void Domain::SetCPUThrottlingRate(double rate, base::OnceClosure callback) {
+  std::unique_ptr<SetCPUThrottlingRateParams> params = SetCPUThrottlingRateParams::Builder()
+      .SetRate(std::move(rate))
+      .Build();
+  dispatcher_->SendMessage("Emulation.setCPUThrottlingRate", params->Serialize(), std::move(callback));
+}
+void Domain::SetCPUThrottlingRate(std::unique_ptr<SetCPUThrottlingRateParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Emulation.setCPUThrottlingRate", params->Serialize(), std::move(callback));
 }
 void Domain::SetDefaultBackgroundColorOverride(std::unique_ptr<SetDefaultBackgroundColorOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetDefaultBackgroundColorOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setDefaultBackgroundColorOverride", params->Serialize(), base::BindOnce(&Domain::HandleSetDefaultBackgroundColorOverrideResponse, std::move(callback)));
@@ -130,8 +140,18 @@ void Domain::SetEmulatedMedia(base::OnceClosure callback) {
 void Domain::SetEmulatedMedia(std::unique_ptr<SetEmulatedMediaParams> params, base::OnceClosure callback) {
   dispatcher_->SendMessage("Emulation.setEmulatedMedia", params->Serialize(), std::move(callback));
 }
-void ExperimentalDomain::SetEmulatedVisionDeficiency(std::unique_ptr<SetEmulatedVisionDeficiencyParams> params, base::OnceCallback<void(std::unique_ptr<SetEmulatedVisionDeficiencyResult>)> callback) {
+void Domain::SetEmulatedVisionDeficiency(std::unique_ptr<SetEmulatedVisionDeficiencyParams> params, base::OnceCallback<void(std::unique_ptr<SetEmulatedVisionDeficiencyResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setEmulatedVisionDeficiency", params->Serialize(), base::BindOnce(&Domain::HandleSetEmulatedVisionDeficiencyResponse, std::move(callback)));
+}
+
+void Domain::SetEmulatedVisionDeficiency(::headless::emulation::SetEmulatedVisionDeficiencyType type, base::OnceClosure callback) {
+  std::unique_ptr<SetEmulatedVisionDeficiencyParams> params = SetEmulatedVisionDeficiencyParams::Builder()
+      .SetType(std::move(type))
+      .Build();
+  dispatcher_->SendMessage("Emulation.setEmulatedVisionDeficiency", params->Serialize(), std::move(callback));
+}
+void Domain::SetEmulatedVisionDeficiency(std::unique_ptr<SetEmulatedVisionDeficiencyParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Emulation.setEmulatedVisionDeficiency", params->Serialize(), std::move(callback));
 }
 void Domain::SetGeolocationOverride(std::unique_ptr<SetGeolocationOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetGeolocationOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setGeolocationOverride", params->Serialize(), base::BindOnce(&Domain::HandleSetGeolocationOverrideResponse, std::move(callback)));
@@ -154,11 +174,31 @@ void ExperimentalDomain::SetSensorOverrideEnabled(std::unique_ptr<SetSensorOverr
 void ExperimentalDomain::SetSensorOverrideReadings(std::unique_ptr<SetSensorOverrideReadingsParams> params, base::OnceCallback<void(std::unique_ptr<SetSensorOverrideReadingsResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setSensorOverrideReadings", params->Serialize(), base::BindOnce(&Domain::HandleSetSensorOverrideReadingsResponse, std::move(callback)));
 }
-void ExperimentalDomain::SetIdleOverride(std::unique_ptr<SetIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetIdleOverrideResult>)> callback) {
+void Domain::SetIdleOverride(std::unique_ptr<SetIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetIdleOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setIdleOverride", params->Serialize(), base::BindOnce(&Domain::HandleSetIdleOverrideResponse, std::move(callback)));
 }
-void ExperimentalDomain::ClearIdleOverride(std::unique_ptr<ClearIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<ClearIdleOverrideResult>)> callback) {
+
+void Domain::SetIdleOverride(bool is_user_active, bool is_screen_unlocked, base::OnceClosure callback) {
+  std::unique_ptr<SetIdleOverrideParams> params = SetIdleOverrideParams::Builder()
+      .SetIsUserActive(std::move(is_user_active))
+      .SetIsScreenUnlocked(std::move(is_screen_unlocked))
+      .Build();
+  dispatcher_->SendMessage("Emulation.setIdleOverride", params->Serialize(), std::move(callback));
+}
+void Domain::SetIdleOverride(std::unique_ptr<SetIdleOverrideParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Emulation.setIdleOverride", params->Serialize(), std::move(callback));
+}
+void Domain::ClearIdleOverride(std::unique_ptr<ClearIdleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<ClearIdleOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.clearIdleOverride", params->Serialize(), base::BindOnce(&Domain::HandleClearIdleOverrideResponse, std::move(callback)));
+}
+
+void Domain::ClearIdleOverride(base::OnceClosure callback) {
+  std::unique_ptr<ClearIdleOverrideParams> params = ClearIdleOverrideParams::Builder()
+      .Build();
+  dispatcher_->SendMessage("Emulation.clearIdleOverride", params->Serialize(), std::move(callback));
+}
+void Domain::ClearIdleOverride(std::unique_ptr<ClearIdleOverrideParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Emulation.clearIdleOverride", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::SetNavigatorOverrides(std::unique_ptr<SetNavigatorOverridesParams> params, base::OnceCallback<void(std::unique_ptr<SetNavigatorOverridesResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setNavigatorOverrides", params->Serialize(), base::BindOnce(&Domain::HandleSetNavigatorOverridesResponse, std::move(callback)));
@@ -198,8 +238,18 @@ void ExperimentalDomain::SetVirtualTimePolicy(std::unique_ptr<SetVirtualTimePoli
 void ExperimentalDomain::SetLocaleOverride(std::unique_ptr<SetLocaleOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetLocaleOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setLocaleOverride", params->Serialize(), base::BindOnce(&Domain::HandleSetLocaleOverrideResponse, std::move(callback)));
 }
-void ExperimentalDomain::SetTimezoneOverride(std::unique_ptr<SetTimezoneOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetTimezoneOverrideResult>)> callback) {
+void Domain::SetTimezoneOverride(std::unique_ptr<SetTimezoneOverrideParams> params, base::OnceCallback<void(std::unique_ptr<SetTimezoneOverrideResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setTimezoneOverride", params->Serialize(), base::BindOnce(&Domain::HandleSetTimezoneOverrideResponse, std::move(callback)));
+}
+
+void Domain::SetTimezoneOverride(const std::string& timezone_id, base::OnceClosure callback) {
+  std::unique_ptr<SetTimezoneOverrideParams> params = SetTimezoneOverrideParams::Builder()
+      .SetTimezoneId(std::move(timezone_id))
+      .Build();
+  dispatcher_->SendMessage("Emulation.setTimezoneOverride", params->Serialize(), std::move(callback));
+}
+void Domain::SetTimezoneOverride(std::unique_ptr<SetTimezoneOverrideParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("Emulation.setTimezoneOverride", params->Serialize(), std::move(callback));
 }
 void ExperimentalDomain::SetVisibleSize(std::unique_ptr<SetVisibleSizeParams> params, base::OnceCallback<void(std::unique_ptr<SetVisibleSizeResult>)> callback) {
   dispatcher_->SendMessage("Emulation.setVisibleSize", params->Serialize(), base::BindOnce(&Domain::HandleSetVisibleSizeResponse, std::move(callback)));

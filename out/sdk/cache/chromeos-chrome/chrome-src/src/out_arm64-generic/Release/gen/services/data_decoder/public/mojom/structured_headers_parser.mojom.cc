@@ -316,6 +316,8 @@ bool StructuredHeadersParser_ParseItem_ForwardToCallback::Accept(
           internal::StructuredHeadersParser_ParseItem_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StructuredHeadersParser.0
   bool success = true;
   std::optional<::net::structured_headers::ParameterizedItem> p_result{};
   StructuredHeadersParser_ParseItem_ResponseParamsDataView input_data_view(params, message);
@@ -441,6 +443,8 @@ bool StructuredHeadersParser_ParseList_ForwardToCallback::Accept(
           internal::StructuredHeadersParser_ParseList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for StructuredHeadersParser.1
   bool success = true;
   std::optional<std::vector<::net::structured_headers::ParameterizedMember>> p_result{};
   StructuredHeadersParser_ParseList_ResponseParamsDataView input_data_view(params, message);
@@ -542,6 +546,8 @@ bool StructuredHeadersParserStubDispatch::AcceptWithResponder(
               internal::StructuredHeadersParser_ParseItem_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StructuredHeadersParser.0
       bool success = true;
       std::string p_header{};
       StructuredHeadersParser_ParseItem_ParamsDataView input_data_view(params, message);
@@ -560,8 +566,8 @@ bool StructuredHeadersParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseItem(
-std::move(p_header), std::move(callback));
+      impl->ParseItem(        
+        std::move(p_header), std::move(callback));
       return true;
     }
     case internal::kStructuredHeadersParser_ParseList_Name: {
@@ -571,6 +577,8 @@ std::move(p_header), std::move(callback));
               internal::StructuredHeadersParser_ParseList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for StructuredHeadersParser.1
       bool success = true;
       std::string p_header{};
       StructuredHeadersParser_ParseList_ParamsDataView input_data_view(params, message);
@@ -589,8 +597,8 @@ std::move(p_header), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseList(
-std::move(p_header), std::move(callback));
+      impl->ParseList(        
+        std::move(p_header), std::move(callback));
       return true;
     }
   }

@@ -1,5 +1,6 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.PcaAgent
+//  - org.chromium.RksAgent
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_ADAPTORS_ORG_CHROMIUM_PCAAGENT_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_ATTESTATION_OUT_DEFAULT_GEN_INCLUDE_ATTESTATION_PCA_AGENT_DBUS_ADAPTORS_ORG_CHROMIUM_PCAAGENT_H
 #include <memory>
@@ -71,6 +72,71 @@ class PcaAgentAdaptor {
 
  private:
   PcaAgentInterface* interface_;  // Owned by container of this adapter.
+};
+
+}  // namespace chromium
+}  // namespace org
+
+namespace org {
+namespace chromium {
+
+// Interface definition for org::chromium::RksAgent.
+class RksAgentInterface {
+ public:
+  virtual ~RksAgentInterface() = default;
+
+  virtual void GetCertificate(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<attestation::pca_agent::RksCertificateAndSignature>> response) = 0;
+};
+
+// Interface adaptor for org::chromium::RksAgent.
+class RksAgentAdaptor {
+ public:
+  RksAgentAdaptor(RksAgentInterface* interface) : interface_(interface) {}
+  RksAgentAdaptor(const RksAgentAdaptor&) = delete;
+  RksAgentAdaptor& operator=(const RksAgentAdaptor&) = delete;
+
+  void RegisterWithDBusObject(brillo::dbus_utils::DBusObject* object) {
+    brillo::dbus_utils::DBusInterface* itf =
+        object->AddOrGetInterface("org.chromium.RksAgent");
+
+    itf->AddMethodHandler(
+        "GetCertificate",
+        base::Unretained(interface_),
+        &RksAgentInterface::GetCertificate);
+
+    signal_CertificateFetched_ = itf->RegisterSignalOfType<SignalCertificateFetchedType>("CertificateFetched");
+  }
+
+  void SendCertificateFetchedSignal(
+      const attestation::pca_agent::RksCertificateAndSignature& in_signal) {
+    auto signal = signal_CertificateFetched_.lock();
+    if (signal)
+      signal->Send(in_signal);
+  }
+
+  static dbus::ObjectPath GetObjectPath() {
+    return dbus::ObjectPath{"/org/chromium/PcaAgent"};
+  }
+
+  static const char* GetIntrospectionXml() {
+    return
+        "  <interface name=\"org.chromium.RksAgent\">\n"
+        "    <method name=\"GetCertificate\">\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <signal name=\"CertificateFetched\">\n"
+        "      <arg name=\"signal\" type=\"ay\"/>\n"
+        "    </signal>\n"
+        "  </interface>\n";
+  }
+
+ private:
+  using SignalCertificateFetchedType = brillo::dbus_utils::DBusSignal<
+      attestation::pca_agent::RksCertificateAndSignature /*signal*/>;
+  std::weak_ptr<SignalCertificateFetchedType> signal_CertificateFetched_;
+
+  RksAgentInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium

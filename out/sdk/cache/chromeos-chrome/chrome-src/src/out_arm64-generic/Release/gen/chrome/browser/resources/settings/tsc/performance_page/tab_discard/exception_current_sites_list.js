@@ -10,6 +10,7 @@ import { CrScrollableMixin } from 'chrome://resources/cr_elements/cr_scrollable_
 import { ListPropertyUpdateMixin } from 'chrome://resources/cr_elements/list_property_update_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { convertDateToWindowsEpoch } from '../../time.js';
 import { PerformanceBrowserProxyImpl } from '../performance_browser_proxy.js';
 import { MemorySaverModeExceptionListAction, PerformanceMetricsProxyImpl } from '../performance_metrics_proxy.js';
 import { getTemplate } from './exception_current_sites_list.html.js';
@@ -97,7 +98,7 @@ export class ExceptionCurrentSitesListElement extends ExceptionCurrentSitesListE
         return this.updateIntervalID_ !== undefined;
     }
     async updateCurrentSites_() {
-        const existingSites = new Set(this.getPref(TAB_DISCARD_EXCEPTIONS_PREF).value);
+        const existingSites = new Set(Object.keys(this.getPref(TAB_DISCARD_EXCEPTIONS_PREF).value));
         const currentSites = (await this.browserProxy_.getCurrentOpenSites())
             .filter(rule => !existingSites.has(rule));
         // Remove sites from selected set that are no longer in the list.
@@ -133,7 +134,7 @@ export class ExceptionCurrentSitesListElement extends ExceptionCurrentSitesListE
     submit() {
         assert(!this.submitDisabled);
         this.selectedSites_.forEach(rule => {
-            this.appendPrefListItem(TAB_DISCARD_EXCEPTIONS_PREF, rule);
+            this.setPrefDictEntry(TAB_DISCARD_EXCEPTIONS_PREF, rule, convertDateToWindowsEpoch());
         });
         this.metricsProxy_.recordExceptionListAction(MemorySaverModeExceptionListAction.ADD_FROM_CURRENT);
     }

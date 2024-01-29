@@ -44,7 +44,7 @@ return MakeGarbageCollected<V8UnionTaskPriorityOrTaskSignal>(blink_value);
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionTaskPriorityOrTaskSignal::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionTaskPriorityOrTaskSignal::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kTaskPriority: {
     return ToV8Traits<V8TaskPriority>::ToV8(script_state, member_task_priority_);
@@ -55,7 +55,7 @@ v8::MaybeLocal<v8::Value> V8UnionTaskPriorityOrTaskSignal::ToV8Value(ScriptState
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionTaskPriorityOrTaskSignal::Trace(Visitor* visitor) const {

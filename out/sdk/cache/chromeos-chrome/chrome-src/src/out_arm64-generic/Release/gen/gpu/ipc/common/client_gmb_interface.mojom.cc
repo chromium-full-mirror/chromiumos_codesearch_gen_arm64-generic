@@ -439,6 +439,8 @@ bool ClientGmbInterface_CreateGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::ClientGmbInterface_CreateGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClientGmbInterface.0
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   ClientGmbInterface_CreateGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -568,6 +570,8 @@ bool ClientGmbInterface_CopyGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::ClientGmbInterface_CopyGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ClientGmbInterface.2
   bool success = true;
   bool p_success{};
   ClientGmbInterface_CopyGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -645,6 +649,8 @@ bool ClientGmbInterfaceStubDispatch::Accept(
           reinterpret_cast<internal::ClientGmbInterface_DestroyGpuMemoryBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ClientGmbInterface.1
       bool success = true;
       ::gfx::GpuMemoryBufferId p_id{};
       ClientGmbInterface_DestroyGpuMemoryBuffer_ParamsDataView input_data_view(params, message);
@@ -660,8 +666,8 @@ bool ClientGmbInterfaceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyGpuMemoryBuffer(
-std::move(p_id));
+      impl->DestroyGpuMemoryBuffer(        
+        std::move(p_id));
       return true;
     }
     case internal::kClientGmbInterface_CopyGpuMemoryBuffer_Name: {
@@ -687,6 +693,8 @@ bool ClientGmbInterfaceStubDispatch::AcceptWithResponder(
               internal::ClientGmbInterface_CreateGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClientGmbInterface.0
       bool success = true;
       ::gfx::GpuMemoryBufferId p_id{};
       ::gfx::Size p_size{};
@@ -717,12 +725,12 @@ bool ClientGmbInterfaceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuMemoryBuffer(
-std::move(p_id), 
-std::move(p_size), 
-std::move(p_format), 
-std::move(p_usage), 
-std::move(p_surface_handle), std::move(callback));
+      impl->CreateGpuMemoryBuffer(        
+        std::move(p_id), 
+        std::move(p_size), 
+        std::move(p_format), 
+        std::move(p_usage), 
+        std::move(p_surface_handle), std::move(callback));
       return true;
     }
     case internal::kClientGmbInterface_DestroyGpuMemoryBuffer_Name: {
@@ -735,6 +743,8 @@ std::move(p_surface_handle), std::move(callback));
               internal::ClientGmbInterface_CopyGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ClientGmbInterface.2
       bool success = true;
       ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
       ::base::UnsafeSharedMemoryRegion p_shared_memory{};
@@ -756,9 +766,9 @@ std::move(p_surface_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyGpuMemoryBuffer(
-std::move(p_buffer_handle), 
-std::move(p_shared_memory), std::move(callback));
+      impl->CopyGpuMemoryBuffer(        
+        std::move(p_buffer_handle), 
+        std::move(p_shared_memory), std::move(callback));
       return true;
     }
   }

@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.title{color:var(--cr-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}:host-context(body:not(.jelly-enabled)) .title{font-family:'Google Sans';font-weight:400}h3.header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:inherit;margin:0;padding-block-end:16px;padding-inline-start:20px}#flex{flex:1}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">.title{color:var(--cr-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}h3.header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:inherit;margin:0;padding-block-end:16px;padding-inline-start:20px}#flex{flex:1}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title" class="title">
     $i18n{nearbyShareVisibilityDialogTitle}

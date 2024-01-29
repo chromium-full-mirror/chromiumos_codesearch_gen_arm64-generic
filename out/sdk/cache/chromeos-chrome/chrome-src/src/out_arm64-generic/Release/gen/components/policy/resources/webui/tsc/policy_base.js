@@ -46,8 +46,7 @@ export class Page {
         const reloadPoliciesButton = getRequiredElement('reload-policies');
         reloadPoliciesButton.onclick = () => {
             reloadPoliciesButton.disabled = true;
-            getRequiredElement('screen-reader-message').textContent =
-                loadTimeData.getString('loadingPolicies');
+            this.createToast(loadTimeData.getString('reloadingPolicies'));
             sendWithPromise('reloadPolicies');
         };
         const moreActionsButton = getRequiredElement('more-actions-button');
@@ -77,6 +76,7 @@ export class Page {
         // 
         getRequiredElement('copy-policies').onclick = () => {
             sendWithPromise('copyPoliciesJSON');
+            this.createToast(loadTimeData.getString('copyPoliciesDone'));
         };
         getRequiredElement('show-unset').onchange = () => {
             for (const policyTable in this.policyTables) {
@@ -121,6 +121,21 @@ export class Page {
         // 
         this.reloadPoliciesDone();
     }
+    /**
+     * Creates a toast notification with 2 second timeout at bottom of the page.
+     * The notification is also announced to screen readers.
+     */
+    createToast(content) {
+        const toast = document.createElement('div');
+        toast.textContent = content;
+        toast.classList.add('toast');
+        toast.setAttribute('role', 'alert');
+        const container = getRequiredElement('toast-container');
+        container.appendChild(toast);
+        setTimeout(() => {
+            container.removeChild(toast);
+        }, 2000);
+    }
     // Triggers the download of the policies as a JSON file.
     downloadJson(json) {
         const jsonObject = JSON.parse(json);
@@ -139,6 +154,7 @@ export class Page {
         document.body.appendChild(link);
         link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
         document.body.removeChild(link);
+        this.createToast(loadTimeData.getString('exportPoliciesDone'));
     }
     createOrUpdatePolicyTable(dataModel) {
         const id = `${dataModel.name}-${dataModel.id}`;
@@ -180,10 +196,11 @@ export class Page {
      * policies values has completed.
      */
     reloadPoliciesDone() {
-        getRequiredElement('reload-policies').disabled =
-            false;
-        getRequiredElement('screen-reader-message').textContent =
-            loadTimeData.getString('loadPoliciesDone');
+        const reloadButton = getRequiredElement('reload-policies');
+        if (reloadButton.disabled) {
+            reloadButton.disabled = false;
+            this.createToast(loadTimeData.getString('reloadPoliciesDone'));
+        }
     }
     // 
     static getInstance() {

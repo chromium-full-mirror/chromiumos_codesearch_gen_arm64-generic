@@ -70,6 +70,15 @@ export var CustomizableButton;
     CustomizableButton[CustomizableButton["kExtra"] = 5] = "kExtra";
     CustomizableButton[CustomizableButton["kSide"] = 6] = "kSide";
 })(CustomizableButton || (CustomizableButton = {}));
+export const MouseButtonConfigSpec = { $: mojo.internal.Enum() };
+export var MouseButtonConfig;
+(function (MouseButtonConfig) {
+    MouseButtonConfig[MouseButtonConfig["MIN_VALUE"] = 0] = "MIN_VALUE";
+    MouseButtonConfig[MouseButtonConfig["MAX_VALUE"] = 2] = "MAX_VALUE";
+    MouseButtonConfig[MouseButtonConfig["kNoConfig"] = 0] = "kNoConfig";
+    MouseButtonConfig[MouseButtonConfig["kFiveKey"] = 1] = "kFiveKey";
+    MouseButtonConfig[MouseButtonConfig["kLogitechSixKey"] = 2] = "kLogitechSixKey";
+})(MouseButtonConfig || (MouseButtonConfig = {}));
 export const StaticShortcutActionSpec = { $: mojo.internal.Enum() };
 export var StaticShortcutAction;
 (function (StaticShortcutAction) {
@@ -102,6 +111,7 @@ export var CustomizationRestriction;
 export const SixPackKeyInfoSpec = { $: {} };
 export const InputDeviceSettingsPolicySpec = { $: {} };
 export const InputDeviceSettingsFkeyPolicySpec = { $: {} };
+export const InputDeviceSettingsSixPackKeyPolicySpec = { $: {} };
 export const KeyboardPoliciesSpec = { $: {} };
 export const MousePoliciesSpec = { $: {} };
 export const KeyboardSpec = { $: {} };
@@ -135,11 +145,20 @@ mojo.internal.Struct(InputDeviceSettingsFkeyPolicySpec.$, 'InputDeviceSettingsFk
     mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('value', 4, 0, ui_mojom_ExtendedFkeysModifierSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(InputDeviceSettingsSixPackKeyPolicySpec.$, 'InputDeviceSettingsSixPackKeyPolicy', [
+    mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 4, 0, ui_mojom_SixPackShortcutModifierSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(KeyboardPoliciesSpec.$, 'KeyboardPolicies', [
     mojo.internal.StructField('topRowAreFkeysPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('enableMetaFkeyRewritesPolicy', 8, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('extendedFkeysPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
-], [[0, 32],]);
+    mojo.internal.StructField('f11KeyPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('f12KeyPolicy', 24, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('homeAndEndKeysPolicy', 32, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('pageUpAndPageDownKeysPolicy', 40, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('deleteKeyPolicy', 48, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('insertKeyPolicy', 56, 0, InputDeviceSettingsSixPackKeyPolicySpec.$, null, true /* nullable */, 0),
+], [[0, 72],]);
 mojo.internal.Struct(MousePoliciesSpec.$, 'MousePolicies', [
     mojo.internal.StructField('swapRightPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
@@ -183,6 +202,7 @@ mojo.internal.Struct(MouseSpec.$, 'Mouse', [
     mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
     mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('customizationRestriction', 24, 0, CustomizationRestrictionSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('mouseButtonConfig', 28, 0, MouseButtonConfigSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('settings', 32, 0, MouseSettingsSpec.$, null, false /* nullable */, 0),
 ], [[0, 48],]);
 mojo.internal.Struct(MouseSettingsSpec.$, 'MouseSettings', [

@@ -291,7 +291,7 @@ bool NavigationClient_CommitNavigation_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 176, validation_context)) {
+          data, 168, validation_context)) {
     return false;
   }
 
@@ -394,11 +394,6 @@ bool NavigationClient_CommitNavigation_Params_Data::Validate(
   }
 
   if (!mojo::internal::ValidateHandleOrInterface(object->code_cache_host_for_background,
-                                                 validation_context)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidateHandleOrInterface(object->resource_cache,
                                                  validation_context)) {
     return false;
   }

@@ -448,6 +448,8 @@ bool AuctionNetworkEventsHandlerStubDispatch::Accept(
           reinterpret_cast<internal::AuctionNetworkEventsHandler_OnNetworkSendRequest_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionNetworkEventsHandler.0
       bool success = true;
       ::network::ResourceRequest p_request{};
       ::base::TimeTicks p_timestamp{};
@@ -466,9 +468,9 @@ bool AuctionNetworkEventsHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkSendRequest(
-std::move(p_request), 
-std::move(p_timestamp));
+      impl->OnNetworkSendRequest(        
+        std::move(p_request), 
+        std::move(p_timestamp));
       return true;
     }
     case internal::kAuctionNetworkEventsHandler_OnNetworkResponseReceived_Name: {
@@ -478,6 +480,8 @@ std::move(p_timestamp));
           reinterpret_cast<internal::AuctionNetworkEventsHandler_OnNetworkResponseReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionNetworkEventsHandler.1
       bool success = true;
       std::string p_request_id{};
       std::string p_loader_id{};
@@ -502,11 +506,11 @@ std::move(p_timestamp));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkResponseReceived(
-std::move(p_request_id), 
-std::move(p_loader_id), 
-std::move(p_request_url), 
-std::move(p_headers));
+      impl->OnNetworkResponseReceived(        
+        std::move(p_request_id), 
+        std::move(p_loader_id), 
+        std::move(p_request_url), 
+        std::move(p_headers));
       return true;
     }
     case internal::kAuctionNetworkEventsHandler_OnNetworkRequestComplete_Name: {
@@ -516,6 +520,8 @@ std::move(p_headers));
           reinterpret_cast<internal::AuctionNetworkEventsHandler_OnNetworkRequestComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionNetworkEventsHandler.2
       bool success = true;
       std::string p_request_id{};
       ::network::URLLoaderCompletionStatus p_status{};
@@ -534,9 +540,9 @@ std::move(p_headers));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkRequestComplete(
-std::move(p_request_id), 
-std::move(p_status));
+      impl->OnNetworkRequestComplete(        
+        std::move(p_request_id), 
+        std::move(p_status));
       return true;
     }
     case internal::kAuctionNetworkEventsHandler_Clone_Name: {
@@ -546,6 +552,8 @@ std::move(p_status));
           reinterpret_cast<internal::AuctionNetworkEventsHandler_Clone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AuctionNetworkEventsHandler.3
       bool success = true;
       ::mojo::PendingReceiver<AuctionNetworkEventsHandler> p_receiver{};
       AuctionNetworkEventsHandler_Clone_ParamsDataView input_data_view(params, message);
@@ -563,8 +571,8 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Clone(
-std::move(p_receiver));
+      impl->Clone(        
+        std::move(p_receiver));
       return true;
     }
   }

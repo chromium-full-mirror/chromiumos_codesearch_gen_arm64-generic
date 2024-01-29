@@ -1101,8 +1101,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!transport_as_string) {
         return std::nullopt;
       }
-      params.transport = bluetooth::ParseTransport(*transport_as_string);
-      if (params.transport == bluetooth::Transport()) {
+      params.transport = extensions::api::bluetooth::ParseTransport(*transport_as_string);
+      if (params.transport == extensions::api::bluetooth::Transport()) {
         return std::nullopt;
       }
     }
@@ -1235,8 +1235,8 @@ std::optional<Params> Params::Create(const base::Value::List& args) {
       if (!transport_as_string) {
         return std::nullopt;
       }
-      params.transport = bluetooth::ParseTransport(*transport_as_string);
-      if (params.transport == bluetooth::Transport()) {
+      params.transport = extensions::api::bluetooth::ParseTransport(*transport_as_string);
+      if (params.transport == extensions::api::bluetooth::Transport()) {
         return std::nullopt;
       }
     }

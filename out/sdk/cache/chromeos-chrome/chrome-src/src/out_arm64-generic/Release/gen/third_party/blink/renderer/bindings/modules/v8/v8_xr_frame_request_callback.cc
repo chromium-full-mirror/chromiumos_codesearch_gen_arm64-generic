@@ -58,14 +58,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_time;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLDouble>::ToV8(script_state, arg1_time).ToLocal(&v8_arg1_time)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_time = ToV8Traits<IDLDouble>::ToV8(script_state, arg1_time);
 argv[0] = v8_arg1_time;
 v8::Local<v8::Value> v8_arg2_frame;
-if (!ToV8Traits<XRFrame>::ToV8(script_state, arg2_frame).ToLocal(&v8_arg2_frame)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_frame = ToV8Traits<XRFrame>::ToV8(script_state, arg2_frame);
 argv[1] = v8_arg2_frame;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -104,14 +100,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_time;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLDouble>::ToV8(script_state, arg1_time).ToLocal(&v8_arg1_time)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_time = ToV8Traits<IDLDouble>::ToV8(script_state, arg1_time);
 argv[0] = v8_arg1_time;
 v8::Local<v8::Value> v8_arg2_frame;
-if (!ToV8Traits<XRFrame>::ToV8(script_state, arg2_frame).ToLocal(&v8_arg2_frame)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_frame = ToV8Traits<XRFrame>::ToV8(script_state, arg2_frame);
 argv[1] = v8_arg2_frame;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

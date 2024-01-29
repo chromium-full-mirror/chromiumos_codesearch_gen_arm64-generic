@@ -94,6 +94,7 @@ suite('Lens search', () => {
         assertTrue(areMatchesShowing());
         // Act.
         const lensButton = realbox.shadowRoot.querySelector('#lensSearchButton');
+        assertTrue(!!lensButton);
         lensButton.click();
         // Assert.
         assertFalse(areMatchesShowing());
@@ -114,6 +115,7 @@ suite('Lens search', () => {
         await testProxy.callbackRouterRemote.$.flushForTesting();
         // Act.
         const lensButton = realbox.shadowRoot.querySelector('#lensSearchButton');
+        assertTrue(!!lensButton);
         lensButton.click();
         // Assert.
         await whenOpenLensSearch;

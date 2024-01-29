@@ -28,6 +28,9 @@ export class CredentialNoteElement extends CredentialNoteElementBase {
     getNoteValue_() {
         return !this.note ? this.i18n('emptyNote') : this.note;
     }
+    noteIsEmpty_() {
+        return !this.note;
+    }
     isNoteFullyVisible_() {
         return this.showNoteFully_ ||
             this.$.noteValue.scrollHeight === this.$.noteValue.offsetHeight;

@@ -142,7 +142,7 @@ struct ScriptInjection {
   // <code>func</code> must be specified.
   std::optional<std::string> func;
 
-  // The arguments to curry into a provided function. This is only valid if the
+  // The arguments to pass to the provided function. This is only valid if the
   // <code>func</code> parameter is specified. These arguments must be
   // JSON-serializable.
   std::optional<base::Value::List> args;
@@ -297,13 +297,14 @@ struct RegisteredContentScript {
   std::string id;
 
   // Specifies which pages this content script will be injected into. See <a
-  // href="match_patterns">Match Patterns</a> for more details on the syntax of
-  // these strings. Must be specified for $(ref:registerContentScripts).
+  // href="develop/concepts/match-patterns">Match Patterns</a> for more details on
+  // the syntax of these strings. Must be specified for
+  // $(ref:registerContentScripts).
   std::optional<std::vector<std::string>> matches;
 
   // Excludes pages that this content script would otherwise be injected into. See
-  // <a href="match_patterns">Match Patterns</a> for more details on the syntax of
-  // these strings.
+  // <a href="develop/concepts/match-patterns">Match Patterns</a> for more details
+  // on the syntax of these strings.
   std::optional<std::vector<std::string>> exclude_matches;
 
   // The list of CSS files to be injected into matching pages. These are injected

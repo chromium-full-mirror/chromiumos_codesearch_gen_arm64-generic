@@ -430,6 +430,8 @@ bool ThemeColorPickerHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::ThemeColorPickerHandlerFactory_CreateThemeColorPickerHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandlerFactory.0
       bool success = true;
       ::mojo::PendingReceiver<ThemeColorPickerHandler> p_handler{};
       ::mojo::PendingRemote<ThemeColorPickerClient> p_client{};
@@ -452,9 +454,9 @@ bool ThemeColorPickerHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateThemeColorPickerHandler(
-std::move(p_handler), 
-std::move(p_client));
+      impl->CreateThemeColorPickerHandler(        
+        std::move(p_handler), 
+        std::move(p_client));
       return true;
     }
   }
@@ -1015,6 +1017,8 @@ bool ThemeColorPickerHandler_GetChromeColors_ForwardToCallback::Accept(
           internal::ThemeColorPickerHandler_GetChromeColors_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ThemeColorPickerHandler.0
   bool success = true;
   std::vector<ChromeColorPtr> p_colors{};
   ThemeColorPickerHandler_GetChromeColors_ResponseParamsDataView input_data_view(params, message);
@@ -1104,6 +1108,8 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
           reinterpret_cast<internal::ThemeColorPickerHandler_UpdateTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.1
       bool success = true;
       ThemeColorPickerHandler_UpdateTheme_ParamsDataView input_data_view(params, message);
       
@@ -1116,7 +1122,7 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateTheme();
+      impl->UpdateTheme(        );
       return true;
     }
     case internal::kThemeColorPickerHandler_SetDefaultColor_Name: {
@@ -1126,6 +1132,8 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
           reinterpret_cast<internal::ThemeColorPickerHandler_SetDefaultColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.2
       bool success = true;
       ThemeColorPickerHandler_SetDefaultColor_ParamsDataView input_data_view(params, message);
       
@@ -1138,7 +1146,7 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDefaultColor();
+      impl->SetDefaultColor(        );
       return true;
     }
     case internal::kThemeColorPickerHandler_SetGreyDefaultColor_Name: {
@@ -1148,6 +1156,8 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
           reinterpret_cast<internal::ThemeColorPickerHandler_SetGreyDefaultColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.3
       bool success = true;
       ThemeColorPickerHandler_SetGreyDefaultColor_ParamsDataView input_data_view(params, message);
       
@@ -1160,7 +1170,7 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetGreyDefaultColor();
+      impl->SetGreyDefaultColor(        );
       return true;
     }
     case internal::kThemeColorPickerHandler_SetSeedColor_Name: {
@@ -1170,6 +1180,8 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
           reinterpret_cast<internal::ThemeColorPickerHandler_SetSeedColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.4
       bool success = true;
       ::SkColor p_seed_color{};
       ::ui::mojom::BrowserColorVariant p_variant{};
@@ -1188,9 +1200,9 @@ bool ThemeColorPickerHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSeedColor(
-std::move(p_seed_color), 
-std::move(p_variant));
+      impl->SetSeedColor(        
+        std::move(p_seed_color), 
+        std::move(p_variant));
       return true;
     }
     case internal::kThemeColorPickerHandler_SetSeedColorFromHue_Name: {
@@ -1200,6 +1212,8 @@ std::move(p_variant));
           reinterpret_cast<internal::ThemeColorPickerHandler_SetSeedColorFromHue_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.5
       bool success = true;
       float p_hue{};
       ThemeColorPickerHandler_SetSeedColorFromHue_ParamsDataView input_data_view(params, message);
@@ -1215,8 +1229,8 @@ std::move(p_variant));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSeedColorFromHue(
-std::move(p_hue));
+      impl->SetSeedColorFromHue(        
+        std::move(p_hue));
       return true;
     }
     case internal::kThemeColorPickerHandler_RemoveBackgroundImage_Name: {
@@ -1226,6 +1240,8 @@ std::move(p_hue));
           reinterpret_cast<internal::ThemeColorPickerHandler_RemoveBackgroundImage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.6
       bool success = true;
       ThemeColorPickerHandler_RemoveBackgroundImage_ParamsDataView input_data_view(params, message);
       
@@ -1238,7 +1254,7 @@ std::move(p_hue));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveBackgroundImage();
+      impl->RemoveBackgroundImage(        );
       return true;
     }
   }
@@ -1261,6 +1277,8 @@ bool ThemeColorPickerHandlerStubDispatch::AcceptWithResponder(
               internal::ThemeColorPickerHandler_GetChromeColors_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerHandler.0
       bool success = true;
       bool p_is_dark_mode{};
       bool p_extended_list{};
@@ -1282,9 +1300,9 @@ bool ThemeColorPickerHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetChromeColors(
-std::move(p_is_dark_mode), 
-std::move(p_extended_list), std::move(callback));
+      impl->GetChromeColors(        
+        std::move(p_is_dark_mode), 
+        std::move(p_extended_list), std::move(callback));
       return true;
     }
     case internal::kThemeColorPickerHandler_UpdateTheme_Name: {
@@ -1458,6 +1476,8 @@ bool ThemeColorPickerClientStubDispatch::Accept(
           reinterpret_cast<internal::ThemeColorPickerClient_SetTheme_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ThemeColorPickerClient.0
       bool success = true;
       ThemePtr p_theme{};
       ThemeColorPickerClient_SetTheme_ParamsDataView input_data_view(params, message);
@@ -1473,8 +1493,8 @@ bool ThemeColorPickerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTheme(
-std::move(p_theme));
+      impl->SetTheme(        
+        std::move(p_theme));
       return true;
     }
   }

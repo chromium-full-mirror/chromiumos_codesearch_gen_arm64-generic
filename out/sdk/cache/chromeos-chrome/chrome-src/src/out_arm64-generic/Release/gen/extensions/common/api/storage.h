@@ -35,28 +35,33 @@ namespace sync {
   // The maximum total amount (in bytes) of data that can be stored in sync
   // storage, as measured by the JSON stringification of every value plus every
   // key's length. Updates that would cause this limit to be exceeded fail
-  // immediately and set $(ref:runtime.lastError).
+  // immediately and set $(ref:runtime.lastError) when using a callback, or when a
+  // Promise is rejected.
   extern const int QUOTA_BYTES;
   // The maximum size (in bytes) of each individual item in sync storage, as
   // measured by the JSON stringification of its value plus its key length.
   // Updates containing items larger than this limit will fail immediately and set
-  // $(ref:runtime.lastError).
+  // $(ref:runtime.lastError) when using a callback, or when a Promise is
+  // rejected.
   extern const int QUOTA_BYTES_PER_ITEM;
   // The maximum number of items that can be stored in sync storage. Updates that
   // would cause this limit to be exceeded will fail immediately and set
-  // $(ref:runtime.lastError).
+  // $(ref:runtime.lastError) when using a callback, or when a Promise is
+  // rejected.
   extern const int MAX_ITEMS;
   // <p>The maximum number of <code>set</code>, <code>remove</code>, or
   // <code>clear</code> operations that can be performed each hour. This is 1
   // every 2 seconds, a lower ceiling than the short term higher writes-per-minute
   // limit.</p><p>Updates that would cause this limit to be exceeded fail
-  // immediately and set $(ref:runtime.lastError).</p>
+  // immediately and set $(ref:runtime.lastError) when using a callback, or when a
+  // Promise is rejected.</p>
   extern const int MAX_WRITE_OPERATIONS_PER_HOUR;
   // <p>The maximum number of <code>set</code>, <code>remove</code>, or
   // <code>clear</code> operations that can be performed each minute. This is 2
   // per second, providing higher throughput than writes-per-hour over a shorter
   // period of time.</p><p>Updates that would cause this limit to be exceeded fail
-  // immediately and set $(ref:runtime.lastError).</p>
+  // immediately and set $(ref:runtime.lastError) when using a callback, or when a
+  // Promise is rejected.</p>
   extern const int MAX_WRITE_OPERATIONS_PER_MINUTE;
   //
   extern const int MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE;
@@ -68,7 +73,8 @@ namespace local {
   // measured by the JSON stringification of every value plus every key's length.
   // This value will be ignored if the extension has the
   // <code>unlimitedStorage</code> permission. Updates that would cause this limit
-  // to be exceeded fail immediately and set $(ref:runtime.lastError).
+  // to be exceeded fail immediately and set $(ref:runtime.lastError) when using a
+  // callback, or a rejected Promise if using async/await.
   extern const int QUOTA_BYTES;
 }  // namespace local
 
@@ -78,7 +84,8 @@ namespace session {
   // The maximum amount (in bytes) of data that can be stored in memory, as
   // measured by estimating the dynamically allocated memory usage of every value
   // and key. Updates that would cause this limit to be exceeded fail immediately
-  // and set $(ref:runtime.lastError).
+  // and set $(ref:runtime.lastError) when using a callback, or when a Promise is
+  // rejected.
   extern const int QUOTA_BYTES;
 }  // namespace session
 

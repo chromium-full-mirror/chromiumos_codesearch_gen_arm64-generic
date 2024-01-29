@@ -4,7 +4,9 @@ export function getTemplate() {
 
 <div id="listItem">
   <paper-ripple></paper-ripple>
-  <div>[[getDisplayText_(item)]]</div>
+  <div aria-selected="[[getAriaSelected_(selected)]]" role="row" tabindex$="[[index]]">
+    [[getDisplayText_(item)]]
+  </div>
   <iron-icon icon="settings:check-circle" hidden="[[!selected]]"></iron-icon>
 </div>
 <!--_html_template_end_-->`;

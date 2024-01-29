@@ -8,7 +8,7 @@ import { logGooglePhotosPreviewsLoadTime } from '../personalization_metrics_logg
 import { Paths } from '../personalization_router_element.js';
 import { PersonalizationStore } from '../personalization_store.js';
 import { isRecentHighlightsAlbum } from '../utils.js';
-import { setAlbumsAction, setAmbientModeEnabledAction, setAmbientThemeAction, setAmbientUiVisibilityAction, setPreviewsAction, setScreenSaverDurationAction, setTemperatureUnitAction, setTopicSourceAction } from './ambient_actions.js';
+import { setAlbumsAction, setAmbientModeEnabledAction, setAmbientThemeAction, setAmbientUiVisibilityAction, setGeolocationPermissionEnabledAction, setPreviewsAction, setScreenSaverDurationAction, setTemperatureUnitAction, setTopicSourceAction } from './ambient_actions.js';
 import { getAmbientProvider } from './ambient_interface_provider.js';
 /** @fileoverview listens for updates on ambient mode changes. */
 let instance = null;
@@ -107,5 +107,9 @@ export class AmbientObserver {
     onAmbientUiVisibilityChanged(ambientUiVisibility) {
         const store = PersonalizationStore.getInstance();
         store.dispatch(setAmbientUiVisibilityAction(ambientUiVisibility));
+    }
+    onGeolocationPermissionForSystemServicesChanged(enabled) {
+        const store = PersonalizationStore.getInstance();
+        store.dispatch(setGeolocationPermissionEnabledAction(enabled));
     }
 }

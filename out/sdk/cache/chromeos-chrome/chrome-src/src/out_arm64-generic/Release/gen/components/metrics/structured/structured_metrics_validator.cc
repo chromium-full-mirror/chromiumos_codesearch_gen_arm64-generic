@@ -10,7 +10,7 @@
 #include "components/metrics/structured/event.h"
 #include "components/metrics/structured/event_validator.h"
 #include "components/metrics/structured/project_validator.h"
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "third_party/metrics_proto/structured_data.pb.h"
 
 namespace metrics {
@@ -42,13 +42,25 @@ MonitorInfoEventValidator::~MonitorInfoEventValidator() = default;
 void MonitorInfoEventValidator::Initialize() {
   metric_metadata_ = {
     {"DisplayName", { Event::MetricType::kRawString, UINT64_C(4289270646520720629)}},
-  {"ProductCode", { Event::MetricType::kRawString, UINT64_C(14400973921431606109)}}
+  {"ManufacturerId", { Event::MetricType::kRawString, UINT64_C(15125530491922306148)}},
+  {"ProductId", { Event::MetricType::kLong, UINT64_C(3765840483194334735)}},
+  {"NativeModeSize", { Event::MetricType::kRawString, UINT64_C(5170292205527742159)}},
+  {"NativeModeRefreshRate", { Event::MetricType::kDouble, UINT64_C(5698152332635855491)}},
+  {"PhysicalSize", { Event::MetricType::kRawString, UINT64_C(17526088120773883476)}},
+  {"ConnectionType", { Event::MetricType::kRawString, UINT64_C(15958005172467117203)}},
+  {"IsVrrCapable", { Event::MetricType::kLong, UINT64_C(6788392488518635712)}}
    };
 
 
   metrics_name_map_ = {
     { UINT64_C(4289270646520720629), "DisplayName" },
-  { UINT64_C(14400973921431606109), "ProductCode" }
+  { UINT64_C(15125530491922306148), "ManufacturerId" },
+  { UINT64_C(3765840483194334735), "ProductId" },
+  { UINT64_C(5170292205527742159), "NativeModeSize" },
+  { UINT64_C(5698152332635855491), "NativeModeRefreshRate" },
+  { UINT64_C(17526088120773883476), "PhysicalSize" },
+  { UINT64_C(15958005172467117203), "ConnectionType" },
+  { UINT64_C(6788392488518635712), "IsVrrCapable" }
   };
 }
 class DiscoveryNotificationShownEventValidator final :
@@ -1888,14 +1900,14 @@ SessionEndEventValidator::~SessionEndEventValidator() = default;
 void SessionEndEventValidator::Initialize() {
   metric_metadata_ = {
     {"Trigger", { Event::MetricType::kLong, UINT64_C(17769223356561141745)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
 
   metrics_name_map_ = {
     { UINT64_C(17769223356561141745), "Trigger" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -1926,7 +1938,7 @@ void ImpressionEventValidator::Initialize() {
   {"VeType", { Event::MetricType::kLong, UINT64_C(15167065131200700515)}},
   {"VeParent", { Event::MetricType::kLong, UINT64_C(16136417644891610031)}},
   {"VeContext", { Event::MetricType::kLong, UINT64_C(15142575525071682906)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
@@ -1936,7 +1948,7 @@ void ImpressionEventValidator::Initialize() {
   { UINT64_C(15167065131200700515), "VeType" },
   { UINT64_C(16136417644891610031), "VeParent" },
   { UINT64_C(15142575525071682906), "VeContext" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -1966,7 +1978,7 @@ void ClickEventValidator::Initialize() {
     {"VeId", { Event::MetricType::kLong, UINT64_C(15328103879772752934)}},
   {"MouseButton", { Event::MetricType::kLong, UINT64_C(5321775134026642721)}},
   {"Context", { Event::MetricType::kLong, UINT64_C(12487954430760699291)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
@@ -1975,7 +1987,7 @@ void ClickEventValidator::Initialize() {
     { UINT64_C(15328103879772752934), "VeId" },
   { UINT64_C(5321775134026642721), "MouseButton" },
   { UINT64_C(12487954430760699291), "Context" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -2005,7 +2017,7 @@ void HoverEventValidator::Initialize() {
     {"VeId", { Event::MetricType::kLong, UINT64_C(15328103879772752934)}},
   {"Time", { Event::MetricType::kLong, UINT64_C(12064385795062408818)}},
   {"Context", { Event::MetricType::kLong, UINT64_C(12487954430760699291)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
@@ -2014,7 +2026,7 @@ void HoverEventValidator::Initialize() {
     { UINT64_C(15328103879772752934), "VeId" },
   { UINT64_C(12064385795062408818), "Time" },
   { UINT64_C(12487954430760699291), "Context" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -2044,7 +2056,7 @@ void DragEventValidator::Initialize() {
     {"VeId", { Event::MetricType::kLong, UINT64_C(15328103879772752934)}},
   {"Distance", { Event::MetricType::kLong, UINT64_C(767569209284850633)}},
   {"Context", { Event::MetricType::kLong, UINT64_C(12487954430760699291)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
@@ -2053,7 +2065,7 @@ void DragEventValidator::Initialize() {
     { UINT64_C(15328103879772752934), "VeId" },
   { UINT64_C(767569209284850633), "Distance" },
   { UINT64_C(12487954430760699291), "Context" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -2082,7 +2094,7 @@ void ChangeEventValidator::Initialize() {
   metric_metadata_ = {
     {"VeId", { Event::MetricType::kLong, UINT64_C(15328103879772752934)}},
   {"Context", { Event::MetricType::kLong, UINT64_C(12487954430760699291)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
@@ -2090,7 +2102,7 @@ void ChangeEventValidator::Initialize() {
   metrics_name_map_ = {
     { UINT64_C(15328103879772752934), "VeId" },
   { UINT64_C(12487954430760699291), "Context" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -2119,7 +2131,7 @@ void KeyDownEventValidator::Initialize() {
   metric_metadata_ = {
     {"VeId", { Event::MetricType::kLong, UINT64_C(15328103879772752934)}},
   {"Context", { Event::MetricType::kLong, UINT64_C(12487954430760699291)}},
-  {"TimeSinceLastAction", { Event::MetricType::kLong, UINT64_C(15150636701605912378)}},
+  {"TimeSinceSessionStart", { Event::MetricType::kLong, UINT64_C(16337824081306684483)}},
   {"SessionId", { Event::MetricType::kLong, UINT64_C(4297293875635157131)}}
    };
 
@@ -2127,7 +2139,7 @@ void KeyDownEventValidator::Initialize() {
   metrics_name_map_ = {
     { UINT64_C(15328103879772752934), "VeId" },
   { UINT64_C(12487954430760699291), "Context" },
-  { UINT64_C(15150636701605912378), "TimeSinceLastAction" },
+  { UINT64_C(16337824081306684483), "TimeSinceSessionStart" },
   { UINT64_C(4297293875635157131), "SessionId" }
   };
 }
@@ -2342,6 +2354,37 @@ void TestEventSevenEventValidator::Initialize() {
 
   metrics_name_map_ = {
     { UINT64_C(8395865158198697574), "TestMetricSeven" }
+  };
+}
+
+class TestEnumEventValidator final :
+    public ::metrics::structured::EventValidator {
+  public:
+    TestEnumEventValidator();
+    ~TestEnumEventValidator();
+
+    void Initialize();
+
+    static constexpr uint64_t kEventNameHash = UINT64_C(14837072141472316574);
+};
+
+TestEnumEventValidator::TestEnumEventValidator() :
+  ::metrics::structured::EventValidator(TestEnumEventValidator::kEventNameHash,
+                                        false)
+  {
+  Initialize();
+}
+
+TestEnumEventValidator::~TestEnumEventValidator() = default;
+
+void TestEnumEventValidator::Initialize() {
+  metric_metadata_ = {
+    {"TestEnumMetric", { Event::MetricType::kInt, UINT64_C(16584986597633634829)}}
+   };
+
+
+  metrics_name_map_ = {
+    { UINT64_C(16584986597633634829), "TestEnumMetric" }
   };
 }
 class TestEventEightEventValidator final :
@@ -2986,8 +3029,10 @@ TestProjectSixProjectValidator::TestProjectSixProjectValidator() :
 
 void TestProjectSixProjectValidator::Initialize() {
   event_validators_.emplace("TestEventSeven", std::make_unique<TestEventSevenEventValidator>());
+  event_validators_.emplace("TestEnum", std::make_unique<TestEnumEventValidator>());
 
   event_name_map_.emplace(UINT64_C(16749091071228286247), "TestEventSeven");
+  event_name_map_.emplace(UINT64_C(14837072141472316574), "TestEnum");
 }
 
 TestProjectSixProjectValidator::~TestProjectSixProjectValidator() = default;
@@ -3073,19 +3118,19 @@ void Validators::Initialize() {
   project_name_map_.emplace(UINT64_C(10319251808101486833), "TestProjectSeven");
 }
 
-absl::optional<const ProjectValidator*>
+std::optional<const ProjectValidator*>
   Validators::GetProjectValidator(base::StringPiece project_name) const {
     const auto it = validators_.find(project_name);
     if (it == validators_.end())
-      return absl::nullopt;
+      return std::nullopt;
     return it->second.get();
 }
 
-absl::optional<base::StringPiece>
+std::optional<base::StringPiece>
   Validators::GetProjectName(uint64_t project_name_hash) const {
     const auto it = project_name_map_.find(project_name_hash);
     if (it == project_name_map_.end())
-      return absl::nullopt;
+      return std::nullopt;
     // This lookup will never fail.
     return it->second;
 }

@@ -65,6 +65,7 @@ PROTOBUF_CONSTEXPR LineBox::LineBox(
   , utf8_string_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , language_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , bounding_box_(nullptr)
+  , baseline_box_(nullptr)
   , block_id_(0)
   , order_within_block_(0)
   , direction_(0)
@@ -2197,11 +2198,16 @@ std::string Rect::GetTypeName() const {
 class LineBox::_Internal {
  public:
   static const ::chrome_screen_ai::Rect& bounding_box(const LineBox* msg);
+  static const ::chrome_screen_ai::Rect& baseline_box(const LineBox* msg);
 };
 
 const ::chrome_screen_ai::Rect&
 LineBox::_Internal::bounding_box(const LineBox* msg) {
   return *msg->bounding_box_;
+}
+const ::chrome_screen_ai::Rect&
+LineBox::_Internal::baseline_box(const LineBox* msg) {
+  return *msg->baseline_box_;
 }
 LineBox::LineBox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -2234,6 +2240,11 @@ LineBox::LineBox(const LineBox& from)
     bounding_box_ = new ::chrome_screen_ai::Rect(*from.bounding_box_);
   } else {
     bounding_box_ = nullptr;
+  }
+  if (from._internal_has_baseline_box()) {
+    baseline_box_ = new ::chrome_screen_ai::Rect(*from.baseline_box_);
+  } else {
+    baseline_box_ = nullptr;
   }
   ::memcpy(&block_id_, &from.block_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&content_type_) -
@@ -2270,6 +2281,7 @@ inline void LineBox::SharedDtor() {
   utf8_string_.Destroy();
   language_.Destroy();
   if (this != internal_default_instance()) delete bounding_box_;
+  if (this != internal_default_instance()) delete baseline_box_;
 }
 
 void LineBox::SetCachedSize(int size) const {
@@ -2289,6 +2301,10 @@ void LineBox::Clear() {
     delete bounding_box_;
   }
   bounding_box_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && baseline_box_ != nullptr) {
+    delete baseline_box_;
+  }
+  baseline_box_ = nullptr;
   ::memset(&block_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&content_type_) -
       reinterpret_cast<char*>(&block_id_)) + sizeof(content_type_));
@@ -2373,6 +2389,14 @@ const char* LineBox::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_content_type(static_cast<::chrome_screen_ai::ContentType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .chrome_screen_ai.Rect baseline_box = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_baseline_box(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -2466,6 +2490,13 @@ uint8_t* LineBox::_InternalSerialize(
       8, this->_internal_content_type(), target);
   }
 
+  // .chrome_screen_ai.Rect baseline_box = 9;
+  if (this->_internal_has_baseline_box()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(9, _Internal::baseline_box(this),
+        _Internal::baseline_box(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2508,6 +2539,13 @@ size_t LineBox::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *bounding_box_);
+  }
+
+  // .chrome_screen_ai.Rect baseline_box = 9;
+  if (this->_internal_has_baseline_box()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *baseline_box_);
   }
 
   // int32 block_id = 5;
@@ -2561,6 +2599,9 @@ void LineBox::MergeFrom(const LineBox& from) {
   }
   if (from._internal_has_bounding_box()) {
     _internal_mutable_bounding_box()->::chrome_screen_ai::Rect::MergeFrom(from._internal_bounding_box());
+  }
+  if (from._internal_has_baseline_box()) {
+    _internal_mutable_baseline_box()->::chrome_screen_ai::Rect::MergeFrom(from._internal_baseline_box());
   }
   if (from._internal_block_id() != 0) {
     _internal_set_block_id(from._internal_block_id());

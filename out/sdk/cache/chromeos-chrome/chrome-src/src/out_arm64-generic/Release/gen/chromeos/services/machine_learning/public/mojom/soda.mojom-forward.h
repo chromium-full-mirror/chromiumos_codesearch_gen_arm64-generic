@@ -22,6 +22,8 @@
 
 
 namespace chromeos::machine_learning::mojom {
+class SodaMultilangConfigDataView;
+
 class SodaConfigDataView;
 
 class TimingInfoDataView;
@@ -36,6 +38,8 @@ class FinalResultDataView;
 
 class AudioLevelEventDataView;
 
+class LangIdEventDataView;
+
 class SpeechRecognizerEventDataView;
 
 enum class OptionalBool : int32_t;
@@ -45,6 +49,11 @@ enum class SodaRecognitionMode : int32_t;
 enum class EndpointerType : int32_t;
 
 enum class EndpointReason : int32_t;
+
+enum class AsrSwitchResult : int32_t;
+class SodaMultilangConfig;
+using SodaMultilangConfigPtr = mojo::StructPtr<SodaMultilangConfig>;
+
 class SodaConfig;
 using SodaConfigPtr = mojo::StructPtr<SodaConfig>;
 
@@ -65,6 +74,9 @@ using FinalResultPtr = mojo::StructPtr<FinalResult>;
 
 class AudioLevelEvent;
 using AudioLevelEventPtr = mojo::InlinedStructPtr<AudioLevelEvent>;
+
+class LangIdEvent;
+using LangIdEventPtr = mojo::InlinedStructPtr<LangIdEvent>;
 
 class SpeechRecognizerEvent;
 

@@ -40,13 +40,13 @@ describeWithMockConnection('AppManifestView', () => {
             view.markAsRoot();
             view.show(document.body);
             await new Promise(resolve => {
-                view.addEventListener(Application.AppManifestView.Events.ManifestDetected, resolve, { once: true });
+                view.addEventListener("ManifestDetected" /* Application.AppManifestView.Events.ManifestDetected */, resolve, { once: true });
             });
             assert.isTrue(emptyView.isShowing());
             assert.isFalse(reportView.isShowing());
             resourceTreeModel.dispatchEventToListeners(SDK.ResourceTreeModel.Events.DOMContentLoaded, 42);
             await new Promise(resolve => {
-                view.addEventListener(Application.AppManifestView.Events.ManifestDetected, resolve, { once: true });
+                view.addEventListener("ManifestDetected" /* Application.AppManifestView.Events.ManifestDetected */, resolve, { once: true });
             });
             assert.isFalse(emptyView.isShowing());
             assert.isTrue(reportView.isShowing());
@@ -64,7 +64,7 @@ describeWithMockConnection('AppManifestView', () => {
             view.show(document.body);
             resourceTreeModel.dispatchEventToListeners(SDK.ResourceTreeModel.Events.DOMContentLoaded, 42);
             await new Promise(resolve => {
-                view.addEventListener(Application.AppManifestView.Events.ManifestDetected, resolve, { once: true });
+                view.addEventListener("ManifestDetected" /* Application.AppManifestView.Events.ManifestDetected */, resolve, { once: true });
             });
             const manifestSections = view.getStaticSections();
             const values = getCleanTextContentFromElements(manifestSections[4].getFieldElement(), '.wco');
@@ -97,7 +97,7 @@ describeWithMockConnection('AppManifestView', () => {
             view.markAsRoot();
             view.show(document.body);
             await new Promise(resolve => {
-                view.addEventListener(Application.AppManifestView.Events.ManifestRendered, resolve, { once: true });
+                view.addEventListener("ManifestRendered" /* Application.AppManifestView.Events.ManifestRendered */, resolve, { once: true });
             });
             const warningSection = reportView.element.shadowRoot?.querySelector('.report-section');
             assertNotNullOrUndefined(warningSection);

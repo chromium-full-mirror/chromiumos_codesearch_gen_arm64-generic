@@ -13,19 +13,9 @@
 namespace blink {
 namespace features {
 
-BASE_FEATURE(kAbortSignalAny,
-    "AbortSignalAny",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kAccessibilityOSLevelBoldText,
     "AccessibilityOSLevelBoldText",
     base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kAccordionPattern,
-    "AccordionPattern",
-    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kAddIdentityInCanMakePaymentEvent,
@@ -40,17 +30,22 @@ BASE_FEATURE(kAdInterestGroupAPI,
 
 BASE_FEATURE(kAlignContentForBlocks,
     "AlignContentForBlocks",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kAppTitle,
+    "AppTitle",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kArrowKeysInVerticalWritingModes,
-    "ArrowKeysInVerticalWritingModes",
+BASE_FEATURE(kAsyncClipboardImplicitPermission,
+    "AsyncClipboardImplicitPermission",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kAutoSizeLazyLoadedImages,
     "AutoSizeLazyLoadedImages",
-    base::FEATURE_ENABLED_BY_DEFAULT
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kAvoidCaretVisibleSelectionAdjuster,
@@ -60,7 +55,7 @@ BASE_FEATURE(kAvoidCaretVisibleSelectionAdjuster,
 
 BASE_FEATURE(kBackdropInheritOriginating,
     "BackdropInheritOriginating",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kBackfaceVisibilityInterop,
@@ -68,13 +63,13 @@ BASE_FEATURE(kBackfaceVisibilityInterop,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kBackfaceVisibilityNewInheritance,
-    "BackfaceVisibilityNewInheritance",
+BASE_FEATURE(kBackForwardCacheSendNotRestoredReasons,
+    "BackForwardCacheSendNotRestoredReasons",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kBackForwardCacheSendNotRestoredReasons,
-    "BackForwardCacheSendNotRestoredReasons",
+BASE_FEATURE(kBdiElementDirInheritance,
+    "BdiElementDirInheritance",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -91,11 +86,6 @@ BASE_FEATURE(kBlinkLifecycleScriptForbidden,
 BASE_FEATURE(kBlockingFocusWithoutUserActivation,
     "BlockingFocusWithoutUserActivation",
     base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kBlockRubyConsoleMessage,
-    "BlockRubyConsoleMessage",
-    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kBlockRubyWrappingInlineRuby,
@@ -173,6 +163,11 @@ BASE_FEATURE(kCapturedSurfaceControl,
 #endif
 );
 
+BASE_FEATURE(kCaretPositionFromPoint,
+    "CaretPositionFromPoint",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kCCTNewRFMPushBehavior,
     "CCTNewRFMPushBehavior",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -180,21 +175,6 @@ BASE_FEATURE(kCCTNewRFMPushBehavior,
 
 BASE_FEATURE(kCheckVisibilityExtraProperties,
     "CheckVisibilityExtraProperties",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kClientHintsMetaEquivDelegateCH,
-    "ClientHintsMetaEquivDelegateCH",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kClientHintsMetaHTTPEquivAcceptCH,
-    "ClientHintsMetaHTTPEquivAcceptCH",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kClientHintThirdPartyDelegation,
-    "ClientHintThirdPartyDelegation",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -333,11 +313,6 @@ BASE_FEATURE(kCSSFirstLetterNoNewLineAsPrecedingChar,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kCSSImageSet,
-    "CSSImageSet",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kCSSLinearTimingFunction,
     "CSSLinearTimingFunction",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -418,13 +393,13 @@ BASE_FEATURE(kCSSProgressNotation,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kCSSPseudoDir,
-    "CSSPseudoDir",
+BASE_FEATURE(kCSSRelativeColor,
+    "CSSRelativeColor",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kCSSRelativeColor,
-    "CSSRelativeColor",
+BASE_FEATURE(kCSSResizeAuto,
+    "CSSResizeAuto",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -508,6 +483,11 @@ BASE_FEATURE(kCSSTextBoxTrim,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kCSSTextSpacing,
+    "CSSTextSpacing",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kCSSTextSpacingTrim,
     "CSSTextSpacingTrim",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -523,13 +503,13 @@ BASE_FEATURE(kCSSTextWrapPretty,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kCSSTransformBoxAdditionalKeywords,
-    "CSSTransformBoxAdditionalKeywords",
+BASE_FEATURE(kCSSTransitionDiscrete,
+    "CSSTransitionDiscrete",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kCSSTransitionDiscrete,
-    "CSSTransitionDiscrete",
+BASE_FEATURE(kCSSUnknownContainerQueriesNoSelection,
+    "CSSUnknownContainerQueriesNoSelection",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -553,18 +533,38 @@ BASE_FEATURE(kCSSViewTimelineInsetShorthand,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kCSSViewTransitionClass,
+    "CSSViewTransitionClass",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kCustomElementsGetName,
     "CustomElementsGetName",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kDataTransferClearStringItems,
+    "DataTransferClearStringItems",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kDateInputInlineBlock,
     "DateInputInlineBlock",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kDeclarativeShadowDOMSerializable,
+    "DeclarativeShadowDOMSerializable",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kDeprecatedTemplateShadowRoot,
+    "DeprecatedTemplateShadowRoot",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kDeprecatedNonStreamingDeclarativeShadowDOM,
-    "DeprecatedNonStreamingDeclarativeShadowDOM",
+BASE_FEATURE(kDeprecateUnloadOptOut,
+    "DeprecateUnloadOptOut",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
@@ -608,6 +608,11 @@ BASE_FEATURE(kDispatchHiddenVisibilityTransitions,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kDisplayContentsFocusable,
+    "DisplayContentsFocusable",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kDocumentBaseURIFix,
     "DocumentBaseURIFix",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -646,6 +651,11 @@ BASE_FEATURE(kDocumentPictureInPictureAPI,
 #if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_WIN) && !BUILDFLAG(IS_CHROMEOS_ASH) && !BUILDFLAG(IS_CHROMEOS_LACROS) && !BUILDFLAG(IS_MAC) && !BUILDFLAG(IS_LINUX)
     base::FEATURE_ENABLED_BY_DEFAULT
 #endif
+);
+
+BASE_FEATURE(kDOMParserUsesHTMLFastPathParser,
+    "DOMParserUsesHTMLFastPathParser",
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kDOMPartsAPI,
@@ -693,8 +703,13 @@ BASE_FEATURE(kElementCapture,
 #endif
 );
 
-BASE_FEATURE(kEmptyCaretInVertical,
-    "EmptyCaretInVertical",
+BASE_FEATURE(kElementGetHTML,
+    "ElementGetHTML",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kElementGetInnerHTML,
+    "ElementGetInnerHTML",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -715,7 +730,7 @@ BASE_FEATURE(kEscapeLtGtInAttributes,
 
 BASE_FEATURE(kExcludeBrokenImageIconFromBeingLcpEligible,
     "ExcludeBrokenImageIconFromBeingLcpEligible",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kFastPositionIterator,
@@ -873,11 +888,6 @@ BASE_FEATURE(kFontPaletteAnimation,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kFontVariantPosition,
-    "FontVariantPosition",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kFormControlRestoreStateIfAutocompleteOff,
     "FormControlRestoreStateIfAutocompleteOff",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -923,6 +933,11 @@ BASE_FEATURE(kGetDisplayMediaRequiresUserActivation,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kGetNextSiblingPositionWhenLastChild,
+    "GetNextSiblingPositionWhenLastChild",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kHangingWhitespaceDoesNotDependOnAlignment,
     "HangingWhitespaceDoesNotDependOnAlignment",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -951,11 +966,6 @@ BASE_FEATURE(kHTMLInvokeActionsV2,
 BASE_FEATURE(kHTMLInvokeTargetAttribute,
     "HTMLInvokeTargetAttribute",
     base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kHTMLLangNewInheritance,
-    "HTMLLangNewInheritance",
-    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kHTMLParserFastPathBulkInsertNotify,
@@ -993,6 +1003,11 @@ BASE_FEATURE(kImportAttributesDisallowUnknownKeys,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kImprovedXMLErrors,
+    "ImprovedXMLErrors",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kIncomingCallNotifications,
     "IncomingCallNotifications",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -1005,11 +1020,6 @@ BASE_FEATURE(kInertDisplayTransition,
 
 BASE_FEATURE(kInheritUserModifyWithoutContenteditable,
     "InheritUserModifyWithoutContenteditable",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kInnerHTMLParserFastpath,
-    "InnerHTMLParserFastpath",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1133,18 +1143,13 @@ BASE_FEATURE(kLCPMultipleUpdatesPerElement,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kLongAnimationFrameMonitoring,
-    "LongAnimationFrameMonitoring",
+BASE_FEATURE(kLockedMode,
+    "LockedMode",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kLongAnimationFrameTiming,
     "LongAnimationFrameTiming",
-    base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kLongAnimationFrameUKM,
-    "LongAnimationFrameUKM",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1163,9 +1168,19 @@ BASE_FEATURE(kManagedConfiguration,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kMaskingGraphemeClusters,
+    "MaskingGraphemeClusters",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kMediaCapabilitiesDynamicRange,
     "MediaCapabilitiesDynamicRange",
     base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kMediaCaptureVoiceIsolation,
+    "MediaCaptureVoiceIsolation",
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kMediaRecorderUseMediaVideoEncoder,
@@ -1180,11 +1195,16 @@ BASE_FEATURE(kMediaSessionChapterInformation,
 
 BASE_FEATURE(kMediaSessionEnterPictureInPicture,
     "MediaSessionEnterPictureInPicture",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kMessagePortCloseEvent,
     "MessagePortCloseEvent",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kEnableModelExecutionAPI,
+    "EnableModelExecutionAPI",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
@@ -1195,7 +1215,7 @@ BASE_FEATURE(kMonitorTypeSurfaces,
 
 BASE_FEATURE(kMouseDragFromIframeOnCancelledMouseDown,
     "MouseDragFromIframeOnCancelledMouseDown",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kMouseDragOnCancelledMouseMove,
@@ -1270,7 +1290,7 @@ BASE_FEATURE(kObservableAPI,
 
 BASE_FEATURE(kOffsetMappingUnitVariable,
     "OffsetMappingUnitVariable",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kOnePassRasterInvalidation,
@@ -1281,6 +1301,11 @@ BASE_FEATURE(kOnePassRasterInvalidation,
 BASE_FEATURE(kOptionElementAlwaysUseLabel,
     "OptionElementAlwaysUseLabel",
     base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kPageMarginBoxes,
+    "PageMarginBoxes",
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kPageRevealEvent,
@@ -1313,14 +1338,14 @@ BASE_FEATURE(kPaymentRequestAllowOneActivationlessShow,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kPerformanceNavigateSystemEntropy,
-    "PerformanceNavigateSystemEntropy",
+BASE_FEATURE(kPerformanceMarkFeatureUsage,
+    "PerformanceMarkFeatureUsage",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kPermissionsPolicyReporting,
-    "PermissionsPolicyReporting",
-    base::FEATURE_ENABLED_BY_DEFAULT
+BASE_FEATURE(kPerformanceNavigateSystemEntropy,
+    "PerformanceNavigateSystemEntropy",
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kPointerCaptureLostOnRemovalDuringCapture,
@@ -1335,11 +1360,6 @@ BASE_FEATURE(kPointerEventDeviceId,
 
 BASE_FEATURE(kPositionOutsideTabSpanCheckSiblingNode,
     "PositionOutsideTabSpanCheckSiblingNode",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kPrefersReducedTransparency,
-    "PrefersReducedTransparency",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1360,6 +1380,11 @@ BASE_FEATURE(kPrettyPrintJSONDocument,
 
 BASE_FEATURE(kPreventReadingSystemAccentColor,
     "PreventReadingSystemAccentColor",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kPrivateAggregationAuctionReportBuyerDebugModeConfig,
+    "PrivateAggregationAuctionReportBuyerDebugModeConfig",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1538,11 +1563,6 @@ BASE_FEATURE(kSchedulerYield,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kScriptingMediaFeature,
-    "ScriptingMediaFeature",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kScrollbarColor,
     "ScrollbarColor",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -1593,8 +1613,8 @@ BASE_FEATURE(kSetSequentialFocusStartingPoint,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kSkipShadowHostWhenHoveringForTooltip,
-    "SkipShadowHostWhenHoveringForTooltip",
+BASE_FEATURE(kShadowRootAttachmentNewBehavior,
+    "ShadowRootAttachmentNewBehavior",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1638,6 +1658,11 @@ BASE_FEATURE(kSnapBorderWidthsBeforeLayout,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kSoftNavigationDetection,
+    "SoftNavigationDetection",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kSoftNavigationHeuristics,
     "SoftNavigationHeuristics",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -1646,11 +1671,6 @@ BASE_FEATURE(kSoftNavigationHeuristics,
 BASE_FEATURE(kSoftNavigationHeuristicsExposeFPAndFCP,
     "SoftNavigationHeuristicsExposeFPAndFCP",
     base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kSolidColorLayers,
-    "SolidColorLayers",
-    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kSparseObjectPaintProperties,
@@ -1665,6 +1685,11 @@ BASE_FEATURE(kSpeculationRulesDocumentRulesSelectorMatches,
 
 BASE_FEATURE(kSpeculationRulesEagerness,
     "SpeculationRulesEagerness",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kSpeculationRulesImplicitSource,
+    "SpeculationRulesImplicitSource",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1695,7 +1720,7 @@ BASE_FEATURE(kSpellCheckerReplaceRangeUseInsertText,
 
 BASE_FEATURE(kStorageBuckets,
     "StorageBuckets",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kStorageBucketsDurability,
@@ -1705,6 +1730,11 @@ BASE_FEATURE(kStorageBucketsDurability,
 
 BASE_FEATURE(kStorageBucketsLocks,
     "StorageBucketsLocks",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kStylableSelect,
+    "StylableSelect",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
@@ -1720,11 +1750,6 @@ BASE_FEATURE(kSvgCrossOriginAttribute,
 
 BASE_FEATURE(kSvgNoPixelSnappingScaleAdjustment,
     "SvgNoPixelSnappingScaleAdjustment",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kSvgTextFixHittestAfterScale,
-    "SvgTextFixHittestAfterScale",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1801,11 +1826,6 @@ BASE_FEATURE(kUseBeginFramePresentationFeedback,
 BASE_FEATURE(kUsedColorSchemeRootScrollbars,
     "UsedColorSchemeRootScrollbars",
     base::FEATURE_DISABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kUserAgentClientHint,
-    "UserAgentClientHint",
-    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kUserValidUserInvalid,
@@ -1910,6 +1930,11 @@ BASE_FEATURE(kWebCodecsCopyToRGB,
 
 BASE_FEATURE(kWebFontResizeLCP,
     "WebFontResizeLCP",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kWebGPUExperimentalFeatures,
+    "WebGPUExperimentalFeatures",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 

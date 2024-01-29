@@ -181,11 +181,11 @@ class SurfaceFlingerLayersSnapshotTable : public macros_internal::MacroTable {
         ts_(ColumnStorage<ColumnType::ts::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -469,11 +469,11 @@ class SurfaceFlingerLayerTable : public macros_internal::MacroTable {
         snapshot_id_(ColumnStorage<ColumnType::snapshot_id::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::snapshot_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::snapshot_id::stored_type>(
           ColumnFlag::snapshot_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -757,11 +757,11 @@ class SurfaceFlingerTransactionsTable : public macros_internal::MacroTable {
         ts_(ColumnStorage<ColumnType::ts::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1068,15 +1068,15 @@ class WindowManagerShellTransitionsTable : public macros_internal::MacroTable {
         transition_id_(ColumnStorage<ColumnType::transition_id::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
           ColumnFlag::ts),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::transition_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::transition_id::stored_type>(
           ColumnFlag::transition_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
@@ -1378,11 +1378,11 @@ class WindowManagerShellTransitionHandlersTable : public macros_internal::MacroT
         handler_id_(ColumnStorage<ColumnType::handler_id::stored_type>::Create<false>()),
         handler_name_(ColumnStorage<ColumnType::handler_name::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::handler_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::handler_id::stored_type>(
           ColumnFlag::handler_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::handler_name::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::handler_name::stored_type>(
           ColumnFlag::handler_name),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

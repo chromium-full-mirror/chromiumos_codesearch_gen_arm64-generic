@@ -33,6 +33,8 @@
 
 
 namespace mojom::user_education_internals {
+class FeaturePromoDemoPageDataDataView;
+
 class FeaturePromoDemoPageInfoDataView;
 
 
@@ -41,6 +43,13 @@ class FeaturePromoDemoPageInfoDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView> {
+  using Data = ::mojom::user_education_internals::internal::FeaturePromoDemoPageData_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::mojom::user_education_internals::FeaturePromoDemoPageInfoDataView> {
@@ -65,6 +74,42 @@ using UserEducationInternalsPageHandlerAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<UserEducationInternalsPageHandlerInterfaceBase>;
 using UserEducationInternalsPageHandlerAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<UserEducationInternalsPageHandlerInterfaceBase>;
+
+
+class FeaturePromoDemoPageDataDataView {
+ public:
+  FeaturePromoDemoPageDataDataView() = default;
+
+  FeaturePromoDemoPageDataDataView(
+      internal::FeaturePromoDemoPageData_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetValueDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadValue(UserType* output) {
+    
+    auto* pointer = data_->value.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FeaturePromoDemoPageData_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class FeaturePromoDemoPageInfoDataView {
@@ -130,6 +175,16 @@ class FeaturePromoDemoPageInfoDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
+  inline void GetRequiredFeaturesDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRequiredFeatures(UserType* output) {
+    
+    auto* pointer = data_->required_features.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
   inline void GetInstructionsDataView(
       mojo::ArrayDataView<mojo::StringDataView>* output);
 
@@ -150,6 +205,16 @@ class FeaturePromoDemoPageInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetDataDataView(
+      mojo::ArrayDataView<FeaturePromoDemoPageDataDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadData(UserType* output) {
+    
+    auto* pointer = data_->data.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::FeaturePromoDemoPageInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -163,6 +228,59 @@ namespace std {
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::mojom::user_education_internals::internal::FeaturePromoDemoPageData_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null name in FeaturePromoDemoPageData struct");
+    decltype(Traits::value(input)) in_value = Traits::value(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->value)::BaseType> value_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_value, value_fragment);
+    fragment->value.Set(
+        value_fragment.is_null() ? nullptr : value_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->value.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null value in FeaturePromoDemoPageData struct");
+  }
+
+  static bool Deserialize(::mojom::user_education_internals::internal::FeaturePromoDemoPageData_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::mojom::user_education_internals::FeaturePromoDemoPageDataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -241,6 +359,20 @@ struct Serializer<::mojom::user_education_internals::FeaturePromoDemoPageInfoDat
         fragment->supported_platforms.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null supported_platforms in FeaturePromoDemoPageInfo struct");
+    decltype(Traits::required_features(input)) in_required_features = Traits::required_features(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->required_features)::BaseType>
+        required_features_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& required_features_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_required_features, required_features_fragment, &required_features_validate_params);
+    fragment->required_features.Set(
+        required_features_fragment.is_null() ? nullptr : required_features_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->required_features.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null required_features in FeaturePromoDemoPageInfo struct");
     decltype(Traits::instructions(input)) in_instructions = Traits::instructions(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->instructions)::BaseType>
@@ -267,6 +399,20 @@ struct Serializer<::mojom::user_education_internals::FeaturePromoDemoPageInfoDat
         fragment->followed_by_internal_name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null followed_by_internal_name in FeaturePromoDemoPageInfo struct");
+    decltype(Traits::data(input)) in_data = Traits::data(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->data)::BaseType>
+        data_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& data_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::mojom::user_education_internals::FeaturePromoDemoPageDataDataView>>(
+        in_data, data_fragment, &data_validate_params);
+    fragment->data.Set(
+        data_fragment.is_null() ? nullptr : data_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->data.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null data in FeaturePromoDemoPageInfo struct");
   }
 
   static bool Deserialize(::mojom::user_education_internals::internal::FeaturePromoDemoPageInfo_Data* input,
@@ -286,6 +432,18 @@ struct Serializer<::mojom::user_education_internals::FeaturePromoDemoPageInfoDat
 
 
 namespace mojom::user_education_internals {
+
+inline void FeaturePromoDemoPageDataDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void FeaturePromoDemoPageDataDataView::GetValueDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->value.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
 
 inline void FeaturePromoDemoPageInfoDataView::GetDisplayTitleDataView(
     mojo::StringDataView* output) {
@@ -312,6 +470,11 @@ inline void FeaturePromoDemoPageInfoDataView::GetSupportedPlatformsDataView(
   auto pointer = data_->supported_platforms.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
+inline void FeaturePromoDemoPageInfoDataView::GetRequiredFeaturesDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->required_features.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
 inline void FeaturePromoDemoPageInfoDataView::GetInstructionsDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->instructions.Get();
@@ -321,6 +484,11 @@ inline void FeaturePromoDemoPageInfoDataView::GetFollowedByInternalNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->followed_by_internal_name.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void FeaturePromoDemoPageInfoDataView::GetDataDataView(
+    mojo::ArrayDataView<FeaturePromoDemoPageDataDataView>* output) {
+  auto pointer = data_->data.Get();
+  *output = mojo::ArrayDataView<FeaturePromoDemoPageDataDataView>(pointer, message_);
 }
 
 

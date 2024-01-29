@@ -339,6 +339,8 @@ bool KeyboardShortcutHostStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardShortcutHost_ShowKeyboardShortcutViewer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardShortcutHost.0
       bool success = true;
       KeyboardShortcutHost_ShowKeyboardShortcutViewer_ParamsDataView input_data_view(params, message);
       
@@ -351,7 +353,7 @@ bool KeyboardShortcutHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowKeyboardShortcutViewer();
+      impl->ShowKeyboardShortcutViewer(        );
       return true;
     }
     case internal::kKeyboardShortcutHost_HideKeyboardShortcutViewer_Name: {
@@ -361,6 +363,8 @@ bool KeyboardShortcutHostStubDispatch::Accept(
           reinterpret_cast<internal::KeyboardShortcutHost_HideKeyboardShortcutViewer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for KeyboardShortcutHost.1
       bool success = true;
       KeyboardShortcutHost_HideKeyboardShortcutViewer_ParamsDataView input_data_view(params, message);
       
@@ -373,7 +377,7 @@ bool KeyboardShortcutHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HideKeyboardShortcutViewer();
+      impl->HideKeyboardShortcutViewer(        );
       return true;
     }
   }
@@ -661,6 +665,8 @@ bool KeyboardShortcutInstance_Init_ForwardToCallback::Accept(
           internal::KeyboardShortcutInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyboardShortcutInstance.0
   bool success = true;
   KeyboardShortcutInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -768,6 +774,8 @@ bool KeyboardShortcutInstance_GetKeyboardShortcuts_ForwardToCallback::Accept(
           internal::KeyboardShortcutInstance_GetKeyboardShortcuts_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for KeyboardShortcutInstance.1
   bool success = true;
   std::vector<AppKeyboardShortcutsListPtr> p_lists{};
   KeyboardShortcutInstance_GetKeyboardShortcuts_ResponseParamsDataView input_data_view(params, message);
@@ -873,6 +881,8 @@ bool KeyboardShortcutInstanceStubDispatch::AcceptWithResponder(
               internal::KeyboardShortcutInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyboardShortcutInstance.0
       bool success = true;
       ::mojo::PendingRemote<KeyboardShortcutHost> p_host_remote{};
       KeyboardShortcutInstance_Init_ParamsDataView input_data_view(params, message);
@@ -893,8 +903,8 @@ bool KeyboardShortcutInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
     case internal::kKeyboardShortcutInstance_GetKeyboardShortcuts_Name: {
@@ -904,6 +914,8 @@ std::move(p_host_remote), std::move(callback));
               internal::KeyboardShortcutInstance_GetKeyboardShortcuts_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for KeyboardShortcutInstance.1
       bool success = true;
       KeyboardShortcutInstance_GetKeyboardShortcuts_ParamsDataView input_data_view(params, message);
       

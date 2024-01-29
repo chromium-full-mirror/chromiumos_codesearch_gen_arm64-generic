@@ -15,17 +15,17 @@ class SharedStorageItemsListener {
     #refreshed = false;
     constructor(dispatcher) {
         this.#dispatcher = dispatcher;
-        this.#dispatcher.addEventListener(Application.SharedStorageItemsView.SharedStorageItemsDispatcher.Events.ItemsRefreshed, this.#itemsRefreshed, this);
+        this.#dispatcher.addEventListener("ItemsRefreshed" /* Application.SharedStorageItemsView.SharedStorageItemsDispatcher.Events.ItemsRefreshed */, this.#itemsRefreshed, this);
     }
     dispose() {
-        this.#dispatcher.removeEventListener(Application.SharedStorageItemsView.SharedStorageItemsDispatcher.Events.ItemsRefreshed, this.#itemsRefreshed, this);
+        this.#dispatcher.removeEventListener("ItemsRefreshed" /* Application.SharedStorageItemsView.SharedStorageItemsDispatcher.Events.ItemsRefreshed */, this.#itemsRefreshed, this);
     }
     #itemsRefreshed() {
         this.#refreshed = true;
     }
     async waitForItemsRefreshed() {
         if (!this.#refreshed) {
-            await this.#dispatcher.once(Application.SharedStorageItemsView.SharedStorageItemsDispatcher.Events.ItemsRefreshed);
+            await this.#dispatcher.once("ItemsRefreshed" /* Application.SharedStorageItemsView.SharedStorageItemsDispatcher.Events.ItemsRefreshed */);
         }
         this.#refreshed = false;
     }
@@ -60,8 +60,8 @@ describeWithMockConnection('SharedStorageTreeElement', function () {
         beforeEach(async () => {
             stubNoopSettings();
             target = targetFactory();
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL, '', false);
-            Root.Runtime.experiments.register(Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE, '', false);
+            Root.Runtime.experiments.register("preloadingStatusPanel" /* Root.Runtime.ExperimentName.PRELOADING_STATUS_PANEL */, '', false);
+            Root.Runtime.experiments.register("storageBucketsTree" /* Root.Runtime.ExperimentName.STORAGE_BUCKETS_TREE */, '', false);
             sharedStorageModel = target.model(Application.SharedStorageModel.SharedStorageModel);
             sharedStorage = new Application.SharedStorageModel.SharedStorageForOrigin(sharedStorageModel, TEST_ORIGIN);
             assert.strictEqual(sharedStorage.securityOrigin, TEST_ORIGIN);

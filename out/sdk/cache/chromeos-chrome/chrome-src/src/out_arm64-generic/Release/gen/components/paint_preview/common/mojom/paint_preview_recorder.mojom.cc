@@ -516,6 +516,8 @@ bool PaintPreviewRecorder_CapturePaintPreview_ForwardToCallback::Accept(
           internal::PaintPreviewRecorder_CapturePaintPreview_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PaintPreviewRecorder.0
   bool success = true;
   PaintPreviewStatus p_status{};
   PaintPreviewCaptureResponsePtr p_response{};
@@ -625,6 +627,8 @@ bool PaintPreviewRecorderStubDispatch::AcceptWithResponder(
               internal::PaintPreviewRecorder_CapturePaintPreview_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PaintPreviewRecorder.0
       bool success = true;
       PaintPreviewCaptureParamsPtr p_params{};
       PaintPreviewRecorder_CapturePaintPreview_ParamsDataView input_data_view(params, message);
@@ -643,8 +647,8 @@ bool PaintPreviewRecorderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CapturePaintPreview(
-std::move(p_params), std::move(callback));
+      impl->CapturePaintPreview(        
+        std::move(p_params), std::move(callback));
       return true;
     }
   }

@@ -33,6 +33,10 @@ namespace {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->AdapterRequestDevice(self, descriptor, callback, userdata);
     }
+    WGPUFuture ForwardAdapterRequestDeviceF(WGPUAdapter self, WGPUDeviceDescriptor const * options, WGPURequestDeviceCallbackInfo callbackInfo) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->AdapterRequestDeviceF(self, options, callbackInfo);
+    }
     void ForwardAdapterReference(WGPUAdapter self) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->AdapterReference(self);
@@ -293,6 +297,10 @@ namespace {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->DeviceCreateComputePipelineAsync(self, descriptor, callback, userdata);
     }
+    WGPUFuture ForwardDeviceCreateComputePipelineAsyncF(WGPUDevice self, WGPUComputePipelineDescriptor const * descriptor, WGPUCreateComputePipelineAsyncCallbackInfo callbackInfo) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->DeviceCreateComputePipelineAsyncF(self, descriptor, callbackInfo);
+    }
     WGPUBuffer ForwardDeviceCreateErrorBuffer(WGPUDevice self, WGPUBufferDescriptor const * descriptor) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->DeviceCreateErrorBuffer(self, descriptor);
@@ -332,6 +340,10 @@ namespace {
     void ForwardDeviceCreateRenderPipelineAsync(WGPUDevice self, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallback callback, void * userdata) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->DeviceCreateRenderPipelineAsync(self, descriptor, callback, userdata);
+    }
+    WGPUFuture ForwardDeviceCreateRenderPipelineAsyncF(WGPUDevice self, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallbackInfo callbackInfo) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->DeviceCreateRenderPipelineAsyncF(self, descriptor, callbackInfo);
     }
     WGPUSampler ForwardDeviceCreateSampler(WGPUDevice self, WGPUSamplerDescriptor const * descriptor) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
@@ -869,6 +881,10 @@ namespace {
         return object->procs->SwapChainRelease(self);
     }
 
+    WGPUTextureView ForwardTextureCreateErrorView(WGPUTexture self, WGPUTextureViewDescriptor const * descriptor) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->TextureCreateErrorView(self, descriptor);
+    }
     WGPUTextureView ForwardTextureCreateView(WGPUTexture self, WGPUTextureViewDescriptor const * descriptor) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->TextureCreateView(self, descriptor);
@@ -948,6 +964,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->adapterGetProperties = reinterpret_cast<WGPUProcAdapterGetProperties>(ForwardAdapterGetProperties);
     table->adapterHasFeature = reinterpret_cast<WGPUProcAdapterHasFeature>(ForwardAdapterHasFeature);
     table->adapterRequestDevice = reinterpret_cast<WGPUProcAdapterRequestDevice>(ForwardAdapterRequestDevice);
+    table->adapterRequestDeviceF = reinterpret_cast<WGPUProcAdapterRequestDeviceF>(ForwardAdapterRequestDeviceF);
     table->adapterReference = reinterpret_cast<WGPUProcAdapterReference>(ForwardAdapterReference);
     table->adapterRelease = reinterpret_cast<WGPUProcAdapterRelease>(ForwardAdapterRelease);
     table->bindGroupSetLabel = reinterpret_cast<WGPUProcBindGroupSetLabel>(ForwardBindGroupSetLabel);
@@ -1011,6 +1028,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->deviceCreateCommandEncoder = reinterpret_cast<WGPUProcDeviceCreateCommandEncoder>(ForwardDeviceCreateCommandEncoder);
     table->deviceCreateComputePipeline = reinterpret_cast<WGPUProcDeviceCreateComputePipeline>(ForwardDeviceCreateComputePipeline);
     table->deviceCreateComputePipelineAsync = reinterpret_cast<WGPUProcDeviceCreateComputePipelineAsync>(ForwardDeviceCreateComputePipelineAsync);
+    table->deviceCreateComputePipelineAsyncF = reinterpret_cast<WGPUProcDeviceCreateComputePipelineAsyncF>(ForwardDeviceCreateComputePipelineAsyncF);
     table->deviceCreateErrorBuffer = reinterpret_cast<WGPUProcDeviceCreateErrorBuffer>(ForwardDeviceCreateErrorBuffer);
     table->deviceCreateErrorExternalTexture = reinterpret_cast<WGPUProcDeviceCreateErrorExternalTexture>(ForwardDeviceCreateErrorExternalTexture);
     table->deviceCreateErrorShaderModule = reinterpret_cast<WGPUProcDeviceCreateErrorShaderModule>(ForwardDeviceCreateErrorShaderModule);
@@ -1021,6 +1039,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->deviceCreateRenderBundleEncoder = reinterpret_cast<WGPUProcDeviceCreateRenderBundleEncoder>(ForwardDeviceCreateRenderBundleEncoder);
     table->deviceCreateRenderPipeline = reinterpret_cast<WGPUProcDeviceCreateRenderPipeline>(ForwardDeviceCreateRenderPipeline);
     table->deviceCreateRenderPipelineAsync = reinterpret_cast<WGPUProcDeviceCreateRenderPipelineAsync>(ForwardDeviceCreateRenderPipelineAsync);
+    table->deviceCreateRenderPipelineAsyncF = reinterpret_cast<WGPUProcDeviceCreateRenderPipelineAsyncF>(ForwardDeviceCreateRenderPipelineAsyncF);
     table->deviceCreateSampler = reinterpret_cast<WGPUProcDeviceCreateSampler>(ForwardDeviceCreateSampler);
     table->deviceCreateShaderModule = reinterpret_cast<WGPUProcDeviceCreateShaderModule>(ForwardDeviceCreateShaderModule);
     table->deviceCreateSwapChain = reinterpret_cast<WGPUProcDeviceCreateSwapChain>(ForwardDeviceCreateSwapChain);
@@ -1151,6 +1170,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->swapChainPresent = reinterpret_cast<WGPUProcSwapChainPresent>(ForwardSwapChainPresent);
     table->swapChainReference = reinterpret_cast<WGPUProcSwapChainReference>(ForwardSwapChainReference);
     table->swapChainRelease = reinterpret_cast<WGPUProcSwapChainRelease>(ForwardSwapChainRelease);
+    table->textureCreateErrorView = reinterpret_cast<WGPUProcTextureCreateErrorView>(ForwardTextureCreateErrorView);
     table->textureCreateView = reinterpret_cast<WGPUProcTextureCreateView>(ForwardTextureCreateView);
     table->textureDestroy = reinterpret_cast<WGPUProcTextureDestroy>(ForwardTextureDestroy);
     table->textureGetDepthOrArrayLayers = reinterpret_cast<WGPUProcTextureGetDepthOrArrayLayers>(ForwardTextureGetDepthOrArrayLayers);

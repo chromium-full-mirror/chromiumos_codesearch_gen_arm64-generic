@@ -5,10 +5,12 @@
 #ifndef TRUNKS_TRUNKS_DBUS_SERVICE_H_
 #define TRUNKS_TRUNKS_DBUS_SERVICE_H_
 
+#include <cstdint>
 #include <memory>
 #include <string>
 
 #include <base/memory/weak_ptr.h>
+#include <base/time/time.h>
 #include <brillo/daemons/dbus_daemon.h>
 #include <brillo/dbus/dbus_method_response.h>
 #include <brillo/dbus/dbus_object.h>
@@ -17,30 +19,74 @@
 #include "trunks/power_manager.h"
 #include "trunks/resilience/write_error_tracker.h"
 #include "trunks/trunks_interface.pb.h"
+#include "trunks/trunks_metrics.h"
+// Requires trunks/trunks_interface.pb.h
+#include "trunks/dbus_adaptors/org.chromium.Trunks.h"
 
 namespace trunks {
 
+using brillo::dbus_utils::DBusMethodResponse;
+
+// Forward declaration
+class TrunksDBusService;
+
+class TrunksDBusAdaptor : public org::chromium::TrunksInterface,
+                          public org::chromium::TrunksAdaptor {
+ public:
+  explicit TrunksDBusAdaptor(scoped_refptr<dbus::Bus> bus,
+                             CommandTransceiver& command_transceiver,
+                             TrunksMetrics& metrics,
+                             WriteErrorTracker& write_error_tracker,
+                             TrunksDBusService& dbus_service);
+  TrunksDBusAdaptor(const TrunksDBusAdaptor&) = delete;
+  TrunksDBusAdaptor& operator=(const TrunksDBusAdaptor&) = delete;
+
+  void RegisterAsync(
+      brillo::dbus_utils::AsyncEventSequencer::CompletionAction cb);
+
+  // org::chromium::TrunksInterface overrides.
+  void SendCommand(
+      std::unique_ptr<DBusMethodResponse<SendCommandResponse>> response,
+      const SendCommandRequest& in_request) override;
+
+  // org::chromium::TrunksInterface overrides.
+  void StartEvent(
+      std::unique_ptr<DBusMethodResponse<StartEventResponse>> response,
+      const StartEventRequest& in_request) override;
+
+  // org::chromium::TrunksInterface overrides.
+  void StopEvent(
+      std::unique_ptr<DBusMethodResponse<StopEventResponse>> response,
+      const StopEventRequest& in_request) override;
+
+ private:
+  void SendCommandCallback(
+      uint64_t sender,
+      base::Time start_time,
+      std::unique_ptr<DBusMethodResponse<SendCommandResponse>> response,
+      const std::string& response_from_tpm);
+
+  brillo::dbus_utils::DBusObject dbus_object_;
+  CommandTransceiver& command_transceiver_;
+  TrunksMetrics& metrics_;
+  WriteErrorTracker& write_error_tracker_;
+  TrunksDBusService& dbus_service_;
+
+  // Declared last so weak pointers are invalidated first on destruction.
+  base::WeakPtrFactory<TrunksDBusAdaptor> weak_factory_{this};
+};
+
 // TrunksDBusService registers for and handles all incoming D-Bus messages for
 // the trunksd system daemon.
-//
-// Example Usage:
-//
-// TrunksDBusService service;
-// service.set_transceiver(&my_transceiver);
-// service.Run();
 class TrunksDBusService : public brillo::DBusServiceDaemon {
  public:
-  explicit TrunksDBusService(WriteErrorTracker& write_error_tracker);
+  explicit TrunksDBusService(CommandTransceiver& command_transceiver,
+                             TrunksMetrics& metrics,
+                             WriteErrorTracker& write_error_tracker);
   TrunksDBusService(const TrunksDBusService&) = delete;
   TrunksDBusService& operator=(const TrunksDBusService&) = delete;
 
   ~TrunksDBusService() override = default;
-
-  // The |transceiver| will be the target of all incoming TPM commands. This
-  // class does not take ownership of |transceiver|.
-  void set_transceiver(CommandTransceiver* transceiver) {
-    transceiver_ = transceiver;
-  }
 
   // The |power_manager| will be initialized with D-Bus object.
   // This class does not take ownership of |power_manager|.
@@ -57,18 +103,14 @@ class TrunksDBusService : public brillo::DBusServiceDaemon {
   void OnShutdown(int* exit_code) override;
 
  private:
-  // Handles calls to the 'SendCommand' method.
-  void HandleSendCommand(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                             const SendCommandResponse&>> response_sender,
-                         const SendCommandRequest& request);
-
   base::WeakPtr<TrunksDBusService> GetWeakPtr() {
     return weak_factory_.GetWeakPtr();
   }
-
-  std::unique_ptr<brillo::dbus_utils::DBusObject> trunks_dbus_object_;
-  CommandTransceiver* transceiver_ = nullptr;
+  std::unique_ptr<TrunksDBusAdaptor> adaptor_;
   PowerManager* power_manager_ = nullptr;
+  // Store the points that needs to pass to and used by adaptor_
+  CommandTransceiver& command_transceiver_;
+  TrunksMetrics& metrics_;
   WriteErrorTracker& write_error_tracker_;
 
   // Declared last so weak pointers are invalidated first on destruction.

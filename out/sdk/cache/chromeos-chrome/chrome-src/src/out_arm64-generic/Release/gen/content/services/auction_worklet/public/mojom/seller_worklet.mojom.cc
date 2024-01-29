@@ -490,6 +490,8 @@ bool ScoreAdClientStubDispatch::Accept(
           reinterpret_cast<internal::ScoreAdClient_OnScoreAdComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ScoreAdClient.0
       bool success = true;
       double p_score{};
       ::auction_worklet::mojom::RejectReason p_reject_reason{};
@@ -537,18 +539,18 @@ bool ScoreAdClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnScoreAdComplete(
-std::move(p_score), 
-std::move(p_reject_reason), 
-std::move(p_component_auction_modified_bid_params), 
-std::move(p_bid_in_seller_currency), 
-std::move(p_scoring_signals_data_version), 
-std::move(p_debug_loss_report_url), 
-std::move(p_debug_win_report_url), 
-std::move(p_pa_requests), 
-std::move(p_scoring_latency), 
-std::move(p_score_ad_dependency_latencies), 
-std::move(p_errors));
+      impl->OnScoreAdComplete(        
+        std::move(p_score), 
+        std::move(p_reject_reason), 
+        std::move(p_component_auction_modified_bid_params), 
+        std::move(p_bid_in_seller_currency), 
+        std::move(p_scoring_signals_data_version), 
+        std::move(p_debug_loss_report_url), 
+        std::move(p_debug_win_report_url), 
+        std::move(p_pa_requests), 
+        std::move(p_scoring_latency), 
+        std::move(p_score_ad_dependency_latencies), 
+        std::move(p_errors));
       return true;
     }
   }
@@ -1257,6 +1259,8 @@ bool SellerWorklet_ReportResult_ForwardToCallback::Accept(
           internal::SellerWorklet_ReportResult_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SellerWorklet.2
   bool success = true;
   std::optional<std::string> p_signals_for_winner{};
   std::optional<::GURL> p_report_url{};
@@ -1429,6 +1433,8 @@ bool SellerWorkletStubDispatch::Accept(
           reinterpret_cast<internal::SellerWorklet_ScoreAd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SellerWorklet.0
       bool success = true;
       std::string p_ad_metadata_json{};
       double p_bid{};
@@ -1497,25 +1503,25 @@ bool SellerWorkletStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ScoreAd(
-std::move(p_ad_metadata_json), 
-std::move(p_bid), 
-std::move(p_bid_currency), 
-std::move(p_auction_ad_config_non_shared_params), 
-std::move(p_direct_from_seller_seller_signals), 
-std::move(p_direct_from_seller_seller_signals_header_ad_slot), 
-std::move(p_direct_from_seller_auction_signals), 
-std::move(p_direct_from_seller_auction_signals_header_ad_slot), 
-std::move(p_browser_signals_other_seller), 
-std::move(p_component_expect_bid_currency), 
-std::move(p_browser_signal_interest_group_owner), 
-std::move(p_browser_signal_render_url), 
-std::move(p_browser_signal_ad_component_render_urls), 
-std::move(p_browser_signal_bidding_duration_msecs), 
-std::move(p_browser_signal_for_debugging_only_in_cooldown_or_lockout), 
-std::move(p_seller_timeout), 
-std::move(p_trace_id), 
-std::move(p_score_ad_client));
+      impl->ScoreAd(        
+        std::move(p_ad_metadata_json), 
+        std::move(p_bid), 
+        std::move(p_bid_currency), 
+        std::move(p_auction_ad_config_non_shared_params), 
+        std::move(p_direct_from_seller_seller_signals), 
+        std::move(p_direct_from_seller_seller_signals_header_ad_slot), 
+        std::move(p_direct_from_seller_auction_signals), 
+        std::move(p_direct_from_seller_auction_signals_header_ad_slot), 
+        std::move(p_browser_signals_other_seller), 
+        std::move(p_component_expect_bid_currency), 
+        std::move(p_browser_signal_interest_group_owner), 
+        std::move(p_browser_signal_render_url), 
+        std::move(p_browser_signal_ad_component_render_urls), 
+        std::move(p_browser_signal_bidding_duration_msecs), 
+        std::move(p_browser_signal_for_debugging_only_in_cooldown_or_lockout), 
+        std::move(p_seller_timeout), 
+        std::move(p_trace_id), 
+        std::move(p_score_ad_client));
       return true;
     }
     case internal::kSellerWorklet_SendPendingSignalsRequests_Name: {
@@ -1525,6 +1531,8 @@ std::move(p_score_ad_client));
           reinterpret_cast<internal::SellerWorklet_SendPendingSignalsRequests_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SellerWorklet.1
       bool success = true;
       SellerWorklet_SendPendingSignalsRequests_ParamsDataView input_data_view(params, message);
       
@@ -1537,7 +1545,7 @@ std::move(p_score_ad_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendPendingSignalsRequests();
+      impl->SendPendingSignalsRequests(        );
       return true;
     }
     case internal::kSellerWorklet_ReportResult_Name: {
@@ -1550,6 +1558,8 @@ std::move(p_score_ad_client));
           reinterpret_cast<internal::SellerWorklet_ConnectDevToolsAgent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SellerWorklet.3
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> p_agent{};
       SellerWorklet_ConnectDevToolsAgent_ParamsDataView input_data_view(params, message);
@@ -1567,8 +1577,8 @@ std::move(p_score_ad_client));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectDevToolsAgent(
-std::move(p_agent));
+      impl->ConnectDevToolsAgent(        
+        std::move(p_agent));
       return true;
     }
   }
@@ -1597,6 +1607,8 @@ bool SellerWorkletStubDispatch::AcceptWithResponder(
               internal::SellerWorklet_ReportResult_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SellerWorklet.2
       bool success = true;
       ::blink::AuctionConfig::NonSharedParams p_auction_ad_config_non_shared_params{};
       std::optional<::GURL> p_direct_from_seller_seller_signals{};
@@ -1666,25 +1678,25 @@ bool SellerWorkletStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportResult(
-std::move(p_auction_ad_config_non_shared_params), 
-std::move(p_direct_from_seller_seller_signals), 
-std::move(p_direct_from_seller_seller_signals_header_ad_slot), 
-std::move(p_direct_from_seller_auction_signals), 
-std::move(p_direct_from_seller_auction_signals_header_ad_slot), 
-std::move(p_browser_signals_other_seller), 
-std::move(p_browser_signal_interest_group_owner), 
-std::move(p_browser_signal_buyer_and_seller_reporting_id), 
-std::move(p_browser_signal_render_url), 
-std::move(p_browser_signal_bid), 
-std::move(p_browser_signal_bid_currency), 
-std::move(p_browser_signal_desirability), 
-std::move(p_browser_signal_highest_scoring_other_bid), 
-std::move(p_browser_signal_highest_scoring_other_bid_currency), 
-std::move(p_browser_signals_component_auction_report_result_params), 
-std::move(p_scoring_signals_data_version), 
-std::move(p_has_scoring_signals_data_version), 
-std::move(p_trace_id), std::move(callback));
+      impl->ReportResult(        
+        std::move(p_auction_ad_config_non_shared_params), 
+        std::move(p_direct_from_seller_seller_signals), 
+        std::move(p_direct_from_seller_seller_signals_header_ad_slot), 
+        std::move(p_direct_from_seller_auction_signals), 
+        std::move(p_direct_from_seller_auction_signals_header_ad_slot), 
+        std::move(p_browser_signals_other_seller), 
+        std::move(p_browser_signal_interest_group_owner), 
+        std::move(p_browser_signal_buyer_and_seller_reporting_id), 
+        std::move(p_browser_signal_render_url), 
+        std::move(p_browser_signal_bid), 
+        std::move(p_browser_signal_bid_currency), 
+        std::move(p_browser_signal_desirability), 
+        std::move(p_browser_signal_highest_scoring_other_bid), 
+        std::move(p_browser_signal_highest_scoring_other_bid_currency), 
+        std::move(p_browser_signals_component_auction_report_result_params), 
+        std::move(p_scoring_signals_data_version), 
+        std::move(p_has_scoring_signals_data_version), 
+        std::move(p_trace_id), std::move(callback));
       return true;
     }
     case internal::kSellerWorklet_ConnectDevToolsAgent_Name: {

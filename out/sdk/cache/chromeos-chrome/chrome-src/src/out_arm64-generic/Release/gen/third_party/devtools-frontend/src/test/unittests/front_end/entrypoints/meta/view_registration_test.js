@@ -11,7 +11,7 @@ class MockView extends UI.Widget.Widget {
         return UI.ViewManager.ViewManager.instance().createStackLocation();
     }
 }
-const viewId = 'mockView';
+const viewId = 'mock-view';
 const viewTitle = 'Mock';
 const commandPrompt = 'Show Mock';
 const order = 10;
@@ -33,7 +33,7 @@ describeWithEnvironment('View registration', () => {
         // from the command menu.
         UI.ViewManager.registerLocationResolver({
             name: "panel" /* UI.ViewManager.ViewLocationValues.PANEL */,
-            category: UI.ViewManager.ViewLocationCategory.PANEL,
+            category: "PANEL" /* UI.ViewManager.ViewLocationCategory.PANEL */,
             async loadResolver() {
                 return new MockView();
             },
@@ -48,7 +48,7 @@ describeWithEnvironment('View registration', () => {
     });
     it('adds command for showing a pre registered view', () => {
         const allCommands = QuickOpen.CommandMenu.CommandMenu.instance({ forceNew: true }).commands();
-        const filteredCommands = allCommands.filter(command => command.title === commandPrompt && command.isPanelOrDrawer === QuickOpen.CommandMenu.PanelOrDrawer.PANEL);
+        const filteredCommands = allCommands.filter(command => command.title === commandPrompt && command.isPanelOrDrawer === "PANEL" /* QuickOpen.CommandMenu.PanelOrDrawer.PANEL */);
         assert.strictEqual(filteredCommands.length, 1, 'Command for showing a preregistered view was not added correctly');
     });
     it('deletes a registered view using its id', () => {

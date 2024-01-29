@@ -18,6 +18,10 @@
       {
         "cpp": "::net::NetLogSource",
         "mojom": "network.mojom.NetLogSource"
+      },
+      {
+        "cpp": "::net::ProxyChain",
+        "mojom": "network.mojom.ProxyChain"
       }
     ]
   }

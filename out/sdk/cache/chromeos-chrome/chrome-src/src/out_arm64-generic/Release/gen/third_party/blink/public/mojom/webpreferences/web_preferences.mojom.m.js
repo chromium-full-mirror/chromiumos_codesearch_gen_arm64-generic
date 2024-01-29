@@ -502,7 +502,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'enableWebkitScrollbarStyling', 83,
+        'prefersDefaultScrollbarStyles', 83,
         3,
         mojo.internal.Bool,
         false,
@@ -1342,7 +1342,7 @@ export class WebPreferences {
     /** @type { !boolean } */
     this.hideScrollbars;
     /** @type { !boolean } */
-    this.enableWebkitScrollbarStyling;
+    this.prefersDefaultScrollbarStyles;
     /** @type { !boolean } */
     this.accelerated2dCanvasEnabled;
     /** @type { !boolean } */

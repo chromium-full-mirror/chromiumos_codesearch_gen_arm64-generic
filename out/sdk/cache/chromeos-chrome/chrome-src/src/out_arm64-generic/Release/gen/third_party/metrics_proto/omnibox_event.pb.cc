@@ -639,13 +639,14 @@ bool OmniboxEventProto_ProviderType_IsValid(int value) {
     case 22:
     case 23:
     case 24:
+    case 25:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OmniboxEventProto_ProviderType_strings[25] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OmniboxEventProto_ProviderType_strings[26] = {};
 
 static const char OmniboxEventProto_ProviderType_names[] =
   "BOOKMARK"
@@ -654,6 +655,7 @@ static const char OmniboxEventProto_ProviderType_names[] =
   "CONTACT"
   "DOCUMENT"
   "EXTENSION_APPS"
+  "FEATURED_SEARCH"
   "HISTORY_CLUSTER"
   "HISTORY_CONTENTS"
   "HISTORY_FUZZY"
@@ -681,53 +683,55 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OmniboxEventProto_Prov
   { {OmniboxEventProto_ProviderType_names + 24, 7}, 9 },
   { {OmniboxEventProto_ProviderType_names + 31, 8}, 16 },
   { {OmniboxEventProto_ProviderType_names + 39, 14}, 8 },
-  { {OmniboxEventProto_ProviderType_names + 53, 15}, 20 },
-  { {OmniboxEventProto_ProviderType_names + 68, 16}, 2 },
-  { {OmniboxEventProto_ProviderType_names + 84, 13}, 21 },
-  { {OmniboxEventProto_ProviderType_names + 97, 13}, 3 },
-  { {OmniboxEventProto_ProviderType_names + 110, 11}, 1 },
-  { {OmniboxEventProto_ProviderType_names + 121, 7}, 5 },
-  { {OmniboxEventProto_ProviderType_names + 128, 9}, 12 },
-  { {OmniboxEventProto_ProviderType_names + 137, 16}, 13 },
-  { {OmniboxEventProto_ProviderType_names + 153, 14}, 17 },
-  { {OmniboxEventProto_ProviderType_names + 167, 8}, 22 },
-  { {OmniboxEventProto_ProviderType_names + 175, 6}, 24 },
-  { {OmniboxEventProto_ProviderType_names + 181, 12}, 15 },
-  { {OmniboxEventProto_ProviderType_names + 193, 10}, 19 },
-  { {OmniboxEventProto_ProviderType_names + 203, 6}, 4 },
-  { {OmniboxEventProto_ProviderType_names + 209, 9}, 7 },
-  { {OmniboxEventProto_ProviderType_names + 218, 10}, 23 },
-  { {OmniboxEventProto_ProviderType_names + 228, 16}, 0 },
-  { {OmniboxEventProto_ProviderType_names + 244, 12}, 11 },
-  { {OmniboxEventProto_ProviderType_names + 256, 26}, 18 },
+  { {OmniboxEventProto_ProviderType_names + 53, 15}, 25 },
+  { {OmniboxEventProto_ProviderType_names + 68, 15}, 20 },
+  { {OmniboxEventProto_ProviderType_names + 83, 16}, 2 },
+  { {OmniboxEventProto_ProviderType_names + 99, 13}, 21 },
+  { {OmniboxEventProto_ProviderType_names + 112, 13}, 3 },
+  { {OmniboxEventProto_ProviderType_names + 125, 11}, 1 },
+  { {OmniboxEventProto_ProviderType_names + 136, 7}, 5 },
+  { {OmniboxEventProto_ProviderType_names + 143, 9}, 12 },
+  { {OmniboxEventProto_ProviderType_names + 152, 16}, 13 },
+  { {OmniboxEventProto_ProviderType_names + 168, 14}, 17 },
+  { {OmniboxEventProto_ProviderType_names + 182, 8}, 22 },
+  { {OmniboxEventProto_ProviderType_names + 190, 6}, 24 },
+  { {OmniboxEventProto_ProviderType_names + 196, 12}, 15 },
+  { {OmniboxEventProto_ProviderType_names + 208, 10}, 19 },
+  { {OmniboxEventProto_ProviderType_names + 218, 6}, 4 },
+  { {OmniboxEventProto_ProviderType_names + 224, 9}, 7 },
+  { {OmniboxEventProto_ProviderType_names + 233, 10}, 23 },
+  { {OmniboxEventProto_ProviderType_names + 243, 16}, 0 },
+  { {OmniboxEventProto_ProviderType_names + 259, 12}, 11 },
+  { {OmniboxEventProto_ProviderType_names + 271, 26}, 18 },
 };
 
 static const int OmniboxEventProto_ProviderType_entries_by_number[] = {
-  22, // 0 -> UNKNOWN_PROVIDER
-  10, // 1 -> HISTORY_URL
-  7, // 2 -> HISTORY_CONTENTS
-  9, // 3 -> HISTORY_QUICK
-  19, // 4 -> SEARCH
-  11, // 5 -> KEYWORD
+  23, // 0 -> UNKNOWN_PROVIDER
+  11, // 1 -> HISTORY_URL
+  8, // 2 -> HISTORY_CONTENTS
+  10, // 3 -> HISTORY_QUICK
+  20, // 4 -> SEARCH
+  12, // 5 -> KEYWORD
   1, // 6 -> BUILTIN
-  20, // 7 -> SHORTCUTS
+  21, // 7 -> SHORTCUTS
   5, // 8 -> EXTENSION_APPS
   3, // 9 -> CONTACT
   0, // 10 -> BOOKMARK
-  23, // 11 -> ZERO_SUGGEST
-  12, // 12 -> ON_DEVICE
-  13, // 13 -> ON_DEVICE_CHROME
+  24, // 11 -> ZERO_SUGGEST
+  13, // 12 -> ON_DEVICE
+  14, // 13 -> ON_DEVICE_CHROME
   2, // 14 -> CLIPBOARD
-  17, // 15 -> PHYSICAL_WEB
+  18, // 15 -> PHYSICAL_WEB
   4, // 16 -> DOCUMENT
-  14, // 17 -> ON_DEVICE_HEAD
-  24, // 18 -> ZERO_SUGGEST_LOCAL_HISTORY
-  18, // 19 -> QUERY_TILE
-  6, // 20 -> HISTORY_CLUSTER
-  8, // 21 -> HISTORY_FUZZY
-  15, // 22 -> OPEN_TAB
-  21, // 23 -> TAB_SWITCH
-  16, // 24 -> PEDALS
+  15, // 17 -> ON_DEVICE_HEAD
+  25, // 18 -> ZERO_SUGGEST_LOCAL_HISTORY
+  19, // 19 -> QUERY_TILE
+  7, // 20 -> HISTORY_CLUSTER
+  9, // 21 -> HISTORY_FUZZY
+  16, // 22 -> OPEN_TAB
+  22, // 23 -> TAB_SWITCH
+  17, // 24 -> PEDALS
+  6, // 25 -> FEATURED_SEARCH
 };
 
 const std::string& OmniboxEventProto_ProviderType_Name(
@@ -736,12 +740,12 @@ const std::string& OmniboxEventProto_ProviderType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           OmniboxEventProto_ProviderType_entries,
           OmniboxEventProto_ProviderType_entries_by_number,
-          25, OmniboxEventProto_ProviderType_strings);
+          26, OmniboxEventProto_ProviderType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       OmniboxEventProto_ProviderType_entries,
       OmniboxEventProto_ProviderType_entries_by_number,
-      25, value);
+      26, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      OmniboxEventProto_ProviderType_strings[idx].get();
 }
@@ -749,7 +753,7 @@ bool OmniboxEventProto_ProviderType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OmniboxEventProto_ProviderType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OmniboxEventProto_ProviderType_entries, 25, name, &int_value);
+      OmniboxEventProto_ProviderType_entries, 26, name, &int_value);
   if (success) {
     *value = static_cast<OmniboxEventProto_ProviderType>(int_value);
   }
@@ -781,6 +785,7 @@ constexpr OmniboxEventProto_ProviderType OmniboxEventProto::HISTORY_FUZZY;
 constexpr OmniboxEventProto_ProviderType OmniboxEventProto::OPEN_TAB;
 constexpr OmniboxEventProto_ProviderType OmniboxEventProto::TAB_SWITCH;
 constexpr OmniboxEventProto_ProviderType OmniboxEventProto::PEDALS;
+constexpr OmniboxEventProto_ProviderType OmniboxEventProto::FEATURED_SEARCH;
 constexpr OmniboxEventProto_ProviderType OmniboxEventProto::ProviderType_MIN;
 constexpr OmniboxEventProto_ProviderType OmniboxEventProto::ProviderType_MAX;
 constexpr int OmniboxEventProto::ProviderType_ARRAYSIZE;

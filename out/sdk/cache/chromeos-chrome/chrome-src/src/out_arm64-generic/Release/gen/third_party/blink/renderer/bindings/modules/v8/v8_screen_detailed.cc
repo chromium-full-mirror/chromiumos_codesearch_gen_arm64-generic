@@ -85,7 +85,8 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.left.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("ScreenDetailed.left.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Left_AttributeGetter);
 
@@ -108,7 +109,8 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.top.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("ScreenDetailed.top.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Top_AttributeGetter);
 
@@ -131,7 +133,8 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.isPrimary.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("ScreenDetailed.isPrimary.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_IsPrimary_AttributeGetter);
 
@@ -154,7 +157,8 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.isInternal.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("ScreenDetailed.isInternal.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_IsInternal_AttributeGetter);
 
@@ -177,7 +181,8 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.devicePixelRatio.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("ScreenDetailed.devicePixelRatio.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_DevicePixelRatio_AttributeGetter);
 
@@ -200,7 +205,8 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetailed.label.get");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("ScreenDetailed.label.get", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetailed_Label_AttributeGetter);
 

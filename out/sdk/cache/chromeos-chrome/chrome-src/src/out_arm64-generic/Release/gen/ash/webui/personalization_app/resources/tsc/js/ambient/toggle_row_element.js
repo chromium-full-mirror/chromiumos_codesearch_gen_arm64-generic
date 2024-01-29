@@ -4,7 +4,7 @@
 /**
  * @fileoverview This component displays a description text and a toggle button.
  */
-import '../../css/common.css.js';
+import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
 import { isPersonalizationJellyEnabled } from '../load_time_booleans.js';
 import { WithPersonalizationStore } from '../personalization_store.js';

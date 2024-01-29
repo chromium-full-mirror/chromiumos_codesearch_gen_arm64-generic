@@ -68,7 +68,7 @@ describeWithMockConnection('ConsoleView', () => {
         saveAsHandler.args[1]();
         assert.isTrue(fileManagerSave.calledOnceWith(FILENAME, '', true));
         await fileManagerAppendCall;
-        fileManager.dispatchEventToListeners(Workspace.FileManager.Events.AppendedToURL, FILENAME);
+        fileManager.dispatchEventToListeners("AppendedToURL" /* Workspace.FileManager.Events.AppendedToURL */, FILENAME);
         await fileManagerCloseCall;
     }
     it('can save to file without tab target', () => canSaveToFile(() => createTarget()));
@@ -140,7 +140,7 @@ describeWithMockConnection('ConsoleView', () => {
     describe('self-XSS warning', () => {
         let target;
         beforeEach(() => {
-            Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.SELF_XSS_WARNING);
+            Root.Runtime.experiments.enableForTest("selfXssWarning" /* Root.Runtime.ExperimentName.SELF_XSS_WARNING */);
             target = createTarget();
             SDK.TargetManager.TargetManager.instance().setScopeTarget(target);
             consoleView.markAsRoot();
@@ -160,7 +160,7 @@ describeWithMockConnection('ConsoleView', () => {
             const runtimeModel = target.model(SDK.RuntimeModel.RuntimeModel);
             assertNotNullOrUndefined(runtimeModel);
             SDK.ConsoleModel.ConsoleModel.requestClearMessages();
-            const selfXssWarningDisabledSetting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, Common.Settings.SettingStorageType.Synced);
+            const selfXssWarningDisabledSetting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, "Synced" /* Common.Settings.SettingStorageType.Synced */);
             for (let i = 0; i < 5; i++) {
                 assert.isFalse(selfXssWarningDisabledSetting.get());
                 consoleModel.dispatchEventToListeners(SDK.ConsoleModel.Events.MessageAdded, createConsoleMessage(target, String(i), SDK.ConsoleModel.FrontendMessageType.Command));

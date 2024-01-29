@@ -5,8 +5,7 @@
 #ifndef BASE_ALLOCATOR_PARTITION_ALLOCATOR_SRC_PARTITION_ALLOC_POINTERS_RAW_PTR_BACKUP_REF_IMPL_H_
 #define BASE_ALLOCATOR_PARTITION_ALLOCATOR_SRC_PARTITION_ALLOC_POINTERS_RAW_PTR_BACKUP_REF_IMPL_H_
 
-#include <stddef.h>
-
+#include <cstddef>
 #include <type_traits>
 
 #include "build/build_config.h"
@@ -18,6 +17,7 @@
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h"
+#include "base/allocator/partition_allocator/src/partition_alloc/pointers/instance_tracer.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/tagging.h"
 
 #if !BUILDFLAG(HAS_64_BIT_POINTERS)
@@ -38,7 +38,7 @@ void CheckThatAddressIsntWithinFirstPartitionPage(uintptr_t address);
 // Note that `RawPtrBackupRefImpl` itself is not thread-safe. If multiple
 // threads modify the same raw_ptr object without synchronization, a data race
 // will occur.
-template <bool AllowDangling = false, bool VectorExperimental = false>
+template <bool AllowDangling = false, bool DisableBRP = false>
 struct RawPtrBackupRefImpl {
   // These are needed for correctness, or else we may end up manipulating
   // ref-count where we shouldn't, thus affecting the BRP's integrity. Unlike
@@ -52,8 +52,8 @@ struct RawPtrBackupRefImpl {
  private:
   PA_ALWAYS_INLINE static bool UseBrp(uintptr_t address) {
     // BRP is temporarily disabled for Pointers annotated with
-    // VectorExperimental.
-    if constexpr (VectorExperimental) {
+    // DisableBRP.
+    if constexpr (DisableBRP) {
       return false;
     }
     return partition_alloc::IsManagedByPartitionAllocBRPPool(address);
@@ -194,6 +194,7 @@ struct RawPtrBackupRefImpl {
 #endif
       ReleaseInternal(address);
     }
+
     // We are unable to counteract BanSuperPageFromBRPPool(), called from
     // WrapRawPtr(). We only use one bit per super-page and, thus can't tell if
     // there's more than one associated raw_ptr<T> at a given time. The risk of
@@ -421,6 +422,37 @@ struct RawPtrBackupRefImpl {
       return UnpoisonPtr(wrapped_ptr);
     }
   }
+
+#if BUILDFLAG(ENABLE_BACKUP_REF_PTR_INSTANCE_TRACER)
+  template <typename T>
+  static constexpr void Trace(uint64_t owner_id, T* wrapped_ptr) {
+    if (partition_alloc::internal::base::is_constant_evaluated()) {
+      return;
+    }
+
+    uintptr_t address = partition_alloc::UntagPtr(UnpoisonPtr(wrapped_ptr));
+
+    if (!IsSupportedAndNotNull(address)) {
+      return;
+    }
+
+    InstanceTracer::Trace(owner_id, AllowDangling, address);
+  }
+
+  static constexpr void Untrace(uint64_t owner_id) {
+    if (partition_alloc::internal::base::is_constant_evaluated()) {
+      return;
+    }
+
+    InstanceTracer::Untrace(owner_id);
+  }
+#else
+  // In theory, this shouldn't be needed. In practice, the optimizer is unable
+  // to tell that things like `IsSupportedAndNotNull()` are side-effect free.
+  template <typename T>
+  static constexpr void Trace(uint64_t owner_id, T* wrapped_ptr) {}
+  static constexpr void Untrace(uint64_t owner_id) {}
+#endif
 
   // This is for accounting only, used by unit tests.
   PA_ALWAYS_INLINE static constexpr void IncrementSwapCountForTest() {}

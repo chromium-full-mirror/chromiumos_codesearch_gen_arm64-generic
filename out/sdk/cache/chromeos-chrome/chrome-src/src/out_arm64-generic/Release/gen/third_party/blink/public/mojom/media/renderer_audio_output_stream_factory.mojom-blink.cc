@@ -248,6 +248,8 @@ bool RendererAudioOutputStreamFactory_RequestDeviceAuthorization_ForwardToCallba
           internal::RendererAudioOutputStreamFactory_RequestDeviceAuthorization_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RendererAudioOutputStreamFactory.0
   bool success = true;
   ::media::mojom::blink::OutputDeviceStatus p_state{};
   ::media::AudioParameters p_output_params{};
@@ -375,6 +377,8 @@ bool RendererAudioOutputStreamFactoryStubDispatch::AcceptWithResponder(
               internal::RendererAudioOutputStreamFactory_RequestDeviceAuthorization_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RendererAudioOutputStreamFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::blink::AudioOutputStreamProvider> p_stream_provider_receiver{};
       std::optional<::base::UnguessableToken> p_session_id{};
@@ -401,10 +405,10 @@ bool RendererAudioOutputStreamFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestDeviceAuthorization(
-std::move(p_stream_provider_receiver), 
-std::move(p_session_id), 
-std::move(p_device_id), std::move(callback));
+      impl->RequestDeviceAuthorization(        
+        std::move(p_stream_provider_receiver), 
+        std::move(p_session_id), 
+        std::move(p_device_id), std::move(callback));
       return true;
     }
   }

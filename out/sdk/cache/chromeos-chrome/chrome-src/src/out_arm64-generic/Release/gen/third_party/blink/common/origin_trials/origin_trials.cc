@@ -42,10 +42,12 @@ static constexpr struct TrialToFeature {
     { "BackForwardCacheExperimentHTTPHeader", 1, {mojom::OriginTrialFeature::kBackForwardCacheExperimentHTTPHeader, } },
     { "BackForwardCacheNotRestoredReasons", 1, {mojom::OriginTrialFeature::kBackForwardCacheNotRestoredReasons, } },
     { "CacheStorageCodeCacheHint", 1, {mojom::OriginTrialFeature::kCacheStorageCodeCacheHint, } },
-    { "CompressionDictionaryTransport", 1, {mojom::OriginTrialFeature::kCompressionDictionaryTransport, } },
+    { "CapturedSurfaceControl", 1, {mojom::OriginTrialFeature::kCapturedSurfaceControl, } },
+    { "CompressionDictionaryTransportForTest", 1, {mojom::OriginTrialFeature::kCompressionDictionaryTransport, } },
     { "ComputePressure_v2", 1, {mojom::OriginTrialFeature::kComputePressure, } },
     { "CoopRestrictProperties", 1, {mojom::OriginTrialFeature::kCoopRestrictProperties, } },
     { "WebSQL", 1, {mojom::OriginTrialFeature::kDatabase, } },
+    { "DeprecateUnloadOptOut", 1, {mojom::OriginTrialFeature::kDeprecateUnloadOptOut, } },
     { "DigitalGoodsV2", 1, {mojom::OriginTrialFeature::kDigitalGoods, } },
     { "DisableDifferentOriginSubframeDialogSuppression", 1, {mojom::OriginTrialFeature::kDisableDifferentOriginSubframeDialogSuppression, } },
     { "DisableHardwareNoiseSuppression", 1, {mojom::OriginTrialFeature::kDisableHardwareNoiseSuppression, } },
@@ -61,7 +63,6 @@ static constexpr struct TrialToFeature {
     { "GetAllScreensMedia", 1, {mojom::OriginTrialFeature::kGetAllScreensMedia, } },
     { "HrefTranslate", 1, {mojom::OriginTrialFeature::kHrefTranslate, } },
     { "JavaScriptCompileHintsMagic", 1, {mojom::OriginTrialFeature::kJavaScriptCompileHintsMagicRuntime, } },
-    { "LongAnimationFrameTiming", 2, {mojom::OriginTrialFeature::kLongAnimationFrameMonitoring,mojom::OriginTrialFeature::kLongAnimationFrameTiming, } },
     { "MediaCaptureBackgroundBlur", 2, {mojom::OriginTrialFeature::kMediaCaptureBackgroundBlur,mojom::OriginTrialFeature::kMediaCaptureConfigurationChange, } },
     { "MediaSourceExtensionsForWebCodecs", 1, {mojom::OriginTrialFeature::kMediaSourceExtensionsForWebCodecs, } },
     { "SoftNavigationHeuristics", 2, {mojom::OriginTrialFeature::kNavigationId,mojom::OriginTrialFeature::kSoftNavigationHeuristics, } },
@@ -104,11 +105,10 @@ static constexpr struct TrialToFeature {
     { "SignatureBasedIntegrity", 1, {mojom::OriginTrialFeature::kSignatureBasedIntegrity, } },
     { "SpeculationRulesPrefetchFuture", 6, {mojom::OriginTrialFeature::kSpeculationRulesDocumentRules,mojom::OriginTrialFeature::kSpeculationRulesDocumentRulesSelectorMatches,mojom::OriginTrialFeature::kSpeculationRulesEagerness,mojom::OriginTrialFeature::kSpeculationRulesFetchFromHeader,mojom::OriginTrialFeature::kSpeculationRulesPrefetchFuture,mojom::OriginTrialFeature::kSpeculationRulesRelativeToDocument, } },
     { "StorageAccessAPIBeyondCookies", 1, {mojom::OriginTrialFeature::kStorageAccessAPIBeyondCookies, } },
-    { "StorageBuckets", 1, {mojom::OriginTrialFeature::kStorageBuckets, } },
     { "TextFragmentIdentifiers", 1, {mojom::OriginTrialFeature::kTextFragmentIdentifiers, } },
+    { "TopLevelTpcd", 1, {mojom::OriginTrialFeature::kTopLevelTpcd, } },
     { "ForceTouchEventFeatureDetectionForInspector", 1, {mojom::OriginTrialFeature::kTouchEventFeatureDetection, } },
     { "Tpcd", 1, {mojom::OriginTrialFeature::kTpcd, } },
-    { "Tpcd1p", 1, {mojom::OriginTrialFeature::kTpcd1p, } },
     { "UnrestrictedSharedArrayBuffer", 1, {mojom::OriginTrialFeature::kUnrestrictedSharedArrayBuffer, } },
     { "WebAppDarkModeV2", 1, {mojom::OriginTrialFeature::kWebAppDarkMode, } },
     { "Launch Handler", 1, {mojom::OriginTrialFeature::kWebAppLaunchHandler, } },
@@ -116,8 +116,6 @@ static constexpr struct TrialToFeature {
     { "WebAppScopeExtensions", 1, {mojom::OriginTrialFeature::kWebAppScopeExtensions, } },
     { "WebAppTabStrip", 2, {mojom::OriginTrialFeature::kWebAppTabStrip,mojom::OriginTrialFeature::kWebAppTabStripCustomizations, } },
     { "WebAppUrlHandling", 1, {mojom::OriginTrialFeature::kWebAppUrlHandling, } },
-    { "WebAppWindowControlsOverlay", 1, {mojom::OriginTrialFeature::kWebAppWindowControlsOverlay, } },
-    { "WebAssemblyGC", 1, {mojom::OriginTrialFeature::kWebAssemblyGC, } },
     { "WebAssemblyJSStringBuiltins", 1, {mojom::OriginTrialFeature::kWebAssemblyJSStringBuiltins, } },
     { "WebTransportCustomCertificates", 1, {mojom::OriginTrialFeature::kWebTransportCustomCertificates, } },
     { "WebViewXRequestedWithDeprecation", 1, {mojom::OriginTrialFeature::kWebViewXRequestedWithDeprecation, } },
@@ -136,6 +134,7 @@ bool origin_trials::IsTrialValid(base::StringPiece trial_name) {
 
 bool origin_trials::IsTrialEnabledForInsecureContext(base::StringPiece trial_name) {
   static const char* const kEnabledForInsecureContext[] = {
+      "DeprecateUnloadOptOut",
       "DisableDifferentOriginSubframeDialogSuppression",
       "DisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning",
       "DisableThirdPartyStoragePartitioning",
@@ -152,13 +151,13 @@ bool origin_trials::IsTrialEnabledForThirdPartyOrigins(base::StringPiece trial_n
       "PrivacySandboxAdsAPIs",
       "AttributionReportingCrossAppWeb",
       "AttributionReportingInterface",
-      "CompressionDictionaryTransport",
+      "CompressionDictionaryTransportForTest",
       "ComputePressure_v2",
       "WebSQL",
+      "DeprecateUnloadOptOut",
       "DisableThirdPartyStoragePartitioning",
       "FetchLaterAPI",
       "FledgeBiddingAndAuctionServer",
-      "LongAnimationFrameTiming",
       "FrobulateExpiryGracePeriodThirdParty",
       "FrobulatePersistent",
       "FrobulatePersistentInvalidOS",
@@ -201,6 +200,8 @@ OriginTrialType origin_trials::GetTrialType(mojom::OriginTrialFeature feature) {
   switch (feature) {
     case mojom::OriginTrialFeature::kDatabase:
       return OriginTrialType::kDeprecation;
+    case mojom::OriginTrialFeature::kDeprecateUnloadOptOut:
+      return OriginTrialType::kDeprecation;
     case mojom::OriginTrialFeature::kDisableDifferentOriginSubframeDialogSuppression:
       return OriginTrialType::kDeprecation;
     case mojom::OriginTrialFeature::kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning:
@@ -213,9 +214,9 @@ OriginTrialType origin_trials::GetTrialType(mojom::OriginTrialFeature feature) {
       return OriginTrialType::kDeprecation;
     case mojom::OriginTrialFeature::kPrivateNetworkAccessNonSecureContextsAllowed:
       return OriginTrialType::kDeprecation;
-    case mojom::OriginTrialFeature::kTpcd:
+    case mojom::OriginTrialFeature::kTopLevelTpcd:
       return OriginTrialType::kDeprecation;
-    case mojom::OriginTrialFeature::kTpcd1p:
+    case mojom::OriginTrialFeature::kTpcd:
       return OriginTrialType::kDeprecation;
     case mojom::OriginTrialFeature::kWebViewXRequestedWithDeprecation:
       return OriginTrialType::kDeprecation;
@@ -249,10 +250,6 @@ base::span<const mojom::OriginTrialFeature> origin_trials::GetImpliedFeatures(
   }
   if (feature == mojom::OriginTrialFeature::kAttributionReportingCrossAppWeb) {
     static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kAttributionReportingInterface,};
-    return implied_features;
-  }
-  if (feature == mojom::OriginTrialFeature::kLongAnimationFrameTiming) {
-    static constexpr mojom::OriginTrialFeature implied_features[] = {mojom::OriginTrialFeature::kLongAnimationFrameMonitoring,};
     return implied_features;
   }
   if (feature == mojom::OriginTrialFeature::kMediaCaptureBackgroundBlur) {
@@ -298,6 +295,8 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kCacheStorageCodeCacheHint:
       return true;
+    case mojom::OriginTrialFeature::kCapturedSurfaceControl:
+      return true;
     case mojom::OriginTrialFeature::kCompressionDictionaryTransport:
       return true;
     case mojom::OriginTrialFeature::kComputePressure:
@@ -305,6 +304,8 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
     case mojom::OriginTrialFeature::kCoopRestrictProperties:
       return true;
     case mojom::OriginTrialFeature::kDatabase:
+      return true;
+    case mojom::OriginTrialFeature::kDeprecateUnloadOptOut:
       return true;
     case mojom::OriginTrialFeature::kDigitalGoods:
 #if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_CHROMEOS)
@@ -353,10 +354,6 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
     case mojom::OriginTrialFeature::kHrefTranslate:
       return true;
     case mojom::OriginTrialFeature::kJavaScriptCompileHintsMagicRuntime:
-      return true;
-    case mojom::OriginTrialFeature::kLongAnimationFrameMonitoring:
-      return true;
-    case mojom::OriginTrialFeature::kLongAnimationFrameTiming:
       return true;
     case mojom::OriginTrialFeature::kMediaCaptureBackgroundBlur:
       return true;
@@ -478,19 +475,17 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kStorageAccessAPIBeyondCookies:
       return true;
-    case mojom::OriginTrialFeature::kStorageBuckets:
-      return true;
     case mojom::OriginTrialFeature::kTextFragmentIdentifiers:
       return true;
     case mojom::OriginTrialFeature::kTopicsAPI:
       return true;
     case mojom::OriginTrialFeature::kTopicsDocumentAPI:
       return true;
+    case mojom::OriginTrialFeature::kTopLevelTpcd:
+      return true;
     case mojom::OriginTrialFeature::kTouchEventFeatureDetection:
       return true;
     case mojom::OriginTrialFeature::kTpcd:
-      return true;
-    case mojom::OriginTrialFeature::kTpcd1p:
       return true;
     case mojom::OriginTrialFeature::kUnrestrictedSharedArrayBuffer:
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_FUCHSIA) || BUILDFLAG(IS_CHROMEOS)
@@ -528,14 +523,6 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
 #else
       return false;
 #endif
-    case mojom::OriginTrialFeature::kWebAppWindowControlsOverlay:
-#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
-      return true;
-#else
-      return false;
-#endif
-    case mojom::OriginTrialFeature::kWebAssemblyGC:
-      return true;
     case mojom::OriginTrialFeature::kWebAssemblyJSStringBuiltins:
       return true;
     case mojom::OriginTrialFeature::kWebTransportCustomCertificates:

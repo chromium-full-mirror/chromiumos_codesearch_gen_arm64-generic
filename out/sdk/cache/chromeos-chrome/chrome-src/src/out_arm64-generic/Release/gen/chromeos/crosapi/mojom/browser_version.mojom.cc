@@ -167,6 +167,8 @@ bool BrowserVersionObserverStubDispatch::Accept(
           reinterpret_cast<internal::BrowserVersionObserver_OnBrowserVersionInstalled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserVersionObserver.0
       bool success = true;
       std::string p_version{};
       BrowserVersionObserver_OnBrowserVersionInstalled_ParamsDataView input_data_view(params, message);
@@ -182,8 +184,8 @@ bool BrowserVersionObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserVersionInstalled(
-std::move(p_version));
+      impl->OnBrowserVersionInstalled(        
+        std::move(p_version));
       return true;
     }
   }
@@ -450,6 +452,8 @@ bool BrowserVersionService_GetInstalledBrowserVersion_ForwardToCallback::Accept(
           internal::BrowserVersionService_GetInstalledBrowserVersion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserVersionService.1
   bool success = true;
   std::string p_version{};
   BrowserVersionService_GetInstalledBrowserVersion_ResponseParamsDataView input_data_view(params, message);
@@ -534,6 +538,8 @@ bool BrowserVersionServiceStubDispatch::Accept(
           reinterpret_cast<internal::BrowserVersionService_AddBrowserVersionObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserVersionService.0
       bool success = true;
       ::mojo::PendingRemote<BrowserVersionObserver> p_observer{};
       BrowserVersionService_AddBrowserVersionObserver_ParamsDataView input_data_view(params, message);
@@ -551,8 +557,8 @@ bool BrowserVersionServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddBrowserVersionObserver(
-std::move(p_observer));
+      impl->AddBrowserVersionObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kBrowserVersionService_GetInstalledBrowserVersion_Name: {
@@ -581,6 +587,8 @@ bool BrowserVersionServiceStubDispatch::AcceptWithResponder(
               internal::BrowserVersionService_GetInstalledBrowserVersion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserVersionService.1
       bool success = true;
       BrowserVersionService_GetInstalledBrowserVersion_ParamsDataView input_data_view(params, message);
       

@@ -107,8 +107,17 @@ void Domain::DescribeNode(base::OnceCallback<void(std::unique_ptr<DescribeNodeRe
       .Build();
 dispatcher_->SendMessage("DOM.describeNode", params->Serialize(), base::BindOnce(&Domain::HandleDescribeNodeResponse, std::move(callback)));
 }
-void ExperimentalDomain::ScrollIntoViewIfNeeded(std::unique_ptr<ScrollIntoViewIfNeededParams> params, base::OnceCallback<void(std::unique_ptr<ScrollIntoViewIfNeededResult>)> callback) {
+void Domain::ScrollIntoViewIfNeeded(std::unique_ptr<ScrollIntoViewIfNeededParams> params, base::OnceCallback<void(std::unique_ptr<ScrollIntoViewIfNeededResult>)> callback) {
   dispatcher_->SendMessage("DOM.scrollIntoViewIfNeeded", params->Serialize(), base::BindOnce(&Domain::HandleScrollIntoViewIfNeededResponse, std::move(callback)));
+}
+
+void Domain::ScrollIntoViewIfNeeded(base::OnceClosure callback) {
+  std::unique_ptr<ScrollIntoViewIfNeededParams> params = ScrollIntoViewIfNeededParams::Builder()
+      .Build();
+  dispatcher_->SendMessage("DOM.scrollIntoViewIfNeeded", params->Serialize(), std::move(callback));
+}
+void Domain::ScrollIntoViewIfNeeded(std::unique_ptr<ScrollIntoViewIfNeededParams> params, base::OnceClosure callback) {
+  dispatcher_->SendMessage("DOM.scrollIntoViewIfNeeded", params->Serialize(), std::move(callback));
 }
 void Domain::Disable(std::unique_ptr<DisableParams> params, base::OnceCallback<void(std::unique_ptr<DisableResult>)> callback) {
   dispatcher_->SendMessage("DOM.disable", params->Serialize(), base::BindOnce(&Domain::HandleDisableResponse, std::move(callback)));

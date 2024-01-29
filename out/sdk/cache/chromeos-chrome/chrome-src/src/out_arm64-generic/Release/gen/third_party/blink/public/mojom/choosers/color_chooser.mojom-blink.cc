@@ -253,6 +253,8 @@ bool ColorChooserStubDispatch::Accept(
           reinterpret_cast<internal::ColorChooser_SetSelectedColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ColorChooser.0
       bool success = true;
       uint32_t p_color{};
       ColorChooser_SetSelectedColor_ParamsDataView input_data_view(params, message);
@@ -268,8 +270,8 @@ bool ColorChooserStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSelectedColor(
-std::move(p_color));
+      impl->SetSelectedColor(        
+        std::move(p_color));
       return true;
     }
   }
@@ -415,6 +417,8 @@ bool ColorChooserClientStubDispatch::Accept(
           reinterpret_cast<internal::ColorChooserClient_DidChooseColor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ColorChooserClient.0
       bool success = true;
       uint32_t p_color{};
       ColorChooserClient_DidChooseColor_ParamsDataView input_data_view(params, message);
@@ -430,8 +434,8 @@ bool ColorChooserClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidChooseColor(
-std::move(p_color));
+      impl->DidChooseColor(        
+        std::move(p_color));
       return true;
     }
   }
@@ -631,6 +635,8 @@ bool EyeDropperChooser_Choose_ForwardToCallback::Accept(
           internal::EyeDropperChooser_Choose_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EyeDropperChooser.0
   bool success = true;
   bool p_success{};
   uint32_t p_color{};
@@ -729,6 +735,8 @@ bool EyeDropperChooserStubDispatch::AcceptWithResponder(
               internal::EyeDropperChooser_Choose_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EyeDropperChooser.0
       bool success = true;
       EyeDropperChooser_Choose_ParamsDataView input_data_view(params, message);
       

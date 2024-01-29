@@ -302,6 +302,8 @@ bool WebrtcVideoPerfRecorderStubDispatch::Accept(
           reinterpret_cast<internal::WebrtcVideoPerfRecorder_UpdateRecord_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebrtcVideoPerfRecorder.0
       bool success = true;
       WebrtcPredictionFeaturesPtr p_features{};
       WebrtcVideoStatsPtr p_video_stats{};
@@ -320,9 +322,9 @@ bool WebrtcVideoPerfRecorderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateRecord(
-std::move(p_features), 
-std::move(p_video_stats));
+      impl->UpdateRecord(        
+        std::move(p_features), 
+        std::move(p_video_stats));
       return true;
     }
   }
@@ -544,6 +546,8 @@ bool WebrtcVideoPerfHistory_GetPerfInfo_ForwardToCallback::Accept(
           internal::WebrtcVideoPerfHistory_GetPerfInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebrtcVideoPerfHistory.0
   bool success = true;
   bool p_is_smooth{};
   WebrtcVideoPerfHistory_GetPerfInfo_ResponseParamsDataView input_data_view(params, message);
@@ -634,6 +638,8 @@ bool WebrtcVideoPerfHistoryStubDispatch::AcceptWithResponder(
               internal::WebrtcVideoPerfHistory_GetPerfInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebrtcVideoPerfHistory.0
       bool success = true;
       WebrtcPredictionFeaturesPtr p_features{};
       int32_t p_frames_per_second{};
@@ -655,9 +661,9 @@ bool WebrtcVideoPerfHistoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPerfInfo(
-std::move(p_features), 
-std::move(p_frames_per_second), std::move(callback));
+      impl->GetPerfInfo(        
+        std::move(p_features), 
+        std::move(p_frames_per_second), std::move(callback));
       return true;
     }
   }

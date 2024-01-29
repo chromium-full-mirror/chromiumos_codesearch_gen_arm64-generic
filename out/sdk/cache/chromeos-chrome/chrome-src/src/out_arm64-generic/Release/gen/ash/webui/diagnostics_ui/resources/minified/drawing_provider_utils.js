@@ -1,0 +1,4 @@
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export const LINE_CAP="round";export const LINE_WIDTH=20;export const MARK_RADIUS=10;export const MARK_COLOR="--cros-icon-color-prominent";export const MARK_OPACITY="--cros-second-tone-opacity";export const TRAIL_COLOR="--google-blue-50";export const TRAIL_MAX_OPACITY=.3;export const SOURCE_OVER="source-over";export const DESTINATION_OVER="destination-over";export function lookupCssVariableValue(varName){return window.getComputedStyle(document.documentElement).getPropertyValue(varName)}export function constructRgba(rgb,opacity){const rgbValue=rgb.substring(rgb.indexOf("(")+1,rgb.indexOf(")")).trim();return`rgba(${rgbValue}, ${opacity})`}export function getTrailOpacityFromPressure(pressure){return String(TRAIL_MAX_OPACITY*pressure)}

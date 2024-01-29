@@ -72,14 +72,17 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, AddressMode value) {
       switch (value) {
+      case AddressMode::Undefined:
+        o << "AddressMode::Undefined";
+        break;
+      case AddressMode::ClampToEdge:
+        o << "AddressMode::ClampToEdge";
+        break;
       case AddressMode::Repeat:
         o << "AddressMode::Repeat";
         break;
       case AddressMode::MirrorRepeat:
         o << "AddressMode::MirrorRepeat";
-        break;
-      case AddressMode::ClampToEdge:
-        o << "AddressMode::ClampToEdge";
         break;
           default:
             o << "AddressMode::" << std::showbase << std::hex << std::setfill('0') << std::setw(4) << static_cast<typename std::underlying_type<AddressMode>::type>(value);
@@ -141,6 +144,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, BlendFactor value) {
       switch (value) {
+      case BlendFactor::Undefined:
+        o << "BlendFactor::Undefined";
+        break;
       case BlendFactor::Zero:
         o << "BlendFactor::Zero";
         break;
@@ -200,6 +206,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, BlendOperation value) {
       switch (value) {
+      case BlendOperation::Undefined:
+        o << "BlendOperation::Undefined";
+        break;
       case BlendOperation::Add:
         o << "BlendOperation::Add";
         break;
@@ -410,6 +419,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, CullMode value) {
       switch (value) {
+      case CullMode::Undefined:
+        o << "CullMode::Undefined";
+        break;
       case CullMode::None:
         o << "CullMode::None";
         break;
@@ -612,6 +624,9 @@ namespace wgpu {
       case FeatureName::AdapterPropertiesMemoryHeaps:
         o << "FeatureName::AdapterPropertiesMemoryHeaps";
         break;
+      case FeatureName::AdapterPropertiesD3D:
+        o << "FeatureName::AdapterPropertiesD3D";
+        break;
       case FeatureName::SharedTextureMemoryVkDedicatedAllocation:
         o << "FeatureName::SharedTextureMemoryVkDedicatedAllocation";
         break;
@@ -662,6 +677,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, FilterMode value) {
       switch (value) {
+      case FilterMode::Undefined:
+        o << "FilterMode::Undefined";
+        break;
       case FilterMode::Nearest:
         o << "FilterMode::Nearest";
         break;
@@ -676,6 +694,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, FrontFace value) {
       switch (value) {
+      case FrontFace::Undefined:
+        o << "FrontFace::Undefined";
+        break;
       case FrontFace::CCW:
         o << "FrontFace::CCW";
         break;
@@ -744,6 +765,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, MipmapFilterMode value) {
       switch (value) {
+      case MipmapFilterMode::Undefined:
+        o << "MipmapFilterMode::Undefined";
+        break;
       case MipmapFilterMode::Nearest:
         o << "MipmapFilterMode::Nearest";
         break;
@@ -792,6 +816,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, PrimitiveTopology value) {
       switch (value) {
+      case PrimitiveTopology::Undefined:
+        o << "PrimitiveTopology::Undefined";
+        break;
       case PrimitiveTopology::PointList:
         o << "PrimitiveTopology::PointList";
         break;
@@ -991,6 +1018,9 @@ namespace wgpu {
       case SType::AdapterPropertiesMemoryHeaps:
         o << "SType::AdapterPropertiesMemoryHeaps";
         break;
+      case SType::AdapterPropertiesD3D:
+        o << "SType::AdapterPropertiesD3D";
+        break;
       case SType::DawnComputePipelineFullSubgroups:
         o << "SType::DawnComputePipelineFullSubgroups";
         break;
@@ -1126,6 +1156,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, StencilOperation value) {
       switch (value) {
+      case StencilOperation::Undefined:
+        o << "StencilOperation::Undefined";
+        break;
       case StencilOperation::Keep:
         o << "StencilOperation::Keep";
         break;
@@ -1195,6 +1228,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, TextureAspect value) {
       switch (value) {
+      case TextureAspect::Undefined:
+        o << "TextureAspect::Undefined";
+        break;
       case TextureAspect::All:
         o << "TextureAspect::All";
         break;
@@ -1221,6 +1257,9 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, TextureDimension value) {
       switch (value) {
+      case TextureDimension::Undefined:
+        o << "TextureDimension::Undefined";
+        break;
       case TextureDimension::e1D:
         o << "TextureDimension::e1D";
         break;
@@ -1720,14 +1759,17 @@ namespace wgpu {
   template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, VertexStepMode value) {
       switch (value) {
+      case VertexStepMode::Undefined:
+        o << "VertexStepMode::Undefined";
+        break;
+      case VertexStepMode::VertexBufferNotUsed:
+        o << "VertexStepMode::VertexBufferNotUsed";
+        break;
       case VertexStepMode::Vertex:
         o << "VertexStepMode::Vertex";
         break;
       case VertexStepMode::Instance:
         o << "VertexStepMode::Instance";
-        break;
-      case VertexStepMode::VertexBufferNotUsed:
-        o << "VertexStepMode::VertexBufferNotUsed";
         break;
           default:
             o << "VertexStepMode::" << std::showbase << std::hex << std::setfill('0') << std::setw(4) << static_cast<typename std::underlying_type<VertexStepMode>::type>(value);

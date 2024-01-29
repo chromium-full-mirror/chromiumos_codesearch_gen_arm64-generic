@@ -260,6 +260,8 @@ bool AcceleratorsUpdatedObserverStubDispatch::Accept(
           reinterpret_cast<internal::AcceleratorsUpdatedObserver_OnAcceleratorsUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorsUpdatedObserver.0
       bool success = true;
       base::flat_map<::ash::mojom::AcceleratorSource, base::flat_map<uint32_t, std::vector<::ash::mojom::AcceleratorInfoPtr>>> p_config{};
       AcceleratorsUpdatedObserver_OnAcceleratorsUpdated_ParamsDataView input_data_view(params, message);
@@ -275,8 +277,8 @@ bool AcceleratorsUpdatedObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAcceleratorsUpdated(
-std::move(p_config));
+      impl->OnAcceleratorsUpdated(        
+        std::move(p_config));
       return true;
     }
   }
@@ -414,6 +416,8 @@ bool PolicyUpdatedObserverStubDispatch::Accept(
           reinterpret_cast<internal::PolicyUpdatedObserver_OnCustomizationPolicyUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyUpdatedObserver.0
       bool success = true;
       PolicyUpdatedObserver_OnCustomizationPolicyUpdated_ParamsDataView input_data_view(params, message);
       
@@ -426,7 +430,7 @@ bool PolicyUpdatedObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCustomizationPolicyUpdated();
+      impl->OnCustomizationPolicyUpdated(        );
       return true;
     }
   }
@@ -2010,6 +2014,8 @@ bool AcceleratorConfigurationProvider_IsMutable_ForwardToCallback::Accept(
           internal::AcceleratorConfigurationProvider_IsMutable_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.0
   bool success = true;
   bool p_is_mutable{};
   AcceleratorConfigurationProvider_IsMutable_ResponseParamsDataView input_data_view(params, message);
@@ -2129,6 +2135,8 @@ bool AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_ForwardToCa
           internal::AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.1
   bool success = true;
   bool p_is_customization_allowed_by_policy{};
   AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_ResponseParamsDataView input_data_view(params, message);
@@ -2248,6 +2256,8 @@ bool AcceleratorConfigurationProvider_HasLauncherButton_ForwardToCallback::Accep
           internal::AcceleratorConfigurationProvider_HasLauncherButton_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.2
   bool success = true;
   bool p_has_launcher_button{};
   AcceleratorConfigurationProvider_HasLauncherButton_ResponseParamsDataView input_data_view(params, message);
@@ -2367,6 +2377,8 @@ bool AcceleratorConfigurationProvider_GetConflictAccelerator_ForwardToCallback::
           internal::AcceleratorConfigurationProvider_GetConflictAccelerator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.3
   bool success = true;
   AcceleratorResultDataPtr p_result{};
   AcceleratorConfigurationProvider_GetConflictAccelerator_ResponseParamsDataView input_data_view(params, message);
@@ -2496,6 +2508,8 @@ bool AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_ForwardToCallb
           internal::AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.4
   bool success = true;
   std::vector<::ui::Accelerator> p_accelerators{};
   AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_ResponseParamsDataView input_data_view(params, message);
@@ -2627,6 +2641,8 @@ bool AcceleratorConfigurationProvider_GetAccelerators_ForwardToCallback::Accept(
           internal::AcceleratorConfigurationProvider_GetAccelerators_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.5
   bool success = true;
   base::flat_map<::ash::mojom::AcceleratorSource, base::flat_map<uint32_t, std::vector<::ash::mojom::AcceleratorInfoPtr>>> p_config{};
   AcceleratorConfigurationProvider_GetAccelerators_ResponseParamsDataView input_data_view(params, message);
@@ -2758,6 +2774,8 @@ bool AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_ForwardToCallbac
           internal::AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.8
   bool success = true;
   std::vector<::ash::mojom::AcceleratorLayoutInfoPtr> p_layout_infos{};
   AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_ResponseParamsDataView input_data_view(params, message);
@@ -2889,6 +2907,8 @@ bool AcceleratorConfigurationProvider_PreventProcessingAccelerators_ForwardToCal
           internal::AcceleratorConfigurationProvider_PreventProcessingAccelerators_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.9
   bool success = true;
   AcceleratorConfigurationProvider_PreventProcessingAccelerators_ResponseParamsDataView input_data_view(params, message);
   
@@ -2996,6 +3016,8 @@ bool AcceleratorConfigurationProvider_AddAccelerator_ForwardToCallback::Accept(
           internal::AcceleratorConfigurationProvider_AddAccelerator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.10
   bool success = true;
   AcceleratorResultDataPtr p_result{};
   AcceleratorConfigurationProvider_AddAccelerator_ResponseParamsDataView input_data_view(params, message);
@@ -3125,6 +3147,8 @@ bool AcceleratorConfigurationProvider_RemoveAccelerator_ForwardToCallback::Accep
           internal::AcceleratorConfigurationProvider_RemoveAccelerator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.11
   bool success = true;
   AcceleratorResultDataPtr p_result{};
   AcceleratorConfigurationProvider_RemoveAccelerator_ResponseParamsDataView input_data_view(params, message);
@@ -3254,6 +3278,8 @@ bool AcceleratorConfigurationProvider_ReplaceAccelerator_ForwardToCallback::Acce
           internal::AcceleratorConfigurationProvider_ReplaceAccelerator_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.12
   bool success = true;
   AcceleratorResultDataPtr p_result{};
   AcceleratorConfigurationProvider_ReplaceAccelerator_ResponseParamsDataView input_data_view(params, message);
@@ -3383,6 +3409,8 @@ bool AcceleratorConfigurationProvider_RestoreDefault_ForwardToCallback::Accept(
           internal::AcceleratorConfigurationProvider_RestoreDefault_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.13
   bool success = true;
   AcceleratorResultDataPtr p_result{};
   AcceleratorConfigurationProvider_RestoreDefault_ResponseParamsDataView input_data_view(params, message);
@@ -3512,6 +3540,8 @@ bool AcceleratorConfigurationProvider_RestoreAllDefaults_ForwardToCallback::Acce
           internal::AcceleratorConfigurationProvider_RestoreAllDefaults_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AcceleratorConfigurationProvider.14
   bool success = true;
   AcceleratorResultDataPtr p_result{};
   AcceleratorConfigurationProvider_RestoreAllDefaults_ResponseParamsDataView input_data_view(params, message);
@@ -3614,6 +3644,8 @@ bool AcceleratorConfigurationProviderStubDispatch::Accept(
           reinterpret_cast<internal::AcceleratorConfigurationProvider_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.6
       bool success = true;
       ::mojo::PendingRemote<AcceleratorsUpdatedObserver> p_observer{};
       AcceleratorConfigurationProvider_AddObserver_ParamsDataView input_data_view(params, message);
@@ -3631,8 +3663,8 @@ bool AcceleratorConfigurationProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_AddPolicyObserver_Name: {
@@ -3642,6 +3674,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AcceleratorConfigurationProvider_AddPolicyObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.7
       bool success = true;
       ::mojo::PendingRemote<PolicyUpdatedObserver> p_observer{};
       AcceleratorConfigurationProvider_AddPolicyObserver_ParamsDataView input_data_view(params, message);
@@ -3659,8 +3693,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPolicyObserver(
-std::move(p_observer));
+      impl->AddPolicyObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_Name: {
@@ -3691,6 +3725,8 @@ std::move(p_observer));
           reinterpret_cast<internal::AcceleratorConfigurationProvider_RecordUserAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.15
       bool success = true;
       UserAction p_user_action{};
       AcceleratorConfigurationProvider_RecordUserAction_ParamsDataView input_data_view(params, message);
@@ -3706,8 +3742,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordUserAction(
-std::move(p_user_action));
+      impl->RecordUserAction(        
+        std::move(p_user_action));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_RecordMainCategoryNavigation_Name: {
@@ -3717,6 +3753,8 @@ std::move(p_user_action));
           reinterpret_cast<internal::AcceleratorConfigurationProvider_RecordMainCategoryNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.16
       bool success = true;
       ::ash::mojom::AcceleratorCategory p_category{};
       AcceleratorConfigurationProvider_RecordMainCategoryNavigation_ParamsDataView input_data_view(params, message);
@@ -3732,8 +3770,8 @@ std::move(p_user_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordMainCategoryNavigation(
-std::move(p_category));
+      impl->RecordMainCategoryNavigation(        
+        std::move(p_category));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Name: {
@@ -3743,6 +3781,8 @@ std::move(p_category));
           reinterpret_cast<internal::AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.17
       bool success = true;
       EditDialogCompletedActions p_completed_actions{};
       AcceleratorConfigurationProvider_RecordEditDialogCompletedActions_ParamsDataView input_data_view(params, message);
@@ -3758,8 +3798,8 @@ std::move(p_category));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordEditDialogCompletedActions(
-std::move(p_completed_actions));
+      impl->RecordEditDialogCompletedActions(        
+        std::move(p_completed_actions));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_RecordAddOrEditSubactions_Name: {
@@ -3769,6 +3809,8 @@ std::move(p_completed_actions));
           reinterpret_cast<internal::AcceleratorConfigurationProvider_RecordAddOrEditSubactions_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.18
       bool success = true;
       bool p_is_add{};
       Subactions p_subactions{};
@@ -3787,9 +3829,9 @@ std::move(p_completed_actions));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordAddOrEditSubactions(
-std::move(p_is_add), 
-std::move(p_subactions));
+      impl->RecordAddOrEditSubactions(        
+        std::move(p_is_add), 
+        std::move(p_subactions));
       return true;
     }
   }
@@ -3812,6 +3854,8 @@ bool AcceleratorConfigurationProviderStubDispatch::AcceptWithResponder(
               internal::AcceleratorConfigurationProvider_IsMutable_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.0
       bool success = true;
       ::ash::mojom::AcceleratorSource p_source{};
       AcceleratorConfigurationProvider_IsMutable_ParamsDataView input_data_view(params, message);
@@ -3830,8 +3874,8 @@ bool AcceleratorConfigurationProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsMutable(
-std::move(p_source), std::move(callback));
+      impl->IsMutable(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_Name: {
@@ -3841,6 +3885,8 @@ std::move(p_source), std::move(callback));
               internal::AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.1
       bool success = true;
       AcceleratorConfigurationProvider_IsCustomizationAllowedByPolicy_ParamsDataView input_data_view(params, message);
       
@@ -3866,6 +3912,8 @@ std::move(p_source), std::move(callback));
               internal::AcceleratorConfigurationProvider_HasLauncherButton_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.2
       bool success = true;
       AcceleratorConfigurationProvider_HasLauncherButton_ParamsDataView input_data_view(params, message);
       
@@ -3891,6 +3939,8 @@ std::move(p_source), std::move(callback));
               internal::AcceleratorConfigurationProvider_GetConflictAccelerator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.3
       bool success = true;
       ::ash::mojom::AcceleratorSource p_source{};
       uint32_t p_action_id{};
@@ -3915,10 +3965,10 @@ std::move(p_source), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetConflictAccelerator(
-std::move(p_source), 
-std::move(p_action_id), 
-std::move(p_accelerator), std::move(callback));
+      impl->GetConflictAccelerator(        
+        std::move(p_source), 
+        std::move(p_action_id), 
+        std::move(p_accelerator), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_Name: {
@@ -3928,6 +3978,8 @@ std::move(p_accelerator), std::move(callback));
               internal::AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.4
       bool success = true;
       uint32_t p_action_id{};
       AcceleratorConfigurationProvider_GetDefaultAcceleratorsForId_ParamsDataView input_data_view(params, message);
@@ -3946,8 +3998,8 @@ std::move(p_accelerator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDefaultAcceleratorsForId(
-std::move(p_action_id), std::move(callback));
+      impl->GetDefaultAcceleratorsForId(        
+        std::move(p_action_id), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_GetAccelerators_Name: {
@@ -3957,6 +4009,8 @@ std::move(p_action_id), std::move(callback));
               internal::AcceleratorConfigurationProvider_GetAccelerators_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.5
       bool success = true;
       AcceleratorConfigurationProvider_GetAccelerators_ParamsDataView input_data_view(params, message);
       
@@ -3988,6 +4042,8 @@ std::move(p_action_id), std::move(callback));
               internal::AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.8
       bool success = true;
       AcceleratorConfigurationProvider_GetAcceleratorLayoutInfos_ParamsDataView input_data_view(params, message);
       
@@ -4013,6 +4069,8 @@ std::move(p_action_id), std::move(callback));
               internal::AcceleratorConfigurationProvider_PreventProcessingAccelerators_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.9
       bool success = true;
       bool p_prevent_processing_accelerators{};
       AcceleratorConfigurationProvider_PreventProcessingAccelerators_ParamsDataView input_data_view(params, message);
@@ -4031,8 +4089,8 @@ std::move(p_action_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreventProcessingAccelerators(
-std::move(p_prevent_processing_accelerators), std::move(callback));
+      impl->PreventProcessingAccelerators(        
+        std::move(p_prevent_processing_accelerators), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_AddAccelerator_Name: {
@@ -4042,6 +4100,8 @@ std::move(p_prevent_processing_accelerators), std::move(callback));
               internal::AcceleratorConfigurationProvider_AddAccelerator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.10
       bool success = true;
       ::ash::mojom::AcceleratorSource p_source{};
       uint32_t p_action_id{};
@@ -4066,10 +4126,10 @@ std::move(p_prevent_processing_accelerators), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAccelerator(
-std::move(p_source), 
-std::move(p_action_id), 
-std::move(p_accelerator), std::move(callback));
+      impl->AddAccelerator(        
+        std::move(p_source), 
+        std::move(p_action_id), 
+        std::move(p_accelerator), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_RemoveAccelerator_Name: {
@@ -4079,6 +4139,8 @@ std::move(p_accelerator), std::move(callback));
               internal::AcceleratorConfigurationProvider_RemoveAccelerator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.11
       bool success = true;
       ::ash::mojom::AcceleratorSource p_source{};
       uint32_t p_action_id{};
@@ -4103,10 +4165,10 @@ std::move(p_accelerator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemoveAccelerator(
-std::move(p_source), 
-std::move(p_action_id), 
-std::move(p_accelerator), std::move(callback));
+      impl->RemoveAccelerator(        
+        std::move(p_source), 
+        std::move(p_action_id), 
+        std::move(p_accelerator), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_ReplaceAccelerator_Name: {
@@ -4116,6 +4178,8 @@ std::move(p_accelerator), std::move(callback));
               internal::AcceleratorConfigurationProvider_ReplaceAccelerator_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.12
       bool success = true;
       ::ash::mojom::AcceleratorSource p_source{};
       uint32_t p_action_id{};
@@ -4143,11 +4207,11 @@ std::move(p_accelerator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReplaceAccelerator(
-std::move(p_source), 
-std::move(p_action_id), 
-std::move(p_old_accelerator), 
-std::move(p_new_accelerator), std::move(callback));
+      impl->ReplaceAccelerator(        
+        std::move(p_source), 
+        std::move(p_action_id), 
+        std::move(p_old_accelerator), 
+        std::move(p_new_accelerator), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_RestoreDefault_Name: {
@@ -4157,6 +4221,8 @@ std::move(p_new_accelerator), std::move(callback));
               internal::AcceleratorConfigurationProvider_RestoreDefault_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.13
       bool success = true;
       ::ash::mojom::AcceleratorSource p_source{};
       uint32_t p_action_id{};
@@ -4178,9 +4244,9 @@ std::move(p_new_accelerator), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreDefault(
-std::move(p_source), 
-std::move(p_action_id), std::move(callback));
+      impl->RestoreDefault(        
+        std::move(p_source), 
+        std::move(p_action_id), std::move(callback));
       return true;
     }
     case internal::kAcceleratorConfigurationProvider_RestoreAllDefaults_Name: {
@@ -4190,6 +4256,8 @@ std::move(p_action_id), std::move(callback));
               internal::AcceleratorConfigurationProvider_RestoreAllDefaults_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AcceleratorConfigurationProvider.14
       bool success = true;
       AcceleratorConfigurationProvider_RestoreAllDefaults_ParamsDataView input_data_view(params, message);
       

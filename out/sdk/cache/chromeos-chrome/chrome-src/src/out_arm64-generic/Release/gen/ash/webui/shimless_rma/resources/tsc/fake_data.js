@@ -2,10 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
-import { NetworkStateProperties as Network } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { NetworkType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
-import { CalibrationComponentStatus, CalibrationStatus, Component, ComponentRepairStatus, ComponentType, QrCode, RmadErrorCode, State, StateResult } from './shimless_rma.mojom-webui.js';
-/** @type {!Array<!StateResult>} */
+import { CalibrationStatus, ComponentRepairStatus, ComponentType, RmadErrorCode, State } from './shimless_rma.mojom-webui.js';
 export const fakeStates = [
     {
         state: State.kWelcomeScreen,
@@ -146,17 +144,13 @@ export const fakeStates = [
         error: RmadErrorCode.kOk,
     },
 ];
-/** @type {!Array<string>} */
 export const fakeChromeVersion = [
     '89.0.1232.1',
     '92.0.999.0',
     '95.0.4444.123',
 ];
-/** @type {string} */
 export const fakeRsuChallengeCode = 'HRBXHV84NSTHT25WJECYQKB8SARWFTMSWNGFT2FVEEPX69VE99USV3QFBEANDVXGQVL93QK2M6P3DNV4';
-/** @type {!Array<number>} */
 export const fakeRsuChallengeQrCode = [0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0];
-/** @type {!Array<!Component>} */
 export const fakeComponents = [
     {
         component: ComponentType.kCamera,
@@ -176,7 +170,6 @@ export const fakeComponents = [
 ];
 // onboarding_select_components_page_test needs a components list covering all
 // possible repair states.
-/** @type {!Array<!Component>} */
 export const fakeComponentsForRepairStateTest = [
     {
         component: ComponentType.kAudioCodec,
@@ -224,7 +217,6 @@ export const fakeComponentsForRepairStateTest = [
         identifier: 'Touchscreen_XYZ',
     },
 ];
-/** @type {!Array<!CalibrationComponentStatus>} */
 export const fakeCalibrationComponentsWithFails = [
     {
         component: ComponentType.kCamera,
@@ -262,7 +254,6 @@ export const fakeCalibrationComponentsWithFails = [
         progress: 1.0,
     },
 ];
-/** @type {!Array<!CalibrationComponentStatus>} */
 export const fakeCalibrationComponentsWithoutFails = [
     {
         component: ComponentType.kCamera,
@@ -290,19 +281,13 @@ export const fakeCalibrationComponentsWithoutFails = [
         progress: 0.0,
     },
 ];
-/** @type {!Array<!Network>} */
 export const fakeNetworks = [
     OncMojo.getDefaultNetworkState(NetworkType.kWiFi, 'wifi0'),
 ];
-/** @type {!Array<string>} */
 export const fakeDeviceRegions = ['EMEA', 'APAC', 'AMER'];
-/** @type {!Array<bigint>} */
-export const fakeDeviceSkus = [1, 2, 3];
-/** @type {!Array<string>} */
+export const fakeDeviceSkus = [BigInt(1), BigInt(2), BigInt(3)];
 export const fakeDeviceCustomLabels = ['Custom-label 1', 'Custom-label 2', 'Custom-label 3', ''];
-/** @type {!Array<string>} */
 export const fakeDeviceSkuDescriptions = ['SKU 1', 'SKU 2', 'SKU 3'];
-/** @type {string} */
 export const fakeLog = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
     'tempor incididunt ut labore et dolore magna aliqua. Vitae auctor eu ' +
     'augue ut lectus. Pellentesque habitant morbi tristique senectus et netus' +
@@ -479,5 +464,4 @@ export const fakeLog = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,
     'tristique risus nec. Scelerisque eu ultrices vitae auctor eu augue ut ' +
     'lectus. Tellus pellentesque eu tincidunt tortor aliquam. Fermentum leo ' +
     'vel orci porta non pulvinar neque laoreet suspendisse.\n';
-/** @type {string} */
 export const fakeLogSavePath = 'fake/save/path';

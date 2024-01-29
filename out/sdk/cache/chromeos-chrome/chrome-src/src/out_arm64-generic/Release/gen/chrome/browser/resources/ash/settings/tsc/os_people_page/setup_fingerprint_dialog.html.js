@@ -8,10 +8,10 @@ export function getTemplate() {
       <span>[[getInstructionMessage_(step_, problemMessage_)]]</span>
     </div>
     <div id="scannerLocationLottie" hidden="[[!showScannerLocation_(step_)]]">
-      <cros-lottie-renderer asset-url="fingerprint_scanner_animation.json" autoplay dynamic="[[isDynamicColor_]]">
+      <cros-lottie-renderer asset-url="fingerprint_scanner_animation.json" autoplay dynamic>
       </cros-lottie-renderer>
     </div>
-    <fingerprint-progress id="arc" dynamic="[[isDynamicColor_]]" circle-radius="100" autoplay hidden="[[!showArc_(step_)]]">
+    <fingerprint-progress id="arc" dynamic circle-radius="100" autoplay hidden="[[!showArc_(step_)]]">
     </fingerprint-progress>
   </div>
   <div slot="button-container">

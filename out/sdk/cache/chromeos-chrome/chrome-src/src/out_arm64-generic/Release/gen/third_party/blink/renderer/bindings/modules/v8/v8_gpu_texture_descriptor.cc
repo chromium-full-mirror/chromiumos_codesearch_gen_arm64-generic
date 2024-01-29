@@ -116,72 +116,39 @@ v8::Local<v8::Value> v8_value;
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-bool was_property_created;
 if (hasDimension()) {
-  if (!ToV8Traits<V8GPUTextureDimension>::ToV8(script_state, member_dimension_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUTextureDimension>::ToV8(script_state, member_dimension_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasFormat()) {
-  if (!ToV8Traits<V8GPUTextureFormat>::ToV8(script_state, member_format_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUTextureFormat>::ToV8(script_state, member_format_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasMipLevelCount()) {
-  if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_mip_level_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_mip_level_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (hasSampleCount()) {
-  if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_sample_count_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_sample_count_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 if (hasSize()) {
-  if (!ToV8Traits<V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence>::ToV8(script_state, member_size_.Get()).ToLocal(&v8_value)) {
-  return false;
+  v8_value = ToV8Traits<V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence>::ToV8(script_state, member_size_.Get());
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+if (RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) {
   if (hasTextureBindingViewDimension()) {
-  if (!ToV8Traits<V8GPUTextureViewDimension>::ToV8(script_state, member_texture_binding_view_dimension_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<V8GPUTextureViewDimension>::ToV8(script_state, member_texture_binding_view_dimension_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasUsage()) {
-  if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
 }
 if (hasViewFormats()) {
-  if (!ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
+  v8_value = ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -220,7 +187,7 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("size");
 if (!bindings::GetDictionaryMemberFromV8Object<V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_size_, try_block, exception_state)) {
   return;
 }
-if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+if (RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("textureBindingViewDimension");
 if (!bindings::GetDictionaryMemberFromV8Object<V8GPUTextureViewDimension, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_texture_binding_view_dimension_, member_texture_binding_view_dimension_, try_block, exception_state)) {
   return;

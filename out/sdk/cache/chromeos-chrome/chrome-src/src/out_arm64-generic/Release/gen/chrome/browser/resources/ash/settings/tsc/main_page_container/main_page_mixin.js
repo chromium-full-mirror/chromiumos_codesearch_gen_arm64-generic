@@ -82,9 +82,12 @@ export const MainPageMixin = dedupingMixin((superClass) => {
             super(...arguments);
             this.lastScrollTop_ = 0;
         }
+        /**
+         * The scroller is derived from the #container ancestor element.
+         */
         get scroller_() {
             const hostEl = this.getRootNode().host;
-            return castExists(hostEl ? hostEl.parentElement : document.body);
+            return castExists(hostEl ? hostEl.closest('#container') : document.body);
         }
         /**
          * Method to be overridden by users of MainPageMixin.

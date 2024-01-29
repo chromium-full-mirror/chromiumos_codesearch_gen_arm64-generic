@@ -124,6 +124,9 @@ export class BluetoothInternalsHandlerRemote {
     requestLocationServices() {
         return this.proxy.sendMessage(4, BluetoothInternalsHandler_RequestLocationServices_ParamsSpec.$, BluetoothInternalsHandler_RequestLocationServices_ResponseParamsSpec.$, []);
     }
+    restartSystemBluetooth() {
+        return this.proxy.sendMessage(5, BluetoothInternalsHandler_RestartSystemBluetooth_ParamsSpec.$, BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -143,6 +146,7 @@ export class BluetoothInternalsHandlerReceiver {
         this.helper_internal_.registerHandler(2, BluetoothInternalsHandler_CheckSystemPermissions_ParamsSpec.$, BluetoothInternalsHandler_CheckSystemPermissions_ResponseParamsSpec.$, impl.checkSystemPermissions.bind(impl));
         this.helper_internal_.registerHandler(3, BluetoothInternalsHandler_RequestSystemPermissions_ParamsSpec.$, BluetoothInternalsHandler_RequestSystemPermissions_ResponseParamsSpec.$, impl.requestSystemPermissions.bind(impl));
         this.helper_internal_.registerHandler(4, BluetoothInternalsHandler_RequestLocationServices_ParamsSpec.$, BluetoothInternalsHandler_RequestLocationServices_ResponseParamsSpec.$, impl.requestLocationServices.bind(impl));
+        this.helper_internal_.registerHandler(5, BluetoothInternalsHandler_RestartSystemBluetooth_ParamsSpec.$, BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsSpec.$, impl.restartSystemBluetooth.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -176,6 +180,7 @@ export class BluetoothInternalsHandlerCallbackRouter {
     checkSystemPermissions;
     requestSystemPermissions;
     requestLocationServices;
+    restartSystemBluetooth;
     onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(BluetoothInternalsHandlerRemote);
@@ -196,6 +201,9 @@ export class BluetoothInternalsHandlerCallbackRouter {
         this.requestLocationServices =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, BluetoothInternalsHandler_RequestLocationServices_ParamsSpec.$, BluetoothInternalsHandler_RequestLocationServices_ResponseParamsSpec.$, this.requestLocationServices.createReceiverHandler(true /* expectsResponse */));
+        this.restartSystemBluetooth =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, BluetoothInternalsHandler_RestartSystemBluetooth_ParamsSpec.$, BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsSpec.$, this.restartSystemBluetooth.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -217,6 +225,8 @@ export const BluetoothInternalsHandler_RequestSystemPermissions_ParamsSpec = { $
 export const BluetoothInternalsHandler_RequestSystemPermissions_ResponseParamsSpec = { $: {} };
 export const BluetoothInternalsHandler_RequestLocationServices_ParamsSpec = { $: {} };
 export const BluetoothInternalsHandler_RequestLocationServices_ResponseParamsSpec = { $: {} };
+export const BluetoothInternalsHandler_RestartSystemBluetooth_ParamsSpec = { $: {} };
+export const BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsSpec = { $: {} };
 mojo.internal.Struct(DebugLogsChangeHandler_ChangeDebugLogsState_ParamsSpec.$, 'DebugLogsChangeHandler_ChangeDebugLogsState_Params', [
     mojo.internal.StructField('shouldDebugLogsBeEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -240,3 +250,5 @@ mojo.internal.Struct(BluetoothInternalsHandler_RequestSystemPermissions_ParamsSp
 mojo.internal.Struct(BluetoothInternalsHandler_RequestSystemPermissions_ResponseParamsSpec.$, 'BluetoothInternalsHandler_RequestSystemPermissions_ResponseParams', [], [[0, 8],]);
 mojo.internal.Struct(BluetoothInternalsHandler_RequestLocationServices_ParamsSpec.$, 'BluetoothInternalsHandler_RequestLocationServices_Params', [], [[0, 8],]);
 mojo.internal.Struct(BluetoothInternalsHandler_RequestLocationServices_ResponseParamsSpec.$, 'BluetoothInternalsHandler_RequestLocationServices_ResponseParams', [], [[0, 8],]);
+mojo.internal.Struct(BluetoothInternalsHandler_RestartSystemBluetooth_ParamsSpec.$, 'BluetoothInternalsHandler_RestartSystemBluetooth_Params', [], [[0, 8],]);
+mojo.internal.Struct(BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParamsSpec.$, 'BluetoothInternalsHandler_RestartSystemBluetooth_ResponseParams', [], [[0, 8],]);

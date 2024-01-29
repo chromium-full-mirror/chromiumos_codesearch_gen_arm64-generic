@@ -420,6 +420,8 @@ bool URLLoaderStubDispatch::Accept(
           reinterpret_cast<internal::URLLoader_FollowRedirect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoader.0
       bool success = true;
       std::vector<std::string> p_removed_headers{};
       ::net::HttpRequestHeaders p_modified_headers{};
@@ -444,11 +446,11 @@ bool URLLoaderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FollowRedirect(
-std::move(p_removed_headers), 
-std::move(p_modified_headers), 
-std::move(p_modified_cors_exempt_headers), 
-std::move(p_new_url));
+      impl->FollowRedirect(        
+        std::move(p_removed_headers), 
+        std::move(p_modified_headers), 
+        std::move(p_modified_cors_exempt_headers), 
+        std::move(p_new_url));
       return true;
     }
     case internal::kURLLoader_SetPriority_Name: {
@@ -458,6 +460,8 @@ std::move(p_new_url));
           reinterpret_cast<internal::URLLoader_SetPriority_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoader.1
       bool success = true;
       ::net::RequestPriority p_priority{};
       int32_t p_intra_priority_value{};
@@ -476,9 +480,9 @@ std::move(p_new_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPriority(
-std::move(p_priority), 
-std::move(p_intra_priority_value));
+      impl->SetPriority(        
+        std::move(p_priority), 
+        std::move(p_intra_priority_value));
       return true;
     }
     case internal::kURLLoader_PauseReadingBodyFromNet_Name: {
@@ -488,6 +492,8 @@ std::move(p_intra_priority_value));
           reinterpret_cast<internal::URLLoader_PauseReadingBodyFromNet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoader.2
       bool success = true;
       URLLoader_PauseReadingBodyFromNet_ParamsDataView input_data_view(params, message);
       
@@ -500,7 +506,7 @@ std::move(p_intra_priority_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PauseReadingBodyFromNet();
+      impl->PauseReadingBodyFromNet(        );
       return true;
     }
     case internal::kURLLoader_ResumeReadingBodyFromNet_Name: {
@@ -510,6 +516,8 @@ std::move(p_intra_priority_value));
           reinterpret_cast<internal::URLLoader_ResumeReadingBodyFromNet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoader.3
       bool success = true;
       URLLoader_ResumeReadingBodyFromNet_ParamsDataView input_data_view(params, message);
       
@@ -522,7 +530,7 @@ std::move(p_intra_priority_value));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResumeReadingBodyFromNet();
+      impl->ResumeReadingBodyFromNet(        );
       return true;
     }
   }
@@ -1121,6 +1129,8 @@ bool URLLoaderClient_OnUploadProgress_ForwardToCallback::Accept(
           internal::URLLoaderClient_OnUploadProgress_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for URLLoaderClient.3
   bool success = true;
   URLLoaderClient_OnUploadProgress_ResponseParamsDataView input_data_view(params, message);
   
@@ -1183,6 +1193,8 @@ bool URLLoaderClientStubDispatch::Accept(
           reinterpret_cast<internal::URLLoaderClient_OnReceiveEarlyHints_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderClient.0
       bool success = true;
       ::network::mojom::EarlyHintsPtr p_early_hints{};
       URLLoaderClient_OnReceiveEarlyHints_ParamsDataView input_data_view(params, message);
@@ -1198,8 +1210,8 @@ bool URLLoaderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceiveEarlyHints(
-std::move(p_early_hints));
+      impl->OnReceiveEarlyHints(        
+        std::move(p_early_hints));
       return true;
     }
     case internal::kURLLoaderClient_OnReceiveResponse_Name: {
@@ -1209,6 +1221,8 @@ std::move(p_early_hints));
           reinterpret_cast<internal::URLLoaderClient_OnReceiveResponse_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderClient.1
       bool success = true;
       ::network::mojom::URLResponseHeadPtr p_head{};
       ::mojo::ScopedDataPipeConsumerHandle p_body{};
@@ -1230,10 +1244,10 @@ std::move(p_early_hints));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceiveResponse(
-std::move(p_head), 
-std::move(p_body), 
-std::move(p_cached_metadata));
+      impl->OnReceiveResponse(        
+        std::move(p_head), 
+        std::move(p_body), 
+        std::move(p_cached_metadata));
       return true;
     }
     case internal::kURLLoaderClient_OnReceiveRedirect_Name: {
@@ -1243,6 +1257,8 @@ std::move(p_cached_metadata));
           reinterpret_cast<internal::URLLoaderClient_OnReceiveRedirect_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderClient.2
       bool success = true;
       ::net::RedirectInfo p_redirect_info{};
       ::network::mojom::URLResponseHeadPtr p_head{};
@@ -1261,9 +1277,9 @@ std::move(p_cached_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceiveRedirect(
-std::move(p_redirect_info), 
-std::move(p_head));
+      impl->OnReceiveRedirect(        
+        std::move(p_redirect_info), 
+        std::move(p_head));
       return true;
     }
     case internal::kURLLoaderClient_OnUploadProgress_Name: {
@@ -1276,6 +1292,8 @@ std::move(p_head));
           reinterpret_cast<internal::URLLoaderClient_OnTransferSizeUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderClient.4
       bool success = true;
       int32_t p_transfer_size_diff{};
       URLLoaderClient_OnTransferSizeUpdated_ParamsDataView input_data_view(params, message);
@@ -1291,8 +1309,8 @@ std::move(p_head));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTransferSizeUpdated(
-std::move(p_transfer_size_diff));
+      impl->OnTransferSizeUpdated(        
+        std::move(p_transfer_size_diff));
       return true;
     }
     case internal::kURLLoaderClient_OnComplete_Name: {
@@ -1302,6 +1320,8 @@ std::move(p_transfer_size_diff));
           reinterpret_cast<internal::URLLoaderClient_OnComplete_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for URLLoaderClient.5
       bool success = true;
       ::network::URLLoaderCompletionStatus p_status{};
       URLLoaderClient_OnComplete_ParamsDataView input_data_view(params, message);
@@ -1317,8 +1337,8 @@ std::move(p_transfer_size_diff));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnComplete(
-std::move(p_status));
+      impl->OnComplete(        
+        std::move(p_status));
       return true;
     }
   }
@@ -1350,6 +1370,8 @@ bool URLLoaderClientStubDispatch::AcceptWithResponder(
               internal::URLLoaderClient_OnUploadProgress_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for URLLoaderClient.3
       bool success = true;
       int64_t p_current_position{};
       int64_t p_total_size{};
@@ -1371,9 +1393,9 @@ bool URLLoaderClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnUploadProgress(
-std::move(p_current_position), 
-std::move(p_total_size), std::move(callback));
+      impl->OnUploadProgress(        
+        std::move(p_current_position), 
+        std::move(p_total_size), std::move(callback));
       return true;
     }
     case internal::kURLLoaderClient_OnTransferSizeUpdated_Name: {

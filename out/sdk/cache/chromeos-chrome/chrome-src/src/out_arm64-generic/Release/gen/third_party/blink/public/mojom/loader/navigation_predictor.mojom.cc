@@ -47,11 +47,8 @@ namespace blink::mojom {
 AnchorElementMetrics::AnchorElementMetrics()
     : anchor_id(),
       ratio_area(),
-      ratio_visible_area(),
       ratio_distance_top_to_visible_top(),
-      ratio_distance_center_to_visible_top(),
       ratio_distance_root_top(),
-      ratio_distance_root_bottom(),
       is_in_iframe(),
       contains_image(),
       is_same_host(),
@@ -59,18 +56,14 @@ AnchorElementMetrics::AnchorElementMetrics()
       has_text_sibling(),
       font_size_px(),
       font_weight(),
-      source_url(),
       target_url(),
       viewport_size() {}
 
 AnchorElementMetrics::AnchorElementMetrics(
     uint32_t anchor_id_in,
     float ratio_area_in,
-    float ratio_visible_area_in,
     float ratio_distance_top_to_visible_top_in,
-    float ratio_distance_center_to_visible_top_in,
     float ratio_distance_root_top_in,
-    float ratio_distance_root_bottom_in,
     bool is_in_iframe_in,
     bool contains_image_in,
     bool is_same_host_in,
@@ -78,16 +71,12 @@ AnchorElementMetrics::AnchorElementMetrics(
     bool has_text_sibling_in,
     uint32_t font_size_px_in,
     uint32_t font_weight_in,
-    const ::GURL& source_url_in,
     const ::GURL& target_url_in,
     const ::gfx::Size& viewport_size_in)
     : anchor_id(std::move(anchor_id_in)),
       ratio_area(std::move(ratio_area_in)),
-      ratio_visible_area(std::move(ratio_visible_area_in)),
       ratio_distance_top_to_visible_top(std::move(ratio_distance_top_to_visible_top_in)),
-      ratio_distance_center_to_visible_top(std::move(ratio_distance_center_to_visible_top_in)),
       ratio_distance_root_top(std::move(ratio_distance_root_top_in)),
-      ratio_distance_root_bottom(std::move(ratio_distance_root_bottom_in)),
       is_in_iframe(std::move(is_in_iframe_in)),
       contains_image(std::move(contains_image_in)),
       is_same_host(std::move(is_same_host_in)),
@@ -95,7 +84,6 @@ AnchorElementMetrics::AnchorElementMetrics(
       has_text_sibling(std::move(has_text_sibling_in)),
       font_size_px(std::move(font_size_px_in)),
       font_weight(std::move(font_weight_in)),
-      source_url(std::move(source_url_in)),
       target_url(std::move(target_url_in)),
       viewport_size(std::move(viewport_size_in)) {}
 
@@ -124,15 +112,6 @@ void AnchorElementMetrics::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "ratio_visible_area"), this->ratio_visible_area,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type float>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "ratio_distance_top_to_visible_top"), this->ratio_distance_top_to_visible_top,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type float>"
@@ -142,25 +121,7 @@ void AnchorElementMetrics::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "ratio_distance_center_to_visible_top"), this->ratio_distance_center_to_visible_top,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type float>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "ratio_distance_root_top"), this->ratio_distance_root_top,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type float>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "ratio_distance_root_bottom"), this->ratio_distance_root_bottom,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type float>"
 #else
@@ -226,15 +187,6 @@ void AnchorElementMetrics::WriteIntoTrace(
       "font_weight"), this->font_weight,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "source_url"), this->source_url,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::GURL&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1430,6 +1382,8 @@ bool AnchorElementMetricsHost_ShouldSkipUpdateDelays_ForwardToCallback::Accept(
           internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AnchorElementMetricsHost.9
   bool success = true;
   bool p_should_skip_for_testing{};
   AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsDataView input_data_view(params, message);
@@ -1504,6 +1458,8 @@ bool AnchorElementMetricsHostStubDispatch::Accept(
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementClick_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.0
       bool success = true;
       AnchorElementClickPtr p_clicked{};
       AnchorElementMetricsHost_ReportAnchorElementClick_ParamsDataView input_data_view(params, message);
@@ -1519,8 +1475,8 @@ bool AnchorElementMetricsHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementClick(
-std::move(p_clicked));
+      impl->ReportAnchorElementClick(        
+        std::move(p_clicked));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportNewAnchorElements_Name: {
@@ -1530,6 +1486,8 @@ std::move(p_clicked));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportNewAnchorElements_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.1
       bool success = true;
       std::vector<AnchorElementMetricsPtr> p_metrics{};
       AnchorElementMetricsHost_ReportNewAnchorElements_ParamsDataView input_data_view(params, message);
@@ -1545,8 +1503,8 @@ std::move(p_clicked));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportNewAnchorElements(
-std::move(p_metrics));
+      impl->ReportNewAnchorElements(        
+        std::move(p_metrics));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_Name: {
@@ -1556,6 +1514,8 @@ std::move(p_metrics));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.2
       bool success = true;
       std::vector<AnchorElementEnteredViewportPtr> p_elements{};
       AnchorElementMetricsHost_ReportAnchorElementsEnteredViewport_ParamsDataView input_data_view(params, message);
@@ -1571,8 +1531,8 @@ std::move(p_metrics));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementsEnteredViewport(
-std::move(p_elements));
+      impl->ReportAnchorElementsEnteredViewport(        
+        std::move(p_elements));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportAnchorElementsLeftViewport_Name: {
@@ -1582,6 +1542,8 @@ std::move(p_elements));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementsLeftViewport_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.3
       bool success = true;
       std::vector<AnchorElementLeftViewportPtr> p_elements{};
       AnchorElementMetricsHost_ReportAnchorElementsLeftViewport_ParamsDataView input_data_view(params, message);
@@ -1597,8 +1559,8 @@ std::move(p_elements));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementsLeftViewport(
-std::move(p_elements));
+      impl->ReportAnchorElementsLeftViewport(        
+        std::move(p_elements));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportAnchorElementPointerOver_Name: {
@@ -1608,6 +1570,8 @@ std::move(p_elements));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementPointerOver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.4
       bool success = true;
       AnchorElementPointerOverPtr p_pointer_over_event{};
       AnchorElementMetricsHost_ReportAnchorElementPointerOver_ParamsDataView input_data_view(params, message);
@@ -1623,8 +1587,8 @@ std::move(p_elements));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementPointerOver(
-std::move(p_pointer_over_event));
+      impl->ReportAnchorElementPointerOver(        
+        std::move(p_pointer_over_event));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportAnchorElementPointerOut_Name: {
@@ -1634,6 +1598,8 @@ std::move(p_pointer_over_event));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementPointerOut_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.5
       bool success = true;
       AnchorElementPointerOutPtr p_hover_event{};
       AnchorElementMetricsHost_ReportAnchorElementPointerOut_ParamsDataView input_data_view(params, message);
@@ -1649,8 +1615,8 @@ std::move(p_pointer_over_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementPointerOut(
-std::move(p_hover_event));
+      impl->ReportAnchorElementPointerOut(        
+        std::move(p_hover_event));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportAnchorElementPointerDown_Name: {
@@ -1660,6 +1626,8 @@ std::move(p_hover_event));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementPointerDown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.6
       bool success = true;
       AnchorElementPointerDownPtr p_pointer_down_event{};
       AnchorElementMetricsHost_ReportAnchorElementPointerDown_ParamsDataView input_data_view(params, message);
@@ -1675,8 +1643,8 @@ std::move(p_hover_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementPointerDown(
-std::move(p_pointer_down_event));
+      impl->ReportAnchorElementPointerDown(        
+        std::move(p_pointer_down_event));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Name: {
@@ -1686,6 +1654,8 @@ std::move(p_pointer_down_event));
           reinterpret_cast<internal::AnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.7
       bool success = true;
       AnchorElementPointerDataOnHoverTimerFiredPtr p_pointer_data{};
       AnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimerFired_ParamsDataView input_data_view(params, message);
@@ -1701,8 +1671,8 @@ std::move(p_pointer_down_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAnchorElementPointerDataOnHoverTimerFired(
-std::move(p_pointer_data));
+      impl->ReportAnchorElementPointerDataOnHoverTimerFired(        
+        std::move(p_pointer_data));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Name: {
@@ -1712,6 +1682,8 @@ std::move(p_pointer_data));
           reinterpret_cast<internal::AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.8
       bool success = true;
       AnchorElementPointerEventForMLModelPtr p_pointer_event{};
       AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsDataView input_data_view(params, message);
@@ -1727,8 +1699,8 @@ std::move(p_pointer_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessPointerEventUsingMLModel(
-std::move(p_pointer_event));
+      impl->ProcessPointerEventUsingMLModel(        
+        std::move(p_pointer_event));
       return true;
     }
     case internal::kAnchorElementMetricsHost_ShouldSkipUpdateDelays_Name: {
@@ -1781,6 +1753,8 @@ bool AnchorElementMetricsHostStubDispatch::AcceptWithResponder(
               internal::AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AnchorElementMetricsHost.9
       bool success = true;
       AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsDataView input_data_view(params, message);
       
@@ -1856,15 +1830,9 @@ bool StructTraits<::blink::mojom::AnchorElementMetrics::DataView, ::blink::mojom
       if (success)
         result->ratio_area = input.ratio_area();
       if (success)
-        result->ratio_visible_area = input.ratio_visible_area();
-      if (success)
         result->ratio_distance_top_to_visible_top = input.ratio_distance_top_to_visible_top();
       if (success)
-        result->ratio_distance_center_to_visible_top = input.ratio_distance_center_to_visible_top();
-      if (success)
         result->ratio_distance_root_top = input.ratio_distance_root_top();
-      if (success)
-        result->ratio_distance_root_bottom = input.ratio_distance_root_bottom();
       if (success)
         result->is_in_iframe = input.is_in_iframe();
       if (success)
@@ -1879,8 +1847,6 @@ bool StructTraits<::blink::mojom::AnchorElementMetrics::DataView, ::blink::mojom
         result->font_size_px = input.font_size_px();
       if (success)
         result->font_weight = input.font_weight();
-      if (success && !input.ReadSourceUrl(&result->source_url))
-        success = false;
       if (success && !input.ReadTargetUrl(&result->target_url))
         success = false;
       if (success && !input.ReadViewportSize(&result->viewport_size))

@@ -69,6 +69,7 @@ MultiPlanarFormatNv12a,
 FramebufferFetch,
 BufferMapExtendedUsages,
 AdapterPropertiesMemoryHeaps,
+AdapterPropertiesD3D,
 SharedTextureMemoryVkDedicatedAllocation,
 SharedTextureMemoryAHardwareBuffer,
 SharedTextureMemoryDmaBuf,
@@ -88,7 +89,7 @@ SharedFenceMTLSharedEvent,
 
 template<>
 struct EnumCount<Feature> {
-    static constexpr uint32_t value = 49;
+    static constexpr uint32_t value = 50;
 };
 
 }  // namespace dawn::native

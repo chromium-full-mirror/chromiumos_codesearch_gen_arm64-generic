@@ -805,6 +805,8 @@ bool PageHandler_GetClusters_ForwardToCallback::Accept(
           internal::PageHandler_GetClusters_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::vector<::history_clusters::mojom::ClusterPtr> p_clusters{};
   PageHandler_GetClusters_ResponseParamsDataView input_data_view(params, message);
@@ -936,6 +938,8 @@ bool PageHandler_GetCartForCluster_ForwardToCallback::Accept(
           internal::PageHandler_GetCartForCluster_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.1
   bool success = true;
   ::ntp::history_clusters::cart::mojom::CartPtr p_cart{};
   PageHandler_GetCartForCluster_ResponseParamsDataView input_data_view(params, message);
@@ -1061,6 +1065,8 @@ bool PageHandler_GetDiscountsForCluster_ForwardToCallback::Accept(
           internal::PageHandler_GetDiscountsForCluster_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.2
   bool success = true;
   base::flat_map<::GURL, std::vector<::ntp::history_clusters::discount::mojom::DiscountPtr>> p_discounts{};
   PageHandler_GetDiscountsForCluster_ResponseParamsDataView input_data_view(params, message);
@@ -1156,6 +1162,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_ShowJourneysSidePanel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.3
       bool success = true;
       std::string p_query{};
       PageHandler_ShowJourneysSidePanel_ParamsDataView input_data_view(params, message);
@@ -1171,8 +1179,8 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShowJourneysSidePanel(
-std::move(p_query));
+      impl->ShowJourneysSidePanel(        
+        std::move(p_query));
       return true;
     }
     case internal::kPageHandler_OpenUrlsInTabGroup_Name: {
@@ -1182,6 +1190,8 @@ std::move(p_query));
           reinterpret_cast<internal::PageHandler_OpenUrlsInTabGroup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.4
       bool success = true;
       std::vector<::GURL> p_urls{};
       std::optional<std::string> p_tab_group_name{};
@@ -1200,9 +1210,9 @@ std::move(p_query));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrlsInTabGroup(
-std::move(p_urls), 
-std::move(p_tab_group_name));
+      impl->OpenUrlsInTabGroup(        
+        std::move(p_urls), 
+        std::move(p_tab_group_name));
       return true;
     }
     case internal::kPageHandler_DismissCluster_Name: {
@@ -1212,6 +1222,8 @@ std::move(p_tab_group_name));
           reinterpret_cast<internal::PageHandler_DismissCluster_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.5
       bool success = true;
       std::vector<::history_clusters::mojom::URLVisitPtr> p_visits{};
       int64_t p_cluster_id{};
@@ -1230,9 +1242,9 @@ std::move(p_tab_group_name));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DismissCluster(
-std::move(p_visits), 
-std::move(p_cluster_id));
+      impl->DismissCluster(        
+        std::move(p_visits), 
+        std::move(p_cluster_id));
       return true;
     }
     case internal::kPageHandler_RecordClick_Name: {
@@ -1242,6 +1254,8 @@ std::move(p_cluster_id));
           reinterpret_cast<internal::PageHandler_RecordClick_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.6
       bool success = true;
       int64_t p_cluster_id{};
       PageHandler_RecordClick_ParamsDataView input_data_view(params, message);
@@ -1257,8 +1271,8 @@ std::move(p_cluster_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordClick(
-std::move(p_cluster_id));
+      impl->RecordClick(        
+        std::move(p_cluster_id));
       return true;
     }
     case internal::kPageHandler_RecordDisabled_Name: {
@@ -1268,6 +1282,8 @@ std::move(p_cluster_id));
           reinterpret_cast<internal::PageHandler_RecordDisabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.7
       bool success = true;
       int64_t p_cluster_id{};
       PageHandler_RecordDisabled_ParamsDataView input_data_view(params, message);
@@ -1283,8 +1299,8 @@ std::move(p_cluster_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordDisabled(
-std::move(p_cluster_id));
+      impl->RecordDisabled(        
+        std::move(p_cluster_id));
       return true;
     }
     case internal::kPageHandler_RecordLayoutTypeShown_Name: {
@@ -1294,6 +1310,8 @@ std::move(p_cluster_id));
           reinterpret_cast<internal::PageHandler_RecordLayoutTypeShown_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.8
       bool success = true;
       ::ntp::history_clusters::mojom::LayoutType p_layout_type{};
       int64_t p_cluster_id{};
@@ -1312,9 +1330,9 @@ std::move(p_cluster_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordLayoutTypeShown(
-std::move(p_layout_type), 
-std::move(p_cluster_id));
+      impl->RecordLayoutTypeShown(        
+        std::move(p_layout_type), 
+        std::move(p_cluster_id));
       return true;
     }
   }
@@ -1337,6 +1355,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetClusters_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetClusters_ParamsDataView input_data_view(params, message);
       
@@ -1362,6 +1382,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetCartForCluster_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       ::history_clusters::mojom::ClusterPtr p_cluster{};
       PageHandler_GetCartForCluster_ParamsDataView input_data_view(params, message);
@@ -1380,8 +1402,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCartForCluster(
-std::move(p_cluster), std::move(callback));
+      impl->GetCartForCluster(        
+        std::move(p_cluster), std::move(callback));
       return true;
     }
     case internal::kPageHandler_GetDiscountsForCluster_Name: {
@@ -1391,6 +1413,8 @@ std::move(p_cluster), std::move(callback));
               internal::PageHandler_GetDiscountsForCluster_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.2
       bool success = true;
       ::history_clusters::mojom::ClusterPtr p_cluster{};
       PageHandler_GetDiscountsForCluster_ParamsDataView input_data_view(params, message);
@@ -1409,8 +1433,8 @@ std::move(p_cluster), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDiscountsForCluster(
-std::move(p_cluster), std::move(callback));
+      impl->GetDiscountsForCluster(        
+        std::move(p_cluster), std::move(callback));
       return true;
     }
     case internal::kPageHandler_ShowJourneysSidePanel_Name: {

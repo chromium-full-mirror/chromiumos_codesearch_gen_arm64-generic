@@ -641,6 +641,8 @@ bool NetworkingPrivateDelegateObserverStubDispatch::Accept(
           reinterpret_cast<internal::NetworkingPrivateDelegateObserver_OnNetworksChangedEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivateDelegateObserver.0
       bool success = true;
       std::vector<std::string> p_network_guids{};
       NetworkingPrivateDelegateObserver_OnNetworksChangedEvent_ParamsDataView input_data_view(params, message);
@@ -656,8 +658,8 @@ bool NetworkingPrivateDelegateObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworksChangedEvent(
-std::move(p_network_guids));
+      impl->OnNetworksChangedEvent(        
+        std::move(p_network_guids));
       return true;
     }
     case internal::kNetworkingPrivateDelegateObserver_OnNetworkListChangedEvent_Name: {
@@ -667,6 +669,8 @@ std::move(p_network_guids));
           reinterpret_cast<internal::NetworkingPrivateDelegateObserver_OnNetworkListChangedEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivateDelegateObserver.1
       bool success = true;
       std::vector<std::string> p_network_guids{};
       NetworkingPrivateDelegateObserver_OnNetworkListChangedEvent_ParamsDataView input_data_view(params, message);
@@ -682,8 +686,8 @@ std::move(p_network_guids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNetworkListChangedEvent(
-std::move(p_network_guids));
+      impl->OnNetworkListChangedEvent(        
+        std::move(p_network_guids));
       return true;
     }
     case internal::kNetworkingPrivateDelegateObserver_OnDeviceStateListChanged_Name: {
@@ -693,6 +697,8 @@ std::move(p_network_guids));
           reinterpret_cast<internal::NetworkingPrivateDelegateObserver_OnDeviceStateListChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivateDelegateObserver.2
       bool success = true;
       NetworkingPrivateDelegateObserver_OnDeviceStateListChanged_ParamsDataView input_data_view(params, message);
       
@@ -705,7 +711,7 @@ std::move(p_network_guids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDeviceStateListChanged();
+      impl->OnDeviceStateListChanged(        );
       return true;
     }
     case internal::kNetworkingPrivateDelegateObserver_OnPortalDetectionCompleted_Name: {
@@ -715,6 +721,8 @@ std::move(p_network_guids));
           reinterpret_cast<internal::NetworkingPrivateDelegateObserver_OnPortalDetectionCompleted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivateDelegateObserver.3
       bool success = true;
       std::string p_networkGuid{};
       CaptivePortalStatus p_status{};
@@ -733,9 +741,9 @@ std::move(p_network_guids));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPortalDetectionCompleted(
-std::move(p_networkGuid), 
-std::move(p_status));
+      impl->OnPortalDetectionCompleted(        
+        std::move(p_networkGuid), 
+        std::move(p_status));
       return true;
     }
     case internal::kNetworkingPrivateDelegateObserver_OnCertificateListsChanged_Name: {
@@ -745,6 +753,8 @@ std::move(p_status));
           reinterpret_cast<internal::NetworkingPrivateDelegateObserver_OnCertificateListsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivateDelegateObserver.4
       bool success = true;
       NetworkingPrivateDelegateObserver_OnCertificateListsChanged_ParamsDataView input_data_view(params, message);
       
@@ -757,7 +767,7 @@ std::move(p_status));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCertificateListsChanged();
+      impl->OnCertificateListsChanged(        );
       return true;
     }
   }
@@ -2874,6 +2884,8 @@ bool NetworkingPrivate_GetProperties_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.0
   bool success = true;
   PropertiesSuccessOrErrorReturnPtr p_result{};
   NetworkingPrivate_GetProperties_ResponseParamsDataView input_data_view(params, message);
@@ -3001,6 +3013,8 @@ bool NetworkingPrivate_GetManagedProperties_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetManagedProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.1
   bool success = true;
   PropertiesSuccessOrErrorReturnPtr p_result{};
   NetworkingPrivate_GetManagedProperties_ResponseParamsDataView input_data_view(params, message);
@@ -3128,6 +3142,8 @@ bool NetworkingPrivate_GetState_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.2
   bool success = true;
   DictionarySuccessOrErrorReturnPtr p_result{};
   NetworkingPrivate_GetState_ResponseParamsDataView input_data_view(params, message);
@@ -3255,6 +3271,8 @@ bool NetworkingPrivate_SetProperties_ForwardToCallback::Accept(
           internal::NetworkingPrivate_SetProperties_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.3
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_SetProperties_ResponseParamsDataView input_data_view(params, message);
@@ -3384,6 +3402,8 @@ bool NetworkingPrivate_CreateNetwork_ForwardToCallback::Accept(
           internal::NetworkingPrivate_CreateNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.4
   bool success = true;
   StringSuccessOrErrorReturnPtr p_result{};
   NetworkingPrivate_CreateNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -3511,6 +3531,8 @@ bool NetworkingPrivate_ForgetNetwork_ForwardToCallback::Accept(
           internal::NetworkingPrivate_ForgetNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.5
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_ForgetNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -3640,6 +3662,8 @@ bool NetworkingPrivate_GetNetworks_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetNetworks_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.6
   bool success = true;
   ListValueSuccessOrErrorReturnPtr p_result{};
   NetworkingPrivate_GetNetworks_ResponseParamsDataView input_data_view(params, message);
@@ -3767,6 +3791,8 @@ bool NetworkingPrivate_StartConnect_ForwardToCallback::Accept(
           internal::NetworkingPrivate_StartConnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.7
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_StartConnect_ResponseParamsDataView input_data_view(params, message);
@@ -3896,6 +3922,8 @@ bool NetworkingPrivate_StartDisconnect_ForwardToCallback::Accept(
           internal::NetworkingPrivate_StartDisconnect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.8
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_StartDisconnect_ResponseParamsDataView input_data_view(params, message);
@@ -4025,6 +4053,8 @@ bool NetworkingPrivate_StartActivate_ForwardToCallback::Accept(
           internal::NetworkingPrivate_StartActivate_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.9
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_StartActivate_ResponseParamsDataView input_data_view(params, message);
@@ -4154,6 +4184,8 @@ bool NetworkingPrivate_GetCaptivePortalStatus_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetCaptivePortalStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.10
   bool success = true;
   StringSuccessOrErrorReturnPtr p_result{};
   NetworkingPrivate_GetCaptivePortalStatus_ResponseParamsDataView input_data_view(params, message);
@@ -4281,6 +4313,8 @@ bool NetworkingPrivate_UnlockCellularSim_ForwardToCallback::Accept(
           internal::NetworkingPrivate_UnlockCellularSim_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.11
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_UnlockCellularSim_ResponseParamsDataView input_data_view(params, message);
@@ -4410,6 +4444,8 @@ bool NetworkingPrivate_SetCellularSimState_ForwardToCallback::Accept(
           internal::NetworkingPrivate_SetCellularSimState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.12
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_SetCellularSimState_ResponseParamsDataView input_data_view(params, message);
@@ -4539,6 +4575,8 @@ bool NetworkingPrivate_SelectCellularMobileNetwork_ForwardToCallback::Accept(
           internal::NetworkingPrivate_SelectCellularMobileNetwork_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.13
   bool success = true;
   std::string p_error_or_empty{};
   NetworkingPrivate_SelectCellularMobileNetwork_ResponseParamsDataView input_data_view(params, message);
@@ -4668,6 +4706,8 @@ bool NetworkingPrivate_GetEnabledNetworkTypes_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetEnabledNetworkTypes_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.14
   bool success = true;
   std::optional<::base::Value::List> p_network_types{};
   NetworkingPrivate_GetEnabledNetworkTypes_ResponseParamsDataView input_data_view(params, message);
@@ -4793,6 +4833,8 @@ bool NetworkingPrivate_GetDeviceStateList_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetDeviceStateList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.15
   bool success = true;
   std::optional<std::vector<std::optional<::base::Value::Dict>>> p_device_list{};
   NetworkingPrivate_GetDeviceStateList_ResponseParamsDataView input_data_view(params, message);
@@ -4920,6 +4962,8 @@ bool NetworkingPrivate_GetGlobalPolicy_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetGlobalPolicy_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.16
   bool success = true;
   std::optional<::base::Value::Dict> p_policies{};
   NetworkingPrivate_GetGlobalPolicy_ResponseParamsDataView input_data_view(params, message);
@@ -5045,6 +5089,8 @@ bool NetworkingPrivate_GetCertificateLists_ForwardToCallback::Accept(
           internal::NetworkingPrivate_GetCertificateLists_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.17
   bool success = true;
   ::base::Value::Dict p_certificates{};
   NetworkingPrivate_GetCertificateLists_ResponseParamsDataView input_data_view(params, message);
@@ -5174,6 +5220,8 @@ bool NetworkingPrivate_EnableNetworkType_ForwardToCallback::Accept(
           internal::NetworkingPrivate_EnableNetworkType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.18
   bool success = true;
   bool p_enabled{};
   NetworkingPrivate_EnableNetworkType_ResponseParamsDataView input_data_view(params, message);
@@ -5293,6 +5341,8 @@ bool NetworkingPrivate_DisableNetworkType_ForwardToCallback::Accept(
           internal::NetworkingPrivate_DisableNetworkType_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.19
   bool success = true;
   bool p_disabled{};
   NetworkingPrivate_DisableNetworkType_ResponseParamsDataView input_data_view(params, message);
@@ -5412,6 +5462,8 @@ bool NetworkingPrivate_RequestScan_ForwardToCallback::Accept(
           internal::NetworkingPrivate_RequestScan_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkingPrivate.20
   bool success = true;
   bool p_scan_requested{};
   NetworkingPrivate_RequestScan_ResponseParamsDataView input_data_view(params, message);
@@ -5549,6 +5601,8 @@ bool NetworkingPrivateStubDispatch::Accept(
           reinterpret_cast<internal::NetworkingPrivate_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.21
       bool success = true;
       ::mojo::PendingRemote<NetworkingPrivateDelegateObserver> p_observer{};
       NetworkingPrivate_AddObserver_ParamsDataView input_data_view(params, message);
@@ -5566,8 +5620,8 @@ bool NetworkingPrivateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -5590,6 +5644,8 @@ bool NetworkingPrivateStubDispatch::AcceptWithResponder(
               internal::NetworkingPrivate_GetProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.0
       bool success = true;
       std::string p_guid{};
       NetworkingPrivate_GetProperties_ParamsDataView input_data_view(params, message);
@@ -5608,8 +5664,8 @@ bool NetworkingPrivateStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetProperties(
-std::move(p_guid), std::move(callback));
+      impl->GetProperties(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_GetManagedProperties_Name: {
@@ -5619,6 +5675,8 @@ std::move(p_guid), std::move(callback));
               internal::NetworkingPrivate_GetManagedProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.1
       bool success = true;
       std::string p_guid{};
       NetworkingPrivate_GetManagedProperties_ParamsDataView input_data_view(params, message);
@@ -5637,8 +5695,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetManagedProperties(
-std::move(p_guid), std::move(callback));
+      impl->GetManagedProperties(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_GetState_Name: {
@@ -5648,6 +5706,8 @@ std::move(p_guid), std::move(callback));
               internal::NetworkingPrivate_GetState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.2
       bool success = true;
       std::string p_guid{};
       NetworkingPrivate_GetState_ParamsDataView input_data_view(params, message);
@@ -5666,8 +5726,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetState(
-std::move(p_guid), std::move(callback));
+      impl->GetState(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_SetProperties_Name: {
@@ -5677,6 +5737,8 @@ std::move(p_guid), std::move(callback));
               internal::NetworkingPrivate_SetProperties_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.3
       bool success = true;
       std::string p_guid{};
       ::base::Value::Dict p_properties{};
@@ -5701,10 +5763,10 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetProperties(
-std::move(p_guid), 
-std::move(p_properties), 
-std::move(p_allow_set_shared_config), std::move(callback));
+      impl->SetProperties(        
+        std::move(p_guid), 
+        std::move(p_properties), 
+        std::move(p_allow_set_shared_config), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_CreateNetwork_Name: {
@@ -5714,6 +5776,8 @@ std::move(p_allow_set_shared_config), std::move(callback));
               internal::NetworkingPrivate_CreateNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.4
       bool success = true;
       bool p_shared{};
       ::base::Value p_properties{};
@@ -5735,9 +5799,9 @@ std::move(p_allow_set_shared_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNetwork(
-std::move(p_shared), 
-std::move(p_properties), std::move(callback));
+      impl->CreateNetwork(        
+        std::move(p_shared), 
+        std::move(p_properties), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_ForgetNetwork_Name: {
@@ -5747,6 +5811,8 @@ std::move(p_properties), std::move(callback));
               internal::NetworkingPrivate_ForgetNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.5
       bool success = true;
       std::string p_guid{};
       bool p_allow_forget_shared_config{};
@@ -5768,9 +5834,9 @@ std::move(p_properties), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ForgetNetwork(
-std::move(p_guid), 
-std::move(p_allow_forget_shared_config), std::move(callback));
+      impl->ForgetNetwork(        
+        std::move(p_guid), 
+        std::move(p_allow_forget_shared_config), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_GetNetworks_Name: {
@@ -5780,6 +5846,8 @@ std::move(p_allow_forget_shared_config), std::move(callback));
               internal::NetworkingPrivate_GetNetworks_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.6
       bool success = true;
       std::string p_network_type{};
       bool p_configured_only{};
@@ -5807,11 +5875,11 @@ std::move(p_allow_forget_shared_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworks(
-std::move(p_network_type), 
-std::move(p_configured_only), 
-std::move(p_visible_only), 
-std::move(p_limit), std::move(callback));
+      impl->GetNetworks(        
+        std::move(p_network_type), 
+        std::move(p_configured_only), 
+        std::move(p_visible_only), 
+        std::move(p_limit), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_StartConnect_Name: {
@@ -5821,6 +5889,8 @@ std::move(p_limit), std::move(callback));
               internal::NetworkingPrivate_StartConnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.7
       bool success = true;
       std::string p_guid{};
       NetworkingPrivate_StartConnect_ParamsDataView input_data_view(params, message);
@@ -5839,8 +5909,8 @@ std::move(p_limit), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartConnect(
-std::move(p_guid), std::move(callback));
+      impl->StartConnect(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_StartDisconnect_Name: {
@@ -5850,6 +5920,8 @@ std::move(p_guid), std::move(callback));
               internal::NetworkingPrivate_StartDisconnect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.8
       bool success = true;
       std::string p_guid{};
       NetworkingPrivate_StartDisconnect_ParamsDataView input_data_view(params, message);
@@ -5868,8 +5940,8 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartDisconnect(
-std::move(p_guid), std::move(callback));
+      impl->StartDisconnect(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_StartActivate_Name: {
@@ -5879,6 +5951,8 @@ std::move(p_guid), std::move(callback));
               internal::NetworkingPrivate_StartActivate_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.9
       bool success = true;
       std::string p_guid{};
       std::string p_carrier{};
@@ -5900,9 +5974,9 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartActivate(
-std::move(p_guid), 
-std::move(p_carrier), std::move(callback));
+      impl->StartActivate(        
+        std::move(p_guid), 
+        std::move(p_carrier), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_GetCaptivePortalStatus_Name: {
@@ -5912,6 +5986,8 @@ std::move(p_carrier), std::move(callback));
               internal::NetworkingPrivate_GetCaptivePortalStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.10
       bool success = true;
       std::string p_guid{};
       NetworkingPrivate_GetCaptivePortalStatus_ParamsDataView input_data_view(params, message);
@@ -5930,8 +6006,8 @@ std::move(p_carrier), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCaptivePortalStatus(
-std::move(p_guid), std::move(callback));
+      impl->GetCaptivePortalStatus(        
+        std::move(p_guid), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_UnlockCellularSim_Name: {
@@ -5941,6 +6017,8 @@ std::move(p_guid), std::move(callback));
               internal::NetworkingPrivate_UnlockCellularSim_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.11
       bool success = true;
       std::string p_guid{};
       std::string p_pin{};
@@ -5965,10 +6043,10 @@ std::move(p_guid), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UnlockCellularSim(
-std::move(p_guid), 
-std::move(p_pin), 
-std::move(p_puk), std::move(callback));
+      impl->UnlockCellularSim(        
+        std::move(p_guid), 
+        std::move(p_pin), 
+        std::move(p_puk), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_SetCellularSimState_Name: {
@@ -5978,6 +6056,8 @@ std::move(p_puk), std::move(callback));
               internal::NetworkingPrivate_SetCellularSimState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.12
       bool success = true;
       std::string p_guid{};
       bool p_require_pin{};
@@ -6005,11 +6085,11 @@ std::move(p_puk), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCellularSimState(
-std::move(p_guid), 
-std::move(p_require_pin), 
-std::move(p_current_pin), 
-std::move(p_new_pin), std::move(callback));
+      impl->SetCellularSimState(        
+        std::move(p_guid), 
+        std::move(p_require_pin), 
+        std::move(p_current_pin), 
+        std::move(p_new_pin), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_SelectCellularMobileNetwork_Name: {
@@ -6019,6 +6099,8 @@ std::move(p_new_pin), std::move(callback));
               internal::NetworkingPrivate_SelectCellularMobileNetwork_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.13
       bool success = true;
       std::string p_guid{};
       std::string p_network_id{};
@@ -6040,9 +6122,9 @@ std::move(p_new_pin), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SelectCellularMobileNetwork(
-std::move(p_guid), 
-std::move(p_network_id), std::move(callback));
+      impl->SelectCellularMobileNetwork(        
+        std::move(p_guid), 
+        std::move(p_network_id), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_GetEnabledNetworkTypes_Name: {
@@ -6052,6 +6134,8 @@ std::move(p_network_id), std::move(callback));
               internal::NetworkingPrivate_GetEnabledNetworkTypes_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.14
       bool success = true;
       NetworkingPrivate_GetEnabledNetworkTypes_ParamsDataView input_data_view(params, message);
       
@@ -6077,6 +6161,8 @@ std::move(p_network_id), std::move(callback));
               internal::NetworkingPrivate_GetDeviceStateList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.15
       bool success = true;
       NetworkingPrivate_GetDeviceStateList_ParamsDataView input_data_view(params, message);
       
@@ -6102,6 +6188,8 @@ std::move(p_network_id), std::move(callback));
               internal::NetworkingPrivate_GetGlobalPolicy_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.16
       bool success = true;
       NetworkingPrivate_GetGlobalPolicy_ParamsDataView input_data_view(params, message);
       
@@ -6127,6 +6215,8 @@ std::move(p_network_id), std::move(callback));
               internal::NetworkingPrivate_GetCertificateLists_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.17
       bool success = true;
       NetworkingPrivate_GetCertificateLists_ParamsDataView input_data_view(params, message);
       
@@ -6152,6 +6242,8 @@ std::move(p_network_id), std::move(callback));
               internal::NetworkingPrivate_EnableNetworkType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.18
       bool success = true;
       std::string p_type{};
       NetworkingPrivate_EnableNetworkType_ParamsDataView input_data_view(params, message);
@@ -6170,8 +6262,8 @@ std::move(p_network_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableNetworkType(
-std::move(p_type), std::move(callback));
+      impl->EnableNetworkType(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_DisableNetworkType_Name: {
@@ -6181,6 +6273,8 @@ std::move(p_type), std::move(callback));
               internal::NetworkingPrivate_DisableNetworkType_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.19
       bool success = true;
       std::string p_type{};
       NetworkingPrivate_DisableNetworkType_ParamsDataView input_data_view(params, message);
@@ -6199,8 +6293,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableNetworkType(
-std::move(p_type), std::move(callback));
+      impl->DisableNetworkType(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_RequestScan_Name: {
@@ -6210,6 +6304,8 @@ std::move(p_type), std::move(callback));
               internal::NetworkingPrivate_RequestScan_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkingPrivate.20
       bool success = true;
       std::string p_type{};
       NetworkingPrivate_RequestScan_ParamsDataView input_data_view(params, message);
@@ -6228,8 +6324,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestScan(
-std::move(p_type), std::move(callback));
+      impl->RequestScan(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kNetworkingPrivate_AddObserver_Name: {

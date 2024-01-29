@@ -10,6 +10,8 @@
 
 const webui::ResourcePath kWebuiResources[] = {
   {"js/jstemplate_compiled.js", IDR_JSTEMPLATE_JSTEMPLATE_COMPILED_JS},
+  {"cr_components/commerce/browser_proxy.js", IDR_CR_COMPONENTS_COMMERCE_BROWSER_PROXY_JS},
+  {"cr_components/commerce/shopping_service.mojom-webui.js", IDR_CR_COMPONENTS_COMMERCE_SHOPPING_SERVICE_MOJOM_WEBUI_JS},
   {"cr_elements/cr_tab_box/cr_tab_box.js", IDR_WEBUI_CR_ELEMENTS_CR_TAB_BOX_CR_TAB_BOX_JS},
   {"cr_elements/cr_tree/cr_tree.js", IDR_WEBUI_CR_ELEMENTS_CR_TREE_CR_TREE_JS},
   {"cr_elements/cr_tree/cr_tree_item.js", IDR_WEBUI_CR_ELEMENTS_CR_TREE_CR_TREE_ITEM_JS},
@@ -307,8 +309,7 @@ const webui::ResourcePath kWebuiResources[] = {
   {"polymer/v3_0/iron-selector/iron-selection.js", IDR_POLYMER_3_0_IRON_SELECTOR_IRON_SELECTION_JS},
   {"polymer/v3_0/iron-selector/iron-selector.js", IDR_POLYMER_3_0_IRON_SELECTOR_IRON_SELECTOR_JS},
   {"polymer/v3_0/iron-test-helpers/mock-interactions.js", IDR_POLYMER_3_0_IRON_TEST_HELPERS_MOCK_INTERACTIONS_JS},
-  {"polymer/v3_0/paper-behaviors/paper-inky-focus-behavior.js", IDR_POLYMER_3_0_PAPER_BEHAVIORS_PAPER_INKY_FOCUS_BEHAVIOR_JS},
-  {"polymer/v3_0/paper-behaviors/paper-ripple-behavior.js", IDR_POLYMER_3_0_PAPER_BEHAVIORS_PAPER_RIPPLE_BEHAVIOR_JS},
+  {"polymer/v3_0/paper-behaviors/paper-ripple-mixin.js", IDR_POLYMER_3_0_PAPER_BEHAVIORS_PAPER_RIPPLE_MIXIN_JS},
   {"polymer/v3_0/paper-progress/paper-progress.js", IDR_POLYMER_3_0_PAPER_PROGRESS_PAPER_PROGRESS_JS},
   {"polymer/v3_0/paper-ripple/paper-ripple.js", IDR_POLYMER_3_0_PAPER_RIPPLE_PAPER_RIPPLE_JS},
   {"polymer/v3_0/paper-spinner/paper-spinner-behavior.js", IDR_POLYMER_3_0_PAPER_SPINNER_PAPER_SPINNER_BEHAVIOR_JS},

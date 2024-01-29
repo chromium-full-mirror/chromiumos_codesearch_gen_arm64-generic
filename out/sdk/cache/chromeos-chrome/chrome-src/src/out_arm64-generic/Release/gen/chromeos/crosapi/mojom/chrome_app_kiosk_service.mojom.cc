@@ -391,6 +391,8 @@ bool ChromeKioskLaunchController_InstallKioskApp_ForwardToCallback::Accept(
           internal::ChromeKioskLaunchController_InstallKioskApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromeKioskLaunchController.0
   bool success = true;
   ChromeKioskInstallResult p_result{};
   ChromeKioskLaunchController_InstallKioskApp_ResponseParamsDataView input_data_view(params, message);
@@ -511,6 +513,8 @@ bool ChromeKioskLaunchController_LaunchKioskApp_ForwardToCallback::Accept(
           internal::ChromeKioskLaunchController_LaunchKioskApp_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromeKioskLaunchController.1
   bool success = true;
   ChromeKioskLaunchResult p_result{};
   ChromeKioskLaunchController_LaunchKioskApp_ResponseParamsDataView input_data_view(params, message);
@@ -605,6 +609,8 @@ bool ChromeKioskLaunchControllerStubDispatch::AcceptWithResponder(
               internal::ChromeKioskLaunchController_InstallKioskApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromeKioskLaunchController.0
       bool success = true;
       AppInstallParamsPtr p_params{};
       ChromeKioskLaunchController_InstallKioskApp_ParamsDataView input_data_view(params, message);
@@ -623,8 +629,8 @@ bool ChromeKioskLaunchControllerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InstallKioskApp(
-std::move(p_params), std::move(callback));
+      impl->InstallKioskApp(        
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kChromeKioskLaunchController_LaunchKioskApp_Name: {
@@ -634,6 +640,8 @@ std::move(p_params), std::move(callback));
               internal::ChromeKioskLaunchController_LaunchKioskApp_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromeKioskLaunchController.1
       bool success = true;
       std::string p_app_id{};
       bool p_is_network_ready{};
@@ -655,9 +663,9 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LaunchKioskApp(
-std::move(p_app_id), 
-std::move(p_is_network_ready), std::move(callback));
+      impl->LaunchKioskApp(        
+        std::move(p_app_id), 
+        std::move(p_is_network_ready), std::move(callback));
       return true;
     }
   }
@@ -799,6 +807,8 @@ bool ChromeAppKioskServiceStubDispatch::Accept(
           reinterpret_cast<internal::ChromeAppKioskService_BindLaunchController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeAppKioskService.0
       bool success = true;
       ::mojo::PendingRemote<ChromeKioskLaunchController> p_controller{};
       ChromeAppKioskService_BindLaunchController_ParamsDataView input_data_view(params, message);
@@ -816,8 +826,8 @@ bool ChromeAppKioskServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLaunchController(
-std::move(p_controller));
+      impl->BindLaunchController(        
+        std::move(p_controller));
       return true;
     }
   }

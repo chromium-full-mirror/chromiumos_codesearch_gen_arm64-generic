@@ -857,6 +857,34 @@ Policies_Data::Policies_Data()
 
 
 // static
+bool PrintJobUpdate_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrintJobUpdate_Data* object =
+      static_cast<const PrintJobUpdate_Data*>(data);
+
+
+  if (!::crosapi::mojom::internal::PrintJobStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  return true;
+}
+
+PrintJobUpdate_Data::PrintJobUpdate_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool OAuthNotNeeded_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -990,13 +1018,52 @@ PrintServerObserver_OnServerPrintersChanged_Params_Data::PrintServerObserver_OnS
 
 
 // static
-bool PrintJobObserver_OnPrintJobUpdate_Params_Data::Validate(
+bool PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
           data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data* object =
+      static_cast<const PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->printer_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& printer_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->printer_id, validation_context,
+                                         &printer_id_validate_params)) {
+    return false;
+  }
+
+
+  if (!::crosapi::mojom::internal::PrintJobStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  return true;
+}
+
+PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data::PrintJobObserver_OnPrintJobUpdateDeprecated_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PrintJobObserver_OnPrintJobUpdate_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -1016,9 +1083,11 @@ bool PrintJobObserver_OnPrintJobUpdate_Params_Data::Validate(
     return false;
   }
 
-
-  if (!::crosapi::mojom::internal::PrintJobStatus_Data
-        ::Validate(object->status, validation_context))
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->update, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->update, validation_context))
     return false;
 
   return true;

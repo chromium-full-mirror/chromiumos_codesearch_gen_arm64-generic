@@ -14,5 +14,7 @@
 #include "sandbox/policy/mojom/sandbox.mojom-import-headers.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom.h"
 #include "components/services/screen_ai/public/mojom/screen_ai_service.mojom-import-headers.h"
+#include "ui/accessibility/ax_features.mojom.h"
+#include "ui/accessibility/ax_features.mojom-import-headers.h"
 
 #endif  // COMPONENTS_SERVICES_SCREEN_AI_PUBLIC_MOJOM_SCREEN_AI_FACTORY_MOJOM_IMPORT_HEADERS_H_

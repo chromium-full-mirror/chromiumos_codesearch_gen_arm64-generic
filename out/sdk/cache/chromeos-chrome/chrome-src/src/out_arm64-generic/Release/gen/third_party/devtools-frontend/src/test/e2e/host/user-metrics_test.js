@@ -418,7 +418,8 @@ async function waitForHistogramEvent(expected, expectedCount = 1) {
             },
         ]);
     });
-    (0, mocha_extensions_js_1.it)('dispatch events when a "Learn More" link is clicked', async () => {
+    // TODO(crbug/1520446): Flaky timeouts
+    mocha_extensions_js_1.it.skipOnPlatforms(['mac'], '[crbug.com/1520446] Learn More" link is clicked', async () => {
         const { browser } = (0, helper_js_1.getBrowserAndPages)();
         await (0, helper_js_1.goToResource)('elements/element-reveal-inline-issue.html');
         await (0, helper_js_1.click)('.issue');

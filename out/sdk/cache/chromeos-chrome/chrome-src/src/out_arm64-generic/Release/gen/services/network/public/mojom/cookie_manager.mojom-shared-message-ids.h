@@ -33,6 +33,7 @@ constexpr uint32_t kCookieManager_BlockThirdPartyCookies_Name = 14;
 constexpr uint32_t kCookieManager_BlockTruncatedCookies_Name = 15;
 constexpr uint32_t kCookieManager_SetMitigationsEnabledFor3pcd_Name = 16;
 constexpr uint32_t kCookieManager_SetTrackingProtectionEnabledFor3pcd_Name = 17;
+constexpr uint32_t kCookieManager_SetPreCommitCallbackDelayForTesting_Name = 18;
 
 }  // namespace internal
 

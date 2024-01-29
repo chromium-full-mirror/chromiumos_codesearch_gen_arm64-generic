@@ -90,7 +90,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGTextCo
 BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.textLength.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
@@ -109,7 +110,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGTextCo
 BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.lengthAdjust.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
@@ -127,7 +129,8 @@ void LengthadjustUnknownConstantCallback(v8::Local<v8::Name> v8_property_name, c
 BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.LENGTHADJUST_UNKNOWN");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
@@ -139,7 +142,8 @@ void LengthadjustSpacingConstantCallback(v8::Local<v8::Name> v8_property_name, c
 BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.LENGTHADJUST_SPACING");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
@@ -151,7 +155,8 @@ void LengthadjustSpacingandglyphsConstantCallback(v8::Local<v8::Name> v8_propert
 BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.LENGTHADJUST_SPACINGANDGLYPHS");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMText);
 
@@ -200,7 +205,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.getComputedTextLength");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGTextContentElement.getComputedTextLength", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGTextContentElement_GetComputedTextLength_Method);
 
@@ -224,7 +230,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.getEndPositionOfChar");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGTextContentElement.getEndPositionOfChar", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGTextContentElement_GetEndPositionOfChar_Method);
 
@@ -263,7 +270,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.getExtentOfChar");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGTextContentElement.getExtentOfChar", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGTextContentElement_GetExtentOfChar_Method);
 
@@ -353,7 +361,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.getStartPositionOfChar");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGTextContentElement.getStartPositionOfChar", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGTextContentElement_GetStartPositionOfChar_Method);
 
@@ -392,7 +401,8 @@ BLINK_BINDINGS_TRACE_EVENT("SVGTextContentElement.getSubStringLength");
 const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("SVGTextContentElement.getSubStringLength", info);
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8SVGTextContentElement_GetSubStringLength_Method);
 

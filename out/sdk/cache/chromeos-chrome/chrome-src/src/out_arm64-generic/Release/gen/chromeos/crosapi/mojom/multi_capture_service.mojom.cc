@@ -252,6 +252,8 @@ bool MultiCaptureServiceStubDispatch::Accept(
           reinterpret_cast<internal::MultiCaptureService_MultiCaptureStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiCaptureService.0
       bool success = true;
       std::string p_label{};
       std::string p_host{};
@@ -270,9 +272,9 @@ bool MultiCaptureServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MultiCaptureStarted(
-std::move(p_label), 
-std::move(p_host));
+      impl->MultiCaptureStarted(        
+        std::move(p_label), 
+        std::move(p_host));
       return true;
     }
     case internal::kMultiCaptureService_MultiCaptureStopped_Name: {
@@ -282,6 +284,8 @@ std::move(p_host));
           reinterpret_cast<internal::MultiCaptureService_MultiCaptureStopped_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MultiCaptureService.1
       bool success = true;
       std::string p_label{};
       MultiCaptureService_MultiCaptureStopped_ParamsDataView input_data_view(params, message);
@@ -297,8 +301,8 @@ std::move(p_host));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MultiCaptureStopped(
-std::move(p_label));
+      impl->MultiCaptureStopped(        
+        std::move(p_label));
       return true;
     }
   }

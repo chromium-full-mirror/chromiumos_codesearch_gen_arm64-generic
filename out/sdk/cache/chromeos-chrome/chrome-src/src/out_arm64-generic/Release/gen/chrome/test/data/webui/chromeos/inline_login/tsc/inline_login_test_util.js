@@ -39,6 +39,10 @@ export class TestAuthenticator extends EventTarget {
     getAccountsResponseResult = null;
     getDeviceIdResponseCalls = 0;
     getDeviceIdResponseResult = '';
+    insecureContentBlockedCallback = null;
+    missingGaiaInfoCallback = null;
+    samlApiUsedCallback = null;
+    recordSamlProviderCallback = null;
     /**
      * @param authMode Authorization mode.
      * @param data Parameters for the authorization flow.
@@ -62,6 +66,11 @@ export class TestAuthenticator extends EventTarget {
         this.getDeviceIdResponseCalls++;
         this.getDeviceIdResponseResult = deviceId;
     }
+    sendMessageToWebview(_messageType, _messageData) { }
+    setWebviewPartition(_newWebviewPartitionName) { }
+    resetWebview() { }
+    resetStates() { }
+    reload() { }
 }
 export class TestInlineLoginBrowserProxy extends TestBrowserProxy {
     dialogArguments_ = null;
@@ -71,7 +80,6 @@ export class TestInlineLoginBrowserProxy extends TestBrowserProxy {
             'authenticatorReady',
             'switchToFullTab',
             'completeLogin',
-            'lstFetchResults',
             'metricsHandler:recordAction',
             'showIncognito',
             'getAccounts',

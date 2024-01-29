@@ -782,6 +782,8 @@ bool AudioStreamFactory_CreateInputStream_ForwardToCallback::Accept(
           internal::AudioStreamFactory_CreateInputStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioStreamFactory.0
   bool success = true;
   ::media::mojom::ReadOnlyAudioDataPipePtr p_data_pipe{};
   bool p_initially_muted{};
@@ -929,6 +931,8 @@ bool AudioStreamFactory_CreateOutputStream_ForwardToCallback::Accept(
           internal::AudioStreamFactory_CreateOutputStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioStreamFactory.2
   bool success = true;
   ::media::mojom::ReadWriteAudioDataPipePtr p_data_pipe{};
   AudioStreamFactory_CreateOutputStream_ResponseParamsDataView input_data_view(params, message);
@@ -1054,6 +1058,8 @@ bool AudioStreamFactory_CreateLoopbackStream_ForwardToCallback::Accept(
           internal::AudioStreamFactory_CreateLoopbackStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioStreamFactory.4
   bool success = true;
   ::media::mojom::ReadOnlyAudioDataPipePtr p_data_pipe{};
   AudioStreamFactory_CreateLoopbackStream_ResponseParamsDataView input_data_view(params, message);
@@ -1137,6 +1143,8 @@ bool AudioStreamFactoryStubDispatch::Accept(
           reinterpret_cast<internal::AudioStreamFactory_AssociateInputAndOutputForAec_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioStreamFactory.1
       bool success = true;
       ::base::UnguessableToken p_input_stream_id{};
       std::string p_output_device_id{};
@@ -1155,9 +1163,9 @@ bool AudioStreamFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AssociateInputAndOutputForAec(
-std::move(p_input_stream_id), 
-std::move(p_output_device_id));
+      impl->AssociateInputAndOutputForAec(        
+        std::move(p_input_stream_id), 
+        std::move(p_output_device_id));
       return true;
     }
     case internal::kAudioStreamFactory_CreateOutputStream_Name: {
@@ -1170,6 +1178,8 @@ std::move(p_output_device_id));
           reinterpret_cast<internal::AudioStreamFactory_BindMuter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioStreamFactory.3
       bool success = true;
       ::mojo::PendingAssociatedReceiver<LocalMuter> p_receiver{};
       ::base::UnguessableToken p_group_id{};
@@ -1190,9 +1200,9 @@ std::move(p_output_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMuter(
-std::move(p_receiver), 
-std::move(p_group_id));
+      impl->BindMuter(        
+        std::move(p_receiver), 
+        std::move(p_group_id));
       return true;
     }
     case internal::kAudioStreamFactory_CreateLoopbackStream_Name: {
@@ -1218,6 +1228,8 @@ bool AudioStreamFactoryStubDispatch::AcceptWithResponder(
               internal::AudioStreamFactory_CreateInputStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioStreamFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioInputStream> p_stream{};
       ::mojo::PendingRemote<::media::mojom::AudioInputStreamClient> p_client{};
@@ -1271,17 +1283,17 @@ bool AudioStreamFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateInputStream(
-std::move(p_stream), 
-std::move(p_client), 
-std::move(p_observer), 
-std::move(p_log), 
-std::move(p_device_id), 
-std::move(p_params), 
-std::move(p_shared_memory_count), 
-std::move(p_enable_agc), 
-std::move(p_key_press_count_buffer), 
-std::move(p_processing_config), std::move(callback));
+      impl->CreateInputStream(        
+        std::move(p_stream), 
+        std::move(p_client), 
+        std::move(p_observer), 
+        std::move(p_log), 
+        std::move(p_device_id), 
+        std::move(p_params), 
+        std::move(p_shared_memory_count), 
+        std::move(p_enable_agc), 
+        std::move(p_key_press_count_buffer), 
+        std::move(p_processing_config), std::move(callback));
       return true;
     }
     case internal::kAudioStreamFactory_AssociateInputAndOutputForAec_Name: {
@@ -1294,6 +1306,8 @@ std::move(p_processing_config), std::move(callback));
               internal::AudioStreamFactory_CreateOutputStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioStreamFactory.2
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioOutputStream> p_stream{};
       ::mojo::PendingAssociatedRemote<::media::mojom::AudioOutputStreamObserver> p_observer{};
@@ -1333,13 +1347,13 @@ std::move(p_processing_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateOutputStream(
-std::move(p_stream), 
-std::move(p_observer), 
-std::move(p_log), 
-std::move(p_device_id), 
-std::move(p_params), 
-std::move(p_group_id), std::move(callback));
+      impl->CreateOutputStream(        
+        std::move(p_stream), 
+        std::move(p_observer), 
+        std::move(p_log), 
+        std::move(p_device_id), 
+        std::move(p_params), 
+        std::move(p_group_id), std::move(callback));
       return true;
     }
     case internal::kAudioStreamFactory_BindMuter_Name: {
@@ -1352,6 +1366,8 @@ std::move(p_group_id), std::move(callback));
               internal::AudioStreamFactory_CreateLoopbackStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioStreamFactory.4
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioInputStream> p_receiver{};
       ::mojo::PendingRemote<::media::mojom::AudioInputStreamClient> p_client{};
@@ -1391,13 +1407,13 @@ std::move(p_group_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateLoopbackStream(
-std::move(p_receiver), 
-std::move(p_client), 
-std::move(p_observer), 
-std::move(p_params), 
-std::move(p_shared_memory_count), 
-std::move(p_group_id), std::move(callback));
+      impl->CreateLoopbackStream(        
+        std::move(p_receiver), 
+        std::move(p_client), 
+        std::move(p_observer), 
+        std::move(p_params), 
+        std::move(p_shared_memory_count), 
+        std::move(p_group_id), std::move(callback));
       return true;
     }
   }

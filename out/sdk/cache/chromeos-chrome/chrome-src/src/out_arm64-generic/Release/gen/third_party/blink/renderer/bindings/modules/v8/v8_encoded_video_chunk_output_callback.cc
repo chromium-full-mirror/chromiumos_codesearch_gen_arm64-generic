@@ -59,14 +59,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_chunk;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<EncodedVideoChunk>::ToV8(script_state, arg1_chunk).ToLocal(&v8_arg1_chunk)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_chunk = ToV8Traits<EncodedVideoChunk>::ToV8(script_state, arg1_chunk);
 argv[0] = v8_arg1_chunk;
 v8::Local<v8::Value> v8_arg2_metadata;
-if (!ToV8Traits<EncodedVideoChunkMetadata>::ToV8(script_state, arg2_metadata).ToLocal(&v8_arg2_metadata)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_metadata = ToV8Traits<EncodedVideoChunkMetadata>::ToV8(script_state, arg2_metadata);
 argv[1] = v8_arg2_metadata;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -105,14 +101,10 @@ const int argc = 2;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_chunk;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<EncodedVideoChunk>::ToV8(script_state, arg1_chunk).ToLocal(&v8_arg1_chunk)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_chunk = ToV8Traits<EncodedVideoChunk>::ToV8(script_state, arg1_chunk);
 argv[0] = v8_arg1_chunk;
 v8::Local<v8::Value> v8_arg2_metadata;
-if (!ToV8Traits<EncodedVideoChunkMetadata>::ToV8(script_state, arg2_metadata).ToLocal(&v8_arg2_metadata)) {
-  return v8::Nothing<void>();
-}
+v8_arg2_metadata = ToV8Traits<EncodedVideoChunkMetadata>::ToV8(script_state, arg2_metadata);
 argv[1] = v8_arg2_metadata;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

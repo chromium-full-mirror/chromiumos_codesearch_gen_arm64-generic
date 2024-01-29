@@ -41,8 +41,17 @@ class HEADLESS_EXPORT ExperimentalObserver {
   virtual void OnIndexedDBContentUpdated(const IndexedDBContentUpdatedParams& params) {}
   // The origin's IndexedDB database list has been modified.
   virtual void OnIndexedDBListUpdated(const IndexedDBListUpdatedParams& params) {}
-  // One of the interest groups was accessed by the associated page.
+  // One of the interest groups was accessed. Note that these events are global
+  // to all targets sharing an interest group store.
   virtual void OnInterestGroupAccessed(const InterestGroupAccessedParams& params) {}
+  // An auction involving interest groups is taking place. These events are
+  // target-specific.
+  virtual void OnInterestGroupAuctionEventOccurred(const InterestGroupAuctionEventOccurredParams& params) {}
+  // Specifies which auctions a particular network fetch may be related to, and
+  // in what role. Note that it is not ordered with respect to
+  // Network.requestWillBeSent (but will happen before loadingFinished
+  // loadingFailed).
+  virtual void OnInterestGroupAuctionNetworkRequestCreated(const InterestGroupAuctionNetworkRequestCreatedParams& params) {}
   // Shared storage was accessed by the associated page.
   // The following parameters are included in all events.
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) {}
@@ -63,8 +72,17 @@ class HEADLESS_EXPORT Observer : public ExperimentalObserver {
   virtual void OnIndexedDBContentUpdated(const IndexedDBContentUpdatedParams& params) final {}
   // Experimental: The origin's IndexedDB database list has been modified.
   virtual void OnIndexedDBListUpdated(const IndexedDBListUpdatedParams& params) final {}
-  // Experimental: One of the interest groups was accessed by the associated page.
+  // Experimental: One of the interest groups was accessed. Note that these events are global
+  // to all targets sharing an interest group store.
   virtual void OnInterestGroupAccessed(const InterestGroupAccessedParams& params) final {}
+  // Experimental: An auction involving interest groups is taking place. These events are
+  // target-specific.
+  virtual void OnInterestGroupAuctionEventOccurred(const InterestGroupAuctionEventOccurredParams& params) final {}
+  // Experimental: Specifies which auctions a particular network fetch may be related to, and
+  // in what role. Note that it is not ordered with respect to
+  // Network.requestWillBeSent (but will happen before loadingFinished
+  // loadingFailed).
+  virtual void OnInterestGroupAuctionNetworkRequestCreated(const InterestGroupAuctionNetworkRequestCreatedParams& params) final {}
   // Experimental: Shared storage was accessed by the associated page.
   // The following parameters are included in all events.
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) final {}
@@ -112,6 +130,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleClearTrustTokensResponse(base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)> callback, const base::Value& response);
   static void HandleGetInterestGroupDetailsResponse(base::OnceCallback<void(std::unique_ptr<GetInterestGroupDetailsResult>)> callback, const base::Value& response);
   static void HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback, const base::Value& response);
+  static void HandleSetInterestGroupAuctionTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupAuctionTrackingResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback, const base::Value& response);
   static void HandleSetSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)> callback, const base::Value& response);
@@ -130,6 +149,8 @@ class HEADLESS_EXPORT Domain {
   void DispatchIndexedDBContentUpdatedEvent(const base::Value& params);
   void DispatchIndexedDBListUpdatedEvent(const base::Value& params);
   void DispatchInterestGroupAccessedEvent(const base::Value& params);
+  void DispatchInterestGroupAuctionEventOccurredEvent(const base::Value& params);
+  void DispatchInterestGroupAuctionNetworkRequestCreatedEvent(const base::Value& params);
   void DispatchSharedStorageAccessedEvent(const base::Value& params);
   void DispatchStorageBucketCreatedOrUpdatedEvent(const base::Value& params);
   void DispatchStorageBucketDeletedEvent(const base::Value& params);
@@ -222,6 +243,10 @@ class ExperimentalDomain : public Domain {
 
   // Enables/Disables issuing of interestGroupAccessed events.
   void SetInterestGroupTracking(std::unique_ptr<SetInterestGroupTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)>());
+
+  // Enables/Disables issuing of interestGroupAuctionEventOccurred and
+  // interestGroupAuctionNetworkRequestCreated.
+  void SetInterestGroupAuctionTracking(std::unique_ptr<SetInterestGroupAuctionTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetInterestGroupAuctionTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetInterestGroupAuctionTrackingResult>)>());
 
   // Gets metadata for an origin's shared storage.
   void GetSharedStorageMetadata(std::unique_ptr<GetSharedStorageMetadataParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)>());

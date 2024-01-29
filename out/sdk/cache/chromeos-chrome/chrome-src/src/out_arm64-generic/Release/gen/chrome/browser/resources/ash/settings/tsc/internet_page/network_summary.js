@@ -95,6 +95,16 @@ export class NetworkSummaryElement extends NetworkSummaryElementBase {
                         loadTimeData.getBoolean('isHotspotEnabled');
                 },
             },
+            /**
+             * Return true if instant hotspot rebrand feature flag is enabled
+             */
+            isInstantHotspotRebrandEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isInstantHotspotRebrandEnabled') &&
+                        loadTimeData.getBoolean('isInstantHotspotRebrandEnabled');
+                },
+            },
         };
     }
     constructor() {
@@ -250,7 +260,8 @@ export class NetworkSummaryElement extends NetworkSummaryElementBase {
             // lists and do not add an active network for 'Tether' so that there is
             // only one 'Mobile data' section / subpage.
             if (type === NetworkType.kTether &&
-                newDeviceStates[NetworkType.kCellular]) {
+                newDeviceStates[NetworkType.kCellular] &&
+                !this.isInstantHotspotRebrandEnabled_) {
                 newNetworkStateLists[NetworkType.kCellular] =
                     newNetworkStateLists[NetworkType.kCellular].concat(newNetworkStateLists[NetworkType.kTether]);
                 continue;
@@ -280,7 +291,8 @@ export class NetworkSummaryElement extends NetworkSummaryElementBase {
      */
     getActiveStateForType_(activeStatesByType, type) {
         let activeState = activeStatesByType.get(type);
-        if (!activeState && type === NetworkType.kCellular) {
+        if (!activeState && type === NetworkType.kCellular &&
+            !this.isInstantHotspotRebrandEnabled_) {
             activeState = activeStatesByType.get(NetworkType.kTether);
         }
         return activeState || OncMojo.getDefaultNetworkState(type);

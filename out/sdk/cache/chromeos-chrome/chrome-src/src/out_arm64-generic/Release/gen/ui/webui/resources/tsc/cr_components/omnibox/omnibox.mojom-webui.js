@@ -229,8 +229,9 @@ export class PageRemote {
             result
         ]);
     }
-    updateSelection(selection) {
+    updateSelection(oldSelection, selection) {
         this.proxy.sendMessage(1, Page_UpdateSelection_ParamsSpec.$, null, [
+            oldSelection,
             selection
         ]);
     }
@@ -428,5 +429,6 @@ mojo.internal.Struct(Page_AutocompleteResultChanged_ParamsSpec.$, 'Page_Autocomp
     mojo.internal.StructField('result', 0, 0, AutocompleteResultSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(Page_UpdateSelection_ParamsSpec.$, 'Page_UpdateSelection_Params', [
-    mojo.internal.StructField('selection', 0, 0, OmniboxPopupSelectionSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
+    mojo.internal.StructField('oldSelection', 0, 0, OmniboxPopupSelectionSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('selection', 8, 0, OmniboxPopupSelectionSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);

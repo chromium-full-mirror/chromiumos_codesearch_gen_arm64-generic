@@ -56,6 +56,7 @@ TransferableResource::TransferableResource()
       wants_promotion_hint(),
       color_space(),
       hdr_metadata(),
+      needs_detiling(),
       ycbcr_info() {}
 
 TransferableResource::TransferableResource(
@@ -70,6 +71,7 @@ TransferableResource::TransferableResource(
     bool wants_promotion_hint_in,
     const ::gfx::ColorSpace& color_space_in,
     const ::gfx::HDRMetadata& hdr_metadata_in,
+    bool needs_detiling_in,
     std::optional<::gpu::VulkanYCbCrInfo> ycbcr_info_in)
     : id(std::move(id_in)),
       format(std::move(format_in)),
@@ -82,6 +84,7 @@ TransferableResource::TransferableResource(
       wants_promotion_hint(std::move(wants_promotion_hint_in)),
       color_space(std::move(color_space_in)),
       hdr_metadata(std::move(hdr_metadata_in)),
+      needs_detiling(std::move(needs_detiling_in)),
       ycbcr_info(std::move(ycbcr_info_in)) {}
 
 TransferableResource::~TransferableResource() = default;
@@ -190,6 +193,15 @@ void TransferableResource::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "needs_detiling"), this->needs_detiling,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "ycbcr_info"), this->ycbcr_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<::gpu::VulkanYCbCrInfo>>"
@@ -241,6 +253,8 @@ bool StructTraits<::viz::mojom::TransferableResource::DataView, ::viz::mojom::Tr
         success = false;
       if (success && !input.ReadHdrMetadata(&result->hdr_metadata))
         success = false;
+      if (success)
+        result->needs_detiling = input.needs_detiling();
       if (success && !input.ReadYcbcrInfo(&result->ycbcr_info))
         success = false;
   *output = std::move(result);

@@ -2168,6 +2168,7 @@ class  VideoFrameMetadata {
       bool wants_promotion_hint,
       bool protected_video,
       bool hw_protected,
+      bool needs_detiling,
       bool is_webgpu_compatible,
       const std::optional<::base::UnguessableToken>& overlay_plane_id,
       bool power_efficient,
@@ -2310,6 +2311,8 @@ class  VideoFrameMetadata {
   bool protected_video;
   
   bool hw_protected;
+  
+  bool needs_detiling;
   
   bool is_webgpu_compatible;
   
@@ -4441,6 +4444,7 @@ VideoFrameMetadataPtr VideoFrameMetadata::Clone() const {
       mojo::Clone(wants_promotion_hint),
       mojo::Clone(protected_video),
       mojo::Clone(hw_protected),
+      mojo::Clone(needs_detiling),
       mojo::Clone(is_webgpu_compatible),
       mojo::Clone(overlay_plane_id),
       mojo::Clone(power_efficient),
@@ -4511,6 +4515,8 @@ bool VideoFrameMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->protected_video, other_struct.protected_video))
     return false;
   if (!mojo::Equals(this->hw_protected, other_struct.hw_protected))
+    return false;
+  if (!mojo::Equals(this->needs_detiling, other_struct.needs_detiling))
     return false;
   if (!mojo::Equals(this->is_webgpu_compatible, other_struct.is_webgpu_compatible))
     return false;
@@ -4648,6 +4654,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.hw_protected < rhs.hw_protected)
     return true;
   if (rhs.hw_protected < lhs.hw_protected)
+    return false;
+  if (lhs.needs_detiling < rhs.needs_detiling)
+    return true;
+  if (rhs.needs_detiling < lhs.needs_detiling)
     return false;
   if (lhs.is_webgpu_compatible < rhs.is_webgpu_compatible)
     return true;
@@ -5773,6 +5783,11 @@ struct  StructTraits<::media::mojom::VideoFrameMetadata::DataView,
   static decltype(::media::mojom::VideoFrameMetadata::hw_protected) hw_protected(
       const ::media::mojom::VideoFrameMetadataPtr& input) {
     return input->hw_protected;
+  }
+
+  static decltype(::media::mojom::VideoFrameMetadata::needs_detiling) needs_detiling(
+      const ::media::mojom::VideoFrameMetadataPtr& input) {
+    return input->needs_detiling;
   }
 
   static decltype(::media::mojom::VideoFrameMetadata::is_webgpu_compatible) is_webgpu_compatible(

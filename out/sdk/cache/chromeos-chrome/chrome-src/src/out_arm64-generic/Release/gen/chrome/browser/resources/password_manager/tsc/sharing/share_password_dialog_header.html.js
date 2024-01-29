@@ -5,7 +5,7 @@ export function getTemplate() {
 <span class="text-elide">
   <slot></slot>
 </span>
-<cr-icon-button iron-icon="cr:help-outline" id="helpButton" title="$i18n{help}" on-click="onHelpClick_">
+<cr-icon-button iron-icon="cr:help-outline" id="helpButton" title="$i18n{help}" on-click="onHelpClick_" dir="ltr">
 </cr-icon-button>
 <!--_html_template_end_-->`;
 }

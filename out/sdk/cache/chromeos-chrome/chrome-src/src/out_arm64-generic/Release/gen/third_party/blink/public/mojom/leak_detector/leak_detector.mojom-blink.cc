@@ -373,6 +373,8 @@ bool LeakDetector_PerformLeakDetection_ForwardToCallback::Accept(
           internal::LeakDetector_PerformLeakDetection_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LeakDetector.0
   bool success = true;
   LeakDetectionResultPtr p_result{};
   LeakDetector_PerformLeakDetection_ResponseParamsDataView input_data_view(params, message);
@@ -469,6 +471,8 @@ bool LeakDetectorStubDispatch::AcceptWithResponder(
               internal::LeakDetector_PerformLeakDetection_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LeakDetector.0
       bool success = true;
       LeakDetector_PerformLeakDetection_ParamsDataView input_data_view(params, message);
       

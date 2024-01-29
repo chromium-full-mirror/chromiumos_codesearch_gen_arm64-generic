@@ -245,6 +245,8 @@ bool InstalledAppProvider_FilterInstalledApps_ForwardToCallback::Accept(
           internal::InstalledAppProvider_FilterInstalledApps_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InstalledAppProvider.0
   bool success = true;
   WTF::Vector<::blink::mojom::blink::RelatedApplicationPtr> p_installed_apps{};
   InstalledAppProvider_FilterInstalledApps_ResponseParamsDataView input_data_view(params, message);
@@ -347,6 +349,8 @@ bool InstalledAppProviderStubDispatch::AcceptWithResponder(
               internal::InstalledAppProvider_FilterInstalledApps_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InstalledAppProvider.0
       bool success = true;
       WTF::Vector<::blink::mojom::blink::RelatedApplicationPtr> p_related_apps{};
       ::blink::KURL p_manifest_url{};
@@ -368,9 +372,9 @@ bool InstalledAppProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FilterInstalledApps(
-std::move(p_related_apps), 
-std::move(p_manifest_url), std::move(callback));
+      impl->FilterInstalledApps(        
+        std::move(p_related_apps), 
+        std::move(p_manifest_url), std::move(callback));
       return true;
     }
   }

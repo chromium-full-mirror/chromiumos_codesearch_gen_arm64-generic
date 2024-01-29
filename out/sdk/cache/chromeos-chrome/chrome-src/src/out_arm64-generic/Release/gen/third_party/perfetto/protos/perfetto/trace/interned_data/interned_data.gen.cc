@@ -34,6 +34,7 @@
 #include "protos/perfetto/trace/track_event/debug_annotation.gen.h"
 #include "protos/perfetto/trace/track_event/chrome_histogram_sample.gen.h"
 #include "protos/perfetto/trace/gpu/gpu_render_stage_event.gen.h"
+#include "protos/perfetto/trace/chrome/v8.gen.h"
 #include "protos/perfetto/trace/android/network_trace.gen.h"
 
 namespace perfetto {
@@ -70,7 +71,13 @@ bool InternedData::operator==(const InternedData& other) const {
    && ::protozero::internal::gen_helpers::EqualsField(gpu_specifications_, other.gpu_specifications_)
    && ::protozero::internal::gen_helpers::EqualsField(kernel_symbols_, other.kernel_symbols_)
    && ::protozero::internal::gen_helpers::EqualsField(debug_annotation_string_values_, other.debug_annotation_string_values_)
-   && ::protozero::internal::gen_helpers::EqualsField(packet_context_, other.packet_context_);
+   && ::protozero::internal::gen_helpers::EqualsField(packet_context_, other.packet_context_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_js_function_name_, other.v8_js_function_name_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_js_function_, other.v8_js_function_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_js_script_, other.v8_js_script_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_wasm_script_, other.v8_wasm_script_)
+   && ::protozero::internal::gen_helpers::EqualsField(v8_isolate_, other.v8_isolate_)
+   && ::protozero::internal::gen_helpers::EqualsField(protolog_string_args_, other.protolog_string_args_);
 }
 
 int InternedData::event_categories_size() const { return static_cast<int>(event_categories_.size()); }
@@ -139,6 +146,24 @@ InternedString* InternedData::add_debug_annotation_string_values() { debug_annot
 int InternedData::packet_context_size() const { return static_cast<int>(packet_context_.size()); }
 void InternedData::clear_packet_context() { packet_context_.clear(); }
 NetworkPacketContext* InternedData::add_packet_context() { packet_context_.emplace_back(); return &packet_context_.back(); }
+int InternedData::v8_js_function_name_size() const { return static_cast<int>(v8_js_function_name_.size()); }
+void InternedData::clear_v8_js_function_name() { v8_js_function_name_.clear(); }
+InternedV8String* InternedData::add_v8_js_function_name() { v8_js_function_name_.emplace_back(); return &v8_js_function_name_.back(); }
+int InternedData::v8_js_function_size() const { return static_cast<int>(v8_js_function_.size()); }
+void InternedData::clear_v8_js_function() { v8_js_function_.clear(); }
+InternedV8JsFunction* InternedData::add_v8_js_function() { v8_js_function_.emplace_back(); return &v8_js_function_.back(); }
+int InternedData::v8_js_script_size() const { return static_cast<int>(v8_js_script_.size()); }
+void InternedData::clear_v8_js_script() { v8_js_script_.clear(); }
+InternedV8JsScript* InternedData::add_v8_js_script() { v8_js_script_.emplace_back(); return &v8_js_script_.back(); }
+int InternedData::v8_wasm_script_size() const { return static_cast<int>(v8_wasm_script_.size()); }
+void InternedData::clear_v8_wasm_script() { v8_wasm_script_.clear(); }
+InternedV8WasmScript* InternedData::add_v8_wasm_script() { v8_wasm_script_.emplace_back(); return &v8_wasm_script_.back(); }
+int InternedData::v8_isolate_size() const { return static_cast<int>(v8_isolate_.size()); }
+void InternedData::clear_v8_isolate() { v8_isolate_.clear(); }
+InternedV8Isolate* InternedData::add_v8_isolate() { v8_isolate_.emplace_back(); return &v8_isolate_.back(); }
+int InternedData::protolog_string_args_size() const { return static_cast<int>(protolog_string_args_.size()); }
+void InternedData::clear_protolog_string_args() { protolog_string_args_.clear(); }
+InternedString* InternedData::add_protolog_string_args() { protolog_string_args_.emplace_back(); return &protolog_string_args_.back(); }
 bool InternedData::ParseFromArray(const void* raw, size_t size) {
   event_categories_.clear();
   event_names_.clear();
@@ -162,6 +187,12 @@ bool InternedData::ParseFromArray(const void* raw, size_t size) {
   kernel_symbols_.clear();
   debug_annotation_string_values_.clear();
   packet_context_.clear();
+  v8_js_function_name_.clear();
+  v8_js_function_.clear();
+  v8_js_script_.clear();
+  v8_wasm_script_.clear();
+  v8_isolate_.clear();
+  protolog_string_args_.clear();
   unknown_fields_.clear();
   bool packed_error = false;
 
@@ -258,6 +289,30 @@ bool InternedData::ParseFromArray(const void* raw, size_t size) {
       case 30 /* packet_context */:
         packet_context_.emplace_back();
         packet_context_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 31 /* v8_js_function_name */:
+        v8_js_function_name_.emplace_back();
+        v8_js_function_name_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 32 /* v8_js_function */:
+        v8_js_function_.emplace_back();
+        v8_js_function_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 33 /* v8_js_script */:
+        v8_js_script_.emplace_back();
+        v8_js_script_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 34 /* v8_wasm_script */:
+        v8_wasm_script_.emplace_back();
+        v8_wasm_script_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 35 /* v8_isolate */:
+        v8_isolate_.emplace_back();
+        v8_isolate_.back().ParseFromArray(field.data(), field.size());
+        break;
+      case 36 /* protolog_string_args */:
+        protolog_string_args_.emplace_back();
+        protolog_string_args_.back().ParseFromArray(field.data(), field.size());
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -388,6 +443,36 @@ void InternedData::Serialize(::protozero::Message* msg) const {
   // Field 30: packet_context
   for (auto& it : packet_context_) {
     it.Serialize(msg->BeginNestedMessage<::protozero::Message>(30));
+  }
+
+  // Field 31: v8_js_function_name
+  for (auto& it : v8_js_function_name_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(31));
+  }
+
+  // Field 32: v8_js_function
+  for (auto& it : v8_js_function_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(32));
+  }
+
+  // Field 33: v8_js_script
+  for (auto& it : v8_js_script_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(33));
+  }
+
+  // Field 34: v8_wasm_script
+  for (auto& it : v8_wasm_script_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(34));
+  }
+
+  // Field 35: v8_isolate
+  for (auto& it : v8_isolate_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(35));
+  }
+
+  // Field 36: protolog_string_args
+  for (auto& it : protolog_string_args_) {
+    it.Serialize(msg->BeginNestedMessage<::protozero::Message>(36));
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

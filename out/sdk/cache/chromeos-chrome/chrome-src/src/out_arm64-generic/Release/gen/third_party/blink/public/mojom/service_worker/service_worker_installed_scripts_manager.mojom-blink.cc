@@ -319,6 +319,8 @@ bool ServiceWorkerInstalledScriptsManagerHostStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerInstalledScriptsManagerHost_RequestInstalledScript_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerInstalledScriptsManagerHost.0
       bool success = true;
       ::blink::KURL p_script_url{};
       ServiceWorkerInstalledScriptsManagerHost_RequestInstalledScript_ParamsDataView input_data_view(params, message);
@@ -334,8 +336,8 @@ bool ServiceWorkerInstalledScriptsManagerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestInstalledScript(
-std::move(p_script_url));
+      impl->RequestInstalledScript(        
+        std::move(p_script_url));
       return true;
     }
   }
@@ -491,6 +493,8 @@ bool ServiceWorkerInstalledScriptsManagerStubDispatch::Accept(
           reinterpret_cast<internal::ServiceWorkerInstalledScriptsManager_TransferInstalledScript_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ServiceWorkerInstalledScriptsManager.0
       bool success = true;
       ServiceWorkerScriptInfoPtr p_script_info{};
       ServiceWorkerInstalledScriptsManager_TransferInstalledScript_ParamsDataView input_data_view(params, message);
@@ -506,8 +510,8 @@ bool ServiceWorkerInstalledScriptsManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TransferInstalledScript(
-std::move(p_script_info));
+      impl->TransferInstalledScript(        
+        std::move(p_script_info));
       return true;
     }
   }

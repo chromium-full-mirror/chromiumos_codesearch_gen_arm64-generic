@@ -75,13 +75,13 @@ found in the LICENSE file.
   </div>
   <div slot="bottom-buttons">
     <oobe-text-button id="skip-button"
-        on-click="onSkipButtonClicked_"
+        on-click="onSkipButtonClicked"
         text-key="skipButtonLabel">
     </oobe-text-button>
     <oobe-next-button inverse id="update-button"
-        disabled="[[shouldDisableUpdateButton_(hasEnoughFreeDiskSpace,
+        disabled="[[shouldDisableUpdateButton(hasEnoughFreeDiskSpace,
                                                hasEnoughBattery)]]"
-        on-click="onUpdateButtonClicked_"
+        on-click="onUpdateButtonClicked"
         text-key="updateButtonLabel">
     </oobe-next-button>
   </div>
@@ -114,7 +114,7 @@ found in the LICENSE file.
   <div slot="bottom-buttons">
     <oobe-next-button inverse id="resume-button"
         disabled="[[!hasEnoughBattery]]"
-        on-click="onResumeButtonClicked_"
+        on-click="onResumeButtonClicked"
         text-key="resumeButtonLabel">
     </oobe-next-button>
   </div>
@@ -128,7 +128,7 @@ found in the LICENSE file.
   <h1 slot="title">[[i18nDynamic(locale, 'progressScreenTitle')]]</h1>
   <div slot="subtitle" class="progress">
     <div id="progress-message"
-         hidden="[[isProgressIndeterminate_(migrationProgress)]]">
+         hidden="[[isProgressIndeterminate(migrationProgress)]]">
       [[i18nDynamic(locale, 'progressScreenSubtitle',
           migrationProgress, estimatedRemainingTimeInString)]]
     </div>
@@ -136,7 +136,7 @@ found in the LICENSE file.
         value="[[migrationProgress]]"
         max="100"
         step="0.1"
-        indeterminate="[[isProgressIndeterminate_(migrationProgress)]]">
+        indeterminate="[[isProgressIndeterminate(migrationProgress)]]">
     </paper-progress>
     <div id="progress-screen-connect-to-charger-message">
       [[i18nDynamic(locale, 'connectToChargerMessage')]]
@@ -159,7 +159,7 @@ found in the LICENSE file.
   </div>
   <div slot="bottom-buttons">
     <oobe-text-button inverse id="finish-button"
-        on-click="onFinishButtonClicked_"
+        on-click="onFinishButtonClicked"
         text-key="finishButtonLabel">
     </oobe-text-button>
   </div>
@@ -178,11 +178,11 @@ found in the LICENSE file.
   </div>
   <div slot="bottom-buttons">
     <oobe-text-button id="report-button"
-        on-click="onReportButtonClicked_"
+        on-click="onReportButtonClicked"
         text-key="reportButtonLabel">
     </oobe-text-button>
     <oobe-text-button inverse id="finish-button"
-        on-click="onFinishButtonClicked_"
+        on-click="onFinishButtonClicked"
         text-key="finishButtonLabel">
     </oobe-text-button>
   </div>

@@ -353,6 +353,8 @@ bool BrowsingTopicsDocumentService_GetBrowsingTopics_ForwardToCallback::Accept(
           internal::BrowsingTopicsDocumentService_GetBrowsingTopics_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowsingTopicsDocumentService.0
   bool success = true;
   GetBrowsingTopicsResultPtr p_result{};
   BrowsingTopicsDocumentService_GetBrowsingTopics_ResponseParamsDataView input_data_view(params, message);
@@ -451,6 +453,8 @@ bool BrowsingTopicsDocumentServiceStubDispatch::AcceptWithResponder(
               internal::BrowsingTopicsDocumentService_GetBrowsingTopics_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowsingTopicsDocumentService.0
       bool success = true;
       bool p_observe{};
       BrowsingTopicsDocumentService_GetBrowsingTopics_ParamsDataView input_data_view(params, message);
@@ -469,8 +473,8 @@ bool BrowsingTopicsDocumentServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBrowsingTopics(
-std::move(p_observe), std::move(callback));
+      impl->GetBrowsingTopics(        
+        std::move(p_observe), std::move(callback));
       return true;
     }
   }

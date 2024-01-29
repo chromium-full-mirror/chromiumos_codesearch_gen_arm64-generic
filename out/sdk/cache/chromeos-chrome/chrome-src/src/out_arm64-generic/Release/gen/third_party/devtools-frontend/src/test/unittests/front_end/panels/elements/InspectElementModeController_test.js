@@ -17,12 +17,12 @@ describeWithMockConnection('InspectElementModeController', () => {
     function onModeToggle(target) {
         const model = target.model(SDK.OverlayModel.OverlayModel);
         assertNotNullOrUndefined(model);
-        return model.once(SDK.OverlayModel.Events.InspectModeWillBeToggled);
+        return model.once("InspectModeWillBeToggled" /* SDK.OverlayModel.Events.InspectModeWillBeToggled */);
     }
     function failOnModeToggle(target) {
         const model = target.model(SDK.OverlayModel.OverlayModel);
         assertNotNullOrUndefined(model);
-        model.addEventListener(SDK.OverlayModel.Events.InspectModeWillBeToggled, () => assert.fail('Unexected mode toggle on out of scope target'));
+        model.addEventListener("InspectModeWillBeToggled" /* SDK.OverlayModel.Events.InspectModeWillBeToggled */, () => assert.fail('Unexected mode toggle on out of scope target'));
     }
     beforeEach(() => {
         stubNoopSettings();
@@ -53,11 +53,11 @@ describeWithMockConnection('InspectElementModeController', () => {
             assert.isTrue(expectToggle);
         })));
         outOfScopeTarget.model(SDK.OverlayModel.OverlayModel)
-            ?.dispatchEventToListeners(SDK.OverlayModel.Events.ExitedInspectMode);
+            ?.dispatchEventToListeners("InspectModeExited" /* SDK.OverlayModel.Events.ExitedInspectMode */);
         await new Promise(resolve => queueMicrotask(resolve));
         expectToggle = true;
         inScopeTarget.model(SDK.OverlayModel.OverlayModel)
-            ?.dispatchEventToListeners(SDK.OverlayModel.Events.ExitedInspectMode);
+            ?.dispatchEventToListeners("InspectModeExited" /* SDK.OverlayModel.Events.ExitedInspectMode */);
         await modeToggles;
     });
 });

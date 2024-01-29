@@ -1,5 +1,5 @@
 /* Checking macros for wchar functions.
-   Copyright (C) 2005-2022 Free Software Foundation, Inc.
+   Copyright (C) 2005-2023 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -20,9 +20,6 @@
 # error "Never include <bits/wchar2.h> directly; use <wchar.h> instead."
 #endif
 
-extern wchar_t *__wmemcpy_chk (wchar_t *__restrict __s1,
-			       const wchar_t *__restrict __s2, size_t __n,
-			       size_t __ns1) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wmemcpy_alias,
 				(wchar_t *__restrict __s1,
 				 const wchar_t *__restrict __s2, size_t __n),
@@ -44,8 +41,6 @@ __FORTIFY_PRECONDITIONS
 }
 __FORTIFY_FUNCTION_END
 
-extern wchar_t *__wmemmove_chk (wchar_t *__s1, const wchar_t *__s2,
-				size_t __n, size_t __ns1) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wmemmove_alias, (wchar_t *__s1,
 						   const wchar_t *__s2,
 						   size_t __n), wmemmove);
@@ -68,9 +63,6 @@ __FORTIFY_FUNCTION_END
 
 
 #ifdef __USE_GNU
-extern wchar_t *__wmempcpy_chk (wchar_t *__restrict __s1,
-				const wchar_t *__restrict __s2, size_t __n,
-				size_t __ns1) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wmempcpy_alias,
 				(wchar_t *__restrict __s1,
 				 const wchar_t *__restrict __s2,
@@ -94,8 +86,6 @@ __FORTIFY_FUNCTION_END
 #endif
 
 
-extern wchar_t *__wmemset_chk (wchar_t *__s, wchar_t __c, size_t __n,
-			       size_t __ns) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wmemset_alias, (wchar_t *__s, wchar_t __c,
 						  size_t __n), wmemset);
 
@@ -116,9 +106,6 @@ __FORTIFY_PRECONDITIONS
 __FORTIFY_FUNCTION_END
 
 
-extern wchar_t *__wcscpy_chk (wchar_t *__restrict __dest,
-			      const wchar_t *__restrict __src,
-			      size_t __n) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wcscpy_alias,
 				(wchar_t *__restrict __dest,
 				 const wchar_t *__restrict __src), wcscpy);
@@ -134,9 +121,6 @@ __NTH (wcscpy (wchar_t *__restrict const __clang_pass_object_size __dest,
 }
 
 
-extern wchar_t *__wcpcpy_chk (wchar_t *__restrict __dest,
-			      const wchar_t *__restrict __src,
-			      size_t __destlen) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wcpcpy_alias,
 				(wchar_t *__restrict __dest,
 				 const wchar_t *__restrict __src), wcpcpy);
@@ -152,9 +136,6 @@ __NTH (wcpcpy (wchar_t *__restrict const __clang_pass_object_size __dest,
 }
 
 
-extern wchar_t *__wcsncpy_chk (wchar_t *__restrict __dest,
-			       const wchar_t *__restrict __src, size_t __n,
-			       size_t __destlen) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wcsncpy_alias,
 				(wchar_t *__restrict __dest,
 				 const wchar_t *__restrict __src,
@@ -177,9 +158,6 @@ __FORTIFY_PRECONDITIONS
 __FORTIFY_FUNCTION_END
 
 
-extern wchar_t *__wcpncpy_chk (wchar_t *__restrict __dest,
-			       const wchar_t *__restrict __src, size_t __n,
-			       size_t __destlen) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wcpncpy_alias,
 				(wchar_t *__restrict __dest,
 				 const wchar_t *__restrict __src,
@@ -201,9 +179,6 @@ __FORTIFY_PRECONDITIONS
 }
 __FORTIFY_FUNCTION_END
 
-extern wchar_t *__wcscat_chk (wchar_t *__restrict __dest,
-			      const wchar_t *__restrict __src,
-			      size_t __destlen) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wcscat_alias,
 				(wchar_t *__restrict __dest,
 				 const wchar_t *__restrict __src), wcscat);
@@ -219,9 +194,6 @@ __NTH (wcscat (wchar_t *__restrict const __clang_pass_object_size __dest,
 }
 
 
-extern wchar_t *__wcsncat_chk (wchar_t *__restrict __dest,
-			       const wchar_t *__restrict __src,
-			       size_t __n, size_t __destlen) __THROW;
 extern wchar_t *__REDIRECT_NTH (__wcsncat_alias,
 				(wchar_t *__restrict __dest,
 				 const wchar_t *__restrict __src,
@@ -238,21 +210,11 @@ __NTH (wcsncat (wchar_t *__restrict const __clang_pass_object_size __dest,
 }
 
 
-extern int __swprintf_chk (wchar_t *__restrict __s, size_t __n,
-			   int __flag, size_t __s_len,
-			   const wchar_t *__restrict __format, ...)
-     __THROW /* __attribute__ ((__format__ (__wprintf__, 5, 6))) */;
 
 extern int __REDIRECT_NTH_LDBL (__swprintf_alias,
 				(wchar_t *__restrict __s, size_t __n,
 				 const wchar_t *__restrict __fmt, ...),
 				swprintf);
-
-extern int __vswprintf_chk (wchar_t *__restrict __s, size_t __n,
-			    int __flag, size_t __s_len,
-			    const wchar_t *__restrict __format,
-			    __gnuc_va_list __arg)
-     __THROW /* __attribute__ ((__format__ (__wprintf__, 5, 0))) */;
 
 extern int __REDIRECT_NTH_LDBL (__vswprintf_alias,
 				(wchar_t *__restrict __s, size_t __n,
@@ -301,17 +263,6 @@ __NTH (vswprintf (wchar_t *__restrict const __clang_pass_object_size __s,
 
 #if __USE_FORTIFY_LEVEL > 1
 
-extern int __fwprintf_chk (__FILE *__restrict __stream, int __flag,
-			   const wchar_t *__restrict __format, ...);
-extern int __wprintf_chk (int __flag, const wchar_t *__restrict __format,
-			  ...);
-extern int __vfwprintf_chk (__FILE *__restrict __stream, int __flag,
-			    const wchar_t *__restrict __format,
-			    __gnuc_va_list __ap);
-extern int __vwprintf_chk (int __flag, const wchar_t *__restrict __format,
-			   __gnuc_va_list __ap);
-
-
 #ifdef __FORTIFY_ARG_PACK_OK
 __fortify_potential_overload int
 wprintf (const wchar_t *__restrict const __clang_pass_object_size __fmt, ...)
@@ -356,8 +307,6 @@ vfwprintf (__FILE *__restrict const __clang_pass_object_size __stream,
 
 #endif
 
-extern wchar_t *__fgetws_chk (wchar_t *__restrict __s, size_t __size, int __n,
-			      __FILE *__restrict __stream) __wur;
 extern wchar_t *__REDIRECT (__fgetws_alias,
 			    (wchar_t *__restrict __s, int __n,
 			     __FILE *__restrict __stream), fgetws) __wur;
@@ -379,9 +328,6 @@ __FORTIFY_PRECONDITIONS
 __FORTIFY_FUNCTION_END
 
 #ifdef __USE_GNU
-extern wchar_t *__fgetws_unlocked_chk (wchar_t *__restrict __s, size_t __size,
-				       int __n, __FILE *__restrict __stream)
-  __wur;
 extern wchar_t *__REDIRECT (__fgetws_unlocked_alias,
 			    (wchar_t *__restrict __s, int __n,
 			     __FILE *__restrict __stream), fgetws_unlocked)
@@ -407,9 +353,6 @@ __FORTIFY_FUNCTION_END
 #endif
 
 
-extern size_t __wcrtomb_chk (char *__restrict __s, wchar_t __wchar,
-			     mbstate_t *__restrict __p,
-			     size_t __buflen) __THROW __wur;
 extern size_t __REDIRECT_NTH (__wcrtomb_alias,
 			      (char *__restrict __s, wchar_t __wchar,
 			       mbstate_t *__restrict __ps), wcrtomb) __wur;
@@ -432,10 +375,6 @@ __NTH (wcrtomb (char *__restrict const __clang_pass_object_size __s,
 }
 
 
-extern size_t __mbsrtowcs_chk (wchar_t *__restrict __dst,
-			       const char **__restrict __src,
-			       size_t __len, mbstate_t *__restrict __ps,
-			       size_t __dstlen) __THROW;
 extern size_t __REDIRECT_NTH (__mbsrtowcs_alias,
 			      (wchar_t *__restrict __dst,
 			       const char **__restrict __src,
@@ -460,10 +399,6 @@ __FORTIFY_PRECONDITIONS
 __FORTIFY_FUNCTION_END
 
 
-extern size_t __wcsrtombs_chk (char *__restrict __dst,
-			       const wchar_t **__restrict __src,
-			       size_t __len, mbstate_t *__restrict __ps,
-			       size_t __dstlen) __THROW;
 extern size_t __REDIRECT_NTH (__wcsrtombs_alias,
 			      (char *__restrict __dst,
 			       const wchar_t **__restrict __src,
@@ -487,10 +422,6 @@ __FORTIFY_FUNCTION_END
 
 
 #ifdef	__USE_XOPEN2K8
-extern size_t __mbsnrtowcs_chk (wchar_t *__restrict __dst,
-				const char **__restrict __src, size_t __nmc,
-				size_t __len, mbstate_t *__restrict __ps,
-				size_t __dstlen) __THROW;
 extern size_t __REDIRECT_NTH (__mbsnrtowcs_alias,
 			      (wchar_t *__restrict __dst,
 			       const char **__restrict __src, size_t __nmc,
@@ -515,11 +446,6 @@ __FORTIFY_PRECONDITIONS
 __FORTIFY_FUNCTION_END
 
 
-extern size_t __wcsnrtombs_chk (char *__restrict __dst,
-				const wchar_t **__restrict __src,
-				size_t __nwc, size_t __len,
-				mbstate_t *__restrict __ps, size_t __dstlen)
-     __THROW;
 extern size_t __REDIRECT_NTH (__wcsnrtombs_alias,
 			      (char *__restrict __dst,
 			       const wchar_t **__restrict __src,

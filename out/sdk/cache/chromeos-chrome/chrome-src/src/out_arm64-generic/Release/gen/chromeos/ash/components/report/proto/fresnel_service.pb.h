@@ -662,10 +662,48 @@ class ChurnObservationMetadata final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kFirstActiveWeekFieldNumber = 4,
+    kLastPowerwashWeekFieldNumber = 5,
     kMonthlyActiveStatusFieldNumber = 1,
     kYearlyActiveStatusFieldNumber = 2,
     kFirstActiveDuringCohortFieldNumber = 3,
   };
+  // optional string first_active_week = 4;
+  bool has_first_active_week() const;
+  private:
+  bool _internal_has_first_active_week() const;
+  public:
+  void clear_first_active_week();
+  const std::string& first_active_week() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_first_active_week(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_first_active_week();
+  PROTOBUF_NODISCARD std::string* release_first_active_week();
+  void set_allocated_first_active_week(std::string* first_active_week);
+  private:
+  const std::string& _internal_first_active_week() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_first_active_week(const std::string& value);
+  std::string* _internal_mutable_first_active_week();
+  public:
+
+  // optional string last_powerwash_week = 5;
+  bool has_last_powerwash_week() const;
+  private:
+  bool _internal_has_last_powerwash_week() const;
+  public:
+  void clear_last_powerwash_week();
+  const std::string& last_powerwash_week() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_last_powerwash_week(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_last_powerwash_week();
+  PROTOBUF_NODISCARD std::string* release_last_powerwash_week();
+  void set_allocated_last_powerwash_week(std::string* last_powerwash_week);
+  private:
+  const std::string& _internal_last_powerwash_week() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_last_powerwash_week(const std::string& value);
+  std::string* _internal_mutable_last_powerwash_week();
+  public:
+
   // optional bool monthly_active_status = 1;
   bool has_monthly_active_status() const;
   private:
@@ -714,6 +752,8 @@ class ChurnObservationMetadata final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr first_active_week_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_powerwash_week_;
   bool monthly_active_status_;
   bool yearly_active_status_;
   int first_active_during_cohort_;
@@ -2112,7 +2152,7 @@ inline void ChurnCohortMetadata::set_is_first_active_in_cohort(bool value) {
 
 // optional bool monthly_active_status = 1;
 inline bool ChurnObservationMetadata::_internal_has_monthly_active_status() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool ChurnObservationMetadata::has_monthly_active_status() const {
@@ -2120,7 +2160,7 @@ inline bool ChurnObservationMetadata::has_monthly_active_status() const {
 }
 inline void ChurnObservationMetadata::clear_monthly_active_status() {
   monthly_active_status_ = false;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline bool ChurnObservationMetadata::_internal_monthly_active_status() const {
   return monthly_active_status_;
@@ -2130,7 +2170,7 @@ inline bool ChurnObservationMetadata::monthly_active_status() const {
   return _internal_monthly_active_status();
 }
 inline void ChurnObservationMetadata::_internal_set_monthly_active_status(bool value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000004u;
   monthly_active_status_ = value;
 }
 inline void ChurnObservationMetadata::set_monthly_active_status(bool value) {
@@ -2140,7 +2180,7 @@ inline void ChurnObservationMetadata::set_monthly_active_status(bool value) {
 
 // optional bool yearly_active_status = 2;
 inline bool ChurnObservationMetadata::_internal_has_yearly_active_status() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool ChurnObservationMetadata::has_yearly_active_status() const {
@@ -2148,7 +2188,7 @@ inline bool ChurnObservationMetadata::has_yearly_active_status() const {
 }
 inline void ChurnObservationMetadata::clear_yearly_active_status() {
   yearly_active_status_ = false;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline bool ChurnObservationMetadata::_internal_yearly_active_status() const {
   return yearly_active_status_;
@@ -2158,7 +2198,7 @@ inline bool ChurnObservationMetadata::yearly_active_status() const {
   return _internal_yearly_active_status();
 }
 inline void ChurnObservationMetadata::_internal_set_yearly_active_status(bool value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000008u;
   yearly_active_status_ = value;
 }
 inline void ChurnObservationMetadata::set_yearly_active_status(bool value) {
@@ -2168,7 +2208,7 @@ inline void ChurnObservationMetadata::set_yearly_active_status(bool value) {
 
 // optional .ash.report.ChurnObservationMetadata.FirstActiveDuringCohort first_active_during_cohort = 3;
 inline bool ChurnObservationMetadata::_internal_has_first_active_during_cohort() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool ChurnObservationMetadata::has_first_active_during_cohort() const {
@@ -2176,7 +2216,7 @@ inline bool ChurnObservationMetadata::has_first_active_during_cohort() const {
 }
 inline void ChurnObservationMetadata::clear_first_active_during_cohort() {
   first_active_during_cohort_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::ash::report::ChurnObservationMetadata_FirstActiveDuringCohort ChurnObservationMetadata::_internal_first_active_during_cohort() const {
   return static_cast< ::ash::report::ChurnObservationMetadata_FirstActiveDuringCohort >(first_active_during_cohort_);
@@ -2187,12 +2227,148 @@ inline ::ash::report::ChurnObservationMetadata_FirstActiveDuringCohort ChurnObse
 }
 inline void ChurnObservationMetadata::_internal_set_first_active_during_cohort(::ash::report::ChurnObservationMetadata_FirstActiveDuringCohort value) {
   assert(::ash::report::ChurnObservationMetadata_FirstActiveDuringCohort_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000010u;
   first_active_during_cohort_ = value;
 }
 inline void ChurnObservationMetadata::set_first_active_during_cohort(::ash::report::ChurnObservationMetadata_FirstActiveDuringCohort value) {
   _internal_set_first_active_during_cohort(value);
   // @@protoc_insertion_point(field_set:ash.report.ChurnObservationMetadata.first_active_during_cohort)
+}
+
+// optional string first_active_week = 4;
+inline bool ChurnObservationMetadata::_internal_has_first_active_week() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ChurnObservationMetadata::has_first_active_week() const {
+  return _internal_has_first_active_week();
+}
+inline void ChurnObservationMetadata::clear_first_active_week() {
+  first_active_week_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& ChurnObservationMetadata::first_active_week() const {
+  // @@protoc_insertion_point(field_get:ash.report.ChurnObservationMetadata.first_active_week)
+  return _internal_first_active_week();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ChurnObservationMetadata::set_first_active_week(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ first_active_week_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ash.report.ChurnObservationMetadata.first_active_week)
+}
+inline std::string* ChurnObservationMetadata::mutable_first_active_week() {
+  std::string* _s = _internal_mutable_first_active_week();
+  // @@protoc_insertion_point(field_mutable:ash.report.ChurnObservationMetadata.first_active_week)
+  return _s;
+}
+inline const std::string& ChurnObservationMetadata::_internal_first_active_week() const {
+  return first_active_week_.Get();
+}
+inline void ChurnObservationMetadata::_internal_set_first_active_week(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  first_active_week_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ChurnObservationMetadata::_internal_mutable_first_active_week() {
+  _has_bits_[0] |= 0x00000001u;
+  return first_active_week_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ChurnObservationMetadata::release_first_active_week() {
+  // @@protoc_insertion_point(field_release:ash.report.ChurnObservationMetadata.first_active_week)
+  if (!_internal_has_first_active_week()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = first_active_week_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (first_active_week_.IsDefault()) {
+    first_active_week_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void ChurnObservationMetadata::set_allocated_first_active_week(std::string* first_active_week) {
+  if (first_active_week != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  first_active_week_.SetAllocated(first_active_week, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (first_active_week_.IsDefault()) {
+    first_active_week_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ash.report.ChurnObservationMetadata.first_active_week)
+}
+
+// optional string last_powerwash_week = 5;
+inline bool ChurnObservationMetadata::_internal_has_last_powerwash_week() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ChurnObservationMetadata::has_last_powerwash_week() const {
+  return _internal_has_last_powerwash_week();
+}
+inline void ChurnObservationMetadata::clear_last_powerwash_week() {
+  last_powerwash_week_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& ChurnObservationMetadata::last_powerwash_week() const {
+  // @@protoc_insertion_point(field_get:ash.report.ChurnObservationMetadata.last_powerwash_week)
+  return _internal_last_powerwash_week();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ChurnObservationMetadata::set_last_powerwash_week(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ last_powerwash_week_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ash.report.ChurnObservationMetadata.last_powerwash_week)
+}
+inline std::string* ChurnObservationMetadata::mutable_last_powerwash_week() {
+  std::string* _s = _internal_mutable_last_powerwash_week();
+  // @@protoc_insertion_point(field_mutable:ash.report.ChurnObservationMetadata.last_powerwash_week)
+  return _s;
+}
+inline const std::string& ChurnObservationMetadata::_internal_last_powerwash_week() const {
+  return last_powerwash_week_.Get();
+}
+inline void ChurnObservationMetadata::_internal_set_last_powerwash_week(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  last_powerwash_week_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ChurnObservationMetadata::_internal_mutable_last_powerwash_week() {
+  _has_bits_[0] |= 0x00000002u;
+  return last_powerwash_week_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ChurnObservationMetadata::release_last_powerwash_week() {
+  // @@protoc_insertion_point(field_release:ash.report.ChurnObservationMetadata.last_powerwash_week)
+  if (!_internal_has_last_powerwash_week()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = last_powerwash_week_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (last_powerwash_week_.IsDefault()) {
+    last_powerwash_week_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void ChurnObservationMetadata::set_allocated_last_powerwash_week(std::string* last_powerwash_week) {
+  if (last_powerwash_week != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  last_powerwash_week_.SetAllocated(last_powerwash_week, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (last_powerwash_week_.IsDefault()) {
+    last_powerwash_week_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ash.report.ChurnObservationMetadata.last_powerwash_week)
 }
 
 // -------------------------------------------------------------------

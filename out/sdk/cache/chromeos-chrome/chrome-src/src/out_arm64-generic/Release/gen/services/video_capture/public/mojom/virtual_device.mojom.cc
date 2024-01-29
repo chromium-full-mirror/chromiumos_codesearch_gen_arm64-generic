@@ -318,6 +318,8 @@ bool SharedMemoryVirtualDevice_RequestFrameBuffer_ForwardToCallback::Accept(
           internal::SharedMemoryVirtualDevice_RequestFrameBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SharedMemoryVirtualDevice.0
   bool success = true;
   int32_t p_buffer_id{};
   SharedMemoryVirtualDevice_RequestFrameBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -395,6 +397,8 @@ bool SharedMemoryVirtualDeviceStubDispatch::Accept(
           reinterpret_cast<internal::SharedMemoryVirtualDevice_OnFrameReadyInBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SharedMemoryVirtualDevice.1
       bool success = true;
       int32_t p_buffer_id{};
       ::media::mojom::VideoFrameInfoPtr p_frame_info{};
@@ -413,9 +417,9 @@ bool SharedMemoryVirtualDeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameReadyInBuffer(
-std::move(p_buffer_id), 
-std::move(p_frame_info));
+      impl->OnFrameReadyInBuffer(        
+        std::move(p_buffer_id), 
+        std::move(p_frame_info));
       return true;
     }
   }
@@ -438,6 +442,8 @@ bool SharedMemoryVirtualDeviceStubDispatch::AcceptWithResponder(
               internal::SharedMemoryVirtualDevice_RequestFrameBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SharedMemoryVirtualDevice.0
       bool success = true;
       ::gfx::Size p_dimension{};
       ::media::VideoPixelFormat p_pixel_format{};
@@ -462,10 +468,10 @@ bool SharedMemoryVirtualDeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestFrameBuffer(
-std::move(p_dimension), 
-std::move(p_pixel_format), 
-std::move(p_strides), std::move(callback));
+      impl->RequestFrameBuffer(        
+        std::move(p_dimension), 
+        std::move(p_pixel_format), 
+        std::move(p_strides), std::move(callback));
       return true;
     }
     case internal::kSharedMemoryVirtualDevice_OnFrameReadyInBuffer_Name: {
@@ -820,6 +826,8 @@ bool TextureVirtualDeviceStubDispatch::Accept(
           reinterpret_cast<internal::TextureVirtualDevice_OnNewMailboxHolderBufferHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextureVirtualDevice.0
       bool success = true;
       int32_t p_buffer_id{};
       ::media::mojom::MailboxBufferHandleSetPtr p_mailbox_handles{};
@@ -838,9 +846,9 @@ bool TextureVirtualDeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewMailboxHolderBufferHandle(
-std::move(p_buffer_id), 
-std::move(p_mailbox_handles));
+      impl->OnNewMailboxHolderBufferHandle(        
+        std::move(p_buffer_id), 
+        std::move(p_mailbox_handles));
       return true;
     }
     case internal::kTextureVirtualDevice_OnFrameAccessHandlerReady_Name: {
@@ -850,6 +858,8 @@ std::move(p_mailbox_handles));
           reinterpret_cast<internal::TextureVirtualDevice_OnFrameAccessHandlerReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextureVirtualDevice.1
       bool success = true;
       ::mojo::PendingRemote<::video_capture::mojom::VideoFrameAccessHandler> p_frame_access_handler{};
       TextureVirtualDevice_OnFrameAccessHandlerReady_ParamsDataView input_data_view(params, message);
@@ -867,8 +877,8 @@ std::move(p_mailbox_handles));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameAccessHandlerReady(
-std::move(p_frame_access_handler));
+      impl->OnFrameAccessHandlerReady(        
+        std::move(p_frame_access_handler));
       return true;
     }
     case internal::kTextureVirtualDevice_OnFrameReadyInBuffer_Name: {
@@ -878,6 +888,8 @@ std::move(p_frame_access_handler));
           reinterpret_cast<internal::TextureVirtualDevice_OnFrameReadyInBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextureVirtualDevice.2
       bool success = true;
       int32_t p_buffer_id{};
       ::media::mojom::VideoFrameInfoPtr p_frame_info{};
@@ -896,9 +908,9 @@ std::move(p_frame_access_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameReadyInBuffer(
-std::move(p_buffer_id), 
-std::move(p_frame_info));
+      impl->OnFrameReadyInBuffer(        
+        std::move(p_buffer_id), 
+        std::move(p_frame_info));
       return true;
     }
     case internal::kTextureVirtualDevice_OnBufferRetired_Name: {
@@ -908,6 +920,8 @@ std::move(p_frame_info));
           reinterpret_cast<internal::TextureVirtualDevice_OnBufferRetired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for TextureVirtualDevice.3
       bool success = true;
       int32_t p_buffer_id{};
       TextureVirtualDevice_OnBufferRetired_ParamsDataView input_data_view(params, message);
@@ -923,8 +937,8 @@ std::move(p_frame_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferRetired(
-std::move(p_buffer_id));
+      impl->OnBufferRetired(        
+        std::move(p_buffer_id));
       return true;
     }
   }
@@ -1301,6 +1315,8 @@ bool GpuMemoryBufferVirtualDeviceStubDispatch::Accept(
           reinterpret_cast<internal::GpuMemoryBufferVirtualDevice_OnNewGpuMemoryBufferHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferVirtualDevice.0
       bool success = true;
       int32_t p_buffer_id{};
       ::gfx::GpuMemoryBufferHandle p_gmb_handle{};
@@ -1319,9 +1335,9 @@ bool GpuMemoryBufferVirtualDeviceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewGpuMemoryBufferHandle(
-std::move(p_buffer_id), 
-std::move(p_gmb_handle));
+      impl->OnNewGpuMemoryBufferHandle(        
+        std::move(p_buffer_id), 
+        std::move(p_gmb_handle));
       return true;
     }
     case internal::kGpuMemoryBufferVirtualDevice_OnFrameAccessHandlerReady_Name: {
@@ -1331,6 +1347,8 @@ std::move(p_gmb_handle));
           reinterpret_cast<internal::GpuMemoryBufferVirtualDevice_OnFrameAccessHandlerReady_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferVirtualDevice.1
       bool success = true;
       ::mojo::PendingRemote<::video_capture::mojom::VideoFrameAccessHandler> p_frame_access_handler{};
       GpuMemoryBufferVirtualDevice_OnFrameAccessHandlerReady_ParamsDataView input_data_view(params, message);
@@ -1348,8 +1366,8 @@ std::move(p_gmb_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameAccessHandlerReady(
-std::move(p_frame_access_handler));
+      impl->OnFrameAccessHandlerReady(        
+        std::move(p_frame_access_handler));
       return true;
     }
     case internal::kGpuMemoryBufferVirtualDevice_OnFrameReadyInBuffer_Name: {
@@ -1359,6 +1377,8 @@ std::move(p_frame_access_handler));
           reinterpret_cast<internal::GpuMemoryBufferVirtualDevice_OnFrameReadyInBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferVirtualDevice.2
       bool success = true;
       int32_t p_buffer_id{};
       ::media::mojom::VideoFrameInfoPtr p_frame_info{};
@@ -1377,9 +1397,9 @@ std::move(p_frame_access_handler));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameReadyInBuffer(
-std::move(p_buffer_id), 
-std::move(p_frame_info));
+      impl->OnFrameReadyInBuffer(        
+        std::move(p_buffer_id), 
+        std::move(p_frame_info));
       return true;
     }
     case internal::kGpuMemoryBufferVirtualDevice_OnBufferRetired_Name: {
@@ -1389,6 +1409,8 @@ std::move(p_frame_info));
           reinterpret_cast<internal::GpuMemoryBufferVirtualDevice_OnBufferRetired_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuMemoryBufferVirtualDevice.3
       bool success = true;
       int32_t p_buffer_id{};
       GpuMemoryBufferVirtualDevice_OnBufferRetired_ParamsDataView input_data_view(params, message);
@@ -1404,8 +1426,8 @@ std::move(p_frame_info));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferRetired(
-std::move(p_buffer_id));
+      impl->OnBufferRetired(        
+        std::move(p_buffer_id));
       return true;
     }
   }

@@ -1,7 +1,6 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// clang-format off
 import { ChooserType, ContentSetting, ContentSettingProvider, ContentSettingsTypes, SiteSettingSource } from 'chrome://settings/lazy_load.js';
 import { Router } from 'chrome://settings/settings.js';
 import { assertEquals } from 'chrome://webui-test/chai_assert.js';
@@ -87,6 +86,7 @@ export function createSiteSettingsPrefs(defaultsList, exceptionsList, chooserExc
     defaults[ContentSettingsTypes.COOKIES].setting = ContentSetting.ALLOW;
     defaults[ContentSettingsTypes.IMAGES].setting = ContentSetting.ALLOW;
     defaults[ContentSettingsTypes.JAVASCRIPT].setting = ContentSetting.ALLOW;
+    defaults[ContentSettingsTypes.JAVASCRIPT_JIT].setting = ContentSetting.ALLOW;
     defaults[ContentSettingsTypes.SOUND].setting = ContentSetting.ALLOW;
     defaults[ContentSettingsTypes.POPUPS].setting = ContentSetting.BLOCK;
     defaults[ContentSettingsTypes.PROTOCOL_HANDLERS].setting =

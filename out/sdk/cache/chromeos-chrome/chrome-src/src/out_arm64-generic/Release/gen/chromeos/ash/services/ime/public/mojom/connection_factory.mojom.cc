@@ -337,6 +337,8 @@ bool ConnectionFactory_ConnectToInputMethod_ForwardToCallback::Accept(
           internal::ConnectionFactory_ConnectToInputMethod_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ConnectionFactory.0
   bool success = true;
   bool p_success{};
   ConnectionFactory_ConnectToInputMethod_ResponseParamsDataView input_data_view(params, message);
@@ -456,6 +458,8 @@ bool ConnectionFactory_ConnectToJapaneseDecoder_ForwardToCallback::Accept(
           internal::ConnectionFactory_ConnectToJapaneseDecoder_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ConnectionFactory.1
   bool success = true;
   bool p_success{};
   ConnectionFactory_ConnectToJapaneseDecoder_ResponseParamsDataView input_data_view(params, message);
@@ -549,6 +553,8 @@ bool ConnectionFactoryStubDispatch::AcceptWithResponder(
               internal::ConnectionFactory_ConnectToInputMethod_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ConnectionFactory.0
       bool success = true;
       std::string p_ime_spec{};
       ::mojo::PendingAssociatedReceiver<::ash::ime::mojom::InputMethod> p_input_method{};
@@ -580,11 +586,11 @@ bool ConnectionFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToInputMethod(
-std::move(p_ime_spec), 
-std::move(p_input_method), 
-std::move(p_input_method_host), 
-std::move(p_settings), std::move(callback));
+      impl->ConnectToInputMethod(        
+        std::move(p_ime_spec), 
+        std::move(p_input_method), 
+        std::move(p_input_method_host), 
+        std::move(p_settings), std::move(callback));
       return true;
     }
     case internal::kConnectionFactory_ConnectToJapaneseDecoder_Name: {
@@ -594,6 +600,8 @@ std::move(p_settings), std::move(callback));
               internal::ConnectionFactory_ConnectToJapaneseDecoder_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ConnectionFactory.1
       bool success = true;
       ::mojo::PendingAssociatedReceiver<::ash::ime::mojom::JapaneseDecoder> p_japanese_decoder{};
       ConnectionFactory_ConnectToJapaneseDecoder_ParamsDataView input_data_view(params, message);
@@ -614,8 +622,8 @@ std::move(p_settings), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToJapaneseDecoder(
-std::move(p_japanese_decoder), std::move(callback));
+      impl->ConnectToJapaneseDecoder(        
+        std::move(p_japanese_decoder), std::move(callback));
       return true;
     }
   }

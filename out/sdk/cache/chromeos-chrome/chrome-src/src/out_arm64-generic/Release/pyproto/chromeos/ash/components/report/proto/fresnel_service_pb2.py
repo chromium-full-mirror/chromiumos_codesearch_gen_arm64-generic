@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 import private_membership_rlwe_pb2 as private__membership__rlwe__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n:chromeos/ash/components/report/proto/fresnel_service.proto\x12\nash.report\x1a\x1dprivate_membership_rlwe.proto\"\xb7\x01\n\x0e\x44\x65viceMetadata\x12\x13\n\x0bhardware_id\x18\x01 \x01(\t\x12\x18\n\x10\x63hromeos_version\x18\x02 \x01(\t\x12\x14\n\x0c\x63ountry_code\x18\x03 \x01(\t\x12\x31\n\x0emarket_segment\x18\x04 \x01(\x0e\x32\x19.ash.report.MarketSegment\x12-\n\x10\x63hromeos_channel\x18\x05 \x01(\x0e\x32\x13.ash.report.Channel\"U\n\x13\x43hurnCohortMetadata\x12\x1b\n\x13\x61\x63tive_status_value\x18\x01 \x01(\x05\x12!\n\x19is_first_active_in_cohort\x18\x02 \x01(\x08\"\xba\x02\n\x18\x43hurnObservationMetadata\x12\x1d\n\x15monthly_active_status\x18\x01 \x01(\x08\x12\x1c\n\x14yearly_active_status\x18\x02 \x01(\x08\x12`\n\x1a\x66irst_active_during_cohort\x18\x03 \x01(\x0e\x32<.ash.report.ChurnObservationMetadata.FirstActiveDuringCohort\"\x7f\n\x17\x46irstActiveDuringCohort\x12\x1d\n\x19\x45XISTED_OR_NOT_ACTIVE_YET\x10\x00\x12\"\n\x1e\x46IRST_ACTIVE_IN_MONTHLY_COHORT\x10\x01\x12!\n\x1d\x46IRST_ACTIVE_IN_YEARLY_COHORT\x10\x02\"\xfe\x01\n\x11\x46resnelImportData\x12\x19\n\x11window_identifier\x18\x01 \x01(\t\x12\x14\n\x0cplaintext_id\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\x0c\x12\x1f\n\x17is_pt_window_identifier\x18\x04 \x01(\x08\x12>\n\x15\x63hurn_cohort_metadata\x18\x05 \x01(\x0b\x32\x1f.ash.report.ChurnCohortMetadata\x12H\n\x1a\x63hurn_observation_metadata\x18\x06 \x01(\x0b\x32$.ash.report.ChurnObservationMetadata\"\x8f\x02\n\x18\x46resnelImportDataRequest\x12\x1d\n\x11window_identifier\x18\x01 \x01(\tB\x02\x18\x01\x12\x33\n\x0f\x64\x65vice_metadata\x18\x02 \x01(\x0b\x32\x1a.ash.report.DeviceMetadata\x12\x36\n\x08use_case\x18\x03 \x01(\x0e\x32$.private_membership.rlwe.RlweUseCase\x12 \n\x14plaintext_identifier\x18\x04 \x01(\tB\x02\x18\x01\x12\x11\n\x05value\x18\x05 \x01(\x0c\x42\x02\x18\x01\x12\x32\n\x0bimport_data\x18\x06 \x03(\x0b\x32\x1d.ash.report.FresnelImportData\"q\n\x19\x46resnelPsmRlweOprfRequest\x12T\n\x11rlwe_oprf_request\x18\x01 \x01(\x0b\x32\x39.private_membership.rlwe.PrivateMembershipRlweOprfRequest\"t\n\x1a\x46resnelPsmRlweOprfResponse\x12V\n\x12rlwe_oprf_response\x18\x01 \x01(\x0b\x32:.private_membership.rlwe.PrivateMembershipRlweOprfResponse\"t\n\x1a\x46resnelPsmRlweQueryRequest\x12V\n\x12rlwe_query_request\x18\x01 \x01(\x0b\x32:.private_membership.rlwe.PrivateMembershipRlweQueryRequest\"w\n\x1b\x46resnelPsmRlweQueryResponse\x12X\n\x13rlwe_query_response\x18\x01 \x01(\x0b\x32;.private_membership.rlwe.PrivateMembershipRlweQueryResponse*i\n\x07\x43hannel\x12\x13\n\x0f\x43HANNEL_UNKNOWN\x10\x00\x12\x12\n\x0e\x43HANNEL_CANARY\x10\x01\x12\x0f\n\x0b\x43HANNEL_DEV\x10\x02\x12\x10\n\x0c\x43HANNEL_BETA\x10\x03\x12\x12\n\x0e\x43HANNEL_STABLE\x10\x04*\xfd\x01\n\rMarketSegment\x12\x1e\n\x1aMARKET_SEGMENT_UNSPECIFIED\x10\x00\x12\x1a\n\x16MARKET_SEGMENT_UNKNOWN\x10\x01\x12\x1b\n\x17MARKET_SEGMENT_CONSUMER\x10\x02\x12\x32\n.MARKET_SEGMENT_ENTERPRISE_ENROLLED_BUT_UNKNOWN\x10\x03\x12\x1d\n\x19MARKET_SEGMENT_ENTERPRISE\x10\x04\x12\x1c\n\x18MARKET_SEGMENT_EDUCATION\x10\x05\x12\"\n\x1eMARKET_SEGMENT_ENTERPRISE_DEMO\x10\x06\x42\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n:chromeos/ash/components/report/proto/fresnel_service.proto\x12\nash.report\x1a\x1dprivate_membership_rlwe.proto\"\xb7\x01\n\x0e\x44\x65viceMetadata\x12\x13\n\x0bhardware_id\x18\x01 \x01(\t\x12\x18\n\x10\x63hromeos_version\x18\x02 \x01(\t\x12\x14\n\x0c\x63ountry_code\x18\x03 \x01(\t\x12\x31\n\x0emarket_segment\x18\x04 \x01(\x0e\x32\x19.ash.report.MarketSegment\x12-\n\x10\x63hromeos_channel\x18\x05 \x01(\x0e\x32\x13.ash.report.Channel\"U\n\x13\x43hurnCohortMetadata\x12\x1b\n\x13\x61\x63tive_status_value\x18\x01 \x01(\x05\x12!\n\x19is_first_active_in_cohort\x18\x02 \x01(\x08\"\xf2\x02\n\x18\x43hurnObservationMetadata\x12\x1d\n\x15monthly_active_status\x18\x01 \x01(\x08\x12\x1c\n\x14yearly_active_status\x18\x02 \x01(\x08\x12`\n\x1a\x66irst_active_during_cohort\x18\x03 \x01(\x0e\x32<.ash.report.ChurnObservationMetadata.FirstActiveDuringCohort\x12\x19\n\x11\x66irst_active_week\x18\x04 \x01(\t\x12\x1b\n\x13last_powerwash_week\x18\x05 \x01(\t\"\x7f\n\x17\x46irstActiveDuringCohort\x12\x1d\n\x19\x45XISTED_OR_NOT_ACTIVE_YET\x10\x00\x12\"\n\x1e\x46IRST_ACTIVE_IN_MONTHLY_COHORT\x10\x01\x12!\n\x1d\x46IRST_ACTIVE_IN_YEARLY_COHORT\x10\x02\"\xfe\x01\n\x11\x46resnelImportData\x12\x19\n\x11window_identifier\x18\x01 \x01(\t\x12\x14\n\x0cplaintext_id\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\x0c\x12\x1f\n\x17is_pt_window_identifier\x18\x04 \x01(\x08\x12>\n\x15\x63hurn_cohort_metadata\x18\x05 \x01(\x0b\x32\x1f.ash.report.ChurnCohortMetadata\x12H\n\x1a\x63hurn_observation_metadata\x18\x06 \x01(\x0b\x32$.ash.report.ChurnObservationMetadata\"\x8f\x02\n\x18\x46resnelImportDataRequest\x12\x1d\n\x11window_identifier\x18\x01 \x01(\tB\x02\x18\x01\x12\x33\n\x0f\x64\x65vice_metadata\x18\x02 \x01(\x0b\x32\x1a.ash.report.DeviceMetadata\x12\x36\n\x08use_case\x18\x03 \x01(\x0e\x32$.private_membership.rlwe.RlweUseCase\x12 \n\x14plaintext_identifier\x18\x04 \x01(\tB\x02\x18\x01\x12\x11\n\x05value\x18\x05 \x01(\x0c\x42\x02\x18\x01\x12\x32\n\x0bimport_data\x18\x06 \x03(\x0b\x32\x1d.ash.report.FresnelImportData\"q\n\x19\x46resnelPsmRlweOprfRequest\x12T\n\x11rlwe_oprf_request\x18\x01 \x01(\x0b\x32\x39.private_membership.rlwe.PrivateMembershipRlweOprfRequest\"t\n\x1a\x46resnelPsmRlweOprfResponse\x12V\n\x12rlwe_oprf_response\x18\x01 \x01(\x0b\x32:.private_membership.rlwe.PrivateMembershipRlweOprfResponse\"t\n\x1a\x46resnelPsmRlweQueryRequest\x12V\n\x12rlwe_query_request\x18\x01 \x01(\x0b\x32:.private_membership.rlwe.PrivateMembershipRlweQueryRequest\"w\n\x1b\x46resnelPsmRlweQueryResponse\x12X\n\x13rlwe_query_response\x18\x01 \x01(\x0b\x32;.private_membership.rlwe.PrivateMembershipRlweQueryResponse*i\n\x07\x43hannel\x12\x13\n\x0f\x43HANNEL_UNKNOWN\x10\x00\x12\x12\n\x0e\x43HANNEL_CANARY\x10\x01\x12\x0f\n\x0b\x43HANNEL_DEV\x10\x02\x12\x10\n\x0c\x43HANNEL_BETA\x10\x03\x12\x12\n\x0e\x43HANNEL_STABLE\x10\x04*\xfd\x01\n\rMarketSegment\x12\x1e\n\x1aMARKET_SEGMENT_UNSPECIFIED\x10\x00\x12\x1a\n\x16MARKET_SEGMENT_UNKNOWN\x10\x01\x12\x1b\n\x17MARKET_SEGMENT_CONSUMER\x10\x02\x12\x32\n.MARKET_SEGMENT_ENTERPRISE_ENROLLED_BUT_UNKNOWN\x10\x03\x12\x1d\n\x19MARKET_SEGMENT_ENTERPRISE\x10\x04\x12\x1c\n\x18MARKET_SEGMENT_EDUCATION\x10\x05\x12\"\n\x1eMARKET_SEGMENT_ENTERPRISE_DEMO\x10\x06\x42\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chromeos.ash.components.report.proto.fresnel_service_pb2', globals())
@@ -28,28 +28,28 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _FRESNELIMPORTDATAREQUEST.fields_by_name['plaintext_identifier']._serialized_options = b'\030\001'
   _FRESNELIMPORTDATAREQUEST.fields_by_name['value']._options = None
   _FRESNELIMPORTDATAREQUEST.fields_by_name['value']._serialized_options = b'\030\001'
-  _CHANNEL._serialized_start=1698
-  _CHANNEL._serialized_end=1803
-  _MARKETSEGMENT._serialized_start=1806
-  _MARKETSEGMENT._serialized_end=2059
+  _CHANNEL._serialized_start=1754
+  _CHANNEL._serialized_end=1859
+  _MARKETSEGMENT._serialized_start=1862
+  _MARKETSEGMENT._serialized_end=2115
   _DEVICEMETADATA._serialized_start=106
   _DEVICEMETADATA._serialized_end=289
   _CHURNCOHORTMETADATA._serialized_start=291
   _CHURNCOHORTMETADATA._serialized_end=376
   _CHURNOBSERVATIONMETADATA._serialized_start=379
-  _CHURNOBSERVATIONMETADATA._serialized_end=693
-  _CHURNOBSERVATIONMETADATA_FIRSTACTIVEDURINGCOHORT._serialized_start=566
-  _CHURNOBSERVATIONMETADATA_FIRSTACTIVEDURINGCOHORT._serialized_end=693
-  _FRESNELIMPORTDATA._serialized_start=696
-  _FRESNELIMPORTDATA._serialized_end=950
-  _FRESNELIMPORTDATAREQUEST._serialized_start=953
-  _FRESNELIMPORTDATAREQUEST._serialized_end=1224
-  _FRESNELPSMRLWEOPRFREQUEST._serialized_start=1226
-  _FRESNELPSMRLWEOPRFREQUEST._serialized_end=1339
-  _FRESNELPSMRLWEOPRFRESPONSE._serialized_start=1341
-  _FRESNELPSMRLWEOPRFRESPONSE._serialized_end=1457
-  _FRESNELPSMRLWEQUERYREQUEST._serialized_start=1459
-  _FRESNELPSMRLWEQUERYREQUEST._serialized_end=1575
-  _FRESNELPSMRLWEQUERYRESPONSE._serialized_start=1577
-  _FRESNELPSMRLWEQUERYRESPONSE._serialized_end=1696
+  _CHURNOBSERVATIONMETADATA._serialized_end=749
+  _CHURNOBSERVATIONMETADATA_FIRSTACTIVEDURINGCOHORT._serialized_start=622
+  _CHURNOBSERVATIONMETADATA_FIRSTACTIVEDURINGCOHORT._serialized_end=749
+  _FRESNELIMPORTDATA._serialized_start=752
+  _FRESNELIMPORTDATA._serialized_end=1006
+  _FRESNELIMPORTDATAREQUEST._serialized_start=1009
+  _FRESNELIMPORTDATAREQUEST._serialized_end=1280
+  _FRESNELPSMRLWEOPRFREQUEST._serialized_start=1282
+  _FRESNELPSMRLWEOPRFREQUEST._serialized_end=1395
+  _FRESNELPSMRLWEOPRFRESPONSE._serialized_start=1397
+  _FRESNELPSMRLWEOPRFRESPONSE._serialized_end=1513
+  _FRESNELPSMRLWEQUERYREQUEST._serialized_start=1515
+  _FRESNELPSMRLWEQUERYREQUEST._serialized_end=1631
+  _FRESNELPSMRLWEQUERYRESPONSE._serialized_start=1633
+  _FRESNELPSMRLWEQUERYRESPONSE._serialized_end=1752
 # @@protoc_insertion_point(module_scope)

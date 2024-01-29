@@ -1,5 +1,5 @@
 import './strings.m.js';
-import { html, Polymer, dom, mixinBehaviors, PolymerElement, Base, dedupingMixin, afterNextRender, beforeNextRender, useShadow, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, dom, dedupingMixin, PolymerElement, Base, afterNextRender, beforeNextRender, useShadow, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
@@ -1225,126 +1225,126 @@ const IronButtonStateImpl = {
 
 };
 
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 /**
- * `PaperRippleBehavior` dynamically implements a ripple when the element has
+ * Note: This file is forked from Polymer's paper-ripple-behavior.js
+ *
+ * `PaperRippleMixin` dynamically implements a ripple when the element has
  * focus via pointer or keyboard.
  *
  * NOTE: This behavior is intended to be used in conjunction with and after
  * `IronButtonState` and `IronControlState`.
- *
- * @polymerBehavior PaperRippleBehavior
  */
-const PaperRippleBehavior = {
-  properties: {
+
+const PaperRippleMixin = dedupingMixin(superClass => {
+  class PaperRippleMixin extends superClass {
+    static get properties() {
+      return {
+        /**
+         * If true, the element will not produce a ripple effect when interacted
+         * with via the pointer.
+         */
+        noink: {type: Boolean, observer: '_noinkChanged'},
+
+        /**
+         * @type {Element|undefined}
+         */
+        _rippleContainer: {
+          type: Object,
+        }
+      };
+    }
+
     /**
-     * If true, the element will not produce a ripple effect when interacted
-     * with via the pointer.
+     * Ensures a `<paper-ripple>` element is available when the element is
+     * focused.
      */
-    noink: {type: Boolean, observer: '_noinkChanged'},
-
-    /**
-     * @type {Element|undefined}
-     */
-    _rippleContainer: {
-      type: Object,
-    }
-  },
-
-  /**
-   * Ensures a `<paper-ripple>` element is available when the element is
-   * focused.
-   */
-  _buttonStateChanged: function() {
-    if (this.focused) {
-      this.ensureRipple();
-    }
-  },
-
-  /**
-   * In addition to the functionality provided in `IronButtonState`, ensures
-   * a ripple effect is created when the element is in a `pressed` state.
-   */
-  _downHandler: function(event) {
-    IronButtonStateImpl._downHandler.call(this, event);
-    if (this.pressed) {
-      this.ensureRipple(event);
-    }
-  },
-
-  /**
-   * Ensures this element contains a ripple effect. For startup efficiency
-   * the ripple effect is dynamically on demand when needed.
-   * @param {!Event=} optTriggeringEvent (optional) event that triggered the
-   * ripple.
-   */
-  ensureRipple: function(optTriggeringEvent) {
-    if (!this.hasRipple()) {
-      this._ripple = this._createRipple();
-      this._ripple.noink = this.noink;
-      var rippleContainer = this._rippleContainer || this.root;
-      if (rippleContainer) {
-        dom(rippleContainer).appendChild(this._ripple);
+    _buttonStateChanged() {
+      if (this.focused) {
+        this.ensureRipple();
       }
-      if (optTriggeringEvent) {
-        // Check if the event happened inside of the ripple container
-        // Fall back to host instead of the root because distributed text
-        // nodes are not valid event targets
-        var domContainer = dom(this._rippleContainer || this);
-        var target = dom(optTriggeringEvent).rootTarget;
-        if (domContainer.deepContains(/** @type {Node} */ (target))) {
-          this._ripple.uiDownAction(optTriggeringEvent);
+    }
+
+    /**
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler(event) {
+      IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    }
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency
+     * the ripple effect is dynamically on demand when needed.
+     * @param {!Event=} optTriggeringEvent (optional) event that triggered the
+     * ripple.
+     */
+    ensureRipple(optTriggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          dom(rippleContainer).appendChild(this._ripple);
+        }
+        if (optTriggeringEvent) {
+          // Check if the event happened inside of the ripple container
+          // Fall back to host instead of the root because distributed text
+          // nodes are not valid event targets
+          var domContainer = dom(this._rippleContainer || this);
+          var target = dom(optTriggeringEvent).rootTarget;
+          if (domContainer.deepContains(/** @type {Node} */ (target))) {
+            this._ripple.uiDownAction(optTriggeringEvent);
+          }
         }
       }
     }
-  },
 
-  /**
-   * Returns the `<paper-ripple>` element used by this element to create
-   * ripple effects. The element's ripple is created on demand, when
-   * necessary, and calling this method will force the
-   * ripple to be created.
-   */
-  getRipple: function() {
-    this.ensureRipple();
-    return this._ripple;
-  },
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the
+     * ripple to be created.
+     */
+    getRipple() {
+      this.ensureRipple();
+      return this._ripple;
+    }
 
-  /**
-   * Returns true if this element currently contains a ripple effect.
-   * @return {boolean}
-   */
-  hasRipple: function() {
-    return Boolean(this._ripple);
-  },
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple() {
+      return Boolean(this._ripple);
+    }
 
-  /**
-   * Create the element's ripple effect via creating a `<paper-ripple>`.
-   * Override this method to customize the ripple element.
-   * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
-   */
-  _createRipple: function() {
-    var element = /** @type {!PaperRippleElement} */ (
-        document.createElement('paper-ripple'));
-    return element;
-  },
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {!PaperRippleElement} Returns a `<paper-ripple>` element.
+     */
+    _createRipple() {
+      var element = /** @type {!PaperRippleElement} */ (
+          document.createElement('paper-ripple'));
+      return element;
+    }
 
-  _noinkChanged: function(noink) {
-    if (this.hasRipple()) {
-      this._ripple.noink = noink;
+    _noinkChanged(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
     }
   }
-};
+
+  return PaperRippleMixin;
+});
 
 function getTemplate$d() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
@@ -1376,7 +1376,7 @@ function getTemplate$d() {
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
  */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
     static get is() {
         return 'cr-button';
@@ -1542,7 +1542,7 @@ class CrButtonElement extends CrButtonElementBase {
     }
     /**
      * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
+     * from PaperRippleMixin.
      */
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
@@ -2009,7 +2009,7 @@ function getTemplate$c() {
  * When using iron-icon's, more than one icon can be specified by setting
  * the |ironIcon| property to a comma-delimited list of keys.
  */
-const CrIconbuttonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const CrIconbuttonElementBase = PaperRippleMixin(PolymerElement);
 class CrIconButtonElement extends CrIconbuttonElementBase {
     static get is() {
         return 'cr-icon-button';
@@ -2642,7 +2642,179 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Base class for Web Components that don't use Polymer.
+ * See the following file for usage:
+ * chrome/test/data/webui/js/custom_element_test.js
+ */
+function emptyHTML() {
+    return window.trustedTypes ? window.trustedTypes.emptyHTML : '';
+}
+class CustomElement extends HTMLElement {
+    static get template() {
+        return emptyHTML();
+    }
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        const template = document.createElement('template');
+        template.innerHTML =
+            this.constructor.template || emptyHTML();
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+    $(query) {
+        return this.shadowRoot.querySelector(query);
+    }
+    $all(query) {
+        return this.shadowRoot.querySelectorAll(query);
+    }
+    getRequiredElement(query) {
+        const el = this.shadowRoot.querySelector(query);
+        assert(el);
+        assert(el instanceof HTMLElement);
+        return el;
+    }
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return Whether the passed tagged template literal is a valid array.
+ */
+function isValidArray(arr) {
+    if (arr instanceof Array && Object.isFrozen(arr)) {
+        return true;
+    }
+    return false;
+}
+/**
+ * Checks if the passed tagged template literal only contains static string.
+ * And return the string in the literal if so.
+ * Throws an Error if the passed argument is not supported literals.
+ */
+function getStaticString(literal) {
+    const isStaticString = isValidArray(literal) && !!literal.raw &&
+        isValidArray(literal.raw) && literal.length === literal.raw.length &&
+        literal.length === 1;
+    assert(isStaticString, 'static_types.js only allows static strings');
+    return literal.join('');
+}
+function createTypes(_ignore, literal) {
+    return getStaticString(literal);
+}
+/**
+ * Rules used to enforce static literal checks.
+ */
+const rules = {
+    createHTML: createTypes,
+    createScript: createTypes,
+    createScriptURL: createTypes,
+};
+/**
+ * This policy returns Trusted Types if the passed literal is static.
+ */
+let staticPolicy;
+if (window.trustedTypes) {
+    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
+}
+else {
+    staticPolicy = rules;
+}
+/**
+ * Returns TrustedHTML if the passed literal is static.
+ */
+function getTrustedHTML(literal) {
+    return staticPolicy.createHTML('', literal);
+}
+
 function getTemplate$a() {
+    return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
+
+<div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * 150ms seems to be around the minimum time required for screen readers to
+ * read out consecutively queued messages.
+ */
+const TIMEOUT_MS = 150;
+/**
+ * A map of an HTML element to its corresponding CrA11yAnnouncerElement. There
+ * may be multiple CrA11yAnnouncerElements on a page, especially for cases in
+ * which the DocumentElement's CrA11yAnnouncerElement becomes hidden or
+ * deactivated (eg. when a modal dialog causes the CrA11yAnnouncerElement to
+ * become inaccessible).
+ */
+const instances = new Map();
+function getInstance(container = document.body) {
+    if (instances.has(container)) {
+        return instances.get(container);
+    }
+    assert(container.isConnected);
+    const instance = new CrA11yAnnouncerElement();
+    container.appendChild(instance);
+    instances.set(container, instance);
+    return instance;
+}
+class CrA11yAnnouncerElement extends CustomElement {
+    constructor() {
+        super(...arguments);
+        this.currentTimeout_ = null;
+        this.messages_ = [];
+    }
+    static get is() {
+        return 'cr-a11y-announcer';
+    }
+    static get template() {
+        return getTemplate$a();
+    }
+    disconnectedCallback() {
+        if (this.currentTimeout_ !== null) {
+            clearTimeout(this.currentTimeout_);
+            this.currentTimeout_ = null;
+        }
+        for (const [parent, instance] of instances) {
+            if (instance === this) {
+                instances.delete(parent);
+                break;
+            }
+        }
+    }
+    announce(message) {
+        if (this.currentTimeout_ !== null) {
+            clearTimeout(this.currentTimeout_);
+            this.currentTimeout_ = null;
+        }
+        this.messages_.push(message);
+        this.currentTimeout_ = setTimeout(() => {
+            const messagesDiv = this.shadowRoot.querySelector('#messages');
+            messagesDiv.innerHTML = window.trustedTypes.emptyHTML;
+            // 
+            for (const message of this.messages_) {
+                const div = document.createElement('div');
+                div.textContent = message;
+                messagesDiv.appendChild(div);
+            }
+            // Dispatch a custom event to allow consumers to know when certain alerts
+            // have been sent to the screen reader.
+            this.dispatchEvent(new CustomEvent('cr-a11y-announcer-messages-sent', { bubbles: true, detail: { messages: this.messages_.slice() } }));
+            this.messages_.length = 0;
+            this.currentTimeout_ = null;
+        }, TIMEOUT_MS);
+    }
+}
+customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
+
+function getTemplate$9() {
     return html `<!--_html_template_start_--><style>#body{display:flex}.tonal-button{margin-inline-end:8px}#icon-wrapper,iron-icon{height:var(--cr-icon-size);width:var(--cr-icon-size);color:var(--google-red-700)}@media (prefers-color-scheme:dark){#icon-wrapper,iron-icon{color:var(--google-red-300)}}#icon-wrapper{margin-inline-end:8px}#body-text{color:var(--cr-primary-text-color)}#file-name{font-weight:700}</style>
 <cr-dialog show-on-attach id="dialog">
   <div slot="title">$i18n{warningBypassDialogTitle}</div>
@@ -2689,7 +2861,7 @@ class DownloadBypassWarningConfirmationDialogElement extends DownloadBypassWarni
         return 'download-bypass-warning-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -2700,6 +2872,7 @@ class DownloadBypassWarningConfirmationDialogElement extends DownloadBypassWarni
         return this.$.dialog.getNative().returnValue === 'success';
     }
     onDownloadDangerousClick_() {
+        getInstance().announce(loadTimeData.getString('screenreaderSavedDangerous'));
         this.$.dialog.close();
     }
     onCancelClick_() {
@@ -3399,7 +3572,7 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$9() {
+function getTemplate$8() {
     return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
             var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
                 var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
@@ -3488,7 +3661,7 @@ class CrActionMenuElement extends PolymerElement {
         return 'cr-action-menu';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -3797,6 +3970,9 @@ const template$2 = html `
       </g>
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
+      </g>
+      <g id="password">
+        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
       </g>
       
         <g id="banner-warning">
@@ -4579,8 +4755,8 @@ Polymer({
   }
 });
 
-function getTemplate$8() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+function getTemplate$7() {
+    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
             var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
@@ -4603,7 +4779,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -4670,7 +4846,7 @@ class CrToastElement extends PolymerElement {
 }
 customElements.define(CrToastElement.is, CrToastElement);
 
-function getTemplate$7() {
+function getTemplate$6() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">#content{display:flex;flex:1}.collapsible{overflow:hidden;text-overflow:ellipsis}span{white-space:pre}.elided-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style>
     <cr-toast id="toast" duration="[[duration]]">
       <div id="content" class="elided-text"></div>
@@ -4697,7 +4873,7 @@ class CrToastManagerElement extends PolymerElement {
         return 'cr-toast-manager';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$6();
     }
     static get properties() {
         return {
@@ -5310,7 +5486,21 @@ const I18nMixin = dedupingMixin((superClass) => {
 // Convert a javascript string into a Mojo String16.
 // Convert a Mojo String16 into a javascript string.
 function mojoString16ToString(str16) {
-    return String.fromCharCode(...str16.data);
+    // Taken from chunk size used in goog.crypt.byteArrayToBinaryString in Closure
+    // Library. The value is equal to 2^13.
+    const CHUNK_SIZE = 8192;
+    if (str16.data.length < CHUNK_SIZE) {
+        return String.fromCharCode(...str16.data);
+    }
+    // Convert the array to a string in chunks, to avoid passing too many
+    // arguments to String.fromCharCode() at once, which can exceed the max call
+    // stack size (c.f. crbug.com/1509792).
+    let str = '';
+    for (let i = 0; i < str16.data.length; i += CHUNK_SIZE) {
+        const chunk = str16.data.slice(i, i + CHUNK_SIZE);
+        str += String.fromCharCode(...chunk);
+    }
+    return str;
 }
 
 // mojom-webui/mojo/public/mojom/base/big_buffer.mojom-webui.js is auto generated by mojom_bindings_generator.py, do not edit
@@ -5906,8 +6096,8 @@ class IconLoaderImpl {
 }
 let instance$1 = null;
 
-function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="action-link cr-hidden-style cr-icons">:host{--controlled-by-active-color:#333;--controlled-by-active-link-color:var(--google-blue-600);--controlled-by-inactive-color:#5a5a5a;display:flex;flex-direction:column;outline:0}@media (prefers-color-scheme:dark){:host{--controlled-by-active-color:inherit;--controlled-by-active-link-color:var(--cr-link-color);--controlled-by-inactive-color:inherit}}cr-button{font-weight:500;margin:0;min-width:auto}#date{font-size:.875rem;font-weight:400;letter-spacing:.25px;margin:21px auto 6px;padding-bottom:4px;padding-top:8px;width:var(--downloads-card-width)}#date:empty{display:none}#content{border-radius:var(--cr-card-border-radius);display:flex;flex:none;margin:6px auto;min-height:103px;width:var(--downloads-card-width);max-width:calc(100% - 2 * var(--downloads-card-margin))}#content.is-active{box-shadow:var(--cr-card-shadow)}@media (prefers-color-scheme:light){#content.is-active{background-color:var(--cr-card-background-color)}}#content:not(.is-active){background:rgba(255,255,255,.6);border:1px var(--google-grey-300) solid}@media (prefers-color-scheme:dark){#content:not(.is-active){background:0 0;border-color:var(--google-grey-800)}}#details{border-inline-start:1px #d8d8d8 solid;display:flex;flex:1;flex-direction:column;min-width:0;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:var(--downloads-card-margin);padding-top:16px}@media (prefers-color-scheme:dark){#details{border-color:rgba(var(--google-grey-800-rgb),.8)}}#content:not(.is-active) #details{color:rgba(27,27,27,.6)}@media (prefers-color-scheme:dark){#content:not(.is-active) #details{color:rgba(var(--google-grey-500-rgb),.6)}}#content:not(.is-active) #name{text-decoration:line-through}@media (prefers-color-scheme:dark){#content:not(.is-active) :-webkit-any(#name,#tag){color:var(--google-grey-500)}}.icon-wrapper{align-self:center;flex:none;justify-content:center;margin:0 24px}#file-icon-wrapper,.icon{height:32px;width:32px}#file-icon-wrapper{overflow:hidden}#content:not(.is-active) .icon{filter:grayscale(100%);opacity:.5}#file-icon-wrapper iron-icon[icon-color=light-grey]{color:var(--google-grey-400)}#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-700)}#file-icon-wrapper iron-icon[icon-color=yellow]{color:var(--google-yellow-500)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-300)}}#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-500)}}.description[description-color=red]{color:var(--google-red-700)}@media (prefers-color-scheme:dark){.description[description-color=red]{color:var(--google-red-300)}}.description[description-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){.description[description-color=grey]{color:var(--google-grey-500)}}#file-link,#name,#url{max-width:100%}#file-link,#name{font-weight:500;word-break:break-all}@media (prefers-color-scheme:light){.is-active :-webkit-any(#file-link,#show){color:var(--google-blue-600)}.is-active #name{color:var(--cr-primary-text-color)}}#name{margin-inline-end:12px}#tag{color:#5a5a5a;font-weight:500}#url{color:inherit;display:block;margin-top:6px;min-height:0;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}.is-active #url{color:var(--cr-secondary-text-color)}#progress,.controls,.description:not(:empty){margin-top:16px}@media (prefers-color-scheme:light){.is-active .description[description-color='']{color:#616161}}#progress{--paper-progress-active-color:var(--google-blue-600);--paper-progress-container-color:rgb(223, 222, 223);width:auto}@media (prefers-color-scheme:dark){#progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:var(--google-grey-800)}}#show{margin:.7em 0}#controlled-by,#controlled-by a{color:var(--controlled-by-inactive-color)}.is-active #controlled-by{color:var(--controlled-by-active-color)}.is-active #controlled-by a{color:var(--controlled-by-active-link-color)}.more-options{display:flex;flex-direction:column}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:8px;margin-top:8px}#incognito{-webkit-mask-image:url(images/incognito_marker.svg);align-self:flex-end;background-color:var(--cr-secondary-text-color);height:16px;margin-block-end:20px;margin-block-start:auto;margin-inline-end:16px;width:16px}:host-context([dir=rtl]) #incognito{left:16px;right:initial}#dangerous .action-button,#deepScan,#openNow,#pauseOrResume{margin-inline-end:8px}</style>
+function getTemplate$5() {
+    return html `<!--_html_template_start_--><style include="action-link cr-hidden-style cr-icons">:host{--controlled-by-active-color:#333;--controlled-by-active-link-color:var(--google-blue-600);--controlled-by-inactive-color:#5a5a5a;display:flex;flex-direction:column;outline:0}@media (prefers-color-scheme:dark){:host{--controlled-by-active-color:inherit;--controlled-by-active-link-color:var(--cr-link-color);--controlled-by-inactive-color:inherit}}cr-button{font-weight:500;margin:0;min-width:auto}#date{font-size:.875rem;font-weight:400;letter-spacing:.25px;margin:21px auto 6px;padding-bottom:4px;padding-top:8px;width:var(--downloads-card-width)}#date:empty{display:none}#content{border-radius:var(--cr-card-border-radius);display:flex;flex:none;margin:6px auto;min-height:103px;width:var(--downloads-card-width);max-width:calc(100% - 2 * var(--downloads-card-margin))}#content.is-active{box-shadow:var(--cr-card-shadow)}@media (prefers-color-scheme:light){#content.is-active{background-color:var(--cr-card-background-color)}}#content:not(.is-active){background:rgba(255,255,255,.6);border:1px var(--google-grey-300) solid}@media (prefers-color-scheme:dark){#content:not(.is-active){background:0 0;border-color:var(--google-grey-800)}}#details{border-inline-start:1px #d8d8d8 solid;display:flex;flex:1;flex-direction:column;min-width:0;padding-bottom:16px;padding-inline-end:16px;padding-inline-start:var(--downloads-card-margin);padding-top:16px}@media (prefers-color-scheme:dark){#details{border-color:rgba(var(--google-grey-800-rgb),.8)}}#content:not(.is-active) #details{color:rgba(27,27,27,.6)}@media (prefers-color-scheme:dark){#content:not(.is-active) #details{color:rgba(var(--google-grey-500-rgb),.6)}}#content:not(.is-active) #name{text-decoration:line-through}@media (prefers-color-scheme:dark){#content:not(.is-active) :-webkit-any(#name,#tag){color:var(--google-grey-500)}}.icon-wrapper{align-self:center;flex:none;justify-content:center;margin:0 24px}#file-icon-wrapper,.icon{height:32px;width:32px}#file-icon-wrapper{overflow:hidden}#content:not(.is-active) .icon{filter:grayscale(100%);opacity:.5}#file-icon-wrapper iron-icon[icon-color=light-grey]{color:var(--google-grey-400)}#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-700)}#file-icon-wrapper iron-icon[icon-color=yellow]{color:var(--google-yellow-500)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=red]{color:var(--google-red-300)}}#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){#file-icon-wrapper iron-icon[icon-color=grey]{color:var(--google-grey-500)}}.description[description-color=red]{color:var(--google-red-700)}@media (prefers-color-scheme:dark){.description[description-color=red]{color:var(--google-red-300)}}.description[description-color=grey]{color:var(--google-grey-700)}@media (prefers-color-scheme:dark){.description[description-color=grey]{color:var(--google-grey-500)}}#file-link,#name,#url{max-width:100%}#file-link,#name{font-weight:500;word-break:break-all}@media (prefers-color-scheme:light){.is-active :-webkit-any(#file-link,#show){color:var(--google-blue-600)}.is-active #name{color:var(--cr-primary-text-color)}}#name{margin-inline-end:12px}#tag{color:#5a5a5a;font-weight:500}#url{color:inherit;display:block;margin-top:6px;min-height:0;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;direction:rtl;text-align:left}.is-active #url{color:var(--cr-secondary-text-color)}#progress,.controls,.description:not(:empty){margin-top:16px}@media (prefers-color-scheme:light){.is-active .description[description-color='']{color:#616161}}#progress{--paper-progress-active-color:var(--google-blue-600);--paper-progress-container-color:rgb(223, 222, 223);width:auto}@media (prefers-color-scheme:dark){#progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:var(--google-grey-800)}}#show{margin:.7em 0}#controlled-by,#controlled-by a{color:var(--controlled-by-inactive-color)}.is-active #controlled-by{color:var(--controlled-by-active-color)}.is-active #controlled-by a{color:var(--controlled-by-active-link-color)}.more-options{display:flex;flex-direction:column}cr-icon-button{--cr-icon-button-icon-size:20px;--cr-icon-button-margin-end:12px;margin-top:12px}#incognito{-webkit-mask-image:url(images/incognito_marker.svg);align-self:flex-end;background-color:var(--cr-secondary-text-color);height:16px;margin-block-end:20px;margin-block-start:auto;margin-inline-end:16px;width:16px}:host-context([dir=rtl]) #incognito{left:16px;right:initial}#dangerous .action-button,#deepScan,#openNow,#pauseOrResume{margin-inline-end:8px}</style>
 
 <div id="date" role="heading" aria-level="2">[[computeDate_(data.hideDate,
     data.sinceString,
@@ -6153,7 +6343,7 @@ class DownloadsItemElement extends DownloadsItemElementBase {
         return 'downloads-item';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$5();
     }
     static get properties() {
         return {
@@ -6766,14 +6956,18 @@ class DownloadsItemElement extends DownloadsItemElementBase {
     }
     onCancelClick_() {
         this.restoreFocusAfterCancel_ = true;
+        assert(!!this.mojoHandler_);
         this.mojoHandler_.cancel(this.data.id);
         if (this.improvedDownloadWarningsUx_) {
+            getInstance().announce(loadTimeData.getString('screenreaderCanceled'));
             this.getMoreActionsMenu().close();
         }
     }
-    onDiscardDangerousClick_() {
+    onDiscardDangerousClick_(e) {
+        assert(!!this.mojoHandler_);
         this.mojoHandler_.discardDangerous(this.data.id);
         if (this.improvedDownloadWarningsUx_) {
+            this.displayRemovedToast_(/*canUndo=*/ false, e);
             this.getMoreActionsMenu().close();
         }
     }
@@ -6821,29 +7015,52 @@ class DownloadsItemElement extends DownloadsItemElementBase {
         }
         chrome.send('metricsHandler:recordAction', ['Downloads_OpenUrlOfDownloadedItem']);
     }
+    doPause_() {
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.pause(this.data.id);
+        if (this.improvedDownloadWarningsUx_) {
+            getInstance().announce(loadTimeData.getString('screenreaderPaused'));
+        }
+    }
+    doResume_() {
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.resume(this.data.id);
+        if (this.improvedDownloadWarningsUx_) {
+            getInstance().announce(loadTimeData.getString('screenreaderResumed'));
+        }
+    }
     onPauseOrResumeClick_() {
         if (this.isInProgress_) {
-            this.mojoHandler_.pause(this.data.id);
+            this.doPause_();
         }
         else {
-            this.mojoHandler_.resume(this.data.id);
+            this.doResume_();
         }
         if (this.improvedDownloadWarningsUx_) {
             this.getMoreActionsMenu().close();
         }
     }
-    onRemoveClick_(e) {
-        this.mojoHandler_.remove(this.data.id);
-        const pieces = loadTimeData.getSubstitutedStringPieces(loadTimeData.getString('toastRemovedFromList'), this.data.fileName);
+    displayRemovedToast_(canUndo, e) {
+        const templateStringId = this.improvedDownloadWarningsUx_ ?
+            (this.displayType_ === DisplayType.NORMAL && this.completelyOnDisk_ ?
+                'toastDeletedFromHistoryStillOnDevice' :
+                'toastDeletedFromHistory') :
+            'toastRemovedFromList';
+        const pieces = loadTimeData.getSubstitutedStringPieces(loadTimeData.getString(templateStringId), this.data.fileName);
         pieces.forEach(p => {
             // Make the file name collapsible.
             p.collapsible = !!p.arg;
         });
-        const canUndo = !this.data.isDangerous && !this.data.isInsecure;
-        getToastManager().showForStringPieces(pieces, /* hideSlotted= */ !canUndo);
+        getToastManager().showForStringPieces(pieces, /*hideSlotted=*/ !canUndo);
         // Stop propagating a click to the document to remove toast.
         e.stopPropagation();
         e.preventDefault();
+    }
+    onRemoveClick_(e) {
+        assert(!!this.mojoHandler_);
+        this.mojoHandler_.remove(this.data.id);
+        const canUndo = !this.data.isDangerous && !this.data.isInsecure;
+        this.displayRemovedToast_(canUndo, e);
         if (this.improvedDownloadWarningsUx_) {
             this.getMoreActionsMenu().close();
         }
@@ -6874,14 +7091,18 @@ class DownloadsItemElement extends DownloadsItemElementBase {
             return;
         }
         // "Suspicious" types which show up in grey can be validated directly.
-        const SAVED_FROM_PAGE_TYPES = [
-            DisplayType.SUSPICIOUS,
-            DisplayType.UNVERIFIED,
-            DisplayType.INSECURE,
-        ];
-        assert(SAVED_FROM_PAGE_TYPES.includes(this.displayType_));
+        // This maps each such display type to its applicable screenreader
+        // announcement string id.
+        const SAVED_FROM_PAGE_TYPES_ANNOUNCEMENTS = new Map([
+            [DisplayType.SUSPICIOUS, 'screenreaderSavedSuspicious'],
+            [DisplayType.UNVERIFIED, 'screenreaderSavedUnverified'],
+            [DisplayType.INSECURE, 'screenreaderSavedInsecure'],
+        ]);
+        assert(SAVED_FROM_PAGE_TYPES_ANNOUNCEMENTS.has(this.displayType_));
         assert(!!this.mojoHandler_);
         this.mojoHandler_.saveSuspiciousRequiringGesture(this.data.id);
+        const announcement = loadTimeData.getString(SAVED_FROM_PAGE_TYPES_ANNOUNCEMENTS.get(this.displayType_));
+        getInstance().announce(announcement);
     }
     onShowClick_() {
         this.mojoHandler_.show(this.data.id);
@@ -7618,9 +7839,9 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
     return CrSearchFieldMixin;
 });
 
-function getTemplate$5() {
+function getTemplate$4() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
-                var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+                var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
               --cr-toolbar-search-field-input-icon-color,
@@ -7630,7 +7851,7 @@ function getTemplate$5() {
               --cr-toolbar-search-field-input-icon-color,
               var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
                 var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-serch-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
     <div id="background"></div>
     <div id="stateBackground"></div>
     <div id="content">
@@ -7660,7 +7881,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
         return 'cr-toolbar-search-field';
     }
     static get template() {
-        return getTemplate$5();
+        return getTemplate$4();
     }
     static get properties() {
         return {
@@ -7672,7 +7893,6 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: 'showingSearchChanged_',
                 reflectToAttribute: true,
             },
             disabled: {
@@ -7744,11 +7964,16 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
     onSearchTermKeydown_(e) {
         if (e.key === 'Escape') {
             this.showingSearch = false;
+            this.setValue('');
+            this.getSearchInput().blur();
         }
     }
     showSearch_(e) {
         if (e.target !== this.shadowRoot.querySelector('#clearSearch')) {
             this.showingSearch = true;
+        }
+        if (this.narrow) {
+            this.focus_();
         }
     }
     clearSearch_() {
@@ -7756,22 +7981,10 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
         this.focus_();
         this.spinnerActive = false;
     }
-    showingSearchChanged_(_current, previous) {
-        // Prevent unnecessary 'search-changed' event from firing on startup.
-        if (previous === undefined) {
-            return;
-        }
-        if (this.showingSearch) {
-            this.focus_();
-            return;
-        }
-        this.setValue('');
-        this.getSearchInput().blur();
-    }
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
 
-function getTemplate$4() {
+function getTemplate$3() {
     return html `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
     <div id="leftContent">
       <div id="leftSpacer">
@@ -7812,7 +8025,7 @@ class CrToolbarElement extends PolymerElement {
         return 'cr-toolbar';
     }
     static get template() {
-        return getTemplate$4();
+        return getTemplate$3();
     }
     static get properties() {
         return {
@@ -7948,7 +8161,7 @@ class SearchService {
 }
 let instance = null;
 
-function getTemplate$3() {
+function getTemplate$2() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{align-items:center;display:flex;min-height:56px}#toolbar{flex:1;min-width:0}cr-icon-button{justify-content:flex-end;margin:4px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}</style>
 <cr-toolbar id="toolbar" page-name="$i18n{title}" autofocus always-show-logo search-prompt="$i18n{search}" clear-label="$i18n{clearSearch}" spinner-active="{{spinnerActive}}" on-search-changed="onSearchChanged_">
   <cr-icon-button id="moreActions" iron-icon="cr:more-vert" class="dropdown-trigger" title="$i18n{moreActions}" on-click="onMoreActionsClick_" aria-haspopup="menu"></cr-icon-button>
@@ -7978,7 +8191,7 @@ class DownloadsToolbarElement extends PolymerElement {
         return 'downloads-toolbar';
     }
     static get template() {
-        return getTemplate$3();
+        return getTemplate$2();
     }
     static get properties() {
         return {
@@ -8087,7 +8300,7 @@ const WebUiListenerMixin = dedupingMixin((superClass) => {
     return WebUiListenerMixin;
 });
 
-function getTemplate$2() {
+function getTemplate$1() {
     return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
@@ -8115,7 +8328,7 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
         return 'managed-footnote';
     }
     static get template() {
-        return getTemplate$2();
+        return getTemplate$1();
     }
     static get properties() {
         return {
@@ -10744,178 +10957,6 @@ Polymer({
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Base class for Web Components that don't use Polymer.
- * See the following file for usage:
- * chrome/test/data/webui/js/custom_element_test.js
- */
-function emptyHTML() {
-    return window.trustedTypes ? window.trustedTypes.emptyHTML : '';
-}
-class CustomElement extends HTMLElement {
-    static get template() {
-        return emptyHTML();
-    }
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        const template = document.createElement('template');
-        template.innerHTML =
-            this.constructor.template || emptyHTML();
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-    $(query) {
-        return this.shadowRoot.querySelector(query);
-    }
-    $all(query) {
-        return this.shadowRoot.querySelectorAll(query);
-    }
-    getRequiredElement(query) {
-        const el = this.shadowRoot.querySelector(query);
-        assert(el);
-        assert(el instanceof HTMLElement);
-        return el;
-    }
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return Whether the passed tagged template literal is a valid array.
- */
-function isValidArray(arr) {
-    if (arr instanceof Array && Object.isFrozen(arr)) {
-        return true;
-    }
-    return false;
-}
-/**
- * Checks if the passed tagged template literal only contains static string.
- * And return the string in the literal if so.
- * Throws an Error if the passed argument is not supported literals.
- */
-function getStaticString(literal) {
-    const isStaticString = isValidArray(literal) && !!literal.raw &&
-        isValidArray(literal.raw) && literal.length === literal.raw.length &&
-        literal.length === 1;
-    assert(isStaticString, 'static_types.js only allows static strings');
-    return literal.join('');
-}
-function createTypes(_ignore, literal) {
-    return getStaticString(literal);
-}
-/**
- * Rules used to enforce static literal checks.
- */
-const rules = {
-    createHTML: createTypes,
-    createScript: createTypes,
-    createScriptURL: createTypes,
-};
-/**
- * This policy returns Trusted Types if the passed literal is static.
- */
-let staticPolicy;
-if (window.trustedTypes) {
-    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
-}
-else {
-    staticPolicy = rules;
-}
-/**
- * Returns TrustedHTML if the passed literal is static.
- */
-function getTrustedHTML(literal) {
-    return staticPolicy.createHTML('', literal);
-}
-
-function getTemplate$1() {
-    return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
-
-<div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * 150ms seems to be around the minimum time required for screen readers to
- * read out consecutively queued messages.
- */
-const TIMEOUT_MS = 150;
-/**
- * A map of an HTML element to its corresponding CrA11yAnnouncerElement. There
- * may be multiple CrA11yAnnouncerElements on a page, especially for cases in
- * which the DocumentElement's CrA11yAnnouncerElement becomes hidden or
- * deactivated (eg. when a modal dialog causes the CrA11yAnnouncerElement to
- * become inaccessible).
- */
-const instances = new Map();
-function getInstance(container = document.body) {
-    if (instances.has(container)) {
-        return instances.get(container);
-    }
-    assert(container.isConnected);
-    const instance = new CrA11yAnnouncerElement();
-    container.appendChild(instance);
-    instances.set(container, instance);
-    return instance;
-}
-class CrA11yAnnouncerElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.currentTimeout_ = null;
-        this.messages_ = [];
-    }
-    static get is() {
-        return 'cr-a11y-announcer';
-    }
-    static get template() {
-        return getTemplate$1();
-    }
-    disconnectedCallback() {
-        if (this.currentTimeout_ !== null) {
-            clearTimeout(this.currentTimeout_);
-            this.currentTimeout_ = null;
-        }
-        for (const [parent, instance] of instances) {
-            if (instance === this) {
-                instances.delete(parent);
-                break;
-            }
-        }
-    }
-    announce(message) {
-        if (this.currentTimeout_ !== null) {
-            clearTimeout(this.currentTimeout_);
-            this.currentTimeout_ = null;
-        }
-        this.messages_.push(message);
-        this.currentTimeout_ = setTimeout(() => {
-            const messagesDiv = this.shadowRoot.querySelector('#messages');
-            messagesDiv.innerHTML = window.trustedTypes.emptyHTML;
-            // 
-            for (const message of this.messages_) {
-                const div = document.createElement('div');
-                div.textContent = message;
-                messagesDiv.appendChild(div);
-            }
-            // Dispatch a custom event to allow consumers to know when certain alerts
-            // have been sent to the screen reader.
-            this.dispatchEvent(new CustomEvent('cr-a11y-announcer-messages-sent', { bubbles: true, detail: { messages: this.messages_.slice() } }));
-            this.messages_.length = 0;
-            this.currentTimeout_ = null;
-        }, TIMEOUT_MS);
-    }
-}
-customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
-
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 /** This is used to identify keyboard shortcuts. */
 class KeyboardShortcut {
     useKeyCode_ = false;
@@ -11098,7 +11139,7 @@ const FindShortcutMixin = dedupingMixin((superClass) => {
 });
 
 function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-page-host-style cr-shared-style cr-hidden-style">:host{display:flex;flex:1 0;flex-direction:column;height:100%;overflow:hidden;z-index:0}@media (prefers-color-scheme:dark){:host{color:var(--cr-secondary-text-color)}}#toolbar{z-index:1}:host([has-shadow_]) #drop-shadow{opacity:var(--cr-container-shadow-max-opacity)}#downloadsList,downloads-item{--downloads-card-margin:24px;--downloads-card-width:clamp(550px, 80%, 680px)}#downloadsList{min-width:calc(var(--downloads-card-width) + 2 * var(--downloads-card-margin))}#downloadsList,#no-downloads{flex:1}:host([loading]) #downloadsList,:host([loading]) #no-downloads{display:none}#no-downloads{align-items:center;color:#6e6e6e;display:flex;font-size:123.1%;font-weight:500;justify-content:center;min-height:min-content}@media (prefers-color-scheme:dark){#no-downloads{color:var(--cr-secondary-text-color)}}#no-downloads .illustration{background:url(images/no_downloads.svg) no-repeat center center;background-size:contain;height:144px;margin-bottom:32px}#mainContainer{display:flex;flex:1;flex-direction:column;height:100%;overflow-y:overlay}managed-footnote{border-top:none;margin-bottom:calc(-21px - 8px);min-width:calc(var(--downloads-card-width) + 2 * var(--downloads-card-margin));padding-bottom:12px;padding-top:12px;z-index:1}</style>
+    return html `<!--_html_template_start_--><style include="cr-page-host-style cr-shared-style cr-hidden-style">:host{display:flex;flex:1 0;flex-direction:column;height:100%;overflow:hidden;z-index:0}@media (prefers-color-scheme:dark){:host{color:var(--cr-secondary-text-color)}}#toolbar{z-index:1}:host([has-shadow_]) #drop-shadow{opacity:var(--cr-container-shadow-max-opacity)}#downloadsList,cr-toast-manager,downloads-item{--downloads-card-margin:24px;--downloads-card-width:clamp(550px, 80%, 680px);--cr-toast-max-width:var(--downloads-card-width)}#downloadsList{min-width:calc(var(--downloads-card-width) + 2 * var(--downloads-card-margin))}#downloadsList,#no-downloads{flex:1}:host([loading]) #downloadsList,:host([loading]) #no-downloads{display:none}#no-downloads{align-items:center;color:#6e6e6e;display:flex;font-size:123.1%;font-weight:500;justify-content:center;min-height:min-content}@media (prefers-color-scheme:dark){#no-downloads{color:var(--cr-secondary-text-color)}}#no-downloads .illustration{background:url(images/no_downloads.svg) no-repeat center center;background-size:contain;height:144px;margin-bottom:32px}#mainContainer{display:flex;flex:1;flex-direction:column;height:100%;overflow-y:overlay}managed-footnote{border-top:none;margin-bottom:calc(-21px - 8px);min-width:calc(var(--downloads-card-width) + 2 * var(--downloads-card-margin));padding-bottom:12px;padding-top:12px;z-index:1}</style>
 
 <downloads-toolbar id="toolbar" items="[[items_]]" spinner-active="{{spinnerActive_}}" role="none" on-search-changed="onSearchChanged_">
 </downloads-toolbar>

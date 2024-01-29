@@ -466,6 +466,8 @@ bool AudioInputControllerStubDispatch::Accept(
           reinterpret_cast<internal::AudioInputController_SetMicOpen_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputController.0
       bool success = true;
       bool p_mic_open{};
       AudioInputController_SetMicOpen_ParamsDataView input_data_view(params, message);
@@ -481,8 +483,8 @@ bool AudioInputControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMicOpen(
-std::move(p_mic_open));
+      impl->SetMicOpen(        
+        std::move(p_mic_open));
       return true;
     }
     case internal::kAudioInputController_SetHotwordEnabled_Name: {
@@ -492,6 +494,8 @@ std::move(p_mic_open));
           reinterpret_cast<internal::AudioInputController_SetHotwordEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputController.1
       bool success = true;
       bool p_enable{};
       AudioInputController_SetHotwordEnabled_ParamsDataView input_data_view(params, message);
@@ -507,8 +511,8 @@ std::move(p_mic_open));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHotwordEnabled(
-std::move(p_enable));
+      impl->SetHotwordEnabled(        
+        std::move(p_enable));
       return true;
     }
     case internal::kAudioInputController_SetDeviceId_Name: {
@@ -518,6 +522,8 @@ std::move(p_enable));
           reinterpret_cast<internal::AudioInputController_SetDeviceId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputController.2
       bool success = true;
       std::optional<std::string> p_device_id{};
       AudioInputController_SetDeviceId_ParamsDataView input_data_view(params, message);
@@ -533,8 +539,8 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDeviceId(
-std::move(p_device_id));
+      impl->SetDeviceId(        
+        std::move(p_device_id));
       return true;
     }
     case internal::kAudioInputController_SetHotwordDeviceId_Name: {
@@ -544,6 +550,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioInputController_SetHotwordDeviceId_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputController.3
       bool success = true;
       std::optional<std::string> p_device_id{};
       AudioInputController_SetHotwordDeviceId_ParamsDataView input_data_view(params, message);
@@ -559,8 +567,8 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetHotwordDeviceId(
-std::move(p_device_id));
+      impl->SetHotwordDeviceId(        
+        std::move(p_device_id));
       return true;
     }
     case internal::kAudioInputController_SetLidState_Name: {
@@ -570,6 +578,8 @@ std::move(p_device_id));
           reinterpret_cast<internal::AudioInputController_SetLidState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputController.4
       bool success = true;
       LidState p_new_state{};
       AudioInputController_SetLidState_ParamsDataView input_data_view(params, message);
@@ -585,8 +595,8 @@ std::move(p_device_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLidState(
-std::move(p_new_state));
+      impl->SetLidState(        
+        std::move(p_new_state));
       return true;
     }
     case internal::kAudioInputController_OnConversationTurnStarted_Name: {
@@ -596,6 +606,8 @@ std::move(p_new_state));
           reinterpret_cast<internal::AudioInputController_OnConversationTurnStarted_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioInputController.5
       bool success = true;
       AudioInputController_OnConversationTurnStarted_ParamsDataView input_data_view(params, message);
       
@@ -608,7 +620,7 @@ std::move(p_new_state));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnConversationTurnStarted();
+      impl->OnConversationTurnStarted(        );
       return true;
     }
   }

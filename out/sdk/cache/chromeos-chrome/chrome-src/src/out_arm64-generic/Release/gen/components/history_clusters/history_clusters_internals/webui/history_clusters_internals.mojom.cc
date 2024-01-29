@@ -170,6 +170,8 @@ bool PageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::PageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<Page> p_page{};
       ::mojo::PendingReceiver<PageHandler> p_page_handler{};
@@ -192,9 +194,9 @@ bool PageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_page_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_page_handler));
       return true;
     }
   }
@@ -447,6 +449,8 @@ bool PageHandler_GetContextClustersJson_ForwardToCallback::Accept(
           internal::PageHandler_GetContextClustersJson_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for PageHandler.0
   bool success = true;
   std::string p_context_clusters_json{};
   PageHandler_GetContextClustersJson_ResponseParamsDataView input_data_view(params, message);
@@ -534,6 +538,8 @@ bool PageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::PageHandler_PrintKeywordBagStateToLogMessages_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PageHandler.1
       bool success = true;
       PageHandler_PrintKeywordBagStateToLogMessages_ParamsDataView input_data_view(params, message);
       
@@ -546,7 +552,7 @@ bool PageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrintKeywordBagStateToLogMessages();
+      impl->PrintKeywordBagStateToLogMessages(        );
       return true;
     }
   }
@@ -569,6 +575,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
               internal::PageHandler_GetContextClustersJson_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for PageHandler.0
       bool success = true;
       PageHandler_GetContextClustersJson_ParamsDataView input_data_view(params, message);
       
@@ -733,6 +741,8 @@ bool PageStubDispatch::Accept(
           reinterpret_cast<internal::Page_OnLogMessageAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Page.0
       bool success = true;
       std::string p_message{};
       Page_OnLogMessageAdded_ParamsDataView input_data_view(params, message);
@@ -748,8 +758,8 @@ bool PageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnLogMessageAdded(
-std::move(p_message));
+      impl->OnLogMessageAdded(        
+        std::move(p_message));
       return true;
     }
   }

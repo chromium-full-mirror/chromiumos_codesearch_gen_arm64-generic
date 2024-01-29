@@ -500,6 +500,8 @@ bool MediaControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaController_Play_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.0
       bool success = true;
       MediaController_Play_ParamsDataView input_data_view(params, message);
       
@@ -512,7 +514,7 @@ bool MediaControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Play();
+      impl->Play(        );
       return true;
     }
     case internal::kMediaController_Pause_Name: {
@@ -522,6 +524,8 @@ bool MediaControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaController_Pause_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.1
       bool success = true;
       MediaController_Pause_ParamsDataView input_data_view(params, message);
       
@@ -534,7 +538,7 @@ bool MediaControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Pause();
+      impl->Pause(        );
       return true;
     }
     case internal::kMediaController_SetMute_Name: {
@@ -544,6 +548,8 @@ bool MediaControllerStubDispatch::Accept(
           reinterpret_cast<internal::MediaController_SetMute_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.2
       bool success = true;
       bool p_mute{};
       MediaController_SetMute_ParamsDataView input_data_view(params, message);
@@ -559,8 +565,8 @@ bool MediaControllerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMute(
-std::move(p_mute));
+      impl->SetMute(        
+        std::move(p_mute));
       return true;
     }
     case internal::kMediaController_SetVolume_Name: {
@@ -570,6 +576,8 @@ std::move(p_mute));
           reinterpret_cast<internal::MediaController_SetVolume_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.3
       bool success = true;
       float p_volume{};
       MediaController_SetVolume_ParamsDataView input_data_view(params, message);
@@ -585,8 +593,8 @@ std::move(p_mute));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVolume(
-std::move(p_volume));
+      impl->SetVolume(        
+        std::move(p_volume));
       return true;
     }
     case internal::kMediaController_Seek_Name: {
@@ -596,6 +604,8 @@ std::move(p_volume));
           reinterpret_cast<internal::MediaController_Seek_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.4
       bool success = true;
       ::base::TimeDelta p_time{};
       MediaController_Seek_ParamsDataView input_data_view(params, message);
@@ -611,8 +621,8 @@ std::move(p_volume));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Seek(
-std::move(p_time));
+      impl->Seek(        
+        std::move(p_time));
       return true;
     }
     case internal::kMediaController_NextTrack_Name: {
@@ -622,6 +632,8 @@ std::move(p_time));
           reinterpret_cast<internal::MediaController_NextTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.5
       bool success = true;
       MediaController_NextTrack_ParamsDataView input_data_view(params, message);
       
@@ -634,7 +646,7 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NextTrack();
+      impl->NextTrack(        );
       return true;
     }
     case internal::kMediaController_PreviousTrack_Name: {
@@ -644,6 +656,8 @@ std::move(p_time));
           reinterpret_cast<internal::MediaController_PreviousTrack_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MediaController.6
       bool success = true;
       MediaController_PreviousTrack_ParamsDataView input_data_view(params, message);
       
@@ -656,7 +670,7 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PreviousTrack();
+      impl->PreviousTrack(        );
       return true;
     }
   }

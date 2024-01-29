@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform/factory",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/factory-0.2.0-r3721/work/factory-0.2.0"
-    }
-  ]
-}

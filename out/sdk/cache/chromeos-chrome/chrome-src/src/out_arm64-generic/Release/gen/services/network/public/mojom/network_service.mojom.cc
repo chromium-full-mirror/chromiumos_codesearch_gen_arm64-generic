@@ -506,8 +506,8 @@ NetworkService::IPCStableHashFunction NetworkService::MessageToMethodInfo_(mojo:
     case internal::kNetworkService_SetRawHeadersAccess_Name: {
       return &NetworkService::SetRawHeadersAccess_Sym::IPCStableHash;
     }
-    case internal::kNetworkService_SetMaxConnectionsPerProxy_Name: {
-      return &NetworkService::SetMaxConnectionsPerProxy_Sym::IPCStableHash;
+    case internal::kNetworkService_SetMaxConnectionsPerProxyChain_Name: {
+      return &NetworkService::SetMaxConnectionsPerProxyChain_Sym::IPCStableHash;
     }
     case internal::kNetworkService_GetNetworkChangeManager_Name: {
       return &NetworkService::GetNetworkChangeManager_Sym::IPCStableHash;
@@ -578,8 +578,8 @@ NetworkService::IPCStableHashFunction NetworkService::MessageToMethodInfo_(mojo:
     case internal::kNetworkService_SetIPv6ReachabilityOverride_Name: {
       return &NetworkService::SetIPv6ReachabilityOverride_Sym::IPCStableHash;
     }
-    case internal::kNetworkService_SetCookieEncryptionProvider_Name: {
-      return &NetworkService::SetCookieEncryptionProvider_Sym::IPCStableHash;
+    case internal::kNetworkService_SetNetworkAnnotationMonitor_Name: {
+      return &NetworkService::SetNetworkAnnotationMonitor_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -612,8 +612,8 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::NetworkService::ConfigureHttpAuthPrefs";
       case internal::kNetworkService_SetRawHeadersAccess_Name:
             return "Receive network::mojom::NetworkService::SetRawHeadersAccess";
-      case internal::kNetworkService_SetMaxConnectionsPerProxy_Name:
-            return "Receive network::mojom::NetworkService::SetMaxConnectionsPerProxy";
+      case internal::kNetworkService_SetMaxConnectionsPerProxyChain_Name:
+            return "Receive network::mojom::NetworkService::SetMaxConnectionsPerProxyChain";
       case internal::kNetworkService_GetNetworkChangeManager_Name:
             return "Receive network::mojom::NetworkService::GetNetworkChangeManager";
       case internal::kNetworkService_GetNetworkQualityEstimatorManager_Name:
@@ -660,8 +660,8 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive network::mojom::NetworkService::EnableDataUseUpdates";
       case internal::kNetworkService_SetIPv6ReachabilityOverride_Name:
             return "Receive network::mojom::NetworkService::SetIPv6ReachabilityOverride";
-      case internal::kNetworkService_SetCookieEncryptionProvider_Name:
-            return "Receive network::mojom::NetworkService::SetCookieEncryptionProvider";
+      case internal::kNetworkService_SetNetworkAnnotationMonitor_Name:
+            return "Receive network::mojom::NetworkService::SetNetworkAnnotationMonitor";
     }
   } else {
     switch (message.name()) {
@@ -685,8 +685,8 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::NetworkService::ConfigureHttpAuthPrefs";
       case internal::kNetworkService_SetRawHeadersAccess_Name:
             return "Receive reply network::mojom::NetworkService::SetRawHeadersAccess";
-      case internal::kNetworkService_SetMaxConnectionsPerProxy_Name:
-            return "Receive reply network::mojom::NetworkService::SetMaxConnectionsPerProxy";
+      case internal::kNetworkService_SetMaxConnectionsPerProxyChain_Name:
+            return "Receive reply network::mojom::NetworkService::SetMaxConnectionsPerProxyChain";
       case internal::kNetworkService_GetNetworkChangeManager_Name:
             return "Receive reply network::mojom::NetworkService::GetNetworkChangeManager";
       case internal::kNetworkService_GetNetworkQualityEstimatorManager_Name:
@@ -733,8 +733,8 @@ const char* NetworkService::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply network::mojom::NetworkService::EnableDataUseUpdates";
       case internal::kNetworkService_SetIPv6ReachabilityOverride_Name:
             return "Receive reply network::mojom::NetworkService::SetIPv6ReachabilityOverride";
-      case internal::kNetworkService_SetCookieEncryptionProvider_Name:
-            return "Receive reply network::mojom::NetworkService::SetCookieEncryptionProvider";
+      case internal::kNetworkService_SetNetworkAnnotationMonitor_Name:
+            return "Receive reply network::mojom::NetworkService::SetNetworkAnnotationMonitor";
     }
   }
   return "Receive unknown mojo message";
@@ -879,7 +879,7 @@ uint32_t NetworkService::SetRawHeadersAccess_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t NetworkService::SetMaxConnectionsPerProxy_Sym::IPCStableHash() {
+uint32_t NetworkService::SetMaxConnectionsPerProxyChain_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -887,7 +887,7 @@ uint32_t NetworkService::SetMaxConnectionsPerProxy_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::NetworkService::SetMaxConnectionsPerProxy");
+          "(Impl)network::mojom::NetworkService::SetMaxConnectionsPerProxyChain");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1191,7 +1191,7 @@ uint32_t NetworkService::SetIPv6ReachabilityOverride_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t NetworkService::SetCookieEncryptionProvider_Sym::IPCStableHash() {
+uint32_t NetworkService::SetNetworkAnnotationMonitor_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1199,7 +1199,7 @@ uint32_t NetworkService::SetCookieEncryptionProvider_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)network::mojom::NetworkService::SetCookieEncryptionProvider");
+          "(Impl)network::mojom::NetworkService::SetNetworkAnnotationMonitor");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1853,11 +1853,11 @@ void NetworkServiceProxy::SetRawHeadersAccess(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void NetworkServiceProxy::SetMaxConnectionsPerProxy(
+void NetworkServiceProxy::SetMaxConnectionsPerProxyChain(
     int32_t in_max_connections) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send network::mojom::NetworkService::SetMaxConnectionsPerProxy", "input_parameters",
+    "mojom", "Send network::mojom::NetworkService::SetMaxConnectionsPerProxyChain", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -1878,16 +1878,16 @@ void NetworkServiceProxy::SetMaxConnectionsPerProxy(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kNetworkService_SetMaxConnectionsPerProxy_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkService_SetMaxConnectionsPerProxyChain_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::network::mojom::internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data> params(
+      ::network::mojom::internal::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data> params(
           message);
   params.Allocate();
   params->max_connections = in_max_connections;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkService::Name_);
-  message.set_method_name("SetMaxConnectionsPerProxy");
+  message.set_method_name("SetMaxConnectionsPerProxyChain");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2974,16 +2974,16 @@ void NetworkServiceProxy::SetIPv6ReachabilityOverride(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void NetworkServiceProxy::SetCookieEncryptionProvider(
-    ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> in_provider) {
+void NetworkServiceProxy::SetNetworkAnnotationMonitor(
+    ::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor> in_remote) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send network::mojom::NetworkService::SetCookieEncryptionProvider", "input_parameters",
+    "mojom", "Send network::mojom::NetworkService::SetNetworkAnnotationMonitor", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("provider"), in_provider,
-                        "<value of type ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider>>");
+           dict.AddItem("remote"), in_remote,
+                        "<value of type ::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor>>");
    });
 #endif
 
@@ -2999,21 +2999,21 @@ void NetworkServiceProxy::SetCookieEncryptionProvider(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kNetworkService_SetCookieEncryptionProvider_Name, kFlags, 0, 0, nullptr);
+      internal::kNetworkService_SetNetworkAnnotationMonitor_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::network::mojom::internal::NetworkService_SetCookieEncryptionProvider_Params_Data> params(
+      ::network::mojom::internal::NetworkService_SetNetworkAnnotationMonitor_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::CookieEncryptionProviderInterfaceBase>>(
-      in_provider, &params->provider, &params.message());
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::NetworkAnnotationMonitorInterfaceBase>>(
+      in_remote, &params->remote, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->provider),
+      !mojo::internal::IsHandleOrInterfaceValid(params->remote),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid provider in NetworkService.SetCookieEncryptionProvider request");
+      "invalid remote in NetworkService.SetNetworkAnnotationMonitor request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkService::Name_);
-  message.set_method_name("SetCookieEncryptionProvider");
+  message.set_method_name("SetNetworkAnnotationMonitor");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3077,6 +3077,8 @@ bool NetworkService_GetNetworkList_ForwardToCallback::Accept(
           internal::NetworkService_GetNetworkList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkService.14
   bool success = true;
   std::optional<std::vector<::net::NetworkInterface>> p_networks{};
   NetworkService_GetNetworkList_ResponseParamsDataView input_data_view(params, message);
@@ -3204,6 +3206,8 @@ bool NetworkService_SetTrustTokenKeyCommitments_ForwardToCallback::Accept(
           internal::NetworkService_SetTrustTokenKeyCommitments_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkService.20
   bool success = true;
   NetworkService_SetTrustTokenKeyCommitments_ResponseParamsDataView input_data_view(params, message);
   
@@ -3311,6 +3315,8 @@ bool NetworkService_UpdateCtLogList_ForwardToCallback::Accept(
           internal::NetworkService_UpdateCtLogList_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkService.23
   bool success = true;
   NetworkService_UpdateCtLogList_ResponseParamsDataView input_data_view(params, message);
   
@@ -3418,6 +3424,8 @@ bool NetworkService_UpdateCtKnownPopularSCTs_ForwardToCallback::Accept(
           internal::NetworkService_UpdateCtKnownPopularSCTs_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkService.24
   bool success = true;
   NetworkService_UpdateCtKnownPopularSCTs_ResponseParamsDataView input_data_view(params, message);
   
@@ -3525,6 +3533,8 @@ bool NetworkService_SetCtEnforcementEnabled_ForwardToCallback::Accept(
           internal::NetworkService_SetCtEnforcementEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkService.25
   bool success = true;
   NetworkService_SetCtEnforcementEnabled_ResponseParamsDataView input_data_view(params, message);
   
@@ -3632,6 +3642,8 @@ bool NetworkService_ParseHeaders_ForwardToCallback::Accept(
           internal::NetworkService_ParseHeaders_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for NetworkService.31
   bool success = true;
   ::network::mojom::ParsedHeadersPtr p_parsed_headers{};
   NetworkService_ParseHeaders_ResponseParamsDataView input_data_view(params, message);
@@ -3716,6 +3728,8 @@ bool NetworkServiceStubDispatch::Accept(
           reinterpret_cast<internal::NetworkService_SetParams_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.0
       bool success = true;
       NetworkServiceParamsPtr p_params{};
       NetworkService_SetParams_ParamsDataView input_data_view(params, message);
@@ -3731,8 +3745,8 @@ bool NetworkServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetParams(
-std::move(p_params));
+      impl->SetParams(        
+        std::move(p_params));
       return true;
     }
     case internal::kNetworkService_StartNetLog_Name: {
@@ -3742,6 +3756,8 @@ std::move(p_params));
           reinterpret_cast<internal::NetworkService_StartNetLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.1
       bool success = true;
       ::base::File p_file{};
       uint64_t p_max_total_size{};
@@ -3766,11 +3782,11 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartNetLog(
-std::move(p_file), 
-std::move(p_max_total_size), 
-std::move(p_capture_mode), 
-std::move(p_constants));
+      impl->StartNetLog(        
+        std::move(p_file), 
+        std::move(p_max_total_size), 
+        std::move(p_capture_mode), 
+        std::move(p_constants));
       return true;
     }
     case internal::kNetworkService_AttachNetLogProxy_Name: {
@@ -3780,6 +3796,8 @@ std::move(p_constants));
           reinterpret_cast<internal::NetworkService_AttachNetLogProxy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.2
       bool success = true;
       ::mojo::PendingRemote<::network::mojom::NetLogProxySource> p_proxy_source{};
       ::mojo::PendingReceiver<::network::mojom::NetLogProxySink> p_proxy_sink{};
@@ -3802,9 +3820,9 @@ std::move(p_constants));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AttachNetLogProxy(
-std::move(p_proxy_source), 
-std::move(p_proxy_sink));
+      impl->AttachNetLogProxy(        
+        std::move(p_proxy_source), 
+        std::move(p_proxy_sink));
       return true;
     }
     case internal::kNetworkService_SetSSLKeyLogFile_Name: {
@@ -3814,6 +3832,8 @@ std::move(p_proxy_sink));
           reinterpret_cast<internal::NetworkService_SetSSLKeyLogFile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.3
       bool success = true;
       ::base::File p_file{};
       NetworkService_SetSSLKeyLogFile_ParamsDataView input_data_view(params, message);
@@ -3829,8 +3849,8 @@ std::move(p_proxy_sink));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSSLKeyLogFile(
-std::move(p_file));
+      impl->SetSSLKeyLogFile(        
+        std::move(p_file));
       return true;
     }
     case internal::kNetworkService_CreateNetworkContext_Name: {
@@ -3840,6 +3860,8 @@ std::move(p_file));
           reinterpret_cast<internal::NetworkService_CreateNetworkContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.4
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::NetworkContext> p_context{};
       ::network::mojom::NetworkContextParamsPtr p_params{};
@@ -3860,9 +3882,9 @@ std::move(p_file));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNetworkContext(
-std::move(p_context), 
-std::move(p_params));
+      impl->CreateNetworkContext(        
+        std::move(p_context), 
+        std::move(p_params));
       return true;
     }
     case internal::kNetworkService_ConfigureStubHostResolver_Name: {
@@ -3872,6 +3894,8 @@ std::move(p_params));
           reinterpret_cast<internal::NetworkService_ConfigureStubHostResolver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.5
       bool success = true;
       bool p_insecure_dns_client_enabled{};
       ::net::SecureDnsMode p_secure_dns_mode{};
@@ -3896,11 +3920,11 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureStubHostResolver(
-std::move(p_insecure_dns_client_enabled), 
-std::move(p_secure_dns_mode), 
-std::move(p_dns_over_https_config), 
-std::move(p_additional_dns_types_enabled));
+      impl->ConfigureStubHostResolver(        
+        std::move(p_insecure_dns_client_enabled), 
+        std::move(p_secure_dns_mode), 
+        std::move(p_dns_over_https_config), 
+        std::move(p_additional_dns_types_enabled));
       return true;
     }
     case internal::kNetworkService_DisableQuic_Name: {
@@ -3910,6 +3934,8 @@ std::move(p_additional_dns_types_enabled));
           reinterpret_cast<internal::NetworkService_DisableQuic_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.6
       bool success = true;
       NetworkService_DisableQuic_ParamsDataView input_data_view(params, message);
       
@@ -3922,7 +3948,7 @@ std::move(p_additional_dns_types_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisableQuic();
+      impl->DisableQuic(        );
       return true;
     }
     case internal::kNetworkService_SetUpHttpAuth_Name: {
@@ -3932,6 +3958,8 @@ std::move(p_additional_dns_types_enabled));
           reinterpret_cast<internal::NetworkService_SetUpHttpAuth_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.7
       bool success = true;
       HttpAuthStaticParamsPtr p_http_auth_static_params{};
       NetworkService_SetUpHttpAuth_ParamsDataView input_data_view(params, message);
@@ -3947,8 +3975,8 @@ std::move(p_additional_dns_types_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetUpHttpAuth(
-std::move(p_http_auth_static_params));
+      impl->SetUpHttpAuth(        
+        std::move(p_http_auth_static_params));
       return true;
     }
     case internal::kNetworkService_ConfigureHttpAuthPrefs_Name: {
@@ -3958,6 +3986,8 @@ std::move(p_http_auth_static_params));
           reinterpret_cast<internal::NetworkService_ConfigureHttpAuthPrefs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.8
       bool success = true;
       HttpAuthDynamicParamsPtr p_http_auth_dynamic_params{};
       NetworkService_ConfigureHttpAuthPrefs_ParamsDataView input_data_view(params, message);
@@ -3973,8 +4003,8 @@ std::move(p_http_auth_static_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureHttpAuthPrefs(
-std::move(p_http_auth_dynamic_params));
+      impl->ConfigureHttpAuthPrefs(        
+        std::move(p_http_auth_dynamic_params));
       return true;
     }
     case internal::kNetworkService_SetRawHeadersAccess_Name: {
@@ -3984,6 +4014,8 @@ std::move(p_http_auth_dynamic_params));
           reinterpret_cast<internal::NetworkService_SetRawHeadersAccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.9
       bool success = true;
       int32_t p_process_id{};
       std::vector<::url::Origin> p_origins{};
@@ -4002,21 +4034,23 @@ std::move(p_http_auth_dynamic_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetRawHeadersAccess(
-std::move(p_process_id), 
-std::move(p_origins));
+      impl->SetRawHeadersAccess(        
+        std::move(p_process_id), 
+        std::move(p_origins));
       return true;
     }
-    case internal::kNetworkService_SetMaxConnectionsPerProxy_Name: {
+    case internal::kNetworkService_SetMaxConnectionsPerProxyChain_Name: {
 
       DCHECK(message->is_serialized());
-      internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data* params =
-          reinterpret_cast<internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data*>(
+      internal::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data* params =
+          reinterpret_cast<internal::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.10
       bool success = true;
       int32_t p_max_connections{};
-      NetworkService_SetMaxConnectionsPerProxy_ParamsDataView input_data_view(params, message);
+      NetworkService_SetMaxConnectionsPerProxyChain_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_max_connections = input_data_view.max_connections();
@@ -4029,8 +4063,8 @@ std::move(p_origins));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMaxConnectionsPerProxy(
-std::move(p_max_connections));
+      impl->SetMaxConnectionsPerProxyChain(        
+        std::move(p_max_connections));
       return true;
     }
     case internal::kNetworkService_GetNetworkChangeManager_Name: {
@@ -4040,6 +4074,8 @@ std::move(p_max_connections));
           reinterpret_cast<internal::NetworkService_GetNetworkChangeManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.11
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::NetworkChangeManager> p_network_change_manager{};
       NetworkService_GetNetworkChangeManager_ParamsDataView input_data_view(params, message);
@@ -4057,8 +4093,8 @@ std::move(p_max_connections));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworkChangeManager(
-std::move(p_network_change_manager));
+      impl->GetNetworkChangeManager(        
+        std::move(p_network_change_manager));
       return true;
     }
     case internal::kNetworkService_GetNetworkQualityEstimatorManager_Name: {
@@ -4068,6 +4104,8 @@ std::move(p_network_change_manager));
           reinterpret_cast<internal::NetworkService_GetNetworkQualityEstimatorManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.12
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::NetworkQualityEstimatorManager> p_receiver{};
       NetworkService_GetNetworkQualityEstimatorManager_ParamsDataView input_data_view(params, message);
@@ -4085,8 +4123,8 @@ std::move(p_network_change_manager));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworkQualityEstimatorManager(
-std::move(p_receiver));
+      impl->GetNetworkQualityEstimatorManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kNetworkService_GetDnsConfigChangeManager_Name: {
@@ -4096,6 +4134,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NetworkService_GetDnsConfigChangeManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.13
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::DnsConfigChangeManager> p_receiver{};
       NetworkService_GetDnsConfigChangeManager_ParamsDataView input_data_view(params, message);
@@ -4113,8 +4153,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDnsConfigChangeManager(
-std::move(p_receiver));
+      impl->GetDnsConfigChangeManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kNetworkService_GetNetworkList_Name: {
@@ -4127,6 +4167,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NetworkService_OnTrustStoreChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.15
       bool success = true;
       NetworkService_OnTrustStoreChanged_ParamsDataView input_data_view(params, message);
       
@@ -4139,7 +4181,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnTrustStoreChanged();
+      impl->OnTrustStoreChanged(        );
       return true;
     }
     case internal::kNetworkService_OnClientCertStoreChanged_Name: {
@@ -4149,6 +4191,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NetworkService_OnClientCertStoreChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.16
       bool success = true;
       NetworkService_OnClientCertStoreChanged_ParamsDataView input_data_view(params, message);
       
@@ -4161,7 +4205,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnClientCertStoreChanged();
+      impl->OnClientCertStoreChanged(        );
       return true;
     }
     case internal::kNetworkService_SetEncryptionKey_Name: {
@@ -4171,6 +4215,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NetworkService_SetEncryptionKey_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.17
       bool success = true;
       std::string p_encryption_key{};
       NetworkService_SetEncryptionKey_ParamsDataView input_data_view(params, message);
@@ -4186,8 +4232,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetEncryptionKey(
-std::move(p_encryption_key));
+      impl->SetEncryptionKey(        
+        std::move(p_encryption_key));
       return true;
     }
     case internal::kNetworkService_OnMemoryPressure_Name: {
@@ -4197,6 +4243,8 @@ std::move(p_encryption_key));
           reinterpret_cast<internal::NetworkService_OnMemoryPressure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.18
       bool success = true;
       ::base::MemoryPressureListener::MemoryPressureLevel p_memory_pressure_level{};
       NetworkService_OnMemoryPressure_ParamsDataView input_data_view(params, message);
@@ -4212,8 +4260,8 @@ std::move(p_encryption_key));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMemoryPressure(
-std::move(p_memory_pressure_level));
+      impl->OnMemoryPressure(        
+        std::move(p_memory_pressure_level));
       return true;
     }
     case internal::kNetworkService_OnPeerToPeerConnectionsCountChange_Name: {
@@ -4223,6 +4271,8 @@ std::move(p_memory_pressure_level));
           reinterpret_cast<internal::NetworkService_OnPeerToPeerConnectionsCountChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.19
       bool success = true;
       uint32_t p_count{};
       NetworkService_OnPeerToPeerConnectionsCountChange_ParamsDataView input_data_view(params, message);
@@ -4238,8 +4288,8 @@ std::move(p_memory_pressure_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPeerToPeerConnectionsCountChange(
-std::move(p_count));
+      impl->OnPeerToPeerConnectionsCountChange(        
+        std::move(p_count));
       return true;
     }
     case internal::kNetworkService_SetTrustTokenKeyCommitments_Name: {
@@ -4252,6 +4302,8 @@ std::move(p_count));
           reinterpret_cast<internal::NetworkService_ClearSCTAuditingCache_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.21
       bool success = true;
       NetworkService_ClearSCTAuditingCache_ParamsDataView input_data_view(params, message);
       
@@ -4264,7 +4316,7 @@ std::move(p_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearSCTAuditingCache();
+      impl->ClearSCTAuditingCache(        );
       return true;
     }
     case internal::kNetworkService_ConfigureSCTAuditing_Name: {
@@ -4274,6 +4326,8 @@ std::move(p_count));
           reinterpret_cast<internal::NetworkService_ConfigureSCTAuditing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.22
       bool success = true;
       SCTAuditingConfigurationPtr p_configuration{};
       NetworkService_ConfigureSCTAuditing_ParamsDataView input_data_view(params, message);
@@ -4289,8 +4343,8 @@ std::move(p_count));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureSCTAuditing(
-std::move(p_configuration));
+      impl->ConfigureSCTAuditing(        
+        std::move(p_configuration));
       return true;
     }
     case internal::kNetworkService_UpdateCtLogList_Name: {
@@ -4309,6 +4363,8 @@ std::move(p_configuration));
           reinterpret_cast<internal::NetworkService_UpdateKeyPinsList_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.26
       bool success = true;
       ::network::mojom::PinListPtr p_pin_list{};
       ::base::Time p_update_time{};
@@ -4327,9 +4383,9 @@ std::move(p_configuration));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateKeyPinsList(
-std::move(p_pin_list), 
-std::move(p_update_time));
+      impl->UpdateKeyPinsList(        
+        std::move(p_pin_list), 
+        std::move(p_update_time));
       return true;
     }
     case internal::kNetworkService_BindTestInterfaceForTesting_Name: {
@@ -4339,6 +4395,8 @@ std::move(p_update_time));
           reinterpret_cast<internal::NetworkService_BindTestInterfaceForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.27
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::NetworkServiceTest> p_receiver{};
       NetworkService_BindTestInterfaceForTesting_ParamsDataView input_data_view(params, message);
@@ -4356,8 +4414,8 @@ std::move(p_update_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestInterfaceForTesting(
-std::move(p_receiver));
+      impl->BindTestInterfaceForTesting(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kNetworkService_SetFirstPartySets_Name: {
@@ -4367,6 +4425,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::NetworkService_SetFirstPartySets_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.28
       bool success = true;
       ::net::GlobalFirstPartySets p_sets{};
       NetworkService_SetFirstPartySets_ParamsDataView input_data_view(params, message);
@@ -4382,8 +4442,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFirstPartySets(
-std::move(p_sets));
+      impl->SetFirstPartySets(        
+        std::move(p_sets));
       return true;
     }
     case internal::kNetworkService_SetExplicitlyAllowedPorts_Name: {
@@ -4393,6 +4453,8 @@ std::move(p_sets));
           reinterpret_cast<internal::NetworkService_SetExplicitlyAllowedPorts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.29
       bool success = true;
       std::vector<uint16_t> p_ports{};
       NetworkService_SetExplicitlyAllowedPorts_ParamsDataView input_data_view(params, message);
@@ -4408,8 +4470,8 @@ std::move(p_sets));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetExplicitlyAllowedPorts(
-std::move(p_ports));
+      impl->SetExplicitlyAllowedPorts(        
+        std::move(p_ports));
       return true;
     }
     case internal::kNetworkService_UpdateMaskedDomainList_Name: {
@@ -4419,6 +4481,8 @@ std::move(p_ports));
           reinterpret_cast<internal::NetworkService_UpdateMaskedDomainList_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.30
       bool success = true;
       std::string p_raw_mdl{};
       NetworkService_UpdateMaskedDomainList_ParamsDataView input_data_view(params, message);
@@ -4434,8 +4498,8 @@ std::move(p_ports));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateMaskedDomainList(
-std::move(p_raw_mdl));
+      impl->UpdateMaskedDomainList(        
+        std::move(p_raw_mdl));
       return true;
     }
     case internal::kNetworkService_ParseHeaders_Name: {
@@ -4448,6 +4512,8 @@ std::move(p_raw_mdl));
           reinterpret_cast<internal::NetworkService_EnableDataUseUpdates_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.32
       bool success = true;
       bool p_enable{};
       NetworkService_EnableDataUseUpdates_ParamsDataView input_data_view(params, message);
@@ -4463,8 +4529,8 @@ std::move(p_raw_mdl));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EnableDataUseUpdates(
-std::move(p_enable));
+      impl->EnableDataUseUpdates(        
+        std::move(p_enable));
       return true;
     }
     case internal::kNetworkService_SetIPv6ReachabilityOverride_Name: {
@@ -4474,6 +4540,8 @@ std::move(p_enable));
           reinterpret_cast<internal::NetworkService_SetIPv6ReachabilityOverride_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.33
       bool success = true;
       bool p_reachability_override{};
       NetworkService_SetIPv6ReachabilityOverride_ParamsDataView input_data_view(params, message);
@@ -4489,24 +4557,26 @@ std::move(p_enable));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetIPv6ReachabilityOverride(
-std::move(p_reachability_override));
+      impl->SetIPv6ReachabilityOverride(        
+        std::move(p_reachability_override));
       return true;
     }
-    case internal::kNetworkService_SetCookieEncryptionProvider_Name: {
+    case internal::kNetworkService_SetNetworkAnnotationMonitor_Name: {
 
       DCHECK(message->is_serialized());
-      internal::NetworkService_SetCookieEncryptionProvider_Params_Data* params =
-          reinterpret_cast<internal::NetworkService_SetCookieEncryptionProvider_Params_Data*>(
+      internal::NetworkService_SetNetworkAnnotationMonitor_Params_Data* params =
+          reinterpret_cast<internal::NetworkService_SetNetworkAnnotationMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for NetworkService.34
       bool success = true;
-      ::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> p_provider{};
-      NetworkService_SetCookieEncryptionProvider_ParamsDataView input_data_view(params, message);
+      ::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor> p_remote{};
+      NetworkService_SetNetworkAnnotationMonitor_ParamsDataView input_data_view(params, message);
       
       if (success) {
-        p_provider =
-            input_data_view.TakeProvider<decltype(p_provider)>();
+        p_remote =
+            input_data_view.TakeRemote<decltype(p_remote)>();
       }
       if (!success) {
         ReportValidationErrorForMessage(
@@ -4517,8 +4587,8 @@ std::move(p_reachability_override));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCookieEncryptionProvider(
-std::move(p_provider));
+      impl->SetNetworkAnnotationMonitor(        
+        std::move(p_remote));
       return true;
     }
   }
@@ -4564,7 +4634,7 @@ bool NetworkServiceStubDispatch::AcceptWithResponder(
     case internal::kNetworkService_SetRawHeadersAccess_Name: {
       break;
     }
-    case internal::kNetworkService_SetMaxConnectionsPerProxy_Name: {
+    case internal::kNetworkService_SetMaxConnectionsPerProxyChain_Name: {
       break;
     }
     case internal::kNetworkService_GetNetworkChangeManager_Name: {
@@ -4583,6 +4653,8 @@ bool NetworkServiceStubDispatch::AcceptWithResponder(
               internal::NetworkService_GetNetworkList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkService.14
       bool success = true;
       uint32_t p_policy{};
       NetworkService_GetNetworkList_ParamsDataView input_data_view(params, message);
@@ -4601,8 +4673,8 @@ bool NetworkServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetNetworkList(
-std::move(p_policy), std::move(callback));
+      impl->GetNetworkList(        
+        std::move(p_policy), std::move(callback));
       return true;
     }
     case internal::kNetworkService_OnTrustStoreChanged_Name: {
@@ -4627,6 +4699,8 @@ std::move(p_policy), std::move(callback));
               internal::NetworkService_SetTrustTokenKeyCommitments_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkService.20
       bool success = true;
       std::string p_raw_commitments{};
       NetworkService_SetTrustTokenKeyCommitments_ParamsDataView input_data_view(params, message);
@@ -4645,8 +4719,8 @@ std::move(p_policy), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetTrustTokenKeyCommitments(
-std::move(p_raw_commitments), std::move(callback));
+      impl->SetTrustTokenKeyCommitments(        
+        std::move(p_raw_commitments), std::move(callback));
       return true;
     }
     case internal::kNetworkService_ClearSCTAuditingCache_Name: {
@@ -4662,6 +4736,8 @@ std::move(p_raw_commitments), std::move(callback));
               internal::NetworkService_UpdateCtLogList_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkService.23
       bool success = true;
       std::vector<::network::mojom::CTLogInfoPtr> p_log_list{};
       NetworkService_UpdateCtLogList_ParamsDataView input_data_view(params, message);
@@ -4680,8 +4756,8 @@ std::move(p_raw_commitments), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCtLogList(
-std::move(p_log_list), std::move(callback));
+      impl->UpdateCtLogList(        
+        std::move(p_log_list), std::move(callback));
       return true;
     }
     case internal::kNetworkService_UpdateCtKnownPopularSCTs_Name: {
@@ -4691,6 +4767,8 @@ std::move(p_log_list), std::move(callback));
               internal::NetworkService_UpdateCtKnownPopularSCTs_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkService.24
       bool success = true;
       std::vector<std::vector<uint8_t>> p_sct_hashes{};
       NetworkService_UpdateCtKnownPopularSCTs_ParamsDataView input_data_view(params, message);
@@ -4709,8 +4787,8 @@ std::move(p_log_list), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateCtKnownPopularSCTs(
-std::move(p_sct_hashes), std::move(callback));
+      impl->UpdateCtKnownPopularSCTs(        
+        std::move(p_sct_hashes), std::move(callback));
       return true;
     }
     case internal::kNetworkService_SetCtEnforcementEnabled_Name: {
@@ -4720,6 +4798,8 @@ std::move(p_sct_hashes), std::move(callback));
               internal::NetworkService_SetCtEnforcementEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkService.25
       bool success = true;
       bool p_enabled{};
       NetworkService_SetCtEnforcementEnabled_ParamsDataView input_data_view(params, message);
@@ -4738,8 +4818,8 @@ std::move(p_sct_hashes), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCtEnforcementEnabled(
-std::move(p_enabled), std::move(callback));
+      impl->SetCtEnforcementEnabled(        
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kNetworkService_UpdateKeyPinsList_Name: {
@@ -4764,6 +4844,8 @@ std::move(p_enabled), std::move(callback));
               internal::NetworkService_ParseHeaders_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for NetworkService.31
       bool success = true;
       ::GURL p_url{};
       ::scoped_refptr<::net::HttpResponseHeaders> p_headers{};
@@ -4785,9 +4867,9 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseHeaders(
-std::move(p_url), 
-std::move(p_headers), std::move(callback));
+      impl->ParseHeaders(        
+        std::move(p_url), 
+        std::move(p_headers), std::move(callback));
       return true;
     }
     case internal::kNetworkService_EnableDataUseUpdates_Name: {
@@ -4796,7 +4878,7 @@ std::move(p_headers), std::move(callback));
     case internal::kNetworkService_SetIPv6ReachabilityOverride_Name: {
       break;
     }
-    case internal::kNetworkService_SetCookieEncryptionProvider_Name: {
+    case internal::kNetworkService_SetNetworkAnnotationMonitor_Name: {
       break;
     }
   }
@@ -4825,7 +4907,7 @@ static const mojo::internal::GenericValidationInfo kNetworkServiceValidationInfo
      nullptr /* no response */},
     { &internal::NetworkService_SetRawHeadersAccess_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::NetworkService_SetMaxConnectionsPerProxy_Params_Data::Validate,
+    { &internal::NetworkService_SetMaxConnectionsPerProxyChain_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::NetworkService_GetNetworkChangeManager_Params_Data::Validate,
      nullptr /* no response */},
@@ -4873,7 +4955,7 @@ static const mojo::internal::GenericValidationInfo kNetworkServiceValidationInfo
      nullptr /* no response */},
     { &internal::NetworkService_SetIPv6ReachabilityOverride_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::NetworkService_SetCookieEncryptionProvider_Params_Data::Validate,
+    { &internal::NetworkService_SetNetworkAnnotationMonitor_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5053,8 +5135,8 @@ void NetworkServiceInterceptorForTesting::ConfigureHttpAuthPrefs(HttpAuthDynamic
 void NetworkServiceInterceptorForTesting::SetRawHeadersAccess(int32_t process_id, const std::vector<::url::Origin>& origins) {
   GetForwardingInterface()->SetRawHeadersAccess(std::move(process_id), std::move(origins));
 }
-void NetworkServiceInterceptorForTesting::SetMaxConnectionsPerProxy(int32_t max_connections) {
-  GetForwardingInterface()->SetMaxConnectionsPerProxy(std::move(max_connections));
+void NetworkServiceInterceptorForTesting::SetMaxConnectionsPerProxyChain(int32_t max_connections) {
+  GetForwardingInterface()->SetMaxConnectionsPerProxyChain(std::move(max_connections));
 }
 void NetworkServiceInterceptorForTesting::GetNetworkChangeManager(::mojo::PendingReceiver<::network::mojom::NetworkChangeManager> network_change_manager) {
   GetForwardingInterface()->GetNetworkChangeManager(std::move(network_change_manager));
@@ -5125,8 +5207,8 @@ void NetworkServiceInterceptorForTesting::EnableDataUseUpdates(bool enable) {
 void NetworkServiceInterceptorForTesting::SetIPv6ReachabilityOverride(bool reachability_override) {
   GetForwardingInterface()->SetIPv6ReachabilityOverride(std::move(reachability_override));
 }
-void NetworkServiceInterceptorForTesting::SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> provider) {
-  GetForwardingInterface()->SetCookieEncryptionProvider(std::move(provider));
+void NetworkServiceInterceptorForTesting::SetNetworkAnnotationMonitor(::mojo::PendingRemote<::network::mojom::NetworkAnnotationMonitor> remote) {
+  GetForwardingInterface()->SetNetworkAnnotationMonitor(std::move(remote));
 }
 NetworkServiceAsyncWaiter::NetworkServiceAsyncWaiter(
     NetworkService* proxy) : proxy_(proxy) {}

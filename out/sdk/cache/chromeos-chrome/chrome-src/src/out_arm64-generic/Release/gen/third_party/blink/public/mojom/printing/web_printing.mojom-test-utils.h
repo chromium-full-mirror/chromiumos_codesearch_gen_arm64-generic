@@ -16,7 +16,7 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT WebPrintJobStateObserverInterceptorForTesting : public WebPrintJobStateObserver {
   virtual WebPrintJobStateObserver* GetForwardingInterface() = 0;
-  void OnWebPrintJobStateChanged(WebPrintJobState state) override;
+  void OnWebPrintJobUpdate(WebPrintJobUpdatePtr update) override;
 };
 class BLINK_COMMON_EXPORT WebPrintJobStateObserverAsyncWaiter {
  public:
@@ -46,8 +46,8 @@ class BLINK_COMMON_EXPORT WebPrinterAsyncWaiter {
 
   ~WebPrinterAsyncWaiter();
   void FetchAttributes(
-      WebPrinterAttributesPtr* out_attributes);
-  WebPrinterAttributesPtr FetchAttributes();
+      WebPrinterFetchResultPtr* out_result);
+  WebPrinterFetchResultPtr FetchAttributes();
   void Print(
       ::mojo::PendingRemote<::blink::mojom::Blob> document, ::std::unique_ptr<::printing::PrintSettings> attributes, WebPrintResultPtr* out_result);
   WebPrintResultPtr Print(::mojo::PendingRemote<::blink::mojom::Blob> document, ::std::unique_ptr<::printing::PrintSettings> attributes);
@@ -70,8 +70,8 @@ class BLINK_COMMON_EXPORT WebPrintingServiceAsyncWaiter {
 
   ~WebPrintingServiceAsyncWaiter();
   void GetPrinters(
-      std::vector<WebPrinterInfoPtr>* out_printers);
-  std::vector<WebPrinterInfoPtr> GetPrinters();
+      GetPrintersResultPtr* out_result);
+  GetPrintersResultPtr GetPrinters();
 
  private:
   WebPrintingService* const proxy_;

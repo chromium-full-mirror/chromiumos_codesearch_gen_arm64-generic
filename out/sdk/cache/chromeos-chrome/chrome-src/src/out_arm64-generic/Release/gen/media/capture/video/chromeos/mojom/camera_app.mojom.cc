@@ -478,6 +478,8 @@ bool CameraAppDeviceProvider_GetCameraAppDevice_ForwardToCallback::Accept(
           internal::CameraAppDeviceProvider_GetCameraAppDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceProvider.0
   bool success = true;
   GetCameraAppDeviceStatus p_status{};
   ::mojo::PendingRemote<CameraAppDevice> p_device{};
@@ -609,6 +611,8 @@ bool CameraAppDeviceProvider_IsSupported_ForwardToCallback::Accept(
           internal::CameraAppDeviceProvider_IsSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceProvider.1
   bool success = true;
   bool p_is_supported{};
   CameraAppDeviceProvider_IsSupported_ResponseParamsDataView input_data_view(params, message);
@@ -728,6 +732,8 @@ bool CameraAppDeviceProvider_SetVirtualDeviceEnabled_ForwardToCallback::Accept(
           internal::CameraAppDeviceProvider_SetVirtualDeviceEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceProvider.2
   bool success = true;
   bool p_success{};
   CameraAppDeviceProvider_SetVirtualDeviceEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -847,6 +853,8 @@ bool CameraAppDeviceProvider_IsDeviceInUse_ForwardToCallback::Accept(
           internal::CameraAppDeviceProvider_IsDeviceInUse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceProvider.3
   bool success = true;
   bool p_in_use{};
   CameraAppDeviceProvider_IsDeviceInUse_ResponseParamsDataView input_data_view(params, message);
@@ -946,6 +954,8 @@ bool CameraAppDeviceProviderStubDispatch::AcceptWithResponder(
               internal::CameraAppDeviceProvider_GetCameraAppDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceProvider.0
       bool success = true;
       std::string p_source_id{};
       CameraAppDeviceProvider_GetCameraAppDevice_ParamsDataView input_data_view(params, message);
@@ -964,8 +974,8 @@ bool CameraAppDeviceProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCameraAppDevice(
-std::move(p_source_id), std::move(callback));
+      impl->GetCameraAppDevice(        
+        std::move(p_source_id), std::move(callback));
       return true;
     }
     case internal::kCameraAppDeviceProvider_IsSupported_Name: {
@@ -975,6 +985,8 @@ std::move(p_source_id), std::move(callback));
               internal::CameraAppDeviceProvider_IsSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceProvider.1
       bool success = true;
       CameraAppDeviceProvider_IsSupported_ParamsDataView input_data_view(params, message);
       
@@ -1000,6 +1012,8 @@ std::move(p_source_id), std::move(callback));
               internal::CameraAppDeviceProvider_SetVirtualDeviceEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceProvider.2
       bool success = true;
       std::string p_device_id{};
       bool p_enabled{};
@@ -1021,9 +1035,9 @@ std::move(p_source_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVirtualDeviceEnabled(
-std::move(p_device_id), 
-std::move(p_enabled), std::move(callback));
+      impl->SetVirtualDeviceEnabled(        
+        std::move(p_device_id), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kCameraAppDeviceProvider_IsDeviceInUse_Name: {
@@ -1033,6 +1047,8 @@ std::move(p_enabled), std::move(callback));
               internal::CameraAppDeviceProvider_IsDeviceInUse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceProvider.3
       bool success = true;
       std::string p_source_id{};
       CameraAppDeviceProvider_IsDeviceInUse_ParamsDataView input_data_view(params, message);
@@ -1051,8 +1067,8 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsDeviceInUse(
-std::move(p_source_id), std::move(callback));
+      impl->IsDeviceInUse(        
+        std::move(p_source_id), std::move(callback));
       return true;
     }
   }
@@ -1514,6 +1530,8 @@ bool CameraAppDeviceBridge_GetCameraAppDevice_ForwardToCallback::Accept(
           internal::CameraAppDeviceBridge_GetCameraAppDevice_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceBridge.0
   bool success = true;
   GetCameraAppDeviceStatus p_status{};
   ::mojo::PendingRemote<CameraAppDevice> p_device{};
@@ -1645,6 +1663,8 @@ bool CameraAppDeviceBridge_IsSupported_ForwardToCallback::Accept(
           internal::CameraAppDeviceBridge_IsSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceBridge.1
   bool success = true;
   bool p_is_supported{};
   CameraAppDeviceBridge_IsSupported_ResponseParamsDataView input_data_view(params, message);
@@ -1764,6 +1784,8 @@ bool CameraAppDeviceBridge_SetVirtualDeviceEnabled_ForwardToCallback::Accept(
           internal::CameraAppDeviceBridge_SetVirtualDeviceEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceBridge.2
   bool success = true;
   bool p_success{};
   CameraAppDeviceBridge_SetVirtualDeviceEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -1883,6 +1905,8 @@ bool CameraAppDeviceBridge_IsDeviceInUse_ForwardToCallback::Accept(
           internal::CameraAppDeviceBridge_IsDeviceInUse_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDeviceBridge.3
   bool success = true;
   bool p_in_use{};
   CameraAppDeviceBridge_IsDeviceInUse_ResponseParamsDataView input_data_view(params, message);
@@ -1982,6 +2006,8 @@ bool CameraAppDeviceBridgeStubDispatch::AcceptWithResponder(
               internal::CameraAppDeviceBridge_GetCameraAppDevice_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceBridge.0
       bool success = true;
       std::string p_device_id{};
       CameraAppDeviceBridge_GetCameraAppDevice_ParamsDataView input_data_view(params, message);
@@ -2000,8 +2026,8 @@ bool CameraAppDeviceBridgeStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCameraAppDevice(
-std::move(p_device_id), std::move(callback));
+      impl->GetCameraAppDevice(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
     case internal::kCameraAppDeviceBridge_IsSupported_Name: {
@@ -2011,6 +2037,8 @@ std::move(p_device_id), std::move(callback));
               internal::CameraAppDeviceBridge_IsSupported_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceBridge.1
       bool success = true;
       CameraAppDeviceBridge_IsSupported_ParamsDataView input_data_view(params, message);
       
@@ -2036,6 +2064,8 @@ std::move(p_device_id), std::move(callback));
               internal::CameraAppDeviceBridge_SetVirtualDeviceEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceBridge.2
       bool success = true;
       std::string p_device_id{};
       bool p_enabled{};
@@ -2057,9 +2087,9 @@ std::move(p_device_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetVirtualDeviceEnabled(
-std::move(p_device_id), 
-std::move(p_enabled), std::move(callback));
+      impl->SetVirtualDeviceEnabled(        
+        std::move(p_device_id), 
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kCameraAppDeviceBridge_IsDeviceInUse_Name: {
@@ -2069,6 +2099,8 @@ std::move(p_enabled), std::move(callback));
               internal::CameraAppDeviceBridge_IsDeviceInUse_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDeviceBridge.3
       bool success = true;
       std::string p_device_id{};
       CameraAppDeviceBridge_IsDeviceInUse_ParamsDataView input_data_view(params, message);
@@ -2087,8 +2119,8 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsDeviceInUse(
-std::move(p_device_id), std::move(callback));
+      impl->IsDeviceInUse(        
+        std::move(p_device_id), std::move(callback));
       return true;
     }
   }
@@ -3271,6 +3303,8 @@ bool CameraAppDevice_TakePortraitModePhoto_ForwardToCallback::Accept(
           internal::CameraAppDevice_TakePortraitModePhoto_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.0
   bool success = true;
   CameraAppDevice_TakePortraitModePhoto_ResponseParamsDataView input_data_view(params, message);
   
@@ -3378,6 +3412,8 @@ bool CameraAppDevice_SetFpsRange_ForwardToCallback::Accept(
           internal::CameraAppDevice_SetFpsRange_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.1
   bool success = true;
   bool p_is_success{};
   CameraAppDevice_SetFpsRange_ResponseParamsDataView input_data_view(params, message);
@@ -3497,6 +3533,8 @@ bool CameraAppDevice_SetStillCaptureResolution_ForwardToCallback::Accept(
           internal::CameraAppDevice_SetStillCaptureResolution_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.2
   bool success = true;
   CameraAppDevice_SetStillCaptureResolution_ResponseParamsDataView input_data_view(params, message);
   
@@ -3604,6 +3642,8 @@ bool CameraAppDevice_SetCaptureIntent_ForwardToCallback::Accept(
           internal::CameraAppDevice_SetCaptureIntent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.3
   bool success = true;
   CameraAppDevice_SetCaptureIntent_ResponseParamsDataView input_data_view(params, message);
   
@@ -3711,6 +3751,8 @@ bool CameraAppDevice_AddResultMetadataObserver_ForwardToCallback::Accept(
           internal::CameraAppDevice_AddResultMetadataObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.4
   bool success = true;
   CameraAppDevice_AddResultMetadataObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -3818,6 +3860,8 @@ bool CameraAppDevice_AddCameraEventObserver_ForwardToCallback::Accept(
           internal::CameraAppDevice_AddCameraEventObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.5
   bool success = true;
   CameraAppDevice_AddCameraEventObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -3925,6 +3969,8 @@ bool CameraAppDevice_SetCameraFrameRotationEnabledAtSource_ForwardToCallback::Ac
           internal::CameraAppDevice_SetCameraFrameRotationEnabledAtSource_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.6
   bool success = true;
   bool p_is_success{};
   CameraAppDevice_SetCameraFrameRotationEnabledAtSource_ResponseParamsDataView input_data_view(params, message);
@@ -4044,6 +4090,8 @@ bool CameraAppDevice_GetCameraFrameRotation_ForwardToCallback::Accept(
           internal::CameraAppDevice_GetCameraFrameRotation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.7
   bool success = true;
   uint32_t p_rotation{};
   CameraAppDevice_GetCameraFrameRotation_ResponseParamsDataView input_data_view(params, message);
@@ -4163,6 +4211,8 @@ bool CameraAppDevice_RegisterDocumentCornersObserver_ForwardToCallback::Accept(
           internal::CameraAppDevice_RegisterDocumentCornersObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.8
   bool success = true;
   CameraAppDevice_RegisterDocumentCornersObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -4270,6 +4320,8 @@ bool CameraAppDevice_SetMultipleStreamsEnabled_ForwardToCallback::Accept(
           internal::CameraAppDevice_SetMultipleStreamsEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.9
   bool success = true;
   CameraAppDevice_SetMultipleStreamsEnabled_ResponseParamsDataView input_data_view(params, message);
   
@@ -4377,6 +4429,8 @@ bool CameraAppDevice_RegisterCameraInfoObserver_ForwardToCallback::Accept(
           internal::CameraAppDevice_RegisterCameraInfoObserver_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.10
   bool success = true;
   CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsDataView input_data_view(params, message);
   
@@ -4484,6 +4538,8 @@ bool CameraAppDevice_SetCropRegion_ForwardToCallback::Accept(
           internal::CameraAppDevice_SetCropRegion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.11
   bool success = true;
   CameraAppDevice_SetCropRegion_ResponseParamsDataView input_data_view(params, message);
   
@@ -4591,6 +4647,8 @@ bool CameraAppDevice_ResetCropRegion_ForwardToCallback::Accept(
           internal::CameraAppDevice_ResetCropRegion_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraAppDevice.12
   bool success = true;
   CameraAppDevice_ResetCropRegion_ResponseParamsDataView input_data_view(params, message);
   
@@ -4705,6 +4763,8 @@ bool CameraAppDeviceStubDispatch::AcceptWithResponder(
               internal::CameraAppDevice_TakePortraitModePhoto_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.0
       bool success = true;
       ::mojo::PendingRemote<StillCaptureResultObserver> p_observer{};
       CameraAppDevice_TakePortraitModePhoto_ParamsDataView input_data_view(params, message);
@@ -4725,8 +4785,8 @@ bool CameraAppDeviceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->TakePortraitModePhoto(
-std::move(p_observer), std::move(callback));
+      impl->TakePortraitModePhoto(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_SetFpsRange_Name: {
@@ -4736,6 +4796,8 @@ std::move(p_observer), std::move(callback));
               internal::CameraAppDevice_SetFpsRange_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.1
       bool success = true;
       ::gfx::Range p_fps_range{};
       CameraAppDevice_SetFpsRange_ParamsDataView input_data_view(params, message);
@@ -4754,8 +4816,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetFpsRange(
-std::move(p_fps_range), std::move(callback));
+      impl->SetFpsRange(        
+        std::move(p_fps_range), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_SetStillCaptureResolution_Name: {
@@ -4765,6 +4827,8 @@ std::move(p_fps_range), std::move(callback));
               internal::CameraAppDevice_SetStillCaptureResolution_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.2
       bool success = true;
       ::gfx::Size p_resolution{};
       CameraAppDevice_SetStillCaptureResolution_ParamsDataView input_data_view(params, message);
@@ -4783,8 +4847,8 @@ std::move(p_fps_range), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetStillCaptureResolution(
-std::move(p_resolution), std::move(callback));
+      impl->SetStillCaptureResolution(        
+        std::move(p_resolution), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_SetCaptureIntent_Name: {
@@ -4794,6 +4858,8 @@ std::move(p_resolution), std::move(callback));
               internal::CameraAppDevice_SetCaptureIntent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.3
       bool success = true;
       CaptureIntent p_intent{};
       CameraAppDevice_SetCaptureIntent_ParamsDataView input_data_view(params, message);
@@ -4812,8 +4878,8 @@ std::move(p_resolution), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCaptureIntent(
-std::move(p_intent), std::move(callback));
+      impl->SetCaptureIntent(        
+        std::move(p_intent), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_AddResultMetadataObserver_Name: {
@@ -4823,6 +4889,8 @@ std::move(p_intent), std::move(callback));
               internal::CameraAppDevice_AddResultMetadataObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.4
       bool success = true;
       ::mojo::PendingRemote<ResultMetadataObserver> p_observer{};
       StreamType p_stream_type{};
@@ -4846,9 +4914,9 @@ std::move(p_intent), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddResultMetadataObserver(
-std::move(p_observer), 
-std::move(p_stream_type), std::move(callback));
+      impl->AddResultMetadataObserver(        
+        std::move(p_observer), 
+        std::move(p_stream_type), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_AddCameraEventObserver_Name: {
@@ -4858,6 +4926,8 @@ std::move(p_stream_type), std::move(callback));
               internal::CameraAppDevice_AddCameraEventObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.5
       bool success = true;
       ::mojo::PendingRemote<CameraEventObserver> p_observer{};
       CameraAppDevice_AddCameraEventObserver_ParamsDataView input_data_view(params, message);
@@ -4878,8 +4948,8 @@ std::move(p_stream_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddCameraEventObserver(
-std::move(p_observer), std::move(callback));
+      impl->AddCameraEventObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_SetCameraFrameRotationEnabledAtSource_Name: {
@@ -4889,6 +4959,8 @@ std::move(p_observer), std::move(callback));
               internal::CameraAppDevice_SetCameraFrameRotationEnabledAtSource_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.6
       bool success = true;
       bool p_is_enabled{};
       CameraAppDevice_SetCameraFrameRotationEnabledAtSource_ParamsDataView input_data_view(params, message);
@@ -4907,8 +4979,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCameraFrameRotationEnabledAtSource(
-std::move(p_is_enabled), std::move(callback));
+      impl->SetCameraFrameRotationEnabledAtSource(        
+        std::move(p_is_enabled), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_GetCameraFrameRotation_Name: {
@@ -4918,6 +4990,8 @@ std::move(p_is_enabled), std::move(callback));
               internal::CameraAppDevice_GetCameraFrameRotation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.7
       bool success = true;
       CameraAppDevice_GetCameraFrameRotation_ParamsDataView input_data_view(params, message);
       
@@ -4943,6 +5017,8 @@ std::move(p_is_enabled), std::move(callback));
               internal::CameraAppDevice_RegisterDocumentCornersObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.8
       bool success = true;
       ::mojo::PendingRemote<DocumentCornersObserver> p_observer{};
       CameraAppDevice_RegisterDocumentCornersObserver_ParamsDataView input_data_view(params, message);
@@ -4963,8 +5039,8 @@ std::move(p_is_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterDocumentCornersObserver(
-std::move(p_observer), std::move(callback));
+      impl->RegisterDocumentCornersObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_SetMultipleStreamsEnabled_Name: {
@@ -4974,6 +5050,8 @@ std::move(p_observer), std::move(callback));
               internal::CameraAppDevice_SetMultipleStreamsEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.9
       bool success = true;
       bool p_enabled{};
       CameraAppDevice_SetMultipleStreamsEnabled_ParamsDataView input_data_view(params, message);
@@ -4992,8 +5070,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMultipleStreamsEnabled(
-std::move(p_enabled), std::move(callback));
+      impl->SetMultipleStreamsEnabled(        
+        std::move(p_enabled), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_RegisterCameraInfoObserver_Name: {
@@ -5003,6 +5081,8 @@ std::move(p_enabled), std::move(callback));
               internal::CameraAppDevice_RegisterCameraInfoObserver_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.10
       bool success = true;
       ::mojo::PendingRemote<CameraInfoObserver> p_observer{};
       CameraAppDevice_RegisterCameraInfoObserver_ParamsDataView input_data_view(params, message);
@@ -5023,8 +5103,8 @@ std::move(p_enabled), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterCameraInfoObserver(
-std::move(p_observer), std::move(callback));
+      impl->RegisterCameraInfoObserver(        
+        std::move(p_observer), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_SetCropRegion_Name: {
@@ -5034,6 +5114,8 @@ std::move(p_observer), std::move(callback));
               internal::CameraAppDevice_SetCropRegion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.11
       bool success = true;
       ::gfx::Rect p_crop_region{};
       CameraAppDevice_SetCropRegion_ParamsDataView input_data_view(params, message);
@@ -5052,8 +5134,8 @@ std::move(p_observer), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetCropRegion(
-std::move(p_crop_region), std::move(callback));
+      impl->SetCropRegion(        
+        std::move(p_crop_region), std::move(callback));
       return true;
     }
     case internal::kCameraAppDevice_ResetCropRegion_Name: {
@@ -5063,6 +5145,8 @@ std::move(p_crop_region), std::move(callback));
               internal::CameraAppDevice_ResetCropRegion_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraAppDevice.12
       bool success = true;
       CameraAppDevice_ResetCropRegion_ParamsDataView input_data_view(params, message);
       
@@ -5246,6 +5330,8 @@ bool ResultMetadataObserverStubDispatch::Accept(
           reinterpret_cast<internal::ResultMetadataObserver_OnMetadataAvailable_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ResultMetadataObserver.0
       bool success = true;
       ::cros::mojom::CameraMetadataPtr p_camera_metadata{};
       ResultMetadataObserver_OnMetadataAvailable_ParamsDataView input_data_view(params, message);
@@ -5261,8 +5347,8 @@ bool ResultMetadataObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMetadataAvailable(
-std::move(p_camera_metadata));
+      impl->OnMetadataAvailable(        
+        std::move(p_camera_metadata));
       return true;
     }
   }
@@ -5400,6 +5486,8 @@ bool CameraEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::CameraEventObserver_OnShutterDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraEventObserver.0
       bool success = true;
       CameraEventObserver_OnShutterDone_ParamsDataView input_data_view(params, message);
       
@@ -5412,7 +5500,7 @@ bool CameraEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnShutterDone();
+      impl->OnShutterDone(        );
       return true;
     }
   }
@@ -5570,6 +5658,8 @@ bool DocumentCornersObserverStubDispatch::Accept(
           reinterpret_cast<internal::DocumentCornersObserver_OnDocumentCornersUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DocumentCornersObserver.0
       bool success = true;
       std::vector<::gfx::PointF> p_corners{};
       DocumentCornersObserver_OnDocumentCornersUpdated_ParamsDataView input_data_view(params, message);
@@ -5585,8 +5675,8 @@ bool DocumentCornersObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDocumentCornersUpdated(
-std::move(p_corners));
+      impl->OnDocumentCornersUpdated(        
+        std::move(p_corners));
       return true;
     }
   }
@@ -5742,6 +5832,8 @@ bool CameraInfoObserverStubDispatch::Accept(
           reinterpret_cast<internal::CameraInfoObserver_OnCameraInfoUpdated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraInfoObserver.0
       bool success = true;
       ::cros::mojom::CameraInfoPtr p_camera_info{};
       CameraInfoObserver_OnCameraInfoUpdated_ParamsDataView input_data_view(params, message);
@@ -5757,8 +5849,8 @@ bool CameraInfoObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnCameraInfoUpdated(
-std::move(p_camera_info));
+      impl->OnCameraInfoUpdated(        
+        std::move(p_camera_info));
       return true;
     }
   }
@@ -5919,6 +6011,8 @@ bool StillCaptureResultObserverStubDispatch::Accept(
           reinterpret_cast<internal::StillCaptureResultObserver_OnStillCaptureDone_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for StillCaptureResultObserver.0
       bool success = true;
       Effect p_effect{};
       int32_t p_status{};
@@ -5940,10 +6034,10 @@ bool StillCaptureResultObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStillCaptureDone(
-std::move(p_effect), 
-std::move(p_status), 
-std::move(p_blob));
+      impl->OnStillCaptureDone(        
+        std::move(p_effect), 
+        std::move(p_status), 
+        std::move(p_blob));
       return true;
     }
   }

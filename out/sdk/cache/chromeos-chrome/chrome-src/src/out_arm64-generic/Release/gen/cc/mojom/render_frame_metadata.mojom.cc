@@ -372,6 +372,8 @@ bool RenderFrameMetadataObserverStubDispatch::Accept(
           reinterpret_cast<internal::RenderFrameMetadataObserver_ReportAllFrameSubmissionsForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderFrameMetadataObserver.0
       bool success = true;
       bool p_enabled{};
       RenderFrameMetadataObserver_ReportAllFrameSubmissionsForTesting_ParamsDataView input_data_view(params, message);
@@ -387,8 +389,8 @@ bool RenderFrameMetadataObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReportAllFrameSubmissionsForTesting(
-std::move(p_enabled));
+      impl->ReportAllFrameSubmissionsForTesting(        
+        std::move(p_enabled));
       return true;
     }
   }
@@ -609,6 +611,8 @@ bool RenderFrameMetadataObserverClientStubDispatch::Accept(
           reinterpret_cast<internal::RenderFrameMetadataObserverClient_OnRenderFrameMetadataChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderFrameMetadataObserverClient.0
       bool success = true;
       uint32_t p_frame_token{};
       ::cc::RenderFrameMetadata p_metadata{};
@@ -627,9 +631,9 @@ bool RenderFrameMetadataObserverClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRenderFrameMetadataChanged(
-std::move(p_frame_token), 
-std::move(p_metadata));
+      impl->OnRenderFrameMetadataChanged(        
+        std::move(p_frame_token), 
+        std::move(p_metadata));
       return true;
     }
     case internal::kRenderFrameMetadataObserverClient_OnFrameSubmissionForTesting_Name: {
@@ -639,6 +643,8 @@ std::move(p_metadata));
           reinterpret_cast<internal::RenderFrameMetadataObserverClient_OnFrameSubmissionForTesting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RenderFrameMetadataObserverClient.1
       bool success = true;
       uint32_t p_frame_token{};
       RenderFrameMetadataObserverClient_OnFrameSubmissionForTesting_ParamsDataView input_data_view(params, message);
@@ -654,8 +660,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnFrameSubmissionForTesting(
-std::move(p_frame_token));
+      impl->OnFrameSubmissionForTesting(        
+        std::move(p_frame_token));
       return true;
     }
   }

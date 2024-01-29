@@ -708,6 +708,8 @@ bool ChromeRenderFrame_RequestBitmapForContextNode_ForwardToCallback::Accept(
           internal::ChromeRenderFrame_RequestBitmapForContextNode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromeRenderFrame.2
   bool success = true;
   ::SkBitmap p_bitmap{};
   ChromeRenderFrame_RequestBitmapForContextNode_ResponseParamsDataView input_data_view(params, message);
@@ -833,6 +835,8 @@ bool ChromeRenderFrame_RequestImageForContextNode_ForwardToCallback::Accept(
           internal::ChromeRenderFrame_RequestImageForContextNode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromeRenderFrame.3
   bool success = true;
   std::vector<uint8_t> p_image_data{};
   ::gfx::Size p_original_size{};
@@ -1038,6 +1042,8 @@ bool ChromeRenderFrame_GetMediaFeedURL_ForwardToCallback::Accept(
           internal::ChromeRenderFrame_GetMediaFeedURL_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChromeRenderFrame.5
   bool success = true;
   std::optional<::GURL> p_url{};
   ChromeRenderFrame_GetMediaFeedURL_ResponseParamsDataView input_data_view(params, message);
@@ -1118,6 +1124,8 @@ bool ChromeRenderFrameStubDispatch::Accept(
           reinterpret_cast<internal::ChromeRenderFrame_SetWindowFeatures_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.0
       bool success = true;
       ::blink::mojom::WindowFeaturesPtr p_window_features{};
       ChromeRenderFrame_SetWindowFeatures_ParamsDataView input_data_view(params, message);
@@ -1133,8 +1141,8 @@ bool ChromeRenderFrameStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetWindowFeatures(
-std::move(p_window_features));
+      impl->SetWindowFeatures(        
+        std::move(p_window_features));
       return true;
     }
     case internal::kChromeRenderFrame_RequestReloadImageForContextNode_Name: {
@@ -1144,6 +1152,8 @@ std::move(p_window_features));
           reinterpret_cast<internal::ChromeRenderFrame_RequestReloadImageForContextNode_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.1
       bool success = true;
       ChromeRenderFrame_RequestReloadImageForContextNode_ParamsDataView input_data_view(params, message);
       
@@ -1156,7 +1166,7 @@ std::move(p_window_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestReloadImageForContextNode();
+      impl->RequestReloadImageForContextNode(        );
       return true;
     }
     case internal::kChromeRenderFrame_RequestBitmapForContextNode_Name: {
@@ -1172,6 +1182,8 @@ std::move(p_window_features));
           reinterpret_cast<internal::ChromeRenderFrame_ExecuteWebUIJavaScript_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.4
       bool success = true;
       ::std::u16string p_javascript{};
       ChromeRenderFrame_ExecuteWebUIJavaScript_ParamsDataView input_data_view(params, message);
@@ -1187,8 +1199,8 @@ std::move(p_window_features));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ExecuteWebUIJavaScript(
-std::move(p_javascript));
+      impl->ExecuteWebUIJavaScript(        
+        std::move(p_javascript));
       return true;
     }
     case internal::kChromeRenderFrame_GetMediaFeedURL_Name: {
@@ -1201,6 +1213,8 @@ std::move(p_javascript));
           reinterpret_cast<internal::ChromeRenderFrame_LoadBlockedPlugins_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.6
       bool success = true;
       std::string p_identifier{};
       ChromeRenderFrame_LoadBlockedPlugins_ParamsDataView input_data_view(params, message);
@@ -1216,8 +1230,8 @@ std::move(p_javascript));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadBlockedPlugins(
-std::move(p_identifier));
+      impl->LoadBlockedPlugins(        
+        std::move(p_identifier));
       return true;
     }
     case internal::kChromeRenderFrame_SetSupportsAppRegion_Name: {
@@ -1227,6 +1241,8 @@ std::move(p_identifier));
           reinterpret_cast<internal::ChromeRenderFrame_SetSupportsAppRegion_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.7
       bool success = true;
       bool p_supports_app_region{};
       ChromeRenderFrame_SetSupportsAppRegion_ParamsDataView input_data_view(params, message);
@@ -1242,8 +1258,8 @@ std::move(p_identifier));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSupportsAppRegion(
-std::move(p_supports_app_region));
+      impl->SetSupportsAppRegion(        
+        std::move(p_supports_app_region));
       return true;
     }
   }
@@ -1272,6 +1288,8 @@ bool ChromeRenderFrameStubDispatch::AcceptWithResponder(
               internal::ChromeRenderFrame_RequestBitmapForContextNode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.2
       bool success = true;
       ChromeRenderFrame_RequestBitmapForContextNode_ParamsDataView input_data_view(params, message);
       
@@ -1297,6 +1315,8 @@ bool ChromeRenderFrameStubDispatch::AcceptWithResponder(
               internal::ChromeRenderFrame_RequestImageForContextNode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.3
       bool success = true;
       int32_t p_image_min_area_pixels{};
       ::gfx::Size p_image_max_size_pixels{};
@@ -1324,11 +1344,11 @@ bool ChromeRenderFrameStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestImageForContextNode(
-std::move(p_image_min_area_pixels), 
-std::move(p_image_max_size_pixels), 
-std::move(p_image_format), 
-std::move(p_quality), std::move(callback));
+      impl->RequestImageForContextNode(        
+        std::move(p_image_min_area_pixels), 
+        std::move(p_image_max_size_pixels), 
+        std::move(p_image_format), 
+        std::move(p_quality), std::move(callback));
       return true;
     }
     case internal::kChromeRenderFrame_ExecuteWebUIJavaScript_Name: {
@@ -1341,6 +1361,8 @@ std::move(p_quality), std::move(callback));
               internal::ChromeRenderFrame_GetMediaFeedURL_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChromeRenderFrame.5
       bool success = true;
       ChromeRenderFrame_GetMediaFeedURL_ParamsDataView input_data_view(params, message);
       

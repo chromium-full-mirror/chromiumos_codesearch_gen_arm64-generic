@@ -10479,6 +10479,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     case internal::kCrosapi_BindCrosDisplayConfigController_Name: {
       return &Crosapi::BindCrosDisplayConfigController_Sym::IPCStableHash;
     }
+    case internal::kCrosapi_BindDebugInterfaceRegisterer_Name: {
+      return &Crosapi::BindDebugInterfaceRegisterer_Sym::IPCStableHash;
+    }
     case internal::kCrosapi_BindDesk_Name: {
       return &Crosapi::BindDesk_Sym::IPCStableHash;
     }
@@ -10541,6 +10544,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     }
     case internal::kCrosapi_BindExtensionPublisher_Name: {
       return &Crosapi::BindExtensionPublisher_Sym::IPCStableHash;
+    }
+    case internal::kCrosapi_BindFileChangeServiceBridge_Name: {
+      return &Crosapi::BindFileChangeServiceBridge_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindFileManager_Name: {
       return &Crosapi::BindFileManager_Sym::IPCStableHash;
@@ -10629,6 +10635,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     case internal::kCrosapi_BindNetworkingAttributes_Name: {
       return &Crosapi::BindNetworkingAttributes_Sym::IPCStableHash;
     }
+    case internal::kCrosapi_BindOneDriveNotificationService_Name: {
+      return &Crosapi::BindOneDriveNotificationService_Sym::IPCStableHash;
+    }
     case internal::kCrosapi_BindParentAccess_Name: {
       return &Crosapi::BindParentAccess_Sym::IPCStableHash;
     }
@@ -10643,6 +10652,9 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     }
     case internal::kCrosapi_BindPrefs_Name: {
       return &Crosapi::BindPrefs_Sym::IPCStableHash;
+    }
+    case internal::kCrosapi_BindNonclosableAppToastService_Name: {
+      return &Crosapi::BindNonclosableAppToastService_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindRemoteAppsLacrosBridge_Name: {
       return &Crosapi::BindRemoteAppsLacrosBridge_Sym::IPCStableHash;
@@ -10847,6 +10859,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindContentProtection";
       case internal::kCrosapi_BindCrosDisplayConfigController_Name:
             return "Receive crosapi::mojom::Crosapi::BindCrosDisplayConfigController";
+      case internal::kCrosapi_BindDebugInterfaceRegisterer_Name:
+            return "Receive crosapi::mojom::Crosapi::BindDebugInterfaceRegisterer";
       case internal::kCrosapi_BindDesk_Name:
             return "Receive crosapi::mojom::Crosapi::BindDesk";
       case internal::kCrosapi_BindDeskProfileObserver_Name:
@@ -10889,6 +10903,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindNetworkingPrivate";
       case internal::kCrosapi_BindExtensionPublisher_Name:
             return "Receive crosapi::mojom::Crosapi::BindExtensionPublisher";
+      case internal::kCrosapi_BindFileChangeServiceBridge_Name:
+            return "Receive crosapi::mojom::Crosapi::BindFileChangeServiceBridge";
       case internal::kCrosapi_BindFileManager_Name:
             return "Receive crosapi::mojom::Crosapi::BindFileManager";
       case internal::kCrosapi_BindFileSystemAccessCloudIdentifierProvider_Name:
@@ -10947,6 +10963,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindNetworkChange";
       case internal::kCrosapi_BindNetworkingAttributes_Name:
             return "Receive crosapi::mojom::Crosapi::BindNetworkingAttributes";
+      case internal::kCrosapi_BindOneDriveNotificationService_Name:
+            return "Receive crosapi::mojom::Crosapi::BindOneDriveNotificationService";
       case internal::kCrosapi_BindParentAccess_Name:
             return "Receive crosapi::mojom::Crosapi::BindParentAccess";
       case internal::kCrosapi_BindPasskeyAuthenticator_Name:
@@ -10957,6 +10975,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindPolicyService";
       case internal::kCrosapi_BindPrefs_Name:
             return "Receive crosapi::mojom::Crosapi::BindPrefs";
+      case internal::kCrosapi_BindNonclosableAppToastService_Name:
+            return "Receive crosapi::mojom::Crosapi::BindNonclosableAppToastService";
       case internal::kCrosapi_BindRemoteAppsLacrosBridge_Name:
             return "Receive crosapi::mojom::Crosapi::BindRemoteAppsLacrosBridge";
       case internal::kCrosapi_BindRemoting_Name:
@@ -11102,6 +11122,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindContentProtection";
       case internal::kCrosapi_BindCrosDisplayConfigController_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindCrosDisplayConfigController";
+      case internal::kCrosapi_BindDebugInterfaceRegisterer_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindDebugInterfaceRegisterer";
       case internal::kCrosapi_BindDesk_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindDesk";
       case internal::kCrosapi_BindDeskProfileObserver_Name:
@@ -11144,6 +11166,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindNetworkingPrivate";
       case internal::kCrosapi_BindExtensionPublisher_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindExtensionPublisher";
+      case internal::kCrosapi_BindFileChangeServiceBridge_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindFileChangeServiceBridge";
       case internal::kCrosapi_BindFileManager_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindFileManager";
       case internal::kCrosapi_BindFileSystemAccessCloudIdentifierProvider_Name:
@@ -11202,6 +11226,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindNetworkChange";
       case internal::kCrosapi_BindNetworkingAttributes_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindNetworkingAttributes";
+      case internal::kCrosapi_BindOneDriveNotificationService_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindOneDriveNotificationService";
       case internal::kCrosapi_BindParentAccess_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindParentAccess";
       case internal::kCrosapi_BindPasskeyAuthenticator_Name:
@@ -11212,6 +11238,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindPolicyService";
       case internal::kCrosapi_BindPrefs_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindPrefs";
+      case internal::kCrosapi_BindNonclosableAppToastService_Name:
+            return "Receive reply crosapi::mojom::Crosapi::BindNonclosableAppToastService";
       case internal::kCrosapi_BindRemoteAppsLacrosBridge_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindRemoteAppsLacrosBridge";
       case internal::kCrosapi_BindRemoting_Name:
@@ -11599,6 +11627,19 @@ uint32_t Crosapi::BindCrosDisplayConfigController_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Crosapi::BindDebugInterfaceRegisterer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindDebugInterfaceRegisterer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t Crosapi::BindDesk_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -11868,6 +11909,19 @@ uint32_t Crosapi::BindExtensionPublisher_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::Crosapi::BindExtensionPublisher");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Crosapi::BindFileChangeServiceBridge_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindFileChangeServiceBridge");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -12249,6 +12303,19 @@ uint32_t Crosapi::BindNetworkingAttributes_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Crosapi::BindOneDriveNotificationService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindOneDriveNotificationService");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t Crosapi::BindParentAccess_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -12310,6 +12377,19 @@ uint32_t Crosapi::BindPrefs_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)crosapi::mojom::Crosapi::BindPrefs");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Crosapi::BindNonclosableAppToastService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::Crosapi::BindNonclosableAppToastService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -13941,6 +14021,52 @@ void CrosapiProxy::BindCrosDisplayConfigController(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindDebugInterfaceRegisterer(
+    ::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindDebugInterfaceRegisterer", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindDebugInterfaceRegisterer_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindDebugInterfaceRegisterer_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::DebugInterfaceRegistererInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindDebugInterfaceRegisterer request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindDebugInterfaceRegisterer");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindDesk(
     ::mojo::PendingReceiver<::crosapi::mojom::Desk> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -14901,6 +15027,52 @@ void CrosapiProxy::BindExtensionPublisher(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Crosapi::Name_);
   message.set_method_name("BindExtensionPublisher");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosapiProxy::BindFileChangeServiceBridge(
+    ::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindFileChangeServiceBridge", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindFileChangeServiceBridge_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindFileChangeServiceBridge_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::FileChangeServiceBridgeInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindFileChangeServiceBridge request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindFileChangeServiceBridge");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -16241,6 +16413,52 @@ void CrosapiProxy::BindNetworkingAttributes(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosapiProxy::BindOneDriveNotificationService(
+    ::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindOneDriveNotificationService", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindOneDriveNotificationService_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindOneDriveNotificationService_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::OneDriveNotificationServiceInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindOneDriveNotificationService request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindOneDriveNotificationService");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void CrosapiProxy::BindParentAccess(
     ::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -16465,6 +16683,52 @@ void CrosapiProxy::BindPrefs(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Crosapi::Name_);
   message.set_method_name("BindPrefs");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosapiProxy::BindNonclosableAppToastService(
+    ::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::Crosapi::BindNonclosableAppToastService", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCrosapi_BindNonclosableAppToastService_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::Crosapi_BindNonclosableAppToastService_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::NonclosableAppToastServiceInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Crosapi.BindNonclosableAppToastService request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Crosapi::Name_);
+  message.set_method_name("BindNonclosableAppToastService");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -18793,6 +19057,8 @@ bool CrosapiStubDispatch::Accept(
           reinterpret_cast<internal::Crosapi_BindAutomationDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.23
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Automation> p_receiver{};
       Crosapi_BindAutomationDeprecated_ParamsDataView input_data_view(params, message);
@@ -18810,8 +19076,8 @@ bool CrosapiStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutomationDeprecated(
-std::move(p_receiver));
+      impl->BindAutomationDeprecated(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindAudioService_Name: {
@@ -18821,6 +19087,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindAudioService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.85
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AudioService> p_receiver{};
       Crosapi_BindAudioService_ParamsDataView input_data_view(params, message);
@@ -18838,8 +19106,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAudioService(
-std::move(p_receiver));
+      impl->BindAudioService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_REMOVED_62_Name: {
@@ -18849,6 +19117,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_REMOVED_62_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.62
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> p_receiver{};
       Crosapi_REMOVED_62_ParamsDataView input_data_view(params, message);
@@ -18866,8 +19136,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_62(
-std::move(p_receiver));
+      impl->REMOVED_62(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindAutomationFactory_Name: {
@@ -18877,6 +19147,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindAutomationFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.26
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AutomationFactory> p_receiver{};
       Crosapi_BindAutomationFactory_ParamsDataView input_data_view(params, message);
@@ -18894,8 +19166,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAutomationFactory(
-std::move(p_receiver));
+      impl->BindAutomationFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindAccountManager_Name: {
@@ -18905,6 +19177,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindAccountManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.7
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AccountManager> p_receiver{};
       Crosapi_BindAccountManager_ParamsDataView input_data_view(params, message);
@@ -18922,8 +19196,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAccountManager(
-std::move(p_receiver));
+      impl->BindAccountManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindAppServiceProxy_Name: {
@@ -18933,6 +19207,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindAppServiceProxy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.45
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppServiceProxy> p_receiver{};
       Crosapi_BindAppServiceProxy_ParamsDataView input_data_view(params, message);
@@ -18950,8 +19226,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAppServiceProxy(
-std::move(p_receiver));
+      impl->BindAppServiceProxy(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindArc_Name: {
@@ -18961,6 +19237,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindArc_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.63
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Arc> p_receiver{};
       Crosapi_BindArc_ParamsDataView input_data_view(params, message);
@@ -18978,8 +19256,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindArc(
-std::move(p_receiver));
+      impl->BindArc(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindBrowserAppInstanceRegistry_Name: {
@@ -18989,6 +19267,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindBrowserAppInstanceRegistry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.54
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::BrowserAppInstanceRegistry> p_receiver{};
       Crosapi_BindBrowserAppInstanceRegistry_ParamsDataView input_data_view(params, message);
@@ -19006,8 +19286,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBrowserAppInstanceRegistry(
-std::move(p_receiver));
+      impl->BindBrowserAppInstanceRegistry(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindBrowserVersionService_Name: {
@@ -19017,6 +19297,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindBrowserVersionService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.50
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::BrowserVersionService> p_receiver{};
       Crosapi_BindBrowserVersionService_ParamsDataView input_data_view(params, message);
@@ -19034,8 +19316,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBrowserVersionService(
-std::move(p_receiver));
+      impl->BindBrowserVersionService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindBrowserServiceHost_Name: {
@@ -19045,6 +19327,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindBrowserServiceHost_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.20
       bool success = true;
       ::mojo::PendingReceiver<BrowserServiceHost> p_receiver{};
       Crosapi_BindBrowserServiceHost_ParamsDataView input_data_view(params, message);
@@ -19062,8 +19346,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBrowserServiceHost(
-std::move(p_receiver));
+      impl->BindBrowserServiceHost(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindBrowserShortcutPublisher_Name: {
@@ -19073,6 +19357,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindBrowserShortcutPublisher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.125
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppShortcutPublisher> p_receiver{};
       Crosapi_BindBrowserShortcutPublisher_ParamsDataView input_data_view(params, message);
@@ -19090,8 +19376,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBrowserShortcutPublisher(
-std::move(p_receiver));
+      impl->BindBrowserShortcutPublisher(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindBrowserCdmFactory_Name: {
@@ -19101,6 +19387,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindBrowserCdmFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.47
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       Crosapi_BindBrowserCdmFactory_ParamsDataView input_data_view(params, message);
@@ -19116,8 +19404,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBrowserCdmFactory(
-std::move(p_receiver));
+      impl->BindBrowserCdmFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindCertDatabase_Name: {
@@ -19127,6 +19415,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindCertDatabase_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.12
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::CertDatabase> p_receiver{};
       Crosapi_BindCertDatabase_ParamsDataView input_data_view(params, message);
@@ -19144,8 +19434,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindCertDatabase(
-std::move(p_receiver));
+      impl->BindCertDatabase(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindCertProvisioning_Name: {
@@ -19155,6 +19445,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindCertProvisioning_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.86
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::CertProvisioning> p_receiver{};
       Crosapi_BindCertProvisioning_ParamsDataView input_data_view(params, message);
@@ -19172,8 +19464,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindCertProvisioning(
-std::move(p_receiver));
+      impl->BindCertProvisioning(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindChapsService_Name: {
@@ -19183,6 +19475,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindChapsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.127
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ChapsService> p_receiver{};
       Crosapi_BindChapsService_ParamsDataView input_data_view(params, message);
@@ -19200,8 +19494,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindChapsService(
-std::move(p_receiver));
+      impl->BindChapsService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindChromeAppPublisher_Name: {
@@ -19211,6 +19505,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindChromeAppPublisher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.43
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> p_receiver{};
       Crosapi_BindChromeAppPublisher_ParamsDataView input_data_view(params, message);
@@ -19228,8 +19524,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindChromeAppPublisher(
-std::move(p_receiver));
+      impl->BindChromeAppPublisher(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindChromeAppWindowTracker_Name: {
@@ -19239,6 +19535,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindChromeAppWindowTracker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.49
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppWindowTracker> p_receiver{};
       Crosapi_BindChromeAppWindowTracker_ParamsDataView input_data_view(params, message);
@@ -19256,8 +19554,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindChromeAppWindowTracker(
-std::move(p_receiver));
+      impl->BindChromeAppWindowTracker(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindClipboard_Name: {
@@ -19267,6 +19565,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindClipboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.15
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Clipboard> p_receiver{};
       Crosapi_BindClipboard_ParamsDataView input_data_view(params, message);
@@ -19284,8 +19584,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindClipboard(
-std::move(p_receiver));
+      impl->BindClipboard(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindClipboardHistory_Name: {
@@ -19295,6 +19595,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindClipboardHistory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.28
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ClipboardHistory> p_receiver{};
       Crosapi_BindClipboardHistory_ParamsDataView input_data_view(params, message);
@@ -19312,8 +19614,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindClipboardHistory(
-std::move(p_receiver));
+      impl->BindClipboardHistory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindContentProtection_Name: {
@@ -19323,6 +19625,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindContentProtection_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.31
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ContentProtection> p_receiver{};
       Crosapi_BindContentProtection_ParamsDataView input_data_view(params, message);
@@ -19340,8 +19644,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindContentProtection(
-std::move(p_receiver));
+      impl->BindContentProtection(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindCrosDisplayConfigController_Name: {
@@ -19351,6 +19655,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindCrosDisplayConfigController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.93
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> p_receiver{};
       Crosapi_BindCrosDisplayConfigController_ParamsDataView input_data_view(params, message);
@@ -19368,8 +19674,38 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindCrosDisplayConfigController(
-std::move(p_receiver));
+      impl->BindCrosDisplayConfigController(        
+        std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindDebugInterfaceRegisterer_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindDebugInterfaceRegisterer_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindDebugInterfaceRegisterer_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Crosapi.133
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer> p_receiver{};
+      Crosapi_BindDebugInterfaceRegisterer_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 133, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindDebugInterfaceRegisterer(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDesk_Name: {
@@ -19379,6 +19715,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDesk_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.103
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Desk> p_receiver{};
       Crosapi_BindDesk_ParamsDataView input_data_view(params, message);
@@ -19396,8 +19734,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDesk(
-std::move(p_receiver));
+      impl->BindDesk(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDeskProfileObserver_Name: {
@@ -19407,6 +19745,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDeskProfileObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.124
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DeskProfileObserver> p_receiver{};
       Crosapi_BindDeskProfileObserver_ParamsDataView input_data_view(params, message);
@@ -19424,8 +19764,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeskProfileObserver(
-std::move(p_receiver));
+      impl->BindDeskProfileObserver(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDeskTemplate_Name: {
@@ -19435,6 +19775,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDeskTemplate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.71
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DeskTemplate> p_receiver{};
       Crosapi_BindDeskTemplate_ParamsDataView input_data_view(params, message);
@@ -19452,8 +19794,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeskTemplate(
-std::move(p_receiver));
+      impl->BindDeskTemplate(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDeviceAttributes_Name: {
@@ -19463,6 +19805,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDeviceAttributes_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.17
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DeviceAttributes> p_receiver{};
       Crosapi_BindDeviceAttributes_ParamsDataView input_data_view(params, message);
@@ -19480,8 +19824,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeviceAttributes(
-std::move(p_receiver));
+      impl->BindDeviceAttributes(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDeviceOAuth2TokenService_Name: {
@@ -19491,6 +19835,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDeviceOAuth2TokenService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.95
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DeviceOAuth2TokenService> p_receiver{};
       Crosapi_BindDeviceOAuth2TokenService_ParamsDataView input_data_view(params, message);
@@ -19508,8 +19854,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeviceOAuth2TokenService(
-std::move(p_receiver));
+      impl->BindDeviceOAuth2TokenService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDeviceSettingsService_Name: {
@@ -19519,6 +19865,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDeviceSettingsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.59
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DeviceSettingsService> p_receiver{};
       Crosapi_BindDeviceSettingsService_ParamsDataView input_data_view(params, message);
@@ -19536,8 +19884,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeviceSettingsService(
-std::move(p_receiver));
+      impl->BindDeviceSettingsService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDiagnosticsService_Name: {
@@ -19547,6 +19895,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDiagnosticsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.99
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DiagnosticsService> p_receiver{};
       Crosapi_BindDiagnosticsService_ParamsDataView input_data_view(params, message);
@@ -19564,8 +19914,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDiagnosticsService(
-std::move(p_receiver));
+      impl->BindDiagnosticsService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDigitalGoodsFactory_Name: {
@@ -19575,6 +19925,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDigitalGoodsFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.79
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DigitalGoodsFactory> p_receiver{};
       Crosapi_BindDigitalGoodsFactory_ParamsDataView input_data_view(params, message);
@@ -19592,8 +19944,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDigitalGoodsFactory(
-std::move(p_receiver));
+      impl->BindDigitalGoodsFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDlp_Name: {
@@ -19603,6 +19955,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDlp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.64
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Dlp> p_receiver{};
       Crosapi_BindDlp_ParamsDataView input_data_view(params, message);
@@ -19620,8 +19974,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDlp(
-std::move(p_receiver));
+      impl->BindDlp(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDocumentScan_Name: {
@@ -19631,6 +19985,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDocumentScan_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.80
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DocumentScan> p_receiver{};
       Crosapi_BindDocumentScan_ParamsDataView input_data_view(params, message);
@@ -19648,8 +20004,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDocumentScan(
-std::move(p_receiver));
+      impl->BindDocumentScan(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDownloadController_Name: {
@@ -19659,6 +20015,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDownloadController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.33
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DownloadController> p_receiver{};
       Crosapi_BindDownloadController_ParamsDataView input_data_view(params, message);
@@ -19676,8 +20034,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDownloadController(
-std::move(p_receiver));
+      impl->BindDownloadController(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDownloadStatusUpdater_Name: {
@@ -19687,6 +20045,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDownloadStatusUpdater_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.110
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DownloadStatusUpdater> p_receiver{};
       Crosapi_BindDownloadStatusUpdater_ParamsDataView input_data_view(params, message);
@@ -19704,8 +20064,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDownloadStatusUpdater(
-std::move(p_receiver));
+      impl->BindDownloadStatusUpdater(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDriveIntegrationService_Name: {
@@ -19715,6 +20075,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDriveIntegrationService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.34
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DriveIntegrationService> p_receiver{};
       Crosapi_BindDriveIntegrationService_ParamsDataView input_data_view(params, message);
@@ -19732,8 +20094,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDriveIntegrationService(
-std::move(p_receiver));
+      impl->BindDriveIntegrationService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindEchoPrivate_Name: {
@@ -19743,6 +20105,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindEchoPrivate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.74
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::EchoPrivate> p_receiver{};
       Crosapi_BindEchoPrivate_ParamsDataView input_data_view(params, message);
@@ -19760,8 +20124,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEchoPrivate(
-std::move(p_receiver));
+      impl->BindEchoPrivate(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindEditorPanelManager_Name: {
@@ -19771,6 +20135,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindEditorPanelManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.120
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::EditorPanelManager> p_receiver{};
       Crosapi_BindEditorPanelManager_ParamsDataView input_data_view(params, message);
@@ -19788,8 +20154,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEditorPanelManager(
-std::move(p_receiver));
+      impl->BindEditorPanelManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindEmbeddedAccessibilityHelperClientFactory_Name: {
@@ -19799,6 +20165,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindEmbeddedAccessibilityHelperClientFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.118
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::EmbeddedAccessibilityHelperClientFactory> p_receiver{};
       Crosapi_BindEmbeddedAccessibilityHelperClientFactory_ParamsDataView input_data_view(params, message);
@@ -19816,8 +20184,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEmbeddedAccessibilityHelperClientFactory(
-std::move(p_receiver));
+      impl->BindEmbeddedAccessibilityHelperClientFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindEmojiPicker_Name: {
@@ -19827,6 +20195,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindEmojiPicker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.89
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::EmojiPicker> p_receiver{};
       Crosapi_BindEmojiPicker_ParamsDataView input_data_view(params, message);
@@ -19844,8 +20214,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEmojiPicker(
-std::move(p_receiver));
+      impl->BindEmojiPicker(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindExtensionInfoPrivate_Name: {
@@ -19855,6 +20225,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindExtensionInfoPrivate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.75
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ExtensionInfoPrivate> p_receiver{};
       Crosapi_BindExtensionInfoPrivate_ParamsDataView input_data_view(params, message);
@@ -19872,8 +20244,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindExtensionInfoPrivate(
-std::move(p_receiver));
+      impl->BindExtensionInfoPrivate(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_REMOVED_105_Name: {
@@ -19883,6 +20255,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_REMOVED_105_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.105
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::FirewallHoleServiceDeprecated> p_receiver{};
       Crosapi_REMOVED_105_ParamsDataView input_data_view(params, message);
@@ -19900,8 +20274,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_105(
-std::move(p_receiver));
+      impl->REMOVED_105(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindNetworkingPrivate_Name: {
@@ -19911,6 +20285,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindNetworkingPrivate_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.83
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::NetworkingPrivate> p_receiver{};
       Crosapi_BindNetworkingPrivate_ParamsDataView input_data_view(params, message);
@@ -19928,8 +20304,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNetworkingPrivate(
-std::move(p_receiver));
+      impl->BindNetworkingPrivate(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindExtensionPublisher_Name: {
@@ -19939,6 +20315,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindExtensionPublisher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.73
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> p_receiver{};
       Crosapi_BindExtensionPublisher_ParamsDataView input_data_view(params, message);
@@ -19956,8 +20334,38 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindExtensionPublisher(
-std::move(p_receiver));
+      impl->BindExtensionPublisher(        
+        std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindFileChangeServiceBridge_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindFileChangeServiceBridge_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindFileChangeServiceBridge_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Crosapi.130
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge> p_receiver{};
+      Crosapi_BindFileChangeServiceBridge_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 130, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindFileChangeServiceBridge(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindFileManager_Name: {
@@ -19967,6 +20375,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindFileManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.8
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::FileManager> p_receiver{};
       Crosapi_BindFileManager_ParamsDataView input_data_view(params, message);
@@ -19984,8 +20394,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFileManager(
-std::move(p_receiver));
+      impl->BindFileManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindFileSystemAccessCloudIdentifierProvider_Name: {
@@ -19995,6 +20405,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindFileSystemAccessCloudIdentifierProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.117
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::FileSystemAccessCloudIdentifierProvider> p_receiver{};
       Crosapi_BindFileSystemAccessCloudIdentifierProvider_ParamsDataView input_data_view(params, message);
@@ -20012,8 +20424,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFileSystemAccessCloudIdentifierProvider(
-std::move(p_receiver));
+      impl->BindFileSystemAccessCloudIdentifierProvider(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindFileSystemProviderService_Name: {
@@ -20023,6 +20435,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindFileSystemProviderService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.81
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::FileSystemProviderService> p_receiver{};
       Crosapi_BindFileSystemProviderService_ParamsDataView input_data_view(params, message);
@@ -20040,8 +20454,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFileSystemProviderService(
-std::move(p_receiver));
+      impl->BindFileSystemProviderService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindForceInstalledTracker_Name: {
@@ -20051,6 +20465,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindForceInstalledTracker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.57
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ForceInstalledTracker> p_receiver{};
       Crosapi_BindForceInstalledTracker_ParamsDataView input_data_view(params, message);
@@ -20068,8 +20484,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindForceInstalledTracker(
-std::move(p_receiver));
+      impl->BindForceInstalledTracker(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindFullscreenController_Name: {
@@ -20079,6 +20495,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindFullscreenController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.98
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::FullscreenController> p_receiver{};
       Crosapi_BindFullscreenController_ParamsDataView input_data_view(params, message);
@@ -20096,8 +20514,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFullscreenController(
-std::move(p_receiver));
+      impl->BindFullscreenController(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindGeolocationService_Name: {
@@ -20107,6 +20525,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindGeolocationService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.48
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::GeolocationService> p_receiver{};
       Crosapi_BindGeolocationService_ParamsDataView input_data_view(params, message);
@@ -20124,8 +20544,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGeolocationService(
-std::move(p_receiver));
+      impl->BindGeolocationService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindHoldingSpaceService_Name: {
@@ -20135,6 +20555,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindHoldingSpaceService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.32
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::HoldingSpaceService> p_receiver{};
       Crosapi_BindHoldingSpaceService_ParamsDataView input_data_view(params, message);
@@ -20152,8 +20574,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindHoldingSpaceService(
-std::move(p_receiver));
+      impl->BindHoldingSpaceService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindIdentityManager_Name: {
@@ -20163,6 +20585,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindIdentityManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.55
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::IdentityManager> p_receiver{};
       Crosapi_BindIdentityManager_ParamsDataView input_data_view(params, message);
@@ -20180,8 +20604,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindIdentityManager(
-std::move(p_receiver));
+      impl->BindIdentityManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindIdleService_Name: {
@@ -20191,6 +20615,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindIdleService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.21
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::IdleService> p_receiver{};
       Crosapi_BindIdleService_ParamsDataView input_data_view(params, message);
@@ -20208,8 +20634,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindIdleService(
-std::move(p_receiver));
+      impl->BindIdleService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindImageWriter_Name: {
@@ -20219,6 +20645,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindImageWriter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.42
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ImageWriter> p_receiver{};
       Crosapi_BindImageWriter_ParamsDataView input_data_view(params, message);
@@ -20236,8 +20664,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindImageWriter(
-std::move(p_receiver));
+      impl->BindImageWriter(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindInSessionAuth_Name: {
@@ -20247,6 +20675,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindInSessionAuth_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.96
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::auth::mojom::InSessionAuth> p_receiver{};
       Crosapi_BindInSessionAuth_ParamsDataView input_data_view(params, message);
@@ -20264,8 +20694,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindInSessionAuth(
-std::move(p_receiver));
+      impl->BindInSessionAuth(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindNetworkSettingsService_Name: {
@@ -20275,6 +20705,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindNetworkSettingsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.46
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::NetworkSettingsService> p_receiver{};
       Crosapi_BindNetworkSettingsService_ParamsDataView input_data_view(params, message);
@@ -20292,8 +20724,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNetworkSettingsService(
-std::move(p_receiver));
+      impl->BindNetworkSettingsService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindKerberosInBrowser_Name: {
@@ -20303,6 +20735,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindKerberosInBrowser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.111
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::KerberosInBrowser> p_receiver{};
       Crosapi_BindKerberosInBrowser_ParamsDataView input_data_view(params, message);
@@ -20320,8 +20754,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindKerberosInBrowser(
-std::move(p_receiver));
+      impl->BindKerberosInBrowser(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindKeystoreService_Name: {
@@ -20331,6 +20765,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindKeystoreService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.2
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::KeystoreService> p_receiver{};
       Crosapi_BindKeystoreService_ParamsDataView input_data_view(params, message);
@@ -20348,8 +20784,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindKeystoreService(
-std::move(p_receiver));
+      impl->BindKeystoreService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindLacrosShelfItemTracker_Name: {
@@ -20359,6 +20795,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindLacrosShelfItemTracker_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.128
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::LacrosShelfItemTracker> p_receiver{};
       Crosapi_BindLacrosShelfItemTracker_ParamsDataView input_data_view(params, message);
@@ -20376,8 +20814,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLacrosShelfItemTracker(
-std::move(p_receiver));
+      impl->BindLacrosShelfItemTracker(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindLacrosAppPublisher_Name: {
@@ -20387,6 +20825,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindLacrosAppPublisher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.119
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> p_receiver{};
       Crosapi_BindLacrosAppPublisher_ParamsDataView input_data_view(params, message);
@@ -20404,8 +20844,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLacrosAppPublisher(
-std::move(p_receiver));
+      impl->BindLacrosAppPublisher(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindLocalPrinter_Name: {
@@ -20415,6 +20855,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindLocalPrinter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.30
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::LocalPrinter> p_receiver{};
       Crosapi_BindLocalPrinter_ParamsDataView input_data_view(params, message);
@@ -20432,8 +20874,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLocalPrinter(
-std::move(p_receiver));
+      impl->BindLocalPrinter(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindLogin_Name: {
@@ -20443,6 +20885,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindLogin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.67
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Login> p_receiver{};
       Crosapi_BindLogin_ParamsDataView input_data_view(params, message);
@@ -20460,8 +20904,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLogin(
-std::move(p_receiver));
+      impl->BindLogin(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindLoginScreenStorage_Name: {
@@ -20471,6 +20915,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindLoginScreenStorage_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.68
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::LoginScreenStorage> p_receiver{};
       Crosapi_BindLoginScreenStorage_ParamsDataView input_data_view(params, message);
@@ -20488,8 +20934,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLoginScreenStorage(
-std::move(p_receiver));
+      impl->BindLoginScreenStorage(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindLoginState_Name: {
@@ -20499,6 +20945,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindLoginState_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.61
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::LoginState> p_receiver{};
       Crosapi_BindLoginState_ParamsDataView input_data_view(params, message);
@@ -20516,8 +20964,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindLoginState(
-std::move(p_receiver));
+      impl->BindLoginState(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMachineLearningService_Name: {
@@ -20527,6 +20975,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMachineLearningService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.22
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::MachineLearningService> p_receiver{};
       Crosapi_BindMachineLearningService_ParamsDataView input_data_view(params, message);
@@ -20544,8 +20994,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMachineLearningService(
-std::move(p_receiver));
+      impl->BindMachineLearningService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMediaUI_Name: {
@@ -20555,6 +21005,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMediaUI_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.108
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::MediaUI> p_receiver{};
       Crosapi_BindMediaUI_ParamsDataView input_data_view(params, message);
@@ -20572,8 +21024,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMediaUI(
-std::move(p_receiver));
+      impl->BindMediaUI(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMessageCenter_Name: {
@@ -20583,6 +21035,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMessageCenter_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.3
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::MessageCenter> p_receiver{};
       Crosapi_BindMessageCenter_ParamsDataView input_data_view(params, message);
@@ -20600,8 +21054,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMessageCenter(
-std::move(p_receiver));
+      impl->BindMessageCenter(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindNativeThemeService_Name: {
@@ -20611,6 +21065,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindNativeThemeService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.38
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::NativeThemeService> p_receiver{};
       Crosapi_BindNativeThemeService_ParamsDataView input_data_view(params, message);
@@ -20628,8 +21084,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNativeThemeService(
-std::move(p_receiver));
+      impl->BindNativeThemeService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMetrics_Name: {
@@ -20639,6 +21095,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMetrics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.106
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Metrics> p_receiver{};
       Crosapi_BindMetrics_ParamsDataView input_data_view(params, message);
@@ -20656,8 +21114,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMetrics(
-std::move(p_receiver));
+      impl->BindMetrics(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMetricsReporting_Name: {
@@ -20667,6 +21125,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMetricsReporting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.13
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::MetricsReporting> p_receiver{};
       Crosapi_BindMetricsReporting_ParamsDataView input_data_view(params, message);
@@ -20684,8 +21144,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMetricsReporting(
-std::move(p_receiver));
+      impl->BindMetricsReporting(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMultiCaptureService_Name: {
@@ -20695,6 +21155,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMultiCaptureService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.104
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::MultiCaptureService> p_receiver{};
       Crosapi_BindMultiCaptureService_ParamsDataView input_data_view(params, message);
@@ -20712,8 +21174,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMultiCaptureService(
-std::move(p_receiver));
+      impl->BindMultiCaptureService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindNetworkChange_Name: {
@@ -20723,6 +21185,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindNetworkChange_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.92
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::NetworkChange> p_receiver{};
       Crosapi_BindNetworkChange_ParamsDataView input_data_view(params, message);
@@ -20740,8 +21204,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNetworkChange(
-std::move(p_receiver));
+      impl->BindNetworkChange(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindNetworkingAttributes_Name: {
@@ -20751,6 +21215,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindNetworkingAttributes_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.44
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> p_receiver{};
       Crosapi_BindNetworkingAttributes_ParamsDataView input_data_view(params, message);
@@ -20768,8 +21234,38 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindNetworkingAttributes(
-std::move(p_receiver));
+      impl->BindNetworkingAttributes(        
+        std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindOneDriveNotificationService_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindOneDriveNotificationService_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindOneDriveNotificationService_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Crosapi.132
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService> p_receiver{};
+      Crosapi_BindOneDriveNotificationService_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 132, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindOneDriveNotificationService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindParentAccess_Name: {
@@ -20779,6 +21275,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindParentAccess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.101
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> p_receiver{};
       Crosapi_BindParentAccess_ParamsDataView input_data_view(params, message);
@@ -20796,8 +21294,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindParentAccess(
-std::move(p_receiver));
+      impl->BindParentAccess(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindPasskeyAuthenticator_Name: {
@@ -20807,6 +21305,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindPasskeyAuthenticator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.126
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::PasskeyAuthenticator> p_receiver{};
       Crosapi_BindPasskeyAuthenticator_ParamsDataView input_data_view(params, message);
@@ -20824,8 +21324,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPasskeyAuthenticator(
-std::move(p_receiver));
+      impl->BindPasskeyAuthenticator(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindPaymentAppInstance_Name: {
@@ -20835,6 +21335,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindPaymentAppInstance_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.116
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::payments::mojom::PaymentAppInstance> p_receiver{};
       Crosapi_BindPaymentAppInstance_ParamsDataView input_data_view(params, message);
@@ -20852,8 +21354,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPaymentAppInstance(
-std::move(p_receiver));
+      impl->BindPaymentAppInstance(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindPolicyService_Name: {
@@ -20863,6 +21365,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindPolicyService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.60
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::PolicyService> p_receiver{};
       Crosapi_BindPolicyService_ParamsDataView input_data_view(params, message);
@@ -20880,8 +21384,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPolicyService(
-std::move(p_receiver));
+      impl->BindPolicyService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindPrefs_Name: {
@@ -20891,6 +21395,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindPrefs_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.16
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Prefs> p_receiver{};
       Crosapi_BindPrefs_ParamsDataView input_data_view(params, message);
@@ -20908,8 +21414,38 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPrefs(
-std::move(p_receiver));
+      impl->BindPrefs(        
+        std::move(p_receiver));
+      return true;
+    }
+    case internal::kCrosapi_BindNonclosableAppToastService_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Crosapi_BindNonclosableAppToastService_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_BindNonclosableAppToastService_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for Crosapi.131
+      bool success = true;
+      ::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService> p_receiver{};
+      Crosapi_BindNonclosableAppToastService_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Crosapi::Name_, 131, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindNonclosableAppToastService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindRemoteAppsLacrosBridge_Name: {
@@ -20919,6 +21455,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindRemoteAppsLacrosBridge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.77
       bool success = true;
       ::mojo::PendingReceiver<::chromeos::remote_apps::mojom::RemoteAppsLacrosBridge> p_receiver{};
       Crosapi_BindRemoteAppsLacrosBridge_ParamsDataView input_data_view(params, message);
@@ -20936,8 +21474,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRemoteAppsLacrosBridge(
-std::move(p_receiver));
+      impl->BindRemoteAppsLacrosBridge(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindRemoting_Name: {
@@ -20947,6 +21485,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindRemoting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.37
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Remoting> p_receiver{};
       Crosapi_BindRemoting_ParamsDataView input_data_view(params, message);
@@ -20964,8 +21504,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindRemoting(
-std::move(p_receiver));
+      impl->BindRemoting(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindScreenAIDownloader_Name: {
@@ -20975,6 +21515,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindScreenAIDownloader_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.113
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ScreenAIDownloader> p_receiver{};
       Crosapi_BindScreenAIDownloader_ParamsDataView input_data_view(params, message);
@@ -20992,8 +21534,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindScreenAIDownloader(
-std::move(p_receiver));
+      impl->BindScreenAIDownloader(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindScreenManager_Name: {
@@ -21003,6 +21545,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindScreenManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.1
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ScreenManager> p_receiver{};
       Crosapi_BindScreenManager_ParamsDataView input_data_view(params, message);
@@ -21020,8 +21564,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindScreenManager(
-std::move(p_receiver));
+      impl->BindScreenManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindSelectFile_Name: {
@@ -21031,6 +21575,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindSelectFile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.0
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::SelectFile> p_receiver{};
       Crosapi_BindSelectFile_ParamsDataView input_data_view(params, message);
@@ -21048,8 +21594,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSelectFile(
-std::move(p_receiver));
+      impl->BindSelectFile(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindSensorHalClient_Name: {
@@ -21059,6 +21605,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindSensorHalClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.19
       bool success = true;
       ::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> p_receiver{};
       Crosapi_BindSensorHalClient_ParamsDataView input_data_view(params, message);
@@ -21076,8 +21624,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSensorHalClient(
-std::move(p_receiver));
+      impl->BindSensorHalClient(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindSharesheet_Name: {
@@ -21087,6 +21635,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindSharesheet_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.70
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Sharesheet> p_receiver{};
       Crosapi_BindSharesheet_ParamsDataView input_data_view(params, message);
@@ -21104,8 +21654,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSharesheet(
-std::move(p_receiver));
+      impl->BindSharesheet(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindSmartReaderClient_Name: {
@@ -21115,6 +21665,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindSmartReaderClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.107
       bool success = true;
       ::mojo::PendingRemote<::crosapi::mojom::SmartReaderClient> p_remote{};
       Crosapi_BindSmartReaderClient_ParamsDataView input_data_view(params, message);
@@ -21132,8 +21684,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSmartReaderClient(
-std::move(p_remote));
+      impl->BindSmartReaderClient(        
+        std::move(p_remote));
       return true;
     }
     case internal::kCrosapi_BindSpeechRecognition_Name: {
@@ -21143,6 +21695,8 @@ std::move(p_remote));
           reinterpret_cast<internal::Crosapi_BindSpeechRecognition_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.84
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::SpeechRecognition> p_receiver{};
       Crosapi_BindSpeechRecognition_ParamsDataView input_data_view(params, message);
@@ -21160,8 +21714,8 @@ std::move(p_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSpeechRecognition(
-std::move(p_receiver));
+      impl->BindSpeechRecognition(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindStableVideoDecoderFactory_Name: {
@@ -21171,6 +21725,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindStableVideoDecoderFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.56
       bool success = true;
       ::mojo::GenericPendingReceiver p_receiver{};
       Crosapi_BindStableVideoDecoderFactory_ParamsDataView input_data_view(params, message);
@@ -21186,8 +21742,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindStableVideoDecoderFactory(
-std::move(p_receiver));
+      impl->BindStableVideoDecoderFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindStructuredMetricsService_Name: {
@@ -21197,6 +21753,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindStructuredMetricsService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.52
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::StructuredMetricsService> p_receiver{};
       Crosapi_BindStructuredMetricsService_ParamsDataView input_data_view(params, message);
@@ -21214,8 +21772,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindStructuredMetricsService(
-std::move(p_receiver));
+      impl->BindStructuredMetricsService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTrustedVaultBackend_Name: {
@@ -21225,6 +21783,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTrustedVaultBackend_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.121
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TrustedVaultBackend> p_receiver{};
       Crosapi_BindTrustedVaultBackend_ParamsDataView input_data_view(params, message);
@@ -21242,8 +21802,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTrustedVaultBackend(
-std::move(p_receiver));
+      impl->BindTrustedVaultBackend(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindHidManager_Name: {
@@ -21253,6 +21813,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindHidManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.4
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::HidManager> p_receiver{};
       Crosapi_BindHidManager_ParamsDataView input_data_view(params, message);
@@ -21270,8 +21832,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindHidManager(
-std::move(p_receiver));
+      impl->BindHidManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindEyeDropper_Name: {
@@ -21281,6 +21843,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindEyeDropper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.122
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::EyeDropper> p_receiver{};
       Crosapi_BindEyeDropper_ParamsDataView input_data_view(params, message);
@@ -21298,8 +21862,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindEyeDropper(
-std::move(p_receiver));
+      impl->BindEyeDropper(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindFeedback_Name: {
@@ -21309,6 +21873,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindFeedback_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.5
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Feedback> p_receiver{};
       Crosapi_BindFeedback_ParamsDataView input_data_view(params, message);
@@ -21326,8 +21892,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFeedback(
-std::move(p_receiver));
+      impl->BindFeedback(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindFieldTrialService_Name: {
@@ -21337,6 +21903,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindFieldTrialService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.51
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::FieldTrialService> p_receiver{};
       Crosapi_BindFieldTrialService_ParamsDataView input_data_view(params, message);
@@ -21354,8 +21922,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindFieldTrialService(
-std::move(p_receiver));
+      impl->BindFieldTrialService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMediaSessionController_Name: {
@@ -21365,6 +21933,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMediaSessionController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.9
       bool success = true;
       ::mojo::PendingReceiver<::media_session::mojom::MediaControllerManager> p_receiver{};
       Crosapi_BindMediaSessionController_ParamsDataView input_data_view(params, message);
@@ -21382,8 +21952,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMediaSessionController(
-std::move(p_receiver));
+      impl->BindMediaSessionController(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMediaSessionAudioFocus_Name: {
@@ -21393,6 +21963,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMediaSessionAudioFocus_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.10
       bool success = true;
       ::mojo::PendingReceiver<::media_session::mojom::AudioFocusManager> p_receiver{};
       Crosapi_BindMediaSessionAudioFocus_ParamsDataView input_data_view(params, message);
@@ -21410,8 +21982,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMediaSessionAudioFocus(
-std::move(p_receiver));
+      impl->BindMediaSessionAudioFocus(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindMediaSessionAudioFocusDebug_Name: {
@@ -21421,6 +21993,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindMediaSessionAudioFocusDebug_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.11
       bool success = true;
       ::mojo::PendingReceiver<::media_session::mojom::AudioFocusManagerDebug> p_receiver{};
       Crosapi_BindMediaSessionAudioFocusDebug_ParamsDataView input_data_view(params, message);
@@ -21438,8 +22012,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindMediaSessionAudioFocusDebug(
-std::move(p_receiver));
+      impl->BindMediaSessionAudioFocusDebug(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindPower_Name: {
@@ -21449,6 +22023,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindPower_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.40
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Power> p_receiver{};
       Crosapi_BindPower_ParamsDataView input_data_view(params, message);
@@ -21466,8 +22042,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPower(
-std::move(p_receiver));
+      impl->BindPower(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindPrintingMetrics_Name: {
@@ -21477,6 +22053,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindPrintingMetrics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.90
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::PrintingMetrics> p_receiver{};
       Crosapi_BindPrintingMetrics_ParamsDataView input_data_view(params, message);
@@ -21494,8 +22072,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindPrintingMetrics(
-std::move(p_receiver));
+      impl->BindPrintingMetrics(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindResourceManager_Name: {
@@ -21505,6 +22083,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindResourceManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.41
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ResourceManager> p_receiver{};
       Crosapi_BindResourceManager_ParamsDataView input_data_view(params, message);
@@ -21522,8 +22102,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindResourceManager(
-std::move(p_receiver));
+      impl->BindResourceManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindSearchControllerRegistry_Name: {
@@ -21533,6 +22113,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindSearchControllerRegistry_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.66
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::SearchControllerRegistry> p_receiver{};
       Crosapi_BindSearchControllerRegistry_ParamsDataView input_data_view(params, message);
@@ -21550,8 +22132,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSearchControllerRegistry(
-std::move(p_receiver));
+      impl->BindSearchControllerRegistry(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindSyncService_Name: {
@@ -21561,6 +22143,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindSyncService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.69
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::SyncService> p_receiver{};
       Crosapi_BindSyncService_ParamsDataView input_data_view(params, message);
@@ -21578,8 +22162,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSyncService(
-std::move(p_receiver));
+      impl->BindSyncService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_REMOVED_29_Name: {
@@ -21589,6 +22173,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_REMOVED_29_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.29
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::SystemDisplayDeprecated> p_receiver{};
       Crosapi_REMOVED_29_ParamsDataView input_data_view(params, message);
@@ -21606,8 +22192,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_29(
-std::move(p_receiver));
+      impl->REMOVED_29(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTaskManager_Name: {
@@ -21617,6 +22203,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTaskManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.24
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TaskManager> p_receiver{};
       Crosapi_BindTaskManager_ParamsDataView input_data_view(params, message);
@@ -21634,8 +22222,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTaskManager(
-std::move(p_receiver));
+      impl->BindTaskManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTelemetryDiagnosticRoutinesService_Name: {
@@ -21645,6 +22233,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTelemetryDiagnosticRoutinesService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.115
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TelemetryDiagnosticRoutinesService> p_receiver{};
       Crosapi_BindTelemetryDiagnosticRoutinesService_ParamsDataView input_data_view(params, message);
@@ -21662,8 +22252,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTelemetryDiagnosticRoutinesService(
-std::move(p_receiver));
+      impl->BindTelemetryDiagnosticRoutinesService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTelemetryEventService_Name: {
@@ -21673,6 +22263,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTelemetryEventService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.109
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TelemetryEventService> p_receiver{};
       Crosapi_BindTelemetryEventService_ParamsDataView input_data_view(params, message);
@@ -21690,8 +22282,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTelemetryEventService(
-std::move(p_receiver));
+      impl->BindTelemetryEventService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTelemetryManagementService_Name: {
@@ -21701,6 +22293,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTelemetryManagementService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.129
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TelemetryManagementService> p_receiver{};
       Crosapi_BindTelemetryManagementService_ParamsDataView input_data_view(params, message);
@@ -21718,8 +22312,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTelemetryManagementService(
-std::move(p_receiver));
+      impl->BindTelemetryManagementService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTelemetryProbeService_Name: {
@@ -21729,6 +22323,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTelemetryProbeService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.97
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TelemetryProbeService> p_receiver{};
       Crosapi_BindTelemetryProbeService_ParamsDataView input_data_view(params, message);
@@ -21746,8 +22342,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTelemetryProbeService(
-std::move(p_receiver));
+      impl->BindTelemetryProbeService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTestController_Name: {
@@ -21757,6 +22353,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTestController_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.14
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TestController> p_receiver{};
       Crosapi_BindTestController_ParamsDataView input_data_view(params, message);
@@ -21774,8 +22372,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTestController(
-std::move(p_receiver));
+      impl->BindTestController(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTimeZoneService_Name: {
@@ -21785,6 +22383,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTimeZoneService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.65
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::TimeZoneService> p_receiver{};
       Crosapi_BindTimeZoneService_ParamsDataView input_data_view(params, message);
@@ -21802,8 +22402,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTimeZoneService(
-std::move(p_receiver));
+      impl->BindTimeZoneService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindTts_Name: {
@@ -21813,6 +22413,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindTts_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.58
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Tts> p_receiver{};
       Crosapi_BindTts_ParamsDataView input_data_view(params, message);
@@ -21830,8 +22432,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindTts(
-std::move(p_receiver));
+      impl->BindTts(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindUrlHandler_Name: {
@@ -21841,6 +22443,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindUrlHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.18
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::UrlHandler> p_receiver{};
       Crosapi_BindUrlHandler_ParamsDataView input_data_view(params, message);
@@ -21858,8 +22462,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindUrlHandler(
-std::move(p_receiver));
+      impl->BindUrlHandler(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindVideoCaptureDeviceFactory_Name: {
@@ -21869,6 +22473,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindVideoCaptureDeviceFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.25
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VideoCaptureDeviceFactory> p_receiver{};
       Crosapi_BindVideoCaptureDeviceFactory_ParamsDataView input_data_view(params, message);
@@ -21886,8 +22492,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVideoCaptureDeviceFactory(
-std::move(p_receiver));
+      impl->BindVideoCaptureDeviceFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindVideoConferenceManager_Name: {
@@ -21897,6 +22503,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindVideoConferenceManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.102
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VideoConferenceManager> p_receiver{};
       Crosapi_BindVideoConferenceManager_ParamsDataView input_data_view(params, message);
@@ -21914,8 +22522,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVideoConferenceManager(
-std::move(p_receiver));
+      impl->BindVideoConferenceManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindVirtualKeyboard_Name: {
@@ -21925,6 +22533,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindVirtualKeyboard_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.91
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VirtualKeyboard> p_receiver{};
       Crosapi_BindVirtualKeyboard_ParamsDataView input_data_view(params, message);
@@ -21942,8 +22552,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVirtualKeyboard(
-std::move(p_receiver));
+      impl->BindVirtualKeyboard(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindVpnExtensionObserver_Name: {
@@ -21953,6 +22563,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindVpnExtensionObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.78
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VpnExtensionObserver> p_receiver{};
       Crosapi_BindVpnExtensionObserver_ParamsDataView input_data_view(params, message);
@@ -21970,8 +22582,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVpnExtensionObserver(
-std::move(p_receiver));
+      impl->BindVpnExtensionObserver(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindKioskSessionService_Name: {
@@ -21981,6 +22593,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindKioskSessionService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.53
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::KioskSessionService> p_receiver{};
       Crosapi_BindKioskSessionService_ParamsDataView input_data_view(params, message);
@@ -21998,8 +22612,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindKioskSessionService(
-std::move(p_receiver));
+      impl->BindKioskSessionService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindChromeAppKioskService_Name: {
@@ -22009,6 +22623,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindChromeAppKioskService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.76
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::ChromeAppKioskService> p_receiver{};
       Crosapi_BindChromeAppKioskService_ParamsDataView input_data_view(params, message);
@@ -22026,8 +22642,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindChromeAppKioskService(
-std::move(p_receiver));
+      impl->BindChromeAppKioskService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindWebKioskService_Name: {
@@ -22037,6 +22653,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindWebKioskService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.114
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::WebKioskService> p_receiver{};
       Crosapi_BindWebKioskService_ParamsDataView input_data_view(params, message);
@@ -22054,8 +22672,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWebKioskService(
-std::move(p_receiver));
+      impl->BindWebKioskService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindDeviceLocalAccountExtensionService_Name: {
@@ -22065,6 +22683,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindDeviceLocalAccountExtensionService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.100
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::DeviceLocalAccountExtensionService> p_receiver{};
       Crosapi_BindDeviceLocalAccountExtensionService_ParamsDataView input_data_view(params, message);
@@ -22082,8 +22702,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindDeviceLocalAccountExtensionService(
-std::move(p_receiver));
+      impl->BindDeviceLocalAccountExtensionService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindVolumeManager_Name: {
@@ -22093,6 +22713,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindVolumeManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.94
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VolumeManager> p_receiver{};
       Crosapi_BindVolumeManager_ParamsDataView input_data_view(params, message);
@@ -22110,8 +22732,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVolumeManager(
-std::move(p_receiver));
+      impl->BindVolumeManager(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindVpnService_Name: {
@@ -22121,6 +22743,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindVpnService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.82
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::VpnService> p_receiver{};
       Crosapi_BindVpnService_ParamsDataView input_data_view(params, message);
@@ -22138,8 +22762,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindVpnService(
-std::move(p_receiver));
+      impl->BindVpnService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindWebPageInfoFactory_Name: {
@@ -22149,6 +22773,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindWebPageInfoFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.39
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::WebPageInfoFactory> p_receiver{};
       Crosapi_BindWebPageInfoFactory_ParamsDataView input_data_view(params, message);
@@ -22166,8 +22792,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWebPageInfoFactory(
-std::move(p_receiver));
+      impl->BindWebPageInfoFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindWebAppPublisher_Name: {
@@ -22177,6 +22803,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindWebAppPublisher_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.27
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> p_receiver{};
       Crosapi_BindWebAppPublisher_ParamsDataView input_data_view(params, message);
@@ -22194,8 +22822,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWebAppPublisher(
-std::move(p_receiver));
+      impl->BindWebAppPublisher(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindWebAppService_Name: {
@@ -22205,6 +22833,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindWebAppService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.72
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::WebAppService> p_receiver{};
       Crosapi_BindWebAppService_ParamsDataView input_data_view(params, message);
@@ -22222,8 +22852,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWebAppService(
-std::move(p_receiver));
+      impl->BindWebAppService(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindWallpaper_Name: {
@@ -22233,6 +22863,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindWallpaper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.87
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::Wallpaper> p_receiver{};
       Crosapi_BindWallpaper_ParamsDataView input_data_view(params, message);
@@ -22250,8 +22882,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWallpaper(
-std::move(p_receiver));
+      impl->BindWallpaper(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_BindGuestOsSkForwarderFactory_Name: {
@@ -22261,6 +22893,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_BindGuestOsSkForwarderFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.123
       bool success = true;
       ::mojo::PendingReceiver<::crosapi::mojom::GuestOsSkForwarderFactory> p_receiver{};
       Crosapi_BindGuestOsSkForwarderFactory_ParamsDataView input_data_view(params, message);
@@ -22278,8 +22912,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGuestOsSkForwarderFactory(
-std::move(p_receiver));
+      impl->BindGuestOsSkForwarderFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kCrosapi_OnBrowserStartup_Name: {
@@ -22289,6 +22923,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::Crosapi_OnBrowserStartup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Crosapi.6
       bool success = true;
       BrowserInfoPtr p_browser_info{};
       Crosapi_OnBrowserStartup_ParamsDataView input_data_view(params, message);
@@ -22304,8 +22940,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBrowserStartup(
-std::move(p_browser_info));
+      impl->OnBrowserStartup(        
+        std::move(p_browser_info));
       return true;
     }
   }
@@ -22384,6 +23020,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
     case internal::kCrosapi_BindCrosDisplayConfigController_Name: {
       break;
     }
+    case internal::kCrosapi_BindDebugInterfaceRegisterer_Name: {
+      break;
+    }
     case internal::kCrosapi_BindDesk_Name: {
       break;
     }
@@ -22445,6 +23084,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosapi_BindExtensionPublisher_Name: {
+      break;
+    }
+    case internal::kCrosapi_BindFileChangeServiceBridge_Name: {
       break;
     }
     case internal::kCrosapi_BindFileManager_Name: {
@@ -22534,6 +23176,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
     case internal::kCrosapi_BindNetworkingAttributes_Name: {
       break;
     }
+    case internal::kCrosapi_BindOneDriveNotificationService_Name: {
+      break;
+    }
     case internal::kCrosapi_BindParentAccess_Name: {
       break;
     }
@@ -22547,6 +23192,9 @@ bool CrosapiStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kCrosapi_BindPrefs_Name: {
+      break;
+    }
+    case internal::kCrosapi_BindNonclosableAppToastService_Name: {
       break;
     }
     case internal::kCrosapi_BindRemoteAppsLacrosBridge_Name: {
@@ -22960,6 +23608,14 @@ static const mojo::internal::GenericValidationInfo kCrosapiValidationInfo[] = {
     { &internal::Crosapi_BindLacrosShelfItemTracker_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::Crosapi_BindTelemetryManagementService_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindFileChangeServiceBridge_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindNonclosableAppToastService_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindOneDriveNotificationService_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::Crosapi_BindDebugInterfaceRegisterer_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -24694,6 +25350,8 @@ bool BrowserService_REMOVED_0_ForwardToCallback::Accept(
           internal::BrowserService_REMOVED_0_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.0
   bool success = true;
   ::mojo::PendingReceiver<Crosapi> p_receiver{};
   BrowserService_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
@@ -24820,6 +25478,8 @@ bool BrowserService_NewWindow_ForwardToCallback::Accept(
           internal::BrowserService_NewWindow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.1
   bool success = true;
   CreationResult p_result{};
   BrowserService_NewWindow_ResponseParamsDataView input_data_view(params, message);
@@ -24940,6 +25600,8 @@ bool BrowserService_NewFullscreenWindow_ForwardToCallback::Accept(
           internal::BrowserService_NewFullscreenWindow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.9
   bool success = true;
   CreationResult p_result{};
   BrowserService_NewFullscreenWindow_ResponseParamsDataView input_data_view(params, message);
@@ -25060,6 +25722,8 @@ bool BrowserService_NewWindowForDetachingTab_ForwardToCallback::Accept(
           internal::BrowserService_NewWindowForDetachingTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.11
   bool success = true;
   CreationResult p_result{};
   std::string p_app_id{};
@@ -25198,6 +25862,8 @@ bool BrowserService_NewGuestWindow_ForwardToCallback::Accept(
           internal::BrowserService_NewGuestWindow_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.14
   bool success = true;
   CreationResult p_result{};
   BrowserService_NewGuestWindow_ResponseParamsDataView input_data_view(params, message);
@@ -25318,6 +25984,8 @@ bool BrowserService_NewTab_ForwardToCallback::Accept(
           internal::BrowserService_NewTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.20
   bool success = true;
   CreationResult p_result{};
   BrowserService_NewTab_ResponseParamsDataView input_data_view(params, message);
@@ -25438,6 +26106,8 @@ bool BrowserService_REMOVED_7_ForwardToCallback::Accept(
           internal::BrowserService_REMOVED_7_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.7
   bool success = true;
   BrowserService_REMOVED_7_ResponseParamsDataView input_data_view(params, message);
   
@@ -25545,6 +26215,8 @@ bool BrowserService_OpenUrl_ForwardToCallback::Accept(
           internal::BrowserService_OpenUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.10
   bool success = true;
   CreationResult p_result{};
   BrowserService_OpenUrl_ResponseParamsDataView input_data_view(params, message);
@@ -25665,6 +26337,8 @@ bool BrowserService_RestoreTab_ForwardToCallback::Accept(
           internal::BrowserService_RestoreTab_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.8
   bool success = true;
   CreationResult p_result{};
   BrowserService_RestoreTab_ResponseParamsDataView input_data_view(params, message);
@@ -25785,6 +26459,8 @@ bool BrowserService_GetFeedbackData_ForwardToCallback::Accept(
           internal::BrowserService_GetFeedbackData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.3
   bool success = true;
   ::base::Value::Dict p_feedback_info{};
   BrowserService_GetFeedbackData_ResponseParamsDataView input_data_view(params, message);
@@ -25914,6 +26590,8 @@ bool BrowserService_GetHistograms_ForwardToCallback::Accept(
           internal::BrowserService_GetHistograms_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.4
   bool success = true;
   ::std::string p_compressed_histograms{};
   BrowserService_GetHistograms_ResponseParamsDataView input_data_view(params, message);
@@ -26043,6 +26721,8 @@ bool BrowserService_GetActiveTabUrl_ForwardToCallback::Accept(
           internal::BrowserService_GetActiveTabUrl_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.5
   bool success = true;
   std::optional<::GURL> p_url{};
   BrowserService_GetActiveTabUrl_ResponseParamsDataView input_data_view(params, message);
@@ -26168,6 +26848,8 @@ bool BrowserService_Launch_ForwardToCallback::Accept(
           internal::BrowserService_Launch_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BrowserService.19
   bool success = true;
   CreationResult p_result{};
   BrowserService_Launch_ResponseParamsDataView input_data_view(params, message);
@@ -26246,6 +26928,8 @@ bool BrowserServiceStubDispatch::Accept(
           reinterpret_cast<internal::BrowserService_REMOVED_2_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.2
       bool success = true;
       BrowserInitParamsPtr p_params{};
       BrowserService_REMOVED_2_ParamsDataView input_data_view(params, message);
@@ -26261,8 +26945,8 @@ bool BrowserServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_2(
-std::move(p_params));
+      impl->REMOVED_2(        
+        std::move(p_params));
       return true;
     }
     case internal::kBrowserService_NewWindow_Name: {
@@ -26296,6 +26980,8 @@ std::move(p_params));
           reinterpret_cast<internal::BrowserService_HandleTabScrubbing_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.13
       bool success = true;
       float p_x_offset{};
       bool p_is_fling_scroll_event{};
@@ -26314,9 +27000,9 @@ std::move(p_params));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->HandleTabScrubbing(
-std::move(p_x_offset), 
-std::move(p_is_fling_scroll_event));
+      impl->HandleTabScrubbing(        
+        std::move(p_x_offset), 
+        std::move(p_is_fling_scroll_event));
       return true;
     }
     case internal::kBrowserService_GetFeedbackData_Name: {
@@ -26335,6 +27021,8 @@ std::move(p_is_fling_scroll_event));
           reinterpret_cast<internal::BrowserService_UpdateDeviceAccountPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.6
       bool success = true;
       std::vector<uint8_t> p_policy{};
       BrowserService_UpdateDeviceAccountPolicy_ParamsDataView input_data_view(params, message);
@@ -26350,8 +27038,8 @@ std::move(p_is_fling_scroll_event));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateDeviceAccountPolicy(
-std::move(p_policy));
+      impl->UpdateDeviceAccountPolicy(        
+        std::move(p_policy));
       return true;
     }
     case internal::kBrowserService_NotifyPolicyFetchAttempt_Name: {
@@ -26361,6 +27049,8 @@ std::move(p_policy));
           reinterpret_cast<internal::BrowserService_NotifyPolicyFetchAttempt_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.17
       bool success = true;
       BrowserService_NotifyPolicyFetchAttempt_ParamsDataView input_data_view(params, message);
       
@@ -26373,7 +27063,7 @@ std::move(p_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyPolicyFetchAttempt();
+      impl->NotifyPolicyFetchAttempt(        );
       return true;
     }
     case internal::kBrowserService_UpdateKeepAlive_Name: {
@@ -26383,6 +27073,8 @@ std::move(p_policy));
           reinterpret_cast<internal::BrowserService_UpdateKeepAlive_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.12
       bool success = true;
       bool p_enabled{};
       BrowserService_UpdateKeepAlive_ParamsDataView input_data_view(params, message);
@@ -26398,8 +27090,8 @@ std::move(p_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateKeepAlive(
-std::move(p_enabled));
+      impl->UpdateKeepAlive(        
+        std::move(p_enabled));
       return true;
     }
     case internal::kBrowserService_OpenForFullRestore_Name: {
@@ -26409,6 +27101,8 @@ std::move(p_enabled));
           reinterpret_cast<internal::BrowserService_OpenForFullRestore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.15
       bool success = true;
       bool p_skip_crash_restore{};
       BrowserService_OpenForFullRestore_ParamsDataView input_data_view(params, message);
@@ -26424,8 +27118,8 @@ std::move(p_enabled));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenForFullRestore(
-std::move(p_skip_crash_restore));
+      impl->OpenForFullRestore(        
+        std::move(p_skip_crash_restore));
       return true;
     }
     case internal::kBrowserService_REMOVED_16_Name: {
@@ -26435,6 +27129,8 @@ std::move(p_skip_crash_restore));
           reinterpret_cast<internal::BrowserService_REMOVED_16_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.16
       bool success = true;
       base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>> p_policy{};
       BrowserService_REMOVED_16_ParamsDataView input_data_view(params, message);
@@ -26450,8 +27146,8 @@ std::move(p_skip_crash_restore));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_16(
-std::move(p_policy));
+      impl->REMOVED_16(        
+        std::move(p_policy));
       return true;
     }
     case internal::kBrowserService_UpdateComponentPolicy_Name: {
@@ -26461,6 +27157,8 @@ std::move(p_policy));
           reinterpret_cast<internal::BrowserService_UpdateComponentPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.18
       bool success = true;
       base::flat_map<::policy::PolicyNamespace, ::base::Value> p_component_policy{};
       BrowserService_UpdateComponentPolicy_ParamsDataView input_data_view(params, message);
@@ -26476,8 +27174,8 @@ std::move(p_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateComponentPolicy(
-std::move(p_component_policy));
+      impl->UpdateComponentPolicy(        
+        std::move(p_component_policy));
       return true;
     }
     case internal::kBrowserService_Launch_Name: {
@@ -26490,6 +27188,8 @@ std::move(p_component_policy));
           reinterpret_cast<internal::BrowserService_OpenProfileManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserService.21
       bool success = true;
       BrowserService_OpenProfileManager_ParamsDataView input_data_view(params, message);
       
@@ -26502,7 +27202,7 @@ std::move(p_component_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenProfileManager();
+      impl->OpenProfileManager(        );
       return true;
     }
   }
@@ -26525,6 +27225,8 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
               internal::BrowserService_REMOVED_0_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.0
       bool success = true;
       BrowserService_REMOVED_0_ParamsDataView input_data_view(params, message);
       
@@ -26553,6 +27255,8 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
               internal::BrowserService_NewWindow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.1
       bool success = true;
       bool p_incognito{};
       bool p_should_trigger_session_restore{};
@@ -26581,11 +27285,11 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NewWindow(
-std::move(p_incognito), 
-std::move(p_should_trigger_session_restore), 
-std::move(p_target_display_id), 
-std::move(p_profile_id), std::move(callback));
+      impl->NewWindow(        
+        std::move(p_incognito), 
+        std::move(p_should_trigger_session_restore), 
+        std::move(p_target_display_id), 
+        std::move(p_profile_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_NewFullscreenWindow_Name: {
@@ -26595,6 +27299,8 @@ std::move(p_profile_id), std::move(callback));
               internal::BrowserService_NewFullscreenWindow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.9
       bool success = true;
       ::GURL p_url{};
       int64_t p_target_display_id{};
@@ -26616,9 +27322,9 @@ std::move(p_profile_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NewFullscreenWindow(
-std::move(p_url), 
-std::move(p_target_display_id), std::move(callback));
+      impl->NewFullscreenWindow(        
+        std::move(p_url), 
+        std::move(p_target_display_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_NewWindowForDetachingTab_Name: {
@@ -26628,6 +27334,8 @@ std::move(p_target_display_id), std::move(callback));
               internal::BrowserService_NewWindowForDetachingTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.11
       bool success = true;
       ::std::u16string p_tab_id{};
       ::std::u16string p_group_id{};
@@ -26649,9 +27357,9 @@ std::move(p_target_display_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NewWindowForDetachingTab(
-std::move(p_tab_id), 
-std::move(p_group_id), std::move(callback));
+      impl->NewWindowForDetachingTab(        
+        std::move(p_tab_id), 
+        std::move(p_group_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_NewGuestWindow_Name: {
@@ -26661,6 +27369,8 @@ std::move(p_group_id), std::move(callback));
               internal::BrowserService_NewGuestWindow_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.14
       bool success = true;
       int64_t p_target_display_id{};
       BrowserService_NewGuestWindow_ParamsDataView input_data_view(params, message);
@@ -26679,8 +27389,8 @@ std::move(p_group_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NewGuestWindow(
-std::move(p_target_display_id), std::move(callback));
+      impl->NewGuestWindow(        
+        std::move(p_target_display_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_NewTab_Name: {
@@ -26690,6 +27400,8 @@ std::move(p_target_display_id), std::move(callback));
               internal::BrowserService_NewTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.20
       bool success = true;
       BrowserService_NewTab_ParamsDataView input_data_view(params, message);
       
@@ -26715,6 +27427,8 @@ std::move(p_target_display_id), std::move(callback));
               internal::BrowserService_REMOVED_7_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.7
       bool success = true;
       bool p_should_trigger_session_restore{};
       BrowserService_REMOVED_7_ParamsDataView input_data_view(params, message);
@@ -26733,8 +27447,8 @@ std::move(p_target_display_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->REMOVED_7(
-std::move(p_should_trigger_session_restore), std::move(callback));
+      impl->REMOVED_7(        
+        std::move(p_should_trigger_session_restore), std::move(callback));
       return true;
     }
     case internal::kBrowserService_OpenUrl_Name: {
@@ -26744,6 +27458,8 @@ std::move(p_should_trigger_session_restore), std::move(callback));
               internal::BrowserService_OpenUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.10
       bool success = true;
       ::GURL p_url{};
       OpenUrlParamsPtr p_params{};
@@ -26765,9 +27481,9 @@ std::move(p_should_trigger_session_restore), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenUrl(
-std::move(p_url), 
-std::move(p_params), std::move(callback));
+      impl->OpenUrl(        
+        std::move(p_url), 
+        std::move(p_params), std::move(callback));
       return true;
     }
     case internal::kBrowserService_RestoreTab_Name: {
@@ -26777,6 +27493,8 @@ std::move(p_params), std::move(callback));
               internal::BrowserService_RestoreTab_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.8
       bool success = true;
       BrowserService_RestoreTab_ParamsDataView input_data_view(params, message);
       
@@ -26805,6 +27523,8 @@ std::move(p_params), std::move(callback));
               internal::BrowserService_GetFeedbackData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.3
       bool success = true;
       BrowserService_GetFeedbackData_ParamsDataView input_data_view(params, message);
       
@@ -26830,6 +27550,8 @@ std::move(p_params), std::move(callback));
               internal::BrowserService_GetHistograms_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.4
       bool success = true;
       BrowserService_GetHistograms_ParamsDataView input_data_view(params, message);
       
@@ -26855,6 +27577,8 @@ std::move(p_params), std::move(callback));
               internal::BrowserService_GetActiveTabUrl_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.5
       bool success = true;
       BrowserService_GetActiveTabUrl_ParamsDataView input_data_view(params, message);
       
@@ -26898,6 +27622,8 @@ std::move(p_params), std::move(callback));
               internal::BrowserService_Launch_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BrowserService.19
       bool success = true;
       int64_t p_target_display_id{};
       std::optional<uint64_t> p_profile_id{};
@@ -26920,9 +27646,9 @@ std::move(p_params), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Launch(
-std::move(p_target_display_id), 
-std::move(p_profile_id), std::move(callback));
+      impl->Launch(        
+        std::move(p_target_display_id), 
+        std::move(p_profile_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_OpenProfileManager_Name: {
@@ -27160,6 +27886,8 @@ bool BrowserServiceHostStubDispatch::Accept(
           reinterpret_cast<internal::BrowserServiceHost_AddBrowserService_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserServiceHost.0
       bool success = true;
       ::mojo::PendingRemote<BrowserService> p_browser{};
       BrowserServiceHost_AddBrowserService_ParamsDataView input_data_view(params, message);
@@ -27177,8 +27905,8 @@ bool BrowserServiceHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddBrowserService(
-std::move(p_browser));
+      impl->AddBrowserService(        
+        std::move(p_browser));
       return true;
     }
     case internal::kBrowserServiceHost_RequestRelaunch_Name: {
@@ -27188,6 +27916,8 @@ std::move(p_browser));
           reinterpret_cast<internal::BrowserServiceHost_RequestRelaunch_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BrowserServiceHost.1
       bool success = true;
       BrowserServiceHost_RequestRelaunch_ParamsDataView input_data_view(params, message);
       
@@ -27200,7 +27930,7 @@ std::move(p_browser));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestRelaunch();
+      impl->RequestRelaunch(        );
       return true;
     }
   }
@@ -27654,6 +28384,9 @@ void CrosapiInterceptorForTesting::BindContentProtection(::mojo::PendingReceiver
 void CrosapiInterceptorForTesting::BindCrosDisplayConfigController(::mojo::PendingReceiver<::crosapi::mojom::CrosDisplayConfigController> receiver) {
   GetForwardingInterface()->BindCrosDisplayConfigController(std::move(receiver));
 }
+void CrosapiInterceptorForTesting::BindDebugInterfaceRegisterer(::mojo::PendingReceiver<::crosapi::mojom::DebugInterfaceRegisterer> receiver) {
+  GetForwardingInterface()->BindDebugInterfaceRegisterer(std::move(receiver));
+}
 void CrosapiInterceptorForTesting::BindDesk(::mojo::PendingReceiver<::crosapi::mojom::Desk> receiver) {
   GetForwardingInterface()->BindDesk(std::move(receiver));
 }
@@ -27716,6 +28449,9 @@ void CrosapiInterceptorForTesting::BindNetworkingPrivate(::mojo::PendingReceiver
 }
 void CrosapiInterceptorForTesting::BindExtensionPublisher(::mojo::PendingReceiver<::crosapi::mojom::AppPublisher> receiver) {
   GetForwardingInterface()->BindExtensionPublisher(std::move(receiver));
+}
+void CrosapiInterceptorForTesting::BindFileChangeServiceBridge(::mojo::PendingReceiver<::crosapi::mojom::FileChangeServiceBridge> receiver) {
+  GetForwardingInterface()->BindFileChangeServiceBridge(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindFileManager(::mojo::PendingReceiver<::crosapi::mojom::FileManager> receiver) {
   GetForwardingInterface()->BindFileManager(std::move(receiver));
@@ -27804,6 +28540,9 @@ void CrosapiInterceptorForTesting::BindNetworkChange(::mojo::PendingReceiver<::c
 void CrosapiInterceptorForTesting::BindNetworkingAttributes(::mojo::PendingReceiver<::crosapi::mojom::NetworkingAttributes> receiver) {
   GetForwardingInterface()->BindNetworkingAttributes(std::move(receiver));
 }
+void CrosapiInterceptorForTesting::BindOneDriveNotificationService(::mojo::PendingReceiver<::crosapi::mojom::OneDriveNotificationService> receiver) {
+  GetForwardingInterface()->BindOneDriveNotificationService(std::move(receiver));
+}
 void CrosapiInterceptorForTesting::BindParentAccess(::mojo::PendingReceiver<::crosapi::mojom::ParentAccess> receiver) {
   GetForwardingInterface()->BindParentAccess(std::move(receiver));
 }
@@ -27818,6 +28557,9 @@ void CrosapiInterceptorForTesting::BindPolicyService(::mojo::PendingReceiver<::c
 }
 void CrosapiInterceptorForTesting::BindPrefs(::mojo::PendingReceiver<::crosapi::mojom::Prefs> receiver) {
   GetForwardingInterface()->BindPrefs(std::move(receiver));
+}
+void CrosapiInterceptorForTesting::BindNonclosableAppToastService(::mojo::PendingReceiver<::crosapi::mojom::NonclosableAppToastService> receiver) {
+  GetForwardingInterface()->BindNonclosableAppToastService(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindRemoteAppsLacrosBridge(::mojo::PendingReceiver<::chromeos::remote_apps::mojom::RemoteAppsLacrosBridge> receiver) {
   GetForwardingInterface()->BindRemoteAppsLacrosBridge(std::move(receiver));

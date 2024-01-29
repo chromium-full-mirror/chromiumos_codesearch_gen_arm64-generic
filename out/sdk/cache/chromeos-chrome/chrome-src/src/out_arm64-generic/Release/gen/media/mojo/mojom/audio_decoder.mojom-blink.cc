@@ -538,6 +538,8 @@ bool AudioDecoder_Initialize_ForwardToCallback::Accept(
           internal::AudioDecoder_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioDecoder.1
   bool success = true;
   ::media::mojom::blink::DecoderStatusPtr p_success{};
   bool p_needs_bitstream_conversion{};
@@ -684,6 +686,8 @@ bool AudioDecoder_Decode_ForwardToCallback::Accept(
           internal::AudioDecoder_Decode_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioDecoder.3
   bool success = true;
   ::media::mojom::blink::DecoderStatusPtr p_status{};
   AudioDecoder_Decode_ResponseParamsDataView input_data_view(params, message);
@@ -813,6 +817,8 @@ bool AudioDecoder_Reset_ForwardToCallback::Accept(
           internal::AudioDecoder_Reset_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for AudioDecoder.4
   bool success = true;
   AudioDecoder_Reset_ResponseParamsDataView input_data_view(params, message);
   
@@ -875,6 +881,8 @@ bool AudioDecoderStubDispatch::Accept(
           reinterpret_cast<internal::AudioDecoder_Construct_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioDecoder.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<AudioDecoderClient> p_client{};
       ::mojo::PendingRemote<::media::mojom::blink::MediaLog> p_media_log{};
@@ -897,9 +905,9 @@ bool AudioDecoderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Construct(
-std::move(p_client), 
-std::move(p_media_log));
+      impl->Construct(        
+        std::move(p_client), 
+        std::move(p_media_log));
       return true;
     }
     case internal::kAudioDecoder_Initialize_Name: {
@@ -912,6 +920,8 @@ std::move(p_media_log));
           reinterpret_cast<internal::AudioDecoder_SetDataSource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioDecoder.2
       bool success = true;
       ::mojo::ScopedDataPipeConsumerHandle p_receive_pipe{};
       AudioDecoder_SetDataSource_ParamsDataView input_data_view(params, message);
@@ -927,8 +937,8 @@ std::move(p_media_log));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDataSource(
-std::move(p_receive_pipe));
+      impl->SetDataSource(        
+        std::move(p_receive_pipe));
       return true;
     }
     case internal::kAudioDecoder_Decode_Name: {
@@ -960,6 +970,8 @@ bool AudioDecoderStubDispatch::AcceptWithResponder(
               internal::AudioDecoder_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioDecoder.1
       bool success = true;
       ::media::mojom::blink::AudioDecoderConfigPtr p_config{};
       std::optional<::base::UnguessableToken> p_cdm_id{};
@@ -981,9 +993,9 @@ bool AudioDecoderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_config), 
-std::move(p_cdm_id), std::move(callback));
+      impl->Initialize(        
+        std::move(p_config), 
+        std::move(p_cdm_id), std::move(callback));
       return true;
     }
     case internal::kAudioDecoder_SetDataSource_Name: {
@@ -996,6 +1008,8 @@ std::move(p_cdm_id), std::move(callback));
               internal::AudioDecoder_Decode_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioDecoder.3
       bool success = true;
       ::media::mojom::blink::DecoderBufferPtr p_buffer{};
       AudioDecoder_Decode_ParamsDataView input_data_view(params, message);
@@ -1014,8 +1028,8 @@ std::move(p_cdm_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Decode(
-std::move(p_buffer), std::move(callback));
+      impl->Decode(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kAudioDecoder_Reset_Name: {
@@ -1025,6 +1039,8 @@ std::move(p_buffer), std::move(callback));
               internal::AudioDecoder_Reset_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for AudioDecoder.4
       bool success = true;
       AudioDecoder_Reset_ParamsDataView input_data_view(params, message);
       
@@ -1254,6 +1270,8 @@ bool AudioDecoderClientStubDispatch::Accept(
           reinterpret_cast<internal::AudioDecoderClient_OnBufferDecoded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioDecoderClient.0
       bool success = true;
       ::media::mojom::blink::AudioBufferPtr p_buffer{};
       AudioDecoderClient_OnBufferDecoded_ParamsDataView input_data_view(params, message);
@@ -1269,8 +1287,8 @@ bool AudioDecoderClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBufferDecoded(
-std::move(p_buffer));
+      impl->OnBufferDecoded(        
+        std::move(p_buffer));
       return true;
     }
     case internal::kAudioDecoderClient_OnWaiting_Name: {
@@ -1280,6 +1298,8 @@ std::move(p_buffer));
           reinterpret_cast<internal::AudioDecoderClient_OnWaiting_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioDecoderClient.1
       bool success = true;
       ::media::mojom::blink::WaitingReason p_reason{};
       AudioDecoderClient_OnWaiting_ParamsDataView input_data_view(params, message);
@@ -1295,8 +1315,8 @@ std::move(p_buffer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnWaiting(
-std::move(p_reason));
+      impl->OnWaiting(        
+        std::move(p_reason));
       return true;
     }
   }

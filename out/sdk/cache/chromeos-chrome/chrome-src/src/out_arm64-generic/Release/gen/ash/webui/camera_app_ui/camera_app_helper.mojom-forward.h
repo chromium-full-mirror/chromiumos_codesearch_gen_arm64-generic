@@ -9,11 +9,12 @@
 
 #include <stdint.h>
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,8 +22,16 @@
 
 
 namespace ash::camera_app::mojom {
+class WifiConfigDataView;
+
 
 enum class ScreenState : int32_t;
+
+enum class WifiSecurityType : int32_t;
+
+enum class WifiEapMethod : int32_t;
+
+enum class WifiEapPhase2Method : int32_t;
 
 enum class WindowStateType : int32_t;
 
@@ -33,6 +42,9 @@ enum class StorageMonitorStatus : int32_t;
 enum class ToteMetricFormat : int32_t;
 
 enum class DocumentOutputFormat : int32_t;
+class WifiConfig;
+using WifiConfigPtr = mojo::StructPtr<WifiConfig>;
+
 class TabletModeMonitor;
 
 class ScreenStateMonitor;

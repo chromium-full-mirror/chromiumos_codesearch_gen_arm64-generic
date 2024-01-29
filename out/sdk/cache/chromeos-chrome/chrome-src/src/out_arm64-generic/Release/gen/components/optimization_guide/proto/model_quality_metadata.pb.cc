@@ -48,7 +48,7 @@ struct OnDeviceSystemProfileDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceSystemProfileDefaultTypeInternal _OnDeviceSystemProfile_default_instance_;
 PROTOBUF_CONSTEXPR ModelExecutionInfo::ModelExecutionInfo(
     ::_pbi::ConstantInitialized)
-  : server_execution_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  : execution_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , on_device_model_execution_info_(nullptr)
   , error_response_(nullptr){}
 struct ModelExecutionInfoDefaultTypeInternal {
@@ -63,7 +63,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR OnDeviceModelExecutionInfo::OnDeviceModelExecutionInfo(
     ::_pbi::ConstantInitialized)
   : execution_infos_()
-  , feature_config_(nullptr){}
+  , model_versions_(nullptr){}
 struct OnDeviceModelExecutionInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OnDeviceModelExecutionInfoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -73,6 +73,31 @@ struct OnDeviceModelExecutionInfoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelExecutionInfoDefaultTypeInternal _OnDeviceModelExecutionInfo_default_instance_;
+PROTOBUF_CONSTEXPR OnDeviceModelVersions::OnDeviceModelVersions(
+    ::_pbi::ConstantInitialized)
+  : on_device_model_service_version_(nullptr)
+  , text_safety_model_version_(int64_t{0}){}
+struct OnDeviceModelVersionsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OnDeviceModelVersionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OnDeviceModelVersionsDefaultTypeInternal() {}
+  union {
+    OnDeviceModelVersions _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelVersionsDefaultTypeInternal _OnDeviceModelVersions_default_instance_;
+PROTOBUF_CONSTEXPR OnDeviceModelServiceVersion::OnDeviceModelServiceVersion(
+    ::_pbi::ConstantInitialized)
+  : component_version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct OnDeviceModelServiceVersionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OnDeviceModelServiceVersionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OnDeviceModelServiceVersionDefaultTypeInternal() {}
+  union {
+    OnDeviceModelServiceVersion _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelServiceVersionDefaultTypeInternal _OnDeviceModelServiceVersion_default_instance_;
 PROTOBUF_CONSTEXPR InternalOnDeviceModelExecutionInfo::InternalOnDeviceModelExecutionInfo(
     ::_pbi::ConstantInitialized)
   : request_(nullptr)
@@ -132,7 +157,8 @@ PROTOBUF_CONSTEXPR OnDeviceModelServiceResponse::OnDeviceModelServiceResponse(
   , time_to_first_response_millis_(int64_t{0})
   , time_to_completion_millis_(int64_t{0})
   , status_(0)
-{}
+
+  , has_repeats_(false){}
 struct OnDeviceModelServiceResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OnDeviceModelServiceResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -142,6 +168,31 @@ struct OnDeviceModelServiceResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OnDeviceModelServiceResponseDefaultTypeInternal _OnDeviceModelServiceResponse_default_instance_;
+PROTOBUF_CONSTEXPR TextSafetyModelRequest::TextSafetyModelRequest(
+    ::_pbi::ConstantInitialized)
+  : text_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct TextSafetyModelRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TextSafetyModelRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TextSafetyModelRequestDefaultTypeInternal() {}
+  union {
+    TextSafetyModelRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TextSafetyModelRequestDefaultTypeInternal _TextSafetyModelRequest_default_instance_;
+PROTOBUF_CONSTEXPR TextSafetyModelResponse::TextSafetyModelResponse(
+    ::_pbi::ConstantInitialized)
+  : scores_()
+  , is_unsafe_(false){}
+struct TextSafetyModelResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TextSafetyModelResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TextSafetyModelResponseDefaultTypeInternal() {}
+  union {
+    TextSafetyModelResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TextSafetyModelResponseDefaultTypeInternal _TextSafetyModelResponse_default_instance_;
 }  // namespace proto
 }  // namespace optimization_guide
 namespace optimization_guide {
@@ -733,12 +784,12 @@ ModelExecutionInfo::ModelExecutionInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 ModelExecutionInfo::ModelExecutionInfo(const ModelExecutionInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  server_execution_id_.InitDefault();
+  execution_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    server_execution_id_.Set("", GetArenaForAllocation());
+    execution_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_server_execution_id().empty()) {
-    server_execution_id_.Set(from._internal_server_execution_id(), 
+  if (!from._internal_execution_id().empty()) {
+    execution_id_.Set(from._internal_execution_id(), 
       GetArenaForAllocation());
   }
   if (from._internal_has_on_device_model_execution_info()) {
@@ -755,9 +806,9 @@ ModelExecutionInfo::ModelExecutionInfo(const ModelExecutionInfo& from)
 }
 
 inline void ModelExecutionInfo::SharedCtor() {
-server_execution_id_.InitDefault();
+execution_id_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  server_execution_id_.Set("", GetArenaForAllocation());
+  execution_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&on_device_model_execution_info_) - reinterpret_cast<char*>(this)),
@@ -776,7 +827,7 @@ ModelExecutionInfo::~ModelExecutionInfo() {
 
 inline void ModelExecutionInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  server_execution_id_.Destroy();
+  execution_id_.Destroy();
   if (this != internal_default_instance()) delete on_device_model_execution_info_;
   if (this != internal_default_instance()) delete error_response_;
 }
@@ -791,7 +842,7 @@ void ModelExecutionInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  server_execution_id_.ClearToEmpty();
+  execution_id_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && on_device_model_execution_info_ != nullptr) {
     delete on_device_model_execution_info_;
   }
@@ -809,16 +860,6 @@ const char* ModelExecutionInfo::_InternalParse(const char* ptr, ::_pbi::ParseCon
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // string server_execution_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_server_execution_id();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
       // .optimization_guide.proto.OnDeviceModelExecutionInfo on_device_model_execution_info = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
@@ -832,6 +873,16 @@ const char* ModelExecutionInfo::_InternalParse(const char* ptr, ::_pbi::ParseCon
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_response(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string execution_id = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_execution_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -864,16 +915,6 @@ uint8_t* ModelExecutionInfo::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string server_execution_id = 1;
-  if (!this->_internal_server_execution_id().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_server_execution_id().data(), static_cast<int>(this->_internal_server_execution_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "optimization_guide.proto.ModelExecutionInfo.server_execution_id");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_server_execution_id(), target);
-  }
-
   // .optimization_guide.proto.OnDeviceModelExecutionInfo on_device_model_execution_info = 2;
   if (this->_internal_has_on_device_model_execution_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -886,6 +927,16 @@ uint8_t* ModelExecutionInfo::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::error_response(this),
         _Internal::error_response(this).GetCachedSize(), target, stream);
+  }
+
+  // string execution_id = 4;
+  if (!this->_internal_execution_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_execution_id().data(), static_cast<int>(this->_internal_execution_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "optimization_guide.proto.ModelExecutionInfo.execution_id");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_execution_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -904,11 +955,11 @@ size_t ModelExecutionInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string server_execution_id = 1;
-  if (!this->_internal_server_execution_id().empty()) {
+  // string execution_id = 4;
+  if (!this->_internal_execution_id().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_server_execution_id());
+        this->_internal_execution_id());
   }
 
   // .optimization_guide.proto.OnDeviceModelExecutionInfo on_device_model_execution_info = 2;
@@ -945,8 +996,8 @@ void ModelExecutionInfo::MergeFrom(const ModelExecutionInfo& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_server_execution_id().empty()) {
-    _internal_set_server_execution_id(from._internal_server_execution_id());
+  if (!from._internal_execution_id().empty()) {
+    _internal_set_execution_id(from._internal_execution_id());
   }
   if (from._internal_has_on_device_model_execution_info()) {
     _internal_mutable_on_device_model_execution_info()->::optimization_guide::proto::OnDeviceModelExecutionInfo::MergeFrom(from._internal_on_device_model_execution_info());
@@ -974,8 +1025,8 @@ void ModelExecutionInfo::InternalSwap(ModelExecutionInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &server_execution_id_, lhs_arena,
-      &other->server_execution_id_, rhs_arena
+      &execution_id_, lhs_arena,
+      &other->execution_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ModelExecutionInfo, error_response_)
@@ -994,18 +1045,12 @@ std::string ModelExecutionInfo::GetTypeName() const {
 
 class OnDeviceModelExecutionInfo::_Internal {
  public:
-  static const ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig& feature_config(const OnDeviceModelExecutionInfo* msg);
+  static const ::optimization_guide::proto::OnDeviceModelVersions& model_versions(const OnDeviceModelExecutionInfo* msg);
 };
 
-const ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig&
-OnDeviceModelExecutionInfo::_Internal::feature_config(const OnDeviceModelExecutionInfo* msg) {
-  return *msg->feature_config_;
-}
-void OnDeviceModelExecutionInfo::clear_feature_config() {
-  if (GetArenaForAllocation() == nullptr && feature_config_ != nullptr) {
-    delete feature_config_;
-  }
-  feature_config_ = nullptr;
+const ::optimization_guide::proto::OnDeviceModelVersions&
+OnDeviceModelExecutionInfo::_Internal::model_versions(const OnDeviceModelExecutionInfo* msg) {
+  return *msg->model_versions_;
 }
 OnDeviceModelExecutionInfo::OnDeviceModelExecutionInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -1018,16 +1063,16 @@ OnDeviceModelExecutionInfo::OnDeviceModelExecutionInfo(const OnDeviceModelExecut
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       execution_infos_(from.execution_infos_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_feature_config()) {
-    feature_config_ = new ::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig(*from.feature_config_);
+  if (from._internal_has_model_versions()) {
+    model_versions_ = new ::optimization_guide::proto::OnDeviceModelVersions(*from.model_versions_);
   } else {
-    feature_config_ = nullptr;
+    model_versions_ = nullptr;
   }
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelExecutionInfo)
 }
 
 inline void OnDeviceModelExecutionInfo::SharedCtor() {
-feature_config_ = nullptr;
+model_versions_ = nullptr;
 }
 
 OnDeviceModelExecutionInfo::~OnDeviceModelExecutionInfo() {
@@ -1041,7 +1086,7 @@ OnDeviceModelExecutionInfo::~OnDeviceModelExecutionInfo() {
 
 inline void OnDeviceModelExecutionInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete feature_config_;
+  if (this != internal_default_instance()) delete model_versions_;
 }
 
 void OnDeviceModelExecutionInfo::SetCachedSize(int size) const {
@@ -1055,10 +1100,10 @@ void OnDeviceModelExecutionInfo::Clear() {
   (void) cached_has_bits;
 
   execution_infos_.Clear();
-  if (GetArenaForAllocation() == nullptr && feature_config_ != nullptr) {
-    delete feature_config_;
+  if (GetArenaForAllocation() == nullptr && model_versions_ != nullptr) {
+    delete model_versions_;
   }
-  feature_config_ = nullptr;
+  model_versions_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1068,14 +1113,6 @@ const char* OnDeviceModelExecutionInfo::_InternalParse(const char* ptr, ::_pbi::
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_config = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_feature_config(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // repeated .optimization_guide.proto.InternalOnDeviceModelExecutionInfo execution_infos = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
@@ -1086,6 +1123,14 @@ const char* OnDeviceModelExecutionInfo::_InternalParse(const char* ptr, ::_pbi::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.OnDeviceModelVersions model_versions = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_model_versions(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1118,19 +1163,19 @@ uint8_t* OnDeviceModelExecutionInfo::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_config = 1;
-  if (this->_internal_has_feature_config()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::feature_config(this),
-        _Internal::feature_config(this).GetCachedSize(), target, stream);
-  }
-
   // repeated .optimization_guide.proto.InternalOnDeviceModelExecutionInfo execution_infos = 2;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_execution_infos_size()); i < n; i++) {
     const auto& repfield = this->_internal_execution_infos(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // .optimization_guide.proto.OnDeviceModelVersions model_versions = 3;
+  if (this->_internal_has_model_versions()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::model_versions(this),
+        _Internal::model_versions(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1156,11 +1201,11 @@ size_t OnDeviceModelExecutionInfo::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // .optimization_guide.proto.OnDeviceModelExecutionFeatureConfig feature_config = 1;
-  if (this->_internal_has_feature_config()) {
+  // .optimization_guide.proto.OnDeviceModelVersions model_versions = 3;
+  if (this->_internal_has_model_versions()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *feature_config_);
+        *model_versions_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1184,8 +1229,8 @@ void OnDeviceModelExecutionInfo::MergeFrom(const OnDeviceModelExecutionInfo& fro
   (void) cached_has_bits;
 
   execution_infos_.MergeFrom(from.execution_infos_);
-  if (from._internal_has_feature_config()) {
-    _internal_mutable_feature_config()->::optimization_guide::proto::OnDeviceModelExecutionFeatureConfig::MergeFrom(from._internal_feature_config());
+  if (from._internal_has_model_versions()) {
+    _internal_mutable_model_versions()->::optimization_guide::proto::OnDeviceModelVersions::MergeFrom(from._internal_model_versions());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1205,11 +1250,419 @@ void OnDeviceModelExecutionInfo::InternalSwap(OnDeviceModelExecutionInfo* other)
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   execution_infos_.InternalSwap(&other->execution_infos_);
-  swap(feature_config_, other->feature_config_);
+  swap(model_versions_, other->model_versions_);
 }
 
 std::string OnDeviceModelExecutionInfo::GetTypeName() const {
   return "optimization_guide.proto.OnDeviceModelExecutionInfo";
+}
+
+
+// ===================================================================
+
+class OnDeviceModelVersions::_Internal {
+ public:
+  static const ::optimization_guide::proto::OnDeviceModelServiceVersion& on_device_model_service_version(const OnDeviceModelVersions* msg);
+};
+
+const ::optimization_guide::proto::OnDeviceModelServiceVersion&
+OnDeviceModelVersions::_Internal::on_device_model_service_version(const OnDeviceModelVersions* msg) {
+  return *msg->on_device_model_service_version_;
+}
+OnDeviceModelVersions::OnDeviceModelVersions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.OnDeviceModelVersions)
+}
+OnDeviceModelVersions::OnDeviceModelVersions(const OnDeviceModelVersions& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_on_device_model_service_version()) {
+    on_device_model_service_version_ = new ::optimization_guide::proto::OnDeviceModelServiceVersion(*from.on_device_model_service_version_);
+  } else {
+    on_device_model_service_version_ = nullptr;
+  }
+  text_safety_model_version_ = from.text_safety_model_version_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelVersions)
+}
+
+inline void OnDeviceModelVersions::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&on_device_model_service_version_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&text_safety_model_version_) -
+    reinterpret_cast<char*>(&on_device_model_service_version_)) + sizeof(text_safety_model_version_));
+}
+
+OnDeviceModelVersions::~OnDeviceModelVersions() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.OnDeviceModelVersions)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OnDeviceModelVersions::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete on_device_model_service_version_;
+}
+
+void OnDeviceModelVersions::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OnDeviceModelVersions::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.OnDeviceModelVersions)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && on_device_model_service_version_ != nullptr) {
+    delete on_device_model_service_version_;
+  }
+  on_device_model_service_version_ = nullptr;
+  text_safety_model_version_ = int64_t{0};
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OnDeviceModelVersions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .optimization_guide.proto.OnDeviceModelServiceVersion on_device_model_service_version = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_on_device_model_service_version(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 text_safety_model_version = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          text_safety_model_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OnDeviceModelVersions::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.OnDeviceModelVersions)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .optimization_guide.proto.OnDeviceModelServiceVersion on_device_model_service_version = 1;
+  if (this->_internal_has_on_device_model_service_version()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::on_device_model_service_version(this),
+        _Internal::on_device_model_service_version(this).GetCachedSize(), target, stream);
+  }
+
+  // int64 text_safety_model_version = 2;
+  if (this->_internal_text_safety_model_version() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_text_safety_model_version(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.OnDeviceModelVersions)
+  return target;
+}
+
+size_t OnDeviceModelVersions::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.OnDeviceModelVersions)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .optimization_guide.proto.OnDeviceModelServiceVersion on_device_model_service_version = 1;
+  if (this->_internal_has_on_device_model_service_version()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *on_device_model_service_version_);
+  }
+
+  // int64 text_safety_model_version = 2;
+  if (this->_internal_text_safety_model_version() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_text_safety_model_version());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OnDeviceModelVersions::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OnDeviceModelVersions*>(
+      &from));
+}
+
+void OnDeviceModelVersions::MergeFrom(const OnDeviceModelVersions& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.OnDeviceModelVersions)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_on_device_model_service_version()) {
+    _internal_mutable_on_device_model_service_version()->::optimization_guide::proto::OnDeviceModelServiceVersion::MergeFrom(from._internal_on_device_model_service_version());
+  }
+  if (from._internal_text_safety_model_version() != 0) {
+    _internal_set_text_safety_model_version(from._internal_text_safety_model_version());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OnDeviceModelVersions::CopyFrom(const OnDeviceModelVersions& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.OnDeviceModelVersions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OnDeviceModelVersions::IsInitialized() const {
+  return true;
+}
+
+void OnDeviceModelVersions::InternalSwap(OnDeviceModelVersions* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(OnDeviceModelVersions, text_safety_model_version_)
+      + sizeof(OnDeviceModelVersions::text_safety_model_version_)
+      - PROTOBUF_FIELD_OFFSET(OnDeviceModelVersions, on_device_model_service_version_)>(
+          reinterpret_cast<char*>(&on_device_model_service_version_),
+          reinterpret_cast<char*>(&other->on_device_model_service_version_));
+}
+
+std::string OnDeviceModelVersions::GetTypeName() const {
+  return "optimization_guide.proto.OnDeviceModelVersions";
+}
+
+
+// ===================================================================
+
+class OnDeviceModelServiceVersion::_Internal {
+ public:
+};
+
+OnDeviceModelServiceVersion::OnDeviceModelServiceVersion(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.OnDeviceModelServiceVersion)
+}
+OnDeviceModelServiceVersion::OnDeviceModelServiceVersion(const OnDeviceModelServiceVersion& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  component_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    component_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_component_version().empty()) {
+    component_version_.Set(from._internal_component_version(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelServiceVersion)
+}
+
+inline void OnDeviceModelServiceVersion::SharedCtor() {
+component_version_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  component_version_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+OnDeviceModelServiceVersion::~OnDeviceModelServiceVersion() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.OnDeviceModelServiceVersion)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OnDeviceModelServiceVersion::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  component_version_.Destroy();
+}
+
+void OnDeviceModelServiceVersion::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OnDeviceModelServiceVersion::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.OnDeviceModelServiceVersion)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  component_version_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OnDeviceModelServiceVersion::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string component_version = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_component_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OnDeviceModelServiceVersion::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.OnDeviceModelServiceVersion)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string component_version = 1;
+  if (!this->_internal_component_version().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_component_version().data(), static_cast<int>(this->_internal_component_version().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "optimization_guide.proto.OnDeviceModelServiceVersion.component_version");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_component_version(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.OnDeviceModelServiceVersion)
+  return target;
+}
+
+size_t OnDeviceModelServiceVersion::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.OnDeviceModelServiceVersion)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string component_version = 1;
+  if (!this->_internal_component_version().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_component_version());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OnDeviceModelServiceVersion::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OnDeviceModelServiceVersion*>(
+      &from));
+}
+
+void OnDeviceModelServiceVersion::MergeFrom(const OnDeviceModelServiceVersion& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.OnDeviceModelServiceVersion)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_component_version().empty()) {
+    _internal_set_component_version(from._internal_component_version());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OnDeviceModelServiceVersion::CopyFrom(const OnDeviceModelServiceVersion& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.OnDeviceModelServiceVersion)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OnDeviceModelServiceVersion::IsInitialized() const {
+  return true;
+}
+
+void OnDeviceModelServiceVersion::InternalSwap(OnDeviceModelServiceVersion* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &component_version_, lhs_arena,
+      &other->component_version_, rhs_arena
+  );
+}
+
+std::string OnDeviceModelServiceVersion::GetTypeName() const {
+  return "optimization_guide.proto.OnDeviceModelServiceVersion";
 }
 
 
@@ -1450,11 +1903,16 @@ std::string InternalOnDeviceModelExecutionInfo::GetTypeName() const {
 class InternalOnDeviceRequest::_Internal {
  public:
   static const ::optimization_guide::proto::OnDeviceModelServiceRequest& on_device_model_service_request(const InternalOnDeviceRequest* msg);
+  static const ::optimization_guide::proto::TextSafetyModelRequest& text_safety_model_request(const InternalOnDeviceRequest* msg);
 };
 
 const ::optimization_guide::proto::OnDeviceModelServiceRequest&
 InternalOnDeviceRequest::_Internal::on_device_model_service_request(const InternalOnDeviceRequest* msg) {
   return *msg->request_.on_device_model_service_request_;
+}
+const ::optimization_guide::proto::TextSafetyModelRequest&
+InternalOnDeviceRequest::_Internal::text_safety_model_request(const InternalOnDeviceRequest* msg) {
+  return *msg->request_.text_safety_model_request_;
 }
 void InternalOnDeviceRequest::set_allocated_on_device_model_service_request(::optimization_guide::proto::OnDeviceModelServiceRequest* on_device_model_service_request) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -1471,6 +1929,21 @@ void InternalOnDeviceRequest::set_allocated_on_device_model_service_request(::op
   }
   // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.InternalOnDeviceRequest.on_device_model_service_request)
 }
+void InternalOnDeviceRequest::set_allocated_text_safety_model_request(::optimization_guide::proto::TextSafetyModelRequest* text_safety_model_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_request();
+  if (text_safety_model_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(text_safety_model_request);
+    if (message_arena != submessage_arena) {
+      text_safety_model_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, text_safety_model_request, submessage_arena);
+    }
+    set_has_text_safety_model_request();
+    request_.text_safety_model_request_ = text_safety_model_request;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.InternalOnDeviceRequest.text_safety_model_request)
+}
 InternalOnDeviceRequest::InternalOnDeviceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -1484,6 +1957,10 @@ InternalOnDeviceRequest::InternalOnDeviceRequest(const InternalOnDeviceRequest& 
   switch (from.request_case()) {
     case kOnDeviceModelServiceRequest: {
       _internal_mutable_on_device_model_service_request()->::optimization_guide::proto::OnDeviceModelServiceRequest::MergeFrom(from._internal_on_device_model_service_request());
+      break;
+    }
+    case kTextSafetyModelRequest: {
+      _internal_mutable_text_safety_model_request()->::optimization_guide::proto::TextSafetyModelRequest::MergeFrom(from._internal_text_safety_model_request());
       break;
     }
     case REQUEST_NOT_SET: {
@@ -1526,6 +2003,12 @@ void InternalOnDeviceRequest::clear_request() {
       }
       break;
     }
+    case kTextSafetyModelRequest: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete request_.text_safety_model_request_;
+      }
+      break;
+    }
     case REQUEST_NOT_SET: {
       break;
     }
@@ -1554,6 +2037,14 @@ const char* InternalOnDeviceRequest::_InternalParse(const char* ptr, ::_pbi::Par
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_on_device_model_service_request(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.TextSafetyModelRequest text_safety_model_request = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_text_safety_model_request(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1594,6 +2085,13 @@ uint8_t* InternalOnDeviceRequest::_InternalSerialize(
         _Internal::on_device_model_service_request(this).GetCachedSize(), target, stream);
   }
 
+  // .optimization_guide.proto.TextSafetyModelRequest text_safety_model_request = 2;
+  if (_internal_has_text_safety_model_request()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::text_safety_model_request(this),
+        _Internal::text_safety_model_request(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1616,6 +2114,13 @@ size_t InternalOnDeviceRequest::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *request_.on_device_model_service_request_);
+      break;
+    }
+    // .optimization_guide.proto.TextSafetyModelRequest text_safety_model_request = 2;
+    case kTextSafetyModelRequest: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *request_.text_safety_model_request_);
       break;
     }
     case REQUEST_NOT_SET: {
@@ -1645,6 +2150,10 @@ void InternalOnDeviceRequest::MergeFrom(const InternalOnDeviceRequest& from) {
   switch (from.request_case()) {
     case kOnDeviceModelServiceRequest: {
       _internal_mutable_on_device_model_service_request()->::optimization_guide::proto::OnDeviceModelServiceRequest::MergeFrom(from._internal_on_device_model_service_request());
+      break;
+    }
+    case kTextSafetyModelRequest: {
+      _internal_mutable_text_safety_model_request()->::optimization_guide::proto::TextSafetyModelRequest::MergeFrom(from._internal_text_safety_model_request());
       break;
     }
     case REQUEST_NOT_SET: {
@@ -1682,11 +2191,16 @@ std::string InternalOnDeviceRequest::GetTypeName() const {
 class InternalOnDeviceResponse::_Internal {
  public:
   static const ::optimization_guide::proto::OnDeviceModelServiceResponse& on_device_model_service_response(const InternalOnDeviceResponse* msg);
+  static const ::optimization_guide::proto::TextSafetyModelResponse& text_safety_model_response(const InternalOnDeviceResponse* msg);
 };
 
 const ::optimization_guide::proto::OnDeviceModelServiceResponse&
 InternalOnDeviceResponse::_Internal::on_device_model_service_response(const InternalOnDeviceResponse* msg) {
   return *msg->response_.on_device_model_service_response_;
+}
+const ::optimization_guide::proto::TextSafetyModelResponse&
+InternalOnDeviceResponse::_Internal::text_safety_model_response(const InternalOnDeviceResponse* msg) {
+  return *msg->response_.text_safety_model_response_;
 }
 void InternalOnDeviceResponse::set_allocated_on_device_model_service_response(::optimization_guide::proto::OnDeviceModelServiceResponse* on_device_model_service_response) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -1703,6 +2217,21 @@ void InternalOnDeviceResponse::set_allocated_on_device_model_service_response(::
   }
   // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.InternalOnDeviceResponse.on_device_model_service_response)
 }
+void InternalOnDeviceResponse::set_allocated_text_safety_model_response(::optimization_guide::proto::TextSafetyModelResponse* text_safety_model_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_response();
+  if (text_safety_model_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(text_safety_model_response);
+    if (message_arena != submessage_arena) {
+      text_safety_model_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, text_safety_model_response, submessage_arena);
+    }
+    set_has_text_safety_model_response();
+    response_.text_safety_model_response_ = text_safety_model_response;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.InternalOnDeviceResponse.text_safety_model_response)
+}
 InternalOnDeviceResponse::InternalOnDeviceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -1716,6 +2245,10 @@ InternalOnDeviceResponse::InternalOnDeviceResponse(const InternalOnDeviceRespons
   switch (from.response_case()) {
     case kOnDeviceModelServiceResponse: {
       _internal_mutable_on_device_model_service_response()->::optimization_guide::proto::OnDeviceModelServiceResponse::MergeFrom(from._internal_on_device_model_service_response());
+      break;
+    }
+    case kTextSafetyModelResponse: {
+      _internal_mutable_text_safety_model_response()->::optimization_guide::proto::TextSafetyModelResponse::MergeFrom(from._internal_text_safety_model_response());
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -1758,6 +2291,12 @@ void InternalOnDeviceResponse::clear_response() {
       }
       break;
     }
+    case kTextSafetyModelResponse: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete response_.text_safety_model_response_;
+      }
+      break;
+    }
     case RESPONSE_NOT_SET: {
       break;
     }
@@ -1786,6 +2325,14 @@ const char* InternalOnDeviceResponse::_InternalParse(const char* ptr, ::_pbi::Pa
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_on_device_model_service_response(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.TextSafetyModelResponse text_safety_model_response = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_text_safety_model_response(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1826,6 +2373,13 @@ uint8_t* InternalOnDeviceResponse::_InternalSerialize(
         _Internal::on_device_model_service_response(this).GetCachedSize(), target, stream);
   }
 
+  // .optimization_guide.proto.TextSafetyModelResponse text_safety_model_response = 2;
+  if (_internal_has_text_safety_model_response()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::text_safety_model_response(this),
+        _Internal::text_safety_model_response(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1848,6 +2402,13 @@ size_t InternalOnDeviceResponse::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *response_.on_device_model_service_response_);
+      break;
+    }
+    // .optimization_guide.proto.TextSafetyModelResponse text_safety_model_response = 2;
+    case kTextSafetyModelResponse: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *response_.text_safety_model_response_);
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -1877,6 +2438,10 @@ void InternalOnDeviceResponse::MergeFrom(const InternalOnDeviceResponse& from) {
   switch (from.response_case()) {
     case kOnDeviceModelServiceResponse: {
       _internal_mutable_on_device_model_service_response()->::optimization_guide::proto::OnDeviceModelServiceResponse::MergeFrom(from._internal_on_device_model_service_response());
+      break;
+    }
+    case kTextSafetyModelResponse: {
+      _internal_mutable_text_safety_model_response()->::optimization_guide::proto::TextSafetyModelResponse::MergeFrom(from._internal_text_safety_model_response());
       break;
     }
     case RESPONSE_NOT_SET: {
@@ -2255,8 +2820,8 @@ OnDeviceModelServiceResponse::OnDeviceModelServiceResponse(const OnDeviceModelSe
       GetArenaForAllocation());
   }
   ::memcpy(&time_to_first_response_millis_, &from.time_to_first_response_millis_,
-    static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&time_to_first_response_millis_)) + sizeof(status_));
+    static_cast<size_t>(reinterpret_cast<char*>(&has_repeats_) -
+    reinterpret_cast<char*>(&time_to_first_response_millis_)) + sizeof(has_repeats_));
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.OnDeviceModelServiceResponse)
 }
 
@@ -2267,8 +2832,8 @@ output_string_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&time_to_first_response_millis_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&time_to_first_response_millis_)) + sizeof(status_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&has_repeats_) -
+    reinterpret_cast<char*>(&time_to_first_response_millis_)) + sizeof(has_repeats_));
 }
 
 OnDeviceModelServiceResponse::~OnDeviceModelServiceResponse() {
@@ -2297,8 +2862,8 @@ void OnDeviceModelServiceResponse::Clear() {
 
   output_string_.ClearToEmpty();
   ::memset(&time_to_first_response_millis_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&status_) -
-      reinterpret_cast<char*>(&time_to_first_response_millis_)) + sizeof(status_));
+      reinterpret_cast<char*>(&has_repeats_) -
+      reinterpret_cast<char*>(&time_to_first_response_millis_)) + sizeof(has_repeats_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2340,6 +2905,14 @@ const char* OnDeviceModelServiceResponse::_InternalParse(const char* ptr, ::_pbi
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_status(static_cast<::optimization_guide::proto::OnDeviceModelServiceResponseStatus>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool has_repeats = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          has_repeats_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -2401,6 +2974,12 @@ uint8_t* OnDeviceModelServiceResponse::_InternalSerialize(
       4, this->_internal_status(), target);
   }
 
+  // bool has_repeats = 5;
+  if (this->_internal_has_repeats() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_has_repeats(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2440,6 +3019,11 @@ size_t OnDeviceModelServiceResponse::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
+  // bool has_repeats = 5;
+  if (this->_internal_has_repeats() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2472,6 +3056,9 @@ void OnDeviceModelServiceResponse::MergeFrom(const OnDeviceModelServiceResponse&
   if (from._internal_status() != 0) {
     _internal_set_status(from._internal_status());
   }
+  if (from._internal_has_repeats() != 0) {
+    _internal_set_has_repeats(from._internal_has_repeats());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -2496,8 +3083,8 @@ void OnDeviceModelServiceResponse::InternalSwap(OnDeviceModelServiceResponse* ot
       &other->output_string_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(OnDeviceModelServiceResponse, status_)
-      + sizeof(OnDeviceModelServiceResponse::status_)
+      PROTOBUF_FIELD_OFFSET(OnDeviceModelServiceResponse, has_repeats_)
+      + sizeof(OnDeviceModelServiceResponse::has_repeats_)
       - PROTOBUF_FIELD_OFFSET(OnDeviceModelServiceResponse, time_to_first_response_millis_)>(
           reinterpret_cast<char*>(&time_to_first_response_millis_),
           reinterpret_cast<char*>(&other->time_to_first_response_millis_));
@@ -2505,6 +3092,398 @@ void OnDeviceModelServiceResponse::InternalSwap(OnDeviceModelServiceResponse* ot
 
 std::string OnDeviceModelServiceResponse::GetTypeName() const {
   return "optimization_guide.proto.OnDeviceModelServiceResponse";
+}
+
+
+// ===================================================================
+
+class TextSafetyModelRequest::_Internal {
+ public:
+};
+
+TextSafetyModelRequest::TextSafetyModelRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.TextSafetyModelRequest)
+}
+TextSafetyModelRequest::TextSafetyModelRequest(const TextSafetyModelRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_text().empty()) {
+    text_.Set(from._internal_text(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.TextSafetyModelRequest)
+}
+
+inline void TextSafetyModelRequest::SharedCtor() {
+text_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  text_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+TextSafetyModelRequest::~TextSafetyModelRequest() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.TextSafetyModelRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TextSafetyModelRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  text_.Destroy();
+}
+
+void TextSafetyModelRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TextSafetyModelRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.TextSafetyModelRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  text_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TextSafetyModelRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string text = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_text();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TextSafetyModelRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.TextSafetyModelRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string text = 1;
+  if (!this->_internal_text().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_text().data(), static_cast<int>(this->_internal_text().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "optimization_guide.proto.TextSafetyModelRequest.text");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_text(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.TextSafetyModelRequest)
+  return target;
+}
+
+size_t TextSafetyModelRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.TextSafetyModelRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string text = 1;
+  if (!this->_internal_text().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_text());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TextSafetyModelRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TextSafetyModelRequest*>(
+      &from));
+}
+
+void TextSafetyModelRequest::MergeFrom(const TextSafetyModelRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.TextSafetyModelRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_text().empty()) {
+    _internal_set_text(from._internal_text());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TextSafetyModelRequest::CopyFrom(const TextSafetyModelRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.TextSafetyModelRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TextSafetyModelRequest::IsInitialized() const {
+  return true;
+}
+
+void TextSafetyModelRequest::InternalSwap(TextSafetyModelRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &text_, lhs_arena,
+      &other->text_, rhs_arena
+  );
+}
+
+std::string TextSafetyModelRequest::GetTypeName() const {
+  return "optimization_guide.proto.TextSafetyModelRequest";
+}
+
+
+// ===================================================================
+
+class TextSafetyModelResponse::_Internal {
+ public:
+};
+
+TextSafetyModelResponse::TextSafetyModelResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  scores_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.TextSafetyModelResponse)
+}
+TextSafetyModelResponse::TextSafetyModelResponse(const TextSafetyModelResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      scores_(from.scores_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  is_unsafe_ = from.is_unsafe_;
+  // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.TextSafetyModelResponse)
+}
+
+inline void TextSafetyModelResponse::SharedCtor() {
+is_unsafe_ = false;
+}
+
+TextSafetyModelResponse::~TextSafetyModelResponse() {
+  // @@protoc_insertion_point(destructor:optimization_guide.proto.TextSafetyModelResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TextSafetyModelResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void TextSafetyModelResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TextSafetyModelResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:optimization_guide.proto.TextSafetyModelResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  scores_.Clear();
+  is_unsafe_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TextSafetyModelResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated float scores = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_scores(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 13) {
+          _internal_add_scores(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_unsafe = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          is_unsafe_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TextSafetyModelResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.TextSafetyModelResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated float scores = 1;
+  if (this->_internal_scores_size() > 0) {
+    target = stream->WriteFixedPacked(1, _internal_scores(), target);
+  }
+
+  // bool is_unsafe = 2;
+  if (this->_internal_is_unsafe() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_unsafe(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:optimization_guide.proto.TextSafetyModelResponse)
+  return target;
+}
+
+size_t TextSafetyModelResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:optimization_guide.proto.TextSafetyModelResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated float scores = 1;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_scores_size());
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // bool is_unsafe = 2;
+  if (this->_internal_is_unsafe() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TextSafetyModelResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TextSafetyModelResponse*>(
+      &from));
+}
+
+void TextSafetyModelResponse::MergeFrom(const TextSafetyModelResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:optimization_guide.proto.TextSafetyModelResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  scores_.MergeFrom(from.scores_);
+  if (from._internal_is_unsafe() != 0) {
+    _internal_set_is_unsafe(from._internal_is_unsafe());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TextSafetyModelResponse::CopyFrom(const TextSafetyModelResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:optimization_guide.proto.TextSafetyModelResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TextSafetyModelResponse::IsInitialized() const {
+  return true;
+}
+
+void TextSafetyModelResponse::InternalSwap(TextSafetyModelResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  scores_.InternalSwap(&other->scores_);
+  swap(is_unsafe_, other->is_unsafe_);
+}
+
+std::string TextSafetyModelResponse::GetTypeName() const {
+  return "optimization_guide.proto.TextSafetyModelResponse";
 }
 
 
@@ -2528,6 +3507,14 @@ template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelExecution
 Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelExecutionInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelExecutionInfo >(arena);
 }
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelVersions*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelVersions >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelVersions >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelServiceVersion*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelServiceVersion >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelServiceVersion >(arena);
+}
 template<> PROTOBUF_NOINLINE ::optimization_guide::proto::InternalOnDeviceModelExecutionInfo*
 Arena::CreateMaybeMessage< ::optimization_guide::proto::InternalOnDeviceModelExecutionInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::optimization_guide::proto::InternalOnDeviceModelExecutionInfo >(arena);
@@ -2547,6 +3534,14 @@ Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelServiceRequ
 template<> PROTOBUF_NOINLINE ::optimization_guide::proto::OnDeviceModelServiceResponse*
 Arena::CreateMaybeMessage< ::optimization_guide::proto::OnDeviceModelServiceResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::optimization_guide::proto::OnDeviceModelServiceResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::TextSafetyModelRequest*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::TextSafetyModelRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::TextSafetyModelRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::optimization_guide::proto::TextSafetyModelResponse*
+Arena::CreateMaybeMessage< ::optimization_guide::proto::TextSafetyModelResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::optimization_guide::proto::TextSafetyModelResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

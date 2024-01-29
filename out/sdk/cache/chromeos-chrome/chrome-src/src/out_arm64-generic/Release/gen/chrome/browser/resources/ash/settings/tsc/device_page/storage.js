@@ -291,5 +291,8 @@ export class SettingsStorageElement extends SettingsStorageElementBase {
                 return '';
         }
     }
+    roundTo2DecimalPoints_(n) {
+        return n.toFixed(2);
+    }
 }
 customElements.define(SettingsStorageElement.is, SettingsStorageElement);

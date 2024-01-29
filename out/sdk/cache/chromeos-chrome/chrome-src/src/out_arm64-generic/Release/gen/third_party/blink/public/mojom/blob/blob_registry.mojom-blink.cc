@@ -157,6 +157,8 @@ bool ProgressClientStubDispatch::Accept(
           reinterpret_cast<internal::ProgressClient_OnProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ProgressClient.0
       bool success = true;
       uint64_t p_delta{};
       ProgressClient_OnProgress_ParamsDataView input_data_view(params, message);
@@ -172,8 +174,8 @@ bool ProgressClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProgress(
-std::move(p_delta));
+      impl->OnProgress(        
+        std::move(p_delta));
       return true;
     }
   }
@@ -961,6 +963,8 @@ bool BlobRegistry_Register_ForwardToCallback::Accept(
           internal::BlobRegistry_Register_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobRegistry.0
   bool success = true;
   BlobRegistry_Register_ResponseParamsDataView input_data_view(params, message);
   
@@ -1018,6 +1022,8 @@ bool BlobRegistry_Register_HandleSyncResponse::Accept(
       reinterpret_cast<internal::BlobRegistry_Register_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for BlobRegistry.0
   bool success = true;
   BlobRegistry_Register_ResponseParamsDataView input_data_view(params, message);
   
@@ -1089,6 +1095,8 @@ bool BlobRegistry_RegisterFromStream_ForwardToCallback::Accept(
           internal::BlobRegistry_RegisterFromStream_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobRegistry.1
   bool success = true;
   ::scoped_refptr<::blink::BlobDataHandle> p_blob{};
   BlobRegistry_RegisterFromStream_ResponseParamsDataView input_data_view(params, message);
@@ -1214,6 +1222,8 @@ bool BlobRegistry_GetBlobFromUUID_ForwardToCallback::Accept(
           internal::BlobRegistry_GetBlobFromUUID_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BlobRegistry.2
   bool success = true;
   BlobRegistry_GetBlobFromUUID_ResponseParamsDataView input_data_view(params, message);
   
@@ -1271,6 +1281,8 @@ bool BlobRegistry_GetBlobFromUUID_HandleSyncResponse::Accept(
       reinterpret_cast<internal::BlobRegistry_GetBlobFromUUID_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for BlobRegistry.2
   bool success = true;
   BlobRegistry_GetBlobFromUUID_ResponseParamsDataView input_data_view(params, message);
   
@@ -1306,6 +1318,8 @@ bool BlobRegistryStubDispatch::Accept(
           reinterpret_cast<internal::BlobRegistry_URLStoreForOrigin_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for BlobRegistry.3
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       ::mojo::PendingAssociatedReceiver<::blink::mojom::blink::BlobURLStore> p_url_store{};
@@ -1326,9 +1340,9 @@ bool BlobRegistryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->URLStoreForOrigin(
-std::move(p_origin), 
-std::move(p_url_store));
+      impl->URLStoreForOrigin(        
+        std::move(p_origin), 
+        std::move(p_url_store));
       return true;
     }
   }
@@ -1351,6 +1365,8 @@ bool BlobRegistryStubDispatch::AcceptWithResponder(
               internal::BlobRegistry_Register_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobRegistry.0
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::Blob> p_blob{};
       WTF::String p_uuid{};
@@ -1383,12 +1399,12 @@ bool BlobRegistryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Register(
-std::move(p_blob), 
-std::move(p_uuid), 
-std::move(p_content_type), 
-std::move(p_content_disposition), 
-std::move(p_elements), std::move(callback));
+      impl->Register(        
+        std::move(p_blob), 
+        std::move(p_uuid), 
+        std::move(p_content_type), 
+        std::move(p_content_disposition), 
+        std::move(p_elements), std::move(callback));
       return true;
     }
     case internal::kBlobRegistry_RegisterFromStream_Name: {
@@ -1398,6 +1414,8 @@ std::move(p_elements), std::move(callback));
               internal::BlobRegistry_RegisterFromStream_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobRegistry.1
       bool success = true;
       WTF::String p_content_type{};
       WTF::String p_content_disposition{};
@@ -1430,12 +1448,12 @@ std::move(p_elements), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterFromStream(
-std::move(p_content_type), 
-std::move(p_content_disposition), 
-std::move(p_length_hint), 
-std::move(p_data), 
-std::move(p_progress_client), std::move(callback));
+      impl->RegisterFromStream(        
+        std::move(p_content_type), 
+        std::move(p_content_disposition), 
+        std::move(p_length_hint), 
+        std::move(p_data), 
+        std::move(p_progress_client), std::move(callback));
       return true;
     }
     case internal::kBlobRegistry_GetBlobFromUUID_Name: {
@@ -1445,6 +1463,8 @@ std::move(p_progress_client), std::move(callback));
               internal::BlobRegistry_GetBlobFromUUID_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BlobRegistry.2
       bool success = true;
       ::mojo::PendingReceiver<::blink::mojom::blink::Blob> p_blob{};
       WTF::String p_uuid{};
@@ -1468,9 +1488,9 @@ std::move(p_progress_client), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBlobFromUUID(
-std::move(p_blob), 
-std::move(p_uuid), std::move(callback));
+      impl->GetBlobFromUUID(        
+        std::move(p_blob), 
+        std::move(p_uuid), std::move(callback));
       return true;
     }
     case internal::kBlobRegistry_URLStoreForOrigin_Name: {

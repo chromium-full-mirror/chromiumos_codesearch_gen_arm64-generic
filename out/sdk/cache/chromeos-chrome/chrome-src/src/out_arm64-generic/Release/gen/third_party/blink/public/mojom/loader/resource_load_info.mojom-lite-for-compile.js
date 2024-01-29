@@ -55,8 +55,9 @@ blink.mojom.ResourceType = {
   kPluginResource: 17,
   kNavigationPreloadMainFrame: 19,
   kNavigationPreloadSubFrame: 20,
+  kJson: 21,
   MIN_VALUE: 0,
-  MAX_VALUE: 20,
+  MAX_VALUE: 21,
 };
 
 

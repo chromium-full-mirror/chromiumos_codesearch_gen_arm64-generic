@@ -263,6 +263,8 @@ bool SmartReaderClient_GetPageContent_ForwardToCallback::Accept(
           internal::SmartReaderClient_GetPageContent_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SmartReaderClient.0
   bool success = true;
   SmartReaderPageContentPtr p_page_content{};
   SmartReaderClient_GetPageContent_ResponseParamsDataView input_data_view(params, message);
@@ -363,6 +365,8 @@ bool SmartReaderClientStubDispatch::AcceptWithResponder(
               internal::SmartReaderClient_GetPageContent_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SmartReaderClient.0
       bool success = true;
       SmartReaderClient_GetPageContent_ParamsDataView input_data_view(params, message);
       

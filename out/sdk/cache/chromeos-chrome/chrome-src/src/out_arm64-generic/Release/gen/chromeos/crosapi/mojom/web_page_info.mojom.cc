@@ -282,6 +282,8 @@ bool WebPageInfoProvider_RequestCurrentWebPageInfo_ForwardToCallback::Accept(
           internal::WebPageInfoProvider_RequestCurrentWebPageInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebPageInfoProvider.0
   bool success = true;
   WebPageInfoPtr p_web_page_info{};
   WebPageInfoProvider_RequestCurrentWebPageInfo_ResponseParamsDataView input_data_view(params, message);
@@ -378,6 +380,8 @@ bool WebPageInfoProviderStubDispatch::AcceptWithResponder(
               internal::WebPageInfoProvider_RequestCurrentWebPageInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebPageInfoProvider.0
       bool success = true;
       WebPageInfoProvider_RequestCurrentWebPageInfo_ParamsDataView input_data_view(params, message);
       
@@ -533,6 +537,8 @@ bool WebPageInfoFactoryStubDispatch::Accept(
           reinterpret_cast<internal::WebPageInfoFactory_RegisterWebPageInfoProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for WebPageInfoFactory.0
       bool success = true;
       ::mojo::PendingRemote<WebPageInfoProvider> p_web_page_info_provider{};
       WebPageInfoFactory_RegisterWebPageInfoProvider_ParamsDataView input_data_view(params, message);
@@ -550,8 +556,8 @@ bool WebPageInfoFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterWebPageInfoProvider(
-std::move(p_web_page_info_provider));
+      impl->RegisterWebPageInfoProvider(        
+        std::move(p_web_page_info_provider));
       return true;
     }
   }

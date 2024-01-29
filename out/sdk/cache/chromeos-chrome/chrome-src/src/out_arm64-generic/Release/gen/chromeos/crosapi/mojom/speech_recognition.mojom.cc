@@ -228,6 +228,8 @@ bool SpeechRecognitionStubDispatch::Accept(
           reinterpret_cast<internal::SpeechRecognition_BindSpeechRecognitionContext_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognition.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::SpeechRecognitionContext> p_receiver{};
       SpeechRecognition_BindSpeechRecognitionContext_ParamsDataView input_data_view(params, message);
@@ -245,8 +247,8 @@ bool SpeechRecognitionStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSpeechRecognitionContext(
-std::move(p_receiver));
+      impl->BindSpeechRecognitionContext(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kSpeechRecognition_BindSpeechRecognitionClientBrowserInterface_Name: {
@@ -256,6 +258,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::SpeechRecognition_BindSpeechRecognitionClientBrowserInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SpeechRecognition.1
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::SpeechRecognitionClientBrowserInterface> p_receiver{};
       SpeechRecognition_BindSpeechRecognitionClientBrowserInterface_ParamsDataView input_data_view(params, message);
@@ -273,8 +277,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindSpeechRecognitionClientBrowserInterface(
-std::move(p_receiver));
+      impl->BindSpeechRecognitionClientBrowserInterface(        
+        std::move(p_receiver));
       return true;
     }
   }

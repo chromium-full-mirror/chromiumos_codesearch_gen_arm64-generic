@@ -218,6 +218,8 @@ bool SessionStateChangedEventObserverStubDispatch::Accept(
           reinterpret_cast<internal::SessionStateChangedEventObserver_OnSessionStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SessionStateChangedEventObserver.0
       bool success = true;
       SessionState p_session_state{};
       SessionStateChangedEventObserver_OnSessionStateChanged_ParamsDataView input_data_view(params, message);
@@ -233,8 +235,8 @@ bool SessionStateChangedEventObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSessionStateChanged(
-std::move(p_session_state));
+      impl->OnSessionStateChanged(        
+        std::move(p_session_state));
       return true;
     }
   }
@@ -501,6 +503,8 @@ bool LoginState_GetSessionState_ForwardToCallback::Accept(
           internal::LoginState_GetSessionState_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for LoginState.1
   bool success = true;
   GetSessionStateResultPtr p_result{};
   LoginState_GetSessionState_ResponseParamsDataView input_data_view(params, message);
@@ -583,6 +587,8 @@ bool LoginStateStubDispatch::Accept(
           reinterpret_cast<internal::LoginState_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LoginState.0
       bool success = true;
       ::mojo::PendingRemote<SessionStateChangedEventObserver> p_observer{};
       LoginState_AddObserver_ParamsDataView input_data_view(params, message);
@@ -600,8 +606,8 @@ bool LoginStateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kLoginState_GetSessionState_Name: {
@@ -630,6 +636,8 @@ bool LoginStateStubDispatch::AcceptWithResponder(
               internal::LoginState_GetSessionState_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for LoginState.1
       bool success = true;
       LoginState_GetSessionState_ParamsDataView input_data_view(params, message);
       

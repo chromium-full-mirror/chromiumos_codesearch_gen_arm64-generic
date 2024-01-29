@@ -116,7 +116,7 @@ export class AcceleratorSubsectionElement extends AcceleratorSubsectionElementBa
         if (!isCustomizationAllowed()) {
             return false;
         }
-        return this.lookupManager.isCategoryLocked(this.category);
+        return this.lookupManager.isSubcategoryLocked(this.subcategory);
     }
 }
 customElements.define(AcceleratorSubsectionElement.is, AcceleratorSubsectionElement);

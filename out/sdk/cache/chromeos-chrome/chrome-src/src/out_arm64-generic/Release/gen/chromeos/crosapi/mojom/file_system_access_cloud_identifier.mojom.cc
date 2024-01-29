@@ -279,6 +279,8 @@ bool FileSystemAccessCloudIdentifierProvider_GetCloudIdentifier_ForwardToCallbac
           internal::FileSystemAccessCloudIdentifierProvider_GetCloudIdentifier_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FileSystemAccessCloudIdentifierProvider.0
   bool success = true;
   FileSystemAccessCloudIdentifierPtr p_result{};
   FileSystemAccessCloudIdentifierProvider_GetCloudIdentifier_ResponseParamsDataView input_data_view(params, message);
@@ -379,6 +381,8 @@ bool FileSystemAccessCloudIdentifierProviderStubDispatch::AcceptWithResponder(
               internal::FileSystemAccessCloudIdentifierProvider_GetCloudIdentifier_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FileSystemAccessCloudIdentifierProvider.0
       bool success = true;
       ::base::FilePath p_virtual_path{};
       HandleType p_handle_type{};
@@ -400,9 +404,9 @@ bool FileSystemAccessCloudIdentifierProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetCloudIdentifier(
-std::move(p_virtual_path), 
-std::move(p_handle_type), std::move(callback));
+      impl->GetCloudIdentifier(        
+        std::move(p_virtual_path), 
+        std::move(p_handle_type), std::move(callback));
       return true;
     }
   }

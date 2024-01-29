@@ -1279,6 +1279,8 @@ bool UDPSocket_Bind_ForwardToCallback::Accept(
           internal::UDPSocket_Bind_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.0
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr_out{};
@@ -1412,6 +1414,8 @@ bool UDPSocket_Connect_ForwardToCallback::Accept(
           internal::UDPSocket_Connect_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.1
   bool success = true;
   int32_t p_result{};
   std::optional<::net::IPEndPoint> p_local_addr_out{};
@@ -1545,6 +1549,8 @@ bool UDPSocket_SetBroadcast_ForwardToCallback::Accept(
           internal::UDPSocket_SetBroadcast_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.2
   bool success = true;
   int32_t p_result{};
   UDPSocket_SetBroadcast_ResponseParamsDataView input_data_view(params, message);
@@ -1664,6 +1670,8 @@ bool UDPSocket_SetSendBufferSize_ForwardToCallback::Accept(
           internal::UDPSocket_SetSendBufferSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.3
   bool success = true;
   int32_t p_result{};
   UDPSocket_SetSendBufferSize_ResponseParamsDataView input_data_view(params, message);
@@ -1783,6 +1791,8 @@ bool UDPSocket_SetReceiveBufferSize_ForwardToCallback::Accept(
           internal::UDPSocket_SetReceiveBufferSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.4
   bool success = true;
   int32_t p_result{};
   UDPSocket_SetReceiveBufferSize_ResponseParamsDataView input_data_view(params, message);
@@ -1902,6 +1912,8 @@ bool UDPSocket_JoinGroup_ForwardToCallback::Accept(
           internal::UDPSocket_JoinGroup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.5
   bool success = true;
   int32_t p_result{};
   UDPSocket_JoinGroup_ResponseParamsDataView input_data_view(params, message);
@@ -2021,6 +2033,8 @@ bool UDPSocket_LeaveGroup_ForwardToCallback::Accept(
           internal::UDPSocket_LeaveGroup_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.6
   bool success = true;
   int32_t p_result{};
   UDPSocket_LeaveGroup_ResponseParamsDataView input_data_view(params, message);
@@ -2140,6 +2154,8 @@ bool UDPSocket_SendTo_ForwardToCallback::Accept(
           internal::UDPSocket_SendTo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.9
   bool success = true;
   int32_t p_result{};
   UDPSocket_SendTo_ResponseParamsDataView input_data_view(params, message);
@@ -2259,6 +2275,8 @@ bool UDPSocket_Send_ForwardToCallback::Accept(
           internal::UDPSocket_Send_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UDPSocket.10
   bool success = true;
   int32_t p_result{};
   UDPSocket_Send_ResponseParamsDataView input_data_view(params, message);
@@ -2354,6 +2372,8 @@ bool UDPSocketStubDispatch::Accept(
           reinterpret_cast<internal::UDPSocket_ReceiveMore_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UDPSocket.7
       bool success = true;
       uint32_t p_num_additional_datagrams{};
       UDPSocket_ReceiveMore_ParamsDataView input_data_view(params, message);
@@ -2369,8 +2389,8 @@ bool UDPSocketStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveMore(
-std::move(p_num_additional_datagrams));
+      impl->ReceiveMore(        
+        std::move(p_num_additional_datagrams));
       return true;
     }
     case internal::kUDPSocket_ReceiveMoreWithBufferSize_Name: {
@@ -2380,6 +2400,8 @@ std::move(p_num_additional_datagrams));
           reinterpret_cast<internal::UDPSocket_ReceiveMoreWithBufferSize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UDPSocket.8
       bool success = true;
       uint32_t p_num_additional_datagrams{};
       uint32_t p_buffer_size{};
@@ -2398,9 +2420,9 @@ std::move(p_num_additional_datagrams));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReceiveMoreWithBufferSize(
-std::move(p_num_additional_datagrams), 
-std::move(p_buffer_size));
+      impl->ReceiveMoreWithBufferSize(        
+        std::move(p_num_additional_datagrams), 
+        std::move(p_buffer_size));
       return true;
     }
     case internal::kUDPSocket_SendTo_Name: {
@@ -2416,6 +2438,8 @@ std::move(p_buffer_size));
           reinterpret_cast<internal::UDPSocket_Close_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UDPSocket.11
       bool success = true;
       UDPSocket_Close_ParamsDataView input_data_view(params, message);
       
@@ -2428,7 +2452,7 @@ std::move(p_buffer_size));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Close();
+      impl->Close(        );
       return true;
     }
   }
@@ -2451,6 +2475,8 @@ bool UDPSocketStubDispatch::AcceptWithResponder(
               internal::UDPSocket_Bind_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.0
       bool success = true;
       ::net::IPEndPoint p_local_addr{};
       UDPSocketOptionsPtr p_socket_options{};
@@ -2472,9 +2498,9 @@ bool UDPSocketStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Bind(
-std::move(p_local_addr), 
-std::move(p_socket_options), std::move(callback));
+      impl->Bind(        
+        std::move(p_local_addr), 
+        std::move(p_socket_options), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_Connect_Name: {
@@ -2484,6 +2510,8 @@ std::move(p_socket_options), std::move(callback));
               internal::UDPSocket_Connect_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.1
       bool success = true;
       ::net::IPEndPoint p_remote_addr{};
       UDPSocketOptionsPtr p_socket_options{};
@@ -2505,9 +2533,9 @@ std::move(p_socket_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Connect(
-std::move(p_remote_addr), 
-std::move(p_socket_options), std::move(callback));
+      impl->Connect(        
+        std::move(p_remote_addr), 
+        std::move(p_socket_options), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_SetBroadcast_Name: {
@@ -2517,6 +2545,8 @@ std::move(p_socket_options), std::move(callback));
               internal::UDPSocket_SetBroadcast_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.2
       bool success = true;
       bool p_broadcast{};
       UDPSocket_SetBroadcast_ParamsDataView input_data_view(params, message);
@@ -2535,8 +2565,8 @@ std::move(p_socket_options), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBroadcast(
-std::move(p_broadcast), std::move(callback));
+      impl->SetBroadcast(        
+        std::move(p_broadcast), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_SetSendBufferSize_Name: {
@@ -2546,6 +2576,8 @@ std::move(p_broadcast), std::move(callback));
               internal::UDPSocket_SetSendBufferSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.3
       bool success = true;
       int32_t p_send_buffer_size{};
       UDPSocket_SetSendBufferSize_ParamsDataView input_data_view(params, message);
@@ -2564,8 +2596,8 @@ std::move(p_broadcast), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetSendBufferSize(
-std::move(p_send_buffer_size), std::move(callback));
+      impl->SetSendBufferSize(        
+        std::move(p_send_buffer_size), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_SetReceiveBufferSize_Name: {
@@ -2575,6 +2607,8 @@ std::move(p_send_buffer_size), std::move(callback));
               internal::UDPSocket_SetReceiveBufferSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.4
       bool success = true;
       int32_t p_receive_buffer_size{};
       UDPSocket_SetReceiveBufferSize_ParamsDataView input_data_view(params, message);
@@ -2593,8 +2627,8 @@ std::move(p_send_buffer_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReceiveBufferSize(
-std::move(p_receive_buffer_size), std::move(callback));
+      impl->SetReceiveBufferSize(        
+        std::move(p_receive_buffer_size), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_JoinGroup_Name: {
@@ -2604,6 +2638,8 @@ std::move(p_receive_buffer_size), std::move(callback));
               internal::UDPSocket_JoinGroup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.5
       bool success = true;
       ::net::IPAddress p_group_address{};
       UDPSocket_JoinGroup_ParamsDataView input_data_view(params, message);
@@ -2622,8 +2658,8 @@ std::move(p_receive_buffer_size), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->JoinGroup(
-std::move(p_group_address), std::move(callback));
+      impl->JoinGroup(        
+        std::move(p_group_address), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_LeaveGroup_Name: {
@@ -2633,6 +2669,8 @@ std::move(p_group_address), std::move(callback));
               internal::UDPSocket_LeaveGroup_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.6
       bool success = true;
       ::net::IPAddress p_group_address{};
       UDPSocket_LeaveGroup_ParamsDataView input_data_view(params, message);
@@ -2651,8 +2689,8 @@ std::move(p_group_address), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LeaveGroup(
-std::move(p_group_address), std::move(callback));
+      impl->LeaveGroup(        
+        std::move(p_group_address), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_ReceiveMore_Name: {
@@ -2668,6 +2706,8 @@ std::move(p_group_address), std::move(callback));
               internal::UDPSocket_SendTo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.9
       bool success = true;
       ::net::IPEndPoint p_dest_addr{};
       ::base::span<const ::uint8_t> p_data{};
@@ -2692,10 +2732,10 @@ std::move(p_group_address), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendTo(
-std::move(p_dest_addr), 
-std::move(p_data), 
-std::move(p_traffic_annotation), std::move(callback));
+      impl->SendTo(        
+        std::move(p_dest_addr), 
+        std::move(p_data), 
+        std::move(p_traffic_annotation), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_Send_Name: {
@@ -2705,6 +2745,8 @@ std::move(p_traffic_annotation), std::move(callback));
               internal::UDPSocket_Send_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UDPSocket.10
       bool success = true;
       ::base::span<const ::uint8_t> p_data{};
       ::net::MutableNetworkTrafficAnnotationTag p_traffic_annotation{};
@@ -2726,9 +2768,9 @@ std::move(p_traffic_annotation), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Send(
-std::move(p_data), 
-std::move(p_traffic_annotation), std::move(callback));
+      impl->Send(        
+        std::move(p_data), 
+        std::move(p_traffic_annotation), std::move(callback));
       return true;
     }
     case internal::kUDPSocket_Close_Name: {
@@ -2907,6 +2949,8 @@ bool UDPSocketListenerStubDispatch::Accept(
           reinterpret_cast<internal::UDPSocketListener_OnReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UDPSocketListener.0
       bool success = true;
       int32_t p_result{};
       std::optional<::net::IPEndPoint> p_src_addr{};
@@ -2928,10 +2972,10 @@ bool UDPSocketListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnReceived(
-std::move(p_result), 
-std::move(p_src_addr), 
-std::move(p_data));
+      impl->OnReceived(        
+        std::move(p_result), 
+        std::move(p_src_addr), 
+        std::move(p_data));
       return true;
     }
   }

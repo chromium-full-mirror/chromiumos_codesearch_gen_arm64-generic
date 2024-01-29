@@ -92,8 +92,7 @@ BLINK_BINDINGS_TRACE_EVENT("ViewTransition.finished.get");
 
 
 DOMViewTransition* blink_receiver = V8ViewTransition::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->finished(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -120,8 +119,7 @@ BLINK_BINDINGS_TRACE_EVENT("ViewTransition.ready.get");
 
 
 DOMViewTransition* blink_receiver = V8ViewTransition::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->ready(script_state);
 bindings::V8SetReturnValue(info, return_value);
@@ -148,8 +146,7 @@ BLINK_BINDINGS_TRACE_EVENT("ViewTransition.updateCallbackDone.get");
 
 
 DOMViewTransition* blink_receiver = V8ViewTransition::ToWrappableUnsafe(isolate, v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->updateCallbackDone(script_state);
 bindings::V8SetReturnValue(info, return_value);

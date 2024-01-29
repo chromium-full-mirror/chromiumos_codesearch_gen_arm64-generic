@@ -473,7 +473,8 @@ export class SettingsDevicePageElement extends SettingsDevicePageElementBase {
             this.graphicsTablets.length !== 0;
     }
     restoreDefaults() {
-        const remapKeysPage = this.shadowRoot.querySelector('#remap-keys');
+        const remapKeysPage = this.shadowRoot
+            .querySelector('#remap-keys');
         remapKeysPage.restoreDefaults();
     }
     /**

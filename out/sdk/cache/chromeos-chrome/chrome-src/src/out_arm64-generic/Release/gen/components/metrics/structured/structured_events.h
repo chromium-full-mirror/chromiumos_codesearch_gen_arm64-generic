@@ -17,19 +17,27 @@ namespace v2 {
 
 namespace popular_displays {
 
+ 
 class MonitorInfo final : public ::metrics::structured::Event {
  public:
   MonitorInfo();
   ~MonitorInfo() override;
 
     MonitorInfo& SetDisplayName(const std::string& value);
-  MonitorInfo& SetProductCode(const std::string& value);
+  MonitorInfo& SetManufacturerId(const std::string& value);
+  MonitorInfo& SetProductId(const int64_t value);
+  MonitorInfo& SetNativeModeSize(const std::string& value);
+  MonitorInfo& SetNativeModeRefreshRate(const double value);
+  MonitorInfo& SetPhysicalSize(const std::string& value);
+  MonitorInfo& SetConnectionType(const std::string& value);
+  MonitorInfo& SetIsVrrCapable(const int64_t value);
 };
 
 }  // namespace popular_displays
 
 namespace fast_pair {
 
+ 
 class DiscoveryNotificationShown final : public ::metrics::structured::Event {
  public:
   DiscoveryNotificationShown();
@@ -81,6 +89,7 @@ class PairFailure final : public ::metrics::structured::Event {
 
 namespace hindsight {
 
+ 
 class CrOSActionEvent_FileOpened final : public ::metrics::structured::Event {
  public:
   CrOSActionEvent_FileOpened();
@@ -155,6 +164,7 @@ class CrOSActionEvent_TabEvent_TabReactivated final : public ::metrics::structur
 
 namespace launcher_usage {
 
+ 
 class LauncherUsage final : public ::metrics::structured::Event {
  public:
   LauncherUsage();
@@ -174,6 +184,7 @@ class LauncherUsage final : public ::metrics::structured::Event {
 
 namespace nearby_share {
 
+ 
 class Discovery final : public ::metrics::structured::Event {
  public:
   Discovery();
@@ -253,6 +264,7 @@ class ShareSession final : public ::metrics::structured::Event {
 
 namespace structured_metrics {
 
+ 
 class Initialization final : public ::metrics::structured::Event {
  public:
   Initialization();
@@ -265,6 +277,7 @@ class Initialization final : public ::metrics::structured::Event {
 
 namespace cr_os_events {
 
+ 
 class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
  public:
   AppDiscovery_AppInstalled();
@@ -590,6 +603,7 @@ class NoMetricsEvent final : public ::metrics::structured::Event {
 
 namespace dev_tools {
 
+ 
 class SessionStart final : public ::metrics::structured::Event {
  public:
   SessionStart();
@@ -606,7 +620,7 @@ class SessionEnd final : public ::metrics::structured::Event {
   ~SessionEnd() override;
 
     SessionEnd& SetTrigger(const int64_t value);
-  SessionEnd& SetTimeSinceLastAction(const int64_t value);
+  SessionEnd& SetTimeSinceSessionStart(const int64_t value);
   SessionEnd& SetSessionId(const int64_t value);
 };
 
@@ -619,7 +633,7 @@ class Impression final : public ::metrics::structured::Event {
   Impression& SetVeType(const int64_t value);
   Impression& SetVeParent(const int64_t value);
   Impression& SetVeContext(const int64_t value);
-  Impression& SetTimeSinceLastAction(const int64_t value);
+  Impression& SetTimeSinceSessionStart(const int64_t value);
   Impression& SetSessionId(const int64_t value);
 };
 
@@ -631,7 +645,7 @@ class Click final : public ::metrics::structured::Event {
     Click& SetVeId(const int64_t value);
   Click& SetMouseButton(const int64_t value);
   Click& SetContext(const int64_t value);
-  Click& SetTimeSinceLastAction(const int64_t value);
+  Click& SetTimeSinceSessionStart(const int64_t value);
   Click& SetSessionId(const int64_t value);
 };
 
@@ -643,7 +657,7 @@ class Hover final : public ::metrics::structured::Event {
     Hover& SetVeId(const int64_t value);
   Hover& SetTime(const int64_t value);
   Hover& SetContext(const int64_t value);
-  Hover& SetTimeSinceLastAction(const int64_t value);
+  Hover& SetTimeSinceSessionStart(const int64_t value);
   Hover& SetSessionId(const int64_t value);
 };
 
@@ -655,7 +669,7 @@ class Drag final : public ::metrics::structured::Event {
     Drag& SetVeId(const int64_t value);
   Drag& SetDistance(const int64_t value);
   Drag& SetContext(const int64_t value);
-  Drag& SetTimeSinceLastAction(const int64_t value);
+  Drag& SetTimeSinceSessionStart(const int64_t value);
   Drag& SetSessionId(const int64_t value);
 };
 
@@ -666,7 +680,7 @@ class Change final : public ::metrics::structured::Event {
 
     Change& SetVeId(const int64_t value);
   Change& SetContext(const int64_t value);
-  Change& SetTimeSinceLastAction(const int64_t value);
+  Change& SetTimeSinceSessionStart(const int64_t value);
   Change& SetSessionId(const int64_t value);
 };
 
@@ -677,7 +691,7 @@ class KeyDown final : public ::metrics::structured::Event {
 
     KeyDown& SetVeId(const int64_t value);
   KeyDown& SetContext(const int64_t value);
-  KeyDown& SetTimeSinceLastAction(const int64_t value);
+  KeyDown& SetTimeSinceSessionStart(const int64_t value);
   KeyDown& SetSessionId(const int64_t value);
 };
 
@@ -685,6 +699,7 @@ class KeyDown final : public ::metrics::structured::Event {
 
 namespace test_project_one {
 
+ 
 class TestEventOne final : public ::metrics::structured::Event {
  public:
   TestEventOne();
@@ -698,6 +713,7 @@ class TestEventOne final : public ::metrics::structured::Event {
 
 namespace test_project_two {
 
+ 
 class TestEventThree final : public ::metrics::structured::Event {
  public:
   TestEventThree();
@@ -718,6 +734,7 @@ class TestEventTwo final : public ::metrics::structured::Event {
 
 namespace test_project_three {
 
+ 
 class TestEventFour final : public ::metrics::structured::Event {
  public:
   TestEventFour();
@@ -730,6 +747,7 @@ class TestEventFour final : public ::metrics::structured::Event {
 
 namespace test_project_four {
 
+ 
 class TestEventFive final : public ::metrics::structured::Event {
  public:
   TestEventFive();
@@ -742,6 +760,7 @@ class TestEventFive final : public ::metrics::structured::Event {
 
 namespace test_project_five {
 
+ 
 class TestEventSix final : public ::metrics::structured::Event {
  public:
   TestEventSix();
@@ -754,6 +773,13 @@ class TestEventSix final : public ::metrics::structured::Event {
 
 namespace test_project_six {
 
+
+enum Enum1 {
+VARIANT1 = 1,
+VARIANT2 = 2,
+VARIANT3 = 5
+};
+     
 class TestEventSeven final : public ::metrics::structured::Event {
  public:
   TestEventSeven();
@@ -762,10 +788,19 @@ class TestEventSeven final : public ::metrics::structured::Event {
     TestEventSeven& SetTestMetricSeven(const double value);
 };
 
+class TestEnum final : public ::metrics::structured::Event {
+ public:
+  TestEnum();
+  ~TestEnum() override;
+
+    TestEnum& SetTestEnumMetric(const Enum1 value);
+};
+
 }  // namespace test_project_six
 
 namespace test_project_seven {
 
+ 
 class TestEventEight final : public ::metrics::structured::Event {
  public:
   TestEventEight();

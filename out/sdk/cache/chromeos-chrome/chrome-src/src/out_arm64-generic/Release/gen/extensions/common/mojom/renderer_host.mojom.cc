@@ -760,6 +760,8 @@ bool RendererHost_WakeEventPage_ForwardToCallback::Accept(
           internal::RendererHost_WakeEventPage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RendererHost.3
   bool success = true;
   bool p_success{};
   RendererHost_WakeEventPage_ResponseParamsDataView input_data_view(params, message);
@@ -879,6 +881,8 @@ bool RendererHost_GetMessageBundle_ForwardToCallback::Accept(
           internal::RendererHost_GetMessageBundle_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for RendererHost.4
   bool success = true;
   base::flat_map<std::string, std::string> p_message_map{};
   RendererHost_GetMessageBundle_ResponseParamsDataView input_data_view(params, message);
@@ -960,6 +964,8 @@ bool RendererHost_GetMessageBundle_HandleSyncResponse::Accept(
       reinterpret_cast<internal::RendererHost_GetMessageBundle_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for RendererHost.4
   bool success = true;
   base::flat_map<std::string, std::string> p_message_map{};
   RendererHost_GetMessageBundle_ResponseParamsDataView input_data_view(params, message);
@@ -990,6 +996,8 @@ bool RendererHostStubDispatch::Accept(
           reinterpret_cast<internal::RendererHost_AddAPIActionToActivityLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererHost.0
       bool success = true;
       std::string p_extension_id{};
       std::string p_call_name{};
@@ -1014,11 +1022,11 @@ bool RendererHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAPIActionToActivityLog(
-std::move(p_extension_id), 
-std::move(p_call_name), 
-std::move(p_args), 
-std::move(p_extra));
+      impl->AddAPIActionToActivityLog(        
+        std::move(p_extension_id), 
+        std::move(p_call_name), 
+        std::move(p_args), 
+        std::move(p_extra));
       return true;
     }
     case internal::kRendererHost_AddEventToActivityLog_Name: {
@@ -1028,6 +1036,8 @@ std::move(p_extra));
           reinterpret_cast<internal::RendererHost_AddEventToActivityLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererHost.1
       bool success = true;
       std::string p_extension_id{};
       std::string p_call_name{};
@@ -1052,11 +1062,11 @@ std::move(p_extra));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddEventToActivityLog(
-std::move(p_extension_id), 
-std::move(p_call_name), 
-std::move(p_args), 
-std::move(p_extra));
+      impl->AddEventToActivityLog(        
+        std::move(p_extension_id), 
+        std::move(p_call_name), 
+        std::move(p_args), 
+        std::move(p_extra));
       return true;
     }
     case internal::kRendererHost_AddDOMActionToActivityLog_Name: {
@@ -1066,6 +1076,8 @@ std::move(p_extra));
           reinterpret_cast<internal::RendererHost_AddDOMActionToActivityLog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for RendererHost.2
       bool success = true;
       std::string p_extension_id{};
       std::string p_call_name{};
@@ -1096,13 +1108,13 @@ std::move(p_extra));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDOMActionToActivityLog(
-std::move(p_extension_id), 
-std::move(p_call_name), 
-std::move(p_args), 
-std::move(p_url), 
-std::move(p_url_title), 
-std::move(p_call_type));
+      impl->AddDOMActionToActivityLog(        
+        std::move(p_extension_id), 
+        std::move(p_call_name), 
+        std::move(p_args), 
+        std::move(p_url), 
+        std::move(p_url_title), 
+        std::move(p_call_type));
       return true;
     }
     case internal::kRendererHost_WakeEventPage_Name: {
@@ -1140,6 +1152,8 @@ bool RendererHostStubDispatch::AcceptWithResponder(
               internal::RendererHost_WakeEventPage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RendererHost.3
       bool success = true;
       std::string p_extension_id{};
       RendererHost_WakeEventPage_ParamsDataView input_data_view(params, message);
@@ -1158,8 +1172,8 @@ bool RendererHostStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WakeEventPage(
-std::move(p_extension_id), std::move(callback));
+      impl->WakeEventPage(        
+        std::move(p_extension_id), std::move(callback));
       return true;
     }
     case internal::kRendererHost_GetMessageBundle_Name: {
@@ -1169,6 +1183,8 @@ std::move(p_extension_id), std::move(callback));
               internal::RendererHost_GetMessageBundle_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for RendererHost.4
       bool success = true;
       std::string p_extension_id{};
       RendererHost_GetMessageBundle_ParamsDataView input_data_view(params, message);
@@ -1187,8 +1203,8 @@ std::move(p_extension_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetMessageBundle(
-std::move(p_extension_id), std::move(callback));
+      impl->GetMessageBundle(        
+        std::move(p_extension_id), std::move(callback));
       return true;
     }
   }

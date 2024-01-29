@@ -82,6 +82,11 @@ export class RealboxElement extends PolymerElement {
                 value: () => loadTimeData.getBoolean('realboxCr23Theming'),
                 reflectToAttribute: true,
             },
+            realboxSteadyStateShadow: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23SteadyStateShadow'),
+                reflectToAttribute: true,
+            },
             //========================================================================
             // Private properties
             //========================================================================

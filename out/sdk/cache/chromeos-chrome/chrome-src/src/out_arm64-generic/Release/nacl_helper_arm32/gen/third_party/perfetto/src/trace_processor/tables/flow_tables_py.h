@@ -227,19 +227,19 @@ class FlowTable : public macros_internal::MacroTable {
         trace_id_(ColumnStorage<ColumnType::trace_id::stored_type>::Create<false>()),
         arg_set_id_(ColumnStorage<ColumnType::arg_set_id::stored_type>::Create<false>()) {
     static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::slice_out::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::slice_out::stored_type>(
           ColumnFlag::slice_out),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::slice_in::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::slice_in::stored_type>(
           ColumnFlag::slice_in),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::trace_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::trace_id::stored_type>(
           ColumnFlag::trace_id),
         "Column type and flag combination is not valid");
       static_assert(
-        Column::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::arg_set_id::stored_type>(
           ColumnFlag::arg_set_id),
         "Column type and flag combination is not valid");
     uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;

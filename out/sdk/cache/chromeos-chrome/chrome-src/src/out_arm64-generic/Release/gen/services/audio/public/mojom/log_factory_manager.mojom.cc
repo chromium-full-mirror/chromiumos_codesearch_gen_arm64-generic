@@ -161,6 +161,8 @@ bool LogFactoryManagerStubDispatch::Accept(
           reinterpret_cast<internal::LogFactoryManager_SetLogFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LogFactoryManager.0
       bool success = true;
       ::mojo::PendingRemote<::media::mojom::AudioLogFactory> p_factory{};
       LogFactoryManager_SetLogFactory_ParamsDataView input_data_view(params, message);
@@ -178,8 +180,8 @@ bool LogFactoryManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetLogFactory(
-std::move(p_factory));
+      impl->SetLogFactory(        
+        std::move(p_factory));
       return true;
     }
   }

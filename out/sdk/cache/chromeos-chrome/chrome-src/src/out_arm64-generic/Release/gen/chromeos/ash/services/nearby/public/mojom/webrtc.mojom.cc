@@ -326,6 +326,8 @@ bool IceConfigFetcher_GetIceServers_ForwardToCallback::Accept(
           internal::IceConfigFetcher_GetIceServers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for IceConfigFetcher.0
   bool success = true;
   std::vector<IceServerPtr> p_ice_servers{};
   IceConfigFetcher_GetIceServers_ResponseParamsDataView input_data_view(params, message);
@@ -428,6 +430,8 @@ bool IceConfigFetcherStubDispatch::AcceptWithResponder(
               internal::IceConfigFetcher_GetIceServers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for IceConfigFetcher.0
       bool success = true;
       IceConfigFetcher_GetIceServers_ParamsDataView input_data_view(params, message);
       
@@ -582,6 +586,8 @@ bool MdnsResponderFactoryStubDispatch::Accept(
           reinterpret_cast<internal::MdnsResponderFactory_CreateMdnsResponder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MdnsResponderFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::network::mojom::MdnsResponder> p_responder_receiver{};
       MdnsResponderFactory_CreateMdnsResponder_ParamsDataView input_data_view(params, message);
@@ -599,8 +605,8 @@ bool MdnsResponderFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateMdnsResponder(
-std::move(p_responder_receiver));
+      impl->CreateMdnsResponder(        
+        std::move(p_responder_receiver));
       return true;
     }
   }

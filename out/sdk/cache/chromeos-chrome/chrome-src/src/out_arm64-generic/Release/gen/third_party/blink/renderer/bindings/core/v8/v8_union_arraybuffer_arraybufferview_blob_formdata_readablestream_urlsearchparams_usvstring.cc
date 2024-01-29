@@ -288,7 +288,7 @@ void V8UnionArrayBufferOrArrayBufferViewOrBlobOrFormDataOrReadableStreamOrURLSea
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionArrayBufferOrArrayBufferViewOrBlobOrFormDataOrReadableStreamOrURLSearchParamsOrUSVString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionArrayBufferOrArrayBufferViewOrBlobOrFormDataOrReadableStreamOrURLSearchParamsOrUSVString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kArrayBuffer: {
     return ToV8Traits<DOMArrayBuffer>::ToV8(script_state, member_array_buffer_.Get());
@@ -314,7 +314,7 @@ v8::MaybeLocal<v8::Value> V8UnionArrayBufferOrArrayBufferViewOrBlobOrFormDataOrR
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionArrayBufferOrArrayBufferViewOrBlobOrFormDataOrReadableStreamOrURLSearchParamsOrUSVString::Trace(Visitor* visitor) const {

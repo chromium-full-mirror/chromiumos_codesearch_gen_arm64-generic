@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './history_clusters_shared_style.css.js';
-import { PaperRippleBehavior } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-behavior.js';
-import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { PaperRippleMixin } from 'chrome://resources/polymer/v3_0/paper-behaviors/paper-ripple-mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { BrowserProxyImpl } from './browser_proxy.js';
 import { RelatedSearchAction } from './history_clusters.mojom-webui.js';
 import { MetricsProxyImpl } from './metrics_proxy.js';
 import { getTemplate } from './search_query.html.js';
-const SearchQueryElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+const SearchQueryElementBase = PaperRippleMixin(PolymerElement);
 class SearchQueryElement extends SearchQueryElementBase {
     static get is() {
         return 'search-query';
@@ -85,7 +85,7 @@ class SearchQueryElement extends SearchQueryElementBase {
             shiftKey: event.shiftKey,
         });
     }
-    // Overridden from PaperRippleBehavior
+    // Overridden from PaperRippleMixin
     /* eslint-disable-next-line @typescript-eslint/naming-convention */
     _createRipple() {
         this._rippleContainer = this.$.searchQueryLink;

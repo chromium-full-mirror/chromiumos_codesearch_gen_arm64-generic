@@ -75,13 +75,26 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
   </ol>
   <ol>
     <h2>Quick Settings</h2>
-    <h3>Enterprise Managed UI</h3>
+    <h3>Enterprise Managed/Supervised User UI</h3>
+    <p>
+      Note that an user cannot be a child user and managed at the same time,
+      so we should not trigger the 2 toggles below both on.
+    </p>
     <li>
       <div class="row">
         <cr-toggle aria-label="active-directory-managed" on-change="onActiveDirectoryManagedToggled">
         </cr-toggle>
         <span aria-hidden="true" class="padded-text">
           Active Directory Managed
+        </span>
+      </div>
+    </li>
+    <li>
+      <div class="row">
+        <cr-toggle aria-label="child-user" on-change="onChildUserToggled">
+        </cr-toggle>
+        <span aria-hidden="true" class="padded-text">
+          Child User
         </span>
       </div>
     </li>

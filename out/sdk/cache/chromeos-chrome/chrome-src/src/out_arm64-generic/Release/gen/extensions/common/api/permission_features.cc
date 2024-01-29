@@ -483,7 +483,7 @@ void AddCorePermissionFeatures(FeatureProvider* provider) {
     PermissionFeature* feature = new PermissionFeature();
     feature->set_name("odfsConfigPrivate");
     feature->set_allowlist({"1B1388598AC9A5608F43DE38316D6FB5FAD3574A"});
-    feature->set_channel(version_info::Channel::DEV);
+    feature->set_channel(version_info::Channel::STABLE);
     feature->set_extension_types({Manifest::TYPE_EXTENSION});
     feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
     provider->AddFeature("odfsConfigPrivate", feature);

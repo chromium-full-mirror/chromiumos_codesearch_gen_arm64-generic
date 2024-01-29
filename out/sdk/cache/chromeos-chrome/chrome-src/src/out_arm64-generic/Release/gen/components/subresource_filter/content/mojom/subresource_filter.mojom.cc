@@ -176,6 +176,8 @@ bool SubresourceFilterAgentStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceFilterAgent_ActivateForNextCommittedLoad_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterAgent.0
       bool success = true;
       ::subresource_filter::mojom::ActivationStatePtr p_activation_state{};
       std::optional<::blink::FrameAdEvidence> p_ad_evidence{};
@@ -194,9 +196,9 @@ bool SubresourceFilterAgentStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ActivateForNextCommittedLoad(
-std::move(p_activation_state), 
-std::move(p_ad_evidence));
+      impl->ActivateForNextCommittedLoad(        
+        std::move(p_activation_state), 
+        std::move(p_ad_evidence));
       return true;
     }
   }
@@ -644,6 +646,8 @@ bool SubresourceFilterHostStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceFilterHost_DidDisallowFirstSubresource_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterHost.0
       bool success = true;
       SubresourceFilterHost_DidDisallowFirstSubresource_ParamsDataView input_data_view(params, message);
       
@@ -656,7 +660,7 @@ bool SubresourceFilterHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DidDisallowFirstSubresource();
+      impl->DidDisallowFirstSubresource(        );
       return true;
     }
     case internal::kSubresourceFilterHost_FrameIsAd_Name: {
@@ -666,6 +670,8 @@ bool SubresourceFilterHostStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceFilterHost_FrameIsAd_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterHost.1
       bool success = true;
       SubresourceFilterHost_FrameIsAd_ParamsDataView input_data_view(params, message);
       
@@ -678,7 +684,7 @@ bool SubresourceFilterHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameIsAd();
+      impl->FrameIsAd(        );
       return true;
     }
     case internal::kSubresourceFilterHost_FrameWasCreatedByAdScript_Name: {
@@ -688,6 +694,8 @@ bool SubresourceFilterHostStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceFilterHost_FrameWasCreatedByAdScript_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterHost.2
       bool success = true;
       SubresourceFilterHost_FrameWasCreatedByAdScript_ParamsDataView input_data_view(params, message);
       
@@ -700,7 +708,7 @@ bool SubresourceFilterHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->FrameWasCreatedByAdScript();
+      impl->FrameWasCreatedByAdScript(        );
       return true;
     }
     case internal::kSubresourceFilterHost_AdScriptDidCreateFencedFrame_Name: {
@@ -710,6 +718,8 @@ bool SubresourceFilterHostStubDispatch::Accept(
           reinterpret_cast<internal::SubresourceFilterHost_AdScriptDidCreateFencedFrame_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterHost.3
       bool success = true;
       ::blink::RemoteFrameToken p_fenced_frame_root_placeholder_token{};
       SubresourceFilterHost_AdScriptDidCreateFencedFrame_ParamsDataView input_data_view(params, message);
@@ -725,8 +735,8 @@ bool SubresourceFilterHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AdScriptDidCreateFencedFrame(
-std::move(p_fenced_frame_root_placeholder_token));
+      impl->AdScriptDidCreateFencedFrame(        
+        std::move(p_fenced_frame_root_placeholder_token));
       return true;
     }
     case internal::kSubresourceFilterHost_SetDocumentLoadStatistics_Name: {
@@ -736,6 +746,8 @@ std::move(p_fenced_frame_root_placeholder_token));
           reinterpret_cast<internal::SubresourceFilterHost_SetDocumentLoadStatistics_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterHost.4
       bool success = true;
       ::subresource_filter::mojom::DocumentLoadStatisticsPtr p_statistics{};
       SubresourceFilterHost_SetDocumentLoadStatistics_ParamsDataView input_data_view(params, message);
@@ -751,8 +763,8 @@ std::move(p_fenced_frame_root_placeholder_token));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetDocumentLoadStatistics(
-std::move(p_statistics));
+      impl->SetDocumentLoadStatistics(        
+        std::move(p_statistics));
       return true;
     }
     case internal::kSubresourceFilterHost_OnAdsViolationTriggered_Name: {
@@ -762,6 +774,8 @@ std::move(p_statistics));
           reinterpret_cast<internal::SubresourceFilterHost_OnAdsViolationTriggered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SubresourceFilterHost.5
       bool success = true;
       ::subresource_filter::mojom::AdsViolation p_violation{};
       SubresourceFilterHost_OnAdsViolationTriggered_ParamsDataView input_data_view(params, message);
@@ -777,8 +791,8 @@ std::move(p_statistics));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdsViolationTriggered(
-std::move(p_violation));
+      impl->OnAdsViolationTriggered(        
+        std::move(p_violation));
       return true;
     }
   }

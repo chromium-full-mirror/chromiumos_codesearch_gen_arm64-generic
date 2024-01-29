@@ -1,8 +1,8 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import { MediapipeAvailability } from '../third_party/mediapipe/availability/mediapipe_availability.js';
 import { FacialGesture, GestureDetector } from './gesture_detector.js';
-import { MediapipeAvailability } from './mediapipe_availability.js';
 import { MouseController } from './mouse_controller.js';
 /**
  * TODO(b/309121742): Move this into a dedicated class for action fulfillment.
@@ -19,6 +19,8 @@ export class FaceGaze {
     mouseController_;
     gestureToAction_ = new Map();
     gestureToConfidence_ = new Map();
+    onInitCallbackForTest_;
+    initialized_ = false;
     constructor() {
         this.mouseController_ = new MouseController();
         this.init_();
@@ -39,8 +41,14 @@ export class FaceGaze {
             .set(FacialGesture.BROW_DOWN_LEFT, FaceGaze.DEFAULT_CONFIDENCE_THRESHOLD)
             .set(FacialGesture.BROW_DOWN_RIGHT, FaceGaze.DEFAULT_CONFIDENCE_THRESHOLD);
         this.connectToWebCam_();
+        await this.mouseController_.init();
         // TODO(b/309121742): Listen to magnifier bounds changed so as to update
         // cursor relative position logic when magnifier is running.
+        if (this.onInitCallbackForTest_) {
+            this.onInitCallbackForTest_();
+            this.onInitCallbackForTest_ = undefined;
+        }
+        this.initialized_ = true;
     }
     connectToWebCam_() {
         if (!MediapipeAvailability.isAvailable()) {
@@ -72,7 +80,7 @@ export class FaceGaze {
         if (!result) {
             return;
         }
-        this.mouseController_.updateMouseLocation(result);
+        this.mouseController_.onFaceLandmarkerResult(result);
         const gestures = GestureDetector.detect(result, this.gestureToConfidence_);
         for (const gesture of gestures) {
             if (gesture === FacialGesture.BROW_DOWN_LEFT ||
@@ -112,6 +120,14 @@ export class FaceGaze {
     /** Destructor to remove any listeners. */
     onFaceGazeDisabled() {
         this.mouseController_.stopEventListeners();
+    }
+    /** Allows tests to wait for FaceGaze to be fully initialized. */
+    setOnInitCallbackForTest(callback) {
+        if (!this.initialized_) {
+            this.onInitCallbackForTest_ = callback;
+            return;
+        }
+        callback();
     }
 }
 (function (FaceGaze) {

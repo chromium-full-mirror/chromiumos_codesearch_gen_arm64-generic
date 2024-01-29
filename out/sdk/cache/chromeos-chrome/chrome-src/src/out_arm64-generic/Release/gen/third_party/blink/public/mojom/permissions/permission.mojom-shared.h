@@ -206,6 +206,16 @@ using PermissionObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<PermissionObserverInterfaceBase>;
 using PermissionObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<PermissionObserverInterfaceBase>;
+class EmbeddedPermissionControlClientInterfaceBase {};
+
+using EmbeddedPermissionControlClientPtrDataView =
+    mojo::InterfacePtrDataView<EmbeddedPermissionControlClientInterfaceBase>;
+using EmbeddedPermissionControlClientRequestDataView =
+    mojo::InterfaceRequestDataView<EmbeddedPermissionControlClientInterfaceBase>;
+using EmbeddedPermissionControlClientAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<EmbeddedPermissionControlClientInterfaceBase>;
+using EmbeddedPermissionControlClientAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<EmbeddedPermissionControlClientInterfaceBase>;
 class PermissionServiceInterfaceBase {};
 
 using PermissionServicePtrDataView =

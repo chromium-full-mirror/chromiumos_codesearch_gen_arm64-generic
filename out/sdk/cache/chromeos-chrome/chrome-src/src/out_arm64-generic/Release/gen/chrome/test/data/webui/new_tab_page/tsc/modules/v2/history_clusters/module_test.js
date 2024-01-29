@@ -17,9 +17,10 @@ import { assertModuleHeaderTitle, createRelatedSearches, createSampleVisits } fr
 function createSampleClusters(count) {
     return new Array(count).fill(0).map((_, i) => createSampleCluster(2, { id: BigInt(i) }));
 }
+const SAMPLE_CLUSTER_ID = BigInt(111);
 function createSampleCluster(numRelatedSearches, overrides) {
     const cluster = Object.assign({
-        id: BigInt(111),
+        id: SAMPLE_CLUSTER_ID,
         visits: createSampleVisits(2, 2),
         label: '',
         labelMatchPositions: [],
@@ -62,8 +63,9 @@ suite('NewTabPageModulesHistoryClustersV2ModuleTest', () => {
         await waitAfterNextRender(document.body);
         return moduleElements;
     }
-    async function assertUpdateClusterVisitsInteractionStateCall(state, count) {
-        const [visits, interactionState] = await handler.whenCalled('updateClusterVisitsInteractionState');
+    async function assertUpdateClusterVisitsInteractionStateCall(id, state, count) {
+        const [clusterId, visits, interactionState] = await handler.whenCalled('updateClusterVisitsInteractionState');
+        assertEquals(id, clusterId);
         assertEquals(count, visits.length);
         visits.forEach((visit, index) => {
             assertEquals(index, Number(visit.visitId));
@@ -136,7 +138,7 @@ suite('NewTabPageModulesHistoryClustersV2ModuleTest', () => {
             doneButton.click();
             const dismissEvent = await waitForDismissEvent;
             assertEquals(`${sampleCluster.label} hidden`, dismissEvent.detail.message);
-            assertUpdateClusterVisitsInteractionStateCall(InteractionState.kDone, 3);
+            assertUpdateClusterVisitsInteractionStateCall(SAMPLE_CLUSTER_ID, InteractionState.kDone, 3);
         });
         test('Search suggestion header contains chip', async () => {
             // Arrange.
@@ -186,12 +188,12 @@ suite('NewTabPageModulesHistoryClustersV2ModuleTest', () => {
             const dismissEvent = await waitForDismissEvent;
             assertEquals(`${sampleCluster.label} hidden`, dismissEvent.detail.message);
             assertTrue(!!dismissEvent.detail.restoreCallback);
-            assertUpdateClusterVisitsInteractionStateCall(InteractionState.kHidden, 3);
+            assertUpdateClusterVisitsInteractionStateCall(SAMPLE_CLUSTER_ID, InteractionState.kHidden, 3);
             // Act.
             const restoreCallback = dismissEvent.detail.restoreCallback;
             restoreCallback();
             // Assert.
-            assertUpdateClusterVisitsInteractionStateCall(InteractionState.kDefault, 3);
+            assertUpdateClusterVisitsInteractionStateCall(SAMPLE_CLUSTER_ID, InteractionState.kDefault, 3);
         });
         test('Backend is notified when module is marked done and restored', async () => {
             // Arrange.
@@ -210,12 +212,27 @@ suite('NewTabPageModulesHistoryClustersV2ModuleTest', () => {
             const dismissEvent = await waitForDismissEvent;
             assertEquals(`${sampleCluster.label} hidden`, dismissEvent.detail.message);
             assertTrue(!!dismissEvent.detail.restoreCallback);
-            assertUpdateClusterVisitsInteractionStateCall(InteractionState.kDone, 3);
+            assertUpdateClusterVisitsInteractionStateCall(SAMPLE_CLUSTER_ID, InteractionState.kDone, 3);
             // Act.
             const restoreCallback = dismissEvent.detail.restoreCallback;
             restoreCallback();
             // Assert.
-            assertUpdateClusterVisitsInteractionStateCall(InteractionState.kDefault, 3);
+            assertUpdateClusterVisitsInteractionStateCall(SAMPLE_CLUSTER_ID, InteractionState.kDefault, 3);
+        });
+        test('Backend is notified when module is disabled', async () => {
+            // Arrange.
+            const sampleCluster = createSampleCluster(2, { label: '"Sample Journey"' });
+            const moduleElements = await initializeModule([sampleCluster]);
+            const moduleElement = moduleElements[0];
+            assertTrue(!!moduleElement);
+            // Act.
+            const disableButton = moduleElement.shadowRoot.querySelector('history-clusters-header-v2')
+                .shadowRoot.querySelector('ntp-module-header-v2').shadowRoot
+                .querySelector('#disable');
+            disableButton.click();
+            // Assert.
+            const clusterId = await handler.whenCalled('recordDisabled');
+            assertEquals(BigInt(111), clusterId);
         });
         test('Show History side panel invoked when clicking header', async () => {
             loadTimeData.overrideValues({

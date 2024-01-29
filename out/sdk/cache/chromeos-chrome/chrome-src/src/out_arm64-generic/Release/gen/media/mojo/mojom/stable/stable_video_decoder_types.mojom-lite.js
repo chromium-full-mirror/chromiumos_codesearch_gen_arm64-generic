@@ -85,7 +85,7 @@ media.stable.mojom.VideoCodecProfile = {
   kHEVCProfileMainStillPicture: 18,
   kHEVCProfileMax: 18,
   kDolbyVisionProfile0: 19,
-  kDolbyVisionProfile4: 20,
+  kDeprecatedDolbyVisionProfile4: 20,
   kDolbyVisionProfile5: 21,
   kDolbyVisionProfile7: 22,
   kTheoraProfileMin: 23,
@@ -1414,8 +1414,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'needsDetiling', 0,
+        2,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 16],]);
+    [[0, 16],[1, 16],]);
 
 
 
@@ -1428,6 +1436,8 @@ media.stable.mojom.VideoFrameMetadata = class {
     this.protectedVideo;
     /** @export { !boolean } */
     this.hwProtected;
+    /** @export { !boolean } */
+    this.needsDetiling;
   }
 };
 

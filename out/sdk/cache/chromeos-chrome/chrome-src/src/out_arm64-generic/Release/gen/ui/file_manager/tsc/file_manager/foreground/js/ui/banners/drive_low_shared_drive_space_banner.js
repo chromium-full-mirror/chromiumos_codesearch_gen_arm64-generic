@@ -46,7 +46,7 @@ export class DriveLowSharedDriveSpaceBanner extends WarningBanner {
      * context to the banner.
      */
     onFilteredContext(context) {
-        if (!context || context.totalBytes == null || context.usedBytes == null) {
+        if (!context || context.totalBytes === null || context.usedBytes === null) {
             console.warn('Context not supplied or missing data');
             return;
         }

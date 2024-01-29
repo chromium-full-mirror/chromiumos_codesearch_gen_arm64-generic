@@ -333,7 +333,7 @@
     this.privilegedWebglExtensionsEnabled = false;
     this.webglErrorsToConsoleEnabled = false;
     this.hideScrollbars = false;
-    this.enableWebkitScrollbarStyling = false;
+    this.prefersDefaultScrollbarStyles = false;
     this.accelerated2dCanvasEnabled = false;
     this.canvas2dLayersEnabled = false;
     this.antialiased2dCanvasDisabled = false;
@@ -796,7 +796,7 @@
     val.privilegedWebglExtensionsEnabled = (packed >> 0) & 1 ? true : false;
     val.webglErrorsToConsoleEnabled = (packed >> 1) & 1 ? true : false;
     val.hideScrollbars = (packed >> 2) & 1 ? true : false;
-    val.enableWebkitScrollbarStyling = (packed >> 3) & 1 ? true : false;
+    val.prefersDefaultScrollbarStyles = (packed >> 3) & 1 ? true : false;
     val.accelerated2dCanvasEnabled = (packed >> 4) & 1 ? true : false;
     val.canvas2dLayersEnabled = (packed >> 5) & 1 ? true : false;
     val.antialiased2dCanvasDisabled = (packed >> 6) & 1 ? true : false;
@@ -980,7 +980,7 @@
     packed |= (val.privilegedWebglExtensionsEnabled & 1) << 0
     packed |= (val.webglErrorsToConsoleEnabled & 1) << 1
     packed |= (val.hideScrollbars & 1) << 2
-    packed |= (val.enableWebkitScrollbarStyling & 1) << 3
+    packed |= (val.prefersDefaultScrollbarStyles & 1) << 3
     packed |= (val.accelerated2dCanvasEnabled & 1) << 4
     packed |= (val.canvas2dLayersEnabled & 1) << 5
     packed |= (val.antialiased2dCanvasDisabled & 1) << 6

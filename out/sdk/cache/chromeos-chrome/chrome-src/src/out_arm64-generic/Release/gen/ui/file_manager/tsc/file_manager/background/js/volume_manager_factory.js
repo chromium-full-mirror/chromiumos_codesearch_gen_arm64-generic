@@ -1,7 +1,7 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { VolumeManagerImpl } from './volume_manager_impl.js';
+import { VolumeManager } from './volume_manager.js';
 const volumeManagerFactory = (() => {
     /**
      * The singleton instance of VolumeManager. Initialized by the first
@@ -16,7 +16,7 @@ const volumeManagerFactory = (() => {
      */
     async function getInstance() {
         if (!instance) {
-            instance = new VolumeManagerImpl();
+            instance = new VolumeManager();
             instanceInitialized = instance.initialize();
         }
         await instanceInitialized;

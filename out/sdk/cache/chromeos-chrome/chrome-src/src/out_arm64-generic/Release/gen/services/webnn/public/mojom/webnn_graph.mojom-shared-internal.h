@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-shared-internal.h"
+#include "services/webnn/public/mojom/webnn_error.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -50,6 +51,7 @@ class Slice_Data;
 class Elu_Data;
 class Gather_Data;
 class Gemm_Data;
+class HardSigmoid_Data;
 class LayerNormalization_Data;
 class LeakyRelu_Data;
 class Linear_Data;
@@ -59,6 +61,7 @@ class Reshape_Data;
 class Sigmoid_Data;
 class Softmax_Data;
 class Softplus_Data;
+class Softsign_Data;
 class Split_Data;
 class Tanh_Data;
 class Transpose_Data;
@@ -68,6 +71,7 @@ class GraphInfo_Data;
 class PaddingMode_Data;
 class Activation_Data;
 class Operation_Data;
+class ComputeResult_Data;
 
 struct InputOperandLayout_Data {
  public:
@@ -77,31 +81,6 @@ struct InputOperandLayout_Data {
     switch (value) {
       case 0:
       case 1:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
-struct ComputeResult_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-      case 2:
         return true;
     }
     return false;
@@ -466,6 +445,8 @@ class  Activation_Data {
     
     kElu,
     
+    kHardSigmoid,
+    
     kLeakyRelu,
     
     kLinear,
@@ -478,6 +459,8 @@ class  Activation_Data {
     
     kSoftplus,
     
+    kSoftsign,
+    
     kTanh,
   };
 
@@ -488,12 +471,14 @@ class  Activation_Data {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::Clamp_Data> f_clamp;
     mojo::internal::Pointer<internal::Elu_Data> f_elu;
+    mojo::internal::Pointer<internal::HardSigmoid_Data> f_hard_sigmoid;
     mojo::internal::Pointer<internal::LeakyRelu_Data> f_leaky_relu;
     mojo::internal::Pointer<internal::Linear_Data> f_linear;
     mojo::internal::Pointer<internal::Relu_Data> f_relu;
     mojo::internal::Pointer<internal::Sigmoid_Data> f_sigmoid;
     mojo::internal::Pointer<internal::Softmax_Data> f_softmax;
     mojo::internal::Pointer<internal::Softplus_Data> f_softplus;
+    mojo::internal::Pointer<internal::Softsign_Data> f_softsign;
     mojo::internal::Pointer<internal::Tanh_Data> f_tanh;
     uint64_t unknown;
   };
@@ -557,6 +542,8 @@ class  Operation_Data {
     
     kGemm,
     
+    kHardSigmoid,
+    
     kLayerNormalization,
     
     kInstanceNormalization,
@@ -589,6 +576,8 @@ class  Operation_Data {
     
     kSoftplus,
     
+    kSoftsign,
+    
     kSplit,
     
     kTanh,
@@ -614,6 +603,7 @@ class  Operation_Data {
     mojo::internal::Pointer<internal::Expand_Data> f_expand;
     mojo::internal::Pointer<internal::Gather_Data> f_gather;
     mojo::internal::Pointer<internal::Gemm_Data> f_gemm;
+    mojo::internal::Pointer<internal::HardSigmoid_Data> f_hard_sigmoid;
     mojo::internal::Pointer<internal::LayerNormalization_Data> f_layer_normalization;
     mojo::internal::Pointer<internal::InstanceNormalization_Data> f_instance_normalization;
     mojo::internal::Pointer<internal::LeakyRelu_Data> f_leaky_relu;
@@ -630,6 +620,7 @@ class  Operation_Data {
     mojo::internal::Pointer<internal::Slice_Data> f_slice;
     mojo::internal::Pointer<internal::Softmax_Data> f_softmax;
     mojo::internal::Pointer<internal::Softplus_Data> f_softplus;
+    mojo::internal::Pointer<internal::Softsign_Data> f_softsign;
     mojo::internal::Pointer<internal::Split_Data> f_split;
     mojo::internal::Pointer<internal::Tanh_Data> f_tanh;
     mojo::internal::Pointer<internal::Transpose_Data> f_transpose;
@@ -643,6 +634,58 @@ class  Operation_Data {
 };
 static_assert(sizeof(Operation_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(Operation_Data)");
+
+
+class  ComputeResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  ComputeResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~ComputeResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<ComputeResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class ComputeResult_Tag : uint32_t {
+
+    
+    kNamedOutputs,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, ::mojo_base::mojom::internal::BigBuffer_Data>> f_named_outputs;
+    mojo::internal::Pointer<::webnn::mojom::internal::Error_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  ComputeResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(ComputeResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(ComputeResult_Data)");
 class  Operand_Data {
  public:
   static bool Validate(const void* data,
@@ -1937,6 +1980,57 @@ struct Gemm_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Gemm_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  HardSigmoid_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+  float alpha;
+  float beta;
+
+ private:
+  friend class mojo::internal::MessageFragment<HardSigmoid_Data>;
+
+  HardSigmoid_Data();
+  ~HardSigmoid_Data() = delete;
+};
+static_assert(sizeof(HardSigmoid_Data) == 32,
+              "Bad sizeof(HardSigmoid_Data)");
+// Used by HardSigmoid::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct HardSigmoid_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  HardSigmoid_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~HardSigmoid_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<HardSigmoid_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    HardSigmoid_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  LayerNormalization_Data {
  public:
   static bool Validate(const void* data,
@@ -2392,6 +2486,55 @@ struct Softplus_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Softplus_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Softsign_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<Softsign_Data>;
+
+  Softsign_Data();
+  ~Softsign_Data() = delete;
+};
+static_assert(sizeof(Softsign_Data) == 24,
+              "Bad sizeof(Softsign_Data)");
+// Used by Softsign::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Softsign_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Softsign_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Softsign_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Softsign_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Softsign_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Split_Data {
  public:
   static bool Validate(const void* data,

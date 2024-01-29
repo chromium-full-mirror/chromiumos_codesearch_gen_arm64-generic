@@ -362,6 +362,8 @@ bool MostVisitedPageHandlerFactoryStubDispatch::Accept(
           reinterpret_cast<internal::MostVisitedPageHandlerFactory_CreatePageHandler_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandlerFactory.0
       bool success = true;
       ::mojo::PendingRemote<MostVisitedPage> p_page{};
       ::mojo::PendingReceiver<MostVisitedPageHandler> p_handler{};
@@ -384,9 +386,9 @@ bool MostVisitedPageHandlerFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreatePageHandler(
-std::move(p_page), 
-std::move(p_handler));
+      impl->CreatePageHandler(        
+        std::move(p_page), 
+        std::move(p_handler));
       return true;
     }
   }
@@ -1339,6 +1341,8 @@ bool MostVisitedPageHandler_AddMostVisitedTile_ForwardToCallback::Accept(
           internal::MostVisitedPageHandler_AddMostVisitedTile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MostVisitedPageHandler.0
   bool success = true;
   bool p_success{};
   MostVisitedPageHandler_AddMostVisitedTile_ResponseParamsDataView input_data_view(params, message);
@@ -1458,6 +1462,8 @@ bool MostVisitedPageHandler_UpdateMostVisitedTile_ForwardToCallback::Accept(
           internal::MostVisitedPageHandler_UpdateMostVisitedTile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MostVisitedPageHandler.6
   bool success = true;
   bool p_success{};
   MostVisitedPageHandler_UpdateMostVisitedTile_ResponseParamsDataView input_data_view(params, message);
@@ -1535,6 +1541,8 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
           reinterpret_cast<internal::MostVisitedPageHandler_DeleteMostVisitedTile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.1
       bool success = true;
       ::GURL p_url{};
       MostVisitedPageHandler_DeleteMostVisitedTile_ParamsDataView input_data_view(params, message);
@@ -1550,8 +1558,8 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DeleteMostVisitedTile(
-std::move(p_url));
+      impl->DeleteMostVisitedTile(        
+        std::move(p_url));
       return true;
     }
     case internal::kMostVisitedPageHandler_ReorderMostVisitedTile_Name: {
@@ -1561,6 +1569,8 @@ std::move(p_url));
           reinterpret_cast<internal::MostVisitedPageHandler_ReorderMostVisitedTile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.2
       bool success = true;
       ::GURL p_url{};
       uint8_t p_new_pos{};
@@ -1579,9 +1589,9 @@ std::move(p_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReorderMostVisitedTile(
-std::move(p_url), 
-std::move(p_new_pos));
+      impl->ReorderMostVisitedTile(        
+        std::move(p_url), 
+        std::move(p_new_pos));
       return true;
     }
     case internal::kMostVisitedPageHandler_RestoreMostVisitedDefaults_Name: {
@@ -1591,6 +1601,8 @@ std::move(p_new_pos));
           reinterpret_cast<internal::MostVisitedPageHandler_RestoreMostVisitedDefaults_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.3
       bool success = true;
       MostVisitedPageHandler_RestoreMostVisitedDefaults_ParamsDataView input_data_view(params, message);
       
@@ -1603,7 +1615,7 @@ std::move(p_new_pos));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RestoreMostVisitedDefaults();
+      impl->RestoreMostVisitedDefaults(        );
       return true;
     }
     case internal::kMostVisitedPageHandler_UndoMostVisitedTileAction_Name: {
@@ -1613,6 +1625,8 @@ std::move(p_new_pos));
           reinterpret_cast<internal::MostVisitedPageHandler_UndoMostVisitedTileAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.4
       bool success = true;
       MostVisitedPageHandler_UndoMostVisitedTileAction_ParamsDataView input_data_view(params, message);
       
@@ -1625,7 +1639,7 @@ std::move(p_new_pos));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UndoMostVisitedTileAction();
+      impl->UndoMostVisitedTileAction(        );
       return true;
     }
     case internal::kMostVisitedPageHandler_UpdateMostVisitedInfo_Name: {
@@ -1635,6 +1649,8 @@ std::move(p_new_pos));
           reinterpret_cast<internal::MostVisitedPageHandler_UpdateMostVisitedInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.5
       bool success = true;
       MostVisitedPageHandler_UpdateMostVisitedInfo_ParamsDataView input_data_view(params, message);
       
@@ -1647,7 +1663,7 @@ std::move(p_new_pos));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateMostVisitedInfo();
+      impl->UpdateMostVisitedInfo(        );
       return true;
     }
     case internal::kMostVisitedPageHandler_UpdateMostVisitedTile_Name: {
@@ -1660,6 +1676,8 @@ std::move(p_new_pos));
           reinterpret_cast<internal::MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.7
       bool success = true;
       MostVisitedTilePtr p_tile{};
       bool p_is_hover_trigger{};
@@ -1678,9 +1696,9 @@ std::move(p_new_pos));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PrerenderMostVisitedTile(
-std::move(p_tile), 
-std::move(p_is_hover_trigger));
+      impl->PrerenderMostVisitedTile(        
+        std::move(p_tile), 
+        std::move(p_is_hover_trigger));
       return true;
     }
     case internal::kMostVisitedPageHandler_CancelPrerender_Name: {
@@ -1690,6 +1708,8 @@ std::move(p_is_hover_trigger));
           reinterpret_cast<internal::MostVisitedPageHandler_CancelPrerender_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.8
       bool success = true;
       MostVisitedPageHandler_CancelPrerender_ParamsDataView input_data_view(params, message);
       
@@ -1702,7 +1722,7 @@ std::move(p_is_hover_trigger));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CancelPrerender();
+      impl->CancelPrerender(        );
       return true;
     }
     case internal::kMostVisitedPageHandler_OnMostVisitedTilesRendered_Name: {
@@ -1712,6 +1732,8 @@ std::move(p_is_hover_trigger));
           reinterpret_cast<internal::MostVisitedPageHandler_OnMostVisitedTilesRendered_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.9
       bool success = true;
       std::vector<MostVisitedTilePtr> p_tiles{};
       double p_time{};
@@ -1730,9 +1752,9 @@ std::move(p_is_hover_trigger));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMostVisitedTilesRendered(
-std::move(p_tiles), 
-std::move(p_time));
+      impl->OnMostVisitedTilesRendered(        
+        std::move(p_tiles), 
+        std::move(p_time));
       return true;
     }
     case internal::kMostVisitedPageHandler_OnMostVisitedTileNavigation_Name: {
@@ -1742,6 +1764,8 @@ std::move(p_time));
           reinterpret_cast<internal::MostVisitedPageHandler_OnMostVisitedTileNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.10
       bool success = true;
       MostVisitedTilePtr p_tile{};
       uint32_t p_index{};
@@ -1775,14 +1799,14 @@ std::move(p_time));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMostVisitedTileNavigation(
-std::move(p_tile), 
-std::move(p_index), 
-std::move(p_mouse_button), 
-std::move(p_alt_key), 
-std::move(p_ctrl_key), 
-std::move(p_meta_key), 
-std::move(p_shift_key));
+      impl->OnMostVisitedTileNavigation(        
+        std::move(p_tile), 
+        std::move(p_index), 
+        std::move(p_mouse_button), 
+        std::move(p_alt_key), 
+        std::move(p_ctrl_key), 
+        std::move(p_meta_key), 
+        std::move(p_shift_key));
       return true;
     }
   }
@@ -1805,6 +1829,8 @@ bool MostVisitedPageHandlerStubDispatch::AcceptWithResponder(
               internal::MostVisitedPageHandler_AddMostVisitedTile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.0
       bool success = true;
       ::GURL p_url{};
       std::string p_title{};
@@ -1826,9 +1852,9 @@ bool MostVisitedPageHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddMostVisitedTile(
-std::move(p_url), 
-std::move(p_title), std::move(callback));
+      impl->AddMostVisitedTile(        
+        std::move(p_url), 
+        std::move(p_title), std::move(callback));
       return true;
     }
     case internal::kMostVisitedPageHandler_DeleteMostVisitedTile_Name: {
@@ -1853,6 +1879,8 @@ std::move(p_title), std::move(callback));
               internal::MostVisitedPageHandler_UpdateMostVisitedTile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MostVisitedPageHandler.6
       bool success = true;
       ::GURL p_url{};
       ::GURL p_new_url{};
@@ -1877,10 +1905,10 @@ std::move(p_title), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateMostVisitedTile(
-std::move(p_url), 
-std::move(p_new_url), 
-std::move(p_new_title), std::move(callback));
+      impl->UpdateMostVisitedTile(        
+        std::move(p_url), 
+        std::move(p_new_url), 
+        std::move(p_new_title), std::move(callback));
       return true;
     }
     case internal::kMostVisitedPageHandler_PrerenderMostVisitedTile_Name: {
@@ -2056,6 +2084,8 @@ bool MostVisitedPageStubDispatch::Accept(
           reinterpret_cast<internal::MostVisitedPage_SetMostVisitedInfo_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MostVisitedPage.0
       bool success = true;
       MostVisitedInfoPtr p_info{};
       MostVisitedPage_SetMostVisitedInfo_ParamsDataView input_data_view(params, message);
@@ -2071,8 +2101,8 @@ bool MostVisitedPageStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetMostVisitedInfo(
-std::move(p_info));
+      impl->SetMostVisitedInfo(        
+        std::move(p_info));
       return true;
     }
   }

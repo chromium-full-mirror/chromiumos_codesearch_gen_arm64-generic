@@ -248,6 +248,7 @@ PROTOBUF_CONSTEXPR TraceConfig::TraceConfig(
   , activate_triggers_()
   , unique_session_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , output_path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , bugreport_filename_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , statsd_metadata_(nullptr)
   , guardrail_overrides_(nullptr)
   , trigger_config_(nullptr)
@@ -268,14 +269,13 @@ PROTOBUF_CONSTEXPR TraceConfig::TraceConfig(
   , enable_extra_guardrails_(false)
   , write_into_file_(false)
   , deferred_start_(false)
-  , data_source_stop_timeout_ms_(0u)
-  , compression_type_(0)
-
   , notify_traceur_(false)
   , allow_user_build_tracing_(false)
-  , compress_from_cli_(false)
-  , bugreport_score_(0)
+  , data_source_stop_timeout_ms_(0u)
   , trace_uuid_msb_(int64_t{0})
+  , compression_type_(0)
+
+  , bugreport_score_(0)
   , trace_uuid_lsb_(int64_t{0})
   , statsd_logging_(0)
 {}
@@ -4915,102 +4915,102 @@ class TraceConfig::_Internal {
   using HasBits = decltype(std::declval<TraceConfig>()._has_bits_);
   static const ::perfetto::protos::TraceConfig_BuiltinDataSource& builtin_data_sources(const TraceConfig* msg);
   static void set_has_builtin_data_sources(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
+    (*has_bits)[0] |= 64u;
   }
   static void set_has_duration_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 4096u;
   }
   static void set_has_prefer_suspend_clock_for_duration(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
-  }
-  static void set_has_enable_extra_guardrails(HasBits* has_bits) {
     (*has_bits)[0] |= 262144u;
   }
+  static void set_has_enable_extra_guardrails(HasBits* has_bits) {
+    (*has_bits)[0] |= 524288u;
+  }
   static void set_has_lockdown_mode(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 8192u;
   }
   static const ::perfetto::protos::TraceConfig_StatsdMetadata& statsd_metadata(const TraceConfig* msg);
   static void set_has_statsd_metadata(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_write_into_file(HasBits* has_bits) {
-    (*has_bits)[0] |= 524288u;
+    (*has_bits)[0] |= 1048576u;
   }
   static void set_has_output_path(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_file_write_period_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 16384u;
+    (*has_bits)[0] |= 32768u;
   }
   static void set_has_max_file_size_bytes(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 16384u;
   }
   static const ::perfetto::protos::TraceConfig_GuardrailOverrides& guardrail_overrides(const TraceConfig* msg);
   static void set_has_guardrail_overrides(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
   }
   static void set_has_deferred_start(HasBits* has_bits) {
-    (*has_bits)[0] |= 1048576u;
-  }
-  static void set_has_flush_period_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
-  }
-  static void set_has_flush_timeout_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
-  }
-  static void set_has_data_source_stop_timeout_ms(HasBits* has_bits) {
     (*has_bits)[0] |= 2097152u;
   }
+  static void set_has_flush_period_ms(HasBits* has_bits) {
+    (*has_bits)[0] |= 65536u;
+  }
+  static void set_has_flush_timeout_ms(HasBits* has_bits) {
+    (*has_bits)[0] |= 131072u;
+  }
+  static void set_has_data_source_stop_timeout_ms(HasBits* has_bits) {
+    (*has_bits)[0] |= 16777216u;
+  }
   static void set_has_notify_traceur(HasBits* has_bits) {
-    (*has_bits)[0] |= 8388608u;
+    (*has_bits)[0] |= 4194304u;
   }
   static void set_has_bugreport_score(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
+    (*has_bits)[0] |= 134217728u;
+  }
+  static void set_has_bugreport_filename(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
   static const ::perfetto::protos::TraceConfig_TriggerConfig& trigger_config(const TraceConfig* msg);
   static void set_has_trigger_config(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 32u;
   }
   static const ::perfetto::protos::TraceConfig_IncrementalStateConfig& incremental_state_config(const TraceConfig* msg);
   static void set_has_incremental_state_config(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
+    (*has_bits)[0] |= 128u;
   }
   static void set_has_allow_user_build_tracing(HasBits* has_bits) {
-    (*has_bits)[0] |= 16777216u;
+    (*has_bits)[0] |= 8388608u;
   }
   static void set_has_unique_session_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_compression_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 4194304u;
-  }
-  static void set_has_compress_from_cli(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
+    (*has_bits)[0] |= 67108864u;
   }
   static const ::perfetto::protos::TraceConfig_IncidentReportConfig& incident_report_config(const TraceConfig* msg);
   static void set_has_incident_report_config(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
+    (*has_bits)[0] |= 256u;
   }
   static void set_has_statsd_logging(HasBits* has_bits) {
     (*has_bits)[0] |= 536870912u;
   }
   static void set_has_trace_uuid_msb(HasBits* has_bits) {
-    (*has_bits)[0] |= 134217728u;
+    (*has_bits)[0] |= 33554432u;
   }
   static void set_has_trace_uuid_lsb(HasBits* has_bits) {
     (*has_bits)[0] |= 268435456u;
   }
   static const ::perfetto::protos::TraceConfig_TraceFilter& trace_filter(const TraceConfig* msg);
   static void set_has_trace_filter(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
+    (*has_bits)[0] |= 512u;
   }
   static const ::perfetto::protos::TraceConfig_AndroidReportConfig& android_report_config(const TraceConfig* msg);
   static void set_has_android_report_config(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 1024u;
   }
   static const ::perfetto::protos::TraceConfig_CmdTraceStartDelay& cmd_trace_start_delay(const TraceConfig* msg);
   static void set_has_cmd_trace_start_delay(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 2048u;
   }
 };
 
@@ -5084,6 +5084,14 @@ TraceConfig::TraceConfig(const TraceConfig& from)
     output_path_.Set(from._internal_output_path(), 
       GetArenaForAllocation());
   }
+  bugreport_filename_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    bugreport_filename_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_bugreport_filename()) {
+    bugreport_filename_.Set(from._internal_bugreport_filename(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_statsd_metadata()) {
     statsd_metadata_ = new ::perfetto::protos::TraceConfig_StatsdMetadata(*from.statsd_metadata_);
   } else {
@@ -5144,6 +5152,10 @@ output_path_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   output_path_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+bugreport_filename_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  bugreport_filename_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&statsd_metadata_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&statsd_logging_) -
@@ -5163,6 +5175,7 @@ inline void TraceConfig::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   unique_session_name_.Destroy();
   output_path_.Destroy();
+  bugreport_filename_.Destroy();
   if (this != internal_default_instance()) delete statsd_metadata_;
   if (this != internal_default_instance()) delete guardrail_overrides_;
   if (this != internal_default_instance()) delete trigger_config_;
@@ -5197,58 +5210,61 @@ void TraceConfig::Clear() {
       output_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
+      bugreport_filename_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(statsd_metadata_ != nullptr);
       statsd_metadata_->Clear();
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000010u) {
       GOOGLE_DCHECK(guardrail_overrides_ != nullptr);
       guardrail_overrides_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(trigger_config_ != nullptr);
       trigger_config_->Clear();
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(builtin_data_sources_ != nullptr);
       builtin_data_sources_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       GOOGLE_DCHECK(incremental_state_config_ != nullptr);
       incremental_state_config_->Clear();
     }
-    if (cached_has_bits & 0x00000080u) {
+  }
+  if (cached_has_bits & 0x00000f00u) {
+    if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(incident_report_config_ != nullptr);
       incident_report_config_->Clear();
     }
-  }
-  if (cached_has_bits & 0x00000700u) {
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(trace_filter_ != nullptr);
       trace_filter_->Clear();
     }
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(android_report_config_ != nullptr);
       android_report_config_->Clear();
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000800u) {
       GOOGLE_DCHECK(cmd_trace_start_delay_ != nullptr);
       cmd_trace_start_delay_->Clear();
     }
   }
-  if (cached_has_bits & 0x0000f800u) {
+  if (cached_has_bits & 0x0000f000u) {
     ::memset(&duration_ms_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&flush_period_ms_) -
-        reinterpret_cast<char*>(&duration_ms_)) + sizeof(flush_period_ms_));
+        reinterpret_cast<char*>(&file_write_period_ms_) -
+        reinterpret_cast<char*>(&duration_ms_)) + sizeof(file_write_period_ms_));
   }
   if (cached_has_bits & 0x00ff0000u) {
-    ::memset(&flush_timeout_ms_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&notify_traceur_) -
-        reinterpret_cast<char*>(&flush_timeout_ms_)) + sizeof(notify_traceur_));
+    ::memset(&flush_period_ms_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&allow_user_build_tracing_) -
+        reinterpret_cast<char*>(&flush_period_ms_)) + sizeof(allow_user_build_tracing_));
   }
   if (cached_has_bits & 0x3f000000u) {
-    ::memset(&allow_user_build_tracing_, 0, static_cast<size_t>(
+    ::memset(&data_source_stop_timeout_ms_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&statsd_logging_) -
-        reinterpret_cast<char*>(&allow_user_build_tracing_)) + sizeof(statsd_logging_));
+        reinterpret_cast<char*>(&data_source_stop_timeout_ms_)) + sizeof(statsd_logging_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -5578,11 +5594,11 @@ const char* TraceConfig::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // optional bool compress_from_cli = 37;
-      case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _Internal::set_has_compress_from_cli(&has_bits);
-          compress_from_cli_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+      // optional string bugreport_filename = 38;
+      case 38:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          auto str = _internal_mutable_bugreport_filename();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5635,19 +5651,19 @@ uint8_t* TraceConfig::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional uint32 duration_ms = 3;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_duration_ms(), target);
   }
 
   // optional bool enable_extra_guardrails = 4;
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_enable_extra_guardrails(), target);
   }
 
   // optional .perfetto.protos.TraceConfig.LockdownModeOperation lockdown_mode = 5;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       5, this->_internal_lockdown_mode(), target);
@@ -5662,63 +5678,63 @@ uint8_t* TraceConfig::_InternalSerialize(
   }
 
   // optional .perfetto.protos.TraceConfig.StatsdMetadata statsd_metadata = 7;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(7, _Internal::statsd_metadata(this),
         _Internal::statsd_metadata(this).GetCachedSize(), target, stream);
   }
 
   // optional bool write_into_file = 8;
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_write_into_file(), target);
   }
 
   // optional uint32 file_write_period_ms = 9;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_file_write_period_ms(), target);
   }
 
   // optional uint64 max_file_size_bytes = 10;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(10, this->_internal_max_file_size_bytes(), target);
   }
 
   // optional .perfetto.protos.TraceConfig.GuardrailOverrides guardrail_overrides = 11;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(11, _Internal::guardrail_overrides(this),
         _Internal::guardrail_overrides(this).GetCachedSize(), target, stream);
   }
 
   // optional bool deferred_start = 12;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_deferred_start(), target);
   }
 
   // optional uint32 flush_period_ms = 13;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(13, this->_internal_flush_period_ms(), target);
   }
 
   // optional uint32 flush_timeout_ms = 14;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(14, this->_internal_flush_timeout_ms(), target);
   }
 
   // optional bool notify_traceur = 16;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_notify_traceur(), target);
   }
 
   // optional .perfetto.protos.TraceConfig.TriggerConfig trigger_config = 17;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(17, _Internal::trigger_config(this),
         _Internal::trigger_config(this).GetCachedSize(), target, stream);
@@ -5731,20 +5747,20 @@ uint8_t* TraceConfig::_InternalSerialize(
   }
 
   // optional bool allow_user_build_tracing = 19;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(19, this->_internal_allow_user_build_tracing(), target);
   }
 
   // optional .perfetto.protos.TraceConfig.BuiltinDataSource builtin_data_sources = 20;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(20, _Internal::builtin_data_sources(this),
         _Internal::builtin_data_sources(this).GetCachedSize(), target, stream);
   }
 
   // optional .perfetto.protos.TraceConfig.IncrementalStateConfig incremental_state_config = 21;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(21, _Internal::incremental_state_config(this),
         _Internal::incremental_state_config(this).GetCachedSize(), target, stream);
@@ -5757,27 +5773,27 @@ uint8_t* TraceConfig::_InternalSerialize(
   }
 
   // optional uint32 data_source_stop_timeout_ms = 23;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(23, this->_internal_data_source_stop_timeout_ms(), target);
   }
 
   // optional .perfetto.protos.TraceConfig.CompressionType compression_type = 24;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       24, this->_internal_compression_type(), target);
   }
 
   // optional .perfetto.protos.TraceConfig.IncidentReportConfig incident_report_config = 25;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(25, _Internal::incident_report_config(this),
         _Internal::incident_report_config(this).GetCachedSize(), target, stream);
   }
 
   // optional int64 trace_uuid_msb = 27 [deprecated = true];
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(27, this->_internal_trace_uuid_msb(), target);
   }
@@ -5795,7 +5811,7 @@ uint8_t* TraceConfig::_InternalSerialize(
   }
 
   // optional int32 bugreport_score = 30;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(30, this->_internal_bugreport_score(), target);
   }
@@ -5808,36 +5824,36 @@ uint8_t* TraceConfig::_InternalSerialize(
   }
 
   // optional .perfetto.protos.TraceConfig.TraceFilter trace_filter = 33;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(33, _Internal::trace_filter(this),
         _Internal::trace_filter(this).GetCachedSize(), target, stream);
   }
 
   // optional .perfetto.protos.TraceConfig.AndroidReportConfig android_report_config = 34;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000400u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(34, _Internal::android_report_config(this),
         _Internal::android_report_config(this).GetCachedSize(), target, stream);
   }
 
   // optional .perfetto.protos.TraceConfig.CmdTraceStartDelay cmd_trace_start_delay = 35;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(35, _Internal::cmd_trace_start_delay(this),
         _Internal::cmd_trace_start_delay(this).GetCachedSize(), target, stream);
   }
 
   // optional bool prefer_suspend_clock_for_duration = 36;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(36, this->_internal_prefer_suspend_clock_for_duration(), target);
   }
 
-  // optional bool compress_from_cli = 37;
-  if (cached_has_bits & 0x02000000u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(37, this->_internal_compress_from_cli(), target);
+  // optional string bugreport_filename = 38;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        38, this->_internal_bugreport_filename(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5901,166 +5917,168 @@ size_t TraceConfig::ByteSizeLong() const {
           this->_internal_output_path());
     }
 
-    // optional .perfetto.protos.TraceConfig.StatsdMetadata statsd_metadata = 7;
+    // optional string bugreport_filename = 38;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_bugreport_filename());
+    }
+
+    // optional .perfetto.protos.TraceConfig.StatsdMetadata statsd_metadata = 7;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *statsd_metadata_);
     }
 
     // optional .perfetto.protos.TraceConfig.GuardrailOverrides guardrail_overrides = 11;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *guardrail_overrides_);
     }
 
     // optional .perfetto.protos.TraceConfig.TriggerConfig trigger_config = 17;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *trigger_config_);
     }
 
     // optional .perfetto.protos.TraceConfig.BuiltinDataSource builtin_data_sources = 20;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *builtin_data_sources_);
     }
 
     // optional .perfetto.protos.TraceConfig.IncrementalStateConfig incremental_state_config = 21;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *incremental_state_config_);
     }
 
+  }
+  if (cached_has_bits & 0x0000ff00u) {
     // optional .perfetto.protos.TraceConfig.IncidentReportConfig incident_report_config = 25;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *incident_report_config_);
     }
 
-  }
-  if (cached_has_bits & 0x0000ff00u) {
     // optional .perfetto.protos.TraceConfig.TraceFilter trace_filter = 33;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *trace_filter_);
     }
 
     // optional .perfetto.protos.TraceConfig.AndroidReportConfig android_report_config = 34;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *android_report_config_);
     }
 
     // optional .perfetto.protos.TraceConfig.CmdTraceStartDelay cmd_trace_start_delay = 35;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *cmd_trace_start_delay_);
     }
 
     // optional uint32 duration_ms = 3;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_duration_ms());
     }
 
     // optional .perfetto.protos.TraceConfig.LockdownModeOperation lockdown_mode = 5;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_lockdown_mode());
     }
 
     // optional uint64 max_file_size_bytes = 10;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_max_file_size_bytes());
     }
 
     // optional uint32 file_write_period_ms = 9;
-    if (cached_has_bits & 0x00004000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_write_period_ms());
-    }
-
-    // optional uint32 flush_period_ms = 13;
     if (cached_has_bits & 0x00008000u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_flush_period_ms());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_write_period_ms());
     }
 
   }
   if (cached_has_bits & 0x00ff0000u) {
-    // optional uint32 flush_timeout_ms = 14;
+    // optional uint32 flush_period_ms = 13;
     if (cached_has_bits & 0x00010000u) {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_flush_period_ms());
+    }
+
+    // optional uint32 flush_timeout_ms = 14;
+    if (cached_has_bits & 0x00020000u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_flush_timeout_ms());
     }
 
     // optional bool prefer_suspend_clock_for_duration = 36;
-    if (cached_has_bits & 0x00020000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 + 1;
     }
 
     // optional bool enable_extra_guardrails = 4;
-    if (cached_has_bits & 0x00040000u) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool write_into_file = 8;
     if (cached_has_bits & 0x00080000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool deferred_start = 12;
+    // optional bool write_into_file = 8;
     if (cached_has_bits & 0x00100000u) {
       total_size += 1 + 1;
     }
 
-    // optional uint32 data_source_stop_timeout_ms = 23;
+    // optional bool deferred_start = 12;
     if (cached_has_bits & 0x00200000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::UInt32Size(
-          this->_internal_data_source_stop_timeout_ms());
-    }
-
-    // optional .perfetto.protos.TraceConfig.CompressionType compression_type = 24;
-    if (cached_has_bits & 0x00400000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_compression_type());
+      total_size += 1 + 1;
     }
 
     // optional bool notify_traceur = 16;
+    if (cached_has_bits & 0x00400000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool allow_user_build_tracing = 19;
     if (cached_has_bits & 0x00800000u) {
       total_size += 2 + 1;
     }
 
   }
   if (cached_has_bits & 0x3f000000u) {
-    // optional bool allow_user_build_tracing = 19;
+    // optional uint32 data_source_stop_timeout_ms = 23;
     if (cached_has_bits & 0x01000000u) {
-      total_size += 2 + 1;
-    }
-
-    // optional bool compress_from_cli = 37;
-    if (cached_has_bits & 0x02000000u) {
-      total_size += 2 + 1;
-    }
-
-    // optional int32 bugreport_score = 30;
-    if (cached_has_bits & 0x04000000u) {
       total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_bugreport_score());
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_data_source_stop_timeout_ms());
     }
 
     // optional int64 trace_uuid_msb = 27 [deprecated = true];
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_trace_uuid_msb());
+    }
+
+    // optional .perfetto.protos.TraceConfig.CompressionType compression_type = 24;
+    if (cached_has_bits & 0x04000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_compression_type());
+    }
+
+    // optional int32 bugreport_score = 30;
+    if (cached_has_bits & 0x08000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(
+          this->_internal_bugreport_score());
     }
 
     // optional int64 trace_uuid_lsb = 28 [deprecated = true];
@@ -6110,90 +6128,90 @@ void TraceConfig::MergeFrom(const TraceConfig& from) {
       _internal_set_output_path(from._internal_output_path());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_statsd_metadata()->::perfetto::protos::TraceConfig_StatsdMetadata::MergeFrom(from._internal_statsd_metadata());
+      _internal_set_bugreport_filename(from._internal_bugreport_filename());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_guardrail_overrides()->::perfetto::protos::TraceConfig_GuardrailOverrides::MergeFrom(from._internal_guardrail_overrides());
+      _internal_mutable_statsd_metadata()->::perfetto::protos::TraceConfig_StatsdMetadata::MergeFrom(from._internal_statsd_metadata());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_trigger_config()->::perfetto::protos::TraceConfig_TriggerConfig::MergeFrom(from._internal_trigger_config());
+      _internal_mutable_guardrail_overrides()->::perfetto::protos::TraceConfig_GuardrailOverrides::MergeFrom(from._internal_guardrail_overrides());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_mutable_builtin_data_sources()->::perfetto::protos::TraceConfig_BuiltinDataSource::MergeFrom(from._internal_builtin_data_sources());
+      _internal_mutable_trigger_config()->::perfetto::protos::TraceConfig_TriggerConfig::MergeFrom(from._internal_trigger_config());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_mutable_incremental_state_config()->::perfetto::protos::TraceConfig_IncrementalStateConfig::MergeFrom(from._internal_incremental_state_config());
+      _internal_mutable_builtin_data_sources()->::perfetto::protos::TraceConfig_BuiltinDataSource::MergeFrom(from._internal_builtin_data_sources());
     }
     if (cached_has_bits & 0x00000080u) {
-      _internal_mutable_incident_report_config()->::perfetto::protos::TraceConfig_IncidentReportConfig::MergeFrom(from._internal_incident_report_config());
+      _internal_mutable_incremental_state_config()->::perfetto::protos::TraceConfig_IncrementalStateConfig::MergeFrom(from._internal_incremental_state_config());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_trace_filter()->::perfetto::protos::TraceConfig_TraceFilter::MergeFrom(from._internal_trace_filter());
+      _internal_mutable_incident_report_config()->::perfetto::protos::TraceConfig_IncidentReportConfig::MergeFrom(from._internal_incident_report_config());
     }
     if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_android_report_config()->::perfetto::protos::TraceConfig_AndroidReportConfig::MergeFrom(from._internal_android_report_config());
+      _internal_mutable_trace_filter()->::perfetto::protos::TraceConfig_TraceFilter::MergeFrom(from._internal_trace_filter());
     }
     if (cached_has_bits & 0x00000400u) {
-      _internal_mutable_cmd_trace_start_delay()->::perfetto::protos::TraceConfig_CmdTraceStartDelay::MergeFrom(from._internal_cmd_trace_start_delay());
+      _internal_mutable_android_report_config()->::perfetto::protos::TraceConfig_AndroidReportConfig::MergeFrom(from._internal_android_report_config());
     }
     if (cached_has_bits & 0x00000800u) {
-      duration_ms_ = from.duration_ms_;
+      _internal_mutable_cmd_trace_start_delay()->::perfetto::protos::TraceConfig_CmdTraceStartDelay::MergeFrom(from._internal_cmd_trace_start_delay());
     }
     if (cached_has_bits & 0x00001000u) {
-      lockdown_mode_ = from.lockdown_mode_;
+      duration_ms_ = from.duration_ms_;
     }
     if (cached_has_bits & 0x00002000u) {
-      max_file_size_bytes_ = from.max_file_size_bytes_;
+      lockdown_mode_ = from.lockdown_mode_;
     }
     if (cached_has_bits & 0x00004000u) {
-      file_write_period_ms_ = from.file_write_period_ms_;
+      max_file_size_bytes_ = from.max_file_size_bytes_;
     }
     if (cached_has_bits & 0x00008000u) {
-      flush_period_ms_ = from.flush_period_ms_;
+      file_write_period_ms_ = from.file_write_period_ms_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      flush_timeout_ms_ = from.flush_timeout_ms_;
+      flush_period_ms_ = from.flush_period_ms_;
     }
     if (cached_has_bits & 0x00020000u) {
-      prefer_suspend_clock_for_duration_ = from.prefer_suspend_clock_for_duration_;
+      flush_timeout_ms_ = from.flush_timeout_ms_;
     }
     if (cached_has_bits & 0x00040000u) {
-      enable_extra_guardrails_ = from.enable_extra_guardrails_;
+      prefer_suspend_clock_for_duration_ = from.prefer_suspend_clock_for_duration_;
     }
     if (cached_has_bits & 0x00080000u) {
-      write_into_file_ = from.write_into_file_;
+      enable_extra_guardrails_ = from.enable_extra_guardrails_;
     }
     if (cached_has_bits & 0x00100000u) {
-      deferred_start_ = from.deferred_start_;
+      write_into_file_ = from.write_into_file_;
     }
     if (cached_has_bits & 0x00200000u) {
-      data_source_stop_timeout_ms_ = from.data_source_stop_timeout_ms_;
+      deferred_start_ = from.deferred_start_;
     }
     if (cached_has_bits & 0x00400000u) {
-      compression_type_ = from.compression_type_;
+      notify_traceur_ = from.notify_traceur_;
     }
     if (cached_has_bits & 0x00800000u) {
-      notify_traceur_ = from.notify_traceur_;
+      allow_user_build_tracing_ = from.allow_user_build_tracing_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x3f000000u) {
     if (cached_has_bits & 0x01000000u) {
-      allow_user_build_tracing_ = from.allow_user_build_tracing_;
+      data_source_stop_timeout_ms_ = from.data_source_stop_timeout_ms_;
     }
     if (cached_has_bits & 0x02000000u) {
-      compress_from_cli_ = from.compress_from_cli_;
+      trace_uuid_msb_ = from.trace_uuid_msb_;
     }
     if (cached_has_bits & 0x04000000u) {
-      bugreport_score_ = from.bugreport_score_;
+      compression_type_ = from.compression_type_;
     }
     if (cached_has_bits & 0x08000000u) {
-      trace_uuid_msb_ = from.trace_uuid_msb_;
+      bugreport_score_ = from.bugreport_score_;
     }
     if (cached_has_bits & 0x10000000u) {
       trace_uuid_lsb_ = from.trace_uuid_lsb_;
@@ -6234,6 +6252,10 @@ void TraceConfig::InternalSwap(TraceConfig* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &output_path_, lhs_arena,
       &other->output_path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &bugreport_filename_, lhs_arena,
+      &other->bugreport_filename_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TraceConfig, statsd_logging_)

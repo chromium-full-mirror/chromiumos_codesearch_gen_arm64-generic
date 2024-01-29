@@ -144,6 +144,9 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_lock.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_lock_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_capabilities.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_index_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_uv_buffer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_mesh_2d_vertex_buffer.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_navigation_preload_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_network_information.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_notification.h"
@@ -777,6 +780,27 @@ void MediaCapabilitiesExposedConstructCallback(v8::Local<v8::Name> v8_property_n
 BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.MediaCapabilities");
 
 bindings::V8SetReturnValue(info, V8MediaCapabilities::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DIndexBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedWorkerGlobalScope_Mesh2DIndexBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.Mesh2DIndexBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DIndexBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DUVBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedWorkerGlobalScope_Mesh2DUVBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.Mesh2DUVBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DUVBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void Mesh2DVertexBufferExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SharedWorkerGlobalScope_Mesh2DVertexBuffer_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.Mesh2DVertexBuffer");
+
+bindings::V8SetReturnValue(info, V8Mesh2DVertexBuffer::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void MessageChannelExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -1560,7 +1584,8 @@ BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.webkitRequestFileSystem");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRequestFileSystemWorker);
 
@@ -1612,7 +1637,8 @@ BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.webkitRequestFileSystemSync"
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kRequestFileSystemSyncWorker);
 
@@ -1831,6 +1857,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"MessageChannel", MessageChannelExposedConstructCallback}, 
 {"MessageEvent", MessageEventExposedConstructCallback}, 
 {"MessagePort", MessagePortExposedConstructCallback}, 
+{"NavigatorUAData", NavigatorUADataExposedConstructCallback}, 
 {"NetworkInformation", NetworkInformationExposedConstructCallback}, 
 {"OffscreenCanvas", OffscreenCanvasExposedConstructCallback}, 
 {"OffscreenCanvasRenderingContext2D", OffscreenCanvasRenderingContext2DExposedConstructCallback}, 
@@ -1960,18 +1987,20 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::MojoJSTestEnabled()) {
+if (RuntimeEnabledFeatures::Canvas2dMeshEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"MojoInterfaceInterceptor", MojoInterfaceInterceptorExposedConstructCallback}, 
-{"MojoInterfaceRequestEvent", MojoInterfaceRequestEventExposedConstructCallback}, 
+{"Mesh2DIndexBuffer", Mesh2DIndexBufferExposedConstructCallback}, 
+{"Mesh2DUVBuffer", Mesh2DUVBufferExposedConstructCallback}, 
+{"Mesh2DVertexBuffer", Mesh2DVertexBufferExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::UserAgentClientHintEnabled()) {
+if (RuntimeEnabledFeatures::MojoJSTestEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"NavigatorUAData", NavigatorUADataExposedConstructCallback}, 
+{"MojoInterfaceInterceptor", MojoInterfaceInterceptorExposedConstructCallback}, 
+{"MojoInterfaceRequestEvent", MojoInterfaceRequestEventExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -2064,7 +2093,7 @@ if (instance_object.IsEmpty()) {
 
 
 ScriptState* script_state = ScriptState::From(context);
-ExecutionContext* execution_context = ExecutionContext::From(script_state);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
 const bool is_in_secure_context = execution_context->IsSecureContext();
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::BarcodeDetectorEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
@@ -2158,7 +2187,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::StorageBucketsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kStorageBuckets))) {
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::StorageBucketsEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"StorageBucket", StorageBucketExposedConstructCallback}, 
 {"StorageBucketManager", StorageBucketManagerExposedConstructCallback}, 

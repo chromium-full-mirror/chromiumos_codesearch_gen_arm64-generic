@@ -369,6 +369,8 @@ bool GeolocationContextStubDispatch::Accept(
           reinterpret_cast<internal::GeolocationContext_BindGeolocation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationContext.0
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::blink::Geolocation> p_receiver{};
       ::blink::KURL p_requesting_url{};
@@ -389,9 +391,9 @@ bool GeolocationContextStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGeolocation(
-std::move(p_receiver), 
-std::move(p_requesting_url));
+      impl->BindGeolocation(        
+        std::move(p_receiver), 
+        std::move(p_requesting_url));
       return true;
     }
     case internal::kGeolocationContext_OnPermissionRevoked_Name: {
@@ -401,6 +403,8 @@ std::move(p_requesting_url));
           reinterpret_cast<internal::GeolocationContext_OnPermissionRevoked_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationContext.1
       bool success = true;
       ::scoped_refptr<const ::blink::SecurityOrigin> p_origin{};
       GeolocationContext_OnPermissionRevoked_ParamsDataView input_data_view(params, message);
@@ -416,8 +420,8 @@ std::move(p_requesting_url));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnPermissionRevoked(
-std::move(p_origin));
+      impl->OnPermissionRevoked(        
+        std::move(p_origin));
       return true;
     }
     case internal::kGeolocationContext_SetOverride_Name: {
@@ -427,6 +431,8 @@ std::move(p_origin));
           reinterpret_cast<internal::GeolocationContext_SetOverride_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationContext.2
       bool success = true;
       ::device::mojom::blink::GeopositionResultPtr p_result{};
       GeolocationContext_SetOverride_ParamsDataView input_data_view(params, message);
@@ -442,8 +448,8 @@ std::move(p_origin));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetOverride(
-std::move(p_result));
+      impl->SetOverride(        
+        std::move(p_result));
       return true;
     }
     case internal::kGeolocationContext_ClearOverride_Name: {
@@ -453,6 +459,8 @@ std::move(p_result));
           reinterpret_cast<internal::GeolocationContext_ClearOverride_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GeolocationContext.3
       bool success = true;
       GeolocationContext_ClearOverride_ParamsDataView input_data_view(params, message);
       
@@ -465,7 +473,7 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ClearOverride();
+      impl->ClearOverride(        );
       return true;
     }
   }

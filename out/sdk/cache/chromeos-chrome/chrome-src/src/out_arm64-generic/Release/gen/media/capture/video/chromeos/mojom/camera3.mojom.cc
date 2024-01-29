@@ -1594,6 +1594,8 @@ bool Camera3CallbackOps_RequestStreamBuffers_ForwardToCallback::Accept(
           internal::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3CallbackOps.2
   bool success = true;
   Camera3BufferRequestStatus p_result{};
   std::vector<Camera3StreamBufferRetPtr> p_returned_buf_reqs{};
@@ -1689,6 +1691,8 @@ bool Camera3CallbackOpsStubDispatch::Accept(
           reinterpret_cast<internal::Camera3CallbackOps_ProcessCaptureResult_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Camera3CallbackOps.0
       bool success = true;
       Camera3CaptureResultPtr p_result{};
       Camera3CallbackOps_ProcessCaptureResult_ParamsDataView input_data_view(params, message);
@@ -1704,8 +1708,8 @@ bool Camera3CallbackOpsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessCaptureResult(
-std::move(p_result));
+      impl->ProcessCaptureResult(        
+        std::move(p_result));
       return true;
     }
     case internal::kCamera3CallbackOps_Notify_Name: {
@@ -1715,6 +1719,8 @@ std::move(p_result));
           reinterpret_cast<internal::Camera3CallbackOps_Notify_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Camera3CallbackOps.1
       bool success = true;
       Camera3NotifyMsgPtr p_msg{};
       Camera3CallbackOps_Notify_ParamsDataView input_data_view(params, message);
@@ -1730,8 +1736,8 @@ std::move(p_result));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Notify(
-std::move(p_msg));
+      impl->Notify(        
+        std::move(p_msg));
       return true;
     }
     case internal::kCamera3CallbackOps_RequestStreamBuffers_Name: {
@@ -1744,6 +1750,8 @@ std::move(p_msg));
           reinterpret_cast<internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Camera3CallbackOps.3
       bool success = true;
       std::vector<Camera3StreamBufferPtr> p_buffers{};
       Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView input_data_view(params, message);
@@ -1759,8 +1767,8 @@ std::move(p_msg));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ReturnStreamBuffers(
-std::move(p_buffers));
+      impl->ReturnStreamBuffers(        
+        std::move(p_buffers));
       return true;
     }
   }
@@ -1789,6 +1797,8 @@ bool Camera3CallbackOpsStubDispatch::AcceptWithResponder(
               internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3CallbackOps.2
       bool success = true;
       std::vector<Camera3BufferRequestPtr> p_buffer_reqs{};
       Camera3CallbackOps_RequestStreamBuffers_ParamsDataView input_data_view(params, message);
@@ -1807,8 +1817,8 @@ bool Camera3CallbackOpsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestStreamBuffers(
-std::move(p_buffer_reqs), std::move(callback));
+      impl->RequestStreamBuffers(        
+        std::move(p_buffer_reqs), std::move(callback));
       return true;
     }
     case internal::kCamera3CallbackOps_ReturnStreamBuffers_Name: {
@@ -2788,6 +2798,8 @@ bool Camera3DeviceOps_Initialize_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_Initialize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.0
   bool success = true;
   int32_t p_result{};
   Camera3DeviceOps_Initialize_ResponseParamsDataView input_data_view(params, message);
@@ -2907,6 +2919,8 @@ bool Camera3DeviceOps_ConfigureStreams_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_ConfigureStreams_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.1
   bool success = true;
   int32_t p_result{};
   Camera3StreamConfigurationPtr p_updated_config{};
@@ -3040,6 +3054,8 @@ bool Camera3DeviceOps_ConstructDefaultRequestSettings_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.2
   bool success = true;
   ::cros::mojom::CameraMetadataPtr p_settings{};
   Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParamsDataView input_data_view(params, message);
@@ -3165,6 +3181,8 @@ bool Camera3DeviceOps_ProcessCaptureRequest_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_ProcessCaptureRequest_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.3
   bool success = true;
   int32_t p_result{};
   Camera3DeviceOps_ProcessCaptureRequest_ResponseParamsDataView input_data_view(params, message);
@@ -3284,6 +3302,8 @@ bool Camera3DeviceOps_Flush_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_Flush_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.5
   bool success = true;
   int32_t p_result{};
   Camera3DeviceOps_Flush_ResponseParamsDataView input_data_view(params, message);
@@ -3403,6 +3423,8 @@ bool Camera3DeviceOps_RegisterBuffer_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_RegisterBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.6
   bool success = true;
   int32_t p_result{};
   Camera3DeviceOps_RegisterBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -3522,6 +3544,8 @@ bool Camera3DeviceOps_Close_ForwardToCallback::Accept(
           internal::Camera3DeviceOps_Close_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.7
   bool success = true;
   int32_t p_result{};
   Camera3DeviceOps_Close_ResponseParamsDataView input_data_view(params, message);
@@ -3641,6 +3665,8 @@ bool Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ForwardToCallback::
           internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Camera3DeviceOps.8
   bool success = true;
   int32_t p_result{};
   Camera3StreamConfigurationPtr p_updated_config{};
@@ -3761,6 +3787,8 @@ bool Camera3DeviceOpsStubDispatch::Accept(
           reinterpret_cast<internal::Camera3DeviceOps_Dump_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.4
       bool success = true;
       ::mojo::ScopedHandle p_fd{};
       Camera3DeviceOps_Dump_ParamsDataView input_data_view(params, message);
@@ -3776,8 +3804,8 @@ bool Camera3DeviceOpsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Dump(
-std::move(p_fd));
+      impl->Dump(        
+        std::move(p_fd));
       return true;
     }
     case internal::kCamera3DeviceOps_Flush_Name: {
@@ -3799,6 +3827,8 @@ std::move(p_fd));
           reinterpret_cast<internal::Camera3DeviceOps_SignalStreamFlush_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.9
       bool success = true;
       std::vector<uint64_t> p_stream_ids{};
       Camera3DeviceOps_SignalStreamFlush_ParamsDataView input_data_view(params, message);
@@ -3814,8 +3844,8 @@ std::move(p_fd));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SignalStreamFlush(
-std::move(p_stream_ids));
+      impl->SignalStreamFlush(        
+        std::move(p_stream_ids));
       return true;
     }
   }
@@ -3838,6 +3868,8 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
               internal::Camera3DeviceOps_Initialize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.0
       bool success = true;
       ::mojo::PendingRemote<Camera3CallbackOps> p_callback_ops{};
       Camera3DeviceOps_Initialize_ParamsDataView input_data_view(params, message);
@@ -3858,8 +3890,8 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_callback_ops), std::move(callback));
+      impl->Initialize(        
+        std::move(p_callback_ops), std::move(callback));
       return true;
     }
     case internal::kCamera3DeviceOps_ConfigureStreams_Name: {
@@ -3869,6 +3901,8 @@ std::move(p_callback_ops), std::move(callback));
               internal::Camera3DeviceOps_ConfigureStreams_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.1
       bool success = true;
       Camera3StreamConfigurationPtr p_config{};
       Camera3DeviceOps_ConfigureStreams_ParamsDataView input_data_view(params, message);
@@ -3887,8 +3921,8 @@ std::move(p_callback_ops), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureStreams(
-std::move(p_config), std::move(callback));
+      impl->ConfigureStreams(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name: {
@@ -3898,6 +3932,8 @@ std::move(p_config), std::move(callback));
               internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.2
       bool success = true;
       Camera3RequestTemplate p_type{};
       Camera3DeviceOps_ConstructDefaultRequestSettings_ParamsDataView input_data_view(params, message);
@@ -3916,8 +3952,8 @@ std::move(p_config), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConstructDefaultRequestSettings(
-std::move(p_type), std::move(callback));
+      impl->ConstructDefaultRequestSettings(        
+        std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name: {
@@ -3927,6 +3963,8 @@ std::move(p_type), std::move(callback));
               internal::Camera3DeviceOps_ProcessCaptureRequest_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.3
       bool success = true;
       Camera3CaptureRequestPtr p_request{};
       Camera3DeviceOps_ProcessCaptureRequest_ParamsDataView input_data_view(params, message);
@@ -3945,8 +3983,8 @@ std::move(p_type), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProcessCaptureRequest(
-std::move(p_request), std::move(callback));
+      impl->ProcessCaptureRequest(        
+        std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kCamera3DeviceOps_Dump_Name: {
@@ -3959,6 +3997,8 @@ std::move(p_request), std::move(callback));
               internal::Camera3DeviceOps_Flush_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.5
       bool success = true;
       Camera3DeviceOps_Flush_ParamsDataView input_data_view(params, message);
       
@@ -3984,6 +4024,8 @@ std::move(p_request), std::move(callback));
               internal::Camera3DeviceOps_RegisterBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.6
       bool success = true;
       uint64_t p_buffer_id{};
       Camera3DeviceOps::BufferType p_type{};
@@ -4026,16 +4068,16 @@ std::move(p_request), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterBuffer(
-std::move(p_buffer_id), 
-std::move(p_type), 
-std::move(p_fds), 
-std::move(p_drm_format), 
-std::move(p_hal_pixel_format), 
-std::move(p_width), 
-std::move(p_height), 
-std::move(p_strides), 
-std::move(p_offsets), std::move(callback));
+      impl->RegisterBuffer(        
+        std::move(p_buffer_id), 
+        std::move(p_type), 
+        std::move(p_fds), 
+        std::move(p_drm_format), 
+        std::move(p_hal_pixel_format), 
+        std::move(p_width), 
+        std::move(p_height), 
+        std::move(p_strides), 
+        std::move(p_offsets), std::move(callback));
       return true;
     }
     case internal::kCamera3DeviceOps_Close_Name: {
@@ -4045,6 +4087,8 @@ std::move(p_offsets), std::move(callback));
               internal::Camera3DeviceOps_Close_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.7
       bool success = true;
       Camera3DeviceOps_Close_ParamsDataView input_data_view(params, message);
       
@@ -4070,6 +4114,8 @@ std::move(p_offsets), std::move(callback));
               internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Camera3DeviceOps.8
       bool success = true;
       Camera3StreamConfigurationPtr p_config{};
       Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ParamsDataView input_data_view(params, message);
@@ -4088,8 +4134,8 @@ std::move(p_offsets), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConfigureStreamsAndGetAllocatedBuffers(
-std::move(p_config), std::move(callback));
+      impl->ConfigureStreamsAndGetAllocatedBuffers(        
+        std::move(p_config), std::move(callback));
       return true;
     }
     case internal::kCamera3DeviceOps_SignalStreamFlush_Name: {

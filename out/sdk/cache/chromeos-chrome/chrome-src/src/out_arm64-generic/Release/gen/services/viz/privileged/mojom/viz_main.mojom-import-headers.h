@@ -8,6 +8,8 @@
 #define SERVICES_VIZ_PRIVILEGED_MOJOM_VIZ_MAIN_MOJOM_IMPORT_HEADERS_H_
 #include "components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom.h"
 #include "components/discardable_memory/public/mojom/discardable_shared_memory_manager.mojom-import-headers.h"
+#include "components/viz/service/debugger/mojom/viz_debugger.mojom.h"
+#include "components/viz/service/debugger/mojom/viz_debugger.mojom-import-headers.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-import-headers.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"

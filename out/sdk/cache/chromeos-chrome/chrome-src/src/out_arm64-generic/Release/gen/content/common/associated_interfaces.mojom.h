@@ -27,6 +27,7 @@
 #include "content/common/associated_interfaces.mojom-shared.h"
 #include "content/common/associated_interfaces.mojom-forward.h"
 #include "third_party/blink/public/mojom/associated_interfaces/associated_interfaces.mojom-forward.h"
+#include "third_party/blink/public/mojom/tokens/tokens.mojom.h"
 #include <string>
 #include <vector>
 
@@ -83,7 +84,7 @@ class CONTENT_EXPORT RouteProvider
   virtual ~RouteProvider() = default;
 
   
-  virtual void GetRoute(int32_t routing_id, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) = 0;
+  virtual void GetRoute(const ::blink::LocalFrameToken& frame_token, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) = 0;
 };
 
 
@@ -95,7 +96,7 @@ class CONTENT_EXPORT RouteProviderProxy
 
   explicit RouteProviderProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void GetRoute(int32_t routing_id, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) final;
+  void GetRoute(const ::blink::LocalFrameToken& frame_token, ::mojo::PendingAssociatedReceiver<::blink::mojom::AssociatedInterfaceProvider> receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

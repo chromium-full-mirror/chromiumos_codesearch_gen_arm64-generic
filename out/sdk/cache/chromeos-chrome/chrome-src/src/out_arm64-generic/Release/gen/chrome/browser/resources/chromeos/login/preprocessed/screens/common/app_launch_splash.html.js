@@ -93,7 +93,7 @@ found in the LICENSE file.
   <div id="launchText">[[launchText]]</div>
   <div id="configNetworkContainer" class="faded">
     <a id="configNetwork" class="oobe-local-link"
-          is="action-link" on-click='onConfigNetwork_'>
+          is="action-link" on-click='onConfigNetwork'>
       [[i18nDynamic(locale, 'configureNetwork')]]
     </a>
   </div>

@@ -36,7 +36,7 @@ const VALID_ROOT_TYPES_FOR_SHARE = new Map([
 /**
  * Implementation of Crostini shared path state handler.
  */
-export class CrostiniImpl {
+export class Crostini {
     constructor() {
         /**
          * Keys maintaining enablement state for VMs that is keyed by vm then subkeyed
@@ -119,7 +119,7 @@ export class CrostiniImpl {
     unregisterSharedPath_(vmName, path) {
         const vms = this.sharedPaths_[path];
         if (vms) {
-            const newVms = vms.filter(vm => vm != vmName);
+            const newVms = vms.filter(vm => vm !== vmName);
             if (newVms.length > 0) {
                 this.sharedPaths_[path] = newVms;
             }

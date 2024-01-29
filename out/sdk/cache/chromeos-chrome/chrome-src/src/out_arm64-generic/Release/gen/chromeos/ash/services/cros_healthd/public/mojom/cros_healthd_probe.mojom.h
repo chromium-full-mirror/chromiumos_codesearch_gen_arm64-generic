@@ -3435,6 +3435,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  InputDevice {
  public:
   template <typename T>
@@ -3730,6 +3731,155 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  ThermalSensorInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ThermalSensorInfo, T>::value>;
+  using DataView = ThermalSensorInfoDataView;
+  using Data_ = internal::ThermalSensorInfo_Data;
+  using ThermalSensorSource = ThermalSensorInfo_ThermalSensorSource;
+
+  template <typename... Args>
+  static ThermalSensorInfoPtr New(Args&&... args) {
+    return ThermalSensorInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ThermalSensorInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ThermalSensorInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThermalSensorInfo>::Convert(*this);
+  }
+
+
+  ThermalSensorInfo();
+
+  ThermalSensorInfo(
+      const std::string& name,
+      double temperature_celsius,
+      ThermalSensorInfo::ThermalSensorSource source);
+
+
+  ~ThermalSensorInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ThermalSensorInfoPtr>
+  ThermalSensorInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ThermalSensorInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThermalSensorInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ThermalSensorInfo_UnserializedMessageContext<
+            UserType, ThermalSensorInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ThermalSensorInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ThermalSensorInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ThermalSensorInfo_UnserializedMessageContext<
+            UserType, ThermalSensorInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ThermalSensorInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string name;
+  
+  double temperature_celsius;
+  
+  ThermalSensorInfo::ThermalSensorSource source;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -7870,6 +8020,136 @@ class  SensorResult {
     Union_() = default;
     ~Union_() = default;
     SensorInfoPtr* sensor_info;
+    ProbeErrorPtr* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  ThermalResult {
+ public:
+  using DataView = ThermalResultDataView;
+  using Data_ = internal::ThermalResult_Data;
+  using Tag = Data_::ThermalResult_Tag;
+
+  template <typename... Args>
+  static ThermalResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |thermal_info|.
+  static ThermalResultPtr
+  NewThermalInfo(
+      ThermalInfoPtr value) {
+    auto result = ThermalResultPtr(absl::in_place);
+    result->set_thermal_info(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static ThermalResultPtr
+  NewError(
+      ProbeErrorPtr value) {
+    auto result = ThermalResultPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static ThermalResultPtr From(const U& u) {
+    return mojo::TypeConverter<ThermalResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThermalResult>::Convert(*this);
+  }
+
+  ThermalResult();
+  ~ThermalResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ThermalResult(const ThermalResult& other) = delete;
+  ThermalResult& operator=(const ThermalResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = ThermalResultPtr>
+  ThermalResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ThermalResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ThermalResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_thermal_info() const { return tag_ == Tag::kThermalInfo; }
+
+  
+  ThermalInfoPtr& get_thermal_info() const {
+    CHECK(tag_ == Tag::kThermalInfo);
+    return *(data_.thermal_info);
+  }
+
+  
+  void set_thermal_info(
+      ThermalInfoPtr thermal_info);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  ProbeErrorPtr& get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      ProbeErrorPtr error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThermalResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<ThermalResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ThermalInfoPtr* thermal_info;
     ProbeErrorPtr* error;
   };
 
@@ -14174,6 +14454,11 @@ class  InputInfo {
       const std::string& touchpad_library_name,
       std::vector<TouchscreenDevicePtr> touchscreen_devices);
 
+  InputInfo(
+      const std::string& touchpad_library_name,
+      std::vector<TouchscreenDevicePtr> touchscreen_devices,
+      std::optional<std::vector<TouchpadDevicePtr>> touchpad_devices);
+
 InputInfo(const InputInfo&) = delete;
 InputInfo& operator=(const InputInfo&) = delete;
 
@@ -14255,6 +14540,8 @@ InputInfo& operator=(const InputInfo&) = delete;
   std::string touchpad_library_name;
   
   std::vector<TouchscreenDevicePtr> touchscreen_devices;
+  
+  std::optional<std::vector<TouchpadDevicePtr>> touchpad_devices;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -14441,6 +14728,152 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  TouchpadDevice {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TouchpadDevice, T>::value>;
+  using DataView = TouchpadDeviceDataView;
+  using Data_ = internal::TouchpadDevice_Data;
+
+  template <typename... Args>
+  static TouchpadDevicePtr New(Args&&... args) {
+    return TouchpadDevicePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TouchpadDevicePtr From(const U& u) {
+    return mojo::TypeConverter<TouchpadDevicePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TouchpadDevice>::Convert(*this);
+  }
+
+
+  TouchpadDevice();
+
+  TouchpadDevice(
+      InputDevicePtr input_device,
+      const std::string& driver_name);
+
+TouchpadDevice(const TouchpadDevice&) = delete;
+TouchpadDevice& operator=(const TouchpadDevice&) = delete;
+
+  ~TouchpadDevice();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TouchpadDevicePtr>
+  TouchpadDevicePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TouchpadDevice::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TouchpadDevice::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TouchpadDevice_UnserializedMessageContext<
+            UserType, TouchpadDevice::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TouchpadDevice::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TouchpadDevice::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TouchpadDevice_UnserializedMessageContext<
+            UserType, TouchpadDevice::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TouchpadDevice::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  InputDevicePtr input_device;
+  
+  std::string driver_name;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  SensorInfo {
  public:
@@ -14582,6 +15015,149 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  ThermalInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ThermalInfo, T>::value>;
+  using DataView = ThermalInfoDataView;
+  using Data_ = internal::ThermalInfo_Data;
+
+  template <typename... Args>
+  static ThermalInfoPtr New(Args&&... args) {
+    return ThermalInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ThermalInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ThermalInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThermalInfo>::Convert(*this);
+  }
+
+
+  ThermalInfo();
+
+  explicit ThermalInfo(
+      std::vector<ThermalSensorInfoPtr> thermal_sensors);
+
+ThermalInfo(const ThermalInfo&) = delete;
+ThermalInfo& operator=(const ThermalInfo&) = delete;
+
+  ~ThermalInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ThermalInfoPtr>
+  ThermalInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ThermalInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThermalInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ThermalInfo_UnserializedMessageContext<
+            UserType, ThermalInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ThermalInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ThermalInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ThermalInfo_UnserializedMessageContext<
+            UserType, ThermalInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ThermalInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<ThermalSensorInfoPtr> thermal_sensors;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -14746,6 +15322,31 @@ class  TelemetryInfo {
       AudioHardwareResultPtr audio_hardware_result,
       SensorResultPtr sensor_result);
 
+  TelemetryInfo(
+      BatteryResultPtr battery_result,
+      NonRemovableBlockDeviceResultPtr block_device_result,
+      CpuResultPtr cpu_result,
+      TimezoneResultPtr timezone_result,
+      MemoryResultPtr memory_result,
+      BacklightResultPtr backlight_result,
+      FanResultPtr fan_result,
+      StatefulPartitionResultPtr stateful_partition_result,
+      BluetoothResultPtr bluetooth_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
+      NetworkResultPtr network_result,
+      AudioResultPtr audio_result,
+      BootPerformanceResultPtr boot_performance_result,
+      BusResultPtr bus_result,
+      SystemResultPtr system_result,
+      TpmResultPtr tpm_result,
+      GraphicsResultPtr graphics_result,
+      DisplayResultPtr display_result,
+      NetworkInterfaceResultPtr network_interface_result,
+      InputResultPtr input_result,
+      AudioHardwareResultPtr audio_hardware_result,
+      SensorResultPtr sensor_result,
+      ThermalResultPtr thermal_result);
+
 TelemetryInfo(const TelemetryInfo&) = delete;
 TelemetryInfo& operator=(const TelemetryInfo&) = delete;
 
@@ -14867,6 +15468,8 @@ TelemetryInfo& operator=(const TelemetryInfo&) = delete;
   AudioHardwareResultPtr audio_hardware_result;
   
   SensorResultPtr sensor_result;
+  
+  ThermalResultPtr thermal_result;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -15821,6 +16424,35 @@ bool SensorResult::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kSensorInfo:
       return mojo::Equals(*(data_.sensor_info), *(other.data_.sensor_info));
+    case Tag::kError:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+ThermalResultPtr ThermalResult::Clone() const {
+  switch (tag_) {
+    case Tag::kThermalInfo:
+      return NewThermalInfo(
+          mojo::Clone(*data_.thermal_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, ThermalResult>::value>::type*>
+bool ThermalResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kThermalInfo:
+      return mojo::Equals(*(data_.thermal_info), *(other.data_.thermal_info));
     case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
@@ -19111,7 +19743,8 @@ template <typename StructPtrType>
 InputInfoPtr InputInfo::Clone() const {
   return New(
       mojo::Clone(touchpad_library_name),
-      mojo::Clone(touchscreen_devices)
+      mojo::Clone(touchscreen_devices),
+      mojo::Clone(touchpad_devices)
   );
 }
 
@@ -19120,6 +19753,8 @@ bool InputInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->touchpad_library_name, other_struct.touchpad_library_name))
     return false;
   if (!mojo::Equals(this->touchscreen_devices, other_struct.touchscreen_devices))
+    return false;
+  if (!mojo::Equals(this->touchpad_devices, other_struct.touchpad_devices))
     return false;
   return true;
 }
@@ -19133,6 +19768,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.touchscreen_devices < rhs.touchscreen_devices)
     return true;
   if (rhs.touchscreen_devices < lhs.touchscreen_devices)
+    return false;
+  if (lhs.touchpad_devices < rhs.touchpad_devices)
+    return true;
+  if (rhs.touchpad_devices < lhs.touchpad_devices)
     return false;
   return false;
 }
@@ -19176,6 +19815,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.has_stylus_garage_switch < rhs.has_stylus_garage_switch)
     return true;
   if (rhs.has_stylus_garage_switch < lhs.has_stylus_garage_switch)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TouchpadDevicePtr TouchpadDevice::Clone() const {
+  return New(
+      mojo::Clone(input_device),
+      mojo::Clone(driver_name)
+  );
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>*>
+bool TouchpadDevice::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_device, other_struct.input_device))
+    return false;
+  if (!mojo::Equals(this->driver_name, other_struct.driver_name))
+    return false;
+  return true;
+}
+
+template <typename T, TouchpadDevice::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_device < rhs.input_device)
+    return true;
+  if (rhs.input_device < lhs.input_device)
+    return false;
+  if (lhs.driver_name < rhs.driver_name)
+    return true;
+  if (rhs.driver_name < lhs.driver_name)
     return false;
   return false;
 }
@@ -19295,6 +19963,64 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+ThermalInfoPtr ThermalInfo::Clone() const {
+  return New(
+      mojo::Clone(thermal_sensors)
+  );
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>*>
+bool ThermalInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->thermal_sensors, other_struct.thermal_sensors))
+    return false;
+  return true;
+}
+
+template <typename T, ThermalInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.thermal_sensors < rhs.thermal_sensors)
+    return true;
+  if (rhs.thermal_sensors < lhs.thermal_sensors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ThermalSensorInfoPtr ThermalSensorInfo::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(temperature_celsius),
+      mojo::Clone(source)
+  );
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>*>
+bool ThermalSensorInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->temperature_celsius, other_struct.temperature_celsius))
+    return false;
+  if (!mojo::Equals(this->source, other_struct.source))
+    return false;
+  return true;
+}
+
+template <typename T, ThermalSensorInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.temperature_celsius < rhs.temperature_celsius)
+    return true;
+  if (rhs.temperature_celsius < lhs.temperature_celsius)
+    return false;
+  if (lhs.source < rhs.source)
+    return true;
+  if (rhs.source < lhs.source)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 TelemetryInfoPtr TelemetryInfo::Clone() const {
   return New(
       mojo::Clone(battery_result),
@@ -19318,7 +20044,8 @@ TelemetryInfoPtr TelemetryInfo::Clone() const {
       mojo::Clone(network_interface_result),
       mojo::Clone(input_result),
       mojo::Clone(audio_hardware_result),
-      mojo::Clone(sensor_result)
+      mojo::Clone(sensor_result),
+      mojo::Clone(thermal_result)
   );
 }
 
@@ -19367,6 +20094,8 @@ bool TelemetryInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->audio_hardware_result, other_struct.audio_hardware_result))
     return false;
   if (!mojo::Equals(this->sensor_result, other_struct.sensor_result))
+    return false;
+  if (!mojo::Equals(this->thermal_result, other_struct.thermal_result))
     return false;
   return true;
 }
@@ -19460,6 +20189,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sensor_result < rhs.sensor_result)
     return true;
   if (rhs.sensor_result < lhs.sensor_result)
+    return false;
+  if (lhs.thermal_result < rhs.thermal_result)
+    return true;
+  if (rhs.thermal_result < lhs.thermal_result)
     return false;
   return false;
 }
@@ -21786,6 +22519,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::InputInfo::DataView,
     return input->touchscreen_devices;
   }
 
+  static const decltype(::ash::cros_healthd::mojom::InputInfo::touchpad_devices)& touchpad_devices(
+      const ::ash::cros_healthd::mojom::InputInfoPtr& input) {
+    return input->touchpad_devices;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::InputInfo::DataView input, ::ash::cros_healthd::mojom::InputInfoPtr* output);
 };
 
@@ -21817,6 +22555,26 @@ struct  StructTraits<::ash::cros_healthd::mojom::TouchscreenDevice::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::TouchscreenDevice::DataView input, ::ash::cros_healthd::mojom::TouchscreenDevicePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::TouchpadDevice::DataView,
+                                         ::ash::cros_healthd::mojom::TouchpadDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TouchpadDevicePtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::input_device)& input_device(
+      const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
+    return input->input_device;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::driver_name)& driver_name(
+      const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
+    return input->driver_name;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::TouchpadDevice::DataView input, ::ash::cros_healthd::mojom::TouchpadDevicePtr* output);
 };
 
 
@@ -21897,6 +22655,46 @@ struct  StructTraits<::ash::cros_healthd::mojom::Sensor::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::Sensor::DataView input, ::ash::cros_healthd::mojom::SensorPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::ThermalInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThermalInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThermalInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThermalInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::ThermalInfo::thermal_sensors)& thermal_sensors(
+      const ::ash::cros_healthd::mojom::ThermalInfoPtr& input) {
+    return input->thermal_sensors;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThermalInfo::DataView input, ::ash::cros_healthd::mojom::ThermalInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::ThermalSensorInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThermalSensorInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThermalSensorInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::ThermalSensorInfo::name)& name(
+      const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::ThermalSensorInfo::temperature_celsius) temperature_celsius(
+      const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) {
+    return input->temperature_celsius;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::ThermalSensorInfo::source) source(
+      const ::ash::cros_healthd::mojom::ThermalSensorInfoPtr& input) {
+    return input->source;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThermalSensorInfo::DataView input, ::ash::cros_healthd::mojom::ThermalSensorInfoPtr* output);
 };
 
 
@@ -22014,6 +22812,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::sensor_result)& sensor_result(
       const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->sensor_result;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::thermal_result)& thermal_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
+    return input->thermal_result;
   }
 
   static bool Read(::ash::cros_healthd::mojom::TelemetryInfo::DataView input, ::ash::cros_healthd::mojom::TelemetryInfoPtr* output);
@@ -22725,6 +23528,28 @@ struct  UnionTraits<::ash::cros_healthd::mojom::SensorResult::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::SensorResult::DataView input, ::ash::cros_healthd::mojom::SensorResultPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::ThermalResult::DataView,
+                                        ::ash::cros_healthd::mojom::ThermalResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThermalResultPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::ThermalResult::Tag GetTag(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::ash::cros_healthd::mojom::ThermalInfoPtr& thermal_info(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) {
+    return input->get_thermal_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::ThermalResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThermalResult::DataView input, ::ash::cros_healthd::mojom::ThermalResultPtr* output);
 };
 
 }  // namespace mojo

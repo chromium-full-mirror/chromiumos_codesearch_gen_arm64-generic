@@ -86,9 +86,7 @@ CSSUnparsedValue* blink_receiver = V8CSSUnparsedValue::ToWrappableUnsafe(isolate
 if (index >= blink_receiver->length())
   return;  // Do not intercept.  Fallback to OrdinaryGetOwnProperty.
 
-v8::Local<v8::Value> v8_return_value;
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyGetter;
 const char* const class_like_name = "CSSUnparsedValue";
@@ -98,9 +96,7 @@ auto&& return_value = blink_receiver->AnonymousIndexedGetter(index, exception_st
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-if (!ToV8Traits<V8UnionCSSVariableReferenceValueOrString>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<V8UnionCSSVariableReferenceValueOrString>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 

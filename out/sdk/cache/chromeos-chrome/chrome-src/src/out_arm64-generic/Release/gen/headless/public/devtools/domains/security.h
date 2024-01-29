@@ -80,6 +80,11 @@ class HEADLESS_EXPORT Domain {
   void Enable(base::OnceClosure callback = base::OnceClosure());
   void Enable(std::unique_ptr<EnableParams> params, base::OnceClosure callback);
 
+  // Enable/disable whether all certificate errors should be ignored.
+  void SetIgnoreCertificateErrors(std::unique_ptr<SetIgnoreCertificateErrorsParams> params, base::OnceCallback<void(std::unique_ptr<SetIgnoreCertificateErrorsResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetIgnoreCertificateErrorsResult>)>());
+  void SetIgnoreCertificateErrors(bool ignore, base::OnceClosure callback = base::OnceClosure());
+  void SetIgnoreCertificateErrors(std::unique_ptr<SetIgnoreCertificateErrorsParams> params, base::OnceClosure callback);
+
   // Handles a certificate error that fired a certificateError event.
   void HandleCertificateError(std::unique_ptr<HandleCertificateErrorParams> params, base::OnceCallback<void(std::unique_ptr<HandleCertificateErrorResult>)> callback = base::OnceCallback<void(std::unique_ptr<HandleCertificateErrorResult>)>());
   void HandleCertificateError(int event_id, ::headless::security::CertificateErrorAction action, base::OnceClosure callback = base::OnceClosure());
@@ -129,9 +134,6 @@ class ExperimentalDomain : public Domain {
   // destroyed.
   void AddObserver(ExperimentalObserver* observer);
   void RemoveObserver(ExperimentalObserver* observer);
-
-  // Enable/disable whether all certificate errors should be ignored.
-  void SetIgnoreCertificateErrors(std::unique_ptr<SetIgnoreCertificateErrorsParams> params, base::OnceCallback<void(std::unique_ptr<SetIgnoreCertificateErrorsResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetIgnoreCertificateErrorsResult>)>());
 
 };
 

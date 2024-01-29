@@ -86,7 +86,7 @@ content_type_ = ContentType::kDoubleSequence;
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionDoubleSequenceOrGPUColorDict::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionDoubleSequenceOrGPUColorDict::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kDoubleSequence: {
     return ToV8Traits<IDLSequence<IDLDouble>>::ToV8(script_state, member_double_sequence_);
@@ -97,7 +97,7 @@ v8::MaybeLocal<v8::Value> V8UnionDoubleSequenceOrGPUColorDict::ToV8Value(ScriptS
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionDoubleSequenceOrGPUColorDict::Trace(Visitor* visitor) const {

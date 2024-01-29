@@ -175,8 +175,9 @@ export class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         return visibility !== false;
     }
     getIdleLoad_() {
-        return this.shadowRoot.querySelector('#advancedPageTemplate')
-            .get();
+        const idleLoad = this.shadowRoot.querySelector('#advancedPageTemplate');
+        assert(idleLoad);
+        return idleLoad.get();
     }
     updatePrivacyGuidePromoVisibility_() {
         if (!this.isPrivacyGuideAvailable ||

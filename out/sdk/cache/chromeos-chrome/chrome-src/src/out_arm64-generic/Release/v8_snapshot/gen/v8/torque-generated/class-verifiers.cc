@@ -16,9 +16,6 @@ void TorqueGeneratedClassVerifiers::JSReceiverVerify(Tagged<JSReceiver> o, Isola
     CHECK(IsSmi(properties_or_hash__value) || IsFixedArrayBase(properties_or_hash__value) || IsPropertyArray(properties_or_hash__value) || IsSwissNameDictionary(properties_or_hash__value));
   }
 }
-void TorqueGeneratedClassVerifiers::HeapNumberVerify(Tagged<HeapNumber> o, Isolate* isolate) {
-  CHECK(IsHeapNumber(o, isolate));
-}
 void TorqueGeneratedClassVerifiers::ContextVerify(Tagged<Context> o, Isolate* isolate) {
   CHECK(IsContext(o, isolate));
   {
@@ -859,7 +856,7 @@ void TorqueGeneratedClassVerifiers::FeedbackVectorVerify(Tagged<FeedbackVector> 
   {
     MaybeObject maybe_optimized_code__value = TaggedField<MaybeObject>::load(o, 28);
     MaybeObject::VerifyMaybeObjectPointer(isolate, maybe_optimized_code__value);
-    CHECK(maybe_optimized_code__value.IsCleared() || (maybe_optimized_code__value.IsWeak() && IsCode(maybe_optimized_code__value.GetHeapObjectOrSmi())));
+    CHECK(maybe_optimized_code__value.IsCleared() || (maybe_optimized_code__value.IsWeak() && IsCodeWrapper(maybe_optimized_code__value.GetHeapObjectOrSmi())));
   }
   intptr_t raw_feedback_slots__offset, raw_feedback_slots__length;
   std::tie(std::ignore, raw_feedback_slots__offset, raw_feedback_slots__length) = TqRuntimeFieldSliceFeedbackVectorRawFeedbackSlots(o);
@@ -1166,21 +1163,12 @@ void TorqueGeneratedClassVerifiers::JSExternalObjectVerify(Tagged<JSExternalObje
 void TorqueGeneratedClassVerifiers::JSGlobalProxyVerify(Tagged<JSGlobalProxy> o, Isolate* isolate) {
   o->JSSpecialObjectVerify(isolate);
   CHECK(IsJSGlobalProxy(o, isolate));
-  {
-    Tagged<Object> native_context__value = TaggedField<Object>::load(o, 12);
-    Object::VerifyPointer(isolate, native_context__value);
-  }
 }
 void TorqueGeneratedClassVerifiers::JSGlobalObjectVerify(Tagged<JSGlobalObject> o, Isolate* isolate) {
   o->JSSpecialObjectVerify(isolate);
   CHECK(IsJSGlobalObject(o, isolate));
   {
-    Tagged<Object> native_context__value = TaggedField<Object>::load(o, 12);
-    Object::VerifyPointer(isolate, native_context__value);
-    CHECK(IsNativeContext(native_context__value));
-  }
-  {
-    Tagged<Object> global_proxy__value = TaggedField<Object>::load(o, 16);
+    Tagged<Object> global_proxy__value = TaggedField<Object>::load(o, 12);
     Object::VerifyPointer(isolate, global_proxy__value);
     CHECK(IsJSGlobalProxy(global_proxy__value));
   }
@@ -2190,9 +2178,9 @@ void TorqueGeneratedClassVerifiers::ModuleRequestVerify(Tagged<ModuleRequest> o,
     CHECK(IsString(specifier__value));
   }
   {
-    Tagged<Object> import_assertions__value = TaggedField<Object>::load(o, 8);
-    Object::VerifyPointer(isolate, import_assertions__value);
-    CHECK(IsFixedArray(import_assertions__value));
+    Tagged<Object> import_attributes__value = TaggedField<Object>::load(o, 8);
+    Object::VerifyPointer(isolate, import_attributes__value);
+    CHECK(IsFixedArray(import_attributes__value));
   }
   {
     Tagged<Object> position__value = TaggedField<Object>::load(o, 12);
@@ -2422,6 +2410,19 @@ void TorqueGeneratedClassVerifiers::ObjectTemplateInfoVerify(Tagged<ObjectTempla
     Tagged<Object> data__value = TaggedField<Object>::load(o, 28);
     Object::VerifyPointer(isolate, data__value);
     CHECK(IsSmi(data__value));
+  }
+}
+void TorqueGeneratedClassVerifiers::DictionaryTemplateInfoVerify(Tagged<DictionaryTemplateInfo> o, Isolate* isolate) {
+  CHECK(IsDictionaryTemplateInfo(o, isolate));
+  {
+    Tagged<Object> property_names__value = TaggedField<Object>::load(o, 4);
+    Object::VerifyPointer(isolate, property_names__value);
+    CHECK(IsFixedArray(property_names__value));
+  }
+  {
+    MaybeObject fully_populated_map__value = TaggedField<MaybeObject>::load(o, 8);
+    MaybeObject::VerifyMaybeObjectPointer(isolate, fully_populated_map__value);
+    CHECK(fully_populated_map__value.IsCleared() || (fully_populated_map__value.IsWeak() && IsMap(fully_populated_map__value.GetHeapObjectOrSmi())));
   }
 }
 void TorqueGeneratedClassVerifiers::TurbofanTypeVerify(Tagged<TurbofanType> o, Isolate* isolate) {
@@ -3000,6 +3001,20 @@ void TorqueGeneratedClassVerifiers::JSSegmentsVerify(Tagged<JSSegments> o, Isola
     CHECK(IsSmi(flags__value));
   }
 }
+void TorqueGeneratedClassVerifiers::WasmInstanceObjectVerify(Tagged<WasmInstanceObject> o, Isolate* isolate) {
+  o->JSObjectVerify(isolate);
+  CHECK(IsWasmInstanceObject(o, isolate));
+  {
+    Tagged<Object> module_object__value = TaggedField<Object>::load(o, 16);
+    Object::VerifyPointer(isolate, module_object__value);
+    CHECK(IsWasmModuleObject(module_object__value));
+  }
+  {
+    Tagged<Object> exports_object__value = TaggedField<Object>::load(o, 20);
+    Object::VerifyPointer(isolate, exports_object__value);
+    CHECK(IsJSObject(exports_object__value));
+  }
+}
 void TorqueGeneratedClassVerifiers::WasmApiFunctionRefVerify(Tagged<WasmApiFunctionRef> o, Isolate* isolate) {
   CHECK(IsWasmApiFunctionRef(o, isolate));
   {
@@ -3229,9 +3244,9 @@ void TorqueGeneratedClassVerifiers::WasmTableObjectVerify(Tagged<WasmTableObject
     CHECK(IsSmi(maximum_length__value) || IsHeapNumber(maximum_length__value) || IsUndefined(maximum_length__value));
   }
   {
-    Tagged<Object> dispatch_tables__value = TaggedField<Object>::load(o, 28);
-    Object::VerifyPointer(isolate, dispatch_tables__value);
-    CHECK(IsFixedArray(dispatch_tables__value));
+    Tagged<Object> uses__value = TaggedField<Object>::load(o, 28);
+    Object::VerifyPointer(isolate, uses__value);
+    CHECK(IsFixedArray(uses__value));
   }
   {
     Tagged<Object> raw_type__value = TaggedField<Object>::load(o, 32);

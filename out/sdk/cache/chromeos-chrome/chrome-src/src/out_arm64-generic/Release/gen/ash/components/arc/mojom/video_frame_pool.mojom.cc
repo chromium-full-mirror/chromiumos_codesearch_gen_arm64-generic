@@ -382,6 +382,8 @@ bool VideoFramePool_AddVideoFrame_ForwardToCallback::Accept(
           internal::VideoFramePool_AddVideoFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for VideoFramePool.1
   bool success = true;
   bool p_result{};
   VideoFramePool_AddVideoFrame_ResponseParamsDataView input_data_view(params, message);
@@ -456,6 +458,8 @@ bool VideoFramePoolStubDispatch::Accept(
           reinterpret_cast<internal::VideoFramePool_Initialize_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFramePool.0
       bool success = true;
       ::mojo::PendingAssociatedRemote<VideoFramePoolClient> p_client{};
       VideoFramePool_Initialize_ParamsDataView input_data_view(params, message);
@@ -473,8 +477,8 @@ bool VideoFramePoolStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Initialize(
-std::move(p_client));
+      impl->Initialize(        
+        std::move(p_client));
       return true;
     }
     case internal::kVideoFramePool_AddVideoFrame_Name: {
@@ -503,6 +507,8 @@ bool VideoFramePoolStubDispatch::AcceptWithResponder(
               internal::VideoFramePool_AddVideoFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for VideoFramePool.1
       bool success = true;
       VideoFramePtr p_video_frame{};
       VideoFramePool_AddVideoFrame_ParamsDataView input_data_view(params, message);
@@ -521,8 +527,8 @@ bool VideoFramePoolStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddVideoFrame(
-std::move(p_video_frame), std::move(callback));
+      impl->AddVideoFrame(        
+        std::move(p_video_frame), std::move(callback));
       return true;
     }
   }
@@ -691,6 +697,8 @@ bool VideoFramePoolClientStubDispatch::Accept(
           reinterpret_cast<internal::VideoFramePoolClient_RequestVideoFrames_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for VideoFramePoolClient.0
       bool success = true;
       ::media::VideoPixelFormat p_format{};
       ::gfx::Size p_coded_size{};
@@ -715,11 +723,11 @@ bool VideoFramePoolClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RequestVideoFrames(
-std::move(p_format), 
-std::move(p_coded_size), 
-std::move(p_visible_rect), 
-std::move(p_num_frames));
+      impl->RequestVideoFrames(        
+        std::move(p_format), 
+        std::move(p_coded_size), 
+        std::move(p_visible_rect), 
+        std::move(p_num_frames));
       return true;
     }
   }

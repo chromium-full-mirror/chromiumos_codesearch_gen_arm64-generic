@@ -34,6 +34,7 @@ namespace internal {
 class SixPackKeyInfo_Data;
 class InputDeviceSettingsPolicy_Data;
 class InputDeviceSettingsFkeyPolicy_Data;
+class InputDeviceSettingsSixPackKeyPolicy_Data;
 class KeyboardPolicies_Data;
 class MousePolicies_Data;
 class Keyboard_Data;
@@ -161,6 +162,31 @@ struct CustomizableButton_Data {
       case 4:
       case 5:
       case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct MouseButtonConfig_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -498,6 +524,55 @@ struct InputDeviceSettingsFkeyPolicy_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     InputDeviceSettingsFkeyPolicy_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  InputDeviceSettingsSixPackKeyPolicy_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t policy_status;
+  int32_t value;
+
+ private:
+  friend class mojo::internal::MessageFragment<InputDeviceSettingsSixPackKeyPolicy_Data>;
+
+  InputDeviceSettingsSixPackKeyPolicy_Data();
+  ~InputDeviceSettingsSixPackKeyPolicy_Data() = delete;
+};
+static_assert(sizeof(InputDeviceSettingsSixPackKeyPolicy_Data) == 16,
+              "Bad sizeof(InputDeviceSettingsSixPackKeyPolicy_Data)");
+// Used by InputDeviceSettingsSixPackKeyPolicy::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct InputDeviceSettingsSixPackKeyPolicy_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  InputDeviceSettingsSixPackKeyPolicy_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~InputDeviceSettingsSixPackKeyPolicy_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<InputDeviceSettingsSixPackKeyPolicy_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    InputDeviceSettingsSixPackKeyPolicy_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  KeyboardPolicies_Data {
  public:
   static bool Validate(const void* data,
@@ -506,7 +581,12 @@ class  KeyboardPolicies_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::InputDeviceSettingsPolicy_Data> top_row_are_fkeys_policy;
   mojo::internal::Pointer<internal::InputDeviceSettingsPolicy_Data> enable_meta_fkey_rewrites_policy;
-  mojo::internal::Pointer<internal::InputDeviceSettingsFkeyPolicy_Data> extended_fkeys_policy;
+  mojo::internal::Pointer<internal::InputDeviceSettingsFkeyPolicy_Data> f11_key_policy;
+  mojo::internal::Pointer<internal::InputDeviceSettingsFkeyPolicy_Data> f12_key_policy;
+  mojo::internal::Pointer<internal::InputDeviceSettingsSixPackKeyPolicy_Data> home_and_end_keys_policy;
+  mojo::internal::Pointer<internal::InputDeviceSettingsSixPackKeyPolicy_Data> page_up_and_page_down_keys_policy;
+  mojo::internal::Pointer<internal::InputDeviceSettingsSixPackKeyPolicy_Data> delete_key_policy;
+  mojo::internal::Pointer<internal::InputDeviceSettingsSixPackKeyPolicy_Data> insert_key_policy;
 
  private:
   friend class mojo::internal::MessageFragment<KeyboardPolicies_Data>;
@@ -514,7 +594,7 @@ class  KeyboardPolicies_Data {
   KeyboardPolicies_Data();
   ~KeyboardPolicies_Data() = delete;
 };
-static_assert(sizeof(KeyboardPolicies_Data) == 32,
+static_assert(sizeof(KeyboardPolicies_Data) == 72,
               "Bad sizeof(KeyboardPolicies_Data)");
 // Used by KeyboardPolicies::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -722,7 +802,7 @@ class  Mouse_Data {
   uint32_t id;
   mojo::internal::Pointer<mojo::internal::String_Data> device_key;
   int32_t customization_restriction;
-  uint8_t pad4_[4];
+  int32_t mouse_button_config;
   mojo::internal::Pointer<internal::MouseSettings_Data> settings;
 
  private:

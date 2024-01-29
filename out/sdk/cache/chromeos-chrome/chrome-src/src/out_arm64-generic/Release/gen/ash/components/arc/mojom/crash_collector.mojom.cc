@@ -448,6 +448,8 @@ bool CrashCollectorHostStubDispatch::Accept(
           reinterpret_cast<internal::CrashCollectorHost_DumpCrash_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrashCollectorHost.0
       bool success = true;
       std::string p_type{};
       ::mojo::ScopedHandle p_pipe{};
@@ -469,10 +471,10 @@ bool CrashCollectorHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DumpCrash(
-std::move(p_type), 
-std::move(p_pipe), 
-std::move(p_uptime));
+      impl->DumpCrash(        
+        std::move(p_type), 
+        std::move(p_pipe), 
+        std::move(p_uptime));
       return true;
     }
     case internal::kCrashCollectorHost_SetBuildProperties_Name: {
@@ -482,6 +484,8 @@ std::move(p_uptime));
           reinterpret_cast<internal::CrashCollectorHost_SetBuildProperties_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrashCollectorHost.1
       bool success = true;
       std::string p_device{};
       std::string p_board{};
@@ -506,11 +510,11 @@ std::move(p_uptime));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetBuildProperties(
-std::move(p_device), 
-std::move(p_board), 
-std::move(p_cpu_abi), 
-std::move(p_fingerprint));
+      impl->SetBuildProperties(        
+        std::move(p_device), 
+        std::move(p_board), 
+        std::move(p_cpu_abi), 
+        std::move(p_fingerprint));
       return true;
     }
     case internal::kCrashCollectorHost_DumpNativeCrash_Name: {
@@ -520,6 +524,8 @@ std::move(p_fingerprint));
           reinterpret_cast<internal::CrashCollectorHost_DumpNativeCrash_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrashCollectorHost.2
       bool success = true;
       std::string p_exec_name{};
       int32_t p_pid{};
@@ -544,11 +550,11 @@ std::move(p_fingerprint));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DumpNativeCrash(
-std::move(p_exec_name), 
-std::move(p_pid), 
-std::move(p_timestamp), 
-std::move(p_minidump_fd));
+      impl->DumpNativeCrash(        
+        std::move(p_exec_name), 
+        std::move(p_pid), 
+        std::move(p_timestamp), 
+        std::move(p_minidump_fd));
       return true;
     }
     case internal::kCrashCollectorHost_DumpKernelCrash_Name: {
@@ -558,6 +564,8 @@ std::move(p_minidump_fd));
           reinterpret_cast<internal::CrashCollectorHost_DumpKernelCrash_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CrashCollectorHost.3
       bool success = true;
       ::mojo::ScopedHandle p_ramoops_handle{};
       CrashCollectorHost_DumpKernelCrash_ParamsDataView input_data_view(params, message);
@@ -573,8 +581,8 @@ std::move(p_minidump_fd));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DumpKernelCrash(
-std::move(p_ramoops_handle));
+      impl->DumpKernelCrash(        
+        std::move(p_ramoops_handle));
       return true;
     }
   }
@@ -802,6 +810,8 @@ bool CrashCollectorInstance_Init_ForwardToCallback::Accept(
           internal::CrashCollectorInstance_Init_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CrashCollectorInstance.1
   bool success = true;
   CrashCollectorInstance_Init_ResponseParamsDataView input_data_view(params, message);
   
@@ -880,6 +890,8 @@ bool CrashCollectorInstanceStubDispatch::AcceptWithResponder(
               internal::CrashCollectorInstance_Init_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CrashCollectorInstance.1
       bool success = true;
       ::mojo::PendingRemote<CrashCollectorHost> p_host_remote{};
       CrashCollectorInstance_Init_ParamsDataView input_data_view(params, message);
@@ -900,8 +912,8 @@ bool CrashCollectorInstanceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Init(
-std::move(p_host_remote), std::move(callback));
+      impl->Init(        
+        std::move(p_host_remote), std::move(callback));
       return true;
     }
   }

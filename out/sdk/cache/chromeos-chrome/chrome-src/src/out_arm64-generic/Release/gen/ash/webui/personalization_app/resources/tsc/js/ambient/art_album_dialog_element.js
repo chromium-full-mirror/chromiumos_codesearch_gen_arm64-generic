@@ -4,7 +4,7 @@
 /**
  * @fileoverview The element for displaying information for art albums.
  */
-import '../../css/cros_button_style.css.js';
+import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
 import { getTemplate } from './art_album_dialog_element.html.js';
 export class ArtAlbumDialogElement extends WithPersonalizationStore {

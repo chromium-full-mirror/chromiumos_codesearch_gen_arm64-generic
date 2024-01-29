@@ -63,8 +63,8 @@ struct Permissions {
 
   // The list of host permissions, including those specified in the
   // <code>optional_permissions</code> or <code>permissions</code> keys in the
-  // manifest, and those associated with <a href='content_scripts'>Content
-  // Scripts</a>.
+  // manifest, and those associated with <a
+  // href='/docs/extensions/develop/concepts/content-scripts'>Content Scripts</a>.
   std::optional<std::vector<std::string>> origins;
 
 };

@@ -1824,6 +1824,8 @@ pub struct KnowledgeFactorHashInfo {
     pub algorithm: ::protobuf::EnumOrUnknown<super::recoverable_key_store::KnowledgeFactorHashAlgorithm>,
     // @@protoc_insertion_point(field:user_data_auth.KnowledgeFactorHashInfo.salt)
     pub salt: ::std::vec::Vec<u8>,
+    // @@protoc_insertion_point(field:user_data_auth.KnowledgeFactorHashInfo.should_generate_key_store)
+    pub should_generate_key_store: bool,
     // special fields
     // @@protoc_insertion_point(special_field:user_data_auth.KnowledgeFactorHashInfo.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -1857,6 +1859,9 @@ impl ::protobuf::Message for KnowledgeFactorHashInfo {
                 18 => {
                     self.salt = is.read_bytes()?;
                 },
+                24 => {
+                    self.should_generate_key_store = is.read_bool()?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -1875,6 +1880,9 @@ impl ::protobuf::Message for KnowledgeFactorHashInfo {
         if !self.salt.is_empty() {
             my_size += ::protobuf::rt::bytes_size(2, &self.salt);
         }
+        if self.should_generate_key_store != false {
+            my_size += 1 + 1;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -1886,6 +1894,9 @@ impl ::protobuf::Message for KnowledgeFactorHashInfo {
         }
         if !self.salt.is_empty() {
             os.write_bytes(2, &self.salt)?;
+        }
+        if self.should_generate_key_store != false {
+            os.write_bool(3, self.should_generate_key_store)?;
         }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -1906,6 +1917,7 @@ impl ::protobuf::Message for KnowledgeFactorHashInfo {
     fn clear(&mut self) {
         self.algorithm = ::protobuf::EnumOrUnknown::new(super::recoverable_key_store::KnowledgeFactorHashAlgorithm::HASH_TYPE_UNSPECIFIED);
         self.salt.clear();
+        self.should_generate_key_store = false;
         self.special_fields.clear();
     }
 
@@ -1913,6 +1925,7 @@ impl ::protobuf::Message for KnowledgeFactorHashInfo {
         static instance: KnowledgeFactorHashInfo = KnowledgeFactorHashInfo {
             algorithm: ::protobuf::EnumOrUnknown::from_i32(0),
             salt: ::std::vec::Vec::new(),
+            should_generate_key_store: false,
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

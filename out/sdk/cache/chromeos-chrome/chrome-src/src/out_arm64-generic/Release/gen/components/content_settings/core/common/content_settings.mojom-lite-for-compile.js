@@ -18,22 +18,6 @@ goog.require('mojoBase.mojom.Value');
 
 
 
-goog.provide('contentSettings.mojom.ContentSettingsType');
-goog.provide('contentSettings.mojom.ContentSettingsTypeSpec');
-/**
- * @const { {$: !mojo.internal.MojomType} }
- * @export
- */
-contentSettings.mojom.ContentSettingsTypeSpec = { $: mojo.internal.Enum() };
-
-/**
- * @enum {number}
- * @export
- */
-contentSettings.mojom.ContentSettingsType = {
-  
-};
-
 goog.provide('contentSettings.mojom.ContentSetting');
 goog.provide('contentSettings.mojom.ContentSettingSpec');
 /**

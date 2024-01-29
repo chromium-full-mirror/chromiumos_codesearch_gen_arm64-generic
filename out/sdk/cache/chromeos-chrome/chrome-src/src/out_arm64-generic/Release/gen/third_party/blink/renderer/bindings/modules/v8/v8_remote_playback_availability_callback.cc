@@ -57,9 +57,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_available;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLBoolean>::ToV8(script_state, arg1_available).ToLocal(&v8_arg1_available)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_available = ToV8Traits<IDLBoolean>::ToV8(script_state, arg1_available);
 argv[0] = v8_arg1_available;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();
@@ -98,9 +96,7 @@ const int argc = 1;
 v8::Local<v8::Value> argv[argc];
 v8::Local<v8::Value> v8_arg1_available;
 ScriptState* script_state = CallbackRelevantScriptState();
-if (!ToV8Traits<IDLBoolean>::ToV8(script_state, arg1_available).ToLocal(&v8_arg1_available)) {
-  return v8::Nothing<void>();
-}
+v8_arg1_available = ToV8Traits<IDLBoolean>::ToV8(script_state, arg1_available);
 argv[0] = v8_arg1_available;
 if (!helper.Call(argc, argv)) {
   return v8::Nothing<void>();

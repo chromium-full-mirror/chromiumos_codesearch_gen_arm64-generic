@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "hwdata", "version": "0.373", "revision": 0, "fullname": "sys-apps/hwdata", "fullnamerev": "sys-apps/hwdata-0.373", "license_names": ["GPL-2", "GPL-2+"], "license_text_scanned": [], "homepages": ["https://github.com/vcrhonek/hwdata"], "skip": false, "tainted": false, "ebuild_path": null}

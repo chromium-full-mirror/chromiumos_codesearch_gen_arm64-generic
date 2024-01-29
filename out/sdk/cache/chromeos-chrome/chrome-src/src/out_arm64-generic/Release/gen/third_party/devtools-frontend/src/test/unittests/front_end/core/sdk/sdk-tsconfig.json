@@ -96,7 +96,16 @@
       "path": "../../../../../front_end/generated/protocol-tsconfig.json"
     },
     {
+      "path": "../../../../../front_end/models/bindings/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../../../../front_end/models/persistence/bundle-tsconfig.json"
+    },
+    {
       "path": "../../../../../front_end/models/trace/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../../../../front_end/models/workspace/bundle-tsconfig.json"
     },
     {
       "path": "../../helpers/helpers-tsconfig.json"

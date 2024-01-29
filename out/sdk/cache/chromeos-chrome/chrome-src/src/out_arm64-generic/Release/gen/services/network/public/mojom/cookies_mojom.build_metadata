@@ -2,6 +2,7 @@
   "deps": [
     "mojom_first_party_sets.build_metadata",
     "mojom_schemeful_site.build_metadata",
+    "../../../../components/content_settings/core/common/content_settings_types.build_metadata",
     "../../../../components/content_settings/core/common/mojo_bindings.build_metadata",
     "../../../../mojo/public/mojom/base/base.build_metadata",
     "../../../../sandbox/policy/mojom/mojom.build_metadata",

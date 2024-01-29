@@ -1056,6 +1056,8 @@ bool CdmStorage_Read_ForwardToCallback::Accept(
           internal::CdmStorage_Read_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmStorage.0
   bool success = true;
   bool p_success{};
   std::vector<uint8_t> p_data{};
@@ -1145,6 +1147,8 @@ bool CdmStorage_Read_HandleSyncResponse::Accept(
       reinterpret_cast<internal::CdmStorage_Read_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for CdmStorage.0
   bool success = true;
   bool p_success{};
   std::vector<uint8_t> p_data{};
@@ -1224,6 +1228,8 @@ bool CdmStorage_Write_ForwardToCallback::Accept(
           internal::CdmStorage_Write_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmStorage.1
   bool success = true;
   bool p_success{};
   CdmStorage_Write_ResponseParamsDataView input_data_view(params, message);
@@ -1293,6 +1299,8 @@ bool CdmStorage_Write_HandleSyncResponse::Accept(
       reinterpret_cast<internal::CdmStorage_Write_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for CdmStorage.1
   bool success = true;
   bool p_success{};
   CdmStorage_Write_ResponseParamsDataView input_data_view(params, message);
@@ -1368,6 +1376,8 @@ bool CdmStorage_Exists_ForwardToCallback::Accept(
           internal::CdmStorage_Exists_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmStorage.2
   bool success = true;
   bool p_success{};
   CdmStorage_Exists_ResponseParamsDataView input_data_view(params, message);
@@ -1437,6 +1447,8 @@ bool CdmStorage_Exists_HandleSyncResponse::Accept(
       reinterpret_cast<internal::CdmStorage_Exists_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for CdmStorage.2
   bool success = true;
   bool p_success{};
   CdmStorage_Exists_ResponseParamsDataView input_data_view(params, message);
@@ -1512,6 +1524,8 @@ bool CdmStorage_GetSize_ForwardToCallback::Accept(
           internal::CdmStorage_GetSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmStorage.3
   bool success = true;
   bool p_success{};
   uint64_t p_size{};
@@ -1589,6 +1603,8 @@ bool CdmStorage_GetSize_HandleSyncResponse::Accept(
       reinterpret_cast<internal::CdmStorage_GetSize_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for CdmStorage.3
   bool success = true;
   bool p_success{};
   uint64_t p_size{};
@@ -1668,6 +1684,8 @@ bool CdmStorage_Remove_ForwardToCallback::Accept(
           internal::CdmStorage_Remove_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmStorage.4
   bool success = true;
   bool p_success{};
   CdmStorage_Remove_ResponseParamsDataView input_data_view(params, message);
@@ -1737,6 +1755,8 @@ bool CdmStorage_Remove_HandleSyncResponse::Accept(
       reinterpret_cast<internal::CdmStorage_Remove_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for CdmStorage.4
   bool success = true;
   bool p_success{};
   CdmStorage_Remove_ResponseParamsDataView input_data_view(params, message);
@@ -1795,6 +1815,8 @@ bool CdmStorageStubDispatch::AcceptWithResponder(
               internal::CdmStorage_Read_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmStorage.0
       bool success = true;
       std::string p_file_name{};
       CdmStorage_Read_ParamsDataView input_data_view(params, message);
@@ -1813,8 +1835,8 @@ bool CdmStorageStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Read(
-std::move(p_file_name), std::move(callback));
+      impl->Read(        
+        std::move(p_file_name), std::move(callback));
       return true;
     }
     case internal::kCdmStorage_Write_Name: {
@@ -1824,6 +1846,8 @@ std::move(p_file_name), std::move(callback));
               internal::CdmStorage_Write_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmStorage.1
       bool success = true;
       std::string p_file_name{};
       std::vector<uint8_t> p_data{};
@@ -1845,9 +1869,9 @@ std::move(p_file_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Write(
-std::move(p_file_name), 
-std::move(p_data), std::move(callback));
+      impl->Write(        
+        std::move(p_file_name), 
+        std::move(p_data), std::move(callback));
       return true;
     }
     case internal::kCdmStorage_Exists_Name: {
@@ -1857,6 +1881,8 @@ std::move(p_data), std::move(callback));
               internal::CdmStorage_Exists_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmStorage.2
       bool success = true;
       std::string p_file_name{};
       CdmStorage_Exists_ParamsDataView input_data_view(params, message);
@@ -1875,8 +1901,8 @@ std::move(p_data), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Exists(
-std::move(p_file_name), std::move(callback));
+      impl->Exists(        
+        std::move(p_file_name), std::move(callback));
       return true;
     }
     case internal::kCdmStorage_GetSize_Name: {
@@ -1886,6 +1912,8 @@ std::move(p_file_name), std::move(callback));
               internal::CdmStorage_GetSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmStorage.3
       bool success = true;
       std::string p_file_name{};
       CdmStorage_GetSize_ParamsDataView input_data_view(params, message);
@@ -1904,8 +1932,8 @@ std::move(p_file_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetSize(
-std::move(p_file_name), std::move(callback));
+      impl->GetSize(        
+        std::move(p_file_name), std::move(callback));
       return true;
     }
     case internal::kCdmStorage_Remove_Name: {
@@ -1915,6 +1943,8 @@ std::move(p_file_name), std::move(callback));
               internal::CdmStorage_Remove_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmStorage.4
       bool success = true;
       std::string p_file_name{};
       CdmStorage_Remove_ParamsDataView input_data_view(params, message);
@@ -1933,8 +1963,8 @@ std::move(p_file_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Remove(
-std::move(p_file_name), std::move(callback));
+      impl->Remove(        
+        std::move(p_file_name), std::move(callback));
       return true;
     }
   }

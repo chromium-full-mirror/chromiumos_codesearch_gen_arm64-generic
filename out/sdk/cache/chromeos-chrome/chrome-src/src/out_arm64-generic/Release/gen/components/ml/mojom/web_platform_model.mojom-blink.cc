@@ -377,6 +377,8 @@ bool ModelLoader_Load_ForwardToCallback::Accept(
           internal::ModelLoader_Load_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ModelLoader.0
   bool success = true;
   LoadModelResult p_result{};
   ::mojo::PendingRemote<Model> p_remote{};
@@ -493,6 +495,8 @@ bool ModelLoaderStubDispatch::AcceptWithResponder(
               internal::ModelLoader_Load_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ModelLoader.0
       bool success = true;
       ::mojo_base::BigBuffer p_model_content{};
       ModelLoader_Load_ParamsDataView input_data_view(params, message);
@@ -511,8 +515,8 @@ bool ModelLoaderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Load(
-std::move(p_model_content), std::move(callback));
+      impl->Load(        
+        std::move(p_model_content), std::move(callback));
       return true;
     }
   }
@@ -720,6 +724,8 @@ bool Model_Compute_ForwardToCallback::Accept(
           internal::Model_Compute_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Model.0
   bool success = true;
   ComputeResult p_result{};
   std::optional<WTF::HashMap<WTF::String, WTF::Vector<uint8_t>>> p_output_tensors{};
@@ -827,6 +833,8 @@ bool ModelStubDispatch::AcceptWithResponder(
               internal::Model_Compute_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Model.0
       bool success = true;
       WTF::HashMap<WTF::String, WTF::Vector<uint8_t>> p_input_tensors{};
       Model_Compute_ParamsDataView input_data_view(params, message);
@@ -845,8 +853,8 @@ bool ModelStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Compute(
-std::move(p_input_tensors), std::move(callback));
+      impl->Compute(        
+        std::move(p_input_tensors), std::move(callback));
       return true;
     }
   }

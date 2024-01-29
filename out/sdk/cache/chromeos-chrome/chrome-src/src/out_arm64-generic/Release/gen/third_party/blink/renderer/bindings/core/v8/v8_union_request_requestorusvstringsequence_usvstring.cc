@@ -136,7 +136,7 @@ void V8UnionRequestOrRequestOrUSVStringSequenceOrUSVString::Set(const V8UnionReq
 
 
 
-v8::MaybeLocal<v8::Value> V8UnionRequestOrRequestOrUSVStringSequenceOrUSVString::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionRequestOrRequestOrUSVStringSequenceOrUSVString::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kRequest: {
     return ToV8Traits<Request>::ToV8(script_state, member_request_.Get());
@@ -150,7 +150,7 @@ v8::MaybeLocal<v8::Value> V8UnionRequestOrRequestOrUSVStringSequenceOrUSVString:
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionRequestOrRequestOrUSVStringSequenceOrUSVString::Trace(Visitor* visitor) const {

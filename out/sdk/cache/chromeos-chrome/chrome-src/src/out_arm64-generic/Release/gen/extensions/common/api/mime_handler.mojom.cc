@@ -414,6 +414,8 @@ bool MimeHandlerService_GetStreamInfo_ForwardToCallback::Accept(
           internal::MimeHandlerService_GetStreamInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for MimeHandlerService.0
   bool success = true;
   StreamInfoPtr p_stream_info{};
   MimeHandlerService_GetStreamInfo_ResponseParamsDataView input_data_view(params, message);
@@ -497,6 +499,8 @@ bool MimeHandlerServiceStubDispatch::Accept(
           reinterpret_cast<internal::MimeHandlerService_SetPdfPluginAttributes_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for MimeHandlerService.1
       bool success = true;
       PdfPluginAttributesPtr p_pdf_plugin_attributes{};
       MimeHandlerService_SetPdfPluginAttributes_ParamsDataView input_data_view(params, message);
@@ -512,8 +516,8 @@ bool MimeHandlerServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetPdfPluginAttributes(
-std::move(p_pdf_plugin_attributes));
+      impl->SetPdfPluginAttributes(        
+        std::move(p_pdf_plugin_attributes));
       return true;
     }
   }
@@ -536,6 +540,8 @@ bool MimeHandlerServiceStubDispatch::AcceptWithResponder(
               internal::MimeHandlerService_GetStreamInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for MimeHandlerService.0
       bool success = true;
       MimeHandlerService_GetStreamInfo_ParamsDataView input_data_view(params, message);
       
@@ -752,6 +758,8 @@ bool BeforeUnloadControl_SetShowBeforeUnloadDialog_ForwardToCallback::Accept(
           internal::BeforeUnloadControl_SetShowBeforeUnloadDialog_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for BeforeUnloadControl.0
   bool success = true;
   BeforeUnloadControl_SetShowBeforeUnloadDialog_ResponseParamsDataView input_data_view(params, message);
   
@@ -830,6 +838,8 @@ bool BeforeUnloadControlStubDispatch::AcceptWithResponder(
               internal::BeforeUnloadControl_SetShowBeforeUnloadDialog_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for BeforeUnloadControl.0
       bool success = true;
       bool p_show_dialog{};
       BeforeUnloadControl_SetShowBeforeUnloadDialog_ParamsDataView input_data_view(params, message);
@@ -848,8 +858,8 @@ bool BeforeUnloadControlStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetShowBeforeUnloadDialog(
-std::move(p_show_dialog), std::move(callback));
+      impl->SetShowBeforeUnloadDialog(        
+        std::move(p_show_dialog), std::move(callback));
       return true;
     }
   }

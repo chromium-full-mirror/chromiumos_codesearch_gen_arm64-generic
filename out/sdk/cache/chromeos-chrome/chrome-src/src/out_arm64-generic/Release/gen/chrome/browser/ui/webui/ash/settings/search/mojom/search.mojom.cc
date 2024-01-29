@@ -353,6 +353,8 @@ bool SearchResultsObserverStubDispatch::Accept(
           reinterpret_cast<internal::SearchResultsObserver_OnSearchResultsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SearchResultsObserver.0
       bool success = true;
       SearchResultsObserver_OnSearchResultsChanged_ParamsDataView input_data_view(params, message);
       
@@ -365,7 +367,7 @@ bool SearchResultsObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnSearchResultsChanged();
+      impl->OnSearchResultsChanged(        );
       return true;
     }
   }
@@ -658,6 +660,8 @@ bool SearchHandler_Search_ForwardToCallback::Accept(
           internal::SearchHandler_Search_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SearchHandler.0
   bool success = true;
   std::vector<SearchResultPtr> p_results{};
   SearchHandler_Search_ResponseParamsDataView input_data_view(params, message);
@@ -747,6 +751,8 @@ bool SearchHandlerStubDispatch::Accept(
           reinterpret_cast<internal::SearchHandler_Observe_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SearchHandler.1
       bool success = true;
       ::mojo::PendingRemote<SearchResultsObserver> p_observer{};
       SearchHandler_Observe_ParamsDataView input_data_view(params, message);
@@ -764,8 +770,8 @@ bool SearchHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Observe(
-std::move(p_observer));
+      impl->Observe(        
+        std::move(p_observer));
       return true;
     }
   }
@@ -788,6 +794,8 @@ bool SearchHandlerStubDispatch::AcceptWithResponder(
               internal::SearchHandler_Search_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SearchHandler.0
       bool success = true;
       ::std::u16string p_query{};
       uint32_t p_max_num_results{};
@@ -812,10 +820,10 @@ bool SearchHandlerStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Search(
-std::move(p_query), 
-std::move(p_max_num_results), 
-std::move(p_parent_result_behavior), std::move(callback));
+      impl->Search(        
+        std::move(p_query), 
+        std::move(p_max_num_results), 
+        std::move(p_parent_result_behavior), std::move(callback));
       return true;
     }
     case internal::kSearchHandler_Observe_Name: {

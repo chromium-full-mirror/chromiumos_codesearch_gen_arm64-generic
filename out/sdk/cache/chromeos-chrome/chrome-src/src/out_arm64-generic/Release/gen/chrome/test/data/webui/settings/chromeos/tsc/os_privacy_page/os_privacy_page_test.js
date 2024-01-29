@@ -128,10 +128,43 @@ suite('with isRevampWayfindingEnabled set to true', () => {
 suite('<os-settings-privacy-page>', () => {
     let privacyPage;
     let browserProxy;
+    const PRIVACY_PAGE_PREFS = {
+        'ash': {
+            'user': {
+                'camera_allowed': {
+                    value: true,
+                },
+                'microphone_allowed': {
+                    value: true,
+                },
+            },
+        },
+        'settings': {
+            'suggested_content_enabled': {
+                value: false,
+            },
+        },
+        'cros': {
+            'device': {
+                'peripheral_data_access_enabled': {
+                    value: true,
+                },
+            },
+        },
+        'dns_over_https': {
+            'mode': {
+                value: SecureDnsMode.AUTOMATIC,
+            },
+            'templates': {
+                value: '',
+            },
+        },
+    };
     setup(async () => {
         browserProxy = new TestPeripheralDataAccessBrowserProxy();
         PeripheralDataAccessBrowserProxyImpl.setInstanceForTesting(browserProxy);
         privacyPage = document.createElement('os-settings-privacy-page');
+        privacyPage.prefs = Object.assign({}, PRIVACY_PAGE_PREFS);
         document.body.appendChild(privacyPage);
         flush();
         await browserProxy.whenCalled('isThunderboltSupported');
@@ -177,28 +210,7 @@ suite('<os-settings-privacy-page>', () => {
             showPrivacyHubPage: false,
         });
         // Update the backing pref to enabled.
-        privacyPage.prefs = {
-            'settings': {
-                'suggested_content_enabled': {
-                    value: true,
-                },
-            },
-            'cros': {
-                'device': {
-                    'peripheral_data_access_enabled': {
-                        value: true,
-                    },
-                },
-            },
-            'dns_over_https': {
-                'mode': {
-                    value: SecureDnsMode.AUTOMATIC,
-                },
-                'templates': {
-                    value: '',
-                },
-            },
-        };
+        privacyPage.set('prefs.settings.suggested_content_enabled.value', true);
         flush();
         // The checkbox reflects the updated pref state.
         const suggestedContent = privacyPage.shadowRoot.querySelector('#contentRecommendationsToggle');
@@ -385,6 +397,7 @@ suite('<os-settings-privacy-page>', () => {
         chrome.metricsPrivate =
             fakeMetricsPrivate;
         privacyPage = document.createElement('os-settings-privacy-page');
+        privacyPage.prefs = Object.assign({}, PRIVACY_PAGE_PREFS);
         document.body.appendChild(privacyPage);
         await waitAfterNextRender(privacyPage);
         const privacyHubPageRow = privacyPage.shadowRoot.querySelector('#privacyHubSubpageTrigger');

@@ -342,6 +342,8 @@ bool WebAppOriginAssociationParser_ParseWebAppOriginAssociation_ForwardToCallbac
           internal::WebAppOriginAssociationParser_ParseWebAppOriginAssociation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for WebAppOriginAssociationParser.0
   bool success = true;
   WebAppOriginAssociationPtr p_association{};
   std::vector<WebAppOriginAssociationErrorPtr> p_errors{};
@@ -458,6 +460,8 @@ bool WebAppOriginAssociationParserStubDispatch::AcceptWithResponder(
               internal::WebAppOriginAssociationParser_ParseWebAppOriginAssociation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for WebAppOriginAssociationParser.0
       bool success = true;
       std::string p_raw_json{};
       WebAppOriginAssociationParser_ParseWebAppOriginAssociation_ParamsDataView input_data_view(params, message);
@@ -476,8 +480,8 @@ bool WebAppOriginAssociationParserStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ParseWebAppOriginAssociation(
-std::move(p_raw_json), std::move(callback));
+      impl->ParseWebAppOriginAssociation(        
+        std::move(p_raw_json), std::move(callback));
       return true;
     }
   }

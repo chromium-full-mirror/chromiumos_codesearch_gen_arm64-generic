@@ -25,7 +25,7 @@ const shared_js_1 = require("../../../helpers/shared.js");
         const flameChart = await getFlameChartContainerWhenReady('#container1');
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(flameChart, 'performance/flame_chart_1.png', 1);
     });
-    (0, mocha_extensions_js_1.itScreenshot)('can add candy striping to events', async () => {
+    (0, mocha_extensions_js_1.itScreenshot)('can add decorations to events', async () => {
         await (0, shared_js_1.loadComponentDocExample)('performance_panel/flamechart.html');
         const flameChart = await getFlameChartContainerWhenReady('#container2');
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(flameChart, 'performance/flame_chart_candystripe.png', 0.5);

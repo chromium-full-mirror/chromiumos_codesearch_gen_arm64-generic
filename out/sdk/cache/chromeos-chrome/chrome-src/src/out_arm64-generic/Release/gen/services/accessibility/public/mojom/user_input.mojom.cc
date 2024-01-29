@@ -224,6 +224,8 @@ bool UserInputStubDispatch::Accept(
           reinterpret_cast<internal::UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UserInput.0
       bool success = true;
       SyntheticKeyEventPtr p_key_event{};
       UserInput_SendSyntheticKeyEventForShortcutOrNavigation_ParamsDataView input_data_view(params, message);
@@ -239,8 +241,8 @@ bool UserInputStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendSyntheticKeyEventForShortcutOrNavigation(
-std::move(p_key_event));
+      impl->SendSyntheticKeyEventForShortcutOrNavigation(        
+        std::move(p_key_event));
       return true;
     }
   }

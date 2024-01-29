@@ -2726,6 +2726,8 @@ bool GpuService_EstablishGpuChannel_ForwardToCallback::Accept(
           internal::GpuService_EstablishGpuChannel_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuService.0
   bool success = true;
   ::mojo::ScopedMessagePipeHandle p_channel_handle{};
   ::gpu::GPUInfo p_gpu_info{};
@@ -2850,6 +2852,8 @@ bool GpuService_EstablishGpuChannel_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuService_EstablishGpuChannel_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuService.0
   bool success = true;
   ::mojo::ScopedMessagePipeHandle p_channel_handle{};
   ::gpu::GPUInfo p_gpu_info{};
@@ -2937,6 +2941,8 @@ bool GpuService_CreateGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::GpuService_CreateGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuService.14
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   GpuService_CreateGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -3016,6 +3022,8 @@ bool GpuService_CreateGpuMemoryBuffer_HandleSyncResponse::Accept(
       reinterpret_cast<internal::GpuService_CreateGpuMemoryBuffer_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for GpuService.14
   bool success = true;
   ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
   GpuService_CreateGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -3091,6 +3099,8 @@ bool GpuService_CopyGpuMemoryBuffer_ForwardToCallback::Accept(
           internal::GpuService_CopyGpuMemoryBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuService.16
   bool success = true;
   bool p_success{};
   GpuService_CopyGpuMemoryBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -3210,6 +3220,8 @@ bool GpuService_GetVideoMemoryUsageStats_ForwardToCallback::Accept(
           internal::GpuService_GetVideoMemoryUsageStats_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuService.17
   bool success = true;
   ::gpu::VideoMemoryUsageStats p_stats{};
   GpuService_GetVideoMemoryUsageStats_ResponseParamsDataView input_data_view(params, message);
@@ -3339,6 +3351,8 @@ bool GpuService_GetPeakMemoryUsage_ForwardToCallback::Accept(
           internal::GpuService_GetPeakMemoryUsage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuService.19
   bool success = true;
   uint64_t p_memory_usage{};
   base::flat_map<::gpu::GpuPeakMemoryAllocationSource, uint64_t> p_memory_per_allocation_source{};
@@ -3478,6 +3492,8 @@ bool GpuService_GetDawnInfo_ForwardToCallback::Accept(
           internal::GpuService_GetDawnInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GpuService.31
   bool success = true;
   std::vector<std::string> p_dawn_info_list{};
   GpuService_GetDawnInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3567,6 +3583,8 @@ bool GpuServiceStubDispatch::Accept(
           reinterpret_cast<internal::GpuService_SetChannelClientPid_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.1
       bool success = true;
       int32_t p_client_id{};
       ::base::ProcessId p_client_pid{};
@@ -3585,9 +3603,9 @@ bool GpuServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetChannelClientPid(
-std::move(p_client_id), 
-std::move(p_client_pid));
+      impl->SetChannelClientPid(        
+        std::move(p_client_id), 
+        std::move(p_client_pid));
       return true;
     }
     case internal::kGpuService_SetChannelDiskCacheHandle_Name: {
@@ -3597,6 +3615,8 @@ std::move(p_client_pid));
           reinterpret_cast<internal::GpuService_SetChannelDiskCacheHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.2
       bool success = true;
       int32_t p_client_id{};
       ::gpu::GpuDiskCacheHandle p_cache_handle{};
@@ -3615,9 +3635,9 @@ std::move(p_client_pid));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetChannelDiskCacheHandle(
-std::move(p_client_id), 
-std::move(p_cache_handle));
+      impl->SetChannelDiskCacheHandle(        
+        std::move(p_client_id), 
+        std::move(p_cache_handle));
       return true;
     }
     case internal::kGpuService_OnDiskCacheHandleDestoyed_Name: {
@@ -3627,6 +3647,8 @@ std::move(p_cache_handle));
           reinterpret_cast<internal::GpuService_OnDiskCacheHandleDestoyed_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.3
       bool success = true;
       ::gpu::GpuDiskCacheHandle p_cache_handle{};
       GpuService_OnDiskCacheHandleDestoyed_ParamsDataView input_data_view(params, message);
@@ -3642,8 +3664,8 @@ std::move(p_cache_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnDiskCacheHandleDestoyed(
-std::move(p_cache_handle));
+      impl->OnDiskCacheHandleDestoyed(        
+        std::move(p_cache_handle));
       return true;
     }
     case internal::kGpuService_CloseChannel_Name: {
@@ -3653,6 +3675,8 @@ std::move(p_cache_handle));
           reinterpret_cast<internal::GpuService_CloseChannel_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.4
       bool success = true;
       int32_t p_client_id{};
       GpuService_CloseChannel_ParamsDataView input_data_view(params, message);
@@ -3668,8 +3692,8 @@ std::move(p_cache_handle));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CloseChannel(
-std::move(p_client_id));
+      impl->CloseChannel(        
+        std::move(p_client_id));
       return true;
     }
     case internal::kGpuService_CreateArcVideoDecodeAccelerator_Name: {
@@ -3679,6 +3703,8 @@ std::move(p_client_id));
           reinterpret_cast<internal::GpuService_CreateArcVideoDecodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.5
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator> p_vda{};
       GpuService_CreateArcVideoDecodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -3696,8 +3722,8 @@ std::move(p_client_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateArcVideoDecodeAccelerator(
-std::move(p_vda));
+      impl->CreateArcVideoDecodeAccelerator(        
+        std::move(p_vda));
       return true;
     }
     case internal::kGpuService_CreateArcVideoDecoder_Name: {
@@ -3707,6 +3733,8 @@ std::move(p_vda));
           reinterpret_cast<internal::GpuService_CreateArcVideoDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.6
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoDecoder> p_vd{};
       GpuService_CreateArcVideoDecoder_ParamsDataView input_data_view(params, message);
@@ -3724,8 +3752,8 @@ std::move(p_vda));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateArcVideoDecoder(
-std::move(p_vd));
+      impl->CreateArcVideoDecoder(        
+        std::move(p_vd));
       return true;
     }
     case internal::kGpuService_CreateArcVideoEncodeAccelerator_Name: {
@@ -3735,6 +3763,8 @@ std::move(p_vd));
           reinterpret_cast<internal::GpuService_CreateArcVideoEncodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.7
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator> p_vea{};
       GpuService_CreateArcVideoEncodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -3752,8 +3782,8 @@ std::move(p_vd));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateArcVideoEncodeAccelerator(
-std::move(p_vea));
+      impl->CreateArcVideoEncodeAccelerator(        
+        std::move(p_vea));
       return true;
     }
     case internal::kGpuService_CreateArcVideoProtectedBufferAllocator_Name: {
@@ -3763,6 +3793,8 @@ std::move(p_vea));
           reinterpret_cast<internal::GpuService_CreateArcVideoProtectedBufferAllocator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.8
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator> p_pba{};
       GpuService_CreateArcVideoProtectedBufferAllocator_ParamsDataView input_data_view(params, message);
@@ -3780,8 +3812,8 @@ std::move(p_vea));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateArcVideoProtectedBufferAllocator(
-std::move(p_pba));
+      impl->CreateArcVideoProtectedBufferAllocator(        
+        std::move(p_pba));
       return true;
     }
     case internal::kGpuService_CreateArcProtectedBufferManager_Name: {
@@ -3791,6 +3823,8 @@ std::move(p_pba));
           reinterpret_cast<internal::GpuService_CreateArcProtectedBufferManager_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.9
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::ProtectedBufferManager> p_pbm{};
       GpuService_CreateArcProtectedBufferManager_ParamsDataView input_data_view(params, message);
@@ -3808,8 +3842,8 @@ std::move(p_pba));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateArcProtectedBufferManager(
-std::move(p_pbm));
+      impl->CreateArcProtectedBufferManager(        
+        std::move(p_pbm));
       return true;
     }
     case internal::kGpuService_CreateJpegDecodeAccelerator_Name: {
@@ -3819,6 +3853,8 @@ std::move(p_pbm));
           reinterpret_cast<internal::GpuService_CreateJpegDecodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.10
       bool success = true;
       ::mojo::PendingReceiver<::chromeos_camera::mojom::MjpegDecodeAccelerator> p_jda{};
       GpuService_CreateJpegDecodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -3836,8 +3872,8 @@ std::move(p_pbm));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateJpegDecodeAccelerator(
-std::move(p_jda));
+      impl->CreateJpegDecodeAccelerator(        
+        std::move(p_jda));
       return true;
     }
     case internal::kGpuService_CreateJpegEncodeAccelerator_Name: {
@@ -3847,6 +3883,8 @@ std::move(p_jda));
           reinterpret_cast<internal::GpuService_CreateJpegEncodeAccelerator_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.11
       bool success = true;
       ::mojo::PendingReceiver<::chromeos_camera::mojom::JpegEncodeAccelerator> p_jea{};
       GpuService_CreateJpegEncodeAccelerator_ParamsDataView input_data_view(params, message);
@@ -3864,8 +3902,8 @@ std::move(p_jda));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateJpegEncodeAccelerator(
-std::move(p_jea));
+      impl->CreateJpegEncodeAccelerator(        
+        std::move(p_jea));
       return true;
     }
     case internal::kGpuService_BindClientGmbInterface_Name: {
@@ -3875,6 +3913,8 @@ std::move(p_jea));
           reinterpret_cast<internal::GpuService_BindClientGmbInterface_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.12
       bool success = true;
       ::mojo::PendingReceiver<::gpu::mojom::ClientGmbInterface> p_receiver{};
       int32_t p_client_id{};
@@ -3895,9 +3935,9 @@ std::move(p_jea));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindClientGmbInterface(
-std::move(p_receiver), 
-std::move(p_client_id));
+      impl->BindClientGmbInterface(        
+        std::move(p_receiver), 
+        std::move(p_client_id));
       return true;
     }
     case internal::kGpuService_CreateVideoEncodeAcceleratorProvider_Name: {
@@ -3907,6 +3947,8 @@ std::move(p_client_id));
           reinterpret_cast<internal::GpuService_CreateVideoEncodeAcceleratorProvider_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.13
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::VideoEncodeAcceleratorProvider> p_vea_provider{};
       GpuService_CreateVideoEncodeAcceleratorProvider_ParamsDataView input_data_view(params, message);
@@ -3924,8 +3966,8 @@ std::move(p_client_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVideoEncodeAcceleratorProvider(
-std::move(p_vea_provider));
+      impl->CreateVideoEncodeAcceleratorProvider(        
+        std::move(p_vea_provider));
       return true;
     }
     case internal::kGpuService_CreateGpuMemoryBuffer_Name: {
@@ -3938,6 +3980,8 @@ std::move(p_vea_provider));
           reinterpret_cast<internal::GpuService_DestroyGpuMemoryBuffer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.15
       bool success = true;
       ::gfx::GpuMemoryBufferId p_id{};
       int32_t p_client_id{};
@@ -3956,9 +4000,9 @@ std::move(p_vea_provider));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyGpuMemoryBuffer(
-std::move(p_id), 
-std::move(p_client_id));
+      impl->DestroyGpuMemoryBuffer(        
+        std::move(p_id), 
+        std::move(p_client_id));
       return true;
     }
     case internal::kGpuService_CopyGpuMemoryBuffer_Name: {
@@ -3974,6 +4018,8 @@ std::move(p_client_id));
           reinterpret_cast<internal::GpuService_StartPeakMemoryMonitor_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.18
       bool success = true;
       uint32_t p_sequence_num{};
       GpuService_StartPeakMemoryMonitor_ParamsDataView input_data_view(params, message);
@@ -3989,8 +4035,8 @@ std::move(p_client_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartPeakMemoryMonitor(
-std::move(p_sequence_num));
+      impl->StartPeakMemoryMonitor(        
+        std::move(p_sequence_num));
       return true;
     }
     case internal::kGpuService_GetPeakMemoryUsage_Name: {
@@ -4003,6 +4049,8 @@ std::move(p_sequence_num));
           reinterpret_cast<internal::GpuService_LoadedBlob_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.20
       bool success = true;
       ::gpu::GpuDiskCacheHandle p_cache_handle{};
       std::string p_key{};
@@ -4024,10 +4072,10 @@ std::move(p_sequence_num));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->LoadedBlob(
-std::move(p_cache_handle), 
-std::move(p_key), 
-std::move(p_data));
+      impl->LoadedBlob(        
+        std::move(p_cache_handle), 
+        std::move(p_key), 
+        std::move(p_data));
       return true;
     }
     case internal::kGpuService_WakeUpGpu_Name: {
@@ -4037,6 +4085,8 @@ std::move(p_data));
           reinterpret_cast<internal::GpuService_WakeUpGpu_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.21
       bool success = true;
       GpuService_WakeUpGpu_ParamsDataView input_data_view(params, message);
       
@@ -4049,7 +4099,7 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->WakeUpGpu();
+      impl->WakeUpGpu(        );
       return true;
     }
     case internal::kGpuService_GpuSwitched_Name: {
@@ -4059,6 +4109,8 @@ std::move(p_data));
           reinterpret_cast<internal::GpuService_GpuSwitched_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.22
       bool success = true;
       ::gl::GpuPreference p_active_gpu_heuristic{};
       GpuService_GpuSwitched_ParamsDataView input_data_view(params, message);
@@ -4074,8 +4126,8 @@ std::move(p_data));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GpuSwitched(
-std::move(p_active_gpu_heuristic));
+      impl->GpuSwitched(        
+        std::move(p_active_gpu_heuristic));
       return true;
     }
     case internal::kGpuService_DisplayAdded_Name: {
@@ -4085,6 +4137,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_DisplayAdded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.23
       bool success = true;
       GpuService_DisplayAdded_ParamsDataView input_data_view(params, message);
       
@@ -4097,7 +4151,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayAdded();
+      impl->DisplayAdded(        );
       return true;
     }
     case internal::kGpuService_DisplayRemoved_Name: {
@@ -4107,6 +4161,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_DisplayRemoved_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.24
       bool success = true;
       GpuService_DisplayRemoved_ParamsDataView input_data_view(params, message);
       
@@ -4119,7 +4175,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayRemoved();
+      impl->DisplayRemoved(        );
       return true;
     }
     case internal::kGpuService_DisplayMetricsChanged_Name: {
@@ -4129,6 +4185,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_DisplayMetricsChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.25
       bool success = true;
       GpuService_DisplayMetricsChanged_ParamsDataView input_data_view(params, message);
       
@@ -4141,7 +4199,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DisplayMetricsChanged();
+      impl->DisplayMetricsChanged(        );
       return true;
     }
     case internal::kGpuService_DestroyAllChannels_Name: {
@@ -4151,6 +4209,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_DestroyAllChannels_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.26
       bool success = true;
       GpuService_DestroyAllChannels_ParamsDataView input_data_view(params, message);
       
@@ -4163,7 +4223,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DestroyAllChannels();
+      impl->DestroyAllChannels(        );
       return true;
     }
     case internal::kGpuService_OnBackgroundCleanup_Name: {
@@ -4173,6 +4233,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_OnBackgroundCleanup_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.27
       bool success = true;
       GpuService_OnBackgroundCleanup_ParamsDataView input_data_view(params, message);
       
@@ -4185,7 +4247,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBackgroundCleanup();
+      impl->OnBackgroundCleanup(        );
       return true;
     }
     case internal::kGpuService_OnBackgrounded_Name: {
@@ -4195,6 +4257,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_OnBackgrounded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.28
       bool success = true;
       GpuService_OnBackgrounded_ParamsDataView input_data_view(params, message);
       
@@ -4207,7 +4271,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnBackgrounded();
+      impl->OnBackgrounded(        );
       return true;
     }
     case internal::kGpuService_OnForegrounded_Name: {
@@ -4217,6 +4281,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_OnForegrounded_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.29
       bool success = true;
       GpuService_OnForegrounded_ParamsDataView input_data_view(params, message);
       
@@ -4229,7 +4295,7 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnForegrounded();
+      impl->OnForegrounded(        );
       return true;
     }
     case internal::kGpuService_OnMemoryPressure_Name: {
@@ -4239,6 +4305,8 @@ std::move(p_active_gpu_heuristic));
           reinterpret_cast<internal::GpuService_OnMemoryPressure_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.30
       bool success = true;
       ::base::MemoryPressureListener::MemoryPressureLevel p_level{};
       GpuService_OnMemoryPressure_ParamsDataView input_data_view(params, message);
@@ -4254,8 +4322,8 @@ std::move(p_active_gpu_heuristic));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMemoryPressure(
-std::move(p_level));
+      impl->OnMemoryPressure(        
+        std::move(p_level));
       return true;
     }
     case internal::kGpuService_GetDawnInfo_Name: {
@@ -4268,6 +4336,8 @@ std::move(p_level));
           reinterpret_cast<internal::GpuService_Crash_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.32
       bool success = true;
       GpuService_Crash_ParamsDataView input_data_view(params, message);
       
@@ -4280,7 +4350,7 @@ std::move(p_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Crash();
+      impl->Crash(        );
       return true;
     }
     case internal::kGpuService_Hang_Name: {
@@ -4290,6 +4360,8 @@ std::move(p_level));
           reinterpret_cast<internal::GpuService_Hang_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.33
       bool success = true;
       GpuService_Hang_ParamsDataView input_data_view(params, message);
       
@@ -4302,7 +4374,7 @@ std::move(p_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Hang();
+      impl->Hang(        );
       return true;
     }
     case internal::kGpuService_ThrowJavaException_Name: {
@@ -4312,6 +4384,8 @@ std::move(p_level));
           reinterpret_cast<internal::GpuService_ThrowJavaException_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for GpuService.34
       bool success = true;
       GpuService_ThrowJavaException_ParamsDataView input_data_view(params, message);
       
@@ -4324,7 +4398,7 @@ std::move(p_level));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ThrowJavaException();
+      impl->ThrowJavaException(        );
       return true;
     }
   }
@@ -4347,6 +4421,8 @@ bool GpuServiceStubDispatch::AcceptWithResponder(
               internal::GpuService_EstablishGpuChannel_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuService.0
       bool success = true;
       int32_t p_client_id{};
       uint64_t p_client_tracing_id{};
@@ -4371,10 +4447,10 @@ bool GpuServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->EstablishGpuChannel(
-std::move(p_client_id), 
-std::move(p_client_tracing_id), 
-std::move(p_is_gpu_host), std::move(callback));
+      impl->EstablishGpuChannel(        
+        std::move(p_client_id), 
+        std::move(p_client_tracing_id), 
+        std::move(p_is_gpu_host), std::move(callback));
       return true;
     }
     case internal::kGpuService_SetChannelClientPid_Name: {
@@ -4423,6 +4499,8 @@ std::move(p_is_gpu_host), std::move(callback));
               internal::GpuService_CreateGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuService.14
       bool success = true;
       ::gfx::GpuMemoryBufferId p_id{};
       ::gfx::Size p_size{};
@@ -4456,13 +4534,13 @@ std::move(p_is_gpu_host), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGpuMemoryBuffer(
-std::move(p_id), 
-std::move(p_size), 
-std::move(p_format), 
-std::move(p_usage), 
-std::move(p_client_id), 
-std::move(p_surface_handle), std::move(callback));
+      impl->CreateGpuMemoryBuffer(        
+        std::move(p_id), 
+        std::move(p_size), 
+        std::move(p_format), 
+        std::move(p_usage), 
+        std::move(p_client_id), 
+        std::move(p_surface_handle), std::move(callback));
       return true;
     }
     case internal::kGpuService_DestroyGpuMemoryBuffer_Name: {
@@ -4475,6 +4553,8 @@ std::move(p_surface_handle), std::move(callback));
               internal::GpuService_CopyGpuMemoryBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuService.16
       bool success = true;
       ::gfx::GpuMemoryBufferHandle p_buffer_handle{};
       ::base::UnsafeSharedMemoryRegion p_shared_memory{};
@@ -4496,9 +4576,9 @@ std::move(p_surface_handle), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CopyGpuMemoryBuffer(
-std::move(p_buffer_handle), 
-std::move(p_shared_memory), std::move(callback));
+      impl->CopyGpuMemoryBuffer(        
+        std::move(p_buffer_handle), 
+        std::move(p_shared_memory), std::move(callback));
       return true;
     }
     case internal::kGpuService_GetVideoMemoryUsageStats_Name: {
@@ -4508,6 +4588,8 @@ std::move(p_shared_memory), std::move(callback));
               internal::GpuService_GetVideoMemoryUsageStats_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuService.17
       bool success = true;
       GpuService_GetVideoMemoryUsageStats_ParamsDataView input_data_view(params, message);
       
@@ -4536,6 +4618,8 @@ std::move(p_shared_memory), std::move(callback));
               internal::GpuService_GetPeakMemoryUsage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuService.19
       bool success = true;
       uint32_t p_sequence_num{};
       GpuService_GetPeakMemoryUsage_ParamsDataView input_data_view(params, message);
@@ -4554,8 +4638,8 @@ std::move(p_shared_memory), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetPeakMemoryUsage(
-std::move(p_sequence_num), std::move(callback));
+      impl->GetPeakMemoryUsage(        
+        std::move(p_sequence_num), std::move(callback));
       return true;
     }
     case internal::kGpuService_LoadedBlob_Name: {
@@ -4598,6 +4682,8 @@ std::move(p_sequence_num), std::move(callback));
               internal::GpuService_GetDawnInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GpuService.31
       bool success = true;
       bool p_collect_metrics{};
       GpuService_GetDawnInfo_ParamsDataView input_data_view(params, message);
@@ -4616,8 +4702,8 @@ std::move(p_sequence_num), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetDawnInfo(
-std::move(p_collect_metrics), std::move(callback));
+      impl->GetDawnInfo(        
+        std::move(p_collect_metrics), std::move(callback));
       return true;
     }
     case internal::kGpuService_Crash_Name: {

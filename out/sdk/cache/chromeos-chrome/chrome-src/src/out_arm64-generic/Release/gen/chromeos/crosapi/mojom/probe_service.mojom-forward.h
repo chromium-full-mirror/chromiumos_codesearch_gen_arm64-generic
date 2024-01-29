@@ -82,6 +82,10 @@ class ProbeExternalDisplayInfoDataView;
 
 class ProbeDisplayInfoDataView;
 
+class ProbeThermalSensorInfoDataView;
+
+class ProbeThermalInfoDataView;
+
 class ProbeTelemetryInfoDataView;
 
 class ProbeOemDataDataView;
@@ -103,6 +107,7 @@ class ProbeSystemResultDataView;
 class ProbeNetworkResultDataView;
 class ProbeAudioResultDataView;
 class ProbeDisplayResultDataView;
+class ProbeThermalResultDataView;
 
 enum class ProbeCategoryEnum : int32_t;
 
@@ -119,6 +124,8 @@ enum class ProbeCpuArchitectureEnum : int32_t;
 enum class ProbeTpmGSCVersion : int32_t;
 
 enum class ProbeDisplayInputType : int32_t;
+
+enum class ProbeThermalSensorSource : int32_t;
 class ProbeError;
 using ProbeErrorPtr = mojo::InlinedStructPtr<ProbeError>;
 
@@ -209,6 +216,12 @@ using ProbeExternalDisplayInfoPtr = mojo::StructPtr<ProbeExternalDisplayInfo>;
 class ProbeDisplayInfo;
 using ProbeDisplayInfoPtr = mojo::StructPtr<ProbeDisplayInfo>;
 
+class ProbeThermalSensorInfo;
+using ProbeThermalSensorInfoPtr = mojo::InlinedStructPtr<ProbeThermalSensorInfo>;
+
+class ProbeThermalInfo;
+using ProbeThermalInfoPtr = mojo::StructPtr<ProbeThermalInfo>;
+
 class ProbeTelemetryInfo;
 using ProbeTelemetryInfoPtr = mojo::StructPtr<ProbeTelemetryInfo>;
 
@@ -282,6 +295,10 @@ using ProbeAudioResultPtr = mojo::StructPtr<ProbeAudioResult>;
 class ProbeDisplayResult;
 
 using ProbeDisplayResultPtr = mojo::StructPtr<ProbeDisplayResult>;
+
+class ProbeThermalResult;
+
+using ProbeThermalResultPtr = mojo::StructPtr<ProbeThermalResult>;
 
 class TelemetryProbeService;
 

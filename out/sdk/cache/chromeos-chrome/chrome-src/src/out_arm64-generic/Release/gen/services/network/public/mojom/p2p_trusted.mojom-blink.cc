@@ -230,6 +230,8 @@ bool P2PTrustedSocketManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::P2PTrustedSocketManagerClient_InvalidSocketPortRangeRequested_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PTrustedSocketManagerClient.0
       bool success = true;
       P2PTrustedSocketManagerClient_InvalidSocketPortRangeRequested_ParamsDataView input_data_view(params, message);
       
@@ -242,7 +244,7 @@ bool P2PTrustedSocketManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->InvalidSocketPortRangeRequested();
+      impl->InvalidSocketPortRangeRequested(        );
       return true;
     }
     case internal::kP2PTrustedSocketManagerClient_DumpPacket_Name: {
@@ -252,6 +254,8 @@ bool P2PTrustedSocketManagerClientStubDispatch::Accept(
           reinterpret_cast<internal::P2PTrustedSocketManagerClient_DumpPacket_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PTrustedSocketManagerClient.1
       bool success = true;
       WTF::Vector<uint8_t> p_packet_header{};
       uint64_t p_packet_length{};
@@ -273,10 +277,10 @@ bool P2PTrustedSocketManagerClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DumpPacket(
-std::move(p_packet_header), 
-std::move(p_packet_length), 
-std::move(p_incoming));
+      impl->DumpPacket(        
+        std::move(p_packet_header), 
+        std::move(p_packet_length), 
+        std::move(p_incoming));
       return true;
     }
   }
@@ -602,6 +606,8 @@ bool P2PTrustedSocketManagerStubDispatch::Accept(
           reinterpret_cast<internal::P2PTrustedSocketManager_StartRtpDump_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PTrustedSocketManager.0
       bool success = true;
       bool p_incoming{};
       bool p_outgoing{};
@@ -620,9 +626,9 @@ bool P2PTrustedSocketManagerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartRtpDump(
-std::move(p_incoming), 
-std::move(p_outgoing));
+      impl->StartRtpDump(        
+        std::move(p_incoming), 
+        std::move(p_outgoing));
       return true;
     }
     case internal::kP2PTrustedSocketManager_StopRtpDump_Name: {
@@ -632,6 +638,8 @@ std::move(p_outgoing));
           reinterpret_cast<internal::P2PTrustedSocketManager_StopRtpDump_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PTrustedSocketManager.1
       bool success = true;
       bool p_incoming{};
       bool p_outgoing{};
@@ -650,9 +658,9 @@ std::move(p_outgoing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StopRtpDump(
-std::move(p_incoming), 
-std::move(p_outgoing));
+      impl->StopRtpDump(        
+        std::move(p_incoming), 
+        std::move(p_outgoing));
       return true;
     }
     case internal::kP2PTrustedSocketManager_PauseNetworkChangeNotifications_Name: {
@@ -662,6 +670,8 @@ std::move(p_outgoing));
           reinterpret_cast<internal::P2PTrustedSocketManager_PauseNetworkChangeNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PTrustedSocketManager.2
       bool success = true;
       P2PTrustedSocketManager_PauseNetworkChangeNotifications_ParamsDataView input_data_view(params, message);
       
@@ -674,7 +684,7 @@ std::move(p_outgoing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->PauseNetworkChangeNotifications();
+      impl->PauseNetworkChangeNotifications(        );
       return true;
     }
     case internal::kP2PTrustedSocketManager_ResumeNetworkChangeNotifications_Name: {
@@ -684,6 +694,8 @@ std::move(p_outgoing));
           reinterpret_cast<internal::P2PTrustedSocketManager_ResumeNetworkChangeNotifications_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for P2PTrustedSocketManager.3
       bool success = true;
       P2PTrustedSocketManager_ResumeNetworkChangeNotifications_ParamsDataView input_data_view(params, message);
       
@@ -696,7 +708,7 @@ std::move(p_outgoing));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResumeNetworkChangeNotifications();
+      impl->ResumeNetworkChangeNotifications(        );
       return true;
     }
   }

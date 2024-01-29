@@ -166,6 +166,8 @@ bool AshEventReporterStubDispatch::Accept(
           reinterpret_cast<internal::AshEventReporter_SendKeyboardDiagnosticEvent_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AshEventReporter.0
       bool success = true;
       ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr p_info{};
       AshEventReporter_SendKeyboardDiagnosticEvent_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool AshEventReporterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendKeyboardDiagnosticEvent(
-std::move(p_info));
+      impl->SendKeyboardDiagnosticEvent(        
+        std::move(p_info));
       return true;
     }
   }

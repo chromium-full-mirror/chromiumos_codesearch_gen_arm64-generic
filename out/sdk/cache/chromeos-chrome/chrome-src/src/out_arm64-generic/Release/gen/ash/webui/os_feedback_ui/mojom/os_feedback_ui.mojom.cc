@@ -696,6 +696,8 @@ bool HelpContentProvider_GetHelpContents_ForwardToCallback::Accept(
           internal::HelpContentProvider_GetHelpContents_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for HelpContentProvider.0
   bool success = true;
   SearchResponsePtr p_response{};
   HelpContentProvider_GetHelpContents_ResponseParamsDataView input_data_view(params, message);
@@ -796,6 +798,8 @@ bool HelpContentProviderStubDispatch::AcceptWithResponder(
               internal::HelpContentProvider_GetHelpContents_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for HelpContentProvider.0
       bool success = true;
       SearchRequestPtr p_request{};
       HelpContentProvider_GetHelpContents_ParamsDataView input_data_view(params, message);
@@ -814,8 +818,8 @@ bool HelpContentProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetHelpContents(
-std::move(p_request), std::move(callback));
+      impl->GetHelpContents(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }
@@ -1753,6 +1757,8 @@ bool FeedbackServiceProvider_GetFeedbackContext_ForwardToCallback::Accept(
           internal::FeedbackServiceProvider_GetFeedbackContext_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FeedbackServiceProvider.0
   bool success = true;
   FeedbackContextPtr p_feedback_context{};
   FeedbackServiceProvider_GetFeedbackContext_ResponseParamsDataView input_data_view(params, message);
@@ -1882,6 +1888,8 @@ bool FeedbackServiceProvider_GetScreenshotPng_ForwardToCallback::Accept(
           internal::FeedbackServiceProvider_GetScreenshotPng_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FeedbackServiceProvider.1
   bool success = true;
   std::vector<uint8_t> p_png_data{};
   FeedbackServiceProvider_GetScreenshotPng_ResponseParamsDataView input_data_view(params, message);
@@ -2013,6 +2021,8 @@ bool FeedbackServiceProvider_SendReport_ForwardToCallback::Accept(
           internal::FeedbackServiceProvider_SendReport_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for FeedbackServiceProvider.2
   bool success = true;
   SendReportStatus p_status{};
   FeedbackServiceProvider_SendReport_ResponseParamsDataView input_data_view(params, message);
@@ -2097,6 +2107,8 @@ bool FeedbackServiceProviderStubDispatch::Accept(
           reinterpret_cast<internal::FeedbackServiceProvider_OpenDiagnosticsApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.3
       bool success = true;
       FeedbackServiceProvider_OpenDiagnosticsApp_ParamsDataView input_data_view(params, message);
       
@@ -2109,7 +2121,7 @@ bool FeedbackServiceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenDiagnosticsApp();
+      impl->OpenDiagnosticsApp(        );
       return true;
     }
     case internal::kFeedbackServiceProvider_OpenExploreApp_Name: {
@@ -2119,6 +2131,8 @@ bool FeedbackServiceProviderStubDispatch::Accept(
           reinterpret_cast<internal::FeedbackServiceProvider_OpenExploreApp_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.4
       bool success = true;
       FeedbackServiceProvider_OpenExploreApp_ParamsDataView input_data_view(params, message);
       
@@ -2131,7 +2145,7 @@ bool FeedbackServiceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenExploreApp();
+      impl->OpenExploreApp(        );
       return true;
     }
     case internal::kFeedbackServiceProvider_OpenMetricsDialog_Name: {
@@ -2141,6 +2155,8 @@ bool FeedbackServiceProviderStubDispatch::Accept(
           reinterpret_cast<internal::FeedbackServiceProvider_OpenMetricsDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.5
       bool success = true;
       FeedbackServiceProvider_OpenMetricsDialog_ParamsDataView input_data_view(params, message);
       
@@ -2153,7 +2169,7 @@ bool FeedbackServiceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenMetricsDialog();
+      impl->OpenMetricsDialog(        );
       return true;
     }
     case internal::kFeedbackServiceProvider_OpenSystemInfoDialog_Name: {
@@ -2163,6 +2179,8 @@ bool FeedbackServiceProviderStubDispatch::Accept(
           reinterpret_cast<internal::FeedbackServiceProvider_OpenSystemInfoDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.6
       bool success = true;
       FeedbackServiceProvider_OpenSystemInfoDialog_ParamsDataView input_data_view(params, message);
       
@@ -2175,7 +2193,7 @@ bool FeedbackServiceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenSystemInfoDialog();
+      impl->OpenSystemInfoDialog(        );
       return true;
     }
     case internal::kFeedbackServiceProvider_OpenAutofillDialog_Name: {
@@ -2185,6 +2203,8 @@ bool FeedbackServiceProviderStubDispatch::Accept(
           reinterpret_cast<internal::FeedbackServiceProvider_OpenAutofillDialog_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.7
       bool success = true;
       std::string p_autofill_metadata{};
       FeedbackServiceProvider_OpenAutofillDialog_ParamsDataView input_data_view(params, message);
@@ -2200,8 +2220,8 @@ bool FeedbackServiceProviderStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OpenAutofillDialog(
-std::move(p_autofill_metadata));
+      impl->OpenAutofillDialog(        
+        std::move(p_autofill_metadata));
       return true;
     }
     case internal::kFeedbackServiceProvider_RecordPostSubmitAction_Name: {
@@ -2211,6 +2231,8 @@ std::move(p_autofill_metadata));
           reinterpret_cast<internal::FeedbackServiceProvider_RecordPostSubmitAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.8
       bool success = true;
       FeedbackAppPostSubmitAction p_action{};
       FeedbackServiceProvider_RecordPostSubmitAction_ParamsDataView input_data_view(params, message);
@@ -2226,8 +2248,8 @@ std::move(p_autofill_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordPostSubmitAction(
-std::move(p_action));
+      impl->RecordPostSubmitAction(        
+        std::move(p_action));
       return true;
     }
     case internal::kFeedbackServiceProvider_RecordPreSubmitAction_Name: {
@@ -2237,6 +2259,8 @@ std::move(p_action));
           reinterpret_cast<internal::FeedbackServiceProvider_RecordPreSubmitAction_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.9
       bool success = true;
       FeedbackAppPreSubmitAction p_action{};
       FeedbackServiceProvider_RecordPreSubmitAction_ParamsDataView input_data_view(params, message);
@@ -2252,8 +2276,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordPreSubmitAction(
-std::move(p_action));
+      impl->RecordPreSubmitAction(        
+        std::move(p_action));
       return true;
     }
     case internal::kFeedbackServiceProvider_RecordExitPath_Name: {
@@ -2263,6 +2287,8 @@ std::move(p_action));
           reinterpret_cast<internal::FeedbackServiceProvider_RecordExitPath_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.10
       bool success = true;
       FeedbackAppExitPath p_exit_path{};
       FeedbackServiceProvider_RecordExitPath_ParamsDataView input_data_view(params, message);
@@ -2278,8 +2304,8 @@ std::move(p_action));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordExitPath(
-std::move(p_exit_path));
+      impl->RecordExitPath(        
+        std::move(p_exit_path));
       return true;
     }
     case internal::kFeedbackServiceProvider_RecordHelpContentOutcome_Name: {
@@ -2289,6 +2315,8 @@ std::move(p_exit_path));
           reinterpret_cast<internal::FeedbackServiceProvider_RecordHelpContentOutcome_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.11
       bool success = true;
       FeedbackAppHelpContentOutcome p_outcome{};
       FeedbackServiceProvider_RecordHelpContentOutcome_ParamsDataView input_data_view(params, message);
@@ -2304,8 +2332,8 @@ std::move(p_exit_path));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordHelpContentOutcome(
-std::move(p_outcome));
+      impl->RecordHelpContentOutcome(        
+        std::move(p_outcome));
       return true;
     }
     case internal::kFeedbackServiceProvider_RecordHelpContentSearchResultCount_Name: {
@@ -2315,6 +2343,8 @@ std::move(p_outcome));
           reinterpret_cast<internal::FeedbackServiceProvider_RecordHelpContentSearchResultCount_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.12
       bool success = true;
       int32_t p_count{};
       FeedbackServiceProvider_RecordHelpContentSearchResultCount_ParamsDataView input_data_view(params, message);
@@ -2330,8 +2360,8 @@ std::move(p_outcome));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RecordHelpContentSearchResultCount(
-std::move(p_count));
+      impl->RecordHelpContentSearchResultCount(        
+        std::move(p_count));
       return true;
     }
   }
@@ -2354,6 +2384,8 @@ bool FeedbackServiceProviderStubDispatch::AcceptWithResponder(
               internal::FeedbackServiceProvider_GetFeedbackContext_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.0
       bool success = true;
       FeedbackServiceProvider_GetFeedbackContext_ParamsDataView input_data_view(params, message);
       
@@ -2379,6 +2411,8 @@ bool FeedbackServiceProviderStubDispatch::AcceptWithResponder(
               internal::FeedbackServiceProvider_GetScreenshotPng_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.1
       bool success = true;
       FeedbackServiceProvider_GetScreenshotPng_ParamsDataView input_data_view(params, message);
       
@@ -2404,6 +2438,8 @@ bool FeedbackServiceProviderStubDispatch::AcceptWithResponder(
               internal::FeedbackServiceProvider_SendReport_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for FeedbackServiceProvider.2
       bool success = true;
       ReportPtr p_report{};
       FeedbackServiceProvider_SendReport_ParamsDataView input_data_view(params, message);
@@ -2422,8 +2458,8 @@ bool FeedbackServiceProviderStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SendReport(
-std::move(p_report), std::move(callback));
+      impl->SendReport(        
+        std::move(p_report), std::move(callback));
       return true;
     }
     case internal::kFeedbackServiceProvider_OpenDiagnosticsApp_Name: {

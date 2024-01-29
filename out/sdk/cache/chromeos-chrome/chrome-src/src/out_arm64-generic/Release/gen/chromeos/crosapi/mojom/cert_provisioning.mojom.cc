@@ -332,6 +332,8 @@ bool CertProvisioningObserverStubDispatch::Accept(
           reinterpret_cast<internal::CertProvisioningObserver_OnStateChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertProvisioningObserver.0
       bool success = true;
       CertProvisioningObserver_OnStateChanged_ParamsDataView input_data_view(params, message);
       
@@ -344,7 +346,7 @@ bool CertProvisioningObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnStateChanged();
+      impl->OnStateChanged(        );
       return true;
     }
   }
@@ -753,6 +755,8 @@ bool CertProvisioning_GetStatus_ForwardToCallback::Accept(
           internal::CertProvisioning_GetStatus_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CertProvisioning.1
   bool success = true;
   std::vector<CertProvisioningProcessStatusPtr> p_result{};
   CertProvisioning_GetStatus_ResponseParamsDataView input_data_view(params, message);
@@ -839,6 +843,8 @@ bool CertProvisioningStubDispatch::Accept(
           reinterpret_cast<internal::CertProvisioning_AddObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertProvisioning.0
       bool success = true;
       ::mojo::PendingRemote<CertProvisioningObserver> p_observer{};
       CertProvisioning_AddObserver_ParamsDataView input_data_view(params, message);
@@ -856,8 +862,8 @@ bool CertProvisioningStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddObserver(
-std::move(p_observer));
+      impl->AddObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kCertProvisioning_GetStatus_Name: {
@@ -870,6 +876,8 @@ std::move(p_observer));
           reinterpret_cast<internal::CertProvisioning_UpdateOneProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertProvisioning.2
       bool success = true;
       std::string p_cert_profile_id{};
       CertProvisioning_UpdateOneProcess_ParamsDataView input_data_view(params, message);
@@ -885,8 +893,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->UpdateOneProcess(
-std::move(p_cert_profile_id));
+      impl->UpdateOneProcess(        
+        std::move(p_cert_profile_id));
       return true;
     }
     case internal::kCertProvisioning_ResetOneProcess_Name: {
@@ -896,6 +904,8 @@ std::move(p_cert_profile_id));
           reinterpret_cast<internal::CertProvisioning_ResetOneProcess_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CertProvisioning.3
       bool success = true;
       std::string p_cert_profile_id{};
       CertProvisioning_ResetOneProcess_ParamsDataView input_data_view(params, message);
@@ -911,8 +921,8 @@ std::move(p_cert_profile_id));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ResetOneProcess(
-std::move(p_cert_profile_id));
+      impl->ResetOneProcess(        
+        std::move(p_cert_profile_id));
       return true;
     }
   }
@@ -938,6 +948,8 @@ bool CertProvisioningStubDispatch::AcceptWithResponder(
               internal::CertProvisioning_GetStatus_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CertProvisioning.1
       bool success = true;
       CertProvisioning_GetStatus_ParamsDataView input_data_view(params, message);
       

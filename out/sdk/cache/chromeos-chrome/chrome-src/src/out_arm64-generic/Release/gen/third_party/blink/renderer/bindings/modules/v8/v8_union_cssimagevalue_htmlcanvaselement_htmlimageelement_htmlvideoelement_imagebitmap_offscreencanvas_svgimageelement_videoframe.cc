@@ -159,7 +159,7 @@ void V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElement
 }
 
 
-v8::MaybeLocal<v8::Value> V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame::ToV8Value(ScriptState* script_state) const {
+v8::Local<v8::Value> V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame::ToV8(ScriptState* script_state) const {
   switch (content_type_) {
   case ContentType::kCSSImageValue: {
     return ToV8Traits<CSSStyleImageValue>::ToV8(script_state, member_css_image_value_.Get());
@@ -188,7 +188,7 @@ v8::MaybeLocal<v8::Value> V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElem
 }
 
 NOTREACHED();
-return v8::MaybeLocal<v8::Value>();
+return v8::Local<v8::Value>();
 }
 
 void V8UnionCSSImageValueOrHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrOffscreenCanvasOrSVGImageElementOrVideoFrame::Trace(Visitor* visitor) const {

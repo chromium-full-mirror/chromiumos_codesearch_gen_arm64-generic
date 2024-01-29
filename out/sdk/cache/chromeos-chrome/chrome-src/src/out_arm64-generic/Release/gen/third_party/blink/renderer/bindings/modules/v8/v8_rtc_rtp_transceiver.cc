@@ -132,7 +132,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCRtpTra
 BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.stopped.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_Stopped_AttributeGetter);
 
@@ -151,7 +152,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCRtpTra
 BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.direction.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_Direction_AttributeGetter);
 
@@ -169,7 +171,8 @@ RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_RTCRtpTra
 BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.direction.set");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_Direction_AttributeSetter);
 
@@ -232,17 +235,13 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.getHeaderExtensionsToNegotiate");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getHeaderExtensionsToNegotiate();
-if (!ToV8Traits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -257,17 +256,13 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.getNegotiatedHeaderExtensions");
 
 
 
-v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Object> v8_receiver = info.This();
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
 ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 RTCRtpTransceiver* blink_receiver = V8RTCRtpTransceiver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getNegotiatedHeaderExtensions();
-if (!ToV8Traits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
-  return;
-}
+v8::Local<v8::Value> v8_return_value = ToV8Traits<IDLSequence<RTCRtpHeaderExtensionCapability>>::ToV8(script_state, return_value);
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
@@ -344,7 +339,8 @@ BLINK_BINDINGS_TRACE_EVENT("RTCRtpTransceiver.stop");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+ScriptState* current_script_state = ScriptState::From(current_context);
+ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
 // [Measure], [MeasureAs]
 UseCounter::Count(current_execution_context, WebFeature::kV8RTCRtpTransceiver_Stop_Method);
 

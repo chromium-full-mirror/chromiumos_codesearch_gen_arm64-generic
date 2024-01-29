@@ -46,14 +46,20 @@ export class PageHandlerRemote {
             clusterId
         ]);
     }
+    recordDisabled(clusterId) {
+        this.proxy.sendMessage(5, PageHandler_RecordDisabled_ParamsSpec.$, null, [
+            clusterId
+        ]);
+    }
     recordLayoutTypeShown(layoutType, clusterId) {
-        this.proxy.sendMessage(5, PageHandler_RecordLayoutTypeShown_ParamsSpec.$, null, [
+        this.proxy.sendMessage(6, PageHandler_RecordLayoutTypeShown_ParamsSpec.$, null, [
             layoutType,
             clusterId
         ]);
     }
-    updateClusterVisitsInteractionState(visits, state) {
-        this.proxy.sendMessage(6, PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, null, [
+    updateClusterVisitsInteractionState(clusterId, visits, state) {
+        this.proxy.sendMessage(7, PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, null, [
+            clusterId,
             visits,
             state
         ]);
@@ -74,8 +80,9 @@ export class PageHandlerReceiver {
         this.helper_internal_.registerHandler(2, PageHandler_GetDiscountsForCluster_ParamsSpec.$, PageHandler_GetDiscountsForCluster_ResponseParamsSpec.$, impl.getDiscountsForCluster.bind(impl));
         this.helper_internal_.registerHandler(3, PageHandler_ShowJourneysSidePanel_ParamsSpec.$, null, impl.showJourneysSidePanel.bind(impl));
         this.helper_internal_.registerHandler(4, PageHandler_RecordClick_ParamsSpec.$, null, impl.recordClick.bind(impl));
-        this.helper_internal_.registerHandler(5, PageHandler_RecordLayoutTypeShown_ParamsSpec.$, null, impl.recordLayoutTypeShown.bind(impl));
-        this.helper_internal_.registerHandler(6, PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, null, impl.updateClusterVisitsInteractionState.bind(impl));
+        this.helper_internal_.registerHandler(5, PageHandler_RecordDisabled_ParamsSpec.$, null, impl.recordDisabled.bind(impl));
+        this.helper_internal_.registerHandler(6, PageHandler_RecordLayoutTypeShown_ParamsSpec.$, null, impl.recordLayoutTypeShown.bind(impl));
+        this.helper_internal_.registerHandler(7, PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, null, impl.updateClusterVisitsInteractionState.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -120,12 +127,15 @@ export class PageHandlerCallbackRouter {
         this.recordClick =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, PageHandler_RecordClick_ParamsSpec.$, null, this.recordClick.createReceiverHandler(false /* expectsResponse */));
+        this.recordDisabled =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, PageHandler_RecordDisabled_ParamsSpec.$, null, this.recordDisabled.createReceiverHandler(false /* expectsResponse */));
         this.recordLayoutTypeShown =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, PageHandler_RecordLayoutTypeShown_ParamsSpec.$, null, this.recordLayoutTypeShown.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(6, PageHandler_RecordLayoutTypeShown_ParamsSpec.$, null, this.recordLayoutTypeShown.createReceiverHandler(false /* expectsResponse */));
         this.updateClusterVisitsInteractionState =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(6, PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, null, this.updateClusterVisitsInteractionState.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(7, PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, null, this.updateClusterVisitsInteractionState.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -144,6 +154,7 @@ export const PageHandler_GetDiscountsForCluster_ParamsSpec = { $: {} };
 export const PageHandler_GetDiscountsForCluster_ResponseParamsSpec = { $: {} };
 export const PageHandler_ShowJourneysSidePanel_ParamsSpec = { $: {} };
 export const PageHandler_RecordClick_ParamsSpec = { $: {} };
+export const PageHandler_RecordDisabled_ParamsSpec = { $: {} };
 export const PageHandler_RecordLayoutTypeShown_ParamsSpec = { $: {} };
 export const PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageHandler_GetClusters_ParamsSpec.$, 'PageHandler_GetClusters_Params', [], [[0, 8],]);
@@ -168,11 +179,15 @@ mojo.internal.Struct(PageHandler_ShowJourneysSidePanel_ParamsSpec.$, 'PageHandle
 mojo.internal.Struct(PageHandler_RecordClick_ParamsSpec.$, 'PageHandler_RecordClick_Params', [
     mojo.internal.StructField('clusterId', 0, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
 ], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RecordDisabled_ParamsSpec.$, 'PageHandler_RecordDisabled_Params', [
+    mojo.internal.StructField('clusterId', 0, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(PageHandler_RecordLayoutTypeShown_ParamsSpec.$, 'PageHandler_RecordLayoutTypeShown_Params', [
     mojo.internal.StructField('layoutType', 0, 0, ntp_historyClusters_mojom_LayoutTypeSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('clusterId', 8, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(PageHandler_UpdateClusterVisitsInteractionState_ParamsSpec.$, 'PageHandler_UpdateClusterVisitsInteractionState_Params', [
-    mojo.internal.StructField('visits', 0, 0, mojo.internal.Array(historyClusters_mojom_URLVisitSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('state', 8, 0, historyClusters_mojom_InteractionStateSpec.$, 0, false /* nullable */, 0),
-], [[0, 24],]);
+    mojo.internal.StructField('clusterId', 0, 0, mojo.internal.Int64, BigInt(0), false /* nullable */, 0),
+    mojo.internal.StructField('visits', 8, 0, mojo.internal.Array(historyClusters_mojom_URLVisitSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('state', 16, 0, historyClusters_mojom_InteractionStateSpec.$, 0, false /* nullable */, 0),
+], [[0, 32],]);

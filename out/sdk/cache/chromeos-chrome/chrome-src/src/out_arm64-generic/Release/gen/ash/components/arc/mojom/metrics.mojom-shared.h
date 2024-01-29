@@ -604,26 +604,6 @@ inline bool IsKnownEnumValue(MainAccountHashMigrationStatus value) {
 }
 
 
-enum class AndroidDataSubdirectory : int32_t {
-  
-  kUserInstalledAppDir = 0,
-  
-  kInternalDataDir = 1,
-  
-  kExternalDataRootUserDir = 2,
-  
-  kDEStorageRootUserDir = 3,
-  kMinValue = 0,
-  kMaxValue = 3,
-};
-
- std::ostream& operator<<(std::ostream& os, AndroidDataSubdirectory value);
-inline bool IsKnownEnumValue(AndroidDataSubdirectory value) {
-  return internal::AndroidDataSubdirectory_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
 enum class WaylandTimingEvent : int32_t {
   
   kOther = 0,
@@ -895,10 +875,6 @@ struct hash<::arc::mojom::VpnServiceBuilderCompatApiId>
 template <>
 struct hash<::arc::mojom::MainAccountHashMigrationStatus>
     : public mojo::internal::EnumHashImpl<::arc::mojom::MainAccountHashMigrationStatus> {};
-
-template <>
-struct hash<::arc::mojom::AndroidDataSubdirectory>
-    : public mojo::internal::EnumHashImpl<::arc::mojom::AndroidDataSubdirectory> {};
 
 template <>
 struct hash<::arc::mojom::WaylandTimingEvent>
@@ -1227,26 +1203,6 @@ struct Serializer<::arc::mojom::MainAccountHashMigrationStatus, MaybeConstUserTy
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::arc::mojom::MainAccountHashMigrationStatus>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::arc::mojom::AndroidDataSubdirectory, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::arc::mojom::AndroidDataSubdirectory, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::arc::mojom::AndroidDataSubdirectory>(input)), output);
   }
 };
 
@@ -1594,15 +1550,6 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::arc::mojom::MainAccountHashMigrationStatus> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::MainAccountHashMigrationStatus value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::arc::mojom::AndroidDataSubdirectory> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::AndroidDataSubdirectory value);
 };
 
 } // namespace perfetto

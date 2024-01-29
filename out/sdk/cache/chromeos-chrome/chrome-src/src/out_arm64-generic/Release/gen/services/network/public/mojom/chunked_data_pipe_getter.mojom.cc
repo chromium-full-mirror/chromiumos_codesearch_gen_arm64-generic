@@ -276,6 +276,8 @@ bool ChunkedDataPipeGetter_GetSize_ForwardToCallback::Accept(
           internal::ChunkedDataPipeGetter_GetSize_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for ChunkedDataPipeGetter.0
   bool success = true;
   int32_t p_status{};
   uint64_t p_size{};
@@ -361,6 +363,8 @@ bool ChunkedDataPipeGetterStubDispatch::Accept(
           reinterpret_cast<internal::ChunkedDataPipeGetter_StartReading_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for ChunkedDataPipeGetter.1
       bool success = true;
       ::mojo::ScopedDataPipeProducerHandle p_pipe{};
       ChunkedDataPipeGetter_StartReading_ParamsDataView input_data_view(params, message);
@@ -376,8 +380,8 @@ bool ChunkedDataPipeGetterStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->StartReading(
-std::move(p_pipe));
+      impl->StartReading(        
+        std::move(p_pipe));
       return true;
     }
   }
@@ -400,6 +404,8 @@ bool ChunkedDataPipeGetterStubDispatch::AcceptWithResponder(
               internal::ChunkedDataPipeGetter_GetSize_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for ChunkedDataPipeGetter.0
       bool success = true;
       ChunkedDataPipeGetter_GetSize_ParamsDataView input_data_view(params, message);
       

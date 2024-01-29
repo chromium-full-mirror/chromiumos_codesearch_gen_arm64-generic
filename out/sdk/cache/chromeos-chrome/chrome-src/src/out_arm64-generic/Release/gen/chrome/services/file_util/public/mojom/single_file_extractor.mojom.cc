@@ -251,6 +251,8 @@ bool SingleFileExtractor_Extract_ForwardToCallback::Accept(
           internal::SingleFileExtractor_Extract_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for SingleFileExtractor.0
   bool success = true;
   ::chrome::file_util::mojom::ExtractionResult p_result{};
   SingleFileExtractor_Extract_ResponseParamsDataView input_data_view(params, message);
@@ -342,6 +344,8 @@ bool SingleFileExtractorStubDispatch::AcceptWithResponder(
               internal::SingleFileExtractor_Extract_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for SingleFileExtractor.0
       bool success = true;
       ::base::File p_src_file{};
       ::base::File p_dst_file{};
@@ -368,10 +372,10 @@ bool SingleFileExtractorStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Extract(
-std::move(p_src_file), 
-std::move(p_dst_file), 
-std::move(p_listener), std::move(callback));
+      impl->Extract(        
+        std::move(p_src_file), 
+        std::move(p_dst_file), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
   }
@@ -509,6 +513,8 @@ bool SingleFileExtractorListenerStubDispatch::Accept(
           reinterpret_cast<internal::SingleFileExtractorListener_OnProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for SingleFileExtractorListener.0
       bool success = true;
       uint64_t p_total_bytes{};
       uint64_t p_progress_bytes{};
@@ -527,9 +533,9 @@ bool SingleFileExtractorListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProgress(
-std::move(p_total_bytes), 
-std::move(p_progress_bytes));
+      impl->OnProgress(        
+        std::move(p_total_bytes), 
+        std::move(p_progress_bytes));
       return true;
     }
   }

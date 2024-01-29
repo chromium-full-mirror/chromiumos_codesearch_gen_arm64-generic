@@ -166,6 +166,8 @@ bool DriveIntegrationServiceObserverStubDispatch::Accept(
           reinterpret_cast<internal::DriveIntegrationServiceObserver_OnMountPointPathChanged_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveIntegrationServiceObserver.0
       bool success = true;
       ::base::FilePath p_path{};
       DriveIntegrationServiceObserver_OnMountPointPathChanged_ParamsDataView input_data_view(params, message);
@@ -181,8 +183,8 @@ bool DriveIntegrationServiceObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnMountPointPathChanged(
-std::move(p_path));
+      impl->OnMountPointPathChanged(        
+        std::move(p_path));
       return true;
     }
   }
@@ -418,6 +420,8 @@ bool DriveFsNativeMessageHostBridge_ConnectToExtension_ForwardToCallback::Accept
           internal::DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveFsNativeMessageHostBridge.0
   bool success = true;
   ::drivefs::mojom::ExtensionConnectionStatus p_error{};
   DriveFsNativeMessageHostBridge_ConnectToExtension_ResponseParamsDataView input_data_view(params, message);
@@ -509,6 +513,8 @@ bool DriveFsNativeMessageHostBridgeStubDispatch::AcceptWithResponder(
               internal::DriveFsNativeMessageHostBridge_ConnectToExtension_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveFsNativeMessageHostBridge.0
       bool success = true;
       ::drivefs::mojom::ExtensionConnectionParamsPtr p_params{};
       ::mojo::PendingReceiver<::drivefs::mojom::NativeMessagingPort> p_extension_receiver{};
@@ -537,10 +543,10 @@ bool DriveFsNativeMessageHostBridgeStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectToExtension(
-std::move(p_params), 
-std::move(p_extension_receiver), 
-std::move(p_drivefs_remote), std::move(callback));
+      impl->ConnectToExtension(        
+        std::move(p_params), 
+        std::move(p_extension_receiver), 
+        std::move(p_drivefs_remote), std::move(callback));
       return true;
     }
   }
@@ -950,6 +956,8 @@ bool DriveIntegrationService_DeprecatedGetMountPointPath_ForwardToCallback::Acce
           internal::DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DriveIntegrationService.0
   bool success = true;
   ::base::FilePath p_drive_path{};
   DriveIntegrationService_DeprecatedGetMountPointPath_ResponseParamsDataView input_data_view(params, message);
@@ -1037,6 +1045,8 @@ bool DriveIntegrationServiceStubDispatch::Accept(
           reinterpret_cast<internal::DriveIntegrationService_AddDriveIntegrationServiceObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveIntegrationService.1
       bool success = true;
       ::mojo::PendingRemote<DriveIntegrationServiceObserver> p_observer{};
       DriveIntegrationService_AddDriveIntegrationServiceObserver_ParamsDataView input_data_view(params, message);
@@ -1054,8 +1064,8 @@ bool DriveIntegrationServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDriveIntegrationServiceObserver(
-std::move(p_observer));
+      impl->AddDriveIntegrationServiceObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kDriveIntegrationService_CreateNativeHostSession_Name: {
@@ -1065,6 +1075,8 @@ std::move(p_observer));
           reinterpret_cast<internal::DriveIntegrationService_CreateNativeHostSession_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveIntegrationService.2
       bool success = true;
       ::drivefs::mojom::ExtensionConnectionParamsPtr p_params{};
       ::mojo::PendingReceiver<::drivefs::mojom::NativeMessagingHost> p_drivefs_receiver{};
@@ -1090,10 +1102,10 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateNativeHostSession(
-std::move(p_params), 
-std::move(p_drivefs_receiver), 
-std::move(p_extension_remote));
+      impl->CreateNativeHostSession(        
+        std::move(p_params), 
+        std::move(p_drivefs_receiver), 
+        std::move(p_extension_remote));
       return true;
     }
     case internal::kDriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_Name: {
@@ -1103,6 +1115,8 @@ std::move(p_extension_remote));
           reinterpret_cast<internal::DriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DriveIntegrationService.3
       bool success = true;
       ::mojo::PendingRemote<DriveFsNativeMessageHostBridge> p_bridge{};
       DriveIntegrationService_RegisterDriveFsNativeMessageHostBridge_ParamsDataView input_data_view(params, message);
@@ -1120,8 +1134,8 @@ std::move(p_extension_remote));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RegisterDriveFsNativeMessageHostBridge(
-std::move(p_bridge));
+      impl->RegisterDriveFsNativeMessageHostBridge(        
+        std::move(p_bridge));
       return true;
     }
   }
@@ -1144,6 +1158,8 @@ bool DriveIntegrationServiceStubDispatch::AcceptWithResponder(
               internal::DriveIntegrationService_DeprecatedGetMountPointPath_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DriveIntegrationService.0
       bool success = true;
       DriveIntegrationService_DeprecatedGetMountPointPath_ParamsDataView input_data_view(params, message);
       

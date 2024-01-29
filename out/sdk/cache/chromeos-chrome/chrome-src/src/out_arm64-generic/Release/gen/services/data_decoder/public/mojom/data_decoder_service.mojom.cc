@@ -623,6 +623,8 @@ bool DataDecoderServiceStubDispatch::Accept(
           reinterpret_cast<internal::DataDecoderService_BindImageDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.0
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::ImageDecoder> p_receiver{};
       DataDecoderService_BindImageDecoder_ParamsDataView input_data_view(params, message);
@@ -640,8 +642,8 @@ bool DataDecoderServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindImageDecoder(
-std::move(p_receiver));
+      impl->BindImageDecoder(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDataDecoderService_BindJsonParser_Name: {
@@ -651,6 +653,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DataDecoderService_BindJsonParser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.1
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::JsonParser> p_receiver{};
       DataDecoderService_BindJsonParser_ParamsDataView input_data_view(params, message);
@@ -668,8 +672,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindJsonParser(
-std::move(p_receiver));
+      impl->BindJsonParser(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDataDecoderService_BindXmlParser_Name: {
@@ -679,6 +683,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DataDecoderService_BindXmlParser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.2
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::XmlParser> p_reciever{};
       DataDecoderService_BindXmlParser_ParamsDataView input_data_view(params, message);
@@ -696,8 +702,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindXmlParser(
-std::move(p_reciever));
+      impl->BindXmlParser(        
+        std::move(p_reciever));
       return true;
     }
     case internal::kDataDecoderService_BindWebBundleParserFactory_Name: {
@@ -707,6 +713,8 @@ std::move(p_reciever));
           reinterpret_cast<internal::DataDecoderService_BindWebBundleParserFactory_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.3
       bool success = true;
       ::mojo::PendingReceiver<::web_package::mojom::WebBundleParserFactory> p_receiver{};
       DataDecoderService_BindWebBundleParserFactory_ParamsDataView input_data_view(params, message);
@@ -724,8 +732,8 @@ std::move(p_reciever));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindWebBundleParserFactory(
-std::move(p_receiver));
+      impl->BindWebBundleParserFactory(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDataDecoderService_BindGzipper_Name: {
@@ -735,6 +743,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DataDecoderService_BindGzipper_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.4
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::Gzipper> p_receiver{};
       DataDecoderService_BindGzipper_ParamsDataView input_data_view(params, message);
@@ -752,8 +762,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindGzipper(
-std::move(p_receiver));
+      impl->BindGzipper(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDataDecoderService_BindBleScanParser_Name: {
@@ -763,6 +773,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DataDecoderService_BindBleScanParser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.5
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::BleScanParser> p_receiver{};
       DataDecoderService_BindBleScanParser_ParamsDataView input_data_view(params, message);
@@ -780,8 +792,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindBleScanParser(
-std::move(p_receiver));
+      impl->BindBleScanParser(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDataDecoderService_BindStructuredHeadersParser_Name: {
@@ -791,6 +803,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DataDecoderService_BindStructuredHeadersParser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.6
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::StructuredHeadersParser> p_receiver{};
       DataDecoderService_BindStructuredHeadersParser_ParamsDataView input_data_view(params, message);
@@ -808,8 +822,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindStructuredHeadersParser(
-std::move(p_receiver));
+      impl->BindStructuredHeadersParser(        
+        std::move(p_receiver));
       return true;
     }
     case internal::kDataDecoderService_BindCborParser_Name: {
@@ -819,6 +833,8 @@ std::move(p_receiver));
           reinterpret_cast<internal::DataDecoderService_BindCborParser_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DataDecoderService.7
       bool success = true;
       ::mojo::PendingReceiver<::data_decoder::mojom::CborParser> p_receiver{};
       DataDecoderService_BindCborParser_ParamsDataView input_data_view(params, message);
@@ -836,8 +852,8 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindCborParser(
-std::move(p_receiver));
+      impl->BindCborParser(        
+        std::move(p_receiver));
       return true;
     }
   }

@@ -9,9 +9,12 @@
 #include "side_panel_customize_chrome_resources.h"
 
 const webui::ResourcePath kSidePanelCustomizeChromeResources[] = {
+  {"icons/collapse_carets.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_COLLAPSE_CARETS_SVG},
   {"icons/chrome_web_store.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_CHROME_WEB_STORE_SVG},
   {"icons/corner_new_tab_page.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_CORNER_NEW_TAB_PAGE_SVG},
   {"icons/coupons.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_COUPONS_SVG},
+  {"icons/delete.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_DELETE_SVG},
+  {"icons/expand_carets.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_EXPAND_CARETS_SVG},
   {"icons/generated_image.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_GENERATED_IMAGE_SVG},
   {"icons/gm3_corner_new_tab_page.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_GM3_CORNER_NEW_TAB_PAGE_SVG},
   {"icons/gm3_mini_new_tab_page.svg", IDR_SIDE_PANEL_CUSTOMIZE_CHROME_GM3_MINI_NEW_TAB_PAGE_SVG},

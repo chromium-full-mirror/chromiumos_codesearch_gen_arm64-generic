@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.element-reveal-icon{display:inline-block;width:20px;height:20px;-webkit-mask-image:var(--image-file-select-element);background-color:var(--icon-default)}
+`.element-reveal-icon{display:inline-block;width:20px;height:20px;mask-image:var(--image-file-select-element);background-color:var(--icon-default)}
 /*# sourceURL=./elementsPanelLink.css */
 `);
 

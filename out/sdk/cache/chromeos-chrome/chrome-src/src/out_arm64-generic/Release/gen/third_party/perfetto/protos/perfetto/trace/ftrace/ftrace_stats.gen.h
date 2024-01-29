@@ -17,6 +17,7 @@ namespace protos {
 namespace gen {
 class FtraceStats;
 class FtraceCpuStats;
+enum FtraceParseStatus : int;
 enum FtraceStats_Phase : int;
 }  // namespace perfetto
 }  // namespace protos
@@ -29,6 +30,26 @@ class Message;
 namespace perfetto {
 namespace protos {
 namespace gen {
+enum FtraceParseStatus : int {
+  FTRACE_STATUS_UNSPECIFIED = 0,
+  FTRACE_STATUS_OK = 1,
+  FTRACE_STATUS_UNEXPECTED_READ_ERROR = 2,
+  FTRACE_STATUS_PARTIAL_PAGE_READ = 3,
+  FTRACE_STATUS_ABI_INVALID_PAGE_HEADER = 4,
+  FTRACE_STATUS_ABI_SHORT_EVENT_HEADER = 5,
+  FTRACE_STATUS_ABI_NULL_PADDING = 6,
+  FTRACE_STATUS_ABI_SHORT_PADDING_LENGTH = 7,
+  FTRACE_STATUS_ABI_INVALID_PADDING_LENGTH = 8,
+  FTRACE_STATUS_ABI_SHORT_TIME_EXTEND = 9,
+  FTRACE_STATUS_ABI_SHORT_TIME_STAMP = 10,
+  FTRACE_STATUS_ABI_SHORT_DATA_LENGTH = 11,
+  FTRACE_STATUS_ABI_ZERO_DATA_LENGTH = 12,
+  FTRACE_STATUS_ABI_INVALID_DATA_LENGTH = 13,
+  FTRACE_STATUS_ABI_SHORT_EVENT_ID = 14,
+  FTRACE_STATUS_ABI_END_OVERFLOW = 15,
+  FTRACE_STATUS_SHORT_COMPACT_EVENT = 16,
+  FTRACE_STATUS_INVALID_EVENT = 17,
+};
 enum FtraceStats_Phase : int {
   FtraceStats_Phase_UNSPECIFIED = 0,
   FtraceStats_Phase_START_OF_TRACE = 1,
@@ -52,6 +73,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceStats : public ::protozero::CppMessageObj 
     kUnknownFtraceEventsFieldNumber = 6,
     kFailedFtraceEventsFieldNumber = 7,
     kPreserveFtraceBufferFieldNumber = 8,
+    kFtraceParseErrorsFieldNumber = 9,
   };
 
   FtraceStats();
@@ -108,6 +130,13 @@ class PERFETTO_EXPORT_COMPONENT FtraceStats : public ::protozero::CppMessageObj 
   bool preserve_ftrace_buffer() const { return preserve_ftrace_buffer_; }
   void set_preserve_ftrace_buffer(bool value) { preserve_ftrace_buffer_ = value; _has_field_.set(8); }
 
+  const std::vector<FtraceParseStatus>& ftrace_parse_errors() const { return ftrace_parse_errors_; }
+  std::vector<FtraceParseStatus>* mutable_ftrace_parse_errors() { return &ftrace_parse_errors_; }
+  int ftrace_parse_errors_size() const { return static_cast<int>(ftrace_parse_errors_.size()); }
+  void clear_ftrace_parse_errors() { ftrace_parse_errors_.clear(); }
+  void add_ftrace_parse_errors(FtraceParseStatus value) { ftrace_parse_errors_.emplace_back(value); }
+  FtraceParseStatus* add_ftrace_parse_errors() { ftrace_parse_errors_.emplace_back(); return &ftrace_parse_errors_.back(); }
+
  private:
   FtraceStats_Phase phase_{};
   std::vector<FtraceCpuStats> cpu_stats_;
@@ -117,12 +146,13 @@ class PERFETTO_EXPORT_COMPONENT FtraceStats : public ::protozero::CppMessageObj 
   std::vector<std::string> unknown_ftrace_events_;
   std::vector<std::string> failed_ftrace_events_;
   bool preserve_ftrace_buffer_{};
+  std::vector<FtraceParseStatus> ftrace_parse_errors_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<9> _has_field_{};
+  std::bitset<10> _has_field_{};
 };
 
 

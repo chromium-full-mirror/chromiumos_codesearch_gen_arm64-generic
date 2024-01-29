@@ -8,6 +8,8 @@
 #define UI_DISPLAY_MOJOM_DISPLAY_SNAPSHOT_MOJOM_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom.h"
+#include "skia/public/mojom/skcolorspace_primaries.mojom-import-headers.h"
 #include "ui/display/mojom/display_constants.mojom.h"
 #include "ui/display/mojom/display_constants.mojom-import-headers.h"
 #include "ui/display/mojom/display_mode.mojom.h"

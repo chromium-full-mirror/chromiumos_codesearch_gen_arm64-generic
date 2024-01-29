@@ -35,7 +35,8 @@ namespace cryptohome {
 
 inline bool operator==(const SerializedKnowledgeFactorHashInfo& lhs,
                        const SerializedKnowledgeFactorHashInfo& rhs) {
-  return true && lhs.algorithm == rhs.algorithm && lhs.salt == rhs.salt;
+  return true && lhs.algorithm == rhs.algorithm && lhs.salt == rhs.salt &&
+         lhs.should_generate_key_store == rhs.should_generate_key_store;
 }
 inline bool operator!=(const SerializedKnowledgeFactorHashInfo& lhs,
                        const SerializedKnowledgeFactorHashInfo& rhs) {

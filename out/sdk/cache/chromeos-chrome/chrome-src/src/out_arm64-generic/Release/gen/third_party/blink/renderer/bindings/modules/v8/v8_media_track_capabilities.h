@@ -555,6 +555,18 @@ void setTorch(bool value) {
 has_torch_ = true;
 }
 
+bool hasVoiceIsolation() const {
+  return has_voice_isolation_;
+}
+const Vector<bool>& voiceIsolation() const {
+  DCHECK(hasVoiceIsolation());
+return member_voice_isolation_;
+}
+Vector<bool> getVoiceIsolationOr(const Vector<bool>& fallback_value) const;
+Vector<bool> getVoiceIsolationOr(Vector<bool>&& fallback_value) const;
+void setVoiceIsolation(const Vector<bool>& value);
+void setVoiceIsolation(Vector<bool>&& value);
+
 bool hasWhiteBalanceMode() const {
   return has_white_balance_mode_;
 }
@@ -652,6 +664,7 @@ bool has_saturation_ = false;
 bool has_sharpness_ = false;
 bool has_tilt_ = false;
 bool has_torch_ = false;
+bool has_voice_isolation_ = false;
 bool has_white_balance_mode_ = false;
 bool has_width_ = false;
 bool has_zoom_ = false;
@@ -688,6 +701,7 @@ Member<MediaSettingsRange> member_saturation_;
 Member<MediaSettingsRange> member_sharpness_;
 Member<MediaSettingsRange> member_tilt_;
 bool member_torch_;
+Vector<bool> member_voice_isolation_;
 Vector<String> member_white_balance_mode_;
 Member<LongRange> member_width_;
 Member<MediaSettingsRange> member_zoom_;

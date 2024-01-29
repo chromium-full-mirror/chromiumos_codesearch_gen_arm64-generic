@@ -511,6 +511,8 @@ bool InterfaceFactory_CreateCdm_ForwardToCallback::Accept(
           internal::InterfaceFactory_CreateCdm_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for InterfaceFactory.4
   bool success = true;
   ::mojo::PendingRemote<::media::mojom::ContentDecryptionModule> p_cdm{};
   ::media::mojom::CdmContextPtr p_cdm_context{};
@@ -620,6 +622,8 @@ bool InterfaceFactoryStubDispatch::Accept(
           reinterpret_cast<internal::InterfaceFactory_CreateAudioDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterfaceFactory.0
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioDecoder> p_audio_decoder{};
       InterfaceFactory_CreateAudioDecoder_ParamsDataView input_data_view(params, message);
@@ -637,8 +641,8 @@ bool InterfaceFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAudioDecoder(
-std::move(p_audio_decoder));
+      impl->CreateAudioDecoder(        
+        std::move(p_audio_decoder));
       return true;
     }
     case internal::kInterfaceFactory_CreateVideoDecoder_Name: {
@@ -648,6 +652,8 @@ std::move(p_audio_decoder));
           reinterpret_cast<internal::InterfaceFactory_CreateVideoDecoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterfaceFactory.1
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::VideoDecoder> p_video_decoder{};
       ::mojo::PendingRemote<::media::stable::mojom::StableVideoDecoder> p_dst_video_decoder{};
@@ -670,9 +676,9 @@ std::move(p_audio_decoder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateVideoDecoder(
-std::move(p_video_decoder), 
-std::move(p_dst_video_decoder));
+      impl->CreateVideoDecoder(        
+        std::move(p_video_decoder), 
+        std::move(p_dst_video_decoder));
       return true;
     }
     case internal::kInterfaceFactory_CreateAudioEncoder_Name: {
@@ -682,6 +688,8 @@ std::move(p_dst_video_decoder));
           reinterpret_cast<internal::InterfaceFactory_CreateAudioEncoder_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterfaceFactory.2
       bool success = true;
       ::mojo::PendingReceiver<::media::mojom::AudioEncoder> p_audio_encoder{};
       InterfaceFactory_CreateAudioEncoder_ParamsDataView input_data_view(params, message);
@@ -699,8 +707,8 @@ std::move(p_dst_video_decoder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateAudioEncoder(
-std::move(p_audio_encoder));
+      impl->CreateAudioEncoder(        
+        std::move(p_audio_encoder));
       return true;
     }
     case internal::kInterfaceFactory_CreateDefaultRenderer_Name: {
@@ -710,6 +718,8 @@ std::move(p_audio_encoder));
           reinterpret_cast<internal::InterfaceFactory_CreateDefaultRenderer_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for InterfaceFactory.3
       bool success = true;
       std::string p_audio_device_id{};
       ::mojo::PendingReceiver<::media::mojom::Renderer> p_renderer{};
@@ -730,9 +740,9 @@ std::move(p_audio_encoder));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateDefaultRenderer(
-std::move(p_audio_device_id), 
-std::move(p_renderer));
+      impl->CreateDefaultRenderer(        
+        std::move(p_audio_device_id), 
+        std::move(p_renderer));
       return true;
     }
     case internal::kInterfaceFactory_CreateCdm_Name: {
@@ -770,6 +780,8 @@ bool InterfaceFactoryStubDispatch::AcceptWithResponder(
               internal::InterfaceFactory_CreateCdm_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for InterfaceFactory.4
       bool success = true;
       ::media::CdmConfig p_cdm_config{};
       InterfaceFactory_CreateCdm_ParamsDataView input_data_view(params, message);
@@ -788,8 +800,8 @@ bool InterfaceFactoryStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCdm(
-std::move(p_cdm_config), std::move(callback));
+      impl->CreateCdm(        
+        std::move(p_cdm_config), std::move(callback));
       return true;
     }
   }

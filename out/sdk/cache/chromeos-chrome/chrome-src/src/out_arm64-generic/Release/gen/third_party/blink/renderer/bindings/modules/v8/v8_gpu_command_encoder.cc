@@ -1109,7 +1109,7 @@ void V8GPUCommandEncoder::InstallContextIndependentProperties(v8::Isolate* isola
 
 
 
-if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+if (RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) {
   // Disable [NoAllocDirectCall] on x86 due to https://crbug.com/1433212
 #if defined(ARCH_CPU_X86)
 static const IDLMemberInstaller::OperationConfig kOperationTable[] = {

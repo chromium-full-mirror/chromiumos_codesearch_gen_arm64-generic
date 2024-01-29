@@ -410,6 +410,8 @@ bool LibassistantServiceStubDispatch::Accept(
           reinterpret_cast<internal::LibassistantService_Bind_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LibassistantService.0
       bool success = true;
       ::mojo::PendingReceiver<::ash::libassistant::mojom::AudioInputController> p_audio_input_controller{};
       ::mojo::PendingReceiver<::ash::libassistant::mojom::ConversationController> p_conversation_controller{};
@@ -492,21 +494,21 @@ bool LibassistantServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Bind(
-std::move(p_audio_input_controller), 
-std::move(p_conversation_controller), 
-std::move(p_display_controller), 
-std::move(p_media_controller), 
-std::move(p_service_controller), 
-std::move(p_settings_controller), 
-std::move(p_enrollment_controller), 
-std::move(p_timer_controller), 
-std::move(p_audio_output_delegate), 
-std::move(p_device_settings_delegate), 
-std::move(p_media_delegate), 
-std::move(p_delegate), 
-std::move(p_platform_delegate), 
-std::move(p_timer_delegate));
+      impl->Bind(        
+        std::move(p_audio_input_controller), 
+        std::move(p_conversation_controller), 
+        std::move(p_display_controller), 
+        std::move(p_media_controller), 
+        std::move(p_service_controller), 
+        std::move(p_settings_controller), 
+        std::move(p_enrollment_controller), 
+        std::move(p_timer_controller), 
+        std::move(p_audio_output_delegate), 
+        std::move(p_device_settings_delegate), 
+        std::move(p_media_delegate), 
+        std::move(p_delegate), 
+        std::move(p_platform_delegate), 
+        std::move(p_timer_delegate));
       return true;
     }
     case internal::kLibassistantService_AddSpeechRecognitionObserver_Name: {
@@ -516,6 +518,8 @@ std::move(p_timer_delegate));
           reinterpret_cast<internal::LibassistantService_AddSpeechRecognitionObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LibassistantService.1
       bool success = true;
       ::mojo::PendingRemote<::ash::libassistant::mojom::SpeechRecognitionObserver> p_observer{};
       LibassistantService_AddSpeechRecognitionObserver_ParamsDataView input_data_view(params, message);
@@ -533,8 +537,8 @@ std::move(p_timer_delegate));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddSpeechRecognitionObserver(
-std::move(p_observer));
+      impl->AddSpeechRecognitionObserver(        
+        std::move(p_observer));
       return true;
     }
     case internal::kLibassistantService_AddAuthenticationStateObserver_Name: {
@@ -544,6 +548,8 @@ std::move(p_observer));
           reinterpret_cast<internal::LibassistantService_AddAuthenticationStateObserver_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for LibassistantService.2
       bool success = true;
       ::mojo::PendingRemote<::ash::libassistant::mojom::AuthenticationStateObserver> p_observer{};
       LibassistantService_AddAuthenticationStateObserver_ParamsDataView input_data_view(params, message);
@@ -561,8 +567,8 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAuthenticationStateObserver(
-std::move(p_observer));
+      impl->AddAuthenticationStateObserver(        
+        std::move(p_observer));
       return true;
     }
   }

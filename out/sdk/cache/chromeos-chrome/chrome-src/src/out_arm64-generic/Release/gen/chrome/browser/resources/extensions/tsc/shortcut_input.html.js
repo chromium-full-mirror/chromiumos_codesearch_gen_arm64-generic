@@ -6,7 +6,7 @@ export function getTemplate() {
           '$i18nPolymer{shortcutIncludeStartModifier}',
           '$i18nPolymer{shortcutTooManyModifiers}',
           '$i18nPolymer{shortcutNeedCharacter}')]]" value="[[computeText_(shortcut)]]">
-    <cr-icon-button id="edit" aria-label="[[computeEditButtonAriaLabel_(item, command)]]" slot="suffix" class="icon-edit no-overlap" on-click="onEditClick_"></cr-icon-button>
+    <cr-icon-button id="edit" title="$i18n{edit}" aria-label="[[computeEditButtonAriaLabel_(item, command)]]" slot="suffix" class="icon-edit no-overlap" on-click="onEditClick_"></cr-icon-button>
   </cr-input>
 </div>
 <!--_html_template_end_-->`;

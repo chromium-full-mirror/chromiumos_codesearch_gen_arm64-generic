@@ -37,12 +37,21 @@
 
 
 namespace ash::camera_app::mojom {
+class WifiConfigDataView;
+
 
 
 }  // ash::camera_app::mojom
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::ash::camera_app::mojom::WifiConfigDataView> {
+  using Data = ::ash::camera_app::mojom::internal::WifiConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -53,11 +62,11 @@ namespace ash::camera_app::mojom {
 
 enum class ScreenState : int32_t {
   
-  ON = 0,
+  kOn = 0,
   
-  OFF = 1,
+  kOff = 1,
   
-  OFF_AUTO = 2,
+  kOffAuto = 2,
   kMinValue = 0,
   kMaxValue = 2,
 };
@@ -69,15 +78,81 @@ inline bool IsKnownEnumValue(ScreenState value) {
 }
 
 
+enum class WifiSecurityType : int32_t {
+  
+  kNone = 0,
+  
+  kEap = 1,
+  
+  kWep = 2,
+  
+  kWpa = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, WifiSecurityType value);
+inline bool IsKnownEnumValue(WifiSecurityType value) {
+  return internal::WifiSecurityType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class WifiEapMethod : int32_t {
+  
+  kEapTls = 0,
+  
+  kEapTtls = 1,
+  
+  kLeap = 2,
+  
+  kPeap = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, WifiEapMethod value);
+inline bool IsKnownEnumValue(WifiEapMethod value) {
+  return internal::WifiEapMethod_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class WifiEapPhase2Method : int32_t {
+  
+  kAutomatic = 0,
+  
+  kChap = 1,
+  
+  kGtc = 2,
+  
+  kMd5 = 3,
+  
+  kMschap = 4,
+  
+  kMschapv2 = 5,
+  
+  kPap = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+};
+
+ std::ostream& operator<<(std::ostream& os, WifiEapPhase2Method value);
+inline bool IsKnownEnumValue(WifiEapPhase2Method value) {
+  return internal::WifiEapPhase2Method_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class WindowStateType : int32_t {
   
-  MINIMIZED = 0,
+  kMinimized = 0,
   
-  MAXIMIZED = 1,
+  kMaximized = 1,
   
-  FULLSCREEN = 2,
+  kFullscreen = 2,
   
-  REGULAR = 3,
+  kRegular = 3,
   kMinValue = 0,
   kMaxValue = 3,
 };
@@ -91,11 +166,11 @@ inline bool IsKnownEnumValue(WindowStateType value) {
 
 enum class FileMonitorResult : int32_t {
   
-  DELETED = 0,
+  kDeleted = 0,
   
-  CANCELED = 1,
+  kCanceled = 1,
   
-  ERROR = 2,
+  kError = 2,
   kMinValue = 0,
   kMaxValue = 2,
 };
@@ -109,15 +184,15 @@ inline bool IsKnownEnumValue(FileMonitorResult value) {
 
 enum class StorageMonitorStatus : int32_t {
   
-  NORMAL = 0,
+  kNormal = 0,
   
-  LOW = 1,
+  kLow = 1,
   
-  CRITICALLY_LOW = 2,
+  kCriticallyLow = 2,
   
-  CANCELED = 3,
+  kCanceled = 3,
   
-  ERROR = 4,
+  kError = 4,
   kMinValue = 0,
   kMaxValue = 4,
 };
@@ -131,15 +206,15 @@ inline bool IsKnownEnumValue(StorageMonitorStatus value) {
 
 enum class ToteMetricFormat : int32_t {
   
-  PHOTO = 0,
+  kPhoto = 0,
   
-  SCAN_JPG = 1,
+  kScanJpg = 1,
   
-  SCAN_PDF = 2,
+  kScanPdf = 2,
   
-  VIDEO_GIF = 3,
+  kVideoGif = 3,
   
-  VIDEO_MP4 = 4,
+  kVideoMp4 = 4,
   kMinValue = 0,
   kMaxValue = 4,
 };
@@ -153,9 +228,9 @@ inline bool IsKnownEnumValue(ToteMetricFormat value) {
 
 enum class DocumentOutputFormat : int32_t {
   
-  JPEG = 0,
+  kJpeg = 0,
   
-  PDF = 1,
+  kPdf = 1,
   kMinValue = 0,
   kMaxValue = 1,
 };
@@ -248,6 +323,136 @@ using CameraAppHelperAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CameraAppHelperInterfaceBase>;
 
 
+class WifiConfigDataView {
+ public:
+  WifiConfigDataView() = default;
+
+  WifiConfigDataView(
+      internal::WifiConfig_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSsidDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSsid(UserType* output) {
+    
+    auto* pointer = data_->ssid.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSecurity(UserType* output) const {
+    auto data_value = data_->security;
+    return mojo::internal::Deserialize<::ash::camera_app::mojom::WifiSecurityType>(
+        data_value, output);
+  }
+  WifiSecurityType security() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::camera_app::mojom::WifiSecurityType>(data_->security));
+  }
+  inline void GetPasswordDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPassword(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `password` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPassword` instead "
+    "of `ReadPassword if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->password.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadEapMethod(UserType* output) const {
+    if (!data_->eap_method_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::ash::camera_app::mojom::WifiEapMethod>(
+        data_->eap_method_$value, &output->emplace());
+  }
+  std::optional<WifiEapMethod> eap_method() const {
+    if (!data_->eap_method_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::camera_app::mojom::WifiEapMethod>(data_->eap_method_$value));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadEapPhase2Method(UserType* output) const {
+    if (!data_->eap_phase2_method_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::ash::camera_app::mojom::WifiEapPhase2Method>(
+        data_->eap_phase2_method_$value, &output->emplace());
+  }
+  std::optional<WifiEapPhase2Method> eap_phase2_method() const {
+    if (!data_->eap_phase2_method_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::camera_app::mojom::WifiEapPhase2Method>(data_->eap_phase2_method_$value));
+  }
+  inline void GetEapIdentityDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEapIdentity(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `eap_identity` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadEapIdentity` instead "
+    "of `ReadEapIdentity if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->eap_identity.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetEapAnonymousIdentityDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEapAnonymousIdentity(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `eap_anonymous_identity` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadEapAnonymousIdentity` instead "
+    "of `ReadEapAnonymousIdentity if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->eap_anonymous_identity.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WifiConfig_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // ash::camera_app::mojom
 
 namespace std {
@@ -255,6 +460,18 @@ namespace std {
 template <>
 struct hash<::ash::camera_app::mojom::ScreenState>
     : public mojo::internal::EnumHashImpl<::ash::camera_app::mojom::ScreenState> {};
+
+template <>
+struct hash<::ash::camera_app::mojom::WifiSecurityType>
+    : public mojo::internal::EnumHashImpl<::ash::camera_app::mojom::WifiSecurityType> {};
+
+template <>
+struct hash<::ash::camera_app::mojom::WifiEapMethod>
+    : public mojo::internal::EnumHashImpl<::ash::camera_app::mojom::WifiEapMethod> {};
+
+template <>
+struct hash<::ash::camera_app::mojom::WifiEapPhase2Method>
+    : public mojo::internal::EnumHashImpl<::ash::camera_app::mojom::WifiEapPhase2Method> {};
 
 template <>
 struct hash<::ash::camera_app::mojom::WindowStateType>
@@ -295,6 +512,66 @@ struct Serializer<::ash::camera_app::mojom::ScreenState, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::camera_app::mojom::ScreenState>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::camera_app::mojom::WifiSecurityType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::camera_app::mojom::WifiSecurityType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::camera_app::mojom::WifiSecurityType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::camera_app::mojom::WifiEapMethod, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::camera_app::mojom::WifiEapMethod, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::camera_app::mojom::WifiEapMethod>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::camera_app::mojom::WifiEapPhase2Method, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::camera_app::mojom::WifiEapPhase2Method, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::camera_app::mojom::WifiEapPhase2Method>(input)), output);
   }
 };
 
@@ -400,10 +677,115 @@ struct Serializer<::ash::camera_app::mojom::DocumentOutputFormat, MaybeConstUser
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::camera_app::mojom::WifiConfigDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::camera_app::mojom::WifiConfigDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::camera_app::mojom::internal::WifiConfig_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::ssid(input)) in_ssid = Traits::ssid(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->ssid)::BaseType> ssid_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_ssid, ssid_fragment);
+    fragment->ssid.Set(
+        ssid_fragment.is_null() ? nullptr : ssid_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->ssid.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null ssid in WifiConfig struct");
+    mojo::internal::Serialize<::ash::camera_app::mojom::WifiSecurityType>(
+        Traits::security(input), &fragment->security);
+    decltype(Traits::password(input)) in_password = Traits::password(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->password)::BaseType> password_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_password, password_fragment);
+    fragment->password.Set(
+        password_fragment.is_null() ? nullptr : password_fragment.data());
+    fragment->eap_method_$flag = Traits::eap_method(input).has_value();
+    if (Traits::eap_method(input).has_value()) {
+      mojo::internal::Serialize<::ash::camera_app::mojom::WifiEapMethod>(
+          Traits::eap_method(input).value(), &fragment->eap_method_$value);
+    } else {
+      fragment->eap_method_$value =
+          static_cast<int32_t>(::ash::camera_app::mojom::WifiEapMethod::kMinValue);
+    }
+    fragment->eap_phase2_method_$flag = Traits::eap_phase2_method(input).has_value();
+    if (Traits::eap_phase2_method(input).has_value()) {
+      mojo::internal::Serialize<::ash::camera_app::mojom::WifiEapPhase2Method>(
+          Traits::eap_phase2_method(input).value(), &fragment->eap_phase2_method_$value);
+    } else {
+      fragment->eap_phase2_method_$value =
+          static_cast<int32_t>(::ash::camera_app::mojom::WifiEapPhase2Method::kMinValue);
+    }
+    decltype(Traits::eap_identity(input)) in_eap_identity = Traits::eap_identity(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->eap_identity)::BaseType> eap_identity_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_eap_identity, eap_identity_fragment);
+    fragment->eap_identity.Set(
+        eap_identity_fragment.is_null() ? nullptr : eap_identity_fragment.data());
+    decltype(Traits::eap_anonymous_identity(input)) in_eap_anonymous_identity = Traits::eap_anonymous_identity(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->eap_anonymous_identity)::BaseType> eap_anonymous_identity_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_eap_anonymous_identity, eap_anonymous_identity_fragment);
+    fragment->eap_anonymous_identity.Set(
+        eap_anonymous_identity_fragment.is_null() ? nullptr : eap_anonymous_identity_fragment.data());
+  }
+
+  static bool Deserialize(::ash::camera_app::mojom::internal::WifiConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::camera_app::mojom::WifiConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace ash::camera_app::mojom {
+
+inline void WifiConfigDataView::GetSsidDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->ssid.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void WifiConfigDataView::GetPasswordDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->password.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void WifiConfigDataView::GetEapIdentityDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->eap_identity.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void WifiConfigDataView::GetEapAnonymousIdentityDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->eap_anonymous_identity.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
 
 
 }  // ash::camera_app::mojom
@@ -416,6 +798,33 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::camera_app::mojom::ScreenState> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::camera_app::mojom::ScreenState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::camera_app::mojom::WifiSecurityType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::camera_app::mojom::WifiSecurityType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::camera_app::mojom::WifiEapMethod> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::camera_app::mojom::WifiEapMethod value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::camera_app::mojom::WifiEapPhase2Method> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::camera_app::mojom::WifiEapPhase2Method value);
 };
 
 } // namespace perfetto

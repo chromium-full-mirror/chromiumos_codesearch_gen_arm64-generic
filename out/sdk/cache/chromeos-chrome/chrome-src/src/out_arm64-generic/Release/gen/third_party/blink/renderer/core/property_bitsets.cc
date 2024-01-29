@@ -131,6 +131,7 @@ const CSSBitset kKnownExposedProperties{ {
     CSSPropertyID::kFontVariantEastAsian,
     CSSPropertyID::kFontVariantLigatures,
     CSSPropertyID::kFontVariantNumeric,
+    CSSPropertyID::kFontVariantPosition,
     CSSPropertyID::kFontVariationSettings,
     CSSPropertyID::kFontWeight,
     CSSPropertyID::kPosition,

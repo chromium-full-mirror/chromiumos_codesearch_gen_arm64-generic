@@ -237,7 +237,7 @@ class ShareTargetParamsFile final :
   std::string* _internal_add_accept();
   public:
 
-  // required string name = 1;
+  // optional string name = 1;
   bool has_name() const;
   private:
   bool _internal_has_name() const;
@@ -641,7 +641,7 @@ class ShareTarget final :
     kMethodFieldNumber = 2,
     kEnctypeFieldNumber = 3,
   };
-  // required string action = 1;
+  // optional string action = 1;
   bool has_action() const;
   private:
   bool _internal_has_action() const;
@@ -659,7 +659,7 @@ class ShareTarget final :
   std::string* _internal_mutable_action();
   public:
 
-  // required .web_app.ShareTargetParams params = 4;
+  // optional .web_app.ShareTargetParams params = 4;
   bool has_params() const;
   private:
   bool _internal_has_params() const;
@@ -677,7 +677,7 @@ class ShareTarget final :
       ::web_app::ShareTargetParams* params);
   ::web_app::ShareTargetParams* unsafe_arena_release_params();
 
-  // required .web_app.ShareTarget.Method method = 2;
+  // optional .web_app.ShareTarget.Method method = 2;
   bool has_method() const;
   private:
   bool _internal_has_method() const;
@@ -690,7 +690,7 @@ class ShareTarget final :
   void _internal_set_method(::web_app::ShareTarget_Method value);
   public:
 
-  // required .web_app.ShareTarget.Enctype enctype = 3;
+  // optional .web_app.ShareTarget.Enctype enctype = 3;
   bool has_enctype() const;
   private:
   bool _internal_has_enctype() const;
@@ -706,9 +706,6 @@ class ShareTarget final :
   // @@protoc_insertion_point(class_scope:web_app.ShareTarget)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -732,7 +729,7 @@ class ShareTarget final :
 #endif  // __GNUC__
 // ShareTargetParamsFile
 
-// required string name = 1;
+// optional string name = 1;
 inline bool ShareTargetParamsFile::_internal_has_name() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -1127,7 +1124,7 @@ ShareTargetParams::files() const {
 
 // ShareTarget
 
-// required string action = 1;
+// optional string action = 1;
 inline bool ShareTarget::_internal_has_action() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -1195,7 +1192,7 @@ inline void ShareTarget::set_allocated_action(std::string* action) {
   // @@protoc_insertion_point(field_set_allocated:web_app.ShareTarget.action)
 }
 
-// required .web_app.ShareTarget.Method method = 2;
+// optional .web_app.ShareTarget.Method method = 2;
 inline bool ShareTarget::_internal_has_method() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
@@ -1224,7 +1221,7 @@ inline void ShareTarget::set_method(::web_app::ShareTarget_Method value) {
   // @@protoc_insertion_point(field_set:web_app.ShareTarget.method)
 }
 
-// required .web_app.ShareTarget.Enctype enctype = 3;
+// optional .web_app.ShareTarget.Enctype enctype = 3;
 inline bool ShareTarget::_internal_has_enctype() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -1253,7 +1250,7 @@ inline void ShareTarget::set_enctype(::web_app::ShareTarget_Enctype value) {
   // @@protoc_insertion_point(field_set:web_app.ShareTarget.enctype)
 }
 
-// required .web_app.ShareTargetParams params = 4;
+// optional .web_app.ShareTargetParams params = 4;
 inline bool ShareTarget::_internal_has_params() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || params_ != nullptr);

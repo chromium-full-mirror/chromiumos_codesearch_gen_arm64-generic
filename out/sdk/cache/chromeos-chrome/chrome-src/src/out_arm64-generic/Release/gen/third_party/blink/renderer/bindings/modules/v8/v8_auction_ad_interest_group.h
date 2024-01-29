@@ -208,6 +208,24 @@ void setLifetimeMs(double value) {
 has_lifetime_ms_ = true;
 }
 
+bool hasMaxTrustedBiddingSignalsURLLength() const {
+  return has_max_trusted_bidding_signals_url_length_;
+}
+int32_t maxTrustedBiddingSignalsURLLength() const {
+  DCHECK(hasMaxTrustedBiddingSignalsURLLength());
+return member_max_trusted_bidding_signals_url_length_;
+}
+int32_t getMaxTrustedBiddingSignalsURLLengthOr(int32_t fallback_value) const {
+  if (!hasMaxTrustedBiddingSignalsURLLength()) {
+  return fallback_value;
+}
+return member_max_trusted_bidding_signals_url_length_;
+}
+void setMaxTrustedBiddingSignalsURLLength(int32_t value) {
+  member_max_trusted_bidding_signals_url_length_ = value;
+has_max_trusted_bidding_signals_url_length_ = true;
+}
+
 bool hasName() const {
   return true;
 }
@@ -428,6 +446,7 @@ bool has_daily_update_url_ = false;
 bool has_enable_bidding_signals_prioritization_ = false;
 bool has_execution_mode_ = false;
 bool has_lifetime_ms_ = false;
+bool has_max_trusted_bidding_signals_url_length_ = false;
 bool has_priority_ = false;
 bool has_priority_signals_overrides_ = false;
 bool has_priority_vector_ = false;
@@ -454,6 +473,7 @@ String member_daily_update_url_;
 bool member_enable_bidding_signals_prioritization_;
 String member_execution_mode_;
 double member_lifetime_ms_;
+int32_t member_max_trusted_bidding_signals_url_length_;
 String member_name_;
 String member_owner_;
 double member_priority_;

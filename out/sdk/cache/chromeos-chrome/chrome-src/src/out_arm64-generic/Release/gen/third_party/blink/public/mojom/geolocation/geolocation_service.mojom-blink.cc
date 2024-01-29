@@ -228,6 +228,8 @@ bool GeolocationService_CreateGeolocation_ForwardToCallback::Accept(
           internal::GeolocationService_CreateGeolocation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GeolocationService.0
   bool success = true;
   ::blink::mojom::blink::PermissionStatus p_status{};
   GeolocationService_CreateGeolocation_ResponseParamsDataView input_data_view(params, message);
@@ -319,6 +321,8 @@ bool GeolocationServiceStubDispatch::AcceptWithResponder(
               internal::GeolocationService_CreateGeolocation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GeolocationService.0
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::blink::Geolocation> p_receiver{};
       bool p_user_gesture{};
@@ -342,9 +346,9 @@ bool GeolocationServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateGeolocation(
-std::move(p_receiver), 
-std::move(p_user_gesture), std::move(callback));
+      impl->CreateGeolocation(        
+        std::move(p_receiver), 
+        std::move(p_user_gesture), std::move(callback));
       return true;
     }
   }

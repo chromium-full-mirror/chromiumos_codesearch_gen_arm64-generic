@@ -252,6 +252,7 @@ InterestGroup::InterestGroup()
       update_url(),
       trusted_bidding_signals_url(),
       trusted_bidding_signals_keys(),
+      max_trusted_bidding_signals_url_length(0),
       user_bidding_signals(),
       ads(),
       ad_components(),
@@ -278,6 +279,7 @@ InterestGroup::InterestGroup(
     const std::optional<::blink::KURL>& update_url_in,
     const std::optional<::blink::KURL>& trusted_bidding_signals_url_in,
     std::optional<WTF::Vector<WTF::String>> trusted_bidding_signals_keys_in,
+    int32_t max_trusted_bidding_signals_url_length_in,
     const WTF::String& user_bidding_signals_in,
     std::optional<WTF::Vector<InterestGroupAdPtr>> ads_in,
     std::optional<WTF::Vector<InterestGroupAdPtr>> ad_components_in,
@@ -302,6 +304,7 @@ InterestGroup::InterestGroup(
       update_url(std::move(update_url_in)),
       trusted_bidding_signals_url(std::move(trusted_bidding_signals_url_in)),
       trusted_bidding_signals_keys(std::move(trusted_bidding_signals_keys_in)),
+      max_trusted_bidding_signals_url_length(std::move(max_trusted_bidding_signals_url_length_in)),
       user_bidding_signals(std::move(user_bidding_signals_in)),
       ads(std::move(ads_in)),
       ad_components(std::move(ad_components_in)),
@@ -456,6 +459,15 @@ void InterestGroup::WriteIntoTrace(
       "trusted_bidding_signals_keys"), this->trusted_bidding_signals_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<WTF::Vector<WTF::String>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_trusted_bidding_signals_url_length"), this->max_trusted_bidding_signals_url_length,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -779,6 +791,46 @@ bool AuctionAdServerResponseConfig::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AuctionReportBuyerDebugModeConfig::AuctionReportBuyerDebugModeConfig()
+    : is_enabled(false),
+      debug_key() {}
+
+AuctionReportBuyerDebugModeConfig::AuctionReportBuyerDebugModeConfig(
+    bool is_enabled_in,
+    std::optional<uint64_t> debug_key_in)
+    : is_enabled(std::move(is_enabled_in)),
+      debug_key(std::move(debug_key_in)) {}
+
+AuctionReportBuyerDebugModeConfig::~AuctionReportBuyerDebugModeConfig() = default;
+
+void AuctionReportBuyerDebugModeConfig::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_enabled"), this->is_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "debug_key"), this->debug_key,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AuctionReportBuyerDebugModeConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 AuctionReportBuyersConfig::AuctionReportBuyersConfig()
     : bucket(),
       scale() {}
@@ -835,6 +887,7 @@ AuctionAdConfigNonSharedParams::AuctionAdConfigNonSharedParams()
       all_buyers_group_limit(65535U),
       auction_report_buyer_keys(),
       auction_report_buyers(),
+      auction_report_buyer_debug_mode_config(),
       required_seller_capabilities(),
       requested_size(),
       all_slots_requested_sizes(),
@@ -857,6 +910,7 @@ AuctionAdConfigNonSharedParams::AuctionAdConfigNonSharedParams(
     uint16_t all_buyers_group_limit_in,
     std::optional<WTF::Vector<::absl::uint128>> auction_report_buyer_keys_in,
     std::optional<WTF::HashMap<AuctionAdConfigNonSharedParams::BuyerReportType, AuctionReportBuyersConfigPtr>> auction_report_buyers_in,
+    AuctionReportBuyerDebugModeConfigPtr auction_report_buyer_debug_mode_config_in,
     SellerCapabilitiesPtr required_seller_capabilities_in,
     ::blink::mojom::blink::AdSizePtr requested_size_in,
     std::optional<WTF::Vector<::blink::mojom::blink::AdSizePtr>> all_slots_requested_sizes_in,
@@ -877,6 +931,7 @@ AuctionAdConfigNonSharedParams::AuctionAdConfigNonSharedParams(
       all_buyers_group_limit(std::move(all_buyers_group_limit_in)),
       auction_report_buyer_keys(std::move(auction_report_buyer_keys_in)),
       auction_report_buyers(std::move(auction_report_buyers_in)),
+      auction_report_buyer_debug_mode_config(std::move(auction_report_buyer_debug_mode_config_in)),
       required_seller_capabilities(std::move(required_seller_capabilities_in)),
       requested_size(std::move(requested_size_in)),
       all_slots_requested_sizes(std::move(all_slots_requested_sizes_in)),
@@ -1025,6 +1080,15 @@ void AuctionAdConfigNonSharedParams::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "auction_report_buyer_debug_mode_config"), this->auction_report_buyer_debug_mode_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AuctionReportBuyerDebugModeConfigPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "required_seller_capabilities"), this->required_seller_capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type SellerCapabilitiesPtr>"
@@ -1080,6 +1144,7 @@ AuctionAdConfig::AuctionAdConfig()
       server_response(),
       decision_logic_url(),
       trusted_scoring_signals_url(),
+      max_trusted_scoring_signals_url_length(0),
       auction_ad_config_non_shared_params(),
       direct_from_seller_signals(),
       expects_direct_from_seller_signals_header_ad_slot(false),
@@ -1096,6 +1161,7 @@ AuctionAdConfig::AuctionAdConfig(
     AuctionAdServerResponseConfigPtr server_response_in,
     const std::optional<::blink::KURL>& decision_logic_url_in,
     const std::optional<::blink::KURL>& trusted_scoring_signals_url_in,
+    int32_t max_trusted_scoring_signals_url_length_in,
     AuctionAdConfigNonSharedParamsPtr auction_ad_config_non_shared_params_in,
     AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr direct_from_seller_signals_in,
     bool expects_direct_from_seller_signals_header_ad_slot_in,
@@ -1110,6 +1176,7 @@ AuctionAdConfig::AuctionAdConfig(
       server_response(std::move(server_response_in)),
       decision_logic_url(std::move(decision_logic_url_in)),
       trusted_scoring_signals_url(std::move(trusted_scoring_signals_url_in)),
+      max_trusted_scoring_signals_url_length(std::move(max_trusted_scoring_signals_url_length_in)),
       auction_ad_config_non_shared_params(std::move(auction_ad_config_non_shared_params_in)),
       direct_from_seller_signals(std::move(direct_from_seller_signals_in)),
       expects_direct_from_seller_signals_header_ad_slot(std::move(expects_direct_from_seller_signals_header_ad_slot_in)),
@@ -1158,6 +1225,15 @@ void AuctionAdConfig::WriteIntoTrace(
       "trusted_scoring_signals_url"), this->trusted_scoring_signals_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<::blink::KURL>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_trusted_scoring_signals_url_length"), this->max_trusted_scoring_signals_url_length,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1599,6 +1675,8 @@ bool StructTraits<::blink::mojom::blink::InterestGroup::DataView, ::blink::mojom
         success = false;
       if (success && !input.ReadTrustedBiddingSignalsKeys(&result->trusted_bidding_signals_keys))
         success = false;
+      if (success)
+        result->max_trusted_bidding_signals_url_length = input.max_trusted_bidding_signals_url_length();
       if (success && !input.ReadUserBiddingSignals(&result->user_bidding_signals))
         success = false;
       if (success && !input.ReadAds(&result->ads))
@@ -1717,6 +1795,23 @@ bool StructTraits<::blink::mojom::blink::AuctionAdServerResponseConfig::DataView
 
 
 // static
+bool StructTraits<::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::DataView, ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr>::Read(
+    ::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::DataView input,
+    ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr* output) {
+  bool success = true;
+  ::blink::mojom::blink::AuctionReportBuyerDebugModeConfigPtr result(::blink::mojom::blink::AuctionReportBuyerDebugModeConfig::New());
+  
+      if (success)
+        result->is_enabled = input.is_enabled();
+      if (success) {
+        result->debug_key = input.debug_key();
+      }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::blink::mojom::blink::AuctionReportBuyersConfig::DataView, ::blink::mojom::blink::AuctionReportBuyersConfigPtr>::Read(
     ::blink::mojom::blink::AuctionReportBuyersConfig::DataView input,
     ::blink::mojom::blink::AuctionReportBuyersConfigPtr* output) {
@@ -1769,6 +1864,8 @@ bool StructTraits<::blink::mojom::blink::AuctionAdConfigNonSharedParams::DataVie
         success = false;
       if (success && !input.ReadAuctionReportBuyers(&result->auction_report_buyers))
         success = false;
+      if (success && !input.ReadAuctionReportBuyerDebugModeConfig(&result->auction_report_buyer_debug_mode_config))
+        success = false;
       if (success && !input.ReadRequiredSellerCapabilities(&result->required_seller_capabilities))
         success = false;
       if (success && !input.ReadRequestedSize(&result->requested_size))
@@ -1799,6 +1896,8 @@ bool StructTraits<::blink::mojom::blink::AuctionAdConfig::DataView, ::blink::moj
         success = false;
       if (success && !input.ReadTrustedScoringSignalsUrl(&result->trusted_scoring_signals_url))
         success = false;
+      if (success)
+        result->max_trusted_scoring_signals_url_length = input.max_trusted_scoring_signals_url_length();
       if (success && !input.ReadAuctionAdConfigNonSharedParams(&result->auction_ad_config_non_shared_params))
         success = false;
       if (success && !input.ReadDirectFromSellerSignals(&result->direct_from_seller_signals))

@@ -462,6 +462,8 @@ bool EnhancedNetworkTts_GetAudioData_ForwardToCallback::Accept(
           internal::EnhancedNetworkTts_GetAudioData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for EnhancedNetworkTts.0
   bool success = true;
   ::mojo::PendingReceiver<AudioDataObserver> p_observer{};
   EnhancedNetworkTts_GetAudioData_ResponseParamsDataView input_data_view(params, message);
@@ -559,6 +561,8 @@ bool EnhancedNetworkTtsStubDispatch::AcceptWithResponder(
               internal::EnhancedNetworkTts_GetAudioData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for EnhancedNetworkTts.0
       bool success = true;
       TtsRequestPtr p_request{};
       EnhancedNetworkTts_GetAudioData_ParamsDataView input_data_view(params, message);
@@ -577,8 +581,8 @@ bool EnhancedNetworkTtsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAudioData(
-std::move(p_request), std::move(callback));
+      impl->GetAudioData(        
+        std::move(p_request), std::move(callback));
       return true;
     }
   }
@@ -720,6 +724,8 @@ bool AudioDataObserverStubDispatch::Accept(
           reinterpret_cast<internal::AudioDataObserver_OnAudioDataReceived_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for AudioDataObserver.0
       bool success = true;
       TtsResponsePtr p_response{};
       AudioDataObserver_OnAudioDataReceived_ParamsDataView input_data_view(params, message);
@@ -735,8 +741,8 @@ bool AudioDataObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAudioDataReceived(
-std::move(p_response));
+      impl->OnAudioDataReceived(        
+        std::move(p_response));
       return true;
     }
   }

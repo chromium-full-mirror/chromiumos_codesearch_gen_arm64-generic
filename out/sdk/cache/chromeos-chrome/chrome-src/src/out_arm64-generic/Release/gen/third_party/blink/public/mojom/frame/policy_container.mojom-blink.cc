@@ -477,6 +477,8 @@ bool PolicyContainerHostStubDispatch::Accept(
           reinterpret_cast<internal::PolicyContainerHost_SetReferrerPolicy_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyContainerHost.0
       bool success = true;
       ::network::mojom::blink::ReferrerPolicy p_referrer_policy{};
       PolicyContainerHost_SetReferrerPolicy_ParamsDataView input_data_view(params, message);
@@ -492,8 +494,8 @@ bool PolicyContainerHostStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetReferrerPolicy(
-std::move(p_referrer_policy));
+      impl->SetReferrerPolicy(        
+        std::move(p_referrer_policy));
       return true;
     }
     case internal::kPolicyContainerHost_AddContentSecurityPolicies_Name: {
@@ -503,6 +505,8 @@ std::move(p_referrer_policy));
           reinterpret_cast<internal::PolicyContainerHost_AddContentSecurityPolicies_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyContainerHost.1
       bool success = true;
       WTF::Vector<::network::mojom::blink::ContentSecurityPolicyPtr> p_content_security_policies{};
       PolicyContainerHost_AddContentSecurityPolicies_ParamsDataView input_data_view(params, message);
@@ -518,8 +522,8 @@ std::move(p_referrer_policy));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddContentSecurityPolicies(
-std::move(p_content_security_policies));
+      impl->AddContentSecurityPolicies(        
+        std::move(p_content_security_policies));
       return true;
     }
     case internal::kPolicyContainerHost_IssueKeepAliveHandle_Name: {
@@ -529,6 +533,8 @@ std::move(p_content_security_policies));
           reinterpret_cast<internal::PolicyContainerHost_IssueKeepAliveHandle_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for PolicyContainerHost.2
       bool success = true;
       ::mojo::PendingReceiver<PolicyContainerHostKeepAliveHandle> p_receiver{};
       PolicyContainerHost_IssueKeepAliveHandle_ParamsDataView input_data_view(params, message);
@@ -546,8 +552,8 @@ std::move(p_content_security_policies));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IssueKeepAliveHandle(
-std::move(p_receiver));
+      impl->IssueKeepAliveHandle(        
+        std::move(p_receiver));
       return true;
     }
   }

@@ -25,6 +25,7 @@
 
 #include "services/network/public/mojom/proxy_config.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/big_string.mojom-shared.h"
+#include "services/network/public/mojom/network_param.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -155,13 +156,13 @@ class ProxyListDataView {
 
   bool is_null() const { return !data_; }
   inline void GetProxiesDataView(
-      mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output);
+      mojo::ArrayDataView<::network::mojom::ProxyChainDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadProxies(UserType* output) {
     
     auto* pointer = data_->proxies.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::ProxyChainDataView>>(
         pointer, output, message_);
   }
  private:
@@ -192,9 +193,6 @@ class ProxyRulesDataView {
   }
   bool reverse_bypass() const {
     return data_->reverse_bypass;
-  }
-  bool restrict_to_network_service_proxy_allow_list() const {
-    return data_->restrict_to_network_service_proxy_allow_list;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
@@ -425,8 +423,8 @@ struct Serializer<::network::mojom::ProxyListDataView, MaybeConstUserType> {
         typename decltype(fragment->proxies)::BaseType>
         proxies_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& proxies_validate_params =
-        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
-    mojo::internal::Serialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::ProxyChainDataView>>(
         in_proxies, proxies_fragment, &proxies_validate_params);
     fragment->proxies.Set(
         proxies_fragment.is_null() ? nullptr : proxies_fragment.data());
@@ -476,7 +474,6 @@ struct Serializer<::network::mojom::ProxyRulesDataView, MaybeConstUserType> {
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null bypass_rules in ProxyRules struct");
     fragment->reverse_bypass = Traits::reverse_bypass(input);
-    fragment->restrict_to_network_service_proxy_allow_list = Traits::restrict_to_network_service_proxy_allow_list(input);
     mojo::internal::Serialize<::network::mojom::ProxyRulesType>(
         Traits::type(input), &fragment->type);
     decltype(Traits::single_proxies(input)) in_single_proxies = Traits::single_proxies(input);
@@ -623,9 +620,9 @@ inline void ProxyBypassRulesDataView::GetRulesDataView(
 
 
 inline void ProxyListDataView::GetProxiesDataView(
-    mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output) {
+    mojo::ArrayDataView<::network::mojom::ProxyChainDataView>* output) {
   auto pointer = data_->proxies.Get();
-  *output = mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>(pointer, message_);
+  *output = mojo::ArrayDataView<::network::mojom::ProxyChainDataView>(pointer, message_);
 }
 
 

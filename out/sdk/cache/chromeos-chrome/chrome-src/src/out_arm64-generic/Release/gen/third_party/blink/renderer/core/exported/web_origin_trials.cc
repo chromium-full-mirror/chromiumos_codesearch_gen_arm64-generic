@@ -80,6 +80,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
+      case mojom::blink::OriginTrialFeature::kCapturedSurfaceControl:
+        if (!RuntimeEnabledFeatures::CapturedSurfaceControlEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
       case mojom::blink::OriginTrialFeature::kCompressionDictionaryTransport:
         if (!RuntimeEnabledFeatures::CompressionDictionaryTransportEnabled(
                 document->GetExecutionContext())) {
@@ -100,6 +106,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kDatabase:
         if (!RuntimeEnabledFeatures::DatabaseEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
+      case mojom::blink::OriginTrialFeature::kDeprecateUnloadOptOut:
+        if (!RuntimeEnabledFeatures::DeprecateUnloadOptOutEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -208,18 +220,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kJavaScriptCompileHintsMagicRuntime:
         if (!RuntimeEnabledFeatures::JavaScriptCompileHintsMagicRuntimeEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kLongAnimationFrameMonitoring:
-        if (!RuntimeEnabledFeatures::LongAnimationFrameMonitoringEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kLongAnimationFrameTiming:
-        if (!RuntimeEnabledFeatures::LongAnimationFrameTimingEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -536,12 +536,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kStorageBuckets:
-        if (!RuntimeEnabledFeatures::StorageBucketsEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
       case mojom::blink::OriginTrialFeature::kTextFragmentIdentifiers:
         if (!RuntimeEnabledFeatures::TextFragmentIdentifiersEnabled(
                 document->GetExecutionContext())) {
@@ -560,6 +554,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
+      case mojom::blink::OriginTrialFeature::kTopLevelTpcd:
+        if (!RuntimeEnabledFeatures::TopLevelTpcdEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
       case mojom::blink::OriginTrialFeature::kTouchEventFeatureDetection:
         if (!RuntimeEnabledFeatures::TouchEventFeatureDetectionEnabled(
                 document->GetExecutionContext())) {
@@ -568,12 +568,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kTpcd:
         if (!RuntimeEnabledFeatures::TpcdEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kTpcd1p:
-        if (!RuntimeEnabledFeatures::Tpcd1pEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -622,18 +616,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kWebAppUrlHandling:
         if (!RuntimeEnabledFeatures::WebAppUrlHandlingEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kWebAppWindowControlsOverlay:
-        if (!RuntimeEnabledFeatures::WebAppWindowControlsOverlayEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kWebAssemblyGC:
-        if (!RuntimeEnabledFeatures::WebAssemblyGCEnabled(
                 document->GetExecutionContext())) {
           return false;
         }

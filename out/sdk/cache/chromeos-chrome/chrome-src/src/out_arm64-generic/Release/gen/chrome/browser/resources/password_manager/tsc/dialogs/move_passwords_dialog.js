@@ -18,12 +18,17 @@ import { getTemplate } from './move_passwords_dialog.html.js';
  * numeric values should never be reused.
  * @enum {number}
  */
-export const MoveToAccountStoreTrigger = {
-    SUCCESSFUL_LOGIN_WITH_PROFILE_STORE_PASSWORD: 0,
-    EXPLICITLY_TRIGGERED_IN_SETTINGS: 1,
-    EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS: 2,
-    COUNT: 3,
-};
+export var MoveToAccountStoreTrigger;
+(function (MoveToAccountStoreTrigger) {
+    // LINT.IfChange
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["SUCCESSFUL_LOGIN_WITH_PROFILE_STORE_PASSWORD"] = 0] = "SUCCESSFUL_LOGIN_WITH_PROFILE_STORE_PASSWORD";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["EXPLICITLY_TRIGGERED_IN_SETTINGS"] = 1] = "EXPLICITLY_TRIGGERED_IN_SETTINGS";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS"] = 2] = "EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["USER_OPTED_IN_AFTER_SAVING_LOCALLY"] = 3] = "USER_OPTED_IN_AFTER_SAVING_LOCALLY";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["EXPLICITLY_TRIGGERED_FOR_SINGLE_PASSWORD_IN_DETAILS_IN_SETTINGS"] = 4] = "EXPLICITLY_TRIGGERED_FOR_SINGLE_PASSWORD_IN_DETAILS_IN_SETTINGS";
+    MoveToAccountStoreTrigger[MoveToAccountStoreTrigger["COUNT"] = 5] = "COUNT";
+    // LINT.ThenChange(//tools/metrics/histograms/metadata/password/enums.xml)
+})(MoveToAccountStoreTrigger || (MoveToAccountStoreTrigger = {}));
 const MovePasswordsDialogElementBase = UserUtilMixin(PolymerElement);
 export class MovePasswordsDialogElement extends MovePasswordsDialogElementBase {
     static get is() {
@@ -43,14 +48,18 @@ export class MovePasswordsDialogElement extends MovePasswordsDialogElementBase {
             },
             selectedPasswordIds_: {
                 type: Array,
-                valie: () => [],
+                value: () => [],
+            },
+            trigger: {
+                type: MoveToAccountStoreTrigger,
+                value: MoveToAccountStoreTrigger
+                    .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS,
             },
         };
     }
     connectedCallback() {
         super.connectedCallback();
-        chrome.metricsPrivate.recordEnumerationValue('PasswordManager.AccountStorage.MoveToAccountStoreFlowOffered', MoveToAccountStoreTrigger
-            .EXPLICITLY_TRIGGERED_FOR_MULTIPLE_PASSWORDS_IN_SETTINGS, MoveToAccountStoreTrigger.COUNT);
+        chrome.metricsPrivate.recordEnumerationValue('PasswordManager.AccountStorage.MoveToAccountStoreFlowOffered', this.trigger, MoveToAccountStoreTrigger.COUNT);
         this.selectedPasswordIds_ = this.passwords.map(item => item.id);
         PasswordManagerImpl.getInstance()
             .requestCredentialsDetails(this.selectedPasswordIds_)
@@ -60,6 +69,7 @@ export class MovePasswordsDialogElement extends MovePasswordsDialogElementBase {
         })
             .catch(() => {
             this.$.dialog.close();
+            this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
         });
     }
     onCancel_() {

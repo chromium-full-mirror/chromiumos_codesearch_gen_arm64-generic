@@ -5,7 +5,9 @@ export function getTemplate() {
 <div class="tab-organization-container">
   <tab-organization-not-started-image></tab-organization-not-started-image>
   <div class="tab-organization-text-container">
-    <div class="tab-organization-header">[[getTitle_(showFre)]]</div>
+    <div id="header" class="tab-organization-header" aria-live="polite" aria-relevant="all">
+      [[getTitle_(showFre)]]
+    </div>
     <div class="tab-organization-body">
       [[getBody_(showFre, sync_, account_)]]
     </div>
@@ -22,7 +24,7 @@ export function getTemplate() {
       </div>
     </div>
   </template>
-  <cr-button class="action-button" on-click="onButtonClick_">
+  <cr-button class="action-button" aria-label="[[getButtonAriaLabel_(sync_, account_)]]" on-click="onButtonClick_">
     [[getButtonText_(sync_, account_)]]
   </cr-button>
 </div>

@@ -23,7 +23,6 @@ const webui::ResourcePath kAshPersonalizationAppResources[] = {
   {"images/no_google_photos_images.svg", IDR_ASH_PERSONALIZATION_APP_IMAGES_NO_GOOGLE_PHOTOS_IMAGES_SVG},
   {"images/no_google_photos_images_dark.svg", IDR_ASH_PERSONALIZATION_APP_IMAGES_NO_GOOGLE_PHOTOS_IMAGES_DARK_SVG},
   {"images/slideshow.png", IDR_ASH_PERSONALIZATION_APP_IMAGES_SLIDESHOW_PNG},
-  {"images/sea_pen_tile.svg", IDR_ASH_PERSONALIZATION_APP_IMAGES_SEA_PEN_TILE_SVG},
   {"index.html", IDR_ASH_PERSONALIZATION_APP_INDEX_HTML},
   {"css/base.css", IDR_ASH_PERSONALIZATION_APP_CSS_BASE_CSS},
   {"js/personalization_app.js", IDR_ASH_PERSONALIZATION_APP_JS_PERSONALIZATION_APP_ROLLUP_JS},

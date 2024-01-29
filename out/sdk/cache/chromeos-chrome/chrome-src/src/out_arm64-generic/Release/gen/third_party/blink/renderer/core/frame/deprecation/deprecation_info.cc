@@ -163,11 +163,6 @@ const DeprecationInfo GetDeprecationInfo(WebFeature feature) {
         feature,
         "MediaSourceDurationTruncatingBuffered",
         "Setting `MediaSource.duration` below the highest presentation timestamp of any buffered coded frames is deprecated due to specification change. Support for implicit removal of truncated buffered media will be removed in the future. You should instead perform explicit `remove(newDuration, oldDuration)` on all `sourceBuffers`, where `newDuration < oldDuration`.");
-    case WebFeature::kDeclarativeShadowRoot:
-      return DeprecationInfo::Create(
-        feature,
-        "NonStandardDeclarativeShadowDOM",
-        "The older, non-standardized `shadowroot` attribute is deprecated, and will *no longer function* in M119. Please use the new, standardized `shadowrootmode` attribute instead.");
     case WebFeature::kNoSysexWebMIDIWithoutPermission:
       return DeprecationInfo::Create(
         feature,

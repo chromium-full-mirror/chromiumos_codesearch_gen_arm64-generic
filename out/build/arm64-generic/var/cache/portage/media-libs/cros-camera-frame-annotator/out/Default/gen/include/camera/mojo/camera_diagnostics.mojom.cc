@@ -493,6 +493,8 @@ bool CameraDiagnostics_GetYuvAnalysisEnabled_ForwardToCallback::Accept(
           internal::CameraDiagnostics_GetYuvAnalysisEnabled_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraDiagnostics.1
   bool success = true;
   bool p_state{};
   CameraDiagnostics_GetYuvAnalysisEnabled_ResponseParamsDataView input_data_view(params, message);
@@ -612,6 +614,8 @@ bool CameraDiagnostics_AnalyzeYuvFrame_ForwardToCallback::Accept(
           internal::CameraDiagnostics_AnalyzeYuvFrame_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraDiagnostics.2
   bool success = true;
   Response p_response{};
   CameraDiagnostics_AnalyzeYuvFrame_ResponseParamsDataView input_data_view(params, message);
@@ -732,6 +736,8 @@ bool CameraDiagnostics_GetDiagnosticsResult_ForwardToCallback::Accept(
           internal::CameraDiagnostics_GetDiagnosticsResult_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CameraDiagnostics.3
   bool success = true;
   uint32_t p_result{};
   CameraDiagnostics_GetDiagnosticsResult_ResponseParamsDataView input_data_view(params, message);
@@ -806,6 +812,8 @@ bool CameraDiagnosticsStubDispatch::Accept(
           reinterpret_cast<internal::CameraDiagnostics_SetYuvAnalysisEnabled_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CameraDiagnostics.0
       bool success = true;
       bool p_state{};
       CameraDiagnostics_SetYuvAnalysisEnabled_ParamsDataView input_data_view(params, message);
@@ -821,8 +829,8 @@ bool CameraDiagnosticsStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->SetYuvAnalysisEnabled(
-std::move(p_state));
+      impl->SetYuvAnalysisEnabled(        
+        std::move(p_state));
       return true;
     }
     case internal::kCameraDiagnostics_GetYuvAnalysisEnabled_Name: {
@@ -857,6 +865,8 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
               internal::CameraDiagnostics_GetYuvAnalysisEnabled_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraDiagnostics.1
       bool success = true;
       CameraDiagnostics_GetYuvAnalysisEnabled_ParamsDataView input_data_view(params, message);
       
@@ -882,6 +892,8 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
               internal::CameraDiagnostics_AnalyzeYuvFrame_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraDiagnostics.2
       bool success = true;
       CameraDiagnosticsFramePtr p_buffer{};
       CameraDiagnostics_AnalyzeYuvFrame_ParamsDataView input_data_view(params, message);
@@ -900,8 +912,8 @@ bool CameraDiagnosticsStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AnalyzeYuvFrame(
-std::move(p_buffer), std::move(callback));
+      impl->AnalyzeYuvFrame(        
+        std::move(p_buffer), std::move(callback));
       return true;
     }
     case internal::kCameraDiagnostics_GetDiagnosticsResult_Name: {
@@ -911,6 +923,8 @@ std::move(p_buffer), std::move(callback));
               internal::CameraDiagnostics_GetDiagnosticsResult_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CameraDiagnostics.3
       bool success = true;
       CameraDiagnostics_GetDiagnosticsResult_ParamsDataView input_data_view(params, message);
       

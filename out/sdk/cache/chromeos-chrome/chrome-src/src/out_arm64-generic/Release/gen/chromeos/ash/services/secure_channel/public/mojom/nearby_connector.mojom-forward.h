@@ -7,7 +7,7 @@
 #ifndef CHROMEOS_ASH_SERVICES_SECURE_CHANNEL_PUBLIC_MOJOM_NEARBY_CONNECTOR_MOJOM_FORWARD_H_
 #define CHROMEOS_ASH_SERVICES_SECURE_CHANNEL_PUBLIC_MOJOM_NEARBY_CONNECTOR_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 
 
@@ -21,6 +21,10 @@
 
 
 namespace ash::secure_channel::mojom {
+
+enum class NearbyConnectionStep : int32_t;
+
+enum class NearbyConnectionStepResult : int32_t;
 
 extern const char kServiceId[];
 class NearbyMessageSender;

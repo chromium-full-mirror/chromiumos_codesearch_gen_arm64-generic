@@ -1150,7 +1150,6 @@
     this.temporalUpSwitch = false;
     this.referencedByUpperSpatialLayers = false;
     this.referenceLowerSpatialLayers = false;
-    this.endOfPicture = false;
     this.temporalIdx = 0;
     this.spatialIdx = 0;
     this.beginActiveSpatialLayerIndex = 0;
@@ -1177,7 +1176,6 @@
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
         return err;
-
 
 
 
@@ -1214,7 +1212,6 @@
     val.temporalUpSwitch = (packed >> 1) & 1 ? true : false;
     val.referencedByUpperSpatialLayers = (packed >> 2) & 1 ? true : false;
     val.referenceLowerSpatialLayers = (packed >> 3) & 1 ? true : false;
-    val.endOfPicture = (packed >> 4) & 1 ? true : false;
     val.temporalIdx =
         decoder.decodeStruct(codec.Uint8);
     val.spatialIdx =
@@ -1242,7 +1239,6 @@
     packed |= (val.temporalUpSwitch & 1) << 1
     packed |= (val.referencedByUpperSpatialLayers & 1) << 2
     packed |= (val.referenceLowerSpatialLayers & 1) << 3
-    packed |= (val.endOfPicture & 1) << 4
     encoder.writeUint8(packed);
     encoder.encodeStruct(codec.Uint8, val.temporalIdx);
     encoder.encodeStruct(codec.Uint8, val.spatialIdx);
@@ -1328,6 +1324,7 @@
   BitstreamBufferMetadata.prototype.initDefaults_ = function() {
     this.payloadSizeBytes = 0;
     this.keyFrame = false;
+    this.endOfPicture = false;
     this.timestamp = null;
     this.qp = 0;
     this.codecMetadata = null;
@@ -1364,6 +1361,7 @@
 
 
 
+
     // validate BitstreamBufferMetadata.codecMetadata
     err = messageValidator.validateUnion(offset + codec.kStructHeaderSize + 24, CodecMetadata, true);
     if (err !== validator.validationError.NONE)
@@ -1395,6 +1393,7 @@
         decoder.decodeStruct(codec.Uint32);
     packed = decoder.readUint8();
     val.keyFrame = (packed >> 0) & 1 ? true : false;
+    val.endOfPicture = (packed >> 1) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1422,6 +1421,7 @@
     encoder.encodeStruct(codec.Uint32, val.payloadSizeBytes);
     packed = 0;
     packed |= (val.keyFrame & 1) << 0
+    packed |= (val.endOfPicture & 1) << 1
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

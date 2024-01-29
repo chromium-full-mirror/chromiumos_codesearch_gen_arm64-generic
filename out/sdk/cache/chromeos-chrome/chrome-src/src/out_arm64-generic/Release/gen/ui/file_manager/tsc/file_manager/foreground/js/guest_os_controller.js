@@ -49,7 +49,7 @@ export class GuestOsController {
         const newGuestOsPlaceholders = guests.map(guest => {
             const guestOsEntry = new GuestOsPlaceholder(guest.displayName, guest.id, guest.vmType);
             const navigationModelItem = new NavigationModelFakeItem(guest.displayName, NavigationModelItemType.GUEST_OS, guestOsEntry);
-            const volumeType = guest.vmType == chrome.fileManagerPrivate.VmType.ARCVM ?
+            const volumeType = guest.vmType === chrome.fileManagerPrivate.VmType.ARCVM ?
                 VolumeType.ANDROID_FILES :
                 VolumeType.GUEST_OS;
             navigationModelItem.disabled = this.volumeManager_.isDisabled(volumeType);

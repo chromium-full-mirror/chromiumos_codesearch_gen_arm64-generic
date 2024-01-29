@@ -6,69 +6,42 @@
  * Enrollment screen.
  */
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
-import '//resources/ash/common/quick_unlock/fingerprint_progress.js';
 import '../../components/oobe_icons.html.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
-import { I18nBehavior } from '//resources/ash/common/i18n_behavior.js';
-import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
-import { afterNextRender, dom, flush, html, mixinBehaviors, Polymer, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { LoginScreenBehavior, LoginScreenBehaviorInterface } from '../../components/behaviors/login_screen_behavior.js';
-import { MultiStepBehavior, MultiStepBehaviorInterface } from '../../components/behaviors/multi_step_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from '../../components/behaviors/oobe_i18n_behavior.js';
-import { OobeTextButton } from '../../components/buttons/oobe_text_button.js';
-import { OobeAdaptiveDialog } from '../../components/dialogs/oobe_adaptive_dialog.js';
-import { OOBE_UI_STATE, SCREEN_GAIA_SIGNIN } from '../../components/display_manager_types.js';
+import { FingerprintProgressElement } from '//resources/ash/common/quick_unlock/fingerprint_progress.js';
+import { loadTimeData } from '//resources/js/load_time_data.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
+import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
+import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { OOBE_UI_STATE } from '../../components/display_manager_types.js';
 import { OobeCrLottie } from '../../components/oobe_cr_lottie.js';
 import { getTemplate } from './fingerprint_setup.html.js';
 /**
  * These values must be kept in sync with the values in
  * third_party/cros_system_api/dbus/service_constants.h.
- * @enum {number}
  */
-const FingerprintResultType = {
-    SUCCESS: 0,
-    PARTIAL: 1,
-    INSUFFICIENT: 2,
-    SENSOR_DIRTY: 3,
-    TOO_SLOW: 4,
-    TOO_FAST: 5,
-    IMMOBILE: 6,
-};
+var FingerprintResultType;
+(function (FingerprintResultType) {
+    FingerprintResultType[FingerprintResultType["SUCCESS"] = 0] = "SUCCESS";
+    FingerprintResultType[FingerprintResultType["PARTIAL"] = 1] = "PARTIAL";
+    FingerprintResultType[FingerprintResultType["INSUFFICIENT"] = 2] = "INSUFFICIENT";
+    FingerprintResultType[FingerprintResultType["SENSOR_DIRTY"] = 3] = "SENSOR_DIRTY";
+    FingerprintResultType[FingerprintResultType["TOO_SLOW"] = 4] = "TOO_SLOW";
+    FingerprintResultType[FingerprintResultType["TOO_FAST"] = 5] = "TOO_FAST";
+    FingerprintResultType[FingerprintResultType["IMMOBILE"] = 6] = "IMMOBILE";
+})(FingerprintResultType || (FingerprintResultType = {}));
 /**
  * UI mode for the dialog.
- * @enum {string}
  */
-const FingerprintUIState = {
-    START: 'start',
-    PROGRESS: 'progress',
-};
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {LoginScreenBehaviorInterface}
- * @implements {OobeI18nBehaviorInterface}
- * @implements {MultiStepBehaviorInterface}
- */
+var FingerprintUiState;
+(function (FingerprintUiState) {
+    FingerprintUiState["START"] = "start";
+    FingerprintUiState["PROGRESS"] = "progress";
+})(FingerprintUiState || (FingerprintUiState = {}));
 const FingerprintSetupBase = mixinBehaviors([OobeI18nBehavior, LoginScreenBehavior, MultiStepBehavior], PolymerElement);
-/**
- * @typedef {{
- *   setupFingerprint:  OobeAdaptiveDialog,
- *   arc:  FingerprintProgressElement,
- * }}
- */
-FingerprintSetupBase.$;
-/**
- * Data that is passed to the screen during onBeforeShow.
- * @typedef {{
- *   isChildAccount: boolean,
- * }}
- */
-let FingerprintSetupScreenData;
-/**
- * @polymer
- */
-class FingerprintSetup extends FingerprintSetupBase {
+export class FingerprintSetup extends FingerprintSetupBase {
     static get is() {
         return 'fingerprint-setup-element';
     }
@@ -82,18 +55,18 @@ class FingerprintSetup extends FingerprintSetupBase {
              * The value within [0, 100] represents the percent of enrollment
              * completion.
              */
-            percentComplete_: {
+            percentComplete: {
                 type: Number,
                 value: 0,
-                observer: 'onProgressChanged_',
+                observer: 'onProgressChanged',
             },
             /**
              * Is current finger enrollment complete?
              */
-            complete_: {
+            complete: {
                 type: Boolean,
                 value: false,
-                computed: 'enrollIsComplete_(percentComplete_)',
+                computed: 'enrollIsComplete(percentComplete)',
             },
             /**
              * Can we add another finger?
@@ -104,23 +77,22 @@ class FingerprintSetup extends FingerprintSetupBase {
             },
             /**
              * The result of fingerprint enrollment scan.
-             * @private
              */
-            scanResult_: {
+            scanResult: {
                 type: Number,
                 value: FingerprintResultType.SUCCESS,
             },
             /**
              * Indicates whether user is a child account.
              */
-            isChildAccount_: {
+            isChildAccount: {
                 type: Boolean,
                 value: false,
             },
             /**
              * Indicates whether Jelly is enabled.
              */
-            isDynamicColor_: {
+            isDynamicColor: {
                 type: Boolean,
                 value: loadTimeData.getBoolean('isOobeJellyEnabled'),
             },
@@ -129,138 +101,140 @@ class FingerprintSetup extends FingerprintSetupBase {
     constructor() {
         super();
     }
-    /** @override */
     get EXTERNAL_API() {
-        return ['onEnrollScanDone', 'enableAddAnotherFinger'];
+        return [
+            'onEnrollScanDone',
+            'enableAddAnotherFinger',
+        ];
     }
     get UI_STEPS() {
-        return FingerprintUIState;
+        return FingerprintUiState;
     }
-    /** @override */
     ready() {
         super.ready();
         this.initializeLoginScreen('FingerprintSetupScreen');
     }
-    /** Initial UI State for screen */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     getOobeUIInitialState() {
         return OOBE_UI_STATE.ONBOARDING;
     }
-    /** @override */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultUIStep() {
-        return FingerprintUIState.START;
+        return FingerprintUiState.START;
     }
-    /**
-     * @param {FingerprintSetupScreenData} data Screen init payload.
-     */
     onBeforeShow(data) {
-        this.isChildAccount_ = data['isChildAccount'];
-        this.setAnimationState_(true);
+        this.isChildAccount = data['isChildAccount'];
+        this.setAnimationState(true);
     }
     onBeforeHide() {
-        this.setAnimationState_(false);
+        this.setAnimationState(false);
     }
     /**
      * Called when a fingerprint enroll scan result is received.
-     * @param {FingerprintResultType} scanResult Result of the enroll scan.
-     * @param {boolean} isComplete Whether fingerprint enrollment is complete.
-     * @param {number} percentComplete Percentage of completion of the enrollment.
+     * @param scanResult Result of the enroll scan.
+     * @param isComplete Whether fingerprint enrollment is complete.
+     * @param percentComplete Percentage of completion of the enrollment.
      */
-    onEnrollScanDone(scanResult, isComplete, percentComplete) {
-        this.setUIStep(FingerprintUIState.PROGRESS);
-        this.$.arc.reset();
-        this.percentComplete_ = percentComplete;
-        this.scanResult_ = scanResult;
+    /**
+     * TODO(b/321675493) Revamp progress update to validate isComplete
+    */
+    onEnrollScanDone(scanResult, _isComplete, percentComplete) {
+        this.setUIStep(FingerprintUiState.PROGRESS);
+        const progress = this.shadowRoot?.querySelector('#arc');
+        if (progress instanceof FingerprintProgressElement) {
+            progress.reset();
+        }
+        this.percentComplete = percentComplete;
+        this.scanResult = scanResult;
     }
     /**
      * Enable/disable add another finger.
-     * @param {boolean} enable True if add another fingerprint is enabled.
+     * @param enable True if add another fingerprint is enabled.
      */
     enableAddAnotherFinger(enable) {
         this.canAddFinger = enable;
     }
     /**
      * Check whether Add Another button should be shown.
-     * @return {boolean}
-     * @private
      */
-    isAnotherButtonVisible_(percentComplete, canAddFinger) {
+    isAnotherButtonVisible(percentComplete, canAddFinger) {
         return percentComplete >= 100 && canAddFinger;
     }
     /**
-     * This is 'on-tap' event handler for 'Skip' button for 'START' step.
-     * @private
+     * This is 'on-click' event handler for 'Skip' button for 'START' step.
      */
-    onSkipOnStart_(e) {
+    onSkipOnStart() {
         this.userActed('setup-skipped-on-start');
     }
     /**
-     * This is 'on-tap' event handler for 'Skip' button for 'PROGRESS' step.
-     * @private
+     * This is 'on-click' event handler for 'Skip' button for 'PROGRESS' step.
      */
-    onSkipInProgress_(e) {
+    onSkipInProgress() {
         this.userActed('setup-skipped-in-flow');
     }
     /**
      * Enable/disable lottie animation.
-     * @param {boolean} playing True if animation should be playing.
+     * @param playing True if animation should be playing.
      */
-    setAnimationState_(playing) {
-        const lottieElement = /** @type{OobeCrLottie} */ (this.$.setupFingerprint.querySelector('#scannerLocationLottie'));
-        lottieElement.playing = playing;
-        this.$.arc.setPlay(playing);
+    setAnimationState(playing) {
+        const animation = this.shadowRoot?.querySelector('#scannerLocationLottie');
+        if (animation instanceof OobeCrLottie) {
+            animation.playing = playing;
+        }
+        const progress = this.shadowRoot?.querySelector('#arc');
+        if (progress instanceof FingerprintProgressElement) {
+            progress.setPlay(playing);
+        }
     }
     /**
-     * This is 'on-tap' event handler for 'Done' button.
-     * @private
+     * This is 'on-click' event handler for 'Done' button.
      */
-    onDone_(e) {
+    onDone() {
         this.userActed('setup-done');
     }
     /**
-     * This is 'on-tap' event handler for 'Add another' button.
-     * @private
+     * This is 'on-click' event handler for 'Add another' button.
      */
-    onAddAnother_(e) {
-        this.percentComplete_ = 0;
+    onAddAnother() {
+        this.percentComplete = 0;
         this.userActed('add-another-finger');
     }
     /**
      * Check whether fingerprint enrollment is in progress.
-     * @return {boolean}
-     * @private
      */
-    enrollIsComplete_(percent) {
+    enrollIsComplete(percent) {
         return percent >= 100;
     }
     /**
      * Check whether fingerprint scan problem is IMMOBILE.
-     * @return {boolean}
-     * @private
      */
-    isProblemImmobile_(scan_result) {
-        return scan_result === FingerprintResultType.IMMOBILE;
+    isProblemImmobile(scanResult) {
+        return scanResult === FingerprintResultType.IMMOBILE;
     }
     /**
      * Check whether fingerprint scan problem is other than IMMOBILE.
-     * @return {boolean}
-     * @private
      */
-    isProblemOther_(scan_result) {
-        return scan_result != FingerprintResultType.SUCCESS &&
-            scan_result != FingerprintResultType.IMMOBILE;
+    isProblemOther(scanResult) {
+        return scanResult != FingerprintResultType.SUCCESS &&
+            scanResult != FingerprintResultType.IMMOBILE;
     }
     /**
-     * Observer for percentComplete_.
-     * @private
+     * Observer for percentComplete.
      */
-    onProgressChanged_(newValue, oldValue) {
+    onProgressChanged(newValue, oldValue) {
         // Start a new enrollment, so reset all enrollment related states.
         if (newValue === 0) {
-            this.$.arc.reset();
-            this.scanResult_ = FingerprintResultType.SUCCESS;
+            const progress = this.shadowRoot?.querySelector('#arc');
+            if (progress instanceof FingerprintProgressElement) {
+                progress.reset();
+            }
+            this.scanResult = FingerprintResultType.SUCCESS;
             return;
         }
-        this.$.arc.setProgress(oldValue, newValue, newValue === 100);
+        const progress = this.shadowRoot?.querySelector('#arc');
+        if (progress instanceof FingerprintProgressElement) {
+            progress.setProgress(oldValue, newValue, newValue === 100);
+        }
     }
 }
 customElements.define(FingerprintSetup.is, FingerprintSetup);

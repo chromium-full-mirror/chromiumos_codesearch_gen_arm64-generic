@@ -296,6 +296,8 @@ bool CdmFactoryStubDispatch::Accept(
           reinterpret_cast<internal::CdmFactory_CreateCdmDeprecated_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmFactory.1
       bool success = true;
       ::mojo::PendingAssociatedRemote<::chromeos::cdm::mojom::ContentDecryptionModuleClient> p_client{};
       ::mojo::PendingAssociatedRemote<::chromeos::cdm::mojom::CdmStorage> p_storage{};
@@ -328,11 +330,11 @@ bool CdmFactoryStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCdmDeprecated(
-std::move(p_client), 
-std::move(p_storage), 
-std::move(p_cdm), 
-std::move(p_output_protection));
+      impl->CreateCdmDeprecated(        
+        std::move(p_client), 
+        std::move(p_storage), 
+        std::move(p_cdm), 
+        std::move(p_output_protection));
       return true;
     }
     case internal::kCdmFactory_CreateCdm_Name: {
@@ -342,6 +344,8 @@ std::move(p_output_protection));
           reinterpret_cast<internal::CdmFactory_CreateCdm_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmFactory.2
       bool success = true;
       ::mojo::PendingAssociatedRemote<::chromeos::cdm::mojom::ContentDecryptionModuleClient> p_client{};
       ::mojo::PendingAssociatedRemote<::chromeos::cdm::mojom::CdmStorage> p_storage{};
@@ -377,12 +381,12 @@ std::move(p_output_protection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateCdm(
-std::move(p_client), 
-std::move(p_storage), 
-std::move(p_output_protection), 
-std::move(p_host), 
-std::move(p_cdm));
+      impl->CreateCdm(        
+        std::move(p_client), 
+        std::move(p_storage), 
+        std::move(p_output_protection), 
+        std::move(p_host), 
+        std::move(p_cdm));
       return true;
     }
   }
@@ -455,6 +459,9 @@ CdmFactoryDaemon::IPCStableHashFunction CdmFactoryDaemon::MessageToMethodInfo_(m
     case internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name: {
       return &CdmFactoryDaemon::AllocateSecureBuffer_Sym::IPCStableHash;
     }
+    case internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name: {
+      return &CdmFactoryDaemon::ParseEncryptedSliceHeader_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -484,6 +491,8 @@ const char* CdmFactoryDaemon::MessageToMethodName_(mojo::Message& message) {
             return "Receive chromeos::cdm::mojom::CdmFactoryDaemon::GetAndroidHwKeyData";
       case internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name:
             return "Receive chromeos::cdm::mojom::CdmFactoryDaemon::AllocateSecureBuffer";
+      case internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name:
+            return "Receive chromeos::cdm::mojom::CdmFactoryDaemon::ParseEncryptedSliceHeader";
     }
   } else {
     switch (message.name()) {
@@ -505,6 +514,8 @@ const char* CdmFactoryDaemon::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply chromeos::cdm::mojom::CdmFactoryDaemon::GetAndroidHwKeyData";
       case internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name:
             return "Receive reply chromeos::cdm::mojom::CdmFactoryDaemon::AllocateSecureBuffer";
+      case internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name:
+            return "Receive reply chromeos::cdm::mojom::CdmFactoryDaemon::ParseEncryptedSliceHeader";
     }
   }
   return "Receive unknown mojo message";
@@ -636,6 +647,19 @@ uint32_t CdmFactoryDaemon::AllocateSecureBuffer_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CdmFactoryDaemon::ParseEncryptedSliceHeader_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::cdm::mojom::CdmFactoryDaemon::ParseEncryptedSliceHeader");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CdmFactoryDaemon_CreateFactory_ForwardToCallback
@@ -716,6 +740,22 @@ class CdmFactoryDaemon_AllocateSecureBuffer_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CdmFactoryDaemon::AllocateSecureBufferCallback callback_;
+};
+
+class CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback(
+      CdmFactoryDaemon::ParseEncryptedSliceHeaderCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback(const CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback&) = delete;
+  CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback& operator=(const CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CdmFactoryDaemon::ParseEncryptedSliceHeaderCallback callback_;
 };
 
 CdmFactoryDaemonProxy::CdmFactoryDaemonProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1116,6 +1156,68 @@ void CdmFactoryDaemonProxy::AllocateSecureBuffer(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
+
+void CdmFactoryDaemonProxy::ParseEncryptedSliceHeader(
+    uint64_t in_secure_handle, uint32_t in_offset, const std::vector<uint8_t>& in_stream_data, ParseEncryptedSliceHeaderCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::cdm::mojom::CdmFactoryDaemon::ParseEncryptedSliceHeader", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("secure_handle"), in_secure_handle,
+                        "<value of type uint64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("offset"), in_offset,
+                        "<value of type uint32_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("stream_data"), in_stream_data,
+                        "<value of type const std::vector<uint8_t>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cdm::mojom::internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_Params_Data> params(
+          message);
+  params.Allocate();
+  params->secure_handle = in_secure_handle;
+  params->offset = in_offset;
+  mojo::internal::MessageFragment<
+      typename decltype(params->stream_data)::BaseType>
+      stream_data_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& stream_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+      in_stream_data, stream_data_fragment, &stream_data_validate_params);
+  params->stream_data.Set(
+      stream_data_fragment.is_null() ? nullptr : stream_data_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->stream_data.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null stream_data in CdmFactoryDaemon.ParseEncryptedSliceHeader request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CdmFactoryDaemon::Name_);
+  message.set_method_name("ParseEncryptedSliceHeader");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
 class CdmFactoryDaemon_CreateFactory_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static CdmFactoryDaemon::CreateFactoryCallback CreateCallback(
@@ -1174,6 +1276,8 @@ bool CdmFactoryDaemon_CreateFactory_ForwardToCallback::Accept(
           internal::CdmFactoryDaemon_CreateFactory_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFactoryDaemon.0
   bool success = true;
   ::mojo::PendingRemote<CdmFactory> p_factory{};
   CdmFactoryDaemon_CreateFactory_ResponseParamsDataView input_data_view(params, message);
@@ -1296,6 +1400,8 @@ bool CdmFactoryDaemon_GetHwConfigData_ForwardToCallback::Accept(
           internal::CdmFactoryDaemon_GetHwConfigData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFactoryDaemon.4
   bool success = true;
   bool p_success{};
   std::vector<uint8_t> p_config_data{};
@@ -1435,6 +1541,8 @@ bool CdmFactoryDaemon_GetHdcp14Key_ForwardToCallback::Accept(
           internal::CdmFactoryDaemon_GetHdcp14Key_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFactoryDaemon.6
   bool success = true;
   std::string p_hdcp_key_base64{};
   CdmFactoryDaemon_GetHdcp14Key_ResponseParamsDataView input_data_view(params, message);
@@ -1564,6 +1672,8 @@ bool CdmFactoryDaemon_GetAndroidHwKeyData_ForwardToCallback::Accept(
           internal::CdmFactoryDaemon_GetAndroidHwKeyData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFactoryDaemon.7
   bool success = true;
   ::media::Decryptor::Status p_status{};
   std::vector<uint8_t> p_key_data{};
@@ -1704,6 +1814,8 @@ bool CdmFactoryDaemon_AllocateSecureBuffer_ForwardToCallback::Accept(
           internal::CdmFactoryDaemon_AllocateSecureBuffer_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for CdmFactoryDaemon.8
   bool success = true;
   ::mojo::PlatformHandle p_fd{};
   CdmFactoryDaemon_AllocateSecureBuffer_ResponseParamsDataView input_data_view(params, message);
@@ -1766,6 +1878,147 @@ void CdmFactoryDaemon_AllocateSecureBuffer_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CdmFactoryDaemon::ParseEncryptedSliceHeaderCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder> proxy(
+        new CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CdmFactoryDaemon::ParseEncryptedSliceHeaderCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success, const std::vector<uint8_t>& in_slice_header);
+};
+
+bool CdmFactoryDaemon_ParseEncryptedSliceHeader_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for CdmFactoryDaemon.9
+  bool success = true;
+  bool p_success{};
+  std::vector<uint8_t> p_slice_header{};
+  CdmFactoryDaemon_ParseEncryptedSliceHeader_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (success && !input_data_view.ReadSliceHeader(&p_slice_header))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CdmFactoryDaemon::Name_, 9, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success), 
+std::move(p_slice_header));
+  return true;
+}
+
+void CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder::Run(
+    bool in_success, const std::vector<uint8_t>& in_slice_header) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::cdm::mojom::CdmFactoryDaemon::ParseEncryptedSliceHeader", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("slice_header"), in_slice_header,
+                        "<value of type const std::vector<uint8_t>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cdm::mojom::internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+  mojo::internal::MessageFragment<
+      typename decltype(params->slice_header)::BaseType>
+      slice_header_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& slice_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+      in_slice_header, slice_header_fragment, &slice_header_validate_params);
+  params->slice_header.Set(
+      slice_header_fragment.is_null() ? nullptr : slice_header_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->slice_header.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null slice_header in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CdmFactoryDaemon::Name_);
+  message.set_method_name("ParseEncryptedSliceHeader");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CdmFactoryDaemonStubDispatch::Accept(
@@ -1782,6 +2035,8 @@ bool CdmFactoryDaemonStubDispatch::Accept(
           reinterpret_cast<internal::CdmFactoryDaemon_RemovedMethod1_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.1
       bool success = true;
       CdmFactoryDaemon_RemovedMethod1_ParamsDataView input_data_view(params, message);
       
@@ -1794,7 +2049,7 @@ bool CdmFactoryDaemonStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovedMethod1();
+      impl->RemovedMethod1(        );
       return true;
     }
     case internal::kCdmFactoryDaemon_ConnectOemCrypto_Name: {
@@ -1804,6 +2059,8 @@ bool CdmFactoryDaemonStubDispatch::Accept(
           reinterpret_cast<internal::CdmFactoryDaemon_ConnectOemCrypto_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.2
       bool success = true;
       ::mojo::PendingReceiver<::arc::mojom::OemCryptoService> p_oemcryptor{};
       ::mojo::PendingRemote<::arc::mojom::ProtectedBufferManager> p_protected_buffer_manager{};
@@ -1831,10 +2088,10 @@ bool CdmFactoryDaemonStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ConnectOemCrypto(
-std::move(p_oemcryptor), 
-std::move(p_protected_buffer_manager), 
-std::move(p_output_protection));
+      impl->ConnectOemCrypto(        
+        std::move(p_oemcryptor), 
+        std::move(p_protected_buffer_manager), 
+        std::move(p_output_protection));
       return true;
     }
     case internal::kCdmFactoryDaemon_RemovedMethod3_Name: {
@@ -1844,6 +2101,8 @@ std::move(p_output_protection));
           reinterpret_cast<internal::CdmFactoryDaemon_RemovedMethod3_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.3
       bool success = true;
       CdmFactoryDaemon_RemovedMethod3_ParamsDataView input_data_view(params, message);
       
@@ -1856,7 +2115,7 @@ std::move(p_output_protection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovedMethod3();
+      impl->RemovedMethod3(        );
       return true;
     }
     case internal::kCdmFactoryDaemon_GetHwConfigData_Name: {
@@ -1869,6 +2128,8 @@ std::move(p_output_protection));
           reinterpret_cast<internal::CdmFactoryDaemon_RemovedMethod5_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.5
       bool success = true;
       CdmFactoryDaemon_RemovedMethod5_ParamsDataView input_data_view(params, message);
       
@@ -1881,7 +2142,7 @@ std::move(p_output_protection));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RemovedMethod5();
+      impl->RemovedMethod5(        );
       return true;
     }
     case internal::kCdmFactoryDaemon_GetHdcp14Key_Name: {
@@ -1891,6 +2152,9 @@ std::move(p_output_protection));
       break;
     }
     case internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name: {
+      break;
+    }
+    case internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name: {
       break;
     }
   }
@@ -1913,6 +2177,8 @@ bool CdmFactoryDaemonStubDispatch::AcceptWithResponder(
               internal::CdmFactoryDaemon_CreateFactory_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.0
       bool success = true;
       std::string p_key_system{};
       CdmFactoryDaemon_CreateFactory_ParamsDataView input_data_view(params, message);
@@ -1931,8 +2197,8 @@ bool CdmFactoryDaemonStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateFactory(
-std::move(p_key_system), std::move(callback));
+      impl->CreateFactory(        
+        std::move(p_key_system), std::move(callback));
       return true;
     }
     case internal::kCdmFactoryDaemon_RemovedMethod1_Name: {
@@ -1951,6 +2217,8 @@ std::move(p_key_system), std::move(callback));
               internal::CdmFactoryDaemon_GetHwConfigData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.4
       bool success = true;
       CdmFactoryDaemon_GetHwConfigData_ParamsDataView input_data_view(params, message);
       
@@ -1979,6 +2247,8 @@ std::move(p_key_system), std::move(callback));
               internal::CdmFactoryDaemon_GetHdcp14Key_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.6
       bool success = true;
       CdmFactoryDaemon_GetHdcp14Key_ParamsDataView input_data_view(params, message);
       
@@ -2004,6 +2274,8 @@ std::move(p_key_system), std::move(callback));
               internal::CdmFactoryDaemon_GetAndroidHwKeyData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.7
       bool success = true;
       std::vector<uint8_t> p_key_id{};
       std::vector<uint8_t> p_hw_identifier{};
@@ -2025,9 +2297,9 @@ std::move(p_key_system), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetAndroidHwKeyData(
-std::move(p_key_id), 
-std::move(p_hw_identifier), std::move(callback));
+      impl->GetAndroidHwKeyData(        
+        std::move(p_key_id), 
+        std::move(p_hw_identifier), std::move(callback));
       return true;
     }
     case internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name: {
@@ -2037,6 +2309,8 @@ std::move(p_hw_identifier), std::move(callback));
               internal::CdmFactoryDaemon_AllocateSecureBuffer_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for CdmFactoryDaemon.8
       bool success = true;
       uint32_t p_size{};
       CdmFactoryDaemon_AllocateSecureBuffer_ParamsDataView input_data_view(params, message);
@@ -2055,8 +2329,47 @@ std::move(p_hw_identifier), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AllocateSecureBuffer(
-std::move(p_size), std::move(callback));
+      impl->AllocateSecureBuffer(        
+        std::move(p_size), std::move(callback));
+      return true;
+    }
+    case internal::kCdmFactoryDaemon_ParseEncryptedSliceHeader_Name: {
+
+      internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_Params_Data* params =
+          reinterpret_cast<
+              internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for CdmFactoryDaemon.9
+      bool success = true;
+      uint64_t p_secure_handle{};
+      uint32_t p_offset{};
+      std::vector<uint8_t> p_stream_data{};
+      CdmFactoryDaemon_ParseEncryptedSliceHeader_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_secure_handle = input_data_view.secure_handle();
+      if (success)
+        p_offset = input_data_view.offset();
+      if (success && !input_data_view.ReadStreamData(&p_stream_data))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CdmFactoryDaemon::Name_, 9, false);
+        return false;
+      }
+      CdmFactoryDaemon::ParseEncryptedSliceHeaderCallback callback =
+          CdmFactoryDaemon_ParseEncryptedSliceHeader_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ParseEncryptedSliceHeader(        
+        std::move(p_secure_handle), 
+        std::move(p_offset), 
+        std::move(p_stream_data), std::move(callback));
       return true;
     }
   }
@@ -2083,6 +2396,8 @@ static const mojo::internal::GenericValidationInfo kCdmFactoryDaemonValidationIn
      &internal::CdmFactoryDaemon_GetAndroidHwKeyData_ResponseParams_Data::Validate},
     { &internal::CdmFactoryDaemon_AllocateSecureBuffer_Params_Data::Validate,
      &internal::CdmFactoryDaemon_AllocateSecureBuffer_ResponseParams_Data::Validate},
+    { &internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_Params_Data::Validate,
+     &internal::CdmFactoryDaemon_ParseEncryptedSliceHeader_ResponseParams_Data::Validate},
 };
 
 bool CdmFactoryDaemonRequestValidator::Accept(mojo::Message* message) {
@@ -2151,6 +2466,9 @@ void CdmFactoryDaemonInterceptorForTesting::GetAndroidHwKeyData(const std::vecto
 }
 void CdmFactoryDaemonInterceptorForTesting::AllocateSecureBuffer(uint32_t size, AllocateSecureBufferCallback callback) {
   GetForwardingInterface()->AllocateSecureBuffer(std::move(size), std::move(callback));
+}
+void CdmFactoryDaemonInterceptorForTesting::ParseEncryptedSliceHeader(uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, ParseEncryptedSliceHeaderCallback callback) {
+  GetForwardingInterface()->ParseEncryptedSliceHeader(std::move(secure_handle), std::move(offset), std::move(stream_data), std::move(callback));
 }
 CdmFactoryDaemonAsyncWaiter::CdmFactoryDaemonAsyncWaiter(
     CdmFactoryDaemon* proxy) : proxy_(proxy) {}
@@ -2269,6 +2587,28 @@ void CdmFactoryDaemonAsyncWaiter::AllocateSecureBuffer(
   AllocateSecureBuffer(std::move(size),&async_wait_result);
   return async_wait_result;
 }
+
+void CdmFactoryDaemonAsyncWaiter::ParseEncryptedSliceHeader(
+    uint64_t secure_handle, uint32_t offset, const std::vector<uint8_t>& stream_data, bool* out_success, std::vector<uint8_t>* out_slice_header) {
+  base::RunLoop loop;
+  proxy_->ParseEncryptedSliceHeader(std::move(secure_handle),std::move(offset),std::move(stream_data),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             std::vector<uint8_t>* out_slice_header
+,
+             bool success,
+             const std::vector<uint8_t>& slice_header) {*out_success = std::move(success);*out_slice_header = std::move(slice_header);
+            loop->Quit();
+          },
+          &loop,
+          out_success,
+          out_slice_header));
+  loop.Run();
+}
+
+
 
 
 

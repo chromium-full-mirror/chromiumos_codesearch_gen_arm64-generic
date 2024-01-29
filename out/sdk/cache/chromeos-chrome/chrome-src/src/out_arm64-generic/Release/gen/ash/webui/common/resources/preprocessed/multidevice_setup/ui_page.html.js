@@ -41,6 +41,7 @@ export function getTemplate() {
 
   h1 {
     color: var(--cros-sys-on_surface);
+    font-family: var(--cros-font-family-google-sans);
     font-size: 28px;
     font-weight: normal;
     line-height: 36px;
@@ -49,27 +50,15 @@ export function getTemplate() {
     text-align: var(--multidevice-setup-text-alignment);
   }
 
-  :host-context(body.jelly-enabled) h1 {
-    font-family: var(--cros-font-family-google-sans);
-  }
-
-  /* TODO(b/279667779): Remove once Jelly is launched */
-  :host-context(body:not(.jelly-enabled)) h1 {
-    font-family: 'Google Sans', Roboto, sans-serif;
-  }
-
   #message-container {
     color: var(--cros-sys-on_surface_variant);
+    font: var(--cros-body-1-font);
+    font-family: var(--cros-font-family-google-sans);
     line-height: 18px;
     min-height: 32px;
     overflow-wrap: break-word;
     padding-top: 16px;
     text-align: var(--multidevice-setup-text-alignment);
-  }
-
-  :host-context(body.jelly-enabled) #message-container {
-    font: var(--cros-body-1-font);
-    font-family: var(--cros-font-family-google-sans);
   }
 
   #main-container {

@@ -2331,6 +2331,92 @@ bool ProbeDisplayInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ProbeThermalSensorInfo::ProbeThermalSensorInfo()
+    : name(),
+      temperature_celsius(),
+      source() {}
+
+ProbeThermalSensorInfo::ProbeThermalSensorInfo(
+    const std::string& name_in,
+    double temperature_celsius_in,
+    ProbeThermalSensorSource source_in)
+    : name(std::move(name_in)),
+      temperature_celsius(std::move(temperature_celsius_in)),
+      source(std::move(source_in)) {}
+
+ProbeThermalSensorInfo::~ProbeThermalSensorInfo() = default;
+size_t ProbeThermalSensorInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->name);
+  seed = mojo::internal::Hash(seed, this->temperature_celsius);
+  seed = mojo::internal::Hash(seed, this->source);
+  return seed;
+}
+
+void ProbeThermalSensorInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "temperature_celsius"), this->temperature_celsius,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source"), this->source,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ProbeThermalSensorSource>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ProbeThermalSensorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ProbeThermalInfo::ProbeThermalInfo()
+    : thermal_sensors() {}
+
+ProbeThermalInfo::ProbeThermalInfo(
+    std::vector<ProbeThermalSensorInfoPtr> thermal_sensors_in)
+    : thermal_sensors(std::move(thermal_sensors_in)) {}
+
+ProbeThermalInfo::~ProbeThermalInfo() = default;
+
+void ProbeThermalInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "thermal_sensors"), this->thermal_sensors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<ProbeThermalSensorInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ProbeThermalInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ProbeTelemetryInfo::ProbeTelemetryInfo()
     : battery_result(),
       block_device_result(),
@@ -2347,7 +2433,8 @@ ProbeTelemetryInfo::ProbeTelemetryInfo()
       tpm_result(),
       audio_result(),
       bus_result(),
-      display_result() {}
+      display_result(),
+      thermal_result() {}
 
 ProbeTelemetryInfo::ProbeTelemetryInfo(
     ProbeBatteryResultPtr battery_result_in,
@@ -2378,7 +2465,8 @@ ProbeTelemetryInfo::ProbeTelemetryInfo(
       tpm_result(std::move(tpm_result_in)),
       audio_result(),
       bus_result(),
-      display_result() {}
+      display_result(),
+      thermal_result() {}
 
 ProbeTelemetryInfo::ProbeTelemetryInfo(
     ProbeBatteryResultPtr battery_result_in,
@@ -2410,7 +2498,8 @@ ProbeTelemetryInfo::ProbeTelemetryInfo(
       tpm_result(std::move(tpm_result_in)),
       audio_result(std::move(audio_result_in)),
       bus_result(),
-      display_result() {}
+      display_result(),
+      thermal_result() {}
 
 ProbeTelemetryInfo::ProbeTelemetryInfo(
     ProbeBatteryResultPtr battery_result_in,
@@ -2443,7 +2532,8 @@ ProbeTelemetryInfo::ProbeTelemetryInfo(
       tpm_result(std::move(tpm_result_in)),
       audio_result(std::move(audio_result_in)),
       bus_result(std::move(bus_result_in)),
-      display_result() {}
+      display_result(),
+      thermal_result() {}
 
 ProbeTelemetryInfo::ProbeTelemetryInfo(
     ProbeBatteryResultPtr battery_result_in,
@@ -2477,7 +2567,44 @@ ProbeTelemetryInfo::ProbeTelemetryInfo(
       tpm_result(std::move(tpm_result_in)),
       audio_result(std::move(audio_result_in)),
       bus_result(std::move(bus_result_in)),
-      display_result(std::move(display_result_in)) {}
+      display_result(std::move(display_result_in)),
+      thermal_result() {}
+
+ProbeTelemetryInfo::ProbeTelemetryInfo(
+    ProbeBatteryResultPtr battery_result_in,
+    ProbeNonRemovableBlockDeviceResultPtr block_device_result_in,
+    ProbeCachedVpdResultPtr vpd_result_in,
+    ProbeCpuResultPtr cpu_result_in,
+    ProbeTimezoneResultPtr timezone_result_in,
+    ProbeMemoryResultPtr memory_result_in,
+    ProbeBacklightResultPtr backlight_result_in,
+    ProbeFanResultPtr fan_result_in,
+    ProbeStatefulPartitionResultPtr stateful_partition_result_in,
+    ProbeBluetoothResultPtr bluetooth_result_in,
+    ProbeSystemResultPtr system_result_in,
+    ProbeNetworkResultPtr network_result_in,
+    ProbeTpmResultPtr tpm_result_in,
+    ProbeAudioResultPtr audio_result_in,
+    ProbeBusResultPtr bus_result_in,
+    ProbeDisplayResultPtr display_result_in,
+    ProbeThermalResultPtr thermal_result_in)
+    : battery_result(std::move(battery_result_in)),
+      block_device_result(std::move(block_device_result_in)),
+      vpd_result(std::move(vpd_result_in)),
+      cpu_result(std::move(cpu_result_in)),
+      timezone_result(std::move(timezone_result_in)),
+      memory_result(std::move(memory_result_in)),
+      backlight_result(std::move(backlight_result_in)),
+      fan_result(std::move(fan_result_in)),
+      stateful_partition_result(std::move(stateful_partition_result_in)),
+      bluetooth_result(std::move(bluetooth_result_in)),
+      system_result(std::move(system_result_in)),
+      network_result(std::move(network_result_in)),
+      tpm_result(std::move(tpm_result_in)),
+      audio_result(std::move(audio_result_in)),
+      bus_result(std::move(bus_result_in)),
+      display_result(std::move(display_result_in)),
+      thermal_result(std::move(thermal_result_in)) {}
 
 ProbeTelemetryInfo::~ProbeTelemetryInfo() = default;
 
@@ -2624,6 +2751,15 @@ void ProbeTelemetryInfo::WriteIntoTrace(
       "display_result"), this->display_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ProbeDisplayResultPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "thermal_result"), this->thermal_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ProbeThermalResultPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3526,6 +3662,57 @@ bool ProbeDisplayResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+ProbeThermalResult::ProbeThermalResult() : tag_(Tag::kThermalInfo) {
+  data_.thermal_info = new ProbeThermalInfoPtr;
+}
+
+ProbeThermalResult::~ProbeThermalResult() {
+  DestroyActive();
+}
+
+
+void ProbeThermalResult::set_thermal_info(
+    ProbeThermalInfoPtr thermal_info) {
+  if (tag_ == Tag::kThermalInfo) {
+    *(data_.thermal_info) = std::move(thermal_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kThermalInfo;
+    data_.thermal_info = new ProbeThermalInfoPtr(
+        std::move(thermal_info));
+  }
+}
+void ProbeThermalResult::set_error(
+    ProbeErrorPtr error) {
+  if (tag_ == Tag::kError) {
+    *(data_.error) = std::move(error);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kError;
+    data_.error = new ProbeErrorPtr(
+        std::move(error));
+  }
+}
+
+void ProbeThermalResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kThermalInfo:
+
+      delete data_.thermal_info;
+      break;
+    case Tag::kError:
+
+      delete data_.error;
+      break;
+  }
+}
+
+bool ProbeThermalResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 const char TelemetryProbeService::Name_[] = "crosapi.mojom.TelemetryProbeService";
 constexpr base::Token TelemetryProbeService::Uuid_;
 
@@ -3783,6 +3970,8 @@ bool TelemetryProbeService_ProbeTelemetryInfo_ForwardToCallback::Accept(
           internal::TelemetryProbeService_ProbeTelemetryInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TelemetryProbeService.0
   bool success = true;
   ProbeTelemetryInfoPtr p_telemetry_info{};
   TelemetryProbeService_ProbeTelemetryInfo_ResponseParamsDataView input_data_view(params, message);
@@ -3912,6 +4101,8 @@ bool TelemetryProbeService_GetOemData_ForwardToCallback::Accept(
           internal::TelemetryProbeService_GetOemData_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for TelemetryProbeService.1
   bool success = true;
   ProbeOemDataPtr p_oem_data{};
   TelemetryProbeService_GetOemData_ResponseParamsDataView input_data_view(params, message);
@@ -4015,6 +4206,8 @@ bool TelemetryProbeServiceStubDispatch::AcceptWithResponder(
               internal::TelemetryProbeService_ProbeTelemetryInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TelemetryProbeService.0
       bool success = true;
       std::vector<ProbeCategoryEnum> p_categories{};
       TelemetryProbeService_ProbeTelemetryInfo_ParamsDataView input_data_view(params, message);
@@ -4033,8 +4226,8 @@ bool TelemetryProbeServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ProbeTelemetryInfo(
-std::move(p_categories), std::move(callback));
+      impl->ProbeTelemetryInfo(        
+        std::move(p_categories), std::move(callback));
       return true;
     }
     case internal::kTelemetryProbeService_GetOemData_Name: {
@@ -4044,6 +4237,8 @@ std::move(p_categories), std::move(callback));
               internal::TelemetryProbeService_GetOemData_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for TelemetryProbeService.1
       bool success = true;
       TelemetryProbeService_GetOemData_ParamsDataView input_data_view(params, message);
       
@@ -4768,6 +4963,38 @@ bool StructTraits<::crosapi::mojom::ProbeDisplayInfo::DataView, ::crosapi::mojom
 
 
 // static
+bool StructTraits<::crosapi::mojom::ProbeThermalSensorInfo::DataView, ::crosapi::mojom::ProbeThermalSensorInfoPtr>::Read(
+    ::crosapi::mojom::ProbeThermalSensorInfo::DataView input,
+    ::crosapi::mojom::ProbeThermalSensorInfoPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::ProbeThermalSensorInfoPtr result(::crosapi::mojom::ProbeThermalSensorInfo::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success)
+        result->temperature_celsius = input.temperature_celsius();
+      if (success && !input.ReadSource(&result->source))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::ProbeThermalInfo::DataView, ::crosapi::mojom::ProbeThermalInfoPtr>::Read(
+    ::crosapi::mojom::ProbeThermalInfo::DataView input,
+    ::crosapi::mojom::ProbeThermalInfoPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::ProbeThermalInfoPtr result(::crosapi::mojom::ProbeThermalInfo::New());
+  
+      if (success && !input.ReadThermalSensors(&result->thermal_sensors))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::crosapi::mojom::ProbeTelemetryInfo::DataView, ::crosapi::mojom::ProbeTelemetryInfoPtr>::Read(
     ::crosapi::mojom::ProbeTelemetryInfo::DataView input,
     ::crosapi::mojom::ProbeTelemetryInfoPtr* output) {
@@ -4805,6 +5032,8 @@ bool StructTraits<::crosapi::mojom::ProbeTelemetryInfo::DataView, ::crosapi::moj
       if (success && !input.ReadBusResult(&result->bus_result))
         success = false;
       if (success && !input.ReadDisplayResult(&result->display_result))
+        success = false;
+      if (success && !input.ReadThermalResult(&result->thermal_result))
         success = false;
   *output = std::move(result);
   return success;
@@ -5363,6 +5592,39 @@ bool UnionTraits<::crosapi::mojom::ProbeDisplayResult::DataView, ::crosapi::mojo
 
       *output = UnionType::NewDisplayInfo(
           std::move(result_display_info));
+      break;
+    }
+    case Tag::kError: {
+      ::crosapi::mojom::ProbeErrorPtr result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(
+          std::move(result_error));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::crosapi::mojom::ProbeThermalResult::DataView, ::crosapi::mojom::ProbeThermalResultPtr>::Read(
+    ::crosapi::mojom::ProbeThermalResult::DataView input,
+    ::crosapi::mojom::ProbeThermalResultPtr* output) {
+  using UnionType = ::crosapi::mojom::ProbeThermalResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kThermalInfo: {
+      ::crosapi::mojom::ProbeThermalInfoPtr result_thermal_info;
+      if (!input.ReadThermalInfo(&result_thermal_info))
+        return false;
+
+      *output = UnionType::NewThermalInfo(
+          std::move(result_thermal_info));
       break;
     }
     case Tag::kError: {

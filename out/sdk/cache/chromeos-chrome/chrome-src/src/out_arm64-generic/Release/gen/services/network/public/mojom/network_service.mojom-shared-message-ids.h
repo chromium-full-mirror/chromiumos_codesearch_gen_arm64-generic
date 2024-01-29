@@ -24,7 +24,7 @@ constexpr uint32_t kNetworkService_DisableQuic_Name = 6;
 constexpr uint32_t kNetworkService_SetUpHttpAuth_Name = 7;
 constexpr uint32_t kNetworkService_ConfigureHttpAuthPrefs_Name = 8;
 constexpr uint32_t kNetworkService_SetRawHeadersAccess_Name = 9;
-constexpr uint32_t kNetworkService_SetMaxConnectionsPerProxy_Name = 10;
+constexpr uint32_t kNetworkService_SetMaxConnectionsPerProxyChain_Name = 10;
 constexpr uint32_t kNetworkService_GetNetworkChangeManager_Name = 11;
 constexpr uint32_t kNetworkService_GetNetworkQualityEstimatorManager_Name = 12;
 constexpr uint32_t kNetworkService_GetDnsConfigChangeManager_Name = 13;
@@ -48,7 +48,7 @@ constexpr uint32_t kNetworkService_UpdateMaskedDomainList_Name = 30;
 constexpr uint32_t kNetworkService_ParseHeaders_Name = 31;
 constexpr uint32_t kNetworkService_EnableDataUseUpdates_Name = 32;
 constexpr uint32_t kNetworkService_SetIPv6ReachabilityOverride_Name = 33;
-constexpr uint32_t kNetworkService_SetCookieEncryptionProvider_Name = 34;
+constexpr uint32_t kNetworkService_SetNetworkAnnotationMonitor_Name = 34;
 
 }  // namespace internal
 

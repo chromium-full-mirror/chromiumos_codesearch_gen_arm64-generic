@@ -211,6 +211,8 @@ bool GeolocationConfig_IsHighAccuracyLocationBeingCaptured_ForwardToCallback::Ac
           internal::GeolocationConfig_IsHighAccuracyLocationBeingCaptured_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for GeolocationConfig.0
   bool success = true;
   bool p_high_accuracy{};
   GeolocationConfig_IsHighAccuracyLocationBeingCaptured_ResponseParamsDataView input_data_view(params, message);
@@ -301,6 +303,8 @@ bool GeolocationConfigStubDispatch::AcceptWithResponder(
               internal::GeolocationConfig_IsHighAccuracyLocationBeingCaptured_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for GeolocationConfig.0
       bool success = true;
       GeolocationConfig_IsHighAccuracyLocationBeingCaptured_ParamsDataView input_data_view(params, message);
       

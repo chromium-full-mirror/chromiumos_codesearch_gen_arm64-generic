@@ -431,6 +431,8 @@ bool UnzipFilter_ShouldUnzipFile_ForwardToCallback::Accept(
           internal::UnzipFilter_ShouldUnzipFile_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for UnzipFilter.0
   bool success = true;
   bool p_result{};
   UnzipFilter_ShouldUnzipFile_ResponseParamsDataView input_data_view(params, message);
@@ -500,6 +502,8 @@ bool UnzipFilter_ShouldUnzipFile_HandleSyncResponse::Accept(
       reinterpret_cast<internal::UnzipFilter_ShouldUnzipFile_ResponseParams_Data*>(
           message->mutable_payload());
   
+  
+  // Validation for UnzipFilter.0
   bool success = true;
   bool p_result{};
   UnzipFilter_ShouldUnzipFile_ResponseParamsDataView input_data_view(params, message);
@@ -546,6 +550,8 @@ bool UnzipFilterStubDispatch::AcceptWithResponder(
               internal::UnzipFilter_ShouldUnzipFile_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for UnzipFilter.0
       bool success = true;
       ::base::FilePath p_path{};
       UnzipFilter_ShouldUnzipFile_ParamsDataView input_data_view(params, message);
@@ -564,8 +570,8 @@ bool UnzipFilterStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->ShouldUnzipFile(
-std::move(p_path), std::move(callback));
+      impl->ShouldUnzipFile(        
+        std::move(p_path), std::move(callback));
       return true;
     }
   }
@@ -699,6 +705,8 @@ bool UnzipListenerStubDispatch::Accept(
           reinterpret_cast<internal::UnzipListener_OnProgress_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for UnzipListener.0
       bool success = true;
       uint64_t p_bytes{};
       UnzipListener_OnProgress_ParamsDataView input_data_view(params, message);
@@ -714,8 +722,8 @@ bool UnzipListenerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnProgress(
-std::move(p_bytes));
+      impl->OnProgress(        
+        std::move(p_bytes));
       return true;
     }
   }
@@ -1142,6 +1150,8 @@ bool Unzipper_Unzip_ForwardToCallback::Accept(
           internal::Unzipper_Unzip_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Unzipper.0
   bool success = true;
   bool p_result{};
   Unzipper_Unzip_ResponseParamsDataView input_data_view(params, message);
@@ -1261,6 +1271,8 @@ bool Unzipper_DetectEncoding_ForwardToCallback::Accept(
           internal::Unzipper_DetectEncoding_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Unzipper.1
   bool success = true;
   int32_t p_encoding{};
   Unzipper_DetectEncoding_ResponseParamsDataView input_data_view(params, message);
@@ -1380,6 +1392,8 @@ bool Unzipper_GetExtractedInfo_ForwardToCallback::Accept(
           internal::Unzipper_GetExtractedInfo_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for Unzipper.2
   bool success = true;
   InfoPtr p_info{};
   Unzipper_GetExtractedInfo_ResponseParamsDataView input_data_view(params, message);
@@ -1486,6 +1500,8 @@ bool UnzipperStubDispatch::AcceptWithResponder(
               internal::Unzipper_Unzip_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Unzipper.0
       bool success = true;
       ::base::File p_zip_file{};
       ::mojo::PendingRemote<::storage::mojom::Directory> p_output_dir{};
@@ -1522,12 +1538,12 @@ bool UnzipperStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Unzip(
-std::move(p_zip_file), 
-std::move(p_output_dir), 
-std::move(p_options), 
-std::move(p_filter), 
-std::move(p_listener), std::move(callback));
+      impl->Unzip(        
+        std::move(p_zip_file), 
+        std::move(p_output_dir), 
+        std::move(p_options), 
+        std::move(p_filter), 
+        std::move(p_listener), std::move(callback));
       return true;
     }
     case internal::kUnzipper_DetectEncoding_Name: {
@@ -1537,6 +1553,8 @@ std::move(p_listener), std::move(callback));
               internal::Unzipper_DetectEncoding_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Unzipper.1
       bool success = true;
       ::base::File p_zip_file{};
       Unzipper_DetectEncoding_ParamsDataView input_data_view(params, message);
@@ -1555,8 +1573,8 @@ std::move(p_listener), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->DetectEncoding(
-std::move(p_zip_file), std::move(callback));
+      impl->DetectEncoding(        
+        std::move(p_zip_file), std::move(callback));
       return true;
     }
     case internal::kUnzipper_GetExtractedInfo_Name: {
@@ -1566,6 +1584,8 @@ std::move(p_zip_file), std::move(callback));
               internal::Unzipper_GetExtractedInfo_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for Unzipper.2
       bool success = true;
       ::base::File p_zip_file{};
       Unzipper_GetExtractedInfo_ParamsDataView input_data_view(params, message);
@@ -1584,8 +1604,8 @@ std::move(p_zip_file), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetExtractedInfo(
-std::move(p_zip_file), std::move(callback));
+      impl->GetExtractedInfo(        
+        std::move(p_zip_file), std::move(callback));
       return true;
     }
   }

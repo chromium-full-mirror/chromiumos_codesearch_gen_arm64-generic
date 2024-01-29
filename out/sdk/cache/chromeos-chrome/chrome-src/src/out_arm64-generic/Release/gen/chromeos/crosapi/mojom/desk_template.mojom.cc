@@ -637,6 +637,8 @@ bool DeskTemplateClient_GetBrowserInformation_ForwardToCallback::Accept(
           internal::DeskTemplateClient_GetBrowserInformation_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeskTemplateClient.0
   bool success = true;
   uint32_t p_serial{};
   std::string p_window_unique_id{};
@@ -788,6 +790,8 @@ bool DeskTemplateClient_GetFaviconImage_ForwardToCallback::Accept(
           internal::DeskTemplateClient_GetFaviconImage_ResponseParams_Data*>(
               message->mutable_payload());
   
+  
+  // Validation for DeskTemplateClient.2
   bool success = true;
   ::gfx::ImageSkia p_image{};
   DeskTemplateClient_GetFaviconImage_ResponseParamsDataView input_data_view(params, message);
@@ -868,6 +872,8 @@ bool DeskTemplateClientStubDispatch::Accept(
           reinterpret_cast<internal::DeskTemplateClient_CreateBrowserWithRestoredData_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskTemplateClient.1
       bool success = true;
       ::gfx::Rect p_bounds{};
       ::ui::WindowShowState p_initial_show_state{};
@@ -889,10 +895,10 @@ bool DeskTemplateClientStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateBrowserWithRestoredData(
-std::move(p_bounds), 
-std::move(p_initial_show_state), 
-std::move(p_state));
+      impl->CreateBrowserWithRestoredData(        
+        std::move(p_bounds), 
+        std::move(p_initial_show_state), 
+        std::move(p_state));
       return true;
     }
     case internal::kDeskTemplateClient_GetBrowserInformation_Name: {
@@ -924,6 +930,8 @@ bool DeskTemplateClientStubDispatch::AcceptWithResponder(
               internal::DeskTemplateClient_GetBrowserInformation_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeskTemplateClient.0
       bool success = true;
       uint32_t p_serial{};
       std::string p_window_unique_id{};
@@ -945,9 +953,9 @@ bool DeskTemplateClientStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetBrowserInformation(
-std::move(p_serial), 
-std::move(p_window_unique_id), std::move(callback));
+      impl->GetBrowserInformation(        
+        std::move(p_serial), 
+        std::move(p_window_unique_id), std::move(callback));
       return true;
     }
     case internal::kDeskTemplateClient_GetFaviconImage_Name: {
@@ -957,6 +965,8 @@ std::move(p_window_unique_id), std::move(callback));
               internal::DeskTemplateClient_GetFaviconImage_Params_Data*>(
                   message->mutable_payload());
       
+      
+      // Validation for DeskTemplateClient.2
       bool success = true;
       ::GURL p_url{};
       DeskTemplateClient_GetFaviconImage_ParamsDataView input_data_view(params, message);
@@ -975,8 +985,8 @@ std::move(p_window_unique_id), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetFaviconImage(
-std::move(p_url), std::move(callback));
+      impl->GetFaviconImage(        
+        std::move(p_url), std::move(callback));
       return true;
     }
   }
@@ -1120,6 +1130,8 @@ bool DeskTemplateStubDispatch::Accept(
           reinterpret_cast<internal::DeskTemplate_AddDeskTemplateClient_Params_Data*>(
               message->mutable_payload());
       
+      
+      // Validation for DeskTemplate.0
       bool success = true;
       ::mojo::PendingRemote<DeskTemplateClient> p_client{};
       DeskTemplate_AddDeskTemplateClient_ParamsDataView input_data_view(params, message);
@@ -1137,8 +1149,8 @@ bool DeskTemplateStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddDeskTemplateClient(
-std::move(p_client));
+      impl->AddDeskTemplateClient(        
+        std::move(p_client));
       return true;
     }
   }

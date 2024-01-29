@@ -1,11 +1,11 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { CrosNetworkConfig, CrosNetworkConfigInterface as NetworkConfigServiceInterface } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { CrosNetworkConfig } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { fakeCalibrationComponentsWithFails, fakeChromeVersion, fakeComponents, fakeDeviceCustomLabels, fakeDeviceRegions, fakeDeviceSkus, fakeLog, fakeLogSavePath, fakeRsuChallengeCode, fakeRsuChallengeQrCode, fakeStates } from './fake_data.js';
 import { FakeShimlessRmaService } from './fake_shimless_rma_service.js';
-import { CalibrationSetupInstruction, FeatureLevel, RmadErrorCode, ShimlessRmaService, ShimlessRmaServiceInterface, WriteProtectDisableCompleteAction } from './shimless_rma.mojom-webui.js';
+import { CalibrationSetupInstruction, FeatureLevel, RmadErrorCode, ShimlessRmaService, WriteProtectDisableCompleteAction } from './shimless_rma.mojom-webui.js';
 /**
  * @fileoverview
  * Provides singleton access to (fake) mojo interfaces with the ability
@@ -13,24 +13,11 @@ import { CalibrationSetupInstruction, FeatureLevel, RmadErrorCode, ShimlessRmaSe
  */
 /**
  * If true this will replace ShimlessRmaService with a fake.
- * @type {boolean}
  */
 const useFakeService = false;
-/**
- * @type {?ShimlessRmaServiceInterface}
- */
 let shimlessRmaService = null;
-/**
- * @type {?NetworkConfigServiceInterface}
- */
 let networkConfigService = null;
-/**
- * Sets up a FakeShimlessRmaService to be used at runtime.
- * TODO(gavindodd): Remove once mojo bindings are implemented.
- */
-function setupFakeShimlessRmaService() {
-    // Create provider.
-    const service = new FakeShimlessRmaService();
+export function populateFakeShimlessRmaService(service) {
     service.setStates(fakeStates);
     service.setAsyncOperationDelayMs(500);
     service.setAbortRmaResult(RmadErrorCode.kRmaNotRequired);
@@ -64,18 +51,18 @@ function setupFakeShimlessRmaService() {
     service.setGetLogResult(fakeLog);
     service.setSaveLogResult({ 'path': fakeLogSavePath });
     service.setGetPowerwashRequiredResult(true);
+}
+// Sets up a FakeShimlessRmaService to be used at runtime.
+function setupFakeShimlessRmaService() {
+    // Create provider.
+    const service = new FakeShimlessRmaService();
+    populateFakeShimlessRmaService(service);
     // Set the fake service.
     setShimlessRmaServiceForTesting(service);
 }
-/**
- * @param {!ShimlessRmaServiceInterface} testService
- */
 export function setShimlessRmaServiceForTesting(testService) {
     shimlessRmaService = testService;
 }
-/**
- * @return {!ShimlessRmaServiceInterface}
- */
 export function getShimlessRmaService() {
     if (!shimlessRmaService) {
         if (useFakeService) {
@@ -88,15 +75,9 @@ export function getShimlessRmaService() {
     assert(!!shimlessRmaService);
     return shimlessRmaService;
 }
-/**
- * @param {!NetworkConfigServiceInterface} testService
- */
 export function setNetworkConfigServiceForTesting(testService) {
     networkConfigService = testService;
 }
-/**
- * @return {!NetworkConfigServiceInterface}
- */
 export function getNetworkConfigService() {
     if (!networkConfigService) {
         networkConfigService = CrosNetworkConfig.getRemote();

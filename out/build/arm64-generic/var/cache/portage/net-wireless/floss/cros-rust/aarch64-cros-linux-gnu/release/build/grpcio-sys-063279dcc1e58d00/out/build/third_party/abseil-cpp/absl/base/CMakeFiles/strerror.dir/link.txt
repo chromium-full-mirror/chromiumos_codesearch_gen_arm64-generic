@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc libabsl_strerror.a CMakeFiles/strerror.dir/internal/strerror.cc.o
+/usr/bin/llvm-ranlib libabsl_strerror.a

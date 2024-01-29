@@ -110,7 +110,7 @@ describe('HeadersView', async () => {
         dispatchInputEvent(editable, { inputType: 'insertText', data: value, bubbles: true, composed: true });
         dispatchFocusOutEvent(editable, { bubbles: true });
         await coordinator.done();
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
     }
     async function pressButton(shadowRoot, rowIndex, selector) {
         const rowElements = shadowRoot.querySelectorAll('.row');
@@ -309,7 +309,7 @@ describe('HeadersView', async () => {
             'jpg-header:only for jpg files',
         ]);
         assert.strictEqual(commitWorkingCopySpy.callCount, 1);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
     });
     it('allows adding headers', async () => {
         const editor = await renderEditorWithinWrapper();
@@ -333,7 +333,7 @@ describe('HeadersView', async () => {
             'Apply to:*.jpg',
             'jpg-header:only for jpg files',
         ]);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
         const editables = editor.shadowRoot.querySelectorAll('.editable');
         await changeEditable(editables[3], 'cache-control');
         await changeEditable(editables[4], 'max-age=1000');
@@ -373,7 +373,7 @@ describe('HeadersView', async () => {
             'Apply to:*',
             'header-name-1:header value',
         ]);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
         const editables = editor.shadowRoot.querySelectorAll('.editable');
         await changeEditable(editables[8], 'articles/*');
         await changeEditable(editables[9], 'cache-control');
@@ -409,7 +409,7 @@ describe('HeadersView', async () => {
             'Apply to:*.jpg',
             'jpg-header:only for jpg files',
         ]);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
         let hiddenDeleteElements = await editor.shadowRoot.querySelectorAll('.row.padded > .remove-header[hidden]');
         assert.isTrue(hiddenDeleteElements.length === 0, 'remove-header button is visible');
         await pressButton(editor.shadowRoot, 1, '.remove-header');
@@ -441,7 +441,7 @@ describe('HeadersView', async () => {
             'Apply to:*.jpg',
             'jpg-header:only for jpg files',
         ]);
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
     });
     it('removes formatting for pasted content', async () => {
         const editor = await renderEditor();
@@ -457,7 +457,7 @@ describe('HeadersView', async () => {
         dispatchPasteEvent(headerValue, { clipboardData: dt, bubbles: true });
         await coordinator.done();
         assert.deepEqual(getSingleRowContent(editor.shadowRoot, 2), 'access-control-allow-origin:foo bar');
-        assert.isTrue(recordedMetricsContain(Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
+        assert.isTrue(recordedMetricsContain("DevTools.ActionTaken" /* Host.InspectorFrontendHostAPI.EnumeratedHistogram.ActionTaken */, Host.UserMetrics.Action.HeaderOverrideHeadersFileEdited));
     });
     it('shows context menu', async () => {
         const editor = await renderEditor();

@@ -24,232 +24,22 @@ import './common_styles/oobe_common_styles.css.js';
 import './common_styles/oobe_dialog_host_styles.css.js';
 import './dialogs/oobe_content_dialog.js';
 import './quick_start_entry_point.js';
-import { sendWithPromise } from '//resources/ash/common/cr.m.js';
-import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { Authenticator, AuthFlow } from '../../../gaia_auth_host/authenticator.js';
+import { Authenticator, AuthFlow } from '//oobe/gaia_auth_host/authenticator.js';
+import { assert } from '//resources/js/assert.js';
+import { sendWithPromise } from '//resources/js/cr.js';
+import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { OobeDialogHostBehavior } from './behaviors/oobe_dialog_host_behavior.js';
-import { OobeI18nBehavior, OobeI18nBehaviorInterface } from './behaviors/oobe_i18n_behavior.js';
+import { OobeI18nBehavior } from './behaviors/oobe_i18n_behavior.js';
+import { getTemplate } from './gaia_dialog.html.js';
 import { OobeTypes } from './oobe_types.js';
-/**
- * @constructor
- * @extends {PolymerElement}
- * @implements {OobeI18nBehaviorInterface}
- */
-const GaiaDialogBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior], PolymerElement);
+export const GaiaDialogBase = mixinBehaviors([OobeI18nBehavior, OobeDialogHostBehavior], PolymerElement);
 const CHROMEOS_GAIA_PASSWORD_METRIC = 'ChromeOS.Gaia.PasswordFlow';
-/**
- * @polymer
- */
-class GaiaDialog extends GaiaDialogBase {
+export class GaiaDialog extends GaiaDialogBase {
     static get is() {
         return 'gaia-dialog';
     }
     static get template() {
-        return html `<!--_html_template_start_-->
-<!--
-Copyright 2021 The Chromium Authors
-Use of this source code is governed by a BSD-style license that can be
-found in the LICENSE file.
--->
-
-<style include="oobe-dialog-host-styles cr-shared-style">
-  #saml-back-button {
-    --cr-icon-button-margin-end: 0;
-    --cr-icon-button-margin-start: 0;
-  }
-
-  #saml-notice-container,
-  #saml-footer-container {
-    align-items: center;
-    background: white;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.17);
-    display: flex;
-    min-height: 0;
-  }
-
-  #saml-notice-container {
-    border-bottom: 1px solid var(--cros-sys-separator);
-    height: 44px;
-  }
-
-  #saml-footer-container {
-    border-top: 1px solid var(--cros-sys-separator);
-    height: 58px;
-  }
-
-  #saml-notice-recording-indicator {
-    padding-inline-end: 10px;
-    padding-inline-start: 10px;
-  }
-
-  #signin-frame {
-    display: flex;
-    overflow: hidden;
-    /* Position relative is needed for proper size calculation of
-      * ::before element which is responsible for scrolling shadow.
-      **/
-    position: relative;
-  }
-
-  #signin-frame-container {
-    z-index: 10;
-  }
-
-  /* WebviewScrollShadowsHelper */
-  #signin-frame-container:not([hideshadows]) #signin-frame.can-scroll:not(.is-scrolled):not(.scrolled-to-bottom)::before,
-  #signin-frame-container:not([hideshadows]) #signin-frame.can-scroll.is-scrolled:not(.scrolled-to-bottom)::before,
-  #signin-frame-container:not([hideshadows]) #signin-frame.is-scrolled.scrolled-to-bottom::before {
-    content: '';
-    height: 100%;
-    opacity: 0.3;
-    pointer-events: none;
-    position: absolute;
-    width: 100%;
-
-    /* Variables that are used for displaying scroll shadows. */
-    --scroll-shadow-bottom-bg:
-        linear-gradient(0deg, var(--google-grey-400) 0, transparent 8px);
-    --scroll-shadow-top-bg:
-        linear-gradient(180deg, var(--google-grey-400) 0, transparent 8px);
-  }
-
-  #signin-frame-container:not([hideshadows]) #signin-frame.can-scroll:not(.is-scrolled):not(.scrolled-to-bottom)::before {
-    background: var(--scroll-shadow-bottom-bg);
-  }
-
-  #signin-frame-container:not([hideshadows]) #signin-frame.can-scroll.is-scrolled:not(.scrolled-to-bottom)::before {
-    background: var(--scroll-shadow-bottom-bg), var(--scroll-shadow-top-bg);
-  }
-
-  #signin-frame-container:not([hideshadows]) #signin-frame.is-scrolled.scrolled-to-bottom::before {
-    background: var(--scroll-shadow-top-bg);
-  }
-
-  #sshWarning {
-    color: var(--cros-sys-error);
-    text-align: center;
-  }
-
-  #change-account {
-    padding-inline-end: 8px;
-    padding-inline-start: 8px;
-  }
-</style>
-<link rel="stylesheet" href="oobe_popup_overlay.css">
-<!-- As this dialog have pre-loading logic that require access to elements,
-      dialog is marked as no-lazy. -->
-<oobe-content-dialog role="dialog" id="gaiaDialog" no-lazy
-    no-buttons$="[[isSamlSsoVisible]]" fullscreen$="[[isSamlSsoVisible]]"
-    isGaia$="[[!isSamlSsoVisible]]">
-  <div slot="content" id="signin-frame-container"
-      hideshadows$="[[isPopUpOverlayVisible_]]"
-      class="flex layout vertical">
-    <div id="saml-notice-container" class="layout horizontal center"
-        hidden$="[[!isSamlSsoVisible]]">
-      <cr-icon-button id="saml-back-button" iron-icon="cr:arrow-back"
-          on-click="close_" hidden="[[isSamlBackButtonHidden_]]">
-      </cr-icon-button>
-      <div class="flex layout horizontal center-justified">
-        <span id="saml-notice-recording-indicator"
-            hidden$="[[!videoEnabled]]">
-          <img src="chrome://theme/IDR_TAB_RECORDING_INDICATOR">
-        </span>
-        <span id="saml-notice-message">
-          [[getSamlNoticeMessage_(locale, videoEnabled, authDomain)]]
-        </span>
-      </div>
-    </div>
-    <h3 id="sshWarning" hidden>
-      [[i18nDynamic(locale, 'sshWarningLogin')]]
-    </h3>
-    <webview id="signin-frame" class="flex" name="[[webviewName]]">
-    </webview>
-    <div id="saml-footer-container" hidden="[[!isDefaultSsoProvider]]"
-        class="layout horizontal end-justified">
-      <div>[[i18nDynamic(locale, 'samlChangeProviderMessage')]]</div>
-      <oobe-text-button id="change-account"
-          text-key="samlChangeProviderButton"
-          on-click="onChangeSigninProviderClicked_">
-      </oobe-text-button>
-    </div>
-  </div>
-  <div slot="back-navigation" hidden$="[[navigationHidden]]">
-    <oobe-back-button id="signin-back-button"
-        disabled="[[!navigationEnabled]]"
-        hidden="[[isBackButtonHidden(navigationHidden,
-                                     hideBackButtonIfCantGoBack, canGoBack)]]"
-        on-click="onBackButtonClicked_">
-    </oobe-back-button>
-  </div>
-  <div slot="bottom-buttons" hidden$="[[navigationHidden]]">
-    <div hidden="[[!isDefaultNavigationShown_(canGoBack,
-        gaiaDialogButtonsType)]]" class="flex layout horizontal">
-      <quick-start-entry-point
-        id="quick-start-signin-button"
-        on-click="onQuickStartClicked_"
-        hidden="[[!isQuickStartEnabled_]]"
-        quick-start-text-key="signinScreenQuickStart">
-      </quick-start-entry-point>
-      <oobe-text-button id="secondary-action-button"
-          label-for-aria="[[secondaryActionButtonLabel_]]"
-          on-click="onSecondaryActionButtonClicked_"
-          hidden$="[[!secondaryActionButtonLabel_]]"
-          disabled="[[!isButtonEnabled_(navigationEnabled,
-                                        secondaryActionButtonEnabled_)]]">
-        <div slot="text">[[secondaryActionButtonLabel_]]</div>
-      </oobe-text-button>
-      <oobe-text-button id="primary-action-button"
-          label-for-aria="[[primaryActionButtonLabel_]]"
-          on-click="onPrimaryActionButtonClicked_"
-          hidden$="[[!primaryActionButtonLabel_]]"
-          disabled="[[!isButtonEnabled_(navigationEnabled,
-                                        primaryActionButtonEnabled_)]]"
-          inverse>
-        <div slot="text">[[primaryActionButtonLabel_]]</div>
-      </oobe-text-button>
-    </div>
-    <div hidden="[[!isEnterpriseNavigationShown_(canGoBack,
-        gaiaDialogButtonsType)]]">
-      <oobe-text-button id="enterprise-navigation-kiosk"
-          text-key="kioskEnrollmentButton"
-          on-click="onKioskButtonClicked_"
-          hidden$="[[!primaryActionButtonLabel_]]"
-          disabled="[[!isButtonEnabled_(navigationEnabled,
-                                        primaryActionButtonEnabled_)]]">
-      </oobe-text-button>
-      <oobe-text-button id="enterprise-navigation-enterprise"
-          text-key="enterpriseEnrollmentButton"
-          on-click="onEnterpriseButtonClicked_"
-          hidden$="[[!primaryActionButtonLabel_]]"
-          disabled="[[!isButtonEnabled_(navigationEnabled,
-                                        primaryActionButtonEnabled_)]]"
-          inverse>
-      </oobe-text-button>
-    </div>
-    <div hidden="[[!isKioskNavigationShown_(canGoBack,
-        gaiaDialogButtonsType)]]">
-      <oobe-text-button id="kiosk-navigation-enterprise"
-          text-key="enterpriseEnrollmentButton"
-          on-click="onEnterpriseButtonClicked_"
-          hidden$="[[!primaryActionButtonLabel_]]"
-          disabled="[[!isButtonEnabled_(navigationEnabled,
-                                        primaryActionButtonEnabled_)]]">
-      </oobe-text-button>
-      <oobe-text-button id="kiosk-navigation-kiosk"
-          text-key="kioskEnrollmentButton"
-          on-click="onKioskButtonClicked_"
-          hidden$="[[!primaryActionButtonLabel_]]"
-          disabled="[[!isButtonEnabled_(navigationEnabled,
-                                        primaryActionButtonEnabled_)]]"
-          inverse>
-      </oobe-text-button>
-    </div>
-  </div>
-</oobe-content-dialog>
-<div class="popup-overlay"
-    hidden="[[!isPopUpOverlayVisible_]]">
-</div>
-<!--_html_template_end_-->`;
+        return getTemplate();
     }
     static get properties() {
         return {
@@ -306,7 +96,6 @@ found in the LICENSE file.
             },
             /**
              * Used to display SAML notice.
-             * @private
              */
             authDomain: {
                 type: String,
@@ -336,33 +125,29 @@ found in the LICENSE file.
             },
             /**
              * Controls label on the primary action button.
-             * @private
              */
-            primaryActionButtonLabel_: {
+            primaryActionButtonLabel: {
                 type: String,
                 value: null,
             },
             /**
              * Controls availability of the primary action button.
-             * @private
              */
-            primaryActionButtonEnabled_: {
+            primaryActionButtonEnabled: {
                 type: Boolean,
                 value: false,
             },
             /**
              * Controls label on the secondary action button.
-             * @private
              */
-            secondaryActionButtonLabel_: {
+            secondaryActionButtonLabel: {
                 type: String,
                 value: null,
             },
             /**
              * Controls availability of the secondary action button.
-             * @private
              */
-            secondaryActionButtonEnabled_: {
+            secondaryActionButtonEnabled: {
                 type: Boolean,
                 value: false,
             },
@@ -378,23 +163,20 @@ found in the LICENSE file.
              * Whether a pop-up overlay should be shown. This overlay is necessary
              * when GAIA shows an overlay within their iframe. It covers the parts
              * of the screen that would otherwise not show an overlay.
-             * @private
              */
-            isPopUpOverlayVisible_: {
+            isPopUpOverlayVisible: {
                 type: Boolean,
-                computed: 'showOverlay_(navigationEnabled, isSamlSsoVisible)',
+                computed: 'showOverlay(navigationEnabled, isSamlSsoVisible)',
             },
-            isSamlBackButtonHidden_: {
+            samlBackButtonHidden: {
                 type: Boolean,
                 computed: 'isSamlBackButtonHidden(isDefaultSsoProvider, isClosable)',
             },
             /**
              * Whether Quick start feature is enabled. If it's enabled the quick start
              * button will be shown in the signin screen.
-             * @type {boolean}
-             * @private
              */
-            isQuickStartEnabled_: Boolean,
+            isQuickStartEnabled: Boolean,
         };
     }
     constructor() {
@@ -402,25 +184,18 @@ found in the LICENSE file.
         /**
          * Emulate click on the primary action button when it is visible and
          * enabled.
-         * @type {boolean}
-         * @private
          */
-        this.clickPrimaryActionButtonForTesting_ = false;
-        /**
-         * @type {!Authenticator|undefined}
-         * @private
-         */
-        this.authenticator_ = undefined;
-        this.isQuickStartEnabled_ = false;
+        this.clickPrimaryActionButtonForTesting = false;
+        this.authenticator = undefined;
+        this.isQuickStartEnabled = false;
     }
     getAuthenticator() {
-        return this.authenticator_;
+        return this.authenticator;
     }
-    /** @override */
     ready() {
         super.ready();
-        const webview = /** @type {!WebView} */ (this.$['signin-frame']);
-        this.authenticator_ = new Authenticator(webview);
+        const webview = this.getFrame();
+        this.authenticator = new Authenticator(webview);
         /**
          * Event listeners for the events triggered by the authenticator.
          */
@@ -432,11 +207,11 @@ found in the LICENSE file.
             'loadAbort': (e) => {
                 this.dispatchEvent(new CustomEvent('webviewerror', { bubbles: true, composed: true, detail: e.detail }));
             },
-            'ready': (e) => {
-                this.dispatchEvent(new CustomEvent('ready', { bubbles: true, composed: true, detail: e.detail }));
+            'ready': () => {
+                this.dispatchEvent(new CustomEvent('ready', { bubbles: true, composed: true }));
             },
-            'showView': (e) => {
-                this.dispatchEvent(new CustomEvent('showview', { bubbles: true, composed: true, detail: e.detail }));
+            'showView': () => {
+                this.dispatchEvent(new CustomEvent('showview', { bubbles: true, composed: true }));
             },
             'menuItemClicked': (e) => {
                 if (e.detail == 'ee') {
@@ -448,23 +223,23 @@ found in the LICENSE file.
                 this.getFrame().focus();
             },
             'setPrimaryActionEnabled': (e) => {
-                this.primaryActionButtonEnabled_ = e.detail;
-                this.maybeClickPrimaryActionButtonForTesting_();
+                this.primaryActionButtonEnabled = e.detail;
+                this.maybeClickPrimaryActionButtonForTesting();
             },
             'setPrimaryActionLabel': (e) => {
-                this.primaryActionButtonLabel_ = e.detail;
-                this.maybeClickPrimaryActionButtonForTesting_();
+                this.primaryActionButtonLabel = e.detail;
+                this.maybeClickPrimaryActionButtonForTesting();
             },
             'setSecondaryActionEnabled': (e) => {
-                this.secondaryActionButtonEnabled_ = e.detail;
+                this.secondaryActionButtonEnabled = e.detail;
             },
             'setSecondaryActionLabel': (e) => {
-                this.secondaryActionButtonLabel_ = e.detail;
+                this.secondaryActionButtonLabel = e.detail;
             },
             'setAllActionsEnabled': (e) => {
-                this.primaryActionButtonEnabled_ = e.detail;
-                this.secondaryActionButtonEnabled_ = e.detail;
-                this.maybeClickPrimaryActionButtonForTesting_();
+                this.primaryActionButtonEnabled = e.detail;
+                this.secondaryActionButtonEnabled = e.detail;
+                this.maybeClickPrimaryActionButtonForTesting();
             },
             'videoEnabledChange': (e) => {
                 this.videoEnabled = e.detail.newValue;
@@ -475,21 +250,21 @@ found in the LICENSE file.
             'authDomainChange': (e) => {
                 this.authDomain = e.detail.newValue;
             },
-            'dialogShown': (e) => {
+            'dialogShown': () => {
                 this.navigationEnabled = false;
                 chrome.send('enableShelfButtons', [false]);
             },
-            'dialogHidden': (e) => {
+            'dialogHidden': () => {
                 this.navigationEnabled = true;
                 chrome.send('enableShelfButtons', [true]);
             },
-            'exit': (e) => {
-                this.dispatchEvent(new CustomEvent('exit', { bubbles: true, composed: true, detail: e.detail }));
+            'exit': () => {
+                this.dispatchEvent(new CustomEvent('exit', { bubbles: true, composed: true }));
             },
             'removeUserByEmail': (e) => {
                 this.dispatchEvent(new CustomEvent('removeuserbyemail', { bubbles: true, composed: true, detail: e.detail }));
             },
-            'apiPasswordAdded': (e) => {
+            'apiPasswordAdded': () => {
                 // Only record the metric for Gaia flow without 3rd-party SAML IdP.
                 if (this.authFlow !== AuthFlow.DEFAULT) {
                     return;
@@ -506,13 +281,16 @@ found in the LICENSE file.
             },
         };
         for (const eventName in authenticatorEventListeners) {
-            this.authenticator_.addEventListener(eventName, authenticatorEventListeners[eventName].bind(this));
+            this.authenticator.addEventListener(eventName, authenticatorEventListeners[eventName].bind(this));
         }
         sendWithPromise('getIsSshConfigured')
             .then(this.updateSshWarningVisibility.bind(this));
     }
     updateSshWarningVisibility(show) {
-        this.$.sshWarning.hidden = !show;
+        const sshWarning = this.shadowRoot?.querySelector('#sshWarning');
+        if (sshWarning instanceof HTMLElement) {
+            sshWarning.hidden = !show;
+        }
     }
     show() {
         this.navigationEnabled = true;
@@ -520,43 +298,38 @@ found in the LICENSE file.
         this.getFrame().focus();
     }
     getFrame() {
-        // Note: Can't use |this.$|, since it returns cached references to elements
-        // originally present in DOM, while the signin-frame is  dynamically
-        // recreated (see Authenticator.setWebviewPartition()).
-        return this.shadowRoot.querySelector('#signin-frame');
+        const frame = this.shadowRoot?.querySelector('#signin-frame');
+        assert(!!frame);
+        return frame;
     }
     clickPrimaryButtonForTesting() {
-        this.clickPrimaryActionButtonForTesting_ = true;
-        this.maybeClickPrimaryActionButtonForTesting_();
+        this.clickPrimaryActionButtonForTesting = true;
+        this.maybeClickPrimaryActionButtonForTesting();
     }
-    maybeClickPrimaryActionButtonForTesting_() {
-        if (!this.clickPrimaryActionButtonForTesting_) {
+    maybeClickPrimaryActionButtonForTesting() {
+        if (!this.clickPrimaryActionButtonForTesting) {
             return;
         }
-        const button = this.$['primary-action-button'];
+        const button = this.shadowRoot.querySelector('#primary-action-button');
         if (button.hidden || button.disabled) {
             return;
         }
-        this.clickPrimaryActionButtonForTesting_ = false;
+        this.clickPrimaryActionButtonForTesting = false;
         button.click();
     }
-    /* @private */
-    getSamlNoticeMessage_(locale, videoEnabled, authDomain) {
+    getSamlNoticeMessage(locale, videoEnabled, authDomain) {
         if (videoEnabled) {
-            return this.i18n('samlNoticeWithVideo', authDomain);
+            return this.i18nDynamic(locale, 'samlNoticeWithVideo', authDomain);
         }
-        return this.i18n('samlNotice', authDomain);
+        return this.i18nDynamic(locale, 'samlNotice', authDomain);
     }
-    /* @private */
-    close_() {
+    close() {
         this.dispatchEvent(new CustomEvent('closesaml', { bubbles: true, composed: true }));
     }
-    /* @private */
-    onChangeSigninProviderClicked_() {
+    onChangeSigninProviderClicked() {
         this.dispatchEvent(new CustomEvent('changesigninprovider', { bubbles: true, composed: true }));
     }
-    /* @private */
-    onBackButtonClicked_() {
+    onBackButtonClicked() {
         if (this.canGoBack) {
             this.getFrame().back();
             return;
@@ -565,106 +338,88 @@ found in the LICENSE file.
     }
     /**
      * Handles clicks on Quick start button.
-     * @private
      */
-    onQuickStartClicked_() {
+    onQuickStartClicked() {
         this.dispatchEvent(new CustomEvent('quick-start-clicked', { bubbles: true, composed: true }));
     }
     /**
      * Handles clicks on "PrimaryAction" button.
-     * @private
      */
-    onPrimaryActionButtonClicked_() {
-        this.authenticator_.sendMessageToWebview('primaryActionHit');
+    onPrimaryActionButtonClicked() {
+        assert(this.authenticator);
+        this.authenticator.sendMessageToWebview('primaryActionHit');
     }
     /**
      * Handles clicks on "SecondaryAction" button.
-     * @private
      */
-    onSecondaryActionButtonClicked_() {
-        this.authenticator_.sendMessageToWebview('secondaryActionHit');
+    onSecondaryActionButtonClicked() {
+        assert(this.authenticator);
+        this.authenticator.sendMessageToWebview('secondaryActionHit');
     }
     /**
      * Handles clicks on Kiosk enrollment button.
-     * @private
      */
-    onKioskButtonClicked_() {
-        this.setLicenseType_(OobeTypes.LicenseType.KIOSK);
-        this.onPrimaryActionButtonClicked_();
+    onKioskButtonClicked() {
+        this.setLicenseType(OobeTypes.LicenseType.KIOSK);
+        this.onPrimaryActionButtonClicked();
     }
     /**
      * Handles clicks on Kiosk enrollment button.
-     * @private
      */
-    onEnterpriseButtonClicked_() {
-        this.setLicenseType_(OobeTypes.LicenseType.ENTERPRISE);
-        this.onPrimaryActionButtonClicked_();
+    onEnterpriseButtonClicked() {
+        this.setLicenseType(OobeTypes.LicenseType.ENTERPRISE);
+        this.onPrimaryActionButtonClicked();
     }
     /**
-     * @param {number} licenseType - license to use.
-     * @private
+     * @param licenseType - license to use.
      */
-    setLicenseType_(licenseType) {
+    setLicenseType(licenseType) {
         this.dispatchEvent(new CustomEvent('licensetypeselected', { bubbles: true, composed: true, detail: licenseType }));
     }
     /**
      * Whether the button is enabled.
-     * @param {boolean} navigationEnabled - whether navigation in general is
+     * @param navigationEnabled - whether navigation in general is
      * enabled.
-     * @param {boolean} buttonEnabled - whether a specific button is enabled.
-     * @private
+     * @param buttonEnabled - whether a specific button is enabled.
      */
-    isButtonEnabled_(navigationEnabled, buttonEnabled) {
+    isButtonEnabled(navigationEnabled, buttonEnabled) {
         return navigationEnabled && buttonEnabled;
     }
     /**
      * Whether the back button is hidden.
-     * @param {boolean} navigationHidden - whether navigation in general is hidden
-     * @param {boolean} hideBackButtonIfCantGoBack - whether it should be hidden.
-     * @param {boolean} canGoBack - whether the form can go back.
-     * @private
+     * @param navigationHidden - whether navigation in general is hidden
+     * @param hideBackButtonIfCantGoBack - whether it should be hidden.
+     * @param canGoBack - whether the form can go back.
      */
     isBackButtonHidden(navigationHidden, hideBackButtonIfCantGoBack, canGoBack) {
         return navigationHidden || (hideBackButtonIfCantGoBack && !canGoBack);
     }
     /**
      * Whether the back button on SAML screen is hidden.
-     * @param {boolean} isDefaultSsoProvider - whether it is default SAML page.
-     * @param {boolean} isClosable - whether the form can be closed.
-     * @private
+     * @param isDefaultSsoProvider - whether it is default SAML page.
+     * @param isClosable - whether the form can be closed.
      */
     isSamlBackButtonHidden(isDefaultSsoProvider, isClosable) {
         return isDefaultSsoProvider && !isClosable;
     }
     /**
      * Whether popup overlay should be open.
-     * @param {boolean} navigationEnabled
-     * @param {boolean} isSamlSsoVisible
-     * @return {boolean}
      */
-    showOverlay_(navigationEnabled, isSamlSsoVisible) {
+    showOverlay(navigationEnabled, isSamlSsoVisible) {
         return !navigationEnabled || isSamlSsoVisible;
     }
     /**
      * Whether default navigation (original, as gaia has) is shown.
-     * @param {boolean} canGoBack
-     * @param {string} gaiaDialogButtonsType
-     * @return {boolean}
-     * @private
      */
-    isDefaultNavigationShown_(canGoBack, gaiaDialogButtonsType) {
+    isDefaultNavigationShown(canGoBack, gaiaDialogButtonsType) {
         return !canGoBack ||
             gaiaDialogButtonsType == OobeTypes.GaiaDialogButtonsType.DEFAULT;
     }
     /**
      * Whether Enterprise navigation is shown. Two buttons: primary for
      * Enterprise enrollment and secondary for Kiosk enrollment.
-     * @param {boolean} canGoBack
-     * @param {string} gaiaDialogButtonsType
-     * @return {boolean}
-     * @private
      */
-    isEnterpriseNavigationShown_(canGoBack, gaiaDialogButtonsType) {
+    isEnterpriseNavigationShown(canGoBack, gaiaDialogButtonsType) {
         return canGoBack &&
             gaiaDialogButtonsType ==
                 OobeTypes.GaiaDialogButtonsType.ENTERPRISE_PREFERRED;
@@ -672,12 +427,8 @@ found in the LICENSE file.
     /**
      * Whether Kiosk navigation is shown. Two buttons: primary for
      * Kiosk enrollment and secondary for Enterprise enrollment.
-     * @param {boolean} canGoBack
-     * @param {string} gaiaDialogButtonsType
-     * @return {boolean}
-     * @private
      */
-    isKioskNavigationShown_(canGoBack, gaiaDialogButtonsType) {
+    isKioskNavigationShown(canGoBack, gaiaDialogButtonsType) {
         return canGoBack &&
             gaiaDialogButtonsType ==
                 OobeTypes.GaiaDialogButtonsType.KIOSK_PREFERRED;

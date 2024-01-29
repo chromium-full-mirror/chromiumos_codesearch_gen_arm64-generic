@@ -1,1 +1,1 @@
-obj/components/data_sharing/internal/internal/data_sharing_service_impl.o obj/components/data_sharing/internal/internal/empty_data_sharing_service.o
+obj/components/data_sharing/internal/internal/data_sharing_network_loader_impl.o obj/components/data_sharing/internal/internal/data_sharing_service_impl.o obj/components/data_sharing/internal/internal/empty_data_sharing_service.o
